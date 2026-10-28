@@ -1,0 +1,59 @@
+{
+ "tabla": "obra_publica_provincias.csv",
+ "titulo": "¿Cuánta obra pública paga la Nación en cada provincia?",
+ "descripcion": "Gasto de la Nación en obra pública, en pesos de 2025: por habitante en cada provincia y en total, 2000 a 2025",
+ "seccion": "Construcción y vivienda",
+ "ficha": "https://datina.pages.dev/construccion.html#f-obra-publica",
+ "fuente": "Presupuesto Abierto, Secretaría de Hacienda del Ministerio de Economía, ejecución del gasto de la Administración Pública Nacional (crédito devengado).",
+ "actualizacion": "Se actualiza cada año.",
+ "cobertura": "Las 24 jurisdicciones",
+ "periodo": "",
+ "filas": 24,
+ "columnas": [
+  {
+   "nombre": "codigo_indec",
+   "tipo": "Código",
+   "valores": "24 códigos"
+  },
+  {
+   "nombre": "territorio",
+   "tipo": "Texto",
+   "valores": "24 valores distintos"
+  },
+  {
+   "nombre": "obras",
+   "tipo": "Número",
+   "valores": "70,9 a 181.341,6"
+  },
+  {
+   "nombre": "transf",
+   "tipo": "Número",
+   "valores": "94,1 a 26.114,4"
+  },
+  {
+   "nombre": "total",
+   "tipo": "Número",
+   "valores": "222,3 a 186.974,7"
+  },
+  {
+   "nombre": "obras_hab",
+   "tipo": "Número",
+   "valores": "132 a 53.587"
+  },
+  {
+   "nombre": "transf_hab",
+   "tipo": "Número",
+   "valores": "250 a 27.251"
+  },
+  {
+   "nombre": "total_hab",
+   "tipo": "Número",
+   "valores": "590 a 61.883"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

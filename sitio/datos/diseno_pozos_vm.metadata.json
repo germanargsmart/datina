@@ -1,0 +1,44 @@
+{
+ "tabla": "diseno_pozos_vm.csv",
+ "titulo": "¿Cuántos pozos se terminan y cuántas fracturas se hacen por año?",
+ "descripcion": "Etapas de fractura en formaciones no convencionales y diseño de los pozos de Vaca Muerta, 2013 a 2025, y pozos de petróleo y gas terminados por año y por tipo, 2009 a 2025, y por provincia, septiembre de 2025 a agosto de 2026",
+ "seccion": "Petróleo y gas",
+ "ficha": "https://datina.pages.dev/petroleo.html#f-fracturas",
+ "fuente": "Secretaría de Energía, datos de fractura de pozos de hidrocarburos (Adjunto IV) y perforación de pozos de petróleo y gas.",
+ "actualizacion": "Se actualiza cada año.",
+ "cobertura": "Sin desglose territorial",
+ "periodo": "2013 a 2025",
+ "filas": 13,
+ "columnas": [
+  {
+   "nombre": "anio",
+   "tipo": "Año",
+   "valores": "2013 a 2025"
+  },
+  {
+   "nombre": "pozos",
+   "tipo": "Número",
+   "valores": "87 a 457"
+  },
+  {
+   "nombre": "rama_m",
+   "tipo": "Número",
+   "valores": "598,77 a 3.089,17"
+  },
+  {
+   "nombre": "etapas_pozo",
+   "tipo": "Número",
+   "valores": "4,95 a 51,56"
+  },
+  {
+   "nombre": "arena_pozo_tn",
+   "tipo": "Número",
+   "valores": "993,58 a 11.813,77"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

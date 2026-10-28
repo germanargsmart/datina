@@ -1,0 +1,59 @@
+{
+ "tabla": "potencia_instalada.csv",
+ "titulo": "¿Dónde están las centrales eléctricas y cuánta potencia tiene cada tecnología?",
+ "descripcion": "Centrales eléctricas del listado de la Secretaría de Energía, septiembre de 2026, y potencia instalada del país por tecnología, en megavatios, 2004 a 2025",
+ "seccion": "Energía",
+ "ficha": "https://datina.pages.dev/energia.html#f-centrales",
+ "fuente": "Secretaría de Energía, centrales de generación eléctrica (con datos de CAMMESA), y CAMMESA, potencia instalada, vía API de Series de Tiempo.",
+ "actualizacion": "Se actualiza cada año.",
+ "cobertura": "Sin desglose territorial",
+ "periodo": "2004 a 2025",
+ "filas": 22,
+ "columnas": [
+  {
+   "nombre": "anio",
+   "tipo": "Año",
+   "valores": "2004 a 2025"
+  },
+  {
+   "nombre": "termica",
+   "tipo": "Número",
+   "valores": "13.093,9 a 25.437,2"
+  },
+  {
+   "nombre": "hidraulica",
+   "tipo": "Número",
+   "valores": "9.738,5 a 11.358,7"
+  },
+  {
+   "nombre": "nuclear",
+   "tipo": "Número",
+   "valores": "1.005 a 1.755"
+  },
+  {
+   "nombre": "eolica",
+   "tipo": "Número",
+   "valores": "0 a 4.495,6"
+  },
+  {
+   "nombre": "solar",
+   "tipo": "Número",
+   "valores": "0 a 2.463,8"
+  },
+  {
+   "nombre": "biogas",
+   "tipo": "Número",
+   "valores": "0 a 195,6"
+  },
+  {
+   "nombre": "total",
+   "tipo": "Número",
+   "valores": "23.953,4 a 44.177"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

@@ -1,0 +1,34 @@
+{
+ "tabla": "electricidad_serie.csv",
+ "titulo": "¿Cuánta electricidad consumen los hogares de cada provincia?",
+ "descripcion": "Consumo eléctrico de los hogares por habitante, en kilovatios hora (kWh) por año, por provincia, 2014 a 2025",
+ "seccion": "Energía",
+ "ficha": "https://datina.pages.dev/energia.html#f-electricidad-provincias",
+ "fuente": "CAMMESA, demanda mensual por provincia y tipo de usuario (Informe Síntesis Mensual), e INDEC, proyecciones de población.",
+ "actualizacion": "Se actualiza cada mes.",
+ "cobertura": "21 jurisdicciones y el total del país",
+ "periodo": "2014 a 2025",
+ "filas": 276,
+ "columnas": [
+  {
+   "nombre": "anio",
+   "tipo": "Año",
+   "valores": "2014 a 2025"
+  },
+  {
+   "nombre": "codigo_indec",
+   "tipo": "Código",
+   "valores": "23 códigos"
+  },
+  {
+   "nombre": "kwh_hab",
+   "tipo": "Número",
+   "valores": "667,58 a 2.204,06"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

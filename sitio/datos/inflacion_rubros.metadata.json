@@ -1,0 +1,79 @@
+{
+ "tabla": "inflacion_rubros.csv",
+ "titulo": "¿Qué rubros subieron más en los últimos doce meses?",
+ "descripcion": "Inflación por rubro en los doce meses hasta septiembre de 2026",
+ "seccion": "Precios y actividad",
+ "ficha": "https://datina.pages.dev/economia.html#f-inflacion-rubros",
+ "fuente": "INDEC, Índice de precios al consumidor.",
+ "actualizacion": "Se actualiza cada mes.",
+ "cobertura": "Sin desglose territorial",
+ "periodo": "",
+ "filas": 17,
+ "columnas": [
+  {
+   "nombre": "codigo",
+   "tipo": "Código",
+   "valores": "17 códigos"
+  },
+  {
+   "nombre": "grupo",
+   "tipo": "Texto",
+   "valores": "bienes_servicios, categoria, division"
+  },
+  {
+   "nombre": "rubro",
+   "tipo": "Texto",
+   "valores": "17 valores distintos"
+  },
+  {
+   "nombre": "corto",
+   "tipo": "Texto",
+   "valores": "17 valores distintos"
+  },
+  {
+   "nombre": "interanual",
+   "tipo": "Número",
+   "valores": "10,3 a 49,1"
+  },
+  {
+   "nombre": "mensual",
+   "tipo": "Número",
+   "valores": "1,1 a 3,1"
+  },
+  {
+   "nombre": "interanual_gba",
+   "tipo": "Número",
+   "valores": "9,2 a 45,2"
+  },
+  {
+   "nombre": "interanual_pampeana",
+   "tipo": "Número",
+   "valores": "10,6 a 49,3"
+  },
+  {
+   "nombre": "interanual_noreste",
+   "tipo": "Número",
+   "valores": "10 a 76,9"
+  },
+  {
+   "nombre": "interanual_noroeste",
+   "tipo": "Número",
+   "valores": "11,7 a 52"
+  },
+  {
+   "nombre": "interanual_cuyo",
+   "tipo": "Número",
+   "valores": "15,7 a 49,1"
+  },
+  {
+   "nombre": "interanual_patagonia",
+   "tipo": "Número",
+   "valores": "12,1 a 48,6"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

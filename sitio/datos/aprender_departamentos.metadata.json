@@ -1,0 +1,59 @@
+{
+ "tabla": "aprender_departamentos.csv",
+ "titulo": "Diagnóstico de educación por provincia",
+ "descripcion": "",
+ "seccion": "Diagnóstico educativo",
+ "ficha": "https://datina.pages.dev/diagnostico.html#f-diagnostico",
+ "fuente": "Aprender y Relevamiento Anual (Secretaría de Educación), Censo 2022 (INDEC) y PISA (OCDE)",
+ "actualizacion": "",
+ "cobertura": "Departamentos",
+ "periodo": "",
+ "filas": 514,
+ "columnas": [
+  {
+   "nombre": "codigo_indec",
+   "tipo": "Código",
+   "valores": "24 códigos"
+  },
+  {
+   "nombre": "provincia",
+   "tipo": "Texto",
+   "valores": "24 valores distintos"
+  },
+  {
+   "nombre": "departamento",
+   "tipo": "Texto",
+   "valores": "432 valores distintos"
+  },
+  {
+   "nombre": "n",
+   "tipo": "Número",
+   "valores": "0 a 26.636,61"
+  },
+  {
+   "nombre": "mat_logra",
+   "tipo": "Número",
+   "valores": "25,67 a 86,61 (183 celdas vacías)"
+  },
+  {
+   "nombre": "mat_debajo",
+   "tipo": "Número",
+   "valores": "3,85 a 42,47 (183 celdas vacías)"
+  },
+  {
+   "nombre": "len_logra",
+   "tipo": "Número",
+   "valores": "49,7 a 93,67 (183 celdas vacías)"
+  },
+  {
+   "nombre": "len_debajo",
+   "tipo": "Número",
+   "valores": "0,91 a 17,03 (183 celdas vacías)"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

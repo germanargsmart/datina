@@ -1,0 +1,39 @@
+{
+ "tabla": "escolarizacion_secundaria_provincias.csv",
+ "titulo": "¿Cuántos adolescentes van a la secundaria?",
+ "descripcion": "Tasa neta de escolarización secundaria por provincia, 2011 y 2025",
+ "seccion": "Educación",
+ "ficha": "https://datina.pages.dev/educacion.html#f-escolarizacion",
+ "fuente": "Secretaría de Educación, Dirección Nacional de Información y Estadística Educativa, Relevamiento Anual.",
+ "actualizacion": "Se actualiza cada año.",
+ "cobertura": "Las 24 jurisdicciones",
+ "periodo": "",
+ "filas": 24,
+ "columnas": [
+  {
+   "nombre": "codigo_indec",
+   "tipo": "Código",
+   "valores": "24 códigos"
+  },
+  {
+   "nombre": "territorio",
+   "tipo": "Texto",
+   "valores": "24 valores distintos"
+  },
+  {
+   "nombre": "tasa_inicio",
+   "tipo": "Número",
+   "valores": "57 a 98,7"
+  },
+  {
+   "nombre": "tasa_final",
+   "tipo": "Número",
+   "valores": "78,6 a 99,8"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

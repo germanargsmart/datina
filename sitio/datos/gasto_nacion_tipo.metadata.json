@@ -1,0 +1,39 @@
+{
+ "tabla": "gasto_nacion_tipo.csv",
+ "titulo": "¿Cuánto ingresa y cuánto gasta el Estado nacional?",
+ "descripcion": "Ingresos, gastos y resultado del Sector Público Nacional como parte del PBI, 2016 a 2025",
+ "seccion": "Cuentas públicas",
+ "ficha": "https://datina.pages.dev/gobierno.html#f-cuentas-nacion",
+ "fuente": "Secretaría de Hacienda, Informe mensual de ingresos y gastos del Sector Público Nacional no Financiero, e INDEC.",
+ "actualizacion": "Se actualiza cada mes.",
+ "cobertura": "Sin desglose territorial",
+ "periodo": "",
+ "filas": 8,
+ "columnas": [
+  {
+   "nombre": "tipo",
+   "tipo": "Texto",
+   "valores": "8 valores distintos"
+  },
+  {
+   "nombre": "millones",
+   "tipo": "Número",
+   "valores": "1.850.731 a 82.084.246,6"
+  },
+  {
+   "nombre": "pct_gasto_primario",
+   "tipo": "Número",
+   "valores": "1,5 a 66,51"
+  },
+  {
+   "nombre": "pct_pbi",
+   "tipo": "Número",
+   "valores": "0,22 a 9,65"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

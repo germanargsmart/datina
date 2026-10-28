@@ -1,0 +1,89 @@
+{
+ "tabla": "justicia_federal_provincias.csv",
+ "titulo": "¿Cuántos cargos de juez federal hay en cada provincia y cuántos tienen titular?",
+ "descripcion": "Cargos de juez de la Justicia Federal por provincia, con titular y sin titular, junio de 2026",
+ "seccion": "Justicia",
+ "ficha": "https://datina.pages.dev/justicia.html#f-jueces-federales",
+ "fuente": "Ministerio de Justicia, padrón de magistrados de la Justicia Federal y de la Justicia Nacional, e INDEC, proyecciones de población.",
+ "actualizacion": "Se actualiza cuando el Ministerio de Justicia publica un padrón nuevo.",
+ "cobertura": "Las 24 jurisdicciones",
+ "periodo": "",
+ "filas": 24,
+ "columnas": [
+  {
+   "nombre": "codigo_indec",
+   "tipo": "Código",
+   "valores": "24 códigos"
+  },
+  {
+   "nombre": "territorio",
+   "tipo": "Texto",
+   "valores": "24 valores distintos"
+  },
+  {
+   "nombre": "titular",
+   "tipo": "Número",
+   "valores": "3 a 102"
+  },
+  {
+   "nombre": "subrogante",
+   "tipo": "Número",
+   "valores": "0 a 45"
+  },
+  {
+   "nombre": "sin_cubrir",
+   "tipo": "Número",
+   "valores": "0 a 11"
+  },
+  {
+   "nombre": "cargos",
+   "tipo": "Número",
+   "valores": "4 a 156"
+  },
+  {
+   "nombre": "organos",
+   "tipo": "Número",
+   "valores": "2 a 82"
+  },
+  {
+   "nombre": "juzgados",
+   "tipo": "Número",
+   "valores": "1 a 62"
+  },
+  {
+   "nombre": "camaras",
+   "tipo": "Número",
+   "valores": "0 a 9"
+  },
+  {
+   "nombre": "tribunales_orales",
+   "tipo": "Número",
+   "valores": "1 a 11"
+  },
+  {
+   "nombre": "cargos_sin_funcionar",
+   "tipo": "Número",
+   "valores": "0 a 14"
+  },
+  {
+   "nombre": "poblacion",
+   "tipo": "Número",
+   "valores": "182.003 a 17.443.372"
+  },
+  {
+   "nombre": "cargos_cada_100mil",
+   "tipo": "Número",
+   "valores": "0,47 a 5,07"
+  },
+  {
+   "nombre": "pct_sin_titular",
+   "tipo": "Número",
+   "valores": "0 a 50"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

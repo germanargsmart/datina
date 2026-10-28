@@ -1,0 +1,54 @@
+{
+ "tabla": "homicidios_provincias.csv",
+ "titulo": "¿Cuántas víctimas de homicidio hay en cada provincia?",
+ "descripcion": "Víctimas de homicidios dolosos cada 100.000 habitantes por año: por provincia, promedio de 2023 a 2025, y en el país, 2000 a 2025",
+ "seccion": "Seguridad",
+ "ficha": "https://datina.pages.dev/seguridad.html#f-homicidios",
+ "fuente": "Sistema Nacional de Información Criminal (SNIC), Ministerio de Seguridad Nacional, e INDEC, proyecciones de población.",
+ "actualizacion": "Se actualiza cada año.",
+ "cobertura": "Las 24 jurisdicciones y el total del país",
+ "periodo": "",
+ "filas": 25,
+ "columnas": [
+  {
+   "nombre": "codigo_indec",
+   "tipo": "Código",
+   "valores": "25 códigos"
+  },
+  {
+   "nombre": "victimas_3",
+   "tipo": "Número",
+   "valores": "10 a 5.529"
+  },
+  {
+   "nombre": "tasa_3",
+   "tipo": "Número",
+   "valores": "1,22 a 7,12"
+  },
+  {
+   "nombre": "victimas",
+   "tipo": "Número",
+   "valores": "5 a 1.676"
+  },
+  {
+   "nombre": "tasa",
+   "tipo": "Número",
+   "valores": "0,91 a 5,69"
+  },
+  {
+   "nombre": "pct_varones",
+   "tipo": "Número",
+   "valores": "50 a 100"
+  },
+  {
+   "nombre": "territorio",
+   "tipo": "Texto",
+   "valores": "25 valores distintos"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

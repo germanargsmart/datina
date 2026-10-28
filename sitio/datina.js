@@ -6455,6 +6455,21 @@ const CLAVE = {
   "f-aprender": [pct(ap.mat), `de los estudiantes de 6° grado alcanzó un nivel satisfactorio o avanzado en matemática en Aprender ${ap.anio}`,
     "en matemática, en todo el país"],
   "f-empleo": [n1(em.cada_100_pais), `personas asalariadas registradas en el sector privado cada 100 habitantes en ${em.mes}`, "cada 100 habitantes en el país"],
+  // cifras que faltaban (plan de mejora, D8, 28 de octubre de 2026): toda ficha lleva la suya, salvo las excepciones de la regla (SIN_CIFRA en
+  // scripts/prueba_cifras.mjs y .claude/rules/visualizaciones.md)
+  "f-nacimientos": [n0(nac.n_ult), `nacimientos se registraron en la Argentina en ${nac.anio_ult}`, `nacimientos en la Argentina en ${nac.anio_ult}`],
+  "f-envejecimiento": [n1(EV.hoy), `personas de 65 años o más por cada 100 de 15 a 64 había en el país en ${EV.anio}`,
+    `personas de 65 años o más por cada 100 de 15 a 64 en el país, ${EV.anio}`],
+  // con las que pueden faltar si la fuente no llegó, como en sus textos
+  ...(HB ? {"f-haberes": [pct(HB.pct_min_ad), `del salario promedio de los asalariados registrados equivalía el haber mínimo con los refuerzos en ${HB.anio}${HB.meses < 12 ? `, hasta ${MESES[HB.meses - 1]}` : ""}`,
+    `del salario promedio registrado, el haber mínimo con refuerzos en ${HB.anio}${HB.meses < 12 ? `, hasta ${MESES[HB.meses - 1]}` : ""}`]} : {}),
+  "f-ingresos-aglomerados": [`${n0(Math.round(IA.ipcf.pais / 1000) * 1000)} pesos`, `por mes por integrante del hogar era la mediana del ingreso en los 31 aglomerados ` +
+    `urbanos en ${IA.trimestres}, en pesos del ${IA.trimestre}`, `por integrante por mes, mediana de los 31 aglomerados, en pesos del ${IA.trimestre}`],
+  ...(PIN ? {"f-pensiones-invalidez": [n1(PIN.pais_cada_1000), `pensiones no contributivas por invalidez cada 1.000 habitantes había en el país en ${MESES[PIN.prov_mes - 1]} de ${PIN.prov_anio}`,
+    `pensiones por invalidez cada 1.000 habitantes en el país`]} : {}),
+  ...(AU ? {"f-auh": [n1(AU.pais_100), `hijos con AUH cada 100 menores de 18 años había en el país en ${MESES[AU.mes - 1]} de ${AU.anio}`, "cada 100 menores de 18 años en el país"]} : {}),
+  ...(DS ? {"f-desempleo": [n1(DS.pais_1000), `personas cobraban el seguro de desempleo cada 1.000 habitantes en el país en ${MESES[DS.prov_mes - 1]} de ${DS.prov_anio}`,
+    "cada 1.000 habitantes en el país"]} : {}),
   "f-protegida": [pct(nt.pct), `del territorio continental del país está dentro de áreas protegidas, ${nt.anio}`, "del territorio continental del país"],
   "f-parques": [n0(nt.pn_n), `áreas protegidas nacionales. Las primeras se crearon en ${nt.pn_primera_anio}`, "áreas protegidas a cargo de la Administración de Parques Nacionales"],
   "f-especies": [n0(nt.esp_top_v), `especies animales registradas en ${nt.esp_top}, el área nacional con más registros`, `especies animales registradas en ${nt.esp_top}, el área con más registros`],
@@ -6909,7 +6924,9 @@ document.querySelectorAll("article.ficha").forEach(f => {
   const lbl = acc.querySelector(".copiar .lbl");
   const cambiar = t => { lbl.classList.add("cambia"); setTimeout(() => { lbl.textContent = t; lbl.classList.remove("cambia"); }, 120); };
   acc.querySelector(".copiar").addEventListener("click", async () => {
-    const url = location.origin + location.pathname + (prov ? "?prov=" + prov : "") + "#" + f.id;
+    // con la provincia elegida, la vista de la ficha si no es la de llegada y, en una ficha con vistas, la pestaña a la vista (F1)
+    const vista = vistaDeFicha(f), q = [prov ? "prov=" + prov : "", vista ? "vista=" + vista : ""].filter(Boolean).join("&");
+    const url = location.origin + location.pathname + (q ? "?" + q : "") + "#" + (f.querySelector(".panel-pestana[data-vieja]:not([hidden])")?.dataset.vieja || f.id);
     let ok = false;
     try { await navigator.clipboard.writeText(url); ok = true; }
     catch (_) {
@@ -9403,6 +9420,30 @@ addEventListener("beforeprint", () => document.querySelectorAll("article.ficha")
   f.querySelectorAll(".grafico[data-g]").forEach(gr => { if (gr.offsetParent && DIB[gr.dataset.g]) DIB[gr.dataset.g](false); });
   f.dataset.direccion = location.origin + location.pathname + location.search + "#" + f.id;
 }));
+
+/* La dirección con la vista de cada ficha (plan de mejora, F1, 28 de octubre de 2026, como ya hacían ?ix= y ?dx=): "Copiar enlace" suma a
+   la dirección los botones de vista y los selectores de la ficha que no están como al llegar (trabajo.html?vista=desempleo:serie#f-desempleo),
+   y al abrir esa dirección se vuelven a elegir. Un botón de vista se nombra por su data-g y un selector por su id (o su data-g). La pestaña
+   de una ficha con vistas va con la dirección de su ficha vieja, que ya la abre */
+const VISTA_INICIAL = new Map();
+const controlesDe = f => [...f.querySelectorAll('.conmutador[data-g]:not(.pestanas):not([data-propio]), select[id], select[data-g]')];
+const valorControl = c => c.matches("select") ? c.value : c.querySelector('button[aria-pressed="true"]')?.dataset.m;
+const claveControl = c => c.matches("select") ? c.id || c.dataset.g : c.dataset.g;
+function vistaDeFicha(f) {
+  return controlesDe(f).filter(c => VISTA_INICIAL.has(c) && valorControl(c) != null && valorControl(c) !== VISTA_INICIAL.get(c))
+    .map(c => claveControl(c) + ":" + encodeURIComponent(valorControl(c))).join(",");
+}
+document.querySelectorAll("article.ficha").forEach(f => controlesDe(f).forEach(c => VISTA_INICIAL.set(c, valorControl(c))));
+(location.search.match(/[?&]vista=([^&#]*)/)?.[1] || "").split(",").forEach(par => {
+  const i = par.indexOf(":"); if (i < 1) return;
+  const k = par.slice(0, i), v = decodeURIComponent(par.slice(i + 1));
+  const sel = document.getElementById(k)?.matches("select") ? document.getElementById(k) : document.querySelector(`select[data-g="${CSS.escape(k)}"]:not([id])`);
+  if (sel) {
+    if (sel.value !== v && [...sel.options].some(o => o.value === v)) { sel.value = v; sel.dispatchEvent(new Event("change")); }
+    return;
+  }
+  document.querySelector(`.conmutador[data-g="${CSS.escape(k)}"]:not(.pestanas):not([data-propio]) button[data-m="${CSS.escape(v)}"]`)?.click();
+});
 // En los artículos se mira cada gráfico por separado (etapa 22): un artículo con varios gráficos es más alto que la pantalla, y en el
 // celular el 12% del artículo no entraba nunca a la vista, así que sus gráficos no se dibujaban
 const vistasG = new IntersectionObserver(es => es.forEach(en => {

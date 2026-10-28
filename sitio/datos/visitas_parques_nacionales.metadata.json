@@ -1,0 +1,39 @@
+{
+ "tabla": "visitas_parques_nacionales.csv",
+ "titulo": "¿Cuántas visitas reciben los parques nacionales, y cuáles reciben más?",
+ "descripcion": "Visitas registradas en los parques nacionales con control de ingreso, de residentes y de no residentes, 2008 a 2025, y en cada parque, 2025 y 2026 y 2019, antes de la pandemia",
+ "seccion": "Naturaleza y ambiente",
+ "ficha": "https://datina.pages.dev/naturaleza.html#f-visitas",
+ "fuente": "Ministerio de Turismo y Deportes, Sistema de Información Turística de la Argentina (SINTA), y Secretaría de Turismo, tablero de áreas protegidas, con datos de la Administración de Parques Nacionales.",
+ "actualizacion": "Se actualiza cada mes.",
+ "cobertura": "Sin desglose territorial",
+ "periodo": "2008 a 2025",
+ "filas": 18,
+ "columnas": [
+  {
+   "nombre": "anio",
+   "tipo": "Año",
+   "valores": "2008 a 2025"
+  },
+  {
+   "nombre": "residentes",
+   "tipo": "Número",
+   "valores": "1.175.967 a 3.485.669"
+  },
+  {
+   "nombre": "no_residentes",
+   "tipo": "Número",
+   "valores": "39.537 a 1.460.097"
+  },
+  {
+   "nombre": "total",
+   "tipo": "Número",
+   "valores": "1.676.078 a 4.298.904"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

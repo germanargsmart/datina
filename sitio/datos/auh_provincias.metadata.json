@@ -1,0 +1,59 @@
+{
+ "tabla": "auh_provincias.csv",
+ "titulo": "¿Cuántos chicos reciben la Asignación Universal por Hijo?",
+ "descripcion": "Chicos con AUH por provincia, cada 100 menores de 18 años, y qué asignación familiar reciben los menores del país, 2026",
+ "seccion": "Pobreza y hogares",
+ "ficha": "https://datina.pages.dev/pobreza.html#f-auh",
+ "fuente": "Secretaría de Seguridad Social, Boletín Estadístico de la Seguridad Social (capítulo VI y edición por provincia), con datos de ANSES, y proyecciones de población del INDEC.",
+ "actualizacion": "Se actualiza cada tres meses.",
+ "cobertura": "Las 24 jurisdicciones y el total del país",
+ "periodo": "",
+ "filas": 25,
+ "columnas": [
+  {
+   "nombre": "codigo_indec",
+   "tipo": "Código",
+   "valores": "25 códigos"
+  },
+  {
+   "nombre": "territorio",
+   "tipo": "Texto",
+   "valores": "25 valores distintos"
+  },
+  {
+   "nombre": "beneficios",
+   "tipo": "Número",
+   "valores": "7.294 a 4.079.913"
+  },
+  {
+   "nombre": "hijo",
+   "tipo": "Número",
+   "valores": "6.900 a 3.980.706"
+  },
+  {
+   "nombre": "hijo_discapacidad",
+   "tipo": "Número",
+   "valores": "367 a 99.207"
+  },
+  {
+   "nombre": "menores",
+   "tipo": "Número",
+   "valores": "46.674 a 11.766.565"
+  },
+  {
+   "nombre": "cada_100_menores",
+   "tipo": "Número",
+   "valores": "15,63 a 50,12"
+  },
+  {
+   "nombre": "pct_pais",
+   "tipo": "Número",
+   "valores": "0,18 a 100"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

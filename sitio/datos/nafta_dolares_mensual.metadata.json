@@ -1,0 +1,59 @@
+{
+ "tabla": "nafta_dolares_mensual.csv",
+ "titulo": "¿El precio de la nafta en dólares sigue al del petróleo?",
+ "descripcion": "El precio de la nafta súper en el surtidor medido en dólares al tipo de cambio oficial, frente al precio internacional del petróleo.",
+ "seccion": "Movilidad",
+ "ficha": "https://datina.pages.dev/a-nafta-dolares.html",
+ "fuente": "Secretaría de Energía, precios en estaciones de servicio (Resolución 1104/2004), Banco Central de la República Argentina, tipo de cambio de referencia (Comunicación \\",
+ "actualizacion": "Se actualiza cada mes.",
+ "cobertura": "Sin desglose territorial",
+ "periodo": "diciembre de 2004 a julio de 2026",
+ "filas": 260,
+ "columnas": [
+  {
+   "nombre": "mes",
+   "tipo": "Fecha",
+   "valores": "diciembre de 2004 a julio de 2026"
+  },
+  {
+   "nombre": "nafta",
+   "tipo": "Número",
+   "valores": "1,91 a 2.139"
+  },
+  {
+   "nombre": "a3500",
+   "tipo": "Número",
+   "valores": "2,87 a 1.487,64"
+  },
+  {
+   "nombre": "brent",
+   "tipo": "Número",
+   "valores": "18,38 a 132,72"
+  },
+  {
+   "nombre": "nafta_usd",
+   "tipo": "Número",
+   "valores": "0,62 a 1,58"
+  },
+  {
+   "nombre": "brent_litro",
+   "tipo": "Número",
+   "valores": "0,12 a 0,83"
+  },
+  {
+   "nombre": "var_nafta_usd",
+   "tipo": "Número",
+   "valores": "-28,97 a 42,04 (12 celdas vacías)"
+  },
+  {
+   "nombre": "var_brent",
+   "tipo": "Número",
+   "valores": "-74,2 a 252,61 (12 celdas vacías)"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

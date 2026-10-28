@@ -1,0 +1,49 @@
+{
+ "tabla": "aprender_provincias.csv",
+ "titulo": "¿Cuántos chicos de 6° grado tienen un nivel satisfactorio en Aprender?",
+ "descripcion": "Estudiantes de 6° grado con nivel satisfactorio o avanzado en Aprender por provincia, 2025",
+ "seccion": "Educación",
+ "ficha": "https://datina.pages.dev/educacion.html#f-aprender",
+ "fuente": "Secretaría de Educación, evaluación Aprender, base agregada.",
+ "actualizacion": "Se actualiza con cada evaluación Aprender.",
+ "cobertura": "Las 24 jurisdicciones",
+ "periodo": "",
+ "filas": 24,
+ "columnas": [
+  {
+   "nombre": "codigo_indec",
+   "tipo": "Código",
+   "valores": "24 códigos"
+  },
+  {
+   "nombre": "territorio",
+   "tipo": "Texto",
+   "valores": "24 valores distintos"
+  },
+  {
+   "nombre": "mat_logra",
+   "tipo": "Número",
+   "valores": "38,4 a 74,5"
+  },
+  {
+   "nombre": "mat_debajo",
+   "tipo": "Número",
+   "valores": "9,2 a 32,1"
+  },
+  {
+   "nombre": "len_logra",
+   "tipo": "Número",
+   "valores": "63,9 a 88,1"
+  },
+  {
+   "nombre": "len_debajo",
+   "tipo": "Número",
+   "valores": "2,1 a 9,7"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

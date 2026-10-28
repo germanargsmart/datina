@@ -1,0 +1,74 @@
+{
+ "tabla": "capitales_eph.csv",
+ "titulo": "¿Hay más pobreza en las capitales con más desocupación o con menos empleo?",
+ "descripcion": "",
+ "seccion": "Pobreza y hogares",
+ "ficha": "https://datina.pages.dev/a-pobreza-desocupacion.html",
+ "fuente": "",
+ "actualizacion": "",
+ "cobertura": "Las 24 jurisdicciones",
+ "periodo": "",
+ "filas": 24,
+ "columnas": [
+  {
+   "nombre": "codigo_indec",
+   "tipo": "Código",
+   "valores": "24 códigos"
+  },
+  {
+   "nombre": "territorio",
+   "tipo": "Texto",
+   "valores": "24 valores distintos"
+  },
+  {
+   "nombre": "aglomerado",
+   "tipo": "Número",
+   "valores": "2 a 93"
+  },
+  {
+   "nombre": "pobreza",
+   "tipo": "Número",
+   "valores": "11,1 a 48,6"
+  },
+  {
+   "nombre": "cv_pobreza",
+   "tipo": "Número",
+   "valores": "6,7 a 19,6"
+  },
+  {
+   "nombre": "indigencia",
+   "tipo": "Número",
+   "valores": "1,4 a 17,3"
+  },
+  {
+   "nombre": "cv_indigencia",
+   "tipo": "Número",
+   "valores": "17,9 a 49,8"
+  },
+  {
+   "nombre": "desocupacion",
+   "tipo": "Número",
+   "valores": "0,9 a 9,4"
+  },
+  {
+   "nombre": "empleo",
+   "tipo": "Número",
+   "valores": "38,42 a 52,5"
+  },
+  {
+   "nombre": "alquila",
+   "tipo": "Número",
+   "valores": "8,36 a 37,73"
+  },
+  {
+   "nombre": "hogares_encuestados",
+   "tipo": "Número",
+   "valores": "1.108 a 2.961"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

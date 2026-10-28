@@ -1,0 +1,49 @@
+{
+ "tabla": "productividad_vm.csv",
+ "titulo": "¿Cuánto petróleo saca un pozo de Vaca Muerta en su primer año?",
+ "descripcion": "Petróleo que sacan en su primer año los pozos de shale de Vaca Muerta, según el año en que empezaron, 2013 a 2024",
+ "seccion": "Petróleo y gas",
+ "ficha": "https://datina.pages.dev/petroleo.html#f-productividad",
+ "fuente": "Secretaría de Energía, producción por pozo no convencional (Capítulo IV) y datos de fractura de pozos (Adjunto IV).",
+ "actualizacion": "Se actualiza cada año.",
+ "cobertura": "Sin desglose territorial",
+ "periodo": "2013 a 2024",
+ "filas": 12,
+ "columnas": [
+  {
+   "nombre": "anio",
+   "tipo": "Año",
+   "valores": "2013 a 2024"
+  },
+  {
+   "nombre": "pozos",
+   "tipo": "Número",
+   "valores": "61 a 318"
+  },
+  {
+   "nombre": "pet_12m_kbbl",
+   "tipo": "Número",
+   "valores": "25,37 a 253,19"
+  },
+  {
+   "nombre": "pozos_rama",
+   "tipo": "Número",
+   "valores": "58 a 287 (3 celdas vacías)"
+  },
+  {
+   "nombre": "rama_m",
+   "tipo": "Número",
+   "valores": "1.314,28 a 2.794,71 (3 celdas vacías)"
+  },
+  {
+   "nombre": "bbl_por_1000m",
+   "tipo": "Número",
+   "valores": "78.556,87 a 104.817,99 (3 celdas vacías)"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

@@ -1,0 +1,34 @@
+{
+ "tabla": "patentamientos_anual.csv",
+ "titulo": "¿Cuántos autos y motos nuevos se patentan por año?",
+ "descripcion": "Autos y motos nuevos inscriptos por año, 2000 a 2025",
+ "seccion": "Movilidad",
+ "ficha": "https://datina.pages.dev/movilidad.html#f-patentes",
+ "fuente": "Dirección Nacional de los Registros Nacionales de la Propiedad del Automotor y de Créditos Prendarios (DNRPA), Ministerio de Justicia.",
+ "actualizacion": "Se actualiza cada mes.",
+ "cobertura": "Sin desglose territorial",
+ "periodo": "2000 a 2025",
+ "filas": 26,
+ "columnas": [
+  {
+   "nombre": "anio",
+   "tipo": "Año",
+   "valores": "2000 a 2025"
+  },
+  {
+   "nombre": "autos",
+   "tipo": "Número",
+   "valores": "101.231 a 963.598"
+  },
+  {
+   "nombre": "motos",
+   "tipo": "Número",
+   "valores": "272.453 a 781.255 (7 celdas vacías)"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

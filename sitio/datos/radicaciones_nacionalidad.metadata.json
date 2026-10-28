@@ -1,0 +1,49 @@
+{
+ "tabla": "radicaciones_nacionalidad.csv",
+ "titulo": "¿Cuántas residencias otorga Migraciones por año?",
+ "descripcion": "Residencias permanentes y temporarias otorgadas por la Dirección Nacional de Migraciones, 2019 a 2024",
+ "seccion": "Migraciones",
+ "ficha": "https://datina.pages.dev/migraciones.html#f-radicaciones",
+ "fuente": "Dirección Nacional de Migraciones, trámites de radicación resueltos.",
+ "actualizacion": "Se actualiza cada año.",
+ "cobertura": "Sin desglose territorial",
+ "periodo": "2019 a 2024",
+ "filas": 156,
+ "columnas": [
+  {
+   "nombre": "anio",
+   "tipo": "Año",
+   "valores": "2019 a 2024"
+  },
+  {
+   "nombre": "nacionalidad",
+   "tipo": "Texto",
+   "valores": "31 valores distintos"
+  },
+  {
+   "nombre": "permanentes",
+   "tipo": "Número",
+   "valores": "11 a 83.874"
+  },
+  {
+   "nombre": "temporarias",
+   "tipo": "Número",
+   "valores": "51 a 46.892"
+  },
+  {
+   "nombre": "total",
+   "tipo": "Número",
+   "valores": "85 a 102.054"
+  },
+  {
+   "nombre": "pct",
+   "tipo": "Número",
+   "valores": "0,05 a 51,29"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

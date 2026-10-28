@@ -1,0 +1,34 @@
+{
+ "tabla": "reservas_bcra.csv",
+ "titulo": "¿Cuántas reservas tiene el Banco Central?",
+ "descripcion": "Reservas internacionales brutas del BCRA al cierre de cada mes, desde 1940, y reservas netas, desde 2007, en millones de dólares",
+ "seccion": "Sector externo",
+ "ficha": "https://datina.pages.dev/externo.html#f-reservas-bcra",
+ "fuente": "BCRA, API de Estadísticas Monetarias y planilla de reservas internacionales y liquidez en moneda extranjera (formato del FMI), mensual.",
+ "actualizacion": "Se actualiza cada mes.",
+ "cobertura": "Sin desglose territorial",
+ "periodo": "febrero de 1940 a octubre de 2026",
+ "filas": 1041,
+ "columnas": [
+  {
+   "nombre": "mes",
+   "tipo": "Fecha",
+   "valores": "febrero de 1940 a octubre de 2026"
+  },
+  {
+   "nombre": "millones_usd",
+   "tipo": "Número",
+   "valores": "24,2 a 71.663"
+  },
+  {
+   "nombre": "meses_importaciones",
+   "tipo": "Número",
+   "valores": "3,47 a 17,09 (636 celdas vacías)"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

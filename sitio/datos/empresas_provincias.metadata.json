@@ -1,0 +1,69 @@
+{
+ "tabla": "empresas_provincias.csv",
+ "titulo": "¿Cuántas empresas privadas hay en cada provincia?",
+ "descripcion": "Empresas privadas con personal en relación de dependencia, cada 1.000 habitantes, por provincia, 2024",
+ "seccion": "Sector privado",
+ "ficha": "https://datina.pages.dev/empresas.html#f-empresas",
+ "fuente": "Observatorio de Empleo y Dinámica Empresarial (OEDE), Secretaría de Trabajo, Ministerio de Capital Humano, con datos del Sistema Integrado Previsional Argentino (SIPA).",
+ "actualizacion": "Se actualiza cada año.",
+ "cobertura": "Las 24 jurisdicciones",
+ "periodo": "",
+ "filas": 24,
+ "columnas": [
+  {
+   "nombre": "codigo_indec",
+   "tipo": "Código",
+   "valores": "24 códigos"
+  },
+  {
+   "nombre": "territorio",
+   "tipo": "Texto",
+   "valores": "24 valores distintos"
+  },
+  {
+   "nombre": "empresas",
+   "tipo": "Número",
+   "valores": "2.719 a 193.912"
+  },
+  {
+   "nombre": "cada_1000_hab",
+   "tipo": "Número",
+   "valores": "4,48 a 43,91"
+  },
+  {
+   "nombre": "aperturas_2024",
+   "tipo": "Número",
+   "valores": "176 a 12.926"
+  },
+  {
+   "nombre": "cierres_2024",
+   "tipo": "Número",
+   "valores": "238 a 16.087"
+  },
+  {
+   "nombre": "tasa_entrada_2024",
+   "tipo": "Número",
+   "valores": "6,77 a 12,08"
+  },
+  {
+   "nombre": "tasa_salida_2024",
+   "tipo": "Número",
+   "valores": "7,83 a 20,7"
+  },
+  {
+   "nombre": "tasa_neta_2024",
+   "tipo": "Número",
+   "valores": "-9,39 a 0,55"
+  },
+  {
+   "nombre": "tasa_neta_2020_2024",
+   "tipo": "Número",
+   "valores": "-1,85 a 2,78"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

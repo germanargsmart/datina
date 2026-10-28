@@ -1,0 +1,79 @@
+{
+ "tabla": "capitales.csv",
+ "titulo": "¿Alquilan más hogares en las capitales con más departamentos?",
+ "descripcion": "",
+ "seccion": "Construcción y vivienda",
+ "ficha": "https://datina.pages.dev/a-viviendas-alquiler.html",
+ "fuente": "",
+ "actualizacion": "",
+ "cobertura": "Las 24 jurisdicciones",
+ "periodo": "",
+ "filas": 24,
+ "columnas": [
+  {
+   "nombre": "codigo_indec",
+   "tipo": "Código",
+   "valores": "24 códigos"
+  },
+  {
+   "nombre": "territorio",
+   "tipo": "Texto",
+   "valores": "24 valores distintos"
+  },
+  {
+   "nombre": "provincia",
+   "tipo": "Texto",
+   "valores": "24 valores distintos"
+  },
+  {
+   "nombre": "poblacion",
+   "tipo": "Número",
+   "valores": "38.652 a 3.121.707"
+  },
+  {
+   "nombre": "viviendas",
+   "tipo": "Número",
+   "valores": "17.524 a 1.614.354"
+  },
+  {
+   "nombre": "viviendas_1000",
+   "tipo": "Número",
+   "valores": "320,54 a 517,14"
+  },
+  {
+   "nombre": "personas_hogar",
+   "tipo": "Número",
+   "valores": "2,2 a 3,3"
+  },
+  {
+   "nombre": "alquila",
+   "tipo": "Número",
+   "valores": "10,6 a 38,55"
+  },
+  {
+   "nombre": "hacinamiento",
+   "tipo": "Número",
+   "valores": "1 a 4,14"
+  },
+  {
+   "nombre": "sin_personas",
+   "tipo": "Número",
+   "valores": "6,04 a 18,25"
+  },
+  {
+   "nombre": "uso_temporal",
+   "tipo": "Número",
+   "valores": "0,12 a 6,07"
+  },
+  {
+   "nombre": "en_departamento",
+   "tipo": "Número",
+   "valores": "10,81 a 74,7"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

@@ -1,0 +1,49 @@
+{
+ "tabla": "rotacion_laboral.csv",
+ "titulo": "¿Qué parte de los asalariados lleva un año o menos en su empleo?",
+ "descripcion": "Porcentaje de asalariados con un año o menos en su empleo actual, en 31 aglomerados urbanos, 2025 y 2026",
+ "seccion": "Trabajo",
+ "ficha": "https://datina.pages.dev/trabajo.html#f-rotacion",
+ "fuente": "INDEC, Encuesta Permanente de Hogares, bases usuarias trimestrales (procesamiento propio).",
+ "actualizacion": "Se actualiza cada tres meses.",
+ "cobertura": "Sin desglose territorial",
+ "periodo": "",
+ "filas": 32,
+ "columnas": [
+  {
+   "nombre": "dimension",
+   "tipo": "Texto",
+   "valores": "9 valores distintos"
+  },
+  {
+   "nombre": "grupo",
+   "tipo": "Texto",
+   "valores": "32 valores distintos"
+  },
+  {
+   "nombre": "orden",
+   "tipo": "Número",
+   "valores": "0 a 5"
+  },
+  {
+   "nombre": "casos",
+   "tipo": "Número",
+   "valores": "1.216 a 51.200"
+  },
+  {
+   "nombre": "pct_un_anio_o_menos",
+   "tipo": "Número",
+   "valores": "5,7 a 42,5"
+  },
+  {
+   "nombre": "pct_mas_de_cinco_anios",
+   "tipo": "Número",
+   "valores": "4,5 a 79,1"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

@@ -1,0 +1,39 @@
+{
+ "tabla": "extranjeros_provincias.csv",
+ "titulo": "¿Cuántas personas nacidas en otro país tienen DNI argentino?",
+ "descripcion": "Personas nacidas en otro país con DNI argentino cada 100 habitantes, por provincia, junio de 2026",
+ "seccion": "Migraciones",
+ "ficha": "https://datina.pages.dev/migraciones.html#f-extranjeros",
+ "fuente": "RENAPER, población extranjera identificada por provincia.",
+ "actualizacion": "Se actualiza cada año.",
+ "cobertura": "Las 24 jurisdicciones",
+ "periodo": "",
+ "filas": 24,
+ "columnas": [
+  {
+   "nombre": "codigo_indec",
+   "tipo": "Código",
+   "valores": "24 códigos"
+  },
+  {
+   "nombre": "personas",
+   "tipo": "Número",
+   "valores": "2.165 a 1.169.721"
+  },
+  {
+   "nombre": "territorio",
+   "tipo": "Texto",
+   "valores": "24 valores distintos"
+  },
+  {
+   "nombre": "cada_100",
+   "tipo": "Número",
+   "valores": "0,29 a 19,38"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

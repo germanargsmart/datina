@@ -1,0 +1,34 @@
+{
+ "tabla": "clima_desvio.csv",
+ "titulo": "¿Cuánto cambió la temperatura media del país?",
+ "descripcion": "Diferencia de la temperatura media anual del país con el promedio de 1991 a 2020, en grados, 1961 a 2025",
+ "seccion": "Naturaleza y ambiente",
+ "ficha": "https://datina.pages.dev/naturaleza.html#f-clima",
+ "fuente": "Servicio Meteorológico Nacional, vía Ministerio de Ambiente (CIAM).",
+ "actualizacion": "Se actualiza cada año.",
+ "cobertura": "Sin desglose territorial",
+ "periodo": "1961 a 2025",
+ "filas": 65,
+ "columnas": [
+  {
+   "nombre": "anio",
+   "tipo": "Año",
+   "valores": "1961 a 2025"
+  },
+  {
+   "nombre": "desvio_temperatura",
+   "tipo": "Número",
+   "valores": "-0,94 a 0,83"
+  },
+  {
+   "nombre": "desvio_precipitacion",
+   "tipo": "Número",
+   "valores": "-24,45 a 18,64"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

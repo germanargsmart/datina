@@ -1,0 +1,49 @@
+{
+ "tabla": "areas_serie.csv",
+ "titulo": "¿Qué áreas producen más petróleo y gas?",
+ "descripcion": "Producción de petróleo y gas por área de concesión, promedio diario de cada año, 2006 a 2025",
+ "seccion": "Petróleo y gas",
+ "ficha": "https://datina.pages.dev/petroleo.html#f-areas-hidro",
+ "fuente": "Secretaría de Energía, producción que declaran las empresas (Capítulo IV), agrupada por yacimiento y formación productiva.",
+ "actualizacion": "Se actualiza cada año.",
+ "cobertura": "Sin desglose territorial",
+ "periodo": "2006 a 2025",
+ "filas": 4508,
+ "columnas": [
+  {
+   "nombre": "codigo",
+   "tipo": "Código",
+   "valores": "256 códigos"
+  },
+  {
+   "nombre": "anio",
+   "tipo": "Año",
+   "valores": "2006 a 2025"
+  },
+  {
+   "nombre": "pet_conv",
+   "tipo": "Número",
+   "valores": "0 a 88,48"
+  },
+  {
+   "nombre": "pet_nc",
+   "tipo": "Número",
+   "valores": "0 a 88,53"
+  },
+  {
+   "nombre": "gas_conv",
+   "tipo": "Número",
+   "valores": "0 a 24,89"
+  },
+  {
+   "nombre": "gas_nc",
+   "tipo": "Número",
+   "valores": "0 a 15,88"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

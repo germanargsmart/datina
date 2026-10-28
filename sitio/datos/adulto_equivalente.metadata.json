@@ -1,0 +1,44 @@
+{
+ "tabla": "adulto_equivalente.csv",
+ "titulo": "¿Cuánto tiene que ganar una familia para no ser pobre en cada región?",
+ "descripcion": "Lo que necesita por mes un hogar para no quedar bajo la línea de pobreza en cada una de las seis regiones del INDEC, una calculadora para el hogar propio y la parte de las personas bajo esa línea en cada región.",
+ "seccion": "Pobreza y hogares",
+ "ficha": "https://datina.pages.dev/a-canasta-regiones.html",
+ "fuente": "INDEC, canasta básica alimentaria y canasta básica total (valores por región del informe de pobreza y tabla de adulto equivalente), e incidencia de la pobreza y la indigencia, Encuesta Permanente de Hogares",
+ "actualizacion": "Se actualiza cada semestre.",
+ "cobertura": "Sin desglose territorial",
+ "periodo": "",
+ "filas": 23,
+ "columnas": [
+  {
+   "nombre": "edad",
+   "tipo": "Texto",
+   "valores": "23 valores distintos"
+  },
+  {
+   "nombre": "edad_desde",
+   "tipo": "Número",
+   "valores": "0 a 76"
+  },
+  {
+   "nombre": "edad_hasta",
+   "tipo": "Número",
+   "valores": "0 a 75 (1 celda vacía)"
+  },
+  {
+   "nombre": "mujeres",
+   "tipo": "Número",
+   "valores": "0,35 a 0,77"
+  },
+  {
+   "nombre": "varones",
+   "tipo": "Número",
+   "valores": "0,35 a 1,04"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

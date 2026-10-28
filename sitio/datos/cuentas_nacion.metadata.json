@@ -1,0 +1,69 @@
+{
+ "tabla": "cuentas_nacion.csv",
+ "titulo": "¿Cuánto ingresa y cuánto gasta el Estado nacional?",
+ "descripcion": "Ingresos, gastos y resultado del Sector Público Nacional como parte del PBI, 2016 a 2025",
+ "seccion": "Cuentas públicas",
+ "ficha": "https://datina.pages.dev/gobierno.html#f-cuentas-nacion",
+ "fuente": "Secretaría de Hacienda, Informe mensual de ingresos y gastos del Sector Público Nacional no Financiero, e INDEC.",
+ "actualizacion": "Se actualiza cada mes.",
+ "cobertura": "Sin desglose territorial",
+ "periodo": "2016 a 2025",
+ "filas": 10,
+ "columnas": [
+  {
+   "nombre": "anio",
+   "tipo": "Año",
+   "valores": "2016 a 2025"
+  },
+  {
+   "nombre": "ingresos_pbi",
+   "tipo": "Número",
+   "valores": "15,9 a 19,8"
+  },
+  {
+   "nombre": "gasto_primario_pbi",
+   "tipo": "Número",
+   "valores": "14,51 a 24,22"
+  },
+  {
+   "nombre": "intereses_netos_pbi",
+   "tipo": "Número",
+   "valores": "1,21 a 3,36"
+  },
+  {
+   "nombre": "resultado_primario_pbi",
+   "tipo": "Número",
+   "valores": "-6,43 a 1,78"
+  },
+  {
+   "nombre": "resultado_financiero_pbi",
+   "tipo": "Número",
+   "valores": "-8,43 a 0,3"
+  },
+  {
+   "nombre": "ingresos_millones",
+   "tipo": "Número",
+   "valores": "1.629.308,78 a 135.179.029,8"
+  },
+  {
+   "nombre": "gasto_primario_millones",
+   "tipo": "Número",
+   "valores": "1.972.834,3 a 123.409.811,1"
+  },
+  {
+   "nombre": "resultado_primario_millones",
+   "tipo": "Número",
+   "valores": "-5.164.636,5 a 11.769.218,7"
+  },
+  {
+   "nombre": "resultado_financiero_millones",
+   "tipo": "Número",
+   "valores": "-8.418.468,2 a 1.764.785,6"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

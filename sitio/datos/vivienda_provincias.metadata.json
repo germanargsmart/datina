@@ -1,0 +1,119 @@
+{
+ "tabla": "vivienda_provincias.csv",
+ "titulo": "¿Cuántas personas trabajan en la construcción en cada provincia?",
+ "descripcion": "Asalariados registrados en la construcción privada, por provincia, primer trimestre de 2026, y porcentaje de las personas ocupadas que trabajan en la construcción, con o sin registro, por provincia y departamento, Censo 2022",
+ "seccion": "Construcción y vivienda",
+ "ficha": "https://datina.pages.dev/construccion.html#f-empleo-construccion",
+ "fuente": "Observatorio de Empleo y Dinámica Empresarial (OEDE), Secretaría de Trabajo, Ministerio de Capital Humano, con datos del Sistema Integrado Previsional Argentino (SIPA), e INDEC, Censo Nacional de Población, Hogares y Viviendas 2022, resultados por radio censal.",
+ "actualizacion": "Se actualiza cada tres meses.",
+ "cobertura": "Las 24 jurisdicciones",
+ "periodo": "",
+ "filas": 24,
+ "columnas": [
+  {
+   "nombre": "codigo_indec",
+   "tipo": "Código",
+   "valores": "24 códigos"
+  },
+  {
+   "nombre": "territorio",
+   "tipo": "Texto",
+   "valores": "24 valores distintos"
+  },
+  {
+   "nombre": "hogares",
+   "tipo": "Número",
+   "valores": "66.187 a 6.051.550"
+  },
+  {
+   "nombre": "viviendas",
+   "tipo": "Número",
+   "valores": "69.757 a 6.745.665"
+  },
+  {
+   "nombre": "pct_gas_red",
+   "tipo": "Número",
+   "valores": "0,91 a 93,01"
+  },
+  {
+   "nombre": "pct_garrafa",
+   "tipo": "Número",
+   "valores": "3,04 a 85,43"
+  },
+  {
+   "nombre": "pct_zeppelin",
+   "tipo": "Número",
+   "valores": "0,49 a 7,59"
+  },
+  {
+   "nombre": "pct_electricidad",
+   "tipo": "Número",
+   "valores": "1,58 a 14,8"
+  },
+  {
+   "nombre": "pct_lena",
+   "tipo": "Número",
+   "valores": "0,13 a 9,17"
+  },
+  {
+   "nombre": "pct_alquila",
+   "tipo": "Número",
+   "valores": "6,65 a 36,81"
+  },
+  {
+   "nombre": "pct_propia",
+   "tipo": "Número",
+   "valores": "52,5 a 83,55"
+  },
+  {
+   "nombre": "pct_hacinamiento",
+   "tipo": "Número",
+   "valores": "1 a 5,12"
+  },
+  {
+   "nombre": "pct_materiales_4",
+   "tipo": "Número",
+   "valores": "0,39 a 18,34"
+  },
+  {
+   "nombre": "pct_sin_personas",
+   "tipo": "Número",
+   "valores": "6,05 a 16,16"
+  },
+  {
+   "nombre": "pct_uso_temporal",
+   "tipo": "Número",
+   "valores": "0,49 a 5,21"
+  },
+  {
+   "nombre": "pct_alquiler_venta",
+   "tipo": "Número",
+   "valores": "0,91 a 3,85"
+  },
+  {
+   "nombre": "construccion_cada_1000",
+   "tipo": "Número",
+   "valores": "5,91 a 40,19"
+  },
+  {
+   "nombre": "pct_ocupados_construccion",
+   "tipo": "Número",
+   "valores": "3,87 a 16,78"
+  },
+  {
+   "nombre": "pct_ocupados_minas",
+   "tipo": "Número",
+   "valores": "0,08 a 6,27"
+  },
+  {
+   "nombre": "pct_sin_rama",
+   "tipo": "Número",
+   "valores": "19,04 a 32,58"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

@@ -1,0 +1,34 @@
+{
+ "tabla": "vino_mercado_interno.csv",
+ "titulo": "¿Cuánto vino se vende en el país?",
+ "descripcion": "Vino despachado para la venta en el país, en millones de litros por año, 1991 a 2025",
+ "seccion": "Curiosidades",
+ "ficha": "https://datina.pages.dev/curiosidades.html#f-vino",
+ "fuente": "Ministerio de Economía (SSPMI), con datos del Instituto Nacional de Vitivinicultura.",
+ "actualizacion": "Se actualiza cada mes.",
+ "cobertura": "Sin desglose territorial",
+ "periodo": "1991 a 2025",
+ "filas": 35,
+ "columnas": [
+  {
+   "nombre": "anio",
+   "tipo": "Año",
+   "valores": "1991 a 2025"
+  },
+  {
+   "nombre": "hl",
+   "tipo": "Número",
+   "valores": "7.460.504 a 17.083.505"
+  },
+  {
+   "nombre": "millones_litros",
+   "tipo": "Número",
+   "valores": "746,05 a 1.708,35"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

@@ -1,0 +1,39 @@
+{
+ "tabla": "refugio_acnur.csv",
+ "titulo": "¿Cuántas personas piden refugio en la Argentina?",
+ "descripcion": "Solicitudes de refugio por año, 1985 a 2025, y personas refugiadas que viven en el país",
+ "seccion": "Migraciones",
+ "ficha": "https://datina.pages.dev/migraciones.html#f-refugio",
+ "fuente": "Comisión Nacional para los Refugiados (CONARE) y ACNUR.",
+ "actualizacion": "Se actualiza cada año.",
+ "cobertura": "Sin desglose territorial",
+ "periodo": "2000 a 2025",
+ "filas": 26,
+ "columnas": [
+  {
+   "nombre": "anio",
+   "tipo": "Año",
+   "valores": "2000 a 2025"
+  },
+  {
+   "nombre": "refugiados",
+   "tipo": "Número",
+   "valores": "2.383 a 4.941"
+  },
+  {
+   "nombre": "solicitantes",
+   "tipo": "Número",
+   "valores": "710 a 11.100"
+  },
+  {
+   "nombre": "otras_proteccion",
+   "tipo": "Número",
+   "valores": "0 a 215.541"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

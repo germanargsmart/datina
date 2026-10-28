@@ -1,0 +1,79 @@
+{
+ "tabla": "reservas_netas.csv",
+ "titulo": "¿Cuántas reservas tiene el Banco Central?",
+ "descripcion": "Reservas internacionales brutas del BCRA al cierre de cada mes, desde 1940, y reservas netas, desde 2007, en millones de dólares",
+ "seccion": "Sector externo",
+ "ficha": "https://datina.pages.dev/externo.html#f-reservas-bcra",
+ "fuente": "BCRA, API de Estadísticas Monetarias y planilla de reservas internacionales y liquidez en moneda extranjera (formato del FMI), mensual.",
+ "actualizacion": "Se actualiza cada mes.",
+ "cobertura": "Sin desglose territorial",
+ "periodo": "enero de 2007 a septiembre de 2026",
+ "filas": 237,
+ "columnas": [
+  {
+   "nombre": "mes",
+   "tipo": "Fecha",
+   "valores": "enero de 2007 a septiembre de 2026"
+  },
+  {
+   "nombre": "brutas",
+   "tipo": "Número",
+   "valores": "21.513,1 a 71.662,5"
+  },
+  {
+   "nombre": "divisas",
+   "tipo": "Número",
+   "valores": "16.829,3 a 63.461,1"
+  },
+  {
+   "nombre": "oro",
+   "tipo": "Número",
+   "valores": "1.142 a 10.388,6"
+  },
+  {
+   "nombre": "deg",
+   "tipo": "Número",
+   "valores": "0,1 a 6.781,9"
+  },
+  {
+   "nombre": "otros_activos",
+   "tipo": "Número",
+   "valores": "-300,5 a 8.139,9"
+  },
+  {
+   "nombre": "depositos_y_deudas",
+   "tipo": "Número",
+   "valores": "71,2 a 34.167,5"
+  },
+  {
+   "nombre": "canje_china",
+   "tipo": "Número",
+   "valores": "0 a 20.908,2"
+  },
+  {
+   "nombre": "pases_y_otros",
+   "tipo": "Número",
+   "valores": "-824 a 22.345,9"
+  },
+  {
+   "nombre": "depositos_bancos",
+   "tipo": "Número",
+   "valores": "8.097,1 a 17.250,9 (199 celdas vacías)"
+  },
+  {
+   "nombre": "depositos_tesoro",
+   "tipo": "Número",
+   "valores": "58,5 a 15.447,9 (200 celdas vacías)"
+  },
+  {
+   "nombre": "netas",
+   "tipo": "Número",
+   "valores": "-12.805 a 45.041,9"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

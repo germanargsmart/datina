@@ -1,0 +1,104 @@
+{
+ "tabla": "justicia_provincias.csv",
+ "titulo": "¿Cuántos jueces tiene la corte de cada provincia y cuántos lugares están vacantes?",
+ "descripcion": "Ministras y ministros del máximo tribunal de cada provincia y de CABA al 31 de octubre de 2025, y lugares que fija la ley",
+ "seccion": "Justicia",
+ "ficha": "https://datina.pages.dev/justicia.html#f-cortes-provinciales",
+ "fuente": "Corte Suprema de Justicia de la Nación, Oficina de la Mujer, Mapa de Género de la Justicia Argentina, y constituciones y leyes orgánicas de cada provincia.",
+ "actualizacion": "Se actualiza cada año.",
+ "cobertura": "Las 24 jurisdicciones",
+ "periodo": "",
+ "filas": 24,
+ "columnas": [
+  {
+   "nombre": "codigo_indec",
+   "tipo": "Código",
+   "valores": "24 códigos"
+  },
+  {
+   "nombre": "territorio",
+   "tipo": "Texto",
+   "valores": "24 valores distintos"
+  },
+  {
+   "nombre": "tribunal",
+   "tipo": "Texto",
+   "valores": "Corte Suprema de Justicia, Corte de Justicia, Superior Tribunal de Justicia, Suprema Corte de Justicia, Tribunal Superior de Justicia"
+  },
+  {
+   "nombre": "miembros_ley",
+   "tipo": "Número",
+   "valores": "5 a 9 (3 celdas vacías)"
+  },
+  {
+   "nombre": "ministros",
+   "tipo": "Número",
+   "valores": "3 a 9"
+  },
+  {
+   "nombre": "ministros_anio",
+   "tipo": "Número",
+   "valores": "2.025"
+  },
+  {
+   "nombre": "magistratura",
+   "tipo": "Número",
+   "valores": "45 a 1.263"
+  },
+  {
+   "nombre": "magistratura_anio",
+   "tipo": "Número",
+   "valores": "2.025"
+  },
+  {
+   "nombre": "fiscales",
+   "tipo": "Número",
+   "valores": "11 a 618 (1 celda vacía)"
+  },
+  {
+   "nombre": "fiscales_anio",
+   "tipo": "Número",
+   "valores": "2.024 a 2.025 (1 celda vacía)"
+  },
+  {
+   "nombre": "defensores",
+   "tipo": "Número",
+   "valores": "9 a 505 (1 celda vacía)"
+  },
+  {
+   "nombre": "defensores_anio",
+   "tipo": "Número",
+   "valores": "2.024 a 2.025 (1 celda vacía)"
+  },
+  {
+   "nombre": "ministerio_publico_unico",
+   "tipo": "Número",
+   "valores": "52 (23 celdas vacías)"
+  },
+  {
+   "nombre": "poblacion",
+   "tipo": "Número",
+   "valores": "182.003 a 17.443.372"
+  },
+  {
+   "nombre": "magistratura_cada_100mil",
+   "tipo": "Número",
+   "valores": "2,86 a 36,89"
+  },
+  {
+   "nombre": "fiscales_cada_100mil",
+   "tipo": "Número",
+   "valores": "1,14 a 12,55 (1 celda vacía)"
+  },
+  {
+   "nombre": "defensores_cada_100mil",
+   "tipo": "Número",
+   "valores": "1,44 a 19,78 (1 celda vacía)"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

@@ -1,0 +1,44 @@
+{
+ "tabla": "expectativas_inflacion.csv",
+ "titulo": "¿Cuánta inflación espera la gente para los próximos doce meses?",
+ "descripcion": "Mediana y promedio de la inflación que espera la gente para los doce meses siguientes, y la que hubo, mes a mes desde 2006",
+ "seccion": "Precios y actividad",
+ "ficha": "https://datina.pages.dev/economia.html#f-expectativas",
+ "fuente": "Universidad Torcuato Di Tella, Centro de Investigación en Finanzas, Encuesta de Expectativas de Inflación, e INDEC, Índice de precios al consumidor.",
+ "actualizacion": "Se actualiza cada mes.",
+ "cobertura": "Sin desglose territorial",
+ "periodo": "agosto de 2006 a septiembre de 2026",
+ "filas": 242,
+ "columnas": [
+  {
+   "nombre": "mes",
+   "tipo": "Fecha",
+   "valores": "agosto de 2006 a septiembre de 2026"
+  },
+  {
+   "nombre": "mediana",
+   "tipo": "Número",
+   "valores": "10 a 150"
+  },
+  {
+   "nombre": "promedio",
+   "tipo": "Número",
+   "valores": "11,73 a 230"
+  },
+  {
+   "nombre": "inflacion_12m_siguientes",
+   "tipo": "Número",
+   "valores": "24,8 a 289,4 (136 celdas vacías)"
+  },
+  {
+   "nombre": "inflacion_12m_anteriores",
+   "tipo": "Número",
+   "valores": "24,8 a 289,4 (136 celdas vacías)"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

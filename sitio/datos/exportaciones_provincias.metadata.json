@@ -1,0 +1,74 @@
+{
+ "tabla": "exportaciones_provincias.csv",
+ "titulo": "¿Cuánto exporta cada provincia por habitante?",
+ "descripcion": "Exportaciones de bienes por habitante, en dólares, según la provincia de origen, 2025",
+ "seccion": "Trabajo",
+ "ficha": "https://datina.pages.dev/trabajo.html#f-exportaciones",
+ "fuente": "INDEC, Origen Provincial de las Exportaciones (el último año es provisorio).",
+ "actualizacion": "Se actualiza cada seis meses.",
+ "cobertura": "Las 24 jurisdicciones",
+ "periodo": "",
+ "filas": 24,
+ "columnas": [
+  {
+   "nombre": "codigo_indec",
+   "tipo": "Código",
+   "valores": "24 códigos"
+  },
+  {
+   "nombre": "territorio",
+   "tipo": "Texto",
+   "valores": "24 valores distintos"
+  },
+  {
+   "nombre": "millones_usd",
+   "tipo": "Número",
+   "valores": "29,24 a 31.683,84"
+  },
+  {
+   "nombre": "usd_por_habitante",
+   "tipo": "Número",
+   "valores": "46,67 a 8.964,79"
+  },
+  {
+   "nombre": "rubro_principal",
+   "tipo": "Texto",
+   "valores": "combustibles_energia, manufacturas_agro, manufacturas_industriales, primarios"
+  },
+  {
+   "nombre": "primarios",
+   "tipo": "Número",
+   "valores": "0,02 a 6.920,24"
+  },
+  {
+   "nombre": "manufacturas_agro",
+   "tipo": "Número",
+   "valores": "5,31 a 11.919,34"
+  },
+  {
+   "nombre": "manufacturas_industriales",
+   "tipo": "Número",
+   "valores": "0,07 a 11.664,4"
+  },
+  {
+   "nombre": "combustibles_energia",
+   "tipo": "Número",
+   "valores": "0 a 6.148,72"
+  },
+  {
+   "nombre": "millones_usd_1er_semestre_2026",
+   "tipo": "Número",
+   "valores": "14,58 a 15.965,49"
+  },
+  {
+   "nombre": "variacion_1er_semestre_2026_vs_2025",
+   "tipo": "Número",
+   "valores": "-3,3 a 119,61"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

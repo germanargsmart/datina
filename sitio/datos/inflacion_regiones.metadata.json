@@ -1,0 +1,49 @@
+{
+ "tabla": "inflacion_regiones.csv",
+ "titulo": "¿Cuánto suben los precios en cada región?",
+ "descripcion": "Variación de los precios al consumidor en el país y en las seis regiones del INDEC, 2017 a 2026",
+ "seccion": "Precios y actividad",
+ "ficha": "https://datina.pages.dev/economia.html#f-inflacion",
+ "fuente": "INDEC, Índice de precios al consumidor.",
+ "actualizacion": "Se actualiza cada mes.",
+ "cobertura": "Sin desglose territorial",
+ "periodo": "",
+ "filas": 7,
+ "columnas": [
+  {
+   "nombre": "codigo",
+   "tipo": "Código",
+   "valores": "7 códigos"
+  },
+  {
+   "nombre": "region",
+   "tipo": "Texto",
+   "valores": "7 valores distintos"
+  },
+  {
+   "nombre": "interanual",
+   "tipo": "Número",
+   "valores": "30,3 a 36,9"
+  },
+  {
+   "nombre": "mensual",
+   "tipo": "Número",
+   "valores": "1,4 a 2"
+  },
+  {
+   "nombre": "en_el_anio",
+   "tipo": "Número",
+   "valores": "21,21 a 26,55"
+  },
+  {
+   "nombre": "veces_desde_dic_2016",
+   "tipo": "Número",
+   "valores": "124,34 a 126,31"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

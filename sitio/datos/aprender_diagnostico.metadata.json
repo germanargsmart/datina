@@ -1,0 +1,184 @@
+{
+ "tabla": "aprender_diagnostico.csv",
+ "titulo": "Diagnóstico de educación por provincia",
+ "descripcion": "",
+ "seccion": "Diagnóstico educativo",
+ "ficha": "https://datina.pages.dev/diagnostico.html#f-diagnostico",
+ "fuente": "Aprender y Relevamiento Anual (Secretaría de Educación), Censo 2022 (INDEC) y PISA (OCDE)",
+ "actualizacion": "",
+ "cobertura": "Las 24 jurisdicciones y el total del país",
+ "periodo": "",
+ "filas": 25,
+ "columnas": [
+  {
+   "nombre": "codigo_indec",
+   "tipo": "Código",
+   "valores": "25 códigos"
+  },
+  {
+   "nombre": "territorio",
+   "tipo": "Texto",
+   "valores": "25 valores distintos"
+  },
+  {
+   "nombre": "n",
+   "tipo": "Número",
+   "valores": "2.985,11 a 752.018,3"
+  },
+  {
+   "nombre": "mat_logra",
+   "tipo": "Número",
+   "valores": "38,42 a 74,55"
+  },
+  {
+   "nombre": "mat_debajo",
+   "tipo": "Número",
+   "valores": "9,24 a 32,14"
+  },
+  {
+   "nombre": "mat_debajo_n",
+   "tipo": "Número",
+   "valores": "572,1 a 151.715,88"
+  },
+  {
+   "nombre": "len_logra",
+   "tipo": "Número",
+   "valores": "63,93 a 88,09"
+  },
+  {
+   "nombre": "len_debajo",
+   "tipo": "Número",
+   "valores": "2,13 a 9,7"
+  },
+  {
+   "nombre": "len_debajo_n",
+   "tipo": "Número",
+   "valores": "103,12 a 36.973,88"
+  },
+  {
+   "nombre": "sobreedad",
+   "tipo": "Número",
+   "valores": "7,87 a 21,53"
+  },
+  {
+   "nombre": "nse_q1",
+   "tipo": "Número",
+   "valores": "7,96 a 40,83"
+  },
+  {
+   "nombre": "n_estatal",
+   "tipo": "Número",
+   "valores": "2.372,27 a 549.503,5"
+  },
+  {
+   "nombre": "mat_logra_estatal",
+   "tipo": "Número",
+   "valores": "35,1 a 65,04"
+  },
+  {
+   "nombre": "len_logra_estatal",
+   "tipo": "Número",
+   "valores": "60,87 a 82,51"
+  },
+  {
+   "nombre": "sobreedad_estatal",
+   "tipo": "Número",
+   "valores": "8,21 a 23,54"
+  },
+  {
+   "nombre": "nse_q1_estatal",
+   "tipo": "Número",
+   "valores": "10,2 a 45,99"
+  },
+  {
+   "nombre": "n_privado",
+   "tipo": "Número",
+   "valores": "612,84 a 202.514,8"
+  },
+  {
+   "nombre": "mat_logra_privado",
+   "tipo": "Número",
+   "valores": "59,36 a 84,28"
+  },
+  {
+   "nombre": "len_logra_privado",
+   "tipo": "Número",
+   "valores": "83,93 a 93,82"
+  },
+  {
+   "nombre": "sobreedad_privado",
+   "tipo": "Número",
+   "valores": "5,08 a 10,13"
+  },
+  {
+   "nombre": "nse_q1_privado",
+   "tipo": "Número",
+   "valores": "0,83 a 13,12"
+  },
+  {
+   "nombre": "n_urbano",
+   "tipo": "Número",
+   "valores": "2.980,1 a 682.639,11"
+  },
+  {
+   "nombre": "mat_logra_urbano",
+   "tipo": "Número",
+   "valores": "38,45 a 74,55"
+  },
+  {
+   "nombre": "len_logra_urbano",
+   "tipo": "Número",
+   "valores": "65,7 a 88,09"
+  },
+  {
+   "nombre": "sobreedad_urbano",
+   "tipo": "Número",
+   "valores": "7,69 a 19,12"
+  },
+  {
+   "nombre": "nse_q1_urbano",
+   "tipo": "Número",
+   "valores": "7,96 a 33,17"
+  },
+  {
+   "nombre": "n_rural",
+   "tipo": "Número",
+   "valores": "0 a 69.379,2"
+  },
+  {
+   "nombre": "mat_logra_rural",
+   "tipo": "Número",
+   "valores": "36,89 a 70,91 (3 celdas vacías)"
+  },
+  {
+   "nombre": "len_logra_rural",
+   "tipo": "Número",
+   "valores": "54,61 a 84,83 (3 celdas vacías)"
+  },
+  {
+   "nombre": "sobreedad_rural",
+   "tipo": "Número",
+   "valores": "7,36 a 32,62 (3 celdas vacías)"
+  },
+  {
+   "nombre": "nse_q1_rural",
+   "tipo": "Número",
+   "valores": "18,57 a 68,32 (3 celdas vacías)"
+  },
+  {
+   "nombre": "esc_desde",
+   "tipo": "Número",
+   "valores": "73,73 a 100,9"
+  },
+  {
+   "nombre": "esc_hasta",
+   "tipo": "Número",
+   "valores": "78,63 a 99,81"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

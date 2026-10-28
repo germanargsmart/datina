@@ -1,0 +1,79 @@
+{
+ "tabla": "bcra_variables.csv",
+ "titulo": "¿Cuánto cambiaron el dólar, las tasas y el dinero?",
+ "descripcion": "Variables principales del Banco Central, último dato de cada mes, desde 1976 o desde que empieza cada serie",
+ "seccion": "Precios y actividad",
+ "ficha": "https://datina.pages.dev/economia.html#f-bcra",
+ "fuente": "BCRA, API de Estadísticas Monetarias, e INDEC, índice de precios al consumidor.",
+ "actualizacion": "Se actualiza cada mes.",
+ "cobertura": "Sin desglose territorial",
+ "periodo": "junio de 1976 a octubre de 2026",
+ "filas": 15653,
+ "columnas": [
+  {
+   "nombre": "id",
+   "tipo": "Código",
+   "valores": "49 códigos"
+  },
+  {
+   "nombre": "mes",
+   "tipo": "Fecha",
+   "valores": "junio de 1976 a octubre de 2026"
+  },
+  {
+   "nombre": "valor",
+   "tipo": "Número",
+   "valores": "0 a 254.440.706,24"
+  },
+  {
+   "nombre": "valor_real",
+   "tipo": "Número",
+   "valores": "724,28 a 346.275.162 (12654 celdas vacías)"
+  },
+  {
+   "nombre": "pct_pbi",
+   "tipo": "Número",
+   "valores": "0,17 a 35 (9178 celdas vacías)"
+  },
+  {
+   "nombre": "tasa_real_mensual",
+   "tipo": "Número",
+   "valores": "-12,3 a 4,38 (14826 celdas vacías)"
+  },
+  {
+   "nombre": "inflacion_mes_siguiente",
+   "tipo": "Número",
+   "valores": "1,19 a 25,47 (14826 celdas vacías)"
+  },
+  {
+   "nombre": "variacion_12m",
+   "tipo": "Número",
+   "valores": "0,94 a 288,24 (13879 celdas vacías)"
+  },
+  {
+   "nombre": "variacion_real_12m",
+   "tipo": "Número",
+   "valores": "-36,85 a 45,02 (15547 celdas vacías)"
+  },
+  {
+   "nombre": "inflacion_12m",
+   "tipo": "Número",
+   "valores": "24,8 a 289,4 (14836 celdas vacías)"
+  },
+  {
+   "nombre": "inflacion_12m_siguientes",
+   "tipo": "Número",
+   "valores": "24,8 a 289,4 (15547 celdas vacías)"
+  },
+  {
+   "nombre": "log10_valor",
+   "tipo": "Número",
+   "valores": "-5 a -2,01 (15229 celdas vacías)"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

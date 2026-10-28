@@ -1,0 +1,59 @@
+{
+ "tabla": "censo2022_provincias.csv",
+ "titulo": "¿Cuántos hogares tienen cloacas, agua de red, internet y computadora?",
+ "descripcion": "Hogares con cada servicio o equipamiento y con necesidades básicas insatisfechas, en porcentaje por provincia, Censo 2022",
+ "seccion": "Pobreza y hogares",
+ "ficha": "https://datina.pages.dev/pobreza.html#f-censo",
+ "fuente": "INDEC, Censo Nacional de Población, Hogares y Viviendas 2022, resultados por radio censal.",
+ "actualizacion": "Se actualiza con cada censo.",
+ "cobertura": "Las 24 jurisdicciones",
+ "periodo": "",
+ "filas": 24,
+ "columnas": [
+  {
+   "nombre": "codigo_indec",
+   "tipo": "Código",
+   "valores": "24 códigos"
+  },
+  {
+   "nombre": "territorio",
+   "tipo": "Texto",
+   "valores": "24 valores distintos"
+  },
+  {
+   "nombre": "agua_red",
+   "tipo": "Número",
+   "valores": "76,33 a 98,01"
+  },
+  {
+   "nombre": "cloaca",
+   "tipo": "Número",
+   "valores": "24,81 a 97,16"
+  },
+  {
+   "nombre": "internet",
+   "tipo": "Número",
+   "valores": "46,7 a 90"
+  },
+  {
+   "nombre": "computadora",
+   "tipo": "Número",
+   "valores": "37,21 a 80,03"
+  },
+  {
+   "nombre": "nbi",
+   "tipo": "Número",
+   "valores": "2,64 a 14,24"
+  },
+  {
+   "nombre": "sin_cobertura",
+   "tipo": "Número",
+   "valores": "15,34 a 56,04"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

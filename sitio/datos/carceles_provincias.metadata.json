@@ -1,0 +1,54 @@
+{
+ "tabla": "carceles_provincias.csv",
+ "titulo": "¿Qué parte de las personas presas no tiene condena?",
+ "descripcion": "Personas privadas de libertad sin condena, en % del total de cada servicio penitenciario, al 31 de diciembre de cada año, 2002 a 2024",
+ "seccion": "Seguridad",
+ "ficha": "https://datina.pages.dev/seguridad.html#f-sin-condena",
+ "fuente": "Sistema Nacional de Estadísticas sobre Ejecución de la Pena (SNEEP), Ministerio de Justicia.",
+ "actualizacion": "Se actualiza cada año.",
+ "cobertura": "23 jurisdicciones",
+ "periodo": "",
+ "filas": 23,
+ "columnas": [
+  {
+   "nombre": "codigo_indec",
+   "tipo": "Código",
+   "valores": "23 códigos"
+  },
+  {
+   "nombre": "personas",
+   "tipo": "Número",
+   "valores": "323 a 55.143"
+  },
+  {
+   "nombre": "condenados",
+   "tipo": "Número",
+   "valores": "239 a 28.826"
+  },
+  {
+   "nombre": "tasa",
+   "tipo": "Número",
+   "valores": "77,6 a 353,42"
+  },
+  {
+   "nombre": "pct_condenados",
+   "tipo": "Número",
+   "valores": "48,52 a 100"
+  },
+  {
+   "nombre": "territorio",
+   "tipo": "Texto",
+   "valores": "23 valores distintos"
+  },
+  {
+   "nombre": "pct_sin_condena",
+   "tipo": "Número",
+   "valores": "0 a 51,48"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

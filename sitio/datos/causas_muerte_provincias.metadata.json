@@ -1,0 +1,149 @@
+{
+ "tabla": "causas_muerte_provincias.csv",
+ "titulo": "¿Cuánta gente muere en cada provincia y por qué causas?",
+ "descripcion": "Muertes por año cada 100.000 habitantes, ajustadas por edad, por provincia y causa, 2022 a 2024",
+ "seccion": "Salud",
+ "ficha": "https://datina.pages.dev/salud.html#f-causas-muerte",
+ "fuente": "DEIS, Ministerio de Salud, estadísticas vitales, e INDEC, proyecciones de población 2022 a 2040, base Censo 2022.",
+ "actualizacion": "Se actualiza cada año.",
+ "cobertura": "Las 24 jurisdicciones y el total del país",
+ "periodo": "",
+ "filas": 25,
+ "columnas": [
+  {
+   "nombre": "codigo_indec",
+   "tipo": "Código",
+   "valores": "25 códigos"
+  },
+  {
+   "nombre": "territorio",
+   "tipo": "Texto",
+   "valores": "25 valores distintos"
+  },
+  {
+   "nombre": "muertes",
+   "tipo": "Número",
+   "valores": "2.194 a 1.126.278"
+  },
+  {
+   "nombre": "tasa_total",
+   "tipo": "Número",
+   "valores": "614,03 a 1.141,05"
+  },
+  {
+   "nombre": "tasa_bruta",
+   "tipo": "Número",
+   "valores": "405,2 a 996,88"
+  },
+  {
+   "nombre": "tasa_circulatorias",
+   "tipo": "Número",
+   "valores": "93,72 a 365,34"
+  },
+  {
+   "nombre": "muertes_circulatorias",
+   "tipo": "Número",
+   "valores": "438 a 314.497"
+  },
+  {
+   "nombre": "tasa_tumores",
+   "tipo": "Número",
+   "valores": "104,15 a 187,35"
+  },
+  {
+   "nombre": "muertes_tumores",
+   "tipo": "Número",
+   "valores": "611 a 186.924"
+  },
+  {
+   "nombre": "tasa_respiratorias",
+   "tipo": "Número",
+   "valores": "64,73 a 274,62"
+  },
+  {
+   "nombre": "muertes_respiratorias",
+   "tipo": "Número",
+   "valores": "279 a 219.852"
+  },
+  {
+   "nombre": "tasa_infecciosas",
+   "tipo": "Número",
+   "valores": "9,12 a 71,22"
+  },
+  {
+   "nombre": "muertes_infecciosas",
+   "tipo": "Número",
+   "valores": "50 a 59.575"
+  },
+  {
+   "nombre": "tasa_covid",
+   "tipo": "Número",
+   "valores": "11,26 a 42,32"
+  },
+  {
+   "nombre": "muertes_covid",
+   "tipo": "Número",
+   "valores": "76 a 26.855"
+  },
+  {
+   "nombre": "tasa_endocrinas",
+   "tipo": "Número",
+   "valores": "6,35 a 74,2"
+  },
+  {
+   "nombre": "muertes_endocrinas",
+   "tipo": "Número",
+   "valores": "128 a 37.562"
+  },
+  {
+   "nombre": "tasa_digestivas",
+   "tipo": "Número",
+   "valores": "23 a 56,94"
+  },
+  {
+   "nombre": "muertes_digestivas",
+   "tipo": "Número",
+   "valores": "138 a 47.639"
+  },
+  {
+   "nombre": "tasa_externas",
+   "tipo": "Número",
+   "valores": "19,67 a 66,66"
+  },
+  {
+   "nombre": "muertes_externas",
+   "tipo": "Número",
+   "valores": "170 a 53.715"
+  },
+  {
+   "nombre": "tasa_mal_definidas",
+   "tipo": "Número",
+   "valores": "2,48 a 200,9"
+  },
+  {
+   "nombre": "muertes_mal_definidas",
+   "tipo": "Número",
+   "valores": "72 a 81.543"
+  },
+  {
+   "nombre": "tasa_otras",
+   "tipo": "Número",
+   "valores": "48,72 a 110"
+  },
+  {
+   "nombre": "muertes_otras",
+   "tipo": "Número",
+   "valores": "212 a 98.116"
+  },
+  {
+   "nombre": "pct_mal_definidas",
+   "tipo": "Número",
+   "valores": "0,28 a 22,7"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

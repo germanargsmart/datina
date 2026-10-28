@@ -1,0 +1,89 @@
+{
+ "tabla": "areas_produccion.csv",
+ "titulo": "¿Qué áreas producen más petróleo y gas?",
+ "descripcion": "Producción de petróleo y gas por área de concesión, promedio diario de cada año, 2006 a 2025",
+ "seccion": "Petróleo y gas",
+ "ficha": "https://datina.pages.dev/petroleo.html#f-areas-hidro",
+ "fuente": "Secretaría de Energía, producción que declaran las empresas (Capítulo IV), agrupada por yacimiento y formación productiva.",
+ "actualizacion": "Se actualiza cada año.",
+ "cobertura": "10 jurisdicciones",
+ "periodo": "",
+ "filas": 256,
+ "columnas": [
+  {
+   "nombre": "codigo",
+   "tipo": "Código",
+   "valores": "256 códigos"
+  },
+  {
+   "nombre": "nombre",
+   "tipo": "Texto",
+   "valores": "255 valores distintos"
+  },
+  {
+   "nombre": "codigo_indec",
+   "tipo": "Código",
+   "valores": "11 códigos"
+  },
+  {
+   "nombre": "territorio",
+   "tipo": "Texto",
+   "valores": "11 valores distintos"
+  },
+  {
+   "nombre": "cuenca",
+   "tipo": "Texto",
+   "valores": "Austral, Cuyana, Golfo San Jorge, Neuquina, Noroeste"
+  },
+  {
+   "nombre": "empresa",
+   "tipo": "Texto",
+   "valores": "47 valores distintos"
+  },
+  {
+   "nombre": "pet_kbd",
+   "tipo": "Número",
+   "valores": "0 a 88,69"
+  },
+  {
+   "nombre": "pct_pet_pais",
+   "tipo": "Número",
+   "valores": "0 a 11,04"
+  },
+  {
+   "nombre": "pct_pet_nc",
+   "tipo": "Número",
+   "valores": "0 a 100 (5 celdas vacías)"
+  },
+  {
+   "nombre": "pet_kbd_antes",
+   "tipo": "Número",
+   "valores": "0 a 86,3"
+  },
+  {
+   "nombre": "gas_mmm3d",
+   "tipo": "Número",
+   "valores": "0 a 20,85"
+  },
+  {
+   "nombre": "pct_gas_pais",
+   "tipo": "Número",
+   "valores": "0 a 14,75"
+  },
+  {
+   "nombre": "pct_gas_nc",
+   "tipo": "Número",
+   "valores": "0 a 100 (15 celdas vacías)"
+  },
+  {
+   "nombre": "gas_mmm3d_antes",
+   "tipo": "Número",
+   "valores": "0 a 17,45"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

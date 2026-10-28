@@ -1,0 +1,74 @@
+{
+ "tabla": "confianza_gobierno_elecciones.csv",
+ "titulo": "¿Cuánta confianza genera el gobierno nacional?",
+ "descripcion": "Índice de Confianza en el Gobierno de la Universidad Torcuato Di Tella, de 0 a 5, mes a mes desde 2001, y el voto a la candidatura del gobierno en las elecciones presidenciales",
+ "seccion": "Instituciones políticas",
+ "ficha": "https://datina.pages.dev/politica.html#f-confianza-gobierno",
+ "fuente": "Universidad Torcuato Di Tella, Escuela de Gobierno, Índice de Confianza en el Gobierno, y Dirección Nacional Electoral.",
+ "actualizacion": "Se actualiza cada mes.",
+ "cobertura": "Sin desglose territorial",
+ "periodo": "27 de abril de 2003 a 22 de octubre de 2023",
+ "filas": 10,
+ "columnas": [
+  {
+   "nombre": "eleccion",
+   "tipo": "Texto",
+   "valores": "10 valores distintos"
+  },
+  {
+   "nombre": "tipo",
+   "tipo": "Texto",
+   "valores": "PASO, Primera vuelta"
+  },
+  {
+   "nombre": "anio",
+   "tipo": "Año",
+   "valores": "2003 a 2023"
+  },
+  {
+   "nombre": "fecha",
+   "tipo": "Fecha",
+   "valores": "27 de abril de 2003 a 22 de octubre de 2023"
+  },
+  {
+   "nombre": "gobierno",
+   "tipo": "Texto",
+   "valores": "Alberto Fernández, Cristina Fernández de Kirchner, Eduardo Duhalde, Mauricio Macri, Néstor Kirchner"
+  },
+  {
+   "nombre": "candidatura_gobierno",
+   "tipo": "Texto",
+   "valores": "Fernández de Kirchner, Kirchner, Macri, Massa, Scioli"
+  },
+  {
+   "nombre": "fuerza",
+   "tipo": "Texto",
+   "valores": "Frente para la Victoria, Juntos por el Cambio, Unión por la Patria"
+  },
+  {
+   "nombre": "voto_gobierno_pct",
+   "tipo": "Número",
+   "valores": "22,25 a 54,11"
+  },
+  {
+   "nombre": "salio_primero",
+   "tipo": "Texto",
+   "valores": "False, True"
+  },
+  {
+   "nombre": "mes_indice",
+   "tipo": "Fecha",
+   "valores": "marzo de 2003 a septiembre de 2023"
+  },
+  {
+   "nombre": "indice",
+   "tipo": "Número",
+   "valores": "0,89 a 2,64"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

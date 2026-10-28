@@ -1,0 +1,59 @@
+{
+ "tabla": "gabinetes_origen.csv",
+ "titulo": "¿Dónde nacieron los ministros de cada gobierno?",
+ "descripcion": "Ministros nacionales y jefes de gabinete de cada gobierno según su lugar de nacimiento, desde 1983",
+ "seccion": "Instituciones políticas",
+ "ficha": "https://datina.pages.dev/politica.html#f-ministros",
+ "fuente": "Casa Rosada, Wikipedia y Wikidata.",
+ "actualizacion": "Se actualiza con cada cambio de gabinete.",
+ "cobertura": "Sin desglose territorial",
+ "periodo": "",
+ "filas": 10,
+ "columnas": [
+  {
+   "nombre": "gobierno",
+   "tipo": "Texto",
+   "valores": "10 valores distintos"
+  },
+  {
+   "nombre": "Ciudad de Buenos Aires",
+   "tipo": "Número",
+   "valores": "18,2 a 61,1"
+  },
+  {
+   "nombre": "Conurbano",
+   "tipo": "Número",
+   "valores": "0 a 25"
+  },
+  {
+   "nombre": "Resto de Buenos Aires",
+   "tipo": "Número",
+   "valores": "2,9 a 37,5"
+  },
+  {
+   "nombre": "Otras provincias",
+   "tipo": "Número",
+   "valores": "18,8 a 54,5"
+  },
+  {
+   "nombre": "Otro país",
+   "tipo": "Número",
+   "valores": "0 a 4"
+  },
+  {
+   "nombre": "ministros",
+   "tipo": "Número",
+   "valores": "12 a 40"
+  },
+  {
+   "nombre": "con_dato",
+   "tipo": "Número",
+   "valores": "11 a 40"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "Ministros con rango de ministro y jefes de gabinete desde el 10 de diciembre de 1983. Cada persona cuenta una vez por gobierno aunque haya ocupado varios ministerios, y en la vista por provincia cuenta una sola vez. No se incluyen las secretarías de gobierno de 2018 a 2019, que no tenían rango de ministro. Los porcentajes se calculan sobre quienes tienen lugar de nacimiento conocido. Tabla armada con los anexos de gabinete de Wikipedia, revisados contra los anexos de cada ministerio y contra Wikidata. Las correcciones están anotadas en la tabla.",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

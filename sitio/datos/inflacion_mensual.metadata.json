@@ -1,0 +1,99 @@
+{
+ "tabla": "inflacion_mensual.csv",
+ "titulo": "¿Cuánto suben los precios en cada región?",
+ "descripcion": "Variación de los precios al consumidor en el país y en las seis regiones del INDEC, 2017 a 2026",
+ "seccion": "Precios y actividad",
+ "ficha": "https://datina.pages.dev/economia.html#f-inflacion",
+ "fuente": "INDEC, Índice de precios al consumidor.",
+ "actualizacion": "Se actualiza cada mes.",
+ "cobertura": "Sin desglose territorial",
+ "periodo": "diciembre de 2016 a septiembre de 2026",
+ "filas": 118,
+ "columnas": [
+  {
+   "nombre": "periodo",
+   "tipo": "Fecha",
+   "valores": "diciembre de 2016 a septiembre de 2026"
+  },
+  {
+   "nombre": "indice",
+   "tipo": "Número",
+   "valores": "100 a 12.514,15"
+  },
+  {
+   "nombre": "mensual",
+   "tipo": "Número",
+   "valores": "1,2 a 25,5 (1 celda vacía)"
+  },
+  {
+   "nombre": "interanual",
+   "tipo": "Número",
+   "valores": "24,8 a 289,4 (12 celdas vacías)"
+  },
+  {
+   "nombre": "mensual_gba",
+   "tipo": "Número",
+   "valores": "1,2 a 25,1 (1 celda vacía)"
+  },
+  {
+   "nombre": "mensual_pampeana",
+   "tipo": "Número",
+   "valores": "1 a 25,7 (1 celda vacía)"
+  },
+  {
+   "nombre": "mensual_noreste",
+   "tipo": "Número",
+   "valores": "1,1 a 28,4 (1 celda vacía)"
+  },
+  {
+   "nombre": "mensual_noroeste",
+   "tipo": "Número",
+   "valores": "0,9 a 25,2 (1 celda vacía)"
+  },
+  {
+   "nombre": "mensual_cuyo",
+   "tipo": "Número",
+   "valores": "1 a 25,8 (1 celda vacía)"
+  },
+  {
+   "nombre": "mensual_patagonia",
+   "tipo": "Número",
+   "valores": "0,6 a 24,3 (1 celda vacía)"
+  },
+  {
+   "nombre": "interanual_gba",
+   "tipo": "Número",
+   "valores": "25 a 292,2 (12 celdas vacías)"
+  },
+  {
+   "nombre": "interanual_pampeana",
+   "tipo": "Número",
+   "valores": "25 a 288,9 (12 celdas vacías)"
+  },
+  {
+   "nombre": "interanual_noreste",
+   "tipo": "Número",
+   "valores": "22,3 a 286,2 (12 celdas vacías)"
+  },
+  {
+   "nombre": "interanual_noroeste",
+   "tipo": "Número",
+   "valores": "24,3 a 282,2 (12 celdas vacías)"
+  },
+  {
+   "nombre": "interanual_cuyo",
+   "tipo": "Número",
+   "valores": "25,3 a 284,1 (12 celdas vacías)"
+  },
+  {
+   "nombre": "interanual_patagonia",
+   "tipo": "Número",
+   "valores": "23,5 a 293,5 (12 celdas vacías)"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

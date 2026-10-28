@@ -1,0 +1,104 @@
+{
+ "tabla": "departamentos.csv",
+ "titulo": "¿Cómo varía cada indicador de un departamento a otro?",
+ "descripcion": "",
+ "seccion": "Departamentos",
+ "ficha": "https://datina.pages.dev/departamentos.html#f-mapa",
+ "fuente": "SNIC (Ministerio de Seguridad Nacional), RENAPER, INDEC (Censo 2022) y Georef (IGN)",
+ "actualizacion": "",
+ "cobertura": "Departamentos",
+ "periodo": "",
+ "filas": 527,
+ "columnas": [
+  {
+   "nombre": "id",
+   "tipo": "Código",
+   "valores": "527 códigos"
+  },
+  {
+   "nombre": "homicidios",
+   "tipo": "Número",
+   "valores": "0 a 24,47"
+  },
+  {
+   "nombre": "viales",
+   "tipo": "Número",
+   "valores": "0 a 259,17"
+  },
+  {
+   "nombre": "robos",
+   "tipo": "Número",
+   "valores": "0 a 3.103,07"
+  },
+  {
+   "nombre": "poblacion_identificada",
+   "tipo": "Número",
+   "valores": "295 a 3.368.589"
+  },
+  {
+   "nombre": "mayores_65",
+   "tipo": "Número",
+   "valores": "3,77 a 20,88"
+  },
+  {
+   "nombre": "menores_15",
+   "tipo": "Número",
+   "valores": "13,14 a 32,92"
+  },
+  {
+   "nombre": "provincia",
+   "tipo": "Texto",
+   "valores": "24 valores distintos"
+  },
+  {
+   "nombre": "hogares",
+   "tipo": "Número",
+   "valores": "179 a 576.586"
+  },
+  {
+   "nombre": "pct_alquila",
+   "tipo": "Número",
+   "valores": "0,51 a 48,33"
+  },
+  {
+   "nombre": "pct_hacinamiento",
+   "tipo": "Número",
+   "valores": "0 a 23,03"
+  },
+  {
+   "nombre": "pct_materiales_4",
+   "tipo": "Número",
+   "valores": "0,15 a 81,27"
+  },
+  {
+   "nombre": "pct_gas_red",
+   "tipo": "Número",
+   "valores": "0 a 96,06"
+  },
+  {
+   "nombre": "pct_lena",
+   "tipo": "Número",
+   "valores": "0,02 a 72,41"
+  },
+  {
+   "nombre": "pct_uso_temporal",
+   "tipo": "Número",
+   "valores": "0,05 a 58,55"
+  },
+  {
+   "nombre": "nacidos_otro_pais",
+   "tipo": "Número",
+   "valores": "0,06 a 24,56"
+  },
+  {
+   "nombre": "nacidos_otra_provincia",
+   "tipo": "Número",
+   "valores": "2,39 a 69,32"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

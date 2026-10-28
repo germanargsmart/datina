@@ -1,0 +1,44 @@
+{
+ "tabla": "obra_publica_serie.csv",
+ "titulo": "¿Cuánta obra pública paga la Nación en cada provincia?",
+ "descripcion": "Gasto de la Nación en obra pública, en pesos de 2025: por habitante en cada provincia y en total, 2000 a 2025",
+ "seccion": "Construcción y vivienda",
+ "ficha": "https://datina.pages.dev/construccion.html#f-obra-publica",
+ "fuente": "Presupuesto Abierto, Secretaría de Hacienda del Ministerio de Economía, ejecución del gasto de la Administración Pública Nacional (crédito devengado).",
+ "actualizacion": "Se actualiza cada año.",
+ "cobertura": "Sin desglose territorial",
+ "periodo": "2000 a 2025",
+ "filas": 26,
+ "columnas": [
+  {
+   "nombre": "anio",
+   "tipo": "Año",
+   "valores": "2000 a 2025"
+  },
+  {
+   "nombre": "obras",
+   "tipo": "Número",
+   "valores": "371,3 a 4.893,9"
+  },
+  {
+   "nombre": "transf",
+   "tipo": "Número",
+   "valores": "138,5 a 9.118,2"
+  },
+  {
+   "nombre": "total",
+   "tipo": "Número",
+   "valores": "661,7 a 13.225,4"
+  },
+  {
+   "nombre": "obras_sin_provincia",
+   "tipo": "Número",
+   "valores": "22 a 1.555,8"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

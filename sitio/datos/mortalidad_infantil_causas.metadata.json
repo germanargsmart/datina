@@ -1,0 +1,109 @@
+{
+ "tabla": "mortalidad_infantil_causas.csv",
+ "titulo": "¿De qué mueren los bebés antes de cumplir un año?",
+ "descripcion": "Muertes de menores de un año por grupo de causa y provincia, 2022 a 2024",
+ "seccion": "Salud",
+ "ficha": "https://datina.pages.dev/salud.html#f-causas-infantiles",
+ "fuente": "DEIS, Ministerio de Salud, defunciones por causa y nacidos vivos, e INDEC, Censo 2022.",
+ "actualizacion": "Se actualiza cada año.",
+ "cobertura": "Las 24 jurisdicciones y el total del país",
+ "periodo": "",
+ "filas": 25,
+ "columnas": [
+  {
+   "nombre": "codigo_indec",
+   "tipo": "Código",
+   "valores": "25 códigos"
+  },
+  {
+   "nombre": "perinatales",
+   "tipo": "Número",
+   "valores": "41,7 a 68,7"
+  },
+  {
+   "nombre": "malformaciones",
+   "tipo": "Número",
+   "valores": "17,8 a 40,6"
+  },
+  {
+   "nombre": "respiratorias",
+   "tipo": "Número",
+   "valores": "1,1 a 12,6"
+  },
+  {
+   "nombre": "infecciosas",
+   "tipo": "Número",
+   "valores": "0 a 6,5"
+  },
+  {
+   "nombre": "externas",
+   "tipo": "Número",
+   "valores": "0 a 8,3"
+  },
+  {
+   "nombre": "mal_definidas",
+   "tipo": "Número",
+   "valores": "0 a 9,6"
+  },
+  {
+   "nombre": "otras",
+   "tipo": "Número",
+   "valores": "0 a 8,4"
+  },
+  {
+   "nombre": "territorio",
+   "tipo": "Texto",
+   "valores": "25 valores distintos"
+  },
+  {
+   "nombre": "tasa",
+   "tipo": "Número",
+   "valores": "5,5 a 13"
+  },
+  {
+   "nombre": "muertes",
+   "tipo": "Número",
+   "valores": "25 a 11.364"
+  },
+  {
+   "nombre": "tasa_perinatales",
+   "tipo": "Número",
+   "valores": "2,99 a 8,23"
+  },
+  {
+   "nombre": "tasa_malformaciones",
+   "tipo": "Número",
+   "valores": "1,14 a 3,02"
+  },
+  {
+   "nombre": "tasa_respiratorias",
+   "tipo": "Número",
+   "valores": "0,09 a 1,11"
+  },
+  {
+   "nombre": "tasa_infecciosas",
+   "tipo": "Número",
+   "valores": "0 a 0,62"
+  },
+  {
+   "nombre": "tasa_externas",
+   "tipo": "Número",
+   "valores": "0 a 0,62"
+  },
+  {
+   "nombre": "tasa_mal_definidas",
+   "tipo": "Número",
+   "valores": "0 a 0,72"
+  },
+  {
+   "nombre": "tasa_otras",
+   "tipo": "Número",
+   "valores": "0 a 0,89"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

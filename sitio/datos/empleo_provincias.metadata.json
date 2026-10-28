@@ -1,0 +1,54 @@
+{
+ "tabla": "empleo_provincias.csv",
+ "titulo": "¿Cuánto empleo privado registrado hay en cada provincia?",
+ "descripcion": "Asalariados privados registrados por provincia, junio de 2026",
+ "seccion": "Trabajo",
+ "ficha": "https://datina.pages.dev/trabajo.html#f-empleo",
+ "fuente": "SIPA, publicado por la Subsecretaría de Programación Macroeconómica.",
+ "actualizacion": "Se actualiza cada mes.",
+ "cobertura": "Las 24 jurisdicciones",
+ "periodo": "",
+ "filas": 24,
+ "columnas": [
+  {
+   "nombre": "codigo_indec",
+   "tipo": "Código",
+   "valores": "24 códigos"
+  },
+  {
+   "nombre": "miles",
+   "tipo": "Número",
+   "valores": "21,95 a 1.917,49"
+  },
+  {
+   "nombre": "miles_hace12",
+   "tipo": "Número",
+   "valores": "23,14 a 1.966,05"
+  },
+  {
+   "nombre": "poblacion",
+   "tipo": "Número",
+   "valores": "182.003 a 17.443.372"
+  },
+  {
+   "nombre": "cada_100",
+   "tipo": "Número",
+   "valores": "3,5 a 48"
+  },
+  {
+   "nombre": "var_12m",
+   "tipo": "Número",
+   "valores": "-13,13 a 5,22"
+  },
+  {
+   "nombre": "territorio",
+   "tipo": "Texto",
+   "valores": "24 valores distintos"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "El SIPA, el registro de la seguridad social, cuenta a cada persona en la provincia donde la declara su empleador, que puede no ser la provincia donde vive. Por eso CABA suma a muchas personas que viven en el Gran Buenos Aires y trabajan allí. La población es la proyección 2025 del INDEC.",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

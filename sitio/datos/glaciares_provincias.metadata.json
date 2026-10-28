@@ -1,0 +1,34 @@
+{
+ "tabla": "glaciares_provincias.csv",
+ "titulo": "¿Cuántos glaciares tiene cada provincia?",
+ "descripcion": "Glaciares y cuerpos de hielo inventariados, por provincia",
+ "seccion": "Naturaleza y ambiente",
+ "ficha": "https://datina.pages.dev/naturaleza.html#f-glaciares",
+ "fuente": "Inventario Nacional de Glaciares (IANIGLA), vía Ministerio de Ambiente (CIAM).",
+ "actualizacion": "Se actualiza con cada inventario.",
+ "cobertura": "12 jurisdicciones",
+ "periodo": "",
+ "filas": 12,
+ "columnas": [
+  {
+   "nombre": "codigo_indec",
+   "tipo": "Código",
+   "valores": "12 códigos"
+  },
+  {
+   "nombre": "glaciares",
+   "tipo": "Número",
+   "valores": "122 a 4.572"
+  },
+  {
+   "nombre": "territorio",
+   "tipo": "Texto",
+   "valores": "12 valores distintos"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

@@ -1,0 +1,84 @@
+{
+ "tabla": "corte_jueces_fuentes.csv",
+ "titulo": "¿Qué gobierno designó a cada juez de la Corte Suprema?",
+ "descripcion": "Cada juez de la Corte Suprema de Justicia de la Nación desde 1863, cuánto estuvo en el cargo y qué gobierno lo designó, con la composición de cada año y las leyes que fijaron cuántos jueces tiene.",
+ "seccion": "Laboratorio",
+ "ficha": "https://datina.pages.dev/corte-suprema.html",
+ "fuente": "",
+ "actualizacion": "",
+ "cobertura": "Sin desglose territorial",
+ "periodo": "",
+ "filas": 116,
+ "columnas": [
+  {
+   "nombre": "orden",
+   "tipo": "Número",
+   "valores": "1 a 116"
+  },
+  {
+   "nombre": "nombre",
+   "tipo": "Texto",
+   "valores": "108 valores distintos"
+  },
+  {
+   "nombre": "fecha_decreto",
+   "tipo": "Fecha",
+   "valores": "18 de octubre de 1862 a 25 de febrero de 2025 (6 celdas vacías)"
+  },
+  {
+   "nombre": "fecha_jura",
+   "tipo": "Fecha",
+   "valores": "15 de enero de 1863 a 27 de febrero de 2025 (65 celdas vacías)"
+  },
+  {
+   "nombre": "fecha_cese",
+   "tipo": "Fecha",
+   "valores": "12 de octubre de 1868 a 7 de abril de 2025 (3 celdas vacías)"
+  },
+  {
+   "nombre": "motivo_cese",
+   "tipo": "Texto",
+   "valores": "8 valores distintos"
+  },
+  {
+   "nombre": "designado_por",
+   "tipo": "Texto",
+   "valores": "35 valores distintos"
+  },
+  {
+   "nombre": "gobierno",
+   "tipo": "Texto",
+   "valores": "constitucional, de facto, provisional"
+  },
+  {
+   "nombre": "acuerdo_senado",
+   "tipo": "Texto",
+   "valores": "no, no corresponde, sí"
+  },
+  {
+   "nombre": "presidente_de_la_corte",
+   "tipo": "Texto",
+   "valores": "no, sí"
+  },
+  {
+   "nombre": "fuentes",
+   "tipo": "Texto",
+   "valores": "115 valores distintos"
+  },
+  {
+   "nombre": "notas",
+   "tipo": "Texto",
+   "valores": "114 valores distintos"
+  },
+  {
+   "nombre": "tipo_designacion",
+   "tipo": "Texto",
+   "valores": "confirmación, original, segunda designación"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

@@ -1,0 +1,44 @@
+{
+ "tabla": "salarios_provincias.csv",
+ "titulo": "¿Dónde se gana más en un empleo privado registrado?",
+ "descripcion": "Salario bruto promedio de los asalariados registrados del sector privado, por provincia, mayo de 2026",
+ "seccion": "Trabajo",
+ "ficha": "https://datina.pages.dev/trabajo.html#f-salarios",
+ "fuente": "Observatorio de Empleo y Dinámica Empresarial (OEDE), Secretaría de Trabajo, Ministerio de Capital Humano, con datos del Sistema Integrado Previsional Argentino (SIPA), e INDEC, índice de precios al consumidor.",
+ "actualizacion": "Se actualiza cada tres meses.",
+ "cobertura": "Las 24 jurisdicciones y el total del país",
+ "periodo": "",
+ "filas": 25,
+ "columnas": [
+  {
+   "nombre": "codigo_indec",
+   "tipo": "Código",
+   "valores": "25 códigos"
+  },
+  {
+   "nombre": "territorio",
+   "tipo": "Texto",
+   "valores": "25 valores distintos"
+  },
+  {
+   "nombre": "salario",
+   "tipo": "Número",
+   "valores": "1.377.564,66 a 4.094.578,93"
+  },
+  {
+   "nombre": "salario_ant",
+   "tipo": "Número",
+   "valores": "1.053.955,12 a 3.013.276,59"
+  },
+  {
+   "nombre": "var_real_12m",
+   "tipo": "Número",
+   "valores": "-3,7 a 2,69"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

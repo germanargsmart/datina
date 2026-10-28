@@ -1,0 +1,49 @@
+{
+ "tabla": "exportaciones_rubros_anual.csv",
+ "titulo": "¿Qué exporta la Argentina?",
+ "descripcion": "Exportaciones de bienes por gran rubro, en millones de dólares por año, 2004 a 2025",
+ "seccion": "Sector externo",
+ "ficha": "https://datina.pages.dev/externo.html#f-exporta-rubros",
+ "fuente": "INDEC, intercambio comercial argentino, vía la API de Series de Tiempo.",
+ "actualizacion": "Se actualiza cada mes.",
+ "cobertura": "Sin desglose territorial",
+ "periodo": "2004 a 2025",
+ "filas": 22,
+ "columnas": [
+  {
+   "nombre": "anio",
+   "tipo": "Año",
+   "valores": "2004 a 2025"
+  },
+  {
+   "nombre": "total",
+   "tipo": "Número",
+   "valores": "34.575,7 a 88.445"
+  },
+  {
+   "nombre": "primarios",
+   "tipo": "Número",
+   "valores": "6.852 a 23.829"
+  },
+  {
+   "nombre": "moa",
+   "tipo": "Número",
+   "valores": "11.926,3 a 33.055"
+  },
+  {
+   "nombre": "moi",
+   "tipo": "Número",
+   "valores": "9.616,4 a 28.790,3"
+  },
+  {
+   "nombre": "combustibles",
+   "tipo": "Número",
+   "valores": "2.034,7 a 11.100,2"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

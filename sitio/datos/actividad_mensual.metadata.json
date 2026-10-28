@@ -1,0 +1,44 @@
+{
+ "tabla": "actividad_mensual.csv",
+ "titulo": "¿Cuánto crece o cae la actividad económica?",
+ "descripcion": "Estimador Mensual de Actividad Económica del INDEC (índice 2004 = 100) y sus sectores, 2004 a 2026",
+ "seccion": "Precios y actividad",
+ "ficha": "https://datina.pages.dev/economia.html#f-emae",
+ "fuente": "INDEC, Estimador Mensual de Actividad Económica.",
+ "actualizacion": "Se actualiza cada mes.",
+ "cobertura": "Sin desglose territorial",
+ "periodo": "enero de 2004 a agosto de 2026",
+ "filas": 272,
+ "columnas": [
+  {
+   "nombre": "periodo",
+   "tipo": "Fecha",
+   "valores": "enero de 2004 a agosto de 2026"
+  },
+  {
+   "nombre": "original",
+   "tipo": "Número",
+   "valores": "90,19 a 168,89"
+  },
+  {
+   "nombre": "interanual",
+   "tipo": "Número",
+   "valores": "-24,43 a 30 (12 celdas vacías)"
+  },
+  {
+   "nombre": "desestacionalizada",
+   "tipo": "Número",
+   "valores": "95,45 a 156,78"
+  },
+  {
+   "nombre": "mensual_desest",
+   "tipo": "Número",
+   "valores": "-15,64 a 10,54 (1 celda vacía)"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

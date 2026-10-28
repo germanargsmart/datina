@@ -1,0 +1,59 @@
+{
+ "tabla": "costo_construccion.csv",
+ "titulo": "¿Cuánto subió el costo de construir frente a los precios?",
+ "descripcion": "Costo de construir en el Gran Buenos Aires dividido por los precios al consumidor (diciembre de 2016 = 100), diciembre de 2016 a septiembre de 2026",
+ "seccion": "Construcción y vivienda",
+ "ficha": "https://datina.pages.dev/construccion.html#f-costo",
+ "fuente": "INDEC, Índice del Costo de la Construcción (Gran Buenos Aires) e Índice de Precios al Consumidor.",
+ "actualizacion": "Se actualiza cada mes.",
+ "cobertura": "Sin desglose territorial",
+ "periodo": "diciembre de 2016 a septiembre de 2026",
+ "filas": 118,
+ "columnas": [
+  {
+   "nombre": "periodo",
+   "tipo": "Fecha",
+   "valores": "diciembre de 2016 a septiembre de 2026"
+  },
+  {
+   "nombre": "icc",
+   "tipo": "Número",
+   "valores": "100 a 10.899,01"
+  },
+  {
+   "nombre": "materiales",
+   "tipo": "Número",
+   "valores": "100 a 12.223,53"
+  },
+  {
+   "nombre": "mano_obra",
+   "tipo": "Número",
+   "valores": "100 a 9.793,67 (1 celda vacía)"
+  },
+  {
+   "nombre": "ipc",
+   "tipo": "Número",
+   "valores": "100 a 12.514,15"
+  },
+  {
+   "nombre": "icc_real",
+   "tipo": "Número",
+   "valores": "84,63 a 105,97"
+  },
+  {
+   "nombre": "materiales_real",
+   "tipo": "Número",
+   "valores": "97,68 a 165,69"
+  },
+  {
+   "nombre": "mano_obra_real",
+   "tipo": "Número",
+   "valores": "60,59 a 109,44 (1 celda vacía)"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

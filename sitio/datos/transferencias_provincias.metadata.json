@@ -1,0 +1,79 @@
+{
+ "tabla": "transferencias_provincias.csv",
+ "titulo": "¿Cuánto recibe cada provincia en transferencias no automáticas de la Nación?",
+ "descripcion": "Aportes del Tesoro Nacional (ATN) y otras transferencias no automáticas de la Nación a las provincias, descontada la inflación, en pesos de 2025, 2000 a 2025",
+ "seccion": "Instituciones políticas",
+ "ficha": "https://datina.pages.dev/politica.html#f-atn",
+ "fuente": "Presupuesto Abierto, Secretaría de Hacienda (crédito devengado), INDEC y Banco Mundial.",
+ "actualizacion": "Se actualiza cada año.",
+ "cobertura": "Las 24 jurisdicciones",
+ "periodo": "2000 a 2025",
+ "filas": 624,
+ "columnas": [
+  {
+   "nombre": "anio",
+   "tipo": "Año",
+   "valores": "2000 a 2025"
+  },
+  {
+   "nombre": "codigo_indec",
+   "tipo": "Código",
+   "valores": "24 códigos"
+  },
+  {
+   "nombre": "territorio",
+   "tipo": "Texto",
+   "valores": "24 valores distintos"
+  },
+  {
+   "nombre": "atn",
+   "tipo": "Número",
+   "valores": "0 a 432.428,02"
+  },
+  {
+   "nombre": "otras",
+   "tipo": "Número",
+   "valores": "4.777,03 a 4.527.337,37"
+  },
+  {
+   "nombre": "ley",
+   "tipo": "Número",
+   "valores": "0 a 1.073.743,83"
+  },
+  {
+   "nombre": "atn_hab",
+   "tipo": "Número",
+   "valores": "0 a 206.374"
+  },
+  {
+   "nombre": "otras_hab",
+   "tipo": "Número",
+   "valores": "7.078 a 3.905.655"
+  },
+  {
+   "nombre": "ley_hab",
+   "tipo": "Número",
+   "valores": "0 a 3.156.178"
+  },
+  {
+   "nombre": "atn_indice",
+   "tipo": "Número",
+   "valores": "0 a 3.658,9"
+  },
+  {
+   "nombre": "otras_indice",
+   "tipo": "Número",
+   "valores": "15,8 a 1.977,2"
+  },
+  {
+   "nombre": "pob",
+   "tipo": "Número",
+   "valores": "97.230 a 17.709.598"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

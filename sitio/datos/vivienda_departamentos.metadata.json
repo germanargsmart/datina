@@ -1,0 +1,84 @@
+{
+ "tabla": "vivienda_departamentos.csv",
+ "titulo": "¿Qué parte de los hogares cocina con gas de red?",
+ "descripcion": "Hogares según el combustible que usan principalmente para cocinar, por provincia y departamento, Censo 2022",
+ "seccion": "Energía",
+ "ficha": "https://datina.pages.dev/energia.html#f-gas-hogares",
+ "fuente": "INDEC, Censo Nacional de Población, Hogares y Viviendas 2022, resultados por radio censal.",
+ "actualizacion": "Se actualiza con cada censo.",
+ "cobertura": "Departamentos",
+ "periodo": "",
+ "filas": 527,
+ "columnas": [
+  {
+   "nombre": "codigo_dep",
+   "tipo": "Código",
+   "valores": "527 códigos"
+  },
+  {
+   "nombre": "hogares",
+   "tipo": "Número",
+   "valores": "179 a 576.586"
+  },
+  {
+   "nombre": "pct_gas_red",
+   "tipo": "Número",
+   "valores": "0 a 96,06"
+  },
+  {
+   "nombre": "pct_garrafa",
+   "tipo": "Número",
+   "valores": "0,61 a 94,87"
+  },
+  {
+   "nombre": "pct_lena",
+   "tipo": "Número",
+   "valores": "0,02 a 72,41"
+  },
+  {
+   "nombre": "pct_alquila",
+   "tipo": "Número",
+   "valores": "0,51 a 48,33"
+  },
+  {
+   "nombre": "pct_hacinamiento",
+   "tipo": "Número",
+   "valores": "0 a 23,03"
+  },
+  {
+   "nombre": "pct_materiales_4",
+   "tipo": "Número",
+   "valores": "0,15 a 81,27"
+  },
+  {
+   "nombre": "pct_uso_temporal",
+   "tipo": "Número",
+   "valores": "0,05 a 58,55"
+  },
+  {
+   "nombre": "pct_alquiler_venta",
+   "tipo": "Número",
+   "valores": "0 a 6,56"
+  },
+  {
+   "nombre": "construccion_cada_1000",
+   "tipo": "Número",
+   "valores": "3,54 a 81,35"
+  },
+  {
+   "nombre": "pct_ocupados_construccion",
+   "tipo": "Número",
+   "valores": "2,05 a 29,43"
+  },
+  {
+   "nombre": "pct_ocupados_minas",
+   "tipo": "Número",
+   "valores": "0 a 14,41"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

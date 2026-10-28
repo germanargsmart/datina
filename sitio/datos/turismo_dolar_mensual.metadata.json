@@ -1,0 +1,149 @@
+{
+ "tabla": "turismo_dolar_mensual.csv",
+ "titulo": "¿Llegan más turistas y viajan menos residentes al exterior cuando el dólar está caro?",
+ "descripcion": "Cuántos turistas extranjeros llegan y cuántos residentes viajan al exterior, mes por mes, frente al dólar en términos reales.",
+ "seccion": "Turismo",
+ "ficha": "https://datina.pages.dev/a-turismo-dolar.html",
+ "fuente": "Ministerio de Turismo y Deportes, SINTA, estimación de turismo internacional (viajes de turistas no residentes y residentes), y Banco Central de la República Argentina, índices de tipo de cambio real multilateral y bilaterales",
+ "actualizacion": "Se actualiza cada mes.",
+ "cobertura": "Sin desglose territorial",
+ "periodo": "enero de 2010 a agosto de 2026",
+ "filas": 200,
+ "columnas": [
+  {
+   "nombre": "mes",
+   "tipo": "Fecha",
+   "valores": "enero de 2010 a agosto de 2026"
+  },
+  {
+   "nombre": "llegan",
+   "tipo": "Número",
+   "valores": "0 a 898.289"
+  },
+  {
+   "nombre": "salen",
+   "tipo": "Número",
+   "valores": "0 a 1.982.749 (72 celdas vacías)"
+  },
+  {
+   "nombre": "llegan_brasil",
+   "tipo": "Número",
+   "valores": "0 a 190.527"
+  },
+  {
+   "nombre": "llegan_chile",
+   "tipo": "Número",
+   "valores": "0 a 242.582"
+  },
+  {
+   "nombre": "llegan_uruguay",
+   "tipo": "Número",
+   "valores": "0 a 185.886"
+  },
+  {
+   "nombre": "tcr_itcrm",
+   "tipo": "Número",
+   "valores": "75,43 a 141,43"
+  },
+  {
+   "nombre": "tcr_brasil",
+   "tipo": "Número",
+   "valores": "72,77 a 182,06"
+  },
+  {
+   "nombre": "tcr_chile",
+   "tipo": "Número",
+   "valores": "75,13 a 143,93"
+  },
+  {
+   "nombre": "tcr_uruguay",
+   "tipo": "Número",
+   "valores": "75,61 a 157,01"
+  },
+  {
+   "nombre": "pandemia",
+   "tipo": "Texto",
+   "valores": "False, True"
+  },
+  {
+   "nombre": "var_llegan",
+   "tipo": "Texto",
+   "valores": "184 valores distintos (12 celdas vacías)"
+  },
+  {
+   "nombre": "var_salen",
+   "tipo": "Texto",
+   "valores": "112 valores distintos (84 celdas vacías)"
+  },
+  {
+   "nombre": "var_llegan_brasil",
+   "tipo": "Texto",
+   "valores": "184 valores distintos (12 celdas vacías)"
+  },
+  {
+   "nombre": "var_llegan_chile",
+   "tipo": "Texto",
+   "valores": "184 valores distintos (12 celdas vacías)"
+  },
+  {
+   "nombre": "var_llegan_uruguay",
+   "tipo": "Texto",
+   "valores": "184 valores distintos (12 celdas vacías)"
+  },
+  {
+   "nombre": "var_tcr_itcrm",
+   "tipo": "Número",
+   "valores": "-39,98 a 50,72 (12 celdas vacías)"
+  },
+  {
+   "nombre": "var_tcr_brasil",
+   "tipo": "Número",
+   "valores": "-45,71 a 49,29 (12 celdas vacías)"
+  },
+  {
+   "nombre": "var_tcr_chile",
+   "tipo": "Número",
+   "valores": "-39,38 a 54,17 (12 celdas vacías)"
+  },
+  {
+   "nombre": "var_tcr_uruguay",
+   "tipo": "Número",
+   "valores": "-39,99 a 54,56 (12 celdas vacías)"
+  },
+  {
+   "nombre": "var_valida",
+   "tipo": "Texto",
+   "valores": "False, True"
+  },
+  {
+   "nombre": "llegan_12m",
+   "tipo": "Número",
+   "valores": "92.253 a 7.638.396 (11 celdas vacías)"
+  },
+  {
+   "nombre": "salen_12m",
+   "tipo": "Número",
+   "valores": "325.350 a 12.471.336 (83 celdas vacías)"
+  },
+  {
+   "nombre": "balanza_12m",
+   "tipo": "Número",
+   "valores": "-6.216.033 a 492.411 (83 celdas vacías)"
+  },
+  {
+   "nombre": "tcr_12m",
+   "tipo": "Número",
+   "valores": "82,72 a 130,23 (11 celdas vacías)"
+  },
+  {
+   "nombre": "doce_validos",
+   "tipo": "Texto",
+   "valores": "False, True"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

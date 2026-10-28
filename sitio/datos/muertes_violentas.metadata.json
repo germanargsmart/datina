@@ -1,0 +1,44 @@
+{
+ "tabla": "muertes_violentas.csv",
+ "titulo": "Muertes por suicidio, homicidio, siniestros viales y femicidio, 2000 a 2025",
+ "descripcion": "",
+ "seccion": "Salud",
+ "ficha": "https://datina.pages.dev/salud.html#f-muertes",
+ "fuente": "SNIC, Ministerio de Seguridad Nacional, y Registro Nacional de Femicidios de la Justicia Argentina, Corte Suprema.",
+ "actualizacion": "Se actualiza cada año.",
+ "cobertura": "Sin desglose territorial",
+ "periodo": "2000 a 2025",
+ "filas": 26,
+ "columnas": [
+  {
+   "nombre": "anio",
+   "tipo": "Año",
+   "valores": "2000 a 2025"
+  },
+  {
+   "nombre": "homicidios",
+   "tipo": "Número",
+   "valores": "1.676 a 3.571"
+  },
+  {
+   "nombre": "siniestros_viales",
+   "tipo": "Número",
+   "valores": "2.983 a 4.803"
+  },
+  {
+   "nombre": "suicidios",
+   "tipo": "Número",
+   "valores": "2.712 a 5.209"
+  },
+  {
+   "nombre": "femicidios",
+   "tipo": "Número",
+   "valores": "226 a 260 (18 celdas vacías)"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

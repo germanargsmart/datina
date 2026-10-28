@@ -17,6 +17,23 @@ import { abrirChrome } from "./cdp.mjs";
 
 // ficha -> motivo. Solo fichas cuya cifra destacada es, a propósito, un dato que no está escrito en la vista inicial
 const EXCEPCIONES = {
+  "f-envejecimiento": "el gráfico y «Ver tabla» muestran cada provincia en los dos años, y el valor del país, que contesta la pregunta, va en el texto",
+  "f-pensiones-invalidez": "el mapa y «Ver tabla» muestran cada provincia, y el valor del país cada 1.000 habitantes, que contesta la pregunta, va en el texto",
+};
+// D8 (28 de octubre de 2026): toda ficha lleva cifra destacada, salvo las de estas excepciones, que dice la regla de .claude/rules/visualizaciones.md.
+// La prueba falla si una ficha no tiene cifra y no está acá, o si una de acá tiene cifra
+const POLITICA = "Instituciones políticas: ningún resultado político se destaca sobre otro, sus cifras van en el texto y en «En cifras»";
+const SENSIBLE = "suicidio y muertes violentas: sin cifra destacada por la regla de temas sensibles";
+const ENCUESTA = "encuesta de opinión: un número grande sugiere una precisión que la encuesta no tiene";
+const RELACION = "relación entre dos medidas: la respuesta es la relación, que el texto dice con la escala de fuerza";
+const REPARTO = "cómo se reparte un total (por edad o por causa): ningún número solo contesta la pregunta";
+const SIN_CIFRA = {
+  "f-elecciones": POLITICA, "f-presidentes": POLITICA, "f-ministros": POLITICA, "f-confianza-gobierno": POLITICA, "f-legisladores": POLITICA,
+  "f-representacion": POLITICA, "f-congreso": POLITICA, "f-votaciones": POLITICA, "f-voto-provincia": POLITICA, "f-presupuesto": POLITICA, "f-atn": POLITICA,
+  "f-muertes": SENSIBLE, "f-suicidio": SENSIBLE, "f-suicidio-prov": SENSIBLE, "f-edad": SENSIBLE,
+  "f-expectativas": ENCUESTA, "f-confianza-consumidor": ENCUESTA,
+  "f-adolescentes-nse": RELACION,
+  "f-piramide": REPARTO, "f-causas-infantiles": REPARTO,
 };
 // las que ya estaban así el 27 de octubre de 2026, sin revisar una por una (ver arriba). No se suman fichas nuevas a esta lista
 const SIN_REVISAR = new Set([
@@ -47,8 +64,9 @@ const PAGINAS = readdirSync(SITIO).filter(f => f.endsWith(".html") && !f.startsW
 const LEER = `(async () => {
   const fuera = [];
   for (const f of document.querySelectorAll("article.ficha")) {
-    // en una página con capítulos, solo las del capítulo a la vista (las de los otros no se dibujaron)
-    const num = f.querySelector(".clave .num"); if (!num || !f.offsetParent) continue;
+    // en una página con capítulos, solo las del capítulo a la vista (las de los otros no se dibujaron). Las herramientas no llevan cifra
+    const num = f.querySelector(".clave .num"); if (!f.offsetParent || f.closest(".herramienta")) continue;
+    if (!num) { fuera.push({id: f.id, sin: true}); continue; }
     const g = f.querySelector(".grafico");
     // los textos del SVG enteros (con sus tspan) y las hojas del HTML, separados para que dos números no se peguen
     const graf = g ? [...g.querySelectorAll("text"), ...[...g.querySelectorAll("span, b, div, li, td")].filter(e => !e.children.length)]
@@ -77,6 +95,7 @@ for (const pg of PAGINAS) {
   for (let i = 0, nc = await p.eval(`document.querySelectorAll(".capitulos a").length`); i < Math.max(nc, 1); i++) {
     if (i) { await p.eval(`document.querySelectorAll(".capitulos a")[${i}].click()`); await p.recorrer(); }
     for (const f of await p.eval(LEER)) {
+      if (f.sin) { if (SIN_CIFRA[f.id]) usadas.add(f.id); else fallas.push(`${pg}#${f.id}: no tiene cifra destacada y no es una de las excepciones (SIN_CIFRA)`); continue; }
       revisadas++;
       const n = numero(f.num);
       if (!n || esta(n, f.graf) || esta(n, f.tabla)) continue;
@@ -87,10 +106,11 @@ for (const pg of PAGINAS) {
 }
 await ch.cerrar(); servidor.close();
 for (const id of [...Object.keys(EXCEPCIONES), ...SIN_REVISAR]) if (!usadas.has(id)) fallas.push(`${id} está en una lista pero su cifra ya está en la vista inicial: sacarla`);
+for (const id of Object.keys(SIN_CIFRA)) if (!usadas.has(id)) fallas.push(`${id} está en SIN_CIFRA pero tiene cifra destacada o ya no existe: sacarla`);
 if (fallas.length) {
   console.error(`Cifras destacadas: ${fallas.length} con problemas`);
   for (const f of fallas) console.error("  " + f);
   process.exit(1);
 }
 console.log(`Cifras destacadas: ${revisadas} fichas en ${PAGINAS.length} páginas. Cada cifra está en su vista inicial, salvo ${Object.keys(EXCEPCIONES).length} ` +
-  `excepciones con motivo y ${SIN_REVISAR.size} fichas que ya estaban así y esperan revisión.`);
+  `excepciones con motivo y ${SIN_REVISAR.size} fichas que ya estaban así y esperan revisión. Sin cifra, ${Object.keys(SIN_CIFRA).length} fichas, todas con su motivo.`);

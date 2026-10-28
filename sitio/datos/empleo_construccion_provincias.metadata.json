@@ -1,0 +1,59 @@
+{
+ "tabla": "empleo_construccion_provincias.csv",
+ "titulo": "¿Cuántas personas trabajan en la construcción en cada provincia?",
+ "descripcion": "Asalariados registrados en la construcción privada, por provincia, primer trimestre de 2026, y porcentaje de las personas ocupadas que trabajan en la construcción, con o sin registro, por provincia y departamento, Censo 2022",
+ "seccion": "Construcción y vivienda",
+ "ficha": "https://datina.pages.dev/construccion.html#f-empleo-construccion",
+ "fuente": "Observatorio de Empleo y Dinámica Empresarial (OEDE), Secretaría de Trabajo, Ministerio de Capital Humano, con datos del Sistema Integrado Previsional Argentino (SIPA), e INDEC, Censo Nacional de Población, Hogares y Viviendas 2022, resultados por radio censal.",
+ "actualizacion": "Se actualiza cada tres meses.",
+ "cobertura": "Las 24 jurisdicciones",
+ "periodo": "",
+ "filas": 24,
+ "columnas": [
+  {
+   "nombre": "codigo_indec",
+   "tipo": "Código",
+   "valores": "24 códigos"
+  },
+  {
+   "nombre": "territorio",
+   "tipo": "Texto",
+   "valores": "24 valores distintos"
+  },
+  {
+   "nombre": "construccion",
+   "tipo": "Número",
+   "valores": "1.019 a 107.510"
+  },
+  {
+   "nombre": "construccion_cada_1000",
+   "tipo": "Número",
+   "valores": "2,52 a 35"
+  },
+  {
+   "nombre": "pct_construccion",
+   "tipo": "Número",
+   "valores": "2,91 a 15,36"
+  },
+  {
+   "nombre": "var_construccion",
+   "tipo": "Número",
+   "valores": "-25,89 a 45,6"
+  },
+  {
+   "nombre": "petroleo_gas",
+   "tipo": "Número",
+   "valores": "547 a 25.154 (15 celdas vacías)"
+  },
+  {
+   "nombre": "petroleo_gas_cada_1000",
+   "tipo": "Número",
+   "valores": "0,29 a 35,79 (15 celdas vacías)"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

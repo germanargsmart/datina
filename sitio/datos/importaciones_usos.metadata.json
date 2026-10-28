@@ -1,0 +1,59 @@
+{
+ "tabla": "importaciones_usos.csv",
+ "titulo": "¿Qué compra la Argentina?",
+ "descripcion": "Importaciones de bienes por uso económico, en millones de dólares por año, 1992 a 2025",
+ "seccion": "Sector externo",
+ "ficha": "https://datina.pages.dev/externo.html#f-importaciones",
+ "fuente": "INDEC, intercambio comercial argentino, vía la API de Series de Tiempo.",
+ "actualizacion": "Se actualiza cada mes.",
+ "cobertura": "Sin desglose territorial",
+ "periodo": "1992 a 2025",
+ "filas": 34,
+ "columnas": [
+  {
+   "nombre": "anio",
+   "tipo": "Año",
+   "valores": "1992 a 2025"
+  },
+  {
+   "nombre": "intermedios",
+   "tipo": "Número",
+   "valores": "4.345,1 a 30.012"
+  },
+  {
+   "nombre": "piezas",
+   "tipo": "Número",
+   "valores": "1.564,7 a 15.966,3"
+  },
+  {
+   "nombre": "capital",
+   "tipo": "Número",
+   "valores": "1.279,8 a 15.072,6"
+  },
+  {
+   "nombre": "consumo",
+   "tipo": "Número",
+   "valores": "1.134,9 a 11.401,4"
+  },
+  {
+   "nombre": "combustibles",
+   "tipo": "Número",
+   "valores": "386,7 a 12.868"
+  },
+  {
+   "nombre": "vehiculos",
+   "tipo": "Número",
+   "valores": "173,7 a 7.063,2"
+  },
+  {
+   "nombre": "resto",
+   "tipo": "Número",
+   "valores": "8,9 a 955,3"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

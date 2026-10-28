@@ -1,0 +1,64 @@
+{
+ "tabla": "coparticipacion_provincias.csv",
+ "titulo": "¿Cuánto recibe cada provincia por coparticipación?",
+ "descripcion": "Coparticipación federal y otros impuestos nacionales que se reparten por ley, por habitante y en % de los ingresos de cada provincia, 2025 (La Pampa, 2024)",
+ "seccion": "Cuentas públicas",
+ "ficha": "https://datina.pages.dev/gobierno.html#f-coparticipacion",
+ "fuente": "Ministerio de Economía, Dirección Nacional de Asuntos Provinciales, esquema ahorro inversión financiamiento, e INDEC, proyecciones de población.",
+ "actualizacion": "Se actualiza cada año.",
+ "cobertura": "Las 24 jurisdicciones",
+ "periodo": "2024 a 2025",
+ "filas": 24,
+ "columnas": [
+  {
+   "nombre": "codigo_indec",
+   "tipo": "Código",
+   "valores": "24 códigos"
+  },
+  {
+   "nombre": "territorio",
+   "tipo": "Texto",
+   "valores": "24 valores distintos"
+  },
+  {
+   "nombre": "anio",
+   "tipo": "Año",
+   "valores": "2024 a 2025"
+  },
+  {
+   "nombre": "millones",
+   "tipo": "Número",
+   "valores": "698.622,68 a 13.691.853,94"
+  },
+  {
+   "nombre": "ingresos_totales_millones",
+   "tipo": "Número",
+   "valores": "1.364.783,14 a 34.522.844,77"
+  },
+  {
+   "nombre": "por_habitante",
+   "tipo": "Número",
+   "valores": "425.433,97 a 3.838.522,87"
+  },
+  {
+   "nombre": "pct_ingresos",
+   "tipo": "Número",
+   "valores": "9,67 a 85,22"
+  },
+  {
+   "nombre": "pct_coparticipacion_federal",
+   "tipo": "Número",
+   "valores": "84,64 a 99,36"
+  },
+  {
+   "nombre": "pct_ingresos_ini",
+   "tipo": "Número",
+   "valores": "10,36 a 75,12"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

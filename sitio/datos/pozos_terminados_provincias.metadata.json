@@ -1,0 +1,64 @@
+{
+ "tabla": "pozos_terminados_provincias.csv",
+ "titulo": "¿Cuántos pozos se terminan y cuántas fracturas se hacen por año?",
+ "descripcion": "Etapas de fractura en formaciones no convencionales y diseño de los pozos de Vaca Muerta, 2013 a 2025, y pozos de petróleo y gas terminados por año y por tipo, 2009 a 2025, y por provincia, septiembre de 2025 a agosto de 2026",
+ "seccion": "Petróleo y gas",
+ "ficha": "https://datina.pages.dev/petroleo.html#f-fracturas",
+ "fuente": "Secretaría de Energía, datos de fractura de pozos de hidrocarburos (Adjunto IV) y perforación de pozos de petróleo y gas.",
+ "actualizacion": "Se actualiza cada año.",
+ "cobertura": "5 jurisdicciones",
+ "periodo": "",
+ "filas": 5,
+ "columnas": [
+  {
+   "nombre": "codigo_indec",
+   "tipo": "Código",
+   "valores": "5 códigos"
+  },
+  {
+   "nombre": "territorio",
+   "tipo": "Texto",
+   "valores": "Chubut, Mendoza, Neuquén, Río Negro, Santa Cruz"
+  },
+  {
+   "nombre": "explotacion",
+   "tipo": "Número",
+   "valores": "0 a 429"
+  },
+  {
+   "nombre": "exploracion",
+   "tipo": "Número",
+   "valores": "0 a 55"
+  },
+  {
+   "nombre": "avanzada",
+   "tipo": "Número",
+   "valores": "0 a 5"
+  },
+  {
+   "nombre": "servicio",
+   "tipo": "Número",
+   "valores": "0 a 22"
+  },
+  {
+   "nombre": "total",
+   "tipo": "Número",
+   "valores": "4 a 498"
+  },
+  {
+   "nombre": "total_antes",
+   "tipo": "Número",
+   "valores": "2 a 453"
+  },
+  {
+   "nombre": "pct",
+   "tipo": "Número",
+   "valores": "0,59 a 73,78"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

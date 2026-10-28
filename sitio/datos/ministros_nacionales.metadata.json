@@ -1,0 +1,64 @@
+{
+ "tabla": "ministros_nacionales.csv",
+ "titulo": "¿Dónde nacieron los ministros de cada gobierno?",
+ "descripcion": "Ministros nacionales y jefes de gabinete de cada gobierno según su lugar de nacimiento, desde 1983",
+ "seccion": "Instituciones políticas",
+ "ficha": "https://datina.pages.dev/politica.html#f-ministros",
+ "fuente": "Casa Rosada, Wikipedia y Wikidata.",
+ "actualizacion": "Se actualiza con cada cambio de gabinete.",
+ "cobertura": "Sin desglose territorial",
+ "periodo": "",
+ "filas": 291,
+ "columnas": [
+  {
+   "nombre": "nombre",
+   "tipo": "Texto",
+   "valores": "224 valores distintos"
+  },
+  {
+   "nombre": "ministerio",
+   "tipo": "Texto",
+   "valores": "64 valores distintos"
+  },
+  {
+   "nombre": "inicio",
+   "tipo": "Fecha",
+   "valores": "10 de diciembre de 1983 a 29 de junio de 2026"
+  },
+  {
+   "nombre": "fin",
+   "tipo": "Fecha",
+   "valores": "24 de abril de 1984 a 29 de junio de 2026 (9 celdas vacías)"
+  },
+  {
+   "nombre": "presidente",
+   "tipo": "Texto",
+   "valores": "12 valores distintos"
+  },
+  {
+   "nombre": "partido",
+   "tipo": "Texto",
+   "valores": "23 valores distintos (5 celdas vacías)"
+  },
+  {
+   "nombre": "lugar_nacimiento",
+   "tipo": "Texto",
+   "valores": "88 valores distintos (8 celdas vacías)"
+  },
+  {
+   "nombre": "provincia",
+   "tipo": "Texto",
+   "valores": "22 valores distintos (4 celdas vacías)"
+  },
+  {
+   "nombre": "origen",
+   "tipo": "Texto",
+   "valores": "Ciudad de Buenos Aires, Conurbano, Otras provincias, Otro país, Resto de Buenos Aires, Sin dato"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "Ministros con rango de ministro y jefes de gabinete desde el 10 de diciembre de 1983. Cada persona cuenta una vez por gobierno aunque haya ocupado varios ministerios, y en la vista por provincia cuenta una sola vez. No se incluyen las secretarías de gobierno de 2018 a 2019, que no tenían rango de ministro. Los porcentajes se calculan sobre quienes tienen lugar de nacimiento conocido. Tabla armada con los anexos de gabinete de Wikipedia, revisados contra los anexos de cada ministerio y contra Wikidata. Las correcciones están anotadas en la tabla.",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

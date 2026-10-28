@@ -1,0 +1,49 @@
+{
+ "tabla": "importaciones_origen.csv",
+ "titulo": "¿De dónde vienen las importaciones?",
+ "descripcion": "Importaciones de bienes por origen, en % del total, enero a septiembre de 2026",
+ "seccion": "Sector externo",
+ "ficha": "https://datina.pages.dev/externo.html#f-origen",
+ "fuente": "INDEC, intercambio comercial argentino, importaciones por zona económica y país (provisorio).",
+ "actualizacion": "Se actualiza cada mes.",
+ "cobertura": "Sin desglose territorial",
+ "periodo": "",
+ "filas": 26,
+ "columnas": [
+  {
+   "nombre": "origen",
+   "tipo": "Texto",
+   "valores": "26 valores distintos"
+  },
+  {
+   "nombre": "origen_nombre",
+   "tipo": "Texto",
+   "valores": "26 valores distintos"
+  },
+  {
+   "nombre": "millones_usd",
+   "tipo": "Número",
+   "valores": "5,93 a 13.046,96"
+  },
+  {
+   "nombre": "millones_usd_anterior",
+   "tipo": "Número",
+   "valores": "10,93 a 14.470,9"
+  },
+  {
+   "nombre": "pct",
+   "tipo": "Número",
+   "valores": "0,01 a 23,27"
+  },
+  {
+   "nombre": "variacion",
+   "tipo": "Número",
+   "valores": "-45,74 a 47,91"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

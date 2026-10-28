@@ -1,0 +1,74 @@
+{
+ "tabla": "fiscalias_defensorias_federales.csv",
+ "titulo": "¿Cuántas fiscalías y defensorías federales hay en cada provincia?",
+ "descripcion": "Fiscalías y defensorías públicas oficiales de la Justicia Federal por provincia, abril de 2024, el último padrón con fiscales y defensores",
+ "seccion": "Justicia",
+ "ficha": "https://datina.pages.dev/justicia.html#f-fiscalias-federales",
+ "fuente": "Ministerio de Justicia, padrón de magistrados de la Justicia Federal y de la Justicia Nacional, e INDEC, proyecciones de población. Es el último dato que publicó la fuente.",
+ "actualizacion": "",
+ "cobertura": "Las 24 jurisdicciones",
+ "periodo": "",
+ "filas": 24,
+ "columnas": [
+  {
+   "nombre": "codigo_indec",
+   "tipo": "Código",
+   "valores": "24 códigos"
+  },
+  {
+   "nombre": "territorio",
+   "tipo": "Texto",
+   "valores": "24 valores distintos"
+  },
+  {
+   "nombre": "fiscalias",
+   "tipo": "Número",
+   "valores": "2 a 51"
+  },
+  {
+   "nombre": "fiscalias_cargos",
+   "tipo": "Número",
+   "valores": "2 a 55"
+  },
+  {
+   "nombre": "fiscalias_cargos_sin_titular",
+   "tipo": "Número",
+   "valores": "0 a 29"
+  },
+  {
+   "nombre": "defensorias",
+   "tipo": "Número",
+   "valores": "2 a 33"
+  },
+  {
+   "nombre": "defensorias_cargos",
+   "tipo": "Número",
+   "valores": "2 a 33"
+  },
+  {
+   "nombre": "defensorias_cargos_sin_titular",
+   "tipo": "Número",
+   "valores": "0 a 5"
+  },
+  {
+   "nombre": "poblacion",
+   "tipo": "Número",
+   "valores": "182.003 a 17.443.372"
+  },
+  {
+   "nombre": "fiscalias_cada_100mil",
+   "tipo": "Número",
+   "valores": "0,23 a 1,66"
+  },
+  {
+   "nombre": "defensorias_cada_100mil",
+   "tipo": "Número",
+   "valores": "0,19 a 2,2"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

@@ -1,0 +1,44 @@
+{
+ "tabla": "carceles_serie.csv",
+ "titulo": "¿Cuántas personas hay en las cárceles del país y de cada provincia?",
+ "descripcion": "Personas privadas de libertad en cárceles cada 100.000 habitantes, al 31 de diciembre de cada año, 2002 a 2024",
+ "seccion": "Seguridad",
+ "ficha": "https://datina.pages.dev/seguridad.html#f-carceles",
+ "fuente": "Sistema Nacional de Estadísticas sobre Ejecución de la Pena (SNEEP), Ministerio de Justicia, e INDEC, proyecciones de población.",
+ "actualizacion": "Se actualiza cada año.",
+ "cobertura": "Sin desglose territorial",
+ "periodo": "2002 a 2024",
+ "filas": 23,
+ "columnas": [
+  {
+   "nombre": "anio",
+   "tipo": "Año",
+   "valores": "2002 a 2024"
+  },
+  {
+   "nombre": "personas",
+   "tipo": "Número",
+   "valores": "42.687 a 120.700"
+  },
+  {
+   "nombre": "tasa",
+   "tipo": "Número",
+   "valores": "112,53 a 260,68"
+  },
+  {
+   "nombre": "pct_condenados",
+   "tipo": "Número",
+   "valores": "39,36 a 60,39"
+  },
+  {
+   "nombre": "pct_sin_condena",
+   "tipo": "Número",
+   "valores": "39,61 a 60,64"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

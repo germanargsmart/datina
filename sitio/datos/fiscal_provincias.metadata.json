@@ -1,0 +1,49 @@
+{
+ "tabla": "fiscal_provincias.csv",
+ "titulo": "¿Qué parte de sus ingresos recauda cada provincia por su cuenta?",
+ "descripcion": "Recursos propios y resultado fiscal en % de los ingresos, y gasto en personal en % del gasto, por provincia, 2025 (La Pampa, 2024)",
+ "seccion": "Cuentas públicas",
+ "ficha": "https://datina.pages.dev/gobierno.html#f-fiscal",
+ "fuente": "Ministerio de Economía, Dirección Nacional de Asuntos Provinciales, esquema ahorro inversión financiamiento.",
+ "actualizacion": "Se actualiza cada año.",
+ "cobertura": "Las 24 jurisdicciones",
+ "periodo": "2024 a 2025",
+ "filas": 24,
+ "columnas": [
+  {
+   "nombre": "codigo_indec",
+   "tipo": "Código",
+   "valores": "24 códigos"
+  },
+  {
+   "nombre": "territorio",
+   "tipo": "Texto",
+   "valores": "24 valores distintos"
+  },
+  {
+   "nombre": "anio",
+   "tipo": "Año",
+   "valores": "2024 a 2025"
+  },
+  {
+   "nombre": "autonomia",
+   "tipo": "Número",
+   "valores": "13,88 a 84,69"
+  },
+  {
+   "nombre": "resultado",
+   "tipo": "Número",
+   "valores": "-16,32 a 21,45"
+  },
+  {
+   "nombre": "personal",
+   "tipo": "Número",
+   "valores": "34,76 a 64,02"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

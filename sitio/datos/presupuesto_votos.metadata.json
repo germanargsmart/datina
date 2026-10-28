@@ -1,0 +1,104 @@
+{
+ "tabla": "presupuesto_votos.csv",
+ "titulo": "¿Qué parte de los legisladores de fuera del oficialismo votó a favor de cada presupuesto?",
+ "descripcion": "Voto de los diputados y senadores de fuera del bloque oficialista en la votación en general de cada presupuesto, 1996 a 2026",
+ "seccion": "Instituciones políticas",
+ "ficha": "https://datina.pages.dev/politica.html#f-presupuesto",
+ "fuente": "actas de votación nominal del Congreso, vía ¿Cómo Votó?.",
+ "actualizacion": "Se actualiza cada año.",
+ "cobertura": "Sin desglose territorial",
+ "periodo": "8 de diciembre de 1995 a 26 de diciembre de 2025",
+ "filas": 36,
+ "columnas": [
+  {
+   "nombre": "ejercicio",
+   "tipo": "Número",
+   "valores": "1.996 a 2.026"
+  },
+  {
+   "nombre": "camara",
+   "tipo": "Texto",
+   "valores": "Diputados, Senado"
+  },
+  {
+   "nombre": "fecha",
+   "tipo": "Fecha",
+   "valores": "8 de diciembre de 1995 a 26 de diciembre de 2025"
+  },
+  {
+   "nombre": "presidente",
+   "tipo": "Texto",
+   "valores": "8 valores distintos"
+  },
+  {
+   "nombre": "bloque_oficialista",
+   "tipo": "Texto",
+   "valores": "10 valores distintos"
+  },
+  {
+   "nombre": "a_favor",
+   "tipo": "Número",
+   "valores": "36 a 180"
+  },
+  {
+   "nombre": "en_contra",
+   "tipo": "Número",
+   "valores": "0 a 132"
+  },
+  {
+   "nombre": "abstenciones",
+   "tipo": "Número",
+   "valores": "0 a 90"
+  },
+  {
+   "nombre": "ausentes",
+   "tipo": "Número",
+   "valores": "0 a 115"
+  },
+  {
+   "nombre": "fuera",
+   "tipo": "Número",
+   "valores": "36 a 215"
+  },
+  {
+   "nombre": "fuera_a_favor",
+   "tipo": "Número",
+   "valores": "3,6 a 80,3"
+  },
+  {
+   "nombre": "fuera_en_contra",
+   "tipo": "Número",
+   "valores": "0 a 94,96"
+  },
+  {
+   "nombre": "fuera_abstencion",
+   "tipo": "Número",
+   "valores": "0 a 68,18"
+  },
+  {
+   "nombre": "fuera_ausente",
+   "tipo": "Número",
+   "valores": "0 a 56,67"
+  },
+  {
+   "nombre": "apoyo_oficialismo",
+   "tipo": "Número",
+   "valores": "95,96 a 100"
+  },
+  {
+   "nombre": "acta",
+   "tipo": "Número",
+   "valores": "2 a 5.822"
+  },
+  {
+   "nombre": "aprobado",
+   "tipo": "Texto",
+   "valores": "False, True"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "Votación en general de cada presupuesto en cada cámara, según su acta (en algunos años, la primera votación del proyecto: el acta de cada uno está en la tabla). Los años que no figuran no tienen una votación en general en las actas de la fuente: puede ser porque no hubo un presupuesto aprobado o porque la copia de las actas no la tiene (en Diputados, la de los presupuestos 1995 y 1998 solo tiene votaciones de algunos artículos). El Senado figura desde 2005. El bloque oficialista es el más numeroso del espacio del presidente en esa votación, como en el apoyo al gobierno: los aliados del gobierno de otros bloques, como la UCR en el gobierno de Macri, y los bloques que se separaron del oficialismo cuentan como de fuera. Las ausencias cuentan: en el Senado, en noviembre de 2022, no estuvo en la votación la mayoría de los senadores de fuera del bloque oficialista.",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

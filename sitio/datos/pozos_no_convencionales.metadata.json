@@ -1,0 +1,79 @@
+{
+ "tabla": "pozos_no_convencionales.csv",
+ "titulo": "¿Cuántos pozos producen, dónde están y cuánto saca cada uno?",
+ "descripcion": "Pozos en producción, barriles de petróleo por día que saca cada uno según el tipo de recurso, y mapa de los pozos no convencionales y las áreas de concesión, agosto de 2026",
+ "seccion": "Petróleo y gas",
+ "ficha": "https://datina.pages.dev/petroleo.html#f-pozos",
+ "fuente": "Secretaría de Energía, producción que declaran las empresas para cada pozo (Capítulo IV) y concesiones de explotación.",
+ "actualizacion": "Se actualiza cada mes.",
+ "cobertura": "Sin desglose territorial",
+ "periodo": "",
+ "filas": 4940,
+ "columnas": [
+  {
+   "nombre": "sigla",
+   "tipo": "Texto",
+   "valores": "4801 valores distintos"
+  },
+  {
+   "nombre": "empresa",
+   "tipo": "Texto",
+   "valores": "31 valores distintos"
+  },
+  {
+   "nombre": "area",
+   "tipo": "Texto",
+   "valores": "110 valores distintos"
+  },
+  {
+   "nombre": "area_id",
+   "tipo": "Texto",
+   "valores": "110 valores distintos"
+  },
+  {
+   "nombre": "provincia",
+   "tipo": "Texto",
+   "valores": "Chubut, Mendoza, Neuquén, Rio Negro, Salta, Santa Cruz"
+  },
+  {
+   "nombre": "recurso",
+   "tipo": "Texto",
+   "valores": "Shale, Tight (4 celdas vacías)"
+  },
+  {
+   "nombre": "tipo",
+   "tipo": "Texto",
+   "valores": "Gas, Otro, Petróleo"
+  },
+  {
+   "nombre": "inicio",
+   "tipo": "Fecha",
+   "valores": "enero de 2006 a agosto de 2026"
+  },
+  {
+   "nombre": "x",
+   "tipo": "Número",
+   "valores": "-71,36 a -63,98"
+  },
+  {
+   "nombre": "y",
+   "tipo": "Número",
+   "valores": "-51,66 a -24,12"
+  },
+  {
+   "nombre": "pet_bpd",
+   "tipo": "Número",
+   "valores": "0 a 2.721,9"
+  },
+  {
+   "nombre": "gas_miles_m3d",
+   "tipo": "Número",
+   "valores": "0 a 1.104,8"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

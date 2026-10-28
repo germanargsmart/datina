@@ -1,0 +1,49 @@
+{
+ "tabla": "mundo_hidrocarburos.csv",
+ "titulo": "¿Qué lugar ocupa la Argentina entre los productores del mundo?",
+ "descripcion": "Producción de petróleo, 2025, y de gas natural, 2024, de la Argentina y de los países que más producen, según la EIA",
+ "seccion": "Petróleo y gas",
+ "ficha": "https://datina.pages.dev/petroleo.html#f-mundo-petroleo",
+ "fuente": "Administración de Información Energética de los Estados Unidos (EIA), estadísticas internacionales de energía, y Secretaría de Energía para Neuquén.",
+ "actualizacion": "Se actualiza cada año.",
+ "cobertura": "Países del mundo",
+ "periodo": "2024 a 2025",
+ "filas": 48,
+ "columnas": [
+  {
+   "nombre": "variable",
+   "tipo": "Texto",
+   "valores": "crudo_kbd, gas_bcm"
+  },
+  {
+   "nombre": "anio",
+   "tipo": "Año",
+   "valores": "2024 a 2025"
+  },
+  {
+   "nombre": "puesto",
+   "tipo": "Número",
+   "valores": "1 a 28"
+  },
+  {
+   "nombre": "iso3",
+   "tipo": "Código",
+   "valores": "32 códigos"
+  },
+  {
+   "nombre": "pais",
+   "tipo": "Texto",
+   "valores": "32 valores distintos"
+  },
+  {
+   "nombre": "valor",
+   "tipo": "Número",
+   "valores": "37,88 a 13.661,93"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

@@ -1,0 +1,44 @@
+{
+ "tabla": "impuestos_provinciales.csv",
+ "titulo": "¿Cuánto recauda cada provincia de impuestos propios por habitante?",
+ "descripcion": "Impuestos provinciales por habitante, 2025",
+ "seccion": "Cuentas públicas",
+ "ficha": "https://datina.pages.dev/gobierno.html#f-impuestos-provinciales",
+ "fuente": "Dirección Nacional de Asuntos Provinciales, Ministerio de Economía, e INDEC, proyecciones de población.",
+ "actualizacion": "Se actualiza cada año.",
+ "cobertura": "Las 24 jurisdicciones",
+ "periodo": "",
+ "filas": 24,
+ "columnas": [
+  {
+   "nombre": "codigo_indec",
+   "tipo": "Código",
+   "valores": "24 códigos"
+  },
+  {
+   "nombre": "territorio",
+   "tipo": "Texto",
+   "valores": "24 valores distintos"
+  },
+  {
+   "nombre": "millones",
+   "tipo": "Número",
+   "valores": "154.865,2 a 14.036.638,5 (1 celda vacía)"
+  },
+  {
+   "nombre": "por_habitante",
+   "tipo": "Número",
+   "valores": "256.360,17 a 3.257.959,83 (1 celda vacía)"
+  },
+  {
+   "nombre": "pct_ingresos_brutos",
+   "tipo": "Número",
+   "valores": "51,45 a 91,97 (1 celda vacía)"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

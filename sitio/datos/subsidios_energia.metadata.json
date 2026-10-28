@@ -1,0 +1,39 @@
+{
+ "tabla": "subsidios_energia.csv",
+ "titulo": "¿Cuánto gasta el Estado nacional en subsidios a la energía?",
+ "descripcion": "Subsidios económicos a la energía del Sector Público Nacional, como parte del PBI y en pesos de 2025, 2016 a 2025",
+ "seccion": "Energía",
+ "ficha": "https://datina.pages.dev/energia.html#f-subsidios",
+ "fuente": "Secretaría de Hacienda, Informe Mensual de Ingresos y Gastos del Sector Público Nacional no Financiero, e INDEC, producto interno bruto a precios corrientes, vía API de Series de Tiempo.",
+ "actualizacion": "Se actualiza cada mes.",
+ "cobertura": "Sin desglose territorial",
+ "periodo": "2016 a 2025",
+ "filas": 10,
+ "columnas": [
+  {
+   "nombre": "anio",
+   "tipo": "Año",
+   "valores": "2016 a 2025"
+  },
+  {
+   "nombre": "millones_corrientes",
+   "tipo": "Número",
+   "valores": "125.652,4 a 6.484.062,2"
+  },
+  {
+   "nombre": "miles_millones_reales",
+   "tipo": "Número",
+   "valores": "5.712 a 20.601,18"
+  },
+  {
+   "nombre": "pct_pbi",
+   "tipo": "Número",
+   "valores": "0,67 a 2,54"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

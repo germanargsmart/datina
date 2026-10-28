@@ -1,0 +1,29 @@
+{
+ "tabla": "turistas_no_residentes_anual.csv",
+ "titulo": "¿Cuántos turistas del exterior llegan al país?",
+ "descripcion": "Turistas no residentes que llegaron a la Argentina, 2010 a 2025",
+ "seccion": "Turismo",
+ "ficha": "https://datina.pages.dev/turismo.html#f-receptivo",
+ "fuente": "Ministerio de Turismo y Deportes, SINTA, estimación de turismo internacional.",
+ "actualizacion": "Se actualiza cada mes.",
+ "cobertura": "Sin desglose territorial",
+ "periodo": "2010 a 2025",
+ "filas": 16,
+ "columnas": [
+  {
+   "nombre": "anio",
+   "tipo": "Año",
+   "valores": "2010 a 2025"
+  },
+  {
+   "nombre": "turistas",
+   "tipo": "Número",
+   "valores": "297.421 a 7.398.973"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

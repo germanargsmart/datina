@@ -1,0 +1,39 @@
+{
+ "tabla": "pensiones_invalidez.csv",
+ "titulo": "¿Cuántas personas cobran una pensión por invalidez?",
+ "descripcion": "Pensiones no contributivas por invalidez que paga ANSES, por provincia y en el país, 2001 a 2026",
+ "seccion": "Pobreza y hogares",
+ "ficha": "https://datina.pages.dev/pobreza.html#f-pensiones-invalidez",
+ "fuente": "Secretaría de Seguridad Social, Boletín Estadístico de la Seguridad Social (capítulo III y edición por provincia), con datos de ANSES.",
+ "actualizacion": "Se actualiza cada tres meses.",
+ "cobertura": "Sin desglose territorial",
+ "periodo": "2001 a 2026",
+ "filas": 26,
+ "columnas": [
+  {
+   "nombre": "anio",
+   "tipo": "Año",
+   "valores": "2001 a 2026"
+  },
+  {
+   "nombre": "meses",
+   "tipo": "Número",
+   "valores": "9 a 12"
+  },
+  {
+   "nombre": "pensiones",
+   "tipo": "Número",
+   "valores": "75.947 a 1.221.971"
+  },
+  {
+   "nombre": "pensiones_no_suspendidas",
+   "tipo": "Número",
+   "valores": "1.025.264 a 1.211.043 (18 celdas vacías)"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

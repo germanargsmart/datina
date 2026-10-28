@@ -1,0 +1,59 @@
+{
+ "tabla": "reservas_hidrocarburos.csv",
+ "titulo": "¿Para cuántos años alcanzan las reservas de petróleo y gas?",
+ "descripcion": "Reservas comprobadas de petróleo y gas al 31 de diciembre de cada año y años de producción que cubren, 2006 a 2025",
+ "seccion": "Petróleo y gas",
+ "ficha": "https://datina.pages.dev/petroleo.html#f-reservas",
+ "fuente": "Secretaría de Energía, reservas de petróleo y gas al 31 de diciembre (Resolución SE 324/2006).",
+ "actualizacion": "Se actualiza cada año.",
+ "cobertura": "Sin desglose territorial",
+ "periodo": "2006 a 2025",
+ "filas": 20,
+ "columnas": [
+  {
+   "nombre": "anio",
+   "tipo": "Año",
+   "valores": "2006 a 2025"
+  },
+  {
+   "nombre": "pet_millones_m3",
+   "tipo": "Número",
+   "valores": "320,92 a 624,72"
+  },
+  {
+   "nombre": "gas_miles_millones_m3",
+   "tipo": "Número",
+   "valores": "315,51 a 583,22"
+  },
+  {
+   "nombre": "pet_miles_millones_bbl",
+   "tipo": "Número",
+   "valores": "2,02 a 3,93"
+  },
+  {
+   "nombre": "pct_pet_nc",
+   "tipo": "Número",
+   "valores": "6,58 a 66,43 (11 celdas vacías)"
+  },
+  {
+   "nombre": "pct_gas_nc",
+   "tipo": "Número",
+   "valores": "31,7 a 79,24 (11 celdas vacías)"
+  },
+  {
+   "nombre": "horizonte_pet",
+   "tipo": "Número",
+   "valores": "11,02 a 14,86"
+  },
+  {
+   "nombre": "horizonte_gas",
+   "tipo": "Número",
+   "valores": "7,15 a 11,3"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

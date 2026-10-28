@@ -1,0 +1,34 @@
+{
+ "tabla": "deuda_pbi.csv",
+ "titulo": "¿Cuánto debe el Estado nacional?",
+ "descripcion": "Deuda bruta de la Administración Central como parte del PBI, 2000 a 2025 y el último trimestre",
+ "seccion": "Cuentas públicas",
+ "ficha": "https://datina.pages.dev/gobierno.html#f-deuda",
+ "fuente": "Secretaría de Finanzas, Ministerio de Economía, datos trimestrales de la deuda pública.",
+ "actualizacion": "Se actualiza cada tres meses.",
+ "cobertura": "Sin desglose territorial",
+ "periodo": "",
+ "filas": 28,
+ "columnas": [
+  {
+   "nombre": "periodo",
+   "tipo": "Texto",
+   "valores": "28 valores distintos"
+  },
+  {
+   "nombre": "x",
+   "tipo": "Número",
+   "valores": "2.000 a 2.026,38"
+  },
+  {
+   "nombre": "pct_pbi",
+   "tipo": "Número",
+   "valores": "38,94 a 166,66"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

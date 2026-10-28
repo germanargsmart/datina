@@ -1,0 +1,39 @@
+{
+ "tabla": "permisos_mensual.csv",
+ "titulo": "¿Cuántos metros cuadrados se autorizan para construir?",
+ "descripcion": "Superficie autorizada por los permisos de edificación de 246 municipios, en miles de metros cuadrados por mes, 2021 a julio de 2026",
+ "seccion": "Construcción y vivienda",
+ "ficha": "https://datina.pages.dev/construccion.html#f-permisos",
+ "fuente": "INDEC, indicadores de coyuntura de la actividad de la construcción (permisos de edificación).",
+ "actualizacion": "Se actualiza cada mes.",
+ "cobertura": "Sin desglose territorial",
+ "periodo": "enero de 2021 a julio de 2026",
+ "filas": 67,
+ "columnas": [
+  {
+   "nombre": "periodo",
+   "tipo": "Fecha",
+   "valores": "enero de 2021 a julio de 2026"
+  },
+  {
+   "nombre": "superficie_m2",
+   "tipo": "Número",
+   "valores": "974.431 a 1.892.701"
+  },
+  {
+   "nombre": "m2_12m",
+   "tipo": "Número",
+   "valores": "1.249.204 a 1.619.648 (11 celdas vacías)"
+  },
+  {
+   "nombre": "permisos",
+   "tipo": "Número",
+   "valores": "3.770 a 6.790"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

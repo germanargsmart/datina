@@ -1,0 +1,54 @@
+{
+ "tabla": "transferencias_acumulado.csv",
+ "titulo": "¿Cuánto recibe cada provincia en transferencias no automáticas de la Nación?",
+ "descripcion": "Aportes del Tesoro Nacional (ATN) y otras transferencias no automáticas de la Nación a las provincias, descontada la inflación, en pesos de 2025, 2000 a 2025",
+ "seccion": "Instituciones políticas",
+ "ficha": "https://datina.pages.dev/politica.html#f-atn",
+ "fuente": "Presupuesto Abierto, Secretaría de Hacienda (crédito devengado), INDEC y Banco Mundial.",
+ "actualizacion": "Se actualiza cada año.",
+ "cobertura": "Las 24 jurisdicciones",
+ "periodo": "",
+ "filas": 24,
+ "columnas": [
+  {
+   "nombre": "codigo_indec",
+   "tipo": "Código",
+   "valores": "24 códigos"
+  },
+  {
+   "nombre": "territorio",
+   "tipo": "Texto",
+   "valores": "24 valores distintos"
+  },
+  {
+   "nombre": "atn_hab",
+   "tipo": "Número",
+   "valores": "6.333 a 861.200"
+  },
+  {
+   "nombre": "otras_hab",
+   "tipo": "Número",
+   "valores": "2.690.253 a 32.563.012"
+  },
+  {
+   "nombre": "ley_hab",
+   "tipo": "Número",
+   "valores": "844.246 a 20.699.763"
+  },
+  {
+   "nombre": "atn_pct",
+   "tipo": "Número",
+   "valores": "0,28 a 25,33"
+  },
+  {
+   "nombre": "pob_pct",
+   "tipo": "Número",
+   "valores": "0,39 a 37,6"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

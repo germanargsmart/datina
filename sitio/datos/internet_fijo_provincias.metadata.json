@@ -1,0 +1,39 @@
+{
+ "tabla": "internet_fijo_provincias.csv",
+ "titulo": "¿Cuántos accesos a internet fijo hay cada 100 hogares?",
+ "descripcion": "Accesos a internet fijo cada 100 hogares y velocidad media de bajada, por provincia, 2.º trimestre de 2026",
+ "seccion": "Pobreza y hogares",
+ "ficha": "https://datina.pages.dev/pobreza.html#f-internet",
+ "fuente": "Ente Nacional de Comunicaciones (ENACOM).",
+ "actualizacion": "Se actualiza cada tres meses.",
+ "cobertura": "Las 24 jurisdicciones",
+ "periodo": "",
+ "filas": 24,
+ "columnas": [
+  {
+   "nombre": "codigo_indec",
+   "tipo": "Código",
+   "valores": "24 códigos"
+  },
+  {
+   "nombre": "territorio",
+   "tipo": "Texto",
+   "valores": "24 valores distintos"
+  },
+  {
+   "nombre": "accesos_100_hogares",
+   "tipo": "Número",
+   "valores": "50,11 a 119,93"
+  },
+  {
+   "nombre": "mbps",
+   "tipo": "Número",
+   "valores": "93,92 a 372,42"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

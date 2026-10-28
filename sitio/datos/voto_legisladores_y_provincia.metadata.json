@@ -1,0 +1,59 @@
+{
+ "tabla": "voto_legisladores_y_provincia.csv",
+ "titulo": "¿Votan más con el oficialismo los legisladores de las provincias donde más votos sacó el presidente, o de las que reciben más transferencias?",
+ "descripcion": "Coincidencia de los legisladores de cada provincia con el bloque oficialista en las leyes y los proyectos clave y voto de la provincia al presidente, 2006 a 2026, y votos de los legisladores de otros bloques iguales a los del bloque oficialista y transferencias no automáticas por habitante, 2005 a 2025",
+ "seccion": "Instituciones políticas",
+ "ficha": "https://datina.pages.dev/politica.html#f-voto-provincia",
+ "fuente": "Dirección Nacional Electoral, actas de votación nominal de Diputados y del Senado, vía ¿Cómo Votó?, y Presupuesto Abierto, Secretaría de Hacienda.",
+ "actualizacion": "Se actualiza con cada elección.",
+ "cobertura": "Las 24 jurisdicciones",
+ "periodo": "2003 a 2023",
+ "filas": 144,
+ "columnas": [
+  {
+   "nombre": "presidente",
+   "tipo": "Texto",
+   "valores": "Fernández, Fernández de Kirchner, Kirchner, Macri, Milei"
+  },
+  {
+   "nombre": "eleccion",
+   "tipo": "Año",
+   "valores": "2003 a 2023"
+  },
+  {
+   "nombre": "codigo_indec",
+   "tipo": "Código",
+   "valores": "24 códigos"
+  },
+  {
+   "nombre": "territorio",
+   "tipo": "Texto",
+   "valores": "24 valores distintos"
+  },
+  {
+   "nombre": "pct_presidente",
+   "tipo": "Número",
+   "valores": "1,3 a 82,1"
+  },
+  {
+   "nombre": "pct_coincide",
+   "tipo": "Número",
+   "valores": "3,2 a 100"
+  },
+  {
+   "nombre": "votos",
+   "tipo": "Número",
+   "valores": "10 a 707"
+  },
+  {
+   "nombre": "leyes",
+   "tipo": "Número",
+   "valores": "2 a 10"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}
