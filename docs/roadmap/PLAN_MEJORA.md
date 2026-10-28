@@ -449,6 +449,8 @@ _Decidido por el autor el 28 de octubre de 2026: el sol como está, las estimaci
 11. **Ejemplo en el campo de Consultas con IA.** Un ejemplo solo en ese campo · sin ejemplo.
 12. **Aviso de nuevos datos.** RSS y página Novedades · correo (necesita prender formularios) · nada.
 
+_Decidido por el autor el 28 de octubre de 2026, después de la tanda 3: "avanzá con todas salvo la de aviso de nuevos datos". Queda aprobado todo lo pendiente del plan: de la etapa 7, D3, D5, D6, D7 y D9 (D4 ya estaba decidido: el sol queda como está), las fuentes nuevas de la sección 10, cada una con su descarga, y las funciones nuevas de la sección 11 salvo F4 (Novedades y RSS), que era la otra forma del aviso de nuevos datos. El aviso por correo tampoco se hace._
+
 ---
 
 ## Anexos

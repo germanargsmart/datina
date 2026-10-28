@@ -269,8 +269,9 @@ const tecla = async k => {
 const enFoco = () => q.eval("(document.activeElement.id || '') + '|' + document.activeElement.textContent.trim().slice(0, 30)");
 // La portada (Fase 2, paso 2): los cuatro datos destacados con su cifra y su texto, y el buscador a la vista, que encuentra una provincia
 await q.ir(B + "index.html", 1000);
-const destacados = await q.eval(`[...document.querySelectorAll(".destacado")].filter(a => a.querySelector(".c-num").textContent.trim() && a.querySelector(".c-txt").textContent.trim()).length`);
-if (destacados !== 4) problemas.push(`index.html: ${destacados} de 4 datos destacados con su cifra`);
+// y desde el 28 de octubre de 2026 (D7), debajo de cada cifra del país, cómo cambia entre las provincias
+const destacados = await q.eval(`[...document.querySelectorAll(".destacado")].filter(a => a.querySelector(".c-num").textContent.trim() && a.querySelector(".c-txt").textContent.trim() && a.querySelector(".c-rango")?.textContent.trim()).length`);
+if (destacados !== 4) problemas.push(`index.html: ${destacados} de 4 datos destacados con su cifra y su rango por provincia`);
 // la bajada de cada artículo va en su tarjeta solo en la lista de Artículos, no en la portada (paso 4)
 if (await q.eval(`document.querySelectorAll("#art-grid-home .art-dek").length`)) problemas.push("index.html: las tarjetas de artículos llevan bajada (va solo en Artículos)");
 await q.eval(`document.getElementById("busca-portada").focus()`);

@@ -61,6 +61,8 @@ r = await p.eval(`document.getElementById("rx-error").hidden`); caso("Explorador
 // 2. P2-17: un gráfico que falla (hogares, en energia.html)
 CAMBIOS = [['hogares: a => lineas(G("hogares")', 'hogares: a => null.x || lineas(G("hogares")']];
 await p.ir(BASE + "energia.html", 1500); await p.recorrer();
+// se espera a que el gráfico que falla muestre su aviso (hasta 5 segundos): en una máquina lenta la página puede no haber terminado de dibujar
+for (let i = 0; i < 50 && !(await p.eval(`document.querySelector('.grafico[data-g="hogares"]')?.textContent || ""`)); i++) await espera(100);
 r = JSON.parse(await p.eval(`(() => { const g = [...document.querySelectorAll(".grafico[data-g]")].filter(e => e.offsetParent);
   return JSON.stringify({hog: document.querySelector('.grafico[data-g="hogares"]').textContent, otros: g.filter(e => e.dataset.g !== "hogares" && e.querySelector("svg")).length, total: g.length}); })()`));
 caso("Gráfico que falla: su aviso", /No se pudo dibujar este gráfico/.test(sinNbsp(r.hog)), r.hog);
