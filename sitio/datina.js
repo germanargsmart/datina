@@ -23,7 +23,7 @@ const TITULO_INICIAL = document.title;
 const SECCION = PAGINA.startsWith("a-") ? "articulos" : document.querySelector("section.pieza") ? "laboratorio" : PAGINA;
 const SITIO = D.indice, UBIC = SITIO.ubic;
 // página donde está un ancla (una ficha, una sección o un artículo)
-const paginaDe = id => UBIC[id];
+const paginaDe = id => UBIC[id] || UBIC[(SITIO.alias || {})[id]];
 const urlPagina = (p, resto = "") => (p === "inicio" ? "./" : p + ".html") + resto;
 // enlace a una ficha (#f-empleo): si está en otra página, la dirección de esa página
 const destinoDe = href => {
@@ -32,13 +32,16 @@ const destinoDe = href => {
   return urlPagina(p, p === id ? "" : "#" + id);
 };
 // Fichas unidas (plan de mejora, R7, 28 de octubre de 2026): la dirección de la ficha que se fue (energia.html#f-actividad) lleva a la que
-// quedó, en esta página o en la suya
+// quedó, en esta página o en la suya. Si la que quedó tiene pestañas, se abre la que era de la ficha vieja (ANCLA_VIEJA, abajo)
+let ANCLA_VIEJA = "";
 {
   const h = location.hash.slice(1).split("?")[0], nueva = h && (SITIO.alias || {})[h];
   if (nueva) {
-    const hash = "#" + nueva + location.hash.slice(1 + h.length), p = paginaDe(nueva);
-    if (p && p !== PAGINA) { location.replace(urlPagina(p, location.search + hash)); return; }
-    history.replaceState(history.state, "", location.pathname + location.search + hash);
+    const p = paginaDe(nueva);
+    // en otra página: la dirección vieja viaja entera, y allá se cambia
+    if (p && p !== PAGINA) { location.replace(urlPagina(p, location.search + location.hash)); return; }
+    ANCLA_VIEJA = h;
+    history.replaceState(history.state, "", location.pathname + location.search + "#" + nueva + location.hash.slice(1 + h.length));
     addEventListener("load", () => document.getElementById(nueva)?.scrollIntoView(), {once: true});
   }
 }
@@ -6265,15 +6268,29 @@ const EQUILIBRAR = "#herramientas-grid, .perfil-tarjetas, .programas-grid, .pie-
   });
 })();
 
-/* ---------- pestañas dentro de una tarjeta ---------- */
+/* ---------- pestañas dentro de una tarjeta ----------
+   También las de una ficha con vistas (fichas unidas, R7, 28 de octubre de 2026): cada pestaña es una de las fichas que se unieron, con sus
+   controles y su gráfico, y lo que va fuera del panel (su texto, sus notas y su tabla para descargar) lleva data-panel y se muestra con ella */
 document.querySelectorAll(".pestanas").forEach(tl => {
-  const tabs = [...tl.querySelectorAll('[role="tab"]')];
+  const tabs = [...tl.querySelectorAll('[role="tab"]')], art = tl.closest("article.ficha");
   const mostrar = (t, foco) => {
     tabs.forEach((x, i) => {
       const on = x === t; x.setAttribute("aria-selected", on); x.tabIndex = on ? 0 : -1;
       document.getElementById(x.getAttribute("aria-controls")).hidden = !on;
       if (on) tl.style.setProperty("--i", i);
     });
+    if (art) {
+      const id = t.getAttribute("aria-controls");
+      art.querySelectorAll("[data-panel]").forEach(e => {
+        e.hidden = e.dataset.panel !== id;
+        const vm = e.nextElementSibling?.classList.contains("ver-mas") ? e.nextElementSibling : null;
+        if (e.matches(".lead") && !e.hidden) revisarLargo(e); else if (vm) vm.hidden = true;
+      });
+      // la tabla abierta era la de la otra vista: se cierra
+      art.querySelector(".tabla-datos")?.remove();
+      const vt = art.querySelector(".ver-tabla");
+      if (vt) { vt.setAttribute("aria-expanded", "false"); vt.querySelector(".lbl").textContent = "Ver tabla"; }
+    }
     if (foco) t.focus();
     // los gráficos de una pestaña oculta no tienen ancho: se dibujan al mostrarse
     document.getElementById(t.getAttribute("aria-controls")).querySelectorAll(".grafico[data-g]").forEach(gr => DIB[gr.dataset.g] && DIB[gr.dataset.g](!REDUCIR));
@@ -6285,6 +6302,9 @@ document.querySelectorAll(".pestanas").forEach(tl => {
       if (d) { ev.preventDefault(); mostrar(tabs[(i + d + tabs.length) % tabs.length], true); }
     });
   });
+  // la dirección de una de las fichas que se unieron abre su pestaña (después del resto del arranque: mostrar usa revisarLargo)
+  const vieja = ANCLA_VIEJA && tabs.find(t => document.getElementById(t.getAttribute("aria-controls"))?.dataset.vieja === ANCLA_VIEJA);
+  if (vieja) queueMicrotask(() => mostrar(vieja));
 });
 
 /* ---------- listado de áreas protegidas nacionales ---------- */
@@ -6325,12 +6345,8 @@ const CLAVE = {
     `millones de dólares de saldo ${PG.bal_saldo >= 0 ? "positivo" : "negativo"} en ${PG.bal_anio}`],
   // E11: las etapas del último año, como la vista inicial. Antes era la rama horizontal, que está en otra vista
   "f-fracturas": [n0(PG.fr_etapas), `etapas de fractura informaron las empresas en ${PG.fr_ult} en formaciones no convencionales, el ${pct(PG.fr_vm_pct)} en Vaca Muerta`],
-  "f-pozos-terminados": [n0(PG.pt_total), `pozos de petróleo y gas se terminaron en ${PG.pt_anio}, contra ${n0(PG.pt_max)} en ${PG.pt_max_anio}`,
-    `terminados en ${PG.pt_anio}, contra ${n0(PG.pt_max)} en ${PG.pt_max_anio}`],
   "f-productividad": [`${n0(PG.cos_kbbl_ult)} mil`, `barriles de petróleo sacó en su primer año un pozo de shale de Vaca Muerta que empezó en ${PG.cos_ult}, ${n1(PG.cos_veces)} veces uno de ${PG.cos_ini}`,
     `barriles en promedio por pozo que empezó en ${PG.cos_ult}, ${n1(PG.cos_veces)} veces uno de ${PG.cos_ini}`],
-  "f-mapa-pozos": [n0(PG.map_activos), `pozos no convencionales produjeron petróleo o gas en ${PG.map_mes}, el ${pct(PG.map_pct_nq)} en Neuquén`,
-    `pozos no convencionales en producción, el ${pct(PG.map_pct_nq)} en Neuquén`],
   "f-gas-consumo": [`${n0(e.gas_pais)} m³`, `de gas natural consumió en promedio un usuario residencial en ${e.gas_anio}, y ${n0(e.gas_top[0][1])} en ${e.gas_top[0][0]}`,
     `por usuario, promedio del país en ${e.gas_anio}`],
   "f-permisos": [`${n0(CN.per_m2 / 1000)} mil m²`, `autorizaron los permisos de edificación de ${CN.per_municipios} municipios en ${CN.per_mes}` +
@@ -6827,7 +6843,8 @@ document.querySelectorAll("article.ficha").forEach(f => {
   const c = CLAVE[f.id];
   // con el título como pregunta (etapa 35), la cifra va después de la descripción, que sigue al título
   if (c) (f.querySelector(".ficha-sub") || tituloFicha).insertAdjacentHTML("afterend", `<p class="clave"><span class="num">${c[0]}</span><span class="txt">${c[2] || c[1]}</span></p>`);
-  const pie = f.querySelector(".pie"), csv = pie.querySelector(":scope > a");
+  // una ficha con vistas (R7) tiene una tabla por pestaña: la de la pestaña a la vista es la que se ve y se descarga
+  const pie = f.querySelector(".pie"), csv = pie.querySelector(":scope > a"), otrosCsv = [...pie.querySelectorAll(":scope > a[data-panel]")].filter(a => a !== csv);
   const acc = document.createElement("div"); acc.className = "acciones";
   const nombre = (csv.getAttribute("href").match(/datos\/(\w+)\.csv/) || [])[1], filas = nombre && T[nombre], propia = TABLA_PROPIA[f.id];
   const conTabla = propia || nombre && DIFERIDAS[nombre] || Array.isArray(filas) && filas.length > 0 && typeof filas[0] === "object";
@@ -6838,8 +6855,9 @@ document.querySelectorAll("article.ficha").forEach(f => {
     (!f.classList.contains("explorador") && !SIN_RELACIONES.has(f.id) ? `<a class="boton chico accion origen" href="relaciones.html?n=${f.id}" aria-describedby="${tituloFicha.id || (tituloFicha.id = f.id + "-tit")}"><span class="lbl">De dónde sale</span></a>` : "") +
     (EN_CATALOGO.has(nombre) ? `<a class="boton chico accion" href="catalogo.html#cat-${nombre}" aria-describedby="${tituloFicha.id || (tituloFicha.id = f.id + "-tit")}"><span class="lbl">Ver en el catálogo</span></a>` : "") +
     (f.querySelector(".grafico[data-g]") ? `<button type="button" class="boton chico accion imagen" hidden><span class="lbl">Descargar imagen</span></button>` : "");
-  csv.className = "boton chico accion"; csv.innerHTML = `<span class="lbl">Descargar CSV</span>`;
-  acc.appendChild(csv); pie.appendChild(acc);
+  [csv, ...otrosCsv].forEach(a => { a.className = "boton chico accion"; a.innerHTML = `<span class="lbl">Descargar CSV</span>`; acc.appendChild(a); });
+  pie.appendChild(acc);
+  const tablaActiva = () => (([csv, ...otrosCsv].find(a => !a.hidden) || csv).getAttribute("href").match(/datos\/(\w+)\.csv/) || [])[1] || nombre;
   acc.querySelector(".ver-tabla")?.addEventListener("click", async ev => {
     const b = ev.currentTarget, abierta = b.getAttribute("aria-expanded") === "true";
     if (b.dataset.cargando) return;
@@ -6847,7 +6865,7 @@ document.querySelectorAll("article.ficha").forEach(f => {
     if (!caja) {
       b.dataset.cargando = "1";
       let t;
-      try { t = await (propia ? propia() : cargarTabla(nombre)); } catch {
+      try { t = await (propia ? propia() : cargarTabla(tablaActiva())); } catch {
         // sin datos (la red falló): un aviso que se anuncia, y el botón sigue para probar de nuevo
         f.querySelector(".tabla-error")?.remove();
         pie.insertAdjacentHTML("beforebegin", `<p class="nota tabla-error" role="status">No se pudo cargar la tabla. Probá de nuevo.</p>`);

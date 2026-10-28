@@ -319,7 +319,7 @@
   },
   "pozos_terminados_provincias": {
    "en": [
-    "f-pozos-terminados"
+    "f-fracturas"
    ],
    "evidencia": {
     "archivo": "scripts/datina.js",
