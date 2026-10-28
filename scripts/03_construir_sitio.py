@@ -214,8 +214,8 @@ FRECUENCIA = {
     "f-hogares": "mes", "f-electricidad-provincias": "mes", "f-electricidad-sectores": "mes", "f-meses": "mes",
     "f-centrales": "anio", "f-gas-hogares": "censo", "f-gas-consumo": "mes", "f-subsidios": "mes",
     # Petróleo y gas
-    "f-petroleo": "mes", "f-gas": "mes", "f-hidro-provincias": "mes", "f-areas-hidro": "anio", "f-mapa-pozos": "mes", "f-pozos": "mes",
-    "f-fracturas": "anio", "f-productividad": "anio", "f-pozos-terminados": "mes", "f-empresas-hidro": "mes", "f-empleo-hidro": "trimestre",
+    "f-petroleo": "mes", "f-gas": "mes", "f-hidro-provincias": "mes", "f-areas-hidro": "anio", "f-pozos": "mes",
+    "f-fracturas": "anio", "f-productividad": "anio", "f-empresas-hidro": "mes", "f-empleo-hidro": "trimestre",
     "f-regalias": "anio", "f-reservas": "anio", "f-balanza-energetica": "mes", "f-mundo-petroleo": "anio",
     # Turismo
     "f-receptivo": "mes", "f-hoteles": "pausa", "f-eti": "pausa",
@@ -617,7 +617,7 @@ INDICE = {"secciones": SECCIONES, "fichas": FICHAS, "articulos": [[i, html.unesc
 # Fichas unidas (plan de mejora, R7, decisión del autor del 28 de octubre de 2026: once pares de fichas casi iguales pasan a ser una ficha
 # con vistas): la ficha que se fue y la que quedó. datina.js manda la dirección vieja (energia.html#f-actividad) a la nueva, en esa página
 # o en otra. La que se fue no puede seguir en la plantilla, y la que quedó tiene que estar
-FICHAS_UNIDAS = {"f-actividad": "f-hogares"}
+FICHAS_UNIDAS = {"f-actividad": "f-hogares", "f-mapa-pozos": "f-pozos", "f-pozos-terminados": "f-fracturas"}
 for _vieja, _nueva in FICHAS_UNIDAS.items():
     assert _vieja not in UBIC, f"{_vieja}: la ficha unida a {_nueva} sigue en la plantilla"
     assert UBIC.get(_nueva), f"{_vieja}: la ficha que la reemplaza ({_nueva}) no está en la plantilla"
@@ -1200,7 +1200,8 @@ def pagina(id_, titulo, descripcion, quedan, recorte=None, titulo_social=None, t
     # los enlaces a una ficha de otra pagina (cierres de seccion, perfil provincial) llevan a esa pagina
     def destino(m):
         id2 = m.group(1)
-        p = UBIC.get(id2)
+        # una ficha unida a otra (R7): su dirección vieja sigue andando, y abre la pestaña que era suya
+        p = UBIC.get(id2) or UBIC.get(FICHAS_UNIDAS.get(id2, ""))
         if not p or p == id_:
             return m.group(0)
         return f'href="{url_pagina(p)}{"" if p == id2 else "#" + id2}"'

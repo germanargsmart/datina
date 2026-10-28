@@ -215,47 +215,67 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 
     <h2 class="bloque-grupo" id="g-vaca-muerta">Vaca Muerta y los pozos</h2>
 
-    <article class="ficha" id="f-mapa-pozos">
-      <h2>¿Dónde están los pozos no convencionales?</h2>
-      <p class="ficha-sub">Pozos no convencionales y áreas de concesión, agosto de 2026</p>
-      <div class="conmutador" role="group" aria-label="Zona" data-g="mapa-pozos">
-        <button type="button" data-m="cuenca" aria-pressed="true">Cuenca Neuquina</button>
-        <button type="button" data-m="pais" aria-pressed="false">Todo el país</button>
+    <!-- f-pozos y f-mapa-pozos, unidas (plan de mejora, R7, decisión del autor del 28 de octubre de 2026): la dirección vieja lleva a la pestaña del mapa -->
+    <article class="ficha con-vistas" id="f-pozos">
+      <h2>¿Cuántos pozos producen, dónde están y cuánto saca cada uno?</h2>
+      <p class="ficha-sub">Pozos en producción, barriles de petróleo por día que saca cada uno según el tipo de recurso, y mapa de los pozos no convencionales y las áreas de concesión, agosto de 2026</p>
+      <div class="conmutador pestanas" role="tablist" aria-label="Vista" style="--n:2">
+        <button type="button" role="tab" id="tab-f-pozos-1" aria-controls="pan-f-pozos-1" aria-selected="true">Por tipo de pozo</button>
+        <button type="button" role="tab" id="tab-f-pozos-2" aria-controls="pan-f-pozos-2" aria-selected="false" tabindex="-1">Mapa</button>
       </div>
-      <div class="pol-ley" id="mapa-pozos-ley" aria-hidden="true"></div>
-      <div class="grafico" data-g="mapa-pozos" data-forma="mapa" style="--alto:490px;--alto-c:300px"></div>
-      <p class="lead" data-t="mapa-pozos"></p>
-      <p class="nota" data-t="mapa-pozos-nota"></p>
-      <div class="pie"><span>Fuentes: Secretaría de Energía, producción por pozo no convencional (Capítulo IV) y concesiones de explotación. Se actualiza cada mes.</span><a href="datos/pozos_no_convencionales.csv" download>Descargar tabla (CSV)</a></div>
+      <div class="panel-pestana" role="tabpanel" id="pan-f-pozos-1" aria-labelledby="tab-f-pozos-1">
+        <div class="conmutador" role="group" aria-label="Vista" data-g="pozos">
+          <button type="button" data-m="pozo" aria-pressed="true">Petróleo por pozo</button>
+          <button type="button" data-m="partes" aria-pressed="false">Pozos y producción</button>
+        </div>
+        <div class="pol-ley" id="pozos-ley" aria-hidden="true" hidden></div>
+        <div class="grafico" data-g="pozos" data-forma="barras" style="--filas:3"></div>
+      </div>
+      <div class="panel-pestana" role="tabpanel" id="pan-f-pozos-2" aria-labelledby="tab-f-pozos-2" data-vieja="f-mapa-pozos" hidden>
+        <div class="conmutador" role="group" aria-label="Zona" data-g="mapa-pozos">
+          <button type="button" data-m="cuenca" aria-pressed="true">Cuenca Neuquina</button>
+          <button type="button" data-m="pais" aria-pressed="false">Todo el país</button>
+        </div>
+        <div class="pol-ley" id="mapa-pozos-ley" aria-hidden="true"></div>
+        <div class="grafico" data-g="mapa-pozos" data-forma="mapa" style="--alto:490px;--alto-c:300px"></div>
+      </div>
+      <p data-panel="pan-f-pozos-1" class="lead" data-t="pozos"></p>
+      <p data-panel="pan-f-pozos-1" class="nota" data-t="pozos-nota"></p>
+      <p data-panel="pan-f-pozos-2" hidden class="lead" data-t="mapa-pozos"></p>
+      <p data-panel="pan-f-pozos-2" hidden class="nota" data-t="mapa-pozos-nota"></p>
+      <div class="pie"><span>Fuentes: Secretaría de Energía, producción que declaran las empresas para cada pozo (Capítulo IV) y concesiones de explotación. Se actualiza cada mes.</span><a href="datos/pozos_tipo.csv" data-panel="pan-f-pozos-1" download>Descargar tabla (CSV)</a><a href="datos/pozos_no_convencionales.csv" data-panel="pan-f-pozos-2" hidden download>Descargar tabla (CSV)</a></div>
     </article>
 
-    <article class="ficha" id="f-pozos">
-      <h2>¿Cuántos pozos producen y cuánto petróleo saca cada uno?</h2>
-      <p class="ficha-sub">Pozos en producción y barriles de petróleo por día que saca cada uno, según el tipo de recurso, agosto de 2026</p>
-      <div class="conmutador" role="group" aria-label="Vista" data-g="pozos">
-        <button type="button" data-m="pozo" aria-pressed="true">Petróleo por pozo</button>
-        <button type="button" data-m="partes" aria-pressed="false">Pozos y producción</button>
+    <!-- f-fracturas y f-pozos-terminados, unidas (plan de mejora, R7, decisión del autor del 28 de octubre de 2026): la dirección vieja lleva a la pestaña de los pozos terminados -->
+    <article class="ficha con-vistas" id="f-fracturas">
+      <h2>¿Cuántos pozos se terminan y cuántas fracturas se hacen por año?</h2>
+      <p class="ficha-sub">Etapas de fractura en formaciones no convencionales y diseño de los pozos de Vaca Muerta, 2013 a 2025, y pozos de petróleo y gas terminados por año y por tipo, 2009 a 2025, y por provincia, septiembre de 2025 a agosto de 2026</p>
+      <div class="conmutador pestanas" role="tablist" aria-label="Vista" style="--n:2">
+        <button type="button" role="tab" id="tab-f-fracturas-1" aria-controls="pan-f-fracturas-1" aria-selected="true">Fracturas</button>
+        <button type="button" role="tab" id="tab-f-fracturas-2" aria-controls="pan-f-fracturas-2" aria-selected="false" tabindex="-1">Pozos terminados</button>
       </div>
-      <div class="pol-ley" id="pozos-ley" aria-hidden="true" hidden></div>
-      <div class="grafico" data-g="pozos" data-forma="barras" style="--filas:3"></div>
-      <p class="lead" data-t="pozos"></p>
-      <p class="nota" data-t="pozos-nota"></p>
-      <div class="pie"><span>Fuente: Secretaría de Energía, producción que declaran las empresas para cada pozo (Capítulo IV). Se actualiza cada mes.</span><a href="datos/pozos_tipo.csv" download>Descargar tabla (CSV)</a></div>
-    </article>
-
-    <article class="ficha" id="f-fracturas">
-      <h2>¿Cuántas etapas de fractura se hacen por año?</h2>
-      <p class="ficha-sub">Etapas de fractura en formaciones no convencionales y diseño de los pozos de Vaca Muerta, 2013 a 2025</p>
-      <div class="conmutador" role="group" aria-label="Medida" data-g="fracturas" style="--n:3">
-        <button type="button" data-m="etapas" aria-pressed="true">Etapas por año</button>
-        <button type="button" data-m="rama" aria-pressed="false">Rama horizontal</button>
-        <button type="button" data-m="etapas_pozo" aria-pressed="false">Etapas por pozo</button>
+      <div class="panel-pestana" role="tabpanel" id="pan-f-fracturas-1" aria-labelledby="tab-f-fracturas-1">
+        <div class="conmutador" role="group" aria-label="Medida" data-g="fracturas" style="--n:3">
+          <button type="button" data-m="etapas" aria-pressed="true">Etapas por año</button>
+          <button type="button" data-m="rama" aria-pressed="false">Rama horizontal</button>
+          <button type="button" data-m="etapas_pozo" aria-pressed="false">Etapas por pozo</button>
+        </div>
+        <div class="pol-ley" id="fracturas-ley" aria-hidden="true"></div>
+        <div class="grafico" data-g="fracturas" data-forma="columnas" style="--alto:340px;--alto-c:300px"></div>
       </div>
-      <div class="pol-ley" id="fracturas-ley" aria-hidden="true"></div>
-      <div class="grafico" data-g="fracturas" data-forma="columnas" style="--alto:340px;--alto-c:300px"></div>
-      <p class="lead" data-t="fracturas"></p>
-      <p class="nota" data-t="fracturas-nota"></p>
-      <div class="pie"><span>Fuente: Secretaría de Energía, datos de fractura de pozos de hidrocarburos (Adjunto IV). Se actualiza cada año.</span><a href="datos/fracturas_anual.csv" download>Descargar tabla (CSV)</a></div>
+      <div class="panel-pestana" role="tabpanel" id="pan-f-fracturas-2" aria-labelledby="tab-f-fracturas-2" data-vieja="f-pozos-terminados" hidden>
+        <div class="conmutador" role="group" aria-label="Vista" data-g="pozos-terminados">
+          <button type="button" data-m="anio" aria-pressed="true">Por año</button>
+          <button type="button" data-m="prov" aria-pressed="false">Por provincia</button>
+        </div>
+        <div class="pol-ley" id="pozos-terminados-ley" aria-hidden="true"></div>
+        <div class="grafico" data-g="pozos-terminados" data-forma="columnas" style="--alto:340px;--alto-c:300px"></div>
+      </div>
+      <p data-panel="pan-f-fracturas-1" class="lead" data-t="fracturas"></p>
+      <p data-panel="pan-f-fracturas-1" class="nota" data-t="fracturas-nota"></p>
+      <p data-panel="pan-f-fracturas-2" hidden class="lead" data-t="pozos-terminados"></p>
+      <p data-panel="pan-f-fracturas-2" hidden class="nota" data-t="pozos-terminados-nota"></p>
+      <div class="pie"><span>Fuentes: Secretaría de Energía, datos de fractura de pozos de hidrocarburos (Adjunto IV) y perforación de pozos de petróleo y gas. Se actualiza cada año.</span><a href="datos/fracturas_anual.csv" data-panel="pan-f-fracturas-1" download>Descargar tabla (CSV)</a><a href="datos/pozos_terminados.csv" data-panel="pan-f-fracturas-2" hidden download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-productividad">
@@ -270,20 +290,6 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <p class="lead" data-t="productividad"></p>
       <p class="nota" data-t="productividad-nota"></p>
       <div class="pie"><span>Fuentes: Secretaría de Energía, producción por pozo no convencional (Capítulo IV) y datos de fractura de pozos (Adjunto IV). Se actualiza cada año.</span><a href="datos/productividad_vm.csv" download>Descargar tabla (CSV)</a></div>
-    </article>
-
-    <article class="ficha" id="f-pozos-terminados">
-      <h2>¿Cuántos pozos de petróleo y gas se terminan por año?</h2>
-      <p class="ficha-sub">Pozos de petróleo y gas terminados por año y por tipo, 2009 a 2025, y por provincia, septiembre de 2025 a agosto de 2026</p>
-      <div class="conmutador" role="group" aria-label="Vista" data-g="pozos-terminados">
-        <button type="button" data-m="anio" aria-pressed="true">Por año</button>
-        <button type="button" data-m="prov" aria-pressed="false">Por provincia</button>
-      </div>
-      <div class="pol-ley" id="pozos-terminados-ley" aria-hidden="true"></div>
-      <div class="grafico" data-g="pozos-terminados" data-forma="columnas" style="--alto:340px;--alto-c:300px"></div>
-      <p class="lead" data-t="pozos-terminados"></p>
-      <p class="nota" data-t="pozos-terminados-nota"></p>
-      <div class="pie"><span>Fuente: Secretaría de Energía, perforación de pozos de petróleo y gas. Se actualiza cada mes.</span><a href="datos/pozos_terminados.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <h2 class="bloque-grupo" id="g-lo-que-deja">Lo que deja</h2>
@@ -420,7 +426,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 <p class="solo-lector" id="aviso" aria-live="polite"></p>
 
 <!-- los datos van en un archivo aparte que el navegador guarda una sola vez para todas las páginas -->
-<script src="datos/fichas.js?v=2ebf7aedd4"></script>
-<script src="datina.js?v=8d4309abd5"></script>
+<script src="datos/fichas.js?v=f6a00af296"></script>
+<script src="datina.js?v=08bbb94b79"></script>
 </body>
 </html>

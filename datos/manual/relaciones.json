@@ -5580,7 +5580,7 @@
   {
    "tipo": "alimenta",
    "de": "ds:se_produccion_areas.csv",
-   "a": "f-mapa-pozos",
+   "a": "f-pozos",
    "tabla": "pozos_no_convencionales",
    "evidencia": [
     {
@@ -5596,7 +5596,7 @@
   {
    "tipo": "alimenta",
    "de": "ds:concesiones.topo.json",
-   "a": "f-mapa-pozos",
+   "a": "f-pozos",
    "tabla": "pozos_no_convencionales",
    "evidencia": [
     {
@@ -5612,7 +5612,7 @@
   {
    "tipo": "alimenta",
    "de": "ds:se_pozos_nc.csv",
-   "a": "f-mapa-pozos",
+   "a": "f-pozos",
    "tabla": "pozos_no_convencionales",
    "evidencia": [
     {
@@ -5708,7 +5708,7 @@
   {
    "tipo": "alimenta",
    "de": "ds:se_pozos_terminados.csv",
-   "a": "f-pozos-terminados",
+   "a": "f-fracturas",
    "tabla": "pozos_terminados",
    "evidencia": [
     {
@@ -7240,7 +7240,8 @@
   },
   "f-fracturas": {
    "variables": [
-    "etapas_fractura_no_convencional"
+    "etapas_fractura_no_convencional",
+    "pozos_terminados"
    ]
   },
   "f-gas": {
@@ -7350,11 +7351,6 @@
     "pisa_puntaje_matematica",
     "pisa_puntaje_lectura",
     "pisa_puntaje_ciencias"
-   ]
-  },
-  "f-pozos-terminados": {
-   "variables": [
-    "pozos_terminados"
    ]
   },
   "f-productividad": {
@@ -7536,6 +7532,7 @@
    "variables": [
     "censo2022_sin_cobertura"
    ]
-  }
+  },
+  "f-pozos": {}
  }
 }

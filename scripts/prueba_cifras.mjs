@@ -24,7 +24,7 @@ const SIN_REVISAR = new Set([
   "f-costo", "f-delitos", "f-electricidad-sectores", "f-emae", "f-empleo-construccion", "f-empleo-hidro", "f-empresas", "f-escolarizacion",
   "f-esperanza", "f-exporta-provincias", "f-exporta-rubros", "f-fiscalias-federales", "f-gas-hogares", "f-glaciares", "f-hidro-provincias",
   "f-hogares", "f-homicidios", "f-hoteles", "f-importaciones", "f-impuestos-provinciales", "f-insumos", "f-inversion-educativa", "f-isac",
-  "f-jueces-federales", "f-mapa-pozos", "f-meses", "f-migracion-interna", "f-mortalidad", "f-obra-publica", "f-pesca-rio",
+  "f-jueces-federales", "f-meses", "f-migracion-interna", "f-mortalidad", "f-obra-publica", "f-pesca-rio",
   "f-productividad", "f-radicaciones", "f-receptivo", "f-reservas-bcra", "f-salario-real", "f-salarios"
 ]);
 
