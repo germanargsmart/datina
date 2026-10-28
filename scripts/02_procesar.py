@@ -6228,7 +6228,7 @@ CRUCES_META = {
     "gasto_alumno": ("Inversión educativa por alumno", "pesos por alumno de gestión estatal por año", str(INV_ULT), "Educación",
                      "Coordinación de Evaluación de Costos Educativos", "f-inversion-educativa", 0),
     "viales": ("Muertes viales", "víctimas cada 100.000 habitantes", str(ANIO_SNIC), "Seguridad", "SNIC, Ministerio de Seguridad", "f-muertes", 1),
-    "protegida": ("Territorio protegido", "% de la superficie", str(anio_ap), "Flora y fauna", "Ministerio de Ambiente, CIAM", "f-protegida", 1),
+    "protegida": ("Territorio protegido", "% de la superficie", str(anio_ap), "Naturaleza y ambiente", "Ministerio de Ambiente, CIAM", "f-protegida", 1),
     "turistas_eti": ("Turistas extranjeros", "cada 1.000 habitantes, salidos por Ezeiza o Aeroparque", str(ANIO_ETI), "Turismo", "Encuesta de Turismo Internacional", "f-eti", 1),
     "autos": ("Autos nuevos", "cada 1.000 habitantes", str(ANIO_AU), "Movilidad", "DNRPA", "f-patentes-prov", 1),
     "motos": ("Motos nuevas", "cada 1.000 habitantes", str(ANIO_AU), "Movilidad", "DNRPA", "f-patentes-prov", 1),

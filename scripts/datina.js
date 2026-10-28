@@ -6514,6 +6514,8 @@ const EXTRA = {
   "x-emp-top": ["f-empresas", n1(EM.top_v), `empresas privadas con empleados cada 1.000 habitantes tenía ${EM.top} en ${EM.anio}, la jurisdicción con más. ${EM.low} tenía ${n1(EM.low_v)}`],
   "x-emp-saldo": ["f-dinamica-empresas", `${EM.positivas} de 24`, `jurisdicciones abrieron más empresas de las que cerraron en ${EM.ult}. En el país abrieron ${n1(EM.te)} y cerraron ${n1(EM.ts)} de cada 100`],
   "x-emp-negativos": ["f-dinamica-empresas", n0(EM.anios_negativos), `años con más cierres que aperturas de empresas desde ${EM.ini}, entre ellos ${lista(EM.ultimos_negativos.map(String))}`],
+  // Curiosidades se quedó con cuatro fichas (etapa 6: glaciares y clima pasaron a Naturaleza y ambiente): la quinta tarjeta
+  "x-nombres-prov": ["f-nombres", `${cu.varon_prov_n} de 24`, `jurisdicciones donde ${cu.varon_prov} fue el nombre de varón más inscripto en ${cu.nom_anio}`],
   "x-hurtos": ["f-robos", n0(SG.hurtos), `hurtos registrados cada 100.000 habitantes en ${SG.anio}. En ${SG.anio - 1}, ${n0(SG.hurtos_ant)}`],
   "x-primer-pais": ["f-nacidos-otro-pais", pct(MGC.paises[0][2]), `de las personas nacidas en otro país que vivían en la Argentina en 2022 había ` +
     `nacido en ${MGC.paises[0][0]}`],
@@ -6556,6 +6558,7 @@ const EN_CIFRAS = {
   gobierno: ["f-cuentas-nacion", "f-recaudacion", "f-deuda", "f-empleo-publico", "f-impuestos-provinciales", "f-fiscal"],
   migraciones: ["f-nacidos-otro-pais", "x-primer-pais", "f-radicaciones", "f-argentinos-exterior", "f-migracion-interna", "f-migracion-historia"],
   politica: ["x-balotaje", "x-representacion", "x-congreso", "x-atn", "x-presidentes"],
+  justicia: ["f-corte-casos", "f-jueces-federales", "f-fiscalias-federales", "f-cortes-provinciales", "f-justicia-provincial"],
   movilidad: ["f-sube", "f-combustibles", "x-sube-var", "f-patentes", "f-sube-modos", "f-patentes-prov"],
   // Energía y Petróleo y gas, en dos páginas desde la etapa 22: Energía tiene datos por provincia (la electricidad y el gas de los
   // hogares) y suma la tarjeta "Tu provincia", Petróleo y gas no
@@ -6564,8 +6567,8 @@ const EN_CIFRAS = {
   petroleo: ["f-petroleo", "f-gas", "x-pet-shale", "f-reservas", "f-hidro-provincias", "x-vaca-muerta", "f-mundo-petroleo", "f-balanza-energetica",
     "f-pozos", "f-regalias", "f-empleo-hidro"],
   turismo: ["f-receptivo", "x-turistas-doce", "f-hoteles", "f-eti", "x-hoteles-nr"],
-  naturaleza: ["f-protegida", "f-parques", "f-visitas", "f-pesca", "f-especies", "f-visitas-parque", "f-pesca-rio"],
-  curiosidades: ["f-nombres", "f-carne", "f-vino", "f-yerba", "f-clima", "f-glaciares"],
+  naturaleza: ["f-protegida", "f-parques", "f-visitas", "f-pesca", "f-especies", "f-visitas-parque", "f-pesca-rio", "f-clima", "f-glaciares"],
+  curiosidades: ["f-nombres", "x-nombres-prov", "f-carne", "f-vino", "f-yerba"],
 };
 const esc = t => String(t).replace(/[&<>"]/g, c => ({"&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;"})[c]);
 // nombre de una provincia con su bandera (tablas, listas, buscador, migas)

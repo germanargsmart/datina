@@ -727,6 +727,10 @@ html:not(.js) .busca-portada{display:none}
 .prov-grid{margin-top:var(--e-6)}
 .perfil-indice ol{display:flex;flex-wrap:wrap;gap:var(--e-2) var(--e-6);margin:0;padding:0;list-style:none;font-size:var(--t-3)}
 .perfil-grupo{scroll-margin-top:96px}
+/* el índice de capítulos de las páginas largas (etapa 6 del plan de mejora), con el aspecto del del perfil, y cada capítulo, que no queda
+   tapado por la barra al llegar desde el índice */
+.capitulos{margin:var(--e-6) 0 0}
+.bloque-grupo[id^="g-"]{scroll-margin-top:96px}
 .perfil-cab{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:var(--e-2) var(--e-6);margin:var(--e-8) 0 var(--e-4)}
 .perfil-cab .bloque-grupo{margin:0}
 .perfil-cab .enlace{font-size:var(--t-2)}
