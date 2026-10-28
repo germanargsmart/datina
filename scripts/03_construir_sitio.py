@@ -880,12 +880,13 @@ def navegacion(h, pagina):
     if pagina in CATEGORIA:
         blo = re.sub(r'(<div class="tema-intro">.*?</div>)', lambda m: m.group(1) + subsecciones(pagina), blo, count=1, flags=re.S)
     # el índice de capítulos (etapa 6 del plan de mejora, decisión del autor del 27 de octubre de 2026): en las páginas con dos capítulos o
-    # más (h2.bloque-grupo con un id g-…), debajo de "En cifras", con el aspecto del índice del perfil provincial. Nada queda escondido:
-    # cada ficha conserva su enlace y el buscador la encuentra
+    # más (h2.bloque-grupo con un id g-…), debajo de "En cifras". Desde el 28 de octubre de 2026 (pedido del autor: que se parezca a la fila
+    # de Población y Migraciones) tiene el aspecto de la fila de la categoría, con "Capítulos" adelante en lugar del nombre de la categoría.
+    # Nada queda escondido: cada ficha conserva su enlace y el buscador la encuentra
     caps = re.findall(r'<h2 class="bloque-grupo" id="(g-[\w-]+)">([^<]+)</h2>', blo)
     if len(caps) >= 2:
-        indice = ('<nav class="perfil-indice capitulos" aria-label="Capítulos de esta página"><ol>' +
-                  "".join(f'<li><a class="enlace" href="#{i}">{n}. {t}</a></li>' for n, (i, t) in enumerate(caps, 1)) + "</ol></nav>")
+        indice = ('<nav class="capitulos" aria-label="Capítulos de esta página"><span class="sub-cat">Capítulos</span>' +
+                  "".join(f'<a href="#{i}">{t}</a>' for i, t in caps) + "</nav>")
         blo = re.sub(r'(<div class="tema-intro">.*?</div>(?:<nav class="subsecciones".*?</nav>)?)', lambda m: m.group(1) + indice, blo, count=1, flags=re.S)
     # transición entre páginas: el título viaja desde su tarjeta de la portada (mismo nombre en las dos páginas)
     if pagina in [x[0] for x in SECCIONES]:
