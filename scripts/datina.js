@@ -17,6 +17,7 @@ document.documentElement.classList.add("listo");
    Cada página trae solo el marcado de su sección. Lo que hace falta saber de las otras (títulos, fichas y en qué página
    está cada ancla) sale del índice del sitio, que arma el constructor desde la plantilla (D.indice). */
 const PAGINA = document.body.dataset.pagina || "inicio";
+const TITULO_INICIAL = document.title;
 // sección a la que pertenece la página: en un artículo es "articulos"
 // en una pieza del Laboratorio con página propia (etapa 33), "laboratorio"
 const SECCION = PAGINA.startsWith("a-") ? "articulos" : document.querySelector("section.pieza") ? "laboratorio" : PAGINA;
@@ -7309,7 +7310,7 @@ const grilla = document.getElementById("prov-grid") || document.createElement("d
 grilla.innerHTML = `<nav class="perfil-indice" id="perfil-indice" aria-label="Temas del perfil"><ol>` +
   PERFIL_GRUPOS.map(([g, tit], i) => `<li><a class="enlace" href="#pg-${g}">${i + 1}. ${tit}</a></li>`).join("") + `</ol></nav>` +
   PERFIL_GRUPOS.map(([g, tit], i) => `<section class="perfil-grupo" id="pg-${g}" aria-labelledby="pg-${g}-t"><div class="perfil-cab">` +
-    `<h3 class="bloque-grupo" id="pg-${g}-t">${i + 1}. <span>${tit}</span></h3><a class="enlace" href="#perfil-indice">Volver a los temas</a></div>` +
+    `<h2 class="bloque-grupo" id="pg-${g}-t">${i + 1}. <span>${tit}</span></h2><a class="enlace" href="#perfil-indice">Volver a los temas</a></div>` +
     `<div class="perfil-tarjetas">` + PERFIL.map((c, j) => c.g !== g ? "" : `<a class="tarjeta dp" href="#${c.id}" data-i="${j}"><span class="dp-lab">${c.lab}</span>
   <span class="dp-num"></span><span class="dp-det">${c.det}</span><svg class="dp-tira" aria-hidden="true"></svg><span class="dp-pos"></span><span class="dp-aclara"></span></a>`).join("") +
     `</div></section>`).join("");
@@ -7336,9 +7337,37 @@ function cambiarTexto(el, t, animar) {
     el.animate([{opacity:0, transform:"translateY(4px)"}, {opacity:1, transform:"none"}], {duration:200, easing:"cubic-bezier(.23,1,.32,1)"});
   };
 }
+// "Dónde se destaca" (etapa 6 del plan de mejora, decisión del autor del 27 de octubre de 2026): arriba del perfil, los indicadores en los
+// que la provincia elegida tiene las cifras más altas o más bajas de las 24 (puestos 1 a 3 y 22 a 24), hasta tres de cada lado, con la
+// frase neutra de puestoTxt: que una cifra sea alta no dice si es buena o mala. Salen de los indicadores del perfil, sin los de la capital
+function pintarDestaca() {
+  const caja = document.getElementById("prov-destaca"); if (!caja) return;
+  const nombre = NOMBRES[prov];
+  if (!nombre) { caja.hidden = true; caja.innerHTML = ""; return; }
+  const cand = INDP.map(c => {
+    const fila = c.d.find(d => d.codigo_indec === prov), n = c.d.length;
+    if (!fila || fila[c.k] == null || n < 20) return null;
+    const orden = [...c.d].sort((a, b) => b[c.k] - a[c.k]).findIndex(d => d.codigo_indec === prov) + 1;
+    return {c, fila, orden, n, lado: orden <= 3 ? 0 : orden > n - 3 ? 1 : -1, extremo: Math.min(orden, n - orden + 1)};
+  }).filter(x => x && x.lado >= 0).sort((a, b) => a.extremo - b.extremo);
+  // hasta tres por lado y una sola tarjeta por ficha de cada lado (Aprender en matemática y en lengua son la misma ficha)
+  const elegidas = [[], []];
+  cand.forEach(x => { const l = elegidas[x.lado]; if (l.length < 3 && !l.some(y => y.c.id === x.c.id)) l.push(x); });
+  const tarjetas = [...elegidas[0], ...elegidas[1]];
+  caja.hidden = false;
+  caja.innerHTML = `<h2 class="bloque-grupo" id="prov-destaca-t">Dónde se destaca</h2>` +
+    (tarjetas.length ? `<p class="prov-destaca-sub">Los indicadores del perfil en los que ${nombre} tiene una de las tres cifras más altas o más bajas de las 24 jurisdicciones. Que una cifra sea alta o baja no dice si es buena o mala.</p>` +
+      `<div class="perfil-tarjetas">` + tarjetas.map(({c, fila, orden, n}) => `<a class="tarjeta dp" href="#${c.id}"><span class="dp-lab">${c.lab}</span>` +
+        `<span class="dp-num">${c.f(fila[c.k])}</span><span class="dp-det">${c.det}</span>` +
+        `<span class="dp-pos">${puestoTxt(orden, n)}.${c.pais == null ? "" : ` País: ${c.f(c.pais)}.`}</span></a>`).join("") + `</div>`
+    : `<p class="prov-destaca-sub">En los indicadores del perfil, ${nombre} no tiene ninguna de las tres cifras más altas ni de las tres más bajas de las 24 jurisdicciones.</p>`);
+}
 function pintarPanel(animar) {
   const nombre = NOMBRES[prov];
   pintarExtra();
+  pintarDestaca();
+  // el título de la pestaña lleva el nombre de la provincia, también al compartir el enlace (etapa 6 del plan de mejora)
+  if (PAGINA === "provincia") document.title = nombre ? `${nombre} en números | Datina` : TITULO_INICIAL;
   cambiarTexto($("prov-titulo-txt"), nombre ? `${nombre} en números` : "¿Cómo se compara tu provincia con el país?", animar);
   const pb = $("prov-band"), nueva = nombre ? bandera(prov, "grande") : "";
   if (pb.innerHTML !== nueva) { pb.innerHTML = nueva; if (animar && !REDUCIR && nueva) pb.animate([{opacity: 0}, {opacity: 1}], {duration: DUR_C, easing: "ease-out"}); }
@@ -9512,7 +9541,7 @@ function cerrarTarjetaMapa() {
 const marcarMapa = () => document.querySelectorAll("#mapa .provs a").forEach(a => a.classList.toggle("elegida", a.dataset.c === prov));
 alCambiarProv.push(marcarMapa);
 // la historia de la provincia elegida en Tu provincia (11 de octubre de 2026): los 24 bloques los escribe el constructor, ocultos
-const mostrarHistoria = () => document.querySelectorAll("#prov-historia .ph").forEach(a => { a.hidden = a.dataset.c !== prov; });
+const mostrarHistoria = () => document.querySelectorAll("#prov-historia .ph, .prov-linea").forEach(a => { a.hidden = a.dataset.c !== prov; });
 if (document.getElementById("prov-historia")) { mostrarHistoria(); alCambiarProv.push(mostrarHistoria); }
 if (PAGINA === "inicio") mapa();
 

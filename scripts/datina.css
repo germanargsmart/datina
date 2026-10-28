@@ -725,6 +725,13 @@ html:not(.js) .busca-portada{display:none}
 }
 /* perfil: un indicador por tarjeta, con la tira de las 24, agrupados por tema con un índice arriba (etapa 27) */
 .prov-grid{margin-top:var(--e-6)}
+.prov-linea{margin:var(--e-3) 0 0;font-size:var(--t-3);color:var(--muted)}
+.prov-destaca{margin-top:var(--e-6)}
+/* mientras llegan los datos, el lugar de "Dónde se destaca" queda reservado (lo abre el constructor si hay una provincia elegida): medido
+   el 28 de octubre de 2026, de 336 a 356 píxeles en el celular y de 448 a 549 desde 768 */
+.prov-destaca:empty{min-height:350px}
+@media (min-width:768px){.prov-destaca:empty{min-height:480px}}
+.prov-destaca-sub{max-width:65ch;margin:var(--e-2) 0 var(--e-4);font-size:var(--t-3);color:var(--muted)}
 .perfil-indice ol{display:flex;flex-wrap:wrap;gap:var(--e-2) var(--e-6);margin:0;padding:0;list-style:none;font-size:var(--t-3)}
 .perfil-grupo{scroll-margin-top:96px}
 /* el índice de capítulos de las páginas largas (etapa 6 del plan de mejora), con el aspecto del del perfil, y cada capítulo, que no queda

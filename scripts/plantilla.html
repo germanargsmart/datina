@@ -149,10 +149,15 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
         <p class="elige-vacio" id="elige-vacio" role="status" hidden>Ninguna provincia coincide</p>
       </div>
     </div>
-    <!-- la historia de cada jurisdicción (11 de octubre de 2026): la escribe el constructor desde datos/manual/provincias_historia.json -->
-    <!--HISTORIA-->
+    <!-- habitantes, capital y año de provincialización de cada jurisdicción: los escribe el constructor -->
+    <!--PROV-LINEA-->
+    <!-- "Dónde se destaca" (etapa 6 del plan de mejora): las cifras más altas y más bajas de la provincia elegida, las arma datina.js -->
+    <section class="prov-destaca" id="prov-destaca" aria-labelledby="prov-destaca-t" hidden></section>
     <div class="prov-grid" id="prov-grid"></div>
     <div class="prov-extra" id="prov-extra"></div>
+    <!-- la historia de cada jurisdicción (11 de octubre de 2026), al final desde la etapa 6 del plan de mejora: la escribe el constructor
+         desde datos/manual/provincias_historia.json -->
+    <!--HISTORIA-->
   </section>
 
   <section class="nosotros" id="nosotros" aria-labelledby="nos-tit">
