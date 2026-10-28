@@ -544,7 +544,7 @@ GRUPOS = [
     ("personas", "Personas y bienestar", [("Población", ["poblacion", "migraciones"]), "salud", "educacion", "pobreza"]),
     # Sector externo, desde el 11 de octubre de 2026 (pedido del autor: "meté una nueva categoría en trabajo y economía que se llame sector externo")
     ("economia", "Trabajo y economía", ["trabajo", ("Economía", ["economia", "empresas", "construccion", "gobierno"]), "externo", "turismo"]),
-    ("estado", "Estado y sociedad", ["politica", "seguridad"]),
+    ("estado", "Estado y sociedad", ["politica", "justicia", "seguridad"]),
     ("territorio", "Territorio y recursos", [("Energía", ["energia", "petroleo"]), "movilidad", "naturaleza"]),
 ]
 # La barra (Fase 2, respuesta del autor del 23 de octubre de 2026: "Temas, Provincias, Historias, Herramientas"): "Temas" abre los cuatro
@@ -639,7 +639,7 @@ for _obj in ("LEAD", "TX", "DIB", "CLAVE", "EXTRA", "EN_CIFRAS", "SERIE_CIFRA"):
     assert not _rep, f"claves repetidas en {_obj} de datina.js: {_rep}"
 # ícono de cada página: la grilla de secciones de la portada (datina.js) y el final de página ("Seguí explorando")
 SEC_ICONO = {"articulos": "periodico", "provincia": "pin", "trabajo": "maletin", "empresas": "tienda", "pobreza": "casa", "salud": "botiquin",
-             "educacion": "birrete", "poblacion": "personas", "politica": "congreso", "movilidad": "colectivo", "construccion": "grua", "energia": "rayo", "petroleo": "ciguena", "seguridad": "escudo", "economia": "carrito", "migraciones": "globo", "gobierno": "mastil", "externo": "buque", "turismo": "valija",
+             "educacion": "birrete", "poblacion": "personas", "politica": "congreso", "justicia": "balanza", "movilidad": "colectivo", "construccion": "grua", "energia": "rayo", "petroleo": "ciguena", "seguridad": "escudo", "economia": "carrito", "migraciones": "globo", "gobierno": "mastil", "externo": "buque", "turismo": "valija",
              "naturaleza": "andes", "curiosidades": "mate", "cruces": "dispersion", "indice": "podio", "departamentos": "mosaico",
              "diagnostico": "portapapeles", "catalogo": "planilla", "laboratorio": "matraz"} | ({"consulta-ia": "dialogo"} if CONSULTA_IA else {})
 SEC_ICONO.update({i: ico for i, ico, _, _ in NOTAS})
@@ -840,6 +840,14 @@ def navegacion(h, pagina):
     # la fila de la categoría, después de la entrada (datina.js pone "En cifras" después de ella)
     if pagina in CATEGORIA:
         blo = re.sub(r'(<div class="tema-intro">.*?</div>)', lambda m: m.group(1) + subsecciones(pagina), blo, count=1, flags=re.S)
+    # el índice de capítulos (etapa 6 del plan de mejora, decisión del autor del 27 de octubre de 2026): en las páginas con dos capítulos o
+    # más (h2.bloque-grupo con un id g-…), debajo de "En cifras", con el aspecto del índice del perfil provincial. Nada queda escondido:
+    # cada ficha conserva su enlace y el buscador la encuentra
+    caps = re.findall(r'<h2 class="bloque-grupo" id="(g-[\w-]+)">([^<]+)</h2>', blo)
+    if len(caps) >= 2:
+        indice = ('<nav class="perfil-indice capitulos" aria-label="Capítulos de esta página"><ol>' +
+                  "".join(f'<li><a class="enlace" href="#{i}">{n}. {t}</a></li>' for n, (i, t) in enumerate(caps, 1)) + "</ol></nav>")
+        blo = re.sub(r'(<div class="tema-intro">.*?</div>(?:<nav class="subsecciones".*?</nav>)?)', lambda m: m.group(1) + indice, blo, count=1, flags=re.S)
     # transición entre páginas: el título viaja desde su tarjeta de la portada (mismo nombre en las dos páginas)
     if pagina in [x[0] for x in SECCIONES]:
         blo = re.sub(r"<h2>", f'<h2 style="view-transition-name:t-{pagina}">', blo, count=1)

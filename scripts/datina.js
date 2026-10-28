@@ -6556,6 +6556,7 @@ const EN_CIFRAS = {
   gobierno: ["f-cuentas-nacion", "f-recaudacion", "f-deuda", "f-empleo-publico", "f-impuestos-provinciales", "f-fiscal"],
   migraciones: ["f-nacidos-otro-pais", "x-primer-pais", "f-radicaciones", "f-argentinos-exterior", "f-migracion-interna", "f-migracion-historia"],
   politica: ["x-balotaje", "x-representacion", "x-congreso", "x-atn", "x-presidentes"],
+  justicia: ["f-corte-casos", "f-jueces-federales", "f-fiscalias-federales", "f-cortes-provinciales", "f-justicia-provincial"],
   movilidad: ["f-sube", "f-combustibles", "x-sube-var", "f-patentes", "f-sube-modos", "f-patentes-prov"],
   // Energía y Petróleo y gas, en dos páginas desde la etapa 22: Energía tiene datos por provincia (la electricidad y el gas de los
   // hogares) y suma la tarjeta "Tu provincia", Petróleo y gas no
