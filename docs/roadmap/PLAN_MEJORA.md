@@ -197,6 +197,8 @@ Medido en el celular (una pantalla son unos 800 píxeles):
 
 Recomendación: **un índice de capítulos debajo de "En cifras"**, con el mismo aspecto del índice numerado del perfil provincial ("1. Trabajo 2. Seguridad social..."). Cuatro de los seis revisores lo prefieren a las pestañas por tres motivos: cada ficha conserva su enlace, el buscador la encuentra y nada queda escondido. Uno propuso pestañas en Precios, Construcción y Sector externo. La decisión es del autor (sección 13).
 
+_Decidido por el autor el 27 de octubre de 2026: el índice de capítulos (hecho en el PR #25). Cambiado por el autor el 28 de octubre de 2026, después de verlo: primero el índice con el aspecto de la fila de la categoría ("deberían parecerse a las demás de las otras páginas, como en población que está migraciones y población") y después los capítulos como pestañas ("como población, que toco migraciones y tiene su sección ahí dentro, pero no es una página nueva"). Se ve un capítulo por vez. Lo que llevó a recomendar el índice se conserva: cada ficha mantiene su enlace (la dirección de una ficha abre su capítulo) y el buscador la encuentra. Hecho en el PR #31._
+
 Una página nueva (`justicia.html`) toca `GRUPOS`, `prueba_navegacion.py` y sus 52 direcciones, `relaciones.json`, `catalogo.json`, los botones de los artículos y la prueba de páginas. Las anclas viejas (`politica.html#f-corte-casos`) necesitan un script chico que las mande a la página nueva.
 
 ### Secciones flacas o mezcladas
