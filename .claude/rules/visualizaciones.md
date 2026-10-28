@@ -38,6 +38,7 @@ Detalle, medidas y motivos: `docs/historico/etapas-previas.md`, secciones "Regla
 
 - D3 7.8.5 desde el propio sitio (`sitio/lib/`, copia de `scripts/lib/`). Hasta el 22 de octubre de 2026 venía de cdnjs. Cada elemento tarda 300 ms y el escalonado suma como máximo 150 ms (`DUR_G`, `escalon()`). Con movimiento reducido, solo fundidos.
 - Barras por provincia con la línea del país (`cfg.ref` o `cfg.pais`) y "País: X" en el cuadro. Las fichas de suicidio no llevan cuadro ni cifra destacada.
+- Cifra destacada (`CLAVE`, plan de mejora, D8, 28 de octubre de 2026): toda ficha la lleva, con el número que contesta su pregunta para el país o el total, en la misma medida y el mismo período de su vista inicial. No la llevan: las de suicidio y muertes violentas (temas sensibles), las de Instituciones políticas (ningún resultado político se destaca sobre otro: sus cifras van en el texto y en "En cifras"), las encuestas de opinión (un número grande sugiere una precisión que la encuesta no tiene), las que muestran la relación entre dos medidas (la respuesta es la relación) y las que muestran cómo se reparte un total, por edad o por causa. Las herramientas tampoco. `SIN_CIFRA` en `scripts/prueba_cifras.mjs` lista esas fichas con su motivo y la prueba frena una ficha nueva sin cifra que no esté ahí.
 - Cada gráfico reserva su alto mientras carga (`data-forma`, `--alto`, `--alto-c`): nada salta cuando llega.
 - Al cambiar de provincia, donde solo cambia el resaltado se cambia el color sin redibujar (`resaltar()`).
 

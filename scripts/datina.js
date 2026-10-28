@@ -6455,6 +6455,21 @@ const CLAVE = {
   "f-aprender": [pct(ap.mat), `de los estudiantes de 6° grado alcanzó un nivel satisfactorio o avanzado en matemática en Aprender ${ap.anio}`,
     "en matemática, en todo el país"],
   "f-empleo": [n1(em.cada_100_pais), `personas asalariadas registradas en el sector privado cada 100 habitantes en ${em.mes}`, "cada 100 habitantes en el país"],
+  // cifras que faltaban (plan de mejora, D8, 28 de octubre de 2026): toda ficha lleva la suya, salvo las excepciones de la regla (SIN_CIFRA en
+  // scripts/prueba_cifras.mjs y .claude/rules/visualizaciones.md)
+  "f-nacimientos": [n0(nac.n_ult), `nacimientos se registraron en la Argentina en ${nac.anio_ult}`, `nacimientos en la Argentina en ${nac.anio_ult}`],
+  "f-envejecimiento": [n1(EV.hoy), `personas de 65 años o más por cada 100 de 15 a 64 había en el país en ${EV.anio}`,
+    `personas de 65 años o más por cada 100 de 15 a 64 en el país, ${EV.anio}`],
+  // con las que pueden faltar si la fuente no llegó, como en sus textos
+  ...(HB ? {"f-haberes": [pct(HB.pct_min_ad), `del salario promedio de los asalariados registrados equivalía el haber mínimo con los refuerzos en ${HB.anio}${HB.meses < 12 ? `, hasta ${MESES[HB.meses - 1]}` : ""}`,
+    `del salario promedio registrado, el haber mínimo con refuerzos en ${HB.anio}${HB.meses < 12 ? `, hasta ${MESES[HB.meses - 1]}` : ""}`]} : {}),
+  "f-ingresos-aglomerados": [`${n0(Math.round(IA.ipcf.pais / 1000) * 1000)} pesos`, `por mes por integrante del hogar era la mediana del ingreso en los 31 aglomerados ` +
+    `urbanos en ${IA.trimestres}, en pesos del ${IA.trimestre}`, `por integrante por mes, mediana de los 31 aglomerados, en pesos del ${IA.trimestre}`],
+  ...(PIN ? {"f-pensiones-invalidez": [n1(PIN.pais_cada_1000), `pensiones no contributivas por invalidez cada 1.000 habitantes había en el país en ${MESES[PIN.prov_mes - 1]} de ${PIN.prov_anio}`,
+    `pensiones por invalidez cada 1.000 habitantes en el país`]} : {}),
+  ...(AU ? {"f-auh": [n1(AU.pais_100), `hijos con AUH cada 100 menores de 18 años había en el país en ${MESES[AU.mes - 1]} de ${AU.anio}`, "cada 100 menores de 18 años en el país"]} : {}),
+  ...(DS ? {"f-desempleo": [n1(DS.pais_1000), `personas cobraban el seguro de desempleo cada 1.000 habitantes en el país en ${MESES[DS.prov_mes - 1]} de ${DS.prov_anio}`,
+    "cada 1.000 habitantes en el país"]} : {}),
   "f-protegida": [pct(nt.pct), `del territorio continental del país está dentro de áreas protegidas, ${nt.anio}`, "del territorio continental del país"],
   "f-parques": [n0(nt.pn_n), `áreas protegidas nacionales. Las primeras se crearon en ${nt.pn_primera_anio}`, "áreas protegidas a cargo de la Administración de Parques Nacionales"],
   "f-especies": [n0(nt.esp_top_v), `especies animales registradas en ${nt.esp_top}, el área nacional con más registros`, `especies animales registradas en ${nt.esp_top}, el área con más registros`],
