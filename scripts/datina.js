@@ -6924,7 +6924,9 @@ document.querySelectorAll("article.ficha").forEach(f => {
   const lbl = acc.querySelector(".copiar .lbl");
   const cambiar = t => { lbl.classList.add("cambia"); setTimeout(() => { lbl.textContent = t; lbl.classList.remove("cambia"); }, 120); };
   acc.querySelector(".copiar").addEventListener("click", async () => {
-    const url = location.origin + location.pathname + (prov ? "?prov=" + prov : "") + "#" + f.id;
+    // con la provincia elegida, la vista de la ficha si no es la de llegada y, en una ficha con vistas, la pestaña a la vista (F1)
+    const vista = vistaDeFicha(f), q = [prov ? "prov=" + prov : "", vista ? "vista=" + vista : ""].filter(Boolean).join("&");
+    const url = location.origin + location.pathname + (q ? "?" + q : "") + "#" + (f.querySelector(".panel-pestana[data-vieja]:not([hidden])")?.dataset.vieja || f.id);
     let ok = false;
     try { await navigator.clipboard.writeText(url); ok = true; }
     catch (_) {
@@ -9418,6 +9420,30 @@ addEventListener("beforeprint", () => document.querySelectorAll("article.ficha")
   f.querySelectorAll(".grafico[data-g]").forEach(gr => { if (gr.offsetParent && DIB[gr.dataset.g]) DIB[gr.dataset.g](false); });
   f.dataset.direccion = location.origin + location.pathname + location.search + "#" + f.id;
 }));
+
+/* La dirección con la vista de cada ficha (plan de mejora, F1, 28 de octubre de 2026, como ya hacían ?ix= y ?dx=): "Copiar enlace" suma a
+   la dirección los botones de vista y los selectores de la ficha que no están como al llegar (trabajo.html?vista=desempleo:serie#f-desempleo),
+   y al abrir esa dirección se vuelven a elegir. Un botón de vista se nombra por su data-g y un selector por su id (o su data-g). La pestaña
+   de una ficha con vistas va con la dirección de su ficha vieja, que ya la abre */
+const VISTA_INICIAL = new Map();
+const controlesDe = f => [...f.querySelectorAll('.conmutador[data-g]:not(.pestanas):not([data-propio]), select[id], select[data-g]')];
+const valorControl = c => c.matches("select") ? c.value : c.querySelector('button[aria-pressed="true"]')?.dataset.m;
+const claveControl = c => c.matches("select") ? c.id || c.dataset.g : c.dataset.g;
+function vistaDeFicha(f) {
+  return controlesDe(f).filter(c => VISTA_INICIAL.has(c) && valorControl(c) != null && valorControl(c) !== VISTA_INICIAL.get(c))
+    .map(c => claveControl(c) + ":" + encodeURIComponent(valorControl(c))).join(",");
+}
+document.querySelectorAll("article.ficha").forEach(f => controlesDe(f).forEach(c => VISTA_INICIAL.set(c, valorControl(c))));
+(location.search.match(/[?&]vista=([^&#]*)/)?.[1] || "").split(",").forEach(par => {
+  const i = par.indexOf(":"); if (i < 1) return;
+  const k = par.slice(0, i), v = decodeURIComponent(par.slice(i + 1));
+  const sel = document.getElementById(k)?.matches("select") ? document.getElementById(k) : document.querySelector(`select[data-g="${CSS.escape(k)}"]:not([id])`);
+  if (sel) {
+    if (sel.value !== v && [...sel.options].some(o => o.value === v)) { sel.value = v; sel.dispatchEvent(new Event("change")); }
+    return;
+  }
+  document.querySelector(`.conmutador[data-g="${CSS.escape(k)}"]:not(.pestanas):not([data-propio]) button[data-m="${CSS.escape(v)}"]`)?.click();
+});
 // En los artículos se mira cada gráfico por separado (etapa 22): un artículo con varios gráficos es más alto que la pantalla, y en el
 // celular el 12% del artículo no entraba nunca a la vista, así que sus gráficos no se dibujaban
 const vistasG = new IntersectionObserver(es => es.forEach(en => {
