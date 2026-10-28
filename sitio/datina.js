@@ -207,6 +207,10 @@ const nv = R.nuevos;
 const au = R.autos, cu = R.curiosidades, pe = R.pesca, vpq = R.visitas_parque;
 // soja por departamento (tanda 3 del plan de mejora, 28 de octubre de 2026)
 const SJ = R.soja;
+// dengue y vacuna triple viral (plan de mejora, sección 10, 28 de octubre de 2026)
+const DG = R.dengue, VC = R.vacunas;
+// los casos cada 100.000 habitantes: sin decimales desde 10 y con uno debajo (en las temporadas con pocos casos casi todas dan menos de 1)
+const fDg = v => v >= 10 ? n0(v) : n1(v);
 // La "y" pasa a "e" delante de una palabra que empieza con el sonido de la i ("Misiones e Iguazú", "e INDEC"), salvo si la i forma
 // un diptongo ("agua y hielo"). yE(s) devuelve la conjunción con la palabra, sin mirar las etiquetas ni los signos del principio.
 const yE = s => (/^h?[ií](?![aeiouáéíóú])/i.test(String(s).replace(/<[^>]*>/g, "").replace(/^[^\p{L}\d]+/u, "")) ? "e " : "y ") + s;
@@ -1631,6 +1635,30 @@ const TX = {
     `verano de ${SJ.campania.slice(0, 4)} y se cosechó en el otoño siguiente. ` +
     `El mapa divide a los departamentos que siembran soja en cinco grupos del mismo tamaño, y en gris quedan los que no la siembran. Un departamento grande ` +
     `puede sembrar más hectáreas sin que la soja ocupe una parte mayor de su tierra. Las cifras de la última campaña pueden corregirse en las publicaciones siguientes.`,
+  // dengue (plan de mejora, sección 10): el texto de las temporadas juntas. El de una temporada sola y el de la serie los arma DIB.dengue
+  dengue: `Sumando las temporadas de la ${DG.prov_desde} a la ${DG.temp}, la tasa más alta fue la de ${DG.top}, con ${fDg(DG.top_v)} casos confirmados cada 100.000 ` +
+    `habitantes, seguida por la de ${DG.top2}, con ${fDg(DG.top2_v)}. La más baja fue la de ${DG.low}, con ${fDg(DG.low_v)}. En todo el país se confirmaron ` +
+    `${n0(DG.casos_juntas)} casos en esas temporadas` + (DG.max_pct_juntas != null ? `, el ${pct(DG.max_pct_juntas)} en la de ${DG.max_temp}, la de la epidemia más grande.` : "."),
+  "dengue-serie": `En la temporada ${DG.temp} se confirmaron ${n0(DG.casos)} casos de dengue en el país, frente a ${n0(DG.casos_ant)} en la ${DG.temp_ant}. ` +
+    `La epidemia más grande desde la temporada ${DG.ini} fue la de ${DG.max_temp}, con ${n0(DG.max_casos)} casos.`,
+  "dengue-nota": `Casos confirmados de dengue, incluidos los de embarazadas, según la provincia donde vive cada persona, notificados al Sistema Nacional de ` +
+    `Vigilancia de la Salud del Ministerio de Salud. La temporada va de la semana epidemiológica 31 de un año, a fines de julio o principios de agosto, a la 30 del ` +
+    `siguiente, como en los boletines epidemiológicos del Ministerio: los casos se concentran entre el verano y el otoño. La tasa usa la población que proyecta el ` +
+    `INDEC (base Censo 2022) para el año en que termina cada temporada, por eso empieza en la ${DG.prov_desde}. Los datos llegan hasta la semana ${DG.sem_ult} de ` +
+    `${DG.anio_ult} y las semanas más recientes pueden sumar casos en las publicaciones siguientes.`,
+  // vacuna triple viral (plan de mejora, sección 10)
+  vacunas: `En ${VC.anio}, ${VC.bajo95_1} de las 24 jurisdicciones vacunaron con la primera dosis a menos del 95% de los chicos de un año, la cobertura que ` +
+    `recomienda la Organización Panamericana de la Salud para frenar el sarampión. Las más bajas fueron las de ${VC.low}, ${pct(VC.low_v)}, ${yE(VC.low_b)}, ` +
+    `${pct(VC.low_b_v)}. En ${VC.ini} eran ${VC.bajo95_1_ini}.`,
+  "vacunas-2": `La segunda dosis, que se da al entrar a la escuela, quedó debajo del 95% en ${VC.bajo95_2 === 24 ? "las 24 jurisdicciones" : `${VC.bajo95_2} de las 24 jurisdicciones`} ` +
+    `en ${VC.anio}. La mitad de las jurisdicciones vacunó a menos del ${pct(VC.mediana2)} de los chicos de esa edad, y la cobertura más baja fue la de ${VC.low2}, ` +
+    `${pct(VC.low2_v)}.`,
+  "vacunas-serie": `La cobertura mediana de las 24 jurisdicciones en la primera dosis pasó de ${pct(VC.mediana1_ini)} en ${VC.ini} a ${pct(VC.mediana1_2019)} ` +
+    `en 2019, antes de la pandemia, y a ${pct(VC.mediana1)} en ${VC.anio}. La de la segunda, de ${pct(VC.mediana2_2019)} en 2019 a ${pct(VC.mediana2)}.`,
+  "vacunas-nota": `La triple viral protege contra el sarampión, las paperas y la rubéola. La primera dosis se da al año de vida y la segunda al entrar a la escuela, ` +
+    `a los 5 años. Es una cobertura administrativa: las dosis que se aplicaron sobre la población que se estima para esa edad, así que puede pasar de 100% cuando se ` +
+    `vacuna a chicos de otras provincias o la población estimada se queda corta. La Organización Panamericana de la Salud recomienda llegar al 95% de los chicos para ` +
+    `frenar el sarampión. El archivo no trae el total del país: la evolución muestra la mediana de las 24 jurisdicciones, la que tiene tantas por encima como por debajo.`,
   // la cifra destacada ya dice la esperanza de vida del país: el texto empieza por la de mujeres y varones
   esperanza: `En ${nv.ev_anio}, la esperanza de vida al nacer de las mujeres del país era de ${n1(nv.ev_m)} años y la de los varones, de ${n1(nv.ev_v)}. Con mujeres y varones juntos, por provincia iba de ${n1(nv.ev_top_v)} años en ${nv.ev_top} a ${n1(nv.ev_low_v)} en ${nv.ev_low}. El gráfico muestra al lado de cada provincia la esperanza de vida de las mujeres.`,
   "esperanza-nota": `Años que viviría en promedio una persona nacida en ${nv.ev_anio} si se mantuvieran las tasas de mortalidad por edad de ese año. El círculo claro marca a los varones y el lleno a las mujeres. El INDEC publica tablas para 2020, 2021 y 2022, y las de 2020 y 2021 reflejan la mortalidad de la pandemia de COVID-19. La línea punteada violeta marca el promedio simple de los países de la OCDE en ${OC.esperanza_vida.anio}, para ambos sexos, según el Banco Mundial.`,
@@ -5139,6 +5167,56 @@ TABLA_PROPIA["f-soja"] = () => {
   if (v === "provincias") return Promise.resolve(T.soja_provincias.map(r => ({codigo_indec: r.codigo_indec, territorio: r.territorio, ...cols(r)})));
   return cargarTabla("soja_departamentos").then(t => t.map(r => ({departamento: r.departamento, provincia: r.provincia, ...cols(r)})));
 };
+// dengue (plan de mejora, sección 10): la tasa por provincia de las temporadas juntas o de una, y los casos del país por temporada
+MED.dengue = "provincias";
+MED["dengue-temp"] = DG.juntas;
+$("dg-sel").innerHTML = [[DG.juntas, `De la ${DG.prov_desde} a la ${DG.temp}, juntas`], ...[...DG.temps_prov].reverse().map(t => [t, t])]
+  .map(([v, l]) => `<option value="${v}">${l}</option>`).join("");
+$("dg-sel").addEventListener("change", ev => { MED["dengue-temp"] = ev.target.value; cambiarVista("dengue"); });
+const dgFilas = () => T.dengue_provincias.filter(r => r.temporada === MED["dengue-temp"]);
+DIB.dengue = a => {
+  const v = MED.dengue, el = G("dengue");
+  $("dg-elige").hidden = v === "serie";
+  refrescarTabla("f-dengue");
+  if (v === "serie") {
+    $t("dengue").textContent = TX["dengue-serie"];
+    return barrasH(el, {anim: a, data: T.dengue_pais.map(r => ({codigo_indec: r.temporada, territorio: r.temporada, casos: r.casos, cada_100000: r.cada_100000})),
+      k: "casos", sinOrden: true, vf: n0, af: ejeMil, l: 90, lAngosto: 72,
+      tip: d => `<b>Temporada ${d.territorio}</b><br>${n0(d.casos)} casos confirmados` + (d.cada_100000 == null ? "" : `<br>${fDg(d.cada_100000)} cada 100.000 habitantes`)});
+  }
+  const t = MED["dengue-temp"], filas = dgFilas(), fp = filas.find(r => r.codigo_indec === prov);
+  const pp = T.dengue_pais.find(r => r.temporada === t), pais = t === DG.juntas ? DG.pais_100000_juntas : pp.cada_100000;
+  const top = [...filas].sort((x, y) => y.cada_100000 - x.cada_100000)[0], sin = filas.filter(r => r.casos === 0).length;
+  const txt = t === DG.juntas ? TX.dengue : `En la temporada ${t} se confirmaron ${n0(pp.casos)} casos de dengue en el país, ${fDg(pp.cada_100000)} cada 100.000 habitantes. ` +
+    `La tasa más alta fue la de ${top.territorio}, con ${fDg(top.cada_100000)}.` + (sin ? ` En ${sin === 1 ? "una jurisdicción" : `${sin} jurisdicciones`} no hubo casos confirmados.` : "");
+  $t("dengue").textContent = (fp ? `En ${fp.territorio} se confirmaron ${n0(fp.casos)} casos ${t === DG.juntas ? `de la temporada ${DG.prov_desde} a la ${DG.temp}` : `en la ${t}`}, ` +
+    `${fDg(fp.cada_100000)} cada 100.000 habitantes. ` : "") + txt;
+  barrasH(el, {anim: a, data: filas, k: "cada_100000", vf: fDg, af: n0, ref: pais, refLab: `País ${fDg(pais)}`,
+    tip: d => `<b>${d.territorio}</b><br>${fDg(d.cada_100000)} casos cada 100.000 habitantes<br>${n0(d.casos)} casos confirmados`});
+};
+// "Ver tabla" del dengue: la temporada elegida por provincia, o el país por temporada
+TABLA_PROPIA["f-dengue"] = () => Promise.resolve(MED.dengue === "serie"
+  ? T.dengue_pais.map(r => ({temporada: r.temporada, casos: r.casos, "casos cada 100.000 habitantes": r.cada_100000}))
+  : dgFilas().map(r => ({codigo_indec: r.codigo_indec, territorio: r.territorio, temporada: r.temporada, casos: r.casos, "casos cada 100.000 habitantes": r.cada_100000})));
+// vacuna triple viral (plan de mejora, sección 10): cada dosis por provincia, con la línea del 95%, y la mediana de las 24 jurisdicciones por año
+MED.vacunas = "dosis1";
+DIB.vacunas = a => {
+  const v = MED.vacunas, el = G("vacunas"), fp = T.vacunas_provincias.find(r => r.codigo_indec === prov);
+  refrescarTabla("f-vacunas");
+  if (v === "serie") {
+    $t("vacunas").textContent = TX["vacunas-serie"];
+    return lineas(el, {anim: a, data: T.vacunas_serie, x: "anio", y0: 0, vf: pct, yf: v => n0(v) + "%", ref: 95, refLab: "95%, lo que recomienda la OPS", refLabCorto: "95%",
+      series: [{k: "mediana_dosis1", lab: "Primera dosis", c: css("--celeste-fuerte"), w: 3}, {k: "mediana_dosis2", lab: "Segunda dosis", c: FRI, w: 2.4}]});
+  }
+  $t("vacunas").textContent = (fp ? `En ${fp.territorio}, la primera dosis llegó al ${pct(fp.dosis1)} de los chicos de un año y la segunda, al ${pct(fp.dosis2)} ` +
+    `de los que entraban a la escuela, en ${VC.anio}. ` : "") + TX[v === "dosis1" ? "vacunas" : "vacunas-2"];
+  barrasH(el, {anim: a, data: T.vacunas_provincias, k: v, vf: pct, af: v => n0(v) + "%", ref: 95, refLab: "95%, lo que recomienda la OPS",
+    paisLab: "Lo que recomienda la OPS", tip: d => `<b>${d.territorio}</b><br>Primera dosis: ${pct(d.dosis1)}<br>Segunda dosis: ${pct(d.dosis2)}`});
+};
+TABLA_PROPIA["f-vacunas"] = () => Promise.resolve(MED.vacunas === "serie"
+  ? T.vacunas_serie.map(r => ({año: r.anio, "primera dosis, mediana (%)": r.mediana_dosis1, "segunda dosis, mediana (%)": r.mediana_dosis2,
+      "jurisdicciones debajo del 95%, primera dosis": r.bajo_95_dosis1, "jurisdicciones debajo del 95%, segunda dosis": r.bajo_95_dosis2}))
+  : T.vacunas_provincias.map(r => ({codigo_indec: r.codigo_indec, territorio: r.territorio, "primera dosis (%)": r.dosis1, "segunda dosis (%)": r.dosis2})));
 MED.auh = "provincias";
 MED.desempleo = "habitantes";
 DIB["reservas-bcra"] = a => {
@@ -6572,6 +6650,10 @@ const CLAVE = {
   "f-exportaciones": [n0(nv.ex_pc_pais), `dólares por habitante exportó el país en ${nv.ex_anio}`, "dólares por habitante, promedio del país"],
   "f-cobertura": [pct(nv.censo.sin_cobertura), `de las personas no tenía obra social, prepaga ni plan estatal de salud en el Censo 2022`,
     "de las personas del país no tenía obra social, prepaga ni plan estatal de salud en el Censo 2022"],
+  "f-dengue": [fDg(DG.pais_100000_juntas), `casos confirmados de dengue cada 100.000 habitantes hubo en el país de la temporada ${DG.prov_desde} a la ${DG.temp}`,
+    "casos de dengue cada 100.000 habitantes en el país"],
+  "f-vacunas": [String(VC.bajo95_1), `de las 24 jurisdicciones vacunaron con la primera dosis de la triple viral a menos del 95% de los chicos de un año en ${VC.anio}`,
+    "de las 24 jurisdicciones, debajo del 95% en la primera dosis"],
   "f-censo": [pct(nv.censo.cloaca), `de los hogares tenía desagüe a red cloacal en el Censo 2022`, "de los hogares del país tenía desagüe a red cloacal"],
   "f-internet": [n1(nv.in_top_v), `accesos a internet fijo cada 100 hogares en ${nv.in_top}, el valor más alto, en el ${nv.in_trim}${DIST["internet_fijo_provincias.accesos_100_hogares"]?.[nv.in_top] ? ", contando también los accesos de empresas y organizaciones" : ""}`,
     `accesos cada 100 hogares en ${nv.in_top}, el valor más alto${DIST["internet_fijo_provincias.accesos_100_hogares"]?.[nv.in_top] ? ", contando los de empresas y organizaciones" : ""}`],
@@ -6913,7 +6995,7 @@ async function imagenFicha(f) {
 const SIN_RELACIONES = new Set(["f-edad", "f-suicidio", "f-suicidio-prov"]);
 // "En el catálogo" (11 de octubre de 2026, pedido del autor): lleva a la tabla del pie en catalogo.html, abierta con su vista previa. Solo
 // en las fichas cuya tabla está en el catálogo, que le pasa el constructor desde scripts/catalogo.py (las de suicidio no están)
-const EN_CATALOGO = new Set(["actividad_anual", "actividad_mensual", "actividad_sectores", "adulto_equivalente", "anios_congreso", "apoyo_gobierno_provincias", "aprender_departamentos", "aprender_diagnostico", "aprender_provincias", "areas_produccion", "areas_protegidas_provincias", "areas_serie", "argentinos_exterior", "argentinos_exterior_destinos", "asignaciones_cobertura", "auh_provincias", "balanza_comercial", "balanza_energetica", "bcra_variables", "bcra_variables_lista", "canasta_mensual", "canasta_regiones", "capitales", "capitales_eph", "carceles_provincias", "carceles_serie", "carne_vacuna", "causas_muerte_provincias", "censo2022_provincias", "centrales", "clima_desvio", "combustibles_anual", "combustibles_mensual", "combustibles_provincias", "compras_dolares_anual", "confianza_consumidor", "confianza_gobierno", "confianza_gobierno_elecciones", "confianza_gobierno_gobiernos", "congreso_composicion", "coparticipacion_provincias", "corte_casos", "corte_composicion", "corte_jueces", "corte_jueces_fuentes", "corte_no_asumieron", "corte_presidentes", "costo_anual", "costo_construccion", "cruces_provincias", "cruces_series", "cuenta_corriente", "cuentas_nacion", "curvas_vm", "delitos_serie", "delitos_tipo", "departamentos", "desembarques_especies", "desembarques_top", "desocupacion_aglomerados", "desocupacion_serie", "deuda_pbi", "diputados_nacionales", "diseno_pozos_vm", "dolar_inversion_trimestral", "dotacion_nacion", "elecciones_presidenciales", "electricidad_mensual", "electricidad_provincias", "electricidad_sectores", "electricidad_serie", "empleo_construccion_provincias", "empleo_construccion_serie", "empleo_provincias", "empleo_publico_provincias", "empresas_provincias", "empresas_serie_pais", "empresas_tamano_sector", "energia_estacionalidad", "energia_hogares", "envejecimiento_pais", "envejecimiento_provincias", "escolarizacion_secundaria_provincias", "especies_areas_nacionales", "esperanza_vida_provincias", "expectativas_inflacion", "exportaciones_cantidades_anual", "exportaciones_complejos", "exportaciones_destinos", "exportaciones_dolar_trimestral", "exportaciones_provincias", "exportaciones_rubros_anual", "extranjeros_provincias", "fiscal_provincias", "fiscalias_defensorias_federales", "fracturas_anual", "gabinetes_origen", "gas_usuario_mensual", "gas_usuario_provincias", "gas_usuario_serie", "gasto_nacion_tipo", "glaciares_provincias", "haberes_previsionales", "hidrocarburos_anual", "hidrocarburos_empresas", "hidrocarburos_mensual", "hidrocarburos_provincias", "hipotecas_mensual", "homicidios_provincias", "importaciones_origen", "importaciones_usos", "impuestos_provinciales", "inflacion_anual", "inflacion_mensual", "inflacion_regiones", "inflacion_rubros", "ingresos_aglomerados", "internet_fijo_provincias", "inversion_educativa", "inversion_educativa_serie", "isac_anual", "isac_insumos", "isac_mensual", "jubilaciones_aportantes", "justicia_federal_provincias", "justicia_provincias", "legisladores_por_periodo", "madres_adolescentes_nse", "madres_adolescentes_provincias", "migracion_censos", "migraciones_departamentos", "ministros_nacionales", "ministros_provincias", "mortalidad_infantil_causas", "mortalidad_infantil_provincias", "muertes_violentas", "mundo_hidrocarburos", "mundo_paises", "nacidos_otro_pais_paises", "nacidos_otro_pais_provincias", "nacimientos", "nafta_dolares_anual", "nafta_dolares_mensual", "nombres_top", "obra_publica_provincias", "obra_publica_serie", "ocde_comparacion", "parques_nacionales_historia", "parques_nacionales_lista", "patentamientos_anual", "patentamientos_provincias", "pensiones_invalidez", "pensiones_invalidez_provincias", "permisos_mensual", "pesca_continental", "pesca_continental_provincias", "piramide_poblacion", "pisa_argentina_ocde", "poblacion_proyectada_provincias", "pobreza_aglomerados", "pobreza_serie", "potencia_instalada", "pozos_no_convencionales", "pozos_provincias", "pozos_terminados", "pozos_terminados_provincias", "pozos_tipo", "presidentes", "prestacion_desempleo", "prestacion_desempleo_provincias", "presupuesto_votos", "productividad_vm", "radicaciones_anual", "radicaciones_nacionalidad", "recaudacion_anual", "recaudacion_impuestos", "refugio_acnur", "refugio_nacionalidades", "refugio_solicitudes", "regalias_crudo_serie", "regalias_provincias", "representacion_provincias", "reservas_bcra", "reservas_factores", "reservas_hidrocarburos", "reservas_netas", "reservas_provincias", "robos_provincias", "rotacion_laboral", "salario_docente", "salario_docente_serie", "salario_real_mensual", "salarios_provincias", "salarios_serie", "seguridad_serie_prov", "senadores_nacionales", "soja_departamentos", "soja_pais", "soja_provincias", "sube_dia_habil", "subsidios_energia", "supermercados_mensual", "supermercados_provincias", "transferencias_acumulado", "transferencias_provincias", "transferencias_serie", "turismo_dolar_mensual", "turistas_extranjeros_provincias", "turistas_no_residentes_anual", "viajeros_hoteles_anual", "vino_mercado_interno", "visitas_parques_nacionales", "visitas_por_parque", "vivienda_departamentos", "vivienda_provincias", "votaciones_leyes_clave", "voto_legisladores_y_provincia", "yerba_molino"]);
+const EN_CATALOGO = new Set(["actividad_anual", "actividad_mensual", "actividad_sectores", "adulto_equivalente", "anios_congreso", "apoyo_gobierno_provincias", "aprender_departamentos", "aprender_diagnostico", "aprender_provincias", "areas_produccion", "areas_protegidas_provincias", "areas_serie", "argentinos_exterior", "argentinos_exterior_destinos", "asignaciones_cobertura", "auh_provincias", "balanza_comercial", "balanza_energetica", "bcra_variables", "bcra_variables_lista", "canasta_mensual", "canasta_regiones", "capitales", "capitales_eph", "carceles_provincias", "carceles_serie", "carne_vacuna", "causas_muerte_provincias", "censo2022_provincias", "centrales", "clima_desvio", "combustibles_anual", "combustibles_mensual", "combustibles_provincias", "compras_dolares_anual", "confianza_consumidor", "confianza_gobierno", "confianza_gobierno_elecciones", "confianza_gobierno_gobiernos", "congreso_composicion", "coparticipacion_provincias", "corte_casos", "corte_composicion", "corte_jueces", "corte_jueces_fuentes", "corte_no_asumieron", "corte_presidentes", "costo_anual", "costo_construccion", "cruces_provincias", "cruces_series", "cuenta_corriente", "cuentas_nacion", "curvas_vm", "delitos_serie", "delitos_tipo", "dengue_pais", "dengue_provincias", "departamentos", "desembarques_especies", "desembarques_top", "desocupacion_aglomerados", "desocupacion_serie", "deuda_pbi", "diputados_nacionales", "diseno_pozos_vm", "dolar_inversion_trimestral", "dotacion_nacion", "elecciones_presidenciales", "electricidad_mensual", "electricidad_provincias", "electricidad_sectores", "electricidad_serie", "empleo_construccion_provincias", "empleo_construccion_serie", "empleo_provincias", "empleo_publico_provincias", "empresas_provincias", "empresas_serie_pais", "empresas_tamano_sector", "energia_estacionalidad", "energia_hogares", "envejecimiento_pais", "envejecimiento_provincias", "escolarizacion_secundaria_provincias", "especies_areas_nacionales", "esperanza_vida_provincias", "expectativas_inflacion", "exportaciones_cantidades_anual", "exportaciones_complejos", "exportaciones_destinos", "exportaciones_dolar_trimestral", "exportaciones_provincias", "exportaciones_rubros_anual", "extranjeros_provincias", "fiscal_provincias", "fiscalias_defensorias_federales", "fracturas_anual", "gabinetes_origen", "gas_usuario_mensual", "gas_usuario_provincias", "gas_usuario_serie", "gasto_nacion_tipo", "glaciares_provincias", "haberes_previsionales", "hidrocarburos_anual", "hidrocarburos_empresas", "hidrocarburos_mensual", "hidrocarburos_provincias", "hipotecas_mensual", "homicidios_provincias", "importaciones_origen", "importaciones_usos", "impuestos_provinciales", "inflacion_anual", "inflacion_mensual", "inflacion_regiones", "inflacion_rubros", "ingresos_aglomerados", "internet_fijo_provincias", "inversion_educativa", "inversion_educativa_serie", "isac_anual", "isac_insumos", "isac_mensual", "jubilaciones_aportantes", "justicia_federal_provincias", "justicia_provincias", "legisladores_por_periodo", "madres_adolescentes_nse", "madres_adolescentes_provincias", "migracion_censos", "migraciones_departamentos", "ministros_nacionales", "ministros_provincias", "mortalidad_infantil_causas", "mortalidad_infantil_provincias", "muertes_violentas", "mundo_hidrocarburos", "mundo_paises", "nacidos_otro_pais_paises", "nacidos_otro_pais_provincias", "nacimientos", "nafta_dolares_anual", "nafta_dolares_mensual", "nombres_top", "obra_publica_provincias", "obra_publica_serie", "ocde_comparacion", "parques_nacionales_historia", "parques_nacionales_lista", "patentamientos_anual", "patentamientos_provincias", "pensiones_invalidez", "pensiones_invalidez_provincias", "permisos_mensual", "pesca_continental", "pesca_continental_provincias", "piramide_poblacion", "pisa_argentina_ocde", "poblacion_proyectada_provincias", "pobreza_aglomerados", "pobreza_serie", "potencia_instalada", "pozos_no_convencionales", "pozos_provincias", "pozos_terminados", "pozos_terminados_provincias", "pozos_tipo", "presidentes", "prestacion_desempleo", "prestacion_desempleo_provincias", "presupuesto_votos", "productividad_vm", "radicaciones_anual", "radicaciones_nacionalidad", "recaudacion_anual", "recaudacion_impuestos", "refugio_acnur", "refugio_nacionalidades", "refugio_solicitudes", "regalias_crudo_serie", "regalias_provincias", "representacion_provincias", "reservas_bcra", "reservas_factores", "reservas_hidrocarburos", "reservas_netas", "reservas_provincias", "robos_provincias", "rotacion_laboral", "salario_docente", "salario_docente_serie", "salario_real_mensual", "salarios_provincias", "salarios_serie", "seguridad_serie_prov", "senadores_nacionales", "soja_departamentos", "soja_pais", "soja_provincias", "sube_dia_habil", "subsidios_energia", "supermercados_mensual", "supermercados_provincias", "transferencias_acumulado", "transferencias_provincias", "transferencias_serie", "turismo_dolar_mensual", "turistas_extranjeros_provincias", "turistas_no_residentes_anual", "vacunas_provincias", "vacunas_serie", "viajeros_hoteles_anual", "vino_mercado_interno", "visitas_parques_nacionales", "visitas_por_parque", "vivienda_departamentos", "vivienda_provincias", "votaciones_leyes_clave", "voto_legisladores_y_provincia", "yerba_molino"]);
 // el nombre de la sección arriba de la pregunta, solo en una página con fichas de más de una sección. Desde la Fase 2 (paso 5, respuesta
 // del autor del 23 de octubre de 2026) ninguna lo es: el nombre ya está arriba de la página y la pregunta queda primera
 const VARIAS_SECCIONES = new Set([...document.querySelectorAll("article.ficha")].map(f => f.closest(".tema"))).size > 1;
@@ -7404,6 +7486,8 @@ const INDP = [
     d:T.causas_muerte_provincias.filter(r => r.codigo_indec !== "00"), k:"tasa_total", pais:CM.pais, f:n0},
   {id:"f-cobertura", g:"salud", lab:"Sin cobertura de salud", veces:true, det:"% de las personas sin obra social, prepaga ni plan estatal, Censo 2022",
     d:T.censo2022_provincias, k:"sin_cobertura", pais:nv.censo.sin_cobertura, f:pct},
+  {id:"f-vacunas", g:"salud", lab:"Vacuna triple viral", det:`% de los chicos de un año vacunados con la primera dosis, ${VC.anio}`,
+    d:T.vacunas_provincias, k:"dosis1", pais:null, f:pct},
   {id:"f-censo", g:"vivienda", lab:"Cloacas", veces:"debajo", det:"% de los hogares con desagüe a red cloacal, Censo 2022",
     d:T.censo2022_provincias, k:"cloaca", pais:nv.censo.cloaca, f:pct},
   {id:"f-censo", g:"vivienda", lab:"Internet en el hogar", det:"% de los hogares con internet en la vivienda, Censo 2022",
@@ -7569,6 +7653,10 @@ const PREG = [
    `En ${PG.dv_ini}, un pozo tenía en promedio ${n0(PG.dv_rama_ini)} metros de rama horizontal y ${n1(PG.dv_etapas_ini)} etapas de fractura. En ${PG.fr_ult}, ${n0(PG.dv_rama_ult)} metros y ${n1(PG.dv_etapas_ult)} etapas.`, "#f-fracturas"],
   ["¿Dónde se siembra más soja?",
    `En la campaña ${SJ.campania} se sembraron ${n1(SJ.millones_ha)} millones de hectáreas de soja. ${SJ.top[0]}, ${SJ.top[1]} ${yE(SJ.top[2])} reunieron el ${pct(SJ.top3_pct)}.`, "#f-soja"],
+  ["¿Dónde hubo más casos de dengue?",
+   `De la temporada ${DG.prov_desde} a la ${DG.temp}, ${DG.top} tuvo ${fDg(DG.top_v)} casos confirmados cada 100.000 habitantes, la tasa más alta. En el país, ${fDg(DG.pais_100000_juntas)}.`, "#f-dengue"],
+  ["¿Dónde se vacuna menos a los chicos?",
+   `En ${VC.anio}, ${VC.low} vacunó con la primera dosis de la triple viral al ${pct(VC.low_v)} de los chicos de un año, la cobertura más baja. ${VC.bajo95_1} de las 24 jurisdicciones quedaron debajo del 95%.`, "#f-vacunas"],
   ["¿Cuánto petróleo produce la Argentina?",
    `${n0(PG.kbd)} mil barriles por día en ${PG.mes}. El ${pct(PG.pct_shale)} salió de pozos de shale. Según la EIA, en ${PG.mundo.crudo_kbd.anio} la Argentina fue el productor número ${PG.mundo.crudo_kbd.puesto} del mundo.`, "#f-petroleo"],
   ["¿Cuánto petróleo sale del área de concesión que más produce?",
@@ -9327,7 +9415,7 @@ if (PAGINA !== "inicio") {
     "f-poblacion-proy": ["poblacion", "habitantes"], "f-nacimientos": ["nacimientos", "natalidad"], "f-exportaciones": ["exportaciones", "exporta"],
     "f-importaciones": ["importaciones"], "f-reservas-bcra": ["reservas"], "f-deuda": ["deuda"], "f-haberes": ["jubilacion", "jubilados", "jubilado"],
     "f-auh": ["auh", "asignacion universal"], "f-desempleo": ["desempleo"], "f-aprender": ["aprender"], "f-escolarizacion": ["escolarizacion", "secundaria"],
-    "f-censo": ["cloacas", "agua red"], "f-cobertura": ["obra social", "prepaga", "cobertura de salud", "sin cobertura"], "f-internet": ["internet"], "f-glaciares": ["glaciares"], "f-receptivo": ["turistas", "turismo"], "f-isac": ["construccion"],
+    "f-censo": ["cloacas", "agua red"], "f-cobertura": ["obra social", "prepaga", "cobertura de salud", "sin cobertura"], "f-dengue": ["dengue", "mosquito"], "f-vacunas": ["vacuna", "vacunas", "vacunacion", "sarampion", "triple viral"], "f-internet": ["internet"], "f-glaciares": ["glaciares"], "f-receptivo": ["turistas", "turismo"], "f-isac": ["construccion"],
     "f-carne": ["carne"], "f-vino": ["vino"], "f-yerba": ["yerba"], "f-electricidad-provincias": ["electricidad", "luz"], "f-subsidios": ["subsidios"],
     "f-empresas": ["empresas"], "f-canastas": ["canasta", "canasta basica"], "f-emae": ["actividad economica", "emae"], "f-carceles": ["carceles", "presos"], "f-sin-condena": ["sin condena", "presos sin condena", "procesados", "prision preventiva"],
     "f-coparticipacion": ["coparticipacion", "coparticipacion federal", "reparto de impuestos"],

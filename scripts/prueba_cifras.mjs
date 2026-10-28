@@ -67,6 +67,8 @@ const EXCEPCIONES = {
   "f-salarios": PAIS,
   "f-receptivo": "el gráfico da el mismo valor con dos decimales",
   "f-hoteles": "es la suma de las dos series del gráfico, residentes y no residentes",
+  // fuentes nuevas de salud (28 de octubre de 2026)
+  "f-vacunas": "cuenta las barras del gráfico que quedan a la izquierda de la línea del 95%",
 };
 // D8 (28 de octubre de 2026): toda ficha lleva cifra destacada, salvo las de estas excepciones, que dice la regla de .claude/rules/visualizaciones.md.
 // La prueba falla si una ficha no tiene cifra y no está acá, o si una de acá tiene cifra

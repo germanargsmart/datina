@@ -123,7 +123,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     <nav class="migas" aria-label="Ubicación"><ol><li><a href="./">Datina</a></li><li><a href="./#tg-personas">Personas y bienestar</a></li><li class="migas-prov" hidden></li></ol></nav><p class="tema-nombre" style="view-transition-name:t-salud">Salud</p>
     <div class="tema-intro">
       <h1 class="pregunta" data-corta="¿Cuánto se vive y de qué se muere?">¿Cuánto se vive y de qué se muere en cada provincia?</h1>
-      <p>La esperanza de vida y la mortalidad infantil son dos medidas habituales para comparar la salud de una población. Dependen del sistema de salud y también de las condiciones de vida. Las muertes por causas externas, como los siniestros viales, los homicidios y los suicidios, muestran problemas que se pueden prevenir.</p>
+      <p>La esperanza de vida y la mortalidad infantil son dos medidas habituales para comparar la salud de una población. Dependen del sistema de salud y también de las condiciones de vida. La vacunación y las epidemias de dengue muestran otra parte de la prevención. Las muertes por causas externas, como los siniestros viales, los homicidios y los suicidios, muestran problemas que se pueden prevenir.</p>
     </div><div class="en-cifras esqueleto" aria-hidden="true"><h2>En cifras</h2><div class="cifras-grid"><span class="tarjeta cifra"></span><span class="tarjeta cifra"></span><span class="tarjeta cifra"></span><span class="tarjeta cifra"></span><span class="tarjeta cifra"></span></div></div>
     <p class="exp-gancho"><a href="#para-entender">Para entender los datos</a>: qué se mide, de dónde sale y qué tener en cuenta, al final de la página ↓</p>
 
@@ -174,6 +174,35 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <p class="lead" data-t="cobertura"></p>
       <p class="nota" data-t="cobertura-nota"></p>
       <div class="pie"><span>Fuente: INDEC, Censo Nacional de Población, Hogares y Viviendas 2022. Se actualiza con cada censo.</span><a href="datos/censo2022_provincias.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+<!-- dengue y vacuna triple viral (plan de mejora, sección 10, aprobadas por el autor el 28 de octubre de 2026) -->
+    <article class="ficha" id="f-dengue">
+      <h2>¿Dónde hubo más casos de dengue?</h2>
+      <p class="ficha-sub">Casos confirmados de dengue cada 100.000 habitantes por provincia, de la temporada 2022/23 a la 2025/26, y casos en el país por temporada desde la 2018/19</p>
+      <div class="conmutador" role="group" aria-label="Vista" data-g="dengue" style="--n:2">
+        <button type="button" data-m="provincias" aria-pressed="true">Provincias</button>
+        <button type="button" data-m="serie" aria-pressed="false">Temporadas</button>
+      </div>
+      <label class="selector-ficha" id="dg-elige"><span>Temporada</span><select id="dg-sel"></select></label>
+      <div class="grafico" data-g="dengue" data-forma="barras"></div>
+      <p class="lead" data-t="dengue"></p>
+      <p class="nota" data-t="dengue-nota"></p>
+      <div class="pie"><span>Fuentes: Ministerio de Salud, Sistema Nacional de Vigilancia de la Salud, e INDEC, proyecciones de población 2022 a 2040, base Censo 2022. Se actualiza cada año.</span><a href="datos/dengue_provincias.csv" download>Por provincia (CSV)</a><a href="datos/dengue_pais.csv" download>Del país, por temporada (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-vacunas">
+      <h2>¿Dónde se vacuna menos a los chicos?</h2>
+      <p class="ficha-sub">Cobertura de la vacuna triple viral (sarampión, paperas y rubéola) por provincia, en % de los chicos de la edad, primera dosis al año de vida y segunda al entrar a la escuela, 2024, y su evolución desde 2009</p>
+      <div class="conmutador" role="group" aria-label="Vista" data-g="vacunas" style="--n:3">
+        <button type="button" data-m="dosis1" aria-pressed="true">Primera dosis</button>
+        <button type="button" data-m="dosis2" aria-pressed="false">Segunda dosis</button>
+        <button type="button" data-m="serie" aria-pressed="false">Evolución</button>
+      </div>
+      <div class="grafico" data-g="vacunas" data-forma="barras"></div>
+      <p class="lead" data-t="vacunas"></p>
+      <p class="nota" data-t="vacunas-nota"></p>
+      <div class="pie"><span>Fuente: Dirección de Control de Enfermedades Inmunoprevenibles (DICEI), Ministerio de Salud. Se actualiza cada año.</span><a href="datos/vacunas_provincias.csv" download>Por provincia (CSV)</a><a href="datos/vacunas_serie.csv" download>Mediana por año (CSV)</a></div>
     </article>
 
     <div class="ayuda" id="ayuda-suicidio" role="note">
@@ -295,7 +324,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 <p class="solo-lector" id="aviso" aria-live="polite"></p>
 
 <!-- los datos van en un archivo aparte que el navegador guarda una sola vez para todas las páginas -->
-<script src="datos/fichas.js?v=d2fc792774"></script>
-<script src="datina.js?v=d4712b9db4"></script>
+<script src="datos/fichas.js?v=69ca53f61d"></script>
+<script src="datina.js?v=7cd6c9cc0a"></script>
 </body>
 </html>

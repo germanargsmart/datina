@@ -179,6 +179,17 @@
    ]
   },
   {
+   "id": "org:dicei",
+   "nombre": "Dirección de Control de Enfermedades Inmunoprevenibles",
+   "sigla": "DICEI",
+   "depende": "Ministerio de Salud",
+   "url": "https://datos.salud.gob.ar",
+   "alias": [
+    "DICEI",
+    "Ministerio de Salud, Dirección de Control de Enfermedades Inmunoprevenibles"
+   ]
+  },
+  {
    "id": "org:dine",
    "nombre": "Dirección Nacional Electoral",
    "sigla": "DINE",
@@ -298,6 +309,17 @@
    "alias": [
     "ENARGAS",
     "ENARGAS, datos operativos de gas natural"
+   ]
+  },
+  {
+   "id": "org:epidemiologia",
+   "nombre": "Dirección de Epidemiología",
+   "depende": "Ministerio de Salud",
+   "url": "https://datos.salud.gob.ar",
+   "alias": [
+    "Sistema Nacional de Vigilancia de la Salud",
+    "Ministerio de Salud, Sistema Nacional de Vigilancia de la Salud",
+    "SNVS"
    ]
   },
   {
@@ -1794,6 +1816,39 @@
     "contiene": "\"renaper_nombres_frecuentes.csv\": \"https://datosabiertos"
    },
    "url": "https://datosabiertos.renaper.gob.ar/nombres_propios_frecuentes_anio_sexo_provincia_2012_2024.csv"
+  },
+  {
+   "id": "ds:salud_dengue_AAAA.csv",
+   "nombre": "Casos confirmados de dengue por departamento, semana epidemiológica y edad (un archivo por año, los de 2019 a 2021 en Excel)",
+   "fuente": "org:epidemiologia",
+   "ruta": "datos/crudo/salud_dengue_AAAA.csv",
+   "url": "https://datos.salud.gob.ar/dataset/vigilancia-de-dengue-y-zika",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "**{f\"salud_dengue_{_dg_a}.{_dg_x}\": ckan_id(\"https://datos.salud.gob.ar\", \"vigilancia-de-dengue-y-zika\", _dg_r,"
+   }
+  },
+  {
+   "id": "ds:salud_dengue_ultimo.csv",
+   "nombre": "Casos confirmados de dengue, la última actualización del año en curso y el anterior",
+   "fuente": "org:epidemiologia",
+   "ruta": "datos/crudo/salud_dengue_ultimo.csv",
+   "url": "https://datos.salud.gob.ar/dataset/vigilancia-de-dengue-y-zika",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "\"salud_dengue_ultimo.csv\": ckan_csv(\"https://datos.salud.gob.ar\", \"vigilancia-de-dengue-y-zika\","
+   }
+  },
+  {
+   "id": "ds:salud_vacuna_triple_viral.xls",
+   "nombre": "Cobertura de la vacuna triple viral por jurisdicción, primera y segunda dosis, desde 2009",
+   "fuente": "org:dicei",
+   "ruta": "datos/crudo/salud_vacuna_triple_viral.xls",
+   "url": "https://datos.salud.gob.ar/dataset/porc-de-cobertura-de-la-vacuna-triple-viral-srp-sarampion-parotiditis-o-paperas-y-rubeola",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "\"salud_vacuna_triple_viral.xls\": ckan_csv(\"https://datos.salud.gob.ar\","
+   }
   },
   {
    "id": "ds:se_centrales.csv",
@@ -6934,6 +6989,78 @@
      "contiene": "\"soja_pais\": sj_pais,"
     }
    ]
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:salud_dengue_AAAA.csv",
+   "a": "f-dengue",
+   "tabla": "dengue_provincias",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "for _dg_r in sorted(CRUDO.glob(\"salud_dengue_*\"), key=lambda p: (0, 0) if p.stem.endswith(\"ultimo\") else (1, -int(p.stem[-4:]))):"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"dengue_provincias\": dengue_provincias,"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"dengue_pais\": dengue_pais,"
+    }
+   ]
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:salud_dengue_ultimo.csv",
+   "a": "f-dengue",
+   "tabla": "dengue_provincias",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "for _dg_r in sorted(CRUDO.glob(\"salud_dengue_*\"), key=lambda p: (0, 0) if p.stem.endswith(\"ultimo\") else (1, -int(p.stem[-4:]))):"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"dengue_provincias\": dengue_provincias,"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"dengue_pais\": dengue_pais,"
+    }
+   ]
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:indec_proyecciones_provincias.csv",
+   "a": "f-dengue",
+   "tabla": "dengue_provincias",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"poblacion\": [POB_POR_ANIO[(c, a + 1)] for c in _dg_pv.index]}) for a in DG_TEMP_PROV]"
+    }
+   ]
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:salud_vacuna_triple_viral.xls",
+   "a": "f-vacunas",
+   "tabla": "vacunas_provincias",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "vc = pd.read_excel(CRUDO / \"salud_vacuna_triple_viral.xls\", dtype=str)"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"vacunas_provincias\": vacunas_provincias,"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"vacunas_serie\": vacunas_serie,"
+    }
+   ]
   }
  ],
  "fichas": {
@@ -7435,6 +7562,18 @@
   "f-soja": {
    "variables": [
     "superficie_sembrada_soja"
+   ]
+  },
+  "f-dengue": {
+   "variables": [
+    "casos_dengue_cada_100000",
+    "casos_dengue_temporada"
+   ]
+  },
+  "f-vacunas": {
+   "variables": [
+    "cobertura_triple_viral_dosis1",
+    "cobertura_triple_viral_dosis2"
    ]
   }
  }
