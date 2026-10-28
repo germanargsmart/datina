@@ -208,15 +208,19 @@ def validar(cat_uso, auto, ids, tablas):
     return err
 
 
-def armar(plantilla, secciones, ubic, grupos, sitio=RAIZ / "sitio", indice=None):
+def armar(plantilla, secciones, ubic, grupos, sitio=RAIZ / "sitio", indice=None, ia=False):
     """(HTML del catálogo, errores). El HTML va en lugar de <!--CATALOGO--> en la sección del catálogo. Con una lista en `indice`, le
     agrega lo mismo que muestra de cada tabla, en el orden del catálogo: es el índice de las consultas con IA (docs/ia/CONSULTAS.md), que
-    03 publica solo con "consulta_ia" en datos/manual/sitio.json. `ref` es la ficha, el artículo o la pieza, como en los enlaces de acá"""
+    03 publica solo con "consulta_ia" en datos/manual/sitio.json. `ref` es la ficha, el artículo o la pieza, como en los enlaces de acá.
+    Con `ia`, debajo de la cuenta ofrece llevar lo que se escribió a Consultas con IA (etapa 6 del plan de mejora)"""
     js = relaciones.JS()
     cat_rel = json.loads(relaciones.CATALOGO.read_text(encoding="utf-8"))
     cat_uso = json.loads(USOS.read_text(encoding="utf-8"))
     auto = usos_automaticos(plantilla, js, cat_rel)
     info = datos_de_usos(plantilla, js)
+    # las fichas que están en el Explorador de relaciones: su tabla lleva "De dónde sale", como el pie de la ficha (etapa 6 del plan de
+    # mejora: el Explorador sale del menú y se llega desde cada tabla)
+    en_rx = set(cat_rel.get("alcance") or relaciones.fichas_de(plantilla))
     # las tablas de suicidio (las de las fichas que el Explorador de relaciones deja afuera) no van
     fuera = {t for t, us in auto.items() if all(i in relaciones.EXCLUIDAS for i, _ in us)}
     tablas = {p.stem: p for p in sorted((sitio / "datos").glob("*.csv")) if p.stem != "tabla_larga" and p.stem not in fuera}
@@ -296,7 +300,8 @@ def armar(plantilla, secciones, ubic, grupos, sitio=RAIZ / "sitio", indice=None)
             + '<dl class="cat-datos">' + "".join(f"<div><dt>{k}</dt><dd>{e(v)}</dd></div>" for k, v in dl if v) + "</dl>"
             + '<div class="acciones">'
             f'<a class="boton chico accion" href="{ref(prin)}"><span class="lbl">{VER[us[0][1]]}</span></a>'
-            f'<button type="button" class="boton chico accion cat-ver" aria-expanded="false" aria-controls="cat-{t}-previa"><span class="lbl">Vista previa</span></button>'
+            + (f'<a class="boton chico accion" href="relaciones.html?n={prin}"><span class="lbl">De dónde sale</span></a>' if prin in en_rx else "")
+            +             f'<button type="button" class="boton chico accion cat-ver" aria-expanded="false" aria-controls="cat-{t}-previa"><span class="lbl">Vista previa</span></button>'
             f'<a class="boton chico accion" href="datos/{t}.csv" download><span class="lbl">Descargar CSV</span></a></div>'
             f'<div class="cat-previa" id="cat-{t}-previa" hidden>'
             f'<div class="cat-filas" data-csv="datos/{t}.csv"></div>'
@@ -340,7 +345,9 @@ def armar(plantilla, secciones, ubic, grupos, sitio=RAIZ / "sitio", indice=None)
          f'<div class="cat-resumen"><p class="cat-cuenta" id="cat-cuenta" aria-live="polite"><b>{len(items)}</b> tablas</p>'
          '<button type="button" class="boton chico accion" id="cat-limpiar" hidden><span class="lbl">Sacar los filtros</span></button>'
          f'<a class="enlace" href="datos/tabla_larga.csv" download>Descargar la tabla completa con todos los indicadores (CSV, {tamanio(completa.stat().st_size) if completa.exists() else ""})</a></div>'
-         '<p class="cat-vacio" id="cat-vacio" role="status" hidden>Ninguna tabla coincide. Probá con otras palabras o sacá un filtro.</p>'
+         + ('<p class="cat-ia" id="cat-ia" hidden>¿Buscás una respuesta y no una tabla? <a class="enlace" href="consulta-ia.html">Preguntarles a '
+            'los datos</a> lleva lo que escribiste a Consultas con IA.</p>' if ia else "")
+         + '<p class="cat-vacio" id="cat-vacio" role="status" hidden>Ninguna tabla coincide. Probá con otras palabras o sacá un filtro.</p>'
          f'<ol class="cat-lista" id="cat-lista">{"".join(items)}</ol>'
          '<p class="cat-licencia">Para reutilizar una tabla, citá a Datina y a la fuente que figura en ella. Los datos de base son de cada organismo y se rigen por sus condiciones.</p></div>')
     return h, []

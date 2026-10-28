@@ -8795,8 +8795,8 @@ const SEC_ICONO = /*SEC_ICONO*/{};
    aparte, ocupa el ancho entero. Reemplaza a la grilla de tarjetas iguales con "Ver todas las secciones". Desde el 10 de octubre de 2026
    (pedido del autor: "demasiado espacio en blanco") los grupos son columnas sin panel, con su nombre sobre una línea, y Curiosidades va
    debajo de Estado y sociedad, la columna más corta, como en el pie */
-// las tarjetas de las herramientas de la portada las escribe el constructor desde la Fase 2 (paso 2, 23 de octubre de 2026): son las del
-// menú Herramientas, con el consultor de pobreza, el Catálogo y el Explorador
+// las tarjetas de las herramientas de la portada las escribe el constructor desde la Fase 2 (paso 2, 23 de octubre de 2026): desde la
+// etapa 6 del plan de mejora, Consultas con IA y las del menú Herramientas (Cruces y el Catálogo)
 
 /* La respuesta primero (idea de USAFacts): las cifras clave de la sección arriba, antes de la explicación.
    Salen de EN_CIFRAS (ver arriba) y del perfil provincial (INDP), así que no hay cifras nuevas escritas a mano y el suicidio queda afuera.
@@ -9060,8 +9060,8 @@ if (PAGINA !== "inicio") {
     IDX.push({t: "¿Qué gobierno designó a cada juez de la Corte Suprema?", g: "Historias", u: "corte-suprema.html",
       x: "corte suprema justicia jueces ministros designación presidentes gobiernos de facto poder judicial laboratorio", sec: 1});
     SITIO.lab.forEach(([id, t]) => IDX.push({t, g: "Historias", sm: "Laboratorio", u: "laboratorio.html#" + id, x: "laboratorio pieza visual"}));
-    IDX.push({t: "Consultor de pobreza", g: "Herramientas", u: "pobreza/", x: "pobreza indigencia aglomerado partido comuna consultas sql parquet descargar", sec: 1});
-    IDX.push({t: "Explorador de relaciones", g: "Herramientas", u: "relaciones.html", x: "de dónde sale cada número origen fuentes organismos archivos", sec: 1});
+    IDX.push({t: "Consultor de pobreza", g: "Temas", u: "pobreza/", x: "pobreza indigencia aglomerado partido comuna consultas sql parquet descargar", sec: 1});
+    IDX.push({t: "Explorador de relaciones", g: "Datina", u: "relaciones.html", x: "de dónde sale cada número origen fuentes organismos archivos", sec: 1});
     IDX.push({t: "Sobre nosotros", g: "Datina", u: "nosotros.html", x: "propósito quiénes fuentes principios cómo se hace método"});
     IDX.push({t: "Contacto", g: "Datina", u: "contacto.html", x: "escribir mensaje correo consultas sugerencias"});
     SITIO.fichas.forEach(([id, sec, tit, kt, kl, , trasAyuda, sub, ks]) => {
@@ -9524,7 +9524,7 @@ if (PAGINA === "inicio") mapa();
   const lista = document.getElementById("cat-lista");
   if (!lista) return;
   const items = [...lista.children], q = document.getElementById("cat-q"), cuenta = document.getElementById("cat-cuenta");
-  const vacio = document.getElementById("cat-vacio"), limpiar = document.getElementById("cat-limpiar");
+  const vacio = document.getElementById("cat-vacio"), limpiar = document.getElementById("cat-limpiar"), ia = document.getElementById("cat-ia");
   const sels = {tema: "cat-tema", org: "cat-org", cob: "cat-cob", anio: "cat-anio"};
   Object.keys(sels).forEach(k => { sels[k] = document.getElementById(sels[k]); });
   const sinTildes = t => t.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
@@ -9554,6 +9554,11 @@ if (PAGINA === "inicio") mapa();
     cuenta.innerHTML = filtrado ? `<b>${n}</b> de ${items.length} tablas` : `<b>${n}</b> tablas`;
     vacio.hidden = n > 0;
     limpiar.hidden = !filtrado;
+    // con algo escrito, ofrece llevarlo a Consultas con IA (etapa 6 del plan de mejora: el Catálogo busca tablas y ofrece preguntarles)
+    if (ia) {
+      ia.hidden = !q.value.trim();
+      ia.querySelector("a").setAttribute("href", "consulta-ia.html" + (q.value.trim() ? "?q=" + encodeURIComponent(q.value.trim()) : ""));
+    }
     if (!guardar) return;
     const u = new URL(location.href);
     [["q", q.value.trim()], ...Object.entries(sels).map(([k, s]) => [k, s.value])].forEach(([k, v]) => v ? u.searchParams.set(k, v) : u.searchParams.delete(k));
