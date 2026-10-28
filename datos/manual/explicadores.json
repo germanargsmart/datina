@@ -4100,6 +4100,17 @@
     ]
    },
    {
+    "titulo": "Las estimaciones agrícolas",
+    "texto": "Los datos de la soja salen de las estimaciones agrícolas de la Secretaría de Agricultura, Ganadería y Pesca, una serie por cultivo, campaña, provincia y partido o departamento. Para cada uno da la superficie sembrada, la superficie cosechada, la producción y el rendimiento. Las superficies van en hectáreas, la producción en toneladas y el rendimiento en kilos por hectárea. Los datos se actualizan cada seis meses, así que las cifras de la última campaña pueden cambiar.",
+    "fuentes": [
+     {
+      "nombre": "Secretaría de Agricultura, Ganadería y Pesca, Estimaciones agrícolas",
+      "url": "https://datos.magyp.gob.ar/dataset/estimaciones-agricolas",
+      "cita": "Serie de estadística agrícola, por cultivo, campaña, provincia y partido/departamento de la República Argentina. Contiene los siguientes datos: superficie sembrada, superficie cosechada, producción y rendimiento. Las superficies se muestran en hectáreas, la producción en toneladas y el rendimiento en kg/ha. Los datos se actualizan semestralmente."
+     }
+    ]
+   },
+   {
     "titulo": "Anomalía de temperatura",
     "texto": "Una anomalía de temperatura es la diferencia entre la temperatura media de un año y un promedio de referencia de treinta años. El Servicio Meteorológico Nacional (SMN) usa hoy el promedio de 1991 a 2020. Un valor positivo indica un año más cálido que ese promedio y uno negativo, más frío. La serie nacional empieza en 1961. Usar anomalías permite comparar años sin que pesen las diferencias de clima entre regiones.",
     "fuentes": [

@@ -205,6 +205,8 @@ document.querySelectorAll("[data-icono]").forEach(el => { el.innerHTML = icono(e
 /* ---------- textos ---------- */
 const nv = R.nuevos;
 const au = R.autos, cu = R.curiosidades, pe = R.pesca, vpq = R.visitas_parque;
+// soja por departamento (tanda 3 del plan de mejora, 28 de octubre de 2026)
+const SJ = R.soja;
 // La "y" pasa a "e" delante de una palabra que empieza con el sonido de la i ("Misiones e Iguazú", "e INDEC"), salvo si la i forma
 // un diptongo ("agua y hielo"). yE(s) devuelve la conjunción con la palabra, sin mirar las etiquetas ni los signos del principio.
 const yE = s => (/^h?[ií](?![aeiouáéíóú])/i.test(String(s).replace(/<[^>]*>/g, "").replace(/^[^\p{L}\d]+/u, "")) ? "e " : "y ") + s;
@@ -1619,6 +1621,16 @@ const TX = {
   "pesca-rio": `En ${pe.rio_anio}, la pesca comercial en ríos y lagunas registró ${n0(pe.rio_total)} toneladas. Las capturas se concentraron en ${lista(pe.rio_provs)}, sobre todo en ${pe.rio_prov_top} (${pct(pe.rio_prov_top_pct)}). ` +
     `Solo cuentan las provincias que informan datos, y no entran la pesca deportiva ni la de subsistencia.`,
   "pesca-rio-nota": `Captura comercial registrada en ríos y lagunas de las provincias que informan datos, en toneladas. No incluye la pesca deportiva ni la de subsistencia. La tabla descargable muestra cada especie por provincia.`,
+  // soja (tanda 3 del plan de mejora): la cifra destacada ya dice la superficie del país, el texto empieza por dónde se concentra.
+  // Los textos de "Evolución" y de la provincia elegida los arma el dibujo
+  soja: `En la campaña ${SJ.campania} se sembró soja en ${n0(SJ.n_dep)} departamentos de ${SJ.n_prov} provincias. ${SJ.top[0]}, ${SJ.top[1]} ${yE(SJ.top[2])} ` +
+    `reunieron el ${pct(SJ.top3_pct)} de la superficie del país. El departamento con más soja fue ${SJ.dep}, en ${SJ.dep_prov}, con ${n0(SJ.dep_ha)} hectáreas, y los diez ` +
+    `primeros sumaron el ${pct(SJ.dep10_pct)}.`,
+  "soja-nota": `Superficie sembrada con soja de primera y de segunda (la que se siembra después de cosechar trigo u otro cultivo de invierno), en hectáreas, ` +
+    `según la Dirección de Estimaciones Agrícolas de la Secretaría de Agricultura, Ganadería y Pesca. La soja de la campaña ${SJ.campania} se sembró en la primavera y el ` +
+    `verano de ${SJ.campania.slice(0, 4)} y se cosechó en el otoño siguiente. ` +
+    `El mapa divide a los departamentos que siembran soja en cinco grupos del mismo tamaño, y en gris quedan los que no la siembran. Un departamento grande ` +
+    `puede sembrar más hectáreas sin que la soja ocupe una parte mayor de su tierra. Las cifras de la última campaña pueden corregirse en las publicaciones siguientes.`,
   // la cifra destacada ya dice la esperanza de vida del país: el texto empieza por la de mujeres y varones
   esperanza: `En ${nv.ev_anio}, la esperanza de vida al nacer de las mujeres del país era de ${n1(nv.ev_m)} años y la de los varones, de ${n1(nv.ev_v)}. Con mujeres y varones juntos, por provincia iba de ${n1(nv.ev_top_v)} años en ${nv.ev_top} a ${n1(nv.ev_low_v)} en ${nv.ev_low}. El gráfico muestra al lado de cada provincia la esperanza de vida de las mujeres.`,
   "esperanza-nota": `Años que viviría en promedio una persona nacida en ${nv.ev_anio} si se mantuvieran las tasas de mortalidad por edad de ese año. El círculo claro marca a los varones y el lleno a las mujeres. El INDEC publica tablas para 2020, 2021 y 2022, y las de 2020 y 2021 reflejan la mortalidad de la pandemia de COVID-19. La línea punteada violeta marca el promedio simple de los países de la OCDE en ${OC.esperanza_vida.anio}, para ambos sexos, según el Banco Mundial.`,
@@ -2489,13 +2501,19 @@ function mapaDep(el, cfg) {
   svg.append("path").attr("class", "limite").attr("d", camino(topojson.mesh(TOPO_DEP, geoms, (a, b) => a.properties.prov !== b.properties.prov || a === b)));
   deps.on("pointermove pointerdown", (ev, f) => {
     const v = val[f.properties.id], [mx, my] = d3.pointer(ev, el);
-    mostrarTip(el, `<b>${f.properties.nombre}</b>, ${NOMBRES[f.properties.prov] || ""}<br>${cfg.nombre}: ${v == null ? "sin dato" : cfg.vf(v)}` +
+    mostrarTip(el, `<b>${f.properties.nombre}</b>, ${NOMBRES[f.properties.prov] || ""}<br>${cfg.nombre}: ${v == null ? cfg.sin || "sin dato" : (cfg.tf || cfg.vf)(v)}` +
       (cfg.extra ? cfg.extra(f.properties.id) : ""), mx, my);
   }).on("pointerleave", ocultarSiMouse);
-  // leyenda: los cinco grupos con sus cortes
-  const paso = Math.min(50, (w - 12) / 5), ley = svg.append("g").attr("transform", `translate(${Math.max(6, w / 2 - paso * 2.5)},${h + 8})`);
-  COLORES_DEP.forEach((c, i) => ley.append("rect").attr("x", i * paso).attr("width", paso - 2).attr("height", 10).attr("rx", 2).attr("fill", c));
-  ["", ...cortes.map(v => cfg.vf(v))].forEach((t, i) => ley.append("text").attr("class", "mp-ley").attr("x", i * paso).attr("y", 26)
+  // leyenda: los cinco grupos con sus cortes. Con cfg.cero, antes va el gris de los departamentos sin valor, con su nombre (la soja: los
+  // que no la siembran, que si no se confunden con el celeste más claro)
+  const paso = Math.min(50, (w - 12) / (cfg.cero ? 6 : 5)), x0 = cfg.cero ? paso + 4 : 0;
+  const ley = svg.append("g").attr("transform", `translate(${Math.max(6, w / 2 - (paso * 5 + x0) / 2)},${h + 8})`);
+  if (cfg.cero) {
+    ley.append("rect").attr("width", paso - 2).attr("height", 10).attr("rx", 2).attr("fill", css("--line"));
+    ley.append("text").attr("class", "mp-ley").attr("x", (paso - 2) / 2).attr("y", 26).attr("text-anchor", "middle").text(cfg.cero);
+  }
+  COLORES_DEP.forEach((c, i) => ley.append("rect").attr("x", x0 + i * paso).attr("width", paso - 2).attr("height", 10).attr("rx", 2).attr("fill", c));
+  ["", ...cortes.map(v => cfg.vf(v))].forEach((t, i) => ley.append("text").attr("class", "mp-ley").attr("x", x0 + i * paso).attr("y", 26)
     .attr("text-anchor", i ? "middle" : "start").text(t));
 }
 
@@ -2813,6 +2831,30 @@ const DIB = protegerDib({
   pesca: a => lineas(G("pesca"), {anim:a, data: T.desembarques_especies, x:"anio", y0:0, vf: v => n0(v / 1000) + " mil t", yf: v => n0(v / 1000) + " mil",
     series: pe.top.map((k, i) => ({k, lab: k.replace(" argentino", "").replace(" argentina", ""), c: [NAR, FRI, GRIS][i], w: i ? 2.4 : 3}))}),
   "pesca-rio": a => barrasH(G("pesca-rio"), {anim:a, data: T.pesca_continental, k:"toneladas", vf: v => n0(v) + " t", af: n0}),
+  // soja (tanda 3 del plan de mejora): el mapa por departamento, las provincias y la serie del país
+  soja: conTablas("soja", () => MED.soja === "mapa" ? ["soja_departamentos"] : [], a => {
+    const v = MED.soja, el = G("soja"), filas = T.soja_provincias.filter(r => r.codigo_indec !== "00"), fp = filas.find(r => r.codigo_indec === prov);
+    const tipP = r => `<br>${pct(r.pct_pais)} de la del país<br>${n0(r.produccion_t)} toneladas producidas` +
+      (r.rendimiento_kg_ha ? `<br>${n0(r.rendimiento_kg_ha)} kilos por hectárea cosechada` : "");
+    refrescarTabla("f-soja");
+    if (v === "serie") {
+      const ult = T.soja_pais[T.soja_pais.length - 1];
+      $t("soja").textContent = `La superficie sembrada con soja pasó de ${n0(SJ.ini_ha)} hectáreas en la campaña ${SJ.ini} a ${n1(SJ.millones_ha)} millones en ${SJ.campania}. ` +
+        `La más grande fue la de ${SJ.max_campania}, con ${n1(SJ.max_millones_ha)} millones. En ${SJ.campania} se cosecharon ${n1(SJ.cosechada_millones_ha)} millones de ` +
+        `hectáreas y se produjeron ${n1(SJ.produccion_millones_t)} millones de toneladas, ${n0(ult.rendimiento_kg_ha)} kilos por hectárea cosechada.`;
+      return lineas(el, {anim: a, data: T.soja_pais, x: "anio", y0: 0, vf: v => n1(v / 1e6) + " M", yf: v => n0(v / 1e6) + " M", xl: r => `Campaña ${r.campania}`,
+        series: [{k: "sembrada_ha", lab: "Sembrada", c: NAR, w: 3}, {k: "cosechada_ha", lab: "Cosechada", c: FRI, w: 2.4}]});
+    }
+    $t("soja").textContent = (NOMBRES[prov] ? (fp ? `En ${fp.territorio} se sembraron ${n0(fp.sembrada_ha)} hectáreas de soja en la campaña ${SJ.campania}, el ` +
+      `${pct(fp.pct_pais)} de la superficie del país. ` : `En ${NOMBRES[prov]} no se registró soja sembrada en la campaña ${SJ.campania}. `) : "") + TX.soja;
+    if (v === "provincias")
+      return barrasH(el, {anim: a, data: filas, k: "sembrada_ha", vf: v => v >= 1e6 ? n1(v / 1e6) + " M" : n0(v / 1e3) + " mil",
+        af: v => v >= 1e6 ? n1(v / 1e6).replace(/,0$/, "") + " M" : ejeMil(v),
+        tip: d => `<b>${d.territorio}</b><br>${n0(d.sembrada_ha)} hectáreas sembradas en ${SJ.campania}` + tipP(d)});
+    const dep = Object.fromEntries(T.soja_departamentos.map(r => [r.codigo_dep, r]));
+    mapaDep(el, {anim: a, filas: T.soja_departamentos, k: "sembrada_ha", nombre: "Hectáreas sembradas con soja", vf: ejeMil, tf: n0, sin: "no siembra soja", cero: "sin soja",
+      extra: id => dep[id] ? tipP(dep[id]) : ""});
+  }),
   nombres: a => {
     const cod = NOMBRES[prov] ? prov : "00";
     document.getElementById("contexto-nombres").textContent = `${NOMBRES[prov] || "Total del país"}, ${cu.nom_anio}. Diez nombres más frecuentes.`;
@@ -5087,6 +5129,16 @@ DIB["confianza-consumidor"] = a => {
 };
 MED.haberes = "pct";
 MED["pensiones-invalidez"] = "mapa";
+MED.soja = "mapa";
+// "Ver tabla" de la soja: lo que muestra la vista elegida (los departamentos, las provincias o el país)
+TABLA_PROPIA["f-soja"] = () => {
+  const v = MED.soja, cols = r => ({"hectáreas sembradas": r.sembrada_ha, "% del país": r.pct_pais, toneladas: r.produccion_t,
+    "kilos por hectárea": r.rendimiento_kg_ha == null ? null : Math.round(r.rendimiento_kg_ha)});
+  if (v === "serie") return Promise.resolve(T.soja_pais.map(r => ({campaña: r.campania, "hectáreas sembradas": r.sembrada_ha, "hectáreas cosechadas": r.cosechada_ha,
+    toneladas: r.produccion_t, "kilos por hectárea": r.rendimiento_kg_ha == null ? null : Math.round(r.rendimiento_kg_ha)})));
+  if (v === "provincias") return Promise.resolve(T.soja_provincias.map(r => ({codigo_indec: r.codigo_indec, territorio: r.territorio, ...cols(r)})));
+  return cargarTabla("soja_departamentos").then(t => t.map(r => ({departamento: r.departamento, provincia: r.provincia, ...cols(r)})));
+};
 MED.auh = "provincias";
 MED.desempleo = "habitantes";
 DIB["reservas-bcra"] = a => {
@@ -6488,6 +6540,7 @@ const CLAVE = {
   "f-patentes-prov": [n1(au.pais_1000), `autos nuevos cada 1.000 habitantes en ${au.anio}`, "autos cada 1.000 habitantes en todo el país"],
   "f-pesca": [n0(pe.total), `toneladas de pescados y mariscos desembarcadas en ${pe.anio}`, `toneladas de todas las especies en ${pe.anio}, contra ${n0(pe.total_ini)} en ${pe.ini}`],
   "f-pesca-rio": [pct(pe.rio_top_pct), `de la pesca comercial en ríos de ${pe.rio_anio} fue ${pe.rio_top.toLowerCase()}`, `de las toneladas capturadas fue ${pe.rio_top.toLowerCase()}`],
+  "f-soja": [n1(SJ.millones_ha), `millones de hectáreas se sembraron con soja en el país en la campaña ${SJ.campania}`, "millones de hectáreas sembradas en todo el país"],
   "f-nombres": [cu.nena, `${yE(cu.varon)} fueron los nombres más elegidos para los bebés en ${cu.nom_anio}`, `para las nenas ${yE(cu.varon)} para los varones, en todo el país`],
   "f-carne": [`${n1(cu.carne_v)} kg`, `de carne vacuna por habitante en ${cu.carne_anio}. En ${cu.carne_ini} eran ${n1(cu.carne_ini_v)} kg`,
     `por año en ${cu.carne_anio}, contra ${n1(cu.carne_ini_v)} kg en ${cu.carne_ini}`],
@@ -6624,7 +6677,7 @@ const EN_CIFRAS = {
   petroleo: ["f-petroleo", "f-gas", "x-pet-shale", "f-reservas", "f-hidro-provincias", "x-vaca-muerta", "f-mundo-petroleo", "f-balanza-energetica",
     "f-pozos", "f-regalias", "f-empleo-hidro"],
   turismo: ["f-receptivo", "x-turistas-doce", "f-hoteles", "f-eti", "x-hoteles-nr"],
-  naturaleza: ["f-protegida", "f-parques", "f-visitas", "f-pesca", "f-especies", "x-parque-top", "f-pesca-rio", "f-clima", "f-glaciares"],
+  naturaleza: ["f-protegida", "f-parques", "f-visitas", "f-pesca", "f-especies", "x-parque-top", "f-pesca-rio", "f-soja", "f-clima", "f-glaciares"],
   curiosidades: ["f-nombres", "x-nombres-prov", "f-carne", "f-vino", "f-yerba"],
 };
 const esc = t => String(t).replace(/[&<>"]/g, c => ({"&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;"})[c]);
@@ -6860,7 +6913,7 @@ async function imagenFicha(f) {
 const SIN_RELACIONES = new Set(["f-edad", "f-suicidio", "f-suicidio-prov"]);
 // "En el catálogo" (11 de octubre de 2026, pedido del autor): lleva a la tabla del pie en catalogo.html, abierta con su vista previa. Solo
 // en las fichas cuya tabla está en el catálogo, que le pasa el constructor desde scripts/catalogo.py (las de suicidio no están)
-const EN_CATALOGO = new Set(["actividad_anual", "actividad_mensual", "actividad_sectores", "adulto_equivalente", "anios_congreso", "apoyo_gobierno_provincias", "aprender_departamentos", "aprender_diagnostico", "aprender_provincias", "areas_produccion", "areas_protegidas_provincias", "areas_serie", "argentinos_exterior", "argentinos_exterior_destinos", "asignaciones_cobertura", "auh_provincias", "balanza_comercial", "balanza_energetica", "bcra_variables", "bcra_variables_lista", "canasta_mensual", "canasta_regiones", "capitales", "capitales_eph", "carceles_provincias", "carceles_serie", "carne_vacuna", "causas_muerte_provincias", "censo2022_provincias", "centrales", "clima_desvio", "combustibles_anual", "combustibles_mensual", "combustibles_provincias", "compras_dolares_anual", "confianza_consumidor", "confianza_gobierno", "confianza_gobierno_elecciones", "confianza_gobierno_gobiernos", "congreso_composicion", "coparticipacion_provincias", "corte_casos", "corte_composicion", "corte_jueces", "corte_jueces_fuentes", "corte_no_asumieron", "corte_presidentes", "costo_anual", "costo_construccion", "cruces_provincias", "cruces_series", "cuenta_corriente", "cuentas_nacion", "curvas_vm", "delitos_serie", "delitos_tipo", "departamentos", "desembarques_especies", "desembarques_top", "desocupacion_aglomerados", "desocupacion_serie", "deuda_pbi", "diputados_nacionales", "diseno_pozos_vm", "dolar_inversion_trimestral", "dotacion_nacion", "elecciones_presidenciales", "electricidad_mensual", "electricidad_provincias", "electricidad_sectores", "electricidad_serie", "empleo_construccion_provincias", "empleo_construccion_serie", "empleo_provincias", "empleo_publico_provincias", "empresas_provincias", "empresas_serie_pais", "empresas_tamano_sector", "energia_estacionalidad", "energia_hogares", "envejecimiento_pais", "envejecimiento_provincias", "escolarizacion_secundaria_provincias", "especies_areas_nacionales", "esperanza_vida_provincias", "expectativas_inflacion", "exportaciones_cantidades_anual", "exportaciones_complejos", "exportaciones_destinos", "exportaciones_dolar_trimestral", "exportaciones_provincias", "exportaciones_rubros_anual", "extranjeros_provincias", "fiscal_provincias", "fiscalias_defensorias_federales", "fracturas_anual", "gabinetes_origen", "gas_usuario_mensual", "gas_usuario_provincias", "gas_usuario_serie", "gasto_nacion_tipo", "glaciares_provincias", "haberes_previsionales", "hidrocarburos_anual", "hidrocarburos_empresas", "hidrocarburos_mensual", "hidrocarburos_provincias", "hipotecas_mensual", "homicidios_provincias", "importaciones_origen", "importaciones_usos", "impuestos_provinciales", "inflacion_anual", "inflacion_mensual", "inflacion_regiones", "inflacion_rubros", "ingresos_aglomerados", "internet_fijo_provincias", "inversion_educativa", "inversion_educativa_serie", "isac_anual", "isac_insumos", "isac_mensual", "jubilaciones_aportantes", "justicia_federal_provincias", "justicia_provincias", "legisladores_por_periodo", "madres_adolescentes_nse", "madres_adolescentes_provincias", "migracion_censos", "migraciones_departamentos", "ministros_nacionales", "ministros_provincias", "mortalidad_infantil_causas", "mortalidad_infantil_provincias", "muertes_violentas", "mundo_hidrocarburos", "mundo_paises", "nacidos_otro_pais_paises", "nacidos_otro_pais_provincias", "nacimientos", "nafta_dolares_anual", "nafta_dolares_mensual", "nombres_top", "obra_publica_provincias", "obra_publica_serie", "ocde_comparacion", "parques_nacionales_historia", "parques_nacionales_lista", "patentamientos_anual", "patentamientos_provincias", "pensiones_invalidez", "pensiones_invalidez_provincias", "permisos_mensual", "pesca_continental", "pesca_continental_provincias", "piramide_poblacion", "pisa_argentina_ocde", "poblacion_proyectada_provincias", "pobreza_aglomerados", "pobreza_serie", "potencia_instalada", "pozos_no_convencionales", "pozos_provincias", "pozos_terminados", "pozos_terminados_provincias", "pozos_tipo", "presidentes", "prestacion_desempleo", "prestacion_desempleo_provincias", "presupuesto_votos", "productividad_vm", "radicaciones_anual", "radicaciones_nacionalidad", "recaudacion_anual", "recaudacion_impuestos", "refugio_acnur", "refugio_nacionalidades", "refugio_solicitudes", "regalias_crudo_serie", "regalias_provincias", "representacion_provincias", "reservas_bcra", "reservas_factores", "reservas_hidrocarburos", "reservas_netas", "reservas_provincias", "robos_provincias", "rotacion_laboral", "salario_docente", "salario_docente_serie", "salario_real_mensual", "salarios_provincias", "salarios_serie", "seguridad_serie_prov", "senadores_nacionales", "sube_dia_habil", "subsidios_energia", "supermercados_mensual", "supermercados_provincias", "transferencias_acumulado", "transferencias_provincias", "transferencias_serie", "turismo_dolar_mensual", "turistas_extranjeros_provincias", "turistas_no_residentes_anual", "viajeros_hoteles_anual", "vino_mercado_interno", "visitas_parques_nacionales", "visitas_por_parque", "vivienda_departamentos", "vivienda_provincias", "votaciones_leyes_clave", "voto_legisladores_y_provincia", "yerba_molino"]);
+const EN_CATALOGO = new Set(["actividad_anual", "actividad_mensual", "actividad_sectores", "adulto_equivalente", "anios_congreso", "apoyo_gobierno_provincias", "aprender_departamentos", "aprender_diagnostico", "aprender_provincias", "areas_produccion", "areas_protegidas_provincias", "areas_serie", "argentinos_exterior", "argentinos_exterior_destinos", "asignaciones_cobertura", "auh_provincias", "balanza_comercial", "balanza_energetica", "bcra_variables", "bcra_variables_lista", "canasta_mensual", "canasta_regiones", "capitales", "capitales_eph", "carceles_provincias", "carceles_serie", "carne_vacuna", "causas_muerte_provincias", "censo2022_provincias", "centrales", "clima_desvio", "combustibles_anual", "combustibles_mensual", "combustibles_provincias", "compras_dolares_anual", "confianza_consumidor", "confianza_gobierno", "confianza_gobierno_elecciones", "confianza_gobierno_gobiernos", "congreso_composicion", "coparticipacion_provincias", "corte_casos", "corte_composicion", "corte_jueces", "corte_jueces_fuentes", "corte_no_asumieron", "corte_presidentes", "costo_anual", "costo_construccion", "cruces_provincias", "cruces_series", "cuenta_corriente", "cuentas_nacion", "curvas_vm", "delitos_serie", "delitos_tipo", "departamentos", "desembarques_especies", "desembarques_top", "desocupacion_aglomerados", "desocupacion_serie", "deuda_pbi", "diputados_nacionales", "diseno_pozos_vm", "dolar_inversion_trimestral", "dotacion_nacion", "elecciones_presidenciales", "electricidad_mensual", "electricidad_provincias", "electricidad_sectores", "electricidad_serie", "empleo_construccion_provincias", "empleo_construccion_serie", "empleo_provincias", "empleo_publico_provincias", "empresas_provincias", "empresas_serie_pais", "empresas_tamano_sector", "energia_estacionalidad", "energia_hogares", "envejecimiento_pais", "envejecimiento_provincias", "escolarizacion_secundaria_provincias", "especies_areas_nacionales", "esperanza_vida_provincias", "expectativas_inflacion", "exportaciones_cantidades_anual", "exportaciones_complejos", "exportaciones_destinos", "exportaciones_dolar_trimestral", "exportaciones_provincias", "exportaciones_rubros_anual", "extranjeros_provincias", "fiscal_provincias", "fiscalias_defensorias_federales", "fracturas_anual", "gabinetes_origen", "gas_usuario_mensual", "gas_usuario_provincias", "gas_usuario_serie", "gasto_nacion_tipo", "glaciares_provincias", "haberes_previsionales", "hidrocarburos_anual", "hidrocarburos_empresas", "hidrocarburos_mensual", "hidrocarburos_provincias", "hipotecas_mensual", "homicidios_provincias", "importaciones_origen", "importaciones_usos", "impuestos_provinciales", "inflacion_anual", "inflacion_mensual", "inflacion_regiones", "inflacion_rubros", "ingresos_aglomerados", "internet_fijo_provincias", "inversion_educativa", "inversion_educativa_serie", "isac_anual", "isac_insumos", "isac_mensual", "jubilaciones_aportantes", "justicia_federal_provincias", "justicia_provincias", "legisladores_por_periodo", "madres_adolescentes_nse", "madres_adolescentes_provincias", "migracion_censos", "migraciones_departamentos", "ministros_nacionales", "ministros_provincias", "mortalidad_infantil_causas", "mortalidad_infantil_provincias", "muertes_violentas", "mundo_hidrocarburos", "mundo_paises", "nacidos_otro_pais_paises", "nacidos_otro_pais_provincias", "nacimientos", "nafta_dolares_anual", "nafta_dolares_mensual", "nombres_top", "obra_publica_provincias", "obra_publica_serie", "ocde_comparacion", "parques_nacionales_historia", "parques_nacionales_lista", "patentamientos_anual", "patentamientos_provincias", "pensiones_invalidez", "pensiones_invalidez_provincias", "permisos_mensual", "pesca_continental", "pesca_continental_provincias", "piramide_poblacion", "pisa_argentina_ocde", "poblacion_proyectada_provincias", "pobreza_aglomerados", "pobreza_serie", "potencia_instalada", "pozos_no_convencionales", "pozos_provincias", "pozos_terminados", "pozos_terminados_provincias", "pozos_tipo", "presidentes", "prestacion_desempleo", "prestacion_desempleo_provincias", "presupuesto_votos", "productividad_vm", "radicaciones_anual", "radicaciones_nacionalidad", "recaudacion_anual", "recaudacion_impuestos", "refugio_acnur", "refugio_nacionalidades", "refugio_solicitudes", "regalias_crudo_serie", "regalias_provincias", "representacion_provincias", "reservas_bcra", "reservas_factores", "reservas_hidrocarburos", "reservas_netas", "reservas_provincias", "robos_provincias", "rotacion_laboral", "salario_docente", "salario_docente_serie", "salario_real_mensual", "salarios_provincias", "salarios_serie", "seguridad_serie_prov", "senadores_nacionales", "soja_departamentos", "soja_pais", "soja_provincias", "sube_dia_habil", "subsidios_energia", "supermercados_mensual", "supermercados_provincias", "transferencias_acumulado", "transferencias_provincias", "transferencias_serie", "turismo_dolar_mensual", "turistas_extranjeros_provincias", "turistas_no_residentes_anual", "viajeros_hoteles_anual", "vino_mercado_interno", "visitas_parques_nacionales", "visitas_por_parque", "vivienda_departamentos", "vivienda_provincias", "votaciones_leyes_clave", "voto_legisladores_y_provincia", "yerba_molino"]);
 // el nombre de la sección arriba de la pregunta, solo en una página con fichas de más de una sección. Desde la Fase 2 (paso 5, respuesta
 // del autor del 23 de octubre de 2026) ninguna lo es: el nombre ya está arriba de la página y la pregunta queda primera
 const VARIAS_SECCIONES = new Set([...document.querySelectorAll("article.ficha")].map(f => f.closest(".tema"))).size > 1;
@@ -7514,6 +7567,8 @@ function pintarPanel(animar) {
 const PREG = [
   ["¿Cuánto cambiaron los pozos de Vaca Muerta?",
    `En ${PG.dv_ini}, un pozo tenía en promedio ${n0(PG.dv_rama_ini)} metros de rama horizontal y ${n1(PG.dv_etapas_ini)} etapas de fractura. En ${PG.fr_ult}, ${n0(PG.dv_rama_ult)} metros y ${n1(PG.dv_etapas_ult)} etapas.`, "#f-fracturas"],
+  ["¿Dónde se siembra más soja?",
+   `En la campaña ${SJ.campania} se sembraron ${n1(SJ.millones_ha)} millones de hectáreas de soja. ${SJ.top[0]}, ${SJ.top[1]} ${yE(SJ.top[2])} reunieron el ${pct(SJ.top3_pct)}.`, "#f-soja"],
   ["¿Cuánto petróleo produce la Argentina?",
    `${n0(PG.kbd)} mil barriles por día en ${PG.mes}. El ${pct(PG.pct_shale)} salió de pozos de shale. Según la EIA, en ${PG.mundo.crudo_kbd.anio} la Argentina fue el productor número ${PG.mundo.crudo_kbd.puesto} del mundo.`, "#f-petroleo"],
   ["¿Cuánto petróleo sale del área de concesión que más produce?",

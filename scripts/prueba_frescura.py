@@ -2,7 +2,7 @@
 
 Controla, con casos fijos, que:
 - cada forma en que el resumen escribe un período termine en el mes que corresponde ("agosto de 2026", "2T2026", "primer semestre
-  de 2026", "2022 a 2024", "2025 (La Pampa, 2024)"), y que lo que no es un período no cuente;
+  de 2026", "2022 a 2024", "2025 (La Pampa, 2024)", la campaña agrícola "2024/25"), y que lo que no es un período no cuente;
 - "desde {{...}}" y la base de un índice ("{{...}} = 100") no cuenten como el último dato;
 - el aviso salga cuando el dato pasa del doble de su frecuencia: la nafta con julio en octubre sí, con agosto no; una ficha de
   cada mes que muestra años completos se mide por años; la demora habitual de una fuente corre el tope;
@@ -29,6 +29,7 @@ def revisar():
                             ("2T2026", (2026, 6, "trimestre")), ("primer semestre de 2026", (2026, 6, "semestre")),
                             ("1S2026", (2026, 6, "semestre")), (2025, (2025, 12, "anio")), ("2022 a 2024", (2024, 12, "anio")),
                             ("2025 y 2026", (2026, 12, "anio")), ("2025 (La Pampa, 2024)", (2025, 12, "anio")),
+                            ("2024/25", (2025, 6, "anio")), ("campaña 2024/2025", (2025, 6, "anio")),
                             (246, None), ("los municipios", None), ("", None)]:
         igual(f"fin_periodo({valor!r})", fr.fin_periodo(valor), esperado)
 

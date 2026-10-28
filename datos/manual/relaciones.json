@@ -13,6 +13,18 @@
    ]
   },
   {
+   "id": "org:agricultura",
+   "nombre": "Secretaría de Agricultura, Ganadería y Pesca",
+   "sigla": "SAGyP",
+   "depende": "Ministerio de Economía",
+   "url": "https://datos.magyp.gob.ar",
+   "alias": [
+    "Secretaría de Agricultura, Ganadería y Pesca",
+    "Secretaría de Agricultura, Ganadería y Pesca, Estimaciones agrícolas",
+    "Estimaciones agrícolas"
+   ]
+  },
+  {
    "id": "org:banco-mundial",
    "nombre": "Banco Mundial",
    "sigla": "Banco Mundial",
@@ -1437,6 +1449,17 @@
     "contiene": "\"isac_insumos.csv\": ISAC + \"33.3/download"
    },
    "url": "https://infra.datos.gob.ar/catalog/sspm/dataset/33/distribution/33.3/download/indicador-sintetico-actividad-construccion-insumos-serie-original.csv"
+  },
+  {
+   "id": "ds:magyp_estimaciones_agricolas.csv",
+   "nombre": "Estimaciones agrícolas: superficie sembrada y cosechada, producción y rendimiento de cada cultivo, por campaña y departamento",
+   "fuente": "org:agricultura",
+   "ruta": "datos/crudo/magyp_estimaciones_agricolas.csv",
+   "url": "https://datos.magyp.gob.ar/dataset/estimaciones-agricolas",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "\"magyp_estimaciones_agricolas.csv\": ckan_id(\"https://datos.magyp.gob.ar\""
+   }
   },
   {
    "id": "ds:manual/cammesa_demanda_2014_2022.csv",
@@ -6887,6 +6910,30 @@
      "contiene": "\"justicia_provincias\": justicia_provincias,"
     }
    ]
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:magyp_estimaciones_agricolas.csv",
+   "a": "f-soja",
+   "tabla": "soja_departamentos",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "sj_ea = pd.read_csv(CRUDO / \"magyp_estimaciones_agricolas.csv\""
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"soja_departamentos\": soja_departamentos,"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"soja_provincias\": soja_provincias,"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"soja_pais\": sj_pais,"
+    }
+   ]
   }
  ],
  "fichas": {
@@ -7384,6 +7431,11 @@
   },
   "f-votaciones": {},
   "f-voto-provincia": {},
-  "f-atn": {}
+  "f-atn": {},
+  "f-soja": {
+   "variables": [
+    "superficie_sembrada_soja"
+   ]
+  }
  }
 }

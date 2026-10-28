@@ -19,6 +19,7 @@ import { abrirChrome } from "./cdp.mjs";
 const EXCEPCIONES = {
   "f-envejecimiento": "el gráfico y «Ver tabla» muestran cada provincia en los dos años, y el valor del país, que contesta la pregunta, va en el texto",
   "f-pensiones-invalidez": "el mapa y «Ver tabla» muestran cada provincia, y el valor del país cada 1.000 habitantes, que contesta la pregunta, va en el texto",
+  "f-soja": "el mapa y «Ver tabla» muestran cada departamento, y el total del país, en millones de hectáreas, va en el texto de «Evolución» y en la tabla de esa vista",
 };
 // D8 (28 de octubre de 2026): toda ficha lleva cifra destacada, salvo las de estas excepciones, que dice la regla de .claude/rules/visualizaciones.md.
 // La prueba falla si una ficha no tiene cifra y no está acá, o si una de acá tiene cifra

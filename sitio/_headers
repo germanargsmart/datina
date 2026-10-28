@@ -90,6 +90,8 @@
   Cache-Control: public, max-age=31536000, immutable
 /datos/migraciones_departamentos.json
   Cache-Control: public, max-age=31536000, immutable
+/datos/soja_departamentos.json
+  Cache-Control: public, max-age=31536000, immutable
 /datos/supermercados_mensual.json
   Cache-Control: public, max-age=31536000, immutable
 /datos/corte_jueces.json

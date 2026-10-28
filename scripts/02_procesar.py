@@ -959,6 +959,72 @@ pc_prov = pc.groupby("provincia").toneladas.sum().sort_values(ascending=False)
 rio = pc_esp.rename("toneladas").reset_index().rename(columns={"especie": "territorio"}).assign(codigo_indec=lambda x: x.territorio)[["codigo_indec", "territorio", "toneladas"]]
 pesca_rio_prov = pc.pivot_table(index="especie", columns="provincia", values="toneladas", aggfunc="sum").fillna(0).reset_index()
 
+# ---------------------------------------------------------------- soja por departamento (estimaciones agrícolas)
+# Estimaciones agrícolas de la Secretaría de Agricultura, Ganadería y Pesca (datos.magyp.gob.ar): superficie sembrada y cosechada,
+# producción y rendimiento de cada cultivo, por campaña y departamento, desde la campaña 1969/70. Es la primera fuente nueva del plan de
+# mejora (tanda 3 de decisiones del autor, 28 de octubre de 2026), para "¿Dónde se siembra más soja?". "soja total" es la de primera más
+# la de segunda (la que se siembra después del trigo). La columna "anio" es el año en que empieza la campaña (2024 para la 2024/25).
+# El organismo actualiza el archivo cada seis meses, así que puede traer una campaña en curso, con la siembra estimada y la cosecha sin
+# terminar: la última campaña que se usa es la última con producción y al menos el 75% de lo sembrado cosechado (la menor parte desde
+# 1969/70 fue el 84%, en 1988/89).
+# Chascomús figura con su código de antes de que se creara Lezama (06217): el mapa usa el del Censo 2022 (06218), y Lezama ya viene aparte
+sj_ea = pd.read_csv(CRUDO / "magyp_estimaciones_agricolas.csv", dtype={"provincia_id": str, "departamento_id": str})
+sj_ea = sj_ea[sj_ea.cultivo.str.strip().str.lower() == "soja total"].copy()
+sj_ea["departamento_id"] = sj_ea.departamento_id.replace({"06217": "06218"})
+sj_camp = lambda a: f"{a}/{(a + 1) % 100:02d}"  # 2024 -> "2024/25"
+sj_pais = sj_ea.groupby("anio")[["superficie_sembrada_ha", "superficie_cosechada_ha", "produccion_tm"]].sum().reset_index()
+sj_pais = sj_pais[sj_pais.superficie_sembrada_ha > 0]
+SJ_ANIO = int(sj_pais[(sj_pais.produccion_tm > 0) & (sj_pais.superficie_cosechada_ha >= .75 * sj_pais.superficie_sembrada_ha)].anio.max())
+sj_pais = sj_pais[sj_pais.anio <= SJ_ANIO].rename(columns={"superficie_sembrada_ha": "sembrada_ha", "superficie_cosechada_ha": "cosechada_ha",
+                                                          "produccion_tm": "produccion_t"})
+sj_pais["rendimiento_kg_ha"] = (sj_pais.produccion_t / sj_pais.cosechada_ha * 1000).where(sj_pais.cosechada_ha > 0)
+sj_pais.insert(1, "campania", sj_pais.anio.map(sj_camp))
+_sj_u = sj_ea[(sj_ea.anio == SJ_ANIO) & (sj_ea.superficie_sembrada_ha > 0)]
+_sj_tot = float(_sj_u.superficie_sembrada_ha.sum())
+assert _sj_u.departamento_id.is_unique, "estimaciones agrícolas: un departamento aparece dos veces en la misma campaña"
+assert _sj_u.provincia_id.isin(POB).all(), "estimaciones agrícolas: una provincia sin código INDEC"
+assert abs(_sj_tot - float(sj_pais.set_index("anio").sembrada_ha[SJ_ANIO])) < 1
+soja_departamentos = pd.DataFrame({
+    "codigo_dep": _sj_u.departamento_id, "codigo_indec": _sj_u.provincia_id, "provincia": _sj_u.provincia_id.map(CORTO),
+    "departamento": _sj_u.departamento.str.strip(), "sembrada_ha": _sj_u.superficie_sembrada_ha, "cosechada_ha": _sj_u.superficie_cosechada_ha,
+    "produccion_t": _sj_u.produccion_tm, "pct_pais": _sj_u.superficie_sembrada_ha / _sj_tot * 100,
+    "rendimiento_kg_ha": (_sj_u.produccion_tm / _sj_u.superficie_cosechada_ha * 1000).where(_sj_u.superficie_cosechada_ha > 0),
+}).sort_values("sembrada_ha", ascending=False).reset_index(drop=True)
+_sj_ant = sj_ea[sj_ea.anio == SJ_ANIO - 1].groupby("provincia_id").superficie_sembrada_ha.sum()
+soja_provincias = (_sj_u.groupby("provincia_id")[["superficie_sembrada_ha", "superficie_cosechada_ha", "produccion_tm"]].sum().reset_index()
+                   .rename(columns={"provincia_id": "codigo_indec", "superficie_sembrada_ha": "sembrada_ha", "superficie_cosechada_ha": "cosechada_ha",
+                                    "produccion_tm": "produccion_t"}))
+soja_provincias["departamentos"] = soja_provincias.codigo_indec.map(_sj_u.groupby("provincia_id").size())
+soja_provincias["sembrada_ha_campania_anterior"] = soja_provincias.codigo_indec.map(_sj_ant)
+_sj_00 = sj_pais.set_index("anio").loc[SJ_ANIO]
+soja_provincias = pd.concat([pd.DataFrame([{"codigo_indec": "00", "sembrada_ha": _sj_00.sembrada_ha, "cosechada_ha": _sj_00.cosechada_ha,
+                                            "produccion_t": _sj_00.produccion_t, "departamentos": len(_sj_u),
+                                            "sembrada_ha_campania_anterior": float(sj_pais.set_index("anio").sembrada_ha.get(SJ_ANIO - 1, np.nan))}]),
+                             soja_provincias.sort_values("sembrada_ha", ascending=False)], ignore_index=True)
+soja_provincias.insert(1, "territorio", soja_provincias.codigo_indec.map({**CORTO, "00": "Argentina"}))
+soja_provincias["pct_pais"] = soja_provincias.sembrada_ha / _sj_tot * 100
+soja_provincias["rendimiento_kg_ha"] = (soja_provincias.produccion_t / soja_provincias.cosechada_ha * 1000).where(soja_provincias.cosechada_ha > 0)
+soja_provincias["var_campania_anterior"] = (soja_provincias.sembrada_ha / soja_provincias.sembrada_ha_campania_anterior - 1) * 100
+_sj_p = soja_provincias[soja_provincias.codigo_indec != "00"]
+_sj_mx = sj_pais.loc[sj_pais.sembrada_ha.idxmax()]
+_sj_d = soja_departamentos.iloc[0]
+soja_res = {"campania": sj_camp(SJ_ANIO), "ini": sj_camp(int(sj_pais.anio.min())), "ini_ha": round(float(sj_pais.sembrada_ha.iloc[0])),
+            "ha": round(_sj_tot), "millones_ha": r1(_sj_tot / 1e6), "cosechada_millones_ha": r1(_sj_00.cosechada_ha / 1e6),
+            "produccion_millones_t": r1(_sj_00.produccion_t / 1e6), "rendimiento_kg_ha": round(float(_sj_00.produccion_t / _sj_00.cosechada_ha * 1000)),
+            "anterior": sj_camp(SJ_ANIO - 1), "millones_ha_anterior": r1(float(sj_pais.set_index("anio").sembrada_ha[SJ_ANIO - 1]) / 1e6),
+            "max_campania": sj_camp(int(_sj_mx.anio)), "max_millones_ha": r1(_sj_mx.sembrada_ha / 1e6),
+            "n_prov": len(_sj_p), "n_dep": len(soja_departamentos),
+            "top": list(_sj_p.territorio.head(3)), "top_pct": [r1(x) for x in _sj_p.pct_pais.head(3)], "top3_pct": r1(_sj_p.pct_pais.head(3).sum()),
+            "dep": _sj_d.departamento, "dep_prov": _sj_d.provincia, "dep_ha": round(float(_sj_d.sembrada_ha)),
+            "dep10_pct": r1(soja_departamentos.pct_pais.head(10).sum())}
+d = sj_pais[["campania", "sembrada_ha"]].rename(columns={"campania": "periodo", "sembrada_ha": "valor"})
+d["codigo_indec"], d["territorio"] = "00", "Argentina"
+agregar(d, "superficie_sembrada_soja", "hectáreas", "Secretaría de Agricultura, Ganadería y Pesca, Estimaciones agrícolas")
+d = (sj_ea[(sj_ea.anio <= SJ_ANIO) & (sj_ea.superficie_sembrada_ha > 0)].groupby(["provincia_id", "anio"]).superficie_sembrada_ha.sum()
+     .reset_index().rename(columns={"provincia_id": "codigo_indec", "superficie_sembrada_ha": "valor"}))
+d["periodo"], d["territorio"] = d.anio.map(sj_camp), d.codigo_indec.map(CORTO)
+agregar(d, "superficie_sembrada_soja", "hectáreas", "Secretaría de Agricultura, Ganadería y Pesca, Estimaciones agrícolas")
+
 # ---------------------------------------------------------------- visitas por parque nacional
 # Tablero de areas protegidas de la Secretaria de Turismo (tableros.yvera.tur.ar/tablero_areas_protegidas), visitas
 # mensuales por parque desde 2008. Es una aplicacion interactiva sin enlace fijo: la exportacion completa se guarda a mano
@@ -6600,6 +6666,9 @@ tablas = {
     "desembarques_top": pesca_top,
     "pesca_continental": rio,
     "pesca_continental_provincias": pesca_rio_prov,
+    "soja_departamentos": soja_departamentos,
+    "soja_provincias": soja_provincias,
+    "soja_pais": sj_pais,
     "visitas_por_parque": visitas_parque,
     "carne_vacuna": carne.round(1),
     "vino_mercado_interno": vino,
@@ -6923,6 +6992,7 @@ resumen = {
         "rio_anio": anio_pc, "rio_total": round(float(pc_esp.sum())), "rio_top": pc_esp.index[0], "rio_top_pct": r1(pc_esp.iloc[0] / pc_esp.sum() * 100),
         "rio_provs": list(pc_prov.index), "rio_prov_top": pc_prov.index[0], "rio_prov_top_pct": r1(pc_prov.iloc[0] / pc_prov.sum() * 100),
     },
+    "soja": soja_res,
     "femicidios": {"ini": int(femi.anio.min()), "anio": int(fe_u.anio), "n": int(fe_u.femicidios),
                    "max_anio": int(femi.loc[femi.femicidios.idxmax(), "anio"]), "max": int(femi.femicidios.max())},
     "visitas_parque": {"ult": VP_ULT, "par": VP_PAR, "par_mes": VP_MES, "top": vp_top.area, "top_lugar": vp_top.lugar, "top_v": int(vp_top.visitas_ult),
