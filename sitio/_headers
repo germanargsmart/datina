@@ -102,5 +102,17 @@
   Cache-Control: public, max-age=31536000, immutable
 /datos/bcra_variables.json
   Cache-Control: public, max-age=31536000, immutable
+/datos/exportaciones_destinos.json
+  Cache-Control: public, max-age=31536000, immutable
+/datos/reservas_netas.json
+  Cache-Control: public, max-age=31536000, immutable
+/datos/combustibles_anual.json
+  Cache-Control: public, max-age=31536000, immutable
+/datos/confianza_consumidor.json
+  Cache-Control: public, max-age=31536000, immutable
+/datos/expectativas_inflacion.json
+  Cache-Control: public, max-age=31536000, immutable
+/datos/confianza_gobierno.json
+  Cache-Control: public, max-age=31536000, immutable
 /consulta-ia.js
   Cache-Control: public, max-age=31536000, immutable

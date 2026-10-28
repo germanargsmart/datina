@@ -4,9 +4,10 @@ export default {
   root: "src",
   output: "dist",
 
-  // Dos páginas: la de consultas y el diccionario de datos
+  // Dos páginas: la del consultor y el diccionario de datos. Desde el 28 de octubre de 2026 (plan de mejora, etapa 6: "Consultas" queda solo
+  // para la IA) la primera se llama "Consultor de pobreza" y en la cabecera "Consultor" (más largo no entra en un renglón en 320 píxeles)
   pages: [
-    {name: "Consultas", path: "/"},
+    {name: "Consultor de pobreza", path: "/"},
     {name: "Diccionario de datos", path: "/diccionario"}
   ],
   sidebar: false,
@@ -40,6 +41,6 @@ document.addEventListener("DOMContentLoaded", () => {
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Consultor de pobreza: ¿Cuánta pobreza hay en cada aglomerado, partido y comuna?">
 <meta name="twitter:description" content="Pobreza e indigencia en la Argentina para consultar, filtrar y descargar: los 31 aglomerados urbanos de la EPH del INDEC y estimaciones por partido del Gran Buenos Aires y comuna de CABA.">`,
-  header: `<nav class="cabecera"><a href="../pobreza.html" class="volver">Datina: Pobreza y hogares</a><a href="./">Consultas</a><a href="./diccionario">Diccionario de datos</a></nav>`,
+  header: `<nav class="cabecera"><a href="../pobreza.html" class="volver">Datina: Pobreza y hogares</a><a href="./">Consultor</a><a href="./diccionario">Diccionario de datos</a></nav>`,
   footer: `Elaboración de Datina con datos del INDEC: Encuesta Permanente de Hogares y Censo 2022. Las cifras por partido, comuna y fracción son estimaciones estadísticas, no mediciones oficiales.`
 };
