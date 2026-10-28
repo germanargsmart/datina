@@ -45,8 +45,12 @@ for (const w of ANCHOS) {
   await p.tamano(w, 800);
   for (const pg of PAGINAS) {
     await p.ir(B + pg, 900); await p.recorrer(900, 60);
-    const r = JSON.parse(await p.eval(MEDIR));
-    if (r.sobra > 1) problemas.push(`${pg} en ${w} píxeles se corre ${r.sobra} de costado: ${r.fuera.join(", ")}`);
+    // en las páginas con capítulos se ve uno por vez (28 de octubre de 2026): se mide cada uno
+    for (let i = 0, nc = await p.eval(`document.querySelectorAll(".capitulos a").length`); i < Math.max(nc, 1); i++) {
+      if (i) { await p.eval(`document.querySelectorAll(".capitulos a")[${i}].click()`); await p.recorrer(900, 60); }
+      const r = JSON.parse(await p.eval(MEDIR));
+      if (r.sobra > 1) problemas.push(`${pg}${i ? ` (capítulo ${i + 1})` : ""} en ${w} píxeles se corre ${r.sobra} de costado: ${r.fuera.join(", ")}`);
+    }
   }
 }
 await ch.cerrar(); servidor.close();

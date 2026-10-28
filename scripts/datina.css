@@ -128,7 +128,7 @@ a:hover{text-decoration-color:var(--celeste-fuerte)}
 .en-azul :focus-visible{outline-color:var(--sol)}
 /* en las filas que se deslizan de costado, el borde del foco va hacia adentro: el desplazamiento lo cortaba arriba y abajo (revisión de
    accesibilidad, 11 de octubre de 2026) */
-.subsecciones a:focus-visible,.pildoras a:focus-visible,.cx-sug .cx-chip:focus-visible,.cifras-grid .cifra:focus-visible{outline-offset:-3px}
+.subsecciones a:focus-visible,.capitulos a:focus-visible,.pildoras a:focus-visible,.cx-sug .cx-chip:focus-visible,.cifras-grid .cifra:focus-visible{outline-offset:-3px}
 select option{background:var(--bg);color:var(--ink)}
 /* cortes de línea: títulos con líneas parejas y textos sin una palabra sola al final */
 h1,h2,h3,h4,.art-txt b,.sec-tarjeta b,.tema-intro .pregunta{text-wrap:balance}
@@ -677,14 +677,20 @@ html:not(.js) .busca-portada{display:none}
 .migas+:is(h1,h2,.tema-nombre){margin-top:var(--e-4)!important}
 .pildoras+.migas{margin-top:var(--e-6)}
 /* la fila de una categoría (etapa 36): al final de la entrada de la página, antes de "En cifras", con el estilo de la navegación (letra en
-   mayúsculas y la marca amarilla en la página actual). Si no entra, se desliza de costado */
-.subsecciones{display:flex;align-items:baseline;gap:var(--e-6);max-width:100%;margin:calc(-1 * var(--e-4)) 0 var(--e-7);overflow-x:auto;scrollbar-width:none;
+   mayúsculas y la marca amarilla en la página actual). Si no entra, se desliza de costado. El índice de capítulos de las páginas largas
+   (.capitulos, debajo de "En cifras") tiene el mismo aspecto desde el 28 de octubre de 2026, pedido del autor, y desde ese mismo día cada
+   capítulo se ve por separado, como una pestaña */
+.subsecciones,.capitulos{display:flex;align-items:baseline;gap:var(--e-6);max-width:100%;overflow-x:auto;scrollbar-width:none;
   border-bottom:1px solid var(--line);font-size:var(--t-2);font-weight:600;letter-spacing:.07em;text-transform:uppercase;white-space:nowrap}
-.subsecciones::-webkit-scrollbar{display:none}
+.subsecciones{margin:calc(-1 * var(--e-4)) 0 var(--e-7)}
+.capitulos{margin:0 0 var(--e-4)}
+.subsecciones::-webkit-scrollbar,.capitulos::-webkit-scrollbar{display:none}
 .sub-cat{flex:none;font-family:var(--mono);font-weight:500;color:var(--muted)}
-.subsecciones a{flex:none;padding:var(--e-3) 0 calc(var(--e-3) - 1px);color:var(--azul);text-decoration:none;transition:color var(--dur-1) var(--ease-out)}
-.subsecciones a[aria-current]{color:var(--ink);box-shadow:inset 0 -2px 0 var(--sol)}
-@media (hover:hover) and (pointer:fine){.subsecciones a:not([aria-current]):hover{color:var(--ink)}}
+.subsecciones a,.capitulos a{flex:none;padding:var(--e-3) 0 calc(var(--e-3) - 1px);color:var(--azul);text-decoration:none;transition:color var(--dur-1) var(--ease-out)}
+.subsecciones a[aria-current],.capitulos a[aria-current="true"]{color:var(--ink);box-shadow:inset 0 -2px 0 var(--sol)}
+@media (hover:hover) and (pointer:fine){.subsecciones a:not([aria-current]):hover,.capitulos a:not([aria-current="true"]):hover{color:var(--ink)}}
+/* los capítulos como pestañas (28 de octubre de 2026, pedido del autor): datina.js deja a la vista el capítulo marcado en la fila */
+.tema>.cap-fuera{display:none!important}
 @media (hover:hover) and (pointer:fine){.migas a:hover{text-decoration:underline}}
 
 /* ---------- Tu provincia: desplegable propio y perfil de la provincia elegida ---------- */
@@ -734,9 +740,7 @@ html:not(.js) .busca-portada{display:none}
 .prov-destaca-sub{max-width:65ch;margin:var(--e-2) 0 var(--e-4);font-size:var(--t-3);color:var(--muted)}
 .perfil-indice ol{display:flex;flex-wrap:wrap;gap:var(--e-2) var(--e-6);margin:0;padding:0;list-style:none;font-size:var(--t-3)}
 .perfil-grupo{scroll-margin-top:96px}
-/* el índice de capítulos de las páginas largas (etapa 6 del plan de mejora), con el aspecto del del perfil, y cada capítulo, que no queda
-   tapado por la barra al llegar desde el índice */
-.capitulos{margin:var(--e-6) 0 0}
+/* cada capítulo de las páginas largas (etapa 6 del plan de mejora) no queda tapado por la barra al llegar desde su índice (.capitulos, arriba) */
 .bloque-grupo[id^="g-"]{scroll-margin-top:96px}
 .perfil-cab{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:var(--e-2) var(--e-6);margin:var(--e-8) 0 var(--e-4)}
 .perfil-cab .bloque-grupo{margin:0}
@@ -898,6 +902,8 @@ html:not(.js) .busca-portada{display:none}
    Antes (2 de octubre de 2026) estaba arriba de las fichas: el título a la izquierda y una tarjeta con un + en un círculo por tema a la
    derecha, que dejaba la columna izquierda vacía y, en pantallas medianas, el signo lejos de su texto */
 .exp-gancho{margin:0 0 var(--bloque);padding-top:var(--e-4);border-top:1px dotted var(--azul);font-size:var(--t-3);line-height:var(--i-chico);color:var(--muted)}
+/* debajo del índice de capítulos, su línea ya separa: sin la punteada */
+.capitulos+.exp-gancho{padding-top:0;border-top:0}
 /* en las herramientas, después de la línea viene una sola ficha: la separación de un bloque, no la de un capítulo */
 .herramienta>.exp-gancho{margin-bottom:var(--bloque)}
 .exp-gancho a{font-weight:500}

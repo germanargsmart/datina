@@ -70,15 +70,24 @@ const FICHAS = `(() => { const f = [...document.querySelectorAll("article.ficha"
     etiquetas: f.filter(x => x.querySelector(".etiqueta")).map(x => x.id), comoMal: f.filter(x => !!x.querySelector(".pie .como-calcula") !== exp).map(x => x.id)}; })()`;
 const CUENTA = {fichas: 0, como: 0};
 
+// en las páginas con capítulos se ve uno por vez (28 de octubre de 2026): se recorre cada uno, para que se dibujen sus gráficos y se lean
+// sus textos
+const CAPITULOS = `document.querySelectorAll(".capitulos a").length`;
 async function revisarPagina(pg, intento = 1) {
   await p.ir(B + pg, 1200);
   await p.recorrer();
   await espera(500);
-  const malos = await p.eval(MALOS), errores = [...p.errores];
+  let malos = await p.eval(MALOS), terminos = await p.eval(TERMINOS);
+  for (let i = 1, n = await p.eval(CAPITULOS); i < n; i++) {
+    await p.eval(`document.querySelectorAll(".capitulos a")[${i}].click()`);
+    await p.recorrer(); await espera(300);
+    malos = malos.concat(await p.eval(MALOS)); terminos = terminos.concat(await p.eval(TERMINOS));
+  }
+  const errores = [...p.errores];
   if ((malos.length || errores.length) && intento === 1) return revisarPagina(pg, 2);   // una segunda vez, por si fue la red
   malos.forEach(m => problemas.push(`${pg}: texto con un valor sin calcular: «${m}»`));
   errores.forEach(e => problemas.push(`${pg}: ${e}`));
-  (await p.eval(TERMINOS)).forEach(([m, bien]) => problemas.push(`${pg}: un término fijo escrito de otra forma (va «${bien}»): «${m}»`));
+  terminos.forEach(([m, bien]) => problemas.push(`${pg}: un término fijo escrito de otra forma (va «${bien}»): «${m}»`));
   (pg.startsWith("a-") ? IDA : VUELTA).push(...await p.eval(ENLACES));
   const fi = await p.eval(FICHAS);
   CUENTA.fichas += fi.n; CUENTA.como += fi.como;
@@ -137,11 +146,14 @@ const fil = JSON.parse(await p.eval(`(() => {
 if (fil.bloques !== 2 || fil.botones < 3 || !fil.visible || fil.porGrupo.some(n => !n || n >= fil.todas) || fil.porGrupo.reduce((s, n) => s + n, 0) !== fil.todas || fil.vuelta !== fil.todas)
   problemas.push(`articulos.html: los filtros por tema no andan (${JSON.stringify(fil)})`);
 // "Ver tabla" en las cinco fichas que lo tienen desde el paso 5: se abre con filas, y la de legisladores sigue a la provincia elegida
+// la tabla de los espacios es la segunda pestaña de f-votaciones desde que se unieron las dos fichas (R7, 28 de octubre de 2026)
 const PROPIAS = [["departamentos.html", "f-mapa"], ["politica.html", "f-legisladores"], ["politica.html", "f-votaciones"],
-  ["politica.html", "f-votaciones-espacios"], ["politica.html", "f-ministros"]];
+  ["politica.html", "f-votaciones", "tab-f-votaciones-2"], ["politica.html", "f-ministros"]];
 const filasDe = id => p.eval(`document.querySelectorAll("#${id} .tabla-datos tbody tr").length`);
-for (const [pg, id] of PROPIAS) {
+for (const [pg, id, pestana] of PROPIAS) {
   await p.ir(B + pg, 1000);
+  await p.eval(`location.hash = "${id}"`); await espera(300);   // en una página con capítulos, abre el de la ficha
+  if (pestana) await p.eval(`document.getElementById("${pestana}")?.click()`);
   await p.eval(`document.querySelector("#${id} .ver-tabla")?.click()`);
   await espera(1500);
   if (!(await filasDe(id))) problemas.push(`${pg}: "Ver tabla" de ${id} no muestra filas`);
@@ -154,6 +166,26 @@ for (const [pg, id] of PROPIAS) {
   }
   p.errores.forEach(e => problemas.push(`${pg}, "Ver tabla" de ${id}: ${e}`));
 }
+// los capítulos como pestañas (28 de octubre de 2026, pedido del autor): en Instituciones políticas se ve un capítulo por vez y la fila
+// marca el elegido. Tocar otro lo abre, y lo mismo hacen el enlace a una ficha de otro capítulo y la dirección vieja de una ficha unida
+const CAP = `JSON.stringify({tab: document.querySelector('.capitulos a[aria-current="true"]')?.getAttribute("href") || "", hash: location.hash,
+  vis: [...document.querySelectorAll("article.ficha")].filter(f => f.offsetParent).map(f => f.id), pestana: document.querySelector('[role="tab"][aria-selected="true"][id^="tab-f-voto-provincia"]')?.id || ""})`;
+const capitulo = async (como, tab, si, no) => {
+  const r = JSON.parse(await p.eval(CAP));
+  if (r.tab !== tab || !r.vis.includes(si) || r.vis.includes(no)) problemas.push(`politica.html, capítulos (${como}): a la vista ${r.tab || "ninguno"} con ${r.vis.join(", ")}`);
+  return r;
+};
+await p.ir(B + "politica.html", 1000);
+await capitulo("al llegar", "#g-elecciones", "f-elecciones", "f-legisladores");
+await p.eval(`document.querySelector('.capitulos a[href="#g-congreso"]').click()`); await espera(300);
+if ((await capitulo("al tocar El Congreso", "#g-congreso", "f-legisladores", "f-elecciones")).hash !== "#g-congreso") problemas.push("politica.html, capítulos: la dirección no cambia al tocar uno");
+await p.eval(`location.hash = "f-atn"`); await espera(400);
+await capitulo("con un enlace a #f-atn", "#g-nacion-provincias", "f-atn", "f-legisladores");
+await p.ir(B + "contacto.html", 300); await p.ir(B + "politica.html#f-apoyo", 1000);
+if ((await capitulo("con la dirección vieja #f-apoyo", "#g-votaciones", "f-voto-provincia", "f-elecciones")).pestana !== "tab-f-voto-provincia-2")
+  problemas.push("politica.html#f-apoyo: no abre la pestaña de las transferencias");
+p.errores.forEach(e => problemas.push(`politica.html, capítulos: ${e}`));
+
 // "En cifras" sin provincia (el perfil nuevo no tiene ninguna guardada) y después con cada provincia
 for (const sec of SECCIONES) await revisarCifras(sec, null);
 for (const prov of PROVINCIAS) {
@@ -333,7 +365,7 @@ servidor.close();
 
 console.log(`Páginas revisadas: ${paginas.length}. "En cifras": ${SECCIONES.length} secciones, sin provincia y con ${PROVINCIAS.length} provincias.`);
 console.log(`Artículos y fichas: ${ida.size} enlaces de ida y ${vuelta.size} de vuelta. Bajadas en la lista de Artículos: ${bajadas.filter(n => n >= 40).length} de ${nArt}.`);
-console.log(`Fichas: ${CUENTA.fichas}, todas con "Ver tabla" y sin el nombre de la sección arriba, ${CUENTA.como} con "Cómo se calcula". "Ver tabla" abierta en ${PROPIAS.length} fichas nuevas.`);
+console.log(`Fichas: ${CUENTA.fichas}, todas con "Ver tabla" y sin el nombre de la sección arriba, ${CUENTA.como} con "Cómo se calcula". "Ver tabla" abierta en ${PROPIAS.length} fichas nuevas. Capítulos de a uno: la fila, un enlace a otro capítulo y una dirección vieja.`);
 console.log(`Sin cdnjs ni jsDelivr: ${Object.keys(SIN_CDN).length} páginas. Sin D3: las fichas de trabajo.html a la vista. Menús con el teclado, en 1280 y 390 píxeles. Portada: datos destacados y buscador. Lupa: flechas, Enter, sin coincidencias, respuesta rápida y Tab.` +
             (IA ? " Consultas con IA: el buscador las ofrece y la página deja escrita la pregunta del enlace." : ""));
 console.log(`Accesibilidad: gráficos con nombre, "Saltar al contenido" y migas subrayadas en ${CUENTA.paginas} páginas, el salto con el teclado y el nombre del mapa. Pulido: textos de ayuda enteros en 360 y 768 píxeles y descripción de las fichas a la izquierda.`);

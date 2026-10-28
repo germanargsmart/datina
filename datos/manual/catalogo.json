@@ -394,8 +394,7 @@
   },
   "transferencias_acumulado": {
    "en": [
-    "f-atn",
-    "f-transferencias"
+    "f-atn"
    ],
    "evidencia": {
     "archivo": "scripts/datina.js",

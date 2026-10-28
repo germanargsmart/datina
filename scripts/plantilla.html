@@ -1260,45 +1260,64 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 
     <h2 class="bloque-grupo" id="g-votaciones">Cómo vota el Congreso</h2>
 
-    <article class="ficha" id="f-votaciones">
-      <h2>¿Cómo votó cada legislador las leyes y los proyectos clave?</h2>
-      <p class="ficha-sub">Voto de cada diputado y senador en la votación en general de las leyes y los proyectos clave, por espacio político, {{votaciones.leyes_ini}} a {{votaciones.leyes_fin}}</p>
-      <label class="selector-ficha"><span>Ley o proyecto</span><select id="vt-sel"></select></label>
-      <div class="conmutador" role="group" aria-label="Cámara" data-g="votaciones">
-        <button type="button" data-m="Diputados" aria-pressed="true">Diputados</button><button type="button" data-m="Senado" aria-pressed="false">Senado</button>
+    <!-- f-votaciones y f-votaciones-espacios, unidas (plan de mejora, R7, decisión del autor del 28 de octubre de 2026): la dirección vieja lleva a la pestaña de cada espacio. Va a todo el ancho, como iba la tabla de los espacios -->
+    <article class="ficha ancha con-vistas" id="f-votaciones">
+      <h2>¿Cómo votó cada legislador, y cada espacio político, las leyes y los proyectos clave?</h2>
+      <p class="ficha-sub">Voto de cada diputado y senador en la votación en general de las leyes y los proyectos clave, y porcentaje de los presentes de cada espacio político que votó a favor, {{votaciones.leyes_ini}} a {{votaciones.leyes_fin}}</p>
+      <div class="conmutador pestanas" role="tablist" aria-label="Vista" style="--n:2">
+        <button type="button" role="tab" id="tab-f-votaciones-1" aria-controls="pan-f-votaciones-1" aria-selected="true">Por legislador</button>
+        <button type="button" role="tab" id="tab-f-votaciones-2" aria-controls="pan-f-votaciones-2" aria-selected="false" tabindex="-1">Por espacio</button>
       </div>
-      <div class="pol-ley" id="vt-ley" aria-hidden="true"></div>
-      <div class="grafico" data-g="votaciones" data-forma="puntos" style="--alto:364px;--alto-c:439px"></div>
-      <p class="lead" data-t="votaciones"></p>
-      <p class="nota" data-t="votaciones-nota"></p>
-      <div class="pie"><span>Fuentes: Cámara de Diputados y Senado de la Nación, actas de votación nominal, vía ¿Cómo Votó?</span><a href="datos/votaciones_leyes_clave.csv" download>Descargar tabla (CSV)</a></div>
-    </article>
-
-    <article class="ficha ancha" id="f-votaciones-espacios">
-      <h2>¿Qué parte de cada espacio político votó a favor de cada ley o proyecto?</h2>
-      <p class="ficha-sub">Porcentaje de los legisladores presentes de cada espacio político que votó a favor de las leyes y los proyectos clave, {{votaciones.leyes_ini}} a {{votaciones.leyes_fin}}</p>
-      <p class="lead" data-t="vtm"></p>
-      <div class="vt-controles">
-        <div class="conmutador" role="group" aria-label="Cámara" data-g="vtmatriz">
+      <div class="panel-pestana" role="tabpanel" id="pan-f-votaciones-1" aria-labelledby="tab-f-votaciones-1">
+        <label class="selector-ficha"><span>Ley o proyecto</span><select id="vt-sel"></select></label>
+        <div class="conmutador" role="group" aria-label="Cámara" data-g="votaciones">
           <button type="button" data-m="Diputados" aria-pressed="true">Diputados</button><button type="button" data-m="Senado" aria-pressed="false">Senado</button>
         </div>
-        <div class="conmutador" role="group" aria-label="Qué leyes se muestran" data-g="vtfiltro">
-          <button type="button" data-m="todas" aria-pressed="true">Todas</button><button type="button" data-m="ed" aria-pressed="false">De efecto directo</button>
-        </div>
+        <div class="pol-ley" id="vt-ley" aria-hidden="true"></div>
+        <div class="grafico" data-g="votaciones" data-forma="puntos" style="--alto:364px;--alto-c:439px"></div>
       </div>
-      <div class="grafico vt-matriz" data-g="vtmatriz" data-forma="lista" style="--alto:858px;--alto-c:1148px"></div>
-      <p class="nota" data-t="vtm-nota"></p>
-      <div class="pie"><span>Fuentes: Cámara de Diputados y Senado de la Nación, actas de votación nominal, vía ¿Cómo Votó?</span><a href="datos/votaciones_leyes_clave.csv" download>Descargar tabla (CSV)</a></div>
+      <div class="panel-pestana" role="tabpanel" id="pan-f-votaciones-2" aria-labelledby="tab-f-votaciones-2" data-vieja="f-votaciones-espacios" hidden>
+        <div class="vt-controles">
+          <div class="conmutador" role="group" aria-label="Cámara" data-g="vtmatriz">
+            <button type="button" data-m="Diputados" aria-pressed="true">Diputados</button><button type="button" data-m="Senado" aria-pressed="false">Senado</button>
+          </div>
+          <div class="conmutador" role="group" aria-label="Qué leyes se muestran" data-g="vtfiltro">
+            <button type="button" data-m="todas" aria-pressed="true">Todas</button><button type="button" data-m="ed" aria-pressed="false">De efecto directo</button>
+          </div>
+        </div>
+        <div class="grafico vt-matriz" data-g="vtmatriz" data-forma="lista" style="--alto:858px;--alto-c:1148px"></div>
+      </div>
+      <p data-panel="pan-f-votaciones-1" class="lead" data-t="votaciones"></p>
+      <p data-panel="pan-f-votaciones-1" class="nota" data-t="votaciones-nota"></p>
+      <p data-panel="pan-f-votaciones-2" hidden class="lead" data-t="vtm"></p>
+      <p data-panel="pan-f-votaciones-2" hidden class="nota" data-t="vtm-nota"></p>
+      <div class="pie"><span>Fuentes: Cámara de Diputados y Senado de la Nación, actas de votación nominal, vía ¿Cómo Votó?</span><a href="datos/votaciones_leyes_clave.csv" data-panel="pan-f-votaciones-1" download>Descargar tabla (CSV)</a><a href="datos/votaciones_leyes_clave.csv" data-panel="pan-f-votaciones-2" hidden download>Descargar tabla (CSV)</a></div>
     </article>
 
-    <article class="ficha" id="f-voto-provincia">
-      <h2>¿Votan más con el oficialismo los legisladores de las provincias donde más votos sacó el presidente?</h2>
-      <p class="ficha-sub">Coincidencia de los legisladores de cada provincia con el bloque oficialista en las leyes y los proyectos clave, y voto de la provincia al presidente, {{votaciones.rep_ini}} a {{votaciones.rep_fin}}</p>
-      <label class="selector-ficha"><span>Gobierno</span><select data-g="vprov" id="vprov-sel"></select></label>
-      <div class="grafico" data-g="vprov" data-forma="puntos"></div>
-      <p class="lead" data-t="vprov"></p>
-      <p class="nota" data-t="vprov-nota"></p>
-      <div class="pie"><span>Fuentes: Dirección Nacional Electoral y actas de votación nominal de Diputados y del Senado, vía ¿Cómo Votó?</span><a href="datos/voto_legisladores_y_provincia.csv" download>Descargar tabla (CSV)</a></div>
+    <!-- f-voto-provincia y f-apoyo, unidas (plan de mejora, R7, decisión del autor del 28 de octubre de 2026): la dirección vieja lleva a la pestaña de las transferencias -->
+    <article class="ficha con-vistas" id="f-voto-provincia">
+      <h2>¿Votan más con el oficialismo los legisladores de las provincias donde más votos sacó el presidente, o de las que reciben más transferencias?</h2>
+      <p class="ficha-sub">Coincidencia de los legisladores de cada provincia con el bloque oficialista en las leyes y los proyectos clave y voto de la provincia al presidente, {{votaciones.rep_ini}} a {{votaciones.rep_fin}}, y votos de los legisladores de otros bloques iguales a los del bloque oficialista y transferencias no automáticas por habitante, {{votaciones.apoyo.desde}} a {{votaciones.apoyo.hasta}}</p>
+      <div class="conmutador pestanas" role="tablist" aria-label="Vista" style="--n:2">
+        <button type="button" role="tab" id="tab-f-voto-provincia-1" aria-controls="pan-f-voto-provincia-1" aria-selected="true">Voto al presidente</button>
+        <button type="button" role="tab" id="tab-f-voto-provincia-2" aria-controls="pan-f-voto-provincia-2" aria-selected="false" tabindex="-1">Transferencias</button>
+      </div>
+      <div class="panel-pestana" role="tabpanel" id="pan-f-voto-provincia-1" aria-labelledby="tab-f-voto-provincia-1">
+        <label class="selector-ficha"><span>Gobierno</span><select data-g="vprov" id="vprov-sel"></select></label>
+        <div class="grafico" data-g="vprov" data-forma="puntos"></div>
+      </div>
+      <div class="panel-pestana" role="tabpanel" id="pan-f-voto-provincia-2" aria-labelledby="tab-f-voto-provincia-2" data-vieja="f-apoyo" hidden>
+        <label class="selector-ficha"><span>Año</span><select id="ap-sel"></select></label>
+        <div class="conmutador" role="group" aria-label="Transferencias" data-g="apoyo">
+          <button type="button" data-m="atn_hab" aria-pressed="true">ATN</button><button type="button" data-m="otras_hab" aria-pressed="false">Otras no automáticas</button>
+        </div>
+        <div class="grafico" data-g="apoyo" data-forma="puntos"></div>
+      </div>
+      <p data-panel="pan-f-voto-provincia-1" class="lead" data-t="vprov"></p>
+      <p data-panel="pan-f-voto-provincia-1" class="nota" data-t="vprov-nota"></p>
+      <p data-panel="pan-f-voto-provincia-2" hidden class="lead" data-t="apoyo"></p>
+      <p data-panel="pan-f-voto-provincia-2" hidden class="nota" data-t="apoyo-nota"></p>
+      <div class="pie"><span>Fuentes: Dirección Nacional Electoral, actas de votación nominal de Diputados y del Senado, vía ¿Cómo Votó?, y Presupuesto Abierto, Secretaría de Hacienda</span><a href="datos/voto_legisladores_y_provincia.csv" data-panel="pan-f-voto-provincia-1" download>Descargar tabla (CSV)</a><a href="datos/apoyo_gobierno_provincias.csv" data-panel="pan-f-voto-provincia-2" hidden download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-presupuesto">
@@ -1316,38 +1335,28 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 
     <h2 class="bloque-grupo" id="g-nacion-provincias">Nación y provincias</h2>
 
-    <article class="ficha" id="f-atn">
-      <h2>¿Cuánto recibe cada provincia en Aportes del Tesoro Nacional?</h2>
-      <p class="ficha-sub">Aportes del Tesoro Nacional (ATN) a las provincias, descontada la inflación, en pesos de {{transferencias.ult}}, {{transferencias.desde}} a {{transferencias.ult}}</p>
-      <label class="selector-ficha"><span>Vista</span><select id="atn-sel"></select></label>
-      <div class="grafico" data-g="atn" data-forma="columnas"></div>
-      <p class="lead" data-t="atn"></p>
-      <p class="nota" data-t="atn-nota"></p>
-      <div class="pie"><span>Fuentes: Presupuesto Abierto, Secretaría de Hacienda (crédito devengado), INDEC y Banco Mundial</span><a href="datos/transferencias_provincias.csv" download>Descargar tabla (CSV)</a></div>
-    </article>
-
-    <article class="ficha" id="f-transferencias">
-      <h2>¿Cuánto recibe cada provincia por habitante en transferencias no automáticas?</h2>
-      <p class="ficha-sub">Transferencias no automáticas de la Nación a las provincias sin contar los ATN, descontada la inflación, en pesos de {{transferencias.ult}}, {{transferencias.desde}} a {{transferencias.ult}}</p>
-      <label class="selector-ficha"><span>Vista</span><select id="tr-sel"></select></label>
-      <div class="pol-ley" id="tr-ley" aria-hidden="true"></div>
-      <div class="grafico" data-g="transferencias" data-forma="barras"></div>
-      <p class="lead" data-t="transferencias"></p>
-      <p class="nota" data-t="transferencias-nota"></p>
-      <div class="pie"><span>Fuentes: Presupuesto Abierto, Secretaría de Hacienda (crédito devengado), INDEC y Banco Mundial</span><a href="datos/transferencias_serie.csv" download>Total por año, en miles de millones de pesos (CSV)</a><a href="datos/transferencias_provincias.csv" download>Por provincia, en millones de pesos (CSV)</a></div>
-    </article>
-
-    <article class="ficha" id="f-apoyo">
-      <h2>¿Votan más con el oficialismo los legisladores de las provincias que reciben más transferencias no automáticas?</h2>
-      <p class="ficha-sub">Votos de los legisladores de otros bloques de cada provincia iguales a los del bloque oficialista, y transferencias no automáticas por habitante, {{votaciones.apoyo.desde}} a {{votaciones.apoyo.hasta}}</p>
-      <label class="selector-ficha"><span>Año</span><select id="ap-sel"></select></label>
-      <div class="conmutador" role="group" aria-label="Transferencias" data-g="apoyo">
-        <button type="button" data-m="atn_hab" aria-pressed="true">ATN</button><button type="button" data-m="otras_hab" aria-pressed="false">Otras no automáticas</button>
+    <!-- f-atn y f-transferencias, unidas (plan de mejora, R7, decisión del autor del 28 de octubre de 2026): la dirección vieja lleva a la pestaña de las otras no automáticas -->
+    <article class="ficha con-vistas" id="f-atn">
+      <h2>¿Cuánto recibe cada provincia en transferencias no automáticas de la Nación?</h2>
+      <p class="ficha-sub">Aportes del Tesoro Nacional (ATN) y otras transferencias no automáticas de la Nación a las provincias, descontada la inflación, en pesos de {{transferencias.ult}}, {{transferencias.desde}} a {{transferencias.ult}}</p>
+      <div class="conmutador pestanas" role="tablist" aria-label="Vista" style="--n:2">
+        <button type="button" role="tab" id="tab-f-atn-1" aria-controls="pan-f-atn-1" aria-selected="true">ATN</button>
+        <button type="button" role="tab" id="tab-f-atn-2" aria-controls="pan-f-atn-2" aria-selected="false" tabindex="-1">Otras no automáticas</button>
       </div>
-      <div class="grafico" data-g="apoyo" data-forma="puntos"></div>
-      <p class="lead" data-t="apoyo"></p>
-      <p class="nota" data-t="apoyo-nota"></p>
-      <div class="pie"><span>Fuentes: actas de votación nominal del Congreso, vía ¿Cómo Votó?, y Presupuesto Abierto, Secretaría de Hacienda</span><a href="datos/apoyo_gobierno_provincias.csv" download>Descargar tabla (CSV)</a></div>
+      <div class="panel-pestana" role="tabpanel" id="pan-f-atn-1" aria-labelledby="tab-f-atn-1">
+        <label class="selector-ficha"><span>Vista</span><select id="atn-sel"></select></label>
+        <div class="grafico" data-g="atn" data-forma="columnas"></div>
+      </div>
+      <div class="panel-pestana" role="tabpanel" id="pan-f-atn-2" aria-labelledby="tab-f-atn-2" data-vieja="f-transferencias" hidden>
+        <label class="selector-ficha"><span>Vista</span><select id="tr-sel"></select></label>
+        <div class="pol-ley" id="tr-ley" aria-hidden="true"></div>
+        <div class="grafico" data-g="transferencias" data-forma="barras"></div>
+      </div>
+      <p data-panel="pan-f-atn-1" class="lead" data-t="atn"></p>
+      <p data-panel="pan-f-atn-1" class="nota" data-t="atn-nota"></p>
+      <p data-panel="pan-f-atn-2" hidden class="lead" data-t="transferencias"></p>
+      <p data-panel="pan-f-atn-2" hidden class="nota" data-t="transferencias-nota"></p>
+      <div class="pie"><span>Fuentes: Presupuesto Abierto, Secretaría de Hacienda (crédito devengado), INDEC y Banco Mundial</span><a href="datos/transferencias_provincias.csv" data-panel="pan-f-atn-1" download>Descargar tabla (CSV)</a><a href="datos/transferencias_serie.csv" data-panel="pan-f-atn-2" hidden download>Total por año, en miles de millones de pesos (CSV)</a><a href="datos/transferencias_provincias.csv" data-panel="pan-f-atn-2" hidden download>Por provincia, en millones de pesos (CSV)</a></div>
     </article>
 
   </section>
@@ -1430,7 +1439,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     <h2>Cuentas públicas</h2>
     <div class="tema-intro">
       <p class="pregunta" data-corta="¿Cuánto recauda y gasta el Estado?">¿Cuánto recauda, cuánto gasta y cuánto debe el Estado?</p>
-      <p>Primero, las cuentas de la Nación: cuánto le ingresa, en qué gasta y si le sobra o le falta, como parte del PBI. Después, cuánto recauda cada impuesto nacional y cuánto debe el Estado nacional. Para las provincias, cuántos cargos tienen sus administraciones, cuánto recaudan de impuestos propios y cómo son sus finanzas: qué parte de sus ingresos recaudan por su cuenta, si les sobra o les falta y cuánto gastan en personal. Las transferencias no automáticas de la Nación a las provincias están en <a href="politica.html#f-transferencias">Instituciones políticas</a>, y los subsidios a la energía, en <a href="energia.html#f-subsidios">Energía</a>.</p>
+      <p>Primero, las cuentas de la Nación: cuánto le ingresa, en qué gasta y si le sobra o le falta, como parte del PBI. Después, cuánto recauda cada impuesto nacional y cuánto debe el Estado nacional. Para las provincias, cuántos cargos tienen sus administraciones, cuánto recaudan de impuestos propios y cómo son sus finanzas: qué parte de sus ingresos recaudan por su cuenta, si les sobra o les falta y cuánto gastan en personal. Las transferencias no automáticas de la Nación a las provincias están en <a href="politica.html#f-atn">Instituciones políticas</a>, y los subsidios a la energía, en <a href="energia.html#f-subsidios">Energía</a>.</p>
     </div>
     <!--EXPLICADOR:gobierno-->
 

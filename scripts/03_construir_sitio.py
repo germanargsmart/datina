@@ -198,7 +198,7 @@ FRECUENCIA = {
     "f-radicaciones": "anio", "f-refugio": "anio", "f-argentinos-exterior": "onu",
     # Política
     "f-elecciones": "eleccion", "f-legisladores": "congreso", "f-anios-congreso": "congreso", "f-representacion": "anio", "f-congreso": "congreso", "f-votaciones": "leyes",
-    "f-votaciones-espacios": "leyes", "f-voto-provincia": "eleccion", "f-atn": "anio", "f-transferencias": "anio", "f-apoyo": "anio", "f-presupuesto": "anio",
+    "f-voto-provincia": "eleccion", "f-atn": "anio", "f-presupuesto": "anio",
     "f-presidentes": "presidente", "f-ministros": "gabinete", "f-confianza-gobierno": "mes",
     "f-corte-casos": "anio", "f-jueces-federales": "padron", "f-fiscalias-federales": "ultimo",
     "f-cortes-provinciales": "anio", "f-justicia-provincial": "anio",
@@ -619,7 +619,8 @@ INDICE = {"secciones": SECCIONES, "fichas": FICHAS, "articulos": [[i, html.unesc
 # o en otra. La que se fue no puede seguir en la plantilla, y la que quedó tiene que estar
 FICHAS_UNIDAS = {"f-actividad": "f-hogares", "f-mapa-pozos": "f-pozos", "f-pozos-terminados": "f-fracturas",
                  "f-reservas-netas": "f-reservas-bcra", "f-sube-modos": "f-sube", "f-visitas-parque": "f-visitas",
-                 "f-jubilaciones": "f-envejecimiento", "f-trabajadores": "f-empleo-construccion"}
+                 "f-jubilaciones": "f-envejecimiento", "f-trabajadores": "f-empleo-construccion",
+                 "f-votaciones-espacios": "f-votaciones", "f-apoyo": "f-voto-provincia", "f-transferencias": "f-atn"}
 for _vieja, _nueva in FICHAS_UNIDAS.items():
     assert _vieja not in UBIC, f"{_vieja}: la ficha unida a {_nueva} sigue en la plantilla"
     assert UBIC.get(_nueva), f"{_vieja}: la ficha que la reemplaza ({_nueva}) no está en la plantilla"
@@ -879,12 +880,13 @@ def navegacion(h, pagina):
     if pagina in CATEGORIA:
         blo = re.sub(r'(<div class="tema-intro">.*?</div>)', lambda m: m.group(1) + subsecciones(pagina), blo, count=1, flags=re.S)
     # el índice de capítulos (etapa 6 del plan de mejora, decisión del autor del 27 de octubre de 2026): en las páginas con dos capítulos o
-    # más (h2.bloque-grupo con un id g-…), debajo de "En cifras", con el aspecto del índice del perfil provincial. Nada queda escondido:
-    # cada ficha conserva su enlace y el buscador la encuentra
+    # más (h2.bloque-grupo con un id g-…), debajo de "En cifras". Desde el 28 de octubre de 2026 (pedido del autor: que se parezca a la fila
+    # de Población y Migraciones) tiene el aspecto de la fila de la categoría, con "Capítulos" adelante en lugar del nombre de la categoría.
+    # Nada queda escondido: cada ficha conserva su enlace y el buscador la encuentra
     caps = re.findall(r'<h2 class="bloque-grupo" id="(g-[\w-]+)">([^<]+)</h2>', blo)
     if len(caps) >= 2:
-        indice = ('<nav class="perfil-indice capitulos" aria-label="Capítulos de esta página"><ol>' +
-                  "".join(f'<li><a class="enlace" href="#{i}">{n}. {t}</a></li>' for n, (i, t) in enumerate(caps, 1)) + "</ol></nav>")
+        indice = ('<nav class="capitulos" aria-label="Capítulos de esta página"><span class="sub-cat">Capítulos</span>' +
+                  "".join(f'<a href="#{i}">{t}</a>' for i, t in caps) + "</nav>")
         blo = re.sub(r'(<div class="tema-intro">.*?</div>(?:<nav class="subsecciones".*?</nav>)?)', lambda m: m.group(1) + indice, blo, count=1, flags=re.S)
     # transición entre páginas: el título viaja desde su tarjeta de la portada (mismo nombre en las dos páginas)
     if pagina in [x[0] for x in SECCIONES]:
