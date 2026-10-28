@@ -9394,6 +9394,15 @@ const vistas = new IntersectionObserver(es => {
   });
 }, {threshold: .12, rootMargin: "0px 0px -8% 0px"});
 document.querySelectorAll("article.ficha").forEach(f => vistas.observe(f));
+// Al imprimir (plan de mejora, D1, 28 de octubre de 2026) las fichas que todavía no habían entrado en pantalla salían en blanco: antes de
+// imprimir se muestran y se dibujan todas las de la página (en una con capítulos, las del capítulo a la vista), y cada una lleva su
+// dirección para el pie de la hoja. Un gráfico que todavía tiene que bajar su tabla puede no llegar a la hoja
+addEventListener("beforeprint", () => document.querySelectorAll("article.ficha").forEach(f => {
+  if (!f.offsetParent) return;
+  if (!f.classList.contains("visto")) { f.classList.add("visto", "sin-entrada"); vistas.unobserve(f); }
+  f.querySelectorAll(".grafico[data-g]").forEach(gr => { if (gr.offsetParent && DIB[gr.dataset.g]) DIB[gr.dataset.g](false); });
+  f.dataset.direccion = location.origin + location.pathname + location.search + "#" + f.id;
+}));
 // En los artículos se mira cada gráfico por separado (etapa 22): un artículo con varios gráficos es más alto que la pantalla, y en el
 // celular el 12% del artículo no entraba nunca a la vista, así que sus gráficos no se dibujaban
 const vistasG = new IntersectionObserver(es => es.forEach(en => {

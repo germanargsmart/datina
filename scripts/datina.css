@@ -1885,3 +1885,20 @@ html:active-view-transition-type(provincia)::view-transition-group(*){animation-
 .ph-fuentes ul{margin:0;padding:0;list-style:none;columns:2 300px;column-gap:var(--e-6)}
 .ph-fuentes li{break-inside:avoid;margin:0 0 var(--e-2)}
 .ph-dato{margin-right:var(--e-1);font-family:var(--mono);font-size:var(--t-1);letter-spacing:.06em;text-transform:uppercase;color:var(--ink)}
+
+/* ---------- impresión (plan de mejora, D1, 28 de octubre de 2026) ----------
+   Las fichas a la vista, sin el marco, la barra, los menús, los botones de cada ficha ni el pie del sitio, con los textos enteros, las
+   tarjetas de "En cifras" en filas en lugar de deslizarse y la dirección de cada ficha debajo de ella (la pone datina.js antes de
+   imprimir). Una ficha puede seguir en la hoja siguiente, pero no se parten su título ni su gráfico */
+@media print{
+  body{background:#fff}
+  body::after,.barra,.saltar,.pildoras,.migas,.subsecciones,.capitulos,.exp-gancho,.explicador,.pasos,.pie-sitio,.tip,.prov-chip,.acciones,
+  .ver-mas,.en-cifras .invita,.programas,.perfil-cab .enlace{display:none!important}
+  .cifras-grid{grid-auto-flow:row!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;overflow:visible!important;margin:0!important;padding:0!important}
+  .listo .ficha{opacity:1!important;transform:none!important;box-shadow:none}
+  .ficha :is(h2,.ficha-sub){break-after:avoid}
+  .ficha .grafico,.ficha .clave{break-inside:avoid}
+  .ficha .lead.plegado{max-height:none;-webkit-mask-image:none;mask-image:none}
+  .ficha[data-direccion]::after{content:attr(data-direccion);display:block;grid-column:1/-1;margin-top:var(--e-2);font-family:var(--mono);
+    font-size:var(--t-1);color:var(--muted);word-break:break-all}
+}
