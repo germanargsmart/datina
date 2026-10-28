@@ -1,0 +1,39 @@
+{
+ "tabla": "confianza_gobierno.csv",
+ "titulo": "¿Cuánta confianza genera el gobierno nacional?",
+ "descripcion": "Índice de Confianza en el Gobierno de la Universidad Torcuato Di Tella, de 0 a 5, mes a mes desde 2001, y el voto a la candidatura del gobierno en las elecciones presidenciales",
+ "seccion": "Instituciones políticas",
+ "ficha": "https://datina.pages.dev/politica.html#f-confianza-gobierno",
+ "fuente": "Universidad Torcuato Di Tella, Escuela de Gobierno, Índice de Confianza en el Gobierno, y Dirección Nacional Electoral.",
+ "actualizacion": "Se actualiza cada mes.",
+ "cobertura": "Sin desglose territorial",
+ "periodo": "noviembre de 2001 a septiembre de 2026",
+ "filas": 299,
+ "columnas": [
+  {
+   "nombre": "mes",
+   "tipo": "Fecha",
+   "valores": "noviembre de 2001 a septiembre de 2026"
+  },
+  {
+   "nombre": "icg",
+   "tipo": "Número",
+   "valores": "0,32 a 3,32"
+  },
+  {
+   "nombre": "presidente",
+   "tipo": "Texto",
+   "valores": "7 valores distintos (5 celdas vacías)"
+  },
+  {
+   "nombre": "cambio_de_gobierno",
+   "tipo": "Texto",
+   "valores": "False, True"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

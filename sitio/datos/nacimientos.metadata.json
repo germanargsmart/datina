@@ -1,0 +1,54 @@
+{
+ "tabla": "nacimientos.csv",
+ "titulo": "¿Cuántos chicos nacen por año?",
+ "descripcion": "Nacimientos por año en la Argentina y en la OCDE, índice 2012 = 100, 2012 a 2024",
+ "seccion": "Población",
+ "ficha": "https://datina.pages.dev/poblacion.html#f-nacimientos",
+ "fuente": "DEIS, Ministerio de Salud, estadísticas vitales.",
+ "actualizacion": "Se actualiza cada año.",
+ "cobertura": "Sin desglose territorial",
+ "periodo": "2012 a 2024",
+ "filas": 13,
+ "columnas": [
+  {
+   "nombre": "anio",
+   "tipo": "Año",
+   "valores": "2012 a 2024"
+  },
+  {
+   "nombre": "nacimientos",
+   "tipo": "Número",
+   "valores": "413.135 a 777.012"
+  },
+  {
+   "nombre": "madres_menores_20",
+   "tipo": "Número",
+   "valores": "35.292 a 117.386"
+  },
+  {
+   "nombre": "pct_madres_menores_20",
+   "tipo": "Número",
+   "valores": "8,54 a 15,56"
+  },
+  {
+   "nombre": "idx_argentina",
+   "tipo": "Número",
+   "valores": "55,96 a 105,24"
+  },
+  {
+   "nombre": "idx_ocde",
+   "tipo": "Número",
+   "valores": "83,57 a 100"
+  },
+  {
+   "nombre": "nacimientos_ocde",
+   "tipo": "Número",
+   "valores": "13.481.156 a 16.132.101"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "Índice con base 2012 = 100: cada línea muestra cuántos nacimientos hubo cada año en relación con 2012. Argentina: nacidos vivos registrados en las estadísticas vitales de la DEIS (Ministerio de Salud), el total oficial de cada año. Hasta octubre de 2026 el sitio usaba los nacimientos inscriptos en el RENAPER, que registra menos nacimientos que las estadísticas vitales. OCDE : suma de los nacimientos de los 38 países miembros, estimados con la tasa bruta de natalidad y la población del Banco Mundial.",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

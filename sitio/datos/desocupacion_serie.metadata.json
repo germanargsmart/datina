@@ -1,0 +1,34 @@
+{
+ "tabla": "desocupacion_serie.csv",
+ "titulo": "¿Cuánta gente busca trabajo y no consigue en cada ciudad?",
+ "descripcion": "Tasa de desocupación en los 31 aglomerados urbanos de la EPH, promedio de los cuatro trimestres hasta el segundo de 2026, y en el total de los 31, trimestre a trimestre, del segundo trimestre de 2016 al segundo trimestre de 2026",
+ "seccion": "Trabajo",
+ "ficha": "https://datina.pages.dev/trabajo.html#f-desocupacion",
+ "fuente": "INDEC, Encuesta Permanente de Hogares, mercado de trabajo, tasas e indicadores socioeconómicos.",
+ "actualizacion": "Se actualiza cada tres meses.",
+ "cobertura": "Sin desglose territorial",
+ "periodo": "",
+ "filas": 41,
+ "columnas": [
+  {
+   "nombre": "periodo",
+   "tipo": "Texto",
+   "valores": "41 valores distintos"
+  },
+  {
+   "nombre": "desocupacion",
+   "tipo": "Número",
+   "valores": "5,7 a 13,1"
+  },
+  {
+   "nombre": "empleo",
+   "tipo": "Número",
+   "valores": "33,4 a 45,8"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

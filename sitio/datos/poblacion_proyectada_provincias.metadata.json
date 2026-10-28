@@ -1,0 +1,54 @@
+{
+ "tabla": "poblacion_proyectada_provincias.csv",
+ "titulo": "¿Cuánto va a crecer la población de cada provincia?",
+ "descripcion": "Variación de la población proyectada por provincia entre 2026 y 2040",
+ "seccion": "Población",
+ "ficha": "https://datina.pages.dev/poblacion.html#f-poblacion-proy",
+ "fuente": "INDEC, proyecciones de población por provincia 2022 a 2040, base Censo 2022.",
+ "actualizacion": "Se actualiza cada año.",
+ "cobertura": "Las 24 jurisdicciones y el total del país",
+ "periodo": "",
+ "filas": 25,
+ "columnas": [
+  {
+   "nombre": "codigo_indec",
+   "tipo": "Código",
+   "valores": "25 códigos"
+  },
+  {
+   "nombre": "territorio",
+   "tipo": "Texto",
+   "valores": "25 valores distintos"
+  },
+  {
+   "nombre": "personas_hoy",
+   "tipo": "Número",
+   "valores": "182.744 a 46.466.688"
+  },
+  {
+   "nombre": "personas_2040",
+   "tipo": "Número",
+   "valores": "194.261 a 47.514.116"
+  },
+  {
+   "nombre": "var_personas",
+   "tipo": "Número",
+   "valores": "-143.994 a 1.047.428"
+  },
+  {
+   "nombre": "var_pct",
+   "tipo": "Número",
+   "valores": "-4,7 a 9,47"
+  },
+  {
+   "nombre": "anio_maximo",
+   "tipo": "Año",
+   "valores": "2022 a 2040"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

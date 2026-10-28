@@ -1,0 +1,134 @@
+{
+ "tabla": "hidrocarburos_mensual.csv",
+ "titulo": "¿Cuánto petróleo produce el país?",
+ "descripcion": "Producción de petróleo de cada mes, en miles de barriles por día, 2006 a 2026",
+ "seccion": "Petróleo y gas",
+ "ficha": "https://datina.pages.dev/petroleo.html#f-petroleo",
+ "fuente": "Secretaría de Energía, producción que declaran las empresas según el Capítulo IV de la Resolución SE 319/1993, por cuenca y tipo de recurso.",
+ "actualizacion": "Se actualiza cada mes.",
+ "cobertura": "Sin desglose territorial",
+ "periodo": "enero de 2006 a agosto de 2026",
+ "filas": 248,
+ "columnas": [
+  {
+   "nombre": "periodo",
+   "tipo": "Fecha",
+   "valores": "enero de 2006 a agosto de 2026"
+  },
+  {
+   "nombre": "anio",
+   "tipo": "Año",
+   "valores": "2006 a 2026"
+  },
+  {
+   "nombre": "mes",
+   "tipo": "Número",
+   "valores": "1 a 12"
+  },
+  {
+   "nombre": "pet_conv",
+   "tipo": "Número",
+   "valores": "252,23 a 666,03"
+  },
+  {
+   "nombre": "pet_shale",
+   "tipo": "Número",
+   "valores": "0,02 a 671,55"
+  },
+  {
+   "nombre": "pet_tight",
+   "tipo": "Número",
+   "valores": "0,14 a 9,4"
+  },
+  {
+   "nombre": "pet_total",
+   "tipo": "Número",
+   "valores": "457 a 928,16"
+  },
+  {
+   "nombre": "gas_conv",
+   "tipo": "Número",
+   "valores": "44,41 a 146,92"
+  },
+  {
+   "nombre": "gas_shale",
+   "tipo": "Número",
+   "valores": "0 a 97,62"
+  },
+  {
+   "nombre": "gas_tight",
+   "tipo": "Número",
+   "valores": "0,96 a 29,95"
+  },
+  {
+   "nombre": "gas_total",
+   "tipo": "Número",
+   "valores": "108,53 a 160,76"
+  },
+  {
+   "nombre": "pet_neuquina",
+   "tipo": "Número",
+   "valores": "198,2 a 748,51"
+  },
+  {
+   "nombre": "gas_neuquina",
+   "tipo": "Número",
+   "valores": "60,82 a 122,95"
+  },
+  {
+   "nombre": "pet_gsj",
+   "tipo": "Número",
+   "valores": "156,04 a 296,47"
+  },
+  {
+   "nombre": "gas_gsj",
+   "tipo": "Número",
+   "valores": "7,76 a 16,28"
+  },
+  {
+   "nombre": "pet_austral",
+   "tipo": "Número",
+   "valores": "7,52 a 39,09"
+  },
+  {
+   "nombre": "gas_austral",
+   "tipo": "Número",
+   "valores": "21,47 a 35,07"
+  },
+  {
+   "nombre": "pet_noroeste",
+   "tipo": "Número",
+   "valores": "2,48 a 15,97"
+  },
+  {
+   "nombre": "gas_noroeste",
+   "tipo": "Número",
+   "valores": "2,6 a 20,6"
+  },
+  {
+   "nombre": "pet_cuyana",
+   "tipo": "Número",
+   "valores": "13,2 a 38,72"
+  },
+  {
+   "nombre": "gas_cuyana",
+   "tipo": "Número",
+   "valores": "0,08 a 0,19"
+  },
+  {
+   "nombre": "pct_pet_nc",
+   "tipo": "Número",
+   "valores": "0,03 a 72,82"
+  },
+  {
+   "nombre": "pct_gas_nc",
+   "tipo": "Número",
+   "valores": "0,7 a 70,98"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

@@ -1,0 +1,34 @@
+{
+ "tabla": "recaudacion_impuestos.csv",
+ "titulo": "¿Cuánto recauda cada impuesto nacional?",
+ "descripcion": "Recaudación de impuestos nacionales, por impuesto y como parte del PBI, 2004 a 2025",
+ "seccion": "Cuentas públicas",
+ "ficha": "https://datina.pages.dev/gobierno.html#f-recaudacion",
+ "fuente": "Dirección Nacional de Investigaciones y Análisis Fiscal, Ministerio de Economía, e INDEC.",
+ "actualizacion": "Se actualiza cada mes.",
+ "cobertura": "Sin desglose territorial",
+ "periodo": "",
+ "filas": 10,
+ "columnas": [
+  {
+   "nombre": "impuesto",
+   "tipo": "Texto",
+   "valores": "10 valores distintos"
+  },
+  {
+   "nombre": "millones_12_meses",
+   "tipo": "Número",
+   "valores": "1.508.374,44 a 72.308.534,77"
+  },
+  {
+   "nombre": "pct",
+   "tipo": "Número",
+   "valores": "0,68 a 32,47"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

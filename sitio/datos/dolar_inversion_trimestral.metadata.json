@@ -1,0 +1,114 @@
+{
+ "tabla": "dolar_inversion_trimestral.csv",
+ "titulo": "¿Se invierte más en construcción cuando construir es barato en dólares?",
+ "descripcion": "Lo que cuesta construir medido en dólares, trimestre por trimestre, frente a lo que cambia la inversión en construcción en el año siguiente. También muestra el dólar en términos reales y la parte de la inversión que va a máquinas importadas.",
+ "seccion": "Construcción y vivienda",
+ "ficha": "https://datina.pages.dev/a-dolar-inversion.html",
+ "fuente": "Banco Central de la República Argentina, índice de tipo de cambio real multilateral, e INDEC y Banco Central vía API de Series de Tiempo: inversión bruta interna fija (oferta y demanda globales) y tipo de cambio de referencia (Comunicación \\",
+ "actualizacion": "Se actualiza cada trimestre.",
+ "cobertura": "Sin desglose territorial",
+ "periodo": "2004 a 2026",
+ "filas": 90,
+ "columnas": [
+  {
+   "nombre": "periodo",
+   "tipo": "Texto",
+   "valores": "90 valores distintos"
+  },
+  {
+   "nombre": "anio",
+   "tipo": "Año",
+   "valores": "2004 a 2026"
+  },
+  {
+   "nombre": "trimestre",
+   "tipo": "Número",
+   "valores": "1 a 4"
+  },
+  {
+   "nombre": "itcrm",
+   "tipo": "Número",
+   "valores": "78,88 a 166,81"
+  },
+  {
+   "nombre": "tipo_cambio_a3500",
+   "tipo": "Número",
+   "valores": "2,89 a 1.437,86"
+  },
+  {
+   "nombre": "indice_dolar_real",
+   "tipo": "Número",
+   "valores": "67,12 a 141,94"
+  },
+  {
+   "nombre": "indice_construccion_usd",
+   "tipo": "Número",
+   "valores": "44,47 a 152,72"
+  },
+  {
+   "nombre": "inversion_total",
+   "tipo": "Número",
+   "valores": "71.794,43 a 164.571,65"
+  },
+  {
+   "nombre": "construccion",
+   "tipo": "Número",
+   "valores": "27.302,69 a 62.357,03"
+  },
+  {
+   "nombre": "equipo_importado",
+   "tipo": "Número",
+   "valores": "13.683,72 a 56.842,11"
+  },
+  {
+   "nombre": "equipo_nacional",
+   "tipo": "Número",
+   "valores": "13.241,06 a 46.977,15"
+  },
+  {
+   "nombre": "pct_equipo_importado",
+   "tipo": "Número",
+   "valores": "19,06 a 40,14"
+  },
+  {
+   "nombre": "var_itcrm",
+   "tipo": "Número",
+   "valores": "-31,93 a 38,29 (4 celdas vacías)"
+  },
+  {
+   "nombre": "var_inversion_total",
+   "tipo": "Número",
+   "valores": "-38,32 a 78,64 (4 celdas vacías)"
+  },
+  {
+   "nombre": "var_construccion",
+   "tipo": "Número",
+   "valores": "-46,88 a 84,65 (4 celdas vacías)"
+  },
+  {
+   "nombre": "var_equipo_importado",
+   "tipo": "Número",
+   "valores": "-44,93 a 68,15 (4 celdas vacías)"
+  },
+  {
+   "nombre": "var_equipo_nacional",
+   "tipo": "Número",
+   "valores": "-42,42 a 92,29 (4 celdas vacías)"
+  },
+  {
+   "nombre": "construccion_anio_siguiente",
+   "tipo": "Número",
+   "valores": "-46,88 a 84,65 (4 celdas vacías)"
+  },
+  {
+   "nombre": "compras_netas_usd",
+   "tipo": "Número",
+   "valores": "-1.334,68 a 15.197,73"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

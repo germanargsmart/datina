@@ -1,0 +1,49 @@
+{
+ "tabla": "reservas_factores.csv",
+ "titulo": "¿Cuántas reservas tiene el Banco Central?",
+ "descripcion": "Reservas internacionales brutas del BCRA al cierre de cada mes, desde 1940, y reservas netas, desde 2007, en millones de dólares",
+ "seccion": "Sector externo",
+ "ficha": "https://datina.pages.dev/externo.html#f-reservas-bcra",
+ "fuente": "BCRA, API de Estadísticas Monetarias y planilla de reservas internacionales y liquidez en moneda extranjera (formato del FMI), mensual.",
+ "actualizacion": "Se actualiza cada mes.",
+ "cobertura": "Sin desglose territorial",
+ "periodo": "2003 a 2026",
+ "filas": 24,
+ "columnas": [
+  {
+   "nombre": "anio",
+   "tipo": "Año",
+   "valores": "2003 a 2026"
+  },
+  {
+   "nombre": "compras",
+   "tipo": "Número",
+   "valores": "-15.967,9 a 18.710"
+  },
+  {
+   "nombre": "organismos",
+   "tipo": "Número",
+   "valores": "-11.875,6 a 27.036,5"
+  },
+  {
+   "nombre": "sector_publico",
+   "tipo": "Número",
+   "valores": "-28.202,3 a 18.691,8"
+  },
+  {
+   "nombre": "efectivo_minimo",
+   "tipo": "Número",
+   "valores": "-6.384 a 4.817,3"
+  },
+  {
+   "nombre": "otras",
+   "tipo": "Número",
+   "valores": "-9.869,5 a 15.234,8"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

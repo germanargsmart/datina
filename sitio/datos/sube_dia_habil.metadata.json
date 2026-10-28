@@ -1,0 +1,54 @@
+{
+ "tabla": "sube_dia_habil.csv",
+ "titulo": "¿Cuántas tarjetas SUBE se usan por día, y cuántas en trenes y subtes?",
+ "descripcion": "Tarjetas SUBE distintas usadas en un día hábil típico (mediana de cada mes), en total y en trenes y subtes, 2020 a 2026",
+ "seccion": "Movilidad",
+ "ficha": "https://datina.pages.dev/movilidad.html#f-sube",
+ "fuente": "Ministerio de Transporte, datos abiertos de SUBE.",
+ "actualizacion": "Se actualiza cada mes.",
+ "cobertura": "Sin desglose territorial",
+ "periodo": "enero de 2020 a septiembre de 2026",
+ "filas": 81,
+ "columnas": [
+  {
+   "nombre": "periodo",
+   "tipo": "Fecha",
+   "valores": "enero de 2020 a septiembre de 2026"
+  },
+  {
+   "nombre": "t",
+   "tipo": "Número",
+   "valores": "2.020 a 2.026,67"
+  },
+  {
+   "nombre": "total",
+   "tipo": "Número",
+   "valores": "971.284,5 a 5.852.960 (2 celdas vacías)"
+  },
+  {
+   "nombre": "colectivo",
+   "tipo": "Número",
+   "valores": "954.227 a 5.540.782 (2 celdas vacías)"
+  },
+  {
+   "nombre": "tren",
+   "tipo": "Número",
+   "valores": "71.201 a 834.083,5 (2 celdas vacías)"
+  },
+  {
+   "nombre": "subte",
+   "tipo": "Número",
+   "valores": "23.766 a 589.238 (2 celdas vacías)"
+  },
+  {
+   "nombre": "lancha",
+   "tipo": "Número",
+   "valores": "10 a 1.275 (2 celdas vacías)"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

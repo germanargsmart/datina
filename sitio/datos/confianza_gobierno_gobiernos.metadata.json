@@ -1,0 +1,59 @@
+{
+ "tabla": "confianza_gobierno_gobiernos.csv",
+ "titulo": "¿Cuánta confianza genera el gobierno nacional?",
+ "descripcion": "Índice de Confianza en el Gobierno de la Universidad Torcuato Di Tella, de 0 a 5, mes a mes desde 2001, y el voto a la candidatura del gobierno en las elecciones presidenciales",
+ "seccion": "Instituciones políticas",
+ "ficha": "https://datina.pages.dev/politica.html#f-confianza-gobierno",
+ "fuente": "Universidad Torcuato Di Tella, Escuela de Gobierno, Índice de Confianza en el Gobierno, y Dirección Nacional Electoral.",
+ "actualizacion": "Se actualiza cada mes.",
+ "cobertura": "Sin desglose territorial",
+ "periodo": "",
+ "filas": 6,
+ "columnas": [
+  {
+   "nombre": "presidente",
+   "tipo": "Texto",
+   "valores": "Alberto Fernández, Cristina Fernández de Kirchner, Eduardo Duhalde, Javier Milei, Mauricio Macri, Néstor Kirchner"
+  },
+  {
+   "nombre": "desde",
+   "tipo": "Fecha",
+   "valores": "enero de 2002 a enero de 2024"
+  },
+  {
+   "nombre": "hasta",
+   "tipo": "Fecha",
+   "valores": "abril de 2003 a septiembre de 2026"
+  },
+  {
+   "nombre": "meses",
+   "tipo": "Número",
+   "valores": "16 a 95"
+  },
+  {
+   "nombre": "promedio",
+   "tipo": "Número",
+   "valores": "0,72 a 2,49"
+  },
+  {
+   "nombre": "primeros_12",
+   "tipo": "Número",
+   "valores": "0,67 a 2,97"
+  },
+  {
+   "nombre": "minimo",
+   "tipo": "Número",
+   "valores": "0,32 a 1,94"
+  },
+  {
+   "nombre": "maximo",
+   "tipo": "Número",
+   "valores": "1,36 a 3,32"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

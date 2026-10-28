@@ -1,0 +1,179 @@
+{
+ "tabla": "pensiones_invalidez_provincias.csv",
+ "titulo": "¿Cuántas personas cobran una pensión por invalidez?",
+ "descripcion": "Pensiones no contributivas por invalidez que paga ANSES, por provincia y en el país, 2001 a 2026",
+ "seccion": "Pobreza y hogares",
+ "ficha": "https://datina.pages.dev/pobreza.html#f-pensiones-invalidez",
+ "fuente": "Secretaría de Seguridad Social, Boletín Estadístico de la Seguridad Social (capítulo III y edición por provincia), con datos de ANSES.",
+ "actualizacion": "Se actualiza cada tres meses.",
+ "cobertura": "Las 24 jurisdicciones y el total del país",
+ "periodo": "",
+ "filas": 25,
+ "columnas": [
+  {
+   "nombre": "codigo_indec",
+   "tipo": "Código",
+   "valores": "25 códigos"
+  },
+  {
+   "nombre": "territorio",
+   "tipo": "Texto",
+   "valores": "25 valores distintos"
+  },
+  {
+   "nombre": "pensiones",
+   "tipo": "Número",
+   "valores": "1.304 a 1.145.404"
+  },
+  {
+   "nombre": "cada_1000",
+   "tipo": "Número",
+   "valores": "7,16 a 76,99"
+  },
+  {
+   "nombre": "pct_pais",
+   "tipo": "Número",
+   "valores": "0,11 a 100"
+  },
+  {
+   "nombre": "pensiones_anio_ant",
+   "tipo": "Número",
+   "valores": "1.325,5 a 1.180.305,67"
+  },
+  {
+   "nombre": "var_anio_ant",
+   "tipo": "Número",
+   "valores": "-4,05 a -1,62"
+  },
+  {
+   "nombre": "promedio_2001",
+   "tipo": "Número",
+   "valores": "68,25 a 75.946,83"
+  },
+  {
+   "nombre": "promedio_2002",
+   "tipo": "Número",
+   "valores": "75,33 a 76.899"
+  },
+  {
+   "nombre": "promedio_2003",
+   "tipo": "Número",
+   "valores": "98,42 a 80.593"
+  },
+  {
+   "nombre": "promedio_2004",
+   "tipo": "Número",
+   "valores": "116,5 a 89.406,67"
+  },
+  {
+   "nombre": "promedio_2005",
+   "tipo": "Número",
+   "valores": "157,33 a 123.458,17"
+  },
+  {
+   "nombre": "promedio_2006",
+   "tipo": "Número",
+   "valores": "167 a 154.694,17"
+  },
+  {
+   "nombre": "promedio_2007",
+   "tipo": "Número",
+   "valores": "177,42 a 201.476,67"
+  },
+  {
+   "nombre": "promedio_2008",
+   "tipo": "Número",
+   "valores": "181,25 a 264.310,67"
+  },
+  {
+   "nombre": "promedio_2009",
+   "tipo": "Número",
+   "valores": "196,17 a 372.715,33"
+  },
+  {
+   "nombre": "promedio_2010",
+   "tipo": "Número",
+   "valores": "246,83 a 504.945,92"
+  },
+  {
+   "nombre": "promedio_2011",
+   "tipo": "Número",
+   "valores": "333,75 a 654.734,58"
+  },
+  {
+   "nombre": "promedio_2012",
+   "tipo": "Número",
+   "valores": "429,17 a 795.774,67"
+  },
+  {
+   "nombre": "promedio_2013",
+   "tipo": "Número",
+   "valores": "537,42 a 917.393,58"
+  },
+  {
+   "nombre": "promedio_2014",
+   "tipo": "Número",
+   "valores": "647,17 a 1.018.165,25"
+  },
+  {
+   "nombre": "promedio_2015",
+   "tipo": "Número",
+   "valores": "712,58 a 1.058.835,42"
+  },
+  {
+   "nombre": "promedio_2016",
+   "tipo": "Número",
+   "valores": "752,42 a 1.059.616"
+  },
+  {
+   "nombre": "promedio_2017",
+   "tipo": "Número",
+   "valores": "788,92 a 1.073.920,58"
+  },
+  {
+   "nombre": "promedio_2018",
+   "tipo": "Número",
+   "valores": "812,83 a 1.055.056,67"
+  },
+  {
+   "nombre": "promedio_2019",
+   "tipo": "Número",
+   "valores": "862,42 a 1.040.461,33"
+  },
+  {
+   "nombre": "promedio_2020",
+   "tipo": "Número",
+   "valores": "905,92 a 1.033.453"
+  },
+  {
+   "nombre": "promedio_2021",
+   "tipo": "Número",
+   "valores": "948,75 a 1.088.812,75"
+  },
+  {
+   "nombre": "promedio_2022",
+   "tipo": "Número",
+   "valores": "1.013,5 a 1.130.725,25"
+  },
+  {
+   "nombre": "promedio_2023",
+   "tipo": "Número",
+   "valores": "1.176,75 a 1.208.487,17"
+  },
+  {
+   "nombre": "promedio_2024",
+   "tipo": "Número",
+   "valores": "1.314 a 1.221.970,67"
+  },
+  {
+   "nombre": "promedio_2025",
+   "tipo": "Número",
+   "valores": "1.325,5 a 1.180.305,67"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

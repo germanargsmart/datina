@@ -1,0 +1,44 @@
+{
+ "tabla": "seguridad_serie_prov.csv",
+ "titulo": "¿Cuántos robos y hurtos se registran en cada provincia?",
+ "descripcion": "Robos y hurtos registrados cada 100.000 habitantes por provincia, 2000 a 2025",
+ "seccion": "Seguridad",
+ "ficha": "https://datina.pages.dev/seguridad.html#f-robos",
+ "fuente": "Sistema Nacional de Información Criminal (SNIC), Ministerio de Seguridad Nacional.",
+ "actualizacion": "Se actualiza cada año.",
+ "cobertura": "Las 24 jurisdicciones",
+ "periodo": "2000 a 2025",
+ "filas": 624,
+ "columnas": [
+  {
+   "nombre": "codigo_indec",
+   "tipo": "Código",
+   "valores": "24 códigos"
+  },
+  {
+   "nombre": "anio",
+   "tipo": "Año",
+   "valores": "2000 a 2025"
+  },
+  {
+   "nombre": "homicidios",
+   "tipo": "Número",
+   "valores": "0,58 a 13,75"
+  },
+  {
+   "nombre": "robos",
+   "tipo": "Número",
+   "valores": "114,67 a 2.885,31"
+  },
+  {
+   "nombre": "hurtos",
+   "tipo": "Número",
+   "valores": "0,34 a 2.441,74"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

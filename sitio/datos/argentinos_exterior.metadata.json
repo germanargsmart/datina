@@ -1,0 +1,29 @@
+{
+ "tabla": "argentinos_exterior.csv",
+ "titulo": "¿Cuántos argentinos viven en otro país?",
+ "descripcion": "Personas nacidas en la Argentina que viven en otro país, 1990 a 2024",
+ "seccion": "Migraciones",
+ "ficha": "https://datina.pages.dev/migraciones.html#f-argentinos-exterior",
+ "fuente": "Naciones Unidas, División de Población, International Migrant Stock (CC BY 3.0 IGO).",
+ "actualizacion": "Se actualiza cada cuatro o cinco años.",
+ "cobertura": "Sin desglose territorial",
+ "periodo": "1990 a 2024",
+ "filas": 8,
+ "columnas": [
+  {
+   "nombre": "anio",
+   "tipo": "Año",
+   "valores": "1990 a 2024"
+  },
+  {
+   "nombre": "personas",
+   "tipo": "Número",
+   "valores": "406.466 a 1.183.381"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

@@ -1,0 +1,59 @@
+{
+ "tabla": "confianza_consumidor.csv",
+ "titulo": "¿Cuánta confianza tienen los consumidores en la economía?",
+ "descripcion": "Índice de Confianza del Consumidor de la Universidad Torcuato Di Tella, de 0 a 100, mes a mes desde 2001",
+ "seccion": "Precios y actividad",
+ "ficha": "https://datina.pages.dev/economia.html#f-confianza-consumidor",
+ "fuente": "Universidad Torcuato Di Tella, Centro de Investigación en Finanzas, Índice de Confianza del Consumidor.",
+ "actualizacion": "Se actualiza cada mes.",
+ "cobertura": "Sin desglose territorial",
+ "periodo": "marzo de 2001 a octubre de 2026",
+ "filas": 308,
+ "columnas": [
+  {
+   "nombre": "mes",
+   "tipo": "Fecha",
+   "valores": "marzo de 2001 a octubre de 2026"
+  },
+  {
+   "nombre": "nacional",
+   "tipo": "Número",
+   "valores": "28,44 a 60,97"
+  },
+  {
+   "nombre": "personal",
+   "tipo": "Número",
+   "valores": "28,31 a 67,7"
+  },
+  {
+   "nombre": "macro",
+   "tipo": "Número",
+   "valores": "37,34 a 84,34"
+  },
+  {
+   "nombre": "bienes",
+   "tipo": "Número",
+   "valores": "7,74 a 56,94"
+  },
+  {
+   "nombre": "capital",
+   "tipo": "Número",
+   "valores": "29,97 a 59,96"
+  },
+  {
+   "nombre": "gba",
+   "tipo": "Número",
+   "valores": "25,42 a 62,67"
+  },
+  {
+   "nombre": "interior",
+   "tipo": "Número",
+   "valores": "28,15 a 61,08"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

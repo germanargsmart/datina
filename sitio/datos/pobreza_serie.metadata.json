@@ -1,0 +1,59 @@
+{
+ "tabla": "pobreza_serie.csv",
+ "titulo": "¿Cuántas personas viven bajo la línea de pobreza?",
+ "descripcion": "Porcentaje de personas bajo las líneas de pobreza e indigencia en los 31 aglomerados urbanos, por semestre, 2016 a 2026",
+ "seccion": "Pobreza y hogares",
+ "ficha": "https://datina.pages.dev/pobreza.html#f-pobreza",
+ "fuente": "INDEC, Encuesta Permanente de Hogares.",
+ "actualizacion": "Se actualiza cada seis meses.",
+ "cobertura": "Sin desglose territorial",
+ "periodo": "2016 a 2026",
+ "filas": 20,
+ "columnas": [
+  {
+   "nombre": "periodo",
+   "tipo": "Texto",
+   "valores": "20 valores distintos"
+  },
+  {
+   "nombre": "anio",
+   "tipo": "Año",
+   "valores": "2016 a 2026"
+  },
+  {
+   "nombre": "semestre",
+   "tipo": "Número",
+   "valores": "1 a 2"
+  },
+  {
+   "nombre": "t",
+   "tipo": "Número",
+   "valores": "2.016,5 a 2.026"
+  },
+  {
+   "nombre": "pobreza_personas",
+   "tipo": "Número",
+   "valores": "25,7 a 52,9"
+  },
+  {
+   "nombre": "indigencia_personas",
+   "tipo": "Número",
+   "valores": "4,8 a 18,1"
+  },
+  {
+   "nombre": "pobreza_hogares",
+   "tipo": "Número",
+   "valores": "17,9 a 42,5"
+  },
+  {
+   "nombre": "indigencia_hogares",
+   "tipo": "Número",
+   "valores": "3,5 a 13,6"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

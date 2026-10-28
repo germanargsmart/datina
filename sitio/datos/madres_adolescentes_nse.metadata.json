@@ -1,0 +1,54 @@
+{
+ "tabla": "madres_adolescentes_nse.csv",
+ "titulo": "¿Hay más madres adolescentes en las provincias con más carencias?",
+ "descripcion": "Nacimientos de madres menores de 20 años en 2024 e indicadores sociales del Censo 2022, por provincia",
+ "seccion": "Población",
+ "ficha": "https://datina.pages.dev/poblacion.html#f-adolescentes-nse",
+ "fuente": "DEIS, Ministerio de Salud, e INDEC, Censo 2022.",
+ "actualizacion": "Se actualiza cada año.",
+ "cobertura": "Las 24 jurisdicciones",
+ "periodo": "",
+ "filas": 24,
+ "columnas": [
+  {
+   "nombre": "codigo_indec",
+   "tipo": "Código",
+   "valores": "24 códigos"
+  },
+  {
+   "nombre": "pct_pob_solo_cobertura_publica",
+   "tipo": "Número",
+   "valores": "15,34 a 56,04"
+  },
+  {
+   "nombre": "pct_hog_nbi_2022",
+   "tipo": "Número",
+   "valores": "2,6 a 14,2"
+  },
+  {
+   "nombre": "pct_25mas_secundario_completo_o_mas",
+   "tipo": "Número",
+   "valores": "33,75 a 66,5"
+  },
+  {
+   "nombre": "pct_hog_cloaca",
+   "tipo": "Número",
+   "valores": "25,37 a 98,79"
+  },
+  {
+   "nombre": "territorio",
+   "tipo": "Texto",
+   "valores": "24 valores distintos"
+  },
+  {
+   "nombre": "pct_2024",
+   "tipo": "Número",
+   "valores": "2,35 a 14,39"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

@@ -1,0 +1,64 @@
+{
+ "tabla": "electricidad_sectores.csv",
+ "titulo": "¿Cuánta electricidad usan los comercios y las industrias de cada provincia?",
+ "descripcion": "Demanda eléctrica de comercios e industrias por habitante, en kWh por año, por provincia, 2025",
+ "seccion": "Energía",
+ "ficha": "https://datina.pages.dev/energia.html#f-electricidad-sectores",
+ "fuente": "CAMMESA, demanda mensual por provincia y tipo de usuario (Informe Síntesis Mensual), e INDEC, proyecciones de población.",
+ "actualizacion": "Se actualiza cada mes.",
+ "cobertura": "21 jurisdicciones y el total del país",
+ "periodo": "",
+ "filas": 23,
+ "columnas": [
+  {
+   "nombre": "codigo_indec",
+   "tipo": "Código",
+   "valores": "23 códigos"
+  },
+  {
+   "nombre": "territorio",
+   "tipo": "Texto",
+   "valores": "23 valores distintos"
+  },
+  {
+   "nombre": "kwh_hab_res",
+   "tipo": "Número",
+   "valores": "674,55 a 2.078,18"
+  },
+  {
+   "nombre": "pct_res",
+   "tipo": "Número",
+   "valores": "12,8 a 71,42"
+  },
+  {
+   "nombre": "kwh_hab_com",
+   "tipo": "Número",
+   "valores": "436,35 a 1.432,48"
+  },
+  {
+   "nombre": "pct_com",
+   "tipo": "Número",
+   "valores": "10,52 a 41,41"
+  },
+  {
+   "nombre": "kwh_hab_ind",
+   "tipo": "Número",
+   "valores": "140,38 a 6.450,49"
+  },
+  {
+   "nombre": "pct_ind",
+   "tipo": "Número",
+   "valores": "5,52 a 76,69"
+  },
+  {
+   "nombre": "gwh",
+   "tipo": "Número",
+   "valores": "942,65 a 141.250,9"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

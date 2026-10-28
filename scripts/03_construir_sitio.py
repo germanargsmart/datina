@@ -692,10 +692,40 @@ import relaciones  # noqa: E402
 import catalogo  # noqa: E402
 # los filtros por tema del catálogo siguen la barra: los cuatro grupos de Temas y después Provincias, Historias con datos y Herramientas
 _menus_catalogo = [(m, completo, [p for p in _secs_de(items) if p in PAGINAS_MENU]) for m, _, completo, _, items in MENUS]
-_indice_ia = [] if CONSULTA_IA else None
-_catalogo, _cat_err = catalogo.armar(plantilla, SECCIONES, UBIC, GRUPOS + _menus_catalogo, indice=_indice_ia, ia=CONSULTA_IA)
+_meta_tablas = []
+_catalogo, _cat_err = catalogo.armar(plantilla, SECCIONES, UBIC, GRUPOS + _menus_catalogo, indice=_meta_tablas, ia=CONSULTA_IA)
 if _cat_err:
     sys.exit("El catálogo de datos tiene problemas: el sitio no se armó.\n" + "\n".join(_cat_err))
+_indice_ia = [dict(t) for t in _meta_tablas] if CONSULTA_IA else None
+
+
+def direccion_ficha(r, tabla):
+    """La dirección de la ficha, el artículo o la pieza de una tabla del Catálogo ("#f-empleo" -> "trabajo.html#f-empleo")."""
+    p = UBIC.get(r[1:], "") if r.startswith("#") else r[:-5]
+    assert p, f"no se sabe en qué página está {r} ({tabla})"
+    return (f"{p}.html" if p != "inicio" else "./") + (f"#{r[1:]}" if r.startswith("#") and r[1:] != p else "")
+
+
+# Metadatos de cada tabla (plan de mejora, F3, 28 de octubre de 2026): junto a cada CSV del Catálogo, un .metadata.json con lo mismo que
+# muestra el Catálogo (fuente, cobertura, período, actualización, columnas, unidades y cómo se calcula), la dirección de su ficha y la
+# licencia, para quien baja los datos sin pasar por el sitio. El de una tabla que ya no está se borra
+_URL_SITIO = json.loads((RAIZ / "datos" / "manual" / "sitio.json").read_text(encoding="utf-8"))["url"].rstrip("/")
+_META_HECHOS = set()
+for _t in _meta_tablas:
+    _d = direccion_ficha(_t["ref"], _t["tabla"])
+    _m = {"tabla": f"{_t['tabla']}.csv", "titulo": _t["titulo"], "descripcion": _t["descripcion"], "seccion": _t["seccion"],
+          "ficha": _URL_SITIO + "/" + ("" if _d == "./" else _d), "fuente": _t["fuente"], "actualizacion": _t["actualizacion"],
+          "cobertura": _t["cobertura"], "periodo": _t["periodo"], "filas": _t["filas"],
+          "columnas": [{"nombre": c, "tipo": ti, "valores": v} for c, ti, v in _t["columnas"]], "unidades": _t["unidades"],
+          "como_se_calcula": _t["nota"], "datos_actualizados": RESUMEN["actualizado"],
+          "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a "
+                      "la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+          "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"}
+    (SITIO / "datos" / f"{_t['tabla']}.metadata.json").write_text(json.dumps(_m, ensure_ascii=False, indent=1) + "\n", encoding="utf-8", newline="\n")
+    _META_HECHOS.add(f"{_t['tabla']}.metadata.json")
+for _f in (SITIO / "datos").glob("*.metadata.json"):
+    if _f.name not in _META_HECHOS:
+        _f.unlink()
 # Consultas con IA: el índice que lee la función functions/api/consulta.js (las mismas tablas que el Catálogo, sin las de suicidio) y el
 # código de la página. Sin "consulta_ia", la función contesta que no están activadas porque no encuentra el índice
 _IA_INDICE, _IA_JS = SITIO / "datos" / "consulta_ia.json", SITIO / "consulta-ia.js"
@@ -704,10 +734,7 @@ if CONSULTA_IA:
     # sensibles"). La función saca además, de cualquier tabla, las columnas y las filas sobre suicidio
     _indice_ia = [t for t in _indice_ia if not re.search(r"suicid|autoinflig|autolesi", f'{t["tabla"]} {t["titulo"]} {t["descripcion"]}', re.I)]
     for _t in _indice_ia:
-        _r = _t.pop("ref")
-        _p = UBIC.get(_r[1:], "") if _r.startswith("#") else _r[:-5]
-        assert _p, f"consultas con IA: no se sabe en qué página está {_r} ({_t['tabla']})"
-        _t["url"] = (f"{_p}.html" if _p != "inicio" else "./") + (f"#{_r[1:]}" if _r.startswith("#") and _r[1:] != _p else "")
+        _t["url"] = direccion_ficha(_t.pop("ref"), _t["tabla"])
     _IA_INDICE.write_text(json.dumps({"actualizado": RESUMEN["actualizado"], "motor": MOTOR_IA, "tablas": _indice_ia}, ensure_ascii=False, separators=(",", ":")),
                           encoding="utf-8", newline="\n")
     _IA_JS.write_text(JS_IA, encoding="utf-8", newline="\n")

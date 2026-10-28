@@ -1,0 +1,34 @@
+{
+ "tabla": "inversion_educativa_serie.csv",
+ "titulo": "¿Cuánto se invierte por alumno de escuela estatal en cada provincia?",
+ "descripcion": "Gasto público en educación por alumno de escuelas de gestión estatal, en pesos, por provincia, 2024",
+ "seccion": "Educación",
+ "ficha": "https://datina.pages.dev/educacion.html#f-inversion-educativa",
+ "fuente": "Coordinación de Evaluación de Costos Educativos, Secretaría de Educación, indicadores de inversión educativa, y Banco Mundial, deflactor del PBI.",
+ "actualizacion": "Se actualiza cada año.",
+ "cobertura": "Las 24 jurisdicciones y el total del país",
+ "periodo": "2001 a 2024",
+ "filas": 600,
+ "columnas": [
+  {
+   "nombre": "anio",
+   "tipo": "Año",
+   "valores": "2001 a 2024"
+  },
+  {
+   "nombre": "codigo_indec",
+   "tipo": "Código",
+   "valores": "25 códigos"
+  },
+  {
+   "nombre": "por_alumno_real",
+   "tipo": "Número",
+   "valores": "629.608,8 a 8.001.573,8"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

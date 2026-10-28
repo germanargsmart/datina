@@ -1,0 +1,44 @@
+{
+ "tabla": "transferencias_serie.csv",
+ "titulo": "¿Cuánto recibe cada provincia en transferencias no automáticas de la Nación?",
+ "descripcion": "Aportes del Tesoro Nacional (ATN) y otras transferencias no automáticas de la Nación a las provincias, descontada la inflación, en pesos de 2025, 2000 a 2025",
+ "seccion": "Instituciones políticas",
+ "ficha": "https://datina.pages.dev/politica.html#f-atn",
+ "fuente": "Presupuesto Abierto, Secretaría de Hacienda (crédito devengado), INDEC y Banco Mundial.",
+ "actualizacion": "Se actualiza cada año.",
+ "cobertura": "Sin desglose territorial",
+ "periodo": "2000 a 2025",
+ "filas": 26,
+ "columnas": [
+  {
+   "nombre": "anio",
+   "tipo": "Año",
+   "valores": "2000 a 2025"
+  },
+  {
+   "nombre": "atn",
+   "tipo": "Número",
+   "valores": "20,15 a 1.769,02"
+  },
+  {
+   "nombre": "otras",
+   "tipo": "Número",
+   "valores": "1.383,03 a 13.706,14"
+  },
+  {
+   "nombre": "ley",
+   "tipo": "Número",
+   "valores": "394,1 a 4.755,05"
+  },
+  {
+   "nombre": "provincias_atn",
+   "tipo": "Número",
+   "valores": "10 a 24"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

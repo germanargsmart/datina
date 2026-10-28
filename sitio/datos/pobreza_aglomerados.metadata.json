@@ -1,0 +1,59 @@
+{
+ "tabla": "pobreza_aglomerados.csv",
+ "titulo": "¿Cuánta pobreza hay en cada región y en cada ciudad?",
+ "descripcion": "Personas bajo la línea de pobreza en las seis regiones y en los 31 aglomerados urbanos de la EPH, primer semestre de 2026",
+ "seccion": "Pobreza y hogares",
+ "ficha": "https://datina.pages.dev/pobreza.html#f-pobreza-aglomerados",
+ "fuente": "INDEC, Encuesta Permanente de Hogares, incidencia de la pobreza y la indigencia.",
+ "actualizacion": "Se actualiza cada seis meses.",
+ "cobertura": "Sin desglose territorial",
+ "periodo": "",
+ "filas": 39,
+ "columnas": [
+  {
+   "nombre": "tipo",
+   "tipo": "Texto",
+   "valores": "aglomerado, region, total"
+  },
+  {
+   "nombre": "clave",
+   "tipo": "Texto",
+   "valores": "39 valores distintos"
+  },
+  {
+   "nombre": "nombre",
+   "tipo": "Texto",
+   "valores": "39 valores distintos"
+  },
+  {
+   "nombre": "provincias",
+   "tipo": "Texto",
+   "valores": "26 valores distintos (6 celdas vacías)"
+  },
+  {
+   "nombre": "pobreza",
+   "tipo": "Número",
+   "valores": "11,1 a 56,2"
+  },
+  {
+   "nombre": "cv_pobreza",
+   "tipo": "Número",
+   "valores": "2,7 a 19,6"
+  },
+  {
+   "nombre": "indigencia",
+   "tipo": "Número",
+   "valores": "1,4 a 17,3"
+  },
+  {
+   "nombre": "cv_indigencia",
+   "tipo": "Número",
+   "valores": "7,4 a 49,8"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

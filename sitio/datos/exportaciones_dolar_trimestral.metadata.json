@@ -1,0 +1,114 @@
+{
+ "tabla": "exportaciones_dolar_trimestral.csv",
+ "titulo": "¿Se exporta más cuando el dólar está caro?",
+ "descripcion": "Las cantidades que exporta el país, sin el efecto de los precios, por gran rubro y trimestre por trimestre, frente al dólar en términos reales.",
+ "seccion": "Sector externo",
+ "ficha": "https://datina.pages.dev/a-exportaciones-dolar.html",
+ "fuente": "INDEC, índices de valor, precio y cantidad de las exportaciones de bienes e intercambio comercial argentino, vía API de Series de Tiempo, y Banco Central de la República Argentina, índices de tipo de cambio real multilateral y bilateral con Brasil",
+ "actualizacion": "Se actualiza cada trimestre.",
+ "cobertura": "Sin desglose territorial",
+ "periodo": "2004 a 2026",
+ "filas": 90,
+ "columnas": [
+  {
+   "nombre": "total",
+   "tipo": "Número",
+   "valores": "83,7 a 154,27"
+  },
+  {
+   "nombre": "primarios",
+   "tipo": "Número",
+   "valores": "62,6 a 231,48"
+  },
+  {
+   "nombre": "moa",
+   "tipo": "Número",
+   "valores": "75,9 a 161,41"
+  },
+  {
+   "nombre": "moi",
+   "tipo": "Número",
+   "valores": "68,33 a 198,4"
+  },
+  {
+   "nombre": "combustibles",
+   "tipo": "Número",
+   "valores": "15,2 a 108,08"
+  },
+  {
+   "nombre": "tcr",
+   "tipo": "Número",
+   "valores": "78,88 a 166,81"
+  },
+  {
+   "nombre": "tcr_brasil",
+   "tipo": "Número",
+   "valores": "75,55 a 196,31"
+  },
+  {
+   "nombre": "var_total",
+   "tipo": "Número",
+   "valores": "-26,74 a 34,91 (4 celdas vacías)"
+  },
+  {
+   "nombre": "var_primarios",
+   "tipo": "Número",
+   "valores": "-52,54 a 112,52 (4 celdas vacías)"
+  },
+  {
+   "nombre": "var_moa",
+   "tipo": "Número",
+   "valores": "-24,24 a 62,32 (4 celdas vacías)"
+  },
+  {
+   "nombre": "var_moi",
+   "tipo": "Número",
+   "valores": "-49,61 a 82,22 (4 celdas vacías)"
+  },
+  {
+   "nombre": "var_combustibles",
+   "tipo": "Número",
+   "valores": "-44,96 a 84,85 (4 celdas vacías)"
+  },
+  {
+   "nombre": "var_tcr",
+   "tipo": "Número",
+   "valores": "-31,93 a 38,29 (4 celdas vacías)"
+  },
+  {
+   "nombre": "var_tcr_brasil",
+   "tipo": "Número",
+   "valores": "-37,16 a 36,04 (4 celdas vacías)"
+  },
+  {
+   "nombre": "var_tcr_antes",
+   "tipo": "Número",
+   "valores": "-31,93 a 38,29 (6 celdas vacías)"
+  },
+  {
+   "nombre": "var_tcr_brasil_antes",
+   "tipo": "Número",
+   "valores": "-37,16 a 36,04 (6 celdas vacías)"
+  },
+  {
+   "nombre": "periodo",
+   "tipo": "Texto",
+   "valores": "90 valores distintos"
+  },
+  {
+   "nombre": "anio",
+   "tipo": "Año",
+   "valores": "2004 a 2026"
+  },
+  {
+   "nombre": "trimestre",
+   "tipo": "Número",
+   "valores": "1 a 4"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

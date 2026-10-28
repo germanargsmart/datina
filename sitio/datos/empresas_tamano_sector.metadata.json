@@ -1,0 +1,139 @@
+{
+ "tabla": "empresas_tamano_sector.csv",
+ "titulo": "¿En qué sectores y de qué tamaño son las empresas de cada provincia?",
+ "descripcion": "Empresas privadas con personal en relación de dependencia por tamaño (industria, comercio y servicios) y por sector, en % de las de cada provincia, 2024",
+ "seccion": "Sector privado",
+ "ficha": "https://datina.pages.dev/empresas.html#f-empresas-tamano",
+ "fuente": "Observatorio de Empleo y Dinámica Empresarial (OEDE), Secretaría de Trabajo, Ministerio de Capital Humano, con datos del Sistema Integrado Previsional Argentino (SIPA).",
+ "actualizacion": "Se actualiza cada año.",
+ "cobertura": "Las 24 jurisdicciones y el total del país",
+ "periodo": "",
+ "filas": 25,
+ "columnas": [
+  {
+   "nombre": "codigo_indec",
+   "tipo": "Código",
+   "valores": "25 códigos"
+  },
+  {
+   "nombre": "territorio",
+   "tipo": "Texto",
+   "valores": "25 valores distintos"
+  },
+  {
+   "nombre": "agro",
+   "tipo": "Número",
+   "valores": "70 a 62.592"
+  },
+  {
+   "nombre": "mineria",
+   "tipo": "Número",
+   "valores": "6 a 1.819"
+  },
+  {
+   "nombre": "industria",
+   "tipo": "Número",
+   "valores": "146 a 61.814"
+  },
+  {
+   "nombre": "energia",
+   "tipo": "Número",
+   "valores": "4 a 1.408"
+  },
+  {
+   "nombre": "construccion",
+   "tipo": "Número",
+   "valores": "139 a 26.412"
+  },
+  {
+   "nombre": "comercio",
+   "tipo": "Número",
+   "valores": "802 a 181.438"
+  },
+  {
+   "nombre": "servicios",
+   "tipo": "Número",
+   "valores": "986 a 274.181"
+  },
+  {
+   "nombre": "micro",
+   "tipo": "Número",
+   "valores": "1.296 a 332.383"
+  },
+  {
+   "nombre": "pequenas",
+   "tipo": "Número",
+   "valores": "443 a 120.283"
+  },
+  {
+   "nombre": "medianas",
+   "tipo": "Número",
+   "valores": "159 a 37.629"
+  },
+  {
+   "nombre": "grandes",
+   "tipo": "Número",
+   "valores": "253 a 27.138"
+  },
+  {
+   "nombre": "total",
+   "tipo": "Número",
+   "valores": "2.719 a 609.664"
+  },
+  {
+   "nombre": "con_tamano",
+   "tipo": "Número",
+   "valores": "2.251 a 517.433"
+  },
+  {
+   "nombre": "pct_micro",
+   "tipo": "Número",
+   "valores": "53,22 a 69,91"
+  },
+  {
+   "nombre": "pct_pequenas",
+   "tipo": "Número",
+   "valores": "17,67 a 25,42"
+  },
+  {
+   "nombre": "pct_medianas",
+   "tipo": "Número",
+   "valores": "5,15 a 8,8"
+  },
+  {
+   "nombre": "pct_grandes",
+   "tipo": "Número",
+   "valores": "3,66 a 12,77"
+  },
+  {
+   "nombre": "pct_agro",
+   "tipo": "Número",
+   "valores": "1,87 a 23,78"
+  },
+  {
+   "nombre": "pct_industria_mineria_energia",
+   "tipo": "Número",
+   "valores": "5,66 a 13,33"
+  },
+  {
+   "nombre": "pct_construccion",
+   "tipo": "Número",
+   "valores": "2,4 a 7,8"
+  },
+  {
+   "nombre": "pct_comercio",
+   "tipo": "Número",
+   "valores": "21,62 a 41,71"
+  },
+  {
+   "nombre": "pct_servicios",
+   "tipo": "Número",
+   "valores": "31,98 a 64,21"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

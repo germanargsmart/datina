@@ -1,0 +1,74 @@
+{
+ "tabla": "corte_composicion.csv",
+ "titulo": "¿Qué gobierno designó a cada juez de la Corte Suprema?",
+ "descripcion": "Cada juez de la Corte Suprema de Justicia de la Nación desde 1863, cuánto estuvo en el cargo y qué gobierno lo designó, con la composición de cada año y las leyes que fijaron cuántos jueces tiene.",
+ "seccion": "Laboratorio",
+ "ficha": "https://datina.pages.dev/corte-suprema.html",
+ "fuente": "",
+ "actualizacion": "",
+ "cobertura": "Sin desglose territorial",
+ "periodo": "1863 a 2026",
+ "filas": 164,
+ "columnas": [
+  {
+   "nombre": "anio",
+   "tipo": "Año",
+   "valores": "1863 a 2026"
+  },
+  {
+   "nombre": "liberales",
+   "tipo": "Número",
+   "valores": "0 a 5"
+  },
+  {
+   "nombre": "pan",
+   "tipo": "Número",
+   "valores": "0 a 5"
+  },
+  {
+   "nombre": "ucr",
+   "tipo": "Número",
+   "valores": "0 a 7"
+  },
+  {
+   "nombre": "facto",
+   "tipo": "Número",
+   "valores": "0 a 5"
+  },
+  {
+   "nombre": "concordancia",
+   "tipo": "Número",
+   "valores": "0 a 3"
+  },
+  {
+   "nombre": "peronismo",
+   "tipo": "Número",
+   "valores": "0 a 6"
+  },
+  {
+   "nombre": "pro",
+   "tipo": "Número",
+   "valores": "0 a 2"
+  },
+  {
+   "nombre": "lla",
+   "tipo": "Número",
+   "valores": "0"
+  },
+  {
+   "nombre": "jueces",
+   "tipo": "Número",
+   "valores": "3 a 9"
+  },
+  {
+   "nombre": "ley",
+   "tipo": "Número",
+   "valores": "5 a 9"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

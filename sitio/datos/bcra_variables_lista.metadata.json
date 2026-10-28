@@ -1,0 +1,54 @@
+{
+ "tabla": "bcra_variables_lista.csv",
+ "titulo": "¿Cuánto cambiaron el dólar, las tasas y el dinero?",
+ "descripcion": "Variables principales del Banco Central, último dato de cada mes, desde 1976 o desde que empieza cada serie",
+ "seccion": "Precios y actividad",
+ "ficha": "https://datina.pages.dev/economia.html#f-bcra",
+ "fuente": "BCRA, API de Estadísticas Monetarias, e INDEC, índice de precios al consumidor.",
+ "actualizacion": "Se actualiza cada mes.",
+ "cobertura": "Sin desglose territorial",
+ "periodo": "",
+ "filas": 49,
+ "columnas": [
+  {
+   "nombre": "id",
+   "tipo": "Código",
+   "valores": "49 códigos"
+  },
+  {
+   "nombre": "grupo",
+   "tipo": "Texto",
+   "valores": "10 valores distintos"
+  },
+  {
+   "nombre": "nombre",
+   "tipo": "Texto",
+   "valores": "49 valores distintos"
+  },
+  {
+   "nombre": "tipo",
+   "tipo": "Texto",
+   "valores": "12 valores distintos"
+  },
+  {
+   "nombre": "nombre_bcra",
+   "tipo": "Texto",
+   "valores": "47 valores distintos"
+  },
+  {
+   "nombre": "unidad",
+   "tipo": "Texto",
+   "valores": "11 valores distintos"
+  },
+  {
+   "nombre": "ultimo_dato",
+   "tipo": "Fecha",
+   "valores": "agosto de 2026 a 24 de octubre de 2026"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

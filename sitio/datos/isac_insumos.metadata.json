@@ -1,0 +1,39 @@
+{
+ "tabla": "isac_insumos.csv",
+ "titulo": "¿Cuánto cambió el consumo de cada insumo de la construcción?",
+ "descripcion": "Variación del consumo aparente de cada insumo de la construcción hasta agosto de 2026",
+ "seccion": "Construcción y vivienda",
+ "ficha": "https://datina.pages.dev/construccion.html#f-insumos",
+ "fuente": "INDEC, insumos del ISAC, publicado en datos.gob.ar.",
+ "actualizacion": "Se actualiza cada mes.",
+ "cobertura": "Sin desglose territorial",
+ "periodo": "",
+ "filas": 13,
+ "columnas": [
+  {
+   "nombre": "codigo_indec",
+   "tipo": "Código",
+   "valores": "13 códigos"
+  },
+  {
+   "nombre": "territorio",
+   "tipo": "Texto",
+   "valores": "13 valores distintos"
+  },
+  {
+   "nombre": "var_12m",
+   "tipo": "Número",
+   "valores": "-11,88 a 21,31"
+  },
+  {
+   "nombre": "var_ytd",
+   "tipo": "Número",
+   "valores": "-12,2 a 23,2"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

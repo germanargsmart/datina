@@ -1,0 +1,29 @@
+{
+ "tabla": "regalias_crudo_serie.csv",
+ "titulo": "¿Qué parte de los ingresos de cada provincia son regalías?",
+ "descripcion": "Regalías en % de los ingresos totales de cada provincia, 2025 (La Pampa, 2024), y regalías de petróleo crudo por habitante, en dólares",
+ "seccion": "Petróleo y gas",
+ "ficha": "https://datina.pages.dev/petroleo.html#f-regalias",
+ "fuente": "Ministerio de Economía, cuentas provinciales (esquema ahorro-inversión-financiamiento), y Secretaría de Energía, regalías de petróleo crudo.",
+ "actualizacion": "Se actualiza cada año.",
+ "cobertura": "Sin desglose territorial",
+ "periodo": "1991 a 2025",
+ "filas": 35,
+ "columnas": [
+  {
+   "nombre": "anio",
+   "tipo": "Año",
+   "valores": "1991 a 2025"
+  },
+  {
+   "nombre": "usd_crudo_millones",
+   "tipo": "Número",
+   "valores": "322,24 a 1.947,88"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

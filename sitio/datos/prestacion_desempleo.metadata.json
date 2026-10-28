@@ -1,0 +1,34 @@
+{
+ "tabla": "prestacion_desempleo.csv",
+ "titulo": "¿Cuántas personas cobran el seguro de desempleo en cada provincia?",
+ "descripcion": "Personas que cobran el seguro de desempleo, por provincia en 2026 y en todo el país desde 2001",
+ "seccion": "Trabajo",
+ "ficha": "https://datina.pages.dev/trabajo.html#f-desempleo",
+ "fuente": "Secretaría de Seguridad Social, Boletín Estadístico de la Seguridad Social (capítulo de desempleo y edición por provincia), con datos de ANSES, SIPA y proyecciones de población del INDEC.",
+ "actualizacion": "Se actualiza cada tres meses.",
+ "cobertura": "Sin desglose territorial",
+ "periodo": "2001 a 2026",
+ "filas": 26,
+ "columnas": [
+  {
+   "nombre": "anio",
+   "tipo": "Año",
+   "valores": "2001 a 2026"
+  },
+  {
+   "nombre": "meses",
+   "tipo": "Número",
+   "valores": "9 a 12"
+  },
+  {
+   "nombre": "beneficiarios",
+   "tipo": "Número",
+   "valores": "47.896,67 a 197.799"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

@@ -1,0 +1,44 @@
+{
+ "tabla": "supermercados_provincias.csv",
+ "titulo": "¿Cuánto cambiaron las ventas en supermercados en cada provincia?",
+ "descripcion": "Ventas en supermercados descontada la inflación, por provincia y mes a mes, 2017 a 2026",
+ "seccion": "Precios y actividad",
+ "ficha": "https://datina.pages.dev/economia.html#f-supermercados",
+ "fuente": "INDEC, Encuesta de Supermercados e índice de precios al consumidor.",
+ "actualizacion": "Se actualiza cada mes.",
+ "cobertura": "Las 24 jurisdicciones",
+ "periodo": "",
+ "filas": 24,
+ "columnas": [
+  {
+   "nombre": "codigo_indec",
+   "tipo": "Código",
+   "valores": "24 códigos"
+  },
+  {
+   "nombre": "territorio",
+   "tipo": "Texto",
+   "valores": "24 valores distintos"
+  },
+  {
+   "nombre": "region",
+   "tipo": "Texto",
+   "valores": "7 valores distintos"
+  },
+  {
+   "nombre": "var_12m",
+   "tipo": "Número",
+   "valores": "-12,8 a 5,42"
+  },
+  {
+   "nombre": "var_mes",
+   "tipo": "Número",
+   "valores": "-19,11 a 4,99"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

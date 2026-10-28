@@ -1,0 +1,39 @@
+{
+ "tabla": "envejecimiento_provincias.csv",
+ "titulo": "¿Cuántas personas mayores hay por cada 100 en edad de trabajar, y cuántas aportan por cada jubilación?",
+ "descripcion": "Personas de 65 años o más por cada 100 de 15 a 64 años, por provincia, 2026 y 2040, y personas que aportan por cada jubilación o pensión que paga ANSES, 1994 a 2026",
+ "seccion": "Población",
+ "ficha": "https://datina.pages.dev/poblacion.html#f-envejecimiento",
+ "fuente": "INDEC, proyecciones de población por provincia 2022 a 2040, base Censo 2022, y Secretaría de Seguridad Social, Boletín Estadístico de la Seguridad Social (cuadro 4.1.1.1), con datos de ARCA y ANSES.",
+ "actualizacion": "Se actualiza cada año.",
+ "cobertura": "Las 24 jurisdicciones",
+ "periodo": "",
+ "filas": 24,
+ "columnas": [
+  {
+   "nombre": "codigo_indec",
+   "tipo": "Código",
+   "valores": "24 códigos"
+  },
+  {
+   "nombre": "vejez_hoy",
+   "tipo": "Número",
+   "valores": "11,4 a 29,9"
+  },
+  {
+   "nombre": "vejez_2040",
+   "tipo": "Número",
+   "valores": "16,8 a 33,4"
+  },
+  {
+   "nombre": "territorio",
+   "tipo": "Texto",
+   "valores": "24 valores distintos"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

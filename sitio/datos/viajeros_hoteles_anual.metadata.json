@@ -1,0 +1,39 @@
+{
+ "tabla": "viajeros_hoteles_anual.csv",
+ "titulo": "¿Cuántos viajeros se alojan en hoteles?",
+ "descripcion": "Viajeros hospedados en hoteles y parahoteles, 2007 a 2024",
+ "seccion": "Turismo",
+ "ficha": "https://datina.pages.dev/turismo.html#f-hoteles",
+ "fuente": "INDEC y Ministerio de Turismo y Deportes, Encuesta de Ocupación Hotelera. La encuesta está en pausa: el INDEC la está reformulando.",
+ "actualizacion": "",
+ "cobertura": "Sin desglose territorial",
+ "periodo": "2007 a 2024",
+ "filas": 18,
+ "columnas": [
+  {
+   "nombre": "anio",
+   "tipo": "Año",
+   "valores": "2007 a 2024"
+  },
+  {
+   "nombre": "no_residentes",
+   "tipo": "Número",
+   "valores": "221.012 a 4.813.054"
+  },
+  {
+   "nombre": "residentes",
+   "tipo": "Número",
+   "valores": "3.945.944 a 16.762.770"
+  },
+  {
+   "nombre": "total",
+   "tipo": "Número",
+   "valores": "5.103.898 a 21.087.820"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

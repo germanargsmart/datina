@@ -1,0 +1,109 @@
+{
+ "tabla": "haberes_previsionales.csv",
+ "titulo": "¿Cuánto cobra un jubilado comparado con un salario?",
+ "descripcion": "Haber mínimo y jubilación promedio de ANSES frente al salario promedio registrado, 1994 a 2026",
+ "seccion": "Población",
+ "ficha": "https://datina.pages.dev/poblacion.html#f-haberes",
+ "fuente": "Secretaría de Seguridad Social, Boletín Estadístico de la Seguridad Social (cuadro 4.1.1.3), con datos de ANSES, e IPC del INDEC.",
+ "actualizacion": "Se actualiza cada tres meses.",
+ "cobertura": "Sin desglose territorial",
+ "periodo": "1994 a 2026",
+ "filas": 33,
+ "columnas": [
+  {
+   "nombre": "anio",
+   "tipo": "Año",
+   "valores": "1994 a 2026"
+  },
+  {
+   "nombre": "meses",
+   "tipo": "Número",
+   "valores": "8 a 12"
+  },
+  {
+   "nombre": "haber_minimo",
+   "tipo": "Número",
+   "valores": "150 a 419.775,93"
+  },
+  {
+   "nombre": "haber_minimo_adicionales",
+   "tipo": "Número",
+   "valores": "150 a 489.775,93"
+  },
+  {
+   "nombre": "jubilacion_promedio",
+   "tipo": "Número",
+   "valores": "307,85 a 769.057,5"
+  },
+  {
+   "nombre": "pension_promedio",
+   "tipo": "Número",
+   "valores": "237,5 a 638.168,33"
+  },
+  {
+   "nombre": "haber_promedio",
+   "tipo": "Número",
+   "valores": "282,19 a 740.157,58"
+  },
+  {
+   "nombre": "salario_promedio",
+   "tipo": "Número",
+   "valores": "798,33 a 1.958.673,83"
+  },
+  {
+   "nombre": "pct_minimo",
+   "tipo": "Número",
+   "valores": "18,14 a 30,74"
+  },
+  {
+   "nombre": "pct_minimo_adicionales",
+   "tipo": "Número",
+   "valores": "18,14 a 30,74"
+  },
+  {
+   "nombre": "pct_jubilacion",
+   "tipo": "Número",
+   "valores": "36,08 a 51,3"
+  },
+  {
+   "nombre": "pct_pension",
+   "tipo": "Número",
+   "valores": "29,49 a 41,4"
+  },
+  {
+   "nombre": "pct_haber",
+   "tipo": "Número",
+   "valores": "35,04 a 44,89"
+  },
+  {
+   "nombre": "haber_minimo_real",
+   "tipo": "Número",
+   "valores": "387.331,24 a 726.823,55 (23 celdas vacías)"
+  },
+  {
+   "nombre": "haber_minimo_adicionales_real",
+   "tipo": "Número",
+   "valores": "521.034,9 a 726.823,55 (23 celdas vacías)"
+  },
+  {
+   "nombre": "jubilacion_promedio_real",
+   "tipo": "Número",
+   "valores": "703.586,33 a 1.090.041,61 (23 celdas vacías)"
+  },
+  {
+   "nombre": "haber_promedio_real",
+   "tipo": "Número",
+   "valores": "677.402,2 a 1.076.960,66 (23 celdas vacías)"
+  },
+  {
+   "nombre": "salario_promedio_real",
+   "tipo": "Número",
+   "valores": "1.831.640,43 a 2.546.502,66 (23 celdas vacías)"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

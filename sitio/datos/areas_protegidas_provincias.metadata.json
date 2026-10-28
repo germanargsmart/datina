@@ -1,0 +1,49 @@
+{
+ "tabla": "areas_protegidas_provincias.csv",
+ "titulo": "¿Cuánto territorio protegido tiene cada provincia?",
+ "descripcion": "Superficie terrestre dentro de áreas protegidas, en % del territorio y en m² por habitante, por provincia, 2025",
+ "seccion": "Naturaleza y ambiente",
+ "ficha": "https://datina.pages.dev/naturaleza.html#f-protegida",
+ "fuente": "Ministerio de Ambiente, Centro de Información Ambiental (CIAM).",
+ "actualizacion": "Se actualiza cada año.",
+ "cobertura": "Las 24 jurisdicciones",
+ "periodo": "",
+ "filas": 24,
+ "columnas": [
+  {
+   "nombre": "codigo_indec",
+   "tipo": "Código",
+   "valores": "24 códigos"
+  },
+  {
+   "nombre": "territorio",
+   "tipo": "Texto",
+   "valores": "24 valores distintos"
+  },
+  {
+   "nombre": "areas",
+   "tipo": "Número",
+   "valores": "4 a 117"
+  },
+  {
+   "nombre": "ha_terrestres",
+   "tipo": "Número",
+   "valores": "402 a 4.505.973"
+  },
+  {
+   "nombre": "pct_territorio",
+   "tipo": "Número",
+   "valores": "1,72 a 36,72"
+  },
+  {
+   "nombre": "m2_por_habitante",
+   "tipo": "Número",
+   "valores": "1,31 a 57.134,69"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

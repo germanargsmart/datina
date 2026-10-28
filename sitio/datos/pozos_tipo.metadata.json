@@ -1,0 +1,74 @@
+{
+ "tabla": "pozos_tipo.csv",
+ "titulo": "¿Cuántos pozos producen, dónde están y cuánto saca cada uno?",
+ "descripcion": "Pozos en producción, barriles de petróleo por día que saca cada uno según el tipo de recurso, y mapa de los pozos no convencionales y las áreas de concesión, agosto de 2026",
+ "seccion": "Petróleo y gas",
+ "ficha": "https://datina.pages.dev/petroleo.html#f-pozos",
+ "fuente": "Secretaría de Energía, producción que declaran las empresas para cada pozo (Capítulo IV) y concesiones de explotación.",
+ "actualizacion": "Se actualiza cada mes.",
+ "cobertura": "Sin desglose territorial",
+ "periodo": "",
+ "filas": 3,
+ "columnas": [
+  {
+   "nombre": "tipo",
+   "tipo": "Texto",
+   "valores": "convencional, shale, tight"
+  },
+  {
+   "nombre": "nombre",
+   "tipo": "Texto",
+   "valores": "Convencionales, Shale, Tight"
+  },
+  {
+   "nombre": "pozos",
+   "tipo": "Número",
+   "valores": "1.236 a 19.400"
+  },
+  {
+   "nombre": "pozos_pet",
+   "tipo": "Número",
+   "valores": "1.059 a 18.874"
+  },
+  {
+   "nombre": "pozos_gas",
+   "tipo": "Número",
+   "valores": "1.235 a 12.868"
+  },
+  {
+   "nombre": "m3d_pozo_pet",
+   "tipo": "Número",
+   "valores": "0,65 a 39,41"
+  },
+  {
+   "nombre": "bpd_pozo_pet",
+   "tipo": "Número",
+   "valores": "4,08 a 247,9"
+  },
+  {
+   "nombre": "miles_m3d_pozo_gas",
+   "tipo": "Número",
+   "valores": "3,59 a 32,75"
+  },
+  {
+   "nombre": "pct_pozos",
+   "tipo": "Número",
+   "valores": "5,25 a 82,35"
+  },
+  {
+   "nombre": "pct_pet",
+   "tipo": "Número",
+   "valores": "0,46 a 71,49"
+  },
+  {
+   "nombre": "pct_gas",
+   "tipo": "Número",
+   "valores": "8,51 a 61,58"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

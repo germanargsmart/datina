@@ -1,0 +1,64 @@
+{
+ "tabla": "energia_hogares.csv",
+ "titulo": "¿Cuánto creció la demanda eléctrica frente a la economía?",
+ "descripcion": "Demanda eléctrica total, de los hogares y del resto de los usuarios, y actividad económica, índices con base 2005 = 100, 2005 a 2025",
+ "seccion": "Energía",
+ "ficha": "https://datina.pages.dev/energia.html#f-hogares",
+ "fuente": "CAMMESA, publicado por la Subsecretaría de Programación Macroeconómica en la API de Series de Tiempo de datos.gob.ar, e INDEC.",
+ "actualizacion": "Se actualiza cada mes.",
+ "cobertura": "Sin desglose territorial",
+ "periodo": "2005 a 2025",
+ "filas": 21,
+ "columnas": [
+  {
+   "nombre": "anio",
+   "tipo": "Año",
+   "valores": "2005 a 2025"
+  },
+  {
+   "nombre": "total",
+   "tipo": "Número",
+   "valores": "92.332,95 a 141.250,9"
+  },
+  {
+   "nombre": "residencial",
+   "tipo": "Número",
+   "valores": "30.086,49 a 66.392,01"
+  },
+  {
+   "nombre": "resto",
+   "tipo": "Número",
+   "valores": "62.246,46 a 76.685,12"
+  },
+  {
+   "nombre": "pct_residencial",
+   "tipo": "Número",
+   "valores": "32,58 a 47,15"
+  },
+  {
+   "nombre": "idx_residencial",
+   "tipo": "Número",
+   "valores": "100 a 220,67"
+  },
+  {
+   "nombre": "idx_resto",
+   "tipo": "Número",
+   "valores": "100 a 123,2"
+  },
+  {
+   "nombre": "idx_demanda",
+   "tipo": "Número",
+   "valores": "100 a 152,98"
+  },
+  {
+   "nombre": "idx_emae",
+   "tipo": "Número",
+   "valores": "100 a 140,09"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "Índices con base 2005 = 100. La actividad económica es el promedio anual del Estimador Mensual de Actividad Económica (EMAE) del INDEC, serie original. El resto de los usuarios agrupa comercios, industrias y grandes usuarios conectados al mercado eléctrico mayorista.",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

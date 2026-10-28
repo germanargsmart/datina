@@ -1,0 +1,59 @@
+{
+ "tabla": "inflacion_anual.csv",
+ "titulo": "¿Cuánto suben los precios en cada región?",
+ "descripcion": "Variación de los precios al consumidor en el país y en las seis regiones del INDEC, 2017 a 2026",
+ "seccion": "Precios y actividad",
+ "ficha": "https://datina.pages.dev/economia.html#f-inflacion",
+ "fuente": "INDEC, Índice de precios al consumidor.",
+ "actualizacion": "Se actualiza cada mes.",
+ "cobertura": "Sin desglose territorial",
+ "periodo": "2017 a 2025",
+ "filas": 9,
+ "columnas": [
+  {
+   "nombre": "anio",
+   "tipo": "Año",
+   "valores": "2017 a 2025"
+  },
+  {
+   "nombre": "nacional",
+   "tipo": "Número",
+   "valores": "24,8 a 211,4"
+  },
+  {
+   "nombre": "gba",
+   "tipo": "Número",
+   "valores": "25 a 210,1"
+  },
+  {
+   "nombre": "pampeana",
+   "tipo": "Número",
+   "valores": "25 a 212,8"
+  },
+  {
+   "nombre": "noreste",
+   "tipo": "Número",
+   "valores": "22,3 a 219,5"
+  },
+  {
+   "nombre": "noroeste",
+   "tipo": "Número",
+   "valores": "24,3 a 212,5"
+  },
+  {
+   "nombre": "cuyo",
+   "tipo": "Número",
+   "valores": "25,5 a 207,2"
+  },
+  {
+   "nombre": "patagonia",
+   "tipo": "Número",
+   "valores": "23,5 a 207,7"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

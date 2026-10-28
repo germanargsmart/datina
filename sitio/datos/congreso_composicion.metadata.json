@@ -1,0 +1,74 @@
+{
+ "tabla": "congreso_composicion.csv",
+ "titulo": "¿Cuántas bancas tuvo cada espacio político en cada período?",
+ "descripcion": "Bancas de cada espacio político en Diputados y en el Senado al 1 de marzo de cada período legislativo, 1983 a 2027",
+ "seccion": "Instituciones políticas",
+ "ficha": "https://datina.pages.dev/politica.html#f-congreso",
+ "fuente": "Senado de la Nación y Cámara de Diputados de la Nación, datos abiertos y Patrimonio Legislativo.",
+ "actualizacion": "Se actualiza con cada renovación del Congreso.",
+ "cobertura": "Sin desglose territorial",
+ "periodo": "1983 a 2025",
+ "filas": 44,
+ "columnas": [
+  {
+   "nombre": "camara",
+   "tipo": "Texto",
+   "valores": "Diputados, Senado"
+  },
+  {
+   "nombre": "anio",
+   "tipo": "Año",
+   "valores": "1983 a 2025"
+  },
+  {
+   "nombre": "periodo",
+   "tipo": "Texto",
+   "valores": "22 valores distintos"
+  },
+  {
+   "nombre": "Peronismo",
+   "tipo": "Número",
+   "valores": "19 a 155"
+  },
+  {
+   "nombre": "UCR y aliados",
+   "tipo": "Número",
+   "valores": "1 a 132"
+  },
+  {
+   "nombre": "PRO",
+   "tipo": "Número",
+   "valores": "0 a 55"
+  },
+  {
+   "nombre": "Cambiemos y Juntos por el Cambio",
+   "tipo": "Número",
+   "valores": "0 a 32"
+  },
+  {
+   "nombre": "La Libertad Avanza",
+   "tipo": "Número",
+   "valores": "0 a 95"
+  },
+  {
+   "nombre": "Izquierda",
+   "tipo": "Número",
+   "valores": "0 a 5"
+  },
+  {
+   "nombre": "Fuerzas provinciales",
+   "tipo": "Número",
+   "valores": "4 a 39"
+  },
+  {
+   "nombre": "Otras fuerzas",
+   "tipo": "Número",
+   "valores": "0 a 48"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "Bancas ocupadas el 1 de marzo siguiente al comienzo de cada período, cuando empiezan las sesiones ordinarias y ya asumieron los reemplazos de diciembre. Desde 2007 los diputados figuran con el bloque en el que se sentaban. Antes de 2007, y en el Senado, con el partido o la alianza por la que fueron electos. Los espacios agrupan bloques y partidos afines y la clasificación es propia. La UCR y el PRO van por separado, porque el PRO no existía como fuerza nacional antes de 2005. Cambiemos y Juntos por el Cambio figuran como tales cuando la fuente solo registra la alianza, como en el Senado. La Alianza de 1997 a 2001, de la UCR y el Frepaso, va con la UCR. La Coalición Cívica y el ARI van en otras fuerzas, y el bloque Provincias Unidas, en las fuerzas provinciales. Algunos totales no suman 257 diputados o 72 senadores por bancas vacantes en esa fecha o por reemplazos que la fuente no fecha. Hasta 2001 los senadores eran 46 o 48 y los elegían las legislaturas provinciales. Desde ese año son 72, tres por provincia, elegidos por voto directo.",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

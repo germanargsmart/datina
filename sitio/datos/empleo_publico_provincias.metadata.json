@@ -1,0 +1,54 @@
+{
+ "tabla": "empleo_publico_provincias.csv",
+ "titulo": "¿Cuántos cargos públicos tiene cada provincia?",
+ "descripcion": "Cargos ocupados en las administraciones provinciales cada 1.000 habitantes, 2025, y personas que trabajan en la administración nacional, mes a mes",
+ "seccion": "Cuentas públicas",
+ "ficha": "https://datina.pages.dev/gobierno.html#f-empleo-publico",
+ "fuente": "Dirección Nacional de Asuntos Provinciales, Ministerio de Economía, e INDEC.",
+ "actualizacion": "Se actualiza cada año.",
+ "cobertura": "Las 24 jurisdicciones",
+ "periodo": "",
+ "filas": 24,
+ "columnas": [
+  {
+   "nombre": "codigo_indec",
+   "tipo": "Código",
+   "valores": "24 códigos"
+  },
+  {
+   "nombre": "territorio",
+   "tipo": "Texto",
+   "valores": "24 valores distintos"
+  },
+  {
+   "nombre": "cargos",
+   "tipo": "Número",
+   "valores": "25.422 a 655.614"
+  },
+  {
+   "nombre": "cada_1000",
+   "tipo": "Número",
+   "valores": "32,88 a 139,68"
+  },
+  {
+   "nombre": "cargos_inicio",
+   "tipo": "Número",
+   "valores": "19.475 a 691.149"
+  },
+  {
+   "nombre": "gasto_medio_mensual",
+   "tipo": "Número",
+   "valores": "1.225.318,05 a 3.559.103,79"
+  },
+  {
+   "nombre": "presupuestados",
+   "tipo": "Texto",
+   "valores": "False, True"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

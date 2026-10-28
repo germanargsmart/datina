@@ -1,0 +1,49 @@
+{
+ "tabla": "visitas_por_parque.csv",
+ "titulo": "¿Cuántas visitas reciben los parques nacionales, y cuáles reciben más?",
+ "descripcion": "Visitas registradas en los parques nacionales con control de ingreso, de residentes y de no residentes, 2008 a 2025, y en cada parque, 2025 y 2026 y 2019, antes de la pandemia",
+ "seccion": "Naturaleza y ambiente",
+ "ficha": "https://datina.pages.dev/naturaleza.html#f-visitas",
+ "fuente": "Ministerio de Turismo y Deportes, Sistema de Información Turística de la Argentina (SINTA), y Secretaría de Turismo, tablero de áreas protegidas, con datos de la Administración de Parques Nacionales.",
+ "actualizacion": "Se actualiza cada mes.",
+ "cobertura": "Sin desglose territorial",
+ "periodo": "",
+ "filas": 41,
+ "columnas": [
+  {
+   "nombre": "codigo_indec",
+   "tipo": "Código",
+   "valores": "41 códigos"
+  },
+  {
+   "nombre": "territorio",
+   "tipo": "Texto",
+   "valores": "41 valores distintos"
+  },
+  {
+   "nombre": "visitas_ult",
+   "tipo": "Número",
+   "valores": "5 a 1.526.772"
+  },
+  {
+   "nombre": "visitas_par",
+   "tipo": "Número",
+   "valores": "0 a 830.994"
+  },
+  {
+   "nombre": "visitas_pre",
+   "tipo": "Número",
+   "valores": "0 a 1.635.238 (6 celdas vacías)"
+  },
+  {
+   "nombre": "no_residentes_ult",
+   "tipo": "Número",
+   "valores": "0 a 530.184"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

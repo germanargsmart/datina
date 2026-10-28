@@ -1,0 +1,69 @@
+{
+ "tabla": "canasta_mensual.csv",
+ "titulo": "¿Cuánto necesita un hogar por mes para no quedar bajo la línea de pobreza?",
+ "descripcion": "Canasta básica total y alimentaria, en pesos por adulto equivalente en cada región (junio de 2026) y mes a mes en el Gran Buenos Aires, 2016 a 2026",
+ "seccion": "Precios y actividad",
+ "ficha": "https://datina.pages.dev/economia.html#f-canastas",
+ "fuente": "INDEC, canasta básica alimentaria y canasta básica total, e informe de pobreza e indigencia.",
+ "actualizacion": "Se actualiza cada mes.",
+ "cobertura": "Sin desglose territorial",
+ "periodo": "abril de 2016 a septiembre de 2026",
+ "filas": 126,
+ "columnas": [
+  {
+   "nombre": "periodo",
+   "tipo": "Fecha",
+   "valores": "abril de 2016 a septiembre de 2026"
+  },
+  {
+   "nombre": "cba",
+   "tipo": "Número",
+   "valores": "1.514,53 a 239.058,22"
+  },
+  {
+   "nombre": "cbt",
+   "tipo": "Número",
+   "valores": "3.663,66 a 528.318,67"
+  },
+  {
+   "nombre": "cba_hogar",
+   "tipo": "Número",
+   "valores": "4.679,91 a 738.689,9"
+  },
+  {
+   "nombre": "cbt_hogar",
+   "tipo": "Número",
+   "valores": "11.320,71 a 1.632.504,69"
+  },
+  {
+   "nombre": "mensual_cba",
+   "tipo": "Número",
+   "valores": "-0,4 a 30,1 (1 celda vacía)"
+  },
+  {
+   "nombre": "interanual_cba",
+   "tipo": "Número",
+   "valores": "19,1 a 308,2 (12 celdas vacías)"
+  },
+  {
+   "nombre": "mensual_cbt",
+   "tipo": "Número",
+   "valores": "0,1 a 27 (1 celda vacía)"
+  },
+  {
+   "nombre": "interanual_cbt",
+   "tipo": "Número",
+   "valores": "20,5 a 307,2 (12 celdas vacías)"
+  },
+  {
+   "nombre": "interanual_ipc_gba",
+   "tipo": "Número",
+   "valores": "25 a 292,2 (20 celdas vacías)"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

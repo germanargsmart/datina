@@ -1,0 +1,54 @@
+{
+ "tabla": "corte_presidentes.csv",
+ "titulo": "¿Qué gobierno designó a cada juez de la Corte Suprema?",
+ "descripcion": "Cada juez de la Corte Suprema de Justicia de la Nación desde 1863, cuánto estuvo en el cargo y qué gobierno lo designó, con la composición de cada año y las leyes que fijaron cuántos jueces tiene.",
+ "seccion": "Laboratorio",
+ "ficha": "https://datina.pages.dev/corte-suprema.html",
+ "fuente": "",
+ "actualizacion": "",
+ "cobertura": "Sin desglose territorial",
+ "periodo": "",
+ "filas": 36,
+ "columnas": [
+  {
+   "nombre": "presidente",
+   "tipo": "Texto",
+   "valores": "35 valores distintos"
+  },
+  {
+   "nombre": "inicio",
+   "tipo": "Fecha",
+   "valores": "12 de octubre de 1862 a 10 de diciembre de 2023"
+  },
+  {
+   "nombre": "fin",
+   "tipo": "Fecha",
+   "valores": "12 de octubre de 1868 a 10 de diciembre de 2019 (1 celda vacía)"
+  },
+  {
+   "nombre": "tipo",
+   "tipo": "Texto",
+   "valores": "constitucional, de facto, provisional"
+  },
+  {
+   "nombre": "grupo",
+   "tipo": "Texto",
+   "valores": "8 valores distintos"
+  },
+  {
+   "nombre": "designados",
+   "tipo": "Número",
+   "valores": "1 a 10"
+  },
+  {
+   "nombre": "nombres",
+   "tipo": "Texto",
+   "valores": "36 valores distintos"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

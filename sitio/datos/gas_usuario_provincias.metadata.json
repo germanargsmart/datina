@@ -1,0 +1,54 @@
+{
+ "tabla": "gas_usuario_provincias.csv",
+ "titulo": "¿Cuánto gas consume un usuario residencial en cada provincia?",
+ "descripcion": "Consumo de gas natural por usuario residencial, en metros cúbicos (m³), 1993 a agosto de 2026",
+ "seccion": "Energía",
+ "ficha": "https://datina.pages.dev/energia.html#f-gas-consumo",
+ "fuente": "ENARGAS, datos operativos de gas natural (gas entregado y usuarios por provincia y tipo de usuario).",
+ "actualizacion": "Se actualiza cada mes.",
+ "cobertura": "20 jurisdicciones",
+ "periodo": "",
+ "filas": 20,
+ "columnas": [
+  {
+   "nombre": "codigo_indec",
+   "tipo": "Código",
+   "valores": "20 códigos"
+  },
+  {
+   "nombre": "territorio",
+   "tipo": "Texto",
+   "valores": "20 valores distintos"
+  },
+  {
+   "nombre": "usuarios",
+   "tipo": "Número",
+   "valores": "15.324 a 3.910.101"
+  },
+  {
+   "nombre": "millones_m3",
+   "tipo": "Número",
+   "valores": "8 a 3.880,2"
+  },
+  {
+   "nombre": "m3_usuario",
+   "tipo": "Número",
+   "valores": "411,7 a 7.742,5"
+  },
+  {
+   "nombre": "veces_pais",
+   "tipo": "Número",
+   "valores": "0,36 a 6,84"
+  },
+  {
+   "nombre": "m3_usuario_2015",
+   "tipo": "Número",
+   "valores": "485,6 a 8.919,1"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

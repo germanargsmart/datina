@@ -1,0 +1,29 @@
+{
+ "tabla": "energia_estacionalidad.csv",
+ "titulo": "¿En qué meses se usa más electricidad?",
+ "descripcion": "Demanda eléctrica promedio de cada mes, en gigavatios hora (GWh), 2023 a 2025",
+ "seccion": "Energía",
+ "ficha": "https://datina.pages.dev/energia.html#f-meses",
+ "fuente": "CAMMESA, vía API de Series de Tiempo.",
+ "actualizacion": "Se actualiza cada mes.",
+ "cobertura": "Sin desglose territorial",
+ "periodo": "",
+ "filas": 12,
+ "columnas": [
+  {
+   "nombre": "mes",
+   "tipo": "Número",
+   "valores": "1 a 12"
+  },
+  {
+   "nombre": "gwh",
+   "tipo": "Número",
+   "valores": "9.958 a 13.430"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

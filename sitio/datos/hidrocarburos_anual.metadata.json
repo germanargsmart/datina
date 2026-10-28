@@ -1,0 +1,74 @@
+{
+ "tabla": "hidrocarburos_anual.csv",
+ "titulo": "¿Cuánto creció Vaca Muerta y cuánto le deja a Neuquén?",
+ "descripcion": "Cuánto petróleo sale de Vaca Muerta frente al resto del país, año por año, y cuánto pesan las regalías en los ingresos de Neuquén y de las otras provincias petroleras.",
+ "seccion": "Petróleo y gas",
+ "ficha": "https://datina.pages.dev/a-vaca-muerta.html",
+ "fuente": "Secretaría de Energía, producción de petróleo y gas por pozo (capítulo IV) y regalías, Ministerio de Economía, esquema ahorro-inversión-financiamiento de cada provincia, y Secretaría de Trabajo, SIPA",
+ "actualizacion": "Se actualiza cada mes.",
+ "cobertura": "Sin desglose territorial",
+ "periodo": "2006 a 2025",
+ "filas": 20,
+ "columnas": [
+  {
+   "nombre": "anio",
+   "tipo": "Año",
+   "valores": "2006 a 2025"
+  },
+  {
+   "nombre": "pet_conv",
+   "tipo": "Número",
+   "valores": "296,89 a 642,75"
+  },
+  {
+   "nombre": "pet_shale",
+   "tipo": "Número",
+   "valores": "0,06 a 501,81"
+  },
+  {
+   "nombre": "pet_tight",
+   "tipo": "Número",
+   "valores": "0,2 a 8,76"
+  },
+  {
+   "nombre": "pet_total",
+   "tipo": "Número",
+   "valores": "488,21 a 803,43"
+  },
+  {
+   "nombre": "gas_conv",
+   "tipo": "Número",
+   "valores": "51,19 a 141,01"
+  },
+  {
+   "nombre": "gas_shale",
+   "tipo": "Número",
+   "valores": "0 a 75,28"
+  },
+  {
+   "nombre": "gas_tight",
+   "tipo": "Número",
+   "valores": "1,15 a 27,3"
+  },
+  {
+   "nombre": "gas_total",
+   "tipo": "Número",
+   "valores": "113,66 a 142,19"
+  },
+  {
+   "nombre": "pct_pet_nc",
+   "tipo": "Número",
+   "valores": "0,04 a 63,05"
+  },
+  {
+   "nombre": "pct_gas_nc",
+   "tipo": "Número",
+   "valores": "0,82 a 63,79"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

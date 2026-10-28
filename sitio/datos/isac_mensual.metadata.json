@@ -1,0 +1,39 @@
+{
+ "tabla": "isac_mensual.csv",
+ "titulo": "¿Cuánto crece o cae la construcción?",
+ "descripcion": "Indicador Sintético de la Actividad de la Construcción del INDEC (índice 2004 = 100), por mes, 2012 a 2026",
+ "seccion": "Construcción y vivienda",
+ "ficha": "https://datina.pages.dev/construccion.html#f-isac",
+ "fuente": "INDEC, Indicador Sintético de la Actividad de la Construcción (ISAC), publicado en datos.gob.ar.",
+ "actualizacion": "Se actualiza cada mes.",
+ "cobertura": "Sin desglose territorial",
+ "periodo": "enero de 2012 a agosto de 2026",
+ "filas": 176,
+ "columnas": [
+  {
+   "nombre": "periodo",
+   "tipo": "Fecha",
+   "valores": "enero de 2012 a agosto de 2026"
+  },
+  {
+   "nombre": "original",
+   "tipo": "Número",
+   "valores": "42,21 a 224,44"
+  },
+  {
+   "nombre": "desestacionalizada",
+   "tipo": "Número",
+   "valores": "47,17 a 209,34"
+  },
+  {
+   "nombre": "var_interanual",
+   "tipo": "Número",
+   "valores": "-76,22 a 321,96 (12 celdas vacías)"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

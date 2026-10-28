@@ -1,0 +1,39 @@
+{
+ "tabla": "balanza_comercial.csv",
+ "titulo": "¿Cuánto exporta e importa la Argentina en bienes y cuál es el saldo?",
+ "descripcion": "Exportaciones e importaciones de bienes y su saldo, en millones de dólares por año, 1992 a 2025",
+ "seccion": "Sector externo",
+ "ficha": "https://datina.pages.dev/externo.html#f-balanza",
+ "fuente": "INDEC, intercambio comercial argentino, vía la API de Series de Tiempo.",
+ "actualizacion": "Se actualiza cada mes.",
+ "cobertura": "Sin desglose territorial",
+ "periodo": "1992 a 2025",
+ "filas": 34,
+ "columnas": [
+  {
+   "nombre": "anio",
+   "tipo": "Año",
+   "valores": "1992 a 2025"
+  },
+  {
+   "nombre": "exportaciones",
+   "tipo": "Número",
+   "valores": "12.234,9 a 88.445"
+  },
+  {
+   "nombre": "importaciones",
+   "tipo": "Número",
+   "valores": "8.989,5 a 81.522"
+  },
+  {
+   "nombre": "saldo",
+   "tipo": "Número",
+   "valores": "-8.308 a 18.927,6"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

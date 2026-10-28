@@ -1,0 +1,339 @@
+{
+ "tabla": "cruces_provincias.csv",
+ "titulo": "¿Cómo se relacionan dos indicadores entre las provincias?",
+ "descripcion": "",
+ "seccion": "Cruces",
+ "ficha": "https://datina.pages.dev/cruces.html#f-cruces",
+ "fuente": "las de cada indicador, que figuran debajo del gráfico",
+ "actualizacion": "",
+ "cobertura": "Las 24 jurisdicciones",
+ "periodo": "",
+ "filas": 24,
+ "columnas": [
+  {
+   "nombre": "codigo_indec",
+   "tipo": "Código",
+   "valores": "24 códigos"
+  },
+  {
+   "nombre": "territorio",
+   "tipo": "Texto",
+   "valores": "24 valores distintos"
+  },
+  {
+   "nombre": "region",
+   "tipo": "Texto",
+   "valores": "CABA, Cuyo, NEA, NOA, Pampeana, Patagonia"
+  },
+  {
+   "nombre": "poblacion",
+   "tipo": "Número",
+   "valores": "182.003 a 17.443.372"
+  },
+  {
+   "nombre": "densidad",
+   "tipo": "Número",
+   "valores": "1,37 a 15.398,37"
+  },
+  {
+   "nombre": "homicidios",
+   "tipo": "Número",
+   "valores": "0,91 a 5,69"
+  },
+  {
+   "nombre": "robos",
+   "tipo": "Número",
+   "valores": "221,34 a 1.616,11"
+  },
+  {
+   "nombre": "viales",
+   "tipo": "Número",
+   "valores": "2,96 a 17,85"
+  },
+  {
+   "nombre": "mortalidad_infantil",
+   "tipo": "Número",
+   "valores": "5,47 a 13,07"
+  },
+  {
+   "nombre": "madres_adolescentes",
+   "tipo": "Número",
+   "valores": "2,35 a 14,39"
+  },
+  {
+   "nombre": "escolarizacion",
+   "tipo": "Número",
+   "valores": "78,64 a 99,81"
+  },
+  {
+   "nombre": "aprender_mat",
+   "tipo": "Número",
+   "valores": "38,42 a 74,55"
+  },
+  {
+   "nombre": "aprender_len",
+   "tipo": "Número",
+   "valores": "63,93 a 88,09"
+  },
+  {
+   "nombre": "empleo_privado",
+   "tipo": "Número",
+   "valores": "3,5 a 48"
+  },
+  {
+   "nombre": "empleo_var",
+   "tipo": "Número",
+   "valores": "-13,13 a 5,22"
+  },
+  {
+   "nombre": "protegida",
+   "tipo": "Número",
+   "valores": "1,72 a 36,72"
+  },
+  {
+   "nombre": "turistas_eti",
+   "tipo": "Número",
+   "valores": "0,95 a 875,64"
+  },
+  {
+   "nombre": "autos",
+   "tipo": "Número",
+   "valores": "5,31 a 36,67"
+  },
+  {
+   "nombre": "motos",
+   "tipo": "Número",
+   "valores": "5,37 a 159,37"
+  },
+  {
+   "nombre": "esperanza_vida",
+   "tipo": "Número",
+   "valores": "72,1 a 79,44"
+  },
+  {
+   "nombre": "agua_red",
+   "tipo": "Número",
+   "valores": "76,33 a 98,01"
+  },
+  {
+   "nombre": "cloaca",
+   "tipo": "Número",
+   "valores": "24,81 a 97,16"
+  },
+  {
+   "nombre": "internet",
+   "tipo": "Número",
+   "valores": "46,7 a 90"
+  },
+  {
+   "nombre": "computadora",
+   "tipo": "Número",
+   "valores": "37,21 a 80,03"
+  },
+  {
+   "nombre": "nbi",
+   "tipo": "Número",
+   "valores": "2,64 a 14,24"
+  },
+  {
+   "nombre": "sin_cobertura",
+   "tipo": "Número",
+   "valores": "15,34 a 56,04"
+  },
+  {
+   "nombre": "internet_fijo",
+   "tipo": "Número",
+   "valores": "50,11 a 119,93"
+  },
+  {
+   "nombre": "velocidad",
+   "tipo": "Número",
+   "valores": "93,92 a 372,42"
+  },
+  {
+   "nombre": "exportaciones",
+   "tipo": "Número",
+   "valores": "46,67 a 8.964,79"
+  },
+  {
+   "nombre": "empresas",
+   "tipo": "Número",
+   "valores": "4,48 a 43,91"
+  },
+  {
+   "nombre": "empresas_neta",
+   "tipo": "Número",
+   "valores": "-1,85 a 2,78"
+  },
+  {
+   "nombre": "extranjeros",
+   "tipo": "Número",
+   "valores": "0,5 a 13,54"
+  },
+  {
+   "nombre": "otra_provincia",
+   "tipo": "Número",
+   "valores": "8,28 a 50,93"
+  },
+  {
+   "nombre": "empleo_publico",
+   "tipo": "Número",
+   "valores": "32,88 a 139,68"
+  },
+  {
+   "nombre": "impuestos_provinciales",
+   "tipo": "Número",
+   "valores": "256.360,17 a 3.257.959,83 (1 celda vacía)"
+  },
+  {
+   "nombre": "natalidad",
+   "tipo": "Número",
+   "valores": "6,9 a 12,3"
+  },
+  {
+   "nombre": "autonomia_fiscal",
+   "tipo": "Número",
+   "valores": "13,88 a 84,69"
+  },
+  {
+   "nombre": "resultado_fiscal",
+   "tipo": "Número",
+   "valores": "-16,32 a 21,45"
+  },
+  {
+   "nombre": "gasto_personal",
+   "tipo": "Número",
+   "valores": "34,76 a 64,03"
+  },
+  {
+   "nombre": "peso_voto",
+   "tipo": "Número",
+   "valores": "0,59 a 6,2"
+  },
+  {
+   "nombre": "vejez",
+   "tipo": "Número",
+   "valores": "11,4 a 29,9"
+  },
+  {
+   "nombre": "pct_pob_solo_cobertura_publica",
+   "tipo": "Número",
+   "valores": "15,34 a 56,04"
+  },
+  {
+   "nombre": "pct_hog_nbi_2022",
+   "tipo": "Número",
+   "valores": "2,6 a 14,2"
+  },
+  {
+   "nombre": "pct_25mas_secundario_completo_o_mas",
+   "tipo": "Número",
+   "valores": "33,75 a 66,5"
+  },
+  {
+   "nombre": "pct_hog_cloaca",
+   "tipo": "Número",
+   "valores": "25,37 a 98,79"
+  },
+  {
+   "nombre": "atn_hab",
+   "tipo": "Número",
+   "valores": "243,58 a 33.123,08"
+  },
+  {
+   "nombre": "transf_no_aut_hab",
+   "tipo": "Número",
+   "valores": "11.534 a 120.133"
+  },
+  {
+   "nombre": "apoyo_gobierno",
+   "tipo": "Número",
+   "valores": "0,2 a 64,1"
+  },
+  {
+   "nombre": "apoyo_presupuesto",
+   "tipo": "Número",
+   "valores": "17,74 a 75,31"
+  },
+  {
+   "nombre": "voto_milei_2023",
+   "tipo": "Número",
+   "valores": "31,58 a 74,05"
+  },
+  {
+   "nombre": "participacion_2023",
+   "tipo": "Número",
+   "valores": "70,25 a 81,81"
+  },
+  {
+   "nombre": "voto_oficialismo_2023",
+   "tipo": "Número",
+   "valores": "13,42 a 65,5"
+  },
+  {
+   "nombre": "gas_red",
+   "tipo": "Número",
+   "valores": "0,91 a 93,01"
+  },
+  {
+   "nombre": "alquila",
+   "tipo": "Número",
+   "valores": "6,65 a 36,81"
+  },
+  {
+   "nombre": "hacinamiento",
+   "tipo": "Número",
+   "valores": "1 a 5,12"
+  },
+  {
+   "nombre": "ocupados_construccion",
+   "tipo": "Número",
+   "valores": "3,87 a 16,78"
+  },
+  {
+   "nombre": "empleo_construccion",
+   "tipo": "Número",
+   "valores": "2,52 a 35"
+  },
+  {
+   "nombre": "regalias",
+   "tipo": "Número",
+   "valores": "0 a 31,12"
+  },
+  {
+   "nombre": "salario",
+   "tipo": "Número",
+   "valores": "1.377.564,66 a 4.094.578,93"
+  },
+  {
+   "nombre": "salario_docente",
+   "tipo": "Número",
+   "valores": "935.449,89 a 2.521.569,91"
+  },
+  {
+   "nombre": "gasto_alumno",
+   "tipo": "Número",
+   "valores": "1.272.646,55 a 6.145.224,86"
+  },
+  {
+   "nombre": "pensiones_invalidez",
+   "tipo": "Número",
+   "valores": "7,17 a 76,99"
+  },
+  {
+   "nombre": "auh",
+   "tipo": "Número",
+   "valores": "15,63 a 50,12"
+  },
+  {
+   "nombre": "seguro_desempleo",
+   "tipo": "Número",
+   "valores": "1,45 a 8,04"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "Tocá un punto, o llegá a él con Tab y apretá Enter, para sacar esa jurisdicción del cálculo. Hacé lo mismo para volver a sumarla. La recta es la que mejor resume los puntos (regresión lineal por mínimos cuadrados), y la franja celeste es su margen de error, con un 95% de confianza. Con 24 casos, una correlación moderada puede aparecer por azar. Los datos son de cada jurisdicción en su conjunto: no dicen nada de cada persona. Dos indicadores también pueden ir juntos porque los dos dependen de un tercero, como el ingreso o la urbanización.",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

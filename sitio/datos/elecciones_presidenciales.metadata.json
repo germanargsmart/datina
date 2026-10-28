@@ -1,0 +1,44 @@
+{
+ "tabla": "elecciones_presidenciales.csv",
+ "titulo": "¿Cómo votó cada provincia para presidente?",
+ "descripcion": "Porcentaje de votos de cada fórmula presidencial por provincia, en las elecciones generales y las PASO, 1983 a 2023",
+ "seccion": "Instituciones políticas",
+ "ficha": "https://datina.pages.dev/politica.html#f-elecciones",
+ "fuente": "Dirección Nacional Electoral, Ministerio del Interior.",
+ "actualizacion": "Se actualiza con cada elección.",
+ "cobertura": "Las 24 jurisdicciones y el total del país",
+ "periodo": "",
+ "filas": 1848,
+ "columnas": [
+  {
+   "nombre": "eleccion",
+   "tipo": "Texto",
+   "valores": "16 valores distintos"
+  },
+  {
+   "nombre": "codigo_indec",
+   "tipo": "Código",
+   "valores": "25 códigos"
+  },
+  {
+   "nombre": "candidato",
+   "tipo": "Texto",
+   "valores": "32 valores distintos"
+  },
+  {
+   "nombre": "pct",
+   "tipo": "Número",
+   "valores": "0,18 a 87,39"
+  },
+  {
+   "nombre": "territorio",
+   "tipo": "Texto",
+   "valores": "25 valores distintos"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "Porcentaje de los votos positivos, sin contar blancos ni nulos. Cada fórmula se nombra por quien la encabezaba. Se muestran las cuatro más votadas del país y el resto va a \"Otras\". El color indica el espacio político, el mismo que en la composición del Congreso. En las PASO, desde 2011, cada barra es una agrupación con todas sus listas internas sumadas. En 2019 y 2023 el recuento oficial de las PASO se informó sobre los votos válidos, que incluyen los votos en blanco, así que aquí los porcentajes son algo más altos. Escrutinio definitivo de 1983 a 2019, salvo las PASO de 2019. Escrutinio provisorio en las PASO de 2019 y en todo 2023, porque el definitivo no está publicado como datos abiertos. Las PASO de 2023 salen de la copia del archivo oficial guardada en el Internet Archive, porque el enlace original dejó de funcionar. Los resultados se cotejaron con los de electorAr, que usa el escrutinio provisorio.",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

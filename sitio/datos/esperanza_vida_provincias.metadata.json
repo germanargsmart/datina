@@ -1,0 +1,44 @@
+{
+ "tabla": "esperanza_vida_provincias.csv",
+ "titulo": "¿Cuántos años se vive en cada provincia?",
+ "descripcion": "Esperanza de vida al nacer por provincia y sexo, 2022",
+ "seccion": "Salud",
+ "ficha": "https://datina.pages.dev/salud.html#f-esperanza",
+ "fuente": "INDEC, tablas de mortalidad por jurisdicción.",
+ "actualizacion": "Se actualiza con cada censo.",
+ "cobertura": "Las 24 jurisdicciones",
+ "periodo": "",
+ "filas": 24,
+ "columnas": [
+  {
+   "nombre": "codigo_indec",
+   "tipo": "Código",
+   "valores": "24 códigos"
+  },
+  {
+   "nombre": "territorio",
+   "tipo": "Texto",
+   "valores": "24 valores distintos"
+  },
+  {
+   "nombre": "total",
+   "tipo": "Número",
+   "valores": "72,1 a 79,44"
+  },
+  {
+   "nombre": "mujeres",
+   "tipo": "Número",
+   "valores": "75,48 a 82,42"
+  },
+  {
+   "nombre": "varones",
+   "tipo": "Número",
+   "valores": "68,89 a 76,61"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

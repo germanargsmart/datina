@@ -1,0 +1,29 @@
+{
+ "tabla": "carne_vacuna.csv",
+ "titulo": "¿Cuánta carne vacuna come cada habitante?",
+ "descripcion": "Consumo de carne vacuna por habitante, en kilos por año, 1990 a 2025",
+ "seccion": "Curiosidades",
+ "ficha": "https://datina.pages.dev/curiosidades.html#f-carne",
+ "fuente": "Ministerio de Economía, indicadores sectoriales (SSPMI), con datos del Ministerio de Agricultura.",
+ "actualizacion": "Se actualiza cada mes.",
+ "cobertura": "Sin desglose territorial",
+ "periodo": "1990 a 2025",
+ "filas": 36,
+ "columnas": [
+  {
+   "nombre": "anio",
+   "tipo": "Año",
+   "valores": "1990 a 2025"
+  },
+  {
+   "nombre": "kg_por_habitante",
+   "tipo": "Número",
+   "valores": "47,8 a 77,5"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

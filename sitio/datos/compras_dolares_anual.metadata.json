@@ -1,0 +1,29 @@
+{
+ "tabla": "compras_dolares_anual.csv",
+ "titulo": "¿Cuántos dólares compran por año las personas y las empresas?",
+ "descripcion": "Cuántos dólares compraron en neto, cada año, las personas y las empresas en el mercado oficial de cambios, y cómo se movieron esas compras con el dólar en términos reales.",
+ "seccion": "Precios y actividad",
+ "ficha": "https://datina.pages.dev/a-compras-dolares.html",
+ "fuente": "Banco Central de la República Argentina, balance cambiario, vía API de Series de Tiempo, e índice de tipo de cambio real multilateral",
+ "actualizacion": "Se actualiza cada mes.",
+ "cobertura": "Sin desglose territorial",
+ "periodo": "2004 a 2025",
+ "filas": 22,
+ "columnas": [
+  {
+   "nombre": "anio",
+   "tipo": "Año",
+   "valores": "2004 a 2025"
+  },
+  {
+   "nombre": "millones_usd",
+   "tipo": "Número",
+   "valores": "-2.313,8 a 32.339,7"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

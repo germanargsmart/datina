@@ -1,0 +1,44 @@
+{
+ "tabla": "desembarques_especies.csv",
+ "titulo": "¿Cuánto se pesca en el mar?",
+ "descripcion": "Toneladas desembarcadas en puertos argentinos por la pesca marítima, las tres especies principales, 2012 a 2025",
+ "seccion": "Naturaleza y ambiente",
+ "ficha": "https://datina.pages.dev/naturaleza.html#f-pesca",
+ "fuente": "Ministerio de Ambiente (CIAM), con datos de la Subsecretaría de Pesca y Acuicultura.",
+ "actualizacion": "Se actualiza cada año.",
+ "cobertura": "Sin desglose territorial",
+ "periodo": "2012 a 2025",
+ "filas": 14,
+ "columnas": [
+  {
+   "nombre": "anio",
+   "tipo": "Año",
+   "valores": "2012 a 2025"
+  },
+  {
+   "nombre": "Calamar argentino",
+   "tipo": "Número",
+   "valores": "59.891 a 208.743"
+  },
+  {
+   "nombre": "Langostino",
+   "tipo": "Número",
+   "valores": "79.927 a 254.906"
+  },
+  {
+   "nombre": "Merluza argentina",
+   "tipo": "Número",
+   "valores": "257.983 a 315.184"
+  },
+  {
+   "nombre": "Total",
+   "tipo": "Número",
+   "valores": "692.263 a 832.412"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

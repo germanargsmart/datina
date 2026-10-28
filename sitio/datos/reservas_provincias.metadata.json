@@ -1,0 +1,39 @@
+{
+ "tabla": "reservas_provincias.csv",
+ "titulo": "¿Para cuántos años alcanzan las reservas de petróleo y gas?",
+ "descripcion": "Reservas comprobadas de petróleo y gas al 31 de diciembre de cada año y años de producción que cubren, 2006 a 2025",
+ "seccion": "Petróleo y gas",
+ "ficha": "https://datina.pages.dev/petroleo.html#f-reservas",
+ "fuente": "Secretaría de Energía, reservas de petróleo y gas al 31 de diciembre (Resolución SE 324/2006).",
+ "actualizacion": "Se actualiza cada año.",
+ "cobertura": "10 jurisdicciones",
+ "periodo": "",
+ "filas": 11,
+ "columnas": [
+  {
+   "nombre": "codigo_indec",
+   "tipo": "Código",
+   "valores": "11 códigos"
+  },
+  {
+   "nombre": "pct_pet",
+   "tipo": "Número",
+   "valores": "0,01 a 66,48"
+  },
+  {
+   "nombre": "pct_gas",
+   "tipo": "Número",
+   "valores": "0 a 81,32"
+  },
+  {
+   "nombre": "territorio",
+   "tipo": "Texto",
+   "valores": "11 valores distintos"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

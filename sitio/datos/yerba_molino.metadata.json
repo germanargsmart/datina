@@ -1,0 +1,29 @@
+{
+ "tabla": "yerba_molino.csv",
+ "titulo": "¿Cuánta yerba mate despachan los molinos por año?",
+ "descripcion": "Yerba mate elaborada que despachan los molinos (salida de molino), en millones de kilos por año, 2005 a 2025",
+ "seccion": "Curiosidades",
+ "ficha": "https://datina.pages.dev/curiosidades.html#f-yerba",
+ "fuente": "Ministerio de Economía (SSPMI), con datos del Instituto Nacional de la Yerba Mate.",
+ "actualizacion": "Se actualiza cada mes.",
+ "cobertura": "Sin desglose territorial",
+ "periodo": "2005 a 2025",
+ "filas": 21,
+ "columnas": [
+  {
+   "nombre": "anio",
+   "tipo": "Año",
+   "valores": "2005 a 2025"
+  },
+  {
+   "nombre": "millones_kg",
+   "tipo": "Número",
+   "valores": "229,36 a 285,3"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

@@ -1,0 +1,44 @@
+{
+ "tabla": "nombres_top.csv",
+ "titulo": "¿Qué nombres se eligen más para los bebés?",
+ "descripcion": "Los diez nombres más inscriptos para los bebés, por sexo, 2024",
+ "seccion": "Curiosidades",
+ "ficha": "https://datina.pages.dev/curiosidades.html#f-nombres",
+ "fuente": "Registro Nacional de las Personas (RENAPER), nombres propios frecuentes.",
+ "actualizacion": "Se actualiza cada año.",
+ "cobertura": "Las 24 jurisdicciones y el total del país",
+ "periodo": "",
+ "filas": 500,
+ "columnas": [
+  {
+   "nombre": "codigo_indec",
+   "tipo": "Código",
+   "valores": "25 códigos"
+  },
+  {
+   "nombre": "sexo",
+   "tipo": "Texto",
+   "valores": "F, M"
+  },
+  {
+   "nombre": "nombre",
+   "tipo": "Texto",
+   "valores": "47 valores distintos"
+  },
+  {
+   "nombre": "mostrar",
+   "tipo": "Texto",
+   "valores": "47 valores distintos"
+  },
+  {
+   "nombre": "cantidad",
+   "tipo": "Número",
+   "valores": "16 a 8.818"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

@@ -1,0 +1,49 @@
+{
+ "tabla": "cuenta_corriente.csv",
+ "titulo": "¿Cuál es el saldo con el exterior en bienes, servicios y rentas?",
+ "descripcion": "Cuenta corriente del balance de pagos y sus partes, en millones de dólares por año, 2006 a 2025",
+ "seccion": "Sector externo",
+ "ficha": "https://datina.pages.dev/externo.html#f-cuenta-corriente",
+ "fuente": "INDEC, balance de pagos, vía la API de Series de Tiempo.",
+ "actualizacion": "Se actualiza cada tres meses.",
+ "cobertura": "Sin desglose territorial",
+ "periodo": "2006 a 2025",
+ "filas": 20,
+ "columnas": [
+  {
+   "nombre": "anio",
+   "tipo": "Año",
+   "valores": "2006 a 2025"
+  },
+  {
+   "nombre": "bienes",
+   "tipo": "Número",
+   "valores": "-5.447,1 a 22.403,8"
+  },
+  {
+   "nombre": "servicios",
+   "tipo": "Número",
+   "valores": "-11.600,9 a -763"
+  },
+  {
+   "nombre": "primario",
+   "tipo": "Número",
+   "valores": "-18.650,2 a -7.594,7"
+  },
+  {
+   "nombre": "secundario",
+   "tipo": "Número",
+   "valores": "371,4 a 2.532,5"
+  },
+  {
+   "nombre": "cuenta_corriente",
+   "tipo": "Número",
+   "valores": "-31.151,4 a 7.254,1"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

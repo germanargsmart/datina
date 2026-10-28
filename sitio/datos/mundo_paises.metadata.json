@@ -1,0 +1,49 @@
+{
+ "tabla": "mundo_paises.csv",
+ "titulo": "Tu provincia",
+ "descripcion": "",
+ "seccion": "Tu provincia",
+ "ficha": "https://datina.pages.dev/provincia.html",
+ "fuente": "",
+ "actualizacion": "",
+ "cobertura": "Países del mundo",
+ "periodo": "",
+ "filas": 216,
+ "columnas": [
+  {
+   "nombre": "iso3",
+   "tipo": "Código",
+   "valores": "216 códigos"
+  },
+  {
+   "nombre": "pais",
+   "tipo": "Texto",
+   "valores": "216 valores distintos"
+  },
+  {
+   "nombre": "esperanza_vida",
+   "tipo": "Número",
+   "valores": "18,8 a 85,7"
+  },
+  {
+   "nombre": "esperanza_vida_anio",
+   "tipo": "Número",
+   "valores": "2.022"
+  },
+  {
+   "nombre": "mortalidad_infantil",
+   "tipo": "Número",
+   "valores": "1,2 a 71,9 (21 celdas vacías)"
+  },
+  {
+   "nombre": "mortalidad_infantil_anio",
+   "tipo": "Número",
+   "valores": "2.024 (21 celdas vacías)"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

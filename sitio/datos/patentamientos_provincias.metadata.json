@@ -1,0 +1,49 @@
+{
+ "tabla": "patentamientos_provincias.csv",
+ "titulo": "¿Dónde se patentan más autos y motos nuevos?",
+ "descripcion": "Autos y motos nuevos por cada 1.000 habitantes, por provincia, 2025",
+ "seccion": "Movilidad",
+ "ficha": "https://datina.pages.dev/movilidad.html#f-patentes-prov",
+ "fuente": "DNRPA, Ministerio de Justicia.",
+ "actualizacion": "Se actualiza cada mes.",
+ "cobertura": "Las 24 jurisdicciones",
+ "periodo": "",
+ "filas": 24,
+ "columnas": [
+  {
+   "nombre": "codigo_indec",
+   "tipo": "Código",
+   "valores": "24 códigos"
+  },
+  {
+   "nombre": "territorio",
+   "tipo": "Texto",
+   "valores": "24 valores distintos"
+  },
+  {
+   "nombre": "autos",
+   "tipo": "Número",
+   "valores": "3.259 a 173.191"
+  },
+  {
+   "nombre": "motos",
+   "tipo": "Número",
+   "valores": "1.798 a 204.848"
+  },
+  {
+   "nombre": "autos_1000",
+   "tipo": "Número",
+   "valores": "5,31 a 36,67"
+  },
+  {
+   "nombre": "motos_1000",
+   "tipo": "Número",
+   "valores": "5,37 a 159,37"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

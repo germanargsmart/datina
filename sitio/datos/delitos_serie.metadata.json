@@ -1,0 +1,54 @@
+{
+ "tabla": "delitos_serie.csv",
+ "titulo": "¿Cuántos delitos se registran en el país y de qué tipo?",
+ "descripcion": "Delitos registrados en el país cada 100.000 habitantes, por tipo, 2000 a 2025",
+ "seccion": "Seguridad",
+ "ficha": "https://datina.pages.dev/seguridad.html#f-delitos",
+ "fuente": "Sistema Nacional de Información Criminal (SNIC), Ministerio de Seguridad Nacional.",
+ "actualizacion": "Se actualiza cada año.",
+ "cobertura": "Sin desglose territorial",
+ "periodo": "2000 a 2025",
+ "filas": 26,
+ "columnas": [
+  {
+   "nombre": "anio",
+   "tipo": "Año",
+   "valores": "2000 a 2025"
+  },
+  {
+   "nombre": "total",
+   "tipo": "Número",
+   "valores": "3.076,83 a 4.276,67"
+  },
+  {
+   "nombre": "homicidios",
+   "tipo": "Número",
+   "valores": "3,61 a 9,51"
+  },
+  {
+   "nombre": "robos",
+   "tipo": "Número",
+   "valores": "740,96 a 1.127,97"
+  },
+  {
+   "nombre": "hurtos",
+   "tipo": "Número",
+   "valores": "509,34 a 993,27"
+  },
+  {
+   "nombre": "lesiones",
+   "tipo": "Número",
+   "valores": "293,83 a 400,57"
+  },
+  {
+   "nombre": "amenazas",
+   "tipo": "Número",
+   "valores": "252,87 a 476,23"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

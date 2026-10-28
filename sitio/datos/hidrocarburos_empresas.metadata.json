@@ -1,0 +1,49 @@
+{
+ "tabla": "hidrocarburos_empresas.csv",
+ "titulo": "¿Qué empresas producen más petróleo y gas?",
+ "descripcion": "Parte de cada empresa en la producción de petróleo y gas del país, septiembre de 2025 a agosto de 2026",
+ "seccion": "Petróleo y gas",
+ "ficha": "https://datina.pages.dev/petroleo.html#f-empresas-hidro",
+ "fuente": "Secretaría de Energía, producción que declaran las empresas (Capítulo IV), agrupada por yacimiento y formación productiva.",
+ "actualizacion": "Se actualiza cada mes.",
+ "cobertura": "Sin desglose territorial",
+ "periodo": "",
+ "filas": 12,
+ "columnas": [
+  {
+   "nombre": "nombre",
+   "tipo": "Texto",
+   "valores": "12 valores distintos"
+  },
+  {
+   "nombre": "empresa",
+   "tipo": "Texto",
+   "valores": "12 valores distintos"
+  },
+  {
+   "nombre": "pet_kbd",
+   "tipo": "Número",
+   "valores": "7,44 a 376,77"
+  },
+  {
+   "nombre": "pct_pet",
+   "tipo": "Número",
+   "valores": "0,84 a 42,44"
+  },
+  {
+   "nombre": "gas_mmm3d",
+   "tipo": "Número",
+   "valores": "1,35 a 33,03"
+  },
+  {
+   "nombre": "pct_gas",
+   "tipo": "Número",
+   "valores": "0,95 a 23,31"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

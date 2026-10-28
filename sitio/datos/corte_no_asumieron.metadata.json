@@ -1,0 +1,54 @@
+{
+ "tabla": "corte_no_asumieron.csv",
+ "titulo": "¿Qué gobierno designó a cada juez de la Corte Suprema?",
+ "descripcion": "Cada juez de la Corte Suprema de Justicia de la Nación desde 1863, cuánto estuvo en el cargo y qué gobierno lo designó, con la composición de cada año y las leyes que fijaron cuántos jueces tiene.",
+ "seccion": "Laboratorio",
+ "ficha": "https://datina.pages.dev/corte-suprema.html",
+ "fuente": "",
+ "actualizacion": "",
+ "cobertura": "Sin desglose territorial",
+ "periodo": "",
+ "filas": 13,
+ "columnas": [
+  {
+   "nombre": "nombre",
+   "tipo": "Texto",
+   "valores": "13 valores distintos"
+  },
+  {
+   "nombre": "fecha_designacion",
+   "tipo": "Fecha",
+   "valores": "26 de agosto de 1854 a 25 de febrero de 2025"
+  },
+  {
+   "nombre": "designado_por",
+   "tipo": "Texto",
+   "valores": "Bartolomé Mitre, Javier Milei, Justo José de Urquiza, Mauricio Macri"
+  },
+  {
+   "nombre": "gobierno",
+   "tipo": "Texto",
+   "valores": "constitucional"
+  },
+  {
+   "nombre": "motivo",
+   "tipo": "Texto",
+   "valores": "Designación en comisión por el decreto …, Designación en comisión por el decreto …, La Corte de la Confederación nunca lleg…, No aceptó el cargo. Se excusó por motiv…, Nombrado en comisión por el decreto 137…"
+  },
+  {
+   "nombre": "fuentes",
+   "tipo": "Texto",
+   "valores": "https://www.boletinoficial.gob.ar/detal…, https://www.boletinoficial.gob.ar/detal…, https://www.csjn.gov.ar/institucional/h…, https://www.csjn.gov.ar/institucional/h…"
+  },
+  {
+   "nombre": "notas",
+   "tipo": "Texto",
+   "valores": "7 valores distintos"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

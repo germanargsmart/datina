@@ -1,0 +1,44 @@
+{
+ "tabla": "mortalidad_infantil_provincias.csv",
+ "titulo": "¿Cuántos bebés mueren antes del año en cada provincia?",
+ "descripcion": "Muertes de menores de un año cada 1.000 nacidos vivos por provincia, promedios de 2012 a 2014 y de 2022 a 2024",
+ "seccion": "Salud",
+ "ficha": "https://datina.pages.dev/salud.html#f-mortalidad",
+ "fuente": "Dirección de Estadísticas e Información en Salud (DEIS), Ministerio de Salud.",
+ "actualizacion": "Se actualiza cada año.",
+ "cobertura": "Las 24 jurisdicciones",
+ "periodo": "",
+ "filas": 24,
+ "columnas": [
+  {
+   "nombre": "codigo_indec",
+   "tipo": "Código",
+   "valores": "24 códigos"
+  },
+  {
+   "nombre": "territorio",
+   "tipo": "Texto",
+   "valores": "24 valores distintos"
+  },
+  {
+   "nombre": "tmi_base",
+   "tipo": "Número",
+   "valores": "7,77 a 15,23"
+  },
+  {
+   "nombre": "tmi_actual",
+   "tipo": "Número",
+   "valores": "5,47 a 13,07"
+  },
+  {
+   "nombre": "tmi_ultimo_anio",
+   "tipo": "Número",
+   "valores": "4,9 a 14"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

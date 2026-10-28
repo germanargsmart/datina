@@ -1,0 +1,69 @@
+{
+ "tabla": "centrales.csv",
+ "titulo": "¿Dónde están las centrales eléctricas y cuánta potencia tiene cada tecnología?",
+ "descripcion": "Centrales eléctricas del listado de la Secretaría de Energía, septiembre de 2026, y potencia instalada del país por tecnología, en megavatios, 2004 a 2025",
+ "seccion": "Energía",
+ "ficha": "https://datina.pages.dev/energia.html#f-centrales",
+ "fuente": "Secretaría de Energía, centrales de generación eléctrica (con datos de CAMMESA), y CAMMESA, potencia instalada, vía API de Series de Tiempo.",
+ "actualizacion": "Se actualiza cada año.",
+ "cobertura": "23 jurisdicciones",
+ "periodo": "",
+ "filas": 474,
+ "columnas": [
+  {
+   "nombre": "nombre",
+   "tipo": "Texto",
+   "valores": "462 valores distintos"
+  },
+  {
+   "nombre": "tecnologia",
+   "tipo": "Texto",
+   "valores": "Biomasa y biogás, Eólica, Hidroeléctrica, Nuclear, Solar, Térmica"
+  },
+  {
+   "nombre": "detalle",
+   "tipo": "Texto",
+   "valores": "8 valores distintos"
+  },
+  {
+   "nombre": "potencia_mw",
+   "tipo": "Número",
+   "valores": "0,45 a 2.745 (177 celdas vacías)"
+  },
+  {
+   "nombre": "codigo_indec",
+   "tipo": "Código",
+   "valores": "23 códigos (1 celda vacía)"
+  },
+  {
+   "nombre": "provincia",
+   "tipo": "Texto",
+   "valores": "23 valores distintos (1 celda vacía)"
+  },
+  {
+   "nombre": "departamento",
+   "tipo": "Texto",
+   "valores": "190 valores distintos (1 celda vacía)"
+  },
+  {
+   "nombre": "sistema",
+   "tipo": "Texto",
+   "valores": "Aislado, Interconectada no MEM, Interconectado MEM"
+  },
+  {
+   "nombre": "x",
+   "tipo": "Número",
+   "valores": "-71,7 a -53,65"
+  },
+  {
+   "nombre": "y",
+   "tipo": "Número",
+   "valores": "-51,65 a -22,2"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

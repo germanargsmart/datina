@@ -1,0 +1,49 @@
+{
+ "tabla": "corte_casos.csv",
+ "titulo": "¿Cuántos casos llegan a la Corte Suprema y cuántos resuelve?",
+ "descripcion": "Casos que llegaron a la Corte Suprema de Justicia de la Nación y casos que resolvió por año, 2014 a 2025",
+ "seccion": "Justicia",
+ "ficha": "https://datina.pages.dev/justicia.html#f-corte-casos",
+ "fuente": "Corte Suprema de Justicia de la Nación, Oficina de Estadísticas, Anuario Estadístico.",
+ "actualizacion": "Se actualiza cada año.",
+ "cobertura": "Sin desglose territorial",
+ "periodo": "2014 a 2025",
+ "filas": 12,
+ "columnas": [
+  {
+   "nombre": "anio",
+   "tipo": "Año",
+   "valores": "2014 a 2025"
+  },
+  {
+   "nombre": "ingresados",
+   "tipo": "Número",
+   "valores": "14.800 a 58.424"
+  },
+  {
+   "nombre": "resueltos",
+   "tipo": "Número",
+   "valores": "7.278 a 26.608"
+  },
+  {
+   "nombre": "fallos",
+   "tipo": "Número",
+   "valores": "12.521 a 15.652 (10 celdas vacías)"
+  },
+  {
+   "nombre": "acuerdos",
+   "tipo": "Número",
+   "valores": "46 a 47 (10 celdas vacías)"
+  },
+  {
+   "nombre": "ingresados_previsional_pct",
+   "tipo": "Número",
+   "valores": "68,3 a 71,56 (10 celdas vacías)"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

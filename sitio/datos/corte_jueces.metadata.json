@@ -1,0 +1,109 @@
+{
+ "tabla": "corte_jueces.csv",
+ "titulo": "¿Qué gobierno designó a cada juez de la Corte Suprema?",
+ "descripcion": "Cada juez de la Corte Suprema de Justicia de la Nación desde 1863, cuánto estuvo en el cargo y qué gobierno lo designó, con la composición de cada año y las leyes que fijaron cuántos jueces tiene.",
+ "seccion": "Laboratorio",
+ "ficha": "https://datina.pages.dev/corte-suprema.html",
+ "fuente": "",
+ "actualizacion": "",
+ "cobertura": "Sin desglose territorial",
+ "periodo": "",
+ "filas": 112,
+ "columnas": [
+  {
+   "nombre": "nombre",
+   "tipo": "Texto",
+   "valores": "108 valores distintos"
+  },
+  {
+   "nombre": "desde",
+   "tipo": "Fecha",
+   "valores": "15 de enero de 1863 a 27 de febrero de 2025"
+  },
+  {
+   "nombre": "hasta",
+   "tipo": "Fecha",
+   "valores": "12 de octubre de 1868 a 7 de abril de 2025 (3 celdas vacías)"
+  },
+  {
+   "nombre": "anio_desde",
+   "tipo": "Año",
+   "valores": "1863 a 2025"
+  },
+  {
+   "nombre": "anio_hasta",
+   "tipo": "Número",
+   "valores": "1.868 a 2.025 (3 celdas vacías)"
+  },
+  {
+   "nombre": "anios",
+   "tipo": "Número",
+   "valores": "0,11 a 31,99"
+  },
+  {
+   "nombre": "en_funciones",
+   "tipo": "Texto",
+   "valores": "False, True"
+  },
+  {
+   "nombre": "motivo_cese",
+   "tipo": "Texto",
+   "valores": "7 valores distintos"
+  },
+  {
+   "nombre": "designado_por",
+   "tipo": "Texto",
+   "valores": "35 valores distintos"
+  },
+  {
+   "nombre": "grupo",
+   "tipo": "Texto",
+   "valores": "8 valores distintos"
+  },
+  {
+   "nombre": "gobierno",
+   "tipo": "Texto",
+   "valores": "constitucional, de facto, provisional"
+  },
+  {
+   "nombre": "acuerdo_senado",
+   "tipo": "Texto",
+   "valores": "no, no corresponde, sí"
+  },
+  {
+   "nombre": "presidio_la_corte",
+   "tipo": "Texto",
+   "valores": "False, True"
+  },
+  {
+   "nombre": "segunda_designacion",
+   "tipo": "Texto",
+   "valores": "False, True"
+  },
+  {
+   "nombre": "confirmado",
+   "tipo": "Texto",
+   "valores": "Confirmación de Agustín Pedro Justo, co…, Confirmación de Arturo Frondizi, con ac…, Confirmación de Juan Domingo Perón, con… (108 celdas vacías)"
+  },
+  {
+   "nombre": "fecha_aproximada",
+   "tipo": "Texto",
+   "valores": "False, True"
+  },
+  {
+   "nombre": "carril",
+   "tipo": "Número",
+   "valores": "0 a 8"
+  },
+  {
+   "nombre": "dib_desde",
+   "tipo": "Fecha",
+   "valores": "15 de enero de 1863 a 27 de febrero de 2025"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

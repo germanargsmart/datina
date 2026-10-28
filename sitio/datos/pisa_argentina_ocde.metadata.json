@@ -1,0 +1,74 @@
+{
+ "tabla": "pisa_argentina_ocde.csv",
+ "titulo": "¿Qué puntaje saca la Argentina en las pruebas PISA?",
+ "descripcion": "Puntaje promedio de la Argentina y de los países de la OCDE en las pruebas PISA, 2000 a 2022",
+ "seccion": "Educación",
+ "ficha": "https://datina.pages.dev/educacion.html#f-pisa",
+ "fuente": "OCDE, Programa para la Evaluación Internacional de Alumnos (PISA), vía Our World in Data.",
+ "actualizacion": "Se actualiza con cada evaluación PISA.",
+ "cobertura": "Sin desglose territorial",
+ "periodo": "2000 a 2022",
+ "filas": 7,
+ "columnas": [
+  {
+   "nombre": "anio",
+   "tipo": "Año",
+   "valores": "2000 a 2022"
+  },
+  {
+   "nombre": "arg_mat",
+   "tipo": "Número",
+   "valores": "377,5 a 409 (1 celda vacía)"
+  },
+  {
+   "nombre": "arg_lec",
+   "tipo": "Número",
+   "valores": "373,7 a 425,3"
+  },
+  {
+   "nombre": "arg_cie",
+   "tipo": "Número",
+   "valores": "391,2 a 432,2 (1 celda vacía)"
+  },
+  {
+   "nombre": "ocde_mat",
+   "tipo": "Número",
+   "valores": "472,4 a 491,7 (1 celda vacía)"
+  },
+  {
+   "nombre": "ocde_lec",
+   "tipo": "Número",
+   "valores": "475,6 a 493,5"
+  },
+  {
+   "nombre": "ocde_cie",
+   "tipo": "Número",
+   "valores": "484,6 a 497,7 (1 celda vacía)"
+  },
+  {
+   "nombre": "arg_comparable",
+   "tipo": "Texto",
+   "valores": "False, True"
+  },
+  {
+   "nombre": "arg_mat_grafico",
+   "tipo": "Número",
+   "valores": "377,5 a 388,4 (2 celdas vacías)"
+  },
+  {
+   "nombre": "arg_lec_grafico",
+   "tipo": "Número",
+   "valores": "373,7 a 418,3 (1 celda vacía)"
+  },
+  {
+   "nombre": "arg_cie_grafico",
+   "tipo": "Número",
+   "valores": "391,2 a 406,2 (2 celdas vacías)"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

@@ -1,0 +1,39 @@
+{
+ "tabla": "dotacion_nacion.csv",
+ "titulo": "¿Cuántos cargos públicos tiene cada provincia?",
+ "descripcion": "Cargos ocupados en las administraciones provinciales cada 1.000 habitantes, 2025, y personas que trabajan en la administración nacional, mes a mes",
+ "seccion": "Cuentas públicas",
+ "ficha": "https://datina.pages.dev/gobierno.html#f-empleo-publico",
+ "fuente": "Dirección Nacional de Asuntos Provinciales, Ministerio de Economía, e INDEC.",
+ "actualizacion": "Se actualiza cada año.",
+ "cobertura": "Sin desglose territorial",
+ "periodo": "julio de 2022 a agosto de 2026",
+ "filas": 50,
+ "columnas": [
+  {
+   "nombre": "periodo",
+   "tipo": "Fecha",
+   "valores": "julio de 2022 a agosto de 2026"
+  },
+  {
+   "nombre": "total",
+   "tipo": "Número",
+   "valores": "269.025 a 343.429"
+  },
+  {
+   "nombre": "administracion",
+   "tipo": "Número",
+   "valores": "181.880 a 233.098"
+  },
+  {
+   "nombre": "empresas",
+   "tipo": "Número",
+   "valores": "87.145 a 111.389"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

@@ -1,0 +1,74 @@
+{
+ "tabla": "migraciones_departamentos.csv",
+ "titulo": "¿Dónde viven las personas nacidas en otro país?",
+ "descripcion": "Parte de la población de cada provincia que nació en otro país, en porcentaje, Censo 2022",
+ "seccion": "Migraciones",
+ "ficha": "https://datina.pages.dev/migraciones.html#f-nacidos-otro-pais",
+ "fuente": "INDEC, Censo Nacional de Población, Hogares y Viviendas 2022.",
+ "actualizacion": "Se actualiza con cada censo.",
+ "cobertura": "Departamentos",
+ "periodo": "",
+ "filas": 527,
+ "columnas": [
+  {
+   "nombre": "codigo_dep",
+   "tipo": "Código",
+   "valores": "527 códigos"
+  },
+  {
+   "nombre": "codigo_indec",
+   "tipo": "Código",
+   "valores": "24 códigos"
+  },
+  {
+   "nombre": "departamento",
+   "tipo": "Texto",
+   "valores": "445 valores distintos"
+  },
+  {
+   "nombre": "poblacion_vp",
+   "tipo": "Número",
+   "valores": "413 a 1.837.168"
+  },
+  {
+   "nombre": "en_otro_pais",
+   "tipo": "Número",
+   "valores": "1 a 153.990"
+  },
+  {
+   "nombre": "pct_otro_pais",
+   "tipo": "Número",
+   "valores": "0,06 a 24,56"
+  },
+  {
+   "nombre": "en_otra_provincia",
+   "tipo": "Número",
+   "valores": "41 a 314.227"
+  },
+  {
+   "nombre": "pct_otra_provincia",
+   "tipo": "Número",
+   "valores": "2,39 a 69,32"
+  },
+  {
+   "nombre": "primer_pais",
+   "tipo": "Texto",
+   "valores": "12 valores distintos (156 celdas vacías)"
+  },
+  {
+   "nombre": "pct_primer_pais",
+   "tipo": "Número",
+   "valores": "11,38 a 98,26 (156 celdas vacías)"
+  },
+  {
+   "nombre": "pct_no_declarado",
+   "tipo": "Número",
+   "valores": "0 a 83,33"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

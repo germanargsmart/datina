@@ -1,0 +1,54 @@
+{
+ "tabla": "especies_areas_nacionales.csv",
+ "titulo": "¿Qué áreas protegidas nacionales tienen más especies animales registradas?",
+ "descripcion": "Especies animales registradas en cada área protegida nacional terrestre, las 15 áreas con más registros",
+ "seccion": "Naturaleza y ambiente",
+ "ficha": "https://datina.pages.dev/naturaleza.html#f-especies",
+ "fuente": "Sistema de Información de Biodiversidad, Administración de Parques Nacionales.",
+ "actualizacion": "Se actualiza cada año.",
+ "cobertura": "Sin desglose territorial",
+ "periodo": "1934 a 2018",
+ "filas": 15,
+ "columnas": [
+  {
+   "nombre": "codigo_indec",
+   "tipo": "Código",
+   "valores": "15 códigos"
+  },
+  {
+   "nombre": "territorio",
+   "tipo": "Texto",
+   "valores": "15 valores distintos"
+  },
+  {
+   "nombre": "caracter",
+   "tipo": "Texto",
+   "valores": "Parque Nacional, Reserva Nacional"
+  },
+  {
+   "nombre": "anio",
+   "tipo": "Año",
+   "valores": "1934 a 2018"
+  },
+  {
+   "nombre": "animales",
+   "tipo": "Número",
+   "valores": "462 a 1.992"
+  },
+  {
+   "nombre": "plantas",
+   "tipo": "Número",
+   "valores": "205 a 1.403"
+  },
+  {
+   "nombre": "especies",
+   "tipo": "Número",
+   "valores": "722 a 3.338"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

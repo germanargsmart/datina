@@ -1,0 +1,39 @@
+{
+ "tabla": "parques_nacionales_historia.csv",
+ "titulo": "¿Cuántas áreas protege la Administración de Parques Nacionales y cuánta superficie cubren?",
+ "descripcion": "Superficie acumulada de las áreas protegidas nacionales, terrestres y marinas, según el año de creación de cada área, 1934 a 2023",
+ "seccion": "Naturaleza y ambiente",
+ "ficha": "https://datina.pages.dev/naturaleza.html#f-parques",
+ "fuente": "Sistema de Información de Biodiversidad, Administración de Parques Nacionales.",
+ "actualizacion": "Se actualiza cada año.",
+ "cobertura": "Sin desglose territorial",
+ "periodo": "1934 a 2023",
+ "filas": 90,
+ "columnas": [
+  {
+   "nombre": "anio",
+   "tipo": "Año",
+   "valores": "1934 a 2023"
+  },
+  {
+   "nombre": "ha_terrestres",
+   "tipo": "Número",
+   "valores": "784.959 a 5.358.891"
+  },
+  {
+   "nombre": "ha_marinas",
+   "tipo": "Número",
+   "valores": "0 a 12.917.061"
+  },
+  {
+   "nombre": "areas",
+   "tipo": "Número",
+   "valores": "2 a 55"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

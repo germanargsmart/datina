@@ -1,0 +1,49 @@
+{
+ "tabla": "exportaciones_complejos.csv",
+ "titulo": "¿Qué cadenas productivas exportan más?",
+ "descripcion": "Exportaciones de bienes por complejo exportador, en % del total, primer semestre de 2026",
+ "seccion": "Sector externo",
+ "ficha": "https://datina.pages.dev/externo.html#f-complejos",
+ "fuente": "INDEC, complejos exportadores (anexo del Origen Provincial de las Exportaciones, provisorio).",
+ "actualizacion": "Se actualiza cada seis meses.",
+ "cobertura": "Sin desglose territorial",
+ "periodo": "",
+ "filas": 56,
+ "columnas": [
+  {
+   "nombre": "complejo",
+   "tipo": "Texto",
+   "valores": "56 valores distintos"
+  },
+  {
+   "nombre": "millones_usd",
+   "tipo": "Número",
+   "valores": "9,56 a 11.811,02"
+  },
+  {
+   "nombre": "variacion",
+   "tipo": "Número",
+   "valores": "-27,19 a 310,81"
+  },
+  {
+   "nombre": "pct",
+   "tipo": "Número",
+   "valores": "0,02 a 23,86"
+  },
+  {
+   "nombre": "nivel",
+   "tipo": "Número",
+   "valores": "1 a 2"
+  },
+  {
+   "nombre": "grupo",
+   "tipo": "Texto",
+   "valores": "20 valores distintos"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

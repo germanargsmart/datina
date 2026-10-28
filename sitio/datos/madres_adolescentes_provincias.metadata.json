@@ -1,0 +1,39 @@
+{
+ "tabla": "madres_adolescentes_provincias.csv",
+ "titulo": "¿Qué parte de los nacimientos es de madres menores de 20 años?",
+ "descripcion": "Porcentaje de los nacimientos que son de madres menores de 20 años, por provincia, 2012 y 2024",
+ "seccion": "Población",
+ "ficha": "https://datina.pages.dev/poblacion.html#f-adolescentes",
+ "fuente": "DEIS, Ministerio de Salud, estadísticas vitales.",
+ "actualizacion": "Se actualiza cada año.",
+ "cobertura": "Las 24 jurisdicciones",
+ "periodo": "",
+ "filas": 24,
+ "columnas": [
+  {
+   "nombre": "codigo_indec",
+   "tipo": "Código",
+   "valores": "24 códigos"
+  },
+  {
+   "nombre": "pct_2012",
+   "tipo": "Número",
+   "valores": "6,9 a 24,7"
+  },
+  {
+   "nombre": "pct_2024",
+   "tipo": "Número",
+   "valores": "2,3 a 14,4"
+  },
+  {
+   "nombre": "territorio",
+   "tipo": "Texto",
+   "valores": "24 valores distintos"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "Porcentaje de los nacidos vivos de cada provincia cuya madre tenía menos de 20 años. Cada nacimiento se asigna a la provincia donde vive la madre. El círculo claro marca 2012 y el oscuro 2024.",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

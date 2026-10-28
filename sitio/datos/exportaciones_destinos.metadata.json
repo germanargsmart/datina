@@ -1,0 +1,54 @@
+{
+ "tabla": "exportaciones_destinos.csv",
+ "titulo": "¿Adónde exporta la Argentina y cada provincia?",
+ "descripcion": "Exportaciones de bienes por destino, del país o de la provincia elegida, en % del total, primer semestre de 2026",
+ "seccion": "Sector externo",
+ "ficha": "https://datina.pages.dev/externo.html#f-destinos",
+ "fuente": "INDEC, Origen Provincial de las Exportaciones, por zona económica y país (provisorio).",
+ "actualizacion": "Se actualiza cada seis meses.",
+ "cobertura": "Las 24 jurisdicciones y el total del país",
+ "periodo": "",
+ "filas": 575,
+ "columnas": [
+  {
+   "nombre": "codigo_indec",
+   "tipo": "Código",
+   "valores": "25 códigos"
+  },
+  {
+   "nombre": "territorio",
+   "tipo": "Texto",
+   "valores": "25 valores distintos"
+  },
+  {
+   "nombre": "destino",
+   "tipo": "Texto",
+   "valores": "23 valores distintos"
+  },
+  {
+   "nombre": "destino_nombre",
+   "tipo": "Texto",
+   "valores": "23 valores distintos"
+  },
+  {
+   "nombre": "millones_usd",
+   "tipo": "Número",
+   "valores": "0 a 6.366,98 (54 celdas vacías)"
+  },
+  {
+   "nombre": "pct",
+   "tipo": "Número",
+   "valores": "0 a 75,36 (54 celdas vacías)"
+  },
+  {
+   "nombre": "millones_usd_anterior",
+   "tipo": "Número",
+   "valores": "0 a 6.011,09 (47 celdas vacías)"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "24/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}
