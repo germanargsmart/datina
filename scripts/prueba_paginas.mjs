@@ -137,11 +137,13 @@ const fil = JSON.parse(await p.eval(`(() => {
 if (fil.bloques !== 2 || fil.botones < 3 || !fil.visible || fil.porGrupo.some(n => !n || n >= fil.todas) || fil.porGrupo.reduce((s, n) => s + n, 0) !== fil.todas || fil.vuelta !== fil.todas)
   problemas.push(`articulos.html: los filtros por tema no andan (${JSON.stringify(fil)})`);
 // "Ver tabla" en las cinco fichas que lo tienen desde el paso 5: se abre con filas, y la de legisladores sigue a la provincia elegida
+// la tabla de los espacios es la segunda pestaña de f-votaciones desde que se unieron las dos fichas (R7, 28 de octubre de 2026)
 const PROPIAS = [["departamentos.html", "f-mapa"], ["politica.html", "f-legisladores"], ["politica.html", "f-votaciones"],
-  ["politica.html", "f-votaciones-espacios"], ["politica.html", "f-ministros"]];
+  ["politica.html", "f-votaciones", "tab-f-votaciones-2"], ["politica.html", "f-ministros"]];
 const filasDe = id => p.eval(`document.querySelectorAll("#${id} .tabla-datos tbody tr").length`);
-for (const [pg, id] of PROPIAS) {
+for (const [pg, id, pestana] of PROPIAS) {
   await p.ir(B + pg, 1000);
+  if (pestana) await p.eval(`document.getElementById("${pestana}")?.click()`);
   await p.eval(`document.querySelector("#${id} .ver-tabla")?.click()`);
   await espera(1500);
   if (!(await filasDe(id))) problemas.push(`${pg}: "Ver tabla" de ${id} no muestra filas`);

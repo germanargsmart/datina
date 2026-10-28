@@ -4076,22 +4076,6 @@
   {
    "tipo": "alimenta",
    "de": "ds:congreso_votaciones_diputados.json.gz",
-   "a": "f-votaciones-espacios",
-   "evidencia": [
-    {
-     "archivo": "scripts/02_procesar.py",
-     "contiene": "db = json.loads(gzip.decompress((CRUDO / f\"congreso_votaciones_{arch}.json.gz\").read_bytes()))"
-    },
-    {
-     "archivo": "scripts/02_procesar.py",
-     "contiene": "votos_clave.to_csv(SITIO / \"votaciones_leyes_clave.csv\", index=False"
-    }
-   ],
-   "tabla": "votaciones_leyes_clave"
-  },
-  {
-   "tipo": "alimenta",
-   "de": "ds:congreso_votaciones_diputados.json.gz",
    "a": "f-voto-provincia",
    "evidencia": [
     {
@@ -4101,25 +4085,13 @@
     {
      "archivo": "scripts/02_procesar.py",
      "contiene": "_rv.append(g.assign(ley=r.clave, presidente=pv.presidente.iloc[0], coincide=(g.voto == pv.pos.iloc[0])))"
-    }
-   ],
-   "tabla": "voto_legisladores_y_provincia"
-  },
-  {
-   "tipo": "alimenta",
-   "de": "ds:congreso_votaciones_diputados.json.gz",
-   "a": "f-apoyo",
-   "evidencia": [
-    {
-     "archivo": "scripts/02_procesar.py",
-     "contiene": "db = json.loads(gzip.decompress((CRUDO / f\"congreso_votaciones_{arch}.json.gz\").read_bytes()))"
     },
     {
      "archivo": "scripts/02_procesar.py",
      "contiene": "_ap = votos.merge(_vd, on=[\"camara\", \"vid\"])"
     }
    ],
-   "tabla": "apoyo_gobierno_provincias"
+   "tabla": "voto_legisladores_y_provincia"
   },
   {
    "tipo": "alimenta",
@@ -4156,22 +4128,6 @@
   {
    "tipo": "alimenta",
    "de": "ds:congreso_votaciones_senadores.json.gz",
-   "a": "f-votaciones-espacios",
-   "evidencia": [
-    {
-     "archivo": "scripts/02_procesar.py",
-     "contiene": "db = json.loads(gzip.decompress((CRUDO / f\"congreso_votaciones_{arch}.json.gz\").read_bytes()))"
-    },
-    {
-     "archivo": "scripts/02_procesar.py",
-     "contiene": "votos_clave.to_csv(SITIO / \"votaciones_leyes_clave.csv\", index=False"
-    }
-   ],
-   "tabla": "votaciones_leyes_clave"
-  },
-  {
-   "tipo": "alimenta",
-   "de": "ds:congreso_votaciones_senadores.json.gz",
    "a": "f-voto-provincia",
    "evidencia": [
     {
@@ -4181,25 +4137,13 @@
     {
      "archivo": "scripts/02_procesar.py",
      "contiene": "_rv.append(g.assign(ley=r.clave, presidente=pv.presidente.iloc[0], coincide=(g.voto == pv.pos.iloc[0])))"
-    }
-   ],
-   "tabla": "voto_legisladores_y_provincia"
-  },
-  {
-   "tipo": "alimenta",
-   "de": "ds:congreso_votaciones_senadores.json.gz",
-   "a": "f-apoyo",
-   "evidencia": [
-    {
-     "archivo": "scripts/02_procesar.py",
-     "contiene": "db = json.loads(gzip.decompress((CRUDO / f\"congreso_votaciones_{arch}.json.gz\").read_bytes()))"
     },
     {
      "archivo": "scripts/02_procesar.py",
      "contiene": "_ap = votos.merge(_vd, on=[\"camara\", \"vid\"])"
     }
    ],
-   "tabla": "apoyo_gobierno_provincias"
+   "tabla": "voto_legisladores_y_provincia"
   },
   {
    "tipo": "alimenta",
@@ -4221,18 +4165,6 @@
    "tipo": "alimenta",
    "de": "ds:manual/leyes_clave.csv",
    "a": "f-votaciones",
-   "evidencia": [
-    {
-     "archivo": "scripts/02_procesar.py",
-     "contiene": "RAIZ / \"datos\" / \"manual\" / \"leyes_clave.csv\""
-    }
-   ],
-   "tabla": "votaciones_leyes_clave"
-  },
-  {
-   "tipo": "alimenta",
-   "de": "ds:manual/leyes_clave.csv",
-   "a": "f-votaciones-espacios",
    "evidencia": [
     {
      "archivo": "scripts/02_procesar.py",
@@ -4285,70 +4217,18 @@
     {
      "archivo": "scripts/02_procesar.py",
      "contiene": "\"transferencias_provincias\": transf["
-    }
-   ],
-   "tabla": "transferencias_provincias"
-  },
-  {
-   "tipo": "alimenta",
-   "de": "ds:bm_NY.GDP.DEFL.ZS.json",
-   "a": "f-atn",
-   "evidencia": [
-    {
-     "archivo": "scripts/02_procesar.py",
-     "contiene": "defl = bm(\"NY.GDP.DEFL.ZS\")"
-    },
-    {
-     "archivo": "scripts/02_procesar.py",
-     "contiene": "trf[\"real\"] = trf.millones_corrientes * defl[TR_ULT] / trf.anio.map(defl)"
-    }
-   ],
-   "tabla": "transferencias_provincias"
-  },
-  {
-   "tipo": "alimenta",
-   "de": "ds:snic_provincias.csv",
-   "a": "f-atn",
-   "evidencia": [
-    {
-     "archivo": "scripts/02_procesar.py",
-     "contiene": "snic_prov = leer_csv_snic(CRUDO / \"snic_provincias.csv\""
-    },
-    {
-     "archivo": "scripts/02_procesar.py",
-     "contiene": "_hp = snic_prov[snic_prov.codigo_delito_snic_nombre == \"Hurtos\"].copy()"
-    },
-    {
-     "archivo": "scripts/02_procesar.py",
-     "contiene": "POB_T = (_hp.cantidad_hechos / _hp.tasa_hechos * 1e5).groupby([_hp.provincia_id, _hp.anio]).first()"
-    }
-   ],
-   "tabla": "transferencias_provincias"
-  },
-  {
-   "tipo": "alimenta",
-   "de": "ds:manual/transferencias_provincias.csv",
-   "a": "f-transferencias",
-   "evidencia": [
-    {
-     "archivo": "scripts/02_procesar.py",
-     "contiene": "trf = pd.read_csv(RAIZ / \"datos\" / \"manual\" / \"transferencias_provincias.csv\""
     },
     {
      "archivo": "scripts/02_procesar.py",
      "contiene": "\"transferencias_serie\": transf_serie,"
-    },
-    {
-     "archivo": "scripts/02_procesar.py",
-     "contiene": "\"transferencias_provincias\": transf["
     }
    ],
-   "tabla": "transferencias_serie"
+   "tabla": "transferencias_provincias"
   },
   {
    "tipo": "alimenta",
    "de": "ds:bm_NY.GDP.DEFL.ZS.json",
-   "a": "f-transferencias",
+   "a": "f-atn",
    "evidencia": [
     {
      "archivo": "scripts/02_procesar.py",
@@ -4359,12 +4239,12 @@
      "contiene": "trf[\"real\"] = trf.millones_corrientes * defl[TR_ULT] / trf.anio.map(defl)"
     }
    ],
-   "tabla": "transferencias_serie"
+   "tabla": "transferencias_provincias"
   },
   {
    "tipo": "alimenta",
    "de": "ds:snic_provincias.csv",
-   "a": "f-transferencias",
+   "a": "f-atn",
    "evidencia": [
     {
      "archivo": "scripts/02_procesar.py",
@@ -4379,12 +4259,12 @@
      "contiene": "POB_T = (_hp.cantidad_hechos / _hp.tasa_hechos * 1e5).groupby([_hp.provincia_id, _hp.anio]).first()"
     }
    ],
-   "tabla": "transferencias_serie"
+   "tabla": "transferencias_provincias"
   },
   {
    "tipo": "calcula",
-   "de": "f-transferencias",
-   "a": "f-apoyo",
+   "de": "f-atn",
+   "a": "f-voto-provincia",
    "evidencia": [
     {
      "archivo": "scripts/02_procesar.py",
@@ -7501,6 +7381,9 @@
    "variables": [
     "reservas_netas_bcra"
    ]
-  }
+  },
+  "f-votaciones": {},
+  "f-voto-provincia": {},
+  "f-atn": {}
  }
 }

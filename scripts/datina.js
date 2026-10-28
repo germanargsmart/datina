@@ -82,9 +82,11 @@ const cargarTabla = n => T[n] ? Promise.resolve(T[n]) : (pedidas[n] ||= d3.json(
 // refrescarTabla. Va acá arriba porque esas fichas se arman antes que el pie de las fichas
 const TABLA_PROPIA = {};
 const refrescarTabla = id => {
-  const caja = document.querySelector(`#${id} .tabla-datos`);
-  if (caja && TABLA_PROPIA[id]) TABLA_PROPIA[id]().then(filas => { caja.innerHTML = tablaPropia(filas, id); }, () => {});
+  const f = document.getElementById((SITIO.alias || {})[id] || id), caja = f?.querySelector(".tabla-datos");
+  if (caja && TABLA_PROPIA[id] && vistaDe(f) === id) TABLA_PROPIA[id]().then(filas => { caja.innerHTML = tablaPropia(filas, id); }, () => {});
 };
+// en una ficha con vistas (R7), la ficha vieja de la pestaña a la vista (su "Ver tabla" es el de esa ficha), y si no, la ficha misma
+const vistaDe = f => f.querySelector(".panel-pestana[data-vieja]:not([hidden])")?.dataset.vieja || f.id;
 /* Mientras llegan los datos de un gráfico, el contenedor queda vacío y muestra la silueta de su forma (data-forma en la plantilla,
    dibujada por datina.css) con el alto que va a tener, así nada salta cuando llega. Los lectores de pantalla oyen "Cargando". */
 const esperando = el => { el.innerHTML = '<span class="solo-lector">Cargando los datos</span>'; el.setAttribute("aria-busy", "true"); };
@@ -4396,6 +4398,13 @@ $("vt-sel").innerHTML = `<optgroup label="Leyes y proyectos de efecto directo">$
 MED.vtLey = VT.leyes[VT.leyes.length - 1].k; MED.votaciones = "Diputados"; MED.vtmatriz = "Diputados"; MED.vtfiltro = "todas";
 // el conmutador de la tabla por espacio (todas o solo las de efecto directo) redibuja la tabla
 DIB.vtfiltro = () => DIB.vtmatriz(false);
+// la ley elegida en la tabla de los espacios o en un espacio: la pestaña de cada legislador (fichas unidas, R7), con el foco en ella
+const vtIrALegisladores = () => {
+  const t = document.getElementById("tab-f-votaciones-1");
+  if (t && t.getAttribute("aria-selected") !== "true") { t.click(); t.focus({preventScroll: true}); } else DIB.votaciones(!REDUCIR);
+  DIB.vtmatriz(false);
+  document.getElementById("f-votaciones").scrollIntoView({behavior: REDUCIR ? "auto" : "smooth", block: "start"});
+};
 let VTJ = null, vtCargando = null;
 const vtCargar = () => vtCargando || (vtCargando = d3.json("datos/votaciones_leyes_clave.json").then(j => { VTJ = j; }, e => { vtCargando = null; throw e; }));
 // "Ver tabla" (paso 5): el voto de cada legislador en la ley y la cámara elegidas (sin filas si el Senado no publica el acta), y en la
@@ -4529,8 +4538,7 @@ DIB.vtmatriz = a => {
   el.querySelectorAll("tr[data-k]").forEach(tr => {
     const ir = () => {
       MED.vtLey = tr.dataset.k; MED.votaciones = VT_LEY[tr.dataset.k].camaras[cam] ? cam : "Diputados"; vtConm("votaciones", MED.votaciones);
-      DIB.votaciones(!REDUCIR); DIB.vtmatriz(false);
-      document.getElementById("f-votaciones").scrollIntoView({behavior: REDUCIR ? "auto" : "smooth", block: "start"});
+      vtIrALegisladores();
     };
     tr.addEventListener("click", ev => { if (!ev.target.closest("a")) ir(); });
   });
@@ -4573,8 +4581,7 @@ function abrirEspacio(e) {
       if (ver) {
         const k = ver.dataset.k; dlgEsp.close();
         MED.vtLey = k; MED.votaciones = VT_LEY[k].camaras.Diputados ? "Diputados" : "Senado"; vtConm("votaciones", MED.votaciones);
-        DIB.votaciones(!REDUCIR); DIB.vtmatriz(false);
-        document.getElementById("f-votaciones").scrollIntoView({behavior: REDUCIR ? "auto" : "smooth", block: "start"});
+        vtIrALegisladores();
       }
     });
     dlgEsp.addEventListener("cancel", ev => { ev.preventDefault(); cerrarEspacio(); });   // Escape
@@ -6857,7 +6864,8 @@ document.querySelectorAll("article.ficha").forEach(f => {
   const pie = f.querySelector(".pie"), csv = pie.querySelector(":scope > a"), otrosCsv = [...pie.querySelectorAll(":scope > a[data-panel]")].filter(a => a !== csv);
   const acc = document.createElement("div"); acc.className = "acciones";
   const nombre = (csv.getAttribute("href").match(/datos\/(\w+)\.csv/) || [])[1], filas = nombre && T[nombre], propia = TABLA_PROPIA[f.id];
-  const conTabla = propia || nombre && DIFERIDAS[nombre] || Array.isArray(filas) && filas.length > 0 && typeof filas[0] === "object";
+  const conTabla = propia || nombre && DIFERIDAS[nombre] || Array.isArray(filas) && filas.length > 0 && typeof filas[0] === "object" ||
+    [...f.querySelectorAll(".panel-pestana[data-vieja]")].some(x => TABLA_PROPIA[x.dataset.vieja]);
   if (PARA_ENTENDER) pie.querySelector(":scope > span")?.insertAdjacentHTML("beforeend",
     ` <a class="enlace como-calcula" href="#para-entender" aria-describedby="${tituloFicha.id || (tituloFicha.id = f.id + "-tit")}">Cómo se calcula</a>`);
   acc.innerHTML = `<button type="button" class="boton chico accion copiar"><span class="lbl">Copiar enlace</span></button>` +
@@ -6879,7 +6887,9 @@ document.querySelectorAll("article.ficha").forEach(f => {
     if (!caja) {
       b.dataset.cargando = "1";
       let t;
-      try { t = await (propia ? propia() : cargarTabla(tablaActiva())); } catch {
+      // en una ficha con vistas, la tabla propia de la pestaña a la vista
+      const k = vistaDe(f), pr = TABLA_PROPIA[k];
+      try { t = await (pr ? pr() : cargarTabla(tablaActiva())); } catch {
         // sin datos (la red falló): un aviso que se anuncia, y el botón sigue para probar de nuevo
         f.querySelector(".tabla-error")?.remove();
         pie.insertAdjacentHTML("beforebegin", `<p class="nota tabla-error" role="status">No se pudo cargar la tabla. Probá de nuevo.</p>`);
@@ -6887,7 +6897,7 @@ document.querySelectorAll("article.ficha").forEach(f => {
       } finally { delete b.dataset.cargando; }
       f.querySelector(".tabla-error")?.remove();
       caja = document.createElement("div"); caja.className = "tabla-datos";
-      caja.innerHTML = propia ? tablaPropia(t, f.id) : tablaDatos(TABLA_VISTA[f.id] ? TABLA_VISTA[f.id](t) : t, f.id); pie.before(caja);
+      caja.innerHTML = pr ? tablaPropia(t, k) : tablaDatos(TABLA_VISTA[k] ? TABLA_VISTA[k](t) : t, k); pie.before(caja);
     }
     caja.hidden = abierta; b.setAttribute("aria-expanded", String(!abierta));
     b.querySelector(".lbl").textContent = abierta ? "Ver tabla" : "Ocultar tabla";
@@ -8255,7 +8265,7 @@ const ART_SERIE = [{
   // de los recursos propios con el empleo privado, que hasta entonces era un artículo aparte (a-recursos-empleo)
   id: "a-coparticipacion", frec: "Se actualiza cada año", tablas: ["coparticipacion_provincias", "fiscal_provincias", "cruces_provincias"],
   dek: "Cómo reparte la Nación los impuestos con las provincias, cuánto recibe cada una por habitante, qué parte de sus ingresos es y cuánto recauda cada provincia por su cuenta.",
-  fichas: [["f-coparticipacion", "coparticipación"], ["f-fiscal", "cuentas de las provincias"], ["f-transferencias", "transferencias de la Nación"], ["f-empleo", "empleo privado"]],
+  fichas: [["f-coparticipacion", "coparticipación"], ["f-fiscal", "cuentas de las provincias"], ["f-atn", "transferencias de la Nación"], ["f-empleo", "empleo privado"]],
   csv: [["coparticipacion_provincias", "Descargar CSV de la coparticipación"], ["fiscal_provincias", "Descargar CSV de las cuentas de las provincias"]],
   fuentes: "Ministerio de Economía, esquema ahorro-inversión-financiamiento de cada provincia (tributos de origen nacional, recursos propios e " +
     "ingresos totales), INDEC, proyecciones de población, y Secretaría de Trabajo, Sistema Integrado Previsional Argentino (SIPA)",

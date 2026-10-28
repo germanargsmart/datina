@@ -198,7 +198,7 @@ FRECUENCIA = {
     "f-radicaciones": "anio", "f-refugio": "anio", "f-argentinos-exterior": "onu",
     # Política
     "f-elecciones": "eleccion", "f-legisladores": "congreso", "f-anios-congreso": "congreso", "f-representacion": "anio", "f-congreso": "congreso", "f-votaciones": "leyes",
-    "f-votaciones-espacios": "leyes", "f-voto-provincia": "eleccion", "f-atn": "anio", "f-transferencias": "anio", "f-apoyo": "anio", "f-presupuesto": "anio",
+    "f-voto-provincia": "eleccion", "f-atn": "anio", "f-presupuesto": "anio",
     "f-presidentes": "presidente", "f-ministros": "gabinete", "f-confianza-gobierno": "mes",
     "f-corte-casos": "anio", "f-jueces-federales": "padron", "f-fiscalias-federales": "ultimo",
     "f-cortes-provinciales": "anio", "f-justicia-provincial": "anio",
@@ -619,7 +619,8 @@ INDICE = {"secciones": SECCIONES, "fichas": FICHAS, "articulos": [[i, html.unesc
 # o en otra. La que se fue no puede seguir en la plantilla, y la que quedó tiene que estar
 FICHAS_UNIDAS = {"f-actividad": "f-hogares", "f-mapa-pozos": "f-pozos", "f-pozos-terminados": "f-fracturas",
                  "f-reservas-netas": "f-reservas-bcra", "f-sube-modos": "f-sube", "f-visitas-parque": "f-visitas",
-                 "f-jubilaciones": "f-envejecimiento", "f-trabajadores": "f-empleo-construccion"}
+                 "f-jubilaciones": "f-envejecimiento", "f-trabajadores": "f-empleo-construccion",
+                 "f-votaciones-espacios": "f-votaciones", "f-apoyo": "f-voto-provincia", "f-transferencias": "f-atn"}
 for _vieja, _nueva in FICHAS_UNIDAS.items():
     assert _vieja not in UBIC, f"{_vieja}: la ficha unida a {_nueva} sigue en la plantilla"
     assert UBIC.get(_nueva), f"{_vieja}: la ficha que la reemplaza ({_nueva}) no está en la plantilla"

@@ -2000,7 +2000,7 @@ for col, var in [("autonomia", "recursos_propios_pct_ingresos"), ("resultado", "
 
 # Coparticipación (plan de mejora, etapa 4, 27 de octubre de 2026): los tributos de origen nacional de cada provincia en el mismo
 # esquema AIF, que son la coparticipación federal (Ley 23.548, con la parte que la Ley 26.075 destina a educación) y otros impuestos
-# nacionales que se reparten por ley. No son las transferencias "por ley o por fallo" de Presupuesto Abierto (f-transferencias), que
+# nacionales que se reparten por ley. No son las transferencias "por ley o por fallo" de Presupuesto Abierto (f-atn), que
 # pasan por el presupuesto nacional. Cada provincia con su último año, como las demás cuentas fiscales, y por habitante con la
 # población del INDEC de ese año. En pesos de cada año: el país y la vista por habitante solo con las que tienen ANIO_FISC
 cpa_ini = fisc[fisc.anio == fisc.anio.min()].set_index("codigo_indec")
@@ -6256,8 +6256,8 @@ CRUCES_META = {
        if emp_res else {}),
     "vejez": ("Personas mayores por cada 100 en edad de trabajar", "personas de 65 años o más cada 100 de 15 a 64", str(ANIO_PROY), "Población", "INDEC, proyecciones de población", "f-envejecimiento", 1),
     "atn_hab": ("ATN por habitante", f"pesos de {TR_ULT} por habitante por año, promedio 2000 a {TR_ULT}", f"2000 a {TR_ULT}", "Política", "Presupuesto Abierto, Secretaría de Hacienda", "f-atn", 0),
-    "transf_no_aut_hab": ("Transferencias no automáticas por habitante", f"pesos de {TR_ULT} por habitante", str(TR_ULT), "Política", "Presupuesto Abierto, Secretaría de Hacienda", "f-transferencias", 0),
-    "apoyo_gobierno": ("Apoyo al gobierno de sus legisladores", "% de los votos de diputados y senadores de fuera del bloque oficialista que coincidieron con él en votaciones divididas", str(apoyo_res["hasta"]), "Política", "Actas de votación de Diputados y del Senado, vía Cómo Votó", "f-apoyo", 1),
+    "transf_no_aut_hab": ("Transferencias no automáticas por habitante", f"pesos de {TR_ULT} por habitante", str(TR_ULT), "Política", "Presupuesto Abierto, Secretaría de Hacienda", "f-atn", 0),
+    "apoyo_gobierno": ("Apoyo al gobierno de sus legisladores", "% de los votos de diputados y senadores de fuera del bloque oficialista que coincidieron con él en votaciones divididas", str(apoyo_res["hasta"]), "Política", "Actas de votación de Diputados y del Senado, vía Cómo Votó", "f-voto-provincia", 1),
     "apoyo_presupuesto": ("Apoyo al presupuesto de sus legisladores", "% de los votos de diputados y senadores de fuera del bloque oficialista a favor del presupuesto, con las ausencias",
                           f"los presupuestos de {PV_DESDE} a {PRESUP_RES['hasta']}", "Política", "Actas de votación de Diputados y del Senado, vía Cómo Votó", "f-presupuesto", 1),
     "voto_milei_2023": ("Voto a Milei en la segunda vuelta", "% de los votos positivos, segunda vuelta presidencial", "2023, escrutinio provisorio", "Política", "Dirección Nacional Electoral", "f-elecciones", 1),
