@@ -3545,7 +3545,7 @@
   {
    "tipo": "alimenta",
    "de": "ds:bess_indicadores.xlsx",
-   "a": "f-jubilaciones",
+   "a": "f-envejecimiento",
    "evidencia": [
     {
      "archivo": "scripts/02_procesar.py",
@@ -4712,22 +4712,6 @@
   },
   {
    "tipo": "alimenta",
-   "de": "ds:sube_usuarios_dia.csv",
-   "a": "f-sube-modos",
-   "evidencia": [
-    {
-     "archivo": "scripts/02_procesar.py",
-     "contiene": "sube = pd.read_csv(CRUDO / \"sube_usuarios_dia.csv\", parse_dates=[\"indice_tiempo\"])"
-    },
-    {
-     "archivo": "scripts/02_procesar.py",
-     "contiene": "\"sube_dia_habil\": sube_m["
-    }
-   ],
-   "tabla": "sube_dia_habil"
-  },
-  {
-   "tipo": "alimenta",
    "de": "ds:dnrpa_autos_nuevos.csv",
    "a": "f-patentes",
    "evidencia": [
@@ -5017,7 +5001,7 @@
   {
    "tipo": "alimenta",
    "de": "ds:manual/censo2022_departamentos.csv",
-   "a": "f-trabajadores",
+   "a": "f-empleo-construccion",
    "evidencia": [
     {
      "archivo": "scripts/02_procesar.py",
@@ -6092,7 +6076,7 @@
   {
    "tipo": "alimenta",
    "de": "ds:manual/visitas_parques_nacionales_mensual.csv",
-   "a": "f-visitas-parque",
+   "a": "f-visitas",
    "tabla": "visitas_por_parque",
    "evidencia": [
     {
@@ -6108,7 +6092,7 @@
   {
    "tipo": "alimenta",
    "de": "ds:sib_areas_protegidas.json",
-   "a": "f-visitas-parque",
+   "a": "f-visitas",
    "tabla": "visitas_por_parque",
    "evidencia": [
     {
@@ -6437,6 +6421,10 @@
     {
      "archivo": "scripts/02_procesar.py",
      "contiene": "\"reservas_bcra\": reservas_bcra"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_rn_api = reservas_bcra.set_index(\"mes\").millones_usd.reindex(_rn.mes).values"
     }
    ],
    "tabla": "reservas_bcra"
@@ -6644,7 +6632,7 @@
   {
    "tipo": "alimenta",
    "de": "ds:bcra_planilla_reservas.csv",
-   "a": "f-reservas-netas",
+   "a": "f-reservas-bcra",
    "tabla": "reservas_netas",
    "evidencia": [
     {
@@ -6654,18 +6642,6 @@
     {
      "archivo": "scripts/02_procesar.py",
      "contiene": "\"reservas_netas\": reservas_netas"
-    }
-   ]
-  },
-  {
-   "tipo": "alimenta",
-   "de": "ds:bcra_series.csv",
-   "a": "f-reservas-netas",
-   "tabla": "reservas_netas",
-   "evidencia": [
-    {
-     "archivo": "scripts/02_procesar.py",
-     "contiene": "_rn_api = reservas_bcra.set_index(\"mes\").millones_usd.reindex(_rn.mes).values"
     }
    ]
   },
@@ -7176,7 +7152,8 @@
   },
   "f-empleo-construccion": {
    "variables": [
-    "empleo_construccion_cada_1000_hab"
+    "empleo_construccion_cada_1000_hab",
+    "ocupados_construccion_censo"
    ]
   },
   "f-empleo-publico": {
@@ -7196,7 +7173,8 @@
   },
   "f-envejecimiento": {
    "variables": [
-    "personas_65_mas_cada_100_de_15_a_64"
+    "personas_65_mas_cada_100_de_15_a_64",
+    "aportantes_por_beneficio_previsional"
    ]
   },
   "f-poblacion-proy": {
@@ -7291,11 +7269,6 @@
   "f-isac": {
    "variables": [
     "isac_promedio_anual"
-   ]
-  },
-  "f-jubilaciones": {
-   "variables": [
-    "aportantes_por_beneficio_previsional"
    ]
   },
   "f-mortalidad": {
@@ -7411,11 +7384,6 @@
     "ventas_supermercados_precios_corrientes"
    ]
   },
-  "f-trabajadores": {
-   "variables": [
-    "ocupados_construccion_censo"
-   ]
-  },
   "f-vino": {
    "variables": [
     "vino_mercado_interno"
@@ -7464,11 +7432,6 @@
   "f-auh": {
    "variables": [
     "auh_cada_100_menores"
-   ]
-  },
-  "f-reservas-netas": {
-   "variables": [
-    "reservas_netas_bcra"
    ]
   },
   "f-confianza-gobierno": {
@@ -7533,6 +7496,11 @@
     "censo2022_sin_cobertura"
    ]
   },
-  "f-pozos": {}
+  "f-pozos": {},
+  "f-reservas-bcra": {
+   "variables": [
+    "reservas_netas_bcra"
+   ]
+  }
  }
 }

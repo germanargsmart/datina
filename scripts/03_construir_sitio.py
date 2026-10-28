@@ -176,7 +176,7 @@ FRECUENCIA = {
     "f-empleo": "mes", "f-salarios": "trimestre", "f-rotacion": "trimestre", "f-exportaciones": "semestre",
     # Sector externo
     "f-balanza": "mes", "f-exporta-rubros": "mes", "f-complejos": "semestre", "f-destinos": "semestre", "f-exporta-provincias": "anio",
-    "f-importaciones": "mes", "f-origen": "mes", "f-cuenta-corriente": "trimestre", "f-reservas-bcra": "mes", "f-reservas-netas": "mes",
+    "f-importaciones": "mes", "f-origen": "mes", "f-cuenta-corriente": "trimestre", "f-reservas-bcra": "mes", 
     # Economía y precios
     "f-inflacion": "mes", "f-inflacion-rubros": "mes", "f-canastas": "mes", "f-salario-real": "mes", "f-emae": "mes", "f-supermercados": "mes", "f-bcra": "mes", "f-expectativas": "mes", "f-confianza-consumidor": "mes",
     # Empresas y oportunidades
@@ -191,7 +191,7 @@ FRECUENCIA = {
     # Educación
     "f-escolarizacion": "anio", "f-aprender": "aprender", "f-pisa": "pisa", "f-salario-docente": "trimestre", "f-inversion-educativa": "anio",
     # Población
-    "f-nacimientos": "anio", "f-poblacion-proy": "anio", "f-piramide": "anio", "f-envejecimiento": "anio", "f-jubilaciones": "trimestre", "f-haberes": "trimestre", "f-pensiones-invalidez": "trimestre", "f-auh": "trimestre", "f-desocupacion": "trimestre", "f-pobreza-aglomerados": "semestre", "f-desempleo": "trimestre", "f-adolescentes": "anio",
+    "f-nacimientos": "anio", "f-poblacion-proy": "anio", "f-piramide": "anio", "f-envejecimiento": "anio", "f-haberes": "trimestre", "f-pensiones-invalidez": "trimestre", "f-auh": "trimestre", "f-desocupacion": "trimestre", "f-pobreza-aglomerados": "semestre", "f-desempleo": "trimestre", "f-adolescentes": "anio",
     "f-adolescentes-nse": "anio",
     # Migraciones
     "f-nacidos-otro-pais": "censo", "f-migracion-interna": "censo", "f-migracion-historia": "censo", "f-extranjeros": "anio",
@@ -206,10 +206,10 @@ FRECUENCIA = {
     "f-cuentas-nacion": "mes", "f-recaudacion": "mes", "f-deuda": "trimestre", "f-empleo-publico": "anio", "f-impuestos-provinciales": "anio", "f-coparticipacion": "anio",
     "f-fiscal": "anio",
     # Movilidad
-    "f-sube": "mes", "f-sube-modos": "mes", "f-patentes": "mes", "f-patentes-prov": "mes", "f-combustibles": "mes",
+    "f-sube": "mes", "f-patentes": "mes", "f-patentes-prov": "mes", "f-combustibles": "mes",
     # Construcción y vivienda
     "f-isac": "mes", "f-permisos": "mes", "f-insumos": "mes", "f-obra-publica": "anio", "f-empleo-construccion": "trimestre",
-    "f-trabajadores": "censo", "f-costo": "mes", "f-hipotecas": "mes", "f-vivienda": "censo",
+    "f-costo": "mes", "f-hipotecas": "mes", "f-vivienda": "censo",
     # Energía
     "f-hogares": "mes", "f-electricidad-provincias": "mes", "f-electricidad-sectores": "mes", "f-meses": "mes",
     "f-centrales": "anio", "f-gas-hogares": "censo", "f-gas-consumo": "mes", "f-subsidios": "mes",
@@ -220,7 +220,7 @@ FRECUENCIA = {
     # Turismo
     "f-receptivo": "mes", "f-hoteles": "pausa", "f-eti": "pausa",
     # Naturaleza
-    "f-protegida": "anio", "f-parques": "anio", "f-visitas": "mes", "f-visitas-parque": "anio", "f-especies": "anio", "f-pesca": "anio",
+    "f-protegida": "anio", "f-parques": "anio", "f-visitas": "mes", "f-especies": "anio", "f-pesca": "anio",
     "f-pesca-rio": "anio",
     # Curiosidades
     "f-nombres": "anio", "f-carne": "mes", "f-vino": "mes", "f-yerba": "mes", "f-glaciares": "inventario", "f-clima": "anio",
@@ -617,7 +617,9 @@ INDICE = {"secciones": SECCIONES, "fichas": FICHAS, "articulos": [[i, html.unesc
 # Fichas unidas (plan de mejora, R7, decisión del autor del 28 de octubre de 2026: once pares de fichas casi iguales pasan a ser una ficha
 # con vistas): la ficha que se fue y la que quedó. datina.js manda la dirección vieja (energia.html#f-actividad) a la nueva, en esa página
 # o en otra. La que se fue no puede seguir en la plantilla, y la que quedó tiene que estar
-FICHAS_UNIDAS = {"f-actividad": "f-hogares", "f-mapa-pozos": "f-pozos", "f-pozos-terminados": "f-fracturas"}
+FICHAS_UNIDAS = {"f-actividad": "f-hogares", "f-mapa-pozos": "f-pozos", "f-pozos-terminados": "f-fracturas",
+                 "f-reservas-netas": "f-reservas-bcra", "f-sube-modos": "f-sube", "f-visitas-parque": "f-visitas",
+                 "f-jubilaciones": "f-envejecimiento", "f-trabajadores": "f-empleo-construccion"}
 for _vieja, _nueva in FICHAS_UNIDAS.items():
     assert _vieja not in UBIC, f"{_vieja}: la ficha unida a {_nueva} sigue en la plantilla"
     assert UBIC.get(_nueva), f"{_vieja}: la ficha que la reemplaza ({_nueva}) no está en la plantilla"

@@ -164,22 +164,25 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <div class="pie"><span>Fuente: INDEC, proyecciones de población por provincia, sexo y edad 2022 a 2040, base Censo 2022. Se actualiza cada año.</span><a href="datos/piramide_poblacion.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
-    <article class="ficha" id="f-envejecimiento">
-      <h2>¿Cuántas personas mayores hay por cada 100 en edad de trabajar?</h2>
-      <p class="ficha-sub">Personas de 65 años o más por cada 100 de 15 a 64 años, por provincia, 2026 y 2040</p>
-      <div class="grafico" data-g="envejecimiento" data-forma="pesas"></div>
-      <p class="lead" data-t="envejecimiento"></p>
-      <p class="nota" data-t="envejecimiento-nota"></p>
-      <div class="pie"><span>Fuente: INDEC, proyecciones de población por provincia 2022 a 2040, base Censo 2022. Se actualiza cada año.</span><a href="datos/envejecimiento_provincias.csv" download>Descargar tabla (CSV)</a></div>
-    </article>
-
-    <article class="ficha" id="f-jubilaciones">
-      <h2>¿Cuántas personas aportan por cada jubilación o pensión?</h2>
-      <p class="ficha-sub">Personas que aportan por cada jubilación o pensión que paga ANSES, 1994 a 2026</p>
-      <div class="grafico" data-g="jubilaciones" data-forma="lineas"></div>
-      <p class="lead" data-t="jubilaciones"></p>
-      <p class="nota" data-t="jubilaciones-nota"></p>
-      <div class="pie"><span>Fuente: Secretaría de Seguridad Social, Boletín Estadístico de la Seguridad Social (cuadro 4.1.1.1), con datos de ARCA y ANSES. Se actualiza cada tres meses.</span><a href="datos/jubilaciones_aportantes.csv" download>Descargar tabla (CSV)</a></div>
+    <!-- f-envejecimiento y f-jubilaciones, unidas (plan de mejora, R7, decisión del autor del 28 de octubre de 2026): la dirección vieja lleva a la pestaña de los aportantes -->
+    <article class="ficha con-vistas" id="f-envejecimiento">
+      <h2>¿Cuántas personas mayores hay por cada 100 en edad de trabajar, y cuántas aportan por cada jubilación?</h2>
+      <p class="ficha-sub">Personas de 65 años o más por cada 100 de 15 a 64 años, por provincia, 2026 y 2040, y personas que aportan por cada jubilación o pensión que paga ANSES, 1994 a 2026</p>
+      <div class="conmutador pestanas" role="tablist" aria-label="Vista" style="--n:2">
+        <button type="button" role="tab" id="tab-f-envejecimiento-1" aria-controls="pan-f-envejecimiento-1" aria-selected="true">Por provincia</button>
+        <button type="button" role="tab" id="tab-f-envejecimiento-2" aria-controls="pan-f-envejecimiento-2" aria-selected="false" tabindex="-1">Aportantes</button>
+      </div>
+      <div class="panel-pestana" role="tabpanel" id="pan-f-envejecimiento-1" aria-labelledby="tab-f-envejecimiento-1">
+        <div class="grafico" data-g="envejecimiento" data-forma="pesas"></div>
+      </div>
+      <div class="panel-pestana" role="tabpanel" id="pan-f-envejecimiento-2" aria-labelledby="tab-f-envejecimiento-2" data-vieja="f-jubilaciones" hidden>
+        <div class="grafico" data-g="jubilaciones" data-forma="lineas"></div>
+      </div>
+      <p data-panel="pan-f-envejecimiento-1" class="lead" data-t="envejecimiento"></p>
+      <p data-panel="pan-f-envejecimiento-1" class="nota" data-t="envejecimiento-nota"></p>
+      <p data-panel="pan-f-envejecimiento-2" hidden class="lead" data-t="jubilaciones"></p>
+      <p data-panel="pan-f-envejecimiento-2" hidden class="nota" data-t="jubilaciones-nota"></p>
+      <div class="pie"><span>Fuentes: INDEC, proyecciones de población por provincia 2022 a 2040, base Censo 2022, y Secretaría de Seguridad Social, Boletín Estadístico de la Seguridad Social (cuadro 4.1.1.1), con datos de ARCA y ANSES. Se actualiza cada año.</span><a href="datos/envejecimiento_provincias.csv" data-panel="pan-f-envejecimiento-1" download>Descargar tabla (CSV)</a><a href="datos/jubilaciones_aportantes.csv" data-panel="pan-f-envejecimiento-2" hidden download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-haberes">
@@ -293,7 +296,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 <p class="solo-lector" id="aviso" aria-live="polite"></p>
 
 <!-- los datos van en un archivo aparte que el navegador guarda una sola vez para todas las páginas -->
-<script src="datos/fichas.js?v=f6a00af296"></script>
-<script src="datina.js?v=08bbb94b79"></script>
+<script src="datos/fichas.js?v=33334a41d7"></script>
+<script src="datina.js?v=6d49ce7bb1"></script>
 </body>
 </html>

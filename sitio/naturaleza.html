@@ -198,27 +198,30 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <div class="pie"><span>Fuente: Sistema de Información de Biodiversidad, Administración de Parques Nacionales. Se actualiza cada año.</span><a href="datos/parques_nacionales_historia.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
-    <article class="ficha" id="f-visitas">
-      <h2>¿Cuántas visitas reciben los parques nacionales?</h2>
-      <p class="ficha-sub">Visitas registradas en los parques nacionales con control de ingreso, de residentes y de no residentes, 2008 a 2025</p>
-      <div class="grafico" data-g="visitas" data-forma="lineas" style="--alto-c:342px"></div>
-      <p class="lead" data-t="visitas"></p>
-      <p class="nota" data-t="visitas-nota"></p>
-      <div class="pie"><span>Fuente: Ministerio de Turismo y Deportes, Sistema de Información Turística de la Argentina (SINTA). Se actualiza cada mes.</span><a href="datos/visitas_parques_nacionales.csv" download>Descargar tabla (CSV)</a></div>
-    </article>
-
-    <article class="ficha" id="f-visitas-parque">
-      <h2>¿Qué parques nacionales reciben más visitas?</h2>
-      <p class="ficha-sub">Visitas registradas en cada parque nacional, 2025 y 2026, y en 2019, antes de la pandemia</p>
-      <div class="conmutador" role="group" aria-label="Año" data-g="visitas-parque" style="--n:3">
-        <button type="button" data-m="visitas_ult" aria-pressed="true" data-t="vp-b1"></button>
-        <button type="button" data-m="visitas_par" aria-pressed="false" data-t="vp-b2"></button>
-        <button type="button" data-m="visitas_pre" aria-pressed="false">2019</button>
+    <!-- f-visitas y f-visitas-parque, unidas (plan de mejora, R7, decisión del autor del 28 de octubre de 2026): la dirección vieja lleva a la pestaña de cada parque -->
+    <article class="ficha con-vistas" id="f-visitas">
+      <h2>¿Cuántas visitas reciben los parques nacionales, y cuáles reciben más?</h2>
+      <p class="ficha-sub">Visitas registradas en los parques nacionales con control de ingreso, de residentes y de no residentes, 2008 a 2025, y en cada parque, 2025 y 2026 y 2019, antes de la pandemia</p>
+      <div class="conmutador pestanas" role="tablist" aria-label="Vista" style="--n:2">
+        <button type="button" role="tab" id="tab-f-visitas-1" aria-controls="pan-f-visitas-1" aria-selected="true">Por año</button>
+        <button type="button" role="tab" id="tab-f-visitas-2" aria-controls="pan-f-visitas-2" aria-selected="false" tabindex="-1">Por parque</button>
       </div>
-      <div class="grafico" data-g="visitas-parque" data-forma="barras" style="--filas:41"></div>
-      <p class="lead" data-t="visitas-parque"></p>
-      <p class="nota" data-t="visitas-parque-nota"></p>
-      <div class="pie"><span>Fuente: Secretaría de Turismo, tablero de áreas protegidas, con datos de la Administración de Parques Nacionales. Se actualiza cada año.</span><a href="datos/visitas_por_parque.csv" download>Descargar tabla (CSV)</a></div>
+      <div class="panel-pestana" role="tabpanel" id="pan-f-visitas-1" aria-labelledby="tab-f-visitas-1">
+        <div class="grafico" data-g="visitas" data-forma="lineas" style="--alto-c:342px"></div>
+      </div>
+      <div class="panel-pestana" role="tabpanel" id="pan-f-visitas-2" aria-labelledby="tab-f-visitas-2" data-vieja="f-visitas-parque" hidden>
+        <div class="conmutador" role="group" aria-label="Año" data-g="visitas-parque" style="--n:3">
+          <button type="button" data-m="visitas_ult" aria-pressed="true" data-t="vp-b1"></button>
+          <button type="button" data-m="visitas_par" aria-pressed="false" data-t="vp-b2"></button>
+          <button type="button" data-m="visitas_pre" aria-pressed="false">2019</button>
+        </div>
+        <div class="grafico" data-g="visitas-parque" data-forma="barras" style="--filas:41"></div>
+      </div>
+      <p data-panel="pan-f-visitas-1" class="lead" data-t="visitas"></p>
+      <p data-panel="pan-f-visitas-1" class="nota" data-t="visitas-nota"></p>
+      <p data-panel="pan-f-visitas-2" hidden class="lead" data-t="visitas-parque"></p>
+      <p data-panel="pan-f-visitas-2" hidden class="nota" data-t="visitas-parque-nota"></p>
+      <div class="pie"><span>Fuentes: Ministerio de Turismo y Deportes, Sistema de Información Turística de la Argentina (SINTA), y Secretaría de Turismo, tablero de áreas protegidas, con datos de la Administración de Parques Nacionales. Se actualiza cada mes.</span><a href="datos/visitas_parques_nacionales.csv" data-panel="pan-f-visitas-1" download>Descargar tabla (CSV)</a><a href="datos/visitas_por_parque.csv" data-panel="pan-f-visitas-2" hidden download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-especies">
@@ -315,7 +318,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 <p class="solo-lector" id="aviso" aria-live="polite"></p>
 
 <!-- los datos van en un archivo aparte que el navegador guarda una sola vez para todas las páginas -->
-<script src="datos/fichas.js?v=f6a00af296"></script>
-<script src="datina.js?v=08bbb94b79"></script>
+<script src="datos/fichas.js?v=33334a41d7"></script>
+<script src="datina.js?v=6d49ce7bb1"></script>
 </body>
 </html>

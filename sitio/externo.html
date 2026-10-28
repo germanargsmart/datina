@@ -231,32 +231,35 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <div class="pie"><span>Fuente: INDEC, balance de pagos, vía la API de Series de Tiempo. Se actualiza cada tres meses.</span><a href="datos/cuenta_corriente.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
-    <article class="ficha" id="f-reservas-bcra">
-      <h2>¿Cuántas reservas brutas tiene el Banco Central?</h2>
-      <p class="ficha-sub">Reservas internacionales brutas del BCRA al cierre de cada mes, en millones de dólares, desde 1940</p>
-      <div class="conmutador" role="group" aria-label="Vista" data-g="reservas-bcra" style="--n:3">
-        <button type="button" data-m="serie" aria-pressed="true">Evolución</button>
-        <button type="button" data-m="meses" aria-pressed="false">Meses de importación</button>
-        <button type="button" data-m="factores" aria-pressed="false">Qué las movió</button>
+    <!-- f-reservas-bcra y f-reservas-netas, unidas (plan de mejora, R7, decisión del autor del 28 de octubre de 2026): la dirección vieja lleva a la pestaña de las netas -->
+    <article class="ficha con-vistas" id="f-reservas-bcra">
+      <h2>¿Cuántas reservas tiene el Banco Central?</h2>
+      <p class="ficha-sub">Reservas internacionales brutas del BCRA al cierre de cada mes, desde 1940, y reservas netas, desde 2007, en millones de dólares</p>
+      <div class="conmutador pestanas" role="tablist" aria-label="Vista" style="--n:2">
+        <button type="button" role="tab" id="tab-f-reservas-bcra-1" aria-controls="pan-f-reservas-bcra-1" aria-selected="true">Brutas</button>
+        <button type="button" role="tab" id="tab-f-reservas-bcra-2" aria-controls="pan-f-reservas-bcra-2" aria-selected="false" tabindex="-1">Netas</button>
       </div>
-      <div class="grafico" data-g="reservas-bcra" data-forma="lineas"></div>
-      <p class="lead" data-t="reservas-bcra"></p>
-      <p class="nota" data-t="reservas-bcra-nota"></p>
-      <div class="pie"><span>Fuente: BCRA, API de Estadísticas Monetarias. Se actualiza cada mes.</span><a href="datos/reservas_bcra.csv" download>Reservas por mes (CSV)</a><a href="datos/reservas_factores.csv" download>Qué las movió, por año (CSV)</a></div>
-    </article>
-
-    <article class="ficha" id="f-reservas-netas">
-      <h2>¿Cuántas reservas netas tiene el Banco Central?</h2>
-      <p class="ficha-sub">Reservas brutas, lo que el BCRA debe pagar en moneda extranjera dentro de un año y reservas netas, en millones de dólares, desde 2007</p>
-      <div class="conmutador" role="group" aria-label="Vista" data-g="reservas-netas" style="--n:3">
-        <button type="button" data-m="serie" aria-pressed="true">Brutas y netas</button>
-        <button type="button" data-m="cascada" aria-pressed="false">De dónde salen</button>
-        <button type="button" data-m="composicion" aria-pressed="false">De qué están hechas</button>
+      <div class="panel-pestana" role="tabpanel" id="pan-f-reservas-bcra-1" aria-labelledby="tab-f-reservas-bcra-1">
+        <div class="conmutador" role="group" aria-label="Vista" data-g="reservas-bcra" style="--n:3">
+          <button type="button" data-m="serie" aria-pressed="true">Evolución</button>
+          <button type="button" data-m="meses" aria-pressed="false">Meses de importación</button>
+          <button type="button" data-m="factores" aria-pressed="false">Qué las movió</button>
+        </div>
+        <div class="grafico" data-g="reservas-bcra" data-forma="lineas"></div>
       </div>
-      <div class="grafico" data-g="reservas-netas" data-forma="lineas"></div>
-      <p class="lead" data-t="reservas-netas"></p>
-      <p class="nota" data-t="reservas-netas-nota"></p>
-      <div class="pie"><span>Fuente: BCRA, planilla de reservas internacionales y liquidez en moneda extranjera (formato del FMI), mensual. Se actualiza cada mes.</span><a href="datos/reservas_netas.csv" download>Descargar tabla (CSV)</a></div>
+      <div class="panel-pestana" role="tabpanel" id="pan-f-reservas-bcra-2" aria-labelledby="tab-f-reservas-bcra-2" data-vieja="f-reservas-netas" hidden>
+        <div class="conmutador" role="group" aria-label="Vista" data-g="reservas-netas" style="--n:3">
+          <button type="button" data-m="serie" aria-pressed="true">Brutas y netas</button>
+          <button type="button" data-m="cascada" aria-pressed="false">De dónde salen</button>
+          <button type="button" data-m="composicion" aria-pressed="false">De qué están hechas</button>
+        </div>
+        <div class="grafico" data-g="reservas-netas" data-forma="lineas"></div>
+      </div>
+      <p data-panel="pan-f-reservas-bcra-1" class="lead" data-t="reservas-bcra"></p>
+      <p data-panel="pan-f-reservas-bcra-1" class="nota" data-t="reservas-bcra-nota"></p>
+      <p data-panel="pan-f-reservas-bcra-2" hidden class="lead" data-t="reservas-netas"></p>
+      <p data-panel="pan-f-reservas-bcra-2" hidden class="nota" data-t="reservas-netas-nota"></p>
+      <div class="pie"><span>Fuentes: BCRA, API de Estadísticas Monetarias y planilla de reservas internacionales y liquidez en moneda extranjera (formato del FMI), mensual. Se actualiza cada mes.</span><a href="datos/reservas_bcra.csv" data-panel="pan-f-reservas-bcra-1" download>Reservas por mes (CSV)</a><a href="datos/reservas_factores.csv" data-panel="pan-f-reservas-bcra-1" download>Qué las movió, por año (CSV)</a><a href="datos/reservas_netas.csv" data-panel="pan-f-reservas-bcra-2" hidden download>Descargar tabla (CSV)</a></div>
     </article>
 
   <nav class="pasos" aria-labelledby="pasos-tit"><div class="pasos-cab"><h2 class="bloque-grupo" id="pasos-tit">Seguí explorando</h2><a class="enlace" href="./#secciones">Todos los temas <span aria-hidden="true">→</span></a></div><div class="pasos-grid"><a class="tarjeta explora" href="gobierno.html"><span class="explora-ico"><svg class="iso tono-azul" viewBox="0 0 120 120" aria-hidden="true" focusable="false"><g transform="translate(60 60) scale(1.330) translate(-4.6 -1)"><ellipse class="s" cx="4.2" cy="34.8" rx="30.9" ry="6.8"/><path class="l" d="M-14.5 30L0 38.4L0 33.6L-14.5 25.2Z"/><path class="s" d="M14.5 30L0 38.4L0 33.6L14.5 25.2Z"/><path class="l" d="M0 16.8L14.5 25.2L0 33.6L-14.5 25.2Z"/><path class="s" d="M-2.1 25.2A2.1 1.2 0 0 0 2.1 25.2L2.1 -38.4A2.1 1.2 0 0 1 -2.1 -38.4Z"/><ellipse class="s" cx="0" cy="-38.4" rx="2.1" ry="1.2"/><path class="s" d="M1.6 -36.3L13 -32.1L24.4 -22.5L35.9 -18.3L35.9 6.9L24.4 2.7L13 -6.9L1.6 -11.1Z"/><path class="w" d="M1.6 -27.9L13 -23.7L24.4 -14.1L35.9 -9.9L35.9 -1.5L24.4 -5.7L13 -15.3L1.6 -19.5Z"/><circle class="s" cx="18.7" cy="-14.7" r="2.5"/></g></svg></span><span class="explora-txt"><b style="view-transition-name:t-gobierno">Cuentas públicas</b><small><span aria-hidden="true">←</span> Anterior</small></span></a><a class="tarjeta explora" href="turismo.html"><span class="explora-ico"><svg class="iso tono-azul" viewBox="0 0 120 120" aria-hidden="true" focusable="false"><g transform="translate(60 60) scale(1.137) translate(-18.2 8.3)"><ellipse class="s" cx="21.8" cy="21" rx="32.3" ry="7.6"/><path class="s" d="M-14.1 11.4A3.7 2.1 0 0 0 -6.7 11.4L-6.7 8.1A3.7 2.1 0 0 1 -14.1 8.1Z"/><path class="s" d="M7.8 24A3.7 2.1 0 0 0 15.1 24L15.1 20.7A3.7 2.1 0 0 1 7.8 20.7Z"/><path class="l" d="M-17.7 6.9L14.5 25.5L14.5 -16.5L-17.7 -35.1Z"/><path class="s" d="M32.2 15.3L14.5 25.5L14.5 -16.5L32.2 -26.7Z"/><path class="l" d="M0 -45.3L32.2 -26.7L14.5 -16.5L-17.7 -35.1Z"/><path class="s" d="M-10.9 10.8L-7.8 12.6L-7.8 -29.4L-10.9 -31.2Z"/><path class="s" d="M4.7 19.8L7.8 21.6L7.8 -20.4L4.7 -22.2Z"/><path class="s" d="M6.2 -38.7L6.2 -33.3L3.1 -31.5L3.1 -36.9Z"/><path class="s" d="M3.1 -44.1L14.5 -37.5L11.4 -35.7L0 -42.3Z"/><path class="s" d="M14.5 -37.5L14.5 -28.5L11.4 -26.7L11.4 -35.7Z"/><path class="s" d="M0 -33.3L0 -42.3L11.4 -35.7L11.4 -26.7L8.3 -28.5L8.3 -33.9L3.1 -36.9L3.1 -31.5Z"/></g></svg></span><span class="explora-txt"><b style="view-transition-name:t-turismo">Turismo</b><small>Siguiente <span aria-hidden="true">→</span></small></span></a><a class="tarjeta explora" href="a-exportaciones-dolar.html"><span class="explora-ico"><svg class="iso tono-azul" viewBox="0 0 120 120" aria-hidden="true" focusable="false"><g transform="translate(60 60) scale(1.074) translate(-22.7 -6.1)"><ellipse class="s" cx="27" cy="26.4" rx="41.2" ry="7.6"/><path class="s" d="M60.3 21L0 -13.8L-22.9 -0.6L37.4 34.2Z"/><path class="s" d="M52 30L60.3 21L37.4 34.2L29.1 43.2Z"/><path class="s" d="M-22.9 -0.6L-18.7 15.6L29.1 43.2L37.4 34.2Z"/><path class="l" d="M0 -13.8L60.3 21L37.4 34.2L-22.9 -0.6Z"/><path class="wl" d="M-20 10.3L31.7 40.2"/><path class="l" d="M-17.1 -0.9L-7.3 4.8L-7.3 -15.6L-17.1 -21.3Z"/><path class="s" d="M9.4 -4.8L-7.3 4.8L-7.3 -15.6L9.4 -25.2Z"/><path class="l" d="M-0.5 -30.9L9.4 -25.2L-7.3 -15.6L-17.1 -21.3Z"/><path class="s" d="M-16.1 -14.1L-8.3 -9.6L-8.3 -13.8L-16.1 -18.3Z"/><path class="l" d="M-5.7 6.3L5.7 12.9L5.7 5.1L-5.7 -1.5Z"/><path class="s" d="M23.4 2.7L5.7 12.9L5.7 5.1L23.4 -5.1Z"/><path class="l" d="M12 -11.7L23.4 -5.1L5.7 5.1L-5.7 -1.5Z"/><path class="s" d="M5.7 12.9L17.1 19.5L17.1 11.7L5.7 5.1Z"/><path class="s" d="M34.8 9.3L17.1 19.5L17.1 11.7L34.8 1.5Z"/><path class="l" d="M23.4 -5.1L34.8 1.5L17.1 11.7L5.7 5.1Z"/><path class="l" d="M5.7 5.1L17.1 11.7L17.1 3.9L5.7 -2.7Z"/><path class="s" d="M34.8 1.5L17.1 11.7L17.1 3.9L34.8 -6.3Z"/><path class="l" d="M23.4 -12.9L34.8 -6.3L17.1 3.9L5.7 -2.7Z"/><path class="s" d="M17.1 19.5L28.6 26.1L28.6 18.3L17.1 11.7Z"/><path class="s" d="M46.2 15.9L28.6 26.1L28.6 18.3L46.2 8.1Z"/><path class="l" d="M34.8 1.5L46.2 8.1L28.6 18.3L17.1 11.7Z"/><path class="l" d="M17.1 11.7L28.6 18.3L28.6 10.5L17.1 3.9Z"/><path class="s" d="M46.2 8.1L28.6 18.3L28.6 10.5L46.2 0.3Z"/><path class="l" d="M34.8 -6.3L46.2 0.3L28.6 10.5L17.1 3.9Z"/><path class="s" d="M28.6 26.1L40 32.7L40 24.9L28.6 18.3Z"/><path class="s" d="M57.7 22.5L40 32.7L40 24.9L57.7 14.7Z"/><path class="l" d="M46.2 8.1L57.7 14.7L40 24.9L28.6 18.3Z"/></g></svg></span><span class="explora-txt"><b style="view-transition-name:t-a-exportaciones-dolar">¿Se exporta más cuando el dólar está caro?</b><small>Artículo</small></span></a><a class="tarjeta explora" href="a-exportaciones-empleo.html"><span class="explora-ico"><svg class="iso tono-azul" viewBox="0 0 120 120" aria-hidden="true" focusable="false"><g transform="translate(60 60) scale(1.074) translate(-22.7 -6.1)"><ellipse class="s" cx="27" cy="26.4" rx="41.2" ry="7.6"/><path class="s" d="M60.3 21L0 -13.8L-22.9 -0.6L37.4 34.2Z"/><path class="s" d="M52 30L60.3 21L37.4 34.2L29.1 43.2Z"/><path class="s" d="M-22.9 -0.6L-18.7 15.6L29.1 43.2L37.4 34.2Z"/><path class="l" d="M0 -13.8L60.3 21L37.4 34.2L-22.9 -0.6Z"/><path class="wl" d="M-20 10.3L31.7 40.2"/><path class="l" d="M-17.1 -0.9L-7.3 4.8L-7.3 -15.6L-17.1 -21.3Z"/><path class="s" d="M9.4 -4.8L-7.3 4.8L-7.3 -15.6L9.4 -25.2Z"/><path class="l" d="M-0.5 -30.9L9.4 -25.2L-7.3 -15.6L-17.1 -21.3Z"/><path class="s" d="M-16.1 -14.1L-8.3 -9.6L-8.3 -13.8L-16.1 -18.3Z"/><path class="l" d="M-5.7 6.3L5.7 12.9L5.7 5.1L-5.7 -1.5Z"/><path class="s" d="M23.4 2.7L5.7 12.9L5.7 5.1L23.4 -5.1Z"/><path class="l" d="M12 -11.7L23.4 -5.1L5.7 5.1L-5.7 -1.5Z"/><path class="s" d="M5.7 12.9L17.1 19.5L17.1 11.7L5.7 5.1Z"/><path class="s" d="M34.8 9.3L17.1 19.5L17.1 11.7L34.8 1.5Z"/><path class="l" d="M23.4 -5.1L34.8 1.5L17.1 11.7L5.7 5.1Z"/><path class="l" d="M5.7 5.1L17.1 11.7L17.1 3.9L5.7 -2.7Z"/><path class="s" d="M34.8 1.5L17.1 11.7L17.1 3.9L34.8 -6.3Z"/><path class="l" d="M23.4 -12.9L34.8 -6.3L17.1 3.9L5.7 -2.7Z"/><path class="s" d="M17.1 19.5L28.6 26.1L28.6 18.3L17.1 11.7Z"/><path class="s" d="M46.2 15.9L28.6 26.1L28.6 18.3L46.2 8.1Z"/><path class="l" d="M34.8 1.5L46.2 8.1L28.6 18.3L17.1 11.7Z"/><path class="l" d="M17.1 11.7L28.6 18.3L28.6 10.5L17.1 3.9Z"/><path class="s" d="M46.2 8.1L28.6 18.3L28.6 10.5L46.2 0.3Z"/><path class="l" d="M34.8 -6.3L46.2 0.3L28.6 10.5L17.1 3.9Z"/><path class="s" d="M28.6 26.1L40 32.7L40 24.9L28.6 18.3Z"/><path class="s" d="M57.7 22.5L40 32.7L40 24.9L57.7 14.7Z"/><path class="l" d="M46.2 8.1L57.7 14.7L40 24.9L28.6 18.3Z"/></g></svg></span><span class="explora-txt"><b style="view-transition-name:t-a-exportaciones-empleo">¿Las provincias que más exportan por habitante tienen más empleo privado registrado?</b><small>Artículo</small></span></a></div></nav></section>
@@ -321,7 +324,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 <p class="solo-lector" id="aviso" aria-live="polite"></p>
 
 <!-- los datos van en un archivo aparte que el navegador guarda una sola vez para todas las páginas -->
-<script src="datos/fichas.js?v=f6a00af296"></script>
-<script src="datina.js?v=08bbb94b79"></script>
+<script src="datos/fichas.js?v=33334a41d7"></script>
+<script src="datina.js?v=6d49ce7bb1"></script>
 </body>
 </html>
