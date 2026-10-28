@@ -436,6 +436,8 @@ _Decidido por el autor el 27 de octubre de 2026: la opción recomendada en las c
 7. **Herramientas.** El menú simplificado (cinco entradas, el Explorador de relaciones fuera) · solo cambiar los nombres repetidos · como está.
 8. **Flora y fauna.** Pasa a "Naturaleza y ambiente" con glaciares y clima · solo mover las fichas · como está.
 
+_Decidido por el autor el 28 de octubre de 2026 (fuera de las tandas): unir los once pares de fichas casi iguales de R7, en varios PR por página, cada uno con una ficha con vistas y la dirección vieja llevando a la ficha que queda, y sacar las dos vistas OCDE que no responden su ficha (el gasto en salud en la mortalidad infantil y el CO₂ en la electricidad de los hogares)._
+
 **Tanda 3 (antes de las etapas 7 a 9)**
 9. **El sol de la portada.** Que se detenga a los 5 segundos · un botón chico de pausa · como está.
 10. **Primeras descargas nuevas.** Dengue, vacunas y deuda provincial · estimaciones agrícolas · otra elección.

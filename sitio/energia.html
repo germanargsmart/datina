@@ -152,18 +152,24 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     <div class="tema-intro">
       <h1 class="pregunta" data-corta="¿Cuánta energía usamos?">¿Cuánta electricidad y cuánto gas se usan en cada provincia?</h1>
       <p>Esta página muestra cuánta electricidad usan los hogares, los comercios y las industrias de cada provincia, en qué meses se usa más y dónde están las centrales que la generan. También muestra qué parte de los hogares cocina con gas de red, cuánto gas consume cada usuario residencial y cuánto gasta el Estado nacional en subsidios a la energía. La producción de petróleo y gas tiene su propia página: <a class="enlace" href="petroleo.html">Petróleo y gas</a>.</p>
-    </div><nav class="subsecciones" aria-label="Energía"><a href="energia.html" aria-current="page">Energía</a><a href="petroleo.html">Petróleo y gas</a></nav><div class="en-cifras esqueleto" aria-hidden="true"><h2>En cifras</h2><div class="cifras-grid"><span class="tarjeta cifra"></span><span class="tarjeta cifra"></span><span class="tarjeta cifra"></span><span class="tarjeta cifra"></span><span class="tarjeta cifra"></span></div></div><nav class="perfil-indice capitulos" aria-label="Capítulos de esta página"><ol><li><a class="enlace" href="#g-electricidad">1. Electricidad</a></li><li><a class="enlace" href="#g-gas">2. Gas en los hogares</a></li><li><a class="enlace" href="#g-subsidios">3. Subsidios a la energía</a></li></ol></nav>
+    </div><nav class="subsecciones" aria-label="Energía"><a href="energia.html" aria-current="page">Energía</a><a href="petroleo.html">Petróleo y gas</a></nav><div class="en-cifras esqueleto" aria-hidden="true"><h2>En cifras</h2><div class="cifras-grid"><span class="tarjeta cifra"></span><span class="tarjeta cifra"></span><span class="tarjeta cifra"></span><span class="tarjeta cifra"></span><span class="tarjeta cifra"></span></div></div><nav class="perfil-indice capitulos" aria-label="Capítulos de esta página"><ol><li><a class="enlace" href="#g-electricidad">1. Electricidad</a></li><li><a class="enlace" href="#g-generacion">2. Generación</a></li><li><a class="enlace" href="#g-gas">3. Gas en los hogares</a></li><li><a class="enlace" href="#g-subsidios">4. Subsidios a la energía</a></li></ol></nav>
     <p class="exp-gancho"><a href="#para-entender">Para entender los datos</a>: qué se mide, de dónde sale y qué tener en cuenta, al final de la página ↓</p>
 
     <h2 class="bloque-grupo" id="g-electricidad">Electricidad</h2>
 
+    <!-- f-hogares y f-actividad, unidas (plan de mejora, R7, decisión del autor del 28 de octubre de 2026): usaban la misma tabla.
+         La dirección vieja (#f-actividad) lleva acá (FICHAS_UNIDAS en 03_construir_sitio.py) -->
     <article class="ficha" id="f-hogares">
-      <h2>¿Qué parte de la electricidad consumen los hogares?</h2>
-      <p class="ficha-sub">Demanda eléctrica de los hogares y del resto de los usuarios (índice 2005 = 100) y parte de los hogares en el total, 2005 a 2025</p>
+      <h2>¿Cuánto creció la demanda eléctrica frente a la economía?</h2>
+      <p class="ficha-sub">Demanda eléctrica total, de los hogares y del resto de los usuarios, y actividad económica, índices con base 2005 = 100, 2005 a 2025</p>
+      <div class="conmutador" role="group" aria-label="Vista" data-g="hogares" style="--n:2">
+        <button type="button" data-m="total" aria-pressed="true">Total y economía</button>
+        <button type="button" data-m="usuarios" aria-pressed="false">Hogares y resto</button>
+      </div>
       <div class="grafico" data-g="hogares" data-forma="lineas"></div>
       <p class="lead" data-t="hogares"></p>
-      <p class="nota">Índice con base 2005 = 100. El resto de los usuarios agrupa comercios, industrias y grandes usuarios conectados al mercado eléctrico mayorista.</p>
-      <div class="pie"><span>Fuente: CAMMESA, publicado por la Subsecretaría de Programación Macroeconómica en la API de Series de Tiempo de datos.gob.ar. Se actualiza cada mes.</span><a href="datos/energia_hogares.csv" download>Descargar tabla (CSV)</a></div>
+      <p class="nota">Índices con base 2005 = 100. La actividad económica es el promedio anual del Estimador Mensual de Actividad Económica (EMAE) del INDEC, serie original. El resto de los usuarios agrupa comercios, industrias y grandes usuarios conectados al mercado eléctrico mayorista.</p>
+      <div class="pie"><span>Fuentes: CAMMESA, publicado por la Subsecretaría de Programación Macroeconómica en la API de Series de Tiempo de datos.gob.ar, e INDEC. Se actualiza cada mes.</span><a href="datos/energia_hogares.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-electricidad-provincias">
@@ -195,15 +201,6 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <div class="pie"><span>Fuentes: CAMMESA, demanda mensual por provincia y tipo de usuario (Informe Síntesis Mensual), e INDEC, proyecciones de población. Se actualiza cada mes.</span><a href="datos/electricidad_sectores.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
-    <article class="ficha" id="f-actividad">
-      <h2>¿Cuánto creció la demanda eléctrica frente a la actividad económica?</h2>
-      <p class="ficha-sub">Demanda eléctrica total y actividad económica, índices con base 2005 = 100, 2005 a 2025</p>
-      <div class="grafico" data-g="actividad" data-forma="lineas"></div>
-      <p class="lead" data-t="actividad"></p>
-      <p class="nota">Índices con base 2005 = 100. La actividad económica es el promedio anual del Estimador Mensual de Actividad Económica (EMAE) del INDEC, serie original.</p>
-      <div class="pie"><span>Fuentes: CAMMESA e INDEC, vía API de Series de Tiempo. Se actualiza cada mes.</span><a href="datos/energia_hogares.csv" download>Descargar tabla (CSV)</a></div>
-    </article>
-
     <article class="ficha" id="f-meses">
       <h2>¿En qué meses se usa más electricidad?</h2>
       <p class="ficha-sub">Demanda eléctrica promedio de cada mes, en gigavatios hora (GWh), 2023 a 2025</p>
@@ -212,6 +209,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <p class="nota" data-t="meses-nota"></p>
       <div class="pie"><span>Fuente: CAMMESA, vía API de Series de Tiempo. Se actualiza cada mes.</span><a href="datos/energia_estacionalidad.csv" download>Descargar tabla (CSV)</a></div>
     </article>
+
+    <h2 class="bloque-grupo" id="g-generacion">Generación</h2>
 
     <article class="ficha" id="f-centrales">
       <h2>¿Dónde están las centrales eléctricas y cuánta potencia tiene cada tecnología?</h2>
@@ -328,7 +327,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 <p class="solo-lector" id="aviso" aria-live="polite"></p>
 
 <!-- los datos van en un archivo aparte que el navegador guarda una sola vez para todas las páginas -->
-<script src="datos/fichas.js?v=27becfd54e"></script>
-<script src="datina.js?v=7da7059a37"></script>
+<script src="datos/fichas.js?v=2ebf7aedd4"></script>
+<script src="datina.js?v=8d4309abd5"></script>
 </body>
 </html>

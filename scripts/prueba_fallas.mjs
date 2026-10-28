@@ -101,17 +101,18 @@ for (const pg of ["politica.html", "pobreza.html", "salud.html", "economia.html"
   break;
 }
 
-// 5. P2-18: la comparación con la OCDE avisa si no llega (f-mortalidad, en salud.html)
+// 5. P2-18: la comparación con la OCDE avisa si no llega (f-empleo, en trabajo.html: hasta el 28 de octubre de 2026 era f-mortalidad,
+//    que ya no tiene botones de la OCDE por decisión del autor)
 FALLAR = ["ocde_comparacion.csv"];
-await p.ir(BASE + "salud.html", 1200);
-await p.eval(`document.getElementById("f-mortalidad").scrollIntoView()`); await espera(1200);
-await p.eval(`document.querySelector("#f-mortalidad .ocde-conm button[data-k]").click()`); await espera(1200);
-r = await p.eval(`document.querySelector('.grafico[data-g="mortalidad"]').textContent`);
+await p.ir(BASE + "trabajo.html", 1200);
+await p.eval(`document.getElementById("f-empleo").scrollIntoView()`); await espera(1200);
+await p.eval(`document.querySelector("#f-empleo .ocde-conm button[data-k]").click()`); await espera(1200);
+r = await p.eval(`document.querySelector('.grafico[data-g="empleo"]').textContent`);
 caso("OCDE sin su tabla: aviso", /No se pudo cargar la comparación con la OCDE/.test(sinNbsp(r)), r.slice(0, 80));
 FALLAR = [];
-await p.eval(`document.querySelector("#f-mortalidad .ocde-conm button.propio").click()`); await espera(900);
-await p.eval(`document.querySelector("#f-mortalidad .ocde-conm button[data-k]").click()`); await espera(1500);
-r = await p.eval(`!!document.querySelector('.grafico[data-g="mortalidad"] svg')`);
+await p.eval(`document.querySelector("#f-empleo .ocde-conm button.propio").click()`); await espera(900);
+await p.eval(`document.querySelector("#f-empleo .ocde-conm button[data-k]").click()`); await espera(1500);
+r = await p.eval(`!!document.querySelector('.grafico[data-g="empleo"] svg')`);
 caso("OCDE: al volver a elegirla, se dibuja", r === true);
 
 // 6. P2-18: el mapa de departamentos avisa si no llega y vuelve a intentar

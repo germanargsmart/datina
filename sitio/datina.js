@@ -31,6 +31,17 @@ const destinoDe = href => {
   if (!p || p === PAGINA) return null;
   return urlPagina(p, p === id ? "" : "#" + id);
 };
+// Fichas unidas (plan de mejora, R7, 28 de octubre de 2026): la dirección de la ficha que se fue (energia.html#f-actividad) lleva a la que
+// quedó, en esta página o en la suya
+{
+  const h = location.hash.slice(1).split("?")[0], nueva = h && (SITIO.alias || {})[h];
+  if (nueva) {
+    const hash = "#" + nueva + location.hash.slice(1 + h.length), p = paginaDe(nueva);
+    if (p && p !== PAGINA) { location.replace(urlPagina(p, location.search + hash)); return; }
+    history.replaceState(history.state, "", location.pathname + location.search + hash);
+    addEventListener("load", () => document.getElementById(nueva)?.scrollIntoView(), {once: true});
+  }
+}
 // Los enlaces de cuando todo estaba en una sola página (#f-empleo?prov=30, #salud, ?cx=, ?ix=) llevan a la página nueva
 if (PAGINA === "inicio") {
   const q = new URLSearchParams(location.search), h = location.hash.slice(1).split("?")[0], p = h && paginaDe(h);
@@ -1300,12 +1311,11 @@ const TX = {
     `La cantidad de aportantes depende del empleo registrado, no solo de la edad de la población. No se compara entre provincias porque varias mantienen su propia caja previsional para empleados públicos, fuera de ANSES.`,
   "envejecimiento-nota": `Relación de dependencia de la vejez: personas de 65 años o más sobre personas de 15 a 64, por 100. No todas las personas de 15 a 64 trabajan ni todas las mayores están jubiladas, pero es la medida habitual para anticipar la presión sobre el sistema previsional y la demanda de cuidados. ` +
     `Las personas mayores pasan de ser el ${pct(EV.pct_mayores_hoy)} de la población en ${EV.anio} al ${pct(EV.pct_mayores_fin)} en ${EV.anio_fin}. El círculo claro marca ${EV.anio} y el oscuro ${EV.anio_fin}.`,
-  // la cifra destacada ya dice la parte de los hogares en el último año: el texto empieza por la del primero
-  hogares: `En ${e.anio_ini}, los hogares eran el ${pct(e.pct_res_ini)} de la electricidad demandada en el país. Entre ${e.anio_ini} y ${e.anio_ult}, su demanda ${creceCae(e.crec_res)} y la del resto de los usuarios ${creceCae(e.crec_resto)}. ` +
-    `El gráfico muestra las dos como índices: el valor de ${e.anio_ini} es 100.`,
-  // la cifra destacada ya dice cuánto crecieron la demanda y la actividad: el texto empieza por la demanda del último año
-  actividad: `En ${e.anio_ult}, el país demandó ${n0(e.gwh_ult)} gigavatios hora (GWh) de electricidad. Desde ${e.anio_ini}, la demanda de los hogares creció ${e.crec_res > e.crec_emae ? "más" : "menos"} que la actividad económica, ` +
-    `y la del resto de los usuarios creció ${e.crec_resto > e.crec_emae ? "más" : "menos"} que la economía.` +
+  // f-hogares y f-actividad, unidas (R7): la cifra destacada ya dice cuánto crecieron la demanda total y la actividad. El texto da la demanda
+  // del último año, la parte de los hogares y cómo creció cada tipo de usuario frente a la economía (la otra vista del gráfico)
+  hogares: `En ${e.anio_ult}, el país demandó ${n0(e.gwh_ult)} gigavatios hora (GWh) de electricidad, y los hogares fueron el ${pct(e.pct_res_ult)}. En ${e.anio_ini} eran el ${pct(e.pct_res_ini)}. ` +
+    `Desde ${e.anio_ini}, la demanda de los hogares ${creceCae(e.crec_res)}, ${e.crec_res > e.crec_emae ? "más" : "menos"} que la actividad económica, ` +
+    `y la del resto de los usuarios ${creceCae(e.crec_resto)}, ${e.crec_resto > e.crec_emae ? "más" : "menos"} que la economía.` +
     enLoQueVa(R.ytd.demanda, e.anio_ult, "la demanda total", "subió", "bajó"),
   // la cifra destacada ya dice la diferencia entre el mes de más demanda y el de menos: el texto empieza por los dos picos y da los gigavatios hora
   meses: `El año tiene dos picos de demanda eléctrica, uno por refrigeración en verano y otro por calefacción en invierno. En promedio entre ${e.meses_desde} y ${e.meses_hasta}, ` +
@@ -2611,10 +2621,10 @@ const protegerDib = base => Object.assign(new Proxy({}, {set(t, k, f) {
   return true;
 }}), base);
 const DIB = protegerDib({
-  hogares: a => lineas(G("hogares"), {anim:a, data: T.energia_hogares, x:"anio", y0:80, ref:100, yf: v => v,
-    series:[{k:"idx_residencial", lab:"Hogares", c:NAR, w:3}, {k:"idx_resto", lab:"Resto", c:FRI}], vf: v => n0(v)}),
-  actividad: a => lineas(G("actividad"), {anim:a, data: T.energia_hogares, x:"anio", y0:80, ref:100, yf: v => v,
-    series:[{k:"idx_demanda", lab:"Electricidad", c:NAR, w:3}, {k:"idx_emae", lab:"Actividad", c:GRIS}], vf: v => n0(v)}),
+  // dos vistas (R7): la demanda total frente a la actividad económica (la de entrada) y los hogares frente al resto de los usuarios
+  hogares: a => lineas(G("hogares"), {anim:a, data: T.energia_hogares, x:"anio", y0:80, ref:100, yf: v => v, vf: v => n0(v),
+    series: MED.hogares === "usuarios" ? [{k:"idx_residencial", lab:"Hogares", c:NAR, w:3}, {k:"idx_resto", lab:"Resto", c:FRI}]
+      : [{k:"idx_demanda", lab:"Electricidad", c:NAR, w:3}, {k:"idx_emae", lab:"Actividad", c:GRIS}]}),
   meses: a => columnas(G("meses"), {anim:a, data: T.energia_estacionalidad}),
   nacimientos: a => {
     lineas(G("nacimientos"), {anim:a, data: T.nacimientos, x:"anio", y0:40, ref:100, refLab: `${T.nacimientos[0].anio} = 100`, yf: v => v, vf: n0,
@@ -5427,23 +5437,22 @@ document.querySelectorAll(".selector-ficha select[data-g]").forEach(sel => sel.a
 const OCDE_VISTA = {  // ficha: [gráfico, nombre de la vista propia, indicadores OCDE]
   "f-nacimientos": ["nacimientos", "Nacimientos", ["fecundidad"]],
   "f-adolescentes": ["adolescentes", "Por provincia", ["fecundidad_adolescente"]],
-  "f-mortalidad": ["mortalidad", "Por provincia", ["gasto_salud"]],
   "f-escolarizacion": ["escolarizacion", "Por provincia", ["secundaria"]],
   "f-suicidio": ["suicidio", "Registro del SNIC", ["suicidio"]],
   "f-muertes": ["muertes", "Cantidad por año", ["homicidios", "viales"]],
   "f-empleo": ["empleo", "Por provincia", ["empleo", "desocupacion"]],
   "f-pobreza": ["pobreza", "Pobreza e indigencia", ["pobreza_relativa", "gini"]],
   "f-internet": ["internet", "Por provincia", ["internet"]],
-  "f-hogares": ["hogares", "Hogares y resto", ["electricidad", "co2"]],
+  "f-hogares": ["hogares", "Demanda eléctrica", ["electricidad"]],
   "f-receptivo": ["receptivo", "Turistas por año", ["turistas"]],
   "f-pesca": ["pesca", "Por especie", ["pesca"]],
   "f-hipotecas": ["hipotecas", "Créditos nuevos", ["credito_hogares"]],
   "f-centrales": ["centrales", "Centrales y potencia", ["eolica_solar"]],
 };
-const OCDE_BOTON = {fecundidad: "Hijos por mujer", fecundidad_adolescente: "Nacimientos cada 1.000 adolescentes", gasto_salud: "Gasto en salud en % del PBI",
+const OCDE_BOTON = {fecundidad: "Hijos por mujer", fecundidad_adolescente: "Nacimientos cada 1.000 adolescentes",
   secundaria: "Terminan el ciclo básico", suicidio: "Tasa estimada por la OMS", homicidios: "Tasa de homicidios", viales: "Tasa de muertes viales",
   empleo: "Tasa de empleo", desocupacion: "Tasa de desocupación", pobreza_relativa: "Pobreza relativa", gini: "Índice de Gini", internet: "Personas que usan internet",
-  electricidad: "Electricidad por habitante", co2: "CO₂ por habitante", turistas: "Turistas cada 100 habitantes", pesca: "Pesca por habitante", credito_hogares: "Crédito a los hogares en % del PBI", eolica_solar: "Eólica y solar en la generación"};
+  electricidad: "Electricidad por habitante", turistas: "Turistas cada 100 habitantes", pesca: "Pesca por habitante", credito_hogares: "Crédito a los hogares en % del PBI", eolica_solar: "Eólica y solar en la generación"};
 const OCDE_Y0 = {esperanza_vida: 65, secundaria: 60, empleo: 40, internet: 0};
 const OCDE_NOTA = {
   pobreza_relativa: "Es la pobreza relativa que usa la OCDE, distinta de la pobreza por canastas del INDEC. En la Argentina el Banco Mundial la calcula con la EPH, que cubre solo los aglomerados urbanos.",
@@ -6400,8 +6409,7 @@ const CLAVE = {
   "f-costo": [pct(Math.abs(CN.icc_real)), `${CN.icc_real < 0 ? "menos" : "más"} cuesta construir en el Gran Buenos Aires que en ${CN.costo_desde}, descontada la inflación`,
     `${CN.icc_real < 0 ? "menos" : "más"} cuesta construir que en ${CN.costo_desde}, descontada la inflación`],
   "f-vivienda": [pct(VV.pct_alquila), `de los hogares alquilaba su vivienda en el Censo 2022`, "de los hogares del país alquilaba su vivienda"],
-  "f-hogares": [pct(e.pct_res_ult), `de la electricidad demandada en el país en ${e.anio_ult} correspondió a los hogares`, `de la demanda eléctrica del país en ${e.anio_ult}`],
-  "f-actividad": [sg(e.crec_total), `creció la demanda eléctrica total entre ${e.anio_ini} y ${e.anio_ult}. La actividad económica creció ${pct(e.crec_emae)}`,
+  "f-hogares": [sg(e.crec_total), `creció la demanda eléctrica total entre ${e.anio_ini} y ${e.anio_ult}. La actividad económica creció ${pct(e.crec_emae)}`,
     `creció la demanda eléctrica total. La actividad económica creció ${pct(e.crec_emae)}`],
   "f-meses": [sg(e.dif_max_min), `más demanda eléctrica en ${e.mes_max} que en ${e.mes_min}, promedio de ${e.meses_desde} a ${e.meses_hasta}`, `más demanda en ${e.mes_max} que en ${e.mes_min}`],
   "f-adolescentes": [n1(nac.pct_ult), `de cada 100 nacimientos de ${nac.anio_ult} fueron de madres menores de 20 años. En ${nac.anio_ini} eran ${n1(nac.pct_ini)}`,
@@ -6539,8 +6547,8 @@ const EXTRA = {
   "x-presidentes": ["f-presidentes", `${PRR.amba} de ${PRR.n}`, `presidentes desde 1983, contando a los interinos de 2001, nacieron en el Área Metropolitana de Buenos Aires (AMBA), donde vive el ${pct(PRR.amba_pob)} de la población`],
   "x-sube-var": ["f-sube", pct(Math.abs(su.var_anual)), `${masMenos(su.var_anual, "más", "menos")} tarjetas SUBE se usaron en un día hábil típico de ${su.mes} que en ${su.mes_prev}`],
   "x-hogares-crec": ["f-hogares", sg(e.crec_res), `creció la demanda eléctrica de los hogares entre ${e.anio_ini} y ${e.anio_ult}. La del resto de los usuarios, ${sg(e.crec_resto)}`],
-  "x-demanda-ytd": R.ytd?.demanda && ["f-actividad", sg(R.ytd.demanda.var), `${masMenos(R.ytd.demanda.var, "creció", "cayó")} la demanda eléctrica entre enero y ${MESES[R.ytd.demanda.mes - 1]} de ${R.ytd.demanda.anio}, frente a los mismos meses de ${R.ytd.demanda.anio - 1}`],
-  "x-demanda-total": ["f-actividad", n0(e.gwh_ult), `gigavatios hora de electricidad se demandaron en el país en ${e.anio_ult}`],
+  "x-demanda-ytd": R.ytd?.demanda && ["f-hogares", sg(R.ytd.demanda.var), `${masMenos(R.ytd.demanda.var, "creció", "cayó")} la demanda eléctrica entre enero y ${MESES[R.ytd.demanda.mes - 1]} de ${R.ytd.demanda.anio}, frente a los mismos meses de ${R.ytd.demanda.anio - 1}`],
+  "x-demanda-total": ["f-hogares", n0(e.gwh_ult), `gigavatios hora de electricidad se demandaron en el país en ${e.anio_ult}`],
   "x-turistas-doce": ["f-receptivo", pct(Math.abs(tu.doce_var)), `${masMenos(tu.doce_var, "más", "menos")} turistas no residentes llegaron en los doce meses hasta ${tu.doce_hasta} que en los doce anteriores${tu.provisorio ? ". Datos provisorios" : ""}`],
   "x-hoteles-nr": ["f-hoteles", pct(tu.eoh_nr_pct), `de los viajeros hospedados en hoteles y parahoteles en ${tu.eoh_anio} no residía en el país`],
 };
@@ -6564,7 +6572,7 @@ const EN_CIFRAS = {
   // Energía y Petróleo y gas, en dos páginas desde la etapa 22: Energía tiene datos por provincia (la electricidad y el gas de los
   // hogares) y suma la tarjeta "Tu provincia", Petróleo y gas no
   energia: ["f-hogares", "f-electricidad-provincias", "x-demanda-ytd", "f-gas-hogares", "f-subsidios", "x-hogares-crec", "f-gas-consumo",
-    "f-actividad", "f-meses", "x-demanda-total"],
+    "f-meses", "x-demanda-total"],
   petroleo: ["f-petroleo", "f-gas", "x-pet-shale", "f-reservas", "f-hidro-provincias", "x-vaca-muerta", "f-mundo-petroleo", "f-balanza-energetica",
     "f-pozos", "f-regalias", "f-empleo-hidro"],
   turismo: ["f-receptivo", "x-turistas-doce", "f-hoteles", "f-eti", "x-hoteles-nr"],
@@ -8960,9 +8968,8 @@ const SERIE_CIFRA = {
   "f-patentes": () => serieM("Motos nuevas inscriptas por año", T.patentamientos_anual.map(r => [r.anio, r.motos]), n0),
   "f-patentes-prov": () => provM("Autos nuevos cada 1.000 habitantes", T.patentamientos_provincias, "autos_1000", au.pais_1000, n1),
   "f-combustibles": () => provM(`Nafta súper, pesos por litro, mediana de las estaciones, ${CB.mes}`, T.combustibles_provincias, "nafta", CB.nafta, n0),
-  "f-hogares": () => serieM("Parte de la demanda eléctrica de los hogares, por año", T.energia_hogares.map(r => [r.anio, r.pct_residencial]), pct),
+  "f-hogares": () => serieM(`Demanda eléctrica total, índice ${T.energia_hogares[0].anio} = 100`, T.energia_hogares.map(r => [r.anio, r.idx_demanda]), n0),
   "x-hogares-crec": () => serieM(`Demanda eléctrica de los hogares, índice ${T.energia_hogares[0].anio} = 100`, T.energia_hogares.map(r => [r.anio, r.idx_residencial]), n0),
-  "f-actividad": () => serieM(`Demanda eléctrica total, índice ${T.energia_hogares[0].anio} = 100`, T.energia_hogares.map(r => [r.anio, r.idx_demanda]), n0),
   "x-demanda-total": () => serieM("Demanda eléctrica total por año, en gigavatios hora", T.energia_hogares.map(r => [r.anio, r.total]), n0),
   "x-demanda-ytd": () => SERIE_CIFRA["x-demanda-total"](),
   "f-meses": () => serieM("Demanda eléctrica por mes, en gigavatios hora", T.energia_estacionalidad.map(r => [MESES[r.mes - 1].slice(0, 3), r.gwh]), n0, 12, e.mes_max.slice(0, 3)),
