@@ -48,17 +48,6 @@
    ]
   },
   {
-   "id": "org:bis",
-   "nombre": "Banco de Pagos Internacionales",
-   "sigla": "BIS",
-   "depende": "",
-   "url": "https://data.bis.org",
-   "alias": [
-    "BIS",
-    "Banco de Pagos Internacionales"
-   ]
-  },
-  {
    "id": "org:cammesa",
    "nombre": "Compañía Administradora del Mercado Mayorista Eléctrico",
    "sigla": "CAMMESA",
@@ -275,18 +264,6 @@
     "EIA",
     "Administración de Información Energética de los Estados Unidos",
     "EIA, estadisticas internacionales de energia"
-   ]
-  },
-  {
-   "id": "org:ember",
-   "nombre": "Ember",
-   "sigla": "Ember",
-   "depende": "",
-   "url": "https://ember-energy.org",
-   "alias": [
-    "Ember",
-    "Ember, datos anuales de electricidad, publicados por Our World in Data",
-    "Our World in Data"
    ]
   },
   {
@@ -716,27 +693,6 @@
    }
   },
   {
-   "id": "ds:bis_credito_hogares.csv",
-   "nombre": "Crédito a los hogares como porcentaje del PBI por país",
-   "fuente": "org:bis",
-   "ruta": "datos/crudo/bis_credito_hogares.csv",
-   "evidencia": {
-    "archivo": "scripts/01_descargar.py",
-    "contiene": "d.to_csv(CRUDO / \"bis_credito_hogares.csv\", index=False)"
-   },
-   "url": "https://stats.bis.org/api/v1/data/WS_TC/Q..H.A.M.770.A?format=csv&startPeriod=2000-Q1"
-  },
-  {
-   "id": "ds:bm_EG.USE.ELEC.KH.PC.json",
-   "nombre": "Consumo de electricidad por habitante (Banco Mundial, para la comparación con la OCDE)",
-   "fuente": "org:banco-mundial",
-   "ruta": "datos/crudo/bm_EG.USE.ELEC.KH.PC.json",
-   "evidencia": {
-    "archivo": "scripts/01_descargar.py",
-    "contiene": "\"EG.USE.ELEC.KH.PC\", \"EN.GHG.CO2.PC.CE.AR5\""
-   }
-  },
-  {
    "id": "ds:bm_ER.FSH.CAPT.MT.json",
    "nombre": "Pesca de captura, Argentina y países de la OCDE",
    "fuente": "org:banco-mundial",
@@ -757,17 +713,6 @@
    }
   },
   {
-   "id": "ds:bm_IT.NET.USER.ZS.json",
-   "nombre": "Uso de internet: Argentina y países de la OCDE",
-   "fuente": "org:banco-mundial",
-   "ruta": "datos/crudo/bm_IT.NET.USER.ZS.json",
-   "evidencia": {
-    "archivo": "scripts/01_descargar.py",
-    "contiene": "FUENTES[f\"bm_{_ind}.json\"] = ("
-   },
-   "url": "https://api.worldbank.org/v2/country/ARG;.../indicator/IT.NET.USER.ZS?format=json"
-  },
-  {
    "id": "ds:bm_NY.GDP.DEFL.ZS.json",
    "nombre": "Deflactor del PBI de la Argentina (Banco Mundial, NY.GDP.DEFL.ZS)",
    "fuente": "org:banco-mundial",
@@ -775,16 +720,6 @@
    "evidencia": {
     "archivo": "scripts/01_descargar.py",
     "contiene": "\"SP.DYN.CBRT.IN\", \"NY.GDP.DEFL.ZS\"]"
-   }
-  },
-  {
-   "id": "ds:bm_SE.SEC.CMPT.LO.ZS.json",
-   "nombre": "Finalización del ciclo básico de la secundaria (Banco Mundial, SE.SEC.CMPT.LO.ZS), Argentina y OCDE",
-   "fuente": "org:banco-mundial",
-   "ruta": "datos/crudo/bm_SE.SEC.CMPT.LO.ZS.json",
-   "evidencia": {
-    "archivo": "scripts/01_descargar.py",
-    "contiene": "\"SE.SEC.CMPT.LO.ZS\", \"IT.NET.USER.ZS\""
    }
   },
   {
@@ -808,28 +743,6 @@
     "contiene": "FUENTES[f\"bm_{_ind}.json\"] = ("
    },
    "url": "https://api.worldbank.org/v2/country/ARG;.../indicator/SI.DST.50MD?format=json"
-  },
-  {
-   "id": "ds:bm_SI.POV.GINI.json",
-   "nombre": "Índice de Gini: Argentina y países de la OCDE",
-   "fuente": "org:banco-mundial",
-   "ruta": "datos/crudo/bm_SI.POV.GINI.json",
-   "evidencia": {
-    "archivo": "scripts/01_descargar.py",
-    "contiene": "FUENTES[f\"bm_{_ind}.json\"] = ("
-   },
-   "url": "https://api.worldbank.org/v2/country/ARG;.../indicator/SI.POV.GINI?format=json"
-  },
-  {
-   "id": "ds:bm_SL.EMP.TOTL.SP.ZS.json",
-   "nombre": "Tasa de empleo: Argentina y países de la OCDE",
-   "fuente": "org:banco-mundial",
-   "ruta": "datos/crudo/bm_SL.EMP.TOTL.SP.ZS.json",
-   "evidencia": {
-    "archivo": "scripts/01_descargar.py",
-    "contiene": "FUENTES[f\"bm_{_ind}.json\"] = ("
-   },
-   "url": "https://api.worldbank.org/v2/country/ARG;.../indicator/SL.EMP.TOTL.SP.ZS?format=json"
   },
   {
    "id": "ds:bm_SL.UEM.TOTL.ZS.json",
@@ -1731,17 +1644,6 @@
    }
   },
   {
-   "id": "ds:owid_electricidad.csv",
-   "nombre": "Participación de la energía eólica y la solar en la electricidad generada, por país",
-   "fuente": "org:ember",
-   "ruta": "datos/crudo/owid_electricidad.csv",
-   "evidencia": {
-    "archivo": "scripts/01_descargar.py",
-    "contiene": "d.round(3).to_csv(CRUDO / \"owid_electricidad.csv\", index=False)"
-   },
-   "url": "https://catalog.ourworldindata.org/energy/owid_energy/owid_energy.csv"
-  },
-  {
    "id": "ds:pib_corriente.csv",
    "nombre": "PBI a precios corrientes, trimestral (oferta y demanda globales)",
    "fuente": "org:indec",
@@ -2463,24 +2365,8 @@
   },
   {
    "tipo": "alimenta",
-   "de": "ds:bm_SL.EMP.TOTL.SP.ZS.json",
-   "a": "f-empleo",
-   "evidencia": [
-    {
-     "archivo": "scripts/02_procesar.py",
-     "contiene": "(\"SL.EMP.TOTL.SP.ZS\""
-    },
-    {
-     "archivo": "scripts/datina.js",
-     "contiene": "\"f-empleo\": [\"empleo\", \"Por provincia\", [\"empleo\", \"desocupacion\"]]"
-    }
-   ],
-   "tabla": "ocde_comparacion"
-  },
-  {
-   "tipo": "alimenta",
    "de": "ds:bm_SL.UEM.TOTL.ZS.json",
-   "a": "f-empleo",
+   "a": "f-desocupacion",
    "evidencia": [
     {
      "archivo": "scripts/02_procesar.py",
@@ -2488,7 +2374,7 @@
     },
     {
      "archivo": "scripts/datina.js",
-     "contiene": "\"f-empleo\": [\"empleo\", \"Por provincia\", [\"empleo\", \"desocupacion\"]]"
+     "contiene": "\"f-desocupacion\": [\"desocupacion\", \"EPH, 31 aglomerados\", [\"desocupacion\"]],"
     }
    ],
    "tabla": "ocde_comparacion"
@@ -2851,23 +2737,7 @@
     },
     {
      "archivo": "scripts/datina.js",
-     "contiene": "\"f-pobreza\": [\"pobreza\", \"Pobreza e indigencia\", [\"pobreza_relativa\", \"gini\"]]"
-    }
-   ],
-   "tabla": "ocde_comparacion"
-  },
-  {
-   "tipo": "alimenta",
-   "de": "ds:bm_SI.POV.GINI.json",
-   "a": "f-pobreza",
-   "evidencia": [
-    {
-     "archivo": "scripts/02_procesar.py",
-     "contiene": "(\"SI.POV.GINI\""
-    },
-    {
-     "archivo": "scripts/datina.js",
-     "contiene": "\"f-pobreza\": [\"pobreza\", \"Pobreza e indigencia\", [\"pobreza_relativa\", \"gini\"]]"
+     "contiene": "\"f-pobreza\": [\"pobreza\", \"Pobreza e indigencia\", [\"pobreza_relativa\"]],"
     }
    ],
    "tabla": "ocde_comparacion"
@@ -2935,22 +2805,6 @@
     }
    ],
    "tabla": "internet_fijo_provincias"
-  },
-  {
-   "tipo": "alimenta",
-   "de": "ds:bm_IT.NET.USER.ZS.json",
-   "a": "f-internet",
-   "evidencia": [
-    {
-     "archivo": "scripts/02_procesar.py",
-     "contiene": "(\"IT.NET.USER.ZS\""
-    },
-    {
-     "archivo": "scripts/datina.js",
-     "contiene": "\"f-internet\": [\"internet\", \"Por provincia\", [\"internet\"]]"
-    }
-   ],
-   "tabla": "ocde_comparacion"
   },
   {
    "tipo": "alimenta",
@@ -3347,22 +3201,6 @@
     }
    ],
    "tabla": "escolarizacion_secundaria_provincias"
-  },
-  {
-   "tipo": "alimenta",
-   "de": "ds:bm_SE.SEC.CMPT.LO.ZS.json",
-   "a": "f-escolarizacion",
-   "evidencia": [
-    {
-     "archivo": "scripts/02_procesar.py",
-     "contiene": "\"secundaria\": (\"SE.SEC.CMPT.LO.ZS\""
-    },
-    {
-     "archivo": "scripts/datina.js",
-     "contiene": "\"f-escolarizacion\": [\"escolarizacion\", \"Por provincia\", [\"secundaria\"]]"
-    }
-   ],
-   "tabla": "ocde_comparacion"
   },
   {
    "tipo": "alimenta",
@@ -5082,26 +4920,6 @@
   },
   {
    "tipo": "alimenta",
-   "de": "ds:bis_credito_hogares.csv",
-   "a": "f-hipotecas",
-   "evidencia": [
-    {
-     "archivo": "scripts/02_procesar.py",
-     "contiene": "b = pd.read_csv(CRUDO / \"bis_credito_hogares.csv\")"
-    },
-    {
-     "archivo": "scripts/02_procesar.py",
-     "contiene": "\"credito_hogares\": bis_hogares,"
-    },
-    {
-     "archivo": "scripts/datina.js",
-     "contiene": "\"f-hipotecas\": [\"hipotecas\", \"Créditos nuevos\", [\"credito_hogares\"]],"
-    }
-   ],
-   "tabla": "ocde_comparacion"
-  },
-  {
-   "tipo": "alimenta",
    "de": "ds:energia_emae.csv",
    "a": "f-hogares",
    "evidencia": [
@@ -5135,22 +4953,6 @@
     }
    ],
    "tabla": "energia_estacionalidad"
-  },
-  {
-   "tipo": "alimenta",
-   "de": "ds:bm_EG.USE.ELEC.KH.PC.json",
-   "a": "f-hogares",
-   "evidencia": [
-    {
-     "archivo": "scripts/02_procesar.py",
-     "contiene": "\"electricidad\": (\"EG.USE.ELEC.KH.PC\""
-    },
-    {
-     "archivo": "scripts/datina.js",
-     "contiene": "\"f-hogares\": [\"hogares\", \"Demanda eléctrica\", [\"electricidad\"]],"
-    }
-   ],
-   "tabla": "ocde_comparacion"
   },
   {
    "tipo": "alimenta",
@@ -5311,26 +5113,6 @@
     }
    ],
    "tabla": "potencia_instalada"
-  },
-  {
-   "tipo": "alimenta",
-   "de": "ds:owid_electricidad.csv",
-   "a": "f-centrales",
-   "evidencia": [
-    {
-     "archivo": "scripts/02_procesar.py",
-     "contiene": "o = pd.read_csv(CRUDO / \"owid_electricidad.csv\")"
-    },
-    {
-     "archivo": "scripts/02_procesar.py",
-     "contiene": "\"eolica_solar\": ember_eolica_solar}"
-    },
-    {
-     "archivo": "scripts/datina.js",
-     "contiene": "\"f-centrales\": [\"centrales\", \"Centrales y potencia\", [\"eolica_solar\"]],"
-    }
-   ],
-   "tabla": "ocde_comparacion"
   },
   {
    "tipo": "alimenta",

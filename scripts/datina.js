@@ -5582,38 +5582,35 @@ document.querySelectorAll(".selector-ficha select[data-g]").forEach(sel => sel.a
 
 /* ---------- la OCDE dentro de cada gráfico, al estilo de las páginas de país del Banco Mundial ----------
    Si la unidad coincide, el promedio OCDE es una línea violeta en el mismo gráfico (nacimientos, mortalidad infantil,
-   esperanza de vida, áreas protegidas y PISA). Si no, el gráfico suma botones que lo redibujan con la Argentina y la OCDE. */
+   esperanza de vida, áreas protegidas y PISA). Si no, el gráfico suma botones que lo redibujan con la Argentina y la OCDE.
+   Desde el 28 de octubre de 2026 (plan de mejora, D6) los botones van solo donde la comparación mide lo mismo que pregunta la ficha.
+   Salieron los que contestaban otra pregunta: la finalización de la secundaria (la ficha pregunta cuántos van), la tasa de empleo (la
+   ficha mide el empleo privado registrado), el índice de Gini (desigualdad, no pobreza), el uso de internet (la ficha cuenta accesos
+   fijos en los hogares), la electricidad por habitante (la ficha mide cuánto creció la demanda), el crédito a los hogares (la ficha mide
+   los créditos hipotecarios nuevos) y la generación eólica y solar (la ficha mide potencia instalada). La desocupación pasó de la ficha
+   del empleo a la de la desocupación. Los datos se siguen bajando y quedan en ocde_comparacion.csv, como el CO₂ y el gasto en salud */
 const OCDE_VISTA = {  // ficha: [gráfico, nombre de la vista propia, indicadores OCDE]
   "f-nacimientos": ["nacimientos", "Nacimientos", ["fecundidad"]],
   "f-adolescentes": ["adolescentes", "Por provincia", ["fecundidad_adolescente"]],
-  "f-escolarizacion": ["escolarizacion", "Por provincia", ["secundaria"]],
   "f-suicidio": ["suicidio", "Registro del SNIC", ["suicidio"]],
   "f-muertes": ["muertes", "Cantidad por año", ["homicidios", "viales"]],
-  "f-empleo": ["empleo", "Por provincia", ["empleo", "desocupacion"]],
-  "f-pobreza": ["pobreza", "Pobreza e indigencia", ["pobreza_relativa", "gini"]],
-  "f-internet": ["internet", "Por provincia", ["internet"]],
-  "f-hogares": ["hogares", "Demanda eléctrica", ["electricidad"]],
+  "f-desocupacion": ["desocupacion", "EPH, 31 aglomerados", ["desocupacion"]],
+  "f-pobreza": ["pobreza", "Pobreza e indigencia", ["pobreza_relativa"]],
   "f-receptivo": ["receptivo", "Turistas por año", ["turistas"]],
   "f-pesca": ["pesca", "Por especie", ["pesca"]],
-  "f-hipotecas": ["hipotecas", "Créditos nuevos", ["credito_hogares"]],
-  "f-centrales": ["centrales", "Centrales y potencia", ["eolica_solar"]],
 };
 const OCDE_BOTON = {fecundidad: "Hijos por mujer", fecundidad_adolescente: "Nacimientos cada 1.000 adolescentes",
-  secundaria: "Terminan el ciclo básico", suicidio: "Tasa estimada por la OMS", homicidios: "Tasa de homicidios", viales: "Tasa de muertes viales",
-  empleo: "Tasa de empleo", desocupacion: "Tasa de desocupación", pobreza_relativa: "Pobreza relativa", gini: "Índice de Gini", internet: "Personas que usan internet",
-  electricidad: "Electricidad por habitante", turistas: "Turistas cada 100 habitantes", pesca: "Pesca por habitante", credito_hogares: "Crédito a los hogares en % del PBI", eolica_solar: "Eólica y solar en la generación"};
-const OCDE_Y0 = {esperanza_vida: 65, secundaria: 60, empleo: 40, internet: 0};
+  suicidio: "Tasa estimada por la OMS", homicidios: "Tasa de homicidios", viales: "Tasa de muertes viales",
+  desocupacion: "Tasa de desocupación", pobreza_relativa: "Pobreza relativa", turistas: "Turistas cada 100 habitantes", pesca: "Pesca por habitante"};
+// las que miden lo mismo que el resto de la ficha, con otra fuente: la nota no dice "No es la misma medida"
+const OCDE_MISMA = new Set(["desocupacion"]);
+const OCDE_Y0 = {esperanza_vida: 65};
 const OCDE_NOTA = {
   pobreza_relativa: "Es la pobreza relativa que usa la OCDE, distinta de la pobreza por canastas del INDEC. En la Argentina el Banco Mundial la calcula con la EPH, que cubre solo los aglomerados urbanos.",
-  gini: "En la Argentina el Banco Mundial lo calcula con la EPH, que cubre solo los aglomerados urbanos.",
+  desocupacion: "La Organización Internacional del Trabajo la estima con un modelo para comparar países, para todo el país y no solo para los 31 aglomerados de la EPH, así que puede diferir de la del INDEC.",
   turistas: `Son las llegadas de turistas internacionales divididas por la población de cada país. El Banco Mundial no publica esta serie después de ${OC.turistas.anio}.`,
-  internet: "Personas que usaron internet en los últimos tres meses, desde cualquier dispositivo.",
   pesca: "Suma la pesca marítima y la continental, y la divide por la población de cada país.",
   suicidio: "Son estimaciones de la OMS, distintas de los registros del SNIC y de la DEIS que usa esta sección.",
-  eolica_solar: "Cuenta la electricidad generada en el año, no la potencia instalada que muestra el resto de la ficha. " +
-    "Ember arma sus cifras con fuentes de cada país y pueden diferir de las de CAMMESA.",
-  credito_hogares: `Son los préstamos de todos los sectores a las familias y a las instituciones sin fines de lucro que las sirven, al cierre de cada año: ` +
-    `incluye los créditos hipotecarios, los personales y los de tarjetas. El Banco de Pagos Internacionales publica este dato para ${OC.credito_hogares.n} de los 38 miembros de la OCDE, y el promedio es el de esos países.`,
   protegida: "Mide la superficie terrestre dentro de áreas protegidas sin contar dos veces las superposiciones, por eso difiere de la cifra nacional de esta ficha.",
 };
 const fOC = k => loc.format(`,.${OC[k].dec}f`);
@@ -5697,7 +5694,7 @@ Object.entries(OCDE_VISTA).forEach(([id, [g, propio, ks]]) => {
     const o = OC[k];
     if (lead) { if (lead.dataset.propio == null) lead.dataset.propio = lead.textContent; lead.textContent = textoOCDE(k); }
     propios.forEach(e => e.style.display = "none"); nota.hidden = false;
-    nota.innerHTML = (ocdeViejo(k) ? `<strong class="ocde-aviso">Dato de ${o.anio}: tiene más de tres años.</strong> ` : "") + `No es la misma medida que la del resto de la ficha: muestra ${o.frase}${o.unidad.startsWith("por ") ? " " : ", en "}${o.unidad}. ${OCDE_NOTA[k] ? OCDE_NOTA[k] + " " : ""}La línea <span class="ocde-marca">OCDE</span> es el promedio simple de los países miembros con dato ese año. La franja violeta clara va del percentil 25 al 75: ahí está la mitad central de los países. ` +
+    nota.innerHTML = (ocdeViejo(k) ? `<strong class="ocde-aviso">Dato de ${o.anio}: tiene más de tres años.</strong> ` : "") + (OCDE_MISMA.has(k) ? `Es la misma medida que la del resto de la ficha, ${o.frase}, en ${o.unidad}. ` : `No es la misma medida que la del resto de la ficha: muestra ${o.frase}${o.unidad.startsWith("por ") ? " " : ", en "}${o.unidad}. `) + `${OCDE_NOTA[k] ? OCDE_NOTA[k] + " " : ""}La línea <span class="ocde-marca">OCDE</span> es el promedio simple de los países miembros con dato ese año. La franja violeta clara va del percentil 25 al 75: ahí está la mitad central de los países. ` +
       `Fuente: ${o.fuente || `Banco Mundial, Indicadores del Desarrollo Mundial (serie ${o.serie}), con datos de ${o.origen}`}. Son estimaciones armonizadas para comparar países y pueden diferir de las cifras nacionales de esta ficha. <a href="datos/ocde_comparacion.csv" download>Descargar la comparación (CSV)</a>`;
     lineas(graf, {anim: a, data: T.ocde_comparacion.filter(d => d.indicador === k), x: "anio", y0: OCDE_Y0[k] ?? 0,
       vf: fOC(k), yf: v => loc.format(",")(v), banda: {lo: "ocde_p25", hi: "ocde_p75", lab: "Mitad central OCDE", c: css("--ocde-suave")},

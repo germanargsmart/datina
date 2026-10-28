@@ -112,18 +112,18 @@ for (const pg of ["politica.html", "pobreza.html", "salud.html", "economia.html"
 // si ninguna página tiene una ficha para este caso, la prueba no probó nada: eso también es una falla
 if (!probada) caso(`"Ver tabla" después de una falla: una ficha con su tabla sin bajar`, false, "no se encontró ninguna");
 
-// 5. P2-18: la comparación con la OCDE avisa si no llega (f-empleo, en trabajo.html: hasta el 28 de octubre de 2026 era f-mortalidad,
-//    que ya no tiene botones de la OCDE por decisión del autor)
+// 5. P2-18: la comparación con la OCDE avisa si no llega (f-desocupacion, en trabajo.html: hasta el 28 de octubre de 2026 era f-mortalidad,
+//    que ya no tiene botones de la OCDE por decisión del autor, y después f-empleo, que los perdió con D6)
 FALLAR = ["ocde_comparacion.csv"];
 await p.ir(BASE + "trabajo.html", 1200);
-await p.eval(`document.getElementById("f-empleo").scrollIntoView()`); await espera(1200);
-await p.eval(`document.querySelector("#f-empleo .ocde-conm button[data-k]").click()`); await espera(1200);
-r = await p.eval(`document.querySelector('.grafico[data-g="empleo"]').textContent`);
+await p.eval(`document.getElementById("f-desocupacion").scrollIntoView()`); await espera(1200);
+await p.eval(`document.querySelector("#f-desocupacion .ocde-conm button[data-k]").click()`); await espera(1200);
+r = await p.eval(`document.querySelector('.grafico[data-g="desocupacion"]').textContent`);
 caso("OCDE sin su tabla: aviso", /No se pudo cargar la comparación con la OCDE/.test(sinNbsp(r)), r.slice(0, 80));
 FALLAR = [];
-await p.eval(`document.querySelector("#f-empleo .ocde-conm button.propio").click()`); await espera(900);
-await p.eval(`document.querySelector("#f-empleo .ocde-conm button[data-k]").click()`); await espera(1500);
-r = await p.eval(`!!document.querySelector('.grafico[data-g="empleo"] svg')`);
+await p.eval(`document.querySelector("#f-desocupacion .ocde-conm button.propio").click()`); await espera(900);
+await p.eval(`document.querySelector("#f-desocupacion .ocde-conm button[data-k]").click()`); await espera(1500);
+r = await p.eval(`!!document.querySelector('.grafico[data-g="desocupacion"] svg')`);
 caso("OCDE: al volver a elegirla, se dibuja", r === true);
 
 // 6. P2-18: el mapa de departamentos avisa si no llega y vuelve a intentar
