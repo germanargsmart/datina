@@ -2262,8 +2262,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
   <section class="tema con-pregunta" id="naturaleza">
     <h2>Naturaleza y ambiente</h2>
     <div class="tema-intro">
-      <p class="pregunta" data-corta="¿Cuánto territorio está protegido?">¿Cuánto territorio está protegido, cuánto se pesca, cuántos glaciares hay y cuánto cambió la temperatura?</p>
-      <p>Las fichas muestran cuánto territorio protege cada provincia, cuánta superficie cubren las áreas protegidas nacionales y cuántas visitas reciben los parques nacionales. También, cuántas especies animales se registran en esas áreas, cuánto se pesca en el mar y en los ríos, cuántos glaciares tiene cada provincia y cuánto cambió la temperatura media del país.</p>
+      <p class="pregunta" data-corta="¿Cuánto territorio está protegido?">¿Cuánto territorio está protegido, cuánto se pesca, dónde se siembra soja, cuántos glaciares hay y cuánto cambió la temperatura?</p>
+      <p>Las fichas muestran cuánto territorio protege cada provincia, cuánta superficie cubren las áreas protegidas nacionales y cuántas visitas reciben los parques nacionales. También, cuántas especies animales se registran en esas áreas, cuánto se pesca en el mar y en los ríos, dónde se siembra soja, cuántos glaciares tiene cada provincia y cuánto cambió la temperatura media del país.</p>
     </div>
     <!--EXPLICADOR:naturaleza-->
 
@@ -2355,6 +2355,20 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <p class="lead" data-t="pesca-rio"></p>
       <p class="nota" data-t="pesca-rio-nota"></p>
       <div class="pie"><span>Fuente: Ministerio de Ambiente (CIAM), con datos de la Subsecretaría de Pesca y Acuicultura</span><a href="datos/pesca_continental_provincias.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-soja">
+      <h2>¿Dónde se siembra más soja?</h2>
+      <p class="ficha-sub">Hectáreas sembradas con soja por departamento y por provincia, campaña {{soja.campania}}, y en el país desde la campaña {{soja.ini}}</p>
+      <div class="conmutador" role="group" aria-label="Vista" data-g="soja" style="--n:3">
+        <button type="button" data-m="mapa" aria-pressed="true">Mapa</button>
+        <button type="button" data-m="provincias" aria-pressed="false">Provincias</button>
+        <button type="button" data-m="serie" aria-pressed="false">Evolución</button>
+      </div>
+      <div class="grafico mp-mapa" data-g="soja" data-forma="mapa" style="--alto:640px;--alto-c:530px"></div>
+      <p class="lead" data-t="soja"></p>
+      <p class="nota" data-t="soja-nota"></p>
+      <div class="pie"><span>Fuente: Secretaría de Agricultura, Ganadería y Pesca, Estimaciones agrícolas</span><a href="datos/soja_departamentos.csv" download>Por departamento (CSV)</a><a href="datos/soja_provincias.csv" download>Por provincia (CSV)</a><a href="datos/soja_pais.csv" download>Del país, por campaña (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-glaciares">

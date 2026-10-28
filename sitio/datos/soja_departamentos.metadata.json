@@ -1,0 +1,64 @@
+{
+ "tabla": "soja_departamentos.csv",
+ "titulo": "¿Dónde se siembra más soja?",
+ "descripcion": "Hectáreas sembradas con soja por departamento y por provincia, campaña 2024/25, y en el país desde la campaña 1969/70",
+ "seccion": "Naturaleza y ambiente",
+ "ficha": "https://datina.pages.dev/naturaleza.html#f-soja",
+ "fuente": "Secretaría de Agricultura, Ganadería y Pesca, Estimaciones agrícolas.",
+ "actualizacion": "Se actualiza cada año.",
+ "cobertura": "Departamentos",
+ "periodo": "",
+ "filas": 287,
+ "columnas": [
+  {
+   "nombre": "codigo_dep",
+   "tipo": "Código",
+   "valores": "287 códigos"
+  },
+  {
+   "nombre": "codigo_indec",
+   "tipo": "Código",
+   "valores": "15 códigos"
+  },
+  {
+   "nombre": "provincia",
+   "tipo": "Texto",
+   "valores": "15 valores distintos"
+  },
+  {
+   "nombre": "departamento",
+   "tipo": "Texto",
+   "valores": "256 valores distintos"
+  },
+  {
+   "nombre": "sembrada_ha",
+   "tipo": "Número",
+   "valores": "30 a 657.200"
+  },
+  {
+   "nombre": "cosechada_ha",
+   "tipo": "Número",
+   "valores": "0 a 657.200"
+  },
+  {
+   "nombre": "produccion_t",
+   "tipo": "Número",
+   "valores": "0 a 1.920.750"
+  },
+  {
+   "nombre": "pct_pais",
+   "tipo": "Número",
+   "valores": "0 a 3,65"
+  },
+  {
+   "nombre": "rendimiento_kg_ha",
+   "tipo": "Número",
+   "valores": "613,33 a 4.008,41 (3 celdas vacías)"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "28/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

@@ -33,7 +33,7 @@
   {
    "nombre": "anios_total",
    "tipo": "Número",
-   "valores": "0 a 28,87"
+   "valores": "0 a 28,88"
   },
   {
    "nombre": "anios_diputados",
@@ -73,7 +73,7 @@
  ],
  "unidades": [],
  "como_se_calcula": "Suma los días que cada persona ocupó una banca de diputado o de senador nacional desde 1983 hasta hoy, según el registro de cada cámara, y une los tramos separados por una semana o menos. Cada persona figura con la provincia por la que estuvo más años. Una misma persona con el nombre escrito de otra forma en cada cámara se cuenta una sola vez, y dos personas con el mismo nombre en distintas provincias, por separado. En algunos casos, el registro de Diputados anterior a 2007, armado por mandato, pone a alguien en esa cámara mientras era senador: ahí cuentan las fechas del Senado. Sin una provincia elegida, el gráfico muestra las 15 personas con más años, y con una provincia, las 10 de esa provincia.",
- "datos_actualizados": "24/10/2026",
+ "datos_actualizados": "28/10/2026",
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
 }

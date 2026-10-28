@@ -25,7 +25,8 @@ def fin_periodo(valor):
     "agosto de 2026" y "enero a septiembre de 2026" terminan en ese mes. "primer trimestre de 2026", "2.º trimestre de 2026" y
     "2T2026", en el último mes del trimestre. "primer semestre de 2026" y "1S2026", en junio. Un año suelto, "2022 a 2024",
     "2025 y 2026" o "2025 (La Pampa, 2024)", en diciembre del año de la ficha (el primero si hay una aclaración entre paréntesis,
-    el último si es un rango)."""
+    el último si es un rango). Una campaña agrícola ("2024/25", "campaña 2024/2025") se cuenta hasta junio de su segundo año, cuando
+    en general termina la cosecha de la soja."""
     s = " ".join(str(valor).lower().split())
     if m := re.fullmatch(rf"(?:.* )?{_MES} de (\d{{4}})", s):
         return int(m.group(2)), MESES.index(m.group(1)) + 1, "mes"
@@ -43,6 +44,8 @@ def fin_periodo(valor):
         return int(m.group(1)), 12, "anio"
     if m := re.fullmatch(r"\d{4} (?:a|y) (\d{4})", s):
         return int(m.group(1)), 12, "anio"
+    if m := re.fullmatch(r"(?:.* )?(\d{4})/(\d{2}|\d{4})", s):
+        return int(m.group(1)) + 1, 6, "anio"
     return None
 
 

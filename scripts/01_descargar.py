@@ -299,6 +299,12 @@ FUENTES = {
     "sspmi_carne_vacuna.csv": "https://www.economia.gob.ar/catalogo-sspmi/nuevo_dataset/carnica-vacuna.csv",
     "sspmi_vitivinicultura.csv": "https://www.economia.gob.ar/catalogo-sspmi/nuevo_dataset/vitivinicultura.csv",
     "sspmi_yerba_mate.csv": "https://www.economia.gob.ar/catalogo-sspmi/nuevo_dataset/yerba-mate.csv",
+    # Estimaciones agrícolas de la Secretaría de Agricultura, Ganadería y Pesca: superficie sembrada y cosechada, producción y rendimiento
+    # de cada cultivo por campaña y departamento, desde 1969/70 (plan de mejora, tanda 3: la primera fuente nueva, aprobada por el autor
+    # el 28 de octubre de 2026). El archivo se republica con la fecha en el nombre ("estimaciones-agricolas-2026-03.csv"): se busca por el id
+    # del recurso en el catálogo del portal, y si no responde, la última dirección conocida
+    "magyp_estimaciones_agricolas.csv": ckan_id("https://datos.magyp.gob.ar", "estimaciones-agricolas", "95d066e6-8a0f-4a80-b59d-6f28f88eacd5",
+        "https://datos.magyp.gob.ar/dataset/9e1e77ba-267e-4eaa-a59f-3296e86b5f36/resource/95d066e6-8a0f-4a80-b59d-6f28f88eacd5/download/estimaciones-agricolas-2026-03.csv"),
     # Nombres mas frecuentes por provincia, anio y sexo (RENAPER)
     "renaper_nombres_frecuentes.csv": "https://datosabiertos.renaper.gob.ar/nombres_propios_frecuentes_anio_sexo_provincia_2012_2024.csv",
     # Glaciares por provincia (Inventario Nacional de Glaciares) y anomalia de temperatura desde 1961 (SMN), via CIAM
@@ -528,6 +534,7 @@ VALIDA.update({
     "indec_dotacion_apn.xlsx": lambda b: b[:2] == b"PK",
     "se_fracturas.csv": lambda b: b.lstrip(b"\xef\xbb\xbf").startswith(b"id_base_fractura_adjiv,idpozo"),
     "se_pozos_terminados.csv": lambda b: b.lstrip(b"\xef\xbb\xbf").startswith(b"anio,mes,indice_tiempo,tipo_pozo,provincia"),
+    "magyp_estimaciones_agricolas.csv": lambda b: b.lstrip(b"\xef\xbb\xbf").startswith(b'"cultivo","anio","campania","provincia","provincia_id","departamento","departamento_id"'),
     "potencia_instalada.csv": lambda b: b.startswith(b"indice_tiempo,potencia_instalada_total"),
     "gas_residencial_pais.csv": lambda b: b.startswith(b"indice_tiempo,residencial"),
     "subsidios_energia.csv": lambda b: b.startswith(b"indice_tiempo,energia"),

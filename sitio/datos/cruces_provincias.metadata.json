@@ -333,7 +333,7 @@
  ],
  "unidades": [],
  "como_se_calcula": "Tocá un punto, o llegá a él con Tab y apretá Enter, para sacar esa jurisdicción del cálculo. Hacé lo mismo para volver a sumarla. La recta es la que mejor resume los puntos (regresión lineal por mínimos cuadrados), y la franja celeste es su margen de error, con un 95% de confianza. Con 24 casos, una correlación moderada puede aparecer por azar. Los datos son de cada jurisdicción en su conjunto: no dicen nada de cada persona. Dos indicadores también pueden ir juntos porque los dos dependen de un tercero, como el ingreso o la urbanización.",
- "datos_actualizados": "24/10/2026",
+ "datos_actualizados": "28/10/2026",
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
 }
