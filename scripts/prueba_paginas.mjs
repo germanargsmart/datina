@@ -196,7 +196,7 @@ const copiado = await p.eval(`(async () => {
   return u; })()`);
 if (!/\?vista=desempleo:serie#f-desempleo$/.test(copiado)) problemas.push(`trabajo.html: "Copiar enlace" no guarda la vista elegida (${copiado})`);
 await p.ir(B + "contacto.html", 300); await p.ir(B + "trabajo.html?vista=desempleo:serie#f-desempleo", 1200);
-const vista = await p.eval(`document.querySelector('.conmutador[data-g="desempleo"] button[aria-pressed="true"]')?.dataset.m + "|" + (document.querySelector('[data-t="desempleo"]')?.textContent || "").slice(0, 80)`);
+const vista = await p.eval(`document.querySelector('.conmutador[data-g="desempleo"] button[aria-pressed="true"]')?.dataset.m + "|" + (document.querySelector('[data-t="desempleo"]')?.textContent || "").slice(0, 200)`);
 if (!vista.startsWith("serie|") || !/contra un promedio/.test(vista)) problemas.push(`trabajo.html?vista=desempleo:serie: no abre esa vista (${vista})`);
 p.errores.forEach(e => problemas.push(`trabajo.html con ?vista=: ${e}`));
 

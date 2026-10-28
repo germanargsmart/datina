@@ -17,6 +17,8 @@ import { abrirChrome } from "./cdp.mjs";
 
 // ficha -> motivo. Solo fichas cuya cifra destacada es, a propósito, un dato que no está escrito en la vista inicial
 const EXCEPCIONES = {
+  "f-envejecimiento": "el gráfico y «Ver tabla» muestran cada provincia en los dos años, y el valor del país, que contesta la pregunta, va en el texto",
+  "f-pensiones-invalidez": "el mapa y «Ver tabla» muestran cada provincia, y el valor del país cada 1.000 habitantes, que contesta la pregunta, va en el texto",
 };
 // D8 (28 de octubre de 2026): toda ficha lleva cifra destacada, salvo las de estas excepciones, que dice la regla de .claude/rules/visualizaciones.md.
 // La prueba falla si una ficha no tiene cifra y no está acá, o si una de acá tiene cifra

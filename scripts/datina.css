@@ -1854,6 +1854,8 @@ html:active-view-transition-type(provincia)::view-transition-group(*){animation-
 .cat-previa caption{padding:var(--e-2) var(--e-3);text-align:left;font-size:var(--t-2);color:var(--muted)}
 .cat-dic th[scope="row"]{position:static;padding:var(--e-2) var(--e-3);font-weight:400;color:var(--ink);background:none;border-bottom:1px solid #F0F3F7}
 .cat-dic code{font-family:var(--mono);font-size:var(--t-2)}
+/* un nombre de archivo largo (Sobre nosotros) se corta donde haga falta: en 320 píxeles no entra entero */
+p code{overflow-wrap:anywhere}
 .cat-otros,.cat-nota{max-width:46em;margin:var(--e-3) 0 0;font-size:var(--t-3);line-height:1.5;color:var(--muted)}
 .cat-licencia{margin:var(--e-6) 0 0;font-size:var(--t-2);color:var(--muted)}
 /* La historia de cada jurisdicción en Tu provincia (11 de octubre de 2026, pedido del autor): una tarjeta como las fichas, con el texto a la
