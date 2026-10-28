@@ -200,6 +200,24 @@ const vista = await p.eval(`document.querySelector('.conmutador[data-g="desemple
 if (!vista.startsWith("serie|") || !/contra un promedio/.test(vista)) problemas.push(`trabajo.html?vista=desempleo:serie: no abre esa vista (${vista})`);
 p.errores.forEach(e => problemas.push(`trabajo.html con ?vista=: ${e}`));
 
+// T9 (plan de mejora, D1): al imprimir sin haber bajado por la página, ninguna ficha a la vista sale en blanco. Se hace lo que hace el
+// navegador al imprimir: el aviso de antes de imprimir y la hoja de estilos de impresión. Cada ficha tiene que verse entera, con su
+// gráfico dibujado y su dirección debajo
+const IMPRIMIR = ["trabajo.html", "salud.html", "naturaleza.html", "provincia.html?prov=58"];
+for (const pg of IMPRIMIR) {
+  await p.ir(B + pg, 800);
+  await p.eval(`dispatchEvent(new Event("beforeprint"))`);
+  await p.send("Emulation.setEmulatedMedia", {media: "print"}); await espera(1500);
+  const mal = await p.eval(`[...document.querySelectorAll("article.ficha")].filter(f => f.offsetParent).flatMap(f => [
+    ...(+getComputedStyle(f).opacity < 1 ? [f.id + " transparente"] : []),
+    ...[...f.querySelectorAll(".grafico[data-g]")].filter(g => g.offsetParent && (!g.childElementCount || g.hasAttribute("aria-busy")))
+      .map(g => f.id + " con el gráfico " + g.dataset.g + " sin dibujar"),
+    ...(f.dataset.direccion ? [] : [f.id + " sin su dirección"])])`);
+  await p.send("Emulation.setEmulatedMedia", {media: ""});
+  mal.forEach(m => problemas.push(`${pg} al imprimir: ${m}`));
+  p.errores.forEach(e => problemas.push(`${pg} al imprimir: ${e}`));
+}
+
 // "En cifras" sin provincia (el perfil nuevo no tiene ninguna guardada) y después con cada provincia
 for (const sec of SECCIONES) await revisarCifras(sec, null);
 for (const prov of PROVINCIAS) {
@@ -379,7 +397,7 @@ servidor.close();
 
 console.log(`Páginas revisadas: ${paginas.length}. "En cifras": ${SECCIONES.length} secciones, sin provincia y con ${PROVINCIAS.length} provincias.`);
 console.log(`Artículos y fichas: ${ida.size} enlaces de ida y ${vuelta.size} de vuelta. Bajadas en la lista de Artículos: ${bajadas.filter(n => n >= 40).length} de ${nArt}.`);
-console.log(`Fichas: ${CUENTA.fichas}, todas con "Ver tabla" y sin el nombre de la sección arriba, ${CUENTA.como} con "Cómo se calcula". "Ver tabla" abierta en ${PROPIAS.length} fichas nuevas. Capítulos de a uno: la fila, un enlace a otro capítulo y una dirección vieja. La vista de una ficha en su dirección.`);
+console.log(`Fichas: ${CUENTA.fichas}, todas con "Ver tabla" y sin el nombre de la sección arriba, ${CUENTA.como} con "Cómo se calcula". "Ver tabla" abierta en ${PROPIAS.length} fichas nuevas. Capítulos de a uno: la fila, un enlace a otro capítulo y una dirección vieja. La vista de una ficha en su dirección. Al imprimir, ninguna ficha en blanco en ${IMPRIMIR.length} páginas.`);
 console.log(`Sin cdnjs ni jsDelivr: ${Object.keys(SIN_CDN).length} páginas. Sin D3: las fichas de trabajo.html a la vista. Menús con el teclado, en 1280 y 390 píxeles. Portada: datos destacados y buscador. Lupa: flechas, Enter, sin coincidencias, respuesta rápida y Tab.` +
             (IA ? " Consultas con IA: el buscador las ofrece y la página deja escrita la pregunta del enlace." : ""));
 console.log(`Accesibilidad: gráficos con nombre, "Saltar al contenido" y migas subrayadas en ${CUENTA.paginas} páginas, el salto con el teclado y el nombre del mapa. Pulido: textos de ayuda enteros en 360 y 768 píxeles y descripción de las fichas a la izquierda.`);
