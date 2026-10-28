@@ -47,7 +47,8 @@ const PAGINAS = readdirSync(SITIO).filter(f => f.endsWith(".html") && !f.startsW
 const LEER = `(async () => {
   const fuera = [];
   for (const f of document.querySelectorAll("article.ficha")) {
-    const num = f.querySelector(".clave .num"); if (!num) continue;
+    // en una página con capítulos, solo las del capítulo a la vista (las de los otros no se dibujaron)
+    const num = f.querySelector(".clave .num"); if (!num || !f.offsetParent) continue;
     const g = f.querySelector(".grafico");
     // los textos del SVG enteros (con sus tspan) y las hojas del HTML, separados para que dos números no se peguen
     const graf = g ? [...g.querySelectorAll("text"), ...[...g.querySelectorAll("span, b, div, li, td")].filter(e => !e.children.length)]
@@ -72,12 +73,16 @@ let revisadas = 0;
 for (const pg of PAGINAS) {
   await p.ir(BASE + pg, 800);
   await p.recorrer();
-  for (const f of await p.eval(LEER)) {
-    revisadas++;
-    const n = numero(f.num);
-    if (!n || esta(n, f.graf) || esta(n, f.tabla)) continue;
-    if (EXCEPCIONES[f.id] || SIN_REVISAR.has(f.id)) { usadas.add(f.id); continue; }
-    fallas.push(`${pg}#${f.id}: la cifra «${f.num}» no está en la vista inicial (ni en el gráfico ni en «Ver tabla»)`);
+  // en las páginas con capítulos se ve uno por vez (28 de octubre de 2026): se recorre cada uno
+  for (let i = 0, nc = await p.eval(`document.querySelectorAll(".capitulos a").length`); i < Math.max(nc, 1); i++) {
+    if (i) { await p.eval(`document.querySelectorAll(".capitulos a")[${i}].click()`); await p.recorrer(); }
+    for (const f of await p.eval(LEER)) {
+      revisadas++;
+      const n = numero(f.num);
+      if (!n || esta(n, f.graf) || esta(n, f.tabla)) continue;
+      if (EXCEPCIONES[f.id] || SIN_REVISAR.has(f.id)) { usadas.add(f.id); continue; }
+      fallas.push(`${pg}#${f.id}: la cifra «${f.num}» no está en la vista inicial (ni en el gráfico ni en «Ver tabla»)`);
+    }
   }
 }
 await ch.cerrar(); servidor.close();

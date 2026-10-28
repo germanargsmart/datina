@@ -7054,6 +7054,54 @@ addEventListener("resize", () => { if (innerWidth === anchoLargo) return; anchoL
 // y cuando llega la letra del sitio: con la de reemplazo, más ancha, un texto de siete líneas parecía de ocho y quedaba plegado
 if (document.fonts) document.fonts.ready.then(() => LEADS.forEach(revisarLargo));
 
+/* Capítulos como pestañas (28 de octubre de 2026, pedido del autor: "como población, que toco migraciones y tiene su sección ahí dentro,
+   pero no es una página nueva"). En las páginas con índice de capítulos se ve un capítulo por vez, el marcado en la fila, sin cambiar de
+   página. Su título lo dice la fila: queda solo para los lectores de pantalla, en su lugar. La dirección de una ficha (#f-…) o de un
+   capítulo (#g-…) abre el suyo, también con un enlace dentro de la página (las tarjetas de "En cifras", la lupa). Sin este código se ven
+   todos, como antes */
+(() => {
+  const nav = document.querySelector(".tema > nav.capitulos"); if (!nav) return;
+  const caps = [...nav.querySelectorAll('a[href^="#g-"]')].map(a => {
+    const h = document.getElementById(a.getAttribute("href").slice(1)), els = h ? [h] : [];
+    for (let e = h?.nextElementSibling; e && !e.matches('.bloque-grupo[id^="g-"], .explicador, .pasos'); e = e.nextElementSibling) els.push(e);
+    return {a, h, els};
+  }).filter(c => c.h);
+  if (caps.length < 2) return;
+  caps.forEach(c => c.h.classList.add("solo-lector"));
+  let activo = null;
+  const mostrar = c => {
+    if (c === activo) return;
+    activo = c;
+    caps.forEach(x => { x.a.setAttribute("aria-current", String(x === c)); x.els.forEach(e => e.classList.toggle("cap-fuera", x !== c)); });
+    // lo que se dibujó o se midió mientras el capítulo no se veía (al cambiar el ancho o la provincia) se hace de nuevo
+    c.els.forEach(e => {
+      if (e.matches("article.ficha.visto")) e.querySelectorAll(".grafico[data-g]").forEach(gr => { if (gr.offsetParent && DIB[gr.dataset.g]) DIB[gr.dataset.g](false); });
+      e.querySelectorAll(".lead").forEach(l => { if (l.offsetParent) revisarLargo(l); });
+    });
+    // en el celular la fila se desliza de costado: la pestaña elegida queda a la vista
+    const n = nav.getBoundingClientRect(), r = c.a.getBoundingClientRect();
+    if (r.left < n.left || r.right > n.right) nav.scrollLeft += r.left - n.left - (n.width - r.width) / 2;
+  };
+  const capDe = id => { const el = id && document.getElementById(id); return el ? caps.find(c => c.els.some(e => e.contains(el))) : null; };
+  const ancla = () => decodeURIComponent(location.hash.slice(1).split("?")[0]);
+  nav.addEventListener("click", ev => {
+    const a = ev.target.closest('a[href^="#g-"]'), c = a && caps.find(x => x.a === a); if (!c) return;
+    ev.preventDefault();
+    mostrar(c);
+    history.replaceState(history.state, "", location.pathname + location.search + a.getAttribute("href"));
+  });
+  addEventListener("hashchange", () => {
+    const id = ancla(), c = capDe(id);
+    if (!c || c === activo) return;
+    mostrar(c);
+    document.getElementById(id).scrollIntoView();
+  });
+  const inicial = capDe(ancla());
+  mostrar(inicial || caps[0]);
+  // el navegador buscó el ancla con todos los capítulos a la vista: al terminar de cargar se vuelve a buscar
+  if (ancla() && document.getElementById(ancla())) addEventListener("load", () => document.getElementById(ancla())?.scrollIntoView(), {once: true});
+})();
+
 /* ---------- diagnóstico educativo (etapa 10, octubre de 2026) ----------
    Describe posiciones y diferencias, sin recomendar (decisión 19 de la ronda de iteración). Reutiliza la tabla de cruces
    (Censo 2022) y suma la base de Aprender por sector, ámbito y departamento (aprender_diagnostico, y aparte aprender_departamentos).
