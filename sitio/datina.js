@@ -1000,11 +1000,11 @@ const TX = {
     (T.pozos_terminados_provincias.some(r => r.codigo_indec === "mar") ? ` "Mar argentino" son los pozos del mar a más de doce millas de la costa, de jurisdicción nacional.` : ""),
   "empleo-construccion-nota": `Asalariados registrados del sector privado en la construcción (rama 45 de la clasificación de actividades), según el SIPA, en promedio del trimestre. ` +
     `El SIPA asigna cada puesto a la provincia donde declara el empleador, no donde está la obra: una empresa con sede en CABA que construye en otra provincia suma en CABA. ` +
-    `No incluye a quienes trabajan por su cuenta ni el empleo no registrado: el Censo 2022 contó ${n0(CN.viv_abs.constructores)} personas ocupadas en la construcción, con o sin registro (ver la ficha de abajo). ` +
+    `No incluye a quienes trabajan por su cuenta ni el empleo no registrado: el Censo 2022 contó ${n0(CN.viv_abs.constructores)} personas ocupadas en la construcción, con o sin registro (en la otra pestaña). ` +
     `La población es la proyección ${R.anio_pob} del INDEC. La provincia de Buenos Aires suma los partidos del Gran Buenos Aires y el resto de la provincia, que el OEDE publica por separado.`,
   // la cifra destacada ya dice la parte de los ocupados: el texto empieza por cuántas personas son
   trabajadores: `En el Censo 2022, ${n0(CN.viv_abs.constructores)} personas dijeron trabajar en la construcción. El porcentaje se calcula sobre las personas ocupadas que informaron la rama de actividad. ` +
-    `La proporción va del ${pct(CN.viv_top.pct_ocupados_construccion[1])} en ${CN.viv_top.pct_ocupados_construccion[0]} al ${pct(CN.viv_low.pct_ocupados_construccion[1])} en ${CN.viv_low.pct_ocupados_construccion[0]}. El censo cuenta a cada persona donde vive y el empleo registrado de la ficha anterior, donde la declara la empresa: por eso las dos fichas ordenan distinto a las provincias.`,
+    `La proporción va del ${pct(CN.viv_top.pct_ocupados_construccion[1])} en ${CN.viv_top.pct_ocupados_construccion[0]} al ${pct(CN.viv_low.pct_ocupados_construccion[1])} en ${CN.viv_low.pct_ocupados_construccion[0]}. El censo cuenta a cada persona donde vive y el empleo registrado de la otra pestaña, donde la declara la empresa: por eso las dos vistas ordenan distinto a las provincias.`,
   "trabajadores-nota": `Personas ocupadas según la actividad de la empresa, el negocio o la institución donde trabajan, contadas en el lugar donde viven y no donde está la obra. ` +
     `Incluye a asalariados con y sin registro, a quienes trabajan por su cuenta y a patrones. El porcentaje se calcula sobre las personas ocupadas con la rama informada: el ${pct(VV.pct_sin_rama)} no respondió o su respuesta no alcanzó para clasificarla. ` +
     `En el mapa, el color divide a los departamentos en cinco grupos del mismo tamaño. Si elegís una provincia en Tu provincia, el mapa se acerca a ella.`,
@@ -1224,7 +1224,7 @@ const TX = {
     (SX.reservas_netas && SX.reservas_netas.n_sin_netas ? ` En ${SX.reservas_netas.n_sin_netas} meses no hay reservas netas porque la planilla no está publicada o no ` +
       `se pudo leer completa (sobre todo en 2007): ahí el gráfico no tiene dato y el mínimo y el máximo son los de los meses con dato.` : ""),
   "reservas-bcra-nota": `Reservas internacionales brutas del Banco Central: el oro, las divisas, las colocaciones y los demás activos en el exterior. Incluyen algunos que tienen una deuda ` +
-    `como contrapartida, como los depósitos en dólares que los bancos dejan en el BCRA o los canjes de monedas con otros bancos centrales, por eso no todas se pueden usar libremente: la ficha siguiente las desagrega y resta esas deudas. ` +
+    `como contrapartida, como los depósitos en dólares que los bancos dejan en el BCRA o los canjes de monedas con otros bancos centrales, por eso no todas se pueden usar libremente: la pestaña de las netas las desagrega y resta esas deudas. ` +
     `Cada punto es el último día con dato de cada mes, desde ${SX.reservas.desde} con la serie mensual del BCRA. "Meses de importación" divide las reservas por el promedio ` +
     `mensual de lo importado en los doce meses anteriores (INDEC): una referencia tradicional es que cubran al menos tres meses. "Qué las movió" muestra los factores con que el BCRA explica la variación de las reservas en lo que va del año, hasta el ` +
     `${fLarga(SX.reservas.factores_hasta)}: compras y ventas de divisas, préstamos y pagos de organismos internacionales como el FMI, otras operaciones del Tesoro, cambios en el ` +
@@ -1381,8 +1381,8 @@ const TX = {
   // la cifra destacada ya dice las visitas del último año: el texto empieza por la parte de quienes no residen en el país
   visitas: `En ${nt.vis_anio}, el ${pct(nt.vis_nr_pct)} de las visitas a los parques nacionales fue de personas que no residen en el país. El máximo de la serie fue en ${nt.vis_max_anio}, con ${n0(nt.vis_max)} visitas, y el mínimo en ${nt.vis_min_anio}, con ${n0(nt.vis_min)}. ` +
     `${nt.ytd_frase}, según esta fuente, las visitas ${movio(nt.ytd_var)} frente a los mismos meses del año anterior. ` +
-    `La ficha siguiente usa otra fuente, el tablero de la Secretaría de Turismo, y su comparación de lo que va del año puede dar otro resultado.`,
-  "visitas-nota": `Visitas registradas en los parques nacionales con control de ingreso. Una persona que entra dos veces cuenta como dos visitas. Solo se muestran años completos. Esta fuente no publica datos abiertos por parque: la ficha siguiente usa el tablero de la Secretaría de Turismo.`,
+    `La pestaña de cada parque usa otra fuente, el tablero de la Secretaría de Turismo, y su comparación de lo que va del año puede dar otro resultado.`,
+  "visitas-nota": `Visitas registradas en los parques nacionales con control de ingreso. Una persona que entra dos veces cuenta como dos visitas. Solo se muestran años completos. Esta fuente no publica datos abiertos por parque: la pestaña de cada parque usa el tablero de la Secretaría de Turismo.`,
   // la cifra destacada ya dice los turistas del último año completo: el texto empieza por los últimos doce meses
   receptivo: `En los doce meses hasta ${tu.doce_hasta} llegaron ${n0(tu.doce)} turistas que viven fuera del país, ${pct(Math.abs(tu.doce_var))} ${tu.doce_var < 0 ? "menos" : "más"} que en los doce meses anteriores. El máximo de la serie anual fue en ${tu.max_anio}, con ${n0(tu.max)}.`,
   "receptivo-nota": `Viajes de turistas no residentes, es decir personas que viven en otro país y pasan al menos una noche en la Argentina, por todos los pasos aéreos, terrestres y fluviales. Se cuentan por el país donde viven, no por su nacionalidad: un argentino que vive afuera es no residente. Una persona que entra dos veces en el año cuenta como dos viajes. Solo se muestran años completos.${tu.provisorio ? " Los últimos meses son datos provisorios." : ""}`,
@@ -6430,8 +6430,6 @@ const CLAVE = {
   "f-insumos": [`${CN.ins_suben} de ${CN.ins_n}`, `insumos de la construcción tuvieron más consumo aparente en los doce meses hasta ${CN.ins_mes} que en los doce anteriores`,
     `insumos tuvieron más consumo en los doce meses hasta ${CN.ins_mes} que en los doce anteriores`],
   "f-empleo-construccion": [n0(CN.emp_total), `puestos asalariados registrados en la construcción privada en el ${CN.emp_trim}`, "puestos asalariados registrados en todo el país"],
-  "f-trabajadores": [pct(VV.pct_ocupados_construccion), `de las personas ocupadas trabajaba en la construcción en el Censo 2022, con o sin registro`,
-    "de las personas ocupadas del país, con o sin registro"],
   "f-costo": [pct(Math.abs(CN.icc_real)), `${CN.icc_real < 0 ? "menos" : "más"} cuesta construir en el Gran Buenos Aires que en ${CN.costo_desde}, descontada la inflación`,
     `${CN.icc_real < 0 ? "menos" : "más"} cuesta construir que en ${CN.costo_desde}, descontada la inflación`],
   "f-vivienda": [pct(VV.pct_alquila), `de los hogares alquilaba su vivienda en el Censo 2022`, "de los hogares del país alquilaba su vivienda"],
@@ -6461,13 +6459,11 @@ const CLAVE = {
     `entre los que se fueron del país por Ezeiza o Aeroparque`, `cada 1.000 habitantes visitaron ${tu.eti_pc_top}, la jurisdicción con más en relación con su población`],
   "f-pobreza": [pct(R.pobreza.pob), `de las personas de los 31 aglomerados urbanos estaba bajo la línea de pobreza en el ${R.pobreza.sem}`,
     `de las personas, bajo la línea de pobreza en el ${R.pobreza.sem}`],
-  "f-sube-modos": [`${n0(su.tren_miles)} mil`, `tarjetas SUBE usadas en trenes en un día hábil típico de ${su.mes}`, `tarjetas en trenes en ${su.mes}`],
   // sin las motos de las jurisdicciones excluidas en distorsiones.json (E3, 26 de octubre de 2026): el total del país ya viene sin ellas
   "f-patentes": [n0(au.motos), `motos nuevas se inscribieron en ${au.anio}${au.moto_excluidos.length ? ` (sin contar las de ${lista(au.moto_excluidos)})` : ""}, ` +
     `${au.motos > au.autos ? "más" : "menos"} que autos (${n0(au.autos)})`,
     `motos en ${au.anio}${au.moto_excluidos.length ? ` sin ${lista(au.moto_excluidos)}` : ""}, ${au.motos > au.autos ? "más" : "menos"} que autos (${n0(au.autos)})`],
   "f-patentes-prov": [n1(au.pais_1000), `autos nuevos cada 1.000 habitantes en ${au.anio}`, "autos cada 1.000 habitantes en todo el país"],
-  "f-visitas-parque": [n0(vpq.top_v), `visitas recibió ${vpq.top}, el parque nacional más visitado en ${vpq.ult}`, `en ${vpq.top} (${vpq.top_lugar}), el más visitado en ${vpq.ult}`],
   "f-pesca": [n0(pe.total), `toneladas de pescados y mariscos desembarcadas en ${pe.anio}`, `toneladas de todas las especies en ${pe.anio}, contra ${n0(pe.total_ini)} en ${pe.ini}`],
   "f-pesca-rio": [pct(pe.rio_top_pct), `de la pesca comercial en ríos de ${pe.rio_anio} fue ${pe.rio_top.toLowerCase()}`, `de las toneladas capturadas fue ${pe.rio_top.toLowerCase()}`],
   "f-nombres": [cu.nena, `${yE(cu.varon)} fueron los nombres más elegidos para los bebés en ${cu.nom_anio}`, `para las nenas ${yE(cu.varon)} para los varones, en todo el país`],
@@ -6564,13 +6560,17 @@ const EXTRA = {
   "x-nacimientos": ["f-nacimientos", n0(nac.n_ult), `nacimientos se registraron en ${nac.anio_ult}, ${pct(Math.abs(nac.caida))} menos que en ${nac.anio_pico}`],
   "x-edad-mediana": ["f-piramide", `${PI.edad_mediana_hoy} años`, `es la edad mediana de la población en ${PI.anio}. En ${PI.anio_fin} será de ${PI.edad_mediana_fin}, según las proyecciones del INDEC`],
   "x-vejez": ["f-envejecimiento", n1(EV.hoy), `personas de 65 años o más por cada 100 de 15 a 64 en ${EV.anio}. En ${EV.anio_fin} serán ${n1(EV.fin)}`],
-  "x-jubilaciones": ["f-jubilaciones", n2(JU.ratio), `aportantes por cada jubilación o pensión de ANSES en ${JU.mes ? MESES[JU.mes - 1] + " de " : ""}${JU.anio}. En ${JU.max_anio} eran ${n2(JU.max)}`],
+  "x-jubilaciones": ["f-envejecimiento", n2(JU.ratio), `aportantes por cada jubilación o pensión de ANSES en ${JU.mes ? MESES[JU.mes - 1] + " de " : ""}${JU.anio}. En ${JU.max_anio} eran ${n2(JU.max)}`],
   "x-balotaje": ["f-elecciones", pct(ELU.pct_ganador), `de los votos positivos obtuvo la fórmula encabezada por ${ELU.ganador} en ${ELU.vuelta === 2 ? "la segunda vuelta" : "la primera vuelta"} de ${ELU.anio}` +
     (ELU.vuelta === 2 ? `, y ${pct(100 - ELU.pct_ganador)} la de ${ELU.candidatos.find(c => c.c !== ELU.ganador).c}` : "") + (ELU.provisorio ? ". Datos del escrutinio provisorio" : "")],
   "x-representacion": ["f-representacion", `${n1(CG.rep_max_v / CG.rep_min_v)} veces`, `más habitantes por banca de diputado hay en ${CG.rep_max} (${n0(CG.rep_max_v)}) que en ${CG.rep_min} (${n0(CG.rep_min_v)}), con la población de ${CG.anio}`],
   "x-congreso": ["f-congreso", `${CG.dip[ESP_DIP[0]]} de ${CG.n_dip}`, `bancas de Diputados tenía ${ESP_TXT[ESP_DIP[0]]} al ${fLarga(CG.fecha)}, más que cualquier otro espacio. Le seguía ${ESP_TXT[ESP_DIP[1]]}, con ${CG.dip[ESP_DIP[1]]}`],
   "x-atn": ["f-atn", n0(TRR.n_atn_ult), `provincias recibieron Aportes del Tesoro Nacional (ATN) en ${TRR.ult}, por ${milM(TRR.atn_ult)} de pesos. La ley no fija una fórmula para repartirlos`],
   "x-presidentes": ["f-presidentes", `${PRR.amba} de ${PRR.n}`, `presidentes desde 1983, contando a los interinos de 2001, nacieron en el Área Metropolitana de Buenos Aires (AMBA), donde vive el ${pct(PRR.amba_pob)} de la población`],
+  // fichas unidas (R7): la cifra destacada de la ficha que se fue, como tarjeta de la que quedó
+  "x-sube-trenes": ["f-sube", `${n0(su.tren_miles)} mil`, `tarjetas SUBE usadas en trenes en un día hábil típico de ${su.mes}`],
+  "x-parque-top": ["f-visitas", n0(vpq.top_v), `visitas recibió ${vpq.top}, el parque nacional más visitado en ${vpq.ult}`],
+  "x-ocupados-construccion": ["f-empleo-construccion", pct(VV.pct_ocupados_construccion), `de las personas ocupadas trabajaba en la construcción en el Censo 2022, con o sin registro`],
   "x-sube-var": ["f-sube", pct(Math.abs(su.var_anual)), `${masMenos(su.var_anual, "más", "menos")} tarjetas SUBE se usaron en un día hábil típico de ${su.mes} que en ${su.mes_prev}`],
   "x-hogares-crec": ["f-hogares", sg(e.crec_res), `creció la demanda eléctrica de los hogares entre ${e.anio_ini} y ${e.anio_ult}. La del resto de los usuarios, ${sg(e.crec_resto)}`],
   "x-demanda-ytd": R.ytd?.demanda && ["f-hogares", sg(R.ytd.demanda.var), `${masMenos(R.ytd.demanda.var, "creció", "cayó")} la demanda eléctrica entre enero y ${MESES[R.ytd.demanda.mes - 1]} de ${R.ytd.demanda.anio}, frente a los mismos meses de ${R.ytd.demanda.anio - 1}`],
@@ -6579,7 +6579,7 @@ const EXTRA = {
   "x-hoteles-nr": ["f-hoteles", pct(tu.eoh_nr_pct), `de los viajeros hospedados en hoteles y parahoteles en ${tu.eoh_anio} no residía en el país`],
 };
 const EN_CIFRAS = {
-  construccion: ["f-isac", "f-empleo-construccion", "f-costo", "f-vivienda", "x-construccion-ytd", "f-trabajadores", "x-viviendas-construccion", "f-insumos"],
+  construccion: ["f-isac", "f-empleo-construccion", "f-costo", "f-vivienda", "x-construccion-ytd", "x-ocupados-construccion", "x-viviendas-construccion", "f-insumos"],
   trabajo: ["f-empleo", "f-salarios", "f-rotacion", "f-exportaciones"],
   economia: ["f-inflacion", "x-inflacion-mes", "f-canastas", "f-salario-real", "f-emae", "f-supermercados"],
   empresas: ["f-empresas", "x-emp-top", "f-dinamica-empresas", "x-emp-saldo", "x-emp-negativos"],
@@ -6594,7 +6594,7 @@ const EN_CIFRAS = {
   migraciones: ["f-nacidos-otro-pais", "x-primer-pais", "f-radicaciones", "f-argentinos-exterior", "f-migracion-interna", "f-migracion-historia"],
   politica: ["x-balotaje", "x-representacion", "x-congreso", "x-atn", "x-presidentes"],
   justicia: ["f-corte-casos", "f-jueces-federales", "f-fiscalias-federales", "f-cortes-provinciales", "f-justicia-provincial"],
-  movilidad: ["f-sube", "f-combustibles", "x-sube-var", "f-patentes", "f-sube-modos", "f-patentes-prov"],
+  movilidad: ["f-sube", "f-combustibles", "x-sube-var", "f-patentes", "x-sube-trenes", "f-patentes-prov"],
   // Energía y Petróleo y gas, en dos páginas desde la etapa 22: Energía tiene datos por provincia (la electricidad y el gas de los
   // hogares) y suma la tarjeta "Tu provincia", Petróleo y gas no
   energia: ["f-hogares", "f-electricidad-provincias", "x-demanda-ytd", "f-gas-hogares", "f-subsidios", "x-hogares-crec", "f-gas-consumo",
@@ -6602,7 +6602,7 @@ const EN_CIFRAS = {
   petroleo: ["f-petroleo", "f-gas", "x-pet-shale", "f-reservas", "f-hidro-provincias", "x-vaca-muerta", "f-mundo-petroleo", "f-balanza-energetica",
     "f-pozos", "f-regalias", "f-empleo-hidro"],
   turismo: ["f-receptivo", "x-turistas-doce", "f-hoteles", "f-eti", "x-hoteles-nr"],
-  naturaleza: ["f-protegida", "f-parques", "f-visitas", "f-pesca", "f-especies", "f-visitas-parque", "f-pesca-rio", "f-clima", "f-glaciares"],
+  naturaleza: ["f-protegida", "f-parques", "f-visitas", "f-pesca", "f-especies", "x-parque-top", "f-pesca-rio", "f-clima", "f-glaciares"],
   curiosidades: ["f-nombres", "x-nombres-prov", "f-carne", "f-vino", "f-yerba"],
 };
 const esc = t => String(t).replace(/[&<>"]/g, c => ({"&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;"})[c]);
@@ -8112,7 +8112,7 @@ const ART_SERIE = [{
   // artículos, idea 5)
   id: "a-aportantes", frec: "Se actualiza cada trimestre", tablas: ["jubilaciones_aportantes", "haberes_previsionales"],
   dek: "Cuántas personas aportan al sistema previsional que administra ANSES por cada jubilación o pensión que paga, año por año desde 1994, y cuánto representan los haberes frente al salario.",
-  fichas: [["f-jubilaciones", "aportantes por jubilación"], ["f-haberes", "haberes previsionales"], ["f-envejecimiento", "envejecimiento"]],
+  fichas: [["f-envejecimiento", "aportantes y envejecimiento"], ["f-haberes", "haberes previsionales"]],
   csv: [["jubilaciones_aportantes", "Descargar CSV de aportantes y beneficios"], ["haberes_previsionales", "Descargar CSV de los haberes"]],
   fuentes: "Secretaría de Seguridad Social y ANSES, aportantes y beneficios del sistema previsional, haberes, y salario de los asalariados registrados, " +
     "e INDEC, proyecciones de población",
@@ -8952,7 +8952,7 @@ const SERIE_CIFRA = {
   "f-isac": () => serieM("Actividad de la construcción, promedio de cada año, índice 2004 = 100", T.isac_anual.map(r => [r.anio, r.isac]), n1),
   "x-construccion-ytd": () => SERIE_CIFRA["f-isac"](),
   "f-empleo-construccion": () => provM("Asalariados registrados en la construcción cada 1.000 habitantes", T.empleo_construccion_provincias, "construccion_cada_1000", CN.emp_cada_1000, n1),
-  "f-trabajadores": () => provM("Personas ocupadas en la construcción, % de las ocupadas, Censo 2022", T.vivienda_provincias, "pct_ocupados_construccion", VV.pct_ocupados_construccion, pct),
+  "x-ocupados-construccion": () => provM("Personas ocupadas en la construcción, % de las ocupadas, Censo 2022", T.vivienda_provincias, "pct_ocupados_construccion", VV.pct_ocupados_construccion, pct),
   "f-costo": () => serieM("Costo de la construcción dividido por los precios al consumidor, diciembre de cada año y el último mes", T.costo_anual.map(r => [r.periodo.endsWith("-12") ? r.periodo.slice(0, 4) : MESES[+r.periodo.slice(5, 7) - 1].slice(0, 3) + " " + r.periodo.slice(2, 4), r.icc_real]), n1),
   "f-vivienda": () => provM("Hogares que alquilan, en %, Censo 2022", T.vivienda_provincias, "pct_alquila", VV.pct_alquila, pct),
   "x-viviendas-construccion": () => provM("Viviendas en construcción cada 1.000 viviendas, Censo 2022", T.vivienda_provincias, "construccion_cada_1000", VV.construccion_cada_1000, n1),
@@ -8996,7 +8996,7 @@ const SERIE_CIFRA = {
   "x-atn": () => serieM(`Aportes del Tesoro Nacional por año, en miles de millones de pesos de ${TRR.ult}`, T.transferencias_serie.map(r => [r.anio, r.atn]), n0),
   "f-sube": () => serieM("Tarjetas SUBE por día hábil, en millones, por mes", T.sube_dia_habil.map(r => [mesCorto(r.periodo), r.total == null ? null : r.total / 1e6]), n2),
   "x-sube-var": () => SERIE_CIFRA["f-sube"](),
-  "f-sube-modos": () => serieM("Tarjetas SUBE en trenes por día hábil, en miles, por mes", T.sube_dia_habil.map(r => [mesCorto(r.periodo), r.tren == null ? null : r.tren / 1e3]), n0),
+  "x-sube-trenes": () => serieM("Tarjetas SUBE en trenes por día hábil, en miles, por mes", T.sube_dia_habil.map(r => [mesCorto(r.periodo), r.tren == null ? null : r.tren / 1e3]), n0),
   "f-patentes": () => serieM("Motos nuevas inscriptas por año", T.patentamientos_anual.map(r => [r.anio, r.motos]), n0),
   "f-patentes-prov": () => provM("Autos nuevos cada 1.000 habitantes", T.patentamientos_provincias, "autos_1000", au.pais_1000, n1),
   "f-combustibles": () => provM(`Nafta súper, pesos por litro, mediana de las estaciones, ${CB.mes}`, T.combustibles_provincias, "nafta", CB.nafta, n0),
@@ -9171,7 +9171,6 @@ if (PAGINA !== "inicio") {
     "f-robos": ["robos", "hurtos"], "f-delitos": ["delitos"], "f-mortalidad": ["mortalidad infantil"], "f-esperanza": ["esperanza vida"],
     "f-poblacion-proy": ["poblacion", "habitantes"], "f-nacimientos": ["nacimientos", "natalidad"], "f-exportaciones": ["exportaciones", "exporta"],
     "f-importaciones": ["importaciones"], "f-reservas-bcra": ["reservas"], "f-deuda": ["deuda"], "f-haberes": ["jubilacion", "jubilados", "jubilado"],
-    "f-jubilaciones": ["jubilacion", "jubilaciones", "jubilados", "aportantes"],
     "f-auh": ["auh", "asignacion universal"], "f-desempleo": ["desempleo"], "f-aprender": ["aprender"], "f-escolarizacion": ["escolarizacion", "secundaria"],
     "f-censo": ["cloacas", "agua red"], "f-cobertura": ["obra social", "prepaga", "cobertura de salud", "sin cobertura"], "f-internet": ["internet"], "f-glaciares": ["glaciares"], "f-receptivo": ["turistas", "turismo"], "f-isac": ["construccion"],
     "f-carne": ["carne"], "f-vino": ["vino"], "f-yerba": ["yerba"], "f-electricidad-provincias": ["electricidad", "luz"], "f-subsidios": ["subsidios"],

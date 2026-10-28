@@ -202,32 +202,35 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 
     <h2 class="bloque-grupo" id="g-empleo-construccion">Empleo</h2>
 
-    <article class="ficha" id="f-empleo-construccion">
-      <h2>¿Cuánto empleo registrado tiene la construcción en cada provincia?</h2>
-      <p class="ficha-sub">Asalariados registrados en la construcción privada, por provincia, primer trimestre de 2026</p>
-      <div class="conmutador" role="group" aria-label="Medida" data-g="empleo-construccion" style="--n:3">
-        <button type="button" data-m="construccion_cada_1000" aria-pressed="true">Cada 1.000 habitantes</button>
-        <button type="button" data-m="var_construccion" aria-pressed="false">Variación en un año</button>
-        <button type="button" data-m="serie" aria-pressed="false">Evolución del país</button>
-      </div>
-      <p class="clave-color" id="clave-empleo-construccion" hidden><span class="c-bueno">En verde</span>, donde el empleo creció. <span class="c-malo">En rojo</span>, donde cayó.</p>
-      <div class="grafico" data-g="empleo-construccion" data-forma="barras"></div>
-      <p class="lead" data-t="empleo-construccion"></p>
-      <p class="nota" data-t="empleo-construccion-nota"></p>
-      <div class="pie"><span>Fuente: Observatorio de Empleo y Dinámica Empresarial (OEDE), Secretaría de Trabajo, Ministerio de Capital Humano, con datos del Sistema Integrado Previsional Argentino (SIPA). Se actualiza cada tres meses.</span><a href="datos/empleo_construccion_provincias.csv" download>Descargar tabla (CSV)</a></div>
-    </article>
-
-    <article class="ficha" id="f-trabajadores">
+    <!-- f-empleo-construccion y f-trabajadores, unidas (plan de mejora, R7, decisión del autor del 28 de octubre de 2026): la dirección vieja lleva a la pestaña del censo -->
+    <article class="ficha con-vistas" id="f-empleo-construccion">
       <h2>¿Cuántas personas trabajan en la construcción en cada provincia?</h2>
-      <p class="ficha-sub">Porcentaje de las personas ocupadas que trabajan en la construcción, con o sin registro, por provincia y departamento, Censo 2022</p>
-      <div class="conmutador" role="group" aria-label="Vista" data-g="trabajadores-vista" data-dib="trabajadores">
-        <button type="button" data-m="prov" aria-pressed="true">Por provincia</button>
-        <button type="button" data-m="mapa" aria-pressed="false">Mapa por departamento</button>
+      <p class="ficha-sub">Asalariados registrados en la construcción privada, por provincia, primer trimestre de 2026, y porcentaje de las personas ocupadas que trabajan en la construcción, con o sin registro, por provincia y departamento, Censo 2022</p>
+      <div class="conmutador pestanas" role="tablist" aria-label="Vista" style="--n:2">
+        <button type="button" role="tab" id="tab-f-empleo-construccion-1" aria-controls="pan-f-empleo-construccion-1" aria-selected="true">Empleo registrado</button>
+        <button type="button" role="tab" id="tab-f-empleo-construccion-2" aria-controls="pan-f-empleo-construccion-2" aria-selected="false" tabindex="-1">Censo 2022</button>
       </div>
-      <div class="grafico mp-mapa" data-g="trabajadores" data-forma="barras"></div>
-      <p class="lead" data-t="trabajadores"></p>
-      <p class="nota" data-t="trabajadores-nota"></p>
-      <div class="pie"><span>Fuente: INDEC, Censo Nacional de Población, Hogares y Viviendas 2022, resultados por radio censal. Se actualiza con cada censo.</span><a href="datos/vivienda_provincias.csv" download>Descargar tabla (CSV)</a></div>
+      <div class="panel-pestana" role="tabpanel" id="pan-f-empleo-construccion-1" aria-labelledby="tab-f-empleo-construccion-1">
+        <div class="conmutador" role="group" aria-label="Medida" data-g="empleo-construccion" style="--n:3">
+          <button type="button" data-m="construccion_cada_1000" aria-pressed="true">Cada 1.000 habitantes</button>
+          <button type="button" data-m="var_construccion" aria-pressed="false">Variación en un año</button>
+          <button type="button" data-m="serie" aria-pressed="false">Evolución del país</button>
+        </div>
+        <p class="clave-color" id="clave-empleo-construccion" hidden><span class="c-bueno">En verde</span>, donde el empleo creció. <span class="c-malo">En rojo</span>, donde cayó.</p>
+        <div class="grafico" data-g="empleo-construccion" data-forma="barras"></div>
+      </div>
+      <div class="panel-pestana" role="tabpanel" id="pan-f-empleo-construccion-2" aria-labelledby="tab-f-empleo-construccion-2" data-vieja="f-trabajadores" hidden>
+        <div class="conmutador" role="group" aria-label="Vista" data-g="trabajadores-vista" data-dib="trabajadores">
+          <button type="button" data-m="prov" aria-pressed="true">Por provincia</button>
+          <button type="button" data-m="mapa" aria-pressed="false">Mapa por departamento</button>
+        </div>
+        <div class="grafico mp-mapa" data-g="trabajadores" data-forma="barras"></div>
+      </div>
+      <p data-panel="pan-f-empleo-construccion-1" class="lead" data-t="empleo-construccion"></p>
+      <p data-panel="pan-f-empleo-construccion-1" class="nota" data-t="empleo-construccion-nota"></p>
+      <p data-panel="pan-f-empleo-construccion-2" hidden class="lead" data-t="trabajadores"></p>
+      <p data-panel="pan-f-empleo-construccion-2" hidden class="nota" data-t="trabajadores-nota"></p>
+      <div class="pie"><span>Fuentes: Observatorio de Empleo y Dinámica Empresarial (OEDE), Secretaría de Trabajo, Ministerio de Capital Humano, con datos del Sistema Integrado Previsional Argentino (SIPA), e INDEC, Censo Nacional de Población, Hogares y Viviendas 2022, resultados por radio censal. Se actualiza cada tres meses.</span><a href="datos/empleo_construccion_provincias.csv" data-panel="pan-f-empleo-construccion-1" download>Descargar tabla (CSV)</a><a href="datos/vivienda_provincias.csv" data-panel="pan-f-empleo-construccion-2" hidden download>Descargar tabla (CSV)</a></div>
     </article>
 
     <h2 class="bloque-grupo" id="g-costo-credito">Costo y crédito</h2>
@@ -332,7 +335,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 <p class="solo-lector" id="aviso" aria-live="polite"></p>
 
 <!-- los datos van en un archivo aparte que el navegador guarda una sola vez para todas las páginas -->
-<script src="datos/fichas.js?v=f6a00af296"></script>
-<script src="datina.js?v=08bbb94b79"></script>
+<script src="datos/fichas.js?v=33334a41d7"></script>
+<script src="datina.js?v=6d49ce7bb1"></script>
 </body>
 </html>

@@ -994,22 +994,25 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <div class="pie"><span>Fuente: INDEC, proyecciones de población por provincia, sexo y edad 2022 a 2040, base Censo 2022</span><a href="datos/piramide_poblacion.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
-    <article class="ficha" id="f-envejecimiento">
-      <h2>¿Cuántas personas mayores hay por cada 100 en edad de trabajar?</h2>
-      <p class="ficha-sub">Personas de 65 años o más por cada 100 de 15 a 64 años, por provincia, {{envejecimiento.anio}} y {{envejecimiento.anio_fin}}</p>
-      <div class="grafico" data-g="envejecimiento" data-forma="pesas"></div>
-      <p class="lead" data-t="envejecimiento"></p>
-      <p class="nota" data-t="envejecimiento-nota"></p>
-      <div class="pie"><span>Fuente: INDEC, proyecciones de población por provincia 2022 a 2040, base Censo 2022</span><a href="datos/envejecimiento_provincias.csv" download>Descargar tabla (CSV)</a></div>
-    </article>
-
-    <article class="ficha" id="f-jubilaciones">
-      <h2>¿Cuántas personas aportan por cada jubilación o pensión?</h2>
-      <p class="ficha-sub">Personas que aportan por cada jubilación o pensión que paga ANSES, {{jubilaciones.ini}} a {{jubilaciones.anio}}</p>
-      <div class="grafico" data-g="jubilaciones" data-forma="lineas"></div>
-      <p class="lead" data-t="jubilaciones"></p>
-      <p class="nota" data-t="jubilaciones-nota"></p>
-      <div class="pie"><span>Fuente: Secretaría de Seguridad Social, Boletín Estadístico de la Seguridad Social (cuadro 4.1.1.1), con datos de ARCA y ANSES</span><a href="datos/jubilaciones_aportantes.csv" download>Descargar tabla (CSV)</a></div>
+    <!-- f-envejecimiento y f-jubilaciones, unidas (plan de mejora, R7, decisión del autor del 28 de octubre de 2026): la dirección vieja lleva a la pestaña de los aportantes -->
+    <article class="ficha con-vistas" id="f-envejecimiento">
+      <h2>¿Cuántas personas mayores hay por cada 100 en edad de trabajar, y cuántas aportan por cada jubilación?</h2>
+      <p class="ficha-sub">Personas de 65 años o más por cada 100 de 15 a 64 años, por provincia, {{envejecimiento.anio}} y {{envejecimiento.anio_fin}}, y personas que aportan por cada jubilación o pensión que paga ANSES, {{jubilaciones.ini}} a {{jubilaciones.anio}}</p>
+      <div class="conmutador pestanas" role="tablist" aria-label="Vista" style="--n:2">
+        <button type="button" role="tab" id="tab-f-envejecimiento-1" aria-controls="pan-f-envejecimiento-1" aria-selected="true">Por provincia</button>
+        <button type="button" role="tab" id="tab-f-envejecimiento-2" aria-controls="pan-f-envejecimiento-2" aria-selected="false" tabindex="-1">Aportantes</button>
+      </div>
+      <div class="panel-pestana" role="tabpanel" id="pan-f-envejecimiento-1" aria-labelledby="tab-f-envejecimiento-1">
+        <div class="grafico" data-g="envejecimiento" data-forma="pesas"></div>
+      </div>
+      <div class="panel-pestana" role="tabpanel" id="pan-f-envejecimiento-2" aria-labelledby="tab-f-envejecimiento-2" data-vieja="f-jubilaciones" hidden>
+        <div class="grafico" data-g="jubilaciones" data-forma="lineas"></div>
+      </div>
+      <p data-panel="pan-f-envejecimiento-1" class="lead" data-t="envejecimiento"></p>
+      <p data-panel="pan-f-envejecimiento-1" class="nota" data-t="envejecimiento-nota"></p>
+      <p data-panel="pan-f-envejecimiento-2" hidden class="lead" data-t="jubilaciones"></p>
+      <p data-panel="pan-f-envejecimiento-2" hidden class="nota" data-t="jubilaciones-nota"></p>
+      <div class="pie"><span>Fuentes: INDEC, proyecciones de población por provincia 2022 a 2040, base Censo 2022, y Secretaría de Seguridad Social, Boletín Estadístico de la Seguridad Social (cuadro 4.1.1.1), con datos de ARCA y ANSES</span><a href="datos/envejecimiento_provincias.csv" data-panel="pan-f-envejecimiento-1" download>Descargar tabla (CSV)</a><a href="datos/jubilaciones_aportantes.csv" data-panel="pan-f-envejecimiento-2" hidden download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-haberes">
@@ -1612,32 +1615,35 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <div class="pie"><span>Fuente: INDEC, balance de pagos, vía la API de Series de Tiempo</span><a href="datos/cuenta_corriente.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
-    <article class="ficha" id="f-reservas-bcra">
-      <h2>¿Cuántas reservas brutas tiene el Banco Central?</h2>
-      <p class="ficha-sub">Reservas internacionales brutas del BCRA al cierre de cada mes, en millones de dólares, desde {{externo.reservas_desde}}</p>
-      <div class="conmutador" role="group" aria-label="Vista" data-g="reservas-bcra" style="--n:3">
-        <button type="button" data-m="serie" aria-pressed="true">Evolución</button>
-        <button type="button" data-m="meses" aria-pressed="false">Meses de importación</button>
-        <button type="button" data-m="factores" aria-pressed="false">Qué las movió</button>
+    <!-- f-reservas-bcra y f-reservas-netas, unidas (plan de mejora, R7, decisión del autor del 28 de octubre de 2026): la dirección vieja lleva a la pestaña de las netas -->
+    <article class="ficha con-vistas" id="f-reservas-bcra">
+      <h2>¿Cuántas reservas tiene el Banco Central?</h2>
+      <p class="ficha-sub">Reservas internacionales brutas del BCRA al cierre de cada mes, desde {{externo.reservas_desde}}, y reservas netas, desde {{externo.reservas_netas.desde_anio}}, en millones de dólares</p>
+      <div class="conmutador pestanas" role="tablist" aria-label="Vista" style="--n:2">
+        <button type="button" role="tab" id="tab-f-reservas-bcra-1" aria-controls="pan-f-reservas-bcra-1" aria-selected="true">Brutas</button>
+        <button type="button" role="tab" id="tab-f-reservas-bcra-2" aria-controls="pan-f-reservas-bcra-2" aria-selected="false" tabindex="-1">Netas</button>
       </div>
-      <div class="grafico" data-g="reservas-bcra" data-forma="lineas"></div>
-      <p class="lead" data-t="reservas-bcra"></p>
-      <p class="nota" data-t="reservas-bcra-nota"></p>
-      <div class="pie"><span>Fuente: BCRA, API de Estadísticas Monetarias</span><a href="datos/reservas_bcra.csv" download>Reservas por mes (CSV)</a><a href="datos/reservas_factores.csv" download>Qué las movió, por año (CSV)</a></div>
-    </article>
-
-    <article class="ficha" id="f-reservas-netas">
-      <h2>¿Cuántas reservas netas tiene el Banco Central?</h2>
-      <p class="ficha-sub">Reservas brutas, lo que el BCRA debe pagar en moneda extranjera dentro de un año y reservas netas, en millones de dólares, desde {{externo.reservas_netas.desde_anio}}</p>
-      <div class="conmutador" role="group" aria-label="Vista" data-g="reservas-netas" style="--n:3">
-        <button type="button" data-m="serie" aria-pressed="true">Brutas y netas</button>
-        <button type="button" data-m="cascada" aria-pressed="false">De dónde salen</button>
-        <button type="button" data-m="composicion" aria-pressed="false">De qué están hechas</button>
+      <div class="panel-pestana" role="tabpanel" id="pan-f-reservas-bcra-1" aria-labelledby="tab-f-reservas-bcra-1">
+        <div class="conmutador" role="group" aria-label="Vista" data-g="reservas-bcra" style="--n:3">
+          <button type="button" data-m="serie" aria-pressed="true">Evolución</button>
+          <button type="button" data-m="meses" aria-pressed="false">Meses de importación</button>
+          <button type="button" data-m="factores" aria-pressed="false">Qué las movió</button>
+        </div>
+        <div class="grafico" data-g="reservas-bcra" data-forma="lineas"></div>
       </div>
-      <div class="grafico" data-g="reservas-netas" data-forma="lineas"></div>
-      <p class="lead" data-t="reservas-netas"></p>
-      <p class="nota" data-t="reservas-netas-nota"></p>
-      <div class="pie"><span>Fuente: BCRA, planilla de reservas internacionales y liquidez en moneda extranjera (formato del FMI), mensual</span><a href="datos/reservas_netas.csv" download>Descargar tabla (CSV)</a></div>
+      <div class="panel-pestana" role="tabpanel" id="pan-f-reservas-bcra-2" aria-labelledby="tab-f-reservas-bcra-2" data-vieja="f-reservas-netas" hidden>
+        <div class="conmutador" role="group" aria-label="Vista" data-g="reservas-netas" style="--n:3">
+          <button type="button" data-m="serie" aria-pressed="true">Brutas y netas</button>
+          <button type="button" data-m="cascada" aria-pressed="false">De dónde salen</button>
+          <button type="button" data-m="composicion" aria-pressed="false">De qué están hechas</button>
+        </div>
+        <div class="grafico" data-g="reservas-netas" data-forma="lineas"></div>
+      </div>
+      <p data-panel="pan-f-reservas-bcra-1" class="lead" data-t="reservas-bcra"></p>
+      <p data-panel="pan-f-reservas-bcra-1" class="nota" data-t="reservas-bcra-nota"></p>
+      <p data-panel="pan-f-reservas-bcra-2" hidden class="lead" data-t="reservas-netas"></p>
+      <p data-panel="pan-f-reservas-bcra-2" hidden class="nota" data-t="reservas-netas-nota"></p>
+      <div class="pie"><span>Fuentes: BCRA, API de Estadísticas Monetarias y planilla de reservas internacionales y liquidez en moneda extranjera (formato del FMI), mensual</span><a href="datos/reservas_bcra.csv" data-panel="pan-f-reservas-bcra-1" download>Reservas por mes (CSV)</a><a href="datos/reservas_factores.csv" data-panel="pan-f-reservas-bcra-1" download>Qué las movió, por año (CSV)</a><a href="datos/reservas_netas.csv" data-panel="pan-f-reservas-bcra-2" hidden download>Descargar tabla (CSV)</a></div>
     </article>
 
   </section>
@@ -1650,22 +1656,25 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </div>
     <!--EXPLICADOR:movilidad-->
 
-    <article class="ficha" id="f-sube">
-      <h2>¿Cuántas tarjetas SUBE se usan por día?</h2>
-      <p class="ficha-sub">Tarjetas SUBE distintas usadas en un día hábil típico (mediana de cada mes), 2020 a {{sube.anio_ult}}</p>
-      <div class="grafico" data-g="sube" data-forma="lineas"></div>
-      <p class="lead" data-t="sube"></p>
-      <p class="nota" data-t="sube-nota"></p>
-      <div class="pie"><span>Fuente: Ministerio de Transporte, datos abiertos de SUBE</span><a href="datos/sube_dia_habil.csv" download>Descargar tabla (CSV)</a></div>
-    </article>
-
-    <article class="ficha" id="f-sube-modos">
-      <h2>¿Cuánto se usan los trenes y los subtes?</h2>
-      <p class="ficha-sub">Tarjetas SUBE distintas usadas en un día hábil típico en trenes y en subtes, 2020 a {{sube.anio_ult}}</p>
-      <div class="grafico" data-g="sube-modos" data-forma="lineas" style="--alto-c:342px"></div>
-      <p class="lead" data-t="sube-modos"></p>
-      <p class="nota" data-t="sube-modos-nota"></p>
-      <div class="pie"><span>Fuente: Ministerio de Transporte, datos abiertos de SUBE</span><a href="datos/sube_dia_habil.csv" download>Descargar tabla (CSV)</a></div>
+    <!-- f-sube y f-sube-modos, unidas (plan de mejora, R7, decisión del autor del 28 de octubre de 2026): la dirección vieja lleva a la pestaña de los trenes y los subtes -->
+    <article class="ficha con-vistas" id="f-sube">
+      <h2>¿Cuántas tarjetas SUBE se usan por día, y cuántas en trenes y subtes?</h2>
+      <p class="ficha-sub">Tarjetas SUBE distintas usadas en un día hábil típico (mediana de cada mes), en total y en trenes y subtes, 2020 a {{sube.anio_ult}}</p>
+      <div class="conmutador pestanas" role="tablist" aria-label="Vista" style="--n:2">
+        <button type="button" role="tab" id="tab-f-sube-1" aria-controls="pan-f-sube-1" aria-selected="true">Total</button>
+        <button type="button" role="tab" id="tab-f-sube-2" aria-controls="pan-f-sube-2" aria-selected="false" tabindex="-1">Trenes y subtes</button>
+      </div>
+      <div class="panel-pestana" role="tabpanel" id="pan-f-sube-1" aria-labelledby="tab-f-sube-1">
+        <div class="grafico" data-g="sube" data-forma="lineas"></div>
+      </div>
+      <div class="panel-pestana" role="tabpanel" id="pan-f-sube-2" aria-labelledby="tab-f-sube-2" data-vieja="f-sube-modos" hidden>
+        <div class="grafico" data-g="sube-modos" data-forma="lineas" style="--alto-c:342px"></div>
+      </div>
+      <p data-panel="pan-f-sube-1" class="lead" data-t="sube"></p>
+      <p data-panel="pan-f-sube-1" class="nota" data-t="sube-nota"></p>
+      <p data-panel="pan-f-sube-2" hidden class="lead" data-t="sube-modos"></p>
+      <p data-panel="pan-f-sube-2" hidden class="nota" data-t="sube-modos-nota"></p>
+      <div class="pie"><span>Fuente: Ministerio de Transporte, datos abiertos de SUBE</span><a href="datos/sube_dia_habil.csv" data-panel="pan-f-sube-1" download>Descargar tabla (CSV)</a><a href="datos/sube_dia_habil.csv" data-panel="pan-f-sube-2" hidden download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-patentes">
@@ -1767,32 +1776,35 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 
     <h2 class="bloque-grupo" id="g-empleo-construccion">Empleo</h2>
 
-    <article class="ficha" id="f-empleo-construccion">
-      <h2>¿Cuánto empleo registrado tiene la construcción en cada provincia?</h2>
-      <p class="ficha-sub">Asalariados registrados en la construcción privada, por provincia, {{construccion.emp_trim}}</p>
-      <div class="conmutador" role="group" aria-label="Medida" data-g="empleo-construccion" style="--n:3">
-        <button type="button" data-m="construccion_cada_1000" aria-pressed="true">Cada 1.000 habitantes</button>
-        <button type="button" data-m="var_construccion" aria-pressed="false">Variación en un año</button>
-        <button type="button" data-m="serie" aria-pressed="false">Evolución del país</button>
-      </div>
-      <p class="clave-color" id="clave-empleo-construccion" hidden><span class="c-bueno">En verde</span>, donde el empleo creció. <span class="c-malo">En rojo</span>, donde cayó.</p>
-      <div class="grafico" data-g="empleo-construccion" data-forma="barras"></div>
-      <p class="lead" data-t="empleo-construccion"></p>
-      <p class="nota" data-t="empleo-construccion-nota"></p>
-      <div class="pie"><span>Fuente: Observatorio de Empleo y Dinámica Empresarial (OEDE), Secretaría de Trabajo, Ministerio de Capital Humano, con datos del Sistema Integrado Previsional Argentino (SIPA)</span><a href="datos/empleo_construccion_provincias.csv" download>Descargar tabla (CSV)</a></div>
-    </article>
-
-    <article class="ficha" id="f-trabajadores">
+    <!-- f-empleo-construccion y f-trabajadores, unidas (plan de mejora, R7, decisión del autor del 28 de octubre de 2026): la dirección vieja lleva a la pestaña del censo -->
+    <article class="ficha con-vistas" id="f-empleo-construccion">
       <h2>¿Cuántas personas trabajan en la construcción en cada provincia?</h2>
-      <p class="ficha-sub">Porcentaje de las personas ocupadas que trabajan en la construcción, con o sin registro, por provincia y departamento, Censo 2022</p>
-      <div class="conmutador" role="group" aria-label="Vista" data-g="trabajadores-vista" data-dib="trabajadores">
-        <button type="button" data-m="prov" aria-pressed="true">Por provincia</button>
-        <button type="button" data-m="mapa" aria-pressed="false">Mapa por departamento</button>
+      <p class="ficha-sub">Asalariados registrados en la construcción privada, por provincia, {{construccion.emp_trim}}, y porcentaje de las personas ocupadas que trabajan en la construcción, con o sin registro, por provincia y departamento, Censo 2022</p>
+      <div class="conmutador pestanas" role="tablist" aria-label="Vista" style="--n:2">
+        <button type="button" role="tab" id="tab-f-empleo-construccion-1" aria-controls="pan-f-empleo-construccion-1" aria-selected="true">Empleo registrado</button>
+        <button type="button" role="tab" id="tab-f-empleo-construccion-2" aria-controls="pan-f-empleo-construccion-2" aria-selected="false" tabindex="-1">Censo 2022</button>
       </div>
-      <div class="grafico mp-mapa" data-g="trabajadores" data-forma="barras"></div>
-      <p class="lead" data-t="trabajadores"></p>
-      <p class="nota" data-t="trabajadores-nota"></p>
-      <div class="pie"><span>Fuente: INDEC, Censo Nacional de Población, Hogares y Viviendas 2022, resultados por radio censal</span><a href="datos/vivienda_provincias.csv" download>Descargar tabla (CSV)</a></div>
+      <div class="panel-pestana" role="tabpanel" id="pan-f-empleo-construccion-1" aria-labelledby="tab-f-empleo-construccion-1">
+        <div class="conmutador" role="group" aria-label="Medida" data-g="empleo-construccion" style="--n:3">
+          <button type="button" data-m="construccion_cada_1000" aria-pressed="true">Cada 1.000 habitantes</button>
+          <button type="button" data-m="var_construccion" aria-pressed="false">Variación en un año</button>
+          <button type="button" data-m="serie" aria-pressed="false">Evolución del país</button>
+        </div>
+        <p class="clave-color" id="clave-empleo-construccion" hidden><span class="c-bueno">En verde</span>, donde el empleo creció. <span class="c-malo">En rojo</span>, donde cayó.</p>
+        <div class="grafico" data-g="empleo-construccion" data-forma="barras"></div>
+      </div>
+      <div class="panel-pestana" role="tabpanel" id="pan-f-empleo-construccion-2" aria-labelledby="tab-f-empleo-construccion-2" data-vieja="f-trabajadores" hidden>
+        <div class="conmutador" role="group" aria-label="Vista" data-g="trabajadores-vista" data-dib="trabajadores">
+          <button type="button" data-m="prov" aria-pressed="true">Por provincia</button>
+          <button type="button" data-m="mapa" aria-pressed="false">Mapa por departamento</button>
+        </div>
+        <div class="grafico mp-mapa" data-g="trabajadores" data-forma="barras"></div>
+      </div>
+      <p data-panel="pan-f-empleo-construccion-1" class="lead" data-t="empleo-construccion"></p>
+      <p data-panel="pan-f-empleo-construccion-1" class="nota" data-t="empleo-construccion-nota"></p>
+      <p data-panel="pan-f-empleo-construccion-2" hidden class="lead" data-t="trabajadores"></p>
+      <p data-panel="pan-f-empleo-construccion-2" hidden class="nota" data-t="trabajadores-nota"></p>
+      <div class="pie"><span>Fuentes: Observatorio de Empleo y Dinámica Empresarial (OEDE), Secretaría de Trabajo, Ministerio de Capital Humano, con datos del Sistema Integrado Previsional Argentino (SIPA), e INDEC, Censo Nacional de Población, Hogares y Viviendas 2022, resultados por radio censal</span><a href="datos/empleo_construccion_provincias.csv" data-panel="pan-f-empleo-construccion-1" download>Descargar tabla (CSV)</a><a href="datos/vivienda_provincias.csv" data-panel="pan-f-empleo-construccion-2" hidden download>Descargar tabla (CSV)</a></div>
     </article>
 
     <h2 class="bloque-grupo" id="g-costo-credito">Costo y crédito</h2>
@@ -2278,27 +2290,30 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <div class="pie"><span>Fuente: Sistema de Información de Biodiversidad, Administración de Parques Nacionales</span><a href="datos/parques_nacionales_historia.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
-    <article class="ficha" id="f-visitas">
-      <h2>¿Cuántas visitas reciben los parques nacionales?</h2>
-      <p class="ficha-sub">Visitas registradas en los parques nacionales con control de ingreso, de residentes y de no residentes, {{naturaleza.vis_ini_anio}} a {{naturaleza.vis_anio}}</p>
-      <div class="grafico" data-g="visitas" data-forma="lineas" style="--alto-c:342px"></div>
-      <p class="lead" data-t="visitas"></p>
-      <p class="nota" data-t="visitas-nota"></p>
-      <div class="pie"><span>Fuente: Ministerio de Turismo y Deportes, Sistema de Información Turística de la Argentina (SINTA)</span><a href="datos/visitas_parques_nacionales.csv" download>Descargar tabla (CSV)</a></div>
-    </article>
-
-    <article class="ficha" id="f-visitas-parque">
-      <h2>¿Qué parques nacionales reciben más visitas?</h2>
-      <p class="ficha-sub">Visitas registradas en cada parque nacional, {{visitas_parque.anios}}, y en 2019, antes de la pandemia</p>
-      <div class="conmutador" role="group" aria-label="Año" data-g="visitas-parque" style="--n:3">
-        <button type="button" data-m="visitas_ult" aria-pressed="true" data-t="vp-b1"></button>
-        <button type="button" data-m="visitas_par" aria-pressed="false" data-t="vp-b2"></button>
-        <button type="button" data-m="visitas_pre" aria-pressed="false">2019</button>
+    <!-- f-visitas y f-visitas-parque, unidas (plan de mejora, R7, decisión del autor del 28 de octubre de 2026): la dirección vieja lleva a la pestaña de cada parque -->
+    <article class="ficha con-vistas" id="f-visitas">
+      <h2>¿Cuántas visitas reciben los parques nacionales, y cuáles reciben más?</h2>
+      <p class="ficha-sub">Visitas registradas en los parques nacionales con control de ingreso, de residentes y de no residentes, {{naturaleza.vis_ini_anio}} a {{naturaleza.vis_anio}}, y en cada parque, {{visitas_parque.anios}} y 2019, antes de la pandemia</p>
+      <div class="conmutador pestanas" role="tablist" aria-label="Vista" style="--n:2">
+        <button type="button" role="tab" id="tab-f-visitas-1" aria-controls="pan-f-visitas-1" aria-selected="true">Por año</button>
+        <button type="button" role="tab" id="tab-f-visitas-2" aria-controls="pan-f-visitas-2" aria-selected="false" tabindex="-1">Por parque</button>
       </div>
-      <div class="grafico" data-g="visitas-parque" data-forma="barras" style="--filas:41"></div>
-      <p class="lead" data-t="visitas-parque"></p>
-      <p class="nota" data-t="visitas-parque-nota"></p>
-      <div class="pie"><span>Fuente: Secretaría de Turismo, tablero de áreas protegidas, con datos de la Administración de Parques Nacionales</span><a href="datos/visitas_por_parque.csv" download>Descargar tabla (CSV)</a></div>
+      <div class="panel-pestana" role="tabpanel" id="pan-f-visitas-1" aria-labelledby="tab-f-visitas-1">
+        <div class="grafico" data-g="visitas" data-forma="lineas" style="--alto-c:342px"></div>
+      </div>
+      <div class="panel-pestana" role="tabpanel" id="pan-f-visitas-2" aria-labelledby="tab-f-visitas-2" data-vieja="f-visitas-parque" hidden>
+        <div class="conmutador" role="group" aria-label="Año" data-g="visitas-parque" style="--n:3">
+          <button type="button" data-m="visitas_ult" aria-pressed="true" data-t="vp-b1"></button>
+          <button type="button" data-m="visitas_par" aria-pressed="false" data-t="vp-b2"></button>
+          <button type="button" data-m="visitas_pre" aria-pressed="false">2019</button>
+        </div>
+        <div class="grafico" data-g="visitas-parque" data-forma="barras" style="--filas:41"></div>
+      </div>
+      <p data-panel="pan-f-visitas-1" class="lead" data-t="visitas"></p>
+      <p data-panel="pan-f-visitas-1" class="nota" data-t="visitas-nota"></p>
+      <p data-panel="pan-f-visitas-2" hidden class="lead" data-t="visitas-parque"></p>
+      <p data-panel="pan-f-visitas-2" hidden class="nota" data-t="visitas-parque-nota"></p>
+      <div class="pie"><span>Fuentes: Ministerio de Turismo y Deportes, Sistema de Información Turística de la Argentina (SINTA), y Secretaría de Turismo, tablero de áreas protegidas, con datos de la Administración de Parques Nacionales</span><a href="datos/visitas_parques_nacionales.csv" data-panel="pan-f-visitas-1" download>Descargar tabla (CSV)</a><a href="datos/visitas_por_parque.csv" data-panel="pan-f-visitas-2" hidden download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-especies">

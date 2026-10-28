@@ -151,22 +151,25 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </div><div class="en-cifras esqueleto" aria-hidden="true"><h2>En cifras</h2><div class="cifras-grid"><span class="tarjeta cifra"></span><span class="tarjeta cifra"></span><span class="tarjeta cifra"></span><span class="tarjeta cifra"></span><span class="tarjeta cifra"></span></div></div>
     <p class="exp-gancho"><a href="#para-entender">Para entender los datos</a>: qué se mide, de dónde sale y qué tener en cuenta, al final de la página ↓</p>
 
-    <article class="ficha" id="f-sube">
-      <h2>¿Cuántas tarjetas SUBE se usan por día?</h2>
-      <p class="ficha-sub">Tarjetas SUBE distintas usadas en un día hábil típico (mediana de cada mes), 2020 a 2026</p>
-      <div class="grafico" data-g="sube" data-forma="lineas"></div>
-      <p class="lead" data-t="sube"></p>
-      <p class="nota" data-t="sube-nota"></p>
-      <div class="pie"><span>Fuente: Ministerio de Transporte, datos abiertos de SUBE. Se actualiza cada mes.</span><a href="datos/sube_dia_habil.csv" download>Descargar tabla (CSV)</a></div>
-    </article>
-
-    <article class="ficha" id="f-sube-modos">
-      <h2>¿Cuánto se usan los trenes y los subtes?</h2>
-      <p class="ficha-sub">Tarjetas SUBE distintas usadas en un día hábil típico en trenes y en subtes, 2020 a 2026</p>
-      <div class="grafico" data-g="sube-modos" data-forma="lineas" style="--alto-c:342px"></div>
-      <p class="lead" data-t="sube-modos"></p>
-      <p class="nota" data-t="sube-modos-nota"></p>
-      <div class="pie"><span>Fuente: Ministerio de Transporte, datos abiertos de SUBE. Se actualiza cada mes.</span><a href="datos/sube_dia_habil.csv" download>Descargar tabla (CSV)</a></div>
+    <!-- f-sube y f-sube-modos, unidas (plan de mejora, R7, decisión del autor del 28 de octubre de 2026): la dirección vieja lleva a la pestaña de los trenes y los subtes -->
+    <article class="ficha con-vistas" id="f-sube">
+      <h2>¿Cuántas tarjetas SUBE se usan por día, y cuántas en trenes y subtes?</h2>
+      <p class="ficha-sub">Tarjetas SUBE distintas usadas en un día hábil típico (mediana de cada mes), en total y en trenes y subtes, 2020 a 2026</p>
+      <div class="conmutador pestanas" role="tablist" aria-label="Vista" style="--n:2">
+        <button type="button" role="tab" id="tab-f-sube-1" aria-controls="pan-f-sube-1" aria-selected="true">Total</button>
+        <button type="button" role="tab" id="tab-f-sube-2" aria-controls="pan-f-sube-2" aria-selected="false" tabindex="-1">Trenes y subtes</button>
+      </div>
+      <div class="panel-pestana" role="tabpanel" id="pan-f-sube-1" aria-labelledby="tab-f-sube-1">
+        <div class="grafico" data-g="sube" data-forma="lineas"></div>
+      </div>
+      <div class="panel-pestana" role="tabpanel" id="pan-f-sube-2" aria-labelledby="tab-f-sube-2" data-vieja="f-sube-modos" hidden>
+        <div class="grafico" data-g="sube-modos" data-forma="lineas" style="--alto-c:342px"></div>
+      </div>
+      <p data-panel="pan-f-sube-1" class="lead" data-t="sube"></p>
+      <p data-panel="pan-f-sube-1" class="nota" data-t="sube-nota"></p>
+      <p data-panel="pan-f-sube-2" hidden class="lead" data-t="sube-modos"></p>
+      <p data-panel="pan-f-sube-2" hidden class="nota" data-t="sube-modos-nota"></p>
+      <div class="pie"><span>Fuente: Ministerio de Transporte, datos abiertos de SUBE. Se actualiza cada mes.</span><a href="datos/sube_dia_habil.csv" data-panel="pan-f-sube-1" download>Descargar tabla (CSV)</a><a href="datos/sube_dia_habil.csv" data-panel="pan-f-sube-2" hidden download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-patentes">
@@ -269,7 +272,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 <p class="solo-lector" id="aviso" aria-live="polite"></p>
 
 <!-- los datos van en un archivo aparte que el navegador guarda una sola vez para todas las páginas -->
-<script src="datos/fichas.js?v=f6a00af296"></script>
-<script src="datina.js?v=08bbb94b79"></script>
+<script src="datos/fichas.js?v=33334a41d7"></script>
+<script src="datina.js?v=6d49ce7bb1"></script>
 </body>
 </html>
