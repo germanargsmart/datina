@@ -32,8 +32,9 @@ const destinoDe = href => {
   return urlPagina(p, p === id ? "" : "#" + id);
 };
 // Fichas unidas (plan de mejora, R7, 28 de octubre de 2026): la dirección de la ficha que se fue (energia.html#f-actividad) lleva a la que
-// quedó, en esta página o en la suya. Si la que quedó tiene pestañas, se abre la que era de la ficha vieja (ANCLA_VIEJA, abajo)
+// quedó, en esta página o en la suya. Si la que quedó tiene pestañas, se abre la que era de la ficha vieja (ABRIR_VIEJA, abajo)
 let ANCLA_VIEJA = "";
+const ABRIR_VIEJA = {};
 {
   const h = location.hash.slice(1).split("?")[0], nueva = h && (SITIO.alias || {})[h];
   if (nueva) {
@@ -45,6 +46,14 @@ let ANCLA_VIEJA = "";
     addEventListener("load", () => document.getElementById(nueva)?.scrollIntoView(), {once: true});
   }
 }
+// lo mismo con un enlace a la ficha vieja dentro de la misma página (un resultado del buscador, por ejemplo)
+addEventListener("hashchange", () => {
+  const h = location.hash.slice(1).split("?")[0], nueva = h && (SITIO.alias || {})[h];
+  if (!nueva || paginaDe(nueva) !== PAGINA) return;
+  history.replaceState(history.state, "", location.pathname + location.search + "#" + nueva + location.hash.slice(1 + h.length));
+  ABRIR_VIEJA[h]?.();
+  document.getElementById(nueva)?.scrollIntoView();
+});
 // Los enlaces de cuando todo estaba en una sola página (#f-empleo?prov=30, #salud, ?cx=, ?ix=) llevan a la página nueva
 if (PAGINA === "inicio") {
   const q = new URLSearchParams(location.search), h = location.hash.slice(1).split("?")[0], p = h && paginaDe(h);
@@ -6302,10 +6311,11 @@ document.querySelectorAll(".pestanas").forEach(tl => {
       if (d) { ev.preventDefault(); mostrar(tabs[(i + d + tabs.length) % tabs.length], true); }
     });
   });
-  // la dirección de una de las fichas que se unieron abre su pestaña (después del resto del arranque: mostrar usa revisarLargo)
-  const vieja = ANCLA_VIEJA && tabs.find(t => document.getElementById(t.getAttribute("aria-controls"))?.dataset.vieja === ANCLA_VIEJA);
-  if (vieja) queueMicrotask(() => mostrar(vieja));
+  // la dirección de una de las fichas que se unieron abre su pestaña
+  tabs.forEach(t => { const v = document.getElementById(t.getAttribute("aria-controls"))?.dataset.vieja; if (v) ABRIR_VIEJA[v] = () => mostrar(t); });
 });
+// al llegar con la dirección vieja, después del resto del arranque (mostrar usa revisarLargo, que se define más abajo)
+if (ABRIR_VIEJA[ANCLA_VIEJA]) queueMicrotask(ABRIR_VIEJA[ANCLA_VIEJA]);
 
 /* ---------- listado de áreas protegidas nacionales ---------- */
 function tablaAreas() {
@@ -6855,7 +6865,11 @@ document.querySelectorAll("article.ficha").forEach(f => {
     (!f.classList.contains("explorador") && !SIN_RELACIONES.has(f.id) ? `<a class="boton chico accion origen" href="relaciones.html?n=${f.id}" aria-describedby="${tituloFicha.id || (tituloFicha.id = f.id + "-tit")}"><span class="lbl">De dónde sale</span></a>` : "") +
     (EN_CATALOGO.has(nombre) ? `<a class="boton chico accion" href="catalogo.html#cat-${nombre}" aria-describedby="${tituloFicha.id || (tituloFicha.id = f.id + "-tit")}"><span class="lbl">Ver en el catálogo</span></a>` : "") +
     (f.querySelector(".grafico[data-g]") ? `<button type="button" class="boton chico accion imagen" hidden><span class="lbl">Descargar imagen</span></button>` : "");
-  [csv, ...otrosCsv].forEach(a => { a.className = "boton chico accion"; a.innerHTML = `<span class="lbl">Descargar CSV</span>`; acc.appendChild(a); });
+  // las de una ficha con vistas conservan su nombre si tienen uno propio ("Reservas por mes (CSV)")
+  [csv, ...otrosCsv].forEach(a => {
+    const lbl = a.dataset.panel && a.textContent !== "Descargar tabla (CSV)" ? a.textContent : "Descargar CSV";
+    a.className = "boton chico accion"; a.innerHTML = `<span class="lbl">${lbl}</span>`; acc.appendChild(a);
+  });
   pie.appendChild(acc);
   const tablaActiva = () => (([csv, ...otrosCsv].find(a => !a.hidden) || csv).getAttribute("href").match(/datos\/(\w+)\.csv/) || [])[1] || nombre;
   acc.querySelector(".ver-tabla")?.addEventListener("click", async ev => {
@@ -9125,7 +9139,11 @@ if (PAGINA !== "inicio") {
       const ancla = NOTA_A_LA_VISTA.has(id) && trasAyuda ? "#ayuda-suicidio" : "#" + id;
       IDX.push({t: h, g: "Fichas", sm: nombreSec(sec), u: ir(id, ancla), x: (TX[ks] || sub || "") + " " + (TX[kl] || "") + " " + (CLAVE[id]?.[1] || ""), f: id});
     });
-    PREG.forEach(([q, a, h]) => { const id = h.slice(1); if (paginaDe(id)) IDX.push({t: q, g: "Fichas", sm: nombreSec(SEC_FICHA[id]), u: ir(id, h), x: a, f: id}); });
+    // una pregunta que lleva a una ficha que se unió a otra (R7) abre su pestaña en la ficha que quedó
+    PREG.forEach(([q, a, h]) => {
+      const vieja = h.slice(1), id = (SITIO.alias || {})[vieja] || vieja;
+      if (paginaDe(id)) IDX.push({t: q, g: "Fichas", sm: nombreSec(SEC_FICHA[id]), u: ir(vieja, h), x: a, f: id});
+    });
     // todos los artículos: los de cruces y, desde el paso 3, también los de series
     ARTS.forEach(a => IDX.push({t: a.titulo, g: "Historias", sm: "Artículo", u: urlPagina(a.id), x: `${a.dek} ${a.t?.bajada || ""} ${nombreSec(a.sec)}`, sec: 1}));
     IDX.forEach(d => { d.tt = st(d.t); d.xx = st(d.x); });
