@@ -1148,6 +1148,195 @@
    }
   ]
  },
+ "justicia": {
+  "bloques": [
+   {
+    "titulo": "La justicia federal y las de las provincias",
+    "texto": "La Constitución reparte la justicia en dos niveles. El Poder Judicial de la Nación, con la Corte Suprema y los tribunales inferiores que crea el Congreso, atiende las causas regidas por la Constitución y las leyes de la Nación, las causas en que la Nación es parte y las que enfrentan a dos provincias. Cada provincia organiza su propia justicia, que atiende las demás causas. En CABA, además de su justicia propia, sigue funcionando la Justicia Nacional, su justicia ordinaria, a cargo del Poder Judicial de la Nación. Por eso las fichas de esta página muestran la Justicia Federal y las justicias de las provincias, y dan aparte las cifras de la Justicia Nacional.",
+    "fuentes": [
+     {
+      "nombre": "Constitución Nacional, artículos 5, 108 y 116",
+      "url": "https://www.argentina.gob.ar/normativa/nacional/ley-24430-804/texto",
+      "cita": "El Poder Judicial de la Nación será ejercido por una Corte Suprema de Justicia, y por los demás tribunales inferiores que el Congreso estableciere en el territorio de la Nación"
+     },
+     {
+      "nombre": "Constitución Nacional, artículo 116",
+      "url": "https://www.argentina.gob.ar/normativa/nacional/ley-24430-804/texto",
+      "cita": "Corresponde a la Corte Suprema y a los tribunales inferiores de la Nación, el conocimiento y decisión de todas las causas que versen sobre puntos regidos por la Constitución, y por las leyes de la Nación"
+     },
+     {
+      "nombre": "Constitución Nacional, artículo 5",
+      "url": "https://www.argentina.gob.ar/normativa/nacional/ley-24430-804/texto",
+      "cita": "Cada provincia dictará para sí una Constitución bajo el sistema representativo republicano, de acuerdo con los principios, declaraciones y garantías de la Constitución Nacional; y que asegure su administración de justicia"
+     },
+     {
+      "nombre": "Ley 24.588, artículo 8 (texto en el Boletín Oficial de CABA)",
+      "url": "https://boletinoficial.buenosaires.gob.ar/normativaba/norma/28882",
+      "cita": "La justicia nacional ordinaria de la ciudad de Buenos Aires mantendrá su actual jurisdicción y competencia continuando a cargo del Poder Judicial de la Nación"
+     }
+    ]
+   },
+   {
+    "titulo": "La Corte Suprema",
+    "texto": "Es el tribunal más alto del Poder Judicial de la Nación. Cuántos jueces la integran lo fija una ley: cinco desde la Ley 26.183, de 2006. El presidente los nombra con el acuerdo de dos tercios de los senadores presentes. La Corte revisa por apelación sentencias de otros tribunales, y en algunos asuntos, como los que tienen a una provincia como parte, interviene desde el principio. Su Oficina de Estadísticas cuenta un caso como resuelto cuando tuvo la decisión que lo cierra en la Corte, aunque el asunto siga abierto en otra instancia.",
+    "fuentes": [
+     {
+      "nombre": "Ley 26.183, artículo 2",
+      "url": "https://www.argentina.gob.ar/normativa/nacional/ley-26183-123154/texto",
+      "cita": "La Corte Suprema de Justicia de la Nación estará compuesta por CINCO (5) jueces"
+     },
+     {
+      "nombre": "Constitución Nacional, artículos 99 y 117",
+      "url": "https://www.argentina.gob.ar/normativa/nacional/ley-24430-804/texto",
+      "cita": "Nombra los magistrados de la Corte Suprema con acuerdo del Senado por dos tercios de sus miembros presentes, en sesión pública, convocada al efecto"
+     },
+     {
+      "nombre": "Constitución Nacional, artículo 117",
+      "url": "https://www.argentina.gob.ar/normativa/nacional/ley-24430-804/texto",
+      "cita": "En estos casos la Corte Suprema ejercerá su jurisdicción por apelación según las reglas y excepciones que prescriba el Congreso; pero en todos los asuntos concernientes a embajadores, ministros y cónsules extranjeros, y en los que alguna provincia fuese parte, la ejercerá originaria y exclusivamente"
+     },
+     {
+      "nombre": "Corte Suprema de Justicia de la Nación, Oficina de Estadísticas, Informe sobre Anuario Estadístico 2025",
+      "url": "https://www.csjn.gov.ar/archivos/estadisticas/informe_anuario_CSJN_2025.pdf",
+      "cita": "se considera Decisión de Cierre a la respuesta jurisdiccional que pone fin al asunto que originó el ingreso del caso, aun cuando la cuestión continúe abierta en instancias inferiores"
+     }
+    ]
+   },
+   {
+    "titulo": "Cómo se nombra a un juez federal",
+    "texto": "El Consejo de la Magistratura elige a los candidatos por concurso público y le propone al presidente una terna. El presidente nombra a uno de los tres con el acuerdo del Senado. El juez conserva el cargo mientras dure su buena conducta, y a los 75 años necesita un nuevo nombramiento, con el mismo acuerdo, para seguir. Mientras ese trámite no termina, el cargo queda sin titular.",
+    "fuentes": [
+     {
+      "nombre": "Constitución Nacional, artículos 99, 110 y 114",
+      "url": "https://www.argentina.gob.ar/normativa/nacional/ley-24430-804/texto",
+      "cita": "Seleccionar mediante concursos públicos los postulantes a las magistraturas inferiores"
+     },
+     {
+      "nombre": "Constitución Nacional, artículo 114",
+      "url": "https://www.argentina.gob.ar/normativa/nacional/ley-24430-804/texto",
+      "cita": "Emitir propuestas en ternas vinculantes, para el nombramiento de los magistrados de los tribunales inferiores"
+     },
+     {
+      "nombre": "Constitución Nacional, artículo 99",
+      "url": "https://www.argentina.gob.ar/normativa/nacional/ley-24430-804/texto",
+      "cita": "Nombra los demás jueces de los tribunales federales inferiores en base a una propuesta vinculante en terna del Consejo de la Magistratura, con acuerdo del Senado, en sesión pública, en la que se tendrá en cuenta la idoneidad de los candidatos"
+     },
+     {
+      "nombre": "Constitución Nacional, artículo 99",
+      "url": "https://www.argentina.gob.ar/normativa/nacional/ley-24430-804/texto",
+      "cita": "Un nuevo nombramiento, precedido de igual acuerdo, será necesario para mantener en el cargo a cualquiera de esos magistrados, una vez que cumplan la edad de setenta y cinco años"
+     },
+     {
+      "nombre": "Constitución Nacional, artículo 110",
+      "url": "https://www.argentina.gob.ar/normativa/nacional/ley-24430-804/texto",
+      "cita": "Los jueces de la Corte Suprema y de los tribunales inferiores de la Nación conservarán sus empleos mientras dure su buena conducta"
+     }
+    ]
+   },
+   {
+    "titulo": "Cargos sin titular y subrogantes",
+    "texto": "Un cargo sin titular no siempre es un juzgado sin juez. Cuando falta el titular, por una vacante, una licencia o una suspensión, la cámara del fuero designa un subrogante: primero otro juez de la misma competencia y del mismo lugar y, si no lo hay, un conjuez de una lista. La ficha de los jueces federales separa los cargos cubiertos por un subrogante de los que no tienen a nadie designado. El padrón del Ministerio de Justicia, del que sale, no incluye a la Corte Suprema, a la Procuración General ni a la Defensoría General.",
+    "fuentes": [
+     {
+      "nombre": "Ley 27.439, régimen de subrogancias, artículos 1 y 2",
+      "url": "https://www.argentina.gob.ar/normativa/nacional/ley-27439-311248/texto",
+      "cita": "La integración transitoria de los tribunales inferiores de la Nación en caso de licencia, suspensión, vacancia, remoción u otro impedimento de sus jueces titulares se denomina subrogancia"
+     },
+     {
+      "nombre": "Ley 27.439, artículo 2",
+      "url": "https://www.argentina.gob.ar/normativa/nacional/ley-27439-311248/texto",
+      "cita": "la cámara respectiva procederá a la designación de un (1) juez subrogante dentro de los tres (3) días de ocurrida la causa que motivara la subrogancia"
+     },
+     {
+      "nombre": "Ministerio de Justicia, datos abiertos: magistrados de la Justicia Federal y de la Justicia Nacional",
+      "url": "https://datos.jus.gob.ar/dataset/magistrados-justicia-federal-y-de-la-justicia-nacional",
+      "cita": "No se incluyen los magistrados de la Corte Suprema de Justicia de la Nación, de la Procuración General de la Nación ni de la Defensoría General de la Nación"
+     }
+    ]
+   },
+   {
+    "titulo": "Fiscales y defensores",
+    "texto": "Los fiscales y los defensores oficiales no son jueces. Forman el Ministerio Público, que la Constitución define como un órgano independiente, encabezado por el procurador general de la Nación y el defensor general de la Nación. Los fiscales promueven la actuación de la justicia en defensa de la legalidad y de los intereses de la sociedad, y los defensores oficiales garantizan el acceso a la justicia y la asistencia jurídica de quien la necesita. Cada provincia tiene también su propio ministerio público.",
+    "fuentes": [
+     {
+      "nombre": "Constitución Nacional, artículo 120",
+      "url": "https://www.argentina.gob.ar/normativa/nacional/ley-24430-804/texto",
+      "cita": "El Ministerio Público es un órgano independiente con autonomía funcional y autarquía financiera"
+     },
+     {
+      "nombre": "Constitución Nacional, artículo 120",
+      "url": "https://www.argentina.gob.ar/normativa/nacional/ley-24430-804/texto",
+      "cita": "Está integrado por un procurador general de la Nación y un defensor general de la Nación y los demás miembros que la ley establezca"
+     },
+     {
+      "nombre": "Ley 27.148, orgánica del Ministerio Público Fiscal, texto actualizado (Cámara de Diputados)",
+      "url": "https://www2.hcdn.gob.ar/export/hcdn/secparl/dgral_info_parlamentaria/dip/archivos/Ley_27148.pdf",
+      "cita": "El Ministerio Público Fiscal de la Nación es el órgano encargado de promover la actuación de la justicia en defensa de la legalidad y los intereses generales de la sociedad"
+     },
+     {
+      "nombre": "Ley 27.149, orgánica del Ministerio Público de la Defensa, texto actualizado (Cámara de Diputados)",
+      "url": "https://www2.hcdn.gob.ar/export/hcdn/secparl/dgral_info_parlamentaria/dip/archivos/Ley_27149.pdf",
+      "cita": "El Ministerio Público de la Defensa es una institución de defensa y protección de derechos humanos que garantiza el acceso a la justicia y la asistencia jurídica integral"
+     }
+    ]
+   },
+   {
+    "titulo": "Las justicias de las provincias",
+    "texto": "Las cifras de las provincias salen del Mapa de Género de la Justicia Argentina, que coordina la Oficina de la Mujer de la Corte Suprema. Cada poder judicial carga una vez por año a las personas en cada cargo, con fecha de corte el 31 de octubre. Por eso cuenta personas y no cargos: un juzgado vacante no suma. Cada provincia organiza su justicia con su propia constitución y sus leyes, y la cantidad de jueces depende también de cuántos juzgados de paz tiene, que en algunas provincias son muchos y en otras pocos.",
+    "fuentes": [
+     {
+      "nombre": "Corte Suprema de Justicia de la Nación, Oficina de la Mujer, Mapa de Género de la Justicia Argentina 2023 (copia del Consejo de la Magistratura)",
+      "url": "https://consejomagistratura.gov.ar/wp-content/uploads/2024/03/MAPA-DE-GENERO-DE-LA-JUSTICIA-ARGENTINA-2023-OM-CSJN.pdf",
+      "cita": "La carga del Mapa de Género es anual y está coordinada por la Oficina de la Mujer de la CSJN, siguiendo los criterios establecidos en el Instructivo correspondiente"
+     },
+     {
+      "nombre": "Corte Suprema de Justicia de la Nación, Oficina de la Mujer, Mapa de Género de la Justicia Argentina 2023",
+      "url": "https://consejomagistratura.gov.ar/wp-content/uploads/2024/03/MAPA-DE-GENERO-DE-LA-JUSTICIA-ARGENTINA-2023-OM-CSJN.pdf",
+      "cita": "La fecha de corte del relevamiento es el 31 de octubre del año analizado"
+     },
+     {
+      "nombre": "Constitución Nacional, artículo 122",
+      "url": "https://www.argentina.gob.ar/normativa/nacional/ley-24430-804/texto",
+      "cita": "Se dan sus propias instituciones locales y se rigen por ellas"
+     }
+    ]
+   }
+  ],
+  "glosario": [
+   {
+    "termino": "Subrogante",
+    "definicion": "Juez o conjuez que ocupa de forma transitoria un cargo cuyo titular falta por vacancia, licencia, suspensión u otro impedimento.",
+    "fuente": {
+     "nombre": "Ley 27.439",
+     "url": "https://www.argentina.gob.ar/normativa/nacional/ley-27439-311248/texto"
+    }
+   },
+   {
+    "termino": "Terna",
+    "definicion": "Lista de tres candidatos que el Consejo de la Magistratura le propone al presidente para cubrir un cargo de juez federal. El presidente tiene que elegir entre ellos.",
+    "fuente": {
+     "nombre": "Constitución Nacional, artículos 99 y 114",
+     "url": "https://www.argentina.gob.ar/normativa/nacional/ley-24430-804/texto"
+    }
+   },
+   {
+    "termino": "Justicia Nacional",
+    "definicion": "La justicia ordinaria de CABA (civil, comercial, laboral y penal) que sigue a cargo del Poder Judicial de la Nación. No es justicia federal.",
+    "fuente": {
+     "nombre": "Ley 24.588, artículo 8",
+     "url": "https://boletinoficial.buenosaires.gob.ar/normativaba/norma/28882"
+    }
+   },
+   {
+    "termino": "Ministerio Público",
+    "definicion": "Los fiscales y los defensores oficiales. En la Nación, un órgano independiente de los tribunales, encabezado por el procurador general y el defensor general.",
+    "fuente": {
+     "nombre": "Constitución Nacional, artículo 120",
+     "url": "https://www.argentina.gob.ar/normativa/nacional/ley-24430-804/texto"
+    }
+   }
+  ]
+ },
  "gobierno": {
   "bloques": [
    {
