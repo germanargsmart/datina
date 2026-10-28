@@ -6515,7 +6515,7 @@ const EXTRA = {
   "x-emp-saldo": ["f-dinamica-empresas", `${EM.positivas} de 24`, `jurisdicciones abrieron más empresas de las que cerraron en ${EM.ult}. En el país abrieron ${n1(EM.te)} y cerraron ${n1(EM.ts)} de cada 100`],
   "x-emp-negativos": ["f-dinamica-empresas", n0(EM.anios_negativos), `años con más cierres que aperturas de empresas desde ${EM.ini}, entre ellos ${lista(EM.ultimos_negativos.map(String))}`],
   // Curiosidades se quedó con cuatro fichas (etapa 6: glaciares y clima pasaron a Naturaleza y ambiente): la quinta tarjeta
-  "x-nombres-prov": ["f-nombres", `${cu.varon_prov_n} de 24`, `jurisdicciones eligieron ${cu.varon_prov} como el nombre de varón más inscripto en ${cu.nom_anio}`],
+  "x-nombres-prov": ["f-nombres", `${cu.varon_prov_n} de 24`, `jurisdicciones donde ${cu.varon_prov} fue el nombre de varón más inscripto en ${cu.nom_anio}`],
   "x-hurtos": ["f-robos", n0(SG.hurtos), `hurtos registrados cada 100.000 habitantes en ${SG.anio}. En ${SG.anio - 1}, ${n0(SG.hurtos_ant)}`],
   "x-primer-pais": ["f-nacidos-otro-pais", pct(MGC.paises[0][2]), `de las personas nacidas en otro país que vivían en la Argentina en 2022 había ` +
     `nacido en ${MGC.paises[0][0]}`],
