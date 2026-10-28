@@ -3645,7 +3645,7 @@ Object.assign(DIB, {
       ref: GBP.pais, refLab: `País ${millonesM(GBP.pais)}`, tip: d => `<b>${d.territorio}</b><br>${n0(d.por_habitante)} pesos por habitante en ${GBP.anio}<br>` +
         `${billones(d.millones)}<br>${pct(d.pct_ingresos_brutos)} de ingresos brutos`});
   },
-  combustibles: conTablas("combustibles", () => MED["combustibles-vista"] === "mes" ? ["combustibles_mensual"] : [], a => {
+  combustibles: conTablas("combustibles", () => ({mes: ["combustibles_mensual"], anio: ["combustibles_anual"]})[MED["combustibles-vista"]] || [], a => {
     const p = MED.combustibles, el = G("combustibles"), fp = T.combustibles_provincias.find(r => r.codigo_indec === prov);
     let txt = LEAD.combustibles(p, MED["combustibles-vista"]);
     if (MED["combustibles-vista"] === "anio") {
@@ -4844,7 +4844,7 @@ DIB.complejos = a => {
     tip: d => `<b>${d.complejo}</b><br>${n0(d.millones_usd)} millones de dólares` + (d.variacion != null ? `, ${conSigno(d.variacion)} frente al año anterior` : "") +
       (partes.get(d.complejo) || []).map(p => `<br>${p.complejo}: ${n0(p.millones_usd)}`).join("")});
 };
-DIB.destinos = a => {
+DIB.destinos = conTablas("destinos", ["exportaciones_destinos"], a => {
   const c = NOMBRES[prov] ? prov : "00", D = SX.destinos, el = G("destinos");
   // sin los destinos que no llegan a 0,05% (se leerían 0,0%)
   const filas = T.exportaciones_destinos.filter(r => r.codigo_indec === c && r.pct >= .05);
@@ -4863,7 +4863,7 @@ DIB.destinos = a => {
       (d.millones_usd_anterior > 0 ? `<br>${conSigno((d.millones_usd / d.millones_usd_anterior - 1) * 100)} frente al mismo período del año anterior` : "")});
   // sin resaltado propio: con otra provincia elegida, el gráfico se vuelve a dibujar con sus destinos
   delete el.resaltar;
-};
+});
 MED.exprov = "rubro";
 DIB.exprov = a => {
   const P = SX.provincias, cl = [["manufacturas_agro", "Agroindustria", "#1F5E97", "#fff"], ["manufacturas_industriales", "Industria", "#F6B40E", "#18212B"],
@@ -4907,7 +4907,7 @@ MED["reservas-bcra"] = "serie";
 /* Reservas netas (etapa 42, pedido del autor del 12 de octubre de 2026): las brutas y las netas por mes, de dónde salen las netas en el último mes
    (una cascada: las brutas, cada deuda a un año y lo que queda) y de qué están hechas las brutas */
 MED["reservas-netas"] = "serie";
-DIB["reservas-netas"] = a => {
+DIB["reservas-netas"] = conTablas("reservas-netas", ["reservas_netas"], a => {
   const el = G("reservas-netas"), N = SX.reservas_netas, v = MED["reservas-netas"], m = mesPer(N.mes);
   const datos = () => T.reservas_netas.map(r => ({...r, t: tPer(r.mes)}));
   if (v === "cascada") {
@@ -4941,7 +4941,7 @@ DIB["reservas-netas"] = a => {
     `${N.n_sin_netas ? "En los meses con dato desde" : "Desde"} ${mesPer(N.desde)}, el valor más bajo fue de ${n0(N.min.v)} millones, en ${mesPer(N.min.mes)}, y el más alto, de ${n0(N.max.v)} millones, en ${mesPer(N.max.mes)}.`;
   lineas(el, {anim: a, data: datos(), x: "t", conNegativos: true, ref: 0, vf: v => n0(v) + " M", yf: v => n0(v / 1000) + " mil", xl: r => mesPer(r.mes), mensual: true, huecos: true,
     series: [{k: "brutas", lab: "Brutas", c: GRIS}, {k: "netas", lab: "Netas", c: css("--celeste-fuerte"), w: 2.6}]});
-};
+});
 /* Confianza en el gobierno (etapa 42, pedido del autor del 12 de octubre de 2026): la serie mensual con una marca en cada cambio de gobierno y
    el promedio de cada gobierno, en orden cronológico. Tono neutro: el texto solo describe los valores */
 /* Ingresos por aglomerado (etapa 43, pregunta abierta al autor desde la etapa 27): la mediana del ingreso por persona del hogar o la del
@@ -5063,7 +5063,7 @@ function icgElecciones(el, filas, serie, anim) {
     });
 }
 MED["confianza-gobierno"] = "serie";
-DIB["confianza-gobierno"] = a => {
+DIB["confianza-gobierno"] = conTablas("confianza-gobierno", ["confianza_gobierno"], a => {
   const el = G("confianza-gobierno"), C = R.confianza_gobierno;
   if (MED["confianza-gobierno"] === "elecciones") {
     const E = C.elecciones, elec = x => x.tipo === "PASO" ? `las PASO de ${x.anio}` : `la primera vuelta de ${x.anio}`;
@@ -5099,9 +5099,9 @@ DIB["confianza-gobierno"] = a => {
     xl: r => `${mesPer(r.mes)}${r.presidente ? ", " + r.presidente : ", cambio de gobierno"}`,
     eventos: C.cambios.map(c => ({x: tPer(c.mes), lab: c.corto, corto: c.corto.replace("Fernández de Kirchner", "Fernández de K.")})),
     series: [{k: "icg", lab: "Confianza en el gobierno", corto: "Índice", c: css("--celeste-fuerte"), w: 2.4}]});
-};
+});
 /* Expectativas de inflación y confianza del consumidor (etapa 42): series mensuales de la Di Tella */
-DIB.expectativas = a => {
+DIB.expectativas = conTablas("expectativas", ["expectativas_inflacion"], a => {
   const E = R.expectativas_inflacion, d = T.expectativas_inflacion.map(r => ({...r, t: tPer(r.mes)}));
   $t("expectativas").textContent = `En ${mesPer(E.mes)}, la mitad de las personas encuestadas esperaba una inflación de hasta ${pct(E.mediana)} para los doce meses siguientes ` +
     `y el promedio de las respuestas fue ${pct(E.promedio)}. En los doce meses hasta ${mesPer(E.ipc_mes)}, la inflación del INDEC fue ${pct(E.ipc_12m)}. De los ${E.comp_n} meses ` +
@@ -5109,9 +5109,9 @@ DIB.expectativas = a => {
   lineas(G("expectativas"), {anim: a, data: d, x: "t", y0: 0, mensual: true, vf: pct, yf: v => n0(v) + "%", xl: r => mesPer(r.mes),
     series: [{k: "inflacion_12m_siguientes", lab: "La que hubo en los doce meses siguientes", corto: "La que hubo", c: GRIS, w: 2},
       {k: "promedio", lab: "Esperada, promedio", corto: "Promedio", c: FRI, w: 1.8}, {k: "mediana", lab: "Esperada, mediana", corto: "Mediana", c: css("--celeste-fuerte"), w: 2.6}]});
-};
+});
 MED["confianza-consumidor"] = "partes";
-DIB["confianza-consumidor"] = a => {
+DIB["confianza-consumidor"] = conTablas("confianza-consumidor", ["confianza_consumidor"], a => {
   const C = R.confianza_consumidor, reg = MED["confianza-consumidor"] === "regiones";
   const comp = C.hace_un_anio == null ? "" : `, contra ${n1(C.hace_un_anio)} un año antes`;
   $t("confianza-consumidor").textContent = reg
@@ -5126,7 +5126,7 @@ DIB["confianza-consumidor"] = a => {
          {k: "interior", lab: "Interior", c: GRIS, w: 1.8}, {k: "nacional", lab: "Total", c: css("--celeste-fuerte"), w: 2.6}]
       : [{k: "macro", lab: "Situación macroeconómica", corto: "Macro", c: FRI, w: 1.6}, {k: "personal", lab: "Situación personal", corto: "Personal", c: css("--muted"), w: 1.6},
          {k: "bienes", lab: "Bienes durables e inmuebles", corto: "Bienes", c: GRIS, w: 1.6}, {k: "nacional", lab: "Índice", c: css("--celeste-fuerte"), w: 2.6}]});
-};
+});
 MED.haberes = "pct";
 MED["pensiones-invalidez"] = "mapa";
 MED.soja = "mapa";
