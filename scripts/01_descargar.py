@@ -27,6 +27,10 @@ CERTIFICADO_VENCIDO = ("www.economia.gob.ar", "www.mecon.gob.ar")
 # los de confianza de esa conexión, sin apagar la verificación. Por seguridad, solo se suman certificados que no se firman a sí mismos
 # y la cadena tiene que terminar en una raíz de confianza del sistema (sin cadenas parciales), así que uno falso no pasa
 _INTERMEDIOS = {}
+# Dirección "CA Issuers" del certificado de los servidores que no mandan su intermedio, para cuando no se puede leer su certificado directo
+# (en las sesiones en la nube la conexión directa la contesta un intermediario con un certificado propio, sin esa dirección). Es la misma
+# que trae el certificado del servidor: si la autoridad la cambia, el aviso de contexto_con_intermedios lo dice
+EMISOR_CONOCIDO = {"datos.salud.gob.ar": "http://crt.sectigo.com/SectigoPublicServerAuthenticationCADVR36.crt"}
 
 
 def _leer_certificado(pem):
@@ -105,9 +109,16 @@ def contexto_con_intermedios(url):
         return _INTERMEDIOS[host]
     cadena, problema = [], "la dirección que indica su certificado no trae un intermedio"
     try:
-        pem = ssl.get_server_certificate((host, puerto), timeout=30)
+        try:
+            pem = ssl.get_server_certificate((host, puerto), timeout=30)
+        except OSError:
+            if host not in EMISOR_CONOCIDO:
+                raise
+            pem = None
         for _ in range(3):  # el intermedio puede estar firmado por otro que también falte
-            emisores = [u for u in _leer_certificado(pem).get("caIssuers", ()) if u.lower().startswith(("http://", "https://"))]
+            emisores = [u for u in (_leer_certificado(pem).get("caIssuers", ()) if pem else ()) if u.lower().startswith(("http://", "https://"))]
+            if not emisores and not cadena and host in EMISOR_CONOCIDO:
+                emisores = [EMISOR_CONOCIDO[host]]
             if not emisores:
                 break
             with urllib.request.urlopen(emisores[0], timeout=30) as r:
@@ -217,15 +228,14 @@ def aprender(area):
     return None
 
 
-def ckan_csv(portal, paquete, respaldo):
-    """Busca en el catalogo del portal el CSV vigente de un conjunto de datos.
+def ckan_csv(portal, paquete, respaldo, formato="CSV"):
+    """Busca en el catalogo del portal el CSV vigente de un conjunto de datos (o el archivo del formato indicado, el mas nuevo).
     Sirve para fuentes que cambian el nombre del archivo cada anio (por ejemplo '1990-2024').
-    Si el catalogo no responde, usa la direccion conocida."""
+    Si el catalogo no responde, usa la direccion conocida. Desde el 28 de octubre de 2026 pasa por leer(), que completa la cadena de
+    certificados de los servidores que no mandan su intermedio, como datos.salud.gob.ar: antes, donde faltaba, se usaba el respaldo."""
     try:
-        req = urllib.request.Request(f"{portal}/api/3/action/package_show?id={paquete}", headers=UA)
-        with urllib.request.urlopen(req, timeout=60) as r:
-            recursos = json.load(r)["result"]["resources"]
-        csvs = [x for x in recursos if (x.get("format") or "").upper() == "CSV"]
+        recursos = json.loads(leer(f"{portal}/api/3/action/package_show?id={paquete}", 60))["result"]["resources"]
+        csvs = [x for x in recursos if (x.get("format") or "").upper() == formato]
         csvs.sort(key=lambda x: x.get("last_modified") or x.get("created") or "")
         return csvs[-1]["url"] if csvs else respaldo
     except Exception:
