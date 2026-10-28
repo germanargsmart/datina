@@ -7756,7 +7756,7 @@ const delPer = p => /^(primer|segundo|tercer|cuarto) /.test(p) ? "del " + p : "d
 // "−0,53" con el signo menos tipográfico, que los lectores de pantalla leen "menos" (hasta la etapa 5 iba escrito en letras)
 const rTxt = r => n2(r).replace(/[-−]/, "−");
 // la primera letra en minúscula, salvo que el nombre empiece con un nombre propio (antes se bajaba todo: "voto a milei", etapa 24)
-const minusc = t => /^(Aprender|PISA|ATN)/.test(t) ? t : t.charAt(0).toLowerCase() + t.slice(1);
+const minusc = t => /^(Aprender|PISA|ATN|Asignación Universal)/.test(t) ? t : t.charAt(0).toLowerCase() + t.slice(1);
 const mayusc = t => t.charAt(0).toUpperCase() + t.slice(1);
 // "% de los hogares" se pega al número (45,2%) y el resto de la unidad va después
 const partesU = u => u.startsWith("%") ? ["%", u.replace(/^%\s*/, "")] : ["", u];
@@ -7864,7 +7864,7 @@ ART.forEach(a => {
     `<div class="nota-limites"><h2>Qué no dice este dato</h2><ul>${[...a.t.flatMap(t => t.lim), ...(P.length > 1 ? a.limites || [] : [])].map(l => `<li>${l}</li>`).join("")}</ul>` +
     `<div class="nota-leer"><h3>Cómo leer un cruce</h3><p>${t0.leer}</p></div></div>` +
     `<div class="nota-fuentes"><p>${fts.length > 1 ? "Fuentes" : "Fuente"}: ${listaY(fts)}.</p><div class="acciones">` +
-    fichas.map(([id, nom]) => `<a class="boton chico accion" href="${ficha(id)}">Ficha: ${nom.toLowerCase()}</a>`).join("") +
+    fichas.map(([id, nom]) => `<a class="boton chico accion" href="${ficha(id)}">Ficha: ${minusc(nom)}</a>`).join("") +
     (tabla === "cruces_provincias" ? P.map(p => `<a class="boton chico accion" href="cruces.html?cx=${p.x}&cy=${p.y}">Abrir en Cruces${P.length > 1 ? `: ${p.lx}` : ""}</a>`).join("") : "") +
     `<a class="boton chico accion" href="datos/${tabla}.csv" download>Descargar CSV</a></div></div>`;
   // en cada gráfico van con nombre las jurisdicciones que menciona el texto
