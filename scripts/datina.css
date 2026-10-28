@@ -570,6 +570,16 @@ html:not(.js) .busca-portada{display:none}
 .art-txt b{font-size:var(--t-4);line-height:var(--i-tarjeta);font-weight:600}
 .art-txt small{font-size:var(--t-2);color:var(--muted)}
 .art-dek{font-size:var(--t-2);line-height:var(--i-chico);color:var(--tinta-bajada)}  /* la bajada, solo en la lista de Artículos */
+/* la página Artículos (etapa 5 del plan de mejora): los filtros por tema, los dos bloques y la respuesta de cada artículo en su tarjeta, en
+   dos renglones como mucho y con su lugar reservado (la escribe datina.js) */
+.art-lista{display:grid;gap:var(--bloque)}
+.art-filtros{display:flex;flex-wrap:wrap;gap:var(--e-2)}
+.art-bloque{display:grid;gap:var(--e-4)}
+.art-bloque[hidden],.art-card[hidden]{display:none}
+.art-bloque h2{margin:0;font-size:var(--t-6)}
+.art-bloque-sub{margin:calc(-1 * var(--e-3)) 0 0;color:var(--tinta-bajada)}
+.art-resp{display:-webkit-box;min-height:2lh;overflow:hidden;-webkit-box-orient:vertical;-webkit-line-clamp:2;font-size:var(--t-2);line-height:var(--i-chico);font-weight:600;color:var(--ink)}
+.art-resp:empty{visibility:hidden}
 .ver-todos{margin-top:var(--e-6)}
 @media (max-width:760px){
   .art-grid{grid-template-columns:1fr;gap:var(--e-3)}
@@ -617,10 +627,10 @@ html:not(.js) .busca-portada{display:none}
 #art-grid-home{grid-template-columns:repeat(2,minmax(0,1fr))}
 /* todos los artículos: tres columnas, dos en pantallas medianas y una en el celular. Con una cantidad impar en dos columnas (17 desde la
    etapa 27), la última ocupa las dos, como en las secciones de la portada: ninguna queda sola a un costado */
-#art-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
-@media (min-width:761px) and (max-width:1079px){#art-grid{grid-template-columns:1fr 1fr}#art-grid>:last-child:nth-child(odd){grid-column:1 / -1}}
+.art-lista .art-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+@media (min-width:761px) and (max-width:1079px){.art-lista .art-grid{grid-template-columns:1fr 1fr}.art-lista .art-grid>:last-child:nth-child(odd){grid-column:1 / -1}}
 /* en una columna, cada tarjeta con su alto: con la bajada (paso 4), el alto parejo de la más larga dejaba huecos en las demás */
-@media (max-width:760px){#art-grid{grid-template-columns:1fr;grid-auto-rows:auto}}
+@media (max-width:760px){.art-lista .art-grid{grid-template-columns:1fr;grid-auto-rows:auto}}
 @media (max-width:760px){#art-grid-home{grid-template-columns:1fr}}
 /* las herramientas, en su propio grupo con título: se distinguen por eso y no por el color */
 .bloque-grupo{margin:var(--e-8) 0 var(--e-2);font-size:var(--t-8);line-height:1;font-weight:500;color:var(--azul);font-variation-settings:"wdth" 55,"opsz" 144;font-family:var(--f-c55)}

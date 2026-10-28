@@ -123,6 +123,19 @@ await p.ir(B + "articulos.html", 1000);
 const bajadas = await p.eval(`[...document.querySelectorAll("#art-grid .art-card")].map(c => (c.querySelector(".art-dek")?.textContent || "").trim().length)`);
 const nArt = paginas.filter(x => x.startsWith("a-")).length;
 if (bajadas.length !== nArt || bajadas.some(n => n < 40)) problemas.push(`articulos.html: ${bajadas.filter(n => n >= 40).length} de ${nArt} tarjetas con su bajada`);
+// etapa 5 del plan de mejora: cada tarjeta con su respuesta, los dos bloques y los filtros por tema
+const resp = JSON.parse(await p.eval(`JSON.stringify([...document.querySelectorAll("#art-grid .art-card")].map(c => (c.querySelector(".art-resp")?.textContent || "").trim()))`));
+const sinResp = resp.filter(t => t.length < 8 || /NaN|undefined|null|Infinity/.test(t)).length;
+if (sinResp) problemas.push(`articulos.html: ${sinResp} tarjetas sin su respuesta`);
+const fil = JSON.parse(await p.eval(`(() => {
+  const bs = [...document.querySelectorAll("#art-grid .art-filtros button")], vis = () => document.querySelectorAll("#art-grid .art-card:not([hidden])").length;
+  const todas = vis(), r = {bloques: document.querySelectorAll("#art-grid .art-bloque").length, botones: bs.length, visible: !bs[0]?.closest("[hidden]"), todas, porGrupo: []};
+  bs.slice(1).forEach(b => { b.click(); r.porGrupo.push(vis()); });
+  bs[0]?.click(); r.vuelta = vis();
+  return JSON.stringify(r);
+})()`));
+if (fil.bloques !== 2 || fil.botones < 3 || !fil.visible || fil.porGrupo.some(n => !n || n >= fil.todas) || fil.porGrupo.reduce((s, n) => s + n, 0) !== fil.todas || fil.vuelta !== fil.todas)
+  problemas.push(`articulos.html: los filtros por tema no andan (${JSON.stringify(fil)})`);
 // "Ver tabla" en las cinco fichas que lo tienen desde el paso 5: se abre con filas, y la de legisladores sigue a la provincia elegida
 const PROPIAS = [["departamentos.html", "f-mapa"], ["politica.html", "f-legisladores"], ["politica.html", "f-votaciones"],
   ["politica.html", "f-votaciones-espacios"], ["politica.html", "f-ministros"]];

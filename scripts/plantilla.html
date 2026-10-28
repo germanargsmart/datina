@@ -297,32 +297,32 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <p class="pregunta">¿Qué cuentan los datos cuando se los cruza?</p>
       <p>Cada artículo responde una pregunta con datos oficiales: compara las 24 jurisdicciones o las 24 capitales de provincia, sigue series de todo el país en el tiempo o explica cómo funciona algo, como la coparticipación. Dice qué encontró, de dónde salen los datos y qué no se puede concluir. Las cifras cambian cuando se actualiza cada fuente.</p>
     </div>
-    <div class="art-grid" id="art-grid"></div>
+    <div class="art-lista" id="art-grid"></div>
     <div class="notas">
-      <article class="nota" id="a-nombres-provincias" data-ico="mosaico" data-sec="curiosidades" data-titulo="¿Qué nombres se les ponen a los bebés en cada provincia?"></article>
-      <article class="nota" id="a-vaca-muerta" data-ico="rayo" data-sec="petroleo" data-titulo="¿Cuánto creció Vaca Muerta y cuánto le deja a Neuquén?"></article>
-      <article class="nota" id="a-migracion-interna" data-ico="pin" data-sec="migraciones" data-titulo="¿A qué provincias se muda la gente de otras provincias?"></article>
-      <article class="nota" id="a-ganador-provincias" data-ico="podio" data-sec="politica" data-titulo="¿Qué candidato ganó en cada provincia en cada elección presidencial?"></article>
-      <article class="nota" id="a-salario-real" data-ico="billetes" data-sec="economia" data-titulo="¿Cuánto compra hoy un salario comparado con otros años?"></article>
-      <article class="nota" id="a-aportantes" data-ico="personas" data-sec="poblacion" data-titulo="¿Cuántos aportantes hay por cada jubilación?"></article>
-      <article class="nota" id="a-madres-adolescentes" data-ico="mamadera" data-sec="poblacion" data-titulo="¿Cuánto bajó la maternidad adolescente en cada provincia?"></article>
-      <article class="nota" id="a-peso-voto" data-ico="congreso" data-sec="politica" data-titulo="¿Cuánto pesa en el Congreso el voto de un habitante de cada provincia?"></article>
-      <article class="nota" id="a-coparticipacion" data-ico="balanza" data-sec="gobierno" data-titulo="¿Qué es la coparticipación y cuánto recibe cada provincia?"></article>
-      <article class="nota" id="a-canasta-regiones" data-ico="carrito" data-sec="pobreza" data-titulo="¿Cuánto tiene que ganar una familia para no ser pobre en cada región?"></article>
-      <article class="nota" id="a-dolar-inversion" data-ico="billetes" data-sec="construccion" data-titulo="¿Se invierte más en construcción cuando construir es barato en dólares?"></article>
-      <article class="nota" id="a-compras-dolares" data-ico="monedas" data-sec="economia" data-titulo="¿Cuántos dólares compran por año las personas y las empresas?"></article>
-      <article class="nota" id="a-turismo-dolar" data-ico="valija" data-sec="turismo" data-titulo="¿Llegan más turistas y viajan menos residentes al exterior cuando el dólar está caro?"></article>
-      <article class="nota" id="a-nafta-dolares" data-ico="ciguena" data-sec="movilidad" data-titulo="¿El precio de la nafta en dólares sigue al del petróleo?"></article>
-      <article class="nota" id="a-exportaciones-dolar" data-ico="buque" data-sec="externo" data-titulo="¿Se exporta más cuando el dólar está caro?"></article>
-      <article class="nota" id="a-pobreza-desocupacion" data-ico="maletin" data-sec="pobreza" data-titulo="¿Hay más pobreza en las capitales con más desocupación o con menos empleo?"></article>
-      <article class="nota" id="a-alquiler-pobreza" data-ico="casa" data-sec="pobreza" data-titulo="¿Alquilan más hogares en las capitales con menos pobreza?"></article>
-      <article class="nota" id="a-atn-presupuesto" data-ico="monedas" data-sec="politica" data-titulo="¿Votan más el presupuesto los legisladores de las provincias que reciben más ATN?"></article>
-      <article class="nota" id="a-viviendas-alquiler" data-ico="casa" data-sec="construccion" data-titulo="¿Alquilan más hogares en las capitales con más departamentos?"></article>
-      <article class="nota" id="a-exportaciones-empleo" data-ico="buque" data-sec="externo" data-titulo="¿Las provincias que más exportan por habitante tienen más empleo privado registrado?"></article>
-      <article class="nota" id="a-cloacas-mortalidad" data-ico="gota" data-sec="salud" data-titulo="¿Mueren más bebés donde menos hogares tienen cloacas?"></article>
-      <article class="nota" id="a-cobertura-esperanza" data-ico="reloj" data-sec="salud" data-titulo="¿Se vive menos y hay más madres adolescentes donde menos gente tiene obra social o prepaga?"></article>
-      <article class="nota" id="a-internet-aprender" data-ico="laptop" data-sec="educacion" data-titulo="¿Aprenden más matemática los chicos de las provincias con más internet en el hogar?"></article>
-      <article class="nota" id="a-inversion-aprender" data-ico="birrete" data-sec="educacion" data-titulo="¿Les va mejor en matemática a los chicos de las provincias que más invierten por alumno?"></article>
+      <article class="nota" id="a-nombres-provincias" data-ico="mosaico" data-sec="poblacion" data-titulo="¿Qué nombres se les ponen a los bebés en cada provincia?" data-bloque="provincias"></article>
+      <article class="nota" id="a-vaca-muerta" data-ico="rayo" data-sec="petroleo" data-titulo="¿Cuánto creció Vaca Muerta y cuánto le deja a Neuquén?" data-bloque="pais"></article>
+      <article class="nota" id="a-migracion-interna" data-ico="pin" data-sec="migraciones" data-titulo="¿A qué provincias se muda la gente de otras provincias?" data-bloque="provincias"></article>
+      <article class="nota" id="a-ganador-provincias" data-ico="podio" data-sec="politica" data-titulo="¿Qué candidato ganó en cada provincia en cada elección presidencial?" data-bloque="provincias"></article>
+      <article class="nota" id="a-salario-real" data-ico="billetes" data-sec="economia" data-titulo="¿Cuánto compra hoy un salario comparado con otros años?" data-bloque="pais"></article>
+      <article class="nota" id="a-aportantes" data-ico="personas" data-sec="poblacion" data-titulo="¿Cuántos aportantes hay por cada jubilación?" data-bloque="pais"></article>
+      <article class="nota" id="a-madres-adolescentes" data-ico="mamadera" data-sec="poblacion" data-titulo="¿Cuánto bajó la maternidad adolescente en cada provincia?" data-bloque="provincias"></article>
+      <article class="nota" id="a-peso-voto" data-ico="congreso" data-sec="politica" data-titulo="¿Cuánto pesa en el Congreso el voto de un habitante de cada provincia?" data-bloque="provincias"></article>
+      <article class="nota" id="a-coparticipacion" data-ico="balanza" data-sec="gobierno" data-titulo="¿Qué es la coparticipación y cuánto recibe cada provincia?" data-bloque="provincias"></article>
+      <article class="nota" id="a-canasta-regiones" data-ico="carrito" data-sec="pobreza" data-titulo="¿Cuánto tiene que ganar una familia para no ser pobre en cada región?" data-bloque="provincias"></article>
+      <article class="nota" id="a-dolar-inversion" data-ico="billetes" data-sec="construccion" data-titulo="¿Se invierte más en construcción cuando construir es barato en dólares?" data-bloque="pais"></article>
+      <article class="nota" id="a-compras-dolares" data-ico="monedas" data-sec="economia" data-titulo="¿Cuántos dólares compran por año las personas y las empresas?" data-bloque="pais"></article>
+      <article class="nota" id="a-turismo-dolar" data-ico="valija" data-sec="turismo" data-titulo="¿Llegan más turistas y viajan menos residentes al exterior cuando el dólar está caro?" data-bloque="pais"></article>
+      <article class="nota" id="a-nafta-dolares" data-ico="ciguena" data-sec="movilidad" data-titulo="¿El precio de la nafta en dólares sigue al del petróleo?" data-bloque="pais"></article>
+      <article class="nota" id="a-exportaciones-dolar" data-ico="buque" data-sec="externo" data-titulo="¿Se exporta más cuando el dólar está caro?" data-bloque="pais"></article>
+      <article class="nota" id="a-pobreza-desocupacion" data-ico="maletin" data-sec="pobreza" data-titulo="¿Hay más pobreza en las capitales con más desocupación o con menos empleo?" data-bloque="provincias"></article>
+      <article class="nota" id="a-alquiler-pobreza" data-ico="casa" data-sec="pobreza" data-titulo="¿Alquilan más hogares en las capitales con menos pobreza?" data-bloque="provincias"></article>
+      <article class="nota" id="a-atn-presupuesto" data-ico="monedas" data-sec="politica" data-titulo="¿Votan más el presupuesto los legisladores de las provincias que reciben más ATN?" data-bloque="provincias"></article>
+      <article class="nota" id="a-viviendas-alquiler" data-ico="casa" data-sec="construccion" data-titulo="¿Alquilan más hogares en las capitales con más departamentos?" data-bloque="provincias"></article>
+      <article class="nota" id="a-exportaciones-empleo" data-ico="buque" data-sec="externo" data-titulo="¿Las provincias que más exportan por habitante tienen más empleo privado registrado?" data-bloque="provincias"></article>
+      <article class="nota" id="a-cloacas-mortalidad" data-ico="gota" data-sec="salud" data-titulo="¿Mueren más bebés donde menos hogares tienen cloacas?" data-bloque="provincias"></article>
+      <article class="nota" id="a-cobertura-esperanza" data-ico="reloj" data-sec="salud" data-titulo="¿Se vive menos y hay más madres adolescentes donde menos gente tiene obra social o prepaga?" data-bloque="provincias"></article>
+      <article class="nota" id="a-internet-aprender" data-ico="laptop" data-sec="educacion" data-titulo="¿Aprenden más matemática los chicos de las provincias con más internet en el hogar?" data-bloque="provincias"></article>
+      <article class="nota" id="a-inversion-aprender" data-ico="birrete" data-sec="educacion" data-titulo="¿Les va mejor en matemática a los chicos de las provincias que más invierten por alumno?" data-bloque="provincias"></article>
     </div>
   </section>
 
