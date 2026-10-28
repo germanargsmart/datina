@@ -1335,6 +1335,8 @@ OCDE_META = {
 }
 # Crédito a los hogares (% del PBI) del Banco de Pagos Internacionales, al cuarto trimestre de cada año, para la ficha de créditos
 # hipotecarios (etapa 20). Publica 31 de los 38 miembros de la OCDE: el promedio es el de los que tienen dato.
+# Desde el 28 de octubre de 2026 (plan de mejora, D6) ninguna ficha muestra el empleo, el Gini, la secundaria, internet, la electricidad,
+# el crédito a los hogares ni la eólica y la solar de esta lista, porque miden otra cosa que su ficha: quedan en ocde_comparacion.csv
 BIS_ISO3 = {"AR": "ARG", "AT": "AUT", "AU": "AUS", "BE": "BEL", "CA": "CAN", "CH": "CHE", "CL": "CHL", "CO": "COL", "CZ": "CZE", "DE": "DEU",
             "DK": "DNK", "ES": "ESP", "FI": "FIN", "FR": "FRA", "GB": "GBR", "GR": "GRC", "HU": "HUN", "IE": "IRL", "IL": "ISR", "IT": "ITA",
             "JP": "JPN", "KR": "KOR", "LU": "LUX", "MX": "MEX", "NL": "NLD", "NO": "NOR", "NZ": "NZL", "PL": "POL", "PT": "PRT", "SE": "SWE",
