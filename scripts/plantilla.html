@@ -131,7 +131,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 
   <section class="herramientas-home ancho" aria-labelledby="herr-titulo">
     <h2 class="bloque-tit" id="herr-titulo">Herramientas</h2>
-    <p class="bloque-sub">Para cruzar indicadores, ordenar las provincias según lo que te importa y ver dónde está cada una en educación. También para consultar la pobreza por partido y comuna, bajar cualquier tabla y saber de dónde sale cada número.</p>
+    <p class="bloque-sub">Para cruzar indicadores entre las 24 jurisdicciones y encontrar cualquier tabla con su fuente para bajarla. Las que sirven para un solo tema están en su página: el <a class="enlace" href="diagnostico.html">Diagnóstico educativo</a> en Educación y el <a class="enlace" href="pobreza/">consultor de pobreza</a> en Pobreza y hogares.</p>
     <div class="secciones-grid" id="herramientas-grid" aria-labelledby="herr-titulo"><!--HERRAMIENTAS-HOME--></div>
   </section>
 
@@ -2392,7 +2392,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     <h2>Cruces</h2>
     <div class="tema-intro">
       <p class="pregunta" data-corta="¿Qué indicadores van juntos?">¿Qué indicadores van juntos entre las provincias?</p>
-      <p>Elegí dos indicadores y fijate cómo se ubican las 24 jurisdicciones. También podés ver las correlaciones entre todos los pares de indicadores y una regresión con varios a la vez.</p>
+      <p>Elegí dos indicadores y fijate cómo se ubican las 24 jurisdicciones. También podés ver las correlaciones entre todos los pares de indicadores y, en Avanzado, una regresión con varios a la vez.</p>
     </div>
     <!--EXPLICADOR:cruces-->
     <article class="ficha explorador" id="f-cruces">
@@ -2401,7 +2401,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <div class="conmutador pestanas" role="tablist" aria-label="Tipo de análisis" style="--n:3">
         <button type="button" role="tab" id="tab-cx-disp" aria-controls="pan-cx-disp" aria-selected="true">Dispersión</button>
         <button type="button" role="tab" id="tab-cx-matriz" aria-controls="pan-cx-matriz" aria-selected="false" tabindex="-1">Correlaciones</button>
-        <button type="button" role="tab" id="tab-cx-multi" aria-controls="pan-cx-multi" aria-selected="false" tabindex="-1">Regresión múltiple</button>
+        <button type="button" role="tab" id="tab-cx-multi" aria-controls="pan-cx-multi" aria-selected="false" tabindex="-1">Avanzado</button>
       </div>
 
       <div class="panel-pestana" role="tabpanel" id="pan-cx-disp" aria-labelledby="tab-cx-disp">
@@ -2450,6 +2450,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       </div>
 
       <div class="panel-pestana" role="tabpanel" id="pan-cx-multi" aria-labelledby="tab-cx-multi" hidden>
+        <p class="nota cm-que">Regresión múltiple: cómo se relaciona un indicador con varios a la vez. Es el análisis más técnico de los tres.</p>
         <div class="cx-controles">
           <label class="cx-campo"><span>Indicador a explicar</span><select id="cm-y"></select></label>
         </div>
@@ -2465,7 +2466,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
   </section>
 
   <section class="tema herramienta" id="indice">
-    <h2>Tu índice</h2>
+    <h2>Ordenar las 24</h2>
     <div class="tema-intro">
       <p class="pregunta" data-corta="¿Qué provincia está mejor para vos?">¿Qué provincia está mejor según lo que a vos te importa?</p>
       <p>Elegí cuánto pesa cada una de siete dimensiones, como la salud, la educación o la seguridad, y el índice ordena las 24 jurisdicciones con esos pesos.</p>

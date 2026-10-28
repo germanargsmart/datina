@@ -2,8 +2,10 @@
 Prueba de la navegación (Fase 2 del rediseño, paso 1, 23 de octubre de 2026). Revisa las páginas armadas de sitio/ y controla que:
 - todas tengan la misma barra: Temas, Provincias, Historias y Herramientas, en ese orden, cada uno con su menú, y "Menú" (el del celular)
   con las mismas cuatro partes. El Explorador de relaciones, que no carga datina.js, las tiene como enlaces;
-- cada sección de tema esté una sola vez en los menús, y estén todas las herramientas, Tu provincia, el Laboratorio, la Corte Suprema,
-  el consultor de pobreza y el Explorador;
+- cada sección de tema esté una sola vez en los menús, y estén todas las herramientas, Tu provincia, el Laboratorio y la Corte Suprema.
+  Desde la etapa 6 del plan de mejora (menú simplificado, decisión del autor del 27 de octubre de 2026), el Diagnóstico educativo va en
+  Educación, Consultas con IA en el pie (y la ofrece el Catálogo), el consultor de pobreza en Pobreza y hogares, y el Explorador de
+  relaciones fuera de los menús, enlazado desde Sobre nosotros, el pie y el Catálogo;
 - el pie tenga las mismas partes que la barra, más Datina;
 - sigan existiendo las 52 direcciones del 22 de octubre de 2026 y el consultor, y ninguna página quede sin enlaces que lleguen a ella.
 La corre 03_construir_sitio.py al final. Sola: python scripts/prueba_navegacion.py
@@ -26,6 +28,8 @@ trabajo turismo""".split()
 # las que no llevan la barra común: el Explorador (que la tiene como enlaces) y las redirecciones (REDIRECCIONES de 03_construir_sitio.py:
 # las páginas que cambiaron de nombre y, desde la etapa 5 del plan de mejora, los artículos que se juntaron con otro o se retiraron)
 SIN_BARRA = {"relaciones.html"}
+# las páginas que son de un menú sin estar en él (FUERA_DE_MENU en 03_construir_sitio.py)
+FUERA_DE_MENU = {"consulta-ia"}
 es_redireccion = lambda h: '<meta name="robots" content="noindex">' in h and "Esta página se mudó" in h
 
 
@@ -91,15 +95,25 @@ def revisar():
     # 3. qué hay en los menús
     menus = "".join(tramo(ref, f'<nav class="menu-panel grupo-panel panel-{m}"', "</nav>") for m in BARRA)
     destinos = re.findall(r'<a(?: class="[^"]*")? href="([^"]+)"', menus)
-    temas = [s[0] for s in indice["secciones"] if not s[4] and s[0] != "articulos"]
+    en_temas = [s for g in indice["grupos"] for it in g[2] for s in (it[1] if isinstance(it, list) else [it])]
+    temas = [s[0] for s in indice["secciones"] if (not s[4] or s[0] in en_temas) and s[0] != "articulos"]
     for s in temas:
         n = destinos.count(f"{s}.html")
         if n != 1:
             problemas.append(f"la sección {s} aparece {n} veces en los menús (va una)")
-    for d in [f"{s[0]}.html" for s in indice["secciones"] if s[4]] + ["provincia.html", "articulos.html", "laboratorio.html",
-                                                                     "corte-suprema.html", "pobreza/", "relaciones.html"]:
+    for d in [f"{s[0]}.html" for s in indice["secciones"] if s[4] and s[0] not in FUERA_DE_MENU] + ["provincia.html", "articulos.html",
+                                                                                                  "laboratorio.html", "corte-suprema.html"]:
         if d not in destinos:
             problemas.append(f"{d} no está en ningún menú")
+    # lo que salió de los menús: no vuelve a ellos y se llega desde donde dice la decisión
+    for d in ["relaciones.html", "pobreza/", *[f"{p}.html" for p in FUERA_DE_MENU]]:
+        if d in destinos:
+            problemas.append(f"{d} está en un menú (desde la etapa 6 del plan de mejora va fuera)")
+    for d, donde in [("relaciones.html", ["pie", "nosotros.html", "catalogo.html"]), ("pobreza/", ["pobreza.html"]),
+                     *[(f"{p}.html", ["pie", "catalogo.html"]) for p in FUERA_DE_MENU if f"{p}.html" in html]]:
+        for x in donde:
+            if f'href="{d}' not in (pie_ref if x == "pie" else html.get(x, "")):
+                problemas.append(f"{d}: no lo enlaza {'el pie' if x == 'pie' else x}")
     provincias = re.findall(r'href="provincia\.html\?prov=(\d\d)"', tramo(ref, '<nav class="menu-panel grupo-panel panel-provincias"', "</nav>"))
     if len(set(provincias)) != 24:
         problemas.append(f"el menú Provincias tiene {len(set(provincias))} jurisdicciones y no 24")

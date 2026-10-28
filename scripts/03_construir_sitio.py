@@ -67,9 +67,9 @@ _ia = re.search(r"\n\n *<!--IA-->.*?<!--/IA-->", plantilla, re.S)
 assert _ia, "falta la sección de las consultas con IA (entre <!--IA--> y <!--/IA-->) en scripts/plantilla.html"
 plantilla = plantilla.replace(_ia.group(0), re.sub(r"<!--/?IA-->", "", _ia.group(0)) if CONSULTA_IA else "")
 if CONSULTA_IA:
-    _herr_sub = '<p class="bloque-sub">Para cruzar indicadores,'
+    _herr_sub = '<p class="bloque-sub">Para cruzar indicadores entre'
     assert plantilla.count(_herr_sub) == 1, "cambió la bajada de Herramientas en la portada: revisar la de las consultas con IA"
-    plantilla = plantilla.replace(_herr_sub, '<p class="bloque-sub">Para hacerles preguntas a los datos, cruzar indicadores,')
+    plantilla = plantilla.replace(_herr_sub, '<p class="bloque-sub">Para hacerles preguntas a los datos, cruzar indicadores entre')
     if MOTOR_IA == "cloudflare":
         for _v, _n in [("No escribas datos personales: para contestarla, la pregunta se envía a Anthropic, la empresa que hace el modelo. Datina no la guarda.",
                         "No escribas datos personales. La pregunta la contesta un modelo abierto de inteligencia artificial que corre en Cloudflare, "
@@ -159,7 +159,7 @@ plantilla = re.sub(r"\{\{([\w.]+)\}\}", dato_resumen, plantilla)
 
 # Cada cuánto se actualiza el dato de cada ficha (etapa 27, pedido del autor, como USAFacts): una frase después de la fuente, en el pie, que
 # está siempre a la vista. Es la frecuencia con la que el sitio recibe datos nuevos de la fuente. Toda ficha nueva necesita la suya, o el sitio
-# no se arma. Las herramientas (fichas "explorador": Cruces, Tu índice, Departamentos y Diagnóstico) no llevan.
+# no se arma. Las herramientas (fichas "explorador": Cruces, Ordenar las 24, Departamentos y Diagnóstico) no llevan.
 FRASE_FRECUENCIA = {
     "mes": "Se actualiza cada mes.", "trimestre": "Se actualiza cada tres meses.", "semestre": "Se actualiza cada seis meses.",
     "anio": "Se actualiza cada año.", "censo": "Se actualiza con cada censo.", "eleccion": "Se actualiza con cada elección.",
@@ -539,9 +539,10 @@ base = base.replace(_estado, f'<p class="estado" id="estado"><span>{sum(1 for f 
 # es su página de entrada. Cada sección conserva su página y su dirección. De acá salen el menú "Temas", la fila del celular, las
 # migas, la fila de cada categoría, el mapa del pie, el recorrido de "Seguí explorando" y los grupos de la portada
 # Fase 2 (respuestas del autor del 23 de octubre de 2026): Personas pasa a llamarse Personas y bienestar, Turismo pasa a Trabajo y economía
-# (mide una actividad económica) y Curiosidades a Historias con datos (MENUS, abajo). Cuentas públicas se queda donde está
+# (mide una actividad económica) y Curiosidades a Historias con datos (MENUS, abajo). Cuentas públicas se queda donde está.
+# Desde la etapa 6 del plan de mejora (decisión del autor del 27 de octubre de 2026) el Diagnóstico educativo va en la categoría Educación
 GRUPOS = [
-    ("personas", "Personas y bienestar", [("Población", ["poblacion", "migraciones"]), "salud", "educacion", "pobreza"]),
+    ("personas", "Personas y bienestar", [("Población", ["poblacion", "migraciones"]), "salud", ("Educación", ["educacion", "diagnostico"]), "pobreza"]),
     # Sector externo, desde el 11 de octubre de 2026 (pedido del autor: "meté una nueva categoría en trabajo y economía que se llame sector externo")
     ("economia", "Trabajo y economía", ["trabajo", ("Economía", ["economia", "empresas", "construccion", "gobierno"]), "externo", "turismo"]),
     ("estado", "Estado y sociedad", ["politica", "justicia", "seguridad"]),
@@ -551,25 +552,33 @@ GRUPOS = [
 # grupos de arriba en columnas, como la portada, y los otros tres menús salen de MENUS. Reemplaza los "4 grupos con menú" y "Más" de la
 # etapa 39. Cada menú: id, nombre en la barra, nombre completo (pie, migas y filtros del catálogo), adónde lleva donde no hay menú (el
 # Explorador de relaciones) y sus páginas. Una tupla es un subgrupo con su nombre. Las 24 jurisdicciones del menú Provincias (respuesta
-# del autor del mismo día) las agrega la barra
+# del autor del mismo día) las agrega la barra.
+# Menú simplificado (etapa 6 del plan de mejora, decisión del autor del 27 de octubre de 2026): de nueve entradas a cinco, para tres tareas.
+# Provincias suma "Ordenar las 24" (antes Tu índice) y Herramientas queda con Cruces y el Catálogo. El Diagnóstico educativo pasa a Educación
+# (GRUPOS), el consultor de pobreza se abre desde Pobreza y hogares y el Explorador de relaciones sale del menú: lo enlazan Sobre nosotros,
+# el pie y cada tabla del Catálogo. Consultas con IA la ofrecen el Catálogo y la lupa, y sigue en el pie y en la portada (FUERA_DE_MENU)
 MENUS = [
-    ("provincias", "Provincias", "Provincias", "provincia.html", ["provincia", "departamentos"]),
+    ("provincias", "Provincias", "Provincias", "provincia.html", ["provincia", "indice", "departamentos"]),
     ("historias", "Historias", "Historias con datos", "articulos.html", ["articulos", "laboratorio", "corte-suprema", "curiosidades"]),
-    ("herramientas", "Herramientas", "Herramientas", "./#herr-titulo", ["consulta-ia"] * CONSULTA_IA + ["cruces", "indice", "diagnostico", "consultor",
-                                                                         ("Los datos", ["catalogo", "relaciones"])]),
+    ("herramientas", "Herramientas", "Herramientas", "./#herr-titulo", ["cruces", "catalogo"]),
 ]
 _secs_de = lambda items: [s for it in items for s in (it[1] if isinstance(it, tuple) else [it])]
 CATEGORIA = {s: (it[0], it[1]) for _, _, items in GRUPOS for it in items if isinstance(it, tuple) for s in it[1]}
 ORDEN_TEMAS = [s for _, _, items in GRUPOS for it in items for s in (it[1] if isinstance(it, tuple) else [it])]
 GRUPO_DE = {s: (g, n) for g, n, items in GRUPOS for s in _secs_de(items)}
 MENU_DE = {p: (m, completo) for m, _, completo, _, items in MENUS for p in _secs_de(items)}
-_temas = [x[0] for x in SECCIONES if not x[4] and x[0] != "articulos"]
+# las páginas que no están en ningún menú pero son de uno: van en su columna del pie y en la portada, y de ahí salen sus migas y su grupo
+# en la lupa
+FUERA_DE_MENU = {"consulta-ia": "herramientas"} if CONSULTA_IA else {}
+MENU_DE.update({p: (m, next(completo for x, _, completo, _, _ in MENUS if x == m)) for p, m in FUERA_DE_MENU.items()})
+# un tema es una sección que no es herramienta, o una herramienta que va en un tema (el Diagnóstico educativo, en Educación)
+_temas = [x[0] for x in SECCIONES if x[0] != "articulos" and (not x[4] or x[0] in ORDEN_TEMAS)]
 assert sorted(ORDEN_TEMAS + [p for p in MENU_DE if p in _temas]) == sorted(_temas), \
     f"las secciones y los menús no coinciden: {set(ORDEN_TEMAS + list(MENU_DE)) ^ set(_temas)}"
 HERRAMIENTAS = [x[0] for x in SECCIONES if x[4]]
-assert set(HERRAMIENTAS) <= set(MENU_DE), f"herramientas sin menú: {set(HERRAMIENTAS) - set(MENU_DE)}"
-# las páginas de los menús que arma la plantilla como sección, más Tu provincia y el Laboratorio (las demás son el Explorador, el consultor
-# de pobreza y la pieza de la Corte Suprema): en ese orden van el recorrido y los filtros del catálogo
+assert set(HERRAMIENTAS) <= set(MENU_DE) | set(ORDEN_TEMAS), f"herramientas sin menú: {set(HERRAMIENTAS) - set(MENU_DE) - set(ORDEN_TEMAS)}"
+# las páginas de los menús que arma la plantilla como sección, más Tu provincia y el Laboratorio (la otra es la pieza de la Corte Suprema):
+# en ese orden van el recorrido y los filtros del catálogo
 PAGINAS_MENU = [p for p in _secs_de([it for m in MENUS for it in m[4]]) if p in {x[0] for x in SECCIONES} | {"provincia", "laboratorio"}]
 # Preguntas de ejemplo (Fase 2, paso 2): tres de la lista de preguntas del buscador (PREG en datina.js), de temas distintos y que no
 # repiten los datos destacados. Las ofrece el buscador con el campo vacío y cuando no encuentra nada. Desde el 25 de octubre de 2026
@@ -654,7 +663,7 @@ import catalogo  # noqa: E402
 # los filtros por tema del catálogo siguen la barra: los cuatro grupos de Temas y después Provincias, Historias con datos y Herramientas
 _menus_catalogo = [(m, completo, [p for p in _secs_de(items) if p in PAGINAS_MENU]) for m, _, completo, _, items in MENUS]
 _indice_ia = [] if CONSULTA_IA else None
-_catalogo, _cat_err = catalogo.armar(plantilla, SECCIONES, UBIC, GRUPOS + _menus_catalogo, indice=_indice_ia)
+_catalogo, _cat_err = catalogo.armar(plantilla, SECCIONES, UBIC, GRUPOS + _menus_catalogo, indice=_indice_ia, ia=CONSULTA_IA)
 if _cat_err:
     sys.exit("El catálogo de datos tiene problemas: el sitio no se armó.\n" + "\n".join(_cat_err))
 # Consultas con IA: el índice que lee la función functions/api/consulta.js (las mismas tablas que el Catálogo, sin las de suicidio) y el
@@ -707,7 +716,7 @@ TITULO_DE = {s[0]: s[1] for s in SECCIONES}
 
 # Recorrido de "Anterior / Siguiente", en el orden de la barra (Fase 2, 23 de octubre de 2026): los temas, Provincias, Historias con datos
 # y Herramientas, y Sobre nosotros. Hasta entonces empezaba por los artículos, el Laboratorio y Tu provincia
-ORDEN = ORDEN_TEMAS + PAGINAS_MENU + ["nosotros"]
+ORDEN = ORDEN_TEMAS + PAGINAS_MENU + list(FUERA_DE_MENU) + ["nosotros"]
 TITULO_DE.update({"provincia": "Tu provincia", "nosotros": "Sobre nosotros", "contacto": "Contacto", "laboratorio": "Laboratorio"})
 # piezas del Laboratorio: las cuenta la tarjeta que lleva a él en "Seguí explorando"
 LAB_PIEZAS = len(re.findall(r'<article class="lab-pieza', base))
@@ -869,16 +878,19 @@ def lista(items):
     return "<ul>" + "".join(f'<li><a href="{u}">{e(t)}</a></li>' for u, t in items) + "</ul>"
 
 
-# las páginas de los menús que la plantilla no arma como sección: su dirección y su nombre en los menús
-URL_MENU = {"consultor": "pobreza/", "relaciones": "relaciones.html"}
-NOMBRE_MENU = {"corte-suprema": "La Corte Suprema", "consultor": "Consultor de pobreza", "relaciones": "Explorador de relaciones"}
-url_menu = lambda p: URL_MENU.get(p) or url_pagina(p)
+# las páginas de los menús que la plantilla no arma como sección: su nombre en los menús (la pieza de la Corte Suprema). Desde la etapa 6
+# del plan de mejora el consultor de pobreza y el Explorador de relaciones ya no están en los menús
+NOMBRE_MENU = {"corte-suprema": "La Corte Suprema"}
+url_menu = url_pagina
 nombre_menu = lambda p: NOMBRE_MENU.get(p) or TITULO_DE[p]
 _col = lambda nombre, pares: f'<div class="pie-col"><h2>{e(nombre)}</h2>{lista(pares)}</div>'
+# en el pie, cada menú con las páginas que son suyas aunque no estén en él (Consultas con IA), y el Explorador de relaciones en Datina
 MAPA = ("".join(_col(n, [(url_pagina(s), TITULO_DE[s]) for s in _secs_de(items)]) for _, n, items in GRUPOS)
-        + "".join(_col(completo, [(url_menu(p), nombre_menu(p)) for p in _secs_de(items)]) for _, _, completo, _, items in MENUS)
+        + "".join(_col(completo, [(url_menu(p), nombre_menu(p)) for p in _secs_de(items) + [q for q, d in FUERA_DE_MENU.items() if d == m]])
+                  for m, _, completo, _, items in MENUS)
         + _col("Datina", [("nosotros.html", "Sobre nosotros"), ("nosotros.html#como-se-hace", "Cómo se hace"),
-                          ("nosotros.html#fuentes", "De dónde salen los datos"), ("contacto.html", "Contacto")]))
+                          ("nosotros.html#fuentes", "De dónde salen los datos"), ("relaciones.html", "Explorador de relaciones"),
+                          ("contacto.html", "Contacto")]))
 assert "<!--MAPA-->" in base
 base = base.replace("<!--MAPA-->", MAPA)
 # La barra (Fase 2, 23 de octubre de 2026): Temas, Provincias, Historias y Herramientas, cada uno con su menú (el mismo código que los
@@ -983,29 +995,25 @@ _destacados = "".join(f'<a class="tarjeta cifra destacado" href="{url_pagina(UBI
 # el mapa de la portada, que el teclado saltea
 _n_temas_perfil = len(re.findall(r'\["(\w+)", "([^"]+)"\]', js[js.index("const PERFIL_GRUPOS = ["):js.index("];", js.index("const PERFIL_GRUPOS = ["))]))
 _provincias_home = (f'<p class="bloque-sub">El perfil de cada jurisdicción en {_n_temas_perfil} temas, con su historia. Los datos de cada departamento, partido '
-                    'o comuna están en <a class="enlace" href="departamentos.html">Departamentos</a>.</p><ul class="prov-home">'
+                    'o comuna están en <a class="enlace" href="departamentos.html">Departamentos</a>. Para ordenarlas según lo que más te importa, '
+                    'está <a class="enlace" href="indice.html">Ordenar las 24</a>.</p><ul class="prov-home">'
                     + "".join(f'<li><a href="provincia.html?prov={c}"><img class="bandera" src="datos/banderas/{c}.png" alt="" width="24" height="16" '
                               f'loading="lazy" decoding="async">{e(NOMBRE_PROV[c])}</a></li>' for c in _PROVS) + "</ul>")
 # Historias con datos: los tres artículos los agrega datina.js (el de la relación más marcada primero, regla aprobada el 5 de octubre de
 # 2026) antes de las piezas del Laboratorio con página propia, que escribe el constructor
 _historias_home = "".join(f'<a class="tarjeta art-card" href="{i}.html"><span class="art-ico">{icono_svg(ico)}</span><span class="art-txt">'
                           f'<b>{e(html.unescape(t))}</b><small>Laboratorio</small></span></a>' for i, ico, t, _ in PIEZAS)
-# Herramientas: las del menú, en su orden, con el mismo dibujo que las tarjetas de antes (las armaba datina.js). Departamentos pasó a
-# Provincias
-_HERR_EXTRA = {"consultor": ("Consultor de pobreza", "¿Cuánta pobreza hay en cada ciudad, partido y comuna?", "casa"),
-               "relaciones": ("Explorador de relaciones", "¿De dónde sale cada número?", "laptop")}
-
-
-def _tarjeta_herr(p, tipo):
-    titulo, preg, ico = (_SEC[p][1], _SEC[p][7] or _SEC[p][2], SEC_ICONO[p]) if p in _SEC else _HERR_EXTRA[p]
-    vt = f' style="view-transition-name:t-{p}"' if p in _SEC else ""
+# Herramientas: Consultas con IA y las del menú, en su orden, con el mismo dibujo que las tarjetas de antes (las armaba datina.js). Desde
+# la etapa 6 del plan de mejora Ordenar las 24 y Departamentos están en Provincias (arriba), el Diagnóstico educativo en Educación y el
+# consultor de pobreza en Pobreza y hogares
+def _tarjeta_herr(p):
+    titulo, preg, ico = _SEC[p][1], _SEC[p][7] or _SEC[p][2], SEC_ICONO[p]
     return (f'<a class="tarjeta sec-tarjeta herr" href="{url_menu(p)}">{icono_svg(ico).replace(chr(34) + "iso ", chr(34) + "iso sec-ico ", 1)}'
-            f'<span class="sec-tipo">{e(tipo)}</span><b{vt}>{e(titulo)}</b><span class="sec-preg">{e(preg)}</span></a>')
+            f'<span class="sec-tipo">Herramienta</span><b style="view-transition-name:t-{p}">{e(titulo)}</b><span class="sec-preg">{e(preg)}</span></a>')
 
 
-_herr_items = next(x[4] for x in MENUS if x[0] == "herramientas")
-_herramientas_home = "".join(_tarjeta_herr(p, "Herramienta") if not isinstance(p, tuple) else "".join(_tarjeta_herr(s, p[0]) for s in p[1])
-                             for p in _herr_items)
+_herramientas_home = "".join(_tarjeta_herr(p) for p in [q for q, m in FUERA_DE_MENU.items() if m == "herramientas"]
+                             + _secs_de(next(x[4] for x in MENUS if x[0] == "herramientas")))
 for marca, valor in {"<!--TEMAS-BARRA-->": _barra, "<!--TEMAS-MENU-->": _menu, "<!--GRUPOS-MENU-->": _grupos_menu, "<!--CATALOGO-->": _catalogo,
                      "<!--DESTACADOS-->": _destacados, "<!--PROVINCIAS-HOME-->": _provincias_home,
                      "<!--HISTORIAS-HOME-->": _historias_home, "<!--HERRAMIENTAS-HOME-->": _herramientas_home,

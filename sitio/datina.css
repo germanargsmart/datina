@@ -1809,6 +1809,8 @@ html:active-view-transition-type(provincia)::view-transition-group(*){animation-
 .cat-cuenta b{font-weight:600;color:var(--ink)}
 .cat-resumen .enlace{margin-left:auto}
 .cat-vacio{margin:var(--e-6) 0;color:var(--muted)}
+.cat-ia{margin:var(--e-3) 0 0;color:var(--muted)}
+.cm-que{margin:0 0 var(--e-3)}
 .cat-lista{margin:0;padding:0;list-style:none}
 .cat-item{padding:var(--e-6) 0;border-bottom:1px solid var(--line)}
 .cat-item[hidden]{display:none}
