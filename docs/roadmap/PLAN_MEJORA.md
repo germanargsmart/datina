@@ -353,7 +353,7 @@ Buscadas y verificadas el 26 de octubre de 2026. "Verificado": se vio la página
 
 | # | Fuente | Nivel | Pregunta | Estado |
 |---|---|---|---|---|
-| 1 | Estimaciones agrícolas del Ministerio de Agricultura ([CSV](https://datos.magyp.gob.ar/dataset/9e1e77ba-267e-4eaa-a59f-3296e86b5f36/resource/95d066e6-8a0f-4a80-b59d-6f28f88eacd5/download/estimaciones-agricolas-2026-03.csv)), campañas 1969/70 a 2025/26 | Departamento | ¿Dónde se siembra más soja? | Verificado |
+| 1 | Estimaciones agrícolas del Ministerio de Agricultura ([CSV](https://datos.magyp.gob.ar/dataset/9e1e77ba-267e-4eaa-a59f-3296e86b5f36/resource/95d066e6-8a0f-4a80-b59d-6f28f88eacd5/download/estimaciones-agricolas-2026-03.csv)), campañas desde 1969/70 (el archivo de marzo de 2026 llega a la 2024/25) | Departamento | ¿Dónde se siembra más soja? | Verificado. Sumada el 28 de octubre de 2026 (f-soja, en Naturaleza y ambiente) |
 | 2 | Dengue y zika del Ministerio de Salud, semanal, con códigos INDEC | Provincia y departamento | ¿Dónde hubo más casos de dengue? | Verificado |
 | 3 | Cobertura de la vacuna triple viral (DICEI), 2009 a 2024 | Provincia | ¿Dónde se vacuna menos a los chicos? | Verificado |
 | 4 | Deuda pública provincial (DNAP), total trimestral desde 1996 y por provincia. Los nombres de archivo son irregulares | Provincia | ¿Qué provincias deben más por habitante? | Verificado |
@@ -441,6 +441,9 @@ _Decidido por el autor el 27 de octubre de 2026: la opción recomendada en las c
 _Decidido por el autor el 28 de octubre de 2026 (fuera de las tandas): unir los once pares de fichas casi iguales de R7, en varios PR por página, cada uno con una ficha con vistas y la dirección vieja llevando a la ficha que queda, y sacar las dos vistas OCDE que no responden su ficha (el gasto en salud en la mortalidad infantil y el CO₂ en la electricidad de los hogares)._
 
 **Tanda 3 (antes de las etapas 7 a 9)**
+
+_Decidido por el autor el 28 de octubre de 2026: el sol como está, las estimaciones agrícolas como primera descarga nueva (la ficha "¿Dónde se siembra más soja?"), un ejemplo solo en el campo de Consultas con IA ("Por ejemplo: ¿cuánto se gana en Neuquén?") y el aviso de nuevos datos por correo, que necesita prender los formularios y un servicio de correo con su clave (infraestructura y secretos: con la revisión del autor)._
+
 9. **El sol de la portada.** Que se detenga a los 5 segundos · un botón chico de pausa · como está.
 10. **Primeras descargas nuevas.** Dengue, vacunas y deuda provincial · estimaciones agrícolas · otra elección.
 11. **Ejemplo en el campo de Consultas con IA.** Un ejemplo solo en ese campo · sin ejemplo.
