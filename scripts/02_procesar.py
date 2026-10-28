@@ -959,6 +959,151 @@ pc_prov = pc.groupby("provincia").toneladas.sum().sort_values(ascending=False)
 rio = pc_esp.rename("toneladas").reset_index().rename(columns={"especie": "territorio"}).assign(codigo_indec=lambda x: x.territorio)[["codigo_indec", "territorio", "toneladas"]]
 pesca_rio_prov = pc.pivot_table(index="especie", columns="provincia", values="toneladas", aggfunc="sum").fillna(0).reset_index()
 
+# ---------------------------------------------------------------- dengue (Sistema Nacional de Vigilancia de la Salud)
+# Casos confirmados de dengue por departamento de residencia, semana epidemiológica y grupo de edad, del Sistema Nacional de Vigilancia de la
+# Salud (SNVS 2.0, Ministerio de Salud). Fuente nueva del plan de mejora (sección 10, aprobada por el autor el 28 de octubre de 2026), para
+# "¿Dónde hubo más casos de dengue?". Un archivo por año, cada uno con sus columnas: el de 2018 trae también zika (se deja afuera), en el de
+# 2020 hay filas con la semana y el evento cambiados de lugar y en el de 2021 el código y el nombre de la provincia. Cada semana se toma del
+# archivo más nuevo que la trae (el último, que el Ministerio vuelve a publicar con otro nombre, va primero): el último de octubre de 2026
+# no traía las semanas 31 a 53 de 2025, que salen del archivo de 2025. La temporada va de la semana 31 de un año a la 30 del siguiente, como
+# en los boletines del Ministerio: la 2023/24 es la de la epidemia más grande. "Dengue durante la gestación" es el mismo evento en
+# embarazadas y se suma
+def dg_norm(s):
+    return unicodedata.normalize("NFKD", str(s)).encode("ascii", "ignore").decode().lower().strip()
+
+
+def dg_leer(ruta):
+    b = ruta.read_bytes()
+    if b[:2] == b"PK":
+        d = pd.read_excel(ruta, dtype=str)
+    else:
+        cab = b.split(b"\n", 1)[0]
+        d = pd.read_csv(ruta, sep=";" if cab.count(b";") > cab.count(b",") else ",", dtype=str,
+                        encoding="utf-8-sig" if b[:3] == b"\xef\xbb\xbf" else "cp1252")
+    d.columns = [dg_norm(c) for c in d.columns]
+    d = d.rename(columns={"ano": "anio", "anio_min": "anio", "semanas_epidemiologicas": "semana", "sepi_min": "semana", "evento_nombre": "evento",
+                          "cantidad_casos": "cantidad", "id_prov_indec_residencia": "provincia_id", "provincia_residencia": "provincia_nombre"})
+    # 2020: en algunas filas la semana y el evento están cambiados de lugar
+    cambio = d.semana.astype(str).str.contains("engue")
+    d.loc[cambio, ["semana", "evento"]] = d.loc[cambio, ["evento", "semana"]].values
+    # 2021: el código de la provincia está en la columna del nombre y al revés
+    if not d.provincia_id.astype(str).str.fullmatch(r"\d+").any():
+        d = d.rename(columns={"provincia_id": "provincia_nombre", "provincia_nombre": "provincia_id"})
+    d = d[d.evento.astype(str).str.contains("engue")].copy()
+    d["anio"] = pd.to_numeric(d.anio, errors="coerce")
+    d["semana"] = pd.to_numeric(d.semana, errors="coerce")
+    d["cantidad"] = pd.to_numeric(d.cantidad, errors="coerce").fillna(0)
+    d["codigo_indec"] = pd.to_numeric(d.provincia_id, errors="coerce").map(lambda x: f"{int(x):02d}" if pd.notna(x) else "99")
+    d.loc[~d.codigo_indec.isin(POB), "codigo_indec"] = "99"  # sin dato o desconocida
+    d = d.dropna(subset=["anio", "semana"])
+    d["anio"], d["semana"] = d.anio.astype(int), d.semana.astype(int)
+    return d[["anio", "semana", "codigo_indec", "cantidad"]]
+
+
+_dg_partes, _dg_vistas = [], set()
+for _dg_r in sorted(CRUDO.glob("salud_dengue_*"), key=lambda p: (0, 0) if p.stem.endswith("ultimo") else (1, -int(p.stem[-4:]))):
+    _dg = dg_leer(_dg_r)
+    _dg_sem = list(zip(_dg.anio, _dg.semana))
+    _dg_partes.append(_dg[[s not in _dg_vistas for s in _dg_sem]])
+    _dg_vistas |= set(_dg_sem)
+dg = pd.concat(_dg_partes, ignore_index=True)
+dg["temp_ini"] = dg.anio - (dg.semana < 31).astype(int)
+dg_temp = lambda a: f"{a}/{(a + 1) % 100:02d}"
+_dg_ult_anio = int(dg.anio.max())
+_dg_ult_sem = int(dg[dg.anio == _dg_ult_anio].semana.max())
+# temporadas enteras: desde la que empieza en el primer año con datos hasta la última que llegó a la semana 30 del año en que termina
+DG_TEMP = [a for a in range(int(dg.anio.min()), int(dg.temp_ini.max()) + 1) if (_dg_ult_anio, _dg_ult_sem) >= (a + 1, 30)]
+dengue_pais = (dg[dg.temp_ini.isin(DG_TEMP)].groupby("temp_ini").cantidad.sum().reset_index()
+               .rename(columns={"temp_ini": "anio_inicio", "cantidad": "casos"}))
+dengue_pais.insert(0, "temporada", dengue_pais.anio_inicio.map(dg_temp))
+# la tasa, donde hay población de las proyecciones del INDEC (base Censo 2022) para el año en que termina la temporada
+_dg_pob = lambda a: sum(POB_POR_ANIO[(c, a + 1)] for c in POB) if (next(iter(POB)), a + 1) in POB_POR_ANIO else np.nan
+dengue_pais["cada_100000"] = dengue_pais.casos / dengue_pais.anio_inicio.map(_dg_pob) * 1e5
+# por provincia, desde la temporada 2022/23 (la primera que termina con la población del Censo 2022 ya proyectada): una fila por provincia y
+# temporada, y al final las temporadas juntas, sobre la población promedio de los años en que terminan
+DG_TEMP_PROV = [a for a in DG_TEMP if a >= 2022]
+_dg_pv = (dg[dg.temp_ini.isin(DG_TEMP_PROV) & (dg.codigo_indec != "99")].groupby(["codigo_indec", "temp_ini"]).cantidad.sum()
+          .unstack(fill_value=0).reindex(index=sorted(POB), columns=DG_TEMP_PROV, fill_value=0))
+DG_JUNTAS = f"{dg_temp(DG_TEMP_PROV[0])} a {dg_temp(DG_TEMP_PROV[-1])}"
+dengue_provincias = pd.concat(
+    [pd.DataFrame({"temporada": dg_temp(a), "codigo_indec": _dg_pv.index, "casos": _dg_pv[a].values,
+                   "poblacion": [POB_POR_ANIO[(c, a + 1)] for c in _dg_pv.index]}) for a in DG_TEMP_PROV]
+    + [pd.DataFrame({"temporada": DG_JUNTAS, "codigo_indec": _dg_pv.index, "casos": _dg_pv.sum(axis=1).values,
+                     "poblacion": [np.mean([POB_POR_ANIO[(c, a + 1)] for a in DG_TEMP_PROV]) for c in _dg_pv.index]})], ignore_index=True)
+dengue_provincias.insert(2, "territorio", dengue_provincias.codigo_indec.map(CORTO))
+dengue_provincias["cada_100000"] = dengue_provincias.casos / dengue_provincias.poblacion * 1e5
+dengue_provincias["poblacion"] = dengue_provincias.poblacion.round(0).astype(int)
+_dg_u = DG_TEMP[-1]
+_dg_j = dengue_provincias[dengue_provincias.temporada == DG_JUNTAS].sort_values("cada_100000")
+_dg_mx = dengue_pais.loc[dengue_pais.casos.idxmax()]
+_dg_pp = dengue_pais[dengue_pais.anio_inicio.isin(DG_TEMP_PROV)]
+dengue_res = {"temp": dg_temp(_dg_u), "ini": dengue_pais.temporada.iloc[0], "casos": int(dengue_pais.casos.iloc[-1]),
+              "casos_ant": int(dengue_pais.casos.iloc[-2]), "temp_ant": dengue_pais.temporada.iloc[-2],
+              "max_temp": _dg_mx.temporada, "max_casos": int(_dg_mx.casos), "pais_100000": r1(dengue_pais.cada_100000.iloc[-1]),
+              "temps_prov": [dg_temp(a) for a in DG_TEMP_PROV], "prov_desde": dg_temp(DG_TEMP_PROV[0]), "juntas": DG_JUNTAS,
+              "casos_juntas": int(_dg_pp.casos.sum()),
+              "max_pct_juntas": r1(_dg_mx.casos / _dg_pp.casos.sum() * 100) if _dg_mx.anio_inicio in DG_TEMP_PROV else None,
+              "pais_100000_juntas": r1(_dg_pp.casos.sum() / np.mean([_dg_pob(a) for a in DG_TEMP_PROV]) * 1e5),
+              "top": _dg_j.territorio.iloc[-1], "top_v": r1(_dg_j.cada_100000.iloc[-1]),
+              "top2": _dg_j.territorio.iloc[-2], "top2_v": r1(_dg_j.cada_100000.iloc[-2]),
+              "low": _dg_j.territorio.iloc[0], "low_v": r1(_dg_j.cada_100000.iloc[0]),
+              "sin_casos_ult": int((dengue_provincias[dengue_provincias.temporada == dg_temp(_dg_u)].casos == 0).sum()),
+              "sem_ult": _dg_ult_sem, "anio_ult": _dg_ult_anio}
+d = dengue_pais.rename(columns={"temporada": "periodo", "casos": "valor"})[["periodo", "valor"]]
+d["codigo_indec"], d["territorio"] = "00", "Argentina"
+agregar(d, "casos_dengue_temporada", "casos", "Ministerio de Salud, Sistema Nacional de Vigilancia de la Salud")
+d = pd.concat([dengue_provincias[dengue_provincias.temporada != DG_JUNTAS].rename(columns={"temporada": "periodo", "cada_100000": "valor"}),
+               _dg_pp.assign(codigo_indec="00", territorio="Argentina", periodo=_dg_pp.temporada, valor=_dg_pp.cada_100000)])
+agregar(d[["codigo_indec", "territorio", "periodo", "valor"]], "casos_dengue_cada_100000", "casos cada 100.000 habitantes",
+        "Ministerio de Salud, Sistema Nacional de Vigilancia de la Salud")
+
+# ---------------------------------------------------------------- vacuna triple viral (DICEI)
+# Cobertura de la vacuna triple viral (sarampión, paperas y rubéola) por jurisdicción: primera dosis a los 12 meses y segunda al ingreso
+# escolar, desde 2009 (Dirección de Control de Enfermedades Inmunoprevenibles del Ministerio de Salud), para "¿Dónde se vacuna menos a los
+# chicos?". Es una cobertura administrativa: dosis aplicadas sobre la población estimada de esa edad, así que puede pasar de 100%. El archivo
+# no trae el total del país: la serie muestra la mediana de las 24 jurisdicciones y cuántas quedan debajo del 95%, la cobertura que la
+# Organización Panamericana de la Salud recomienda para frenar el sarampión
+vc = pd.read_excel(CRUDO / "salud_vacuna_triple_viral.xls", dtype=str)
+vc.columns = [str(c).strip() for c in vc.columns]
+_vc_l = []
+for _vc_c in vc.columns:
+    _vc_m = re.match(r"(\d{4})_cob_\s*(\d)_", _vc_c)
+    if _vc_m:
+        _vc_l.append(vc[["jurisdiccion_id", _vc_c]].rename(columns={_vc_c: "valor"}).assign(anio=int(_vc_m.group(1)), dosis=int(_vc_m.group(2))))
+vacunas = pd.concat(_vc_l, ignore_index=True)
+vacunas["codigo_indec"] = vacunas.jurisdiccion_id.map(lambda x: f"{int(float(x)):02d}")
+vacunas["valor"] = pd.to_numeric(vacunas.valor.str.replace(",", ".", regex=False), errors="coerce")
+vacunas = vacunas.dropna(subset=["valor"])
+assert set(vacunas.codigo_indec) == set(POB), "vacuna triple viral: las jurisdicciones no son las 24"
+VC_ANIO = int(vacunas.anio.max())
+vacunas_provincias = vacunas.pivot_table(index="codigo_indec", columns=["dosis", "anio"], values="valor").sort_index(axis=1)
+vacunas_provincias.columns = [f"dosis{d}_{a}" for d, a in vacunas_provincias.columns]
+vacunas_provincias = vacunas_provincias.reset_index()
+vacunas_provincias.insert(1, "territorio", vacunas_provincias.codigo_indec.map(CORTO))
+vacunas_provincias.insert(2, "dosis1", vacunas_provincias[f"dosis1_{VC_ANIO}"])
+vacunas_provincias.insert(3, "dosis2", vacunas_provincias[f"dosis2_{VC_ANIO}"])
+vacunas_serie = (vacunas.groupby(["anio", "dosis"]).valor.agg(mediana="median", bajo_95=lambda v: int((v < 95).sum()), jurisdicciones="count")
+                 .unstack("dosis"))
+vacunas_serie.columns = [f"{k}_dosis{d}" for k, d in vacunas_serie.columns]
+# con los cuatro decimales de la tabla, así el texto y el gráfico redondean el mismo número (54,15 daba 54,2 en el texto y 54,1 en el gráfico)
+vacunas_serie = vacunas_serie.reset_index().round(4)
+_vc_1, _vc_2 = vacunas_provincias.sort_values("dosis1"), vacunas_provincias.sort_values("dosis2")
+_vc_s = vacunas_serie.set_index("anio")
+vacunas_res = {"anio": VC_ANIO, "ini": int(vacunas.anio.min()), "bajo95_1": int((vacunas_provincias.dosis1 < 95).sum()),
+               "bajo95_2": int((vacunas_provincias.dosis2 < 95).sum()),
+               "low": _vc_1.territorio.iloc[0], "low_v": r1(_vc_1.dosis1.iloc[0]), "low_b": _vc_1.territorio.iloc[1], "low_b_v": r1(_vc_1.dosis1.iloc[1]),
+               "top": _vc_1.territorio.iloc[-1], "top_v": r1(_vc_1.dosis1.iloc[-1]),
+               "low2": _vc_2.territorio.iloc[0], "low2_v": r1(_vc_2.dosis2.iloc[0]), "top2": _vc_2.territorio.iloc[-1], "top2_v": r1(_vc_2.dosis2.iloc[-1]),
+               "mediana1": r1(_vc_s.loc[VC_ANIO, "mediana_dosis1"]), "mediana2": r1(_vc_s.loc[VC_ANIO, "mediana_dosis2"]),
+               "mediana1_2019": r1(_vc_s.loc[2019, "mediana_dosis1"]), "mediana2_2019": r1(_vc_s.loc[2019, "mediana_dosis2"]),
+               "bajo95_1_2019": int(_vc_s.loc[2019, "bajo_95_dosis1"]),
+               "mediana1_ini": r1(_vc_s.mediana_dosis1.iloc[0]), "bajo95_1_ini": int(_vc_s.bajo_95_dosis1.iloc[0])}
+for _vc_d in (1, 2):
+    d = vacunas[vacunas.dosis == _vc_d].rename(columns={"anio": "periodo"})
+    d["territorio"] = d.codigo_indec.map(CORTO)
+    agregar(d[["codigo_indec", "territorio", "periodo", "valor"]], f"cobertura_triple_viral_dosis{_vc_d}", "% de los chicos de la edad",
+            "Ministerio de Salud, Dirección de Control de Enfermedades Inmunoprevenibles")
+
 # ---------------------------------------------------------------- soja por departamento (estimaciones agrícolas)
 # Estimaciones agrícolas de la Secretaría de Agricultura, Ganadería y Pesca (datos.magyp.gob.ar): superficie sembrada y cosechada,
 # producción y rendimiento de cada cultivo, por campaña y departamento, desde la campaña 1969/70. Es la primera fuente nueva del plan de
@@ -6669,6 +6814,10 @@ tablas = {
     "soja_departamentos": soja_departamentos,
     "soja_provincias": soja_provincias,
     "soja_pais": sj_pais,
+    "dengue_pais": dengue_pais,
+    "dengue_provincias": dengue_provincias,
+    "vacunas_provincias": vacunas_provincias,
+    "vacunas_serie": vacunas_serie,
     "visitas_por_parque": visitas_parque,
     "carne_vacuna": carne.round(1),
     "vino_mercado_interno": vino,
@@ -6993,6 +7142,8 @@ resumen = {
         "rio_provs": list(pc_prov.index), "rio_prov_top": pc_prov.index[0], "rio_prov_top_pct": r1(pc_prov.iloc[0] / pc_prov.sum() * 100),
     },
     "soja": soja_res,
+    "dengue": dengue_res,
+    "vacunas": vacunas_res,
     "femicidios": {"ini": int(femi.anio.min()), "anio": int(fe_u.anio), "n": int(fe_u.femicidios),
                    "max_anio": int(femi.loc[femi.femicidios.idxmax(), "anio"]), "max": int(femi.femicidios.max())},
     "visitas_parque": {"ult": VP_ULT, "par": VP_PAR, "par_mes": VP_MES, "top": vp_top.area, "top_lugar": vp_top.lugar, "top_v": int(vp_top.visitas_ult),

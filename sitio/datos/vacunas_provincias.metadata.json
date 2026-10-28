@@ -1,0 +1,199 @@
+{
+ "tabla": "vacunas_provincias.csv",
+ "titulo": "¿Dónde se vacuna menos a los chicos?",
+ "descripcion": "Cobertura de la vacuna triple viral (sarampión, paperas y rubéola) por provincia, en % de los chicos de la edad, primera dosis al año de vida y segunda al entrar a la escuela, 2024, y su evolución desde 2009",
+ "seccion": "Salud",
+ "ficha": "https://datina.pages.dev/salud.html#f-vacunas",
+ "fuente": "Dirección de Control de Enfermedades Inmunoprevenibles (DICEI), Ministerio de Salud.",
+ "actualizacion": "Se actualiza cada año.",
+ "cobertura": "Las 24 jurisdicciones",
+ "periodo": "",
+ "filas": 24,
+ "columnas": [
+  {
+   "nombre": "codigo_indec",
+   "tipo": "Código",
+   "valores": "24 códigos"
+  },
+  {
+   "nombre": "territorio",
+   "tipo": "Texto",
+   "valores": "24 valores distintos"
+  },
+  {
+   "nombre": "dosis1",
+   "tipo": "Número",
+   "valores": "70,7 a 106,9"
+  },
+  {
+   "nombre": "dosis2",
+   "tipo": "Número",
+   "valores": "30,8 a 83,4"
+  },
+  {
+   "nombre": "dosis1_2009",
+   "tipo": "Número",
+   "valores": "86,8 a 117,6"
+  },
+  {
+   "nombre": "dosis1_2010",
+   "tipo": "Número",
+   "valores": "85,4 a 122,2"
+  },
+  {
+   "nombre": "dosis1_2011",
+   "tipo": "Número",
+   "valores": "79,9 a 110,4"
+  },
+  {
+   "nombre": "dosis1_2012",
+   "tipo": "Número",
+   "valores": "85,5 a 107,9"
+  },
+  {
+   "nombre": "dosis1_2013",
+   "tipo": "Número",
+   "valores": "81,1 a 113,9"
+  },
+  {
+   "nombre": "dosis1_2014",
+   "tipo": "Número",
+   "valores": "78,3 a 108,1"
+  },
+  {
+   "nombre": "dosis1_2015",
+   "tipo": "Número",
+   "valores": "70,7 a 106,4"
+  },
+  {
+   "nombre": "dosis1_2016",
+   "tipo": "Número",
+   "valores": "70 a 107,8"
+  },
+  {
+   "nombre": "dosis1_2017",
+   "tipo": "Número",
+   "valores": "74,4 a 106,7"
+  },
+  {
+   "nombre": "dosis1_2018",
+   "tipo": "Número",
+   "valores": "77,2 a 101,3"
+  },
+  {
+   "nombre": "dosis1_2019",
+   "tipo": "Número",
+   "valores": "76,7 a 102,1"
+  },
+  {
+   "nombre": "dosis1_2020",
+   "tipo": "Número",
+   "valores": "57,4 a 107,5"
+  },
+  {
+   "nombre": "dosis1_2021",
+   "tipo": "Número",
+   "valores": "53,42 a 99,9"
+  },
+  {
+   "nombre": "dosis1_2022",
+   "tipo": "Número",
+   "valores": "63,5 a 102,45"
+  },
+  {
+   "nombre": "dosis1_2023",
+   "tipo": "Número",
+   "valores": "66,62 a 114,63"
+  },
+  {
+   "nombre": "dosis1_2024",
+   "tipo": "Número",
+   "valores": "70,7 a 106,9"
+  },
+  {
+   "nombre": "dosis2_2009",
+   "tipo": "Número",
+   "valores": "71,6 a 138,5"
+  },
+  {
+   "nombre": "dosis2_2010",
+   "tipo": "Número",
+   "valores": "66,4 a 133,8"
+  },
+  {
+   "nombre": "dosis2_2011",
+   "tipo": "Número",
+   "valores": "73 a 110,2"
+  },
+  {
+   "nombre": "dosis2_2012",
+   "tipo": "Número",
+   "valores": "68,6 a 113,6"
+  },
+  {
+   "nombre": "dosis2_2013",
+   "tipo": "Número",
+   "valores": "56,4 a 117"
+  },
+  {
+   "nombre": "dosis2_2014",
+   "tipo": "Número",
+   "valores": "68,1 a 114,4"
+  },
+  {
+   "nombre": "dosis2_2015",
+   "tipo": "Número",
+   "valores": "61,2 a 110,1"
+  },
+  {
+   "nombre": "dosis2_2016",
+   "tipo": "Número",
+   "valores": "62,5 a 122"
+  },
+  {
+   "nombre": "dosis2_2017",
+   "tipo": "Número",
+   "valores": "66,8 a 120,2"
+  },
+  {
+   "nombre": "dosis2_2018",
+   "tipo": "Número",
+   "valores": "85,6 a 135,4"
+  },
+  {
+   "nombre": "dosis2_2019",
+   "tipo": "Número",
+   "valores": "64 a 119,7"
+  },
+  {
+   "nombre": "dosis2_2020",
+   "tipo": "Número",
+   "valores": "54,4 a 123"
+  },
+  {
+   "nombre": "dosis2_2021",
+   "tipo": "Número",
+   "valores": "51,27 a 115,24"
+  },
+  {
+   "nombre": "dosis2_2022",
+   "tipo": "Número",
+   "valores": "60,76 a 123,6"
+  },
+  {
+   "nombre": "dosis2_2023",
+   "tipo": "Número",
+   "valores": "41,94 a 89,41"
+  },
+  {
+   "nombre": "dosis2_2024",
+   "tipo": "Número",
+   "valores": "30,8 a 83,4"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "28/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

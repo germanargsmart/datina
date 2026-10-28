@@ -1,0 +1,39 @@
+{
+ "tabla": "dengue_pais.csv",
+ "titulo": "¿Dónde hubo más casos de dengue?",
+ "descripcion": "Casos confirmados de dengue cada 100.000 habitantes por provincia, de la temporada 2022/23 a la 2025/26, y casos en el país por temporada desde la 2018/19",
+ "seccion": "Salud",
+ "ficha": "https://datina.pages.dev/salud.html#f-dengue",
+ "fuente": "Ministerio de Salud, Sistema Nacional de Vigilancia de la Salud, e INDEC, proyecciones de población 2022 a 2040, base Censo 2022.",
+ "actualizacion": "Se actualiza cada año.",
+ "cobertura": "Sin desglose territorial",
+ "periodo": "",
+ "filas": 8,
+ "columnas": [
+  {
+   "nombre": "temporada",
+   "tipo": "Texto",
+   "valores": "8 valores distintos"
+  },
+  {
+   "nombre": "anio_inicio",
+   "tipo": "Año",
+   "valores": "2018 a 2025"
+  },
+  {
+   "nombre": "casos",
+   "tipo": "Número",
+   "valores": "70 a 598.981"
+  },
+  {
+   "nombre": "cada_100000",
+   "tipo": "Número",
+   "valores": "0,15 a 1.293,65 (3 celdas vacías)"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "28/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

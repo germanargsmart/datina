@@ -1,0 +1,54 @@
+{
+ "tabla": "vacunas_serie.csv",
+ "titulo": "¿Dónde se vacuna menos a los chicos?",
+ "descripcion": "Cobertura de la vacuna triple viral (sarampión, paperas y rubéola) por provincia, en % de los chicos de la edad, primera dosis al año de vida y segunda al entrar a la escuela, 2024, y su evolución desde 2009",
+ "seccion": "Salud",
+ "ficha": "https://datina.pages.dev/salud.html#f-vacunas",
+ "fuente": "Dirección de Control de Enfermedades Inmunoprevenibles (DICEI), Ministerio de Salud.",
+ "actualizacion": "Se actualiza cada año.",
+ "cobertura": "Sin desglose territorial",
+ "periodo": "2009 a 2024",
+ "filas": 16,
+ "columnas": [
+  {
+   "nombre": "anio",
+   "tipo": "Año",
+   "valores": "2009 a 2024"
+  },
+  {
+   "nombre": "mediana_dosis1",
+   "tipo": "Número",
+   "valores": "80,95 a 98,9"
+  },
+  {
+   "nombre": "mediana_dosis2",
+   "tipo": "Número",
+   "valores": "54,15 a 103,6"
+  },
+  {
+   "nombre": "bajo_95_dosis1",
+   "tipo": "Número",
+   "valores": "7 a 23"
+  },
+  {
+   "nombre": "bajo_95_dosis2",
+   "tipo": "Número",
+   "valores": "5 a 24"
+  },
+  {
+   "nombre": "jurisdicciones_dosis1",
+   "tipo": "Número",
+   "valores": "24"
+  },
+  {
+   "nombre": "jurisdicciones_dosis2",
+   "tipo": "Número",
+   "valores": "24"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "28/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

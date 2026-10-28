@@ -27,6 +27,10 @@ CERTIFICADO_VENCIDO = ("www.economia.gob.ar", "www.mecon.gob.ar")
 # los de confianza de esa conexión, sin apagar la verificación. Por seguridad, solo se suman certificados que no se firman a sí mismos
 # y la cadena tiene que terminar en una raíz de confianza del sistema (sin cadenas parciales), así que uno falso no pasa
 _INTERMEDIOS = {}
+# Dirección "CA Issuers" del certificado de los servidores que no mandan su intermedio, para cuando no se puede leer su certificado directo
+# (en las sesiones en la nube la conexión directa la contesta un intermediario con un certificado propio, sin esa dirección). Es la misma
+# que trae el certificado del servidor: si la autoridad la cambia, el aviso de contexto_con_intermedios lo dice
+EMISOR_CONOCIDO = {"datos.salud.gob.ar": "http://crt.sectigo.com/SectigoPublicServerAuthenticationCADVR36.crt"}
 
 
 def _leer_certificado(pem):
@@ -105,9 +109,16 @@ def contexto_con_intermedios(url):
         return _INTERMEDIOS[host]
     cadena, problema = [], "la dirección que indica su certificado no trae un intermedio"
     try:
-        pem = ssl.get_server_certificate((host, puerto), timeout=30)
+        try:
+            pem = ssl.get_server_certificate((host, puerto), timeout=30)
+        except OSError:
+            if host not in EMISOR_CONOCIDO:
+                raise
+            pem = None
         for _ in range(3):  # el intermedio puede estar firmado por otro que también falte
-            emisores = [u for u in _leer_certificado(pem).get("caIssuers", ()) if u.lower().startswith(("http://", "https://"))]
+            emisores = [u for u in (_leer_certificado(pem).get("caIssuers", ()) if pem else ()) if u.lower().startswith(("http://", "https://"))]
+            if not emisores and not cadena and host in EMISOR_CONOCIDO:
+                emisores = [EMISOR_CONOCIDO[host]]
             if not emisores:
                 break
             with urllib.request.urlopen(emisores[0], timeout=30) as r:
@@ -217,15 +228,14 @@ def aprender(area):
     return None
 
 
-def ckan_csv(portal, paquete, respaldo):
-    """Busca en el catalogo del portal el CSV vigente de un conjunto de datos.
+def ckan_csv(portal, paquete, respaldo, formato="CSV"):
+    """Busca en el catalogo del portal el CSV vigente de un conjunto de datos (o el archivo del formato indicado, el mas nuevo).
     Sirve para fuentes que cambian el nombre del archivo cada anio (por ejemplo '1990-2024').
-    Si el catalogo no responde, usa la direccion conocida."""
+    Si el catalogo no responde, usa la direccion conocida. Desde el 28 de octubre de 2026 pasa por leer(), que completa la cadena de
+    certificados de los servidores que no mandan su intermedio, como datos.salud.gob.ar: antes, donde faltaba, se usaba el respaldo."""
     try:
-        req = urllib.request.Request(f"{portal}/api/3/action/package_show?id={paquete}", headers=UA)
-        with urllib.request.urlopen(req, timeout=60) as r:
-            recursos = json.load(r)["result"]["resources"]
-        csvs = [x for x in recursos if (x.get("format") or "").upper() == "CSV"]
+        recursos = json.loads(leer(f"{portal}/api/3/action/package_show?id={paquete}", 60))["result"]["resources"]
+        csvs = [x for x in recursos if (x.get("format") or "").upper() == formato]
         csvs.sort(key=lambda x: x.get("last_modified") or x.get("created") or "")
         return csvs[-1]["url"] if csvs else respaldo
     except Exception:
@@ -441,6 +451,26 @@ FUENTES.update({
     # Tasa de natalidad por provincia, anual desde 2000 (DEIS)
     "deis_natalidad.csv": ckan_csv("http://datos.salud.gob.ar", "314e08d7-70a1-4704-aa2f-e86ce03b359d",
         "http://datos.salud.gob.ar/dataset/314e08d7-70a1-4704-aa2f-e86ce03b359d/resource/0f68d5c6-e667-40ca-90fd-4784336e092e/download/tasa-natalidad-deis-2000-2023.csv"),
+    # Casos confirmados de dengue por departamento, semana y edad (Sistema Nacional de Vigilancia de la Salud, Ministerio de Salud),
+    # un archivo por año. El más nuevo cambia de nombre con cada actualización: se busca en el catálogo (salud_dengue_ultimo.csv)
+    **{f"salud_dengue_{_dg_a}.{_dg_x}": ckan_id("https://datos.salud.gob.ar", "vigilancia-de-dengue-y-zika", _dg_r,
+        f"https://datos.salud.gob.ar/dataset/ceaa8e87-297e-4348-84b8-5c643e172500/resource/{_dg_r}/download/{_dg_f}") for _dg_a, _dg_r, _dg_f, _dg_x in [
+        (2018, "255440b0-d8b2-4247-87d2-91dfec29eb0f", "informacion-publica-dengue-zika-nacional-hasta-20181231.csv", "csv"),
+        (2019, "ab93dc4b-4e6c-499b-9335-c548a701a870", "informacion-publica-dengue-zika-nacional-hasta-20191231_3.xlsx", "xlsx"),
+        (2020, "3e11a05a-8287-4954-ab08-f698dc0ff3e1", "informacion-publica-dengue-zika-nacional-hasta-20201231_1.xlsx", "xlsx"),
+        (2021, "8275ff70-94e5-4ee0-9cbb-630587daa618", "1648473440-6ff92f5b32926ebfb17725a0ab8e991652470725-informacion-publica-dengue-zika-nacional-ha.xlsx", "xlsx"),
+        (2022, "30d76bcb-b8eb-4bf3-863e-c87d41724647", "informacion-publica-dengue-zika-nacional-anio-2022.csv", "csv"),
+        (2023, "19075374-b180-48a0-aaaf-e0e44cd6816f", "informacion-publica-dengue-zika-nacional-se-1-a-52-de-2023-2024-06-10.csv", "csv"),
+        (2024, "e57edd84-096d-4348-9137-2f5dae9c8f55", "informacion-publica-dengue-zika-nacional-se-1-a-52-de-2024-2025-05-05.csv", "csv"),
+        (2025, "937f34bc-dc3d-4fa1-bb0b-09a749a69d23", "informacion-publica-dengue-zika-nacional-se-1-a-53-de-2025-2026-01-12.csv", "csv")]},
+    "salud_dengue_ultimo.csv": ckan_csv("https://datos.salud.gob.ar", "vigilancia-de-dengue-y-zika",
+        "https://datos.salud.gob.ar/dataset/ceaa8e87-297e-4348-84b8-5c643e172500/resource/33e12e9f-1d14-4bc7-b34c-a1f88ab7b990/download/"
+        "informacion-publica-dengue-zika-nacional-se-1-2025-a-se41-2026-2026-10-26.csv"),
+    # Cobertura de la vacuna triple viral por jurisdicción, primera y segunda dosis, desde 2009 (Dirección de Control de Enfermedades
+    # Inmunoprevenibles). Cada año se publica un archivo nuevo que suma el último año: se toma el XLS más nuevo del catálogo
+    "salud_vacuna_triple_viral.xls": ckan_csv("https://datos.salud.gob.ar", "porc-de-cobertura-de-la-vacuna-triple-viral-srp-sarampion-parotiditis-o-paperas-y-rubeola",
+        "https://datos.salud.gob.ar/dataset/f70b1357-b57e-4077-9746-af8193243207/resource/2e316239-2718-4ee8-b896-9d23f79f104c/download/"
+        "dicei-vacunas-srp-2009-2024.xls", formato="XLS"),
 })
 
 # Comparación con la OCDE: Indicadores del Desarrollo Mundial del Banco Mundial para la Argentina y los 38 países miembros.
@@ -487,6 +517,11 @@ VALIDA.update({
     "aif_provincias.xlsx": lambda b: b[:2] == b"PK",
     "indec_proyecciones_provincias.csv": lambda b: b"Jurisdiccion" in b[:40],
     **{f"deis_{t}_{a}.csv": (lambda b: b"PROVRES" in b[:20]) for t in ["defunciones", "nacidos"] for a in [2022, 2023, 2024]},
+    # dengue: el encabezado de cada archivo es distinto (y los de 2019 a 2021 son Excel), pero todos nombran el evento
+    **{f"salud_dengue_{_dg_a}.{_dg_x}": ((lambda b: b[:2] == b"PK") if _dg_x == "xlsx" else (lambda b: b"evento" in b.split(b"\n", 1)[0].lower()))
+       for _dg_a, _dg_x in [(2018, "csv"), (2019, "xlsx"), (2020, "xlsx"), (2021, "xlsx"), (2022, "csv"), (2023, "csv"), (2024, "csv"), (2025, "csv")]},
+    "salud_dengue_ultimo.csv": lambda b: b"evento" in b.split(b"\n", 1)[0] and b"sepi_min" in b.split(b"\n", 1)[0],
+    "salud_vacuna_triple_viral.xls": lambda b: b[:4] == bytes.fromhex("d0cf11e0"),
     "deis_natalidad.csv": lambda b: b"natalidad" in b[:300],
     "indec_tablas_mortalidad.csv": lambda b: b"Jurisdiccion_cod" in b[:40],
     "enacom_internet_accesos.csv": lambda b: b.startswith(b"anio,trimestre,provincia"),

@@ -184,7 +184,7 @@ FRECUENCIA = {
     # Pobreza y hogares
     "f-pobreza": "semestre", "f-ingresos-aglomerados": "trimestre", "f-censo": "censo", "f-internet": "trimestre",
     # Salud
-    "f-esperanza": "censo", "f-cobertura": "censo", "f-causas-muerte": "anio", "f-mortalidad": "anio", "f-causas-infantiles": "anio", "f-muertes": "anio", "f-suicidio": "anio",
+    "f-esperanza": "censo", "f-cobertura": "censo", "f-dengue": "anio", "f-vacunas": "anio", "f-causas-muerte": "anio", "f-mortalidad": "anio", "f-causas-infantiles": "anio", "f-muertes": "anio", "f-suicidio": "anio",
     "f-suicidio-prov": "anio", "f-edad": "anio",
     # Seguridad
     "f-delitos": "anio", "f-robos": "anio", "f-homicidios": "anio", "f-carceles": "anio", "f-sin-condena": "anio",
@@ -237,6 +237,7 @@ DEMORA_HABITUAL = {
     "f-permisos": 1,               # los permisos de edificación llegaban a julio de 2026 (3 meses)
     "f-empleo-construccion": 1,    # el empleo registrado por rama llegaba al primer trimestre de 2026 (7 meses)
     "f-empleo-hidro": 1,           # el mismo dato que la anterior, para petróleo y gas
+    "f-vacunas": 6,                # la cobertura de 2024 se publicó en abril de 2026 (16 meses)
 }
 SIN_FRESCURA = {
     "f-parques": "el año de la descripción es el de creación del último parque, no el del dato",

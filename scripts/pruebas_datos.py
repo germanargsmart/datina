@@ -81,6 +81,12 @@ ACEPTADAS = {
     "mediana|obra_publica_provincias.obras_hab|38": "real: la autopista de las rutas nacionales 66 y 34 en el corredor del NOA, que hace Vialidad Nacional con un préstamo del Banco Mundial",
     "mediana|obra_publica_provincias.transf_hab|10": "real: obras de agua potable y saneamiento financiadas con préstamos del BID y de la AFD",
     "mediana|obra_publica_provincias.transf_hab|46": "real: obras viales fuera de la red nacional que la Nación transfiere a la provincia y a sus municipios",
+    # dengue y vacuna triple viral (plan de mejora, sección 10, 28 de octubre de 2026)
+    **{f"rango|cobertura_triple_viral_dosis{n}|{c}": "real: es una cobertura administrativa, dosis aplicadas sobre la población estimada de "
+       "esa edad, y puede pasar de 100% cuando se vacuna a chicos de otras provincias o la población estimada se queda corta (lo dice la nota)"
+       for n in (1, 2) for c in PROV24},
+    **{f"mediana|casos_dengue_cada_100000.valor|{c}": "real: el dengue llega en epidemias que se concentran en algunas provincias, sobre todo en "
+       "el norte, y en las temporadas con pocos casos la mediana es casi cero" for c in PROV24},
     **{f"mediana|vivienda_provincias.pct_ocupados_minas|{c}": "real: provincias petroleras y mineras" for c in ("26", "58", "78")},
     **{f"fuentes|petroleo|{a}": "la EIA estima el crudo con condensado con su propio método: el sitio usa la serie de la Secretaría de Energía "
        "y la EIA solo para comparar países (lo dice la nota de la ficha)" for a in (2019, 2020)},
@@ -515,7 +521,7 @@ def prueba_errores(d, t):
 # (lg_texto). Cada unidad tiene que ser una de UNIDADES, y ninguna unidad ni fuente puede tener una de las palabras de SIN_TILDE. Los años de
 # una unidad ("pesos de 2025") no cuentan: cambian con los datos. Una unidad nueva se suma acá, después de revisar que no sea otra forma de
 # una que ya está
-UNIDADES = {"%", "% de estudiantes de 6 grado", "% de hogares", "% de la electricidad generada", "% de la población",
+UNIDADES = {"%", "% de los chicos de la edad", "% de estudiantes de 6 grado", "% de hogares", "% de la electricidad generada", "% de la población",
             "% de la población de 15 años o más", "% de la población económicamente activa", "% de la población en edad de terminarlo",
             "% de la población en viviendas particulares", "% de la producción de gas", "% de la producción de petróleo",
             "% de la superficie continental", "% de las empresas", "% de las personas privadas de libertad", "% de las personas ocupadas", "% de los electores", "% de los hogares",
@@ -524,7 +530,7 @@ UNIDADES = {"%", "% de estudiantes de 6 grado", "% de hogares", "% de la electri
             "aportantes por beneficio", "asalariados registrados cada 1.000 habitantes", "años",
             "beneficiarios cada 100 asalariados privados registrados",
             "beneficiarios de la prestación por desempleo cada 1.000 habitantes", "cargos cada 1.000 habitantes", "cargos de juez",
-            "cargos de juez cada 100.000 habitantes", "casos", "defensorías", "dólares por habitante",
+            "cargos de juez cada 100.000 habitantes", "casos", "casos cada 100.000 habitantes", "defensorías", "dólares por habitante",
             "dólares por litro al tipo de cambio de referencia (Com. A 3500), mediana de las estaciones", "empresas",
             "etapas de fractura por año", "fiscalías", "grados Celsius", "hechos cada 100.000 habitantes", "hectáreas",
             "hijos con AUH cada 100 menores de 18 años", "hijos por mujer", "kWh por habitante por año", "kilos por habitante por año",
