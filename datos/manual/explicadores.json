@@ -429,6 +429,188 @@
    }
   ]
  },
+ "externo": {
+  "bloques": [
+   {
+    "titulo": "De dónde salen las exportaciones y las importaciones",
+    "texto": "Las cifras de comercio de bienes salen de los registros de la Aduana que procesa el INDEC. Las exportaciones se valúan a precio libre a bordo (FOB), en el puerto o lugar de embarque, y las importaciones a precio CIF, que suma el flete y el seguro hasta el primer puerto de llegada en la Argentina. Por eso el saldo comercial compara exportaciones sin flete con importaciones con flete. Las cifras de los últimos meses son provisorias: al publicarlas falta parte de la documentación de exportación, y los valores se corrigen en los meses siguientes.",
+    "fuentes": [
+     {
+      "nombre": "INDEC, Metodología de comercio exterior",
+      "url": "https://www.indec.gob.ar/ftp/cuadros/economia/metodologia_comex.pdf",
+      "cita": "Los valores consignados se refieren a precios libre a bordo (FOB, por sus siglas en inglés) en el puerto o lugar de embarque de las mercaderías."
+     },
+     {
+      "nombre": "INDEC, Metodología de comercio exterior",
+      "url": "https://www.indec.gob.ar/ftp/cuadros/economia/metodologia_comex.pdf",
+      "cita": "Este último incluye el valor FOB más el flete y el seguro (excluidos los derechos de importación) incurridos para llevar la mercadería del puerto o lugar de embarque al primer puerto o lugar de llegada en la Argentina."
+     },
+     {
+      "nombre": "INDEC, Metodología de comercio exterior",
+      "url": "https://www.indec.gob.ar/ftp/cuadros/economia/metodologia_comex.pdf",
+      "cita": "Para el caso de las exportaciones, al momento de difundir los datos solo se dispone de una parte de la documentación."
+     },
+     {
+      "nombre": "INDEC, Intercambio comercial argentino, informe de septiembre de 2026, nota metodológica",
+      "url": "https://www.indec.gob.ar/uploads/informesdeprensa/ica_10_263F42E3F39F.pdf",
+      "cita": "En el informe técnico Intercambio comercial argentino (ICA) suelen realizarse modificaciones a las cifras de los meses anteriores, especialmente en los valores de exportación."
+     }
+    ]
+   },
+   {
+    "titulo": "Grandes rubros y usos económicos",
+    "texto": "Las exportaciones se agrupan en cuatro grandes rubros: productos primarios, manufacturas de origen agropecuario, manufacturas de origen industrial, y combustibles y energía. Las importaciones se agrupan por el uso que se les da: bienes de capital, bienes intermedios, combustibles, piezas y accesorios para bienes de capital, bienes de consumo y vehículos de pasajeros.",
+    "fuentes": [
+     {
+      "nombre": "INDEC, Metodología de comercio exterior",
+      "url": "https://www.indec.gob.ar/ftp/cuadros/economia/metodologia_comex.pdf",
+      "cita": "Exportaciones por Grandes rubros (GR): productos primarios, manufacturas de origen agropecuario, manufacturas de origen industrial y combustibles."
+     },
+     {
+      "nombre": "INDEC, Metodología de comercio exterior",
+      "url": "https://www.indec.gob.ar/ftp/cuadros/economia/metodologia_comex.pdf",
+      "cita": "Importaciones por Uso económico: bienes de capital, bienes intermedios, combustibles, piezas y accesorios para bienes de capital, bienes de consumo y vehículos automotores de pasajeros."
+     },
+     {
+      "nombre": "INDEC, Intercambio comercial argentino, informe de septiembre de 2026",
+      "url": "https://www.indec.gob.ar/uploads/informesdeprensa/ica_10_263F42E3F39F.pdf",
+      "cita": "Productos primarios (PP) Manufacturas de origen agropecuario (MOA) Manufacturas de origen industrial (MOI) Combustibles y energía (CyE)"
+     }
+    ]
+   },
+   {
+    "titulo": "Complejos exportadores",
+    "texto": "Los complejos exportadores agrupan lo que vende al exterior una misma cadena productiva, de la materia prima al producto terminado. El complejo soja, por ejemplo, junta los porotos, el aceite, las harinas y pellets y el biodiésel. Así se ve qué actividades generan las exportaciones, más allá de cuánto se procesó cada producto.",
+    "fuentes": [
+     {
+      "nombre": "INDEC, Complejos exportadores, año 2025",
+      "url": "https://www.indec.gob.ar/uploads/informesdeprensa/complejos_03_2686A1604947.pdf",
+      "cita": "La clasificación de complejos exportadores tiene como finalidad vincular las materias primas y los productos no elaborados, semielaborados o terminados de una misma cadena productiva, a partir de una reclasificación de la Nomenclatura Común del Mercosur (NCM)."
+     },
+     {
+      "nombre": "INDEC, Complejos exportadores, año 2025",
+      "url": "https://www.indec.gob.ar/uploads/informesdeprensa/complejos_03_2686A1604947.pdf",
+      "cita": "Complejo soja Harinas y pellets de soja Aceite de soja Porotos de soja Biodiésel"
+     }
+    ]
+   },
+   {
+    "titulo": "Qué exporta cada provincia",
+    "texto": "El origen provincial de las exportaciones (OPEX) del INDEC asigna cada venta al exterior a la provincia donde se produjo el bien, no a la del puerto por donde sale. Las manufacturas y los combustibles se asignan por la ubicación de las plantas de las empresas que exportan. Los productos primarios y el petróleo crudo, por la parte de la producción de cada provincia que informan las secretarías de Agricultura y de Energía. Una parte de las exportaciones no se asigna a ninguna provincia: el INDEC la publica aparte, como indeterminada o como del extranjero y la plataforma continental.",
+    "fuentes": [
+     {
+      "nombre": "INDEC, Origen provincial de las exportaciones, primer semestre de 2026",
+      "url": "https://www.indec.gob.ar/uploads/informesdeprensa/opex_09_262EF52B6A56.pdf",
+      "cita": "el origen provincial de las exportaciones (OPEX), que detalla el aporte de cada región y provincia al total de las ventas el exterior"
+     },
+     {
+      "nombre": "Instituto Provincial de Estadística y Censos de Santa Fe, Exportaciones con origen en la provincia de Santa Fe, documento metodológico (con los criterios del INDEC)",
+      "url": "https://www.estadisticasantafe.gob.ar/wp-content/uploads/sites/24/2026/07/Exportaciones_metodologia.pdf",
+      "cita": "Asignación de origen provincial por ubicación geográfica de los establecimientos productivos: la fuente primaria de este dato se obtiene de la ubicación geográfica de los establecimientos productivos de las empresas que exportan determinados productos"
+     },
+     {
+      "nombre": "Instituto Provincial de Estadística y Censos de Santa Fe, documento metodológico",
+      "url": "https://www.estadisticasantafe.gob.ar/wp-content/uploads/sites/24/2026/07/Exportaciones_metodologia.pdf",
+      "cita": "Asignación del Origen provincial por producción provincial: en los rubros Productos primarios y Petróleo crudo son la Secretaria de Agricultura, Ganadería y Pesca y la Secretaría de Energía respectivamente, las que actualizan los porcentajes de participación en función de la producción provincial."
+     },
+     {
+      "nombre": "Instituto Provincial de Estadística y Censos de Santa Fe, documento metodológico",
+      "url": "https://www.estadisticasantafe.gob.ar/wp-content/uploads/sites/24/2026/07/Exportaciones_metodologia.pdf",
+      "cita": "La asignación del origen provincial se basa en los mencionados criterios metodológicos establecidos por el INDEC"
+     },
+     {
+      "nombre": "INDEC, Origen provincial de las exportaciones, primer semestre de 2026",
+      "url": "https://www.indec.gob.ar/uploads/informesdeprensa/opex_09_262EF52B6A56.pdf",
+      "cita": "Extranjero y plataforma continental 919 M - 57,6% Indeterminado 641 M"
+     }
+    ]
+   },
+   {
+    "titulo": "La cuenta corriente",
+    "texto": "La cuenta corriente del balance de pagos suma todo lo que la Argentina vende y compra al resto del mundo en bienes y servicios, las rentas que se pagan y se cobran (los intereses y las utilidades de las inversiones son lo principal) y las transferencias corrientes. Se registra cuando cada operación se devenga, no cuando se paga. Un saldo negativo quiere decir que el país gastó con el exterior más de lo que le ingresó en esas operaciones.",
+    "fuentes": [
+     {
+      "nombre": "INDEC, Balanza de pagos, posición de inversión internacional y deuda externa, segundo trimestre de 2026",
+      "url": "https://www.indec.gob.ar/uploads/informesdeprensa/bal_09_26BA83A84318.pdf",
+      "cita": "Cuenta corriente: forma parte de la BdP y registra las operaciones de bienes y servicios, ingreso primario (renta) e ingreso secundario (transferencias corrientes) entre residentes de la economía y el resto del mundo."
+     },
+     {
+      "nombre": "INDEC, Balanza de pagos, segundo trimestre de 2026",
+      "url": "https://www.indec.gob.ar/uploads/informesdeprensa/bal_09_26BA83A84318.pdf",
+      "cita": "Ingreso primario: registra la renta obtenida por los factores productivos, trabajo y capital; su componente principal es la renta de la inversión."
+     },
+     {
+      "nombre": "INDEC, Balanza de pagos, segundo trimestre de 2026",
+      "url": "https://www.indec.gob.ar/uploads/informesdeprensa/bal_09_26BA83A84318.pdf",
+      "cita": "Las transacciones se registran en términos de flujos devengados entre residentes y no residentes."
+     }
+    ]
+   },
+   {
+    "titulo": "Reservas brutas y netas",
+    "texto": "Las reservas internacionales son los activos externos que el Banco Central tiene disponibles de inmediato, por ejemplo para intervenir en el mercado de cambios. Las brutas son el total, antes de restar lo que el Banco Central debe pagar en moneda extranjera en el corto plazo. No hay una cifra oficial de reservas netas: las de esta página restan de las brutas lo que el BCRA tiene que pagar o devolver en moneda extranjera dentro de un año, según la planilla de reservas que publica cada mes con el formato del FMI. Otras estimaciones restan otras cosas y dan otros números.",
+    "fuentes": [
+     {
+      "nombre": "INDEC, Balanza de pagos, segundo trimestre de 2026, glosario",
+      "url": "https://www.indec.gob.ar/uploads/informesdeprensa/bal_09_26BA83A84318.pdf",
+      "cita": "Activos de reserva: activos externos que están disponibles de inmediato y bajo el control de las autoridades monetarias para satisfacer necesidades de financiamiento de la balanza de pagos, para intervenir en los mercados cambiarios, a fin de influir sobre el tipo de cambio y para otros fines conexos."
+     },
+     {
+      "nombre": "INDEC, Balanza de pagos, segundo trimestre de 2026, glosario",
+      "url": "https://www.indec.gob.ar/uploads/informesdeprensa/bal_09_26BA83A84318.pdf",
+      "cita": "Reservas internacionales brutas: Total de activos de reserva mantenidos por las autoridades monetarias, antes de deducir las obligaciones en moneda extranjera de corto plazo relacionadas con las reservas."
+     },
+     {
+      "nombre": "BCRA, Reservas internacionales y base monetaria",
+      "url": "https://www.bcra.gob.ar/reservas-internacionales-y-base-monetaria/",
+      "cita": "de las reservas internacionales y de pasivos del BCRA, con vistas diarias y mensuales"
+     }
+    ]
+   }
+  ],
+  "glosario": [
+   {
+    "termino": "FOB",
+    "definicion": "Precio libre a bordo: el valor de la mercadería puesta en el puerto o lugar de embarque, sin el flete ni el seguro hasta el destino. Así se valúan las exportaciones.",
+    "fuente": {
+     "nombre": "INDEC, Metodología de comercio exterior",
+     "url": "https://www.indec.gob.ar/ftp/cuadros/economia/metodologia_comex.pdf"
+    }
+   },
+   {
+    "termino": "CIF",
+    "definicion": "Costo, seguro y flete: el valor FOB más el flete y el seguro hasta el primer puerto de llegada. Así se valúan las importaciones.",
+    "fuente": {
+     "nombre": "INDEC, Metodología de comercio exterior",
+     "url": "https://www.indec.gob.ar/ftp/cuadros/economia/metodologia_comex.pdf"
+    }
+   },
+   {
+    "termino": "Complejo exportador",
+    "definicion": "Las exportaciones de una misma cadena productiva, de la materia prima al producto terminado.",
+    "fuente": {
+     "nombre": "INDEC, Complejos exportadores",
+     "url": "https://www.indec.gob.ar/uploads/informesdeprensa/complejos_03_2686A1604947.pdf"
+    }
+   },
+   {
+    "termino": "Balance de pagos",
+    "definicion": "El registro de todas las operaciones económicas entre los residentes del país y el resto del mundo.",
+    "fuente": {
+     "nombre": "INDEC, Balanza de pagos, glosario",
+     "url": "https://www.indec.gob.ar/uploads/informesdeprensa/bal_09_26BA83A84318.pdf"
+    }
+   },
+   {
+    "termino": "Reservas brutas",
+    "definicion": "El total de los activos de reserva del Banco Central, antes de restar lo que debe pagar en moneda extranjera en el corto plazo.",
+    "fuente": {
+     "nombre": "INDEC, Balanza de pagos, glosario",
+     "url": "https://www.indec.gob.ar/uploads/informesdeprensa/bal_09_26BA83A84318.pdf"
+    }
+   }
+  ]
+ },
  "empresas": {
   "bloques": [
    {
