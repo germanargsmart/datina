@@ -84,9 +84,15 @@ caso("Artículo que falla: otro artículo se arma entero", r.bajada && r.svg, JS
 CAMBIOS = [];
 
 // 4. P2-18: "Ver tabla" vuelve a intentar después de una falla
+// En una página con capítulos se ve uno por vez (28 de octubre de 2026): se busca también en los otros, tocando cada uno. Las fichas del
+// capítulo recién abierto que quedan a más de dos pantallas todavía no se dibujaron
+let probada = false;
 for (const pg of ["politica.html", "pobreza.html", "salud.html", "economia.html", "trabajo.html"]) {
   await p.ir(BASE + pg, 1200);
-  const id = await p.eval(`(() => { const f = [...document.querySelectorAll("article.ficha")].find(f => { const a = f.querySelector(".pie a[href*='datos/']"),
+  let id = "";
+  for (let i = 0, nc = await p.eval(`document.querySelectorAll(".capitulos a").length`); i < Math.max(nc, 1) && !id; i++) id = await p.eval(`(() => {
+    ${i ? `document.querySelectorAll(".capitulos a")[${i}].click();` : ""}
+    const f = [...document.querySelectorAll("article.ficha")].find(f => { const a = f.querySelector(".pie a[href*='datos/']"),
     n = (a?.getAttribute("href").match(/datos\\/(\\w+)\\.csv/) || [])[1]; return n && DATINA.diferidas[n] && !DATINA.datos[n] && f.querySelector(".ver-tabla") && f.getBoundingClientRect().top > innerHeight * 2; });
     return f ? f.id + "|" + f.querySelector(".pie a[href*='datos/']").getAttribute("href").match(/datos\\/(\\w+)\\.csv/)[1] : ""; })()`);
   if (!id) continue;
@@ -98,8 +104,11 @@ for (const pg of ["politica.html", "pobreza.html", "salud.html", "economia.html"
   await p.eval(`document.querySelector("#${fid} .ver-tabla").click()`); await espera(1200);
   r = JSON.parse(await p.eval(`JSON.stringify({filas: document.querySelectorAll("#${fid} .tabla-datos tr").length, error: !!document.querySelector("#${fid} .tabla-error")})`));
   caso(`"Ver tabla" en ${pg}#${fid} (${n}): la falla avisa y el segundo intento carga`, err && r.filas > 1 && !r.error, JSON.stringify({err, ...r}));
+  probada = true;
   break;
 }
+// si ninguna página tiene una ficha para este caso, la prueba no probó nada: eso también es una falla
+if (!probada) caso(`"Ver tabla" después de una falla: una ficha con su tabla sin bajar`, false, "no se encontró ninguna");
 
 // 5. P2-18: la comparación con la OCDE avisa si no llega (f-empleo, en trabajo.html: hasta el 28 de octubre de 2026 era f-mortalidad,
 //    que ya no tiene botones de la OCDE por decisión del autor)
