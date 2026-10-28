@@ -431,14 +431,33 @@ def historia_prov(c, h):
             f'Estado nacional, sitios municipales, leyes y trabajos de universidades públicas y del CONICET, entre otras fuentes. Delante de cada fuente figura el apartado del texto que respalda. Los habitantes salen de la proyección de población del INDEC, base Censo 2022.</p><ul>{fuentes}</ul></details></article>')
 
 
-assert base.count("<!--HISTORIA-->") == 1
+assert base.count("<!--HISTORIA-->") == 1 and base.count("<!--PROV-LINEA-->") == 1
 # el bloque de la provincia del enlace (o la recordada) se muestra apenas se lee, antes de que se vea la página: si lo mostrara datina.js
-# al final, el perfil de abajo saltaba al aparecer (CLS de 0,30 con CABA). La misma regla de datina.js (leerProv), que después lo mantiene
-_HIST_YA = ('<script>(()=>{const l=s=>new URLSearchParams(s).get("prov");let c=l(location.search)||l(location.hash.split("?")[1]||"");'
-            'try{c=c||localStorage.getItem("prov")}catch(_){}const a=c&&document.querySelector(\'#prov-historia .ph[data-c="\'+c+\'"]\');'
-            'if(a)a.hidden=false})()</script>')
+# al final, el perfil de abajo saltaba al aparecer (CLS de 0,30 con CABA). La misma regla de datina.js (leerProv), que después lo mantiene.
+# Desde la etapa 6 del plan de mejora (la historia al final) hace lo mismo con la línea de arriba y deja reservado el lugar de "Dónde se
+# destaca", que llena datina.js
+_YA = lambda sel: ('<script>(()=>{const l=s=>new URLSearchParams(s).get("prov");let c=l(location.search)||l(location.hash.split("?")[1]||"");'
+                   'try{c=c||localStorage.getItem("prov")}catch(_){}if(!c||c==="00")return;'
+                   + sel + '})()</script>')
+_HIST_YA = _YA('const a=document.querySelector(\'#prov-historia .ph[data-c="\'+c+\'"]\');if(a)a.hidden=false')
+_LINEA_YA = _YA('const a=document.querySelector(\'.prov-linea[data-c="\'+c+\'"]\');if(a)a.hidden=false;'
+                'const d=document.getElementById("prov-destaca");if(d)d.hidden=false')
 base = base.replace("<!--HISTORIA-->", '<div class="prov-historia" id="prov-historia">'
                     + "".join(historia_prov(c, HISTORIA[c]) for c in sorted(HISTORIA)) + "</div>" + _HIST_YA)
+
+
+def linea_prov(c, h):
+    """La línea de arriba del perfil (etapa 6 del plan de mejora): habitantes, capital y año de provincialización, de la historia."""
+    fc, pd = h.get("fundacion_capital") or {}, h.get("provincia_desde") or {}
+    partes = [f"{_miles(HAB[c])} habitantes en {HAB_ANIO}"] if c in HAB else []
+    if fc.get("ciudad") and c != "02":
+        partes.append(f'Capital: {fc["ciudad"]}')
+    if pd.get("anio"):
+        partes.append(f'{"Autonomía" if c == "02" else "Provincia"} desde {pd["anio"]}')
+    return f'<p class="prov-linea" data-c="{c}" hidden>{e(". ".join(partes))}.</p>' if partes else ""
+
+
+base = base.replace("<!--PROV-LINEA-->", "".join(linea_prov(c, HISTORIA.get(c, {})) for c in sorted(NOMBRE_PROV) if c != "00") + _LINEA_YA)
 
 # ---------- índice del sitio ----------
 # Bloques de primer nivel: la portada y cada sección hija de <main>. Se cuentan las <section> anidadas
@@ -1058,8 +1077,8 @@ assert len(PERFIL_G) >= len(CON_PERFIL) and set(PERFIL_G) <= {g for g, _ in PERF
 def perfil_vacio():
     """El índice y los grupos del perfil con tarjetas vacías, igual a lo que arma datina.js."""
     indice = "".join(f'<li><a class="enlace" href="#pg-{g}">{i + 1}. {t}</a></li>' for i, (g, t) in enumerate(PERFIL_GRUPOS))
-    grupos = "".join(f'<section class="perfil-grupo" id="pg-{g}" aria-labelledby="pg-{g}-t"><div class="perfil-cab"><h3 class="bloque-grupo" '
-                     f'id="pg-{g}-t">{i + 1}. <span>{t}</span></h3><a class="enlace" href="#perfil-indice">Volver a los temas</a></div>'
+    grupos = "".join(f'<section class="perfil-grupo" id="pg-{g}" aria-labelledby="pg-{g}-t"><div class="perfil-cab"><h2 class="bloque-grupo" '
+                     f'id="pg-{g}-t">{i + 1}. <span>{t}</span></h2><a class="enlace" href="#perfil-indice">Volver a los temas</a></div>'
                      f'<div class="perfil-tarjetas">{tarjetas_vacias(PERFIL_G.count(g), "dp esqueleto")}</div></section>'
                      for i, (g, t) in enumerate(PERFIL_GRUPOS))
     return f'<nav class="perfil-indice" id="perfil-indice" aria-label="Temas del perfil"><ol>{indice}</ol></nav>{grupos}'
