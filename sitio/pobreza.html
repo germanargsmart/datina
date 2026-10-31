@@ -192,6 +192,20 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <div class="pie"><span>Fuente: Ente Nacional de Comunicaciones (ENACOM). Se actualiza cada tres meses.</span><a href="datos/internet_fijo_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
+    <!-- la telefonía fija (plan de mejora, sección 10, aprobada por el autor el 28 de octubre de 2026): del ENACOM, como internet -->
+    <article class="ficha" id="f-telefonia">
+      <h2>¿Cuántos accesos de telefonía fija hay cada 100 hogares?</h2>
+      <p class="ficha-sub">Accesos de telefonía fija cada 100 hogares, por provincia, 2.º trimestre de 2026, y en el país desde 2014</p>
+      <div class="conmutador" role="group" aria-label="Vista" data-g="telefonia">
+        <button type="button" data-m="prov" aria-pressed="true">Por provincia</button>
+        <button type="button" data-m="serie" aria-pressed="false">Evolución</button>
+      </div>
+      <div class="grafico" data-g="telefonia" data-forma="barras"></div>
+      <p class="lead" data-t="telefonia"></p>
+      <p class="nota" data-t="telefonia-nota"></p>
+      <div class="pie"><span>Fuente: Ente Nacional de Comunicaciones (ENACOM). Se actualiza cada tres meses.</span><a href="datos/telefonia_fija_provincias.csv" download>Por provincia (CSV)</a><a href="datos/telefonia_fija_pais.csv" download>Del país, por trimestre (CSV)</a></div>
+    </article>
+
     <article class="ficha" id="f-pensiones-invalidez">
       <h2>¿Cuántas personas cobran una pensión por invalidez?</h2>
       <p class="ficha-sub">Pensiones no contributivas por invalidez que paga ANSES, por provincia y en el país, 2001 a 2026</p>
@@ -308,7 +322,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 <p class="solo-lector" id="aviso" aria-live="polite"></p>
 
 <!-- los datos van en un archivo aparte que el navegador guarda una sola vez para todas las páginas -->
-<script src="datos/fichas.js?v=fe2b1795db"></script>
-<script src="datina.js?v=26ca93ae52"></script>
+<script src="datos/fichas.js?v=b7102ca10a"></script>
+<script src="datina.js?v=9fb6994807"></script>
 </body>
 </html>

@@ -1,0 +1,44 @@
+{
+ "tabla": "telefonia_fija_provincias.csv",
+ "titulo": "¿Cuántos accesos de telefonía fija hay cada 100 hogares?",
+ "descripcion": "Accesos de telefonía fija cada 100 hogares, por provincia, 2.º trimestre de 2026, y en el país desde 2014",
+ "seccion": "Pobreza y hogares",
+ "ficha": "https://datina.pages.dev/pobreza.html#f-telefonia",
+ "fuente": "Ente Nacional de Comunicaciones (ENACOM).",
+ "actualizacion": "Se actualiza cada tres meses.",
+ "cobertura": "Las 24 jurisdicciones",
+ "periodo": "",
+ "filas": 24,
+ "columnas": [
+  {
+   "nombre": "codigo_indec",
+   "tipo": "Código",
+   "valores": "24 códigos"
+  },
+  {
+   "nombre": "territorio",
+   "tipo": "Texto",
+   "valores": "24 valores distintos"
+  },
+  {
+   "nombre": "accesos_100_hogares",
+   "tipo": "Número",
+   "valores": "6,75 a 101,38"
+  },
+  {
+   "nombre": "accesos_100_habitantes",
+   "tipo": "Número",
+   "valores": "2,05 a 45,67"
+  },
+  {
+   "nombre": "accesos_100_hogares_2014",
+   "tipo": "Número",
+   "valores": "28,98 a 128,57"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "28/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

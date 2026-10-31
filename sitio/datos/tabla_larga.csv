@@ -12113,6 +12113,1256 @@ codigo_indec,territorio,periodo,variable,valor,unidad,fuente
 86,Santiago del Estero,2022,censo2022_sin_cobertura,56.04,% de personas,"INDEC, Censo 2022"
 90,Tucumán,2022,censo2022_sin_cobertura,34.47,% de personas,"INDEC, Censo 2022"
 94,Tierra del Fuego,2022,censo2022_sin_cobertura,15.34,% de personas,"INDEC, Censo 2022"
+06,Buenos Aires,1T2014,telefonia_fija_accesos_cada_100_hogares,85.26,accesos cada 100 hogares,ENACOM
+02,CABA,1T2014,telefonia_fija_accesos_cada_100_hogares,128.57,accesos cada 100 hogares,ENACOM
+10,Catamarca,1T2014,telefonia_fija_accesos_cada_100_hogares,39.45,accesos cada 100 hogares,ENACOM
+22,Chaco,1T2014,telefonia_fija_accesos_cada_100_hogares,34.02,accesos cada 100 hogares,ENACOM
+26,Chubut,1T2014,telefonia_fija_accesos_cada_100_hogares,57.59,accesos cada 100 hogares,ENACOM
+14,Córdoba,1T2014,telefonia_fija_accesos_cada_100_hogares,68.88,accesos cada 100 hogares,ENACOM
+18,Corrientes,1T2014,telefonia_fija_accesos_cada_100_hogares,36.88,accesos cada 100 hogares,ENACOM
+30,Entre Ríos,1T2014,telefonia_fija_accesos_cada_100_hogares,57.33,accesos cada 100 hogares,ENACOM
+34,Formosa,1T2014,telefonia_fija_accesos_cada_100_hogares,28.98,accesos cada 100 hogares,ENACOM
+38,Jujuy,1T2014,telefonia_fija_accesos_cada_100_hogares,30.56,accesos cada 100 hogares,ENACOM
+42,La Pampa,1T2014,telefonia_fija_accesos_cada_100_hogares,64.52,accesos cada 100 hogares,ENACOM
+46,La Rioja,1T2014,telefonia_fija_accesos_cada_100_hogares,41.24,accesos cada 100 hogares,ENACOM
+50,Mendoza,1T2014,telefonia_fija_accesos_cada_100_hogares,61.84,accesos cada 100 hogares,ENACOM
+54,Misiones,1T2014,telefonia_fija_accesos_cada_100_hogares,34.85,accesos cada 100 hogares,ENACOM
+58,Neuquén,1T2014,telefonia_fija_accesos_cada_100_hogares,51.29,accesos cada 100 hogares,ENACOM
+62,Río Negro,1T2014,telefonia_fija_accesos_cada_100_hogares,57.51,accesos cada 100 hogares,ENACOM
+66,Salta,1T2014,telefonia_fija_accesos_cada_100_hogares,44.44,accesos cada 100 hogares,ENACOM
+70,San Juan,1T2014,telefonia_fija_accesos_cada_100_hogares,49.89,accesos cada 100 hogares,ENACOM
+74,San Luis,1T2014,telefonia_fija_accesos_cada_100_hogares,38.17,accesos cada 100 hogares,ENACOM
+78,Santa Cruz,1T2014,telefonia_fija_accesos_cada_100_hogares,44.25,accesos cada 100 hogares,ENACOM
+82,Santa Fe,1T2014,telefonia_fija_accesos_cada_100_hogares,72.91,accesos cada 100 hogares,ENACOM
+86,Santiago del Estero,1T2014,telefonia_fija_accesos_cada_100_hogares,31.15,accesos cada 100 hogares,ENACOM
+94,Tierra del Fuego,1T2014,telefonia_fija_accesos_cada_100_hogares,74.98,accesos cada 100 hogares,ENACOM
+90,Tucumán,1T2014,telefonia_fija_accesos_cada_100_hogares,54.39,accesos cada 100 hogares,ENACOM
+06,Buenos Aires,2T2014,telefonia_fija_accesos_cada_100_hogares,84.74,accesos cada 100 hogares,ENACOM
+02,CABA,2T2014,telefonia_fija_accesos_cada_100_hogares,127.68,accesos cada 100 hogares,ENACOM
+10,Catamarca,2T2014,telefonia_fija_accesos_cada_100_hogares,39.38,accesos cada 100 hogares,ENACOM
+22,Chaco,2T2014,telefonia_fija_accesos_cada_100_hogares,33.89,accesos cada 100 hogares,ENACOM
+26,Chubut,2T2014,telefonia_fija_accesos_cada_100_hogares,57.31,accesos cada 100 hogares,ENACOM
+14,Córdoba,2T2014,telefonia_fija_accesos_cada_100_hogares,68.28,accesos cada 100 hogares,ENACOM
+18,Corrientes,2T2014,telefonia_fija_accesos_cada_100_hogares,36.8,accesos cada 100 hogares,ENACOM
+30,Entre Ríos,2T2014,telefonia_fija_accesos_cada_100_hogares,57.25,accesos cada 100 hogares,ENACOM
+34,Formosa,2T2014,telefonia_fija_accesos_cada_100_hogares,28.95,accesos cada 100 hogares,ENACOM
+38,Jujuy,2T2014,telefonia_fija_accesos_cada_100_hogares,30.59,accesos cada 100 hogares,ENACOM
+42,La Pampa,2T2014,telefonia_fija_accesos_cada_100_hogares,65.09,accesos cada 100 hogares,ENACOM
+46,La Rioja,2T2014,telefonia_fija_accesos_cada_100_hogares,40.94,accesos cada 100 hogares,ENACOM
+50,Mendoza,2T2014,telefonia_fija_accesos_cada_100_hogares,61.64,accesos cada 100 hogares,ENACOM
+54,Misiones,2T2014,telefonia_fija_accesos_cada_100_hogares,34.7,accesos cada 100 hogares,ENACOM
+58,Neuquén,2T2014,telefonia_fija_accesos_cada_100_hogares,51.12,accesos cada 100 hogares,ENACOM
+62,Río Negro,2T2014,telefonia_fija_accesos_cada_100_hogares,57.28,accesos cada 100 hogares,ENACOM
+66,Salta,2T2014,telefonia_fija_accesos_cada_100_hogares,44.37,accesos cada 100 hogares,ENACOM
+70,San Juan,2T2014,telefonia_fija_accesos_cada_100_hogares,49.73,accesos cada 100 hogares,ENACOM
+74,San Luis,2T2014,telefonia_fija_accesos_cada_100_hogares,38.03,accesos cada 100 hogares,ENACOM
+78,Santa Cruz,2T2014,telefonia_fija_accesos_cada_100_hogares,44.04,accesos cada 100 hogares,ENACOM
+82,Santa Fe,2T2014,telefonia_fija_accesos_cada_100_hogares,72.51,accesos cada 100 hogares,ENACOM
+86,Santiago del Estero,2T2014,telefonia_fija_accesos_cada_100_hogares,31.02,accesos cada 100 hogares,ENACOM
+94,Tierra del Fuego,2T2014,telefonia_fija_accesos_cada_100_hogares,74.44,accesos cada 100 hogares,ENACOM
+90,Tucumán,2T2014,telefonia_fija_accesos_cada_100_hogares,54.47,accesos cada 100 hogares,ENACOM
+06,Buenos Aires,3T2014,telefonia_fija_accesos_cada_100_hogares,84.85,accesos cada 100 hogares,ENACOM
+02,CABA,3T2014,telefonia_fija_accesos_cada_100_hogares,127.35,accesos cada 100 hogares,ENACOM
+10,Catamarca,3T2014,telefonia_fija_accesos_cada_100_hogares,39.39,accesos cada 100 hogares,ENACOM
+22,Chaco,3T2014,telefonia_fija_accesos_cada_100_hogares,34.97,accesos cada 100 hogares,ENACOM
+26,Chubut,3T2014,telefonia_fija_accesos_cada_100_hogares,57.32,accesos cada 100 hogares,ENACOM
+14,Córdoba,3T2014,telefonia_fija_accesos_cada_100_hogares,67.73,accesos cada 100 hogares,ENACOM
+18,Corrientes,3T2014,telefonia_fija_accesos_cada_100_hogares,37.74,accesos cada 100 hogares,ENACOM
+30,Entre Ríos,3T2014,telefonia_fija_accesos_cada_100_hogares,58.84,accesos cada 100 hogares,ENACOM
+34,Formosa,3T2014,telefonia_fija_accesos_cada_100_hogares,28.92,accesos cada 100 hogares,ENACOM
+38,Jujuy,3T2014,telefonia_fija_accesos_cada_100_hogares,30.59,accesos cada 100 hogares,ENACOM
+42,La Pampa,3T2014,telefonia_fija_accesos_cada_100_hogares,64.33,accesos cada 100 hogares,ENACOM
+46,La Rioja,3T2014,telefonia_fija_accesos_cada_100_hogares,40.69,accesos cada 100 hogares,ENACOM
+50,Mendoza,3T2014,telefonia_fija_accesos_cada_100_hogares,61.44,accesos cada 100 hogares,ENACOM
+54,Misiones,3T2014,telefonia_fija_accesos_cada_100_hogares,34.93,accesos cada 100 hogares,ENACOM
+58,Neuquén,3T2014,telefonia_fija_accesos_cada_100_hogares,50.92,accesos cada 100 hogares,ENACOM
+62,Río Negro,3T2014,telefonia_fija_accesos_cada_100_hogares,57.13,accesos cada 100 hogares,ENACOM
+66,Salta,3T2014,telefonia_fija_accesos_cada_100_hogares,44.27,accesos cada 100 hogares,ENACOM
+70,San Juan,3T2014,telefonia_fija_accesos_cada_100_hogares,49.91,accesos cada 100 hogares,ENACOM
+74,San Luis,3T2014,telefonia_fija_accesos_cada_100_hogares,37.67,accesos cada 100 hogares,ENACOM
+78,Santa Cruz,3T2014,telefonia_fija_accesos_cada_100_hogares,44.03,accesos cada 100 hogares,ENACOM
+82,Santa Fe,3T2014,telefonia_fija_accesos_cada_100_hogares,72.83,accesos cada 100 hogares,ENACOM
+86,Santiago del Estero,3T2014,telefonia_fija_accesos_cada_100_hogares,30.98,accesos cada 100 hogares,ENACOM
+94,Tierra del Fuego,3T2014,telefonia_fija_accesos_cada_100_hogares,74.08,accesos cada 100 hogares,ENACOM
+90,Tucumán,3T2014,telefonia_fija_accesos_cada_100_hogares,54.56,accesos cada 100 hogares,ENACOM
+06,Buenos Aires,4T2014,telefonia_fija_accesos_cada_100_hogares,85.55,accesos cada 100 hogares,ENACOM
+02,CABA,4T2014,telefonia_fija_accesos_cada_100_hogares,127.29,accesos cada 100 hogares,ENACOM
+10,Catamarca,4T2014,telefonia_fija_accesos_cada_100_hogares,39.27,accesos cada 100 hogares,ENACOM
+22,Chaco,4T2014,telefonia_fija_accesos_cada_100_hogares,34.71,accesos cada 100 hogares,ENACOM
+26,Chubut,4T2014,telefonia_fija_accesos_cada_100_hogares,57.92,accesos cada 100 hogares,ENACOM
+14,Córdoba,4T2014,telefonia_fija_accesos_cada_100_hogares,67.43,accesos cada 100 hogares,ENACOM
+18,Corrientes,4T2014,telefonia_fija_accesos_cada_100_hogares,37.55,accesos cada 100 hogares,ENACOM
+30,Entre Ríos,4T2014,telefonia_fija_accesos_cada_100_hogares,58.56,accesos cada 100 hogares,ENACOM
+34,Formosa,4T2014,telefonia_fija_accesos_cada_100_hogares,28.73,accesos cada 100 hogares,ENACOM
+38,Jujuy,4T2014,telefonia_fija_accesos_cada_100_hogares,30.55,accesos cada 100 hogares,ENACOM
+42,La Pampa,4T2014,telefonia_fija_accesos_cada_100_hogares,64.99,accesos cada 100 hogares,ENACOM
+46,La Rioja,4T2014,telefonia_fija_accesos_cada_100_hogares,40.33,accesos cada 100 hogares,ENACOM
+50,Mendoza,4T2014,telefonia_fija_accesos_cada_100_hogares,62.68,accesos cada 100 hogares,ENACOM
+54,Misiones,4T2014,telefonia_fija_accesos_cada_100_hogares,34.75,accesos cada 100 hogares,ENACOM
+58,Neuquén,4T2014,telefonia_fija_accesos_cada_100_hogares,51.34,accesos cada 100 hogares,ENACOM
+62,Río Negro,4T2014,telefonia_fija_accesos_cada_100_hogares,57.87,accesos cada 100 hogares,ENACOM
+66,Salta,4T2014,telefonia_fija_accesos_cada_100_hogares,44.08,accesos cada 100 hogares,ENACOM
+70,San Juan,4T2014,telefonia_fija_accesos_cada_100_hogares,50.88,accesos cada 100 hogares,ENACOM
+74,San Luis,4T2014,telefonia_fija_accesos_cada_100_hogares,37.88,accesos cada 100 hogares,ENACOM
+78,Santa Cruz,4T2014,telefonia_fija_accesos_cada_100_hogares,44.26,accesos cada 100 hogares,ENACOM
+82,Santa Fe,4T2014,telefonia_fija_accesos_cada_100_hogares,72.46,accesos cada 100 hogares,ENACOM
+86,Santiago del Estero,4T2014,telefonia_fija_accesos_cada_100_hogares,30.81,accesos cada 100 hogares,ENACOM
+94,Tierra del Fuego,4T2014,telefonia_fija_accesos_cada_100_hogares,74.05,accesos cada 100 hogares,ENACOM
+90,Tucumán,4T2014,telefonia_fija_accesos_cada_100_hogares,54.39,accesos cada 100 hogares,ENACOM
+06,Buenos Aires,1T2015,telefonia_fija_accesos_cada_100_hogares,91.61,accesos cada 100 hogares,ENACOM
+02,CABA,1T2015,telefonia_fija_accesos_cada_100_hogares,128.08,accesos cada 100 hogares,ENACOM
+10,Catamarca,1T2015,telefonia_fija_accesos_cada_100_hogares,38.89,accesos cada 100 hogares,ENACOM
+22,Chaco,1T2015,telefonia_fija_accesos_cada_100_hogares,34.24,accesos cada 100 hogares,ENACOM
+26,Chubut,1T2015,telefonia_fija_accesos_cada_100_hogares,60.38,accesos cada 100 hogares,ENACOM
+14,Córdoba,1T2015,telefonia_fija_accesos_cada_100_hogares,66.99,accesos cada 100 hogares,ENACOM
+18,Corrientes,1T2015,telefonia_fija_accesos_cada_100_hogares,38.63,accesos cada 100 hogares,ENACOM
+30,Entre Ríos,1T2015,telefonia_fija_accesos_cada_100_hogares,58.36,accesos cada 100 hogares,ENACOM
+34,Formosa,1T2015,telefonia_fija_accesos_cada_100_hogares,28.48,accesos cada 100 hogares,ENACOM
+38,Jujuy,1T2015,telefonia_fija_accesos_cada_100_hogares,30.45,accesos cada 100 hogares,ENACOM
+42,La Pampa,1T2015,telefonia_fija_accesos_cada_100_hogares,68.21,accesos cada 100 hogares,ENACOM
+46,La Rioja,1T2015,telefonia_fija_accesos_cada_100_hogares,39.92,accesos cada 100 hogares,ENACOM
+50,Mendoza,1T2015,telefonia_fija_accesos_cada_100_hogares,64.69,accesos cada 100 hogares,ENACOM
+54,Misiones,1T2015,telefonia_fija_accesos_cada_100_hogares,34.25,accesos cada 100 hogares,ENACOM
+58,Neuquén,1T2015,telefonia_fija_accesos_cada_100_hogares,52.35,accesos cada 100 hogares,ENACOM
+62,Río Negro,1T2015,telefonia_fija_accesos_cada_100_hogares,59.52,accesos cada 100 hogares,ENACOM
+66,Salta,1T2015,telefonia_fija_accesos_cada_100_hogares,43.84,accesos cada 100 hogares,ENACOM
+70,San Juan,1T2015,telefonia_fija_accesos_cada_100_hogares,52.44,accesos cada 100 hogares,ENACOM
+74,San Luis,1T2015,telefonia_fija_accesos_cada_100_hogares,38.34,accesos cada 100 hogares,ENACOM
+78,Santa Cruz,1T2015,telefonia_fija_accesos_cada_100_hogares,61.05,accesos cada 100 hogares,ENACOM
+82,Santa Fe,1T2015,telefonia_fija_accesos_cada_100_hogares,71.94,accesos cada 100 hogares,ENACOM
+86,Santiago del Estero,1T2015,telefonia_fija_accesos_cada_100_hogares,30.54,accesos cada 100 hogares,ENACOM
+94,Tierra del Fuego,1T2015,telefonia_fija_accesos_cada_100_hogares,74.68,accesos cada 100 hogares,ENACOM
+90,Tucumán,1T2015,telefonia_fija_accesos_cada_100_hogares,54.02,accesos cada 100 hogares,ENACOM
+06,Buenos Aires,2T2015,telefonia_fija_accesos_cada_100_hogares,88.59,accesos cada 100 hogares,ENACOM
+02,CABA,2T2015,telefonia_fija_accesos_cada_100_hogares,128.99,accesos cada 100 hogares,ENACOM
+10,Catamarca,2T2015,telefonia_fija_accesos_cada_100_hogares,38.8,accesos cada 100 hogares,ENACOM
+22,Chaco,2T2015,telefonia_fija_accesos_cada_100_hogares,34.15,accesos cada 100 hogares,ENACOM
+26,Chubut,2T2015,telefonia_fija_accesos_cada_100_hogares,62.01,accesos cada 100 hogares,ENACOM
+14,Córdoba,2T2015,telefonia_fija_accesos_cada_100_hogares,66.35,accesos cada 100 hogares,ENACOM
+18,Corrientes,2T2015,telefonia_fija_accesos_cada_100_hogares,38.54,accesos cada 100 hogares,ENACOM
+30,Entre Ríos,2T2015,telefonia_fija_accesos_cada_100_hogares,58.21,accesos cada 100 hogares,ENACOM
+34,Formosa,2T2015,telefonia_fija_accesos_cada_100_hogares,28.4,accesos cada 100 hogares,ENACOM
+38,Jujuy,2T2015,telefonia_fija_accesos_cada_100_hogares,30.36,accesos cada 100 hogares,ENACOM
+42,La Pampa,2T2015,telefonia_fija_accesos_cada_100_hogares,69.15,accesos cada 100 hogares,ENACOM
+46,La Rioja,2T2015,telefonia_fija_accesos_cada_100_hogares,39.78,accesos cada 100 hogares,ENACOM
+50,Mendoza,2T2015,telefonia_fija_accesos_cada_100_hogares,66.63,accesos cada 100 hogares,ENACOM
+54,Misiones,2T2015,telefonia_fija_accesos_cada_100_hogares,34.15,accesos cada 100 hogares,ENACOM
+58,Neuquén,2T2015,telefonia_fija_accesos_cada_100_hogares,53.02,accesos cada 100 hogares,ENACOM
+62,Río Negro,2T2015,telefonia_fija_accesos_cada_100_hogares,61.2,accesos cada 100 hogares,ENACOM
+66,Salta,2T2015,telefonia_fija_accesos_cada_100_hogares,43.69,accesos cada 100 hogares,ENACOM
+70,San Juan,2T2015,telefonia_fija_accesos_cada_100_hogares,53.58,accesos cada 100 hogares,ENACOM
+74,San Luis,2T2015,telefonia_fija_accesos_cada_100_hogares,38.81,accesos cada 100 hogares,ENACOM
+78,Santa Cruz,2T2015,telefonia_fija_accesos_cada_100_hogares,61.89,accesos cada 100 hogares,ENACOM
+82,Santa Fe,2T2015,telefonia_fija_accesos_cada_100_hogares,71.61,accesos cada 100 hogares,ENACOM
+86,Santiago del Estero,2T2015,telefonia_fija_accesos_cada_100_hogares,30.46,accesos cada 100 hogares,ENACOM
+94,Tierra del Fuego,2T2015,telefonia_fija_accesos_cada_100_hogares,75.85,accesos cada 100 hogares,ENACOM
+90,Tucumán,2T2015,telefonia_fija_accesos_cada_100_hogares,53.83,accesos cada 100 hogares,ENACOM
+06,Buenos Aires,3T2015,telefonia_fija_accesos_cada_100_hogares,89.06,accesos cada 100 hogares,ENACOM
+02,CABA,3T2015,telefonia_fija_accesos_cada_100_hogares,126.17,accesos cada 100 hogares,ENACOM
+10,Catamarca,3T2015,telefonia_fija_accesos_cada_100_hogares,38.81,accesos cada 100 hogares,ENACOM
+22,Chaco,3T2015,telefonia_fija_accesos_cada_100_hogares,35.02,accesos cada 100 hogares,ENACOM
+26,Chubut,3T2015,telefonia_fija_accesos_cada_100_hogares,63.15,accesos cada 100 hogares,ENACOM
+14,Córdoba,3T2015,telefonia_fija_accesos_cada_100_hogares,66.5,accesos cada 100 hogares,ENACOM
+18,Corrientes,3T2015,telefonia_fija_accesos_cada_100_hogares,39.25,accesos cada 100 hogares,ENACOM
+30,Entre Ríos,3T2015,telefonia_fija_accesos_cada_100_hogares,59.44,accesos cada 100 hogares,ENACOM
+34,Formosa,3T2015,telefonia_fija_accesos_cada_100_hogares,28.31,accesos cada 100 hogares,ENACOM
+38,Jujuy,3T2015,telefonia_fija_accesos_cada_100_hogares,30.45,accesos cada 100 hogares,ENACOM
+42,La Pampa,3T2015,telefonia_fija_accesos_cada_100_hogares,69.47,accesos cada 100 hogares,ENACOM
+46,La Rioja,3T2015,telefonia_fija_accesos_cada_100_hogares,39.39,accesos cada 100 hogares,ENACOM
+50,Mendoza,3T2015,telefonia_fija_accesos_cada_100_hogares,67.97,accesos cada 100 hogares,ENACOM
+54,Misiones,3T2015,telefonia_fija_accesos_cada_100_hogares,34.87,accesos cada 100 hogares,ENACOM
+58,Neuquén,3T2015,telefonia_fija_accesos_cada_100_hogares,53.41,accesos cada 100 hogares,ENACOM
+62,Río Negro,3T2015,telefonia_fija_accesos_cada_100_hogares,62.12,accesos cada 100 hogares,ENACOM
+66,Salta,3T2015,telefonia_fija_accesos_cada_100_hogares,43.59,accesos cada 100 hogares,ENACOM
+70,San Juan,3T2015,telefonia_fija_accesos_cada_100_hogares,54.77,accesos cada 100 hogares,ENACOM
+74,San Luis,3T2015,telefonia_fija_accesos_cada_100_hogares,38.84,accesos cada 100 hogares,ENACOM
+78,Santa Cruz,3T2015,telefonia_fija_accesos_cada_100_hogares,62.62,accesos cada 100 hogares,ENACOM
+82,Santa Fe,3T2015,telefonia_fija_accesos_cada_100_hogares,71.68,accesos cada 100 hogares,ENACOM
+86,Santiago del Estero,3T2015,telefonia_fija_accesos_cada_100_hogares,29.97,accesos cada 100 hogares,ENACOM
+94,Tierra del Fuego,3T2015,telefonia_fija_accesos_cada_100_hogares,77.47,accesos cada 100 hogares,ENACOM
+90,Tucumán,3T2015,telefonia_fija_accesos_cada_100_hogares,53.98,accesos cada 100 hogares,ENACOM
+06,Buenos Aires,4T2015,telefonia_fija_accesos_cada_100_hogares,88.65,accesos cada 100 hogares,ENACOM
+02,CABA,4T2015,telefonia_fija_accesos_cada_100_hogares,121.24,accesos cada 100 hogares,ENACOM
+10,Catamarca,4T2015,telefonia_fija_accesos_cada_100_hogares,38.74,accesos cada 100 hogares,ENACOM
+22,Chaco,4T2015,telefonia_fija_accesos_cada_100_hogares,33.67,accesos cada 100 hogares,ENACOM
+26,Chubut,4T2015,telefonia_fija_accesos_cada_100_hogares,63.37,accesos cada 100 hogares,ENACOM
+14,Córdoba,4T2015,telefonia_fija_accesos_cada_100_hogares,65.75,accesos cada 100 hogares,ENACOM
+18,Corrientes,4T2015,telefonia_fija_accesos_cada_100_hogares,38.03,accesos cada 100 hogares,ENACOM
+30,Entre Ríos,4T2015,telefonia_fija_accesos_cada_100_hogares,57.67,accesos cada 100 hogares,ENACOM
+34,Formosa,4T2015,telefonia_fija_accesos_cada_100_hogares,28.08,accesos cada 100 hogares,ENACOM
+38,Jujuy,4T2015,telefonia_fija_accesos_cada_100_hogares,30.45,accesos cada 100 hogares,ENACOM
+42,La Pampa,4T2015,telefonia_fija_accesos_cada_100_hogares,70.27,accesos cada 100 hogares,ENACOM
+46,La Rioja,4T2015,telefonia_fija_accesos_cada_100_hogares,39.17,accesos cada 100 hogares,ENACOM
+50,Mendoza,4T2015,telefonia_fija_accesos_cada_100_hogares,68.31,accesos cada 100 hogares,ENACOM
+54,Misiones,4T2015,telefonia_fija_accesos_cada_100_hogares,34.31,accesos cada 100 hogares,ENACOM
+58,Neuquén,4T2015,telefonia_fija_accesos_cada_100_hogares,58.34,accesos cada 100 hogares,ENACOM
+62,Río Negro,4T2015,telefonia_fija_accesos_cada_100_hogares,62.47,accesos cada 100 hogares,ENACOM
+66,Salta,4T2015,telefonia_fija_accesos_cada_100_hogares,43.45,accesos cada 100 hogares,ENACOM
+70,San Juan,4T2015,telefonia_fija_accesos_cada_100_hogares,55.19,accesos cada 100 hogares,ENACOM
+74,San Luis,4T2015,telefonia_fija_accesos_cada_100_hogares,38.67,accesos cada 100 hogares,ENACOM
+78,Santa Cruz,4T2015,telefonia_fija_accesos_cada_100_hogares,54.85,accesos cada 100 hogares,ENACOM
+82,Santa Fe,4T2015,telefonia_fija_accesos_cada_100_hogares,70.73,accesos cada 100 hogares,ENACOM
+86,Santiago del Estero,4T2015,telefonia_fija_accesos_cada_100_hogares,29.62,accesos cada 100 hogares,ENACOM
+94,Tierra del Fuego,4T2015,telefonia_fija_accesos_cada_100_hogares,77.77,accesos cada 100 hogares,ENACOM
+90,Tucumán,4T2015,telefonia_fija_accesos_cada_100_hogares,53.87,accesos cada 100 hogares,ENACOM
+06,Buenos Aires,1T2016,telefonia_fija_accesos_cada_100_hogares,91.2,accesos cada 100 hogares,ENACOM
+02,CABA,1T2016,telefonia_fija_accesos_cada_100_hogares,123.37,accesos cada 100 hogares,ENACOM
+10,Catamarca,1T2016,telefonia_fija_accesos_cada_100_hogares,38.05,accesos cada 100 hogares,ENACOM
+22,Chaco,1T2016,telefonia_fija_accesos_cada_100_hogares,33.16,accesos cada 100 hogares,ENACOM
+26,Chubut,1T2016,telefonia_fija_accesos_cada_100_hogares,69.67,accesos cada 100 hogares,ENACOM
+14,Córdoba,1T2016,telefonia_fija_accesos_cada_100_hogares,63.87,accesos cada 100 hogares,ENACOM
+18,Corrientes,1T2016,telefonia_fija_accesos_cada_100_hogares,35.97,accesos cada 100 hogares,ENACOM
+30,Entre Ríos,1T2016,telefonia_fija_accesos_cada_100_hogares,56.1,accesos cada 100 hogares,ENACOM
+34,Formosa,1T2016,telefonia_fija_accesos_cada_100_hogares,27.73,accesos cada 100 hogares,ENACOM
+38,Jujuy,1T2016,telefonia_fija_accesos_cada_100_hogares,30.07,accesos cada 100 hogares,ENACOM
+42,La Pampa,1T2016,telefonia_fija_accesos_cada_100_hogares,73.3,accesos cada 100 hogares,ENACOM
+46,La Rioja,1T2016,telefonia_fija_accesos_cada_100_hogares,38.23,accesos cada 100 hogares,ENACOM
+50,Mendoza,1T2016,telefonia_fija_accesos_cada_100_hogares,71.88,accesos cada 100 hogares,ENACOM
+54,Misiones,1T2016,telefonia_fija_accesos_cada_100_hogares,35.26,accesos cada 100 hogares,ENACOM
+58,Neuquén,1T2016,telefonia_fija_accesos_cada_100_hogares,54.66,accesos cada 100 hogares,ENACOM
+62,Río Negro,1T2016,telefonia_fija_accesos_cada_100_hogares,67.09,accesos cada 100 hogares,ENACOM
+66,Salta,1T2016,telefonia_fija_accesos_cada_100_hogares,42.75,accesos cada 100 hogares,ENACOM
+70,San Juan,1T2016,telefonia_fija_accesos_cada_100_hogares,60.16,accesos cada 100 hogares,ENACOM
+74,San Luis,1T2016,telefonia_fija_accesos_cada_100_hogares,39.11,accesos cada 100 hogares,ENACOM
+78,Santa Cruz,1T2016,telefonia_fija_accesos_cada_100_hogares,48.61,accesos cada 100 hogares,ENACOM
+82,Santa Fe,1T2016,telefonia_fija_accesos_cada_100_hogares,69.06,accesos cada 100 hogares,ENACOM
+86,Santiago del Estero,1T2016,telefonia_fija_accesos_cada_100_hogares,27.79,accesos cada 100 hogares,ENACOM
+94,Tierra del Fuego,1T2016,telefonia_fija_accesos_cada_100_hogares,84.69,accesos cada 100 hogares,ENACOM
+90,Tucumán,1T2016,telefonia_fija_accesos_cada_100_hogares,53.16,accesos cada 100 hogares,ENACOM
+06,Buenos Aires,2T2016,telefonia_fija_accesos_cada_100_hogares,91.58,accesos cada 100 hogares,ENACOM
+02,CABA,2T2016,telefonia_fija_accesos_cada_100_hogares,121.27,accesos cada 100 hogares,ENACOM
+10,Catamarca,2T2016,telefonia_fija_accesos_cada_100_hogares,37.85,accesos cada 100 hogares,ENACOM
+22,Chaco,2T2016,telefonia_fija_accesos_cada_100_hogares,33.37,accesos cada 100 hogares,ENACOM
+26,Chubut,2T2016,telefonia_fija_accesos_cada_100_hogares,65.24,accesos cada 100 hogares,ENACOM
+14,Córdoba,2T2016,telefonia_fija_accesos_cada_100_hogares,63.75,accesos cada 100 hogares,ENACOM
+18,Corrientes,2T2016,telefonia_fija_accesos_cada_100_hogares,36.03,accesos cada 100 hogares,ENACOM
+30,Entre Ríos,2T2016,telefonia_fija_accesos_cada_100_hogares,56.44,accesos cada 100 hogares,ENACOM
+34,Formosa,2T2016,telefonia_fija_accesos_cada_100_hogares,27.4,accesos cada 100 hogares,ENACOM
+38,Jujuy,2T2016,telefonia_fija_accesos_cada_100_hogares,29.96,accesos cada 100 hogares,ENACOM
+42,La Pampa,2T2016,telefonia_fija_accesos_cada_100_hogares,71.89,accesos cada 100 hogares,ENACOM
+46,La Rioja,2T2016,telefonia_fija_accesos_cada_100_hogares,38.19,accesos cada 100 hogares,ENACOM
+50,Mendoza,2T2016,telefonia_fija_accesos_cada_100_hogares,69.6,accesos cada 100 hogares,ENACOM
+54,Misiones,2T2016,telefonia_fija_accesos_cada_100_hogares,33.73,accesos cada 100 hogares,ENACOM
+58,Neuquén,2T2016,telefonia_fija_accesos_cada_100_hogares,52.92,accesos cada 100 hogares,ENACOM
+62,Río Negro,2T2016,telefonia_fija_accesos_cada_100_hogares,64.77,accesos cada 100 hogares,ENACOM
+66,Salta,2T2016,telefonia_fija_accesos_cada_100_hogares,42.56,accesos cada 100 hogares,ENACOM
+70,San Juan,2T2016,telefonia_fija_accesos_cada_100_hogares,56.4,accesos cada 100 hogares,ENACOM
+74,San Luis,2T2016,telefonia_fija_accesos_cada_100_hogares,38.53,accesos cada 100 hogares,ENACOM
+78,Santa Cruz,2T2016,telefonia_fija_accesos_cada_100_hogares,45.23,accesos cada 100 hogares,ENACOM
+82,Santa Fe,2T2016,telefonia_fija_accesos_cada_100_hogares,68.91,accesos cada 100 hogares,ENACOM
+86,Santiago del Estero,2T2016,telefonia_fija_accesos_cada_100_hogares,28.38,accesos cada 100 hogares,ENACOM
+94,Tierra del Fuego,2T2016,telefonia_fija_accesos_cada_100_hogares,82.01,accesos cada 100 hogares,ENACOM
+90,Tucumán,2T2016,telefonia_fija_accesos_cada_100_hogares,52.65,accesos cada 100 hogares,ENACOM
+06,Buenos Aires,3T2016,telefonia_fija_accesos_cada_100_hogares,88.63,accesos cada 100 hogares,ENACOM
+02,CABA,3T2016,telefonia_fija_accesos_cada_100_hogares,123.09,accesos cada 100 hogares,ENACOM
+10,Catamarca,3T2016,telefonia_fija_accesos_cada_100_hogares,38.05,accesos cada 100 hogares,ENACOM
+22,Chaco,3T2016,telefonia_fija_accesos_cada_100_hogares,33.23,accesos cada 100 hogares,ENACOM
+26,Chubut,3T2016,telefonia_fija_accesos_cada_100_hogares,66.58,accesos cada 100 hogares,ENACOM
+14,Córdoba,3T2016,telefonia_fija_accesos_cada_100_hogares,63.68,accesos cada 100 hogares,ENACOM
+18,Corrientes,3T2016,telefonia_fija_accesos_cada_100_hogares,35.98,accesos cada 100 hogares,ENACOM
+30,Entre Ríos,3T2016,telefonia_fija_accesos_cada_100_hogares,56.22,accesos cada 100 hogares,ENACOM
+34,Formosa,3T2016,telefonia_fija_accesos_cada_100_hogares,27.67,accesos cada 100 hogares,ENACOM
+38,Jujuy,3T2016,telefonia_fija_accesos_cada_100_hogares,29.98,accesos cada 100 hogares,ENACOM
+42,La Pampa,3T2016,telefonia_fija_accesos_cada_100_hogares,72.49,accesos cada 100 hogares,ENACOM
+46,La Rioja,3T2016,telefonia_fija_accesos_cada_100_hogares,38.21,accesos cada 100 hogares,ENACOM
+50,Mendoza,3T2016,telefonia_fija_accesos_cada_100_hogares,70.85,accesos cada 100 hogares,ENACOM
+54,Misiones,3T2016,telefonia_fija_accesos_cada_100_hogares,33.68,accesos cada 100 hogares,ENACOM
+58,Neuquén,3T2016,telefonia_fija_accesos_cada_100_hogares,54.22,accesos cada 100 hogares,ENACOM
+62,Río Negro,3T2016,telefonia_fija_accesos_cada_100_hogares,65.84,accesos cada 100 hogares,ENACOM
+66,Salta,3T2016,telefonia_fija_accesos_cada_100_hogares,42.57,accesos cada 100 hogares,ENACOM
+70,San Juan,3T2016,telefonia_fija_accesos_cada_100_hogares,58.92,accesos cada 100 hogares,ENACOM
+74,San Luis,3T2016,telefonia_fija_accesos_cada_100_hogares,38.84,accesos cada 100 hogares,ENACOM
+78,Santa Cruz,3T2016,telefonia_fija_accesos_cada_100_hogares,45.4,accesos cada 100 hogares,ENACOM
+82,Santa Fe,3T2016,telefonia_fija_accesos_cada_100_hogares,68.6,accesos cada 100 hogares,ENACOM
+86,Santiago del Estero,3T2016,telefonia_fija_accesos_cada_100_hogares,28.1,accesos cada 100 hogares,ENACOM
+94,Tierra del Fuego,3T2016,telefonia_fija_accesos_cada_100_hogares,83.27,accesos cada 100 hogares,ENACOM
+90,Tucumán,3T2016,telefonia_fija_accesos_cada_100_hogares,52.81,accesos cada 100 hogares,ENACOM
+06,Buenos Aires,4T2016,telefonia_fija_accesos_cada_100_hogares,90.08,accesos cada 100 hogares,ENACOM
+02,CABA,4T2016,telefonia_fija_accesos_cada_100_hogares,125.25,accesos cada 100 hogares,ENACOM
+10,Catamarca,4T2016,telefonia_fija_accesos_cada_100_hogares,37.79,accesos cada 100 hogares,ENACOM
+22,Chaco,4T2016,telefonia_fija_accesos_cada_100_hogares,32.9,accesos cada 100 hogares,ENACOM
+26,Chubut,4T2016,telefonia_fija_accesos_cada_100_hogares,68.73,accesos cada 100 hogares,ENACOM
+14,Córdoba,4T2016,telefonia_fija_accesos_cada_100_hogares,63.5,accesos cada 100 hogares,ENACOM
+18,Corrientes,4T2016,telefonia_fija_accesos_cada_100_hogares,35.72,accesos cada 100 hogares,ENACOM
+30,Entre Ríos,4T2016,telefonia_fija_accesos_cada_100_hogares,55.69,accesos cada 100 hogares,ENACOM
+34,Formosa,4T2016,telefonia_fija_accesos_cada_100_hogares,27.54,accesos cada 100 hogares,ENACOM
+38,Jujuy,4T2016,telefonia_fija_accesos_cada_100_hogares,29.81,accesos cada 100 hogares,ENACOM
+42,La Pampa,4T2016,telefonia_fija_accesos_cada_100_hogares,72.81,accesos cada 100 hogares,ENACOM
+46,La Rioja,4T2016,telefonia_fija_accesos_cada_100_hogares,37.83,accesos cada 100 hogares,ENACOM
+50,Mendoza,4T2016,telefonia_fija_accesos_cada_100_hogares,71.28,accesos cada 100 hogares,ENACOM
+54,Misiones,4T2016,telefonia_fija_accesos_cada_100_hogares,34.94,accesos cada 100 hogares,ENACOM
+58,Neuquén,4T2016,telefonia_fija_accesos_cada_100_hogares,54.08,accesos cada 100 hogares,ENACOM
+62,Río Negro,4T2016,telefonia_fija_accesos_cada_100_hogares,66.39,accesos cada 100 hogares,ENACOM
+66,Salta,4T2016,telefonia_fija_accesos_cada_100_hogares,42.32,accesos cada 100 hogares,ENACOM
+70,San Juan,4T2016,telefonia_fija_accesos_cada_100_hogares,59.65,accesos cada 100 hogares,ENACOM
+74,San Luis,4T2016,telefonia_fija_accesos_cada_100_hogares,38.72,accesos cada 100 hogares,ENACOM
+78,Santa Cruz,4T2016,telefonia_fija_accesos_cada_100_hogares,47.62,accesos cada 100 hogares,ENACOM
+82,Santa Fe,4T2016,telefonia_fija_accesos_cada_100_hogares,68.73,accesos cada 100 hogares,ENACOM
+86,Santiago del Estero,4T2016,telefonia_fija_accesos_cada_100_hogares,27.57,accesos cada 100 hogares,ENACOM
+94,Tierra del Fuego,4T2016,telefonia_fija_accesos_cada_100_hogares,83.01,accesos cada 100 hogares,ENACOM
+90,Tucumán,4T2016,telefonia_fija_accesos_cada_100_hogares,52.65,accesos cada 100 hogares,ENACOM
+06,Buenos Aires,1T2017,telefonia_fija_accesos_cada_100_hogares,91.2,accesos cada 100 hogares,ENACOM
+02,CABA,1T2017,telefonia_fija_accesos_cada_100_hogares,123.37,accesos cada 100 hogares,ENACOM
+10,Catamarca,1T2017,telefonia_fija_accesos_cada_100_hogares,38.05,accesos cada 100 hogares,ENACOM
+22,Chaco,1T2017,telefonia_fija_accesos_cada_100_hogares,33.16,accesos cada 100 hogares,ENACOM
+26,Chubut,1T2017,telefonia_fija_accesos_cada_100_hogares,69.67,accesos cada 100 hogares,ENACOM
+14,Córdoba,1T2017,telefonia_fija_accesos_cada_100_hogares,63.87,accesos cada 100 hogares,ENACOM
+18,Corrientes,1T2017,telefonia_fija_accesos_cada_100_hogares,35.97,accesos cada 100 hogares,ENACOM
+30,Entre Ríos,1T2017,telefonia_fija_accesos_cada_100_hogares,56.1,accesos cada 100 hogares,ENACOM
+34,Formosa,1T2017,telefonia_fija_accesos_cada_100_hogares,27.73,accesos cada 100 hogares,ENACOM
+38,Jujuy,1T2017,telefonia_fija_accesos_cada_100_hogares,30.07,accesos cada 100 hogares,ENACOM
+42,La Pampa,1T2017,telefonia_fija_accesos_cada_100_hogares,73.3,accesos cada 100 hogares,ENACOM
+46,La Rioja,1T2017,telefonia_fija_accesos_cada_100_hogares,38.23,accesos cada 100 hogares,ENACOM
+50,Mendoza,1T2017,telefonia_fija_accesos_cada_100_hogares,71.88,accesos cada 100 hogares,ENACOM
+54,Misiones,1T2017,telefonia_fija_accesos_cada_100_hogares,35.26,accesos cada 100 hogares,ENACOM
+58,Neuquén,1T2017,telefonia_fija_accesos_cada_100_hogares,54.66,accesos cada 100 hogares,ENACOM
+62,Río Negro,1T2017,telefonia_fija_accesos_cada_100_hogares,67.09,accesos cada 100 hogares,ENACOM
+66,Salta,1T2017,telefonia_fija_accesos_cada_100_hogares,42.75,accesos cada 100 hogares,ENACOM
+70,San Juan,1T2017,telefonia_fija_accesos_cada_100_hogares,60.16,accesos cada 100 hogares,ENACOM
+74,San Luis,1T2017,telefonia_fija_accesos_cada_100_hogares,39.11,accesos cada 100 hogares,ENACOM
+78,Santa Cruz,1T2017,telefonia_fija_accesos_cada_100_hogares,48.61,accesos cada 100 hogares,ENACOM
+82,Santa Fe,1T2017,telefonia_fija_accesos_cada_100_hogares,69.06,accesos cada 100 hogares,ENACOM
+86,Santiago del Estero,1T2017,telefonia_fija_accesos_cada_100_hogares,27.79,accesos cada 100 hogares,ENACOM
+94,Tierra del Fuego,1T2017,telefonia_fija_accesos_cada_100_hogares,84.69,accesos cada 100 hogares,ENACOM
+90,Tucumán,1T2017,telefonia_fija_accesos_cada_100_hogares,53.16,accesos cada 100 hogares,ENACOM
+06,Buenos Aires,2T2017,telefonia_fija_accesos_cada_100_hogares,91.58,accesos cada 100 hogares,ENACOM
+02,CABA,2T2017,telefonia_fija_accesos_cada_100_hogares,121.27,accesos cada 100 hogares,ENACOM
+10,Catamarca,2T2017,telefonia_fija_accesos_cada_100_hogares,37.85,accesos cada 100 hogares,ENACOM
+22,Chaco,2T2017,telefonia_fija_accesos_cada_100_hogares,33.37,accesos cada 100 hogares,ENACOM
+26,Chubut,2T2017,telefonia_fija_accesos_cada_100_hogares,65.24,accesos cada 100 hogares,ENACOM
+14,Córdoba,2T2017,telefonia_fija_accesos_cada_100_hogares,63.75,accesos cada 100 hogares,ENACOM
+18,Corrientes,2T2017,telefonia_fija_accesos_cada_100_hogares,36.03,accesos cada 100 hogares,ENACOM
+30,Entre Ríos,2T2017,telefonia_fija_accesos_cada_100_hogares,56.44,accesos cada 100 hogares,ENACOM
+34,Formosa,2T2017,telefonia_fija_accesos_cada_100_hogares,27.4,accesos cada 100 hogares,ENACOM
+38,Jujuy,2T2017,telefonia_fija_accesos_cada_100_hogares,29.96,accesos cada 100 hogares,ENACOM
+42,La Pampa,2T2017,telefonia_fija_accesos_cada_100_hogares,71.89,accesos cada 100 hogares,ENACOM
+46,La Rioja,2T2017,telefonia_fija_accesos_cada_100_hogares,38.19,accesos cada 100 hogares,ENACOM
+50,Mendoza,2T2017,telefonia_fija_accesos_cada_100_hogares,69.6,accesos cada 100 hogares,ENACOM
+54,Misiones,2T2017,telefonia_fija_accesos_cada_100_hogares,33.73,accesos cada 100 hogares,ENACOM
+58,Neuquén,2T2017,telefonia_fija_accesos_cada_100_hogares,52.92,accesos cada 100 hogares,ENACOM
+62,Río Negro,2T2017,telefonia_fija_accesos_cada_100_hogares,64.77,accesos cada 100 hogares,ENACOM
+66,Salta,2T2017,telefonia_fija_accesos_cada_100_hogares,42.56,accesos cada 100 hogares,ENACOM
+70,San Juan,2T2017,telefonia_fija_accesos_cada_100_hogares,56.4,accesos cada 100 hogares,ENACOM
+74,San Luis,2T2017,telefonia_fija_accesos_cada_100_hogares,38.53,accesos cada 100 hogares,ENACOM
+78,Santa Cruz,2T2017,telefonia_fija_accesos_cada_100_hogares,45.23,accesos cada 100 hogares,ENACOM
+82,Santa Fe,2T2017,telefonia_fija_accesos_cada_100_hogares,68.91,accesos cada 100 hogares,ENACOM
+86,Santiago del Estero,2T2017,telefonia_fija_accesos_cada_100_hogares,28.38,accesos cada 100 hogares,ENACOM
+94,Tierra del Fuego,2T2017,telefonia_fija_accesos_cada_100_hogares,82.01,accesos cada 100 hogares,ENACOM
+90,Tucumán,2T2017,telefonia_fija_accesos_cada_100_hogares,52.65,accesos cada 100 hogares,ENACOM
+06,Buenos Aires,3T2017,telefonia_fija_accesos_cada_100_hogares,88.63,accesos cada 100 hogares,ENACOM
+02,CABA,3T2017,telefonia_fija_accesos_cada_100_hogares,123.09,accesos cada 100 hogares,ENACOM
+10,Catamarca,3T2017,telefonia_fija_accesos_cada_100_hogares,38.05,accesos cada 100 hogares,ENACOM
+22,Chaco,3T2017,telefonia_fija_accesos_cada_100_hogares,33.23,accesos cada 100 hogares,ENACOM
+26,Chubut,3T2017,telefonia_fija_accesos_cada_100_hogares,66.58,accesos cada 100 hogares,ENACOM
+14,Córdoba,3T2017,telefonia_fija_accesos_cada_100_hogares,63.68,accesos cada 100 hogares,ENACOM
+18,Corrientes,3T2017,telefonia_fija_accesos_cada_100_hogares,35.98,accesos cada 100 hogares,ENACOM
+30,Entre Ríos,3T2017,telefonia_fija_accesos_cada_100_hogares,56.22,accesos cada 100 hogares,ENACOM
+34,Formosa,3T2017,telefonia_fija_accesos_cada_100_hogares,27.67,accesos cada 100 hogares,ENACOM
+38,Jujuy,3T2017,telefonia_fija_accesos_cada_100_hogares,29.98,accesos cada 100 hogares,ENACOM
+42,La Pampa,3T2017,telefonia_fija_accesos_cada_100_hogares,72.49,accesos cada 100 hogares,ENACOM
+46,La Rioja,3T2017,telefonia_fija_accesos_cada_100_hogares,38.21,accesos cada 100 hogares,ENACOM
+50,Mendoza,3T2017,telefonia_fija_accesos_cada_100_hogares,70.85,accesos cada 100 hogares,ENACOM
+54,Misiones,3T2017,telefonia_fija_accesos_cada_100_hogares,33.68,accesos cada 100 hogares,ENACOM
+58,Neuquén,3T2017,telefonia_fija_accesos_cada_100_hogares,54.22,accesos cada 100 hogares,ENACOM
+62,Río Negro,3T2017,telefonia_fija_accesos_cada_100_hogares,65.84,accesos cada 100 hogares,ENACOM
+66,Salta,3T2017,telefonia_fija_accesos_cada_100_hogares,42.57,accesos cada 100 hogares,ENACOM
+70,San Juan,3T2017,telefonia_fija_accesos_cada_100_hogares,58.92,accesos cada 100 hogares,ENACOM
+74,San Luis,3T2017,telefonia_fija_accesos_cada_100_hogares,38.84,accesos cada 100 hogares,ENACOM
+78,Santa Cruz,3T2017,telefonia_fija_accesos_cada_100_hogares,45.4,accesos cada 100 hogares,ENACOM
+82,Santa Fe,3T2017,telefonia_fija_accesos_cada_100_hogares,68.6,accesos cada 100 hogares,ENACOM
+86,Santiago del Estero,3T2017,telefonia_fija_accesos_cada_100_hogares,28.1,accesos cada 100 hogares,ENACOM
+94,Tierra del Fuego,3T2017,telefonia_fija_accesos_cada_100_hogares,83.27,accesos cada 100 hogares,ENACOM
+90,Tucumán,3T2017,telefonia_fija_accesos_cada_100_hogares,52.81,accesos cada 100 hogares,ENACOM
+06,Buenos Aires,4T2017,telefonia_fija_accesos_cada_100_hogares,90.08,accesos cada 100 hogares,ENACOM
+02,CABA,4T2017,telefonia_fija_accesos_cada_100_hogares,125.25,accesos cada 100 hogares,ENACOM
+10,Catamarca,4T2017,telefonia_fija_accesos_cada_100_hogares,37.79,accesos cada 100 hogares,ENACOM
+22,Chaco,4T2017,telefonia_fija_accesos_cada_100_hogares,32.9,accesos cada 100 hogares,ENACOM
+26,Chubut,4T2017,telefonia_fija_accesos_cada_100_hogares,68.73,accesos cada 100 hogares,ENACOM
+14,Córdoba,4T2017,telefonia_fija_accesos_cada_100_hogares,63.5,accesos cada 100 hogares,ENACOM
+18,Corrientes,4T2017,telefonia_fija_accesos_cada_100_hogares,35.72,accesos cada 100 hogares,ENACOM
+30,Entre Ríos,4T2017,telefonia_fija_accesos_cada_100_hogares,55.69,accesos cada 100 hogares,ENACOM
+34,Formosa,4T2017,telefonia_fija_accesos_cada_100_hogares,27.54,accesos cada 100 hogares,ENACOM
+38,Jujuy,4T2017,telefonia_fija_accesos_cada_100_hogares,29.81,accesos cada 100 hogares,ENACOM
+42,La Pampa,4T2017,telefonia_fija_accesos_cada_100_hogares,72.81,accesos cada 100 hogares,ENACOM
+46,La Rioja,4T2017,telefonia_fija_accesos_cada_100_hogares,37.83,accesos cada 100 hogares,ENACOM
+50,Mendoza,4T2017,telefonia_fija_accesos_cada_100_hogares,71.28,accesos cada 100 hogares,ENACOM
+54,Misiones,4T2017,telefonia_fija_accesos_cada_100_hogares,34.94,accesos cada 100 hogares,ENACOM
+58,Neuquén,4T2017,telefonia_fija_accesos_cada_100_hogares,54.08,accesos cada 100 hogares,ENACOM
+62,Río Negro,4T2017,telefonia_fija_accesos_cada_100_hogares,66.39,accesos cada 100 hogares,ENACOM
+66,Salta,4T2017,telefonia_fija_accesos_cada_100_hogares,42.32,accesos cada 100 hogares,ENACOM
+70,San Juan,4T2017,telefonia_fija_accesos_cada_100_hogares,59.65,accesos cada 100 hogares,ENACOM
+74,San Luis,4T2017,telefonia_fija_accesos_cada_100_hogares,38.72,accesos cada 100 hogares,ENACOM
+78,Santa Cruz,4T2017,telefonia_fija_accesos_cada_100_hogares,47.62,accesos cada 100 hogares,ENACOM
+82,Santa Fe,4T2017,telefonia_fija_accesos_cada_100_hogares,68.73,accesos cada 100 hogares,ENACOM
+86,Santiago del Estero,4T2017,telefonia_fija_accesos_cada_100_hogares,27.57,accesos cada 100 hogares,ENACOM
+94,Tierra del Fuego,4T2017,telefonia_fija_accesos_cada_100_hogares,83.01,accesos cada 100 hogares,ENACOM
+90,Tucumán,4T2017,telefonia_fija_accesos_cada_100_hogares,52.65,accesos cada 100 hogares,ENACOM
+06,Buenos Aires,1T2018,telefonia_fija_accesos_cada_100_hogares,79.97,accesos cada 100 hogares,ENACOM
+02,CABA,1T2018,telefonia_fija_accesos_cada_100_hogares,134.65,accesos cada 100 hogares,ENACOM
+10,Catamarca,1T2018,telefonia_fija_accesos_cada_100_hogares,37.07,accesos cada 100 hogares,ENACOM
+22,Chaco,1T2018,telefonia_fija_accesos_cada_100_hogares,31.5,accesos cada 100 hogares,ENACOM
+26,Chubut,1T2018,telefonia_fija_accesos_cada_100_hogares,62.5,accesos cada 100 hogares,ENACOM
+14,Córdoba,1T2018,telefonia_fija_accesos_cada_100_hogares,61.55,accesos cada 100 hogares,ENACOM
+18,Corrientes,1T2018,telefonia_fija_accesos_cada_100_hogares,34.44,accesos cada 100 hogares,ENACOM
+30,Entre Ríos,1T2018,telefonia_fija_accesos_cada_100_hogares,53.19,accesos cada 100 hogares,ENACOM
+34,Formosa,1T2018,telefonia_fija_accesos_cada_100_hogares,26.56,accesos cada 100 hogares,ENACOM
+38,Jujuy,1T2018,telefonia_fija_accesos_cada_100_hogares,28.27,accesos cada 100 hogares,ENACOM
+42,La Pampa,1T2018,telefonia_fija_accesos_cada_100_hogares,65.02,accesos cada 100 hogares,ENACOM
+46,La Rioja,1T2018,telefonia_fija_accesos_cada_100_hogares,35.43,accesos cada 100 hogares,ENACOM
+50,Mendoza,1T2018,telefonia_fija_accesos_cada_100_hogares,66.49,accesos cada 100 hogares,ENACOM
+54,Misiones,1T2018,telefonia_fija_accesos_cada_100_hogares,30.9,accesos cada 100 hogares,ENACOM
+58,Neuquén,1T2018,telefonia_fija_accesos_cada_100_hogares,50.72,accesos cada 100 hogares,ENACOM
+62,Río Negro,1T2018,telefonia_fija_accesos_cada_100_hogares,62.69,accesos cada 100 hogares,ENACOM
+66,Salta,1T2018,telefonia_fija_accesos_cada_100_hogares,40.03,accesos cada 100 hogares,ENACOM
+70,San Juan,1T2018,telefonia_fija_accesos_cada_100_hogares,59.37,accesos cada 100 hogares,ENACOM
+74,San Luis,1T2018,telefonia_fija_accesos_cada_100_hogares,31.38,accesos cada 100 hogares,ENACOM
+78,Santa Cruz,1T2018,telefonia_fija_accesos_cada_100_hogares,43.11,accesos cada 100 hogares,ENACOM
+82,Santa Fe,1T2018,telefonia_fija_accesos_cada_100_hogares,63.11,accesos cada 100 hogares,ENACOM
+86,Santiago del Estero,1T2018,telefonia_fija_accesos_cada_100_hogares,24.11,accesos cada 100 hogares,ENACOM
+94,Tierra del Fuego,1T2018,telefonia_fija_accesos_cada_100_hogares,68.83,accesos cada 100 hogares,ENACOM
+90,Tucumán,1T2018,telefonia_fija_accesos_cada_100_hogares,52.62,accesos cada 100 hogares,ENACOM
+06,Buenos Aires,2T2018,telefonia_fija_accesos_cada_100_hogares,80.31,accesos cada 100 hogares,ENACOM
+02,CABA,2T2018,telefonia_fija_accesos_cada_100_hogares,135.61,accesos cada 100 hogares,ENACOM
+10,Catamarca,2T2018,telefonia_fija_accesos_cada_100_hogares,36.78,accesos cada 100 hogares,ENACOM
+22,Chaco,2T2018,telefonia_fija_accesos_cada_100_hogares,31.08,accesos cada 100 hogares,ENACOM
+26,Chubut,2T2018,telefonia_fija_accesos_cada_100_hogares,63.88,accesos cada 100 hogares,ENACOM
+14,Córdoba,2T2018,telefonia_fija_accesos_cada_100_hogares,60.68,accesos cada 100 hogares,ENACOM
+18,Corrientes,2T2018,telefonia_fija_accesos_cada_100_hogares,34.17,accesos cada 100 hogares,ENACOM
+30,Entre Ríos,2T2018,telefonia_fija_accesos_cada_100_hogares,52.57,accesos cada 100 hogares,ENACOM
+34,Formosa,2T2018,telefonia_fija_accesos_cada_100_hogares,26.25,accesos cada 100 hogares,ENACOM
+38,Jujuy,2T2018,telefonia_fija_accesos_cada_100_hogares,27.85,accesos cada 100 hogares,ENACOM
+42,La Pampa,2T2018,telefonia_fija_accesos_cada_100_hogares,65.25,accesos cada 100 hogares,ENACOM
+46,La Rioja,2T2018,telefonia_fija_accesos_cada_100_hogares,34.51,accesos cada 100 hogares,ENACOM
+50,Mendoza,2T2018,telefonia_fija_accesos_cada_100_hogares,66.32,accesos cada 100 hogares,ENACOM
+54,Misiones,2T2018,telefonia_fija_accesos_cada_100_hogares,32.21,accesos cada 100 hogares,ENACOM
+58,Neuquén,2T2018,telefonia_fija_accesos_cada_100_hogares,50.51,accesos cada 100 hogares,ENACOM
+62,Río Negro,2T2018,telefonia_fija_accesos_cada_100_hogares,62.45,accesos cada 100 hogares,ENACOM
+66,Salta,2T2018,telefonia_fija_accesos_cada_100_hogares,39.27,accesos cada 100 hogares,ENACOM
+70,San Juan,2T2018,telefonia_fija_accesos_cada_100_hogares,59.21,accesos cada 100 hogares,ENACOM
+74,San Luis,2T2018,telefonia_fija_accesos_cada_100_hogares,31.28,accesos cada 100 hogares,ENACOM
+78,Santa Cruz,2T2018,telefonia_fija_accesos_cada_100_hogares,42.88,accesos cada 100 hogares,ENACOM
+82,Santa Fe,2T2018,telefonia_fija_accesos_cada_100_hogares,62.64,accesos cada 100 hogares,ENACOM
+86,Santiago del Estero,2T2018,telefonia_fija_accesos_cada_100_hogares,23.23,accesos cada 100 hogares,ENACOM
+94,Tierra del Fuego,2T2018,telefonia_fija_accesos_cada_100_hogares,68.38,accesos cada 100 hogares,ENACOM
+90,Tucumán,2T2018,telefonia_fija_accesos_cada_100_hogares,52.34,accesos cada 100 hogares,ENACOM
+06,Buenos Aires,3T2018,telefonia_fija_accesos_cada_100_hogares,80.19,accesos cada 100 hogares,ENACOM
+02,CABA,3T2018,telefonia_fija_accesos_cada_100_hogares,138.28,accesos cada 100 hogares,ENACOM
+10,Catamarca,3T2018,telefonia_fija_accesos_cada_100_hogares,36.43,accesos cada 100 hogares,ENACOM
+22,Chaco,3T2018,telefonia_fija_accesos_cada_100_hogares,28.99,accesos cada 100 hogares,ENACOM
+26,Chubut,3T2018,telefonia_fija_accesos_cada_100_hogares,63.59,accesos cada 100 hogares,ENACOM
+14,Córdoba,3T2018,telefonia_fija_accesos_cada_100_hogares,59.71,accesos cada 100 hogares,ENACOM
+18,Corrientes,3T2018,telefonia_fija_accesos_cada_100_hogares,32.65,accesos cada 100 hogares,ENACOM
+30,Entre Ríos,3T2018,telefonia_fija_accesos_cada_100_hogares,49.14,accesos cada 100 hogares,ENACOM
+34,Formosa,3T2018,telefonia_fija_accesos_cada_100_hogares,25.98,accesos cada 100 hogares,ENACOM
+38,Jujuy,3T2018,telefonia_fija_accesos_cada_100_hogares,27.47,accesos cada 100 hogares,ENACOM
+42,La Pampa,3T2018,telefonia_fija_accesos_cada_100_hogares,65.11,accesos cada 100 hogares,ENACOM
+46,La Rioja,3T2018,telefonia_fija_accesos_cada_100_hogares,33.79,accesos cada 100 hogares,ENACOM
+50,Mendoza,3T2018,telefonia_fija_accesos_cada_100_hogares,66.15,accesos cada 100 hogares,ENACOM
+54,Misiones,3T2018,telefonia_fija_accesos_cada_100_hogares,30.87,accesos cada 100 hogares,ENACOM
+58,Neuquén,3T2018,telefonia_fija_accesos_cada_100_hogares,50.34,accesos cada 100 hogares,ENACOM
+62,Río Negro,3T2018,telefonia_fija_accesos_cada_100_hogares,62.22,accesos cada 100 hogares,ENACOM
+66,Salta,3T2018,telefonia_fija_accesos_cada_100_hogares,38.45,accesos cada 100 hogares,ENACOM
+70,San Juan,3T2018,telefonia_fija_accesos_cada_100_hogares,59.04,accesos cada 100 hogares,ENACOM
+74,San Luis,3T2018,telefonia_fija_accesos_cada_100_hogares,31.17,accesos cada 100 hogares,ENACOM
+78,Santa Cruz,3T2018,telefonia_fija_accesos_cada_100_hogares,42.55,accesos cada 100 hogares,ENACOM
+82,Santa Fe,3T2018,telefonia_fija_accesos_cada_100_hogares,61.36,accesos cada 100 hogares,ENACOM
+86,Santiago del Estero,3T2018,telefonia_fija_accesos_cada_100_hogares,22.53,accesos cada 100 hogares,ENACOM
+94,Tierra del Fuego,3T2018,telefonia_fija_accesos_cada_100_hogares,67.95,accesos cada 100 hogares,ENACOM
+90,Tucumán,3T2018,telefonia_fija_accesos_cada_100_hogares,52.05,accesos cada 100 hogares,ENACOM
+06,Buenos Aires,4T2018,telefonia_fija_accesos_cada_100_hogares,80.98,accesos cada 100 hogares,ENACOM
+02,CABA,4T2018,telefonia_fija_accesos_cada_100_hogares,136.67,accesos cada 100 hogares,ENACOM
+10,Catamarca,4T2018,telefonia_fija_accesos_cada_100_hogares,35.48,accesos cada 100 hogares,ENACOM
+22,Chaco,4T2018,telefonia_fija_accesos_cada_100_hogares,30.22,accesos cada 100 hogares,ENACOM
+26,Chubut,4T2018,telefonia_fija_accesos_cada_100_hogares,63.61,accesos cada 100 hogares,ENACOM
+14,Córdoba,4T2018,telefonia_fija_accesos_cada_100_hogares,59.23,accesos cada 100 hogares,ENACOM
+18,Corrientes,4T2018,telefonia_fija_accesos_cada_100_hogares,33.3,accesos cada 100 hogares,ENACOM
+30,Entre Ríos,4T2018,telefonia_fija_accesos_cada_100_hogares,50.79,accesos cada 100 hogares,ENACOM
+34,Formosa,4T2018,telefonia_fija_accesos_cada_100_hogares,25.46,accesos cada 100 hogares,ENACOM
+38,Jujuy,4T2018,telefonia_fija_accesos_cada_100_hogares,27.07,accesos cada 100 hogares,ENACOM
+42,La Pampa,4T2018,telefonia_fija_accesos_cada_100_hogares,65.62,accesos cada 100 hogares,ENACOM
+46,La Rioja,4T2018,telefonia_fija_accesos_cada_100_hogares,33.01,accesos cada 100 hogares,ENACOM
+50,Mendoza,4T2018,telefonia_fija_accesos_cada_100_hogares,66.01,accesos cada 100 hogares,ENACOM
+54,Misiones,4T2018,telefonia_fija_accesos_cada_100_hogares,30.89,accesos cada 100 hogares,ENACOM
+58,Neuquén,4T2018,telefonia_fija_accesos_cada_100_hogares,56.38,accesos cada 100 hogares,ENACOM
+62,Río Negro,4T2018,telefonia_fija_accesos_cada_100_hogares,62.01,accesos cada 100 hogares,ENACOM
+66,Salta,4T2018,telefonia_fija_accesos_cada_100_hogares,37.35,accesos cada 100 hogares,ENACOM
+70,San Juan,4T2018,telefonia_fija_accesos_cada_100_hogares,58.92,accesos cada 100 hogares,ENACOM
+74,San Luis,4T2018,telefonia_fija_accesos_cada_100_hogares,36.34,accesos cada 100 hogares,ENACOM
+78,Santa Cruz,4T2018,telefonia_fija_accesos_cada_100_hogares,42.35,accesos cada 100 hogares,ENACOM
+82,Santa Fe,4T2018,telefonia_fija_accesos_cada_100_hogares,63.51,accesos cada 100 hogares,ENACOM
+86,Santiago del Estero,4T2018,telefonia_fija_accesos_cada_100_hogares,31.05,accesos cada 100 hogares,ENACOM
+94,Tierra del Fuego,4T2018,telefonia_fija_accesos_cada_100_hogares,67.52,accesos cada 100 hogares,ENACOM
+90,Tucumán,4T2018,telefonia_fija_accesos_cada_100_hogares,51.07,accesos cada 100 hogares,ENACOM
+06,Buenos Aires,1T2019,telefonia_fija_accesos_cada_100_hogares,63.0,accesos cada 100 hogares,ENACOM
+02,CABA,1T2019,telefonia_fija_accesos_cada_100_hogares,124.82,accesos cada 100 hogares,ENACOM
+10,Catamarca,1T2019,telefonia_fija_accesos_cada_100_hogares,34.64,accesos cada 100 hogares,ENACOM
+22,Chaco,1T2019,telefonia_fija_accesos_cada_100_hogares,29.5,accesos cada 100 hogares,ENACOM
+26,Chubut,1T2019,telefonia_fija_accesos_cada_100_hogares,47.84,accesos cada 100 hogares,ENACOM
+14,Córdoba,1T2019,telefonia_fija_accesos_cada_100_hogares,57.78,accesos cada 100 hogares,ENACOM
+18,Corrientes,1T2019,telefonia_fija_accesos_cada_100_hogares,32.59,accesos cada 100 hogares,ENACOM
+30,Entre Ríos,1T2019,telefonia_fija_accesos_cada_100_hogares,49.78,accesos cada 100 hogares,ENACOM
+34,Formosa,1T2019,telefonia_fija_accesos_cada_100_hogares,24.81,accesos cada 100 hogares,ENACOM
+38,Jujuy,1T2019,telefonia_fija_accesos_cada_100_hogares,26.68,accesos cada 100 hogares,ENACOM
+42,La Pampa,1T2019,telefonia_fija_accesos_cada_100_hogares,56.42,accesos cada 100 hogares,ENACOM
+46,La Rioja,1T2019,telefonia_fija_accesos_cada_100_hogares,31.89,accesos cada 100 hogares,ENACOM
+50,Mendoza,1T2019,telefonia_fija_accesos_cada_100_hogares,43.99,accesos cada 100 hogares,ENACOM
+54,Misiones,1T2019,telefonia_fija_accesos_cada_100_hogares,30.04,accesos cada 100 hogares,ENACOM
+58,Neuquén,1T2019,telefonia_fija_accesos_cada_100_hogares,42.99,accesos cada 100 hogares,ENACOM
+62,Río Negro,1T2019,telefonia_fija_accesos_cada_100_hogares,44.41,accesos cada 100 hogares,ENACOM
+66,Salta,1T2019,telefonia_fija_accesos_cada_100_hogares,36.23,accesos cada 100 hogares,ENACOM
+70,San Juan,1T2019,telefonia_fija_accesos_cada_100_hogares,43.79,accesos cada 100 hogares,ENACOM
+74,San Luis,1T2019,telefonia_fija_accesos_cada_100_hogares,29.99,accesos cada 100 hogares,ENACOM
+78,Santa Cruz,1T2019,telefonia_fija_accesos_cada_100_hogares,32.47,accesos cada 100 hogares,ENACOM
+82,Santa Fe,1T2019,telefonia_fija_accesos_cada_100_hogares,62.26,accesos cada 100 hogares,ENACOM
+86,Santiago del Estero,1T2019,telefonia_fija_accesos_cada_100_hogares,30.43,accesos cada 100 hogares,ENACOM
+94,Tierra del Fuego,1T2019,telefonia_fija_accesos_cada_100_hogares,50.62,accesos cada 100 hogares,ENACOM
+90,Tucumán,1T2019,telefonia_fija_accesos_cada_100_hogares,50.03,accesos cada 100 hogares,ENACOM
+06,Buenos Aires,2T2019,telefonia_fija_accesos_cada_100_hogares,49.88,accesos cada 100 hogares,ENACOM
+02,CABA,2T2019,telefonia_fija_accesos_cada_100_hogares,89.03,accesos cada 100 hogares,ENACOM
+10,Catamarca,2T2019,telefonia_fija_accesos_cada_100_hogares,33.51,accesos cada 100 hogares,ENACOM
+22,Chaco,2T2019,telefonia_fija_accesos_cada_100_hogares,28.78,accesos cada 100 hogares,ENACOM
+26,Chubut,2T2019,telefonia_fija_accesos_cada_100_hogares,46.22,accesos cada 100 hogares,ENACOM
+14,Córdoba,2T2019,telefonia_fija_accesos_cada_100_hogares,56.6,accesos cada 100 hogares,ENACOM
+18,Corrientes,2T2019,telefonia_fija_accesos_cada_100_hogares,31.96,accesos cada 100 hogares,ENACOM
+30,Entre Ríos,2T2019,telefonia_fija_accesos_cada_100_hogares,48.8,accesos cada 100 hogares,ENACOM
+34,Formosa,2T2019,telefonia_fija_accesos_cada_100_hogares,24.09,accesos cada 100 hogares,ENACOM
+38,Jujuy,2T2019,telefonia_fija_accesos_cada_100_hogares,26.31,accesos cada 100 hogares,ENACOM
+42,La Pampa,2T2019,telefonia_fija_accesos_cada_100_hogares,55.2,accesos cada 100 hogares,ENACOM
+46,La Rioja,2T2019,telefonia_fija_accesos_cada_100_hogares,30.56,accesos cada 100 hogares,ENACOM
+50,Mendoza,2T2019,telefonia_fija_accesos_cada_100_hogares,42.35,accesos cada 100 hogares,ENACOM
+54,Misiones,2T2019,telefonia_fija_accesos_cada_100_hogares,29.27,accesos cada 100 hogares,ENACOM
+58,Neuquén,2T2019,telefonia_fija_accesos_cada_100_hogares,41.94,accesos cada 100 hogares,ENACOM
+62,Río Negro,2T2019,telefonia_fija_accesos_cada_100_hogares,42.71,accesos cada 100 hogares,ENACOM
+66,Salta,2T2019,telefonia_fija_accesos_cada_100_hogares,35.18,accesos cada 100 hogares,ENACOM
+70,San Juan,2T2019,telefonia_fija_accesos_cada_100_hogares,42.75,accesos cada 100 hogares,ENACOM
+74,San Luis,2T2019,telefonia_fija_accesos_cada_100_hogares,23.33,accesos cada 100 hogares,ENACOM
+78,Santa Cruz,2T2019,telefonia_fija_accesos_cada_100_hogares,31.14,accesos cada 100 hogares,ENACOM
+82,Santa Fe,2T2019,telefonia_fija_accesos_cada_100_hogares,60.87,accesos cada 100 hogares,ENACOM
+86,Santiago del Estero,2T2019,telefonia_fija_accesos_cada_100_hogares,29.77,accesos cada 100 hogares,ENACOM
+94,Tierra del Fuego,2T2019,telefonia_fija_accesos_cada_100_hogares,48.44,accesos cada 100 hogares,ENACOM
+90,Tucumán,2T2019,telefonia_fija_accesos_cada_100_hogares,48.63,accesos cada 100 hogares,ENACOM
+06,Buenos Aires,3T2019,telefonia_fija_accesos_cada_100_hogares,59.81,accesos cada 100 hogares,ENACOM
+02,CABA,3T2019,telefonia_fija_accesos_cada_100_hogares,117.04,accesos cada 100 hogares,ENACOM
+10,Catamarca,3T2019,telefonia_fija_accesos_cada_100_hogares,31.15,accesos cada 100 hogares,ENACOM
+22,Chaco,3T2019,telefonia_fija_accesos_cada_100_hogares,27.65,accesos cada 100 hogares,ENACOM
+26,Chubut,3T2019,telefonia_fija_accesos_cada_100_hogares,44.84,accesos cada 100 hogares,ENACOM
+14,Córdoba,3T2019,telefonia_fija_accesos_cada_100_hogares,53.64,accesos cada 100 hogares,ENACOM
+18,Corrientes,3T2019,telefonia_fija_accesos_cada_100_hogares,31.11,accesos cada 100 hogares,ENACOM
+30,Entre Ríos,3T2019,telefonia_fija_accesos_cada_100_hogares,47.24,accesos cada 100 hogares,ENACOM
+34,Formosa,3T2019,telefonia_fija_accesos_cada_100_hogares,23.51,accesos cada 100 hogares,ENACOM
+38,Jujuy,3T2019,telefonia_fija_accesos_cada_100_hogares,25.66,accesos cada 100 hogares,ENACOM
+42,La Pampa,3T2019,telefonia_fija_accesos_cada_100_hogares,54.38,accesos cada 100 hogares,ENACOM
+46,La Rioja,3T2019,telefonia_fija_accesos_cada_100_hogares,28.52,accesos cada 100 hogares,ENACOM
+50,Mendoza,3T2019,telefonia_fija_accesos_cada_100_hogares,40.98,accesos cada 100 hogares,ENACOM
+54,Misiones,3T2019,telefonia_fija_accesos_cada_100_hogares,28.16,accesos cada 100 hogares,ENACOM
+58,Neuquén,3T2019,telefonia_fija_accesos_cada_100_hogares,41.09,accesos cada 100 hogares,ENACOM
+62,Río Negro,3T2019,telefonia_fija_accesos_cada_100_hogares,41.41,accesos cada 100 hogares,ENACOM
+66,Salta,3T2019,telefonia_fija_accesos_cada_100_hogares,33.31,accesos cada 100 hogares,ENACOM
+70,San Juan,3T2019,telefonia_fija_accesos_cada_100_hogares,41.81,accesos cada 100 hogares,ENACOM
+74,San Luis,3T2019,telefonia_fija_accesos_cada_100_hogares,27.28,accesos cada 100 hogares,ENACOM
+78,Santa Cruz,3T2019,telefonia_fija_accesos_cada_100_hogares,30.05,accesos cada 100 hogares,ENACOM
+82,Santa Fe,3T2019,telefonia_fija_accesos_cada_100_hogares,58.65,accesos cada 100 hogares,ENACOM
+86,Santiago del Estero,3T2019,telefonia_fija_accesos_cada_100_hogares,28.82,accesos cada 100 hogares,ENACOM
+94,Tierra del Fuego,3T2019,telefonia_fija_accesos_cada_100_hogares,49.92,accesos cada 100 hogares,ENACOM
+90,Tucumán,3T2019,telefonia_fija_accesos_cada_100_hogares,46.26,accesos cada 100 hogares,ENACOM
+06,Buenos Aires,4T2019,telefonia_fija_accesos_cada_100_hogares,58.41,accesos cada 100 hogares,ENACOM
+02,CABA,4T2019,telefonia_fija_accesos_cada_100_hogares,115.69,accesos cada 100 hogares,ENACOM
+10,Catamarca,4T2019,telefonia_fija_accesos_cada_100_hogares,29.59,accesos cada 100 hogares,ENACOM
+22,Chaco,4T2019,telefonia_fija_accesos_cada_100_hogares,27.16,accesos cada 100 hogares,ENACOM
+26,Chubut,4T2019,telefonia_fija_accesos_cada_100_hogares,43.53,accesos cada 100 hogares,ENACOM
+14,Córdoba,4T2019,telefonia_fija_accesos_cada_100_hogares,52.13,accesos cada 100 hogares,ENACOM
+18,Corrientes,4T2019,telefonia_fija_accesos_cada_100_hogares,30.64,accesos cada 100 hogares,ENACOM
+30,Entre Ríos,4T2019,telefonia_fija_accesos_cada_100_hogares,46.46,accesos cada 100 hogares,ENACOM
+34,Formosa,4T2019,telefonia_fija_accesos_cada_100_hogares,23.04,accesos cada 100 hogares,ENACOM
+38,Jujuy,4T2019,telefonia_fija_accesos_cada_100_hogares,25.25,accesos cada 100 hogares,ENACOM
+42,La Pampa,4T2019,telefonia_fija_accesos_cada_100_hogares,60.7,accesos cada 100 hogares,ENACOM
+46,La Rioja,4T2019,telefonia_fija_accesos_cada_100_hogares,27.27,accesos cada 100 hogares,ENACOM
+50,Mendoza,4T2019,telefonia_fija_accesos_cada_100_hogares,39.6,accesos cada 100 hogares,ENACOM
+54,Misiones,4T2019,telefonia_fija_accesos_cada_100_hogares,27.47,accesos cada 100 hogares,ENACOM
+58,Neuquén,4T2019,telefonia_fija_accesos_cada_100_hogares,40.25,accesos cada 100 hogares,ENACOM
+62,Río Negro,4T2019,telefonia_fija_accesos_cada_100_hogares,39.92,accesos cada 100 hogares,ENACOM
+66,Salta,4T2019,telefonia_fija_accesos_cada_100_hogares,32.38,accesos cada 100 hogares,ENACOM
+70,San Juan,4T2019,telefonia_fija_accesos_cada_100_hogares,40.72,accesos cada 100 hogares,ENACOM
+74,San Luis,4T2019,telefonia_fija_accesos_cada_100_hogares,26.17,accesos cada 100 hogares,ENACOM
+78,Santa Cruz,4T2019,telefonia_fija_accesos_cada_100_hogares,28.36,accesos cada 100 hogares,ENACOM
+82,Santa Fe,4T2019,telefonia_fija_accesos_cada_100_hogares,58.05,accesos cada 100 hogares,ENACOM
+86,Santiago del Estero,4T2019,telefonia_fija_accesos_cada_100_hogares,28.34,accesos cada 100 hogares,ENACOM
+94,Tierra del Fuego,4T2019,telefonia_fija_accesos_cada_100_hogares,47.91,accesos cada 100 hogares,ENACOM
+90,Tucumán,4T2019,telefonia_fija_accesos_cada_100_hogares,44.95,accesos cada 100 hogares,ENACOM
+06,Buenos Aires,1T2020,telefonia_fija_accesos_cada_100_hogares,56.57,accesos cada 100 hogares,ENACOM
+02,CABA,1T2020,telefonia_fija_accesos_cada_100_hogares,114.02,accesos cada 100 hogares,ENACOM
+10,Catamarca,1T2020,telefonia_fija_accesos_cada_100_hogares,28.23,accesos cada 100 hogares,ENACOM
+22,Chaco,1T2020,telefonia_fija_accesos_cada_100_hogares,26.19,accesos cada 100 hogares,ENACOM
+26,Chubut,1T2020,telefonia_fija_accesos_cada_100_hogares,41.7,accesos cada 100 hogares,ENACOM
+14,Córdoba,1T2020,telefonia_fija_accesos_cada_100_hogares,50.03,accesos cada 100 hogares,ENACOM
+18,Corrientes,1T2020,telefonia_fija_accesos_cada_100_hogares,29.78,accesos cada 100 hogares,ENACOM
+30,Entre Ríos,1T2020,telefonia_fija_accesos_cada_100_hogares,45.22,accesos cada 100 hogares,ENACOM
+34,Formosa,1T2020,telefonia_fija_accesos_cada_100_hogares,22.5,accesos cada 100 hogares,ENACOM
+38,Jujuy,1T2020,telefonia_fija_accesos_cada_100_hogares,24.43,accesos cada 100 hogares,ENACOM
+42,La Pampa,1T2020,telefonia_fija_accesos_cada_100_hogares,60.06,accesos cada 100 hogares,ENACOM
+46,La Rioja,1T2020,telefonia_fija_accesos_cada_100_hogares,25.96,accesos cada 100 hogares,ENACOM
+50,Mendoza,1T2020,telefonia_fija_accesos_cada_100_hogares,38.07,accesos cada 100 hogares,ENACOM
+54,Misiones,1T2020,telefonia_fija_accesos_cada_100_hogares,26.54,accesos cada 100 hogares,ENACOM
+58,Neuquén,1T2020,telefonia_fija_accesos_cada_100_hogares,39.37,accesos cada 100 hogares,ENACOM
+62,Río Negro,1T2020,telefonia_fija_accesos_cada_100_hogares,38.55,accesos cada 100 hogares,ENACOM
+66,Salta,1T2020,telefonia_fija_accesos_cada_100_hogares,31.29,accesos cada 100 hogares,ENACOM
+70,San Juan,1T2020,telefonia_fija_accesos_cada_100_hogares,39.59,accesos cada 100 hogares,ENACOM
+74,San Luis,1T2020,telefonia_fija_accesos_cada_100_hogares,25.08,accesos cada 100 hogares,ENACOM
+78,Santa Cruz,1T2020,telefonia_fija_accesos_cada_100_hogares,27.21,accesos cada 100 hogares,ENACOM
+82,Santa Fe,1T2020,telefonia_fija_accesos_cada_100_hogares,56.31,accesos cada 100 hogares,ENACOM
+86,Santiago del Estero,1T2020,telefonia_fija_accesos_cada_100_hogares,27.79,accesos cada 100 hogares,ENACOM
+94,Tierra del Fuego,1T2020,telefonia_fija_accesos_cada_100_hogares,46.18,accesos cada 100 hogares,ENACOM
+90,Tucumán,1T2020,telefonia_fija_accesos_cada_100_hogares,43.63,accesos cada 100 hogares,ENACOM
+06,Buenos Aires,2T2020,telefonia_fija_accesos_cada_100_hogares,42.94,accesos cada 100 hogares,ENACOM
+02,CABA,2T2020,telefonia_fija_accesos_cada_100_hogares,74.44,accesos cada 100 hogares,ENACOM
+10,Catamarca,2T2020,telefonia_fija_accesos_cada_100_hogares,32.25,accesos cada 100 hogares,ENACOM
+22,Chaco,2T2020,telefonia_fija_accesos_cada_100_hogares,26.03,accesos cada 100 hogares,ENACOM
+26,Chubut,2T2020,telefonia_fija_accesos_cada_100_hogares,40.5,accesos cada 100 hogares,ENACOM
+14,Córdoba,2T2020,telefonia_fija_accesos_cada_100_hogares,48.44,accesos cada 100 hogares,ENACOM
+18,Corrientes,2T2020,telefonia_fija_accesos_cada_100_hogares,29.57,accesos cada 100 hogares,ENACOM
+30,Entre Ríos,2T2020,telefonia_fija_accesos_cada_100_hogares,44.28,accesos cada 100 hogares,ENACOM
+34,Formosa,2T2020,telefonia_fija_accesos_cada_100_hogares,22.84,accesos cada 100 hogares,ENACOM
+38,Jujuy,2T2020,telefonia_fija_accesos_cada_100_hogares,28.24,accesos cada 100 hogares,ENACOM
+42,La Pampa,2T2020,telefonia_fija_accesos_cada_100_hogares,59.83,accesos cada 100 hogares,ENACOM
+46,La Rioja,2T2020,telefonia_fija_accesos_cada_100_hogares,28.2,accesos cada 100 hogares,ENACOM
+50,Mendoza,2T2020,telefonia_fija_accesos_cada_100_hogares,36.73,accesos cada 100 hogares,ENACOM
+54,Misiones,2T2020,telefonia_fija_accesos_cada_100_hogares,25.73,accesos cada 100 hogares,ENACOM
+58,Neuquén,2T2020,telefonia_fija_accesos_cada_100_hogares,38.52,accesos cada 100 hogares,ENACOM
+62,Río Negro,2T2020,telefonia_fija_accesos_cada_100_hogares,38.37,accesos cada 100 hogares,ENACOM
+66,Salta,2T2020,telefonia_fija_accesos_cada_100_hogares,30.49,accesos cada 100 hogares,ENACOM
+70,San Juan,2T2020,telefonia_fija_accesos_cada_100_hogares,38.82,accesos cada 100 hogares,ENACOM
+74,San Luis,2T2020,telefonia_fija_accesos_cada_100_hogares,24.34,accesos cada 100 hogares,ENACOM
+78,Santa Cruz,2T2020,telefonia_fija_accesos_cada_100_hogares,25.93,accesos cada 100 hogares,ENACOM
+82,Santa Fe,2T2020,telefonia_fija_accesos_cada_100_hogares,55.1,accesos cada 100 hogares,ENACOM
+86,Santiago del Estero,2T2020,telefonia_fija_accesos_cada_100_hogares,27.57,accesos cada 100 hogares,ENACOM
+94,Tierra del Fuego,2T2020,telefonia_fija_accesos_cada_100_hogares,44.5,accesos cada 100 hogares,ENACOM
+90,Tucumán,2T2020,telefonia_fija_accesos_cada_100_hogares,43.6,accesos cada 100 hogares,ENACOM
+06,Buenos Aires,3T2020,telefonia_fija_accesos_cada_100_hogares,55.56,accesos cada 100 hogares,ENACOM
+02,CABA,3T2020,telefonia_fija_accesos_cada_100_hogares,112.41,accesos cada 100 hogares,ENACOM
+10,Catamarca,3T2020,telefonia_fija_accesos_cada_100_hogares,31.75,accesos cada 100 hogares,ENACOM
+22,Chaco,3T2020,telefonia_fija_accesos_cada_100_hogares,25.6,accesos cada 100 hogares,ENACOM
+26,Chubut,3T2020,telefonia_fija_accesos_cada_100_hogares,38.34,accesos cada 100 hogares,ENACOM
+14,Córdoba,3T2020,telefonia_fija_accesos_cada_100_hogares,47.64,accesos cada 100 hogares,ENACOM
+18,Corrientes,3T2020,telefonia_fija_accesos_cada_100_hogares,29.22,accesos cada 100 hogares,ENACOM
+30,Entre Ríos,3T2020,telefonia_fija_accesos_cada_100_hogares,43.69,accesos cada 100 hogares,ENACOM
+34,Formosa,3T2020,telefonia_fija_accesos_cada_100_hogares,22.6,accesos cada 100 hogares,ENACOM
+38,Jujuy,3T2020,telefonia_fija_accesos_cada_100_hogares,23.46,accesos cada 100 hogares,ENACOM
+42,La Pampa,3T2020,telefonia_fija_accesos_cada_100_hogares,59.65,accesos cada 100 hogares,ENACOM
+46,La Rioja,3T2020,telefonia_fija_accesos_cada_100_hogares,28.01,accesos cada 100 hogares,ENACOM
+50,Mendoza,3T2020,telefonia_fija_accesos_cada_100_hogares,35.3,accesos cada 100 hogares,ENACOM
+54,Misiones,3T2020,telefonia_fija_accesos_cada_100_hogares,25.83,accesos cada 100 hogares,ENACOM
+58,Neuquén,3T2020,telefonia_fija_accesos_cada_100_hogares,37.6,accesos cada 100 hogares,ENACOM
+62,Río Negro,3T2020,telefonia_fija_accesos_cada_100_hogares,36.99,accesos cada 100 hogares,ENACOM
+66,Salta,3T2020,telefonia_fija_accesos_cada_100_hogares,29.84,accesos cada 100 hogares,ENACOM
+70,San Juan,3T2020,telefonia_fija_accesos_cada_100_hogares,37.54,accesos cada 100 hogares,ENACOM
+74,San Luis,3T2020,telefonia_fija_accesos_cada_100_hogares,23.62,accesos cada 100 hogares,ENACOM
+78,Santa Cruz,3T2020,telefonia_fija_accesos_cada_100_hogares,24.97,accesos cada 100 hogares,ENACOM
+82,Santa Fe,3T2020,telefonia_fija_accesos_cada_100_hogares,56.08,accesos cada 100 hogares,ENACOM
+86,Santiago del Estero,3T2020,telefonia_fija_accesos_cada_100_hogares,27.28,accesos cada 100 hogares,ENACOM
+94,Tierra del Fuego,3T2020,telefonia_fija_accesos_cada_100_hogares,41.79,accesos cada 100 hogares,ENACOM
+90,Tucumán,3T2020,telefonia_fija_accesos_cada_100_hogares,43.26,accesos cada 100 hogares,ENACOM
+06,Buenos Aires,4T2020,telefonia_fija_accesos_cada_100_hogares,55.28,accesos cada 100 hogares,ENACOM
+02,CABA,4T2020,telefonia_fija_accesos_cada_100_hogares,111.79,accesos cada 100 hogares,ENACOM
+10,Catamarca,4T2020,telefonia_fija_accesos_cada_100_hogares,31.61,accesos cada 100 hogares,ENACOM
+22,Chaco,4T2020,telefonia_fija_accesos_cada_100_hogares,25.09,accesos cada 100 hogares,ENACOM
+26,Chubut,4T2020,telefonia_fija_accesos_cada_100_hogares,38.22,accesos cada 100 hogares,ENACOM
+14,Córdoba,4T2020,telefonia_fija_accesos_cada_100_hogares,46.28,accesos cada 100 hogares,ENACOM
+18,Corrientes,4T2020,telefonia_fija_accesos_cada_100_hogares,28.81,accesos cada 100 hogares,ENACOM
+30,Entre Ríos,4T2020,telefonia_fija_accesos_cada_100_hogares,43.03,accesos cada 100 hogares,ENACOM
+34,Formosa,4T2020,telefonia_fija_accesos_cada_100_hogares,22.04,accesos cada 100 hogares,ENACOM
+38,Jujuy,4T2020,telefonia_fija_accesos_cada_100_hogares,23.07,accesos cada 100 hogares,ENACOM
+42,La Pampa,4T2020,telefonia_fija_accesos_cada_100_hogares,59.6,accesos cada 100 hogares,ENACOM
+46,La Rioja,4T2020,telefonia_fija_accesos_cada_100_hogares,27.82,accesos cada 100 hogares,ENACOM
+50,Mendoza,4T2020,telefonia_fija_accesos_cada_100_hogares,35.21,accesos cada 100 hogares,ENACOM
+54,Misiones,4T2020,telefonia_fija_accesos_cada_100_hogares,24.85,accesos cada 100 hogares,ENACOM
+58,Neuquén,4T2020,telefonia_fija_accesos_cada_100_hogares,37.52,accesos cada 100 hogares,ENACOM
+62,Río Negro,4T2020,telefonia_fija_accesos_cada_100_hogares,36.56,accesos cada 100 hogares,ENACOM
+66,Salta,4T2020,telefonia_fija_accesos_cada_100_hogares,29.3,accesos cada 100 hogares,ENACOM
+70,San Juan,4T2020,telefonia_fija_accesos_cada_100_hogares,37.44,accesos cada 100 hogares,ENACOM
+74,San Luis,4T2020,telefonia_fija_accesos_cada_100_hogares,23.55,accesos cada 100 hogares,ENACOM
+78,Santa Cruz,4T2020,telefonia_fija_accesos_cada_100_hogares,24.78,accesos cada 100 hogares,ENACOM
+82,Santa Fe,4T2020,telefonia_fija_accesos_cada_100_hogares,53.1,accesos cada 100 hogares,ENACOM
+86,Santiago del Estero,4T2020,telefonia_fija_accesos_cada_100_hogares,27.21,accesos cada 100 hogares,ENACOM
+94,Tierra del Fuego,4T2020,telefonia_fija_accesos_cada_100_hogares,41.53,accesos cada 100 hogares,ENACOM
+90,Tucumán,4T2020,telefonia_fija_accesos_cada_100_hogares,42.99,accesos cada 100 hogares,ENACOM
+06,Buenos Aires,1T2021,telefonia_fija_accesos_cada_100_hogares,55.58,accesos cada 100 hogares,ENACOM
+02,CABA,1T2021,telefonia_fija_accesos_cada_100_hogares,109.28,accesos cada 100 hogares,ENACOM
+10,Catamarca,1T2021,telefonia_fija_accesos_cada_100_hogares,25.24,accesos cada 100 hogares,ENACOM
+22,Chaco,1T2021,telefonia_fija_accesos_cada_100_hogares,23.63,accesos cada 100 hogares,ENACOM
+26,Chubut,1T2021,telefonia_fija_accesos_cada_100_hogares,38.72,accesos cada 100 hogares,ENACOM
+14,Córdoba,1T2021,telefonia_fija_accesos_cada_100_hogares,45.65,accesos cada 100 hogares,ENACOM
+18,Corrientes,1T2021,telefonia_fija_accesos_cada_100_hogares,26.79,accesos cada 100 hogares,ENACOM
+30,Entre Ríos,1T2021,telefonia_fija_accesos_cada_100_hogares,40.77,accesos cada 100 hogares,ENACOM
+34,Formosa,1T2021,telefonia_fija_accesos_cada_100_hogares,20.35,accesos cada 100 hogares,ENACOM
+38,Jujuy,1T2021,telefonia_fija_accesos_cada_100_hogares,21.87,accesos cada 100 hogares,ENACOM
+42,La Pampa,1T2021,telefonia_fija_accesos_cada_100_hogares,60.42,accesos cada 100 hogares,ENACOM
+46,La Rioja,1T2021,telefonia_fija_accesos_cada_100_hogares,23.25,accesos cada 100 hogares,ENACOM
+50,Mendoza,1T2021,telefonia_fija_accesos_cada_100_hogares,35.47,accesos cada 100 hogares,ENACOM
+54,Misiones,1T2021,telefonia_fija_accesos_cada_100_hogares,23.98,accesos cada 100 hogares,ENACOM
+58,Neuquén,1T2021,telefonia_fija_accesos_cada_100_hogares,37.8,accesos cada 100 hogares,ENACOM
+62,Río Negro,1T2021,telefonia_fija_accesos_cada_100_hogares,36.1,accesos cada 100 hogares,ENACOM
+66,Salta,1T2021,telefonia_fija_accesos_cada_100_hogares,28.01,accesos cada 100 hogares,ENACOM
+70,San Juan,1T2021,telefonia_fija_accesos_cada_100_hogares,37.74,accesos cada 100 hogares,ENACOM
+74,San Luis,1T2021,telefonia_fija_accesos_cada_100_hogares,23.77,accesos cada 100 hogares,ENACOM
+78,Santa Cruz,1T2021,telefonia_fija_accesos_cada_100_hogares,24.95,accesos cada 100 hogares,ENACOM
+82,Santa Fe,1T2021,telefonia_fija_accesos_cada_100_hogares,51.4,accesos cada 100 hogares,ENACOM
+86,Santiago del Estero,1T2021,telefonia_fija_accesos_cada_100_hogares,25.69,accesos cada 100 hogares,ENACOM
+94,Tierra del Fuego,1T2021,telefonia_fija_accesos_cada_100_hogares,42.3,accesos cada 100 hogares,ENACOM
+90,Tucumán,1T2021,telefonia_fija_accesos_cada_100_hogares,39.03,accesos cada 100 hogares,ENACOM
+06,Buenos Aires,2T2021,telefonia_fija_accesos_cada_100_hogares,41.31,accesos cada 100 hogares,ENACOM
+02,CABA,2T2021,telefonia_fija_accesos_cada_100_hogares,66.68,accesos cada 100 hogares,ENACOM
+10,Catamarca,2T2021,telefonia_fija_accesos_cada_100_hogares,25.34,accesos cada 100 hogares,ENACOM
+22,Chaco,2T2021,telefonia_fija_accesos_cada_100_hogares,23.56,accesos cada 100 hogares,ENACOM
+26,Chubut,2T2021,telefonia_fija_accesos_cada_100_hogares,38.57,accesos cada 100 hogares,ENACOM
+14,Córdoba,2T2021,telefonia_fija_accesos_cada_100_hogares,43.49,accesos cada 100 hogares,ENACOM
+18,Corrientes,2T2021,telefonia_fija_accesos_cada_100_hogares,27.3,accesos cada 100 hogares,ENACOM
+30,Entre Ríos,2T2021,telefonia_fija_accesos_cada_100_hogares,40.7,accesos cada 100 hogares,ENACOM
+34,Formosa,2T2021,telefonia_fija_accesos_cada_100_hogares,20.86,accesos cada 100 hogares,ENACOM
+38,Jujuy,2T2021,telefonia_fija_accesos_cada_100_hogares,18.67,accesos cada 100 hogares,ENACOM
+42,La Pampa,2T2021,telefonia_fija_accesos_cada_100_hogares,60.42,accesos cada 100 hogares,ENACOM
+46,La Rioja,2T2021,telefonia_fija_accesos_cada_100_hogares,21.37,accesos cada 100 hogares,ENACOM
+50,Mendoza,2T2021,telefonia_fija_accesos_cada_100_hogares,35.33,accesos cada 100 hogares,ENACOM
+54,Misiones,2T2021,telefonia_fija_accesos_cada_100_hogares,23.67,accesos cada 100 hogares,ENACOM
+58,Neuquén,2T2021,telefonia_fija_accesos_cada_100_hogares,37.63,accesos cada 100 hogares,ENACOM
+62,Río Negro,2T2021,telefonia_fija_accesos_cada_100_hogares,36.6,accesos cada 100 hogares,ENACOM
+66,Salta,2T2021,telefonia_fija_accesos_cada_100_hogares,27.92,accesos cada 100 hogares,ENACOM
+70,San Juan,2T2021,telefonia_fija_accesos_cada_100_hogares,37.64,accesos cada 100 hogares,ENACOM
+74,San Luis,2T2021,telefonia_fija_accesos_cada_100_hogares,23.69,accesos cada 100 hogares,ENACOM
+78,Santa Cruz,2T2021,telefonia_fija_accesos_cada_100_hogares,24.84,accesos cada 100 hogares,ENACOM
+82,Santa Fe,2T2021,telefonia_fija_accesos_cada_100_hogares,49.96,accesos cada 100 hogares,ENACOM
+86,Santiago del Estero,2T2021,telefonia_fija_accesos_cada_100_hogares,24.26,accesos cada 100 hogares,ENACOM
+94,Tierra del Fuego,2T2021,telefonia_fija_accesos_cada_100_hogares,42.04,accesos cada 100 hogares,ENACOM
+90,Tucumán,2T2021,telefonia_fija_accesos_cada_100_hogares,33.37,accesos cada 100 hogares,ENACOM
+06,Buenos Aires,3T2021,telefonia_fija_accesos_cada_100_hogares,54.38,accesos cada 100 hogares,ENACOM
+02,CABA,3T2021,telefonia_fija_accesos_cada_100_hogares,107.27,accesos cada 100 hogares,ENACOM
+10,Catamarca,3T2021,telefonia_fija_accesos_cada_100_hogares,23.32,accesos cada 100 hogares,ENACOM
+22,Chaco,3T2021,telefonia_fija_accesos_cada_100_hogares,22.88,accesos cada 100 hogares,ENACOM
+26,Chubut,3T2021,telefonia_fija_accesos_cada_100_hogares,38.41,accesos cada 100 hogares,ENACOM
+14,Córdoba,3T2021,telefonia_fija_accesos_cada_100_hogares,41.97,accesos cada 100 hogares,ENACOM
+18,Corrientes,3T2021,telefonia_fija_accesos_cada_100_hogares,26.41,accesos cada 100 hogares,ENACOM
+30,Entre Ríos,3T2021,telefonia_fija_accesos_cada_100_hogares,39.52,accesos cada 100 hogares,ENACOM
+34,Formosa,3T2021,telefonia_fija_accesos_cada_100_hogares,19.76,accesos cada 100 hogares,ENACOM
+38,Jujuy,3T2021,telefonia_fija_accesos_cada_100_hogares,17.8,accesos cada 100 hogares,ENACOM
+42,La Pampa,3T2021,telefonia_fija_accesos_cada_100_hogares,60.65,accesos cada 100 hogares,ENACOM
+46,La Rioja,3T2021,telefonia_fija_accesos_cada_100_hogares,20.59,accesos cada 100 hogares,ENACOM
+50,Mendoza,3T2021,telefonia_fija_accesos_cada_100_hogares,35.23,accesos cada 100 hogares,ENACOM
+54,Misiones,3T2021,telefonia_fija_accesos_cada_100_hogares,22.92,accesos cada 100 hogares,ENACOM
+58,Neuquén,3T2021,telefonia_fija_accesos_cada_100_hogares,37.46,accesos cada 100 hogares,ENACOM
+62,Río Negro,3T2021,telefonia_fija_accesos_cada_100_hogares,36.33,accesos cada 100 hogares,ENACOM
+66,Salta,3T2021,telefonia_fija_accesos_cada_100_hogares,27.14,accesos cada 100 hogares,ENACOM
+70,San Juan,3T2021,telefonia_fija_accesos_cada_100_hogares,37.54,accesos cada 100 hogares,ENACOM
+74,San Luis,3T2021,telefonia_fija_accesos_cada_100_hogares,23.62,accesos cada 100 hogares,ENACOM
+78,Santa Cruz,3T2021,telefonia_fija_accesos_cada_100_hogares,24.68,accesos cada 100 hogares,ENACOM
+82,Santa Fe,3T2021,telefonia_fija_accesos_cada_100_hogares,48.48,accesos cada 100 hogares,ENACOM
+86,Santiago del Estero,3T2021,telefonia_fija_accesos_cada_100_hogares,23.59,accesos cada 100 hogares,ENACOM
+94,Tierra del Fuego,3T2021,telefonia_fija_accesos_cada_100_hogares,41.79,accesos cada 100 hogares,ENACOM
+90,Tucumán,3T2021,telefonia_fija_accesos_cada_100_hogares,31.64,accesos cada 100 hogares,ENACOM
+06,Buenos Aires,4T2021,telefonia_fija_accesos_cada_100_hogares,56.67,accesos cada 100 hogares,ENACOM
+02,CABA,4T2021,telefonia_fija_accesos_cada_100_hogares,112.99,accesos cada 100 hogares,ENACOM
+10,Catamarca,4T2021,telefonia_fija_accesos_cada_100_hogares,27.94,accesos cada 100 hogares,ENACOM
+22,Chaco,4T2021,telefonia_fija_accesos_cada_100_hogares,28.1,accesos cada 100 hogares,ENACOM
+26,Chubut,4T2021,telefonia_fija_accesos_cada_100_hogares,35.71,accesos cada 100 hogares,ENACOM
+14,Córdoba,4T2021,telefonia_fija_accesos_cada_100_hogares,50.49,accesos cada 100 hogares,ENACOM
+18,Corrientes,4T2021,telefonia_fija_accesos_cada_100_hogares,33.08,accesos cada 100 hogares,ENACOM
+30,Entre Ríos,4T2021,telefonia_fija_accesos_cada_100_hogares,49.89,accesos cada 100 hogares,ENACOM
+34,Formosa,4T2021,telefonia_fija_accesos_cada_100_hogares,23.56,accesos cada 100 hogares,ENACOM
+38,Jujuy,4T2021,telefonia_fija_accesos_cada_100_hogares,22.35,accesos cada 100 hogares,ENACOM
+42,La Pampa,4T2021,telefonia_fija_accesos_cada_100_hogares,60.55,accesos cada 100 hogares,ENACOM
+46,La Rioja,4T2021,telefonia_fija_accesos_cada_100_hogares,25.41,accesos cada 100 hogares,ENACOM
+50,Mendoza,4T2021,telefonia_fija_accesos_cada_100_hogares,36.67,accesos cada 100 hogares,ENACOM
+54,Misiones,4T2021,telefonia_fija_accesos_cada_100_hogares,28.58,accesos cada 100 hogares,ENACOM
+58,Neuquén,4T2021,telefonia_fija_accesos_cada_100_hogares,36.55,accesos cada 100 hogares,ENACOM
+62,Río Negro,4T2021,telefonia_fija_accesos_cada_100_hogares,37.33,accesos cada 100 hogares,ENACOM
+66,Salta,4T2021,telefonia_fija_accesos_cada_100_hogares,34.69,accesos cada 100 hogares,ENACOM
+70,San Juan,4T2021,telefonia_fija_accesos_cada_100_hogares,33.34,accesos cada 100 hogares,ENACOM
+74,San Luis,4T2021,telefonia_fija_accesos_cada_100_hogares,22.58,accesos cada 100 hogares,ENACOM
+78,Santa Cruz,4T2021,telefonia_fija_accesos_cada_100_hogares,25.23,accesos cada 100 hogares,ENACOM
+82,Santa Fe,4T2021,telefonia_fija_accesos_cada_100_hogares,58.79,accesos cada 100 hogares,ENACOM
+86,Santiago del Estero,4T2021,telefonia_fija_accesos_cada_100_hogares,27.34,accesos cada 100 hogares,ENACOM
+94,Tierra del Fuego,4T2021,telefonia_fija_accesos_cada_100_hogares,36.46,accesos cada 100 hogares,ENACOM
+90,Tucumán,4T2021,telefonia_fija_accesos_cada_100_hogares,39.28,accesos cada 100 hogares,ENACOM
+06,Buenos Aires,1T2022,telefonia_fija_accesos_cada_100_hogares,53.12,accesos cada 100 hogares,ENACOM
+02,CABA,1T2022,telefonia_fija_accesos_cada_100_hogares,112.15,accesos cada 100 hogares,ENACOM
+10,Catamarca,1T2022,telefonia_fija_accesos_cada_100_hogares,28.62,accesos cada 100 hogares,ENACOM
+22,Chaco,1T2022,telefonia_fija_accesos_cada_100_hogares,26.43,accesos cada 100 hogares,ENACOM
+26,Chubut,1T2022,telefonia_fija_accesos_cada_100_hogares,32.39,accesos cada 100 hogares,ENACOM
+14,Córdoba,1T2022,telefonia_fija_accesos_cada_100_hogares,50.43,accesos cada 100 hogares,ENACOM
+18,Corrientes,1T2022,telefonia_fija_accesos_cada_100_hogares,30.22,accesos cada 100 hogares,ENACOM
+30,Entre Ríos,1T2022,telefonia_fija_accesos_cada_100_hogares,45.9,accesos cada 100 hogares,ENACOM
+34,Formosa,1T2022,telefonia_fija_accesos_cada_100_hogares,22.02,accesos cada 100 hogares,ENACOM
+38,Jujuy,1T2022,telefonia_fija_accesos_cada_100_hogares,24.79,accesos cada 100 hogares,ENACOM
+42,La Pampa,1T2022,telefonia_fija_accesos_cada_100_hogares,58.27,accesos cada 100 hogares,ENACOM
+46,La Rioja,1T2022,telefonia_fija_accesos_cada_100_hogares,26.35,accesos cada 100 hogares,ENACOM
+50,Mendoza,1T2022,telefonia_fija_accesos_cada_100_hogares,29.56,accesos cada 100 hogares,ENACOM
+54,Misiones,1T2022,telefonia_fija_accesos_cada_100_hogares,26.68,accesos cada 100 hogares,ENACOM
+58,Neuquén,1T2022,telefonia_fija_accesos_cada_100_hogares,33.45,accesos cada 100 hogares,ENACOM
+62,Río Negro,1T2022,telefonia_fija_accesos_cada_100_hogares,31.17,accesos cada 100 hogares,ENACOM
+66,Salta,1T2022,telefonia_fija_accesos_cada_100_hogares,31.74,accesos cada 100 hogares,ENACOM
+70,San Juan,1T2022,telefonia_fija_accesos_cada_100_hogares,31.65,accesos cada 100 hogares,ENACOM
+74,San Luis,1T2022,telefonia_fija_accesos_cada_100_hogares,20.76,accesos cada 100 hogares,ENACOM
+78,Santa Cruz,1T2022,telefonia_fija_accesos_cada_100_hogares,22.02,accesos cada 100 hogares,ENACOM
+82,Santa Fe,1T2022,telefonia_fija_accesos_cada_100_hogares,56.67,accesos cada 100 hogares,ENACOM
+86,Santiago del Estero,1T2022,telefonia_fija_accesos_cada_100_hogares,27.9,accesos cada 100 hogares,ENACOM
+94,Tierra del Fuego,1T2022,telefonia_fija_accesos_cada_100_hogares,35.23,accesos cada 100 hogares,ENACOM
+90,Tucumán,1T2022,telefonia_fija_accesos_cada_100_hogares,44.23,accesos cada 100 hogares,ENACOM
+06,Buenos Aires,2T2022,telefonia_fija_accesos_cada_100_hogares,39.29,accesos cada 100 hogares,ENACOM
+02,CABA,2T2022,telefonia_fija_accesos_cada_100_hogares,79.15,accesos cada 100 hogares,ENACOM
+10,Catamarca,2T2022,telefonia_fija_accesos_cada_100_hogares,25.69,accesos cada 100 hogares,ENACOM
+22,Chaco,2T2022,telefonia_fija_accesos_cada_100_hogares,21.17,accesos cada 100 hogares,ENACOM
+26,Chubut,2T2022,telefonia_fija_accesos_cada_100_hogares,30.99,accesos cada 100 hogares,ENACOM
+14,Córdoba,2T2022,telefonia_fija_accesos_cada_100_hogares,42.23,accesos cada 100 hogares,ENACOM
+18,Corrientes,2T2022,telefonia_fija_accesos_cada_100_hogares,30.78,accesos cada 100 hogares,ENACOM
+30,Entre Ríos,2T2022,telefonia_fija_accesos_cada_100_hogares,39.05,accesos cada 100 hogares,ENACOM
+34,Formosa,2T2022,telefonia_fija_accesos_cada_100_hogares,22.8,accesos cada 100 hogares,ENACOM
+38,Jujuy,2T2022,telefonia_fija_accesos_cada_100_hogares,19.03,accesos cada 100 hogares,ENACOM
+42,La Pampa,2T2022,telefonia_fija_accesos_cada_100_hogares,57.74,accesos cada 100 hogares,ENACOM
+46,La Rioja,2T2022,telefonia_fija_accesos_cada_100_hogares,25.15,accesos cada 100 hogares,ENACOM
+50,Mendoza,2T2022,telefonia_fija_accesos_cada_100_hogares,24.83,accesos cada 100 hogares,ENACOM
+54,Misiones,2T2022,telefonia_fija_accesos_cada_100_hogares,22.31,accesos cada 100 hogares,ENACOM
+58,Neuquén,2T2022,telefonia_fija_accesos_cada_100_hogares,35.88,accesos cada 100 hogares,ENACOM
+62,Río Negro,2T2022,telefonia_fija_accesos_cada_100_hogares,28.55,accesos cada 100 hogares,ENACOM
+66,Salta,2T2022,telefonia_fija_accesos_cada_100_hogares,26.08,accesos cada 100 hogares,ENACOM
+70,San Juan,2T2022,telefonia_fija_accesos_cada_100_hogares,30.47,accesos cada 100 hogares,ENACOM
+74,San Luis,2T2022,telefonia_fija_accesos_cada_100_hogares,17.46,accesos cada 100 hogares,ENACOM
+78,Santa Cruz,2T2022,telefonia_fija_accesos_cada_100_hogares,21.31,accesos cada 100 hogares,ENACOM
+82,Santa Fe,2T2022,telefonia_fija_accesos_cada_100_hogares,45.96,accesos cada 100 hogares,ENACOM
+86,Santiago del Estero,2T2022,telefonia_fija_accesos_cada_100_hogares,25.9,accesos cada 100 hogares,ENACOM
+94,Tierra del Fuego,2T2022,telefonia_fija_accesos_cada_100_hogares,37.26,accesos cada 100 hogares,ENACOM
+90,Tucumán,2T2022,telefonia_fija_accesos_cada_100_hogares,40.25,accesos cada 100 hogares,ENACOM
+06,Buenos Aires,3T2022,telefonia_fija_accesos_cada_100_hogares,51.58,accesos cada 100 hogares,ENACOM
+02,CABA,3T2022,telefonia_fija_accesos_cada_100_hogares,111.59,accesos cada 100 hogares,ENACOM
+10,Catamarca,3T2022,telefonia_fija_accesos_cada_100_hogares,18.9,accesos cada 100 hogares,ENACOM
+22,Chaco,3T2022,telefonia_fija_accesos_cada_100_hogares,17.26,accesos cada 100 hogares,ENACOM
+26,Chubut,3T2022,telefonia_fija_accesos_cada_100_hogares,27.2,accesos cada 100 hogares,ENACOM
+14,Córdoba,3T2022,telefonia_fija_accesos_cada_100_hogares,34.71,accesos cada 100 hogares,ENACOM
+18,Corrientes,3T2022,telefonia_fija_accesos_cada_100_hogares,23.82,accesos cada 100 hogares,ENACOM
+30,Entre Ríos,3T2022,telefonia_fija_accesos_cada_100_hogares,31.25,accesos cada 100 hogares,ENACOM
+34,Formosa,3T2022,telefonia_fija_accesos_cada_100_hogares,17.68,accesos cada 100 hogares,ENACOM
+38,Jujuy,3T2022,telefonia_fija_accesos_cada_100_hogares,14.72,accesos cada 100 hogares,ENACOM
+42,La Pampa,3T2022,telefonia_fija_accesos_cada_100_hogares,46.36,accesos cada 100 hogares,ENACOM
+46,La Rioja,3T2022,telefonia_fija_accesos_cada_100_hogares,19.95,accesos cada 100 hogares,ENACOM
+50,Mendoza,3T2022,telefonia_fija_accesos_cada_100_hogares,21.25,accesos cada 100 hogares,ENACOM
+54,Misiones,3T2022,telefonia_fija_accesos_cada_100_hogares,17.84,accesos cada 100 hogares,ENACOM
+58,Neuquén,3T2022,telefonia_fija_accesos_cada_100_hogares,28.56,accesos cada 100 hogares,ENACOM
+62,Río Negro,3T2022,telefonia_fija_accesos_cada_100_hogares,23.12,accesos cada 100 hogares,ENACOM
+66,Salta,3T2022,telefonia_fija_accesos_cada_100_hogares,20.86,accesos cada 100 hogares,ENACOM
+70,San Juan,3T2022,telefonia_fija_accesos_cada_100_hogares,24.39,accesos cada 100 hogares,ENACOM
+74,San Luis,3T2022,telefonia_fija_accesos_cada_100_hogares,13.75,accesos cada 100 hogares,ENACOM
+78,Santa Cruz,3T2022,telefonia_fija_accesos_cada_100_hogares,19.15,accesos cada 100 hogares,ENACOM
+82,Santa Fe,3T2022,telefonia_fija_accesos_cada_100_hogares,38.24,accesos cada 100 hogares,ENACOM
+86,Santiago del Estero,3T2022,telefonia_fija_accesos_cada_100_hogares,19.81,accesos cada 100 hogares,ENACOM
+94,Tierra del Fuego,3T2022,telefonia_fija_accesos_cada_100_hogares,29.1,accesos cada 100 hogares,ENACOM
+90,Tucumán,3T2022,telefonia_fija_accesos_cada_100_hogares,32.25,accesos cada 100 hogares,ENACOM
+06,Buenos Aires,4T2022,telefonia_fija_accesos_cada_100_hogares,51.85,accesos cada 100 hogares,ENACOM
+02,CABA,4T2022,telefonia_fija_accesos_cada_100_hogares,111.37,accesos cada 100 hogares,ENACOM
+10,Catamarca,4T2022,telefonia_fija_accesos_cada_100_hogares,18.42,accesos cada 100 hogares,ENACOM
+22,Chaco,4T2022,telefonia_fija_accesos_cada_100_hogares,16.8,accesos cada 100 hogares,ENACOM
+26,Chubut,4T2022,telefonia_fija_accesos_cada_100_hogares,25.07,accesos cada 100 hogares,ENACOM
+14,Córdoba,4T2022,telefonia_fija_accesos_cada_100_hogares,35.08,accesos cada 100 hogares,ENACOM
+18,Corrientes,4T2022,telefonia_fija_accesos_cada_100_hogares,23.66,accesos cada 100 hogares,ENACOM
+30,Entre Ríos,4T2022,telefonia_fija_accesos_cada_100_hogares,31.69,accesos cada 100 hogares,ENACOM
+34,Formosa,4T2022,telefonia_fija_accesos_cada_100_hogares,17.54,accesos cada 100 hogares,ENACOM
+38,Jujuy,4T2022,telefonia_fija_accesos_cada_100_hogares,14.64,accesos cada 100 hogares,ENACOM
+42,La Pampa,4T2022,telefonia_fija_accesos_cada_100_hogares,46.04,accesos cada 100 hogares,ENACOM
+46,La Rioja,4T2022,telefonia_fija_accesos_cada_100_hogares,19.85,accesos cada 100 hogares,ENACOM
+50,Mendoza,4T2022,telefonia_fija_accesos_cada_100_hogares,25.02,accesos cada 100 hogares,ENACOM
+54,Misiones,4T2022,telefonia_fija_accesos_cada_100_hogares,17.63,accesos cada 100 hogares,ENACOM
+58,Neuquén,4T2022,telefonia_fija_accesos_cada_100_hogares,27.01,accesos cada 100 hogares,ENACOM
+62,Río Negro,4T2022,telefonia_fija_accesos_cada_100_hogares,23.68,accesos cada 100 hogares,ENACOM
+66,Salta,4T2022,telefonia_fija_accesos_cada_100_hogares,20.41,accesos cada 100 hogares,ENACOM
+70,San Juan,4T2022,telefonia_fija_accesos_cada_100_hogares,21.14,accesos cada 100 hogares,ENACOM
+74,San Luis,4T2022,telefonia_fija_accesos_cada_100_hogares,15.09,accesos cada 100 hogares,ENACOM
+78,Santa Cruz,4T2022,telefonia_fija_accesos_cada_100_hogares,19.35,accesos cada 100 hogares,ENACOM
+82,Santa Fe,4T2022,telefonia_fija_accesos_cada_100_hogares,37.35,accesos cada 100 hogares,ENACOM
+86,Santiago del Estero,4T2022,telefonia_fija_accesos_cada_100_hogares,20.59,accesos cada 100 hogares,ENACOM
+94,Tierra del Fuego,4T2022,telefonia_fija_accesos_cada_100_hogares,22.73,accesos cada 100 hogares,ENACOM
+90,Tucumán,4T2022,telefonia_fija_accesos_cada_100_hogares,31.92,accesos cada 100 hogares,ENACOM
+06,Buenos Aires,1T2023,telefonia_fija_accesos_cada_100_hogares,48.77,accesos cada 100 hogares,ENACOM
+02,CABA,1T2023,telefonia_fija_accesos_cada_100_hogares,103.5,accesos cada 100 hogares,ENACOM
+10,Catamarca,1T2023,telefonia_fija_accesos_cada_100_hogares,20.58,accesos cada 100 hogares,ENACOM
+22,Chaco,1T2023,telefonia_fija_accesos_cada_100_hogares,20.46,accesos cada 100 hogares,ENACOM
+26,Chubut,1T2023,telefonia_fija_accesos_cada_100_hogares,26.46,accesos cada 100 hogares,ENACOM
+14,Córdoba,1T2023,telefonia_fija_accesos_cada_100_hogares,40.3,accesos cada 100 hogares,ENACOM
+18,Corrientes,1T2023,telefonia_fija_accesos_cada_100_hogares,22.21,accesos cada 100 hogares,ENACOM
+30,Entre Ríos,1T2023,telefonia_fija_accesos_cada_100_hogares,34.99,accesos cada 100 hogares,ENACOM
+34,Formosa,1T2023,telefonia_fija_accesos_cada_100_hogares,16.29,accesos cada 100 hogares,ENACOM
+38,Jujuy,1T2023,telefonia_fija_accesos_cada_100_hogares,18.75,accesos cada 100 hogares,ENACOM
+42,La Pampa,1T2023,telefonia_fija_accesos_cada_100_hogares,46.7,accesos cada 100 hogares,ENACOM
+46,La Rioja,1T2023,telefonia_fija_accesos_cada_100_hogares,19.69,accesos cada 100 hogares,ENACOM
+50,Mendoza,1T2023,telefonia_fija_accesos_cada_100_hogares,26.46,accesos cada 100 hogares,ENACOM
+54,Misiones,1T2023,telefonia_fija_accesos_cada_100_hogares,19.56,accesos cada 100 hogares,ENACOM
+58,Neuquén,1T2023,telefonia_fija_accesos_cada_100_hogares,24.73,accesos cada 100 hogares,ENACOM
+62,Río Negro,1T2023,telefonia_fija_accesos_cada_100_hogares,23.5,accesos cada 100 hogares,ENACOM
+66,Salta,1T2023,telefonia_fija_accesos_cada_100_hogares,23.91,accesos cada 100 hogares,ENACOM
+70,San Juan,1T2023,telefonia_fija_accesos_cada_100_hogares,23.82,accesos cada 100 hogares,ENACOM
+74,San Luis,1T2023,telefonia_fija_accesos_cada_100_hogares,15.87,accesos cada 100 hogares,ENACOM
+78,Santa Cruz,1T2023,telefonia_fija_accesos_cada_100_hogares,18.81,accesos cada 100 hogares,ENACOM
+82,Santa Fe,1T2023,telefonia_fija_accesos_cada_100_hogares,45.2,accesos cada 100 hogares,ENACOM
+86,Santiago del Estero,1T2023,telefonia_fija_accesos_cada_100_hogares,20.5,accesos cada 100 hogares,ENACOM
+94,Tierra del Fuego,1T2023,telefonia_fija_accesos_cada_100_hogares,25.93,accesos cada 100 hogares,ENACOM
+90,Tucumán,1T2023,telefonia_fija_accesos_cada_100_hogares,33.69,accesos cada 100 hogares,ENACOM
+06,Buenos Aires,2T2023,telefonia_fija_accesos_cada_100_hogares,38.9,accesos cada 100 hogares,ENACOM
+02,CABA,2T2023,telefonia_fija_accesos_cada_100_hogares,79.18,accesos cada 100 hogares,ENACOM
+10,Catamarca,2T2023,telefonia_fija_accesos_cada_100_hogares,15.38,accesos cada 100 hogares,ENACOM
+22,Chaco,2T2023,telefonia_fija_accesos_cada_100_hogares,14.67,accesos cada 100 hogares,ENACOM
+26,Chubut,2T2023,telefonia_fija_accesos_cada_100_hogares,27.73,accesos cada 100 hogares,ENACOM
+14,Córdoba,2T2023,telefonia_fija_accesos_cada_100_hogares,32.96,accesos cada 100 hogares,ENACOM
+18,Corrientes,2T2023,telefonia_fija_accesos_cada_100_hogares,22.42,accesos cada 100 hogares,ENACOM
+30,Entre Ríos,2T2023,telefonia_fija_accesos_cada_100_hogares,29.36,accesos cada 100 hogares,ENACOM
+34,Formosa,2T2023,telefonia_fija_accesos_cada_100_hogares,16.5,accesos cada 100 hogares,ENACOM
+38,Jujuy,2T2023,telefonia_fija_accesos_cada_100_hogares,12.58,accesos cada 100 hogares,ENACOM
+42,La Pampa,2T2023,telefonia_fija_accesos_cada_100_hogares,45.95,accesos cada 100 hogares,ENACOM
+46,La Rioja,2T2023,telefonia_fija_accesos_cada_100_hogares,17.8,accesos cada 100 hogares,ENACOM
+50,Mendoza,2T2023,telefonia_fija_accesos_cada_100_hogares,25.91,accesos cada 100 hogares,ENACOM
+54,Misiones,2T2023,telefonia_fija_accesos_cada_100_hogares,16.51,accesos cada 100 hogares,ENACOM
+58,Neuquén,2T2023,telefonia_fija_accesos_cada_100_hogares,29.6,accesos cada 100 hogares,ENACOM
+62,Río Negro,2T2023,telefonia_fija_accesos_cada_100_hogares,22.46,accesos cada 100 hogares,ENACOM
+66,Salta,2T2023,telefonia_fija_accesos_cada_100_hogares,18.1,accesos cada 100 hogares,ENACOM
+70,San Juan,2T2023,telefonia_fija_accesos_cada_100_hogares,25.2,accesos cada 100 hogares,ENACOM
+74,San Luis,2T2023,telefonia_fija_accesos_cada_100_hogares,14.47,accesos cada 100 hogares,ENACOM
+78,Santa Cruz,2T2023,telefonia_fija_accesos_cada_100_hogares,19.68,accesos cada 100 hogares,ENACOM
+82,Santa Fe,2T2023,telefonia_fija_accesos_cada_100_hogares,35.89,accesos cada 100 hogares,ENACOM
+86,Santiago del Estero,2T2023,telefonia_fija_accesos_cada_100_hogares,19.57,accesos cada 100 hogares,ENACOM
+94,Tierra del Fuego,2T2023,telefonia_fija_accesos_cada_100_hogares,30.85,accesos cada 100 hogares,ENACOM
+90,Tucumán,2T2023,telefonia_fija_accesos_cada_100_hogares,29.48,accesos cada 100 hogares,ENACOM
+06,Buenos Aires,3T2023,telefonia_fija_accesos_cada_100_hogares,53.06,accesos cada 100 hogares,ENACOM
+02,CABA,3T2023,telefonia_fija_accesos_cada_100_hogares,120.11,accesos cada 100 hogares,ENACOM
+10,Catamarca,3T2023,telefonia_fija_accesos_cada_100_hogares,15.35,accesos cada 100 hogares,ENACOM
+22,Chaco,3T2023,telefonia_fija_accesos_cada_100_hogares,14.28,accesos cada 100 hogares,ENACOM
+26,Chubut,3T2023,telefonia_fija_accesos_cada_100_hogares,27.71,accesos cada 100 hogares,ENACOM
+14,Córdoba,3T2023,telefonia_fija_accesos_cada_100_hogares,32.78,accesos cada 100 hogares,ENACOM
+18,Corrientes,3T2023,telefonia_fija_accesos_cada_100_hogares,21.98,accesos cada 100 hogares,ENACOM
+30,Entre Ríos,3T2023,telefonia_fija_accesos_cada_100_hogares,29.16,accesos cada 100 hogares,ENACOM
+34,Formosa,3T2023,telefonia_fija_accesos_cada_100_hogares,16.85,accesos cada 100 hogares,ENACOM
+38,Jujuy,3T2023,telefonia_fija_accesos_cada_100_hogares,11.96,accesos cada 100 hogares,ENACOM
+42,La Pampa,3T2023,telefonia_fija_accesos_cada_100_hogares,45.91,accesos cada 100 hogares,ENACOM
+46,La Rioja,3T2023,telefonia_fija_accesos_cada_100_hogares,17.74,accesos cada 100 hogares,ENACOM
+50,Mendoza,3T2023,telefonia_fija_accesos_cada_100_hogares,26.15,accesos cada 100 hogares,ENACOM
+54,Misiones,3T2023,telefonia_fija_accesos_cada_100_hogares,15.97,accesos cada 100 hogares,ENACOM
+58,Neuquén,3T2023,telefonia_fija_accesos_cada_100_hogares,29.68,accesos cada 100 hogares,ENACOM
+62,Río Negro,3T2023,telefonia_fija_accesos_cada_100_hogares,22.91,accesos cada 100 hogares,ENACOM
+66,Salta,3T2023,telefonia_fija_accesos_cada_100_hogares,18.12,accesos cada 100 hogares,ENACOM
+70,San Juan,3T2023,telefonia_fija_accesos_cada_100_hogares,25.17,accesos cada 100 hogares,ENACOM
+74,San Luis,3T2023,telefonia_fija_accesos_cada_100_hogares,14.45,accesos cada 100 hogares,ENACOM
+78,Santa Cruz,3T2023,telefonia_fija_accesos_cada_100_hogares,19.68,accesos cada 100 hogares,ENACOM
+82,Santa Fe,3T2023,telefonia_fija_accesos_cada_100_hogares,34.78,accesos cada 100 hogares,ENACOM
+86,Santiago del Estero,3T2023,telefonia_fija_accesos_cada_100_hogares,19.24,accesos cada 100 hogares,ENACOM
+94,Tierra del Fuego,3T2023,telefonia_fija_accesos_cada_100_hogares,30.82,accesos cada 100 hogares,ENACOM
+90,Tucumán,3T2023,telefonia_fija_accesos_cada_100_hogares,29.26,accesos cada 100 hogares,ENACOM
+06,Buenos Aires,4T2023,telefonia_fija_accesos_cada_100_hogares,52.31,accesos cada 100 hogares,ENACOM
+02,CABA,4T2023,telefonia_fija_accesos_cada_100_hogares,118.22,accesos cada 100 hogares,ENACOM
+10,Catamarca,4T2023,telefonia_fija_accesos_cada_100_hogares,14.82,accesos cada 100 hogares,ENACOM
+22,Chaco,4T2023,telefonia_fija_accesos_cada_100_hogares,13.59,accesos cada 100 hogares,ENACOM
+26,Chubut,4T2023,telefonia_fija_accesos_cada_100_hogares,24.85,accesos cada 100 hogares,ENACOM
+14,Córdoba,4T2023,telefonia_fija_accesos_cada_100_hogares,33.65,accesos cada 100 hogares,ENACOM
+18,Corrientes,4T2023,telefonia_fija_accesos_cada_100_hogares,21.35,accesos cada 100 hogares,ENACOM
+30,Entre Ríos,4T2023,telefonia_fija_accesos_cada_100_hogares,28.47,accesos cada 100 hogares,ENACOM
+34,Formosa,4T2023,telefonia_fija_accesos_cada_100_hogares,17.59,accesos cada 100 hogares,ENACOM
+38,Jujuy,4T2023,telefonia_fija_accesos_cada_100_hogares,11.51,accesos cada 100 hogares,ENACOM
+42,La Pampa,4T2023,telefonia_fija_accesos_cada_100_hogares,45.99,accesos cada 100 hogares,ENACOM
+46,La Rioja,4T2023,telefonia_fija_accesos_cada_100_hogares,17.45,accesos cada 100 hogares,ENACOM
+50,Mendoza,4T2023,telefonia_fija_accesos_cada_100_hogares,28.99,accesos cada 100 hogares,ENACOM
+54,Misiones,4T2023,telefonia_fija_accesos_cada_100_hogares,15.41,accesos cada 100 hogares,ENACOM
+58,Neuquén,4T2023,telefonia_fija_accesos_cada_100_hogares,26.82,accesos cada 100 hogares,ENACOM
+62,Río Negro,4T2023,telefonia_fija_accesos_cada_100_hogares,23.91,accesos cada 100 hogares,ENACOM
+66,Salta,4T2023,telefonia_fija_accesos_cada_100_hogares,17.45,accesos cada 100 hogares,ENACOM
+70,San Juan,4T2023,telefonia_fija_accesos_cada_100_hogares,21.13,accesos cada 100 hogares,ENACOM
+74,San Luis,4T2023,telefonia_fija_accesos_cada_100_hogares,15.33,accesos cada 100 hogares,ENACOM
+78,Santa Cruz,4T2023,telefonia_fija_accesos_cada_100_hogares,18.84,accesos cada 100 hogares,ENACOM
+82,Santa Fe,4T2023,telefonia_fija_accesos_cada_100_hogares,33.77,accesos cada 100 hogares,ENACOM
+86,Santiago del Estero,4T2023,telefonia_fija_accesos_cada_100_hogares,18.82,accesos cada 100 hogares,ENACOM
+94,Tierra del Fuego,4T2023,telefonia_fija_accesos_cada_100_hogares,22.88,accesos cada 100 hogares,ENACOM
+90,Tucumán,4T2023,telefonia_fija_accesos_cada_100_hogares,28.49,accesos cada 100 hogares,ENACOM
+06,Buenos Aires,1T2024,telefonia_fija_accesos_cada_100_hogares,48.54,accesos cada 100 hogares,ENACOM
+02,CABA,1T2024,telefonia_fija_accesos_cada_100_hogares,101.77,accesos cada 100 hogares,ENACOM
+10,Catamarca,1T2024,telefonia_fija_accesos_cada_100_hogares,19.58,accesos cada 100 hogares,ENACOM
+22,Chaco,1T2024,telefonia_fija_accesos_cada_100_hogares,19.31,accesos cada 100 hogares,ENACOM
+26,Chubut,1T2024,telefonia_fija_accesos_cada_100_hogares,26.4,accesos cada 100 hogares,ENACOM
+14,Córdoba,1T2024,telefonia_fija_accesos_cada_100_hogares,38.52,accesos cada 100 hogares,ENACOM
+18,Corrientes,1T2024,telefonia_fija_accesos_cada_100_hogares,21.33,accesos cada 100 hogares,ENACOM
+30,Entre Ríos,1T2024,telefonia_fija_accesos_cada_100_hogares,33.39,accesos cada 100 hogares,ENACOM
+34,Formosa,1T2024,telefonia_fija_accesos_cada_100_hogares,15.17,accesos cada 100 hogares,ENACOM
+38,Jujuy,1T2024,telefonia_fija_accesos_cada_100_hogares,18.01,accesos cada 100 hogares,ENACOM
+42,La Pampa,1T2024,telefonia_fija_accesos_cada_100_hogares,45.13,accesos cada 100 hogares,ENACOM
+46,La Rioja,1T2024,telefonia_fija_accesos_cada_100_hogares,18.6,accesos cada 100 hogares,ENACOM
+50,Mendoza,1T2024,telefonia_fija_accesos_cada_100_hogares,26.43,accesos cada 100 hogares,ENACOM
+54,Misiones,1T2024,telefonia_fija_accesos_cada_100_hogares,18.97,accesos cada 100 hogares,ENACOM
+58,Neuquén,1T2024,telefonia_fija_accesos_cada_100_hogares,24.31,accesos cada 100 hogares,ENACOM
+62,Río Negro,1T2024,telefonia_fija_accesos_cada_100_hogares,23.88,accesos cada 100 hogares,ENACOM
+66,Salta,1T2024,telefonia_fija_accesos_cada_100_hogares,22.7,accesos cada 100 hogares,ENACOM
+70,San Juan,1T2024,telefonia_fija_accesos_cada_100_hogares,23.6,accesos cada 100 hogares,ENACOM
+74,San Luis,1T2024,telefonia_fija_accesos_cada_100_hogares,15.9,accesos cada 100 hogares,ENACOM
+78,Santa Cruz,1T2024,telefonia_fija_accesos_cada_100_hogares,18.33,accesos cada 100 hogares,ENACOM
+82,Santa Fe,1T2024,telefonia_fija_accesos_cada_100_hogares,44.68,accesos cada 100 hogares,ENACOM
+86,Santiago del Estero,1T2024,telefonia_fija_accesos_cada_100_hogares,19.93,accesos cada 100 hogares,ENACOM
+94,Tierra del Fuego,1T2024,telefonia_fija_accesos_cada_100_hogares,26.04,accesos cada 100 hogares,ENACOM
+90,Tucumán,1T2024,telefonia_fija_accesos_cada_100_hogares,32.05,accesos cada 100 hogares,ENACOM
+06,Buenos Aires,2T2024,telefonia_fija_accesos_cada_100_hogares,34.4,accesos cada 100 hogares,ENACOM
+02,CABA,2T2024,telefonia_fija_accesos_cada_100_hogares,61.05,accesos cada 100 hogares,ENACOM
+10,Catamarca,2T2024,telefonia_fija_accesos_cada_100_hogares,19.08,accesos cada 100 hogares,ENACOM
+22,Chaco,2T2024,telefonia_fija_accesos_cada_100_hogares,18.84,accesos cada 100 hogares,ENACOM
+26,Chubut,2T2024,telefonia_fija_accesos_cada_100_hogares,26.29,accesos cada 100 hogares,ENACOM
+14,Córdoba,2T2024,telefonia_fija_accesos_cada_100_hogares,37.69,accesos cada 100 hogares,ENACOM
+18,Corrientes,2T2024,telefonia_fija_accesos_cada_100_hogares,20.8,accesos cada 100 hogares,ENACOM
+30,Entre Ríos,2T2024,telefonia_fija_accesos_cada_100_hogares,32.59,accesos cada 100 hogares,ENACOM
+34,Formosa,2T2024,telefonia_fija_accesos_cada_100_hogares,14.75,accesos cada 100 hogares,ENACOM
+38,Jujuy,2T2024,telefonia_fija_accesos_cada_100_hogares,17.55,accesos cada 100 hogares,ENACOM
+42,La Pampa,2T2024,telefonia_fija_accesos_cada_100_hogares,44.06,accesos cada 100 hogares,ENACOM
+46,La Rioja,2T2024,telefonia_fija_accesos_cada_100_hogares,18.12,accesos cada 100 hogares,ENACOM
+50,Mendoza,2T2024,telefonia_fija_accesos_cada_100_hogares,26.41,accesos cada 100 hogares,ENACOM
+54,Misiones,2T2024,telefonia_fija_accesos_cada_100_hogares,18.51,accesos cada 100 hogares,ENACOM
+58,Neuquén,2T2024,telefonia_fija_accesos_cada_100_hogares,24.02,accesos cada 100 hogares,ENACOM
+62,Río Negro,2T2024,telefonia_fija_accesos_cada_100_hogares,23.8,accesos cada 100 hogares,ENACOM
+66,Salta,2T2024,telefonia_fija_accesos_cada_100_hogares,22.11,accesos cada 100 hogares,ENACOM
+70,San Juan,2T2024,telefonia_fija_accesos_cada_100_hogares,23.58,accesos cada 100 hogares,ENACOM
+74,San Luis,2T2024,telefonia_fija_accesos_cada_100_hogares,15.88,accesos cada 100 hogares,ENACOM
+78,Santa Cruz,2T2024,telefonia_fija_accesos_cada_100_hogares,18.32,accesos cada 100 hogares,ENACOM
+82,Santa Fe,2T2024,telefonia_fija_accesos_cada_100_hogares,43.79,accesos cada 100 hogares,ENACOM
+86,Santiago del Estero,2T2024,telefonia_fija_accesos_cada_100_hogares,19.59,accesos cada 100 hogares,ENACOM
+94,Tierra del Fuego,2T2024,telefonia_fija_accesos_cada_100_hogares,26.02,accesos cada 100 hogares,ENACOM
+90,Tucumán,2T2024,telefonia_fija_accesos_cada_100_hogares,31.23,accesos cada 100 hogares,ENACOM
+06,Buenos Aires,3T2024,telefonia_fija_accesos_cada_100_hogares,44.85,accesos cada 100 hogares,ENACOM
+02,CABA,3T2024,telefonia_fija_accesos_cada_100_hogares,93.95,accesos cada 100 hogares,ENACOM
+10,Catamarca,3T2024,telefonia_fija_accesos_cada_100_hogares,18.69,accesos cada 100 hogares,ENACOM
+22,Chaco,3T2024,telefonia_fija_accesos_cada_100_hogares,18.48,accesos cada 100 hogares,ENACOM
+26,Chubut,3T2024,telefonia_fija_accesos_cada_100_hogares,24.57,accesos cada 100 hogares,ENACOM
+14,Córdoba,3T2024,telefonia_fija_accesos_cada_100_hogares,37.09,accesos cada 100 hogares,ENACOM
+18,Corrientes,3T2024,telefonia_fija_accesos_cada_100_hogares,20.4,accesos cada 100 hogares,ENACOM
+30,Entre Ríos,3T2024,telefonia_fija_accesos_cada_100_hogares,31.98,accesos cada 100 hogares,ENACOM
+34,Formosa,3T2024,telefonia_fija_accesos_cada_100_hogares,14.44,accesos cada 100 hogares,ENACOM
+38,Jujuy,3T2024,telefonia_fija_accesos_cada_100_hogares,17.2,accesos cada 100 hogares,ENACOM
+42,La Pampa,3T2024,telefonia_fija_accesos_cada_100_hogares,42.42,accesos cada 100 hogares,ENACOM
+46,La Rioja,3T2024,telefonia_fija_accesos_cada_100_hogares,17.74,accesos cada 100 hogares,ENACOM
+50,Mendoza,3T2024,telefonia_fija_accesos_cada_100_hogares,24.78,accesos cada 100 hogares,ENACOM
+54,Misiones,3T2024,telefonia_fija_accesos_cada_100_hogares,18.15,accesos cada 100 hogares,ENACOM
+58,Neuquén,3T2024,telefonia_fija_accesos_cada_100_hogares,22.92,accesos cada 100 hogares,ENACOM
+62,Río Negro,3T2024,telefonia_fija_accesos_cada_100_hogares,22.43,accesos cada 100 hogares,ENACOM
+66,Salta,3T2024,telefonia_fija_accesos_cada_100_hogares,21.65,accesos cada 100 hogares,ENACOM
+70,San Juan,3T2024,telefonia_fija_accesos_cada_100_hogares,22.02,accesos cada 100 hogares,ENACOM
+74,San Luis,3T2024,telefonia_fija_accesos_cada_100_hogares,15.09,accesos cada 100 hogares,ENACOM
+78,Santa Cruz,3T2024,telefonia_fija_accesos_cada_100_hogares,17.45,accesos cada 100 hogares,ENACOM
+82,Santa Fe,3T2024,telefonia_fija_accesos_cada_100_hogares,43.11,accesos cada 100 hogares,ENACOM
+86,Santiago del Estero,3T2024,telefonia_fija_accesos_cada_100_hogares,19.33,accesos cada 100 hogares,ENACOM
+94,Tierra del Fuego,3T2024,telefonia_fija_accesos_cada_100_hogares,24.19,accesos cada 100 hogares,ENACOM
+90,Tucumán,3T2024,telefonia_fija_accesos_cada_100_hogares,30.61,accesos cada 100 hogares,ENACOM
+06,Buenos Aires,4T2024,telefonia_fija_accesos_cada_100_hogares,47.73,accesos cada 100 hogares,ENACOM
+02,CABA,4T2024,telefonia_fija_accesos_cada_100_hogares,110.33,accesos cada 100 hogares,ENACOM
+10,Catamarca,4T2024,telefonia_fija_accesos_cada_100_hogares,12.1,accesos cada 100 hogares,ENACOM
+22,Chaco,4T2024,telefonia_fija_accesos_cada_100_hogares,10.9,accesos cada 100 hogares,ENACOM
+26,Chubut,4T2024,telefonia_fija_accesos_cada_100_hogares,23.03,accesos cada 100 hogares,ENACOM
+14,Córdoba,4T2024,telefonia_fija_accesos_cada_100_hogares,30.92,accesos cada 100 hogares,ENACOM
+18,Corrientes,4T2024,telefonia_fija_accesos_cada_100_hogares,18.26,accesos cada 100 hogares,ENACOM
+30,Entre Ríos,4T2024,telefonia_fija_accesos_cada_100_hogares,25.27,accesos cada 100 hogares,ENACOM
+34,Formosa,4T2024,telefonia_fija_accesos_cada_100_hogares,16.85,accesos cada 100 hogares,ENACOM
+38,Jujuy,4T2024,telefonia_fija_accesos_cada_100_hogares,8.73,accesos cada 100 hogares,ENACOM
+42,La Pampa,4T2024,telefonia_fija_accesos_cada_100_hogares,41.69,accesos cada 100 hogares,ENACOM
+46,La Rioja,4T2024,telefonia_fija_accesos_cada_100_hogares,15.47,accesos cada 100 hogares,ENACOM
+50,Mendoza,4T2024,telefonia_fija_accesos_cada_100_hogares,28.04,accesos cada 100 hogares,ENACOM
+54,Misiones,4T2024,telefonia_fija_accesos_cada_100_hogares,12.51,accesos cada 100 hogares,ENACOM
+58,Neuquén,4T2024,telefonia_fija_accesos_cada_100_hogares,24.59,accesos cada 100 hogares,ENACOM
+62,Río Negro,4T2024,telefonia_fija_accesos_cada_100_hogares,23.33,accesos cada 100 hogares,ENACOM
+66,Salta,4T2024,telefonia_fija_accesos_cada_100_hogares,15.07,accesos cada 100 hogares,ENACOM
+70,San Juan,4T2024,telefonia_fija_accesos_cada_100_hogares,19.62,accesos cada 100 hogares,ENACOM
+74,San Luis,4T2024,telefonia_fija_accesos_cada_100_hogares,14.5,accesos cada 100 hogares,ENACOM
+78,Santa Cruz,4T2024,telefonia_fija_accesos_cada_100_hogares,17.42,accesos cada 100 hogares,ENACOM
+82,Santa Fe,4T2024,telefonia_fija_accesos_cada_100_hogares,29.66,accesos cada 100 hogares,ENACOM
+86,Santiago del Estero,4T2024,telefonia_fija_accesos_cada_100_hogares,16.46,accesos cada 100 hogares,ENACOM
+94,Tierra del Fuego,4T2024,telefonia_fija_accesos_cada_100_hogares,21.14,accesos cada 100 hogares,ENACOM
+90,Tucumán,4T2024,telefonia_fija_accesos_cada_100_hogares,24.98,accesos cada 100 hogares,ENACOM
+06,Buenos Aires,1T2025,telefonia_fija_accesos_cada_100_hogares,47.16,accesos cada 100 hogares,ENACOM
+02,CABA,1T2025,telefonia_fija_accesos_cada_100_hogares,112.52,accesos cada 100 hogares,ENACOM
+10,Catamarca,1T2025,telefonia_fija_accesos_cada_100_hogares,12.03,accesos cada 100 hogares,ENACOM
+22,Chaco,1T2025,telefonia_fija_accesos_cada_100_hogares,10.93,accesos cada 100 hogares,ENACOM
+26,Chubut,1T2025,telefonia_fija_accesos_cada_100_hogares,24.47,accesos cada 100 hogares,ENACOM
+14,Córdoba,1T2025,telefonia_fija_accesos_cada_100_hogares,31.14,accesos cada 100 hogares,ENACOM
+18,Corrientes,1T2025,telefonia_fija_accesos_cada_100_hogares,18.13,accesos cada 100 hogares,ENACOM
+30,Entre Ríos,1T2025,telefonia_fija_accesos_cada_100_hogares,24.62,accesos cada 100 hogares,ENACOM
+34,Formosa,1T2025,telefonia_fija_accesos_cada_100_hogares,16.99,accesos cada 100 hogares,ENACOM
+38,Jujuy,1T2025,telefonia_fija_accesos_cada_100_hogares,8.42,accesos cada 100 hogares,ENACOM
+42,La Pampa,1T2025,telefonia_fija_accesos_cada_100_hogares,40.97,accesos cada 100 hogares,ENACOM
+46,La Rioja,1T2025,telefonia_fija_accesos_cada_100_hogares,15.88,accesos cada 100 hogares,ENACOM
+50,Mendoza,1T2025,telefonia_fija_accesos_cada_100_hogares,27.24,accesos cada 100 hogares,ENACOM
+54,Misiones,1T2025,telefonia_fija_accesos_cada_100_hogares,12.14,accesos cada 100 hogares,ENACOM
+58,Neuquén,1T2025,telefonia_fija_accesos_cada_100_hogares,24.57,accesos cada 100 hogares,ENACOM
+62,Río Negro,1T2025,telefonia_fija_accesos_cada_100_hogares,23.26,accesos cada 100 hogares,ENACOM
+66,Salta,1T2025,telefonia_fija_accesos_cada_100_hogares,14.57,accesos cada 100 hogares,ENACOM
+70,San Juan,1T2025,telefonia_fija_accesos_cada_100_hogares,21.91,accesos cada 100 hogares,ENACOM
+74,San Luis,1T2025,telefonia_fija_accesos_cada_100_hogares,15.02,accesos cada 100 hogares,ENACOM
+78,Santa Cruz,1T2025,telefonia_fija_accesos_cada_100_hogares,16.94,accesos cada 100 hogares,ENACOM
+82,Santa Fe,1T2025,telefonia_fija_accesos_cada_100_hogares,29.62,accesos cada 100 hogares,ENACOM
+86,Santiago del Estero,1T2025,telefonia_fija_accesos_cada_100_hogares,16.41,accesos cada 100 hogares,ENACOM
+94,Tierra del Fuego,1T2025,telefonia_fija_accesos_cada_100_hogares,24.06,accesos cada 100 hogares,ENACOM
+90,Tucumán,1T2025,telefonia_fija_accesos_cada_100_hogares,24.6,accesos cada 100 hogares,ENACOM
+06,Buenos Aires,2T2025,telefonia_fija_accesos_cada_100_hogares,35.42,accesos cada 100 hogares,ENACOM
+02,CABA,2T2025,telefonia_fija_accesos_cada_100_hogares,78.63,accesos cada 100 hogares,ENACOM
+10,Catamarca,2T2025,telefonia_fija_accesos_cada_100_hogares,12.35,accesos cada 100 hogares,ENACOM
+22,Chaco,2T2025,telefonia_fija_accesos_cada_100_hogares,10.88,accesos cada 100 hogares,ENACOM
+26,Chubut,2T2025,telefonia_fija_accesos_cada_100_hogares,24.34,accesos cada 100 hogares,ENACOM
+14,Córdoba,2T2025,telefonia_fija_accesos_cada_100_hogares,31.22,accesos cada 100 hogares,ENACOM
+18,Corrientes,2T2025,telefonia_fija_accesos_cada_100_hogares,17.95,accesos cada 100 hogares,ENACOM
+30,Entre Ríos,2T2025,telefonia_fija_accesos_cada_100_hogares,24.26,accesos cada 100 hogares,ENACOM
+34,Formosa,2T2025,telefonia_fija_accesos_cada_100_hogares,17.17,accesos cada 100 hogares,ENACOM
+38,Jujuy,2T2025,telefonia_fija_accesos_cada_100_hogares,8.06,accesos cada 100 hogares,ENACOM
+42,La Pampa,2T2025,telefonia_fija_accesos_cada_100_hogares,39.97,accesos cada 100 hogares,ENACOM
+46,La Rioja,2T2025,telefonia_fija_accesos_cada_100_hogares,16.15,accesos cada 100 hogares,ENACOM
+50,Mendoza,2T2025,telefonia_fija_accesos_cada_100_hogares,27.29,accesos cada 100 hogares,ENACOM
+54,Misiones,2T2025,telefonia_fija_accesos_cada_100_hogares,11.76,accesos cada 100 hogares,ENACOM
+58,Neuquén,2T2025,telefonia_fija_accesos_cada_100_hogares,24.92,accesos cada 100 hogares,ENACOM
+62,Río Negro,2T2025,telefonia_fija_accesos_cada_100_hogares,23.48,accesos cada 100 hogares,ENACOM
+66,Salta,2T2025,telefonia_fija_accesos_cada_100_hogares,14.17,accesos cada 100 hogares,ENACOM
+70,San Juan,2T2025,telefonia_fija_accesos_cada_100_hogares,21.78,accesos cada 100 hogares,ENACOM
+74,San Luis,2T2025,telefonia_fija_accesos_cada_100_hogares,14.96,accesos cada 100 hogares,ENACOM
+78,Santa Cruz,2T2025,telefonia_fija_accesos_cada_100_hogares,16.88,accesos cada 100 hogares,ENACOM
+82,Santa Fe,2T2025,telefonia_fija_accesos_cada_100_hogares,29.46,accesos cada 100 hogares,ENACOM
+86,Santiago del Estero,2T2025,telefonia_fija_accesos_cada_100_hogares,16.35,accesos cada 100 hogares,ENACOM
+94,Tierra del Fuego,2T2025,telefonia_fija_accesos_cada_100_hogares,23.92,accesos cada 100 hogares,ENACOM
+90,Tucumán,2T2025,telefonia_fija_accesos_cada_100_hogares,24.7,accesos cada 100 hogares,ENACOM
+06,Buenos Aires,3T2025,telefonia_fija_accesos_cada_100_hogares,47.89,accesos cada 100 hogares,ENACOM
+02,CABA,3T2025,telefonia_fija_accesos_cada_100_hogares,114.8,accesos cada 100 hogares,ENACOM
+10,Catamarca,3T2025,telefonia_fija_accesos_cada_100_hogares,12.36,accesos cada 100 hogares,ENACOM
+22,Chaco,3T2025,telefonia_fija_accesos_cada_100_hogares,10.71,accesos cada 100 hogares,ENACOM
+26,Chubut,3T2025,telefonia_fija_accesos_cada_100_hogares,23.86,accesos cada 100 hogares,ENACOM
+14,Córdoba,3T2025,telefonia_fija_accesos_cada_100_hogares,31.17,accesos cada 100 hogares,ENACOM
+18,Corrientes,3T2025,telefonia_fija_accesos_cada_100_hogares,17.59,accesos cada 100 hogares,ENACOM
+30,Entre Ríos,3T2025,telefonia_fija_accesos_cada_100_hogares,23.98,accesos cada 100 hogares,ENACOM
+34,Formosa,3T2025,telefonia_fija_accesos_cada_100_hogares,17.51,accesos cada 100 hogares,ENACOM
+38,Jujuy,3T2025,telefonia_fija_accesos_cada_100_hogares,7.7,accesos cada 100 hogares,ENACOM
+42,La Pampa,3T2025,telefonia_fija_accesos_cada_100_hogares,39.18,accesos cada 100 hogares,ENACOM
+46,La Rioja,3T2025,telefonia_fija_accesos_cada_100_hogares,16.46,accesos cada 100 hogares,ENACOM
+50,Mendoza,3T2025,telefonia_fija_accesos_cada_100_hogares,27.15,accesos cada 100 hogares,ENACOM
+54,Misiones,3T2025,telefonia_fija_accesos_cada_100_hogares,11.18,accesos cada 100 hogares,ENACOM
+58,Neuquén,3T2025,telefonia_fija_accesos_cada_100_hogares,25.51,accesos cada 100 hogares,ENACOM
+62,Río Negro,3T2025,telefonia_fija_accesos_cada_100_hogares,23.85,accesos cada 100 hogares,ENACOM
+66,Salta,3T2025,telefonia_fija_accesos_cada_100_hogares,13.78,accesos cada 100 hogares,ENACOM
+70,San Juan,3T2025,telefonia_fija_accesos_cada_100_hogares,21.52,accesos cada 100 hogares,ENACOM
+74,San Luis,3T2025,telefonia_fija_accesos_cada_100_hogares,14.82,accesos cada 100 hogares,ENACOM
+78,Santa Cruz,3T2025,telefonia_fija_accesos_cada_100_hogares,16.74,accesos cada 100 hogares,ENACOM
+82,Santa Fe,3T2025,telefonia_fija_accesos_cada_100_hogares,28.58,accesos cada 100 hogares,ENACOM
+86,Santiago del Estero,3T2025,telefonia_fija_accesos_cada_100_hogares,16.41,accesos cada 100 hogares,ENACOM
+94,Tierra del Fuego,3T2025,telefonia_fija_accesos_cada_100_hogares,23.62,accesos cada 100 hogares,ENACOM
+90,Tucumán,3T2025,telefonia_fija_accesos_cada_100_hogares,24.85,accesos cada 100 hogares,ENACOM
+06,Buenos Aires,4T2025,telefonia_fija_accesos_cada_100_hogares,50.22,accesos cada 100 hogares,ENACOM
+02,CABA,4T2025,telefonia_fija_accesos_cada_100_hogares,108.8,accesos cada 100 hogares,ENACOM
+10,Catamarca,4T2025,telefonia_fija_accesos_cada_100_hogares,12.07,accesos cada 100 hogares,ENACOM
+22,Chaco,4T2025,telefonia_fija_accesos_cada_100_hogares,10.54,accesos cada 100 hogares,ENACOM
+26,Chubut,4T2025,telefonia_fija_accesos_cada_100_hogares,25.32,accesos cada 100 hogares,ENACOM
+14,Córdoba,4T2025,telefonia_fija_accesos_cada_100_hogares,31.06,accesos cada 100 hogares,ENACOM
+18,Corrientes,4T2025,telefonia_fija_accesos_cada_100_hogares,16.96,accesos cada 100 hogares,ENACOM
+30,Entre Ríos,4T2025,telefonia_fija_accesos_cada_100_hogares,23.71,accesos cada 100 hogares,ENACOM
+34,Formosa,4T2025,telefonia_fija_accesos_cada_100_hogares,17.51,accesos cada 100 hogares,ENACOM
+38,Jujuy,4T2025,telefonia_fija_accesos_cada_100_hogares,7.22,accesos cada 100 hogares,ENACOM
+42,La Pampa,4T2025,telefonia_fija_accesos_cada_100_hogares,33.07,accesos cada 100 hogares,ENACOM
+46,La Rioja,4T2025,telefonia_fija_accesos_cada_100_hogares,16.14,accesos cada 100 hogares,ENACOM
+50,Mendoza,4T2025,telefonia_fija_accesos_cada_100_hogares,25.33,accesos cada 100 hogares,ENACOM
+54,Misiones,4T2025,telefonia_fija_accesos_cada_100_hogares,10.73,accesos cada 100 hogares,ENACOM
+58,Neuquén,4T2025,telefonia_fija_accesos_cada_100_hogares,29.9,accesos cada 100 hogares,ENACOM
+62,Río Negro,4T2025,telefonia_fija_accesos_cada_100_hogares,20.73,accesos cada 100 hogares,ENACOM
+66,Salta,4T2025,telefonia_fija_accesos_cada_100_hogares,13.58,accesos cada 100 hogares,ENACOM
+70,San Juan,4T2025,telefonia_fija_accesos_cada_100_hogares,27.38,accesos cada 100 hogares,ENACOM
+74,San Luis,4T2025,telefonia_fija_accesos_cada_100_hogares,15.61,accesos cada 100 hogares,ENACOM
+78,Santa Cruz,4T2025,telefonia_fija_accesos_cada_100_hogares,10.32,accesos cada 100 hogares,ENACOM
+82,Santa Fe,4T2025,telefonia_fija_accesos_cada_100_hogares,27.78,accesos cada 100 hogares,ENACOM
+86,Santiago del Estero,4T2025,telefonia_fija_accesos_cada_100_hogares,16.35,accesos cada 100 hogares,ENACOM
+94,Tierra del Fuego,4T2025,telefonia_fija_accesos_cada_100_hogares,18.81,accesos cada 100 hogares,ENACOM
+90,Tucumán,4T2025,telefonia_fija_accesos_cada_100_hogares,24.31,accesos cada 100 hogares,ENACOM
+06,Buenos Aires,1T2026,telefonia_fija_accesos_cada_100_hogares,50.23,accesos cada 100 hogares,ENACOM
+02,CABA,1T2026,telefonia_fija_accesos_cada_100_hogares,113.66,accesos cada 100 hogares,ENACOM
+10,Catamarca,1T2026,telefonia_fija_accesos_cada_100_hogares,15.51,accesos cada 100 hogares,ENACOM
+22,Chaco,1T2026,telefonia_fija_accesos_cada_100_hogares,12.91,accesos cada 100 hogares,ENACOM
+26,Chubut,1T2026,telefonia_fija_accesos_cada_100_hogares,24.89,accesos cada 100 hogares,ENACOM
+14,Córdoba,1T2026,telefonia_fija_accesos_cada_100_hogares,37.78,accesos cada 100 hogares,ENACOM
+18,Corrientes,1T2026,telefonia_fija_accesos_cada_100_hogares,20.8,accesos cada 100 hogares,ENACOM
+30,Entre Ríos,1T2026,telefonia_fija_accesos_cada_100_hogares,27.96,accesos cada 100 hogares,ENACOM
+34,Formosa,1T2026,telefonia_fija_accesos_cada_100_hogares,22.93,accesos cada 100 hogares,ENACOM
+38,Jujuy,1T2026,telefonia_fija_accesos_cada_100_hogares,8.41,accesos cada 100 hogares,ENACOM
+42,La Pampa,1T2026,telefonia_fija_accesos_cada_100_hogares,44.59,accesos cada 100 hogares,ENACOM
+46,La Rioja,1T2026,telefonia_fija_accesos_cada_100_hogares,19.83,accesos cada 100 hogares,ENACOM
+50,Mendoza,1T2026,telefonia_fija_accesos_cada_100_hogares,30.38,accesos cada 100 hogares,ENACOM
+54,Misiones,1T2026,telefonia_fija_accesos_cada_100_hogares,12.91,accesos cada 100 hogares,ENACOM
+58,Neuquén,1T2026,telefonia_fija_accesos_cada_100_hogares,32.0,accesos cada 100 hogares,ENACOM
+62,Río Negro,1T2026,telefonia_fija_accesos_cada_100_hogares,29.68,accesos cada 100 hogares,ENACOM
+66,Salta,1T2026,telefonia_fija_accesos_cada_100_hogares,16.16,accesos cada 100 hogares,ENACOM
+70,San Juan,1T2026,telefonia_fija_accesos_cada_100_hogares,25.84,accesos cada 100 hogares,ENACOM
+74,San Luis,1T2026,telefonia_fija_accesos_cada_100_hogares,17.48,accesos cada 100 hogares,ENACOM
+78,Santa Cruz,1T2026,telefonia_fija_accesos_cada_100_hogares,14.46,accesos cada 100 hogares,ENACOM
+82,Santa Fe,1T2026,telefonia_fija_accesos_cada_100_hogares,32.69,accesos cada 100 hogares,ENACOM
+86,Santiago del Estero,1T2026,telefonia_fija_accesos_cada_100_hogares,20.81,accesos cada 100 hogares,ENACOM
+94,Tierra del Fuego,1T2026,telefonia_fija_accesos_cada_100_hogares,26.21,accesos cada 100 hogares,ENACOM
+90,Tucumán,1T2026,telefonia_fija_accesos_cada_100_hogares,28.76,accesos cada 100 hogares,ENACOM
+06,Buenos Aires,2T2026,telefonia_fija_accesos_cada_100_hogares,52.55,accesos cada 100 hogares,ENACOM
+02,CABA,2T2026,telefonia_fija_accesos_cada_100_hogares,101.38,accesos cada 100 hogares,ENACOM
+10,Catamarca,2T2026,telefonia_fija_accesos_cada_100_hogares,11.98,accesos cada 100 hogares,ENACOM
+22,Chaco,2T2026,telefonia_fija_accesos_cada_100_hogares,10.71,accesos cada 100 hogares,ENACOM
+26,Chubut,2T2026,telefonia_fija_accesos_cada_100_hogares,23.36,accesos cada 100 hogares,ENACOM
+14,Córdoba,2T2026,telefonia_fija_accesos_cada_100_hogares,31.22,accesos cada 100 hogares,ENACOM
+18,Corrientes,2T2026,telefonia_fija_accesos_cada_100_hogares,16.68,accesos cada 100 hogares,ENACOM
+30,Entre Ríos,2T2026,telefonia_fija_accesos_cada_100_hogares,22.47,accesos cada 100 hogares,ENACOM
+34,Formosa,2T2026,telefonia_fija_accesos_cada_100_hogares,17.98,accesos cada 100 hogares,ENACOM
+38,Jujuy,2T2026,telefonia_fija_accesos_cada_100_hogares,6.75,accesos cada 100 hogares,ENACOM
+42,La Pampa,2T2026,telefonia_fija_accesos_cada_100_hogares,36.47,accesos cada 100 hogares,ENACOM
+46,La Rioja,2T2026,telefonia_fija_accesos_cada_100_hogares,16.13,accesos cada 100 hogares,ENACOM
+50,Mendoza,2T2026,telefonia_fija_accesos_cada_100_hogares,27.08,accesos cada 100 hogares,ENACOM
+54,Misiones,2T2026,telefonia_fija_accesos_cada_100_hogares,9.75,accesos cada 100 hogares,ENACOM
+58,Neuquén,2T2026,telefonia_fija_accesos_cada_100_hogares,26.52,accesos cada 100 hogares,ENACOM
+62,Río Negro,2T2026,telefonia_fija_accesos_cada_100_hogares,25.45,accesos cada 100 hogares,ENACOM
+66,Salta,2T2026,telefonia_fija_accesos_cada_100_hogares,13.01,accesos cada 100 hogares,ENACOM
+70,San Juan,2T2026,telefonia_fija_accesos_cada_100_hogares,21.25,accesos cada 100 hogares,ENACOM
+74,San Luis,2T2026,telefonia_fija_accesos_cada_100_hogares,14.66,accesos cada 100 hogares,ENACOM
+78,Santa Cruz,2T2026,telefonia_fija_accesos_cada_100_hogares,14.92,accesos cada 100 hogares,ENACOM
+82,Santa Fe,2T2026,telefonia_fija_accesos_cada_100_hogares,27.38,accesos cada 100 hogares,ENACOM
+86,Santiago del Estero,2T2026,telefonia_fija_accesos_cada_100_hogares,16.41,accesos cada 100 hogares,ENACOM
+94,Tierra del Fuego,2T2026,telefonia_fija_accesos_cada_100_hogares,23.3,accesos cada 100 hogares,ENACOM
+90,Tucumán,2T2026,telefonia_fija_accesos_cada_100_hogares,23.28,accesos cada 100 hogares,ENACOM
+00,Argentina,1T2014,telefonia_fija_accesos_cada_100_hogares,74.04,accesos cada 100 hogares,ENACOM
+00,Argentina,2T2014,telefonia_fija_accesos_cada_100_hogares,73.65,accesos cada 100 hogares,ENACOM
+00,Argentina,3T2014,telefonia_fija_accesos_cada_100_hogares,73.86,accesos cada 100 hogares,ENACOM
+00,Argentina,4T2014,telefonia_fija_accesos_cada_100_hogares,74.16,accesos cada 100 hogares,ENACOM
+00,Argentina,1T2015,telefonia_fija_accesos_cada_100_hogares,76.89,accesos cada 100 hogares,ENACOM
+00,Argentina,2T2015,telefonia_fija_accesos_cada_100_hogares,75.87,accesos cada 100 hogares,ENACOM
+00,Argentina,3T2015,telefonia_fija_accesos_cada_100_hogares,76.03,accesos cada 100 hogares,ENACOM
+00,Argentina,4T2015,telefonia_fija_accesos_cada_100_hogares,75.17,accesos cada 100 hogares,ENACOM
+00,Argentina,1T2016,telefonia_fija_accesos_cada_100_hogares,76.86,accesos cada 100 hogares,ENACOM
+00,Argentina,2T2016,telefonia_fija_accesos_cada_100_hogares,77.65,accesos cada 100 hogares,ENACOM
+00,Argentina,3T2016,telefonia_fija_accesos_cada_100_hogares,75.53,accesos cada 100 hogares,ENACOM
+00,Argentina,4T2016,telefonia_fija_accesos_cada_100_hogares,76.32,accesos cada 100 hogares,ENACOM
+00,Argentina,1T2017,telefonia_fija_accesos_cada_100_hogares,76.86,accesos cada 100 hogares,ENACOM
+00,Argentina,2T2017,telefonia_fija_accesos_cada_100_hogares,77.65,accesos cada 100 hogares,ENACOM
+00,Argentina,3T2017,telefonia_fija_accesos_cada_100_hogares,75.53,accesos cada 100 hogares,ENACOM
+00,Argentina,4T2017,telefonia_fija_accesos_cada_100_hogares,76.32,accesos cada 100 hogares,ENACOM
+00,Argentina,1T2018,telefonia_fija_accesos_cada_100_hogares,70.74,accesos cada 100 hogares,ENACOM
+00,Argentina,2T2018,telefonia_fija_accesos_cada_100_hogares,70.78,accesos cada 100 hogares,ENACOM
+00,Argentina,3T2018,telefonia_fija_accesos_cada_100_hogares,70.49,accesos cada 100 hogares,ENACOM
+00,Argentina,4T2018,telefonia_fija_accesos_cada_100_hogares,71.07,accesos cada 100 hogares,ENACOM
+00,Argentina,1T2019,telefonia_fija_accesos_cada_100_hogares,60.16,accesos cada 100 hogares,ENACOM
+00,Argentina,2T2019,telefonia_fija_accesos_cada_100_hogares,58.55,accesos cada 100 hogares,ENACOM
+00,Argentina,3T2019,telefonia_fija_accesos_cada_100_hogares,56.66,accesos cada 100 hogares,ENACOM
+00,Argentina,4T2019,telefonia_fija_accesos_cada_100_hogares,55.55,accesos cada 100 hogares,ENACOM
+00,Argentina,1T2020,telefonia_fija_accesos_cada_100_hogares,53.89,accesos cada 100 hogares,ENACOM
+00,Argentina,2T2020,telefonia_fija_accesos_cada_100_hogares,53.06,accesos cada 100 hogares,ENACOM
+00,Argentina,3T2020,telefonia_fija_accesos_cada_100_hogares,52.68,accesos cada 100 hogares,ENACOM
+00,Argentina,4T2020,telefonia_fija_accesos_cada_100_hogares,52.03,accesos cada 100 hogares,ENACOM
+00,Argentina,1T2021,telefonia_fija_accesos_cada_100_hogares,51.36,accesos cada 100 hogares,ENACOM
+00,Argentina,2T2021,telefonia_fija_accesos_cada_100_hogares,50.35,accesos cada 100 hogares,ENACOM
+00,Argentina,3T2021,telefonia_fija_accesos_cada_100_hogares,49.64,accesos cada 100 hogares,ENACOM
+00,Argentina,4T2021,telefonia_fija_accesos_cada_100_hogares,53.88,accesos cada 100 hogares,ENACOM
+00,Argentina,1T2022,telefonia_fija_accesos_cada_100_hogares,51.52,accesos cada 100 hogares,ENACOM
+00,Argentina,2T2022,telefonia_fija_accesos_cada_100_hogares,50.18,accesos cada 100 hogares,ENACOM
+00,Argentina,3T2022,telefonia_fija_accesos_cada_100_hogares,44.02,accesos cada 100 hogares,ENACOM
+00,Argentina,4T2022,telefonia_fija_accesos_cada_100_hogares,44.04,accesos cada 100 hogares,ENACOM
+00,Argentina,1T2023,telefonia_fija_accesos_cada_100_hogares,43.79,accesos cada 100 hogares,ENACOM
+00,Argentina,2T2023,telefonia_fija_accesos_cada_100_hogares,44.68,accesos cada 100 hogares,ENACOM
+00,Argentina,3T2023,telefonia_fija_accesos_cada_100_hogares,44.44,accesos cada 100 hogares,ENACOM
+00,Argentina,4T2023,telefonia_fija_accesos_cada_100_hogares,43.81,accesos cada 100 hogares,ENACOM
+00,Argentina,1T2024,telefonia_fija_accesos_cada_100_hogares,43.0,accesos cada 100 hogares,ENACOM
+00,Argentina,2T2024,telefonia_fija_accesos_cada_100_hogares,41.83,accesos cada 100 hogares,ENACOM
+00,Argentina,3T2024,telefonia_fija_accesos_cada_100_hogares,40.22,accesos cada 100 hogares,ENACOM
+00,Argentina,4T2024,telefonia_fija_accesos_cada_100_hogares,39.93,accesos cada 100 hogares,ENACOM
+00,Argentina,1T2025,telefonia_fija_accesos_cada_100_hogares,39.87,accesos cada 100 hogares,ENACOM
+00,Argentina,2T2025,telefonia_fija_accesos_cada_100_hogares,40.06,accesos cada 100 hogares,ENACOM
+00,Argentina,3T2025,telefonia_fija_accesos_cada_100_hogares,40.14,accesos cada 100 hogares,ENACOM
+00,Argentina,4T2025,telefonia_fija_accesos_cada_100_hogares,40.26,accesos cada 100 hogares,ENACOM
+00,Argentina,1T2026,telefonia_fija_accesos_cada_100_hogares,40.84,accesos cada 100 hogares,ENACOM
+00,Argentina,2T2026,telefonia_fija_accesos_cada_100_hogares,40.38,accesos cada 100 hogares,ENACOM
 02,CABA,2025,exportaciones_usd_por_habitante,132.8865232878545,dólares por habitante,"INDEC, Origen Provincial de las Exportaciones"
 06,Buenos Aires,2025,exportaciones_usd_por_habitante,1816.3830225577944,dólares por habitante,"INDEC, Origen Provincial de las Exportaciones"
 10,Catamarca,2025,exportaciones_usd_por_habitante,915.274808393163,dólares por habitante,"INDEC, Origen Provincial de las Exportaciones"

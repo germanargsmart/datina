@@ -1523,6 +1523,38 @@ internet_fijo["territorio"] = internet_fijo.codigo_indec.map(CORTO)
 internet_fijo["accesos_100_hogares"] = internet_fijo.codigo_indec.map(sel(ia).accesos_cada_100_hogares)
 internet_fijo["mbps"] = internet_fijo.codigo_indec.map(sel(iv).Mbps)
 
+# Telefonía fija: accesos cada 100 hogares y cada 100 habitantes (ENACOM), por provincia en el último trimestre y del país desde 2014 (plan de
+# mejora, sección 10, aprobada por el autor el 28 de octubre de 2026). Son líneas, no hogares: cuentan también las de comercios, gobierno y
+# otros usos, así que una provincia puede pasar de 100 cada 100 hogares
+tf_p = pd.read_csv(CRUDO / "enacom_telefonia_fija_provincias.csv")
+tf_p["codigo_indec"] = tf_p.provincia.map(cod2)
+assert tf_p.codigo_indec.notna().all(), "Hay provincias de ENACOM sin codigo en la telefonia fija"
+tf_n = pd.read_csv(CRUDO / "enacom_telefonia_fija_pais.csv").sort_values(["anio", "trimestre"]).reset_index(drop=True)
+_tf_u, _tf_0 = tf_n.iloc[-1], tf_n.iloc[0]
+TF_ANIO, TF_TRIM, TF_INI = int(_tf_u.anio), int(_tf_u.trimestre), int(_tf_0.anio)
+_tf_sel = lambda a, t: tf_p[(tf_p.anio == a) & (tf_p.trimestre == t)].set_index("codigo_indec")
+_tf_ult, _tf_pri = _tf_sel(TF_ANIO, TF_TRIM), _tf_sel(TF_INI, int(_tf_0.trimestre))
+assert len(_tf_ult) == 24 and len(_tf_pri) == 24, "faltan provincias en la telefonia fija"
+telefonia_fija_provincias = pd.DataFrame({"codigo_indec": sorted(POB), "territorio": [CORTO[c] for c in sorted(POB)]})
+telefonia_fija_provincias["accesos_100_hogares"] = telefonia_fija_provincias.codigo_indec.map(_tf_ult.accesos_100_hog)
+telefonia_fija_provincias["accesos_100_habitantes"] = telefonia_fija_provincias.codigo_indec.map(_tf_ult.accesos_100_hab)
+telefonia_fija_provincias[f"accesos_100_hogares_{TF_INI}"] = telefonia_fija_provincias.codigo_indec.map(_tf_pri.accesos_100_hog)
+telefonia_fija_pais = pd.DataFrame({"periodo": [f"{t}T{a}" for a, t in zip(tf_n.anio, tf_n.trimestre)], "x": tf_n.anio + (tf_n.trimestre - 1) / 4,
+                                    "accesos_100_hogares": tf_n.accesos_100_hog, "accesos_100_habitantes": tf_n.accesos_100_hab})
+_tf_o = telefonia_fija_provincias.sort_values("accesos_100_hogares")
+TF_RES = {
+    "trim": f"{TF_TRIM}.º trimestre de {TF_ANIO}", "ini_trim": f"{int(_tf_0.trimestre)}.º trimestre de {TF_INI}", "ini": TF_INI,
+    "pais": r1(_tf_u.accesos_100_hog), "pais_ini": r1(_tf_0.accesos_100_hog), "pais_hab": r1(_tf_u.accesos_100_hab),
+    "pais_hab_ini": r1(_tf_0.accesos_100_hab),
+    "top": [_tf_o.iloc[-1].territorio, r1(_tf_o.iloc[-1].accesos_100_hogares)], "top2": [_tf_o.iloc[-2].territorio, r1(_tf_o.iloc[-2].accesos_100_hogares)],
+    "bajo": [_tf_o.iloc[0].territorio, r1(_tf_o.iloc[0].accesos_100_hogares)],
+    "bajaron": int((telefonia_fija_provincias.accesos_100_hogares < telefonia_fija_provincias[f"accesos_100_hogares_{TF_INI}"]).sum()),
+}
+agregar(tf_p.assign(periodo=[f"{t}T{a}" for a, t in zip(tf_p.anio, tf_p.trimestre)], valor=tf_p.accesos_100_hog, territorio=tf_p.codigo_indec.map(CORTO)),
+        "telefonia_fija_accesos_cada_100_hogares", "accesos cada 100 hogares", "ENACOM")
+agregar(telefonia_fija_pais.assign(valor=telefonia_fija_pais.accesos_100_hogares, codigo_indec="00", territorio="Argentina"),
+        "telefonia_fija_accesos_cada_100_hogares", "accesos cada 100 hogares", "ENACOM")
+
 # Exportaciones por provincia de origen, en dolares por habitante (INDEC, Origen Provincial de las Exportaciones).
 # Planilla con una hoja por bloque de anios: provincias en filas y, por cada rubro (total, PP, MOA, MOI, CyE), una columna por anio.
 RUBROS = {"Total": "millones_usd", "(PP)": "primarios", "(MOA)": "manufacturas_agro", "(MOI)": "manufacturas_industriales", "(CyE)": "combustibles_energia"}
@@ -6972,6 +7004,8 @@ tablas = {
     "deuda_provincias": deuda_provincias,
     "abandono_provincias": abandono_provincias,
     "abandono_pais": abandono_pais,
+    "telefonia_fija_provincias": telefonia_fija_provincias,
+    "telefonia_fija_pais": telefonia_fija_pais,
     "elecciones_presidenciales": presidenciales,
     "congreso_composicion": congreso,
     "anios_congreso": anios_congreso,
@@ -7363,6 +7397,7 @@ resumen["fiscal"] = {
 resumen["coparticipacion"] = cpa_res
 resumen["deuda_provincias"] = DP_RES
 resumen["abandono"] = ABN_RES
+resumen["telefonia"] = TF_RES
 resumen["departamentos"] = {"meta": {k: {"nombre": v[0], "unidad": v[1], "fuente": v[2]} for k, v in DEP_META.items()},
                             "anio_snic": ANIO_DEP, "n": int(len(departamentos))}
 resumen["elecciones"] = el_meta

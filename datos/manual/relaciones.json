@@ -1201,6 +1201,28 @@
    "url": "https://indicadores.enacom.gob.ar/Files/DatosAbiertos/internet_velocidad_media_descarga_provincias.csv"
   },
   {
+   "id": "ds:enacom_telefonia_fija_pais.csv",
+   "nombre": "Accesos de telefonía fija cada 100 hogares y cada 100 habitantes del país, por trimestre",
+   "fuente": "org:enacom",
+   "ruta": "datos/crudo/enacom_telefonia_fija_pais.csv",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "\"enacom_telefonia_fija_pais.csv\": \"https://"
+   },
+   "url": "https://indicadores.enacom.gob.ar/Files/DatosAbiertos/telefonia_fija_penetracion.csv"
+  },
+  {
+   "id": "ds:enacom_telefonia_fija_provincias.csv",
+   "nombre": "Accesos de telefonía fija cada 100 hogares y cada 100 habitantes por provincia, por trimestre",
+   "fuente": "org:enacom",
+   "ruta": "datos/crudo/enacom_telefonia_fija_provincias.csv",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "\"enacom_telefonia_fija_provincias.csv\": \"https://"
+   },
+   "url": "https://indicadores.enacom.gob.ar/Files/DatosAbiertos/telefonia_fija_penetracion_provincias.csv"
+  },
+  {
    "id": "ds:enargas_gas_residencial.csv",
    "nombre": "Gas entregado y usuarios residenciales por provincia y mes",
    "fuente": "org:enargas",
@@ -2849,6 +2871,38 @@
     }
    ],
    "tabla": "internet_fijo_provincias"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:enacom_telefonia_fija_provincias.csv",
+   "a": "f-telefonia",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "tf_p = pd.read_csv(CRUDO / \"enacom_telefonia_fija_provincias.csv\")"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"telefonia_fija_provincias\": telefonia_fija_provincias,"
+    }
+   ],
+   "tabla": "telefonia_fija_provincias"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:enacom_telefonia_fija_pais.csv",
+   "a": "f-telefonia",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "tf_n = pd.read_csv(CRUDO / \"enacom_telefonia_fija_pais.csv\").sort_values([\"anio\", \"trimestre\"]).reset_index(drop=True)"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"telefonia_fija_pais\": telefonia_fija_pais,"
+    }
+   ],
+   "tabla": "telefonia_fija_pais"
   },
   {
    "tipo": "alimenta",
@@ -7475,6 +7529,11 @@
    "variables": [
     "cobertura_triple_viral_dosis1",
     "cobertura_triple_viral_dosis2"
+   ]
+  },
+  "f-telefonia": {
+   "variables": [
+    "telefonia_fija_accesos_cada_100_hogares"
    ]
   }
  }

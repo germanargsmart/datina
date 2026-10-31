@@ -299,6 +299,8 @@ const milDeuda = v => v >= 1e6 ? `${n2(v / 1e6)} millones` : v >= 1000 ? `${n0(v
 // el abandono y la repitencia en la secundaria (plan de mejora, sección 10, 31 de octubre de 2026). ABN.regimen: las jurisdicciones con el
 // régimen académico nuevo en el último ciclo (Buenos Aires desde 2024), que no se nombran entre las más bajas
 const ABN = R.abandono;
+// la telefonía fija del ENACOM (plan de mejora, sección 10, 31 de octubre de 2026)
+const TF = R.telefonia;
 const pesosDeuda = v => `${milDeuda(v)} pesos`;
 // superávit o déficit, en palabras
 const sobra = v => v < 0 ? "déficit" : "superávit";
@@ -728,6 +730,13 @@ const LEAD = {
       `y le seguía ${DPR.top2[0]}. ${DPR.mayor[0]} debía el ${pct(DPR.mayor[1])} del total. Una deuda alta por habitante no dice por sí sola si es ` +
       `mucha para la provincia: eso depende de sus ingresos y de los plazos para pagarla.`;
   },
+  // la telefonía fija (plan de mejora, sección 10, 31 de octubre de 2026): por provincia en el último trimestre, o la evolución del país
+  telefonia: v => v === "serie"
+    ? `En el ${TF.ini_trim} había ${n1(TF.pais_ini)} accesos de telefonía fija cada 100 hogares en el país, y en el ${TF.trim}, ${n1(TF.pais)}. ` +
+      `Cada 100 habitantes, de ${n1(TF.pais_hab_ini)} a ${n1(TF.pais_hab)}.`
+    : `En el ${TF.trim}, había ${n1(TF.pais)} accesos de telefonía fija cada 100 hogares en todo el país. La cifra más alta fue la de ${TF.top[0]}, ` +
+      `con ${n1(TF.top[1])}, y le seguía ${TF.top2[0]}, con ${n1(TF.top2[1])}. La más baja, la de ${TF.bajo[0]}, con ${n1(TF.bajo[1])}. Desde el ` +
+      `${TF.ini_trim}, bajó en ${TF.bajaron === 24 ? "las 24 jurisdicciones" : `${TF.bajaron} de las 24 jurisdicciones`}.`,
   // el abandono y la repitencia en la secundaria (plan de mejora, sección 10, 31 de octubre de 2026): por provincia en el último ciclo, o la
   // evolución del país. La caída del último ciclo no se cuenta sin el cambio de régimen de Buenos Aires
   abandono: v => {
@@ -1559,6 +1568,9 @@ const TX = {
     `transferencias no automáticas, que están en Instituciones políticas. El reparto entre provincias no sigue a la población: la Ley 23.548, de 1988, ` +
     `fija un porcentaje para cada una. CABA y Tierra del Fuego, que en 1988 no eran provincias, reciben su parte de la que le toca a la Nación, con ` +
     `porcentajes que fijan otras normas: los de CABA cambiaron en 2016 y en 2020. En pesos de cada año. Por habitante, con la población del INDEC de ese año.`,
+  telefonia: LEAD.telefonia("prov"), "telefonia-nota": `Accesos de telefonía fija en servicio, según el ENACOM. Son líneas, no hogares: cuentan ` +
+    `las de los hogares y también las de comercios, organismos públicos y otros usos, así que una jurisdicción puede pasar de 100 cada 100 hogares. ` +
+    `Los accesos a internet fijo están en la ficha anterior.`,
   abandono: LEAD.abandono("ab"), "abandono-nota": `Tasa de abandono interanual: alumnos de la secundaria de un año que no se matriculan en el ` +
     `año lectivo siguiente. Tasa de repitencia: alumnos que al año siguiente se matriculan en el mismo año de estudio. En % de los alumnos de la ` +
     `secundaria común de cada jurisdicción, según los Relevamientos Anuales de la Secretaría de Educación. La fuente aclara que el cálculo supone que ` +
@@ -2995,7 +3007,7 @@ const DIB = protegerDib({
 
 /* ---------- petróleo y gas, construcción y vivienda (etapa 18) ---------- */
 Object.assign(MED, {refugio: "anio", supermercados: "prov", "cuentas-nacion": "resultado", recaudacion: "impuesto", "empleo-publico": "prov", "nacidos-otro-pais": "prov", "migracion-interna": "prov", radicaciones: "anio", "argentinos-exterior": "anio", inflacion: "doce", "inflacion-rubros": "division", canastas: "region", emae: "mes", "electricidad-provincias": "prov", "electricidad-sectores": "ind", salarios: "prov", "salario-docente": "prov", "inversion-educativa": "alumno",
-  delitos: "tipo", robos: "robos", homicidios: "prov", carceles: "serie", "sin-condena": "prov", coparticipacion: "hab", "deuda-provincias": "hab", abandono: "ab", desocupacion: "ciudad", "empresas-tamano": "tam", "pobreza-aglomerados": "region", combustibles: "nafta", "combustibles-vista": "prov", subsidios: "pbi", "obra-publica": "prov", "gas-consumo": "prov", centrales: "mapa", "mapa-pozos": "cuenca", productividad: "pozo", fracturas: "etapas", "pozos-terminados": "anio", petroleo: "tipo", gas: "tipo", "gas-hogares-vista": "prov", "hidro-provincias": "pet_kbd", "areas-hidro": "pet", arArea: "", pozos: "pozo", "empresas-hidro": "pct_pet",
+  delitos: "tipo", robos: "robos", homicidios: "prov", carceles: "serie", "sin-condena": "prov", coparticipacion: "hab", "deuda-provincias": "hab", abandono: "ab", telefonia: "prov", desocupacion: "ciudad", "empresas-tamano": "tam", "pobreza-aglomerados": "region", combustibles: "nafta", "combustibles-vista": "prov", subsidios: "pbi", "obra-publica": "prov", "gas-consumo": "prov", centrales: "mapa", "mapa-pozos": "cuenca", productividad: "pozo", fracturas: "etapas", "pozos-terminados": "anio", petroleo: "tipo", gas: "tipo", "gas-hogares-vista": "prov", "hidro-provincias": "pet_kbd", "areas-hidro": "pet", arArea: "", pozos: "pozo", "empresas-hidro": "pct_pet",
   "empleo-hidro": "prov", regalias: "pct_regalias", reservas: "pet", "mundo-petroleo": "crudo_kbd", insumos: "var_12m",
   "empleo-construccion": "construccion_cada_1000", "trabajadores-vista": "prov", vivienda: "pct_alquila", "vivienda-vista": "prov"});
 const COL_TIPO = {conv: "#A9CBEA", tight: "#F6B40E", shale: "#1F5E97"};
@@ -3511,6 +3523,23 @@ Object.assign(DIB, {
     barrasH(el, {anim: a, data: datos, k: "por_habitante", vf: milDeuda, af: ejeMil, ref: DPR.pais_hab, refLab: `País ${milDeuda(DPR.pais_hab)}`,
       tip: d => `<b>${d.territorio}</b><br>${pesosDeuda(d.por_habitante)} por habitante al ${DPR.fecha_txt}<br>${billones(d.millones)} en total<br>` +
         `${pct(d.pct_bonos)} en bonos`});
+  },
+  // la telefonía fija (plan de mejora, sección 10, 31 de octubre de 2026): cada provincia con la línea del país, o la evolución del país por
+  // trimestre, cada 100 hogares y cada 100 habitantes
+  telefonia: a => {
+    const v = MED.telefonia, el = G("telefonia"), fp = T.telefonia_fija_provincias.find(r => r.codigo_indec === prov);
+    let txt = LEAD.telefonia(v);
+    if (v === "serie") {
+      $t("telefonia").textContent = txt;
+      return lineas(el, {anim: a, data: T.telefonia_fija_pais, x: "x", y0: 0, vf: n1, yf: n0, xl: r => `${r.periodo[0]}.º trimestre de ${r.periodo.slice(2)}`, mensual: true,
+        series: [{k: "accesos_100_hogares", lab: "Cada 100 hogares", corto: "Hogares", c: NAR}, {k: "accesos_100_habitantes", lab: "Cada 100 habitantes", corto: "Habitantes", c: FRI}]});
+    }
+    if (fp && ![TF.top[0], TF.top2[0], TF.bajo[0]].includes(fp.territorio))
+      txt += ` En ${fp.territorio}, ${n1(fp.accesos_100_hogares)}, contra ${n1(fp[`accesos_100_hogares_${TF.ini}`])} en el ${TF.ini_trim}.`;
+    $t("telefonia").textContent = txt;
+    barrasH(el, {anim: a, data: T.telefonia_fija_provincias, k: "accesos_100_hogares", vf: n1, af: n0, ref: TF.pais, refLab: `País ${n1(TF.pais)}`,
+      tip: d => `<b>${d.territorio}</b><br>${n1(d.accesos_100_hogares)} accesos cada 100 hogares en el ${TF.trim}<br>${n1(d.accesos_100_habitantes)} cada ` +
+        `100 habitantes<br>En el ${TF.ini_trim}, ${n1(d[`accesos_100_hogares_${TF.ini}`])} cada 100 hogares`});
   },
   // el abandono y la repitencia en la secundaria (plan de mejora, sección 10, 31 de octubre de 2026): cada provincia con la línea del país, la
   // que tiene el régimen académico nuevo con la aclaración al lado del nombre, o la evolución del país
@@ -6629,6 +6658,8 @@ const CLAVE = {
   "f-coparticipacion": [`${n2(CPA.pais_hab / 1e6)} millones de pesos`, `por habitante recibieron las provincias y CABA en ${CPA.anio} por la coparticipación federal y otros ` +
     `impuestos nacionales que se reparten por ley` + (Object.keys(CPA.atrasadas).length ? `, sin contar ${lista(Object.keys(CPA.atrasadas))}` : ""),
     Object.keys(CPA.atrasadas).length ? "por habitante, promedio de las jurisdicciones con datos" : "por habitante, promedio del país"],
+  "f-telefonia": [n1(TF.pais), `accesos de telefonía fija cada 100 hogares había en todo el país en el ${TF.trim}`,
+    `accesos de telefonía fija cada 100 hogares, ${TF.trim}`],
   "f-abandono": [pct(ABN.pais), `de los alumnos de la secundaria de ${ABN.anio} no se volvió a matricular en ${ABN.sig}, en todo el país`,
     `abandono de la secundaria, de ${ABN.anio} a ${ABN.sig}`],
   "f-deuda-provincias": [pesosDeuda(DPR.pais_hab), `por habitante debían las provincias y CABA al ${DPR.fecha_txt}` +
@@ -7836,6 +7867,8 @@ const PREG = [
   ["¿Cuánto recibe cada provincia por coparticipación?",
    `En ${CPA.anio}, las provincias y CABA recibieron ${n2(CPA.pais_hab / 1e6)} millones de pesos por habitante por la coparticipación federal y otros impuestos nacionales. ` +
    `Fue el ${pct(CPA.pct_pais)} de sus ingresos.`, "#f-coparticipacion"],
+  ["¿Cuántos accesos de telefonía fija hay cada 100 hogares?",
+   `En el ${TF.trim}, ${n1(TF.pais)} en todo el país, según el ENACOM. En el ${TF.ini_trim}, ${n1(TF.pais_ini)}.`, "#f-telefonia"],
   ["¿Dónde dejan más la secundaria?",
    `De los alumnos de la secundaria de ${ABN.anio}, el ${pct(ABN.pais)} no se volvió a matricular en ${ABN.sig}, según la Secretaría de Educación. ` +
    `El abandono más alto fue el de ${ABN.top[0]}, el ${pct(ABN.top[1])}.`, "#f-abandono"],
@@ -9538,6 +9571,7 @@ if (PAGINA !== "inicio") {
     "f-carne": ["carne"], "f-vino": ["vino"], "f-yerba": ["yerba"], "f-electricidad-provincias": ["electricidad", "luz"], "f-subsidios": ["subsidios"],
     "f-empresas": ["empresas"], "f-canastas": ["canasta", "canasta basica"], "f-emae": ["actividad economica", "emae"], "f-carceles": ["carceles", "presos"], "f-sin-condena": ["sin condena", "presos sin condena", "procesados", "prision preventiva"],
     "f-coparticipacion": ["coparticipacion", "coparticipacion federal", "reparto de impuestos"],
+    "f-telefonia": ["telefono fijo", "telefonia fija", "linea fija", "telefonia"],
     "f-abandono": ["abandono escolar", "abandono", "repitencia", "repiten", "dejan la escuela", "desercion escolar"],
     "f-deuda-provincias": ["deuda provincial", "deuda de las provincias", "deuda por provincia", "bonos provinciales"],
     "f-desocupacion": ["desocupacion", "desocupados", "desocupada", "tasa de desocupacion"],
