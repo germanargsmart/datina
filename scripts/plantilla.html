@@ -182,13 +182,34 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <h2>De dónde viene la idea</h2>
       <p>De The Pudding, Datina toma la idea de arrancar cada historia con una pregunta. De Our World in Data, la de mostrar siempre la fuente y la tabla. De USAFacts, la de presentar los datos públicos de forma clara y sin opinión. En la Argentina, Argendata, de Fundar, es un antecedente con datos sobre todo nacionales: Datina suma la mirada provincia por provincia y los cruces entre fuentes.</p>
       <h2 id="licencia">Licencia y reutilización</h2>
-      <p>Los textos, los gráficos y las tablas que arma Datina se pueden copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato (licencia <a href="https://creativecommons.org/licenses/by/4.0/deed.es">Creative Commons Atribución 4.0</a>). El código del sitio es abierto, con licencia MIT. Los datos de base son de cada organismo y se rigen por sus condiciones: cada ficha dice de dónde salen. Junto a cada tabla del <a href="catalogo.html">Catálogo de datos</a> hay un archivo con sus metadatos (fuente, período, columnas, cómo se calcula y licencia), con el mismo nombre y terminado en <code>.metadata.json</code>: por ejemplo, <code>datos/empleo_provincias.metadata.json</code>. Las banderas provinciales tienen su propia licencia, detallada más abajo.</p>
+      <p>Los textos, los gráficos y las tablas que arma Datina se pueden copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato (licencia <a href="https://creativecommons.org/licenses/by/4.0/deed.es">Creative Commons Atribución 4.0</a>). El código del sitio es abierto, con licencia MIT. Los datos de base son de cada organismo y se rigen por sus condiciones: cada ficha dice de dónde salen. Junto a cada tabla del <a href="catalogo.html">Catálogo de datos</a> hay un archivo con sus metadatos (fuente, período, columnas, cómo se calcula y licencia), con el mismo nombre y terminado en <code>.metadata.json</code>: por ejemplo, <code>datos/empleo_provincias.metadata.json</code>. Las banderas provinciales tienen su propia licencia, detallada más abajo. Cómo citar una ficha y qué se puede descargar: <a href="usar-datos.html">Usar los datos</a>.</p>
       <h2 id="privacidad">Tus datos</h2>
       <p>Datina no tiene cuentas de usuario. La provincia que elegís queda guardada en tu navegador, para mostrarla en las demás páginas.</p>
       <p>Los formularios de Contacto y de novedades por correo guardan solo lo que escribís. Los correos se usan para avisar cuando hay datos o artículos nuevos y para responder mensajes: no se comparten ni se publican. Para darte de baja o pedir que se borre tu correo, escribí desde <a href="contacto.html">Contacto</a>.</p><!--IA-PRIVACIDAD-->
       <h2>El nombre y los símbolos</h2>
       <p>El gorro frigio sobre la i y el Sol de Mayo vienen del escudo y de la bandera nacionales. El mapa de la portada usa una proyección azimutal equidistante centrada en la Argentina: cada anillo marca la misma distancia desde el centro del país.</p>
       <!--BANDERAS-->
+    </div>
+  </section>
+
+  <!-- Usar los datos (plan de mejora, F2 y F3, aprobados por el autor el 28 de octubre de 2026): la licencia, cómo citar y qué se puede descargar.
+       Como Sobre nosotros y Contacto, va en la columna Datina del pie y no en los menús -->
+  <section class="usar-datos nosotros" id="usar-datos" aria-labelledby="usar-tit">
+    <h2 id="usar-tit">Usar los datos</h2>
+    <p class="nos-bajada">Todo lo que muestra Datina se puede descargar y reutilizar, citando a Datina y a la fuente de cada dato.</p>
+    <div class="nos-texto">
+      <h2 id="licencia-datos">Licencia</h2>
+      <p>Los textos, los gráficos y las tablas que arma Datina tienen licencia <a href="https://creativecommons.org/licenses/by/4.0/deed.es">Creative Commons Atribución 4.0</a>: se pueden copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones. El código del sitio es abierto, con licencia MIT.</p>
+      <h2 id="como-citar">Cómo citar</h2>
+      <p>Con el nombre del sitio y el año de la consulta, la pregunta de la ficha, la fuente de los datos, la dirección de la ficha y el día de la consulta. Por ejemplo:</p>
+      <p class="cita-ejemplo" id="cita-ejemplo">Datina (año de la consulta). Pregunta de la ficha. Con datos de la fuente de la ficha. Dirección de la ficha. Consultado el día de la consulta.</p>
+      <p>Cada ficha arma su propia cita, con la vista que elegiste, en el botón "Copiar cita" del menú "Compartir y descargar", debajo del gráfico.</p>
+      <h2 id="descargar">Qué se puede descargar</h2>
+      <p>Cada ficha ofrece su tabla en CSV en el menú "Compartir y descargar", y "Ver tabla" la muestra en la página. El <a href="catalogo.html">Catálogo de datos</a> reúne todas las tablas, con su fuente, su período, su cobertura y sus columnas, y también la tabla completa, con todos los indicadores en un solo archivo. Junto a cada tabla hay un archivo con sus metadatos, con el mismo nombre y terminado en <code>.metadata.json</code>: fuente, período, columnas, cómo se calcula, licencia y cómo citarla.</p>
+      <h2 id="de-donde-sale">De dónde sale cada dato</h2>
+      <p>El <a href="relaciones.html">Explorador de relaciones</a> muestra qué organismo publica cada archivo, qué ficha alimenta y qué tabla se puede descargar. Cada ficha lo enlaza al final de su fuente, en "Cómo se calcula y de dónde sale".</p>
+      <h2 id="errores">Si encontrás un error</h2>
+      <p>Escribinos desde <a href="contacto.html">Contacto</a>, con la dirección de la ficha.</p>
     </div>
   </section>
 
@@ -2720,7 +2741,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     <h2>Catálogo de datos</h2>
     <div class="tema-intro">
       <p class="pregunta">¿Qué datos puedo bajar?</p>
-      <p>Acá están las tablas de Datina, cada una con su fuente, su período, su cobertura y sus columnas, para saber qué trae antes de descargarla. También podés descargar la tabla completa, con todos los indicadores en un solo archivo. Las tablas se pueden reutilizar citando a Datina y a la fuente de cada una (<a href="nosotros.html#licencia">licencia</a>).</p>
+      <p>Acá están las tablas de Datina, cada una con su fuente, su período, su cobertura y sus columnas, para saber qué trae antes de descargarla. También podés descargar la tabla completa, con todos los indicadores en un solo archivo. Las tablas se pueden reutilizar citando a Datina y a la fuente de cada una: <a href="usar-datos.html">Usar los datos</a> explica la licencia y cómo citar.</p>
     </div>
     <!--CATALOGO-->
   </section>

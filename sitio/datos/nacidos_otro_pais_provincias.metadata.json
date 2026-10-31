@@ -75,5 +75,6 @@
  "como_se_calcula": "",
  "datos_actualizados": "28/10/2026",
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
- "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
+ "como_citar": "Datina (año de la consulta). ¿Dónde viven las personas nacidas en otro país? Con datos de INDEC, Censo Nacional de Población, Hogares y Viviendas 2022. https://datina.pages.dev/migraciones.html#f-nacidos-otro-pais. Consultado el día de la consulta."
 }

@@ -45,5 +45,6 @@
  "como_se_calcula": "",
  "datos_actualizados": "28/10/2026",
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
- "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
+ "como_citar": "Datina (año de la consulta). ¿Cuál es el saldo con el exterior en bienes, servicios y rentas? Con datos de INDEC, balance de pagos, vía la API de Series de Tiempo. https://datina.pages.dev/externo.html#f-cuenta-corriente. Consultado el día de la consulta."
 }
