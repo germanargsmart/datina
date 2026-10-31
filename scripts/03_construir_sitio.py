@@ -222,7 +222,7 @@ FRECUENCIA = {
     # Naturaleza
     "f-protegida": "anio", "f-parques": "anio", "f-visitas": "mes", "f-especies": "anio", "f-pesca": "anio",
     "f-pesca-rio": "anio",
-    "f-soja": "anio",
+    "f-soja": "anio", "f-cobertura-suelo": "anio",
     # Curiosidades
     "f-nombres": "anio", "f-carne": "mes", "f-vino": "mes", "f-yerba": "mes", "f-glaciares": "inventario", "f-clima": "anio",
 }

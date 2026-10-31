@@ -353,6 +353,10 @@ FUENTES = {
     # del recurso en el catálogo del portal, y si no responde, la última dirección conocida
     "magyp_estimaciones_agricolas.csv": ckan_id("https://datos.magyp.gob.ar", "estimaciones-agricolas", "95d066e6-8a0f-4a80-b59d-6f28f88eacd5",
         "https://datos.magyp.gob.ar/dataset/9e1e77ba-267e-4eaa-a59f-3296e86b5f36/resource/95d066e6-8a0f-4a80-b59d-6f28f88eacd5/download/estimaciones-agricolas-2026-03.csv"),
+    # Cobertura del suelo por provincia, de 1985 a 2025, en hectáreas por clase (MapBiomas Argentina, Colección 3, CC BY 4.0, plan de mejora,
+    # sección 10, aprobada por el autor el 28 de octubre de 2026). Es una red de instituciones y organizaciones, no un organismo
+    # oficial: no hay una serie nacional que la reemplace. Cada colección nueva sale con otra dirección, que hay que cambiar acá
+    "mapbiomas_provincias.zip": "https://argentina.mapbiomas.org/wp-content/uploads/sites/8/2026/09/Estadisticas_por_Provincia.zip",
     # Nombres mas frecuentes por provincia, anio y sexo (RENAPER)
     "renaper_nombres_frecuentes.csv": "https://datosabiertos.renaper.gob.ar/nombres_propios_frecuentes_anio_sexo_provincia_2012_2024.csv",
     # Glaciares por provincia (Inventario Nacional de Glaciares) y anomalia de temperatura desde 1961 (SMN), via CIAM
@@ -542,6 +546,7 @@ VALIDA = {
     "aprender_primaria_lengua.csv": lambda b: b"jurisdiccion" in b[:40],
     "educ_escolarizacion.zip": lambda b: b[:2] == b"PK",
     "educ_abandono.zip": lambda b: b[:2] == b"PK",
+    "mapbiomas_provincias.zip": lambda b: b[:2] == b"PK",
     "educ_repitencia.zip": lambda b: b[:2] == b"PK",
     "pisa_owid.csv": lambda b: b.startswith(b"entity,"),
     "dnrpa_autos_nuevos.csv": lambda b: b"inscripcion" in b[:200],

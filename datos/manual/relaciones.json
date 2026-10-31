@@ -377,6 +377,17 @@
    ]
   },
   {
+   "id": "org:mapbiomas",
+   "nombre": "MapBiomas Argentina",
+   "sigla": "MapBiomas",
+   "depende": "Red de instituciones y organizaciones (no es un organismo oficial)",
+   "url": "https://argentina.mapbiomas.org",
+   "alias": [
+    "MapBiomas Argentina",
+    "MapBiomas"
+   ]
+  },
+  {
    "id": "org:ocde",
    "nombre": "Organización para la Cooperación y el Desarrollo Económicos",
    "sigla": "OCDE",
@@ -1664,6 +1675,17 @@
     "contiene": "Tablero de areas protegidas de la Secretaria de Turismo (tableros.yvera.tur.ar/tablero_areas_protegidas)"
    },
    "url": "https://tableros.yvera.tur.ar/tablero_areas_protegidas"
+  },
+  {
+   "id": "ds:mapbiomas_provincias.zip",
+   "nombre": "Cobertura del suelo por provincia y clase, de 1985 a 2025 (Colección 3)",
+   "fuente": "org:mapbiomas",
+   "ruta": "datos/crudo/mapbiomas_provincias.zip",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "\"mapbiomas_provincias.zip\": \"https://"
+   },
+   "url": "https://argentina.mapbiomas.org/wp-content/uploads/sites/8/2026/09/Estadisticas_por_Provincia.zip"
   },
   {
    "id": "ds:oede_empleo_ramas.csv",
@@ -6936,6 +6958,22 @@
   },
   {
    "tipo": "alimenta",
+   "de": "ds:mapbiomas_provincias.zip",
+   "a": "f-cobertura-suelo",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "with zipfile.ZipFile(CRUDO / \"mapbiomas_provincias.zip\") as z:"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"cobertura_suelo_provincias\": cobertura_suelo_provincias,"
+    }
+   ],
+   "tabla": "cobertura_suelo_provincias"
+  },
+  {
+   "tipo": "alimenta",
    "de": "ds:salud_dengue_AAAA.csv",
    "a": "f-dengue",
    "tabla": "dengue_provincias",
@@ -7517,6 +7555,12 @@
   "f-soja": {
    "variables": [
     "superficie_sembrada_soja"
+   ]
+  },
+  "f-cobertura-suelo": {
+   "variables": [
+    "vegetacion_natural_pct_superficie",
+    "bosques_pct_superficie"
    ]
   },
   "f-dengue": {

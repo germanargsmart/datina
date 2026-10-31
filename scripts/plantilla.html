@@ -2445,6 +2445,20 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <div class="pie"><span>Fuente: Secretaría de Agricultura, Ganadería y Pesca, Estimaciones agrícolas</span><a href="datos/soja_departamentos.csv" download>Por departamento (CSV)</a><a href="datos/soja_provincias.csv" download>Por provincia (CSV)</a><a href="datos/soja_pais.csv" download>Del país, por campaña (CSV)</a></div>
     </article>
 
+    <!-- la cobertura del suelo de MapBiomas (plan de mejora, sección 10, aprobada por el autor el 28 de octubre de 2026): no es oficial, y la nota lo dice -->
+    <article class="ficha" id="f-cobertura-suelo">
+      <h2>¿Cuánto monte natural perdió cada provincia?</h2>
+      <p class="ficha-sub">Vegetación natural y bosques en % de la superficie de cada provincia, {{cobertura_suelo.ini}} y {{cobertura_suelo.fin}}</p>
+      <div class="conmutador" role="group" aria-label="Vista" data-g="cobertura-suelo">
+        <button type="button" data-m="natural" aria-pressed="true">Vegetación natural</button>
+        <button type="button" data-m="bosque" aria-pressed="false">Bosques</button>
+      </div>
+      <div class="grafico" data-g="cobertura-suelo" data-forma="pesas"></div>
+      <p class="lead" data-t="cobertura-suelo"></p>
+      <p class="nota" data-t="cobertura-suelo-nota"></p>
+      <div class="pie"><span>Fuente: MapBiomas Argentina, Colección 3, estadísticas por provincia (licencia CC BY 4.0)</span><a href="datos/cobertura_suelo_provincias.csv" download>Por provincia (CSV)</a><a href="datos/cobertura_suelo_pais.csv" download>Del país, por año (CSV)</a></div>
+    </article>
+
     <article class="ficha" id="f-glaciares">
       <h2>¿Cuántos glaciares tiene cada provincia?</h2>
       <p class="ficha-sub">Glaciares y cuerpos de hielo inventariados, por provincia</p>

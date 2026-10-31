@@ -1351,6 +1351,61 @@ gl["glaciares"] = pd.to_numeric(gl.cantidad_de_glaciares, errors="coerce")
 glaciares = gl.dropna(subset=["codigo_indec", "glaciares"]).groupby("codigo_indec").glaciares.max().reset_index()
 glaciares["territorio"] = glaciares.codigo_indec.map(CORTO)
 
+# Cobertura del suelo por provincia, de 1985 a 2025 (MapBiomas Argentina, Colección 3, CC BY 4.0, plan de mejora, sección 10, aprobada por el
+# autor el 28 de octubre de 2026). Una hoja "Hist" por provincia con las hectáreas de cada clase por año, clasificadas con imágenes satelitales
+# Landsat. Es una red de instituciones y organizaciones, no un organismo oficial. La vegetación natural son los bosques, los arbustales,
+# los pastizales (herbáceas) y las turberas, y lo demás es agropecuario, urbano, sin vegetación o agua. En % de la superficie de cada provincia,
+# que es la misma todos los años
+MB_NATURAL = {norm(c) for c in ["Bosques cerrados", "Bosques abiertos", "Bosques inundables", "Arbustales cerrados", "Arbustales abiertos",
+                                "Mosaicos de arbustos y herbáceas", "Herbáceas", "Herbáceas inundables", "Turberas"]}
+MB_BOSQUE = {norm(c) for c in ["Bosques cerrados", "Bosques abiertos", "Bosques inundables"]}
+with zipfile.ZipFile(CRUDO / "mapbiomas_provincias.zip") as z:
+    _mb_x = pd.ExcelFile(io.BytesIO(z.read(next(n for n in z.namelist() if n.lower().endswith(".xlsx")))))
+_mb_f = []
+for _mb_h in _mb_x.sheet_names:
+    if not _mb_h.endswith(" Hist"):
+        continue
+    _mb_d = _mb_x.parse(_mb_h)
+    _mb_d = _mb_d[_mb_d.iloc[:, 0].notna()]
+    _mb_cl = _mb_d.iloc[:, 0].map(norm)
+    assert MB_NATURAL & set(_mb_cl), f"MapBiomas: la hoja {_mb_h} no tiene las clases conocidas"
+    for _mb_a in [c for c in _mb_d.columns if isinstance(c, int)]:
+        _mb_f.append({"codigo_indec": codigo(_mb_h[:-5]), "anio": _mb_a, "total": _mb_d[_mb_a].sum(),
+                      "natural": _mb_d.loc[_mb_cl.isin(MB_NATURAL), _mb_a].sum(), "bosque": _mb_d.loc[_mb_cl.isin(MB_BOSQUE), _mb_a].sum()})
+_mb = pd.DataFrame(_mb_f)
+assert _mb.codigo_indec.notna().all() and _mb.codigo_indec.nunique() == 24, "MapBiomas: faltan provincias o una no tiene codigo"
+MB_INI, MB_FIN = int(_mb.anio.min()), int(_mb.anio.max())
+_mb_p = _mb[_mb.anio.isin([MB_INI, MB_FIN])].pivot(index="codigo_indec", columns="anio")
+cobertura_suelo_provincias = pd.DataFrame({"codigo_indec": sorted(POB), "territorio": [CORTO[c] for c in sorted(POB)]})
+_mb_m = lambda k, a: cobertura_suelo_provincias.codigo_indec.map(_mb_p[k][a])
+cobertura_suelo_provincias["superficie_ha"] = _mb_m("total", MB_FIN)
+for _mb_k in ("natural", "bosque"):
+    cobertura_suelo_provincias[f"{_mb_k}_ha_{MB_INI}"] = _mb_m(_mb_k, MB_INI)
+    cobertura_suelo_provincias[f"{_mb_k}_ha_{MB_FIN}"] = _mb_m(_mb_k, MB_FIN)
+    cobertura_suelo_provincias[f"pct_{_mb_k}_inicio"] = _mb_m(_mb_k, MB_INI) / _mb_m("total", MB_INI) * 100
+    cobertura_suelo_provincias[f"pct_{_mb_k}_final"] = _mb_m(_mb_k, MB_FIN) / _mb_m("total", MB_FIN) * 100
+cobertura_suelo_provincias["puntos_natural"] = cobertura_suelo_provincias.pct_natural_final - cobertura_suelo_provincias.pct_natural_inicio
+cobertura_suelo_pais = _mb.groupby("anio")[["total", "natural", "bosque"]].sum().reset_index()
+cobertura_suelo_pais["pct_natural"] = cobertura_suelo_pais.natural / cobertura_suelo_pais.total * 100
+cobertura_suelo_pais["pct_bosque"] = cobertura_suelo_pais.bosque / cobertura_suelo_pais.total * 100
+cobertura_suelo_pais = cobertura_suelo_pais.rename(columns={"total": "superficie_ha", "natural": "natural_ha", "bosque": "bosque_ha"})
+_mb_pi, _mb_pf = cobertura_suelo_pais.iloc[0], cobertura_suelo_pais.iloc[-1]
+_mb_o = cobertura_suelo_provincias.sort_values("puntos_natural")
+_mb_b = cobertura_suelo_provincias.assign(perdida=lambda t: t[f"bosque_ha_{MB_INI}"] - t[f"bosque_ha_{MB_FIN}"]).sort_values("perdida")
+MB_RES = {
+    "ini": MB_INI, "fin": MB_FIN, "nat_ini": r1(_mb_pi.pct_natural), "nat": r1(_mb_pf.pct_natural),
+    "bos_ini": r1(_mb_pi.pct_bosque), "bos": r1(_mb_pf.pct_bosque),
+    "nat_perdida_mha": r1((_mb_pi.natural_ha - _mb_pf.natural_ha) / 1e6), "bos_perdida_mha": r1((_mb_pi.bosque_ha - _mb_pf.bosque_ha) / 1e6),
+    "top": [[r.territorio, r1(r.pct_natural_inicio), r1(r.pct_natural_final), r1(-r.puntos_natural)] for r in _mb_o.head(2).itertuples()],
+    "ganaron": [r.territorio for r in _mb_o.itertuples() if r.puntos_natural > 0],
+    "bos_top": [_mb_b.iloc[-1].territorio, r1(_mb_b.iloc[-1].perdida / 1e6), r1((1 - _mb_b.iloc[-1][f"bosque_ha_{MB_FIN}"] / _mb_b.iloc[-1][f"bosque_ha_{MB_INI}"]) * 100)],
+}
+for _mb_k, _mb_v in (("natural", "vegetacion_natural_pct_superficie"), ("bosque", "bosques_pct_superficie")):
+    agregar(_mb.assign(periodo=_mb.anio.astype(str), valor=_mb[_mb_k] / _mb.total * 100, territorio=_mb.codigo_indec.map(CORTO)), _mb_v,
+            "% de la superficie continental", "MapBiomas Argentina")
+    agregar(cobertura_suelo_pais.assign(periodo=cobertura_suelo_pais.anio.astype(str), valor=cobertura_suelo_pais[f"pct_{_mb_k}"], codigo_indec="00",
+                                        territorio="Argentina"), _mb_v, "% de la superficie continental", "MapBiomas Argentina")
+
 # Diferencia de la temperatura media anual del pais con el valor de referencia (SMN, via CIAM)
 cl = pd.read_csv(CRUDO / "ciam_anomalia_temperatura.csv", sep=";", dtype=str).dropna(how="all").drop_duplicates()
 cl.columns = ["anio", "desvio_temperatura", "desvio_precipitacion"]
@@ -7006,6 +7061,8 @@ tablas = {
     "abandono_pais": abandono_pais,
     "telefonia_fija_provincias": telefonia_fija_provincias,
     "telefonia_fija_pais": telefonia_fija_pais,
+    "cobertura_suelo_provincias": cobertura_suelo_provincias,
+    "cobertura_suelo_pais": cobertura_suelo_pais,
     "elecciones_presidenciales": presidenciales,
     "congreso_composicion": congreso,
     "anios_congreso": anios_congreso,
@@ -7398,6 +7455,7 @@ resumen["coparticipacion"] = cpa_res
 resumen["deuda_provincias"] = DP_RES
 resumen["abandono"] = ABN_RES
 resumen["telefonia"] = TF_RES
+resumen["cobertura_suelo"] = MB_RES
 resumen["departamentos"] = {"meta": {k: {"nombre": v[0], "unidad": v[1], "fuente": v[2]} for k, v in DEP_META.items()},
                             "anio_snic": ANIO_DEP, "n": int(len(departamentos))}
 resumen["elecciones"] = el_meta

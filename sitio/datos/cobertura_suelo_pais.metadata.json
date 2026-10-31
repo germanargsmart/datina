@@ -1,0 +1,49 @@
+{
+ "tabla": "cobertura_suelo_pais.csv",
+ "titulo": "¿Cuánto monte natural perdió cada provincia?",
+ "descripcion": "Vegetación natural y bosques en % de la superficie de cada provincia, 1985 y 2025",
+ "seccion": "Naturaleza y ambiente",
+ "ficha": "https://datina.pages.dev/naturaleza.html#f-cobertura-suelo",
+ "fuente": "MapBiomas Argentina, Colección 3, estadísticas por provincia (licencia CC BY 4.0).",
+ "actualizacion": "Se actualiza cada año.",
+ "cobertura": "Sin desglose territorial",
+ "periodo": "1985 a 2025",
+ "filas": 41,
+ "columnas": [
+  {
+   "nombre": "anio",
+   "tipo": "Año",
+   "valores": "1985 a 2025"
+  },
+  {
+   "nombre": "superficie_ha",
+   "tipo": "Número",
+   "valores": "279.589.341,9 a 279.589.342,09"
+  },
+  {
+   "nombre": "natural_ha",
+   "tipo": "Número",
+   "valores": "199.656.686,6 a 214.297.745,35"
+  },
+  {
+   "nombre": "bosque_ha",
+   "tipo": "Número",
+   "valores": "46.405.742,55 a 56.630.836,08"
+  },
+  {
+   "nombre": "pct_natural",
+   "tipo": "Número",
+   "valores": "71,41 a 76,65"
+  },
+  {
+   "nombre": "pct_bosque",
+   "tipo": "Número",
+   "valores": "16,6 a 20,25"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "28/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

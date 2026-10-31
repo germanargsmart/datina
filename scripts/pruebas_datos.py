@@ -81,6 +81,9 @@ ACEPTADAS = {
     "mediana|obra_publica_provincias.obras_hab|38": "real: la autopista de las rutas nacionales 66 y 34 en el corredor del NOA, que hace Vialidad Nacional con un préstamo del Banco Mundial",
     "mediana|obra_publica_provincias.transf_hab|10": "real: obras de agua potable y saneamiento financiadas con préstamos del BID y de la AFD",
     "mediana|obra_publica_provincias.transf_hab|46": "real: obras viales fuera de la red nacional que la Nación transfiere a la provincia y a sus municipios",
+    # cobertura del suelo de MapBiomas (plan de mejora, sección 10, 31 de octubre de 2026)
+    **{k: "real: buena parte de Formosa es bosque chaqueño, y la mediana baja por las provincias de estepa, monte bajo y pastizal"
+       for k in ("mediana|cobertura_suelo_provincias.pct_bosque_final|34", "mediana|bosques_pct_superficie.valor|34")},
     # telefonía fija del ENACOM (plan de mejora, sección 10, 31 de octubre de 2026)
     "mediana|telefonia_fija_provincias.accesos_100_habitantes|02": "real: en CABA la telefonía fija sigue mucho más extendida que en el "
     "resto del país, y el ENACOM cuenta juntas las líneas de los hogares y las de oficinas, comercios y organismos (lo dice la nota)",
