@@ -2489,6 +2489,44 @@ DP_RES = {
 agregar(_dp_t.assign(periodo=DP_PERIODO, valor=_dp_t.por_habitante), "deuda_provincial_por_habitante", "pesos por habitante",
         "Subsecretaría de Coordinación Fiscal Provincial e INDEC")
 
+# Sociedades comerciales constituidas por año y provincia del domicilio fiscal (Registro Nacional de Sociedades, Ministerio de Justicia, plan de
+# mejora, sección 10, aprobada por el autor el 28 de octubre de 2026). 01 recorre el registro entero del año más nuevo y guarda cuántos CUIT
+# hay por año del contrato social, provincia y tipo (jus_sociedades_resumen.csv). El último año completo es el anterior al del registro. Es el
+# registro de hoy: una sociedad que se dio de baja puede no estar, así que los años viejos pueden quedar cortos. Cada 100.000 habitantes, con la
+# población del INDEC de ese año. Las sociedades por acciones simplificadas (SAS) existen desde la Ley 27.349, de 2017
+soc_d = pd.read_csv(CRUDO / "jus_sociedades_resumen.csv")
+soc_d["anio"] = pd.to_numeric(soc_d.anio_contrato, errors="coerce")
+SOC_REG = int(soc_d.registro.max())
+SOC_ULT = SOC_REG - 1
+soc_d = soc_d[soc_d.anio.between(2010, SOC_ULT)].copy()
+soc_d["codigo_indec"] = soc_d.provincia_fiscal.map(lambda n: "02" if norm(n) == "ciudad autonoma buenos aires" else codigo(n))
+soc_d["sas"] = soc_d.tipo_societario.eq("SOCIEDAD POR ACCION SIMPLIFICADA") * soc_d.sociedades
+_soc_u = soc_d[soc_d.anio == SOC_ULT]
+assert set(_soc_u.codigo_indec.dropna()) == set(POB), "sociedades: faltan provincias en el último año"
+sociedades_provincias = pd.DataFrame({"codigo_indec": sorted(POB), "territorio": [CORTO[c] for c in sorted(POB)]})
+_soc_g = lambda a, k="sociedades": soc_d[soc_d.anio == a].groupby("codigo_indec")[k].sum()
+sociedades_provincias["sociedades"] = sociedades_provincias.codigo_indec.map(_soc_g(SOC_ULT))
+sociedades_provincias["sociedades_anterior"] = sociedades_provincias.codigo_indec.map(_soc_g(SOC_ULT - 1)).fillna(0)
+sociedades_provincias["pct_sas"] = sociedades_provincias.codigo_indec.map(_soc_g(SOC_ULT, "sas")) / sociedades_provincias.sociedades * 100
+sociedades_provincias["poblacion"] = sociedades_provincias.codigo_indec.map(lambda c: POB_POR_ANIO[(c, SOC_ULT)])
+sociedades_provincias["cada_100000"] = sociedades_provincias.sociedades / sociedades_provincias.poblacion * 1e5
+sociedades_pais = soc_d.groupby("anio").agg(sociedades=("sociedades", "sum"), sas=("sas", "sum")).reset_index().astype(int)
+sociedades_pais["otras"] = sociedades_pais.sociedades - sociedades_pais.sas
+_soc_o = sociedades_provincias.sort_values("cada_100000")
+_soc_p = sociedades_pais.set_index("anio")
+SOC_RES = {
+    "anio": SOC_ULT, "registro": SOC_REG, "ini": int(sociedades_pais.anio.min()),
+    "total": int(_soc_p.at[SOC_ULT, "sociedades"]), "total_ant": int(_soc_p.at[SOC_ULT - 1, "sociedades"]),
+    "pais": r1(_soc_p.at[SOC_ULT, "sociedades"] / sum(POB_POR_ANIO[(c, SOC_ULT)] for c in POB) * 1e5),
+    "pct_sas": r1(_soc_p.at[SOC_ULT, "sas"] / _soc_p.at[SOC_ULT, "sociedades"] * 100),
+    "max": [int(_soc_p.sociedades.idxmax()), int(_soc_p.sociedades.max())],
+    "top": [_soc_o.iloc[-1].territorio, r1(_soc_o.iloc[-1].cada_100000)], "top2": [_soc_o.iloc[-2].territorio, r1(_soc_o.iloc[-2].cada_100000)],
+    "bajo": [_soc_o.iloc[0].territorio, r1(_soc_o.iloc[0].cada_100000)],
+    "caba_pct": r1(sociedades_provincias.set_index("codigo_indec").at["02", "sociedades"] / _soc_p.at[SOC_ULT, "sociedades"] * 100),
+}
+agregar(sociedades_provincias.assign(periodo=str(SOC_ULT), valor=sociedades_provincias.cada_100000), "sociedades_comerciales_constituidas_cada_100000",
+        "sociedades cada 100.000 habitantes", "Ministerio de Justicia, Registro Nacional de Sociedades, e INDEC")
+
 # Tasa de natalidad por provincia (DEIS), nacidos vivos cada 1.000 habitantes
 na = pd.read_csv(CRUDO / "deis_natalidad.csv", encoding="utf-8-sig")
 na["anio"] = na.indice_tiempo.astype(str).str[-4:].astype(int)
@@ -7092,6 +7130,8 @@ tablas = {
     "cobertura_suelo_provincias": cobertura_suelo_provincias,
     "cobertura_suelo_pais": cobertura_suelo_pais,
     "medicos_provincias": medicos_provincias,
+    "sociedades_provincias": sociedades_provincias,
+    "sociedades_pais": sociedades_pais,
     "elecciones_presidenciales": presidenciales,
     "congreso_composicion": congreso,
     "anios_congreso": anios_congreso,
@@ -7486,6 +7526,7 @@ resumen["abandono"] = ABN_RES
 resumen["telefonia"] = TF_RES
 resumen["cobertura_suelo"] = MB_RES
 resumen["medicos"] = MEDI_RES
+resumen["sociedades"] = SOC_RES
 resumen["departamentos"] = {"meta": {k: {"nombre": v[0], "unidad": v[1], "fuente": v[2]} for k, v in DEP_META.items()},
                             "anio_snic": ANIO_DEP, "n": int(len(departamentos))}
 resumen["elecciones"] = el_meta

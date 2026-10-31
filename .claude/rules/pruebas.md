@@ -7,7 +7,7 @@ Desde el 27 de octubre de 2026 (plan de mejora, etapa 0, T1) cada PR corre solo 
 | Cambio | Qué correr |
 |---|---|
 | Solo documentación (`docs/`, `CLAUDE.md`, `.claude/`) | Revisar el diff. Nada más. |
-| Datos (`02_procesar.py`, `datos/manual/`) | `python scripts/02_procesar.py`, `python scripts/pruebas_datos.py` (0 sin explicar), comparar el resumen antes y después |
+| Datos (`02_procesar.py`, `datos/manual/`) | `python scripts/02_procesar.py` (fuera de la actualización mensual, `python scripts/correr_02_con_fecha.py`, que conserva la fecha de la última actualización), `python scripts/pruebas_datos.py` (0 sin explicar), comparar el resumen antes y después |
 | Plantilla, constructor, CSS o JS | `python scripts/03_construir_sitio.py`, sintaxis de `sitio/datina.js`, `node scripts/prueba_paginas.mjs`, y revisar la página en 390 y 1440 píxeles |
 | Página o herramienta nueva | Lo anterior, más teclado, movimiento reducido, celular y que las demás páginas no cambien |
 | Explorador de relaciones (`datos/manual/relaciones.json`, `scripts/relaciones.*`) | `python scripts/relaciones.py` (valida el catálogo: cada relación con su evidencia en el código), `python scripts/prueba_relaciones.py` (rompe el catálogo de 18 formas y controla que el validador lo marque), el armado y la prueba de páginas. 03 corre las dos primeras y no arma el sitio si fallan |

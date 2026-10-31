@@ -305,6 +305,8 @@ const TF = R.telefonia;
 const MBS = R.cobertura_suelo;
 // los médicos por provincia del OFETHuS (plan de mejora, sección 10, 31 de octubre de 2026)
 const MDC = R.medicos;
+// las sociedades nuevas del Registro Nacional de Sociedades (plan de mejora, sección 10, 31 de octubre de 2026)
+const SOC = R.sociedades;
 const pesosDeuda = v => `${milDeuda(v)} pesos`;
 // superávit o déficit, en palabras
 const sobra = v => v < 0 ? "déficit" : "superávit";
@@ -734,6 +736,17 @@ const LEAD = {
       `y le seguía ${DPR.top2[0]}. ${DPR.mayor[0]} debía el ${pct(DPR.mayor[1])} del total. Una deuda alta por habitante no dice por sí sola si es ` +
       `mucha para la provincia: eso depende de sus ingresos y de los plazos para pagarla.`;
   },
+  // las sociedades nuevas (plan de mejora, sección 10, 31 de octubre de 2026): por provincia en el último año completo, o la evolución del
+  // país. La serie sale del registro de hoy, así que no se dice que un año fue el más alto
+  sociedades: v => v === "serie"
+    ? `En ${SOC.anio} se constituyeron ${n0(SOC.total)} sociedades comerciales en el país, y en ${SOC.anio - 1}, ${n0(SOC.total_ant)}. Las sociedades ` +
+      `por acciones simplificadas (SAS), que existen desde 2017, fueron el ${pct(SOC.pct_sas)} en ${SOC.anio}. La serie sale del registro de ` +
+      `${SOC.registro}: las sociedades que se dieron de baja pueden no estar, así que los años más viejos pueden quedar cortos.`
+    : `En ${SOC.anio} se constituyeron ${n0(SOC.total)} sociedades comerciales en el país, ${n1(SOC.pais)} cada 100.000 habitantes, según el ` +
+      `Registro Nacional de Sociedades. El ${pct(SOC.pct_sas)} fueron sociedades por acciones simplificadas (SAS). La cifra más alta por habitante ` +
+      `fue la de ${SOC.top[0]}, con ${n1(SOC.top[1])}, y le seguía ${SOC.top2[0]}, con ${n1(SOC.top2[1])}. La más baja, la de ${SOC.bajo[0]}, con ` +
+      `${n1(SOC.bajo[1])}.` + (SOC.top[0] === "CABA" ? ` CABA concentró el ${pct(SOC.caba_pct)} de las sociedades nuevas del país: se cuentan ` +
+      `por su domicilio fiscal, que puede no ser donde trabajan.` : ""),
   // los médicos por provincia (plan de mejora, sección 10, 31 de octubre de 2026): los activos o los habilitados, cada 10.000 habitantes
   medicos: v => v === "habilitados"
     ? `A fines de ${MDC.anio} había ${n0(MDC.habilitados)} médicos habilitados en el país, ${n1(MDC.pais_hab)} cada 10.000 habitantes. El ` +
@@ -1589,6 +1602,12 @@ const TX = {
     `transferencias no automáticas, que están en Instituciones políticas. El reparto entre provincias no sigue a la población: la Ley 23.548, de 1988, ` +
     `fija un porcentaje para cada una. CABA y Tierra del Fuego, que en 1988 no eran provincias, reciben su parte de la que le toca a la Nación, con ` +
     `porcentajes que fijan otras normas: los de CABA cambiaron en 2016 y en 2020. En pesos de cada año. Por habitante, con la población del INDEC de ese año.`,
+  sociedades: LEAD.sociedades("prov"), "sociedades-nota": `Sociedades comerciales de la Ley General de Sociedades (anónimas, de responsabilidad ` +
+    `limitada, de la Sección IV y las demás de esa ley) y sociedades por acciones simplificadas, por el año de su contrato social y la provincia de ` +
+    `su domicilio fiscal, según el Registro Nacional de Sociedades del Ministerio de Justicia (registro de ${SOC.registro}). Cada sociedad se cuenta ` +
+    `una vez, aunque tenga varias actividades. No incluye asociaciones civiles, fundaciones, cooperativas, mutuales ni sucursales de empresas ` +
+    `extranjeras. El domicilio fiscal puede no ser donde la sociedad trabaja. Las que se dieron de baja pueden no estar en el registro. Cada ` +
+    `100.000 habitantes, con la población del INDEC de ${SOC.anio}.`,
   medicos: LEAD.medicos("activos"), "medicos-nota": `Médicos por provincia de residencia, según el informe "Médicos activos en Argentina" del ` +
     `Observatorio Federal de Talento Humano en Salud del Ministerio de Salud. Habilitados: con matrícula vigente en la Red Federal de Registros de ` +
     `Profesionales de la Salud. Activos: los que alguna de seis fuentes administrativas de empleo, impuestos, jubilaciones y migraciones muestra ` +
@@ -3038,7 +3057,7 @@ const DIB = protegerDib({
 
 /* ---------- petróleo y gas, construcción y vivienda (etapa 18) ---------- */
 Object.assign(MED, {refugio: "anio", supermercados: "prov", "cuentas-nacion": "resultado", recaudacion: "impuesto", "empleo-publico": "prov", "nacidos-otro-pais": "prov", "migracion-interna": "prov", radicaciones: "anio", "argentinos-exterior": "anio", inflacion: "doce", "inflacion-rubros": "division", canastas: "region", emae: "mes", "electricidad-provincias": "prov", "electricidad-sectores": "ind", salarios: "prov", "salario-docente": "prov", "inversion-educativa": "alumno",
-  delitos: "tipo", robos: "robos", homicidios: "prov", carceles: "serie", "sin-condena": "prov", coparticipacion: "hab", "deuda-provincias": "hab", abandono: "ab", telefonia: "prov", "cobertura-suelo": "natural", medicos: "activos", desocupacion: "ciudad", "empresas-tamano": "tam", "pobreza-aglomerados": "region", combustibles: "nafta", "combustibles-vista": "prov", subsidios: "pbi", "obra-publica": "prov", "gas-consumo": "prov", centrales: "mapa", "mapa-pozos": "cuenca", productividad: "pozo", fracturas: "etapas", "pozos-terminados": "anio", petroleo: "tipo", gas: "tipo", "gas-hogares-vista": "prov", "hidro-provincias": "pet_kbd", "areas-hidro": "pet", arArea: "", pozos: "pozo", "empresas-hidro": "pct_pet",
+  delitos: "tipo", robos: "robos", homicidios: "prov", carceles: "serie", "sin-condena": "prov", coparticipacion: "hab", "deuda-provincias": "hab", abandono: "ab", telefonia: "prov", "cobertura-suelo": "natural", medicos: "activos", sociedades: "prov", desocupacion: "ciudad", "empresas-tamano": "tam", "pobreza-aglomerados": "region", combustibles: "nafta", "combustibles-vista": "prov", subsidios: "pbi", "obra-publica": "prov", "gas-consumo": "prov", centrales: "mapa", "mapa-pozos": "cuenca", productividad: "pozo", fracturas: "etapas", "pozos-terminados": "anio", petroleo: "tipo", gas: "tipo", "gas-hogares-vista": "prov", "hidro-provincias": "pet_kbd", "areas-hidro": "pet", arArea: "", pozos: "pozo", "empresas-hidro": "pct_pet",
   "empleo-hidro": "prov", regalias: "pct_regalias", reservas: "pet", "mundo-petroleo": "crudo_kbd", insumos: "var_12m",
   "empleo-construccion": "construccion_cada_1000", "trabajadores-vista": "prov", vivienda: "pct_alquila", "vivienda-vista": "prov"});
 const COL_TIPO = {conv: "#A9CBEA", tight: "#F6B40E", shale: "#1F5E97"};
@@ -3554,6 +3573,23 @@ Object.assign(DIB, {
     barrasH(el, {anim: a, data: datos, k: "por_habitante", vf: milDeuda, af: ejeMil, ref: DPR.pais_hab, refLab: `País ${milDeuda(DPR.pais_hab)}`,
       tip: d => `<b>${d.territorio}</b><br>${pesosDeuda(d.por_habitante)} por habitante al ${DPR.fecha_txt}<br>${billones(d.millones)} en total<br>` +
         `${pct(d.pct_bonos)} en bonos`});
+  },
+  // las sociedades nuevas (plan de mejora, sección 10, 31 de octubre de 2026): cada provincia con la línea del país, o el país año por año,
+  // con las SAS aparte
+  sociedades: a => {
+    const v = MED.sociedades, el = G("sociedades"), fp = T.sociedades_provincias.find(r => r.codigo_indec === prov);
+    let txt = LEAD.sociedades(v);
+    if (v === "serie") {
+      $t("sociedades").textContent = txt;
+      return lineas(el, {anim: a, data: T.sociedades_pais, x: "anio", y0: 0, vf: n0, yf: ejeMil, xl: r => String(r.anio),
+        series: [{k: "sociedades", lab: "Sociedades comerciales", corto: "Todas", c: NAR}, {k: "sas", lab: "SAS", corto: "SAS", c: FRI}]});
+    }
+    if (fp && ![SOC.top[0], SOC.top2[0], SOC.bajo[0]].includes(fp.territorio))
+      txt += ` En ${fp.territorio}, ${n1(fp.cada_100000)} cada 100.000 habitantes (${n0(fp.sociedades)} sociedades).`;
+    $t("sociedades").textContent = txt;
+    barrasH(el, {anim: a, data: T.sociedades_provincias, k: "cada_100000", vf: n1, af: n0, ref: SOC.pais, refLab: `País ${n1(SOC.pais)}`,
+      tip: d => `<b>${d.territorio}</b><br>${n0(d.sociedades)} sociedades nuevas en ${SOC.anio}<br>${n1(d.cada_100000)} cada 100.000 habitantes<br>` +
+        `${pct(d.pct_sas)} SAS<br>${n0(d.sociedades_anterior)} en ${SOC.anio - 1}`});
   },
   // los médicos por provincia (plan de mejora, sección 10, 31 de octubre de 2026): cada provincia con la línea del país
   medicos: a => {
@@ -6712,6 +6748,8 @@ const CLAVE = {
   "f-coparticipacion": [`${n2(CPA.pais_hab / 1e6)} millones de pesos`, `por habitante recibieron las provincias y CABA en ${CPA.anio} por la coparticipación federal y otros ` +
     `impuestos nacionales que se reparten por ley` + (Object.keys(CPA.atrasadas).length ? `, sin contar ${lista(Object.keys(CPA.atrasadas))}` : ""),
     Object.keys(CPA.atrasadas).length ? "por habitante, promedio de las jurisdicciones con datos" : "por habitante, promedio del país"],
+  "f-sociedades": [n1(SOC.pais), `sociedades comerciales cada 100.000 habitantes se constituyeron en el país en ${SOC.anio}`,
+    `sociedades nuevas cada 100.000 habitantes, ${SOC.anio}`],
   "f-medicos": [n1(MDC.pais), `médicos activos cada 10.000 habitantes había en todo el país a fines de ${MDC.anio}`,
     `médicos activos cada 10.000 habitantes, ${MDC.anio}`],
   "f-cobertura-suelo": [pct(MBS.nat), `de la superficie del país tenía vegetación natural en ${MBS.fin}, según MapBiomas. En ${MBS.ini}, el ${pct(MBS.nat_ini)}`,
@@ -7925,6 +7963,9 @@ const PREG = [
   ["¿Cuánto recibe cada provincia por coparticipación?",
    `En ${CPA.anio}, las provincias y CABA recibieron ${n2(CPA.pais_hab / 1e6)} millones de pesos por habitante por la coparticipación federal y otros impuestos nacionales. ` +
    `Fue el ${pct(CPA.pct_pais)} de sus ingresos.`, "#f-coparticipacion"],
+  ["¿Dónde se crean más empresas?",
+   `En ${SOC.anio} se constituyeron ${n0(SOC.total)} sociedades comerciales en el país, ${n1(SOC.pais)} cada 100.000 habitantes, según el Registro ` +
+   `Nacional de Sociedades. El ${pct(SOC.pct_sas)} fueron SAS.`, "#f-sociedades"],
   ["¿Dónde hay más médicos por habitante?",
    `A fines de ${MDC.anio}, en ${MDC.top[0]}, con ${n1(MDC.top[1])} médicos activos cada 10.000 habitantes, según el OFETHuS. En todo el país, ` +
    `${n1(MDC.pais)}, y la cifra más baja fue la de ${MDC.bajo[0]}, ${n1(MDC.bajo[1])}.`, "#f-medicos"],
@@ -9635,6 +9676,7 @@ if (PAGINA !== "inicio") {
     "f-carne": ["carne"], "f-vino": ["vino"], "f-yerba": ["yerba"], "f-electricidad-provincias": ["electricidad", "luz"], "f-subsidios": ["subsidios"],
     "f-empresas": ["empresas"], "f-canastas": ["canasta", "canasta basica"], "f-emae": ["actividad economica", "emae"], "f-carceles": ["carceles", "presos"], "f-sin-condena": ["sin condena", "presos sin condena", "procesados", "prision preventiva"],
     "f-coparticipacion": ["coparticipacion", "coparticipacion federal", "reparto de impuestos"],
+    "f-sociedades": ["sociedades", "empresas nuevas", "crear empresas", "nuevas sociedades", "emprendimientos"],
     "f-medicos": ["medicos", "medicos por habitante", "cantidad de medicos", "medico"],
     "f-cobertura-suelo": ["monte nativo", "monte natural", "bosques", "desmonte", "deforestacion", "mapbiomas", "vegetacion natural"],
     "f-telefonia": ["telefono fijo", "telefonia fija", "linea fija", "telefonia"],

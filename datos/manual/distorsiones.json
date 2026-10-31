@@ -22,5 +22,8 @@
  },
  "aprender_provincias.len_logra": {
   "58": {"accion": "aclarar", "motivo": "su participación en Aprender quedó por debajo del umbral mínimo de representatividad estadística y la Secretaría de Educación publica su dato a título informativo", "corto": "Dato a título informativo: participaron en Aprender menos estudiantes de los necesarios para que el resultado sea representativo."}
+ },
+ "sociedades_provincias.cada_100000": {
+  "02": {"accion": "aclarar", "motivo": "cada sociedad se cuenta en la provincia de su domicilio fiscal, y muchas lo fijan en CABA aunque trabajen en otras provincias", "corto": "Cada sociedad se cuenta por su domicilio fiscal, que puede no ser donde trabaja."}
  }
 }

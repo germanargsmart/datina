@@ -599,6 +599,20 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <p class="nota" data-t="dinamica-nota"></p>
       <div class="pie"><span>Fuente: Observatorio de Empleo y Dinámica Empresarial (OEDE), Secretaría de Trabajo, Ministerio de Capital Humano, con datos del Sistema Integrado Previsional Argentino (SIPA)</span><a href="datos/empresas_serie_pais.csv" download>Descargar tabla (CSV)</a></div>
     </article>
+
+    <!-- las sociedades nuevas (plan de mejora, sección 10, aprobada por el autor el 28 de octubre de 2026): del Registro Nacional de Sociedades -->
+    <article class="ficha" id="f-sociedades">
+      <h2>¿Dónde se crean más empresas?</h2>
+      <p class="ficha-sub">Sociedades comerciales constituidas cada 100.000 habitantes, por provincia del domicilio fiscal, {{sociedades.anio}}, y en el país desde {{sociedades.ini}}</p>
+      <div class="conmutador" role="group" aria-label="Vista" data-g="sociedades">
+        <button type="button" data-m="prov" aria-pressed="true">Por provincia</button>
+        <button type="button" data-m="serie" aria-pressed="false">Evolución</button>
+      </div>
+      <div class="grafico" data-g="sociedades" data-forma="barras"></div>
+      <p class="lead" data-t="sociedades"></p>
+      <p class="nota" data-t="sociedades-nota"></p>
+      <div class="pie"><span>Fuentes: Registro Nacional de Sociedades, Ministerio de Justicia, e INDEC, proyecciones de población</span><a href="datos/sociedades_provincias.csv" download>Por provincia (CSV)</a><a href="datos/sociedades_pais.csv" download>Del país, por año (CSV)</a></div>
+    </article>
   </section>
 
   <section class="tema con-pregunta" id="pobreza">
