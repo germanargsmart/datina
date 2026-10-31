@@ -301,6 +301,8 @@ const milDeuda = v => v >= 1e6 ? `${n2(v / 1e6)} millones` : v >= 1000 ? `${n0(v
 const ABN = R.abandono;
 // la telefonía fija del ENACOM (plan de mejora, sección 10, 31 de octubre de 2026)
 const TF = R.telefonia;
+// la cobertura del suelo de MapBiomas (plan de mejora, sección 10, 31 de octubre de 2026)
+const MBS = R.cobertura_suelo;
 const pesosDeuda = v => `${milDeuda(v)} pesos`;
 // superávit o déficit, en palabras
 const sobra = v => v < 0 ? "déficit" : "superávit";
@@ -730,6 +732,15 @@ const LEAD = {
       `y le seguía ${DPR.top2[0]}. ${DPR.mayor[0]} debía el ${pct(DPR.mayor[1])} del total. Una deuda alta por habitante no dice por sí sola si es ` +
       `mucha para la provincia: eso depende de sus ingresos y de los plazos para pagarla.`;
   },
+  // la cobertura del suelo (plan de mejora, sección 10, 31 de octubre de 2026): la vegetación natural o los bosques, en % de la superficie
+  "cobertura-suelo": v => v === "bosque"
+    ? `En ${MBS.ini}, los bosques cubrían el ${pct(MBS.bos_ini)} de la superficie del país, según MapBiomas, y en ${MBS.fin}, el ${pct(MBS.bos)}: ` +
+      `${n1(MBS.bos_perdida_mha)} millones de hectáreas menos. La provincia que más perdió fue ${MBS.bos_top[0]}: ${n1(MBS.bos_top[1])} millones de ` +
+      `hectáreas, el ${pct(MBS.bos_top[2])} de los bosques que tenía en ${MBS.ini}.`
+    : `En ${MBS.ini}, la vegetación natural (bosques, arbustales, pastizales y turberas) cubría el ${pct(MBS.nat_ini)} de la superficie del país, ` +
+      `según MapBiomas, y en ${MBS.fin}, el ${pct(MBS.nat)}: ${n1(MBS.nat_perdida_mha)} millones de hectáreas menos. Las provincias que más perdieron ` +
+      `fueron ${MBS.top[0][0]}, del ${pct(MBS.top[0][1])} al ${pct(MBS.top[0][2])} de su superficie, y ${MBS.top[1][0]}, del ${pct(MBS.top[1][1])} al ` +
+      `${pct(MBS.top[1][2])}.` + (MBS.ganaron.length ? ` En ${lista(MBS.ganaron)}, la parte con vegetación natural creció.` : ""),
   // la telefonía fija (plan de mejora, sección 10, 31 de octubre de 2026): por provincia en el último trimestre, o la evolución del país
   telefonia: v => v === "serie"
     ? `En el ${TF.ini_trim} había ${n1(TF.pais_ini)} accesos de telefonía fija cada 100 hogares en el país, y en el ${TF.trim}, ${n1(TF.pais)}. ` +
@@ -1568,6 +1579,11 @@ const TX = {
     `transferencias no automáticas, que están en Instituciones políticas. El reparto entre provincias no sigue a la población: la Ley 23.548, de 1988, ` +
     `fija un porcentaje para cada una. CABA y Tierra del Fuego, que en 1988 no eran provincias, reciben su parte de la que le toca a la Nación, con ` +
     `porcentajes que fijan otras normas: los de CABA cambiaron en 2016 y en 2020. En pesos de cada año. Por habitante, con la población del INDEC de ese año.`,
+  "cobertura-suelo": LEAD["cobertura-suelo"]("natural"), "cobertura-suelo-nota": `MapBiomas Argentina, Colección 3: una red de instituciones y ` +
+    `organizaciones que clasifica la cobertura del suelo de cada año desde ${MBS.ini} con imágenes satelitales Landsat. No es una estadística oficial ` +
+    `y la clasificación puede tener errores. La vegetación natural son los bosques, los arbustales, ` +
+    `los pastizales y las turberas. Lo demás es uso agropecuario, áreas urbanas, suelo sin vegetación o agua. El registro de bosques nativos del ` +
+    `Estado usa otra metodología y puede dar otras cifras. Licencia CC BY 4.0.`,
   telefonia: LEAD.telefonia("prov"), "telefonia-nota": `Accesos de telefonía fija en servicio, según el ENACOM. Son líneas, no hogares: cuentan ` +
     `las de los hogares y también las de comercios, organismos públicos y otros usos, así que una jurisdicción puede pasar de 100 cada 100 hogares. ` +
     `Los accesos a internet fijo están en la ficha anterior.`,
@@ -3007,7 +3023,7 @@ const DIB = protegerDib({
 
 /* ---------- petróleo y gas, construcción y vivienda (etapa 18) ---------- */
 Object.assign(MED, {refugio: "anio", supermercados: "prov", "cuentas-nacion": "resultado", recaudacion: "impuesto", "empleo-publico": "prov", "nacidos-otro-pais": "prov", "migracion-interna": "prov", radicaciones: "anio", "argentinos-exterior": "anio", inflacion: "doce", "inflacion-rubros": "division", canastas: "region", emae: "mes", "electricidad-provincias": "prov", "electricidad-sectores": "ind", salarios: "prov", "salario-docente": "prov", "inversion-educativa": "alumno",
-  delitos: "tipo", robos: "robos", homicidios: "prov", carceles: "serie", "sin-condena": "prov", coparticipacion: "hab", "deuda-provincias": "hab", abandono: "ab", telefonia: "prov", desocupacion: "ciudad", "empresas-tamano": "tam", "pobreza-aglomerados": "region", combustibles: "nafta", "combustibles-vista": "prov", subsidios: "pbi", "obra-publica": "prov", "gas-consumo": "prov", centrales: "mapa", "mapa-pozos": "cuenca", productividad: "pozo", fracturas: "etapas", "pozos-terminados": "anio", petroleo: "tipo", gas: "tipo", "gas-hogares-vista": "prov", "hidro-provincias": "pet_kbd", "areas-hidro": "pet", arArea: "", pozos: "pozo", "empresas-hidro": "pct_pet",
+  delitos: "tipo", robos: "robos", homicidios: "prov", carceles: "serie", "sin-condena": "prov", coparticipacion: "hab", "deuda-provincias": "hab", abandono: "ab", telefonia: "prov", "cobertura-suelo": "natural", desocupacion: "ciudad", "empresas-tamano": "tam", "pobreza-aglomerados": "region", combustibles: "nafta", "combustibles-vista": "prov", subsidios: "pbi", "obra-publica": "prov", "gas-consumo": "prov", centrales: "mapa", "mapa-pozos": "cuenca", productividad: "pozo", fracturas: "etapas", "pozos-terminados": "anio", petroleo: "tipo", gas: "tipo", "gas-hogares-vista": "prov", "hidro-provincias": "pet_kbd", "areas-hidro": "pet", arArea: "", pozos: "pozo", "empresas-hidro": "pct_pet",
   "empleo-hidro": "prov", regalias: "pct_regalias", reservas: "pet", "mundo-petroleo": "crudo_kbd", insumos: "var_12m",
   "empleo-construccion": "construccion_cada_1000", "trabajadores-vista": "prov", vivienda: "pct_alquila", "vivienda-vista": "prov"});
 const COL_TIPO = {conv: "#A9CBEA", tight: "#F6B40E", shale: "#1F5E97"};
@@ -3523,6 +3539,17 @@ Object.assign(DIB, {
     barrasH(el, {anim: a, data: datos, k: "por_habitante", vf: milDeuda, af: ejeMil, ref: DPR.pais_hab, refLab: `País ${milDeuda(DPR.pais_hab)}`,
       tip: d => `<b>${d.territorio}</b><br>${pesosDeuda(d.por_habitante)} por habitante al ${DPR.fecha_txt}<br>${billones(d.millones)} en total<br>` +
         `${pct(d.pct_bonos)} en bonos`});
+  },
+  // la cobertura del suelo (plan de mejora, sección 10, 31 de octubre de 2026): cada provincia en el primer año y en el último, sin verde ni
+  // rojo (no es un cambio bueno o malo indiscutido)
+  "cobertura-suelo": a => {
+    const v = MED["cobertura-suelo"], fp = T.cobertura_suelo_provincias.find(r => r.codigo_indec === prov);
+    let txt = LEAD["cobertura-suelo"](v);
+    if (fp && !MBS.top.some(t => t[0] === fp.territorio) && fp.territorio !== MBS.bos_top[0])
+      txt += ` En ${fp.territorio}, del ${pct(fp[`pct_${v}_inicio`])} al ${pct(fp[`pct_${v}_final`])}.`;
+    $t("cobertura-suelo").textContent = txt;
+    pesas(G("cobertura-suelo"), {anim: a, data: T.cobertura_suelo_provincias, a: `pct_${v}_inicio`, b: `pct_${v}_final`, la: String(MBS.ini),
+      lb: String(MBS.fin), uDif: " puntos", pais: v === "bosque" ? [MBS.bos_ini, MBS.bos] : [MBS.nat_ini, MBS.nat]});
   },
   // la telefonía fija (plan de mejora, sección 10, 31 de octubre de 2026): cada provincia con la línea del país, o la evolución del país por
   // trimestre, cada 100 hogares y cada 100 habitantes
@@ -6658,6 +6685,8 @@ const CLAVE = {
   "f-coparticipacion": [`${n2(CPA.pais_hab / 1e6)} millones de pesos`, `por habitante recibieron las provincias y CABA en ${CPA.anio} por la coparticipación federal y otros ` +
     `impuestos nacionales que se reparten por ley` + (Object.keys(CPA.atrasadas).length ? `, sin contar ${lista(Object.keys(CPA.atrasadas))}` : ""),
     Object.keys(CPA.atrasadas).length ? "por habitante, promedio de las jurisdicciones con datos" : "por habitante, promedio del país"],
+  "f-cobertura-suelo": [pct(MBS.nat), `de la superficie del país tenía vegetación natural en ${MBS.fin}, según MapBiomas. En ${MBS.ini}, el ${pct(MBS.nat_ini)}`,
+    `de la superficie con vegetación natural, ${MBS.fin}`],
   "f-telefonia": [n1(TF.pais), `accesos de telefonía fija cada 100 hogares había en todo el país en el ${TF.trim}`,
     `accesos de telefonía fija cada 100 hogares, ${TF.trim}`],
   "f-abandono": [pct(ABN.pais), `de los alumnos de la secundaria de ${ABN.anio} no se volvió a matricular en ${ABN.sig}, en todo el país`,
@@ -7867,6 +7896,9 @@ const PREG = [
   ["¿Cuánto recibe cada provincia por coparticipación?",
    `En ${CPA.anio}, las provincias y CABA recibieron ${n2(CPA.pais_hab / 1e6)} millones de pesos por habitante por la coparticipación federal y otros impuestos nacionales. ` +
    `Fue el ${pct(CPA.pct_pais)} de sus ingresos.`, "#f-coparticipacion"],
+  ["¿Cuánto monte natural perdió cada provincia?",
+   `De ${MBS.ini} a ${MBS.fin}, la vegetación natural pasó del ${pct(MBS.nat_ini)} al ${pct(MBS.nat)} de la superficie del país, según MapBiomas. La ` +
+   `que más perdió fue ${MBS.top[0][0]}.`, "#f-cobertura-suelo"],
   ["¿Cuántos accesos de telefonía fija hay cada 100 hogares?",
    `En el ${TF.trim}, ${n1(TF.pais)} en todo el país, según el ENACOM. En el ${TF.ini_trim}, ${n1(TF.pais_ini)}.`, "#f-telefonia"],
   ["¿Dónde dejan más la secundaria?",
@@ -9571,6 +9603,7 @@ if (PAGINA !== "inicio") {
     "f-carne": ["carne"], "f-vino": ["vino"], "f-yerba": ["yerba"], "f-electricidad-provincias": ["electricidad", "luz"], "f-subsidios": ["subsidios"],
     "f-empresas": ["empresas"], "f-canastas": ["canasta", "canasta basica"], "f-emae": ["actividad economica", "emae"], "f-carceles": ["carceles", "presos"], "f-sin-condena": ["sin condena", "presos sin condena", "procesados", "prision preventiva"],
     "f-coparticipacion": ["coparticipacion", "coparticipacion federal", "reparto de impuestos"],
+    "f-cobertura-suelo": ["monte nativo", "monte natural", "bosques", "desmonte", "deforestacion", "mapbiomas", "vegetacion natural"],
     "f-telefonia": ["telefono fijo", "telefonia fija", "linea fija", "telefonia"],
     "f-abandono": ["abandono escolar", "abandono", "repitencia", "repiten", "dejan la escuela", "desercion escolar"],
     "f-deuda-provincias": ["deuda provincial", "deuda de las provincias", "deuda por provincia", "bonos provinciales"],

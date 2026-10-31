@@ -1,0 +1,79 @@
+{
+ "tabla": "cobertura_suelo_provincias.csv",
+ "titulo": "¿Cuánto monte natural perdió cada provincia?",
+ "descripcion": "Vegetación natural y bosques en % de la superficie de cada provincia, 1985 y 2025",
+ "seccion": "Naturaleza y ambiente",
+ "ficha": "https://datina.pages.dev/naturaleza.html#f-cobertura-suelo",
+ "fuente": "MapBiomas Argentina, Colección 3, estadísticas por provincia (licencia CC BY 4.0).",
+ "actualizacion": "Se actualiza cada año.",
+ "cobertura": "Las 24 jurisdicciones",
+ "periodo": "",
+ "filas": 24,
+ "columnas": [
+  {
+   "nombre": "codigo_indec",
+   "tipo": "Código",
+   "valores": "24 códigos"
+  },
+  {
+   "nombre": "territorio",
+   "tipo": "Texto",
+   "valores": "24 valores distintos"
+  },
+  {
+   "nombre": "superficie_ha",
+   "tipo": "Número",
+   "valores": "20.547,99 a 30.611.816,35"
+  },
+  {
+   "nombre": "natural_ha_1985",
+   "tipo": "Número",
+   "valores": "764,6 a 20.287.442,94"
+  },
+  {
+   "nombre": "natural_ha_2025",
+   "tipo": "Número",
+   "valores": "622 a 20.082.982,79"
+  },
+  {
+   "nombre": "pct_natural_inicio",
+   "tipo": "Número",
+   "valores": "3,72 a 97,07"
+  },
+  {
+   "nombre": "pct_natural_final",
+   "tipo": "Número",
+   "valores": "3,03 a 94,25"
+  },
+  {
+   "nombre": "bosque_ha_1985",
+   "tipo": "Número",
+   "valores": "84,39 a 10.536.493,13"
+  },
+  {
+   "nombre": "bosque_ha_2025",
+   "tipo": "Número",
+   "valores": "267,52 a 7.248.132,11"
+  },
+  {
+   "nombre": "pct_bosque_inicio",
+   "tipo": "Número",
+   "valores": "0,41 a 84,87"
+  },
+  {
+   "nombre": "pct_bosque_final",
+   "tipo": "Número",
+   "valores": "0,9 a 76,52"
+  },
+  {
+   "nombre": "puntos_natural",
+   "tipo": "Número",
+   "valores": "-27,17 a 1,9"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "28/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}
