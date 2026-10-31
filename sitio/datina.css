@@ -774,6 +774,8 @@ html:not(.js) .busca-portada{display:none}
 .prov-extra ol,.prov-extra ul{margin:0;font-size:var(--t-3);line-height:var(--i-texto)}
 .prov-extra ol{padding-left:var(--e-6)}
 .prov-extra .suave{color:var(--muted);font-size:var(--t-2)}
+/* F7: los indicadores en los que se parece cada provincia, uno por renglón debajo de su nombre */
+.prov-parece{display:block;margin:var(--e-1) 0 var(--e-2)}.prov-parece>span{display:block}
 @media (max-width:760px){
   /* en el celular los indicadores de la provincia se deslizan de costado */
   .perfil-tarjetas{grid-auto-flow:column;grid-template-columns:none;grid-auto-columns:80%;overflow-x:auto;scroll-snap-type:x mandatory;
