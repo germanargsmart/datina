@@ -7878,10 +7878,44 @@ function pintarDestaca() {
         `<span class="dp-pos">${puestoTxt(orden, n)}.${c.pais == null ? "" : ` País: ${c.f(c.pais)}.`}</span></a>`).join("") + `</div>`
     : `<p class="prov-destaca-sub">En los indicadores del perfil, ${nombre} no tiene ninguna de las tres cifras más altas ni de las tres más bajas de las 24 jurisdicciones.</p>`);
 }
+// F11 (plan de mejora, 31 de octubre de 2026): la provincia elegida y otra, lado a lado, con todos los indicadores del perfil y el país. La
+// otra va en la dirección (?con=62), así la comparación se puede compartir
+let conProv = new URLSearchParams(location.search).get("con");
+function pintarCompara() {
+  const caja = document.getElementById("prov-compara"); if (!caja) return;
+  if (!NOMBRES[prov]) { caja.hidden = true; caja.innerHTML = ""; return; }
+  if (!NOMBRES[conProv] || conProv === prov) conProv = null;
+  const otras = Object.keys(NOMBRES).filter(c => c !== prov).sort((a, b) => NOMBRES[a].localeCompare(NOMBRES[b], "es"));
+  const val = (c, cod) => { const f = c.d.find(d => d.codigo_indec === cod); return f && f[c.k] != null ? c.f(f[c.k]) : "Sin dato"; };
+  const tit = conProv ? `${NOMBRES[prov]} y ${NOMBRES[conProv]}` : "";
+  caja.hidden = false;
+  caja.innerHTML = `<h2 class="bloque-grupo" id="prov-compara-t">Comparar con otra provincia</h2>` +
+    `<label class="selector-ficha"><span>Comparar ${NOMBRES[prov]} con</span><select id="compara-sel"><option value="">Elegí una jurisdicción</option>` +
+    otras.map(c => `<option value="${c}"${c === conProv ? " selected" : ""}>${NOMBRES[c]}</option>`).join("") + `</select></label>` +
+    (!conProv ? "" : `<div class="tabla-desliza" tabindex="0" role="region" aria-label="Tabla: ${tit}"><table class="tabla-areas tabla-compara">` +
+      `<caption class="solo-lector">${tit}, con el total del país</caption><thead><tr><th scope="col">Indicador</th><th scope="col" class="n">${NOMBRES[prov]}</th>` +
+      `<th scope="col" class="n">${NOMBRES[conProv]}</th><th scope="col" class="n">País</th></tr></thead><tbody>` +
+      PERFIL_GRUPOS.filter(([g]) => g !== "capital").map(([g, t]) => {
+        const filas = INDP.filter(c => c.g === g && c.d);
+        return !filas.length ? "" : `<tr class="compara-grupo"><th colspan="4" scope="colgroup">${t}</th></tr>` + filas.map(c =>
+          `<tr><th scope="row">${c.lab}<small>${c.det}</small></th><td class="n">${val(c, prov)}</td><td class="n">${val(c, conProv)}</td>` +
+          `<td class="n">${c.pais == null ? "" : c.f(c.pais)}</td></tr>`).join("");
+      }).join("") + `</tbody></table></div><p class="tabla-nota">Los mismos indicadores del perfil, con su período. Que una cifra sea más alta no dice si ` +
+      `es mejor o peor.</p>`);
+  caja.querySelector("#compara-sel").addEventListener("change", ev => {
+    conProv = ev.target.value || null;
+    const u = new URL(location.href);
+    if (conProv) u.searchParams.set("con", conProv); else u.searchParams.delete("con");
+    history.replaceState(history.state, "", u);
+    pintarCompara();
+    document.getElementById("compara-sel").focus();
+  });
+}
 function pintarPanel(animar) {
   const nombre = NOMBRES[prov];
   pintarExtra();
   pintarDestaca();
+  pintarCompara();
   // el título de la pestaña lleva el nombre de la provincia, también al compartir el enlace (etapa 6 del plan de mejora)
   if (PAGINA === "provincia") document.title = nombre ? `${nombre} en números | Datina` : TITULO_INICIAL;
   cambiarTexto($("prov-titulo-txt"), nombre ? `${nombre} en números` : "¿Cómo se compara tu provincia con el país?", animar);
