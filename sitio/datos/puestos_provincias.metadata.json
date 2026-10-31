@@ -1,0 +1,80 @@
+{
+ "tabla": "puestos_provincias.csv",
+ "titulo": "Tu provincia",
+ "descripcion": "",
+ "seccion": "Tu provincia",
+ "ficha": "https://datina.pages.dev/provincia.html",
+ "fuente": "",
+ "actualizacion": "",
+ "cobertura": "Las 24 jurisdicciones",
+ "periodo": "",
+ "filas": 240,
+ "columnas": [
+  {
+   "nombre": "variable",
+   "tipo": "Texto",
+   "valores": "10 valores distintos"
+  },
+  {
+   "nombre": "indicador",
+   "tipo": "Texto",
+   "valores": "10 valores distintos"
+  },
+  {
+   "nombre": "unidad",
+   "tipo": "Texto",
+   "valores": "10 valores distintos"
+  },
+  {
+   "nombre": "ficha",
+   "tipo": "Texto",
+   "valores": "9 valores distintos"
+  },
+  {
+   "nombre": "codigo_indec",
+   "tipo": "Código",
+   "valores": "24 códigos"
+  },
+  {
+   "nombre": "territorio",
+   "tipo": "Texto",
+   "valores": "24 valores distintos"
+  },
+  {
+   "nombre": "anio_inicio",
+   "tipo": "Año",
+   "valores": "2014 a 2015"
+  },
+  {
+   "nombre": "anio_final",
+   "tipo": "Año",
+   "valores": "2024 a 2025"
+  },
+  {
+   "nombre": "puesto_inicio",
+   "tipo": "Número",
+   "valores": "1 a 24"
+  },
+  {
+   "nombre": "puesto_final",
+   "tipo": "Número",
+   "valores": "1 a 24"
+  },
+  {
+   "nombre": "valor_inicio",
+   "tipo": "Número",
+   "valores": "1,76 a 59.955,29"
+  },
+  {
+   "nombre": "valor_final",
+   "tipo": "Número",
+   "valores": "0,91 a 6.145.224,86"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "28/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
+ "como_citar": "Datina (año de la consulta). Tu provincia. Con datos de . https://datina.pages.dev/provincia.html. Consultado el día de la consulta."
+}

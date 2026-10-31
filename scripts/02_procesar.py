@@ -7050,6 +7050,41 @@ cruces_series = cruces_series.dropna()[["id", "codigo_indec", "anio", "valor"]].
 cruces_series.to_csv(SITIO / "cruces_series.csv", index=False, lineterminator="\n")
 SERIES_IDS = sorted(cruces_series.id.unique())
 
+# ---------------------------------------------------------------- puestos a lo largo del tiempo (F14)
+# F14 (plan de mejora, aprobado por el autor el 28 de octubre de 2026): el puesto de cada provincia entre las 24 en el último año con las 24
+# y diez años antes (o el primero con las 24, si la serie es más corta), en los indicadores del perfil que tienen una serie anual por
+# provincia en la tabla larga. El puesto 1 es la cifra más alta: que una cifra sea alta no dice si es buena o mala. Sin los suicidios (temas
+# sensibles: no entran en el perfil)
+PUESTOS_VARS = {
+    "tasa_mortalidad_infantil": ("Mortalidad infantil", "muertes de menores de un año cada 1.000 nacidos vivos", "f-mortalidad"),
+    "pct_nacimientos_madres_menores_20": ("Maternidad adolescente", "% de los nacimientos con madres menores de 20 años", "f-adolescentes"),
+    "cobertura_triple_viral_dosis1": ("Vacuna triple viral, primera dosis", "% de los chicos de la edad", "f-vacunas"),
+    "tasa_neta_escolarizacion_secundaria": ("Escolarización secundaria", "tasa neta, %", "f-escolarizacion"),
+    "abandono_interanual_secundaria": ("Abandono de la secundaria", "% de los alumnos que no se matriculan al año siguiente", "f-abandono"),
+    "gasto_educativo_por_alumno_estatal": ("Inversión educativa por alumno", "pesos corrientes por alumno de gestión estatal por año", "f-inversion-educativa"),
+    "tasa_victimas_homicidios_dolosos": ("Homicidios dolosos", "víctimas cada 100.000 habitantes", "f-homicidios"),
+    "tasa_robos": ("Robos", "hechos cada 100.000 habitantes", "f-robos"),
+    "recursos_propios_pct_ingresos": ("Recursos propios", "% de los ingresos de la provincia", "f-fiscal"),
+    "gasto_personal_pct_gasto": ("Gasto en personal", "% del gasto de la provincia", "f-fiscal"),
+}
+_pu_l = pd.concat(largo, ignore_index=True)
+_pu_l = _pu_l[_pu_l.variable.isin(PUESTOS_VARS) & _pu_l.codigo_indec.isin(POB) & _pu_l.periodo.astype(str).str.fullmatch(r"\d{4}")].dropna(subset=["valor"])
+_pu_f = []
+for _pu_v, _pu_g in _pu_l.groupby("variable"):
+    _pu_g = _pu_g.assign(anio=_pu_g.periodo.astype(int)).drop_duplicates(["codigo_indec", "anio"], keep="last")
+    _pu_c = sorted(a for a, x in _pu_g.groupby("anio") if x.codigo_indec.nunique() == 24)
+    assert len(_pu_c) >= 2, f"puestos: {_pu_v} no tiene dos años con las 24"
+    _pu_fin = _pu_c[-1]
+    _pu_ini = max([a for a in _pu_c if a <= _pu_fin - 10], default=_pu_c[0])
+    _pu_x = {a: _pu_g[_pu_g.anio == a].set_index("codigo_indec").valor for a in (_pu_ini, _pu_fin)}
+    _pu_r = {a: x.rank(ascending=False, method="min").astype(int) for a, x in _pu_x.items()}
+    lab, uni, ficha = PUESTOS_VARS[_pu_v]
+    _pu_f += [{"variable": _pu_v, "indicador": lab, "unidad": uni, "ficha": ficha, "codigo_indec": c, "territorio": CORTO[c],
+               "anio_inicio": _pu_ini, "anio_final": _pu_fin, "puesto_inicio": int(_pu_r[_pu_ini][c]), "puesto_final": int(_pu_r[_pu_fin][c]),
+               "valor_inicio": float(_pu_x[_pu_ini][c]), "valor_final": float(_pu_x[_pu_fin][c])} for c in sorted(POB)]
+puestos_provincias = pd.DataFrame(_pu_f)
+assert puestos_provincias.variable.nunique() == len(PUESTOS_VARS), "puestos: falta algún indicador"
+
 # ---------------------------------------------------------------- salida
 pd.concat(largo, ignore_index=True).to_csv(ORDEN / "tabla_larga.csv", index=False, lineterminator="\n")
 
@@ -7132,6 +7167,7 @@ tablas = {
     "medicos_provincias": medicos_provincias,
     "sociedades_provincias": sociedades_provincias,
     "sociedades_pais": sociedades_pais,
+    "puestos_provincias": puestos_provincias,
     "elecciones_presidenciales": presidenciales,
     "congreso_composicion": congreso,
     "anios_congreso": anios_congreso,

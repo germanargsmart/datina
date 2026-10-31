@@ -326,6 +326,15 @@
     "contiene": "(T.pozos_terminados_provincias.some(r => r.codigo_indec === \"mar\")"
    }
   },
+  "puestos_provincias": {
+   "en": [
+    "provincia"
+   ],
+   "evidencia": {
+    "archivo": "scripts/datina.js",
+    "contiene": "const filas = (T.puestos_provincias || []).filter(r => r.codigo_indec === prov);"
+   }
+  },
   "radicaciones_anual": {
    "en": [
     "f-radicaciones"
