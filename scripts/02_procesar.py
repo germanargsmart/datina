@@ -1174,6 +1174,34 @@ for _vc_d in (1, 2):
     agregar(d[["codigo_indec", "territorio", "periodo", "valor"]], f"cobertura_triple_viral_dosis{_vc_d}", "% de los chicos de la edad",
             "Ministerio de Salud, Dirección de Control de Enfermedades Inmunoprevenibles")
 
+# ---------------------------------------------------------------- médicos por provincia (OFETHuS)
+# Médicos habilitados (matriculados en la REFEPS) y médicos activos (los que seis fuentes administrativas muestran trabajando) por provincia de
+# residencia, a fines de 2025, del Observatorio Federal de Talento Humano en Salud del Ministerio de Salud (plan de mejora, sección 10, aprobada
+# por el autor el 28 de octubre de 2026). Sale en un PDF: scripts/medicos_ofethus.py guarda la tabla en datos/manual. Cada 10.000 habitantes,
+# con la población del INDEC de ese año, la misma que usa el informe
+medi_d = pd.read_csv(RAIZ / "datos" / "manual" / "medicos_ofethus.csv")
+medi_d["codigo_indec"] = medi_d.jurisdiccion.map(codigo)
+assert set(medi_d.codigo_indec) == set(POB) and len(medi_d) == 24, "medicos: las jurisdicciones no son las 24"
+MEDI_ANIO = int(medi_d.anio.max())
+medicos_provincias = medi_d.sort_values("codigo_indec")[["codigo_indec", "habilitados", "activos"]].reset_index(drop=True)
+medicos_provincias.insert(1, "territorio", medicos_provincias.codigo_indec.map(CORTO))
+medicos_provincias["poblacion"] = medicos_provincias.codigo_indec.map(lambda c: POB_POR_ANIO[(c, MEDI_ANIO)])
+medicos_provincias["activos_cada_10000"] = medicos_provincias.activos / medicos_provincias.poblacion * 1e4
+medicos_provincias["habilitados_cada_10000"] = medicos_provincias.habilitados / medicos_provincias.poblacion * 1e4
+medicos_provincias["pct_activos"] = medicos_provincias.activos / medicos_provincias.habilitados * 100
+_medi_o = medicos_provincias.sort_values("activos_cada_10000")
+_medi_t = medicos_provincias[["habilitados", "activos", "poblacion"]].sum()
+MEDI_RES = {
+    "anio": MEDI_ANIO, "activos": int(_medi_t.activos), "habilitados": int(_medi_t.habilitados),
+    "pais": r1(_medi_t.activos / _medi_t.poblacion * 1e4), "pais_hab": r1(_medi_t.habilitados / _medi_t.poblacion * 1e4),
+    "pct_activos": r1(_medi_t.activos / _medi_t.habilitados * 100),
+    "top": [_medi_o.iloc[-1].territorio, r1(_medi_o.iloc[-1].activos_cada_10000)], "top2": [_medi_o.iloc[-2].territorio, r1(_medi_o.iloc[-2].activos_cada_10000)],
+    "bajo": [_medi_o.iloc[0].territorio, r1(_medi_o.iloc[0].activos_cada_10000)], "bajo2": [_medi_o.iloc[1].territorio, r1(_medi_o.iloc[1].activos_cada_10000)],
+    "inactivos_max": [(r := medicos_provincias.sort_values("pct_activos").iloc[0]).territorio, r1(100 - r.pct_activos)],
+}
+agregar(medicos_provincias.assign(periodo=str(MEDI_ANIO), valor=medicos_provincias.activos_cada_10000), "medicos_activos_cada_10000_habitantes",
+        "médicos cada 10.000 habitantes", "Ministerio de Salud, OFETHuS, e INDEC")
+
 # ---------------------------------------------------------------- soja por departamento (estimaciones agrícolas)
 # Estimaciones agrícolas de la Secretaría de Agricultura, Ganadería y Pesca (datos.magyp.gob.ar): superficie sembrada y cosechada,
 # producción y rendimiento de cada cultivo, por campaña y departamento, desde la campaña 1969/70. Es la primera fuente nueva del plan de
@@ -7063,6 +7091,7 @@ tablas = {
     "telefonia_fija_pais": telefonia_fija_pais,
     "cobertura_suelo_provincias": cobertura_suelo_provincias,
     "cobertura_suelo_pais": cobertura_suelo_pais,
+    "medicos_provincias": medicos_provincias,
     "elecciones_presidenciales": presidenciales,
     "congreso_composicion": congreso,
     "anios_congreso": anios_congreso,
@@ -7456,6 +7485,7 @@ resumen["deuda_provincias"] = DP_RES
 resumen["abandono"] = ABN_RES
 resumen["telefonia"] = TF_RES
 resumen["cobertura_suelo"] = MB_RES
+resumen["medicos"] = MEDI_RES
 resumen["departamentos"] = {"meta": {k: {"nombre": v[0], "unidad": v[1], "fuente": v[2]} for k, v in DEP_META.items()},
                             "anio_snic": ANIO_DEP, "n": int(len(departamentos))}
 resumen["elecciones"] = el_meta

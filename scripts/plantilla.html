@@ -808,6 +808,21 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <div class="pie"><span>Fuente: Dirección de Control de Enfermedades Inmunoprevenibles (DICEI), Ministerio de Salud</span><a href="datos/vacunas_provincias.csv" download>Por provincia (CSV)</a><a href="datos/vacunas_serie.csv" download>Mediana por año (CSV)</a></div>
     </article>
 
+    <!-- los médicos por provincia (plan de mejora, sección 10, aprobada por el autor el 28 de octubre de 2026): del informe del OFETHuS, que sale
+         en PDF (scripts/medicos_ofethus.py) -->
+    <article class="ficha" id="f-medicos">
+      <h2>¿Dónde hay más médicos por habitante?</h2>
+      <p class="ficha-sub">Médicos activos y médicos habilitados cada 10.000 habitantes, por provincia de residencia, {{medicos.anio}}</p>
+      <div class="conmutador" role="group" aria-label="Vista" data-g="medicos">
+        <button type="button" data-m="activos" aria-pressed="true">Activos</button>
+        <button type="button" data-m="habilitados" aria-pressed="false">Habilitados</button>
+      </div>
+      <div class="grafico" data-g="medicos" data-forma="barras"></div>
+      <p class="lead" data-t="medicos"></p>
+      <p class="nota" data-t="medicos-nota"></p>
+      <div class="pie"><span>Fuentes: Observatorio Federal de Talento Humano en Salud (OFETHuS), Ministerio de Salud, Médicos activos en Argentina, e INDEC, proyecciones de población</span><a href="datos/medicos_provincias.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
     <div class="ayuda" id="ayuda-suicidio" role="note">
       <strong>Si estás atravesando un momento difícil, podés pedir ayuda.</strong> El Centro de Asistencia al Suicida atiende de forma gratuita en el 135 desde CABA y el Gran Buenos Aires, y en el (011) 5275-1135 desde todo el país. En una emergencia, llamá al 107 o acercate a la guardia más cercana.
     </div>
