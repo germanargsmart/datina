@@ -35,5 +35,6 @@
  "como_se_calcula": "Porcentaje de los nacidos vivos de cada provincia cuya madre tenía menos de 20 años. Cada nacimiento se asigna a la provincia donde vive la madre. El círculo claro marca 2012 y el oscuro 2024.",
  "datos_actualizados": "28/10/2026",
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
- "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
+ "como_citar": "Datina (año de la consulta). ¿Qué parte de los nacimientos es de madres menores de 20 años? Con datos de DEIS, Ministerio de Salud, estadísticas vitales. https://datina.pages.dev/poblacion.html#f-adolescentes. Consultado el día de la consulta."
 }

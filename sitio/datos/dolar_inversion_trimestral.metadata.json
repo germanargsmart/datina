@@ -110,5 +110,6 @@
  "como_se_calcula": "",
  "datos_actualizados": "28/10/2026",
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
- "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
+ "como_citar": "Datina (año de la consulta). ¿Se invierte más en construcción cuando construir es barato en dólares? Con datos de Banco Central de la República Argentina, índice de tipo de cambio real multilateral, e INDEC y Banco Central vía API de Series de Tiempo: inversión bruta interna fija (oferta y demanda globales) y tipo de cambio de referencia (Comunicación \\. https://datina.pages.dev/a-dolar-inversion.html. Consultado el día de la consulta."
 }

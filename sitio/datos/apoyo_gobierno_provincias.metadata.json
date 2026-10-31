@@ -55,5 +55,6 @@
  "como_se_calcula": "",
  "datos_actualizados": "28/10/2026",
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
- "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
+ "como_citar": "Datina (año de la consulta). ¿Votan más con el oficialismo los legisladores de las provincias donde más votos sacó el presidente, o de las que reciben más transferencias? Con datos de Dirección Nacional Electoral, actas de votación nominal de Diputados y del Senado, vía ¿Cómo Votó?, y Presupuesto Abierto, Secretaría de Hacienda. https://datina.pages.dev/politica.html#f-voto-provincia. Consultado el día de la consulta."
 }

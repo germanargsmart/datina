@@ -25,5 +25,6 @@
  "como_se_calcula": "",
  "datos_actualizados": "28/10/2026",
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
- "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
+ "como_citar": "Datina (año de la consulta). ¿Cuántos dólares compran por año las personas y las empresas? Con datos de Banco Central de la República Argentina, balance cambiario, vía API de Series de Tiempo, e índice de tipo de cambio real multilateral. https://datina.pages.dev/a-compras-dolares.html. Consultado el día de la consulta."
 }

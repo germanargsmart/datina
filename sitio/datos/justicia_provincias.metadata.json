@@ -100,5 +100,6 @@
  "como_se_calcula": "",
  "datos_actualizados": "28/10/2026",
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
- "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
+ "como_citar": "Datina (año de la consulta). ¿Cuántos jueces tiene la corte de cada provincia y cuántos lugares están vacantes? Con datos de Corte Suprema de Justicia de la Nación, Oficina de la Mujer, Mapa de Género de la Justicia Argentina, y constituciones y leyes orgánicas de cada provincia. https://datina.pages.dev/justicia.html#f-cortes-provinciales. Consultado el día de la consulta."
 }

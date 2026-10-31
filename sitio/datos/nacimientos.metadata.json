@@ -50,5 +50,6 @@
  "como_se_calcula": "Índice con base 2012 = 100: cada línea muestra cuántos nacimientos hubo cada año en relación con 2012. Argentina: nacidos vivos registrados en las estadísticas vitales de la DEIS (Ministerio de Salud), el total oficial de cada año. Hasta octubre de 2026 el sitio usaba los nacimientos inscriptos en el RENAPER, que registra menos nacimientos que las estadísticas vitales. OCDE : suma de los nacimientos de los 38 países miembros, estimados con la tasa bruta de natalidad y la población del Banco Mundial.",
  "datos_actualizados": "28/10/2026",
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
- "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
+ "como_citar": "Datina (año de la consulta). ¿Cuántos chicos nacen por año? Con datos de DEIS, Ministerio de Salud, estadísticas vitales. https://datina.pages.dev/poblacion.html#f-nacimientos. Consultado el día de la consulta."
 }

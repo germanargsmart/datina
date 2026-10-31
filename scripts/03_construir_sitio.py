@@ -483,7 +483,7 @@ def bloques(h):
 # página a la que pertenece cada bloque
 PAGINA_DE_BLOQUE = {"portada": "inicio", "secciones": "inicio", "articulos-home": "inicio", "herramientas-home": "inicio",
                     "destacados": "inicio", "provincias-home": "inicio",
-                    "provincias": "provincia", "nosotros": "nosotros", "contacto": "contacto", "no-encontrada": "404",
+                    "provincias": "provincia", "nosotros": "nosotros", "usar-datos": "usar-datos", "contacto": "contacto", "no-encontrada": "404",
                     "laboratorio": "laboratorio"}
 def pagina_de(b):
     """Página de un bloque: cada sección (tema) y cada pieza del Laboratorio (etapa 33) tiene la suya, con su id. El resto, según su clase."""
@@ -725,7 +725,10 @@ for _t in _meta_tablas:
           "como_se_calcula": _t["nota"], "datos_actualizados": RESUMEN["actualizado"],
           "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a "
                       "la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
-          "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"}
+          "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
+          # F2 (plan de mejora, 31 de octubre de 2026): la cita que propone "Usar los datos", con el año y el día de la consulta para completar
+          "como_citar": f"Datina (año de la consulta). {_t['titulo']}{'' if _t['titulo'].endswith(('?', '.')) else '.'} Con datos de "
+                        f"{_t['fuente'].rstrip('.')}. {_URL_SITIO}/{'' if _d == './' else _d}. Consultado el día de la consulta."}
     (SITIO / "datos" / f"{_t['tabla']}.metadata.json").write_text(json.dumps(_m, ensure_ascii=False, indent=1) + "\n", encoding="utf-8", newline="\n")
     _META_HECHOS.add(f"{_t['tabla']}.metadata.json")
 for _f in (SITIO / "datos").glob("*.metadata.json"):
@@ -779,7 +782,7 @@ TITULO_DE = {s[0]: s[1] for s in SECCIONES}
 # Recorrido de "Anterior / Siguiente", en el orden de la barra (Fase 2, 23 de octubre de 2026): los temas, Provincias, Historias con datos
 # y Herramientas, y Sobre nosotros. Hasta entonces empezaba por los artículos, el Laboratorio y Tu provincia
 ORDEN = ORDEN_TEMAS + PAGINAS_MENU + list(FUERA_DE_MENU) + ["nosotros"]
-TITULO_DE.update({"provincia": "Tu provincia", "nosotros": "Sobre nosotros", "contacto": "Contacto", "laboratorio": "Laboratorio"})
+TITULO_DE.update({"provincia": "Tu provincia", "nosotros": "Sobre nosotros", "usar-datos": "Usar los datos", "contacto": "Contacto", "laboratorio": "Laboratorio"})
 # piezas del Laboratorio: las cuenta la tarjeta que lleva a él en "Seguí explorando"
 LAB_PIEZAS = len(re.findall(r'<article class="lab-pieza', base))
 assert LAB_PIEZAS, "no se encontraron las piezas del Laboratorio en la plantilla"
@@ -808,7 +811,7 @@ def carta(pid, meta=None):
     if pid.startswith("a-"):
         return (f"{pid}.html", TIT_NOTA[pid], meta or "Artículo", SEC_ICONO[pid], f"t-{pid}")
     sec = next((x for x in SECCIONES if x[0] == pid), None)
-    desc = {"provincia": "Cada provincia frente al país", "nosotros": "Qué es Datina", "articulos": f"{len(NOTAS)} artículos",
+    desc = {"provincia": "Cada provincia frente al país", "nosotros": "Qué es Datina", "usar-datos": "Licencia, cita y descargas", "articulos": f"{len(NOTAS)} artículos",
             "laboratorio": f"{LAB_PIEZAS} piezas visuales"}.get(pid) or (
         "Herramienta" if sec and sec[4] else f"{sec[5]} fichas" if sec else "")
     return (url_pagina(pid), TITULO_DE[pid], meta or desc, SEC_ICONO.get(pid, "sol"), f"t-{pid}" if sec else "")
@@ -907,7 +910,7 @@ def navegacion(h, pagina):
             partes.append((url_pagina(CATEGORIA[pagina][1][0]), CATEGORIA[pagina][0]))
     elif pagina in MENU_DE:
         partes.append(("", MENU_DE[pagina][1]))
-    blo = blo.replace("<h2", migas(*partes, prov=pagina not in ("nosotros", "contacto")) + "<h2", 1)
+    blo = blo.replace("<h2", migas(*partes, prov=pagina not in ("nosotros", "usar-datos", "contacto")) + "<h2", 1)
     # la fila de la categoría, después de la entrada (datina.js pone "En cifras" después de ella)
     if pagina in CATEGORIA:
         blo = re.sub(r'(<div class="tema-intro">.*?</div>)', lambda m: m.group(1) + subsecciones(pagina), blo, count=1, flags=re.S)
@@ -952,7 +955,7 @@ MAPA = ("".join(_col(n, [(url_pagina(s), TITULO_DE[s]) for s in _secs_de(items)]
         + "".join(_col(completo, [(url_menu(p), nombre_menu(p)) for p in _secs_de(items) + [q for q, d in FUERA_DE_MENU.items() if d == m]])
                   for m, _, completo, _, items in MENUS)
         + _col("Datina", [("nosotros.html", "Sobre nosotros"), ("nosotros.html#como-se-hace", "Cómo se hace"),
-                          ("nosotros.html#fuentes", "De dónde salen los datos"), ("relaciones.html", "Explorador de relaciones"),
+                          ("nosotros.html#fuentes", "De dónde salen los datos"), ("usar-datos.html", "Usar los datos"), ("relaciones.html", "Explorador de relaciones"),
                           ("contacto.html", "Contacto")]))
 assert "<!--MAPA-->" in base
 base = base.replace("<!--MAPA-->", MAPA)
@@ -1260,6 +1263,10 @@ pagina("provincia", "Tu provincia",
 pagina("nosotros", "Sobre nosotros",
        "Qué es Datina, para qué existe, de dónde salen sus datos y cómo se hace. Estadísticas públicas de las 24 jurisdicciones de la Argentina.",
        {"nosotros"})
+# Usar los datos (F2 y F3): la licencia, cómo citar y qué se puede descargar
+pagina("usar-datos", "Usar los datos",
+       "Cómo reutilizar los datos de Datina: la licencia, cómo citar una ficha, qué tablas y metadatos se pueden descargar y de dónde sale cada dato.",
+       {"usar-datos"})
 # Laboratorio (etapa 33): piezas visuales grandes, como The Viz Lab de USAFacts
 pagina("laboratorio", "Laboratorio",
        "Piezas visuales con datos públicos: cada juez de la Corte Suprema, cada banca del Congreso, cada pozo de Vaca Muerta y las 24 jurisdicciones año por año, con sus fuentes.",

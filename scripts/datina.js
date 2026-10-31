@@ -227,6 +227,15 @@ const enLoQueVa = (o, ultimo, que, sube, baja) => o && o.anio > ultimo
 const EV = R.envejecimiento, PPY = R.poblacion_proy, CM = R.causas_muerte, SX = R.externo;
 // sector externo: una fecha del BCRA (dd/mm/aaaa) y un mes (aaaa-mm) dichos en palabras, un trimestre (2T2026) y un saldo con su sentido
 const fLarga = f => `${+f.slice(0, 2)} de ${MESES[+f.slice(3, 5) - 1]} de ${f.slice(6)}`;
+// F2 (plan de mejora, 31 de octubre de 2026): la cita de una ficha, "Datina (año). Pregunta. Con datos de fuente. Dirección. Consultado el
+// día.", con el año y el día de la consulta. La fuente sale del pie, sin "Fuente:", sin "Se actualiza…" y sin los enlaces que se le suman
+function citaFicha(f, url) {
+  const hoy = new Date(), t = (f.querySelector("h2, h3")?.textContent || "").trim();
+  const txt = f.querySelector(".pie > span")?.firstChild?.textContent || "";
+  const fuente = txt.replace(/^\s*Fuentes?:\s*/, "").replace(/\s*Se actualiza[^.]*\.?\s*$/, "").trim().replace(/\.$/, "");
+  return `Datina (${hoy.getFullYear()}). ${t}${/[?!.]$/.test(t) ? "" : "."} ${fuente ? `Con datos de ${fuente}. ` : ""}${url}. ` +
+    `Consultado el ${hoy.getDate()} de ${MESES[hoy.getMonth()]} de ${hoy.getFullYear()}.`;
+}
 const mesTx = p => `${MESES[+p.slice(5, 7) - 1]} de ${p.slice(0, 4)}`;
 const trimTx = t => `${["primer", "segundo", "tercer", "cuarto"][+t[0] - 1]} trimestre de ${t.slice(2)}`;
 const saldoTx = v => v >= 0 ? `${n0(v)} millones a favor` : `${n0(-v)} millones en contra`;
@@ -7259,6 +7268,7 @@ document.querySelectorAll("article.ficha").forEach(f => {
   acc.innerHTML = (conTabla ? `<button type="button" class="boton chico accion ver-tabla" aria-expanded="false"><span class="lbl">Ver tabla</span></button>` : "") +
     `<details class="compartir"><summary class="boton chico accion"><span class="lbl">Compartir y descargar</span><span class="desp-signo" aria-hidden="true"></span></summary>` +
     `<div class="compartir-panel"><button type="button" class="boton chico accion copiar"><span class="lbl">Copiar enlace</span></button>` +
+    `<button type="button" class="boton chico accion citar"><span class="lbl">Copiar cita</span></button>` +
     (f.querySelector(".grafico[data-g]") ? `<button type="button" class="boton chico accion imagen" hidden><span class="lbl">Descargar imagen</span></button>` : "") +
     `</div></details>`;
   const panel = acc.querySelector(".compartir-panel");
@@ -7296,24 +7306,30 @@ document.querySelectorAll("article.ficha").forEach(f => {
     const l = ev.currentTarget.querySelector(".lbl");
     imagenFicha(f).catch(() => { l.textContent = "No se pudo"; clearTimeout(l._t); l._t = setTimeout(() => { l.textContent = "Descargar imagen"; }, 1800); });
   });
-  const lbl = acc.querySelector(".copiar .lbl");
-  const cambiar = t => { lbl.classList.add("cambia"); setTimeout(() => { lbl.textContent = t; lbl.classList.remove("cambia"); }, 120); };
-  acc.querySelector(".copiar").addEventListener("click", async () => {
-    // con la provincia elegida, la vista de la ficha si no es la de llegada y, en una ficha con vistas, la pestaña a la vista (F1)
+  // con la provincia elegida, la vista de la ficha si no es la de llegada y, en una ficha con vistas, la pestaña a la vista (F1)
+  const enlace = () => {
     const vista = vistaDeFicha(f), q = [prov ? "prov=" + prov : "", vista ? "vista=" + vista : ""].filter(Boolean).join("&");
-    const url = location.origin + location.pathname + (q ? "?" + q : "") + "#" + (f.querySelector(".panel-pestana[data-vieja]:not([hidden])")?.dataset.vieja || f.id);
+    return location.origin + location.pathname + (q ? "?" + q : "") + "#" + (f.querySelector(".panel-pestana[data-vieja]:not([hidden])")?.dataset.vieja || f.id);
+  };
+  const copiar = async (texto, sel, listo, normal) => {
+    const lbl = acc.querySelector(`${sel} .lbl`);
+    const cambiar = t => { lbl.classList.add("cambia"); setTimeout(() => { lbl.textContent = t; lbl.classList.remove("cambia"); }, 120); };
     let ok = false;
-    try { await navigator.clipboard.writeText(url); ok = true; }
+    try { await navigator.clipboard.writeText(texto); ok = true; }
     catch (_) {
       // alternativa para navegadores que bloquean el portapapeles
-      const ta = document.createElement("textarea"); ta.value = url; ta.setAttribute("readonly", "");
+      const ta = document.createElement("textarea"); ta.value = texto; ta.setAttribute("readonly", "");
       ta.style.cssText = "position:fixed;opacity:0"; document.body.appendChild(ta); ta.select();
       try { ok = document.execCommand("copy"); } catch (_) {}
       ta.remove();
     }
-    cambiar(ok ? "Enlace copiado" : "No se pudo copiar"); avisar(ok ? "Enlace copiado" : "No se pudo copiar");
-    clearTimeout(lbl._t); lbl._t = setTimeout(() => cambiar("Copiar enlace"), 1800);
-  });
+    cambiar(ok ? listo : "No se pudo copiar"); avisar(ok ? listo : "No se pudo copiar");
+    clearTimeout(lbl._t); lbl._t = setTimeout(() => cambiar(normal), 1800);
+  };
+  acc.querySelector(".copiar").addEventListener("click", () => copiar(enlace(), ".copiar", "Enlace copiado", "Copiar enlace"));
+  // F2 (plan de mejora, 31 de octubre de 2026): la cita de la ficha, con el año y el día de la consulta, la pregunta, la fuente del pie (sin
+  // "Se actualiza…" ni los enlaces) y la dirección con la vista elegida. Como la propone "Usar los datos"
+  acc.querySelector(".citar").addEventListener("click", () => copiar(citaFicha(f, enlace()), ".citar", "Cita copiada", "Copiar cita"));
 });
 
 /* Fichas horizontales: la cabeza (etiqueta, pregunta, descripción y cifra) y debajo el texto (la lectura y las notas a la vista) en
@@ -9327,6 +9343,15 @@ if (nosCifras) {
   const temas = SITIO.secciones.filter(s => !s[4] && s[0] !== "articulos").length;
   nosCifras.innerHTML = [[NFICHAS, "fichas con su tabla"], [24, "jurisdicciones"],
     [temas, "secciones temáticas"], [ARTS.length, "artículos"]].map(([n, t]) => `<div class="nos-cifra"><b>${n}</b><span>${t}</span></div>`).join("");
+}
+
+/* Usar los datos (F2): un ejemplo de cita con el año y el día de hoy y la dirección de este sitio */
+const citaEj = document.getElementById("cita-ejemplo");
+if (citaEj) {
+  const hoy = new Date();
+  citaEj.textContent = `Datina (${hoy.getFullYear()}). ¿Dónde se gana más en un empleo privado registrado? Con datos del Observatorio de Empleo y ` +
+    `Dinámica Empresarial (OEDE), Secretaría de Trabajo. ${location.origin}/trabajo.html#f-salarios. Consultado el ${hoy.getDate()} de ` +
+    `${MESES[hoy.getMonth()]} de ${hoy.getFullYear()}.`;
 }
 
 /* recuadro de estado de la portada */
