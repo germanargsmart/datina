@@ -1,0 +1,39 @@
+{
+ "tabla": "sociedades_pais.csv",
+ "titulo": "¿Dónde se crean más empresas?",
+ "descripcion": "Sociedades comerciales constituidas cada 100.000 habitantes, por provincia del domicilio fiscal, 2025, y en el país desde 2010",
+ "seccion": "Sector privado",
+ "ficha": "https://datina.pages.dev/empresas.html#f-sociedades",
+ "fuente": "Registro Nacional de Sociedades, Ministerio de Justicia, e INDEC, proyecciones de población.",
+ "actualizacion": "Se actualiza cada año.",
+ "cobertura": "Sin desglose territorial",
+ "periodo": "2010 a 2025",
+ "filas": 16,
+ "columnas": [
+  {
+   "nombre": "anio",
+   "tipo": "Año",
+   "valores": "2010 a 2025"
+  },
+  {
+   "nombre": "sociedades",
+   "tipo": "Número",
+   "valores": "17.434 a 32.197"
+  },
+  {
+   "nombre": "sas",
+   "tipo": "Número",
+   "valores": "14 a 14.348"
+  },
+  {
+   "nombre": "otras",
+   "tipo": "Número",
+   "valores": "14.656 a 25.077"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "28/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

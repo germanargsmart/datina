@@ -81,6 +81,9 @@ ACEPTADAS = {
     "mediana|obra_publica_provincias.obras_hab|38": "real: la autopista de las rutas nacionales 66 y 34 en el corredor del NOA, que hace Vialidad Nacional con un préstamo del Banco Mundial",
     "mediana|obra_publica_provincias.transf_hab|10": "real: obras de agua potable y saneamiento financiadas con préstamos del BID y de la AFD",
     "mediana|obra_publica_provincias.transf_hab|46": "real: obras viales fuera de la red nacional que la Nación transfiere a la provincia y a sus municipios",
+    # Registro Nacional de Sociedades (plan de mejora, sección 10, 31 de octubre de 2026)
+    **{k: "distorsión por el domicilio: muchas sociedades fijan su domicilio fiscal en CABA aunque trabajen en otras provincias (lo dice la nota)"
+       for k in ("mediana|sociedades_provincias.cada_100000|02", "mediana|sociedades_comerciales_constituidas_cada_100000.valor|02")},
     # médicos del OFETHuS (plan de mejora, sección 10, 31 de octubre de 2026)
     "mediana|medicos_provincias.habilitados_cada_10000|02": "real: CABA tiene muchos más médicos matriculados por habitante que el "
     "resto, y el informe del OFETHuS muestra que también tiene la mayor parte de inactivos (29,1%), sobre todo extranjeros que emigraron",
@@ -545,7 +548,7 @@ UNIDADES = {"%", "% de los chicos de la edad", "% de estudiantes de 6 grado", "%
             "cargos de juez cada 100.000 habitantes", "casos", "casos cada 100.000 habitantes", "defensorías", "dólares por habitante",
             "dólares por litro al tipo de cambio de referencia (Com. A 3500), mediana de las estaciones", "empresas",
             "etapas de fractura por año", "fiscalías", "grados Celsius", "hechos cada 100.000 habitantes", "hectáreas",
-            "hijos con AUH cada 100 menores de 18 años", "médicos cada 10.000 habitantes", "hijos por mujer", "kWh por habitante por año", "kilos por habitante por año",
+            "hijos con AUH cada 100 menores de 18 años", "médicos cada 10.000 habitantes", "sociedades cada 100.000 habitantes", "hijos por mujer", "kWh por habitante por año", "kilos por habitante por año",
             "kilovatios hora por año", "miles", "miles de barriles por día", "miles de barriles por pozo en sus primeros doce meses",
             "miles de millones de m³", "miles de pesos", "millones de dólares", "millones de kg", "millones de litros",
             "millones de m³", "millones de m³ por día", "muertes de menores de un año por cada 1.000 nacidos vivos",

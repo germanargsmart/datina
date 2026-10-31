@@ -377,6 +377,16 @@
    ]
   },
   {
+   "id": "org:jus-sociedades",
+   "nombre": "Registro Nacional de Sociedades",
+   "sigla": "RNS",
+   "depende": "Ministerio de Justicia",
+   "url": "https://datos.jus.gob.ar/dataset/registro-nacional-de-sociedades",
+   "alias": [
+    "Registro Nacional de Sociedades"
+   ]
+  },
+  {
    "id": "org:mapbiomas",
    "nombre": "MapBiomas Argentina",
    "sigla": "MapBiomas",
@@ -1472,6 +1482,17 @@
     "contiene": "\"isac_insumos.csv\": ISAC + \"33.3/download"
    },
    "url": "https://infra.datos.gob.ar/catalog/sspm/dataset/33/distribution/33.3/download/indicador-sintetico-actividad-construccion-insumos-serie-original.csv"
+  },
+  {
+   "id": "ds:jus_sociedades_resumen.csv",
+   "nombre": "Sociedades comerciales constituidas por año del contrato, provincia del domicilio fiscal y tipo",
+   "fuente": "org:jus-sociedades",
+   "ruta": "datos/crudo/jus_sociedades_resumen.csv",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "with open(CRUDO / \"jus_sociedades_resumen.csv\", \"w\", newline=\"\", encoding=\"utf-8\") as g:"
+   },
+   "url": "https://datos.jus.gob.ar/dataset/registro-nacional-de-sociedades"
   },
   {
    "id": "ds:magyp_estimaciones_agricolas.csv",
@@ -2819,6 +2840,38 @@
     }
    ],
    "tabla": "empresas_serie_pais"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:jus_sociedades_resumen.csv",
+   "a": "f-sociedades",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "soc_d = pd.read_csv(CRUDO / \"jus_sociedades_resumen.csv\")"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"sociedades_provincias\": sociedades_provincias,"
+    }
+   ],
+   "tabla": "sociedades_provincias"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:indec_proyecciones_provincias.csv",
+   "a": "f-sociedades",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_pr = pd.read_csv(CRUDO / \"indec_proyecciones_provincias.csv\", sep=\";\")"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "sociedades_provincias[\"poblacion\"] = sociedades_provincias.codigo_indec.map(lambda c: POB_POR_ANIO[(c, SOC_ULT)])"
+    }
+   ],
+   "tabla": "sociedades_provincias"
   },
   {
    "tipo": "alimenta",
@@ -7637,6 +7690,11 @@
   "f-telefonia": {
    "variables": [
     "telefonia_fija_accesos_cada_100_hogares"
+   ]
+  },
+  "f-sociedades": {
+   "variables": [
+    "sociedades_comerciales_constituidas_cada_100000"
    ]
   }
  }

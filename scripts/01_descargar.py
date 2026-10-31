@@ -2576,18 +2576,64 @@ def utdt_series():
     return paginas["icc"]
 
 
+def sociedades():
+    """Sociedades comerciales constituidas por año y provincia del domicilio fiscal, desde el Registro Nacional de Sociedades (Ministerio de
+    Justicia, plan de mejora, sección 10, aprobada por el autor el 28 de octubre de 2026). El catálogo publica un ZIP por año, que es el registro
+    entero a esa fecha (el de 2026, de septiembre, pesa 117 MB y su CSV 900 MB): se toma el del año más nuevo, sin los bimestres ni el de las
+    asociaciones. Trae una fila por actividad de cada sociedad, así que se cuenta cada CUIT una vez, con el año de su contrato social. Solo las
+    sociedades comerciales (TIPOS_SOCIEDAD): las asociaciones civiles, fundaciones, cooperativas, mutuales y sucursales extranjeras no son empresas
+    nuevas. Se guarda solo el resumen (jus_sociedades_resumen.csv), no el ZIP."""
+    import io, zipfile
+    recursos = json.loads(leer("https://datos.jus.gob.ar/api/3/action/package_show?id=ee83de85-4305-4c53-9a9f-fd3d15e42c36", 60))["result"]["resources"]
+    anuales = [(int(m.group(1)), r["url"]) for r in recursos if (m := re.fullmatch(r"Registro Nacional de Sociedades\s*-\s*(\d{4})", r["name"].strip()))]
+    if not anuales:
+        raise ValueError("no se encontró el registro anual de sociedades en el catálogo")
+    anio, url = max(anuales)
+    with zipfile.ZipFile(io.BytesIO(leer(url, 900))) as z:
+        f = io.TextIOWrapper(z.open(z.infolist()[0]), encoding="utf-8-sig", newline="")
+        filas = csv.reader(f)
+        cab = next(filas)
+        ix = {c: i for i, c in enumerate(cab)}
+        vistos, cuenta = set(), {}
+        for fila in filas:
+            if len(fila) != len(cab) or fila[0] in vistos:
+                continue
+            vistos.add(fila[0])
+            tipo = fila[ix["tipo_societario"]].strip()
+            if tipo not in TIPOS_SOCIEDAD:
+                continue
+            clave = (fila[ix["fecha_hora_contrato_social"]][:4], fila[ix["dom_fiscal_provincia"]].strip(), tipo)
+            cuenta[clave] = cuenta.get(clave, 0) + 1
+    if len(vistos) < 1_000_000:
+        raise ValueError(f"el registro de sociedades vino incompleto ({len(vistos)} CUIT)")
+    with open(CRUDO / "jus_sociedades_resumen.csv", "w", newline="", encoding="utf-8") as g:
+        w = csv.writer(g, lineterminator="\n")
+        w.writerow(["anio_contrato", "provincia_fiscal", "tipo_societario", "sociedades", "registro"])
+        w.writerows([a, p, t, n, anio] for (a, p, t), n in sorted(cuenta.items()))
+    return url
+
+
+# los tipos societarios de la Ley General de Sociedades (19.550) y las sociedades por acciones simplificadas (Ley 27.349), como los escribe el registro
+TIPOS_SOCIEDAD = {"SOCIEDAD DE RESPONSABILIDAD LIMITADA", "SOCIEDAD POR ACCION SIMPLIFICADA", "SOCIEDAD ANONIMA", "SOCIEDAD ANONIMA UNIPERSONAL",
+                  "SOCIEDAD LEY 19550 CAPITULO I SECCION IV", "SOCIEDAD EN COMANDITA SIMPLE", "SOCIEDAD EN COMANDITA POR ACCIONES",
+                  "SOCIEDAD COLECTIVA", "CAPITAL E INDUSTRIA"}
+# fuentes que arma una función y no una dirección de FUENTES: --solo también las acepta por el nombre del archivo que escriben
+SOLO_FUNCIONES = {"jus_sociedades_resumen.csv": sociedades}
+
+
 # Una fuente nueva sin bajar todo (24 de octubre de 2026): `python scripts/01_descargar.py --solo archivo [archivo ...]` baja solo esos
-# archivos de FUENTES y cambia solo sus filas del registro. La actualización mensual corre sin la opción y baja todo, como siempre
+# archivos de FUENTES (o de SOLO_FUNCIONES) y cambia solo sus filas del registro. La actualización mensual corre sin la opción y baja todo
 if "--solo" in sys.argv:
     _solo = sys.argv[sys.argv.index("--solo") + 1:]
-    assert _solo and set(_solo) <= set(FUENTES), f"--solo: no están en FUENTES: {sorted(set(_solo) - set(FUENTES))}"
+    assert _solo and set(_solo) <= set(FUENTES) | set(SOLO_FUNCIONES), \
+        f"--solo: no están en FUENTES ni en SOLO_FUNCIONES: {sorted(set(_solo) - set(FUENTES) - set(SOLO_FUNCIONES))}"
     with open(CRUDO / "_registro.csv", newline="", encoding="utf-8") as f:
         _filas = list(csv.reader(f))
     _reg = {fila[0]: fila for fila in _filas[1:]}
     for nombre in _solo:
-        usada = FUENTES[nombre]
+        usada = FUENTES.get(nombre, "")
         try:
-            usada = bajar(nombre, usada)
+            usada = SOLO_FUNCIONES[nombre]() if nombre in SOLO_FUNCIONES else bajar(nombre, usada)
             estado = "ok"
         except Exception as e:
             estado = f"error: {e}"
@@ -2625,7 +2671,8 @@ for _nombre, _f in [("votaciones nominales", votaciones), ("exportaciones por se
                     ("series del sector externo (API de Series de Tiempo)", series_sector_externo),
                     ("estadísticas monetarias y reservas (API del BCRA)", bcra_monetarias),
                     ("planilla de reservas internacionales y liquidez (BCRA)", bcra_planilla_reservas),
-                    ("índices de la Universidad Torcuato Di Tella", utdt_series)]:
+                    ("índices de la Universidad Torcuato Di Tella", utdt_series),
+                    ("sociedades constituidas por año y provincia (Registro Nacional de Sociedades)", sociedades)]:
     try:
         _origen = _f() or "github.com/rquiroga7/como_voto"
         registro.append([_nombre, _origen, datetime.datetime.now().isoformat(timespec="seconds"), "ok"])
