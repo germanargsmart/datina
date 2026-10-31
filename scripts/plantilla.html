@@ -926,6 +926,21 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <div class="pie"><span>Fuente: Secretaría de Educación, Dirección Nacional de Información y Estadística Educativa, Relevamiento Anual</span><a href="datos/escolarizacion_secundaria_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
+    <!-- el abandono y la repitencia en la secundaria (plan de mejora, sección 10, aprobada por el autor el 28 de octubre de 2026) -->
+    <article class="ficha" id="f-abandono">
+      <h2>¿Dónde dejan más la secundaria?</h2>
+      <p class="ficha-sub">Alumnos de la secundaria que no se volvieron a matricular al año siguiente y alumnos que repitieron, en % de los de cada provincia, de {{abandono.anio}} a {{abandono.sig}}, y el país desde {{abandono.ini}}</p>
+      <div class="conmutador" role="group" aria-label="Vista" data-g="abandono" style="--n:3">
+        <button type="button" data-m="ab" aria-pressed="true">Abandono</button>
+        <button type="button" data-m="rep" aria-pressed="false">Repitencia</button>
+        <button type="button" data-m="serie" aria-pressed="false">Evolución</button>
+      </div>
+      <div class="grafico" data-g="abandono" data-forma="barras"></div>
+      <p class="lead" data-t="abandono"></p>
+      <p class="nota" data-t="abandono-nota"></p>
+      <div class="pie"><span>Fuente: Secretaría de Educación, Dirección Nacional de Información y Estadística Educativa, Relevamientos Anuales</span><a href="datos/abandono_provincias.csv" download>Por provincia (CSV)</a><a href="datos/abandono_pais.csv" download>Del país, por ciclo (CSV)</a></div>
+    </article>
+
     <article class="ficha" id="f-aprender">
       <h2>¿Cuántos chicos de 6° grado tienen un nivel satisfactorio en Aprender?</h2>
       <p class="ficha-sub">Estudiantes de 6° grado con nivel satisfactorio o avanzado en Aprender por provincia, {{aprender.anio}}</p>

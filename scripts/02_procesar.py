@@ -621,6 +621,76 @@ esc_prov[["tasa_inicio", "tasa_final"]] = esc_prov[["tasa_inicio", "tasa_final"]
 esc_prov["territorio"] = esc_prov.codigo_indec.map(CORTO)
 esc_pais = esc[esc.codigo_indec == "00"].iloc[0]
 
+# Abandono interanual y repitencia en la secundaria por provincia (Secretaría de Educación, DiNIEE, plan de mejora, sección 10, aprobada por
+# el autor el 28 de octubre de 2026). Una hoja por ciclo desde 2012: el abandono "2024-2025" son los alumnos de 2024 que no se matriculan en
+# 2025, y la repitencia "2024", los de 2024 que en 2025 se matriculan en el mismo año de estudio. Las dos salen de los Relevamientos Anuales
+# de dos años seguidos, con la división político-territorial de hoy: el archivo con la "estructura nacional homogénea" (2003 a 2016) es otra
+# serie y no se usa. Se toma el total de la secundaria. El modelo supone un sistema cerrado y una tasa puede dar negativa (hoja "Limitaciones").
+# Desde el ciclo 2024-2025, Buenos Aires cuenta a sus alumnos con el régimen académico nuevo de la Resolución 1650/2024: sus repitientes pasan a
+# ser los que no acreditaron ninguna materia, así que su repitencia no se compara con la de las demás ni con sus años anteriores, y la fuente
+# avisa que el cambio también puede incidir en el abandono y en el total del país
+def aban_leer(ruta):
+    with zipfile.ZipFile(ruta) as z:
+        n = next(n for n in z.namelist() if n.lower().endswith(".xlsx") and "territorial" in norm(n))
+        x = pd.ExcelFile(io.BytesIO(z.read(n)))
+    filas = []
+    for h in x.sheet_names:
+        m = re.match(r"(\d{4})", h)
+        if not m:
+            continue
+        d = pd.read_excel(x, sheet_name=h, header=None)
+        cab = [i for i in range(len(d)) if any(str(v).strip() == "Secundaria" for v in d.iloc[i])]
+        assert len(cab) == 1, f"{ruta.name}: la hoja {h} cambió de formato"
+        j = next(j for j in range(d.shape[1]) if str(d.iat[cab[0], j]).strip() == "Secundaria")
+        for i in range(cab[0] + 2, len(d)):
+            nom = str(d.iat[i, 0]).strip()
+            if nom in ("", "nan"):
+                break
+            if codigo(nom) is not None:  # sin el Conurbano y el resto de Buenos Aires, que son partes de la provincia
+                filas.append({"anio": int(m.group(1)), "codigo_indec": codigo(nom), "valor": float(pd.to_numeric(d.iat[i, j]))})
+    d = pd.DataFrame(filas)
+    assert (d.groupby("anio").codigo_indec.agg(["size", "nunique"]) == 25).all().all(), f"{ruta.name}: faltan o se repiten jurisdicciones"
+    return d
+
+
+_aban_a, _aban_r = aban_leer(CRUDO / "educ_abandono.zip"), aban_leer(CRUDO / "educ_repitencia.zip")
+ABN_ULT, ABN_INI = int(_aban_a.anio.max()), int(_aban_a.anio.min())
+ABN_REP_ULT = int(_aban_r.anio.max())
+# jurisdicciones con el régimen académico nuevo en el último ciclo: su repitencia no se compara y no se nombran entre las más bajas
+ABN_REGIMEN = ["06"] if ABN_ULT >= 2024 else []
+abandono_pais = (_aban_a[_aban_a.codigo_indec == "00"].set_index("anio").valor.rename("abandono").to_frame()
+                 .join(_aban_r[_aban_r.codigo_indec == "00"].set_index("anio").valor.rename("repitencia"), how="outer").reset_index())
+abandono_pais.insert(1, "ciclo", abandono_pais.anio.map(lambda a: f"{a}-{a + 1}"))
+_aban_av = _aban_a.pivot(index="codigo_indec", columns="anio", values="valor")
+_aban_rv = _aban_r.pivot(index="codigo_indec", columns="anio", values="valor")
+abandono_provincias = pd.DataFrame({"codigo_indec": sorted(POB), "territorio": [CORTO[c] for c in sorted(POB)]})
+abandono_provincias["abandono"] = abandono_provincias.codigo_indec.map(_aban_av[ABN_ULT])
+abandono_provincias["abandono_anterior"] = abandono_provincias.codigo_indec.map(_aban_av[ABN_ULT - 1])
+abandono_provincias[f"abandono_{ABN_INI}"] = abandono_provincias.codigo_indec.map(_aban_av[ABN_INI])
+abandono_provincias["repitencia"] = abandono_provincias.codigo_indec.map(_aban_rv[ABN_REP_ULT])
+abandono_provincias["regimen_nuevo"] = abandono_provincias.codigo_indec.isin(ABN_REGIMEN)
+_aban_cmp = abandono_provincias[~abandono_provincias.regimen_nuevo]
+_aban_o, _aban_ro = _aban_cmp.sort_values("abandono"), _aban_cmp.sort_values("repitencia")
+_aban_p = abandono_pais.set_index("anio")
+ABN_RES = {
+    "anio": ABN_ULT, "sig": ABN_ULT + 1, "ini": ABN_INI, "rep_anio": ABN_REP_ULT, "rep_sig": ABN_REP_ULT + 1,
+    "pais": r1(_aban_p.at[ABN_ULT, "abandono"]), "pais_ant": r1(_aban_p.at[ABN_ULT - 1, "abandono"]), "pais_ini": r1(_aban_p.at[ABN_INI, "abandono"]),
+    "rep_pais": r1(_aban_p.at[ABN_REP_ULT, "repitencia"]), "rep_pais_ant": r1(_aban_p.at[ABN_REP_ULT - 1, "repitencia"]),
+    "rep_pais_ini": r1(_aban_p.at[ABN_INI, "repitencia"]),
+    # el ciclo de la pandemia: en 2020 la escuela fue a distancia y casi nadie repitió
+    "pandemia": r1(_aban_p.at[2020, "abandono"]), "rep_pandemia": r1(_aban_p.at[2020, "repitencia"]),
+    "top": [_aban_o.iloc[-1].territorio, r1(_aban_o.iloc[-1].abandono)], "top2": [_aban_o.iloc[-2].territorio, r1(_aban_o.iloc[-2].abandono)],
+    "bajo": [_aban_o.iloc[0].territorio, r1(_aban_o.iloc[0].abandono)],
+    "rep_top": [_aban_ro.iloc[-1].territorio, r1(_aban_ro.iloc[-1].repitencia)], "rep_bajo": [_aban_ro.iloc[0].territorio, r1(_aban_ro.iloc[0].repitencia)],
+    "arriba_10": [r.territorio for r in _aban_cmp.sort_values("abandono", ascending=False).itertuples() if r.abandono >= 10],
+    "regimen": [CORTO[c] for c in ABN_REGIMEN],
+    "regimen_v": [[CORTO[c], r1(_aban_av.at[c, ABN_ULT]), r1(_aban_av.at[c, ABN_ULT - 1]), r1(_aban_rv.at[c, ABN_REP_ULT]),
+                   r1(_aban_rv.at[c, ABN_REP_ULT - 1])] for c in ABN_REGIMEN],
+}
+for _aban_d, _aban_v in ((_aban_a, "abandono_interanual_secundaria"), (_aban_r, "repitencia_secundaria")):
+    agregar(_aban_d.assign(periodo=_aban_d.anio.astype(str), territorio=_aban_d.codigo_indec.map({**CORTO, "00": "Argentina"})), _aban_v,
+            "%", "Secretaría de Educación, DiNIEE")
+
 # Aprender: estudiantes de 6 grado por nivel de desempeno (Ministerio de Educacion)
 meta_ap = json.loads((CRUDO / "aprender_meta.json").read_text(encoding="utf-8"))
 def aprender(archivo, pref):
@@ -6900,6 +6970,8 @@ tablas = {
     "fiscal_provincias": fiscal,
     "coparticipacion_provincias": coparticipacion,
     "deuda_provincias": deuda_provincias,
+    "abandono_provincias": abandono_provincias,
+    "abandono_pais": abandono_pais,
     "elecciones_presidenciales": presidenciales,
     "congreso_composicion": congreso,
     "anios_congreso": anios_congreso,
@@ -7290,6 +7362,7 @@ resumen["fiscal"] = {
 }
 resumen["coparticipacion"] = cpa_res
 resumen["deuda_provincias"] = DP_RES
+resumen["abandono"] = ABN_RES
 resumen["departamentos"] = {"meta": {k: {"nombre": v[0], "unidad": v[1], "fuente": v[2]} for k, v in DEP_META.items()},
                             "anio_snic": ANIO_DEP, "n": int(len(departamentos))}
 resumen["elecciones"] = el_meta

@@ -1135,6 +1135,17 @@
    "url": "https://datos.jus.gob.ar/dataset/72d85f23-b751-4d12-935b-25e32ed9445e/resource/d523dd08-5c12-467e-b947-aa3206a24d21/download/estadistica-inscripciones-iniciales-motovehiculos-2007-01-2026-08.csv"
   },
   {
+   "id": "ds:educ_abandono.zip",
+   "nombre": "Tasa de abandono interanual por provincia, nivel y año de estudio",
+   "fuente": "org:educacion",
+   "ruta": "datos/crudo/educ_abandono.zip",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "\"educ_abandono.zip\": \"https://"
+   },
+   "url": "https://www.argentina.gob.ar/sites/default/files/2018/04/tasa_de_abandono_interanual.zip"
+  },
+  {
    "id": "ds:educ_escolarizacion.zip",
    "nombre": "Tasas de escolarización por provincia (Indicadores Educativos)",
    "fuente": "org:educacion",
@@ -1144,6 +1155,17 @@
     "archivo": "scripts/01_descargar.py",
     "contiene": "\"educ_escolarizacion.zip\": ckan_recurso("
    }
+  },
+  {
+   "id": "ds:educ_repitencia.zip",
+   "nombre": "Tasa de repitencia por provincia, nivel y año de estudio",
+   "fuente": "org:educacion",
+   "ruta": "datos/crudo/educ_repitencia.zip",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "\"educ_repitencia.zip\": \"https://"
+   },
+   "url": "https://www.argentina.gob.ar/sites/default/files/2018/04/tasa_de_repitencia.zip"
   },
   {
    "id": "ds:eia_produccion_paises.csv",
@@ -3223,6 +3245,38 @@
     }
    ],
    "tabla": "escolarizacion_secundaria_provincias"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:educ_abandono.zip",
+   "a": "f-abandono",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_aban_a, _aban_r = aban_leer(CRUDO / \"educ_abandono.zip\"), aban_leer(CRUDO / \"educ_repitencia.zip\")"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"abandono_provincias\": abandono_provincias,"
+    }
+   ],
+   "tabla": "abandono_provincias"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:educ_repitencia.zip",
+   "a": "f-abandono",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_aban_a, _aban_r = aban_leer(CRUDO / \"educ_abandono.zip\"), aban_leer(CRUDO / \"educ_repitencia.zip\")"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"abandono_provincias\": abandono_provincias,"
+    }
+   ],
+   "tabla": "abandono_provincias"
   },
   {
    "tipo": "alimenta",
@@ -7076,6 +7130,12 @@
    "variables": [
     "tasa_neta_escolarizacion_secundaria",
     "bm_secundaria"
+   ]
+  },
+  "f-abandono": {
+   "variables": [
+    "abandono_interanual_secundaria",
+    "repitencia_secundaria"
    ]
   },
   "f-esperanza": {
