@@ -99,6 +99,17 @@
    ]
   },
   {
+   "id": "org:coordinacion-fiscal",
+   "nombre": "Subsecretaría de Coordinación Fiscal Provincial",
+   "sigla": "SSCFP",
+   "depende": "Secretaría de Hacienda, Ministerio de Economía",
+   "url": "https://www.argentina.gob.ar/economia/sechacienda/coordinacion-fiscal-provincial",
+   "alias": [
+    "Subsecretaría de Coordinación Fiscal Provincial",
+    "Subsecretaria de Coordinacion Fiscal Provincial"
+   ]
+  },
+  {
    "id": "org:csjn",
    "nombre": "Registro Nacional de Femicidios de la Justicia Argentina",
    "sigla": "Registro de Femicidios",
@@ -881,6 +892,17 @@
     "archivo": "scripts/01_descargar.py",
     "contiene": "\"censo2022_migraciones_c10.xlsx\": \"https://censo.gob.ar/wp-content/uploads/2024/01/c2022_tp_migraciones_c10.xlsx\""
    }
+  },
+  {
+   "id": "ds:cfp_stock_deuda_provincial.xlsx",
+   "nombre": "Stock de deuda de cada provincia por acreedor, al último trimestre",
+   "fuente": "org:coordinacion-fiscal",
+   "ruta": "datos/crudo/cfp_stock_deuda_provincial.xlsx",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "\"cfp_stock_deuda_provincial.xlsx\": cfp_stock_deuda("
+   },
+   "url": "https://www.argentina.gob.ar/economia/sechacienda/coordinacion-fiscal-provincial/deuda-publica-provincial/evolucion-de-stock"
   },
   {
    "id": "ds:cgecse_inversion_educativa.csv",
@@ -4492,6 +4514,38 @@
   },
   {
    "tipo": "alimenta",
+   "de": "ds:cfp_stock_deuda_provincial.xlsx",
+   "a": "f-deuda-provincias",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_dp_h = pd.read_excel(CRUDO / \"cfp_stock_deuda_provincial.xlsx\", header=None)"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"deuda_provincias\": deuda_provincias,"
+    }
+   ],
+   "tabla": "deuda_provincias"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:indec_proyecciones_provincias.csv",
+   "a": "f-deuda-provincias",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_pr = pd.read_csv(CRUDO / \"indec_proyecciones_provincias.csv\", sep=\";\")"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "deuda_provincias[\"poblacion\"] = deuda_provincias.codigo_indec.map(lambda c: POB_POR_ANIO[(c, DP_ANIO)])"
+    }
+   ],
+   "tabla": "deuda_provincias"
+  },
+  {
+   "tipo": "alimenta",
    "de": "ds:sube_usuarios_dia.csv",
    "a": "f-sube",
    "evidencia": [
@@ -7050,6 +7104,11 @@
    "variables": [
     "tributos_origen_nacional_por_habitante",
     "tributos_origen_nacional_pct_ingresos"
+   ]
+  },
+  "f-deuda-provincias": {
+   "variables": [
+    "deuda_provincial_por_habitante"
    ]
   },
   "f-fracturas": {

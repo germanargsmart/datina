@@ -203,7 +203,7 @@ FRECUENCIA = {
     "f-corte-casos": "anio", "f-jueces-federales": "padron", "f-fiscalias-federales": "ultimo",
     "f-cortes-provinciales": "anio", "f-justicia-provincial": "anio",
     # Gobierno
-    "f-cuentas-nacion": "mes", "f-recaudacion": "mes", "f-deuda": "trimestre", "f-empleo-publico": "anio", "f-impuestos-provinciales": "anio", "f-coparticipacion": "anio",
+    "f-cuentas-nacion": "mes", "f-recaudacion": "mes", "f-deuda": "trimestre", "f-empleo-publico": "anio", "f-impuestos-provinciales": "anio", "f-coparticipacion": "anio", "f-deuda-provincias": "trimestre",
     "f-fiscal": "anio",
     # Movilidad
     "f-sube": "mes", "f-patentes": "mes", "f-patentes-prov": "mes", "f-combustibles": "mes",
@@ -238,6 +238,7 @@ DEMORA_HABITUAL = {
     "f-empleo-construccion": 1,    # el empleo registrado por rama llegaba al primer trimestre de 2026 (7 meses)
     "f-empleo-hidro": 1,           # el mismo dato que la anterior, para petróleo y gas
     "f-vacunas": 6,                # la cobertura de 2024 se publicó en abril de 2026 (16 meses)
+    "f-deuda-provincias": 2,       # el stock al 30 de junio de 2026 estaba publicado en octubre de 2026 (4 meses)
 }
 SIN_FRESCURA = {
     "f-parques": "el año de la descripción es el de creación del último parque, no el del dato",

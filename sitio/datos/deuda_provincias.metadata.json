@@ -1,0 +1,104 @@
+{
+ "tabla": "deuda_provincias.csv",
+ "titulo": "¿Qué provincias deben más por habitante?",
+ "descripcion": "Stock de deuda pública de cada provincia, por habitante y por acreedor, al 30 de junio de 2026",
+ "seccion": "Cuentas públicas",
+ "ficha": "https://datina.pages.dev/gobierno.html#f-deuda-provincias",
+ "fuente": "Subsecretaría de Coordinación Fiscal Provincial, Ministerio de Economía, evolución del stock de deuda provincial, e INDEC, proyecciones de población.",
+ "actualizacion": "Se actualiza cada tres meses.",
+ "cobertura": "Las 24 jurisdicciones",
+ "periodo": "30 de junio de 2026",
+ "filas": 24,
+ "columnas": [
+  {
+   "nombre": "codigo_indec",
+   "tipo": "Código",
+   "valores": "24 códigos"
+  },
+  {
+   "nombre": "territorio",
+   "tipo": "Texto",
+   "valores": "24 valores distintos"
+  },
+  {
+   "nombre": "fecha",
+   "tipo": "Fecha",
+   "valores": "30 de junio de 2026"
+  },
+  {
+   "nombre": "millones",
+   "tipo": "Número",
+   "valores": "211,09 a 17.950.807,46 (1 celda vacía)"
+  },
+  {
+   "nombre": "gobierno_nacional",
+   "tipo": "Número",
+   "valores": "0 a 351.048,08 (1 celda vacía)"
+  },
+  {
+   "nombre": "fffir",
+   "tipo": "Número",
+   "valores": "0 a 87.760,9 (1 celda vacía)"
+  },
+  {
+   "nombre": "ffdp",
+   "tipo": "Número",
+   "valores": "0 (1 celda vacía)"
+  },
+  {
+   "nombre": "bancos",
+   "tipo": "Número",
+   "valores": "0 a 135.190,5 (1 celda vacía)"
+  },
+  {
+   "nombre": "deuda_consolidada",
+   "tipo": "Número",
+   "valores": "0 a 121.862,92 (1 celda vacía)"
+  },
+  {
+   "nombre": "bonos",
+   "tipo": "Número",
+   "valores": "0 a 14.409.370,11 (1 celda vacía)"
+  },
+  {
+   "nombre": "organismos_internacionales",
+   "tipo": "Número",
+   "valores": "0 a 3.457.562,76 (1 celda vacía)"
+  },
+  {
+   "nombre": "poblacion",
+   "tipo": "Número",
+   "valores": "182.744 a 17.453.039"
+  },
+  {
+   "nombre": "por_habitante",
+   "tipo": "Número",
+   "valores": "391,75 a 2.484.301,07 (1 celda vacía)"
+  },
+  {
+   "nombre": "pct_bonos",
+   "tipo": "Número",
+   "valores": "0 a 100 (1 celda vacía)"
+  },
+  {
+   "nombre": "pct_organismos",
+   "tipo": "Número",
+   "valores": "0 a 90,15 (1 celda vacía)"
+  },
+  {
+   "nombre": "pct_nacion",
+   "tipo": "Número",
+   "valores": "0 a 100 (1 celda vacía)"
+  },
+  {
+   "nombre": "pct_bancos_otros",
+   "tipo": "Número",
+   "valores": "0 a 87,51 (1 celda vacía)"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "28/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}
