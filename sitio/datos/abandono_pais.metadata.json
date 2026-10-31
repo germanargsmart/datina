@@ -1,0 +1,39 @@
+{
+ "tabla": "abandono_pais.csv",
+ "titulo": "¿Dónde dejan más la secundaria?",
+ "descripcion": "Alumnos de la secundaria que no se volvieron a matricular al año siguiente y alumnos que repitieron, en % de los de cada provincia, de 2024 a 2025, y el país desde 2012",
+ "seccion": "Educación",
+ "ficha": "https://datina.pages.dev/educacion.html#f-abandono",
+ "fuente": "Secretaría de Educación, Dirección Nacional de Información y Estadística Educativa, Relevamientos Anuales.",
+ "actualizacion": "Se actualiza cada año.",
+ "cobertura": "Sin desglose territorial",
+ "periodo": "2012 a 2024",
+ "filas": 13,
+ "columnas": [
+  {
+   "nombre": "anio",
+   "tipo": "Año",
+   "valores": "2012 a 2024"
+  },
+  {
+   "nombre": "ciclo",
+   "tipo": "Texto",
+   "valores": "13 valores distintos"
+  },
+  {
+   "nombre": "abandono",
+   "tipo": "Número",
+   "valores": "4,48 a 11,37"
+  },
+  {
+   "nombre": "repitencia",
+   "tipo": "Número",
+   "valores": "1,84 a 10,89"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "28/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

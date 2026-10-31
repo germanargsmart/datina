@@ -296,6 +296,9 @@ const GOB = R.gobierno, GBN = GOB.nacion, GRT = GOB.recaudacion, GBD = GOB.deuda
 // "392 pesos", y en las barras lo mismo sin "pesos", como el eje
 const DPR = R.deuda_provincias;
 const milDeuda = v => v >= 1e6 ? `${n2(v / 1e6)} millones` : v >= 1000 ? `${n0(v / 1000)} mil` : n0(v);
+// el abandono y la repitencia en la secundaria (plan de mejora, sección 10, 31 de octubre de 2026). ABN.regimen: las jurisdicciones con el
+// régimen académico nuevo en el último ciclo (Buenos Aires desde 2024), que no se nombran entre las más bajas
+const ABN = R.abandono;
 const pesosDeuda = v => `${milDeuda(v)} pesos`;
 // superávit o déficit, en palabras
 const sobra = v => v < 0 ? "déficit" : "superávit";
@@ -724,6 +727,25 @@ const LEAD = {
       `por habitante iba de ${pesosDeuda(DPR.bajo[1])} en ${DPR.bajo[0]} a ${pesosDeuda(DPR.top[1])} en ${DPR.top[0]}${conVeces(DPR.top[1], DPR.pais_hab)}, ` +
       `y le seguía ${DPR.top2[0]}. ${DPR.mayor[0]} debía el ${pct(DPR.mayor[1])} del total. Una deuda alta por habitante no dice por sí sola si es ` +
       `mucha para la provincia: eso depende de sus ingresos y de los plazos para pagarla.`;
+  },
+  // el abandono y la repitencia en la secundaria (plan de mejora, sección 10, 31 de octubre de 2026): por provincia en el último ciclo, o la
+  // evolución del país. La caída del último ciclo no se cuenta sin el cambio de régimen de Buenos Aires
+  abandono: v => {
+    const rg = ABN.regimen_v, reg = lista(ABN.regimen);
+    if (v === "serie") return `En ${ABN.ini}, el ${pct(ABN.pais_ini)} de los alumnos de la secundaria del país no se volvió a matricular al año siguiente ` +
+      `y el ${pct(ABN.rep_pais_ini)} repitió. En ${ABN.anio}, el ${pct(ABN.pais)} y el ${pct(ABN.rep_pais)}. En 2020, con la escuela a distancia por ` +
+      `la pandemia, el abandono fue del ${pct(ABN.pandemia)} y la repitencia, del ${pct(ABN.rep_pandemia)}.` +
+      (rg.length ? ` La baja del último ciclo incluye el régimen académico nuevo de ${reg}, que según la fuente puede incidir en el total del país.` : "");
+    if (v === "rep") return `De los alumnos de la secundaria de ${ABN.rep_anio}, el ${pct(ABN.rep_pais)} repitió el año en ${ABN.rep_sig}, en todo el ` +
+      `país. La repitencia más alta fue la de ${ABN.rep_top[0]}, el ${pct(ABN.rep_top[1])}, y la más baja, la de ${ABN.rep_bajo[0]}, el ${pct(ABN.rep_bajo[1])}.` +
+      rg.map(([p, , , r, ra]) => ` ${p} no entra en la comparación: con su régimen académico nuevo cuenta como repitientes solo a los alumnos que no ` +
+        `aprobaron ninguna materia, así que su ${pct(r)} no se compara con las demás ni con su ${pct(ra)} de ${ABN.rep_anio - 1}.`).join("") +
+      (rg.length ? ` Ese cambio también pesa en el total del país.` : "");
+    return `De los alumnos de la secundaria de ${ABN.anio}, el ${pct(ABN.pais)} no se volvió a matricular en ${ABN.sig}, en todo el país. El abandono ` +
+      `más alto fue el de ${ABN.top[0]}, el ${pct(ABN.top[1])}, y le seguía ${ABN.top2[0]}, con el ${pct(ABN.top2[1])}. El más bajo, el de ` +
+      `${ABN.bajo[0]}, el ${pct(ABN.bajo[1])}.` + (ABN.arriba_10.length ? ` En ${ABN.arriba_10.length} jurisdicciones fue del 10% o más.` : "") +
+      rg.map(([p, a]) => ` ${p} cuenta a sus alumnos con un régimen académico nuevo desde ${ABN.anio}: según la fuente, eso puede incidir en su ` +
+        `abandono, el ${pct(a)}, y en el del país.`).join("");
   },
   // refugio (etapa 26): las solicitudes y las personas reconocidas de la CONARE, y las personas refugiadas y solicitantes de asilo de ACNUR
   refugio: v => {
@@ -1537,6 +1559,13 @@ const TX = {
     `transferencias no automáticas, que están en Instituciones políticas. El reparto entre provincias no sigue a la población: la Ley 23.548, de 1988, ` +
     `fija un porcentaje para cada una. CABA y Tierra del Fuego, que en 1988 no eran provincias, reciben su parte de la que le toca a la Nación, con ` +
     `porcentajes que fijan otras normas: los de CABA cambiaron en 2016 y en 2020. En pesos de cada año. Por habitante, con la población del INDEC de ese año.`,
+  abandono: LEAD.abandono("ab"), "abandono-nota": `Tasa de abandono interanual: alumnos de la secundaria de un año que no se matriculan en el ` +
+    `año lectivo siguiente. Tasa de repitencia: alumnos que al año siguiente se matriculan en el mismo año de estudio. En % de los alumnos de la ` +
+    `secundaria común de cada jurisdicción, según los Relevamientos Anuales de la Secretaría de Educación. La fuente aclara que el cálculo supone que ` +
+    `entre un año y el siguiente no entran alumnos de otras jurisdicciones ni de otras cohortes, y que eso puede sesgar las tasas.` +
+    (ABN.regimen.length ? ` Desde ${ABN.anio}, ${lista(ABN.regimen)} aplica un régimen académico nuevo en la secundaria (Resolución 1650/2024 de su ` +
+      `Dirección General de Cultura y Educación), con la acreditación por materia: sus repitientes son los alumnos que no acreditaron ninguna materia ` +
+      `y siguen en el mismo año, y la fuente avisa que el cambio también puede incidir en el total del país.` : ""),
   "deuda-provincias": LEAD["deuda-provincias"]("hab"), "deuda-provincias-nota": `Stock de deuda pública de cada provincia y de CABA al ` +
     `${DPR.fecha_txt}, en pesos, según la Subsecretaría de Coordinación Fiscal Provincial del Ministerio de Economía. Los datos son preliminares y ` +
     `pueden revisarse. No incluye la deuda flotante ni la contingente, y los bonos van a su valor residual, como aclara la fuente. El Gobierno ` +
@@ -2966,7 +2995,7 @@ const DIB = protegerDib({
 
 /* ---------- petróleo y gas, construcción y vivienda (etapa 18) ---------- */
 Object.assign(MED, {refugio: "anio", supermercados: "prov", "cuentas-nacion": "resultado", recaudacion: "impuesto", "empleo-publico": "prov", "nacidos-otro-pais": "prov", "migracion-interna": "prov", radicaciones: "anio", "argentinos-exterior": "anio", inflacion: "doce", "inflacion-rubros": "division", canastas: "region", emae: "mes", "electricidad-provincias": "prov", "electricidad-sectores": "ind", salarios: "prov", "salario-docente": "prov", "inversion-educativa": "alumno",
-  delitos: "tipo", robos: "robos", homicidios: "prov", carceles: "serie", "sin-condena": "prov", coparticipacion: "hab", "deuda-provincias": "hab", desocupacion: "ciudad", "empresas-tamano": "tam", "pobreza-aglomerados": "region", combustibles: "nafta", "combustibles-vista": "prov", subsidios: "pbi", "obra-publica": "prov", "gas-consumo": "prov", centrales: "mapa", "mapa-pozos": "cuenca", productividad: "pozo", fracturas: "etapas", "pozos-terminados": "anio", petroleo: "tipo", gas: "tipo", "gas-hogares-vista": "prov", "hidro-provincias": "pet_kbd", "areas-hidro": "pet", arArea: "", pozos: "pozo", "empresas-hidro": "pct_pet",
+  delitos: "tipo", robos: "robos", homicidios: "prov", carceles: "serie", "sin-condena": "prov", coparticipacion: "hab", "deuda-provincias": "hab", abandono: "ab", desocupacion: "ciudad", "empresas-tamano": "tam", "pobreza-aglomerados": "region", combustibles: "nafta", "combustibles-vista": "prov", subsidios: "pbi", "obra-publica": "prov", "gas-consumo": "prov", centrales: "mapa", "mapa-pozos": "cuenca", productividad: "pozo", fracturas: "etapas", "pozos-terminados": "anio", petroleo: "tipo", gas: "tipo", "gas-hogares-vista": "prov", "hidro-provincias": "pet_kbd", "areas-hidro": "pet", arArea: "", pozos: "pozo", "empresas-hidro": "pct_pet",
   "empleo-hidro": "prov", regalias: "pct_regalias", reservas: "pet", "mundo-petroleo": "crudo_kbd", insumos: "var_12m",
   "empleo-construccion": "construccion_cada_1000", "trabajadores-vista": "prov", vivienda: "pct_alquila", "vivienda-vista": "prov"});
 const COL_TIPO = {conv: "#A9CBEA", tight: "#F6B40E", shale: "#1F5E97"};
@@ -3482,6 +3511,26 @@ Object.assign(DIB, {
     barrasH(el, {anim: a, data: datos, k: "por_habitante", vf: milDeuda, af: ejeMil, ref: DPR.pais_hab, refLab: `País ${milDeuda(DPR.pais_hab)}`,
       tip: d => `<b>${d.territorio}</b><br>${pesosDeuda(d.por_habitante)} por habitante al ${DPR.fecha_txt}<br>${billones(d.millones)} en total<br>` +
         `${pct(d.pct_bonos)} en bonos`});
+  },
+  // el abandono y la repitencia en la secundaria (plan de mejora, sección 10, 31 de octubre de 2026): cada provincia con la línea del país, la
+  // que tiene el régimen académico nuevo con la aclaración al lado del nombre, o la evolución del país
+  abandono: a => {
+    const v = MED.abandono, el = G("abandono"), fp = T.abandono_provincias.find(r => r.codigo_indec === prov);
+    let txt = LEAD.abandono(v);
+    if (v === "serie") {
+      $t("abandono").textContent = txt;
+      return lineas(el, {anim: a, data: T.abandono_pais, x: "anio", y0: 0, vf: pct, yf: v => n0(v) + "%", xl: r => `de ${r.anio} a ${r.anio + 1}`,
+        series: [{k: "abandono", lab: "Abandono", corto: "Abandono", c: NAR}, {k: "repitencia", lab: "Repitencia", corto: "Repitencia", c: FRI}]});
+    }
+    const k = v === "rep" ? "repitencia" : "abandono", pais = v === "rep" ? ABN.rep_pais : ABN.pais;
+    const ext = v === "rep" ? [ABN.rep_top[0], ABN.rep_bajo[0]] : [ABN.top[0], ABN.top2[0], ABN.bajo[0]];
+    if (fp && !fp.regimen_nuevo && !ext.includes(fp.territorio)) txt += ` En ${fp.territorio}, el ${pct(fp[k])}.`;
+    $t("abandono").textContent = txt;
+    // con lugar para "Buenos Aires (régimen nuevo)" entero, y en el celular "Bs. As. (rég. nuevo)"
+    barrasH(el, {anim: a, data: T.abandono_provincias.map(r => r.regimen_nuevo ? {...r, territorio: `${r.territorio} (régimen nuevo)`} : r), k,
+      l: 196, lAngosto: 140, corto: d => d.regimen_nuevo ? "Bs. As. (rég. nuevo)" : d.territorio, vf: pct, af: v => n0(v) + "%", ref: pais, refLab: `País ${pct(pais)}`,
+      tip: d => `<b>${d.territorio}</b><br>Abandono: ${pct(d.abandono)} de ${ABN.anio} a ${ABN.sig}<br>Repitencia: ${pct(d.repitencia)} de ` +
+        `${ABN.rep_anio} a ${ABN.rep_sig}<br>Abandono de ${ABN.ini} a ${ABN.ini + 1}: ${pct(d[`abandono_${ABN.ini}`])}`});
   },
   // inflación (etapa 25): en doce meses o mes a mes, el país y la región de la provincia elegida, o las seis regiones en el último mes
   inflacion: conTablas("inflacion", () => MED.inflacion === "region" ? [] : ["inflacion_mensual"], a => {
@@ -6580,6 +6629,8 @@ const CLAVE = {
   "f-coparticipacion": [`${n2(CPA.pais_hab / 1e6)} millones de pesos`, `por habitante recibieron las provincias y CABA en ${CPA.anio} por la coparticipación federal y otros ` +
     `impuestos nacionales que se reparten por ley` + (Object.keys(CPA.atrasadas).length ? `, sin contar ${lista(Object.keys(CPA.atrasadas))}` : ""),
     Object.keys(CPA.atrasadas).length ? "por habitante, promedio de las jurisdicciones con datos" : "por habitante, promedio del país"],
+  "f-abandono": [pct(ABN.pais), `de los alumnos de la secundaria de ${ABN.anio} no se volvió a matricular en ${ABN.sig}, en todo el país`,
+    `abandono de la secundaria, de ${ABN.anio} a ${ABN.sig}`],
   "f-deuda-provincias": [pesosDeuda(DPR.pais_hab), `por habitante debían las provincias y CABA al ${DPR.fecha_txt}` +
     (DPR.faltan.length ? `, sin contar ${lista(DPR.faltan)}` : ""), DPR.faltan.length ? "de deuda por habitante, promedio de las jurisdicciones con datos" : "de deuda por habitante, promedio del país"],
   "f-impuestos-provinciales": [`${n0(GBP.pais)} pesos`, `por habitante recaudaron de impuestos propios las provincias y CABA en ${GBP.anio}` + (GBP.faltan.length ? `, sin contar ${lista(GBP.faltan)}` : ""), GBP.faltan.length ? "por habitante, promedio de las jurisdicciones con datos" : "por habitante, promedio del país"],
@@ -7785,6 +7836,9 @@ const PREG = [
   ["¿Cuánto recibe cada provincia por coparticipación?",
    `En ${CPA.anio}, las provincias y CABA recibieron ${n2(CPA.pais_hab / 1e6)} millones de pesos por habitante por la coparticipación federal y otros impuestos nacionales. ` +
    `Fue el ${pct(CPA.pct_pais)} de sus ingresos.`, "#f-coparticipacion"],
+  ["¿Dónde dejan más la secundaria?",
+   `De los alumnos de la secundaria de ${ABN.anio}, el ${pct(ABN.pais)} no se volvió a matricular en ${ABN.sig}, según la Secretaría de Educación. ` +
+   `El abandono más alto fue el de ${ABN.top[0]}, el ${pct(ABN.top[1])}.`, "#f-abandono"],
   ["¿Qué provincias deben más por habitante?",
    `Al ${DPR.fecha_txt}, ${DPR.top[0]}, con ${pesosDeuda(DPR.top[1])} por habitante, según la Subsecretaría de Coordinación Fiscal Provincial. Las provincias ` +
    `y CABA debían ${pesosDeuda(DPR.pais_hab)} por habitante, el ${pct(DPR.pct_bonos)} en bonos.`, "#f-deuda-provincias"],
@@ -9484,6 +9538,7 @@ if (PAGINA !== "inicio") {
     "f-carne": ["carne"], "f-vino": ["vino"], "f-yerba": ["yerba"], "f-electricidad-provincias": ["electricidad", "luz"], "f-subsidios": ["subsidios"],
     "f-empresas": ["empresas"], "f-canastas": ["canasta", "canasta basica"], "f-emae": ["actividad economica", "emae"], "f-carceles": ["carceles", "presos"], "f-sin-condena": ["sin condena", "presos sin condena", "procesados", "prision preventiva"],
     "f-coparticipacion": ["coparticipacion", "coparticipacion federal", "reparto de impuestos"],
+    "f-abandono": ["abandono escolar", "abandono", "repitencia", "repiten", "dejan la escuela", "desercion escolar"],
     "f-deuda-provincias": ["deuda provincial", "deuda de las provincias", "deuda por provincia", "bonos provinciales"],
     "f-desocupacion": ["desocupacion", "desocupados", "desocupada", "tasa de desocupacion"],
     "f-empresas-tamano": ["pymes", "pyme", "microempresas", "tamano de las empresas", "empresas por sector"],

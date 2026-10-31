@@ -357,7 +357,7 @@ Buscadas y verificadas el 26 de octubre de 2026. "Verificado": se vio la página
 | 2 | Dengue y zika del Ministerio de Salud, semanal, con códigos INDEC | Provincia y departamento | ¿Dónde hubo más casos de dengue? | Verificado. Sumada el 28 de octubre de 2026 (f-dengue, en Salud) |
 | 3 | Cobertura de la vacuna triple viral (DICEI), 2009 a 2024 | Provincia | ¿Dónde se vacuna menos a los chicos? | Verificado. Sumada el 28 de octubre de 2026 (f-vacunas, en Salud) |
 | 4 | Deuda pública provincial (DNAP), total trimestral desde 1996 y por provincia. Los nombres de archivo son irregulares | Provincia | ¿Qué provincias deben más por habitante? | Verificado. Sumada el 31 de octubre de 2026 (f-deuda-provincias, en Cuentas públicas), con la planilla trimestral de la Subsecretaría de Coordinación Fiscal Provincial |
-| 5 | Abandono, promoción, repitencia y sobreedad (Secretaría de Educación), desde 2003 | Provincia | ¿Dónde dejan más la secundaria? | Parcial |
+| 5 | Abandono, promoción, repitencia y sobreedad (Secretaría de Educación), desde 2003 | Provincia | ¿Dónde dejan más la secundaria? | Sumada el 31 de octubre de 2026 (f-abandono, en Educación): abandono y repitencia desde 2012 con la división político-territorial de hoy, del ZIP de la página (el RAR del catálogo llegaba un año menos). Promoción y sobreedad no se usan |
 | 6 | Establecimientos de salud (REFES) y farmacias (REFAR), con códigos INDEC | Departamento | ¿Cuántos centros de salud y farmacias hay por habitante? | Verificado |
 | 7 | Registro Nacional de Sociedades, bimestral | Provincia | ¿Dónde se crean más empresas? | Verificado |
 | 8 | ENACOM, telefonía fija y TV paga | Provincia | ¿Dónde quedan teléfonos fijos? | Parcial |

@@ -313,6 +313,11 @@ FUENTES = {
     # Tasas de escolarizacion por provincia (Ministerio de Educacion, Indicadores Educativos). El nombre del archivo cambia.
     "educ_escolarizacion.zip": ckan_recurso("https://datos.gob.ar", "indicadores-educativos", "Escolariz",
         "https://www.argentina.gob.ar/sites/default/files/2018/04/tasas_de_escolarizacion_1.zip"),
+    # Tasas de abandono interanual y de repitencia por provincia, nivel y año de estudio (Secretaría de Educación, DiNIEE, plan de mejora,
+    # sección 10, aprobadas por el autor el 28 de octubre de 2026). El catálogo ofrece un RAR que en octubre de 2026 llegaba un año menos que
+    # el ZIP de la misma página (abandono hasta 2023-2024 contra 2024-2025): se baja el ZIP, que se reemplaza en el mismo lugar cada año
+    "educ_abandono.zip": "https://www.argentina.gob.ar/sites/default/files/2018/04/tasa_de_abandono_interanual.zip",
+    "educ_repitencia.zip": "https://www.argentina.gob.ar/sites/default/files/2018/04/tasa_de_repitencia.zip",
     # Evaluacion Aprender, base agregada de 6 grado (Ministerio de Educacion)
     "aprender_primaria_matematica.csv": aprender("Matem"),
     "aprender_primaria_lengua.csv": aprender("Lengua"),
@@ -532,6 +537,8 @@ VALIDA = {
     "aprender_primaria_matematica.csv": lambda b: b"jurisdiccion" in b[:40],
     "aprender_primaria_lengua.csv": lambda b: b"jurisdiccion" in b[:40],
     "educ_escolarizacion.zip": lambda b: b[:2] == b"PK",
+    "educ_abandono.zip": lambda b: b[:2] == b"PK",
+    "educ_repitencia.zip": lambda b: b[:2] == b"PK",
     "pisa_owid.csv": lambda b: b.startswith(b"entity,"),
     "dnrpa_autos_nuevos.csv": lambda b: b"inscripcion" in b[:200],
     # además del formato, los indicadores que usa el sitio (la búsqueda en el catálogo encontró una vez la planilla de carne aviar)

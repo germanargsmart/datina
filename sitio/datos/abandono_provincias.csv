@@ -1,0 +1,25 @@
+codigo_indec,territorio,abandono,abandono_anterior,abandono_2012,repitencia,regimen_nuevo
+02,CABA,6.3984,7.2177,9.3759,4.5441,False
+06,Buenos Aires,4.1277,6.6887,10.9238,2.5089,True
+10,Catamarca,5.6117,6.2367,4.8993,6.1571,False
+14,Córdoba,7.2842,7.5789,11.0062,6.468,False
+18,Corrientes,9.7554,8.7144,9.6554,9.5977,False
+22,Chaco,12.5906,14.2773,14.1506,10.4711,False
+26,Chubut,6.8313,6.5743,9.9137,6.6039,False
+30,Entre Ríos,8.8764,8.8337,10.6842,9.9501,False
+34,Formosa,10.4397,11.0088,11.8685,10.0967,False
+38,Jujuy,8.0846,8.899,12.5665,7.7146,False
+42,La Pampa,7.2357,7.2484,8.4409,11.1513,False
+46,La Rioja,6.8858,6.5928,6.3309,3.9858,False
+50,Mendoza,9.304,10.1842,15.033,7.3583,False
+54,Misiones,13.0971,11.9785,13.9196,7.6868,False
+58,Neuquén,5.3045,6.8303,13.2427,7.9763,False
+62,Río Negro,6.2391,7.6821,12.2786,7.2687,False
+66,Salta,11.91,12.0584,14.032,11.5478,False
+70,San Juan,8.8218,8.4784,12.5358,11.6563,False
+74,San Luis,5.1891,5.103,9.4703,5.0054,False
+78,Santa Cruz,8.7533,10.863,12.3665,15.254,False
+82,Santa Fe,11.9794,11.2711,13.1315,15.8003,False
+86,Santiago del Estero,9.5959,9.1001,15.5284,6.4735,False
+90,Tucumán,8.4689,7.097,10.3082,5.1096,False
+94,Tierra del Fuego,5.7352,6.1962,7.8404,4.4785,False

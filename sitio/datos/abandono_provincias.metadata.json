@@ -1,0 +1,54 @@
+{
+ "tabla": "abandono_provincias.csv",
+ "titulo": "¿Dónde dejan más la secundaria?",
+ "descripcion": "Alumnos de la secundaria que no se volvieron a matricular al año siguiente y alumnos que repitieron, en % de los de cada provincia, de 2024 a 2025, y el país desde 2012",
+ "seccion": "Educación",
+ "ficha": "https://datina.pages.dev/educacion.html#f-abandono",
+ "fuente": "Secretaría de Educación, Dirección Nacional de Información y Estadística Educativa, Relevamientos Anuales.",
+ "actualizacion": "Se actualiza cada año.",
+ "cobertura": "Las 24 jurisdicciones",
+ "periodo": "",
+ "filas": 24,
+ "columnas": [
+  {
+   "nombre": "codigo_indec",
+   "tipo": "Código",
+   "valores": "24 códigos"
+  },
+  {
+   "nombre": "territorio",
+   "tipo": "Texto",
+   "valores": "24 valores distintos"
+  },
+  {
+   "nombre": "abandono",
+   "tipo": "Número",
+   "valores": "4,13 a 13,1"
+  },
+  {
+   "nombre": "abandono_anterior",
+   "tipo": "Número",
+   "valores": "5,1 a 14,28"
+  },
+  {
+   "nombre": "abandono_2012",
+   "tipo": "Número",
+   "valores": "4,9 a 15,53"
+  },
+  {
+   "nombre": "repitencia",
+   "tipo": "Número",
+   "valores": "2,51 a 15,8"
+  },
+  {
+   "nombre": "regimen_nuevo",
+   "tipo": "Texto",
+   "valores": "False, True"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "28/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}

@@ -189,7 +189,7 @@ FRECUENCIA = {
     # Seguridad
     "f-delitos": "anio", "f-robos": "anio", "f-homicidios": "anio", "f-carceles": "anio", "f-sin-condena": "anio",
     # Educación
-    "f-escolarizacion": "anio", "f-aprender": "aprender", "f-pisa": "pisa", "f-salario-docente": "trimestre", "f-inversion-educativa": "anio",
+    "f-escolarizacion": "anio", "f-abandono": "anio", "f-aprender": "aprender", "f-pisa": "pisa", "f-salario-docente": "trimestre", "f-inversion-educativa": "anio",
     # Población
     "f-nacimientos": "anio", "f-poblacion-proy": "anio", "f-piramide": "anio", "f-envejecimiento": "anio", "f-haberes": "trimestre", "f-pensiones-invalidez": "trimestre", "f-auh": "trimestre", "f-desocupacion": "trimestre", "f-pobreza-aglomerados": "semestre", "f-desempleo": "trimestre", "f-adolescentes": "anio",
     "f-adolescentes-nse": "anio",
