@@ -362,7 +362,7 @@ Buscadas y verificadas el 26 de octubre de 2026. "Verificado": se vio la página
 | 7 | Registro Nacional de Sociedades, bimestral | Provincia | ¿Dónde se crean más empresas? | Verificado |
 | 8 | ENACOM, telefonía fija y TV paga | Provincia | ¿Dónde quedan teléfonos fijos? | Telefonía fija sumada el 31 de octubre de 2026 (f-telefonia, al lado de internet, con la pregunta "¿Cuántos accesos de telefonía fija hay cada 100 hogares?"). La TV paga no |
 | 9 | MapBiomas Argentina por provincia, 1985 a 2025, CC BY 4.0 (red de organizaciones, no es oficial) | Provincia | ¿Cuánto monte natural perdió cada provincia? | Verificado. Sumada el 31 de octubre de 2026 (f-cobertura-suelo, en Naturaleza y ambiente, después de la soja), con la nota de que no es oficial |
-| 10 | Médicos activos 2025 (OFETHuS, PDF) | Provincia | ¿Dónde hay más médicos por habitante? | Parcial |
+| 10 | Médicos activos 2025 (OFETHuS, PDF) | Provincia | ¿Dónde hay más médicos por habitante? | Sumada el 31 de octubre de 2026 (f-medicos, en Salud, después de las vacunas): la Tabla A4 del informe, leída una vez con `scripts/medicos_ofethus.py` |
 
 Las 15 del ranking, con sus direcciones exactas, están en `auditoria-2026-10/fuentes-nuevas.md`.
 

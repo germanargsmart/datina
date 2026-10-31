@@ -413,6 +413,17 @@
    ]
   },
   {
+   "id": "org:ofethus",
+   "nombre": "Observatorio Federal de Talento Humano en Salud",
+   "sigla": "OFETHuS",
+   "depende": "Ministerio de Salud",
+   "url": "https://www.argentina.gob.ar/salud/observatorio",
+   "alias": [
+    "Observatorio Federal de Talento Humano en Salud",
+    "OFETHuS"
+   ]
+  },
+  {
    "id": "org:onu-poblacion",
    "nombre": "Naciones Unidas, División de Población",
    "sigla": "ONU Población",
@@ -1589,6 +1600,17 @@
     "archivo": "scripts/02_procesar.py",
     "contiene": "RAIZ / \"datos\" / \"manual\" / \"leyes_clave.csv\""
    }
+  },
+  {
+   "id": "ds:manual/medicos_ofethus.csv",
+   "nombre": "Médicos habilitados y activos por provincia de residencia, 2025",
+   "fuente": "org:ofethus",
+   "ruta": "datos/manual/medicos_ofethus.csv",
+   "evidencia": {
+    "archivo": "scripts/medicos_ofethus.py",
+    "contiene": "SALIDA = RAIZ / \"datos\" / \"manual\" / \"medicos_ofethus.csv\""
+   },
+   "url": "https://www.argentina.gob.ar/sites/default/files/medicos_activos_argentina_2025_ofethus_dncydts_2026_v300926_a_3092026.pdf"
   },
   {
    "id": "ds:manual/ministros.csv",
@@ -7043,6 +7065,38 @@
      "contiene": "\"vacunas_serie\": vacunas_serie,"
     }
    ]
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:manual/medicos_ofethus.csv",
+   "a": "f-medicos",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "medi_d = pd.read_csv(RAIZ / \"datos\" / \"manual\" / \"medicos_ofethus.csv\")"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"medicos_provincias\": medicos_provincias,"
+    }
+   ],
+   "tabla": "medicos_provincias"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:indec_proyecciones_provincias.csv",
+   "a": "f-medicos",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_pr = pd.read_csv(CRUDO / \"indec_proyecciones_provincias.csv\", sep=\";\")"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "medicos_provincias[\"poblacion\"] = medicos_provincias.codigo_indec.map(lambda c: POB_POR_ANIO[(c, MEDI_ANIO)])"
+    }
+   ],
+   "tabla": "medicos_provincias"
   }
  ],
  "fichas": {
@@ -7573,6 +7627,11 @@
    "variables": [
     "cobertura_triple_viral_dosis1",
     "cobertura_triple_viral_dosis2"
+   ]
+  },
+  "f-medicos": {
+   "variables": [
+    "medicos_activos_cada_10000_habitantes"
    ]
   },
   "f-telefonia": {

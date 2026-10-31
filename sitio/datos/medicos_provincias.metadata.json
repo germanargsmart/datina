@@ -1,0 +1,59 @@
+{
+ "tabla": "medicos_provincias.csv",
+ "titulo": "¿Dónde hay más médicos por habitante?",
+ "descripcion": "Médicos activos y médicos habilitados cada 10.000 habitantes, por provincia de residencia, 2025",
+ "seccion": "Salud",
+ "ficha": "https://datina.pages.dev/salud.html#f-medicos",
+ "fuente": "Observatorio Federal de Talento Humano en Salud (OFETHuS), Ministerio de Salud, Médicos activos en Argentina, e INDEC, proyecciones de población.",
+ "actualizacion": "Se actualiza cada año.",
+ "cobertura": "Las 24 jurisdicciones",
+ "periodo": "",
+ "filas": 24,
+ "columnas": [
+  {
+   "nombre": "codigo_indec",
+   "tipo": "Código",
+   "valores": "24 códigos"
+  },
+  {
+   "nombre": "territorio",
+   "tipo": "Texto",
+   "valores": "24 valores distintos"
+  },
+  {
+   "nombre": "habilitados",
+   "tipo": "Número",
+   "valores": "1.053 a 67.880"
+  },
+  {
+   "nombre": "activos",
+   "tipo": "Número",
+   "valores": "905 a 52.934"
+  },
+  {
+   "nombre": "poblacion",
+   "tipo": "Número",
+   "valores": "182.003 a 17.443.372"
+  },
+  {
+   "nombre": "activos_cada_10000",
+   "tipo": "Número",
+   "valores": "17,94 a 156,17"
+  },
+  {
+   "nombre": "habilitados_cada_10000",
+   "tipo": "Número",
+   "valores": "21,75 a 220,41"
+  },
+  {
+   "nombre": "pct_activos",
+   "tipo": "Número",
+   "valores": "70,85 a 88,47"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "28/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es"
+}
