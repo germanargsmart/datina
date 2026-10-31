@@ -1134,7 +1134,8 @@ soja_departamentos = pd.DataFrame({
     "departamento": _sj_u.departamento.str.strip(), "sembrada_ha": _sj_u.superficie_sembrada_ha, "cosechada_ha": _sj_u.superficie_cosechada_ha,
     "produccion_t": _sj_u.produccion_tm, "pct_pais": _sj_u.superficie_sembrada_ha / _sj_tot * 100,
     "rendimiento_kg_ha": (_sj_u.produccion_tm / _sj_u.superficie_cosechada_ha * 1000).where(_sj_u.superficie_cosechada_ha > 0),
-}).sort_values("sembrada_ha", ascending=False).reset_index(drop=True)
+# con desempate por departamento (como P2-1): los departamentos con la misma superficie salían en otro orden en Windows y en Linux
+}).sort_values(["sembrada_ha", "codigo_dep"], ascending=[False, True], kind="stable").reset_index(drop=True)
 _sj_ant = sj_ea[sj_ea.anio == SJ_ANIO - 1].groupby("provincia_id").superficie_sembrada_ha.sum()
 soja_provincias = (_sj_u.groupby("provincia_id")[["superficie_sembrada_ha", "superficie_cosechada_ha", "produccion_tm"]].sum().reset_index()
                    .rename(columns={"provincia_id": "codigo_indec", "superficie_sembrada_ha": "sembrada_ha", "superficie_cosechada_ha": "cosechada_ha",
