@@ -7911,11 +7911,34 @@ function pintarCompara() {
     document.getElementById("compara-sel").focus();
   });
 }
+// F14 (plan de mejora, 31 de octubre de 2026): el puesto de la provincia entre las 24 diez años antes y en el último año, en los indicadores
+// con serie anual (puestos_provincias, de 02), con una pendiente chica: arriba la cifra más alta, abajo la más baja. Sin verde ni rojo
+function pintarPuestos() {
+  const caja = document.getElementById("prov-puestos"); if (!caja) return;
+  const filas = (T.puestos_provincias || []).filter(r => r.codigo_indec === prov);
+  if (!NOMBRES[prov] || !filas.length) { caja.hidden = true; caja.innerHTML = ""; return; }
+  const frase = o => puestoTxt(o, 24).replace(" de las 24 jurisdicciones", "").replace(/^L/, "l");
+  const num = v => Math.abs(v) >= 1000 ? n0(v) : n1(v), y = p => 8 + (p - 1) / 23 * 48;
+  caja.hidden = false;
+  caja.innerHTML = `<h2 class="bloque-grupo" id="prov-puestos-t">Cómo cambió su puesto</h2>` +
+    `<p class="prov-destaca-sub">El lugar de ${NOMBRES[prov]} entre las 24 jurisdicciones, diez años antes y en el último año con datos de todas. Arriba, la ` +
+    `cifra más alta. Que una cifra sea alta o baja no dice si es buena o mala.</p><div class="perfil-tarjetas">` +
+    filas.map(r => `<a class="tarjeta dp" href="${destinoDe("#" + r.ficha) || "#" + r.ficha}"><span class="dp-lab">${r.indicador}</span>` +
+      `<span class="dp-det">${r.unidad}</span><svg class="dp-pendiente" viewBox="0 0 220 64" aria-hidden="true">` +
+      `<line x1="34" x2="186" y1="${y(r.puesto_inicio)}" y2="${y(r.puesto_final)}" stroke="${css("--celeste")}" stroke-width="2.5"/>` +
+      `<circle cx="34" cy="${y(r.puesto_inicio)}" r="5" fill="${css("--bg")}" stroke="${css("--celeste-fuerte")}" stroke-width="2"/>` +
+      `<circle cx="186" cy="${y(r.puesto_final)}" r="5.5" fill="${css("--celeste-fuerte")}"/>` +
+      `<text x="26" y="${y(r.puesto_inicio)}" dy=".35em" text-anchor="end" font-size="11" fill="${css("--muted")}">${r.anio_inicio}</text>` +
+      `<text x="194" y="${y(r.puesto_final)}" dy=".35em" font-size="11" fill="${css("--ink")}">${r.anio_final}</text></svg>` +
+      `<span class="dp-pos">En ${r.anio_inicio}, ${frase(r.puesto_inicio)} (${num(r.valor_inicio)}). En ${r.anio_final}, ${frase(r.puesto_final)} ` +
+      `(${num(r.valor_final)}).</span></a>`).join("") + `</div>`;
+}
 function pintarPanel(animar) {
   const nombre = NOMBRES[prov];
   pintarExtra();
   pintarDestaca();
   pintarCompara();
+  pintarPuestos();
   // el título de la pestaña lleva el nombre de la provincia, también al compartir el enlace (etapa 6 del plan de mejora)
   if (PAGINA === "provincia") document.title = nombre ? `${nombre} en números | Datina` : TITULO_INICIAL;
   cambiarTexto($("prov-titulo-txt"), nombre ? `${nombre} en números` : "¿Cómo se compara tu provincia con el país?", animar);

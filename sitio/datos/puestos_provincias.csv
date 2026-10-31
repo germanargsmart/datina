@@ -1,0 +1,241 @@
+variable,indicador,unidad,ficha,codigo_indec,territorio,anio_inicio,anio_final,puesto_inicio,puesto_final,valor_inicio,valor_final
+abandono_interanual_secundaria,Abandono de la secundaria,% de los alumnos que no se matriculan al año siguiente,f-abandono,02,CABA,2014,2024,23,18,8.848,6.3984
+abandono_interanual_secundaria,Abandono de la secundaria,% de los alumnos que no se matriculan al año siguiente,f-abandono,06,Buenos Aires,2014,2024,14,24,10.3172,4.1277
+abandono_interanual_secundaria,Abandono de la secundaria,% de los alumnos que no se matriculan al año siguiente,f-abandono,10,Catamarca,2014,2024,11,21,11.3293,5.6117
+abandono_interanual_secundaria,Abandono de la secundaria,% de los alumnos que no se matriculan al año siguiente,f-abandono,14,Córdoba,2014,2024,20,14,9.6027,7.2842
+abandono_interanual_secundaria,Abandono de la secundaria,% de los alumnos que no se matriculan al año siguiente,f-abandono,18,Corrientes,2014,2024,21,6,9.4202,9.7554
+abandono_interanual_secundaria,Abandono de la secundaria,% de los alumnos que no se matriculan al año siguiente,f-abandono,22,Chaco,2014,2024,7,2,12.5873,12.5906
+abandono_interanual_secundaria,Abandono de la secundaria,% de los alumnos que no se matriculan al año siguiente,f-abandono,26,Chubut,2014,2024,16,17,9.9966,6.8313
+abandono_interanual_secundaria,Abandono de la secundaria,% de los alumnos que no se matriculan al año siguiente,f-abandono,30,Entre Ríos,2014,2024,15,9,10.3071,8.8764
+abandono_interanual_secundaria,Abandono de la secundaria,% de los alumnos que no se matriculan al año siguiente,f-abandono,34,Formosa,2014,2024,13,5,10.7072,10.4397
+abandono_interanual_secundaria,Abandono de la secundaria,% de los alumnos que no se matriculan al año siguiente,f-abandono,38,Jujuy,2014,2024,8,13,12.5238,8.0846
+abandono_interanual_secundaria,Abandono de la secundaria,% de los alumnos que no se matriculan al año siguiente,f-abandono,42,La Pampa,2014,2024,24,15,8.0853,7.2357
+abandono_interanual_secundaria,Abandono de la secundaria,% de los alumnos que no se matriculan al año siguiente,f-abandono,46,La Rioja,2014,2024,17,16,9.8923,6.8858
+abandono_interanual_secundaria,Abandono de la secundaria,% de los alumnos que no se matriculan al año siguiente,f-abandono,50,Mendoza,2014,2024,2,8,13.5122,9.304
+abandono_interanual_secundaria,Abandono de la secundaria,% de los alumnos que no se matriculan al año siguiente,f-abandono,54,Misiones,2014,2024,1,1,14.0848,13.0971
+abandono_interanual_secundaria,Abandono de la secundaria,% de los alumnos que no se matriculan al año siguiente,f-abandono,58,Neuquén,2014,2024,5,22,13.0013,5.3045
+abandono_interanual_secundaria,Abandono de la secundaria,% de los alumnos que no se matriculan al año siguiente,f-abandono,62,Río Negro,2014,2024,6,19,12.8783,6.2391
+abandono_interanual_secundaria,Abandono de la secundaria,% de los alumnos que no se matriculan al año siguiente,f-abandono,66,Salta,2014,2024,4,4,13.2187,11.91
+abandono_interanual_secundaria,Abandono de la secundaria,% de los alumnos que no se matriculan al año siguiente,f-abandono,70,San Juan,2014,2024,10,10,12.3502,8.8218
+abandono_interanual_secundaria,Abandono de la secundaria,% de los alumnos que no se matriculan al año siguiente,f-abandono,74,San Luis,2014,2024,12,23,11.0776,5.1891
+abandono_interanual_secundaria,Abandono de la secundaria,% de los alumnos que no se matriculan al año siguiente,f-abandono,78,Santa Cruz,2014,2024,19,11,9.7452,8.7533
+abandono_interanual_secundaria,Abandono de la secundaria,% de los alumnos que no se matriculan al año siguiente,f-abandono,82,Santa Fe,2014,2024,9,3,12.3827,11.9794
+abandono_interanual_secundaria,Abandono de la secundaria,% de los alumnos que no se matriculan al año siguiente,f-abandono,86,Santiago del Estero,2014,2024,3,7,13.2297,9.5959
+abandono_interanual_secundaria,Abandono de la secundaria,% de los alumnos que no se matriculan al año siguiente,f-abandono,90,Tucumán,2014,2024,18,12,9.8672,8.4689
+abandono_interanual_secundaria,Abandono de la secundaria,% de los alumnos que no se matriculan al año siguiente,f-abandono,94,Tierra del Fuego,2014,2024,22,20,9.3408,5.7352
+cobertura_triple_viral_dosis1,"Vacuna triple viral, primera dosis",% de los chicos de la edad,f-vacunas,02,CABA,2014,2024,22,22,83.8,75.3
+cobertura_triple_viral_dosis1,"Vacuna triple viral, primera dosis",% de los chicos de la edad,f-vacunas,06,Buenos Aires,2014,2024,9,21,97.7,76.7
+cobertura_triple_viral_dosis1,"Vacuna triple viral, primera dosis",% de los chicos de la edad,f-vacunas,10,Catamarca,2014,2024,17,18,89.9,83.1
+cobertura_triple_viral_dosis1,"Vacuna triple viral, primera dosis",% de los chicos de la edad,f-vacunas,14,Córdoba,2014,2024,12,14,95.5,84.9
+cobertura_triple_viral_dosis1,"Vacuna triple viral, primera dosis",% de los chicos de la edad,f-vacunas,18,Corrientes,2014,2024,21,16,85.1,84.4
+cobertura_triple_viral_dosis1,"Vacuna triple viral, primera dosis",% de los chicos de la edad,f-vacunas,22,Chaco,2014,2024,7,15,99.2,84.8
+cobertura_triple_viral_dosis1,"Vacuna triple viral, primera dosis",% de los chicos de la edad,f-vacunas,26,Chubut,2014,2024,3,10,103.2,90.5
+cobertura_triple_viral_dosis1,"Vacuna triple viral, primera dosis",% de los chicos de la edad,f-vacunas,30,Entre Ríos,2014,2024,18,4,88.9,100.0
+cobertura_triple_viral_dosis1,"Vacuna triple viral, primera dosis",% de los chicos de la edad,f-vacunas,34,Formosa,2014,2024,15,23,92.0,71.1
+cobertura_triple_viral_dosis1,"Vacuna triple viral, primera dosis",% de los chicos de la edad,f-vacunas,38,Jujuy,2014,2024,1,1,108.1,106.9
+cobertura_triple_viral_dosis1,"Vacuna triple viral, primera dosis",% de los chicos de la edad,f-vacunas,42,La Pampa,2014,2024,6,6,101.3,98.9
+cobertura_triple_viral_dosis1,"Vacuna triple viral, primera dosis",% de los chicos de la edad,f-vacunas,46,La Rioja,2014,2024,24,24,78.3,70.7
+cobertura_triple_viral_dosis1,"Vacuna triple viral, primera dosis",% de los chicos de la edad,f-vacunas,50,Mendoza,2014,2024,8,11,97.9,90.0
+cobertura_triple_viral_dosis1,"Vacuna triple viral, primera dosis",% de los chicos de la edad,f-vacunas,54,Misiones,2014,2024,10,19,95.7,82.7
+cobertura_triple_viral_dosis1,"Vacuna triple viral, primera dosis",% de los chicos de la edad,f-vacunas,58,Neuquén,2014,2024,13,7,94.6,98.6
+cobertura_triple_viral_dosis1,"Vacuna triple viral, primera dosis",% de los chicos de la edad,f-vacunas,62,Río Negro,2014,2024,19,5,87.5,99.5
+cobertura_triple_viral_dosis1,"Vacuna triple viral, primera dosis",% de los chicos de la edad,f-vacunas,66,Salta,2014,2024,14,3,94.0,101.5
+cobertura_triple_viral_dosis1,"Vacuna triple viral, primera dosis",% de los chicos de la edad,f-vacunas,70,San Juan,2014,2024,20,12,86.8,86.1
+cobertura_triple_viral_dosis1,"Vacuna triple viral, primera dosis",% de los chicos de la edad,f-vacunas,74,San Luis,2014,2024,2,8,104.0,96.0
+cobertura_triple_viral_dosis1,"Vacuna triple viral, primera dosis",% de los chicos de la edad,f-vacunas,78,Santa Cruz,2014,2024,5,17,101.9,83.3
+cobertura_triple_viral_dosis1,"Vacuna triple viral, primera dosis",% de los chicos de la edad,f-vacunas,82,Santa Fe,2014,2024,16,20,91.9,81.5
+cobertura_triple_viral_dosis1,"Vacuna triple viral, primera dosis",% de los chicos de la edad,f-vacunas,86,Santiago del Estero,2014,2024,23,13,79.0,85.5
+cobertura_triple_viral_dosis1,"Vacuna triple viral, primera dosis",% de los chicos de la edad,f-vacunas,90,Tucumán,2014,2024,4,9,102.5,91.7
+cobertura_triple_viral_dosis1,"Vacuna triple viral, primera dosis",% de los chicos de la edad,f-vacunas,94,Tierra del Fuego,2014,2024,11,2,95.6,106.0
+gasto_educativo_por_alumno_estatal,Inversión educativa por alumno,pesos corrientes por alumno de gestión estatal por año,f-inversion-educativa,02,CABA,2014,2024,6,4,32134.8113,3419934.99
+gasto_educativo_por_alumno_estatal,Inversión educativa por alumno,pesos corrientes por alumno de gestión estatal por año,f-inversion-educativa,06,Buenos Aires,2014,2024,17,16,18554.7942,1804143.5169
+gasto_educativo_por_alumno_estatal,Inversión educativa por alumno,pesos corrientes por alumno de gestión estatal por año,f-inversion-educativa,10,Catamarca,2014,2024,8,6,23333.9379,2908199.2741
+gasto_educativo_por_alumno_estatal,Inversión educativa por alumno,pesos corrientes por alumno de gestión estatal por año,f-inversion-educativa,14,Córdoba,2014,2024,19,17,18326.4903,1754266.5182
+gasto_educativo_por_alumno_estatal,Inversión educativa por alumno,pesos corrientes por alumno de gestión estatal por año,f-inversion-educativa,18,Corrientes,2014,2024,22,23,15384.856,1380831.6563
+gasto_educativo_por_alumno_estatal,Inversión educativa por alumno,pesos corrientes por alumno de gestión estatal por año,f-inversion-educativa,22,Chaco,2014,2024,18,13,18368.7963,1997100.1673
+gasto_educativo_por_alumno_estatal,Inversión educativa por alumno,pesos corrientes por alumno de gestión estatal por año,f-inversion-educativa,26,Chubut,2014,2024,5,8,32370.6572,2741167.7416
+gasto_educativo_por_alumno_estatal,Inversión educativa por alumno,pesos corrientes por alumno de gestión estatal por año,f-inversion-educativa,30,Entre Ríos,2014,2024,11,12,21457.8976,2016491.8898
+gasto_educativo_por_alumno_estatal,Inversión educativa por alumno,pesos corrientes por alumno de gestión estatal por año,f-inversion-educativa,34,Formosa,2014,2024,14,19,19486.4308,1732107.1792
+gasto_educativo_por_alumno_estatal,Inversión educativa por alumno,pesos corrientes por alumno de gestión estatal por año,f-inversion-educativa,38,Jujuy,2014,2024,13,15,20586.4551,1816904.7306
+gasto_educativo_por_alumno_estatal,Inversión educativa por alumno,pesos corrientes por alumno de gestión estatal por año,f-inversion-educativa,42,La Pampa,2014,2024,4,5,36072.5106,3105670.3329
+gasto_educativo_por_alumno_estatal,Inversión educativa por alumno,pesos corrientes por alumno de gestión estatal por año,f-inversion-educativa,46,La Rioja,2014,2024,10,9,22137.9955,2335331.4222
+gasto_educativo_por_alumno_estatal,Inversión educativa por alumno,pesos corrientes por alumno de gestión estatal por año,f-inversion-educativa,50,Mendoza,2014,2024,15,21,19454.0716,1648680.3995
+gasto_educativo_por_alumno_estatal,Inversión educativa por alumno,pesos corrientes por alumno de gestión estatal por año,f-inversion-educativa,54,Misiones,2014,2024,21,22,15838.0115,1403187.8991
+gasto_educativo_por_alumno_estatal,Inversión educativa por alumno,pesos corrientes por alumno de gestión estatal por año,f-inversion-educativa,58,Neuquén,2014,2024,3,1,37201.2017,6145224.8618
+gasto_educativo_por_alumno_estatal,Inversión educativa por alumno,pesos corrientes por alumno de gestión estatal por año,f-inversion-educativa,62,Río Negro,2014,2024,7,7,25792.0028,2770151.8313
+gasto_educativo_por_alumno_estatal,Inversión educativa por alumno,pesos corrientes por alumno de gestión estatal por año,f-inversion-educativa,66,Salta,2014,2024,23,14,13356.0362,1911870.7635
+gasto_educativo_por_alumno_estatal,Inversión educativa por alumno,pesos corrientes por alumno de gestión estatal por año,f-inversion-educativa,70,San Juan,2014,2024,16,10,19393.3475,2075148.5574
+gasto_educativo_por_alumno_estatal,Inversión educativa por alumno,pesos corrientes por alumno de gestión estatal por año,f-inversion-educativa,74,San Luis,2014,2024,12,20,21392.6654,1717874.6669
+gasto_educativo_por_alumno_estatal,Inversión educativa por alumno,pesos corrientes por alumno de gestión estatal por año,f-inversion-educativa,78,Santa Cruz,2014,2024,2,3,51449.4258,4124810.8043
+gasto_educativo_por_alumno_estatal,Inversión educativa por alumno,pesos corrientes por alumno de gestión estatal por año,f-inversion-educativa,82,Santa Fe,2014,2024,9,11,23107.332,2070855.1119
+gasto_educativo_por_alumno_estatal,Inversión educativa por alumno,pesos corrientes por alumno de gestión estatal por año,f-inversion-educativa,86,Santiago del Estero,2014,2024,24,18,13057.7568,1752953.952
+gasto_educativo_por_alumno_estatal,Inversión educativa por alumno,pesos corrientes por alumno de gestión estatal por año,f-inversion-educativa,90,Tucumán,2014,2024,20,24,16877.6841,1272646.552
+gasto_educativo_por_alumno_estatal,Inversión educativa por alumno,pesos corrientes por alumno de gestión estatal por año,f-inversion-educativa,94,Tierra del Fuego,2014,2024,1,2,59955.2873,5414663.0894
+gasto_personal_pct_gasto,Gasto en personal,% del gasto de la provincia,f-fiscal,02,CABA,2014,2024,14,14,45.4856,43.8288
+gasto_personal_pct_gasto,Gasto en personal,% del gasto de la provincia,f-fiscal,06,Buenos Aires,2014,2024,11,19,48.1737,40.9747
+gasto_personal_pct_gasto,Gasto en personal,% del gasto de la provincia,f-fiscal,10,Catamarca,2014,2024,7,13,50.5303,44.6241
+gasto_personal_pct_gasto,Gasto en personal,% del gasto de la provincia,f-fiscal,14,Córdoba,2014,2024,20,24,40.7105,33.8932
+gasto_personal_pct_gasto,Gasto en personal,% del gasto de la provincia,f-fiscal,18,Corrientes,2014,2024,9,18,50.0935,41.1568
+gasto_personal_pct_gasto,Gasto en personal,% del gasto de la provincia,f-fiscal,22,Chaco,2014,2024,19,11,41.3043,46.528
+gasto_personal_pct_gasto,Gasto en personal,% del gasto de la provincia,f-fiscal,26,Chubut,2014,2024,8,5,50.3986,52.0275
+gasto_personal_pct_gasto,Gasto en personal,% del gasto de la provincia,f-fiscal,30,Entre Ríos,2014,2024,15,12,44.7731,46.4808
+gasto_personal_pct_gasto,Gasto en personal,% del gasto de la provincia,f-fiscal,34,Formosa,2014,2024,22,23,37.4939,34.3654
+gasto_personal_pct_gasto,Gasto en personal,% del gasto de la provincia,f-fiscal,38,Jujuy,2014,2024,5,6,53.9979,51.8911
+gasto_personal_pct_gasto,Gasto en personal,% del gasto de la provincia,f-fiscal,42,La Pampa,2014,2024,18,21,43.7195,34.9423
+gasto_personal_pct_gasto,Gasto en personal,% del gasto de la provincia,f-fiscal,46,La Rioja,2014,2024,17,9,44.6033,48.513
+gasto_personal_pct_gasto,Gasto en personal,% del gasto de la provincia,f-fiscal,50,Mendoza,2014,2024,3,20,54.5321,40.1883
+gasto_personal_pct_gasto,Gasto en personal,% del gasto de la provincia,f-fiscal,54,Misiones,2014,2024,21,22,38.9393,34.8423
+gasto_personal_pct_gasto,Gasto en personal,% del gasto de la provincia,f-fiscal,58,Neuquén,2014,2024,10,8,48.4536,49.025
+gasto_personal_pct_gasto,Gasto en personal,% del gasto de la provincia,f-fiscal,62,Río Negro,2014,2024,1,1,64.1244,65.5245
+gasto_personal_pct_gasto,Gasto en personal,% del gasto de la provincia,f-fiscal,66,Salta,2014,2024,4,2,54.4177,55.9945
+gasto_personal_pct_gasto,Gasto en personal,% del gasto de la provincia,f-fiscal,70,San Juan,2014,2024,16,4,44.6423,53.0361
+gasto_personal_pct_gasto,Gasto en personal,% del gasto de la provincia,f-fiscal,74,San Luis,2014,2024,24,15,29.9337,43.1413
+gasto_personal_pct_gasto,Gasto en personal,% del gasto de la provincia,f-fiscal,78,Santa Cruz,2014,2024,12,10,46.808,48.0788
+gasto_personal_pct_gasto,Gasto en personal,% del gasto de la provincia,f-fiscal,82,Santa Fe,2014,2024,13,16,46.5745,42.7559
+gasto_personal_pct_gasto,Gasto en personal,% del gasto de la provincia,f-fiscal,86,Santiago del Estero,2014,2024,23,17,30.5479,42.5272
+gasto_personal_pct_gasto,Gasto en personal,% del gasto de la provincia,f-fiscal,90,Tucumán,2014,2024,2,3,55.2687,55.0131
+gasto_personal_pct_gasto,Gasto en personal,% del gasto de la provincia,f-fiscal,94,Tierra del Fuego,2014,2024,6,7,53.4664,50.563
+pct_nacimientos_madres_menores_20,Maternidad adolescente,% de los nacimientos con madres menores de 20 años,f-adolescentes,02,CABA,2014,2024,24,24,6.5354,2.3492
+pct_nacimientos_madres_menores_20,Maternidad adolescente,% de los nacimientos con madres menores de 20 años,f-adolescentes,06,Buenos Aires,2014,2024,22,13,12.5217,8.1357
+pct_nacimientos_madres_menores_20,Maternidad adolescente,% de los nacimientos con madres menores de 20 años,f-adolescentes,10,Catamarca,2014,2024,5,11,20.1754,8.3808
+pct_nacimientos_madres_menores_20,Maternidad adolescente,% de los nacimientos con madres menores de 20 años,f-adolescentes,14,Córdoba,2014,2024,20,14,13.4338,7.7112
+pct_nacimientos_madres_menores_20,Maternidad adolescente,% de los nacimientos con madres menores de 20 años,f-adolescentes,18,Corrientes,2014,2024,6,4,20.1643,11.3654
+pct_nacimientos_madres_menores_20,Maternidad adolescente,% de los nacimientos con madres menores de 20 años,f-adolescentes,22,Chaco,2014,2024,2,3,23.4714,12.223
+pct_nacimientos_madres_menores_20,Maternidad adolescente,% de los nacimientos con madres menores de 20 años,f-adolescentes,26,Chubut,2014,2024,19,22,13.9864,6.292
+pct_nacimientos_madres_menores_20,Maternidad adolescente,% de los nacimientos con madres menores de 20 años,f-adolescentes,30,Entre Ríos,2014,2024,11,8,17.8189,8.9735
+pct_nacimientos_madres_menores_20,Maternidad adolescente,% de los nacimientos con madres menores de 20 años,f-adolescentes,34,Formosa,2014,2024,1,1,23.797,14.3943
+pct_nacimientos_madres_menores_20,Maternidad adolescente,% de los nacimientos con madres menores de 20 años,f-adolescentes,38,Jujuy,2014,2024,8,18,19.3868,6.927
+pct_nacimientos_madres_menores_20,Maternidad adolescente,% de los nacimientos con madres menores de 20 años,f-adolescentes,42,La Pampa,2014,2024,17,15,14.9849,7.6999
+pct_nacimientos_madres_menores_20,Maternidad adolescente,% de los nacimientos con madres menores de 20 años,f-adolescentes,46,La Rioja,2014,2024,12,17,16.5262,7.0226
+pct_nacimientos_madres_menores_20,Maternidad adolescente,% de los nacimientos con madres menores de 20 años,f-adolescentes,50,Mendoza,2014,2024,15,10,15.2031,8.4031
+pct_nacimientos_madres_menores_20,Maternidad adolescente,% de los nacimientos con madres menores de 20 años,f-adolescentes,54,Misiones,2014,2024,3,2,23.1907,12.7391
+pct_nacimientos_madres_menores_20,Maternidad adolescente,% de los nacimientos con madres menores de 20 años,f-adolescentes,58,Neuquén,2014,2024,18,21,14.6568,6.6127
+pct_nacimientos_madres_menores_20,Maternidad adolescente,% de los nacimientos con madres menores de 20 años,f-adolescentes,62,Río Negro,2014,2024,16,19,15.0093,6.8293
+pct_nacimientos_madres_menores_20,Maternidad adolescente,% de los nacimientos con madres menores de 20 años,f-adolescentes,66,Salta,2014,2024,4,6,20.8636,11.1659
+pct_nacimientos_madres_menores_20,Maternidad adolescente,% de los nacimientos con madres menores de 20 años,f-adolescentes,70,San Juan,2014,2024,9,7,18.3024,10.9757
+pct_nacimientos_madres_menores_20,Maternidad adolescente,% de los nacimientos con madres menores de 20 años,f-adolescentes,74,San Luis,2014,2024,13,16,16.2254,7.2336
+pct_nacimientos_madres_menores_20,Maternidad adolescente,% de los nacimientos con madres menores de 20 años,f-adolescentes,78,Santa Cruz,2014,2024,21,20,13.0767,6.7878
+pct_nacimientos_madres_menores_20,Maternidad adolescente,% de los nacimientos con madres menores de 20 años,f-adolescentes,82,Santa Fe,2014,2024,14,9,15.8881,8.8601
+pct_nacimientos_madres_menores_20,Maternidad adolescente,% de los nacimientos con madres menores de 20 años,f-adolescentes,86,Santiago del Estero,2014,2024,7,5,19.835,11.2973
+pct_nacimientos_madres_menores_20,Maternidad adolescente,% de los nacimientos con madres menores de 20 años,f-adolescentes,90,Tucumán,2014,2024,10,12,17.9021,8.1868
+pct_nacimientos_madres_menores_20,Maternidad adolescente,% de los nacimientos con madres menores de 20 años,f-adolescentes,94,Tierra del Fuego,2014,2024,23,23,12.2778,3.892
+recursos_propios_pct_ingresos,Recursos propios,% de los ingresos de la provincia,f-fiscal,02,CABA,2014,2024,1,2,89.0149,84.1735
+recursos_propios_pct_ingresos,Recursos propios,% de los ingresos de la provincia,f-fiscal,06,Buenos Aires,2014,2024,4,5,62.7144,59.2316
+recursos_propios_pct_ingresos,Recursos propios,% de los ingresos de la provincia,f-fiscal,10,Catamarca,2014,2024,21,21,16.6455,17.4076
+recursos_propios_pct_ingresos,Recursos propios,% de los ingresos de la provincia,f-fiscal,14,Córdoba,2014,2024,6,6,53.5676,53.0316
+recursos_propios_pct_ingresos,Recursos propios,% de los ingresos de la provincia,f-fiscal,18,Corrientes,2014,2024,14,16,29.5296,26.9667
+recursos_propios_pct_ingresos,Recursos propios,% de los ingresos de la provincia,f-fiscal,22,Chaco,2014,2024,18,17,22.6026,26.0068
+recursos_propios_pct_ingresos,Recursos propios,% de los ingresos de la provincia,f-fiscal,26,Chubut,2014,2024,3,3,66.1816,65.3203
+recursos_propios_pct_ingresos,Recursos propios,% de los ingresos de la provincia,f-fiscal,30,Entre Ríos,2014,2024,11,12,37.6117,38.3021
+recursos_propios_pct_ingresos,Recursos propios,% de los ingresos de la provincia,f-fiscal,34,Formosa,2014,2024,20,22,17.8255,15.6855
+recursos_propios_pct_ingresos,Recursos propios,% de los ingresos de la provincia,f-fiscal,38,Jujuy,2014,2024,22,20,10.9362,22.7889
+recursos_propios_pct_ingresos,Recursos propios,% de los ingresos de la provincia,f-fiscal,42,La Pampa,2014,2024,8,11,46.3833,44.7178
+recursos_propios_pct_ingresos,Recursos propios,% de los ingresos de la provincia,f-fiscal,46,La Rioja,2014,2024,24,24,8.5857,12.605
+recursos_propios_pct_ingresos,Recursos propios,% de los ingresos de la provincia,f-fiscal,50,Mendoza,2014,2024,9,9,46.1277,45.6705
+recursos_propios_pct_ingresos,Recursos propios,% de los ingresos de la provincia,f-fiscal,54,Misiones,2014,2024,13,8,29.805,46.0104
+recursos_propios_pct_ingresos,Recursos propios,% de los ingresos de la provincia,f-fiscal,58,Neuquén,2014,2024,2,1,70.5343,84.4706
+recursos_propios_pct_ingresos,Recursos propios,% de los ingresos de la provincia,f-fiscal,62,Río Negro,2014,2024,12,13,35.9622,35.7968
+recursos_propios_pct_ingresos,Recursos propios,% de los ingresos de la provincia,f-fiscal,66,Salta,2014,2024,19,14,21.9962,31.6686
+recursos_propios_pct_ingresos,Recursos propios,% de los ingresos de la provincia,f-fiscal,70,San Juan,2014,2024,15,18,25.793,24.516
+recursos_propios_pct_ingresos,Recursos propios,% de los ingresos de la provincia,f-fiscal,74,San Luis,2014,2024,17,19,23.6908,23.7516
+recursos_propios_pct_ingresos,Recursos propios,% de los ingresos de la provincia,f-fiscal,78,Santa Cruz,2014,2024,5,4,61.552,59.6266
+recursos_propios_pct_ingresos,Recursos propios,% de los ingresos de la provincia,f-fiscal,82,Santa Fe,2014,2024,10,10,44.652,45.3512
+recursos_propios_pct_ingresos,Recursos propios,% de los ingresos de la provincia,f-fiscal,86,Santiago del Estero,2014,2024,23,23,10.4261,14.3804
+recursos_propios_pct_ingresos,Recursos propios,% de los ingresos de la provincia,f-fiscal,90,Tucumán,2014,2024,16,15,25.6256,28.7922
+recursos_propios_pct_ingresos,Recursos propios,% de los ingresos de la provincia,f-fiscal,94,Tierra del Fuego,2014,2024,7,7,52.2991,48.9881
+tasa_mortalidad_infantil,Mortalidad infantil,muertes de menores de un año cada 1.000 nacidos vivos,f-mortalidad,02,CABA,2014,2024,22,24,8.1,4.9
+tasa_mortalidad_infantil,Mortalidad infantil,muertes de menores de un año cada 1.000 nacidos vivos,f-mortalidad,06,Buenos Aires,2014,2024,10,11,10.5,8.4
+tasa_mortalidad_infantil,Mortalidad infantil,muertes de menores de un año cada 1.000 nacidos vivos,f-mortalidad,10,Catamarca,2014,2024,17,14,9.2,8.0
+tasa_mortalidad_infantil,Mortalidad infantil,muertes de menores de un año cada 1.000 nacidos vivos,f-mortalidad,14,Córdoba,2014,2024,19,18,8.9,6.8
+tasa_mortalidad_infantil,Mortalidad infantil,muertes de menores de un año cada 1.000 nacidos vivos,f-mortalidad,18,Corrientes,2014,2024,1,1,15.9,14.0
+tasa_mortalidad_infantil,Mortalidad infantil,muertes de menores de un año cada 1.000 nacidos vivos,f-mortalidad,22,Chaco,2014,2024,5,2,12.8,11.8
+tasa_mortalidad_infantil,Mortalidad infantil,muertes de menores de un año cada 1.000 nacidos vivos,f-mortalidad,26,Chubut,2014,2024,22,23,8.1,5.3
+tasa_mortalidad_infantil,Mortalidad infantil,muertes de menores de un año cada 1.000 nacidos vivos,f-mortalidad,30,Entre Ríos,2014,2024,13,10,9.9,8.8
+tasa_mortalidad_infantil,Mortalidad infantil,muertes de menores de un año cada 1.000 nacidos vivos,f-mortalidad,34,Formosa,2014,2024,2,4,14.2,10.7
+tasa_mortalidad_infantil,Mortalidad infantil,muertes de menores de un año cada 1.000 nacidos vivos,f-mortalidad,38,Jujuy,2014,2024,12,21,10.3,6.0
+tasa_mortalidad_infantil,Mortalidad infantil,muertes de menores de un año cada 1.000 nacidos vivos,f-mortalidad,42,La Pampa,2014,2024,24,19,6.8,6.6
+tasa_mortalidad_infantil,Mortalidad infantil,muertes de menores de un año cada 1.000 nacidos vivos,f-mortalidad,46,La Rioja,2014,2024,3,3,13.4,11.7
+tasa_mortalidad_infantil,Mortalidad infantil,muertes de menores de un año cada 1.000 nacidos vivos,f-mortalidad,50,Mendoza,2014,2024,15,15,9.8,7.6
+tasa_mortalidad_infantil,Mortalidad infantil,muertes de menores de un año cada 1.000 nacidos vivos,f-mortalidad,54,Misiones,2014,2024,16,8,9.7,9.5
+tasa_mortalidad_infantil,Mortalidad infantil,muertes de menores de un año cada 1.000 nacidos vivos,f-mortalidad,58,Neuquén,2014,2024,17,16,9.2,7.1
+tasa_mortalidad_infantil,Mortalidad infantil,muertes de menores de un año cada 1.000 nacidos vivos,f-mortalidad,62,Río Negro,2014,2024,20,12,8.7,8.3
+tasa_mortalidad_infantil,Mortalidad infantil,muertes de menores de un año cada 1.000 nacidos vivos,f-mortalidad,66,Salta,2014,2024,5,7,12.8,10.1
+tasa_mortalidad_infantil,Mortalidad infantil,muertes de menores de un año cada 1.000 nacidos vivos,f-mortalidad,70,San Juan,2014,2024,7,9,11.1,9.2
+tasa_mortalidad_infantil,Mortalidad infantil,muertes de menores de un año cada 1.000 nacidos vivos,f-mortalidad,74,San Luis,2014,2024,8,20,11.0,6.3
+tasa_mortalidad_infantil,Mortalidad infantil,muertes de menores de un año cada 1.000 nacidos vivos,f-mortalidad,78,Santa Cruz,2014,2024,13,17,9.9,7.0
+tasa_mortalidad_infantil,Mortalidad infantil,muertes de menores de un año cada 1.000 nacidos vivos,f-mortalidad,82,Santa Fe,2014,2024,11,13,10.4,8.2
+tasa_mortalidad_infantil,Mortalidad infantil,muertes de menores de un año cada 1.000 nacidos vivos,f-mortalidad,86,Santiago del Estero,2014,2024,9,4,10.9,10.7
+tasa_mortalidad_infantil,Mortalidad infantil,muertes de menores de un año cada 1.000 nacidos vivos,f-mortalidad,90,Tucumán,2014,2024,4,6,13.3,10.2
+tasa_mortalidad_infantil,Mortalidad infantil,muertes de menores de un año cada 1.000 nacidos vivos,f-mortalidad,94,Tierra del Fuego,2014,2024,21,22,8.2,5.6
+tasa_neta_escolarizacion_secundaria,Escolarización secundaria,"tasa neta, %",f-escolarizacion,02,CABA,2015,2025,2,4,94.704,94.2686
+tasa_neta_escolarizacion_secundaria,Escolarización secundaria,"tasa neta, %",f-escolarizacion,06,Buenos Aires,2015,2025,5,6,92.827,93.246
+tasa_neta_escolarizacion_secundaria,Escolarización secundaria,"tasa neta, %",f-escolarizacion,10,Catamarca,2015,2025,4,8,93.122,92.3045
+tasa_neta_escolarizacion_secundaria,Escolarización secundaria,"tasa neta, %",f-escolarizacion,14,Córdoba,2015,2025,7,9,91.6397,92.0607
+tasa_neta_escolarizacion_secundaria,Escolarización secundaria,"tasa neta, %",f-escolarizacion,18,Corrientes,2015,2025,21,21,80.7367,85.315
+tasa_neta_escolarizacion_secundaria,Escolarización secundaria,"tasa neta, %",f-escolarizacion,22,Chaco,2015,2025,20,13,81.3895,90.6879
+tasa_neta_escolarizacion_secundaria,Escolarización secundaria,"tasa neta, %",f-escolarizacion,26,Chubut,2015,2025,6,7,92.2692,93.189
+tasa_neta_escolarizacion_secundaria,Escolarización secundaria,"tasa neta, %",f-escolarizacion,30,Entre Ríos,2015,2025,11,15,87.435,89.9378
+tasa_neta_escolarizacion_secundaria,Escolarización secundaria,"tasa neta, %",f-escolarizacion,34,Formosa,2015,2025,14,19,83.999,87.5952
+tasa_neta_escolarizacion_secundaria,Escolarización secundaria,"tasa neta, %",f-escolarizacion,38,Jujuy,2015,2025,10,5,88.7775,93.6669
+tasa_neta_escolarizacion_secundaria,Escolarización secundaria,"tasa neta, %",f-escolarizacion,42,La Pampa,2015,2025,3,1,93.6301,99.8103
+tasa_neta_escolarizacion_secundaria,Escolarización secundaria,"tasa neta, %",f-escolarizacion,46,La Rioja,2015,2025,18,11,82.1515,91.5438
+tasa_neta_escolarizacion_secundaria,Escolarización secundaria,"tasa neta, %",f-escolarizacion,50,Mendoza,2015,2025,19,18,81.9685,88.1395
+tasa_neta_escolarizacion_secundaria,Escolarización secundaria,"tasa neta, %",f-escolarizacion,54,Misiones,2015,2025,23,24,72.4134,78.6346
+tasa_neta_escolarizacion_secundaria,Escolarización secundaria,"tasa neta, %",f-escolarizacion,58,Neuquén,2015,2025,12,2,87.2457,98.6677
+tasa_neta_escolarizacion_secundaria,Escolarización secundaria,"tasa neta, %",f-escolarizacion,62,Río Negro,2015,2025,9,3,89.3271,96.4859
+tasa_neta_escolarizacion_secundaria,Escolarización secundaria,"tasa neta, %",f-escolarizacion,66,Salta,2015,2025,16,20,83.8599,87.3581
+tasa_neta_escolarizacion_secundaria,Escolarización secundaria,"tasa neta, %",f-escolarizacion,70,San Juan,2015,2025,22,23,80.4218,82.3619
+tasa_neta_escolarizacion_secundaria,Escolarización secundaria,"tasa neta, %",f-escolarizacion,74,San Luis,2015,2025,15,12,83.9084,90.901
+tasa_neta_escolarizacion_secundaria,Escolarización secundaria,"tasa neta, %",f-escolarizacion,78,Santa Cruz,2015,2025,13,10,86.9692,91.708
+tasa_neta_escolarizacion_secundaria,Escolarización secundaria,"tasa neta, %",f-escolarizacion,82,Santa Fe,2015,2025,17,16,83.8137,88.6723
+tasa_neta_escolarizacion_secundaria,Escolarización secundaria,"tasa neta, %",f-escolarizacion,86,Santiago del Estero,2015,2025,24,22,70.8271,83.3003
+tasa_neta_escolarizacion_secundaria,Escolarización secundaria,"tasa neta, %",f-escolarizacion,90,Tucumán,2015,2025,8,17,90.0876,88.2142
+tasa_neta_escolarizacion_secundaria,Escolarización secundaria,"tasa neta, %",f-escolarizacion,94,Tierra del Fuego,2015,2025,1,14,95.1449,90.686
+tasa_robos,Robos,hechos cada 100.000 habitantes,f-robos,02,CABA,2015,2025,3,1,2059.71,1616.11
+tasa_robos,Robos,hechos cada 100.000 habitantes,f-robos,06,Buenos Aires,2015,2025,19,12,485.48,592.86
+tasa_robos,Robos,hechos cada 100.000 habitantes,f-robos,10,Catamarca,2015,2025,6,16,1418.26,495.64
+tasa_robos,Robos,hechos cada 100.000 habitantes,f-robos,14,Córdoba,2015,2025,4,3,1789.02,1262.87
+tasa_robos,Robos,hechos cada 100.000 habitantes,f-robos,18,Corrientes,2015,2025,16,21,515.47,391.39
+tasa_robos,Robos,hechos cada 100.000 habitantes,f-robos,22,Chaco,2015,2025,18,22,503.41,300.59
+tasa_robos,Robos,hechos cada 100.000 habitantes,f-robos,26,Chubut,2015,2025,10,17,874.72,489.58
+tasa_robos,Robos,hechos cada 100.000 habitantes,f-robos,30,Entre Ríos,2015,2025,17,18,505.59,477.39
+tasa_robos,Robos,hechos cada 100.000 habitantes,f-robos,34,Formosa,2015,2025,15,13,516.53,509.22
+tasa_robos,Robos,hechos cada 100.000 habitantes,f-robos,38,Jujuy,2015,2025,9,14,1130.97,506.15
+tasa_robos,Robos,hechos cada 100.000 habitantes,f-robos,42,La Pampa,2015,2025,14,24,696.39,221.34
+tasa_robos,Robos,hechos cada 100.000 habitantes,f-robos,46,La Rioja,2015,2025,24,19,416.88,419.75
+tasa_robos,Robos,hechos cada 100.000 habitantes,f-robos,50,Mendoza,2015,2025,1,2,2430.96,1317.57
+tasa_robos,Robos,hechos cada 100.000 habitantes,f-robos,54,Misiones,2015,2025,22,20,449.37,412.16
+tasa_robos,Robos,hechos cada 100.000 habitantes,f-robos,58,Neuquén,2015,2025,2,6,2134.26,950.89
+tasa_robos,Robos,hechos cada 100.000 habitantes,f-robos,62,Río Negro,2015,2025,8,10,1151.57,720.08
+tasa_robos,Robos,hechos cada 100.000 habitantes,f-robos,66,Salta,2015,2025,5,5,1421.37,1059.99
+tasa_robos,Robos,hechos cada 100.000 habitantes,f-robos,70,San Juan,2015,2025,12,4,813.71,1113.51
+tasa_robos,Robos,hechos cada 100.000 habitantes,f-robos,74,San Luis,2015,2025,23,15,441.06,500.58
+tasa_robos,Robos,hechos cada 100.000 habitantes,f-robos,78,Santa Cruz,2015,2025,13,11,725.81,643.97
+tasa_robos,Robos,hechos cada 100.000 habitantes,f-robos,82,Santa Fe,2015,2025,7,8,1401.11,812.1
+tasa_robos,Robos,hechos cada 100.000 habitantes,f-robos,86,Santiago del Estero,2015,2025,20,7,481.74,894.04
+tasa_robos,Robos,hechos cada 100.000 habitantes,f-robos,90,Tucumán,2015,2025,11,9,839.05,720.13
+tasa_robos,Robos,hechos cada 100.000 habitantes,f-robos,94,Tierra del Fuego,2015,2025,21,23,469.42,278.02
+tasa_victimas_homicidios_dolosos,Homicidios dolosos,víctimas cada 100.000 habitantes,f-homicidios,02,CABA,2015,2025,11,16,5.4,2.53
+tasa_victimas_homicidios_dolosos,Homicidios dolosos,víctimas cada 100.000 habitantes,f-homicidios,06,Buenos Aires,2015,2025,4,4,7.44,4.44
+tasa_victimas_homicidios_dolosos,Homicidios dolosos,víctimas cada 100.000 habitantes,f-homicidios,10,Catamarca,2015,2025,24,22,1.76,1.37
+tasa_victimas_homicidios_dolosos,Homicidios dolosos,víctimas cada 100.000 habitantes,f-homicidios,14,Córdoba,2015,2025,17,17,3.81,2.43
+tasa_victimas_homicidios_dolosos,Homicidios dolosos,víctimas cada 100.000 habitantes,f-homicidios,18,Corrientes,2015,2025,19,24,3.18,0.91
+tasa_victimas_homicidios_dolosos,Homicidios dolosos,víctimas cada 100.000 habitantes,f-homicidios,22,Chaco,2015,2025,10,5,5.51,4.31
+tasa_victimas_homicidios_dolosos,Homicidios dolosos,víctimas cada 100.000 habitantes,f-homicidios,26,Chubut,2015,2025,7,7,6.7,3.49
+tasa_victimas_homicidios_dolosos,Homicidios dolosos,víctimas cada 100.000 habitantes,f-homicidios,30,Entre Ríos,2015,2025,16,18,4.77,2.33
+tasa_victimas_homicidios_dolosos,Homicidios dolosos,víctimas cada 100.000 habitantes,f-homicidios,34,Formosa,2015,2025,2,12,10.36,3.03
+tasa_victimas_homicidios_dolosos,Homicidios dolosos,víctimas cada 100.000 habitantes,f-homicidios,38,Jujuy,2015,2025,13,6,5.22,3.75
+tasa_victimas_homicidios_dolosos,Homicidios dolosos,víctimas cada 100.000 habitantes,f-homicidios,42,La Pampa,2015,2025,21,20,2.91,1.59
+tasa_victimas_homicidios_dolosos,Homicidios dolosos,víctimas cada 100.000 habitantes,f-homicidios,46,La Rioja,2015,2025,22,14,2.45,2.73
+tasa_victimas_homicidios_dolosos,Homicidios dolosos,víctimas cada 100.000 habitantes,f-homicidios,50,Mendoza,2015,2025,3,9,7.58,3.18
+tasa_victimas_homicidios_dolosos,Homicidios dolosos,víctimas cada 100.000 habitantes,f-homicidios,54,Misiones,2015,2025,15,8,4.79,3.35
+tasa_victimas_homicidios_dolosos,Homicidios dolosos,víctimas cada 100.000 habitantes,f-homicidios,58,Neuquén,2015,2025,6,1,6.94,5.69
+tasa_victimas_homicidios_dolosos,Homicidios dolosos,víctimas cada 100.000 habitantes,f-homicidios,62,Río Negro,2015,2025,4,10,7.44,3.17
+tasa_victimas_homicidios_dolosos,Homicidios dolosos,víctimas cada 100.000 habitantes,f-homicidios,66,Salta,2015,2025,8,11,6.37,3.16
+tasa_victimas_homicidios_dolosos,Homicidios dolosos,víctimas cada 100.000 habitantes,f-homicidios,70,San Juan,2015,2025,20,21,3.11,1.41
+tasa_victimas_homicidios_dolosos,Homicidios dolosos,víctimas cada 100.000 habitantes,f-homicidios,74,San Luis,2015,2025,9,23,5.67,1.31
+tasa_victimas_homicidios_dolosos,Homicidios dolosos,víctimas cada 100.000 habitantes,f-homicidios,78,Santa Cruz,2015,2025,14,3,4.99,4.48
+tasa_victimas_homicidios_dolosos,Homicidios dolosos,víctimas cada 100.000 habitantes,f-homicidios,82,Santa Fe,2015,2025,1,2,12.16,5.65
+tasa_victimas_homicidios_dolosos,Homicidios dolosos,víctimas cada 100.000 habitantes,f-homicidios,86,Santiago del Estero,2015,2025,18,19,3.77,1.99
+tasa_victimas_homicidios_dolosos,Homicidios dolosos,víctimas cada 100.000 habitantes,f-homicidios,90,Tucumán,2015,2025,11,15,5.4,2.65
+tasa_victimas_homicidios_dolosos,Homicidios dolosos,víctimas cada 100.000 habitantes,f-homicidios,94,Tierra del Fuego,2015,2025,23,13,1.97,2.75
