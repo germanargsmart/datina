@@ -172,3 +172,5 @@ salud_vacuna_triple_viral.xls,https://datos.salud.gob.ar/dataset/f70b1357-b57e-4
 cfp_stock_deuda_provincial.xlsx,https://www.argentina.gob.ar/sites/default/files/stock_ii_trim_2026.xlsx,2026-10-31T11:07:38,ok
 educ_abandono.zip,https://www.argentina.gob.ar/sites/default/files/2018/04/tasa_de_abandono_interanual.zip,2026-10-31T12:10:57,ok
 educ_repitencia.zip,https://www.argentina.gob.ar/sites/default/files/2018/04/tasa_de_repitencia.zip,2026-10-31T12:10:57,ok
+enacom_telefonia_fija_provincias.csv,https://indicadores.enacom.gob.ar/Files/DatosAbiertos/telefonia_fija_penetracion_provincias.csv,2026-10-31T12:47:05,ok
+enacom_telefonia_fija_pais.csv,https://indicadores.enacom.gob.ar/Files/DatosAbiertos/telefonia_fija_penetracion.csv,2026-10-31T12:47:05,ok

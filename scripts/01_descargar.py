@@ -471,6 +471,10 @@ FUENTES.update({
     # ENACOM: accesos a internet fijo cada 100 hogares y velocidad media de bajada, por provincia y trimestre
     "enacom_internet_accesos.csv": "https://indicadores.enacom.gob.ar/Files/DatosAbiertos/internet_accesos_penetracion_provincias.csv",
     "enacom_internet_velocidad.csv": "https://indicadores.enacom.gob.ar/Files/DatosAbiertos/internet_velocidad_media_descarga_provincias.csv",
+    # ENACOM: accesos de telefonía fija cada 100 hogares y cada 100 habitantes, por provincia y del país, por trimestre desde 2014 (plan de mejora,
+    # sección 10, aprobada por el autor el 28 de octubre de 2026)
+    "enacom_telefonia_fija_provincias.csv": "https://indicadores.enacom.gob.ar/Files/DatosAbiertos/telefonia_fija_penetracion_provincias.csv",
+    "enacom_telefonia_fija_pais.csv": "https://indicadores.enacom.gob.ar/Files/DatosAbiertos/telefonia_fija_penetracion.csv",
     # Exportaciones por provincia de origen y rubro, millones de dólares, 1993 al último año (INDEC, Origen Provincial de las Exportaciones)
     "exportaciones_provincias.xls": "https://www.indec.gob.ar/ftp/cuadros/economia/sh_opex_regiones_economicas_grubros_1993_2025.xls",
     # Personas nacidas en otro país identificadas por el RENAPER, por provincia de residencia
@@ -571,6 +575,8 @@ VALIDA.update({
     "indec_tablas_mortalidad.csv": lambda b: b"Jurisdiccion_cod" in b[:40],
     "enacom_internet_accesos.csv": lambda b: b.startswith(b"anio,trimestre,provincia"),
     "enacom_internet_velocidad.csv": lambda b: b.startswith(b"anio,trimestre,provincia"),
+    "enacom_telefonia_fija_provincias.csv": lambda b: b.startswith(b"anio,trimestre,provincia,accesos_100_hab,accesos_100_hog"),
+    "enacom_telefonia_fija_pais.csv": lambda b: b.startswith(b"anio,trimestre,accesos_100_hab,accesos_100_hog"),
     "exportaciones_provincias.xls": lambda b: b[:4] == bytes.fromhex("d0cf11e0"),
     "renaper_extranjeros.csv": lambda b: b.startswith(b"pais_nacimiento"),
 })

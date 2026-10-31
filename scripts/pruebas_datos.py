@@ -81,6 +81,9 @@ ACEPTADAS = {
     "mediana|obra_publica_provincias.obras_hab|38": "real: la autopista de las rutas nacionales 66 y 34 en el corredor del NOA, que hace Vialidad Nacional con un préstamo del Banco Mundial",
     "mediana|obra_publica_provincias.transf_hab|10": "real: obras de agua potable y saneamiento financiadas con préstamos del BID y de la AFD",
     "mediana|obra_publica_provincias.transf_hab|46": "real: obras viales fuera de la red nacional que la Nación transfiere a la provincia y a sus municipios",
+    # telefonía fija del ENACOM (plan de mejora, sección 10, 31 de octubre de 2026)
+    "mediana|telefonia_fija_provincias.accesos_100_habitantes|02": "real: en CABA la telefonía fija sigue mucho más extendida que en el "
+    "resto del país, y el ENACOM cuenta juntas las líneas de los hogares y las de oficinas, comercios y organismos (lo dice la nota)",
     # dengue y vacuna triple viral (plan de mejora, sección 10, 28 de octubre de 2026)
     **{f"rango|cobertura_triple_viral_dosis{n}|{c}": "real: es una cobertura administrativa, dosis aplicadas sobre la población estimada de "
        "esa edad, y puede pasar de 100% cuando se vacuna a chicos de otras provincias o la población estimada se queda corta (lo dice la nota)"
@@ -530,7 +533,7 @@ UNIDADES = {"%", "% de los chicos de la edad", "% de estudiantes de 6 grado", "%
             "% de la superficie continental", "% de las empresas", "% de las personas privadas de libertad", "% de las personas ocupadas", "% de los electores", "% de los hogares",
             "% de los ingresos totales", "% de los votos positivos", "% de personas", "% del PBI", "% del producto interno bruto",
             "% del salario promedio registrado", "% del territorio", "% para los doce meses siguientes", "GWh", "GWh por año", "MW",
-            "aportantes por beneficio", "asalariados registrados cada 1.000 habitantes", "años",
+            "accesos cada 100 hogares", "aportantes por beneficio", "asalariados registrados cada 1.000 habitantes", "años",
             "beneficiarios cada 100 asalariados privados registrados",
             "beneficiarios de la prestación por desempleo cada 1.000 habitantes", "cargos cada 1.000 habitantes", "cargos de juez",
             "cargos de juez cada 100.000 habitantes", "casos", "casos cada 100.000 habitantes", "defensorías", "dólares por habitante",

@@ -360,7 +360,7 @@ Buscadas y verificadas el 26 de octubre de 2026. "Verificado": se vio la página
 | 5 | Abandono, promoción, repitencia y sobreedad (Secretaría de Educación), desde 2003 | Provincia | ¿Dónde dejan más la secundaria? | Sumada el 31 de octubre de 2026 (f-abandono, en Educación): abandono y repitencia desde 2012 con la división político-territorial de hoy, del ZIP de la página (el RAR del catálogo llegaba un año menos). Promoción y sobreedad no se usan |
 | 6 | Establecimientos de salud (REFES) y farmacias (REFAR), con códigos INDEC | Departamento | ¿Cuántos centros de salud y farmacias hay por habitante? | Verificado |
 | 7 | Registro Nacional de Sociedades, bimestral | Provincia | ¿Dónde se crean más empresas? | Verificado |
-| 8 | ENACOM, telefonía fija y TV paga | Provincia | ¿Dónde quedan teléfonos fijos? | Parcial |
+| 8 | ENACOM, telefonía fija y TV paga | Provincia | ¿Dónde quedan teléfonos fijos? | Telefonía fija sumada el 31 de octubre de 2026 (f-telefonia, al lado de internet, con la pregunta "¿Cuántos accesos de telefonía fija hay cada 100 hogares?"). La TV paga no |
 | 9 | MapBiomas Argentina por provincia, 1985 a 2025, CC BY 4.0 (red de organizaciones, no es oficial) | Provincia | ¿Cuánto monte natural perdió cada provincia? | Verificado |
 | 10 | Médicos activos 2025 (OFETHuS, PDF) | Provincia | ¿Dónde hay más médicos por habitante? | Parcial |
 
