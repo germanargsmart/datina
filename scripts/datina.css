@@ -776,6 +776,11 @@ html:not(.js) .busca-portada{display:none}
 .prov-extra .suave{color:var(--muted);font-size:var(--t-2)}
 /* F7: los indicadores en los que se parece cada provincia, uno por renglón debajo de su nombre */
 .prov-parece{display:block;margin:var(--e-1) 0 var(--e-2)}.prov-parece>span{display:block}
+/* F11: comparar con otra provincia. Las filas de la tabla llevan su encabezado (el indicador), que no queda fijo arriba como los de las columnas */
+.prov-compara{margin-top:var(--e-6)}.prov-compara .selector-ficha{margin:var(--e-3) 0 var(--e-4)}
+.tabla-compara tbody th{position:static;background:none;font-size:var(--t-3);font-weight:500;color:var(--ink);border-bottom:1px solid var(--borde);vertical-align:top}
+.tabla-compara tbody th small{display:block;font-weight:400;font-size:var(--t-1);color:var(--muted)}
+.tabla-compara tr.compara-grupo th{background:var(--superficie);color:var(--azul);font-weight:600}
 @media (max-width:760px){
   /* en el celular los indicadores de la provincia se deslizan de costado */
   .perfil-tarjetas{grid-auto-flow:column;grid-template-columns:none;grid-auto-columns:80%;overflow-x:auto;scroll-snap-type:x mandatory;
