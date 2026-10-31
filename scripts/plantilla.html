@@ -1470,7 +1470,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     <h2>Cuentas públicas</h2>
     <div class="tema-intro">
       <p class="pregunta" data-corta="¿Cuánto recauda y gasta el Estado?">¿Cuánto recauda, cuánto gasta y cuánto debe el Estado?</p>
-      <p>Primero, las cuentas de la Nación: cuánto le ingresa, en qué gasta y si le sobra o le falta, como parte del PBI. Después, cuánto recauda cada impuesto nacional y cuánto debe el Estado nacional. Para las provincias, cuántos cargos tienen sus administraciones, cuánto recaudan de impuestos propios y cómo son sus finanzas: qué parte de sus ingresos recaudan por su cuenta, si les sobra o les falta y cuánto gastan en personal. Las transferencias no automáticas de la Nación a las provincias están en <a href="politica.html#f-atn">Instituciones políticas</a>, y los subsidios a la energía, en <a href="energia.html#f-subsidios">Energía</a>.</p>
+      <p>Primero, las cuentas de la Nación: cuánto le ingresa, en qué gasta y si le sobra o le falta, como parte del PBI. Después, cuánto recauda cada impuesto nacional y cuánto debe el Estado nacional. Para las provincias, cuántos cargos tienen sus administraciones, cuánto recaudan de impuestos propios y cómo son sus finanzas: qué parte de sus ingresos recaudan por su cuenta, si les sobra o les falta y cuánto gastan en personal, cuánto reciben por coparticipación y cuánto deben. Las transferencias no automáticas de la Nación a las provincias están en <a href="politica.html#f-atn">Instituciones políticas</a>, y los subsidios a la energía, en <a href="energia.html#f-subsidios">Energía</a>.</p>
     </div>
     <!--EXPLICADOR:gobierno-->
 
@@ -1557,6 +1557,22 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <p class="lead" data-t="coparticipacion"></p>
       <p class="nota" data-t="coparticipacion-nota"></p>
       <div class="pie"><span>Fuentes: Ministerio de Economía, Dirección Nacional de Asuntos Provinciales, esquema ahorro inversión financiamiento, e INDEC, proyecciones de población</span><a href="datos/coparticipacion_provincias.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <!-- la deuda de cada provincia (plan de mejora, sección 10, aprobada por el autor el 28 de octubre de 2026): el stock de deuda de la
+         Subsecretaría de Coordinación Fiscal Provincial al último trimestre -->
+    <article class="ficha" id="f-deuda-provincias">
+      <h2>¿Qué provincias deben más por habitante?</h2>
+      <p class="ficha-sub">Stock de deuda pública de cada provincia, por habitante y por acreedor, al {{deuda_provincias.fecha_txt}}</p>
+      <div class="conmutador" role="group" aria-label="Vista" data-g="deuda-provincias">
+        <button type="button" data-m="hab" aria-pressed="true">Por habitante</button>
+        <button type="button" data-m="acreedor" aria-pressed="false">Por acreedor</button>
+      </div>
+      <div class="pol-ley" id="deuda-provincias-ley" aria-hidden="true" hidden></div>
+      <div class="grafico" data-g="deuda-provincias" data-forma="barras"></div>
+      <p class="lead" data-t="deuda-provincias"></p>
+      <p class="nota" data-t="deuda-provincias-nota"></p>
+      <div class="pie"><span>Fuentes: Subsecretaría de Coordinación Fiscal Provincial, Ministerio de Economía, evolución del stock de deuda provincial, e INDEC, proyecciones de población</span><a href="datos/deuda_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
   </section>

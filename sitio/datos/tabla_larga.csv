@@ -14659,6 +14659,29 @@ codigo_indec,territorio,periodo,variable,valor,unidad,fuente
 86,Santiago del Estero,2025,tributos_origen_nacional_pct_ingresos,65.13551784231191,% de los ingresos totales,"Ministerio de Economía, cuentas provinciales (esquema AIF)"
 90,Tucumán,2025,tributos_origen_nacional_pct_ingresos,67.3816294701527,% de los ingresos totales,"Ministerio de Economía, cuentas provinciales (esquema AIF)"
 94,Tierra del Fuego,2025,tributos_origen_nacional_pct_ingresos,49.451263211922004,% de los ingresos totales,"Ministerio de Economía, cuentas provinciales (esquema AIF)"
+02,CABA,2T2026,deuda_provincial_por_habitante,960168.216338343,pesos por habitante,Subsecretaría de Coordinación Fiscal Provincial e INDEC
+06,Buenos Aires,2T2026,deuda_provincial_por_habitante,1028520.4461058594,pesos por habitante,Subsecretaría de Coordinación Fiscal Provincial e INDEC
+10,Catamarca,2T2026,deuda_provincial_por_habitante,178470.70994179134,pesos por habitante,Subsecretaría de Coordinación Fiscal Provincial e INDEC
+14,Córdoba,2T2026,deuda_provincial_por_habitante,1129785.7473067027,pesos por habitante,Subsecretaría de Coordinación Fiscal Provincial e INDEC
+18,Corrientes,2T2026,deuda_provincial_por_habitante,59256.410187277914,pesos por habitante,Subsecretaría de Coordinación Fiscal Provincial e INDEC
+22,Chaco,2T2026,deuda_provincial_por_habitante,502515.7593751845,pesos por habitante,Subsecretaría de Coordinación Fiscal Provincial e INDEC
+26,Chubut,2T2026,deuda_provincial_por_habitante,2484301.065242018,pesos por habitante,Subsecretaría de Coordinación Fiscal Provincial e INDEC
+30,Entre Ríos,2T2026,deuda_provincial_por_habitante,694192.8187614582,pesos por habitante,Subsecretaría de Coordinación Fiscal Provincial e INDEC
+34,Formosa,2T2026,deuda_provincial_por_habitante,49086.60457456935,pesos por habitante,Subsecretaría de Coordinación Fiscal Provincial e INDEC
+38,Jujuy,2T2026,deuda_provincial_por_habitante,872136.1193724202,pesos por habitante,Subsecretaría de Coordinación Fiscal Provincial e INDEC
+46,La Rioja,2T2026,deuda_provincial_por_habitante,1464978.9872828196,pesos por habitante,Subsecretaría de Coordinación Fiscal Provincial e INDEC
+50,Mendoza,2T2026,deuda_provincial_por_habitante,614212.9391083613,pesos por habitante,Subsecretaría de Coordinación Fiscal Provincial e INDEC
+54,Misiones,2T2026,deuda_provincial_por_habitante,85328.31972199456,pesos por habitante,Subsecretaría de Coordinación Fiscal Provincial e INDEC
+58,Neuquén,2T2026,deuda_provincial_por_habitante,1457175.2585094802,pesos por habitante,Subsecretaría de Coordinación Fiscal Provincial e INDEC
+62,Río Negro,2T2026,deuda_provincial_por_habitante,527234.9432527355,pesos por habitante,Subsecretaría de Coordinación Fiscal Provincial e INDEC
+66,Salta,2T2026,deuda_provincial_por_habitante,293723.1810826233,pesos por habitante,Subsecretaría de Coordinación Fiscal Provincial e INDEC
+70,San Juan,2T2026,deuda_provincial_por_habitante,343874.09921344445,pesos por habitante,Subsecretaría de Coordinación Fiscal Provincial e INDEC
+74,San Luis,2T2026,deuda_provincial_por_habitante,391.74890960783296,pesos por habitante,Subsecretaría de Coordinación Fiscal Provincial e INDEC
+78,Santa Cruz,2T2026,deuda_provincial_por_habitante,127913.91835263289,pesos por habitante,Subsecretaría de Coordinación Fiscal Provincial e INDEC
+82,Santa Fe,2T2026,deuda_provincial_por_habitante,531237.0566947607,pesos por habitante,Subsecretaría de Coordinación Fiscal Provincial e INDEC
+86,Santiago del Estero,2T2026,deuda_provincial_por_habitante,18136.171285177003,pesos por habitante,Subsecretaría de Coordinación Fiscal Provincial e INDEC
+90,Tucumán,2T2026,deuda_provincial_por_habitante,86871.69662199996,pesos por habitante,Subsecretaría de Coordinación Fiscal Provincial e INDEC
+94,Tierra del Fuego,2T2026,deuda_provincial_por_habitante,1318464.3175385837,pesos por habitante,Subsecretaría de Coordinación Fiscal Provincial e INDEC
 00,Argentina,2006,produccion_petroleo,643.0171194704907,miles de barriles por día,"Secretaría de Energía, Capítulo IV (Res. SE 319/1993)"
 00,Argentina,2007,produccion_petroleo,632.3542058516329,miles de barriles por día,"Secretaría de Energía, Capítulo IV (Res. SE 319/1993)"
 00,Argentina,2008,produccion_petroleo,617.0190447061096,miles de barriles por día,"Secretaría de Energía, Capítulo IV (Res. SE 319/1993)"

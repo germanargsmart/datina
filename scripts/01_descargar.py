@@ -189,6 +189,39 @@ def ckan_id(portal, paquete, recurso, respaldo):
         return respaldo
 
 
+# la evolución del stock de deuda de las provincias (Subsecretaría de Coordinación Fiscal Provincial): una planilla por trimestre
+CFP_STOCK = "https://www.argentina.gob.ar/economia/sechacienda/coordinacion-fiscal-provincial/deuda-publica-provincial/evolucion-de-stock"
+
+
+def cfp_trimestre(nombre):
+    """El trimestre de una planilla del stock de deuda provincial, como (año, trimestre), o None si el nombre no es de una. Los nombres cambiaron
+    de forma con los años (octubre de 2026): stock_consolidado_2024_-_3112 (al 31 de diciembre), stock_de_deuda_3t2025 y stock_ii_trim_2026."""
+    n = nombre.rsplit("/", 1)[-1].lower()
+    m = re.search(r"stock_consolidado_(\d{4})_-_\d{2}(\d{2})", n)
+    if m:
+        return int(m.group(1)), int(m.group(2)) // 3
+    m = re.search(r"stock_de_deuda_(\d)t(\d{4})", n)
+    if m:
+        return int(m.group(2)), int(m.group(1))
+    m = re.search(r"stock_(iv|iii|ii|i)_tri\w*?_(\d{4})", n)
+    if m:
+        return int(m.group(2)), {"i": 1, "ii": 2, "iii": 3, "iv": 4}[m.group(1)]
+    return None
+
+
+def cfp_stock_deuda(respaldo):
+    """Dirección de la planilla del último trimestre en la página del stock de deuda provincial, que suma una por trimestre con un nombre distinto
+    cada vez. Con dos del mismo trimestre, la de la versión más alta (stock_iv_trim_2025_2). Si la página no responde, la última dirección conocida."""
+    try:
+        texto = leer(CFP_STOCK, 90).decode("utf-8", "ignore")
+        enlaces = {h if h.startswith("http") else "https://www.argentina.gob.ar" + h
+                   for h in (x.replace("blank:#", "") for x in re.findall(r'href="([^"]+\.xlsx?)"', texto))}
+        version = lambda u: int(v.group(1)) if (v := re.search(r"_(\d)\.xlsx?$", u)) else 0
+        return max((cfp_trimestre(u), version(u), u) for u in enlaces if cfp_trimestre(u))[2]
+    except Exception:
+        return respaldo
+
+
 YV = "https://datos.yvera.gob.ar"  # datos abiertos del Ministerio de Turismo (SINTA)
 
 def femicidios():
@@ -471,6 +504,10 @@ FUENTES.update({
     "salud_vacuna_triple_viral.xls": ckan_csv("https://datos.salud.gob.ar", "porc-de-cobertura-de-la-vacuna-triple-viral-srp-sarampion-parotiditis-o-paperas-y-rubeola",
         "https://datos.salud.gob.ar/dataset/f70b1357-b57e-4077-9746-af8193243207/resource/2e316239-2718-4ee8-b896-9d23f79f104c/download/"
         "dicei-vacunas-srp-2009-2024.xls", formato="XLS"),
+    # Stock de deuda de cada provincia por acreedor, en millones de pesos, al último trimestre (Subsecretaría de Coordinación Fiscal Provincial,
+    # plan de mejora, sección 10, aprobada por el autor el 28 de octubre de 2026). Cada trimestre se publica con otro nombre: se busca en su página.
+    # Las 24 planillas por provincia de la misma página no hacen falta: esta trae a todas. Puede llegar como XLSX o como XLS (las de 2024)
+    "cfp_stock_deuda_provincial.xlsx": cfp_stock_deuda("https://www.argentina.gob.ar/sites/default/files/stock_ii_trim_2026.xlsx"),
 })
 
 # Comparación con la OCDE: Indicadores del Desarrollo Mundial del Banco Mundial para la Argentina y los 38 países miembros.
@@ -522,6 +559,7 @@ VALIDA.update({
        for _dg_a, _dg_x in [(2018, "csv"), (2019, "xlsx"), (2020, "xlsx"), (2021, "xlsx"), (2022, "csv"), (2023, "csv"), (2024, "csv"), (2025, "csv")]},
     "salud_dengue_ultimo.csv": lambda b: b"evento" in b.split(b"\n", 1)[0] and b"sepi_min" in b.split(b"\n", 1)[0],
     "salud_vacuna_triple_viral.xls": lambda b: b[:4] == bytes.fromhex("d0cf11e0"),
+    "cfp_stock_deuda_provincial.xlsx": lambda b: b[:2] == b"PK" or b[:4] == bytes.fromhex("d0cf11e0"),
     "deis_natalidad.csv": lambda b: b"natalidad" in b[:300],
     "indec_tablas_mortalidad.csv": lambda b: b"Jurisdiccion_cod" in b[:40],
     "enacom_internet_accesos.csv": lambda b: b.startswith(b"anio,trimestre,provincia"),

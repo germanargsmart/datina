@@ -2248,6 +2248,62 @@ agregar(coparticipacion.assign(periodo=coparticipacion.anio.astype(str), valor=c
 agregar(coparticipacion.assign(periodo=coparticipacion.anio.astype(str), valor=coparticipacion.pct_ingresos), "tributos_origen_nacional_pct_ingresos",
         "% de los ingresos totales", "Ministerio de Economia, cuentas provinciales (esquema AIF)")
 
+# Deuda de cada provincia (plan de mejora, sección 10, aprobada por el autor el 28 de octubre de 2026): el stock de deuda al último trimestre,
+# por acreedor, en millones de pesos, de la Subsecretaría de Coordinación Fiscal Provincial. Sin la deuda flotante ni la contingente, y los bonos
+# a valor residual (las notas de la planilla). Una provincia que no informó viene con total 0 y sin acreedores (La Pampa en junio de 2026): queda
+# sin dato. Los acreedores se juntan en cuatro grupos: los fondos fiduciarios FFFIR (Fondo Fiduciario Federal de Infraestructura Regional) y
+# FFDP (Fondo Fiduciario para el Desarrollo Provincial) son de la Nación, y la columna "Deuda consolidada" va con los bancos. Por habitante,
+# con la población del INDEC del año del trimestre
+_dp_h = pd.read_excel(CRUDO / "cfp_stock_deuda_provincial.xlsx", header=None)
+_dp_txt = " ".join(str(x) for x in _dp_h.iloc[:12].values.ravel())
+_dp_f = re.search(r"AL (\d{1,2}) DE ([A-ZÁÉÍÓÚ]+) DE (\d{4})", _dp_txt.upper())
+_dp_cab = _dp_h.index[_dp_h.iloc[:, 0].map(norm).eq("jurisdiccion")]
+assert _dp_f and len(_dp_cab) == 1 and "millones de pesos" in norm(_dp_txt), "la planilla del stock de deuda provincial cambió de formato"
+_dp_col = {norm(str(v)).split("(")[0].strip(): j for j, v in enumerate(_dp_h.iloc[_dp_cab[0]])}
+DP_ACREEDORES = {"gobierno_nacional": "gobierno nacional", "fffir": "fffir", "ffdp": "ffdp", "bancos": "bancos", "deuda_consolidada": "deuda consolidada",
+                 "bonos": "bonos", "organismos_internacionales": "organismos internacionales"}
+assert {"total sin deuda flotante", *DP_ACREEDORES.values()} <= set(_dp_col), f"faltan columnas en el stock de deuda provincial: {sorted(_dp_col)}"
+_dp_filas = {}
+for _dp_i in range(_dp_cab[0] + 1, len(_dp_h)):
+    _dp_c = codigo(_dp_h.iat[_dp_i, 0])
+    if _dp_c in POB:
+        _dp_filas[_dp_c] = {k: pd.to_numeric(_dp_h.iat[_dp_i, _dp_col[n]], errors="coerce") for k, n in {"millones": "total sin deuda flotante", **DP_ACREEDORES}.items()}
+assert set(_dp_filas) == set(POB), f"faltan provincias en el stock de deuda provincial: {sorted(set(POB) - set(_dp_filas))}"
+_dp_mes = {"MARZO": 1, "JUNIO": 2, "SEPTIEMBRE": 3, "SETIEMBRE": 3, "DICIEMBRE": 4}[_dp_f.group(2)]
+DP_ANIO, DP_PERIODO = int(_dp_f.group(3)), f"{_dp_mes}T{_dp_f.group(3)}"
+deuda_provincias = pd.DataFrame([{"codigo_indec": c, "territorio": CORTO[c], **_dp_filas[c]} for c in sorted(POB)])
+# sin dato: total 0 o sin ningún acreedor
+_dp_sin = (deuda_provincias.millones.fillna(0) <= 0) | deuda_provincias[list(DP_ACREEDORES)].isna().all(axis=1)
+deuda_provincias.loc[_dp_sin, ["millones", *DP_ACREEDORES]] = np.nan
+deuda_provincias.loc[~_dp_sin, list(DP_ACREEDORES)] = deuda_provincias.loc[~_dp_sin, list(DP_ACREEDORES)].fillna(0)
+assert ((deuda_provincias[list(DP_ACREEDORES)].sum(axis=1) - deuda_provincias.millones).abs()[~_dp_sin] < 1).all(), \
+    "los acreedores no suman el total del stock de deuda provincial"
+deuda_provincias.insert(2, "fecha", f"{DP_ANIO}-{_dp_mes * 3:02d}-{int(_dp_f.group(1)):02d}")
+deuda_provincias["poblacion"] = deuda_provincias.codigo_indec.map(lambda c: POB_POR_ANIO[(c, DP_ANIO)])
+deuda_provincias["por_habitante"] = deuda_provincias.millones * 1e6 / deuda_provincias.poblacion
+DP_GRUPOS = {"bonos": ["bonos"], "organismos": ["organismos_internacionales"], "nacion": ["gobierno_nacional", "fffir", "ffdp"],
+             "bancos_otros": ["bancos", "deuda_consolidada"]}
+for _dp_g, _dp_k in DP_GRUPOS.items():
+    deuda_provincias[f"pct_{_dp_g}"] = deuda_provincias[_dp_k].sum(axis=1, min_count=1) / deuda_provincias.millones * 100
+_dp_t = deuda_provincias.dropna(subset=["millones"])
+_dp_o = _dp_t.sort_values("por_habitante")
+_dp_m = _dp_t.sort_values("millones")
+_dp_pais_hab = _dp_t.millones.sum() * 1e6 / _dp_t.poblacion.sum()
+DP_RES = {
+    "fecha_txt": f"{int(_dp_f.group(1))} de {_dp_f.group(2).lower()} de {DP_ANIO}", "anio": DP_ANIO, "periodo": DP_PERIODO,
+    "faltan": [CORTO[c] for c in deuda_provincias[_dp_sin].codigo_indec],
+    "millones": float(_dp_t.millones.sum()), "pais_hab": float(_dp_pais_hab),
+    "top": [_dp_o.iloc[-1].territorio, float(_dp_o.iloc[-1].por_habitante)], "top2": [_dp_o.iloc[-2].territorio, float(_dp_o.iloc[-2].por_habitante)],
+    "bajo": [_dp_o.iloc[0].territorio, float(_dp_o.iloc[0].por_habitante)],
+    "mayor": [_dp_m.iloc[-1].territorio, r1(_dp_m.iloc[-1].millones / _dp_t.millones.sum() * 100)],
+    "arriba_pais": int((_dp_t.por_habitante > _dp_pais_hab).sum()),
+    **{f"pct_{g}": r1(_dp_t[k].sum().sum() / _dp_t.millones.sum() * 100) for g, k in DP_GRUPOS.items()},
+    "bonos_mitad": int((_dp_t.pct_bonos > 50).sum()), "sin_bonos": [r.territorio for r in _dp_t.itertuples() if r.bonos == 0],
+    "nacion_mitad": [r.territorio for r in _dp_t.sort_values("pct_nacion", ascending=False).itertuples() if r.pct_nacion > 50],
+}
+agregar(_dp_t.assign(periodo=DP_PERIODO, valor=_dp_t.por_habitante), "deuda_provincial_por_habitante", "pesos por habitante",
+        "Subsecretaría de Coordinación Fiscal Provincial e INDEC")
+
 # Tasa de natalidad por provincia (DEIS), nacidos vivos cada 1.000 habitantes
 na = pd.read_csv(CRUDO / "deis_natalidad.csv", encoding="utf-8-sig")
 na["anio"] = na.indice_tiempo.astype(str).str[-4:].astype(int)
@@ -6843,6 +6899,7 @@ tablas = {
     "extranjeros_provincias": extranjeros,
     "fiscal_provincias": fiscal,
     "coparticipacion_provincias": coparticipacion,
+    "deuda_provincias": deuda_provincias,
     "elecciones_presidenciales": presidenciales,
     "congreso_composicion": congreso,
     "anios_congreso": anios_congreso,
@@ -7232,6 +7289,7 @@ resumen["fiscal"] = {
     "atrasadas": FISC_ATRASADAS,
 }
 resumen["coparticipacion"] = cpa_res
+resumen["deuda_provincias"] = DP_RES
 resumen["departamentos"] = {"meta": {k: {"nombre": v[0], "unidad": v[1], "fuente": v[2]} for k, v in DEP_META.items()},
                             "anio_snic": ANIO_DEP, "n": int(len(departamentos))}
 resumen["elecciones"] = el_meta

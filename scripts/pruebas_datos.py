@@ -252,6 +252,9 @@ def prueba_faltantes(d, t):
 # sin que eso sea raro. En la tabla larga, solo el último período de cada indicador.
 ES_TASA = ("cada", "_1000", "_100", "por_", "_hab", "tasa", "pct", "accesos", "densidad")
 UNIDAD_TASA = ("cada", "por ", "%")
+# columnas que reparten el total de cada provincia entre partes (la deuda por acreedor, 31 de octubre de 2026): que una provincia le deba casi
+# todo a la Nación cuando la mediana le debe 2% no es un error, es su composición. La prueba no las mira
+REPARTOS = {"deuda_provincias": {"pct_bonos", "pct_organismos", "pct_nacion", "pct_bancos_otros"}}
 
 
 def prueba_mediana(d, t, dis):
@@ -270,7 +273,7 @@ def prueba_mediana(d, t, dis):
     for nombre, filas in d["datos"].items():
         if isinstance(filas, list) and len(filas) == 24 and isinstance(filas[0], dict) and "codigo_indec" in filas[0]:
             for col in filas[0]:
-                if any(k in col for k in ES_TASA) and not col.endswith("_anio") and "neta" not in col:
+                if any(k in col for k in ES_TASA) and not col.endswith("_anio") and "neta" not in col and col not in REPARTOS.get(nombre, ()):
                     revisar(nombre, filas, col)
     prov = t[t.codigo_indec.isin(PROV24) & t.unidad.str.contains("|".join(UNIDAD_TASA), regex=True) & ~t.variable.isin(CON_SIGNO)]
     for v, g in prov.groupby("variable"):
