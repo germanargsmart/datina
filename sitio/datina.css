@@ -1647,6 +1647,8 @@ svg.mapa-prov .caba-aparte line{stroke:var(--muted);stroke-width:.8}
 .calc-lista .calc-quitar{min-height:44px;font-size:var(--t-3)}
 .calc-personas .calc-sumar{justify-self:start}
 .calc-res{margin:0;padding:var(--e-4);font-size:var(--t-4);background:var(--superficie);border-radius:var(--r-interno)}
+/* F9 y F8: el ingreso del hogar y el monto a actualizar, con el mismo aspecto que los selectores */
+.calc-ingreso input,.calc-inflacion input{width:100%;min-width:0;min-height:44px;padding:0 var(--e-3);font:inherit;font-size:var(--t-3);color:var(--ink);background:var(--bg);border:1px solid var(--azul);border-radius:var(--r-control)}
 /* una tabla que es el gráfico de su sección (los nombres por provincia): entera, sin su propio desplazamiento */
 .nota-tabla .tabla-desliza{max-height:none;margin-top:var(--e-6)}
 .nota .nota-pie-graf{margin:var(--e-1) 0 0;font-size:var(--t-2);color:var(--muted)}

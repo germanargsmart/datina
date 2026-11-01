@@ -885,6 +885,10 @@ const LEAD = {
   },
   // ---- economía y precios (etapa 25): todo del INDEC
   inflacion: v => {
+    // F8 (plan de mejora, 1 de noviembre de 2026): actualizar un monto por la inflación de la región, con las series del INDEC desde diciembre de 2016
+    if (v === "monto") return `Elegí un monto, el mes en que lo tenías y la región: la calculadora dice cuántos pesos de ${EIP.mes} hacen falta para comprar ` +
+      `lo mismo, según el índice de precios al consumidor del INDEC de esa región. Las series de las regiones empiezan en diciembre de 2016. Las regiones ` +
+      `del INDEC son grupos de ciudades donde se relevan los precios, no provincias.`;
     if (v === "mes") return `En ${EIP.mes}, el índice de precios al consumidor del país ${cambioPct(EIP.mensual)} frente al mes anterior, según el INDEC. ` +
       `Desde ${EIP.m_desde}, la suba de un mes más alta fue la de ${EIP.m_max_mes}, ${pct(EIP.m_max)}, y la más baja, la de ${EIP.m_min_mes}, ${pct(EIP.m_min)}.`;
     if (v === "region") return `En los doce meses hasta ${EIP.mes}, los precios subieron más en ${REG_ART[EIP.reg_max[0]]}, ${pct(EIP.reg_max[1])}, y menos en ` +
@@ -3683,6 +3687,7 @@ Object.assign(DIB, {
   inflacion: conTablas("inflacion", () => MED.inflacion === "region" ? [] : ["inflacion_mensual"], a => {
     const v = MED.inflacion, el = G("inflacion"), regs = REG_IPC[prov] || [];
     let txt = LEAD.inflacion(v);
+    if (v === "monto") { $t("inflacion").textContent = txt; return calcInflacion(el); }
     if (v === "region") {
       txt += enSuRegion(T.inflacion_regiones, "interanual", pct);
       $t("inflacion").textContent = txt;
@@ -8967,12 +8972,15 @@ const ART_SERIE = [{
     const opcR = regs.map(r => `<option value="${r.codigo}">${r.region}</option>`).join("");
     const calc = `<div class="calc" id="calc-canasta"><label class="selector-ficha"><span>Región</span><select class="calc-region">${opcR}</select></label>` +
       `<fieldset class="calc-personas"><legend>Quiénes viven en el hogar</legend><ol class="calc-lista"></ol>` +
-      `<button type="button" class="boton chico calc-sumar">Sumar una persona</button></fieldset><p class="calc-res" aria-live="polite"></p></div>`;
+      `<button type="button" class="boton chico calc-sumar">Sumar una persona</button></fieldset>` +
+      // F9 (plan de mejora, 1 de noviembre de 2026): con el ingreso del hogar, si queda bajo la línea de pobreza o de indigencia. No se guarda ni se envía
+      `<label class="selector-ficha calc-ingreso"><span>Ingresos del hogar por mes, en pesos (opcional)</span><input type="number" min="0" step="1000" inputmode="numeric" class="calc-ingreso-in"></label>` +
+      `<p class="calc-res" aria-live="polite"></p></div>`;
     return {respuesta, bajada, contexto, lim, secciones: [
       {g: "canasta-regiones", tit: "Canasta básica total del hogar de ejemplo, por región", forma: "barras",
         pie: `Pesos por mes, ${C.reg_mes}. Hogar de cuatro integrantes, ${n2(ae)} adultos equivalentes.`, txt: [s1]},
       {tit: "¿Cuánto necesita tu hogar?", html: calc,
-        pie: `Cada persona cuenta según la tabla de adulto equivalente del INDEC, y la canasta es la de ${C.reg_mes} de cada región. Lo que se elige acá no se guarda.`, txt: []},
+        pie: `Cada persona cuenta según la tabla de adulto equivalente del INDEC, y la canasta es la de ${C.reg_mes} de cada región. Lo que se elige y el ingreso que se escribe no se guardan ni se envían: el cálculo se hace en tu navegador.`, txt: []},
       {g: "canasta-pobreza", tit: "Personas bajo la línea de pobreza, por región", forma: "barras",
         pie: `% de las personas de los aglomerados urbanos de cada región, ${PZA.semestre}. La línea marca el total de los 31 aglomerados.`, txt: [s3]},
     ]};
@@ -8982,9 +8990,15 @@ const ART_SERIE = [{
     const caja = nota.querySelector("#calc-canasta"), tab = T.adulto_equivalente, regs = T.canasta_regiones;
     if (!caja || !tab) return;
     const lista = caja.querySelector(".calc-lista"), selR = caja.querySelector(".calc-region"), res = caja.querySelector(".calc-res");
-    const sumar = caja.querySelector(".calc-sumar"), MAX = 12;
+    const sumar = caja.querySelector(".calc-sumar"), ing = caja.querySelector(".calc-ingreso-in"), MAX = 12;
     selR.value = (REG_IPC[prov] || ["gba"])[0];
     const deEdad = e => tab.findIndex(r => r.edad_desde <= e && (r.edad_hasta == null || r.edad_hasta >= e));
+    // F9: con un ingreso escrito, frente a la canasta total (la línea de pobreza) y a la alimentaria (la de indigencia), con la aclaración del mes
+    const bajoLinea = (v, cbt, cba) => !(v > 0) ? "" : `<br>Con ${n0(v)} pesos por mes, ` + (v < cba
+      ? `queda bajo la línea de indigencia y también bajo la de pobreza: le faltan ${n0(cbt - v)} pesos para llegar a su canasta total.`
+      : v < cbt ? `queda bajo la línea de pobreza: le faltan ${n0(cbt - v)} pesos para llegar a su canasta total.`
+      : `queda por encima de la línea de pobreza: sus ingresos son ${n2(v / cbt)} veces su canasta total.`) +
+      ` La canasta es la de ${ECB.reg_mes}: si el ingreso es de un mes posterior, los precios también subieron.`;
     const calcular = () => {
       const filas = [...lista.children], n = filas.length;
       filas.forEach((li, i) => {
@@ -8998,7 +9012,7 @@ const ART_SERIE = [{
       const r = regs.find(x => x.codigo === selR.value);
       res.innerHTML = `${n === 1 ? "Una persona" : `Un hogar de ${n} personas`} suma ${n2(u)} ${u === 1 ? "adulto equivalente" : "adultos equivalentes"}. ` +
         `En ${REG_ART[r.region]}, su canasta básica total de ${ECB.reg_mes} era de <b>${n0(u * r.cbt)} pesos por mes</b>: con ingresos por debajo de esa cifra, ` +
-        `el INDEC lo cuenta como pobre. Su canasta alimentaria, la línea de indigencia, era de ${n0(u * r.cba)} pesos.`;
+        `el INDEC lo cuenta como pobre. Su canasta alimentaria, la línea de indigencia, era de ${n0(u * r.cba)} pesos.` + bajoLinea(+ing.value, u * r.cbt, u * r.cba);
     };
     const persona = (edad, sexo) => {
       const li = document.createElement("li");
@@ -9017,6 +9031,7 @@ const ART_SERIE = [{
     };
     [[35, "varones"], [31, "mujeres"], [6, "varones"], [8, "mujeres"]].forEach(([e, s]) => persona(e, s));
     caja.addEventListener("change", calcular);
+    ing.addEventListener("input", calcular);
     sumar.addEventListener("click", () => { persona(35, "mujeres"); calcular(); lista.lastElementChild.querySelector("select").focus(); });
     calcular();
   },
@@ -9457,6 +9472,36 @@ if (nosCifras) {
   const temas = SITIO.secciones.filter(s => !s[4] && s[0] !== "articulos").length;
   nosCifras.innerHTML = [[NFICHAS, "fichas con su tabla"], [24, "jurisdicciones"],
     [temas, "secciones temáticas"], [ARTS.length, "artículos"]].map(([n, t]) => `<div class="nos-cifra"><b>${n}</b><span>${t}</span></div>`).join("");
+}
+
+/* F8 (plan de mejora, 1 de noviembre de 2026): actualizar un monto por la inflación del país o de una región. El índice de cada región se arma
+   encadenando sus variaciones mensuales desde diciembre de 2016 (= 100), como el del país. Lo que se escribe no se guarda ni se envía */
+function calcInflacion(el) {
+  const filas = T.inflacion_mensual, REGS = [["pais", "Todo el país"], ["gba", "Gran Buenos Aires"], ["pampeana", "Pampeana"], ["noreste", "Noreste"],
+    ["noroeste", "Noroeste"], ["cuyo", "Cuyo"], ["patagonia", "Patagonia"]];
+  const idx = {pais: filas.map(r => r.indice)};
+  REGS.slice(1).forEach(([k]) => { let v = 100; idx[k] = filas.map((r, i) => i === 0 ? 100 : (v *= 1 + (r[`mensual_${k}`] || 0) / 100)); });
+  const mesTx = p => `${MESES[+p.slice(5, 7) - 1]} de ${p.slice(0, 4)}`, ult = filas.length - 1;
+  // como lienzo(): sin la silueta de "cargando" y sin el resaltado del gráfico anterior
+  el.removeAttribute("aria-busy"); el.resaltar = null;
+  el.innerHTML = `<div class="calc calc-inflacion"><label class="selector-ficha"><span>Monto en pesos</span><input type="number" min="0" step="1000" ` +
+    `inputmode="numeric" class="ci-monto" value="100000"></label><label class="selector-ficha"><span>Del mes</span><select class="ci-mes">` +
+    filas.slice(0, ult).map((r, i) => `<option value="${i}">${mesTx(r.periodo)}</option>`).reverse().join("") + `</select></label>` +
+    `<label class="selector-ficha"><span>En</span><select class="ci-reg">${REGS.map(([k, n]) => `<option value="${k}">${n}</option>`).join("")}</select></label>` +
+    `<p class="calc-res" aria-live="polite"></p></div>`;
+  const m = el.querySelector(".ci-monto"), mes = el.querySelector(".ci-mes"), reg = el.querySelector(".ci-reg"), res = el.querySelector(".calc-res");
+  mes.value = String(Math.max(0, ult - 60));
+  reg.value = (REG_IPC[prov] || ["pais"])[0];
+  const calcular = () => {
+    const k = reg.value, i = +mes.value, v = +m.value, x = idx[k][ult] / idx[k][i], n = REGS.find(r => r[0] === k)[1];
+    const donde = k === "pais" ? "en todo el país" : `en ${REG_ART[n] || n}`;
+    res.innerHTML = !(v > 0) ? "Escribí un monto en pesos." : `${n0(v)} pesos de ${mesTx(filas[i].periodo)} ${donde} equivalen a <b>${n0(v * x)} pesos de ` +
+      `${mesTx(filas[ult].periodo)}</b>: ${x >= 2 ? `los precios se multiplicaron por ${n1(x)}` : `los precios subieron ${pct((x - 1) * 100)}`} en ese tiempo, ` +
+      `según el índice de precios al consumidor del INDEC.`;
+  };
+  el.querySelector(".calc").addEventListener("input", calcular);
+  el.querySelector(".calc").addEventListener("change", calcular);
+  calcular();
 }
 
 /* Usar los datos (F2): un ejemplo de cita con el año y el día de hoy y la dirección de este sitio */

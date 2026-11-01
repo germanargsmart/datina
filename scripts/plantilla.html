@@ -466,10 +466,11 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     <article class="ficha" id="f-inflacion">
       <h2>¿Cuánto suben los precios en cada región?</h2>
       <p class="ficha-sub">Variación de los precios al consumidor en el país y en las seis regiones del INDEC, {{economia.ipc.anio_ini}} a {{economia.ipc.anio}}</p>
-      <div class="conmutador" role="group" aria-label="Vista" data-g="inflacion" style="--n:3">
+      <div class="conmutador" role="group" aria-label="Vista" data-g="inflacion" style="--n:4">
         <button type="button" data-m="doce" aria-pressed="true">Doce meses</button>
         <button type="button" data-m="mes" aria-pressed="false">Mes a mes</button>
         <button type="button" data-m="region" aria-pressed="false">Por región</button>
+        <button type="button" data-m="monto" aria-pressed="false">Actualizar un monto</button>
       </div>
       <div class="grafico" data-g="inflacion" data-forma="lineas"></div>
       <p class="lead" data-t="inflacion"></p>
