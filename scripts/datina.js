@@ -696,6 +696,11 @@ const LEAD = {
     const C = PZA.cuidado, N = PZA.no_confiable;
     if (v === "region") return `En el ${PZA.semestre}, la pobreza iba del ${pct(PZA.reg_min[1])} en ${REG_ART[PZA.reg_min[0]]} al ${pct(PZA.reg_max[1])} en ` +
       `${REG_ART[PZA.reg_max[0]]}. En el total de los 31 aglomerados urbanos fue del ${pct(PZA.pais)}. Cada región cuenta solo sus aglomerados urbanos.`;
+    // por provincia (31 de octubre de 2026, pedido del autor): un cálculo propio con los aglomerados de cada una, no un dato del INDEC
+    if (v === "prov") return `En el ${PZA.semestre}, la pobreza en los aglomerados urbanos de cada provincia iba del ${pct(PZA.prov_min[1])} en ` +
+      `${PZA.prov_min[0]} al ${pct(PZA.prov_max[1])} en ${PZA.prov_max[0]}, y le seguía ${PZA.prov_max2[0]}, con el ${pct(PZA.prov_max2[1])}. En el total de ` +
+      `los 31 aglomerados fue del ${pct(PZA.pais)}. Mide solo las ciudades que releva la EPH, no el resto de cada provincia.` +
+      (PZA.prov_varias.length ? ` ${lista(PZA.prov_varias.map(([p, n]) => `${p} (${n})`))} ${PZA.prov_varias.length > 1 ? "juntan" : "junta"} más de un aglomerado.` : "");
     return `En el ${PZA.semestre}, la pobreza iba del ${pct(PZA.ag_min[1])} en ${PZA.ag_min[0]} al ${pct(PZA.ag_max[1])} en ${PZA.ag_max[0]}. ` +
       `En el total de los 31 aglomerados urbanos fue del ${pct(PZA.pais)}. ` +
       (C.length ? `El INDEC pide leer con cuidado ${C.length > 1 ? "las estimaciones" : "la estimación"} de ${lista(C)}, que ${C.length > 1 ? "tienen" : "tiene"} un coeficiente de variación de entre 16% y 25%. ` : "") +
@@ -1590,7 +1595,9 @@ const TX = {
     `Las regiones son las de la encuesta: Gran Buenos Aires (CABA y los partidos del conurbano), Noroeste, Noreste, Cuyo, Pampeana y Patagonia. El Gran ` +
     `Buenos Aires va en dos partes también entre las ciudades. Un aglomerado es una ciudad con su área urbana y puede juntar dos ciudades o dos provincias. ` +
     `El coeficiente de variación mide la precisión de cada estimación: cuanto más alto, menos precisa. Está en el cuadro de cada barra, con la indigencia. ` +
-    `En el consultor de pobreza están los partidos del Gran Buenos Aires y las comunas de CABA.`,
+    `La pobreza por provincia es un cálculo de Datina, no un dato del INDEC: junta los aglomerados de la encuesta de cada provincia, cada uno ` +
+    `pesado por las personas que representa, y no mide el resto de la provincia. San Nicolás-Villa Constitución, que abarca dos provincias, no entra ` +
+    `en ninguna. En el consultor de pobreza están los partidos del Gran Buenos Aires y las comunas de CABA.`,
   "empresas-tamano": LEAD["empresas-tamano"]("tam"), "empresas-tamano-nota": `Empresas privadas con al menos una persona en relación de dependencia ` +
     `declarada en el SIPA, según el Observatorio de Empleo y Dinámica Empresarial. No cuenta a quienes trabajan por su cuenta sin empleados. Una empresa con ` +
     `personal en varias provincias cuenta en cada una, y el país suma las provincias: por eso da más que la cantidad de empresas de la ficha anterior. El ` +
@@ -3484,6 +3491,18 @@ Object.assign(DIB, {
   // aglomerados de la provincia elegida (se redibuja al cambiarla)
   "pobreza-aglomerados": a => {
     const v = MED["pobreza-aglomerados"], el = G("pobreza-aglomerados");
+    // por provincia: los aglomerados de cada una juntos, pesados por su población en la encuesta (cálculo propio)
+    if (v === "prov") {
+      const fp = T.pobreza_provincias.find(r => r.codigo_indec === prov);
+      let tp = LEAD["pobreza-aglomerados"](v);
+      if (fp && ![PZA.prov_min[0], PZA.prov_max[0], PZA.prov_max2[0]].includes(fp.territorio))
+        tp += ` En ${fp.territorio}, el ${pct(fp.pobreza)}${fp.n_aglomerados > 1 ? `, con ${fp.aglomerados}` : `, en ${fp.aglomerados}`}.`;
+      $t("pobreza-aglomerados").textContent = tp;
+      barrasH(el, {anim: a, data: T.pobreza_provincias, k: "pobreza", vf: pct, af: v => n0(v) + "%", ref: PZA.pais, refLab: `31 aglomerados ${pct(PZA.pais)}`,
+        tip: d => `<b>${d.territorio}</b><br>${pct(d.pobreza)} bajo la línea de pobreza en el ${PZA.semestre}<br>${d.n_aglomerados > 1 ? "Aglomerados" : "Aglomerado"}: ` +
+          `${d.aglomerados}<br>Indigencia: ${pct(d.indigencia)}`});
+      return;
+    }
     const filas = T.pobreza_aglomerados.filter(r => r.tipo === (v === "region" ? "region" : "aglomerado")).map(r => ({...r, codigo_indec: r.clave, territorio: r.nombre}));
     const suyas = !prov ? [] : v === "region" ? filas.filter(r => (REG_IPC[prov] || []).includes(r.clave)) : filas.filter(r => String(r.provincias).split(",").includes(prov));
     let txt = LEAD["pobreza-aglomerados"](v);
@@ -7800,6 +7819,9 @@ const INDP = [
   {id:"f-empleo-construccion", g:"trabajo", lab:"Empleo registrado en la construcción", veces:true, det:`asalariados privados cada 1.000 habitantes, ${CN.emp_trim}`,
     d:T.empleo_construccion_provincias, k:"construccion_cada_1000", pais:CN.emp_cada_1000, f:n1, dist:"empleo_construccion_provincias.construccion_cada_1000"},
   // seguridad social (etapa 42, pedido del autor del 12 de octubre de 2026): pensiones por discapacidad, AUH y seguro de desempleo por provincia
+  // la pobreza por provincia (31 de octubre de 2026, pedido del autor): los aglomerados de la EPH de cada una juntos, un cálculo propio
+  {id:"f-pobreza-aglomerados", g:"social", lab:"Pobreza", veces:true, det:`% de las personas bajo la línea de pobreza en los aglomerados urbanos de la provincia, ${PZA.semestre}`,
+    d:T.pobreza_provincias, k:"pobreza", pais:PZA.pais, f:pct},
   ...(PIN ? [{id:"f-pensiones-invalidez", g:"social", lab:"Pensiones por invalidez", veces:true, det:`pensiones no contributivas por invalidez cada 1.000 habitantes, ${MESES[PIN.prov_mes - 1]} de ${PIN.prov_anio}`,
     d:T.pensiones_invalidez_provincias.filter(r => r.codigo_indec !== "00"), k:"cada_1000", pais:PIN.pais_cada_1000, f:n1}] : []),
   ...(AU ? [{id:"f-auh", g:"social", lab:"Asignación Universal por Hijo", veces:true, det:`hijos con AUH cada 100 menores de 18 años, ${MESES[AU.mes - 1]} de ${AU.anio}`,
