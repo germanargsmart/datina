@@ -7955,12 +7955,39 @@ function pintarPuestos() {
       `<span class="dp-pos">En ${r.anio_inicio}, ${frase(r.puesto_inicio)} (${num(r.valor_inicio)}). En ${r.anio_final}, ${frase(r.puesto_final)} ` +
       `(${num(r.valor_final)}).</span></a>`).join("") + `</div>`;
 }
+// F12 (plan de mejora, 31 de octubre de 2026): cómo cambió la provincia entre los censos 2010 y 2022. Arriba, la población, y después los tres
+// indicadores que más cambiaron, en puntos y sin importar el signo, con el país al lado. Debajo, una tabla con los cinco
+function pintarCensos() {
+  const caja = document.getElementById("prov-censos"); if (!caja) return;
+  const filas = (T.censos_provincias || []).filter(r => r.codigo_indec === prov).sort((a, b) => a.orden - b.orden);
+  const CZ = R.censos;
+  if (!NOMBRES[prov] || !filas.length || !CZ) { caja.hidden = true; caja.innerHTML = ""; return; }
+  const pais = k => (T.censos_pais || []).find(r => r.indicador === k), pv = CZ.pob_var_prov[prov];
+  const puntos = v => `${v > 0 ? "+" : v < 0 ? "−" : ""}${n1(Math.abs(v))} puntos`;
+  caja.hidden = false;
+  caja.innerHTML = `<h2 class="bloque-grupo" id="prov-censos-t">Cómo cambió entre los censos 2010 y 2022</h2>` +
+    `<p class="prov-destaca-sub">Entre los censos de 2010 y 2022, la población de ${NOMBRES[prov]} ${pv >= 0 ? "creció" : "bajó"} ${pct(Math.abs(pv))}, ` +
+    `y la del país, ${pct(CZ.pob_var)}. Estos son los tres indicadores del censo que más cambiaron, en puntos. Que un número suba o baje no dice por ` +
+    `sí solo si es mejor o peor.</p>` + `<div class="perfil-tarjetas">` + filas.slice(0, 3).map(r => {
+    const p = pais(r.indicador);
+    return `<div class="tarjeta dp"><span class="dp-lab">${r.nombre}</span><span class="dp-num">${puntos(r.cambio)}</span><span class="dp-det">${r.unidad}</span>` +
+      `<span class="dp-pos">De ${pct(r.valor_2010)} en 2010 a ${pct(r.valor_2022)} en 2022.${p ? ` País: de ${pct(p.valor_2010)} a ${pct(p.valor_2022)}.` : ""}</span></div>`;
+  }).join("") + `</div>` +
+    `<div class="tabla-desliza" tabindex="0" role="region" aria-label="Tabla: ${NOMBRES[prov]} en los censos 2010 y 2022"><table class="tabla-areas tabla-compara">` +
+    `<caption class="solo-lector">${NOMBRES[prov]} en los censos 2010 y 2022</caption><thead><tr><th scope="col">Indicador</th><th scope="col" class="n">2010</th>` +
+    `<th scope="col" class="n">2022</th><th scope="col" class="n">Cambio</th></tr></thead><tbody>` +
+    filas.map(r => `<tr><th scope="row">${r.nombre}<small>${r.unidad}</small></th><td class="n">${pct(r.valor_2010)}</td><td class="n">${pct(r.valor_2022)}</td>` +
+      `<td class="n">${puntos(r.cambio)}</td></tr>`).join("") + `</tbody></table></div>` +
+    `<p class="tabla-nota">Cuadros del INDEC de los censos 2010 y 2022. El de 2010 fue un censo de hecho (contó a las personas donde estaban esa noche) y ` +
+    `el de 2022, de derecho (donde viven). En 2022 la computadora incluye notebook y tableta, así que su suba puede ser en parte por la pregunta.</p>`;
+}
 function pintarPanel(animar) {
   const nombre = NOMBRES[prov];
   pintarExtra();
   pintarDestaca();
   pintarCompara();
   pintarPuestos();
+  pintarCensos();
   // el título de la pestaña lleva el nombre de la provincia, también al compartir el enlace (etapa 6 del plan de mejora)
   if (PAGINA === "provincia") document.title = nombre ? `${nombre} en números | Datina` : TITULO_INICIAL;
   cambiarTexto($("prov-titulo-txt"), nombre ? `${nombre} en números` : "¿Cómo se compara tu provincia con el país?", animar);

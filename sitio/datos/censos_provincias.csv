@@ -1,0 +1,121 @@
+codigo_indec,territorio,indicador,nombre,unidad,valor_2010,valor_2022,cambio,orden
+02,CABA,agua_red,Agua de red,% de los hogares,99.5956,98.01,-1.6,2
+02,CABA,cloaca,Cloacas,% de los hogares con desagüe a red cloacal,98.1555,97.16,-1.0,5
+02,CABA,computadora,Computadora,% de los hogares,68.6133,80.03,11.4,1
+02,CABA,nbi,Necesidades básicas insatisfechas,% de los hogares,5.9838,4.75,-1.2,4
+02,CABA,sin_cobertura,"Sin obra social, prepaga ni plan estatal",% de las personas en viviendas particulares,17.6649,16.31,-1.4,3
+06,Buenos Aires,agua_red,Agua de red,% de los hogares,75.0934,76.33,1.2,4
+06,Buenos Aires,cloaca,Cloacas,% de los hogares con desagüe a red cloacal,47.5753,56.74,9.1,2
+06,Buenos Aires,computadora,Computadora,% de los hogares,48.2044,58.04,9.8,1
+06,Buenos Aires,nbi,Necesidades básicas insatisfechas,% de los hogares,8.141,6.35,-1.8,3
+06,Buenos Aires,sin_cobertura,"Sin obra social, prepaga ni plan estatal",% de las personas en viviendas particulares,35.3678,35.1,-0.3,5
+10,Catamarca,agua_red,Agua de red,% de los hogares,93.1376,93.83,0.7,5
+10,Catamarca,cloaca,Cloacas,% de los hogares con desagüe a red cloacal,44.4193,49.71,5.3,2
+10,Catamarca,computadora,Computadora,% de los hogares,35.9559,48.07,12.1,1
+10,Catamarca,nbi,Necesidades básicas insatisfechas,% de los hogares,11.3451,6.88,-4.4,3
+10,Catamarca,sin_cobertura,"Sin obra social, prepaga ni plan estatal",% de las personas en viviendas particulares,39.1154,40.67,1.6,4
+14,Córdoba,agua_red,Agua de red,% de los hogares,91.8525,93.77,1.9,3
+14,Córdoba,cloaca,Cloacas,% de los hogares con desagüe a red cloacal,38.323,44.42,6.1,2
+14,Córdoba,computadora,Computadora,% de los hogares,49.4452,58.19,8.8,1
+14,Córdoba,nbi,Necesidades básicas insatisfechas,% de los hogares,6.0056,4.34,-1.7,4
+14,Córdoba,sin_cobertura,"Sin obra social, prepaga ni plan estatal",% de las personas en viviendas particulares,32.8891,34.17,1.3,5
+18,Corrientes,agua_red,Agua de red,% de los hogares,87.1067,88.46,1.4,5
+18,Corrientes,cloaca,Cloacas,% de los hogares con desagüe a red cloacal,53.386,57.46,4.1,3
+18,Corrientes,computadora,Computadora,% de los hogares,32.1826,44.28,12.1,1
+18,Corrientes,nbi,Necesidades básicas insatisfechas,% de los hogares,15.0965,11.8,-3.3,4
+18,Corrientes,sin_cobertura,"Sin obra social, prepaga ni plan estatal",% de las personas en viviendas particulares,48.3714,43.76,-4.6,2
+22,Chaco,agua_red,Agua de red,% de los hogares,76.5365,76.55,0.0,5
+22,Chaco,cloaca,Cloacas,% de los hogares con desagüe a red cloacal,26.3874,30.39,4.0,4
+22,Chaco,computadora,Computadora,% de los hogares,29.607,44.37,14.8,1
+22,Chaco,nbi,Necesidades básicas insatisfechas,% de los hogares,18.1622,11.22,-7.0,2
+22,Chaco,sin_cobertura,"Sin obra social, prepaga ni plan estatal",% de las personas en viviendas particulares,57.929,52.22,-5.7,3
+26,Chubut,agua_red,Agua de red,% de los hogares,96.3612,96.23,-0.2,5
+26,Chubut,cloaca,Cloacas,% de los hogares con desagüe a red cloacal,77.7019,79.58,1.9,3
+26,Chubut,computadora,Computadora,% de los hogares,56.8965,62.88,6.0,1
+26,Chubut,nbi,Necesidades básicas insatisfechas,% de los hogares,8.4462,5.14,-3.3,2
+26,Chubut,sin_cobertura,"Sin obra social, prepaga ni plan estatal",% de las personas en viviendas particulares,27.2948,27.84,0.5,4
+30,Entre Ríos,agua_red,Agua de red,% de los hogares,90.3599,91.06,0.7,4
+30,Entre Ríos,cloaca,Cloacas,% de los hogares con desagüe a red cloacal,69.8236,75.65,5.9,2
+30,Entre Ríos,computadora,Computadora,% de los hogares,43.7683,54.38,10.6,1
+30,Entre Ríos,nbi,Necesidades básicas insatisfechas,% de los hogares,8.0483,6.04,-2.0,3
+30,Entre Ríos,sin_cobertura,"Sin obra social, prepaga ni plan estatal",% de las personas en viviendas particulares,35.7239,35.64,-0.1,5
+34,Formosa,agua_red,Agua de red,% de los hogares,76.8187,77.76,1.0,4
+34,Formosa,cloaca,Cloacas,% de los hogares con desagüe a red cloacal,31.4526,37.94,6.4,3
+34,Formosa,computadora,Computadora,% de los hogares,25.9624,37.21,11.2,1
+34,Formosa,nbi,Necesidades básicas insatisfechas,% de los hogares,19.7309,11.66,-8.0,2
+34,Formosa,sin_cobertura,"Sin obra social, prepaga ni plan estatal",% de las personas en viviendas particulares,56.889,55.88,-1.0,5
+38,Jujuy,agua_red,Agua de red,% de los hogares,94.4706,95.66,1.2,4
+38,Jujuy,cloaca,Cloacas,% de los hogares con desagüe a red cloacal,60.8109,63.99,3.2,3
+38,Jujuy,computadora,Computadora,% de los hogares,33.851,45.96,12.1,1
+38,Jujuy,nbi,Necesidades básicas insatisfechas,% de los hogares,15.463,10.88,-4.6,2
+38,Jujuy,sin_cobertura,"Sin obra social, prepaga ni plan estatal",% de las personas en viviendas particulares,45.2444,46.24,1.0,5
+42,La Pampa,agua_red,Agua de red,% de los hogares,87.0888,84.79,-2.3,3
+42,La Pampa,cloaca,Cloacas,% de los hogares con desagüe a red cloacal,59.0412,66.72,7.7,2
+42,La Pampa,computadora,Computadora,% de los hogares,47.6847,62.51,14.8,1
+42,La Pampa,nbi,Necesidades básicas insatisfechas,% de los hogares,3.7883,2.64,-1.2,4
+42,La Pampa,sin_cobertura,"Sin obra social, prepaga ni plan estatal",% de las personas en viviendas particulares,32.2827,32.05,-0.3,5
+46,La Rioja,agua_red,Agua de red,% de los hogares,93.7451,93.29,-0.4,5
+46,La Rioja,cloaca,Cloacas,% de los hogares con desagüe a red cloacal,51.1202,57.35,6.3,2
+46,La Rioja,computadora,Computadora,% de los hogares,41.728,55.59,13.9,1
+46,La Rioja,nbi,Necesidades básicas insatisfechas,% de los hogares,12.2407,8.05,-4.1,3
+46,La Rioja,sin_cobertura,"Sin obra social, prepaga ni plan estatal",% de las personas en viviendas particulares,38.1317,41.54,3.4,4
+50,Mendoza,agua_red,Agua de red,% de los hogares,90.484,92.6,2.1,3
+50,Mendoza,cloaca,Cloacas,% de los hogares con desagüe a red cloacal,63.1407,65.27,2.2,2
+50,Mendoza,computadora,Computadora,% de los hogares,43.4216,53.39,10.0,1
+50,Mendoza,nbi,Necesidades básicas insatisfechas,% de los hogares,7.613,6.41,-1.2,4
+50,Mendoza,sin_cobertura,"Sin obra social, prepaga ni plan estatal",% de las personas en viviendas particulares,36.9703,37.93,0.9,5
+54,Misiones,agua_red,Agua de red,% de los hogares,71.9115,79.68,7.8,2
+54,Misiones,cloaca,Cloacas,% de los hogares con desagüe a red cloacal,18.5781,24.81,6.2,4
+54,Misiones,computadora,Computadora,% de los hogares,28.4407,41.66,13.3,1
+54,Misiones,nbi,Necesidades básicas insatisfechas,% de los hogares,15.648,8.73,-6.9,3
+54,Misiones,sin_cobertura,"Sin obra social, prepaga ni plan estatal",% de las personas en viviendas particulares,43.6138,46.64,3.0,5
+58,Neuquén,agua_red,Agua de red,% de los hogares,93.6145,92.92,-0.7,5
+58,Neuquén,cloaca,Cloacas,% de los hogares con desagüe a red cloacal,72.1288,74.28,2.2,4
+58,Neuquén,computadora,Computadora,% de los hogares,53.0281,62.25,9.3,1
+58,Neuquén,nbi,Necesidades básicas insatisfechas,% de los hogares,10.3565,6.62,-3.8,2
+58,Neuquén,sin_cobertura,"Sin obra social, prepaga ni plan estatal",% de las personas en viviendas particulares,34.7302,31.51,-3.2,3
+62,Río Negro,agua_red,Agua de red,% de los hogares,92.0528,92.31,0.2,4
+62,Río Negro,cloaca,Cloacas,% de los hogares con desagüe a red cloacal,61.0862,66.28,5.2,2
+62,Río Negro,computadora,Computadora,% de los hogares,48.9179,60.34,11.4,1
+62,Río Negro,nbi,Necesidades básicas insatisfechas,% de los hogares,9.4247,5.9,-3.5,3
+62,Río Negro,sin_cobertura,"Sin obra social, prepaga ni plan estatal",% de las personas en viviendas particulares,34.424,34.61,0.2,5
+66,Salta,agua_red,Agua de red,% de los hogares,91.218,91.22,0.0,5
+66,Salta,cloaca,Cloacas,% de los hogares con desagüe a red cloacal,62.093,66.39,4.3,3
+66,Salta,computadora,Computadora,% de los hogares,32.558,46.89,14.3,1
+66,Salta,nbi,Necesidades básicas insatisfechas,% de los hogares,19.414,14.24,-5.2,2
+66,Salta,sin_cobertura,"Sin obra social, prepaga ni plan estatal",% de las personas en viviendas particulares,47.6173,47.87,0.3,4
+70,San Juan,agua_red,Agua de red,% de los hogares,93.237,94.51,1.3,4
+70,San Juan,cloaca,Cloacas,% de los hogares con desagüe a red cloacal,29.4956,47.21,17.7,1
+70,San Juan,computadora,Computadora,% de los hogares,36.8457,48.06,11.3,2
+70,San Juan,nbi,Necesidades básicas insatisfechas,% de los hogares,10.2424,8.08,-2.1,3
+70,San Juan,sin_cobertura,"Sin obra social, prepaga ni plan estatal",% de las personas en viviendas particulares,43.9782,44.64,0.6,5
+74,San Luis,agua_red,Agua de red,% de los hogares,94.5376,93.21,-1.3,4
+74,San Luis,cloaca,Cloacas,% de los hogares con desagüe a red cloacal,60.2,71.96,11.8,1
+74,San Luis,computadora,Computadora,% de los hogares,56.2361,56.62,0.4,5
+74,San Luis,nbi,Necesidades básicas insatisfechas,% de los hogares,7.8781,6.52,-1.4,3
+74,San Luis,sin_cobertura,"Sin obra social, prepaga ni plan estatal",% de las personas en viviendas particulares,39.6442,36.97,-2.6,2
+78,Santa Cruz,agua_red,Agua de red,% de los hogares,97.182,89.7,-7.5,1
+78,Santa Cruz,cloaca,Cloacas,% de los hogares con desagüe a red cloacal,82.4282,78.63,-3.8,2
+78,Santa Cruz,computadora,Computadora,% de los hogares,63.788,66.62,2.8,3
+78,Santa Cruz,nbi,Necesidades básicas insatisfechas,% de los hogares,8.222,5.97,-2.2,4
+78,Santa Cruz,sin_cobertura,"Sin obra social, prepaga ni plan estatal",% de las personas en viviendas particulares,16.9428,16.96,0.1,5
+82,Santa Fe,agua_red,Agua de red,% de los hogares,84.4135,85.25,0.9,5
+82,Santa Fe,cloaca,Cloacas,% de los hogares con desagüe a red cloacal,50.2865,57.73,7.4,2
+82,Santa Fe,computadora,Computadora,% de los hogares,47.5844,57.98,10.4,1
+82,Santa Fe,nbi,Necesidades básicas insatisfechas,% de los hogares,6.4344,4.89,-1.5,3
+82,Santa Fe,sin_cobertura,"Sin obra social, prepaga ni plan estatal",% de las personas en viviendas particulares,31.7046,30.72,-1.0,4
+86,Santiago del Estero,agua_red,Agua de red,% de los hogares,75.8399,79.18,3.4,4
+86,Santiago del Estero,cloaca,Cloacas,% de los hogares con desagüe a red cloacal,21.8801,25.74,3.8,3
+86,Santiago del Estero,computadora,Computadora,% de los hogares,23.4372,37.35,14.0,1
+86,Santiago del Estero,nbi,Necesidades básicas insatisfechas,% de los hogares,17.6246,9.55,-8.0,2
+86,Santiago del Estero,sin_cobertura,"Sin obra social, prepaga ni plan estatal",% de las personas en viviendas particulares,55.9397,56.04,0.1,5
+90,Tucumán,agua_red,Agua de red,% de los hogares,88.8497,90.26,1.5,5
+90,Tucumán,cloaca,Cloacas,% de los hogares con desagüe a red cloacal,46.555,50.22,3.6,3
+90,Tucumán,computadora,Computadora,% de los hogares,33.7697,46.75,13.0,1
+90,Tucumán,nbi,Necesidades básicas insatisfechas,% de los hogares,13.2803,9.51,-3.8,2
+90,Tucumán,sin_cobertura,"Sin obra social, prepaga ni plan estatal",% de las personas en viviendas particulares,36.453,34.47,-2.0,4
+94,Tierra del Fuego,agua_red,Agua de red,% de los hogares,94.1934,93.46,-0.7,4
+94,Tierra del Fuego,cloaca,Cloacas,% de los hogares con desagüe a red cloacal,89.252,89.11,-0.2,5
+94,Tierra del Fuego,computadora,Computadora,% de los hogares,73.7088,71.93,-1.8,2
+94,Tierra del Fuego,nbi,Necesidades básicas insatisfechas,% de los hogares,14.2422,13.37,-0.8,3
+94,Tierra del Fuego,sin_cobertura,"Sin obra social, prepaga ni plan estatal",% de las personas en viviendas particulares,21.4991,15.34,-6.2,1
