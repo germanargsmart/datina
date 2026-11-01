@@ -1,0 +1,31 @@
+fecha,hora,informe,ficha
+2026-11-04,16:00,Bases de microdatos de la Encuesta Permanente de Hogares. Segundo trimestre de 2026,f-ingresos-aglomerados
+2026-11-06,16:00,Indicadores de coyuntura de la actividad de la construcción. Septiembre de 2026,f-permisos
+2026-11-12,16:00,Valorización mensual de la canasta básica alimentaria (CBA) y de la canasta básica total (CBT). Octubre de 2026,f-canastas
+2026-11-12,16:00,Índice de precios al consumidor (IPC). Cobertura nacional. Octubre de 2026,f-inflacion
+2026-11-13,16:00,Índice de salarios. Septiembre de 2026,f-salario-real
+2026-11-17,16:00,Índice del costo de la construcción (ICC). Octubre de 2026,f-costo
+2026-11-19,16:00,Intercambio comercial argentino (ICA). Bienes. Octubre de 2026,f-balanza
+2026-11-24,16:00,Estimador mensual de actividad económica (EMAE). Septiembre de 2026,f-emae
+2026-11-25,16:00,Encuesta de supermercados. Septiembre de 2026,f-supermercados
+2026-11-27,16:00,Estadísticas de turismo internacional. Octubre de 2026,f-eti
+2026-12-09,16:00,Indicadores de coyuntura de la actividad de la construcción. Octubre de 2026,f-permisos
+2026-12-15,16:00,Valorización mensual de la canasta básica alimentaria (CBA) y de la canasta básica total (CBT). Noviembre de 2026,f-canastas
+2026-12-15,16:00,Índice de precios al consumidor (IPC). Cobertura nacional. Noviembre de 2026,f-inflacion
+2026-12-16,16:00,Índice de salarios. Octubre de 2026,f-salario-real
+2026-12-17,16:00,Índice del costo de la construcción (ICC). Noviembre de 2026,f-costo
+2026-12-18,16:00,Intercambio comercial argentino (ICA). Bienes. Noviembre de 2026,f-balanza
+2026-12-18,16:00,Mercado de trabajo. Tasas e indicadores socioeconómicos. Tercer trimestre de 2026,f-desocupacion
+2026-12-21,16:00,Estimador mensual de actividad económica (EMAE). Octubre de 2026,f-emae
+2026-12-22,16:00,"Balanza de pagos, posición de inversión internacional y deuda externa. Tercer trimestre de 2026",f-cuenta-corriente
+2026-12-23,16:00,Estadísticas de turismo internacional. Noviembre de 2026,f-eti
+2026-12-28,16:00,Encuesta de supermercados. Octubre de 2026,f-supermercados
+2027-01-08,16:00,Indicadores de coyuntura de la actividad de la construcción. Noviembre de 2026,f-permisos
+2027-01-14,16:00,Valorización mensual de la canasta básica alimentaria (CBA) y de la canasta básica total (CBT). Diciembre de 2026,f-canastas
+2027-01-14,16:00,Índice de precios al consumidor (IPC). Cobertura nacional. Diciembre de 2026,f-inflacion
+2027-01-19,16:00,Índice del costo de la construcción (ICC). Diciembre de 2026,f-costo
+2027-01-20,16:00,Intercambio comercial argentino (ICA). Bienes. Diciembre de 2026,f-balanza
+2027-01-20,16:00,Índice de salarios. Noviembre de 2026,f-salario-real
+2027-01-21,16:00,Estimador mensual de actividad económica (EMAE). Noviembre de 2026,f-emae
+2027-01-22,16:00,Encuesta de supermercados. Noviembre de 2026,f-supermercados
+2027-01-26,16:00,"Estadísticas de turismo internacional. Diciembre, cuarto trimestre y año 2026",f-eti

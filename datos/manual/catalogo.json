@@ -29,6 +29,15 @@
     "contiene": "lineas(el, {anim: a, data: T.argentinos_exterior, x: \"anio\", y0: 0, vf: n0, yf:"
    }
   },
+  "calendario_indec": {
+   "en": [
+    "usar-datos"
+   ],
+   "evidencia": {
+    "archivo": "scripts/datina.js",
+    "contiene": "const titulo = Object.fromEntries(SITIO.fichas.map(f => [f[0], f[2]])), prox = (T.calendario_indec || []).filter(c => c.fecha >= hoyS);"
+   }
+  },
   "capitales": {
    "en": [
     "provincia"
