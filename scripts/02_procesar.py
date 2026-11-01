@@ -3284,7 +3284,7 @@ inflacion_personal = pd.DataFrame(_infp_f)
 INFP_RES = {"ini": INFP_INI, "fin": INFP_FIN}
 # Calendario de próximos datos (F5 del plan de mejora, aprobado por el autor el 28 de octubre de 2026): de los informes que el INDEC anuncia en
 # su calendario de difusión para el mes de la descarga y los dos siguientes (indec_calendario.csv, de 01), los que alimentan una ficha de
-# Datina, con esa ficha. El comienzo del título de cada informe dice cuál es (sin mayúsculas). Los demás organismos no publican calendario
+# Datina, con esa ficha. El comienzo del título de cada informe dice cuál es (sin mayúsculas). Cubre solo al INDEC
 CAL_INFORMES = [("índice de precios al consumidor (ipc)", "f-inflacion"), ("valorización mensual de la canasta básica alimentaria", "f-canastas"),
                 ("estimador mensual de actividad económica", "f-emae"), ("mercado de trabajo. tasas e indicadores socioeconómicos", "f-desocupacion"),
                 ("incidencia de la pobreza", "f-pobreza"), ("bases de microdatos de la encuesta permanente de hogares", "f-ingresos-aglomerados"),
