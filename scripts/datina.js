@@ -9554,6 +9554,29 @@ if (citaEj) {
     `${MESES[hoy.getMonth()]} de ${hoy.getFullYear()}.`;
 }
 
+/* Calendario de próximos datos (F5 del plan de mejora): los informes del INDEC que alimentan fichas, desde hoy, cada uno con la pregunta de su
+   ficha. La lista sale de la última actualización: si ya pasaron todas sus fechas, dice hasta cuándo llega. Se ven las diez primeras y "Ver las
+   N fechas" muestra el resto */
+const calDatos = document.getElementById("cal-datos");
+if (calDatos) {
+  const DIAS = ["domingo", "lunes", "martes", "miércoles", "jueves", "viernes", "sábado"], hoy = new Date();
+  const hoyS = `${hoy.getFullYear()}-${String(hoy.getMonth() + 1).padStart(2, "0")}-${String(hoy.getDate()).padStart(2, "0")}`;
+  const titulo = Object.fromEntries(SITIO.fichas.map(f => [f[0], f[2]])), prox = (T.calendario_indec || []).filter(c => c.fecha >= hoyS);
+  calDatos.innerHTML = prox.length ? prox.map(c => {
+    const [a, m, d] = c.fecha.split("-").map(Number), p = paginaDe(c.ficha);
+    return `<li><span class="cal-fecha">${DIAS[new Date(a, m - 1, d).getDay()]} ${d} de ${MESES[m - 1]}${a !== hoy.getFullYear() ? ` de ${a}` : ""}</span>` +
+      `<span class="cal-inf">${esc(c.informe)}</span>` + (p && titulo[c.ficha] ? `<a href="${urlPagina(p, "#" + c.ficha)}">${esc(titulo[c.ficha])}</a>` : "") + "</li>";
+  }).join("") : `<li class="cal-vacio">La lista de Datina llega hasta el ${fechaLarga(R.calendario_indec ? R.calendario_indec.hasta : hoyS)}. ` +
+    "Las fechas siguientes están en el calendario de difusión del INDEC.</li>";
+  if (prox.length > 10) {
+    const resto = [...calDatos.children].slice(10), vm = document.createElement("button");
+    resto.forEach(li => li.hidden = true);
+    vm.type = "button"; vm.className = "enlace ver-mas"; vm.textContent = `Ver las ${prox.length} fechas`;
+    vm.addEventListener("click", () => { resto.forEach(li => li.hidden = false); vm.hidden = true; resto[0].querySelector("a")?.focus(); });
+    calDatos.after(vm);
+  }
+}
+
 /* recuadro de estado de la portada */
 const estado = document.getElementById("estado");
 if (estado) estado.innerHTML = [`${NFICHAS} fichas`, "24 jurisdicciones", `${ARTS.length} artículos`].map(t => `<span>${t}</span>`).join(" ");

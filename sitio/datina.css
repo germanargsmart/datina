@@ -808,6 +808,14 @@ html:not(.js) .busca-portada{display:none}
 .nos-texto{max-width:44em;margin-top:var(--e-7)}
 .nos-texto h2{margin:var(--e-7) 0 var(--e-2);font-size:var(--t-7);line-height:var(--i-titulo);font-weight:500;color:var(--azul);font-variation-settings:"wdth" 55,"opsz" 144;font-family:var(--f-c55)}
 .nos-texto p{margin:0 0 var(--e-3);line-height:1.6}
+/* F5: el calendario de próximos datos, una fila por informe (la fecha, el informe y la ficha), sin viñetas */
+.cal-datos{list-style:none;margin:0 0 var(--e-4);padding:0;border-top:1px solid var(--line)}
+.cal-datos li{display:grid;grid-template-columns:13.5em 1fr;gap:0 var(--e-4);padding:var(--e-2) 0;border-bottom:1px solid var(--line);font-size:var(--t-3);line-height:1.45}
+.cal-fecha{grid-row:span 2;font-weight:600;color:var(--ink)}
+.cal-inf{color:var(--muted)}
+.cal-datos li.cal-vacio{display:block;color:var(--muted)}
+.cal-acciones{display:flex;flex-wrap:wrap;align-items:center;gap:var(--e-3) var(--e-4)}
+@media (max-width:600px){.cal-datos li{grid-template-columns:1fr}.cal-fecha{grid-row:auto}}
 @media (max-width:760px){
   .nos-cifras{grid-template-columns:1fr 1fr}
   .nos-grid{grid-template-columns:1fr}

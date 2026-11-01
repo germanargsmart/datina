@@ -1,0 +1,40 @@
+{
+ "tabla": "calendario_indec.csv",
+ "titulo": "calendario_indec",
+ "descripcion": "",
+ "seccion": "Laboratorio",
+ "ficha": "https://datina.pages.dev/usar-datos.html",
+ "fuente": "",
+ "actualizacion": "",
+ "cobertura": "Sin desglose territorial",
+ "periodo": "4 de noviembre de 2026 a 26 de enero de 2027",
+ "filas": 30,
+ "columnas": [
+  {
+   "nombre": "fecha",
+   "tipo": "Fecha",
+   "valores": "4 de noviembre de 2026 a 26 de enero de 2027"
+  },
+  {
+   "nombre": "hora",
+   "tipo": "Texto",
+   "valores": "16:00"
+  },
+  {
+   "nombre": "informe",
+   "tipo": "Texto",
+   "valores": "30 valores distintos"
+  },
+  {
+   "nombre": "ficha",
+   "tipo": "Texto",
+   "valores": "12 valores distintos"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "28/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
+ "como_citar": "Datina (año de la consulta). calendario_indec. Con datos de . https://datina.pages.dev/usar-datos.html. Consultado el día de la consulta."
+}

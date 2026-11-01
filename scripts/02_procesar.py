@@ -3282,6 +3282,24 @@ for _infp_r, _infp_k in _infp_reg.items():
                  "variacion_12m": float((_infp_x.at[c, INFP_FIN] / _infp_x.at[c, INFP_INI] - 1) * 100)} for c in _infp_w.index]
 inflacion_personal = pd.DataFrame(_infp_f)
 INFP_RES = {"ini": INFP_INI, "fin": INFP_FIN}
+# Calendario de próximos datos (F5 del plan de mejora, aprobado por el autor el 28 de octubre de 2026): de los informes que el INDEC anuncia en
+# su calendario de difusión para el mes de la descarga y los dos siguientes (indec_calendario.csv, de 01), los que alimentan una ficha de
+# Datina, con esa ficha. El comienzo del título de cada informe dice cuál es (sin mayúsculas). Cubre solo al INDEC
+CAL_INFORMES = [("índice de precios al consumidor (ipc)", "f-inflacion"), ("valorización mensual de la canasta básica alimentaria", "f-canastas"),
+                ("estimador mensual de actividad económica", "f-emae"), ("mercado de trabajo. tasas e indicadores socioeconómicos", "f-desocupacion"),
+                ("incidencia de la pobreza", "f-pobreza"), ("bases de microdatos de la encuesta permanente de hogares", "f-ingresos-aglomerados"),
+                ("índice de salarios", "f-salario-real"), ("intercambio comercial argentino", "f-balanza"), ("balanza de pagos", "f-cuenta-corriente"),
+                ("encuesta de supermercados", "f-supermercados"), ("indicadores de coyuntura de la actividad de la construcción", "f-permisos"),
+                ("índice del costo de la construcción", "f-costo"), ("estadísticas de turismo internacional", "f-eti"),
+                ("encuesta de ocupación hotelera", "f-hoteles")]
+calendario_indec, CAL_RES = None, None
+if (CRUDO / "indec_calendario.csv").exists():
+    _cal_d = pd.read_csv(CRUDO / "indec_calendario.csv", dtype=str)
+    _cal_d["ficha"] = _cal_d.informe.map(lambda t: next((f for pre, f in CAL_INFORMES if t.lower().startswith(pre)), None))
+    calendario_indec = _cal_d.dropna(subset=["ficha"]).sort_values(["fecha", "informe"], kind="stable").reset_index(drop=True)
+    # el INDEC publica el IPC todos los meses: si no está, cambiaron los títulos o el calendario vino incompleto
+    assert (calendario_indec.ficha == "f-inflacion").any(), "calendario del INDEC: no está el IPC (¿cambiaron los títulos?)"
+    CAL_RES = {"desde": calendario_indec.fecha.iloc[0], "hasta": calendario_indec.fecha.iloc[-1], "n": int(len(calendario_indec))}
 # Haberes previsionales frente al salario (etapa 42, pedido del autor del 12 de octubre de 2026: "animate a pensar qué más podemos sumar"):
 # el haber mínimo de la Ley 24.241, el mínimo con los adicionales que se pagaron varios meses seguidos (el subsidio de 2002 y 2003 y los
 # refuerzos desde septiembre de 2022), la jubilación y la pensión promedio y el haber promedio de ANSES, promedio de cada año, y el salario
@@ -7275,6 +7293,7 @@ tablas = {
     **({"rotacion_laboral": rotacion} if rotacion is not None else {}),
     **({"jubilaciones_aportantes": jubil} if jubil is not None else {}),
     **({"haberes_previsionales": haberes} if haberes is not None else {}),
+    **({"calendario_indec": calendario_indec} if calendario_indec is not None else {}),
     **({"pensiones_invalidez": pinv_pais, "pensiones_invalidez_provincias": pinv_prov} if pinv_pais is not None else {}),
     **({"auh_provincias": auh_prov, "asignaciones_cobertura": auh_cob} if auh_prov is not None else {}),
     **({"prestacion_desempleo": dsm_pais, "prestacion_desempleo_provincias": dsm_prov} if dsm_pais is not None else {}),
@@ -7649,6 +7668,8 @@ resumen["medicos"] = MEDI_RES
 resumen["sociedades"] = SOC_RES
 resumen["censos"] = CZ_RES
 resumen["inflacion_personal"] = INFP_RES
+if CAL_RES:
+    resumen["calendario_indec"] = CAL_RES
 resumen["departamentos"] = {"meta": {k: {"nombre": v[0], "unidad": v[1], "fuente": v[2]} for k, v in DEP_META.items()},
                             "anio_snic": ANIO_DEP, "n": int(len(departamentos))}
 resumen["elecciones"] = el_meta

@@ -662,6 +662,44 @@ D["indice"] = INDICE
 datos = "window.DATINA=" + json.dumps(D, ensure_ascii=False, separators=(",", ":")) + ";\n"
 (SITIO / "datos" / "fichas.js").write_text(datos, encoding="utf-8", newline="\n")
 
+# Calendario de próximos datos (F5 del plan de mejora): los informes del INDEC que alimentan fichas (calendario_indec, de 02) también como
+# archivo .ics para sumar a un calendario. Cada informe es un evento de media hora a las 16:00 de la Argentina, escrito en UTC (19:00: el país no
+# cambia la hora), así no hace falta describir la zona horaria. El archivo sale igual en cada armado: la marca de tiempo de cada evento es el día
+# de la última actualización de los datos y su identificador, una huella de la fecha y el título. Va en CRLF, como pide el formato (RFC 5545):
+# .gitattributes lo saca de la regla de LF de sitio/
+def _ics_texto(t):
+    return t.replace("\\", "\\\\").replace(";", "\\;").replace(",", "\\,").replace("\n", "\\n")
+def _ics_linea(l):
+    # las líneas de más de 75 bytes se parten y la continuación empieza con un espacio, sin cortar una letra por la mitad
+    b, partes = l.encode("utf-8"), []
+    while len(b) > 75:
+        k = 75 if not partes else 74
+        while b[k] & 0xC0 == 0x80:
+            k -= 1
+        partes.append(b[:k].decode("utf-8"))
+        b = b[k:]
+    return "\r\n ".join(partes + [b.decode("utf-8")])
+if "calendario_indec" in D["datos"]:
+    _ics_url = json.loads((RAIZ / "datos" / "manual" / "sitio.json").read_text(encoding="utf-8"))["url"].rstrip("/")
+    _ics_tit = {f[0]: f[2] for f in FICHAS}
+    _ics_d, _ics_m, _ics_a = RESUMEN["actualizado"].split("/")
+    _ics = ["BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//Datina//Calendario de datos del INDEC//ES", "CALSCALE:GREGORIAN", "METHOD:PUBLISH",
+            "X-WR-CALNAME:Datina: próximos datos del INDEC"]
+    for _c in D["datos"]["calendario_indec"]:
+        assert _c["ficha"] in UBIC and _c["ficha"] in _ics_tit, f"calendario del INDEC: la ficha {_c['ficha']} no está en la plantilla"
+        _pg = UBIC[_c["ficha"]]
+        _dir = f"{_ics_url}/{'' if _pg == 'inicio' else _pg + '.html'}#{_c['ficha']}"
+        _h, _mi = (int(x) for x in _c["hora"].split(":"))
+        _ini = datetime.datetime.strptime(_c["fecha"], "%Y-%m-%d").replace(hour=_h, minute=_mi) + datetime.timedelta(hours=3)
+        _ics += ["BEGIN:VEVENT", f"UID:{huella(_c['fecha'] + _c['informe'])}@datina", f"DTSTAMP:{_ics_a}{_ics_m}{_ics_d}T000000Z",
+                 f"DTSTART:{_ini:%Y%m%dT%H%M%SZ}", f"DTEND:{_ini + datetime.timedelta(minutes=30):%Y%m%dT%H%M%SZ}",
+                 "SUMMARY:" + _ics_texto(f"INDEC: {_c['informe']}"),
+                 "DESCRIPTION:" + _ics_texto(f"El INDEC publica este informe a las {_c['hora']}. Datina lo suma en su actualización del día 5 que sigue. "
+                                             f"En Datina: {_ics_tit[_c['ficha']]} {_dir}"),
+                 f"URL:{_dir}", "END:VEVENT"]
+    _ics.append("END:VCALENDAR")
+    (SITIO / "datos" / "calendario_indec.ics").write_bytes(("\r\n".join(_ics_linea(l) for l in _ics) + "\r\n").encode("utf-8"))
+
 # Iconos isometricos propios (los genera scripts/iconos_isometricos.py en datos/manual/iconos_iso): trazo y tono de cada uno
 DIR_ICONOS = RAIZ / "datos" / "manual" / "iconos_iso"
 TONOS = json.loads((DIR_ICONOS / "tonos.json").read_text(encoding="utf-8"))

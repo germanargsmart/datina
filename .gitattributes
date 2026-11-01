@@ -3,3 +3,5 @@
 # cada organismo) y datos/manual no se tocan: tienen archivos con CRLF que se guardan como llegaron.
 sitio/** text=auto eol=lf
 datos/ordenado/** text=auto eol=lf
+# el calendario .ics va en CRLF, como pide su formato (RFC 5545, F5 del plan de mejora): queda fuera de la regla de LF
+sitio/datos/*.ics -text

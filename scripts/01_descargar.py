@@ -2649,12 +2649,42 @@ def sociedades():
     return url
 
 
+def indec_calendario():
+    """Calendario de difusión del INDEC (F5 del plan de mejora, aprobado por el autor el 28 de octubre de 2026): los informes que publica en el
+    mes de la descarga y en los dos siguientes, con su fecha y su hora. La página arma cada mes con un fragmento (/Calendario/FiltrosCalendario/
+    mes/Noviembre-2026/1) y cada informe trae un enlace para agendarlo en Google Calendar con su título y su fecha: se leen esos enlaces. Un mes
+    futuro puede venir vacío si el INDEC todavía no lo cargó, el de la descarga no. Se guarda solo la lista (indec_calendario.csv)."""
+    import html
+    nombres = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"]
+    hoy = datetime.date.today()
+    vistos, filas = set(), []
+    for k in range(3):
+        anio, mes = hoy.year + (hoy.month - 1 + k) // 12, (hoy.month - 1 + k) % 12 + 1
+        url = f"https://www.indec.gob.ar/Calendario/FiltrosCalendario/mes/{nombres[mes - 1]}-{anio}/1"
+        texto = leer(url, 60).decode("utf-8")
+        enlaces = re.findall(r"calendar/render\?action=TEMPLATE&amp;text=(.*?)&amp;dates=(\d{8})T(\d{4})", texto)
+        if k == 0 and not enlaces:
+            raise ValueError(f"el calendario del INDEC no trae informes en {nombres[mes - 1].lower()} de {anio}")
+        for t, d, h in enlaces:
+            titulo = re.sub(r"\s+", " ", html.unescape(urllib.parse.unquote_plus(html.unescape(t)))).strip()
+            fila = (f"{d[:4]}-{d[4:6]}-{d[6:]}", f"{h[:2]}:{h[2:]}", titulo)
+            if fila not in vistos:
+                vistos.add(fila)
+                filas.append(fila)
+    with open(CRUDO / "indec_calendario.csv", "w", newline="", encoding="utf-8") as g:
+        w = csv.writer(g, lineterminator="\n")
+        w.writerow(["fecha", "hora", "informe"])
+        w.writerows(sorted(filas))
+    return "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
+
+
 # los tipos societarios de la Ley General de Sociedades (19.550) y las sociedades por acciones simplificadas (Ley 27.349), como los escribe el registro
 TIPOS_SOCIEDAD = {"SOCIEDAD DE RESPONSABILIDAD LIMITADA", "SOCIEDAD POR ACCION SIMPLIFICADA", "SOCIEDAD ANONIMA", "SOCIEDAD ANONIMA UNIPERSONAL",
                   "SOCIEDAD LEY 19550 CAPITULO I SECCION IV", "SOCIEDAD EN COMANDITA SIMPLE", "SOCIEDAD EN COMANDITA POR ACCIONES",
                   "SOCIEDAD COLECTIVA", "CAPITAL E INDUSTRIA"}
 # fuentes que arma una función y no una dirección de FUENTES: --solo también las acepta por el nombre del archivo que escriben
-SOLO_FUNCIONES = {"jus_sociedades_resumen.csv": sociedades, "eph_poblacion_aglomerados.csv": eph_poblacion_sola}
+SOLO_FUNCIONES = {"jus_sociedades_resumen.csv": sociedades, "eph_poblacion_aglomerados.csv": eph_poblacion_sola,
+                  "indec_calendario.csv": indec_calendario}
 
 
 # Una fuente nueva sin bajar todo (24 de octubre de 2026): `python scripts/01_descargar.py --solo archivo [archivo ...]` baja solo esos
@@ -2708,7 +2738,8 @@ for _nombre, _f in [("votaciones nominales", votaciones), ("exportaciones por se
                     ("estadísticas monetarias y reservas (API del BCRA)", bcra_monetarias),
                     ("planilla de reservas internacionales y liquidez (BCRA)", bcra_planilla_reservas),
                     ("índices de la Universidad Torcuato Di Tella", utdt_series),
-                    ("sociedades constituidas por año y provincia (Registro Nacional de Sociedades)", sociedades)]:
+                    ("sociedades constituidas por año y provincia (Registro Nacional de Sociedades)", sociedades),
+                    ("calendario de difusión (INDEC)", indec_calendario)]:
     try:
         _origen = _f() or "github.com/rquiroga7/como_voto"
         registro.append([_nombre, _origen, datetime.datetime.now().isoformat(timespec="seconds"), "ok"])
