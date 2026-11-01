@@ -481,9 +481,10 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     <article class="ficha" id="f-inflacion-rubros">
       <h2>¿Qué rubros subieron más en los últimos doce meses?</h2>
       <p class="ficha-sub">Inflación por rubro en los doce meses hasta {{economia.ipc.mes}}</p>
-      <div class="conmutador" role="group" aria-label="Vista" data-g="inflacion-rubros">
+      <div class="conmutador" role="group" aria-label="Vista" data-g="inflacion-rubros" style="--n:3">
         <button type="button" data-m="division" aria-pressed="true">Rubros</button>
         <button type="button" data-m="categoria" aria-pressed="false">Categorías</button>
+        <button type="button" data-m="tu" aria-pressed="false">Tu inflación</button>
       </div>
       <div class="grafico" data-g="inflacion-rubros" data-forma="barras" style="--filas:12"></div>
       <p class="lead" data-t="inflacion-rubros"></p>

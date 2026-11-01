@@ -1645,6 +1645,17 @@
    "url": "https://www.argentina.gob.ar/sites/default/files/medicos_activos_argentina_2025_ofethus_dncydts_2026_v300926_a_3092026.pdf"
   },
   {
+   "id": "ds:manual/ponderaciones_ipc.csv",
+   "nombre": "Ponderaciones del IPC por región y división (Metodología del IPC, 2019, Anexo II, cuadro 7)",
+   "fuente": "org:indec",
+   "ruta": "datos/manual/ponderaciones_ipc.csv",
+   "evidencia": {
+    "archivo": "scripts/02_procesar.py",
+    "contiene": "_infp_w = pd.read_csv(RAIZ / \"datos\" / \"manual\" / \"ponderaciones_ipc.csv\", dtype={\"division\": str}).set_index(\"division\")"
+   },
+   "url": "https://www.indec.gob.ar/ftp/cuadros/economia/metodologia_ipc_nacional_2019.pdf"
+  },
+  {
    "id": "ds:manual/ministros.csv",
    "nombre": "Ministros y jefes de gabinete desde 1983 con lugar de nacimiento",
    "fuente": "org:wikimedia",
@@ -7145,6 +7156,22 @@
      "contiene": "\"vacunas_serie\": vacunas_serie,"
     }
    ]
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:manual/ponderaciones_ipc.csv",
+   "a": "f-inflacion-rubros",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_infp_w = pd.read_csv(RAIZ / \"datos\" / \"manual\" / \"ponderaciones_ipc.csv\", dtype={\"division\": str}).set_index(\"division\")"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"inflacion_personal\": inflacion_personal,"
+    }
+   ],
+   "tabla": "inflacion_personal"
   },
   {
    "tipo": "alimenta",
