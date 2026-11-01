@@ -808,6 +808,11 @@ html:not(.js) .busca-portada{display:none}
 .nos-texto{max-width:44em;margin-top:var(--e-7)}
 .nos-texto h2{margin:var(--e-7) 0 var(--e-2);font-size:var(--t-7);line-height:var(--i-titulo);font-weight:500;color:var(--azul);font-variation-settings:"wdth" 55,"opsz" 144;font-family:var(--f-c55)}
 .nos-texto p{margin:0 0 var(--e-3);line-height:1.6}
+/* F17: el buscador de departamentos, debajo del indicador, y el valor del elegido arriba de las listas */
+.mp-buscar{margin-top:var(--e-3)}
+.mp-buscar input{width:100%;max-width:28em}
+.mp-elegido{text-align:left;margin:0 0 var(--e-4);padding:var(--e-3) var(--e-4);border-left:3px solid var(--ink);background:var(--superficie);font-size:var(--t-3);line-height:1.5}
+.mp-elegido[hidden]{display:none}
 /* F5: el calendario de próximos datos, una fila por informe (la fecha, el informe y la ficha), sin viñetas */
 .cal-datos{list-style:none;margin:0 0 var(--e-4);padding:0;border-top:1px solid var(--line)}
 .cal-datos li{display:grid;grid-template-columns:13.5em 1fr;gap:0 var(--e-4);padding:var(--e-2) 0;border-bottom:1px solid var(--line);font-size:var(--t-3);line-height:1.45}
@@ -1659,7 +1664,7 @@ svg.mapa-prov .caba-aparte line{stroke:var(--muted);stroke-width:.8}
 .cp-rubros{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:var(--e-3) var(--e-4)}
 /* los nombres de los rubros pasan de tres palabras: con la letra del texto, en negrita (D9) */
 .cp-rubros .selector-ficha span{font:600 var(--t-2)/1.3 var(--f);letter-spacing:0;text-transform:none;color:var(--ink)}
-.calc-ingreso input,.calc-inflacion input{width:100%;min-width:0;min-height:44px;padding:0 var(--e-3);font:inherit;font-size:var(--t-3);color:var(--ink);background:var(--bg);border:1px solid var(--azul);border-radius:var(--r-control)}
+.calc-ingreso input,.calc-inflacion input,.mp-buscar input{width:100%;min-width:0;min-height:44px;padding:0 var(--e-3);font:inherit;font-size:var(--t-3);color:var(--ink);background:var(--bg);border:1px solid var(--azul);border-radius:var(--r-control)}
 /* una tabla que es el gráfico de su sección (los nombres por provincia): entera, sin su propio desplazamiento */
 .nota-tabla .tabla-desliza{max-height:none;margin-top:var(--e-6)}
 .nota .nota-pie-graf{margin:var(--e-1) 0 0;font-size:var(--t-2);color:var(--muted)}
