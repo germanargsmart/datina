@@ -782,7 +782,7 @@ html:not(.js) .busca-portada{display:none}
 .tabla-compara tbody th small{display:block;font-weight:400;font-size:var(--t-1);color:var(--muted)}
 .tabla-compara tr.compara-grupo th{background:var(--superficie);color:var(--azul);font-weight:600}
 /* F14: el puesto de antes y el de ahora, con una pendiente chica en cada tarjeta */
-.prov-puestos{margin-top:var(--e-6)}.dp-pendiente{display:block;width:100%;max-width:220px;height:64px;margin:var(--e-2) 0}
+.prov-puestos,.prov-censos{margin-top:var(--e-6)}.dp-pendiente{display:block;width:100%;max-width:220px;height:64px;margin:var(--e-2) 0}
 @media (max-width:760px){
   /* en el celular los indicadores de la provincia se deslizan de costado */
   .perfil-tarjetas{grid-auto-flow:column;grid-template-columns:none;grid-auto-columns:80%;overflow-x:auto;scroll-snap-type:x mandatory;

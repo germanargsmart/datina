@@ -1,0 +1,6 @@
+indicador,nombre,unidad,valor_2010,valor_2022,cambio
+agua_red,Agua de red,% de los hogares,83.9292,85.0351,1.1
+cloaca,Cloacas,% de los hogares con desagüe a red cloacal,53.1838,59.2272,6.0
+computadora,Computadora,% de los hogares,46.9877,57.15,10.1
+nbi,Necesidades básicas insatisfechas,% de los hogares,9.1287,6.7424,-2.4
+sin_cobertura,"Sin obra social, prepaga ni plan estatal",% de las personas en viviendas particulares,36.0834,35.7671,-0.3

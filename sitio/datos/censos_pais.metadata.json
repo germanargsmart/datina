@@ -1,0 +1,54 @@
+{
+ "tabla": "censos_pais.csv",
+ "titulo": "Tu provincia",
+ "descripcion": "",
+ "seccion": "Tu provincia",
+ "ficha": "https://datina.pages.dev/provincia.html",
+ "fuente": "",
+ "actualizacion": "",
+ "cobertura": "Sin desglose territorial",
+ "periodo": "",
+ "filas": 5,
+ "columnas": [
+  {
+   "nombre": "indicador",
+   "tipo": "Texto",
+   "valores": "agua_red, cloaca, computadora, nbi, sin_cobertura"
+  },
+  {
+   "nombre": "nombre",
+   "tipo": "Texto",
+   "valores": "Agua de red, Cloacas, Computadora, Necesidades básicas insatisfechas, Sin obra social, prepaga ni plan estatal"
+  },
+  {
+   "nombre": "unidad",
+   "tipo": "Texto",
+   "valores": "% de las personas en viviendas particul…, % de los hogares, % de los hogares con desagüe a red cloa…"
+  },
+  {
+   "nombre": "valor_2010",
+   "tipo": "Número",
+   "valores": "9,13 a 83,93"
+  },
+  {
+   "nombre": "valor_2022",
+   "tipo": "Número",
+   "valores": "6,74 a 85,04"
+  },
+  {
+   "nombre": "cambio",
+   "tipo": "Número",
+   "valores": "-2,4 a 10,1"
+  }
+ ],
+ "unidades": [
+  "% de las personas en viviendas particulares",
+  "% de los hogares",
+  "% de los hogares con desagüe a red cloacal"
+ ],
+ "como_se_calcula": "",
+ "datos_actualizados": "28/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
+ "como_citar": "Datina (año de la consulta). Tu provincia. Con datos de . https://datina.pages.dev/provincia.html. Consultado el día de la consulta."
+}

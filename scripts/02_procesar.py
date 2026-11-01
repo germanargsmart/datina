@@ -1587,6 +1587,36 @@ censo_pais = {c: float((censo[c] * censo[f"{c}_base"]).sum() / censo[f"{c}_base"
 for c in CENSO_COLS:
     d = censo[["codigo_indec", "territorio", c]].rename(columns={c: "valor"}); d["periodo"] = 2022
     agregar(d, f"censo2022_{c}", "% de hogares" if c != "sin_cobertura" else "% de personas", "INDEC, Censo 2022")
+
+# Cómo cambió cada provincia entre los censos 2010 y 2022 (F12 del plan de mejora, aprobado por el autor el 28 de octubre de 2026). Los valores
+# de 2010 los arma una sola vez scripts/censo_2010.py desde los cuadros del INDEC (datos/manual/censo2010_provincias.csv), con las mismas
+# definiciones que los de 2022 de arriba. El país de 2010 suma las provincias, pesadas por sus hogares o por su población en viviendas
+# particulares. 2010 fue un censo de hecho y 2022 de derecho, y en 2022 la computadora incluye notebook y tableta (lo dice la nota)
+CZ_IND = {"agua_red": ("Agua de red", "% de los hogares", "hogares_2010"),
+          "cloaca": ("Cloacas", "% de los hogares con desagüe a red cloacal", "hogares_2010"),
+          "computadora": ("Computadora", "% de los hogares", "hogares_2010"),
+          "nbi": ("Necesidades básicas insatisfechas", "% de los hogares", "hogares_2010"),
+          "sin_cobertura": ("Sin obra social, prepaga ni plan estatal", "% de las personas en viviendas particulares", "poblacion_viviendas_particulares_2010")}
+_cz10 = pd.read_csv(RAIZ / "datos" / "manual" / "censo2010_provincias.csv", dtype={"codigo_indec": str}).set_index("codigo_indec")
+_cz22 = censo.set_index("codigo_indec")
+assert set(_cz10.index) == set(POB), "censo 2010: las jurisdicciones no son las 24"
+censos_provincias = pd.DataFrame([{"codigo_indec": c, "territorio": CORTO[c], "indicador": k, "nombre": lab, "unidad": uni,
+                                   "valor_2010": float(_cz10.at[c, f"{k}_2010"]), "valor_2022": float(_cz22.at[c, k])}
+                                  for c in sorted(POB) for k, (lab, uni, _) in CZ_IND.items()])
+# la diferencia entre las cifras que se muestran, redondeadas a un decimal (R12): "de 53,0% a 62,3%" da 9,3 puntos y no 9,2
+censos_provincias["cambio"] = (censos_provincias.valor_2022.map(r1) - censos_provincias.valor_2010.map(r1)).round(1)
+# las tres diferencias más grandes de cada provincia, en puntos y sin importar el signo (que una suba sea buena o mala depende del indicador)
+censos_provincias["orden"] = censos_provincias.groupby("codigo_indec").cambio.transform(lambda s: s.abs().rank(ascending=False, method="first")).astype(int)
+_cz_pais = {k: [float((_cz10[f"{k}_2010"] * _cz10[peso]).sum() / _cz10[peso].sum()), censo_pais[k]] for k, (_, _, peso) in CZ_IND.items()}
+censos_pais = pd.DataFrame([{"indicador": k, "nombre": CZ_IND[k][0], "unidad": CZ_IND[k][1], "valor_2010": v[0], "valor_2022": v[1], "cambio": round(r1(v[1]) - r1(v[0]), 1)}
+                            for k, v in _cz_pais.items()])
+_cz_pob = _cz10[["poblacion_2010", "poblacion_2022"]].assign(var=lambda t: (t.poblacion_2022 / t.poblacion_2010 - 1) * 100)
+CZ_RES = {
+    "pais": {k: [r1(v[0]), r1(v[1])] for k, v in _cz_pais.items()},
+    "pob": [int(_cz_pob.poblacion_2010.sum()), int(_cz_pob.poblacion_2022.sum())],
+    "pob_var": r1((_cz_pob.poblacion_2022.sum() / _cz_pob.poblacion_2010.sum() - 1) * 100),
+    "pob_var_prov": {c: r1(v) for c, v in _cz_pob["var"].items()},
+}
 censo = censo[["codigo_indec", "territorio"] + CENSO_COLS]
 
 # Internet fijo: accesos cada 100 hogares y velocidad media de bajada (ENACOM), ultimo trimestre
@@ -7193,6 +7223,8 @@ tablas = {
     "sociedades_pais": sociedades_pais,
     "puestos_provincias": puestos_provincias,
     "pobreza_provincias": pobreza_provincias,
+    "censos_provincias": censos_provincias,
+    "censos_pais": censos_pais,
     "elecciones_presidenciales": presidenciales,
     "congreso_composicion": congreso,
     "anios_congreso": anios_congreso,
@@ -7588,6 +7620,7 @@ resumen["telefonia"] = TF_RES
 resumen["cobertura_suelo"] = MB_RES
 resumen["medicos"] = MEDI_RES
 resumen["sociedades"] = SOC_RES
+resumen["censos"] = CZ_RES
 resumen["departamentos"] = {"meta": {k: {"nombre": v[0], "unidad": v[1], "fuente": v[2]} for k, v in DEP_META.items()},
                             "anio_snic": ANIO_DEP, "n": int(len(departamentos))}
 resumen["elecciones"] = el_meta

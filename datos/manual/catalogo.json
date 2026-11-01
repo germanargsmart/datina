@@ -48,6 +48,25 @@
     "contiene": "const el = G(\"carceles\"), fp = T.carceles_provincias.find(r => r.codigo_indec === prov);"
    }
   },
+  "censos_pais": {
+   "en": [
+    "provincia"
+   ],
+   "complementaria": true,
+   "evidencia": {
+    "archivo": "scripts/datina.js",
+    "contiene": "const pais = k => (T.censos_pais || []).find(r => r.indicador === k), pv = CZ.pob_var_prov[prov];"
+   }
+  },
+  "censos_provincias": {
+   "en": [
+    "provincia"
+   ],
+   "evidencia": {
+    "archivo": "scripts/datina.js",
+    "contiene": "const filas = (T.censos_provincias || []).filter(r => r.codigo_indec === prov).sort((a, b) => a.orden - b.orden);"
+   }
+  },
   "corte_composicion": {
    "en": [
     "corte-suprema"
