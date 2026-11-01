@@ -6407,6 +6407,40 @@ const MAPA_DEP = (() => {
   let ind = "homicidios", topo = null, filas = null, cargando = null, cerca = null;
   sel.addEventListener("change", () => { ind = sel.value; cambiarVista("mapa-dep"); });
   document.getElementById("mp-pais").addEventListener("click", () => { cerca = {c: "", de: prov}; cambiarVista("mapa-dep"); });
+  // F17 (plan de mejora): buscar un departamento o partido. Las opciones son "nombre (provincia)", porque hay nombres repetidos (San Martín). Al
+  // elegir uno, el mapa acerca su provincia, lo marca y dice su valor y en qué quinto del país queda (los cinco grupos de colores del mapa)
+  let elegido = null;
+  const buscar = document.getElementById("mp-buscar"), opciones = document.getElementById("mp-deps"), avisoDep = document.getElementById("mp-elegido");
+  const sinTilde = t => t.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
+  const etiquetaDep = f => `${f.properties.nombre} (${NOMBRES[f.properties.prov]})`;
+  const llenarOpciones = () => {
+    if (opciones.childElementCount) return;
+    opciones.innerHTML = topojson.feature(topo, topo.objects.departamentos).features.map(etiquetaDep).sort((p, q) => p.localeCompare(q, "es"))
+      .map(t => `<option value="${t.replace(/"/g, "&quot;")}"></option>`).join("");
+  };
+  // lo escrito puede ser la opción entera o solo el nombre, si no se repite en otra provincia
+  const hallarDep = t => {
+    const q = sinTilde(t.trim()), todos = topojson.feature(topo, topo.objects.departamentos).features;
+    const exacto = todos.filter(f => sinTilde(etiquetaDep(f)) === q);
+    if (exacto.length) return exacto[0];
+    const porNombre = todos.filter(f => sinTilde(f.properties.nombre) === q);
+    return porNombre.length === 1 ? porNombre[0] : null;
+  };
+  const elegirDep = (final) => {
+    if (!topo || !buscar.value.trim()) return;
+    const f = hallarDep(buscar.value);
+    if (!f) {
+      if (final) { avisoDep.hidden = false; avisoDep.textContent = "No encontramos ese departamento o partido. Elegí uno de la lista, con su provincia."; }
+      return;
+    }
+    if (f.properties.id === elegido && cerca && cerca.c === f.properties.prov && cerca.de === prov) return;
+    elegido = f.properties.id; cerca = {c: f.properties.prov, de: prov}; buscar.value = etiquetaDep(f);
+    cambiarVista("mapa-dep");
+  };
+  buscar.addEventListener("focus", () => cargar().then(llenarOpciones, () => {}), {once: true});
+  buscar.addEventListener("input", () => elegirDep(false));
+  buscar.addEventListener("change", () => elegirDep(true));
+  buscar.addEventListener("keydown", ev => { if (ev.key === "Enter") { ev.preventDefault(); elegirDep(true); } });
   const cargar = () => cargando || (cargando = Promise.all([d3.json("datos/departamentos.topo.json"), d3.csv("datos/departamentos.csv", d3.autoType)])
     .then(([t, f]) => { topo = t; filas = Object.fromEntries(f.map(r => [String(r.id).padStart(5, "0"), r])); }, e => { cargando = null; throw e; }));
   const MIN_POB = 10000, MIN_HOG = 3000;  // las listas del censo se cortan por hogares, las demás por personas identificadas
@@ -6437,6 +6471,10 @@ const MAPA_DEP = (() => {
     const deps = svg.append("g").selectAll("path").data(enProv).join("path").attr("class", "dep").attr("d", camino)
       .attr("fill", f => { const v = filas[f.properties.id]?.[ind]; return v == null ? "#E4E9EF" : escala(v); });
     if (anim && !REDUCIR) deps.attr("opacity", 0).transition().delay(escalon).duration(DUR_G).attr("opacity", 1);
+    const marcado = deps.filter(f => f.properties.id === elegido).raise().attr("stroke", css("--ink")).attr("stroke-width", 2.5);
+    // un círculo alrededor del elegido: en el Gran Buenos Aires los partidos son muy chicos y el borde solo no se ve
+    marcado.each(f => { const [cx, cy] = camino.centroid(f); svg.append("circle").attr("class", "mp-marca").attr("cx", cx).attr("cy", cy).attr("r", 9)
+      .attr("fill", "none").attr("stroke", css("--ink")).attr("stroke-width", 2).attr("pointer-events", "none"); });
     const geoms = NOMBRES[pv] ? {type: "GeometryCollection", geometries: obj.geometries.filter(g => g.properties.prov === pv)} : obj;
     svg.append("path").attr("class", "limite").attr("d", camino(topojson.mesh(topo, geoms, (a, b) => a.properties.prov !== b.properties.prov || a === b)));
     const f1 = d3.format(",.1f"), fv = v => v == null ? "sin dato" : loc.format(",.1f")(v);
@@ -6454,6 +6492,15 @@ const MAPA_DEP = (() => {
     const lugar = NOMBRES[pv] || "Todo el país";
     document.getElementById("mp-lugar").innerHTML = conBandera(NOMBRES[pv] ? pv : "00", `${lugar}: ${m.nombre.toLowerCase()}`);
     document.getElementById("mp-pais").hidden = !NOMBRES[pv];
+    if (elegido) {
+      const fe = todos.find(f => f.properties.id === elegido), r = filas[elegido] || {}, v = r[ind];
+      const QUINTOS = ["el quinto más bajo", "el segundo quinto", "el quinto del medio", "el cuarto quinto", "el quinto más alto"];
+      const pocos = censo ? (r.hogares || 0) < MIN_HOG : (r.poblacion_identificada || 0) < MIN_POB;
+      avisoDep.hidden = false;
+      avisoDep.innerHTML = `<b>${fe.properties.nombre}</b> (${NOMBRES[fe.properties.prov]}). ${m.nombre}: ` + (v == null ? "sin dato." :
+        `${fv(v)} (${m.unidad}). Está en ${QUINTOS[cortes.filter(q => v >= q).length]} de los departamentos del país.` +
+        (pocos ? " Tiene poca población: unos pocos casos mueven mucho este valor." : "")) + (marcado.empty() ? "" : " En el mapa, con un círculo.");
+    }
     const lista = enProv.map(f => ({f, r: filas[f.properties.id]})).filter(o => o.r && o.r[ind] != null && (censo ? (o.r.hogares || 0) >= MIN_HOG : (o.r.poblacion_identificada || 0) >= MIN_POB))
       .sort((a, b) => b.r[ind] - a.r[ind]);
     const item = o => `<li>${o.f.properties.nombre}${NOMBRES[pv] ? "" : ` (${o.r.provincia})`} <span>${fv(o.r[ind])}</span></li>`;
