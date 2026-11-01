@@ -1287,6 +1287,17 @@
    "url": "https://www.indec.gob.ar/ftp/cuadros/menusuperior/eph/EPH_usu_{trimestre}_Trim_{anio}_txt.zip"
   },
   {
+   "id": "ds:eph_poblacion_aglomerados.csv",
+   "nombre": "Personas que representa cada aglomerado de la EPH (suma de PONDERA), promedio de cuatro trimestres",
+   "fuente": "org:indec",
+   "ruta": "datos/crudo/eph_poblacion_aglomerados.csv",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "r.to_csv(CRUDO / \"eph_poblacion_aglomerados.csv\", index=False)"
+   },
+   "url": "https://www.indec.gob.ar/indec/web/Institucional-Indec-BasesDeDatos"
+  },
+  {
    "id": "ds:exportaciones_provincias.xls",
    "nombre": "Origen provincial de las exportaciones por rubro, 1993 en adelante",
    "fuente": "org:indec",
@@ -6815,6 +6826,22 @@
      "contiene": "\"pobreza_aglomerados\": pobreza_aglomerados,"
     }
    ]
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:eph_poblacion_aglomerados.csv",
+   "a": "f-pobreza-aglomerados",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_pzp_w = pd.read_csv(CRUDO / \"eph_poblacion_aglomerados.csv\").set_index(\"aglomerado\")"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"pobreza_provincias\": pobreza_provincias,"
+    }
+   ],
+   "tabla": "pobreza_provincias"
   },
   {
    "tipo": "alimenta",

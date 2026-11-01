@@ -141,16 +141,17 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 
     <!-- la pobreza de las regiones y de los aglomerados de la EPH (plan de mejora, etapa 4, 27 de octubre de 2026) -->
     <article class="ficha" id="f-pobreza-aglomerados">
-      <h2>¿Cuánta pobreza hay en cada región y en cada ciudad?</h2>
-      <p class="ficha-sub">Personas bajo la línea de pobreza en las seis regiones y en los 31 aglomerados urbanos de la EPH, primer semestre de 2026</p>
-      <div class="conmutador" role="group" aria-label="Vista" data-g="pobreza-aglomerados">
+      <h2>¿Cuánta pobreza hay en cada región, en cada provincia y en cada ciudad?</h2>
+      <p class="ficha-sub">Personas bajo la línea de pobreza en las seis regiones, en los aglomerados urbanos de cada provincia y en los 31 aglomerados de la EPH, primer semestre de 2026</p>
+      <div class="conmutador" role="group" aria-label="Vista" data-g="pobreza-aglomerados" style="--n:3">
         <button type="button" data-m="region" aria-pressed="true">Por región</button>
+        <button type="button" data-m="prov" aria-pressed="false">Por provincia</button>
         <button type="button" data-m="ciudad" aria-pressed="false">Por ciudad</button>
       </div>
       <div class="grafico" data-g="pobreza-aglomerados" data-forma="barras"></div>
       <p class="lead" data-t="pobreza-aglomerados"></p>
       <p class="nota" data-t="pobreza-aglomerados-nota"></p>
-      <div class="pie"><span>Fuente: INDEC, Encuesta Permanente de Hogares, incidencia de la pobreza y la indigencia. Se actualiza cada seis meses.</span><a href="datos/pobreza_aglomerados.csv" download>Descargar tabla (CSV)</a></div>
+      <div class="pie"><span>Fuente: INDEC, Encuesta Permanente de Hogares, incidencia de la pobreza y la indigencia. Se actualiza cada seis meses.</span><a href="datos/pobreza_aglomerados.csv" download>Por región y ciudad (CSV)</a><a href="datos/pobreza_provincias.csv" download>Por provincia (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-ingresos-aglomerados">
@@ -326,7 +327,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 <p class="solo-lector" id="aviso" aria-live="polite"></p>
 
 <!-- los datos van en un archivo aparte que el navegador guarda una sola vez para todas las páginas -->
-<script src="datos/fichas.js?v=648756fb71"></script>
-<script src="datina.js?v=0a8b253c24"></script>
+<script src="datos/fichas.js?v=3f8f5880a7"></script>
+<script src="datina.js?v=a6c0ef2f12"></script>
 </body>
 </html>

@@ -1587,6 +1587,7 @@ censo_pais = {c: float((censo[c] * censo[f"{c}_base"]).sum() / censo[f"{c}_base"
 for c in CENSO_COLS:
     d = censo[["codigo_indec", "territorio", c]].rename(columns={c: "valor"}); d["periodo"] = 2022
     agregar(d, f"censo2022_{c}", "% de hogares" if c != "sin_cobertura" else "% de personas", "INDEC, Censo 2022")
+
 censo = censo[["codigo_indec", "territorio"] + CENSO_COLS]
 
 # Internet fijo: accesos cada 100 hogares y velocidad media de bajada (ENACOM), ultimo trimestre
@@ -6990,6 +6991,30 @@ pza_res = {
     "cuidado": pza_o("aglomerado")[pza_o("aglomerado").cv_pobreza.between(16, 25)].nombre.tolist(),
     "no_confiable": pza_o("aglomerado")[pza_o("aglomerado").cv_pobreza > 25].nombre.tolist(),
 }
+# La pobreza de cada provincia (31 de octubre de 2026, pedido del autor: "agregá el dato de pobreza de las provincias", con el método que
+# eligió: juntar sus ciudades). El INDEC no la publica: es un cálculo propio con los aglomerados de la EPH de cada provincia, cada uno
+# pesado por las personas que representa en la encuesta (eph_poblacion_aglomerados.csv, de 01). Mide solo esas ciudades, no el resto de la
+# provincia. San Nicolás-Villa Constitución, que abarca Buenos Aires y Santa Fe, no entra en ninguna. El coeficiente de variación de la
+# provincia no se puede calcular con estos datos: se guarda el más alto de sus aglomerados, como advertencia
+_pzp_w = pd.read_csv(CRUDO / "eph_poblacion_aglomerados.csv").set_index("aglomerado")
+_pzp = pobreza_aglomerados[(pobreza_aglomerados.tipo == "aglomerado") & ~pobreza_aglomerados.provincias.str.contains(",")].copy()
+_pzp["personas"] = _pzp.clave.str[1:].astype(int).map(_pzp_w.personas)
+assert _pzp.personas.notna().all(), "pobreza por provincia: falta la población de algún aglomerado"
+pobreza_provincias = pd.DataFrame([{
+    "codigo_indec": c, "territorio": CORTO[c],
+    "pobreza": (g.pobreza * g.personas).sum() / g.personas.sum(), "indigencia": (g.indigencia * g.personas).sum() / g.personas.sum(),
+    "aglomerados": ", ".join(g.sort_values("personas", ascending=False).nombre), "n_aglomerados": len(g),
+    "personas_aglomerados": int(g.personas.sum()), "cv_pobreza_max": g.cv_pobreza.max()} for c, g in _pzp.groupby("provincias")])
+assert set(pobreza_provincias.codigo_indec) == set(POB), "pobreza por provincia: faltan provincias"
+_pzp_o = pobreza_provincias.sort_values("pobreza")
+pza_res.update({
+    "prov_max": [_pzp_o.iloc[-1].territorio, r1(_pzp_o.iloc[-1].pobreza)], "prov_max2": [_pzp_o.iloc[-2].territorio, r1(_pzp_o.iloc[-2].pobreza)],
+    "prov_min": [_pzp_o.iloc[0].territorio, r1(_pzp_o.iloc[0].pobreza)],
+    "prov_varias": [[r.territorio, int(r.n_aglomerados)] for r in pobreza_provincias.itertuples() if r.n_aglomerados > 1],
+    "prov_cuidado": pobreza_provincias[pobreza_provincias.cv_pobreza_max > 16].territorio.tolist(),
+})
+agregar(pobreza_provincias.assign(periodo=_eph_sem, valor=pobreza_provincias.pobreza), "pobreza_aglomerados_de_la_provincia", "% de la población",
+        "INDEC, Encuesta Permanente de Hogares (cálculo propio con los aglomerados de cada provincia)")
 # las regiones y los aglomerados no son jurisdicciones: van solo en su tabla, como los ingresos por aglomerado (el total ya está en la serie
 # de la pobreza)
 
@@ -7168,6 +7193,7 @@ tablas = {
     "sociedades_provincias": sociedades_provincias,
     "sociedades_pais": sociedades_pais,
     "puestos_provincias": puestos_provincias,
+    "pobreza_provincias": pobreza_provincias,
     "elecciones_presidenciales": presidenciales,
     "congreso_composicion": congreso,
     "anios_congreso": anios_congreso,

@@ -1,0 +1,25 @@
+codigo_indec,territorio,pobreza,indigencia,aglomerados,n_aglomerados,personas_aglomerados,cv_pobreza_max
+02,CABA,11.1,1.5,CABA,1,3005739,17.2
+06,Buenos Aires,36.004,9.5597,"Partidos del Gran Buenos Aires, Gran La Plata, Mar del Plata, Bahía Blanca-Cerri",4,15116618,17.7
+10,Catamarca,37.3,8.3,Gran Catamarca,1,235415,7.1
+14,Córdoba,30.3299,6.6098,"Gran Córdoba, Río Cuarto",2,1796825,11.2
+18,Corrientes,41.0,8.6,Corrientes,1,395090,10.4
+22,Chaco,48.6,17.3,Gran Resistencia,1,427937,10.8
+26,Chubut,36.4202,6.0395,"Comodoro Rivadavia-Rada Tilly, Rawson-Trelew",2,413449,14.8
+30,Entre Ríos,42.3177,8.4529,"Gran Paraná, Concordia",2,454905,11.2
+34,Formosa,29.9,5.9,Formosa,1,266232,9.7
+38,Jujuy,27.6,1.4,Jujuy-Palpalá,1,363630,11.4
+42,La Pampa,25.4,4.9,Santa Rosa-Toay,1,133917,15.5
+46,La Rioja,38.4,4.7,La Rioja,1,240808,8.6
+50,Mendoza,36.9,7.3,Gran Mendoza,1,1066160,7.4
+54,Misiones,42.2,8.2,Posadas,1,394746,12.5
+58,Neuquén,19.6,2.8,Neuquén-Plottier,1,327434,16.1
+62,Río Negro,33.2,5.2,Viedma-Carmen de Patagones,1,86918,12.9
+66,Salta,29.7,4.4,Salta,1,674800,6.7
+70,San Juan,36.8,1.6,Gran San Juan,1,560268,8.7
+74,San Luis,35.7,3.1,Gran San Luis,1,253928,8.7
+78,Santa Cruz,25.6,2.6,Río Gallegos,1,134015,14.8
+82,Santa Fe,27.5891,7.2426,"Gran Rosario, Gran Santa Fe",2,1918764,10.8
+86,Santiago del Estero,38.5,3.9,Santiago del Estero-La Banda,1,420594,19.6
+90,Tucumán,27.9,4.4,Gran Tucumán-Tafí Viejo,1,930575,7.3
+94,Tierra del Fuego,25.9,3.1,Ushuaia-Río Grande,1,182491,14.2

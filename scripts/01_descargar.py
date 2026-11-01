@@ -975,6 +975,41 @@ def eph_ingresos(b, np, pd):
     r.to_csv(CRUDO / "eph_ingresos_aglomerados.csv", index=False)
 
 
+def eph_poblacion(b, pd):
+    """Cuántas personas representa cada aglomerado de la EPH (la suma de PONDERA de la base de personas), promedio de los trimestres de las
+    bases (31 de octubre de 2026, pedido del autor: "agregá el dato de pobreza de las provincias"). 02_procesar.py la usa para juntar la
+    pobreza de los aglomerados de una misma provincia, cada uno con su peso. Una fila por aglomerado."""
+    p = b.assign(PONDERA=pd.to_numeric(b.PONDERA, errors="coerce")).groupby(["AGLOMERADO", "ANO4", "TRIMESTRE"]).PONDERA.sum().reset_index()
+    trims = sorted({(int(a), int(t)) for a, t in zip(p.ANO4, p.TRIMESTRE)})
+    r = p.groupby("AGLOMERADO").PONDERA.mean().round(0).astype(int).reset_index().rename(columns={"AGLOMERADO": "aglomerado", "PONDERA": "personas"})
+    r["trimestres"] = " ".join(f"{t}T{a}" for a, t in trims)
+    if len(r) < 31 or r.personas.min() <= 0:
+        raise ValueError("EPH: faltan aglomerados en la población de cada uno")
+    r.to_csv(CRUDO / "eph_poblacion_aglomerados.csv", index=False)
+
+
+def eph_poblacion_sola():
+    """eph_poblacion con las bases de personas de los cuatro últimos trimestres, solo con las columnas que necesita (para --solo, sin rehacer
+    los otros resúmenes de la EPH). La actualización mensual la arma dentro de eph_antiguedad, con las mismas bases."""
+    import io, zipfile, pandas as pd
+    hoy, bases, url = datetime.date.today(), [], ""
+    for a, t in [(a, t) for a in range(hoy.year, hoy.year - 3, -1) for t in (4, 3, 2, 1)]:
+        u = f"https://www.indec.gob.ar/ftp/cuadros/menusuperior/eph/EPH_usu_{t}_Trim_{a}_txt.zip"
+        try:
+            z = zipfile.ZipFile(io.BytesIO(leer(u, 300)))
+        except Exception:
+            continue
+        ind = next(n for n in z.namelist() if "individual" in n.lower())
+        bases.append(pd.read_csv(z.open(ind), sep=";", low_memory=False, decimal=",", usecols=["ANO4", "TRIMESTRE", "AGLOMERADO", "PONDERA"]))
+        url = url or u
+        if len(bases) == 4:
+            break
+    if len(bases) < 4:
+        raise ValueError("no se encontraron cuatro trimestres de la EPH")
+    eph_poblacion(pd.concat(bases), pd)
+    return url
+
+
 def eph_antiguedad():
     """Encuesta Permanente de Hogares (INDEC), bases usuarias de los cuatro ultimos trimestres publicados.
     Se bajan a memoria y se guarda solo un resumen: porcentaje de asalariados (sin servicio domestico, que no responde
@@ -1009,6 +1044,7 @@ def eph_antiguedad():
     if len(bases) < 4:
         raise ValueError("no se encontraron cuatro trimestres de la EPH")
     eph_ingresos(pd.concat(bases), np, pd)
+    eph_poblacion(pd.concat(bases), pd)
     d = pd.concat(bases)
     d = d[(d.ESTADO == 1) & (d.CAT_OCUP == 3) & d.PP07A.between(1, 6)].copy()
     d["corto"] = d.PP07A.between(1, 4)
@@ -2618,7 +2654,7 @@ TIPOS_SOCIEDAD = {"SOCIEDAD DE RESPONSABILIDAD LIMITADA", "SOCIEDAD POR ACCION S
                   "SOCIEDAD LEY 19550 CAPITULO I SECCION IV", "SOCIEDAD EN COMANDITA SIMPLE", "SOCIEDAD EN COMANDITA POR ACCIONES",
                   "SOCIEDAD COLECTIVA", "CAPITAL E INDUSTRIA"}
 # fuentes que arma una función y no una dirección de FUENTES: --solo también las acepta por el nombre del archivo que escriben
-SOLO_FUNCIONES = {"jus_sociedades_resumen.csv": sociedades}
+SOLO_FUNCIONES = {"jus_sociedades_resumen.csv": sociedades, "eph_poblacion_aglomerados.csv": eph_poblacion_sola}
 
 
 # Una fuente nueva sin bajar todo (24 de octubre de 2026): `python scripts/01_descargar.py --solo archivo [archivo ...]` baja solo esos
