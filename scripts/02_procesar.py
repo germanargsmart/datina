@@ -1587,7 +1587,6 @@ censo_pais = {c: float((censo[c] * censo[f"{c}_base"]).sum() / censo[f"{c}_base"
 for c in CENSO_COLS:
     d = censo[["codigo_indec", "territorio", c]].rename(columns={c: "valor"}); d["periodo"] = 2022
     agregar(d, f"censo2022_{c}", "% de hogares" if c != "sin_cobertura" else "% de personas", "INDEC, Censo 2022")
-
 censo = censo[["codigo_indec", "territorio"] + CENSO_COLS]
 
 # Internet fijo: accesos cada 100 hogares y velocidad media de bajada (ENACOM), ultimo trimestre
