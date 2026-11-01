@@ -381,17 +381,17 @@ Ordenadas por valor sobre esfuerzo, con ejemplos verificados en otros sitios. La
 | F3 | Metadatos de cada tabla y página "Usar los datos" | Our World in Data | Un `.metadata.json` por CSV (fuente, período, unidad, licencia) | Bajo | No |
 | F4 | Novedades: qué cambió este mes, y RSS | ONS (calendario y RSS). Nadie tiene "qué cambió" como página: sería propio | 03 compara los textos con los del mes anterior (T8) y arma `novedades.html` y `feed.xml` | Bajo a medio | Sí |
 | F5 | Calendario de próximos datos con archivo .ics | ONS | La próxima fecha de IPC, EPH y EMAE | Bajo a medio | Sí |
-| F6 | Datos breves | Our World in Data (Data Insights) | Un gráfico de una ficha y 120 palabras armadas desde el resumen | Bajo | Sí |
+| F6 | Datos breves | Our World in Data (Data Insights) | Un gráfico de una ficha y 120 palabras armadas desde el resumen | Bajo | Sí, como bloque en Artículos (decisión del 1 de noviembre de 2026) |
 | F7 | Provincias parecidas, con valores | DataMéxico | Ya existe al fondo del perfil, sin valores: subirla y mostrar en qué se parecen | Bajo | Sí |
 | F8 | Actualizar un monto por la inflación de cada región | INE, CBS. Chequeado ya tiene la nacional | "100.000 pesos de 2020 en el NOA" | Bajo | Sí |
 | F9 | ¿Tu hogar está bajo la línea de pobreza? | ONS, IFS | Canasta básica total de la región y adultos equivalentes, ya en el sitio | Bajo a medio | Sí |
 | F10 | Tu inflación personal por región | ONS, Destatis | Pesos propios a las divisiones del IPC de tu región. Antes, verificar las ponderaciones del INDEC | Medio | Sí |
 | F11 | Comparar dos provincias lado a lado | DataMéxico | `provincia.html?prov=58&con=62` | Medio | Sí |
 | F12 | Cómo cambió tu provincia o departamento entre censos | ONS | "Cómo cambió Jujuy entre 2010 y 2022", con los tres cambios más grandes | Medio | Sí |
-| F13 | Línea de tiempo en los mapas | Our World in Data | Un deslizador de años que vuelve a pintar el mapa | Medio | Sí |
+| F13 | Línea de tiempo en los mapas | Our World in Data | Un deslizador de años que vuelve a pintar el mapa | Medio | Postergada por el autor el 1 de noviembre de 2026: ningún mapa por provincia tiene todavía su serie por año |
 | F14 | Puesto a lo largo del tiempo | FT Visual Vocabulary | Gráfico de pendiente con el puesto de 2014 y el de 2024 | Medio | Sí |
 | F15 | Insertables de una ficha | Our World in Data, ONS | `insertar.html?f=...` con "Copiar código" | Bajo a medio | Sí |
-| F16 | Quiz "¿Cuánto creés que es?" | Gapminder | Nunca con suicidio ni muertes violentas | Bajo a medio | Sí |
+| F16 | Quiz "¿Cuánto creés que es?" | Gapminder | Nunca con suicidio ni muertes violentas | Bajo a medio | Sí, en Curiosidades (decisión del 1 de noviembre de 2026) |
 | F17 | Buscar tu departamento o partido | | "Florencio Varela" acerca el mapa y muestra su valor | Medio | Sí |
 
 No se proponen: alertas por correo (los formularios están apagados por decisión del autor, el RSS cubre lo mismo), sonificación (poco valor para este público) y Dollar Street (necesita trabajo de campo).

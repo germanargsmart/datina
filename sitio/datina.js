@@ -9624,6 +9624,43 @@ if (calDatos) {
   }
 }
 
+/* F16 (plan de mejora): "¿Cuánto creés que es?", en Curiosidades. Cada dato sale de las mismas cifras del resumen que usa la cifra destacada
+   de su ficha. La barra arranca en el medio de su rango (los rangos no son datos: solo los límites de la barra). Sin suicidio ni muertes violentas */
+const juegoLista = document.getElementById("juego-lista");
+if (juegoLista) {
+  const puntos = x => `${n1(x)} ${Math.abs(x) === 1 ? "punto" : "puntos"}`;
+  const JUEGO = [
+    {id: "f-censo", q: "¿Qué parte de los hogares tiene desagüe a red cloacal?", v: nv.censo.cloaca, min: 0, max: 100, paso: 1, f: pct, d: puntos,
+      dato: v => `${pct(v)} de los hogares, en el Censo 2022`},
+    {id: "f-esperanza", q: "¿Cuántos años se espera que viva, en promedio, una persona que nace en la Argentina?", v: nv.ev_pais, min: 60, max: 90, paso: 0.5,
+      f: x => `${n1(x)} años`, d: x => `${n1(x)} años`, dato: v => `${n1(v)} años, con las tablas de mortalidad de ${nv.ev_anio}`},
+    {id: "f-carne", q: "¿Cuántos kilos de carne vacuna se comen por habitante en un año?", v: cu.carne_v, min: 0, max: 120, paso: 1,
+      f: x => `${n1(x)} kg`, d: x => `${n1(x)} kg`, dato: v => `${n1(v)} kg por habitante en ${cu.carne_anio}`},
+    {id: "f-desocupacion", q: "¿Qué parte de quienes trabajan o buscan trabajo está desocupada?", v: DSO.pais, min: 0, max: 30, paso: 0.5, f: pct, d: puntos,
+      dato: v => `${pct(v)}, en promedio, en ${DSO.trimestres}, en los 31 aglomerados urbanos`},
+    {id: "f-glaciares", q: "¿Cuántos glaciares hay inventariados en la Argentina?", v: cu.gl_total, min: 0, max: 30000, paso: 500,
+      f: n0, d: x => `${n0(x)} glaciares`, dato: v => `${n0(v)} glaciares, en ${cu.gl_n} provincias`},
+  ].filter(j => j.v != null && paginaDe(j.id));
+  juegoLista.innerHTML = JUEGO.map((j, i) => {
+    const ini = j.min + Math.round((j.max - j.min) / 2 / j.paso) * j.paso;
+    return `<div class="juego-item"><label class="juego-q" for="jg-${i}">${i + 1}. ${j.q}</label>` +
+      `<div class="juego-barra"><input type="range" id="jg-${i}" min="${j.min}" max="${j.max}" step="${j.paso}" value="${ini}">` +
+      `<output for="jg-${i}" class="juego-tu">${j.f(ini)}</output></div>` +
+      `<button type="button" class="boton chico juego-ver" data-i="${i}">Ver el dato</button><p class="juego-res" aria-live="polite"></p></div>`;
+  }).join("");
+  juegoLista.querySelectorAll(".juego-item").forEach((it, i) => {
+    const j = JUEGO[i], barra = it.querySelector("input"), tu = it.querySelector("output"), res = it.querySelector(".juego-res");
+    const responder = () => {
+      const g = +barra.value, dif = Math.abs(g - j.v);
+      res.innerHTML = `El dato: <b>${j.dato(j.v)}</b>. Tu respuesta: ${j.f(g)}, ` +
+        (dif < j.paso / 2 ? "justo en el dato." : `${j.d(dif)} ${g > j.v ? "más" : "menos"}.`) +
+        ` <a href="${urlPagina(paginaDe(j.id), "#" + j.id)}">Ver la ficha</a>`;
+    };
+    barra.addEventListener("input", () => { tu.textContent = j.f(+barra.value); if (res.textContent) responder(); });
+    it.querySelector(".juego-ver").addEventListener("click", responder);
+  });
+}
+
 /* recuadro de estado de la portada */
 const estado = document.getElementById("estado");
 if (estado) estado.innerHTML = [`${NFICHAS} fichas`, "24 jurisdicciones", `${ARTS.length} artículos`].map(t => `<span>${t}</span>`).join(" ");
