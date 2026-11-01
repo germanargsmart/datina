@@ -901,6 +901,10 @@ const LEAD = {
       `y la más baja, la de ${EIP.ia_min_mes}, ${pct(EIP.ia_min)}. Por región, en los doce meses hasta ${EIP.mes}, los precios subieron de ${pct(EIP.reg_min[1])} en ${REG_ART[EIP.reg_min[0]]} a ${pct(EIP.reg_max[1])} en ${REG_ART[EIP.reg_max[0]]}.`;
   },
   "inflacion-rubros": v => {
+    // F10 (plan de mejora, 1 de noviembre de 2026): la inflación de doce meses con los pesos de cada persona
+    if (v === "tu") return `Elegí la región y cuánto de tu gasto va a cada rubro: la calculadora dice cuánto subieron tus precios en los doce meses ` +
+      `hasta ${EIP.mes}. Arranca con los pesos que usa el INDEC en esa región, así da la inflación oficial: si gastás más en alquiler, transporte o ` +
+      `salud que lo que supone el índice, tu inflación puede ser otra. Los porcentajes no tienen que sumar 100: se reparten en proporción.`;
     if (v === "categoria") return `En los doce meses hasta ${EIP.mes}, según el INDEC, los precios regulados ${cambioPl(EIP.regulados)}, los estacionales ${cambioPl(EIP.estacionales)} ` +
       `y los demás, que forman la inflación núcleo, ${cambioPl(EIP.nucleo)}. Los regulados son los que están sujetos a regulación o tienen un alto componente de impuestos, y los estacionales, los que cambian con la temporada. ` +
       `Los precios de los servicios ${cambioPl(EIP.servicios)} y los de los bienes, ${pct(EIP.bienes)}. El nivel ` +
@@ -1703,7 +1707,10 @@ const TX = {
     `en todo el país, según el INDEC. Los rubros son las doce divisiones de la clasificación del consumo que usa el índice. Los precios regulados son los de los ` +
     `combustibles para la vivienda, la electricidad, el agua, los sistemas de salud, el transporte público, el funcionamiento y el mantenimiento de los vehículos, ` +
     `con la nafta, el correo, el teléfono, la educación formal y los cigarrillos. Los estacionales, los de las frutas, las verduras, la ropa exterior, el transporte ` +
-    `por turismo y el alojamiento. La inflación núcleo es la de los demás. La tabla tiene también la variación de cada rubro en las seis regiones.`,
+    `por turismo y el alojamiento. La inflación núcleo es la de los demás. La tabla tiene también la variación de cada rubro en las seis regiones. ` +
+    `En "Tu inflación", los pesos de partida son los de cada región en el índice (la Encuesta Nacional de Gastos de los Hogares 2004/05, la que usa el INDEC), ` +
+    `cambiados por lo que subió cada rubro hasta el comienzo de los doce meses: con ellos la cuenta da la inflación oficial de la región, con menos de tres ` +
+    `décimas de diferencia. Es una aproximación: el INDEC calcula cada rubro con más detalle. Lo que se escribe en la calculadora no se guarda ni se envía.`,
   canastas: LEAD.canastas("region"), "canastas-nota": `Canasta básica alimentaria: los alimentos que cubren las necesidades de energía y de proteínas de un varón ` +
     `adulto de actividad moderada, el adulto equivalente. La canasta básica total suma los demás bienes y servicios, como la ropa, el transporte, la educación y la ` +
     `salud. Las dos se valorizan con los precios del índice de precios al consumidor. Un hogar es pobre si sus ingresos no alcanzan para su canasta básica total, e ` +
@@ -3712,6 +3719,7 @@ Object.assign(DIB, {
   "inflacion-rubros": a => {
     const g = MED["inflacion-rubros"];
     $t("inflacion-rubros").textContent = LEAD["inflacion-rubros"](g);
+    if (g === "tu") return calcInflacionPersonal(G("inflacion-rubros"));
     // los códigos van con una letra delante: un código de rubro no tiene que coincidir con el de la provincia elegida
     const data = T.inflacion_rubros.filter(r => r.grupo === g).map(r => ({codigo_indec: "i" + r.codigo, territorio: r.rubro, corto: r.corto, ia: r.interanual, m: r.mensual}));
     barrasH(G("inflacion-rubros"), {anim: a, data, k: "ia", vf: pct, af: v => n0(v) + "%", ref: EIP.interanual, refLab: `Nivel general ${pct(EIP.interanual)}`,
@@ -9502,6 +9510,39 @@ function calcInflacion(el) {
   el.querySelector(".calc").addEventListener("input", calcular);
   el.querySelector(".calc").addEventListener("change", calcular);
   calcular();
+}
+
+/* F10 (plan de mejora, 1 de noviembre de 2026): tu inflación personal. Para la región elegida, un campo por rubro con el porcentaje del gasto, que
+   arranca con el peso efectivo del INDEC al empezar los doce meses (así da la inflación oficial). La inflación personal es el promedio de la variación
+   de cada rubro, pesado por lo que escribe la persona. Lo que se escribe no se guarda ni se envía */
+function calcInflacionPersonal(el) {
+  const filas = T.inflacion_personal, REGS = [["gba", "Gran Buenos Aires"], ["pampeana", "Pampeana"], ["noreste", "Noreste"], ["noroeste", "Noroeste"],
+    ["cuyo", "Cuyo"], ["patagonia", "Patagonia"]];
+  el.removeAttribute("aria-busy"); el.resaltar = null;
+  el.innerHTML = `<div class="calc calc-inflacion"><label class="selector-ficha"><span>Región</span><select class="cp-reg">` +
+    REGS.map(([k, n]) => `<option value="${k}">${n}</option>`).join("") + `</select></label><fieldset class="calc-personas"><legend>Cuánto de tu gasto va a ` +
+    `cada rubro, en %</legend><div class="cp-rubros"></div><button type="button" class="boton chico cp-volver">Volver a los pesos del INDEC</button></fieldset>` +
+    `<p class="calc-res" aria-live="polite"></p></div>`;
+  const reg = el.querySelector(".cp-reg"), caja = el.querySelector(".cp-rubros"), res = el.querySelector(".calc-res");
+  reg.value = (REG_IPC[prov] || ["gba"])[0];
+  const deReg = () => filas.filter(r => r.region === reg.value);
+  const llenar = () => {
+    caja.innerHTML = deReg().map(r => `<label class="selector-ficha"><span>${r.rubro}</span><input type="number" min="0" max="100" step="0.1" ` +
+      `inputmode="decimal" data-d="${r.division}" value="${n1(r.peso_efectivo).replace(",", ".")}"></label>`).join("");
+  };
+  const calcular = () => {
+    const var12 = Object.fromEntries(deReg().map(r => [r.division, r.variacion_12m])), n = REGS.find(x => x[0] === reg.value)[1];
+    const pesos = [...caja.querySelectorAll("input")].map(i => [i.dataset.d, Math.max(0, +i.value || 0)]), tot = pesos.reduce((s, [, w]) => s + w, 0);
+    const ofi = deReg().reduce((s, r) => s + r.peso_efectivo * r.variacion_12m, 0) / 100;
+    if (!(tot > 0)) { res.textContent = "Escribí un porcentaje en al menos un rubro."; return; }
+    const tu = pesos.reduce((s, [d, w]) => s + w * var12[d], 0) / tot;
+    res.innerHTML = `Con esos pesos, tus precios subieron <b>${pct(tu)}</b> en los doce meses hasta ${EIP.mes} en ${REG_ART[n] || n}. Con los del INDEC, ` +
+      `${pct(ofi)}.` + (Math.abs(tot - 100) > 0.5 ? ` Tus porcentajes suman ${n1(tot)} y se reparten en proporción.` : "");
+  };
+  reg.addEventListener("change", () => { llenar(); calcular(); });
+  el.querySelector(".cp-volver").addEventListener("click", () => { llenar(); calcular(); caja.querySelector("input").focus(); });
+  caja.addEventListener("input", calcular);
+  llenar(); calcular();
 }
 
 /* Usar los datos (F2): un ejemplo de cita con el año y el día de hoy y la dirección de este sitio */

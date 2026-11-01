@@ -3256,6 +3256,32 @@ _ipc_ng = IPC_INDEC[(IPC_INDEC.Region == "Nacional") & (IPC_INDEC.Codigo == "0")
 assert _ipc_ng.index.is_unique and _ipc_ng.index[0] == "2016-12" and abs(_ipc_ng.iloc[0] - 100) < 1e-9, "el IPC del INDEC no empieza en diciembre de 2016 = 100"
 assert list(_ipc_ng.index) == list(pd.period_range(_ipc_ng.index[0], _ipc_ng.index[-1], freq="M").strftime("%Y-%m")), "faltan meses en el IPC del INDEC"
 ipc = pd.Series(_ipc_ng.values, index=pd.to_datetime(_ipc_ng.index + "-01"))
+# Tu inflación personal (F10 del plan de mejora, aprobado por el autor el 28 de octubre de 2026): para cada región y rubro, la ponderación
+# oficial y el índice del último mes y de doce meses antes. Las ponderaciones son las de la Metodología del IPC (INDEC, 2019, Anexo II, cuadro
+# 7, de la ENGHo 2004/05 a precios de diciembre de 2016), que siguen vigentes en 2026 (datos/manual/ponderaciones_ipc.csv). Como el índice es
+# un Laspeyres de base fija, el peso efectivo de un rubro en un período es su ponderación por su índice al empezar el período: con esos pesos
+# la calculadora da la inflación oficial de cada región, y cada persona los cambia por lo que gasta
+_infp_w = pd.read_csv(RAIZ / "datos" / "manual" / "ponderaciones_ipc.csv", dtype={"division": str}).set_index("division")
+_infp_reg = {"GBA": "gba", "Pampeana": "pampeana", "Noreste": "noreste", "Noroeste": "noroeste", "Cuyo": "cuyo", "Patagonia": "patagonia"}
+INFP_FIN = _ipc_ng.index[-1]
+INFP_INI = (pd.Period(INFP_FIN, freq="M") - 12).strftime("%Y-%m")
+_infp_d = IPC_INDEC[IPC_INDEC.Region.isin(_infp_reg) & IPC_INDEC.Codigo.isin(_infp_w.index) & IPC_INDEC.periodo.isin([INFP_INI, INFP_FIN])]
+_infp_f = []
+for _infp_r, _infp_k in _infp_reg.items():
+    _infp_x = _infp_d[_infp_d.Region == _infp_r].pivot(index="Codigo", columns="periodo", values="Indice_IPC").reindex(_infp_w.index)
+    assert _infp_x.notna().all().all(), f"tu inflación: faltan rubros en {_infp_r}"
+    _infp_ef = _infp_w[_infp_k] * _infp_x[INFP_INI]
+    _infp_ef = _infp_ef / _infp_ef.sum() * 100
+    # control: con los pesos efectivos, la variación de doce meses tiene que dar la del nivel general de la región que publica el INDEC
+    _infp_ng = IPC_INDEC[(IPC_INDEC.Region == _infp_r) & (IPC_INDEC.Codigo == "0")].set_index("periodo").Indice_IPC
+    _infp_of = (_infp_ng[INFP_FIN] / _infp_ng[INFP_INI] - 1) * 100
+    _infp_ca = ((_infp_ef / 100) * (_infp_x[INFP_FIN] / _infp_x[INFP_INI])).sum() * 100 - 100
+    assert abs(_infp_ca - _infp_of) < 0.3, f"tu inflación: con las ponderaciones de {_infp_r} da {_infp_ca:.2f}% y el INDEC publica {_infp_of:.2f}%"
+    _infp_f += [{"region": _infp_k, "division": c, "rubro": _infp_w.at[c, "nombre"], "ponderacion_2016": float(_infp_w.at[c, _infp_k]),
+                 "peso_efectivo": float(_infp_ef[c]), "indice_inicio": float(_infp_x.at[c, INFP_INI]), "indice_final": float(_infp_x.at[c, INFP_FIN]),
+                 "variacion_12m": float((_infp_x.at[c, INFP_FIN] / _infp_x.at[c, INFP_INI] - 1) * 100)} for c in _infp_w.index]
+inflacion_personal = pd.DataFrame(_infp_f)
+INFP_RES = {"ini": INFP_INI, "fin": INFP_FIN}
 # Haberes previsionales frente al salario (etapa 42, pedido del autor del 12 de octubre de 2026: "animate a pensar qué más podemos sumar"):
 # el haber mínimo de la Ley 24.241, el mínimo con los adicionales que se pagaron varios meses seguidos (el subsidio de 2002 y 2003 y los
 # refuerzos desde septiembre de 2022), la jubilación y la pensión promedio y el haber promedio de ANSES, promedio de cada año, y el salario
@@ -7225,6 +7251,7 @@ tablas = {
     "pobreza_provincias": pobreza_provincias,
     "censos_provincias": censos_provincias,
     "censos_pais": censos_pais,
+    "inflacion_personal": inflacion_personal,
     "elecciones_presidenciales": presidenciales,
     "congreso_composicion": congreso,
     "anios_congreso": anios_congreso,
@@ -7621,6 +7648,7 @@ resumen["cobertura_suelo"] = MB_RES
 resumen["medicos"] = MEDI_RES
 resumen["sociedades"] = SOC_RES
 resumen["censos"] = CZ_RES
+resumen["inflacion_personal"] = INFP_RES
 resumen["departamentos"] = {"meta": {k: {"nombre": v[0], "unidad": v[1], "fuente": v[2]} for k, v in DEP_META.items()},
                             "anio_snic": ANIO_DEP, "n": int(len(departamentos))}
 resumen["elecciones"] = el_meta

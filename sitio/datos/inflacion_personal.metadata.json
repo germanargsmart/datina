@@ -1,0 +1,60 @@
+{
+ "tabla": "inflacion_personal.csv",
+ "titulo": "¿Qué rubros subieron más en los últimos doce meses?",
+ "descripcion": "Inflación por rubro en los doce meses hasta septiembre de 2026",
+ "seccion": "Precios y actividad",
+ "ficha": "https://datina.pages.dev/economia.html#f-inflacion-rubros",
+ "fuente": "INDEC, Índice de precios al consumidor.",
+ "actualizacion": "Se actualiza cada mes.",
+ "cobertura": "Sin desglose territorial",
+ "periodo": "",
+ "filas": 72,
+ "columnas": [
+  {
+   "nombre": "region",
+   "tipo": "Texto",
+   "valores": "cuyo, gba, noreste, noroeste, pampeana, patagonia"
+  },
+  {
+   "nombre": "division",
+   "tipo": "Número",
+   "valores": "1 a 12"
+  },
+  {
+   "nombre": "rubro",
+   "tipo": "Texto",
+   "valores": "12 valores distintos"
+  },
+  {
+   "nombre": "ponderacion_2016",
+   "tipo": "Número",
+   "valores": "1,36 a 35,3"
+  },
+  {
+   "nombre": "peso_efectivo",
+   "tipo": "Número",
+   "valores": "1,18 a 35,84"
+  },
+  {
+   "nombre": "indice_inicio",
+   "tipo": "Número",
+   "valores": "6.671,79 a 12.489,06"
+  },
+  {
+   "nombre": "indice_final",
+   "tipo": "Número",
+   "valores": "7.563 a 20.773,64"
+  },
+  {
+   "nombre": "variacion_12m",
+   "tipo": "Número",
+   "valores": "9,24 a 76,86"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "28/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
+ "como_citar": "Datina (año de la consulta). ¿Qué rubros subieron más en los últimos doce meses? Con datos de INDEC, Índice de precios al consumidor. https://datina.pages.dev/economia.html#f-inflacion-rubros. Consultado el día de la consulta."
+}
