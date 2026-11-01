@@ -808,6 +808,19 @@ html:not(.js) .busca-portada{display:none}
 .nos-texto{max-width:44em;margin-top:var(--e-7)}
 .nos-texto h2{margin:var(--e-7) 0 var(--e-2);font-size:var(--t-7);line-height:var(--i-titulo);font-weight:500;color:var(--azul);font-variation-settings:"wdth" 55,"opsz" 144;font-family:var(--f-c55)}
 .nos-texto p{margin:0 0 var(--e-3);line-height:1.6}
+/* F16: "¿Cuánto creés que es?" en Curiosidades, una pregunta por fila, con la barra, tu respuesta y el dato */
+.juego{margin-top:var(--bloque)}
+.juego h2{margin:0 0 var(--e-2);font-size:var(--t-7);line-height:var(--i-titulo);font-weight:500;color:var(--azul);font-variation-settings:"wdth" 55,"opsz" 144;font-family:var(--f-c55)}
+.juego-bajada{margin:0 0 var(--e-4);color:var(--muted)}
+.juego-lista{border-top:1px solid var(--line);max-width:44em}
+.juego-item{display:grid;gap:var(--e-2);padding:var(--e-4) 0;border-bottom:1px solid var(--line)}
+.juego-q{font-weight:600;line-height:1.4}
+.juego-barra{display:flex;align-items:center;gap:var(--e-4)}
+.juego-barra input{flex:1;min-width:0;accent-color:var(--azul)}
+.juego-tu{min-width:6.5em;text-align:right;font-variant-numeric:tabular-nums;font-weight:600;color:var(--azul)}
+.juego-ver{justify-self:start}
+.juego-res{margin:0;text-align:left;line-height:1.5}
+.juego-res:empty{display:none}
 /* F17: el buscador de departamentos, debajo del indicador, y el valor del elegido arriba de las listas */
 .mp-buscar{margin-top:var(--e-3)}
 .mp-buscar input{width:100%;max-width:28em}
