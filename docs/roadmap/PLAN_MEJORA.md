@@ -394,6 +394,8 @@ Ordenadas por valor sobre esfuerzo, con ejemplos verificados en otros sitios. La
 | F16 | Quiz "¿Cuánto creés que es?" | Gapminder | Nunca con suicidio ni muertes violentas | Bajo a medio | Sí, en Curiosidades (decisión del 1 de noviembre de 2026) |
 | F17 | Buscar tu departamento o partido | | "Florencio Varela" acerca el mapa y muestra su valor | Medio | Sí |
 
+Estado al 1 de noviembre de 2026 (detalle en `docs/roadmap/ESTADO.md`): unidas a `main` F1, F2, F3, F5 a F12 y F14 a F17 (las últimas, en los PR #55 a #61). F13 postergada por el autor el 1 de noviembre. F4 descartada por el autor el 28 de octubre ("salvo la de aviso de nuevos datos").
+
 No se proponen: alertas por correo (los formularios están apagados por decisión del autor, el RSS cubre lo mismo), sonificación (poco valor para este público) y Dollar Street (necesita trabajo de campo).
 
 ---
