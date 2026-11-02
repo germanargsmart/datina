@@ -2555,9 +2555,20 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     <h2>Curiosidades</h2>
     <div class="tema-intro">
       <p class="pregunta" data-corta="¿Cuánta carne y yerba consumimos?">¿Qué nombres se eligen para los bebés y cuánta carne, vino y yerba consumimos?</p>
-      <p>Esta página junta datos de temas distintos: qué nombres se eligen para los bebés, cuánta carne vacuna come cada habitante y cuánto vino y cuánta yerba mate salen al mercado. Los glaciares y la temperatura están en Naturaleza y ambiente.</p>
+      <p>Esta página junta datos de temas distintos: qué buscan los argentinos en Google en este momento, qué nombres se eligen para los bebés, cuánta carne vacuna come cada habitante y cuánto vino y cuánta yerba mate salen al mercado. Los glaciares y la temperatura están en Naturaleza y ambiente.</p>
     </div>
     <!--EXPLICADOR:curiosidades-->
+
+    <!-- Búsquedas de Google (pedido del autor del 2 de noviembre de 2026: "búsquedas de google de los argentinos y timeline, en tiempo real
+         conectado a API gratuito"): las búsquedas que más crecen en la Argentina, de la función /api/tendencias (functions/), que lee el RSS
+         público de Google Trends. Las escribe datina.js como una línea de tiempo y las vuelve a pedir cada diez minutos -->
+    <div class="tendencias" id="tendencias">
+      <h2 id="tend-tit">¿Qué están buscando los argentinos en Google?</h2>
+      <p class="tend-bajada">Las búsquedas que más crecieron en la Argentina en las últimas horas, de la más reciente a la más vieja, con las noticias que las acompañan. Se actualiza sola cada diez minutos.</p>
+      <p class="tend-estado" id="tend-estado" aria-live="polite">Cargando las búsquedas.</p>
+      <ol class="tend-linea" id="tend-linea" aria-labelledby="tend-tit"></ol>
+      <p class="tend-fuente">Fuente: Google Trends, búsquedas en aumento en la Argentina. El tráfico es aproximado: Google lo publica en franjas, como "más de 200 búsquedas". Una búsqueda que crece no es la más buscada del día: es la que más subió frente a lo habitual.</p>
+    </div>
 
     <article class="ficha" id="f-nombres">
       <h2>¿Qué nombres se eligen más para los bebés?</h2>

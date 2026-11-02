@@ -842,6 +842,24 @@ html.insertar .ins-ficha{margin:0}
 .juego-ver{justify-self:start}
 .juego-res{margin:0;text-align:left;line-height:1.5}
 .juego-res:empty{display:none}
+/* Búsquedas de Google (2 de noviembre de 2026): una línea de tiempo, la hora a la izquierda y la búsqueda con sus noticias a la derecha,
+   unidas por una raya vertical. Sin viñetas: lo que ordena es la hora */
+.tendencias{margin-top:var(--bloque)}
+.tendencias h2{margin:0 0 var(--e-2);font-size:var(--t-7);line-height:var(--i-titulo);font-weight:500;color:var(--azul);font-variation-settings:"wdth" 55,"opsz" 144;font-family:var(--f-c55)}
+.tend-bajada{margin:0 0 var(--e-2);color:var(--muted)}
+.tend-estado{margin:0 0 var(--e-4);font-size:var(--t-3);color:var(--muted)}
+.tend-linea{list-style:none;margin:0;padding:0;max-width:44em}
+.tend-item{display:grid;grid-template-columns:4.5em 1fr;gap:var(--e-4)}
+.tend-hora{padding-top:var(--e-1);font-family:var(--mono);font-size:var(--t-2);color:var(--muted);font-variant-numeric:tabular-nums;text-align:right}
+.tend-cuerpo{padding:0 0 var(--e-4) var(--e-4);border-left:2px solid var(--celeste-suave-2)}
+.tend-item.fuerte .tend-cuerpo{border-left-color:var(--sol)}
+.tend-q{margin:0;font-size:var(--t-5);font-weight:600;line-height:1.3;overflow-wrap:anywhere}
+.tend-trafico{margin:var(--e-1) 0 0;font-size:var(--t-2);color:var(--muted)}
+.tend-noticias{list-style:none;margin:var(--e-2) 0 0;padding:0;display:grid;gap:var(--e-1);font-size:var(--t-3);line-height:1.4}
+.tend-noticias a{overflow-wrap:anywhere}
+.tend-noticias span{color:var(--muted)}
+.tend-fuente{margin:var(--e-2) 0 0;max-width:44em;font-size:var(--t-2);color:var(--muted)}
+@media (max-width:520px){.tend-item{grid-template-columns:3.5em 1fr;gap:var(--e-2)}.tend-cuerpo{padding-left:var(--e-3)}}
 /* F17: el buscador de departamentos, debajo del indicador, y el valor del elegido arriba de las listas */
 .mp-buscar{margin-top:var(--e-3)}
 .mp-buscar input{width:100%;max-width:28em}
