@@ -3,7 +3,7 @@
  "titulo": "¿Cuántos chicos nacen por año?",
  "descripcion": "Nacimientos por año en la Argentina y en la OCDE, índice 2012 = 100, 2012 a 2024",
  "seccion": "Población",
- "ficha": "https://datina.pages.dev/poblacion.html#f-nacimientos",
+ "ficha": "https://datina.com.ar/poblacion.html#f-nacimientos",
  "fuente": "DEIS, Ministerio de Salud, estadísticas vitales.",
  "actualizacion": "Se actualiza cada año.",
  "cobertura": "Sin desglose territorial",
@@ -51,5 +51,5 @@
  "datos_actualizados": "28/10/2026",
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿Cuántos chicos nacen por año? Con datos de DEIS, Ministerio de Salud, estadísticas vitales. https://datina.pages.dev/poblacion.html#f-nacimientos. Consultado el día de la consulta."
+ "como_citar": "Datina (año de la consulta). ¿Cuántos chicos nacen por año? Con datos de DEIS, Ministerio de Salud, estadísticas vitales. https://datina.com.ar/poblacion.html#f-nacimientos. Consultado el día de la consulta."
 }

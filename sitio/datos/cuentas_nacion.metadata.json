@@ -3,7 +3,7 @@
  "titulo": "¿Cuánto ingresa y cuánto gasta el Estado nacional?",
  "descripcion": "Ingresos, gastos y resultado del Sector Público Nacional como parte del PBI, 2016 a 2025",
  "seccion": "Cuentas públicas",
- "ficha": "https://datina.pages.dev/gobierno.html#f-cuentas-nacion",
+ "ficha": "https://datina.com.ar/gobierno.html#f-cuentas-nacion",
  "fuente": "Secretaría de Hacienda, Informe mensual de ingresos y gastos del Sector Público Nacional no Financiero, e INDEC.",
  "actualizacion": "Se actualiza cada mes.",
  "cobertura": "Sin desglose territorial",
@@ -66,5 +66,5 @@
  "datos_actualizados": "28/10/2026",
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿Cuánto ingresa y cuánto gasta el Estado nacional? Con datos de Secretaría de Hacienda, Informe mensual de ingresos y gastos del Sector Público Nacional no Financiero, e INDEC. https://datina.pages.dev/gobierno.html#f-cuentas-nacion. Consultado el día de la consulta."
+ "como_citar": "Datina (año de la consulta). ¿Cuánto ingresa y cuánto gasta el Estado nacional? Con datos de Secretaría de Hacienda, Informe mensual de ingresos y gastos del Sector Público Nacional no Financiero, e INDEC. https://datina.com.ar/gobierno.html#f-cuentas-nacion. Consultado el día de la consulta."
 }

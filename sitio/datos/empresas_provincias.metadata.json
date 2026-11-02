@@ -3,7 +3,7 @@
  "titulo": "¿Cuántas empresas privadas hay en cada provincia?",
  "descripcion": "Empresas privadas con personal en relación de dependencia, cada 1.000 habitantes, por provincia, 2024",
  "seccion": "Sector privado",
- "ficha": "https://datina.pages.dev/empresas.html#f-empresas",
+ "ficha": "https://datina.com.ar/empresas.html#f-empresas",
  "fuente": "Observatorio de Empleo y Dinámica Empresarial (OEDE), Secretaría de Trabajo, Ministerio de Capital Humano, con datos del Sistema Integrado Previsional Argentino (SIPA).",
  "actualizacion": "Se actualiza cada año.",
  "cobertura": "Las 24 jurisdicciones",
@@ -66,5 +66,5 @@
  "datos_actualizados": "28/10/2026",
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿Cuántas empresas privadas hay en cada provincia? Con datos de Observatorio de Empleo y Dinámica Empresarial (OEDE), Secretaría de Trabajo, Ministerio de Capital Humano, con datos del Sistema Integrado Previsional Argentino (SIPA). https://datina.pages.dev/empresas.html#f-empresas. Consultado el día de la consulta."
+ "como_citar": "Datina (año de la consulta). ¿Cuántas empresas privadas hay en cada provincia? Con datos de Observatorio de Empleo y Dinámica Empresarial (OEDE), Secretaría de Trabajo, Ministerio de Capital Humano, con datos del Sistema Integrado Previsional Argentino (SIPA). https://datina.com.ar/empresas.html#f-empresas. Consultado el día de la consulta."
 }

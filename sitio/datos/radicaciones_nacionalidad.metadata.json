@@ -3,7 +3,7 @@
  "titulo": "¿Cuántas residencias otorga Migraciones por año?",
  "descripcion": "Residencias permanentes y temporarias otorgadas por la Dirección Nacional de Migraciones, 2019 a 2024",
  "seccion": "Migraciones",
- "ficha": "https://datina.pages.dev/migraciones.html#f-radicaciones",
+ "ficha": "https://datina.com.ar/migraciones.html#f-radicaciones",
  "fuente": "Dirección Nacional de Migraciones, trámites de radicación resueltos.",
  "actualizacion": "Se actualiza cada año.",
  "cobertura": "Sin desglose territorial",
@@ -46,5 +46,5 @@
  "datos_actualizados": "28/10/2026",
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿Cuántas residencias otorga Migraciones por año? Con datos de Dirección Nacional de Migraciones, trámites de radicación resueltos. https://datina.pages.dev/migraciones.html#f-radicaciones. Consultado el día de la consulta."
+ "como_citar": "Datina (año de la consulta). ¿Cuántas residencias otorga Migraciones por año? Con datos de Dirección Nacional de Migraciones, trámites de radicación resueltos. https://datina.com.ar/migraciones.html#f-radicaciones. Consultado el día de la consulta."
 }

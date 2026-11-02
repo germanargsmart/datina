@@ -3,7 +3,7 @@
  "titulo": "¿Cuánto recauda cada provincia de impuestos propios por habitante?",
  "descripcion": "Impuestos provinciales por habitante, 2025",
  "seccion": "Cuentas públicas",
- "ficha": "https://datina.pages.dev/gobierno.html#f-impuestos-provinciales",
+ "ficha": "https://datina.com.ar/gobierno.html#f-impuestos-provinciales",
  "fuente": "Dirección Nacional de Asuntos Provinciales, Ministerio de Economía, e INDEC, proyecciones de población.",
  "actualizacion": "Se actualiza cada año.",
  "cobertura": "Las 24 jurisdicciones",
@@ -41,5 +41,5 @@
  "datos_actualizados": "28/10/2026",
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿Cuánto recauda cada provincia de impuestos propios por habitante? Con datos de Dirección Nacional de Asuntos Provinciales, Ministerio de Economía, e INDEC, proyecciones de población. https://datina.pages.dev/gobierno.html#f-impuestos-provinciales. Consultado el día de la consulta."
+ "como_citar": "Datina (año de la consulta). ¿Cuánto recauda cada provincia de impuestos propios por habitante? Con datos de Dirección Nacional de Asuntos Provinciales, Ministerio de Economía, e INDEC, proyecciones de población. https://datina.com.ar/gobierno.html#f-impuestos-provinciales. Consultado el día de la consulta."
 }

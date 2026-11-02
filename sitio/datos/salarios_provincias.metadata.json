@@ -3,7 +3,7 @@
  "titulo": "¿Dónde se gana más en un empleo privado registrado?",
  "descripcion": "Salario bruto promedio de los asalariados registrados del sector privado, por provincia, mayo de 2026",
  "seccion": "Trabajo",
- "ficha": "https://datina.pages.dev/trabajo.html#f-salarios",
+ "ficha": "https://datina.com.ar/trabajo.html#f-salarios",
  "fuente": "Observatorio de Empleo y Dinámica Empresarial (OEDE), Secretaría de Trabajo, Ministerio de Capital Humano, con datos del Sistema Integrado Previsional Argentino (SIPA), e INDEC, índice de precios al consumidor.",
  "actualizacion": "Se actualiza cada tres meses.",
  "cobertura": "Las 24 jurisdicciones y el total del país",
@@ -41,5 +41,5 @@
  "datos_actualizados": "28/10/2026",
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿Dónde se gana más en un empleo privado registrado? Con datos de Observatorio de Empleo y Dinámica Empresarial (OEDE), Secretaría de Trabajo, Ministerio de Capital Humano, con datos del Sistema Integrado Previsional Argentino (SIPA), e INDEC, índice de precios al consumidor. https://datina.pages.dev/trabajo.html#f-salarios. Consultado el día de la consulta."
+ "como_citar": "Datina (año de la consulta). ¿Dónde se gana más en un empleo privado registrado? Con datos de Observatorio de Empleo y Dinámica Empresarial (OEDE), Secretaría de Trabajo, Ministerio de Capital Humano, con datos del Sistema Integrado Previsional Argentino (SIPA), e INDEC, índice de precios al consumidor. https://datina.com.ar/trabajo.html#f-salarios. Consultado el día de la consulta."
 }

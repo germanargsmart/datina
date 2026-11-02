@@ -3,7 +3,7 @@
  "titulo": "¿En qué meses se usa más electricidad?",
  "descripcion": "Demanda eléctrica promedio de cada mes, en gigavatios hora (GWh), 2023 a 2025",
  "seccion": "Energía",
- "ficha": "https://datina.pages.dev/energia.html#f-meses",
+ "ficha": "https://datina.com.ar/energia.html#f-meses",
  "fuente": "CAMMESA, vía API de Series de Tiempo.",
  "actualizacion": "Se actualiza cada mes.",
  "cobertura": "Sin desglose territorial",
@@ -26,5 +26,5 @@
  "datos_actualizados": "28/10/2026",
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿En qué meses se usa más electricidad? Con datos de CAMMESA, vía API de Series de Tiempo. https://datina.pages.dev/energia.html#f-meses. Consultado el día de la consulta."
+ "como_citar": "Datina (año de la consulta). ¿En qué meses se usa más electricidad? Con datos de CAMMESA, vía API de Series de Tiempo. https://datina.com.ar/energia.html#f-meses. Consultado el día de la consulta."
 }

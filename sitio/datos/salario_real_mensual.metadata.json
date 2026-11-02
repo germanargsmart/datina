@@ -3,7 +3,7 @@
  "titulo": "¿Cuánto cambió el poder de compra de los salarios registrados?",
  "descripcion": "Índice de salarios registrados del sector privado y del sector público descontada la inflación (diciembre de 2016 = 100), 2016 a 2026",
  "seccion": "Precios y actividad",
- "ficha": "https://datina.pages.dev/economia.html#f-salario-real",
+ "ficha": "https://datina.com.ar/economia.html#f-salario-real",
  "fuente": "INDEC, Índice de salarios e Índice de precios al consumidor.",
  "actualizacion": "Se actualiza cada mes.",
  "cobertura": "Sin desglose territorial",
@@ -51,5 +51,5 @@
  "datos_actualizados": "28/10/2026",
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿Cuánto cambió el poder de compra de los salarios registrados? Con datos de INDEC, Índice de salarios e Índice de precios al consumidor. https://datina.pages.dev/economia.html#f-salario-real. Consultado el día de la consulta."
+ "como_citar": "Datina (año de la consulta). ¿Cuánto cambió el poder de compra de los salarios registrados? Con datos de INDEC, Índice de salarios e Índice de precios al consumidor. https://datina.com.ar/economia.html#f-salario-real. Consultado el día de la consulta."
 }

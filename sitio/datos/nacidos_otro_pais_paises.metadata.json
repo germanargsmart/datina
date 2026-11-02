@@ -3,7 +3,7 @@
  "titulo": "¿Dónde viven las personas nacidas en otro país?",
  "descripcion": "Parte de la población de cada provincia que nació en otro país, en porcentaje, Censo 2022",
  "seccion": "Migraciones",
- "ficha": "https://datina.pages.dev/migraciones.html#f-nacidos-otro-pais",
+ "ficha": "https://datina.com.ar/migraciones.html#f-nacidos-otro-pais",
  "fuente": "INDEC, Censo Nacional de Población, Hogares y Viviendas 2022.",
  "actualizacion": "Se actualiza con cada censo.",
  "cobertura": "Las 24 jurisdicciones y el total del país",
@@ -46,5 +46,5 @@
  "datos_actualizados": "28/10/2026",
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿Dónde viven las personas nacidas en otro país? Con datos de INDEC, Censo Nacional de Población, Hogares y Viviendas 2022. https://datina.pages.dev/migraciones.html#f-nacidos-otro-pais. Consultado el día de la consulta."
+ "como_citar": "Datina (año de la consulta). ¿Dónde viven las personas nacidas en otro país? Con datos de INDEC, Censo Nacional de Población, Hogares y Viviendas 2022. https://datina.com.ar/migraciones.html#f-nacidos-otro-pais. Consultado el día de la consulta."
 }

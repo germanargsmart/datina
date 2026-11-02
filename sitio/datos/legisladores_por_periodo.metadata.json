@@ -3,7 +3,7 @@
  "titulo": "¿Quiénes ocupan las bancas de cada provincia?",
  "descripcion": "Diputados y senadores nacionales de cada provincia en cada período legislativo, desde 1983",
  "seccion": "Instituciones políticas",
- "ficha": "https://datina.pages.dev/politica.html#f-legisladores",
+ "ficha": "https://datina.com.ar/politica.html#f-legisladores",
  "fuente": "Senado de la Nación y Cámara de Diputados de la Nación, datos abiertos y Patrimonio Legislativo.",
  "actualizacion": "Se actualiza con cada renovación del Congreso.",
  "cobertura": "Las 24 jurisdicciones",
@@ -66,5 +66,5 @@
  "datos_actualizados": "28/10/2026",
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿Quiénes ocupan las bancas de cada provincia? Con datos de Senado de la Nación y Cámara de Diputados de la Nación, datos abiertos y Patrimonio Legislativo. https://datina.pages.dev/politica.html#f-legisladores. Consultado el día de la consulta."
+ "como_citar": "Datina (año de la consulta). ¿Quiénes ocupan las bancas de cada provincia? Con datos de Senado de la Nación y Cámara de Diputados de la Nación, datos abiertos y Patrimonio Legislativo. https://datina.com.ar/politica.html#f-legisladores. Consultado el día de la consulta."
 }

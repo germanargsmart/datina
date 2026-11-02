@@ -3,7 +3,7 @@
  "titulo": "¿Cuántas personas hay en las cárceles del país y de cada provincia?",
  "descripcion": "Personas privadas de libertad en cárceles cada 100.000 habitantes, al 31 de diciembre de cada año, 2002 a 2024",
  "seccion": "Seguridad",
- "ficha": "https://datina.pages.dev/seguridad.html#f-carceles",
+ "ficha": "https://datina.com.ar/seguridad.html#f-carceles",
  "fuente": "Sistema Nacional de Estadísticas sobre Ejecución de la Pena (SNEEP), Ministerio de Justicia, e INDEC, proyecciones de población.",
  "actualizacion": "Se actualiza cada año.",
  "cobertura": "Sin desglose territorial",
@@ -41,5 +41,5 @@
  "datos_actualizados": "28/10/2026",
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿Cuántas personas hay en las cárceles del país y de cada provincia? Con datos de Sistema Nacional de Estadísticas sobre Ejecución de la Pena (SNEEP), Ministerio de Justicia, e INDEC, proyecciones de población. https://datina.pages.dev/seguridad.html#f-carceles. Consultado el día de la consulta."
+ "como_citar": "Datina (año de la consulta). ¿Cuántas personas hay en las cárceles del país y de cada provincia? Con datos de Sistema Nacional de Estadísticas sobre Ejecución de la Pena (SNEEP), Ministerio de Justicia, e INDEC, proyecciones de población. https://datina.com.ar/seguridad.html#f-carceles. Consultado el día de la consulta."
 }

@@ -3,7 +3,7 @@
  "titulo": "¿Votan más con el oficialismo los legisladores de las provincias donde más votos sacó el presidente, o de las que reciben más transferencias?",
  "descripcion": "Coincidencia de los legisladores de cada provincia con el bloque oficialista en las leyes y los proyectos clave y voto de la provincia al presidente, 2006 a 2026, y votos de los legisladores de otros bloques iguales a los del bloque oficialista y transferencias no automáticas por habitante, 2005 a 2025",
  "seccion": "Instituciones políticas",
- "ficha": "https://datina.pages.dev/politica.html#f-voto-provincia",
+ "ficha": "https://datina.com.ar/politica.html#f-voto-provincia",
  "fuente": "Dirección Nacional Electoral, actas de votación nominal de Diputados y del Senado, vía ¿Cómo Votó?, y Presupuesto Abierto, Secretaría de Hacienda.",
  "actualizacion": "Se actualiza con cada elección.",
  "cobertura": "Las 24 jurisdicciones",
@@ -56,5 +56,5 @@
  "datos_actualizados": "28/10/2026",
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿Votan más con el oficialismo los legisladores de las provincias donde más votos sacó el presidente, o de las que reciben más transferencias? Con datos de Dirección Nacional Electoral, actas de votación nominal de Diputados y del Senado, vía ¿Cómo Votó?, y Presupuesto Abierto, Secretaría de Hacienda. https://datina.pages.dev/politica.html#f-voto-provincia. Consultado el día de la consulta."
+ "como_citar": "Datina (año de la consulta). ¿Votan más con el oficialismo los legisladores de las provincias donde más votos sacó el presidente, o de las que reciben más transferencias? Con datos de Dirección Nacional Electoral, actas de votación nominal de Diputados y del Senado, vía ¿Cómo Votó?, y Presupuesto Abierto, Secretaría de Hacienda. https://datina.com.ar/politica.html#f-voto-provincia. Consultado el día de la consulta."
 }

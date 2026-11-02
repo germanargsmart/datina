@@ -3,7 +3,7 @@
  "titulo": "¿De cuánto es el ingreso por persona de los hogares en cada ciudad?",
  "descripcion": "Mediana del ingreso por persona del hogar y del ingreso de la ocupación principal en los 31 aglomerados urbanos, los cuatro trimestres hasta el primero de 2026, en pesos del primer trimestre de 2026",
  "seccion": "Pobreza y hogares",
- "ficha": "https://datina.pages.dev/pobreza.html#f-ingresos-aglomerados",
+ "ficha": "https://datina.com.ar/pobreza.html#f-ingresos-aglomerados",
  "fuente": "INDEC, Encuesta Permanente de Hogares, bases usuarias trimestrales (procesamiento propio).",
  "actualizacion": "Se actualiza cada tres meses.",
  "cobertura": "Sin desglose territorial",
@@ -71,5 +71,5 @@
  "datos_actualizados": "28/10/2026",
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿De cuánto es el ingreso por persona de los hogares en cada ciudad? Con datos de INDEC, Encuesta Permanente de Hogares, bases usuarias trimestrales (procesamiento propio). https://datina.pages.dev/pobreza.html#f-ingresos-aglomerados. Consultado el día de la consulta."
+ "como_citar": "Datina (año de la consulta). ¿De cuánto es el ingreso por persona de los hogares en cada ciudad? Con datos de INDEC, Encuesta Permanente de Hogares, bases usuarias trimestrales (procesamiento propio). https://datina.com.ar/pobreza.html#f-ingresos-aglomerados. Consultado el día de la consulta."
 }

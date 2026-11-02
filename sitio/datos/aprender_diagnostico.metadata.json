@@ -3,7 +3,7 @@
  "titulo": "Diagnóstico de educación por provincia",
  "descripcion": "",
  "seccion": "Diagnóstico educativo",
- "ficha": "https://datina.pages.dev/diagnostico.html#f-diagnostico",
+ "ficha": "https://datina.com.ar/diagnostico.html#f-diagnostico",
  "fuente": "Aprender y Relevamiento Anual (Secretaría de Educación), Censo 2022 (INDEC) y PISA (OCDE)",
  "actualizacion": "",
  "cobertura": "Las 24 jurisdicciones y el total del país",
@@ -181,5 +181,5 @@
  "datos_actualizados": "28/10/2026",
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). Diagnóstico de educación por provincia. Con datos de Aprender y Relevamiento Anual (Secretaría de Educación), Censo 2022 (INDEC) y PISA (OCDE). https://datina.pages.dev/diagnostico.html#f-diagnostico. Consultado el día de la consulta."
+ "como_citar": "Datina (año de la consulta). Diagnóstico de educación por provincia. Con datos de Aprender y Relevamiento Anual (Secretaría de Educación), Censo 2022 (INDEC) y PISA (OCDE). https://datina.com.ar/diagnostico.html#f-diagnostico. Consultado el día de la consulta."
 }

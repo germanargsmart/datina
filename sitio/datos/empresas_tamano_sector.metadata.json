@@ -3,7 +3,7 @@
  "titulo": "¿En qué sectores y de qué tamaño son las empresas de cada provincia?",
  "descripcion": "Empresas privadas con personal en relación de dependencia por tamaño (industria, comercio y servicios) y por sector, en % de las de cada provincia, 2024",
  "seccion": "Sector privado",
- "ficha": "https://datina.pages.dev/empresas.html#f-empresas-tamano",
+ "ficha": "https://datina.com.ar/empresas.html#f-empresas-tamano",
  "fuente": "Observatorio de Empleo y Dinámica Empresarial (OEDE), Secretaría de Trabajo, Ministerio de Capital Humano, con datos del Sistema Integrado Previsional Argentino (SIPA).",
  "actualizacion": "Se actualiza cada año.",
  "cobertura": "Las 24 jurisdicciones y el total del país",
@@ -136,5 +136,5 @@
  "datos_actualizados": "28/10/2026",
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿En qué sectores y de qué tamaño son las empresas de cada provincia? Con datos de Observatorio de Empleo y Dinámica Empresarial (OEDE), Secretaría de Trabajo, Ministerio de Capital Humano, con datos del Sistema Integrado Previsional Argentino (SIPA). https://datina.pages.dev/empresas.html#f-empresas-tamano. Consultado el día de la consulta."
+ "como_citar": "Datina (año de la consulta). ¿En qué sectores y de qué tamaño son las empresas de cada provincia? Con datos de Observatorio de Empleo y Dinámica Empresarial (OEDE), Secretaría de Trabajo, Ministerio de Capital Humano, con datos del Sistema Integrado Previsional Argentino (SIPA). https://datina.com.ar/empresas.html#f-empresas-tamano. Consultado el día de la consulta."
 }

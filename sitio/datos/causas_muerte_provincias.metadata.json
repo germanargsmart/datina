@@ -3,7 +3,7 @@
  "titulo": "¿Cuánta gente muere en cada provincia y por qué causas?",
  "descripcion": "Muertes por año cada 100.000 habitantes, ajustadas por edad, por provincia y causa, 2022 a 2024",
  "seccion": "Salud",
- "ficha": "https://datina.pages.dev/salud.html#f-causas-muerte",
+ "ficha": "https://datina.com.ar/salud.html#f-causas-muerte",
  "fuente": "DEIS, Ministerio de Salud, estadísticas vitales, e INDEC, proyecciones de población 2022 a 2040, base Censo 2022.",
  "actualizacion": "Se actualiza cada año.",
  "cobertura": "Las 24 jurisdicciones y el total del país",
@@ -146,5 +146,5 @@
  "datos_actualizados": "28/10/2026",
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿Cuánta gente muere en cada provincia y por qué causas? Con datos de DEIS, Ministerio de Salud, estadísticas vitales, e INDEC, proyecciones de población 2022 a 2040, base Censo 2022. https://datina.pages.dev/salud.html#f-causas-muerte. Consultado el día de la consulta."
+ "como_citar": "Datina (año de la consulta). ¿Cuánta gente muere en cada provincia y por qué causas? Con datos de DEIS, Ministerio de Salud, estadísticas vitales, e INDEC, proyecciones de población 2022 a 2040, base Censo 2022. https://datina.com.ar/salud.html#f-causas-muerte. Consultado el día de la consulta."
 }

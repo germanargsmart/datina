@@ -3,7 +3,7 @@
  "titulo": "¿Cómo varía cada indicador de un departamento a otro?",
  "descripcion": "",
  "seccion": "Departamentos",
- "ficha": "https://datina.pages.dev/departamentos.html#f-mapa",
+ "ficha": "https://datina.com.ar/departamentos.html#f-mapa",
  "fuente": "SNIC (Ministerio de Seguridad Nacional), RENAPER, INDEC (Censo 2022) y Georef (IGN)",
  "actualizacion": "",
  "cobertura": "Departamentos",
@@ -101,5 +101,5 @@
  "datos_actualizados": "28/10/2026",
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿Cómo varía cada indicador de un departamento a otro? Con datos de SNIC (Ministerio de Seguridad Nacional), RENAPER, INDEC (Censo 2022) y Georef (IGN). https://datina.pages.dev/departamentos.html#f-mapa. Consultado el día de la consulta."
+ "como_citar": "Datina (año de la consulta). ¿Cómo varía cada indicador de un departamento a otro? Con datos de SNIC (Ministerio de Seguridad Nacional), RENAPER, INDEC (Censo 2022) y Georef (IGN). https://datina.com.ar/departamentos.html#f-mapa. Consultado el día de la consulta."
 }
