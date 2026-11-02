@@ -808,6 +808,22 @@ html:not(.js) .busca-portada{display:none}
 .nos-texto{max-width:44em;margin-top:var(--e-7)}
 .nos-texto h2{margin:var(--e-7) 0 var(--e-2);font-size:var(--t-7);line-height:var(--i-titulo);font-weight:500;color:var(--azul);font-variation-settings:"wdth" 55,"opsz" 144;font-family:var(--f-c55)}
 .nos-texto p{margin:0 0 var(--e-3);line-height:1.6}
+/* F6: datos breves en Artículos, dos por fila desde 900 píxeles, cada uno con su pregunta, su cifra, un gráfico chico y su texto */
+.breves{margin-bottom:var(--capitulo)}
+.breves h2{margin:0 0 var(--e-2);font-size:var(--t-7);line-height:var(--i-titulo);font-weight:500;color:var(--azul);font-variation-settings:"wdth" 55,"opsz" 144;font-family:var(--f-c55)}
+.breves-bajada{margin:0 0 var(--e-4);color:var(--muted)}
+.breves-lista{display:grid;grid-template-columns:1fr;gap:var(--bloque)}
+@media (min-width:900px){.breves-lista{grid-template-columns:1fr 1fr}}
+@media (max-width:600px){.breve{padding:var(--e-4)}}
+.breve{display:flex;flex-direction:column;gap:var(--e-2);min-width:0;padding:var(--e-6);background:var(--bg);border:1px solid var(--line);border-radius:var(--r-tarjeta)}
+.breve h3{margin:0;font-size:var(--t-5);line-height:var(--i-tarjeta);font-weight:600}
+.breve h3 a{color:var(--azul);text-decoration:none}
+.breve h3 a:hover,.breve h3 a:focus-visible{text-decoration:underline}
+.breve-sub{margin:0;font-size:var(--t-2);line-height:1.4;color:var(--muted);text-align:left}
+.breve .clave{margin:var(--e-1) 0 0}
+.breve-graf{min-height:220px}
+.breve-texto{margin:0;font-size:var(--t-3);line-height:1.5;text-align:left}
+.breve .enlace{margin-top:auto;align-self:flex-start}
 /* F15: la ficha sola para insertarla en otro sitio (?insertar): se oculta todo lo que no lleva a ella */
 html.insertar body>*:not(.ins-camino),html.insertar .ins-camino>*:not(.ins-camino):not(.ins-ficha){display:none!important}
 html.insertar body,html.insertar .envoltura{margin:0;padding:0;max-width:none}
