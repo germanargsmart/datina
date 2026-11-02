@@ -10508,7 +10508,9 @@ if (tendLinea) {
     if (!it.length) { tendEstado.textContent = "Google no publicó búsquedas en este momento. Probá de nuevo en unos minutos."; tendLinea.innerHTML = ""; return; }
     const max = it.reduce((a, b) => b.trafico_n > a.trafico_n ? b : a);
     tendEstado.textContent = `${it.length} búsquedas en aumento. La de más tráfico: ${it.length > 1 ? max.titulo : it[0].titulo}` +
-      `${max.trafico_n ? `, ${trafico(max).toLowerCase()}` : ""}. Actualizado a las ${hora.format(new Date(j.leido || Date.now()))}.`;
+      `${max.trafico_n ? `, ${trafico(max).toLowerCase()}` : ""}. ` + (j.respaldo
+        ? `Google no respondió recién: son las búsquedas que se leyeron a las ${hora.format(new Date(j.leido))}.`
+        : `Actualizado a las ${hora.format(new Date(j.leido || Date.now()))}.`);
     tendLinea.innerHTML = it.map(i => {
       const f = new Date(i.fecha), otroDia = dia.format(f) !== hoy();
       return `<li class="tend-item${i === max ? " fuerte" : ""}"><time class="tend-hora" datetime="${esc(i.fecha)}">${hora.format(f)}${otroDia ? `<br>${esc(dia.format(f))}` : ""}</time>` +

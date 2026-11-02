@@ -41,6 +41,17 @@ r = await responder(new Request("https://datina.com.ar/api/tendencias"), {buscar
 ver(r.status === 502, "un RSS vacío no se publica como si no hubiera búsquedas");
 r = await responder(new Request("https://datina.com.ar/api/tendencias", {method: "POST"}), {buscar: google});
 ver(r.status === 405, "solo acepta GET");
+// un pedido que falla y el segundo que anda: se reintenta
+let n = 0;
+r = await responder(new Request("https://datina.com.ar/api/tendencias"), {buscar: async () => ++n === 1 ? new Response("", {status: 429}) : new Response(EJEMPLO, {status: 200})});
+ver(r.status === 200 && n === 2, `si Google rechaza un pedido, lo prueba otra vez: ${n} pedidos`);
+// sin la lectura de diez minutos pero con el respaldo del día: lo devuelve marcado
+caja.delete("https://datina.com.ar/api/tendencias");
+r = await responder(pedido, {buscar: async () => new Response("", {status: 503}), cache});
+const viejo = await r.json();
+ver(r.status === 200 && viejo.respaldo === true && viejo.items.length === 2 && /Google respondió 503/.test(viejo.motivo),
+  "si Google no contesta, devuelve la última lectura buena, marcada como respaldo");
+ver(/max-age=60\b/.test(r.headers.get("Cache-Control")), `el respaldo se guarda solo un minuto: ${r.headers.get("Cache-Control")}`);
 
 console.log(fallas ? `${fallas} fallas` : "Búsquedas de Google: todo bien");
 process.exit(fallas ? 1 : 0);

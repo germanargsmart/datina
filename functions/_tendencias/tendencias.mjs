@@ -37,22 +37,35 @@ const json = (cuerpo, estado = 200, segundos = DURA) => new Response(JSON.string
 export async function responder(pedido, {buscar = fetch, cache = null, esperar = p => p} = {}) {
   if (pedido.method !== "GET" && pedido.method !== "HEAD") return json({error: "Solo se puede pedir con GET."}, 405);
   const clave = new Request(new URL("/api/tendencias", pedido.url).toString(), {method: "GET"});
+  // el respaldo: la última lectura buena, guardada un día. Si Google no contesta, se muestra esa, con la hora en que se leyó
+  const claveRespaldo = new Request(new URL("/api/tendencias?respaldo", pedido.url).toString(), {method: "GET"});
   if (cache) {
     const guardada = await cache.match(clave);
     if (guardada) return guardada;
   }
-  let xml;
-  try {
-    const r = await buscar(RSS, {headers: {"User-Agent": "Datina (datina.com.ar)", "Accept": "application/rss+xml, text/xml"}});
-    if (!r.ok) throw new Error("Google respondió " + r.status);
-    xml = await r.text();
-  } catch (e) {
-    // el motivo va en la respuesta (sin datos de nadie: es lo que contestó Google o la red), para saber qué pasó sin abrir los registros
-    return json({error: "No se pudieron leer las búsquedas de Google Trends.", motivo: String(e?.message || e).slice(0, 200)}, 502);
+  // Google a veces rechaza un pedido suelto: se prueba dos veces antes de darlo por caído
+  let xml, motivo = "";
+  for (let intento = 0; intento < 2 && xml == null; intento++) {
+    try {
+      const r = await buscar(RSS, {headers: {"User-Agent": "Datina (datina.com.ar)", "Accept": "application/rss+xml, text/xml"}});
+      if (!r.ok) throw new Error("Google respondió " + r.status);
+      const texto = await r.text();
+      if (leerRss(texto).length) xml = texto; else motivo = "Google Trends no devolvió búsquedas";
+    } catch (e) {
+      // el motivo va en la respuesta (sin datos de nadie: es lo que contestó Google o la red), para saber qué pasó sin abrir los registros
+      motivo = String(e?.message || e).slice(0, 200);
+    }
   }
-  const items = leerRss(xml);
-  if (!items.length) return json({error: "Google Trends no devolvió búsquedas."}, 502);
-  const respuesta = json({fuente: "Google Trends, búsquedas en aumento en la Argentina", rss: RSS, leido: new Date().toISOString(), items});
-  if (cache) esperar(cache.put(clave, respuesta.clone()));
+  if (xml == null) {
+    const respaldo = cache && await cache.match(claveRespaldo);
+    if (respaldo) {
+      const viejo = await respaldo.json();
+      return json({...viejo, respaldo: true, motivo}, 200, 60);
+    }
+    return json({error: "No se pudieron leer las búsquedas de Google Trends.", motivo}, 502);
+  }
+  const cuerpo = {fuente: "Google Trends, búsquedas en aumento en la Argentina", rss: RSS, leido: new Date().toISOString(), items: leerRss(xml)};
+  const respuesta = json(cuerpo);
+  if (cache) esperar(Promise.all([cache.put(clave, respuesta.clone()), cache.put(claveRespaldo, json(cuerpo, 200, 86400))]));
   return respuesta;
 }
