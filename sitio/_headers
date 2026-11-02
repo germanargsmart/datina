@@ -70,6 +70,8 @@
   Cache-Control: public, max-age=31536000, immutable
 /datos/nafta_dolares_anual.json
   Cache-Control: public, max-age=31536000, immutable
+/datos/nombres_serie.json
+  Cache-Control: public, max-age=31536000, immutable
 /datos/exportaciones_dolar_trimestral.json
   Cache-Control: public, max-age=31536000, immutable
 /datos/exportaciones_cantidades_anual.json

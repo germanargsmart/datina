@@ -1323,6 +1323,11 @@ top_m0 = pais_n[(pais_n.anio == ini_n) & (pais_n.sexo == "M")].sort_values("cant
 lionel = pais_n[pais_n.nombre == "Lionel"].set_index("anio").cantidad
 lio_max = int(lionel.idxmax()) if len(lionel) else None
 prov_top_m = nom[(nom.anio == ANIO_N) & (nom.codigo_indec != "00") & (nom.sexo == "M")].sort_values("cantidad").groupby("codigo_indec").tail(1)
+# los diez nombres más inscriptos del país en cada año y sexo (reescritura del artículo de los nombres, 2 de noviembre de 2026): cómo cambian
+# las modas. Mismo orden estable que nombres_top
+nombres_serie = (pais_n.sort_values(["anio", "sexo", "cantidad", "nombre"], ascending=[True, True, False, True], kind="stable")
+                 .groupby(["anio", "sexo"]).head(10)[["anio", "sexo", "nombre", "mostrar", "cantidad"]])
+_nms_1 = nombres_serie.groupby(["anio", "sexo"]).head(1).pivot(index="anio", columns="sexo", values="mostrar")
 
 # Carne vacuna, vino y yerba mate: indicadores sectoriales del Ministerio de Economia (formato largo)
 def sspmi(archivo):
@@ -7296,6 +7301,7 @@ tablas = {
     "patentamientos_anual": patent,
     "patentamientos_provincias": pat_prov[["codigo_indec", "territorio", "autos", "motos", "autos_1000", "motos_1000"]],
     "nombres_top": nombres_top,
+    "nombres_serie": nombres_serie,
     "desembarques_especies": pesca,
     "desembarques_top": pesca_top,
     "pesca_continental": rio,
@@ -7660,6 +7666,7 @@ resumen = {
     "curiosidades": {
         "nom_anio": ANIO_N, "nom_ini": ini_n, "nena": top_f.mostrar, "nena_n": int(top_f.cantidad), "varon": top_m.mostrar, "varon_n": int(top_m.cantidad),
         "nena0": top_f0.mostrar, "varon0": top_m0.mostrar,
+        "nom_primeros": [[int(a), f.F, f.M] for a, f in _nms_1.iterrows()],
         "varon_prov": prov_top_m.mostrar.value_counts().index[0], "varon_prov_n": int(prov_top_m.nombre.value_counts().iloc[0]),
         "lionel_anio": lio_max, "lionel_max": int(lionel.max()) if lio_max else None,
         "lionel_prev": int(lionel.get(lio_max - 1, 0)) if lio_max else None,

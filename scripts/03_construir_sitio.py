@@ -640,7 +640,7 @@ DIFERIDAS = ["elecciones_presidenciales", "anios_congreso", "transferencias_prov
              "empleo_construccion_serie", "pozos_no_convencionales", "areas_produccion", "centrales",
              "gas_usuario_serie", "gas_usuario_mensual", "areas_serie", "combustibles_mensual", "electricidad_serie", "electricidad_mensual",
              "dolar_inversion_trimestral", "compras_dolares_anual", "salarios_serie", "salario_docente_serie", "inversion_educativa_serie",
-             "seguridad_serie_prov", "turismo_dolar_mensual", "nafta_dolares_mensual", "nafta_dolares_anual",
+             "seguridad_serie_prov", "turismo_dolar_mensual", "nafta_dolares_mensual", "nafta_dolares_anual", "nombres_serie",
              "exportaciones_dolar_trimestral", "exportaciones_cantidades_anual",
              "inflacion_mensual", "canasta_mensual", "salario_real_mensual", "actividad_mensual",
              "nacidos_otro_pais_paises", "radicaciones_nacionalidad", "argentinos_exterior_destinos",
