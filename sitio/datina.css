@@ -1680,7 +1680,19 @@ svg.mapa-prov .caba-aparte line{stroke:var(--muted);stroke-width:.8}
 .nota .nota-bajada{font-size:var(--t-5);line-height:1.5}
 .nota mark{padding:0 .2em;font-weight:600;color:var(--ink);background:var(--sol-suave)}
 .nota-graf{margin:var(--bloque) 0;padding:var(--e-6) var(--e-6) var(--e-6);background:#fff;border:1px solid var(--borde);border-radius:var(--r-tarjeta);box-shadow:var(--sombra-tarjeta)}
-.nota-graf h2{margin:0;font-size:var(--t-5);line-height:var(--i-tarjeta);font-weight:600;color:var(--azul)}
+.nota-graf h2,.nota-graf h3{margin:0;font-size:var(--t-5);line-height:var(--i-tarjeta);font-weight:600;color:var(--azul)}
+/* modelo nuevo de artículo (2 de noviembre de 2026): "En síntesis" como lista sin viñetas, "Qué medimos", la pregunta de cada sección y las notas */
+.nota-sintesis ul{list-style:none;margin:0;padding:0}
+.nota-sintesis li{margin:0;padding:var(--e-2) 0;border-top:1px solid var(--borde);line-height:1.5}
+.nota-sintesis li:first-child{border-top:0;padding-top:0}
+.nota-sintesis li:last-child{padding-bottom:0}
+.nota-medimos{margin:var(--bloque) 0}
+.nota-medimos h2,.nota-sec>h2{margin:var(--capitulo) 0 var(--e-3);font-size:var(--t-7);line-height:1.05;font-weight:500;color:var(--azul);font-variation-settings:"wdth" 55,"opsz" 144;font-family:var(--f-c55)}
+.nota-medimos h2{margin-top:0}
+.nota-sec>.nota-graf{margin-top:var(--e-4)}
+.nota-fuentes h2{margin:0 0 var(--e-3);font-size:var(--t-5);line-height:var(--i-tarjeta);font-weight:600;color:var(--azul)}
+.nota-notas{margin:0 0 var(--e-4);padding-left:var(--e-6)}
+.nota-notas li{margin:0 0 var(--e-2);line-height:1.5}
 .nota-graf .grafico{margin-top:var(--e-6)}
 /* la calculadora de la canasta (etapa 5 del plan de mejora): la región, una fila por persona con su edad y su sexo, y el resultado */
 .calc{display:grid;gap:var(--e-6);margin-top:var(--e-6)}
