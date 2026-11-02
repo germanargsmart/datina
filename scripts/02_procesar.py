@@ -5968,6 +5968,16 @@ for _i, _p in _srg_pr.iterrows():
                                  "priv": r1((_srl_r.at[_h, "privado"] / _srl_r.at[_d, "privado"] - 1) * 100),
                                  "pub": r1((_srl_r.at[_h, "publico"] / _srl_r.at[_d, "publico"] - 1) * 100)})
 assert SRL_RES["gobiernos"] and SRL_RES["gobiernos"][-1]["en_curso"], "el salario real por gobierno no llega al último mes"
+# reescritura del artículo (2 de noviembre de 2026): en cuántos meses el salario real le ganó al del mismo mes del año anterior y los extremos.
+# Va en el resumen porque el texto del artículo se arma antes de que llegue su tabla, que es diferida
+_srl_iad = _srl_ia.dropna()
+SRL_RES.update({
+    "ia_desde": _mes_per(_srl_iad.index[0]), "ia_n": int(len(_srl_iad)),
+    "ia_pos_priv": int((_srl_iad.privado > 0).sum()), "ia_pos_pub": int((_srl_iad.publico > 0).sum()),
+    "ia_max_priv": [_mes_per(_srl_iad.privado.idxmax()), r1(float(_srl_iad.privado.max()))],
+    "ia_min_priv": [_mes_per(_srl_iad.privado.idxmin()), r1(float(_srl_iad.privado.min()))],
+    "vs_base_reg": r1(_srl_r.at[_srl_u, "registrado"] - 100),
+})
 
 # Estimador Mensual de Actividad Económica (INDEC, base 2004 = 100): la serie original con su variación contra el mismo mes del año anterior
 # y la desestacionalizada con su variación contra el mes anterior, desde 2004, y los quince sectores (sin los impuestos netos de subsidios).

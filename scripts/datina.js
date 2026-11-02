@@ -8766,30 +8766,75 @@ const ART_SERIE = [{
 }, {
   // etapa 5 del plan de mejora: cuánto compra un salario registrado frente a otros años, con los cambios de gobierno marcados sin adjetivos
   // (auditoría de los artículos, idea 6). Cada gobierno se mide del último mes antes de que asuma al último antes del siguiente (02_procesar.py)
-  id: "a-salario-real", frec: "Se actualiza cada mes", tablas: ["salario_real_mensual"],
-  dek: "Cuánto compran los salarios registrados del sector privado y del sector público frente a los precios, mes por mes desde fines de 2016, y cuánto cambió ese poder de compra en cada gobierno.",
+  id: "a-salario-real", frec: "Se actualiza cada mes", tablas: ["salario_real_mensual", "salarios_provincias"],
+  dek: "Cuánto compran los salarios registrados del sector privado y del sector público frente a los precios, mes por mes desde fines de 2016, cuántas veces le ganaron a la inflación, cuánto cambió ese poder de compra en cada gobierno y en qué provincias subió en el último año.",
   fichas: [["f-salario-real", "salario real"], ["f-salarios", "salarios por provincia"], ["f-inflacion", "inflación"]],
-  csv: [["salario_real_mensual", "Descargar CSV por mes"]],
-  fuentes: "INDEC, índice de salarios e índice de precios al consumidor",
+  csv: [["salario_real_mensual", "Descargar CSV por mes"], ["salarios_provincias", "Descargar CSV por provincia"]],
+  fuentes: "INDEC, índice de salarios e índice de precios al consumidor, y Secretaría de Trabajo, remuneración de los asalariados registrados del sector " +
+    "privado por provincia (SIPA)",
   texto: () => {
-    const S = ESR, mm = v => Math.round(Math.abs(v) * 10) === 0 ? "lo mismo" : `${pct(Math.abs(v))} ${v < 0 ? "menos" : "más"}`;
+    const S = ESR, P = R.salarios, mm = v => Math.round(Math.abs(v) * 10) === 0 ? "lo mismo" : `${pct(Math.abs(v))} ${v < 0 ? "menos" : "más"}`;
+    const un = v => Math.round(Math.abs(v) * 10) === 0 ? "lo mismo" : "un " + mm(v);
     const respuesta = `${mayusc(mm(S.vs_base_priv))} que en ${S.base}, en el sector privado registrado.`;
     const bajada = `Es lo que compraba en ${S.mes} un salario privado registrado, descontada la inflación, frente a lo que compraba en ${S.base}. ` +
       `Uno del sector público compraba ${mm(S.vs_base_pub)}. En los últimos doce meses, el salario real privado ${cambioPct(S.real_priv)} y el público ${cambioPct(S.real_pub)}.`;
-    const contexto = "El salario real es el salario descontada la inflación: dice cuántas cosas se pueden comprar con él. Datina lo calcula dividiendo " +
-      "el índice de salarios del INDEC, que sigue lo que cobran los asalariados registrados de los sectores privado y público, por el índice de " +
-      `precios al consumidor del mismo mes. Las dos series empiezan en ${S.base}, el primer mes del índice de precios de todo el país: 100 es lo ` +
-      "que compraba un salario ese mes.";
-    const s1 = `El salario real privado llegó a su punto más alto en ${S.max_priv_mes}, con ${n1(S.max_priv)}, y al más bajo en ${S.min_priv_mes}, con ${n1(S.min_priv)}.`;
-    const s2 = S.gobiernos.map(g => `Entre ${g.desde}${g.parcial ? ", cuando empieza la serie," : ""} y ${g.hasta}${g.en_curso ? ", el último mes con datos," : ","} ` +
+    const contexto = "Un aumento de sueldo no dice por sí solo si alguien está mejor: depende de cuánto subieron los precios en el mismo tiempo. " +
+      "El salario real es el salario descontada la inflación, y dice cuántas cosas se pueden comprar con él. Datina lo calcula dividiendo " +
+      "el índice de salarios del INDEC por el índice de precios al consumidor del mismo mes. " +
+      `Las dos series empiezan en ${S.base}, el primer mes del índice de precios de todo el país: 100 es lo que compraba un salario ese mes.`;
+    const medimos = ["El índice de salarios del INDEC sigue lo que se paga en los puestos de trabajo registrados del sector privado y del sector público. " +
+      "No es el salario de una persona sino cómo cambia el pago de un mismo puesto de un mes a otro.",
+      "Para las provincias, el dato es otro: la remuneración promedio de los asalariados registrados del sector privado, de la Secretaría de Trabajo, " +
+      "descontada la inflación del país."];
+    // 1. el nivel frente al comienzo de la serie
+    const s1 = `El salario real privado llegó a su punto más alto en ${S.max_priv_mes}, con ${n1(S.max_priv)}, y al más bajo en ${S.min_priv_mes}, con ${n1(S.min_priv)}. ` +
+      `En ${S.mes}, el del sector público compraba ${mm(S.vs_base_pub)} que en ${S.base}, y el de todos los asalariados registrados, ${mm(S.vs_base_reg)}.`;
+    // 2. el último año: salarios y precios
+    const s2 = `Entre ${S.mes_ant} y ${S.mes}, los salarios privados registrados subieron ${pct(S.nom_priv)} y los públicos, ${pct(S.nom_pub)}. Los precios ` +
+      `subieron ${pct(S.ipc)}. Descontada la inflación, el salario real privado ${cambioPct(S.real_priv)} y el público ${cambioPct(S.real_pub)}. ` +
+      "Cuando la inflación es alta, unos pocos puntos de diferencia entre los aumentos y los precios cambian mucho lo que se puede comprar.";
+    // 3. cuántas veces le ganó al año anterior
+    const [maxM, maxV] = S.ia_max_priv, [minM, minV] = S.ia_min_priv;
+    const s3 = `Desde ${S.ia_desde}, en ${S.ia_pos_priv} de los ${S.ia_n} meses el salario real privado compraba más que en el mismo mes del año anterior. ` +
+      `El público, en ${S.ia_pos_pub}. La mejora más grande fue la de ${maxM}, con ${pct(maxV)} más que un año antes, y la caída más grande, la de ${minM}, ` +
+      `con ${pctAbs(minV)} menos. Las subas y las bajas no se compensan: una caída del 10% necesita una suba de más del 11% para volver al mismo nivel.`;
+    // 4. cada gobierno
+    const G = S.gobiernos, nBaja = G.filter(g => g.priv < 0).length;
+    const s4 = G.map(g => `Entre ${g.desde}${g.parcial ? ", cuando empieza la serie," : ""} y ${g.hasta}${g.en_curso ? ", el último mes con datos," : ","} ` +
       `con ${g.presidente}, el salario real privado ${cambioPct(g.priv)} y el público ${cambioPct(g.pub)}.`).join(" ");
+    // 5. las provincias, con la remuneración del SIPA
+    const s5 = `Entre ${P.ant} y ${P.mes}, la remuneración promedio de los asalariados privados registrados ${cambioPct(P.var_real_12m)} descontada la inflación ` +
+      `en el conjunto del país. Subió en ${P.n_suben} de las 24 jurisdicciones. En pesos de ${P.mes}, fue de ${n0(P.top[1])} en ${P.top[0]} y de ` +
+      `${n0(P.bajo[1])} en ${P.bajo[0]}: ${veces(P.top[1], P.bajo[1])} veces más. Una parte de esa diferencia viene de las actividades de cada provincia, ` +
+      "como el petróleo o la minería, que pagan más que el comercio o el campo.";
+    const sintesis = [`En ${S.mes}, un salario privado registrado compraba ${un(S.vs_base_priv)} que en ${S.base}, y uno público, ${un(S.vs_base_pub)}.`,
+      `En el último año, los salarios privados subieron ${pct(S.nom_priv)} y los precios, ${pct(S.ipc)}.`,
+      `En ${S.ia_pos_priv} de los ${S.ia_n} meses desde ${S.ia_desde}, el salario real privado le ganó al del año anterior.`,
+      `En el último año, el salario real privado subió en ${P.n_suben} de las 24 jurisdicciones.`];
     const lim = ["El índice de salarios sigue lo que se paga en los puestos registrados, no lo que cobra cada persona: si alguien cambia de trabajo, suma otro o lo pierde, no se ve.",
       "No incluye a los asalariados no registrados ni a quienes trabajan por su cuenta. El INDEC publica el índice de los no registrados con cinco meses de rezago, y por eso no se compara con los precios del mismo mes.",
       "Lo que cambió en cada gobierno depende también de la economía del mundo, de las sequías y de lo que venía de antes: no mide solo las decisiones de cada uno.",
-      `Que ${S.base} valga 100 no quiere decir que ese mes fuera bueno o malo para el salario: es solo el punto de partida de la serie.`];
-    return {respuesta, bajada, contexto, lim, secciones: [
-      {g: "salario-real", tit: "Salario real registrado, privado y público", forma: "lineas",
-        pie: `Índice, ${S.base} = 100 (la línea gris): el índice de salarios dividido por el de precios. Las líneas punteadas marcan el mes en que asumió cada presidente.`, txt: [s1, s2]},
+      `Que ${S.base} valga 100 no quiere decir que ese mes fuera bueno o malo para el salario: es solo el punto de partida de la serie.`,
+      "La remuneración por provincia se descuenta con la inflación del país, aunque los precios no suben igual en todas las regiones."];
+    const notas = ["Salario real: índice de salarios del INDEC (sector privado registrado, sector público y total registrado), dividido por el índice de precios al consumidor del país del mismo mes, con " + S.base + " = 100.",
+      "Gobiernos: del último mes antes de que asuma cada presidente, o del comienzo de la serie, al último mes antes de que asuma el siguiente, o al último mes con datos. Sin los interinos.",
+      `Provincias: remuneración promedio por todo concepto de los asalariados registrados del sector privado (Secretaría de Trabajo, SIPA), por provincia donde está declarado el trabajador, de ${P.mes}, sin aguinaldo.`];
+    return {respuesta, bajada, contexto, medimos, sintesis, lim, notas, secciones: [
+      {preg: "¿Cuánto compra hoy un salario?", g: "salario-real", forma: "lineas",
+        tit: `Un salario privado registrado compra ${un(S.vs_base_priv)} que en ${S.base}`,
+        pie: `Índice, ${S.base} = 100 (la línea gris): el índice de salarios dividido por el de precios. Las líneas punteadas marcan el mes en que asumió cada presidente.`, txt: [s1]},
+      {preg: "¿Le ganaron los salarios a la inflación en el último año?", g: "sal-anio", forma: "barras",
+        tit: `Los salarios privados subieron ${pct(S.nom_priv)} en un año y los precios, ${pct(S.ipc)}`,
+        pie: `% de suba entre ${S.mes_ant} y ${S.mes}, sin descontar la inflación.`, txt: [s2]},
+      {preg: "¿Cuántas veces le ganó el salario al del año anterior?", g: "sal-ia", forma: "lineas",
+        tit: `En ${S.ia_pos_priv} de los ${S.ia_n} meses, el salario real privado compraba más que un año antes`,
+        pie: "% de cambio del salario real frente al mismo mes del año anterior. Arriba de la línea del cero, compraba más que un año antes.", txt: [s3]},
+      {preg: "¿Cuánto cambió en cada gobierno?", g: "sal-gob", forma: "barras",
+        tit: nBaja === G.length ? `El salario real privado bajó en los ${G.length} períodos de gobierno de la serie` : `El salario real privado bajó en ${nBaja} de los ${G.length} períodos de gobierno de la serie`,
+        pie: "% de cambio del salario real entre el comienzo y el final de cada período. El primero empieza con la serie, no con el gobierno.", txt: [s4]},
+      {preg: "¿En qué provincias subió el salario real en el último año?", g: "sal-prov", forma: "barras",
+        tit: `La remuneración real privada subió en ${P.n_suben} de las 24 jurisdicciones`,
+        pie: `% de cambio de la remuneración promedio de los asalariados privados registrados entre ${P.ant} y ${P.mes}, descontada la inflación. La línea marca el país.`, txt: [s5]},
     ]};
   },
   dib: {
@@ -8797,18 +8842,36 @@ const ART_SERIE = [{
       xl: r => mesPer(r.periodo), mensual: true, ref: 100,
       eventos: ESR.gobiernos.filter(g => !g.parcial).map(g => ({x: tPer(g.desde_p) + 1 / 12, lab: g.corto})),
       series: [{k: "privado", lab: "Privado registrado", corto: "Privado", c: NAR}, {k: "publico", lab: "Público", c: FRI}]}),
+    "sal-anio": (el, a) => barrasH(el, {anim: a, sinOrden: true, k: "v", vf: pct, af: v => n0(v) + "%", l: 190, lAngosto: 150,
+      data: [{codigo_indec: "priv", territorio: "Salarios privados", v: ESR.nom_priv}, {codigo_indec: "pub", territorio: "Salarios públicos", v: ESR.nom_pub},
+        {codigo_indec: "ipc", territorio: "Precios", v: ESR.ipc}],
+      color: d => css(d.codigo_indec === "ipc" ? "--sol" : "--celeste"), tip: d => `<b>${d.territorio}</b><br>${pct(d.v)} entre ${ESR.mes_ant} y ${ESR.mes}`}),
+    "sal-ia": (el, a) => {
+      const data = T.salario_real_mensual.filter(r => r.interanual_real_privado != null).map(r => ({...r, t: tPer(r.periodo)}));
+      return lineas(el, {anim: a, data, x: "t", conNegativos: true, ref: 0, vf: v => (v > 0 ? "+" : "") + pct(v), yf: v => n0(v) + "%",
+        xl: r => mesPer(r.periodo), mensual: true,
+        series: [{k: "interanual_real_privado", lab: "Privado registrado", corto: "Privado", c: NAR}, {k: "interanual_real_publico", lab: "Público", c: FRI}]});
+    },
+    "sal-gob": (el, a) => barrasH(el, {anim: a, sinOrden: true, k: "v", vf: v => (v > 0 ? "+" : "") + pct(v), af: v => n0(v) + "%", l: 190, lAngosto: 150,
+      data: ESR.gobiernos.flatMap(g => [{codigo_indec: g.corto + "-priv", territorio: `${g.corto}, privado`, v: g.priv, priv: true},
+        {codigo_indec: g.corto + "-pub", territorio: `${g.corto}, público`, v: g.pub, priv: false}]),
+      color: d => css(d.priv ? "--celeste" : "--sol"), tip: d => `<b>${d.territorio}</b><br>${cambioPct(d.v)} descontada la inflación`}),
+    "sal-prov": (el, a) => barrasH(el, {anim: a, k: "var_real_12m", vf: v => (v > 0 ? "+" : "") + pct(v), af: v => n0(v) + "%",
+      data: T.salarios_provincias.filter(r => r.codigo_indec !== "00"), ref: R.salarios.var_real_12m, refLab: `País ${pct(R.salarios.var_real_12m)}`,
+      tip: d => `<b>${d.territorio}</b><br>${cambioPct(d.var_real_12m)} descontada la inflación<br>${n0(d.salario)} pesos en ${R.salarios.mes}`}),
   },
 }, {
   // etapa 5 del plan de mejora: aportantes por jubilación o pensión desde 1994, con los haberes frente al salario (auditoría de los
   // artículos, idea 5)
   id: "a-aportantes", frec: "Se actualiza cada trimestre", tablas: ["jubilaciones_aportantes", "haberes_previsionales"],
-  dek: "Cuántas personas aportan al sistema previsional que administra ANSES por cada jubilación o pensión que paga, año por año desde 1994, y cuánto representan los haberes frente al salario.",
+  dek: "Cuántas personas aportan al sistema previsional que administra ANSES por cada jubilación o pensión que paga, año por año desde 1994, cuánto crecieron unos y otros, y cuánto representan y cuánto compran los haberes.",
   fichas: [["f-envejecimiento", "aportantes y envejecimiento"], ["f-haberes", "haberes previsionales"]],
   csv: [["jubilaciones_aportantes", "Descargar CSV de aportantes y beneficios"], ["haberes_previsionales", "Descargar CSV de los haberes"]],
   fuentes: "Secretaría de Seguridad Social y ANSES, aportantes y beneficios del sistema previsional, haberes, y salario de los asalariados registrados, " +
-    "e INDEC, proyecciones de población",
+    "e INDEC, proyecciones de población e índice de precios al consumidor",
   texto: () => {
     const J = JU, H = HB, A = T.jubilaciones_aportantes, ini = A[0], ult = A.at(-1), cuando = J.mes ? `${MESES[J.mes - 1]} de ${J.anio}` : String(J.anio);
+    const mll = v => `${n1(v / 1e6)} millones`;
     const respuesta = `${n2(J.ratio)} aportantes por cada jubilación o pensión, en ${cuando}.`;
     const bajada = `Son ${n0(J.aportantes)} personas que aportan y ${n0(J.beneficios)} beneficios que paga ANSES. En ${J.ini} había ${n2(J.ini_ratio)} aportantes ` +
       `por beneficio. El valor más alto de la serie fue ${n2(J.max)}, en ${J.max_anio}, y el más bajo, ${n2(J.min)}, en ${J.min_anio}.`;
@@ -8816,34 +8879,94 @@ const ART_SERIE = [{
       "recursos, pagan las jubilaciones y pensiones de hoy. Por eso se mira cuántas personas aportan por cada beneficio que se paga. Ese número depende " +
       "de dos cosas: cuánta gente tiene un trabajo registrado y aporta, y cuántas personas cobran un beneficio, algo que crece con el envejecimiento de " +
       "la población y que creció también con las moratorias, que desde mediados de los años 2000 permitieron jubilarse a personas sin todos los años de aportes.";
-    // el año en que más crecieron los beneficios
-    let salto = null;
-    A.slice(1).forEach((r, i) => { const v = (r.beneficios / A[i].beneficios - 1) * 100; if (!r.mes && (!salto || v > salto.v)) salto = {anio: r.anio, v}; });
+    const medimos = ["Los aportantes son las personas que aportan al sistema que administra ANSES: asalariados, autónomos, monotributistas y trabajadoras " +
+      "de casas particulares. Los beneficios son las jubilaciones y pensiones que paga.",
+      "Los haberes se comparan con el salario promedio de los asalariados registrados y, para saber cuánto compran, se descuenta la inflación con el " +
+      "índice de precios al consumidor del INDEC. El haber mínimo es la jubilación más baja que paga ANSES, y los refuerzos son sumas que se pagan aparte " +
+      "del haber, que fija el Gobierno."];
+    // 1. la razón
+    const s1 = `En ${cuando} había ${n2(J.ratio)} aportantes por cada jubilación o pensión, frente a ${n2(J.ini_ratio)} en ${J.ini}. El valor más alto fue el de ` +
+      `${J.max_anio}, ${n2(J.max)}, y el más bajo, el de ${J.min_anio}, ${n2(J.min)}` +
+      (J.min_anio >= 2001 && J.min_anio <= 2003 ? ", en medio de la crisis de 2001 y 2002, cuando cayó el empleo registrado." : ".") +
+      ` Desde ${J.max_anio}, la razón bajó ${n2(J.max - J.ratio)} aportantes por beneficio. Para que vuelva a subir, los aportantes tienen que crecer más ` +
+      "rápido que los beneficios, y eso depende sobre todo de cuánto empleo registrado se crea.";
+    // 2. los dos lados de la cuenta
     const vA = (ult.aportantes / ini.aportantes - 1) * 100, vB = (ult.beneficios / ini.beneficios - 1) * 100;
-    const s1 = `Desde ${ini.anio}, ` + (vA > 0 && vB > 0 ? `los aportantes crecieron ${pct(vA)} y los beneficios, ${pct(vB)}. ` : `los aportantes ${cambioPl(vA)} y los beneficios ${cambioPl(vB)}. `) +
-      `El año en que más crecieron los beneficios fue ${salto.anio}: ${pct(salto.v)} en un año. ` +
-      `En la población, según las proyecciones del INDEC, las personas de 15 a 64 años por cada persona de 65 o más pasan de ${n1(EV.trab_hoy)} en ${EV.anio} a ${n1(EV.trab_fin)} en ${EV.anio_fin}.`;
-    const s2 = `En ${H.anio}${H.meses < 12 ? `, hasta ${MESES[H.meses - 1]},` : ""} la jubilación promedio equivalía al ${pct(H.pct_jub)} del salario promedio de los asalariados ` +
+    const s2 = `Desde ${ini.anio}, ` + (vA > 0 && vB > 0 ? `los aportantes crecieron ${pct(vA)} y los beneficios, ${pct(vB)}. ` : `los aportantes ${cambioPl(vA)} y los beneficios ${cambioPl(vB)}. `) +
+      `Pasaron de ${mll(ini.aportantes)} a ${mll(ult.aportantes)} de aportantes y de ${mll(ini.beneficios)} a ${mll(ult.beneficios)} de beneficios.` +
+      (vB > vA ? " Los beneficios crecieron más rápido, y por eso hay menos aportantes por beneficio que al comienzo. " : " ") +
+      `En la población, según las proyecciones del INDEC, las personas de 15 a 64 años por cada persona de 65 o más pasan de ${n1(EV.trab_hoy)} en ${EV.anio} ` +
+      `a ${n1(EV.trab_fin)} en ${EV.anio_fin}. Con menos personas en edad de trabajar por cada persona mayor, sostener la misma razón va a pedir más ` +
+      "empleo registrado.";
+    // 3. el crecimiento de cada año, solo con los años completos
+    const comp = A.filter(r => !r.mes), cre = comp.slice(1).map((r, i) => ({anio: r.anio, a: (r.aportantes / comp[i].aportantes - 1) * 100, b: (r.beneficios / comp[i].beneficios - 1) * 100}));
+    const salto = cre.reduce((x, y) => y.b > x.b ? y : x), masB = cre.filter(r => r.b > r.a).length;
+    const s3 = `El año en que más crecieron los beneficios fue ${salto.anio}: ${pct(salto.b)} en un año, mientras los aportantes ${cambioPl(salto.a)}. ` +
+      `En ${masB} de los ${cre.length} años, los beneficios crecieron más que los aportantes. Los saltos más grandes de los beneficios coinciden con las moratorias, ` +
+      "que sumaron de una vez a muchas personas que no tenían todos los años de aportes. Los aportantes, en cambio, siguen al empleo registrado: " +
+      "crecen cuando crece la economía y caen en las crisis, como en 2002 y en 2020.";
+    // 4. los haberes frente al salario
+    const hU = T.haberes_previsionales.at(-1);
+    const s4 = `En ${H.anio}${H.meses < 12 ? `, hasta ${MESES[H.meses - 1]},` : ""} la jubilación promedio equivalía al ${pct(H.pct_jub)} del salario promedio de los asalariados ` +
       `registrados, y el haber mínimo con los refuerzos que se pagan aparte, al ${pct(H.pct_min_ad)}. En ${H.ini}, al ${pct(H.ini_pct_jub)} y al ${pct(H.ini_pct_min_ad)}. ` +
-      `El haber mínimo con refuerzos llegó a su punto más alto frente al salario en ${H.max_pct.anio}, con el ${pct(H.max_pct.v)}, y al más bajo en ${H.min_pct.anio}, con el ${pct(H.min_pct.v)}.`;
+      `El haber mínimo con refuerzos llegó a su punto más alto frente al salario en ${H.max_pct.anio}, con el ${pct(H.max_pct.v)}, y al más bajo en ${H.min_pct.anio}, con el ${pct(H.min_pct.v)}. ` +
+      `La pensión promedio equivalía en ${H.anio} al ${pct(hU.pct_pension)} del salario, y el haber promedio de todos los beneficios, al ${pct(H.pct_haber)}.`;
+    // 5. lo que compran los haberes
+    const s5 = `Descontada la inflación, entre ${H.ini_real} y ${H.anio} el haber mínimo con refuerzos ${cambioPct(H.var_real_min_ad)}, la jubilación promedio ` +
+      `${cambioPct(H.var_real_jub)} y el salario promedio de los asalariados registrados ${cambioPct(H.var_real_sal)}. El haber mínimo con refuerzos fue el más alto ` +
+      `en ${H.min_ad_real_max.anio}, con ${n0(H.min_ad_real_max.v)} pesos de ${mesPer(H.mes_real)}, y en ${H.anio} fue de ${n0(H.min_ad_real)}.` +
+      ` En pesos de ${mesPer(H.mes_real)}, la jubilación promedio de ${H.anio} fue de ${n0(hU.jubilacion_promedio_real)} y el salario promedio, de ${n0(hU.salario_promedio_real)}.` +
+      (H.var_real_min_ad < H.var_real_sal ? ` Como el haber mínimo cayó más que el salario, desde ${H.ini_real} también bajó lo que representa frente a él.` : "");
+    const sintesis = [`En ${cuando} había ${n2(J.ratio)} aportantes por cada jubilación o pensión, frente a ${n2(J.ini_ratio)} en ${J.ini}.`,
+      `Desde ${ini.anio}, los aportantes ${cambioPl(vA)} y los beneficios ${cambioPl(vB)}.`,
+      `La jubilación promedio equivalía al ${pct(H.pct_jub)} del salario promedio de los asalariados registrados en ${H.anio}.`,
+      `Descontada la inflación, el haber mínimo con refuerzos ${cambioPct(H.var_real_min_ad)} desde ${H.ini_real}.`];
     const lim = ["Un beneficio no es una persona: alguien puede cobrar una jubilación y una pensión a la vez.",
-      "Los aportantes incluyen asalariados, autónomos, monotributistas y trabajadoras de casas particulares, y también jubilados que siguen aportando.",
+      "Los aportantes incluyen también a jubilados que siguen aportando.",
       "Los aportes no son el único recurso del sistema: también lo financian impuestos asignados y fondos del Tesoro. Cuántos aportantes hay por beneficio no dice si al sistema le alcanza o le falta.",
-      "No incluye las cajas provinciales ni los regímenes que no administra ANSES. Desde abril de 2019 se cuentan solo los beneficios no suspendidos, y hasta 2008 la serie incluye el sistema de capitalización.",
-      `Cada año es el promedio de sus meses, salvo ${ult.mes ? `${ult.anio}, que es el último mes publicado` : "el último, que es el último mes publicado"}.`];
-    return {respuesta, bajada, contexto, lim, secciones: [
-      {g: "aportantes-ratio", tit: "Aportantes por cada jubilación o pensión", forma: "lineas",
+      "No incluye las cajas provinciales ni los regímenes que no administra ANSES. Desde abril de 2019 se cuentan solo los beneficios no suspendidos, y hasta 2008 la serie incluye el sistema de capitalización."];
+    const notas = ["Aportantes y beneficios: Secretaría de Seguridad Social y ANSES, promedio de cada año. " +
+      `El último, ${ult.mes ? `${ult.anio}, es el último mes publicado` : "el último mes publicado"}.`,
+      "Haberes: haber mínimo, haber mínimo con los refuerzos que se pagan aparte, jubilación promedio y salario promedio de los asalariados registrados sujeto a aportes, sin aguinaldo, promedio de cada año.",
+      `Pesos de ${mesPer(H.mes_real)}: descontada la inflación con el índice de precios al consumidor del INDEC, desde ${H.ini_real}, el primer año completo del índice de todo el país.`,
+      "Población: proyecciones del INDEC con base en el Censo 2022."];
+    return {respuesta, bajada, contexto, medimos, sintesis, lim, notas, secciones: [
+      {preg: "¿Cuántos aportantes hay por cada jubilación?", g: "aportantes-ratio", forma: "lineas",
+        tit: `En ${cuando} había ${n2(J.ratio)} aportantes por cada jubilación o pensión`,
         pie: "Personas que aportan sobre beneficios que paga ANSES, promedio de cada año.", txt: [s1]},
-      {g: "aportantes-haberes", tit: "Haberes frente al salario promedio de los asalariados registrados", forma: "lineas",
-        pie: "% del salario promedio de los asalariados registrados sujeto a aportes, sin aguinaldo. Promedio de cada año.", txt: [s2]},
+      {preg: "¿Cuántos aportan y cuántos cobran?", g: "ap-cuentas", forma: "lineas",
+        tit: `Desde ${ini.anio}, los aportantes ${cambioPl(vA)} y los beneficios ${cambioPl(vB)}`,
+        pie: "Millones de personas que aportan y de beneficios que paga ANSES, promedio de cada año.", txt: [s2]},
+      {preg: "¿En qué años crecieron más los beneficios?", g: "ap-crec", forma: "lineas",
+        tit: `El año en que más crecieron los beneficios fue ${salto.anio}: ${pct(salto.b)}`,
+        pie: "% de cambio frente al año anterior, años completos.", txt: [s3]},
+      {preg: "¿Cuánto representa una jubilación frente a un salario?", g: "aportantes-haberes", forma: "lineas",
+        tit: `La jubilación promedio equivalía al ${pct(H.pct_jub)} del salario promedio en ${H.anio}`,
+        pie: "% del salario promedio de los asalariados registrados sujeto a aportes, sin aguinaldo. Promedio de cada año.", txt: [s4]},
+      {preg: "¿Cuánto compran los haberes?", g: "ap-real", forma: "lineas",
+        tit: `Descontada la inflación, el haber mínimo con refuerzos ${cambioPct(H.var_real_min_ad)} desde ${H.ini_real}`,
+        pie: `Pesos de ${mesPer(H.mes_real)} por mes, descontada la inflación. Promedio de cada año.`, txt: [s5]},
     ]};
   },
   dib: {
     "aportantes-ratio": (el, a) => lineas(el, {anim: a, data: T.jubilaciones_aportantes, x: "anio", y0: 0, vf: n2, yf: v => n1(v),
       series: [{k: "aportantes_por_beneficio", c: NAR, lab: "Por beneficio"}], xl: d => d.mes ? `${MESES[d.mes - 1]} de ${d.anio}` : d.anio}),
+    "ap-cuentas": (el, a) => lineas(el, {anim: a, data: T.jubilaciones_aportantes, x: "anio", y0: 0, vf: v => n1(v / 1e6) + " M", yf: v => v === 0 ? "0" : n0(v / 1e6) + " M",
+      xl: d => d.mes ? `${MESES[d.mes - 1]} de ${d.anio}` : d.anio,
+      series: [{k: "aportantes", lab: "Aportantes", c: NAR}, {k: "beneficios", lab: "Beneficios", c: FRI}]}),
+    "ap-crec": (el, a) => {
+      const comp = T.jubilaciones_aportantes.filter(r => !r.mes);
+      const data = comp.slice(1).map((r, i) => ({anio: r.anio, a: (r.aportantes / comp[i].aportantes - 1) * 100, b: (r.beneficios / comp[i].beneficios - 1) * 100}));
+      return lineas(el, {anim: a, data, x: "anio", conNegativos: true, ref: 0, vf: v => (v > 0 ? "+" : "") + pct(v), yf: v => n0(v) + "%",
+        series: [{k: "b", lab: "Beneficios", c: FRI}, {k: "a", lab: "Aportantes", c: NAR}]});
+    },
     "aportantes-haberes": (el, a) => lineas(el, {anim: a, data: T.haberes_previsionales, x: "anio", y0: 0, vf: pct, yf: v => n0(v) + "%",
       xl: r => r.meses < 12 ? `${r.anio}, hasta ${MESES[r.meses - 1]}` : r.anio,
       series: [{k: "pct_jubilacion", lab: "Jubilación promedio", corto: "Promedio", c: NAR}, {k: "pct_minimo_adicionales", lab: "Mínimo con refuerzos", corto: "Con refuerzos", c: FRI}]}),
+    "ap-real": (el, a) => lineas(el, {anim: a, data: T.haberes_previsionales.filter(r => r.jubilacion_promedio_real != null), x: "anio", y0: 0,
+      vf: v => n0(v / 1e3) + " mil", yf: v => v === 0 ? "0" : n1(v / 1e6).replace(/,0$/, "") + " M", xl: r => r.meses < 12 ? `${r.anio}, hasta ${MESES[r.meses - 1]}` : r.anio,
+      series: [{k: "salario_promedio_real", lab: "Salario promedio", corto: "Salario", c: css("--azul-hondo")}, {k: "jubilacion_promedio_real", lab: "Jubilación promedio", corto: "Jubilación", c: NAR},
+        {k: "haber_minimo_adicionales_real", lab: "Mínimo con refuerzos", corto: "Mínimo", c: FRI}]}),
   },
 }, {
   // etapa 5 del plan de mejora: la maternidad adolescente en el primer y el último año con datos, provincia por provincia (auditoría de los
@@ -9061,40 +9184,68 @@ const ART_SERIE = [{
 }, {
   // etapa 5 del plan de mejora: la línea de pobreza de cada región, con una calculadora para armar el hogar propio (auditoría de los
   // artículos, idea 1). La canasta de cada región es la del último mes del informe semestral, y la tabla de adulto equivalente, la del INDEC
-  id: "a-canasta-regiones", frec: "Se actualiza cada semestre", tablas: ["canasta_regiones", "adulto_equivalente", "pobreza_aglomerados"],
-  dek: "Lo que necesita por mes un hogar para no quedar bajo la línea de pobreza en cada una de las seis regiones del INDEC, una calculadora para el hogar propio y la parte de las personas bajo esa línea en cada región.",
+  id: "a-canasta-regiones", frec: "Se actualiza cada semestre", tablas: ["canasta_regiones", "adulto_equivalente", "pobreza_aglomerados", "canasta_mensual"],
+  dek: "Lo que necesita por mes un hogar para no quedar bajo la línea de pobreza en cada una de las seis regiones del INDEC, una calculadora para el hogar propio, cuánto pesan los alimentos, cuánto subió la canasta y la parte de las personas bajo las líneas de pobreza y de indigencia en cada región.",
   fichas: [["f-canastas", "canastas básicas"], ["f-pobreza-aglomerados", "pobreza por región y por ciudad"], ["f-pobreza", "pobreza e indigencia"]],
-  csv: [["canasta_regiones", "Descargar CSV de las canastas por región"], ["adulto_equivalente", "Descargar CSV de la tabla de adulto equivalente"]],
-  fuentes: "INDEC, canasta básica alimentaria y canasta básica total (valores por región del informe de pobreza y tabla de adulto equivalente), " +
-    "e incidencia de la pobreza y la indigencia, Encuesta Permanente de Hogares",
+  csv: [["canasta_regiones", "Descargar CSV de las canastas por región"], ["adulto_equivalente", "Descargar CSV de la tabla de adulto equivalente"],
+    ["canasta_mensual", "Descargar CSV de la canasta del Gran Buenos Aires por mes"]],
+  fuentes: "INDEC, canasta básica alimentaria y canasta básica total (valores por región del informe de pobreza, serie mensual del Gran Buenos Aires y " +
+    "tabla de adulto equivalente), e incidencia de la pobreza y la indigencia, Encuesta Permanente de Hogares",
   texto: () => {
     const C = ECB, ae = C.adultos_hogar, regs = T.canasta_regiones, [rMin, vMin] = C.reg_min, [rMax, vMax] = C.reg_max;
-    const fila = n => regs.find(r => r.region === n), pr = T.pobreza_aglomerados.filter(r => r.tipo === "region");
+    const fila = n => regs.find(r => r.region === n), pr = T.pobreza_aglomerados.filter(r => r.tipo === "region"), tot = T.pobreza_aglomerados.find(r => r.tipo === "total");
     const respuesta = `De ${n0(vMin * ae)} pesos por mes en ${REG_ART[rMin]} a ${n0(vMax * ae)} en ${REG_ART[rMax]}.`;
     const bajada = `Es la canasta básica total de ${C.reg_mes} para el hogar de ejemplo del INDEC, de cuatro integrantes: un varón de 35 años, una mujer de 31, ` +
       "un hijo de 6 y una hija de 8. Si los ingresos de un hogar así no llegan a esa cifra, el hogar y quienes viven en él cuentan como pobres." +
       (C.periodo !== regs[0].periodo ? ` En el Gran Buenos Aires, la canasta se publica cada mes: la de ${C.mes} fue de ${n0(C.cbt_hogar)} pesos.` : "");
     const contexto = "El INDEC mide la pobreza por los ingresos. Primero valoriza una canasta de alimentos que cubre lo que necesita comer una persona, " +
       "la canasta básica alimentaria, que marca la línea de indigencia. Después le suma los demás bienes y servicios, como la ropa, el transporte, " +
-      "la educación y la salud: es la canasta básica total, que marca la línea de pobreza. Como un chico no necesita lo mismo que un adulto, cada persona " +
-      "cuenta según su edad y su sexo, en adultos equivalentes. Y como los precios y lo que se consume cambian de un lugar a otro, el INDEC calcula " +
-      "una canasta para cada una de las seis regiones del país.";
+      "la educación y la salud: es la canasta básica total, que marca la línea de pobreza. Y como los precios y lo que se consume cambian de un lugar " +
+      "a otro, el INDEC calcula una canasta para cada una de las seis regiones del país.";
+    const medimos = ["Como un chico no necesita lo mismo que un adulto, cada persona cuenta según su edad y su sexo, en adultos equivalentes: un varón de " +
+      "30 a 60 años vale 1, y los demás, una parte de eso. La canasta de un hogar es la de un adulto multiplicada por los adultos equivalentes que suma.",
+      "La pobreza y la indigencia son la parte de las personas que viven en hogares con ingresos por debajo de su canasta total y de su canasta " +
+      "alimentaria, en los aglomerados urbanos que releva la Encuesta Permanente de Hogares."];
+    // 1. la canasta de cada región
     const fMax = fila(rMax), fMin = fila(rMin), difT = (vMax / vMin - 1) * 100, difA = (fMax.cba / fMin.cba - 1) * 100;
     const s1 = `La canasta ${deReg(rMax)} cuesta ${pct(difT)} más que la ${deReg(rMin)}.` +
       (difA < difT / 2 ? ` En los alimentos solos, la diferencia es de ${pct(difA)}: el resto viene de los demás bienes y servicios, que pesan distinto en cada región.` : "") +
       ` En el Gran Buenos Aires, el hogar de ejemplo necesitaba ${n0(fila("Gran Buenos Aires").cbt * ae)} pesos.`;
+    // 2. cuánto pesan los alimentos en la canasta total
+    const al = regs.map(r => ({region: r.region, v: r.cba / r.cbt * 100})), aMax = al.reduce((a, b) => b.v > a.v ? b : a), aMin = al.reduce((a, b) => b.v < a.v ? b : a);
+    const s2 = `En ${REG_ART[aMax.region]}, los alimentos son el ${pct(aMax.v)} de la canasta total, y en ${REG_ART[aMin.region]}, el ${pct(aMin.v)}. ` +
+      "Donde los alimentos pesan más, el resto de los bienes y servicios cuesta menos frente a ellos, y la canasta total queda más cerca de la alimentaria. " +
+      "Por eso una misma suba de los alimentos mueve más la línea de pobreza de esas regiones.";
+    // 3. cuánto subió en un año
+    const ia = regs.map(r => r.interanual_cbt), iaMin = Math.min(...ia), iaMax = Math.max(...ia);
+    const s3 = `En los doce meses hasta ${C.mes}, la canasta total del Gran Buenos Aires subió ${pct(C.ia_cbt)}, la alimentaria, ${pct(C.ia_cba)}, y los precios ` +
+      `en general, ${pct(C.ia_ipc_gba)}. En el último mes, la canasta total subió ${pct(C.m_cbt)}. Por región, en el año hasta ${C.reg_mes} la canasta total ` +
+      `subió entre ${pct(iaMin)} y ${pct(iaMax)}.` + (C.ia_cbt > C.ia_ipc_gba ? " Cuando la canasta sube más que los precios, la línea de pobreza se aleja aunque los ingresos acompañen a la inflación." : "");
+    // 4. la pobreza por región
     const masPob = pr.reduce((a, b) => b.pobreza > a.pobreza ? b : a), menosPob = pr.reduce((a, b) => b.pobreza < a.pobreza ? b : a);
     const pobDe = n => pr.find(r => r.nombre === n);
-    const s3 = (menosPob.nombre === rMax
+    const s4 = (menosPob.nombre === rMax
       ? `La región con la canasta más cara, ${REG_ART[rMax]}, es la que tiene menos personas bajo la línea de pobreza: ${pct(menosPob.pobreza)}.`
       : `${mayusc(REG_ART[rMax])}, la región con la canasta más cara, tiene ${pct(pobDe(rMax).pobreza)} de sus personas bajo la línea de pobreza.`) +
       ` La de más pobreza es ${REG_ART[masPob.nombre]}, con ${pct(masPob.pobreza)}` + (masPob.nombre !== rMax ? `, y su canasta cuesta ${n0(fila(masPob.nombre).cbt * ae)} pesos.` : ".") +
-      " La pobreza depende de lo que cuesta la canasta y también de lo que ganan los hogares de cada región.";
+      ` En el total de los 31 aglomerados, la pobreza es del ${pct(tot.pobreza)}. La pobreza depende de lo que cuesta la canasta y también de lo que ganan los hogares de cada región.`;
+    // 5. la indigencia por región
+    const masInd = pr.reduce((a, b) => b.indigencia > a.indigencia ? b : a), menosInd = pr.reduce((a, b) => b.indigencia < a.indigencia ? b : a);
+    const s5 = `Bajo la línea de indigencia, la de los hogares que no llegan a cubrir los alimentos, está el ${pct(tot.indigencia)} de las personas de los ` +
+      `31 aglomerados. Va del ${pct(menosInd.indigencia)} en ${REG_ART[menosInd.nombre]} al ${pct(masInd.indigencia)} en ${REG_ART[masInd.nombre]}. ` +
+      "Con porcentajes chicos, la encuesta tiene más margen de error: una diferencia de un punto entre dos regiones puede no ser real.";
+    const sintesis = [`El hogar de ejemplo del INDEC necesitaba de ${n0(vMin * ae)} pesos por mes en ${REG_ART[rMin]} a ${n0(vMax * ae)} en ${REG_ART[rMax]}.`,
+      `Los alimentos van del ${pct(aMin.v)} de la canasta total en ${REG_ART[aMin.region]} al ${pct(aMax.v)} en ${REG_ART[aMax.region]}.`,
+      `En el último año, la canasta total del Gran Buenos Aires subió ${pct(C.ia_cbt)} y los precios, ${pct(C.ia_ipc_gba)}.`,
+      `La pobreza va del ${pct(menosPob.pobreza)} de las personas en ${REG_ART[menosPob.nombre]} al ${pct(masPob.pobreza)} en ${REG_ART[masPob.nombre]}.`];
     const lim = ["La línea de pobreza mira solo los ingresos: un hogar que gana apenas más que su canasta no cuenta como pobre, aunque le falten otras cosas, como una vivienda adecuada.",
       "Las canastas por región salen del informe semestral de pobreza, con el último mes de cada semestre. Solo la del Gran Buenos Aires se publica todos los meses.",
       "El INDEC no calcula canastas por provincia ni por ciudad: la calculadora usa la de la región, y dentro de una región los precios también cambian.",
       "La pobreza por región es la de los aglomerados urbanos que releva la Encuesta Permanente de Hogares, no la de toda la región: la encuesta no cubre las zonas rurales ni los pueblos.",
       "La encuesta registra los ingresos que declaran los hogares, que pueden no coincidir con lo que cobran."];
+    const notas = ["Canastas por región: informe semestral de pobreza del INDEC, valores del último mes del semestre por adulto equivalente. Para el hogar de ejemplo, multiplicados por sus " + n2(ae) + " adultos equivalentes.",
+      "Canasta del Gran Buenos Aires: serie mensual del INDEC. Los precios son los del índice de precios al consumidor del Gran Buenos Aires.",
+      `Pobreza e indigencia: Encuesta Permanente de Hogares, ${PZA.semestre}, % de las personas de los aglomerados urbanos de cada región.`];
     const opcR = regs.map(r => `<option value="${r.codigo}">${r.region}</option>`).join("");
     const calc = `<div class="calc" id="calc-canasta"><label class="selector-ficha"><span>Región</span><select class="calc-region">${opcR}</select></label>` +
       `<fieldset class="calc-personas"><legend>Quiénes viven en el hogar</legend><ol class="calc-lista"></ol>` +
@@ -9102,13 +9253,24 @@ const ART_SERIE = [{
       // F9 (plan de mejora, 1 de noviembre de 2026): con el ingreso del hogar, si queda bajo la línea de pobreza o de indigencia. No se guarda ni se envía
       `<label class="selector-ficha calc-ingreso"><span>Ingresos del hogar por mes, en pesos (opcional)</span><input type="number" min="0" step="1000" inputmode="numeric" class="calc-ingreso-in"></label>` +
       `<p class="calc-res" aria-live="polite"></p></div>`;
-    return {respuesta, bajada, contexto, lim, secciones: [
-      {g: "canasta-regiones", tit: "Canasta básica total del hogar de ejemplo, por región", forma: "barras",
-        pie: `Pesos por mes, ${C.reg_mes}. Hogar de cuatro integrantes, ${n2(ae)} adultos equivalentes.`, txt: [s1]},
-      {tit: "¿Cuánto necesita tu hogar?", html: calc,
+    return {respuesta, bajada, contexto, medimos, sintesis, lim, notas, secciones: [
+      {preg: "¿Cuánto necesita un hogar en cada región?", g: "canasta-regiones", forma: "barras",
+        tit: `La canasta ${deReg(rMax)} cuesta ${pct(difT)} más que la ${deReg(rMin)}`,
+        pie: `Canasta básica total del hogar de ejemplo, pesos por mes, ${C.reg_mes}. Hogar de cuatro integrantes, ${n2(ae)} adultos equivalentes.`, txt: [s1]},
+      {preg: "¿Cuánto necesita tu hogar?", tit: "La canasta de un hogar según quiénes viven en él y en qué región", html: calc,
         pie: `Cada persona cuenta según la tabla de adulto equivalente del INDEC, y la canasta es la de ${C.reg_mes} de cada región. Lo que se elige y el ingreso que se escribe no se guardan ni se envían: el cálculo se hace en tu navegador.`, txt: []},
-      {g: "canasta-pobreza", tit: "Personas bajo la línea de pobreza, por región", forma: "barras",
-        pie: `% de las personas de los aglomerados urbanos de cada región, ${PZA.semestre}. La línea marca el total de los 31 aglomerados.`, txt: [s3]},
+      {preg: "¿Cuánto pesan los alimentos en la canasta?", g: "canasta-alimentos", forma: "barras",
+        tit: `En ${REG_ART[aMax.region]}, los alimentos son el ${pct(aMax.v)} de la canasta total`,
+        pie: `Canasta básica alimentaria como % de la canasta básica total, ${C.reg_mes}.`, txt: [s2]},
+      {preg: "¿Cuánto subió la canasta en el último año?", g: "canasta-suba", forma: "lineas",
+        tit: `En el último año, la canasta total del Gran Buenos Aires subió ${pct(C.ia_cbt)} y los precios, ${pct(C.ia_ipc_gba)}`,
+        pie: "% de suba frente al mismo mes del año anterior, Gran Buenos Aires.", txt: [s3]},
+      {preg: "¿Dónde hay más personas bajo la línea de pobreza?", g: "canasta-pobreza", forma: "barras",
+        tit: `La pobreza va del ${pct(menosPob.pobreza)} en ${REG_ART[menosPob.nombre]} al ${pct(masPob.pobreza)} en ${REG_ART[masPob.nombre]}`,
+        pie: `% de las personas de los aglomerados urbanos de cada región, ${PZA.semestre}. La línea marca el total de los 31 aglomerados.`, txt: [s4]},
+      {preg: "¿Y bajo la línea de indigencia?", g: "canasta-indigencia", forma: "barras",
+        tit: `La indigencia va del ${pct(menosInd.indigencia)} en ${REG_ART[menosInd.nombre]} al ${pct(masInd.indigencia)} en ${REG_ART[masInd.nombre]}`,
+        pie: `% de las personas de los aglomerados urbanos de cada región, ${PZA.semestre}. La línea marca el total de los 31 aglomerados.`, txt: [s5]},
     ]};
   },
   // la calculadora: arranca con el hogar de ejemplo del INDEC y la región de la provincia elegida
@@ -9168,11 +9330,26 @@ const ART_SERIE = [{
         k: "v", vf: v => n0(v / 1000) + " mil", af: ejeMil, l: 150, lAngosto: 128, marcar: regs,
         tip: d => `<b>${d.territorio}</b><br>Canasta básica total: ${n0(d.v)} pesos por mes<br>Canasta básica alimentaria: ${n0(d.cba)} pesos`});
     },
+    "canasta-alimentos": (el, a) => {
+      const regs = new Set((REG_IPC[prov] || []).map(r => "r-" + r));
+      barrasH(el, {anim: a, data: T.canasta_regiones.map(r => ({codigo_indec: "r-" + r.codigo, territorio: r.region, v: r.cba / r.cbt * 100})),
+        k: "v", vf: pct, af: v => n0(v) + "%", l: 150, lAngosto: 128, marcar: regs,
+        tip: d => `<b>${d.territorio}</b><br>Los alimentos son el ${pct(d.v)} de la canasta total`});
+    },
+    "canasta-suba": (el, a) => lineas(el, {anim: a, data: T.canasta_mensual.filter(r => r.interanual_cbt != null).map(r => ({...r, t: tPer(r.periodo)})), x: "t", y0: 0,
+      vf: pct, yf: v => n0(v) + "%", xl: r => mesPer(r.periodo), mensual: true,
+      series: [{k: "interanual_cbt", lab: "Canasta total", corto: "Canasta", c: NAR}, {k: "interanual_ipc_gba", lab: "Precios", c: FRI}]}),
     "canasta-pobreza": (el, a) => {
       const tot = T.pobreza_aglomerados.find(r => r.tipo === "total"), regs = new Set((REG_IPC[prov] || []).map(r => "r-" + r));
       barrasH(el, {anim: a, data: T.pobreza_aglomerados.filter(r => r.tipo === "region").map(r => ({codigo_indec: "r-" + r.clave, territorio: r.nombre, v: r.pobreza, ind: r.indigencia})),
         k: "v", vf: pct, af: v => n0(v) + "%", l: 150, lAngosto: 128, marcar: regs, ref: tot.pobreza, refLab: `Total ${pct(tot.pobreza)}`,
         tip: d => `<b>${d.territorio}</b><br>Pobreza: ${pct(d.v)} de las personas<br>Indigencia: ${pct(d.ind)}`});
+    },
+    "canasta-indigencia": (el, a) => {
+      const tot = T.pobreza_aglomerados.find(r => r.tipo === "total"), regs = new Set((REG_IPC[prov] || []).map(r => "r-" + r));
+      barrasH(el, {anim: a, data: T.pobreza_aglomerados.filter(r => r.tipo === "region").map(r => ({codigo_indec: "r-" + r.clave, territorio: r.nombre, v: r.indigencia, pob: r.pobreza})),
+        k: "v", vf: pct, af: v => n0(v) + "%", l: 150, lAngosto: 128, marcar: regs, ref: tot.indigencia, refLab: `Total ${pct(tot.indigencia)}`,
+        tip: d => `<b>${d.territorio}</b><br>Indigencia: ${pct(d.v)} de las personas<br>Pobreza: ${pct(d.pob)}`});
     },
   },
 }, {
