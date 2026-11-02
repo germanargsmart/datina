@@ -8940,58 +8940,95 @@ const ART_SERIE = [{
   },
 }, {
   // etapa 5 del plan de mejora: qué es la coparticipación y cuánto recibe cada provincia (auditoría de los artículos, idea 2). Suma el cruce
-  // de los recursos propios con el empleo privado, que hasta entonces era un artículo aparte (a-recursos-empleo)
-  id: "a-coparticipacion", frec: "Se actualiza cada año", tablas: ["coparticipacion_provincias", "fiscal_provincias", "cruces_provincias"],
-  dek: "Cómo reparte la Nación los impuestos con las provincias, cuánto recibe cada una por habitante, qué parte de sus ingresos es y cuánto recauda cada provincia por su cuenta.",
+  // de los recursos propios con el empleo privado, que hasta entonces era un artículo aparte (a-recursos-empleo). Desde el 2 de noviembre de
+  // 2026 (pedido del autor: artículos más largos, mejor estructurados y con más gráficos, como los de Fundar), el piloto del modelo nuevo:
+  // "En síntesis", "Qué medimos", secciones con su pregunta y un gráfico cuyo título es la conclusión, y "Fuentes y metodología" con notas
+  id: "a-coparticipacion", frec: "Se actualiza cada año", tablas: ["coparticipacion_provincias", "fiscal_provincias", "cruces_provincias", "transferencias_provincias"],
+  dek: "Cómo reparte la Nación los impuestos con las provincias, cuánto recibe cada una por habitante, qué parte de sus ingresos es y cómo cambió, cuánto recauda cada provincia por su cuenta y cuánto pesan los fondos que la Nación reparte sin una regla fija.",
   fichas: [["f-coparticipacion", "coparticipación"], ["f-fiscal", "cuentas de las provincias"], ["f-atn", "transferencias de la Nación"], ["f-empleo", "empleo privado"]],
-  csv: [["coparticipacion_provincias", "Descargar CSV de la coparticipación"], ["fiscal_provincias", "Descargar CSV de las cuentas de las provincias"]],
+  csv: [["coparticipacion_provincias", "Descargar CSV de la coparticipación"], ["fiscal_provincias", "Descargar CSV de las cuentas de las provincias"],
+    ["transferencias_provincias", "Descargar CSV de las transferencias no automáticas"]],
   fuentes: "Ministerio de Economía, esquema ahorro-inversión-financiamiento de cada provincia (tributos de origen nacional, recursos propios e " +
-    "ingresos totales), INDEC, proyecciones de población, y Secretaría de Trabajo, Sistema Integrado Previsional Argentino (SIPA)",
+    "ingresos totales), Secretaría de Hacienda, Presupuesto Abierto (transferencias no automáticas), INDEC, proyecciones de población, y Secretaría " +
+    "de Trabajo, Sistema Integrado Previsional Argentino (SIPA)",
   texto: () => {
-    const C = CPA, F = R.fiscal, mill = v => v < 1e6 ? `${n0(v / 1e3)} mil pesos` : `${n2(v / 1e6)} millones de pesos`, at = Object.entries(C.atrasadas);
-    const sin = at.length ? `, sin contar ${lista(at.map(([p]) => p))}` : "";
+    const C = CPA, F = R.fiscal, TR = R.transferencias, mill = v => v < 1e6 ? `${n0(v / 1e3)} mil pesos` : `${n2(v / 1e6)} millones de pesos`;
+    const at = Object.entries(C.atrasadas), sin = at.length ? `, sin contar ${lista(at.map(([p]) => p))}` : "";
     const respuesta = `De ${mill(C.bajo_hab[1])} por habitante en ${C.bajo_hab[0]} a ${mill(C.top_hab[1])} en ${C.top_hab[0]}, en ${C.anio}.`;
     const bajada = `Es lo que recibió cada jurisdicción por la coparticipación federal y por los otros impuestos nacionales que se reparten por ley. ` +
       `En total, las provincias y CABA recibieron ${billones(C.millones)}${sin}: ${mill(C.pais_hab)} por habitante. El ${pct(C.federal)} fue coparticipación federal.`;
     const contexto = "La Nación cobra los impuestos que más recaudan, como el IVA y Ganancias, y reparte una parte con las provincias. Las reglas " +
-      "están en la ley de coparticipación federal, la 23.548, de 1988. Primero divide lo recaudado entre la Nación y el conjunto de las provincias, " +
-      "y después lo reparte entre las provincias con un porcentaje fijo para cada una, que no cambia con su población ni con lo que recauda. CABA y " +
-      "Tierra del Fuego no figuran en esos porcentajes, porque en 1988 CABA no era autónoma y Tierra del Fuego era territorio nacional: su parte " +
-      "se fijó después. La Constitución de 1994 pidió una ley nueva, acordada entre la Nación y las provincias, que no se aprobó. Además, otras leyes " +
-      "reparten parte de algunos impuestos con un destino fijo, y la Nación envía otros fondos por decisión propia, como los Aportes del Tesoro Nacional (ATN).";
+      "están en la ley de coparticipación federal, la 23.548, de 1988. La parte de las provincias " +
+      "se reparte con un porcentaje fijo para cada una, que no cambia con su población ni con lo que recauda. CABA y " +
+      "Tierra del Fuego no figuran en esos porcentajes: su parte se fijó después. La Constitución de 1994 pidió una ley nueva, acordada entre la Nación y las provincias, que no se aprobó.";
+    const medimos = ["Los recursos propios son lo que la provincia recauda por su cuenta, con sus impuestos, sus regalías y otros " +
+      "ingresos. Las transferencias no automáticas son fondos que la Nación envía sin una regla fija: los Aportes del Tesoro Nacional (ATN) y otras."];
     // el reparto y la población: las dos mitades de jurisdicciones, por cantidad de habitantes
-    const cp = T.coparticipacion_provincias.filter(r => r.anio === C.anio), pob = Object.fromEntries(T.cruces_provincias.map(r => [r.codigo_indec, r.poblacion]));
-    const porPob = [...cp].filter(r => pob[r.codigo_indec]).sort((a, b) => pob[a.codigo_indec] - pob[b.codigo_indec]), h = Math.floor(porPob.length / 2);
+    const cp = T.coparticipacion_provincias, cpA = cp.filter(r => r.anio === C.anio), pob = Object.fromEntries(T.cruces_provincias.map(r => [r.codigo_indec, r.poblacion]));
+    const porPob = [...cpA].filter(r => pob[r.codigo_indec]).sort((a, b) => pob[a.codigo_indec] - pob[b.codigo_indec]), h = Math.floor(porPob.length / 2);
     const medChicas = d3.median(porPob.slice(0, h), r => r.por_habitante), medGrandes = d3.median(porPob.slice(-h), r => r.por_habitante);
     const s1 = `${C.top_hab[0]} recibió por habitante ${veces(C.top_hab[1], C.bajo_hab[1])} veces lo que recibió ${C.bajo_hab[0]}. ` +
       `Como el reparto no sigue la cantidad de habitantes, las ${h} jurisdicciones con menos población recibieron una mediana de ${mill(medChicas)} ` +
       `por habitante, y las ${h} con más, ${mill(medGrandes)}.`;
     const s2 = `En ${C.mas_mitad} de las 24 jurisdicciones, estos fondos fueron más de la mitad de todos sus ingresos. La parte más alta fue la de ` +
       `${C.top_pct[0]}, el ${pct(C.top_pct[1])}, y la más baja, la de ${C.bajo_pct[0]}, el ${pct(C.bajo_pct[1])}. En el conjunto de las provincias y CABA, ` +
-      `el ${pct(C.pct_pais)}${C.pct_pais_ini !== C.pct_pais ? `, y en ${C.ini}, el ${pct(C.pct_pais_ini)}` : ""}.`;
-    const s3 = `Lo que cada provincia recauda por su cuenta, con sus impuestos, sus regalías y otros ingresos, es la otra cara de la misma cuenta. ` +
-      `De cada 100 pesos que ingresaron a ${F.low}, ${n0(F.low_v)} los recaudó la provincia. En ${F.top}, ${n0(F.top_v)}. ` +
-      `La mitad de las provincias recaudó por su cuenta menos del ${pct(F.mediana)} de sus ingresos.`;
+      `fue el ${pct(C.pct_pais)}.`;
+    // cómo cambió desde el primer año de las cuentas: la parte de los ingresos de cada jurisdicción en ese año y en el último
+    const cam = cp.filter(r => r.pct_ingresos_ini != null).map(r => ({...r, d: r.pct_ingresos - r.pct_ingresos_ini}));
+    const subio = cam.filter(r => r.d >= .05).length, bajo = cam.filter(r => r.d <= -.05).length;
+    const mx = cam.reduce((a, b) => b.d > a.d ? b : a), mn = cam.reduce((a, b) => b.d < a.d ? b : a);
+    const s3 = `Entre ${C.ini} y ${C.anio}, la parte de estos fondos en los ingresos subió en ${subio} jurisdicciones y bajó en ${bajo}. ` +
+      `En el conjunto pasó del ${pct(C.pct_pais_ini)} al ${pct(C.pct_pais)}. El cambio más grande hacia arriba fue el de ${mx.territorio}, ` +
+      `de ${n1(mx.d)} puntos, y el más grande hacia abajo, el de ${mn.territorio}, de ${n1(Math.abs(mn.d))} puntos.`;
+    const s4 = `De cada 100 pesos que ingresaron a ${F.low}, ${n0(F.low_v)} los recaudó la provincia. En ${F.top}, ${n0(F.top_v)}. ` +
+      `La mitad de las provincias recaudó por su cuenta menos del ${pct(F.mediana)} de sus ingresos. En ${F.ini}, esa mediana era del ${pct(F.mediana_ini)}.`;
+    // los fondos sin regla fija, en pesos del mismo año que la coparticipación cuando coinciden los años
+    const mismo = TR.ult === C.anio, cada100 = mismo ? TR.otras_ult_pais / C.pais_hab * 100 : null;
+    const s5 = `En ${TR.ult}, las transferencias no automáticas distintas de los ATN fueron de ${n0(TR.otras_ult_pais)} pesos por habitante en el conjunto ` +
+      `de las provincias${mismo ? `, unos ${n1(cada100)} pesos por cada 100 de coparticipación y otros impuestos nacionales` : ""}. Por habitante, fueron de ` +
+      `${n0(TR.otras_ult_min_v)} pesos en ${TR.otras_ult_min} a ${n0(TR.otras_ult_max_v)} en ${TR.otras_ult_max}. ` +
+      (TR.n_atn_ult ? `Los ATN llegaron a ${TR.n_atn_ult} jurisdicciones, de ${n0(TR.atn_ult_min_v)} pesos por habitante en ${TR.atn_ult_min} a ${n0(TR.atn_ult_max_v)} en ${TR.atn_ult_max}.` :
+        "Ese año no hubo ATN.") + ` La Nación decide cada año a quién se los da y cuánto.`;
     // el cruce que era un artículo aparte: recursos propios y empleo privado registrado
     const c = calcularArt({tabla: "cruces_provincias"}, {x: "autonomia_fiscal", y: "empleo_privado"});
-    const s4 = `¿Tienen más empleo privado las provincias que recaudan más por su cuenta? ${c.rs <= -.2 ? "No: la relación va en sentido contrario." : respuestaR(c.rs)} En las ${c.h} con más recursos propios, ` +
-      `la mediana es de ${n1(c.medMas)} asalariados privados registrados cada 100 habitantes. En las ${c.h} con menos, de ${n1(c.medMenos)}.`;
-    const lim = ["Los montos son los tributos de origen nacional que registra cada provincia en sus cuentas: la coparticipación federal y lo que se reparte por otras leyes. No incluyen los ATN ni otras transferencias que la Nación decide cada año.",
-      "Son pesos de cada año: para comparar años distintos hay que descontar la inflación.",
+    const s6 = `${c.rs <= -.2 ? "No: la relación va en sentido contrario." : respuestaR(c.rs)} En las ${c.h} jurisdicciones con más recursos propios, ` +
+      `la mediana es de ${n1(c.medMas)} asalariados privados registrados cada 100 habitantes. En las ${c.h} con menos, de ${n1(c.medMenos)}. ` +
+      `Que vayan juntos no quiere decir que uno cause el otro.`;
+    const sintesis = [`${C.top_hab[0]} recibió por habitante ${veces(C.top_hab[1], C.bajo_hab[1])} veces lo que recibió ${C.bajo_hab[0]}.`,
+      `En ${C.mas_mitad} de las 24 jurisdicciones, la coparticipación y los otros impuestos nacionales fueron más de la mitad de los ingresos.`,
+      `La mitad de las provincias recaudó por su cuenta menos del ${pct(F.mediana)} de sus ingresos.`,
+      ...(mismo ? [`Las transferencias no automáticas distintas de los ATN fueron unos ${n1(cada100)} pesos por cada 100 de coparticipación.`] : [])];
+    const lim = ["Los montos son los tributos de origen nacional que registra cada provincia en sus cuentas: la coparticipación federal y lo que se reparte por otras leyes. No incluyen los ATN ni otras transferencias que la Nación decide cada año, que se muestran aparte.",
+      "Son pesos de cada año. Por eso la comparación con " + C.ini + " usa porcentajes de los ingresos y no montos.",
       ...at.map(([p, a]) => `${p} todavía no publicó sus cuentas de ${C.anio}: en la parte de sus ingresos figura con ${a}, y no está en los pesos por habitante, porque los pesos de ${a} no se comparan con los de ${C.anio}.`),
       "Una parte de la relación entre recursos propios y empleo privado es contable: el impuesto provincial que más recauda, ingresos brutos, se cobra sobre la actividad de las empresas, que es también la que da empleo privado.",
       "Los recursos propios incluyen las regalías: una provincia con petróleo, gas o minería puede recaudar mucho sin tener mucho empleo privado.",
       "El SIPA asigna cada empleo a la provincia donde está inscripto el empleador. Por eso CABA aparece muy alta en el empleo privado, aunque parte de esos trabajos se hagan en otras provincias.",
-      ...(Math.abs(c.rs) < .4 ? [`Con ${c.n} provincias y una relación ${fuerza(c.rs)}, la diferencia entre las dos mitades puede ser casualidad.`] : [])];
-    return {respuesta, bajada, contexto, lim, secciones: [
-      {g: "copa-hab", tit: "Coparticipación y otros impuestos nacionales por habitante", forma: "barras",
-        pie: `Millones de pesos por habitante, ${C.anio}. La línea marca el conjunto de las provincias y CABA.`, txt: [s1]},
-      {g: "copa-pct", tit: "La coparticipación y los otros impuestos nacionales en los ingresos de cada provincia", forma: "barras",
+      ...(Math.abs(c.rs) < .4 ? [`Con ${c.n} jurisdicciones y una relación ${fuerza(c.rs)}, la diferencia entre las dos mitades puede ser casualidad.`] : [])];
+    const notas = ["Tributos de origen nacional: esquema ahorro-inversión-financiamiento de cada provincia (Ministerio de Economía), en pesos de cada año. Por habitante, con las proyecciones de población del INDEC del mismo año.",
+      "Recursos propios: ingresos corrientes menos los tributos de origen nacional y las transferencias, más los recursos propios de capital, sobre los ingresos totales.",
+      `Transferencias no automáticas: crédito devengado por provincia de destino (Presupuesto Abierto), en pesos de ${TR.ult} con el deflactor del PBI.`,
+      "Empleo privado registrado: asalariados privados del SIPA cada 100 habitantes. La relación se mide con la correlación de Spearman, sobre los puestos de cada jurisdicción."];
+    return {respuesta, bajada, contexto, lim, sintesis, medimos, notas, secciones: [
+      {preg: "¿Cuánto recibe cada jurisdicción por habitante?", g: "copa-hab", forma: "barras",
+        tit: `${C.top_hab[0]} recibe por habitante ${veces(C.top_hab[1], C.bajo_hab[1])} veces lo que recibe ${C.bajo_hab[0]}`,
+        pie: `Coparticipación y otros impuestos nacionales, millones de pesos por habitante, ${C.anio}. La línea marca el conjunto de las provincias y CABA.`, txt: [s1]},
+      {preg: "¿Qué parte de sus ingresos son esos fondos?", g: "copa-pct", forma: "barras",
+        tit: `En ${C.mas_mitad} de las 24 jurisdicciones, más de la mitad de los ingresos llega por esta vía`,
         pie: `% de los ingresos totales de cada jurisdicción, ${C.anio_txt}.`, txt: [s2]},
-      {g: "copa-propios", tit: "Lo que recauda cada provincia por su cuenta", forma: "barras",
-        pie: `Recursos propios, % de los ingresos totales de cada jurisdicción, ${F.anio_txt}.`, txt: [s3]},
-      {g: "copa-empleo", tit: "Recursos propios y empleo privado registrado", forma: "puntos",
-        pie: "Cada punto es una jurisdicción. Recursos propios: % de sus ingresos. Empleo privado: asalariados registrados cada 100 habitantes. La línea punteada muestra la tendencia.", txt: [s4]},
+      {preg: `¿Cambió esa dependencia desde ${C.ini}?`, g: "copa-cambio", forma: "barras",
+        tit: `La parte de estos fondos en los ingresos subió en ${subio} jurisdicciones y bajó en ${bajo}`,
+        pie: `% de los ingresos totales de cada jurisdicción. Círculo claro: ${C.ini}. Círculo lleno: ${C.anio_txt}.`, txt: [s3]},
+      {preg: "¿Cuánto recauda cada provincia por su cuenta?", g: "copa-propios", forma: "barras",
+        tit: `De cada 100 pesos que ingresan a ${F.top}, ${n0(F.top_v)} los recauda la provincia. En ${F.low}, ${n0(F.low_v)}`,
+        pie: `Recursos propios, % de los ingresos totales de cada jurisdicción, ${F.anio_txt}.`, txt: [s4]},
+      {preg: "¿Y los fondos que la Nación reparte sin una regla fija?", g: "copa-no-aut", forma: "barras",
+        tit: mismo ? `Las transferencias no automáticas distintas de los ATN fueron unos ${n1(cada100)} pesos por cada 100 de coparticipación` :
+          `Las transferencias no automáticas van de ${n0(TR.otras_ult_min_v)} a ${n0(TR.otras_ult_max_v)} pesos por habitante`,
+        pie: `Transferencias no automáticas (ATN y otras), pesos por habitante, ${TR.ult}. La línea marca el conjunto de las provincias.`, txt: [s5]},
+      {preg: "¿Tienen más empleo privado las provincias que recaudan más por su cuenta?", g: "copa-empleo", forma: "puntos",
+        tit: `Recursos propios y empleo privado registrado: una relación ${fuerza(c.rs)}`,
+        pie: "Cada punto es una jurisdicción. Recursos propios: % de sus ingresos. Empleo privado: asalariados registrados cada 100 habitantes. La línea punteada muestra la tendencia.", txt: [s6]},
     ]};
   },
   dib: {
@@ -9000,9 +9037,17 @@ const ART_SERIE = [{
     "copa-pct": (el, a) => barrasH(el, {anim: a, data: T.coparticipacion_provincias.map(r => CPA.atrasadas[r.territorio] ? {...r, territorio: `${r.territorio} (${CPA.atrasadas[r.territorio]})`} : r),
       k: "pct_ingresos", vf: pct, af: v => n0(v) + "%", ref: CPA.pct_pais, refLab: `País ${pct(CPA.pct_pais)}`,
       tip: d => `<b>${d.territorio}</b><br>${pct(d.pct_ingresos)} de sus ingresos en ${d.anio}`}),
+    "copa-cambio": (el, a) => pesas(el, {anim: a, data: T.coparticipacion_provincias.filter(r => r.pct_ingresos_ini != null), a: "pct_ingresos_ini", b: "pct_ingresos",
+      la: String(CPA.ini), lb: String(CPA.anio), vf: pct, af: v => n0(v) + "%", x0: 0, ref: CPA.pct_pais, refLab: `País ${CPA.anio}: ${pct(CPA.pct_pais)}`}),
     "copa-propios": (el, a) => barrasH(el, {anim: a, data: T.fiscal_provincias.map(r => r.anio !== R.fiscal.anio ? {...r, territorio: `${r.territorio} (${r.anio})`} : r),
       k: "autonomia", vf: pct, af: v => n0(v) + "%", ref: R.fiscal.pais, refLab: `País ${pct(R.fiscal.pais)}`,
       tip: d => `<b>${d.territorio}</b><br>Recursos propios: ${pct(d.autonomia)} de sus ingresos en ${d.anio}`}),
+    "copa-no-aut": (el, a) => {
+      const u = T.transferencias_provincias.filter(r => r.anio === R.transferencias.ult).map(r => ({...r, no_aut: r.atn_hab + r.otras_hab}));
+      const pais = d3.sum(u, r => r.atn + r.otras) * 1e6 / d3.sum(u, r => r.pob);
+      return barrasH(el, {anim: a, data: u, k: "no_aut", vf: n0, af: ejeMil, ref: pais, refLab: `Conjunto ${n0(pais)}`,
+        tip: d => `<b>${d.territorio}</b><br>${n0(d.no_aut)} pesos por habitante en ${R.transferencias.ult}<br>ATN: ${n0(d.atn_hab)}. Otras: ${n0(d.otras_hab)}`});
+    },
     "copa-empleo": (el, a) => {
       const c = calcularArt({tabla: "cruces_provincias"}, {x: "autonomia_fiscal", y: "empleo_privado"});
       dispersion(el, {anim: a, data: c.F, x: "autonomia_fiscal", y: "empleo_privado", xLab: "Recursos propios", yLab: "Empleo privado registrado",
@@ -9453,12 +9498,18 @@ ART_SERIE.forEach(a => {
   const t = a.texto(), ficha = id => id && paginaDe(id) ? urlPagina(paginaDe(id), "#" + id) : null;
   nota.innerHTML =
     `<div class="nota-cab"><span class="nota-ico">${icono(a.icono)}</span><div><p class="nota-meta">${nombreSec(a.sec)}. ${a.frec}</p><h1 class="nota-tit" style="view-transition-name:t-${a.id}">${a.titulo}</h1></div></div>` +
-    `<p class="nota-bajada"><mark>${t.respuesta}</mark> ${t.bajada}</p><p>${t.contexto}</p>` +
-    t.secciones.map(s => `<div class="nota-graf"><h2>${s.tit}</h2>` +
+    `<p class="nota-bajada"><mark>${t.respuesta}</mark> ${t.bajada}</p>` +
+    // modelo nuevo (2 de noviembre de 2026, pedido del autor, como los artículos de Fundar): "En síntesis" arriba, "Qué medimos", cada sección
+    // con su pregunta (h2) y un gráfico cuyo título es la conclusión (h3), y "Fuentes y metodología" con notas numeradas. Los artículos que
+    // todavía no lo tienen se ven como antes
+    (t.sintesis ? `<div class="nota-frase nota-sintesis"><h2>En síntesis</h2><ul>${t.sintesis.map(x => `<li>${x}</li>`).join("")}</ul></div>` : "") +
+    `<p>${t.contexto}</p>` + (t.medimos ? `<div class="nota-medimos"><h2>Qué medimos</h2>${t.medimos.map(x => `<p>${x}</p>`).join("")}</div>` : "") +
+    t.secciones.map(s => (s.preg ? `<div class="nota-sec"><h2>${s.preg}</h2>` : "") + `<div class="nota-graf"><h${s.preg ? 3 : 2}>${s.tit}</h${s.preg ? 3 : 2}>` +
       (s.html || (s.antes || "") + `<div class="grafico" data-g="art-${s.g}" data-forma="${s.forma}"${s.alto ? ` style="--alto:${s.alto}"` : ""}></div>` + (s.despues || "")) +
-      `<p class="nota-pie-graf">${s.pie}</p></div>` + s.txt.map(p => `<p>${p}</p>`).join("")).join("") +
+      `<p class="nota-pie-graf">${s.pie}</p></div>` + s.txt.map(p => `<p>${p}</p>`).join("") + (s.preg ? "</div>" : "")).join("") +
     `<div class="nota-limites"><h2>Qué no dice este dato</h2><ul>${t.lim.map(l => `<li>${l}</li>`).join("")}</ul></div>` +
-    `<div class="nota-fuentes"><p>Fuentes: ${a.fuentes}.</p><div class="acciones">` +
+    `<div class="nota-fuentes">` + (t.notas ? `<h2>Fuentes y metodología</h2><ol class="nota-notas">${t.notas.map(x => `<li>${x}</li>`).join("")}</ol>` : "") +
+    `<p>Fuentes: ${a.fuentes}.</p><div class="acciones">` +
     a.fichas.filter(([id]) => ficha(id)).map(([id, nom]) => `<a class="boton chico accion" href="${ficha(id)}">Ficha: ${nom}</a>`).join("") +
     a.csv.map(([n, lab]) => `<a class="boton chico accion" href="datos/${n}.csv" download>${lab}</a>`).join("") + `</div></div>`;
   Object.entries(a.dib).forEach(([g, f]) => { DIB["art-" + g] = conTablas("art-" + g, a.tablas, anim => f(G("art-" + g), anim)); });
