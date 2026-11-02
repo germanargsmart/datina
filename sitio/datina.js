@@ -7339,7 +7339,7 @@ async function imagenFicha(f) {
 const SIN_RELACIONES = new Set(["f-edad", "f-suicidio", "f-suicidio-prov"]);
 // "En el catálogo" (11 de octubre de 2026, pedido del autor): lleva a la tabla del pie en catalogo.html, abierta con su vista previa. Solo
 // en las fichas cuya tabla está en el catálogo, que le pasa el constructor desde scripts/catalogo.py (las de suicidio no están)
-const EN_CATALOGO = new Set(["abandono_pais", "abandono_provincias", "actividad_anual", "actividad_mensual", "actividad_sectores", "adulto_equivalente", "anios_congreso", "apoyo_gobierno_provincias", "aprender_departamentos", "aprender_diagnostico", "aprender_provincias", "areas_produccion", "areas_protegidas_provincias", "areas_serie", "argentinos_exterior", "argentinos_exterior_destinos", "asignaciones_cobertura", "auh_provincias", "balanza_comercial", "balanza_energetica", "bcra_variables", "bcra_variables_lista", "calendario_indec", "canasta_mensual", "canasta_regiones", "capitales", "capitales_eph", "carceles_provincias", "carceles_serie", "carne_vacuna", "causas_muerte_provincias", "censo2022_provincias", "censos_pais", "censos_provincias", "centrales", "clima_desvio", "cobertura_suelo_pais", "cobertura_suelo_provincias", "combustibles_anual", "combustibles_mensual", "combustibles_provincias", "compras_dolares_anual", "confianza_consumidor", "confianza_gobierno", "confianza_gobierno_elecciones", "confianza_gobierno_gobiernos", "congreso_composicion", "coparticipacion_provincias", "corte_casos", "corte_composicion", "corte_jueces", "corte_jueces_fuentes", "corte_no_asumieron", "corte_presidentes", "costo_anual", "costo_construccion", "cruces_provincias", "cruces_series", "cuenta_corriente", "cuentas_nacion", "curvas_vm", "delitos_serie", "delitos_tipo", "dengue_pais", "dengue_provincias", "departamentos", "desembarques_especies", "desembarques_top", "desocupacion_aglomerados", "desocupacion_serie", "deuda_pbi", "deuda_provincias", "diputados_nacionales", "diseno_pozos_vm", "dolar_inversion_trimestral", "dotacion_nacion", "elecciones_presidenciales", "electricidad_mensual", "electricidad_provincias", "electricidad_sectores", "electricidad_serie", "empleo_construccion_provincias", "empleo_construccion_serie", "empleo_provincias", "empleo_publico_provincias", "empresas_provincias", "empresas_serie_pais", "empresas_tamano_sector", "energia_estacionalidad", "energia_hogares", "envejecimiento_pais", "envejecimiento_provincias", "escolarizacion_secundaria_provincias", "especies_areas_nacionales", "esperanza_vida_provincias", "expectativas_inflacion", "exportaciones_cantidades_anual", "exportaciones_complejos", "exportaciones_destinos", "exportaciones_dolar_trimestral", "exportaciones_provincias", "exportaciones_rubros_anual", "extranjeros_provincias", "fiscal_provincias", "fiscalias_defensorias_federales", "fracturas_anual", "gabinetes_origen", "gas_usuario_mensual", "gas_usuario_provincias", "gas_usuario_serie", "gasto_nacion_tipo", "glaciares_provincias", "haberes_previsionales", "hidrocarburos_anual", "hidrocarburos_empresas", "hidrocarburos_mensual", "hidrocarburos_provincias", "hipotecas_mensual", "homicidios_provincias", "importaciones_origen", "importaciones_usos", "impuestos_provinciales", "inflacion_anual", "inflacion_mensual", "inflacion_personal", "inflacion_regiones", "inflacion_rubros", "ingresos_aglomerados", "internet_fijo_provincias", "inversion_educativa", "inversion_educativa_serie", "isac_anual", "isac_insumos", "isac_mensual", "jubilaciones_aportantes", "justicia_federal_provincias", "justicia_provincias", "legisladores_por_periodo", "madres_adolescentes_nse", "madres_adolescentes_provincias", "medicos_provincias", "migracion_censos", "migraciones_departamentos", "ministros_nacionales", "ministros_provincias", "mortalidad_infantil_causas", "mortalidad_infantil_provincias", "muertes_violentas", "mundo_hidrocarburos", "mundo_paises", "nacidos_otro_pais_paises", "nacidos_otro_pais_provincias", "nacimientos", "nafta_dolares_anual", "nafta_dolares_mensual", "nombres_top", "obra_publica_provincias", "obra_publica_serie", "ocde_comparacion", "parques_nacionales_historia", "parques_nacionales_lista", "patentamientos_anual", "patentamientos_provincias", "pensiones_invalidez", "pensiones_invalidez_provincias", "permisos_mensual", "pesca_continental", "pesca_continental_provincias", "piramide_poblacion", "pisa_argentina_ocde", "poblacion_proyectada_provincias", "pobreza_aglomerados", "pobreza_provincias", "pobreza_serie", "potencia_instalada", "pozos_no_convencionales", "pozos_provincias", "pozos_terminados", "pozos_terminados_provincias", "pozos_tipo", "presidentes", "prestacion_desempleo", "prestacion_desempleo_provincias", "presupuesto_votos", "productividad_vm", "puestos_provincias", "radicaciones_anual", "radicaciones_nacionalidad", "recaudacion_anual", "recaudacion_impuestos", "refugio_acnur", "refugio_nacionalidades", "refugio_solicitudes", "regalias_crudo_serie", "regalias_provincias", "representacion_provincias", "reservas_bcra", "reservas_factores", "reservas_hidrocarburos", "reservas_netas", "reservas_provincias", "robos_provincias", "rotacion_laboral", "salario_docente", "salario_docente_serie", "salario_real_mensual", "salarios_provincias", "salarios_serie", "seguridad_serie_prov", "senadores_nacionales", "sociedades_pais", "sociedades_provincias", "soja_departamentos", "soja_pais", "soja_provincias", "sube_dia_habil", "subsidios_energia", "supermercados_mensual", "supermercados_provincias", "telefonia_fija_pais", "telefonia_fija_provincias", "transferencias_acumulado", "transferencias_provincias", "transferencias_serie", "turismo_dolar_mensual", "turistas_extranjeros_provincias", "turistas_no_residentes_anual", "vacunas_provincias", "vacunas_serie", "viajeros_hoteles_anual", "vino_mercado_interno", "visitas_parques_nacionales", "visitas_por_parque", "vivienda_departamentos", "vivienda_provincias", "votaciones_leyes_clave", "voto_legisladores_y_provincia", "yerba_molino"]);
+const EN_CATALOGO = new Set(["abandono_pais", "abandono_provincias", "actividad_anual", "actividad_mensual", "actividad_sectores", "adulto_equivalente", "anios_congreso", "apoyo_gobierno_provincias", "aprender_departamentos", "aprender_diagnostico", "aprender_provincias", "areas_produccion", "areas_protegidas_provincias", "areas_serie", "argentinos_exterior", "argentinos_exterior_destinos", "asignaciones_cobertura", "auh_provincias", "balanza_comercial", "balanza_energetica", "bcra_variables", "bcra_variables_lista", "calendario_indec", "canasta_mensual", "canasta_regiones", "capitales", "capitales_eph", "carceles_provincias", "carceles_serie", "carne_vacuna", "causas_muerte_provincias", "censo2022_provincias", "censos_pais", "censos_provincias", "centrales", "clima_desvio", "cobertura_suelo_pais", "cobertura_suelo_provincias", "combustibles_anual", "combustibles_mensual", "combustibles_provincias", "compras_dolares_anual", "confianza_consumidor", "confianza_gobierno", "confianza_gobierno_elecciones", "confianza_gobierno_gobiernos", "congreso_composicion", "coparticipacion_provincias", "corte_casos", "corte_composicion", "corte_jueces", "corte_jueces_fuentes", "corte_no_asumieron", "corte_presidentes", "costo_anual", "costo_construccion", "cruces_provincias", "cruces_series", "cuenta_corriente", "cuentas_nacion", "curvas_vm", "delitos_serie", "delitos_tipo", "dengue_pais", "dengue_provincias", "departamentos", "desembarques_especies", "desembarques_top", "desocupacion_aglomerados", "desocupacion_serie", "deuda_pbi", "deuda_provincias", "diputados_nacionales", "diseno_pozos_vm", "dolar_inversion_trimestral", "dotacion_nacion", "elecciones_presidenciales", "electricidad_mensual", "electricidad_provincias", "electricidad_sectores", "electricidad_serie", "empleo_construccion_provincias", "empleo_construccion_serie", "empleo_provincias", "empleo_publico_provincias", "empresas_provincias", "empresas_serie_pais", "empresas_tamano_sector", "energia_estacionalidad", "energia_hogares", "envejecimiento_pais", "envejecimiento_provincias", "escolarizacion_secundaria_provincias", "especies_areas_nacionales", "esperanza_vida_provincias", "expectativas_inflacion", "exportaciones_cantidades_anual", "exportaciones_complejos", "exportaciones_destinos", "exportaciones_dolar_trimestral", "exportaciones_provincias", "exportaciones_rubros_anual", "extranjeros_provincias", "fiscal_provincias", "fiscalias_defensorias_federales", "fracturas_anual", "gabinetes_origen", "gas_usuario_mensual", "gas_usuario_provincias", "gas_usuario_serie", "gasto_nacion_tipo", "glaciares_provincias", "haberes_previsionales", "hidrocarburos_anual", "hidrocarburos_empresas", "hidrocarburos_mensual", "hidrocarburos_provincias", "hipotecas_mensual", "homicidios_provincias", "importaciones_origen", "importaciones_usos", "impuestos_provinciales", "inflacion_anual", "inflacion_mensual", "inflacion_personal", "inflacion_regiones", "inflacion_rubros", "ingresos_aglomerados", "internet_fijo_provincias", "inversion_educativa", "inversion_educativa_serie", "isac_anual", "isac_insumos", "isac_mensual", "jubilaciones_aportantes", "justicia_federal_provincias", "justicia_provincias", "legisladores_por_periodo", "madres_adolescentes_nse", "madres_adolescentes_provincias", "medicos_provincias", "migracion_censos", "migraciones_departamentos", "ministros_nacionales", "ministros_provincias", "mortalidad_infantil_causas", "mortalidad_infantil_provincias", "muertes_violentas", "mundo_hidrocarburos", "mundo_paises", "nacidos_otro_pais_paises", "nacidos_otro_pais_provincias", "nacimientos", "nafta_dolares_anual", "nafta_dolares_mensual", "nombres_serie", "nombres_top", "obra_publica_provincias", "obra_publica_serie", "ocde_comparacion", "parques_nacionales_historia", "parques_nacionales_lista", "patentamientos_anual", "patentamientos_provincias", "pensiones_invalidez", "pensiones_invalidez_provincias", "permisos_mensual", "pesca_continental", "pesca_continental_provincias", "piramide_poblacion", "pisa_argentina_ocde", "poblacion_proyectada_provincias", "pobreza_aglomerados", "pobreza_provincias", "pobreza_serie", "potencia_instalada", "pozos_no_convencionales", "pozos_provincias", "pozos_terminados", "pozos_terminados_provincias", "pozos_tipo", "presidentes", "prestacion_desempleo", "prestacion_desempleo_provincias", "presupuesto_votos", "productividad_vm", "puestos_provincias", "radicaciones_anual", "radicaciones_nacionalidad", "recaudacion_anual", "recaudacion_impuestos", "refugio_acnur", "refugio_nacionalidades", "refugio_solicitudes", "regalias_crudo_serie", "regalias_provincias", "representacion_provincias", "reservas_bcra", "reservas_factores", "reservas_hidrocarburos", "reservas_netas", "reservas_provincias", "robos_provincias", "rotacion_laboral", "salario_docente", "salario_docente_serie", "salario_real_mensual", "salarios_provincias", "salarios_serie", "seguridad_serie_prov", "senadores_nacionales", "sociedades_pais", "sociedades_provincias", "soja_departamentos", "soja_pais", "soja_provincias", "sube_dia_habil", "subsidios_energia", "supermercados_mensual", "supermercados_provincias", "telefonia_fija_pais", "telefonia_fija_provincias", "transferencias_acumulado", "transferencias_provincias", "transferencias_serie", "turismo_dolar_mensual", "turistas_extranjeros_provincias", "turistas_no_residentes_anual", "vacunas_provincias", "vacunas_serie", "viajeros_hoteles_anual", "vino_mercado_interno", "visitas_parques_nacionales", "visitas_por_parque", "vivienda_departamentos", "vivienda_provincias", "votaciones_leyes_clave", "voto_legisladores_y_provincia", "yerba_molino"]);
 // el nombre de la sección arriba de la pregunta, solo en una página con fichas de más de una sección. Desde la Fase 2 (paso 5, respuesta
 // del autor del 23 de octubre de 2026) ninguna lo es: el nombre ya está arriba de la página y la pregunta queda primera
 const VARIAS_SECCIONES = new Set([...document.querySelectorAll("article.ficha")].map(f => f.closest(".tema"))).size > 1;
@@ -8570,11 +8570,11 @@ const dosRel = (r1, r2) => fz(r1) === fz(r2) ? `las dos relaciones son ${PLURAL[
 const LIMITES = "septiembre de 2019 y abril de 2025";
 const ART_SERIE = [{
   // etapa 5 del plan de mejora: el nombre más elegido en cada provincia (auditoría de los artículos, idea 10)
-  id: "a-nombres-provincias", frec: "Se actualiza cada año", tablas: ["nombres_top"],
-  dek: "El nombre más inscripto para las nenas y para los varones en cada provincia en el último año, y en cuántas jurisdicciones gana cada uno.",
+  id: "a-nombres-provincias", frec: "Se actualiza cada año", tablas: ["nombres_top", "nombres_serie"],
+  dek: "El nombre más inscripto para las nenas y para los varones en cada provincia en el último año, en cuántas jurisdicciones gana cada uno, cuáles son los diez más elegidos del país, cómo cambiaron año por año y qué nombres se repiten en más provincias.",
   fichas: [["f-nombres", "nombres de los bebés"]],
-  csv: [["nombres_top", "Descargar CSV de los nombres"]],
-  fuentes: "Registro Nacional de las Personas (RENAPER), nombres más frecuentes por provincia",
+  csv: [["nombres_top", "Descargar CSV de los nombres"], ["nombres_serie", "Descargar CSV de los nombres del país por año"]],
+  fuentes: "Registro Nacional de las Personas (RENAPER), nombres más frecuentes por provincia, y Dirección de Estadísticas e Información en Salud (DEIS), nacimientos",
   texto: () => {
     const cu = R.curiosidades, N = T.nombres_top, cods = Object.keys(NOMBRES);
     const primero = (c, s) => N.filter(r => r.codigo_indec === c && r.sexo === s).sort((a, b) => b.cantidad - a.cantidad)[0];
@@ -8582,22 +8582,90 @@ const ART_SERIE = [{
       .filter(f => f.nena && f.varon).sort((a, b) => a.territorio.localeCompare(b.territorio));
     const nF = filas.filter(f => f.nena === cu.nena).length, nM = filas.filter(f => f.varon === cu.varon).length;
     const distintos = new Set(filas.flatMap(f => [f.nena, f.varon])).size;
+    // los diez del país y en cuántas provincias aparece cada nombre entre sus diez primeros
+    const diez = s => N.filter(r => r.codigo_indec === "00" && r.sexo === s).sort((a, b) => b.cantidad - a.cantidad).slice(0, 10);
+    const dF = diez("F"), dM = diez("M"), sumF = d3.sum(dF, r => r.cantidad), sumM = d3.sum(dM, r => r.cantidad);
+    const enProv = {};
+    N.filter(r => r.codigo_indec !== "00").forEach(r => { (enProv[r.mostrar + "|" + r.sexo] ||= {nombre: r.mostrar, sexo: r.sexo, n: 0}).n++; });
+    const rep = Object.values(enProv).sort((a, b) => b.n - a.n), unaSola = rep.filter(r => r.n === 1);
+    const todas = rep.filter(r => r.n === cods.length);
     const respuesta = `${cu.varon} para los varones ${yE(cu.nena)} para las nenas, en todo el país en ${cu.nom_anio}.`;
     const bajada = `Pero cambia de una provincia a otra: ${cu.varon} es el más elegido para los varones en ${nM} de las ${filas.length} jurisdicciones, ` +
       `${yE(cu.nena)}, para las nenas, en ${nF}. Entre las ${filas.length}, los más elegidos son ${distintos} nombres distintos.`;
-    const contexto = "El Registro Nacional de las Personas (RENAPER) publica cada año los nombres más inscriptos de los bebés de cada provincia. " +
-      "Datina toma los diez más frecuentes de cada sexo en el último año publicado. El registro publica los nombres sin tildes: se muestran con la " +
-      "tilde que llevan casi siempre.";
+    const contexto = "Elegir el nombre de un hijo es una decisión muy personal, pero los nombres siguen modas: se ponen de moda por una familia " +
+      "conocida, un personaje, un deportista o el sonido de una época, y después pasan. Mirar qué nombres se eligen en cada provincia muestra " +
+      "qué se comparte en todo el país y qué cambia de un lugar a otro. Y mirar los mismos nombres año por año muestra qué modas duran y cuáles pasan rápido. " +
+      "Desde 2015, el Código Civil y Comercial permite inscribir hasta tres nombres de pila y acepta nombres de origen indígena y latinoamericano, " +
+      "pero no los extravagantes, los apellidos como nombre ni el mismo primer nombre de un hermano vivo.";
+    const medimos = ["El Registro Nacional de las Personas (RENAPER) publica cada año los nombres más inscriptos de los bebés de cada provincia. " +
+      "Datina toma los diez más frecuentes de cada sexo en cada provincia en el último año publicado, y los diez del país en cada año desde " + cu.nom_ini + ". " +
+      "El registro publica los nombres sin tildes: se muestran con la " +
+      "tilde que llevan casi siempre. Cada nombre se cuenta en la provincia que informa el registro."];
+    // 1. el más elegido de cada provincia
+    const s1 = `En ${cu.nom_anio}, ${cu.varon} fue el nombre más inscripto para los varones en ${nM} jurisdicciones ${yE(cu.nena)} para las nenas en ${nF}. ` +
+      `Las nenas reparten más el primer puesto que los varones: ${new Set(filas.map(f => f.nena)).size} nombres distintos ganan en alguna jurisdicción, ` +
+      `frente a ${new Set(filas.map(f => f.varon)).size} de los varones. Las jurisdicciones donde gana otro nombre de nena son ` +
+      `${listaY(filas.filter(f => f.nena !== cu.nena).map(f => `${f.territorio} (${f.nena})`))}.` +
+      (nM < filas.length ? ` Entre los varones, donde no gana ${cu.varon}: ${listaY(filas.filter(f => f.varon !== cu.varon).map(f => `${f.territorio} (${f.varon})`))}.` : "");
+    // 2. en cuántas gana cada nombre
     const s2 = `En ${cu.nom_ini}, el primer año de la serie, los más inscriptos del país habían sido ${cu.nena0} para las nenas ${yE(cu.varon0)} para los varones.` +
       (cu.lionel_anio ? ` En ${cu.lionel_anio}, después del Mundial de 2022, se inscribieron ${n0(cu.lionel_max)} bebés llamados Lionel, ${veces(cu.lionel_max, cu.lionel_prev)} veces los del año anterior.` : "");
+    // 3 y 4. los diez del país
+    const s3 = `Se inscribieron ${n0(cu.nena_n)} nenas llamadas ${cu.nena}. Las diez primeras de la lista suman ${n0(sumF)} inscripciones, y entre la primera y la ` +
+      `décima, ${dF.at(-1).mostrar}, hay ${n0(dF[0].cantidad - dF.at(-1).cantidad)} de diferencia. Del segundo al cuarto puesto quedaron ` +
+      `${listaY(dF.slice(1, 4).map(r => `${r.mostrar}, con ${n0(r.cantidad)}`))}. ${cu.nena} sola es el ${pct(cu.nena_n / sumF * 100)} de las diez primeras.`;
+    const s4 = `Se inscribieron ${n0(cu.varon_n)} varones llamados ${cu.varon}. Del segundo al cuarto puesto quedaron ` +
+      `${listaY(dM.slice(1, 4).map(r => `${r.mostrar}, con ${n0(r.cantidad)}`))}. Los diez primeros suman ${n0(sumM)} inscripciones, ` +
+      `${sumM > sumF ? "más" : "menos"} que los diez primeros nombres de nena: ` +
+      `${sumM > sumF ? "los nombres de varón se concentran más en pocos nombres" : "los nombres de nena se concentran más en pocos nombres"}.` +
+      (nac.anio_ult === cu.nom_anio ? ` Para tener una escala, ese año las estadísticas vitales registraron ${n0(nac.n_ult)} nacimientos en todo el país.` : "");
+    // 5. año por año: los primeros de cada año, en tramos seguidos
+    const tramos = s => cu.nom_primeros.reduce((t, f) => { const n = s === "F" ? f[1] : f[2], u = t.at(-1); if (u && u.n === n) u.fin = f[0]; else t.push({n, ini: f[0], fin: f[0]}); return t; }, []);
+    const rango = t => t.ini === t.fin ? `en ${t.ini}` : `de ${t.ini} a ${t.fin}`, tF = tramos("F"), tM = tramos("M"), nA = cu.nom_primeros.length;
+    const s6 = (tM.length === 1 ? `${tM[0].n} fue el nombre más inscripto para los varones en los ${nA} años de la serie, de ${cu.nom_ini} a ${cu.nom_anio}. ` :
+      `Para los varones, el primer puesto fue de ${listaY(tM.map(t => `${t.n} ${rango(t)}`))}. `) +
+      `Para las nenas cambió más: fue de ${listaY(tF.map(t => `${t.n} ${rango(t)}`))}. ` +
+      "Un nombre que llega al primer puesto suele quedarse varios años: las modas de los nombres cambian despacio.";
+    // 6. los nombres compartidos
+    const s5 = (todas.length ? `${listaY(todas.map(r => r.nombre))} ${todas.length === 1 ? "está" : "están"} entre los diez más elegidos en las ${cods.length} jurisdicciones. ` :
+      `El nombre que más se repite es ${rep[0].nombre}, entre los diez más elegidos de ${rep[0].n} jurisdicciones. `) +
+      `Le siguen ${listaY(rep.filter(r => r.n < (todas.length ? cods.length : rep[0].n + 1)).slice(todas.length ? 0 : 1, todas.length ? 3 : 4).map(r => `${r.nombre}, en ${r.n}`))}. En el otro extremo, ${unaSola.length} nombres aparecen entre los diez primeros de una sola jurisdicción, como ${listaY(unaSola.slice(0, 3).map(r => r.nombre))}. ` +
+      "En las provincias chicas alcanzan pocas inscripciones para entrar en la lista, y ahí aparecen los nombres más locales.";
+    const sintesis = [`${cu.varon} ${yE(cu.nena)} fueron los nombres más inscriptos del país en ${cu.nom_anio}.`,
+      `${cu.varon} ganó en ${nM} jurisdicciones ${yE(cu.nena)}, en ${nF}.`,
+      `Entre las ${filas.length} jurisdicciones, los más elegidos son ${distintos} nombres distintos.`,
+      `${unaSola.length} nombres aparecen entre los diez primeros de una sola jurisdicción.`,
+      tM.length === 1 ? `${tM[0].n} fue el primero de los varones en los ${nA} años desde ${cu.nom_ini}, y las nenas tuvieron ${tF.length} nombres distintos en el primer puesto.` :
+        `Desde ${cu.nom_ini}, el primer puesto cambió ${tM.length - 1} veces en los varones y ${tF.length - 1} en las nenas.`];
     const tabla = tablaDatos(filas.map(f => ({codigo_indec: f.codigo_indec, territorio: f.territorio, "nombre_de_nena": f.nena, "nombre_de_varón": f.varon})), "a-nombres-provincias")
       .replace('aria-label="Tabla: Datos"', 'aria-label="Tabla: el nombre más elegido en cada provincia"').replace(">Datos</caption>", ">El nombre más elegido en cada provincia</caption>");
     const lim = ["Son las inscripciones de nombres de pila en el RENAPER de cada año: cuentan cuántas veces se eligió cada nombre, no cuántas personas viven con ese nombre.",
-      "En las provincias chicas, pocas inscripciones alcanzan para cambiar el primer puesto: dos nombres pueden quedar casi empatados."];
-    return {respuesta, bajada, contexto, lim, secciones: [
-      {tit: "El nombre más elegido en cada provincia", html: `<div class="nota-tabla">${tabla}</div>`, pie: `Último año publicado: ${cu.nom_anio}. Ordenadas por nombre.`, txt: []},
-      {g: "nombres-ganan", tit: "En cuántas jurisdicciones es el más elegido cada nombre", forma: "barras",
+      "En las provincias chicas, pocas inscripciones alcanzan para cambiar el primer puesto: dos nombres pueden quedar casi empatados.",
+      "Los nombres que se escriben de dos formas cuentan por separado, como dos nombres distintos.",
+      "Los nombres que caen fuera de los diez primeros de un año no tienen dato ese año: en el gráfico de cada año, la línea se corta.",
+      "Las inscripciones del RENAPER y los nacimientos de las estadísticas vitales son registros distintos y no tienen por qué coincidir.",
+      `La serie del país empieza en ${cu.nom_ini}: las modas de antes no se ven acá.`];
+    const notas = [`Nombres: RENAPER, los diez nombres más inscriptos de cada sexo en cada provincia y en el país, ${cu.nom_anio}.`,
+      "Nacimientos: estadísticas vitales de la DEIS, Ministerio de Salud."];
+    return {respuesta, bajada, contexto, medimos, sintesis, lim, notas, secciones: [
+      {preg: "¿Cuál es el nombre más elegido en cada provincia?", tit: `${cu.varon} es el más elegido para los varones en ${nM} de las ${filas.length} jurisdicciones`,
+        html: `<div class="nota-tabla">${tabla}</div>`, pie: `Último año publicado: ${cu.nom_anio}. Ordenadas por nombre.`, txt: [s1]},
+      {preg: "¿En cuántas jurisdicciones gana cada nombre?", g: "nombres-ganan", forma: "barras",
+        tit: `Entre las ${filas.length} jurisdicciones, los más elegidos son ${distintos} nombres distintos`,
         pie: `Cantidad de jurisdicciones en las que cada nombre fue el más inscripto en ${cu.nom_anio}.`, txt: [s2]},
+      {preg: "¿Cuáles son los diez nombres más elegidos para las nenas?", g: "nombres-nenas", forma: "barras",
+        tit: `${cu.nena} fue el nombre de ${n0(cu.nena_n)} nenas`,
+        pie: `Inscripciones de cada nombre en todo el país, ${cu.nom_anio}.`, txt: [s3]},
+      {preg: "¿Y para los varones?", g: "nombres-varones", forma: "barras",
+        tit: `${cu.varon} fue el nombre de ${n0(cu.varon_n)} varones`,
+        pie: `Inscripciones de cada nombre en todo el país, ${cu.nom_anio}.`, txt: [s4]},
+      {preg: `¿Cómo cambiaron los nombres más elegidos desde ${cu.nom_ini}?`, g: "nombres-anios", forma: "lineas",
+        tit: tM.length === 1 ? `${tM[0].n} fue el primero de los varones en todos los años, y las nenas tuvieron ${tF.length} nombres distintos en el primer puesto` :
+          `El primer puesto cambió ${tM.length - 1} veces en los varones y ${tF.length - 1} en las nenas`,
+        pie: `Inscripciones de cada año en todo el país. Los tres nombres de nena más elegidos de ${cu.nom_anio} y el primero de ${cu.nom_ini}. La línea se corta en los años en que el nombre no estuvo entre los diez primeros.`, txt: [s6]},
+      {preg: "¿Qué nombres se eligen en más provincias?", g: "nombres-repetidos", forma: "barras",
+        tit: `${rep[0].nombre} está entre los diez más elegidos de ${rep[0].n} jurisdicciones`,
+        pie: `Cantidad de jurisdicciones en las que cada nombre está entre los diez más inscriptos de su sexo, ${cu.nom_anio}. Los 12 que más se repiten.`, txt: [s5]},
     ]};
   },
   dib: {
@@ -8610,88 +8678,246 @@ const ART_SERIE = [{
       barrasH(el, {anim: a, data: Object.values(cuenta), k: "n", vf: n0, af: n0, l: 170, lAngosto: 140, cambiaConProv: true,
         tip: d => `<b>${d.territorio}</b><br>El más elegido en ${d.n} ${d.n === 1 ? "jurisdicción" : "jurisdicciones"}`});
     },
+    "nombres-nenas": (el, a) => barrasH(el, {anim: a, k: "cantidad", vf: n0, af: n0, l: 150, lAngosto: 128,
+      data: T.nombres_top.filter(r => r.codigo_indec === "00" && r.sexo === "F").sort((p, q) => q.cantidad - p.cantidad).slice(0, 10)
+        .map(r => ({...r, codigo_indec: "F-" + r.nombre, territorio: r.mostrar})), tip: d => `<b>${d.territorio}</b><br>${n0(d.cantidad)} inscripciones`}),
+    "nombres-varones": (el, a) => barrasH(el, {anim: a, k: "cantidad", vf: n0, af: n0, l: 150, lAngosto: 128,
+      data: T.nombres_top.filter(r => r.codigo_indec === "00" && r.sexo === "M").sort((p, q) => q.cantidad - p.cantidad).slice(0, 10)
+        .map(r => ({...r, codigo_indec: "M-" + r.nombre, territorio: r.mostrar})), tip: d => `<b>${d.territorio}</b><br>${n0(d.cantidad)} inscripciones`}),
+    "nombres-anios": (el, a) => {
+      // las tres nenas más elegidas del último año y la primera del primer año, una columna por nombre y una fila por año
+      const S = T.nombres_serie.filter(r => r.sexo === "F"), anios = [...new Set(S.map(r => r.anio))].sort();
+      const ult = S.filter(r => r.anio === anios.at(-1)).sort((p, q) => q.cantidad - p.cantidad).slice(0, 3).map(r => r.mostrar);
+      const pri = S.filter(r => r.anio === anios[0]).sort((p, q) => q.cantidad - p.cantidad)[0].mostrar;
+      const noms = [...new Set([...ult, pri])], cols = [NAR, FRI, css("--azul-hondo"), css("--sol-borde")];
+      const data = anios.map(an => Object.fromEntries([["anio", an], ...noms.map(n => [n, S.find(r => r.anio === an && r.mostrar === n)?.cantidad ?? null])]));
+      return lineas(el, {anim: a, x: "anio", y0: 0, vf: n0, yf: ejeMil, huecos: true, data, series: noms.map((n, i) => ({k: n, lab: n, c: cols[i]}))});
+    },
+    "nombres-repetidos": (el, a) => {
+      const en = {};
+      T.nombres_top.filter(r => r.codigo_indec !== "00").forEach(r => { (en[r.mostrar + "|" + r.sexo] ||= {codigo_indec: r.mostrar + r.sexo, territorio: `${r.mostrar} (${r.sexo === "F" ? "nena" : "varón"})`, n: 0}).n++; });
+      return barrasH(el, {anim: a, data: Object.values(en).sort((p, q) => q.n - p.n).slice(0, 12), k: "n", vf: n0, af: n0, l: 170, lAngosto: 140,
+        tip: d => `<b>${d.territorio}</b><br>Entre los diez primeros de ${d.n} ${d.n === 1 ? "jurisdicción" : "jurisdicciones"}`});
+    },
   },
 }, {
   // etapa 5 del plan de mejora: la producción de Vaca Muerta y lo que le deja a Neuquén en regalías y empleo (auditoría de los artículos, idea 9)
   id: "a-vaca-muerta", frec: "Se actualiza cada mes", tablas: ["hidrocarburos_anual", "regalias_provincias"],
-  dek: "Cuánto petróleo sale de Vaca Muerta frente al resto del país, año por año, y cuánto pesan las regalías en los ingresos de Neuquén y de las otras provincias petroleras.",
+  dek: "Cuánto petróleo y cuánto gas salen de Vaca Muerta frente al resto del país, año por año, de qué cuencas sale la producción, cuánto rinde cada pozo, y cuánto pesan las regalías en los ingresos de Neuquén y de las otras provincias petroleras.",
   fichas: [["f-petroleo", "producción de petróleo"], ["f-hidro-provincias", "petróleo y gas por provincia"], ["f-regalias", "regalías"], ["f-empleo-hidro", "empleo en petróleo y gas"]],
   csv: [["hidrocarburos_anual", "Descargar CSV de la producción por año"], ["regalias_provincias", "Descargar CSV de las regalías"]],
-  fuentes: "Secretaría de Energía, producción de petróleo y gas por pozo (capítulo IV) y regalías, Ministerio de Economía, esquema " +
+  fuentes: "Secretaría de Energía, producción de petróleo y gas por pozo (capítulo IV), datos de fractura y regalías, Ministerio de Economía, esquema " +
     "ahorro-inversión-financiamiento de cada provincia, y Secretaría de Trabajo, SIPA",
   texto: () => {
-    const P = PG, H = T.hidrocarburos_anual.filter(r => r.anio <= P.anio_ult), h0 = H[0];
+    const P = PG, H = T.hidrocarburos_anual.filter(r => r.anio <= P.anio_ult), h0 = H[0], hU = H.at(-1), CU = P.cuencas_pet;
     const respuesta = `${n0(P.vm_kbd)} mil barriles de petróleo por día, el ${pct(P.vm_pct)} del país, entre ${P.v_desde} y ${P.v_hasta}.`;
     const bajada = `En los mismos meses, ${P.top} produjo ${n0(P.top_kbd)} mil barriles por día. Diez años antes, entre ${P.v10_desde} y ${P.v10_hasta}, ` +
       `${n0(P.top_antes)} mil. ` + (P.reg_top === P.top ? `Para la provincia, las regalías fueron el ${pct(P.reg_top_pct)} de todos sus ingresos en ${P.reg_anio}.` : "");
     const contexto = "Vaca Muerta es una formación de roca de la cuenca neuquina, sobre todo en Neuquén, con petróleo y gas que no salen solos: se " +
       "extraen con pozos horizontales y fractura hidráulica, lo que se llama producción no convencional, o shale. Empezó a producir en escala en la " +
-      "década de 2010. A la provincia donde está cada pozo, lo que se extrae le deja regalías, un porcentaje del valor del petróleo y el gas.";
+      "década de 2010. Cambió la producción del país, que venía cayendo, y la economía de la provincia donde está.";
+    const medimos = ["La producción de petróleo se mide en miles de barriles por día, el promedio de cada año. Un barril tiene casi 159 litros. El gas " +
+      "se mide en millones de metros cúbicos por día.",
+      "Las regalías son lo que la provincia cobra por lo que se extrae de su suelo: un porcentaje del valor del petróleo y el gas en boca de pozo."];
+    // 1. el petróleo
     const ini = h0.pct_pet_nc < .5 ? "menos del 1%" : pct(h0.pct_pet_nc);
     const s1 = `En ${P.anio_ult}, el petróleo no convencional fue el ${pct(P.pct_nc_ult)} de la producción del país. En ${h0.anio}, ${ini}. ` +
-      `La producción total pasó de ${n0(P.kbd_ini)} mil barriles por día en ${P.anio_ini} a ${n0(P.kbd_ult)} mil en ${P.anio_ult}, con su mínimo en ${P.anio_min}: ${n0(P.kbd_min)} mil.` +
-      (P.record ? ` En ${P.mes}, el país produjo ${n0(P.kbd)} mil barriles por día, el máximo de la serie.` : "");
-    const s2 = `En ${P.reg_anio}, las regalías fueron el 10% o más de los ingresos totales en ${P.reg_n_10} provincias, y la parte más alta fue la de ${P.reg_top}: ` +
-      `${pct(P.reg_top_pct)}. Las de petróleo crudo equivalieron a ${n0(P.reg_usd_top_hab)} dólares por habitante en ${P.reg_usd_top}. ` +
+      `La producción total pasó de ${n0(P.kbd_ini)} mil barriles por día en ${P.anio_ini} a ${n0(P.kbd_ult)} mil en ${P.anio_ult}, con su mínimo en ${P.anio_min}: ${n0(P.kbd_min)} mil. ` +
+      `El convencional, en cambio, bajó de ${n0(h0.pet_conv)} a ${n0(hU.pet_conv)} mil barriles por día.` +
+      (P.record ? ` En ${P.mes}, el país produjo ${n0(P.kbd)} mil barriles por día, el máximo de la serie.` : "") +
+      ` Entre enero y ${MESES[P.ytd.pet.mes - 1]} de ${P.ytd.pet.anio}, la producción de petróleo ${cambioPct(P.ytd.pet.var)} frente a los mismos meses del año anterior.`;
+    // 2. el gas
+    const s2 = `Con el gas pasó algo parecido. En ${P.anio_ult}, el no convencional fue el ${pct(P.pct_gas_nc_ult)} del gas del país. La producción total ` +
+      `fue de ${n1(P.gas_ult)} millones de metros cúbicos por día, frente a ${n1(P.gas_ini)} en ${P.anio_ini}, con su mínimo en ${P.anio_min_gas}: ${n1(P.gas_min)}. ` +
+      `El gas no convencional reemplazó al que se dejaba de sacar de los yacimientos viejos. Entre enero y ${MESES[P.ytd.gas.mes - 1]} de ${P.ytd.gas.anio}, ` +
+      `la producción de gas ${cambioPct(P.ytd.gas.var)} frente a los mismos meses del año anterior.`;
+    // 3. las cuencas
+    const s3 = `En ${P.mes}, la cuenca neuquina, donde está Vaca Muerta, dio el ${pct(CU.neuquina)} del petróleo del país y el ${pct(P.cuencas_gas.neuquina)} del gas. ` +
+      `La del golfo San Jorge, entre Chubut y Santa Cruz, la cuenca petrolera más importante durante décadas, dio el ${pct(CU.gsj)} del petróleo. ` +
+      `${P.segundo}, la segunda provincia productora, pasó de ${n0(P.segundo_antes)} a ${n0(P.segundo_kbd)} mil barriles por día en diez años.`;
+    // 4. lo que rinde cada pozo
+    const s4 = `En ${P.pozos_mes} había ${n0(P.pozos)} pozos de petróleo en producción. Los de shale eran el ${pct(P.pct_pozos_shale)} de los pozos y dieron el ` +
+      `${pct(P.pct_pet_shale_pozos)} del petróleo: un pozo de shale produjo en promedio ${n0(P.bpd_shale)} barriles por día, y uno convencional, ${n1(P.bpd_conv)}. ` +
+      `En ${P.fr_ult} se hicieron ${n0(P.fr_etapas)} etapas de fractura, ${P.fr_veces} veces las de ${P.fr_ini}, y el ${pct(P.fr_vm_pct)} fueron en Vaca Muerta. ` +
+      `En Vaca Muerta, los pozos fracturados en ${P.fr_ult} llevaron en promedio ${n1(P.dv_etapas_ult)} etapas y una rama horizontal de ${n0(P.dv_rama_ult)} metros, frente a ` +
+      `${n1(P.dv_etapas_ini)} etapas y ${n0(P.dv_rama_ini)} metros en ${P.dv_ini}. La empresa que más petróleo produce es ${P.emp_top}, con el ${pct(P.emp_top_pct)}.`;
+    // 5. las regalías en los ingresos
+    const s5 = `En ${P.reg_anio}, las regalías fueron el 10% o más de los ingresos totales en ${P.reg_n_10} provincias, y la parte más alta fue la de ${P.reg_top}: ` +
+      `${pct(P.reg_top_pct)}. La provincia recibe además ingresos brutos por la actividad, que no se cuentan como regalías. ` +
       `${CN.pet_emp_top} es la provincia con más puestos asalariados registrados en la extracción de petróleo y gas y sus servicios: ${n0(CN.pet_emp_top_v)} en el ${CN.emp_trim}.`;
+    // 6. por habitante
+    const RG = T.regalias_provincias.filter(r => r.usd_crudo_hab > 0).sort((a, b) => b.usd_crudo_hab - a.usd_crudo_hab);
+    const s6 = `Las regalías de petróleo crudo equivalieron a ${n0(P.reg_usd_top_hab)} dólares por habitante en ${P.reg_usd_top}. Le siguen ` +
+      `${listaY(RG.filter(r => r.territorio !== P.reg_usd_top).slice(0, 2).map(r => `${r.territorio}, con ${n0(r.usd_crudo_hab)}`))}. ` +
+      "Por habitante, una provincia con poca población y mucha producción recibe mucho más que una grande. " +
+      `En total, las regalías de petróleo crudo de ${RG[0].territorio} fueron ${n0(RG[0].usd_crudo_millones)} millones de dólares.`;
+    const sintesis = [`Entre ${P.v_desde} y ${P.v_hasta}, Vaca Muerta dio ${n0(P.vm_kbd)} mil barriles de petróleo por día, el ${pct(P.vm_pct)} del país.`,
+      `En ${P.anio_ult}, el no convencional fue el ${pct(P.pct_nc_ult)} del petróleo y el ${pct(P.pct_gas_nc_ult)} del gas.`,
+      `Un pozo de shale produjo en promedio ${n0(P.bpd_shale)} barriles por día, y uno convencional, ${n1(P.bpd_conv)}.`,
+      `En ${P.reg_top}, las regalías fueron el ${pct(P.reg_top_pct)} de los ingresos en ${P.reg_anio}.`];
     const lim = ["El petróleo no convencional es casi todo de Vaca Muerta, pero no todo: una parte es tight, de otras formaciones.",
-      "Las regalías son un porcentaje del valor del petróleo y el gas en boca de pozo: cambian con la producción, con el precio internacional y con el tipo de cambio.",
-      "La provincia recibe otros ingresos por la actividad, como ingresos brutos, que no se cuentan como regalías. Las regalías de los yacimientos del mar son del Estado nacional.",
+      "Las regalías cambian con la producción, con el precio internacional y con el tipo de cambio.",
+      "La producción de un pozo de shale cae rápido en sus primeros años: el promedio por pozo mezcla pozos nuevos y viejos.",
+      "Las regalías de los yacimientos del mar son del Estado nacional, no de las provincias.",
       "El empleo registrado se cuenta en la provincia donde la empresa declara a sus trabajadores, que puede no ser la del yacimiento."];
-    return {respuesta, bajada, contexto, lim, secciones: [
-      {g: "vm-produccion", tit: "Producción de petróleo por tipo de recurso", forma: "lineas",
+    const notas = ["Producción: Secretaría de Energía, producción por pozo (capítulo IV), promedio de cada año completo. Shale y tight según el tipo de recurso declarado de cada pozo.",
+      "Pozos y fractura: pozos con producción de petróleo en el mes y etapas de fractura informadas a la Secretaría de Energía.",
+      `Regalías: esquema ahorro-inversión-financiamiento de cada provincia (Ministerio de Economía), % de los ingresos totales, ${P.reg_anio_txt}. En dólares, las de petróleo crudo de la Secretaría de Energía, por habitante con las proyecciones del INDEC.`];
+    return {respuesta, bajada, contexto, medimos, sintesis, lim, notas, secciones: [
+      {preg: "¿Cuánto petróleo sale de Vaca Muerta?", g: "vm-produccion", forma: "lineas",
+        tit: `En ${P.anio_ult}, el no convencional fue el ${pct(P.pct_nc_ult)} del petróleo del país`,
         pie: "Miles de barriles por día, promedio de cada año. Shale: no convencional de formaciones como Vaca Muerta. Tight: no convencional de otras arenas.", txt: [s1]},
-      {g: "vm-regalias", tit: "Regalías en los ingresos de cada provincia", forma: "barras",
-        pie: `% de los ingresos totales de cada provincia, ${P.reg_anio_txt}. Solo las provincias con regalías.`, txt: [s2]},
+      {preg: "¿Y cuánto gas?", g: "vm-gas", forma: "lineas",
+        tit: `En ${P.anio_ult}, el no convencional fue el ${pct(P.pct_gas_nc_ult)} del gas del país`,
+        pie: "Millones de metros cúbicos por día, promedio de cada año.", txt: [s2]},
+      {preg: "¿De qué cuencas sale el petróleo?", g: "vm-cuencas", forma: "barras",
+        tit: `En ${P.mes}, la cuenca neuquina dio el ${pct(CU.neuquina)} del petróleo del país`,
+        pie: `% de la producción de petróleo del país, ${P.mes}.`, txt: [s3]},
+      {preg: "¿Cuánto rinde un pozo de Vaca Muerta?", g: "vm-pozos", forma: "barras",
+        tit: `Un pozo de shale produjo ${P.veces} veces lo que uno convencional`,
+        pie: `Barriles de petróleo por día por pozo en producción, promedio de ${P.pozos_mes}.`, txt: [s4]},
+      {preg: "¿Cuánto pesan las regalías en cada provincia?", g: "vm-regalias", forma: "barras",
+        tit: `En ${P.reg_top}, las regalías fueron el ${pct(P.reg_top_pct)} de los ingresos`,
+        pie: `% de los ingresos totales de cada provincia, ${P.reg_anio_txt}. Solo las provincias con regalías.`, txt: [s5]},
+      {preg: "¿Y por habitante?", g: "vm-regalias-hab", forma: "barras",
+        tit: `Las regalías de petróleo de ${P.reg_usd_top} fueron ${n0(P.reg_usd_top_hab)} dólares por habitante`,
+        pie: "Regalías de petróleo crudo, dólares por habitante. Solo las provincias con regalías de petróleo.", txt: [s6]},
     ]};
   },
   dib: {
     "vm-produccion": (el, a) => lineas(el, {anim: a, data: T.hidrocarburos_anual.filter(r => r.anio <= PG.anio_ult), x: "anio", y0: 0, vf: n0, yf: n0,
       series: [{k: "pet_conv", lab: "Convencional", c: COL_TIPO.conv}, {k: "pet_shale", lab: "Shale", c: COL_TIPO.shale}, {k: "pet_tight", lab: "Tight", c: COL_TIPO.tight}]}),
+    "vm-gas": (el, a) => lineas(el, {anim: a, data: T.hidrocarburos_anual.filter(r => r.anio <= PG.anio_ult), x: "anio", y0: 0, vf: n1, yf: n0,
+      series: [{k: "gas_conv", lab: "Convencional", c: COL_TIPO.conv}, {k: "gas_shale", lab: "Shale", c: COL_TIPO.shale}, {k: "gas_tight", lab: "Tight", c: COL_TIPO.tight}]}),
+    "vm-cuencas": (el, a) => {
+      const NOM = {neuquina: "Neuquina", gsj: "Golfo San Jorge", austral: "Austral", cuyana: "Cuyana", noroeste: "Noroeste"};
+      return barrasH(el, {anim: a, k: "v", vf: pct, af: v => n0(v) + "%", l: 170, lAngosto: 140,
+        data: Object.entries(PG.cuencas_pet).map(([k, v]) => ({codigo_indec: k, territorio: NOM[k] || k, v})), tip: d => `<b>${d.territorio}</b><br>${pct(d.v)} del petróleo del país`});
+    },
+    "vm-pozos": (el, a) => barrasH(el, {anim: a, k: "v", vf: v => v >= 100 ? n0(v) : n1(v), af: n0, l: 170, lAngosto: 140,
+      data: [{codigo_indec: "shale", territorio: "Pozo de shale", v: PG.bpd_shale}, {codigo_indec: "conv", territorio: "Pozo convencional", v: PG.bpd_conv}],
+      color: d => d.codigo_indec === "shale" ? COL_TIPO.shale : COL_TIPO.conv, tip: d => `<b>${d.territorio}</b><br>${n1(d.v)} barriles por día`}),
     "vm-regalias": (el, a) => barrasH(el, {anim: a, data: T.regalias_provincias.filter(r => r.pct_regalias > 0).map(r => PG.reg_atrasadas[r.territorio] ? {...r, territorio: `${r.territorio} (${r.anio_aif})`} : r),
       k: "pct_regalias", vf: pct, af: v => n0(v) + "%", tip: d => `<b>${d.territorio}</b><br>Regalías: ${pct(d.pct_regalias)} de los ingresos en ${d.anio_aif}`}),
+    "vm-regalias-hab": (el, a) => barrasH(el, {anim: a, data: T.regalias_provincias.filter(r => r.usd_crudo_hab > 0), k: "usd_crudo_hab", vf: n0, af: n0,
+      tip: d => `<b>${d.territorio}</b><br>${n0(d.usd_crudo_hab)} dólares por habitante<br>${n1(d.usd_crudo_millones)} millones de dólares en total`}),
   },
 }, {
   // etapa 5 del plan de mejora: a qué provincias se muda la gente de otras provincias, con el último censo (auditoría de los artículos, idea 8)
-  id: "a-migracion-interna", frec: "Se actualiza con cada censo", tablas: ["cruces_provincias"],
-  dek: "Qué parte de quienes viven en cada provincia nació en otra, según el último censo, en qué departamentos son más de la mitad y si alquilan más hogares donde más gente llegó de otra provincia.",
+  id: "a-migracion-interna", frec: "Se actualiza con cada censo", tablas: ["cruces_provincias", "nacidos_otro_pais_provincias", "migraciones_departamentos"],
+  dek: "Qué parte de quienes viven en cada provincia nació en otra, según el último censo, cuántas personas son, en qué departamentos son más de la mitad, cuántos nacieron en otro país y si alquilan más hogares y se gana más donde más gente llegó de otra provincia.",
   fichas: [["f-migracion-interna", "migración interna"], ["f-nacidos-otro-pais", "nacidos en otro país"], ["f-vivienda", "vivienda"]],
-  csv: [["cruces_provincias", "Descargar CSV por provincia"], ["migraciones_departamentos", "Descargar CSV por departamento"]],
-  fuentes: "INDEC, Censo Nacional de Población, Hogares y Viviendas, lugar de nacimiento y tenencia de la vivienda",
+  csv: [["cruces_provincias", "Descargar CSV por provincia"], ["nacidos_otro_pais_provincias", "Descargar CSV del lugar de nacimiento por provincia"],
+    ["migraciones_departamentos", "Descargar CSV por departamento"]],
+  fuentes: "INDEC, Censo Nacional de Población, Hogares y Viviendas, lugar de nacimiento y tenencia de la vivienda, y Secretaría de Trabajo, " +
+    "remuneración de los asalariados registrados del sector privado (SIPA)",
   texto: () => {
     const M = R.migraciones.censo, Dp = R.migraciones.departamentos, F = T.cruces_provincias.filter(r => r.otra_provincia != null);
+    const L = T.nacidos_otro_pais_provincias.filter(r => r.codigo_indec !== "00"), mil = v => v >= 1e6 ? `${n2(v / 1e6)} millones` : `${n0(v / 1e3)} mil`;
     const ord = [...F].sort((a, b) => b.otra_provincia - a.otra_provincia), top = ord.slice(0, 3), anio = META_CX.otra_provincia.periodo;
     const respuesta = `A ${listaY(top.map(r => r.territorio))}: en ${top[0].territorio}, ${pct(top[0].otra_provincia)} de quienes viven nacieron en otra provincia.`;
     const bajada = `En todo el país, el ${pct(M.otra_pct)} de las personas vive en una provincia distinta de la que nació, según el censo de ${anio}: ` +
       `${n0(M.otra_personas)} personas. La parte más baja es la de ${listaY(M.otra_bajos[0])}, el ${pct(M.otra_bajos[1])}.`;
-    const contexto = "El censo pregunta a cada persona dónde nació. Quien vive en una provincia distinta de la de su nacimiento se mudó alguna vez, " +
+    const contexto = "La gente se muda de provincia para trabajar, para estudiar, para acompañar a su familia o para vivir más barato. A lo largo del " +
+      "siglo veinte, muchas personas del interior se mudaron a la zona de Buenos Aires, y en las últimas décadas crecieron sobre todo las provincias " +
+      "de la Patagonia, con el petróleo y el turismo. Este artículo mira dónde viven hoy quienes nacieron en otra provincia. " +
+      "También hay mudanzas dentro de cada provincia, del campo a la ciudad o de un pueblo a la capital, que este dato no ve.";
+    const medimos = ["El censo pregunta a cada persona dónde nació. Quien vive en una provincia distinta de la de su nacimiento se mudó alguna vez, " +
       "aunque el censo no dice cuándo. Por eso este dato no mide los movimientos de un año, sino lo que se acumuló en la vida de las personas que " +
-      "viven hoy en cada provincia: llegadas de hace décadas y de hace meses.";
+      "viven hoy en cada provincia: llegadas de hace décadas y de hace meses.",
+      "Nacido en otro país es quien nació fuera de la Argentina, sin importar su nacionalidad de hoy. Los hijos de quienes llegaron de otro país, " +
+      "nacidos acá, cuentan como nacidos en la Argentina."];
+    // 1. la parte de cada provincia
     const seis = ord.slice(0, 6), pat = seis.filter(r => r.region === "Patagonia").length;
     const s1 = (pat >= 3 ? `${pat} de las 6 provincias con más personas nacidas en otra son de la Patagonia. ` : "") +
-      `En ${Dp.otra_mitad} departamentos, más de la mitad de quienes viven nacieron en otra provincia. Los de la parte más alta son ` +
+      (top[0].otra_provincia > 50 ? `En ${top[0].territorio}, más de la mitad de quienes viven nació en otra provincia. ` : "") +
+      (M.otra_bajos[1] < 10 ? `En el otro extremo, en ${listaY(M.otra_bajos[0])}, menos de una persona de cada diez. ` : "") +
+      `La mediana de las 24 jurisdicciones es del ${pct(d3.median(F, r => r.otra_provincia))}.`;
+    // 2. en cantidad
+    const porN = [...L].sort((a, b) => b.en_otra_provincia - a.en_otra_provincia), t3 = porN.slice(0, 3), s3n = d3.sum(t3, r => r.en_otra_provincia);
+    const s2 = `En cantidad, el orden cambia: ${listaY(t3.map(r => `${r.territorio}, con ${mil(r.en_otra_provincia)}`))} son las jurisdicciones con más personas ` +
+      `nacidas en otra provincia. Las tres juntas suman el ${pct(s3n / M.otra_personas * 100)} de todas. Una provincia grande puede recibir mucha gente ` +
+      `y que igual sea una parte chica de su población. La que menos personas nacidas en otra provincia tiene es ${porN.at(-1).territorio}, con ${mil(porN.at(-1).en_otra_provincia)}.`;
+    // 3. los departamentos
+    const s3 = `En ${Dp.otra_mitad} departamentos, más de la mitad de quienes viven nacieron en otra provincia. Los de la parte más alta son ` +
       `${listaY(Dp.otra_top.map(([d, p, v]) => `${d} (${p}), con ${pct(v)}`))}.`;
+    // 4. nacidos en otro país
+    const ext = [...L].sort((a, b) => b.pct_otro_pais - a.pct_otro_pais), dos = ext.slice(0, 2);
+    const s4 = `En todo el país, el ${pct(M.pct)} de las personas nació en otro país: ${n0(M.personas)}. La parte más alta es la de ${dos[0].territorio}, ${pct(dos[0].pct_otro_pais)}, seguida por ${dos[1].territorio}, ${pct(dos[1].pct_otro_pais)}. ` +
+      `El ${pct(M.limitrofes_pct)} de quienes nacieron en otro país vino de un país limítrofe, y el primero es ${M.paises[0][0]}, con el ${pct(M.paises[0][2])}. Le siguen ` +
+      `${M.paises[1][0]}, con el ${pct(M.paises[1][2])}, y ${M.paises[2][0]}, con el ${pct(M.paises[2][2])}. ${M.primer_pais_mas[0][0]} es el primer país de origen en ` +
+      `${M.primer_pais_mas[0][1]} jurisdicciones, ${M.primer_pais_mas[1][0]} en ${M.primer_pais_mas[1][1]} y ${M.primer_pais_mas[2][0]} en ${M.primer_pais_mas[2][1]}. ` +
+      `En ${R.migraciones.historia.ini}, el primer censo, era del ${pct(R.migraciones.historia.ini_pct)}, y en ${R.migraciones.historia.max_anio}, el más alto, del ${pct(R.migraciones.historia.max_pct)}.`;
+    // 5. el alquiler
     const c = calcularArt({tabla: "cruces_provincias"}, {x: "otra_provincia", y: "alquila"});
-    const s2 = `¿Alquilan más hogares donde más gente nació en otra provincia? ${c.rs <= -.2 ? "No: la relación va en sentido contrario." : respuestaR(c.rs)} ` +
-      `En las ${c.h} jurisdicciones con más personas nacidas en otra provincia, la mediana de hogares que alquilan es ${pct(c.medMas)}. En las ${c.h} con menos, ${pct(c.medMenos)}.`;
+    const s5 = `${c.rs <= -.2 ? "No: la relación va en sentido contrario." : respuestaR(c.rs)} ` +
+      `En las ${c.h} jurisdicciones con más personas nacidas en otra provincia, la mediana de hogares que alquilan es ${pct(c.medMas)}. En las ${c.h} con menos, ${pct(c.medMenos)}. ` +
+      "Puede que quien llega de otra provincia alquile al principio, pero estos datos no dicen si son ellos los que alquilan. " +
+      `La que más se aparta de la tendencia es ${c.lejos.territorio}, con ${pct(c.lejos.otra_provincia)} de nacidos en otra provincia y ${pct(c.lejos.alquila)} de hogares que alquilan.`;
+    // 6. el salario
+    const w = calcularArt({tabla: "cruces_provincias"}, {x: "salario", y: "otra_provincia"});
+    const s6 = `${w.rs <= -.2 ? "No: la relación va en sentido contrario." : respuestaR(w.rs)} En las ${w.h} jurisdicciones con el salario privado registrado más alto, ` +
+      `la mediana de personas nacidas en otra provincia es del ${pct(w.medMas)}. En las ${w.h} con el más bajo, del ${pct(w.medMenos)}. Que vayan juntos no quiere decir ` +
+      "que uno cause el otro: los salarios son de hoy y las mudanzas, de toda la vida de las personas. " +
+      `La que más se aparta de la tendencia es ${w.lejos.territorio}, con ${pct(w.lejos.otra_provincia)} de personas nacidas en otra provincia.`;
+    const sintesis = [`El ${pct(M.otra_pct)} de las personas vive en una provincia distinta de la que nació: ${n0(M.otra_personas)}.`,
+      `La parte más alta es la de ${top[0].territorio}, ${pct(top[0].otra_provincia)}, y en cantidad, ${porN[0].territorio}, con ${mil(porN[0].en_otra_provincia)}.`,
+      `En ${Dp.otra_mitad} departamentos, más de la mitad de quienes viven nacieron en otra provincia.`,
+      `Más personas nacidas en otra provincia y un salario más alto: una relación ${fuerza(w.rs)} entre las jurisdicciones.`];
     const lim = ["Una persona nacida en CABA que vive en el Gran Buenos Aires cuenta como nacida en otra provincia, aunque se haya mudado a pocas cuadras.",
       "Estos datos no dicen de qué provincia llegó cada persona ni cuándo. Los hijos de quienes llegaron, nacidos ya en la provincia, cuentan como nacidos ahí.",
-      "La relación con el alquiler es entre provincias, no entre personas: no dice que quienes llegaron de otra provincia alquilen más que quienes nacieron ahí.",
-      ...(Math.abs(c.rs) < .4 ? [`Con ${c.n} jurisdicciones y una relación ${fuerza(c.rs)}, la diferencia entre las dos mitades puede ser casualidad.`] : [])];
-    return {respuesta, bajada, contexto, lim, secciones: [
-      {g: "migra-provincias", tit: "Personas nacidas en otra provincia", forma: "barras",
+      "El censo cuenta a cada persona donde vive el día del censo: quien pasa parte del año en otra provincia, como quien trabaja por temporada, cuenta en una sola.",
+      "Las relaciones con el alquiler y el salario son entre provincias, no entre personas: no dicen que quienes llegaron alquilen más o ganen más que quienes nacieron ahí.",
+      ...[c, w].filter(x => Math.abs(x.rs) < .4).slice(0, 1).map(x => `Con ${x.n} jurisdicciones y relaciones de esta fuerza, la diferencia entre las dos mitades puede ser casualidad.`)];
+    const notas = [`Lugar de nacimiento: INDEC, Censo ${anio}, población en viviendas particulares.`,
+      `Departamentos: los de ${n0(Dp.min_pob)} habitantes o más.`,
+      `Salario: remuneración promedio de los asalariados registrados del sector privado (SIPA), ${META_CX.salario.periodo}.`,
+      `Las relaciones se miden con la correlación de Spearman, de menos 1 a 1: ${rTxt(c.rs)} con el alquiler y ${rTxt(w.rs)} con el salario.`];
+    return {respuesta, bajada, contexto, medimos, sintesis, lim, notas, secciones: [
+      {preg: "¿En qué provincias vive más gente nacida en otra?", g: "migra-provincias", forma: "barras",
+        tit: `En ${top[0].territorio}, ${pct(top[0].otra_provincia)} de quienes viven nacieron en otra provincia`,
         pie: `% de la población en viviendas particulares de cada jurisdicción, censo de ${anio}. La línea marca el total del país.`, txt: [s1]},
-      {g: "migra-alquiler", tit: "Nacidos en otra provincia y hogares que alquilan", forma: "puntos",
-        pie: "Cada punto es una jurisdicción. Nacidos en otra provincia: % de la población. Alquilan: % de los hogares. La línea punteada muestra la tendencia.", txt: [s2]},
+      {preg: "¿Y en cantidad de personas?", g: "migra-cantidad", forma: "barras",
+        tit: `${porN[0].territorio} es donde viven más personas nacidas en otra provincia: ${mil(porN[0].en_otra_provincia)}`,
+        pie: `Miles de personas nacidas en otra provincia, censo de ${anio}.`, txt: [s2]},
+      {preg: "¿En qué departamentos son más de la mitad?", g: "migra-departamentos", forma: "barras",
+        tit: `En ${Dp.otra_mitad} departamentos, más de la mitad nació en otra provincia`,
+        pie: `Los 15 departamentos con la parte más alta, % de la población, censo de ${anio}. Solo los de ${n0(Dp.min_pob)} habitantes o más.`, txt: [s3]},
+      {preg: "¿Y quienes nacieron en otro país?", g: "migra-otro-pais", forma: "barras",
+        tit: `El ${pct(M.pct)} de las personas nació en otro país`,
+        pie: `% de la población en viviendas particulares, censo de ${anio}. La línea marca el total del país.`, txt: [s4]},
+      {preg: "¿Alquilan más hogares donde más gente llegó de otra provincia?", g: "migra-alquiler", forma: "puntos",
+        tit: `Nacidos en otra provincia y hogares que alquilan: una relación ${fuerza(c.rs)}`,
+        pie: "Cada punto es una jurisdicción. Nacidos en otra provincia: % de la población. Alquilan: % de los hogares. La línea punteada muestra la tendencia.", txt: [s5]},
+      {preg: "¿Vive más gente de otras provincias donde se gana más?", g: "migra-salario", forma: "puntos",
+        tit: `Salario y nacidos en otra provincia: una relación ${fuerza(w.rs)}`,
+        pie: `Cada punto es una jurisdicción. Salario: pesos por mes, ${META_CX.salario.periodo}. Nacidos en otra provincia: % de la población, ${anio}. La línea punteada muestra la tendencia.`, txt: [s6]},
     ]};
   },
   dib: {
     "migra-provincias": (el, a) => barrasH(el, {anim: a, data: T.cruces_provincias.filter(r => r.otra_provincia != null), k: "otra_provincia", vf: pct, af: v => n0(v) + "%",
       ref: R.migraciones.censo.otra_pct, refLab: `País ${pct(R.migraciones.censo.otra_pct)}`, tip: d => `<b>${d.territorio}</b><br>${pct(d.otra_provincia)} nació en otra provincia`}),
+    "migra-cantidad": (el, a) => barrasH(el, {anim: a, data: T.nacidos_otro_pais_provincias.filter(r => r.codigo_indec !== "00"), k: "en_otra_provincia",
+      vf: v => n0(v / 1e3) + " mil", af: ejeMil, tip: d => `<b>${d.territorio}</b><br>${n0(d.en_otra_provincia)} personas nacidas en otra provincia`}),
+    "migra-departamentos": (el, a) => {
+      const data = T.migraciones_departamentos.filter(r => r.poblacion_vp >= R.migraciones.departamentos.min_pob).sort((p, q) => q.pct_otra_provincia - p.pct_otra_provincia)
+        .slice(0, 15).map(r => ({...r, codigo_indec: r.codigo_dep, territorio: `${r.departamento} (${NOMBRES[r.codigo_indec] || r.codigo_indec})`}));
+      return barrasH(el, {anim: a, data, k: "pct_otra_provincia", vf: pct, af: v => n0(v) + "%", l: 230, lAngosto: 170,
+        tip: d => `<b>${d.territorio}</b><br>${pct(d.pct_otra_provincia)} nació en otra provincia<br>${n0(d.poblacion_vp)} habitantes`});
+    },
+    "migra-otro-pais": (el, a) => barrasH(el, {anim: a, data: T.nacidos_otro_pais_provincias.filter(r => r.codigo_indec !== "00"), k: "pct_otro_pais", vf: pct, af: v => n0(v) + "%",
+      ref: R.migraciones.censo.pct, refLab: `País ${pct(R.migraciones.censo.pct)}`,
+      tip: d => `<b>${d.territorio}</b><br>${pct(d.pct_otro_pais)} nació en otro país<br>El primero: ${d.primer_pais}`}),
     "migra-alquiler": (el, a) => {
       const c = calcularArt({tabla: "cruces_provincias"}, {x: "otra_provincia", y: "alquila"});
       dispersion(el, {anim: a, data: c.F, x: "otra_provincia", y: "alquila", xLab: "Nacidos en otra provincia", yLab: "Hogares que alquilan",
         marcar: [c.mas, c.menos, c.lejos].map(f => f.codigo_indec), fx: v => n0(v) + "%", fy: v => n0(v) + "%", vx: v => `${pct(v)} de la población`, vy: v => `${pct(v)} de los hogares`});
+    },
+    "migra-salario": (el, a) => {
+      const w = calcularArt({tabla: "cruces_provincias"}, {x: "salario", y: "otra_provincia"});
+      dispersion(el, {anim: a, data: w.F, x: "salario", y: "otra_provincia", xLab: "Salario privado registrado", yLab: "Nacidos en otra provincia",
+        marcar: [w.mas, w.menos, w.lejos].map(f => f.codigo_indec), fx: v => n1(v / 1e6) + " M", fy: v => n0(v) + "%",
+        vx: v => `${n0(v)} pesos por mes`, vy: v => `${pct(v)} de la población`});
     },
   },
 }, {
@@ -8971,43 +9197,120 @@ const ART_SERIE = [{
 }, {
   // etapa 5 del plan de mejora: la maternidad adolescente en el primer y el último año con datos, provincia por provincia (auditoría de los
   // artículos, idea 4: antes y después, sin atribuir la causa)
-  id: "a-madres-adolescentes", frec: "Se actualiza cada año", tablas: ["madres_adolescentes_provincias", "nacimientos"],
-  dek: "La parte de los nacimientos de cada provincia que son de madres menores de 20 años, en el primer y en el último año con datos, y cuántos nacimientos de madres adolescentes hubo cada año en el país.",
+  id: "a-madres-adolescentes", frec: "Se actualiza cada año", tablas: ["madres_adolescentes_provincias", "nacimientos", "cruces_provincias"],
+  dek: "La parte de los nacimientos de cada provincia que son de madres menores de 20 años, en el primer y en el último año con datos, cuánto bajó en proporción, cuántos nacimientos de madres adolescentes hubo cada año, cómo bajaron frente al resto y frente a la OCDE, y si hay más donde más hogares tienen necesidades básicas insatisfechas.",
   fichas: [["f-adolescentes", "maternidad adolescente"], ["f-adolescentes-nse", "maternidad adolescente y condiciones de vida"], ["f-nacimientos", "nacimientos"]],
   csv: [["madres_adolescentes_provincias", "Descargar CSV por provincia"], ["nacimientos", "Descargar CSV por año"]],
-  fuentes: "Dirección de Estadísticas e Información en Salud (DEIS), Ministerio de Salud, estadísticas vitales",
+  fuentes: "Dirección de Estadísticas e Información en Salud (DEIS), Ministerio de Salud, estadísticas vitales, Banco Mundial, tasa de natalidad y " +
+    "población de los países de la OCDE, e INDEC, Censo Nacional de Población, Hogares y Viviendas",
   texto: () => {
-    const N = nac, P = T.madres_adolescentes_provincias, dif = r => r[ADO_INI] - r[ADO_ULT];
+    const N = nac, P = T.madres_adolescentes_provincias, Y = T.nacimientos, dif = r => r[ADO_INI] - r[ADO_ULT];
     const bajaron = P.filter(r => r[ADO_ULT] < r[ADO_INI]).length, mas = [...P].sort((a, b) => dif(b) - dif(a))[0];
-    const rel = r => dif(r) / r[ADO_INI] * 100, masRel = [...P].sort((a, b) => rel(b) - rel(a))[0];
+    const rel = r => dif(r) / r[ADO_INI] * 100, porRel = [...P].sort((a, b) => rel(b) - rel(a)), masRel = porRel[0], menosRel = porRel.at(-1);
     const alto = [...P].sort((a, b) => b[ADO_ULT] - a[ADO_ULT])[0], bajo = [...P].sort((a, b) => a[ADO_ULT] - b[ADO_ULT])[0];
+    const mitad = P.filter(r => rel(r) >= 50).length, y0 = Y[0], yU = Y.at(-1);
+    const vAdo = (yU.madres_menores_20 / y0.madres_menores_20 - 1) * 100, vTot = (yU.nacimientos / y0.nacimientos - 1) * 100;
     const respuesta = `De ${n1(N.pct_ini)} a ${n1(N.pct_ult)} de cada 100 nacimientos del país, entre ${N.anio_ini} y ${N.anio_ult}.`;
     const bajada = `En cantidad, los nacimientos de madres menores de 20 años pasaron de ${n0(N.ado_pico)} en ${N.ado_anio_pico}, el máximo desde ${N.anio_ini}, ` +
       `a ${n0(N.ado_ult)} en ${N.anio_ult}: ${pct(Math.abs(N.ado_caida))} menos. ` +
       (bajaron === P.length ? `La parte de madres adolescentes bajó en las ${P.length} jurisdicciones.` : `La parte de madres adolescentes bajó en ${bajaron} de las ${P.length} jurisdicciones.`);
-    const contexto = "La maternidad adolescente se mide acá como la parte de los nacimientos de cada año cuya madre tenía menos de 20 años, según las " +
-      "estadísticas vitales del Ministerio de Salud. En los mismos años bajó también " +
-      "la cantidad total de nacimientos, en todas las edades de las madres. Este artículo muestra cuánto bajó en cada provincia, sin atribuirle una causa.";
+    const contexto = "Tener un hijo antes de los 20 años cambia la vida de una adolescente: puede cortar la escuela y el primer trabajo, y muchos de esos " +
+      "embarazos no fueron buscados. Por eso la maternidad adolescente es uno de los datos que más se siguen en salud pública. En los mismos años bajó " +
+      "también la cantidad total de nacimientos, en todas las edades de las madres. Este artículo muestra cuánto bajó en cada provincia, sin atribuirle una causa.";
+    const medimos = ["La maternidad adolescente se mide acá como la parte de los nacimientos de cada año cuya madre tenía menos de 20 años, según las " +
+      "estadísticas vitales del Ministerio de Salud. Cada nacimiento se cuenta en la provincia donde vive la madre.",
+      "Las necesidades básicas insatisfechas son una medida del censo: un hogar las tiene si suma al menos una de cinco carencias, como más de tres " +
+      "personas por cuarto, una vivienda precaria, no tener baño o un chico de 6 a 12 años que no va a la escuela."];
+    // 1. cada provincia, antes y después
     const s1 = `La que más bajó, en puntos, fue ${mas.territorio}: de ${pct(mas[ADO_INI])} a ${pct(mas[ADO_ULT])} de los nacimientos. ` +
-      (masRel !== mas ? `En proporción, la que más bajó fue ${masRel.territorio}, de ${pct(masRel[ADO_INI])} a ${pct(masRel[ADO_ULT])}: ${pct(rel(masRel))} menos. ` : "") +
-      `En ${N.anio_ult}, la parte más alta era la de ${alto.territorio}, ${pct(alto[ADO_ULT])}, y la más baja, la de ${bajo.territorio}, ${pct(bajo[ADO_ULT])}.`;
-    const s2 = `Los nacimientos de madres adolescentes bajaron más que el total: desde el máximo de cada serie, ${pct(Math.abs(N.ado_caida))} contra ` +
-      `${pct(Math.abs(N.caida))}. Por eso su parte en los nacimientos también bajó, de ${pct(N.pct_ini)} en ${N.anio_ini} a ${pct(N.pct_ult)} en ${N.anio_ult}.`;
+      `En ${N.anio_ult}, la parte más alta era la de ${alto.territorio}, ${pct(alto[ADO_ULT])}, y la más baja, la de ${bajo.territorio}, ${pct(bajo[ADO_ULT])}. ` +
+      `En ${N.anio_ini}, la más alta había sido de ${pct(Math.max(...P.map(r => r[ADO_INI])))}. En ${N.anio_ult}, la parte era mayor que el promedio del país en ` +
+      `${P.filter(r => r[ADO_ULT] > N.pct_ult).length} jurisdicciones: ${listaY(P.filter(r => r[ADO_ULT] > N.pct_ult).map(r => r.territorio).sort())}.`;
+    // 2. en proporción
+    const s2 = `En proporción a lo que había en ${N.anio_ini}, la que más bajó fue ${masRel.territorio}: ${pct(rel(masRel))} menos. La que menos bajó fue ` +
+      `${menosRel.territorio}, ${pct(rel(menosRel))}. En ${mitad} de las ${P.length} jurisdicciones, la parte de madres adolescentes se redujo a la mitad o menos. ` +
+      `La baja mediana, en proporción, fue del ${pct(d3.median(P, rel))}. ` +
+      "Una provincia con poca maternidad adolescente puede bajar pocos puntos y mucho en proporción: por eso se miran las dos cosas.";
+    // 3. la cantidad por año
+    const s3 = `Desde ${N.anio_ini}, los nacimientos de madres adolescentes bajaron ${pctAbs(vAdo)}: de ${n0(y0.madres_menores_20)} a ${n0(yU.madres_menores_20)}, ` +
+      `es decir, de unos ${n0(y0.madres_menores_20 / 365)} por día a unos ${n0(yU.madres_menores_20 / 365)}. ` +
+      (Y.filter(r => r.anio > N.ado_anio_pico).every((r, i, xs) => r.madres_menores_20 < (i ? xs[i - 1] : Y.find(x => x.anio === N.ado_anio_pico)).madres_menores_20)
+        ? `Desde ${N.ado_anio_pico}, cada año hubo menos que el anterior.` : "");
+    // 4. frente al total de nacimientos
+    const s4 = `Los nacimientos de madres adolescentes bajaron más que el total: desde ${N.anio_ini}, ${pctAbs(vAdo)} contra ${pctAbs(vTot)}. Por eso su parte ` +
+      `en los nacimientos también bajó, de ${pct(N.pct_ini)} a ${pct(N.pct_ult)}. Si hubieran bajado igual que el resto, la parte habría quedado igual. ` +
+      `Los nacimientos de madres de 20 años o más bajaron ${pctAbs(((yU.nacimientos - yU.madres_menores_20) / (y0.nacimientos - y0.madres_menores_20) - 1) * 100)}: ` +
+      "la baja de los nacimientos es general, pero es más fuerte entre las adolescentes.";
+    // 5. frente a la OCDE
+    const s5 = `La caída de los nacimientos no es solo de la Argentina, pero acá fue más rápida. Desde ${N.anio_pico}, el año con más nacimientos de la serie, ` +
+      `bajaron ${pctAbs(N.caida)} en el país y ${pctAbs(N.ocde_caida)} en el conjunto de los 38 países de la OCDE, hasta ${N.ocde_ult}. ` +
+      "La OCDE reúne sobre todo a países de ingresos altos, donde los nacimientos ya venían bajando desde hace décadas y la maternidad adolescente era " +
+      `mucho más baja. En ${yU.anio}, la Argentina tuvo ${n0(yU.idx_argentina)} nacimientos por cada 100 de ${y0.anio}. ` +
+      "La comparación es con el total de nacimientos, no con los de madres adolescentes.";
+    // 6. el cruce con las necesidades básicas insatisfechas
+    const c = calcularArt({tabla: "cruces_provincias"}, {x: "pct_hog_nbi_2022", y: "madres_adolescentes"});
+    const s6 = `${c.rs <= -.2 ? "No: la relación va en sentido contrario." : respuestaR(c.rs)} En las ${c.h} jurisdicciones con más hogares con necesidades ` +
+      `básicas insatisfechas, la mediana de madres adolescentes es del ${pct(c.medMas)} de los nacimientos. En las ${c.h} con menos, del ${pct(c.medMenos)}. ` +
+      `La jurisdicción que más se aparta de la tendencia es ${c.lejos.territorio}, con ${pct(c.lejos.pct_hog_nbi_2022)} de hogares con necesidades básicas ` +
+      `insatisfechas y ${pct(c.lejos.madres_adolescentes)} de madres adolescentes. Que vayan juntos no quiere decir que uno cause el otro.`;
+    const sintesis = [`La parte de los nacimientos de madres menores de 20 años bajó de ${pct(N.pct_ini)} a ${pct(N.pct_ult)} entre ${N.anio_ini} y ${N.anio_ult}.`,
+      bajaron === P.length ? `Bajó en las ${P.length} jurisdicciones, y en ${mitad} se redujo a la mitad o menos.` : `Bajó en ${bajaron} de las ${P.length} jurisdicciones.`,
+      `Los nacimientos de madres adolescentes bajaron ${pctAbs(vAdo)} y el total, ${pctAbs(vTot)}.`,
+      `En ${N.anio_ult}, la parte más alta era la de ${alto.territorio}, ${pct(alto[ADO_ULT])}, y la más baja, la de ${bajo.territorio}, ${pct(bajo[ADO_ULT])}.`,
+      `Entre las jurisdicciones, las necesidades básicas insatisfechas y la maternidad adolescente tienen una relación ${fuerza(c.rs)}.`];
     const lim = ["Es la parte de los nacimientos, no la cantidad de nacimientos cada 1.000 adolescentes: también cambia cuando cambian los nacimientos de las madres adultas.",
-      "En esos años cambiaron las políticas de salud sexual y reproductiva, la educación y la economía. Estos datos no permiten separar el efecto de cada cambio.",
-      "Cada nacimiento se cuenta en la provincia donde vive la madre, no donde nació el bebé."];
-    return {respuesta, bajada, contexto, lim, secciones: [
-      {g: "ado-provincias", tit: "Nacimientos de madres menores de 20 años, por provincia", forma: "pesas",
+      "En esos años cambiaron las políticas de salud sexual y reproductiva, entre ellas un plan nacional de prevención del embarazo no intencional en la " +
+      "adolescencia desde 2017, la educación y la economía. Estos datos no permiten separar el efecto de cada cambio.",
+      "Las estadísticas vitales se publican con más de un año de demora, y un nacimiento puede registrarse tarde.",
+      "La relación con las necesidades básicas insatisfechas es entre provincias, no entre personas, y compara el censo de 2022 con los nacimientos de " + N.anio_ult + ".",
+      ...(Math.abs(c.rs) < .4 ? [`Con ${c.n} jurisdicciones y una relación ${fuerza(c.rs)}, la diferencia entre las dos mitades puede ser casualidad.`] : [])];
+    const notas = ["Nacimientos: estadísticas vitales de la DEIS (Ministerio de Salud), nacidos vivos por edad de la madre y provincia de residencia.",
+      `OCDE: estimación del Banco Mundial para ${N.ocde_ult}, con la tasa de natalidad y la población de los 38 países miembros, sin la Argentina.`,
+      "Necesidades básicas insatisfechas: INDEC, Censo 2022, % de los hogares.",
+      `La relación se mide con la correlación de Spearman: ${rTxt(c.rs)}, en una escala de menos 1 a 1.`];
+    return {respuesta, bajada, contexto, medimos, sintesis, lim, notas, secciones: [
+      {preg: "¿Cuánto bajó en cada provincia?", g: "ado-provincias", forma: "pesas",
+        tit: bajaron === P.length ? `La parte de madres adolescentes bajó en las ${P.length} jurisdicciones` : `La parte de madres adolescentes bajó en ${bajaron} de las ${P.length} jurisdicciones`,
         pie: `% de los nacidos vivos de cada provincia. El círculo claro marca ${N.anio_ini} y el oscuro, ${N.anio_ult}.`, txt: [s1]},
-      {g: "ado-serie", tit: "Nacimientos de madres menores de 20 años en el país, por año", forma: "lineas",
-        pie: "Nacidos vivos de madres menores de 20 años, registrados en las estadísticas vitales.", txt: [s2]},
+      {preg: "¿Dónde bajó más en proporción?", g: "ado-rel", forma: "barras",
+        tit: `En ${mitad} de las ${P.length} jurisdicciones, se redujo a la mitad o menos`,
+        pie: `% de baja de la parte de madres adolescentes entre ${N.anio_ini} y ${N.anio_ult}, frente a lo que había en ${N.anio_ini}.`, txt: [s2]},
+      {preg: "¿Cuántos nacimientos de madres adolescentes hay por año?", g: "ado-serie", forma: "lineas",
+        tit: `De ${n0(N.ado_pico)} en ${N.ado_anio_pico} a ${n0(N.ado_ult)} en ${N.anio_ult}`,
+        pie: "Nacidos vivos de madres menores de 20 años, registrados en las estadísticas vitales.", txt: [s3]},
+      {preg: "¿Bajaron más que el resto de los nacimientos?", g: "ado-indices", forma: "lineas",
+        tit: `Desde ${N.anio_ini}, los de madres adolescentes bajaron ${pctAbs(vAdo)} y el total, ${pctAbs(vTot)}`,
+        pie: `Índice, ${N.anio_ini} = 100.`, txt: [s4]},
+      {preg: "¿Bajaron los nacimientos también en otros países?", g: "ado-ocde", forma: "lineas",
+        tit: `Desde ${N.anio_pico}, los nacimientos bajaron ${pctAbs(N.caida)} en la Argentina y ${pctAbs(N.ocde_caida)} en la OCDE`,
+        pie: `Índice, ${N.anio_ini} = 100. La OCDE es una estimación del Banco Mundial para los 38 países miembros.`, txt: [s5]},
+      {preg: "¿Hay más madres adolescentes donde más hogares tienen necesidades básicas insatisfechas?", g: "ado-nbi", forma: "puntos",
+        tit: `Necesidades básicas insatisfechas y madres adolescentes: una relación ${fuerza(c.rs)}`,
+        pie: `Cada punto es una jurisdicción. Necesidades básicas insatisfechas: % de los hogares, censo de 2022. Madres adolescentes: % de los nacimientos, ${N.anio_ult}. La línea punteada muestra la tendencia.`, txt: [s6]},
     ]};
   },
   dib: {
     "ado-provincias": (el, a) => pesas(el, {anim: a, data: T.madres_adolescentes_provincias, a: ADO_INI, b: ADO_ULT, la: String(nac.anio_ini), lb: String(nac.anio_ult),
       mejor: "baja", uDif: " puntos", pais: [nac.pct_ini, nac.pct_ult]}),
+    "ado-rel": (el, a) => barrasH(el, {anim: a, k: "baja", vf: pct, af: v => n0(v) + "%", ref: (nac.pct_ini - nac.pct_ult) / nac.pct_ini * 100,
+      refLab: `País ${pct((nac.pct_ini - nac.pct_ult) / nac.pct_ini * 100)}`,
+      data: T.madres_adolescentes_provincias.map(r => ({...r, baja: (r[ADO_INI] - r[ADO_ULT]) / r[ADO_INI] * 100})),
+      tip: d => `<b>${d.territorio}</b><br>Bajó ${pct(d.baja)}: de ${pct(d[ADO_INI])} a ${pct(d[ADO_ULT])} de los nacimientos`}),
     "ado-serie": (el, a) => lineas(el, {anim: a, x: "anio", y0: 0, vf: n0, yf: ejeMil, data: T.nacimientos,
       series: [{k: "madres_menores_20", lab: "Madres menores de 20 años", corto: "Menores de 20", c: NAR}]}),
+    "ado-indices": (el, a) => {
+      const y0 = T.nacimientos[0];
+      return lineas(el, {anim: a, x: "anio", y0: 0, vf: n0, yf: n0, ref: 100, data: T.nacimientos.map(r => ({...r, ado: r.madres_menores_20 / y0.madres_menores_20 * 100})),
+        series: [{k: "idx_argentina", lab: "Todos los nacimientos", corto: "Todos", c: NAR}, {k: "ado", lab: "De madres adolescentes", corto: "Adolescentes", c: FRI}]});
+    },
+    "ado-ocde": (el, a) => lineas(el, {anim: a, x: "anio", y0: 0, vf: n0, yf: n0, ref: 100, data: T.nacimientos,
+      series: [{k: "idx_argentina", lab: "Argentina", c: NAR}, {k: "idx_ocde", lab: "OCDE", c: css("--ocde")}]}),
+    "ado-nbi": (el, a) => {
+      const c = calcularArt({tabla: "cruces_provincias"}, {x: "pct_hog_nbi_2022", y: "madres_adolescentes"});
+      dispersion(el, {anim: a, data: c.F, x: "pct_hog_nbi_2022", y: "madres_adolescentes", xLab: "Hogares con necesidades básicas insatisfechas", yLab: "Madres adolescentes",
+        marcar: [c.mas, c.menos, c.lejos].map(f => f.codigo_indec), fx: v => n0(v) + "%", fy: v => n0(v) + "%",
+        vx: v => `${pct(v)} de los hogares`, vy: v => `${pct(v)} de los nacimientos`});
+    },
   },
 }, {
   // etapa 5 del plan de mejora: el peso de cada provincia en el Congreso y su relación con los ATN, sin sugerir un intercambio (auditoría
