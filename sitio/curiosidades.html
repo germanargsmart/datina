@@ -30,7 +30,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
      mismas versiones que daban cdnjs y jsDelivr): si una de esas CDN fallaba o estaba bloqueada, las páginas quedaban vacías -->
 <script src="lib/d3-7.8.5.min.js?v=a029baa963"></script>
 <script src="lib/topojson-client-3.1.0.min.js?v=bc057598e8"></script>
-<link rel="stylesheet" href="datina.css?v=c12b654c83">
+<link rel="stylesheet" href="datina.css?v=fb2d984437">
 </head>
 <body data-pagina="curiosidades">
 <!-- "Saltar al contenido" (Fase 2, paso 6, respuesta del autor del 23 de octubre de 2026): la primera parada del teclado, que solo se ve
@@ -163,9 +163,20 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     <nav class="migas" aria-label="Ubicación"><ol><li><a href="./">Datina</a></li><li><span>Historias con datos</span></li><li class="migas-prov" hidden></li></ol></nav><p class="tema-nombre" style="view-transition-name:t-curiosidades">Curiosidades</p>
     <div class="tema-intro">
       <h1 class="pregunta" data-corta="¿Cuánta carne y yerba consumimos?">¿Qué nombres se eligen para los bebés y cuánta carne, vino y yerba consumimos?</h1>
-      <p>Esta página junta datos de temas distintos: qué nombres se eligen para los bebés, cuánta carne vacuna come cada habitante y cuánto vino y cuánta yerba mate salen al mercado. Los glaciares y la temperatura están en Naturaleza y ambiente.</p>
+      <p>Esta página junta datos de temas distintos: qué buscan los argentinos en Google en este momento, qué nombres se eligen para los bebés, cuánta carne vacuna come cada habitante y cuánto vino y cuánta yerba mate salen al mercado. Los glaciares y la temperatura están en Naturaleza y ambiente.</p>
     </div><div class="en-cifras esqueleto" aria-hidden="true"><h2>En cifras</h2><div class="cifras-grid"><span class="tarjeta cifra"></span><span class="tarjeta cifra"></span><span class="tarjeta cifra"></span><span class="tarjeta cifra"></span><span class="tarjeta cifra"></span></div></div>
     <p class="exp-gancho"><a href="#para-entender">Para entender los datos</a>: qué se mide, de dónde sale y qué tener en cuenta, al final de la página ↓</p>
+
+    <!-- Búsquedas de Google (pedido del autor del 2 de noviembre de 2026: "búsquedas de google de los argentinos y timeline, en tiempo real
+         conectado a API gratuito"): las búsquedas que más crecen en la Argentina, de la función /api/tendencias (functions/), que lee el RSS
+         público de Google Trends. Las escribe datina.js como una línea de tiempo y las vuelve a pedir cada diez minutos -->
+    <div class="tendencias" id="tendencias">
+      <h2 id="tend-tit">¿Qué están buscando los argentinos en Google?</h2>
+      <p class="tend-bajada">Las búsquedas que más crecieron en la Argentina en las últimas horas, de la más reciente a la más vieja, con las noticias que las acompañan. Se actualiza sola cada diez minutos.</p>
+      <p class="tend-estado" id="tend-estado" aria-live="polite">Cargando las búsquedas.</p>
+      <ol class="tend-linea" id="tend-linea" aria-labelledby="tend-tit"></ol>
+      <p class="tend-fuente">Fuente: Google Trends, búsquedas en aumento en la Argentina. El tráfico es aproximado: Google lo publica en franjas, como "más de 200 búsquedas". Una búsqueda que crece no es la más buscada del día: es la que más subió frente a lo habitual.</p>
+    </div>
 
     <article class="ficha" id="f-nombres">
       <h2>¿Qué nombres se eligen más para los bebés?</h2>
@@ -263,7 +274,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 <p class="solo-lector" id="aviso" aria-live="polite"></p>
 
 <!-- los datos van en un archivo aparte que el navegador guarda una sola vez para todas las páginas -->
-<script src="datos/fichas.js?v=257c002f95"></script>
-<script src="datina.js?v=c2d49bbcfc"></script>
+<script src="datos/fichas.js?v=4187faff62"></script>
+<script src="datina.js?v=9a76850f4c"></script>
 </body>
 </html>

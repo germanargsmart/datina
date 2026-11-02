@@ -10490,6 +10490,42 @@ if (juegoLista) {
   });
 }
 
+/* Búsquedas de Google (pedido del autor del 2 de noviembre de 2026): las búsquedas que más crecen en la Argentina, de /api/tendencias (la
+   función de functions/ que lee el RSS de Google Trends), como una línea de tiempo de la más reciente a la más vieja. Se vuelven a pedir cada
+   diez minutos mientras la página está a la vista. Lo que llega de Google se escribe escapado (esc). En la computadora, con el servidor de
+   prueba, la función no existe: no se pide y el bloque lo dice */
+const tendLinea = document.getElementById("tend-linea");
+if (tendLinea) {
+  const tendEstado = document.getElementById("tend-estado");
+  const local = location.protocol === "file:" || /^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname);
+  const hora = new Intl.DateTimeFormat("es-AR", {timeZone: "America/Argentina/Buenos_Aires", hour: "2-digit", minute: "2-digit", hour12: false});
+  const dia = new Intl.DateTimeFormat("es-AR", {timeZone: "America/Argentina/Buenos_Aires", day: "numeric", month: "long"});
+  const hoy = () => dia.format(new Date());
+  // "200+" pasa a "más de 200 búsquedas", con el punto de miles de Datina
+  const trafico = i => i.trafico_n ? `Más de ${n0(i.trafico_n)} búsquedas` : "";
+  const pintar = j => {
+    const it = j.items || [];
+    if (!it.length) { tendEstado.textContent = "Google no publicó búsquedas en este momento. Probá de nuevo en unos minutos."; tendLinea.innerHTML = ""; return; }
+    const max = it.reduce((a, b) => b.trafico_n > a.trafico_n ? b : a);
+    tendEstado.textContent = `${it.length} búsquedas en aumento. La de más tráfico: ${it.length > 1 ? max.titulo : it[0].titulo}` +
+      `${max.trafico_n ? `, ${trafico(max).toLowerCase()}` : ""}. Actualizado a las ${hora.format(new Date(j.leido || Date.now()))}.`;
+    tendLinea.innerHTML = it.map(i => {
+      const f = new Date(i.fecha), otroDia = dia.format(f) !== hoy();
+      return `<li class="tend-item${i === max ? " fuerte" : ""}"><time class="tend-hora" datetime="${esc(i.fecha)}">${hora.format(f)}${otroDia ? `<br>${esc(dia.format(f))}` : ""}</time>` +
+        `<div class="tend-cuerpo"><p class="tend-q">${esc(i.titulo)}</p>` + (i.trafico_n ? `<p class="tend-trafico">${trafico(i)}</p>` : "") +
+        (i.noticias?.length ? `<ul class="tend-noticias">${i.noticias.slice(0, 2).map(n => `<li><a href="${esc(n.url)}" target="_blank" rel="noopener noreferrer">` +
+          `${esc(n.titulo)}</a> <span>${esc(n.fuente)}</span></li>`).join("")}</ul>` : "") + `</div></li>`;
+    }).join("");
+  };
+  const pedir = () => fetch("/api/tendencias").then(r => r.ok ? r.json() : Promise.reject(r.status)).then(pintar)
+    .catch(() => { if (!tendLinea.children.length) tendEstado.textContent = "No se pudieron cargar las búsquedas de Google. Probá de nuevo en unos minutos."; });
+  if (local) tendEstado.textContent = "Las búsquedas en tiempo real se ven en el sitio publicado, datina.com.ar: en esta computadora no hay conexión con Google Trends.";
+  else {
+    pedir();
+    setInterval(() => { if (document.visibilityState === "visible") pedir(); }, 600000);
+  }
+}
+
 /* recuadro de estado de la portada */
 const estado = document.getElementById("estado");
 if (estado) estado.innerHTML = [`${NFICHAS} fichas`, "24 jurisdicciones", `${ARTS.length} artículos`].map(t => `<span>${t}</span>`).join(" ");
