@@ -335,6 +335,13 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <p class="pregunta">¿Qué cuentan los datos cuando se los cruza?</p>
       <p>Cada artículo responde una pregunta con datos oficiales: compara las 24 jurisdicciones o las 24 capitales de provincia, sigue series de todo el país en el tiempo o explica cómo funciona algo, como la coparticipación. Dice qué encontró, de dónde salen los datos y qué no se puede concluir. Las cifras cambian cuando se actualiza cada fuente.</p>
     </div>
+    <!-- F6 (plan de mejora, aprobado por el autor el 28 de octubre de 2026, como bloque en Artículos por su respuesta del 1 de noviembre): datos
+         breves, seis datos de fichas de temas distintos con un gráfico chico, la cifra y el texto de su ficha, que arma datina.js -->
+    <div class="breves" id="breves">
+      <h2 id="breves-tit">Datos breves</h2>
+      <p class="breves-bajada">Un dato de una ficha, con su gráfico y lo que dice. Cada uno lleva a su ficha, con la tabla y la fuente.</p>
+      <div class="breves-lista" id="breves-lista"></div>
+    </div>
     <div class="art-lista" id="art-grid"></div>
     <div class="notas">
       <article class="nota" id="a-nombres-provincias" data-ico="mosaico" data-sec="poblacion" data-titulo="¿Qué nombres se les ponen a los bebés en cada provincia?" data-bloque="provincias"></article>

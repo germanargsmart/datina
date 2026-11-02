@@ -1953,10 +1953,11 @@ const desplegable = (() => {
 // nombre de un gráfico para lectores de pantalla (Fase 2, paso 6): la pregunta de su ficha o el título del gráfico, y dónde están los
 // datos. Los dibujos que ponen su propio aria-label lo hacen después de lienzo() y lo reemplazan
 function nombreGrafico(el) {
-  const ficha = el.closest("article.ficha"), caja = ficha || el.closest(".nota-graf, .lab-pieza, section");
+  const ficha = el.closest("article.ficha"), caja = ficha || el.closest(".nota-graf, .lab-pieza, .breve, section");
   const tit = (caja?.querySelector("h3, h2")?.textContent || "").trim();
   if (!tit) return "Gráfico";
-  return `Gráfico: ${tit}` + (ficha?.querySelector(".ver-tabla") ? ". Los datos están en «Ver tabla», debajo" : el.closest(".nota-graf") ? ". Los datos se descargan en CSV al final del artículo" : "");
+  return `Gráfico: ${tit}` + (ficha?.querySelector(".ver-tabla") ? ". Los datos están en «Ver tabla», debajo" : el.closest(".nota-graf") ? ". Los datos se descargan en CSV al final del artículo" :
+    el.closest(".breve") ? ". Los datos están en su ficha" : "");
 }
 function lienzo(el, h, m) {
   el.innerHTML = ""; el.removeAttribute("aria-busy"); el.resaltar = null;
@@ -2025,6 +2026,8 @@ function marcasLog([a, b]) {
   const pot = todas.filter(t => t.m === 1), usar = pot.length >= 3 ? pot : todas, paso = Math.ceil(usar.length / 6);
   return usar.filter((_, i) => (usar.length - 1 - i) % paso === 0).map(t => t.v);
 }
+// años del eje de una serie anual: si quedan a menos de 40 píxeles uno de otro (en el celular, 2012 a 2024 de a dos se pisaban), uno cada dos o más
+const marcasAnio = (tv, iw) => { const k = Math.ceil(40 / (iw / Math.max(1, tv.length - 1))); return k > 1 ? tv.filter((_, i) => i % k === 0) : tv; };
 function lineas(el, cfg) {
   const angosto = el.clientWidth < 520;
   const C = lienzo(el, cfg.h ? (angosto ? cfg.h - 20 : cfg.h) : (angosto ? 300 : 340), {t:14, r: angosto ? 92 : 128, b:30, l:44});
@@ -2044,7 +2047,7 @@ function lineas(el, cfg) {
   const paso = angosto ? Math.max(2, Math.ceil(anios.length / 6)) : Math.max(1, Math.ceil(anios.length / 12));
   g.append("g").attr("class","eje").attr("transform",`translate(0,${ih})`).call(cfg.mensual
     ? d3.axisBottom(x).tickValues(anios.filter(v => v % paso === 0)).tickFormat(d3.format("d")).tickSizeOuter(0)
-    : d3.axisBottom(x).ticks(angosto ? 4 : 7).tickFormat(d3.format("d")).tickSizeOuter(0));
+    : d3.axisBottom(x).tickValues(marcasAnio(x.ticks(angosto ? 4 : 7), iw)).tickFormat(d3.format("d")).tickSizeOuter(0));
   if (cfg.ref != null && !cfg.log) {
     g.append("line").attr("x1",0).attr("x2",iw).attr("y1",y(cfg.ref)).attr("y2",y(cfg.ref)).attr("stroke",css("--faint")).attr("stroke-width",1).attr("stroke-dasharray", cfg.refLab ? "4 4" : null);
     if (cfg.refLab) g.append("text").attr("x", 6).attr("y", y(cfg.ref) + 16).attr("class","etq-suave").text(angosto && cfg.refLabCorto ? cfg.refLabCorto : cfg.refLab);
@@ -9642,6 +9645,44 @@ if (calDatos) {
     vm.addEventListener("click", () => { resto.forEach(li => li.hidden = false); vm.hidden = true; resto[0].querySelector("a")?.focus(); });
     calDatos.after(vm);
   }
+}
+
+/* F6 (plan de mejora): datos breves en Artículos. Cada uno es una ficha de otra página resumida: su pregunta, su descripción, su cifra destacada
+   (CLAVE), un gráfico chico dibujado con el mismo ayudante y la misma tabla que la ficha, y su texto (TX). Se dibujan al llegar a la pantalla.
+   Temas distintos, sin suicidio, muertes violentas ni Instituciones políticas */
+const brevesLista = document.getElementById("breves-lista");
+if (brevesLista) {
+  const BREVES = [
+    {id: "f-nacimientos", t: "nacimientos", dib: (el, a) => lineas(el, {anim: a, h: 220, data: T.nacimientos, x: "anio", y0: 40, ref: 100, refLab: `${T.nacimientos[0].anio} = 100`,
+      yf: v => v, vf: n0, series: [{k: "idx_argentina", lab: "Argentina", c: NAR, w: 3}, {k: "idx_ocde", lab: "OCDE", c: css("--ocde"), w: 2.6}]})},
+    {id: "f-receptivo", t: "receptivo", dib: (el, a) => lineas(el, {anim: a, h: 220, data: T.turistas_no_residentes_anual, x: "anio", y0: 0, vf: v => n2(v / 1e6) + " M", yf: M,
+      series: [{k: "turistas", lab: "Turistas", c: NAR, w: 3}]})},
+    {id: "f-patentes", t: "patentes", dib: (el, a) => lineas(el, {anim: a, h: 220, data: T.patentamientos_anual, x: "anio", y0: 0, vf: v => n0(v / 1e3) + " mil",
+      yf: v => n0(v / 1e3) + " mil", series: [{k: "autos", lab: "Autos", c: NAR, w: 3}, {k: "motos", lab: "Motos", c: FRI, w: 2.4}]})},
+    {id: "f-carne", t: "carne", dib: (el, a) => lineas(el, {anim: a, h: 220, data: T.carne_vacuna, x: "anio", y0: 0, vf: v => n1(v) + " kg", yf: v => v + " kg",
+      series: [{k: "kg_por_habitante", lab: "Carne vacuna", c: NAR, w: 3}]})},
+    {id: "f-migracion-historia", t: "migracion-historia", dib: (el, a) => lineas(el, {anim: a, h: 220, data: T.migracion_censos, x: "anio", y0: 0, vf: pct,
+      yf: v => n0(v) + "%", series: [{k: "nacidos_otro_pais_pct", lab: "Nacidos en otro país", corto: "Otro país", c: NAR},
+        {k: "limitrofes_pct", lab: "Nacidos en países limítrofes", corto: "Limítrofes", c: FRI}]})},
+    {id: "f-visitas", t: "visitas", dib: (el, a) => lineas(el, {anim: a, h: 220, data: T.visitas_parques_nacionales, x: "anio", y0: 0, vf: v => n2(v / 1e6) + " M", yf: M,
+      series: [{k: "total", lab: "Total", c: css("--ink"), w: 2.6}, {k: "residentes", lab: "Residentes", c: NAR, w: 2.4}, {k: "no_residentes", lab: "No residentes", c: FRI, w: 2.4}]})},
+  ];
+  const FI = Object.fromEntries(SITIO.fichas.map(f => [f[0], f]));
+  const vale = b => FI[b.id] && paginaDe(b.id) && typeof TX[b.t] === "string";
+  const lista = BREVES.filter(vale);
+  brevesLista.innerHTML = lista.map(b => {
+    const f = FI[b.id], c = CLAVE[b.id], dir = urlPagina(paginaDe(b.id), "#" + b.id);
+    return `<div class="breve"><h3><a href="${dir}">${esc(f[2])}</a></h3>` + (f[7] ? `<p class="breve-sub">${esc(f[7])}</p>` : "") +
+      (c ? `<p class="clave"><span class="num">${c[0]}</span><span class="txt">${c[2] || c[1]}</span></p>` : "") +
+      `<div class="breve-graf" data-b="${b.id}" aria-busy="true"></div><p class="breve-texto">${TX[b.t]}</p>` +
+      `<a class="enlace" href="${dir}">Ver la ficha completa</a></div>`;
+  }).join("");
+  const dibujarBreve = el => { const b = lista.find(x => x.id === el.dataset.b); try { b.dib(el, !REDUCIR); } catch (e) { sinDatos(el, "No se pudo dibujar el gráfico."); } };
+  const grafs = [...brevesLista.querySelectorAll(".breve-graf")];
+  if ("IntersectionObserver" in window) {
+    const obs = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { obs.unobserve(e.target); dibujarBreve(e.target); } }), {rootMargin: "200px"});
+    grafs.forEach(el => obs.observe(el));
+  } else grafs.forEach(dibujarBreve);
 }
 
 /* F16 (plan de mejora): "¿Cuánto creés que es?", en Curiosidades. Cada dato sale de las mismas cifras del resumen que usa la cifra destacada
