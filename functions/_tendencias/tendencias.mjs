@@ -47,7 +47,8 @@ export async function responder(pedido, {buscar = fetch, cache = null, esperar =
     if (!r.ok) throw new Error("Google respondió " + r.status);
     xml = await r.text();
   } catch (e) {
-    return json({error: "No se pudieron leer las búsquedas de Google Trends."}, 502);
+    // el motivo va en la respuesta (sin datos de nadie: es lo que contestó Google o la red), para saber qué pasó sin abrir los registros
+    return json({error: "No se pudieron leer las búsquedas de Google Trends.", motivo: String(e?.message || e).slice(0, 200)}, 502);
   }
   const items = leerRss(xml);
   if (!items.length) return json({error: "Google Trends no devolvió búsquedas."}, 502);
