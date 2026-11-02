@@ -1,7 +1,7 @@
 {
  "tabla": "nafta_dolares_mensual.csv",
  "titulo": "¿El precio de la nafta en dólares sigue al del petróleo?",
- "descripcion": "El precio de la nafta súper en el surtidor medido en dólares al tipo de cambio oficial, frente al precio internacional del petróleo.",
+ "descripcion": "El precio de la nafta súper en el surtidor medido en dólares al tipo de cambio oficial, frente al precio internacional del petróleo: cuánto más cuesta, cuánto se suma por encima del petróleo, si sigue sus subas y bajas y cómo acompaña en pesos al dólar oficial.",
  "seccion": "Movilidad",
  "ficha": "https://datina.com.ar/a-nafta-dolares.html",
  "fuente": "Secretaría de Energía, precios en estaciones de servicio (Resolución 1104/2004), Banco Central de la República Argentina, tipo de cambio de referencia (Comunicación \\",

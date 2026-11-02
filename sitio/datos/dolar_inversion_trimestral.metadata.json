@@ -1,7 +1,7 @@
 {
  "tabla": "dolar_inversion_trimestral.csv",
  "titulo": "¿Se invierte más en construcción cuando construir es barato en dólares?",
- "descripcion": "Lo que cuesta construir medido en dólares, trimestre por trimestre, frente a lo que cambia la inversión en construcción en el año siguiente. También muestra el dólar en términos reales y la parte de la inversión que va a máquinas importadas.",
+ "descripcion": "Lo que cuesta construir medido en dólares, trimestre por trimestre, frente a lo que cambia la inversión en construcción en el año siguiente. También muestra cómo se reparte la inversión, el dólar en términos reales, la parte que va a máquinas importadas y cuánto cambia la inversión con el dólar.",
  "seccion": "Construcción y vivienda",
  "ficha": "https://datina.com.ar/a-dolar-inversion.html",
  "fuente": "Banco Central de la República Argentina, índice de tipo de cambio real multilateral, e INDEC y Banco Central vía API de Series de Tiempo: inversión bruta interna fija (oferta y demanda globales) y tipo de cambio de referencia (Comunicación \\",

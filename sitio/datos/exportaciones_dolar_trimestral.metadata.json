@@ -1,7 +1,7 @@
 {
  "tabla": "exportaciones_dolar_trimestral.csv",
  "titulo": "¿Se exporta más cuando el dólar está caro?",
- "descripcion": "Las cantidades que exporta el país, sin el efecto de los precios, por gran rubro y trimestre por trimestre, frente al dólar en términos reales.",
+ "descripcion": "Qué exporta el país, cuánto cambiaron las cantidades exportadas por gran rubro, sin el efecto de los precios, cómo se movió el dólar en términos reales y si se exporta más cuando el dólar está caro.",
  "seccion": "Sector externo",
  "ficha": "https://datina.com.ar/a-exportaciones-dolar.html",
  "fuente": "INDEC, índices de valor, precio y cantidad de las exportaciones de bienes e intercambio comercial argentino, vía API de Series de Tiempo, y Banco Central de la República Argentina, índices de tipo de cambio real multilateral y bilateral con Brasil",

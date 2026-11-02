@@ -1,7 +1,7 @@
 {
  "tabla": "turismo_dolar_mensual.csv",
  "titulo": "¿Llegan más turistas y viajan menos residentes al exterior cuando el dólar está caro?",
- "descripcion": "Cuántos turistas extranjeros llegan y cuántos residentes viajan al exterior, mes por mes, frente al dólar en términos reales.",
+ "descripcion": "Cuántos turistas extranjeros llegan y cuántos residentes viajan al exterior, mes por mes, cuál es la diferencia entre los dos, de dónde llegan los turistas y cómo se mueven esos viajes con el dólar en términos reales.",
  "seccion": "Turismo",
  "ficha": "https://datina.com.ar/a-turismo-dolar.html",
  "fuente": "Ministerio de Turismo y Deportes, SINTA, estimación de turismo internacional (viajes de turistas no residentes y residentes), y Banco Central de la República Argentina, índices de tipo de cambio real multilateral y bilaterales",
