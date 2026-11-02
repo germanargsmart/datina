@@ -8924,7 +8924,7 @@ const ART_SERIE = [{
   // etapa 5 del plan de mejora: la fórmula más votada en cada provincia en cada vuelta presidencial desde 1983 (auditoría de los artículos,
   // idea 7). Sale del resumen de las elecciones (gan_prov, 02_procesar.py), sin bajar la tabla de los resultados
   id: "a-ganador-provincias", frec: "Se actualiza con cada elección", tablas: [],
-  dek: "Qué fórmula sacó más votos en cada provincia en cada primera y segunda vuelta presidencial desde 1983, qué provincias votaron siempre como el país y en cuáles ganó siempre el mismo espacio.",
+  dek: "Qué fórmula sacó más votos en cada provincia en cada primera y segunda vuelta presidencial desde 1983, qué provincias votaron más veces como el país, con qué parte de los votos ganó cada fórmula, en cuántas provincias y cuánta gente fue a votar.",
   fichas: [["f-elecciones", "elecciones presidenciales"], ["f-congreso", "composición del Congreso"]],
   csv: [["elecciones_presidenciales", "Descargar CSV de los resultados"]],
   fuentes: "Dirección Nacional Electoral, resultados de las elecciones presidenciales por provincia",
@@ -8934,25 +8934,74 @@ const ART_SERIE = [{
     const coinc = c => E.filter(e => e.gan_prov[c] === e.ganador).length, nom = c => NOMBRES[c];
     const siempre = cods.filter(c => coinc(c) === n), menos = Math.min(...cods.map(coinc)), lasMenos = cods.filter(c => coinc(c) === menos);
     const fieles = d3.groups(cods.filter(c => new Set(E.map(e => esp(e, c))).size === 1), c => esp(E[0], c));
-    const primeras = E.filter(e => e.vuelta === 1).length, segundas = E.filter(e => e.vuelta === 2).map(e => e.anio);
+    const P1 = E.filter(e => e.vuelta === 1), primeras = P1.length, segundas = E.filter(e => e.vuelta === 2).map(e => e.anio);
+    const vuelta = e => `${e.anio}${e.vuelta === 2 ? ", segunda vuelta" : ""}`;
     const respuesta = siempre.length
       ? `${listaY(siempre.map(nom))} ${siempre.length > 1 ? "votaron" : "votó"} a la fórmula más votada del país en las ${n} vueltas desde ${ini}.`
       : `Ninguna provincia votó a la fórmula más votada del país en todas las vueltas desde ${ini}.`;
     const bajada = fieles.map(([k, cs]) => `En ${listaY(cs.map(nom))}, la más votada fue siempre una fórmula ${k === "Peronismo" ? "del peronismo" : `de ${k}`}.`).join(" ") +
       ` ${listaY(lasMenos.map(nom))} ${lasMenos.length > 1 ? "son las que menos coincidieron" : "es la que menos coincidió"} con el país: en ${menos} de las ${n} vueltas.`;
-    const contexto = `Desde ${ini} hubo ${primeras} elecciones presidenciales. En ${listaY(segundas.map(String))} hubo además una segunda vuelta ` +
+    const contexto = `La elección de ${ini} fue la primera después de la dictadura que empezó en 1976. Desde entonces hubo ${primeras} elecciones presidenciales. En ${listaY(segundas.map(String))} hubo además una segunda vuelta ` +
       "entre las dos fórmulas más votadas. En 2003 no hubo segunda vuelta: la fórmula más votada en la primera no se presentó a la segunda, y asumió la " +
-      "segunda más votada. Este artículo muestra, para cada provincia y cada vuelta, qué fórmula sacó más votos, y si coincidió con la más votada del país.";
-    // la provincia que más veces cambió de espacio, en las primeras vueltas
-    const cambios = c => E.filter(e => e.vuelta === 1).reduce((s, e, i, l) => s + (i && esp(e, c) !== esp(l[i - 1], c) ? 1 : 0), 0);
+      "segunda más votada. Este artículo muestra, para cada provincia y cada vuelta, qué fórmula sacó más votos, si coincidió con la más votada del país, " +
+      "con qué parte de los votos ganó cada fórmula y cuánta gente fue a votar.";
+    const medimos = ["La fórmula más votada es la que sacó más votos positivos en esa provincia o en el país, aunque no haya ganado la elección. " +
+      "Los votos positivos son los que van a alguna fórmula, sin los votos en blanco ni los nulos.",
+      "Cada fórmula se agrupa en un espacio político, con la misma clasificación que la composición del Congreso. La participación es la parte de las " +
+      "personas habilitadas para votar que votó. Las primarias abiertas, que existen desde 2011, no se cuentan."];
+    // 1. el mapa de cada vuelta
+    const cambios = c => P1.reduce((s, e, i, l) => s + (i && esp(e, c) !== esp(l[i - 1], c) ? 1 : 0), 0);
     const maxC = Math.max(...cods.map(cambios)), cambiantes = cods.filter(c => cambios(c) === maxC);
     const s1 = `En las primeras vueltas, ${listaY(cambiantes.map(nom))} ${cambiantes.length > 1 ? "son las que más veces cambiaron" : "es la que más veces cambió"} ` +
-      `de espacio político entre una elección y la siguiente: ${maxC} veces en ${primeras} elecciones.`;
+      `de espacio político entre una elección y la siguiente: ${maxC} veces en ${primeras} elecciones. En ${cods.filter(c => cambios(c) === 0).length} jurisdicciones, ` +
+      "la más votada en las primeras vueltas fue siempre del mismo espacio. " +
+      (() => { const cu = d3.rollups(P1.flatMap(e => cods.map(c => esp(e, c))), v => v.length, k => k).sort((a, b) => b[1] - a[1])[0];
+        return `Sumando todas las provincias y todas las primeras vueltas, el espacio que más veces fue el más votado es ${cu[0] === "Peronismo" ? "el peronismo" : cu[0]}: ` +
+          `${cu[1]} de ${P1.length * cods.length} casos. Los colores muestran el espacio de cada fórmula, no a sus candidatos: un mismo espacio presentó fórmulas distintas en cada elección.`; })();
+    // 2. las coincidencias con el país
+    const mediaC = d3.median(cods, coinc);
+    const s2 = `La mitad de las jurisdicciones votó como el país en ${n0(mediaC)} vueltas o más, de ${n}. ` +
+      (siempre.length ? `${listaY(siempre.map(nom))} ${siempre.length > 1 ? "coincidieron" : "coincidió"} en todas. ` : "") +
+      (cods.filter(c => coinc(c) === n - 1).length ? `Con una sola diferencia, en ${n - 1} de ${n}: ${listaY(cods.filter(c => coinc(c) === n - 1).map(nom))}. ` : "") +
+      `En el otro extremo, ${listaY(lasMenos.map(nom))} ${lasMenos.length > 1 ? "coincidieron" : "coincidió"} en ${menos}. Coincidir con el país no es un mérito ` +
+      "ni un defecto: las provincias con más votantes pesan más en el total, y su resultado suele parecerse más al del país.";
+    // 3. con qué parte de los votos ganó cada fórmula
+    const pMax = E.reduce((a, b) => b.pct_ganador > a.pct_ganador ? b : a), pMin = E.reduce((a, b) => b.pct_ganador < a.pct_ganador ? b : a);
+    const s3 = `La fórmula más votada del país sacó entre el ${pct(pMin.pct_ganador)} de los votos positivos, en ${vuelta(pMin)}, y el ${pct(pMax.pct_ganador)}, en ` +
+      `${vuelta(pMax)}. En las primeras vueltas, superó la mitad de los votos en ${P1.filter(e => e.pct_ganador > 50).length} de ${primeras} elecciones. ` +
+      (() => { const mx = d3.rollups(E, v => v.length, e => e.max_prov).sort((a, b) => b[1] - a[1])[0];
+        return `${mx[0]} fue la provincia donde la fórmula más votada del país sacó su mejor porcentaje en ${mx[1]} de las ${n} vueltas. `; })() +
+      "Desde 1995, para ganar en primera vuelta hace falta más del 45% de los votos positivos, o el 40% con diez puntos de ventaja sobre la segunda." +
+      (() => { const dist = E.filter(e => e.vuelta === 2 && P1.find(p => p.anio === e.anio)?.ganador !== e.ganador).map(e => String(e.anio));
+        return dist.length ? ` En ${listaY(dist)}, la fórmula que ganó la segunda vuelta no había sido la más votada en la primera.` : ""; })();
+    // 4. en cuántas provincias ganó
+    const gMax = E.reduce((a, b) => b.prov_ganador > a.prov_ganador ? b : a), gMin = E.reduce((a, b) => b.prov_ganador < a.prov_ganador ? b : a);
+    const s4 = `La fórmula más votada del país fue también la más votada en ${gMax.prov_ganador} jurisdicciones en ${vuelta(gMax)}, y en ${gMin.prov_ganador} en ` +
+      `${vuelta(gMin)}. ` + (() => { const pocas = E.filter(e => e.prov_ganador < 12);
+        return pocas.length === 1 && pocas[0] === gMin ? "Fue la única vuelta en que ganó en menos de la mitad de las jurisdicciones. " :
+          pocas.length ? `En ${listaY(pocas.map(vuelta))}, ganó en menos de la mitad de las jurisdicciones. ` : ""; })() +
+      `Ganar en pocas provincias y en el país a la vez es posible porque los votos se suman en todo el país: una provincia grande pesa ` +
+      "más que varias chicas.";
+    // 5. la participación
+    const u = P1.at(-1), pa = P1.reduce((a, b) => b.participacion > a.participacion ? b : a), pb = P1.reduce((a, b) => b.participacion < a.participacion ? b : a);
+    const s5 = `En las primeras vueltas, la participación fue del ${pct(P1[0].participacion)} en ${P1[0].anio} y del ${pct(u.participacion)} en ${u.anio}. ` +
+      `La más alta fue la de ${pa.anio}, ${pct(pa.participacion)}, y la más baja, la de ${pb.anio}, ${pct(pb.participacion)}. ` +
+      (segundas.length ? `En las segundas vueltas fue del ${listaY(E.filter(e => e.vuelta === 2).map(e => `${pct(e.participacion)} en ${e.anio}`))}. ` : "") +
+      `La participación bajó frente a la elección anterior en ${P1.slice(1).filter((e, i) => e.participacion < P1[i].participacion).length} de las ${primeras - 1} primeras vueltas. ` +
+      "El voto es obligatorio de los 18 a los 70 años, y optativo de los 16 a los 18 y desde los 70.";
+    const sintesis = [respuesta, `La fórmula más votada del país sacó entre el ${pct(pMin.pct_ganador)} y el ${pct(pMax.pct_ganador)} de los votos positivos.`,
+      `Ganó en entre ${gMin.prov_ganador} y ${gMax.prov_ganador} jurisdicciones.`,
+      `La participación de la última primera vuelta fue del ${pct(u.participacion)}.`,
+      `${listaY(lasMenos.map(nom))} ${lasMenos.length > 1 ? "coincidieron" : "coincidió"} con el país en ${menos} de las ${n} vueltas.`];
     const lim = ["Muestra la fórmula más votada, no por cuánto ganó: una provincia puede figurar con una fórmula que sacó apenas un voto más que la segunda.",
-      "Los espacios agrupan partidos y alianzas afines, con la misma clasificación propia que la composición del Congreso. Una misma fórmula pudo tener otro nombre en cada elección.",
+      "Los espacios agrupan partidos y alianzas afines, con una clasificación propia. Una misma fórmula pudo tener otro nombre en cada elección.",
+      "Cada provincia cuenta igual en el gráfico, pero no en la elección: Buenos Aires tiene casi cuatro de cada diez votantes del país.",
       "Hasta 1989 el presidente lo elegía un colegio electoral, con electores votados en cada provincia. Desde 1995 se elige por voto directo, con segunda vuelta si ninguna fórmula llega a los votos que pide la Constitución.",
-      "Los porcentajes son sobre los votos positivos, sin contar los votos en blanco ni los nulos.",
       ...(E.some(e => e.provisorio) ? [`En ${listaY([...new Set(E.filter(e => e.provisorio).map(e => String(e.anio)))])}, los resultados son los del escrutinio provisorio, porque el definitivo no está publicado como datos abiertos.`] : [])];
+    const notas = ["Resultados: Dirección Nacional Electoral, votos de cada fórmula por provincia en cada primera y segunda vuelta presidencial.",
+      "Espacios políticos: clasificación propia de Datina, la misma de la composición del Congreso.",
+      "Participación: votantes sobre las personas habilitadas para votar en el padrón.",
+      "Las primarias abiertas, simultáneas y obligatorias (PASO) no eligen presidente: definen qué fórmulas se presentan, y no se cuentan acá."];
     // las claves de los años llevan un "_" (se ve como espacio): con un año solo, el navegador las ordena antes que las de las segundas vueltas
     const filas = cods.map(c => ({codigo_indec: c, territorio: nom(c), ...Object.fromEntries(E.map(e => [e.anio + (e.vuelta === 2 ? "_segunda_vuelta" : "_"), e.gan_prov[c]])),
       "como_el_país": coinc(c)})).sort((a, b) => b["como_el_país"] - a["como_el_país"] || a.territorio.localeCompare(b.territorio));
@@ -8960,10 +9009,23 @@ const ART_SERIE = [{
     const tabla = tablaDatos(filas, "a-ganador-provincias").replace('aria-label="Tabla: Datos"', `aria-label="Tabla: ${nomT}"`).replace(">Datos</caption>", `>${mayusc(nomT)}</caption>`);
     const usados = [...new Set(E.flatMap(e => cods.map(c => esp(e, c))))];
     const ley = `<div class="pol-ley">${Object.keys(ESP_COLOR).filter(k => usados.includes(k)).map(k => `<span><i style="background:${ESP_COLOR[k]}"></i>${k}</span>`).join("")}</div>`;
-    return {respuesta, bajada, contexto, lim, secciones: [
-      {g: "ganadores", tit: "La fórmula más votada en cada provincia, por elección", forma: "bloque", alto: "560px", antes: ley,
+    return {respuesta, bajada, contexto, medimos, sintesis, lim, notas, secciones: [
+      {preg: "¿Qué fórmula sacó más votos en cada provincia?", g: "ganadores", forma: "bloque", alto: "560px", antes: ley,
+        tit: `En las primeras vueltas, ${listaY(cambiantes.map(nom))} ${cambiantes.length > 1 ? "cambiaron" : "cambió"} ${maxC} veces de espacio político`,
         despues: `<details class="nota-calculo"><summary>Ver la tabla</summary>${tabla}</details>`,
         pie: `Cada cuadro es la fórmula más votada en esa provincia, con el color de su espacio. «·2»: segunda vuelta. A la derecha, en cuántas de las ${n} vueltas coincidió con la más votada del país.`, txt: [s1]},
+      {preg: "¿Qué provincias votaron más veces como el país?", g: "gan-coinc", forma: "barras",
+        tit: siempre.length ? `${listaY(siempre.map(nom))} ${siempre.length > 1 ? "votaron" : "votó"} como el país en las ${n} vueltas` : `Ninguna provincia votó como el país en las ${n} vueltas`,
+        pie: `Cantidad de vueltas, de ${n}, en que la fórmula más votada de cada jurisdicción fue la más votada del país.`, txt: [s2]},
+      {preg: "¿Con qué parte de los votos ganó cada fórmula?", g: "gan-pct", forma: "barras",
+        tit: `La fórmula más votada sacó entre el ${pct(pMin.pct_ganador)} y el ${pct(pMax.pct_ganador)} de los votos positivos`,
+        pie: "% de los votos positivos de la fórmula más votada del país en cada vuelta. La línea marca la mitad.", txt: [s3]},
+      {preg: "¿En cuántas provincias ganó la fórmula más votada del país?", g: "gan-provs", forma: "barras",
+        tit: `La fórmula más votada del país ganó en entre ${gMin.prov_ganador} y ${gMax.prov_ganador} jurisdicciones`,
+        pie: "Cantidad de jurisdicciones, de 24, en las que la fórmula más votada del país fue también la más votada.", txt: [s4]},
+      {preg: "¿Cuánta gente fue a votar?", g: "gan-part", forma: "lineas",
+        tit: `La participación pasó del ${pct(P1[0].participacion)} en ${P1[0].anio} al ${pct(u.participacion)} en ${u.anio}`,
+        pie: "% de las personas habilitadas que votaron en cada primera vuelta presidencial.", txt: [s5]},
     ]};
   },
   dib: {
@@ -8988,6 +9050,19 @@ const ART_SERIE = [{
           `<br>${d.e.gan_prov[d.f.c] === d.e.ganador ? "Como en el país" : `En el país: ${d.e.ganador}`}`, l + x(d.e.id) + x.bandwidth() / 2, arriba + y(d.f.c)))
         .on("pointerleave", ocultarSiMouse);
     },
+    "gan-coinc": (el, a) => {
+      const E = R.elecciones.filter(e => e.vuelta >= 1), cods = Object.keys(E[0].gan_prov);
+      return barrasH(el, {anim: a, k: "k", vf: n0, af: n0, data: cods.map(c => ({codigo_indec: c, territorio: NOMBRES[c], k: E.filter(e => e.gan_prov[c] === e.ganador).length})),
+        tip: d => `<b>${d.territorio}</b><br>Votó como el país en ${d.k} de ${E.length} vueltas`});
+    },
+    "gan-pct": (el, a) => barrasH(el, {anim: a, sinOrden: true, k: "pct_ganador", vf: pct, af: v => n0(v) + "%", ref: 50, refLab: "La mitad", l: 220, lAngosto: 185,
+      data: R.elecciones.filter(e => e.vuelta >= 1).map(e => ({...e, codigo_indec: e.id, territorio: `${e.anio}${e.vuelta === 2 ? " (2.ª vuelta)" : ""}, ${e.ganador}`})),
+      tip: d => `<b>${d.territorio}</b><br>${pct(d.pct_ganador)} de los votos positivos`}),
+    "gan-provs": (el, a) => barrasH(el, {anim: a, sinOrden: true, k: "prov_ganador", vf: n0, af: n0, l: 220, lAngosto: 185,
+      data: R.elecciones.filter(e => e.vuelta >= 1).map(e => ({...e, codigo_indec: e.id, territorio: `${e.anio}${e.vuelta === 2 ? " (2.ª vuelta)" : ""}, ${e.ganador}`})),
+      tip: d => `<b>${d.territorio}</b><br>La más votada en ${d.prov_ganador} jurisdicciones`}),
+    "gan-part": (el, a) => lineas(el, {anim: a, x: "anio", y0: 0, vf: pct, yf: v => n0(v) + "%",
+      data: R.elecciones.filter(e => e.vuelta === 1), series: [{k: "participacion", lab: "Participación", c: NAR}]}),
   },
 }, {
   // etapa 5 del plan de mejora: cuánto compra un salario registrado frente a otros años, con los cambios de gobierno marcados sin adjetivos
@@ -9316,50 +9391,112 @@ const ART_SERIE = [{
   // etapa 5 del plan de mejora: el peso de cada provincia en el Congreso y su relación con los ATN, sin sugerir un intercambio (auditoría
   // de los artículos, idea 3: las dos cosas van con el tamaño de la provincia)
   id: "a-peso-voto", frec: "Se actualiza cada año", tablas: ["representacion_provincias", "cruces_provincias"],
-  dek: "Cuántas bancas de diputados y senadores tiene cada provincia frente a su parte de la población, cuántos habitantes representa cada legislador y cómo se relaciona ese peso con los ATN que recibió cada provincia.",
+  dek: "Cuántas bancas de diputados y senadores tiene cada provincia frente a su parte de la población, cuánto pesa solo en Diputados, cuántos habitantes representa cada legislador, cuántas bancas tendría si se repartieran solo por población y cómo se relaciona ese peso con los ATN que recibió cada provincia.",
   fichas: [["f-representacion", "representación en el Congreso"], ["f-atn", "ATN"], ["f-congreso", "composición del Congreso"]],
   csv: [["representacion_provincias", "Descargar CSV de la representación"]],
   fuentes: "Ley 22.847, Constitución Nacional, INDEC, proyecciones de población, y Presupuesto Abierto, Secretaría de Hacienda (ATN)",
   texto: () => {
     const K = R.congreso, TR = R.transferencias, rp = T.representacion_provincias, n = rp.length;
+    const pobTot = d3.sum(rp, r => r.poblacion), dipTot = d3.sum(rp, r => r.diputados);
+    // las bancas de Diputados si se repartieran solo por población, y el peso solo en Diputados
+    const conProp = rp.map(r => ({...r, prop: r.poblacion / pobTot * dipTot, pesoDip: (r.diputados / dipTot) / (r.poblacion / pobTot)}));
+    const ganan = conProp.filter(r => r.diputados > Math.round(r.prop)), pierden = conProp.filter(r => r.diputados < Math.round(r.prop));
+    const masPierde = conProp.reduce((a, b) => (b.diputados - b.prop) < (a.diputados - a.prop) ? b : a);
+    const dMax = conProp.reduce((a, b) => b.pesoDip > a.pesoDip ? b : a), dMin = conProp.reduce((a, b) => b.pesoDip < a.pesoDip ? b : a);
     const respuesta = `${n1(K.peso_max_v)} veces lo que le tocaría por su población en ${K.peso_max}, y ${n2(K.peso_min_v)} veces en ${K.peso_min}.`;
     const bajada = "El peso compara la parte de las bancas de las dos cámaras que tiene cada provincia con su parte de la población del país. " +
       "Con 1, el reparto sería proporcional. Con más de 1, sus habitantes tienen más legisladores que los que les tocarían por su cantidad, y con menos de 1, menos.";
     const contexto = `El Congreso tiene ${K.n_dip} diputados y ${K.n_sen} senadores. El Senado representa a las provincias, no a los habitantes: ` +
       "cada provincia y CABA tienen tres bancas, cualquiera sea su población. En Diputados, las bancas se reparten según la población, pero la ley " +
       "22.847, de 1983, fija un mínimo de cinco por provincia y todavía usa como base el censo de 1980. Las dos reglas dan más representación, por " +
-      "habitante, a las provincias con menos población.";
-    const mas1 = rp.filter(r => r.peso_voto > 1), pobTot = d3.sum(rp, r => r.poblacion), pobMas = d3.sum(mas1, r => r.poblacion);
-    const s1 = `En ${mas1.length} de las ${n} jurisdicciones el peso es mayor que 1. Juntas tienen el ${pct(pobMas / pobTot * 100)} de la población del país.`;
+      "habitante, a las provincias con menos población. Muchos países federales hacen algo parecido en su Senado, para que las regiones chicas no " +
+      "queden siempre en minoría.";
+    const medimos = ["El peso de una provincia es su parte de las bancas sobre su parte de la población. Si tiene el 2% de las bancas y el 1% de los " +
+      "habitantes, su peso es 2: cada habitante tiene el doble de representación que si el reparto fuera proporcional.",
+      `La población es la que proyecta el INDEC para ${R.anio_pob}. Las bancas de Diputados son las de la ley vigente.`];
+    // 1. el peso en las dos cámaras
+    const mas1 = rp.filter(r => r.peso_voto > 1), pobMas = d3.sum(mas1, r => r.poblacion);
+    const s1 = `En ${mas1.length} de las ${n} jurisdicciones el peso es mayor que 1. Juntas tienen el ${pct(pobMas / pobTot * 100)} de la población del país. ` +
+      `En el otro extremo, ${K.peso_min} tiene ${n2(K.peso_min_v)}: sus habitantes tienen el ${pct(K.peso_min_v * 100)} de la representación que les tocaría.`;
+    // 2. solo en Diputados
+    const s2 = `Sin el Senado, el peso cambia mucho menos. Solo en Diputados va de ${n2(dMin.pesoDip)} en ${dMin.territorio} a ${n1(dMax.pesoDip)} en ${dMax.territorio}. ` +
+      "La diferencia viene sobre todo del mínimo de cinco diputados por provincia y de un reparto que todavía sigue al censo de 1980, cuando las provincias " +
+      "patagónicas tenían bastante menos población. " +
+      `Con este cálculo, ${conProp.filter(r => r.pesoDip > 1).length} jurisdicciones tienen en Diputados un peso mayor que 1.`;
+    // 3. habitantes por diputado
+    const s3 = `En ${K.rep_min} hay un diputado cada ${n0(K.rep_min_v)} habitantes. En ${K.rep_max}, uno cada ${n0(K.rep_max_v)}: ${veces(K.rep_max_v, K.rep_min_v)} veces más. ` +
+      `En el promedio del país, uno cada ${n0(pobTot / dipTot)}. ${rp.filter(r => r.diputados === 5).length} jurisdicciones tienen el mínimo de cinco diputados.`;
+    // 4. habitantes por senador
     const sen = [...rp].sort((a, b) => a.hab_por_senador - b.hab_por_senador), sMin = sen[0], sMax = sen.at(-1);
-    const s2 = `En ${K.rep_min} hay un diputado cada ${n0(K.rep_min_v)} habitantes. En ${K.rep_max}, uno cada ${n0(K.rep_max_v)}. ` +
-      `En el Senado la diferencia es mayor: un senador cada ${n0(sMin.hab_por_senador)} habitantes en ${sMin.territorio} y uno cada ${n0(sMax.hab_por_senador)} en ${sMax.territorio}.`;
-    // el peso y los ATN: las dos mitades por peso, y los dos datos frente a la población
+    const s4 = `En el Senado la diferencia es mayor: un senador cada ${n0(sMin.hab_por_senador)} habitantes en ${sMin.territorio} y uno cada ` +
+      `${n0(sMax.hab_por_senador)} en ${sMax.territorio}, ${veces(sMax.hab_por_senador, sMin.hab_por_senador)} veces más. Es lo que busca el Senado: que cada provincia pese igual, ` +
+      "tenga la población que tenga.";
+    // 5. las bancas por población
+    const s5 = `Si las ${dipTot} bancas de Diputados se repartieran solo por la población de hoy, ${ganan.length} jurisdicciones tendrían menos diputados que ` +
+      `ahora y ${pierden.length} tendrían más. La que más sumaría es ${masPierde.territorio}: ${n0(masPierde.prop)} bancas en lugar de ${masPierde.diputados}. ` +
+      "Para cambiar el reparto hace falta una ley del Congreso, que votan también los legisladores de las provincias que perderían bancas.";
+    // 6. el peso y los ATN: las dos mitades por peso, y los dos datos frente a la población
     const c = calcularArt({tabla: "cruces_provincias"}, {x: "peso_voto", y: "atn_hab"});
     const conPob = k => CX.spearman(c.F.map(f => f.poblacion), c.F.map(f => f[k]));
-    const s3 = `¿Recibieron más ATN las provincias con más peso en el Congreso? ${c.rs <= -.2 ? "No: la relación va en sentido contrario." : respuestaR(c.rs)} ` +
+    const s6 = `${c.rs <= -.2 ? "No: la relación va en sentido contrario." : respuestaR(c.rs)} ` +
       `En las ${c.h} con más peso, la mediana fue de ${n0(c.medMas)} pesos de ${TR.ult} por habitante por año, en promedio de ${TR.desde} a ${TR.ult}. ` +
       `En las ${c.h} con menos peso, de ${n0(c.medMenos)} pesos.` +
       (conPob("peso_voto") <= -.6 && conPob("atn_hab") <= -.2 ? " Las dos cosas van con el tamaño de la provincia: el peso en el Congreso depende casi solo de la " +
-        "población, y las provincias con menos habitantes también recibieron, en general, más ATN por habitante. Por eso este cruce no permite saber si una cosa influye en la otra." : "");
+        "población, y las provincias con menos habitantes también recibieron, en general, más ATN por habitante. Por eso este cruce no permite saber si una cosa influye en la otra." : "") +
+      ` La que más se aparta de la tendencia es ${c.lejos.territorio}, con un peso de ${n2(c.lejos.peso_voto)} y ${n0(c.lejos.atn_hab)} pesos de ATN por habitante.`;
+    const sintesis = [`El peso de cada habitante en el Congreso va de ${n2(K.peso_min_v)} en ${K.peso_min} a ${n1(K.peso_max_v)} en ${K.peso_max}.`,
+      `Solo en Diputados, va de ${n2(dMin.pesoDip)} a ${n1(dMax.pesoDip)}: la mayor parte de la diferencia viene del Senado.`,
+      `Con un reparto solo por población, ${masPierde.territorio} tendría ${n0(masPierde.prop)} diputados en lugar de ${masPierde.diputados}.`,
+      `El peso en el Congreso y los ATN por habitante tienen una relación ${fuerza(c.rs)}, y los dos van con el tamaño de la provincia.`];
     const lim = ["El peso usa la población proyectada por el INDEC para hoy, no la del censo de 1980 con la que se repartieron las bancas de Diputados.",
       "Cuenta las bancas de cada provincia, no cómo votan sus legisladores: dos diputados de la misma provincia pueden votar distinto.",
       "Los ATN son un promedio de muchos años y los asigna el Ministerio del Interior. Este artículo no dice que se den a cambio de votos: el artículo sobre los ATN y el presupuesto mira eso por separado.",
+      "La ley 22.847 se dictó en julio de 1983, antes de que asumiera el gobierno elegido en las elecciones de ese año, y no se cambió desde entonces.",
+      "Las bancas por población son un cálculo con la regla más simple, sin mínimos ni redondeos de ley: sirven para ver la distancia, no como propuesta.",
       ...(Math.abs(c.rs) < .4 ? [`Con ${c.n} jurisdicciones y una relación ${fuerza(c.rs)}, la diferencia entre las dos mitades puede ser casualidad.`] : [])];
-    return {respuesta, bajada, contexto, lim, secciones: [
-      {g: "peso-voto", tit: "Peso de cada habitante en el Congreso", forma: "barras",
+    const notas = ["Bancas: Constitución Nacional (tres senadores por provincia y por CABA) y ley 22.847 (diputados por provincia).",
+      `Población: proyecciones del INDEC con base en el Censo 2022, ${R.anio_pob}.`,
+      `ATN: Presupuesto Abierto, Secretaría de Hacienda, en pesos de ${TR.ult} con el deflactor del PBI, promedio por año de ${TR.desde} a ${TR.ult}.`,
+      `La relación se mide con la correlación de Spearman: ${rTxt(c.rs)}, en una escala de menos 1 a 1.`];
+    return {respuesta, bajada, contexto, medimos, sintesis, lim, notas, secciones: [
+      {preg: "¿Cuánto pesa en el Congreso el voto de cada provincia?", g: "peso-voto", forma: "barras",
+        tit: `Un habitante de ${K.peso_max} tiene ${n1(K.peso_max_v)} veces la representación que le tocaría por su población`,
         pie: "Parte de las bancas de diputados y senadores de cada jurisdicción sobre su parte de la población. La línea marca 1, el reparto proporcional.", txt: [s1]},
-      {g: "peso-diputado", tit: "Habitantes por cada diputado", forma: "barras",
-        pie: `Población proyectada por el INDEC para ${R.anio_pob} sobre las bancas de diputados de cada jurisdicción.`, txt: [s2]},
-      {g: "peso-atn", tit: "Peso en el Congreso y ATN por habitante", forma: "puntos",
-        pie: `Cada punto es una jurisdicción. ATN: pesos de ${TR.ult} por habitante por año, en promedio de ${TR.desde} a ${TR.ult}. La línea punteada muestra la tendencia.`, txt: [s3]},
+      {preg: "¿Y solo en Diputados?", g: "peso-dip", forma: "barras",
+        tit: `Solo en Diputados, el peso va de ${n2(dMin.pesoDip)} a ${n1(dMax.pesoDip)}`,
+        pie: "Parte de las bancas de diputados de cada jurisdicción sobre su parte de la población. La línea marca 1.", txt: [s2]},
+      {preg: "¿Cuántos habitantes representa cada diputado?", g: "peso-diputado", forma: "barras",
+        tit: `Un diputado de ${K.rep_max} representa ${veces(K.rep_max_v, K.rep_min_v)} veces más habitantes que uno de ${K.rep_min}`,
+        pie: `Población proyectada por el INDEC para ${R.anio_pob} sobre las bancas de diputados de cada jurisdicción.`, txt: [s3]},
+      {preg: "¿Y cada senador?", g: "peso-senador", forma: "barras",
+        tit: `Un senador de ${sMax.territorio} representa ${veces(sMax.hab_por_senador, sMin.hab_por_senador)} veces más habitantes que uno de ${sMin.territorio}`,
+        pie: `Población proyectada por el INDEC para ${R.anio_pob} sobre las tres bancas de senadores de cada jurisdicción.`, txt: [s4]},
+      {preg: "¿Cuántas bancas tendría cada provincia con un reparto solo por población?", g: "peso-bancas", forma: "barras",
+        tit: `${masPierde.territorio} tendría ${n0(masPierde.prop)} diputados en lugar de ${masPierde.diputados}`,
+        pie: `Bancas de diputados de más o de menos frente a un reparto de las ${dipTot} bancas solo por la población de ${R.anio_pob}.`, txt: [s5]},
+      {preg: "¿Recibieron más ATN las provincias con más peso en el Congreso?", g: "peso-atn", forma: "puntos",
+        tit: `Peso en el Congreso y ATN por habitante: una relación ${fuerza(c.rs)}`,
+        pie: `Cada punto es una jurisdicción. ATN: pesos de ${TR.ult} por habitante por año, en promedio de ${TR.desde} a ${TR.ult}. La línea punteada muestra la tendencia.`, txt: [s6]},
     ]};
   },
   dib: {
     "peso-voto": (el, a) => barrasH(el, {anim: a, data: T.representacion_provincias, k: "peso_voto", vf: n2, af: v => n1(v).replace(/,0$/, ""),
       ref: 1, refLab: "Proporcional: 1", tip: d => `<b>${d.territorio}</b><br>Peso: ${n2(d.peso_voto)}<br>${d.diputados} diputados y 3 senadores`}),
+    "peso-dip": (el, a) => {
+      const rp = T.representacion_provincias, pob = d3.sum(rp, r => r.poblacion), dip = d3.sum(rp, r => r.diputados);
+      return barrasH(el, {anim: a, k: "p", vf: n2, af: v => n1(v).replace(/,0$/, ""), ref: 1, refLab: "Proporcional: 1",
+        data: rp.map(r => ({...r, p: (r.diputados / dip) / (r.poblacion / pob)})), tip: d => `<b>${d.territorio}</b><br>Peso en Diputados: ${n2(d.p)}<br>${d.diputados} diputados`});
+    },
     "peso-diputado": (el, a) => barrasH(el, {anim: a, data: T.representacion_provincias, k: "hab_por_diputado", vf: n0, af: ejeMil,
       tip: d => `<b>${d.territorio}</b><br>${n0(d.hab_por_diputado)} habitantes por diputado<br>${n0(d.hab_por_senador)} habitantes por senador`}),
+    "peso-senador": (el, a) => barrasH(el, {anim: a, data: T.representacion_provincias, k: "hab_por_senador", vf: n0, af: ejeMil,
+      tip: d => `<b>${d.territorio}</b><br>${n0(d.hab_por_senador)} habitantes por senador`}),
+    "peso-bancas": (el, a) => {
+      const rp = T.representacion_provincias, pob = d3.sum(rp, r => r.poblacion), dip = d3.sum(rp, r => r.diputados);
+      return barrasH(el, {anim: a, k: "d", vf: v => (v > 0 ? "+" : "") + n0(v), af: n0,
+        data: rp.map(r => ({...r, prop: r.poblacion / pob * dip, d: Math.round(r.poblacion / pob * dip) - r.diputados})),
+        tip: d => `<b>${d.territorio}</b><br>Hoy: ${d.diputados} diputados<br>Solo por población: ${n0(d.prop)}`});
+    },
     "peso-atn": (el, a) => {
       const c = calcularArt({tabla: "cruces_provincias"}, {x: "peso_voto", y: "atn_hab"});
       dispersion(el, {anim: a, data: c.F, x: "peso_voto", y: "atn_hab", xLab: "Peso en el Congreso", yLab: "ATN por habitante",
