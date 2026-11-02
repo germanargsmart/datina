@@ -8565,6 +8565,9 @@ const pctAbs = v => pct(Math.abs(v));
 const PLURAL = {"fuerte": "fuertes", "moderada": "moderadas", "débil": "débiles", "casi nula": "casi nulas"};
 // dos relaciones a la vez: "las dos relaciones son débiles" o "la primera relación es fuerte y la segunda, moderada"
 const dosRel = (r1, r2) => fz(r1) === fz(r2) ? `las dos relaciones son ${PLURAL[fz(r1)]}` : `la primera relación es ${fz(r1)} y la segunda, ${fz(r2)}`;
+// el final del texto de los límites para comprar dólares al tipo de cambio oficial, que repiten los artículos del dólar (un hecho fijo,
+// como en FIJOS de 03). Los años enteros que abarcaron los calcula 02
+const LIMITES = "septiembre de 2019 y abril de 2025";
 const ART_SERIE = [{
   // etapa 5 del plan de mejora: el nombre más elegido en cada provincia (auditoría de los artículos, idea 10)
   id: "a-nombres-provincias", frec: "Se actualiza cada año", tablas: ["nombres_top"],
@@ -9175,13 +9178,13 @@ const ART_SERIE = [{
 }, {
   // etapa 5: la pregunta pasa a ser la de la construcción, y las compras de dólares, que eran su cuarta sección, van en su propio artículo
   id: "a-dolar-inversion", frec: "Se actualiza cada trimestre", tablas: ["dolar_inversion_trimestral"],
-  dek: "Lo que cuesta construir medido en dólares, trimestre por trimestre, frente a lo que cambia la inversión en construcción en el año siguiente. También muestra el dólar en términos reales y la parte de la inversión que va a máquinas importadas.",
+  dek: "Lo que cuesta construir medido en dólares, trimestre por trimestre, frente a lo que cambia la inversión en construcción en el año siguiente. También muestra cómo se reparte la inversión, el dólar en términos reales, la parte que va a máquinas importadas y cuánto cambia la inversión con el dólar.",
   fichas: [["f-isac", "actividad de la construcción"], ["f-costo", "costo de la construcción"], ["f-hipotecas", "créditos hipotecarios"]],
   csv: [["dolar_inversion_trimestral", "Descargar CSV por trimestre"]],
   fuentes: "Banco Central de la República Argentina, índice de tipo de cambio real multilateral, e INDEC y Banco Central vía API de Series de Tiempo: " +
     "inversión bruta interna fija (oferta y demanda globales) y tipo de cambio de referencia (Comunicación \"A\" 3500)",
   texto: () => {
-    const d = DL, sin = d.primeros_hasta + 1;
+    const d = DL, sin = d.primeros_hasta + 1, ip = d.inv_pct;
     // la respuesta: la construcción del año siguiente, desde el fin de los primeros años de la serie (los que siguieron a la devaluación de 2002);
     // si en toda la serie la relación es más marcada, lo dice
     const respuesta = fz(d.rs_sig_sin) === fz(d.rs_sig) ? respuestaR(d.rs_sig_sin)
@@ -9189,62 +9192,78 @@ const ART_SERIE = [{
     const dirImp = d.rs_imp < 0 ? "pesaron menos" : "pesaron más", dirSig = d.rs_sig < 0 ? "crecer más" : "crecer menos";
     const bajada = `Desde el ${d.desde}, con el dólar más caro en términos reales, las máquinas y equipos importados ${dirImp} en la inversión, ` +
       `y cuando construir fue más barato en dólares, la inversión en construcción tendió a ${dirSig} en el año siguiente. ` +
-      `Desde ${sin}, ${dosRel(d.rs_imp_sin, d.rs_sig_sin)}, y en toda la serie, ${dosRel(d.rs_imp, d.rs_sig)}. ` +
-      `Cuánto se invierte en total, de un año a otro, tiene una relación ${fz(d.rs_var_total)} con lo que cambia el dólar.`;
+      `Desde ${sin}, ${dosRel(d.rs_imp_sin, d.rs_sig_sin)}.`;
     const contexto = "El tipo de cambio mueve los precios relativos. Con un dólar caro, lo que se trae de afuera cuesta más pesos, y lo que se hace en el país, " +
-      `como una obra, cuesta menos dólares. Este artículo pone al lado, trimestre por trimestre desde ${d.desde_anio}, lo que cuesta construir medido en dólares, ` +
+      "como una obra, cuesta menos dólares. " +
+      `Este artículo pone al lado, trimestre por trimestre desde ${d.desde_anio}, lo que cuesta construir medido en dólares, ` +
       "la inversión en construcción, el dólar en términos reales y la inversión en máquinas y equipos.";
+    const medimos = ["La inversión es la inversión bruta interna fija del INDEC: lo que se gasta en construcciones, máquinas, equipos y vehículos que " +
+      "sirven para producir durante varios años. Se mide en pesos de 2004, así que sus cambios son cambios en la cantidad, no en los precios.",
+      "El dólar real es el índice de tipo de cambio real multilateral del Banco Central: cuando sube, el dólar está más caro frente a los precios del país."];
     // 1. el dólar real y lo que cuesta construir en dólares
     const extremo = (q, max, min, nom) => q === max ? `, el ${nom} más alto de la serie` : q === min ? `, el ${nom} más bajo de la serie` : "";
-    const s1 = `El índice de tipo de cambio real multilateral del Banco Central compara los precios de la Argentina con los de sus principales socios comerciales, ` +
-      `medidos en la misma moneda. Cuando sube, el dólar y las otras monedas están más caros frente a los precios del país. En el ${d.ult}, el índice estaba ` +
+    const espejo = ab(d.rs_espejo) >= .7 ? "va casi en espejo" : "tiende a moverse en sentido contrario";
+    const s1 = `En el ${d.ult}, el índice del dólar real estaba ` +
       `${pctAbs(d.itcrm_vs_prom)} ${d.itcrm_vs_prom < 0 ? "por debajo" : "por encima"} de su promedio desde ${d.desde_anio}${extremo(d.ult, d.itcrm_max, d.itcrm_min, "valor")}.` +
-      (d.itcrm_max !== d.ult ? ` El más alto fue el del ${d.itcrm_max}` + (d.itcrm_min !== d.ult ? `, y el más bajo, el del ${d.itcrm_min}.` : ".") : ` El más bajo fue el del ${d.itcrm_min}.`) +
-      ` Lo que cuesta construir medido en dólares ${ab(d.rs_espejo) >= .7 ? "va casi en espejo" : "tiende a moverse en sentido contrario"}, como es esperable: los dos índices comparan los precios del país con el dólar, en sentido contrario. La correlación de Spearman entre los dos índices es de ${rTxt(d.rs_espejo)}, en una escala que va ` +
-      `de menos 1 a 1. En el ${d.ult}, construir costaba en dólares un ` +
-      `${pctAbs(d.costo_vs_prom)} ${d.costo_vs_prom < 0 ? "menos" : "más"} que su promedio desde ${d.desde_anio}${extremo(d.ult, d.costo_max, d.costo_min, "valor")}.` +
-      (d.costo_max !== d.ult ? ` El más caro fue el ${d.costo_max}.` : "");
-    // 2. qué parte de la inversión va a equipos importados, y cuánto cambia la inversión con el dólar
-    const sImp = ab(d.rs_imp) < .2 ? `La parte de la inversión que va a máquinas, equipos y vehículos importados casi no se mueve con el dólar real.`
+      ` Lo que cuesta construir medido en dólares ${espejo}, como es esperable: los dos índices comparan los precios del país con el dólar, en sentido contrario. ` +
+      `En ese trimestre, construir costaba en dólares un ${pctAbs(d.costo_vs_prom)} ${d.costo_vs_prom < 0 ? "menos" : "más"} que su promedio desde ${d.desde_anio}` +
+      `${extremo(d.ult, d.costo_max, d.costo_min, "valor")}.` + (d.costo_max !== d.ult ? ` El más caro fue el ${d.costo_max}.` : "");
+    // 2. cómo se reparte la inversión, en años completos
+    const s2 = `Entre ${d.inv_ini} y ${d.inv_ult}, la inversión ${d.inv_var < 0 ? "cayó" : "creció"} ${pctAbs(d.inv_var)}, descontados los precios. ` +
+      (d.inv_max_anio === d.inv_ult ? `${d.inv_ult} fue el año más alto de la serie. ` : `El año más alto fue ${d.inv_max_anio}, y en ${d.inv_ult} la inversión estaba un ${pctAbs(d.inv_ult_vs_max)} por debajo. `) +
+      `En ese tiempo cambió también en qué se invierte: la construcción pasó del ${pct(ip.construccion[0])} al ${pct(ip.construccion[1])} de toda la inversión, ` +
+      `las máquinas y equipos importados, del ${pct(ip.equipo_importado[0])} al ${pct(ip.equipo_importado[1])}, y los nacionales, del ${pct(ip.equipo_nacional[0])} ` +
+      `al ${pct(ip.equipo_nacional[1])}. El resto son otros rubros de la inversión.`;
+    // 3. qué parte de la inversión va a equipos importados según el dólar real
+    const sImp = ab(d.rs_imp) < .2 ? "La parte de la inversión que va a máquinas, equipos y vehículos importados casi no se mueve con el dólar real."
       : `La parte de la inversión que va a máquinas, equipos y vehículos importados tiende a ser mayor cuando el dólar está ${d.rs_imp < 0 ? "barato" : "caro"} en términos reales.`;
+    const s3 = `${sImp} En el tercio de los trimestres con el dólar real más bajo, fue en promedio el ${pct(d.imp_dolar_barato)} de toda la inversión, y en el tercio ` +
+      `con el dólar más alto, el ${pct(d.imp_dolar_caro)}. Desde ${sin}, la relación es ${fz(d.rs_imp_sin)}. ` +
+      `En el ${d.ult}, la parte importada era del ${pct(d.imp_ult)}.`;
+    // 4. cuánto cambia la inversión de un año a otro con lo que cambia el dólar
     const maxVar = Math.max(ab(d.rs_var_total), ab(d.rs_var_imp), ab(d.rs_var_nac), ab(d.rs_var_cons));
-    const s2 = `${sImp} En el tercio de los trimestres con el dólar real más bajo, fue en promedio el ${pct(d.imp_dolar_barato)} de toda la inversión, y en el tercio ` +
-      `con el dólar más alto, el ${pct(d.imp_dolar_caro)}. Desde ${sin}, la correlación de Spearman es de ${rTxt(d.rs_imp_sin)}, una relación ${fz(d.rs_imp_sin)}, y en toda la serie, de ` +
-      `${rTxt(d.rs_imp)}, una relación ${fz(d.rs_imp)}. En el ${d.ult}, la parte importada era del ${pct(d.imp_ult)}.`;
-    const s2b = `Frente al mismo trimestre del año anterior, la correlación entre lo que cambió el dólar real y lo que cambió la inversión es de ${rTxt(d.rs_var_total)} ` +
-      `para la inversión total, de ${rTxt(d.rs_var_imp)} para los equipos importados, de ${rTxt(d.rs_var_nac)} para los nacionales y de ${rTxt(d.rs_var_cons)} ` +
-      `para la construcción. ` + (maxVar < .2 ? "Con valores tan cerca de cero, el cambio del dólar casi no anticipa cuánto cambia la inversión ese año."
-        : maxVar < .4 ? `Ninguna pasa de débil: cuando el dólar real sube, la inversión de ese año tiende a ${d.rs_var_total < 0 ? "caer" : "subir"}, con muchas excepciones.`
+    const s4 = `Si se compara cada trimestre con el mismo del año anterior, lo que cambió el dólar real y lo que cambió la inversión total tienen una relación ` +
+      `${fz(d.rs_var_total)}. Para los equipos importados es ${fz(d.rs_var_imp)}, para los nacionales, ${fz(d.rs_var_nac)}, y para la construcción, ${fz(d.rs_var_cons)}. ` +
+      (maxVar < .2 ? "El cambio del dólar casi no anticipa cuánto cambia la inversión ese año."
+        : maxVar < .4 ? `Cuando el dólar real sube, la inversión de ese año tiende a ${d.rs_var_total < 0 ? "caer" : "subir"}, con muchas excepciones.`
         : `Cuando el dólar real sube, la inversión de ese año tiende a ${d.rs_var_total < 0 ? "caer" : "subir"}.`);
-    // 3. lo que cuesta construir en dólares y la construcción del año siguiente
+    // 5. lo que cuesta construir en dólares y la construcción del año siguiente
     const cambio = v => `${v < 0 ? "cayó" : "creció"} ${pctAbs(v)}`;
-    const s3 = (ab(d.rs_sig) < .2 ? `Lo que costaba construir en dólares casi no anticipa lo que pasó con la construcción en el año siguiente. `
+    const s5 = (ab(d.rs_sig) < .2 ? "Lo que costaba construir en dólares casi no anticipa lo que pasó con la construcción en el año siguiente. "
       : `Cuando construir fue más barato en dólares, la inversión en construcción tendió a ${dirSig} en el año siguiente. `) +
       `En el tercio de los trimestres con la construcción más barata en dólares, la inversión en construcción ${cambio(d.sig_barato)} en los cuatro trimestres ` +
-      `siguientes, si se toma el valor del medio de esos trimestres (la mediana). En el tercio intermedio ${cambio(d.sig_medio)} y en el más caro, ${cambio(d.sig_caro)}. ` +
-      `La correlación de Spearman es de ${rTxt(d.rs_sig)}, una relación ${fz(d.rs_sig)}. ` +
+      `siguientes (la mediana). En el tercio intermedio ${cambio(d.sig_medio)} y en el más caro, ${cambio(d.sig_caro)}. ` +
       `Pero ${d.barato_primeros} de esos ${d.barato_n} trimestres más baratos son de ${d.desde_anio} a ${d.primeros_hasta}, los primeros años de la serie, después de la ` +
-      `devaluación de 2002. Desde ${sin}, la correlación es de ${rTxt(d.rs_sig_sin)}, una relación ${fz(d.rs_sig_sin)}.`;
-    const lim = [`Son ${d.n} trimestres de una sola economía, y los trimestres seguidos no son casos independientes: una misma crisis o una misma recuperación pesa ` +
-      "en varios a la vez, y eso puede hacer que una relación parezca más fuerte de lo que es.",
-      "Una correlación no prueba que una cosa cause la otra. En los mismos trimestres cambiaron también la actividad, el crédito, las tasas de interés y los " +
-      "impuestos.",
-      "La pandemia de COVID-19 hizo caer la construcción en 2020 y rebotar en 2021: esos trimestres son los puntos más alejados del gráfico de la construcción. " +
-      "La correlación de Spearman, que usa el orden de los valores y no su tamaño, pesa menos esos extremos.",
-      "El índice de tipo de cambio real compara con una canasta de monedas de los principales socios comerciales, no solo con el dólar estadounidense, y usa " +
-      "los tipos de cambio oficiales. Entre fines de 2011 y fines de 2015, y entre septiembre de 2019 y abril de 2025, las personas tuvieron límites para comprar " +
-      "dólares al tipo de cambio oficial.",
-      "Lo que cuesta construir en dólares es el índice de precios implícitos de la inversión en construcción del INDEC (lo invertido en construcción a precios de " +
-      "cada año, dividido por lo mismo a precios de 2004), pasado a dólares con el tipo de cambio de referencia del Banco Central. No es el precio del metro " +
-      "cuadrado de una vivienda.",
-      "La inversión se mide en pesos de 2004, y el INDEC revisa los últimos trimestres en cada publicación."];
-    return {respuesta, bajada, contexto, lim, secciones: [
-      {g: "dolar-espejo", tit: "El dólar real y lo que cuesta construir en dólares, por trimestre", forma: "lineas",
+      `devaluación de 2002. Desde ${sin}, la relación es ${fz(d.rs_sig_sin)}.`;
+    const sintesis = [`La construcción pasó del ${pct(ip.construccion[0])} al ${pct(ip.construccion[1])} de la inversión entre ${d.inv_ini} y ${d.inv_ult}, y los equipos importados, del ${pct(ip.equipo_importado[0])} al ${pct(ip.equipo_importado[1])}.`,
+      `Con el dólar real barato, los equipos importados fueron en promedio el ${pct(d.imp_dolar_barato)} de la inversión, y con el dólar caro, el ${pct(d.imp_dolar_caro)}.`,
+      `Desde ${sin}, lo que cuesta construir en dólares y la construcción del año siguiente tienen una relación ${fz(d.rs_sig_sin)}.`];
+    const lim = [`Son ${d.n} trimestres de una sola economía, y los trimestres seguidos no son casos independientes: una misma crisis pesa en varios a la vez.`,
+      "Una correlación no prueba que una cosa cause la otra. En los mismos trimestres cambiaron la actividad, el crédito, las tasas de interés y los impuestos.",
+      "La pandemia de COVID-19 hizo caer la construcción en 2020 y rebotar en 2021: esos trimestres son los puntos más alejados del gráfico de la construcción.",
+      "El índice de tipo de cambio real compara con una canasta de monedas, no solo con el dólar estadounidense, y usa los tipos de cambio oficiales.",
+      "El INDEC revisa los últimos trimestres en cada publicación."];
+    const notas = ["Inversión: inversión bruta interna fija del INDEC (oferta y demanda globales), en pesos de 2004, por trimestre. Los años completos suman sus cuatro trimestres.",
+      "Dólar real: índice de tipo de cambio real multilateral del Banco Central, promedio de cada trimestre.",
+      "Lo que cuesta construir en dólares: el índice de precios implícitos de la inversión en construcción (lo invertido en construcción a precios de cada año, dividido por lo mismo a precios de 2004), pasado a dólares con el tipo de cambio de referencia del Banco Central (Comunicación \"A\" 3500).",
+      `Correlación de Spearman, de menos 1 a 1: ${rTxt(d.rs_espejo)} entre los dos índices, ${rTxt(d.rs_imp)} con la parte importada, ` +
+      `${rTxt(d.rs_var_total)} con la inversión y ${rTxt(d.rs_sig)} con la construcción del año siguiente (${rTxt(d.rs_sig_sin)} desde ${sin}).`];
+    return {respuesta, bajada, contexto, medimos, sintesis, lim, notas, secciones: [
+      {preg: "¿Qué pasa con lo que cuesta construir cuando sube el dólar?", g: "dolar-espejo", forma: "lineas",
+        tit: `Lo que cuesta construir en dólares ${espejo} del dólar real`,
         pie: `Índices, con el promedio desde ${d.desde_anio} = 100. Un índice más alto del dólar real es un dólar más caro frente a los precios del país.`, txt: [s1]},
-      {g: "dolar-equipos", tit: "Parte de la inversión que va a máquinas y equipos importados, según el dólar real", forma: "puntos",
-        pie: "Cada punto es un trimestre. La línea punteada muestra la tendencia. La inversión se mide en pesos de 2004.", txt: [s2, s2b]},
-      {g: "dolar-construccion", tit: "Lo que cuesta construir en dólares y lo que cambia la construcción en el año siguiente", forma: "puntos",
-        pie: `Cada punto es un trimestre: lo que costaba construir en dólares (promedio desde ${d.desde_anio} = 100) y cuánto cambió la inversión en construcción en los cuatro trimestres siguientes.`, txt: [s3]},
+      {preg: "¿En qué se invierte?", g: "inv-partes", forma: "lineas",
+        tit: `La construcción pasó del ${pct(ip.construccion[0])} al ${pct(ip.construccion[1])} de la inversión entre ${d.inv_ini} y ${d.inv_ult}`,
+        pie: "Inversión de cada año completo, en miles de millones de pesos de 2004.", txt: [s2]},
+      {preg: "¿Pesan más las máquinas importadas cuando el dólar está barato?", g: "dolar-equipos", forma: "puntos",
+        tit: `Con el dólar real barato, los equipos importados fueron el ${pct(d.imp_dolar_barato)} de la inversión, y con el dólar caro, el ${pct(d.imp_dolar_caro)}`,
+        pie: "Cada punto es un trimestre. La línea punteada muestra la tendencia. La inversión se mide en pesos de 2004.", txt: [s3]},
+      {preg: "¿Cambia cuánto se invierte cuando cambia el dólar?", g: "inv-var", forma: "puntos",
+        tit: `Lo que cambia el dólar real y lo que cambia la inversión ese año: una relación ${fz(d.rs_var_total)}`,
+        pie: "Cada punto es un trimestre, frente al mismo trimestre del año anterior. La línea punteada muestra la tendencia.", txt: [s4]},
+      {preg: "¿Se construye más después de que construir fue barato en dólares?", g: "dolar-construccion", forma: "puntos",
+        tit: `Lo que cuesta construir en dólares y la construcción del año siguiente: una relación ${fz(d.rs_sig)}`,
+        pie: `Cada punto es un trimestre: lo que costaba construir en dólares (promedio desde ${d.desde_anio} = 100) y cuánto cambió la inversión en construcción en los cuatro trimestres siguientes.`, txt: [s5]},
     ]};
   },
   // los gráficos de cada sección, con las tablas del artículo ya cargadas
@@ -9252,10 +9271,25 @@ const ART_SERIE = [{
     "dolar-espejo": (el, a) => lineas(el, {anim: a, x: "t", y0: 0, vf: n0, yf: n0, xl: triCorto,
       data: T.dolar_inversion_trimestral.map(r => ({...r, t: r.anio + (r.trimestre - 1) / 4})),
       series: [{k: "indice_dolar_real", lab: "Dólar real", c: NAR}, {k: "indice_construccion_usd", lab: "Construir en dólares", c: FRI}]}),
+    "inv-partes": (el, a) => {
+      // los años con sus cuatro trimestres, en miles de millones de pesos de 2004
+      const ks = ["construccion", "equipo_importado", "equipo_nacional"];
+      const data = d3.groups(T.dolar_inversion_trimestral.filter(r => r.inversion_total != null), r => r.anio).filter(([, rs]) => rs.length === 4)
+        .map(([anio, rs]) => Object.fromEntries([["anio", anio], ...ks.map(k => [k, d3.sum(rs, r => r[k]) / 1e3])]));
+      return lineas(el, {anim: a, x: "anio", y0: 0, vf: n1, yf: n0, data,
+        series: [{k: "construccion", lab: "Construcción", c: NAR}, {k: "equipo_importado", lab: "Equipos importados", corto: "Importados", c: FRI},
+          {k: "equipo_nacional", lab: "Equipos nacionales", corto: "Nacionales", c: css("--azul-hondo")}]});
+    },
     "dolar-equipos": (el, a) => dispersion(el, {anim: a, x: "itcrm", y: "pct_equipo_importado", yAuto: true,
       data: T.dolar_inversion_trimestral.map(r => ({...r, codigo_indec: r.periodo, territorio: triCorto(r)})),
       marcar: [T.dolar_inversion_trimestral.at(-1).periodo], xLab: "Dólar real (índice del Banco Central)", yLab: "Equipos importados, % de la inversión",
       fx: n0, fy: v => n0(v) + "%", vx: n1, vy: pct}),
+    "inv-var": (el, a) => {
+      const data = T.dolar_inversion_trimestral.filter(r => r.var_itcrm != null && r.var_inversion_total != null).map(r => ({...r, codigo_indec: r.periodo, territorio: triCorto(r)}));
+      return dispersion(el, {anim: a, data, x: "var_itcrm", y: "var_inversion_total", yAuto: true, marcar: [data.at(-1).periodo],
+        xLab: "Cambio del dólar real", yLab: "Cambio de la inversión", fx: v => n0(v) + "%", fy: v => n0(v) + "%",
+        vx: v => (v > 0 ? "+" : "") + pct(v), vy: v => (v > 0 ? "+" : "") + pct(v)});
+    },
     "dolar-construccion": (el, a) => dispersion(el, {anim: a, x: "indice_construccion_usd", y: "construccion_anio_siguiente", yAuto: true,
       data: T.dolar_inversion_trimestral.filter(r => r.construccion_anio_siguiente != null).map(r => ({...r, codigo_indec: r.periodo, territorio: triCorto(r)})),
       xLab: "Lo que cuesta construir en dólares (índice)", yLab: "Cambio de la construcción en el año siguiente",
@@ -9263,102 +9297,208 @@ const ART_SERIE = [{
   },
 }, {
   // etapa 5: las compras de dólares de personas y empresas, que hasta entonces eran la cuarta sección del artículo del dólar y la inversión
-  id: "a-compras-dolares", frec: "Se actualiza cada mes", tablas: ["compras_dolares_anual"],
-  dek: "Cuántos dólares compraron en neto, cada año, las personas y las empresas en el mercado oficial de cambios, y cómo se movieron esas compras con el dólar en términos reales.",
+  id: "a-compras-dolares", frec: "Se actualiza cada mes", tablas: ["compras_dolares_anual", "dolar_inversion_trimestral"],
+  dek: "Cuántos dólares compraron en neto las personas y las empresas en el mercado oficial de cambios, año por año y trimestre por trimestre, cuánto suman desde el comienzo de la serie, cuánto cambiaron con los límites para comprar y cómo se movieron con el dólar en términos reales.",
   fichas: [["f-bcra", "dólar, tasas y dinero"]],
-  csv: [["compras_dolares_anual", "Descargar CSV por año"]],
+  csv: [["compras_dolares_anual", "Descargar CSV por año"], ["dolar_inversion_trimestral", "Descargar CSV por trimestre"]],
   fuentes: "Banco Central de la República Argentina, balance cambiario, vía API de Series de Tiempo, e índice de tipo de cambio real multilateral",
   texto: () => {
-    const d = DL;
-    // la respuesta es la cifra del último año completo
+    const d = DL, y = d.fae_ytd, mill = v => `${n0(v)} millones`;
     const respuesta = `${n0(d.fae_ult)} millones de dólares en ${d.fae_anio}.`;
     const bajada = `Es lo que compraron en neto, en billetes y divisas, las personas y las empresas en el mercado oficial de cambios: las compras menos las ventas` +
       (d.fae_max_anio === d.fae_anio ? `. Es el monto más alto de la serie, que empieza en ${d.fae_ini}.` : `. El año más alto de la serie, que empieza en ${d.fae_ini}, fue ${d.fae_max_anio}.`);
-    const contexto = "Las personas y las empresas compran dólares para ahorrar, para viajar, para importar o para pagar deudas en dólares, y los venden cuando necesitan " +
-      "pesos. El Banco Central registra cada mes esas compras y ventas en el mercado oficial de cambios. Este artículo suma lo comprado en neto cada año desde " +
-      `${d.fae_ini} y lo compara con el dólar en términos reales.`;
-    const y = d.fae_ytd;
-    // la cifra del año y el máximo ya están en la respuesta y la bajada: el texto sigue con lo que va del año
-    const s4 = (d.fae_max_anio === d.fae_anio ? "" : `En ${d.fae_max_anio} compraron ${n0(d.fae_max)} millones.`) +
-      (y ? ` Entre enero y ${MESES[y.mes - 1]} de ${y.anio} compraron ${n0(y.millones)} millones, frente a ${n0(y.ant)} en los mismos meses de ${y.anio - 1}.` : "") +
+    const contexto = "Las personas y las empresas compran dólares para ahorrar, para viajar, para importar o para pagar deudas en dólares, y los venden cuando " +
+      "necesitan pesos. Después de muchos años de inflación alta, muchas personas ahorran en dólares para que sus ahorros no pierdan valor. El Banco Central " +
+      `registra cada mes esas compras y ventas en el mercado oficial de cambios. Este artículo suma lo comprado en neto cada año y cada trimestre desde ${d.fae_ini}, ` +
+      "calcula cuánto se acumuló, compara los años con límites para comprar con los demás y pone las compras al lado del dólar en términos reales.";
+    const medimos = ["Las compras netas son las compras de billetes y divisas menos las ventas, del sector privado no financiero: personas, empresas e " +
+      "inversores institucionales. Un número positivo quiere decir que compraron más de lo que vendieron, y uno negativo, que vendieron más de lo que compraron.",
+      "El dólar real es el índice de tipo de cambio real multilateral del Banco Central. Compara los precios de la Argentina con los de sus principales " +
+      "socios comerciales, medidos en la misma moneda. Cuando sube, el dólar y las otras monedas están más caros frente a los precios del país."];
+    // todo sale del resumen: el texto se arma antes de que lleguen las tablas diferidas, que usan solo los gráficos
+    // 1. los años: los tres más altos, el promedio y lo que va del año
+    const tot = d.fae_total, top5 = d.fae_top5_pct, pCon = d.fae_con_prom, pSin = d.fae_sin_prom;
+    const s1 = `Los tres años con más compras netas fueron ${lista(d.fae_top.slice(0, 3).map(([an, v]) => `${an}, con ${mill(v)}`))}. ` +
+      `En promedio, desde ${d.fae_ini}, compraron ${mill(d.fae_prom)} de dólares por año.` +
       (d.fae_neg.length ? ` En ${listaY(d.fae_neg.map(String))}, vendieron más de lo que compraron.` : "") +
-      ` Por trimestre, estas compras ${ab(d.rs_fae) < .2 ? "no muestran una relación con el nivel del dólar real" : `tienen una relación ${fz(d.rs_fae)} con el nivel del dólar real`} ` +
-      `(la correlación de Spearman es de ${rTxt(d.rs_fae)}). En buena parte de estos años hubo límites para comprar dólares, que cambian cuánto se puede comprar.`;
+      (y ? ` Entre enero y ${MESES[y.mes - 1]} de ${y.anio} compraron ${mill(y.millones)}, frente a ${n0(y.ant)} en los mismos meses de ${y.anio - 1}.` : "");
+    // 2. lo acumulado y cuánto pesan los cinco años más altos
+    const s2 = `Sumados todos los años desde ${d.fae_ini} hasta ${d.fae_anio}, las personas y las empresas compraron en neto ${mill(tot)} de dólares. ` +
+      `Los cinco años con más compras explican el ${pct(top5)} de ese total: ${listaY(d.fae_top.map(([an]) => an).sort().map(String))}. ` +
+      "Por eso la curva sube a saltos.";
+    // 3. los años enteros con límites para comprar dólares, en tramos seguidos (de 02)
+    const rango = t => t.ini === t.fin ? String(t.ini) : `${t.ini} a ${t.fin}`;
+    const s3 = `Entre fines de 2011 y fines de 2015, y entre ${LIMITES}, las personas tuvieron límites para comprar dólares al tipo de cambio oficial. ` +
+      `En los ${d.fae_con_n} años enteros con límites, las compras netas promediaron ${mill(pCon)} de dólares por año, y en los otros ${d.fae_sin_n}, ${mill(pSin)}. ` +
+      `Los años con límites suman el ${pct(d.fae_con_pct)} de lo comprado en toda la serie. ` +
+      "Los límites cambian lo que se puede comprar en el mercado oficial, no lo que la gente quiere comprar: una parte de la demanda pasó a otros mercados.";
+    // 4. los trimestres
+    const [qMax, vMax] = d.fae_q_max, [qMin, vMin] = d.fae_q_min, [qUlt, vUlt] = d.fae_q_ult;
+    const s4 = `El trimestre con más compras netas fue el ${qMax}, con ${mill(vMax)} de dólares, y el de más ventas, el ${qMin}, con ` +
+      `${mill(-vMin)} vendidos en neto. En ${d.fae_q_neg} de los ${d.fae_q_n} trimestres, las personas y las empresas vendieron más dólares de los que ` +
+      `compraron. En el ${qUlt} compraron ${mill(vUlt)}.`;
+    // 5. el nivel del dólar real: las compras del tercio de trimestres con el dólar más barato y las del tercio con el más caro
+    const medBar = d.fae_tcr_barato, medCar = d.fae_tcr_caro;
+    const s5 = `${ab(d.rs_fae) < .2 ? "Las compras de cada trimestre casi no se mueven con el nivel del dólar real." :
+      `Las compras de cada trimestre tienden a ser ${d.rs_fae < 0 ? "mayores" : "menores"} con el dólar real barato.`} ` +
+      `En el tercio de los trimestres con el dólar más barato, la mediana fue de ${mill(medBar)} de dólares, y en el tercio con el dólar más caro, de ` +
+      `${mill(medCar)}. Con el dólar barato, comprar rinde más, pero en varios de esos trimestres había límites para hacerlo.`;
+    const sintesis = [`En ${d.fae_anio}, las personas y las empresas compraron en neto ${mill(d.fae_ult)} de dólares.`,
+      `Desde ${d.fae_ini}, suman ${mill(tot)} de dólares, y los cinco años con más compras explican el ${pct(top5)}.`,
+      `En los años enteros con límites para comprar, las compras promediaron ${mill(pCon)} de dólares por año, y en los demás, ${mill(pSin)}.`,
+      `Con el dólar real barato o caro, las compras de cada trimestre ${ab(d.rs_fae) < .2 ? "no muestran un patrón claro" : `muestran una relación ${fz(d.rs_fae)}`}.`];
     const lim = [
-      "Las compras de dólares son las del sector privado no financiero en el mercado oficial de cambios que registra el Banco Central, " +
-      "en neto: compras menos ventas. " +
+      "Las compras de dólares son las del sector privado no financiero en el mercado oficial de cambios que registra el Banco Central, en neto: compras menos ventas. " +
       "No dicen en qué se usaron esos dólares, si quedaron guardados, si se depositaron en un banco del país o si sirvieron para comprar una vivienda o hacer una obra.",
-      "Entre fines de 2011 y fines de 2015, y entre septiembre de 2019 y abril de 2025, las personas tuvieron límites para comprar dólares al tipo de cambio " +
-      "oficial: lo que se compró en esos años depende de esas reglas, además de lo que la gente quería comprar.",
-      "Las compras por fuera del mercado oficial, como las del dólar que no pasa por los bancos, no se cuentan."];
-    return {respuesta, bajada, contexto, lim, secciones: [
-      {g: "dolar-compras", tit: "Compras netas de dólares de personas y empresas, por año", forma: "lineas",
-        pie: "Millones de dólares de cada año: compras menos ventas de billetes y divisas del sector privado no financiero (personas, empresas e inversores institucionales) en el mercado oficial de cambios.", txt: [s4]},
+      "Entre fines de 2011 y fines de 2015, y entre " + LIMITES + ", las personas tuvieron límites para comprar dólares al tipo de cambio " +
+      "oficial: lo que se compró en esos años depende de esas reglas, además de lo que la gente quería comprar. Los años en que los límites rigieron solo una parte del año cuentan entre los demás.",
+      "Las compras por fuera del mercado oficial, como las del dólar que no pasa por los bancos, no se cuentan.",
+      "Son dólares de cada año, sin descontar la inflación de los Estados Unidos.",
+      "Una correlación no prueba que una cosa cause la otra, y los trimestres seguidos no son casos independientes: una misma crisis pesa en varios a la vez."];
+    const notas = ["Compras netas: compras menos ventas de billetes y divisas del sector privado no financiero, balance cambiario del Banco Central, millones de dólares por mes, sumados por año y por trimestre. Un trimestre cuenta solo si tiene sus tres meses.",
+      "Dólar real: índice de tipo de cambio real multilateral del Banco Central, promedio de cada trimestre.",
+      `Correlación de Spearman entre las compras de cada trimestre y el dólar real, de menos 1 a 1: ${rTxt(d.rs_fae)}.`,
+      "Los años enteros con límites para comprar son los que los tuvieron de enero a diciembre."];
+    return {respuesta, bajada, contexto, medimos, sintesis, lim, notas, secciones: [
+      {preg: "¿Cuántos dólares compran por año?", g: "dolar-compras", forma: "lineas",
+        tit: d.fae_max_anio === d.fae_anio ? `${d.fae_anio} fue el año con más compras netas desde ${d.fae_ini}` : `El año con más compras netas desde ${d.fae_ini} fue ${d.fae_max_anio}`,
+        pie: "Millones de dólares de cada año: compras menos ventas de billetes y divisas del sector privado no financiero (personas, empresas e inversores institucionales) en el mercado oficial de cambios.", txt: [s1]},
+      {preg: `¿Cuánto suman desde ${d.fae_ini}?`, g: "compras-acum", forma: "lineas",
+        tit: `Desde ${d.fae_ini}, compraron en neto ${mill(tot)} de dólares`,
+        pie: `Compras netas acumuladas desde ${d.fae_ini}, millones de dólares de cada año.`, txt: [s2]},
+      {preg: "¿Cambiaron las compras con los límites para comprar dólares?", g: "compras-tramos", forma: "barras",
+        tit: `Con límites, las compras promediaron ${mill(pCon)} por año, frente a ${mill(pSin)} en los demás años`,
+        pie: `Promedio por año de las compras netas, millones de dólares. Con límites para comprar todo el año: ${listaY(d.fae_tramos.filter(t => t.limites).map(rango))}.`, txt: [s3]},
+      {preg: "¿Cómo se mueven trimestre por trimestre?", g: "compras-trim", forma: "lineas",
+        tit: `El trimestre con más compras netas fue el ${qMax}`,
+        pie: "Compras netas de cada trimestre, millones de dólares. Debajo de la línea del cero, vendieron más de lo que compraron.", txt: [s4]},
+      {preg: "¿Se compran más dólares cuando el dólar está barato?", g: "compras-tcr", forma: "puntos",
+        tit: `Las compras de cada trimestre y el dólar real: una relación ${fz(d.rs_fae)}`,
+        pie: "Cada punto es un trimestre: el índice de tipo de cambio real multilateral y las compras netas de ese trimestre. La línea punteada muestra la tendencia.", txt: [s5]},
     ]};
   },
   dib: {
     "dolar-compras": (el, a) => lineas(el, {anim: a, x: "anio", y0: Math.min(0, d3.min(T.compras_dolares_anual, r => r.millones_usd)), ref: 0, vf: n0, yf: n0,
       data: T.compras_dolares_anual, series: [{k: "millones_usd", lab: "Compras netas", corto: "Compras", c: NAR}]}),
+    "compras-acum": (el, a) => {
+      let s = 0;
+      const data = T.compras_dolares_anual.map(r => ({anio: r.anio, acum: s += r.millones_usd}));
+      return lineas(el, {anim: a, x: "anio", y0: Math.min(0, d3.min(data, r => r.acum)), vf: n0, yf: n0, data, series: [{k: "acum", lab: "Acumulado", c: NAR}]});
+    },
+    "compras-tramos": (el, a) => barrasH(el, {anim: a, sinOrden: true, k: "prom", vf: n0, af: n0, l: 190, lAngosto: 180,
+      data: DL.fae_tramos.map((t, i) => ({...t, codigo_indec: "t" + i, territorio: (t.ini === t.fin ? String(t.ini) : `${t.ini} a ${t.fin}`) + (t.limites ? ", con límites" : "")})),
+      color: d => css(d.limites ? "--sol" : "--celeste"), tip: d => `<b>${d.territorio}</b><br>${n0(d.prom)} millones de dólares por año, en promedio`}),
+    "compras-trim": (el, a) => {
+      const data = T.dolar_inversion_trimestral.filter(r => r.compras_netas_usd != null).map(r => ({...r, t: r.anio + (r.trimestre - 1) / 4}));
+      return lineas(el, {anim: a, x: "t", y0: Math.min(0, d3.min(data, r => r.compras_netas_usd)), ref: 0, vf: n0, yf: n0, xl: triCorto, data,
+        series: [{k: "compras_netas_usd", lab: "Compras netas", corto: "Compras", c: NAR}]});
+    },
+    "compras-tcr": (el, a) => {
+      const data = T.dolar_inversion_trimestral.filter(r => r.compras_netas_usd != null && r.itcrm != null).map(r => ({...r, codigo_indec: r.periodo, territorio: triCorto(r)}));
+      return dispersion(el, {anim: a, data, x: "itcrm", y: "compras_netas_usd", yAuto: true, marcar: [data.at(-1).periodo],
+        xLab: "Dólar real (índice del Banco Central)", yLab: "Compras netas, millones de dólares", fx: n0, fy: n0, vx: n1, vy: v => `${n0(v)} millones`});
+    },
   },
 }, {
   // etapa 24: el turismo internacional y el dólar real, mes por mes (SINTA y BCRA)
   id: "a-turismo-dolar", frec: "Se actualiza cada mes", tablas: ["turismo_dolar_mensual"],
-  dek: "Cuántos turistas extranjeros llegan y cuántos residentes viajan al exterior, mes por mes, frente al dólar en términos reales.",
+  dek: "Cuántos turistas extranjeros llegan y cuántos residentes viajan al exterior, mes por mes, cuál es la diferencia entre los dos, de dónde llegan los turistas y cómo se mueven esos viajes con el dólar en términos reales.",
   fichas: [["f-receptivo", "turistas extranjeros"]],
   csv: [["turismo_dolar_mensual", "Descargar CSV por mes"]],
   fuentes: "Ministerio de Turismo y Deportes, SINTA, estimación de turismo internacional (viajes de turistas no residentes y residentes), y Banco Central " +
     "de la República Argentina, índices de tipo de cambio real multilateral y bilaterales",
   texto: () => {
-    const t = R.turismo_dolar;
+    const t = R.turismo_dolar, mm = v => `${n1(v / 1e6)} millones`, O = t.origen_12m, OP = t.origen_pct, O0 = t.origen_ini;
     const debil = Math.min(ab(t.rs_llegan), ab(t.rs_salen)), fuerte = Math.max(ab(t.rs_llegan), ab(t.rs_salen));
     const respuesta = fz(debil) === fz(fuerte) || fuerte < .4 ? respuestaR(debil) : "En parte.";
     const salen = t.rs_salen < 0 ? "viajan menos" : "viajan más", llegan = t.rs_llegan > 0 ? "llegan más" : "llegan menos";
     const bajada = `Cuando el dólar real sube frente al mismo mes del año anterior, ${salen} residentes al exterior y ${llegan} turistas extranjeros: ` +
       `${dosRel(t.rs_salen, t.rs_llegan)}. Los meses de la pandemia, con las fronteras cerradas o con restricciones, no se cuentan.`;
     const contexto = "Un dólar caro abarata los viajes a la Argentina para quien llega con otra moneda y encarece los viajes al exterior para quien cobra " +
-      "en pesos. Este artículo pone al lado, mes por mes, cuántos turistas extranjeros llegan, cuántos residentes viajan al exterior y el dólar en términos reales.";
-    const dif = t.balanza_12m < 0 ? `salieron ${n1(-t.balanza_12m / 1e6)} millones más de los que llegaron` : `llegaron ${n1(t.balanza_12m / 1e6)} millones más de los que salieron`;
-    const s1 = `En los doce meses hasta ${t.ult} llegaron ${n1(t.llegan_12m / 1e6)} millones de turistas extranjeros y viajaron al exterior ${n1(t.salen_12m / 1e6)} millones de residentes: ${dif}. ` +
-      `Las llegadas fueron las más altas de la serie en los doce meses hasta ${t.llegan_12m_max_mes}, con ${n1(t.llegan_12m_max / 1e6)} millones, y las salidas, en los doce meses ` +
-      `hasta ${t.salen_12m_max_mes}, con ${n1(t.salen_12m_max / 1e6)} millones. Entre ${t.pand_ini} y ${t.pand_fin} llegó menos de la mitad de los turistas que en el mismo mes ` +
-      `de 2019. En ${t.tcr_ult}, el dólar real estaba ${pctAbs(t.tcr_vs_prom)} ${t.tcr_vs_prom < 0 ? "por debajo" : "por encima"} de su promedio desde ${t.desde}.`;
-    const s2 = `Si se compara cada mes con el mismo mes del año anterior, cuando el dólar real sube, ${salen} residentes al exterior: la correlación de Spearman ` +
-      `entre los dos cambios es de ${rTxt(t.rs_salen)}, una relación ${fz(t.rs_salen)}, en una escala que va de menos 1 a 1. Para las llegadas de turistas ` +
-      `extranjeros es de ${rTxt(t.rs_llegan)}, una relación ${fz(t.rs_llegan)}. Con los meses de la pandemia adentro, las correlaciones son de ` +
-      `${rTxt(t.rs_salen_con)} y de ${rTxt(t.rs_llegan_con)}. La balanza de los últimos doce meses, las llegadas menos las salidas, tiene una relación ` +
-      `${fz(t.rs_balanza)} con el dólar real promedio de esos doce meses (${rTxt(t.rs_balanza)}): ` +
+      "en pesos. Con un dólar barato pasa lo contrario. Este artículo pone al lado, mes por mes, cuántos turistas extranjeros llegan, cuántos residentes viajan al exterior, de dónde " +
+      "vienen los turistas y el dólar en términos reales.";
+    const medimos = ["Se cuentan viajes de turistas: personas que pasan al menos una noche en el país que visitan. Los turistas extranjeros son los que " +
+      "viven en otro país y llegan a la Argentina, y los residentes, los que viven en la Argentina y viajan al exterior.",
+      "El dólar real es el índice de tipo de cambio real multilateral del Banco Central: compara los precios del país con los de sus principales socios " +
+      "comerciales, medidos en la misma moneda. El tipo de cambio real con Brasil hace lo mismo solo con Brasil."];
+    // 1. los flujos de los últimos doce meses
+    const s1 = `En los doce meses hasta ${t.ult} llegaron ${mm(t.llegan_12m)} de turistas extranjeros y viajaron al exterior ${mm(t.salen_12m)} de residentes. ` +
+      `Las llegadas fueron las más altas de la serie en los doce meses hasta ${t.llegan_12m_max_mes}, con ${mm(t.llegan_12m_max)}, y las salidas, en los doce meses ` +
+      `hasta ${t.salen_12m_max_mes}, con ${mm(t.salen_12m_max)}. En ${t.tcr_ult}, el dólar real estaba ${pctAbs(t.tcr_vs_prom)} ${t.tcr_vs_prom < 0 ? "por debajo" : "por encima"} de su promedio desde ${t.desde}.`;
+    // 2. la balanza: llegadas menos salidas en doce meses
+    const [bMax, vMax] = t.bz_max, [bMin, vMin] = t.bz_min, neg = t.bz_n - t.bz_pos;
+    const dif = t.balanza_12m < 0 ? `salieron ${mm(-t.balanza_12m)} más de los que llegaron` : `llegaron ${mm(t.balanza_12m)} más de los que salieron`;
+    const s2 = `En los doce meses hasta ${t.ult}, ${dif}. Desde ${t.bz_desde}, en ${neg} de los ${t.bz_n} períodos de doce meses viajaron al exterior más ` +
+      `residentes que los turistas extranjeros que llegaron. La diferencia más grande hacia las salidas fue la de los doce meses hasta ${bMin}, con ${mm(-vMin)}, ` +
+      (vMax > 0 ? `y la más grande hacia las llegadas, la de los doce meses hasta ${bMax}, con ${n0(vMax / 1e3)} mil. ` : ". ") +
+      `La balanza tiene una relación ${fz(t.rs_balanza)} con el dólar real promedio de esos doce meses: ` +
       (t.rs_balanza > 0 ? "con el dólar más caro, la diferencia se inclina hacia las llegadas." : "con el dólar más caro, la diferencia se inclina hacia las salidas.");
-    const s3 = `${t.brasil_primero ? "Brasil es el país del que llegan más turistas" : "Brasil es uno de los países de los que llegan más turistas"}: fue el ` +
-      `${pct(t.pct_brasil)} de las llegadas de los últimos doce meses. El tipo de cambio real con Brasil sube cuando la Argentina se abarata para quien viaja ` +
-      `con reales. Frente al mismo mes del año anterior, la correlación entre lo que cambió ese tipo de cambio y lo que cambiaron las llegadas desde Brasil es de ` +
-      `${rTxt(t.rs_brasil)}, una relación ${fz(t.rs_brasil)}. Con Chile es de ${rTxt(t.rs_chile)}, ${fz(t.rs_chile)}, y con Uruguay, de ${rTxt(t.rs_uruguay)}, ${fz(t.rs_uruguay)}.`;
+    // 3. las salidas y el dólar real, frente al mismo mes del año anterior
+    const s3 = `Si se compara cada mes con el mismo mes del año anterior, cuando el dólar real sube, ${salen} residentes al exterior: la relación es ` +
+      `${fz(t.rs_salen)}. Para las llegadas de turistas extranjeros es ${fz(t.rs_llegan)}. Con los meses de la pandemia adentro, las dos se ` +
+      `${ab(t.rs_salen_con) + ab(t.rs_llegan_con) < ab(t.rs_salen) + ab(t.rs_llegan) ? "debilitan" : "mantienen"}. ` +
+      "El dólar pesa en todo el viaje de quien cobra en pesos, y para un extranjero es solo una de las cosas que cuentan.";
+    // 4. de dónde llegan
+    const s4 = `${t.brasil_primero ? "Brasil es el país del que llegan más turistas" : "Brasil es uno de los países de los que llegan más turistas"}: fue el ` +
+      `${pct(OP.brasil)} de las llegadas de los últimos doce meses, con ${mm(O.brasil)} de viajes. Chile fue el ${pct(OP.chile)} y Uruguay, el ${pct(OP.uruguay)}. ` +
+      `En los primeros doce meses de la serie, en ${t.anio_ini}, llegaron ${mm(O0.brasil)} de turistas de Brasil, ${mm(O0.chile)} de Chile y ${mm(O0.uruguay)} de ` +
+      `Uruguay, sobre un total de ${mm(t.llegan_ini_12m)}.`;
+    // 5. Brasil y su tipo de cambio real
+    const s5 = `El tipo de cambio real con Brasil sube cuando la Argentina se abarata para quien viaja con reales. En ${t.tcr_ult} estaba ` +
+      `${pctAbs(t.tcr_brasil_vs_prom)} ${t.tcr_brasil_vs_prom < 0 ? "por debajo" : "por encima"} de su promedio desde ${t.desde}. Frente al mismo mes del año ` +
+      `anterior, lo que cambió ese tipo de cambio y lo que cambiaron las llegadas desde Brasil tienen una relación ${fz(t.rs_brasil)}. Con Chile es ` +
+      `${fz(t.rs_chile)}, y con Uruguay, ${fz(t.rs_uruguay)}.`;
+    const sintesis = [`En los doce meses hasta ${t.ult} llegaron ${mm(t.llegan_12m)} de turistas extranjeros y viajaron al exterior ${mm(t.salen_12m)} de residentes.`,
+      `En ${neg} de los ${t.bz_n} períodos de doce meses desde ${t.bz_desde}, salieron más residentes que los turistas que llegaron.`,
+      `Cuando el dólar real sube, ${salen} residentes al exterior (una relación ${fz(t.rs_salen)}) y ${llegan} turistas extranjeros (${fz(t.rs_llegan)}).`];
     const lim = [`Los meses entre ${t.pand_ini} y ${t.pand_fin} quedaron fuera de las correlaciones principales: con las fronteras cerradas o con restricciones, ` +
-      "los viajes no dependían del dólar. También quedaron afuera los meses que se comparan con uno de ese período. Son los meses " +
-      "desde 2020 en que llegó menos de la mitad de los turistas que en el mismo mes de 2019. El mes en que empezaron a caer los viajes no cumple esa condición, así que queda en las correlaciones.",
-      "Son meses de una sola economía, y los meses seguidos no son casos independientes: una misma devaluación o una misma temporada pesa en varios a la vez.",
-      "Una correlación no prueba que una cosa cause la otra. También cuentan los ingresos en cada país, los vuelos y los pasos de frontera, las temporadas y los feriados.",
-      "El índice de tipo de cambio real usa los tipos de cambio oficiales. Entre fines de 2011 y fines de 2015, y entre septiembre de 2019 y abril de 2025, las " +
-      "personas tuvieron límites para comprar dólares, y los gastos con tarjeta en el exterior tuvieron recargos e impuestos: lo que pagaba un turista podía estar lejos del tipo de cambio oficial.",
-      "Se cuentan viajes de turistas, no personas: quien viaja dos veces en un año cuenta dos veces.",
+      "los viajes no dependían del dólar.",
+      "Una correlación no prueba que una cosa cause la otra, y los meses seguidos no son casos independientes. También cuentan los ingresos en cada país, los vuelos, las temporadas y los feriados.",
+      `Entre fines de 2011 y fines de 2015, y entre ${LIMITES}, hubo límites para comprar dólares y recargos a los gastos con tarjeta en el exterior: lo que pagaba un turista podía estar lejos del tipo de cambio oficial.`,
       `Los datos desde ${t.provisorio_desde} son provisorios.`];
-    return {respuesta, bajada, contexto, lim, secciones: [
-      {g: "turismo-flujos", tit: "Turistas que llegan y residentes que viajan al exterior, en los doce meses hasta cada mes", forma: "lineas",
+    const notas = ["Turistas: estimación de turismo internacional del SINTA (Ministerio de Turismo y Deportes), viajes de turistas no residentes que llegan y de residentes que viajan al exterior, por mes. Los doce meses suman cada mes con los once anteriores.",
+      "Dólar real: índices de tipo de cambio real multilateral y bilaterales del Banco Central, promedio de cada mes.",
+      "Pandemia: los meses desde 2020 en que llegó menos de la mitad de los turistas que en el mismo mes de 2019, y los que se comparan con uno de ellos.",
+      `Correlación de Spearman, de menos 1 a 1: ${rTxt(t.rs_salen)} para las salidas, ${rTxt(t.rs_llegan)} para las llegadas, ${rTxt(t.rs_balanza)} para la balanza y ${rTxt(t.rs_brasil)} para Brasil.`];
+    return {respuesta, bajada, contexto, medimos, sintesis, lim, notas, secciones: [
+      {preg: "¿Cuántos turistas llegan y cuántos residentes viajan al exterior?", g: "turismo-flujos", forma: "lineas",
+        tit: `En los doce meses hasta ${t.ult} viajaron al exterior ${mm(t.salen_12m)} de residentes y llegaron ${mm(t.llegan_12m)} de turistas`,
         pie: `Viajes de turistas en los doce meses que terminan en cada mes, en millones. Las salidas de residentes empiezan en ${t.desde_salen}.`, txt: [s1]},
-      {g: "turismo-salidas", tit: "Cuánto cambió el dólar real y cuánto cambiaron los viajes de residentes al exterior", forma: "puntos",
-        pie: "Cada punto es un mes, frente al mismo mes del año anterior. Sin los meses de la pandemia. La línea punteada muestra la tendencia.", txt: [s2]},
-      {g: "turismo-brasil", tit: "El tipo de cambio real con Brasil y los turistas que llegan desde Brasil", forma: "puntos",
+      {preg: "¿Son más los turistas que llegan o los residentes que salen?", g: "turismo-balanza", forma: "lineas",
+        tit: `En ${neg} de los ${t.bz_n} períodos de doce meses salieron más residentes que los turistas que llegaron`,
+        pie: "Turistas extranjeros que llegan menos residentes que viajan al exterior, en los doce meses que terminan en cada mes, en millones. Debajo de la línea del cero, salen más de los que llegan.", txt: [s2]},
+      {preg: "¿Viajan menos residentes al exterior cuando el dólar está caro?", g: "turismo-salidas", forma: "puntos",
+        tit: `Lo que cambia el dólar real y lo que cambian los viajes al exterior: una relación ${fz(t.rs_salen)}`,
         pie: "Cada punto es un mes, frente al mismo mes del año anterior. Sin los meses de la pandemia. La línea punteada muestra la tendencia.", txt: [s3]},
+      {preg: "¿De dónde llegan los turistas?", g: "turismo-origen", forma: "lineas",
+        tit: `Brasil fue el ${pct(OP.brasil)} de las llegadas de los últimos doce meses`,
+        pie: "Viajes de turistas de cada país en los doce meses que terminan en cada mes, en millones.", txt: [s4]},
+      {preg: "¿Llegan más turistas de Brasil cuando la Argentina se abarata para ellos?", g: "turismo-brasil", forma: "puntos",
+        tit: `El tipo de cambio real con Brasil y los turistas de Brasil: una relación ${fz(t.rs_brasil)}`,
+        pie: "Cada punto es un mes, frente al mismo mes del año anterior. Sin los meses de la pandemia. La línea punteada muestra la tendencia.", txt: [s5]},
     ]};
   },
   dib: {
     "turismo-flujos": (el, a) => lineas(el, {anim: a, x: "t", y0: 0, vf: v => n1(v / 1e6) + " M", yf: v => v === 0 ? "0" : n0(v / 1e6) + " M", xl: r => mesPer(r.mes),
       data: T.turismo_dolar_mensual.filter(r => r.llegan_12m != null).map(r => ({...r, t: tPer(r.mes)})), mensual: true,
       series: [{k: "llegan_12m", lab: "Llegan", c: NAR}, {k: "salen_12m", lab: "Salen", c: FRI}]}),
+    "turismo-balanza": (el, a) => {
+      const data = T.turismo_dolar_mensual.filter(r => r.balanza_12m != null).map(r => ({...r, t: tPer(r.mes)}));
+      return lineas(el, {anim: a, x: "t", y0: Math.min(0, d3.min(data, r => r.balanza_12m)), ref: 0, mensual: true, xl: r => mesPer(r.mes),
+        vf: v => n1(v / 1e6) + " M", yf: v => v === 0 ? "0" : n0(v / 1e6) + " M", data, series: [{k: "balanza_12m", lab: "Llegan menos salen", corto: "Balanza", c: NAR}]});
+    },
     "turismo-salidas": (el, a) => {
       const data = T.turismo_dolar_mensual.filter(r => r.var_valida && r.var_salen != null && r.var_tcr_itcrm != null).map(r => ({...r, codigo_indec: r.mes, territorio: mesPer(r.mes)}));
       return dispersion(el, {anim: a, data, x: "var_tcr_itcrm", y: "var_salen", yAuto: true, marcar: [data.at(-1).mes],
         xLab: "Cambio del dólar real", yLab: "Cambio de los viajes al exterior", fx: v => n0(v) + "%", fy: v => n0(v) + "%",
         vx: v => (v > 0 ? "+" : "") + pct(v), vy: v => (v > 0 ? "+" : "") + pct(v)});
+    },
+    "turismo-origen": (el, a) => {
+      // los doce meses de cada país, sumados acá: la tabla trae solo los viajes de cada mes
+      const M = T.turismo_dolar_mensual, ks = ["llegan_brasil", "llegan_chile", "llegan_uruguay"];
+      const data = M.slice(11).map((r, i) => Object.fromEntries([["mes", r.mes], ["t", tPer(r.mes)], ...ks.map(k => [k, d3.sum(M.slice(i, i + 12), x => x[k])])]));
+      return lineas(el, {anim: a, x: "t", y0: 0, mensual: true, xl: r => mesPer(r.mes), vf: v => n1(v / 1e6) + " M", yf: v => v === 0 ? "0" : n1(v / 1e6) + " M", data,
+        series: [{k: "llegan_brasil", lab: "Brasil", c: NAR}, {k: "llegan_chile", lab: "Chile", c: FRI}, {k: "llegan_uruguay", lab: "Uruguay", c: css("--azul-hondo")}]});
     },
     "turismo-brasil": (el, a) => {
       const data = T.turismo_dolar_mensual.filter(r => r.var_valida && r.var_llegan_brasil != null && r.var_tcr_brasil != null).map(r => ({...r, codigo_indec: r.mes, territorio: mesPer(r.mes)}));
@@ -9370,7 +9510,7 @@ const ART_SERIE = [{
 }, {
   // etapa 24: la nafta súper en dólares al tipo de cambio oficial y el petróleo Brent, mes por mes
   id: "a-nafta-dolares", frec: "Se actualiza cada mes", tablas: ["nafta_dolares_mensual", "nafta_dolares_anual"],
-  dek: "El precio de la nafta súper en el surtidor medido en dólares al tipo de cambio oficial, frente al precio internacional del petróleo.",
+  dek: "El precio de la nafta súper en el surtidor medido en dólares al tipo de cambio oficial, frente al precio internacional del petróleo: cuánto más cuesta, cuánto se suma por encima del petróleo, si sigue sus subas y bajas y cómo acompaña en pesos al dólar oficial.",
   fichas: [["f-combustibles", "precio de los combustibles"]],
   csv: [["nafta_dolares_mensual", "Descargar CSV por mes"], ["nafta_dolares_anual", "Descargar CSV por año"]],
   fuentes: "Secretaría de Energía, precios en estaciones de servicio (Resolución 1104/2004), Banco Central de la República Argentina, tipo de cambio de " +
@@ -9381,108 +9521,203 @@ const ART_SERIE = [{
     const bajada = `Al tipo de cambio oficial, cuando el petróleo Brent sube frente al mismo mes del año anterior, la nafta en dólares tiende a ` +
       `${t.rs_var > 0 ? "subir" : "bajar"}: la relación es ${fz(t.rs_var)}. Entre los precios de cada mes, la relación es ${fz(t.rs_nivel)}` +
       (ab(t.rs_nivel) < .4 ? ": hubo años con el petróleo caro y la nafta barata en dólares, y al revés." : ".");
-    const contexto = "La nafta se hace con petróleo, que se compra y se vende en dólares en todo el mundo. En el precio del surtidor también pesan los impuestos, " +
-      `la refinación, el transporte y la distribución. Este artículo compara, mes por mes desde ${t.desde}, el precio de la nafta súper medido en dólares al ` +
-      "tipo de cambio oficial con el del petróleo Brent, una referencia internacional.";
+    const contexto = "La nafta se hace con petróleo, que se compra y se vende en dólares en todo el mundo. Pero en el precio también pesan los impuestos, la refinación, el transporte, " +
+      "la distribución y las decisiones de precios de las petroleras y del Estado. Este artículo compara, mes por mes desde " + t.desde + ", el precio de " +
+      "la nafta súper medido en dólares al tipo de cambio oficial con el del petróleo Brent, una referencia internacional.";
+    const medimos = ["El precio de la nafta es la mediana de lo que declaran las estaciones de servicio de todo el país para la nafta súper: la mitad " +
+      "cobraba más y la otra mitad, menos. Se pasa a dólares con el tipo de cambio oficial de referencia del Banco Central, promedio de cada mes.",
+      "El Brent es el precio del petróleo del Mar del Norte, una referencia internacional. Un barril tiene casi 159 litros, así que el precio del barril " +
+      "se divide por esos litros para compararlo con el de un litro de nafta."];
+    // 1. el precio de hoy y los extremos
     const s1 = `En ${t.ult}, el litro de nafta súper costaba ${n0(t.nafta)} pesos en la mediana de las estaciones del país: ${usd(t.nafta_usd)} dólares al tipo de ` +
       `cambio oficial de referencia. Un litro de petróleo Brent costaba ${usd(t.brent_litro)} dólares (${n2(t.brent)} el barril). Medida en dólares al tipo de cambio oficial, la nafta ` +
       `fue la más cara en ${t.usd_max_mes}, con ${usd(t.usd_max)} dólares por litro, y la más barata en ${t.usd_min_mes}, con ${usd(t.usd_min)}.`;
-    const s2 = `Si se compara cada mes con el mismo mes del año anterior, la correlación de Spearman entre lo que cambió el Brent y lo que cambió la nafta en ` +
-      `dólares es de ${rTxt(t.rs_var)}, una relación ${fz(t.rs_var)}, en una escala que va de menos 1 a 1, y desde ${t.sin_desde}, de ${rTxt(t.rs_var_sin)}, ` +
-      `${fz(t.rs_var_sin)}. Entre los precios de cada mes, sin compararlos con el año anterior, es de ${rTxt(t.rs_nivel)}, una relación ${fz(t.rs_nivel)}.`;
-    const s3 = "Un litro de nafta cuesta más que un litro de petróleo, porque suma la refinación, los impuestos, el transporte y la distribución. Pero esa " +
+    // 2. cuántas veces el petróleo
+    const s2 = "Un litro de nafta cuesta más que un litro de petróleo, porque suma la refinación, los impuestos, el transporte y la distribución. Pero esa " +
       `diferencia cambió mucho: en ${t.veces_min_anio}, la nafta costó en promedio ${n1(t.veces_min)} veces lo que un litro de Brent, y en ${t.veces_max_anio}, ` +
-      `${n1(t.veces_max)} veces. En ${t.veces_ult_anio} fueron ${n1(t.veces_ult)} veces. El año más caro de la nafta en dólares fue ${t.usd_anio_max_anio}, con ` +
-      `${usd(t.usd_anio_max)} dólares por litro en promedio. En ${t.veces_ult_anio} costó ${usd(t.usd_anio_ult)}.`;
-    const lim = ["El precio en dólares usa el tipo de cambio oficial de referencia del Banco Central (Comunicación \"A\" 3500). Entre fines de 2011 y fines de " +
-      "2015, y entre septiembre de 2019 y abril de 2025, las personas tuvieron límites para comprar dólares, y con otros tipos de cambio el precio en dólares de esos años sería más bajo.",
-      "Es la mediana de los precios que declaran las estaciones de servicio de todo el país para la nafta súper: la mitad cobraba más y la otra mitad, menos. " +
-      "No es el precio de una estación ni de una marca.",
-      "El Brent es un precio internacional de referencia, el del petróleo del Mar del Norte. El petróleo que procesan las refinerías del país puede tener otro precio.",
+      `${n1(t.veces_max)} veces. En ${t.veces_ult_anio} fueron ${n1(t.veces_ult)} veces.`;
+    // 3. lo que se suma por encima del petróleo
+    const [dMax, vMax] = t.dif_max, [dMin, vMin] = t.dif_min;
+    const s3 = `En ${t.ult}, al litro de nafta se le sumaban ${usd(t.dif_ult)} dólares por encima de lo que costaba un litro de Brent. En promedio desde ` +
+      `${t.desde}, fueron ${usd(t.dif_prom)} dólares. La diferencia más grande fue la de ${dMax}, con ${usd(vMax)} dólares, y la más chica, la de ${dMin}, con ` +
+      `${usd(vMin)}. Esa diferencia paga los impuestos, la refinación, el transporte, la distribución y el margen de las estaciones. No se puede separar ` +
+      "cuánto es cada cosa con estos datos.";
+    // 4. los cambios del petróleo y de la nafta en dólares
+    const s4 = `Si se compara cada mes con el mismo mes del año anterior, lo que cambió el Brent y lo que cambió la nafta en dólares tienen una relación ` +
+      `${fz(t.rs_var)}, y desde ${t.sin_desde}, ${fz(t.rs_var_sin)}. Entre los precios de cada mes, sin compararlos con el año anterior, la relación es ` +
+      `${fz(t.rs_nivel)}. Entre el petróleo y el surtidor están el tipo de cambio y los impuestos.`;
+    // 5. la nafta en pesos y el dólar oficial
+    const s5 = `En pesos, lo que cambió la nafta frente al mismo mes del año anterior y lo que cambió el dólar oficial tienen una relación ${fz(t.rs_pesos_tc)}. ` +
+      `En ${t.pesos_mas_tc} de los ${t.n_pesos} meses, la nafta en pesos subió más que el dólar, es decir, se encareció en dólares. En ${t.ult}, la nafta ` +
+      `${t.pesos_var_ult < 0 ? "bajaba" : "subía"} ${pctAbs(t.pesos_var_ult)} frente al mismo mes del año anterior y el dólar oficial, ${pctAbs(t.tc_var_ult)}. ` +
+      "Cuando el dólar sube de golpe, el surtidor puede tardar en acompañar, y en esos meses la nafta se abarata en dólares.";
+    const sintesis = [`En ${t.ult}, el litro de nafta súper costaba ${usd(t.nafta_usd)} dólares al tipo de cambio oficial, y un litro de Brent, ${usd(t.brent_litro)}.`,
+      `En ${t.veces_ult_anio}, la nafta costó ${n1(t.veces_ult)} veces lo que el petróleo. Fue de ${n1(t.veces_min)} veces en ${t.veces_min_anio} a ${n1(t.veces_max)} en ${t.veces_max_anio}.`,
+      `Lo que cambia el petróleo y lo que cambia la nafta en dólares tienen una relación ${fz(t.rs_var)}.`,
+      `En pesos, la nafta y el dólar oficial tienen una relación ${fz(t.rs_pesos_tc)}.`];
+    const lim = ["El precio en dólares usa el tipo de cambio oficial de referencia del Banco Central. Entre fines de 2011 y fines de " +
+      `2015, y entre ${LIMITES}, las personas tuvieron límites para comprar dólares, y con otros tipos de cambio el precio en dólares de esos años sería más bajo.`,
+      "El petróleo que procesan las refinerías del país puede tener otro precio que el Brent.",
       "Una correlación no prueba que una cosa cause la otra, y los meses seguidos no son casos independientes: una misma devaluación pesa en varios a la vez.",
-      "Los promedios de cada año cuentan solo los años completos."];
-    return {respuesta, bajada, contexto, lim, secciones: [
-      {g: "nafta-dolares", tit: "La nafta súper y el petróleo Brent, en dólares por litro", forma: "lineas",
-        pie: "Dólares por litro. La nafta, al tipo de cambio oficial de referencia, mediana de las estaciones del país. El Brent, promedio de cada mes (un barril tiene 158,987 litros).", txt: [s1]},
-      {g: "nafta-cambios", tit: "Cuánto cambió el petróleo y cuánto cambió la nafta en dólares", forma: "puntos",
-        pie: "Cada punto es un mes, frente al mismo mes del año anterior. La línea punteada muestra la tendencia.", txt: [s2]},
-      {g: "nafta-veces", tit: "Cuántas veces costó un litro de nafta lo que un litro de petróleo, por año", forma: "lineas",
-        pie: "Promedio de cada año completo: la nafta en dólares dividida por el Brent por litro.", txt: [s3]},
+      "Son dólares de cada año, sin descontar la inflación de los Estados Unidos."];
+    const notas = ["Nafta súper: mediana de los precios que declaran las estaciones de servicio de todo el país (Secretaría de Energía, Resolución 1104/2004), en pesos por litro.",
+      "Tipo de cambio: tipo de cambio de referencia del Banco Central (Comunicación \"A\" 3500), promedio de cada mes.",
+      "Brent: precio del petróleo Brent de la Administración de Información Energética de los Estados Unidos (EIA), promedio de cada mes, dividido por 158,987 litros por barril.",
+      `Correlación de Spearman, de menos 1 a 1: ${rTxt(t.rs_var)} entre los cambios del Brent y de la nafta en dólares, ${rTxt(t.rs_nivel)} entre los precios ` +
+      `y ${rTxt(t.rs_pesos_tc)} entre la nafta en pesos y el dólar oficial. Los promedios de cada año cuentan solo los años completos.`];
+    return {respuesta, bajada, contexto, medimos, sintesis, lim, notas, secciones: [
+      {preg: "¿Cuánto cuesta la nafta en dólares?", g: "nafta-dolares", forma: "lineas",
+        tit: `En ${t.ult}, el litro de nafta súper costaba ${usd(t.nafta_usd)} dólares al tipo de cambio oficial`,
+        pie: "Dólares por litro. La nafta, al tipo de cambio oficial de referencia, mediana de las estaciones del país. El Brent, promedio de cada mes.", txt: [s1]},
+      {preg: "¿Cuánto más cara que el petróleo es la nafta?", g: "nafta-veces", forma: "lineas",
+        tit: `En ${t.veces_ult_anio}, un litro de nafta costó ${n1(t.veces_ult)} veces lo que un litro de petróleo`,
+        pie: "Promedio de cada año completo: la nafta en dólares dividida por el Brent por litro.", txt: [s2]},
+      {preg: "¿Cuánto se suma por encima del petróleo?", g: "nafta-dif", forma: "lineas",
+        tit: `Por encima del petróleo, el litro de nafta suma ${usd(t.dif_ult)} dólares`,
+        pie: "Dólares por litro: la nafta súper al tipo de cambio oficial menos un litro de Brent, por mes.", txt: [s3]},
+      {preg: "¿Sube la nafta cuando sube el petróleo?", g: "nafta-cambios", forma: "puntos",
+        tit: `Lo que cambia el petróleo y lo que cambia la nafta en dólares: una relación ${fz(t.rs_var)}`,
+        pie: "Cada punto es un mes, frente al mismo mes del año anterior. La línea punteada muestra la tendencia.", txt: [s4]},
+      {preg: "¿Y en pesos, la nafta sigue al dólar?", g: "nafta-tc", forma: "puntos",
+        tit: `Lo que cambia el dólar oficial y lo que cambia la nafta en pesos: una relación ${fz(t.rs_pesos_tc)}`,
+        pie: "Cada punto es un mes, frente al mismo mes del año anterior. Arriba de la línea punteada, la nafta subió más de lo que indica la tendencia.", txt: [s5]},
     ]};
   },
   dib: {
     "nafta-dolares": (el, a) => lineas(el, {anim: a, x: "t", y0: 0, vf: n2, yf: n1, xl: r => mesPer(r.mes), mensual: true,
       data: T.nafta_dolares_mensual.map(r => ({...r, t: tPer(r.mes)})),
       series: [{k: "nafta_usd", lab: "Nafta súper", c: NAR}, {k: "brent_litro", lab: "Petróleo Brent", c: FRI}]}),
+    "nafta-veces": (el, a) => lineas(el, {anim: a, x: "anio", y0: 0, vf: n1, yf: n0, data: T.nafta_dolares_anual,
+      series: [{k: "veces", lab: "Veces", c: NAR}]}),
+    "nafta-dif": (el, a) => lineas(el, {anim: a, x: "t", y0: 0, vf: n2, yf: n1, xl: r => mesPer(r.mes), mensual: true,
+      data: T.nafta_dolares_mensual.map(r => ({...r, t: tPer(r.mes), dif: r.nafta_usd - r.brent_litro})),
+      series: [{k: "dif", lab: "Por encima del petróleo", corto: "Diferencia", c: NAR}]}),
     "nafta-cambios": (el, a) => {
       const data = T.nafta_dolares_mensual.filter(r => r.var_brent != null && r.var_nafta_usd != null).map(r => ({...r, codigo_indec: r.mes, territorio: mesPer(r.mes)}));
       return dispersion(el, {anim: a, data, x: "var_brent", y: "var_nafta_usd", yAuto: true, marcar: [data.at(-1).mes],
         xLab: "Cambio del Brent", yLab: "Cambio de la nafta en dólares", fx: v => n0(v) + "%", fy: v => n0(v) + "%",
         vx: v => (v > 0 ? "+" : "") + pct(v), vy: v => (v > 0 ? "+" : "") + pct(v)});
     },
-    "nafta-veces": (el, a) => lineas(el, {anim: a, x: "anio", y0: 0, vf: n1, yf: n0, data: T.nafta_dolares_anual,
-      series: [{k: "veces", lab: "Veces", c: NAR}]}),
+    "nafta-tc": (el, a) => {
+      // los cambios frente al mismo mes del año anterior, calculados acá con la nafta en pesos y el tipo de cambio de la tabla
+      const M = T.nafta_dolares_mensual, data = M.slice(12).map((r, i) => ({...r, codigo_indec: r.mes, territorio: mesPer(r.mes),
+        var_pesos: (r.nafta / M[i].nafta - 1) * 100, var_tc: (r.a3500 / M[i].a3500 - 1) * 100}));
+      return dispersion(el, {anim: a, data, x: "var_tc", y: "var_pesos", yAuto: true, marcar: [data.at(-1).mes],
+        xLab: "Cambio del dólar oficial", yLab: "Cambio de la nafta en pesos", fx: v => n0(v) + "%", fy: v => n0(v) + "%",
+        vx: v => (v > 0 ? "+" : "") + pct(v), vy: v => (v > 0 ? "+" : "") + pct(v)});
+    },
   },
 }, {
   // etapa 24: las cantidades exportadas por rubro y el dólar real, trimestre por trimestre (INDEC y BCRA)
   id: "a-exportaciones-dolar", frec: "Se actualiza cada trimestre", tablas: ["exportaciones_dolar_trimestral", "exportaciones_cantidades_anual"],
-  dek: "Las cantidades que exporta el país, sin el efecto de los precios, por gran rubro y trimestre por trimestre, frente al dólar en términos reales.",
+  dek: "Qué exporta el país, cuánto cambiaron las cantidades exportadas por gran rubro, sin el efecto de los precios, cómo se movió el dólar en términos reales y si se exporta más cuando el dólar está caro.",
   fichas: [["f-exportaciones", "exportaciones por provincia"]],
   csv: [["exportaciones_dolar_trimestral", "Descargar CSV por trimestre"], ["exportaciones_cantidades_anual", "Descargar CSV por año"]],
   fuentes: "INDEC, índices de valor, precio y cantidad de las exportaciones de bienes e intercambio comercial argentino, vía API de Series de Tiempo, y Banco " +
     "Central de la República Argentina, índices de tipo de cambio real multilateral y bilateral con Brasil",
   texto: () => {
-    const t = R.exportaciones_dolar, rs = t.rs, mx = Math.max(ab(rs.total), ab(t.rs_moi_brasil));
+    const t = R.exportaciones_dolar, rs = t.rs, P = t.pct, K = t.cant_ult, mx = Math.max(ab(rs.total), ab(t.rs_moi_brasil));
+    // los rubros con su artículo, para nombrarlos en cualquier lugar de la oración
+    const NOM = {primarios: "los productos primarios", moa: "las manufacturas de origen agropecuario", moi: "las manufacturas de origen industrial", combustibles: "los combustibles y la energía"};
+    const May = x => x[0].toUpperCase() + x.slice(1);
+    const rub = Object.keys(NOM), topP = rub.reduce((a, b) => P[b] > P[a] ? b : a), topR = rub.reduce((a, b) => ab(rs[b]) > ab(rs[a]) ? b : a);
     const respuesta = respuestaR(mx);
     const sube = rs.total > 0 ? "crecer" : "caer";
     const bajada = `Cuando el dólar real sube frente al año anterior, las cantidades que exporta el país medio año después tienden a ${sube}` +
-      `: la relación es ${fz(rs.total)}. En el mismo trimestre, la relación es ${fz(t.rs_mismo)}. Las cantidades de combustibles y de productos ` +
-      "primarios cambiaron mucho en estos años, con el dólar caro o barato.";
+      `: la relación es ${fz(rs.total)}. En el mismo trimestre, la relación es ${fz(t.rs_mismo)}.`;
     const contexto = "Con un dólar caro, lo que se produce en el país cuesta menos dólares en el exterior y cada dólar que se vende rinde más pesos. Pero " +
       "cuánto se exporta depende también de las cosechas, de los precios en el mundo, de lo que se puede producir y de los impuestos a las exportaciones. " +
       `Este artículo compara, trimestre por trimestre desde ${t.desde_anio}, las cantidades que exporta el país, sin el efecto de los precios, con el dólar ` +
       "en términos reales.";
-    const P = t.pct;
+    const medimos = ["Las cantidades exportadas son los índices de cantidad del INDEC: cuánto se vende al exterior sin el efecto de los precios, con " +
+      `${t.desde_anio} igual a 100.`,
+      "El dólar real es el índice de tipo de cambio real multilateral del Banco Central. Cuando sube, lo que se produce en el país es más barato para el resto del mundo."];
+    // 1. qué se exporta, en dólares
     const s1 = `En los doce meses hasta ${t.doce_hasta}, el país exportó ${n0(t.doce_total)} millones de dólares: el ${pct(P.moa)} fueron manufacturas de ` +
-      `origen agropecuario, el ${pct(P.moi)}, manufacturas de origen industrial, el ${pct(P.primarios)}, productos primarios, y el ${pct(P.combustibles)}, ` +
-      `combustibles y energía. Medidas en cantidades, sin el efecto de los precios, las exportaciones de ${t.anio_ult} fueron ` +
-      (t.total_max_anio === t.anio_ult ? `las más altas de la serie, que empieza en ${t.desde_anio}. ` : `menores que las de ${t.total_max_anio}, el año más alto de la serie, que empieza en ${t.desde_anio}. `) +
-      `Las de combustibles se multiplicaron por ${n1(t.comb_veces)} desde ${t.comb_min_anio}, y las de productos primarios tuvieron su mayor caída en ` +
-      `${t.pp_caida_anio}, cuando bajaron ${pctAbs(t.pp_caida)} frente al año anterior.`;
-    const s2 = `Si se compara cada trimestre con el mismo del año anterior, la correlación de Spearman entre lo que cambió el dólar real medio año antes y ` +
-      `lo que cambiaron las cantidades exportadas es de ${rTxt(rs.total)}, una relación ${fz(rs.total)}, en una escala que va de menos 1 a 1. Desde ` +
-      `${t.sin_desde}, es de ${rTxt(t.rs_sin)}. Con el dólar del mismo trimestre es de ${rTxt(t.rs_mismo)}, y con el de un año antes, de ${rTxt(t.rs_anio)}. ` +
-      `Por rubro, con medio año de rezago, es de ${rTxt(rs.primarios)} en los productos primarios, de ${rTxt(rs.moa)} en las manufacturas de origen ` +
-      `agropecuario, de ${rTxt(rs.moi)} en las de origen industrial y de ${rTxt(rs.combustibles)} en los combustibles.`;
-    const s3 = "Brasil es uno de los principales socios comerciales del país. Con el tipo de cambio real con Brasil de medio año antes, la relación de las " +
-      `manufacturas de origen industrial es de ${rTxt(t.rs_moi_brasil)}, una relación ${fz(t.rs_moi_brasil)}` +
-      (ab(t.rs_moi_brasil) > ab(rs.moi) ? `, algo más marcada que con el dólar real multilateral (${rTxt(rs.moi)})` : `, frente a ${rTxt(rs.moi)} con el dólar real multilateral`) +
-      `, y desde ${t.sin_desde}, de ${rTxt(t.rs_moi_brasil_sin)}.`;
+      `origen agropecuario, como harinas, aceites y carnes, el ${pct(P.moi)}, manufacturas de origen industrial, como autos y productos químicos, el ` +
+      `${pct(P.primarios)}, productos primarios, como granos y minerales, y el ${pct(P.combustibles)}, combustibles y energía. Los productos primarios y las ` +
+      `manufacturas de origen agropecuario suman el ${pct(P.primarios + P.moa)}.`;
+    // 2. las cantidades por rubro
+    const cam = v => `${v < 100 ? "un " + pctAbs(v - 100) + " menos" : "un " + pct(v - 100) + " más"} que en ${t.desde_anio}`;
+    const s2 = `Medidas en cantidades, sin el efecto de los precios, las exportaciones de ${t.anio_ult} fueron ` +
+      (t.total_max_anio === t.anio_ult ? `las más altas de la serie: ${cam(K.total)}. ` : `${cam(K.total)}, menores que las de ${t.total_max_anio}, el año más alto. `) +
+      `Por rubro, los productos primarios exportaron ${cam(K.primarios)}, las manufacturas de origen agropecuario, ${cam(K.moa)}, las de origen industrial, ` +
+      `${cam(K.moi)}, y los combustibles, ${cam(K.combustibles)}. Los combustibles se multiplicaron por ${n1(t.comb_veces)} desde ${t.comb_min_anio}, y los ` +
+      `productos primarios tuvieron su mayor caída en ${t.pp_caida_anio}, cuando bajaron ${pctAbs(t.pp_caida)} frente al año anterior.`;
+    // 3. el dólar real
+    const s3 = `En el ${t.ult}, el dólar real estaba ${pctAbs(t.tcr_vs_prom)} ${t.tcr_vs_prom < 0 ? "por debajo" : "por encima"} de su promedio desde ${t.desde_anio}, ` +
+      `y el tipo de cambio real con Brasil, ${pctAbs(t.tcr_brasil_vs_prom)} ${t.tcr_brasil_vs_prom < 0 ? "por debajo" : "por encima"} del suyo. El dólar real más alto de la ` +
+      `serie fue el del ${t.tcr_max}, y el más bajo, el del ${t.tcr_min}.`;
+    // 4. el dólar de medio año antes y las cantidades
+    const s4 = `Si se compara cada trimestre con el mismo del año anterior, lo que cambió el dólar real medio año antes y lo que cambiaron las cantidades ` +
+      `exportadas tienen una relación ${fz(rs.total)}. Desde ${t.sin_desde}, es ${fz(t.rs_sin)}. Con el dólar del mismo trimestre es ${fz(t.rs_mismo)}, y con el ` +
+      `de un año antes, ${fz(t.rs_anio)}.` + (ab(rs.total) > Math.max(ab(t.rs_mismo), ab(t.rs_anio)) ?
+      " El medio año de espera es el que muestra la relación más marcada: los cambios en las ventas al exterior llevan tiempo." : "");
+    // 5. por rubro
+    const otros = rub.filter(k => k !== topR).sort((p, q) => ab(rs[q]) - ab(rs[p]));
+    const s5 = `Por rubro, con medio año de espera, la relación más marcada es la de ${NOM[topR]}: ${fz(rs[topR])}. Es ` +
+      `${lista(otros.map(k => `${fz(rs[k])} en ${NOM[k]}`))}. Las cosechas dependen del clima, y los combustibles, de lo invertido en pozos.`;
+    // 6. Brasil y las manufacturas industriales
+    const s6 = "Brasil es uno de los principales socios comerciales del país y uno de los principales destinos de las manufacturas industriales, como los autos. " +
+      `Con el tipo de cambio real con Brasil de medio año antes, la relación de esas manufacturas es ${fz(t.rs_moi_brasil)}` +
+      (fz(t.rs_moi_brasil) === fz(rs.moi) ? ", como con el dólar real multilateral" : `, frente a una relación ${fz(rs.moi)} con el dólar real multilateral`) +
+      `, y desde ${t.sin_desde}, ${fz(t.rs_moi_brasil_sin)}.`;
+    const sintesis = [`En los doce meses hasta ${t.doce_hasta}, el país exportó ${n0(t.doce_total)} millones de dólares. ${May(NOM[topP])} fueron el ${pct(P[topP])}.`,
+      `Las cantidades exportadas de ${t.anio_ult} fueron ${cam(K.total)}.`,
+      `Lo que cambia el dólar real y lo que cambian las cantidades exportadas medio año después tienen una relación ${fz(rs.total)}.`];
     const lim = ["Son trimestres de una sola economía, y los trimestres seguidos no son casos independientes: una misma crisis o una misma cosecha pesa en varios a la vez.",
       "Una correlación no prueba que una cosa cause la otra. En los mismos años cambiaron las cosechas, los precios internacionales, la producción de petróleo " +
       "y gas, los impuestos a las exportaciones y las reglas para cobrar los dólares de lo que se exporta.",
       "El índice de tipo de cambio real usa los tipos de cambio oficiales. En algunos períodos, los exportadores pudieron cobrar parte de sus ventas a tipos " +
       "de cambio distintos del oficial.",
-      "Los índices de cantidad del INDEC son trimestrales, con 2004 = 100, y el INDEC revisa los últimos trimestres en cada publicación.",
       "La parte de cada rubro en las exportaciones se mide en dólares, así que cambia también con los precios internacionales."];
-    return {respuesta, bajada, contexto, lim, secciones: [
-      {g: "export-cantidades", tit: "Cantidades exportadas por gran rubro, promedio de cada año", forma: "lineas", alto: "396px",
-        pie: `Índices de cantidad del INDEC, ${t.desde_anio} = 100, sin el efecto de los precios. Años completos.`, txt: [s1]},
-      {g: "export-dolar", tit: "Cuánto cambió el dólar real medio año antes y cuánto cambiaron las cantidades exportadas", forma: "puntos",
-        pie: "Cada punto es un trimestre, frente al mismo trimestre del año anterior. La línea punteada muestra la tendencia.", txt: [s2]},
-      {g: "export-brasil", tit: "El tipo de cambio real con Brasil y las manufacturas de origen industrial", forma: "puntos",
-        pie: "Cada punto es un trimestre: el cambio del tipo de cambio real con Brasil de medio año antes y el de las cantidades de manufacturas de origen industrial exportadas.", txt: [s3]},
+    const notas = [`Cantidades: índices de cantidad de las exportaciones del INDEC, del total y de cada gran rubro, por trimestre, con ${t.desde_anio} = 100. Los años completos promedian sus cuatro trimestres.`,
+      "Parte de cada rubro: exportaciones en dólares de los últimos doce meses (INDEC, intercambio comercial argentino).",
+      "Dólar real: índices de tipo de cambio real multilateral y bilateral con Brasil del Banco Central, promedio de cada trimestre. El de medio año antes es el cambio de dos trimestres atrás.",
+      `Correlación de Spearman, de menos 1 a 1: ${rTxt(rs.total)} para el total, ${rTxt(t.rs_mismo)} con el mismo trimestre y ${rTxt(t.rs_moi_brasil)} para las manufacturas industriales con Brasil. El INDEC revisa los últimos trimestres en cada publicación.`];
+    return {respuesta, bajada, contexto, medimos, sintesis, lim, notas, secciones: [
+      {preg: "¿Qué exporta el país?", g: "export-partes", forma: "barras",
+        tit: `${May(NOM[topP])} fueron el ${pct(P[topP])} de lo exportado en los últimos doce meses`,
+        pie: `% de las exportaciones en dólares de los doce meses hasta ${t.doce_hasta}.`, txt: [s1]},
+      {preg: "¿Cuánto cambiaron las cantidades exportadas?", g: "export-cantidades", forma: "lineas", alto: "396px",
+        tit: `Las cantidades exportadas de ${t.anio_ult} fueron ${cam(K.total)}`,
+        pie: `Índices de cantidad del INDEC, ${t.desde_anio} = 100, sin el efecto de los precios. Años completos.`, txt: [s2]},
+      {preg: "¿Cómo se movió el dólar real?", g: "export-tcr", forma: "lineas",
+        tit: `En el ${t.ult}, el dólar real estaba ${pctAbs(t.tcr_vs_prom)} ${t.tcr_vs_prom < 0 ? "por debajo" : "por encima"} de su promedio`,
+        pie: "Índices de tipo de cambio real del Banco Central, promedio de cada trimestre. Más alto quiere decir un país más barato frente a sus socios.", txt: [s3]},
+      {preg: "¿Se exporta más medio año después de que sube el dólar?", g: "export-dolar", forma: "puntos",
+        tit: `Lo que cambia el dólar real y lo que cambian las cantidades exportadas medio año después: una relación ${fz(rs.total)}`,
+        pie: "Cada punto es un trimestre, frente al mismo trimestre del año anterior. La línea punteada muestra la tendencia.", txt: [s4]},
+      {preg: "¿Qué rubro se mueve más con el dólar?", g: "export-rubros", forma: "barras",
+        tit: `La relación más marcada es la de ${NOM[topR]}`,
+        pie: "Correlación entre el cambio del dólar real de medio año antes y el de las cantidades exportadas de cada rubro, de menos 1 a 1.", txt: [s5]},
+      {preg: "¿Y las manufacturas industriales con Brasil?", g: "export-brasil", forma: "puntos",
+        tit: `El tipo de cambio real con Brasil y las manufacturas de origen industrial: una relación ${fz(t.rs_moi_brasil)}`,
+        pie: "Cada punto es un trimestre: el cambio del tipo de cambio real con Brasil de medio año antes y el de las cantidades de manufacturas de origen industrial exportadas.", txt: [s6]},
     ]};
   },
   dib: {
+    "export-partes": (el, a) => {
+      const X = R.exportaciones_dolar, NOM = {primarios: "Productos primarios", moa: "Manufacturas agropecuarias", moi: "Manufacturas industriales", combustibles: "Combustibles"};
+      return barrasH(el, {anim: a, data: Object.entries(NOM).map(([k, n]) => ({codigo_indec: k, territorio: n, v: X.pct[k]})), k: "v", vf: pct, af: v => n0(v) + "%",
+        l: 190, lAngosto: 180, tip: d => `<b>${d.territorio}</b><br>${pct(d.v)} de las exportaciones de los doce meses hasta ${X.doce_hasta}`});
+    },
     "export-cantidades": (el, a) => lineas(el, {anim: a, x: "anio", y0: 0, vf: n0, yf: n0, data: T.exportaciones_cantidades_anual,
       series: [{k: "primarios", lab: "Productos primarios", c: NAR}, {k: "moa", lab: "Manufacturas agropecuarias", c: FRI},
         {k: "moi", lab: "Manufacturas industriales", c: css("--azul-hondo")}, {k: "combustibles", lab: "Combustibles", c: css("--sol-borde")}]}),
+    "export-tcr": (el, a) => lineas(el, {anim: a, x: "t", y0: 0, vf: n0, yf: n0, xl: triCorto,
+      data: T.exportaciones_dolar_trimestral.map(r => ({...r, t: r.anio + (r.trimestre - 1) / 4})),
+      series: [{k: "tcr", lab: "Dólar real", c: NAR}, {k: "tcr_brasil", lab: "Con Brasil", c: FRI}]}),
     "export-dolar": (el, a) => {
       const data = T.exportaciones_dolar_trimestral.filter(r => r.var_tcr_antes != null && r.var_total != null).map(r => ({...r, codigo_indec: r.periodo, territorio: triCorto(r)}));
       return dispersion(el, {anim: a, data, x: "var_tcr_antes", y: "var_total", yAuto: true, marcar: [data.at(-1).periodo],
         xLab: "Cambio del dólar real, medio año antes", yLab: "Cambio de las cantidades exportadas", fx: v => n0(v) + "%", fy: v => n0(v) + "%",
         vx: v => (v > 0 ? "+" : "") + pct(v), vy: v => (v > 0 ? "+" : "") + pct(v)});
+    },
+    "export-rubros": (el, a) => {
+      const X = R.exportaciones_dolar, NOM = {total: "Total", primarios: "Productos primarios", moa: "Manufacturas agropecuarias", moi: "Manufacturas industriales", combustibles: "Combustibles"};
+      return barrasH(el, {anim: a, data: Object.entries(NOM).map(([k, n]) => ({codigo_indec: k, territorio: n, v: X.rs[k]})), k: "v", vf: rTxt, af: n1,
+        l: 190, lAngosto: 180, marcar: new Set(["total"]), tip: d => `<b>${d.territorio}</b><br>Correlación de ${rTxt(d.v)}, una relación ${fz(d.v)}`});
     },
     "export-brasil": (el, a) => {
       const data = T.exportaciones_dolar_trimestral.filter(r => r.var_tcr_brasil_antes != null && r.var_moi != null).map(r => ({...r, codigo_indec: r.periodo, territorio: triCorto(r)}));
@@ -9502,6 +9737,8 @@ ART_SERIE.forEach(a => {
     // modelo nuevo (2 de noviembre de 2026, pedido del autor, como los artículos de Fundar): "En síntesis" arriba, "Qué medimos", cada sección
     // con su pregunta (h2) y un gráfico cuyo título es la conclusión (h3), y "Fuentes y metodología" con notas numeradas. Los artículos que
     // todavía no lo tienen se ven como antes
+    // texto() corre al cargar la página, y también en articulos.html para las 24 tarjetas, antes de que lleguen las tablas diferidas:
+    // usa solo el resumen (R), y lo que necesita se calcula en 02_procesar.py. Las tablas son para los gráficos (dib)
     (t.sintesis ? `<div class="nota-frase nota-sintesis"><h2>En síntesis</h2><ul>${t.sintesis.map(x => `<li>${x}</li>`).join("")}</ul></div>` : "") +
     `<p>${t.contexto}</p>` + (t.medimos ? `<div class="nota-medimos"><h2>Qué medimos</h2>${t.medimos.map(x => `<p>${x}</p>`).join("")}</div>` : "") +
     t.secciones.map(s => (s.preg ? `<div class="nota-sec"><h2>${s.preg}</h2>` : "") + `<div class="nota-graf"><h${s.preg ? 3 : 2}>${s.tit}</h${s.preg ? 3 : 2}>` +

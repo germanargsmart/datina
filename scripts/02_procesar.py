@@ -5256,6 +5256,42 @@ DOL_RES = {
                 "ant": float(_di_f[(_di_f.anio == _di_ya - 1) & (_di_f.mes <= _di_ym)].neto.sum())} if _di_ya > int(_di_fu.anio) else None,
     "rs_fae": _di_sp("itcrm", "compras_netas_usd"),
 }
+# reescritura de los artículos (2 de noviembre de 2026): lo que necesitan los textos de las compras de dólares y de la inversión. Va en el
+# resumen porque el texto de un artículo se arma antes de que lleguen sus tablas diferidas. Los años enteros con límites para comprar
+# dólares al tipo de cambio oficial (rigieron de fines de 2011 a fines de 2015 y de septiembre de 2019 a abril de 2025) son hechos fijos
+_di_lim = set(range(2012, 2016)) | set(range(2020, 2025))
+_di_fl = compras_dolares_anual.assign(lim=compras_dolares_anual.anio.isin(_di_lim))
+_di_tr = (_di_fl.lim != _di_fl.lim.shift()).cumsum()
+_di_fo = _di_fm.sort_values(ascending=False)
+_di_q = di_.dropna(subset=["compras_netas_usd"])
+_di_qt = _di_q.dropna(subset=["itcrm"])
+_di_qt = _di_qt.assign(tercio=pd.qcut(_di_qt.itcrm, 3, labels=False)).groupby("tercio").compras_netas_usd.median()
+# la inversión de cada año completo, en pesos de 2004
+_di_ik = ["inversion_total", "construccion", "equipo_importado", "equipo_nacional"]
+_di_ia = di_[_di_ik].dropna()
+_di_ia = _di_ia.groupby(_di_ia.index.year).agg(["sum", "size"])
+_di_ia = pd.DataFrame({k: _di_ia[(k, "sum")] for k in _di_ik})[_di_ia[("inversion_total", "size")] == 4]
+DOL_RES.update({
+    "fae_top": [[int(a), float(v)] for a, v in _di_fo.head(5).items()],
+    "fae_total": float(_di_fm.sum()), "fae_prom": float(_di_fm.mean()), "fae_n": int(len(_di_fm)),
+    "fae_top5_pct": r1(float(_di_fo.head(5).sum() / _di_fm.sum() * 100)),
+    "fae_tramos": [{"ini": int(g.anio.min()), "fin": int(g.anio.max()), "limites": bool(g.lim.iloc[0]), "prom": float(g.millones_usd.mean())}
+                   for _, g in _di_fl.groupby(_di_tr)],
+    "fae_con_prom": float(_di_fl[_di_fl.lim].millones_usd.mean()), "fae_con_n": int(_di_fl.lim.sum()),
+    "fae_sin_prom": float(_di_fl[~_di_fl.lim].millones_usd.mean()), "fae_sin_n": int((~_di_fl.lim).sum()),
+    "fae_con_pct": r1(float(_di_fl[_di_fl.lim].millones_usd.sum() / _di_fm.sum() * 100)),
+    "fae_q_max": [_tri(_di_q.compras_netas_usd.idxmax()), float(_di_q.compras_netas_usd.max())],
+    "fae_q_min": [_tri(_di_q.compras_netas_usd.idxmin()), float(_di_q.compras_netas_usd.min())],
+    "fae_q_ult": [_tri(_di_q.index[-1]), float(_di_q.compras_netas_usd.iloc[-1])],
+    "fae_q_neg": int((_di_q.compras_netas_usd < 0).sum()), "fae_q_n": int(len(_di_q)),
+    "fae_tcr_barato": float(_di_qt[0]), "fae_tcr_caro": float(_di_qt[2]),
+    "inv_ini": int(_di_ia.index.min()), "inv_ult": int(_di_ia.index.max()),
+    "inv_var": r1(float(_di_ia.inversion_total.iloc[-1] / _di_ia.inversion_total.iloc[0] * 100 - 100)),
+    "inv_max_anio": int(_di_ia.inversion_total.idxmax()), "inv_min_anio": int(_di_ia.inversion_total.idxmin()),
+    "inv_ult_vs_max": r1(float(_di_ia.inversion_total.iloc[-1] / _di_ia.inversion_total.max() * 100 - 100)),
+    "inv_pct": {k: [r1(float(_di_ia[k].iloc[0] / _di_ia.inversion_total.iloc[0] * 100)), r1(float(_di_ia[k].iloc[-1] / _di_ia.inversion_total.iloc[-1] * 100))]
+                for k in _di_ik[1:]},
+})
 agregar(_di_tcr[_di_tcr.mes >= "2004-01"].rename(columns={"mes": "periodo", "itcrm": "valor"}).assign(codigo_indec="00", territorio="Argentina"),
         "tipo_cambio_real_multilateral", "indice, 17 de diciembre de 2015 = 100", "BCRA, indice de tipo de cambio real multilateral")
 agregar(compras_dolares_anual.rename(columns={"anio": "periodo", "millones_usd": "valor"}).assign(codigo_indec="00", territorio="Argentina"),
@@ -5589,6 +5625,18 @@ TU_RES = {
     "tcr_vs_prom": r1(float(_tu_u.tcr_itcrm / tu_.tcr_itcrm.mean() * 100 - 100)), "tcr_ult": _mes_per(tu_.index[-1]),
     "provisorio_desde": _mes_per(_tu_r[_tu_r.observaciones.fillna("").str.contains("provisori", case=False)].mes.min()),
 }
+# reescritura del artículo (2 de noviembre de 2026): la balanza de los doce meses, el origen de los turistas y el dólar real
+_tu_bz = tu_.balanza_12m.dropna()
+TU_RES.update({
+    "bz_max": [_mes_per(_tu_bz.idxmax()), int(_tu_bz.max())], "bz_min": [_mes_per(_tu_bz.idxmin()), int(_tu_bz.min())],
+    "bz_pos": int((_tu_bz > 0).sum()), "bz_n": int(len(_tu_bz)), "bz_desde": _mes_per(_tu_bz.index[0]),
+    "origen_12m": {k: int(_tu_12["llegan_" + k].sum()) for k in ("brasil", "chile", "uruguay")},
+    "origen_pct": {k: r1(float(_tu_12["llegan_" + k].sum() / _tu_12.llegan.sum() * 100)) for k in ("brasil", "chile", "uruguay")},
+    "origen_ini": {k: int(tu_["llegan_" + k].iloc[:12].sum()) for k in ("brasil", "chile", "uruguay")},
+    "llegan_ini_12m": int(tu_.llegan.iloc[:12].sum()), "anio_ini": int(tu_.index[0][:4]),
+    "tcr_max_mes": _mes_per(tu_.tcr_itcrm.idxmax()), "tcr_min_mes": _mes_per(tu_.tcr_itcrm.idxmin()),
+    "tcr_brasil_vs_prom": r1(float(_tu_u.tcr_brasil / tu_.tcr_brasil.mean() * 100 - 100)),
+})
 agregar(pd.DataFrame({"periodo": tu_.index, "valor": tu_.salen}).dropna().assign(codigo_indec="00", territorio="Argentina"),
         "viajes_turistas_residentes_al_exterior", "viajes por mes", "Ministerio de Turismo y Deportes, SINTA, estimacion de turismo internacional")
 
@@ -5627,6 +5675,15 @@ NF_RES = {
     "veces_ult_anio": int(_nf_y.index.max()), "veces_ult": float(_nf_y.veces.iloc[-1]),
     "usd_anio_ult": float(_nf_y.nafta_usd.iloc[-1]), "usd_anio_max_anio": int(_nf_y.nafta_usd.idxmax()), "usd_anio_max": float(_nf_y.nafta_usd.max()),
 }
+# reescritura del artículo (2 de noviembre de 2026): lo que separa la nafta del petróleo y la nafta en pesos frente al dólar oficial
+_nf_d = nf_.nafta_usd - nf_.brent_litro
+_nf_v = pd.DataFrame({"p": (nf_.nafta / nf_.nafta.shift(12) - 1) * 100, "tc": (nf_.a3500 / nf_.a3500.shift(12) - 1) * 100}).dropna()
+NF_RES.update({
+    "dif_ult": float(_nf_d.iloc[-1]), "dif_prom": float(_nf_d.mean()),
+    "dif_max": [_mes_per(_nf_d.idxmax()), float(_nf_d.max())], "dif_min": [_mes_per(_nf_d.idxmin()), float(_nf_d.min())],
+    "rs_pesos_tc": _nf_sp("tc", "p", _nf_v), "pesos_var_ult": r1(float(_nf_v.p.iloc[-1])), "tc_var_ult": r1(float(_nf_v.tc.iloc[-1])),
+    "pesos_mas_tc": int((_nf_v.p > _nf_v.tc).sum()), "n_pesos": int(len(_nf_v)),
+})
 agregar(pd.DataFrame({"periodo": nf_.index, "valor": nf_.nafta_usd}).assign(codigo_indec="00", territorio="Argentina"),
         "precio_nafta_super_surtidor_dolares", "dolares por litro al tipo de cambio de referencia (Com. A 3500), mediana de las estaciones",
         "Secretaria de Energia (Res. 1104/2004) y BCRA")
@@ -5680,6 +5737,13 @@ XD_RES = {
     "pp_caida_anio": int(_xd_pp.idxmin()), "pp_caida": r1(float(_xd_pp.min())),
     "total_max_anio": int(_xd_y.total.idxmax()),
 }
+# reescritura del artículo (2 de noviembre de 2026): las cantidades del último año completo y el dólar real del último trimestre
+XD_RES.update({
+    "cant_ult": {k: r1(float(_xd_y[k].iloc[-1])) for k in ("total", "primarios", "moa", "moi", "combustibles")},
+    "tcr_vs_prom": r1(float(xd_.tcr.iloc[-1] / xd_.tcr.mean() * 100 - 100)),
+    "tcr_brasil_vs_prom": r1(float(xd_.tcr_brasil.iloc[-1] / xd_.tcr_brasil.mean() * 100 - 100)),
+    "tcr_max": _tri(xd_.tcr.idxmax()), "tcr_min": _tri(xd_.tcr.idxmin()),
+})
 agregar(pd.DataFrame({"periodo": xd_.index.astype(str).str.replace("Q", "T").map(lambda p: p[-1] + "T" + p[:4]), "valor": xd_.total.values}).assign(codigo_indec="00", territorio="Argentina"),
         "indice_cantidad_exportaciones", "indice, 2004 = 100", "INDEC, indices de valor, precio y cantidad de las exportaciones")
 
