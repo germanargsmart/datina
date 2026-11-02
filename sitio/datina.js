@@ -22,6 +22,19 @@ const TITULO_INICIAL = document.title;
 // en una pieza del Laboratorio con página propia (etapa 33), "laboratorio"
 const SECCION = PAGINA.startsWith("a-") ? "articulos" : document.querySelector("section.pieza") ? "laboratorio" : PAGINA;
 const SITIO = D.indice, UBIC = SITIO.ubic;
+// F15 (plan de mejora, aprobado por el autor el 28 de octubre de 2026): la ficha sola, para insertarla en otro sitio (pagina.html?insertar#f-...).
+// La página entera sigue en el documento (el resto del código la usa) y la hoja de estilos oculta todo lo que no lleva a la ficha. Los enlaces
+// abren en la ventana de afuera. Las fichas de suicidio y la de muertes violentas no se insertan (las mismas de NOTA_A_LA_VISTA, más abajo)
+const INSERTAR = (() => {
+  if (!new URLSearchParams(location.search).has("insertar")) return null;
+  const f = document.getElementById(location.hash.slice(1).split("?")[0]);
+  if (!f || !f.matches("article.ficha") || ["f-muertes", "f-suicidio", "f-suicidio-prov", "f-edad"].includes(f.id)) return null;
+  for (let a = f.parentElement; a && a !== document.documentElement; a = a.parentElement) a.classList.add("ins-camino");
+  f.classList.add("ins-ficha"); document.documentElement.classList.add("insertar");
+  document.head.insertAdjacentHTML("beforeend", '<base target="_top">');
+  f.insertAdjacentHTML("beforeend", `<p class="ins-credito">De <a href="${location.origin + location.pathname}#${f.id}">Datina, las 24 Argentinas en números</a></p>`);
+  return f;
+})();
 // página donde está un ancla (una ficha, una sección o un artículo)
 const paginaDe = id => UBIC[id] || UBIC[(SITIO.alias || {})[id]];
 const urlPagina = (p, resto = "") => (p === "inicio" ? "./" : p + ".html") + resto;
@@ -7357,6 +7370,7 @@ document.querySelectorAll("article.ficha").forEach(f => {
     `<div class="compartir-panel"><button type="button" class="boton chico accion copiar"><span class="lbl">Copiar enlace</span></button>` +
     `<button type="button" class="boton chico accion citar"><span class="lbl">Copiar cita</span></button>` +
     (f.querySelector(".grafico[data-g]") ? `<button type="button" class="boton chico accion imagen" hidden><span class="lbl">Descargar imagen</span></button>` : "") +
+    (f.querySelector(".grafico[data-g]") && !NOTA_A_LA_VISTA.has(f.id) ? `<button type="button" class="boton chico accion insertar"><span class="lbl">Copiar código para insertar</span></button>` : "") +
     `</div></details>`;
   const panel = acc.querySelector(".compartir-panel");
   // las de una ficha con vistas conservan su nombre si tienen uno propio ("Reservas por mes (CSV)")
@@ -7417,6 +7431,12 @@ document.querySelectorAll("article.ficha").forEach(f => {
   // F2 (plan de mejora, 31 de octubre de 2026): la cita de la ficha, con el año y el día de la consulta, la pregunta, la fuente del pie (sin
   // "Se actualiza…" ni los enlaces) y la dirección con la vista elegida. Como la propone "Usar los datos"
   acc.querySelector(".citar").addEventListener("click", () => copiar(citaFicha(f, enlace()), ".citar", "Cita copiada", "Copiar cita"));
+  // F15: el código para mostrar la ficha en otro sitio, con la misma dirección que "Copiar enlace" y la marca para verla sola
+  acc.querySelector(".insertar")?.addEventListener("click", () => {
+    const e = enlace(), i = e.indexOf("#"), u = e.slice(0, i) + (e.slice(0, i).includes("?") ? "&" : "?") + "insertar" + e.slice(i);
+    copiar(`<iframe src="${u}" title="${tituloFicha.textContent.replace(/"/g, "&quot;")} (Datina)" width="100%" height="900" style="border:0" loading="lazy"></iframe>`,
+      ".insertar", "Código copiado", "Copiar código para insertar");
+  });
 });
 
 /* Fichas horizontales: la cabeza (etiqueta, pregunta, descripción y cifra) y debajo el texto (la lectura y las notas a la vista) en
