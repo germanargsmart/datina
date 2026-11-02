@@ -3,7 +3,7 @@
  "titulo": "¿Cuánto exporta e importa el país en combustibles y energía?",
  "descripcion": "Exportaciones de combustibles y energía e importaciones de combustibles y lubricantes, en millones de dólares, 2004 a 2025",
  "seccion": "Petróleo y gas",
- "ficha": "https://datina.pages.dev/petroleo.html#f-balanza-energetica",
+ "ficha": "https://datina.com.ar/petroleo.html#f-balanza-energetica",
  "fuente": "INDEC, Intercambio Comercial Argentino, vía API de Series de Tiempo.",
  "actualizacion": "Se actualiza cada mes.",
  "cobertura": "Sin desglose territorial",
@@ -36,5 +36,5 @@
  "datos_actualizados": "28/10/2026",
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿Cuánto exporta e importa el país en combustibles y energía? Con datos de INDEC, Intercambio Comercial Argentino, vía API de Series de Tiempo. https://datina.pages.dev/petroleo.html#f-balanza-energetica. Consultado el día de la consulta."
+ "como_citar": "Datina (año de la consulta). ¿Cuánto exporta e importa el país en combustibles y energía? Con datos de INDEC, Intercambio Comercial Argentino, vía API de Series de Tiempo. https://datina.com.ar/petroleo.html#f-balanza-energetica. Consultado el día de la consulta."
 }

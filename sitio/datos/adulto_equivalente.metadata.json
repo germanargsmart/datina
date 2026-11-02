@@ -3,7 +3,7 @@
  "titulo": "¿Cuánto tiene que ganar una familia para no ser pobre en cada región?",
  "descripcion": "Lo que necesita por mes un hogar para no quedar bajo la línea de pobreza en cada una de las seis regiones del INDEC, una calculadora para el hogar propio y la parte de las personas bajo esa línea en cada región.",
  "seccion": "Pobreza y hogares",
- "ficha": "https://datina.pages.dev/a-canasta-regiones.html",
+ "ficha": "https://datina.com.ar/a-canasta-regiones.html",
  "fuente": "INDEC, canasta básica alimentaria y canasta básica total (valores por región del informe de pobreza y tabla de adulto equivalente), e incidencia de la pobreza y la indigencia, Encuesta Permanente de Hogares",
  "actualizacion": "Se actualiza cada semestre.",
  "cobertura": "Sin desglose territorial",
@@ -41,5 +41,5 @@
  "datos_actualizados": "28/10/2026",
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿Cuánto tiene que ganar una familia para no ser pobre en cada región? Con datos de INDEC, canasta básica alimentaria y canasta básica total (valores por región del informe de pobreza y tabla de adulto equivalente), e incidencia de la pobreza y la indigencia, Encuesta Permanente de Hogares. https://datina.pages.dev/a-canasta-regiones.html. Consultado el día de la consulta."
+ "como_citar": "Datina (año de la consulta). ¿Cuánto tiene que ganar una familia para no ser pobre en cada región? Con datos de INDEC, canasta básica alimentaria y canasta básica total (valores por región del informe de pobreza y tabla de adulto equivalente), e incidencia de la pobreza y la indigencia, Encuesta Permanente de Hogares. https://datina.com.ar/a-canasta-regiones.html. Consultado el día de la consulta."
 }

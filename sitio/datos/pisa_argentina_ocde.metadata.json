@@ -3,7 +3,7 @@
  "titulo": "¿Qué puntaje saca la Argentina en las pruebas PISA?",
  "descripcion": "Puntaje promedio de la Argentina y de los países de la OCDE en las pruebas PISA, 2000 a 2022",
  "seccion": "Educación",
- "ficha": "https://datina.pages.dev/educacion.html#f-pisa",
+ "ficha": "https://datina.com.ar/educacion.html#f-pisa",
  "fuente": "OCDE, Programa para la Evaluación Internacional de Alumnos (PISA), vía Our World in Data.",
  "actualizacion": "Se actualiza con cada evaluación PISA.",
  "cobertura": "Sin desglose territorial",
@@ -71,5 +71,5 @@
  "datos_actualizados": "28/10/2026",
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿Qué puntaje saca la Argentina en las pruebas PISA? Con datos de OCDE, Programa para la Evaluación Internacional de Alumnos (PISA), vía Our World in Data. https://datina.pages.dev/educacion.html#f-pisa. Consultado el día de la consulta."
+ "como_citar": "Datina (año de la consulta). ¿Qué puntaje saca la Argentina en las pruebas PISA? Con datos de OCDE, Programa para la Evaluación Internacional de Alumnos (PISA), vía Our World in Data. https://datina.com.ar/educacion.html#f-pisa. Consultado el día de la consulta."
 }

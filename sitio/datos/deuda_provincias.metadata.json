@@ -3,7 +3,7 @@
  "titulo": "¿Qué provincias deben más por habitante?",
  "descripcion": "Stock de deuda pública de cada provincia, por habitante y por acreedor, al 30 de junio de 2026",
  "seccion": "Cuentas públicas",
- "ficha": "https://datina.pages.dev/gobierno.html#f-deuda-provincias",
+ "ficha": "https://datina.com.ar/gobierno.html#f-deuda-provincias",
  "fuente": "Subsecretaría de Coordinación Fiscal Provincial, Ministerio de Economía, evolución del stock de deuda provincial, e INDEC, proyecciones de población.",
  "actualizacion": "Se actualiza cada tres meses.",
  "cobertura": "Las 24 jurisdicciones",
@@ -101,5 +101,5 @@
  "datos_actualizados": "28/10/2026",
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿Qué provincias deben más por habitante? Con datos de Subsecretaría de Coordinación Fiscal Provincial, Ministerio de Economía, evolución del stock de deuda provincial, e INDEC, proyecciones de población. https://datina.pages.dev/gobierno.html#f-deuda-provincias. Consultado el día de la consulta."
+ "como_citar": "Datina (año de la consulta). ¿Qué provincias deben más por habitante? Con datos de Subsecretaría de Coordinación Fiscal Provincial, Ministerio de Economía, evolución del stock de deuda provincial, e INDEC, proyecciones de población. https://datina.com.ar/gobierno.html#f-deuda-provincias. Consultado el día de la consulta."
 }

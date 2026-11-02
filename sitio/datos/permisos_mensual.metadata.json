@@ -3,7 +3,7 @@
  "titulo": "¿Cuántos metros cuadrados se autorizan para construir?",
  "descripcion": "Superficie autorizada por los permisos de edificación de 246 municipios, en miles de metros cuadrados por mes, 2021 a julio de 2026",
  "seccion": "Construcción y vivienda",
- "ficha": "https://datina.pages.dev/construccion.html#f-permisos",
+ "ficha": "https://datina.com.ar/construccion.html#f-permisos",
  "fuente": "INDEC, indicadores de coyuntura de la actividad de la construcción (permisos de edificación).",
  "actualizacion": "Se actualiza cada mes.",
  "cobertura": "Sin desglose territorial",
@@ -36,5 +36,5 @@
  "datos_actualizados": "28/10/2026",
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿Cuántos metros cuadrados se autorizan para construir? Con datos de INDEC, indicadores de coyuntura de la actividad de la construcción (permisos de edificación). https://datina.pages.dev/construccion.html#f-permisos. Consultado el día de la consulta."
+ "como_citar": "Datina (año de la consulta). ¿Cuántos metros cuadrados se autorizan para construir? Con datos de INDEC, indicadores de coyuntura de la actividad de la construcción (permisos de edificación). https://datina.com.ar/construccion.html#f-permisos. Consultado el día de la consulta."
 }

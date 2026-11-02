@@ -3,7 +3,7 @@
  "titulo": "¿Cuántos años se vive en cada provincia?",
  "descripcion": "Esperanza de vida al nacer por provincia y sexo, 2022",
  "seccion": "Salud",
- "ficha": "https://datina.pages.dev/salud.html#f-esperanza",
+ "ficha": "https://datina.com.ar/salud.html#f-esperanza",
  "fuente": "INDEC, tablas de mortalidad por jurisdicción.",
  "actualizacion": "Se actualiza con cada censo.",
  "cobertura": "Las 24 jurisdicciones",
@@ -41,5 +41,5 @@
  "datos_actualizados": "28/10/2026",
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿Cuántos años se vive en cada provincia? Con datos de INDEC, tablas de mortalidad por jurisdicción. https://datina.pages.dev/salud.html#f-esperanza. Consultado el día de la consulta."
+ "como_citar": "Datina (año de la consulta). ¿Cuántos años se vive en cada provincia? Con datos de INDEC, tablas de mortalidad por jurisdicción. https://datina.com.ar/salud.html#f-esperanza. Consultado el día de la consulta."
 }

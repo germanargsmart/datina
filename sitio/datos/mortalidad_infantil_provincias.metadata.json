@@ -3,7 +3,7 @@
  "titulo": "¿Cuántos bebés mueren antes del año en cada provincia?",
  "descripcion": "Muertes de menores de un año cada 1.000 nacidos vivos por provincia, promedios de 2012 a 2014 y de 2022 a 2024",
  "seccion": "Salud",
- "ficha": "https://datina.pages.dev/salud.html#f-mortalidad",
+ "ficha": "https://datina.com.ar/salud.html#f-mortalidad",
  "fuente": "Dirección de Estadísticas e Información en Salud (DEIS), Ministerio de Salud.",
  "actualizacion": "Se actualiza cada año.",
  "cobertura": "Las 24 jurisdicciones",
@@ -41,5 +41,5 @@
  "datos_actualizados": "28/10/2026",
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿Cuántos bebés mueren antes del año en cada provincia? Con datos de Dirección de Estadísticas e Información en Salud (DEIS), Ministerio de Salud. https://datina.pages.dev/salud.html#f-mortalidad. Consultado el día de la consulta."
+ "como_citar": "Datina (año de la consulta). ¿Cuántos bebés mueren antes del año en cada provincia? Con datos de Dirección de Estadísticas e Información en Salud (DEIS), Ministerio de Salud. https://datina.com.ar/salud.html#f-mortalidad. Consultado el día de la consulta."
 }

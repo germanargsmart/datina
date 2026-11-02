@@ -3,7 +3,7 @@
  "titulo": "¿Cuánto petróleo saca un pozo de Vaca Muerta en su primer año?",
  "descripcion": "Petróleo que sacan en su primer año los pozos de shale de Vaca Muerta, según el año en que empezaron, 2013 a 2024",
  "seccion": "Petróleo y gas",
- "ficha": "https://datina.pages.dev/petroleo.html#f-productividad",
+ "ficha": "https://datina.com.ar/petroleo.html#f-productividad",
  "fuente": "Secretaría de Energía, producción por pozo no convencional (Capítulo IV) y datos de fractura de pozos (Adjunto IV).",
  "actualizacion": "Se actualiza cada año.",
  "cobertura": "Sin desglose territorial",
@@ -51,5 +51,5 @@
  "datos_actualizados": "28/10/2026",
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿Cuánto petróleo saca un pozo de Vaca Muerta en su primer año? Con datos de Secretaría de Energía, producción por pozo no convencional (Capítulo IV) y datos de fractura de pozos (Adjunto IV). https://datina.pages.dev/petroleo.html#f-productividad. Consultado el día de la consulta."
+ "como_citar": "Datina (año de la consulta). ¿Cuánto petróleo saca un pozo de Vaca Muerta en su primer año? Con datos de Secretaría de Energía, producción por pozo no convencional (Capítulo IV) y datos de fractura de pozos (Adjunto IV). https://datina.com.ar/petroleo.html#f-productividad. Consultado el día de la consulta."
 }

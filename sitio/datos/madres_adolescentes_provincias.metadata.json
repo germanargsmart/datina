@@ -3,7 +3,7 @@
  "titulo": "¿Qué parte de los nacimientos es de madres menores de 20 años?",
  "descripcion": "Porcentaje de los nacimientos que son de madres menores de 20 años, por provincia, 2012 y 2024",
  "seccion": "Población",
- "ficha": "https://datina.pages.dev/poblacion.html#f-adolescentes",
+ "ficha": "https://datina.com.ar/poblacion.html#f-adolescentes",
  "fuente": "DEIS, Ministerio de Salud, estadísticas vitales.",
  "actualizacion": "Se actualiza cada año.",
  "cobertura": "Las 24 jurisdicciones",
@@ -36,5 +36,5 @@
  "datos_actualizados": "28/10/2026",
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿Qué parte de los nacimientos es de madres menores de 20 años? Con datos de DEIS, Ministerio de Salud, estadísticas vitales. https://datina.pages.dev/poblacion.html#f-adolescentes. Consultado el día de la consulta."
+ "como_citar": "Datina (año de la consulta). ¿Qué parte de los nacimientos es de madres menores de 20 años? Con datos de DEIS, Ministerio de Salud, estadísticas vitales. https://datina.com.ar/poblacion.html#f-adolescentes. Consultado el día de la consulta."
 }

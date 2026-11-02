@@ -122,7 +122,7 @@ Son pasos de cuentas y secretos: los hace el autor, no un agente (`CLAUDE.md`, "
    - `claude-haiku-5-5`, mucho más barato y algo menos preciso.
 5. Recomendado: un límite de pedidos por persona en Cloudflare, en el dominio, "Security", "WAF", "Rate limiting rules", con la ruta `/api/consulta` y 5 pedidos por minuto por IP. El plan gratis incluye una regla.
 6. Pedirle a Claude Code que ponga `"consulta_ia": true` y `"consulta_ia_motor": "anthropic"` en `datos/manual/sitio.json`, arme el sitio y lo suba a `main`. Al publicarse aparece "Consultas con IA" en Herramientas y en la portada.
-7. Probar en `https://datina.pages.dev/consulta-ia` con dos o tres preguntas, por ejemplo una por provincia, una del país y una que Datina no tenga, y revisar las cifras contra sus fichas.
+7. Probar en `https://datina.com.ar/consulta-ia` con dos o tres preguntas, por ejemplo una por provincia, una del país y una que Datina no tenga, y revisar las cifras contra sus fichas.
 
 Los cambios de variables y secretos de Cloudflare valen para las publicaciones siguientes. Si la página ya está publicada cuando se carga la clave, hay que volver a publicar, con "Retry deployment" en la última publicación.
 

@@ -3,7 +3,7 @@
  "titulo": "¿De dónde vienen las importaciones?",
  "descripcion": "Importaciones de bienes por origen, en % del total, enero a septiembre de 2026",
  "seccion": "Sector externo",
- "ficha": "https://datina.pages.dev/externo.html#f-origen",
+ "ficha": "https://datina.com.ar/externo.html#f-origen",
  "fuente": "INDEC, intercambio comercial argentino, importaciones por zona económica y país (provisorio).",
  "actualizacion": "Se actualiza cada mes.",
  "cobertura": "Sin desglose territorial",
@@ -46,5 +46,5 @@
  "datos_actualizados": "28/10/2026",
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿De dónde vienen las importaciones? Con datos de INDEC, intercambio comercial argentino, importaciones por zona económica y país (provisorio). https://datina.pages.dev/externo.html#f-origen. Consultado el día de la consulta."
+ "como_citar": "Datina (año de la consulta). ¿De dónde vienen las importaciones? Con datos de INDEC, intercambio comercial argentino, importaciones por zona económica y país (provisorio). https://datina.com.ar/externo.html#f-origen. Consultado el día de la consulta."
 }

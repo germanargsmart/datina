@@ -3,7 +3,7 @@
  "titulo": "¿Cuántos robos y hurtos se registran en cada provincia?",
  "descripcion": "Robos y hurtos registrados cada 100.000 habitantes por provincia, 2000 a 2025",
  "seccion": "Seguridad",
- "ficha": "https://datina.pages.dev/seguridad.html#f-robos",
+ "ficha": "https://datina.com.ar/seguridad.html#f-robos",
  "fuente": "Sistema Nacional de Información Criminal (SNIC), Ministerio de Seguridad Nacional.",
  "actualizacion": "Se actualiza cada año.",
  "cobertura": "Las 24 jurisdicciones",
@@ -41,5 +41,5 @@
  "datos_actualizados": "28/10/2026",
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿Cuántos robos y hurtos se registran en cada provincia? Con datos de Sistema Nacional de Información Criminal (SNIC), Ministerio de Seguridad Nacional. https://datina.pages.dev/seguridad.html#f-robos. Consultado el día de la consulta."
+ "como_citar": "Datina (año de la consulta). ¿Cuántos robos y hurtos se registran en cada provincia? Con datos de Sistema Nacional de Información Criminal (SNIC), Ministerio de Seguridad Nacional. https://datina.com.ar/seguridad.html#f-robos. Consultado el día de la consulta."
 }

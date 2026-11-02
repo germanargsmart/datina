@@ -3,7 +3,7 @@
  "titulo": "¿Cuánto cambió la temperatura media del país?",
  "descripcion": "Diferencia de la temperatura media anual del país con el promedio de 1991 a 2020, en grados, 1961 a 2025",
  "seccion": "Naturaleza y ambiente",
- "ficha": "https://datina.pages.dev/naturaleza.html#f-clima",
+ "ficha": "https://datina.com.ar/naturaleza.html#f-clima",
  "fuente": "Servicio Meteorológico Nacional, vía Ministerio de Ambiente (CIAM).",
  "actualizacion": "Se actualiza cada año.",
  "cobertura": "Sin desglose territorial",
@@ -31,5 +31,5 @@
  "datos_actualizados": "28/10/2026",
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿Cuánto cambió la temperatura media del país? Con datos de Servicio Meteorológico Nacional, vía Ministerio de Ambiente (CIAM). https://datina.pages.dev/naturaleza.html#f-clima. Consultado el día de la consulta."
+ "como_citar": "Datina (año de la consulta). ¿Cuánto cambió la temperatura media del país? Con datos de Servicio Meteorológico Nacional, vía Ministerio de Ambiente (CIAM). https://datina.com.ar/naturaleza.html#f-clima. Consultado el día de la consulta."
 }

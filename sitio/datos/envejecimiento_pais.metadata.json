@@ -3,7 +3,7 @@
  "titulo": "¿Cuántas personas mayores hay por cada 100 en edad de trabajar, y cuántas aportan por cada jubilación?",
  "descripcion": "Personas de 65 años o más por cada 100 de 15 a 64 años, por provincia, 2026 y 2040, y personas que aportan por cada jubilación o pensión que paga ANSES, 1994 a 2026",
  "seccion": "Población",
- "ficha": "https://datina.pages.dev/poblacion.html#f-envejecimiento",
+ "ficha": "https://datina.com.ar/poblacion.html#f-envejecimiento",
  "fuente": "INDEC, proyecciones de población por provincia 2022 a 2040, base Censo 2022, y Secretaría de Seguridad Social, Boletín Estadístico de la Seguridad Social (cuadro 4.1.1.1), con datos de ARCA y ANSES.",
  "actualizacion": "Se actualiza cada año.",
  "cobertura": "Sin desglose territorial",
@@ -31,5 +31,5 @@
  "datos_actualizados": "28/10/2026",
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿Cuántas personas mayores hay por cada 100 en edad de trabajar, y cuántas aportan por cada jubilación? Con datos de INDEC, proyecciones de población por provincia 2022 a 2040, base Censo 2022, y Secretaría de Seguridad Social, Boletín Estadístico de la Seguridad Social (cuadro 4.1.1.1), con datos de ARCA y ANSES. https://datina.pages.dev/poblacion.html#f-envejecimiento. Consultado el día de la consulta."
+ "como_citar": "Datina (año de la consulta). ¿Cuántas personas mayores hay por cada 100 en edad de trabajar, y cuántas aportan por cada jubilación? Con datos de INDEC, proyecciones de población por provincia 2022 a 2040, base Censo 2022, y Secretaría de Seguridad Social, Boletín Estadístico de la Seguridad Social (cuadro 4.1.1.1), con datos de ARCA y ANSES. https://datina.com.ar/poblacion.html#f-envejecimiento. Consultado el día de la consulta."
 }

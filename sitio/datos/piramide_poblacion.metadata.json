@@ -3,7 +3,7 @@
  "titulo": "¿Cuántos chicos y cuántas personas mayores va a haber?",
  "descripcion": "Porcentaje de la población por edad y sexo, 2026 y 2040, según las proyecciones del INDEC",
  "seccion": "Población",
- "ficha": "https://datina.pages.dev/poblacion.html#f-piramide",
+ "ficha": "https://datina.com.ar/poblacion.html#f-piramide",
  "fuente": "INDEC, proyecciones de población por provincia, sexo y edad 2022 a 2040, base Censo 2022.",
  "actualizacion": "Se actualiza cada año.",
  "cobertura": "Las 24 jurisdicciones y el total del país",
@@ -46,5 +46,5 @@
  "datos_actualizados": "28/10/2026",
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿Cuántos chicos y cuántas personas mayores va a haber? Con datos de INDEC, proyecciones de población por provincia, sexo y edad 2022 a 2040, base Censo 2022. https://datina.pages.dev/poblacion.html#f-piramide. Consultado el día de la consulta."
+ "como_citar": "Datina (año de la consulta). ¿Cuántos chicos y cuántas personas mayores va a haber? Con datos de INDEC, proyecciones de población por provincia, sexo y edad 2022 a 2040, base Censo 2022. https://datina.com.ar/poblacion.html#f-piramide. Consultado el día de la consulta."
 }

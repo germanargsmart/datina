@@ -3,7 +3,7 @@
  "titulo": "Tu provincia",
  "descripcion": "",
  "seccion": "Tu provincia",
- "ficha": "https://datina.pages.dev/provincia.html",
+ "ficha": "https://datina.com.ar/provincia.html",
  "fuente": "",
  "actualizacion": "",
  "cobertura": "Las 24 jurisdicciones",
@@ -65,5 +65,5 @@
  "datos_actualizados": "28/10/2026",
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). Tu provincia. Con datos de . https://datina.pages.dev/provincia.html. Consultado el día de la consulta."
+ "como_citar": "Datina (año de la consulta). Tu provincia. Con datos de . https://datina.com.ar/provincia.html. Consultado el día de la consulta."
 }

@@ -3,7 +3,7 @@
  "titulo": "¿Cuántas tarjetas SUBE se usan por día, y cuántas en trenes y subtes?",
  "descripcion": "Tarjetas SUBE distintas usadas en un día hábil típico (mediana de cada mes), en total y en trenes y subtes, 2020 a 2026",
  "seccion": "Movilidad",
- "ficha": "https://datina.pages.dev/movilidad.html#f-sube",
+ "ficha": "https://datina.com.ar/movilidad.html#f-sube",
  "fuente": "Ministerio de Transporte, datos abiertos de SUBE.",
  "actualizacion": "Se actualiza cada mes.",
  "cobertura": "Sin desglose territorial",
@@ -51,5 +51,5 @@
  "datos_actualizados": "28/10/2026",
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿Cuántas tarjetas SUBE se usan por día, y cuántas en trenes y subtes? Con datos de Ministerio de Transporte, datos abiertos de SUBE. https://datina.pages.dev/movilidad.html#f-sube. Consultado el día de la consulta."
+ "como_citar": "Datina (año de la consulta). ¿Cuántas tarjetas SUBE se usan por día, y cuántas en trenes y subtes? Con datos de Ministerio de Transporte, datos abiertos de SUBE. https://datina.com.ar/movilidad.html#f-sube. Consultado el día de la consulta."
 }

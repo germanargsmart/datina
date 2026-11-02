@@ -3,7 +3,7 @@
  "titulo": "¿Cuántas fiscalías y defensorías federales hay en cada provincia?",
  "descripcion": "Fiscalías y defensorías públicas oficiales de la Justicia Federal por provincia, abril de 2024, el último padrón con fiscales y defensores",
  "seccion": "Justicia",
- "ficha": "https://datina.pages.dev/justicia.html#f-fiscalias-federales",
+ "ficha": "https://datina.com.ar/justicia.html#f-fiscalias-federales",
  "fuente": "Ministerio de Justicia, padrón de magistrados de la Justicia Federal y de la Justicia Nacional, e INDEC, proyecciones de población. Es el último dato que publicó la fuente.",
  "actualizacion": "",
  "cobertura": "Las 24 jurisdicciones",
@@ -71,5 +71,5 @@
  "datos_actualizados": "28/10/2026",
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿Cuántas fiscalías y defensorías federales hay en cada provincia? Con datos de Ministerio de Justicia, padrón de magistrados de la Justicia Federal y de la Justicia Nacional, e INDEC, proyecciones de población. Es el último dato que publicó la fuente. https://datina.pages.dev/justicia.html#f-fiscalias-federales. Consultado el día de la consulta."
+ "como_citar": "Datina (año de la consulta). ¿Cuántas fiscalías y defensorías federales hay en cada provincia? Con datos de Ministerio de Justicia, padrón de magistrados de la Justicia Federal y de la Justicia Nacional, e INDEC, proyecciones de población. Es el último dato que publicó la fuente. https://datina.com.ar/justicia.html#f-fiscalias-federales. Consultado el día de la consulta."
 }

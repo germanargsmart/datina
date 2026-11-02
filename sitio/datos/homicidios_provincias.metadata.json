@@ -3,7 +3,7 @@
  "titulo": "¿Cuántas víctimas de homicidio hay en cada provincia?",
  "descripcion": "Víctimas de homicidios dolosos cada 100.000 habitantes por año: por provincia, promedio de 2023 a 2025, y en el país, 2000 a 2025",
  "seccion": "Seguridad",
- "ficha": "https://datina.pages.dev/seguridad.html#f-homicidios",
+ "ficha": "https://datina.com.ar/seguridad.html#f-homicidios",
  "fuente": "Sistema Nacional de Información Criminal (SNIC), Ministerio de Seguridad Nacional, e INDEC, proyecciones de población.",
  "actualizacion": "Se actualiza cada año.",
  "cobertura": "Las 24 jurisdicciones y el total del país",
@@ -51,5 +51,5 @@
  "datos_actualizados": "28/10/2026",
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿Cuántas víctimas de homicidio hay en cada provincia? Con datos de Sistema Nacional de Información Criminal (SNIC), Ministerio de Seguridad Nacional, e INDEC, proyecciones de población. https://datina.pages.dev/seguridad.html#f-homicidios. Consultado el día de la consulta."
+ "como_citar": "Datina (año de la consulta). ¿Cuántas víctimas de homicidio hay en cada provincia? Con datos de Sistema Nacional de Información Criminal (SNIC), Ministerio de Seguridad Nacional, e INDEC, proyecciones de población. https://datina.com.ar/seguridad.html#f-homicidios. Consultado el día de la consulta."
 }

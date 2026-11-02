@@ -3,7 +3,7 @@
  "titulo": "¿Qué parte de sus ingresos recauda cada provincia por su cuenta?",
  "descripcion": "Recursos propios y resultado fiscal en % de los ingresos, y gasto en personal en % del gasto, por provincia, 2025 (La Pampa, 2024)",
  "seccion": "Cuentas públicas",
- "ficha": "https://datina.pages.dev/gobierno.html#f-fiscal",
+ "ficha": "https://datina.com.ar/gobierno.html#f-fiscal",
  "fuente": "Ministerio de Economía, Dirección Nacional de Asuntos Provinciales, esquema ahorro inversión financiamiento.",
  "actualizacion": "Se actualiza cada año.",
  "cobertura": "Las 24 jurisdicciones",
@@ -46,5 +46,5 @@
  "datos_actualizados": "28/10/2026",
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿Qué parte de sus ingresos recauda cada provincia por su cuenta? Con datos de Ministerio de Economía, Dirección Nacional de Asuntos Provinciales, esquema ahorro inversión financiamiento. https://datina.pages.dev/gobierno.html#f-fiscal. Consultado el día de la consulta."
+ "como_citar": "Datina (año de la consulta). ¿Qué parte de sus ingresos recauda cada provincia por su cuenta? Con datos de Ministerio de Economía, Dirección Nacional de Asuntos Provinciales, esquema ahorro inversión financiamiento. https://datina.com.ar/gobierno.html#f-fiscal. Consultado el día de la consulta."
 }

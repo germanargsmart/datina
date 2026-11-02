@@ -3,7 +3,7 @@
  "titulo": "¿Cuánto exporta cada provincia por habitante?",
  "descripcion": "Exportaciones de bienes por habitante, en dólares, según la provincia de origen, 2025",
  "seccion": "Trabajo",
- "ficha": "https://datina.pages.dev/trabajo.html#f-exportaciones",
+ "ficha": "https://datina.com.ar/trabajo.html#f-exportaciones",
  "fuente": "INDEC, Origen Provincial de las Exportaciones (el último año es provisorio).",
  "actualizacion": "Se actualiza cada seis meses.",
  "cobertura": "Las 24 jurisdicciones",
@@ -71,5 +71,5 @@
  "datos_actualizados": "28/10/2026",
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿Cuánto exporta cada provincia por habitante? Con datos de INDEC, Origen Provincial de las Exportaciones (el último año es provisorio). https://datina.pages.dev/trabajo.html#f-exportaciones. Consultado el día de la consulta."
+ "como_citar": "Datina (año de la consulta). ¿Cuánto exporta cada provincia por habitante? Con datos de INDEC, Origen Provincial de las Exportaciones (el último año es provisorio). https://datina.com.ar/trabajo.html#f-exportaciones. Consultado el día de la consulta."
 }

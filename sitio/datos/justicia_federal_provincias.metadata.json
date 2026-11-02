@@ -3,7 +3,7 @@
  "titulo": "¿Cuántos cargos de juez federal hay en cada provincia y cuántos tienen titular?",
  "descripcion": "Cargos de juez de la Justicia Federal por provincia, con titular y sin titular, junio de 2026",
  "seccion": "Justicia",
- "ficha": "https://datina.pages.dev/justicia.html#f-jueces-federales",
+ "ficha": "https://datina.com.ar/justicia.html#f-jueces-federales",
  "fuente": "Ministerio de Justicia, padrón de magistrados de la Justicia Federal y de la Justicia Nacional, e INDEC, proyecciones de población.",
  "actualizacion": "Se actualiza cuando el Ministerio de Justicia publica un padrón nuevo.",
  "cobertura": "Las 24 jurisdicciones",
@@ -86,5 +86,5 @@
  "datos_actualizados": "28/10/2026",
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿Cuántos cargos de juez federal hay en cada provincia y cuántos tienen titular? Con datos de Ministerio de Justicia, padrón de magistrados de la Justicia Federal y de la Justicia Nacional, e INDEC, proyecciones de población. https://datina.pages.dev/justicia.html#f-jueces-federales. Consultado el día de la consulta."
+ "como_citar": "Datina (año de la consulta). ¿Cuántos cargos de juez federal hay en cada provincia y cuántos tienen titular? Con datos de Ministerio de Justicia, padrón de magistrados de la Justicia Federal y de la Justicia Nacional, e INDEC, proyecciones de población. https://datina.com.ar/justicia.html#f-jueces-federales. Consultado el día de la consulta."
 }

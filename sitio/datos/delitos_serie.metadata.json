@@ -3,7 +3,7 @@
  "titulo": "¿Cuántos delitos se registran en el país y de qué tipo?",
  "descripcion": "Delitos registrados en el país cada 100.000 habitantes, por tipo, 2000 a 2025",
  "seccion": "Seguridad",
- "ficha": "https://datina.pages.dev/seguridad.html#f-delitos",
+ "ficha": "https://datina.com.ar/seguridad.html#f-delitos",
  "fuente": "Sistema Nacional de Información Criminal (SNIC), Ministerio de Seguridad Nacional.",
  "actualizacion": "Se actualiza cada año.",
  "cobertura": "Sin desglose territorial",
@@ -51,5 +51,5 @@
  "datos_actualizados": "28/10/2026",
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿Cuántos delitos se registran en el país y de qué tipo? Con datos de Sistema Nacional de Información Criminal (SNIC), Ministerio de Seguridad Nacional. https://datina.pages.dev/seguridad.html#f-delitos. Consultado el día de la consulta."
+ "como_citar": "Datina (año de la consulta). ¿Cuántos delitos se registran en el país y de qué tipo? Con datos de Sistema Nacional de Información Criminal (SNIC), Ministerio de Seguridad Nacional. https://datina.com.ar/seguridad.html#f-delitos. Consultado el día de la consulta."
 }

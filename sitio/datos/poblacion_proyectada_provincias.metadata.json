@@ -3,7 +3,7 @@
  "titulo": "¿Cuánto va a crecer la población de cada provincia?",
  "descripcion": "Variación de la población proyectada por provincia entre 2026 y 2040",
  "seccion": "Población",
- "ficha": "https://datina.pages.dev/poblacion.html#f-poblacion-proy",
+ "ficha": "https://datina.com.ar/poblacion.html#f-poblacion-proy",
  "fuente": "INDEC, proyecciones de población por provincia 2022 a 2040, base Censo 2022.",
  "actualizacion": "Se actualiza cada año.",
  "cobertura": "Las 24 jurisdicciones y el total del país",
@@ -51,5 +51,5 @@
  "datos_actualizados": "28/10/2026",
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿Cuánto va a crecer la población de cada provincia? Con datos de INDEC, proyecciones de población por provincia 2022 a 2040, base Censo 2022. https://datina.pages.dev/poblacion.html#f-poblacion-proy. Consultado el día de la consulta."
+ "como_citar": "Datina (año de la consulta). ¿Cuánto va a crecer la población de cada provincia? Con datos de INDEC, proyecciones de población por provincia 2022 a 2040, base Censo 2022. https://datina.com.ar/poblacion.html#f-poblacion-proy. Consultado el día de la consulta."
 }

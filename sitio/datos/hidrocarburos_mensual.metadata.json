@@ -3,7 +3,7 @@
  "titulo": "¿Cuánto petróleo produce el país?",
  "descripcion": "Producción de petróleo de cada mes, en miles de barriles por día, 2006 a 2026",
  "seccion": "Petróleo y gas",
- "ficha": "https://datina.pages.dev/petroleo.html#f-petroleo",
+ "ficha": "https://datina.com.ar/petroleo.html#f-petroleo",
  "fuente": "Secretaría de Energía, producción que declaran las empresas según el Capítulo IV de la Resolución SE 319/1993, por cuenca y tipo de recurso.",
  "actualizacion": "Se actualiza cada mes.",
  "cobertura": "Sin desglose territorial",
@@ -131,5 +131,5 @@
  "datos_actualizados": "28/10/2026",
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿Cuánto petróleo produce el país? Con datos de Secretaría de Energía, producción que declaran las empresas según el Capítulo IV de la Resolución SE 319/1993, por cuenca y tipo de recurso. https://datina.pages.dev/petroleo.html#f-petroleo. Consultado el día de la consulta."
+ "como_citar": "Datina (año de la consulta). ¿Cuánto petróleo produce el país? Con datos de Secretaría de Energía, producción que declaran las empresas según el Capítulo IV de la Resolución SE 319/1993, por cuenca y tipo de recurso. https://datina.com.ar/petroleo.html#f-petroleo. Consultado el día de la consulta."
 }

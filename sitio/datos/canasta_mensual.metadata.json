@@ -3,7 +3,7 @@
  "titulo": "¿Cuánto necesita un hogar por mes para no quedar bajo la línea de pobreza?",
  "descripcion": "Canasta básica total y alimentaria, en pesos por adulto equivalente en cada región (junio de 2026) y mes a mes en el Gran Buenos Aires, 2016 a 2026",
  "seccion": "Precios y actividad",
- "ficha": "https://datina.pages.dev/economia.html#f-canastas",
+ "ficha": "https://datina.com.ar/economia.html#f-canastas",
  "fuente": "INDEC, canasta básica alimentaria y canasta básica total, e informe de pobreza e indigencia.",
  "actualizacion": "Se actualiza cada mes.",
  "cobertura": "Sin desglose territorial",
@@ -66,5 +66,5 @@
  "datos_actualizados": "28/10/2026",
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿Cuánto necesita un hogar por mes para no quedar bajo la línea de pobreza? Con datos de INDEC, canasta básica alimentaria y canasta básica total, e informe de pobreza e indigencia. https://datina.pages.dev/economia.html#f-canastas. Consultado el día de la consulta."
+ "como_citar": "Datina (año de la consulta). ¿Cuánto necesita un hogar por mes para no quedar bajo la línea de pobreza? Con datos de INDEC, canasta básica alimentaria y canasta básica total, e informe de pobreza e indigencia. https://datina.com.ar/economia.html#f-canastas. Consultado el día de la consulta."
 }

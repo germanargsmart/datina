@@ -3,7 +3,7 @@
  "titulo": "¿Adónde exporta la Argentina y cada provincia?",
  "descripcion": "Exportaciones de bienes por destino, del país o de la provincia elegida, en % del total, primer semestre de 2026",
  "seccion": "Sector externo",
- "ficha": "https://datina.pages.dev/externo.html#f-destinos",
+ "ficha": "https://datina.com.ar/externo.html#f-destinos",
  "fuente": "INDEC, Origen Provincial de las Exportaciones, por zona económica y país (provisorio).",
  "actualizacion": "Se actualiza cada seis meses.",
  "cobertura": "Las 24 jurisdicciones y el total del país",
@@ -51,5 +51,5 @@
  "datos_actualizados": "28/10/2026",
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿Adónde exporta la Argentina y cada provincia? Con datos de INDEC, Origen Provincial de las Exportaciones, por zona económica y país (provisorio). https://datina.pages.dev/externo.html#f-destinos. Consultado el día de la consulta."
+ "como_citar": "Datina (año de la consulta). ¿Adónde exporta la Argentina y cada provincia? Con datos de INDEC, Origen Provincial de las Exportaciones, por zona económica y país (provisorio). https://datina.com.ar/externo.html#f-destinos. Consultado el día de la consulta."
 }

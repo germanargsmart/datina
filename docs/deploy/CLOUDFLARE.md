@@ -8,7 +8,7 @@ Decisión del autor del 23 de octubre de 2026: el sitio se publica en Cloudflare
 - `sitio/_headers` (lo escribe `03_construir_sitio.py`): los archivos que las páginas piden con su huella (`?v=...`) se guardan un año en el navegador. Es el equivalente de los `[[headers]]` de `netlify.toml`, que queda en el repositorio sin uso.
 - `sitio/404.html`: Cloudflare la muestra sola en cualquier dirección que no existe.
 - Formularios: con `"formularios": ""` en `datos/manual/sitio.json`, el armado los saca. Con `"netlify"` vuelven (solo sirven en Netlify).
-- La dirección es `https://datina.pages.dev` (`"url"` en `datos/manual/sitio.json`, desde el 26 de octubre de 2026). Con ella el armado escribe `sitemap.xml`, `robots.txt` y las direcciones completas de cada página (canonical, `og:url` y JSON-LD), sin el `.html`, porque Cloudflare sirve cada página así (`/trabajo`). Con la dirección vacía no escribe ninguna de esas cosas.
+- La dirección es `https://datina.com.ar` (`"url"` en `datos/manual/sitio.json`, desde el 1 de noviembre de 2026. Del 26 de octubre hasta entonces fue `https://datina.pages.dev`, que sigue andando, igual que `www.datina.com.ar`). Con ella el armado escribe `sitemap.xml`, `robots.txt` y las direcciones completas de cada página (canonical, `og:url` y JSON-LD), sin el `.html`, porque Cloudflare sirve cada página así (`/trabajo`). Con la dirección vacía no escribe ninguna de esas cosas.
 - `functions/` (25 de octubre de 2026): las consultas con IA, una función que Cloudflare publica sola con el sitio en `/api/consulta` (la encuentra en la raíz del repositorio, sin instalar nada: la biblioteca de Anthropic va empaquetada). Sin `"consulta_ia": true` no hace nada, y además necesita, según el motor (`"consulta_ia_motor"`), la conexión `AI` de Workers AI en "Settings", "Bindings" (el gratis, elegido el 26 de octubre de 2026) o el secreto `ANTHROPIC_API_KEY`. Cómo se activa: `docs/ia/CONSULTAS.md`. Es la única dirección que pasa por una función: el resto del sitio se sigue sirviendo como archivos, sin gastar el límite de pedidos de las funciones.
 
 ## Límite que hay que tener en cuenta
@@ -45,7 +45,9 @@ Hecho por el autor el 26 de octubre de 2026: `https://datina.pages.dev`. Cuidado
 - En Cloudflare: el proyecto, "Deployments", elegir una publicación anterior y "Rollback to this deployment". No cambia el repositorio.
 - En el repositorio: revertir el commit con el problema en `main`, y Cloudflare publica de nuevo.
 
-## Dominio propio (más adelante)
+## Dominio propio
+
+Hecho el 1 de noviembre de 2026: el autor registró `datina.com.ar` en NIC.ar con los servidores de Cloudflare y sumó `datina.com.ar` y `www.datina.com.ar` en "Custom domains" del proyecto (sin eso la zona quedaba sin registros y el dominio no abría).
 
 1. En el proyecto de Cloudflare Pages, "Custom domains", "Set up a custom domain", y seguir los pasos de DNS (lo hace el autor).
 2. Completar `"url"` en `datos/manual/sitio.json` con la dirección (con `https://` y sin barra final) y armar el sitio: suma `sitemap.xml`, `robots.txt` y los enlaces canónicos.

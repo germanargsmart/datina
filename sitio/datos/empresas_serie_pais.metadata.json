@@ -3,7 +3,7 @@
  "titulo": "¿Cuántas empresas abren y cuántas cierran?",
  "descripcion": "Empresas privadas que abrieron y que cerraron cada año, en % de las empresas activas, 1996 a 2024",
  "seccion": "Sector privado",
- "ficha": "https://datina.pages.dev/empresas.html#f-dinamica-empresas",
+ "ficha": "https://datina.com.ar/empresas.html#f-dinamica-empresas",
  "fuente": "Observatorio de Empleo y Dinámica Empresarial (OEDE), Secretaría de Trabajo, Ministerio de Capital Humano, con datos del Sistema Integrado Previsional Argentino (SIPA).",
  "actualizacion": "Se actualiza cada año.",
  "cobertura": "Sin desglose territorial",
@@ -46,5 +46,5 @@
  "datos_actualizados": "28/10/2026",
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿Cuántas empresas abren y cuántas cierran? Con datos de Observatorio de Empleo y Dinámica Empresarial (OEDE), Secretaría de Trabajo, Ministerio de Capital Humano, con datos del Sistema Integrado Previsional Argentino (SIPA). https://datina.pages.dev/empresas.html#f-dinamica-empresas. Consultado el día de la consulta."
+ "como_citar": "Datina (año de la consulta). ¿Cuántas empresas abren y cuántas cierran? Con datos de Observatorio de Empleo y Dinámica Empresarial (OEDE), Secretaría de Trabajo, Ministerio de Capital Humano, con datos del Sistema Integrado Previsional Argentino (SIPA). https://datina.com.ar/empresas.html#f-dinamica-empresas. Consultado el día de la consulta."
 }

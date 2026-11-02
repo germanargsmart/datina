@@ -3,7 +3,7 @@
  "titulo": "¿Cuántos hogares tienen cloacas, agua de red, internet y computadora?",
  "descripcion": "Hogares con cada servicio o equipamiento y con necesidades básicas insatisfechas, en porcentaje por provincia, Censo 2022",
  "seccion": "Pobreza y hogares",
- "ficha": "https://datina.pages.dev/pobreza.html#f-censo",
+ "ficha": "https://datina.com.ar/pobreza.html#f-censo",
  "fuente": "INDEC, Censo Nacional de Población, Hogares y Viviendas 2022, resultados por radio censal.",
  "actualizacion": "Se actualiza con cada censo.",
  "cobertura": "Las 24 jurisdicciones",
@@ -56,5 +56,5 @@
  "datos_actualizados": "28/10/2026",
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿Cuántos hogares tienen cloacas, agua de red, internet y computadora? Con datos de INDEC, Censo Nacional de Población, Hogares y Viviendas 2022, resultados por radio censal. https://datina.pages.dev/pobreza.html#f-censo. Consultado el día de la consulta."
+ "como_citar": "Datina (año de la consulta). ¿Cuántos hogares tienen cloacas, agua de red, internet y computadora? Con datos de INDEC, Censo Nacional de Población, Hogares y Viviendas 2022, resultados por radio censal. https://datina.com.ar/pobreza.html#f-censo. Consultado el día de la consulta."
 }

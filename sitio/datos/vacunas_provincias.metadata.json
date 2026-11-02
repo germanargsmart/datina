@@ -3,7 +3,7 @@
  "titulo": "¿Dónde se vacuna menos a los chicos?",
  "descripcion": "Cobertura de la vacuna triple viral (sarampión, paperas y rubéola) por provincia, en % de los chicos de la edad, primera dosis al año de vida y segunda al entrar a la escuela, 2024, y su evolución desde 2009",
  "seccion": "Salud",
- "ficha": "https://datina.pages.dev/salud.html#f-vacunas",
+ "ficha": "https://datina.com.ar/salud.html#f-vacunas",
  "fuente": "Dirección de Control de Enfermedades Inmunoprevenibles (DICEI), Ministerio de Salud.",
  "actualizacion": "Se actualiza cada año.",
  "cobertura": "Las 24 jurisdicciones",
@@ -196,5 +196,5 @@
  "datos_actualizados": "28/10/2026",
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿Dónde se vacuna menos a los chicos? Con datos de Dirección de Control de Enfermedades Inmunoprevenibles (DICEI), Ministerio de Salud. https://datina.pages.dev/salud.html#f-vacunas. Consultado el día de la consulta."
+ "como_citar": "Datina (año de la consulta). ¿Dónde se vacuna menos a los chicos? Con datos de Dirección de Control de Enfermedades Inmunoprevenibles (DICEI), Ministerio de Salud. https://datina.com.ar/salud.html#f-vacunas. Consultado el día de la consulta."
 }

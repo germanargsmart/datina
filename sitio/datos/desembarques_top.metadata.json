@@ -3,7 +3,7 @@
  "titulo": "¿Cuánto se pesca en el mar?",
  "descripcion": "Toneladas desembarcadas en puertos argentinos por la pesca marítima, las tres especies principales, 2012 a 2025",
  "seccion": "Naturaleza y ambiente",
- "ficha": "https://datina.pages.dev/naturaleza.html#f-pesca",
+ "ficha": "https://datina.com.ar/naturaleza.html#f-pesca",
  "fuente": "Ministerio de Ambiente (CIAM), con datos de la Subsecretaría de Pesca y Acuicultura.",
  "actualizacion": "Se actualiza cada año.",
  "cobertura": "Sin desglose territorial",
@@ -31,5 +31,5 @@
  "datos_actualizados": "28/10/2026",
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿Cuánto se pesca en el mar? Con datos de Ministerio de Ambiente (CIAM), con datos de la Subsecretaría de Pesca y Acuicultura. https://datina.pages.dev/naturaleza.html#f-pesca. Consultado el día de la consulta."
+ "como_citar": "Datina (año de la consulta). ¿Cuánto se pesca en el mar? Con datos de Ministerio de Ambiente (CIAM), con datos de la Subsecretaría de Pesca y Acuicultura. https://datina.com.ar/naturaleza.html#f-pesca. Consultado el día de la consulta."
 }
