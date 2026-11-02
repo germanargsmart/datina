@@ -1388,7 +1388,11 @@ def solo_nota(id_):
         s = h[b["ini"]:b["fin"]]
         s = re.sub(r"\s*<h2>.*?</h2>", "", s, count=1)
         s = re.sub(r'\s*<div class="tema-intro">.*?</div>', "", s, count=1, flags=re.S)
-        s = re.sub(r'\s*<div class="art-grid" id="art-grid"></div>', "", s, count=1)
+        # la lista de Artículos (art-lista desde la Fase 2: el nombre viejo, art-grid, ya no aparecía) y los datos breves (F6, 1 de noviembre
+        # de 2026), que van solo en articulos.html: hasta el 2 de noviembre se colaban arriba de cada artículo
+        s = re.sub(r'\s*<div class="art-(?:grid|lista)" id="art-grid"></div>', "", s, count=1)
+        s = re.sub(r'\s*<!-- F6 .*?-->', "", s, count=1, flags=re.S)
+        s = re.sub(r'\s*<div class="breves" id="breves">.*?<div class="breves-lista" id="breves-lista"></div>\s*</div>', "", s, count=1, flags=re.S)
         s = re.sub(r'\s*<article class="nota" id="(a-[\w-]+)"[^>]*></article>', lambda m: m.group(0) if m.group(1) == id_ else "", s)
         return h[:b["ini"]] + s + h[b["fin"]:]
     return recorte
