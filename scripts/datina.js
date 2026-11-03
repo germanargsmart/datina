@@ -986,6 +986,13 @@ const LEAD = {
   },
   // la cifra destacada ya dice el total de los chicos de 6 a 12 años: el texto lo separa y compara las edades
   crianza: v => {
+    // frente al salario (3 de noviembre de 2026): la canasta es una sola para el país, lo que cambia entre provincias es el salario
+    const S = ECR.salario;
+    if (v === "salario") return `En ${S.mes}, criar a un chico de 6 a 12 años costaba ${n0(S.canasta)} pesos por mes: el ${pct(S.pais)} del salario bruto promedio ` +
+      `de un empleo privado registrado del país, ${n0(S.salario)} pesos. Solo los bienes y servicios, sin el tiempo de cuidado, eran el ${pct(S.bys_pais)}. ` +
+      `Por provincia va del ${pct(S.min_v)} en ${S.min} al ${pct(S.max_v)} en ${S.max}` +
+      (S.n_mitad ? `, y en ${S.n_mitad === 1 ? "una jurisdicción" : S.n_mitad + " jurisdicciones"} pasa de la mitad del salario. ` : ". ") +
+      "La canasta es la misma en todo el país: lo que cambia entre provincias es el salario.";
     const caro = ECR.edades.reduce((m, e) => e.tot > m.tot ? e : m), barato = ECR.edades.reduce((m, e) => e.tot < m.tot ? e : m);
     const base = `De los ${n0(ECR6.tot)} pesos que costaba en ${ECR.mes} criar a un chico de 6 a 12 años, ${n0(ECR6.bys)} eran bienes y servicios y ` +
       `${n0(ECR6.cuid)}, el tiempo de cuidado. `;
@@ -1837,7 +1844,10 @@ const TX = {
     "servicios (alimentos, ropa, salud, educación, transporte y vivienda) salen de la canasta básica total. El cuidado es el tiempo que el chico " +
     "necesita de un adulto, valuado con el salario de las trabajadoras de casas particulares que cuidan personas. No es lo que gasta una familia " +
     "en particular, sino una referencia, que se usa por ejemplo para calcular cuotas alimentarias. Mes a mes, en pesos del último mes con datos de " +
-    "precios, descontada la inflación con el índice de precios al consumidor del país.",
+    "precios, descontada la inflación con el índice de precios al consumidor del país. Frente al salario: la canasta de 6 a 12 años del mes de los " +
+    "salarios dividida por el salario bruto promedio de los asalariados registrados del sector privado de cada provincia (OEDE, con datos del SIPA), " +
+    "el último mes sin aguinaldo. El salario bruto incluye los aportes que se le descuentan al trabajador. La canasta se arma con precios del " +
+    "Gran Buenos Aires y es una sola para todo el país.",
   "salario-real": LEAD["salario-real"](), "salario-real-nota": `Índice de salarios del INDEC dividido por el índice de precios al consumidor del país, con ` +
     `${ESR.base} = 100, el primer mes del índice de precios del país. El índice de salarios tiene ponderaciones fijas: mide cuánto cambian los salarios, no cuánto ` +
     `cobra en promedio cada persona. El INDEC publica también el del sector privado no registrado, que la ficha no muestra: sale de la Encuesta Permanente de ` +
@@ -3903,6 +3913,10 @@ Object.assign(DIB, {
     if (v === "mes") return lineas(el, {anim: a, data: T.canasta_crianza.filter(r => r.real_6a12 != null).map(r => ({...r, t: tPer(r.periodo)})), x: "t", y0: 0,
       vf: n0, yf: x => n0(x / 1000) + " mil", xl: r => mesPer(r.periodo), mensual: true,
       series: ECR.edades.map((e, i) => ({k: "real_" + e.k, lab: e.lab, c: [css("--faint"), css("--celeste"), FRI, NAR][i]}))});
+    if (v === "salario") return barrasH(el, {anim: a, data: T.crianza_salario.filter(r => r.codigo_indec !== "00"), k: "pct_6a12", vf: pct, af: x => n0(x) + "%",
+      ref: ECR.salario.pais, refLab: `País ${pct(ECR.salario.pais)}`,
+      tip: d => `<b>${d.territorio}</b><br>Salario bruto promedio: ${n0(d.salario)} pesos<br>Canasta de 6 a 12 años: ${pct(d.pct_6a12)} del salario<br>` +
+        `De 1 a 3 años: ${pct(d.pct_1a3)}`});
     barrasH(el, {anim: a, data: ECR.edades.map(e => ({codigo_indec: "c-" + e.k, territorio: e.lab, tot: e.tot, bys: e.bys, cuid: e.cuid})), k: "tot",
       vf: n0, af: x => n0(x / 1000) + " mil", l: 150, lAngosto: 128,
       tip: d => `<b>${d.territorio}</b><br>Total: ${n0(d.tot)} pesos por mes<br>Bienes y servicios: ${n0(d.bys)}<br>Cuidado: ${n0(d.cuid)}`});

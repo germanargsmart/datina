@@ -532,15 +532,16 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     <!-- la canasta de crianza del INDEC, de su API (3 de noviembre de 2026) -->
     <article class="ficha" id="f-crianza">
       <h2>¿Cuánto cuesta por mes criar a un chico?</h2>
-      <p class="ficha-sub">Canasta de crianza por edad, en pesos por mes, {{economia.crianza.mes}}, y mes a mes descontada la inflación desde {{economia.crianza.mes_ini}}</p>
-      <div class="conmutador" role="group" aria-label="Vista" data-g="crianza">
+      <p class="ficha-sub">Canasta de crianza por edad, en pesos por mes, {{economia.crianza.mes}}, mes a mes descontada la inflación desde {{economia.crianza.mes_ini}}, y frente al salario registrado de cada provincia, {{economia.crianza.salario.mes}}</p>
+      <div class="conmutador" role="group" aria-label="Vista" data-g="crianza" style="--n:3">
         <button type="button" data-m="edad" aria-pressed="true">Por edad</button>
         <button type="button" data-m="mes" aria-pressed="false">Mes a mes</button>
+        <button type="button" data-m="salario" aria-pressed="false">Frente al salario</button>
       </div>
       <div class="grafico" data-g="crianza" data-forma="barras" style="--filas:4"></div>
       <p class="lead" data-t="crianza"></p>
       <p class="nota" data-t="crianza-nota"></p>
-      <div class="pie"><span>Fuente: INDEC, valorización de la canasta de crianza (Catálogo API-INDEC) e índice de precios al consumidor</span><a href="datos/canasta_crianza.csv" download>Descargar tabla (CSV)</a></div>
+      <div class="pie"><span>Fuentes: INDEC, valorización de la canasta de crianza (Catálogo API-INDEC) e índice de precios al consumidor, y Observatorio de Empleo y Dinámica Empresarial (OEDE), Secretaría de Trabajo, con datos del Sistema Integrado Previsional Argentino (SIPA)</span><a href="datos/canasta_crianza.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-salario-real">
