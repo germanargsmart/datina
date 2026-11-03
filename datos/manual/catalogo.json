@@ -354,6 +354,15 @@
     "contiene": "(T.pozos_terminados_provincias.some(r => r.codigo_indec === \"mar\")"
    }
   },
+  "produccion_mensual": {
+   "en": [
+    "f-industria"
+   ],
+   "evidencia": {
+    "archivo": "scripts/datina.js",
+    "contiene": "conTablas(\"industria\", () => MED.industria === \"mes\" ? [\"produccion_mensual\"] : [], a => {"
+   }
+  },
   "puestos_provincias": {
    "en": [
     "provincia"

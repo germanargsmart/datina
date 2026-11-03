@@ -2496,6 +2496,28 @@
     "archivo": "scripts/indec_api.py",
     "contiene": "\"canasta-crianza\": \"Periodo\","
    }
+  },
+  {
+   "id": "ds:indec_api_ipi_manufacturero.json",
+   "nombre": "Índice de producción industrial manufacturero (Catálogo API-INDEC)",
+   "fuente": "org:indec",
+   "ruta": "datos/crudo/indec_api_ipi_manufacturero.json",
+   "url": "https://api.indec.gob.ar/v1/ipi_manufacturero",
+   "evidencia": {
+    "archivo": "scripts/indec_api.py",
+    "contiene": "\"ipi_manufacturero\": \"periodo,"
+   }
+  },
+  {
+   "id": "ds:indec_api_ipi_minero.json",
+   "nombre": "Índice de producción industrial minero (Catálogo API-INDEC)",
+   "fuente": "org:indec",
+   "ruta": "datos/crudo/indec_api_ipi_minero.json",
+   "url": "https://api.indec.gob.ar/v1/ipi_minero",
+   "evidencia": {
+    "archivo": "scripts/indec_api.py",
+    "contiene": "\"ipi_minero\": \"periodo,"
+   }
   }
  ],
  "aristas": [
@@ -7243,6 +7265,38 @@
     }
    ],
    "tabla": "canasta_crianza"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:indec_api_ipi_manufacturero.json",
+   "a": "f-industria",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_ipm = pd.DataFrame(json.loads((CRUDO / \"indec_api_ipi_manufacturero.json\")"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"industria_ramas\": industria_ramas,"
+    }
+   ],
+   "tabla": "industria_ramas"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:indec_api_ipi_minero.json",
+   "a": "f-industria",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_ipn = pd.DataFrame(json.loads((CRUDO / \"indec_api_ipi_minero.json\")"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"industria_ramas\": industria_ramas,"
+    }
+   ],
+   "tabla": "industria_ramas"
   }
  ],
  "fichas": {
