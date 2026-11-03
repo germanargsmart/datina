@@ -1675,7 +1675,10 @@ agregar(telefonia_fija_pais.assign(valor=telefonia_fija_pais.accesos_100_hogares
 
 # Exportaciones por provincia de origen, en dolares por habitante (INDEC, Origen Provincial de las Exportaciones).
 # Planilla con una hoja por bloque de anios: provincias en filas y, por cada rubro (total, PP, MOA, MOI, CyE), una columna por anio.
-RUBROS = {"Total": "millones_usd", "(PP)": "primarios", "(MOA)": "manufacturas_agro", "(MOI)": "manufacturas_industriales", "(CyE)": "combustibles_energia"}
+# Las hojas de antes de 2017 nombran los rubros sin la sigla ("Productos primarios"): hasta el 2 de noviembre de 2026 solo se reconocía la
+# sigla, y en esos años el total de cada provincia quedaba pisado por el último rubro (combustibles y energía)
+RUBROS = {"Total": "millones_usd", "Productos primarios": "primarios", "origen agropecuario": "manufacturas_agro",
+          "origen industrial": "manufacturas_industriales", "Combustibles y energ": "combustibles_energia"}
 _filas_ex = []
 _xe = pd.ExcelFile(CRUDO / "exportaciones_provincias.xls")
 for hoja in _xe.sheet_names:
@@ -7960,6 +7963,20 @@ resumen["corte"] = CORTE_RES
 resumen["justicia"] = JUSTICIA_RES
 resumen["presupuesto"] = PRESUP_RES
 resumen["cruces_series"] = {k: [int(cruces_series[cruces_series.id == k].anio.min()), int(cruces_series[cruces_series.id == k].anio.max())] for k in SERIES_IDS}
+# reescritura de los artículos de cruces (2 de noviembre de 2026): la mediana de las jurisdicciones en el primer y en el último año de cada serie y
+# en cuántas subió, para el texto, que se arma antes de que lleguen las series. También la inversión por alumno, que tiene su propia tabla
+
+
+def _crm_res(d, col="valor"):
+    a0, a1 = int(d.anio.min()), int(d.anio.max())
+    i0, i1 = d[d.anio == a0].set_index("codigo_indec")[col], d[d.anio == a1].set_index("codigo_indec")[col]
+    ambos = i0.index.intersection(i1.index)
+    return {"ini": a0, "fin": a1, "med_ini": round(float(i0.median()), 4), "med_fin": round(float(i1.median()), 4),
+            "sube": int((i1[ambos] > i0[ambos]).sum()), "n": int(len(ambos))}
+
+
+resumen["cruces_series_med"] = {k: _crm_res(cruces_series[cruces_series.id == k]) for k in SERIES_IDS}
+resumen["cruces_series_med"]["gasto_alumno"] = _crm_res(inversion_educativa_serie[inversion_educativa_serie.codigo_indec != "00"], "por_alumno_real")
 
 (SITIO / "fichas.json").write_text(json.dumps({
     "resumen": resumen,
