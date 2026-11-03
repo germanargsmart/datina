@@ -183,3 +183,6 @@ indec_api_ipi_manufacturero.json,api.indec.gob.ar (ipi_manufacturero (41344 fila
 indec_api_ipi_minero.json,api.indec.gob.ar (ipi_minero (17632 filas)),2026-11-02T23:37:10,ok
 indec_api_estimaciones_poblacion_departamento_2022_2035.json,api.indec.gob.ar (estimaciones_poblacion_departamento_2022_2035 (14784 filas)),2026-11-02T23:37:12,ok
 indec_api_proyecciones_poblacion_jurisdiccion_2022_2040.json,api.indec.gob.ar (proyecciones_poblacion_jurisdiccion_2022_2040 (19152 filas)),2026-11-02T23:37:15,ok
+indec_api_comercio_exterior_exportacion_bienes_mes_pais.json,api.indec.gob.ar (comercio_exterior_exportacion_bienes (69891 filas)),2026-11-03T08:42:21,ok
+indec_api_comercio_exterior_importacion_bienes_mes_pais.json,api.indec.gob.ar (comercio_exterior_importacion_bienes (57049 filas)),2026-11-03T08:43:02,ok
+indec_api_comercio_exterior_nomenclaturas.json,api.indec.gob.ar (comercio_exterior_nomenclaturas (325 filas)),2026-11-03T08:43:20,ok

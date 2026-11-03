@@ -1,0 +1,55 @@
+{
+ "tabla": "comercio_socios.csv",
+ "titulo": "¿Con qué países la Argentina vende más de lo que compra?",
+ "descripcion": "Exportaciones e importaciones de bienes y su saldo con los 15 países con más comercio, en millones de dólares, octubre de 2025 a septiembre de 2026",
+ "seccion": "Sector externo",
+ "ficha": "https://datina.com.ar/externo.html#f-socios",
+ "fuente": "INDEC, exportaciones e importaciones de bienes por país, vía el Catálogo API-INDEC.",
+ "actualizacion": "Se actualiza cada mes.",
+ "cobertura": "Sin desglose territorial",
+ "periodo": "",
+ "filas": 209,
+ "columnas": [
+  {
+   "nombre": "codigo",
+   "tipo": "Código",
+   "valores": "209 códigos"
+  },
+  {
+   "nombre": "pais",
+   "tipo": "Texto",
+   "valores": "209 valores distintos"
+  },
+  {
+   "nombre": "tipo",
+   "tipo": "Texto",
+   "valores": "otro, pais, sin_pais"
+  },
+  {
+   "nombre": "exportaciones",
+   "tipo": "Número",
+   "valores": "0 a 13.161,6"
+  },
+  {
+   "nombre": "importaciones",
+   "tipo": "Número",
+   "valores": "0 a 17.901,3"
+  },
+  {
+   "nombre": "saldo",
+   "tipo": "Número",
+   "valores": "-8.389,8 a 10.840,7"
+  },
+  {
+   "nombre": "intercambio",
+   "tipo": "Número",
+   "valores": "0 a 29.119,2"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "28/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
+ "como_citar": "Datina (año de la consulta). ¿Con qué países la Argentina vende más de lo que compra? Con datos de INDEC, exportaciones e importaciones de bienes por país, vía el Catálogo API-INDEC. https://datina.com.ar/externo.html#f-socios. Consultado el día de la consulta."
+}

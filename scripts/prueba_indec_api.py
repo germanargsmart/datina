@@ -11,8 +11,10 @@ import indec_api as api
 api.ESPERA = 0.01
 TOKEN = "token-de-prueba"
 FILAS = {"canasta-crianza": [{"Periodo": f"2026{m:02d}", "n": i} for i, m in enumerate(range(1, 13))],
-         "ipi_minero": [{"periodo": str(i), "valor": i} for i in range(2500)]}
-estado = {"pedidos": [], "falla": {}, "total_mal": False}
+         "ipi_minero": [{"periodo": str(i), "valor": i} for i in range(2500)],
+         "comercio_exterior_importacion_bienes": [{"Periodo": f"{2000 + i // 12}{i % 12 + 1:02d}", "pais_cod": p, "sum": i} for i in range(600)
+                                                  for p in ("BR", "CN")]}
+estado = {"pedidos": [], "falla": {}, "total_mal": False, "repetida": False}
 
 
 class Simulada(BaseHTTPRequestHandler):
@@ -32,8 +34,14 @@ class Simulada(BaseHTTPRequestHandler):
             return self.responder(404, {"message": "no existe"})
         if q.get("order") != api.TABLAS[tabla]:
             return self.responder(400, {"message": "sin la clave completa"})
+        if tabla in api.SUMAS and q.get("select") != f"{api.TABLAS[tabla]},{api.SUMAS[tabla][0]}.sum()":
+            return self.responder(400, {"message": "sin la suma"})
         todas, desde, cuantas = FILAS[tabla], int(q["offset"]), min(int(q["limit"]), 1000)
         lote, total = todas[desde:desde + cuantas], len(todas) + (5 if estado["total_mal"] else 0)
+        if tabla in api.SUMAS:
+            total = 1_000_000  # como la de verdad: el total de las filas sin sumar
+            if estado["repetida"]:
+                lote = lote + lote[:1]
         self.responder(206 if desde + len(lote) < total else 200, lote, f"{desde}-{desde + len(lote) - 1}/{total}")
 
     def responder(self, codigo, cuerpo, rango=None):
@@ -95,6 +103,19 @@ ver(len(filas) == 12 and not estado["falla"]["canasta-crianza"], "con 429 y 503 
 estado["falla"]["canasta-crianza"] = [400]
 e = error_de(lambda: api.bajar_tabla("canasta-crianza", TOKEN, BASE))
 ver(isinstance(e, ValueError) and "400" in str(e), "un 400 no se reintenta: falla con el código")
+
+# una tabla sumada (comercio exterior, 3 de noviembre de 2026): pide la suma, no compara con el total de filas sin sumar y frena con un
+# grupo repetido
+estado["pedidos"].clear()
+filas = api.bajar_tabla("comercio_exterior_importacion_bienes", TOKEN, BASE)
+ver(len(filas) == 1200 and all(q["select"] == "Periodo,pais_cod,valor_CIF.sum()" for _, q, _ in estado["pedidos"]),
+    f"pide la tabla sumada por mes y país y junta las dos páginas: {len(filas)} filas")
+ver(api.archivo("comercio_exterior_importacion_bienes") == "indec_api_comercio_exterior_importacion_bienes_mes_pais.json",
+    "la tabla sumada se guarda con su sufijo")
+estado["repetida"] = True
+e = error_de(lambda: api.bajar_tabla("comercio_exterior_importacion_bienes", TOKEN, BASE))
+ver(isinstance(e, ValueError) and "repetidos" in str(e), "si un grupo llega dos veces, falla")
+estado["repetida"] = False
 
 # todo junto: guarda las que salen y conserva el archivo anterior de la que falla
 os.environ["INDEC_API_TOKEN"] = TOKEN

@@ -6192,6 +6192,132 @@ IPI_RES = {
 }
 ECO_RES = {"ipc": IPC_RES, "canasta": CNT_RES, "salarios": SRL_RES, "actividad": EMA_RES, "super": SUP_RES, "crianza": CCR_RES, "industria": IPI_RES}
 
+# ---------------------------------------------------------------- socios comerciales (3 de noviembre de 2026)
+# Pedido del autor del 3 de noviembre de 2026: el comercio de bienes con cada país, de la API del INDEC (scripts/indec_api.py), que lo
+# publica por mes desde enero de 1986 y lo devuelve sumado por mes y país: el valor FOB de las exportaciones y el CIF de las importaciones,
+# en dólares. La suma de cada año da lo mismo que el intercambio comercial de la ficha de la balanza (se controla abajo: en 2022 y 2023 hay
+# hasta 0,3% de diferencia, por revisiones). Desde 2018 el INDEC publica una parte de las exportaciones como confidenciales, sin rubro ni país,
+# por el secreto estadístico: van al país "Indeterminado (Continente)". Acá ese y los demás destinos y orígenes indeterminados o sin declarar
+# son "Sin país informado" (en 2024, el 13% de lo exportado). La Argentina misma (lo que vuelve), las operaciones simplificadas, las de las
+# embajadas, el mar y los ríos argentinos y los "resto" de cada continente son "Otros". Los territorios vinculados a otro país quedan con su nombre.
+CMX_CORTO = {"DE": "Alemania", "KR": "Corea del Sur", "KP": "Corea del Norte", "RU": "Rusia", "VN": "Vietnam", "HK": "Hong Kong",
+             "MO": "Macao", "YE": "Yemen", "LY": "Libia", "MD": "Moldavia", "MK": "Macedonia del Norte", "CD": "República Democrática del Congo",
+             "KH": "Camboya", "CI": "Costa de Marfil", "KN": "San Cristóbal y Nieves", "FM": "Micronesia", "TT": "Trinidad y Tobago",
+             "AG": "Antigua y Barbuda", "BQ": "Bonaire, San Eustaquio y Saba"}
+CMX_OTROS = {"AR", "XP", "XQ", "QW", "QX"}
+CMX_N = 15  # los socios que muestra el gráfico del saldo: los de más comercio en los últimos doce meses
+CMX_SERIES = 4  # los socios de la historia: en cada sentido, los que más pesan en el último año completo
+# la historia empieza en 1991: entre 1986 y 1990 entre el 9% y el 18% de lo exportado y de lo importado de cada año figura sin país, y
+# Alemania (DE, el único código que tiene) aparece recién en octubre de 1990, con la reunificación: 1991 es su primer año completo. Se
+# controla abajo que siga siendo así
+CMX_DESDE = 1991
+cmx_socios = cmx_hist = None
+_cmx_f = {k: CRUDO / f"indec_api_comercio_exterior_{k[:-2]}_bienes_mes_pais.json" for k in ("exportaciones", "importaciones")}
+_cmx_fn = CRUDO / "indec_api_comercio_exterior_nomenclaturas.json"
+if all(f.exists() for f in _cmx_f.values()) and _cmx_fn.exists():
+    _cmx_nom = pd.DataFrame(json.loads(_cmx_fn.read_text(encoding="utf-8")))
+    _cmx_nom = _cmx_nom[_cmx_nom.nombre_columna == "pais_cod"].set_index("codigo").codigo_descripcion
+    _cmx_nom = _cmx_nom.str.replace("\xa0", " ").str.replace(r"\s+", " ", regex=True).str.strip().str.replace(" Y ", " y ")
+
+    def _cmx_tipo(c):
+        n = _cmx_nom[c]
+        if n.startswith(("Indeterminado", "Sin Declarar")) or c == "ZZ":
+            return "sin_pais"
+        return "otro" if c in CMX_OTROS or c in _cmx_sn or n.startswith("Resto") else "pais"
+
+    _cmx_l = []
+    for k, f in _cmx_f.items():
+        d = pd.DataFrame(json.loads(f.read_text(encoding="utf-8")))
+        assert list(d.columns) == ["Periodo", "pais_cod", "sum"], f"cambiaron las columnas del comercio por país ({k}): {list(d.columns)}"
+        _cmx_l.append(d.assign(flujo=k))
+    _cmx = pd.concat(_cmx_l, ignore_index=True)
+    _cmx["v"] = _cmx["sum"].fillna(0) / 1e6
+    # un código que no está en el nomenclador va a "Otros" con su código, si es poco: XO, 170 millones exportados en 2000 y 2001
+    _cmx_sn = sorted(set(_cmx.pais_cod) - set(_cmx_nom.index))
+    _cmx_snp = _cmx[_cmx.pais_cod.isin(_cmx_sn)].groupby(_cmx.Periodo.str[:4]).v.sum() / _cmx.groupby(_cmx.Periodo.str[:4]).v.sum()
+    assert (_cmx_snp.fillna(0) < .01).all(), f"códigos de país sin nombre en el nomenclador con más del 1% de un año: {_cmx_sn}"
+    _cmx_nom = pd.concat([_cmx_nom, pd.Series({c: f"Código {c}, sin nombre en el nomenclador" for c in _cmx_sn}, dtype=object)])
+    # el último mes con los dos flujos, y los meses de cada año completos en los dos
+    _cmx_ult = min(_cmx.groupby("flujo").Periodo.max())
+    _cmx = _cmx[_cmx.Periodo <= _cmx_ult]
+    _cmx_m = _cmx.groupby([_cmx.Periodo.str[:4], "flujo"]).Periodo.nunique().unstack()
+    _cmx_anios = [int(a) for a, r in _cmx_m.iterrows() if (r == 12).all()]
+    _cmx = _cmx.pivot_table(index=["Periodo", "pais_cod"], columns="flujo", values="v", aggfunc="sum", fill_value=0).reset_index()
+    _cmx["anio"] = _cmx.Periodo.str[:4].astype(int)
+    _cmx["tipo"] = _cmx.pais_cod.map(_cmx_tipo)
+    if balanza_comercial is not None:
+        _cmx_b = balanza_comercial.set_index("anio")
+        _cmx_y = _cmx[_cmx.anio.isin(_cmx_anios)].groupby("anio")[["exportaciones", "importaciones"]].sum().reindex(_cmx_b.index).dropna()
+        _cmx_dif = (_cmx_y / _cmx_b[["exportaciones", "importaciones"]].loc[_cmx_y.index] - 1).abs().max(axis=1)
+        assert len(_cmx_y) >= 20 and (_cmx_dif < .005).all(), f"el comercio por país no suma el intercambio comercial en {list(_cmx_dif[_cmx_dif >= .005].index)}"
+
+    # los últimos doce meses, con cada país y los dos grupos
+    _cmx_per = pd.Period(f"{_cmx_ult[:4]}-{_cmx_ult[4:]}", "M")
+    _cmx_ini = (_cmx_per - 11).strftime("%Y%m")
+    assert _cmx[_cmx.Periodo >= _cmx_ini].Periodo.nunique() == 12, "faltan meses en los últimos doce del comercio por país"
+    _cmx_12 = _cmx[_cmx.Periodo >= _cmx_ini].groupby("pais_cod")[["exportaciones", "importaciones"]].sum().reset_index()
+    _cmx_12["tipo"] = _cmx_12.pais_cod.map(_cmx_tipo)
+    _cmx_12["pais"] = [CMX_CORTO.get(c, _cmx_nom[c]) for c in _cmx_12.pais_cod]
+    _cmx_12["saldo"] = _cmx_12.exportaciones - _cmx_12.importaciones
+    _cmx_12["intercambio"] = _cmx_12.exportaciones + _cmx_12.importaciones
+    _cmx_12 = _cmx_12[_cmx_12.intercambio > 0]
+    _cmx_12["orden"] = _cmx_12.tipo.map({"pais": 0, "sin_pais": 1, "otro": 2})
+    _cmx_12 = _cmx_12.sort_values(["orden", "intercambio"], ascending=[True, False])
+    cmx_socios = _cmx_12.rename(columns={"pais_cod": "codigo"})[["codigo", "pais", "tipo", "exportaciones", "importaciones", "saldo", "intercambio"]].round(1)
+    _cmx_te, _cmx_ti = _cmx_12.exportaciones.sum(), _cmx_12.importaciones.sum()
+    _cmx_sp = _cmx_12[_cmx_12.tipo == "sin_pais"].exportaciones.sum()
+    _cmx_p = _cmx_12[_cmx_12.tipo == "pais"]
+    _cmx_top = _cmx_p.head(CMX_N)
+    _cmx_mes = lambda p: f"{MES[int(p[4:]) - 1]} de {p[:4]}"
+    _cmx_r = lambda r: [r.pais, round(float(r.saldo))]
+    # entre los países del gráfico, así la cifra destacada siempre está en la vista inicial
+    _cmx_sup, _cmx_def = _cmx_top.loc[_cmx_top.saldo.idxmax()], _cmx_top.loc[_cmx_top.saldo.idxmin()]
+    _cmx_c, _cmx_v = _cmx_top.loc[_cmx_top.exportaciones.idxmax()], _cmx_top.loc[_cmx_top.importaciones.idxmax()]
+    SE_RES["socios"] = {
+        "desde": _cmx_mes(_cmx_ini), "hasta": _cmx_mes(_cmx_ult), "expo": round(float(_cmx_te)), "impo": round(float(_cmx_ti)),
+        "saldo": round(float(_cmx_te - _cmx_ti)), "sin_pais": round(float(_cmx_sp)), "sin_pais_pct": r1(float(_cmx_sp / _cmx_te * 100)),
+        "n": int(len(_cmx_top)), "n_sup": int((_cmx_top.saldo > 0).sum()), "n_paises": int(len(_cmx_p)),
+        "sup": _cmx_r(_cmx_sup), "def": _cmx_r(_cmx_def),
+        "comprador": [_cmx_c.pais, round(float(_cmx_c.exportaciones)), r1(float(_cmx_c.exportaciones / _cmx_te * 100))],
+        "vendedor": [_cmx_v.pais, round(float(_cmx_v.importaciones)), r1(float(_cmx_v.importaciones / _cmx_ti * 100))],
+        "top": [{"k": r.pais_cod, "n": r.pais, "e": round(float(r.exportaciones)), "i": round(float(r.importaciones)), "s": round(float(r.saldo))}
+                for r in _cmx_top.itertuples()],
+    }
+
+    # por año completo desde CMX_DESDE: cada país, los dos grupos y la parte de cada uno en lo exportado y lo importado del año
+    _cmx_de = _cmx[(_cmx.pais_cod == "DE") & ((_cmx.exportaciones > 0) | (_cmx.importaciones > 0))].groupby("anio").Periodo.nunique()
+    assert _cmx_de.index.min() == CMX_DESDE - 1 and _cmx_de[CMX_DESDE - 1] < 12 and _cmx_de[CMX_DESDE] == 12,         "Alemania aparece en el comercio por país desde otro año: revisar CMX_DESDE"
+    _cmx_a = _cmx[_cmx.anio.isin([a for a in _cmx_anios if a >= CMX_DESDE])].copy()
+    _cmx_a["codigo"] = np.where(_cmx_a.tipo == "pais", _cmx_a.pais_cod, _cmx_a.tipo)
+    _cmx_a = _cmx_a.groupby(["anio", "codigo"])[["exportaciones", "importaciones"]].sum().reset_index()
+    _cmx_a = _cmx_a[(_cmx_a.exportaciones > 0) | (_cmx_a.importaciones > 0)]
+    _cmx_a["pais"] = _cmx_a.codigo.map(lambda c: {"sin_pais": "Sin país informado", "otro": "Otros"}.get(c) or CMX_CORTO.get(c, _cmx_nom.get(c)))
+    for c in ("exportaciones", "importaciones"):
+        _cmx_a[f"pct_{c}"] = _cmx_a[c] / _cmx_a.groupby("anio")[c].transform("sum") * 100
+    cmx_hist = _cmx_a[["anio", "codigo", "pais", "exportaciones", "importaciones", "pct_exportaciones", "pct_importaciones"]].round(4)
+    _cmx_ua, _cmx_d = max(_cmx_anios), int(cmx_hist.anio.min())
+    _cmx_u = cmx_hist[(cmx_hist.anio == _cmx_ua) & ~cmx_hist.codigo.isin(["sin_pais", "otro"])]
+    _cmx_h = cmx_hist.set_index(["codigo", "anio"])
+    _cmx_pp = lambda c, a, f: r1(float(_cmx_h.loc[(c, a), f"pct_{f}"])) if (c, a) in _cmx_h.index else 0.0
+    _cmx_sin = 2018  # desde cuándo hay exportaciones confidenciales, sin país (se controla que el salto esté ese año)
+    assert _cmx_pp("sin_pais", _cmx_sin, "exportaciones") > 3 * _cmx_pp("sin_pais", _cmx_sin - 1, "exportaciones"), "cambió el año del salto de las exportaciones sin país"
+
+    # en cada sentido, los países que más pesan en el último año completo, con su parte en el primero y en el último año y su punto más alto
+    def _cmx_ser(f):
+        return [{"k": r.codigo, "lab": r.pais, "p0": _cmx_pp(r.codigo, _cmx_d, f), "p1": _cmx_pp(r.codigo, _cmx_ua, f),
+                 "max": [int(_cmx_h.loc[r.codigo][f"pct_{f}"].idxmax()), r1(float(_cmx_h.loc[r.codigo][f"pct_{f}"].max()))]}
+                for r in _cmx_u.nlargest(CMX_SERIES, f).itertuples()]
+
+    # los años en que el segundo origen de las importaciones le vendió a la Argentina más que el primero (China a Brasil)
+    _cmx_1 = _cmx_u.nlargest(2, "importaciones").codigo.tolist()
+    _cmx_i = cmx_hist[cmx_hist.codigo.isin(_cmx_1)].pivot(index="anio", columns="codigo", values="pct_importaciones").fillna(0)
+    SE_RES["socios_hist"] = {
+        "desde": _cmx_d, "anio": _cmx_ua, "sin_pais_desde": _cmx_sin, "importa": _cmx_ser("importaciones"), "exporta": _cmx_ser("exportaciones"),
+        "sin_pais": _cmx_pp("sin_pais", _cmx_ua, "exportaciones"), "sin_pais_antes": _cmx_pp("sin_pais", _cmx_sin - 1, "exportaciones"),
+        "imp_1": [_cmx_u.set_index("codigo").pais[c] for c in _cmx_1],
+        "imp_pasa": [int(a) for a in _cmx_i.index if _cmx_i.loc[a, _cmx_1[1]] > _cmx_i.loc[a, _cmx_1[0]]],
+    }
+
 # ---------------------------------------------------------------- migraciones (etapa 25)
 # Censo 2022 (INDEC): población en viviendas particulares por lugar de nacimiento (en la provincia, en otra provincia o en otro país) y por
 # país de nacimiento, según jurisdicción. La serie de los censos desde 1869 (datos/manual/censos_nacidos_otro_pais.csv, de dos publicaciones
@@ -7543,6 +7669,7 @@ tablas = {
     "canasta_crianza": canasta_crianza,
     "industria_ramas": industria_ramas,
     "produccion_mensual": produccion_mensual,
+    **({"comercio_socios": cmx_socios, "comercio_socios_historia": cmx_hist} if cmx_socios is not None else {}),
     "actividad_mensual": actividad_mensual,
     "actividad_anual": actividad_anual,
     "actividad_sectores": actividad_sectores,

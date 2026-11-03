@@ -1,0 +1,210 @@
+codigo,pais,tipo,exportaciones,importaciones,saldo,intercambio
+BR,Brasil,pais,13161.6,15957.6,-2796.0,29119.2
+CN,China,pais,9511.5,17901.3,-8389.8,27412.8
+US,Estados Unidos,pais,10057.5,6503.1,3554.4,16560.6
+CL,Chile,pais,6405.5,910.6,5494.9,7316.1
+IN,India,pais,5539.2,1273.3,4265.8,6812.5
+PY,Paraguay,pais,1792.6,4137.8,-2345.2,5930.4
+VN,Vietnam,pais,3262.5,1049.3,2213.3,4311.8
+DE,Alemania,pais,977.9,3082.9,-2104.9,4060.8
+CH,Suiza,pais,2561.9,879.4,1682.5,3441.3
+PE,Perú,pais,3022.8,324.5,2698.2,3347.3
+TH,Tailandia,pais,962.5,2090.3,-1127.8,3052.7
+IT,Italia,pais,1116.0,1611.5,-495.5,2727.5
+ES,España,pais,1586.6,1074.2,512.3,2660.8
+NL,Países Bajos,pais,2200.1,419.1,1780.9,2619.2
+UY,Uruguay,pais,1945.4,611.2,1334.2,2556.5
+MX,México,pais,797.2,1515.0,-717.8,2312.2
+ID,Indonesia,pais,1662.2,473.3,1189.0,2135.5
+CA,Canadá,pais,1268.2,568.6,699.6,1836.8
+SA,Arabia Saudita,pais,1707.4,120.1,1587.3,1827.4
+JP,Japón,pais,271.6,1477.9,-1206.3,1749.4
+MY,Malasia,pais,1448.9,233.1,1215.8,1682.0
+FR,Francia,pais,418.1,991.4,-573.3,1409.5
+EC,Ecuador,pais,935.0,436.0,499.1,1371.0
+TR,Turquía,pais,1053.4,314.7,738.7,1368.1
+CO,Colombia,pais,1054.7,299.9,754.8,1354.7
+KR,Corea del Sur,pais,703.7,463.6,240.1,1167.2
+MA,Marruecos,pais,719.4,434.2,285.3,1153.6
+DZ,Argelia,pais,955.5,173.8,781.7,1129.3
+GB,Reino Unido,pais,536.2,461.9,74.3,998.1
+BO,Bolivia,pais,540.1,411.0,129.1,951.1
+IE,Irlanda,pais,579.0,364.3,214.7,943.3
+AU,Australia,pais,575.5,315.4,260.1,891.0
+IL,Israel,pais,743.4,139.9,603.5,883.3
+EG,Egipto,pais,795.0,61.7,733.3,856.7
+BD,Bangladesh,pais,705.8,77.0,628.8,782.8
+BE,Bélgica,pais,304.7,347.4,-42.7,652.0
+PL,Polonia,pais,394.4,246.3,148.1,640.7
+RU,Rusia,pais,361.6,278.0,83.6,639.5
+PH,Filipinas,pais,479.5,122.3,357.2,601.8
+TT,Trinidad y Tobago,pais,4.6,578.3,-573.7,582.8
+VE,Venezuela,pais,433.8,10.0,423.8,443.8
+TW,Taiwán,pais,79.8,339.6,-259.8,419.5
+ZA,Sudáfrica,pais,291.0,119.5,171.5,410.5
+AE,Emiratos Árabes Unidos,pais,317.2,84.5,232.7,401.7
+JO,Jordania,pais,363.7,15.3,348.4,379.1
+DK,Dinamarca,pais,97.7,262.7,-165.0,360.4
+DO,República Dominicana,pais,332.1,7.0,325.1,339.1
+LT,Lituania,pais,12.2,296.7,-284.5,308.8
+BG,Bulgaria,pais,249.4,44.6,204.8,294.1
+HU,Hungría,pais,9.4,268.1,-258.7,277.5
+SE,Suecia,pais,7.0,262.1,-255.2,269.1
+PT,Portugal,pais,177.3,76.2,101.1,253.4
+GR,Grecia,pais,227.1,16.1,211.0,243.2
+GT,Guatemala,pais,235.0,5.9,229.2,240.9
+AT,Austria,pais,1.8,234.7,-232.9,236.5
+MZ,Mozambique,pais,216.8,10.2,206.6,227.0
+OM,Omán,pais,54.8,148.7,-93.9,203.5
+CZ,República Checa,pais,10.8,182.0,-171.2,192.8
+RO,Rumania,pais,60.3,122.6,-62.3,183.0
+NG,Nigeria,pais,30.0,149.7,-119.7,179.7
+CR,Costa Rica,pais,124.4,39.1,85.3,163.4
+FI,Finlandia,pais,3.1,143.4,-140.4,146.5
+PK,Paquistán,pais,81.6,64.7,16.9,146.2
+SG,Singapur,pais,70.7,75.4,-4.7,146.1
+PR,Puerto Rico (Estado Asociado),pais,33.5,97.5,-63.9,131.0
+TM,Turkmenistán,pais,0.0,129.1,-129.1,129.1
+SN,Senegal,pais,123.4,4.3,119.1,127.7
+AO,Angola,pais,126.6,0.0,126.6,126.6
+SI,Eslovenia,pais,0.6,119.0,-118.4,119.6
+TN,Túnez,pais,87.9,31.5,56.4,119.4
+PA,Panamá,pais,99.1,3.5,95.6,102.6
+KE,Kenya,pais,96.1,1.5,94.6,97.7
+HK,Hong Kong,pais,86.9,7.9,79.1,94.8
+YE,Yemen,pais,94.3,0.0,94.3,94.3
+GH,Ghana,pais,92.7,1.3,91.4,94.0
+KH,Camboya,pais,9.2,75.3,-66.2,84.5
+NO,Noruega,pais,7.7,76.2,-68.5,83.9
+NA,Namibia,pais,3.1,78.0,-74.9,81.0
+NI,Nicaragua,pais,80.0,0.6,79.4,80.7
+SY,Siria,pais,79.6,0.1,79.5,79.7
+IQ,Iraq,pais,76.5,3.1,73.4,79.5
+CI,Costa de Marfil,pais,77.4,1.9,75.5,79.3
+LB,Líbano,pais,77.7,0.3,77.4,78.1
+NZ,Nueva Zelandia,pais,40.9,33.4,7.5,74.3
+SK,Eslovaquia,pais,0.0,53.6,-53.6,53.6
+HN,Honduras,pais,46.6,4.5,42.1,51.1
+LY,Libia,pais,51.0,0.0,51.0,51.0
+UA,Ucrania,pais,31.5,14.6,16.9,46.0
+KZ,Kazajstán,pais,0.4,45.0,-44.6,45.4
+QA,Qatar,pais,35.0,10.3,24.7,45.4
+KW,Kuwait,pais,11.0,27.4,-16.4,38.4
+CD,República Democrática del Congo,pais,34.6,0.0,34.6,34.6
+SV,El Salvador,pais,30.4,2.7,27.7,33.1
+CM,Camerún,pais,28.3,0.6,27.6,28.9
+CU,Cuba,pais,15.4,13.0,2.4,28.3
+CG,Congo,pais,21.9,0.0,21.9,21.9
+RS,Serbia,pais,4.5,16.9,-12.4,21.4
+LA,Laos,pais,0.0,20.5,-20.5,20.5
+HR,Croacia,pais,13.2,7.1,6.1,20.3
+UG,Uganda,pais,19.8,0.0,19.8,19.8
+LK,Sri Lanka,pais,5.2,14.3,-9.1,19.5
+MT,Malta,pais,0.0,16.9,-16.9,17.0
+MG,Madagascar,pais,12.7,3.1,9.7,15.8
+MM,Myanmar,pais,0.0,14.4,-14.4,14.4
+BN,Brunei Darussalam,pais,0.0,13.7,-13.7,13.7
+GN,Guinea,pais,13.6,0.0,13.6,13.6
+LV,Letonia,pais,6.7,6.1,0.6,12.7
+AL,Albania,pais,11.3,0.7,10.6,12.0
+GA,Gabón,pais,10.9,0.2,10.7,11.0
+XI,Territorios vinculados a Francia (Oceanía),pais,10.5,0.0,10.5,10.5
+CY,Chipre,pais,9.3,1.2,8.1,10.5
+EE,Estonia,pais,0.7,8.2,-7.5,8.9
+LU,Luxemburgo,pais,0.0,7.3,-7.3,7.3
+LR,Liberia,pais,6.8,0.0,6.7,6.8
+BH,Bahrein,pais,0.5,6.2,-5.8,6.7
+IR,Irán,pais,0.0,6.3,-6.3,6.3
+GE,Georgia,pais,4.7,0.8,3.9,5.5
+BJ,Benin,pais,5.4,0.0,5.3,5.4
+BY,Belarús,pais,4.2,1.0,3.2,5.2
+GM,Gambia,pais,4.9,0.0,4.9,4.9
+IS,Islandia,pais,1.8,2.8,-1.0,4.5
+KP,Corea del Norte,pais,0.0,4.5,-4.5,4.5
+MK,Macedonia del Norte,pais,2.4,2.0,0.4,4.4
+MD,Moldavia,pais,3.4,0.5,2.9,3.9
+CW,Curazao,pais,3.2,0.0,3.1,3.2
+BA,Bosnia y Herzegovina,pais,0.7,2.0,-1.3,2.7
+KM,Comoras,pais,2.5,0.0,2.5,2.5
+GQ,Guinea Ecuatorial,pais,2.3,0.0,2.3,2.3
+DJ,Djibouti,pais,2.1,0.0,2.1,2.1
+AZ,Azerbaiyán,pais,2.1,0.0,2.1,2.1
+GY,Guyana,pais,1.9,0.0,1.9,1.9
+PS,Palestina,pais,1.9,0.0,1.9,1.9
+HT,Haití,pais,1.1,0.2,1.0,1.3
+AW,Aruba,pais,1.3,0.0,1.3,1.3
+ME,Montenegro,pais,0.8,0.4,0.4,1.3
+LI,Liechtenstein,pais,0.0,1.0,-1.0,1.0
+BS,Bahamas,pais,0.9,0.0,0.9,0.9
+MU,Mauricio,pais,0.0,0.7,-0.7,0.7
+UZ,Uzbekistán,pais,0.1,0.5,-0.4,0.7
+ZW,Zimbabwe,pais,0.0,0.7,-0.7,0.7
+TG,Togo,pais,0.6,0.0,0.6,0.6
+QS,Territorios vinculados al Reino Unido (América),pais,0.6,0.0,0.6,0.6
+ET,Etiopia,pais,0.0,0.5,-0.5,0.5
+GD,Granada,pais,0.0,0.5,-0.5,0.5
+ML,Malí,pais,0.5,0.0,0.4,0.5
+JM,Jamaica,pais,0.4,0.0,0.4,0.5
+SO,Somalia,pais,0.0,0.4,-0.4,0.4
+MC,Mónaco,pais,0.0,0.4,-0.4,0.4
+SD,Sudán,pais,0.0,0.3,-0.3,0.3
+QO,Territorios vinculados a Francia (África),pais,0.3,0.0,0.3,0.3
+SM,San Marino,pais,0.0,0.3,-0.3,0.3
+NE,Níger,pais,0.2,0.1,0.1,0.3
+AM,Armenia,pais,0.0,0.3,-0.3,0.3
+NP,Nepal,pais,0.1,0.1,-0.0,0.2
+SX,San Martin (Parte holandesa),pais,0.2,0.0,0.2,0.2
+RW,Rwanda,pais,0.0,0.2,-0.2,0.2
+AG,Antigua y Barbuda,pais,0.1,0.0,0.1,0.2
+BZ,Belice,pais,0.1,0.0,0.1,0.1
+BB,Barbados,pais,0.0,0.1,-0.1,0.1
+MV,Maldivas,pais,0.1,0.0,0.1,0.1
+SR,Suriname,pais,0.1,0.0,0.1,0.1
+MW,Malawi,pais,0.0,0.1,-0.1,0.1
+TZ,"Tanzania, República Unida de",pais,0.0,0.1,-0.1,0.1
+ER,Eritrea,pais,0.0,0.1,-0.1,0.1
+SC,Seychelles,pais,0.0,0.0,0.0,0.1
+FJ,Fiji,pais,0.0,0.1,-0.1,0.1
+BI,Burundi,pais,0.0,0.0,-0.0,0.0
+BF,Burkina Faso,pais,0.0,0.0,-0.0,0.0
+BW,Botswana,pais,0.0,0.0,-0.0,0.0
+MO,Macao,pais,0.0,0.0,-0.0,0.0
+DM,Dominica,pais,0.0,0.0,-0.0,0.0
+LC,Santa Lucía,pais,0.0,0.0,0.0,0.0
+MN,Mongolia,pais,0.0,0.0,-0.0,0.0
+QN,Territorios Vinculados a España,pais,0.0,0.0,-0.0,0.0
+SL,Sierra Leona,pais,0.0,0.0,-0.0,0.0
+LS,Lesotho,pais,0.0,0.0,-0.0,0.0
+ZM,Zambia,pais,0.0,0.0,-0.0,0.0
+AF,Afganistán,pais,0.0,0.0,-0.0,0.0
+SZ,Eswatini (ex Swazilandia hasta abril de 2018),pais,0.0,0.0,-0.0,0.0
+PG,Papua Nueva Guinea,pais,0.0,0.0,-0.0,0.0
+TJ,Tayikistán,pais,0.0,0.0,-0.0,0.0
+AD,Andorra,pais,0.0,0.0,-0.0,0.0
+ST,Santo Tomé y Príncipe,pais,0.0,0.0,-0.0,0.0
+GI,Territorios vinculados al Reino Unido (Europa),pais,0.0,0.0,-0.0,0.0
+TL,Timor Oriental,pais,0.0,0.0,-0.0,0.0
+NR,Nauru,pais,0.0,0.0,-0.0,0.0
+PW,Palau,pais,0.0,0.0,-0.0,0.0
+BT,Bután,pais,0.0,0.0,-0.0,0.0
+MR,Mauritania,pais,0.0,0.0,-0.0,0.0
+KN,San Cristóbal y Nieves,pais,0.0,0.0,-0.0,0.0
+GL,Territorios vinculados a Dinamarca,pais,0.0,0.0,-0.0,0.0
+XH,Teritorios vinculados a Australia,pais,0.0,0.0,-0.0,0.0
+KI,Kiribati,pais,0.0,0.0,-0.0,0.0
+QT,Territorios vinculados a Francia (América),pais,0.0,0.0,-0.0,0.0
+CV,Cabo Verde,pais,0.0,0.0,-0.0,0.0
+SB,Islas Salomón,pais,0.0,0.0,-0.0,0.0
+KG,Kirguistán,pais,0.0,0.0,-0.0,0.0
+VC,San Vicente y Las Granadinas,pais,0.0,0.0,-0.0,0.0
+BQ,"Bonaire, San Eustaquio y Saba",pais,0.0,0.0,-0.0,0.0
+VG,Territorios vinculados a Estados Unidos,pais,0.0,0.0,-0.0,0.0
+XK,Teritorios vinculados a Estados Unidos,pais,0.0,0.0,-0.0,0.0
+VA,Santa Sede (Vaticano),pais,0.0,0.0,-0.0,0.0
+XR,Indeterminado (Continente),sin_pais,12463.2,1622.5,10840.7,14085.7
+XC,Indeterminado ( Asia ),sin_pais,0.0,0.2,-0.2,0.2
+XF,Indeterminado (Europa),sin_pais,0.0,0.1,-0.1,0.1
+QZ,Indeterminado (América),sin_pais,0.0,0.0,-0.0,0.0
+QQ,Indeterminado (África),sin_pais,0.0,0.0,-0.0,0.0
+AR,Argentina,otro,0.0,40.0,-40.0,40.0
+XP,Exportaciones e Importaciones Simplificadas,otro,0.0,0.0,0.0,0.0
