@@ -270,6 +270,8 @@ const CB = R.combustibles;  // precios de los combustibles en el surtidor (etapa
 const SA = R.salarios, DC = R.docentes, IE = R.inversion_edu, SG = R.seguridad;
 // Economía y precios (etapa 25): la inflación, las canastas, los salarios y la actividad, todo del INDEC
 const EIP = R.economia.ipc, ECB = R.economia.canasta, ESR = R.economia.salarios, EMA = R.economia.actividad, ESU = R.economia.super;
+// la canasta de crianza (3 de noviembre de 2026): ECR.edades tiene una entrada por grupo de edad, la de 6 a 12 años es la última
+const ECR = R.economia.crianza, ECR6 = ECR.edades.at(-1);
 const conSigno = v => (v > 0 ? "+" : "") + pct(v);
 // regiones del índice de precios del INDEC (Cuadro 5 de su metodología de 2019): grupos de ciudades, no provincias. La provincia de Buenos
 // Aires está en dos: los 24 partidos, en el Gran Buenos Aires, y el resto, en la Pampeana
@@ -935,6 +937,19 @@ const LEAD = {
       `y el nivel general de precios del Gran Buenos Aires, ${pct(ECB.ia_ipc_gba)}.`;
     return base + `El gráfico muestra la canasta por adulto equivalente, las necesidades de un varón adulto de actividad moderada: en ${ECB.reg_mes}, el último mes del informe semestral del INDEC, la canasta básica total iba de ` +
       `${n0(ECB.reg_min[1])} pesos en ${REG_ART[ECB.reg_min[0]]} a ${n0(ECB.reg_max[1])} en ${REG_ART[ECB.reg_max[0]]}.`;
+  },
+  // la cifra destacada ya dice el total de los chicos de 6 a 12 años: el texto lo separa y compara las edades
+  crianza: v => {
+    const caro = ECR.edades.reduce((m, e) => e.tot > m.tot ? e : m), barato = ECR.edades.reduce((m, e) => e.tot < m.tot ? e : m);
+    const base = `De los ${n0(ECR6.tot)} pesos que costaba en ${ECR.mes} criar a un chico de 6 a 12 años, ${n0(ECR6.bys)} eran bienes y servicios y ` +
+      `${n0(ECR6.cuid)}, el tiempo de cuidado. `;
+    if (v === "mes") return base + `Descontada la inflación, entre ${ECR.real_ini} y ${ECR.real_ult} la canasta ` +
+      listaY(ECR.edades.map(e => `de ${e.lab.toLowerCase().replace(/^de /, "")} ${cambioPct(e.real)}`)) + ".";
+    const parte = e => pct(e.cuid / e.tot * 100), E0 = ECR.edades[0];
+    const edad = e => e.lab.toLowerCase().replace(/^de /, "");
+    return base + (caro === ECR6 ? "Es la edad que más cuesta. La que menos, la de " : `La edad que más cuesta es la de ${edad(caro)}, ${n0(caro.tot)} pesos, y la que menos, la de `) +
+      `${edad(barato)}, con ${n0(barato.tot)} pesos. El cuidado es ${parte(E0)} del total en los menores de 1 año y ` +
+      `${parte(ECR6)} en los de 6 a 12.`;
   },
   // la cifra destacada ya dice el cambio del salario privado descontada la inflación: el texto empieza por el público
   "salario-real": () => `En el sector público, el salario registrado ${cambioPct(ESR.real_pub)} en los doce meses hasta ${ESR.mes}, descontada la inflación. Sin descontarla, ` +
@@ -1730,6 +1745,11 @@ const TX = {
     `indigente si no alcanzan para la alimentaria. Lo que necesita cada hogar depende de cuántas personas lo forman, su edad y su sexo: el hogar de cuatro ` +
     `integrantes del ejemplo del INDEC equivale a ${n2(ECB.adultos_hogar)} adultos equivalentes. Las canastas de las seis regiones salen cada semestre, con el informe ` +
     `de pobreza del INDEC: la última es de ${ECB.reg_mes}. Cuántas personas son pobres está en Pobreza y hogares.`,
+  crianza: LEAD.crianza("edad"), "crianza-nota": "La canasta de crianza del INDEC mide lo que cuesta por mes criar a un chico según su edad. Los bienes y " +
+    "servicios (alimentos, ropa, salud, educación, transporte y vivienda) salen de la canasta básica total. El cuidado es el tiempo que el chico " +
+    "necesita de un adulto, valuado con el salario de las trabajadoras de casas particulares que cuidan personas. No es lo que gasta una familia " +
+    "en particular, sino una referencia, que se usa por ejemplo para calcular cuotas alimentarias. Mes a mes, en pesos del último mes con datos de " +
+    "precios, descontada la inflación con el índice de precios al consumidor del país.",
   "salario-real": LEAD["salario-real"](), "salario-real-nota": `Índice de salarios del INDEC dividido por el índice de precios al consumidor del país, con ` +
     `${ESR.base} = 100, el primer mes del índice de precios del país. El índice de salarios tiene ponderaciones fijas: mide cuánto cambian los salarios, no cuánto ` +
     `cobra en promedio cada persona. El INDEC publica también el del sector privado no registrado, que la ficha no muestra: sale de la Encuesta Permanente de ` +
@@ -3761,6 +3781,18 @@ Object.assign(DIB, {
       tip: d => `<b>${d.territorio}</b><br>Canasta básica total: ${n0(d.cbt)} pesos por adulto equivalente<br>Canasta básica alimentaria: ${n0(d.cba)} pesos` +
         (d.ia != null ? `<br>La total, en doce meses: ${cambioPct(d.ia)}` : "")});
     el.resaltar = null;  // con otra provincia elegida se vuelve a dibujar
+  }),
+  // canasta de crianza (3 de noviembre de 2026): las cuatro edades en el último mes, en bienes y servicios y en cuidado, o mes a mes descontada la inflación
+  crianza: conTablas("crianza", () => MED.crianza === "mes" ? ["canasta_crianza"] : [], a => {
+    const v = MED.crianza, el = G("crianza");
+    $t("crianza").textContent = LEAD.crianza(v);
+    if (v === "mes") return lineas(el, {anim: a, data: T.canasta_crianza.filter(r => r.real_6a12 != null).map(r => ({...r, t: tPer(r.periodo)})), x: "t", y0: 0,
+      vf: n0, yf: x => n0(x / 1000) + " mil", xl: r => mesPer(r.periodo), mensual: true,
+      series: ECR.edades.map((e, i) => ({k: "real_" + e.k, lab: e.lab, c: [css("--faint"), css("--celeste"), FRI, NAR][i]}))});
+    barrasH(el, {anim: a, data: ECR.edades.map(e => ({codigo_indec: "c-" + e.k, territorio: e.lab, tot: e.tot, bys: e.bys, cuid: e.cuid})), k: "tot",
+      vf: n0, af: x => n0(x / 1000) + " mil", l: 150, lAngosto: 128,
+      tip: d => `<b>${d.territorio}</b><br>Total: ${n0(d.tot)} pesos por mes<br>Bienes y servicios: ${n0(d.bys)}<br>Cuidado: ${n0(d.cuid)}`});
+    el.resaltar = null;
   }),
   // salarios registrados descontada la inflación (etapa 25): índice del INDEC dividido por el IPC, diciembre de 2016 = 100
   "salario-real": conTablas("salario-real", () => ["salario_real_mensual"], a => {
@@ -6893,6 +6925,8 @@ const CLAVE = {
     `${inicialMin(EIP.div_max[0])}, el rubro que más subió`],
   "f-canastas": [`${n0(ECB.cbt_hogar)} pesos`, `por mes necesitaba en ${ECB.mes} un hogar de cuatro integrantes del Gran Buenos Aires para no quedar bajo la línea de pobreza`,
     `por mes, la canasta básica total de un hogar de cuatro integrantes del Gran Buenos Aires en ${ECB.mes}`],
+  "f-crianza": [`${n0(ECR6.tot)} pesos`, `por mes costaba en ${ECR.mes} criar a un chico de 6 a 12 años, según la canasta de crianza del INDEC`,
+    `por mes, la canasta de crianza de un chico de 6 a 12 años en ${ECR.mes}`],
   "f-salario-real": [pct(Math.abs(ESR.real_priv)), `${ESR.real_priv < 0 ? "bajó" : "subió"} en los doce meses hasta ${ESR.mes} el salario registrado del sector privado, descontada la inflación`,
     `${ESR.real_priv < 0 ? "bajó" : "subió"} el salario privado registrado en los doce meses hasta ${ESR.mes}, descontada la inflación`],
   "f-emae": [pct(Math.abs(EMA.interanual)), `${EMA.interanual < 0 ? "cayó" : "creció"} la actividad económica en ${EMA.mes} frente a ${EMA.mes_ant}, según el INDEC`,
@@ -8170,6 +8204,8 @@ const PREG = [
    `${ESU.interanual < 0 ? "menores" : "mayores"} que en ${ESU.mes_ant}, según el INDEC.`, "#f-supermercados"],
   ["¿Cuánto necesita un hogar para no ser pobre?",
    `${n0(ECB.cbt_hogar)} pesos por mes en ${ECB.mes} para un hogar de cuatro integrantes del Gran Buenos Aires, según la canasta básica total del INDEC.`, "#f-canastas"],
+  ["¿Cuánto cuesta criar a un chico?",
+   `${n0(ECR6.tot)} pesos por mes en ${ECR.mes} para un chico de 6 a 12 años, según la canasta de crianza del INDEC: bienes, servicios y tiempo de cuidado.`, "#f-crianza"],
   ["¿Le ganan los salarios registrados a la inflación?",
    `En los doce meses hasta ${ESR.mes}, descontada la inflación, el salario registrado del sector privado ${cambioPct(ESR.real_priv)} y el del sector público ${cambioPct(ESR.real_pub)}.`, "#f-salario-real"],
   ["¿Cuánta pobreza hay en cada región?",
@@ -11298,7 +11334,7 @@ if (PAGINA !== "inicio") {
     "f-auh": ["auh", "asignacion universal"], "f-desempleo": ["desempleo"], "f-aprender": ["aprender"], "f-escolarizacion": ["escolarizacion", "secundaria"],
     "f-censo": ["cloacas", "agua red"], "f-cobertura": ["obra social", "prepaga", "cobertura de salud", "sin cobertura"], "f-dengue": ["dengue", "mosquito"], "f-vacunas": ["vacuna", "vacunas", "vacunacion", "sarampion", "triple viral"], "f-internet": ["internet"], "f-glaciares": ["glaciares"], "f-receptivo": ["turistas", "turismo"], "f-isac": ["construccion"],
     "f-carne": ["carne"], "f-vino": ["vino"], "f-yerba": ["yerba"], "f-electricidad-provincias": ["electricidad", "luz"], "f-subsidios": ["subsidios"],
-    "f-empresas": ["empresas"], "f-canastas": ["canasta", "canasta basica"], "f-emae": ["actividad economica", "emae"], "f-carceles": ["carceles", "presos"], "f-sin-condena": ["sin condena", "presos sin condena", "procesados", "prision preventiva"],
+    "f-empresas": ["empresas"], "f-canastas": ["canasta", "canasta basica"], "f-crianza": ["crianza", "canasta de crianza", "cuota alimentaria"], "f-emae": ["actividad economica", "emae"], "f-carceles": ["carceles", "presos"], "f-sin-condena": ["sin condena", "presos sin condena", "procesados", "prision preventiva"],
     "f-coparticipacion": ["coparticipacion", "coparticipacion federal", "reparto de impuestos"],
     "f-sociedades": ["sociedades", "empresas nuevas", "crear empresas", "nuevas sociedades", "emprendimientos"],
     "f-medicos": ["medicos", "medicos por habitante", "cantidad de medicos", "medico"],

@@ -60,6 +60,8 @@
   Cache-Control: public, max-age=31536000, immutable
 /datos/salario_docente_serie.json
   Cache-Control: public, max-age=31536000, immutable
+/datos/canasta_crianza.json
+  Cache-Control: public, max-age=31536000, immutable
 /datos/inversion_educativa_serie.json
   Cache-Control: public, max-age=31536000, immutable
 /datos/seguridad_serie_prov.json

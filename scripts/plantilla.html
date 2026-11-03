@@ -529,6 +529,20 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <div class="pie"><span>Fuente: INDEC, canasta básica alimentaria y canasta básica total, e informe de pobreza e indigencia</span><a href="datos/canasta_mensual.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
+    <!-- la canasta de crianza del INDEC, de su API (3 de noviembre de 2026) -->
+    <article class="ficha" id="f-crianza">
+      <h2>¿Cuánto cuesta por mes criar a un chico?</h2>
+      <p class="ficha-sub">Canasta de crianza por edad, en pesos por mes, {{economia.crianza.mes}}, y mes a mes descontada la inflación desde {{economia.crianza.mes_ini}}</p>
+      <div class="conmutador" role="group" aria-label="Vista" data-g="crianza">
+        <button type="button" data-m="edad" aria-pressed="true">Por edad</button>
+        <button type="button" data-m="mes" aria-pressed="false">Mes a mes</button>
+      </div>
+      <div class="grafico" data-g="crianza" data-forma="barras" style="--filas:4"></div>
+      <p class="lead" data-t="crianza"></p>
+      <p class="nota" data-t="crianza-nota"></p>
+      <div class="pie"><span>Fuente: INDEC, valorización de la canasta de crianza (Catálogo API-INDEC) e índice de precios al consumidor</span><a href="datos/canasta_crianza.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
     <article class="ficha" id="f-salario-real">
       <h2>¿Cuánto cambió el poder de compra de los salarios registrados?</h2>
       <p class="ficha-sub">Índice de salarios registrados del sector privado y del sector público descontada la inflación ({{economia.salarios.base}} = 100), {{economia.salarios.anio_ini}} a {{economia.salarios.anio}}</p>
