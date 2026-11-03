@@ -7433,6 +7433,41 @@
     }
    ],
    "tabla": "comercio_socios_historia"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:indec_proyecciones_provincias.csv",
+   "a": "f-chicos-escuela",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "proy = pd.read_csv(CRUDO / \"indec_proyecciones_provincias.csv\", sep=\";\")"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_esc_v = proy[proy.edad.isin(ESC_EDADES)].groupby([\"codigo_indec\", \"anio\"]).pob.sum().unstack()"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"chicos_escuela_provincias\": chicos_escuela,"
+    }
+   ],
+   "tabla": "chicos_escuela_provincias"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:deis_nacidos_AAAA.csv",
+   "a": "f-chicos-escuela",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "x = leer_deis(f\"deis_nacidos_{a}.csv\")"
+    },
+    {
+     "archivo": "scripts/datina.js",
+     "contiene": "`Entre ${nac.anio_pico} y ${nac.anio_ult} los nacimientos ya bajaron ${pct(Math.abs(nac.caida))}, según las estadísticas vitales de la DEIS.`"
+    }
+   ]
   }
  ],
  "fichas": {
@@ -7978,6 +8013,11 @@
   "f-sociedades": {
    "variables": [
     "sociedades_comerciales_constituidas_cada_100000"
+   ]
+  },
+  "f-chicos-escuela": {
+   "variables": [
+    "poblacion_5_a_14_anios"
    ]
   }
  }
