@@ -11,8 +11,13 @@ Desde el 2 de noviembre de 2026 (pedido del autor) la actualización mensual baj
 | `ipi_manufacturero` | `indec_api_ipi_manufacturero.json` | Producción industrial por rama, cada mes. El sitio no la tiene |
 | `ipi_minero` | `indec_api_ipi_minero.json` | Producción minera, cada mes. El sitio no la tiene |
 | `proyecciones_poblacion_jurisdiccion_2022_2040` | `indec_api_proyecciones_poblacion_jurisdiccion_2022_2040.json` | La misma fuente que el módulo de población (`POB`), para compararla con la planilla que se baja hoy |
+| `comercio_exterior_exportacion_bienes` | `indec_api_comercio_exterior_exportacion_bienes_mes_pais.json` | Exportaciones por país de destino desde 1986, sumadas por la API por mes y país (3 de noviembre de 2026). Fichas `f-socios` y `f-socios-hist` |
+| `comercio_exterior_importacion_bienes` | `indec_api_comercio_exterior_importacion_bienes_mes_pais.json` | Importaciones por país de origen desde 1986, sumadas igual. Las mismas fichas |
+| `comercio_exterior_nomenclaturas` | `indec_api_comercio_exterior_nomenclaturas.json` | Los nombres de los países de las dos anteriores |
 
-Por ahora `02_procesar.py` no lee ninguna. Cada una entra al sitio en un cambio aparte, después de compararla con lo que ya hay: una ficha nueva con su pregunta, su origen en `datos/manual/relaciones.json` y su tabla en el catálogo, o el reemplazo de un archivo que ya se baja, solo si el resumen da igual antes y después (o cada diferencia se explica por una revisión del INDEC).
+Las de comercio exterior tienen 780.000 y 390.000 filas, unos 150 MB en JSON, más de lo que GitHub acepta en un archivo: por eso se piden ya sumadas por mes y país (`SUMAS` en `scripts/indec_api.py`: la API acepta sumas, `select=Periodo,pais_cod,valor_FOB.sum()`), unos 3 a 4 MB cada una. El 3 de noviembre de 2026 se comprobó que la suma de 2024 por país es igual a la de las filas sin sumar, y `02_procesar.py` controla que cada año dé lo mismo que el intercambio comercial de la ficha de la balanza (hasta 0,3% de diferencia en 2022 y 2023, por revisiones).
+
+Las cuatro primeras y las de comercio exterior ya están en el sitio. Cada una entra al sitio en un cambio aparte, después de compararla con lo que ya hay: una ficha nueva con su pregunta, su origen en `datos/manual/relaciones.json` y su tabla en el catálogo, o el reemplazo de un archivo que ya se baja, solo si el resumen da igual antes y después (o cada diferencia se explica por una revisión del INDEC).
 
 Lo demás que tiene la API (precios, salarios, canastas, actividad, comercio exterior, pobreza y empleo) ya se baja de los archivos del INDEC. En pobreza y empleo la API trae solo el total de los 31 aglomerados, y el sitio usa el detalle por aglomerado de las planillas: esas siguen.
 

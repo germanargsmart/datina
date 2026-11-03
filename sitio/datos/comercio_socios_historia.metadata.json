@@ -1,0 +1,55 @@
+{
+ "tabla": "comercio_socios_historia.csv",
+ "titulo": "¿Cómo cambiaron los principales socios comerciales de la Argentina?",
+ "descripcion": "Parte de cada país en las importaciones o las exportaciones de bienes, en % del total de cada año, 1991 a 2025",
+ "seccion": "Sector externo",
+ "ficha": "https://datina.com.ar/externo.html#f-socios-hist",
+ "fuente": "INDEC, exportaciones e importaciones de bienes por país, vía el Catálogo API-INDEC.",
+ "actualizacion": "Se actualiza cada año.",
+ "cobertura": "Sin desglose territorial",
+ "periodo": "1991 a 2025",
+ "filas": 6685,
+ "columnas": [
+  {
+   "nombre": "anio",
+   "tipo": "Año",
+   "valores": "1991 a 2025"
+  },
+  {
+   "nombre": "codigo",
+   "tipo": "Código",
+   "valores": "220 códigos"
+  },
+  {
+   "nombre": "pais",
+   "tipo": "Texto",
+   "valores": "220 valores distintos"
+  },
+  {
+   "nombre": "exportaciones",
+   "tipo": "Número",
+   "valores": "0 a 17.318,66"
+  },
+  {
+   "nombre": "importaciones",
+   "tipo": "Número",
+   "valores": "0 a 22.327,24"
+  },
+  {
+   "nombre": "pct_exportaciones",
+   "tipo": "Número",
+   "valores": "0 a 30,77"
+  },
+  {
+   "nombre": "pct_importaciones",
+   "tipo": "Número",
+   "valores": "0 a 35,88"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "28/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
+ "como_citar": "Datina (año de la consulta). ¿Cómo cambiaron los principales socios comerciales de la Argentina? Con datos de INDEC, exportaciones e importaciones de bienes por país, vía el Catálogo API-INDEC. https://datina.com.ar/externo.html#f-socios-hist. Consultado el día de la consulta."
+}

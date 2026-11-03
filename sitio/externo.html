@@ -150,7 +150,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     <div class="tema-intro">
       <h1 class="pregunta" data-corta="¿Qué le vende y qué le compra al mundo?">¿Qué le vende y qué le compra la Argentina al mundo?</h1>
       <p>Cada ficha contesta una parte de la pregunta: qué exporta y qué importa la Argentina, con qué países comercia y desde qué provincias salen las ventas. Al final están el saldo de las cuentas con el resto del mundo y las reservas del Banco Central. El dólar, las tasas y el dinero están en <a href="economia.html#f-bcra">Precios y actividad</a>. Lo que exporta cada provincia por habitante está en <a href="trabajo.html#f-exportaciones">Trabajo</a>.</p>
-    </div><div class="en-cifras esqueleto" aria-hidden="true"><h2>En cifras</h2><div class="cifras-grid"><span class="tarjeta cifra"></span><span class="tarjeta cifra"></span><span class="tarjeta cifra"></span><span class="tarjeta cifra"></span><span class="tarjeta cifra"></span></div></div><nav class="capitulos" aria-label="Capítulos de esta página"><span class="sub-cat">Capítulos</span><a href="#g-exportaciones">Exportaciones</a><a href="#g-importaciones">Importaciones</a><a href="#g-cuentas-externas">Cuentas y reservas</a></nav>
+    </div><div class="en-cifras esqueleto" aria-hidden="true"><h2>En cifras</h2><div class="cifras-grid"><span class="tarjeta cifra"></span><span class="tarjeta cifra"></span><span class="tarjeta cifra"></span><span class="tarjeta cifra"></span><span class="tarjeta cifra"></span></div></div><nav class="capitulos" aria-label="Capítulos de esta página"><span class="sub-cat">Capítulos</span><a href="#g-exportaciones">Exportaciones</a><a href="#g-importaciones">Importaciones</a><a href="#g-socios">Socios comerciales</a><a href="#g-cuentas-externas">Cuentas y reservas</a></nav>
     <!-- "Para entender los datos" del sector externo (plan de mejora, sección 5: era la única página de su grupo sin él, 28 de octubre de 2026):
          datos/manual/explicadores.json -->
     <p class="exp-gancho"><a href="#para-entender">Para entender los datos</a>: qué se mide, de dónde sale y qué tener en cuenta, al final de la página ↓</p>
@@ -225,6 +225,35 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <p class="lead" data-t="origen"></p>
       <p class="nota" data-t="origen-nota"></p>
       <div class="pie"><span>Fuente: INDEC, intercambio comercial argentino, importaciones por zona económica y país (provisorio). Se actualiza cada mes.</span><a href="datos/importaciones_origen.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <h2 class="bloque-grupo" id="g-socios">Socios comerciales</h2>
+
+    <article class="ficha" id="f-socios">
+      <h2>¿Con qué países la Argentina vende más de lo que compra?</h2>
+      <p class="ficha-sub">Exportaciones e importaciones de bienes y su saldo con los 15 países con más comercio, en millones de dólares, octubre de 2025 a septiembre de 2026</p>
+      <div class="conmutador" role="group" aria-label="Vista" data-g="socios" style="--n:3">
+        <button type="button" data-m="saldo" aria-pressed="true">Saldo</button>
+        <button type="button" data-m="exporta" aria-pressed="false">Exportaciones</button>
+        <button type="button" data-m="importa" aria-pressed="false">Importaciones</button>
+      </div>
+      <div class="grafico" data-g="socios" data-forma="barras" style="--filas:16"></div>
+      <p class="lead" data-t="socios"></p>
+      <p class="nota" data-t="socios-nota"></p>
+      <div class="pie"><span>Fuente: INDEC, exportaciones e importaciones de bienes por país, vía el Catálogo API-INDEC. Se actualiza cada mes.</span><a href="datos/comercio_socios.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-socios-hist">
+      <h2>¿Cómo cambiaron los principales socios comerciales de la Argentina?</h2>
+      <p class="ficha-sub">Parte de cada país en las importaciones o las exportaciones de bienes, en % del total de cada año, 1991 a 2025</p>
+      <div class="conmutador" role="group" aria-label="Vista" data-g="socios-hist">
+        <button type="button" data-m="importa" aria-pressed="true">Importaciones</button>
+        <button type="button" data-m="exporta" aria-pressed="false">Exportaciones</button>
+      </div>
+      <div class="grafico" data-g="socios-hist" data-forma="lineas"></div>
+      <p class="lead" data-t="socios-hist"></p>
+      <p class="nota" data-t="socios-hist-nota"></p>
+      <div class="pie"><span>Fuente: INDEC, exportaciones e importaciones de bienes por país, vía el Catálogo API-INDEC. Se actualiza cada año.</span><a href="datos/comercio_socios_historia.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <h2 class="bloque-grupo" id="g-cuentas-externas">Cuentas y reservas</h2>
@@ -331,7 +360,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 <p class="solo-lector" id="aviso" aria-live="polite"></p>
 
 <!-- los datos van en un archivo aparte que el navegador guarda una sola vez para todas las páginas -->
-<script src="datos/fichas.js?v=8b292cf9e9"></script>
-<script src="datina.js?v=93e4e680cd"></script>
+<script src="datos/fichas.js?v=34c9eed29e"></script>
+<script src="datina.js?v=a38ffbe408"></script>
 </body>
 </html>

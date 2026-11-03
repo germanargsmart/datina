@@ -2518,6 +2518,39 @@
     "archivo": "scripts/indec_api.py",
     "contiene": "\"ipi_minero\": \"periodo,"
    }
+  },
+  {
+   "id": "ds:indec_api_comercio_exterior_exportacion_bienes_mes_pais.json",
+   "nombre": "Exportaciones de bienes por rubros y países de destino, sumadas por mes y país (Catálogo API-INDEC)",
+   "fuente": "org:indec",
+   "ruta": "datos/crudo/indec_api_comercio_exterior_exportacion_bienes_mes_pais.json",
+   "url": "https://api.indec.gob.ar/v1/comercio_exterior_exportacion_bienes",
+   "evidencia": {
+    "archivo": "scripts/indec_api.py",
+    "contiene": "\"comercio_exterior_exportacion_bienes\": "
+   }
+  },
+  {
+   "id": "ds:indec_api_comercio_exterior_importacion_bienes_mes_pais.json",
+   "nombre": "Importaciones de bienes por uso económico y país de origen, sumadas por mes y país (Catálogo API-INDEC)",
+   "fuente": "org:indec",
+   "ruta": "datos/crudo/indec_api_comercio_exterior_importacion_bienes_mes_pais.json",
+   "url": "https://api.indec.gob.ar/v1/comercio_exterior_importacion_bienes",
+   "evidencia": {
+    "archivo": "scripts/indec_api.py",
+    "contiene": "\"comercio_exterior_importacion_bienes\": "
+   }
+  },
+  {
+   "id": "ds:indec_api_comercio_exterior_nomenclaturas.json",
+   "nombre": "Códigos y denominaciones de comercio exterior (Catálogo API-INDEC)",
+   "fuente": "org:indec",
+   "ruta": "datos/crudo/indec_api_comercio_exterior_nomenclaturas.json",
+   "url": "https://api.indec.gob.ar/v1/comercio_exterior_nomenclaturas",
+   "evidencia": {
+    "archivo": "scripts/indec_api.py",
+    "contiene": "\"comercio_exterior_nomenclaturas\": "
+   }
   }
  ],
  "aristas": [
@@ -7297,6 +7330,102 @@
     }
    ],
    "tabla": "industria_ramas"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:indec_api_comercio_exterior_exportacion_bienes_mes_pais.json",
+   "a": "f-socios",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_cmx_f = {k: CRUDO / f\"indec_api_comercio_exterior_{k[:-2]}_bienes_mes_pais.json\""
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"comercio_socios\": cmx_socios, \"comercio_socios_historia\": cmx_hist"
+    }
+   ],
+   "tabla": "comercio_socios"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:indec_api_comercio_exterior_exportacion_bienes_mes_pais.json",
+   "a": "f-socios-hist",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_cmx_f = {k: CRUDO / f\"indec_api_comercio_exterior_{k[:-2]}_bienes_mes_pais.json\""
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"comercio_socios\": cmx_socios, \"comercio_socios_historia\": cmx_hist"
+    }
+   ],
+   "tabla": "comercio_socios_historia"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:indec_api_comercio_exterior_importacion_bienes_mes_pais.json",
+   "a": "f-socios",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_cmx_f = {k: CRUDO / f\"indec_api_comercio_exterior_{k[:-2]}_bienes_mes_pais.json\""
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"comercio_socios\": cmx_socios, \"comercio_socios_historia\": cmx_hist"
+    }
+   ],
+   "tabla": "comercio_socios"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:indec_api_comercio_exterior_importacion_bienes_mes_pais.json",
+   "a": "f-socios-hist",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_cmx_f = {k: CRUDO / f\"indec_api_comercio_exterior_{k[:-2]}_bienes_mes_pais.json\""
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"comercio_socios\": cmx_socios, \"comercio_socios_historia\": cmx_hist"
+    }
+   ],
+   "tabla": "comercio_socios_historia"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:indec_api_comercio_exterior_nomenclaturas.json",
+   "a": "f-socios",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_cmx_fn = CRUDO / \"indec_api_comercio_exterior_nomenclaturas.json\""
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"comercio_socios\": cmx_socios, \"comercio_socios_historia\": cmx_hist"
+    }
+   ],
+   "tabla": "comercio_socios"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:indec_api_comercio_exterior_nomenclaturas.json",
+   "a": "f-socios-hist",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_cmx_fn = CRUDO / \"indec_api_comercio_exterior_nomenclaturas.json\""
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"comercio_socios\": cmx_socios, \"comercio_socios_historia\": cmx_hist"
+    }
+   ],
+   "tabla": "comercio_socios_historia"
   }
  ],
  "fichas": {

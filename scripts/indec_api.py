@@ -5,8 +5,12 @@ Pide una cuenta gratuita y un token, guardado como secreto INDEC_API_TOKEN en Gi
 
 Cada tabla se pide de a 1000 filas (el máximo de la API), ordenada por su clave completa, que es lo que pide la documentación para que las
 páginas no repitan ni salteen filas, y lo recibido se compara con el total que informa la API (Content-Range). Se guarda tal como la publica
-el INDEC: la lista de filas en datos/crudo/indec_api_<tabla>.json. 02_procesar.py todavía no las lee: primero se comparan con lo que ya baja
-01_descargar.py de los archivos del INDEC.
+el INDEC: la lista de filas en datos/crudo/indec_api_<tabla>.json.
+
+Las dos de comercio exterior (3 de noviembre de 2026) tienen más de un millón de filas entre las dos, unos 150 MB en JSON: más de lo que
+GitHub acepta en un archivo. Se piden ya sumadas por la API (SUMAS: la API acepta sumas al estilo PostgREST, select=col,valor.sum()), por
+mes y país, y se guardan en datos/crudo/indec_api_<tabla>_<sufijo>.json, unos 3 MB cada una. El 3 de noviembre de 2026 se comprobó que la
+suma de 2024 por país es la misma que la de las 21.292 filas de exportaciones y las 11.200 de importaciones de ese año.
 """
 import json, os, re, time, urllib.error, urllib.request
 
@@ -23,6 +27,16 @@ TABLAS = {
     "ipi_manufacturero": "periodo,indicador,cuadro_web,codigo_CLaNAE_2004,descripcion,serie,tipo_de_indicador",
     "ipi_minero": "periodo,anio,mes,indicador,cuadro_web,codigo_ClaNAE_2010,codigo_CPC_2_1,serie,descripcion,tipo_de_indicador,unidad_de_medida",
     "proyecciones_poblacion_jurisdiccion_2022_2040": "jurisdiccion_cod,sexo_cod,edad_cod,fecha",
+    # comercio exterior por país (3 de noviembre de 2026): las dos se piden sumadas (SUMAS) y se ordenan por lo que se agrupa
+    "comercio_exterior_exportacion_bienes": "Periodo,pais_cod",
+    "comercio_exterior_importacion_bienes": "Periodo,pais_cod",
+    "comercio_exterior_nomenclaturas": "nombre_columna,codigo",
+}
+
+# las tablas que se piden sumadas: el valor que se suma y el sufijo del archivo. La API agrupa por las columnas de TABLAS
+SUMAS = {
+    "comercio_exterior_exportacion_bienes": ("valor_FOB", "mes_pais"),
+    "comercio_exterior_importacion_bienes": ("valor_CIF", "mes_pais"),
 }
 
 
@@ -31,7 +45,8 @@ class SinToken(Exception):
 
 
 def archivo(tabla):
-    return f"indec_api_{tabla.replace('-', '_')}.json"
+    sufijo = f"_{SUMAS[tabla][1]}" if tabla in SUMAS else ""
+    return f"indec_api_{tabla.replace('-', '_')}{sufijo}.json"
 
 
 def token():
@@ -60,14 +75,16 @@ def _pedir(url, tok, intentos=4):
 
 
 def bajar_tabla(tabla, tok, base=BASE):
-    """Todas las filas de una tabla, página por página, con el total controlado"""
+    """Todas las filas de una tabla, página por página, con el total controlado. En una tabla sumada el total que informa la API es el de
+    las filas sin sumar: ahí se controla, en cambio, que ningún grupo llegue dos veces"""
     filas, total = [], None
+    sel = f"select={TABLAS[tabla]},{SUMAS[tabla][0]}.sum()&" if tabla in SUMAS else ""
     while True:
-        lote, rango = _pedir(f"{base}{tabla}?order={TABLAS[tabla]}&limit={POR_PAGINA}&offset={len(filas)}", tok)
+        lote, rango = _pedir(f"{base}{tabla}?{sel}order={TABLAS[tabla]}&limit={POR_PAGINA}&offset={len(filas)}", tok)
         if not isinstance(lote, list):
             raise ValueError("la API no devolvió una lista de filas")
         m = re.search(r"/(\d+)$", rango)
-        if m:
+        if m and not sel:
             total = int(m.group(1))
         filas += lote
         if len(lote) < POR_PAGINA or (total is not None and len(filas) >= total):
@@ -76,6 +93,10 @@ def bajar_tabla(tabla, tok, base=BASE):
         raise ValueError("la API no devolvió filas")
     if total is not None and len(filas) != total:
         raise ValueError(f"la API informó {total} filas y llegaron {len(filas)}")
+    if sel:
+        claves = TABLAS[tabla].split(",")
+        if len({tuple(f.get(c) for c in claves) for f in filas}) != len(filas):
+            raise ValueError("la API devolvió grupos repetidos en la tabla sumada")
     return filas
 
 
