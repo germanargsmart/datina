@@ -10461,7 +10461,7 @@ const ART_SERIE = [{
   dek: "Cuántos turistas extranjeros llegan y cuántos residentes viajan al exterior, mes por mes, cuál es la diferencia entre los dos, de dónde llegan los turistas y cómo se mueven esos viajes con el dólar en términos reales.",
   fichas: [["f-receptivo", "turistas extranjeros"]],
   csv: [["turismo_dolar_mensual", "Descargar CSV por mes"]],
-  fuentes: "Ministerio de Turismo y Deportes, SINTA, estimación de turismo internacional (viajes de turistas no residentes y residentes), y Banco Central " +
+  fuentes: "Secretaría de Turismo y Ambiente, SINTA, estimación de turismo internacional (viajes de turistas no residentes y residentes), y Banco Central " +
     "de la República Argentina, índices de tipo de cambio real multilateral y bilaterales",
   texto: () => {
     const t = R.turismo_dolar, mm = v => `${n1(v / 1e6)} millones`, O = t.origen_12m, OP = t.origen_pct, O0 = t.origen_ini;
@@ -10512,7 +10512,7 @@ const ART_SERIE = [{
       "Una correlación no prueba que una cosa cause la otra, y los meses seguidos no son casos independientes. También cuentan los ingresos en cada país, los vuelos, las temporadas y los feriados.",
       `Entre fines de 2011 y fines de 2015, y entre ${LIMITES}, hubo límites para comprar dólares y recargos a los gastos con tarjeta en el exterior: lo que pagaba un turista podía estar lejos del tipo de cambio oficial.`,
       `Los datos desde ${t.provisorio_desde} son provisorios.`];
-    const notas = ["Turistas: estimación de turismo internacional del SINTA (Ministerio de Turismo y Deportes), viajes de turistas no residentes que llegan y de residentes que viajan al exterior, por mes. Los doce meses suman cada mes con los once anteriores.",
+    const notas = ["Turistas: estimación de turismo internacional del SINTA (Secretaría de Turismo y Ambiente), viajes de turistas no residentes que llegan y de residentes que viajan al exterior, por mes. Los doce meses suman cada mes con los once anteriores.",
       "Dólar real: índices de tipo de cambio real multilateral y bilaterales del Banco Central, promedio de cada mes.",
       "Pandemia: los meses desde 2020 en que llegó menos de la mitad de los turistas que en el mismo mes de 2019, y los que se comparan con uno de ellos.",
       `Correlación de Spearman, de menos 1 a 1: ${rTxt(t.rs_salen)} para las salidas, ${rTxt(t.rs_llegan)} para las llegadas, ${rTxt(t.rs_balanza)} para la balanza y ${rTxt(t.rs_brasil)} para Brasil.`];
