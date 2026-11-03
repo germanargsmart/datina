@@ -2485,6 +2485,17 @@
     "archivo": "scripts/02_procesar.py",
     "contiene": "_jus_cp = pd.read_csv(RAIZ / \"datos\" / \"manual\" / \"cortes_provinciales.csv\", dtype={\"codigo_indec\": str})"
    }
+  },
+  {
+   "id": "ds:indec_api_canasta_crianza.json",
+   "nombre": "Valorización de la canasta de crianza (Catálogo API-INDEC)",
+   "fuente": "org:indec",
+   "ruta": "datos/crudo/indec_api_canasta_crianza.json",
+   "url": "https://api.indec.gob.ar/v1/canasta-crianza",
+   "evidencia": {
+    "archivo": "scripts/indec_api.py",
+    "contiene": "\"canasta-crianza\": \"Periodo\","
+   }
   }
  ],
  "aristas": [
@@ -7204,6 +7215,34 @@
     }
    ],
    "tabla": "medicos_provincias"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:indec_api_canasta_crianza.json",
+   "a": "f-crianza",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_ccr = pd.DataFrame(json.loads((CRUDO / \"indec_api_canasta_crianza.json\")"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"canasta_crianza\": canasta_crianza,"
+    }
+   ],
+   "tabla": "canasta_crianza"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:indec_ipc_divisiones.csv",
+   "a": "f-crianza",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "canasta_crianza[f\"real_{_e}\"] = canasta_crianza.periodo.map(_ccr[f\"tot_{_e}\"] * _ipc_ng[_ccr_u]"
+    }
+   ],
+   "tabla": "canasta_crianza"
   }
  ],
  "fichas": {

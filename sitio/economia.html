@@ -180,6 +180,20 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <div class="pie"><span>Fuente: INDEC, canasta básica alimentaria y canasta básica total, e informe de pobreza e indigencia. Se actualiza cada mes.</span><a href="datos/canasta_mensual.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
+    <!-- la canasta de crianza del INDEC, de su API (3 de noviembre de 2026) -->
+    <article class="ficha" id="f-crianza">
+      <h2>¿Cuánto cuesta por mes criar a un chico?</h2>
+      <p class="ficha-sub">Canasta de crianza por edad, en pesos por mes, septiembre de 2026, y mes a mes descontada la inflación desde mayo de 2023</p>
+      <div class="conmutador" role="group" aria-label="Vista" data-g="crianza">
+        <button type="button" data-m="edad" aria-pressed="true">Por edad</button>
+        <button type="button" data-m="mes" aria-pressed="false">Mes a mes</button>
+      </div>
+      <div class="grafico" data-g="crianza" data-forma="barras" style="--filas:4"></div>
+      <p class="lead" data-t="crianza"></p>
+      <p class="nota" data-t="crianza-nota"></p>
+      <div class="pie"><span>Fuente: INDEC, valorización de la canasta de crianza (Catálogo API-INDEC) e índice de precios al consumidor. Se actualiza cada mes.</span><a href="datos/canasta_crianza.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
     <article class="ficha" id="f-salario-real">
       <h2>¿Cuánto cambió el poder de compra de los salarios registrados?</h2>
       <p class="ficha-sub">Índice de salarios registrados del sector privado y del sector público descontada la inflación (diciembre de 2016 = 100), 2016 a 2026</p>
@@ -336,7 +350,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 <p class="solo-lector" id="aviso" aria-live="polite"></p>
 
 <!-- los datos van en un archivo aparte que el navegador guarda una sola vez para todas las páginas -->
-<script src="datos/fichas.js?v=3d79a2fcd8"></script>
-<script src="datina.js?v=0f762fc023"></script>
+<script src="datos/fichas.js?v=ca09f6c9f2"></script>
+<script src="datina.js?v=057a692690"></script>
 </body>
 </html>

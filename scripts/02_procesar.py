@@ -6124,7 +6124,27 @@ _su_l = (_su_v.drop(columns="Total del país").T.groupby(lambda j: _su_jur[j][0]
          .melt(id_vars="periodo", var_name="codigo_indec", value_name="valor"))
 agregar(_su_l.assign(territorio=_su_l.codigo_indec.map(CORTO)), "ventas_supermercados_precios_corrientes", "miles de pesos",
         "INDEC, Encuesta de Supermercados")
-ECO_RES = {"ipc": IPC_RES, "canasta": CNT_RES, "salarios": SRL_RES, "actividad": EMA_RES, "super": SUP_RES}
+# Canasta de crianza del INDEC (API, desde el 3 de noviembre de 2026: scripts/indec_api.py): lo que cuesta por mes criar a un chico según su
+# edad, en bienes y servicios y en cuidado. Mes a mes, en pesos del último mes con el IPC del país
+_CCR_EDAD = {"men1": "Menores de 1 año", "1a3": "De 1 a 3 años", "4a5": "De 4 y 5 años", "6a12": "De 6 a 12 años"}
+_ccr = pd.DataFrame(json.loads((CRUDO / "indec_api_canasta_crianza.json").read_text(encoding="utf-8")))
+_ccr = _ccr.assign(periodo=_ccr.Periodo.astype(str).str[:4] + "-" + _ccr.Periodo.astype(str).str[4:6]).sort_values("periodo").set_index("periodo")
+assert _ccr.index.is_unique and all(f"{p}_{e}" in _ccr for p in ("bys", "cuid", "tot") for e in _CCR_EDAD), "cambiaron las columnas de la canasta de crianza"
+for _c in [f"{p}_{e}" for p in ("bys", "cuid", "tot") for e in _CCR_EDAD]:
+    _ccr[_c] = pd.to_numeric(_ccr[_c])
+_ccr_p = _ccr.index[_ccr.index.isin(_ipc_ng.index)]
+_ccr_u, _ccr_0 = _ccr_p[-1], _ccr_p[0]
+canasta_crianza = pd.DataFrame({"periodo": _ccr.index, **{f"{p}_{e}": _ccr[f"{p}_{e}"].values for e in _CCR_EDAD for p in ("bys", "cuid", "tot")}})
+for _e in _CCR_EDAD:
+    canasta_crianza[f"real_{_e}"] = canasta_crianza.periodo.map(_ccr[f"tot_{_e}"] * _ipc_ng[_ccr_u] / _ipc_ng.reindex(_ccr.index)).round(0)
+_ccr_ult = _ccr.index[-1]
+CCR_RES = {
+    "periodo": _ccr_ult, "mes": _mes_per(_ccr_ult), "mes_ini": _mes_per(_ccr.index[0]), "real_ult": _mes_per(_ccr_u), "real_ini": _mes_per(_ccr_0),
+    "edades": [{"k": e, "lab": l, "tot": int(_ccr.at[_ccr_ult, f"tot_{e}"]), "bys": int(_ccr.at[_ccr_ult, f"bys_{e}"]), "cuid": int(_ccr.at[_ccr_ult, f"cuid_{e}"]),
+                "real": r1((_ccr.at[_ccr_u, f"tot_{e}"] / _ccr.at[_ccr_0, f"tot_{e}"] / (_ipc_ng[_ccr_u] / _ipc_ng[_ccr_0]) - 1) * 100)}
+               for e, l in _CCR_EDAD.items()],
+}
+ECO_RES = {"ipc": IPC_RES, "canasta": CNT_RES, "salarios": SRL_RES, "actividad": EMA_RES, "super": SUP_RES, "crianza": CCR_RES}
 
 # ---------------------------------------------------------------- migraciones (etapa 25)
 # Censo 2022 (INDEC): población en viviendas particulares por lugar de nacimiento (en la provincia, en otra provincia o en otro país) y por
@@ -7474,6 +7494,7 @@ tablas = {
     "canasta_regiones": canasta_regiones,
     "adulto_equivalente": adulto_equivalente,
     "salario_real_mensual": salario_real_mensual,
+    "canasta_crianza": canasta_crianza,
     "actividad_mensual": actividad_mensual,
     "actividad_anual": actividad_anual,
     "actividad_sectores": actividad_sectores,
