@@ -1838,7 +1838,7 @@ const TX = {
   "fiscal-nota": `Administración pública no financiera de cada provincia, ejecución del año completo según el Ministerio de Economía. Recursos propios: ingresos corrientes menos los tributos de origen nacional, como la coparticipación, y las transferencias, más los recursos propios de capital, sobre los ingresos totales. Incluye impuestos provinciales y regalías. Resultado financiero: ingresos totales menos gastos totales, sobre los ingresos totales. Gasto en personal: sueldos y cargas sociales sobre el gasto total. La serie desde ${R.fiscal.ini} está en el explorador de cruces.` +
     Object.entries(R.fiscal.atrasadas).map(([p, a]) => ` ${p} todavía no publicó ${R.fiscal.anio}: figura con ${a}.`).join(""),
   "mapa-dep-titulo": `¿Cómo varía cada indicador de un departamento a otro?`,
-  "mapa-dep": `Cada provincia se divide en departamentos, que en Buenos Aires se llaman partidos y en CABA, comunas: son ${n0(R.departamentos.n)} en todo el país. El mapa reúne datos de tres fuentes: los homicidios, los robos y las muertes viales del Sistema Nacional de Información Criminal (SNIC), la edad de la población según el Registro Nacional de las Personas (RENAPER), y el lugar de nacimiento, las viviendas y los hogares según el Censo 2022 del INDEC. Tocá una provincia para acercarte.`,
+  "mapa-dep": `Cada provincia se divide en departamentos, que en Buenos Aires se llaman partidos y en CABA, comunas: son ${n0(R.departamentos.n)} en todo el país. El mapa reúne datos de tres fuentes: los homicidios, los robos y las muertes viales del Sistema Nacional de Información Criminal (SNIC), la edad de la población según el Registro Nacional de las Personas (RENAPER), el lugar de nacimiento, las viviendas y los hogares según el Censo 2022 del INDEC, y el crecimiento de la población que el INDEC estima hasta ${R.departamentos.pob_fin}. Tocá una provincia para acercarte.`,
   actualizado: `Datos descargados y procesados el ${fLarga(R.actualizado)}.`
 };
 document.querySelectorAll("[data-t]").forEach(el => { if (TX[el.dataset.t]) el.textContent = TX[el.dataset.t]; });
@@ -6473,7 +6473,8 @@ const MAPA_DEP = (() => {
     refrescarTabla("f-mapa");
     const el = G("mapa-dep"); if (!el || !el.offsetParent) return;
     if (!topo) { cargar().then(() => dibujar(anim), () => sinDatos(el, "No se pudo cargar el mapa.")); return; }
-    const m = META[ind], censo = m.fuente.startsWith("INDEC"), obj = topo.objects.departamentos, todos = topojson.feature(topo, obj).features;
+    // las estimaciones de población del INDEC se leen como el censo (listas por hogares), con su propia nota y su población en el recuadro
+    const m = META[ind], censo = m.fuente.startsWith("INDEC"), estim = m.fuente.includes("estimaciones"), obj = topo.objects.departamentos, todos = topojson.feature(topo, obj).features;
     const pv = cerca && cerca.de === prov ? cerca.c : prov;  // tocar una provincia la acerca sin elegirla en todo el sitio
     const enProv = NOMBRES[pv] ? todos.filter(f => f.properties.prov === pv) : todos;
     el.innerHTML = "";
@@ -6497,7 +6498,8 @@ const MAPA_DEP = (() => {
     deps.on("pointermove pointerdown", (ev, f) => {
       const r = filas[f.properties.id] || {}, [mx, my] = d3.pointer(ev, el);
       mostrarTip(el, `<b>${f.properties.nombre}</b>, ${r.provincia || ""}<br>${m.nombre}: ${fv(r[ind])}` +
-        (censo ? (r.hogares ? `<br>${n0(r.hogares)} hogares en el Censo 2022` : "") : r.poblacion_identificada ? `<br>${n0(r.poblacion_identificada)} personas identificadas por el RENAPER` : ""), mx, my);
+        (estim ? (r.pob_ini ? `<br>${n0(r.pob_ini)} habitantes en ${R.departamentos.pob_ini} y ${n0(r.pob_fin)} estimados para ${R.departamentos.pob_fin}` : "") :
+        censo ? (r.hogares ? `<br>${n0(r.hogares)} hogares en el Censo 2022` : "") : r.poblacion_identificada ? `<br>${n0(r.poblacion_identificada)} personas identificadas por el RENAPER` : ""), mx, my);
     }).on("pointerleave", ocultarSiMouse)
       .on("click", (ev, f) => { if (!NOMBRES[pv]) { cerca = {c: f.properties.prov, de: prov}; ocultarTip(); cambiarVista("mapa-dep"); } });
     // leyenda de quintiles
@@ -6522,7 +6524,10 @@ const MAPA_DEP = (() => {
     const item = o => `<li>${o.f.properties.nombre}${NOMBRES[pv] ? "" : ` (${o.r.provincia})`} <span>${fv(o.r[ind])}</span></li>`;
     document.getElementById("mp-lista").innerHTML = lista.length
       ? `<h3>Valores más altos</h3><ol>${lista.slice(0, 5).map(item).join("")}</ol><h3>Valores más bajos</h3><ol>${lista.slice(-5).reverse().map(item).join("")}</ol>` : "";
-    document.getElementById("mp-nota").textContent = `${m.nombre}: ${m.unidad}. Fuente: ${m.fuente}. El color divide a los departamentos del país en cinco grupos del mismo tamaño, de menor a mayor valor. ` + (censo
+    document.getElementById("mp-nota").textContent = `${m.nombre}: ${m.unidad}. Fuente: ${m.fuente}. El color divide a los departamentos del país en cinco grupos del mismo tamaño, de menor a mayor valor. ` + (estim
+      ? `Son estimaciones que el INDEC hizo a partir del Censo 2022: suponen cómo van a seguir los nacimientos, las muertes y las mudanzas en cada ` +
+        `departamento, así que no son un dato medido. Separan las 15 comunas de CABA. Las listas solo incluyen los departamentos con al menos ${n0(MIN_HOG)} hogares.`
+      : censo
       ? `El censo cuenta a cada persona en la vivienda donde vive habitualmente, y cada porcentaje se calcula sobre el total de personas, hogares o viviendas del departamento, según el indicador. ` +
         `A diferencia del RENAPER, separa las 15 comunas de CABA. Las listas solo incluyen los departamentos con al menos ${n0(MIN_HOG)} hogares.`
       : m.fuente.startsWith("SNIC") ? `El SNIC cuenta los hechos y las víctimas que registran las fuerzas de seguridad, según el lugar donde ocurrieron. En los departamentos con poca población, unos pocos casos mueven mucho una tasa: por eso ${m.unidad.includes("promedio") ? "esta tasa es el promedio de tres años y " : ""}las listas solo incluyen los departamentos con al menos ${n0(MIN_POB)} personas identificadas por el RENAPER.`

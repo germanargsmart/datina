@@ -4,7 +4,7 @@
  "descripcion": "",
  "seccion": "Departamentos",
  "ficha": "https://datina.com.ar/departamentos.html#f-mapa",
- "fuente": "SNIC (Ministerio de Seguridad Nacional), RENAPER, INDEC (Censo 2022) y Georef (IGN)",
+ "fuente": "SNIC (Ministerio de Seguridad Nacional), RENAPER, INDEC (Censo 2022 y estimaciones de población) y Georef (IGN)",
  "actualizacion": "",
  "cobertura": "Departamentos",
  "periodo": "",
@@ -94,6 +94,21 @@
    "nombre": "nacidos_otra_provincia",
    "tipo": "Número",
    "valores": "2,39 a 69,32"
+  },
+  {
+   "nombre": "pob_ini",
+   "tipo": "Número",
+   "valores": "437 a 1.829.389"
+  },
+  {
+   "nombre": "pob_fin",
+   "tipo": "Número",
+   "valores": "406 a 1.840.803"
+  },
+  {
+   "nombre": "crec_pob",
+   "tipo": "Número",
+   "valores": "-16,69 a 24,27"
   }
  ],
  "unidades": [],
@@ -101,5 +116,5 @@
  "datos_actualizados": "28/10/2026",
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿Cómo varía cada indicador de un departamento a otro? Con datos de SNIC (Ministerio de Seguridad Nacional), RENAPER, INDEC (Censo 2022) y Georef (IGN). https://datina.com.ar/departamentos.html#f-mapa. Consultado el día de la consulta."
+ "como_citar": "Datina (año de la consulta). ¿Cómo varía cada indicador de un departamento a otro? Con datos de SNIC (Ministerio de Seguridad Nacional), RENAPER, INDEC (Censo 2022 y estimaciones de población) y Georef (IGN). https://datina.com.ar/departamentos.html#f-mapa. Consultado el día de la consulta."
 }

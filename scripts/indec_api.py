@@ -1,7 +1,7 @@
 """
 Catálogo API-INDEC (https://api.indec.gob.ar, pedido del autor del 2 de noviembre de 2026): tablas del INDEC por una API, en JSON.
-Pide una cuenta gratuita y un token, que el autor guarda como secreto INDEC_API_TOKEN, en GitHub y en su computadora (docs/deploy/INDEC_API.md).
-El token vence a los 12 meses. Sin token no se baja nada y quedan los archivos anteriores: la actualización mensual sigue igual.
+Pide una cuenta gratuita y un token, guardado como secreto INDEC_API_TOKEN en GitHub (docs/deploy/INDEC_API.md). El del 2 de noviembre de
+2026 vence el 1 de mayo de 2027: dura 6 meses, no los 12 que dicen las preguntas frecuentes de la API. Sin token no se baja nada y quedan los archivos anteriores: la actualización mensual sigue igual.
 
 Cada tabla se pide de a 1000 filas (el máximo de la API), ordenada por su clave completa, que es lo que pide la documentación para que las
 páginas no repitan ni salteen filas, y lo recibido se compara con el total que informa la API (Content-Range). Se guarda tal como la publica
@@ -51,7 +51,7 @@ def _pedir(url, tok, intentos=4):
                 return json.loads(r.read().decode("utf-8")), r.headers.get("Content-Range", "")
         except urllib.error.HTTPError as e:
             if e.code == 401:
-                raise SinToken("la API del INDEC no aceptó el token (INDEC_API_TOKEN): puede estar vencido, dura 12 meses. Se genera otro en "
+                raise SinToken("la API del INDEC no aceptó el token (INDEC_API_TOKEN): puede estar vencido (dura 6 meses). Se genera otro en "
                                "\"Gestionar la cuenta\" de api.indec.gob.ar") from None
             if (e.code == 429 or e.code >= 500) and i < intentos - 1:
                 time.sleep(float(e.headers.get("Retry-After") or ESPERA * 2 ** i))

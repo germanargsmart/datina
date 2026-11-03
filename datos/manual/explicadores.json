@@ -4370,7 +4370,7 @@
    },
    {
     "titulo": "De dónde salen los datos",
-    "texto": "Los homicidios, las muertes en siniestros viales y los robos vienen del Sistema Nacional de Información Criminal (SNIC) del Ministerio de Seguridad Nacional, según el departamento donde ocurrió el hecho. La edad de la población viene del Registro Nacional de las Personas (RENAPER), que cuenta a las personas con DNI según el domicilio que declararon. El RENAPER publica CABA sin dividirla en comunas. El lugar de nacimiento y los indicadores de las viviendas y los hogares vienen del Censo Nacional de Población, Hogares y Viviendas 2022 del INDEC, que sí separa las comunas de CABA.",
+    "texto": "Los homicidios, las muertes en siniestros viales y los robos vienen del Sistema Nacional de Información Criminal (SNIC) del Ministerio de Seguridad Nacional, según el departamento donde ocurrió el hecho. La edad de la población viene del Registro Nacional de las Personas (RENAPER), que cuenta a las personas con DNI según el domicilio que declararon. El RENAPER publica CABA sin dividirla en comunas. El lugar de nacimiento y los indicadores de las viviendas y los hogares vienen del Censo Nacional de Población, Hogares y Viviendas 2022 del INDEC, que sí separa las comunas de CABA. El crecimiento proyectado de la población sale de las estimaciones por departamento que el INDEC hizo a partir de ese censo y publica en su API.",
     "fuentes": [
      {
       "nombre": "SNIC, estadísticas criminales por departamento",

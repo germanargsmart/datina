@@ -178,3 +178,8 @@ mapbiomas_provincias.zip,https://argentina.mapbiomas.org/wp-content/uploads/site
 jus_sociedades_resumen.csv,https://datos.jus.gob.ar/dataset/ee83de85-4305-4c53-9a9f-fd3d15e42c36/resource/13a1a66f-9f49-4d2d-9582-7b4540ef1b83/download/registro-nacional-sociedades-2026.zip,2026-10-31T14:02:29,ok
 eph_poblacion_aglomerados.csv,https://www.indec.gob.ar/ftp/cuadros/menusuperior/eph/EPH_usu_1_Trim_2026_txt.zip,2026-10-31T22:19:44,ok
 indec_calendario.csv,https://www.indec.gob.ar/indec/web/Calendario-Fecha-0,2026-11-01T16:34:45,ok
+indec_api_canasta_crianza.json,api.indec.gob.ar (canasta-crianza (41 filas)),2026-11-02T23:36:57,ok
+indec_api_ipi_manufacturero.json,api.indec.gob.ar (ipi_manufacturero (41344 filas)),2026-11-02T23:37:06,ok
+indec_api_ipi_minero.json,api.indec.gob.ar (ipi_minero (17632 filas)),2026-11-02T23:37:10,ok
+indec_api_estimaciones_poblacion_departamento_2022_2035.json,api.indec.gob.ar (estimaciones_poblacion_departamento_2022_2035 (14784 filas)),2026-11-02T23:37:12,ok
+indec_api_proyecciones_poblacion_jurisdiccion_2022_2040.json,api.indec.gob.ar (proyecciones_poblacion_jurisdiccion_2022_2040 (19152 filas)),2026-11-02T23:37:15,ok
