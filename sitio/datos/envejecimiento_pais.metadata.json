@@ -1,7 +1,7 @@
 {
  "tabla": "envejecimiento_pais.csv",
  "titulo": "¿Cuántas personas mayores hay por cada 100 en edad de trabajar, y cuántas aportan por cada jubilación?",
- "descripcion": "Personas de 65 años o más por cada 100 de 15 a 64 años, por provincia, 2026 y 2040, y personas que aportan por cada jubilación o pensión que paga ANSES, 1994 a 2026",
+ "descripcion": "Personas de 65 años o más por cada 100 de 15 a 64 años, por provincia, 2026 y 2040, personas que aportan por cada jubilación o pensión que paga ANSES, 1994 a 2026, y personas de 65 años o más por cada 100 menores de 15, por provincia, 2026 y 2040",
  "seccion": "Población",
  "ficha": "https://datina.com.ar/poblacion.html#f-envejecimiento",
  "fuente": "INDEC, proyecciones de población por provincia 2022 a 2040, base Censo 2022, y Secretaría de Seguridad Social, Boletín Estadístico de la Seguridad Social (cuadro 4.1.1.1), con datos de ARCA y ANSES.",

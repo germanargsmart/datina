@@ -137,6 +137,21 @@ env_res = {"anio": ANIO_PROY, "hoy": r1(_ep.vejez[ANIO_PROY]), "ini": r1(_ep.vej
            "max": _eo.iloc[-1].territorio, "max_v": r1(_eo.vejez_hoy.max()), "min": _eo.iloc[0].territorio, "min_v": r1(_eo.vejez_hoy.min()),
            "pct_mayores_hoy": r1(_ep.pct_mayores[ANIO_PROY]), "pct_mayores_fin": r1(_ep.pct_mayores[2040]), "anio_fin": ANIO_FIN_PROY}
 envejec = envejec.round({"vejez_hoy": 1, "vejez_2040": 1})
+# Personas de 65 años o más por cada 100 menores de 15 y el primer año de las proyecciones con tantos mayores como chicos (pedido del
+# autor del 3 de noviembre de 2026). Si no pasa hasta el final de las proyecciones el año queda vacío: no se extrapola. 2022 es el primer
+# año de las proyecciones, así que una provincia con 2022 ya tenía más mayores que chicos ese año o antes
+_pv["mayores_100_chicos"] = _pv.mayores / _pv.menores * 100
+_env_ic = _pv.mayores_100_chicos.unstack("anio")
+_env_cruce = _env_ic.apply(lambda f: float(f[f >= 100].index.min()) if (f >= 100).any() else np.nan, axis=1)
+envejec["mayores_chicos_hoy"] = envejec.codigo_indec.map(_env_ic[ANIO_PROY]).round(1)
+envejec["mayores_chicos_2040"] = envejec.codigo_indec.map(_env_ic[ANIO_FIN_PROY]).round(1)
+envejec["anio_cruce"] = envejec.codigo_indec.map(_env_cruce).astype("Int64")
+_env_c = envejec.dropna(subset=["anio_cruce"]).sort_values(["anio_cruce", "mayores_chicos_hoy"], ascending=[True, False])
+env_res.update({"mch_hoy": r1(_env_ic.loc["00", ANIO_PROY]), "mch_fin": r1(_env_ic.loc["00", ANIO_FIN_PROY]),
+                "cruce_pais": None if pd.isna(_env_cruce["00"]) else int(_env_cruce["00"]), "cruce_desde": int(_env_ic.columns.min()),
+                "ya": [[r.territorio, int(r.anio_cruce)] for r in _env_c.itertuples() if r.anio_cruce <= ANIO_PROY],
+                "cruzan": [[r.territorio, int(r.anio_cruce)] for r in _env_c.itertuples() if r.anio_cruce > ANIO_PROY],
+                "no_cruzan": envejec[envejec.anio_cruce.isna()].sort_values("mayores_chicos_2040").territorio.tolist()})
 d = _pv.reset_index()
 d = d[d.codigo_indec != "00"].rename(columns={"anio": "periodo", "vejez": "valor"}); d["territorio"] = d.codigo_indec.map(CORTO)
 agregar(d, "personas_65_mas_cada_100_de_15_a_64", "personas", "INDEC, proyecciones de poblacion 2022 a 2040")

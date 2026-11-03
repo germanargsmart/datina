@@ -1170,10 +1170,11 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     <!-- f-envejecimiento y f-jubilaciones, unidas (plan de mejora, R7, decisión del autor del 28 de octubre de 2026): la dirección vieja lleva a la pestaña de los aportantes -->
     <article class="ficha con-vistas" id="f-envejecimiento">
       <h2>¿Cuántas personas mayores hay por cada 100 en edad de trabajar, y cuántas aportan por cada jubilación?</h2>
-      <p class="ficha-sub">Personas de 65 años o más por cada 100 de 15 a 64 años, por provincia, {{envejecimiento.anio}} y {{envejecimiento.anio_fin}}, y personas que aportan por cada jubilación o pensión que paga ANSES, {{jubilaciones.ini}} a {{jubilaciones.anio}}</p>
-      <div class="conmutador pestanas" role="tablist" aria-label="Vista" style="--n:2">
+      <p class="ficha-sub">Personas de 65 años o más por cada 100 de 15 a 64 años, por provincia, {{envejecimiento.anio}} y {{envejecimiento.anio_fin}}, personas que aportan por cada jubilación o pensión que paga ANSES, {{jubilaciones.ini}} a {{jubilaciones.anio}}, y personas de 65 años o más por cada 100 menores de 15, por provincia, {{envejecimiento.anio}} y {{envejecimiento.anio_fin}}</p>
+      <div class="conmutador pestanas" role="tablist" aria-label="Vista" style="--n:3">
         <button type="button" role="tab" id="tab-f-envejecimiento-1" aria-controls="pan-f-envejecimiento-1" aria-selected="true">Por provincia</button>
         <button type="button" role="tab" id="tab-f-envejecimiento-2" aria-controls="pan-f-envejecimiento-2" aria-selected="false" tabindex="-1">Aportantes</button>
+        <button type="button" role="tab" id="tab-f-envejecimiento-3" aria-controls="pan-f-envejecimiento-3" aria-selected="false" tabindex="-1">Chicos</button>
       </div>
       <div class="panel-pestana" role="tabpanel" id="pan-f-envejecimiento-1" aria-labelledby="tab-f-envejecimiento-1">
         <div class="grafico" data-g="envejecimiento" data-forma="pesas"></div>
@@ -1181,11 +1182,16 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <div class="panel-pestana" role="tabpanel" id="pan-f-envejecimiento-2" aria-labelledby="tab-f-envejecimiento-2" data-vieja="f-jubilaciones" hidden>
         <div class="grafico" data-g="jubilaciones" data-forma="lineas"></div>
       </div>
+      <div class="panel-pestana" role="tabpanel" id="pan-f-envejecimiento-3" aria-labelledby="tab-f-envejecimiento-3" hidden>
+        <div class="grafico" data-g="envejecimiento-mch" data-forma="pesas"></div>
+      </div>
       <p data-panel="pan-f-envejecimiento-1" class="lead" data-t="envejecimiento"></p>
       <p data-panel="pan-f-envejecimiento-1" class="nota" data-t="envejecimiento-nota"></p>
       <p data-panel="pan-f-envejecimiento-2" hidden class="lead" data-t="jubilaciones"></p>
       <p data-panel="pan-f-envejecimiento-2" hidden class="nota" data-t="jubilaciones-nota"></p>
-      <div class="pie"><span>Fuentes: INDEC, proyecciones de población por provincia 2022 a 2040, base Censo 2022, y Secretaría de Seguridad Social, Boletín Estadístico de la Seguridad Social (cuadro 4.1.1.1), con datos de ARCA y ANSES</span><a href="datos/envejecimiento_provincias.csv" data-panel="pan-f-envejecimiento-1" download>Descargar tabla (CSV)</a><a href="datos/jubilaciones_aportantes.csv" data-panel="pan-f-envejecimiento-2" hidden download>Descargar tabla (CSV)</a></div>
+      <p data-panel="pan-f-envejecimiento-3" hidden class="lead" data-t="envejecimiento-mch"></p>
+      <p data-panel="pan-f-envejecimiento-3" hidden class="nota" data-t="envejecimiento-mch-nota"></p>
+      <div class="pie"><span>Fuentes: INDEC, proyecciones de población por provincia 2022 a 2040, base Censo 2022, y Secretaría de Seguridad Social, Boletín Estadístico de la Seguridad Social (cuadro 4.1.1.1), con datos de ARCA y ANSES</span><a href="datos/envejecimiento_provincias.csv" data-panel="pan-f-envejecimiento-1" download>Descargar tabla (CSV)</a><a href="datos/jubilaciones_aportantes.csv" data-panel="pan-f-envejecimiento-2" hidden download>Descargar tabla (CSV)</a><a href="datos/envejecimiento_provincias.csv" data-panel="pan-f-envejecimiento-3" hidden download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-haberes">

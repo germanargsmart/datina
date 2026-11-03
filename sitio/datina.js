@@ -1474,6 +1474,19 @@ const TX = {
     `La que más crece en proporción es ${PPY.max} (${conSigno(PPY.max_v)}). ` +
     (PPY.debajo.length ? `${lista(PPY.debajo)} ${PPY.debajo.length > 1 ? "crecen" : "crece"} menos que el país, así que ${PPY.debajo.length > 1 ? "pierden" : "pierde"} peso en el total` +
       (PPY.debajo.includes("Buenos Aires") && PPY.pba_pct_fin < PPY.pba_pct_hoy ? `. La provincia de Buenos Aires pasa de tener el ${pct(PPY.pba_pct_hoy)} de los habitantes del país al ${pct(PPY.pba_pct_fin)}.` : ".") : ""),
+  // cuándo hay más personas mayores que chicos (3 de noviembre de 2026): el año de cada provincia sale del resumen, sin extrapolar
+  "envejecimiento-mch": `En ${EV.anio} hay en el país ${n0(EV.mch_hoy)} personas de 65 años o más por cada 100 chicos de menos de 15 años. ` +
+    (EV.cruce_pais == null ? `Según las proyecciones del INDEC, en ${EV.anio_fin} todavía va a haber más chicos que mayores: ${n0(EV.mch_fin)} por cada 100. `
+      : EV.cruce_pais <= EV.anio ? `Hay más mayores que chicos desde ${EV.cruce_pais}, y en ${EV.anio_fin} van a ser ${n0(EV.mch_fin)} por cada 100. `
+      : `Según las proyecciones del INDEC, en ${EV.cruce_pais} va a haber por primera vez más mayores que chicos, y en ${EV.anio_fin}, ${n0(EV.mch_fin)} por cada 100. `) +
+    (EV.ya.length ? `En ${lista(EV.ya.map(([t]) => t))} ya hay más mayores que chicos. ` : "") +
+    (EV.cruzan.length > 1 ? `Otras ${EV.cruzan.length} jurisdicciones pasan a tenerlos hasta ${EV.anio_fin}: la primera es ${EV.cruzan[0][0]} (${EV.cruzan[0][1]}) y la última, ${EV.cruzan.at(-1)[0]} (${EV.cruzan.at(-1)[1]}). `
+      : EV.cruzan.length ? `${EV.cruzan[0][0]} pasa a tenerlos en ${EV.cruzan[0][1]}. ` : "") +
+    (EV.no_cruzan.length ? `${lista(EV.no_cruzan)} ${EV.no_cruzan.length > 1 ? "siguen" : "sigue"} con más chicos que mayores en ${EV.anio_fin}.` : `En ${EV.anio_fin} las 24 jurisdicciones tienen más mayores que chicos.`),
+  "envejecimiento-mch-nota": `Personas de 65 años o más por cada 100 menores de 15 años, de las proyecciones de población del INDEC por provincia, sexo y edad, base Censo 2022. ` +
+    `Por encima de 100 hay más personas mayores que chicos. El año de cada provincia es el primero de las proyecciones (${EV.cruce_desde} a ${EV.anio_fin}) con 100 o más: ` +
+    `${EV.cruce_desde} quiere decir que ya pasaba ese año o antes. Después de ${EV.anio_fin} no hay proyecciones y el sitio no las estira. ` +
+    `El círculo claro marca ${EV.anio} y el lleno, ${EV.anio_fin}. La línea punteada marca 100, tantos mayores como chicos.`,
   "poblacion-proy-nota": `Proyecciones de población del INDEC por provincia, base Censo 2022. Estiman cuántas personas va a haber cada año según los nacimientos, las muertes y las migraciones esperadas, y se revisan con cada censo: no son un conteo. ` +
     `La variación compara la población proyectada de ${PPY.anio} con la de ${PPY.anio_fin}.` +
     (PPY.max_antes.length ? ` Según las mismas proyecciones, ${lista(PPY.max_antes.map(([t, a]) => `${t} ${a < PPY.anio ? "tuvo" : "tiene"} su población más alta en ${a}`))}.` : ""),
@@ -2394,8 +2407,11 @@ function pesas(el, cfg) {
   g.append("g").attr("class","grilla").call(d3.axisTop(x).ticks(5).tickSize(-data.length*fila).tickFormat("")).call(s => s.select(".domain").remove());
   g.append("g").attr("class","eje").call(d3.axisTop(x).ticks(5).tickFormat(cfg.af || (v => v + "%")).tickSize(0).tickPadding(6)).call(s => s.select(".domain").remove());
   if (cfg.ref != null) {
-    g.append("line").attr("x1",x(cfg.ref)).attr("x2",x(cfg.ref)).attr("y1",-4).attr("y2",data.length*fila).attr("stroke",css("--ocde")).attr("stroke-dasharray","4 3").attr("stroke-width",2);
-    g.append("text").attr("x", x(cfg.ref) + 5).attr("y", data.length*fila + 6).attr("class","etq-fuerte").attr("fill",css("--ocde")).text(cfg.refLab);
+    // la línea de referencia es la de la OCDE salvo que cfg.refC diga otro color (el violeta es solo para la OCDE)
+    g.append("line").attr("x1",x(cfg.ref)).attr("x2",x(cfg.ref)).attr("y1",-4).attr("y2",data.length*fila).attr("stroke",css(cfg.refC || "--ocde")).attr("stroke-dasharray","4 3").attr("stroke-width",2);
+    const rl = g.append("text").attr("x", x(cfg.ref) + 5).attr("y", data.length*fila + 6).attr("class","etq-fuerte").attr("fill",css(cfg.refC || "--ocde")).text(cfg.refLab);
+    // si el rótulo no entra a la derecha de la línea, va a la izquierda
+    if (x(cfg.ref) + 5 + rl.node().getComputedTextLength() > iw + 40) rl.attr("x", x(cfg.ref) - 5).attr("text-anchor", "end");
   }
   // cfg.mejor ("sube" o "baja", etapa 16): el punto de después y el tramo en verde si el cambio es bueno y en rojo si es malo, y la
   // provincia elegida se distingue solo por la opacidad de las demás y su nombre en negrita
@@ -2956,6 +2972,8 @@ const DIB = protegerDib({
       ...(pc ? {ref: ESC.var_pct, refLab: `País ${conSigno(ESC.var_pct)}`} : {}),
       tip: d => `<b>${d.territorio}</b><br>${n0(d.chicos_hoy)} chicos de 5 a 14 años en ${ESC.anio}<br>${n0(d.chicos_fin)} en ${ESC.anio_fin}<br>` +
         `${(d.var_chicos > 0 ? "+" : "") + n0(d.var_chicos)} chicos, ${conSigno(d.var_pct)}`}); },
+  "envejecimiento-mch": a => pesas(G("envejecimiento-mch"), {anim:a, data: T.envejecimiento_provincias, a:"mayores_chicos_hoy", b:"mayores_chicos_2040",
+    la: String(EV.anio), lb: String(EV.anio_fin), vf: n0, af: v => v, ref: 100, refLab: "Tantos mayores como chicos", refC: "--muted", pais: [EV.mch_hoy, EV.mch_fin]}),
   envejecimiento: a => pesas(G("envejecimiento"), {anim:a, data: T.envejecimiento_provincias, a:"vejez_hoy", b:"vejez_2040", la: String(EV.anio), lb: String(EV.anio_fin), vf: n1, af: v => v,
     pais: [EV.hoy, EV.fin]}),
   adolescentes: a => pesas(G("adolescentes"), {anim:a, data: T.madres_adolescentes_provincias, a: ADO_INI, b: ADO_ULT, la: String(nac.anio_ini), lb: String(nac.anio_ult),

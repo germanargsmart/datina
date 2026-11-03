@@ -1,25 +1,25 @@
-codigo_indec,vejez_hoy,vejez_2040,territorio
-02,29.9,33.4,CABA
-06,20.0,25.4,Buenos Aires
-10,15.7,22.1,Catamarca
-14,19.9,24.3,Córdoba
-18,15.1,19.2,Corrientes
-22,13.7,16.9,Chaco
-26,16.6,23.3,Chubut
-30,18.5,23.3,Entre Ríos
-34,14.4,18.7,Formosa
-38,14.1,20.5,Jujuy
-42,21.1,27.1,La Pampa
-46,14.5,20.8,La Rioja
-50,18.8,23.2,Mendoza
-54,12.9,16.8,Misiones
-58,15.3,21.8,Neuquén
-62,17.9,23.3,Río Negro
-66,13.3,18.3,Salta
-70,16.3,20.7,San Juan
-74,16.5,22.0,San Luis
-78,11.8,20.8,Santa Cruz
-82,20.4,24.4,Santa Fe
-86,14.1,18.0,Santiago del Estero
-90,15.8,20.0,Tucumán
-94,11.4,20.6,Tierra del Fuego
+codigo_indec,vejez_hoy,vejez_2040,territorio,mayores_chicos_hoy,mayores_chicos_2040,anio_cruce
+02,29.9,33.4,CABA,126.2,182.7,2022
+06,20.0,25.4,Buenos Aires,68.5,125.9,2033
+10,15.7,22.1,Catamarca,56.8,109.6,2037
+14,19.9,24.3,Córdoba,71.4,119.1,2034
+18,15.1,19.2,Corrientes,47.3,87.1,
+22,13.7,16.9,Chaco,36.0,64.7,
+26,16.6,23.3,Chubut,58.4,120.4,2034
+30,18.5,23.3,Entre Ríos,64.3,116.0,2035
+34,14.4,18.7,Formosa,40.0,71.3,
+38,14.1,20.5,Jujuy,50.2,99.0,
+42,21.1,27.1,La Pampa,80.7,138.8,2030
+46,14.5,20.8,La Rioja,52.6,101.6,2040
+50,18.8,23.2,Mendoza,62.6,114.0,2035
+54,12.9,16.8,Misiones,33.5,63.1,
+58,15.3,21.8,Neuquén,52.9,108.5,2037
+62,17.9,23.3,Río Negro,63.3,117.6,2034
+66,13.3,18.3,Salta,40.4,85.6,
+70,16.3,20.7,San Juan,50.4,93.2,
+74,16.5,22.0,San Luis,58.8,106.6,2037
+78,11.8,20.8,Santa Cruz,40.1,119.1,2036
+82,20.4,24.4,Santa Fe,71.4,120.4,2034
+86,14.1,18.0,Santiago del Estero,44.8,85.3,
+90,15.8,20.0,Tucumán,52.2,97.4,
+94,11.4,20.6,Tierra del Fuego,42.0,113.7,2035
