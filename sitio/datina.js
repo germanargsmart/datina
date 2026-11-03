@@ -8345,19 +8345,43 @@ const ART = [
     dek: "La desocupación y la parte de la población que trabaja en cada capital de provincia, en promedio de los últimos cuatro trimestres, frente a la parte de sus habitantes bajo la línea de pobreza, según la Encuesta Permanente de Hogares del INDEC.",
     contexto: "La desocupación cuenta a quienes buscan trabajo y no lo consiguen: quien dejó de buscar, o no busca, no figura. La tasa de empleo mira otra cosa, la parte de toda la población que trabaja. La pobreza mira si los ingresos del hogar alcanzan para la canasta básica total. Este artículo pone la pobreza al lado de los dos datos del trabajo, capital por capital, con la Encuesta Permanente de Hogares (EPH) del INDEC.",
     // etapa 5: junta los dos artículos de las capitales sobre el trabajo y la pobreza (hasta entonces, a-pobreza-desocupacion y a-empleo-pobreza)
+    nuevo: true,
+    medimos: ["La Encuesta Permanente de Hogares (EPH) del INDEC pregunta cada trimestre a una muestra de hogares de 31 aglomerados urbanos. Las capitales " +
+      "son 24 de esos aglomerados."],
+    preg: {desocupacion: "¿Cuánta desocupación hay en cada capital?", pobreza: "¿Qué parte de la población es pobre en cada capital?",
+      empleo: "¿Qué parte de la población trabaja en cada capital?"},
+    txtVar: {desocupacion: "Una desocupación baja puede deberse a que hay trabajo o a que mucha gente dejó de buscarlo: por eso se mira junto con el empleo.",
+      empleo: "La tasa de empleo depende también de la edad: donde viven más chicos y más personas mayores, trabaja una parte menor."},
+    notas: ["Desocupación y empleo: EPH, INDEC, promedio de los últimos cuatro trimestres publicados de cada aglomerado.",
+      "Pobreza: EPH, INDEC, último semestre publicado, % de las personas de cada aglomerado."],
     partes: [
-      {x: "desocupacion", y: "pobreza", espera: 1, lx: "desocupación", ly: "pobreza", ux: "% de quienes trabajan o buscan trabajo", uy: "% de las personas",
+      {x: "desocupacion", y: "pobreza", espera: 1, preg: "¿Hay más pobreza en las capitales con más desocupación?", lx: "desocupación", ly: "pobreza", ux: "% de quienes trabajan o buscan trabajo", uy: "% de las personas",
         limites: ["Una persona puede tener trabajo y ser pobre: la desocupación no dice cuánto se gana."]},
-      {x: "empleo", y: "pobreza", espera: -1, desde: "menos", lx: "empleo", ly: "pobreza", ux: "% de la población", uy: "% de las personas",
-        limites: ["La tasa de empleo se calcula sobre toda la población, con los chicos y las personas mayores: una capital con una parte mayor de personas en edad de trabajar tiende a tener, solo por eso, una tasa más alta. Y donde hay más chicos suele haber también más pobreza, porque la pobreza es más alta entre los chicos.",
+      {x: "empleo", y: "pobreza", espera: -1, desde: "menos", preg: "¿Y en las capitales donde trabaja una parte menor de la población?", lx: "empleo", ly: "pobreza", ux: "% de la población", uy: "% de las personas",
+        limites: ["La tasa de empleo se calcula sobre toda la población, con los chicos: donde hay más chicos, trabaja una parte menor, y la pobreza es más alta entre los chicos.",
           "Tener trabajo no dice cuánto se gana ni si el trabajo está registrado."]}],
     limites: [LIM_AGLO,
-      "La EPH es una encuesta por muestra, y en los aglomerados chicos la tasa de un trimestre es poco precisa. Por eso se usa el promedio de los últimos cuatro trimestres: si en uno el INDEC no publicó el dato por tener pocos casos, el promedio usa los otros tres.",
+      "La EPH es una encuesta por muestra, y en los aglomerados chicos la tasa de un trimestre es poco precisa: por eso se usa el promedio de cuatro.",
       CV_EPH]},
-  {id: "a-alquiler-pobreza", desde: "menos", tabla: "capitales_eph", x: "pobreza", y: "alquila", espera: -1, frec: "La parte de los hogares que alquila se actualiza cada trimestre",
+  {id: "a-alquiler-pobreza", tabla: "capitales_eph", desde: "menos", x: "pobreza", y: "alquila", espera: -1, frec: "La parte de los hogares que alquila se actualiza cada trimestre",
     lx: "pobreza", ly: "hogares que alquilan", ux: "% de las personas", uy: "% de los hogares",
     dek: "La parte de los habitantes de cada capital de provincia bajo la línea de pobreza, frente a la parte de sus hogares que alquila la vivienda donde vive, según la Encuesta Permanente de Hogares del INDEC.",
-    contexto: "Quien no es dueño de la vivienda donde vive puede alquilarla o vivir en una prestada, entre otras situaciones. Este cruce compara, capital por capital, la parte de las personas bajo la línea de pobreza con la parte de los hogares que alquila, según la Encuesta Permanente de Hogares (EPH) del INDEC.",
+    contexto: "Quien no es dueño de la vivienda donde vive puede alquilarla o vivir en una prestada, entre otras situaciones. Alquilar puede ser una elección, para mudarse con más facilidad, o la única opción para quien no tiene ahorros ni acceso a un crédito hipotecario: por eso el alquiler, solo, no dice si un hogar está mejor o peor. Este cruce compara, capital por capital, la parte de las personas bajo la línea de pobreza con la parte de los hogares que alquila, según la Encuesta Permanente de Hogares (EPH) del INDEC. Las dos cosas se miden en los mismos hogares.",
+    nuevo: true,
+    medimos: ["La Encuesta Permanente de Hogares (EPH) del INDEC pregunta cada trimestre a una muestra de hogares de 31 aglomerados urbanos por su trabajo " +
+      "y sus ingresos. Las capitales de provincia son 24 de esos aglomerados. El dato de cada una es una estimación con margen de error, más grande " +
+      "cuanto más chica es la ciudad y su muestra.",
+      "La pobreza es la parte de las personas que viven en hogares cuyos ingresos no alcanzan para la canasta básica total de su región. Los hogares " +
+      "que alquilan son los que pagan un alquiler por la vivienda donde viven, sin contar a quienes viven en una vivienda prestada o cedida. Un hogar es " +
+      "el grupo de personas que vive bajo un mismo techo y comparte los gastos de comida."],
+    preg: {pobreza: "¿Qué parte de la población es pobre en cada capital?", alquila: "¿Qué parte de los hogares alquila en cada capital?"},
+    txtVar: {pobreza: "La línea de pobreza de cada capital es la canasta de su región, así que una misma cantidad de pesos puede alcanzar en una capital y no en otra.",
+      alquila: "Alquilar es más común en las ciudades grandes, donde las viviendas cuestan más, y en las que reciben estudiantes o trabajadores de otros lugares."},
+    notas: ["Pobreza: EPH, INDEC, último semestre publicado, % de las personas de cada aglomerado.",
+      "Hogares que alquilan: cálculo propio con las bases de microdatos de la EPH de los últimos cuatro trimestres publicados, sobre el total de hogares de cada aglomerado."],
+    // con la pobreza en el eje del primer dato: si las capitales con menos pobreza alquilan más, una lectura posible, sin confirmarla
+    txt: c => c.rs <= -.2 ? "Una lectura posible es que alquilar sea más común entre los hogares de ingresos medios de las ciudades grandes, y que los " +
+      "hogares pobres vivan más en viviendas propias precarias, prestadas o en barrios populares. Los datos por capital no alcanzan para confirmarlo." : "",
     limites: [LIM_AGLO,
       "La parte de los hogares que alquila es un cálculo propio con las bases de la EPH de los últimos cuatro trimestres publicados. El censo de 2022, que cuenta todo el municipio, da cifras parecidas pero no iguales.",
       "La EPH pregunta si el hogar alquila la vivienda, no cuánto paga ni desde cuándo.",
@@ -8368,9 +8392,27 @@ const ART = [
   {id: "a-viviendas-alquiler", tabla: "capitales", x: "en_departamento", y: "alquila", espera: 1, frec: "Se actualiza con cada censo",
     lx: "departamentos", ly: "hogares que alquilan", ux: "% de las viviendas particulares", uy: "% de los hogares",
     dek: "La parte de las viviendas de cada capital de provincia que son departamentos, frente a la parte de sus hogares que alquila la vivienda donde vive, según el último censo.",
-    contexto: "Un hogar que no es dueño de su vivienda puede alquilarla, y en las ciudades se alquilan sobre todo departamentos. Este cruce compara, capital por capital, qué parte de las viviendas son departamentos con qué parte de los hogares alquila, según el último censo.",
+    contexto: "Un hogar que no es dueño de su vivienda puede alquilarla, y en las ciudades se alquilan sobre todo departamentos. Las ciudades crecen hacia arriba o hacia los costados: con edificios en el centro o con barrios de casas en las afueras, y cada forma cambia cuánto cuesta construir, cuánta gente entra en cada cuadra y quién puede comprar. Este cruce compara, capital por capital, qué parte de las viviendas son departamentos con qué parte de los hogares alquila, según el último censo.",
+    nuevo: true,
+    medimos: ["El censo cuenta todas las viviendas y todos los hogares de cada municipio, sin muestra: el dato de cada capital no tiene el margen de error " +
+      "de una encuesta. La desventaja es que se hace cada diez años o más: conviene mirarlo junto con datos más recientes, como los de la Encuesta " +
+      "Permanente de Hogares. El de 2022 fue el primero que se pudo responder también por internet.",
+      "Las viviendas en departamento son las que están en un edificio con varias unidades. Los hogares que alquilan son los que pagan un alquiler " +
+      "por la vivienda donde viven. Un hogar es el grupo de personas que vive bajo un mismo techo y comparte los gastos de comida."],
+    preg: {en_departamento: "¿Qué parte de las viviendas son departamentos en cada capital?", alquila: "¿Qué parte de los hogares alquila en cada capital?"},
+    txtVar: {en_departamento: "Los departamentos se concentran en las ciudades grandes y densas, donde el suelo es caro y se construye en altura. En las " +
+      "capitales chicas predominan las casas: en varias, menos de una vivienda de cada siete es un departamento. Un departamento puede estar en un " +
+      "edificio de dos plantas o en una torre: el censo no distingue la altura.",
+      alquila: w => "Alquilar es más común donde hay más hogares chicos, estudiantes y personas que llegan de otros lugares, y donde comprar una vivienda cuesta más." +
+        (w.F.filter(f => f.alquila > 100 / 3).length > 1 ? ` En ${w.F.filter(f => f.alquila > 100 / 3).length} capitales, más de un tercio de los hogares alquila.` : "")},
+    notas: ["Departamentos y alquiler: INDEC, Censo 2022, por municipio. En CABA, sus 15 comunas. El municipio de cada capital puede ser más chico que la ciudad que se ve en un mapa.",
+      "Viviendas en departamento: viviendas particulares de tipo departamento sobre el total de viviendas particulares habitadas. Hogares que alquilan: " +
+      "hogares que declaran alquilar la vivienda donde viven, sobre el total de hogares."],
+    txt: c => c.rs >= .4 ? "Que vayan juntos tiene una explicación sencilla: un departamento suele ser más fácil de alquilar que una casa, y muchos se " +
+      "construyen para eso. Pero también pesan el tamaño de la ciudad, el precio de las viviendas y la gente que llega de otros lugares, que este cruce no separa." : "",
     limites: ["Los departamentos se concentran en las ciudades más grandes y más densas, donde también hay más hogares chicos, más estudiantes y más personas que llegan de otros lugares: este cruce no separa esas cosas.",
       "El censo pregunta si el hogar alquila la vivienda, no cuánto paga ni desde cuándo.",
+      "El alquiler se cuenta entre los hogares: las viviendas vacías y las de uso temporal, como las de veraneo, no entran en el cálculo aunque se alquilen.",
       "Cada capital es su municipio, y CABA, sus 15 comunas. En Mendoza y San Juan el municipio es solo el centro de una ciudad mucho más grande, y el de San Miguel de Tucumán incluye una parte del departamento de Lules.",
       "No hay una estadística oficial de precios de venta o de alquiler de viviendas que permita comparar las 24 capitales. Por eso este cruce no dice si alquilar cuesta más o menos donde hay más departamentos."]},
   {id: "a-atn-presupuesto", x: "atn_hab", y: "apoyo_presupuesto", espera: 1, frec: "Se actualiza cada año",
@@ -8520,10 +8562,116 @@ ART.forEach(a => {
   try { a.c = partesArt(a).map(p => calcularArt(a, p)); a.t = partesArt(a).map((p, i) => textoArt(a, a.c[i], p, partesArt(a).length > 1)); }
   catch (e) { a.c = a.t = null; console.error(`Datina: no se pudo armar el artículo ${a.id}.`, e); }
 });
+// El modelo nuevo de los cruces (2 de noviembre de 2026, pedido del autor: "Ampliarlos", como los artículos de series): cada dato por separado,
+// con su gráfico por caso y su mediana, su evolución si tiene serie (a.serie), y después el cruce, con "En síntesis", "Qué medimos" y "Fuentes y
+// metodología". Es opcional por artículo (a.nuevo). El recuadro de síntesis conserva la clase nota-frase y la respuesta en <mark>, que buscan la
+// lista de Artículos y la prueba de fallas. A mano van el contexto, medimos, las preguntas (a.preg), los textos de cada dato (a.txtVar) y notas
+function artNuevo(a) {
+  const P = partesArt(a), tabla = tablaArt(a), U = CASOS_ART[tabla], t0 = a.t[0];
+  const ficha = id => id && paginaDe(id) ? urlPagina(paginaDe(id), "#" + id) : null;
+  const fichas = [...new Map(a.t.flatMap(t => [[t.Mx.ficha, t.Mx.nombre], [t.My.ficha, t.My.nombre]])).entries()].filter(([id]) => ficha(id));
+  const fts = [...new Set(a.t.flatMap(t => [fuenteArt(t.Mx), fuenteArt(t.My)]))];
+  const key = i => "art-" + a.id + (i ? "-" + i : "");
+  const nota = document.getElementById(a.id); if (!nota) return;
+  // los datos de todas las partes, cada uno una vez y en el orden en que aparecen
+  const vars = [], fmt = w => x => loc.format(`,.${w.M.dec}f`)(x) + w.pre;
+  P.forEach((p, i) => [[p.x, a.t[i].Mx, a.t[i].vx, p.ux], [p.y, a.t[i].My, a.t[i].vy, p.uy]].forEach(([id, M, v, u]) => {
+    if (vars.some(w => w.id === id)) return;
+    const F = T[tabla].filter(f => f[id] != null), ord = [...F].sort((q, r) => r[id] - q[id]), med = d3.median(F, f => f[id]);
+    vars.push({id, M, v, pre: partesU(u)[0], F, alto: ord[0], bajo: ord.at(-1), med, j: vars.length});
+  }));
+  const vtxt = w => `${w.alto.territorio} tiene el valor más alto, ${w.v(w.alto)}, y ${w.bajo.territorio}, el más bajo, ${w.v(w.bajo)}. ` +
+    `La mediana de las ${w.F.length} ${U.pl} es ${w.v({[w.id]: w.med})}: la mitad está por encima y la otra mitad, por debajo.`;
+  const sintesis = [...a.t.map(t => `<mark>${t.respuesta}</mark> ${t.frase}`),
+    ...(P.length > 1 ? [] : vars.map(w => `${w.M.nombre}: de ${w.v(w.bajo)} en ${w.bajo.territorio} a ${w.v(w.alto)} en ${w.alto.territorio}.`))];
+  // la unidad y el período de cada dato (la de la EPH ya dice "promedio de cuatro trimestres", y su período, cuáles)
+  const medimos = [...(a.medimos || []), ...vars.map(w => `${w.M.nombre}: ${minusc(w.M.unidad).replace(/, promedio de cuatro trimestres$/, "")}, ` +
+    `${/^los cuatro trimestres/.test(w.M.periodo) ? "promedio " : ""}${delPer(w.M.periodo)}.`)];
+  // en el título, el segundo valor sin repetir la unidad cuando es un porcentaje
+  const corto = (w, f) => w.pre ? fmt(w)(f[w.id]) : w.v(f);
+  // en las notas, cómo se mide la relación (las dos mitades ya las explica el texto) y, con varias partes, solo la correlación de cada una
+  const notas = [...(a.notas || []), ...t0.comun.slice(1), ...a.t.map(t => P.length > 1 ? t.propio.split(/(?<=\.) /)[0] : t.propio)];
+  const sec = (preg, tit, graf, pie, txt) => `<div class="nota-sec"><h2>${preg}</h2><div class="nota-graf"><h3>${tit}</h3>${graf}` +
+    `<p class="nota-pie-graf">${pie}</p></div>${txt.map(x => `<p>${x}</p>`).join("")}</div>`;
+  // la evolución de un dato (a.serie[id]): con tipo "pesas", dos años de una tabla que ya está (filas() da codigo_indec, territorio, a y b, y la
+  // y lb, los años); con tipo "serie", una serie anual de cruces_series.csv (id) o de una tabla diferida (tabla y col), resumida en
+  // R.cruces_series_med[clave] para el texto. Cada una con su mediana del primer y del último año y en cuántas jurisdicciones subió
+  const resSerie = (w, S) => {
+    if (S.tipo === "pesas") {
+      const F = S.filas().filter(f => f.a != null && f.b != null);
+      return {ini: S.la, fin: S.lb, m0: d3.median(F, f => f.a), m1: d3.median(F, f => f.b), sube: F.filter(f => f.b > f.a).length, n: F.length};
+    }
+    const M = R.cruces_series_med[S.clave || S.id];
+    return {ini: M.ini, fin: M.fin, m0: M.med_ini, m1: M.med_fin, sube: M.sube, n: M.n};
+  };
+  const secSerie = w => {
+    const S = a.serie?.[w.id]; if (!S) return "";
+    const r = resSerie(w, S), f = fmt(w), sube = r.sube === r.n ? `en las ${r.n}` : r.sube === 0 ? "en ninguna" : `en ${r.sube} de las ${r.n}`;
+    const txt = `Entre ${r.ini} y ${r.fin}, la mediana de las jurisdicciones pasó de ${f(r.m0)} a ${f(r.m1)}. ${S.dato || w.M.nombre} subió ${sube}.` +
+      (S.txt ? " " + (typeof S.txt === "function" ? S.txt(r) : S.txt) : "");
+    return sec(S.preg || `¿Cómo cambió con los años?`, `La mediana pasó de ${f(r.m0)} en ${r.ini} a ${f(r.m1)} en ${r.fin}`,
+      `<div class="grafico" data-g="${key(0)}-s${w.j}" data-forma="${S.tipo === "pesas" ? "barras" : "lineas"}"></div>`,
+      S.pie || (S.tipo === "pesas" ? `${mayusc(S.unidad || w.M.unidad)}. El círculo claro marca ${r.ini} y el lleno, ${r.fin}.` :
+        `${mayusc(S.unidad || w.M.unidad)}, por año. La línea es la mediana de las jurisdicciones y la franja va de la más baja a la más alta.`), [txt]);
+  };
+  nota.innerHTML =
+    `<div class="nota-cab"><span class="nota-ico">${icono(a.icono)}</span><div><p class="nota-meta">${nombreSec(a.sec)}. ${a.frec}</p><h1 class="nota-tit" style="view-transition-name:t-${a.id}">${a.titulo}</h1></div></div>` +
+    `<p class="nota-bajada">${t0.gancho}</p>` +
+    `<div class="nota-frase nota-sintesis"><h2>En síntesis</h2><ul>${sintesis.map(x => `<li>${x}</li>`).join("")}</ul></div>` +
+    `<p>${a.contexto}</p><div class="nota-medimos"><h2>Qué medimos</h2>${medimos.map(x => `<p>${x}</p>`).join("")}</div>` +
+    vars.map(w => sec(a.preg?.[w.id] || `¿Cómo cambia ${minusc(w.M.nombre)} entre las ${U.pl}?`, `${w.alto.territorio} tiene ${w.v(w.alto)}, y ${w.bajo.territorio}, ${corto(w, w.bajo)}`,
+      `<div class="grafico" data-g="${key(0)}-v${w.j}" data-forma="barras"></div>`,
+      `${mayusc(w.M.unidad)}, ${w.M.periodo}. La línea marca la mediana de las ${w.F.length} ${U.pl}.`,
+      [vtxt(w), ...[typeof a.txtVar?.[w.id] === "function" ? a.txtVar[w.id](w) : a.txtVar?.[w.id]].filter(Boolean)]) + secSerie(w)).join("") +
+    P.map((p, i) => { const t = a.t[i];
+      // con una sola parte, la parte es el artículo y su preg es la lista de preguntas de cada dato: el cruce va con el título
+      return sec((typeof p.preg === "string" && p.preg) || a.titulo, `${t.Mx.nombre} y ${minusc(t.My.nombre)}: una relación ${fuerza(a.c[i].rs)}`,
+        `<div class="grafico" data-g="${key(i)}" data-forma="puntos"></div>`,
+        `Cada punto es una ${U.s}. ${t.Mx.nombre}: ${t.Mx.unidad}. ${t.My.nombre}: ${t.My.unidad}. La línea punteada muestra la tendencia.`,
+        [t.caso, ...[typeof p.txt === "function" ? p.txt(a.c[i]) : p.txt].filter(Boolean)]); }).join("") +
+    `<div class="nota-limites"><h2>Qué no dice este dato</h2><ul>${[...a.t.flatMap(t => t.lim), ...(P.length > 1 ? a.limites || [] : [])].map(l => `<li>${l}</li>`).join("")}</ul>` +
+    `<div class="nota-leer"><h3>Cómo leer un cruce</h3><p>${t0.leer}</p></div></div>` +
+    `<div class="nota-fuentes"><h2>Fuentes y metodología</h2><ol class="nota-notas">${notas.map(x => `<li>${x}</li>`).join("")}</ol>` +
+    `<p>${fts.length > 1 ? "Fuentes" : "Fuente"}: ${listaY(fts)}.</p><div class="acciones">` +
+    fichas.map(([id, nom]) => `<a class="boton chico accion" href="${ficha(id)}">Ficha: ${minusc(nom)}</a>`).join("") +
+    (tabla === "cruces_provincias" ? P.map(p => `<a class="boton chico accion" href="cruces.html?cx=${p.x}&cy=${p.y}">Abrir en Cruces${P.length > 1 ? `: ${p.lx}` : ""}</a>`).join("") : "") +
+    `<a class="boton chico accion" href="datos/${tabla}.csv" download>Descargar CSV</a></div></div>`;
+  // cada dato por caso, con la mediana, y los cruces con nombre en las jurisdicciones que menciona el texto
+  vars.forEach(w => { DIB[`${key(0)}-v${w.j}`] = anim => barrasH(G(`${key(0)}-v${w.j}`), {anim, data: w.F, k: w.id, vf: fmt(w),
+    af: x => n0(x) + w.pre, ref: w.med, refLab: `Mediana ${fmt(w)(w.med)}`, tip: d => `<b>${d.territorio}</b><br>${w.v(d)}`}); });
+  vars.filter(w => a.serie?.[w.id]).forEach(w => {
+    const S = a.serie[w.id], g = `${key(0)}-s${w.j}`;
+    if (S.tipo === "pesas") {
+      DIB[g] = anim => pesas(G(g), {anim, data: S.filas().filter(f => f.a != null && f.b != null), a: "a", b: "b", la: String(S.la), lb: String(S.lb),
+        vf: fmt(w), af: x => n0(x) + w.pre, mejor: S.mejor, uDif: w.pre === "%" ? " puntos" : ""});
+      return;
+    }
+    // la serie anual: la mediana de cada año y la franja de la más baja a la más alta
+    const cargar = () => S.tabla ? cargarTabla(S.tabla).then(F => { const o = {}; F.forEach(r => { ((o[String(r.codigo_indec).padStart(2, "0")] ||= {})[r.anio] = r[S.col]); }); return o; })
+      : cargarSeriesCru().then(t => t[S.id]);
+    DIB[g] = anim => {
+      const el = G(g); if (!el) return;
+      if (!el.querySelector("svg")) esperando(el);
+      cargar().then(o => {
+        const anios = [...new Set(Object.values(o).flatMap(x => Object.keys(x).map(Number)))].sort((p, q) => p - q);
+        const data = anios.map(an => { const v = Object.values(o).map(x => x[an]).filter(x => x != null); return {anio: an, med: d3.median(v), lo: d3.min(v), hi: d3.max(v)}; });
+        el.removeAttribute("aria-busy");
+        lineas(el, {anim, x: "anio", y0: 0, vf: fmt(w), yf: x => n0(x) + w.pre, data, banda: {lo: "lo", hi: "hi"}, series: [{k: "med", lab: "Mediana", c: NAR}]});
+      }).catch(() => sinDatos(el, "No se pudieron cargar los datos. Probá recargar la página."));
+    };
+  });
+  P.forEach((p, i) => {
+    const c = a.c[i], t = a.t[i], [px] = partesU(p.ux), [py] = partesU(p.uy);
+    DIB[key(i)] = anim => dispersion(G(key(i)), {anim, data: c.F, x: p.x, y: p.y, yAuto: p.yAuto, xLab: t.Mx.nombre, yLab: t.My.nombre,
+      marcar: [c.mas, c.menos, ...(Math.abs(c.rs) < .2 ? c.par : [c.lejos]), c.cook].map(f => f.codigo_indec),
+      fx: v => n0(v) + px, fy: v => n0(v) + py, vx: v => t.vx({[p.x]: v}), vy: v => t.vy({[p.y]: v})});
+  });
+}
 // el orden de la nota (etapa 5): el gancho como bajada, "En una frase" con la respuesta y las dos mitades de cada cruce, el contexto, el gráfico
 // y el caso que se aparta de cada cruce, "Cómo se calcula" plegado, los límites propios con el recuadro fijo de cómo leer un cruce, y las fuentes
 ART.forEach(a => {
   if (!a.t) { const nota = document.getElementById(a.id); if (nota) nota.innerHTML = '<p class="nota">No se pudo armar este artículo. Probá recargar la página.</p>'; return; }
+  if (a.nuevo) { artNuevo(a); return; }
   const P = partesArt(a), tabla = tablaArt(a), U = CASOS_ART[tabla], t0 = a.t[0];
   const ficha = id => id && paginaDe(id) ? urlPagina(paginaDe(id), "#" + id) : null;
   const fichas = [...new Map(a.t.flatMap(t => [[t.Mx.ficha, t.Mx.nombre], [t.My.ficha, t.My.nombre]])).entries()].filter(([id]) => ficha(id));
