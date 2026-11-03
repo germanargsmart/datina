@@ -272,6 +272,8 @@ const CB = R.combustibles;  // precios de los combustibles en el surtidor (etapa
 const SA = R.salarios, DC = R.docentes, IE = R.inversion_edu, SG = R.seguridad;
 // Economía y precios (etapa 25): la inflación, las canastas, los salarios y la actividad, todo del INDEC
 const EIP = R.economia.ipc, ECB = R.economia.canasta, ESR = R.economia.salarios, EMA = R.economia.actividad, ESU = R.economia.super;
+// actividad y empleo registrado de cada sector (3 de noviembre de 2026)
+const ESE = R.economia.sectores_empleo;
 // la canasta de crianza (3 de noviembre de 2026): ECR.edades tiene una entrada por grupo de edad, la de 6 a 12 años es la última
 const ECR = R.economia.crianza, ECR6 = ECR.edades.at(-1);
 // la producción industrial y minera (3 de noviembre de 2026)
@@ -1011,6 +1013,16 @@ const LEAD = {
     `está ${pct(Math.abs(ESR.vs_base_priv))} ${ESR.vs_base_priv < 0 ? "más bajo" : "más alto"} y el público, ${pct(Math.abs(ESR.vs_base_pub))} ` +
     `${ESR.vs_base_pub < 0 ? "más bajo" : "más alto"}. El salario privado registrado más alto de la serie fue el de ${ESR.max_priv_mes} ` +
     `y el más bajo, el de ${ESR.min_priv_mes}.`,
+  // la actividad y el empleo de cada sector: el último año o diez años. No hay cifra destacada (muestra la relación entre dos medidas)
+  "sectores-empleo": v => {
+    const P = ESE[v], per = v === "uno" ? `Entre ${ESE.desde} y ${ESE.hasta}, frente a los doce meses anteriores` :
+      `Entre ${ESE.desde} y ${ESE.hasta}, frente a los mismos meses de diez años antes (${ESE.hace10_desde} a ${ESE.hace10_hasta})`;
+    return `El círculo claro es la actividad de cada sector y el lleno, sus asalariados registrados del sector privado. ${per}, la actividad de toda la economía ` +
+      `${cambioPct(P.act_pais)} y el empleo registrado privado ${cambioPct(P.emp_pais)}. ` +
+      (P.sin_empleo.length ? `La actividad creció y el empleo registrado bajó en ${lista(P.sin_empleo)}. ` : "En ningún sector creció la actividad mientras bajaba el empleo registrado. ") +
+      (P.sin_actividad.length ? `Al revés, el empleo creció y la actividad bajó en ${lista(P.sin_actividad)}. ` : "") +
+      "Que vayan en distinta dirección no dice por qué: puede ser un cambio de productividad, de empleo no registrado o de lo que produce cada sector.";
+  },
   emae: v => {
     if (v === "sector") return `En los doce meses hasta ${EMA.mes}, frente a los doce anteriores, crecieron ${EMA.sec_suben} de los 15 sectores de la economía, ` +
       `según el INDEC. Los que más crecieron fueron ${EMA.sec_max[0]}, ${pct(EMA.sec_max[1])}, ${yE(EMA.sec_max2[0])}, ${pct(EMA.sec_max2[1])}. ` +
@@ -1852,6 +1864,11 @@ const TX = {
     `${ESR.base} = 100, el primer mes del índice de precios del país. El índice de salarios tiene ponderaciones fijas: mide cuánto cambian los salarios, no cuánto ` +
     `cobra en promedio cada persona. El INDEC publica también el del sector privado no registrado, que la ficha no muestra: sale de la Encuesta Permanente de ` +
     `Hogares y llega con cinco meses de rezago, así que no se puede comparar con los precios del mismo mes. Los salarios promedio de cada provincia están en Trabajo: son otra medida, el promedio por puesto del OEDE, y pueden variar distinto.`,
+  "sectores-empleo": LEAD["sectores-empleo"]("uno"),
+  "sectores-empleo-nota": `Actividad: el Estimador Mensual de Actividad Económica del INDEC de cada sección de la CIIU (revisión 3), promedio de los doce meses. ` +
+    `Empleo: los asalariados registrados del sector privado de la misma sección (OEDE, Secretaría de Trabajo, con datos del SIPA), promedio de los cuatro trimestres. ` +
+    `Sin la administración pública, que el OEDE no cuenta. En la enseñanza y la salud la actividad incluye a los establecimientos públicos y el empleo, solo a los privados. ` +
+    `El empleo registrado no incluye a los asalariados sin aportes ni a los cuentapropistas. Que dos variaciones vayan juntas o separadas no prueba una causa.`,
   emae: LEAD.emae("mes"), "emae-nota": `Estimador Mensual de Actividad Económica del INDEC, base 2004 = 100: un indicador provisorio de cómo ` +
     `cambia el producto interno bruto a precios constantes, que se arma con información parcial. El INDEC revisa la serie completa con cada publicación. La serie sin ` +
     `estacionalidad quita el efecto de la época del año, para comparar un mes con el anterior. Por sector, los últimos doce meses frente a los doce anteriores, ` +
@@ -2926,7 +2943,7 @@ function mapaCentrales(el, cfg) {
 }
 
 /* ---------- fichas ---------- */
-const MED = {"jueces-federales": "cargos", "fiscalias-federales": "cantidad", "justicia-provincial": "magistratura", dinamica: "pais", rotacion: "edad", fiscal: "autonomia", censo: "cloaca", internet: "accesos_100_hogares", empleo: "cada_100", pisa: "mat", aprender: "mat", protegida: "pct_territorio", eti: "cada_1000", "patentes-prov": "autos_1000", nombres: "F", "visitas-parque": "visitas_ult", "poblacion-proy": "var_pct", "chicos-escuela": "var_pct"};
+const MED = {"jueces-federales": "cargos", "fiscalias-federales": "cantidad", "justicia-provincial": "magistratura", dinamica: "pais", rotacion: "edad", fiscal: "autonomia", censo: "cloaca", internet: "accesos_100_hogares", empleo: "cada_100", pisa: "mat", aprender: "mat", protegida: "pct_territorio", eti: "cada_1000", "patentes-prov": "autos_1000", nombres: "F", "visitas-parque": "visitas_ult", "poblacion-proy": "var_pct", "sectores-empleo": "uno", "chicos-escuela": "var_pct"};
 const M = v => n1(v / 1e6) + " M";
 const G = k => document.querySelector(`.grafico[data-g="${k}"]`);
 const NAR = css("--celeste-fuerte"), FRI = css("--sol-fuerte"), GRIS = css("--faint");
@@ -3929,6 +3946,14 @@ Object.assign(DIB, {
       xl: r => mesPer(r.periodo), mensual: true, series: [{k: "privado", lab: "Privado registrado", c: NAR}, {k: "publico", lab: "Público", c: FRI}]});
   }),
   // actividad económica (etapa 25): el EMAE sin estacionalidad mes a mes, o cada sector en los últimos doce meses
+  "sectores-empleo": a => {
+    const v = MED["sectores-empleo"] || "uno", k = v === "uno" ? "1" : "10";
+    $t("sectores-empleo").textContent = LEAD["sectores-empleo"](v);
+    const data = T.sectores_empleo.map((r, i) => ({codigo_indec: "s" + i, territorio: r.corto, act: r["actividad_" + k], emp: r["empleo_" + k], sector: r.sector}));
+    // sin animación: los dos puntos son dos medidas del mismo período, no un antes y un después
+    pesas(G("sectores-empleo"), {anim: false, data, a: "act", b: "emp", la: "Actividad", lb: "Empleo registrado", vf: conSigno, af: x => x + "%",
+      x0: Math.min(0, d3.min(data, d => Math.min(d.act, d.emp)) * 1.1), ref: 0, refLab: "Sin cambio", refC: "--muted"});
+  },
   emae: conTablas("emae", () => MED.emae === "mes" ? ["actividad_mensual"] : [], a => {
     const v = MED.emae, el = G("emae");
     $t("emae").textContent = LEAD.emae(v);
@@ -11504,7 +11529,7 @@ if (PAGINA !== "inicio") {
     "f-auh": ["auh", "asignacion universal"], "f-desempleo": ["desempleo"], "f-aprender": ["aprender"], "f-escolarizacion": ["escolarizacion", "secundaria"],
     "f-censo": ["cloacas", "agua red"], "f-cobertura": ["obra social", "prepaga", "cobertura de salud", "sin cobertura"], "f-dengue": ["dengue", "mosquito"], "f-vacunas": ["vacuna", "vacunas", "vacunacion", "sarampion", "triple viral"], "f-internet": ["internet"], "f-glaciares": ["glaciares"], "f-receptivo": ["turistas", "turismo"], "f-isac": ["construccion"],
     "f-carne": ["carne"], "f-vino": ["vino"], "f-yerba": ["yerba"], "f-electricidad-provincias": ["electricidad", "luz"], "f-subsidios": ["subsidios"],
-    "f-empresas": ["empresas"], "f-canastas": ["canasta", "canasta basica"], "f-crianza": ["crianza", "canasta de crianza", "cuota alimentaria"], "f-industria": ["industria", "produccion industrial", "ipi", "mineria"], "f-socios": ["socios comerciales", "saldo con china", "comercio con brasil", "deficit comercial con"], "f-socios-hist": ["historia del comercio exterior", "socios comerciales desde 1986"], "f-emae": ["actividad economica", "emae"], "f-carceles": ["carceles", "presos"], "f-sin-condena": ["sin condena", "presos sin condena", "procesados", "prision preventiva"],
+    "f-empresas": ["empresas"], "f-sectores-empleo": ["empleo por sector", "productividad"], "f-canastas": ["canasta", "canasta basica"], "f-crianza": ["crianza", "canasta de crianza", "cuota alimentaria"], "f-industria": ["industria", "produccion industrial", "ipi", "mineria"], "f-socios": ["socios comerciales", "saldo con china", "comercio con brasil", "deficit comercial con"], "f-socios-hist": ["historia del comercio exterior", "socios comerciales desde 1986"], "f-emae": ["actividad economica", "emae"], "f-carceles": ["carceles", "presos"], "f-sin-condena": ["sin condena", "presos sin condena", "procesados", "prision preventiva"],
     "f-coparticipacion": ["coparticipacion", "coparticipacion federal", "reparto de impuestos"],
     "f-sociedades": ["sociedades", "empresas nuevas", "crear empresas", "nuevas sociedades", "emprendimientos"],
     "f-medicos": ["medicos", "medicos por habitante", "cantidad de medicos", "medico"],

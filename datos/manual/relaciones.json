@@ -7488,6 +7488,46 @@
     }
    ],
    "tabla": "crianza_salario"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:indec_emae_actividad.xls",
+   "a": "f-sectores-empleo",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_ems = pd.read_excel(CRUDO / \"indec_emae_actividad.xls\", \"Tabla Letras\", header=None)"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "act = {k: (_ems_i.loc[_sx_meses(0), k].mean() / _ems_i.loc[_sx_meses(atras_trim * 3), k].mean() - 1) * 100 for k in _sx_letras}"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"sectores_empleo\": sectores_empleo,"
+    }
+   ],
+   "tabla": "sectores_empleo"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:oede_empleo_ramas.csv",
+   "a": "f-sectores-empleo",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "oe = pd.read_csv(CRUDO / \"oede_empleo_ramas.csv\")"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_sx_oe = oe.groupby([\"rama\", \"t\"]).valor.sum(min_count=1).unstack(\"rama\")"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"sectores_empleo\": sectores_empleo,"
+    }
+   ],
+   "tabla": "sectores_empleo"
   }
  ],
  "fichas": {

@@ -6114,6 +6114,43 @@ EMA_RES = {
 }
 agregar(actividad_mensual[["periodo", "original"]].rename(columns={"original": "valor"}).assign(codigo_indec="00", territorio="Argentina"),
         "estimador_mensual_actividad_economica", "indice, 2004 = 100", "INDEC, Estimador Mensual de Actividad Economica")
+# Actividad y empleo registrado de cada sector (pedido del autor del 3 de noviembre de 2026): la variación del EMAE de cada sección de la
+# CIIU (revisión 3) frente a la de los asalariados registrados del sector privado de la misma sección (OEDE, con datos del SIPA, sumando
+# las 25 hojas provinciales del archivo). Los doce meses que terminan en el último trimestre del OEDE frente a los doce anteriores, y frente
+# a los mismos doce meses de diez años antes. Sin la administración pública (L): el OEDE cuenta solo el empleo privado
+_sx_oe = oe.groupby(["rama", "t"]).valor.sum(min_count=1).unstack("rama")
+_sx_letras = {k: f"letra_{k}" if k != "F" else "construccion" for k in EMA_SECTOR if k != "L"}
+assert all(c in _sx_oe for c in _sx_letras.values()), "faltan secciones en el empleo por rama del OEDE"
+_sx_ult = int(_sx_oe[list(_sx_letras.values())].dropna().index.max())
+_sx_tr = lambda t, n: [((t // 10) * 4 + t % 10 - 1 - i) for i in range(n)]  # trimestres como número corrido, del último hacia atrás
+_sx_t = lambda q: (q // 4) * 10 + q % 4 + 1
+_sx_q = _sx_tr(_sx_ult, 4)
+_sx_mes_fin = pd.Period(f"{_sx_ult // 10}-{(_sx_ult % 10) * 3:02d}", "M")
+_sx_meses = lambda atras: [str(_sx_mes_fin - atras - i) for i in range(12)]
+assert all(m in _ems_i.index for m in _sx_meses(120)), "el EMAE por sector no llega a diez años antes del último trimestre del OEDE"
+
+
+def _sx_var(atras_trim):
+    act = {k: (_ems_i.loc[_sx_meses(0), k].mean() / _ems_i.loc[_sx_meses(atras_trim * 3), k].mean() - 1) * 100 for k in _sx_letras}
+    emp = {k: (_sx_oe.loc[[_sx_t(q) for q in _sx_q], c].mean() / _sx_oe.loc[[_sx_t(q - atras_trim) for q in _sx_q], c].mean() - 1) * 100
+           for k, c in _sx_letras.items()}
+    return act, emp
+
+
+_sx_a1, _sx_e1 = _sx_var(4)
+_sx_a10, _sx_e10 = _sx_var(40)
+sectores_empleo = pd.DataFrame([{"letra": k, "sector": EMA_SECTOR[k][0], "corto": EMA_SECTOR[k][1],
+                                 "empleo": float(_sx_oe.loc[[_sx_t(q) for q in _sx_q], c].mean()),
+                                 "actividad_1": _sx_a1[k], "empleo_1": _sx_e1[k], "actividad_10": _sx_a10[k], "empleo_10": _sx_e10[k]}
+                                for k, c in _sx_letras.items()]).round(4)
+_sx_tot = _sx_oe.total
+_sx_emp_tot = lambda atras: (_sx_tot.loc[[_sx_t(q) for q in _sx_q]].mean() / _sx_tot.loc[[_sx_t(q - atras) for q in _sx_q]].mean() - 1) * 100
+_sx_res = lambda n: {"act_pais": r1((_ema_o.loc[_sx_meses(0)].mean() / _ema_o.loc[_sx_meses(n * 3)].mean() - 1) * 100), "emp_pais": r1(_sx_emp_tot(n)),
+                     # los sectores donde la actividad creció y el empleo bajó, y al revés (con el redondeo que se muestra)
+                     "sin_empleo": [EMA_SECTOR[k][2] for k in _sx_letras if r1(_sx_a1[k] if n == 4 else _sx_a10[k]) > 0 and r1(_sx_e1[k] if n == 4 else _sx_e10[k]) < 0],
+                     "sin_actividad": [EMA_SECTOR[k][2] for k in _sx_letras if r1(_sx_a1[k] if n == 4 else _sx_a10[k]) < 0 and r1(_sx_e1[k] if n == 4 else _sx_e10[k]) > 0]}
+SEC_EMP_RES = {"desde": _mes_per(_sx_meses(0)[-1]), "hasta": _mes_per(_sx_meses(0)[0]), "hace10_desde": _mes_per(_sx_meses(120)[-1]),
+               "hace10_hasta": _mes_per(_sx_meses(120)[0]), "n": len(_sx_letras), "uno": _sx_res(4), "diez": _sx_res(40)}
 # ventas en supermercados (etapa 26): la Encuesta de Supermercados del INDEC, un panel fijo de empresas con alguna boca de 200 m² o más. El país,
 # con el índice del INDEC a precios constantes, que descuenta los precios de cada grupo de artículos con el IPC del país. Cada provincia, con sus
 # ventas a precios corrientes llevadas a pesos del último mes con el IPC de los bienes de su región (la provincia de Buenos Aires en dos partes:
@@ -6261,7 +6298,7 @@ IPI_RES = {
     "ind_base": r1(produccion_mensual.industria.iloc[-1] - 100), "min_base": r1(produccion_mensual.mineria.iloc[-1] - 100),
     "ult_mes": _mes_per(_ipi_c[-1]),
 }
-ECO_RES = {"ipc": IPC_RES, "canasta": CNT_RES, "salarios": SRL_RES, "actividad": EMA_RES, "super": SUP_RES, "crianza": CCR_RES, "industria": IPI_RES}
+ECO_RES = {"sectores_empleo": SEC_EMP_RES, "ipc": IPC_RES, "canasta": CNT_RES, "salarios": SRL_RES, "actividad": EMA_RES, "super": SUP_RES, "crianza": CCR_RES, "industria": IPI_RES}
 
 # ---------------------------------------------------------------- socios comerciales (3 de noviembre de 2026)
 # Pedido del autor del 3 de noviembre de 2026: el comercio de bienes con cada país, de la API del INDEC (scripts/indec_api.py), que lo
@@ -7739,6 +7776,7 @@ tablas = {
     "adulto_equivalente": adulto_equivalente,
     "salario_real_mensual": salario_real_mensual,
     "canasta_crianza": canasta_crianza,
+    "sectores_empleo": sectores_empleo,
     **({"crianza_salario": crianza_salario} if crianza_salario is not None else {}),
     "industria_ramas": industria_ramas,
     "produccion_mensual": produccion_mensual,

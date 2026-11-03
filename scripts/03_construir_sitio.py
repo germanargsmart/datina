@@ -178,7 +178,7 @@ FRECUENCIA = {
     "f-balanza": "mes", "f-exporta-rubros": "mes", "f-complejos": "semestre", "f-destinos": "semestre", "f-exporta-provincias": "anio",
     "f-importaciones": "mes", "f-origen": "mes", "f-cuenta-corriente": "trimestre", "f-reservas-bcra": "mes", 
     # Economía y precios
-    "f-inflacion": "mes", "f-inflacion-rubros": "mes", "f-canastas": "mes", "f-crianza": "mes", "f-salario-real": "mes", "f-emae": "mes", "f-industria": "mes", "f-socios": "mes", "f-socios-hist": "anio", "f-supermercados": "mes", "f-bcra": "mes", "f-expectativas": "mes", "f-confianza-consumidor": "mes",
+    "f-inflacion": "mes", "f-inflacion-rubros": "mes", "f-canastas": "mes", "f-crianza": "mes", "f-salario-real": "mes", "f-emae": "mes", "f-sectores-empleo": "trimestre", "f-industria": "mes", "f-socios": "mes", "f-socios-hist": "anio", "f-supermercados": "mes", "f-bcra": "mes", "f-expectativas": "mes", "f-confianza-consumidor": "mes",
     # Empresas y oportunidades
     "f-empresas": "anio", "f-empresas-tamano": "anio", "f-dinamica-empresas": "anio", "f-sociedades": "anio",
     # Pobreza y hogares
@@ -237,6 +237,7 @@ DEMORA_HABITUAL = {
     "f-permisos": 1,               # los permisos de edificación llegaban a julio de 2026 (3 meses)
     "f-empleo-construccion": 1,    # el empleo registrado por rama llegaba al primer trimestre de 2026 (7 meses)
     "f-empleo-hidro": 1,           # el mismo dato que la anterior, para petróleo y gas
+    "f-sectores-empleo": 1,        # el mismo dato, todas las secciones (3 de noviembre de 2026)
     "f-vacunas": 6,                # la cobertura de 2024 se publicó en abril de 2026 (16 meses)
     "f-deuda-provincias": 2,       # el stock al 30 de junio de 2026 estaba publicado en octubre de 2026 (4 meses)
 }
