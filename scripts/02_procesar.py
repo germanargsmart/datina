@@ -6270,8 +6270,9 @@ if all(f.exists() for f in _cmx_f.values()) and _cmx_fn.exists():
     _cmx_top = _cmx_p.head(CMX_N)
     _cmx_mes = lambda p: f"{MES[int(p[4:]) - 1]} de {p[:4]}"
     _cmx_r = lambda r: [r.pais, round(float(r.saldo))]
-    _cmx_sup, _cmx_def = _cmx_p.loc[_cmx_p.saldo.idxmax()], _cmx_p.loc[_cmx_p.saldo.idxmin()]
-    _cmx_c, _cmx_v = _cmx_p.loc[_cmx_p.exportaciones.idxmax()], _cmx_p.loc[_cmx_p.importaciones.idxmax()]
+    # entre los países del gráfico, así la cifra destacada siempre está en la vista inicial
+    _cmx_sup, _cmx_def = _cmx_top.loc[_cmx_top.saldo.idxmax()], _cmx_top.loc[_cmx_top.saldo.idxmin()]
+    _cmx_c, _cmx_v = _cmx_top.loc[_cmx_top.exportaciones.idxmax()], _cmx_top.loc[_cmx_top.importaciones.idxmax()]
     SE_RES["socios"] = {
         "desde": _cmx_mes(_cmx_ini), "hasta": _cmx_mes(_cmx_ult), "expo": round(float(_cmx_te)), "impo": round(float(_cmx_ti)),
         "saldo": round(float(_cmx_te - _cmx_ti)), "sin_pais": round(float(_cmx_sp)), "sin_pais_pct": r1(float(_cmx_sp / _cmx_te * 100)),

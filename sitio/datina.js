@@ -1288,7 +1288,7 @@ const TX = {
     `México y Canadá son los socios de los Estados Unidos en el tratado comercial de América del Norte. No van los orígenes que no llegan al 0,05%. Datos provisorios.`,
   socios: LEAD.socios("saldo"), "socios-nota": `Exportaciones en valores FOB (la mercadería puesta en el puerto o en la frontera) e importaciones en valores CIF (con el flete ` +
     `y el seguro), en dólares, sumadas en los últimos doce meses publicados. El saldo es la diferencia entre las dos. Son los ${SX.socios.n} países con más ` +
-    `comercio, sumando lo exportado y lo importado: la tabla descargable tiene los ${SX.socios.n_paises}. Desde 2018 el INDEC publica una parte de las exportaciones ` +
+    `comercio, sumando lo exportado y lo importado: la tabla descargable tiene los ${SX.socios.n_paises}. Desde ${SX.socios_hist.sin_pais_desde} el INDEC publica una parte de las exportaciones ` +
     `como confidenciales, sin rubro ni país, para que no se pueda deducir lo que vende una empresa: van en "Sin país informado". Un saldo en contra con un país no ` +
     `es en sí bueno ni malo: se compra a unos y se vende a otros, y lo que cuenta para las cuentas externas es el saldo con todos.`,
   "socios-hist": LEAD["socios-hist"]("importa"), "socios-hist-nota": `Parte de cada país en el total de cada año, con los valores en dólares del INDEC: FOB las ` +
@@ -2160,8 +2160,9 @@ function lineas(el, cfg) {
   // etiquetas directas sin solaparse
   etiquetas.sort((a,b) => a.y - b.y);
   for (let i = 1; i < etiquetas.length; i++) if (etiquetas[i].y - etiquetas[i-1].y < 32) etiquetas[i].y = etiquetas[i-1].y + 32;
+  // el nombre va en el color de su línea, o en s.ct si ese color no llega a 4,5 a 1 sobre el blanco (como en areasApiladas)
   etiquetas.forEach(l => {
-    const t = fin.append("text").attr("x", iw + 10).attr("y", l.y - 4).attr("class","etq-fuerte").style("fill", l.s.c);
+    const t = fin.append("text").attr("x", iw + 10).attr("y", l.y - 4).attr("class","etq-fuerte").style("fill", l.s.ct ? css(l.s.ct) : l.s.c);
     t.append("tspan").text(l.s.corto || l.s.lab);
     t.append("tspan").attr("x", iw + 10).attr("dy", 15).attr("class","etq-suave").text((cfg.vf || n0)(l.v));
   });
@@ -5328,10 +5329,11 @@ DIB["socios-hist"] = conTablas("socios-hist", ["comercio_socios_historia"], a =>
   const ser = v === "exporta" ? H.exporta : H.importa, cods = [...ser.map(s => s.k), ...(v === "exporta" ? ["sin_pais"] : [])];
   const porAnio = d3.rollup(T.comercio_socios_historia.filter(r => cods.includes(r.codigo)), g => Object.fromEntries(g.map(r => [r.codigo, r[col]])), r => r.anio);
   const data = [...porAnio].sort((p, q) => p[0] - q[0]).map(([anio, o]) => ({anio, ...Object.fromEntries(cods.map(c => [c, o[c] ?? 0]))}));
-  const colores = [css("--celeste-fuerte"), css("--sol-fuerte"), css("--ink"), css("--celeste")];
+  // los nombres al final de cada línea, en tonos que se leen sobre el blanco (ct)
+  const colores = [["--celeste-fuerte"], ["--sol-fuerte", "--sol-texto"], ["--ink"], ["--muted"]];
   lineas(el, {anim: a, data, x: "anio", y0: 0, vf: pct, yf: x => n0(x) + "%",
-    series: [...ser.map((s, i) => ({k: s.k, lab: s.lab, c: colores[i % colores.length]})),
-      ...(v === "exporta" ? [{k: "sin_pais", lab: "Sin país informado", corto: "Sin país", c: css("--faint")}] : [])]});
+    series: [...ser.map((s, i) => ({k: s.k, lab: s.lab, c: css(colores[i % colores.length][0]), ct: colores[i % colores.length][1]})),
+      ...(v === "exporta" ? [{k: "sin_pais", lab: "Sin país informado", corto: "Sin país", c: css("--faint"), ct: "--faint-texto"}] : [])]});
 });
 DIB["cuenta-corriente"] = a => {
   const d = T.cuenta_corriente;
@@ -7126,7 +7128,7 @@ const CLAVE = {
     (SX.balanza.ytd_anio > SX.balanza.anio ? `, contra ${saldoTx(SX.balanza.ytd_saldo_ant)} en los mismos meses del año anterior` : ""), `de dólares de ${BZ_S >= 0 ? "superávit" : "déficit"} comercial ${BZ_P}`],
   "f-importaciones": [`${n1(SX.importaciones.total / 1000)} mil millones`, `de dólares en bienes importó la Argentina en ${SX.importaciones.anio}`, `de dólares en ${SX.importaciones.anio}`],
   "f-socios": [`${n0(Math.abs(SX.socios.def[1]))} millones`, `de dólares de saldo en contra con ${SX.socios.def[0]} entre ${SX.socios.desde} y ${SX.socios.hasta}, ` +
-    `el mayor con un país`, `de saldo en contra con ${SX.socios.def[0]}, el mayor con un país`],
+    `el mayor entre los ${SX.socios.n} países con más comercio`, `de saldo en contra con ${SX.socios.def[0]}, el mayor entre los principales socios`],
   "f-socios-hist": (() => { const H = SX.socios_hist, s = H.importa.reduce((m, x) => x.p1 - x.p0 > m.p1 - m.p0 ? x : m);
     return [pct(s.p1), `de lo que importó la Argentina en ${H.anio} vino de ${s.lab}, frente al ${pct(s.p0)} en ${H.desde}`, `de lo importado vino de ${s.lab} en ${H.anio}`]; })(),
   "f-origen": [pct(SX.origen.top[0].pct), `de lo importado de ${SX.origen.periodo} vino de ${SX.origen.top[0].n}, el primer origen`, `desde ${SX.origen.top[0].n}, el primer origen`],
@@ -8316,7 +8318,7 @@ const PREG = [
   ["¿Produce más o menos la industria que hace un año?",
    `${IND.ia < 0 ? "Menos" : "Más"}: en ${IND.mes}, la producción de la industria ${cambioPct(IND.ia)} frente a ${IND.mes_ant}, según el índice de producción industrial del INDEC.`, "#f-industria"],
   ["¿Con qué país tiene la Argentina el mayor déficit comercial?",
-   `Con ${SX.socios.def[0]}: entre ${SX.socios.desde} y ${SX.socios.hasta}, la Argentina le compró ${n0(Math.abs(SX.socios.def[1]))} millones de dólares más de lo que le vendió, según el INDEC.`, "#f-socios"],
+   `Entre los ${SX.socios.n} países con los que más comercia, con ${SX.socios.def[0]}: entre ${SX.socios.desde} y ${SX.socios.hasta}, la Argentina le compró ${n0(Math.abs(SX.socios.def[1]))} millones de dólares más de lo que le vendió, según el INDEC.`, "#f-socios"],
   ["¿Cuánto cuesta criar a un chico?",
    `${n0(ECR6.tot)} pesos por mes en ${ECR.mes} para un chico de 6 a 12 años, según la canasta de crianza del INDEC: bienes, servicios y tiempo de cuidado.`, "#f-crianza"],
   ["¿Le ganan los salarios registrados a la inflación?",
