@@ -272,6 +272,8 @@ const SA = R.salarios, DC = R.docentes, IE = R.inversion_edu, SG = R.seguridad;
 const EIP = R.economia.ipc, ECB = R.economia.canasta, ESR = R.economia.salarios, EMA = R.economia.actividad, ESU = R.economia.super;
 // la canasta de crianza (3 de noviembre de 2026): ECR.edades tiene una entrada por grupo de edad, la de 6 a 12 años es la última
 const ECR = R.economia.crianza, ECR6 = ECR.edades.at(-1);
+// la producción industrial y minera (3 de noviembre de 2026)
+const IND = R.economia.industria;
 const conSigno = v => (v > 0 ? "+" : "") + pct(v);
 // regiones del índice de precios del INDEC (Cuadro 5 de su metodología de 2019): grupos de ciudades, no provincias. La provincia de Buenos
 // Aires está en dos: los 24 partidos, en el Gran Buenos Aires, y el resto, en la Pampeana
@@ -937,6 +939,19 @@ const LEAD = {
       `y el nivel general de precios del Gran Buenos Aires, ${pct(ECB.ia_ipc_gba)}.`;
     return base + `El gráfico muestra la canasta por adulto equivalente, las necesidades de un varón adulto de actividad moderada: en ${ECB.reg_mes}, el último mes del informe semestral del INDEC, la canasta básica total iba de ` +
       `${n0(ECB.reg_min[1])} pesos en ${REG_ART[ECB.reg_min[0]]} a ${n0(ECB.reg_max[1])} en ${REG_ART[ECB.reg_max[0]]}.`;
+  },
+  // la cifra destacada ya dice la variación de toda la industria: el texto sigue por las ramas, la minería o el camino desde el primer mes
+  industria: v => {
+    if (v === "mineria") return `En ${IND.mes}, frente a ${IND.mes_ant}, la producción minera ${cambioPct(IND.min_ia)}, según el índice del INDEC. ` +
+      listaY(IND.grupos.map(([g, x], i) => `${i ? g.charAt(0).toLowerCase() + g.slice(1) : g} ${cambioPct(x)}`)) + ".";
+    const lado = x => `${pct(Math.abs(x))} ${x < 0 ? "por debajo" : "por encima"}`;
+    if (v === "mes") return `Sin el efecto de la época del año, en ${IND.ult_mes} la producción de la industria estaba ${lado(IND.ind_base)} de ` +
+      `${IND.base}, y la de la minería, ${lado(IND.min_base)}.`;
+    const rama = ([r, x]) => `${r.toLowerCase()}, ${pct(Math.abs(x))}`;
+    return `${IND.suben === 0 ? "Ninguna" : IND.suben} de las ${IND.n_ramas} ramas de la industria produjo más que en ${IND.mes_ant}. ` +
+      (IND.max[1] > 0 ? `La que más creció fue ${rama(IND.max)}` : `La que menos cayó fue ${rama(IND.max)}`) +
+      (IND.min[1] < 0 ? `, y la que más cayó, ${rama(IND.min)}.` : `, y la que menos creció, ${rama(IND.min)}.`) +
+      ` En lo que va del año, la industria ${cambioPct(IND.acum)} frente a los mismos meses del año anterior.`;
   },
   // la cifra destacada ya dice el total de los chicos de 6 a 12 años: el texto lo separa y compara las edades
   crianza: v => {
@@ -1745,6 +1760,11 @@ const TX = {
     `indigente si no alcanzan para la alimentaria. Lo que necesita cada hogar depende de cuántas personas lo forman, su edad y su sexo: el hogar de cuatro ` +
     `integrantes del ejemplo del INDEC equivale a ${n2(ECB.adultos_hogar)} adultos equivalentes. Las canastas de las seis regiones salen cada semestre, con el informe ` +
     `de pobreza del INDEC: la última es de ${ECB.reg_mes}. Cuántas personas son pobres está en Pobreza y hogares.`,
+  industria: LEAD.industria("industria"), "industria-nota": "Los índices de producción industrial del INDEC miden cuánto producen, en cantidades y no en " +
+    "pesos, las ramas de la industria manufacturera y de la minería. Por rama, la variación frente al mismo mes del año anterior, con la serie " +
+    "original. Mes a mes, la serie sin estacionalidad, que quita el efecto de la época del año, con el primer mes que tienen en común los dos " +
+    "índices = 100. La minería incluye la extracción de petróleo y gas: su producción en metros cúbicos, con los datos de la Secretaría de " +
+    "Energía, está en Petróleo y gas.",
   crianza: LEAD.crianza("edad"), "crianza-nota": "La canasta de crianza del INDEC mide lo que cuesta por mes criar a un chico según su edad. Los bienes y " +
     "servicios (alimentos, ropa, salud, educación, transporte y vivienda) salen de la canasta básica total. El cuidado es el tiempo que el chico " +
     "necesita de un adulto, valuado con el salario de las trabajadoras de casas particulares que cuidan personas. No es lo que gasta una familia " +
@@ -3781,6 +3801,20 @@ Object.assign(DIB, {
       tip: d => `<b>${d.territorio}</b><br>Canasta básica total: ${n0(d.cbt)} pesos por adulto equivalente<br>Canasta básica alimentaria: ${n0(d.cba)} pesos` +
         (d.ia != null ? `<br>La total, en doce meses: ${cambioPct(d.ia)}` : "")});
     el.resaltar = null;  // con otra provincia elegida se vuelve a dibujar
+  }),
+  // producción industrial y minera (3 de noviembre de 2026): las ramas de la industria o los grupos de la minería frente al mismo mes del año
+  // anterior, o los dos niveles generales sin estacionalidad mes a mes
+  industria: conTablas("industria", () => MED.industria === "mes" ? ["produccion_mensual"] : [], a => {
+    const v = MED.industria || "industria", el = G("industria");
+    $t("industria").textContent = LEAD.industria(v);
+    if (v === "mes") return lineas(el, {anim: a, data: T.produccion_mensual.map(r => ({...r, t: tPer(r.periodo)})), x: "t", y0: 0, vf: n1, yf: n0,
+      xl: r => mesPer(r.periodo), mensual: true, series: [{k: "industria", lab: "Industria", c: NAR}, {k: "mineria", lab: "Minería", c: FRI}]});
+    const min = v === "mineria", ref = min ? IND.min_ia : IND.ia, todo = min ? "Toda la minería" : "Toda la industria";
+    const data = T.industria_ramas.filter(r => r.sector === (min ? "mineria" : "industria"))
+      .map((r, i) => ({codigo_indec: "i" + i, territorio: r.rama, v: r.interanual, desc: r.descripcion}));
+    barrasH(el, {anim: a, data, k: "v", vf: pct, af: x => n0(x) + "%", ref, refLab: `${todo} ${pct(ref)}`, paisLab: todo, l: 176, lAngosto: 140,
+      tip: d => `<b>${d.desc}</b><br>${pct(d.v)} en ${IND.mes}, frente a ${IND.mes_ant}`});
+    el.resaltar = null;
   }),
   // canasta de crianza (3 de noviembre de 2026): las cuatro edades en el último mes, en bienes y servicios y en cuidado, o mes a mes descontada la inflación
   crianza: conTablas("crianza", () => MED.crianza === "mes" ? ["canasta_crianza"] : [], a => {
@@ -6925,6 +6959,8 @@ const CLAVE = {
     `${inicialMin(EIP.div_max[0])}, el rubro que más subió`],
   "f-canastas": [`${n0(ECB.cbt_hogar)} pesos`, `por mes necesitaba en ${ECB.mes} un hogar de cuatro integrantes del Gran Buenos Aires para no quedar bajo la línea de pobreza`,
     `por mes, la canasta básica total de un hogar de cuatro integrantes del Gran Buenos Aires en ${ECB.mes}`],
+  "f-industria": [pct(Math.abs(IND.ia)), `${IND.ia < 0 ? "cayó" : "creció"} la producción de la industria en ${IND.mes} frente a ${IND.mes_ant}, según el INDEC`,
+    `${IND.ia < 0 ? "cayó" : "creció"} la producción industrial en ${IND.mes} frente a ${IND.mes_ant}`],
   "f-crianza": [`${n0(ECR6.tot)} pesos`, `por mes costaba en ${ECR.mes} criar a un chico de 6 a 12 años, según la canasta de crianza del INDEC`,
     `por mes, la canasta de crianza de un chico de 6 a 12 años en ${ECR.mes}`],
   "f-salario-real": [pct(Math.abs(ESR.real_priv)), `${ESR.real_priv < 0 ? "bajó" : "subió"} en los doce meses hasta ${ESR.mes} el salario registrado del sector privado, descontada la inflación`,
@@ -8204,6 +8240,8 @@ const PREG = [
    `${ESU.interanual < 0 ? "menores" : "mayores"} que en ${ESU.mes_ant}, según el INDEC.`, "#f-supermercados"],
   ["¿Cuánto necesita un hogar para no ser pobre?",
    `${n0(ECB.cbt_hogar)} pesos por mes en ${ECB.mes} para un hogar de cuatro integrantes del Gran Buenos Aires, según la canasta básica total del INDEC.`, "#f-canastas"],
+  ["¿Produce más o menos la industria que hace un año?",
+   `${IND.ia < 0 ? "Menos" : "Más"}: en ${IND.mes}, la producción de la industria ${cambioPct(IND.ia)} frente a ${IND.mes_ant}, según el índice de producción industrial del INDEC.`, "#f-industria"],
   ["¿Cuánto cuesta criar a un chico?",
    `${n0(ECR6.tot)} pesos por mes en ${ECR.mes} para un chico de 6 a 12 años, según la canasta de crianza del INDEC: bienes, servicios y tiempo de cuidado.`, "#f-crianza"],
   ["¿Le ganan los salarios registrados a la inflación?",
@@ -11334,7 +11372,7 @@ if (PAGINA !== "inicio") {
     "f-auh": ["auh", "asignacion universal"], "f-desempleo": ["desempleo"], "f-aprender": ["aprender"], "f-escolarizacion": ["escolarizacion", "secundaria"],
     "f-censo": ["cloacas", "agua red"], "f-cobertura": ["obra social", "prepaga", "cobertura de salud", "sin cobertura"], "f-dengue": ["dengue", "mosquito"], "f-vacunas": ["vacuna", "vacunas", "vacunacion", "sarampion", "triple viral"], "f-internet": ["internet"], "f-glaciares": ["glaciares"], "f-receptivo": ["turistas", "turismo"], "f-isac": ["construccion"],
     "f-carne": ["carne"], "f-vino": ["vino"], "f-yerba": ["yerba"], "f-electricidad-provincias": ["electricidad", "luz"], "f-subsidios": ["subsidios"],
-    "f-empresas": ["empresas"], "f-canastas": ["canasta", "canasta basica"], "f-crianza": ["crianza", "canasta de crianza", "cuota alimentaria"], "f-emae": ["actividad economica", "emae"], "f-carceles": ["carceles", "presos"], "f-sin-condena": ["sin condena", "presos sin condena", "procesados", "prision preventiva"],
+    "f-empresas": ["empresas"], "f-canastas": ["canasta", "canasta basica"], "f-crianza": ["crianza", "canasta de crianza", "cuota alimentaria"], "f-industria": ["industria", "produccion industrial", "ipi", "mineria"], "f-emae": ["actividad economica", "emae"], "f-carceles": ["carceles", "presos"], "f-sin-condena": ["sin condena", "presos sin condena", "procesados", "prision preventiva"],
     "f-coparticipacion": ["coparticipacion", "coparticipacion federal", "reparto de impuestos"],
     "f-sociedades": ["sociedades", "empresas nuevas", "crear empresas", "nuevas sociedades", "emprendimientos"],
     "f-medicos": ["medicos", "medicos por habitante", "cantidad de medicos", "medico"],

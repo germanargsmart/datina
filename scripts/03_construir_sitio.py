@@ -178,7 +178,7 @@ FRECUENCIA = {
     "f-balanza": "mes", "f-exporta-rubros": "mes", "f-complejos": "semestre", "f-destinos": "semestre", "f-exporta-provincias": "anio",
     "f-importaciones": "mes", "f-origen": "mes", "f-cuenta-corriente": "trimestre", "f-reservas-bcra": "mes", 
     # Economía y precios
-    "f-inflacion": "mes", "f-inflacion-rubros": "mes", "f-canastas": "mes", "f-crianza": "mes", "f-salario-real": "mes", "f-emae": "mes", "f-supermercados": "mes", "f-bcra": "mes", "f-expectativas": "mes", "f-confianza-consumidor": "mes",
+    "f-inflacion": "mes", "f-inflacion-rubros": "mes", "f-canastas": "mes", "f-crianza": "mes", "f-salario-real": "mes", "f-emae": "mes", "f-industria": "mes", "f-supermercados": "mes", "f-bcra": "mes", "f-expectativas": "mes", "f-confianza-consumidor": "mes",
     # Empresas y oportunidades
     "f-empresas": "anio", "f-empresas-tamano": "anio", "f-dinamica-empresas": "anio", "f-sociedades": "anio",
     # Pobreza y hogares
@@ -639,7 +639,7 @@ DIFERIDAS = ["elecciones_presidenciales", "anios_congreso", "transferencias_prov
              "hidrocarburos_mensual", "vivienda_departamentos", "isac_mensual", "costo_construccion",
              "empleo_construccion_serie", "pozos_no_convencionales", "areas_produccion", "centrales",
              "gas_usuario_serie", "gas_usuario_mensual", "areas_serie", "combustibles_mensual", "electricidad_serie", "electricidad_mensual",
-             "dolar_inversion_trimestral", "compras_dolares_anual", "salarios_serie", "salario_docente_serie", "canasta_crianza", "inversion_educativa_serie",
+             "dolar_inversion_trimestral", "compras_dolares_anual", "salarios_serie", "salario_docente_serie", "canasta_crianza", "produccion_mensual", "inversion_educativa_serie",
              "seguridad_serie_prov", "turismo_dolar_mensual", "nafta_dolares_mensual", "nafta_dolares_anual", "nombres_serie",
              "exportaciones_dolar_trimestral", "exportaciones_cantidades_anual",
              "inflacion_mensual", "canasta_mensual", "salario_real_mensual", "actividad_mensual",

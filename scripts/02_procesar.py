@@ -6144,7 +6144,53 @@ CCR_RES = {
                 "real": r1((_ccr.at[_ccr_u, f"tot_{e}"] / _ccr.at[_ccr_0, f"tot_{e}"] / (_ipc_ng[_ccr_u] / _ipc_ng[_ccr_0]) - 1) * 100)}
                for e, l in _CCR_EDAD.items()],
 }
-ECO_RES = {"ipc": IPC_RES, "canasta": CNT_RES, "salarios": SRL_RES, "actividad": EMA_RES, "super": SUP_RES, "crianza": CCR_RES}
+# Producción industrial y minera del INDEC (API, desde el 3 de noviembre de 2026: scripts/indec_api.py): los índices de producción industrial
+# manufacturero y minero. Por rama o por grupo, la variación frente al mismo mes del año anterior (serie original), y mes a mes, el nivel
+# general sin estacionalidad de los dos, con el primer mes que tienen en común = 100. Los nombres de las ramas, más cortos que los del INDEC
+_IPI_RAMA = {"Alimentos y bebidas": "Alimentos y bebidas", "Productos de tabaco": "Tabaco", "Productos textiles": "Textiles",
+             "Prendas de vestir, cuero y calzado": "Ropa, cuero y calzado", "Madera, papel, edición e impresión": "Madera, papel e impresión",
+             "Refinación del petróleo, coque y combustible nuclear": "Refinación del petróleo", "Sustancias y productos químicos": "Químicos",
+             "Productos de caucho y plástico": "Caucho y plástico", "Productos minerales no metálicos": "Minerales no metálicos",
+             "Industrias metálicas básicas": "Metales básicos", "Productos de metal": "Productos de metal", "Maquinaria y equipo": "Maquinaria y equipo",
+             "Otros equipos, aparatos e instrumentos": "Equipos e instrumentos", "Vehículos automotores, carrocerías, remolques y autopartes": "Autos y autopartes",
+             "Otro equipo de transporte": "Otro equipo de transporte", "Muebles y colchones, y otras industrias manufactureras": "Muebles y otras"}
+_IPI_GRUPO = {"06 y 09.1": "Petróleo y gas", "07.10 y 07.29": "Minerales metalíferos", "05.100 y 08": "Minerales no metalíferos y rocas"}
+_ipm = pd.DataFrame(json.loads((CRUDO / "indec_api_ipi_manufacturero.json").read_text(encoding="utf-8")))
+_ipn = pd.DataFrame(json.loads((CRUDO / "indec_api_ipi_minero.json").read_text(encoding="utf-8")))
+for _d in (_ipm, _ipn):
+    _d["periodo"] = _d.periodo.astype(str).str[:4] + "-" + _d.periodo.astype(str).str[4:6]
+    _d["valor"] = pd.to_numeric(_d.valor)
+_ipm_ramas = set(_ipm[_ipm.cuadro_web == "Cuadro 5"].descripcion) - {"IPI Manufacturero - Nivel general"}
+_ipm_cod = set(_ipm[_ipm.cuadro_web == "Cuadro 5"].codigo_CLaNAE_2004) - {"D"}
+assert _ipm_ramas == set(_IPI_RAMA), f"cambiaron las ramas del IPI manufacturero: {sorted(_ipm_ramas ^ set(_IPI_RAMA))}"
+_ipi_u = min(_ipm.periodo.max(), _ipn.periodo.max())
+_ipi_12 = f"{int(_ipi_u[:4]) - 1}{_ipi_u[4:]}"
+_ipm_ia = _ipm[(_ipm.cuadro_web == "Cuadro 3") & (_ipm.periodo == _ipi_u)]
+_ipn_ia = _ipn[(_ipn.cuadro_web == "Cuadro 3") & (_ipn.periodo == _ipi_u)]
+_ipm_ac = _ipm[(_ipm.cuadro_web == "Cuadro 4") & (_ipm.periodo == _ipi_u) & (_ipm.codigo_CLaNAE_2004 == "D")].valor
+_ipm_ng = float(_ipm_ia[_ipm_ia.codigo_CLaNAE_2004 == "D"].valor.iloc[0])
+_ipn_ng = float(_ipn_ia[_ipn_ia.codigo_ClaNAE_2010 == "B"].valor.iloc[0])
+industria_ramas = pd.concat([
+    _ipm_ia[_ipm_ia.codigo_CLaNAE_2004.isin(_ipm_cod)].assign(sector="industria", rama=lambda x: x.descripcion.map(_IPI_RAMA)),
+    _ipn_ia[_ipn_ia.codigo_ClaNAE_2010.isin(_IPI_GRUPO)].assign(sector="mineria", rama=lambda x: x.codigo_ClaNAE_2010.map(_IPI_GRUPO))])
+industria_ramas = industria_ramas.dropna(subset=["valor"]).assign(periodo=_ipi_u, interanual=lambda x: x.valor.round(4))[
+    ["periodo", "sector", "rama", "descripcion", "interanual"]].reset_index(drop=True)
+assert (industria_ramas.sector == "mineria").sum() == 3 and 14 <= (industria_ramas.sector == "industria").sum() <= len(_IPI_RAMA), "faltan ramas o grupos en el IPI"
+_ipm_d = _ipm[(_ipm.cuadro_web == "Cuadro 5") & (_ipm.tipo_de_indicador == "Índice") & (_ipm.codigo_CLaNAE_2004 == "D")].set_index("periodo").valor
+_ipn_d = _ipn[(_ipn.cuadro_web == "Cuadro 1") & (_ipn.tipo_de_indicador == "Índice") & (_ipn.serie == "Serie Desestacionalizada")].set_index("periodo").valor
+_ipi_c = _ipm_d.index.intersection(_ipn_d.index).sort_values()
+produccion_mensual = pd.DataFrame({"periodo": _ipi_c, "industria": (_ipm_d[_ipi_c] / _ipm_d[_ipi_c[0]] * 100).round(4).values,
+                                   "mineria": (_ipn_d[_ipi_c] / _ipn_d[_ipi_c[0]] * 100).round(4).values})
+_ipr = industria_ramas[industria_ramas.sector == "industria"].sort_values("interanual")
+IPI_RES = {
+    "periodo": _ipi_u, "mes": _mes_per(_ipi_u), "mes_ant": _mes_per(_ipi_12), "base": _mes_per(_ipi_c[0]), "anio_ini": int(_ipi_c[0][:4]),
+    "ia": r1(_ipm_ng), "acum": r1(float(_ipm_ac.iloc[0])), "n_ramas": int(len(_ipr)), "suben": int((_ipr.interanual > 0).sum()),
+    "max": [_ipr.iloc[-1].rama, r1(_ipr.iloc[-1].interanual)], "min": [_ipr.iloc[0].rama, r1(_ipr.iloc[0].interanual)],
+    "min_ia": r1(_ipn_ng), "grupos": [[r.rama, r1(r.interanual)] for r in industria_ramas[industria_ramas.sector == "mineria"].itertuples()],
+    "ind_base": r1(produccion_mensual.industria.iloc[-1] - 100), "min_base": r1(produccion_mensual.mineria.iloc[-1] - 100),
+    "ult_mes": _mes_per(_ipi_c[-1]),
+}
+ECO_RES = {"ipc": IPC_RES, "canasta": CNT_RES, "salarios": SRL_RES, "actividad": EMA_RES, "super": SUP_RES, "crianza": CCR_RES, "industria": IPI_RES}
 
 # ---------------------------------------------------------------- migraciones (etapa 25)
 # Censo 2022 (INDEC): población en viviendas particulares por lugar de nacimiento (en la provincia, en otra provincia o en otro país) y por
@@ -7495,6 +7541,8 @@ tablas = {
     "adulto_equivalente": adulto_equivalente,
     "salario_real_mensual": salario_real_mensual,
     "canasta_crianza": canasta_crianza,
+    "industria_ramas": industria_ramas,
+    "produccion_mensual": produccion_mensual,
     "actividad_mensual": actividad_mensual,
     "actividad_anual": actividad_anual,
     "actividad_sectores": actividad_sectores,
