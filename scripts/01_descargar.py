@@ -11,6 +11,8 @@ import base64, csv, datetime, http.cookiejar, json, pathlib, re, ssl, sys, tempf
 sys.stdout.reconfigure(line_buffering=True)
 
 RAIZ = pathlib.Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(RAIZ / "scripts"))
+import indec_api  # noqa: E402  (la API del INDEC, 2 de noviembre de 2026)
 CRUDO = RAIZ / "datos" / "crudo"
 CRUDO.mkdir(parents=True, exist_ok=True)
 UA = {"User-Agent": "Mozilla/5.0 (argentina-en-datos)"}
@@ -2685,6 +2687,8 @@ TIPOS_SOCIEDAD = {"SOCIEDAD DE RESPONSABILIDAD LIMITADA", "SOCIEDAD POR ACCION S
 # fuentes que arma una función y no una dirección de FUENTES: --solo también las acepta por el nombre del archivo que escriben
 SOLO_FUNCIONES = {"jus_sociedades_resumen.csv": sociedades, "eph_poblacion_aglomerados.csv": eph_poblacion_sola,
                   "indec_calendario.csv": indec_calendario}
+# las tablas de la API del INDEC (2 de noviembre de 2026, scripts/indec_api.py y docs/deploy/INDEC_API.md), una por una
+SOLO_FUNCIONES.update({indec_api.archivo(t): (lambda t=t: indec_api.bajar(CRUDO, [t])) for t in indec_api.TABLAS})
 
 
 # Una fuente nueva sin bajar todo (24 de octubre de 2026): `python scripts/01_descargar.py --solo archivo [archivo ...]` baja solo esos
@@ -2739,7 +2743,9 @@ for _nombre, _f in [("votaciones nominales", votaciones), ("exportaciones por se
                     ("planilla de reservas internacionales y liquidez (BCRA)", bcra_planilla_reservas),
                     ("índices de la Universidad Torcuato Di Tella", utdt_series),
                     ("sociedades constituidas por año y provincia (Registro Nacional de Sociedades)", sociedades),
-                    ("calendario de difusión (INDEC)", indec_calendario)]:
+                    ("calendario de difusión (INDEC)", indec_calendario),
+                    # pide el token del autor (INDEC_API_TOKEN): sin él, el registro lo dice y quedan los archivos anteriores
+                    ("tablas de la API del INDEC", lambda: indec_api.bajar(CRUDO))]:
     try:
         _origen = _f() or "github.com/rquiroga7/como_voto"
         registro.append([_nombre, _origen, datetime.datetime.now().isoformat(timespec="seconds"), "ok"])

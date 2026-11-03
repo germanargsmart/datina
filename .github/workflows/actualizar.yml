@@ -23,6 +23,9 @@ jobs:
           python-version: "3.12"
       - run: pip install -r requirements.txt
       - run: python scripts/01_descargar.py
+        # la API del INDEC (docs/deploy/INDEC_API.md): sin el secreto, esas tablas no se bajan y el resto sigue igual
+        env:
+          INDEC_API_TOKEN: ${{ secrets.INDEC_API_TOKEN }}
       - run: python scripts/02_procesar.py
       # si una prueba de los datos falla, el trabajo se detiene acá y no se publica nada
       - run: python scripts/pruebas_datos.py
