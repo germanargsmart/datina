@@ -6200,6 +6200,21 @@ CCR_RES = {
                 "real": r1((_ccr.at[_ccr_u, f"tot_{e}"] / _ccr.at[_ccr_0, f"tot_{e}"] / (_ipc_ng[_ccr_u] / _ipc_ng[_ccr_0]) - 1) * 100)}
                for e, l in _CCR_EDAD.items()],
 }
+# La canasta de crianza frente al salario de cada provincia (pedido del autor del 3 de noviembre de 2026): la canasta del mes de los
+# salarios (SAL_MES, el último sin aguinaldo) dividida por el salario bruto promedio del empleo privado registrado. La canasta es una sola
+# para todo el país (se arma con la canasta básica total del Gran Buenos Aires): la diferencia entre provincias sale del salario
+crianza_salario = None
+if SAL_MES in _ccr.index:
+    crianza_salario = salarios_provincias[["codigo_indec", "territorio", "salario"]].copy()
+    for _e in _CCR_EDAD:
+        crianza_salario[f"pct_{_e}"] = (_ccr.at[SAL_MES, f"tot_{_e}"] / crianza_salario.salario * 100).round(4)
+    crianza_salario = crianza_salario.sort_values("codigo_indec").reset_index(drop=True)
+    _ccs = crianza_salario[crianza_salario.codigo_indec != "00"].sort_values("pct_6a12")
+    _ccs_pais = crianza_salario.set_index("codigo_indec").loc["00"]
+    CCR_RES["salario"] = {"mes": _mes_per(SAL_MES), "canasta": int(_ccr.at[SAL_MES, "tot_6a12"]), "salario": int(round(_ccs_pais.salario)),
+                          "pais": r1(_ccs_pais.pct_6a12), "bys_pais": r1(_ccr.at[SAL_MES, "bys_6a12"] / _ccs_pais.salario * 100),
+                          "max": _ccs.iloc[-1].territorio, "max_v": r1(_ccs.iloc[-1].pct_6a12),
+                          "min": _ccs.iloc[0].territorio, "min_v": r1(_ccs.iloc[0].pct_6a12), "n_mitad": int((_ccs.pct_6a12 >= 50).sum())}
 # Producción industrial y minera del INDEC (API, desde el 3 de noviembre de 2026: scripts/indec_api.py): los índices de producción industrial
 # manufacturero y minero. Por rama o por grupo, la variación frente al mismo mes del año anterior (serie original), y mes a mes, el nivel
 # general sin estacionalidad de los dos, con el primer mes que tienen en común = 100. Los nombres de las ramas, más cortos que los del INDEC
@@ -7724,6 +7739,7 @@ tablas = {
     "adulto_equivalente": adulto_equivalente,
     "salario_real_mensual": salario_real_mensual,
     "canasta_crianza": canasta_crianza,
+    **({"crianza_salario": crianza_salario} if crianza_salario is not None else {}),
     "industria_ramas": industria_ramas,
     "produccion_mensual": produccion_mensual,
     **({"comercio_socios": cmx_socios, "comercio_socios_historia": cmx_hist} if cmx_socios is not None else {}),

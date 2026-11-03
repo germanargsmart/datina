@@ -7468,6 +7468,26 @@
      "contiene": "`Entre ${nac.anio_pico} y ${nac.anio_ult} los nacimientos ya bajaron ${pct(Math.abs(nac.caida))}, según las estadísticas vitales de la DEIS.`"
     }
    ]
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:oede_remuneraciones_provincias.csv",
+   "a": "f-crianza",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "sal_ = pd.read_csv(CRUDO / \"oede_remuneraciones_provincias.csv\")"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "crianza_salario = salarios_provincias[[\"codigo_indec\", \"territorio\", \"salario\"]].copy()"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "**({\"crianza_salario\": crianza_salario} if crianza_salario is not None else {}),"
+    }
+   ],
+   "tabla": "crianza_salario"
   }
  ],
  "fichas": {
