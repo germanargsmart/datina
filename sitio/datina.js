@@ -8418,50 +8418,180 @@ const ART = [
   {id: "a-atn-presupuesto", x: "atn_hab", y: "apoyo_presupuesto", espera: 1, frec: "Se actualiza cada año",
     lx: "ATN por habitante", ly: "apoyo al presupuesto", uy: "% de los votos",
     // descontada la inflación y en promedio de todos los años: sin eso, los pesos no se pueden leer (auditoría de los artículos)
-    ux: `pesos de ${R.transferencias.ult} por habitante por año, en promedio de ${R.transferencias.desde} a ${R.transferencias.ult}`,
+    ux: `pesos de ${R.transferencias.ult} por habitante por año`,
     dek: "Cuánto recibió cada provincia por habitante en Aportes del Tesoro Nacional, frente a qué parte de los votos de sus legisladores de fuera del bloque oficialista fue a favor del presupuesto nacional.",
-    contexto: "Los Aportes del Tesoro Nacional (ATN) son un fondo para atender emergencias y desequilibrios financieros de las provincias, y los asigna el Ministerio del Interior. El presupuesto es la ley que fija cada año los gastos y los recursos de la administración nacional. Este cruce compara, provincia por provincia, cuánto recibió cada una en ATN por habitante, descontada la inflación, con cuánto votaron a favor del presupuesto sus legisladores de fuera del bloque oficialista. Si las dos cosas van juntas, hay varias lecturas posibles: que los ATN se repartan según el apoyo de los legisladores, que los legisladores voten según los ATN que recibe su provincia o que las dos cosas dependan de otra, como el tamaño de cada provincia o la relación de su gobernador con el gobierno nacional.",
+    contexto: "Los Aportes del Tesoro Nacional (ATN) son un fondo para atender emergencias y desequilibrios financieros de las provincias. El presupuesto es la ley que fija cada año los gastos y los recursos de la administración nacional. Este cruce compara, provincia por provincia, cuánto recibió cada una en ATN por habitante con cuánto votaron a favor del presupuesto sus legisladores de fuera del bloque oficialista. Si las dos cosas van juntas, hay varias lecturas posibles: que los ATN se repartan según el apoyo de los legisladores, que los legisladores voten según los ATN que recibe su provincia o que las dos cosas dependan de otra, como el tamaño de cada provincia o la relación de su gobernador con el gobierno nacional.",
+    nuevo: true,
+    medimos: ["Los ATN se forman con una parte de los impuestos que se coparticipan y los asigna el Ministerio del Interior, sin una regla fija.",
+      "El apoyo al presupuesto suma los votos de los diputados y senadores de cada provincia que no son del bloque oficialista, en la votación en " +
+      "general de cada ley de presupuesto: es la parte de esos votos que fue a favor.",
+      `Como los ATN cambian mucho de un año a otro, para cada provincia se toma el promedio por año de ${R.transferencias.desde} a ${R.transferencias.ult}, en pesos de ${R.transferencias.ult}.`],
+    preg: {atn_hab: "¿Cuánto recibió cada provincia en ATN por habitante?",
+      apoyo_presupuesto: "¿Cuánto votaron a favor del presupuesto los legisladores de fuera del oficialismo?"},
+    txtVar: {atn_hab: "Un mismo monto rinde más por habitante donde vive menos gente: por eso las provincias chicas suelen aparecer arriba.",
+      apoyo_presupuesto: "Un apoyo alto puede venir de legisladores aliados del gobierno de turno, de acuerdos de cada año o de la relación del gobernador con la Nación."},
+    serie: {atn_hab: {tipo: "serie", id: "atn_hab", preg: "¿Cómo cambiaron los ATN con los años?", dato: "Lo recibido por habitante",
+      unidad: "pesos por habitante, descontada la inflación", u: "pesos por habitante"}},
+    notas: ["ATN: Presupuesto Abierto, Secretaría de Hacienda, crédito devengado por provincia de destino, descontada la inflación con el deflactor del PBI.",
+      "Votaciones: las votaciones en general de las leyes de presupuesto en las dos cámaras, con el bloque de cada legislador en ese momento."],
     limites: [
-      "Las provincias con menos habitantes tienen más legisladores por habitante, por cómo se reparten las bancas, y un mismo monto de ATN da más por habitante donde hay menos gente. Este cruce no descuenta el tamaño de cada provincia.", "Que vayan juntos no dice cuál de esas lecturas es la correcta: este cruce no permite separarlas.", "Cada provincia suma los votos de sus diputados y senadores de fuera del bloque oficialista en todos esos presupuestos: son pocas personas que votan muchas veces, y las ausencias cuentan como votos que no fueron a favor.",
+      "Las provincias con menos habitantes tienen más legisladores por habitante, por cómo se reparten las bancas, y un mismo monto de ATN da más por habitante donde hay menos gente. Este cruce no descuenta el tamaño de cada provincia.", "Son pocas personas que votan muchas veces, y las ausencias cuentan como votos que no fueron a favor.",
       "El bloque oficialista es el bloque más numeroso del espacio del presidente. Los legisladores aliados que están en otros bloques cuentan como de fuera, así que suman más apoyo las provincias con legisladores que suelen acompañar al gobierno de turno.",
       ]},
   {id: "a-exportaciones-empleo", x: "exportaciones", y: "empleo_privado", espera: 1, frec: "Se actualiza cada año",
     lx: "exportaciones por habitante", ly: "empleo privado registrado", ux: "dólares por habitante", uy: "asalariados cada 100 habitantes",
     dek: "Lo que cada provincia exporta en bienes por habitante, frente a cuántos asalariados privados registrados tiene cada 100 habitantes.",
-    contexto: "Exportar trae dólares, pero no todas las actividades necesitan la misma cantidad de trabajadores para producir lo mismo. Este cruce pone un dato al lado del otro, provincia por provincia.",
+    contexto: "Exportar trae dólares, pero no todas las actividades necesitan la misma cantidad de trabajadores para producir lo mismo. La extracción de " +
+      "petróleo o de minerales mueve mucho dinero con pocos empleados directos, mientras que la industria, el comercio y los servicios, que venden " +
+      "sobre todo dentro del país, emplean a mucha más gente. Este cruce pone un dato al lado del otro, provincia por provincia, para ver si las " +
+      "que más venden al exterior por habitante son también las que tienen más trabajo registrado en empresas privadas.",
+    nuevo: true,
+    medimos: ["Las exportaciones de cada provincia son las de bienes, según la provincia donde se produjo la mercadería, divididas por su población.",
+      "El empleo privado registrado son los asalariados de empresas privadas declarados en el Sistema Integrado Previsional Argentino (SIPA), cada 100 " +
+      "habitantes. No cuenta a quienes trabajan por su cuenta ni a los que no están registrados."],
+    preg: {exportaciones: "¿Cuánto exporta cada provincia por habitante?", empleo_privado: "¿Cuánto empleo privado registrado hay en cada provincia?"},
+    txtVar: {exportaciones: w => "Las provincias con petróleo, minería o granos exportan mucho por habitante, sobre todo si tienen poca población. " +
+        `${w.alto.territorio} exporta por habitante unas ${n0(w.alto.exportaciones / w.med)} veces lo que la jurisdicción del medio.`,
+      empleo_privado: w => {
+        const s = w.F.filter(f => codA(f) !== "02").sort((q, r) => r.empleo_privado - q.empleo_privado)[0];
+        return "CABA aparece muy alta porque muchas empresas declaran allí a trabajadores que hacen su tarea en otras provincias." +
+          (codA(w.alto) === "02" ? ` Sin CABA, el valor más alto es el de ${s.territorio}, con ${w.v(s)}.` : "");
+      }},
+    serie: {exportaciones: {tipo: "serie", id: "exportaciones", preg: "¿Cómo cambiaron las exportaciones con los años?", dato: "Lo exportado por habitante",
+        unidad: "dólares de cada año por habitante", u: "dólares por habitante",
+        txt: "Son dólares de cada año, sin descontar la inflación de los Estados Unidos, así que una parte de la suba viene de ahí. Los saltos de un " +
+          "año a otro siguen sobre todo a las cosechas y a los precios internacionales de los granos, del petróleo y de los minerales."},
+      empleo_privado: {tipo: "serie", id: "empleo_privado", preg: "¿Y el empleo privado registrado?", dato: "El empleo privado registrado",
+        u: "asalariados cada 100 habitantes", txt: r => r.m1 < r.m0 ? "Donde bajó, la cantidad de asalariados privados registrados creció " +
+          "menos que la población, o se redujo." : ""}},
+    txt: c => {
+      const t3 = [...c.F].sort((q, r) => r.exportaciones - q.exportaciones).slice(0, 3);
+      return `Las tres que más exportan por habitante, ${listaY(t3.map(f => f.territorio))}, están en los puestos ${listaY(t3.map(f => c.py.get(f) + ".º"))} ` +
+        `de las ${c.n} en empleo privado registrado.`;
+    },
+    notas: ["Exportaciones: INDEC, origen provincial de las exportaciones, dólares de cada año por habitante.",
+      "Empleo privado: Secretaría de Trabajo, SIPA, asalariados registrados del sector privado cada 100 habitantes."],
     limites: ["Las exportaciones son solo de bienes: no cuentan los servicios, como el software, los servicios profesionales o el turismo.", "El Sistema Integrado Previsional Argentino (SIPA) asigna cada empleo a la provincia donde está inscripto el empleador. Por eso CABA aparece muy alta, aunque parte de esos trabajos se hagan en otras provincias.",
-      "Las exportaciones se cuentan según la provincia donde se produjo la mercadería, no según dónde está la empresa que la vende."]},
+      "Las exportaciones por habitante dependen mucho de la población: una provincia con poca gente y un gran yacimiento aparece muy arriba aunque " +
+      "exporte menos en total que una provincia grande."]},
   {id: "a-cloacas-mortalidad", desde: "menos", x: "cloaca", y: "mortalidad_infantil", espera: -1, frec: "Se actualiza cada año",
     lx: "hogares con cloacas", ly: "mortalidad infantil", ux: "% de los hogares", uy: "muertes cada 1.000 nacidos vivos",
     dek: "La parte de los hogares con desagüe a la red cloacal según el último censo, frente a las muertes de bebés menores de un año cada 1.000 nacidos vivos.",
-    contexto: "Las cloacas son una de las condiciones de vida de los hogares que mide el censo. Este cruce compara la parte de los hogares conectados a la red cloacal en cada provincia con su tasa de mortalidad infantil. Sirve para ver una desigualdad entre provincias, no para medir el efecto de las cloacas en la salud de los bebés.",
+    contexto: "La red cloacal se lleva las aguas servidas de la vivienda y evita que contaminen el agua y el suelo cerca de donde vive la familia. " +
+      "La mortalidad infantil, las muertes de bebés antes de cumplir un año, se usa en todo el mundo como un indicador de las condiciones de vida y " +
+      "de salud de una población. Este cruce compara la parte de los hogares conectados a la red cloacal en cada provincia con su tasa de mortalidad infantil. Sirve para ver una desigualdad entre provincias, no para medir el efecto de las cloacas en la salud de los bebés.",
+    nuevo: true,
+    medimos: ["Las cloacas son la parte de los hogares con desagüe a la red cloacal, según el censo, que cuenta todos los hogares.",
+      "La mortalidad infantil cuenta las muertes de bebés antes de cumplir un año cada 1.000 nacidos vivos, con las estadísticas vitales del " +
+      "Ministerio de Salud."],
+    preg: {cloaca: "¿Qué parte de los hogares tiene cloacas en cada provincia?", mortalidad_infantil: "¿Cuántos bebés mueren antes del año en cada provincia?"},
+    txtVar: {cloaca: w => { const k = w.F.filter(f => f.cloaca < 50).length;
+        return "Llevar cloacas a una ciudad dispersa o a las zonas rurales cuesta más que a una ciudad densa, y muchos hogares tienen pozo o cámara séptica." +
+          (k ? ` En ${k} de las ${w.F.length} jurisdicciones, menos de la mitad de los hogares tiene cloacas.` : ""); },
+      mortalidad_infantil: "En las provincias con pocos nacimientos, unas pocas muertes cambian mucho la tasa: por eso se usa un promedio de tres años. " +
+        "La mayor parte de esas muertes ocurre en el primer mes de vida."},
+    serie: {cloaca: {tipo: "pesas", filas: () => T.censos_provincias.filter(r => r.indicador === "cloaca").map(r => ({codigo_indec: r.codigo_indec, territorio: r.territorio, a: r.valor_2010, b: r.valor_2022})), la: 2010, lb: 2022, mejor: "sube", preg: "¿Cuánto cambió entre los dos últimos censos?",
+        dato: "La parte de hogares con cloacas", txt: "Entre dos censos pasan doce años: las obras de cloacas tardan, y en ese tiempo también se suman " +
+          "hogares nuevos que hay que conectar."},
+      mortalidad_infantil: {tipo: "serie", id: "mortalidad_infantil", baja: true, preg: "¿Cómo cambió la mortalidad infantil con los años?",
+        dato: "La mortalidad infantil", unidad: "muertes de menores de un año cada 1.000 nacidos vivos, de cada año", u: "cada 1.000 nacidos vivos",
+        txt: "Es la tasa de cada año, no el promedio de tres años que usa el cruce, y por eso salta más en las provincias con pocos nacimientos."}},
+    notas: ["Cloacas: INDEC, Censos 2010 y 2022, % de los hogares.", "Mortalidad infantil: DEIS, Ministerio de Salud, estadísticas vitales."],
     limites: ["Muchas muertes de bebés se deben a afecciones perinatales, como la prematurez, o a malformaciones congénitas. Las causas que suelen estar más ligadas a las condiciones de vida, como las enfermedades infecciosas y respiratorias, son solo una parte.", "La mortalidad infantil es un promedio de tres años, porque en las provincias con pocos nacimientos la tasa de un solo año salta mucho.",
-      "La mortalidad infantil depende también de la atención durante el embarazo y el parto, de los ingresos de las familias y de su cobertura de salud, que este cruce no mide. Las provincias con menos cloacas suelen tener también más pobreza y menos cobertura de salud: el cruce no separa una cosa de la otra."]},
+      "La mortalidad infantil depende también de la atención durante el embarazo y el parto, de los ingresos de las familias y de su cobertura de salud, que este cruce no mide. Las provincias con menos cloacas suelen tener también más pobreza y menos cobertura de salud: el cruce no separa una cosa de la otra.",
+      "El censo mide la conexión de la vivienda a la red, no si el agua que usa el hogar es segura: el agua de red es otro dato del mismo censo."]},
   {id: "a-cobertura-esperanza", frec: "Se actualiza cada año",
     dek: "La parte de la población sin obra social ni prepaga de cada provincia, según el último censo, frente a su esperanza de vida al nacer y a la parte de sus nacimientos que son de madres menores de 20 años.",
     contexto: "En la Argentina, la obra social llega sobre todo con el empleo registrado. Por eso la falta de obra social o prepaga se usa acá como una marca de las condiciones económicas de cada provincia, no como una medida del acceso a la salud: el hospital público atiende a todas las personas. Este artículo la compara con dos datos: la esperanza de vida al nacer, que resume las condiciones de mortalidad, y la parte de los nacimientos que son de madres adolescentes.",
+    nuevo: true,
+    medimos: ["Sin obra social ni prepaga son las personas que no tienen obra social, prepaga ni plan estatal de salud, según el censo.",
+      "La esperanza de vida al nacer es cuántos años viviría en promedio un bebé si las tasas de mortalidad de cada edad se mantuvieran como hoy. " +
+      "La maternidad adolescente es la parte de los nacimientos cuya madre tenía menos de 20 años."],
+    preg: {sin_cobertura: "¿Qué parte de la población no tiene obra social ni prepaga?", esperanza_vida: "¿Cuántos años se espera que viva un bebé en cada provincia?",
+      madres_adolescentes: "¿Qué parte de los nacimientos son de madres adolescentes?"},
+    txtVar: {sin_cobertura: "Donde hay más empleo registrado, hay más obra social: la falta de cobertura sigue a la informalidad del trabajo.",
+      esperanza_vida: "Las mujeres viven en promedio más que los varones en todas las jurisdicciones: el dato junta a los dos.",
+      madres_adolescentes: "Es una proporción: si las mujeres adultas tienen menos hijos, la parte de las adolescentes sube aunque sus nacimientos no cambien."},
+    serie: {sin_cobertura: {tipo: "pesas", filas: () => T.censos_provincias.filter(r => r.indicador === "sin_cobertura").map(r => ({codigo_indec: r.codigo_indec, territorio: r.territorio, a: r.valor_2010, b: r.valor_2022})), la: 2010, lb: 2022, mejor: "baja", baja: true,
+        preg: "¿Cuánto cambió entre los dos últimos censos?", dato: "La parte sin cobertura"},
+      madres_adolescentes: {tipo: "pesas", filas: () => T.madres_adolescentes_provincias.map(r => ({codigo_indec: r.codigo_indec, territorio: r.territorio,
+        a: r[ADO_INI], b: r[ADO_ULT]})), la: nac.anio_ini, lb: nac.anio_ult, mejor: "baja", baja: true, preg: "¿Cuánto cambió la maternidad adolescente?",
+        dato: "La maternidad adolescente"}},
+    notas: ["Cobertura: INDEC, Censos 2010 y 2022, % de las personas.", "Esperanza de vida: INDEC, tablas de mortalidad por provincia.",
+      "Maternidad adolescente: DEIS, Ministerio de Salud, % de los nacidos vivos."],
     // etapa 5: junta los dos artículos de la cobertura (hasta entonces, a-cobertura-esperanza y a-cobertura-adolescentes)
     partes: [
-      {x: "sin_cobertura", y: "esperanza_vida", espera: -1, yAuto: true, lx: "personas sin obra social ni prepaga", ly: "esperanza de vida", ux: "% de las personas", uy: "años",
+      {x: "sin_cobertura", y: "esperanza_vida", espera: -1, yAuto: true, preg: "¿Se vive menos donde menos gente tiene obra social o prepaga?", lx: "personas sin obra social ni prepaga", ly: "esperanza de vida", ux: "% de las personas", uy: "años",
         limites: ["La esperanza de vida resume la mortalidad de todas las edades de un año, y cambia con hechos de ese año, como una epidemia: conviene mirar de qué año es el dato antes de compararlo con otros períodos."]},
-      {x: "sin_cobertura", y: "madres_adolescentes", espera: 1, lx: "personas sin obra social ni prepaga", ly: "maternidad adolescente", ux: "% de las personas", uy: "% de los nacimientos",
+      {x: "sin_cobertura", y: "madres_adolescentes", espera: 1, preg: "¿Y hay más madres adolescentes?", lx: "personas sin obra social ni prepaga", ly: "maternidad adolescente", ux: "% de las personas", uy: "% de los nacimientos",
         limites: ["La maternidad adolescente se mide como la parte de los nacimientos que son de madres menores de 20 años, no como los nacimientos cada 1.000 adolescentes: depende también de cuántos hijos tienen las mujeres adultas de cada provincia.",
           "La ficha de maternidad adolescente compara el mismo dato con otros indicadores del censo, como las necesidades básicas insatisfechas y la parte de los adultos con el secundario completo."]}]},
   {id: "a-internet-aprender", x: "internet", y: "aprender_mat", espera: 1, frec: "Se actualiza con cada Aprender",
     lx: "hogares con internet", ly: "chicos con nivel satisfactorio o avanzado en matemática", ux: "% de los hogares", uy: "% de los chicos de 6° grado",
     dek: "La parte de los hogares con internet según el último censo, frente a la parte de los chicos de 6° grado con nivel satisfactorio o avanzado en matemática en la evaluación Aprender.",
-    contexto: "Internet en el hogar suele acompañar a otras ventajas, como más ingresos o más años de estudio de los adultos. Por eso este cruce sirve para ver una desigualdad, no para medir el efecto de internet en el aprendizaje.",
-    limites: ["Los resultados de Aprender son un cálculo propio de Datina sobre la base agregada y difieren levemente de los del informe oficial."]},
+    contexto: "Desde la pandemia, cuando las clases pasaron a hacerse a distancia, la conexión del hogar se volvió parte de la escuela: para buscar " +
+      "información, hacer las tareas o seguir una clase. Pero internet en el hogar suele acompañar a otras ventajas, como más ingresos o más años de " +
+      "estudio de los adultos. Por eso este cruce sirve para ver una desigualdad entre provincias, no para medir el efecto de internet en el " +
+      "aprendizaje. Primero se mira cada dato por separado y después, los dos juntos.",
+    nuevo: true,
+    medimos: ["Los hogares con internet son los que tienen conexión a internet en la vivienda, fija o por el celular, según el censo.",
+      "Aprender es la evaluación nacional de los aprendizajes. En matemática, mide qué parte de los chicos de 6° grado llega a un nivel " +
+      "satisfactorio o avanzado, los dos más altos de cuatro."],
+    preg: {internet: "¿Qué parte de los hogares tiene internet en cada provincia?", aprender_mat: "¿Qué parte de los chicos aprende matemática en cada provincia?"},
+    txtVar: {internet: w => "La conexión llega antes a las ciudades que a los pueblos y al campo: las provincias más rurales quedan abajo. " +
+        `Entre ${w.alto.territorio} y ${w.bajo.territorio} hay ${n0(w.alto.internet - w.bajo.internet)} puntos de diferencia. La conexión fija es más ` +
+        "común en las ciudades grandes, adonde llegan las redes de cable y de fibra.",
+      aprender_mat: () => "Aprender evalúa a los chicos de escuelas estatales y privadas, con la misma prueba en todo el país. " + aprPais()},
+    serie: {internet: {tipo: "serie", id: "internet_fijo", preg: "¿Y cómo creció la conexión con los años?", dato: "La cantidad de accesos fijos",
+      pre: "", dec: 1, u: "accesos fijos cada 100 hogares", unidad: "accesos fijos a internet cada 100 hogares, promedio de cada año",
+      txt: "El censo se hace cada diez años. Para ver la evolución, el ENACOM cuenta los accesos fijos a internet cada 100 hogares: no es la misma " +
+        "medida que la del censo, porque no cuenta la conexión por el celular y un hogar puede tener más de un acceso."}},
+    txt: c => { const r = aprEstatal(c, "internet");
+      return r == null ? "" : `Si se miran solo los resultados de las escuelas estatales, la correlación es de ${rTxt(r)}, una relación ${fuerza(r)}.`; },
+    notas: ["Internet: INDEC, Censo 2022, % de los hogares. Accesos fijos: ENACOM, promedio de los cuatro trimestres de cada año.", "Aprender: cálculo propio de Datina sobre la base agregada de la evaluación, % de los chicos de 6° grado."],
+    limites: ["Tener conexión no dice cómo se usa ni si los chicos tienen una computadora: el censo pregunta solo por la conexión del hogar.",
+      "Aprender mide a los chicos de 6° grado de un solo año: una camada puede salir mejor o peor por razones propias de ese año, como las clases perdidas.",
+      "Los chicos que van a escuelas privadas suelen vivir en hogares con más ingresos, que también tienen más conexión: parte de la relación puede venir de ahí.",
+      "Los resultados de Aprender son un cálculo propio de Datina sobre la base agregada y difieren levemente de los del informe oficial."]},
   // etapa 24: la inversión por alumno (Coordinación de Evaluación de Costos Educativos) frente a Aprender
   {id: "a-inversion-aprender", x: "gasto_alumno", y: "aprender_mat", espera: 1, frec: "Se actualiza cada año",
     lx: "inversión en educación por alumno", ly: "chicos con nivel satisfactorio o avanzado en matemática", ux: "pesos por alumno de escuela estatal por año", uy: "% de los chicos de 6° grado",
     dek: "Lo que invierte el Estado por cada alumno de las escuelas estatales de cada provincia, frente a la parte de los chicos de 6° grado con nivel satisfactorio o avanzado en matemática en la evaluación Aprender.",
     contexto: "La mayor parte de lo que se invierte en educación son los salarios docentes, y sostener escuelas cuesta distinto en cada territorio. Este cruce mira si las provincias que más invierten por alumno son también las que tienen mejores resultados en matemática.",
+    nuevo: true,
+    medimos: ["La inversión por alumno es lo que gasta en educación cada provincia, con los fondos de la Nación, por cada alumno de sus escuelas estatales.",
+      "Aprender es la evaluación nacional de los aprendizajes. En matemática, mide qué parte de los chicos de 6° grado llega a un nivel " +
+      "satisfactorio o avanzado, los dos más altos de cuatro."],
+    preg: {gasto_alumno: "¿Cuánto invierte cada provincia por alumno?", aprender_mat: "¿Qué parte de los chicos aprende matemática en cada provincia?"},
+    txtVar: {gasto_alumno: "Las provincias con escuelas chicas y dispersas, o con salarios docentes más altos, gastan más por alumno.",
+      aprender_mat: () => "Aprender evalúa a los chicos de escuelas estatales y privadas, con la misma prueba en todo el país. " + aprPais()},
+    serie: {gasto_alumno: {tipo: "serie", tabla: "inversion_educativa_serie", col: "por_alumno_real", clave: "gasto_alumno",
+      preg: "¿Cómo cambió la inversión por alumno con los años?", dato: "La inversión por alumno", unidad: "pesos por alumno, descontada la inflación",
+      u: "pesos por alumno", txt: "La inversión sigue sobre todo a los salarios docentes, que son la mayor parte del gasto: cuando los salarios " +
+        "pierden frente a la inflación, la inversión por alumno baja."}},
+    txt: c => { const r = aprEstatal(c, "gasto_alumno");
+      return r == null ? "" : "Como la inversión cuenta solo a las escuelas estatales, conviene mirar también sus resultados. Si se compara con la " +
+        `parte de los chicos de escuelas estatales que llega al nivel satisfactorio o avanzado, la correlación es de ${rTxt(r)}, una relación ${fuerza(r)}.`; },
+    notas: ["Inversión: Coordinación de Evaluación de Costos Educativos, gasto educativo por alumno de escuela estatal.",
+      "Aprender: cálculo propio de Datina sobre la base agregada de la evaluación, % de los chicos de 6° grado."],
     limites: ["La inversión está en pesos del año del dato, sin ajustar por lo que cuesta vivir en cada provincia ni por el tamaño de las escuelas: donde hay pocos alumnos por escuela o los salarios son más altos, cada alumno cuesta más.",
       "Aprender evalúa a los alumnos de 6° grado de las escuelas estatales y privadas, y la inversión cuenta solo a los de las escuelas estatales.",
+      "La inversión no cuenta lo que pagan las familias en las escuelas privadas, que también entran en Aprender.",
       "Los resultados de Aprender son un cálculo propio de Datina sobre la base agregada y difieren levemente de los del informe oficial."]},
 ];
 const META_CX = Object.fromEntries(R.cruces.map(m => [m.id, m]));
+// Aprender por tipo de escuela, para los artículos que lo cruzan (tanda 5): el país, y la correlación de un dato con los resultados de las escuelas
+// estatales de cada jurisdicción
+const codA = f => String(f.codigo_indec).padStart(2, "0");
+const aprPais = () => {
+  const d = (T.aprender_diagnostico || []).find(r => codA(r) === "00");
+  return d ? `En el país, ${n1(d.mat_logra_privado)}% de los chicos de escuelas privadas llega al nivel satisfactorio o avanzado, frente a ${n1(d.mat_logra_estatal)}% en las ` +
+    `estatales. En las escuelas rurales, ${n1(d.mat_logra_rural)}%.` : "";
+};
+const aprEstatal = (c, x) => {
+  const D = new Map((T.aprender_diagnostico || []).map(r => [codA(r), r.mat_logra_estatal])), F = c.F.filter(f => D.get(codA(f)) != null);
+  return F.length > 20 ? CX.spearman(F.map(f => f[x]), F.map(f => D.get(codA(f)))) : null;
+};
 // cada artículo de cruces usa la tabla de las provincias o, con tabla: "capitales", la de las 24 capitales (etapa 26), con su metadato y su
 // forma de nombrar los casos
 const tablaArt = a => a.tabla || "cruces_provincias";
@@ -8585,8 +8715,9 @@ function artNuevo(a) {
   const sintesis = [...a.t.map(t => `<mark>${t.respuesta}</mark> ${t.frase}`),
     ...(P.length > 1 ? [] : vars.map(w => `${w.M.nombre}: de ${w.v(w.bajo)} en ${w.bajo.territorio} a ${w.v(w.alto)} en ${w.alto.territorio}.`))];
   // la unidad y el período de cada dato (la de la EPH ya dice "promedio de cuatro trimestres", y su período, cuáles)
-  const medimos = [...(a.medimos || []), ...vars.map(w => `${w.M.nombre}: ${minusc(w.M.unidad).replace(/, promedio de cuatro trimestres$/, "")}, ` +
-    `${/^los cuatro trimestres/.test(w.M.periodo) ? "promedio " : ""}${delPer(w.M.periodo)}.`)];
+  const yaPer = w => w.M.unidad.includes(w.M.periodo);
+  const medimos = [...(a.medimos || []), ...vars.map(w => `${w.M.nombre}: ${minusc(w.M.unidad).replace(/, promedio de cuatro trimestres$/, "")}` +
+    (yaPer(w) ? "." : `, ${/^los cuatro trimestres/.test(w.M.periodo) ? "promedio " : ""}${delPer(w.M.periodo)}.`))];
   // en el título, el segundo valor sin repetir la unidad cuando es un porcentaje
   const corto = (w, f) => w.pre ? fmt(w)(f[w.id]) : w.v(f);
   // en las notas, cómo se mide la relación (las dos mitades ya las explica el texto) y, con varias partes, solo la correlación de cada una
@@ -8604,15 +8735,17 @@ function artNuevo(a) {
     const M = R.cruces_series_med[S.clave || S.id];
     return {ini: M.ini, fin: M.fin, m0: M.med_ini, m1: M.med_fin, sube: M.sube, n: M.n};
   };
+  const preS = (w, S) => S.pre ?? w.pre, fmtS = (w, S) => x => loc.format(`,.${S.dec ?? w.M.dec}f`)(x) + preS(w, S);
   const secSerie = w => {
     const S = a.serie?.[w.id]; if (!S) return "";
-    const r = resSerie(w, S), f = fmt(w), sube = r.sube === r.n ? `en las ${r.n}` : r.sube === 0 ? "en ninguna" : `en ${r.sube} de las ${r.n}`;
-    const txt = `Entre ${r.ini} y ${r.fin}, la mediana de las jurisdicciones pasó de ${f(r.m0)} a ${f(r.m1)}. ${S.dato || w.M.nombre} subió ${sube}.` +
+    const r = resSerie(w, S), f = x => fmtS(w, S)(x) + (S.u ? " " + S.u : ""), k = S.baja ? r.n - r.sube : r.sube;
+    const en = k === r.n ? `en las ${r.n}` : k === 0 ? "en ninguna" : `en ${k} de las ${r.n}`;
+    const txt = `Entre ${r.ini} y ${r.fin}, la mediana de las jurisdicciones pasó de ${f(r.m0)} a ${f(r.m1)}. ${S.dato || w.M.nombre} ${S.baja ? "bajó" : "subió"} ${en}.` +
       (S.txt ? " " + (typeof S.txt === "function" ? S.txt(r) : S.txt) : "");
     return sec(S.preg || `¿Cómo cambió con los años?`, `La mediana pasó de ${f(r.m0)} en ${r.ini} a ${f(r.m1)} en ${r.fin}`,
       `<div class="grafico" data-g="${key(0)}-s${w.j}" data-forma="${S.tipo === "pesas" ? "barras" : "lineas"}"></div>`,
       S.pie || (S.tipo === "pesas" ? `${mayusc(S.unidad || w.M.unidad)}. El círculo claro marca ${r.ini} y el lleno, ${r.fin}.` :
-        `${mayusc(S.unidad || w.M.unidad)}, por año. La línea es la mediana de las jurisdicciones y la franja va de la más baja a la más alta.`), [txt]);
+        `${mayusc(S.unidad || w.M.unidad)}, por año. La línea es la mediana de las ${U.pl} y la franja abarca a la mitad de ellas que queda en el medio.`), [txt]);
   };
   nota.innerHTML =
     `<div class="nota-cab"><span class="nota-ico">${icono(a.icono)}</span><div><p class="nota-meta">${nombreSec(a.sec)}. ${a.frec}</p><h1 class="nota-tit" style="view-transition-name:t-${a.id}">${a.titulo}</h1></div></div>` +
@@ -8621,7 +8754,7 @@ function artNuevo(a) {
     `<p>${a.contexto}</p><div class="nota-medimos"><h2>Qué medimos</h2>${medimos.map(x => `<p>${x}</p>`).join("")}</div>` +
     vars.map(w => sec(a.preg?.[w.id] || `¿Cómo cambia ${minusc(w.M.nombre)} entre las ${U.pl}?`, `${w.alto.territorio} tiene ${w.v(w.alto)}, y ${w.bajo.territorio}, ${corto(w, w.bajo)}`,
       `<div class="grafico" data-g="${key(0)}-v${w.j}" data-forma="barras"></div>`,
-      `${mayusc(w.M.unidad)}, ${w.M.periodo}. La línea marca la mediana de las ${w.F.length} ${U.pl}.`,
+      `${mayusc(w.M.unidad)}${yaPer(w) ? "" : ", " + w.M.periodo}. La línea marca la mediana de las ${w.F.length} ${U.pl}.`,
       [vtxt(w), ...[typeof a.txtVar?.[w.id] === "function" ? a.txtVar[w.id](w) : a.txtVar?.[w.id]].filter(Boolean)]) + secSerie(w)).join("") +
     P.map((p, i) => { const t = a.t[i];
       // con una sola parte, la parte es el artículo y su preg es la lista de preguntas de cada dato: el cruce va con el título
@@ -8643,20 +8776,22 @@ function artNuevo(a) {
     const S = a.serie[w.id], g = `${key(0)}-s${w.j}`;
     if (S.tipo === "pesas") {
       DIB[g] = anim => pesas(G(g), {anim, data: S.filas().filter(f => f.a != null && f.b != null), a: "a", b: "b", la: String(S.la), lb: String(S.lb),
-        vf: fmt(w), af: x => n0(x) + w.pre, mejor: S.mejor, uDif: w.pre === "%" ? " puntos" : ""});
+        vf: fmtS(w, S), af: x => n0(x) + preS(w, S), mejor: S.mejor, uDif: preS(w, S) === "%" ? " puntos" : ""});
       return;
     }
-    // la serie anual: la mediana de cada año y la franja de la más baja a la más alta
-    const cargar = () => S.tabla ? cargarTabla(S.tabla).then(F => { const o = {}; F.forEach(r => { ((o[String(r.codigo_indec).padStart(2, "0")] ||= {})[r.anio] = r[S.col]); }); return o; })
+    // la serie anual: la mediana de cada año y la franja de la mitad del medio (del primer al tercer cuartil). Con la más baja y la más alta, un
+    // solo caso extremo estiraba el eje y aplastaba la línea de la mediana
+    const cargar = () => S.tabla ? cargarTabla(S.tabla).then(F => { const o = {}; F.forEach(r => { const c = String(r.codigo_indec).padStart(2, "0"); if (c !== "00") (o[c] ||= {})[r.anio] = r[S.col]; }); return o; })
       : cargarSeriesCru().then(t => t[S.id]);
     DIB[g] = anim => {
       const el = G(g); if (!el) return;
       if (!el.querySelector("svg")) esperando(el);
       cargar().then(o => {
         const anios = [...new Set(Object.values(o).flatMap(x => Object.keys(x).map(Number)))].sort((p, q) => p - q);
-        const data = anios.map(an => { const v = Object.values(o).map(x => x[an]).filter(x => x != null); return {anio: an, med: d3.median(v), lo: d3.min(v), hi: d3.max(v)}; });
+        const data = anios.map(an => { const v = Object.values(o).map(x => x[an]).filter(x => x != null).sort(d3.ascending);
+          return {anio: an, med: d3.median(v), lo: d3.quantile(v, .25), hi: d3.quantile(v, .75)}; });
         el.removeAttribute("aria-busy");
-        lineas(el, {anim, x: "anio", y0: 0, vf: fmt(w), yf: x => n0(x) + w.pre, data, banda: {lo: "lo", hi: "hi"}, series: [{k: "med", lab: "Mediana", c: NAR}]});
+        lineas(el, {anim, x: "anio", y0: 0, vf: fmtS(w, S), yf: x => n0(x) + preS(w, S), data, banda: {lo: "lo", hi: "hi", lab: "La mitad del medio:"}, series: [{k: "med", lab: "Mediana", c: NAR}]});
       }).catch(() => sinDatos(el, "No se pudieron cargar los datos. Probá recargar la página."));
     };
   });
