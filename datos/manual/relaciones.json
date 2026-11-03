@@ -63,12 +63,14 @@
    "id": "org:ciam",
    "nombre": "Centro de Información Ambiental",
    "sigla": "CIAM",
-   "depende": "Ministerio de Ambiente",
+   "depende": "Secretaría de Turismo y Ambiente (Jefatura de Gabinete de Ministros)",
    "url": "https://ciam.ambiente.gob.ar",
    "alias": [
     "CIAM",
     "Centro de Información Ambiental",
     "Ministerio de Ambiente",
+    "Secretaría de Turismo y Ambiente",
+    "Secretaria de Turismo y Ambiente, CIAM",
     "Servicio Meteorologico Nacional, via CIAM",
     "Servicio Meteorológico Nacional, vía Ministerio de Ambiente (CIAM)",
     "Inventario Nacional de Glaciares"
@@ -520,7 +522,7 @@
    "id": "org:sinta",
    "nombre": "Sistema de Información Turística de la Argentina",
    "sigla": "SINTA",
-   "depende": "Ministerio de Turismo y Deportes (Secretaría de Turismo)",
+   "depende": "Secretaría de Turismo y Ambiente (Jefatura de Gabinete de Ministros)",
    "url": "https://datos.yvera.gob.ar",
    "alias": [
     "SINTA",
@@ -529,7 +531,9 @@
     "Secretaría de Turismo",
     "Encuesta de Ocupación Hotelera",
     "Encuesta de Turismo Internacional",
-    "Ministerio de Turismo"
+    "Ministerio de Turismo",
+    "Secretaría de Turismo y Ambiente",
+    "Secretaria de Turismo y Ambiente"
    ]
   },
   {
@@ -582,12 +586,15 @@
   },
   {
    "id": "org:transporte",
-   "nombre": "Ministerio de Transporte",
+   "nombre": "Secretaría de Transporte",
    "sigla": "Transporte",
-   "depende": "Presidencia de la Nación",
+   "depende": "Ministerio de Economía",
    "url": "https://datos.transporte.gob.ar",
    "alias": [
     "Ministerio de Transporte",
+    "Secretaría de Transporte",
+    "Secretaría de Transporte, datos abiertos de SUBE",
+    "Secretaria de Transporte, datos abiertos de SUBE",
     "Ministerio de Transporte, datos abiertos",
     "Ministerio de Transporte, datos abiertos de SUBE",
     "SUBE"

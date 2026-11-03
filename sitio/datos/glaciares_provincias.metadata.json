@@ -4,7 +4,7 @@
  "descripcion": "Glaciares y cuerpos de hielo inventariados, por provincia",
  "seccion": "Naturaleza y ambiente",
  "ficha": "https://datina.com.ar/naturaleza.html#f-glaciares",
- "fuente": "Inventario Nacional de Glaciares (IANIGLA), vía Ministerio de Ambiente (CIAM).",
+ "fuente": "Inventario Nacional de Glaciares (IANIGLA), vía Secretaría de Turismo y Ambiente (CIAM).",
  "actualizacion": "Se actualiza con cada inventario.",
  "cobertura": "12 jurisdicciones",
  "periodo": "",
@@ -31,5 +31,5 @@
  "datos_actualizados": "28/10/2026",
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿Cuántos glaciares tiene cada provincia? Con datos de Inventario Nacional de Glaciares (IANIGLA), vía Ministerio de Ambiente (CIAM). https://datina.com.ar/naturaleza.html#f-glaciares. Consultado el día de la consulta."
+ "como_citar": "Datina (año de la consulta). ¿Cuántos glaciares tiene cada provincia? Con datos de Inventario Nacional de Glaciares (IANIGLA), vía Secretaría de Turismo y Ambiente (CIAM). https://datina.com.ar/naturaleza.html#f-glaciares. Consultado el día de la consulta."
 }

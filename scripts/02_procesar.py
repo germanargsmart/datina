@@ -569,7 +569,7 @@ pre_modos = sube[sube.indice_tiempo.between("2020-03-02", "2020-03-13")][MODOS].
 pre = pre_modos.total
 d = sube_m[["periodo", "total"]].dropna().rename(columns={"total": "valor"})
 d["codigo_indec"], d["territorio"] = "00", "Argentina"
-agregar(d, "tarjetas_sube_dia_habil_mediana", "tarjetas", "Ministerio de Transporte, datos abiertos")
+agregar(d, "tarjetas_sube_dia_habil_mediana", "tarjetas", "Secretaria de Transporte, datos abiertos")
 su, su_prev = sube_m.iloc[-1], sube_m[sube_m.mes == sube_m.mes.iloc[-1] - 12]
 
 # ---------------------------------------------------------------- educacion
@@ -821,7 +821,7 @@ m2_pais = ap_tot.terrestre_ha * 1e4 / POB_PAIS
 for col, var, uni in [("pct_territorio", "pct_territorio_protegido", "% de la superficie continental"),
                       ("m2_por_habitante", "m2_protegidos_por_habitante", "m2 por habitante")]:
     d = area[["codigo_indec", "territorio", col]].rename(columns={col: "valor"}); d["periodo"] = anio_ap
-    agregar(d, var, uni, "Ministerio de Ambiente, CIAM")
+    agregar(d, var, uni, "Secretaria de Turismo y Ambiente, CIAM")
 
 # Areas protegidas nacionales con anio de creacion, superficie y especies (Sistema de Informacion de Biodiversidad)
 sib = pd.DataFrame(json.loads((CRUDO / "sib_areas_protegidas.json").read_text(encoding="utf-8")))
@@ -877,7 +877,7 @@ ytd = vt[(vt.anio == ult_vp.anio) & (vt.mes <= meses_vp)].total.sum()
 ytd_prev = vt[(vt.anio == ult_vp.anio - 1) & (vt.mes <= meses_vp)].total.sum()
 d = visitas[["anio", "total"]].rename(columns={"anio": "periodo", "total": "valor"})
 d["codigo_indec"], d["territorio"] = "00", "Argentina"
-agregar(d, "visitas_parques_nacionales", "visitas", "SINTA, Ministerio de Turismo")
+agregar(d, "visitas_parques_nacionales", "visitas", "SINTA, Secretaria de Turismo y Ambiente")
 
 # ---------------------------------------------------------------- turismo
 # Turistas no residentes que llegan al pais (SINTA)
@@ -890,7 +890,7 @@ doce, doce_prev = trm.iloc[-12:].sum(), trm.iloc[-24:-12].sum()
 provisorio = tr[tr.indice_tiempo == ult_tr].observaciones.astype(str).str.contains("provisorio", case=False).any()
 d = receptivo.rename(columns={"anio": "periodo", "turistas": "valor"})
 d["codigo_indec"], d["territorio"] = "00", "Argentina"
-agregar(d, "turistas_no_residentes", "viajes de turistas", "SINTA, Ministerio de Turismo")
+agregar(d, "turistas_no_residentes", "viajes de turistas", "SINTA, Secretaria de Turismo y Ambiente")
 
 # Viajeros hospedados en hoteles y parahoteles por region (Encuesta de Ocupacion Hotelera)
 eoh = pd.read_csv(CRUDO / "sinta_eoh_viajeros_region.csv", encoding="utf-8-sig", parse_dates=["indice_tiempo"])
@@ -1016,7 +1016,7 @@ pesca = dl[dl.especies.isin(top3 + ["Total"])].pivot(index="anio", columns="espe
 pesca.columns = ["anio"] + [c for c in pesca.columns[1:]]
 pesca_top = esp_ds.head(10).rename(columns={"especies": "territorio"}).assign(codigo_indec=lambda x: x.territorio)[["codigo_indec", "territorio", "toneladas"]]
 d = tot_ds.rename("valor").reset_index().rename(columns={"anio": "periodo"}); d["codigo_indec"], d["territorio"] = "00", "Argentina"
-agregar(d, "desembarques_pesca_maritima", "toneladas", "Ministerio de Ambiente, CIAM (datos de la Subsecretaria de Pesca)")
+agregar(d, "desembarques_pesca_maritima", "toneladas", "Secretaria de Turismo y Ambiente, CIAM (datos de la Subsecretaria de Pesca)")
 
 # Pesca continental comercial por especie y provincia
 pc = pd.read_csv(CRUDO / "ciam_pesca_continental.csv", sep=";", dtype=str).dropna(how="all").drop_duplicates()
@@ -2681,6 +2681,9 @@ SIGLAS_EMP = {"YPF", "CGC", "PCR", "GYP"}
 # la fuente escribe los nombres en mayúsculas y sin tildes (plan de mejora, R10): "PAMPA ENERGIA S.A." se lee "Pampa Energía"
 TILDES_EMP = {"energia": "Energía", "ingenieria": "Ingeniería", "petroleos": "Petróleos", "petroquimica": "Petroquímica", "trebol": "Trébol",
               "quimica": "Química", "compania": "Compañía"}
+# sociedades de un mismo grupo que se muestran juntas (decisión del autor del 3 de noviembre de 2026): Pluspetrol Cuenca Neuquina es la
+# sociedad con la que Pluspetrol compró en 2024 las áreas de ExxonMobil en Neuquén. La columna "empresa" conserva el nombre de cada sociedad
+GRUPO_EMP = {"Pluspetrol Cuenca Neuquina": "Pluspetrol"}
 
 
 def nombre_empresa(n):
@@ -2688,19 +2691,23 @@ def nombre_empresa(n):
     t, antes = str(n).strip(), None
     while t != antes:
         antes, t = t, FORMA_SOC.sub("", t).strip(" .,")
-    return " ".join(w if w.upper() in SIGLAS_EMP or not w.isalpha() else w.lower() if i and w.lower() in ("de", "del", "la", "las", "los", "y")
-                    else TILDES_EMP.get(w.lower(), w.capitalize()) for i, w in enumerate(t.split()))
+    t = " ".join(w if w.upper() in SIGLAS_EMP or not w.isalpha() else w.lower() if i and w.lower() in ("de", "del", "la", "las", "los", "y")
+                 else TILDES_EMP.get(w.lower(), w.capitalize()) for i, w in enumerate(t.split()))
+    return GRUPO_EMP.get(t, t)
 
 
 emp_h = pd.read_csv(CRUDO / "se_produccion_empresas.csv")
 emp_h["periodo"] = emp_h.anio.astype(str) + "-" + emp_h.mes.astype(str).str.zfill(2)
-_e = emp_h[emp_h.periodo.isin(VENTANA)].groupby("empresa")[["prod_pet", "prod_gas"]].sum()
+# las cuotas van por grupo (GRUPO_EMP): "empresa" lista las sociedades de la fuente que suma cada nombre
+_eh = emp_h[emp_h.periodo.isin(VENTANA)].assign(nombre=lambda x: x.empresa.map(nombre_empresa))
+_e = _eh.groupby("nombre")[["prod_pet", "prod_gas"]].sum()
+_e["empresa"] = _eh.groupby("nombre").empresa.agg(lambda x: " y ".join(sorted(set(x))))
 _e["pct_pet"], _e["pct_gas"] = _e.prod_pet / _e.prod_pet.sum() * 100, _e.prod_gas / _e.prod_gas.sum() * 100
 _top = sorted(set(_e.nlargest(8, "prod_pet").index) | set(_e.nlargest(8, "prod_gas").index), key=lambda x: -_e.loc[x, "prod_pet"])
 hidro_emp = _e.loc[_top].reset_index()
-_resto = _e.drop(_top).sum()
-hidro_emp = pd.concat([hidro_emp, pd.DataFrame([{"empresa": "Otras empresas", **_resto[["prod_pet", "prod_gas", "pct_pet", "pct_gas"]].to_dict()}])], ignore_index=True)
-hidro_emp["nombre"] = [nombre_empresa(x) if x != "Otras empresas" else x for x in hidro_emp.empresa]
+_resto = _e.drop(_top)[["prod_pet", "prod_gas", "pct_pet", "pct_gas"]].sum()
+hidro_emp = pd.concat([hidro_emp, pd.DataFrame([{"nombre": "Otras empresas", "empresa": "Otras empresas",
+                                                  **_resto[["prod_pet", "prod_gas", "pct_pet", "pct_gas"]].to_dict()}])], ignore_index=True)
 hidro_emp["pet_kbd"], hidro_emp["gas_mmm3d"] = hidro_emp.prod_pet / _dias_v * BBL / 1000, hidro_emp.prod_gas / _dias_v / 1000
 hidro_emp = hidro_emp[["nombre", "empresa", "pet_kbd", "pct_pet", "gas_mmm3d", "pct_gas"]]
 _n_emp_pet = int((_e.prod_pet > 0).sum())
@@ -5658,7 +5665,7 @@ TU_RES.update({
     "tcr_brasil_vs_prom": r1(float(_tu_u.tcr_brasil / tu_.tcr_brasil.mean() * 100 - 100)),
 })
 agregar(pd.DataFrame({"periodo": tu_.index, "valor": tu_.salen}).dropna().assign(codigo_indec="00", territorio="Argentina"),
-        "viajes_turistas_residentes_al_exterior", "viajes por mes", "Ministerio de Turismo y Deportes, SINTA, estimacion de turismo internacional")
+        "viajes_turistas_residentes_al_exterior", "viajes por mes", "Secretaria de Turismo y Ambiente, SINTA, estimacion de turismo internacional")
 
 # ---------------------------------------------------------------- artículo: la nafta en dólares y el petróleo (etapa 24)
 # El precio de la nafta súper en el surtidor (la mediana de las estaciones de todo el país, Resolución 1104/2004, desde diciembre de 2004)
@@ -7064,7 +7071,7 @@ if dsm_prov is not None:
 # id: (nombre, unidad, anio, tema, fuente, ficha, decimales)
 CRUCES_META = {
     "poblacion": ("Población", "habitantes", str(ANIO_POB), "Población", "INDEC, proyecciones de población 2022 a 2040", "", 0),
-    "densidad": ("Densidad de población", "habitantes por km²", str(ANIO_POB), "Población", "INDEC y Ministerio de Ambiente", "", 1),
+    "densidad": ("Densidad de población", "habitantes por km²", str(ANIO_POB), "Población", "INDEC y Secretaría de Turismo y Ambiente", "", 1),
     "mortalidad_infantil": ("Mortalidad infantil", "muertes de menores de 1 año cada 1.000 nacidos vivos, promedio 3 años", f"{TRI_ACT[0]} a {TRI_ACT[1]}", "Salud", "DEIS, Ministerio de Salud", "f-mortalidad", 1),
     "madres_adolescentes": ("Maternidad adolescente", "% de los nacimientos con madres menores de 20 años", str(NAC_ULT), "Población", "DEIS, Ministerio de Salud", "f-adolescentes", 1),
     "escolarizacion": ("Escolarización secundaria", "tasa neta, %", str(ESC_FIN), "Educación", "Secretaría de Educación", "f-escolarizacion", 1),
@@ -7081,7 +7088,7 @@ CRUCES_META = {
     "gasto_alumno": ("Inversión educativa por alumno", "pesos por alumno de gestión estatal por año", str(INV_ULT), "Educación",
                      "Coordinación de Evaluación de Costos Educativos", "f-inversion-educativa", 0),
     "viales": ("Muertes viales", "víctimas cada 100.000 habitantes", str(ANIO_SNIC), "Seguridad", "SNIC, Ministerio de Seguridad", "f-muertes", 1),
-    "protegida": ("Territorio protegido", "% de la superficie", str(anio_ap), "Naturaleza y ambiente", "Ministerio de Ambiente, CIAM", "f-protegida", 1),
+    "protegida": ("Territorio protegido", "% de la superficie", str(anio_ap), "Naturaleza y ambiente", "Secretaria de Turismo y Ambiente, CIAM", "f-protegida", 1),
     "turistas_eti": ("Turistas extranjeros", "cada 1.000 habitantes, salidos por Ezeiza o Aeroparque", str(ANIO_ETI), "Turismo", "Encuesta de Turismo Internacional", "f-eti", 1),
     "autos": ("Autos nuevos", "cada 1.000 habitantes", str(ANIO_AU), "Movilidad", "DNRPA", "f-patentes-prov", 1),
     "motos": ("Motos nuevas", "cada 1.000 habitantes", str(ANIO_AU), "Movilidad", "DNRPA", "f-patentes-prov", 1),

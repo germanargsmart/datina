@@ -2943,7 +2943,7 @@
    },
    {
     "titulo": "Usuarios por día: tarjetas, no personas",
-    "texto": "El dato de usuarios cuenta las tarjetas distintas que se usaron al menos una vez en un día dentro de la red SUBE, desagregadas por modo de transporte. Una tarjeta usada varias veces el mismo día cuenta una sola vez. Como se cuentan tarjetas y no personas, quien tiene dos tarjetas suma dos. Los datos los publica a diario la Dirección Nacional de Desarrollo Tecnológico del Ministerio de Transporte. La ficha usa la mediana de los días hábiles de cada mes para que los feriados y los fines de semana no distorsionen la comparación.",
+    "texto": "El dato de usuarios cuenta las tarjetas distintas que se usaron al menos una vez en un día dentro de la red SUBE, desagregadas por modo de transporte. Una tarjeta usada varias veces el mismo día cuenta una sola vez. Como se cuentan tarjetas y no personas, quien tiene dos tarjetas suma dos. Los datos los publica a diario la Dirección Nacional de Desarrollo Tecnológico de la Secretaría de Transporte. La ficha usa la mediana de los días hábiles de cada mes para que los feriados y los fines de semana no distorsionen la comparación.",
     "fuentes": [
      {
       "nombre": "Datos abiertos de Transporte: SUBE, cantidad de tarjetas (usuarios) por día",

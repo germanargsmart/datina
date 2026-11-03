@@ -4,7 +4,7 @@
  "descripcion": "Cuántos turistas extranjeros llegan y cuántos residentes viajan al exterior, mes por mes, cuál es la diferencia entre los dos, de dónde llegan los turistas y cómo se mueven esos viajes con el dólar en términos reales.",
  "seccion": "Turismo",
  "ficha": "https://datina.com.ar/a-turismo-dolar.html",
- "fuente": "Ministerio de Turismo y Deportes, SINTA, estimación de turismo internacional (viajes de turistas no residentes y residentes), y Banco Central de la República Argentina, índices de tipo de cambio real multilateral y bilaterales",
+ "fuente": "Secretaría de Turismo y Ambiente, SINTA, estimación de turismo internacional (viajes de turistas no residentes y residentes), y Banco Central de la República Argentina, índices de tipo de cambio real multilateral y bilaterales",
  "actualizacion": "Se actualiza cada mes.",
  "cobertura": "Sin desglose territorial",
  "periodo": "enero de 2010 a agosto de 2026",
@@ -146,5 +146,5 @@
  "datos_actualizados": "28/10/2026",
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿Llegan más turistas y viajan menos residentes al exterior cuando el dólar está caro? Con datos de Ministerio de Turismo y Deportes, SINTA, estimación de turismo internacional (viajes de turistas no residentes y residentes), y Banco Central de la República Argentina, índices de tipo de cambio real multilateral y bilaterales. https://datina.com.ar/a-turismo-dolar.html. Consultado el día de la consulta."
+ "como_citar": "Datina (año de la consulta). ¿Llegan más turistas y viajan menos residentes al exterior cuando el dólar está caro? Con datos de Secretaría de Turismo y Ambiente, SINTA, estimación de turismo internacional (viajes de turistas no residentes y residentes), y Banco Central de la República Argentina, índices de tipo de cambio real multilateral y bilaterales. https://datina.com.ar/a-turismo-dolar.html. Consultado el día de la consulta."
 }
