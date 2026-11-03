@@ -238,6 +238,8 @@ const signo = v => v < 0 ? `cayó ${n1(Math.abs(v))}%` : `creció ${n1(v)}%`;
 const enLoQueVa = (o, ultimo, que, sube, baja) => o && o.anio > ultimo
   ? ` Entre enero y ${MESES[o.mes - 1]} de ${o.anio}, ${que} ${o.var >= 0 ? sube : baja} ${pct(Math.abs(o.var))} respecto de los mismos meses de ${o.anio - 1}.` : "";
 const EV = R.envejecimiento, PPY = R.poblacion_proy, CM = R.causas_muerte, SX = R.externo;
+// chicos de 5 a 14 años por provincia (3 de noviembre de 2026), de las proyecciones del INDEC
+const ESC = R.chicos_escuela;
 // sector externo: una fecha del BCRA (dd/mm/aaaa) y un mes (aaaa-mm) dichos en palabras, un trimestre (2T2026) y un saldo con su sentido
 const fLarga = f => `${+f.slice(0, 2)} de ${MESES[+f.slice(3, 5) - 1]} de ${f.slice(6)}`;
 // F2 (plan de mejora, 31 de octubre de 2026): la cita de una ficha, "Datina (año). Pregunta. Con datos de fuente. Dirección. Consultado el
@@ -1451,6 +1453,19 @@ const TX = {
     `Promedio anual de ${CM.desde} a ${CM.hasta}, por provincia de residencia, con la causa básica de muerte agrupada por capítulos de la CIE-10. Las causas externas reúnen los accidentes, las agresiones y las lesiones intencionales. ` +
     `El ${pct(CM.mal_def_pais)} de las muertes del país tiene una causa mal definida, desde el ${pct(CM.mal_def_min_v)} en ${CM.mal_def_min} hasta el ${pct(CM.mal_def_max_v)} en ${CM.mal_def_max}: donde hay más causas mal definidas, las demás parecen más bajas de lo que son. ` +
     `Población: proyecciones del INDEC de cada año. Las muertes sin edad registrada (el ${pct(CM.sin_edad_pct)}) se reparten en proporción.`,
+  // chicos de 5 a 14 años: la cifra destacada dice cuánto cambian en el país, el texto da las cantidades, las provincias y los nacimientos
+  "chicos-escuela": `En ${ESC.anio} hay ${n1(ESC.hoy / 1e6)} millones de chicos de 5 a 14 años en el país. Según las proyecciones del INDEC, en ${ESC.anio_fin} van a ser ` +
+    `${n1(ESC.fin / 1e6)} millones, unos ${n0(Math.round(Math.abs(ESC.var) / 1000) * 1000)} ${ESC.var < 0 ? "menos" : "más"}. ` +
+    (ESC.suben.length ? `Suben solo en ${lista(ESC.suben)}. ` : ESC.n_bajan === 24 ? "Bajan en las 24 jurisdicciones. " : "") +
+    `La que más ${ESC.min_v < 0 ? "baja" : "sube"} en proporción es ${ESC.min_v < 0 ? ESC.min : ESC.max} (${conSigno(ESC.min_v < 0 ? ESC.min_v : ESC.max_v)}) ` +
+    `y la que menos ${ESC.max_v < 0 ? "baja" : "cambia"}, ${ESC.max} (${conSigno(ESC.max_v)}). ` +
+    `Los chicos de 5 a 14 años de ${ESC.anio_fin} son los que nazcan entre ${ESC.nacen_desde} y ${ESC.nacen_hasta}. ` +
+    `Entre ${nac.anio_pico} y ${nac.anio_ult} los nacimientos ya bajaron ${pct(Math.abs(nac.caida))}, según las estadísticas vitales de la DEIS.`,
+  "chicos-escuela-nota": `Proyecciones de población del INDEC por provincia, sexo y edad, base Censo 2022: estiman cuántas personas va a haber cada año según los nacimientos, las muertes y las migraciones esperadas. ` +
+    `Vienen en grupos de cinco años de edad. El de 5 a 14 años reúne la sala de 5, la primaria y los primeros años de la secundaria. La escolaridad obligatoria va de los 4 años al final de la secundaria, pero las proyecciones no separan esas edades. ` +
+    `No es un conteo de alumnos: cuenta a todos los chicos de esas edades, vayan o no a la escuela. ` +
+    `En el país, los chicos de 5 a 14 años son el ${pct(ESC.pct_hoy)} de la población en ${ESC.anio} y van a ser el ${pct(ESC.pct_fin)} en ${ESC.anio_fin}.` +
+    (ESC.pico_anio > 2022 && ESC.pico_anio < ESC.anio_fin ? ` La cantidad más alta de las proyecciones es la de ${ESC.pico_anio}, ${n1(ESC.pico / 1e6)} millones.` : ""),
   // la cifra destacada ya dice cuánto crece el país: el texto va a las provincias que pierden, a la que más crece y a las que pierden peso
   "poblacion-proy": (PPY.pierden.length === 1 && PPY.pierden[0] === PPY.min
       ? `${PPY.min} es la única jurisdicción que pierde habitantes hasta ${PPY.anio_fin}: unas ${n0(Math.round(Math.abs(PPY.min_personas) / 1000) * 1000)} personas menos que en ${PPY.anio} (${conSigno(PPY.min_v)}). `
@@ -2885,7 +2900,7 @@ function mapaCentrales(el, cfg) {
 }
 
 /* ---------- fichas ---------- */
-const MED = {"jueces-federales": "cargos", "fiscalias-federales": "cantidad", "justicia-provincial": "magistratura", dinamica: "pais", rotacion: "edad", fiscal: "autonomia", censo: "cloaca", internet: "accesos_100_hogares", empleo: "cada_100", pisa: "mat", aprender: "mat", protegida: "pct_territorio", eti: "cada_1000", "patentes-prov": "autos_1000", nombres: "F", "visitas-parque": "visitas_ult", "poblacion-proy": "var_pct"};
+const MED = {"jueces-federales": "cargos", "fiscalias-federales": "cantidad", "justicia-provincial": "magistratura", dinamica: "pais", rotacion: "edad", fiscal: "autonomia", censo: "cloaca", internet: "accesos_100_hogares", empleo: "cada_100", pisa: "mat", aprender: "mat", protegida: "pct_territorio", eti: "cada_1000", "patentes-prov": "autos_1000", nombres: "F", "visitas-parque": "visitas_ult", "poblacion-proy": "var_pct", "chicos-escuela": "var_pct"};
 const M = v => n1(v / 1e6) + " M";
 const G = k => document.querySelector(`.grafico[data-g="${k}"]`);
 const NAR = css("--celeste-fuerte"), FRI = css("--sol-fuerte"), GRIS = css("--faint");
@@ -2935,6 +2950,12 @@ const DIB = protegerDib({
       vf: pc ? conSigno : v => (v > 0 ? "+" : "") + n0(v), af: pc ? (v => v + "%") : (v => n0(v / 1000) + " mil"),
       ...(pc ? {ref: PPY.var_pct, refLab: `País ${conSigno(PPY.var_pct)}`} : {}),
       tip: d => `<b>${d.territorio}</b><br>${n0(d.personas_hoy)} habitantes en ${PPY.anio}<br>${n0(d.personas_2040)} en ${PPY.anio_fin}<br>${(d.var_personas > 0 ? "+" : "") + n0(d.var_personas)} personas, ${conSigno(d.var_pct)}`}); },
+  "chicos-escuela": a => { const pc = MED["chicos-escuela"] === "var_pct";
+    return barrasH(G("chicos-escuela"), {anim: a, data: T.chicos_escuela_provincias.filter(r => r.codigo_indec !== "00"), k: MED["chicos-escuela"],
+      vf: pc ? conSigno : v => (v > 0 ? "+" : "") + n0(v), af: pc ? (v => v + "%") : (v => n0(v / 1000) + " mil"),
+      ...(pc ? {ref: ESC.var_pct, refLab: `País ${conSigno(ESC.var_pct)}`} : {}),
+      tip: d => `<b>${d.territorio}</b><br>${n0(d.chicos_hoy)} chicos de 5 a 14 años en ${ESC.anio}<br>${n0(d.chicos_fin)} en ${ESC.anio_fin}<br>` +
+        `${(d.var_chicos > 0 ? "+" : "") + n0(d.var_chicos)} chicos, ${conSigno(d.var_pct)}`}); },
   envejecimiento: a => pesas(G("envejecimiento"), {anim:a, data: T.envejecimiento_provincias, a:"vejez_hoy", b:"vejez_2040", la: String(EV.anio), lb: String(EV.anio_fin), vf: n1, af: v => v,
     pais: [EV.hoy, EV.fin]}),
   adolescentes: a => pesas(G("adolescentes"), {anim:a, data: T.madres_adolescentes_provincias, a: ADO_INI, b: ADO_ULT, la: String(nac.anio_ini), lb: String(nac.anio_ult),
@@ -7065,6 +7086,8 @@ const CLAVE = {
   "f-meses": [sg(e.dif_max_min), `más demanda eléctrica en ${e.mes_max} que en ${e.mes_min}, promedio de ${e.meses_desde} a ${e.meses_hasta}`, `más demanda en ${e.mes_max} que en ${e.mes_min}`],
   "f-adolescentes": [n1(nac.pct_ult), `de cada 100 nacimientos de ${nac.anio_ult} fueron de madres menores de 20 años. En ${nac.anio_ini} eran ${n1(nac.pct_ini)}`,
     `de cada 100 nacimientos del país en ${nac.anio_ult}`],
+  "f-chicos-escuela": [conSigno(ESC.var_pct), `${ESC.var_pct < 0 ? "bajan" : "suben"} los chicos de 5 a 14 años del país entre ${ESC.anio} y ${ESC.anio_fin}, según las proyecciones del INDEC`,
+    `en todo el país entre ${ESC.anio} y ${ESC.anio_fin}`],
   "f-poblacion-proy": [conSigno(PPY.var_pct), `va a crecer la población del país entre ${PPY.anio} y ${PPY.anio_fin}, de ${n1(PPY.hoy / 1e6)} a ${n1(PPY.fin / 1e6)} millones de personas, según las proyecciones del INDEC`,
     `en todo el país, de ${n1(PPY.hoy / 1e6)} a ${n1(PPY.fin / 1e6)} millones de personas`],
   "f-mortalidad": [n1(mo.tasa), `muertes de menores de un año por cada 1.000 nacidos vivos en ${mo.anio}. En ${mo.anio - 1}, ${n1(mo.tasa_prev)}`, `cada 1.000 nacidos vivos en todo el país en ${mo.anio}. En ${mo.anio - 1}, ${n1(mo.tasa_prev)}`],
@@ -11444,7 +11467,7 @@ if (PAGINA !== "inicio") {
     "f-empleo": ["empleo", "asalariados"], "f-empleo-publico": ["empleo publico", "empleados publicos", "cargos publicos"], "f-pobreza": ["pobreza", "pobres", "indigencia"], "f-combustibles": ["nafta", "combustible", "combustibles", "gasoil"],
     "f-bcra": ["dolar"], "f-petroleo": ["petroleo"], "f-gas": ["gas"], "f-gas-consumo": ["consumo gas"], "f-homicidios": ["homicidios", "homicidio", "asesinatos"],
     "f-robos": ["robos", "hurtos"], "f-delitos": ["delitos"], "f-mortalidad": ["mortalidad infantil"], "f-esperanza": ["esperanza vida"],
-    "f-poblacion-proy": ["poblacion", "habitantes"], "f-nacimientos": ["nacimientos", "natalidad"], "f-exportaciones": ["exportaciones", "exporta"],
+    "f-poblacion-proy": ["poblacion", "habitantes"], "f-chicos-escuela": ["chicos en edad escolar", "edad escolar", "alumnos"], "f-nacimientos": ["nacimientos", "natalidad"], "f-exportaciones": ["exportaciones", "exporta"],
     "f-importaciones": ["importaciones"], "f-reservas-bcra": ["reservas"], "f-deuda": ["deuda"], "f-haberes": ["jubilacion", "jubilados", "jubilado"],
     "f-auh": ["auh", "asignacion universal"], "f-desempleo": ["desempleo"], "f-aprender": ["aprender"], "f-escolarizacion": ["escolarizacion", "secundaria"],
     "f-censo": ["cloacas", "agua red"], "f-cobertura": ["obra social", "prepaga", "cobertura de salud", "sin cobertura"], "f-dengue": ["dengue", "mosquito"], "f-vacunas": ["vacuna", "vacunas", "vacunacion", "sarampion", "triple viral"], "f-internet": ["internet"], "f-glaciares": ["glaciares"], "f-receptivo": ["turistas", "turismo"], "f-isac": ["construccion"],

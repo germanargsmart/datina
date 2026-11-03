@@ -1,0 +1,60 @@
+{
+ "tabla": "chicos_escuela_provincias.csv",
+ "titulo": "¿Cuántos chicos de 5 a 14 años va a haber en cada provincia?",
+ "descripcion": "Variación de la población de 5 a 14 años proyectada por provincia entre 2026 y 2040",
+ "seccion": "Población",
+ "ficha": "https://datina.com.ar/poblacion.html#f-chicos-escuela",
+ "fuente": "INDEC, proyecciones de población por provincia, sexo y edad 2022 a 2040, base Censo 2022, y DEIS, Ministerio de Salud, estadísticas vitales.",
+ "actualizacion": "Se actualiza cada año.",
+ "cobertura": "Las 24 jurisdicciones y el total del país",
+ "periodo": "",
+ "filas": 25,
+ "columnas": [
+  {
+   "nombre": "codigo_indec",
+   "tipo": "Código",
+   "valores": "25 códigos"
+  },
+  {
+   "nombre": "territorio",
+   "tipo": "Texto",
+   "valores": "25 valores distintos"
+  },
+  {
+   "nombre": "chicos_hoy",
+   "tipo": "Número",
+   "valores": "28.396 a 6.933.710"
+  },
+  {
+   "nombre": "chicos_fin",
+   "tipo": "Número",
+   "valores": "15.792 a 4.418.731"
+  },
+  {
+   "nombre": "var_chicos",
+   "tipo": "Número",
+   "valores": "-2.514.979 a -12.604"
+  },
+  {
+   "nombre": "var_pct",
+   "tipo": "Número",
+   "valores": "-51,23 a -25,58"
+  },
+  {
+   "nombre": "pct_poblacion_hoy",
+   "tipo": "Número",
+   "valores": "11,67 a 18,34"
+  },
+  {
+   "nombre": "pct_poblacion_fin",
+   "tipo": "Número",
+   "valores": "7,59 a 12,47"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "28/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
+ "como_citar": "Datina (año de la consulta). ¿Cuántos chicos de 5 a 14 años va a haber en cada provincia? Con datos de INDEC, proyecciones de población por provincia, sexo y edad 2022 a 2040, base Censo 2022, y DEIS, Ministerio de Salud, estadísticas vitales. https://datina.com.ar/poblacion.html#f-chicos-escuela. Consultado el día de la consulta."
+}

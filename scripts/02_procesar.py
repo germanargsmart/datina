@@ -189,6 +189,40 @@ pob_proy_res = {"anio": ANIO_PROY, "anio_fin": ANIO_FIN_PROY, "hoy": int(_ppa.pe
                 "pba_pct_hoy": r1(_ppv.loc["06", ANIO_PROY] / _ppv.loc["00", ANIO_PROY] * 100),
                 "pba_pct_fin": r1(_ppv.loc["06", ANIO_FIN_PROY] / _ppv.loc["00", ANIO_FIN_PROY] * 100)}
 
+# Chicos de 5 a 14 años por provincia hasta el final de las proyecciones (pedido del autor del 3 de noviembre de 2026). Las proyecciones
+# vienen en grupos de cinco años: 5 a 14 son los grupos que empiezan en 5 y en 10 (la sala de 5, la primaria y los primeros años de la
+# secundaria). La edad escolar obligatoria (de 4 años al final de la secundaria) no se puede armar con esos grupos
+ESC_EDADES = (5, 10)
+_esc_v = proy[proy.edad.isin(ESC_EDADES)].groupby(["codigo_indec", "anio"]).pob.sum().unstack()
+_esc_v.loc["00"] = _esc_v.sum()
+assert set(proy.edad.unique()) >= set(ESC_EDADES) and len(_esc_v) == 25, "faltan grupos de edad o provincias en los chicos de 5 a 14 años"
+chicos_escuela = pd.DataFrame({"codigo_indec": _esc_v.index, "chicos_hoy": _esc_v[ANIO_PROY].values, "chicos_fin": _esc_v[ANIO_FIN_PROY].values,
+                               "pct_poblacion_hoy": (_esc_v[ANIO_PROY] / _ppv[ANIO_PROY] * 100).values,
+                               "pct_poblacion_fin": (_esc_v[ANIO_FIN_PROY] / _ppv[ANIO_FIN_PROY] * 100).values})
+chicos_escuela["var_chicos"] = chicos_escuela.chicos_fin - chicos_escuela.chicos_hoy
+chicos_escuela["var_pct"] = (chicos_escuela.chicos_fin / chicos_escuela.chicos_hoy - 1) * 100
+chicos_escuela["territorio"] = chicos_escuela.codigo_indec.map(lambda c: "Total del país" if c == "00" else CORTO[c])
+chicos_escuela = chicos_escuela[["codigo_indec", "territorio", "chicos_hoy", "chicos_fin", "var_chicos", "var_pct", "pct_poblacion_hoy",
+                                 "pct_poblacion_fin"]].sort_values("codigo_indec").reset_index(drop=True)
+chicos_escuela[["chicos_hoy", "chicos_fin", "var_chicos"]] = chicos_escuela[["chicos_hoy", "chicos_fin", "var_chicos"]].round(0).astype(int)
+chicos_escuela = chicos_escuela.round({"var_pct": 4, "pct_poblacion_hoy": 4, "pct_poblacion_fin": 4})
+d = _esc_v.drop("00").stack().rename("valor").reset_index().rename(columns={"anio": "periodo"})
+d["territorio"] = d.codigo_indec.map(CORTO)
+agregar(d, "poblacion_5_a_14_anios", "personas", "INDEC, proyecciones de poblacion 2022 a 2040")
+_esc_p = chicos_escuela[chicos_escuela.codigo_indec != "00"].sort_values("var_pct")
+_esc_a = chicos_escuela.set_index("codigo_indec").loc["00"]
+_esc_pico = _esc_v.loc["00"]
+esc_res = {"anio": ANIO_PROY, "anio_fin": ANIO_FIN_PROY, "hoy": int(_esc_a.chicos_hoy), "fin": int(_esc_a.chicos_fin),
+           "var": int(_esc_a.var_chicos), "var_pct": r1(_esc_a.var_pct),
+           "pct_hoy": r1(_esc_a.pct_poblacion_hoy), "pct_fin": r1(_esc_a.pct_poblacion_fin),
+           # el año con más chicos de 5 a 14 en el país dentro de las proyecciones
+           "pico_anio": int(_esc_pico.idxmax()), "pico": int(_esc_pico.max()),
+           "max": _esc_p.iloc[-1].territorio, "max_v": r1(_esc_p.iloc[-1].var_pct),
+           "min": _esc_p.iloc[0].territorio, "min_v": r1(_esc_p.iloc[0].var_pct),
+           "suben": _esc_p[_esc_p.var_chicos > 0].territorio.tolist(), "n_bajan": int((_esc_p.var_chicos < 0).sum()),
+           # los chicos de 5 a 14 del último año de las proyecciones nacen en estos años
+           "nacen_desde": ANIO_FIN_PROY - 14, "nacen_hasta": ANIO_FIN_PROY - 5}
+
 # Aportantes por beneficio previsional (Boletin Estadistico de la Seguridad Social, cuadro 4.1.1.1): regimenes de ANSES,
 # promedio anual, el ultimo anio es el ultimo mes disponible. No se compara entre provincias: trece provincias tienen su
 # propia caja previsional fuera de ANSES.
@@ -7575,6 +7609,7 @@ tablas = {
     "madres_adolescentes_nse": nse_ado,
     "envejecimiento_pais": envejec_pais,
     "piramide_poblacion": piramide,
+    "chicos_escuela_provincias": chicos_escuela,
     "poblacion_proyectada_provincias": pob_proy,
     "exportaciones_rubros_anual": se_rubros,
     **{k: v for k, v in {"balanza_comercial": balanza_comercial, "importaciones_usos": importaciones_usos, "importaciones_origen": importaciones_origen,
@@ -7980,6 +8015,7 @@ resumen["presidentes"] = pres_res
 resumen["envejecimiento"] = env_res
 resumen["piramide"] = pir_res
 resumen["poblacion_proy"] = pob_proy_res
+resumen["chicos_escuela"] = esc_res
 resumen["causas_muerte"] = causas_muerte_res
 resumen["externo"] = SE_RES
 resumen["empresas"] = emp_res

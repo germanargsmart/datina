@@ -146,6 +146,19 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <div class="pie"><span>Fuente: DEIS, Ministerio de Salud, estadísticas vitales. Se actualiza cada año.</span><a href="datos/nacimientos.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
+    <article class="ficha" id="f-chicos-escuela">
+      <h2>¿Cuántos chicos de 5 a 14 años va a haber en cada provincia?</h2>
+      <p class="ficha-sub">Variación de la población de 5 a 14 años proyectada por provincia entre 2026 y 2040</p>
+      <div class="conmutador" role="group" aria-label="Medida" data-g="chicos-escuela">
+        <button type="button" data-m="var_pct" aria-pressed="true">En porcentaje</button>
+        <button type="button" data-m="var_chicos" aria-pressed="false">En chicos</button>
+      </div>
+      <div class="grafico" data-g="chicos-escuela" data-forma="barras"></div>
+      <p class="lead" data-t="chicos-escuela"></p>
+      <p class="nota" data-t="chicos-escuela-nota"></p>
+      <div class="pie"><span>Fuentes: INDEC, proyecciones de población por provincia, sexo y edad 2022 a 2040, base Censo 2022, y DEIS, Ministerio de Salud, estadísticas vitales. Se actualiza cada año.</span><a href="datos/chicos_escuela_provincias.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
     <article class="ficha" id="f-poblacion-proy">
       <h2>¿Cuánto va a crecer la población de cada provincia?</h2>
       <p class="ficha-sub">Variación de la población proyectada por provincia entre 2026 y 2040</p>
@@ -300,7 +313,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 <p class="solo-lector" id="aviso" aria-live="polite"></p>
 
 <!-- los datos van en un archivo aparte que el navegador guarda una sola vez para todas las páginas -->
-<script src="datos/fichas.js?v=1ca85c4063"></script>
-<script src="datina.js?v=7b56050678"></script>
+<script src="datos/fichas.js?v=38ea305b07"></script>
+<script src="datina.js?v=e2a137b36a"></script>
 </body>
 </html>
