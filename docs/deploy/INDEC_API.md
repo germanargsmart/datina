@@ -25,7 +25,7 @@ La API pide una cuenta gratuita y un token. Es un secreto: se guarda solo en Git
 3. En GitHub, en el repositorio: Settings, Secrets and variables, Actions, New repository secret. Nombre `INDEC_API_TOKEN` y, como valor, el token.
 4. En la computadora, para correr la descarga a mano: una variable de entorno con el mismo nombre (en Windows, "Editar las variables de entorno de esta cuenta", Nueva, `INDEC_API_TOKEN`). Hay que abrir de nuevo la terminal para que la tome.
 
-El token vence a los 12 meses. Para renovarlo, generar otro en "Gestionar la cuenta" (el anterior deja de andar en ese momento) y reemplazarlo en los dos lugares.
+Las preguntas frecuentes de la API dicen que el token vence a los 12 meses, pero el que se generó el 2 de noviembre de 2026 dura 6: vence el 1 de mayo de 2027 (la fecha está dentro del token, en el campo `exp`). El secreto `INDEC_API_TOKEN` lo cargó en GitHub el agente, por pedido del autor, el 2 de noviembre de 2026. Para renovarlo, generar otro en "Gestionar la cuenta" (el anterior deja de andar en ese momento) y reemplazarlo en los dos lugares.
 
 ## Cómo se ve si falta o venció
 

@@ -3711,7 +3711,7 @@ for col, var in [("pct_gas_red", "hogares_gas_de_red_cocina"), ("pct_alquila", "
     agregar(d, var, "% de los hogares" if col != "pct_ocupados_construccion" else "% de las personas ocupadas", "INDEC, Censo 2022")
 
 # ---------------------------------------------------------------- departamentos
-# Indicadores de los 529 departamentos para el mapa. Los codigos de la Ciudad (comunas), Chascomus, Quilmes,
+# Indicadores de los 527 departamentos para el mapa. Los codigos de la Ciudad (comunas), Chascomus, Quilmes,
 # Rio Grande y Ushuaia difieren entre el SNIC y la geometria de Georef: se traducen aca.
 sd = pd.read_csv(CRUDO / "snic_departamentos_resumen.csv", dtype={"departamento_id": str, "provincia_id": str})
 TRADUCE = {"06217": "06218", "06058": "06658", "94007": "94008", "94014": "94015",
@@ -3769,6 +3769,16 @@ departamentos["nacidos_otra_provincia"] = departamentos.id.map(_md.pct_otra_prov
 assert departamentos.nacidos_otro_pais.notna().all(), "hay departamentos del mapa sin el lugar de nacimiento del censo"
 migraciones_departamentos = mig_dep[["codigo_dep", "codigo_indec", "departamento", "poblacion_vp", "en_otro_pais", "pct_otro_pais", "en_otra_provincia",
                                      "pct_otra_provincia", "primer_pais", "pct_primer_pais", "pct_no_declarado"]]
+# población estimada por departamento y sexo (INDEC, API, desde el 2 de noviembre de 2026: scripts/indec_api.py): la de cada departamento en el
+# primer y en el último año, y el crecimiento proyectado entre los dos. Los códigos coinciden con los de Georef. La API trae también la
+# Antártida Argentina (94028), que el mapa no dibuja
+_ped = pd.DataFrame(json.loads((CRUDO / "indec_api_estimaciones_poblacion_departamento_2022_2035.json").read_text(encoding="utf-8")))
+_ped = _ped.assign(poblacion=pd.to_numeric(_ped.poblacion), fecha=_ped.fecha.astype(int)).groupby(["departamento_cod", "fecha"]).poblacion.sum().unstack()
+PED_INI, PED_FIN = int(_ped.columns.min()), int(_ped.columns.max())
+departamentos["pob_ini"] = departamentos.id.map(_ped[PED_INI])
+departamentos["pob_fin"] = departamentos.id.map(_ped[PED_FIN])
+departamentos["crec_pob"] = (departamentos.pob_fin / departamentos.pob_ini - 1) * 100
+assert departamentos.crec_pob.notna().all(), "hay departamentos del mapa sin la población estimada del INDEC"
 departamentos = departamentos.round(2)
 DEP_META = {
     "homicidios": ("Homicidios dolosos", f"víctimas cada 100.000 habitantes, promedio {ANIO_DEP - 2} a {ANIO_DEP}", "SNIC, Ministerio de Seguridad"),
@@ -3784,6 +3794,8 @@ DEP_META = {
     "pct_gas_red": ("Hogares que cocinan con gas de red", "% de los hogares, Censo 2022", "INDEC, Censo 2022"),
     "pct_lena": ("Hogares que cocinan con leña o carbón", "% de los hogares, Censo 2022", "INDEC, Censo 2022"),
     "pct_uso_temporal": ("Viviendas de uso temporal", "% de las viviendas, Censo 2022", "INDEC, Censo 2022"),
+    "crec_pob": ("Crecimiento proyectado de la población", f"% de cambio entre {PED_INI} y {PED_FIN}, estimación",
+                 "INDEC, estimaciones de población por departamento"),
 }
 departamentos.to_csv(SITIO / "departamentos.csv", index=False, lineterminator="\n")
 
@@ -7755,7 +7767,7 @@ resumen["inflacion_personal"] = INFP_RES
 if CAL_RES:
     resumen["calendario_indec"] = CAL_RES
 resumen["departamentos"] = {"meta": {k: {"nombre": v[0], "unidad": v[1], "fuente": v[2]} for k, v in DEP_META.items()},
-                            "anio_snic": ANIO_DEP, "n": int(len(departamentos))}
+                            "anio_snic": ANIO_DEP, "n": int(len(departamentos)), "pob_ini": PED_INI, "pob_fin": PED_FIN}
 resumen["elecciones"] = el_meta
 resumen["elecciones_ult"] = max(x["anio"] for x in el_meta)   # el título de la ficha de elecciones
 resumen["anio_pob"] = ANIO_POB   # año de la población de las tasas por habitante (notas y títulos)
