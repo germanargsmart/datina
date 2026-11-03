@@ -7480,7 +7480,7 @@
     },
     {
      "archivo": "scripts/02_procesar.py",
-     "contiene": "crianza_salario = salarios_provincias[[\"codigo_indec\", \"territorio\", \"salario\"]].copy()"
+     "contiene": "crianza_salario = pd.DataFrame({\"codigo_indec\": sal_m.columns, \"salario\": sal_m.loc[_ccs_mes].values})"
     },
     {
      "archivo": "scripts/02_procesar.py",

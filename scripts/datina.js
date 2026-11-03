@@ -1019,7 +1019,8 @@ const LEAD = {
       `Entre ${ESE.desde} y ${ESE.hasta}, frente a los mismos meses de diez años antes (${ESE.hace10_desde} a ${ESE.hace10_hasta})`;
     return `El círculo claro es la actividad de cada sector y el lleno, sus asalariados registrados del sector privado. ${per}, la actividad de toda la economía ` +
       `${cambioPct(P.act_pais)} y el empleo registrado privado ${cambioPct(P.emp_pais)}. ` +
-      (P.sin_empleo.length ? `La actividad creció y el empleo registrado bajó en ${lista(P.sin_empleo)}. ` : "En ningún sector creció la actividad mientras bajaba el empleo registrado. ") +
+      (P.sin_empleo.length > 3 ? `En ${P.sin_empleo.length} de los ${ESE.n} sectores la actividad creció y el empleo registrado bajó. La distancia más grande está en ${lista(P.sin_empleo.slice(0, 3))}. `
+        : P.sin_empleo.length ? `La actividad creció y el empleo registrado bajó en ${lista(P.sin_empleo)}. ` : "En ningún sector creció la actividad mientras bajaba el empleo registrado. ") +
       (P.sin_actividad.length ? `Al revés, el empleo creció y la actividad bajó en ${lista(P.sin_actividad)}. ` : "") +
       "Que vayan en distinta dirección no dice por qué: puede ser un cambio de productividad, de empleo no registrado o de lo que produce cada sector.";
   },
@@ -1868,7 +1869,8 @@ const TX = {
   "sectores-empleo-nota": `Actividad: el Estimador Mensual de Actividad Económica del INDEC de cada sección de la CIIU (revisión 3), promedio de los doce meses. ` +
     `Empleo: los asalariados registrados del sector privado de la misma sección (OEDE, Secretaría de Trabajo, con datos del SIPA), promedio de los cuatro trimestres. ` +
     `Sin la administración pública, que el OEDE no cuenta. En la enseñanza y la salud la actividad incluye a los establecimientos públicos y el empleo, solo a los privados. ` +
-    `El empleo registrado no incluye a los asalariados sin aportes ni a los cuentapropistas. Que dos variaciones vayan juntas o separadas no prueba una causa.`,
+    `El empleo registrado no incluye a los asalariados sin aportes ni a los cuentapropistas. El texto nombra un sector cuando la actividad y el empleo se mueven ` +
+    `${n1(ESE.min)} puntos o más cada uno. Que dos variaciones vayan juntas o separadas no prueba una causa.`,
   emae: LEAD.emae("mes"), "emae-nota": `Estimador Mensual de Actividad Económica del INDEC, base 2004 = 100: un indicador provisorio de cómo ` +
     `cambia el producto interno bruto a precios constantes, que se arma con información parcial. El INDEC revisa la serie completa con cada publicación. La serie sin ` +
     `estacionalidad quita el efecto de la época del año, para comparar un mes con el anterior. Por sector, los últimos doce meses frente a los doce anteriores, ` +

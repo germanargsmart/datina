@@ -6145,12 +6145,21 @@ sectores_empleo = pd.DataFrame([{"letra": k, "sector": EMA_SECTOR[k][0], "corto"
                                 for k, c in _sx_letras.items()]).round(4)
 _sx_tot = _sx_oe.total
 _sx_emp_tot = lambda atras: (_sx_tot.loc[[_sx_t(q) for q in _sx_q]].mean() / _sx_tot.loc[[_sx_t(q - atras) for q in _sx_q]].mean() - 1) * 100
-_sx_res = lambda n: {"act_pais": r1((_ema_o.loc[_sx_meses(0)].mean() / _ema_o.loc[_sx_meses(n * 3)].mean() - 1) * 100), "emp_pais": r1(_sx_emp_tot(n)),
-                     # los sectores donde la actividad creció y el empleo bajó, y al revés (con el redondeo que se muestra)
-                     "sin_empleo": [EMA_SECTOR[k][2] for k in _sx_letras if r1(_sx_a1[k] if n == 4 else _sx_a10[k]) > 0 and r1(_sx_e1[k] if n == 4 else _sx_e10[k]) < 0],
-                     "sin_actividad": [EMA_SECTOR[k][2] for k in _sx_letras if r1(_sx_a1[k] if n == 4 else _sx_a10[k]) < 0 and r1(_sx_e1[k] if n == 4 else _sx_e10[k]) > 0]}
+# los sectores donde la actividad creció y el empleo bajó, y al revés, cuando los dos se mueven al menos SX_MIN puntos (con menos, el cambio
+# es tan chico que nombrarlo confunde), ordenados por la distancia entre los dos
+SX_MIN = .5
+
+
+def _sx_res(n):
+    a, e = (_sx_a1, _sx_e1) if n == 4 else (_sx_a10, _sx_e10)
+    sin_e = sorted([k for k in _sx_letras if a[k] >= SX_MIN and e[k] <= -SX_MIN], key=lambda k: e[k] - a[k])
+    sin_a = sorted([k for k in _sx_letras if a[k] <= -SX_MIN and e[k] >= SX_MIN], key=lambda k: a[k] - e[k])
+    return {"act_pais": r1((_ema_o.loc[_sx_meses(0)].mean() / _ema_o.loc[_sx_meses(n * 3)].mean() - 1) * 100), "emp_pais": r1(_sx_emp_tot(n)),
+            "sin_empleo": [EMA_SECTOR[k][2] for k in sin_e], "sin_actividad": [EMA_SECTOR[k][2] for k in sin_a]}
+
+
 SEC_EMP_RES = {"desde": _mes_per(_sx_meses(0)[-1]), "hasta": _mes_per(_sx_meses(0)[0]), "hace10_desde": _mes_per(_sx_meses(120)[-1]),
-               "hace10_hasta": _mes_per(_sx_meses(120)[0]), "n": len(_sx_letras), "uno": _sx_res(4), "diez": _sx_res(40)}
+               "hace10_hasta": _mes_per(_sx_meses(120)[0]), "n": len(_sx_letras), "min": SX_MIN, "uno": _sx_res(4), "diez": _sx_res(40)}
 # ventas en supermercados (etapa 26): la Encuesta de Supermercados del INDEC, un panel fijo de empresas con alguna boca de 200 m² o más. El país,
 # con el índice del INDEC a precios constantes, que descuenta los precios de cada grupo de artículos con el IPC del país. Cada provincia, con sus
 # ventas a precios corrientes llevadas a pesos del último mes con el IPC de los bienes de su región (la provincia de Buenos Aires en dos partes:
@@ -6240,16 +6249,20 @@ CCR_RES = {
 # La canasta de crianza frente al salario de cada provincia (pedido del autor del 3 de noviembre de 2026): la canasta del mes de los
 # salarios (SAL_MES, el último sin aguinaldo) dividida por el salario bruto promedio del empleo privado registrado. La canasta es una sola
 # para todo el país (se arma con la canasta básica total del Gran Buenos Aires): la diferencia entre provincias sale del salario
+# El mes es el último que tienen las dos series sin aguinaldo: si la canasta se atrasa, la vista sigue con el último mes en común
+_ccs_mes = max((m for m in _ccr.index if m in sal_m.index and m[5:7] not in ("06", "12")), default=None)
 crianza_salario = None
-if SAL_MES in _ccr.index:
-    crianza_salario = salarios_provincias[["codigo_indec", "territorio", "salario"]].copy()
+if _ccs_mes:
+    crianza_salario = pd.DataFrame({"codigo_indec": sal_m.columns, "salario": sal_m.loc[_ccs_mes].values})
+    crianza_salario["territorio"] = crianza_salario.codigo_indec.map(lambda c: "Todo el país" if c == "00" else CORTO[c])
+    crianza_salario = crianza_salario[["codigo_indec", "territorio", "salario"]]
     for _e in _CCR_EDAD:
-        crianza_salario[f"pct_{_e}"] = (_ccr.at[SAL_MES, f"tot_{_e}"] / crianza_salario.salario * 100).round(4)
+        crianza_salario[f"pct_{_e}"] = (_ccr.at[_ccs_mes, f"tot_{_e}"] / crianza_salario.salario * 100).round(4)
     crianza_salario = crianza_salario.sort_values("codigo_indec").reset_index(drop=True)
     _ccs = crianza_salario[crianza_salario.codigo_indec != "00"].sort_values("pct_6a12")
     _ccs_pais = crianza_salario.set_index("codigo_indec").loc["00"]
-    CCR_RES["salario"] = {"mes": _mes_per(SAL_MES), "canasta": int(_ccr.at[SAL_MES, "tot_6a12"]), "salario": int(round(_ccs_pais.salario)),
-                          "pais": r1(_ccs_pais.pct_6a12), "bys_pais": r1(_ccr.at[SAL_MES, "bys_6a12"] / _ccs_pais.salario * 100),
+    CCR_RES["salario"] = {"mes": _mes_per(_ccs_mes), "canasta": int(_ccr.at[_ccs_mes, "tot_6a12"]), "salario": int(round(_ccs_pais.salario)),
+                          "pais": r1(_ccs_pais.pct_6a12), "bys_pais": r1(_ccr.at[_ccs_mes, "bys_6a12"] / _ccs_pais.salario * 100),
                           "max": _ccs.iloc[-1].territorio, "max_v": r1(_ccs.iloc[-1].pct_6a12),
                           "min": _ccs.iloc[0].territorio, "min_v": r1(_ccs.iloc[0].pct_6a12), "n_mitad": int((_ccs.pct_6a12 >= 50).sum())}
 # Producción industrial y minera del INDEC (API, desde el 3 de noviembre de 2026: scripts/indec_api.py): los índices de producción industrial
