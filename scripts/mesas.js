@@ -16,8 +16,9 @@
   const $ = id => document.getElementById(id);
   const BASE = "datos/mesas/";
   // Cloudflare guarda los encabezados de la primera vez que sirve un archivo y, si el archivo no cambió, no los actualiza al revalidarlo. Las tablas pedidas antes de
-  // que se sirvieran como texto seguían llegando sin comprimir: con otra dirección se piden de nuevo. Subir este número hace lo mismo si vuelve a pasar
-  const VERSION_TABLAS = "2";
+  // que se sirvieran como texto seguían llegando sin comprimir: con otra dirección se piden de nuevo. Subir este número hace lo mismo si vuelve a pasar.
+  // Es 5 y no 2 porque del 1 al 4 se pidieron a mano mientras se publicaba y quedaron guardadas igual: una versión nueva no se prueba antes de publicarla
+  const VERSION_TABLAS = "5";
   const CARGOS = {presidente: "Presidente", diputados: "Diputados nacionales", senadores: "Senadores nacionales"};
   const NIVEL_NOMBRE = {presidente: "presidente", diputados: "diputados nacionales", senadores: "senadores nacionales"};
   const n0 = v => Number(v).toLocaleString("es-AR");

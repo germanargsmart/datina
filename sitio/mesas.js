@@ -4,7 +4,7 @@ const raiz = document.getElementById("ms");
 if (!raiz) return;
 const $ = id => document.getElementById(id);
 const BASE = "datos/mesas/";
-const VERSION_TABLAS = "2";
+const VERSION_TABLAS = "5";
 const CARGOS = {presidente: "Presidente", diputados: "Diputados nacionales", senadores: "Senadores nacionales"};
 const NIVEL_NOMBRE = {presidente: "presidente", diputados: "diputados nacionales", senadores: "senadores nacionales"};
 const n0 = v => Number(v).toLocaleString("es-AR");
