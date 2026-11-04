@@ -654,7 +654,12 @@ DIFERIDAS = ["elecciones_presidenciales", "anios_congreso", "transferencias_prov
              "nacidos_otro_pais_paises", "radicaciones_nacionalidad", "argentinos_exterior_destinos",
              "migraciones_departamentos", "soja_departamentos", "supermercados_mensual", "corte_jueces", "corte_composicion", "corte_presidentes", "bcra_variables",
              # D2 del plan de mejora (28 de octubre de 2026): las tablas más pesadas que solo usa el dibujo de su ficha
-             "exportaciones_destinos", "reservas_netas", "combustibles_anual", "confianza_consumidor", "expectativas_inflacion", "confianza_gobierno"]
+             "exportaciones_destinos", "reservas_netas", "combustibles_anual", "confianza_consumidor", "expectativas_inflacion", "confianza_gobierno",
+             # D2, segunda parte (4 de noviembre de 2026): más tablas que solo usa su ficha o el perfil de una provincia. nombres_top y censos_provincias no
+             # pueden pasar: el texto de un artículo o una parte del perfil las leen apenas carga la página
+             "puestos_provincias", "reservas_bcra", "mundo_paises", "voto_legisladores_y_provincia", "dengue_provincias", "inflacion_personal",
+             "empresas_tamano_sector", "bcra_variables_lista", "congreso_composicion", "justicia_provincias", "ingresos_aglomerados",
+             "mortalidad_infantil_causas", "deuda_provincias"]
 D = json.loads((SITIO / "datos" / "fichas.json").read_text(encoding="utf-8"))
 D["diferidas"] = {}
 for nombre in DIFERIDAS:
