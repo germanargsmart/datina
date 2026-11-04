@@ -6519,9 +6519,10 @@ if cmx_socios is not None and all(v[0].exists() for v in _cmr_f.values()):
         _cmr_x = pd.DataFrame(json.loads(_cmr_a.read_text(encoding="utf-8")))
         assert list(_cmr_x.columns) == ["Anio", _cmr_col, "pais_cod", "valor", "peso"], f"cambiaron las columnas del comercio por rubro ({_cmr_k}): {list(_cmr_x.columns)}"
         _cmr_x = _cmr_x.assign(g=_cmr_x[_cmr_col].map(_cmr_m).fillna("otro"), v=_cmr_x.valor.fillna(0) / 1e6, kg=_cmr_x.peso.fillna(0))
-        # cada año completo tiene que dar lo mismo que la suma por mes y país de "Socios comerciales"
+        # cada año completo tiene que dar lo mismo que la suma por mes y país de "Socios comerciales", con el margen de las revisiones (si una tabla
+        # de la API falla un mes, queda su archivo anterior y el otro puede venir con el dato revisado)
         _cmr_ctrl = _cmr_x[_cmr_x.Anio.isin(_cmx_anios)].groupby("Anio").v.sum() / _cmx[_cmx.anio.isin(_cmx_anios)].groupby("anio")[_cmr_k].sum()
-        assert ((_cmr_ctrl - 1).abs() < .001).all(), f"el comercio por rubro no suma lo mismo que por mes y país en {list(_cmr_ctrl[(_cmr_ctrl - 1).abs() >= .001].index)}"
+        assert ((_cmr_ctrl - 1).abs() < .005).all(), f"el comercio por rubro no suma lo mismo que por mes y país en {list(_cmr_ctrl[(_cmr_ctrl - 1).abs() >= .005].index)}"
         _cmr_d[_cmr_k] = _cmr_x
 
     def _cmr_kilo(d):  # dólares por kilo, solo con lo que tiene peso
