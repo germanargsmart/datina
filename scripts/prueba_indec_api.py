@@ -13,7 +13,8 @@ TOKEN = "token-de-prueba"
 FILAS = {"canasta-crianza": [{"Periodo": f"2026{m:02d}", "n": i} for i, m in enumerate(range(1, 13))],
          "ipi_minero": [{"periodo": str(i), "valor": i} for i in range(2500)],
          "comercio_exterior_importacion_bienes": [{"Periodo": f"{2000 + i // 12}{i % 12 + 1:02d}", "pais_cod": p, "sum": i} for i in range(600)
-                                                  for p in ("BR", "CN")]}
+                                                  for p in ("BR", "CN")],
+         "comercio_exterior_exportacion_bienes:anio_rubro_pais": [{"Anio": 2000 + i, "rubro_cod": "1", "pais_cod": "BR", "valor": i, "peso": i} for i in range(20)]}
 estado = {"pedidos": [], "falla": {}, "total_mal": False, "repetida": False}
 
 
@@ -30,11 +31,13 @@ class Simulada(BaseHTTPRequestHandler):
         if estado["falla"].get(tabla):
             codigo = estado["falla"][tabla].pop(0)
             return self.responder(codigo, {"message": "simulado"})
+        # la API no sabe de cortes: cuál es el que se pidió sale de las columnas por las que se ordena
+        tabla = next((k for k in FILAS if k.split(":")[0] == tabla and api.TABLAS[k] == q.get("order")), tabla)
         if tabla not in FILAS:
             return self.responder(404, {"message": "no existe"})
-        if q.get("order") != api.TABLAS[tabla]:
+        if q.get("order") != api.TABLAS.get(tabla):
             return self.responder(400, {"message": "sin la clave completa"})
-        if tabla in api.SUMAS and q.get("select") != f"{api.TABLAS[tabla]},{api.SUMAS[tabla][0]}.sum()":
+        if tabla in api.SUMAS and q.get("select") != api.seleccion(tabla):
             return self.responder(400, {"message": "sin la suma"})
         todas, desde, cuantas = FILAS[tabla], int(q["offset"]), min(int(q["limit"]), 1000)
         lote, total = todas[desde:desde + cuantas], len(todas) + (5 if estado["total_mal"] else 0)
@@ -116,6 +119,14 @@ estado["repetida"] = True
 e = error_de(lambda: api.bajar_tabla("comercio_exterior_importacion_bienes", TOKEN, BASE))
 ver(isinstance(e, ValueError) and "repetidos" in str(e), "si un grupo llega dos veces, falla")
 estado["repetida"] = False
+
+# otro corte de la misma tabla (4 de noviembre de 2026): dos sumas con su nombre, la tabla de la API sin el corte y su propio archivo
+estado["pedidos"].clear()
+filas = api.bajar_tabla("comercio_exterior_exportacion_bienes:anio_rubro_pais", TOKEN, BASE)
+ver(len(filas) == 20 and estado["pedidos"][0][0] == "comercio_exterior_exportacion_bienes"
+    and estado["pedidos"][0][1]["select"] == "Anio,rubro_cod,pais_cod,valor:valor_FOB.sum(),peso:Peso_Neto.sum()", "un corte pide sus dos sumas a la tabla de la API")
+ver(api.archivo("comercio_exterior_exportacion_bienes:anio_rubro_pais") == "indec_api_comercio_exterior_exportacion_bienes_anio_rubro_pais.json",
+    "y se guarda con su propio sufijo")
 
 # todo junto: guarda las que salen y conserva el archivo anterior de la que falla
 os.environ["INDEC_API_TOKEN"] = TOKEN

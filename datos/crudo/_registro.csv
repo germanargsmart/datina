@@ -189,3 +189,5 @@ indec_api_comercio_exterior_nomenclaturas.json,api.indec.gob.ar (comercio_exteri
 oede_empleo_ramas.csv,https://www.argentina.gob.ar/sites/default/files/provinciales_serie_empleo_trimestral_2dig_7.xlsx,2026-11-03T19:51:30,ok
 indec_ipim.csv,https://www.indec.gob.ar/ftp/cuadros/economia/indice_ipim.csv,2026-11-03T20:55:36,ok
 indec_ipc_precios_promedio.xls,https://www.indec.gob.ar/ftp/cuadros/economia/sh_ipc_precios_promedio.xls,2026-11-03T21:24:09,ok
+indec_api_comercio_exterior_exportacion_bienes_anio_rubro_pais.json,api.indec.gob.ar (comercio_exterior_exportacion_bienes:anio_rubro_pais (20474 filas)),2026-11-04T09:56:49,ok
+indec_api_comercio_exterior_importacion_bienes_anio_uso_pais.json,api.indec.gob.ar (comercio_exterior_importacion_bienes:anio_uso_pais (26018 filas)),2026-11-04T09:56:59,ok

@@ -1869,6 +1869,35 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <div class="pie"><span>Fuente: INDEC, exportaciones e importaciones de bienes por país, vía el Catálogo API-INDEC</span><a href="datos/comercio_socios_historia.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
+    <article class="ficha" id="f-socios-que">
+      <h2>¿Qué le vende y qué le compra la Argentina a cada país?</h2>
+      <p class="ficha-sub">Exportaciones por gran rubro e importaciones por uso económico, en % del total con cada país, comparando dos países, {{externo.socios_rubro.anio}}</p>
+      <label class="selector-ficha"><span>País</span><select id="sq-a"></select></label>
+      <label class="selector-ficha"><span>Comparar con</span><select id="sq-b"></select></label>
+      <div class="conmutador" role="group" aria-label="Sentido" data-g="socios-que">
+        <button type="button" data-m="vende" aria-pressed="true">Le vende</button>
+        <button type="button" data-m="compra" aria-pressed="false">Le compra</button>
+      </div>
+      <div class="pol-ley" id="socios-que-ley" aria-hidden="true"></div>
+      <div class="grafico" data-g="socios-que" data-forma="barras" style="--filas:3"></div>
+      <p class="lead" data-t="socios-que"></p>
+      <p class="nota" data-t="socios-que-nota"></p>
+      <div class="pie"><span>Fuente: INDEC, exportaciones por rubro e importaciones por uso económico y país, vía el Catálogo API-INDEC</span><a href="datos/comercio_rubro_pais.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-valor-kilo">
+      <h2>¿Cuánto vale un kilo de lo que exporta y de lo que importa la Argentina?</h2>
+      <p class="ficha-sub">Dólares por kilo de las exportaciones y de las importaciones de bienes, {{externo.valor_kilo.desde}} a {{externo.valor_kilo.anio}}, y por rubro y uso en {{externo.valor_kilo.anio}}</p>
+      <div class="conmutador" role="group" aria-label="Vista" data-g="valor-kilo">
+        <button type="button" data-m="anual" aria-pressed="true">Por año</button>
+        <button type="button" data-m="rubro" aria-pressed="false">Por rubro</button>
+      </div>
+      <div class="grafico" data-g="valor-kilo" data-forma="lineas"></div>
+      <p class="lead" data-t="valor-kilo"></p>
+      <p class="nota" data-t="valor-kilo-nota"></p>
+      <div class="pie"><span>Fuente: INDEC, valor y peso de las exportaciones y las importaciones de bienes, vía el Catálogo API-INDEC</span><a href="datos/comercio_valor_kilo.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
     <h2 class="bloque-grupo" id="g-cuentas-externas">Cuentas y reservas</h2>
 
     <article class="ficha" id="f-cuenta-corriente">

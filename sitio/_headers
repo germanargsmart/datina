@@ -64,6 +64,10 @@
   Cache-Control: public, max-age=31536000, immutable
 /datos/mayoristas_mensual.json
   Cache-Control: public, max-age=31536000, immutable
+/datos/comercio_rubro_pais.json
+  Cache-Control: public, max-age=31536000, immutable
+/datos/comercio_valor_kilo.json
+  Cache-Control: public, max-age=31536000, immutable
 /datos/produccion_mensual.json
   Cache-Control: public, max-age=31536000, immutable
 /datos/comercio_socios_historia.json

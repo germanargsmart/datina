@@ -2580,6 +2580,28 @@
     "contiene": "\"indec_ipc_precios_promedio.xls\": \"https://www.indec.gob.ar"
    },
    "url": "https://www.indec.gob.ar/ftp/cuadros/economia/sh_ipc_precios_promedio.xls"
+  },
+  {
+   "id": "ds:indec_api_comercio_exterior_exportacion_bienes_anio_rubro_pais.json",
+   "nombre": "Exportaciones de bienes por año, gran rubro y país (Catálogo API-INDEC)",
+   "fuente": "org:indec",
+   "ruta": "datos/crudo/indec_api_comercio_exterior_exportacion_bienes_anio_rubro_pais.json",
+   "evidencia": {
+    "archivo": "scripts/indec_api.py",
+    "contiene": "\"comercio_exterior_exportacion_bienes:anio_rubro_pais\": \""
+   },
+   "url": "https://api.indec.gob.ar/v1/comercio_exterior_exportacion_bienes"
+  },
+  {
+   "id": "ds:indec_api_comercio_exterior_importacion_bienes_anio_uso_pais.json",
+   "nombre": "Importaciones de bienes por año, uso económico y país (Catálogo API-INDEC)",
+   "fuente": "org:indec",
+   "ruta": "datos/crudo/indec_api_comercio_exterior_importacion_bienes_anio_uso_pais.json",
+   "evidencia": {
+    "archivo": "scripts/indec_api.py",
+    "contiene": "\"comercio_exterior_importacion_bienes:anio_uso_pais\": \""
+   },
+   "url": "https://api.indec.gob.ar/v1/comercio_exterior_importacion_bienes"
   }
  ],
  "aristas": [
@@ -7666,6 +7688,86 @@
     }
    ],
    "tabla": "precio_consumo"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:indec_api_comercio_exterior_exportacion_bienes_anio_rubro_pais.json",
+   "a": "f-socios-que",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_cmr_x = pd.DataFrame(json.loads(_cmr_a.read_text(encoding=\"utf-8\")))"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "CRUDO / \"indec_api_comercio_exterior_exportacion_bienes_anio_rubro_pais.json\""
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "**({\"comercio_rubro_pais\": comercio_rubro_pais, \"comercio_valor_kilo\": comercio_valor_kilo} if comercio_rubro_pais is not None else {}),"
+    }
+   ],
+   "tabla": "comercio_rubro_pais"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:indec_api_comercio_exterior_exportacion_bienes_anio_rubro_pais.json",
+   "a": "f-valor-kilo",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_cmr_x = pd.DataFrame(json.loads(_cmr_a.read_text(encoding=\"utf-8\")))"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "CRUDO / \"indec_api_comercio_exterior_exportacion_bienes_anio_rubro_pais.json\""
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "**({\"comercio_rubro_pais\": comercio_rubro_pais, \"comercio_valor_kilo\": comercio_valor_kilo} if comercio_rubro_pais is not None else {}),"
+    }
+   ],
+   "tabla": "comercio_valor_kilo"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:indec_api_comercio_exterior_importacion_bienes_anio_uso_pais.json",
+   "a": "f-socios-que",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_cmr_x = pd.DataFrame(json.loads(_cmr_a.read_text(encoding=\"utf-8\")))"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "CRUDO / \"indec_api_comercio_exterior_importacion_bienes_anio_uso_pais.json\""
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "**({\"comercio_rubro_pais\": comercio_rubro_pais, \"comercio_valor_kilo\": comercio_valor_kilo} if comercio_rubro_pais is not None else {}),"
+    }
+   ],
+   "tabla": "comercio_rubro_pais"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:indec_api_comercio_exterior_importacion_bienes_anio_uso_pais.json",
+   "a": "f-valor-kilo",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_cmr_x = pd.DataFrame(json.loads(_cmr_a.read_text(encoding=\"utf-8\")))"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "CRUDO / \"indec_api_comercio_exterior_importacion_bienes_anio_uso_pais.json\""
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "**({\"comercio_rubro_pais\": comercio_rubro_pais, \"comercio_valor_kilo\": comercio_valor_kilo} if comercio_rubro_pais is not None else {}),"
+    }
+   ],
+   "tabla": "comercio_valor_kilo"
   }
  ],
  "fichas": {

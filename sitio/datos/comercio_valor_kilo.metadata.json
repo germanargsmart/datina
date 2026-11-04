@@ -1,0 +1,85 @@
+{
+ "tabla": "comercio_valor_kilo.csv",
+ "titulo": "¿Cuánto vale un kilo de lo que exporta y de lo que importa la Argentina?",
+ "descripcion": "Dólares por kilo de las exportaciones y de las importaciones de bienes, 1991 a 2025, y por rubro y uso en 2025",
+ "seccion": "Sector externo",
+ "ficha": "https://datina.com.ar/externo.html#f-valor-kilo",
+ "fuente": "INDEC, valor y peso de las exportaciones y las importaciones de bienes, vía el Catálogo API-INDEC.",
+ "actualizacion": "Se actualiza cada año.",
+ "cobertura": "Sin desglose territorial",
+ "periodo": "1991 a 2025",
+ "filas": 35,
+ "columnas": [
+  {
+   "nombre": "anio",
+   "tipo": "Año",
+   "valores": "1991 a 2025"
+  },
+  {
+   "nombre": "expo_total",
+   "tipo": "Número",
+   "valores": "0,28 a 0,83"
+  },
+  {
+   "nombre": "expo_pp",
+   "tipo": "Número",
+   "valores": "0,17 a 0,46"
+  },
+  {
+   "nombre": "expo_moa",
+   "tipo": "Número",
+   "valores": "0,3 a 0,86"
+  },
+  {
+   "nombre": "expo_moi",
+   "tipo": "Número",
+   "valores": "1,07 a 3,88"
+  },
+  {
+   "nombre": "expo_ce",
+   "tipo": "Número",
+   "valores": "0,1 a 0,8"
+  },
+  {
+   "nombre": "impo_total",
+   "tipo": "Número",
+   "valores": "0,68 a 2,27"
+  },
+  {
+   "nombre": "impo_bi",
+   "tipo": "Número",
+   "valores": "0,41 a 1,33"
+  },
+  {
+   "nombre": "impo_pa",
+   "tipo": "Número",
+   "valores": "6,26 a 14,16"
+  },
+  {
+   "nombre": "impo_bk",
+   "tipo": "Número",
+   "valores": "7,87 a 17,64"
+  },
+  {
+   "nombre": "impo_bc",
+   "tipo": "Número",
+   "valores": "1,99 a 5,79"
+  },
+  {
+   "nombre": "impo_cl",
+   "tipo": "Número",
+   "valores": "0,11 a 1,01"
+  },
+  {
+   "nombre": "impo_va",
+   "tipo": "Número",
+   "valores": "6,12 a 12,66"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "28/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
+ "como_citar": "Datina (año de la consulta). ¿Cuánto vale un kilo de lo que exporta y de lo que importa la Argentina? Con datos de INDEC, valor y peso de las exportaciones y las importaciones de bienes, vía el Catálogo API-INDEC. https://datina.com.ar/externo.html#f-valor-kilo. Consultado el día de la consulta."
+}

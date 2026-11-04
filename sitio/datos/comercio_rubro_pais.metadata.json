@@ -1,0 +1,110 @@
+{
+ "tabla": "comercio_rubro_pais.csv",
+ "titulo": "¿Qué le vende y qué le compra la Argentina a cada país?",
+ "descripcion": "Exportaciones por gran rubro e importaciones por uso económico, en % del total con cada país, comparando dos países, 2025",
+ "seccion": "Sector externo",
+ "ficha": "https://datina.com.ar/externo.html#f-socios-que",
+ "fuente": "INDEC, exportaciones por rubro e importaciones por uso económico y país, vía el Catálogo API-INDEC.",
+ "actualizacion": "Se actualiza cada año.",
+ "cobertura": "Sin desglose territorial",
+ "periodo": "",
+ "filas": 86,
+ "columnas": [
+  {
+   "nombre": "codigo",
+   "tipo": "Código",
+   "valores": "86 códigos"
+  },
+  {
+   "nombre": "pais",
+   "tipo": "Texto",
+   "valores": "86 valores distintos"
+  },
+  {
+   "nombre": "exportaciones",
+   "tipo": "Número",
+   "valores": "0 a 87.111,2"
+  },
+  {
+   "nombre": "kilo_expo",
+   "tipo": "Número",
+   "valores": "0,21 a 437,38 (1 celda vacía)"
+  },
+  {
+   "nombre": "e_pp",
+   "tipo": "Número",
+   "valores": "0 a 99,59"
+  },
+  {
+   "nombre": "e_moa",
+   "tipo": "Número",
+   "valores": "0 a 100"
+  },
+  {
+   "nombre": "e_moi",
+   "tipo": "Número",
+   "valores": "0 a 98,53"
+  },
+  {
+   "nombre": "e_ce",
+   "tipo": "Número",
+   "valores": "0 a 49,32"
+  },
+  {
+   "nombre": "e_otro",
+   "tipo": "Número",
+   "valores": "0 a 11,32"
+  },
+  {
+   "nombre": "importaciones",
+   "tipo": "Número",
+   "valores": "0 a 75.791,12"
+  },
+  {
+   "nombre": "kilo_impo",
+   "tipo": "Número",
+   "valores": "0,41 a 516,26"
+  },
+  {
+   "nombre": "i_bi",
+   "tipo": "Número",
+   "valores": "0,01 a 100"
+  },
+  {
+   "nombre": "i_pa",
+   "tipo": "Número",
+   "valores": "0 a 67,19"
+  },
+  {
+   "nombre": "i_bk",
+   "tipo": "Número",
+   "valores": "0 a 44,06"
+  },
+  {
+   "nombre": "i_bc",
+   "tipo": "Número",
+   "valores": "0 a 98,57"
+  },
+  {
+   "nombre": "i_cl",
+   "tipo": "Número",
+   "valores": "0 a 99,92"
+  },
+  {
+   "nombre": "i_va",
+   "tipo": "Número",
+   "valores": "0 a 22,41"
+  },
+  {
+   "nombre": "i_otro",
+   "tipo": "Número",
+   "valores": "0 a 30,97"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "28/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
+ "como_citar": "Datina (año de la consulta). ¿Qué le vende y qué le compra la Argentina a cada país? Con datos de INDEC, exportaciones por rubro e importaciones por uso económico y país, vía el Catálogo API-INDEC. https://datina.com.ar/externo.html#f-socios-que. Consultado el día de la consulta."
+}
