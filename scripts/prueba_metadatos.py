@@ -59,6 +59,17 @@ def revisar(url_sitio=None):
                     problemas.append(f"{nombre}: falta {k}")
             if 'name="twitter:card"' not in h:
                 problemas.append(f"{nombre}: falta twitter:card")
+            # la imagen al compartir (D3): existe y mide 1200 x 630
+            if url_sitio:
+                img = re.search(r'property="og:image" content="([^"]+)"', h)
+                if not img:
+                    problemas.append(f"{nombre}: falta og:image")
+                else:
+                    arch = SITIO / img.group(1).removeprefix(url_sitio + "/")
+                    if not arch.exists():
+                        problemas.append(f"{nombre}: la imagen {arch.name} no existe")
+                    elif (int.from_bytes(arch.read_bytes()[16:20], "big"), int.from_bytes(arch.read_bytes()[20:24], "big")) != (1200, 630):
+                        problemas.append(f"{nombre}: la imagen {arch.name} no mide 1200 x 630")
         # direcciones absolutas propias: solo la definitiva, y solo si existe
         for donde, u in re.findall(r'(rel="canonical" href|property="og:url" content)="([^"]+)"', h):
             if u.startswith("http") and (not url_sitio or not u.startswith(url_sitio + "/")):
