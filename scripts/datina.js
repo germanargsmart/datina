@@ -3760,7 +3760,7 @@ Object.assign(DIB, {
     el.resaltar = null;
   },
   // las empresas por tamaño o por sector (plan de mejora, etapa 4): barras apiladas, el país arriba y las provincias por la primera parte
-  "empresas-tamano": a => {
+  "empresas-tamano": conTablas("empresas-tamano", ["empresas_tamano_sector"], a => {
     const v = MED["empresas-tamano"], el = G("empresas-tamano"), fp = T.empresas_tamano_sector.find(r => r.codigo_indec === prov);
     const cl = v === "sec"
       ? [{k: "pct_servicios", lab: "Servicios", c: "#2C74B5"}, {k: "pct_comercio", lab: "Comercio", c: "#74ACDF", texto: "#18212B"},
@@ -3776,7 +3776,7 @@ Object.assign(DIB, {
     const pais = T.empresas_tamano_sector.find(r => r.codigo_indec === "00");
     // los valores con un decimal, como el texto y la cifra destacada
     apiladasH(el, {anim: a, claves: cl, valF: n1, data: [pais, ...T.empresas_tamano_sector.filter(r => r.codigo_indec !== "00").sort((p, q) => q[cl[0].k] - p[cl[0].k])]});
-  },
+  }),
   // la desocupación (plan de mejora, etapa 4): cada aglomerado de la EPH con la línea de los 31, resaltados los de la provincia elegida (se
   // redibuja al cambiarla, como los ingresos por aglomerado), o el total de los 31 trimestre a trimestre
   desocupacion: a => {
@@ -3822,7 +3822,7 @@ Object.assign(DIB, {
   },
   // la deuda de cada provincia (plan de mejora, sección 10, 31 de octubre de 2026): por habitante con la línea del país, o por acreedor en
   // barras apiladas, el país arriba y las provincias por la parte en bonos. La que no informó su deuda no va en ninguna de las dos
-  "deuda-provincias": a => {
+  "deuda-provincias": conTablas("deuda-provincias", ["deuda_provincias"], a => {
     const v = MED["deuda-provincias"], el = G("deuda-provincias"), datos = T.deuda_provincias.filter(r => r.millones != null);
     const fp = datos.find(r => r.codigo_indec === prov);
     let txt = LEAD["deuda-provincias"](v);
@@ -3843,7 +3843,7 @@ Object.assign(DIB, {
     barrasH(el, {anim: a, data: datos, k: "por_habitante", vf: milDeuda, af: ejeMil, ref: DPR.pais_hab, refLab: `País ${milDeuda(DPR.pais_hab)}`,
       tip: d => `<b>${d.territorio}</b><br>${pesosDeuda(d.por_habitante)} por habitante al ${DPR.fecha_txt}<br>${billones(d.millones)} en total<br>` +
         `${pct(d.pct_bonos)} en bonos`});
-  },
+  }),
   // las sociedades nuevas (plan de mejora, sección 10, 31 de octubre de 2026): cada provincia con la línea del país, o el país año por año,
   // con las SAS aparte
   sociedades: a => {
@@ -3950,7 +3950,8 @@ Object.assign(DIB, {
   "inflacion-rubros": a => {
     const g = MED["inflacion-rubros"];
     $t("inflacion-rubros").textContent = LEAD["inflacion-rubros"](g);
-    if (g === "tu") return calcInflacionPersonal(G("inflacion-rubros"));
+    if (g === "tu") return cargarTabla("inflacion_personal").then(() => calcInflacionPersonal(G("inflacion-rubros")),
+      () => sinDatos(G("inflacion-rubros"), "No se pudieron cargar los datos. Probá recargar la página."));
     // los códigos van con una letra delante: un código de rubro no tiene que coincidir con el de la provincia elegida
     const data = T.inflacion_rubros.filter(r => r.grupo === g).map(r => ({codigo_indec: "i" + r.codigo, territorio: r.rubro, corto: r.corto, ia: r.interanual, m: r.mensual}));
     barrasH(G("inflacion-rubros"), {anim: a, data, k: "ia", vf: pct, af: v => n0(v) + "%", ref: EIP.interanual, refLab: `Nivel general ${pct(EIP.interanual)}`,
@@ -4383,7 +4384,7 @@ DIB.elecciones = conTablas("elecciones", ["elecciones_presidenciales"], a => {
 });
 MED.congreso = "Diputados";
 const CG = R.congreso;
-DIB.congreso = a => {
+DIB.congreso = conTablas("congreso", ["congreso_composicion"], a => {
   const cam = MED.congreso, esp = CG.espacios, v = cam === "Diputados" ? CG.dip : CG.sen, n = cam === "Diputados" ? CG.n_dip : CG.n_sen;
   const ord = esp.filter(k => v[k]).sort((p, q) => v[q] - v[p]);
   document.querySelector('[data-t="congreso"]').textContent = cam === "Diputados"
@@ -4395,7 +4396,7 @@ DIB.congreso = a => {
     ? `<button type="button" class="esp-btn" data-e="${k.k}" aria-haspopup="dialog"><i style="background:${k.c}"></i>${k.lab}</button>`
     : `<span><i style="background:${k.c}"></i>${k.lab}</span>`).join("");
   columnasApiladas(G("congreso"), {anim: a, data: filas, claves: cl, cadaTick: 2});
-};
+});
 $("lg-sel").innerHTML = PROV.map(([c, nom]) => `<option value="${c}">${nom}</option>`).join("");
 const LG_PER = CG.periodos, LG_ULT = LG_PER[LG_PER.length - 1];
 $("lg-per").innerHTML = [...LG_PER].reverse().map(a => `<option value="${a}">${a} a ${a + 2}${a === LG_ULT ? " (el actual)" : ""}</option>`).join("");
@@ -5327,11 +5328,11 @@ MED.vprov = rvClave(RV[RV.length - 1]); rvSel.value = MED.vprov;
 TX["vprov"] = $t("vprov").textContent = 
   `La relación entre el voto al presidente en la primera vuelta y la coincidencia de los legisladores de cada provincia con el bloque oficialista, en las leyes y los proyectos clave, cambia de un gobierno a otro. ` +
   RV.map(g => `Con ${g.presidente} fue ${fuerza(g.r)} (correlación de ${n2(g.r).replace("-", "menos ")}, en ${g.leyes} ${g.leyes === 1 ? "ley o proyecto" : "leyes o proyectos"} ${g.anios[0] === g.anios[1] ? `de ${g.anios[0]}` : `entre ${g.anios[0]} y ${g.anios[1]}`})`).join(". ") + ". Con pocas leyes, un solo voto puede mover mucho el resultado. Que las dos medidas vayan juntas no muestra que una explique la otra.";
-DIB.vprov = a => {
+DIB.vprov = conTablas("vprov", ["voto_legisladores_y_provincia"], a => {
   const g = RV.find(x => rvClave(x) === MED.vprov);
   dispersion(G("vprov"), {anim: a, data: T.voto_legisladores_y_provincia.filter(d => d.presidente === g.presidente && d.eleccion === g.eleccion),
     x: "pct_presidente", y: "pct_coincide", xLab: `Votos de ${g.presidente} en la primera vuelta de ${g.eleccion}`, yLab: "Votos de sus legisladores que coincidieron con el oficialismo"});
-};
+});
 TX["vprov-nota"] = $t("vprov-nota").textContent = `Cada punto es una provincia. El eje horizontal es el porcentaje de votos positivos que sacó el presidente en esa provincia en la primera vuelta de la elección que lo llevó al gobierno. ` +
   `El vertical, el porcentaje de los votos de sus diputados y senadores presentes que coincidió con la posición del bloque oficialista en las leyes y los proyectos clave de ese gobierno, contando también a los del propio bloque oficialista. ` +
   `Los legisladores fueron elegidos en distintos años, no solo en esa elección, y con pocas leyes por gobierno el resultado es frágil. La correlación de Spearman compara el orden de las provincias en las dos medidas: no prueba que un voto explique el otro.`;
@@ -5415,7 +5416,7 @@ DIB.adonse = a => {
   dispersion(G("adonse"), {anim: a, data: T.madres_adolescentes_nse, x: i.k, y: ADO_ULT, xLab: `${i.lab}, 2022`, yLab: `Nacimientos de madres menores de 20, ${AN.anio}`});
 };
 const CAUSA_COL = {perinatales: "#2C74B5", malformaciones: "#74ACDF", respiratorias: "#F6B40E", infecciosas: "#D9453B", externas: "#7A1F2B", mal_definidas: "#C3CAD2", otras: "#E4E9EF"};
-DIB.causas = a => {
+DIB.causas = conTablas("causas", ["mortalidad_infantil_causas"], a => {
   const gr = MC.grupos, gk = Object.fromEntries(gr.map(x => [x.k, x]));
   const vida = ["respiratorias", "infecciosas", "externas"], sumaVida = d3.sum(vida, k => gk[k].pct);
   const fuertes = gr.filter(x => Math.abs(x.r_cobertura) >= .4).sort((p, q) => q.r_cobertura - p.r_cobertura);
@@ -5427,7 +5428,7 @@ DIB.causas = a => {
   document.getElementById("causas-ley").innerHTML = cl.map(k => `<span><i style="background:${k.c}"></i>${k.lab}</span>`).join("");
   const filas = T.mortalidad_infantil_causas, pais = filas.find(d => d.codigo_indec === "00");
   apiladasH(G("causas"), {anim: a, claves: cl, data: [pais, ...filas.filter(d => d.codigo_indec !== "00").sort((p, q) => q.tasa - p.tasa)]});
-};
+});
 
 /* ---------- sector externo (etapa 41) ---------- */
 // el nombre de cada capa va en un tono que se lee sobre el blanco (ct): el amarillo, el celeste y el gris de las capas no llegan a 4,5 a 1
@@ -5583,7 +5584,7 @@ const IA_CORTO = {"Ciudad de Buenos Aires": "CABA", "Comodoro Rivadavia-Rada Til
 // "la Ciudad de Buenos Aires" lleva artículo, los demás aglomerados no
 const conArt = (n, inicio) => n.startsWith("Ciudad") ? (inicio ? "La " : "la ") + n : n;
 MED["ingresos-aglomerados"] = "ipcf";
-DIB["ingresos-aglomerados"] = a => {
+DIB["ingresos-aglomerados"] = conTablas("ingresos-aglomerados", ["ingresos_aglomerados"], a => {
   const t = MED["ingresos-aglomerados"], E = IA[t], el = G("ingresos-aglomerados"), mil = v => n0(Math.round(v / 1000) * 1000);
   const filas = T.ingresos_aglomerados.filter(r => r.aglomerado > 0).map(r => ({...r, codigo_indec: "a" + r.aglomerado, territorio: r.nombre}));
   $t("ingresos-aglomerados").textContent = (t === "ipcf"
@@ -5598,7 +5599,7 @@ DIB["ingresos-aglomerados"] = a => {
     tip: d => `<b>${d.nombre}</b><br>${mil(d[t + "_pesos"])} pesos por mes, ${pct(d[t + "_pct_pais"])} de la mediana de los 31 aglomerados` +
       `<br>${n0(d[t + "_casos"])} ${t === "ipcf" ? "personas" : "ocupados"} encuestados en los cuatro trimestres<br>Solo con el ${IA.trimestre}: ${mil(d[t + "_pesos_ultimo_trimestre"])}`});
   el.resaltar = null;
-};
+});
 /* La vista de elecciones (pedido del autor del 13 de octubre de 2026, rehecha el mismo día a su pedido: "que sean dos líneas que corren en
    paralelo"): dos paneles con el mismo eje de tiempo. Arriba, el índice mes a mes, con un punto en el mes anterior a cada elección (el que se
    compara). Abajo, el voto a la candidatura del gobierno en cada PASO y primera vuelta presidencial. Una línea punteada en cada elección cruza
@@ -5775,7 +5776,7 @@ $("dg-sel").innerHTML = [[DG.juntas, `De la ${DG.prov_desde} a la ${DG.temp}, ju
   .map(([v, l]) => `<option value="${v}">${l}</option>`).join("");
 $("dg-sel").addEventListener("change", ev => { MED["dengue-temp"] = ev.target.value; cambiarVista("dengue"); });
 const dgFilas = () => T.dengue_provincias.filter(r => r.temporada === MED["dengue-temp"]);
-DIB.dengue = a => {
+DIB.dengue = conTablas("dengue", ["dengue_provincias"], a => {
   const v = MED.dengue, el = G("dengue");
   $("dg-elige").hidden = v === "serie";
   refrescarTabla("f-dengue");
@@ -5794,9 +5795,9 @@ DIB.dengue = a => {
     `${fDg(fp.cada_100000)} cada 100.000 habitantes. ` : "") + txt;
   barrasH(el, {anim: a, data: filas, k: "cada_100000", vf: fDg, af: n0, ref: pais, refLab: `País ${fDg(pais)}`,
     tip: d => `<b>${d.territorio}</b><br>${fDg(d.cada_100000)} casos cada 100.000 habitantes<br>${n0(d.casos)} casos confirmados`});
-};
+});
 // "Ver tabla" del dengue: la temporada elegida por provincia, o el país por temporada
-TABLA_PROPIA["f-dengue"] = () => Promise.resolve(MED.dengue === "serie"
+TABLA_PROPIA["f-dengue"] = () => cargarTabla("dengue_provincias").then(() => MED.dengue === "serie"
   ? T.dengue_pais.map(r => ({temporada: r.temporada, casos: r.casos, "casos cada 100.000 habitantes": r.cada_100000}))
   : dgFilas().map(r => ({codigo_indec: r.codigo_indec, territorio: r.territorio, temporada: r.temporada, casos: r.casos, "casos cada 100.000 habitantes": r.cada_100000})));
 // vacuna triple viral (plan de mejora, sección 10): cada dosis por provincia, con la línea del 95%, y la mediana de las 24 jurisdicciones por año
@@ -5820,7 +5821,7 @@ TABLA_PROPIA["f-vacunas"] = () => Promise.resolve(MED.vacunas === "serie"
   : T.vacunas_provincias.map(r => ({codigo_indec: r.codigo_indec, territorio: r.territorio, "primera dosis (%)": r.dosis1, "segunda dosis (%)": r.dosis2})));
 MED.auh = "provincias";
 MED.desempleo = "habitantes";
-DIB["reservas-bcra"] = a => {
+DIB["reservas-bcra"] = conTablas("reservas-bcra", ["reservas_bcra"], a => {
   const el = G("reservas-bcra"), V = SX.reservas, CORTO = {sector_publico: "Otras del sector público", efectivo_minimo: "Efectivo mínimo", organismos: "FMI y otros organismos"};
   const MI = V.meses_imp;
   $t("reservas-bcra").textContent = MED["reservas-bcra"] === "meses" && MI
@@ -5836,7 +5837,7 @@ DIB["reservas-bcra"] = a => {
       tip: d => `<b>${d.territorio}</b><br>${(d.v > 0 ? "+" : "") + n0(d.v)} millones de dólares en lo que va de ${V.anio}, hasta el ${fLarga(V.factores_hasta)}`});
   lineas(el, {anim: a, data: T.reservas_bcra.map(r => ({...r, t: tPer(r.mes)})), x: "t", y0: 0, vf: v => n0(v) + " M", yf: v => n0(v / 1000) + " mil",
     xl: r => mesPer(r.mes), mensual: true, series: [{k: "millones_usd", lab: "Reservas", c: NAR}]});
-};
+});
 /* Variables principales del BCRA (etapa 41). Cada serie va completa, desde que empieza, y cada tipo tiene sus vistas, con lo que 02_procesar.py
    calcula para descontar la inflación (pedido del autor del 11 de octubre de 2026: "usá tu criterio económico y econométrico para deflactar"):
    - montos en pesos: en pesos de cada mes (escala logarítmica), sin la inflación (IPC del INDEC) y en % del PBI
@@ -6123,20 +6124,20 @@ DIB["fiscalias-federales"] = a => {
     porHab ? JUS_CLAVES.mp.map(k => ({...k, k: k.k + "_cada_100mil"})) : JUS_CLAVES.mp, porHab ? n1 : n0, a);
 };
 const CP_CLAVES = [{k: "ministros", lab: "Ministras y ministros", c: "#2C74B5"}, {k: "vacantes_ley", lab: "Lugares vacantes según la ley", c: "#C3CAD2", texto: "#18212B"}];
-DIB["cortes-provinciales"] = a => {
+DIB["cortes-provinciales"] = conTablas("cortes-provinciales", ["justicia_provincias"], a => {
   jusLeyenda("cp-ley", CP_CLAVES, true);
   // los lugares vacantes, solo donde se leyó en la ley cuántos miembros tiene la corte
   const filas = T.justicia_provincias.map(d => ({...d, vacantes_ley: d.miembros_ley != null ? Math.max(0, d.miembros_ley - d.ministros) : null}));
   jusApiladas("cortes-provinciales", filas, CP_CLAVES, n0, a, d => d.miembros_ley != null ? `${n0(d.ministros)} de ${n0(d.miembros_ley)}` : n0(d.ministros),
     d => `<br>${d.tribunal}` + (d.miembros_ley != null ? `<br>La ley fija ${d.miembros_ley}` : "<br>Sin verificar en la ley cuántos lugares tiene"), true);
-};
+});
 const JP_NOMBRE = {magistratura: "jueces", fiscales: "fiscales", defensores: "defensores"};
-DIB["justicia-provincial"] = a => {
+DIB["justicia-provincial"] = conTablas("justicia-provincial", ["justicia_provincias"], a => {
   const m = MED["justicia-provincial"], P = R.justicia.prov, k = m + "_cada_100mil";
   barrasH(G("justicia-provincial"), {anim: a, data: T.justicia_provincias.filter(d => d[k] != null), k, ref: P.pais[m], refLab: `País ${n1(P.pais[m])}`,
     vf: n1, af: n0, tip: d => `<b>${d.territorio}</b><br>${n1(d[k])} ${JP_NOMBRE[m]} cada 100.000 habitantes<br>${n0(d[m])} en total` +
       (d[m + "_anio"] !== P.anio ? `<br>Dato de ${d[m + "_anio"]}` : "")});
-};
+});
 /* Cambio de vista de un gráfico (botones OCDE, selectores y conmutadores de cada ficha): no se repite la animación de entrada.
    El gráfico se redibuja quieto y la versión nueva funde sobre la anterior (200 ms), con una transición de vista del navegador.
    Donde no hay soporte, o con movimiento reducido, cambia de una vez. La transición de valores llega en la etapa 6. */
@@ -6983,6 +6984,7 @@ function pintarExtra() {
       `<div><h3>Si tu provincia fuera un país</h3><p class="suave">Elegí una provincia para ver a qué países se parece en esperanza de vida y mortalidad infantil.</p></div>`;
     return;
   }
+  if (!T.mundo_paises) { cargarTabla("mundo_paises").then(pintarExtra, () => { T.mundo_paises = []; pintarExtra(); }); return; }
   const lista = PARECIDAS(prov), ev = T.esperanza_vida_provincias.find(d => d.codigo_indec === prov), mi = T.mortalidad_infantil_provincias.find(d => d.codigo_indec === prov);
   const cerca = (k, v) => T.mundo_paises.filter(p => p[k] != null).sort((a, b) => Math.abs(a[k] - v) - Math.abs(b[k] - v))[0];
   const pe = ev && cerca("esperanza_vida", ev.total), pm = mi && cerca("mortalidad_infantil", mi.tmi_actual);
@@ -8364,6 +8366,7 @@ function pintarCompara() {
 // con serie anual (puestos_provincias, de 02), con una pendiente chica: arriba la cifra más alta, abajo la más baja. Sin verde ni rojo
 function pintarPuestos() {
   const caja = document.getElementById("prov-puestos"); if (!caja) return;
+  if (NOMBRES[prov] && !T.puestos_provincias) { cargarTabla("puestos_provincias").then(pintarPuestos, () => {}); return; }
   const filas = (T.puestos_provincias || []).filter(r => r.codigo_indec === prov);
   if (!NOMBRES[prov] || !filas.length) { caja.hidden = true; caja.innerHTML = ""; return; }
   const frase = o => puestoTxt(o, 24).replace(" de las 24 jurisdicciones", "").replace(/^L/, "l");
@@ -11453,7 +11456,7 @@ const SERIE_CIFRA = {
   "f-balanza": () => serieM("Saldo del comercio de bienes por año, en millones de dólares", T.balanza_comercial.map(r => [r.anio, r.saldo]), n0, 12),
   "f-importaciones": () => serieM("Importaciones de bienes por año, en miles de millones de dólares", T.balanza_comercial.map(r => [r.anio, r.importaciones / 1000]), n1, 12),
   "f-cuenta-corriente": () => serieM("Saldo de la cuenta corriente por año, en millones de dólares", T.cuenta_corriente.map(r => [r.anio, r.cuenta_corriente]), n0, 12),
-  "f-reservas-bcra": () => serieM("Reservas del Banco Central, en miles de millones de dólares, diciembre de cada año y el último mes",
+  "f-reservas-bcra": () => T.reservas_bcra && serieM("Reservas del Banco Central, en miles de millones de dólares, diciembre de cada año y el último mes",
     T.reservas_bcra.filter((r, i, t) => r.mes.endsWith("-12") || i === t.length - 1).map(r => [r.mes.endsWith("-12") ? r.mes.slice(0, 4) : mesCorto(r.mes), r.millones_usd / 1000]), n1, 12),
   "f-exporta-provincias": () => provM(`Exportaciones por provincia de origen, en millones de dólares, ${SX.provincias.anio}`, T.exportaciones_provincias, "millones_usd", null, n0),
   "f-poblacion-proy": () => provM(`Variación de la población proyectada entre ${PPY.anio} y ${PPY.anio_fin}, en %`, T.poblacion_proyectada_provincias, "var_pct", PPY.var_pct, conSigno),

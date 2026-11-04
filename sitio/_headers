@@ -128,5 +128,31 @@
   Cache-Control: public, max-age=31536000, immutable
 /datos/confianza_gobierno.json
   Cache-Control: public, max-age=31536000, immutable
+/datos/puestos_provincias.json
+  Cache-Control: public, max-age=31536000, immutable
+/datos/reservas_bcra.json
+  Cache-Control: public, max-age=31536000, immutable
+/datos/mundo_paises.json
+  Cache-Control: public, max-age=31536000, immutable
+/datos/voto_legisladores_y_provincia.json
+  Cache-Control: public, max-age=31536000, immutable
+/datos/dengue_provincias.json
+  Cache-Control: public, max-age=31536000, immutable
+/datos/inflacion_personal.json
+  Cache-Control: public, max-age=31536000, immutable
+/datos/empresas_tamano_sector.json
+  Cache-Control: public, max-age=31536000, immutable
+/datos/bcra_variables_lista.json
+  Cache-Control: public, max-age=31536000, immutable
+/datos/congreso_composicion.json
+  Cache-Control: public, max-age=31536000, immutable
+/datos/justicia_provincias.json
+  Cache-Control: public, max-age=31536000, immutable
+/datos/ingresos_aglomerados.json
+  Cache-Control: public, max-age=31536000, immutable
+/datos/mortalidad_infantil_causas.json
+  Cache-Control: public, max-age=31536000, immutable
+/datos/deuda_provincias.json
+  Cache-Control: public, max-age=31536000, immutable
 /consulta-ia.js
   Cache-Control: public, max-age=31536000, immutable
