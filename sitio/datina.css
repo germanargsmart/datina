@@ -1999,6 +1999,59 @@ p code{overflow-wrap:anywhere}
 .ph-fuentes li{break-inside:avoid;margin:0 0 var(--e-2)}
 .ph-dato{margin-right:var(--e-1);font-family:var(--mono);font-size:var(--t-1);letter-spacing:.06em;text-transform:uppercase;color:var(--ink)}
 
+/* ---------- Elecciones por mesa (4 de noviembre de 2026) ----------
+   Seis listas desplegables en una grilla compacta, y debajo tarjetas: el lugar elegido con sus listas, el nivel de abajo y su historia. Las barras
+   son HTML dentro de la tabla: el número va pegado al nombre y no hace falta "Ver tabla". Un solo color: acá ninguna lista se destaca sobre otra */
+.ir-mesas{margin:var(--e-3) 0 0;font-size:var(--t-3)}
+.ms-filtros{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--e-3) var(--e-4)}
+.ms-filtros .selector-ficha{max-width:none;margin:0}
+.ms-filtros select:disabled,.ms-num input:disabled{color:var(--muted);background-color:var(--superficie);border-color:var(--borde);cursor:not-allowed}
+.ms-num{display:flex;flex-wrap:wrap;align-items:flex-end;gap:var(--e-2) var(--e-3);margin-top:var(--e-3)}
+.ms-num .mp-buscar{flex:0 1 260px;margin:0}
+.ms-num .boton{min-height:44px}
+.ms-num-res{flex:1 1 100%;margin:0;font-size:var(--t-2);color:var(--muted)}
+.ms-num-res:empty{display:none}
+.ms-bloque{margin-top:var(--e-6);padding:var(--e-6);background:#fff;border:1px solid var(--borde);border-radius:var(--r-tarjeta);box-shadow:var(--sombra-tarjeta)}
+.ms-tit{margin:0;font-size:var(--t-7);line-height:var(--i-tarjeta);font-weight:600;color:var(--azul);scroll-margin-top:var(--e-9);text-wrap:balance}
+.ms-tit:focus{outline:0}
+.ms-sub-tit{margin:0;font-size:var(--t-5);line-height:var(--i-tarjeta);font-weight:600;color:var(--azul)}
+.ms-sub{margin:var(--e-1) 0 0;font-family:var(--f-bajada);font-size:var(--t-3);line-height:var(--i-chico);color:var(--tinta-bajada)}
+.ms-cifras{display:flex;flex-wrap:wrap;gap:var(--e-3) var(--e-7);margin:var(--e-4) 0 0}
+.ms-cifras dt{font-family:var(--mono);font-size:var(--t-1);font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.ms-cifras dd{margin:0;font-size:var(--t-6);line-height:var(--i-tarjeta);font-weight:600;color:var(--ink);font-variant-numeric:tabular-nums}
+.ms-frase{margin:var(--e-4) 0 0;max-width:var(--medida);font-size:var(--t-3);line-height:var(--i-texto);color:var(--ink);text-wrap:pretty}
+.ms-otros{margin:var(--e-3) 0 0;max-width:var(--medida);font-size:var(--t-2);line-height:var(--i-chico);color:var(--muted)}
+.ms-aviso{max-width:var(--medida)}
+.ms-falla p{margin:0 0 var(--e-3)}
+.ms .tabla-desliza.ms-tabla-listas{max-height:none;margin:var(--e-4) 0 0}
+.ms .tabla-desliza.ms-tabla-partes{max-height:480px;margin:var(--e-3) 0 0}
+.ms .tabla-areas tbody th{position:static;padding:var(--e-2) var(--e-3);background:none;font-size:var(--t-3);font-weight:400;color:var(--ink);border-bottom:1px solid #F0F3F7;vertical-align:top}
+.ms .tabla-areas tr.elegida th{background:var(--celeste-suave)}
+.ms-lista{min-width:12em}
+.ms-barra{display:block;width:var(--v);min-width:1px;height:6px;margin-top:var(--e-1);background:var(--celeste);border-radius:2px}
+.ms-c-pct{white-space:nowrap;color:var(--muted);font-variant-numeric:tabular-nums}
+.ms-sin{color:var(--muted)}
+.ms-tabla-partes td:not(.n){min-width:9em}
+.ms-tabla-partes .ms-sin{min-width:0}
+.ms-pie{display:flex;flex-wrap:wrap;justify-content:space-between;gap:var(--e-2) var(--e-6);margin-top:var(--e-6);font-size:var(--t-2);line-height:var(--i-chico);color:var(--muted)}
+.ms-bajadas{display:flex;flex-direction:column;gap:var(--e-1)}
+.ms-bajadas [hidden]{display:none}
+.ms-limites{margin-top:var(--e-6);padding-top:var(--e-4);border-top:1px dotted var(--azul)}
+.ms-limites ul{margin:var(--e-3) 0 0;max-width:var(--medida);font-size:var(--t-3);line-height:var(--i-texto)}
+@media (max-width:720px){
+  .ms-filtros{grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--e-2) var(--e-3)}
+  .ms-filtros .selector-ficha:nth-child(-n+2){grid-column:1/-1}   /* "Diputados nacionales" y "2023, segunda vuelta" no entran a media fila */
+  .ms-ir[data-c],.ms-ir[data-m]{white-space:nowrap}
+  .ms-bloque{padding:var(--e-4)}
+  .ms-cifras{gap:var(--e-2) var(--e-6)}
+  /* en el celular, lo que no entra se saca: el nombre al lado del dato. La lista más votada y la segunda se ven deslizando su tabla */
+  .ms-ancho{display:none}
+  .ms-lista{min-width:0}
+  .ms .tabla-areas :is(td,tbody th){padding:var(--e-2)}
+  .ms-tabla-partes td:not(.n){min-width:10em}
+}
+@media print{.ms-filtros,.ms-num,.ms-bajadas{display:none}.ms .tabla-desliza{max-height:none!important;overflow:visible}}
+
 /* ---------- impresión (plan de mejora, D1, 28 de octubre de 2026) ----------
    Las fichas a la vista, sin el marco, la barra, los menús, los botones de cada ficha ni el pie del sitio, con los textos enteros, las
    tarjetas de "En cifras" en filas en lugar de deslizarse y la dirección de cada ficha debajo de ella (la pone datina.js antes de

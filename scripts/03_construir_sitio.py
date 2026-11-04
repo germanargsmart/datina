@@ -91,6 +91,9 @@ assert plantilla.count("<!--IA-PRIVACIDAD-->") == 1, "falta la marca <!--IA-PRIV
 plantilla = plantilla.replace("<!--IA-PRIVACIDAD-->", _IA_PRIV[MOTOR_IA] if CONSULTA_IA else "")
 JS_IA = (RAIZ / "scripts" / "consulta_ia.js").read_text(encoding="utf-8")
 plantilla = plantilla.replace("__V_IA_JS__", hashlib.sha1(JS_IA.encode("utf-8")).hexdigest()[:10])
+# Elecciones por mesa (4 de noviembre de 2026): su código va aparte, lo pide solo mesas.html
+JS_MESAS = (RAIZ / "scripts" / "mesas.js").read_text(encoding="utf-8")
+plantilla = plantilla.replace("__V_MESAS_JS__", hashlib.sha1(JS_MESAS.encode("utf-8")).hexdigest()[:10])
 # Cada id una sola vez en la plantilla (etapa 25): una ficha nueva repitió el id de otra (f-actividad) y, como sus claves en datina.js salen
 # del id, sus textos, su gráfico y su cifra pisaron los de la otra sin dar ningún error
 _ids = re.findall(r'\sid="([^"]+)"', plantilla)
@@ -203,7 +206,7 @@ FRECUENCIA = {
     "f-voto-provincia": "eleccion", "f-atn": "anio", "f-presupuesto": "anio",
     "f-presidentes": "presidente", "f-ministros": "gabinete", "f-confianza-gobierno": "mes",
     "f-corte-casos": "anio", "f-jueces-federales": "padron", "f-fiscalias-federales": "ultimo",
-    "f-cortes-provinciales": "anio", "f-justicia-provincial": "anio",
+    "f-cortes-provinciales": "anio", "f-justicia-provincial": "anio",
     # Gobierno
     "f-cuentas-nacion": "mes", "f-recaudacion": "mes", "f-deuda": "trimestre", "f-empleo-publico": "anio", "f-impuestos-provinciales": "anio", "f-coparticipacion": "anio", "f-deuda-provincias": "trimestre",
     "f-fiscal": "anio",
@@ -590,7 +593,8 @@ GRUPOS = [
 MENUS = [
     ("provincias", "Provincias", "Provincias", "provincia.html", ["provincia", "indice", "departamentos"]),
     ("historias", "Historias", "Historias con datos", "articulos.html", ["articulos", "laboratorio", "corte-suprema", "curiosidades"]),
-    ("herramientas", "Herramientas", "Herramientas", "./#herr-titulo", ["cruces", "catalogo"]),
+    # Elecciones por mesa, desde el 4 de noviembre de 2026 (decisión del autor: en Herramientas, con un enlace desde la ficha de elecciones de Política)
+    ("herramientas", "Herramientas", "Herramientas", "./#herr-titulo", ["cruces", "mesas", "catalogo"]),
 ]
 _secs_de = lambda items: [s for it in items for s in (it[1] if isinstance(it, tuple) else [it])]
 CATEGORIA = {s: (it[0], it[1]) for _, _, items in GRUPOS for it in items if isinstance(it, tuple) for s in it[1]}
@@ -736,7 +740,7 @@ for _obj in ("LEAD", "TX", "DIB", "CLAVE", "EXTRA", "EN_CIFRAS", "SERIE_CIFRA"):
 SEC_ICONO = {"articulos": "periodico", "provincia": "pin", "trabajo": "maletin", "empresas": "tienda", "pobreza": "casa", "salud": "botiquin",
              "educacion": "birrete", "poblacion": "personas", "politica": "congreso", "justicia": "balanza", "movilidad": "colectivo", "construccion": "grua", "energia": "rayo", "petroleo": "ciguena", "seguridad": "escudo", "economia": "carrito", "migraciones": "globo", "gobierno": "mastil", "externo": "buque", "turismo": "valija",
              "naturaleza": "andes", "curiosidades": "mate", "cruces": "dispersion", "indice": "podio", "departamentos": "mosaico",
-             "diagnostico": "portapapeles", "catalogo": "planilla", "laboratorio": "matraz"} | ({"consulta-ia": "dialogo"} if CONSULTA_IA else {})
+             "diagnostico": "portapapeles", "catalogo": "planilla", "laboratorio": "matraz", "mesas": "urna"} | ({"consulta-ia": "dialogo"} if CONSULTA_IA else {})
 SEC_ICONO.update({i: ico for i, ico, _, _ in NOTAS})
 SEC_ICONO.update({i: ico for i, ico, _, _ in PIEZAS})
 assert set(SEC_ICONO.values()) <= set(ICONOS), set(SEC_ICONO.values()) - set(ICONOS)
@@ -800,6 +804,7 @@ if CONSULTA_IA:
 else:
     for _f in (_IA_INDICE, _IA_JS, SITIO / "consulta-ia.html"):
         _f.unlink(missing_ok=True)
+(SITIO / "mesas.js").write_text(JS_MESAS, encoding="utf-8", newline="\n")
 EN_CATALOGO = sorted(re.findall(r'<li class="cat-item" id="cat-(\w+)"', _catalogo))
 for marca, valor in {"/*ICONOS*/{}": ICONOS, "/*SEC_ICONO*/{}": SEC_ICONO, "/*SIN_RELACIONES*/[]": sorted(relaciones.EXCLUIDAS),
                      "/*EN_CATALOGO*/[]": EN_CATALOGO}.items():
@@ -1536,9 +1541,15 @@ if URL_SITIO:
 # Caché en Cloudflare Pages (23 de octubre de 2026, decisión del autor): sitio/_headers es el equivalente de los [[headers]] de
 # netlify.toml. Los archivos que las páginas piden con su huella en la dirección (?v=...) se guardan un año: cuando cambia el contenido
 # cambia la dirección. Los demás (por ejemplo, las tablas que se piden sin huella) quedan con la caché común
-CACHE_LARGO = (["/datina.css", "/datina.js", "/datos/fichas.js", "/lib/*", "/relaciones.css", "/relaciones.js", "/datos/relaciones.json"]
+CACHE_LARGO = (["/datina.css", "/datina.js", "/mesas.js", "/datos/fichas.js", "/lib/*", "/relaciones.css", "/relaciones.js", "/datos/relaciones.json"]
                + [f"/datos/{n}.json" for n in DIFERIDAS] + ["/consulta-ia.js"] * CONSULTA_IA)
 (SITIO / "_headers").write_text("".join(f"{r}\n  Cache-Control: public, max-age=31536000, immutable\n" for r in CACHE_LARGO), encoding="utf-8", newline="\n")
+# los datos de Elecciones por mesa (scripts/prueba_mesas.py): 03 no los arma, los arma scripts/elecciones_mesas.py, pero si no suman lo que tienen que sumar
+# el sitio no se da por armado
+import prueba_mesas
+_mes = prueba_mesas.revisar()
+if _mes:
+    sys.exit("Elecciones por mesa con problemas: el sitio no se dio por armado.\n" + "\n".join(_mes[:20]))
 # metadatos y enlaces internos (scripts/prueba_metadatos.py): si algo falla, el sitio no se da por armado
 import prueba_metadatos
 _met = prueba_metadatos.revisar(URL_SITIO)

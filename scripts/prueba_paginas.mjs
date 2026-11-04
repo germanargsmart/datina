@@ -403,6 +403,59 @@ if (await q.eval(`[...document.querySelectorAll(".ficha-sub")].some(s => getComp
   problemas.push("trabajo.html: la descripción debajo de la pregunta no va a la izquierda, o los textos de la ficha dejaron de estar justificados");
 q.errores.forEach(e => problemas.push(`menús con el teclado: ${e}`));
 await q.tamano(1280, 900);
+// Elecciones por mesa (4 de noviembre de 2026): el recorrido de todo el país a una mesa tocando las filas, la historia del circuito, la búsqueda por número, la
+// dirección que guarda el lugar, lo que pasa si el lugar no existe en otra elección, una elección sin mesas, el aviso de lo que le falta al provisorio y 320 píxeles
+{
+  const antes = q.errores.length;
+  const ms = async (u, extra = 1400) => { if (u !== null) await q.ir(B + "mesas.html" + u, extra); else await espera(extra);
+    const r = await q.eval(`JSON.stringify({tit: document.getElementById("ms-titulo")?.textContent || "", txt: document.getElementById("ms-resultado").innerText, sec: document.getElementById("ms-sec").disabled,
+      cir: document.getElementById("ms-cir").disabled, mesa: document.getElementById("ms-mesa").disabled, filas: document.querySelectorAll(".ms-ir").length, hist: !!document.getElementById("ms-hist-tit"),
+      bajar: document.getElementById("ms-bajar").getAttribute("href"), foco: document.activeElement?.id || "", dir: location.search, ancho: document.documentElement.scrollWidth - document.documentElement.clientWidth})`);
+    const m = await q.eval(MALOS);
+    if (m.length) problemas.push(`mesas.html${u}: valores sin calcular: ${m.join(" | ")}`);
+    return JSON.parse(r);
+  };
+  const toca = sel => q.eval(`document.querySelector(${JSON.stringify(sel)}).click()`);
+  let r = await ms("");
+  if (r.tit !== "Todo el país" || !r.sec || r.filas !== 24 || !/Milei - Villarruel/.test(r.txt)) problemas.push(`mesas.html: la vista inicial no es la presidencial más reciente con las 24 jurisdicciones (${r.tit}, ${r.filas} filas)`);
+  await toca('.ms-ir[data-p="06"]'); r = await ms(null);
+  if (!r.tit.startsWith("Buenos Aires") || r.sec || !r.cir || r.filas < 100 || r.foco !== "ms-titulo" || !r.bajar.endsWith("/06.csv")) problemas.push(`mesas.html: tocar Buenos Aires no lleva a sus secciones (${r.tit}, ${r.filas} filas, foco ${r.foco}, ${r.bajar})`);
+  await toca(".ms-ir[data-s]"); r = await ms(null);
+  if (r.cir || !r.mesa || !r.filas || !r.hist) problemas.push(`mesas.html: una sección sin sus circuitos o su historia (${r.tit}, ${r.filas} filas)`);
+  await toca(".ms-ir[data-c]"); r = await ms(null);
+  if (!r.tit.startsWith("Circuito") || r.mesa || !r.filas || !r.hist) problemas.push(`mesas.html: un circuito sin sus mesas o su historia (${r.tit}, ${r.filas} filas)`);
+  await toca(".ms-ir[data-m]"); r = await ms(null);
+  if (!r.tit.startsWith("Mesa") || r.filas || !/Votos de cada lista|% de positivos/.test(r.txt)) problemas.push(`mesas.html: una mesa sin su resultado (${r.tit})`);
+  // la búsqueda por número
+  r = await ms("?e=2023-general-presidente&p=06");
+  await q.eval(`(() => { const i = document.getElementById("ms-num"); i.value = "258"; document.getElementById("ms-num-ir").click(); })()`); r = await ms(null);
+  if (!r.tit.startsWith("Mesa 258,") || !/m=258/.test(r.dir)) problemas.push(`mesas.html: buscar la mesa 258 no la abre (${r.tit}, ${r.dir})`);
+  await q.eval(`(() => { const i = document.getElementById("ms-num"); i.value = "99999999"; document.getElementById("ms-num-ir").click(); })()`); await espera(400);
+  if (!/No hay una mesa/.test(await q.eval(`document.getElementById("ms-num-res").textContent`))) problemas.push("mesas.html: buscar una mesa que no existe no lo dice");
+  // el mismo lugar en otra elección
+  r = await ms("?e=2011-general-presidente&p=06&s=61&c=627&m=99999999");
+  if (!/no existe en ese circuito/.test(r.txt) || !r.tit.startsWith("Circuito 627")) problemas.push(`mesas.html: una mesa que no existe en esa elección no sube al circuito con su aviso (${r.tit})`);
+  r = await ms("?e=2025-general-senadores&p=14");
+  if (!/no eligió senadores/.test(r.txt) || r.tit !== "Todo el país") problemas.push(`mesas.html: una jurisdicción que no votó senadores no sube al país con su aviso (${r.tit})`);
+  // una elección sin mesas
+  r = await ms("?e=1985-general-diputados&p=14");
+  if (!r.sec || r.filas || !/no hay datos que se puedan publicar/.test(r.txt) || !r.bajar.endsWith("1985-general-diputados/pais.csv")) problemas.push(`mesas.html: 1985 no se queda en la jurisdicción con su aviso (${r.tit}, ${r.bajar})`);
+  r = await ms("?e=1983-general-presidente");
+  if (!/Alfonsín - Martínez/.test(r.txt) || !/51,8%/.test(r.txt)) problemas.push("mesas.html: 1983 no suma las listas de cada provincia por fórmula");
+  // lo que le falta al provisorio
+  r = await ms("?e=2015-general-presidente&p=34");
+  if (!/reúne 80,8% de los votos positivos del escrutinio definitivo/.test(r.txt.replace(/\s+/g, " "))) problemas.push("mesas.html: Formosa 2015 no avisa lo que le falta al provisorio");
+  r = await ms("?e=2023-general-presidente&p=34");
+  if (/escrutinio definitivo/.test(r.txt)) problemas.push("mesas.html: Formosa 2023 no tiene un definitivo para comparar y lo nombra");
+  // en el celular no se corre de costado, tampoco con las tablas de abajo a la vista
+  await q.tamano(320, 700);
+  for (const u of ["?e=2023-general-diputados&p=06&s=61", "?e=2023-general-presidente&p=06&s=61&c=627", "?e=2009-general-diputados&p=06"]) {
+    r = await ms(u, 1200);
+    if (r.ancho > 0) problemas.push(`mesas.html${u} en 320 píxeles: se corre de costado (${r.ancho} píxeles)`);
+  }
+  await q.tamano(1280, 900);
+  q.errores.slice(antes).forEach(e => problemas.push(`Elecciones por mesa: ${e}`));
+}
 await q.send("Network.setBlockedURLs", {urls: [...CDN, "*lib/d3-*"]});
 await q.ir(B + "trabajo.html", 1200);
 const rescate = await q.eval(MIRAR);

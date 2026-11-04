@@ -1370,6 +1370,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <div class="pol-ley" id="el-ley" aria-hidden="true"></div>
       <div class="grafico" data-g="elecciones" data-forma="barras" style="--filas:25;--extra:-4px"></div>
       <p class="lead" data-t="elecciones"></p>
+      <p class="ir-mesas"><a class="enlace" href="mesas.html">Ver los resultados por circuito y por mesa</a></p>
       <p class="nota">Porcentaje de los votos positivos, sin contar blancos ni nulos. Cada fórmula se nombra por quien la encabezaba. Se muestran las cuatro más votadas del país y el resto va a "Otras". El color indica el espacio político, el mismo que en la composición del Congreso. En las PASO, desde 2011, cada barra es una agrupación con todas sus listas internas sumadas. En 2019 y 2023 el recuento oficial de las PASO se informó sobre los votos válidos, que incluyen los votos en blanco, así que aquí los porcentajes son algo más altos. Escrutinio definitivo de 1983 a 2019, salvo las PASO de 2019. Escrutinio provisorio en las PASO de 2019 y en todo 2023, porque el definitivo no está publicado como datos abiertos. Las PASO de 2023 salen de la copia del archivo oficial guardada en el Internet Archive, porque el enlace original dejó de funcionar. Los resultados se cotejaron con los de electorAr, que usa el escrutinio provisorio.</p>
       <div class="pie"><span>Fuente: Dirección Nacional Electoral, Ministerio del Interior</span><a href="datos/elecciones_presidenciales.csv" download>Descargar tabla (CSV)</a></div>
     </article>
@@ -2926,6 +2927,48 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
   </section>
 
+  <!-- Elecciones por mesa (pedido del autor del 4 de noviembre de 2026; fuentes y límites en docs/roadmap/MESAS.md). mesas.js (03 lo copia de
+       scripts/mesas.js) baja las tablas de sitio/datos/mesas/, que arma scripts/elecciones_mesas.py, y escribe los resultados en #ms-resultado -->
+  <section class="tema herramienta" id="mesas">
+    <h2>Elecciones por mesa</h2>
+    <div class="tema-intro">
+      <p class="pregunta">¿Cómo se votó en cada circuito y en cada mesa?</p>
+      <p>Los resultados de presidente, diputados y senadores nacionales, de todo el país a cada mesa. Por mesa y por circuito hay datos de {{mesas.desde_mesa}} a {{mesas.hasta}}, y por jurisdicción desde {{mesas.desde}}.</p>
+    </div>
+    <!--EXPLICADOR:mesas-->
+    <div class="ms" id="ms" aria-busy="true">
+      <div class="ms-filtros" role="group" aria-label="Qué elección y qué lugar ver">
+        <label class="selector-ficha"><span>Cargo</span><select id="ms-cargo"></select></label>
+        <label class="selector-ficha"><span>Elección</span><select id="ms-eleccion"></select></label>
+        <label class="selector-ficha"><span>Jurisdicción</span><select id="ms-prov"></select></label>
+        <label class="selector-ficha"><span>Sección electoral</span><select id="ms-sec" disabled></select></label>
+        <label class="selector-ficha"><span>Circuito</span><select id="ms-cir" disabled></select></label>
+        <label class="selector-ficha"><span>Mesa</span><select id="ms-mesa" disabled></select></label>
+      </div>
+      <div class="ms-num">
+        <label class="selector-ficha mp-buscar"><span>Buscar por número de mesa</span><input type="search" id="ms-num" inputmode="numeric" autocomplete="off" enterkeyhint="search" aria-describedby="ms-num-res" disabled></label>
+        <button type="button" class="boton chico" id="ms-num-ir" disabled>Buscar</button>
+        <p class="ms-num-res" id="ms-num-res" role="status"></p>
+      </div>
+      <p class="solo-lector" id="ms-estado" role="status">Cargando los resultados.</p>
+      <div id="ms-resultado"></div>
+      <div class="ms-pie">
+        <span>Fuente: Dirección Nacional Electoral, Ministerio del Interior (escrutinio provisorio por mesa desde {{mesas.desde_mesa}}, definitivo por jurisdicción antes). Licencia CC-BY 4.0</span>
+        <span class="ms-bajadas"><a class="enlace" id="ms-bajar" href="datos/mesas/indice.json" download>Descargar tabla (CSV)</a> <a class="enlace" id="ms-bajar-hist" href="datos/mesas/indice.json" download hidden>Descargar secciones y circuitos en cada elección (CSV)</a></span>
+      </div>
+      <div class="ms-limites nota-limites">
+        <h2 class="ms-sub-tit">Qué no dice este dato</h2>
+        <ul>
+          <li>Desde {{mesas.desde_mesa}} es el escrutinio provisorio, el conteo de la noche de la elección. No trae el voto en el exterior ni el de las personas privadas de la libertad, y le pueden faltar mesas. Por eso sus totales difieren un poco del escrutinio definitivo.</li>
+          <li>Una mesa no se puede seguir en el tiempo: el padrón se reparte de nuevo en cada elección y el mismo número de mesa reúne a otras personas. El circuito se puede comparar con más cuidado que certeza: algunos cambian de código o se dividen.</li>
+          <li>Una mesa reúne a unos pocos cientos de electores. Su resultado no describe a un barrio y no dice cómo votó ninguna persona.</li>
+          <li>Hasta {{mesas.hist_hasta}} la herramienta llega a la jurisdicción: por debajo no hay datos que se puedan publicar. Los motivos están en "Para entender los datos".</li>
+        </ul>
+      </div>
+    </div>
+    <script src="mesas.js?v=__V_MESAS_JS__" defer></script>
+  </section>
+
   <!-- Catálogo de datos (11 de octubre de 2026, propuesta aprobada por el autor: docs/roadmap/PROPUESTA_CATALOGO.md). La lista, los filtros y
        el diccionario de cada tabla los escribe scripts/catalogo.py en lugar de la marca de abajo, desde la plantilla, datina.js, el catálogo
        del Explorador de relaciones y datos/manual/catalogo.json. datina.js filtra, guarda la búsqueda en el enlace y muestra la vista previa -->
@@ -2933,7 +2976,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     <h2>Catálogo de datos</h2>
     <div class="tema-intro">
       <p class="pregunta">¿Qué datos puedo bajar?</p>
-      <p>Acá están las tablas de Datina, cada una con su fuente, su período, su cobertura y sus columnas, para saber qué trae antes de descargarla. También podés descargar la tabla completa, con todos los indicadores en un solo archivo. Las tablas se pueden reutilizar citando a Datina y a la fuente de cada una: <a href="usar-datos.html">Usar los datos</a> explica la licencia y cómo citar.</p>
+      <p>Acá están las tablas de Datina, cada una con su fuente, su período, su cobertura y sus columnas, para saber qué trae antes de descargarla. Los resultados por mesa se descargan, por elección y por jurisdicción, en <a href="mesas.html">Elecciones por mesa</a>. También podés descargar la tabla completa, con todos los indicadores en un solo archivo. Las tablas se pueden reutilizar citando a Datina y a la fuente de cada una: <a href="usar-datos.html">Usar los datos</a> explica la licencia y cómo citar.</p>
     </div>
     <!--CATALOGO-->
   </section>
