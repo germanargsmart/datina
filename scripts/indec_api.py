@@ -11,6 +11,9 @@ Las dos de comercio exterior (3 de noviembre de 2026) tienen más de un millón 
 GitHub acepta en un archivo. Se piden ya sumadas por la API (SUMAS: la API acepta sumas al estilo PostgREST, select=col,valor.sum()), por
 mes y país, y se guardan en datos/crudo/indec_api_<tabla>_<sufijo>.json, unos 3 MB cada una. El 3 de noviembre de 2026 se comprobó que la
 suma de 2024 por país es la misma que la de las 21.292 filas de exportaciones y las 11.200 de importaciones de ese año.
+
+De una misma tabla se puede pedir más de un corte: la clave de TABLAS y de SUMAS es entonces "<tabla>:<corte>" (4 de noviembre de 2026: por año,
+rubro y país, con el valor y el peso).
 """
 import json, os, re, time, urllib.error, urllib.request
 
@@ -31,12 +34,18 @@ TABLAS = {
     "comercio_exterior_exportacion_bienes": "Periodo,pais_cod",
     "comercio_exterior_importacion_bienes": "Periodo,pais_cod",
     "comercio_exterior_nomenclaturas": "nombre_columna,codigo",
+    # qué se le vende y qué se le compra a cada país, y cuánto vale el kilo (4 de noviembre de 2026)
+    "comercio_exterior_exportacion_bienes:anio_rubro_pais": "Anio,rubro_cod,pais_cod",
+    "comercio_exterior_importacion_bienes:anio_uso_pais": "Anio,uso_economico_cod,pais_cod",
 }
 
-# las tablas que se piden sumadas: el valor que se suma y el sufijo del archivo. La API agrupa por las columnas de TABLAS
+# las tablas que se piden sumadas: lo que se suma y el sufijo del archivo. La API agrupa por las columnas de TABLAS. Con una sola columna, la API
+# la devuelve como "sum". Con varias, cada una va con su nombre ("valor:valor_FOB")
 SUMAS = {
     "comercio_exterior_exportacion_bienes": ("valor_FOB", "mes_pais"),
     "comercio_exterior_importacion_bienes": ("valor_CIF", "mes_pais"),
+    "comercio_exterior_exportacion_bienes:anio_rubro_pais": (("valor:valor_FOB", "peso:Peso_Neto"), "anio_rubro_pais"),
+    "comercio_exterior_importacion_bienes:anio_uso_pais": (("valor:valor_CIF", "peso:peso_neto"), "anio_uso_pais"),
 }
 
 
@@ -46,7 +55,13 @@ class SinToken(Exception):
 
 def archivo(tabla):
     sufijo = f"_{SUMAS[tabla][1]}" if tabla in SUMAS else ""
-    return f"indec_api_{tabla.replace('-', '_')}{sufijo}.json"
+    return f"indec_api_{tabla.split(':')[0].replace('-', '_')}{sufijo}.json"
+
+
+def seleccion(tabla):
+    """Lo que se pide en una tabla sumada: las columnas por las que se agrupa y las sumas"""
+    sumas = SUMAS[tabla][0]
+    return ",".join([TABLAS[tabla]] + [f"{c}.sum()" for c in ((sumas,) if isinstance(sumas, str) else sumas)])
 
 
 def token():
@@ -78,9 +93,9 @@ def bajar_tabla(tabla, tok, base=BASE):
     """Todas las filas de una tabla, página por página, con el total controlado. En una tabla sumada el total que informa la API es el de
     las filas sin sumar: ahí se controla, en cambio, que ningún grupo llegue dos veces"""
     filas, total = [], None
-    sel = f"select={TABLAS[tabla]},{SUMAS[tabla][0]}.sum()&" if tabla in SUMAS else ""
+    sel = f"select={seleccion(tabla)}&" if tabla in SUMAS else ""
     while True:
-        lote, rango = _pedir(f"{base}{tabla}?{sel}order={TABLAS[tabla]}&limit={POR_PAGINA}&offset={len(filas)}", tok)
+        lote, rango = _pedir(f"{base}{tabla.split(':')[0]}?{sel}order={TABLAS[tabla]}&limit={POR_PAGINA}&offset={len(filas)}", tok)
         if not isinstance(lote, list):
             raise ValueError("la API no devolvió una lista de filas")
         m = re.search(r"/(\d+)$", rango)

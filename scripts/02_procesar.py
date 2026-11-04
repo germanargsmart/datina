@@ -6503,6 +6503,73 @@ if all(f.exists() for f in _cmx_f.values()) and _cmx_fn.exists():
         "imp_pasa": [int(a) for a in _cmx_i.index if _cmx_i.loc[a, _cmx_1[1]] > _cmx_i.loc[a, _cmx_1[0]]],
     }
 
+# Qué le vende y qué le compra la Argentina a cada país, y cuánto vale el kilo (pedido del autor, 4 de noviembre de 2026): el valor y el peso por año,
+# gran rubro o uso económico y país, sumados por la API del INDEC. Lo confidencial de las exportaciones (rubro 9, desde 2018) no tiene rubro ni país: va a
+# "Sin rubro informado" y entra solo en la fila de todo el mundo. Por eso estos porcentajes no son los de la ficha "¿Qué exporta la Argentina?", donde el
+# INDEC reparte lo confidencial por rubro. El valor por kilo cuenta solo lo que tiene peso (a veces lo que se importa viene sin él)
+CMR_RUBROS = {"1": "pp", "2": "moa", "3": "moi", "4": "ce"}
+CMR_USOS = {"2": "bi", "4": "pa", "1": "bk", "5": "bc", "3": "cl", "6": "va"}
+CMR_MIN = 50  # los países que se pueden elegir: con al menos estos millones de dólares de intercambio en el año
+comercio_rubro_pais = comercio_valor_kilo = None
+_cmr_f = {"exportaciones": (CRUDO / "indec_api_comercio_exterior_exportacion_bienes_anio_rubro_pais.json", "rubro_cod", CMR_RUBROS, "e_"),
+          "importaciones": (CRUDO / "indec_api_comercio_exterior_importacion_bienes_anio_uso_pais.json", "uso_economico_cod", CMR_USOS, "i_")}
+if cmx_socios is not None and all(v[0].exists() for v in _cmr_f.values()):
+    _cmr_d = {}
+    for _cmr_k, (_cmr_a, _cmr_col, _cmr_m, _) in _cmr_f.items():
+        _cmr_x = pd.DataFrame(json.loads(_cmr_a.read_text(encoding="utf-8")))
+        assert list(_cmr_x.columns) == ["Anio", _cmr_col, "pais_cod", "valor", "peso"], f"cambiaron las columnas del comercio por rubro ({_cmr_k}): {list(_cmr_x.columns)}"
+        _cmr_x = _cmr_x.assign(g=_cmr_x[_cmr_col].map(_cmr_m).fillna("otro"), v=_cmr_x.valor.fillna(0) / 1e6, kg=_cmr_x.peso.fillna(0))
+        # cada año completo tiene que dar lo mismo que la suma por mes y país de "Socios comerciales"
+        _cmr_ctrl = _cmr_x[_cmr_x.Anio.isin(_cmx_anios)].groupby("Anio").v.sum() / _cmx[_cmx.anio.isin(_cmx_anios)].groupby("anio")[_cmr_k].sum()
+        assert ((_cmr_ctrl - 1).abs() < .001).all(), f"el comercio por rubro no suma lo mismo que por mes y país en {list(_cmr_ctrl[(_cmr_ctrl - 1).abs() >= .001].index)}"
+        _cmr_d[_cmr_k] = _cmr_x
+
+    def _cmr_kilo(d):  # dólares por kilo, solo con lo que tiene peso
+        d = d[d.kg > 0]
+        return round(float(d.v.sum() * 1e6 / d.kg.sum()), 4) if len(d) else None
+
+    CMR_ANIO = _cmx_anios[-1]
+    _cmr_u = {k: d[d.Anio == CMR_ANIO] for k, d in _cmr_d.items()}
+    _cmr_tot = pd.concat([d.groupby("pais_cod").v.sum().rename(k) for k, d in _cmr_u.items()], axis=1).fillna(0)
+    _cmr_paises = [c for c in _cmr_tot.index[_cmr_tot.sum(axis=1) >= CMR_MIN] if c in _cmx_nom.index and _cmx_tipo(c) == "pais"]
+
+    def _cmr_fila(codigo, pais, cods=None):
+        f = {"codigo": codigo, "pais": pais}
+        for k, (_, _, m, pre) in _cmr_f.items():
+            d = _cmr_u[k] if cods is None else _cmr_u[k][_cmr_u[k].pais_cod.isin(cods)]
+            t = float(d.v.sum())
+            f[k] = round(t, 4)
+            f["kilo_" + k[:4]] = _cmr_kilo(d)
+            for g in list(m.values()) + ["otro"]:
+                f[pre + g] = round(float(d[d.g == g].v.sum()) / t * 100, 4) if t else 0
+        return f
+
+    _cmr_orden = sorted(_cmr_paises, key=lambda c: -_cmr_tot.loc[c].sum())
+    _cmr_nom = lambda c: CMX_CORTO.get(c, _cmx_nom[c])
+    comercio_rubro_pais = pd.DataFrame([_cmr_fila("00", "Todo el mundo")] + [_cmr_fila(c, _cmr_nom(c), [c]) for c in _cmr_orden])
+    _cmr_mundo = _cmr_fila("00", "Todo el mundo")
+    _cmr_sin = _cmr_mundo["e_otro"] / 100 * _cmr_mundo["exportaciones"]
+    SE_RES["socios_rubro"] = {"anio": CMR_ANIO, "min": CMR_MIN, "n": len(_cmr_orden), "a": _cmr_orden[0], "b": _cmr_orden[1],
+                              "paises": sorted([[c, _cmr_nom(c)] for c in _cmr_orden], key=lambda x: norm(x[1])),
+                              "sin_e": round(_cmr_sin), "sin_e_pct": r1(_cmr_mundo["e_otro"]),
+                              "ini": [_cmr_fila(_cmr_orden[0], _cmr_nom(_cmr_orden[0]), [_cmr_orden[0]]), _cmr_fila(_cmr_orden[1], _cmr_nom(_cmr_orden[1]), [_cmr_orden[1]]), _cmr_mundo]}
+    # el valor del kilo: cada año completo, el total y cada rubro o uso, desde el mismo año que la historia de los socios
+    _cmr_k = []
+    for _cmr_y in [a for a in _cmx_anios if a >= CMX_DESDE]:
+        _cmr_ky = {"anio": _cmr_y}
+        for k, (_, _, m, _) in _cmr_f.items():
+            d = _cmr_d[k][_cmr_d[k].Anio == _cmr_y]
+            _cmr_ky[f"{k[:4]}_total"] = _cmr_kilo(d)
+            for g in m.values():
+                _cmr_ky[f"{k[:4]}_{g}"] = _cmr_kilo(d[d.g == g])
+        _cmr_k.append(_cmr_ky)
+    comercio_valor_kilo = pd.DataFrame(_cmr_k)
+    _cmr_e, _cmr_i = _cmr_u["exportaciones"], _cmr_u["importaciones"]
+    _cmr_ku = comercio_valor_kilo.iloc[-1]
+    SE_RES["valor_kilo"] = {"desde": int(comercio_valor_kilo.anio.iloc[0]), "anio": CMR_ANIO, "expo": round(float(_cmr_ku.expo_total), 4), "impo": round(float(_cmr_ku.impo_total), 4),
+                            "veces": r1(_cmr_ku.impo_total / _cmr_ku.expo_total),
+                            "pct_kg": r1(_cmr_e[_cmr_e.g.isin(["pp", "moa"])].kg.sum() / _cmr_e.kg.sum() * 100),
+                            "impo_sin_peso": r1(_cmr_i[_cmr_i.kg <= 0].v.sum() / _cmr_i.v.sum() * 100)}
 # ---------------------------------------------------------------- migraciones (etapa 25)
 # Censo 2022 (INDEC): población en viviendas particulares por lugar de nacimiento (en la provincia, en otra provincia o en otro país) y por
 # país de nacimiento, según jurisdicción. La serie de los censos desde 1869 (datos/manual/censos_nacidos_otro_pais.csv, de dos publicaciones
@@ -7860,6 +7927,7 @@ tablas = {
     "industria_ramas": industria_ramas,
     "produccion_mensual": produccion_mensual,
     **({"comercio_socios": cmx_socios, "comercio_socios_historia": cmx_hist} if cmx_socios is not None else {}),
+    **({"comercio_rubro_pais": comercio_rubro_pais, "comercio_valor_kilo": comercio_valor_kilo} if comercio_rubro_pais is not None else {}),
     "actividad_mensual": actividad_mensual,
     "actividad_anual": actividad_anual,
     "actividad_sectores": actividad_sectores,

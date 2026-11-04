@@ -85,7 +85,7 @@ const SIN_CIFRA = {
   "f-muertes": SENSIBLE, "f-suicidio": SENSIBLE, "f-suicidio-prov": SENSIBLE, "f-edad": SENSIBLE,
   "f-expectativas": ENCUESTA, "f-confianza-consumidor": ENCUESTA,
   "f-adolescentes-nse": RELACION, "f-sectores-empleo": RELACION, "f-precio-consumo": RELACION,
-  "f-piramide": REPARTO, "f-causas-infantiles": REPARTO,
+  "f-piramide": REPARTO, "f-causas-infantiles": REPARTO, "f-socios-que": REPARTO,
 };
 
 const SITIO = normalize(fileURLToPath(new URL("../sitio/", import.meta.url)));

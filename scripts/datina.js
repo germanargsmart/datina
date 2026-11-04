@@ -272,6 +272,12 @@ const CB = R.combustibles;  // precios de los combustibles en el surtidor (etapa
 const SA = R.salarios, DC = R.docentes, IE = R.inversion_edu, SG = R.seguridad;
 // Economía y precios (etapa 25): la inflación, las canastas, los salarios y la actividad, todo del INDEC
 const EIP = R.economia.ipc, ECB = R.economia.canasta, ESR = R.economia.salarios, EMA = R.economia.actividad, ESU = R.economia.super;
+// qué le vende y qué le compra la Argentina a cada país, y cuánto vale el kilo (4 de noviembre de 2026)
+const SQ = R.externo.socios_rubro, VK = R.externo.valor_kilo;
+const SQ_RUB = [{k: "pp", lab: "Productos primarios", corto: "primarios"}, {k: "moa", lab: "Manufacturas agropecuarias", corto: "agropecuarias"},
+  {k: "moi", lab: "Manufacturas industriales", corto: "industriales"}, {k: "ce", lab: "Combustibles y energía", corto: "combustibles"}];
+const SQ_USO = [{k: "bi", lab: "Bienes intermedios", corto: "intermedios"}, {k: "pa", lab: "Piezas y accesorios", corto: "piezas"}, {k: "bk", lab: "Bienes de capital", corto: "capital"},
+  {k: "bc", lab: "Bienes de consumo", corto: "consumo"}, {k: "cl", lab: "Combustibles y lubricantes", corto: "combustibles"}, {k: "va", lab: "Autos de pasajeros", corto: "autos"}];
 // precio y consumo de carne, yerba y vino (3 de noviembre de 2026)
 const PCO = R.precio_consumo, PCO_N = {carne: ["de la carne vacuna", "el consumo por habitante"], yerba: ["de la yerba mate", "lo que despachan los molinos"], vino: ["del vino común", "lo que se vende en el país"]};
 // precios mayoristas frente a los precios al consumidor y el dólar (3 de noviembre de 2026)
@@ -1017,6 +1023,26 @@ const LEAD = {
     `está ${pct(Math.abs(ESR.vs_base_priv))} ${ESR.vs_base_priv < 0 ? "más bajo" : "más alto"} y el público, ${pct(Math.abs(ESR.vs_base_pub))} ` +
     `${ESR.vs_base_pub < 0 ? "más bajo" : "más alto"}. El salario privado registrado más alto de la serie fue el de ${ESR.max_priv_mes} ` +
     `y el más bajo, el de ${ESR.min_priv_mes}.`,
+  // sin cifra destacada: muestra cómo se reparte el total con cada país. filas: los dos países elegidos y todo el mundo
+  "socios-que": (v, [A, B, M]) => {
+    const vende = v === "vende", p = vende ? "e_" : "i_", K = vende ? SQ_RUB : SQ_USO, tot = d => vende ? d.exportaciones : d.importaciones, kilo = d => vende ? d.kilo_expo : d.kilo_impo;
+    const mayor = d => K.reduce((m, k) => (d[p + k.k] || 0) > (d[p + m.k] || 0) ? k : m), verbo = vende ? "le vendió" : "le compró";
+    const parte = d => `De lo que ${verbo} a ${d.pais}, el ${pct(d[p + mayor(d).k])} fueron ${mayor(d).lab.toLowerCase()}. `;
+    const kg = d => kilo(d) == null ? "sin dato" : `${n2(kilo(d))} dólares`;
+    return `En ${SQ.anio}, la Argentina ${verbo} ${n0(tot(A))} millones de dólares a ${A.pais}` + (A.codigo !== B.codigo ? ` y ${n0(tot(B))} millones a ${B.pais}. ` : ". ") +
+      parte(A) + (A.codigo !== B.codigo ? parte(B) : "") +
+      `Cada kilo ${vende ? "vendido" : "comprado"} valió ${kg(A)} con ${A.pais}` + (A.codigo !== B.codigo ? `, ${kg(B)} con ${B.pais}` : "") + ` y ${kg(M)} con todo el mundo.` +
+      (vende ? ` Hay ${n0(SQ.sin_e)} millones de dólares, el ${pct(SQ.sin_e_pct)} de lo exportado, sin país ni rubro informado por el secreto estadístico: con ellos, estas proporciones podrían ser otras.` : "");
+  },
+  // la cifra destacada dice cuánto vale el kilo exportado: el texto compara con el importado y explica por qué no es un precio
+  "valor-kilo": v => {
+    if (v === "anual") return `Un kilo importado valió ${n2(VK.impo)} dólares en ${VK.anio}, ${n1(VK.veces)} veces lo que un kilo exportado. Eso no quiere decir que el mismo producto se venda barato y se compre caro: ` +
+      `el ${pct(VK.pct_kg)} de los kilos exportados son productos primarios y manufacturas agropecuarias, que pesan mucho y valen poco por kilo. La vista por rubro compara cada tipo de bien.`;
+    const u = T.comercio_valor_kilo.at(-1), punta = (K, p) => { const f = K.map(k => ({lab: k.lab.toLowerCase(), v: u[p + k.k]})).filter(d => d.v != null).sort((a, b) => b.v - a.v); return [f[0], f.at(-1)]; };
+    const [ea, eb] = punta(SQ_RUB, "expo_"), [ia, ib] = punta(SQ_USO, "impo_");
+    return `En ${VK.anio}, entre las exportaciones, el kilo que más valió fue el de ${ea.lab} (${n2(ea.v)} dólares) y el que menos, el de ${eb.lab} (${n2(eb.v)}). ` +
+      `Entre las importaciones, el de ${ia.lab} (${n2(ia.v)}) y el de ${ib.lab} (${n2(ib.v)}). Cada grupo reúne productos muy distintos: no es el precio de un producto.`;
+  },
   // sin cifra destacada: muestra la relación entre dos medidas. Con pocos años no hay correlación, se cuentan los años en direcciones opuestas
   "precio-consumo": v => {
     const P = PCO[v], [art, cons] = PCO_N[v];
@@ -1883,6 +1909,14 @@ const TX = {
     `${ESR.base} = 100, el primer mes del índice de precios del país. El índice de salarios tiene ponderaciones fijas: mide cuánto cambian los salarios, no cuánto ` +
     `cobra en promedio cada persona. El INDEC publica también el del sector privado no registrado, que la ficha no muestra: sale de la Encuesta Permanente de ` +
     `Hogares y llega con cinco meses de rezago, así que no se puede comparar con los precios del mismo mes. Los salarios promedio de cada provincia están en Trabajo: son otra medida, el promedio por puesto del OEDE, y pueden variar distinto.`,
+  "socios-que": LEAD["socios-que"]("vende", SQ.ini),
+  "socios-que-nota": `Valor FOB de las exportaciones y CIF de las importaciones, en dólares, del INDEC. Se pueden elegir los ${SQ.n} países con al menos ${n0(SQ.min)} millones de dólares de intercambio en ${SQ.anio}. ` +
+    `Desde ${SX.socios_hist.sin_pais_desde}, el INDEC publica parte de las exportaciones como confidenciales, sin país ni rubro. En la fila de todo el mundo son "Sin rubro informado" y no están en la de ningún país. ` +
+    `Por eso estos porcentajes no son los de "¿Qué exporta la Argentina?", donde el INDEC reparte lo confidencial entre los rubros. El valor por kilo es el total en dólares dividido por el peso neto, en dólares de cada año: mezcla productos muy distintos y no es un precio.`,
+  "valor-kilo": LEAD["valor-kilo"]("anual"),
+  "valor-kilo-nota": `Valor FOB de las exportaciones y CIF de las importaciones, en dólares de cada año, sin descontar la inflación, dividido por el peso neto, del INDEC. El CIF incluye el flete y el seguro hasta la Argentina, y el FOB no. ` +
+    `Cuenta solo lo que tiene peso informado: queda afuera el ${pct(VK.impo_sin_peso)} de lo importado en ${VK.anio}. Lo confidencial de las exportaciones entra en el total, y no en ningún rubro. ` +
+    `Los promedios cambian con lo que se vende y se compra cada año: una suba no quiere decir que el mismo producto valga más.`,
   "precio-consumo": LEAD["precio-consumo"]("carne"),
   "precio-consumo-nota": `Precio: el precio promedio del Gran Buenos Aires de la planilla que el INDEC publica con el IPC, dividido por el IPC de esa región, promedio de cada año completo. ` +
     `Carne vacuna: promedio simple de asado, carne picada común, paleta, cuadril y nalga. Yerba: paquete de 500 gramos. Vino: vino común, por litro. El INDEC aclara que estos precios sirven para seguir la evolución en el tiempo. ` +
@@ -2977,7 +3011,7 @@ function mapaCentrales(el, cfg) {
 }
 
 /* ---------- fichas ---------- */
-const MED = {"jueces-federales": "cargos", "fiscalias-federales": "cantidad", "justicia-provincial": "magistratura", dinamica: "pais", rotacion: "edad", fiscal: "autonomia", censo: "cloaca", internet: "accesos_100_hogares", empleo: "cada_100", pisa: "mat", aprender: "mat", protegida: "pct_territorio", eti: "cada_1000", "patentes-prov": "autos_1000", nombres: "F", "visitas-parque": "visitas_ult", "poblacion-proy": "var_pct", "sectores-empleo": "uno", mayoristas: "doce", "precio-consumo": "carne", "chicos-escuela": "var_pct"};
+const MED = {"jueces-federales": "cargos", "fiscalias-federales": "cantidad", "justicia-provincial": "magistratura", dinamica: "pais", rotacion: "edad", fiscal: "autonomia", censo: "cloaca", internet: "accesos_100_hogares", empleo: "cada_100", pisa: "mat", aprender: "mat", protegida: "pct_territorio", eti: "cada_1000", "patentes-prov": "autos_1000", nombres: "F", "visitas-parque": "visitas_ult", "poblacion-proy": "var_pct", "sectores-empleo": "uno", mayoristas: "doce", "precio-consumo": "carne", "socios-que": "vende", "valor-kilo": "anual", "chicos-escuela": "var_pct"};
 const M = v => n1(v / 1e6) + " M";
 const G = k => document.querySelector(`.grafico[data-g="${k}"]`);
 const NAR = css("--celeste-fuerte"), FRI = css("--sol-fuerte"), GRIS = css("--faint");
@@ -3980,6 +4014,30 @@ Object.assign(DIB, {
       xl: r => mesPer(r.periodo), mensual: true, series: [{k: "privado", lab: "Privado registrado", c: NAR}, {k: "publico", lab: "Público", c: FRI}]});
   }),
   // actividad económica (etapa 25): el EMAE sin estacionalidad mes a mes, o cada sector en los últimos doce meses
+  "socios-que": conTablas("socios-que", () => ["comercio_rubro_pais"], a => {
+    const v = MED["socios-que"] || "vende", vende = v === "vende", p = vende ? "e_" : "i_", tabla = T.comercio_rubro_pais, fila = c => tabla.find(r => r.codigo === c);
+    const A = fila($("sq-a").value), B = fila($("sq-b").value), M = fila("00");
+    $t("socios-que").textContent = LEAD["socios-que"](v, [A, B, M]);
+    const col = vende ? [css("--celeste-fuerte"), css("--celeste"), css("--sol"), css("--sol-borde")] : [css("--celeste-fuerte"), css("--celeste"), css("--celeste-suave"), css("--sol"), css("--sol-borde"), css("--ink")];
+    const oscuro = vende ? [1, 0, 0, 1] : [1, 0, 0, 0, 1, 1];
+    const cl = [...(vende ? SQ_RUB : SQ_USO).map((k, i) => ({k: p + k.k, lab: k.lab, c: col[i], ...(oscuro[i] ? {} : {texto: css("--ink")})})),
+      {k: p + "otro", lab: vende ? "Sin rubro informado" : "Resto", c: css("--faint"), texto: css("--ink")}];
+    leyenda("socios-que-ley", cl);
+    const nombre = d => ({...d, codigo_indec: d.codigo === "00" ? "00" : "c" + d.codigo, territorio: d.pais});
+    apiladasH(G("socios-que"), {anim: a, claves: cl, sinProv: true, izq: ang => ang ? 104 : 130, recortar: true, data: (A.codigo === B.codigo ? [A, M] : [A, B, M]).map(nombre),
+      tipExtra: d => `<br>${n0(vende ? d.exportaciones : d.importaciones)} millones de dólares`});
+    G("socios-que").resaltar = null;
+  }),
+  "valor-kilo": conTablas("valor-kilo", () => ["comercio_valor_kilo"], a => {
+    const v = MED["valor-kilo"] || "anual", el = G("valor-kilo"), tabla = T.comercio_valor_kilo;
+    $t("valor-kilo").textContent = LEAD["valor-kilo"](v);
+    if (v === "anual") return lineas(el, {anim: a, data: tabla, x: "anio", y0: 0, vf: n2, yf: n1,
+      series: [{k: "expo_total", lab: "Exportado", c: NAR, w: 3}, {k: "impo_total", lab: "Importado", c: FRI, ct: css("--sol-texto"), w: 3}]});
+    const u = tabla.at(-1), filas = [...SQ_RUB.map(k => ({lab: `Exportado: ${k.lab.toLowerCase()}`, corto: `Exp., ${k.corto}`, v: u["expo_" + k.k]})), ...SQ_USO.map(k => ({lab: `Importado: ${k.lab.toLowerCase()}`, corto: `Imp., ${k.corto}`, v: u["impo_" + k.k]}))];
+    barrasH(el, {anim: a, data: filas.filter(d => d.v != null).map((d, i) => ({codigo_indec: "k" + i, territorio: d.lab, corto: d.corto, v: d.v})), k: "v", vf: n2, af: n0, l: 240, lAngosto: 128, corto: d => d.corto,
+      tip: d => `<b>${d.territorio}</b><br>${n2(d.v)} dólares por kilo en ${VK.anio}`});
+    el.resaltar = null;
+  }),
   "precio-consumo": a => {
     const v = MED["precio-consumo"] || "carne";
     $t("precio-consumo").textContent = LEAD["precio-consumo"](v);
@@ -5327,6 +5385,12 @@ function dispersion(el, cfg) {
     .on("pointerleave", ocultarSiMouse);
 }
 const AN = R.ado_nse, MC = R.mi_causas;
+// los dos países de "¿Qué le vende y qué le compra la Argentina a cada país?": de entrada, los dos con más intercambio
+if (document.getElementById("sq-a")) for (const [id, c] of [["sq-a", SQ.a], ["sq-b", SQ.b]]) {
+  $(id).innerHTML = SQ.paises.map(([k, n]) => `<option value="${k}">${n}</option>`).join("");
+  $(id).value = c;
+  $(id).addEventListener("change", () => cambiarVista("socios-que"));
+}
 $("adonse-sel").innerHTML = AN.indicadores.map(i => `<option value="${i.k}">${i.lab}</option>`).join("");
 MED.adonse = AN.indicadores[0].k;
 $("adonse-sel").addEventListener("change", ev => { MED.adonse = ev.target.value; cambiarVista("adonse"); });
@@ -7258,6 +7322,7 @@ const CLAVE = {
   "f-importaciones": [`${n1(SX.importaciones.total / 1000)} mil millones`, `de dólares en bienes importó la Argentina en ${SX.importaciones.anio}`, `de dólares en ${SX.importaciones.anio}`],
   "f-socios": [`${n0(Math.abs(SX.socios.def[1]))} millones`, `de dólares de saldo en contra con ${SX.socios.def[0]} entre ${SX.socios.desde} y ${SX.socios.hasta}, ` +
     `el mayor entre los ${SX.socios.n} países con más comercio`, `de saldo en contra con ${SX.socios.def[0]}, el mayor entre los principales socios`],
+  "f-valor-kilo": [`${n2(VK.expo)} dólares`, `valió un kilo exportado en ${VK.anio}, según el INDEC`, `por kilo exportado en ${VK.anio}`],
   "f-socios-hist": (() => { const H = SX.socios_hist, s = H.importa.reduce((m, x) => x.p1 - x.p0 > m.p1 - m.p0 ? x : m);
     return [pct(s.p1), `de lo que importó la Argentina en ${H.anio} vino de ${s.lab}, frente al ${pct(s.p0)} en ${H.desde}`, `de lo importado vino de ${s.lab} en ${H.anio}`]; })(),
   "f-origen": [pct(SX.origen.top[0].pct), `de lo importado de ${SX.origen.periodo} vino de ${SX.origen.top[0].n}, el primer origen`, `desde ${SX.origen.top[0].n}, el primer origen`],
@@ -11578,7 +11643,7 @@ if (PAGINA !== "inicio") {
     "f-auh": ["auh", "asignacion universal"], "f-desempleo": ["desempleo"], "f-aprender": ["aprender"], "f-escolarizacion": ["escolarizacion", "secundaria"],
     "f-censo": ["cloacas", "agua red"], "f-cobertura": ["obra social", "prepaga", "cobertura de salud", "sin cobertura"], "f-dengue": ["dengue", "mosquito"], "f-vacunas": ["vacuna", "vacunas", "vacunacion", "sarampion", "triple viral"], "f-internet": ["internet"], "f-glaciares": ["glaciares"], "f-receptivo": ["turistas", "turismo"], "f-isac": ["construccion"],
     "f-precio-consumo": ["precio de la carne", "precio de la yerba", "precio del vino"], "f-carne": ["carne"], "f-vino": ["vino"], "f-yerba": ["yerba"], "f-electricidad-provincias": ["electricidad", "luz"], "f-subsidios": ["subsidios"],
-    "f-empresas": ["empresas"], "f-mayoristas": ["precios mayoristas", "mayoristas", "ipim"], "f-sectores-empleo": ["empleo por sector", "productividad"], "f-canastas": ["canasta", "canasta basica"], "f-crianza": ["crianza", "canasta de crianza", "cuota alimentaria"], "f-industria": ["industria", "produccion industrial", "ipi", "mineria"], "f-socios": ["socios comerciales", "saldo con china", "comercio con brasil", "deficit comercial con"], "f-socios-hist": ["historia del comercio exterior", "socios comerciales desde 1986"], "f-emae": ["actividad economica", "emae"], "f-carceles": ["carceles", "presos"], "f-sin-condena": ["sin condena", "presos sin condena", "procesados", "prision preventiva"],
+    "f-empresas": ["empresas"], "f-socios-que": ["que le vendemos", "que le compramos", "comparar paises"], "f-valor-kilo": ["valor por kilo", "precio por kilo", "dolares por kilo"], "f-mayoristas": ["precios mayoristas", "mayoristas", "ipim"], "f-sectores-empleo": ["empleo por sector", "productividad"], "f-canastas": ["canasta", "canasta basica"], "f-crianza": ["crianza", "canasta de crianza", "cuota alimentaria"], "f-industria": ["industria", "produccion industrial", "ipi", "mineria"], "f-socios": ["socios comerciales", "saldo con china", "comercio con brasil", "deficit comercial con"], "f-socios-hist": ["historia del comercio exterior", "socios comerciales desde 1986"], "f-emae": ["actividad economica", "emae"], "f-carceles": ["carceles", "presos"], "f-sin-condena": ["sin condena", "presos sin condena", "procesados", "prision preventiva"],
     "f-coparticipacion": ["coparticipacion", "coparticipacion federal", "reparto de impuestos"],
     "f-sociedades": ["sociedades", "empresas nuevas", "crear empresas", "nuevas sociedades", "emprendimientos"],
     "f-medicos": ["medicos", "medicos por habitante", "cantidad de medicos", "medico"],

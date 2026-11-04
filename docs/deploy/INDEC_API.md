@@ -14,6 +14,8 @@ Desde el 2 de noviembre de 2026 (pedido del autor) la actualización mensual baj
 | `comercio_exterior_exportacion_bienes` | `indec_api_comercio_exterior_exportacion_bienes_mes_pais.json` | Exportaciones por país de destino desde 1986, sumadas por la API por mes y país (3 de noviembre de 2026). Fichas `f-socios` y `f-socios-hist` |
 | `comercio_exterior_importacion_bienes` | `indec_api_comercio_exterior_importacion_bienes_mes_pais.json` | Importaciones por país de origen desde 1986, sumadas igual. Las mismas fichas |
 | `comercio_exterior_nomenclaturas` | `indec_api_comercio_exterior_nomenclaturas.json` | Los nombres de los países de las dos anteriores |
+| `comercio_exterior_exportacion_bienes` | `indec_api_comercio_exterior_exportacion_bienes_anio_rubro_pais.json` | Otro corte de la misma tabla (4 de noviembre de 2026): valor y peso sumados por año, gran rubro y país. Fichas `f-socios-que` y `f-valor-kilo` |
+| `comercio_exterior_importacion_bienes` | `indec_api_comercio_exterior_importacion_bienes_anio_uso_pais.json` | Lo mismo por año, uso económico y país |
 
 Las de comercio exterior tienen 780.000 y 390.000 filas, unos 150 MB en JSON, más de lo que GitHub acepta en un archivo: por eso se piden ya sumadas por mes y país (`SUMAS` en `scripts/indec_api.py`: la API acepta sumas, `select=Periodo,pais_cod,valor_FOB.sum()`), unos 3 a 4 MB cada una. El 3 de noviembre de 2026 se comprobó que la suma de 2024 por país es igual a la de las filas sin sumar, y `02_procesar.py` controla que cada año dé lo mismo que el intercambio comercial de la ficha de la balanza (hasta 0,3% de diferencia en 2022 y 2023, por revisiones).
 
