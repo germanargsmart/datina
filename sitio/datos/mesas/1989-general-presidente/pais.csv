@@ -1,0 +1,212 @@
+codigo_indec,provincia,lista,votos,electores,votantes,blancos,nulos
+02,CABA,Angeloz - Casella,922893,2420639,2075330,19646,10493
+02,CABA,Menem - Duhalde,749409,2420639,2075330,19646,10493
+02,CABA,Alsogaray - Natale,252620,2420639,2075330,19646,10493
+02,CABA,Vicente - Zamora,69035,2420639,2075330,19646,10493
+02,CABA,Estévez Boero - Bravo,35365,2420639,2075330,19646,10493
+02,CABA,Corzo Gómez - Houssay,5915,2420639,2075330,19646,10493
+02,CABA,Ammann - Méndez,4614,2420639,2075330,19646,10493
+02,CABA,Altamira - Flores,4250,2420639,2075330,19646,10493
+02,CABA,Bustelo - Hernández,1090,2420639,2075330,19646,10493
+06,Buenos Aires,Menem - Duhalde,3160004,7387108,6431648,82542,38119
+06,Buenos Aires,Angeloz - Casella,2101158,7387108,6431648,82542,38119
+06,Buenos Aires,Alsogaray - Natale,427455,7387108,6431648,82542,38119
+06,Buenos Aires,Corzo Gómez - Houssay,288867,7387108,6431648,82542,38119
+06,Buenos Aires,Vicente - Zamora,204154,7387108,6431648,82542,38119
+06,Buenos Aires,Estévez Boero - Bravo,92876,7387108,6431648,82542,38119
+06,Buenos Aires,Altamira - Flores,16465,7387108,6431648,82542,38119
+06,Buenos Aires,Ammann - Méndez,12466,7387108,6431648,82542,38119
+06,Buenos Aires,De la Independencia,4083,7387108,6431648,82542,38119
+06,Buenos Aires,Bustelo - Hernández,3459,7387108,6431648,82542,38119
+10,Catamarca,Menem - Duhalde,69840,152444,129266,1500,392
+10,Catamarca,Angeloz - Casella,50970,152444,129266,1500,392
+10,Catamarca,Corzo Gómez - Houssay,1719,152444,129266,1500,392
+10,Catamarca,Vicente - Zamora,1349,152444,129266,1500,392
+10,Catamarca,Alsogaray - Natale,1236,152444,129266,1500,392
+10,Catamarca,Estévez Boero - Bravo,633,152444,129266,1500,392
+10,Catamarca,Ammann - Méndez,409,152444,129266,1500,392
+10,Catamarca,Unificación Populista,243,152444,129266,1500,392
+10,Catamarca,Bustelo - Hernández,234,152444,129266,1500,392
+14,Córdoba,Angeloz - Casella,747049,1805126,1564144,15162,8003
+14,Córdoba,Menem - Duhalde,686193,1805126,1564144,15162,8003
+14,Córdoba,Alsogaray - Natale,57805,1805126,1564144,15162,8003
+14,Córdoba,Vicente - Zamora,23280,1805126,1564144,15162,8003
+14,Córdoba,Estévez Boero - Bravo,16239,1805126,1564144,15162,8003
+14,Córdoba,Altamira - Flores,6050,1805126,1564144,15162,8003
+14,Córdoba,Ammann - Méndez,4363,1805126,1564144,15162,8003
+18,Corrientes,Menem - Duhalde,161716,490641,397042,6312,4174
+18,Corrientes,Angeloz - Casella,107013,490641,397042,6312,4174
+18,Corrientes,Pacto Autonomista Liberal - Demócrata Progresista - Movimiento Liberación Popular,106774,490641,397042,6312,4174
+18,Corrientes,Alsogaray - Natale,4600,490641,397042,6312,4174
+18,Corrientes,Vicente - Zamora,2114,490641,397042,6312,4174
+18,Corrientes,Bustelo - Hernández,915,490641,397042,6312,4174
+18,Corrientes,Altamira - Flores,604,490641,397042,6312,4174
+18,Corrientes,Ammann - Méndez,500,490641,397042,6312,4174
+18,Corrientes,Movimiento Democrático Popular Antiimperialista,429,490641,397042,6312,4174
+22,Chaco,Menem - Duhalde,203934,502751,400648,6965,3244
+22,Chaco,Angeloz - Casella,148712,502751,400648,6965,3244
+22,Chaco,Acción Chaqueña,19831,502751,400648,6965,3244
+22,Chaco,Alsogaray - Natale,7419,502751,400648,6965,3244
+22,Chaco,Socialista,3595,502751,400648,6965,3244
+22,Chaco,Vicente - Zamora,2599,502751,400648,6965,3244
+22,Chaco,Angeloz - Guzmán,2173,502751,400648,6965,3244
+22,Chaco,Ammann - Méndez,1255,502751,400648,6965,3244
+22,Chaco,Altamira - Flores,921,502751,400648,6965,3244
+26,Chubut,Angeloz - Casella,65930,185958,151813,3196,4548
+26,Chubut,Menem - Duhalde,61507,185958,151813,3196,4548
+26,Chubut,Alsogaray - Natale,10115,185958,151813,3196,4548
+26,Chubut,Vicente - Zamora,2895,185958,151813,3196,4548
+26,Chubut,Estévez Boero - Bravo,1389,185958,151813,3196,4548
+26,Chubut,Justicia Social,1147,185958,151813,3196,4548
+26,Chubut,Altamira - Flores,693,185958,151813,3196,4548
+26,Chubut,Ammann - Méndez,320,185958,151813,3196,4548
+30,Entre Ríos,Menem - Duhalde,291070,660171,571854,4755,2963
+30,Entre Ríos,Angeloz - Casella,220505,660171,571854,4755,2963
+30,Entre Ríos,Alsogaray - Natale,34408,660171,571854,4755,2963
+30,Entre Ríos,Estévez Boero - Bravo,7858,660171,571854,4755,2963
+30,Entre Ríos,Vicente - Zamora,6346,660171,571854,4755,2963
+30,Entre Ríos,Ammann - Méndez,2468,660171,571854,4755,2963
+30,Entre Ríos,Altamira - Flores,1469,660171,571854,4755,2963
+34,Formosa,Menem - Duhalde,95407,202891,165052,1852,676
+34,Formosa,Angeloz - Casella,64247,202891,165052,1852,676
+34,Formosa,Alsogaray - Natale,1476,202891,165052,1852,676
+34,Formosa,Vicente - Zamora,625,202891,165052,1852,676
+34,Formosa,Bustelo - Hernández,399,202891,165052,1852,676
+34,Formosa,Ammann - Méndez,184,202891,165052,1852,676
+34,Formosa,Auténtico Formoseño,181,202891,165052,1852,676
+34,Formosa,Socialista,5,202891,165052,1852,676
+38,Jujuy,Menem - Duhalde,87719,263246,210916,2432,1931
+38,Jujuy,Angeloz - Casella,77317,263246,210916,2432,1931
+38,Jujuy,Bussi - Álvarez,15326,263246,210916,2432,1931
+38,Jujuy,Movimiento Unidad Renovadora,7661,263246,210916,2432,1931
+38,Jujuy,"Azul, Lealtad, Restauración",7287,263246,210916,2432,1931
+38,Jujuy,Vicente - Zamora,3482,263246,210916,2432,1931
+38,Jujuy,Alsogaray - Natale,2712,263246,210916,2432,1931
+38,Jujuy,Demócrata,2487,263246,210916,2432,1931
+38,Jujuy,Estévez Boero - Bravo,1096,263246,210916,2432,1931
+38,Jujuy,Altamira - Flores,832,263246,210916,2432,1931
+38,Jujuy,Ammann - Méndez,624,263246,210916,2432,1931
+42,La Pampa,Menem - Duhalde,74344,165567,146539,1754,670
+42,La Pampa,Angeloz - Casella,58051,165567,146539,1754,670
+42,La Pampa,Alsogaray - Natale,6455,165567,146539,1754,670
+42,La Pampa,Vicente - Zamora,2769,165567,146539,1754,670
+42,La Pampa,Estévez Boero - Bravo,1963,165567,146539,1754,670
+42,La Pampa,Ammann - Méndez,529,165567,146539,1754,670
+46,La Rioja,Menem - Duhalde,70233,127833,106967,898,617
+46,La Rioja,Angeloz - Casella,30269,127833,106967,898,617
+46,La Rioja,Corzo Gómez - Houssay,1877,127833,106967,898,617
+46,La Rioja,Alsogaray - Natale,1498,127833,106967,898,617
+46,La Rioja,Vicente - Zamora,806,127833,106967,898,617
+46,La Rioja,Desarrollo,557,127833,106967,898,617
+46,La Rioja,Ammann - Méndez,200,127833,106967,898,617
+50,Mendoza,Menem - Duhalde,291272,826986,716439,21102,6388
+50,Mendoza,Angeloz - Casella,227009,826986,716439,21102,6388
+50,Mendoza,Alsogaray - Natale,114486,826986,716439,21102,6388
+50,Mendoza,Vicente - Zamora,27471,826986,716439,21102,6388
+50,Mendoza,Estévez Boero - Bravo,11601,826986,716439,21102,6388
+50,Mendoza,Angeloz - Guzmán,4631,826986,716439,21102,6388
+50,Mendoza,Altamira - Flores,3506,826986,716439,21102,6388
+50,Mendoza,Ammann - Méndez,3488,826986,716439,21102,6388
+50,Mendoza,Del Trabajo y del Pueblo,2770,826986,716439,21102,6388
+50,Mendoza,Socialista Obrero para la Liberación,2715,826986,716439,21102,6388
+54,Misiones,Menem - Duhalde,165331,401026,319573,5017,1845
+54,Misiones,Angeloz - Casella,127588,401026,319573,5017,1845
+54,Misiones,Alsogaray - Natale,14246,401026,319573,5017,1845
+54,Misiones,Estévez Boero - Bravo,1658,401026,319573,5017,1845
+54,Misiones,Vicente - Zamora,1624,401026,319573,5017,1845
+54,Misiones,Ammann - Méndez,1458,401026,319573,5017,1845
+54,Misiones,Altamira - Flores,756,401026,319573,5017,1845
+58,Neuquén,Menem - Duhalde,58416,177768,154764,1570,5082
+58,Neuquén,Angeloz - Casella,43387,177768,154764,1570,5082
+58,Neuquén,Movimiento Popular Neuquino,35466,177768,154764,1570,5082
+58,Neuquén,Alsogaray - Natale,5772,177768,154764,1570,5082
+58,Neuquén,Vicente - Zamora,2896,177768,154764,1570,5082
+58,Neuquén,Estévez Boero - Bravo,1047,177768,154764,1570,5082
+58,Neuquén,Ammann - Méndez,625,177768,154764,1570,5082
+58,Neuquén,Altamira - Flores,503,177768,154764,1570,5082
+62,Río Negro,Menem - Duhalde,94826,244381,208137,6191,2018
+62,Río Negro,Angeloz - Casella,83661,244381,208137,6191,2018
+62,Río Negro,Alsogaray - Natale,12848,244381,208137,6191,2018
+62,Río Negro,Vicente - Zamora,4630,244381,208137,6191,2018
+62,Río Negro,Estévez Boero - Bravo,1746,244381,208137,6191,2018
+62,Río Negro,Altamira - Flores,1260,244381,208137,6191,2018
+62,Río Negro,Ammann - Méndez,957,244381,208137,6191,2018
+66,Salta,Angeloz - Casella,171417,462114,370885,2591,3814
+66,Salta,Menem - Duhalde,160393,462114,370885,2591,3814
+66,Salta,Alsogaray - Natale,11111,462114,370885,2591,3814
+66,Salta,Bussi - Álvarez,9897,462114,370885,2591,3814
+66,Salta,Vicente - Zamora,4303,462114,370885,2591,3814
+66,Salta,Altamira - Flores,2735,462114,370885,2591,3814
+66,Salta,Ammann - Méndez,1492,462114,370885,2591,3814
+66,Salta,Estévez Boero - Bravo,1195,462114,370885,2591,3814
+66,Salta,Unión Provincial,966,462114,370885,2591,3814
+66,Salta,De la Liberación,918,462114,370885,2591,3814
+70,San Juan,Menem - Duhalde,121692,316899,275791,5701,8338
+70,San Juan,Angeloz - Casella,76658,316899,275791,5701,8338
+70,San Juan,Alianza Bloquista,27004,316899,275791,5701,8338
+70,San Juan,Alsogaray - Natale,15982,316899,275791,5701,8338
+70,San Juan,Cruzada Renovadora,11236,316899,275791,5701,8338
+70,San Juan,Vicente - Zamora,4855,316899,275791,5701,8338
+70,San Juan,Estévez Boero - Bravo,1637,316899,275791,5701,8338
+70,San Juan,De los Jubilados,1526,316899,275791,5701,8338
+70,San Juan,Ammann - Méndez,827,316899,275791,5701,8338
+74,San Luis,Menem - Duhalde,69480,172505,144603,2638,867
+74,San Luis,Angeloz - Casella,59266,172505,144603,2638,867
+74,San Luis,Alsogaray - Natale,5066,172505,144603,2638,867
+74,San Luis,Vicente - Zamora,2850,172505,144603,2638,867
+74,San Luis,Demócrata Liberal - Movimiento Popular Provincial,2327,172505,144603,2638,867
+74,San Luis,De los Jubilados,814,172505,144603,2638,867
+74,San Luis,Estévez Boero - Bravo,654,172505,144603,2638,867
+74,San Luis,Ammann - Méndez,641,172505,144603,2638,867
+78,Santa Cruz,Menem - Duhalde,34756,80387,64415,591,293
+78,Santa Cruz,Angeloz - Casella,24241,80387,64415,591,293
+78,Santa Cruz,Alsogaray - Natale,2573,80387,64415,591,293
+78,Santa Cruz,Vicente - Zamora,1028,80387,64415,591,293
+78,Santa Cruz,Altamira - Flores,474,80387,64415,591,293
+78,Santa Cruz,Estévez Boero - Bravo,305,80387,64415,591,293
+78,Santa Cruz,Ammann - Méndez,132,80387,64415,591,293
+82,Santa Fe,Menem - Duhalde,809082,1831446,1589511,25612,6595
+82,Santa Fe,Angeloz - Casella,544777,1831446,1589511,25612,6595
+82,Santa Fe,Alsogaray - Natale,93652,1831446,1589511,25612,6595
+82,Santa Fe,Estévez Boero - Bravo,54395,1831446,1589511,25612,6595
+82,Santa Fe,Vicente - Zamora,30952,1831446,1589511,25612,6595
+82,Santa Fe,Corzo Gómez - Houssay,12811,1831446,1589511,25612,6595
+82,Santa Fe,Altamira - Flores,4074,1831446,1589511,25612,6595
+82,Santa Fe,Ammann - Méndez,3293,1831446,1589511,25612,6595
+82,Santa Fe,Frente Renovador,1281,1831446,1589511,25612,6595
+82,Santa Fe,Tradición y Coherencia,1181,1831446,1589511,25612,6595
+82,Santa Fe,Movimiento Democrático Popular Antiimperialista,916,1831446,1589511,25612,6595
+82,Santa Fe,De la Liberación,890,1831446,1589511,25612,6595
+86,Santiago del Estero,Menem - Duhalde,196916,427371,311391,1848,1444
+86,Santiago del Estero,Angeloz - Casella,89169,427371,311391,1848,1444
+86,Santiago del Estero,Bussi - Álvarez,6199,427371,311391,1848,1444
+86,Santiago del Estero,Angeloz - Guzmán,3655,427371,311391,1848,1444
+86,Santiago del Estero,Corzo Gómez - Houssay,3596,427371,311391,1848,1444
+86,Santiago del Estero,Vicente - Zamora,2287,427371,311391,1848,1444
+86,Santiago del Estero,Alsogaray - Natale,2001,427371,311391,1848,1444
+86,Santiago del Estero,Estévez Boero - Bravo,1672,427371,311391,1848,1444
+86,Santiago del Estero,Frente Unión Autonomista,973,427371,311391,1848,1444
+86,Santiago del Estero,Ammann - Méndez,439,427371,311391,1848,1444
+90,Tucumán,Menem - Duhalde,228388,686476,555017,1497,3067
+90,Tucumán,Bussi - Álvarez,153614,686476,555017,1497,3067
+90,Tucumán,Angeloz - Casella,150267,686476,555017,1497,3067
+90,Tucumán,Alsogaray - Natale,5458,686476,555017,1497,3067
+90,Tucumán,Vicente - Zamora,5393,686476,555017,1497,3067
+90,Tucumán,Estévez Boero - Bravo,2952,686476,555017,1497,3067
+90,Tucumán,Altamira - Flores,932,686476,555017,1497,3067
+90,Tucumán,Ammann - Méndez,900,686476,555017,1497,3067
+90,Tucumán,Acción Provinciana,838,686476,555017,1497,3067
+90,Tucumán,Corzo Gómez - Houssay,815,686476,555017,1497,3067
+90,Tucumán,Defensa Provincial Bandera Blanca,651,686476,555017,1497,3067
+90,Tucumán,Movimiento Nacionalista,245,686476,555017,1497,3067
+94,Tierra del Fuego,Menem - Duhalde,12263,42518,29875,676,468
+94,Tierra del Fuego,Angeloz - Casella,10609,42518,29875,676,468
+94,Tierra del Fuego,Alsogaray - Natale,2404,42518,29875,676,468
+94,Tierra del Fuego,Vicente - Zamora,1507,42518,29875,676,468
+94,Tierra del Fuego,Angeloz - Guzmán,595,42518,29875,676,468
+94,Tierra del Fuego,Movimiento Popular Fueguino,472,42518,29875,676,468
+94,Tierra del Fuego,Estévez Boero - Bravo,251,42518,29875,676,468
+94,Tierra del Fuego,Altamira - Flores,239,42518,29875,676,468
+94,Tierra del Fuego,Socialista Auténtico,216,42518,29875,676,468
+94,Tierra del Fuego,Ammann - Méndez,132,42518,29875,676,468
+94,Tierra del Fuego,De la Liberación,43,42518,29875,676,468

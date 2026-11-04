@@ -1,0 +1,710 @@
+eleccion,seccion_id,circuito,mesas,electores,votantes,positivos,primera,votos_primera,segunda,votos_segunda
+2011-general-diputados,1,,276,72794,55150,39001,Alianza Frente para la Victoria,24759,Unión Cívica Radical,6354
+2011-general-presidente,1,,276,72794,56073,52278,Fernández de Kirchner - Boudou (Alianza Frente para la Victoria),39095,Alfonsín - González Fraga (Alianza Unión para el Desarrollo Social),5750
+2011-general-senadores,1,,276,72794,55116,40009,Alianza Frente para la Victoria,26613,Unión Cívica Radical,6454
+2013-general-diputados,1,,280,82825,61965,59590,Unión para Vivir Mejor,25571,Frente para la Victoria,12800
+2015-general-diputados,1,,290,85215,66079,51081,Unión para Vivir Mejor,24547,Alianza Frente para la Victoria,23405
+2015-general-presidente,1,,290,85215,66029,62198,Scioli - Zannini (Alianza Frente para la Victoria),28788,Massa - Sáenz (Alianza Unidos por una Nueva Alternativa (UNA)),15893
+2015-segunda-presidente,1,,299,88385,66897,65402,Scioli - Zannini (Frente para la Victoria),39854,Macri - Michetti (Cambiemos),25548
+2017-general-diputados,1,,317,93053,64735,60446,Unión para Vivir Mejor - Cambiemos,26017,Frente para la Victoria,16118
+2017-general-senadores,1,,317,93053,64711,60784,Unión para Vivir Mejor - Cambiemos,26866,Frente para la Victoria,16254
+2019-general-diputados,1,,317,93132,70011,53080,Frente de Todos,35182,Juntos por el Cambio,12905
+2019-general-presidente,1,,317,93132,69949,66324,Fernández - Fernández de Kirchner (Frente de Todos),42683,Macri - Pichetto (Juntos por el Cambio),15028
+2021-general-diputados,1,,328,96471,63854,60437,Somos Energía para Renovar Santa Cruz -SER-,20183,Cambia Santa Cruz,17493
+2023-general-diputados,1,,342,96632,68962,43627,Por Santa Cruz,27022,Unión por la Patria,10785
+2023-general-presidente,1,,342,96632,69929,63241,Massa - Rossi (Unión por la Patria),23700,Milei - Villarruel (La Libertad Avanza),23619
+2023-general-senadores,1,,342,96632,69061,46597,Por Santa Cruz,29948,Unión por la Patria,11020
+2023-segunda-presidente,1,,342,100330,69679,67476,Milei - Villarruel (La Libertad Avanza),38398,Massa - Rossi (Unión por la Patria),29078
+2025-general-diputados,1,,328,102131,64575,60636,La Libertad Avanza,19305,Fuerza Santacruceña,18344
+2011-general-diputados,1,1,38,10030,7140,5485,Alianza Frente para la Victoria,4044,Unión Cívica Radical,961
+2011-general-presidente,1,1,38,10030,7165,6772,Fernández de Kirchner - Boudou (Alianza Frente para la Victoria),5192,Alfonsín - González Fraga (Alianza Unión para el Desarrollo Social),633
+2011-general-senadores,1,1,38,10030,7139,5584,Alianza Frente para la Victoria,4173,Unión Cívica Radical,924
+2013-general-diputados,1,1,35,10478,7213,6931,Unión para Vivir Mejor,3199,Partido Justicialista,1647
+2015-general-diputados,1,1,35,10428,7679,6272,Alianza Frente para la Victoria,3358,Unión para Vivir Mejor,2712
+2015-general-presidente,1,1,35,10428,7560,7139,Scioli - Zannini (Alianza Frente para la Victoria),3573,Macri - Michetti (Alianza Cambiemos),1807
+2015-segunda-presidente,1,1,36,10731,7890,7723,Scioli - Zannini (Frente para la Victoria),4753,Macri - Michetti (Cambiemos),2970
+2017-general-diputados,1,1,38,11115,7605,7188,Unión para Vivir Mejor - Cambiemos,3238,Frente para la Victoria,1914
+2017-general-senadores,1,1,38,11115,7615,7257,Unión para Vivir Mejor - Cambiemos,3288,Frente para la Victoria,1904
+2019-general-diputados,1,1,37,10890,7960,7019,Frente de Todos,4266,Juntos por el Cambio,2198
+2019-general-presidente,1,1,37,10890,7953,7705,Fernández - Fernández de Kirchner (Frente de Todos),4472,Macri - Pichetto (Juntos por el Cambio),2287
+2021-general-diputados,1,1,41,12038,7931,7453,Cambia Santa Cruz,2546,Frente de Todos,2514
+2023-general-diputados,1,1,42,12076,8437,5447,Por Santa Cruz,3421,Unión por la Patria,1485
+2023-general-presidente,1,1,42,12076,8625,7879,Milei - Villarruel (La Libertad Avanza),3400,Massa - Rossi (Unión por la Patria),2420
+2023-general-senadores,1,1,42,12076,8401,5436,Por Santa Cruz,3305,Unión por la Patria,1529
+2023-segunda-presidente,1,1,42,12393,8447,8169,Milei - Villarruel (La Libertad Avanza),5328,Massa - Rossi (Unión por la Patria),2841
+2025-general-diputados,1,1,40,12479,7625,7126,La Libertad Avanza,2749,Fuerza Santacruceña,2424
+2011-general-diputados,1,1A,1,40,20,13,Alianza Frente para la Victoria,11,Unión Cívica Radical,2
+2011-general-presidente,1,1A,1,40,20,17,Fernández de Kirchner - Boudou (Alianza Frente para la Victoria),17,,0
+2011-general-senadores,1,1A,1,40,20,12,Alianza Frente para la Victoria,11,Unión Cívica Radical,1
+2013-general-diputados,1,1A,1,43,24,24,Frente para la Victoria,13,Partido Justicialista,6
+2015-general-diputados,1,1A,1,59,23,20,Alianza Frente para la Victoria,12,Unión para Vivir Mejor,8
+2015-general-presidente,1,1A,1,59,31,28,Scioli - Zannini (Alianza Frente para la Victoria),14,Massa - Sáenz (Alianza Unidos por una Nueva Alternativa (UNA)),9
+2015-segunda-presidente,1,1A,1,59,30,30,Scioli - Zannini (Frente para la Victoria),22,Macri - Michetti (Cambiemos),8
+2017-general-diputados,1,1A,1,58,34,34,Frente para la Victoria,18,Unión para Vivir Mejor - Cambiemos,12
+2017-general-senadores,1,1A,1,58,34,33,Frente para la Victoria,17,Unión para Vivir Mejor - Cambiemos,12
+2019-general-diputados,1,1A,1,54,31,26,Frente de Todos,21,Juntos por el Cambio,4
+2019-general-presidente,1,1A,1,54,31,31,Fernández - Fernández de Kirchner (Frente de Todos),26,Macri - Pichetto (Juntos por el Cambio),4
+2021-general-diputados,1,1A,1,60,33,30,Frente de Todos,13,Cambia Santa Cruz,10
+2023-general-diputados,1,1A,1,58,37,20,Por Santa Cruz,7,Unión por la Patria,7
+2023-general-presidente,1,1A,1,58,37,34,Massa - Rossi (Unión por la Patria),15,Milei - Villarruel (La Libertad Avanza),13
+2023-general-senadores,1,1A,1,58,37,20,Unión por la Patria,7,Por Santa Cruz,6
+2023-segunda-presidente,1,1A,1,58,35,33,Milei - Villarruel (La Libertad Avanza),19,Massa - Rossi (Unión por la Patria),14
+2025-general-diputados,1,1A,1,57,33,27,La Libertad Avanza,11,Fuerza Santacruceña,8
+2011-general-diputados,1,2,3,621,514,452,Alianza Frente para la Victoria,397,Unión Cívica Radical,49
+2011-general-presidente,1,2,3,621,514,486,Fernández de Kirchner - Boudou (Alianza Frente para la Victoria),441,Alfonsín - González Fraga (Alianza Unión para el Desarrollo Social),36
+2011-general-senadores,1,2,3,621,513,461,Alianza Frente para la Victoria,403,Unión Cívica Radical,50
+2013-general-diputados,1,2,3,657,503,497,Frente para la Victoria,271,Partido Justicialista,142
+2015-general-diputados,1,2,3,708,576,481,Alianza Frente para la Victoria,346,Unión para Vivir Mejor,135
+2015-general-presidente,1,2,3,708,576,552,Scioli - Zannini (Alianza Frente para la Victoria),378,Macri - Michetti (Alianza Cambiemos),110
+2015-segunda-presidente,1,2,3,708,530,522,Scioli - Zannini (Frente para la Victoria),337,Macri - Michetti (Cambiemos),185
+2017-general-diputados,1,2,3,778,512,496,Frente para la Victoria,314,Unión para Vivir Mejor - Cambiemos,145
+2017-general-senadores,1,2,3,778,512,498,Frente para la Victoria,314,Unión para Vivir Mejor - Cambiemos,144
+2019-general-diputados,1,2,3,820,599,566,Frente de Todos,440,Juntos por el Cambio,102
+2019-general-presidente,1,2,3,820,599,583,Fernández - Fernández de Kirchner (Frente de Todos),424,Macri - Pichetto (Juntos por el Cambio),116
+2021-general-diputados,1,2,3,883,601,585,Frente de Todos,397,Cambia Santa Cruz,100
+2023-general-diputados,1,2,4,912,701,515,Unión por la Patria,388,Por Santa Cruz,105
+2023-general-presidente,1,2,4,912,711,649,Massa - Rossi (Unión por la Patria),371,Milei - Villarruel (La Libertad Avanza),192
+2023-general-senadores,1,2,4,912,701,515,Unión por la Patria,387,Por Santa Cruz,107
+2023-segunda-presidente,1,2,4,912,646,625,Massa - Rossi (Unión por la Patria),369,Milei - Villarruel (La Libertad Avanza),256
+2025-general-diputados,1,2,3,914,556,542,Por Santa Cruz,366,La Libertad Avanza,91
+2011-general-diputados,1,3,127,34279,27089,18974,Alianza Frente para la Victoria,10447,Unión Cívica Radical,2996
+2011-general-presidente,1,3,127,34279,27336,25306,Fernández de Kirchner - Boudou (Alianza Frente para la Victoria),18120,Alfonsín - González Fraga (Alianza Unión para el Desarrollo Social),3098
+2011-general-senadores,1,3,127,34279,27051,19602,Alianza Frente para la Victoria,11799,Unión Cívica Radical,3055
+2013-general-diputados,1,3,130,39222,30050,28785,Unión para Vivir Mejor,9805,Partido Obrero,6486
+2015-general-diputados,1,3,136,40737,32135,24581,Unión para Vivir Mejor,12134,Alianza Frente para la Victoria,10232
+2015-general-presidente,1,3,136,40737,32260,30567,Scioli - Zannini (Alianza Frente para la Victoria),13507,Macri - Michetti (Alianza Cambiemos),7672
+2015-segunda-presidente,1,3,137,41040,31460,30614,Scioli - Zannini (Frente para la Victoria),17865,Macri - Michetti (Cambiemos),12749
+2017-general-diputados,1,3,145,43178,30046,27688,Unión para Vivir Mejor - Cambiemos,10122,Frente para la Victoria,6451
+2017-general-senadores,1,3,145,43178,30003,27924,Unión para Vivir Mejor - Cambiemos,10835,Frente para la Victoria,6457
+2019-general-diputados,1,3,146,43658,32999,24708,Frente de Todos,16043,Juntos por el Cambio,5908
+2019-general-presidente,1,3,146,43658,32936,31118,Fernández - Fernández de Kirchner (Frente de Todos),19502,Macri - Pichetto (Juntos por el Cambio),7331
+2021-general-diputados,1,3,150,44821,29855,28313,Somos Energía para Renovar Santa Cruz -SER-,9158,Cambia Santa Cruz,7571
+2011-general-diputados,1,4,4,818,569,428,Alianza Frente para la Victoria,249,Unión Cívica Radical,61
+2011-general-presidente,1,4,4,818,567,544,Fernández de Kirchner - Boudou (Alianza Frente para la Victoria),377,Binner - Morandini (Alianza Frente Amplio Progresista),72
+2011-general-senadores,1,4,4,818,566,438,Alianza Frente para la Victoria,267,Unión Cívica Radical,67
+2013-general-diputados,1,4,3,846,589,579,Unión para Vivir Mejor,224,Partido Justicialista,169
+2015-general-diputados,1,4,4,906,669,538,Alianza Frente para la Victoria,255,Unión para Vivir Mejor,255
+2015-general-presidente,1,4,4,906,671,648,Scioli - Zannini (Alianza Frente para la Victoria),303,Macri - Michetti (Alianza Cambiemos),185
+2015-segunda-presidente,1,4,3,755,416,411,Scioli - Zannini (Frente para la Victoria),246,Macri - Michetti (Cambiemos),165
+2017-general-diputados,1,4,4,930,638,609,Frente para la Victoria,240,Unión para Vivir Mejor - Cambiemos,223
+2017-general-senadores,1,4,4,930,638,610,Unión para Vivir Mejor - Cambiemos,240,Frente para la Victoria,235
+2019-general-diputados,1,4,4,926,706,612,Frente de Todos,349,Juntos por el Cambio,195
+2019-general-presidente,1,4,4,926,706,683,Fernández - Fernández de Kirchner (Frente de Todos),368,Macri - Pichetto (Juntos por el Cambio),223
+2021-general-diputados,1,4,4,983,663,640,Somos Energía para Renovar Santa Cruz -SER-,231,Cambia Santa Cruz,224
+2023-general-diputados,1,4,4,1024,785,458,Por Santa Cruz,222,Unión por la Patria,142
+2023-general-presidente,1,4,4,1024,734,707,Massa - Rossi (Unión por la Patria),254,Milei - Villarruel (La Libertad Avanza),233
+2023-general-senadores,1,4,4,1024,784,474,Por Santa Cruz,241,Unión por la Patria,139
+2023-segunda-presidente,1,4,4,1026,723,703,Milei - Villarruel (La Libertad Avanza),395,Massa - Rossi (Unión por la Patria),308
+2025-general-diputados,1,4,4,1018,775,732,Fuerza Santacruceña,274,La Libertad Avanza,190
+2011-general-diputados,1,4A,1,49,19,15,Alianza Frente para la Victoria,7,Partido Socialista,3
+2011-general-presidente,1,4A,1,49,19,17,Fernández de Kirchner - Boudou (Alianza Frente para la Victoria),11,Alfonsín - González Fraga (Alianza Unión para el Desarrollo Social),3
+2011-general-senadores,1,4A,1,49,19,15,Alianza Frente para la Victoria,7,Partido Socialista,4
+2013-general-diputados,1,4A,1,34,11,10,Frente para la Victoria,3,Partido Justicialista,3
+2015-general-diputados,1,4A,1,34,13,11,Alianza Frente para la Victoria,6,Unión para Vivir Mejor,4
+2015-general-presidente,1,4A,1,34,13,13,Scioli - Zannini (Alianza Frente para la Victoria),6,Massa - Sáenz (Alianza Unidos por una Nueva Alternativa (UNA)),4
+2015-segunda-presidente,1,4A,1,34,15,15,Scioli - Zannini (Frente para la Victoria),9,Macri - Michetti (Cambiemos),6
+2017-general-diputados,1,4A,1,31,14,13,Unión para Vivir Mejor - Cambiemos,4,Frente para la Victoria,3
+2017-general-senadores,1,4A,1,31,14,13,Unión para Vivir Mejor - Cambiemos,4,Frente para la Victoria,3
+2019-general-diputados,1,4A,1,32,11,11,Frente de Todos,9,Juntos por el Cambio,2
+2019-general-presidente,1,4A,1,32,20,11,Fernández - Fernández de Kirchner (Frente de Todos),9,Macri - Pichetto (Juntos por el Cambio),2
+2021-general-diputados,1,4A,1,25,8,8,Somos Energía para Renovar Santa Cruz -SER-,4,Cambia Santa Cruz,2
+2023-general-diputados,1,4A,1,17,7,3,Unión por la Patria,3,,0
+2023-general-presidente,1,4A,1,17,7,7,Milei - Villarruel (La Libertad Avanza),4,Massa - Rossi (Unión por la Patria),3
+2023-general-senadores,1,4A,1,17,7,3,Unión por la Patria,2,Cambia Santa Cruz,1
+2023-segunda-presidente,1,4A,1,17,8,8,Milei - Villarruel (La Libertad Avanza),5,Massa - Rossi (Unión por la Patria),3
+2025-general-diputados,1,4A,1,36,14,14,Fuerza Santacruceña,8,Frente de Izquierda y de Trabajadores - Unidad,2
+2011-general-diputados,1,5,53,14114,10927,7051,Alianza Frente para la Victoria,4986,Unión Cívica Radical,1009
+2011-general-presidente,1,5,53,14114,11030,10325,Fernández de Kirchner - Boudou (Alianza Frente para la Victoria),8354,Alfonsín - González Fraga (Alianza Unión para el Desarrollo Social),869
+2011-general-senadores,1,5,53,14114,10926,7285,Alianza Frente para la Victoria,5308,Unión Cívica Radical,1057
+2013-general-diputados,1,5,57,17004,12911,12427,Unión para Vivir Mejor,6855,Frente para la Victoria,2747
+2015-general-diputados,1,5,55,16446,12923,9585,Unión para Vivir Mejor,4876,Alianza Frente para la Victoria,4431
+2015-general-presidente,1,5,55,16446,12846,11810,Scioli - Zannini (Alianza Frente para la Victoria),5678,Massa - Sáenz (Alianza Unidos por una Nueva Alternativa (UNA)),3625
+2015-segunda-presidente,1,5,60,17950,13672,13390,Scioli - Zannini (Frente para la Victoria),8893,Macri - Michetti (Cambiemos),4497
+2017-general-diputados,1,5,63,18666,13294,12321,Unión para Vivir Mejor - Cambiemos,5389,Frente para la Victoria,3722
+2017-general-senadores,1,5,63,18666,13310,12520,Unión para Vivir Mejor - Cambiemos,5792,Frente para la Victoria,3803
+2019-general-diputados,1,5,63,18742,14181,10293,Frente de Todos,7426,Juntos por el Cambio,1946
+2019-general-presidente,1,5,63,18742,14085,13278,Fernández - Fernández de Kirchner (Frente de Todos),9020,Macri - Pichetto (Juntos por el Cambio),2289
+2021-general-diputados,1,5,64,19175,12578,11841,Cambia Santa Cruz,4358,Somos Energía para Renovar Santa Cruz -SER-,4358
+2023-general-diputados,1,5,66,19550,13996,8286,Por Santa Cruz,5363,Unión por la Patria,1715
+2023-general-presidente,1,5,66,19550,14261,12751,Massa - Rossi (Unión por la Patria),5121,Milei - Villarruel (La Libertad Avanza),4581
+2023-general-senadores,1,5,66,19550,14055,9335,Por Santa Cruz,6345,Unión por la Patria,1777
+2023-segunda-presidente,1,5,66,19606,13754,13302,Milei - Villarruel (La Libertad Avanza),7245,Massa - Rossi (Unión por la Patria),6057
+2025-general-diputados,1,5,62,19844,12578,11784,Fuerza Santacruceña,4255,La Libertad Avanza,3515
+2011-general-diputados,1,5A,1,158,116,90,Alianza Frente para la Victoria,69,Unión Cívica Radical,12
+2011-general-presidente,1,5A,1,158,116,110,Fernández de Kirchner - Boudou (Alianza Frente para la Victoria),90,Alfonsín - González Fraga (Alianza Unión para el Desarrollo Social),16
+2011-general-senadores,1,5A,1,158,116,93,Alianza Frente para la Victoria,70,Unión Cívica Radical,14
+2013-general-diputados,1,5A,1,209,169,165,Unión para Vivir Mejor,56,Frente para la Victoria,53
+2015-general-diputados,1,5A,1,267,223,176,Unión para Vivir Mejor,96,Alianza Frente para la Victoria,78
+2015-general-presidente,1,5A,1,267,223,207,Scioli - Zannini (Alianza Frente para la Victoria),95,Macri - Michetti (Alianza Cambiemos),72
+2015-segunda-presidente,1,5A,1,267,205,203,Scioli - Zannini (Frente para la Victoria),132,Macri - Michetti (Cambiemos),71
+2017-general-diputados,1,5A,1,287,197,190,Unión para Vivir Mejor - Cambiemos,86,Frente para la Victoria,72
+2017-general-senadores,1,5A,1,287,197,189,Unión para Vivir Mejor - Cambiemos,87,Frente para la Victoria,69
+2019-general-diputados,1,5A,1,297,230,192,Frente de Todos,132,Juntos por el Cambio,50
+2019-general-presidente,1,5A,1,297,230,221,Fernández - Fernández de Kirchner (Frente de Todos),149,Macri - Pichetto (Juntos por el Cambio),50
+2021-general-diputados,1,5A,2,308,188,178,Frente de Todos,67,Cambia Santa Cruz,56
+2023-general-diputados,1,5A,2,353,275,206,Unión por la Patria,145,Por Santa Cruz,52
+2023-general-presidente,1,5A,2,353,275,241,Massa - Rossi (Unión por la Patria),146,Milei - Villarruel (La Libertad Avanza),72
+2023-general-senadores,1,5A,2,353,275,213,Unión por la Patria,146,Por Santa Cruz,59
+2023-segunda-presidente,1,5A,2,354,234,225,Massa - Rossi (Unión por la Patria),121,Milei - Villarruel (La Libertad Avanza),104
+2025-general-diputados,1,5A,2,353,216,194,Por Santa Cruz,77,Fuerza Santacruceña,52
+2011-general-diputados,1,6,47,12633,8735,6475,Alianza Frente para la Victoria,4540,Unión Cívica Radical,1257
+2011-general-presidente,1,6,47,12633,9285,8680,Fernández de Kirchner - Boudou (Alianza Frente para la Victoria),6482,Alfonsín - González Fraga (Alianza Unión para el Desarrollo Social),1039
+2011-general-senadores,1,6,47,12633,8745,6501,Alianza Frente para la Victoria,4566,Unión Cívica Radical,1279
+2013-general-diputados,1,6,47,14288,10486,10163,Unión para Vivir Mejor,5354,Frente para la Victoria,2177
+2015-general-diputados,1,6,52,15595,11828,9408,Alianza Frente para la Victoria,4684,Unión para Vivir Mejor,4321
+2015-general-presidente,1,6,52,15595,11839,11224,Scioli - Zannini (Alianza Frente para la Victoria),5230,Massa - Sáenz (Alianza Unidos por una Nueva Alternativa (UNA)),3069
+2015-segunda-presidente,1,6,56,16806,12666,12481,Scioli - Zannini (Frente para la Victoria),7593,Macri - Michetti (Cambiemos),4888
+2017-general-diputados,1,6,60,17982,12386,11898,Unión para Vivir Mejor - Cambiemos,6792,Frente para la Victoria,3382
+2017-general-senadores,1,6,60,17982,12379,11731,Unión para Vivir Mejor - Cambiemos,6458,Frente para la Victoria,3450
+2019-general-diputados,1,6,59,17686,13285,9644,Frente de Todos,6495,Juntos por el Cambio,2493
+2019-general-presidente,1,6,59,17686,13380,12685,Fernández - Fernández de Kirchner (Frente de Todos),8712,Macri - Pichetto (Juntos por el Cambio),2719
+2021-general-diputados,1,6,61,18153,11990,11382,Somos Energía para Renovar Santa Cruz -SER-,4463,Frente de Todos,2880
+2023-general-diputados,1,6,62,18543,13609,8846,Por Santa Cruz,7347,Unión por la Patria,1067
+2023-general-presidente,1,6,62,18543,13795,12150,Milei - Villarruel (La Libertad Avanza),5372,Massa - Rossi (Unión por la Patria),4228
+2023-general-senadores,1,6,62,18543,13655,10023,Por Santa Cruz,8414,Unión por la Patria,1163
+2023-segunda-presidente,1,6,62,18575,13107,12779,Milei - Villarruel (La Libertad Avanza),7498,Massa - Rossi (Unión por la Patria),5281
+2025-general-diputados,1,6,59,18871,11917,11204,La Libertad Avanza,3896,Fuerza Santacruceña,3456
+2011-general-diputados,1,6A,1,52,21,18,Alianza Frente para la Victoria,9,Coalición Cívica - Afirmación para una República Igualitaria ARI,4
+2011-general-presidente,1,6A,1,52,21,21,Fernández de Kirchner - Boudou (Alianza Frente para la Victoria),11,Binner - Morandini (Alianza Frente Amplio Progresista),3
+2011-general-senadores,1,6A,1,52,21,18,Alianza Frente para la Victoria,9,Coalición Cívica - Afirmación para una República Igualitaria ARI,4
+2013-general-diputados,1,6A,1,44,9,9,Unión para Vivir Mejor,5,Frente para la Victoria,2
+2015-general-diputados,1,6A,1,35,10,9,Unión para Vivir Mejor,6,Alianza Frente para la Victoria,3
+2015-general-presidente,1,6A,1,35,10,10,Macri - Michetti (Alianza Cambiemos),6,Scioli - Zannini (Alianza Frente para la Victoria),4
+2015-segunda-presidente,1,6A,1,35,13,13,Macri - Michetti (Cambiemos),9,Scioli - Zannini (Frente para la Victoria),4
+2017-general-diputados,1,6A,1,28,9,9,Unión para Vivir Mejor - Cambiemos,6,Frente para la Victoria,2
+2017-general-senadores,1,6A,1,28,9,9,Unión para Vivir Mejor - Cambiemos,6,Frente para la Victoria,2
+2019-general-diputados,1,6A,1,27,9,9,Juntos por el Cambio,7,Frente Renovador Auténtico,1
+2019-general-presidente,1,6A,1,27,9,9,Macri - Pichetto (Juntos por el Cambio),7,Fernández - Fernández de Kirchner (Frente de Todos),1
+2021-general-diputados,1,6A,1,25,7,7,Cambia Santa Cruz,3,Frente de Izquierda y de Trabajadores - Unidad,2
+2023-general-diputados,1,6A,1,25,9,6,Cambia Santa Cruz,2,Por Santa Cruz,2
+2023-general-presidente,1,6A,1,25,9,9,Milei - Villarruel (La Libertad Avanza),4,Bullrich - Petri (Juntos por el Cambio),3
+2023-general-senadores,1,6A,1,25,9,6,Cambia Santa Cruz,2,Por Santa Cruz,2
+2023-segunda-presidente,1,6A,1,26,9,9,Milei - Villarruel (La Libertad Avanza),6,Massa - Rossi (Unión por la Patria),3
+2025-general-diputados,1,6A,1,26,8,7,La Libertad Avanza,5,Fuerza Santacruceña,1
+2013-general-diputados,1,7,1,0,0,0,,0,,0
+2015-general-diputados,1,7,1,0,0,0,,0,,0
+2015-general-presidente,1,7,1,0,0,0,,0,,0
+2019-general-diputados,1,7,1,0,0,0,,0,,0
+2019-general-presidente,1,7,1,0,0,0,,0,,0
+2025-general-diputados,1,7,1,0,0,0,,0,,0
+2023-general-diputados,1,300,55,16122,11432,7149,Por Santa Cruz,3833,Unión por la Patria,2035
+2023-general-presidente,1,300,55,16122,11430,10476,Massa - Rossi (Unión por la Patria),3892,Milei - Villarruel (La Libertad Avanza),3773
+2023-general-senadores,1,300,55,16122,11437,7430,Por Santa Cruz,4165,Unión por la Patria,2067
+2023-segunda-presidente,1,300,55,16465,11286,10912,Milei - Villarruel (La Libertad Avanza),6229,Massa - Rossi (Unión por la Patria),4683
+2025-general-diputados,1,300,53,16761,10337,9724,La Libertad Avanza,3210,Fuerza Santacruceña,2571
+2023-general-diputados,1,310,77,21145,14741,9618,Por Santa Cruz,4962,Unión por la Patria,2871
+2023-general-presidente,1,310,77,21145,15077,13801,Massa - Rossi (Unión por la Patria),5378,Milei - Villarruel (La Libertad Avanza),4366
+2023-general-senadores,1,310,77,21145,14771,9976,Por Santa Cruz,5462,Unión por la Patria,2881
+2023-segunda-presidente,1,310,77,22990,15798,15258,Milei - Villarruel (La Libertad Avanza),8332,Massa - Rossi (Unión por la Patria),6926
+2025-general-diputados,1,310,73,23108,14763,13876,La Libertad Avanza,4009,Fuerza Santacruceña,3722
+2023-general-diputados,1,320,27,6807,4933,3073,Por Santa Cruz,1708,Unión por la Patria,925
+2023-general-presidente,1,320,27,6807,4968,4537,Massa - Rossi (Unión por la Patria),1870,Milei - Villarruel (La Libertad Avanza),1609
+2023-general-senadores,1,320,27,6807,4929,3166,Por Santa Cruz,1842,Unión por la Patria,920
+2023-segunda-presidente,1,320,27,7908,5632,5453,Milei - Villarruel (La Libertad Avanza),2981,Massa - Rossi (Unión por la Patria),2472
+2025-general-diputados,1,320,28,8664,5753,5406,La Libertad Avanza,1581,Fuerza Santacruceña,1521
+2011-general-diputados,2,,24,5953,4688,3538,Alianza Frente para la Victoria,2387,Unión Cívica Radical,929
+2011-general-presidente,2,,24,5953,4688,4480,Fernández de Kirchner - Boudou (Alianza Frente para la Victoria),3414,Alfonsín - González Fraga (Alianza Unión para el Desarrollo Social),692
+2011-general-senadores,2,,24,5953,4648,3580,Alianza Frente para la Victoria,2455,Unión Cívica Radical,904
+2013-general-diputados,2,,26,7441,5062,4886,Unión para Vivir Mejor,1867,Partido Justicialista,1614
+2015-general-diputados,2,,29,8329,6265,5154,Alianza Frente para la Victoria,3179,Unión para Vivir Mejor,1662
+2015-general-presidente,2,,29,8329,6219,5884,Scioli - Zannini (Alianza Frente para la Victoria),3424,Massa - Sáenz (Alianza Unidos por una Nueva Alternativa (UNA)),1076
+2015-segunda-presidente,2,,30,8614,5919,5767,Scioli - Zannini (Frente para la Victoria),3849,Macri - Michetti (Cambiemos),1918
+2017-general-diputados,2,,33,9346,5989,5664,Frente para la Victoria,2240,Unión para Vivir Mejor - Cambiemos,2135
+2017-general-senadores,2,,33,9346,6022,5690,Unión para Vivir Mejor - Cambiemos,2194,Frente para la Victoria,2135
+2019-general-diputados,2,,34,9656,6819,5953,Frente de Todos,4326,Juntos por el Cambio,1219
+2019-general-presidente,2,,34,9656,6832,6573,Fernández - Fernández de Kirchner (Frente de Todos),4534,Macri - Pichetto (Juntos por el Cambio),1433
+2021-general-diputados,2,,35,9905,6022,5647,Frente de Todos,2164,Cambia Santa Cruz,1745
+2023-general-diputados,2,,36,10477,7367,4917,Por Santa Cruz,2542,Unión por la Patria,2070
+2023-general-presidente,2,,36,10477,7479,6758,Massa - Rossi (Unión por la Patria),2864,Milei - Villarruel (La Libertad Avanza),2581
+2023-general-senadores,2,,36,10477,7414,5068,Por Santa Cruz,2679,Unión por la Patria,2071
+2023-segunda-presidente,2,,36,10517,6854,6628,Milei - Villarruel (La Libertad Avanza),3737,Massa - Rossi (Unión por la Patria),2891
+2025-general-diputados,2,,36,10447,6109,5687,Fuerza Santacruceña,1825,La Libertad Avanza,1694
+2011-general-diputados,2,8,14,3621,2828,2182,Alianza Frente para la Victoria,1532,Unión Cívica Radical,547
+2011-general-presidente,2,8,14,3621,2828,2702,Fernández de Kirchner - Boudou (Alianza Frente para la Victoria),2113,Alfonsín - González Fraga (Alianza Unión para el Desarrollo Social),414
+2011-general-senadores,2,8,14,3621,2827,2204,Alianza Frente para la Victoria,1565,Unión Cívica Radical,536
+2013-general-diputados,2,8,16,4734,3109,3000,Unión para Vivir Mejor,1218,Partido Justicialista,897
+2015-general-diputados,2,8,17,5141,3769,3126,Alianza Frente para la Victoria,1944,Unión para Vivir Mejor,976
+2015-general-presidente,2,8,17,5141,3769,3553,Scioli - Zannini (Alianza Frente para la Victoria),2080,Macri - Michetti (Alianza Cambiemos),633
+2015-segunda-presidente,2,8,18,5426,3696,3600,Scioli - Zannini (Frente para la Victoria),2434,Macri - Michetti (Cambiemos),1166
+2017-general-diputados,2,8,20,5916,3711,3525,Frente para la Victoria,1405,Unión para Vivir Mejor - Cambiemos,1284
+2017-general-senadores,2,8,20,5916,3746,3544,Unión para Vivir Mejor - Cambiemos,1340,Frente para la Victoria,1310
+2019-general-diputados,2,8,21,6112,4262,3687,Frente de Todos,2546,Juntos por el Cambio,867
+2019-general-presidente,2,8,21,6112,4275,4123,Fernández - Fernández de Kirchner (Frente de Todos),2742,Macri - Pichetto (Juntos por el Cambio),973
+2021-general-diputados,2,8,21,6251,3724,3467,Frente de Todos,1256,Cambia Santa Cruz,1114
+2023-general-diputados,2,8,22,6553,4586,2916,Por Santa Cruz,1474,Unión por la Patria,1285
+2023-general-presidente,2,8,22,6553,4648,4210,Massa - Rossi (Unión por la Patria),1780,Milei - Villarruel (La Libertad Avanza),1610
+2023-general-senadores,2,8,22,6553,4583,3034,Por Santa Cruz,1572,Unión por la Patria,1290
+2023-segunda-presidente,2,8,22,6581,4337,4208,Milei - Villarruel (La Libertad Avanza),2425,Massa - Rossi (Unión por la Patria),1783
+2025-general-diputados,2,8,22,6450,3860,3606,Fuerza Santacruceña,1112,La Libertad Avanza,1091
+2011-general-diputados,2,8A,1,23,8,8,Alianza Frente para la Victoria,6,Unión Cívica Radical,2
+2011-general-presidente,2,8A,1,23,8,7,Fernández de Kirchner - Boudou (Alianza Frente para la Victoria),5,Alfonsín - González Fraga (Alianza Unión para el Desarrollo Social),2
+2011-general-senadores,2,8A,1,23,8,7,Alianza Frente para la Victoria,5,Unión Cívica Radical,2
+2013-general-diputados,2,8A,1,23,7,7,Unión para Vivir Mejor,3,Frente para la Victoria,2
+2015-general-diputados,2,8A,1,21,5,5,Alianza Frente para la Victoria,3,Unión para Vivir Mejor,2
+2015-general-presidente,2,8A,1,21,6,6,Scioli - Zannini (Alianza Frente para la Victoria),3,Macri - Michetti (Alianza Cambiemos),2
+2015-segunda-presidente,2,8A,1,21,8,8,Scioli - Zannini (Frente para la Victoria),5,Macri - Michetti (Cambiemos),3
+2017-general-diputados,2,8A,1,21,6,5,Frente Renovador Auténtico,2,Unión para Vivir Mejor - Cambiemos,2
+2017-general-senadores,2,8A,1,21,6,5,Frente Renovador Auténtico,2,Unión para Vivir Mejor - Cambiemos,2
+2019-general-diputados,2,8A,1,21,12,8,Frente de Todos,3,Juntos por el Cambio,3
+2019-general-presidente,2,8A,1,21,12,8,Fernández - Fernández de Kirchner (Frente de Todos),3,Macri - Pichetto (Juntos por el Cambio),3
+2021-general-diputados,2,8A,1,22,7,6,Cambia Santa Cruz,3,Somos Energía para Renovar Santa Cruz -SER-,2
+2023-general-diputados,2,8A,1,24,7,5,Cambia Santa Cruz,3,Por Santa Cruz,1
+2023-general-presidente,2,8A,1,24,7,6,Bullrich - Petri (Juntos por el Cambio),3,Milei - Villarruel (La Libertad Avanza),2
+2023-general-senadores,2,8A,1,24,7,5,Cambia Santa Cruz,3,Por Santa Cruz,1
+2023-segunda-presidente,2,8A,1,25,5,5,Milei - Villarruel (La Libertad Avanza),3,Massa - Rossi (Unión por la Patria),2
+2025-general-diputados,2,8A,1,27,6,6,Fuerza Santacruceña,2,La Libertad Avanza,2
+2011-general-diputados,2,9,9,2309,1852,1348,Alianza Frente para la Victoria,849,Unión Cívica Radical,380
+2011-general-presidente,2,9,9,2309,1852,1771,Fernández de Kirchner - Boudou (Alianza Frente para la Victoria),1296,Alfonsín - González Fraga (Alianza Unión para el Desarrollo Social),276
+2011-general-senadores,2,9,9,2309,1813,1369,Alianza Frente para la Victoria,885,Unión Cívica Radical,366
+2013-general-diputados,2,9,9,2684,1946,1879,Partido Justicialista,715,Unión para Vivir Mejor,646
+2015-general-diputados,2,9,11,3167,2491,2023,Alianza Frente para la Victoria,1232,Unión para Vivir Mejor,684
+2015-general-presidente,2,9,11,3167,2444,2325,Scioli - Zannini (Alianza Frente para la Victoria),1341,Massa - Sáenz (Alianza Unidos por una Nueva Alternativa (UNA)),475
+2015-segunda-presidente,2,9,11,3167,2215,2159,Scioli - Zannini (Frente para la Victoria),1410,Macri - Michetti (Cambiemos),749
+2017-general-diputados,2,9,12,3409,2272,2134,Unión para Vivir Mejor - Cambiemos,849,Frente para la Victoria,834
+2017-general-senadores,2,9,12,3409,2270,2141,Unión para Vivir Mejor - Cambiemos,852,Frente para la Victoria,824
+2019-general-diputados,2,9,12,3523,2545,2258,Frente de Todos,1777,Juntos por el Cambio,349
+2019-general-presidente,2,9,12,3523,2545,2442,Fernández - Fernández de Kirchner (Frente de Todos),1789,Macri - Pichetto (Juntos por el Cambio),457
+2021-general-diputados,2,9,13,3632,2291,2174,Frente de Todos,908,Cambia Santa Cruz,628
+2023-general-diputados,2,9,13,3900,2774,1996,Por Santa Cruz,1067,Unión por la Patria,784
+2023-general-presidente,2,9,13,3900,2824,2542,Massa - Rossi (Unión por la Patria),1083,Milei - Villarruel (La Libertad Avanza),969
+2023-general-senadores,2,9,13,3900,2824,2029,Por Santa Cruz,1106,Unión por la Patria,780
+2023-segunda-presidente,2,9,13,3911,2512,2415,Milei - Villarruel (La Libertad Avanza),1309,Massa - Rossi (Unión por la Patria),1106
+2025-general-diputados,2,9,13,3970,2243,2075,Fuerza Santacruceña,711,La Libertad Avanza,601
+2011-general-diputados,3,,26,6655,4963,3981,Alianza Frente para la Victoria,2462,Unión Cívica Radical,1194
+2011-general-presidente,3,,26,6655,4958,4651,Fernández de Kirchner - Boudou (Alianza Frente para la Victoria),3564,Alfonsín - González Fraga (Alianza Unión para el Desarrollo Social),653
+2011-general-senadores,3,,26,6655,4958,4010,Alianza Frente para la Victoria,2542,Unión Cívica Radical,1088
+2013-general-diputados,3,,28,8008,5574,5380,Unión para Vivir Mejor,2154,Partido Justicialista,1567
+2015-general-diputados,3,,30,8614,6375,5247,Unión para Vivir Mejor,2734,Alianza Frente para la Victoria,2354
+2015-general-presidente,3,,30,8614,6368,6075,Scioli - Zannini (Alianza Frente para la Victoria),2694,Macri - Michetti (Alianza Cambiemos),1580
+2015-segunda-presidente,3,,30,8614,6160,6028,Scioli - Zannini (Frente para la Victoria),3437,Macri - Michetti (Cambiemos),2591
+2017-general-diputados,3,,32,9055,6082,5775,Unión para Vivir Mejor - Cambiemos,2700,Frente para la Victoria,1676
+2017-general-senadores,3,,32,9055,6092,5823,Unión para Vivir Mejor - Cambiemos,2731,Frente para la Victoria,1649
+2019-general-diputados,3,,33,9390,6617,5473,Frente de Todos,3353,Juntos por el Cambio,1561
+2019-general-presidente,3,,33,9390,6647,6270,Fernández - Fernández de Kirchner (Frente de Todos),3719,Macri - Pichetto (Juntos por el Cambio),1687
+2021-general-diputados,3,,35,9930,6372,5784,Cambia Santa Cruz,2291,Frente de Todos,1654
+2023-general-diputados,3,,36,10403,7020,4054,Por Santa Cruz,2357,Unión por la Patria,1173
+2023-general-presidente,3,,36,10403,7101,6505,Milei - Villarruel (La Libertad Avanza),2867,Massa - Rossi (Unión por la Patria),1837
+2023-general-senadores,3,,36,10403,7021,4122,Por Santa Cruz,2360,Unión por la Patria,1167
+2023-segunda-presidente,3,,36,10418,6851,6554,Milei - Villarruel (La Libertad Avanza),4349,Massa - Rossi (Unión por la Patria),2205
+2025-general-diputados,3,,35,10634,6210,5714,La Libertad Avanza,2418,Fuerza Santacruceña,1806
+2011-general-diputados,3,10,25,6586,4932,3957,Alianza Frente para la Victoria,2450,Unión Cívica Radical,1184
+2011-general-presidente,3,10,25,6586,4927,4621,Fernández de Kirchner - Boudou (Alianza Frente para la Victoria),3547,Alfonsín - González Fraga (Alianza Unión para el Desarrollo Social),646
+2011-general-senadores,3,10,25,6586,4927,3987,Alianza Frente para la Victoria,2530,Unión Cívica Radical,1080
+2013-general-diputados,3,10,27,7963,5547,5355,Unión para Vivir Mejor,2144,Partido Justicialista,1565
+2015-general-diputados,3,10,29,8579,6358,5240,Unión para Vivir Mejor,2734,Alianza Frente para la Victoria,2348
+2015-general-presidente,3,10,29,8579,6351,6060,Scioli - Zannini (Alianza Frente para la Victoria),2687,Macri - Michetti (Alianza Cambiemos),1577
+2015-segunda-presidente,3,10,29,8579,6142,6011,Scioli - Zannini (Frente para la Victoria),3427,Macri - Michetti (Cambiemos),2584
+2017-general-diputados,3,10,31,9026,6069,5762,Unión para Vivir Mejor - Cambiemos,2694,Frente para la Victoria,1673
+2017-general-senadores,3,10,31,9026,6079,5810,Unión para Vivir Mejor - Cambiemos,2725,Frente para la Victoria,1646
+2019-general-diputados,3,10,32,9363,6610,5467,Frente de Todos,3350,Juntos por el Cambio,1558
+2019-general-presidente,3,10,32,9363,6640,6264,Fernández - Fernández de Kirchner (Frente de Todos),3716,Macri - Pichetto (Juntos por el Cambio),1684
+2021-general-diputados,3,10,34,9892,6355,5769,Cambia Santa Cruz,2287,Frente de Todos,1646
+2023-general-diputados,3,10,35,10367,7006,4046,Por Santa Cruz,2354,Unión por la Patria,1170
+2023-general-presidente,3,10,35,10367,7087,6491,Milei - Villarruel (La Libertad Avanza),2858,Massa - Rossi (Unión por la Patria),1834
+2023-general-senadores,3,10,35,10367,7007,4114,Por Santa Cruz,2357,Unión por la Patria,1164
+2023-segunda-presidente,3,10,35,10382,6842,6547,Milei - Villarruel (La Libertad Avanza),4345,Massa - Rossi (Unión por la Patria),2202
+2025-general-diputados,3,10,34,10594,6193,5698,La Libertad Avanza,2411,Fuerza Santacruceña,1800
+2011-general-diputados,3,11,1,69,31,24,Alianza Frente para la Victoria,12,Unión Cívica Radical,10
+2011-general-presidente,3,11,1,69,31,30,Fernández de Kirchner - Boudou (Alianza Frente para la Victoria),17,Alfonsín - González Fraga (Alianza Unión para el Desarrollo Social),7
+2011-general-senadores,3,11,1,69,31,23,Alianza Frente para la Victoria,12,Unión Cívica Radical,8
+2013-general-diputados,3,11,1,45,27,25,Frente para la Victoria,12,Unión para Vivir Mejor,10
+2015-general-diputados,3,11,1,35,17,7,Alianza Frente para la Victoria,6,Alianza Frente de Izquierda y de los Trabajadores,1
+2015-general-presidente,3,11,1,35,17,15,Scioli - Zannini (Alianza Frente para la Victoria),7,Macri - Michetti (Alianza Cambiemos),3
+2015-segunda-presidente,3,11,1,35,18,17,Scioli - Zannini (Frente para la Victoria),10,Macri - Michetti (Cambiemos),7
+2017-general-diputados,3,11,1,29,13,13,Unión para Vivir Mejor - Cambiemos,6,Frente para la Victoria,3
+2017-general-senadores,3,11,1,29,13,13,Unión para Vivir Mejor - Cambiemos,6,Frente para la Victoria,3
+2019-general-diputados,3,11,1,27,7,6,Frente de Todos,3,Juntos por el Cambio,3
+2019-general-presidente,3,11,1,27,7,6,Fernández - Fernández de Kirchner (Frente de Todos),3,Macri - Pichetto (Juntos por el Cambio),3
+2021-general-diputados,3,11,1,38,17,15,Frente de Todos,8,Cambia Santa Cruz,4
+2023-general-diputados,3,11,1,36,14,8,Por Santa Cruz,3,Unión por la Patria,3
+2023-general-presidente,3,11,1,36,14,14,Milei - Villarruel (La Libertad Avanza),9,Massa - Rossi (Unión por la Patria),3
+2023-general-senadores,3,11,1,36,14,8,Por Santa Cruz,3,Unión por la Patria,3
+2023-segunda-presidente,3,11,1,36,9,7,Milei - Villarruel (La Libertad Avanza),4,Massa - Rossi (Unión por la Patria),3
+2025-general-diputados,3,11,1,40,17,16,La Libertad Avanza,7,Fuerza Santacruceña,6
+2011-general-diputados,4,,13,2860,2135,1589,Alianza Frente para la Victoria,1152,Unión Cívica Radical,374
+2011-general-presidente,4,,13,2860,2186,1965,Fernández de Kirchner - Boudou (Alianza Frente para la Victoria),1610,Alfonsín - González Fraga (Alianza Unión para el Desarrollo Social),211
+2011-general-senadores,4,,13,2860,2120,1611,Alianza Frente para la Victoria,1169,Unión Cívica Radical,381
+2013-general-diputados,4,,15,3624,2490,2406,Unión para Vivir Mejor,931,Partido Justicialista,700
+2015-general-diputados,4,,15,3638,2705,2241,Alianza Frente para la Victoria,1484,Unión para Vivir Mejor,625
+2015-general-presidente,4,,15,3638,2724,2559,Scioli - Zannini (Alianza Frente para la Victoria),1647,Macri - Michetti (Alianza Cambiemos),398
+2015-segunda-presidente,4,,17,3973,2870,2815,Scioli - Zannini (Frente para la Victoria),1962,Macri - Michetti (Cambiemos),853
+2017-general-diputados,4,,18,4018,2808,2671,Frente para la Victoria,1358,Unión para Vivir Mejor - Cambiemos,804
+2017-general-senadores,4,,18,4018,2809,2668,Frente para la Victoria,1288,Unión para Vivir Mejor - Cambiemos,835
+2019-general-diputados,4,,18,4125,3004,2493,Frente de Todos,1774,Juntos por el Cambio,535
+2019-general-presidente,4,,18,4125,3005,2828,Fernández - Fernández de Kirchner (Frente de Todos),1922,Macri - Pichetto (Juntos por el Cambio),612
+2021-general-diputados,4,,17,4226,2922,2722,Frente de Todos,946,Somos Energía para Renovar Santa Cruz -SER-,899
+2023-general-diputados,4,,17,4371,3275,2164,Por Santa Cruz,1072,Unión por la Patria,898
+2023-general-presidente,4,,17,4371,3269,2839,Massa - Rossi (Unión por la Patria),1212,Milei - Villarruel (La Libertad Avanza),988
+2023-general-senadores,4,,17,4371,3275,2177,Por Santa Cruz,1090,Unión por la Patria,874
+2023-segunda-presidente,4,,17,3892,2659,2556,Milei - Villarruel (La Libertad Avanza),1483,Massa - Rossi (Unión por la Patria),1073
+2025-general-diputados,4,,18,4402,2814,2634,Fuerza Santacruceña,1072,La Libertad Avanza,753
+2013-general-diputados,4,12,1,47,13,13,Partido Justicialista,5,Unión para Vivir Mejor,5
+2015-general-diputados,4,12,1,27,7,3,Unión para Vivir Mejor,2,Alianza Frente para la Victoria,1
+2015-general-presidente,4,12,1,27,7,4,Macri - Michetti (Alianza Cambiemos),2,Scioli - Zannini (Alianza Frente para la Victoria),2
+2015-segunda-presidente,4,12,1,27,6,6,Scioli - Zannini (Frente para la Victoria),4,Macri - Michetti (Cambiemos),2
+2017-general-diputados,4,12,1,20,4,4,Frente para la Victoria,2,Frente Renovador Auténtico,1
+2017-general-senadores,4,12,1,20,4,4,Frente para la Victoria,2,Frente Renovador Auténtico,1
+2019-general-diputados,4,12,1,31,2,2,Frente de Todos,1,Juntos por el Cambio,1
+2019-general-presidente,4,12,1,31,3,3,Fernández - Fernández de Kirchner (Frente de Todos),1,Gómez Centurión - Hotton (Frente Nos),1
+2021-general-diputados,4,12,1,25,9,9,Cambia Santa Cruz,3,Somos Energía para Renovar Santa Cruz -SER-,3
+2023-general-diputados,4,12,1,24,7,3,Cambia Santa Cruz,1,Por Santa Cruz,1
+2023-general-presidente,4,12,1,24,7,7,Milei - Villarruel (La Libertad Avanza),6,Bullrich - Petri (Juntos por el Cambio),1
+2023-general-senadores,4,12,1,24,7,3,Cambia Santa Cruz,1,Por Santa Cruz,1
+2023-segunda-presidente,4,12,1,0,0,0,,0,,0
+2025-general-diputados,4,12,1,25,8,8,La Libertad Avanza,5,Por Santa Cruz,2
+2011-general-diputados,4,12A,1,9,2,2,Alianza Frente para la Victoria,1,Unión Cívica Radical,1
+2011-general-presidente,4,12A,1,9,2,2,Altamira - Castillo (Alianza Frente de Izquierda y de los Trabajadores),1,Fernández de Kirchner - Boudou (Alianza Frente para la Victoria),1
+2011-general-senadores,4,12A,1,9,2,2,Alianza Frente para la Victoria,1,Unión Cívica Radical,1
+2013-general-diputados,4,12A,1,8,5,5,Partido Justicialista,2,Unión para Vivir Mejor,2
+2015-general-diputados,4,12A,1,0,0,0,,0,,0
+2015-general-presidente,4,12A,1,0,0,0,,0,,0
+2015-segunda-presidente,4,12A,1,6,1,1,Scioli - Zannini (Frente para la Victoria),1,,0
+2017-general-diputados,4,12A,1,6,1,1,Frente Renovador Auténtico,1,,0
+2017-general-senadores,4,12A,1,6,1,1,Frente Renovador Auténtico,1,,0
+2019-general-diputados,4,12A,1,8,1,1,Frente de Todos,1,,0
+2019-general-presidente,4,12A,1,8,1,1,Fernández - Fernández de Kirchner (Frente de Todos),1,,0
+2025-general-diputados,4,12A,1,0,0,0,,0,,0
+2011-general-diputados,4,12B,1,203,141,83,Alianza Frente para la Victoria,55,Unión Cívica Radical,22
+2011-general-presidente,4,12B,1,203,141,121,Fernández de Kirchner - Boudou (Alianza Frente para la Victoria),100,Alfonsín - González Fraga (Alianza Unión para el Desarrollo Social),21
+2011-general-senadores,4,12B,1,203,141,75,Alianza Frente para la Victoria,54,Unión Cívica Radical,19
+2013-general-diputados,4,12B,1,217,151,148,Unión para Vivir Mejor,77,Partido Justicialista,43
+2015-segunda-presidente,4,12B,2,329,232,230,Scioli - Zannini (Frente para la Victoria),156,Macri - Michetti (Cambiemos),74
+2017-general-diputados,4,12B,2,329,221,212,Frente para la Victoria,125,Unión para Vivir Mejor - Cambiemos,50
+2017-general-senadores,4,12B,2,329,221,212,Frente para la Victoria,124,Unión para Vivir Mejor - Cambiemos,52
+2019-general-diputados,4,12B,2,327,280,254,Frente de Todos,210,Juntos por el Cambio,32
+2019-general-presidente,4,12B,2,327,280,264,Fernández - Fernández de Kirchner (Frente de Todos),193,Macri - Pichetto (Juntos por el Cambio),41
+2021-general-diputados,4,12B,2,375,252,241,Frente de Todos,100,Somos Energía para Renovar Santa Cruz -SER-,92
+2023-general-diputados,4,12B,2,461,395,326,Por Santa Cruz,156,Unión por la Patria,151
+2023-general-presidente,4,12B,2,461,389,339,Massa - Rossi (Unión por la Patria),179,Milei - Villarruel (La Libertad Avanza),82
+2023-general-senadores,4,12B,2,461,395,330,Unión por la Patria,156,Por Santa Cruz,155
+2023-segunda-presidente,4,12B,2,0,0,0,,0,,0
+2025-general-diputados,4,12B,2,463,302,278,Por Santa Cruz,125,Fuerza Santacruceña,95
+2011-general-diputados,4,13,10,2591,1967,1483,Alianza Frente para la Victoria,1081,Unión Cívica Radical,348
+2011-general-presidente,4,13,10,2591,2018,1819,Fernández de Kirchner - Boudou (Alianza Frente para la Victoria),1493,Alfonsín - González Fraga (Alianza Unión para el Desarrollo Social),187
+2011-general-senadores,4,13,10,2591,1952,1514,Alianza Frente para la Victoria,1100,Unión Cívica Radical,358
+2013-general-diputados,4,13,11,3298,2296,2217,Unión para Vivir Mejor,836,Partido Justicialista,645
+2015-general-diputados,4,13,12,3576,2667,2223,Alianza Frente para la Victoria,1480,Unión para Vivir Mejor,612
+2015-general-presidente,4,13,12,3576,2685,2539,Scioli - Zannini (Alianza Frente para la Victoria),1641,Macri - Michetti (Alianza Cambiemos),388
+2015-segunda-presidente,4,13,12,3576,2615,2562,Scioli - Zannini (Frente para la Victoria),1794,Macri - Michetti (Cambiemos),768
+2017-general-diputados,4,13,13,3637,2567,2439,Frente para la Victoria,1227,Unión para Vivir Mejor - Cambiemos,745
+2017-general-senadores,4,13,13,3637,2568,2436,Frente para la Victoria,1158,Unión para Vivir Mejor - Cambiemos,774
+2019-general-diputados,4,13,13,3727,2712,2229,Frente de Todos,1559,Juntos por el Cambio,498
+2019-general-presidente,4,13,13,3727,2712,2553,Fernández - Fernández de Kirchner (Frente de Todos),1724,Macri - Pichetto (Juntos por el Cambio),566
+2021-general-diputados,4,13,13,3793,2653,2465,Frente de Todos,842,Somos Energía para Renovar Santa Cruz -SER-,802
+2023-general-diputados,4,13,13,3851,2862,1830,Por Santa Cruz,915,Unión por la Patria,746
+2023-general-presidente,4,13,13,3851,2862,2482,Massa - Rossi (Unión por la Patria),1033,Milei - Villarruel (La Libertad Avanza),896
+2023-general-senadores,4,13,13,3851,2862,1839,Por Santa Cruz,934,Unión por la Patria,717
+2023-segunda-presidente,4,13,13,3864,2649,2546,Milei - Villarruel (La Libertad Avanza),1473,Massa - Rossi (Unión por la Patria),1073
+2025-general-diputados,4,13,13,3914,2504,2348,Fuerza Santacruceña,977,La Libertad Avanza,720
+2011-general-diputados,4,13A,1,57,25,21,Alianza Frente para la Victoria,15,Unión Cívica Radical,3
+2011-general-presidente,4,13A,1,57,25,23,Fernández de Kirchner - Boudou (Alianza Frente para la Victoria),16,Alfonsín - González Fraga (Alianza Unión para el Desarrollo Social),3
+2011-general-senadores,4,13A,1,57,25,20,Alianza Frente para la Victoria,14,Unión Cívica Radical,3
+2013-general-diputados,4,13A,1,54,25,23,Unión para Vivir Mejor,11,Frente para la Victoria,5
+2015-general-diputados,4,13A,1,35,31,15,Unión para Vivir Mejor,11,Alianza Frente para la Victoria,3
+2015-general-presidente,4,13A,1,35,32,16,Macri - Michetti (Alianza Cambiemos),8,Scioli - Zannini (Alianza Frente para la Victoria),4
+2015-segunda-presidente,4,13A,1,35,16,16,Macri - Michetti (Cambiemos),9,Scioli - Zannini (Frente para la Victoria),7
+2017-general-diputados,4,13A,1,26,15,15,Unión para Vivir Mejor - Cambiemos,8,Frente para la Victoria,4
+2017-general-senadores,4,13A,1,26,15,15,Unión para Vivir Mejor - Cambiemos,8,Frente para la Victoria,4
+2019-general-diputados,4,13A,1,32,9,7,Juntos por el Cambio,4,Frente de Todos,3
+2019-general-presidente,4,13A,1,32,9,7,Macri - Pichetto (Juntos por el Cambio),4,Fernández - Fernández de Kirchner (Frente de Todos),3
+2021-general-diputados,4,13A,1,33,8,7,Cambia Santa Cruz,3,Frente de Todos,2
+2023-general-diputados,4,13A,1,35,11,5,Cambia Santa Cruz,5,,0
+2023-general-presidente,4,13A,1,35,11,11,Bullrich - Petri (Juntos por el Cambio),7,Milei - Villarruel (La Libertad Avanza),4
+2023-general-senadores,4,13A,1,35,11,5,Cambia Santa Cruz,5,,0
+2023-segunda-presidente,4,13A,1,28,10,10,Milei - Villarruel (La Libertad Avanza),10,,0
+2025-general-diputados,4,13A,1,0,0,0,,0,,0
+2011-general-diputados,5,,35,8712,6183,5083,Alianza Frente para la Victoria,4183,Unión Cívica Radical,588
+2011-general-presidente,5,,35,8712,6092,5773,Fernández de Kirchner - Boudou (Alianza Frente para la Victoria),4900,Alfonsín - González Fraga (Alianza Unión para el Desarrollo Social),379
+2011-general-senadores,5,,35,8712,6182,5306,Alianza Frente para la Victoria,4442,Unión Cívica Radical,572
+2013-general-diputados,5,,35,9989,6842,6677,Unión para Vivir Mejor,2371,Frente para la Victoria,2299
+2015-general-diputados,5,,38,10461,7978,6810,Alianza Frente para la Victoria,4169,Unión para Vivir Mejor,2508
+2015-general-presidente,5,,38,10461,7982,7642,Scioli - Zannini (Alianza Frente para la Victoria),4482,Macri - Michetti (Alianza Cambiemos),1498
+2015-segunda-presidente,5,,38,10461,7735,7609,Scioli - Zannini (Frente para la Victoria),4820,Macri - Michetti (Cambiemos),2789
+2017-general-diputados,5,,40,10695,7580,7267,Frente para la Victoria,3086,Unión para Vivir Mejor - Cambiemos,3028
+2017-general-senadores,5,,40,10695,7581,7305,Frente para la Victoria,3081,Unión para Vivir Mejor - Cambiemos,3060
+2019-general-diputados,5,,41,11166,8328,7489,Frente de Todos,5263,Juntos por el Cambio,1899
+2019-general-presidente,5,,41,11166,8344,8077,Fernández - Fernández de Kirchner (Frente de Todos),5152,Macri - Pichetto (Juntos por el Cambio),2379
+2021-general-diputados,5,,41,11310,8141,7784,Frente de Todos,2683,Somos Energía para Renovar Santa Cruz -SER-,2521
+2023-general-diputados,5,,42,11576,8600,6236,Por Santa Cruz,3524,Unión por la Patria,2298
+2023-general-presidente,5,,42,11588,8768,7988,Milei - Villarruel (La Libertad Avanza),3177,Massa - Rossi (Unión por la Patria),3077
+2023-general-senadores,5,,42,11576,8644,6258,Por Santa Cruz,3511,Unión por la Patria,2300
+2023-segunda-presidente,5,,42,11597,8363,8167,Milei - Villarruel (La Libertad Avanza),4869,Massa - Rossi (Unión por la Patria),3298
+2025-general-diputados,5,,39,11651,7654,7148,Fuerza Santacruceña,2608,La Libertad Avanza,2607
+2011-general-diputados,5,14,19,5075,3616,2932,Alianza Frente para la Victoria,2439,Unión Cívica Radical,296
+2011-general-presidente,5,14,19,5075,3607,3465,Fernández de Kirchner - Boudou (Alianza Frente para la Victoria),3010,Alfonsín - González Fraga (Alianza Unión para el Desarrollo Social),203
+2011-general-senadores,5,14,19,5075,3615,3116,Alianza Frente para la Victoria,2648,Unión Cívica Radical,289
+2013-general-diputados,5,14,20,6039,4133,4041,Frente para la Victoria,1762,Unión para Vivir Mejor,1316
+2015-general-diputados,5,14,22,6348,4782,4263,Alianza Frente para la Victoria,2607,Unión para Vivir Mejor,1599
+2015-general-presidente,5,14,22,6348,4791,4580,Scioli - Zannini (Alianza Frente para la Victoria),2694,Macri - Michetti (Alianza Cambiemos),903
+2015-segunda-presidente,5,14,22,6348,4675,4607,Scioli - Zannini (Frente para la Victoria),2866,Macri - Michetti (Cambiemos),1741
+2017-general-diputados,5,14,23,6335,4472,4304,Unión para Vivir Mejor - Cambiemos,1886,Frente para la Victoria,1824
+2017-general-senadores,5,14,23,6335,4472,4323,Unión para Vivir Mejor - Cambiemos,1906,Frente para la Victoria,1818
+2019-general-diputados,5,14,24,6784,5116,4594,Frente de Todos,3232,Juntos por el Cambio,1173
+2019-general-presidente,5,14,24,6784,5132,4976,Fernández - Fernández de Kirchner (Frente de Todos),3161,Macri - Pichetto (Juntos por el Cambio),1494
+2021-general-diputados,5,14,24,6953,5022,4793,Frente de Todos,1695,Cambia Santa Cruz,1577
+2023-general-diputados,5,14,25,7217,5449,3911,Por Santa Cruz,2328,Unión por la Patria,1354
+2023-general-presidente,5,14,25,7217,5539,5015,Milei - Villarruel (La Libertad Avanza),2117,Massa - Rossi (Unión por la Patria),1847
+2023-general-senadores,5,14,25,7217,5448,3938,Por Santa Cruz,2324,Unión por la Patria,1364
+2023-segunda-presidente,5,14,25,7218,5253,5132,Milei - Villarruel (La Libertad Avanza),3190,Massa - Rossi (Unión por la Patria),1942
+2025-general-diputados,5,14,23,7254,4766,4460,La Libertad Avanza,1703,Fuerza Santacruceña,1583
+2011-general-diputados,5,14A,1,17,2,2,Alianza Frente para la Victoria,1,Unión Cívica Radical,1
+2011-general-presidente,5,14A,1,17,2,2,Alfonsín - González Fraga (Alianza Unión para el Desarrollo Social),1,Fernández de Kirchner - Boudou (Alianza Frente para la Victoria),1
+2011-general-senadores,5,14A,1,17,2,2,Alianza Frente para la Victoria,1,Unión Cívica Radical,1
+2013-general-diputados,5,14A,1,18,5,4,Partido Justicialista,2,Frente para la Victoria,1
+2015-general-diputados,5,14A,1,13,3,3,Alianza Frente para la Victoria,2,Alianza Frente de Izquierda y de los Trabajadores,1
+2015-general-presidente,5,14A,1,13,3,3,Scioli - Zannini (Alianza Frente para la Victoria),2,Del Caño - Bregman (Alianza Frente de Izquierda y de los Trabajadores),1
+2015-segunda-presidente,5,14A,1,13,5,5,Macri - Michetti (Cambiemos),3,Scioli - Zannini (Frente para la Victoria),2
+2017-general-diputados,5,14A,1,10,4,4,Unión para Vivir Mejor - Cambiemos,2,Frente de Izquierda y de los Trabajadores - Partido Obrero + Izquierda por una Opción Socialista,1
+2017-general-senadores,5,14A,1,10,4,4,Unión para Vivir Mejor - Cambiemos,2,Frente de Izquierda y de los Trabajadores - Partido Obrero + Izquierda por una Opción Socialista,1
+2019-general-diputados,5,14A,1,11,2,2,Frente de Todos,2,,0
+2019-general-presidente,5,14A,1,11,2,2,Fernández - Fernández de Kirchner (Frente de Todos),2,,0
+2021-general-diputados,5,14A,1,11,4,4,Cambia Santa Cruz,1,Frente de Izquierda y de Trabajadores - Unidad,1
+2023-general-diputados,5,14A,1,0,0,0,,0,,0
+2023-general-presidente,5,14A,1,0,0,0,,0,,0
+2023-general-senadores,5,14A,1,0,0,0,,0,,0
+2023-segunda-presidente,5,14A,1,9,3,3,Massa - Rossi (Unión por la Patria),2,Milei - Villarruel (La Libertad Avanza),1
+2025-general-diputados,5,14A,1,10,3,3,Fuerza Santacruceña,3,,0
+2011-general-diputados,5,15,14,3592,2552,2136,Alianza Frente para la Victoria,1732,Unión Cívica Radical,289
+2011-general-presidente,5,15,14,3592,2470,2294,Fernández de Kirchner - Boudou (Alianza Frente para la Victoria),1878,Alfonsín - González Fraga (Alianza Unión para el Desarrollo Social),174
+2011-general-senadores,5,15,14,3592,2552,2176,Alianza Frente para la Victoria,1782,Unión Cívica Radical,281
+2013-general-diputados,5,15,13,3906,2694,2622,Unión para Vivir Mejor,1050,Partido Justicialista,869
+2015-general-diputados,5,15,14,4078,3184,2537,Alianza Frente para la Victoria,1557,Unión para Vivir Mejor,905
+2015-general-presidente,5,15,14,4078,3179,3050,Scioli - Zannini (Alianza Frente para la Victoria),1783,Macri - Michetti (Alianza Cambiemos),592
+2015-segunda-presidente,5,15,14,4078,3042,2984,Scioli - Zannini (Frente para la Victoria),1943,Macri - Michetti (Cambiemos),1041
+2017-general-diputados,5,15,15,4331,3098,2953,Frente para la Victoria,1259,Unión para Vivir Mejor - Cambiemos,1136
+2017-general-senadores,5,15,15,4331,3099,2972,Frente para la Victoria,1260,Unión para Vivir Mejor - Cambiemos,1148
+2019-general-diputados,5,15,15,4356,3209,2892,Frente de Todos,2029,Juntos por el Cambio,725
+2019-general-presidente,5,15,15,4356,3209,3098,Fernández - Fernández de Kirchner (Frente de Todos),1989,Macri - Pichetto (Juntos por el Cambio),884
+2021-general-diputados,5,15,15,4332,3109,2981,Somos Energía para Renovar Santa Cruz -SER-,1233,Frente de Todos,985
+2023-general-diputados,5,15,15,4359,3151,2325,Por Santa Cruz,1196,Unión por la Patria,944
+2023-general-presidente,5,15,15,4359,3225,2969,Massa - Rossi (Unión por la Patria),1229,Milei - Villarruel (La Libertad Avanza),1058
+2023-general-senadores,5,15,15,4359,3196,2320,Por Santa Cruz,1187,Unión por la Patria,936
+2023-segunda-presidente,5,15,15,4358,3103,3028,Milei - Villarruel (La Libertad Avanza),1675,Massa - Rossi (Unión por la Patria),1353
+2025-general-diputados,5,15,14,4376,2882,2682,Fuerza Santacruceña,1020,La Libertad Avanza,903
+2011-general-diputados,5,15A,1,28,13,13,Alianza Frente para la Victoria,11,Unión Cívica Radical,2
+2011-general-presidente,5,15A,1,28,13,12,Fernández de Kirchner - Boudou (Alianza Frente para la Victoria),11,Alfonsín - González Fraga (Alianza Unión para el Desarrollo Social),1
+2011-general-senadores,5,15A,1,28,13,12,Alianza Frente para la Victoria,11,Unión Cívica Radical,1
+2013-general-diputados,5,15A,1,26,10,10,Partido Justicialista,4,Unión para Vivir Mejor,4
+2015-general-diputados,5,15A,1,22,9,7,Unión para Vivir Mejor,4,Alianza Frente para la Victoria,3
+2015-general-presidente,5,15A,1,22,9,9,Macri - Michetti (Alianza Cambiemos),3,Massa - Sáenz (Alianza Unidos por una Nueva Alternativa (UNA)),3
+2015-segunda-presidente,5,15A,1,22,13,13,Scioli - Zannini (Frente para la Victoria),9,Macri - Michetti (Cambiemos),4
+2017-general-diputados,5,15A,1,19,6,6,Unión para Vivir Mejor - Cambiemos,4,Frente para la Victoria,2
+2017-general-senadores,5,15A,1,19,6,6,Unión para Vivir Mejor - Cambiemos,4,Frente para la Victoria,2
+2019-general-diputados,5,15A,1,15,1,1,Juntos por el Cambio,1,,0
+2019-general-presidente,5,15A,1,15,1,1,Macri - Pichetto (Juntos por el Cambio),1,,0
+2021-general-diputados,5,15A,1,14,6,6,Cambia Santa Cruz,3,Frente de Todos,2
+2023-general-diputados,5,15A,1,0,0,0,,0,,0
+2023-general-presidente,5,15A,1,12,4,4,Milei - Villarruel (La Libertad Avanza),2,Bullrich - Petri (Juntos por el Cambio),1
+2023-general-senadores,5,15A,1,0,0,0,,0,,0
+2023-segunda-presidente,5,15A,1,12,4,4,Milei - Villarruel (La Libertad Avanza),3,Massa - Rossi (Unión por la Patria),1
+2025-general-diputados,5,15A,1,11,3,3,Fuerza Santacruceña,2,La Libertad Avanza,1
+2011-general-diputados,6,,55,14741,9891,8473,Alianza Frente para la Victoria,6928,Unión Cívica Radical,581
+2011-general-presidente,6,,55,14741,10037,9594,Fernández de Kirchner - Boudou (Alianza Frente para la Victoria),8003,Binner - Morandini (Alianza Frente Amplio Progresista),813
+2011-general-senadores,6,,55,14741,9988,8697,Alianza Frente para la Victoria,7111,Unión Cívica Radical,634
+2013-general-diputados,6,,54,15836,10903,10608,Frente para la Victoria,5603,Unión para Vivir Mejor,2851
+2015-general-diputados,6,,58,17267,12633,10615,Alianza Frente para la Victoria,6797,Unión para Vivir Mejor,3331
+2015-general-presidente,6,,58,17267,12794,12299,Scioli - Zannini (Alianza Frente para la Victoria),7422,Macri - Michetti (Alianza Cambiemos),2321
+2015-segunda-presidente,6,,57,16964,12267,11920,Scioli - Zannini (Frente para la Victoria),8159,Macri - Michetti (Cambiemos),3761
+2017-general-diputados,6,,64,18464,12735,12115,Frente para la Victoria,6765,Unión para Vivir Mejor - Cambiemos,3672
+2017-general-senadores,6,,64,18464,12739,12312,Frente para la Victoria,7062,Unión para Vivir Mejor - Cambiemos,3633
+2019-general-diputados,6,,64,18885,13587,12000,Frente de Todos,8227,Juntos por el Cambio,2765
+2019-general-presidente,6,,64,18885,13612,13130,Fernández - Fernández de Kirchner (Frente de Todos),8605,Macri - Pichetto (Juntos por el Cambio),3161
+2021-general-diputados,6,,69,19972,13254,12618,Frente de Todos,6213,Cambia Santa Cruz,3593
+2023-general-diputados,6,,76,21620,15122,9912,Unión por la Patria,6191,Por Santa Cruz,1704
+2023-general-presidente,6,,76,21620,15248,14338,Massa - Rossi (Unión por la Patria),6212,Milei - Villarruel (La Libertad Avanza),4759
+2023-general-senadores,6,,76,21620,15135,9508,Unión por la Patria,5665,Por Santa Cruz,1714
+2023-segunda-presidente,6,,76,22165,14902,14322,Milei - Villarruel (La Libertad Avanza),7347,Massa - Rossi (Unión por la Patria),6975
+2025-general-diputados,6,,76,23834,15009,14307,Fuerza Santacruceña,6858,La Libertad Avanza,4698
+2011-general-diputados,6,16,1,188,125,118,Alianza Frente para la Victoria,95,Unión Cívica Radical,20
+2011-general-presidente,6,16,1,188,125,124,Fernández de Kirchner - Boudou (Alianza Frente para la Victoria),108,Alfonsín - González Fraga (Alianza Unión para el Desarrollo Social),12
+2011-general-senadores,6,16,1,188,125,121,Alianza Frente para la Victoria,100,Unión Cívica Radical,18
+2013-general-diputados,6,16,1,187,133,133,Partido Justicialista,79,Unión para Vivir Mejor,34
+2015-general-diputados,6,16,1,289,220,211,Alianza Frente para la Victoria,175,Unión para Vivir Mejor,36
+2015-general-presidente,6,16,1,289,220,213,Scioli - Zannini (Alianza Frente para la Victoria),178,Macri - Michetti (Alianza Cambiemos),17
+2015-segunda-presidente,6,16,1,289,204,203,Scioli - Zannini (Frente para la Victoria),159,Macri - Michetti (Cambiemos),44
+2017-general-diputados,6,16,2,312,212,207,Frente para la Victoria,101,Unión para Vivir Mejor - Cambiemos,77
+2017-general-senadores,6,16,2,312,212,209,Frente para la Victoria,103,Unión para Vivir Mejor - Cambiemos,80
+2019-general-diputados,6,16,1,158,135,127,Frente de Todos,112,Juntos por el Cambio,14
+2019-general-presidente,6,16,1,158,135,130,Fernández - Fernández de Kirchner (Frente de Todos),108,Macri - Pichetto (Juntos por el Cambio),21
+2021-general-diputados,6,16,2,328,221,207,Somos Energía para Renovar Santa Cruz -SER-,105,Frente de Todos,53
+2023-general-diputados,6,16,2,355,277,212,Unión por la Patria,135,Por Santa Cruz,59
+2023-general-presidente,6,16,2,355,277,247,Massa - Rossi (Unión por la Patria),124,Milei - Villarruel (La Libertad Avanza),90
+2023-general-senadores,6,16,2,355,277,204,Unión por la Patria,126,Por Santa Cruz,59
+2023-segunda-presidente,6,16,2,356,217,214,Massa - Rossi (Unión por la Patria),113,Milei - Villarruel (La Libertad Avanza),101
+2025-general-diputados,6,16,2,347,208,201,Por Santa Cruz,97,Fuerza Santacruceña,46
+2011-general-diputados,6,16A,4,1006,600,518,Alianza Frente para la Victoria,342,Unión Cívica Radical,60
+2011-general-presidente,6,16A,4,1006,600,574,Fernández de Kirchner - Boudou (Alianza Frente para la Victoria),437,Binner - Morandini (Alianza Frente Amplio Progresista),64
+2011-general-senadores,6,16A,4,1006,600,535,Alianza Frente para la Victoria,353,Unión Cívica Radical,65
+2013-general-diputados,6,16A,4,1060,691,676,Unión para Vivir Mejor,229,Frente para la Victoria,173
+2015-general-diputados,6,16A,4,1147,893,766,Alianza Frente para la Victoria,419,Unión para Vivir Mejor,226
+2015-general-presidente,6,16A,4,1147,893,864,Scioli - Zannini (Alianza Frente para la Victoria),486,Macri - Michetti (Alianza Cambiemos),156
+2015-segunda-presidente,6,16A,4,1147,850,816,Scioli - Zannini (Frente para la Victoria),587,Macri - Michetti (Cambiemos),229
+2017-general-diputados,6,16A,5,1369,877,850,Frente para la Victoria,333,Unión para Vivir Mejor - Cambiemos,210
+2017-general-senadores,6,16A,5,1369,878,854,Frente para la Victoria,334,Unión para Vivir Mejor - Cambiemos,210
+2019-general-diputados,6,16A,5,1473,1092,927,Frente de Todos,564,Juntos por el Cambio,183
+2019-general-presidente,6,16A,5,1473,1072,1026,Fernández - Fernández de Kirchner (Frente de Todos),667,Macri - Pichetto (Juntos por el Cambio),220
+2021-general-diputados,6,16A,6,1658,957,894,Frente de Todos,312,Cambia Santa Cruz,267
+2023-general-diputados,6,16A,7,1827,1259,859,Unión por la Patria,567,Cambia Santa Cruz,137
+2023-general-presidente,6,16A,7,1827,1259,1185,Massa - Rossi (Unión por la Patria),631,Milei - Villarruel (La Libertad Avanza),240
+2023-general-senadores,6,16A,7,1827,1259,834,Unión por la Patria,534,Cambia Santa Cruz,142
+2023-segunda-presidente,6,16A,7,1832,1165,1098,Massa - Rossi (Unión por la Patria),682,Milei - Villarruel (La Libertad Avanza),416
+2025-general-diputados,6,16A,7,2112,1172,1130,Fuerza Santacruceña,396,Por Santa Cruz,244
+2011-general-diputados,6,17,50,13547,9166,7837,Alianza Frente para la Victoria,6491,Unión Cívica Radical,501
+2011-general-presidente,6,17,50,13547,9312,8896,Fernández de Kirchner - Boudou (Alianza Frente para la Victoria),7458,Binner - Morandini (Alianza Frente Amplio Progresista),746
+2011-general-senadores,6,17,50,13547,9263,8041,Alianza Frente para la Victoria,6658,Unión Cívica Radical,551
+2013-general-diputados,6,17,49,14589,10079,9799,Frente para la Victoria,5411,Unión para Vivir Mejor,2588
+2015-general-diputados,6,17,53,15831,11520,9638,Alianza Frente para la Victoria,6203,Unión para Vivir Mejor,3069
+2015-general-presidente,6,17,53,15831,11681,11222,Scioli - Zannini (Alianza Frente para la Victoria),6758,Macri - Michetti (Alianza Cambiemos),2148
+2015-segunda-presidente,6,17,52,15528,11213,10901,Scioli - Zannini (Frente para la Victoria),7413,Macri - Michetti (Cambiemos),3488
+2017-general-diputados,6,17,57,16783,11646,11058,Frente para la Victoria,6331,Unión para Vivir Mejor - Cambiemos,3385
+2017-general-senadores,6,17,57,16783,11649,11249,Frente para la Victoria,6625,Unión para Vivir Mejor - Cambiemos,3343
+2019-general-diputados,6,17,58,17254,12360,10946,Frente de Todos,7551,Juntos por el Cambio,2568
+2019-general-presidente,6,17,58,17254,12405,11974,Fernández - Fernández de Kirchner (Frente de Todos),7830,Macri - Pichetto (Juntos por el Cambio),2920
+2021-general-diputados,6,17,61,17986,12076,11517,Frente de Todos,5848,Cambia Santa Cruz,3293
+2023-general-diputados,6,17,67,19438,13586,8841,Unión por la Patria,5489,Por Santa Cruz,1616
+2023-general-presidente,6,17,67,19438,13712,12906,Massa - Rossi (Unión por la Patria),5457,Milei - Villarruel (La Libertad Avanza),4429
+2023-general-senadores,6,17,67,19438,13599,8470,Unión por la Patria,5005,Por Santa Cruz,1626
+2023-segunda-presidente,6,17,67,19977,13520,13010,Milei - Villarruel (La Libertad Avanza),6830,Massa - Rossi (Unión por la Patria),6180
+2025-general-diputados,6,17,67,21375,13629,12976,Fuerza Santacruceña,6416,La Libertad Avanza,4434
+2011-general-diputados,7,,316,84230,64854,49920,Alianza Frente para la Victoria,30928,Unión Cívica Radical,12102
+2011-general-presidente,7,,316,84230,65188,61539,Fernández de Kirchner - Boudou (Alianza Frente para la Victoria),44281,Alfonsín - González Fraga (Alianza Unión para el Desarrollo Social),8598
+2011-general-senadores,7,,316,84230,65171,53059,Alianza Frente para la Victoria,32094,Unión Cívica Radical,16599
+2013-general-diputados,7,,317,94933,71333,69271,Unión para Vivir Mejor,31170,Frente para la Victoria,15765
+2015-general-diputados,7,,323,96370,75464,66215,Unión para Vivir Mejor,37208,Alianza Frente para la Victoria,26741
+2015-general-presidente,7,,323,96370,75480,72330,Scioli - Zannini (Alianza Frente para la Victoria),31257,Macri - Michetti (Alianza Cambiemos),22298
+2015-segunda-presidente,7,,332,98850,75801,73968,Scioli - Zannini (Frente para la Victoria),39189,Macri - Michetti (Cambiemos),34779
+2017-general-diputados,7,,346,102803,75194,70957,Unión para Vivir Mejor - Cambiemos,34090,Frente para la Victoria,21422
+2017-general-senadores,7,,346,102803,75233,71869,Unión para Vivir Mejor - Cambiemos,34201,Frente para la Victoria,21838
+2019-general-diputados,7,,347,102798,77406,66604,Frente de Todos,36992,Juntos por el Cambio,23990
+2019-general-presidente,7,,347,102798,77627,74960,Fernández - Fernández de Kirchner (Frente de Todos),39957,Macri - Pichetto (Juntos por el Cambio),25899
+2021-general-diputados,7,,349,103507,72797,69379,Cambia Santa Cruz,29560,Somos Energía para Renovar Santa Cruz -SER-,18463
+2023-general-diputados,7,,362,101504,73856,47276,Unión por la Patria,20096,Por Santa Cruz,14960
+2023-general-presidente,7,,362,101504,74647,70103,Massa - Rossi (Unión por la Patria),26160,Milei - Villarruel (La Libertad Avanza),24359
+2023-general-senadores,7,,362,101504,73930,48091,Unión por la Patria,20635,Por Santa Cruz,14886
+2023-segunda-presidente,7,,362,105816,76485,73720,Milei - Villarruel (La Libertad Avanza),43996,Massa - Rossi (Unión por la Patria),29724
+2025-general-diputados,7,,347,108519,73405,69623,La Libertad Avanza,21012,Fuerza Santacruceña,20702
+2011-general-diputados,7,18,265,71532,55396,42918,Alianza Frente para la Victoria,25739,Unión Cívica Radical,10720
+2011-general-presidente,7,18,265,71532,55606,52347,Fernández de Kirchner - Boudou (Alianza Frente para la Victoria),36241,Alfonsín - González Fraga (Alianza Unión para el Desarrollo Social),7982
+2011-general-senadores,7,18,265,71532,55570,45694,Alianza Frente para la Victoria,26570,Unión Cívica Radical,15174
+2013-general-diputados,7,18,264,79982,60462,58744,Unión para Vivir Mejor,28343,Partido Justicialista,12167
+2015-general-diputados,7,18,269,80893,63821,56584,Unión para Vivir Mejor,34458,Alianza Frente para la Victoria,20183
+2015-general-presidente,7,18,269,80893,63713,61076,Scioli - Zannini (Alianza Frente para la Victoria),23325,Macri - Michetti (Alianza Cambiemos),20887
+2015-segunda-presidente,7,18,274,82391,63459,61854,Macri - Michetti (Cambiemos),31974,Scioli - Zannini (Frente para la Victoria),29880
+2017-general-diputados,7,18,286,85599,63016,59350,Unión para Vivir Mejor - Cambiemos,30417,Frente para la Victoria,15929
+2017-general-senadores,7,18,286,85599,63053,60158,Unión para Vivir Mejor - Cambiemos,30440,Frente para la Victoria,16426
+2019-general-diputados,7,18,287,85897,64998,55563,Frente de Todos,28333,Juntos por el Cambio,22211
+2019-general-presidente,7,18,287,85897,65155,62771,Fernández - Fernández de Kirchner (Frente de Todos),30577,Macri - Pichetto (Juntos por el Cambio),23846
+2021-general-diputados,7,18,290,86815,61068,58156,Cambia Santa Cruz,28233,Somos Energía para Renovar Santa Cruz -SER-,13184
+2011-general-diputados,7,19,1,86,52,45,Alianza Frente para la Victoria,26,Unión Cívica Radical,15
+2011-general-presidente,7,19,1,86,52,51,Fernández de Kirchner - Boudou (Alianza Frente para la Victoria),31,Alfonsín - González Fraga (Alianza Unión para el Desarrollo Social),12
+2011-general-senadores,7,19,1,86,52,46,Alianza Frente para la Victoria,27,Unión Cívica Radical,15
+2013-general-diputados,7,19,1,73,39,39,Unión para Vivir Mejor,20,Frente para la Victoria,13
+2015-segunda-presidente,7,19,1,63,33,32,Scioli - Zannini (Frente para la Victoria),18,Macri - Michetti (Cambiemos),14
+2017-general-diputados,7,19,1,66,32,32,Unión para Vivir Mejor - Cambiemos,13,Frente para la Victoria,10
+2017-general-senadores,7,19,1,66,32,32,Unión para Vivir Mejor - Cambiemos,13,Frente para la Victoria,10
+2019-general-diputados,7,19,1,69,37,34,Frente de Todos,16,Juntos por el Cambio,16
+2019-general-presidente,7,19,1,69,37,35,Macri - Pichetto (Juntos por el Cambio),16,Fernández - Fernández de Kirchner (Frente de Todos),15
+2021-general-diputados,7,19,1,69,32,32,Cambia Santa Cruz,16,Frente de Todos,7
+2023-general-diputados,7,19,1,105,57,29,Unión por la Patria,11,Cambia Santa Cruz,9
+2023-general-presidente,7,19,1,105,57,53,Milei - Villarruel (La Libertad Avanza),25,Massa - Rossi (Unión por la Patria),13
+2023-general-senadores,7,19,1,105,57,31,Unión por la Patria,13,Cambia Santa Cruz,9
+2023-segunda-presidente,7,19,1,105,51,49,Milei - Villarruel (La Libertad Avanza),32,Massa - Rossi (Unión por la Patria),17
+2025-general-diputados,7,19,1,113,53,52,La Libertad Avanza,16,Fuerza Santacruceña,14
+2011-general-diputados,7,20,1,55,31,22,Alianza Frente para la Victoria,18,Unión Cívica Radical,4
+2011-general-presidente,7,20,1,55,31,24,Fernández de Kirchner - Boudou (Alianza Frente para la Victoria),24,,0
+2011-general-senadores,7,20,1,55,31,23,Alianza Frente para la Victoria,19,Unión Cívica Radical,4
+2013-general-diputados,7,20,1,50,29,27,Partido Justicialista,12,Unión para Vivir Mejor,7
+2015-general-diputados,7,20,1,50,26,16,Alianza Frente para la Victoria,8,Unión para Vivir Mejor,8
+2015-general-presidente,7,20,1,50,26,25,Scioli - Zannini (Alianza Frente para la Victoria),12,Macri - Michetti (Alianza Cambiemos),6
+2015-segunda-presidente,7,20,1,50,23,22,Macri - Michetti (Cambiemos),11,Scioli - Zannini (Frente para la Victoria),11
+2017-general-diputados,7,20,1,62,36,33,Unión para Vivir Mejor - Cambiemos,12,Frente para la Victoria,9
+2017-general-senadores,7,20,1,62,36,35,Unión para Vivir Mejor - Cambiemos,12,Frente para la Victoria,10
+2019-general-diputados,7,20,1,63,31,27,Frente de Todos,19,Juntos por el Cambio,6
+2019-general-presidente,7,20,1,63,31,28,Fernández - Fernández de Kirchner (Frente de Todos),20,Macri - Pichetto (Juntos por el Cambio),8
+2021-general-diputados,7,20,1,65,18,18,Cambia Santa Cruz,7,Somos Energía para Renovar Santa Cruz -SER-,7
+2023-general-diputados,7,20,1,60,25,10,Unión por la Patria,7,Por Santa Cruz,3
+2023-general-presidente,7,20,1,60,25,18,Massa - Rossi (Unión por la Patria),9,Milei - Villarruel (La Libertad Avanza),6
+2023-general-senadores,7,20,1,60,25,11,Unión por la Patria,7,Por Santa Cruz,4
+2023-segunda-presidente,7,20,1,60,19,19,Milei - Villarruel (La Libertad Avanza),10,Massa - Rossi (Unión por la Patria),9
+2025-general-diputados,7,20,1,65,22,22,Por Santa Cruz,11,La Libertad Avanza,6
+2011-general-diputados,7,21,27,7066,5423,4037,Alianza Frente para la Victoria,2995,Unión Cívica Radical,791
+2011-general-presidente,7,21,27,7066,5423,5175,Fernández de Kirchner - Boudou (Alianza Frente para la Victoria),4588,Alfonsín - González Fraga (Alianza Unión para el Desarrollo Social),306
+2011-general-senadores,7,21,27,7066,5428,4177,Alianza Frente para la Victoria,3108,Unión Cívica Radical,823
+2013-general-diputados,7,21,29,8586,6299,6112,Frente para la Victoria,2900,Unión para Vivir Mejor,1523
+2015-general-diputados,7,21,30,8905,6650,5476,Alianza Frente para la Victoria,3705,Unión para Vivir Mejor,1596
+2015-general-presidente,7,21,30,8905,6775,6471,Scioli - Zannini (Alianza Frente para la Victoria),4657,Massa - Sáenz (Alianza Unidos por una Nueva Alternativa (UNA)),864
+2015-segunda-presidente,7,21,31,9208,6902,6768,Scioli - Zannini (Frente para la Victoria),5337,Macri - Michetti (Cambiemos),1431
+2017-general-diputados,7,21,32,9562,6792,6482,Frente para la Victoria,3257,Unión para Vivir Mejor - Cambiemos,1959
+2017-general-senadores,7,21,32,9562,6792,6551,Frente para la Victoria,3217,Unión para Vivir Mejor - Cambiemos,2018
+2019-general-diputados,7,21,32,9349,6964,6190,Frente de Todos,4860,Juntos por el Cambio,970
+2019-general-presidente,7,21,32,9349,6944,6796,Fernández - Fernández de Kirchner (Frente de Todos),5296,Macri - Pichetto (Juntos por el Cambio),1065
+2021-general-diputados,7,21,31,9201,6495,6215,Somos Energía para Renovar Santa Cruz -SER-,2896,Frente de Todos,2349
+2023-general-diputados,7,21,32,9318,6951,4775,Unión por la Patria,3055,Por Santa Cruz,1396
+2023-general-presidente,7,21,32,9318,6958,6623,Massa - Rossi (Unión por la Patria),4561,Milei - Villarruel (La Libertad Avanza),1221
+2023-general-senadores,7,21,32,9318,6951,4892,Unión por la Patria,3105,Por Santa Cruz,1401
+2023-segunda-presidente,7,21,32,9327,6847,6669,Massa - Rossi (Unión por la Patria),4786,Milei - Villarruel (La Libertad Avanza),1883
+2025-general-diputados,7,21,30,9338,6394,6059,Fuerza Santacruceña,2643,Por Santa Cruz,1779
+2011-general-diputados,7,21A,1,27,9,6,Alianza Frente para la Victoria,5,Unión Cívica Radical,1
+2011-general-presidente,7,21A,1,27,9,9,Fernández de Kirchner - Boudou (Alianza Frente para la Victoria),8,Alfonsín - González Fraga (Alianza Unión para el Desarrollo Social),1
+2011-general-senadores,7,21A,1,27,9,6,Alianza Frente para la Victoria,5,Unión Cívica Radical,1
+2013-general-diputados,7,21A,1,19,7,6,Frente para la Victoria,4,Partido Justicialista,1
+2015-general-diputados,7,21A,1,8,2,2,Alianza Frente para la Victoria,1,Unión para Vivir Mejor,1
+2015-general-presidente,7,21A,1,8,2,2,Macri - Michetti (Alianza Cambiemos),1,Scioli - Zannini (Alianza Frente para la Victoria),1
+2015-segunda-presidente,7,21A,1,8,3,3,Macri - Michetti (Cambiemos),2,Scioli - Zannini (Frente para la Victoria),1
+2017-general-diputados,7,21A,1,16,9,8,Unión para Vivir Mejor - Cambiemos,8,,0
+2017-general-senadores,7,21A,1,16,9,8,Unión para Vivir Mejor - Cambiemos,8,,0
+2019-general-diputados,7,21A,1,16,6,6,Juntos por el Cambio,4,Frente de Todos,2
+2019-general-presidente,7,21A,1,16,6,6,Macri - Pichetto (Juntos por el Cambio),4,Fernández - Fernández de Kirchner (Frente de Todos),2
+2021-general-diputados,7,21A,1,18,7,7,Cambia Santa Cruz,3,Somos Energía para Renovar Santa Cruz -SER-,3
+2023-general-diputados,7,21A,1,16,8,1,Cambia Santa Cruz,1,,0
+2023-general-presidente,7,21A,1,16,8,8,Milei - Villarruel (La Libertad Avanza),7,Bullrich - Petri (Juntos por el Cambio),1
+2023-general-senadores,7,21A,1,16,8,1,Cambia Santa Cruz,1,,0
+2023-segunda-presidente,7,21A,1,16,7,7,Milei - Villarruel (La Libertad Avanza),7,,0
+2025-general-diputados,7,21A,1,14,6,6,La Libertad Avanza,3,Fuerza Santacruceña,2
+2011-general-diputados,7,21B,21,5464,3943,2892,Alianza Frente para la Victoria,2145,Unión Cívica Radical,571
+2011-general-presidente,7,21B,21,5464,4067,3933,Fernández de Kirchner - Boudou (Alianza Frente para la Victoria),3389,Alfonsín - González Fraga (Alianza Unión para el Desarrollo Social),297
+2011-general-senadores,7,21B,21,5464,4081,3113,Alianza Frente para la Victoria,2365,Unión Cívica Radical,582
+2013-general-diputados,7,21B,21,6223,4497,4343,Frente para la Victoria,1749,Unión para Vivir Mejor,1276
+2015-general-diputados,7,21B,22,6514,4965,4137,Alianza Frente para la Victoria,2844,Unión para Vivir Mejor,1145
+2015-general-presidente,7,21B,22,6514,4964,4756,Scioli - Zannini (Alianza Frente para la Victoria),3262,Macri - Michetti (Alianza Cambiemos),711
+2015-segunda-presidente,7,21B,24,7130,5381,5289,Scioli - Zannini (Frente para la Victoria),3942,Macri - Michetti (Cambiemos),1347
+2017-general-diputados,7,21B,25,7498,5309,5052,Frente para la Victoria,2217,Unión para Vivir Mejor - Cambiemos,1681
+2017-general-senadores,7,21B,25,7498,5311,5085,Frente para la Victoria,2175,Unión para Vivir Mejor - Cambiemos,1710
+2019-general-diputados,7,21B,25,7404,5370,4784,Frente de Todos,3762,Juntos por el Cambio,783
+2019-general-presidente,7,21B,25,7404,5454,5324,Fernández - Fernández de Kirchner (Frente de Todos),4047,Macri - Pichetto (Juntos por el Cambio),960
+2021-general-diputados,7,21B,25,7339,5177,4951,Somos Energía para Renovar Santa Cruz -SER-,2368,Frente de Todos,1633
+2023-general-diputados,7,21B,26,7508,5648,3836,Unión por la Patria,2277,Por Santa Cruz,1281
+2023-general-presidente,7,21B,26,7508,5648,5290,Massa - Rossi (Unión por la Patria),3365,Milei - Villarruel (La Libertad Avanza),1303
+2023-general-senadores,7,21B,26,7508,5648,3896,Unión por la Patria,2256,Por Santa Cruz,1317
+2023-segunda-presidente,7,21B,26,7509,5478,5287,Massa - Rossi (Unión por la Patria),3249,Milei - Villarruel (La Libertad Avanza),2038
+2025-general-diputados,7,21B,24,7508,5112,4765,Fuerza Santacruceña,1934,Por Santa Cruz,1287
+2023-general-diputados,7,1800,34,9444,6467,4143,Unión por la Patria,1470,Cambia Santa Cruz,1273
+2023-general-presidente,7,1800,34,9444,6557,6216,Milei - Villarruel (La Libertad Avanza),2221,Massa - Rossi (Unión por la Patria),1887
+2023-general-senadores,7,1800,34,9444,6481,4242,Unión por la Patria,1560,Cambia Santa Cruz,1295
+2023-segunda-presidente,7,1800,34,10053,6890,6662,Milei - Villarruel (La Libertad Avanza),4330,Massa - Rossi (Unión por la Patria),2332
+2025-general-diputados,7,1800,31,9851,6147,5853,La Libertad Avanza,1987,Fuerza Santacruceña,1518
+2023-general-diputados,7,1810,100,28379,20873,12997,Unión por la Patria,4906,Por Santa Cruz,4060
+2023-general-presidente,7,1810,100,28379,20976,19627,Milei - Villarruel (La Libertad Avanza),7422,Massa - Rossi (Unión por la Patria),5961
+2023-general-senadores,7,1810,100,28379,20862,13165,Unión por la Patria,5034,Por Santa Cruz,4020
+2023-segunda-presidente,7,1810,100,29909,21701,20743,Milei - Villarruel (La Libertad Avanza),13569,Massa - Rossi (Unión por la Patria),7174
+2025-general-diputados,7,1810,94,29793,20188,19153,La Libertad Avanza,6218,Fuerza Santacruceña,5247
+2023-general-diputados,7,1820,37,10875,7807,5199,Unión por la Patria,1967,Cambia Santa Cruz,1539
+2023-general-presidente,7,1820,37,10875,7934,7533,Milei - Villarruel (La Libertad Avanza),2555,Massa - Rossi (Unión por la Patria),2411
+2023-general-senadores,7,1820,37,10875,7819,5310,Unión por la Patria,2063,Cambia Santa Cruz,1569
+2023-segunda-presidente,7,1820,37,10892,7839,7597,Milei - Villarruel (La Libertad Avanza),4836,Massa - Rossi (Unión por la Patria),2761
+2025-general-diputados,7,1820,35,11093,7494,7165,La Libertad Avanza,2224,Fuerza Santacruceña,1953
+2023-general-diputados,7,1830,56,14533,10709,6699,Unión por la Patria,2522,Por Santa Cruz,2212
+2023-general-presidente,7,1830,56,14533,10822,10150,Milei - Villarruel (La Libertad Avanza),3799,Massa - Rossi (Unión por la Patria),3168
+2023-general-senadores,7,1830,56,14533,10712,6829,Unión por la Patria,2612,Por Santa Cruz,2219
+2023-segunda-presidente,7,1830,56,16354,11954,11524,Milei - Villarruel (La Libertad Avanza),7486,Massa - Rossi (Unión por la Patria),4038
+2025-general-diputados,7,1830,54,16949,11743,11190,La Libertad Avanza,3430,Fuerza Santacruceña,3082
+2023-general-diputados,7,1840,24,6480,4742,2798,Unión por la Patria,1214,Por Santa Cruz,1001
+2023-general-presidente,7,1840,24,6480,4810,4468,Milei - Villarruel (La Libertad Avanza),2063,Massa - Rossi (Unión por la Patria),1428
+2023-general-senadores,7,1840,24,6480,4782,2847,Unión por la Patria,1229,Por Santa Cruz,1000
+2023-segunda-presidente,7,1840,24,6787,5026,4875,Milei - Villarruel (La Libertad Avanza),3245,Massa - Rossi (Unión por la Patria),1630
+2025-general-diputados,7,1840,28,8708,6076,5756,La Libertad Avanza,2055,Fuerza Santacruceña,1684
+2023-general-diputados,7,1850,50,14786,10569,6789,Unión por la Patria,2667,Por Santa Cruz,2211
+2023-general-presidente,7,1850,50,14786,10852,10117,Milei - Villarruel (La Libertad Avanza),3737,Massa - Rossi (Unión por la Patria),3357
+2023-general-senadores,7,1850,50,14786,10585,6867,Unión por la Patria,2756,Por Santa Cruz,2197
+2023-segunda-presidente,7,1850,50,14804,10673,10288,Milei - Villarruel (La Libertad Avanza),6560,Massa - Rossi (Unión por la Patria),3728
+2025-general-diputados,7,1850,48,15087,10170,9602,La Libertad Avanza,2917,Fuerza Santacruceña,2620

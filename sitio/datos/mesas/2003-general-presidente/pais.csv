@@ -1,0 +1,415 @@
+codigo_indec,provincia,lista,votos,electores,votantes,blancos,nulos
+02,CABA,López Murphy - Gómez Diez,506631,2590435,2000412,12081,28461
+02,CABA,Carrió - Gutiérrez,389321,2590435,2000412,12081,28461
+02,CABA,Kirchner - Scioli,381334,2590435,2000412,12081,28461
+02,CABA,Menem - Romero,314528,2590435,2000412,12081,28461
+02,CABA,Rodríguez Saá - Posse,160913,2590435,2000412,12081,28461
+02,CABA,Walsh - Parrilli,56357,2590435,2000412,12081,28461
+02,CABA,Bravo - Giustiniani,50997,2590435,2000412,12081,28461
+02,CABA,Venturino - Pinto Kramer,16739,2590435,2000412,12081,28461
+02,CABA,Moreau - Losada,16330,2590435,2000412,12081,28461
+02,CABA,Sulling - Ambrosio,16215,2590435,2000412,12081,28461
+02,CABA,Altamira - Salas,14713,2590435,2000412,12081,28461
+02,CABA,Arcagni - Zenof,10936,2590435,2000412,12081,28461
+02,CABA,Mazzitelli - Camps,7210,2590435,2000412,12081,28461
+02,CABA,Herrera - Cúneo,6263,2590435,2000412,12081,28461
+02,CABA,Breide Obeid - Vasena,3947,2590435,2000412,12081,28461
+02,CABA,Zaffore - Perie,2974,2590435,2000412,12081,28461
+02,CABA,Mussa - Suárez,2726,2590435,2000412,12081,28461
+02,CABA,Terán - Bonacci,1736,2590435,2000412,12081,28461
+06,Buenos Aires,Kirchner - Scioli,1910516,9473857,7626319,60316,137793
+06,Buenos Aires,Menem - Romero,1515638,9473857,7626319,60316,137793
+06,Buenos Aires,López Murphy - Gómez Diez,1176058,9473857,7626319,60316,137793
+06,Buenos Aires,Carrió - Gutiérrez,1136160,9473857,7626319,60316,137793
+06,Buenos Aires,Rodríguez Saá - Posse,1027635,9473857,7626319,60316,137793
+06,Buenos Aires,Walsh - Parrilli,169757,9473857,7626319,60316,137793
+06,Buenos Aires,Bravo - Giustiniani,88556,9473857,7626319,60316,137793
+06,Buenos Aires,Moreau - Losada,82302,9473857,7626319,60316,137793
+06,Buenos Aires,Venturino - Pinto Kramer,74534,9473857,7626319,60316,137793
+06,Buenos Aires,Altamira - Salas,59947,9473857,7626319,60316,137793
+06,Buenos Aires,Sulling - Ambrosio,49430,9473857,7626319,60316,137793
+06,Buenos Aires,Arcagni - Zenof,34690,9473857,7626319,60316,137793
+06,Buenos Aires,Mazzitelli - Camps,25837,9473857,7626319,60316,137793
+06,Buenos Aires,Breide Obeid - Vasena,18236,9473857,7626319,60316,137793
+06,Buenos Aires,Mussa - Suárez,17404,9473857,7626319,60316,137793
+06,Buenos Aires,Zaffore - Perie,15701,9473857,7626319,60316,137793
+06,Buenos Aires,Herrera - Cúneo,15272,9473857,7626319,60316,137793
+06,Buenos Aires,Terán - Bonacci,10537,9473857,7626319,60316,137793
+10,Catamarca,Menem - Romero,80833,217756,166739,1859,1647
+10,Catamarca,Kirchner - Scioli,22265,217756,166739,1859,1647
+10,Catamarca,López Murphy - Gómez Diez,18977,217756,166739,1859,1647
+10,Catamarca,Rodríguez Saá - Posse,18015,217756,166739,1859,1647
+10,Catamarca,Moreau - Losada,12825,217756,166739,1859,1647
+10,Catamarca,Carrió - Gutiérrez,5812,217756,166739,1859,1647
+10,Catamarca,Altamira - Salas,1173,217756,166739,1859,1647
+10,Catamarca,Walsh - Parrilli,963,217756,166739,1859,1647
+10,Catamarca,Bravo - Giustiniani,655,217756,166739,1859,1647
+10,Catamarca,Sulling - Ambrosio,601,217756,166739,1859,1647
+10,Catamarca,Zaffore - Perie,506,217756,166739,1859,1647
+10,Catamarca,Herrera - Cúneo,486,217756,166739,1859,1647
+10,Catamarca,Breide Obeid - Vasena,110,217756,166739,1859,1647
+10,Catamarca,Terán - Bonacci,7,217756,166739,1859,1647
+10,Catamarca,Alianza Unidos O Dominados,5,217756,166739,1859,1647
+14,Córdoba,Menem - Romero,477738,2234092,1738170,23298,33791
+14,Córdoba,López Murphy - Gómez Diez,363347,2234092,1738170,23298,33791
+14,Córdoba,Rodríguez Saá - Posse,323293,2234092,1738170,23298,33791
+14,Córdoba,Carrió - Gutiérrez,188564,2234092,1738170,23298,33791
+14,Córdoba,Kirchner - Scioli,181702,2234092,1738170,23298,33791
+14,Córdoba,Moreau - Losada,47199,2234092,1738170,23298,33791
+14,Córdoba,Walsh - Parrilli,25878,2234092,1738170,23298,33791
+14,Córdoba,Altamira - Salas,14261,2234092,1738170,23298,33791
+14,Córdoba,Bravo - Giustiniani,11693,2234092,1738170,23298,33791
+14,Córdoba,Venturino - Pinto Kramer,10603,2234092,1738170,23298,33791
+14,Córdoba,Sulling - Ambrosio,8284,2234092,1738170,23298,33791
+14,Córdoba,Mussa - Suárez,5671,2234092,1738170,23298,33791
+14,Córdoba,Herrera - Cúneo,5518,2234092,1738170,23298,33791
+14,Córdoba,Zaffore - Perie,4298,2234092,1738170,23298,33791
+14,Córdoba,Mazzitelli - Camps,3571,2234092,1738170,23298,33791
+14,Córdoba,Arcagni - Zenof,3534,2234092,1738170,23298,33791
+14,Córdoba,Terán - Bonacci,3438,2234092,1738170,23298,33791
+14,Córdoba,Breide Obeid - Vasena,2489,2234092,1738170,23298,33791
+18,Corrientes,Menem - Romero,155352,616387,455054,4544,6927
+18,Corrientes,Kirchner - Scioli,117081,616387,455054,4544,6927
+18,Corrientes,López Murphy - Gómez Diez,51549,616387,455054,4544,6927
+18,Corrientes,Carrió - Gutiérrez,45571,616387,455054,4544,6927
+18,Corrientes,Moreau - Losada,31795,616387,455054,4544,6927
+18,Corrientes,Rodríguez Saá - Posse,24547,616387,455054,4544,6927
+18,Corrientes,Walsh - Parrilli,3143,616387,455054,4544,6927
+18,Corrientes,Zaffore - Perie,2164,616387,455054,4544,6927
+18,Corrientes,Altamira - Salas,1772,616387,455054,4544,6927
+18,Corrientes,Venturino - Pinto Kramer,1685,616387,455054,4544,6927
+18,Corrientes,Herrera - Cúneo,1575,616387,455054,4544,6927
+18,Corrientes,Bravo - Giustiniani,1261,616387,455054,4544,6927
+18,Corrientes,Sulling - Ambrosio,1189,616387,455054,4544,6927
+18,Corrientes,Mazzitelli - Camps,1105,616387,455054,4544,6927
+18,Corrientes,Mussa - Suárez,1079,616387,455054,4544,6927
+18,Corrientes,Breide Obeid - Vasena,982,616387,455054,4544,6927
+18,Corrientes,Terán - Bonacci,959,616387,455054,4544,6927
+18,Corrientes,Arcagni - Zenof,774,616387,455054,4544,6927
+22,Chaco,Menem - Romero,172207,653617,501411,5650,5854
+22,Chaco,Moreau - Losada,96142,653617,501411,5650,5854
+22,Chaco,Kirchner - Scioli,93744,653617,501411,5650,5854
+22,Chaco,Carrió - Gutiérreza,55751,653617,501411,5650,5854
+22,Chaco,López Murphy - Gómez Diez,32073,653617,501411,5650,5854
+22,Chaco,Rodríguez Saá - Posse,23422,653617,501411,5650,5854
+22,Chaco,Walsh - Parrilli,2965,653617,501411,5650,5854
+22,Chaco,Bravo - Giustiniani,1896,653617,501411,5650,5854
+22,Chaco,Altamira - Salas,1762,653617,501411,5650,5854
+22,Chaco,Venturino - Pinto Kramer,1726,653617,501411,5650,5854
+22,Chaco,Mazzitelli - Camps,1535,653617,501411,5650,5854
+22,Chaco,Zaffore - Perie,1431,653617,501411,5650,5854
+22,Chaco,Mussa - Suárez,1289,653617,501411,5650,5854
+22,Chaco,Sulling - Ambrosio,1240,653617,501411,5650,5854
+22,Chaco,Terán - Bonacci,1053,653617,501411,5650,5854
+22,Chaco,Herrera - Cúneo,1039,653617,501411,5650,5854
+22,Chaco,Arcagni - Zenof,499,653617,501411,5650,5854
+22,Chaco,Breide Obeid - Vasena,133,653617,501411,5650,5854
+26,Chubut,Kirchner - Scioli,104286,277490,214444,1622,5178
+26,Chubut,Menem - Romero,38755,277490,214444,1622,5178
+26,Chubut,Carrió - Gutiérrez,22772,277490,214444,1622,5178
+26,Chubut,López Murphy - Gómez Diez,17429,277490,214444,1622,5178
+26,Chubut,Rodríguez Saá - Posse,9917,277490,214444,1622,5178
+26,Chubut,Moreau - Losada,5552,277490,214444,1622,5178
+26,Chubut,Walsh - Parrilli,2342,277490,214444,1622,5178
+26,Chubut,Bravo - Giustiniani,1382,277490,214444,1622,5178
+26,Chubut,Sulling - Ambrosio,1241,277490,214444,1622,5178
+26,Chubut,Altamira - Salas,897,277490,214444,1622,5178
+26,Chubut,Zaffore - Perie,804,277490,214444,1622,5178
+26,Chubut,Arcagni - Zenof,692,277490,214444,1622,5178
+26,Chubut,Venturino - Pinto Kramer,626,277490,214444,1622,5178
+26,Chubut,Breide Obeid - Vasena,365,277490,214444,1622,5178
+26,Chubut,Herrera - Cúneo,307,277490,214444,1622,5178
+26,Chubut,Socialista Auténtico,277,277490,214444,1622,5178
+30,Entre Ríos,Menem - Romero,185370,818801,639023,5379,10876
+30,Entre Ríos,Kirchner - Scioli,129190,818801,639023,5379,10876
+30,Entre Ríos,López Murphy - Gómez Diez,89487,818801,639023,5379,10876
+30,Entre Ríos,Rodríguez Saá - Posse,88563,818801,639023,5379,10876
+30,Entre Ríos,Carrió - Gutiérrez,75288,818801,639023,5379,10876
+30,Entre Ríos,Moreau - Losada,25457,818801,639023,5379,10876
+30,Entre Ríos,Bravo - Giustiniani,4886,818801,639023,5379,10876
+30,Entre Ríos,Walsh - Parrilli,4620,818801,639023,5379,10876
+30,Entre Ríos,Breide Obeid - Vasena,3561,818801,639023,5379,10876
+30,Entre Ríos,Arcagni - Zenof,2782,818801,639023,5379,10876
+30,Entre Ríos,Sulling - Ambrosio,2226,818801,639023,5379,10876
+30,Entre Ríos,Altamira - Salas,1987,818801,639023,5379,10876
+30,Entre Ríos,Venturino - Pinto Kramer,1959,818801,639023,5379,10876
+30,Entre Ríos,Zaffore - Perie,1577,818801,639023,5379,10876
+30,Entre Ríos,Herrera - Cúneo,1557,818801,639023,5379,10876
+30,Entre Ríos,Terán - Bonacci,1495,818801,639023,5379,10876
+30,Entre Ríos,Mussa - Suárez,1456,818801,639023,5379,10876
+30,Entre Ríos,Mazzitelli - Camps,1307,818801,639023,5379,10876
+34,Formosa,Kirchner - Scioli,85937,299941,213607,1890,2670
+34,Formosa,Menem - Romero,55078,299941,213607,1890,2670
+34,Formosa,Carrió - Gutiérrez,19897,299941,213607,1890,2670
+34,Formosa,Rodríguez Saá - Posse,19353,299941,213607,1890,2670
+34,Formosa,López Murphy - Gómez Diez,13360,299941,213607,1890,2670
+34,Formosa,Moreau - Losada,7912,299941,213607,1890,2670
+34,Formosa,Zaffore - Perie,1538,299941,213607,1890,2670
+34,Formosa,Sulling - Ambrosio,839,299941,213607,1890,2670
+34,Formosa,Walsh - Parrilli,822,299941,213607,1890,2670
+34,Formosa,Venturino - Pinto Kramer,806,299941,213607,1890,2670
+34,Formosa,Altamira - Salas,785,299941,213607,1890,2670
+34,Formosa,Terán - Bonacci,765,299941,213607,1890,2670
+34,Formosa,Bravo - Giustiniani,702,299941,213607,1890,2670
+34,Formosa,Mazzitelli - Camps,655,299941,213607,1890,2670
+34,Formosa,Herrera - Cúneo,578,299941,213607,1890,2670
+34,Formosa,Arcagni - Zenof,9,299941,213607,1890,2670
+34,Formosa,Mussa - Suárez,7,299941,213607,1890,2670
+34,Formosa,Breide Obeid - Vasena,4,299941,213607,1890,2670
+38,Jujuy,Kirchner - Scioli,116943,375020,284239,2514,6057
+38,Jujuy,Menem - Romero,51260,375020,284239,2514,6057
+38,Jujuy,Rodríguez Saá - Posse,49505,375020,284239,2514,6057
+38,Jujuy,Carrió - Gutiérrez,18621,375020,284239,2514,6057
+38,Jujuy,López Murphy - Gómez Diez,16362,375020,284239,2514,6057
+38,Jujuy,Moreau - Losada,11146,375020,284239,2514,6057
+38,Jujuy,Walsh - Parrilli,5060,375020,284239,2514,6057
+38,Jujuy,Altamira - Salas,1168,375020,284239,2514,6057
+38,Jujuy,Sulling - Ambrosio,932,375020,284239,2514,6057
+38,Jujuy,Bravo - Giustiniani,778,375020,284239,2514,6057
+38,Jujuy,Venturino - Pinto Kramer,758,375020,284239,2514,6057
+38,Jujuy,Zaffore - Perie,726,375020,284239,2514,6057
+38,Jujuy,Herrera - Cúneo,581,375020,284239,2514,6057
+38,Jujuy,Mussa - Suárez,525,375020,284239,2514,6057
+38,Jujuy,Terán - Bonacci,463,375020,284239,2514,6057
+38,Jujuy,Breide Obeid - Vasena,442,375020,284239,2514,6057
+38,Jujuy,Socialista Auténtico,398,375020,284239,2514,6057
+42,La Pampa,Menem - Romero,48997,221942,180532,1317,3011
+42,La Pampa,Rodríguez Saá - Posse,36118,221942,180532,1317,3011
+42,La Pampa,Kirchner - Scioli,31320,221942,180532,1317,3011
+42,La Pampa,López Murphy - Gómez Diez,25103,221942,180532,1317,3011
+42,La Pampa,Carrió - Gutiérrez,19591,221942,180532,1317,3011
+42,La Pampa,Moreau - Losada,5143,221942,180532,1317,3011
+42,La Pampa,Bravo - Giustiniani,2403,221942,180532,1317,3011
+42,La Pampa,Walsh - Parrilli,1464,221942,180532,1317,3011
+42,La Pampa,Sulling - Ambrosio,1229,221942,180532,1317,3011
+42,La Pampa,Zaffore - Perie,857,221942,180532,1317,3011
+42,La Pampa,Breide Obeid - Vasena,850,221942,180532,1317,3011
+42,La Pampa,Altamira - Salas,780,221942,180532,1317,3011
+42,La Pampa,Mazzitelli - Camps,551,221942,180532,1317,3011
+42,La Pampa,Mussa - Suárez,478,221942,180532,1317,3011
+42,La Pampa,Arcagni - Zenof,460,221942,180532,1317,3011
+42,La Pampa,Herrera - Cúneo,418,221942,180532,1317,3011
+42,La Pampa,Terán - Bonacci,401,221942,180532,1317,3011
+42,La Pampa,Venturino - Pinto Kramer,41,221942,180532,1317,3011
+46,La Rioja,Menem - Romero,116309,191316,156874,14006,912
+46,La Rioja,Kirchner - Scioli,8873,191316,156874,14006,912
+46,La Rioja,López Murphy - Gómez Diez,6421,191316,156874,14006,912
+46,La Rioja,Rodríguez Saá - Posse,4213,191316,156874,14006,912
+46,La Rioja,Carrió - Gutiérrez,2443,191316,156874,14006,912
+46,La Rioja,Moreau - Losada,1998,191316,156874,14006,912
+46,La Rioja,Walsh - Parrilli,997,191316,156874,14006,912
+46,La Rioja,Altamira - Salas,127,191316,156874,14006,912
+46,La Rioja,Sulling - Ambrosio,123,191316,156874,14006,912
+46,La Rioja,Bravo - Giustiniani,108,191316,156874,14006,912
+46,La Rioja,Zaffore - Perie,63,191316,156874,14006,912
+46,La Rioja,Herrera - Cúneo,58,191316,156874,14006,912
+46,La Rioja,Venturino - Pinto Kramer,57,191316,156874,14006,912
+46,La Rioja,Terán - Bonacci,51,191316,156874,14006,912
+46,La Rioja,Mussa - Suárez,43,191316,156874,14006,912
+46,La Rioja,Arcagni - Zenof,42,191316,156874,14006,912
+46,La Rioja,Breide Obeid - Vasena,30,191316,156874,14006,912
+50,Mendoza,Rodríguez Saá - Posse,302185,1072340,849294,6287,20972
+50,Mendoza,López Murphy - Gómez Diez,160612,1072340,849294,6287,20972
+50,Mendoza,Menem - Romero,156911,1072340,849294,6287,20972
+50,Mendoza,Kirchner - Scioli,79396,1072340,849294,6287,20972
+50,Mendoza,Carrió - Gutiérrez,70120,1072340,849294,6287,20972
+50,Mendoza,Moreau - Losada,10184,1072340,849294,6287,20972
+50,Mendoza,Walsh - Parrilli,8597,1072340,849294,6287,20972
+50,Mendoza,Bravo - Giustiniani,8112,1072340,849294,6287,20972
+50,Mendoza,Sulling - Ambrosio,4015,1072340,849294,6287,20972
+50,Mendoza,Venturino - Pinto Kramer,3876,1072340,849294,6287,20972
+50,Mendoza,Breide Obeid - Vasena,3457,1072340,849294,6287,20972
+50,Mendoza,Altamira - Salas,3351,1072340,849294,6287,20972
+50,Mendoza,Mazzitelli - Camps,2237,1072340,849294,6287,20972
+50,Mendoza,Arcagni - Zenof,2079,1072340,849294,6287,20972
+50,Mendoza,Mussa - Suárez,2062,1072340,849294,6287,20972
+50,Mendoza,Herrera - Cúneo,2024,1072340,849294,6287,20972
+50,Mendoza,Zaffore - Perie,1650,1072340,849294,6287,20972
+50,Mendoza,Terán - Bonacci,1167,1072340,849294,6287,20972
+54,Misiones,Menem - Romero,170711,598430,449748,4570,6479
+54,Misiones,Kirchner - Scioli,100707,598430,449748,4570,6479
+54,Misiones,Carrió - Gutiérrez,40239,598430,449748,4570,6479
+54,Misiones,Rodríguez Saá - Posse,39165,598430,449748,4570,6479
+54,Misiones,López Murphy - Gómez Diez,38064,598430,449748,4570,6479
+54,Misiones,Moreau - Losada,33016,598430,449748,4570,6479
+54,Misiones,Bravo - Giustiniani,2460,598430,449748,4570,6479
+54,Misiones,Walsh - Parrilli,2418,598430,449748,4570,6479
+54,Misiones,Zaffore - Perie,2291,598430,449748,4570,6479
+54,Misiones,Venturino - Pinto Kramer,1991,598430,449748,4570,6479
+54,Misiones,Altamira - Salas,1738,598430,449748,4570,6479
+54,Misiones,Sulling - Ambrosio,1566,598430,449748,4570,6479
+54,Misiones,Mussa - Suárez,1464,598430,449748,4570,6479
+54,Misiones,Terán - Bonacci,1449,598430,449748,4570,6479
+54,Misiones,Arcagni - Zenof,1179,598430,449748,4570,6479
+54,Misiones,Breide Obeid - Vasena,151,598430,449748,4570,6479
+54,Misiones,Herrera - Cúneo,75,598430,449748,4570,6479
+54,Misiones,Mazzitelli - Camps,15,598430,449748,4570,6479
+58,Neuquén,Kirchner - Scioli,61121,318273,252224,3772,6587
+58,Neuquén,Menem - Romero,60525,318273,252224,3772,6587
+58,Neuquén,Carrió - Gutiérrez,41271,318273,252224,3772,6587
+58,Neuquén,López Murphy - Gómez Diez,40925,318273,252224,3772,6587
+58,Neuquén,Rodríguez Saá - Posse,19846,318273,252224,3772,6587
+58,Neuquén,Walsh - Parrilli,3947,318273,252224,3772,6587
+58,Neuquén,Altamira - Salas,2859,318273,252224,3772,6587
+58,Neuquén,Bravo - Giustiniani,2684,318273,252224,3772,6587
+58,Neuquén,Sulling - Ambrosio,2072,318273,252224,3772,6587
+58,Neuquén,Moreau - Losada,1985,318273,252224,3772,6587
+58,Neuquén,Zaffore - Perie,1164,318273,252224,3772,6587
+58,Neuquén,Mussa - Suárez,1058,318273,252224,3772,6587
+58,Neuquén,Breide Obeid - Vasena,871,318273,252224,3772,6587
+58,Neuquén,Terán - Bonacci,841,318273,252224,3772,6587
+58,Neuquén,Herrera - Cúneo,684,318273,252224,3772,6587
+58,Neuquén,Confederación Para Que Se Vayan Todos,12,318273,252224,3772,6587
+62,Río Negro,Kirchner - Scioli,92726,351657,271128,2370,6740
+62,Río Negro,Menem - Romero,45925,351657,271128,2370,6740
+62,Río Negro,López Murphy - Gómez Diez,40517,351657,271128,2370,6740
+62,Río Negro,Carrió - Gutiérrez,39139,351657,271128,2370,6740
+62,Río Negro,Rodríguez Saá - Posse,19235,351657,271128,2370,6740
+62,Río Negro,Moreau - Losada,8709,351657,271128,2370,6740
+62,Río Negro,Walsh - Parrilli,3182,351657,271128,2370,6740
+62,Río Negro,Bravo - Giustiniani,2590,351657,271128,2370,6740
+62,Río Negro,Sulling - Ambrosio,2407,351657,271128,2370,6740
+62,Río Negro,Altamira - Salas,2155,351657,271128,2370,6740
+62,Río Negro,Venturino - Pinto Kramer,1252,351657,271128,2370,6740
+62,Río Negro,Zaffore - Perie,1069,351657,271128,2370,6740
+62,Río Negro,Herrera - Cúneo,1012,351657,271128,2370,6740
+62,Río Negro,Mussa - Suárez,878,351657,271128,2370,6740
+62,Río Negro,Breide Obeid - Vasena,595,351657,271128,2370,6740
+62,Río Negro,Terán - Bonacci,582,351657,271128,2370,6740
+62,Río Negro,Arcagni - Zenof,39,351657,271128,2370,6740
+62,Río Negro,Mazzitelli - Camps,6,351657,271128,2370,6740
+66,Salta,Menem - Romero,217474,672685,497815,3986,8373
+66,Salta,López Murphy - Gómez Diez,94359,672685,497815,3986,8373
+66,Salta,Kirchner - Scioli,64048,672685,497815,3986,8373
+66,Salta,Carrió - Gutiérrez,40265,672685,497815,3986,8373
+66,Salta,Rodríguez Saá - Posse,32732,672685,497815,3986,8373
+66,Salta,Altamira - Salas,13814,672685,497815,3986,8373
+66,Salta,Moreau - Losada,7885,672685,497815,3986,8373
+66,Salta,Walsh - Parrilli,3370,672685,497815,3986,8373
+66,Salta,Sulling - Ambrosio,2315,672685,497815,3986,8373
+66,Salta,Bravo - Giustiniani,2056,672685,497815,3986,8373
+66,Salta,Venturino - Pinto Kramer,1748,672685,497815,3986,8373
+66,Salta,Zaffore - Perie,1475,672685,497815,3986,8373
+66,Salta,Herrera - Cúneo,1404,672685,497815,3986,8373
+66,Salta,Terán - Bonacci,1162,672685,497815,3986,8373
+66,Salta,Mussa - Suárez,816,672685,497815,3986,8373
+66,Salta,Breide Obeid - Vasena,429,672685,497815,3986,8373
+66,Salta,Arcagni - Zenof,88,672685,497815,3986,8373
+66,Salta,Mazzitelli - Camps,16,672685,497815,3986,8373
+70,San Juan,Rodríguez Saá - Posse,112955,410876,324906,2655,5663
+70,San Juan,Menem - Romero,85278,410876,324906,2655,5663
+70,San Juan,Kirchner - Scioli,64097,410876,324906,2655,5663
+70,San Juan,López Murphy - Gómez Diez,30572,410876,324906,2655,5663
+70,San Juan,Carrió - Gutiérrez,10220,410876,324906,2655,5663
+70,San Juan,Moreau - Losada,3384,410876,324906,2655,5663
+70,San Juan,Walsh - Parrilli,2509,410876,324906,2655,5663
+70,San Juan,Bravo - Giustiniani,1678,410876,324906,2655,5663
+70,San Juan,Venturino - Pinto Kramer,826,410876,324906,2655,5663
+70,San Juan,Altamira - Salas,774,410876,324906,2655,5663
+70,San Juan,Zaffore - Perie,719,410876,324906,2655,5663
+70,San Juan,Sulling - Ambrosio,660,410876,324906,2655,5663
+70,San Juan,Herrera - Cúneo,643,410876,324906,2655,5663
+70,San Juan,Mazzitelli - Camps,567,410876,324906,2655,5663
+70,San Juan,Arcagni - Zenof,460,410876,324906,2655,5663
+70,San Juan,Mussa - Suárez,451,410876,324906,2655,5663
+70,San Juan,Terán - Bonacci,401,410876,324906,2655,5663
+70,San Juan,Breide Obeid - Vasena,394,410876,324906,2655,5663
+74,San Luis,Rodríguez Saá - Posse,179162,260318,211412,5020,1366
+74,San Luis,López Murphy - Gómez Diez,7207,260318,211412,5020,1366
+74,San Luis,Carrió - Gutiérrez,6927,260318,211412,5020,1366
+74,San Luis,Menem - Romero,4687,260318,211412,5020,1366
+74,San Luis,Kirchner - Scioli,2627,260318,211412,5020,1366
+74,San Luis,Moreau - Losada,1567,260318,211412,5020,1366
+74,San Luis,Walsh - Parrilli,1131,260318,211412,5020,1366
+74,San Luis,Bravo - Giustiniani,572,260318,211412,5020,1366
+74,San Luis,Herrera - Cúneo,346,260318,211412,5020,1366
+74,San Luis,Altamira - Salas,294,260318,211412,5020,1366
+74,San Luis,Sulling - Ambrosio,187,260318,211412,5020,1366
+74,San Luis,Mussa - Suárez,183,260318,211412,5020,1366
+74,San Luis,Terán - Bonacci,133,260318,211412,5020,1366
+74,San Luis,Venturino - Pinto Kramer,3,260318,211412,5020,1366
+78,Santa Cruz,Kirchner - Scioli,79120,128595,101195,297,1061
+78,Santa Cruz,Menem - Romero,7093,128595,101195,297,1061
+78,Santa Cruz,Carrió - Gutiérrez,4567,128595,101195,297,1061
+78,Santa Cruz,López Murphy - Gómez Diez,3906,128595,101195,297,1061
+78,Santa Cruz,Rodríguez Saá - Posse,2053,128595,101195,297,1061
+78,Santa Cruz,Moreau - Losada,990,128595,101195,297,1061
+78,Santa Cruz,Altamira - Salas,613,128595,101195,297,1061
+78,Santa Cruz,Walsh - Parrilli,363,128595,101195,297,1061
+78,Santa Cruz,Bravo - Giustiniani,248,128595,101195,297,1061
+78,Santa Cruz,Sulling - Ambrosio,194,128595,101195,297,1061
+78,Santa Cruz,Venturino - Pinto Kramer,181,128595,101195,297,1061
+78,Santa Cruz,Herrera - Cúneo,129,128595,101195,297,1061
+78,Santa Cruz,Mazzitelli - Camps,98,128595,101195,297,1061
+78,Santa Cruz,Zaffore - Perie,91,128595,101195,297,1061
+78,Santa Cruz,Mussa - Suárez,72,128595,101195,297,1061
+78,Santa Cruz,Terán - Bonacci,72,128595,101195,297,1061
+78,Santa Cruz,Breide Obeid - Vasena,45,128595,101195,297,1061
+78,Santa Cruz,Arcagni - Zenof,2,128595,101195,297,1061
+82,Santa Fe,Menem - Romero,425886,2235568,1740400,23613,31052
+82,Santa Fe,Carrió - Gutiérrez,424085,2235568,1740400,23613,31052
+82,Santa Fe,López Murphy - Gómez Diez,292124,2235568,1740400,23613,31052
+82,Santa Fe,Kirchner - Scioli,271591,2235568,1740400,23613,31052
+82,Santa Fe,Rodríguez Saá - Posse,144154,2235568,1740400,23613,31052
+82,Santa Fe,Moreau - Losada,27074,2235568,1740400,23613,31052
+82,Santa Fe,Bravo - Giustiniani,26894,2235568,1740400,23613,31052
+82,Santa Fe,Walsh - Parrilli,24187,2235568,1740400,23613,31052
+82,Santa Fe,Altamira - Salas,8984,2235568,1740400,23613,31052
+82,Santa Fe,Venturino - Pinto Kramer,8100,2235568,1740400,23613,31052
+82,Santa Fe,Sulling - Ambrosio,5669,2235568,1740400,23613,31052
+82,Santa Fe,Herrera - Cúneo,4774,2235568,1740400,23613,31052
+82,Santa Fe,Zaffore - Perie,4755,2235568,1740400,23613,31052
+82,Santa Fe,Arcagni - Zenof,4531,2235568,1740400,23613,31052
+82,Santa Fe,Mazzitelli - Camps,3949,2235568,1740400,23613,31052
+82,Santa Fe,Breide Obeid - Vasena,3844,2235568,1740400,23613,31052
+82,Santa Fe,Terán - Bonacci,3453,2235568,1740400,23613,31052
+82,Santa Fe,Mussa - Suárez,1681,2235568,1740400,23613,31052
+86,Santiago del Estero,Menem - Romero,144213,518160,352558,4009,2336
+86,Santiago del Estero,Kirchner - Scioli,137899,518160,352558,4009,2336
+86,Santiago del Estero,López Murphy - Gómez Diez,22513,518160,352558,4009,2336
+86,Santiago del Estero,Rodríguez Saá - Posse,15164,518160,352558,4009,2336
+86,Santiago del Estero,Carrió - Gutiérrez,11447,518160,352558,4009,2336
+86,Santiago del Estero,Moreau - Losada,8819,518160,352558,4009,2336
+86,Santiago del Estero,Walsh - Parrilli,2668,518160,352558,4009,2336
+86,Santiago del Estero,Bravo - Giustiniani,1077,518160,352558,4009,2336
+86,Santiago del Estero,Herrera - Cúneo,1043,518160,352558,4009,2336
+86,Santiago del Estero,Altamira - Salas,430,518160,352558,4009,2336
+86,Santiago del Estero,Zaffore - Perie,318,518160,352558,4009,2336
+86,Santiago del Estero,Breide Obeid - Vasena,309,518160,352558,4009,2336
+86,Santiago del Estero,Terán - Bonacci,245,518160,352558,4009,2336
+86,Santiago del Estero,Mussa - Suárez,68,518160,352558,4009,2336
+90,Tucumán,Menem - Romero,199699,873935,652764,5286,10660
+90,Tucumán,Kirchner - Scioli,153171,873935,652764,5286,10660
+90,Tucumán,López Murphy - Gómez Diez,122383,873935,652764,5286,10660
+90,Tucumán,Rodríguez Saá - Posse,80867,873935,652764,5286,10660
+90,Tucumán,Carrió - Gutiérrez,49005,873935,652764,5286,10660
+90,Tucumán,Walsh - Parrilli,5552,873935,652764,5286,10660
+90,Tucumán,Moreau - Losada,5547,873935,652764,5286,10660
+90,Tucumán,Altamira - Salas,4845,873935,652764,5286,10660
+90,Tucumán,Bravo - Giustiniani,3300,873935,652764,5286,10660
+90,Tucumán,Sulling - Ambrosio,2872,873935,652764,5286,10660
+90,Tucumán,Venturino - Pinto Kramer,2099,873935,652764,5286,10660
+90,Tucumán,Herrera - Cúneo,1871,873935,652764,5286,10660
+90,Tucumán,Zaffore - Perie,1711,873935,652764,5286,10660
+90,Tucumán,Mazzitelli - Camps,1644,873935,652764,5286,10660
+90,Tucumán,Breide Obeid - Vasena,1162,873935,652764,5286,10660
+90,Tucumán,Terán - Bonacci,1017,873935,652764,5286,10660
+90,Tucumán,Arcagni - Zenof,52,873935,652764,5286,10660
+90,Tucumán,Mussa - Suárez,21,873935,652764,5286,10660
+94,Tierra del Fuego,Kirchner - Scioli,23437,69919,50643,222,1185
+94,Tierra del Fuego,Menem - Romero,10735,69919,50643,222,1185
+94,Tierra del Fuego,Carrió - Gutiérrez,6131,69919,50643,222,1185
+94,Tierra del Fuego,López Murphy - Gómez Diez,3605,69919,50643,222,1185
+94,Tierra del Fuego,Rodríguez Saá - Posse,3079,69919,50643,222,1185
+94,Tierra del Fuego,Moreau - Losada,412,69919,50643,222,1185
+94,Tierra del Fuego,Walsh - Parrilli,411,69919,50643,222,1185
+94,Tierra del Fuego,Bravo - Giustiniani,399,69919,50643,222,1185
+94,Tierra del Fuego,Sulling - Ambrosio,199,69919,50643,222,1185
+94,Tierra del Fuego,Altamira - Salas,173,69919,50643,222,1185
+94,Tierra del Fuego,Venturino - Pinto Kramer,172,69919,50643,222,1185
+94,Tierra del Fuego,Arcagni - Zenof,123,69919,50643,222,1185
+94,Tierra del Fuego,Herrera - Cúneo,98,69919,50643,222,1185
+94,Tierra del Fuego,Mussa - Suárez,73,69919,50643,222,1185
+94,Tierra del Fuego,Zaffore - Perie,72,69919,50643,222,1185
+94,Tierra del Fuego,Terán - Bonacci,62,69919,50643,222,1185
+94,Tierra del Fuego,Breide Obeid - Vasena,55,69919,50643,222,1185

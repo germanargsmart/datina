@@ -1,0 +1,105 @@
+codigo_indec,provincia,lista,votos,mesas,electores,votantes,blancos,nulos,recurridos_impugnados
+02,CABA,Alianza Cambiemos,885603,7326,2538487,1989996,43756,11487,572
+02,CABA,Alianza Frente para la Victoria,433309,7326,2538487,1989996,43756,11487,572
+02,CABA,Alianza Unidos por una Nueva Alternativa (UNA),277722,7326,2538487,1989996,43756,11487,572
+02,CABA,Alianza Progresistas,165116,7326,2538487,1989996,43756,11487,572
+02,CABA,Alianza Frente de Izquierda y de los Trabajadores,106310,7326,2538487,1989996,43756,11487,572
+02,CABA,Autodeterminación y Libertad,66121,7326,2538487,1989996,43756,11487,572
+06,Buenos Aires,Alianza Frente para la Victoria,3212919,34718,11543996,9455259,747411,49373,7254
+06,Buenos Aires,Cambiemos Buenos Aires,2928287,34718,11543996,9455259,747411,49373,7254
+06,Buenos Aires,Alianza Unidos por una Nueva Alternativa (UNA),1812554,34718,11543996,9455259,747411,49373,7254
+06,Buenos Aires,Alianza Frente de Izquierda y de los Trabajadores,389846,34718,11543996,9455259,747411,49373,7254
+06,Buenos Aires,Alianza Progresistas,307615,34718,11543996,9455259,747411,49373,7254
+10,Catamarca,Alianza Frente para la Victoria,82873,805,254072,188956,23713,936,272
+10,Catamarca,Alianza Frente Cívico y Social,65511,805,254072,188956,23713,936,272
+10,Catamarca,Alianza Frente Tercera Posicion,15651,805,254072,188956,23713,936,272
+14,Córdoba,Alianza Cambiemos,1048332,8323,2759357,2185867,65460,17012,770
+14,Córdoba,Alianza Unión por Córdoba,443545,8323,2759357,2185867,65460,17012,770
+14,Córdoba,Alianza Frente para la Victoria,379752,8323,2759357,2185867,65460,17012,770
+14,Córdoba,Alianza Frente de Izquierda y de los Trabajadores,119243,8323,2759357,2185867,65460,17012,770
+14,Córdoba,Alianza Progresistas,64082,8323,2759357,2185867,65460,17012,770
+14,Córdoba,Es Posible,47671,8323,2759357,2185867,65460,17012,770
+18,Corrientes,Alianza Frente para la Victoria,289019,2388,805227,594172,35140,2978,221
+18,Corrientes,Alianza Encuentro por Corrientes,181424,2388,805227,594172,35140,2978,221
+18,Corrientes,Alianza Unidos por una Nueva Alternativa (UNA),85390,2388,805227,594172,35140,2978,221
+22,Chaco,Alianza Frente para la Victoria,332663,2499,845584,646266,23696,2714,254
+22,Chaco,Alianza Cambiemos,173307,2499,845584,646266,23696,2714,254
+22,Chaco,Alianza Unidos por una Nueva Alternativa,89698,2499,845584,646266,23696,2714,254
+22,Chaco,Del Obrero,13003,2499,845584,646266,23696,2714,254
+22,Chaco,Alianza Progresistas,7737,2499,845584,646266,23696,2714,254
+22,Chaco,Partido Ciudadanos a Gobernar,3194,2499,845584,646266,23696,2714,254
+26,Chubut,Alianza Frente para la Victoria,98137,1185,397763,302699,67310,5097,595
+26,Chubut,Alianza Frente Unión Chubut Somos Todos,79663,1185,397763,302699,67310,5097,595
+26,Chubut,Alianza Cambiemos Chubut,43899,1185,397763,302699,67310,5097,595
+26,Chubut,Movimiento Polo Social La Tercera Posicion de la Gente,7998,1185,397763,302699,67310,5097,595
+30,Entre Ríos,Alianza Frente para la Victoria,281808,2860,945012,786560,115153,4676,397
+30,Entre Ríos,Alianza Cambiemos,273885,2860,945012,786560,115153,4676,397
+30,Entre Ríos,Alianza Unidos por una Nueva Alternativa (UNA),110641,2860,945012,786560,115153,4676,397
+34,Formosa,Alianza Frente para la Victoria,164493,1050,341557,259379,24277,1847,297
+34,Formosa,Alianza Frente Amplio Formoseño,68465,1050,341557,259379,24277,1847,297
+38,Jujuy,Frente Cambia Jujuy,179457,1463,471517,385140,67410,2940,509
+38,Jujuy,Alianza Frente para la Victoria,117650,1463,471517,385140,67410,2940,509
+38,Jujuy,Alianza Frente de Izquierda y de los Trabajadores,17174,1463,471517,385140,67410,2940,509
+42,La Pampa,Alianza Frente para la Victoria,79508,814,269778,219194,45000,1598,297
+42,La Pampa,Propuesta Frepam,68468,814,269778,219194,45000,1598,297
+42,La Pampa,Pueblo Nuevo,20444,814,269778,219194,45000,1598,297
+42,La Pampa,GEN,3879,814,269778,219194,45000,1598,297
+46,La Rioja,Alianza Cambiemos,88911,855,263494,199452,24531,1543,96
+46,La Rioja,Alianza Frente para la Victoria,71812,855,263494,199452,24531,1543,96
+46,La Rioja,Es Posible,8008,855,263494,199452,24531,1543,96
+46,La Rioja,Comunista,4551,855,263494,199452,24531,1543,96
+50,Mendoza,Alianza Cambiemos,431793,3980,1358598,1106337,45515,13022,676
+50,Mendoza,Alianza Frente para la Victoria,313442,3980,1358598,1106337,45515,13022,676
+50,Mendoza,Alianza Frente Renovador Federal de la Esperanza,134684,3980,1358598,1106337,45515,13022,676
+50,Mendoza,Alianza Frente de Izquierda y de los Trabajadores,123225,3980,1358598,1106337,45515,13022,676
+50,Mendoza,Es Posible,43980,3980,1358598,1106337,45515,13022,676
+54,Misiones,Alianza Frente para la Victoria,374782,2402,822874,670110,97941,4190,300
+54,Misiones,Alianza Frente Cambiemos,70107,2402,822874,670110,97941,4190,300
+54,Misiones,Unión Cívica Radical,49605,2402,822874,670110,97941,4190,300
+54,Misiones,Alianza Frente Unidos,42972,2402,822874,670110,97941,4190,300
+54,Misiones,Proyecto Popular,29111,2402,822874,670110,97941,4190,300
+54,Misiones,Nuevo Octubre,1102,2402,822874,670110,97941,4190,300
+58,Neuquén,Alianza Frente para la Victoria,96471,1417,467030,387587,43896,7487,288
+58,Neuquén,Alianza Cambiemos,84908,1417,467030,387587,43896,7487,288
+58,Neuquén,Unión Popular,60673,1417,467030,387587,43896,7487,288
+58,Neuquén,Movimiento Popular Neuquino,54633,1417,467030,387587,43896,7487,288
+58,Neuquén,Alianza Frente de Izquierda y de los Trabajadores,27898,1417,467030,387587,43896,7487,288
+58,Neuquén,Alianza Progresistas,11333,1417,467030,387587,43896,7487,288
+62,Río Negro,Alianza Frente para la Victoria,160498,1525,509131,402382,119446,4837,123
+62,Río Negro,Alianza Cambiemos Río Negro,84448,1525,509131,402382,119446,4837,123
+62,Río Negro,Obrero,18186,1525,509131,402382,119446,4837,123
+62,Río Negro,Socialista,14844,1525,509131,402382,119446,4837,123
+66,Salta,Alianza Frente para la Victoria,262906,2790,928250,659542,20255,2722,609
+66,Salta,Alianza Unidos por una Nueva Alternativa (UNA),178795,2790,928250,659542,20255,2722,609
+66,Salta,Cambiemos Salta,152000,2790,928250,659542,20255,2722,609
+66,Salta,Obrero,42255,2790,928250,659542,20255,2722,609
+70,San Juan,Alianza Frente para la Victoria,206115,1553,518629,417997,44420,3127,517
+70,San Juan,Alianza Compromiso con San Juan,99146,1553,518629,417997,44420,3127,517
+70,San Juan,Alianza Cambiemos,57606,1553,518629,417997,44420,3127,517
+70,San Juan,Cruzada Renovadora,7066,1553,518629,417997,44420,3127,517
+74,San Luis,Alianza Compromiso Federal,146187,1103,349026,281649,47882,2843,314
+74,San Luis,Alianza Cambiemos,52920,1103,349026,281649,47882,2843,314
+74,San Luis,Alianza Frente para la Victoria,31503,1103,349026,281649,47882,2843,314
+78,Santa Cruz,Unión para Vivir Mejor,72615,783,229894,177499,28158,1774,204
+78,Santa Cruz,Alianza Frente para la Victoria,68129,783,229894,177499,28158,1774,204
+78,Santa Cruz,Alianza Frente de Izquierda y de los Trabajadores,6619,783,229894,177499,28158,1774,204
+82,Santa Fe,Alianza Frente para la Victoria,589395,7852,2660093,2068061,169676,25163,1396
+82,Santa Fe,Alianza Cambiemos,570217,7852,2660093,2068061,169676,25163,1396
+82,Santa Fe,Alianza Unidos por una Nueva Alternativa (UNA),410829,7852,2660093,2068061,169676,25163,1396
+82,Santa Fe,Alianza Frente Progresista Cívico y Social,205421,7852,2660093,2068061,169676,25163,1396
+82,Santa Fe,Alianza Frente de Izquierda y de los Trabajadores,71909,7852,2660093,2068061,169676,25163,1396
+82,Santa Fe,Alianza Compromiso Federal,24055,7852,2660093,2068061,169676,25163,1396
+86,Santiago del Estero,Frente Cívico para la Victoria,337155,2111,694677,552826,36548,2324,223
+86,Santiago del Estero,Alianza Unidos por una Nueva Alternativa (UNA),98645,2111,694677,552826,36548,2324,223
+86,Santiago del Estero,Alianza Cambiemos,77931,2111,694677,552826,36548,2324,223
+90,Tucumán,Alianza Frente para la Victoria,404652,3422,1153600,930350,136607,5572,655
+90,Tucumán,Alianza Cambiemos,264389,3422,1153600,930350,136607,5572,655
+90,Tucumán,Partido Movimiento de Participación Ciudadana,93084,3422,1153600,930350,136607,5572,655
+90,Tucumán,Alianza Frente de Izquierda y de los Trabajadores,25391,3422,1153600,930350,136607,5572,655
+94,Tierra del Fuego,Alianza Frente para la Victoria,32463,431,125780,94438,14243,2793,72
+94,Tierra del Fuego,Alianza Cambiemos Tierra del Fuego,14392,431,125780,94438,14243,2793,72
+94,Tierra del Fuego,Frente Renovador Auténtico,13839,431,125780,94438,14243,2793,72
+94,Tierra del Fuego,Movimiento Popular Fueguino,5564,431,125780,94438,14243,2793,72
+94,Tierra del Fuego,Obrero,4652,431,125780,94438,14243,2793,72
+94,Tierra del Fuego,De la Cultura La Educación y el Trabajo,3618,431,125780,94438,14243,2793,72
+94,Tierra del Fuego,Social Patagónico,2802,431,125780,94438,14243,2793,72

@@ -1,0 +1,145 @@
+codigo_indec,provincia,lista,votos,mesas,electores,votantes,blancos,nulos,recurridos_impugnados
+02,CABA,Macri - Michetti (Alianza Cambiemos),990826,7326,2538487,1993531,21085,11769,595
+02,CABA,Scioli - Zannini (Alianza Frente para la Victoria),472155,7326,2538487,1993531,21085,11769,595
+02,CABA,Massa - Sáenz (Alianza Unidos por una Nueva Alternativa (UNA)),299415,7326,2538487,1993531,21085,11769,595
+02,CABA,Stolbizer - Olaviaga (Alianza Progresistas),99723,7326,2538487,1993531,21085,11769,595
+02,CABA,Del Caño - Bregman (Alianza Frente de Izquierda y de los Trabajadores),83944,7326,2538487,1993531,21085,11769,595
+02,CABA,Rodríguez Saá - Negre de Alonso (Alianza Compromiso Federal),14019,7326,2538487,1993531,21085,11769,595
+06,Buenos Aires,Scioli - Zannini (Alianza Frente para la Victoria),3419041,34718,11567258,9494724,223902,55030,7400
+06,Buenos Aires,Macri - Michetti (Alianza Cambiemos),3031168,34718,11567258,9494724,223902,55030,7400
+06,Buenos Aires,Massa - Sáenz (Alianza Unidos por una Nueva Alternativa (UNA)),2062610,34718,11567258,9494724,223902,55030,7400
+06,Buenos Aires,Del Caño - Bregman (Alianza Frente de Izquierda y de los Trabajadores),341734,34718,11567258,9494724,223902,55030,7400
+06,Buenos Aires,Stolbizer - Olaviaga (Alianza Progresistas),264583,34718,11567258,9494724,223902,55030,7400
+06,Buenos Aires,Rodríguez Saá - Negre de Alonso (Alianza Compromiso Federal),89256,34718,11567258,9494724,223902,55030,7400
+10,Catamarca,Scioli - Zannini (Alianza Frente para la Victoria),84414,805,254072,198211,8453,1434,295
+10,Catamarca,Macri - Michetti (Alianza Cambiemos),66529,805,254072,198211,8453,1434,295
+10,Catamarca,Massa - Sáenz (Alianza Unidos por una Nueva Alternativa (UNA)),29838,805,254072,198211,8453,1434,295
+10,Catamarca,Del Caño - Bregman (Alianza Frente de Izquierda y de los Trabajadores),3135,805,254072,198211,8453,1434,295
+10,Catamarca,Stolbizer - Olaviaga (Alianza Progresistas),2155,805,254072,198211,8453,1434,295
+10,Catamarca,Rodríguez Saá - Negre de Alonso (Alianza Compromiso Federal),1958,805,254072,198211,8453,1434,295
+14,Córdoba,Macri - Michetti (Alianza Cambiemos),1142493,8323,2760911,2191407,26821,17924,744
+14,Córdoba,Massa - Sáenz (Alianza Unidos por una Nueva Alternativa (UNA)),437791,8323,2760911,2191407,26821,17924,744
+14,Córdoba,Scioli - Zannini (Alianza Frente para la Victoria),412263,8323,2760911,2191407,26821,17924,744
+14,Córdoba,Del Caño - Bregman (Alianza Frente de Izquierda y de los Trabajadores),68478,8323,2760911,2191407,26821,17924,744
+14,Córdoba,Rodríguez Saá - Negre de Alonso (Alianza Compromiso Federal),46125,8323,2760911,2191407,26821,17924,744
+14,Córdoba,Stolbizer - Olaviaga (Alianza Progresistas),38768,8323,2760911,2191407,26821,17924,744
+18,Corrientes,Scioli - Zannini (Alianza Frente para la Victoria),310626,2388,805227,630579,8652,4036,277
+18,Corrientes,Macri - Michetti (Alianza Cambiemos),196145,2388,805227,630579,8652,4036,277
+18,Corrientes,Massa - Sáenz (Alianza Unidos por una Nueva Alternativa (UNA)),94117,2388,805227,630579,8652,4036,277
+18,Corrientes,Del Caño - Bregman (Alianza Frente de Izquierda y de los Trabajadores),6847,2388,805227,630579,8652,4036,277
+18,Corrientes,Stolbizer - Olaviaga (Alianza Progresistas),6538,2388,805227,630579,8652,4036,277
+18,Corrientes,Rodríguez Saá - Negre de Alonso (Alianza Compromiso Federal),3341,2388,805227,630579,8652,4036,277
+22,Chaco,Scioli - Zannini (Alianza Frente para la Victoria),344281,2499,846205,652162,8610,2721,246
+22,Chaco,Macri - Michetti (Alianza Cambiemos),181189,2499,846205,652162,8610,2721,246
+22,Chaco,Massa - Sáenz (Alianza Unidos por una Nueva Alternativa (UNA)),94400,2499,846205,652162,8610,2721,246
+22,Chaco,Del Caño - Bregman (Alianza Frente de Izquierda y de los Trabajadores),9262,2499,846205,652162,8610,2721,246
+22,Chaco,Stolbizer - Olaviaga (Alianza Progresistas),6866,2499,846205,652162,8610,2721,246
+22,Chaco,Rodríguez Saá - Negre de Alonso (Alianza Compromiso Federal),4587,2499,846205,652162,8610,2721,246
+26,Chubut,Scioli - Zannini (Alianza Frente para la Victoria),114984,1185,397763,311901,29877,4696,685
+26,Chubut,Massa - Sáenz (Alianza Unidos por una Nueva Alternativa (UNA)),81436,1185,397763,311901,29877,4696,685
+26,Chubut,Macri - Michetti (Alianza Cambiemos),59136,1185,397763,311901,29877,4696,685
+26,Chubut,Del Caño - Bregman (Alianza Frente de Izquierda y de los Trabajadores),10099,1185,397763,311901,29877,4696,685
+26,Chubut,Stolbizer - Olaviaga (Alianza Progresistas),8319,1185,397763,311901,29877,4696,685
+26,Chubut,Rodríguez Saá - Negre de Alonso (Alianza Compromiso Federal),2669,1185,397763,311901,29877,4696,685
+30,Entre Ríos,Macri - Michetti (Alianza Cambiemos),287704,2860,945012,796554,29462,5910,410
+30,Entre Ríos,Scioli - Zannini (Alianza Frente para la Victoria),286020,2860,945012,796554,29462,5910,410
+30,Entre Ríos,Massa - Sáenz (Alianza Unidos por una Nueva Alternativa (UNA)),150232,2860,945012,796554,29462,5910,410
+30,Entre Ríos,Stolbizer - Olaviaga (Alianza Progresistas),15930,2860,945012,796554,29462,5910,410
+30,Entre Ríos,Del Caño - Bregman (Alianza Frente de Izquierda y de los Trabajadores),13442,2860,945012,796554,29462,5910,410
+30,Entre Ríos,Rodríguez Saá - Negre de Alonso (Alianza Compromiso Federal),7444,2860,945012,796554,29462,5910,410
+34,Formosa,Scioli - Zannini (Alianza Frente para la Victoria),169466,1050,343149,271517,7473,2010,318
+34,Formosa,Massa - Sáenz (Alianza Unidos por una Nueva Alternativa (UNA)),46000,1050,343149,271517,7473,2010,318
+34,Formosa,Macri - Michetti (Alianza Cambiemos),42148,1050,343149,271517,7473,2010,318
+34,Formosa,Del Caño - Bregman (Alianza Frente de Izquierda y de los Trabajadores),2478,1050,343149,271517,7473,2010,318
+34,Formosa,Stolbizer - Olaviaga (Alianza Progresistas),1010,1050,343149,271517,7473,2010,318
+34,Formosa,Rodríguez Saá - Negre de Alonso (Alianza Compromiso Federal),614,1050,343149,271517,7473,2010,318
+38,Jujuy,Massa - Sáenz (Alianza Unidos por una Nueva Alternativa (UNA)),154831,1463,471517,393640,15945,3313,530
+38,Jujuy,Scioli - Zannini (Alianza Frente para la Victoria),139532,1463,471517,393640,15945,3313,530
+38,Jujuy,Macri - Michetti (Alianza Cambiemos),65509,1463,471517,393640,15945,3313,530
+38,Jujuy,Del Caño - Bregman (Alianza Frente de Izquierda y de los Trabajadores),9221,1463,471517,393640,15945,3313,530
+38,Jujuy,Stolbizer - Olaviaga (Alianza Progresistas),2882,1463,471517,393640,15945,3313,530
+38,Jujuy,Rodríguez Saá - Negre de Alonso (Alianza Compromiso Federal),1877,1463,471517,393640,15945,3313,530
+42,La Pampa,Scioli - Zannini (Alianza Frente para la Victoria),78536,814,269778,221114,11895,1804,226
+42,La Pampa,Macri - Michetti (Alianza Cambiemos),69725,814,269778,221114,11895,1804,226
+42,La Pampa,Massa - Sáenz (Alianza Unidos por una Nueva Alternativa (UNA)),44669,814,269778,221114,11895,1804,226
+42,La Pampa,Stolbizer - Olaviaga (Alianza Progresistas),5405,814,269778,221114,11895,1804,226
+42,La Pampa,Del Caño - Bregman (Alianza Frente de Izquierda y de los Trabajadores),5151,814,269778,221114,11895,1804,226
+42,La Pampa,Rodríguez Saá - Negre de Alonso (Alianza Compromiso Federal),3703,814,269778,221114,11895,1804,226
+46,La Rioja,Scioli - Zannini (Alianza Frente para la Victoria),71721,855,263494,204539,4890,1475,100
+46,La Rioja,Macri - Michetti (Alianza Cambiemos),62758,855,263494,204539,4890,1475,100
+46,La Rioja,Massa - Sáenz (Alianza Unidos por una Nueva Alternativa (UNA)),51443,855,263494,204539,4890,1475,100
+46,La Rioja,Rodríguez Saá - Negre de Alonso (Alianza Compromiso Federal),6598,855,263494,204539,4890,1475,100
+46,La Rioja,Del Caño - Bregman (Alianza Frente de Izquierda y de los Trabajadores),3364,855,263494,204539,4890,1475,100
+46,La Rioja,Stolbizer - Olaviaga (Alianza Progresistas),2190,855,263494,204539,4890,1475,100
+50,Mendoza,Macri - Michetti (Alianza Cambiemos),441436,3980,1358598,1111583,15712,13321,710
+50,Mendoza,Scioli - Zannini (Alianza Frente para la Victoria),339032,3980,1358598,1111583,15712,13321,710
+50,Mendoza,Massa - Sáenz (Alianza Unidos por una Nueva Alternativa (UNA)),155446,3980,1358598,1111583,15712,13321,710
+50,Mendoza,Del Caño - Bregman (Alianza Frente de Izquierda y de los Trabajadores),82443,3980,1358598,1111583,15712,13321,710
+50,Mendoza,Rodríguez Saá - Negre de Alonso (Alianza Compromiso Federal),47856,3980,1358598,1111583,15712,13321,710
+50,Mendoza,Stolbizer - Olaviaga (Alianza Progresistas),15627,3980,1358598,1111583,15712,13321,710
+54,Misiones,Scioli - Zannini (Alianza Frente para la Victoria),388839,2402,823227,675281,33047,4667,362
+54,Misiones,Macri - Michetti (Alianza Cambiemos),144900,2402,823227,675281,33047,4667,362
+54,Misiones,Massa - Sáenz (Alianza Unidos por una Nueva Alternativa (UNA)),87284,2402,823227,675281,33047,4667,362
+54,Misiones,Stolbizer - Olaviaga (Alianza Progresistas),8077,2402,823227,675281,33047,4667,362
+54,Misiones,Del Caño - Bregman (Alianza Frente de Izquierda y de los Trabajadores),5785,2402,823227,675281,33047,4667,362
+54,Misiones,Rodríguez Saá - Negre de Alonso (Alianza Compromiso Federal),2320,2402,823227,675281,33047,4667,362
+58,Neuquén,Scioli - Zannini (Alianza Frente para la Victoria),131169,1417,467030,388297,14447,5525,293
+58,Neuquén,Macri - Michetti (Alianza Cambiemos),103395,1417,467030,388297,14447,5525,293
+58,Neuquén,Massa - Sáenz (Alianza Unidos por una Nueva Alternativa (UNA)),96888,1417,467030,388297,14447,5525,293
+58,Neuquén,Del Caño - Bregman (Alianza Frente de Izquierda y de los Trabajadores),19961,1417,467030,388297,14447,5525,293
+58,Neuquén,Stolbizer - Olaviaga (Alianza Progresistas),9867,1417,467030,388297,14447,5525,293
+58,Neuquén,Rodríguez Saá - Negre de Alonso (Alianza Compromiso Federal),6752,1417,467030,388297,14447,5525,293
+62,Río Negro,Scioli - Zannini (Alianza Frente para la Victoria),178591,1525,509474,409163,8755,5185,181
+62,Río Negro,Massa - Sáenz (Alianza Unidos por una Nueva Alternativa (UNA)),95764,1525,509474,409163,8755,5185,181
+62,Río Negro,Macri - Michetti (Alianza Cambiemos),88620,1525,509474,409163,8755,5185,181
+62,Río Negro,Del Caño - Bregman (Alianza Frente de Izquierda y de los Trabajadores),15343,1525,509474,409163,8755,5185,181
+62,Río Negro,Stolbizer - Olaviaga (Alianza Progresistas),11089,1525,509474,409163,8755,5185,181
+62,Río Negro,Rodríguez Saá - Negre de Alonso (Alianza Compromiso Federal),5635,1525,509474,409163,8755,5185,181
+66,Salta,Scioli - Zannini (Alianza Frente para la Victoria),281438,2790,928745,706284,6384,5138,899
+66,Salta,Massa - Sáenz (Alianza Unidos por una Nueva Alternativa (UNA)),236317,2790,928745,706284,6384,5138,899
+66,Salta,Macri - Michetti (Alianza Cambiemos),144103,2790,928745,706284,6384,5138,899
+66,Salta,Del Caño - Bregman (Alianza Frente de Izquierda y de los Trabajadores),19189,2790,928745,706284,6384,5138,899
+66,Salta,Stolbizer - Olaviaga (Alianza Progresistas),7390,2790,928745,706284,6384,5138,899
+66,Salta,Rodríguez Saá - Negre de Alonso (Alianza Compromiso Federal),5426,2790,928745,706284,6384,5138,899
+70,San Juan,Scioli - Zannini (Alianza Frente para la Victoria),185487,1553,518629,427983,21266,3536,555
+70,San Juan,Massa - Sáenz (Alianza Unidos por una Nueva Alternativa (UNA)),106060,1553,518629,427983,21266,3536,555
+70,San Juan,Macri - Michetti (Alianza Cambiemos),84032,1553,518629,427983,21266,3536,555
+70,San Juan,Rodríguez Saá - Negre de Alonso (Alianza Compromiso Federal),14043,1553,518629,427983,21266,3536,555
+70,San Juan,Stolbizer - Olaviaga (Alianza Progresistas),7077,1553,518629,427983,21266,3536,555
+70,San Juan,Del Caño - Bregman (Alianza Frente de Izquierda y de los Trabajadores),5927,1553,518629,427983,21266,3536,555
+74,San Luis,Rodríguez Saá - Negre de Alonso (Alianza Compromiso Federal),99658,1103,349031,286061,11327,3556,296
+74,San Luis,Macri - Michetti (Alianza Cambiemos),83858,1103,349031,286061,11327,3556,296
+74,San Luis,Scioli - Zannini (Alianza Frente para la Victoria),42298,1103,349031,286061,11327,3556,296
+74,San Luis,Massa - Sáenz (Alianza Unidos por una Nueva Alternativa (UNA)),36627,1103,349031,286061,11327,3556,296
+74,San Luis,Del Caño - Bregman (Alianza Frente de Izquierda y de los Trabajadores),4842,1103,349031,286061,11327,3556,296
+74,San Luis,Stolbizer - Olaviaga (Alianza Progresistas),3599,1103,349031,286061,11327,3556,296
+78,Santa Cruz,Scioli - Zannini (Alianza Frente para la Victoria),79714,783,229894,177596,6485,1910,214
+78,Santa Cruz,Macri - Michetti (Alianza Cambiemos),43465,783,229894,177596,6485,1910,214
+78,Santa Cruz,Massa - Sáenz (Alianza Unidos por una Nueva Alternativa (UNA)),37681,783,229894,177596,6485,1910,214
+78,Santa Cruz,Del Caño - Bregman (Alianza Frente de Izquierda y de los Trabajadores),5353,783,229894,177596,6485,1910,214
+78,Santa Cruz,Stolbizer - Olaviaga (Alianza Progresistas),2008,783,229894,177596,6485,1910,214
+78,Santa Cruz,Rodríguez Saá - Negre de Alonso (Alianza Compromiso Federal),766,783,229894,177596,6485,1910,214
+82,Santa Fe,Macri - Michetti (Alianza Cambiemos),704358,7852,2660093,2072234,52318,22878,1453
+82,Santa Fe,Scioli - Zannini (Alianza Frente para la Victoria),633968,7852,2660093,2072234,52318,22878,1453
+82,Santa Fe,Massa - Sáenz (Alianza Unidos por una Nueva Alternativa (UNA)),495005,7852,2660093,2072234,52318,22878,1453
+82,Santa Fe,Stolbizer - Olaviaga (Alianza Progresistas),78879,7852,2660093,2072234,52318,22878,1453
+82,Santa Fe,Del Caño - Bregman (Alianza Frente de Izquierda y de los Trabajadores),53451,7852,2660093,2072234,52318,22878,1453
+82,Santa Fe,Rodríguez Saá - Negre de Alonso (Alianza Compromiso Federal),29924,7852,2660093,2072234,52318,22878,1453
+86,Santiago del Estero,Scioli - Zannini (Alianza Frente para la Victoria),349043,2111,695489,563641,7488,2538,224
+86,Santiago del Estero,Massa - Sáenz (Alianza Unidos por una Nueva Alternativa (UNA)),107015,2111,695489,563641,7488,2538,224
+86,Santiago del Estero,Macri - Michetti (Alianza Cambiemos),81437,2111,695489,563641,7488,2538,224
+86,Santiago del Estero,Del Caño - Bregman (Alianza Frente de Izquierda y de los Trabajadores),8068,2111,695489,563641,7488,2538,224
+86,Santiago del Estero,Stolbizer - Olaviaga (Alianza Progresistas),5248,2111,695489,563641,7488,2538,224
+86,Santiago del Estero,Rodríguez Saá - Negre de Alonso (Alianza Compromiso Federal),2580,2111,695489,563641,7488,2538,224
+90,Tucumán,Scioli - Zannini (Alianza Frente para la Victoria),448055,3422,1153600,950828,19943,6865,893
+90,Tucumán,Macri - Michetti (Alianza Cambiemos),247733,3422,1153600,950828,19943,6865,893
+90,Tucumán,Massa - Sáenz (Alianza Unidos por una Nueva Alternativa (UNA)),189463,3422,1153600,950828,19943,6865,893
+90,Tucumán,Del Caño - Bregman (Alianza Frente de Izquierda y de los Trabajadores),16497,3422,1153600,950828,19943,6865,893
+90,Tucumán,Stolbizer - Olaviaga (Alianza Progresistas),12812,3422,1153600,950828,19943,6865,893
+90,Tucumán,Rodríguez Saá - Negre de Alonso (Alianza Compromiso Federal),8567,3422,1153600,950828,19943,6865,893
+94,Tierra del Fuego,Scioli - Zannini (Alianza Frente para la Victoria),41569,431,125780,94672,1791,1422,64
+94,Tierra del Fuego,Massa - Sáenz (Alianza Unidos por una Nueva Alternativa (UNA)),21373,431,125780,94672,1791,1422,64
+94,Tierra del Fuego,Macri - Michetti (Alianza Cambiemos),19943,431,125780,94672,1791,1422,64
+94,Tierra del Fuego,Del Caño - Bregman (Alianza Frente de Izquierda y de los Trabajadores),4017,431,125780,94672,1791,1422,64
+94,Tierra del Fuego,Stolbizer - Olaviaga (Alianza Progresistas),3009,431,125780,94672,1791,1422,64
+94,Tierra del Fuego,Rodríguez Saá - Negre de Alonso (Alianza Compromiso Federal),1484,431,125780,94672,1791,1422,64

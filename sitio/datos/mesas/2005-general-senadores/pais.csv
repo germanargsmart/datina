@@ -1,0 +1,73 @@
+codigo_indec,provincia,lista,votos,electores,votantes,blancos,nulos
+06,Buenos Aires,Alianza Frente para la Victoria,3056572,9713791,7518296,723295,117518
+06,Buenos Aires,Alianza Frente Justicialista,1364527,9713791,7518296,723295,117518
+06,Buenos Aires,Afirmación para una República Igualitaria,566332,9713791,7518296,723295,117518
+06,Buenos Aires,Unión Cívica Radical,514884,9713791,7518296,723295,117518
+06,Buenos Aires,Alianza Propuesta Republicana,509756,9713791,7518296,723295,117518
+06,Buenos Aires,Alianza Confederación Vecinal,137634,9713791,7518296,723295,117518
+06,Buenos Aires,Humanista,110966,9713791,7518296,723295,117518
+06,Buenos Aires,Obrero,96500,9713791,7518296,723295,117518
+06,Buenos Aires,Movimiento Socialista de los Trabajadores,91296,9713791,7518296,723295,117518
+06,Buenos Aires,Alianza Encuentro Amplio,80098,9713791,7518296,723295,117518
+06,Buenos Aires,Alianza Movimiento al Socialismo - De los Trabajadores Socialistas,40037,9713791,7518296,723295,117518
+06,Buenos Aires,Popular de la Reconstrucción,27820,9713791,7518296,723295,117518
+06,Buenos Aires,Convergencia Socialista,21860,9713791,7518296,723295,117518
+06,Buenos Aires,Alianza Frente Popular,20418,9713791,7518296,723295,117518
+06,Buenos Aires,Movimiento Independiente de Jubilados y Desocupados,18595,9713791,7518296,723295,117518
+06,Buenos Aires,Alianza Frente Popular Auténtico,11445,9713791,7518296,723295,117518
+06,Buenos Aires,Para la Acción Solidaria Independiente Bonaerense,8743,9713791,7518296,723295,117518
+34,Formosa,Alianza Frente para la Victoria,122117,317444,221257,13634,3432
+34,Formosa,Unión Cívica Radical,57478,317444,221257,13634,3432
+34,Formosa,Alianza Frente para la Nueva Mayoría,12587,317444,221257,13634,3432
+34,Formosa,Veinticinco de Mayo,4932,317444,221257,13634,3432
+34,Formosa,De la Victoria,2847,317444,221257,13634,3432
+34,Formosa,Afirmación para una República Igualitaria,2138,317444,221257,13634,3432
+34,Formosa,Movimiento de Integración y Desarrollo,2092,317444,221257,13634,3432
+38,Jujuy,Alianza Frente para la Victoria,119826,386925,280407,21430,5495
+38,Jujuy,Alianza Frente Jujeño,78927,386925,280407,21430,5495
+38,Jujuy,Alianza Unión por Jujuy,23016,386925,280407,21430,5495
+38,Jujuy,Libertad y Democracia Responsable,10854,386925,280407,21430,5495
+38,Jujuy,Humanista,4574,386925,280407,21430,5495
+38,Jujuy,Obrero,4551,386925,280407,21430,5495
+38,Jujuy,Movimiento Socialista de los Trabajadores,3803,386925,280407,21430,5495
+38,Jujuy,Comunista,2882,386925,280407,21430,5495
+38,Jujuy,De los Trabajadores Socialistas,2582,386925,280407,21430,5495
+38,Jujuy,Nueva Dirigencia,2467,386925,280407,21430,5495
+46,La Rioja,De la Victoria,75704,199945,157270,6705,2484
+46,La Rioja,Justicialista,59856,199945,157270,6705,2484
+46,La Rioja,Unión Cívica Radical,8023,199945,157270,6705,2484
+46,La Rioja,Alianza Izquierda Unida,3724,199945,157270,6705,2484
+46,La Rioja,Humanista,774,199945,157270,6705,2484
+54,Misiones,Alianza Frente Renovador de la Concordia,188488,630845,453641,32714,8022
+54,Misiones,Alianza Frente Justicialista para la Victoria,114851,630845,453641,32714,8022
+54,Misiones,Alianza Frente Cívico Radical Intransigente,46172,630845,453641,32714,8022
+54,Misiones,Movimiento Acción Popular,29785,630845,453641,32714,8022
+54,Misiones,Socialista,7422,630845,453641,32714,8022
+54,Misiones,Movimiento de Integración y Desarrollo,6522,630845,453641,32714,8022
+54,Misiones,Frente Grande,6459,630845,453641,32714,8022
+54,Misiones,Alianza Frente Unidad para el Cambio,5877,630845,453641,32714,8022
+54,Misiones,Afirmación para una República Igualitaria,4185,630845,453641,32714,8022
+54,Misiones,Comunista,3144,630845,453641,32714,8022
+70,San Juan,Alianza Frente para la Victoria,140139,419015,300217,13230,6981
+70,San Juan,Alianza Frente Producción y Trabajo,73093,419015,300217,13230,6981
+70,San Juan,Alianza Unidad Bloquista,22243,419015,300217,13230,6981
+70,San Juan,Alianza Frente Opositor para la Unidad,21322,419015,300217,13230,6981
+70,San Juan,Dignidad Ciudadana,8637,419015,300217,13230,6981
+70,San Juan,Unión Cívica Radical,6205,419015,300217,13230,6981
+70,San Juan,Alianza Izquierda Unida,3835,419015,300217,13230,6981
+70,San Juan,Afirmación para una República Igualitaria,2608,419015,300217,13230,6981
+70,San Juan,Unión y Libertad,1924,419015,300217,13230,6981
+74,San Luis,Alianza Frente Justicialista,113738,273388,198379,15413,2152
+74,San Luis,Alianza Frente para la Victoria,30807,273388,198379,15413,2152
+74,San Luis,"Alianza Frente Radical, Democrático, Cívico y Social",11918,273388,198379,15413,2152
+74,San Luis,Alianza Frente de la Victoria Sanluiseña,7276,273388,198379,15413,2152
+74,San Luis,Movimiento de Integración y Desarrollo,5582,273388,198379,15413,2152
+74,San Luis,Alianza Unidad Popular,3191,273388,198379,15413,2152
+74,San Luis,Libre en Movimiento,2706,273388,198379,15413,2152
+74,San Luis,Socialista,2568,273388,198379,15413,2152
+74,San Luis,Nueva Generación,2362,273388,198379,15413,2152
+74,San Luis,Movimiento por la Dignidad y la Independencia,666,273388,198379,15413,2152
+78,Santa Cruz,Alianza Frente para la Victoria,57940,145361,106598,2523,4105
+78,Santa Cruz,Unión Cívica Radical,27505,145361,106598,2523,4105
+78,Santa Cruz,Frente de Unidad Trabajadora,7369,145361,106598,2523,4105
+78,Santa Cruz,Socialista,7156,145361,106598,2523,4105

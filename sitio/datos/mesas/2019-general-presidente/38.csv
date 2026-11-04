@@ -1,0 +1,1783 @@
+seccion_id,seccion,circuito,mesa,electores,blancos,nulos,recurridos_impugnados,Fernández - Fernández de Kirchner (Frente de Todos),Macri - Pichetto (Juntos por el Cambio),Lavagna - Urtubey (Consenso Federal),Gómez Centurión - Hotton (Frente Nos),Del Caño - Del Plá (Frente de Izquierda y de Trabajadores - Unidad),Espert - Rosales (Unite por la Libertad y la Dignidad)
+1,Dr. Manuel Belgrano,1,1,312,3,4,0,99,99,14,6,3,6
+1,Dr. Manuel Belgrano,1,2,310,2,0,0,104,109,25,5,6,7
+1,Dr. Manuel Belgrano,1,3,310,0,0,0,113,101,15,4,8,6
+1,Dr. Manuel Belgrano,1,4,311,6,2,0,125,84,19,10,5,7
+1,Dr. Manuel Belgrano,1,5,310,1,3,1,105,95,22,6,3,7
+1,Dr. Manuel Belgrano,1,6,312,0,1,0,122,101,17,4,3,4
+1,Dr. Manuel Belgrano,1,7,312,3,2,0,122,95,15,9,7,7
+1,Dr. Manuel Belgrano,1,8,312,7,4,0,102,111,16,1,4,9
+1,Dr. Manuel Belgrano,1,9,310,1,3,0,104,113,18,7,6,7
+1,Dr. Manuel Belgrano,1,10,315,0,3,1,103,101,16,12,11,6
+1,Dr. Manuel Belgrano,1,11,312,7,7,0,100,94,17,10,10,9
+1,Dr. Manuel Belgrano,1,12,311,0,5,0,86,135,18,5,3,2
+1,Dr. Manuel Belgrano,1,13,310,1,5,0,111,102,15,8,7,5
+1,Dr. Manuel Belgrano,1,14,311,0,2,0,118,97,17,7,7,5
+1,Dr. Manuel Belgrano,1,15,311,1,2,0,99,117,16,5,4,4
+1,Dr. Manuel Belgrano,1,16,311,1,2,0,88,115,18,1,8,3
+1,Dr. Manuel Belgrano,1,17,312,1,8,0,101,111,10,3,3,3
+1,Dr. Manuel Belgrano,1,19,311,1,4,0,98,123,13,2,5,8
+1,Dr. Manuel Belgrano,1,20,310,2,5,0,107,104,12,15,5,7
+1,Dr. Manuel Belgrano,1,21,311,3,4,0,113,93,14,6,9,5
+1,Dr. Manuel Belgrano,1,22,309,3,5,0,125,85,22,4,6,9
+1,Dr. Manuel Belgrano,1,23,309,0,0,0,118,84,12,12,5,4
+1,Dr. Manuel Belgrano,1,24,337,5,2,0,97,139,14,4,4,9
+1,Dr. Manuel Belgrano,2,25,305,0,2,0,47,164,9,1,1,9
+1,Dr. Manuel Belgrano,2,26,306,1,1,0,48,176,7,2,6,3
+1,Dr. Manuel Belgrano,2,27,307,0,1,0,50,175,9,6,1,10
+1,Dr. Manuel Belgrano,2,28,306,0,4,0,44,178,16,1,2,2
+1,Dr. Manuel Belgrano,2,29,303,1,0,0,46,178,6,1,3,3
+1,Dr. Manuel Belgrano,2,30,304,1,0,0,47,160,10,0,5,4
+1,Dr. Manuel Belgrano,2,31,330,1,1,0,58,177,13,3,2,2
+1,Dr. Manuel Belgrano,3,32,285,2,1,0,36,162,10,4,0,2
+1,Dr. Manuel Belgrano,3,33,285,1,2,0,37,151,9,5,2,3
+1,Dr. Manuel Belgrano,3,34,284,3,1,0,40,144,6,1,2,4
+1,Dr. Manuel Belgrano,3,35,284,0,1,0,46,153,7,4,0,3
+1,Dr. Manuel Belgrano,3,36,285,2,1,0,32,172,10,5,4,1
+1,Dr. Manuel Belgrano,3,37,284,0,2,0,57,148,6,1,1,3
+1,Dr. Manuel Belgrano,3,38,283,0,1,0,42,147,10,3,2,1
+1,Dr. Manuel Belgrano,3,39,286,3,0,0,38,158,9,1,5,4
+1,Dr. Manuel Belgrano,3,40,289,1,1,0,32,162,12,2,4,1
+1,Dr. Manuel Belgrano,4,41,317,1,1,0,110,99,21,13,4,6
+1,Dr. Manuel Belgrano,4,42,316,1,2,0,114,118,11,11,6,6
+1,Dr. Manuel Belgrano,4,43,317,3,1,0,105,111,8,4,7,9
+1,Dr. Manuel Belgrano,4,44,316,0,1,0,122,97,20,8,6,5
+1,Dr. Manuel Belgrano,4,45,316,1,3,0,111,107,15,6,12,4
+1,Dr. Manuel Belgrano,4,46,316,1,1,2,91,115,15,4,15,8
+1,Dr. Manuel Belgrano,4,47,316,1,3,0,109,123,16,4,5,5
+1,Dr. Manuel Belgrano,4,48,316,0,1,0,99,115,25,6,7,3
+1,Dr. Manuel Belgrano,4,49,312,4,3,0,99,112,19,6,2,8
+1,Dr. Manuel Belgrano,4,50,316,0,7,0,107,107,18,5,3,9
+1,Dr. Manuel Belgrano,4,51,320,1,3,0,120,116,17,4,3,3
+1,Dr. Manuel Belgrano,4,52,314,3,5,0,111,108,15,5,8,5
+1,Dr. Manuel Belgrano,4,53,314,1,1,0,125,120,10,2,2,0
+1,Dr. Manuel Belgrano,4,54,315,3,0,0,110,99,13,3,4,6
+1,Dr. Manuel Belgrano,4,55,314,2,6,0,118,100,17,4,6,9
+1,Dr. Manuel Belgrano,4,56,314,2,3,0,114,103,16,12,7,3
+1,Dr. Manuel Belgrano,4,57,312,4,5,0,101,104,16,15,4,6
+1,Dr. Manuel Belgrano,4,59,313,4,5,0,99,116,13,2,2,8
+1,Dr. Manuel Belgrano,4,60,319,0,0,0,104,104,18,9,4,5
+1,Dr. Manuel Belgrano,5,61,309,0,1,0,75,144,14,6,2,6
+1,Dr. Manuel Belgrano,5,62,312,0,4,0,75,170,13,0,4,4
+1,Dr. Manuel Belgrano,5,63,311,2,1,0,69,166,14,1,3,3
+1,Dr. Manuel Belgrano,5,64,312,1,1,0,88,143,14,5,2,5
+1,Dr. Manuel Belgrano,5,65,308,1,2,0,91,120,18,9,5,7
+1,Dr. Manuel Belgrano,5,66,314,5,1,1,65,152,11,4,0,8
+1,Dr. Manuel Belgrano,5,67,314,2,1,0,72,155,16,1,4,5
+1,Dr. Manuel Belgrano,5,68,312,0,2,0,60,160,11,3,8,6
+1,Dr. Manuel Belgrano,5,69,363,2,1,0,83,172,14,4,6,6
+1,Dr. Manuel Belgrano,5,71,312,1,2,0,60,158,13,4,1,1
+1,Dr. Manuel Belgrano,5,72,309,3,2,0,55,153,9,4,5,0
+1,Dr. Manuel Belgrano,5,73,309,1,5,0,78,141,10,3,5,5
+1,Dr. Manuel Belgrano,5,74,312,2,3,0,63,146,14,2,6,3
+1,Dr. Manuel Belgrano,5,75,314,0,3,0,78,149,6,1,7,3
+1,Dr. Manuel Belgrano,5,76,310,1,1,0,63,151,16,5,5,5
+1,Dr. Manuel Belgrano,5,77,353,1,2,0,83,189,23,5,6,5
+1,Dr. Manuel Belgrano,6,78,312,0,1,0,69,150,22,3,3,3
+1,Dr. Manuel Belgrano,6,79,313,0,2,0,74,159,7,1,2,5
+1,Dr. Manuel Belgrano,6,80,313,2,0,0,72,153,18,2,0,8
+1,Dr. Manuel Belgrano,6,81,313,0,5,0,61,167,13,8,4,5
+1,Dr. Manuel Belgrano,6,82,312,2,1,0,78,152,17,5,0,6
+1,Dr. Manuel Belgrano,6,83,310,1,1,0,66,158,12,5,2,3
+1,Dr. Manuel Belgrano,6,84,312,3,3,0,57,162,13,5,4,6
+1,Dr. Manuel Belgrano,6,85,311,0,0,0,68,157,18,1,0,8
+1,Dr. Manuel Belgrano,6,86,311,1,1,0,58,182,9,2,3,4
+1,Dr. Manuel Belgrano,6,87,311,3,0,0,68,160,17,5,5,5
+1,Dr. Manuel Belgrano,6,88,311,1,1,0,63,173,12,0,1,2
+1,Dr. Manuel Belgrano,6,89,312,1,0,0,52,182,14,2,3,7
+1,Dr. Manuel Belgrano,6,90,316,1,4,1,71,156,13,3,3,4
+1,Dr. Manuel Belgrano,6,91,313,0,0,0,69,181,6,5,0,9
+1,Dr. Manuel Belgrano,6,92,312,0,1,0,57,176,8,4,1,2
+1,Dr. Manuel Belgrano,6,93,312,1,3,0,64,166,13,6,1,2
+1,Dr. Manuel Belgrano,6,94,310,2,1,0,66,163,5,2,2,12
+1,Dr. Manuel Belgrano,6,95,312,0,2,0,65,178,8,2,0,2
+1,Dr. Manuel Belgrano,6,96,310,3,2,0,65,156,15,3,1,8
+1,Dr. Manuel Belgrano,6,97,310,1,2,0,79,144,9,8,4,5
+1,Dr. Manuel Belgrano,6,98,316,1,4,0,74,142,17,4,7,7
+1,Dr. Manuel Belgrano,7,99,316,3,1,0,112,109,13,3,4,7
+1,Dr. Manuel Belgrano,7,100,317,2,1,0,119,107,15,7,7,9
+1,Dr. Manuel Belgrano,7,101,316,1,0,1,104,129,13,10,4,4
+1,Dr. Manuel Belgrano,7,102,316,1,3,0,99,132,15,5,3,4
+1,Dr. Manuel Belgrano,7,103,317,1,1,0,96,127,24,5,5,6
+1,Dr. Manuel Belgrano,7,104,316,1,1,0,109,127,15,1,2,3
+1,Dr. Manuel Belgrano,7,105,315,1,1,0,88,138,17,5,9,3
+1,Dr. Manuel Belgrano,7,106,315,0,5,1,91,130,17,7,6,3
+1,Dr. Manuel Belgrano,7,107,316,1,1,0,81,135,13,2,9,5
+1,Dr. Manuel Belgrano,7,108,312,3,1,0,76,140,15,8,2,9
+1,Dr. Manuel Belgrano,7,109,316,2,2,0,97,124,17,0,4,12
+1,Dr. Manuel Belgrano,7,110,321,2,2,0,84,126,23,3,5,9
+1,Dr. Manuel Belgrano,7,111,317,4,1,0,110,108,23,1,3,6
+1,Dr. Manuel Belgrano,7,112,314,5,4,0,83,132,24,6,6,8
+1,Dr. Manuel Belgrano,7,113,315,1,1,0,95,117,20,4,8,3
+1,Dr. Manuel Belgrano,7,114,317,2,10,0,100,112,12,6,3,7
+1,Dr. Manuel Belgrano,7,115,316,0,1,0,73,141,26,2,5,3
+1,Dr. Manuel Belgrano,7,116,314,0,2,0,95,113,20,6,6,7
+1,Dr. Manuel Belgrano,7,117,316,1,3,0,100,124,20,5,9,3
+1,Dr. Manuel Belgrano,7,118,317,5,9,0,85,125,18,4,2,8
+1,Dr. Manuel Belgrano,7,119,313,2,2,0,94,126,11,5,8,9
+1,Dr. Manuel Belgrano,7,120,321,1,2,0,97,145,19,1,1,3
+1,Dr. Manuel Belgrano,7,121,316,2,2,0,95,130,16,2,7,4
+1,Dr. Manuel Belgrano,7,122,316,0,1,0,89,129,15,5,3,5
+1,Dr. Manuel Belgrano,7,123,316,2,1,0,79,142,14,6,5,1
+1,Dr. Manuel Belgrano,7,124,315,0,3,0,78,154,20,3,2,4
+1,Dr. Manuel Belgrano,7,125,316,2,0,0,81,149,13,7,6,4
+1,Dr. Manuel Belgrano,7,126,316,0,3,0,90,134,13,6,2,6
+1,Dr. Manuel Belgrano,7,127,315,3,1,0,92,122,13,4,5,14
+1,Dr. Manuel Belgrano,7,128,315,1,5,1,92,114,16,5,5,5
+1,Dr. Manuel Belgrano,7,129,315,2,2,0,85,134,20,5,2,4
+1,Dr. Manuel Belgrano,7,130,316,0,5,3,111,109,19,8,6,8
+1,Dr. Manuel Belgrano,7,131,317,3,1,0,76,138,14,6,1,10
+1,Dr. Manuel Belgrano,7,132,317,0,2,0,94,130,14,5,4,7
+1,Dr. Manuel Belgrano,7,133,316,1,2,0,110,119,18,6,3,6
+1,Dr. Manuel Belgrano,7,134,315,1,3,0,94,117,22,8,7,13
+1,Dr. Manuel Belgrano,7,135,316,0,1,0,91,142,15,4,1,7
+1,Dr. Manuel Belgrano,7,136,315,0,0,0,98,105,24,6,4,6
+1,Dr. Manuel Belgrano,7,137,315,3,3,0,97,137,12,4,2,7
+1,Dr. Manuel Belgrano,7,138,316,1,2,1,100,133,15,3,6,6
+1,Dr. Manuel Belgrano,7,139,316,0,1,1,81,140,11,6,4,11
+1,Dr. Manuel Belgrano,7,140,314,0,0,0,94,123,11,5,7,2
+1,Dr. Manuel Belgrano,7,141,316,2,4,0,87,136,12,3,9,5
+1,Dr. Manuel Belgrano,7,142,316,0,2,0,88,113,22,8,2,0
+1,Dr. Manuel Belgrano,7,143,316,1,4,0,129,95,19,2,4,5
+1,Dr. Manuel Belgrano,7,144,316,0,2,0,96,123,21,2,8,2
+1,Dr. Manuel Belgrano,7,145,314,2,1,0,78,139,20,3,8,6
+1,Dr. Manuel Belgrano,7,146,321,2,5,0,80,144,19,4,9,3
+1,Dr. Manuel Belgrano,7,147,315,1,1,0,94,121,17,12,7,6
+1,Dr. Manuel Belgrano,7,148,315,0,2,0,84,127,12,3,10,10
+1,Dr. Manuel Belgrano,7,149,314,0,9,0,98,130,13,7,4,7
+1,Dr. Manuel Belgrano,7,150,315,2,6,0,97,142,12,3,3,4
+1,Dr. Manuel Belgrano,7,151,315,9,3,0,96,140,11,2,4,10
+1,Dr. Manuel Belgrano,7,152,316,4,1,0,84,138,12,1,7,4
+1,Dr. Manuel Belgrano,7,153,315,2,0,0,72,156,19,2,5,5
+1,Dr. Manuel Belgrano,7,154,315,0,2,0,120,97,14,11,5,5
+1,Dr. Manuel Belgrano,7,155,314,2,3,0,93,129,14,3,7,3
+1,Dr. Manuel Belgrano,7,156,314,2,5,0,105,114,16,9,5,5
+1,Dr. Manuel Belgrano,7,157,315,0,2,0,84,121,18,10,6,4
+1,Dr. Manuel Belgrano,7,158,322,5,0,0,93,122,23,8,3,5
+1,Dr. Manuel Belgrano,7,159,315,1,3,0,95,120,17,3,8,12
+1,Dr. Manuel Belgrano,7,160,315,0,0,0,110,119,20,6,3,1
+1,Dr. Manuel Belgrano,7,161,314,0,3,0,95,123,15,4,8,5
+1,Dr. Manuel Belgrano,7,162,314,0,2,0,99,123,16,5,1,10
+1,Dr. Manuel Belgrano,7,163,315,1,2,0,104,121,16,2,13,8
+1,Dr. Manuel Belgrano,7,164,317,0,3,0,75,152,18,4,4,6
+1,Dr. Manuel Belgrano,7,165,315,2,0,0,94,130,9,3,8,8
+1,Dr. Manuel Belgrano,7,166,314,1,6,0,78,127,27,2,6,7
+1,Dr. Manuel Belgrano,7,167,315,4,6,0,68,134,14,6,4,8
+1,Dr. Manuel Belgrano,7,168,315,2,1,0,82,135,18,6,4,5
+1,Dr. Manuel Belgrano,7,169,314,1,0,0,73,133,20,5,7,7
+1,Dr. Manuel Belgrano,7,170,315,2,1,0,94,108,27,10,8,6
+1,Dr. Manuel Belgrano,7,171,321,2,2,0,81,140,14,6,5,14
+1,Dr. Manuel Belgrano,7,173,315,2,4,0,87,123,18,5,5,7
+1,Dr. Manuel Belgrano,7,174,315,1,2,0,113,115,8,10,4,5
+1,Dr. Manuel Belgrano,7,175,314,2,0,0,103,113,19,6,7,3
+1,Dr. Manuel Belgrano,7,176,316,1,2,0,82,133,16,1,8,7
+1,Dr. Manuel Belgrano,7,177,315,2,0,0,97,135,26,5,5,6
+1,Dr. Manuel Belgrano,7,178,316,6,4,0,93,113,19,4,2,11
+1,Dr. Manuel Belgrano,7,179,320,4,3,0,87,131,17,5,5,4
+1,Dr. Manuel Belgrano,8,180,318,1,1,0,104,132,11,6,3,3
+1,Dr. Manuel Belgrano,8,181,317,5,3,1,94,131,17,7,4,4
+1,Dr. Manuel Belgrano,8,182,320,2,1,2,101,130,17,5,3,9
+1,Dr. Manuel Belgrano,8,183,318,1,0,0,92,136,16,3,4,5
+1,Dr. Manuel Belgrano,8,184,317,1,5,0,108,116,21,4,6,2
+1,Dr. Manuel Belgrano,8,185,319,2,8,0,95,135,11,6,1,9
+1,Dr. Manuel Belgrano,8,186,318,0,3,0,91,132,18,3,3,5
+1,Dr. Manuel Belgrano,8,187,320,1,2,0,99,121,25,1,8,10
+1,Dr. Manuel Belgrano,8,188,319,2,3,0,88,146,24,2,3,7
+1,Dr. Manuel Belgrano,8,189,318,3,2,0,78,158,12,6,1,8
+1,Dr. Manuel Belgrano,8,190,319,2,5,0,96,128,20,1,2,7
+1,Dr. Manuel Belgrano,8,191,324,1,1,0,94,134,18,5,8,2
+1,Dr. Manuel Belgrano,8,192,319,2,3,0,90,135,18,7,3,9
+1,Dr. Manuel Belgrano,8,193,319,2,1,0,87,132,17,10,5,10
+1,Dr. Manuel Belgrano,8,194,320,0,1,0,106,129,14,1,9,4
+1,Dr. Manuel Belgrano,8,195,318,1,3,2,103,118,14,3,5,6
+1,Dr. Manuel Belgrano,8,196,320,1,3,0,101,121,9,5,7,5
+1,Dr. Manuel Belgrano,8,197,318,2,2,0,92,128,22,1,2,6
+1,Dr. Manuel Belgrano,8,198,318,2,4,0,95,135,18,8,6,2
+1,Dr. Manuel Belgrano,8,199,317,3,3,0,66,136,20,5,6,4
+1,Dr. Manuel Belgrano,8,200,319,1,2,0,100,128,8,6,4,3
+1,Dr. Manuel Belgrano,8,201,320,3,6,0,98,127,17,3,8,6
+1,Dr. Manuel Belgrano,8,202,318,1,1,0,90,141,13,4,3,7
+1,Dr. Manuel Belgrano,8,203,320,0,1,0,79,151,14,4,5,6
+1,Dr. Manuel Belgrano,8,204,320,1,3,0,76,136,16,3,5,6
+1,Dr. Manuel Belgrano,8,205,319,1,6,0,78,138,17,3,7,8
+1,Dr. Manuel Belgrano,8,206,322,0,0,0,90,141,14,3,5,9
+1,Dr. Manuel Belgrano,8,207,318,1,1,0,79,160,10,7,4,6
+1,Dr. Manuel Belgrano,8,208,319,0,0,0,92,133,19,12,6,8
+1,Dr. Manuel Belgrano,8,209,319,1,1,0,79,145,20,4,8,8
+1,Dr. Manuel Belgrano,8,210,319,2,0,0,83,141,16,4,2,7
+1,Dr. Manuel Belgrano,8,211,317,2,3,1,99,119,15,4,9,4
+1,Dr. Manuel Belgrano,8,212,319,0,2,0,90,124,16,8,7,8
+1,Dr. Manuel Belgrano,8,213,320,0,3,0,106,116,21,6,5,9
+1,Dr. Manuel Belgrano,8,214,320,0,4,2,108,113,20,2,8,10
+1,Dr. Manuel Belgrano,8,215,319,1,2,0,78,154,18,2,5,6
+1,Dr. Manuel Belgrano,8,216,319,1,3,2,94,123,19,6,3,10
+1,Dr. Manuel Belgrano,8,217,318,4,1,1,87,158,9,2,3,8
+1,Dr. Manuel Belgrano,8,218,320,0,3,0,90,130,13,10,4,5
+1,Dr. Manuel Belgrano,8,219,318,4,7,0,76,146,21,4,4,3
+1,Dr. Manuel Belgrano,8,220,320,1,1,1,77,145,20,5,7,3
+1,Dr. Manuel Belgrano,8,221,319,4,3,1,97,128,26,2,2,5
+1,Dr. Manuel Belgrano,8,222,318,2,2,0,95,128,20,5,5,8
+1,Dr. Manuel Belgrano,8,223,326,4,2,0,110,109,20,6,6,5
+1,Dr. Manuel Belgrano,8,224,317,3,4,0,87,130,13,5,0,9
+1,Dr. Manuel Belgrano,8,225,321,0,3,0,103,132,13,4,2,1
+1,Dr. Manuel Belgrano,8,226,318,1,1,0,96,139,17,3,7,4
+1,Dr. Manuel Belgrano,8,227,320,4,2,0,99,125,18,4,10,7
+1,Dr. Manuel Belgrano,8,229,319,0,2,0,88,140,19,4,10,3
+1,Dr. Manuel Belgrano,8,230,319,1,5,0,88,135,13,5,4,4
+1,Dr. Manuel Belgrano,8,231,320,2,1,0,83,133,18,5,12,6
+1,Dr. Manuel Belgrano,8,232,320,6,0,3,89,138,14,0,7,7
+1,Dr. Manuel Belgrano,8,233,319,1,1,0,121,111,16,5,4,3
+1,Dr. Manuel Belgrano,8,234,320,0,2,1,102,134,16,0,6,7
+1,Dr. Manuel Belgrano,8,235,324,4,2,0,91,133,15,5,7,8
+1,Dr. Manuel Belgrano,8,236,320,1,1,0,87,134,12,7,5,6
+1,Dr. Manuel Belgrano,8,237,320,1,2,0,95,144,18,5,8,6
+1,Dr. Manuel Belgrano,8,238,318,0,1,0,90,132,20,10,6,9
+1,Dr. Manuel Belgrano,8,239,320,0,0,0,91,125,14,5,4,7
+1,Dr. Manuel Belgrano,8,240,319,2,4,0,79,145,19,2,4,5
+1,Dr. Manuel Belgrano,8,241,319,0,2,0,96,129,21,2,1,9
+1,Dr. Manuel Belgrano,8,242,320,1,3,0,83,152,13,8,2,7
+1,Dr. Manuel Belgrano,8,243,320,1,4,0,99,128,13,5,3,4
+1,Dr. Manuel Belgrano,8,244,320,0,2,0,92,146,17,7,3,6
+1,Dr. Manuel Belgrano,8,245,324,2,1,0,93,141,6,2,6,7
+1,Dr. Manuel Belgrano,8,246,319,6,2,0,84,138,12,7,6,3
+1,Dr. Manuel Belgrano,8,247,319,0,3,0,100,113,28,7,6,6
+1,Dr. Manuel Belgrano,8,248,319,2,1,0,93,110,26,11,5,2
+1,Dr. Manuel Belgrano,8,249,320,2,2,0,96,128,20,8,6,3
+1,Dr. Manuel Belgrano,8,250,319,0,4,0,96,135,14,6,4,6
+1,Dr. Manuel Belgrano,8,251,323,2,2,0,82,148,14,7,5,3
+1,Dr. Manuel Belgrano,8,252,319,1,4,0,69,149,18,7,4,6
+1,Dr. Manuel Belgrano,8,253,318,1,1,0,83,140,16,6,4,3
+1,Dr. Manuel Belgrano,8,254,317,1,0,0,99,118,14,11,6,7
+1,Dr. Manuel Belgrano,8,255,319,7,0,0,93,125,22,3,2,8
+1,Dr. Manuel Belgrano,8,256,318,2,4,0,88,126,14,7,10,6
+1,Dr. Manuel Belgrano,8,257,319,3,6,0,91,125,16,6,1,9
+1,Dr. Manuel Belgrano,8,258,318,3,3,0,97,135,15,2,2,7
+1,Dr. Manuel Belgrano,8,259,321,0,9,0,84,142,16,4,8,4
+1,Dr. Manuel Belgrano,9,260,254,0,2,0,58,124,16,3,1,4
+1,Dr. Manuel Belgrano,9,261,259,0,0,0,51,127,12,4,2,4
+1,Dr. Manuel Belgrano,10A,262,320,4,0,0,80,154,14,4,4,8
+1,Dr. Manuel Belgrano,10A,263,320,5,2,0,93,133,13,5,6,8
+1,Dr. Manuel Belgrano,10A,264,320,2,3,0,104,114,18,5,3,3
+1,Dr. Manuel Belgrano,10A,265,319,2,2,0,97,132,17,1,3,8
+1,Dr. Manuel Belgrano,10A,266,320,5,4,0,79,135,24,5,5,9
+1,Dr. Manuel Belgrano,10A,268,318,5,5,0,96,126,16,4,4,6
+1,Dr. Manuel Belgrano,10A,269,320,0,2,0,97,125,29,4,7,4
+1,Dr. Manuel Belgrano,10A,270,320,0,5,1,88,127,19,6,6,5
+1,Dr. Manuel Belgrano,10A,271,320,1,0,0,90,148,10,9,5,7
+1,Dr. Manuel Belgrano,10A,272,319,2,1,0,79,149,20,4,6,5
+1,Dr. Manuel Belgrano,10A,273,320,1,2,0,95,129,14,5,7,3
+1,Dr. Manuel Belgrano,10A,274,319,0,1,0,122,110,17,1,8,7
+1,Dr. Manuel Belgrano,10A,275,325,1,2,0,104,123,18,4,8,7
+1,Dr. Manuel Belgrano,10A,276,321,1,3,0,108,132,18,5,5,5
+1,Dr. Manuel Belgrano,10A,277,320,0,4,0,79,145,16,3,3,7
+1,Dr. Manuel Belgrano,10A,278,321,0,6,0,83,133,20,4,10,2
+1,Dr. Manuel Belgrano,10A,279,318,1,4,0,16,135,18,5,4,11
+1,Dr. Manuel Belgrano,10A,280,319,1,4,0,87,147,12,2,7,7
+1,Dr. Manuel Belgrano,10A,281,320,4,4,0,67,152,12,4,5,4
+1,Dr. Manuel Belgrano,10A,282,319,0,4,0,98,116,17,4,7,3
+1,Dr. Manuel Belgrano,10A,283,320,2,4,0,64,168,22,2,8,8
+1,Dr. Manuel Belgrano,10A,284,323,5,1,0,107,125,22,6,5,1
+1,Dr. Manuel Belgrano,10A,285,319,1,2,0,97,117,16,13,8,12
+1,Dr. Manuel Belgrano,10A,286,318,3,3,0,112,108,18,8,3,5
+1,Dr. Manuel Belgrano,10A,287,321,6,0,0,106,119,12,8,4,5
+1,Dr. Manuel Belgrano,10A,288,320,4,4,0,84,138,16,7,7,8
+1,Dr. Manuel Belgrano,10A,289,318,2,2,0,117,116,22,3,7,3
+1,Dr. Manuel Belgrano,10A,290,320,4,2,0,110,114,17,2,7,10
+1,Dr. Manuel Belgrano,10A,291,319,2,5,0,74,151,17,12,5,6
+1,Dr. Manuel Belgrano,10A,292,319,2,5,0,96,119,13,6,4,9
+1,Dr. Manuel Belgrano,10A,293,320,0,2,0,94,125,17,15,4,9
+1,Dr. Manuel Belgrano,10A,294,320,0,0,0,92,132,14,4,4,6
+1,Dr. Manuel Belgrano,10A,295,321,1,9,0,91,143,10,2,6,4
+1,Dr. Manuel Belgrano,10A,296,319,0,1,0,95,138,14,3,11,7
+1,Dr. Manuel Belgrano,10A,297,318,5,6,0,99,116,17,7,12,10
+1,Dr. Manuel Belgrano,10A,298,328,2,7,0,68,156,21,10,2,3
+1,Dr. Manuel Belgrano,10A,299,320,0,3,0,102,122,15,10,7,5
+1,Dr. Manuel Belgrano,10A,300,318,0,2,0,121,116,17,6,5,7
+1,Dr. Manuel Belgrano,10A,301,320,3,4,1,106,124,17,8,3,5
+1,Dr. Manuel Belgrano,10A,302,319,3,5,1,87,132,22,5,8,4
+1,Dr. Manuel Belgrano,10A,303,316,3,1,0,108,118,17,9,3,4
+1,Dr. Manuel Belgrano,10A,304,319,5,8,0,103,114,19,7,7,5
+1,Dr. Manuel Belgrano,10A,305,317,2,2,0,95,122,17,6,9,10
+1,Dr. Manuel Belgrano,10A,306,318,0,3,0,77,142,18,6,4,6
+1,Dr. Manuel Belgrano,10A,307,319,2,0,0,86,132,22,3,2,7
+1,Dr. Manuel Belgrano,10A,308,320,6,0,0,107,119,13,10,2,4
+1,Dr. Manuel Belgrano,10A,309,320,0,5,0,106,126,15,4,7,7
+1,Dr. Manuel Belgrano,10A,310,319,1,5,1,85,136,13,9,9,6
+1,Dr. Manuel Belgrano,10A,311,315,2,1,0,109,127,20,4,4,9
+1,Dr. Manuel Belgrano,10A,312,317,2,2,0,86,126,22,5,7,8
+1,Dr. Manuel Belgrano,10A,313,318,1,3,0,72,150,23,5,7,4
+1,Dr. Manuel Belgrano,10A,314,318,3,3,0,101,123,10,3,5,6
+1,Dr. Manuel Belgrano,10A,315,324,0,0,0,93,134,16,2,5,4
+1,Dr. Manuel Belgrano,10A,316,321,3,4,0,102,124,21,5,3,7
+1,Dr. Manuel Belgrano,10A,317,318,1,1,0,115,115,12,10,5,6
+1,Dr. Manuel Belgrano,10A,318,320,1,6,0,99,120,12,7,2,10
+1,Dr. Manuel Belgrano,10A,319,320,3,9,0,92,130,16,3,3,8
+1,Dr. Manuel Belgrano,10A,320,317,2,7,0,73,137,13,6,7,3
+1,Dr. Manuel Belgrano,10A,321,319,1,8,0,104,133,11,6,8,5
+1,Dr. Manuel Belgrano,10A,322,319,5,2,0,106,118,22,7,2,7
+1,Dr. Manuel Belgrano,10A,323,320,2,4,0,91,138,19,2,8,6
+1,Dr. Manuel Belgrano,10A,324,316,0,3,0,104,129,13,11,4,4
+1,Dr. Manuel Belgrano,10A,325,321,0,1,0,104,130,10,4,5,6
+1,Dr. Manuel Belgrano,10A,326,319,1,9,0,106,121,20,4,8,5
+1,Dr. Manuel Belgrano,10A,327,320,1,2,0,104,135,11,8,3,3
+1,Dr. Manuel Belgrano,10A,328,320,2,8,0,91,125,13,10,5,9
+1,Dr. Manuel Belgrano,10A,329,319,3,4,0,100,133,17,6,7,6
+1,Dr. Manuel Belgrano,10A,330,323,2,2,0,99,141,6,7,2,0
+1,Dr. Manuel Belgrano,10A,331,318,4,5,0,88,126,20,5,7,4
+1,Dr. Manuel Belgrano,10A,332,320,3,4,0,105,131,14,7,5,9
+1,Dr. Manuel Belgrano,10A,333,318,4,2,0,80,140,20,4,3,9
+1,Dr. Manuel Belgrano,10A,334,320,3,1,0,91,140,13,6,3,7
+1,Dr. Manuel Belgrano,10A,335,320,4,4,0,109,114,9,1,3,2
+1,Dr. Manuel Belgrano,10A,336,320,1,3,0,93,152,14,5,5,6
+1,Dr. Manuel Belgrano,10A,337,319,0,3,0,91,137,15,5,8,8
+1,Dr. Manuel Belgrano,10A,338,319,0,6,0,102,134,16,1,4,5
+1,Dr. Manuel Belgrano,10A,339,319,1,1,0,86,143,13,9,9,5
+1,Dr. Manuel Belgrano,10A,340,319,2,2,0,93,147,14,5,6,10
+1,Dr. Manuel Belgrano,10A,341,320,0,0,0,104,133,16,2,5,5
+1,Dr. Manuel Belgrano,10A,342,320,3,1,0,111,124,12,4,10,5
+1,Dr. Manuel Belgrano,10A,343,320,1,4,0,108,128,21,5,7,1
+1,Dr. Manuel Belgrano,10A,344,318,1,4,0,117,120,20,7,3,6
+1,Dr. Manuel Belgrano,10A,345,325,1,3,0,113,108,21,6,4,11
+1,Dr. Manuel Belgrano,10A,346,318,3,4,0,97,115,29,6,7,8
+1,Dr. Manuel Belgrano,10A,347,319,4,3,0,115,102,20,9,9,9
+1,Dr. Manuel Belgrano,10A,348,318,0,0,2,88,150,14,2,3,3
+1,Dr. Manuel Belgrano,10A,349,318,2,6,0,95,140,11,9,4,10
+1,Dr. Manuel Belgrano,10A,350,320,1,4,0,115,118,21,7,4,4
+1,Dr. Manuel Belgrano,10A,351,319,0,3,0,83,141,12,2,3,1
+1,Dr. Manuel Belgrano,10A,352,319,3,7,0,80,132,17,2,4,5
+1,Dr. Manuel Belgrano,10A,353,320,2,5,0,113,113,13,7,3,10
+1,Dr. Manuel Belgrano,10A,354,321,10,0,1,72,144,14,11,3,7
+1,Dr. Manuel Belgrano,10A,355,320,1,3,0,87,145,13,7,2,7
+1,Dr. Manuel Belgrano,10A,356,319,2,2,1,86,127,25,5,1,10
+1,Dr. Manuel Belgrano,10A,357,319,2,3,0,63,142,12,9,9,9
+1,Dr. Manuel Belgrano,10A,358,320,0,0,1,72,158,16,9,7,3
+1,Dr. Manuel Belgrano,10A,359,320,1,2,0,84,149,15,7,2,8
+1,Dr. Manuel Belgrano,10A,360,320,6,2,3,84,142,12,3,5,8
+1,Dr. Manuel Belgrano,10A,361,320,0,0,0,88,132,22,7,9,4
+1,Dr. Manuel Belgrano,10A,362,317,0,8,0,80,142,13,4,9,3
+1,Dr. Manuel Belgrano,10A,363,325,2,3,0,96,132,15,4,4,3
+1,Dr. Manuel Belgrano,10A,364,319,2,2,0,90,144,12,3,7,1
+1,Dr. Manuel Belgrano,10A,365,318,2,2,0,92,131,11,4,6,5
+1,Dr. Manuel Belgrano,10A,366,318,2,1,0,94,144,11,2,4,4
+1,Dr. Manuel Belgrano,10A,367,319,3,1,0,89,134,18,7,4,6
+1,Dr. Manuel Belgrano,10A,368,318,3,3,0,99,129,12,6,9,4
+1,Dr. Manuel Belgrano,10A,369,320,0,2,0,91,135,20,6,2,5
+1,Dr. Manuel Belgrano,10A,370,316,0,3,0,96,132,15,10,2,5
+1,Dr. Manuel Belgrano,10A,371,319,1,4,0,105,125,18,10,4,5
+1,Dr. Manuel Belgrano,10A,372,320,0,0,0,107,145,12,6,3,3
+1,Dr. Manuel Belgrano,10A,373,320,0,3,0,102,117,19,5,6,5
+1,Dr. Manuel Belgrano,10A,374,320,1,4,1,83,130,13,9,4,5
+1,Dr. Manuel Belgrano,10A,375,319,2,2,0,111,113,10,2,4,6
+1,Dr. Manuel Belgrano,10A,376,319,5,6,0,97,130,15,6,7,5
+1,Dr. Manuel Belgrano,10A,378,318,3,3,0,102,117,23,3,4,8
+1,Dr. Manuel Belgrano,10A,379,324,3,1,0,106,124,18,5,10,8
+1,Dr. Manuel Belgrano,10A,380,318,2,3,0,101,135,11,6,4,8
+1,Dr. Manuel Belgrano,10A,381,318,2,2,0,96,122,18,2,7,6
+1,Dr. Manuel Belgrano,10A,382,318,0,4,0,109,115,21,5,6,4
+1,Dr. Manuel Belgrano,10A,383,317,2,2,0,100,119,24,6,4,4
+1,Dr. Manuel Belgrano,10A,384,319,0,4,0,97,136,17,5,8,3
+1,Dr. Manuel Belgrano,10A,385,318,3,4,0,94,122,18,6,6,4
+1,Dr. Manuel Belgrano,10A,386,315,1,2,1,101,120,17,3,7,4
+1,Dr. Manuel Belgrano,10A,387,317,0,6,0,77,140,13,9,2,8
+1,Dr. Manuel Belgrano,10A,388,318,2,1,0,95,131,14,3,6,7
+1,Dr. Manuel Belgrano,10A,389,319,4,1,0,104,115,21,5,4,7
+1,Dr. Manuel Belgrano,10A,390,317,1,0,0,89,145,15,8,4,9
+1,Dr. Manuel Belgrano,10A,391,319,2,5,0,103,125,27,2,3,4
+1,Dr. Manuel Belgrano,10A,392,318,6,0,0,91,121,20,8,10,13
+1,Dr. Manuel Belgrano,10A,393,316,1,1,0,96,139,24,4,3,4
+1,Dr. Manuel Belgrano,10A,394,323,1,1,0,108,139,13,8,6,4
+1,Dr. Manuel Belgrano,10A,395,318,1,4,0,98,121,11,8,8,7
+1,Dr. Manuel Belgrano,10A,396,319,1,4,0,105,116,10,8,3,5
+1,Dr. Manuel Belgrano,10A,397,318,2,2,0,90,125,25,5,8,9
+1,Dr. Manuel Belgrano,10A,398,316,2,1,1,107,111,17,6,11,6
+1,Dr. Manuel Belgrano,10A,399,318,3,6,0,90,120,19,7,9,5
+1,Dr. Manuel Belgrano,10A,400,319,1,2,0,103,112,18,8,6,5
+1,Dr. Manuel Belgrano,10A,401,317,1,2,0,113,108,10,2,6,3
+1,Dr. Manuel Belgrano,10A,402,317,2,4,0,13,118,17,1,5,6
+1,Dr. Manuel Belgrano,10A,403,315,2,4,0,90,142,16,6,3,3
+1,Dr. Manuel Belgrano,10A,404,316,0,1,0,98,135,8,2,10,2
+1,Dr. Manuel Belgrano,10A,405,316,1,2,0,94,129,18,4,4,5
+1,Dr. Manuel Belgrano,10A,406,319,1,1,2,95,119,22,7,9,6
+1,Dr. Manuel Belgrano,10A,407,318,2,2,0,90,132,17,5,8,5
+1,Dr. Manuel Belgrano,10A,408,319,1,5,0,108,135,15,8,3,4
+1,Dr. Manuel Belgrano,10A,409,318,2,8,0,86,131,18,6,3,8
+1,Dr. Manuel Belgrano,10A,410,318,3,6,0,88,137,17,3,7,5
+1,Dr. Manuel Belgrano,10A,411,318,5,0,0,73,149,19,1,2,3
+1,Dr. Manuel Belgrano,10A,412,316,2,2,0,74,152,16,4,7,4
+1,Dr. Manuel Belgrano,10A,413,319,3,5,0,83,142,16,9,10,8
+1,Dr. Manuel Belgrano,10A,414,318,3,4,0,90,146,11,2,4,3
+1,Dr. Manuel Belgrano,10A,415,319,1,5,0,99,122,17,7,6,6
+1,Dr. Manuel Belgrano,10A,416,324,1,6,0,101,130,17,2,9,7
+1,Dr. Manuel Belgrano,10B,417,319,1,3,0,109,110,15,8,4,8
+1,Dr. Manuel Belgrano,10B,418,318,1,2,0,114,103,9,10,7,12
+1,Dr. Manuel Belgrano,10B,419,318,1,1,0,99,96,19,12,21,4
+1,Dr. Manuel Belgrano,10B,420,320,2,2,0,102,113,15,9,5,7
+1,Dr. Manuel Belgrano,10B,421,319,1,4,0,106,118,15,9,8,5
+1,Dr. Manuel Belgrano,10B,422,317,0,5,0,111,112,13,3,8,5
+1,Dr. Manuel Belgrano,10B,423,318,1,6,0,87,140,20,2,3,6
+1,Dr. Manuel Belgrano,10B,424,319,0,3,0,117,114,12,6,12,8
+1,Dr. Manuel Belgrano,10B,425,320,2,0,0,131,97,18,8,5,7
+1,Dr. Manuel Belgrano,10B,426,319,0,0,0,102,121,20,8,4,3
+1,Dr. Manuel Belgrano,10B,427,319,0,2,0,86,126,13,13,10,8
+1,Dr. Manuel Belgrano,10B,428,317,42,1,0,56,125,19,6,11,6
+1,Dr. Manuel Belgrano,10B,429,319,10,0,0,112,97,19,11,8,4
+1,Dr. Manuel Belgrano,10B,430,317,1,2,2,85,128,22,13,6,7
+1,Dr. Manuel Belgrano,10B,431,322,2,1,0,129,85,20,3,9,6
+1,Dr. Manuel Belgrano,10B,432,319,0,3,0,101,121,17,10,8,6
+1,Dr. Manuel Belgrano,10B,433,315,2,0,0,104,129,14,9,4,6
+1,Dr. Manuel Belgrano,10B,434,316,2,7,0,117,78,23,13,9,12
+1,Dr. Manuel Belgrano,10B,435,318,2,3,0,117,108,11,6,5,8
+1,Dr. Manuel Belgrano,10B,436,319,3,1,1,109,123,15,6,5,8
+1,Dr. Manuel Belgrano,10B,437,317,2,5,0,123,109,16,12,2,5
+1,Dr. Manuel Belgrano,10B,438,318,2,2,0,109,119,12,7,7,4
+1,Dr. Manuel Belgrano,10B,439,317,2,5,3,96,119,14,13,6,7
+1,Dr. Manuel Belgrano,10B,440,320,2,6,0,119,108,12,9,6,8
+1,Dr. Manuel Belgrano,10B,441,320,2,4,1,101,121,18,6,8,4
+1,Dr. Manuel Belgrano,10B,442,317,1,2,0,102,101,19,9,6,9
+1,Dr. Manuel Belgrano,10B,443,316,0,3,0,104,122,14,5,2,8
+1,Dr. Manuel Belgrano,10B,444,321,0,5,0,122,99,17,6,9,8
+1,Dr. Manuel Belgrano,10B,445,317,0,3,0,126,87,21,6,3,11
+1,Dr. Manuel Belgrano,10B,446,319,3,5,0,110,101,23,4,6,9
+1,Dr. Manuel Belgrano,10B,447,317,2,1,0,104,115,24,3,10,3
+1,Dr. Manuel Belgrano,10B,448,317,0,6,0,117,119,12,3,7,9
+1,Dr. Manuel Belgrano,10B,449,316,1,3,0,103,104,16,12,1,11
+1,Dr. Manuel Belgrano,10B,450,318,0,11,0,131,103,13,6,7,7
+1,Dr. Manuel Belgrano,10B,451,318,3,4,0,101,111,17,4,5,11
+1,Dr. Manuel Belgrano,10B,452,319,0,6,0,111,102,14,12,2,12
+1,Dr. Manuel Belgrano,10B,453,319,1,3,0,123,90,26,6,9,5
+1,Dr. Manuel Belgrano,10B,454,317,0,4,0,119,106,8,5,6,9
+1,Dr. Manuel Belgrano,10B,455,316,3,5,0,110,95,30,6,9,3
+1,Dr. Manuel Belgrano,10B,456,322,1,3,0,131,100,16,8,4,11
+1,Dr. Manuel Belgrano,10B,457,319,3,5,0,115,110,11,9,1,2
+1,Dr. Manuel Belgrano,10B,458,319,3,2,0,98,133,16,5,8,2
+1,Dr. Manuel Belgrano,10B,459,319,0,9,0,108,103,24,8,12,3
+1,Dr. Manuel Belgrano,10B,460,314,1,1,0,99,107,15,9,8,10
+1,Dr. Manuel Belgrano,10B,461,318,2,4,0,97,122,17,10,3,6
+1,Dr. Manuel Belgrano,10B,462,318,1,3,0,132,93,16,9,5,9
+1,Dr. Manuel Belgrano,10B,463,319,1,2,0,99,127,13,9,7,3
+1,Dr. Manuel Belgrano,10B,464,318,4,8,0,116,97,17,5,6,10
+1,Dr. Manuel Belgrano,10B,465,319,0,5,0,108,118,16,7,5,4
+1,Dr. Manuel Belgrano,10B,466,318,1,0,0,121,106,12,5,11,5
+1,Dr. Manuel Belgrano,10B,467,318,1,9,0,112,115,12,9,3,4
+1,Dr. Manuel Belgrano,10B,468,318,0,1,0,121,107,13,6,5,6
+1,Dr. Manuel Belgrano,10B,469,324,2,4,0,107,89,26,5,8,8
+1,Dr. Manuel Belgrano,10B,470,318,3,8,0,122,90,26,9,5,3
+1,Dr. Manuel Belgrano,10B,471,319,0,4,0,102,104,20,17,7,2
+1,Dr. Manuel Belgrano,10B,472,318,1,2,0,109,112,22,11,10,6
+1,Dr. Manuel Belgrano,10B,473,317,2,4,0,105,105,24,8,7,5
+1,Dr. Manuel Belgrano,10B,474,317,2,4,0,119,104,14,10,4,5
+1,Dr. Manuel Belgrano,10B,475,317,1,5,1,127,102,17,10,6,5
+1,Dr. Manuel Belgrano,10B,476,319,1,1,0,108,125,27,3,7,3
+1,Dr. Manuel Belgrano,10B,477,318,3,6,0,104,127,14,7,4,6
+1,Dr. Manuel Belgrano,10B,478,318,1,2,0,99,128,19,4,5,4
+1,Dr. Manuel Belgrano,10B,479,318,1,4,0,112,120,16,8,6,3
+1,Dr. Manuel Belgrano,10B,480,315,4,2,0,113,101,19,5,8,11
+1,Dr. Manuel Belgrano,10B,481,319,1,0,0,87,134,17,9,10,7
+1,Dr. Manuel Belgrano,10B,482,319,5,4,0,104,120,17,11,10,3
+1,Dr. Manuel Belgrano,10B,483,317,2,2,0,98,123,22,4,6,6
+1,Dr. Manuel Belgrano,10B,484,326,3,1,0,115,118,12,6,9,5
+1,Dr. Manuel Belgrano,10B,485,318,1,0,0,94,114,22,9,4,11
+1,Dr. Manuel Belgrano,10B,486,317,2,2,0,106,98,23,7,8,5
+1,Dr. Manuel Belgrano,10B,487,317,2,5,0,99,117,19,4,4,8
+1,Dr. Manuel Belgrano,10B,488,317,0,5,1,112,109,13,5,4,8
+1,Dr. Manuel Belgrano,10B,489,319,3,7,0,112,102,9,11,8,7
+1,Dr. Manuel Belgrano,10B,490,318,1,7,0,111,105,18,1,1,6
+1,Dr. Manuel Belgrano,10B,491,314,1,3,2,102,110,17,1,5,6
+1,Dr. Manuel Belgrano,10B,492,320,0,0,0,113,115,16,4,5,6
+1,Dr. Manuel Belgrano,10B,493,316,0,2,0,95,122,12,4,3,7
+1,Dr. Manuel Belgrano,10B,494,318,2,6,0,100,118,16,4,2,7
+1,Dr. Manuel Belgrano,10B,495,316,2,2,0,97,118,14,12,7,3
+1,Dr. Manuel Belgrano,10B,496,324,3,3,0,80,137,22,3,8,6
+1,Dr. Manuel Belgrano,10B,497,316,2,0,0,116,108,16,7,7,5
+1,Dr. Manuel Belgrano,10B,498,320,1,3,0,111,122,9,6,9,7
+1,Dr. Manuel Belgrano,10B,499,316,2,4,0,104,113,25,2,5,4
+1,Dr. Manuel Belgrano,10B,500,316,0,0,0,106,116,26,6,12,3
+1,Dr. Manuel Belgrano,10B,501,320,0,2,0,123,105,16,10,4,7
+1,Dr. Manuel Belgrano,10B,502,318,1,6,0,107,116,21,7,10,10
+1,Dr. Manuel Belgrano,10B,503,318,2,4,0,123,88,12,5,9,12
+1,Dr. Manuel Belgrano,10B,504,317,0,6,0,105,99,11,17,9,11
+1,Dr. Manuel Belgrano,10B,505,318,0,3,0,111,106,18,11,9,5
+1,Dr. Manuel Belgrano,10B,506,320,1,5,0,107,115,14,15,14,5
+1,Dr. Manuel Belgrano,10B,507,318,0,3,0,120,90,13,7,5,6
+1,Dr. Manuel Belgrano,10B,508,318,0,2,0,104,133,11,9,6,5
+1,Dr. Manuel Belgrano,10B,509,315,0,2,0,109,102,16,8,7,6
+1,Dr. Manuel Belgrano,10B,510,319,0,7,0,107,116,16,5,3,5
+1,Dr. Manuel Belgrano,10B,511,322,4,0,0,103,112,22,5,5,13
+1,Dr. Manuel Belgrano,10B,512,317,3,5,0,103,114,19,5,7,4
+1,Dr. Manuel Belgrano,10B,513,316,2,3,0,110,113,21,2,8,8
+1,Dr. Manuel Belgrano,10B,514,319,2,7,0,89,127,13,6,7,5
+1,Dr. Manuel Belgrano,10B,515,319,0,1,0,103,117,19,9,8,4
+1,Dr. Manuel Belgrano,10B,516,317,3,4,0,117,99,22,8,6,8
+1,Dr. Manuel Belgrano,10B,517,316,1,3,0,83,144,9,6,8,6
+1,Dr. Manuel Belgrano,10B,518,319,0,5,0,92,131,11,4,7,13
+1,Dr. Manuel Belgrano,10B,519,316,3,4,0,84,122,17,13,12,10
+1,Dr. Manuel Belgrano,10B,520,318,2,3,0,109,119,19,6,4,7
+1,Dr. Manuel Belgrano,10B,521,318,2,2,0,109,119,17,7,4,5
+1,Dr. Manuel Belgrano,10B,522,319,5,6,0,88,124,14,4,5,14
+1,Dr. Manuel Belgrano,10B,523,318,0,2,0,114,128,13,2,3,4
+1,Dr. Manuel Belgrano,10B,524,318,2,2,0,140,100,10,7,6,5
+1,Dr. Manuel Belgrano,10B,525,318,0,3,1,108,121,15,11,6,3
+1,Dr. Manuel Belgrano,10B,526,317,1,3,0,90,114,17,12,4,12
+1,Dr. Manuel Belgrano,10B,527,318,0,3,0,93,130,18,7,7,5
+1,Dr. Manuel Belgrano,10B,528,314,3,2,0,114,106,11,8,3,2
+1,Dr. Manuel Belgrano,10B,529,319,3,6,0,119,102,10,7,5,5
+1,Dr. Manuel Belgrano,10B,530,317,2,2,1,120,107,13,5,8,12
+1,Dr. Manuel Belgrano,10B,531,315,3,4,0,111,94,17,12,4,11
+1,Dr. Manuel Belgrano,10B,532,319,2,8,0,119,100,16,4,8,8
+1,Dr. Manuel Belgrano,10B,533,324,2,0,0,118,105,13,14,7,15
+1,Dr. Manuel Belgrano,10B,534,317,3,4,0,94,113,15,14,11,3
+1,Dr. Manuel Belgrano,10B,535,319,1,0,0,108,132,16,7,4,8
+1,Dr. Manuel Belgrano,10B,537,317,0,1,0,106,122,17,3,6,12
+1,Dr. Manuel Belgrano,10B,538,316,4,0,0,110,105,15,11,6,10
+1,Dr. Manuel Belgrano,10B,539,319,1,3,0,112,100,15,13,10,9
+1,Dr. Manuel Belgrano,10B,540,316,2,6,0,85,131,20,10,3,5
+1,Dr. Manuel Belgrano,10B,541,318,4,1,1,103,125,15,5,6,7
+1,Dr. Manuel Belgrano,10B,542,317,0,6,0,94,135,14,7,6,13
+1,Dr. Manuel Belgrano,10B,543,319,3,6,0,112,127,7,8,3,4
+1,Dr. Manuel Belgrano,10B,544,319,1,2,0,141,100,12,2,4,7
+1,Dr. Manuel Belgrano,10B,545,316,2,0,0,134,87,10,4,5,9
+1,Dr. Manuel Belgrano,10B,546,322,6,1,0,90,138,14,8,2,6
+1,Dr. Manuel Belgrano,10B,547,319,7,0,0,101,121,14,8,14,8
+1,Dr. Manuel Belgrano,10B,548,318,1,3,0,126,103,20,4,12,4
+1,Dr. Manuel Belgrano,10B,549,319,1,7,0,105,110,19,5,8,7
+1,Dr. Manuel Belgrano,10B,550,314,2,3,1,100,121,12,6,2,7
+1,Dr. Manuel Belgrano,10B,551,315,0,5,0,109,100,20,2,7,5
+1,Dr. Manuel Belgrano,10B,553,318,2,2,0,108,105,22,5,7,8
+1,Dr. Manuel Belgrano,10B,554,317,2,4,1,107,108,19,5,3,9
+1,Dr. Manuel Belgrano,10B,555,318,2,3,0,94,123,26,8,4,4
+1,Dr. Manuel Belgrano,10B,556,319,2,0,0,109,125,14,4,8,8
+1,Dr. Manuel Belgrano,10B,557,317,1,1,1,113,113,14,4,5,7
+1,Dr. Manuel Belgrano,10B,558,323,3,5,0,123,111,19,5,5,7
+1,Dr. Manuel Belgrano,10B,559,316,3,2,2,117,92,23,5,7,12
+1,Dr. Manuel Belgrano,10B,560,318,2,5,0,98,126,13,7,3,13
+1,Dr. Manuel Belgrano,10B,561,316,2,2,0,119,106,10,10,7,6
+1,Dr. Manuel Belgrano,10B,562,318,0,4,0,97,124,19,7,6,3
+1,Dr. Manuel Belgrano,10B,563,317,2,3,0,99,113,17,6,9,13
+1,Dr. Manuel Belgrano,10B,564,318,1,1,0,121,96,16,11,6,9
+1,Dr. Manuel Belgrano,10B,565,319,2,2,0,100,119,17,11,2,5
+1,Dr. Manuel Belgrano,10B,566,319,0,8,0,111,109,15,4,9,8
+1,Dr. Manuel Belgrano,10B,567,316,2,2,0,109,101,13,4,1,7
+1,Dr. Manuel Belgrano,10B,568,324,2,7,0,103,117,18,13,4,10
+1,Dr. Manuel Belgrano,10B,569,319,1,4,1,110,94,19,5,6,5
+1,Dr. Manuel Belgrano,10B,570,318,0,4,0,115,100,21,6,14,7
+1,Dr. Manuel Belgrano,10B,571,318,10,2,0,98,111,18,8,7,10
+1,Dr. Manuel Belgrano,10B,572,317,5,2,0,107,88,27,9,9,9
+1,Dr. Manuel Belgrano,10B,573,317,3,0,1,146,89,18,7,6,4
+1,Dr. Manuel Belgrano,10B,574,317,1,2,0,105,41,21,6,5,5
+1,Dr. Manuel Belgrano,10B,575,315,1,4,0,128,98,18,9,8,2
+1,Dr. Manuel Belgrano,10B,576,316,2,4,1,102,105,18,7,4,10
+1,Dr. Manuel Belgrano,10B,577,321,3,6,1,106,104,19,6,3,4
+1,Dr. Manuel Belgrano,11,578,317,1,2,1,100,121,18,8,2,3
+1,Dr. Manuel Belgrano,11,579,318,2,4,0,89,143,15,4,4,4
+1,Dr. Manuel Belgrano,11,580,317,4,4,0,99,114,15,7,5,8
+1,Dr. Manuel Belgrano,11,581,315,5,3,0,103,116,17,11,3,3
+1,Dr. Manuel Belgrano,11,582,314,0,0,0,80,123,23,8,5,5
+1,Dr. Manuel Belgrano,11,583,314,8,2,1,98,123,12,9,6,6
+1,Dr. Manuel Belgrano,11,584,314,1,5,1,94,127,14,11,4,3
+1,Dr. Manuel Belgrano,11,585,310,3,3,0,97,111,10,6,5,10
+1,Dr. Manuel Belgrano,11,586,313,2,3,0,103,108,22,8,6,3
+1,Dr. Manuel Belgrano,11,587,315,0,4,0,85,114,22,20,10,7
+1,Dr. Manuel Belgrano,11,588,319,2,3,1,96,120,18,11,2,4
+1,Dr. Manuel Belgrano,12,589,244,0,1,1,95,64,13,2,4,3
+1,Dr. Manuel Belgrano,12,590,244,3,2,0,119,50,13,10,6,5
+1,Dr. Manuel Belgrano,12,591,248,2,3,0,103,72,16,3,6,7
+1,Dr. Manuel Belgrano,13,592,224,0,0,0,61,95,12,0,1,0
+1,Dr. Manuel Belgrano,14,593,318,1,6,0,107,123,12,4,2,6
+1,Dr. Manuel Belgrano,14,594,320,1,2,0,110,116,16,6,9,4
+1,Dr. Manuel Belgrano,14,595,320,8,2,1,97,121,18,8,7,8
+1,Dr. Manuel Belgrano,14,596,320,1,1,0,95,128,17,9,10,3
+1,Dr. Manuel Belgrano,14,597,319,0,1,0,94,136,16,4,10,3
+1,Dr. Manuel Belgrano,14,598,319,0,5,0,97,129,11,2,6,9
+1,Dr. Manuel Belgrano,14,599,320,1,8,0,45,127,15,7,6,5
+1,Dr. Manuel Belgrano,14,600,320,0,5,1,106,127,15,8,6,9
+1,Dr. Manuel Belgrano,14,601,319,3,15,0,97,114,21,5,10,9
+1,Dr. Manuel Belgrano,14,602,325,1,0,1,106,121,18,8,10,4
+1,Dr. Manuel Belgrano,14,603,320,0,4,0,97,129,12,11,4,6
+1,Dr. Manuel Belgrano,14,604,319,2,3,1,90,143,19,5,2,2
+1,Dr. Manuel Belgrano,14,605,317,2,1,0,110,136,13,9,5,2
+1,Dr. Manuel Belgrano,14,606,318,3,5,0,94,123,18,13,3,8
+1,Dr. Manuel Belgrano,14,607,318,3,2,0,98,131,12,6,2,4
+1,Dr. Manuel Belgrano,14,608,320,2,5,0,96,135,11,10,5,1
+1,Dr. Manuel Belgrano,14,609,319,12,2,1,89,134,14,6,8,6
+1,Dr. Manuel Belgrano,14,610,320,4,6,0,112,86,23,7,12,4
+1,Dr. Manuel Belgrano,14,611,319,0,2,0,112,116,10,4,7,6
+1,Dr. Manuel Belgrano,14,612,320,2,2,1,87,150,7,8,5,2
+1,Dr. Manuel Belgrano,14,613,324,3,6,3,105,109,15,11,10,5
+1,Dr. Manuel Belgrano,14,614,316,3,4,0,106,133,17,6,8,7
+1,Dr. Manuel Belgrano,14,615,320,1,2,0,104,116,27,6,6,3
+1,Dr. Manuel Belgrano,14,616,320,4,7,0,75,131,14,11,9,4
+1,Dr. Manuel Belgrano,14,617,320,4,4,0,93,135,14,7,6,9
+1,Dr. Manuel Belgrano,14,618,318,7,3,0,107,123,17,14,3,7
+1,Dr. Manuel Belgrano,14,619,320,1,5,0,95,100,21,7,8,9
+1,Dr. Manuel Belgrano,14,620,318,3,1,0,74,150,22,7,3,4
+1,Dr. Manuel Belgrano,14,621,320,1,4,0,89,125,17,2,5,11
+1,Dr. Manuel Belgrano,14,622,320,0,9,0,96,123,17,5,2,5
+1,Dr. Manuel Belgrano,14,623,320,0,6,0,97,128,16,10,3,5
+1,Dr. Manuel Belgrano,14,624,320,0,4,0,96,128,18,7,4,5
+1,Dr. Manuel Belgrano,14,625,325,2,6,0,118,106,26,6,3,7
+1,Dr. Manuel Belgrano,14,626,320,2,8,0,97,127,11,6,1,5
+1,Dr. Manuel Belgrano,14,627,320,4,5,0,101,126,18,9,5,3
+1,Dr. Manuel Belgrano,14,628,319,2,0,0,100,120,25,4,6,8
+1,Dr. Manuel Belgrano,14,629,319,1,0,1,94,122,15,7,3,3
+1,Dr. Manuel Belgrano,14,630,320,2,4,0,93,142,15,5,4,6
+1,Dr. Manuel Belgrano,14,631,319,1,1,0,95,125,14,13,9,4
+1,Dr. Manuel Belgrano,14,632,319,1,0,0,101,129,16,4,7,7
+1,Dr. Manuel Belgrano,14,633,320,0,0,1,97,124,16,7,7,12
+1,Dr. Manuel Belgrano,14,634,319,3,8,0,102,112,21,10,9,6
+1,Dr. Manuel Belgrano,14,635,318,0,10,0,95,109,16,9,7,8
+1,Dr. Manuel Belgrano,14,636,321,4,1,0,103,112,16,5,4,11
+1,Dr. Manuel Belgrano,14,637,320,3,1,0,99,118,10,9,4,6
+1,Dr. Manuel Belgrano,14,638,318,1,1,0,116,122,18,4,9,5
+1,Dr. Manuel Belgrano,14,639,317,1,6,0,101,118,14,15,9,8
+1,Dr. Manuel Belgrano,14,640,325,1,7,0,91,142,25,3,1,6
+1,Dr. Manuel Belgrano,14,641,318,6,5,0,99,127,20,3,7,4
+1,Dr. Manuel Belgrano,14,642,319,2,1,0,116,118,19,6,5,10
+1,Dr. Manuel Belgrano,14,643,319,2,6,0,88,141,16,1,6,4
+1,Dr. Manuel Belgrano,14,644,320,2,4,0,88,121,21,13,5,9
+1,Dr. Manuel Belgrano,14,645,318,3,2,0,97,121,12,11,5,6
+1,Dr. Manuel Belgrano,14,646,320,1,5,0,86,115,21,12,6,4
+1,Dr. Manuel Belgrano,14,647,318,2,9,0,102,113,22,2,5,4
+1,Dr. Manuel Belgrano,14,648,318,0,2,0,102,118,18,6,6,6
+1,Dr. Manuel Belgrano,14,649,317,1,0,0,88,126,15,9,13,6
+1,Dr. Manuel Belgrano,14,650,320,4,3,0,93,134,18,9,6,8
+1,Dr. Manuel Belgrano,16,652,316,6,4,0,121,84,15,2,5,4
+1,Dr. Manuel Belgrano,17,653,81,1,1,0,35,20,3,0,4,1
+1,Dr. Manuel Belgrano,18,654,316,1,2,0,61,153,16,4,3,10
+1,Dr. Manuel Belgrano,18,655,314,4,3,2,51,172,5,7,7,6
+1,Dr. Manuel Belgrano,18,656,315,1,1,0,62,164,15,2,6,2
+1,Dr. Manuel Belgrano,18,657,316,0,3,0,69,149,13,6,6,7
+1,Dr. Manuel Belgrano,18,658,315,1,2,0,60,156,17,4,3,6
+1,Dr. Manuel Belgrano,18,659,315,2,3,0,70,158,13,3,4,6
+1,Dr. Manuel Belgrano,18,660,315,1,2,0,76,146,15,3,5,3
+1,Dr. Manuel Belgrano,18,661,319,1,4,0,79,164,15,1,1,1
+1,Dr. Manuel Belgrano,18,662,315,1,2,0,53,175,6,3,1,6
+1,Dr. Manuel Belgrano,18,663,315,0,1,0,63,174,24,2,1,8
+1,Dr. Manuel Belgrano,18,664,316,0,2,0,59,167,9,1,8,8
+1,Dr. Manuel Belgrano,18,665,315,1,0,0,68,158,12,7,1,1
+1,Dr. Manuel Belgrano,18,666,314,1,3,0,73,145,23,6,2,9
+1,Dr. Manuel Belgrano,18,667,315,3,0,0,77,152,19,3,0,6
+1,Dr. Manuel Belgrano,18,668,316,0,2,0,62,163,14,7,5,6
+1,Dr. Manuel Belgrano,18,669,315,4,2,1,69,146,13,6,2,8
+1,Dr. Manuel Belgrano,18,670,315,2,6,0,65,150,14,10,2,4
+1,Dr. Manuel Belgrano,18,671,316,0,2,0,61,179,10,0,5,4
+1,Dr. Manuel Belgrano,18,672,316,0,3,0,65,156,13,6,1,2
+1,Dr. Manuel Belgrano,18,673,313,3,1,0,77,142,12,4,4,7
+1,Dr. Manuel Belgrano,18,674,312,2,0,0,87,141,15,1,5,2
+1,Dr. Manuel Belgrano,18,675,319,1,1,0,62,162,14,1,7,8
+1,Dr. Manuel Belgrano,19,676,284,3,2,0,105,100,16,8,3,2
+1,Dr. Manuel Belgrano,19,677,284,1,1,1,104,90,21,4,8,3
+1,Dr. Manuel Belgrano,19,678,282,1,1,0,111,108,19,5,4,0
+1,Dr. Manuel Belgrano,19,679,283,1,4,0,93,90,23,5,2,6
+1,Dr. Manuel Belgrano,19,680,281,2,0,0,109,100,17,3,2,7
+1,Dr. Manuel Belgrano,19,681,281,3,1,0,103,96,21,3,6,1
+1,Dr. Manuel Belgrano,19,682,283,2,2,0,99,106,24,0,6,4
+1,Dr. Manuel Belgrano,19,683,287,0,4,0,83,102,27,10,3,4
+1,Dr. Manuel Belgrano,20,684,124,2,1,0,58,20,7,4,1,0
+1,Dr. Manuel Belgrano,21,686,302,1,1,1,121,98,19,2,3,1
+1,Dr. Manuel Belgrano,21,687,301,2,1,0,101,105,31,1,5,6
+1,Dr. Manuel Belgrano,21,688,302,2,3,0,99,123,20,0,1,5
+1,Dr. Manuel Belgrano,21,689,302,0,1,1,101,125,14,3,3,2
+1,Dr. Manuel Belgrano,21,690,301,3,3,1,111,97,22,4,6,2
+1,Dr. Manuel Belgrano,21,691,300,2,1,1,100,121,14,3,3,4
+1,Dr. Manuel Belgrano,21,693,305,1,2,1,98,130,15,2,4,4
+2,Palpalá,22,694,316,2,3,0,123,93,26,6,11,6
+2,Palpalá,22,695,316,3,0,0,118,111,14,5,9,11
+2,Palpalá,22,696,317,3,3,0,125,98,23,6,7,14
+2,Palpalá,22,697,317,0,0,0,120,107,17,7,6,10
+2,Palpalá,22,698,318,1,4,0,102,141,27,0,2,6
+2,Palpalá,22,700,317,1,1,0,110,124,21,6,2,7
+2,Palpalá,22,701,316,0,3,0,88,130,29,4,6,9
+2,Palpalá,22,702,323,0,4,0,140,95,18,7,6,2
+2,Palpalá,22,703,317,4,0,0,119,98,24,17,3,5
+2,Palpalá,22,704,317,2,3,0,86,112,33,9,11,7
+2,Palpalá,22,705,316,2,2,0,107,119,25,8,9,12
+2,Palpalá,22,706,317,4,0,0,89,134,16,11,13,5
+2,Palpalá,22,707,317,0,0,0,102,116,24,6,4,6
+2,Palpalá,22,708,317,3,4,0,111,113,18,6,5,9
+2,Palpalá,22,709,317,3,0,0,118,107,23,5,8,5
+2,Palpalá,22,710,315,0,0,0,105,112,15,7,11,5
+2,Palpalá,22,711,316,0,3,0,112,119,23,3,3,10
+2,Palpalá,22,712,320,2,4,0,108,107,16,10,12,12
+2,Palpalá,22,713,316,1,1,0,128,90,25,7,10,3
+2,Palpalá,22,714,316,0,1,1,115,105,26,4,12,8
+2,Palpalá,22,715,315,2,1,0,89,127,23,11,7,4
+2,Palpalá,22,716,316,2,2,0,136,89,17,7,12,11
+2,Palpalá,22,717,316,2,6,1,128,103,19,4,5,8
+2,Palpalá,22,718,318,0,4,0,118,102,19,12,7,4
+2,Palpalá,22,719,316,4,1,0,87,121,15,11,7,8
+2,Palpalá,22,720,315,0,4,1,102,115,27,12,1,11
+2,Palpalá,22,721,317,3,7,0,91,125,17,7,11,11
+2,Palpalá,22,723,316,0,3,0,112,94,24,8,5,8
+2,Palpalá,22,725,318,1,4,0,126,99,18,8,5,8
+2,Palpalá,22,726,318,0,7,0,122,95,22,15,7,6
+2,Palpalá,22,727,318,3,0,1,114,124,11,7,10,5
+2,Palpalá,22,728,319,0,2,1,112,126,12,1,6,7
+2,Palpalá,22,729,316,0,4,0,114,100,17,13,7,6
+2,Palpalá,22,730,316,4,1,0,108,106,16,10,7,9
+2,Palpalá,22,731,316,1,4,0,115,101,24,16,11,4
+2,Palpalá,22,732,318,0,2,0,119,106,16,9,8,7
+2,Palpalá,22,733,318,2,0,0,101,101,20,6,13,3
+2,Palpalá,22,734,318,1,2,0,106,119,15,11,8,9
+2,Palpalá,22,735,317,3,1,0,99,105,21,6,8,6
+2,Palpalá,22,736,318,0,5,0,122,111,20,6,6,10
+2,Palpalá,22,737,316,3,4,0,101,101,21,5,9,17
+2,Palpalá,22,738,317,1,1,0,133,108,16,6,4,11
+2,Palpalá,22,739,317,2,5,0,94,122,13,6,3,7
+2,Palpalá,22,740,322,1,0,0,111,106,16,4,8,10
+2,Palpalá,22,741,315,2,1,0,115,112,17,8,6,6
+2,Palpalá,22,742,318,1,4,0,120,91,29,8,10,3
+2,Palpalá,22,743,314,5,0,0,118,107,13,11,1,6
+2,Palpalá,22,744,317,0,3,0,113,108,24,6,5,7
+2,Palpalá,22,745,317,7,5,0,115,103,28,4,5,7
+2,Palpalá,22,746,318,2,1,0,127,96,22,6,9,14
+2,Palpalá,22,747,315,4,14,0,134,91,0,3,4,5
+2,Palpalá,22,748,316,0,2,0,105,108,23,9,6,3
+2,Palpalá,22,749,317,0,3,1,111,117,16,5,3,7
+2,Palpalá,22,750,318,3,1,0,119,97,26,7,6,9
+2,Palpalá,22,751,318,1,4,0,106,108,32,5,4,3
+2,Palpalá,22,752,317,4,6,0,112,105,24,4,7,4
+2,Palpalá,22,753,320,0,6,0,124,104,22,9,7,8
+2,Palpalá,22,754,315,2,3,0,113,117,20,4,4,9
+2,Palpalá,22,755,315,4,2,0,96,123,20,3,8,5
+2,Palpalá,22,756,317,3,5,0,125,97,30,7,6,7
+2,Palpalá,22,757,317,2,4,0,105,95,25,6,8,8
+2,Palpalá,22,758,316,1,2,0,83,134,14,3,2,5
+2,Palpalá,22,759,317,3,2,0,96,147,16,1,7,12
+2,Palpalá,22,760,318,4,0,0,112,110,22,4,5,6
+2,Palpalá,22,761,317,3,4,1,114,96,15,7,7,9
+2,Palpalá,22,762,317,1,1,0,93,133,19,7,8,8
+2,Palpalá,22,763,317,7,6,1,109,100,26,7,5,7
+2,Palpalá,22,764,316,2,1,0,80,123,23,9,10,8
+2,Palpalá,22,765,317,1,2,0,105,108,21,2,8,9
+2,Palpalá,22,766,321,4,6,0,121,99,16,2,8,10
+2,Palpalá,22,767,316,2,3,0,124,87,27,10,8,5
+2,Palpalá,22,768,315,2,6,0,119,100,24,3,9,7
+2,Palpalá,22,769,318,3,3,0,117,102,22,10,8,9
+2,Palpalá,22,770,317,1,5,0,118,107,24,3,1,2
+2,Palpalá,22,771,317,2,6,0,92,112,16,13,7,14
+2,Palpalá,22,772,317,1,6,0,102,116,23,6,7,3
+2,Palpalá,22,773,316,1,8,0,103,117,14,11,3,9
+2,Palpalá,22,774,315,3,2,1,111,118,14,4,5,3
+2,Palpalá,22,775,316,3,3,0,129,94,29,6,6,2
+2,Palpalá,22,776,318,1,4,0,104,107,25,7,10,10
+2,Palpalá,22,777,317,1,4,0,93,128,21,6,7,9
+2,Palpalá,22,778,317,0,2,0,96,127,23,3,5,3
+2,Palpalá,22,779,324,2,2,0,94,132,26,5,7,6
+2,Palpalá,22,780,317,0,2,0,112,124,21,4,10,7
+2,Palpalá,22,781,317,2,6,0,121,92,17,10,8,10
+2,Palpalá,22,782,318,4,6,0,143,73,20,11,6,9
+2,Palpalá,22,783,316,3,2,0,123,108,20,5,2,4
+2,Palpalá,22,784,316,0,1,0,116,100,30,4,6,8
+2,Palpalá,22,785,317,0,4,0,90,122,22,11,9,10
+2,Palpalá,22,786,315,2,2,0,117,117,10,6,2,5
+2,Palpalá,22,787,317,4,1,0,109,124,17,4,3,1
+2,Palpalá,22,788,317,3,0,0,109,105,21,5,4,11
+2,Palpalá,22,789,316,3,1,0,127,102,19,4,8,8
+2,Palpalá,22,791,315,3,5,0,105,106,23,11,6,5
+2,Palpalá,22,792,321,2,1,0,118,109,19,2,4,12
+2,Palpalá,22,793,316,4,3,0,116,96,18,6,6,15
+2,Palpalá,22,794,315,3,4,0,129,99,13,6,5,7
+2,Palpalá,22,795,317,1,4,0,120,98,17,2,10,6
+2,Palpalá,22,796,317,4,0,1,83,115,23,4,7,13
+2,Palpalá,22,797,314,0,6,0,107,110,22,7,6,10
+2,Palpalá,22,798,315,1,3,0,89,126,22,8,8,7
+2,Palpalá,22,799,314,3,5,0,102,98,21,9,10,6
+2,Palpalá,22,800,315,2,1,0,112,104,24,8,5,9
+2,Palpalá,22,801,315,0,0,0,111,107,24,7,3,10
+2,Palpalá,22,802,317,0,3,0,102,129,12,6,4,9
+2,Palpalá,22,803,317,5,2,0,110,105,25,7,6,11
+2,Palpalá,22,804,320,0,3,0,115,112,16,5,12,9
+2,Palpalá,22,805,317,3,2,0,96,129,19,8,6,5
+2,Palpalá,22,806,315,0,3,0,120,87,34,6,5,7
+2,Palpalá,22,807,317,2,0,1,108,109,15,20,12,8
+2,Palpalá,22,808,317,2,4,0,157,70,17,8,4,4
+2,Palpalá,22,809,316,3,0,0,147,87,16,5,6,7
+2,Palpalá,22,810,317,1,2,0,137,98,19,5,7,6
+2,Palpalá,22,811,315,1,6,0,100,116,13,8,10,8
+2,Palpalá,22,812,316,1,2,0,122,115,9,7,7,5
+2,Palpalá,22,813,316,6,2,0,115,109,29,6,8,2
+2,Palpalá,22,814,316,0,4,0,106,130,15,4,4,6
+2,Palpalá,22,815,317,2,0,0,112,124,13,6,8,4
+2,Palpalá,22,816,320,0,2,0,91,113,27,9,6,11
+2,Palpalá,22,817,317,4,7,0,109,110,14,9,6,5
+2,Palpalá,22,818,314,2,1,0,94,121,23,12,5,4
+2,Palpalá,22,819,317,3,1,0,116,96,21,9,10,4
+2,Palpalá,22,820,316,0,2,0,102,116,20,8,6,7
+2,Palpalá,22,821,315,0,4,0,120,96,24,13,11,9
+2,Palpalá,22,822,321,1,4,0,119,105,29,2,9,1
+2,Palpalá,22,823,317,3,0,0,106,128,20,3,4,12
+2,Palpalá,22,824,317,0,0,0,119,124,15,6,5,4
+2,Palpalá,22,825,317,0,5,0,105,111,21,6,12,10
+2,Palpalá,22,826,315,0,3,0,117,107,19,7,6,6
+2,Palpalá,22,827,315,1,1,0,91,131,26,2,8,9
+2,Palpalá,22,828,316,3,2,0,124,107,21,5,2,7
+2,Palpalá,22,829,317,2,4,0,117,103,23,7,3,5
+2,Palpalá,22,830,317,2,2,0,87,114,32,8,5,15
+2,Palpalá,22,831,317,1,4,0,99,113,18,7,5,13
+2,Palpalá,22,832,319,2,0,2,119,102,24,9,11,6
+2,Palpalá,23,833,191,3,3,0,75,46,15,5,4,2
+2,Palpalá,23,834,195,0,2,0,69,58,6,5,2,2
+2,Palpalá,24,835,230,4,1,0,99,49,16,4,3,4
+2,Palpalá,24,836,234,2,1,0,113,50,11,3,4,1
+3,San Antonio,25A,837,283,1,4,0,84,125,13,4,1,3
+3,San Antonio,25A,838,281,0,3,5,79,133,14,3,0,0
+3,San Antonio,25A,839,291,0,0,0,0,117,0,7,4,2
+3,San Antonio,25A,840,283,3,2,0,93,124,12,7,3,1
+3,San Antonio,25A,841,282,9,1,0,88,121,2,4,2,3
+3,San Antonio,25A,842,282,1,1,0,92,101,14,16,3,4
+3,San Antonio,25A,843,282,2,3,0,93,113,7,7,5,6
+3,San Antonio,25B,844,299,3,5,1,115,111,12,3,4,4
+3,San Antonio,25B,845,299,2,3,0,124,86,17,4,2,6
+3,San Antonio,25B,846,298,2,4,0,121,93,13,8,6,6
+3,San Antonio,25B,847,297,4,5,0,100,111,20,9,1,2
+3,San Antonio,25B,848,298,3,2,0,135,103,10,7,6,0
+3,San Antonio,25B,849,303,0,4,0,118,110,20,4,3,4
+3,San Antonio,26,850,186,2,1,0,50,68,9,8,0,0
+3,San Antonio,27,851,217,1,2,1,64,81,10,6,7,6
+3,San Antonio,27,852,222,1,2,0,63,91,19,2,1,1
+4,El Carmen,28,853,316,4,6,0,134,100,14,13,6,6
+4,El Carmen,28,854,315,1,2,0,98,144,20,4,5,2
+4,El Carmen,28,855,314,2,3,1,97,133,13,12,2,8
+4,El Carmen,28,856,317,1,5,0,122,83,20,13,9,6
+4,El Carmen,28,857,317,3,6,0,89,133,17,8,2,3
+4,El Carmen,28,858,316,0,5,0,125,116,12,5,1,5
+4,El Carmen,28,859,317,2,2,0,110,121,20,7,2,5
+4,El Carmen,28,860,316,1,0,0,109,120,18,9,7,6
+4,El Carmen,28,861,316,0,2,0,97,155,10,5,2,4
+4,El Carmen,28,862,316,1,1,0,140,101,17,14,6,1
+4,El Carmen,28,863,315,4,5,0,100,124,14,4,4,7
+4,El Carmen,28,864,322,1,3,0,113,123,20,9,4,5
+4,El Carmen,28,865,316,1,5,0,103,110,19,9,2,2
+4,El Carmen,28,866,316,0,1,0,127,118,14,5,1,2
+4,El Carmen,28,867,316,1,2,0,121,121,11,5,4,5
+4,El Carmen,28,868,317,2,2,0,103,131,21,7,9,5
+4,El Carmen,28,869,317,4,3,1,121,115,11,10,6,4
+4,El Carmen,28,870,316,0,6,0,104,126,15,11,7,6
+4,El Carmen,28,871,313,3,2,0,106,112,25,8,6,4
+4,El Carmen,28,872,315,0,2,0,128,110,21,3,3,7
+4,El Carmen,28,873,320,0,4,0,115,126,12,3,6,6
+4,El Carmen,28,874,316,0,2,0,145,95,15,4,4,5
+4,El Carmen,28,875,314,2,2,1,111,114,18,13,0,3
+4,El Carmen,28,876,315,1,7,0,118,105,14,24,3,3
+4,El Carmen,28,877,314,0,1,0,126,100,23,7,6,7
+4,El Carmen,28,878,315,0,2,0,121,112,15,14,5,1
+4,El Carmen,28,879,316,0,2,0,137,100,23,6,3,4
+4,El Carmen,28,880,316,3,3,0,95,129,26,5,5,3
+4,El Carmen,28,881,315,1,5,0,113,114,16,13,4,5
+4,El Carmen,28,882,315,0,0,0,114,118,13,13,4,3
+4,El Carmen,28,883,316,1,0,0,119,113,14,13,4,2
+4,El Carmen,28,884,317,0,6,0,116,115,12,10,7,6
+4,El Carmen,28,885,316,0,1,0,100,134,12,7,3,5
+4,El Carmen,28,886,315,0,11,0,115,102,17,11,3,4
+4,El Carmen,28,887,314,4,3,0,136,110,14,4,6,2
+4,El Carmen,28,888,315,1,2,0,115,121,10,8,6,1
+4,El Carmen,28,889,316,3,4,2,89,137,15,16,4,3
+4,El Carmen,28,890,315,1,2,1,101,104,26,7,7,5
+4,El Carmen,28,891,316,1,2,0,99,141,16,7,1,5
+4,El Carmen,28,892,316,1,5,0,118,101,16,18,5,5
+4,El Carmen,28,893,313,6,2,0,128,93,21,8,10,3
+4,El Carmen,28,894,316,1,0,1,110,116,10,8,2,6
+4,El Carmen,28,895,319,0,2,0,110,125,16,11,4,1
+4,El Carmen,29,896,322,0,3,0,137,92,17,7,3,3
+4,El Carmen,30,897,245,1,0,1,61,99,25,7,5,0
+4,El Carmen,30,898,244,1,1,0,106,76,6,2,3,1
+4,El Carmen,30,899,244,0,2,1,102,69,9,10,11,0
+4,El Carmen,30,900,250,1,1,2,87,76,24,6,2,1
+4,El Carmen,31,901,319,3,0,0,107,134,18,2,9,6
+4,El Carmen,31,902,319,5,4,0,100,126,17,1,7,7
+4,El Carmen,31,903,319,1,1,0,107,99,22,16,9,9
+4,El Carmen,31,904,319,2,0,0,97,132,22,6,6,9
+4,El Carmen,31,905,325,1,3,0,123,105,19,9,6,5
+4,El Carmen,31,906,319,0,1,4,133,103,18,11,5,1
+4,El Carmen,31,907,316,2,2,0,98,128,17,7,8,9
+4,El Carmen,31,908,318,0,4,0,130,93,19,4,9,6
+4,El Carmen,31,909,319,3,3,0,115,103,17,13,7,4
+4,El Carmen,31,910,318,1,2,0,121,117,22,4,5,3
+4,El Carmen,31,911,320,1,2,0,115,108,22,14,3,5
+4,El Carmen,31,912,319,3,0,0,150,87,19,9,8,4
+4,El Carmen,31,913,319,1,0,0,112,128,0,2,3,9
+4,El Carmen,31,914,319,3,4,0,124,98,26,4,4,12
+4,El Carmen,31,915,318,0,5,0,87,145,17,0,4,5
+4,El Carmen,31,916,318,0,0,1,97,126,22,5,4,5
+4,El Carmen,31,917,318,2,1,0,116,112,20,4,8,1
+4,El Carmen,31,918,321,0,4,1,117,102,22,12,6,5
+4,El Carmen,31,919,314,1,0,0,130,95,15,4,1,5
+4,El Carmen,31,920,319,1,3,0,93,118,28,10,6,7
+4,El Carmen,31,921,319,2,2,0,132,102,19,7,6,4
+4,El Carmen,31,922,317,1,2,0,118,117,21,3,8,2
+4,El Carmen,31,923,318,3,6,0,99,123,9,14,4,8
+4,El Carmen,31,924,319,2,3,0,132,101,17,8,7,4
+4,El Carmen,31,925,324,1,4,0,113,113,25,5,6,3
+4,El Carmen,31,926,320,3,6,0,103,100,25,8,6,6
+4,El Carmen,31,927,319,7,0,0,109,126,8,7,7,4
+4,El Carmen,31,928,319,2,4,0,125,106,18,17,4,5
+4,El Carmen,31,929,319,0,6,0,121,113,16,10,8,7
+4,El Carmen,31,930,319,0,2,1,119,99,17,11,3,5
+4,El Carmen,31,931,318,1,1,0,122,108,14,10,2,9
+4,El Carmen,31,932,318,2,1,0,116,120,21,3,8,6
+4,El Carmen,31,933,317,2,8,1,123,104,19,4,3,6
+4,El Carmen,31,935,319,0,4,0,137,91,18,8,15,3
+4,El Carmen,31,936,319,1,4,0,112,117,11,8,8,5
+4,El Carmen,31,937,319,0,2,0,119,107,20,6,8,7
+4,El Carmen,31,938,324,1,0,0,112,123,20,5,3,9
+4,El Carmen,31,939,320,4,0,1,126,104,16,5,8,5
+4,El Carmen,31,940,317,1,0,0,114,117,25,5,4,5
+4,El Carmen,31,941,319,0,2,0,97,133,21,3,6,5
+4,El Carmen,31,942,318,2,4,0,124,110,13,6,3,2
+4,El Carmen,31,943,319,1,0,1,127,86,16,9,3,8
+4,El Carmen,31,944,318,0,3,0,131,103,11,2,4,10
+4,El Carmen,31,945,319,2,5,0,132,106,18,4,6,5
+4,El Carmen,31,947,319,1,3,0,138,90,21,8,7,3
+4,El Carmen,31,948,319,0,3,0,111,128,16,6,7,5
+4,El Carmen,31,949,319,0,3,0,135,107,10,3,5,9
+4,El Carmen,31,950,318,0,1,0,135,88,20,11,4,6
+4,El Carmen,31,951,319,0,2,0,111,122,7,15,4,8
+4,El Carmen,31,952,318,1,4,0,100,125,17,6,6,4
+4,El Carmen,31,953,318,0,0,0,121,112,15,6,9,7
+4,El Carmen,31,954,319,2,2,0,125,102,17,11,5,9
+4,El Carmen,31,955,319,1,3,1,109,125,16,7,9,4
+4,El Carmen,31,956,318,6,1,3,142,94,10,12,4,6
+4,El Carmen,31,957,317,1,0,0,113,116,17,6,6,3
+4,El Carmen,31,958,319,4,2,0,110,108,22,9,8,6
+4,El Carmen,31,959,318,0,1,0,105,121,17,7,6,2
+4,El Carmen,31,960,318,2,2,0,119,123,12,8,1,7
+4,El Carmen,31,961,316,1,5,0,98,130,24,9,2,6
+4,El Carmen,31,962,318,1,5,0,122,102,13,4,5,4
+4,El Carmen,31,963,319,4,6,0,117,110,13,13,8,1
+4,El Carmen,31,964,317,2,2,0,126,86,29,6,7,2
+4,El Carmen,31,965,318,4,3,0,115,105,27,7,6,5
+4,El Carmen,31,966,325,3,4,3,130,109,11,12,9,10
+4,El Carmen,31,967,319,1,3,0,120,101,20,7,7,9
+4,El Carmen,31,968,318,0,1,0,111,116,6,8,3,1
+4,El Carmen,31,969,318,0,2,0,106,115,24,3,4,5
+4,El Carmen,31,970,318,1,3,1,140,94,22,2,11,8
+4,El Carmen,31,971,318,1,3,0,120,103,23,10,7,4
+4,El Carmen,31,972,317,2,0,0,109,131,12,8,6,5
+4,El Carmen,31,973,318,0,2,0,87,136,18,7,5,8
+4,El Carmen,31,974,318,0,2,0,106,125,20,3,3,8
+4,El Carmen,31,975,317,0,3,0,122,100,22,6,6,6
+4,El Carmen,31,976,317,3,3,0,134,96,7,9,6,7
+4,El Carmen,31,977,319,1,5,0,117,111,11,7,5,9
+4,El Carmen,31,978,316,2,8,0,130,115,8,8,4,4
+4,El Carmen,31,979,318,5,6,0,139,99,17,8,3,5
+4,El Carmen,31,980,317,3,1,0,124,101,23,5,5,3
+4,El Carmen,31,981,318,4,3,0,111,118,20,2,6,3
+4,El Carmen,31,982,318,0,7,0,142,91,24,3,5,10
+4,El Carmen,31,983,317,0,1,0,135,97,17,11,7,4
+4,El Carmen,31,984,317,3,5,0,133,80,27,6,3,3
+4,El Carmen,31,985,316,2,4,0,141,82,18,8,7,4
+4,El Carmen,31,986,318,3,0,0,122,110,15,13,4,6
+4,El Carmen,31,987,318,2,2,0,110,106,23,7,7,4
+4,El Carmen,31,988,318,2,1,0,104,135,19,3,4,7
+4,El Carmen,31,989,317,1,1,0,106,126,14,8,5,9
+4,El Carmen,31,990,318,4,0,0,102,140,16,4,5,6
+4,El Carmen,31,991,319,0,3,0,117,122,22,1,4,4
+4,El Carmen,31,992,318,6,1,0,117,124,9,8,2,5
+4,El Carmen,31,993,318,0,4,0,127,116,20,5,4,5
+4,El Carmen,31,994,315,1,2,2,107,109,16,13,7,6
+4,El Carmen,31,995,317,0,0,0,115,128,13,7,6,4
+4,El Carmen,31,996,318,0,5,0,116,101,19,9,8,3
+4,El Carmen,31,997,316,1,1,0,112,114,19,9,7,5
+4,El Carmen,31,998,318,2,1,0,132,96,16,6,0,3
+4,El Carmen,31,999,317,1,1,0,106,116,20,3,7,6
+4,El Carmen,31,1000,318,4,4,2,123,105,12,3,6,10
+4,El Carmen,31,1001,317,1,2,0,116,116,17,8,2,6
+4,El Carmen,31,1002,318,0,2,0,125,115,18,4,3,5
+4,El Carmen,31,1003,318,10,3,0,121,115,10,8,6,10
+4,El Carmen,31,1004,318,2,2,0,114,124,19,6,10,7
+4,El Carmen,31,1005,323,0,3,0,121,109,17,2,3,5
+4,El Carmen,31,1006,317,3,5,0,131,87,28,6,2,8
+4,El Carmen,31,1007,316,2,6,0,134,84,21,8,13,6
+4,El Carmen,31,1008,318,0,4,0,145,92,10,12,5,9
+4,El Carmen,31,1009,316,6,3,1,119,105,15,4,6,2
+4,El Carmen,31,1010,318,2,3,0,116,123,15,4,5,2
+4,El Carmen,31,1011,315,0,4,0,146,78,19,10,2,2
+4,El Carmen,31,1012,317,1,0,0,127,120,15,4,4,8
+4,El Carmen,31,1013,318,0,4,0,134,117,14,3,7,7
+4,El Carmen,31,1014,315,0,8,0,107,102,27,9,3,13
+4,El Carmen,31,1015,318,3,4,0,122,102,8,9,7,7
+4,El Carmen,31,1016,317,1,4,0,120,114,10,0,8,7
+4,El Carmen,31,1017,318,2,1,0,108,121,19,8,0,7
+4,El Carmen,31,1018,318,0,0,0,127,117,17,2,12,7
+4,El Carmen,31,1019,322,3,2,0,125,101,13,12,6,3
+4,El Carmen,32,1020,316,0,3,0,119,108,14,9,9,1
+4,El Carmen,32,1021,317,2,8,0,136,94,15,4,3,2
+4,El Carmen,32,1022,315,1,3,0,113,111,14,8,4,5
+4,El Carmen,32,1023,317,4,1,0,137,106,12,8,3,0
+4,El Carmen,32,1024,317,0,2,0,120,110,12,6,5,4
+4,El Carmen,32,1025,317,0,0,0,111,139,8,5,1,5
+4,El Carmen,32,1026,318,0,5,1,125,103,21,1,5,1
+4,El Carmen,32,1027,318,1,2,0,122,109,16,14,5,4
+4,El Carmen,32,1028,317,0,1,0,158,76,12,4,6,2
+4,El Carmen,32,1029,319,1,4,0,140,87,16,4,3,2
+4,El Carmen,32,1030,318,1,2,0,138,73,17,19,8,3
+4,El Carmen,32,1031,318,1,0,1,149,86,16,5,6,1
+4,El Carmen,32,1032,317,3,4,0,180,65,14,5,3,3
+4,El Carmen,32,1033,318,0,4,2,138,98,15,11,2,2
+4,El Carmen,32,1034,317,1,0,0,130,118,13,6,8,3
+4,El Carmen,32,1035,318,0,3,0,130,111,11,9,2,3
+4,El Carmen,32,1036,314,1,5,0,124,101,9,9,5,2
+4,El Carmen,32,1037,318,3,0,2,154,65,19,10,9,2
+4,El Carmen,32,1038,317,0,2,0,144,97,11,7,3,5
+4,El Carmen,32,1039,317,4,5,0,115,109,16,13,3,3
+4,El Carmen,32,1040,317,0,0,0,147,83,12,15,3,2
+4,El Carmen,32,1041,317,3,6,0,159,84,9,3,1,4
+4,El Carmen,32,1042,329,1,1,0,107,126,8,11,8,4
+4,El Carmen,32,1043,317,1,2,5,128,101,15,6,2,1
+4,El Carmen,32,1044,315,1,0,0,139,85,13,9,5,3
+4,El Carmen,32,1045,317,1,2,0,102,110,14,16,5,2
+4,El Carmen,32,1046,315,1,1,0,143,85,14,7,3,2
+4,El Carmen,32,1048,319,1,2,0,143,85,16,9,3,1
+4,El Carmen,32,1049,316,1,3,0,119,125,16,1,5,1
+4,El Carmen,32,1050,316,2,6,0,129,121,6,8,3,0
+4,El Carmen,32,1051,316,0,1,1,118,107,13,9,11,4
+4,El Carmen,32,1053,317,1,4,0,149,78,12,9,3,4
+4,El Carmen,32,1054,317,1,1,0,148,85,12,10,8,5
+4,El Carmen,32,1055,316,1,3,0,150,91,13,5,3,1
+4,El Carmen,32,1056,317,1,4,0,130,111,16,3,3,3
+4,El Carmen,32,1057,318,0,1,0,119,100,18,3,6,4
+4,El Carmen,32,1058,315,0,2,0,140,82,16,9,7,5
+4,El Carmen,32,1059,316,0,0,0,135,98,21,5,10,1
+4,El Carmen,32,1060,315,2,2,0,126,99,14,6,6,5
+4,El Carmen,32,1061,317,0,2,0,152,78,18,6,5,2
+4,El Carmen,32,1062,317,0,0,0,162,72,11,13,5,3
+4,El Carmen,32,1063,317,0,2,0,112,118,19,8,6,1
+4,El Carmen,32,1064,315,1,4,0,133,94,11,8,2,2
+4,El Carmen,32,1065,316,0,5,0,122,117,11,7,3,3
+4,El Carmen,32,1066,317,0,4,0,126,89,17,12,8,6
+4,El Carmen,32,1067,320,0,2,0,130,106,10,4,9,1
+4,El Carmen,33A,1068,317,6,3,0,129,108,11,9,4,0
+4,El Carmen,33A,1069,317,2,1,0,114,121,16,3,3,2
+4,El Carmen,33A,1070,317,0,2,0,125,110,17,5,4,2
+4,El Carmen,33A,1071,316,2,1,0,139,104,8,7,10,3
+4,El Carmen,33A,1072,315,1,1,0,122,117,18,8,3,4
+4,El Carmen,33A,1073,317,5,0,0,122,125,15,4,5,1
+4,El Carmen,33A,1074,321,0,2,0,127,122,10,8,1,7
+4,El Carmen,33B,1075,256,9,3,0,121,61,15,7,2,3
+4,El Carmen,33B,1076,256,5,1,0,123,73,5,6,4,4
+4,El Carmen,33B,1077,266,5,2,0,104,90,10,10,4,2
+4,El Carmen,34,1078,296,0,3,0,104,115,18,10,6,1
+4,El Carmen,34,1079,296,4,3,0,128,85,11,16,2,1
+4,El Carmen,34,1080,294,29,1,0,73,122,6,17,4,6
+4,El Carmen,34,1081,296,2,0,0,147,84,10,6,3,1
+4,El Carmen,34,1082,294,2,3,1,12,78,11,8,0,0
+4,El Carmen,34,1083,295,1,0,0,158,72,9,12,3,2
+4,El Carmen,34,1084,295,2,4,0,126,92,11,11,2,2
+4,El Carmen,34,1085,295,0,1,0,128,94,11,9,3,2
+4,El Carmen,34,1086,295,1,0,0,134,77,9,18,5,1
+4,El Carmen,34,1087,295,0,0,0,143,81,12,11,2,3
+4,El Carmen,34,1088,296,0,2,0,139,75,9,15,2,2
+4,El Carmen,35,1089,309,2,0,0,123,96,19,8,6,0
+4,El Carmen,35,1090,309,4,0,0,123,92,28,15,5,4
+4,El Carmen,35,1091,310,2,4,0,139,79,20,4,0,0
+4,El Carmen,35,1092,310,4,1,0,111,115,18,8,5,1
+4,El Carmen,35,1093,310,0,1,0,122,109,19,5,3,0
+4,El Carmen,35,1094,310,7,0,0,122,107,19,11,2,0
+4,El Carmen,35,1095,310,1,0,0,114,96,20,10,2,1
+4,El Carmen,35,1096,309,7,0,0,109,110,16,8,3,1
+4,El Carmen,35,1097,313,4,0,0,99,108,18,23,4,1
+5,San Pedro,36,1098,319,1,4,0,131,91,18,3,6,4
+5,San Pedro,36,1099,318,1,3,0,137,94,9,2,5,5
+5,San Pedro,36,1100,319,4,2,0,141,82,14,3,7,3
+5,San Pedro,36,1101,317,2,6,0,122,75,20,4,10,8
+5,San Pedro,36,1102,319,3,2,0,143,97,14,2,4,5
+5,San Pedro,36,1103,317,0,2,0,147,85,11,4,5,3
+5,San Pedro,36,1104,318,4,2,2,125,99,18,4,4,7
+5,San Pedro,36,1105,319,2,1,2,122,109,11,7,4,5
+5,San Pedro,36,1106,317,1,5,1,125,103,15,3,4,7
+5,San Pedro,36,1107,317,6,8,0,143,71,20,1,6,8
+5,San Pedro,36,1108,317,0,3,0,149,85,16,4,4,4
+5,San Pedro,36,1109,319,1,2,0,125,107,8,7,2,4
+5,San Pedro,36,1110,322,2,2,0,114,110,23,5,7,4
+5,San Pedro,36,1111,319,3,3,0,138,96,12,6,2,5
+5,San Pedro,36,1112,319,1,3,0,151,82,12,5,9,5
+5,San Pedro,36,1113,319,2,0,0,133,91,5,13,6,7
+5,San Pedro,36,1114,318,5,0,1,126,94,15,3,7,2
+5,San Pedro,36,1115,318,0,4,0,152,86,15,2,5,0
+5,San Pedro,36,1116,317,5,1,0,127,99,14,5,9,6
+5,San Pedro,36,1117,318,2,3,0,144,92,9,3,3,5
+5,San Pedro,36,1118,317,15,4,0,97,110,15,2,2,4
+5,San Pedro,36,1119,318,3,1,0,127,94,6,1,2,6
+5,San Pedro,36,1120,317,3,2,0,120,91,17,4,2,11
+5,San Pedro,36,1121,319,2,2,0,134,85,16,10,6,6
+5,San Pedro,36,1122,324,1,0,1,174,61,17,5,5,2
+5,San Pedro,36,1123,318,1,2,0,141,99,9,3,5,5
+5,San Pedro,36,1124,316,0,2,0,166,85,8,8,1,6
+5,San Pedro,36,1125,318,2,5,0,152,85,19,1,7,7
+5,San Pedro,36,1126,316,3,3,0,156,79,8,2,9,6
+5,San Pedro,36,1127,319,0,2,0,140,95,11,8,3,5
+5,San Pedro,36,1128,319,8,3,0,124,83,18,8,8,5
+5,San Pedro,36,1129,317,0,1,0,119,107,19,5,4,6
+5,San Pedro,36,1130,318,3,6,0,141,79,13,5,7,4
+5,San Pedro,36,1131,318,0,3,0,156,76,6,9,6,3
+5,San Pedro,36,1132,317,1,0,0,132,81,9,9,6,3
+5,San Pedro,36,1133,319,0,7,0,134,112,9,3,3,4
+5,San Pedro,36,1134,323,5,2,0,155,90,11,5,5,6
+5,San Pedro,36,1135,319,0,1,0,146,85,18,2,8,2
+5,San Pedro,36,1136,319,0,2,0,108,109,9,7,3,2
+5,San Pedro,36,1137,317,2,1,1,129,88,20,1,7,7
+5,San Pedro,36,1138,318,3,4,0,156,67,14,3,3,7
+5,San Pedro,36,1139,315,2,1,0,177,72,9,1,6,1
+5,San Pedro,36,1140,316,0,2,0,123,104,9,5,2,6
+5,San Pedro,36,1141,317,3,1,0,125,101,8,11,1,7
+5,San Pedro,36,1142,317,4,2,0,143,76,11,9,5,8
+5,San Pedro,36,1143,318,5,1,0,140,94,3,6,13,4
+5,San Pedro,36,1144,317,2,3,0,124,102,18,6,9,4
+5,San Pedro,36,1145,317,1,2,0,124,112,8,2,5,7
+5,San Pedro,36,1146,316,2,4,1,136,108,8,2,1,2
+5,San Pedro,36,1147,323,4,1,0,120,109,15,6,7,2
+5,San Pedro,36,1148,316,1,1,0,125,124,10,7,6,8
+5,San Pedro,36,1149,318,1,4,0,135,91,13,9,5,4
+5,San Pedro,36,1150,316,4,1,0,162,63,15,4,2,8
+5,San Pedro,36,1151,318,2,3,0,136,93,6,6,7,3
+5,San Pedro,36,1152,316,4,1,0,151,76,15,6,8,4
+5,San Pedro,36,1153,318,2,3,0,122,95,14,5,6,5
+5,San Pedro,36,1154,317,2,2,0,134,96,17,5,6,4
+5,San Pedro,36,1155,316,1,2,0,124,83,22,2,3,6
+5,San Pedro,36,1156,316,1,1,0,129,87,16,6,8,3
+5,San Pedro,36,1157,316,1,7,0,132,76,15,7,1,3
+5,San Pedro,36,1158,315,1,0,0,144,89,17,4,5,2
+5,San Pedro,36,1159,318,1,0,0,116,119,13,7,2,5
+5,San Pedro,36,1160,326,4,2,1,142,82,19,3,7,3
+5,San Pedro,36,1161,317,3,7,0,149,72,12,4,4,2
+5,San Pedro,36,1162,317,1,3,0,136,87,17,6,4,5
+5,San Pedro,36,1163,318,5,1,0,141,85,16,8,10,4
+5,San Pedro,36,1164,315,2,1,0,128,107,8,5,7,3
+5,San Pedro,36,1165,317,3,9,0,120,86,11,10,7,4
+5,San Pedro,36,1166,316,2,1,2,140,94,11,3,5,6
+5,San Pedro,36,1167,316,2,3,0,120,91,18,4,4,5
+5,San Pedro,36,1168,318,1,3,0,146,76,12,6,5,6
+5,San Pedro,36,1169,317,1,3,0,60,59,7,2,6,4
+5,San Pedro,36,1170,316,2,4,0,108,103,17,6,6,5
+5,San Pedro,36,1171,317,2,2,0,134,96,7,5,2,7
+5,San Pedro,36,1172,317,0,6,0,139,90,17,6,5,5
+5,San Pedro,36,1173,321,1,3,0,142,79,24,2,8,3
+5,San Pedro,36,1174,318,5,4,0,143,80,18,0,7,5
+5,San Pedro,36,1175,319,1,4,0,139,91,12,9,9,5
+5,San Pedro,36,1176,317,7,0,0,134,92,15,6,7,2
+5,San Pedro,36,1177,318,4,1,0,131,101,16,4,5,7
+5,San Pedro,36,1178,316,3,2,0,135,75,17,9,5,11
+5,San Pedro,36,1179,315,1,5,1,162,61,9,8,5,1
+5,San Pedro,36,1180,316,4,3,0,148,84,17,4,2,3
+5,San Pedro,36,1181,316,2,1,0,148,99,10,0,9,8
+5,San Pedro,36,1182,318,2,2,2,159,81,7,4,2,2
+5,San Pedro,36,1183,317,3,1,0,127,98,13,8,3,1
+5,San Pedro,36,1184,318,1,3,0,130,101,16,4,7,4
+5,San Pedro,36,1185,321,2,6,0,137,87,15,10,7,2
+5,San Pedro,36,1186,318,5,6,0,129,96,21,4,1,3
+5,San Pedro,36,1187,316,2,5,0,164,73,9,4,10,0
+5,San Pedro,36,1188,317,4,2,0,134,90,15,4,3,5
+5,San Pedro,36,1189,318,0,2,0,111,119,18,6,5,7
+5,San Pedro,36,1190,317,0,0,0,146,82,15,2,3,4
+5,San Pedro,36,1191,318,1,1,0,134,85,14,6,2,8
+5,San Pedro,36,1192,318,1,7,1,142,99,13,3,5,7
+5,San Pedro,36,1193,318,0,0,0,145,88,21,3,4,3
+5,San Pedro,36,1194,318,1,3,0,134,89,16,3,3,5
+5,San Pedro,36,1195,317,2,1,0,142,60,12,7,5,4
+5,San Pedro,36,1196,317,5,0,0,129,97,15,4,10,4
+5,San Pedro,36,1197,318,3,5,0,154,77,14,4,4,4
+5,San Pedro,36,1198,323,8,4,0,145,92,15,4,4,1
+5,San Pedro,36,1199,317,1,8,0,154,67,20,3,2,5
+5,San Pedro,36,1200,317,3,2,0,140,102,9,4,4,2
+5,San Pedro,36,1201,318,1,0,0,125,109,14,6,2,5
+5,San Pedro,36,1202,317,5,0,0,108,128,5,8,7,2
+5,San Pedro,36,1203,318,1,0,0,135,109,10,5,5,1
+5,San Pedro,36,1204,317,3,5,0,139,88,14,4,4,4
+5,San Pedro,36,1205,318,0,1,0,179,62,9,4,5,5
+5,San Pedro,36,1206,318,3,1,0,147,102,10,1,3,2
+5,San Pedro,36,1207,317,1,1,0,162,81,11,4,1,2
+5,San Pedro,36,1208,315,1,5,0,135,96,15,6,3,4
+5,San Pedro,36,1209,315,3,2,0,135,96,10,1,3,7
+5,San Pedro,36,1210,315,6,0,0,138,76,22,6,8,2
+5,San Pedro,36,1211,335,5,3,0,137,81,11,5,5,2
+5,San Pedro,36,1212,317,1,2,0,139,78,14,8,8,4
+5,San Pedro,36,1213,317,2,6,0,131,95,14,1,5,5
+5,San Pedro,36,1214,316,3,3,0,128,94,11,5,3,6
+5,San Pedro,36,1215,319,4,6,0,144,93,5,8,4,3
+5,San Pedro,36,1216,314,6,0,0,143,90,8,4,3,5
+5,San Pedro,36,1217,317,5,2,0,132,111,9,0,1,4
+5,San Pedro,36,1218,317,2,0,0,138,87,11,5,5,7
+5,San Pedro,36,1219,316,2,2,0,123,117,8,4,4,4
+5,San Pedro,36,1220,317,2,4,0,130,104,10,4,3,5
+5,San Pedro,36,1221,317,0,4,0,130,95,14,7,3,1
+5,San Pedro,36,1222,316,0,13,0,128,87,16,3,6,4
+5,San Pedro,36,1223,322,4,3,0,145,93,13,3,3,4
+5,San Pedro,36,1224,316,3,2,0,150,84,8,7,4,5
+5,San Pedro,36,1225,315,1,3,0,125,86,12,9,7,7
+5,San Pedro,36,1226,318,2,3,0,130,109,10,6,0,3
+5,San Pedro,36,1227,318,3,0,0,151,83,15,6,4,7
+5,San Pedro,36,1228,318,1,5,0,146,108,12,4,5,4
+5,San Pedro,36,1229,316,3,0,0,131,100,12,6,2,5
+5,San Pedro,36,1230,317,1,3,0,127,97,16,13,4,6
+5,San Pedro,36,1231,322,4,1,0,145,85,18,6,4,7
+5,San Pedro,36,1232,318,1,2,0,160,78,20,5,4,2
+5,San Pedro,36,1233,314,1,0,1,153,74,16,10,6,7
+5,San Pedro,36,1234,317,0,6,0,116,105,10,7,1,6
+5,San Pedro,36,1235,318,5,5,0,143,91,11,8,5,2
+5,San Pedro,36,1236,316,2,3,0,117,109,19,4,6,6
+5,San Pedro,36,1237,315,4,2,0,132,82,15,7,6,5
+5,San Pedro,36,1238,318,0,5,0,131,85,16,3,7,5
+5,San Pedro,36,1239,318,11,10,0,131,90,12,9,4,2
+5,San Pedro,36,1240,317,3,1,0,131,91,24,2,8,2
+5,San Pedro,36,1241,319,5,2,0,132,91,13,3,3,4
+5,San Pedro,36,1242,318,6,2,0,132,85,16,7,4,3
+5,San Pedro,36,1243,318,3,3,0,114,105,11,2,3,8
+5,San Pedro,36,1244,316,4,2,0,141,95,11,10,4,4
+5,San Pedro,36,1245,318,2,4,0,120,110,12,8,11,5
+5,San Pedro,36,1246,317,2,2,0,139,100,13,5,3,3
+5,San Pedro,36,1247,318,0,1,0,152,88,11,3,3,1
+5,San Pedro,36,1248,318,2,1,0,139,109,9,3,6,3
+5,San Pedro,36,1249,318,1,6,0,135,84,10,6,7,4
+5,San Pedro,37,1250,295,2,3,0,142,97,7,11,4,0
+5,San Pedro,37,1251,295,0,3,0,125,102,15,4,2,0
+5,San Pedro,37,1252,296,1,2,0,157,74,8,4,3,0
+5,San Pedro,37,1253,296,3,0,0,148,93,7,7,3,5
+5,San Pedro,37,1254,295,1,6,0,163,68,4,9,3,3
+5,San Pedro,37,1255,295,0,0,0,141,88,8,5,3,2
+5,San Pedro,37,1256,294,1,2,0,139,94,11,6,2,1
+5,San Pedro,37,1257,293,1,0,0,145,90,4,7,1,5
+5,San Pedro,37,1258,295,6,1,0,154,78,5,3,5,2
+5,San Pedro,37,1259,294,0,1,0,135,99,7,4,1,2
+5,San Pedro,37,1260,297,0,2,0,135,95,8,3,5,4
+5,San Pedro,38,1261,309,2,2,0,161,68,10,2,3,4
+5,San Pedro,38,1262,308,0,0,0,187,46,11,7,5,0
+5,San Pedro,38,1263,308,1,0,0,191,43,7,7,5,1
+5,San Pedro,38,1264,313,0,1,0,172,72,6,5,2,0
+5,San Pedro,39,1265,307,4,0,0,188,51,2,9,3,2
+5,San Pedro,39,1266,306,2,0,0,161,62,10,12,3,4
+5,San Pedro,39,1267,307,3,0,0,185,69,4,8,0,0
+5,San Pedro,39,1268,306,0,1,0,189,65,5,5,3,1
+5,San Pedro,39,1269,312,3,0,0,163,78,7,0,4,8
+5,San Pedro,40,1270,269,9,0,0,105,92,18,5,4,1
+5,San Pedro,40,1271,270,3,0,0,109,94,14,4,3,3
+5,San Pedro,40,1272,270,5,2,0,134,67,9,5,2,1
+5,San Pedro,40,1273,269,2,1,0,126,73,10,3,7,2
+5,San Pedro,40,1274,273,4,3,0,96,117,11,5,7,2
+5,San Pedro,41,1275,253,3,3,0,111,69,9,2,4,5
+5,San Pedro,41,1276,259,0,0,0,116,69,14,1,4,1
+5,San Pedro,42A,1277,291,3,1,0,111,79,9,0,1,2
+5,San Pedro,42A,1278,293,1,1,0,140,64,14,5,2,0
+5,San Pedro,42B,1279,310,0,6,0,139,72,8,3,1,1
+5,San Pedro,43,1280,247,0,0,0,168,30,2,6,1,0
+5,San Pedro,43,1281,246,0,0,0,147,37,3,3,1,1
+5,San Pedro,43,1282,246,0,1,0,127,44,3,3,1,3
+5,San Pedro,43,1283,248,1,0,0,150,43,5,3,3,2
+5,San Pedro,45,1284,304,3,1,0,129,101,16,1,4,4
+5,San Pedro,45,1285,302,0,3,0,153,88,16,5,1,2
+5,San Pedro,45,1286,304,2,0,0,150,97,14,0,5,1
+5,San Pedro,45,1287,304,0,2,0,138,94,19,1,2,3
+5,San Pedro,45,1288,300,1,2,0,130,101,10,5,2,1
+5,San Pedro,45,1289,302,2,2,1,140,112,13,2,2,1
+5,San Pedro,45,1290,306,2,1,0,145,99,14,1,4,1
+5,San Pedro,45,1291,301,1,2,0,143,100,13,3,6,3
+5,San Pedro,45,1292,302,1,1,1,136,91,14,10,2,2
+5,San Pedro,45,1293,303,2,0,0,120,95,25,4,1,4
+5,San Pedro,45,1294,302,4,0,0,125,97,19,8,3,3
+5,San Pedro,45,1295,303,0,1,0,133,98,16,4,3,2
+5,San Pedro,45,1296,307,0,0,0,121,126,16,5,5,4
+5,San Pedro,46,1297,279,2,0,0,115,85,10,4,5,2
+5,San Pedro,46,1298,279,2,2,0,123,73,22,2,4,1
+5,San Pedro,46,1299,277,0,3,0,133,80,11,1,1,1
+5,San Pedro,46,1300,283,1,2,0,120,89,12,3,1,2
+6,Santa Bárbara,48,1301,315,0,1,2,143,109,7,3,1,1
+6,Santa Bárbara,48,1302,312,0,2,0,144,84,7,7,4,1
+6,Santa Bárbara,48,1303,314,1,1,0,141,109,5,17,3,0
+6,Santa Bárbara,48,1304,314,1,2,0,130,109,6,8,1,2
+6,Santa Bárbara,48,1305,315,0,3,0,166,71,4,3,4,1
+6,Santa Bárbara,48,1306,313,2,3,0,160,79,7,4,4,0
+6,Santa Bárbara,48,1307,313,2,3,0,140,87,12,5,2,1
+6,Santa Bárbara,48,1308,313,0,2,0,154,79,9,2,5,1
+6,Santa Bárbara,48,1309,314,0,0,0,154,81,8,8,4,1
+6,Santa Bárbara,48,1310,309,0,3,0,161,81,5,4,3,1
+6,Santa Bárbara,48,1311,314,2,2,0,168,73,5,9,1,0
+6,Santa Bárbara,48,1312,313,0,2,0,155,74,9,6,1,1
+6,Santa Bárbara,48,1313,312,0,0,0,152,83,9,5,3,3
+6,Santa Bárbara,48,1314,314,3,2,1,146,98,7,4,1,0
+6,Santa Bárbara,49,1315,224,0,1,0,98,58,0,4,4,2
+6,Santa Bárbara,49,1316,223,1,2,0,83,93,3,2,3,1
+6,Santa Bárbara,49,1317,226,0,1,0,93,76,5,0,3,3
+6,Santa Bárbara,50,1318,289,3,1,0,145,96,9,4,2,1
+6,Santa Bárbara,50,1319,289,2,0,0,121,109,4,10,10,1
+6,Santa Bárbara,50,1320,290,1,2,0,112,105,4,3,2,3
+6,Santa Bárbara,50,1321,289,1,0,0,124,104,2,5,1,1
+6,Santa Bárbara,50,1322,290,1,1,0,118,107,4,5,4,2
+6,Santa Bárbara,50,1323,287,2,0,0,128,91,5,4,0,1
+6,Santa Bárbara,50,1324,288,1,1,0,131,89,2,4,2,0
+6,Santa Bárbara,50,1325,289,0,1,0,100,131,2,4,5,1
+6,Santa Bárbara,51A,1326,315,1,4,0,194,46,5,5,0,0
+6,Santa Bárbara,51A,1327,315,2,2,0,181,50,4,2,2,2
+6,Santa Bárbara,51A,1328,319,4,2,0,173,57,5,0,2,1
+6,Santa Bárbara,51B,1329,305,2,1,0,191,43,3,0,1,1
+6,Santa Bárbara,51B,1330,306,4,0,1,181,42,7,1,3,0
+6,Santa Bárbara,51B,1331,305,0,0,0,47,182,14,2,2,1
+6,Santa Bárbara,51B,1332,305,1,1,0,211,44,6,1,2,3
+6,Santa Bárbara,51B,1334,305,0,0,0,211,29,7,3,1,2
+6,Santa Bárbara,51B,1335,303,1,0,0,181,43,13,2,5,1
+6,Santa Bárbara,51B,1336,308,1,1,0,187,43,12,2,3,0
+6,Santa Bárbara,52,1337,313,6,3,0,119,76,16,12,6,4
+6,Santa Bárbara,52,1338,314,4,5,0,138,99,13,7,3,3
+6,Santa Bárbara,52,1339,314,1,2,0,164,69,11,5,1,2
+6,Santa Bárbara,52,1340,311,7,4,0,123,87,22,3,0,0
+6,Santa Bárbara,52,1341,313,2,2,0,148,82,11,7,0,0
+6,Santa Bárbara,52,1342,316,2,3,0,160,83,7,4,3,2
+6,Santa Bárbara,52,1343,311,3,7,0,163,54,16,3,2,2
+6,Santa Bárbara,52,1344,313,1,5,0,150,75,22,5,1,1
+6,Santa Bárbara,52,1345,313,4,3,0,152,77,8,4,0,1
+6,Santa Bárbara,52,1346,313,2,1,0,166,75,6,5,0,1
+6,Santa Bárbara,52,1348,312,2,5,1,133,99,7,2,2,3
+6,Santa Bárbara,52,1349,317,1,5,0,164,63,13,3,1,2
+7,Ledesma,53,1350,316,2,6,0,134,97,12,1,9,1
+7,Ledesma,53,1351,317,1,2,1,123,85,27,3,6,4
+7,Ledesma,53,1352,318,0,1,0,124,109,12,9,8,4
+7,Ledesma,53,1353,316,1,2,1,130,90,12,5,11,4
+7,Ledesma,53,1354,317,1,3,0,143,81,7,1,5,4
+7,Ledesma,53,1355,317,4,2,0,132,5,12,4,1,2
+7,Ledesma,53,1356,318,0,4,0,111,118,11,3,7,4
+7,Ledesma,53,1357,318,4,7,0,135,98,13,4,4,2
+7,Ledesma,53,1358,316,6,4,0,134,86,9,7,8,2
+7,Ledesma,53,1359,315,1,8,0,119,89,16,3,4,3
+7,Ledesma,53,1360,318,0,11,1,133,100,9,3,6,7
+7,Ledesma,53,1361,317,1,6,1,126,92,11,1,4,4
+7,Ledesma,53,1362,327,0,4,0,125,112,11,7,8,2
+7,Ledesma,53,1363,317,2,3,0,160,62,11,7,5,5
+7,Ledesma,53,1364,318,2,2,0,137,89,12,6,3,5
+7,Ledesma,53,1365,318,3,1,0,116,112,13,4,4,5
+7,Ledesma,53,1366,318,0,5,0,126,101,15,4,11,3
+7,Ledesma,53,1367,318,0,0,0,0,71,0,1,5,6
+7,Ledesma,53,1368,318,2,4,0,141,75,12,3,14,7
+7,Ledesma,53,1369,317,2,3,1,151,81,9,5,8,1
+7,Ledesma,53,1371,317,2,4,0,134,105,9,7,6,3
+7,Ledesma,53,1372,317,2,4,0,139,95,12,2,3,7
+7,Ledesma,53,1373,317,4,5,0,154,80,14,3,8,3
+7,Ledesma,53,1374,318,3,0,0,135,108,10,5,9,5
+7,Ledesma,53,1375,322,1,0,0,157,78,10,7,8,7
+7,Ledesma,53,1376,316,0,4,0,148,84,11,3,11,2
+7,Ledesma,53,1377,317,2,2,0,128,97,13,7,6,10
+7,Ledesma,53,1378,317,1,7,0,129,93,19,2,7,3
+7,Ledesma,53,1379,315,2,6,0,126,96,15,4,8,7
+7,Ledesma,53,1380,318,0,1,0,130,88,22,3,8,4
+7,Ledesma,53,1381,316,0,1,0,169,85,18,2,5,6
+7,Ledesma,53,1382,318,2,4,0,131,89,17,6,2,3
+7,Ledesma,53,1383,317,1,2,0,133,95,18,4,5,1
+7,Ledesma,53,1384,318,2,1,0,125,106,12,2,5,4
+7,Ledesma,53,1385,318,2,5,0,117,96,22,5,9,1
+7,Ledesma,53,1386,316,0,5,0,131,80,12,3,10,3
+7,Ledesma,53,1387,317,2,3,0,128,93,18,1,11,1
+7,Ledesma,53,1388,324,0,3,0,137,94,7,2,10,6
+7,Ledesma,53,1389,317,1,1,0,140,96,12,4,3,2
+7,Ledesma,53,1390,318,0,2,0,129,82,16,4,9,5
+7,Ledesma,53,1391,317,1,3,0,154,72,19,5,6,4
+7,Ledesma,53,1392,317,1,2,1,140,71,24,2,9,6
+7,Ledesma,53,1393,317,1,3,0,140,91,15,5,5,3
+7,Ledesma,53,1394,317,1,4,0,121,82,15,5,4,4
+7,Ledesma,53,1395,318,3,1,1,135,107,11,3,1,7
+7,Ledesma,53,1396,318,1,0,0,116,114,21,3,6,3
+7,Ledesma,53,1397,319,4,2,0,120,99,16,4,2,6
+7,Ledesma,53,1398,317,3,4,0,105,96,27,5,11,8
+7,Ledesma,53,1399,318,2,4,0,151,76,10,3,5,3
+7,Ledesma,53,1400,318,2,2,0,150,73,15,6,5,7
+7,Ledesma,53,1401,323,1,8,0,134,88,14,8,6,2
+7,Ledesma,53,1402,315,3,8,0,141,76,9,4,4,3
+7,Ledesma,53,1403,316,0,0,0,116,101,19,5,3,3
+7,Ledesma,53,1404,316,3,2,0,124,106,17,6,4,3
+7,Ledesma,53,1406,317,0,6,0,135,115,11,1,4,2
+7,Ledesma,53,1407,317,0,7,0,147,86,14,7,2,4
+7,Ledesma,53,1408,317,1,5,0,130,95,16,3,8,1
+7,Ledesma,53,1409,316,4,4,0,138,89,7,7,2,6
+7,Ledesma,53,1410,317,3,1,0,122,103,8,6,4,5
+7,Ledesma,53,1411,315,2,4,0,144,68,17,11,6,7
+7,Ledesma,53,1412,317,0,5,1,155,62,8,3,7,0
+7,Ledesma,53,1413,316,2,1,0,126,79,19,8,10,3
+7,Ledesma,53,1414,320,1,1,0,118,90,12,5,7,5
+7,Ledesma,53,1415,317,4,3,0,130,84,10,6,12,4
+7,Ledesma,53,1416,317,4,4,2,119,99,16,3,6,2
+7,Ledesma,53,1417,317,0,5,0,139,104,13,3,6,1
+7,Ledesma,53,1418,317,3,2,0,138,93,14,4,5,1
+7,Ledesma,53,1419,314,0,2,0,135,87,18,7,6,3
+7,Ledesma,53,1420,314,1,2,0,139,94,18,3,5,2
+7,Ledesma,53,1421,317,3,2,2,119,117,10,3,3,3
+7,Ledesma,53,1422,316,3,1,0,87,120,16,2,9,7
+7,Ledesma,53,1423,317,0,6,0,119,105,14,3,7,2
+7,Ledesma,53,1424,317,2,5,0,158,73,15,3,5,6
+7,Ledesma,53,1425,317,2,5,0,120,107,11,4,3,3
+7,Ledesma,53,1426,316,0,1,0,136,98,15,2,13,0
+7,Ledesma,53,1427,318,4,3,0,100,96,9,5,5,6
+7,Ledesma,53,1428,316,3,3,0,126,97,12,7,5,2
+7,Ledesma,53,1429,315,1,2,0,138,91,18,0,3,3
+7,Ledesma,53,1430,317,3,1,0,118,108,19,9,6,0
+7,Ledesma,53,1431,317,0,4,0,132,88,10,7,4,4
+7,Ledesma,53,1432,317,2,5,0,136,75,11,8,8,7
+7,Ledesma,53,1433,317,0,2,0,111,118,12,3,6,2
+7,Ledesma,53,1434,316,1,10,0,144,75,11,7,4,6
+7,Ledesma,53,1435,317,5,7,0,138,84,15,10,5,8
+7,Ledesma,53,1436,316,1,4,0,134,84,17,3,5,4
+7,Ledesma,53,1437,321,1,3,0,132,80,20,5,7,5
+7,Ledesma,53,1438,316,1,2,0,155,81,14,5,10,0
+7,Ledesma,53,1439,317,3,3,0,144,76,13,3,10,4
+7,Ledesma,53,1440,317,1,2,0,126,104,18,4,6,5
+7,Ledesma,53,1441,317,1,4,0,125,98,12,6,5,4
+7,Ledesma,53,1442,317,0,0,0,122,98,17,3,11,5
+7,Ledesma,53,1443,316,0,4,0,114,99,18,2,9,3
+7,Ledesma,53,1444,321,2,3,0,119,93,18,6,4,3
+7,Ledesma,53,1445,317,2,4,0,113,93,12,10,5,2
+7,Ledesma,53,1446,317,1,2,0,156,66,14,7,3,2
+7,Ledesma,53,1447,317,1,2,0,134,104,10,1,5,3
+7,Ledesma,53,1448,317,19,3,0,145,86,0,1,12,4
+7,Ledesma,53,1449,316,0,4,1,127,87,20,1,5,4
+7,Ledesma,53,1450,317,5,5,0,140,102,12,3,2,3
+7,Ledesma,53,1451,317,1,1,0,145,89,13,3,8,5
+7,Ledesma,53,1452,316,2,6,0,124,94,10,3,9,2
+7,Ledesma,53,1453,316,0,1,0,130,96,13,5,12,8
+7,Ledesma,53,1454,319,0,2,0,130,98,12,1,13,5
+7,Ledesma,53,1455,317,3,6,0,115,96,20,8,7,2
+7,Ledesma,53,1456,315,0,1,2,148,82,16,5,10,5
+7,Ledesma,53,1457,315,2,1,0,153,80,13,4,3,3
+7,Ledesma,53,1458,317,7,5,0,141,80,22,7,6,2
+7,Ledesma,53,1459,317,3,2,0,112,107,24,8,7,1
+7,Ledesma,53,1460,315,1,3,0,156,68,17,7,4,2
+7,Ledesma,53,1461,314,2,1,0,121,95,14,3,9,3
+7,Ledesma,53,1462,317,0,4,0,128,85,17,12,7,2
+7,Ledesma,53,1463,320,3,5,0,122,93,18,8,3,6
+7,Ledesma,54,1464,296,1,6,0,80,121,12,2,3,2
+7,Ledesma,54,1466,296,0,2,1,94,118,12,1,2,4
+7,Ledesma,54,1467,295,0,2,0,73,129,11,4,6,5
+7,Ledesma,54,1468,296,1,1,0,84,130,12,4,4,3
+7,Ledesma,54,1469,298,0,0,0,100,91,10,9,4,8
+7,Ledesma,57,1470,128,0,0,0,55,25,5,0,1,2
+7,Ledesma,60,1471,35,2,0,0,6,1,1,0,0,0
+7,Ledesma,61,1472,148,1,0,0,48,13,5,1,2,1
+7,Ledesma,64,1473,303,0,1,0,167,70,12,1,5,1
+7,Ledesma,64,1474,303,5,1,0,163,74,9,1,3,1
+7,Ledesma,64,1475,303,2,2,0,152,79,6,2,4,2
+7,Ledesma,64,1476,304,0,2,0,170,76,10,1,5,6
+7,Ledesma,64,1477,303,0,1,0,144,73,13,7,2,1
+7,Ledesma,64,1478,302,1,2,0,143,84,17,3,1,1
+7,Ledesma,64,1479,303,1,1,0,162,73,13,1,1,0
+7,Ledesma,64,1480,307,1,2,0,159,81,6,2,2,4
+7,Ledesma,64,1481,302,0,0,0,164,68,9,5,2,2
+7,Ledesma,64,1482,303,8,2,0,143,73,12,0,5,4
+7,Ledesma,64,1483,303,4,0,0,158,78,8,2,3,1
+7,Ledesma,64,1484,301,6,0,0,145,77,12,6,2,2
+7,Ledesma,64,1485,301,3,1,0,140,75,14,2,2,4
+7,Ledesma,64,1486,302,4,0,0,166,71,13,4,0,3
+7,Ledesma,64,1487,302,3,1,0,139,84,8,4,4,1
+7,Ledesma,64,1488,306,0,2,0,152,73,9,0,5,0
+7,Ledesma,66,1489,318,1,4,0,161,86,15,5,3,4
+7,Ledesma,66,1490,316,2,0,0,161,78,12,4,3,6
+7,Ledesma,66,1491,317,2,6,0,163,82,15,4,1,0
+7,Ledesma,66,1492,317,1,4,0,132,90,8,7,6,3
+7,Ledesma,66,1493,317,0,3,0,165,70,11,3,5,4
+7,Ledesma,66,1494,317,2,0,0,169,65,8,19,0,1
+7,Ledesma,66,1495,317,3,0,0,184,70,5,5,2,1
+7,Ledesma,66,1496,318,0,1,0,148,76,8,7,3,1
+7,Ledesma,66,1497,315,0,2,0,133,90,13,5,5,0
+7,Ledesma,66,1498,318,0,13,0,161,57,11,12,5,2
+7,Ledesma,66,1499,318,2,3,0,160,82,9,6,3,2
+7,Ledesma,66,1500,324,2,8,0,155,96,4,6,4,1
+7,Ledesma,66,1501,318,51,3,0,145,84,20,8,2,5
+7,Ledesma,66,1502,316,1,2,0,147,68,13,4,1,1
+7,Ledesma,66,1503,318,6,0,0,176,72,8,6,3,1
+7,Ledesma,66,1504,318,3,3,6,150,87,12,6,1,3
+7,Ledesma,66,1505,318,1,3,0,151,91,8,3,3,1
+7,Ledesma,66,1506,316,3,6,0,144,80,7,5,3,7
+7,Ledesma,66,1507,318,3,1,0,170,78,8,3,2,2
+7,Ledesma,66,1508,317,3,4,2,153,67,12,5,3,0
+7,Ledesma,66,1509,318,7,0,0,153,73,16,5,5,1
+7,Ledesma,66,1510,318,0,1,0,154,82,5,11,3,3
+7,Ledesma,66,1511,318,4,3,0,142,98,11,3,4,1
+7,Ledesma,66,1512,317,3,4,0,149,78,15,2,1,2
+7,Ledesma,66,1513,318,1,3,0,151,90,10,6,3,1
+7,Ledesma,66,1514,317,2,2,0,160,75,11,4,1,3
+7,Ledesma,66,1515,318,2,2,0,140,88,11,5,3,4
+7,Ledesma,66,1516,317,63,4,0,146,70,11,12,1,8
+7,Ledesma,66,1517,318,2,1,0,134,95,7,5,5,2
+7,Ledesma,66,1518,317,1,0,0,131,108,4,0,3,8
+7,Ledesma,66,1519,317,1,0,0,148,95,4,4,7,3
+7,Ledesma,66,1520,315,8,1,0,165,67,8,3,3,5
+7,Ledesma,66,1521,317,2,1,0,152,80,13,3,7,2
+7,Ledesma,66,1522,316,6,10,0,155,73,5,8,5,4
+7,Ledesma,66,1523,317,1,1,0,120,97,19,10,4,7
+7,Ledesma,66,1524,320,6,2,0,175,63,12,11,2,1
+7,Ledesma,67,1525,308,5,0,0,135,75,14,13,0,1
+7,Ledesma,67,1526,308,2,1,1,136,83,12,9,0,1
+7,Ledesma,67,1527,311,3,2,0,124,90,7,6,1,1
+7,Ledesma,69,1528,309,2,3,0,157,61,12,2,1,2
+7,Ledesma,69,1529,307,1,4,0,151,67,8,7,0,2
+7,Ledesma,69,1530,309,0,1,1,145,72,8,4,1,2
+7,Ledesma,69,1531,310,3,2,0,180,64,3,5,0,2
+7,Ledesma,69,1532,309,3,1,0,163,75,9,3,0,2
+7,Ledesma,69,1533,310,2,6,0,165,63,8,5,3,1
+7,Ledesma,69,1534,308,1,1,0,171,49,12,2,4,0
+7,Ledesma,69,1535,309,3,2,0,172,66,3,2,2,0
+7,Ledesma,69,1536,309,2,0,0,175,49,16,4,1,3
+7,Ledesma,69,1537,313,2,0,0,154,85,3,4,3,1
+7,Ledesma,69,1538,309,1,3,0,153,66,16,3,2,0
+7,Ledesma,69,1539,308,5,0,0,160,79,3,0,3,1
+7,Ledesma,69,1540,309,3,2,0,146,76,6,1,3,1
+7,Ledesma,69,1541,308,5,2,0,160,62,12,2,4,1
+7,Ledesma,69,1542,307,3,0,0,152,81,5,1,2,1
+7,Ledesma,69,1543,309,2,0,0,158,60,4,5,4,0
+7,Ledesma,69,1544,309,3,1,0,148,68,10,2,1,1
+7,Ledesma,69,1545,309,2,0,0,159,71,5,1,0,1
+7,Ledesma,69,1546,309,0,1,0,145,84,11,5,0,5
+7,Ledesma,69,1547,309,4,0,0,160,70,13,1,2,5
+7,Ledesma,69,1548,312,1,3,0,155,80,3,3,1,1
+7,Ledesma,70,1549,303,0,1,0,151,79,14,8,1,1
+7,Ledesma,70,1550,303,1,1,1,173,65,8,4,0,1
+7,Ledesma,70,1551,304,1,0,0,148,75,13,7,1,2
+7,Ledesma,70,1552,304,2,4,0,135,96,6,4,3,2
+7,Ledesma,70,1553,303,1,2,0,153,86,8,1,4,1
+7,Ledesma,70,1554,304,1,1,0,138,99,3,7,3,3
+7,Ledesma,70,1555,306,0,3,0,165,67,9,2,3,1
+7,Ledesma,70,1556,303,4,0,0,161,77,9,3,4,2
+7,Ledesma,70,1557,303,0,0,0,168,80,5,6,1,0
+7,Ledesma,70,1558,304,2,6,0,150,77,6,4,4,2
+7,Ledesma,70,1559,304,1,4,0,174,66,6,0,0,1
+7,Ledesma,70,1560,303,0,0,0,169,77,8,0,2,2
+7,Ledesma,70,1561,303,1,2,0,161,73,12,3,1,2
+7,Ledesma,70,1562,307,1,3,0,149,91,14,3,5,1
+8,Valle Grande,74A,1572,227,0,1,0,87,92,2,0,0,0
+8,Valle Grande,74A,1573,232,2,0,0,84,83,0,0,0,0
+8,Valle Grande,75,1575,179,1,0,0,35,101,0,0,1,0
+8,Valle Grande,75,1576,184,0,0,0,26,104,1,0,0,1
+9,Tumbaya,76,1577,300,0,2,0,123,97,4,5,3,3
+9,Tumbaya,76,1578,301,2,2,0,117,116,8,3,4,0
+9,Tumbaya,76,1579,304,0,2,0,135,102,6,3,2,2
+9,Tumbaya,77,1580,112,1,0,0,58,24,1,0,1,1
+9,Tumbaya,78,1581,294,0,0,0,115,107,24,2,2,3
+9,Tumbaya,78,1582,292,1,1,0,132,100,9,1,5,0
+9,Tumbaya,78,1583,294,1,1,0,116,102,18,4,0,3
+9,Tumbaya,78,1584,292,5,0,0,132,91,13,3,5,1
+9,Tumbaya,78,1585,294,0,0,0,143,88,9,3,5,3
+9,Tumbaya,78,1586,299,1,1,0,136,102,12,2,4,5
+9,Tumbaya,79,1587,259,6,2,0,86,105,8,2,5,3
+9,Tumbaya,79,1588,259,1,3,0,88,109,7,3,6,3
+9,Tumbaya,79,1590,259,3,4,0,92,87,14,2,0,4
+9,Tumbaya,79,1591,267,1,2,1,102,93,8,3,6,3
+9,Tumbaya,80,1592,101,1,2,0,35,30,3,1,1,0
+9,Tumbaya,82,1594,207,1,0,0,112,34,11,1,2,2
+9,Tumbaya,82,1595,208,3,1,0,79,66,15,1,2,1
+10,Tilcara,83,1596,307,4,4,0,143,80,10,8,6,3
+10,Tilcara,83,1597,306,2,4,0,120,20,16,4,7,7
+10,Tilcara,83,1598,308,4,1,0,114,110,16,1,9,4
+10,Tilcara,83,1599,306,0,1,0,149,77,10,8,5,7
+10,Tilcara,83,1600,312,2,1,0,149,62,17,13,1,1
+10,Tilcara,83,1601,307,1,1,2,131,86,11,8,3,0
+10,Tilcara,83,1602,307,1,4,0,139,69,9,12,7,6
+10,Tilcara,83,1603,307,5,1,0,132,80,9,20,3,3
+10,Tilcara,83,1604,306,5,3,0,148,86,7,4,6,8
+10,Tilcara,83,1605,305,2,7,0,132,73,10,7,7,1
+10,Tilcara,83,1606,311,4,4,0,132,91,8,2,3,2
+10,Tilcara,83,1607,305,2,8,0,113,102,15,8,5,1
+10,Tilcara,83,1608,308,1,5,0,145,87,7,3,3,6
+10,Tilcara,83,1609,304,2,1,0,136,76,12,3,8,4
+10,Tilcara,83,1610,307,1,0,0,133,88,12,5,5,1
+10,Tilcara,83,1611,305,3,1,0,150,76,11,4,3,6
+10,Tilcara,83,1612,314,6,2,0,124,83,13,4,6,5
+10,Tilcara,86,1616,232,4,0,0,121,47,5,0,3,4
+10,Tilcara,87,1617,299,1,5,0,114,84,18,5,9,7
+10,Tilcara,87,1618,299,2,5,0,144,67,9,2,5,6
+10,Tilcara,87,1619,297,3,4,0,127,83,19,11,6,1
+10,Tilcara,87,1620,298,5,1,0,139,76,12,13,5,5
+10,Tilcara,87,1621,303,5,4,0,124,78,10,3,5,3
+10,Tilcara,87,1622,299,3,5,0,150,68,16,4,8,5
+10,Tilcara,87,1623,298,0,6,0,117,90,9,10,2,4
+10,Tilcara,87,1624,297,4,3,1,148,65,13,10,7,2
+10,Tilcara,87,1625,297,2,3,2,123,80,13,6,7,7
+10,Tilcara,87,1626,298,2,2,1,142,62,22,6,3,4
+10,Tilcara,87,1627,300,4,5,1,122,83,15,5,9,3
+10,Tilcara,88A,1628,278,1,3,0,144,65,10,1,2,5
+10,Tilcara,88A,1629,273,1,5,0,155,48,13,4,2,0
+10,Tilcara,88A,1630,276,3,1,0,125,84,9,5,1,1
+10,Tilcara,88A,1631,277,1,0,0,163,49,5,3,3,3
+10,Tilcara,88A,1632,281,1,2,1,127,60,10,17,3,2
+10,Tilcara,88B,1633,294,4,1,0,151,57,11,7,1,3
+11,Humahuaca,90A,1635,319,1,5,0,139,72,23,8,8,8
+11,Humahuaca,90A,1636,318,1,5,0,133,67,23,8,15,2
+11,Humahuaca,90A,1637,320,2,1,0,146,68,20,5,12,3
+11,Humahuaca,90A,1638,318,0,6,0,150,59,21,11,11,5
+11,Humahuaca,90A,1639,316,1,4,0,149,63,25,4,15,4
+11,Humahuaca,90A,1640,316,1,4,0,139,77,21,8,7,7
+11,Humahuaca,90A,1641,316,1,6,0,128,81,22,0,10,8
+11,Humahuaca,90A,1642,318,0,9,0,138,60,20,10,8,4
+11,Humahuaca,90A,1643,331,1,1,0,140,57,35,10,11,7
+11,Humahuaca,90A,1644,313,1,6,0,122,82,24,3,4,4
+11,Humahuaca,90A,1645,314,0,7,0,151,69,18,2,7,4
+11,Humahuaca,90A,1646,316,1,2,0,126,84,15,4,16,7
+11,Humahuaca,90A,1647,318,5,1,2,129,76,19,8,14,2
+11,Humahuaca,90A,1648,318,2,9,0,129,67,22,7,8,5
+11,Humahuaca,90A,1649,317,2,3,0,150,61,13,14,10,1
+11,Humahuaca,90A,1650,316,1,0,1,131,71,15,8,6,6
+11,Humahuaca,90A,1651,315,1,2,0,162,66,20,7,4,3
+11,Humahuaca,90A,1652,325,3,2,0,129,76,27,12,16,2
+11,Humahuaca,90A,1653,316,1,1,0,145,57,20,2,11,8
+11,Humahuaca,90A,1654,318,2,0,0,146,58,26,14,12,12
+11,Humahuaca,90A,1655,315,8,0,1,124,78,16,6,10,9
+11,Humahuaca,90A,1656,315,0,3,0,140,69,14,9,11,3
+11,Humahuaca,90A,1657,322,2,3,0,140,58,20,13,13,2
+11,Humahuaca,90A,1658,316,1,0,0,131,75,18,3,16,3
+11,Humahuaca,90A,1659,316,0,4,0,148,63,21,6,5,7
+11,Humahuaca,90A,1660,318,3,4,0,116,84,19,5,10,4
+11,Humahuaca,90A,1661,316,10,8,0,151,57,18,4,5,7
+11,Humahuaca,90A,1662,316,5,1,0,149,59,22,7,4,4
+11,Humahuaca,90A,1663,317,0,3,0,124,81,21,11,9,7
+11,Humahuaca,90A,1664,323,2,0,0,137,64,30,8,9,3
+11,Humahuaca,90B,1665,118,1,4,0,59,14,3,0,3,1
+11,Humahuaca,90C,1666,29,0,0,0,11,1,0,0,0,0
+11,Humahuaca,91,1667,216,0,2,0,116,34,3,6,13,3
+11,Humahuaca,92A,1668,215,4,3,0,110,40,11,2,4,4
+11,Humahuaca,92A,1669,213,0,9,0,107,44,9,0,5,3
+11,Humahuaca,92A,1670,219,2,2,1,119,38,8,0,6,3
+11,Humahuaca,92B,1671,45,0,0,0,24,7,2,0,2,0
+11,Humahuaca,92C,1672,56,0,0,0,13,18,3,1,1,0
+11,Humahuaca,93,1673,105,0,2,0,48,13,5,1,5,0
+11,Humahuaca,94,1674,294,10,0,0,144,47,12,5,5,1
+11,Humahuaca,94,1675,300,2,1,0,153,57,7,6,3,0
+11,Humahuaca,95,1676,209,2,2,0,80,60,9,8,4,0
+11,Humahuaca,95,1677,215,8,3,0,81,84,5,2,3,1
+11,Humahuaca,96A,1678,191,2,1,0,107,25,5,2,1,0
+11,Humahuaca,96B,1679,81,3,1,0,39,8,3,2,2,0
+11,Humahuaca,97,1680,279,8,2,0,101,42,15,9,10,2
+11,Humahuaca,97,1681,279,0,8,0,85,59,16,6,8,3
+11,Humahuaca,97,1682,279,5,2,0,95,53,20,10,5,4
+11,Humahuaca,97,1683,278,4,5,0,108,48,12,6,8,6
+11,Humahuaca,97,1684,278,14,5,0,92,48,6,3,8,9
+11,Humahuaca,97,1685,283,12,5,1,124,36,8,7,3,3
+11,Humahuaca,98,1686,233,0,3,0,127,19,5,1,5,3
+11,Humahuaca,98,1687,232,1,1,0,138,13,13,5,2,5
+11,Humahuaca,98,1688,236,0,4,1,120,29,6,0,8,1
+12,Cochinoca,99A,1689,311,5,5,0,144,60,17,12,3,3
+12,Cochinoca,99A,1690,309,2,2,0,119,79,16,8,11,9
+12,Cochinoca,99A,1691,308,4,2,0,149,52,19,10,11,6
+12,Cochinoca,99A,1692,309,2,8,0,142,56,16,9,7,0
+12,Cochinoca,99A,1693,312,5,1,0,125,80,20,7,6,6
+12,Cochinoca,99A,1694,309,0,0,0,130,75,14,9,9,8
+12,Cochinoca,99A,1695,309,7,6,0,101,80,25,13,8,0
+12,Cochinoca,99A,1696,310,1,3,0,124,65,14,10,9,4
+12,Cochinoca,99A,1697,308,3,2,0,106,77,20,19,7,3
+12,Cochinoca,99A,1698,308,2,9,0,128,68,16,8,10,4
+12,Cochinoca,99A,1699,309,1,3,0,133,83,12,8,9,4
+12,Cochinoca,99A,1700,309,2,0,0,98,101,14,8,6,8
+12,Cochinoca,99A,1701,316,1,3,0,95,94,10,13,5,6
+12,Cochinoca,99A,1702,306,2,2,0,125,68,16,7,3,3
+12,Cochinoca,99A,1703,309,0,5,0,135,58,23,7,5,3
+12,Cochinoca,99A,1704,309,1,0,0,102,104,11,7,10,6
+12,Cochinoca,99A,1705,309,1,1,0,127,70,18,11,5,7
+12,Cochinoca,99A,1706,309,8,2,0,117,80,21,9,8,6
+12,Cochinoca,99A,1707,309,3,2,0,114,69,20,13,9,6
+12,Cochinoca,99A,1708,308,1,4,0,122,62,24,15,9,4
+12,Cochinoca,99A,1709,308,2,4,1,119,82,10,11,12,4
+12,Cochinoca,99A,1710,309,3,3,0,124,72,20,15,7,3
+12,Cochinoca,99A,1711,309,1,7,0,135,64,17,12,4,5
+12,Cochinoca,99A,1712,317,2,8,0,108,78,19,9,7,6
+12,Cochinoca,99B,1713,33,0,0,0,20,4,0,0,2,0
+12,Cochinoca,100A,1714,294,2,3,0,164,63,11,10,1,1
+12,Cochinoca,100A,1715,297,0,3,0,138,67,14,11,6,2
+12,Cochinoca,100B,1716,32,2,0,0,9,4,3,2,2,0
+12,Cochinoca,101,1717,183,1,8,0,69,39,5,3,3,3
+12,Cochinoca,102A,1718,264,0,1,0,135,21,13,7,7,1
+12,Cochinoca,102B,1719,120,3,1,0,54,20,7,5,2,2
+12,Cochinoca,103,1720,90,0,1,0,31,21,0,0,1,2
+12,Cochinoca,104,1721,233,3,1,0,103,37,5,0,4,2
+12,Cochinoca,105,1722,243,1,10,5,120,37,9,8,10,6
+12,Cochinoca,106A,1723,216,0,0,0,131,21,4,2,5,0
+12,Cochinoca,106A,1724,220,1,2,0,118,34,6,9,4,0
+12,Cochinoca,106B,1725,212,3,0,0,137,25,6,3,2,1
+12,Cochinoca,106B,1726,216,0,1,0,138,31,6,3,6,4
+12,Cochinoca,107,1727,215,2,1,0,120,14,10,3,1,3
+12,Cochinoca,107,1728,217,2,2,0,119,41,7,2,1,1
+13,Rinconada,108,1729,219,4,1,0,107,31,7,3,2,0
+13,Rinconada,108,1730,219,2,3,0,104,32,13,6,3,1
+13,Rinconada,108,1731,225,8,2,0,113,32,4,4,2,2
+13,Rinconada,109,1732,206,1,1,0,74,42,10,5,4,5
+13,Rinconada,109,1733,210,0,1,0,66,61,8,0,1,0
+13,Rinconada,110,1734,204,0,1,0,89,38,3,3,2,1
+13,Rinconada,111A,1735,170,1,3,0,71,41,4,4,0,0
+13,Rinconada,111B,1736,91,0,1,0,30,23,0,1,0,2
+14,Santa Catalina,112A,1737,215,1,4,0,119,31,4,4,1,2
+14,Santa Catalina,112A,1738,213,2,1,0,100,36,7,2,1,1
+14,Santa Catalina,112A,1739,220,3,1,0,105,44,2,2,3,2
+14,Santa Catalina,112B,1740,104,1,1,0,54,11,1,2,0,1
+14,Santa Catalina,113,1741,47,1,0,0,18,6,4,0,1,0
+14,Santa Catalina,114,1742,178,6,0,0,69,48,4,1,2,5
+14,Santa Catalina,114,1743,183,2,1,0,80,46,4,0,4,2
+14,Santa Catalina,114A,1744,217,6,4,0,118,33,3,1,1,0
+14,Santa Catalina,115A,1745,189,1,0,0,113,12,2,0,2,2
+14,Santa Catalina,115B,1746,134,1,1,0,53,33,2,1,1,0
+14,Santa Catalina,116A,1747,126,0,1,0,62,26,1,2,2,0
+14,Santa Catalina,116B,1748,174,2,4,0,107,19,2,7,1,2
+14,Santa Catalina,116B,1749,177,5,0,0,77,37,2,13,1,0
+14,Santa Catalina,116C,1750,182,3,1,0,75,36,1,3,0,1
+14,Santa Catalina,116C,1751,187,4,0,0,68,53,5,3,1,5
+14,Santa Catalina,117,1752,88,2,0,0,25,21,9,1,0,0
+15,Yavi,118,1753,317,3,2,0,124,64,18,4,7,8
+15,Yavi,118,1754,318,2,2,0,120,62,19,1,2,14
+15,Yavi,118,1755,317,3,2,0,110,75,22,5,5,4
+15,Yavi,118,1756,315,1,2,1,126,74,21,6,3,2
+15,Yavi,118,1757,318,2,6,0,131,51,11,14,7,11
+15,Yavi,118,1758,315,9,6,0,111,75,17,4,6,0
+15,Yavi,118,1759,317,0,7,0,116,74,16,1,10,5
+15,Yavi,118,1760,319,43,1,0,108,70,11,5,6,4
+15,Yavi,118,1761,317,4,2,0,135,55,11,5,5,7
+15,Yavi,118,1762,319,1,2,1,112,87,12,7,6,5
+15,Yavi,118,1763,317,1,4,1,134,48,21,8,4,3
+15,Yavi,118,1764,318,1,10,0,152,34,17,9,5,7
+15,Yavi,118,1765,343,1,4,0,134,68,17,16,8,10
+15,Yavi,118,1766,318,3,3,0,119,62,26,6,9,8
+15,Yavi,118,1767,318,1,2,0,127,70,20,4,6,2
+15,Yavi,118,1768,314,2,2,0,115,76,15,7,10,2
+15,Yavi,118,1769,317,5,2,0,150,56,17,5,4,7
+15,Yavi,118,1770,316,2,3,0,138,51,20,12,8,6
+15,Yavi,118,1771,316,1,1,0,126,72,18,8,2,5
+15,Yavi,118,1772,314,1,4,0,143,57,17,2,6,6
+15,Yavi,118,1773,318,4,2,0,126,62,14,2,7,9
+15,Yavi,118,1774,318,3,1,0,123,58,15,5,9,9
+15,Yavi,118,1775,315,0,6,0,133,62,18,19,3,6
+15,Yavi,118,1776,319,1,2,0,136,70,15,11,6,0
+15,Yavi,118,1777,319,1,3,0,154,48,14,15,6,11
+15,Yavi,118,1778,316,0,5,0,149,51,0,18,7,5
+15,Yavi,118,1779,318,1,1,0,129,58,18,9,7,7
+15,Yavi,118,1780,319,3,3,0,135,54,11,3,6,11
+15,Yavi,118,1781,315,0,3,0,123,45,15,6,10,9
+15,Yavi,118,1782,315,4,8,0,131,66,21,3,8,4
+15,Yavi,118,1783,311,2,3,0,10,53,20,7,4,7
+15,Yavi,118,1784,319,2,6,0,147,57,15,5,2,3
+15,Yavi,118,1785,315,2,4,0,147,62,16,9,5,3
+15,Yavi,118,1786,316,1,6,0,120,73,13,8,8,5
+15,Yavi,118,1787,327,3,5,0,104,73,23,6,8,6
+15,Yavi,118,1788,316,0,3,0,144,70,6,5,2,4
+15,Yavi,118,1789,313,4,3,0,126,68,26,3,9,5
+15,Yavi,118,1790,313,1,3,0,109,73,18,7,8,2
+15,Yavi,118,1791,317,2,4,0,143,52,23,9,4,4
+15,Yavi,118,1792,317,1,5,0,145,57,25,6,6,2
+15,Yavi,118,1793,315,1,3,0,146,57,12,10,6,2
+15,Yavi,118,1794,317,4,6,0,104,90,17,6,7,1
+15,Yavi,118,1795,315,3,3,0,116,72,16,4,6,4
+15,Yavi,118,1796,314,1,6,0,121,70,14,8,7,6
+15,Yavi,118,1797,318,3,1,0,155,60,19,3,6,2
+15,Yavi,119,1798,303,4,1,0,157,61,9,8,2,1
+15,Yavi,119,1799,303,3,2,0,156,44,5,3,4,4
+15,Yavi,119,1800,309,7,2,0,175,41,12,5,1,1
+15,Yavi,120,1801,293,2,2,0,148,44,6,10,5,9
+15,Yavi,120,1802,294,6,4,0,149,50,13,8,3,4
+15,Yavi,120,1803,298,1,2,0,147,53,9,4,1,4
+15,Yavi,121,1804,75,0,0,0,25,9,3,0,2,0
+15,Yavi,122,1805,211,1,1,0,101,47,11,1,1,2
+15,Yavi,122,1806,212,5,1,0,94,50,10,1,7,0
+15,Yavi,123,1807,265,0,6,0,126,40,9,6,3,3
+15,Yavi,123,1808,270,7,2,0,140,41,9,10,3,2
+15,Yavi,124,1809,207,2,0,0,99,45,7,3,4,2
+15,Yavi,124,1810,213,0,2,0,97,50,0,7,2,2
+16,Susques,125A,1811,163,0,1,0,94,21,0,1,2,1
+16,Susques,125A,1812,167,2,1,0,99,19,5,0,1,1
+16,Susques,125B,1813,223,0,2,4,131,28,5,2,1,1
+16,Susques,126A,1814,258,0,1,0,92,72,12,7,1,2
+16,Susques,126A,1815,263,1,7,0,108,50,7,8,1,2
+16,Susques,126B,1816,289,1,2,0,14,125,0,4,75,5
+16,Susques,126B,1817,288,8,3,0,89,85,19,2,10,4
+16,Susques,126B,1818,286,0,2,0,116,69,19,7,7,2
+16,Susques,126B,1819,294,4,8,0,124,78,10,2,9,2
+16,Susques,126C,1820,206,0,4,0,81,62,3,2,2,1
+16,Susques,127A,1821,297,1,3,1,106,71,10,6,6,3
+16,Susques,127B,1822,203,7,0,0,84,46,5,0,2,1
+16,Susques,127B,1823,207,5,2,0,82,51,10,2,2,1

@@ -1,0 +1,36 @@
+codigo_indec,provincia,lista,votos,mesas,electores,votantes,blancos,nulos,recurridos_impugnados
+10,Catamarca,Alianza Frente para la Victoria,83387,805,254072,189070,23515,991,271
+10,Catamarca,Alianza Frente Cívico y Social,65028,805,254072,189070,23515,991,271
+10,Catamarca,Alianza Frente Tercera Posicion,15878,805,254072,189070,23515,991,271
+14,Córdoba,Alianza Cambiemos,1056107,8323,2759665,2186115,66510,16963,776
+14,Córdoba,Alianza Unión por Córdoba,443311,8323,2759665,2186115,66510,16963,776
+14,Córdoba,Alianza Frente para la Victoria,383185,8323,2759665,2186115,66510,16963,776
+14,Córdoba,Alianza Frente de Izquierda y de los Trabajadores,109519,8323,2759665,2186115,66510,16963,776
+14,Córdoba,Alianza Progresistas,62214,8323,2759665,2186115,66510,16963,776
+14,Córdoba,Es Posible,47530,8323,2759665,2186115,66510,16963,776
+18,Corrientes,Alianza Frente para la Victoria,298846,2388,805227,597872,31198,3036,222
+18,Corrientes,Alianza Encuentro por Corrientes,183712,2388,805227,597872,31198,3036,222
+18,Corrientes,Alianza Unidos por una Nueva Alternativa (UNA),80858,2388,805227,597872,31198,3036,222
+26,Chubut,Alianza Frente para la Victoria,98598,1185,397763,302908,66726,5284,602
+26,Chubut,Alianza Frente Unión Chubut Somos Todos,79329,1185,397763,302908,66726,5284,602
+26,Chubut,Alianza Cambiemos Chubut,44321,1185,397763,302908,66726,5284,602
+26,Chubut,Movimiento Polo Social La Tercera Posicion de la Gente,8048,1185,397763,302908,66726,5284,602
+42,La Pampa,Alianza Frente para la Victoria,79505,814,269778,219075,43874,1655,304
+42,La Pampa,Propuesta Frepam,68646,814,269778,219075,43874,1655,304
+42,La Pampa,Pueblo Nuevo,20996,814,269778,219075,43874,1655,304
+42,La Pampa,GEN,4095,814,269778,219075,43874,1655,304
+50,Mendoza,Alianza Cambiemos,450595,3980,1358598,1106904,42845,12794,677
+50,Mendoza,Alianza Frente para la Victoria,320484,3980,1358598,1106904,42845,12794,677
+50,Mendoza,Alianza Frente Renovador Federal de la Esperanza,133396,3980,1358598,1106904,42845,12794,677
+50,Mendoza,Alianza Frente de Izquierda y de los Trabajadores,102167,3980,1358598,1106904,42845,12794,677
+50,Mendoza,Es Posible,43946,3980,1358598,1106904,42845,12794,677
+82,Santa Fe,Alianza Frente para la Victoria,609705,7852,2660093,2069936,136557,27885,1410
+82,Santa Fe,Alianza Cambiemos,563806,7852,2660093,2069936,136557,27885,1410
+82,Santa Fe,Alianza Unidos por una Nueva Alternativa (UNA),394401,7852,2660093,2069936,136557,27885,1410
+82,Santa Fe,Alianza Frente Progresista Cívico y Social,245888,7852,2660093,2069936,136557,27885,1410
+82,Santa Fe,Alianza Frente de Izquierda y de los Trabajadores,66434,7852,2660093,2069936,136557,27885,1410
+82,Santa Fe,Alianza Compromiso Federal,23850,7852,2660093,2069936,136557,27885,1410
+90,Tucumán,Alianza Frente para la Victoria,414977,3422,1153600,935683,104543,5999,713
+90,Tucumán,Alianza Cambiemos,293822,3422,1153600,935683,104543,5999,713
+90,Tucumán,Partido Movimiento de Participación Ciudadana,93378,3422,1153600,935683,104543,5999,713
+90,Tucumán,Alianza Frente de Izquierda y de los Trabajadores,22251,3422,1153600,935683,104543,5999,713

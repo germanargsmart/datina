@@ -1,0 +1,121 @@
+codigo_indec,provincia,lista,votos,mesas,electores,votantes,blancos,nulos,recurridos_impugnados
+02,CABA,Bullrich - Petri (Juntos por el Cambio),767367,7326,2487861,1911431,32311,15367,2378
+02,CABA,Massa - Rossi (Unión por la Patria),600832,7326,2487861,1911431,32311,15367,2378
+02,CABA,Milei - Villarruel (La Libertad Avanza),369424,7326,2487861,1911431,32311,15367,2378
+02,CABA,Bregman - Del Caño (Frente de Izquierda y de Trabajadores - Unidad),66145,7326,2487861,1911431,32311,15367,2378
+02,CABA,Schiaretti - Randazzo (Hacemos por Nuestro País),57607,7326,2487861,1911431,32311,15367,2378
+06,Buenos Aires,Massa - Rossi (Unión por la Patria),4224688,38074,12885305,10199399,269648,63865,13295
+06,Buenos Aires,Milei - Villarruel (La Libertad Avanza),2533633,38074,12885305,10199399,269648,63865,13295
+06,Buenos Aires,Bullrich - Petri (Juntos por el Cambio),2374023,38074,12885305,10199399,269648,63865,13295
+06,Buenos Aires,Schiaretti - Randazzo (Hacemos por Nuestro País),367457,38074,12885305,10199399,269648,63865,13295
+06,Buenos Aires,Bregman - Del Caño (Frente de Izquierda y de Trabajadores - Unidad),352790,38074,12885305,10199399,269648,63865,13295
+10,Catamarca,Massa - Rossi (Unión por la Patria),99612,1058,326526,247986,12804,1766,641
+10,Catamarca,Milei - Villarruel (La Libertad Avanza),74570,1058,326526,247986,12804,1766,641
+10,Catamarca,Bullrich - Petri (Juntos por el Cambio),39960,1058,326526,247986,12804,1766,641
+10,Catamarca,Schiaretti - Randazzo (Hacemos por Nuestro País),14967,1058,326526,247986,12804,1766,641
+10,Catamarca,Bregman - Del Caño (Frente de Izquierda y de Trabajadores - Unidad),3666,1058,326526,247986,12804,1766,641
+14,Córdoba,Milei - Villarruel (La Libertad Avanza),769847,9097,3056574,2332248,17852,18869,800
+14,Córdoba,Schiaretti - Randazzo (Hacemos por Nuestro País),665717,9097,3056574,2332248,17852,18869,800
+14,Córdoba,Bullrich - Petri (Juntos por el Cambio),519252,9097,3056574,2332248,17852,18869,800
+14,Córdoba,Massa - Rossi (Unión por la Patria),308016,9097,3056574,2332248,17852,18869,800
+14,Córdoba,Bregman - Del Caño (Frente de Izquierda y de Trabajadores - Unidad),31895,9097,3056574,2332248,17852,18869,800
+18,Corrientes,Massa - Rossi (Unión por la Patria),260040,2760,925391,714443,7879,6781,875
+18,Corrientes,Bullrich - Petri (Juntos por el Cambio),224519,2760,925391,714443,7879,6781,875
+18,Corrientes,Milei - Villarruel (La Libertad Avanza),187916,2760,925391,714443,7879,6781,875
+18,Corrientes,Schiaretti - Randazzo (Hacemos por Nuestro País),19118,2760,925391,714443,7879,6781,875
+18,Corrientes,Bregman - Del Caño (Frente de Izquierda y de Trabajadores - Unidad),7315,2760,925391,714443,7879,6781,875
+22,Chaco,Massa - Rossi (Unión por la Patria),310962,2947,992516,724566,7960,3841,1165
+22,Chaco,Milei - Villarruel (La Libertad Avanza),197596,2947,992516,724566,7960,3841,1165
+22,Chaco,Bullrich - Petri (Juntos por el Cambio),171756,2947,992516,724566,7960,3841,1165
+22,Chaco,Schiaretti - Randazzo (Hacemos por Nuestro País),25804,2947,992516,724566,7960,3841,1165
+22,Chaco,Bregman - Del Caño (Frente de Izquierda y de Trabajadores - Unidad),5482,2947,992516,724566,7960,3841,1165
+26,Chubut,Milei - Villarruel (La Libertad Avanza),120297,1416,471278,353825,4502,5416,396
+26,Chubut,Massa - Rossi (Unión por la Patria),110820,1416,471278,353825,4502,5416,396
+26,Chubut,Bullrich - Petri (Juntos por el Cambio),70717,1416,471278,353825,4502,5416,396
+26,Chubut,Schiaretti - Randazzo (Hacemos por Nuestro País),26555,1416,471278,353825,4502,5416,396
+26,Chubut,Bregman - Del Caño (Frente de Izquierda y de Trabajadores - Unidad),15122,1416,471278,353825,4502,5416,396
+30,Entre Ríos,Massa - Rossi (Unión por la Patria),276850,3432,1126573,879653,37352,8455,1364
+30,Entre Ríos,Bullrich - Petri (Juntos por el Cambio),250512,3432,1126573,879653,37352,8455,1364
+30,Entre Ríos,Milei - Villarruel (La Libertad Avanza),247640,3432,1126573,879653,37352,8455,1364
+30,Entre Ríos,Schiaretti - Randazzo (Hacemos por Nuestro País),44720,3432,1126573,879653,37352,8455,1364
+30,Entre Ríos,Bregman - Del Caño (Frente de Izquierda y de Trabajadores - Unidad),12760,3432,1126573,879653,37352,8455,1364
+34,Formosa,Massa - Rossi (Unión por la Patria),187229,1484,478283,364755,4675,2013,265
+34,Formosa,Milei - Villarruel (La Libertad Avanza),103911,1484,478283,364755,4675,2013,265
+34,Formosa,Bullrich - Petri (Juntos por el Cambio),55097,1484,478283,364755,4675,2013,265
+34,Formosa,Schiaretti - Randazzo (Hacemos por Nuestro País),8793,1484,478283,364755,4675,2013,265
+34,Formosa,Bregman - Del Caño (Frente de Izquierda y de Trabajadores - Unidad),2772,1484,478283,364755,4675,2013,265
+38,Jujuy,Milei - Villarruel (La Libertad Avanza),168921,1825,584425,463017,6253,4606,334
+38,Jujuy,Massa - Rossi (Unión por la Patria),146027,1825,584425,463017,6253,4606,334
+38,Jujuy,Bullrich - Petri (Juntos por el Cambio),90095,1825,584425,463017,6253,4606,334
+38,Jujuy,Schiaretti - Randazzo (Hacemos por Nuestro País),30775,1825,584425,463017,6253,4606,334
+38,Jujuy,Bregman - Del Caño (Frente de Izquierda y de Trabajadores - Unidad),16006,1825,584425,463017,6253,4606,334
+42,La Pampa,Massa - Rossi (Unión por la Patria),79229,902,295733,232000,2058,2154,116
+42,La Pampa,Milei - Villarruel (La Libertad Avanza),76341,902,295733,232000,2058,2154,116
+42,La Pampa,Bullrich - Petri (Juntos por el Cambio),49911,902,295733,232000,2058,2154,116
+42,La Pampa,Schiaretti - Randazzo (Hacemos por Nuestro País),16947,902,295733,232000,2058,2154,116
+42,La Pampa,Bregman - Del Caño (Frente de Izquierda y de Trabajadores - Unidad),5244,902,295733,232000,2058,2154,116
+46,La Rioja,Massa - Rossi (Unión por la Patria),97412,955,301311,242363,3606,1655,111
+46,La Rioja,Milei - Villarruel (La Libertad Avanza),89236,955,301311,242363,3606,1655,111
+46,La Rioja,Bullrich - Petri (Juntos por el Cambio),27975,955,301311,242363,3606,1655,111
+46,La Rioja,Schiaretti - Randazzo (Hacemos por Nuestro País),20179,955,301311,242363,3606,1655,111
+46,La Rioja,Bregman - Del Caño (Frente de Izquierda y de Trabajadores - Unidad),2189,955,301311,242363,3606,1655,111
+50,Mendoza,Milei - Villarruel (La Libertad Avanza),469367,4357,1482608,1142804,18862,15031,799
+50,Mendoza,Bullrich - Petri (Juntos por el Cambio),286475,4357,1482608,1142804,18862,15031,799
+50,Mendoza,Massa - Rossi (Unión por la Patria),265740,4357,1482608,1142804,18862,15031,799
+50,Mendoza,Schiaretti - Randazzo (Hacemos por Nuestro País),47958,4357,1482608,1142804,18862,15031,799
+50,Mendoza,Bregman - Del Caño (Frente de Izquierda y de Trabajadores - Unidad),38572,4357,1482608,1142804,18862,15031,799
+54,Misiones,Milei - Villarruel (La Libertad Avanza),305629,2879,984018,750671,20570,4215,406
+54,Misiones,Massa - Rossi (Unión por la Patria),275062,2879,984018,750671,20570,4215,406
+54,Misiones,Bullrich - Petri (Juntos por el Cambio),104787,2879,984018,750671,20570,4215,406
+54,Misiones,Schiaretti - Randazzo (Hacemos por Nuestro País),29966,2879,984018,750671,20570,4215,406
+54,Misiones,Bregman - Del Caño (Frente de Izquierda y de Trabajadores - Unidad),10036,2879,984018,750671,20570,4215,406
+58,Neuquén,Milei - Villarruel (La Libertad Avanza),155394,1670,550015,442495,11918,6864,429
+58,Neuquén,Massa - Rossi (Unión por la Patria),134510,1670,550015,442495,11918,6864,429
+58,Neuquén,Bullrich - Petri (Juntos por el Cambio),86927,1670,550015,442495,11918,6864,429
+58,Neuquén,Schiaretti - Randazzo (Hacemos por Nuestro País),25215,1670,550015,442495,11918,6864,429
+58,Neuquén,Bregman - Del Caño (Frente de Izquierda y de Trabajadores - Unidad),21238,1670,550015,442495,11918,6864,429
+62,Río Negro,Massa - Rossi (Unión por la Patria),166135,1790,590603,459214,12923,6592,787
+62,Río Negro,Milei - Villarruel (La Libertad Avanza),148037,1790,590603,459214,12923,6592,787
+62,Río Negro,Bullrich - Petri (Juntos por el Cambio),79609,1790,590603,459214,12923,6592,787
+62,Río Negro,Schiaretti - Randazzo (Hacemos por Nuestro País),27482,1790,590603,459214,12923,6592,787
+62,Río Negro,Bregman - Del Caño (Frente de Izquierda y de Trabajadores - Unidad),17649,1790,590603,459214,12923,6592,787
+66,Salta,Milei - Villarruel (La Libertad Avanza),309115,3290,1042138,782342,8529,7219,1516
+66,Salta,Massa - Rossi (Unión por la Patria),287756,3290,1042138,782342,8529,7219,1516
+66,Salta,Bullrich - Petri (Juntos por el Cambio),106684,3290,1042138,782342,8529,7219,1516
+66,Salta,Schiaretti - Randazzo (Hacemos por Nuestro País),47990,3290,1042138,782342,8529,7219,1516
+66,Salta,Bregman - Del Caño (Frente de Izquierda y de Trabajadores - Unidad),13533,3290,1042138,782342,8529,7219,1516
+70,San Juan,Milei - Villarruel (La Libertad Avanza),155821,1810,577141,455037,6474,4273,376
+70,San Juan,Massa - Rossi (Unión por la Patria),147523,1810,577141,455037,6474,4273,376
+70,San Juan,Bullrich - Petri (Juntos por el Cambio),103118,1810,577141,455037,6474,4273,376
+70,San Juan,Schiaretti - Randazzo (Hacemos por Nuestro País),27427,1810,577141,455037,6474,4273,376
+70,San Juan,Bregman - Del Caño (Frente de Izquierda y de Trabajadores - Unidad),10025,1810,577141,455037,6474,4273,376
+74,San Luis,Milei - Villarruel (La Libertad Avanza),138251,1311,416759,328355,5867,3412,339
+74,San Luis,Massa - Rossi (Unión por la Patria),86681,1311,416759,328355,5867,3412,339
+74,San Luis,Bullrich - Petri (Juntos por el Cambio),66824,1311,416759,328355,5867,3412,339
+74,San Luis,Schiaretti - Randazzo (Hacemos por Nuestro País),20017,1311,416759,328355,5867,3412,339
+74,San Luis,Bregman - Del Caño (Frente de Izquierda y de Trabajadores - Unidad),6964,1311,416759,328355,5867,3412,339
+78,Santa Cruz,Massa - Rossi (Unión por la Patria),65062,911,256595,186441,11268,3103,298
+78,Santa Cruz,Milei - Villarruel (La Libertad Avanza),62350,911,256595,186441,11268,3103,298
+78,Santa Cruz,Bullrich - Petri (Juntos por el Cambio),28101,911,256595,186441,11268,3103,298
+78,Santa Cruz,Schiaretti - Randazzo (Hacemos por Nuestro País),11311,911,256595,186441,11268,3103,298
+78,Santa Cruz,Bregman - Del Caño (Frente de Izquierda y de Trabajadores - Unidad),4948,911,256595,186441,11268,3103,298
+82,Santa Fe,Milei - Villarruel (La Libertad Avanza),657813,8332,2808297,2070486,18791,24935,1271
+82,Santa Fe,Massa - Rossi (Unión por la Patria),601241,8332,2808297,2070486,18791,24935,1271
+82,Santa Fe,Bullrich - Petri (Juntos por el Cambio),544677,8332,2808297,2070486,18791,24935,1271
+82,Santa Fe,Schiaretti - Randazzo (Hacemos por Nuestro País),183205,8332,2808297,2070486,18791,24935,1271
+82,Santa Fe,Bregman - Del Caño (Frente de Izquierda y de Trabajadores - Unidad),38553,8332,2808297,2070486,18791,24935,1271
+86,Santiago del Estero,Massa - Rossi (Unión por la Patria),402863,2464,800859,628087,8055,3985,989
+86,Santiago del Estero,Milei - Villarruel (La Libertad Avanza),141344,2464,800859,628087,8055,3985,989
+86,Santiago del Estero,Bullrich - Petri (Juntos por el Cambio),49761,2464,800859,628087,8055,3985,989
+86,Santiago del Estero,Schiaretti - Randazzo (Hacemos por Nuestro País),13305,2464,800859,628087,8055,3985,989
+86,Santiago del Estero,Bregman - Del Caño (Frente de Izquierda y de Trabajadores - Unidad),7785,2464,800859,628087,8055,3985,989
+90,Tucumán,Massa - Rossi (Unión por la Patria),471145,3919,1305994,1079405,22416,8661,823
+90,Tucumán,Milei - Villarruel (La Libertad Avanza),365992,3919,1305994,1079405,22416,8661,823
+90,Tucumán,Bullrich - Petri (Juntos por el Cambio),153130,3919,1305994,1079405,22416,8661,823
+90,Tucumán,Schiaretti - Randazzo (Hacemos por Nuestro País),42086,3919,1305994,1079405,22416,8661,823
+90,Tucumán,Bregman - Del Caño (Frente de Izquierda y de Trabajadores - Unidad),15152,3919,1305994,1079405,22416,8661,823
+94,Tierra del Fuego,Massa - Rossi (Unión por la Patria),40548,511,147098,109652,1588,1786,159
+94,Tierra del Fuego,Milei - Villarruel (La Libertad Avanza),35891,511,147098,109652,1588,1786,159
+94,Tierra del Fuego,Bullrich - Petri (Juntos por el Cambio),15875,511,147098,109652,1588,1786,159
+94,Tierra del Fuego,Schiaretti - Randazzo (Hacemos por Nuestro País),9714,511,147098,109652,1588,1786,159
+94,Tierra del Fuego,Bregman - Del Caño (Frente de Izquierda y de Trabajadores - Unidad),4091,511,147098,109652,1588,1786,159

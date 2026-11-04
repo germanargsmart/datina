@@ -1,0 +1,2543 @@
+seccion_id,seccion,circuito,mesa,electores,blancos,nulos,recurridos_impugnados,Scioli - Zannini (Frente para la Victoria),Macri - Michetti (Cambiemos)
+1,San Fernando,1,1,348,2,5,0,70,197
+1,San Fernando,1,2,348,1,0,0,69,204
+1,San Fernando,1,3,347,1,1,0,67,199
+1,San Fernando,1,4,348,2,2,0,65,206
+1,San Fernando,1,5,347,7,0,0,75,190
+1,San Fernando,1,6,347,3,0,0,70,193
+1,San Fernando,1,7,347,3,1,0,62,198
+1,San Fernando,1,8,347,3,0,0,86,187
+1,San Fernando,1,9,347,4,0,0,76,192
+1,San Fernando,1,10,347,2,2,0,64,220
+1,San Fernando,1,11,347,2,0,0,64,206
+1,San Fernando,1,12,347,7,0,0,69,193
+1,San Fernando,1,13,347,2,1,0,73,191
+1,San Fernando,1,14,346,2,0,0,72,182
+1,San Fernando,2,15,337,0,3,0,69,192
+1,San Fernando,2,16,337,0,0,0,72,189
+1,San Fernando,2,17,337,5,3,0,76,170
+1,San Fernando,2,18,337,1,1,0,52,214
+1,San Fernando,2,19,336,2,1,0,54,214
+1,San Fernando,2,20,337,3,0,0,79,177
+1,San Fernando,2,21,336,2,2,0,57,192
+1,San Fernando,2,22,335,2,0,0,58,189
+1,San Fernando,2,23,336,1,4,0,70,187
+1,San Fernando,2,24,336,3,2,0,70,192
+1,San Fernando,2,25,336,3,3,0,78,182
+1,San Fernando,2,26,336,4,0,3,53,205
+1,San Fernando,2,27,336,1,1,0,42,219
+1,San Fernando,3,28,333,2,3,0,82,178
+1,San Fernando,3,29,333,0,2,0,71,195
+1,San Fernando,3,30,332,2,1,0,79,174
+1,San Fernando,3,31,332,2,1,0,62,190
+1,San Fernando,3,32,332,1,1,0,64,195
+1,San Fernando,3,33,332,1,4,0,67,193
+1,San Fernando,3,34,332,3,1,0,67,183
+1,San Fernando,3,35,332,3,2,1,72,196
+1,San Fernando,3,36,332,0,3,1,75,195
+1,San Fernando,3,37,332,2,5,3,65,198
+1,San Fernando,3,38,332,2,1,0,59,204
+1,San Fernando,3,39,331,2,0,0,59,189
+1,San Fernando,3,40,332,2,3,0,60,190
+1,San Fernando,4,41,347,2,2,0,68,192
+1,San Fernando,4,42,347,5,2,0,74,191
+1,San Fernando,4,43,348,2,0,0,79,196
+1,San Fernando,4,44,347,0,0,2,76,195
+1,San Fernando,4,45,347,2,1,0,69,189
+1,San Fernando,4,46,348,1,0,0,62,210
+1,San Fernando,4,47,348,0,1,0,67,210
+1,San Fernando,4,48,347,0,2,0,88,186
+1,San Fernando,4,49,348,3,1,1,71,198
+1,San Fernando,4,50,348,6,1,0,75,179
+1,San Fernando,4,51,347,3,2,0,57,210
+1,San Fernando,4,52,347,2,0,0,72,194
+1,San Fernando,4,53,347,6,1,0,76,187
+1,San Fernando,4,54,347,2,3,0,64,0
+1,San Fernando,5A,55,343,3,6,0,127,141
+1,San Fernando,5A,56,343,4,0,0,128,158
+1,San Fernando,5A,57,343,1,6,0,117,140
+1,San Fernando,5A,58,343,3,2,2,107,167
+1,San Fernando,5A,59,343,2,2,0,114,164
+1,San Fernando,5A,60,343,3,0,0,128,150
+1,San Fernando,5A,61,343,1,2,0,91,183
+1,San Fernando,5A,62,343,3,1,0,129,142
+1,San Fernando,5A,63,343,3,2,0,121,150
+1,San Fernando,5A,64,342,5,0,0,106,183
+1,San Fernando,5A,65,343,4,0,0,139,148
+1,San Fernando,5A,66,343,1,2,0,94,202
+1,San Fernando,5A,67,342,1,4,3,136,136
+1,San Fernando,5A,68,342,1,2,0,115,162
+1,San Fernando,5A,69,342,7,0,0,129,154
+1,San Fernando,5A,70,343,1,3,0,138,143
+1,San Fernando,5A,71,343,2,1,0,113,166
+1,San Fernando,5A,72,342,2,4,0,99,176
+1,San Fernando,5A,73,342,0,0,0,112,159
+1,San Fernando,5A,74,342,5,0,0,121,148
+1,San Fernando,5A,75,342,3,5,0,129,156
+1,San Fernando,5A,76,342,1,0,0,89,173
+1,San Fernando,5A,77,342,3,0,0,119,169
+1,San Fernando,5A,78,342,6,0,0,140,142
+1,San Fernando,5A,79,341,4,0,0,108,165
+1,San Fernando,5B,80,333,3,5,0,181,90
+1,San Fernando,5B,81,333,0,2,0,200,75
+1,San Fernando,5B,82,332,10,4,0,179,89
+1,San Fernando,5B,83,332,1,0,0,176,93
+1,San Fernando,5B,84,332,0,0,0,155,124
+1,San Fernando,5B,85,332,2,4,0,182,91
+1,San Fernando,5B,86,332,0,1,0,166,110
+1,San Fernando,5B,87,332,2,7,0,180,79
+1,San Fernando,5B,88,331,3,1,0,181,96
+1,San Fernando,5B,89,332,8,0,0,178,80
+1,San Fernando,5B,90,332,0,2,0,197,88
+1,San Fernando,5B,91,332,11,0,0,191,73
+1,San Fernando,5B,92,332,1,0,0,185,80
+1,San Fernando,5B,93,332,4,3,1,179,93
+1,San Fernando,5B,95,332,2,4,0,174,97
+1,San Fernando,5B,96,332,0,2,4,177,95
+1,San Fernando,5B,97,332,2,4,0,176,94
+1,San Fernando,6,98,326,0,1,0,108,156
+1,San Fernando,6,99,326,0,0,0,115,146
+1,San Fernando,6,100,326,0,3,0,129,118
+1,San Fernando,6,101,325,2,2,0,114,147
+1,San Fernando,6,102,326,4,2,0,105,159
+1,San Fernando,6,103,325,1,1,0,89,170
+1,San Fernando,6,104,326,0,1,0,133,125
+1,San Fernando,6,105,326,2,4,0,94,164
+1,San Fernando,7A,106,349,0,5,0,126,153
+1,San Fernando,7A,107,349,2,3,0,132,147
+1,San Fernando,7A,108,349,2,5,0,120,148
+1,San Fernando,7A,109,349,0,6,0,119,163
+1,San Fernando,7A,110,349,3,1,0,120,155
+1,San Fernando,7A,111,348,0,5,0,114,166
+1,San Fernando,7A,112,349,2,0,1,112,173
+1,San Fernando,7A,113,349,4,0,0,121,167
+1,San Fernando,7A,114,349,4,1,0,127,164
+1,San Fernando,7A,115,349,3,2,0,128,142
+1,San Fernando,7A,116,349,0,0,0,141,144
+1,San Fernando,7A,117,348,2,2,0,128,143
+1,San Fernando,7A,118,349,0,1,0,135,151
+1,San Fernando,7A,120,349,2,1,0,117,158
+1,San Fernando,7A,121,348,0,1,0,125,154
+1,San Fernando,7A,122,349,1,3,0,108,161
+1,San Fernando,7A,123,349,1,2,0,139,149
+1,San Fernando,7A,124,349,0,3,2,131,157
+1,San Fernando,7A,125,348,1,2,1,130,136
+1,San Fernando,7A,126,349,0,1,0,125,165
+1,San Fernando,7A,127,349,0,4,1,120,171
+1,San Fernando,7A,128,349,6,0,1,136,150
+1,San Fernando,7A,129,349,3,1,0,151,123
+1,San Fernando,7A,130,349,2,6,0,114,160
+1,San Fernando,7A,131,348,3,3,0,133,140
+1,San Fernando,7A,132,348,1,2,0,113,169
+1,San Fernando,7A,133,348,2,3,0,129,167
+1,San Fernando,7A,134,348,3,8,1,114,161
+1,San Fernando,7B,135,346,0,0,0,148,134
+1,San Fernando,7B,136,346,1,4,0,159,125
+1,San Fernando,7B,137,346,3,10,0,159,125
+1,San Fernando,7B,138,346,1,0,0,173,116
+1,San Fernando,7B,139,344,0,0,0,173,119
+1,San Fernando,7B,140,346,1,1,0,147,149
+1,San Fernando,7B,141,346,2,4,0,153,130
+1,San Fernando,7B,142,345,1,9,0,174,117
+1,San Fernando,7B,143,345,2,7,1,139,121
+1,San Fernando,7B,144,346,4,0,0,153,134
+1,San Fernando,7B,145,345,1,5,0,148,142
+1,San Fernando,7B,146,344,0,3,0,165,116
+1,San Fernando,7B,147,346,2,3,0,143,135
+1,San Fernando,7B,148,346,0,10,0,139,143
+1,San Fernando,7B,149,346,1,1,0,169,135
+1,San Fernando,7B,150,346,3,1,0,162,117
+1,San Fernando,7B,151,346,1,4,0,147,131
+1,San Fernando,7B,152,346,1,3,0,144,127
+1,San Fernando,7B,153,346,1,4,0,156,107
+1,San Fernando,7B,154,345,0,3,0,145,132
+1,San Fernando,7B,155,346,1,6,0,154,128
+1,San Fernando,7B,156,346,2,1,0,141,140
+1,San Fernando,7B,157,345,1,3,0,154,122
+1,San Fernando,7B,158,346,1,3,0,160,119
+1,San Fernando,7B,159,346,0,2,0,142,138
+1,San Fernando,7B,160,346,1,1,0,151,134
+1,San Fernando,7B,161,346,1,7,0,158,120
+1,San Fernando,7B,162,346,1,2,0,128,141
+1,San Fernando,7B,163,346,0,2,0,172,109
+1,San Fernando,7B,164,346,4,5,2,150,118
+1,San Fernando,7B,165,346,4,2,0,162,111
+1,San Fernando,7B,166,346,2,1,0,150,129
+1,San Fernando,7B,167,346,2,1,0,155,127
+1,San Fernando,7B,168,346,1,0,0,136,148
+1,San Fernando,7B,169,346,4,2,0,155,114
+1,San Fernando,7B,170,346,3,4,0,127,139
+1,San Fernando,8A,171,349,0,2,0,190,106
+1,San Fernando,8A,172,349,3,5,2,182,105
+1,San Fernando,8A,173,349,1,9,0,160,118
+1,San Fernando,8A,174,349,3,10,0,159,114
+1,San Fernando,8A,175,349,0,3,0,157,119
+1,San Fernando,8A,176,349,2,6,2,176,126
+1,San Fernando,8A,177,349,1,1,0,190,101
+1,San Fernando,8A,178,349,0,3,0,165,121
+1,San Fernando,8A,179,348,2,2,0,152,130
+1,San Fernando,8A,180,349,1,1,0,160,135
+1,San Fernando,8A,181,349,4,0,1,157,129
+1,San Fernando,8A,182,349,5,6,0,154,134
+1,San Fernando,8A,183,349,3,3,0,170,114
+1,San Fernando,8A,184,349,1,7,0,145,138
+1,San Fernando,8A,185,348,4,2,0,162,121
+1,San Fernando,8A,186,348,3,3,3,125,148
+1,San Fernando,8A,187,348,2,4,0,178,105
+1,San Fernando,8A,188,348,2,4,0,183,117
+1,San Fernando,8A,189,348,2,4,0,183,117
+1,San Fernando,8A,190,348,2,4,6,195,84
+1,San Fernando,8A,191,348,1,5,0,163,121
+1,San Fernando,8A,192,348,2,2,0,156,147
+1,San Fernando,8A,193,348,1,3,0,146,141
+1,San Fernando,8A,194,348,0,7,0,161,122
+1,San Fernando,8A,195,348,3,7,1,177,110
+1,San Fernando,8A,196,348,4,5,0,166,114
+1,San Fernando,8A,197,348,2,2,0,168,107
+1,San Fernando,8A,198,347,0,2,0,171,126
+1,San Fernando,8A,199,348,0,4,1,156,125
+1,San Fernando,8A,200,348,0,6,0,136,139
+1,San Fernando,8A,201,347,2,8,0,146,125
+1,San Fernando,8A,202,347,0,4,0,161,133
+1,San Fernando,8A,203,348,0,0,0,171,114
+1,San Fernando,8A,204,348,1,7,0,166,116
+1,San Fernando,8A,205,348,2,3,0,179,113
+1,San Fernando,8A,206,348,2,9,0,150,135
+1,San Fernando,8A,207,348,3,6,0,176,117
+1,San Fernando,8A,208,347,1,5,0,153,122
+1,San Fernando,8A,209,348,0,3,0,163,131
+1,San Fernando,8A,210,348,1,4,0,208,91
+1,San Fernando,8A,211,348,0,3,0,173,113
+1,San Fernando,8A,212,348,0,6,0,166,112
+1,San Fernando,8A,213,348,4,8,0,149,133
+1,San Fernando,8A,214,348,3,3,0,165,110
+1,San Fernando,8A,215,348,0,1,0,170,119
+1,San Fernando,8A,216,348,4,2,0,176,111
+1,San Fernando,8A,217,348,0,7,0,193,97
+1,San Fernando,8A,218,348,2,12,0,159,110
+1,San Fernando,8A,219,348,2,2,0,170,104
+1,San Fernando,8A,220,348,0,4,0,190,102
+1,San Fernando,8A,221,348,1,4,0,157,133
+1,San Fernando,8A,222,348,1,5,0,170,114
+1,San Fernando,8A,223,348,0,4,0,153,130
+1,San Fernando,8A,224,348,0,3,0,172,113
+1,San Fernando,8A,225,347,1,5,0,179,97
+1,San Fernando,8A,226,348,2,3,0,154,125
+1,San Fernando,8A,227,348,2,6,0,148,138
+1,San Fernando,8A,228,348,3,2,0,151,132
+1,San Fernando,8A,229,348,2,2,0,171,115
+1,San Fernando,8A,230,348,0,0,0,153,143
+1,San Fernando,8A,231,348,4,0,0,151,125
+1,San Fernando,8B,232,346,0,1,0,147,137
+1,San Fernando,8B,233,346,2,8,0,173,98
+1,San Fernando,8B,234,344,3,1,0,149,141
+1,San Fernando,8B,235,346,1,4,0,145,143
+1,San Fernando,8B,236,346,3,0,0,152,137
+1,San Fernando,8B,237,346,4,2,0,147,132
+1,San Fernando,8B,238,346,4,11,1,134,130
+1,San Fernando,8B,239,346,3,5,0,143,138
+1,San Fernando,8B,240,346,1,5,0,145,148
+1,San Fernando,8B,241,346,3,3,0,158,126
+1,San Fernando,8B,242,346,4,3,0,125,157
+1,San Fernando,8B,243,346,3,3,0,170,118
+1,San Fernando,8B,244,346,2,2,0,170,104
+1,San Fernando,8B,245,345,3,3,0,140,140
+1,San Fernando,8B,246,346,4,4,0,138,134
+1,San Fernando,8B,247,346,3,6,0,142,147
+1,San Fernando,8B,248,346,2,2,0,174,125
+1,San Fernando,8B,249,346,1,2,0,168,116
+1,San Fernando,8B,250,346,1,4,0,141,139
+1,San Fernando,8B,251,345,0,0,2,136,146
+1,San Fernando,8B,252,346,2,5,0,153,149
+1,San Fernando,8B,253,346,0,0,1,189,104
+1,San Fernando,8B,254,346,4,4,0,153,122
+1,San Fernando,8B,255,345,1,2,0,163,127
+1,San Fernando,8B,256,346,1,4,0,155,138
+1,San Fernando,8B,257,346,1,4,2,160,126
+1,San Fernando,8B,258,346,1,2,0,143,142
+1,San Fernando,8B,259,345,0,2,0,143,136
+1,San Fernando,8B,260,345,5,5,0,161,123
+1,San Fernando,8B,261,345,3,3,0,133,151
+1,San Fernando,8B,262,345,5,6,0,172,118
+1,San Fernando,8B,263,345,2,7,1,152,136
+1,San Fernando,8B,264,345,1,2,0,169,117
+1,San Fernando,8B,265,345,2,2,0,149,130
+1,San Fernando,8B,266,345,4,0,0,132,143
+1,San Fernando,8B,267,345,2,0,0,167,117
+1,San Fernando,8B,268,345,1,5,0,172,113
+1,San Fernando,8B,269,345,0,0,0,130,152
+1,San Fernando,8B,270,345,3,3,0,137,146
+1,San Fernando,8B,271,345,0,16,0,137,145
+1,San Fernando,8B,272,345,1,3,0,123,160
+1,San Fernando,9,273,342,1,3,0,184,119
+1,San Fernando,9,274,342,2,6,0,181,105
+1,San Fernando,9,275,342,0,6,0,199,95
+1,San Fernando,9,276,341,0,4,0,191,83
+1,San Fernando,9,277,342,0,1,0,198,85
+1,San Fernando,9,278,342,2,6,0,193,77
+1,San Fernando,9,279,342,2,4,0,173,105
+1,San Fernando,9,280,342,4,6,0,191,88
+1,San Fernando,9,281,342,0,8,1,179,96
+1,San Fernando,9,282,342,0,2,0,193,105
+1,San Fernando,9,283,342,1,2,0,219,75
+1,San Fernando,9,284,342,0,2,1,202,90
+1,San Fernando,9,285,342,3,3,0,173,100
+1,San Fernando,9,286,342,2,5,0,189,78
+1,San Fernando,9,287,341,0,3,0,177,100
+1,San Fernando,9,288,341,5,10,0,192,89
+1,San Fernando,9,289,341,4,0,0,197,90
+1,San Fernando,9,290,341,2,1,0,182,100
+1,San Fernando,9,291,341,1,4,2,185,96
+1,San Fernando,9,292,341,1,1,0,190,100
+1,San Fernando,9,293,341,4,9,0,174,102
+1,San Fernando,9,294,341,0,4,0,206,89
+1,San Fernando,9,295,341,1,3,0,202,88
+1,San Fernando,9,296,341,0,2,0,183,118
+1,San Fernando,9,297,341,3,4,0,175,108
+1,San Fernando,10,298,343,5,0,0,151,133
+1,San Fernando,10,299,343,2,5,6,156,118
+1,San Fernando,10,300,342,2,5,0,158,128
+1,San Fernando,10,301,343,1,0,0,139,134
+1,San Fernando,10,302,343,7,0,0,135,156
+1,San Fernando,10,303,340,0,4,0,146,135
+1,San Fernando,10,304,342,0,3,0,155,130
+1,San Fernando,10,305,343,3,1,0,124,134
+1,San Fernando,10,306,343,0,0,0,145,130
+1,San Fernando,10,307,343,2,1,0,134,132
+1,San Fernando,10,308,343,1,2,0,135,143
+1,San Fernando,10,309,343,3,3,1,164,99
+1,San Fernando,10,310,342,5,1,0,133,144
+1,San Fernando,10,311,342,3,3,0,118,162
+1,San Fernando,10,312,343,3,3,0,172,113
+1,San Fernando,10,313,343,4,0,0,170,117
+1,San Fernando,10,314,343,1,7,0,143,124
+1,San Fernando,10,315,343,2,2,0,154,125
+1,San Fernando,10,316,343,1,3,0,150,146
+1,San Fernando,10,317,342,0,6,0,123,145
+1,San Fernando,10,318,342,5,4,0,131,135
+1,San Fernando,10,319,342,1,1,0,132,156
+1,San Fernando,10,320,342,3,5,0,139,123
+1,San Fernando,10,321,342,0,5,0,146,126
+1,San Fernando,10,322,342,1,3,1,136,133
+1,San Fernando,10,323,342,0,5,0,134,144
+1,San Fernando,10,324,342,0,5,0,152,128
+1,San Fernando,10,325,341,2,5,0,126,144
+1,San Fernando,11A,326,345,4,0,0,162,134
+1,San Fernando,11A,327,345,2,1,0,147,145
+1,San Fernando,11A,328,345,4,3,1,127,152
+1,San Fernando,11A,329,345,1,0,0,132,151
+1,San Fernando,11A,330,344,3,1,0,147,145
+1,San Fernando,11A,331,344,0,6,0,122,163
+1,San Fernando,11A,332,345,5,0,0,123,158
+1,San Fernando,11A,333,344,1,2,0,141,145
+1,San Fernando,11A,334,345,6,1,1,137,145
+1,San Fernando,11A,335,345,3,7,0,118,164
+1,San Fernando,11A,336,345,0,3,0,130,158
+1,San Fernando,11A,337,345,10,8,0,119,149
+1,San Fernando,11A,338,345,1,5,0,126,154
+1,San Fernando,11A,339,345,1,3,0,126,150
+1,San Fernando,11A,340,345,2,0,0,120,167
+1,San Fernando,11A,341,345,0,4,0,129,150
+1,San Fernando,11A,342,345,0,4,0,139,149
+1,San Fernando,11A,343,344,5,5,0,133,133
+1,San Fernando,11A,344,345,4,0,0,138,149
+1,San Fernando,11A,345,344,0,3,0,129,150
+1,San Fernando,11A,346,345,3,2,0,152,126
+1,San Fernando,11A,347,345,3,2,0,152,133
+1,San Fernando,11A,348,345,2,4,0,121,160
+1,San Fernando,11A,349,345,3,2,5,103,163
+1,San Fernando,11A,350,344,2,4,0,141,148
+1,San Fernando,11B,351,346,1,3,0,177,120
+1,San Fernando,11B,352,346,0,4,0,173,131
+1,San Fernando,11B,353,346,2,4,0,168,130
+1,San Fernando,11B,354,346,0,4,0,150,145
+1,San Fernando,11B,355,346,5,3,0,184,106
+1,San Fernando,11B,356,346,1,3,0,155,130
+1,San Fernando,11B,357,344,4,2,0,148,138
+1,San Fernando,11B,358,346,2,6,0,161,136
+1,San Fernando,11B,359,346,2,0,0,155,137
+1,San Fernando,11B,360,346,2,8,0,166,120
+1,San Fernando,11B,361,346,5,0,0,166,121
+1,San Fernando,11B,362,346,6,1,3,150,124
+1,San Fernando,11B,363,346,1,1,0,145,141
+1,San Fernando,11B,364,346,2,3,0,175,121
+1,San Fernando,11B,365,346,3,2,0,162,123
+1,San Fernando,11B,366,346,1,4,0,158,121
+1,San Fernando,11B,367,346,5,2,0,150,139
+1,San Fernando,11B,368,346,4,1,2,187,108
+1,San Fernando,11B,369,345,1,4,0,149,129
+1,San Fernando,11B,370,346,1,7,0,162,132
+1,San Fernando,11B,371,346,1,4,0,171,123
+1,San Fernando,11B,372,346,1,1,0,157,135
+1,San Fernando,11B,373,346,1,0,0,175,127
+1,San Fernando,11B,374,346,1,3,0,160,144
+1,San Fernando,11B,375,346,2,4,0,174,112
+1,San Fernando,11B,376,345,1,7,0,175,118
+1,San Fernando,11B,377,346,1,4,0,142,152
+1,San Fernando,11B,378,346,0,7,0,184,110
+1,San Fernando,11B,379,345,2,4,3,172,113
+1,San Fernando,11B,380,346,0,2,0,171,121
+1,San Fernando,11B,381,346,0,4,0,173,127
+1,San Fernando,11B,382,346,2,12,0,135,145
+1,San Fernando,11B,383,346,2,4,0,163,120
+1,San Fernando,11B,384,346,0,2,0,153,143
+1,San Fernando,11B,385,346,2,3,0,173,113
+1,San Fernando,11B,386,346,2,5,0,161,130
+1,San Fernando,11B,387,345,1,3,0,161,123
+1,San Fernando,11B,388,345,1,3,0,181,123
+1,San Fernando,11B,389,346,3,1,0,157,120
+1,San Fernando,11B,390,345,3,2,0,187,104
+1,San Fernando,11B,391,346,0,1,1,140,160
+1,San Fernando,11B,392,346,1,1,0,162,135
+1,San Fernando,11B,393,344,1,3,0,180,104
+1,San Fernando,11B,394,345,1,2,0,159,126
+1,San Fernando,11B,395,345,1,5,0,155,137
+1,San Fernando,11B,396,345,1,8,0,143,139
+1,San Fernando,11B,397,345,1,3,0,165,123
+1,San Fernando,11B,398,345,0,3,0,155,126
+1,San Fernando,11B,399,345,2,1,0,167,128
+1,San Fernando,12,400,341,0,2,0,214,87
+1,San Fernando,12,401,341,0,1,2,191,93
+1,San Fernando,12,402,341,0,6,0,198,91
+1,San Fernando,12,403,341,0,0,6,191,96
+1,San Fernando,12,404,341,10,0,0,193,106
+1,San Fernando,12,405,340,1,2,0,177,97
+1,San Fernando,12,406,340,0,3,0,179,102
+1,San Fernando,12,407,341,1,7,0,187,96
+1,San Fernando,12,408,341,0,3,1,190,91
+1,San Fernando,12,409,341,0,1,0,209,85
+1,San Fernando,12,410,341,1,5,0,191,82
+1,San Fernando,12,411,340,4,6,0,167,99
+1,San Fernando,12,412,341,3,8,0,212,64
+1,San Fernando,12,413,341,1,1,0,195,99
+1,San Fernando,12,414,341,3,1,0,202,74
+1,San Fernando,12,415,341,1,4,0,210,71
+1,San Fernando,12,416,341,1,1,1,204,87
+1,San Fernando,12,417,341,2,2,0,219,83
+1,San Fernando,12,418,341,1,4,0,193,91
+1,San Fernando,12,419,341,1,1,0,177,114
+1,San Fernando,12,420,340,3,1,1,174,117
+1,San Fernando,12,421,340,0,2,0,177,104
+1,San Fernando,12,422,340,1,0,0,202,80
+1,San Fernando,12,423,340,0,4,1,194,85
+1,San Fernando,12,424,340,1,4,0,210,70
+1,San Fernando,12,425,340,1,2,0,186,105
+1,San Fernando,12,426,340,2,2,0,208,88
+1,San Fernando,12,427,338,0,1,0,177,107
+1,San Fernando,12,428,340,0,4,0,200,84
+1,San Fernando,13A,429,342,2,4,1,189,91
+1,San Fernando,13A,430,342,8,0,0,167,102
+1,San Fernando,13A,431,342,1,3,0,180,110
+1,San Fernando,13A,432,342,2,1,0,186,97
+1,San Fernando,13A,433,342,1,4,0,168,121
+1,San Fernando,13A,434,341,0,2,0,171,113
+1,San Fernando,13A,435,342,3,0,0,156,129
+1,San Fernando,13A,436,342,3,2,0,171,109
+1,San Fernando,13A,437,342,5,0,0,184,119
+1,San Fernando,13A,438,342,4,0,0,167,117
+1,San Fernando,13A,439,342,2,4,0,164,119
+1,San Fernando,13A,440,341,0,3,0,169,121
+1,San Fernando,13A,441,342,3,4,0,190,105
+1,San Fernando,13A,442,342,4,3,0,189,96
+1,San Fernando,13A,443,342,0,0,3,175,111
+1,San Fernando,13A,444,342,6,3,0,174,108
+1,San Fernando,13A,446,342,1,2,0,180,93
+1,San Fernando,13A,447,342,0,5,0,168,110
+1,San Fernando,13A,448,342,0,0,0,160,130
+1,San Fernando,13A,449,342,1,3,0,180,107
+1,San Fernando,13A,450,342,2,6,0,162,110
+1,San Fernando,13A,451,342,2,3,0,177,110
+1,San Fernando,13A,452,342,1,3,0,179,109
+1,San Fernando,13A,453,342,2,6,0,176,105
+1,San Fernando,13A,454,342,1,0,1,200,90
+1,San Fernando,13A,455,339,4,6,0,172,102
+1,San Fernando,13A,456,342,0,3,0,176,126
+1,San Fernando,13A,457,342,2,3,0,192,108
+1,San Fernando,13A,458,342,2,2,0,192,101
+1,San Fernando,13A,459,342,1,2,0,169,107
+1,San Fernando,13A,460,341,1,1,0,176,105
+1,San Fernando,13A,461,341,5,7,0,179,99
+1,San Fernando,13A,462,341,0,3,0,194,90
+1,San Fernando,13A,463,341,1,4,0,175,101
+1,San Fernando,13A,464,341,2,7,0,165,114
+1,San Fernando,13A,465,339,2,3,0,169,112
+1,San Fernando,13A,466,341,3,1,0,194,93
+1,San Fernando,13A,467,341,2,3,0,171,117
+1,San Fernando,13B,468,348,2,3,0,185,111
+1,San Fernando,13B,469,347,0,4,0,197,83
+1,San Fernando,13B,470,347,2,3,1,164,131
+1,San Fernando,13B,471,348,4,1,0,174,104
+1,San Fernando,13B,472,348,1,2,0,181,95
+1,San Fernando,13B,473,348,0,6,0,184,95
+1,San Fernando,13B,474,348,2,3,0,186,112
+1,San Fernando,13B,475,347,2,3,0,165,116
+1,San Fernando,13B,476,347,0,0,0,155,134
+1,San Fernando,13B,477,347,2,1,0,156,128
+1,San Fernando,13B,478,347,3,3,0,172,111
+1,San Fernando,13B,479,347,4,2,0,187,110
+1,San Fernando,13B,480,347,4,0,0,166,121
+1,San Fernando,13B,481,347,2,5,0,160,119
+1,San Fernando,13B,482,347,4,2,0,154,136
+1,San Fernando,13B,483,347,21,7,0,166,115
+1,San Fernando,13B,484,347,0,4,0,153,135
+1,San Fernando,13B,485,347,3,5,0,168,114
+1,San Fernando,13B,487,346,3,1,0,160,114
+1,San Fernando,13B,488,346,2,4,0,166,110
+1,San Fernando,13B,489,347,1,3,0,164,109
+1,San Fernando,13B,490,347,0,5,0,188,100
+1,San Fernando,13B,491,346,1,4,0,181,92
+1,San Fernando,13B,492,347,3,5,0,151,134
+1,San Fernando,13B,493,347,2,11,4,131,135
+1,San Fernando,13B,494,347,1,6,0,147,136
+1,San Fernando,13B,495,347,8,4,0,153,117
+1,San Fernando,13B,496,347,2,5,0,166,105
+1,San Fernando,13B,497,347,2,9,0,174,115
+1,San Fernando,13B,498,347,3,1,0,146,134
+1,San Fernando,13B,499,346,1,6,0,154,131
+1,San Fernando,13B,500,347,0,1,0,184,105
+1,San Fernando,13B,501,347,0,1,1,144,141
+1,San Fernando,13B,502,347,1,3,0,161,118
+1,San Fernando,13B,503,347,1,1,0,189,95
+1,San Fernando,13B,504,347,1,6,0,165,124
+1,San Fernando,13B,505,346,2,1,0,188,101
+1,San Fernando,13B,506,347,2,4,0,169,124
+1,San Fernando,13B,507,347,4,2,1,152,125
+1,San Fernando,13B,508,347,1,4,0,180,111
+1,San Fernando,13B,509,347,0,4,1,190,100
+1,San Fernando,13B,510,347,3,1,0,161,116
+1,San Fernando,13B,511,347,3,1,0,177,111
+1,San Fernando,13B,512,347,0,4,0,179,111
+1,San Fernando,13B,513,347,0,3,0,187,109
+1,San Fernando,13B,514,346,1,1,0,170,111
+1,San Fernando,13B,515,347,4,8,0,149,136
+1,San Fernando,13B,516,347,3,2,0,161,109
+1,San Fernando,13B,517,347,2,4,0,156,126
+1,San Fernando,13B,518,347,2,1,0,184,114
+1,San Fernando,13B,519,347,0,3,1,158,122
+1,San Fernando,13B,520,347,2,2,0,169,132
+1,San Fernando,14,521,339,2,4,0,95,184
+1,San Fernando,14,523,339,2,3,0,70,206
+1,San Fernando,14,524,339,0,7,1,110,159
+1,San Fernando,14,526,338,2,4,1,99,169
+1,San Fernando,14,527,338,2,3,0,109,153
+1,San Fernando,14,528,339,2,1,0,123,163
+1,San Fernando,14,529,339,0,5,0,98,174
+1,San Fernando,14,530,339,5,3,0,100,166
+1,San Fernando,14,532,339,0,1,0,104,191
+1,San Fernando,14,533,337,1,2,0,107,170
+1,San Fernando,14,534,339,4,2,0,118,145
+1,San Fernando,14,535,338,2,4,0,120,143
+1,San Fernando,14,536,338,3,1,0,114,149
+1,San Fernando,14,537,338,2,4,0,101,152
+1,San Fernando,14,538,338,0,0,0,102,170
+1,San Fernando,14,539,337,2,0,0,101,176
+1,San Fernando,15,540,344,1,6,0,168,125
+1,San Fernando,15,541,344,4,2,0,122,166
+1,San Fernando,15,542,344,0,3,0,132,149
+1,San Fernando,15,543,344,1,2,0,136,150
+1,San Fernando,15,544,344,1,8,0,112,160
+1,San Fernando,15,545,344,2,6,0,115,160
+1,San Fernando,15,546,341,0,2,0,140,148
+1,San Fernando,15,547,344,3,1,0,130,151
+1,San Fernando,15,548,344,0,3,0,134,145
+1,San Fernando,15,549,344,5,7,11,128,142
+1,San Fernando,15,550,344,1,1,0,151,139
+1,San Fernando,15,551,344,3,3,0,119,167
+1,San Fernando,15,552,344,0,1,0,121,169
+1,San Fernando,15,553,343,2,1,0,131,169
+1,San Fernando,15,554,343,1,5,0,130,140
+1,San Fernando,15,555,344,2,4,0,133,155
+1,San Fernando,15,556,343,2,2,0,146,139
+1,San Fernando,15,557,344,2,3,0,151,131
+1,San Fernando,15,558,343,3,4,0,125,149
+1,San Fernando,15,559,344,1,3,0,147,147
+1,San Fernando,15,560,344,0,1,0,158,134
+1,San Fernando,15,561,344,3,2,0,118,168
+1,San Fernando,15,562,344,4,2,0,128,146
+1,San Fernando,15,563,344,5,2,0,143,146
+1,San Fernando,15,564,344,1,6,0,151,130
+1,San Fernando,15,565,344,1,2,0,114,170
+1,San Fernando,15,566,344,5,5,0,116,169
+1,San Fernando,15,567,344,1,1,0,124,145
+1,San Fernando,15,568,342,5,11,0,129,155
+1,San Fernando,15,569,343,3,6,0,113,158
+1,San Fernando,15,570,343,3,2,0,132,157
+1,San Fernando,15,571,343,2,4,0,109,180
+1,San Fernando,15,572,343,1,3,1,113,163
+1,San Fernando,15,573,343,2,3,0,133,139
+1,San Fernando,15,574,343,3,2,0,146,139
+1,San Fernando,15,575,342,4,3,0,118,156
+1,San Fernando,15,576,343,0,5,1,175,113
+1,San Fernando,15,577,342,2,3,2,141,140
+1,San Fernando,15,578,343,1,6,0,139,152
+1,San Fernando,15,579,343,2,5,0,117,176
+1,San Fernando,15,580,343,10,2,0,136,148
+1,San Fernando,15,581,343,2,4,0,121,161
+1,San Fernando,15,582,343,2,3,0,158,129
+1,San Fernando,15,583,343,4,6,0,141,139
+1,San Fernando,15,584,343,3,3,1,88,198
+1,San Fernando,16A,585,349,1,2,0,177,115
+1,San Fernando,16A,586,349,6,0,0,150,138
+1,San Fernando,16A,587,349,0,1,0,145,139
+1,San Fernando,16A,588,349,2,7,0,166,118
+1,San Fernando,16A,589,349,1,1,0,137,146
+1,San Fernando,16A,590,349,0,2,0,141,138
+1,San Fernando,16A,591,349,1,0,0,141,144
+1,San Fernando,16A,592,348,2,3,0,135,141
+1,San Fernando,16A,593,349,0,5,0,156,132
+1,San Fernando,16A,594,349,3,1,0,157,133
+1,San Fernando,16A,595,349,2,2,0,140,151
+1,San Fernando,16A,596,349,4,7,0,143,150
+1,San Fernando,16A,597,349,3,5,0,155,137
+1,San Fernando,16A,598,349,3,5,0,155,137
+1,San Fernando,16A,599,348,0,2,2,141,135
+1,San Fernando,16A,600,349,0,1,1,133,149
+1,San Fernando,16A,601,349,0,0,0,144,157
+1,San Fernando,16A,602,349,1,2,1,146,140
+1,San Fernando,16A,603,349,2,3,0,146,152
+1,San Fernando,16A,604,348,2,0,0,137,150
+1,San Fernando,16A,605,348,1,2,0,148,142
+1,San Fernando,16A,606,349,1,2,0,143,146
+1,San Fernando,16A,607,349,4,0,0,143,135
+1,San Fernando,16A,608,349,3,3,0,154,134
+1,San Fernando,16A,609,349,0,5,0,170,107
+1,San Fernando,16A,610,349,1,2,0,143,144
+1,San Fernando,16A,611,349,2,5,0,126,149
+1,San Fernando,16A,612,349,1,6,0,140,157
+1,San Fernando,16A,613,349,1,1,1,151,127
+1,San Fernando,16A,614,349,2,5,0,167,119
+1,San Fernando,16A,615,349,3,3,0,163,123
+1,San Fernando,16A,616,349,1,2,0,133,166
+1,San Fernando,16A,617,349,0,1,0,136,143
+1,San Fernando,16A,618,349,1,12,0,130,146
+1,San Fernando,16A,619,348,2,1,0,154,123
+1,San Fernando,16A,620,349,2,1,0,140,145
+1,San Fernando,16A,621,349,4,1,0,150,138
+1,San Fernando,16A,622,349,1,6,0,147,138
+1,San Fernando,16A,624,349,0,0,0,135,148
+1,San Fernando,16A,625,349,0,6,0,149,128
+1,San Fernando,16A,626,349,1,6,0,137,141
+1,San Fernando,16A,627,349,5,8,0,147,140
+1,San Fernando,16A,628,349,0,2,0,124,153
+1,San Fernando,16A,629,349,0,3,0,161,127
+1,San Fernando,16A,630,349,0,7,0,146,141
+1,San Fernando,16A,631,349,3,1,0,160,126
+1,San Fernando,16A,632,349,0,7,0,143,138
+1,San Fernando,16A,633,349,3,4,0,146,146
+1,San Fernando,16A,634,349,1,3,1,113,177
+1,San Fernando,16A,635,349,1,1,0,151,128
+1,San Fernando,16A,636,349,1,1,1,165,120
+1,San Fernando,16A,637,349,2,1,3,137,137
+1,San Fernando,16A,638,348,0,4,0,122,165
+1,San Fernando,16A,639,348,1,0,2,157,110
+1,San Fernando,16A,640,348,1,2,0,163,121
+1,San Fernando,16A,641,348,0,3,0,173,164
+1,San Fernando,16A,642,348,2,9,0,155,116
+1,San Fernando,16A,643,348,2,5,0,169,121
+1,San Fernando,16A,644,348,1,3,1,141,154
+1,San Fernando,16A,645,348,2,3,1,146,121
+1,San Fernando,16A,646,348,2,3,0,126,159
+1,San Fernando,16A,647,348,0,3,0,144,139
+1,San Fernando,16A,648,348,1,4,0,166,127
+1,San Fernando,16A,649,348,1,2,0,148,140
+1,San Fernando,16A,650,348,0,2,0,165,124
+1,San Fernando,16A,651,348,1,2,0,130,154
+1,San Fernando,16A,652,348,2,1,0,161,134
+1,San Fernando,16B,653,348,9,0,0,153,128
+1,San Fernando,16B,654,348,2,0,0,157,134
+1,San Fernando,16B,655,348,1,6,0,149,136
+1,San Fernando,16B,656,348,2,2,0,138,142
+1,San Fernando,16B,657,348,3,5,0,145,145
+1,San Fernando,16B,658,348,3,2,0,156,131
+1,San Fernando,16B,659,348,1,6,0,155,123
+1,San Fernando,16B,660,348,0,4,0,130,149
+1,San Fernando,16B,661,347,2,4,0,113,155
+1,San Fernando,16B,662,348,1,12,0,140,142
+1,San Fernando,16B,663,347,0,5,0,136,143
+1,San Fernando,16B,664,347,1,2,0,155,129
+1,San Fernando,16B,665,347,2,1,0,128,165
+1,San Fernando,16B,666,346,2,2,0,127,155
+1,San Fernando,16B,667,347,7,0,0,143,133
+1,San Fernando,16B,668,346,1,3,0,150,139
+1,San Fernando,16B,669,346,0,10,0,143,126
+1,San Fernando,16B,670,346,5,0,0,124,161
+1,San Fernando,16B,671,347,2,4,0,158,126
+1,San Fernando,16B,672,347,1,2,0,131,166
+1,San Fernando,16B,673,347,3,3,0,135,157
+1,San Fernando,16B,674,346,0,0,0,141,152
+1,San Fernando,16B,675,346,2,4,1,153,133
+1,San Fernando,16B,676,347,0,3,0,129,140
+1,San Fernando,16B,677,347,0,1,0,153,129
+1,San Fernando,16B,678,347,2,4,0,127,165
+1,San Fernando,16B,679,347,2,4,0,145,140
+1,San Fernando,16B,680,346,1,2,0,132,149
+1,San Fernando,16B,681,347,2,5,0,127,156
+1,San Fernando,16B,682,347,0,4,0,140,152
+1,San Fernando,16B,683,347,3,8,0,140,136
+1,San Fernando,16B,684,347,4,9,0,130,145
+1,San Fernando,16B,685,347,0,3,0,141,150
+1,San Fernando,16B,686,347,1,2,0,160,133
+1,San Fernando,16B,687,347,1,5,0,138,152
+1,San Fernando,16B,688,347,1,0,0,153,152
+1,San Fernando,16B,689,347,2,3,0,113,169
+1,San Fernando,16B,690,347,6,2,0,130,148
+1,San Fernando,16B,691,347,3,8,1,141,149
+1,San Fernando,16B,692,347,1,0,0,159,133
+1,San Fernando,16B,693,347,1,0,0,116,160
+1,San Fernando,16B,694,347,1,1,0,164,121
+1,San Fernando,16B,695,346,0,21,0,124,127
+1,San Fernando,16B,696,347,5,2,0,150,135
+1,San Fernando,16B,697,347,3,0,0,138,147
+1,San Fernando,16B,698,347,1,3,0,151,137
+1,San Fernando,16B,699,344,2,3,0,108,159
+1,San Fernando,16B,700,346,0,5,0,140,149
+1,San Fernando,16B,701,347,3,5,0,166,119
+1,San Fernando,16B,702,347,2,2,0,128,162
+1,San Fernando,16B,703,346,0,3,0,119,179
+1,San Fernando,16C,704,350,6,2,0,150,145
+1,San Fernando,16C,705,350,1,2,0,133,136
+1,San Fernando,16C,706,350,1,2,0,122,152
+1,San Fernando,16C,707,350,3,1,0,130,143
+1,San Fernando,16C,708,350,1,5,0,122,155
+1,San Fernando,16C,709,349,4,0,0,111,163
+1,San Fernando,16C,710,349,3,8,0,135,146
+1,San Fernando,16C,711,348,1,3,0,133,151
+1,San Fernando,16C,712,349,4,3,0,98,183
+1,San Fernando,16C,713,349,4,4,1,104,183
+1,San Fernando,16C,714,349,2,1,0,119,167
+1,San Fernando,16C,715,348,2,6,0,120,143
+1,San Fernando,16C,716,347,2,8,0,103,170
+1,San Fernando,16C,717,349,3,2,0,84,179
+1,San Fernando,16C,718,349,2,3,0,131,138
+1,San Fernando,16C,719,349,3,0,0,140,154
+1,San Fernando,16C,720,349,1,2,0,122,149
+1,San Fernando,16C,721,349,3,3,0,116,155
+1,San Fernando,16C,722,349,2,4,0,138,149
+1,San Fernando,16C,723,349,0,0,0,138,151
+1,San Fernando,16C,724,349,3,0,0,129,150
+1,San Fernando,16C,725,349,1,2,0,128,159
+1,San Fernando,16C,726,349,1,3,0,106,161
+1,San Fernando,16C,727,349,0,7,0,123,147
+1,San Fernando,16C,728,349,1,4,0,111,159
+1,San Fernando,16C,729,349,1,2,0,112,183
+1,San Fernando,16C,730,349,2,0,0,134,147
+1,San Fernando,16C,731,349,1,1,0,133,146
+1,San Fernando,16C,732,349,2,2,0,122,154
+1,San Fernando,16C,733,349,5,3,0,135,141
+1,San Fernando,16C,734,348,0,1,0,129,140
+1,San Fernando,16C,735,349,0,1,0,120,150
+1,San Fernando,16C,736,349,0,6,0,120,163
+1,San Fernando,16C,737,349,1,1,0,116,151
+1,San Fernando,16C,738,349,1,2,1,119,157
+1,San Fernando,17,739,338,3,1,1,118,148
+1,San Fernando,17,740,338,1,1,0,107,162
+1,San Fernando,17,741,337,4,1,0,93,173
+1,San Fernando,17,742,338,1,1,0,98,188
+1,San Fernando,17,743,338,0,6,0,101,154
+1,San Fernando,17,744,338,4,1,0,115,154
+1,San Fernando,17,745,338,2,2,0,112,162
+1,San Fernando,17,746,338,2,0,0,105,161
+1,San Fernando,17,747,337,2,0,0,87,175
+1,San Fernando,17,748,337,3,4,0,118,149
+1,San Fernando,17,749,338,3,3,0,100,173
+1,San Fernando,17,750,338,1,2,0,98,174
+1,San Fernando,18,751,343,1,5,0,201,73
+1,San Fernando,18,752,343,2,4,0,165,104
+1,San Fernando,18,753,343,1,0,0,186,87
+1,San Fernando,18,754,343,3,0,0,165,108
+1,San Fernando,18,755,342,1,0,0,184,90
+1,San Fernando,18,756,342,5,1,0,160,105
+1,San Fernando,18,757,342,5,0,0,179,102
+1,San Fernando,18,758,342,0,2,0,154,120
+1,San Fernando,18,759,342,3,2,0,178,97
+1,San Fernando,18,760,342,0,3,0,184,93
+1,San Fernando,18,761,342,1,1,0,189,82
+1,San Fernando,18,762,341,0,1,0,163,106
+1,San Fernando,18,763,341,1,2,1,168,103
+1,San Fernando,18,764,342,1,2,0,183,80
+1,San Fernando,18,765,341,3,0,0,186,76
+1,San Fernando,18,766,342,4,3,0,145,120
+1,San Fernando,18,767,342,1,2,0,193,73
+1,San Fernando,18,768,342,2,2,0,186,84
+1,San Fernando,18,769,342,0,1,0,159,115
+1,San Fernando,18,770,342,2,4,0,191,79
+1,San Fernando,18,771,342,0,6,1,166,109
+1,San Fernando,18,772,342,3,0,0,203,73
+1,San Fernando,18,773,342,2,4,0,201,83
+1,San Fernando,18,774,342,0,5,0,138,123
+1,San Fernando,18,775,341,2,5,0,155,101
+1,San Fernando,18,776,342,3,2,0,167,107
+1,San Fernando,18,777,342,1,3,0,186,77
+1,San Fernando,18,778,342,0,0,0,163,119
+1,San Fernando,18,779,342,1,3,0,170,111
+1,San Fernando,18,780,342,0,6,0,167,120
+1,San Fernando,18,781,342,0,2,1,158,117
+1,San Fernando,18,782,342,2,5,0,179,84
+1,San Fernando,19A,783,347,3,2,0,178,108
+1,San Fernando,19A,784,347,2,5,0,142,141
+1,San Fernando,19A,785,346,0,3,0,143,143
+1,San Fernando,19A,786,347,2,5,0,131,139
+1,San Fernando,19A,787,347,0,3,0,130,153
+1,San Fernando,19A,788,347,0,5,0,161,121
+1,San Fernando,19A,789,347,2,6,0,153,128
+1,San Fernando,19A,790,347,5,1,0,138,132
+1,San Fernando,19A,791,347,3,2,0,161,114
+1,San Fernando,19A,792,347,1,4,0,139,139
+1,San Fernando,19A,793,347,1,4,0,132,138
+1,San Fernando,19A,794,346,0,7,0,156,116
+1,San Fernando,19A,795,346,0,6,0,167,121
+1,San Fernando,19A,796,347,2,1,0,135,149
+1,San Fernando,19A,797,347,2,10,0,137,124
+1,San Fernando,19A,798,346,1,6,0,140,144
+1,San Fernando,19A,799,346,4,3,0,139,137
+1,San Fernando,19A,800,347,1,4,0,154,125
+1,San Fernando,19A,801,346,0,2,0,140,140
+1,San Fernando,19A,802,347,0,2,0,138,133
+1,San Fernando,19A,803,346,0,5,0,135,138
+1,San Fernando,19B,804,343,2,4,0,189,89
+1,San Fernando,19B,805,343,6,9,0,183,98
+1,San Fernando,19B,806,343,0,3,0,183,106
+1,San Fernando,19B,807,343,1,5,0,164,109
+1,San Fernando,19B,808,343,2,0,0,159,129
+1,San Fernando,19B,809,343,69,1,0,157,116
+1,San Fernando,19B,810,342,1,3,0,165,112
+1,San Fernando,19B,811,342,2,4,0,175,107
+1,San Fernando,19B,812,342,0,7,0,191,83
+1,San Fernando,19B,813,341,0,0,0,169,117
+1,San Fernando,19B,814,341,1,3,0,176,113
+1,San Fernando,19B,815,342,4,3,0,171,111
+1,San Fernando,19B,816,342,1,2,0,181,102
+1,San Fernando,19B,817,342,4,6,0,172,113
+1,San Fernando,19B,818,342,3,3,0,169,111
+1,San Fernando,19B,819,342,1,2,0,163,117
+1,San Fernando,19B,820,342,1,4,0,157,100
+1,San Fernando,19B,821,342,1,1,0,195,93
+1,San Fernando,19B,822,342,2,4,0,148,135
+1,San Fernando,20,823,280,1,3,0,98,130
+1,San Fernando,20,824,280,2,6,0,121,103
+1,San Fernando,20,825,280,2,2,0,92,149
+1,San Fernando,21,826,333,0,5,0,198,70
+1,San Fernando,21,827,333,2,0,0,198,86
+1,San Fernando,21,828,333,1,1,0,169,89
+1,San Fernando,21,829,332,4,0,0,195,74
+1,San Fernando,21,830,333,1,0,0,184,95
+1,San Fernando,21,831,333,2,0,0,194,80
+1,San Fernando,21,832,333,1,0,0,175,104
+1,San Fernando,21,833,333,0,2,0,179,103
+1,San Fernando,21,834,333,2,1,0,188,83
+1,San Fernando,21,835,333,1,1,0,164,100
+1,San Fernando,21,836,332,0,3,0,165,100
+1,San Fernando,21,837,332,0,1,0,190,89
+1,San Fernando,21,838,332,2,4,0,189,79
+1,San Fernando,21,839,332,0,2,0,178,84
+1,San Fernando,21,840,332,0,1,0,181,97
+1,San Fernando,21,841,332,1,0,0,174,104
+1,San Fernando,21,842,332,0,1,0,182,92
+1,San Fernando,21,843,332,2,5,0,167,101
+1,San Fernando,21,844,332,1,0,0,182,91
+1,San Fernando,22A,845,339,1,3,0,193,91
+1,San Fernando,22A,846,339,1,2,0,175,100
+1,San Fernando,22A,847,339,2,1,0,206,83
+1,San Fernando,22A,848,339,0,0,0,194,92
+1,San Fernando,22A,849,338,2,0,0,193,89
+1,San Fernando,22A,850,339,0,1,3,193,49
+1,San Fernando,22A,851,339,1,0,0,198,96
+1,San Fernando,22A,852,339,2,14,0,206,66
+1,San Fernando,22A,853,339,1,4,0,190,90
+1,San Fernando,22A,854,339,1,0,0,197,90
+1,San Fernando,22A,855,339,3,3,0,176,96
+1,San Fernando,22A,856,339,1,3,0,213,73
+1,San Fernando,22A,857,338,1,3,0,176,112
+1,San Fernando,22A,858,339,3,7,0,196,90
+1,San Fernando,22A,859,339,3,3,0,195,107
+1,San Fernando,22A,860,339,3,1,0,195,95
+1,San Fernando,22A,861,339,1,4,0,179,103
+1,San Fernando,22A,862,339,1,4,0,168,103
+1,San Fernando,22A,863,339,0,1,0,205,89
+1,San Fernando,22A,864,338,1,7,0,186,90
+1,San Fernando,22A,865,338,0,3,0,193,93
+1,San Fernando,22A,866,338,3,2,0,212,82
+1,San Fernando,22A,867,338,0,1,0,191,108
+1,San Fernando,22B,868,349,0,1,0,163,137
+1,San Fernando,22B,869,348,1,1,0,187,115
+1,San Fernando,22B,870,349,4,2,0,203,96
+1,San Fernando,22B,871,349,6,0,0,184,114
+1,San Fernando,22B,872,349,4,3,0,180,114
+1,San Fernando,22B,873,348,3,4,0,195,101
+1,San Fernando,22B,874,347,2,11,0,146,128
+1,San Fernando,22B,875,347,3,7,0,145,143
+1,San Fernando,22B,876,348,1,1,0,187,104
+1,San Fernando,22B,877,348,0,7,0,188,106
+1,San Fernando,22B,878,348,0,2,0,171,124
+1,San Fernando,22B,879,348,2,6,0,175,122
+1,San Fernando,22B,880,348,2,6,0,156,128
+1,San Fernando,22B,881,348,8,0,0,170,115
+1,San Fernando,22B,882,348,1,1,0,160,132
+1,San Fernando,22B,883,347,2,0,0,161,136
+1,San Fernando,22B,884,348,2,5,0,182,105
+1,San Fernando,22B,885,348,0,2,0,165,113
+1,San Fernando,22B,886,348,3,0,0,174,119
+1,San Fernando,22B,887,348,0,5,0,179,110
+1,San Fernando,22B,888,348,0,3,0,190,104
+1,San Fernando,22B,889,347,1,8,0,151,122
+1,San Fernando,22B,890,348,3,2,0,169,115
+1,San Fernando,22B,891,348,4,5,0,146,135
+1,San Fernando,22B,892,348,2,5,0,167,126
+1,San Fernando,22B,893,348,1,9,0,171,113
+1,San Fernando,22B,894,348,0,2,0,170,120
+1,San Fernando,22B,895,348,0,2,0,192,103
+1,San Fernando,22B,896,348,2,5,0,185,91
+1,San Fernando,22B,897,347,1,4,0,171,121
+1,San Fernando,22B,898,347,3,2,0,185,103
+1,San Fernando,23,899,344,2,3,0,205,83
+1,San Fernando,23,900,344,2,0,0,202,88
+1,San Fernando,23,901,344,1,2,0,211,85
+1,San Fernando,23,902,344,0,0,0,202,96
+1,San Fernando,23,903,344,1,3,0,195,88
+1,San Fernando,23,904,344,0,3,0,178,108
+1,San Fernando,23,905,344,1,3,0,171,111
+1,San Fernando,23,906,344,1,2,0,176,115
+1,San Fernando,23,907,344,3,5,0,195,86
+1,San Fernando,23,908,344,0,2,0,179,109
+1,San Fernando,23,909,344,2,1,0,189,108
+1,San Fernando,23,910,343,2,4,0,196,85
+1,San Fernando,23,911,344,1,2,0,191,103
+1,San Fernando,23,912,344,1,6,0,193,91
+1,San Fernando,23,913,344,4,8,4,206,76
+1,San Fernando,23,914,344,4,2,0,188,92
+1,San Fernando,23,915,344,2,0,1,193,84
+1,San Fernando,23,916,344,0,4,0,197,84
+1,San Fernando,23,917,344,2,1,2,194,82
+1,San Fernando,23,918,344,1,9,0,192,76
+1,San Fernando,23,919,342,1,6,0,175,103
+1,San Fernando,23,920,343,1,5,0,183,83
+1,San Fernando,23,921,343,2,0,0,189,96
+1,San Fernando,23,922,343,1,3,0,197,86
+1,San Fernando,23,923,343,1,0,4,189,95
+1,San Fernando,23,924,343,5,3,0,187,95
+1,San Fernando,23,925,342,0,5,0,184,97
+1,San Fernando,24,926,200,1,1,0,88,71
+1,San Fernando,24,927,199,0,3,0,101,48
+1,San Fernando,25,928,28,0,0,0,6,3
+1,San Fernando,26,929,342,1,4,0,172,91
+1,San Fernando,26,930,343,5,0,0,188,86
+1,San Fernando,26,931,338,3,0,0,142,113
+1,San Fernando,26,932,343,3,1,0,150,106
+1,San Fernando,26,933,343,3,0,0,166,102
+1,San Fernando,26,934,343,4,0,0,163,118
+1,San Fernando,26,935,343,3,0,0,164,107
+1,San Fernando,26,936,343,4,0,0,171,97
+1,San Fernando,26,937,343,2,0,0,173,88
+1,San Fernando,26,938,342,2,0,0,173,87
+1,San Fernando,26,939,341,4,0,0,134,126
+1,San Fernando,26,940,342,2,0,0,127,120
+1,San Fernando,26,941,342,2,0,0,116,146
+1,San Fernando,27,942,328,0,2,0,183,51
+2,Primero de Mayo,28,943,323,0,3,0,169,108
+2,Primero de Mayo,28,944,323,4,3,0,150,108
+2,Primero de Mayo,28,945,323,4,0,0,158,112
+2,Primero de Mayo,28,946,322,0,4,0,184,91
+2,Primero de Mayo,28,947,323,4,1,0,185,96
+2,Primero de Mayo,28,948,323,2,3,0,187,92
+2,Primero de Mayo,28,949,323,1,1,0,162,110
+2,Primero de Mayo,28,950,323,4,0,0,184,90
+2,Primero de Mayo,28,951,323,0,5,0,164,115
+2,Primero de Mayo,28,952,322,2,0,0,163,125
+2,Primero de Mayo,28A,953,251,0,0,0,169,56
+2,Primero de Mayo,28A,954,251,0,6,0,159,61
+2,Primero de Mayo,28A,955,251,0,0,0,159,67
+2,Primero de Mayo,29,956,332,3,0,0,179,111
+2,Primero de Mayo,29,957,332,3,0,0,179,95
+2,Primero de Mayo,29,958,332,1,0,0,152,129
+2,Primero de Mayo,29,959,332,4,0,0,159,123
+2,Primero de Mayo,29,960,332,1,2,0,161,119
+2,Primero de Mayo,29,961,332,4,0,0,178,117
+2,Primero de Mayo,29,962,332,3,0,0,170,126
+2,Primero de Mayo,29,963,331,5,0,0,186,84
+2,Primero de Mayo,29,964,331,4,0,0,158,115
+2,Primero de Mayo,29,965,331,5,0,0,164,109
+2,Primero de Mayo,29,966,331,2,0,0,157,122
+2,Primero de Mayo,29,967,331,1,0,0,172,113
+2,Primero de Mayo,29,968,331,1,0,0,156,122
+2,Primero de Mayo,29,969,331,6,0,0,135,156
+2,Primero de Mayo,29,970,331,0,0,0,181,102
+2,Primero de Mayo,29,971,331,0,4,0,157,133
+2,Primero de Mayo,29,972,330,4,0,0,144,133
+2,Primero de Mayo,30,973,162,1,0,0,76,41
+3,Libertad,32,975,338,2,0,0,197,98
+3,Libertad,32,976,338,6,0,0,176,120
+3,Libertad,32,977,338,2,0,0,189,90
+3,Libertad,32,978,337,3,0,0,210,86
+3,Libertad,32,979,337,3,0,0,181,112
+3,Libertad,32,980,337,10,0,0,170,108
+3,Libertad,32,981,337,4,0,0,181,94
+3,Libertad,32,982,337,2,0,0,157,119
+3,Libertad,32,983,337,4,0,0,176,102
+3,Libertad,32,984,337,7,0,0,184,97
+3,Libertad,32,985,337,6,0,0,185,105
+3,Libertad,32,986,337,0,0,0,174,124
+3,Libertad,32,987,336,4,0,0,182,105
+3,Libertad,32,988,337,1,2,0,200,88
+3,Libertad,32,989,337,4,0,0,167,119
+3,Libertad,32,990,336,1,3,0,163,119
+3,Libertad,32,991,337,1,6,0,172,103
+3,Libertad,32,992,337,3,8,0,183,107
+3,Libertad,32,993,337,0,1,0,187,99
+3,Libertad,32,994,337,2,2,0,157,113
+3,Libertad,32,995,337,1,0,0,199,102
+3,Libertad,32,996,337,3,0,0,183,103
+3,Libertad,32,997,336,3,0,0,182,89
+3,Libertad,32,998,337,2,2,0,205,89
+3,Libertad,32,999,337,2,1,0,185,104
+3,Libertad,33,1000,269,2,4,0,103,127
+3,Libertad,33,1001,269,1,5,0,116,114
+3,Libertad,33,1002,267,0,0,0,132,106
+3,Libertad,34,1003,247,1,0,0,196,29
+3,Libertad,34,1004,246,0,0,0,179,36
+3,Libertad,34,1005,246,2,1,0,179,36
+3,Libertad,35,1006,11,0,0,0,0,1
+3,Libertad,36,1007,12,0,0,0,0,2
+4,General Donovan,37,1008,295,0,3,0,182,78
+4,General Donovan,37,1010,294,1,1,0,189,62
+4,General Donovan,38,1011,349,0,1,0,209,95
+4,General Donovan,38,1012,349,1,3,0,178,110
+4,General Donovan,38,1013,349,5,2,0,173,110
+4,General Donovan,38,1014,349,4,0,0,130,146
+4,General Donovan,38,1015,349,2,0,0,178,104
+4,General Donovan,38,1016,349,7,4,0,164,117
+4,General Donovan,38,1017,349,3,1,0,160,130
+4,General Donovan,38,1018,349,4,1,0,180,109
+4,General Donovan,38,1019,349,1,2,0,136,143
+4,General Donovan,38,1020,349,5,5,0,185,113
+4,General Donovan,38,1021,349,2,1,0,173,109
+4,General Donovan,38,1022,348,0,2,0,185,108
+4,General Donovan,38,1023,348,2,2,0,199,91
+4,General Donovan,39,1024,319,2,0,0,196,80
+4,General Donovan,39,1025,318,7,0,0,181,89
+4,General Donovan,39,1026,318,0,0,0,168,102
+4,General Donovan,39,1027,318,0,0,0,174,91
+4,General Donovan,39,1028,318,0,1,0,185,81
+4,General Donovan,39,1029,317,2,0,3,189,70
+4,General Donovan,39,1030,318,2,0,0,193,79
+4,General Donovan,39,1031,318,2,0,0,166,97
+4,General Donovan,39,1032,318,0,2,0,184,73
+4,General Donovan,40,1033,337,3,0,0,189,98
+4,General Donovan,40,1034,337,1,1,0,155,119
+4,General Donovan,40,1035,337,5,0,0,154,118
+4,General Donovan,40,1036,337,2,0,0,210,77
+4,General Donovan,40,1037,337,0,0,0,186,90
+4,General Donovan,40,1038,337,2,3,0,172,113
+4,General Donovan,40,1039,336,1,0,0,188,82
+4,General Donovan,40,1040,336,3,0,0,198,79
+4,General Donovan,40,1041,336,0,1,0,163,109
+4,General Donovan,40,1042,336,2,1,0,190,84
+5,Sargento Cabral,41,1043,343,2,4,0,216,70
+5,Sargento Cabral,41,1044,342,3,2,0,185,94
+5,Sargento Cabral,41,1045,343,0,4,0,166,102
+5,Sargento Cabral,41,1046,342,2,0,0,169,95
+5,Sargento Cabral,41,1047,342,0,2,0,188,105
+5,Sargento Cabral,41,1048,342,6,0,0,196,85
+5,Sargento Cabral,41,1049,341,6,1,0,175,94
+5,Sargento Cabral,41,1050,342,4,1,0,186,100
+5,Sargento Cabral,41,1051,342,0,1,0,182,101
+5,Sargento Cabral,41,1052,341,4,0,0,193,82
+5,Sargento Cabral,41,1053,341,0,3,0,200,91
+5,Sargento Cabral,41,1054,342,1,2,0,203,86
+5,Sargento Cabral,42,1055,323,1,0,0,196,74
+5,Sargento Cabral,42,1056,322,1,0,0,173,76
+5,Sargento Cabral,42,1057,322,0,1,0,203,65
+5,Sargento Cabral,42,1058,322,4,0,0,197,81
+5,Sargento Cabral,42,1059,322,2,0,0,203,66
+5,Sargento Cabral,42,1060,322,1,0,0,201,68
+5,Sargento Cabral,43,1061,319,1,0,0,166,91
+5,Sargento Cabral,43,1062,319,4,0,0,133,129
+5,Sargento Cabral,43,1063,319,3,0,0,161,101
+5,Sargento Cabral,43,1064,319,1,3,0,148,110
+5,Sargento Cabral,43,1065,319,4,0,0,178,69
+5,Sargento Cabral,43,1066,319,2,3,0,159,92
+5,Sargento Cabral,43,1067,318,0,0,0,152,95
+5,Sargento Cabral,43,1068,318,4,0,0,144,114
+5,Sargento Cabral,43,1069,318,1,0,0,181,79
+5,Sargento Cabral,43,1070,318,0,1,0,161,103
+5,Sargento Cabral,43,1071,318,0,0,0,168,99
+5,Sargento Cabral,44,1072,349,2,0,0,206,73
+5,Sargento Cabral,44,1073,348,0,0,0,195,68
+5,Sargento Cabral,44,1074,348,1,0,0,194,77
+5,Sargento Cabral,44,1075,348,1,0,0,191,98
+5,Sargento Cabral,44,1076,347,1,0,0,182,90
+5,Sargento Cabral,44,1077,348,1,0,0,198,75
+5,Sargento Cabral,44,1078,348,0,1,0,169,94
+5,Sargento Cabral,44,1079,348,1,0,0,232,59
+5,Sargento Cabral,44,1080,348,0,0,0,188,78
+5,Sargento Cabral,44,1081,348,2,0,0,189,73
+5,Sargento Cabral,44,1082,348,2,0,0,207,67
+5,Sargento Cabral,44,1083,348,2,1,0,205,72
+5,Sargento Cabral,44,1084,348,1,0,0,198,77
+6,Presidencia de la Plaza,45,1085,218,1,0,0,103,44
+6,Presidencia de la Plaza,45,1086,218,0,1,0,111,44
+6,Presidencia de la Plaza,46,1087,276,1,4,0,137,46
+6,Presidencia de la Plaza,47,1088,342,7,0,0,179,88
+6,Presidencia de la Plaza,47,1089,340,3,1,0,184,86
+6,Presidencia de la Plaza,47,1090,341,5,0,0,173,95
+6,Presidencia de la Plaza,47,1091,341,3,7,0,163,91
+6,Presidencia de la Plaza,47,1092,341,1,0,0,176,86
+6,Presidencia de la Plaza,47,1093,341,4,0,0,163,105
+6,Presidencia de la Plaza,47,1094,341,0,2,0,167,94
+6,Presidencia de la Plaza,47,1095,341,8,0,0,144,105
+6,Presidencia de la Plaza,47,1096,341,1,1,0,173,89
+6,Presidencia de la Plaza,47,1097,341,0,0,0,158,100
+6,Presidencia de la Plaza,47,1098,341,1,2,0,165,107
+6,Presidencia de la Plaza,47,1099,341,1,2,0,172,95
+6,Presidencia de la Plaza,47,1100,341,1,0,0,159,104
+6,Presidencia de la Plaza,47,1101,341,0,0,0,177,108
+6,Presidencia de la Plaza,47,1102,341,0,5,0,162,100
+6,Presidencia de la Plaza,47,1103,341,0,2,1,186,79
+6,Presidencia de la Plaza,47,1104,341,1,3,0,148,103
+6,Presidencia de la Plaza,47,1105,341,0,1,0,173,100
+6,Presidencia de la Plaza,47,1106,341,0,1,0,147,122
+6,Presidencia de la Plaza,47,1107,341,0,2,0,155,99
+6,Presidencia de la Plaza,47,1108,341,4,1,0,185,81
+6,Presidencia de la Plaza,47,1109,341,6,0,0,145,91
+6,Presidencia de la Plaza,47,1110,341,1,0,0,172,88
+6,Presidencia de la Plaza,47,1111,341,6,0,0,126,123
+6,Presidencia de la Plaza,47,1112,341,0,2,0,143,108
+6,Presidencia de la Plaza,48,1113,182,2,0,0,80,32
+7,Bermejo,49,1114,323,8,0,0,150,108
+7,Bermejo,49,1115,323,1,0,0,178,83
+7,Bermejo,49,1116,323,1,2,0,173,94
+7,Bermejo,49,1117,322,4,0,0,183,88
+7,Bermejo,49,1118,322,0,0,0,150,121
+7,Bermejo,50,1119,237,3,0,0,154,18
+7,Bermejo,50,1120,237,0,0,0,149,20
+7,Bermejo,51,1121,194,0,0,0,120,16
+7,Bermejo,52,1122,346,2,0,0,180,92
+7,Bermejo,52,1123,346,4,0,0,175,94
+7,Bermejo,52,1124,346,1,2,0,159,112
+7,Bermejo,52,1125,345,1,0,0,169,100
+7,Bermejo,52,1126,346,2,0,0,198,70
+7,Bermejo,52,1127,346,1,3,0,189,82
+7,Bermejo,52,1128,345,3,4,0,86,77
+7,Bermejo,52,1129,346,1,4,0,181,92
+7,Bermejo,52,1130,346,2,0,1,180,91
+7,Bermejo,52,1131,346,2,1,0,175,96
+7,Bermejo,52,1132,346,2,0,0,192,87
+7,Bermejo,52,1133,344,2,0,0,200,69
+7,Bermejo,52,1134,344,1,1,0,174,83
+7,Bermejo,52,1135,345,0,4,0,199,72
+7,Bermejo,52,1137,345,1,0,0,187,85
+7,Bermejo,52,1138,344,2,1,0,186,70
+7,Bermejo,53,1139,344,2,0,0,194,85
+7,Bermejo,53,1140,344,7,0,0,169,104
+7,Bermejo,53,1141,344,7,0,0,177,90
+7,Bermejo,53,1142,343,5,0,0,163,100
+7,Bermejo,53,1143,344,3,2,0,198,85
+7,Bermejo,53,1144,343,4,0,0,196,84
+7,Bermejo,53,1145,342,4,0,0,180,93
+7,Bermejo,53,1146,343,14,0,0,185,96
+7,Bermejo,53,1147,342,11,2,0,175,85
+7,Bermejo,53,1148,343,2,1,0,186,96
+7,Bermejo,53,1149,343,9,0,0,149,118
+7,Bermejo,53,1150,343,3,0,0,192,84
+7,Bermejo,53,1151,343,23,0,0,167,89
+7,Bermejo,53,1152,342,6,0,0,185,100
+7,Bermejo,53,1153,343,4,0,0,202,80
+7,Bermejo,53,1154,343,7,0,0,197,82
+7,Bermejo,53,1155,343,10,0,0,185,78
+7,Bermejo,53,1156,343,2,2,0,175,94
+7,Bermejo,53,1157,343,4,0,0,207,72
+7,Bermejo,53,1158,343,7,0,0,187,81
+7,Bermejo,53,1159,343,3,0,0,177,111
+7,Bermejo,53,1160,343,2,4,0,185,83
+7,Bermejo,53,1161,343,0,0,0,172,114
+7,Bermejo,54,1162,345,2,1,0,197,69
+7,Bermejo,54,1163,345,0,0,0,188,81
+7,Bermejo,54,1164,345,0,1,0,169,92
+7,Bermejo,54,1165,345,1,3,0,193,68
+7,Bermejo,54,1166,344,1,0,0,189,66
+7,Bermejo,54,1167,344,2,0,0,164,87
+7,Bermejo,54,1168,344,1,1,0,159,94
+7,Bermejo,54,1169,344,1,2,0,191,82
+7,Bermejo,54,1170,344,0,0,0,205,65
+7,Bermejo,55A,1171,333,2,0,0,152,79
+7,Bermejo,55A,1172,333,1,0,0,153,76
+7,Bermejo,55A,1173,333,1,3,0,144,89
+7,Bermejo,55A,1174,333,0,1,0,135,91
+7,Bermejo,55A,1175,333,1,0,0,169,69
+7,Bermejo,55A,1176,332,2,3,0,165,55
+7,Bermejo,55B,1177,238,0,0,2,139,57
+7,Bermejo,55B,1178,237,1,1,0,150,43
+7,Bermejo,55B,1179,237,0,2,0,142,31
+7,Bermejo,56,1180,15,0,0,0,0,1
+7,Bermejo,57,1181,223,1,0,0,134,36
+8,Libertador General San Martín,58,1182,268,2,0,0,151,80
+8,Libertador General San Martín,58,1183,267,1,0,0,157,75
+8,Libertador General San Martín,58,1184,268,1,0,0,143,75
+8,Libertador General San Martín,59,1185,278,4,0,0,142,66
+8,Libertador General San Martín,59,1186,278,5,0,0,122,91
+8,Libertador General San Martín,59,1187,277,3,0,0,151,69
+8,Libertador General San Martín,60,1188,322,1,0,0,147,124
+8,Libertador General San Martín,60,1189,322,1,0,0,120,130
+8,Libertador General San Martín,60,1190,322,0,22,0,119,148
+8,Libertador General San Martín,60,1191,322,0,0,1,101,146
+8,Libertador General San Martín,60,1192,322,0,2,0,121,150
+8,Libertador General San Martín,60,1193,321,2,0,0,101,161
+8,Libertador General San Martín,61,1194,296,0,0,0,154,55
+8,Libertador General San Martín,61,1195,296,0,0,0,159,55
+8,Libertador General San Martín,61,1196,295,1,0,0,145,53
+8,Libertador General San Martín,61,1197,295,0,0,0,173,48
+8,Libertador General San Martín,61,1198,295,1,3,0,162,46
+8,Libertador General San Martín,61,1199,295,1,1,0,178,40
+8,Libertador General San Martín,62,1200,346,6,0,0,191,93
+8,Libertador General San Martín,62,1201,346,1,1,0,172,123
+8,Libertador General San Martín,62,1202,346,3,0,0,171,106
+8,Libertador General San Martín,62,1203,346,2,0,0,131,147
+8,Libertador General San Martín,62,1204,346,0,1,0,199,85
+8,Libertador General San Martín,62,1206,346,2,7,0,166,103
+8,Libertador General San Martín,62,1207,346,0,3,0,196,93
+8,Libertador General San Martín,62,1208,346,3,0,0,192,93
+8,Libertador General San Martín,62,1209,346,1,1,0,156,114
+8,Libertador General San Martín,62,1210,346,1,1,0,162,105
+8,Libertador General San Martín,62,1211,346,1,3,0,149,130
+8,Libertador General San Martín,62,1212,346,2,0,0,185,84
+8,Libertador General San Martín,62,1213,346,5,2,0,181,97
+8,Libertador General San Martín,62,1214,346,2,2,0,134,153
+8,Libertador General San Martín,62,1215,346,3,0,0,139,128
+8,Libertador General San Martín,62,1216,346,3,5,0,137,128
+8,Libertador General San Martín,62,1217,346,2,0,0,161,123
+8,Libertador General San Martín,62,1218,345,0,6,0,176,105
+8,Libertador General San Martín,62,1219,346,2,4,0,137,110
+8,Libertador General San Martín,62,1220,346,3,7,0,155,106
+8,Libertador General San Martín,62,1221,346,3,3,0,161,117
+8,Libertador General San Martín,62,1222,346,2,2,0,174,101
+8,Libertador General San Martín,62,1223,346,1,2,0,175,124
+8,Libertador General San Martín,62,1224,346,0,1,0,155,114
+8,Libertador General San Martín,62,1225,346,1,3,0,170,94
+8,Libertador General San Martín,62,1226,346,2,0,0,174,101
+8,Libertador General San Martín,62,1227,346,0,0,0,196,92
+8,Libertador General San Martín,62,1228,345,2,1,0,179,91
+8,Libertador General San Martín,62,1229,345,1,0,0,171,102
+8,Libertador General San Martín,62,1230,346,0,6,0,137,127
+8,Libertador General San Martín,62,1231,346,0,2,0,142,148
+8,Libertador General San Martín,62,1232,346,2,1,0,188,111
+8,Libertador General San Martín,62,1233,346,1,2,0,157,118
+8,Libertador General San Martín,62,1234,345,0,2,0,162,118
+8,Libertador General San Martín,62,1235,346,0,2,0,202,77
+8,Libertador General San Martín,62,1236,346,0,5,0,199,76
+8,Libertador General San Martín,62,1237,346,1,2,0,157,121
+8,Libertador General San Martín,62,1238,345,0,2,0,157,122
+8,Libertador General San Martín,62,1239,345,1,6,0,183,93
+8,Libertador General San Martín,62,1240,345,0,3,0,182,112
+8,Libertador General San Martín,62,1241,345,0,4,0,148,130
+8,Libertador General San Martín,62,1242,345,0,1,0,174,93
+8,Libertador General San Martín,62,1243,345,1,2,0,144,148
+8,Libertador General San Martín,62,1244,344,1,3,0,163,109
+8,Libertador General San Martín,62,1245,345,0,4,0,172,112
+8,Libertador General San Martín,62,1246,345,2,1,0,145,125
+8,Libertador General San Martín,62,1247,345,1,3,0,160,123
+8,Libertador General San Martín,62,1248,345,0,2,0,159,133
+8,Libertador General San Martín,62,1249,344,1,7,0,161,114
+8,Libertador General San Martín,62,1250,345,0,2,0,187,94
+8,Libertador General San Martín,62,1251,345,0,0,0,183,98
+8,Libertador General San Martín,62,1252,345,2,0,0,164,129
+8,Libertador General San Martín,62,1253,345,6,1,0,161,123
+8,Libertador General San Martín,62,1254,345,2,8,0,141,114
+8,Libertador General San Martín,62,1255,345,2,1,0,176,113
+8,Libertador General San Martín,62,1256,345,3,3,0,166,106
+8,Libertador General San Martín,62,1257,345,0,3,0,159,107
+8,Libertador General San Martín,62,1258,345,1,5,0,185,114
+8,Libertador General San Martín,62,1259,345,3,2,0,146,128
+8,Libertador General San Martín,62,1260,345,2,2,0,171,118
+8,Libertador General San Martín,62,1261,345,1,1,0,184,95
+8,Libertador General San Martín,62,1262,345,2,0,0,140,133
+8,Libertador General San Martín,62,1263,345,1,7,0,156,112
+8,Libertador General San Martín,62,1264,345,3,1,0,152,125
+8,Libertador General San Martín,62,1265,345,0,1,0,196,92
+8,Libertador General San Martín,62,1266,345,3,0,0,163,119
+8,Libertador General San Martín,62,1267,345,1,1,0,140,132
+8,Libertador General San Martín,63,1268,239,1,3,0,118,48
+8,Libertador General San Martín,63,1269,239,1,1,0,136,38
+8,Libertador General San Martín,63,1270,238,2,0,0,127,39
+8,Libertador General San Martín,64,1271,324,1,2,0,181,77
+8,Libertador General San Martín,64,1272,325,0,0,0,145,107
+8,Libertador General San Martín,64,1273,325,2,1,0,155,105
+8,Libertador General San Martín,64,1274,325,2,3,0,162,88
+8,Libertador General San Martín,64,1275,325,0,1,0,175,91
+8,Libertador General San Martín,64,1276,325,1,0,0,167,95
+8,Libertador General San Martín,64,1277,325,1,0,0,170,86
+8,Libertador General San Martín,64,1278,324,2,0,0,170,95
+8,Libertador General San Martín,64,1279,324,2,2,0,171,78
+8,Libertador General San Martín,64,1280,324,2,0,0,181,74
+8,Libertador General San Martín,64,1281,324,4,1,0,153,106
+8,Libertador General San Martín,64,1282,322,1,1,0,166,98
+8,Libertador General San Martín,65,1283,349,1,0,0,202,71
+8,Libertador General San Martín,65,1284,349,1,0,0,129,61
+8,Libertador General San Martín,65,1285,349,0,0,0,187,79
+8,Libertador General San Martín,65,1286,349,1,1,0,177,69
+8,Libertador General San Martín,65,1287,349,2,0,0,223,66
+8,Libertador General San Martín,65,1288,349,0,1,0,192,91
+8,Libertador General San Martín,65,1289,349,1,1,0,210,48
+8,Libertador General San Martín,65,1290,349,1,2,0,209,46
+8,Libertador General San Martín,65,1291,349,3,5,0,193,46
+8,Libertador General San Martín,65,1292,349,0,1,0,190,68
+8,Libertador General San Martín,65,1293,349,0,0,0,216,33
+8,Libertador General San Martín,65,1294,349,4,0,0,154,70
+8,Libertador General San Martín,65,1295,349,0,0,0,203,67
+8,Libertador General San Martín,65,1296,349,3,0,0,214,43
+8,Libertador General San Martín,65,1297,349,4,1,0,211,38
+8,Libertador General San Martín,65,1298,349,0,0,0,197,78
+8,Libertador General San Martín,65,1299,349,7,0,0,215,53
+8,Libertador General San Martín,65,1300,349,5,0,0,250,27
+8,Libertador General San Martín,65,1301,348,2,0,0,189,71
+8,Libertador General San Martín,65,1302,348,6,0,0,166,84
+8,Libertador General San Martín,65,1303,348,1,0,0,127,50
+8,Libertador General San Martín,65,1304,347,0,0,0,215,61
+8,Libertador General San Martín,65,1305,348,2,0,0,191,55
+8,Libertador General San Martín,65,1306,348,2,0,0,198,51
+8,Libertador General San Martín,65,1307,348,0,1,0,170,78
+8,Libertador General San Martín,65,1308,348,0,0,0,198,63
+8,Libertador General San Martín,65,1309,348,2,0,0,193,74
+8,Libertador General San Martín,65,1310,348,0,0,0,196,51
+8,Libertador General San Martín,65,1311,348,0,0,0,196,59
+8,Libertador General San Martín,65,1312,348,1,0,0,189,78
+8,Libertador General San Martín,65,1313,348,2,0,0,201,63
+8,Libertador General San Martín,65,1314,348,3,0,0,192,57
+8,Libertador General San Martín,65,1315,348,4,0,0,195,69
+8,Libertador General San Martín,66,1316,305,1,0,0,96,141
+8,Libertador General San Martín,66,1317,304,0,3,0,88,152
+8,Libertador General San Martín,66,1318,304,2,2,0,124,110
+8,Libertador General San Martín,66,1319,304,0,2,0,109,135
+8,Libertador General San Martín,66,1320,304,0,0,0,107,140
+8,Libertador General San Martín,67,1321,319,0,0,0,193,62
+8,Libertador General San Martín,67,1322,318,0,0,0,192,64
+8,Libertador General San Martín,67,1323,318,2,0,0,216,56
+9,Tapenagá,68,1324,326,2,0,0,172,89
+9,Tapenagá,68,1325,326,6,0,0,143,113
+9,Tapenagá,68,1326,326,3,4,0,152,93
+9,Tapenagá,68,1327,326,1,1,0,179,88
+9,Tapenagá,69,1328,215,0,1,0,108,33
+9,Tapenagá,70,1329,320,1,0,0,181,49
+9,Tapenagá,70,1330,319,1,1,0,168,79
+9,Tapenagá,70,1331,319,1,1,0,184,73
+9,Tapenagá,70,1332,319,4,0,0,201,54
+9,Tapenagá,71,1333,116,1,0,0,57,18
+9,Tapenagá,72,1334,50,0,0,0,22,6
+10,San Lorenzo,73,1335,309,2,1,0,133,57
+10,San Lorenzo,74,1336,340,4,1,0,200,60
+10,San Lorenzo,74,1337,340,2,0,0,166,95
+10,San Lorenzo,74,1338,340,0,1,0,191,65
+10,San Lorenzo,74,1339,340,3,0,0,210,57
+10,San Lorenzo,74,1340,340,0,0,0,195,78
+10,San Lorenzo,74,1341,340,1,0,0,161,99
+10,San Lorenzo,74,1342,340,1,2,0,177,85
+10,San Lorenzo,74,1343,340,1,7,0,167,89
+10,San Lorenzo,74,1344,340,0,0,0,186,89
+10,San Lorenzo,74,1345,340,3,1,0,173,101
+10,San Lorenzo,74,1346,340,3,0,0,215,64
+10,San Lorenzo,74,1347,340,1,0,0,184,82
+10,San Lorenzo,74,1348,339,3,0,0,198,60
+10,San Lorenzo,74,1349,339,3,1,0,210,55
+10,San Lorenzo,74,1350,339,0,3,0,152,113
+10,San Lorenzo,74,1351,339,2,2,0,177,94
+10,San Lorenzo,74,1352,339,1,5,0,193,72
+10,San Lorenzo,74,1353,339,0,1,0,177,70
+10,San Lorenzo,74,1354,339,7,2,0,163,92
+10,San Lorenzo,74,1355,338,0,1,0,176,70
+10,San Lorenzo,74,1356,339,1,2,0,189,79
+10,San Lorenzo,74,1357,339,0,1,0,190,84
+10,San Lorenzo,74,1358,339,2,0,0,182,100
+10,San Lorenzo,74,1359,339,0,0,0,184,80
+10,San Lorenzo,74,1360,339,2,0,0,213,52
+10,San Lorenzo,74,1361,339,0,2,0,203,61
+10,San Lorenzo,74,1362,339,1,1,0,199,65
+10,San Lorenzo,74,1363,339,2,0,0,203,64
+10,San Lorenzo,74,1364,338,6,0,0,193,60
+10,San Lorenzo,74,1365,339,0,2,0,184,84
+10,San Lorenzo,74,1366,339,3,2,1,175,84
+10,San Lorenzo,75,1367,310,0,0,0,192,31
+10,San Lorenzo,75,1368,310,2,0,0,182,59
+10,San Lorenzo,75,1369,310,2,0,0,189,48
+10,San Lorenzo,75,1370,310,0,1,0,199,46
+10,San Lorenzo,75,1371,309,0,1,0,167,60
+11,Mayor Luis J. Fontana,76,1372,290,3,3,0,161,47
+11,Mayor Luis J. Fontana,76,1373,290,5,0,0,145,54
+11,Mayor Luis J. Fontana,76,1374,290,0,1,0,152,56
+11,Mayor Luis J. Fontana,76,1375,289,2,1,0,160,61
+11,Mayor Luis J. Fontana,77,1376,349,5,0,0,185,89
+11,Mayor Luis J. Fontana,77,1377,349,5,0,0,198,71
+11,Mayor Luis J. Fontana,77,1378,349,1,0,0,204,80
+11,Mayor Luis J. Fontana,77,1379,349,5,0,0,192,82
+11,Mayor Luis J. Fontana,77,1380,349,5,0,0,196,84
+11,Mayor Luis J. Fontana,77,1381,349,5,0,0,181,83
+11,Mayor Luis J. Fontana,77,1382,349,2,4,0,160,100
+11,Mayor Luis J. Fontana,77,1383,349,3,0,0,190,87
+11,Mayor Luis J. Fontana,77,1384,349,15,0,0,147,119
+11,Mayor Luis J. Fontana,77,1385,349,2,0,0,179,96
+11,Mayor Luis J. Fontana,77,1386,349,2,0,0,186,89
+11,Mayor Luis J. Fontana,77,1387,349,4,0,0,185,80
+11,Mayor Luis J. Fontana,77,1388,349,1,0,0,177,103
+11,Mayor Luis J. Fontana,77,1389,349,5,0,0,169,96
+11,Mayor Luis J. Fontana,77,1390,349,3,0,0,192,92
+11,Mayor Luis J. Fontana,77,1391,349,2,3,0,158,102
+11,Mayor Luis J. Fontana,77,1392,349,7,0,0,169,104
+11,Mayor Luis J. Fontana,77,1393,349,5,0,0,186,97
+11,Mayor Luis J. Fontana,78,1394,350,0,6,0,184,100
+11,Mayor Luis J. Fontana,78,1395,350,1,1,0,163,111
+11,Mayor Luis J. Fontana,78,1396,350,2,0,0,157,110
+11,Mayor Luis J. Fontana,78,1397,350,0,0,0,144,135
+11,Mayor Luis J. Fontana,78,1398,350,0,1,0,155,125
+11,Mayor Luis J. Fontana,78,1399,350,2,5,0,142,131
+11,Mayor Luis J. Fontana,78,1400,350,1,0,0,95,192
+11,Mayor Luis J. Fontana,78,1401,350,3,0,0,177,97
+11,Mayor Luis J. Fontana,78,1402,350,6,0,0,135,127
+11,Mayor Luis J. Fontana,78,1403,350,7,0,0,141,118
+11,Mayor Luis J. Fontana,78,1404,350,0,0,0,140,142
+11,Mayor Luis J. Fontana,78,1405,350,0,0,0,135,131
+11,Mayor Luis J. Fontana,78,1406,350,1,4,0,149,115
+11,Mayor Luis J. Fontana,78,1407,350,0,1,0,145,130
+11,Mayor Luis J. Fontana,78,1408,350,2,1,0,148,120
+11,Mayor Luis J. Fontana,78,1409,350,1,0,0,144,116
+11,Mayor Luis J. Fontana,78,1410,350,0,0,0,155,122
+11,Mayor Luis J. Fontana,78,1411,350,1,3,0,163,105
+11,Mayor Luis J. Fontana,78,1412,349,2,2,0,111,164
+11,Mayor Luis J. Fontana,78,1413,349,1,0,0,139,142
+11,Mayor Luis J. Fontana,78,1414,349,2,0,0,92,181
+11,Mayor Luis J. Fontana,78,1415,349,0,0,0,105,174
+11,Mayor Luis J. Fontana,78,1416,349,5,0,0,151,125
+11,Mayor Luis J. Fontana,78,1417,349,5,0,0,180,84
+11,Mayor Luis J. Fontana,78,1418,349,5,0,0,157,111
+11,Mayor Luis J. Fontana,78,1419,349,5,2,0,139,135
+11,Mayor Luis J. Fontana,78,1420,349,0,6,0,129,141
+11,Mayor Luis J. Fontana,78,1421,349,1,0,0,155,117
+11,Mayor Luis J. Fontana,78,1422,349,2,0,0,128,138
+11,Mayor Luis J. Fontana,78,1423,349,4,2,0,183,87
+11,Mayor Luis J. Fontana,78,1424,349,0,6,0,148,118
+11,Mayor Luis J. Fontana,78,1425,349,3,0,0,124,153
+11,Mayor Luis J. Fontana,78,1426,349,4,3,0,135,145
+11,Mayor Luis J. Fontana,78,1427,349,2,3,0,143,129
+11,Mayor Luis J. Fontana,78,1428,349,1,0,0,153,134
+11,Mayor Luis J. Fontana,78,1429,349,2,2,0,176,100
+11,Mayor Luis J. Fontana,78,1430,349,4,0,0,153,123
+11,Mayor Luis J. Fontana,78,1431,348,1,2,0,172,108
+11,Mayor Luis J. Fontana,78,1432,349,1,0,0,141,116
+11,Mayor Luis J. Fontana,78,1433,349,3,0,0,146,129
+11,Mayor Luis J. Fontana,78,1434,349,1,3,0,126,144
+11,Mayor Luis J. Fontana,78,1435,348,4,0,0,120,142
+11,Mayor Luis J. Fontana,78,1436,349,4,2,0,164,105
+11,Mayor Luis J. Fontana,78,1437,349,4,0,0,95,174
+11,Mayor Luis J. Fontana,78,1438,349,1,1,0,110,170
+11,Mayor Luis J. Fontana,79,1439,348,2,4,0,211,55
+11,Mayor Luis J. Fontana,79,1440,348,1,2,0,212,64
+11,Mayor Luis J. Fontana,79,1441,347,3,1,0,192,84
+11,Mayor Luis J. Fontana,79,1442,348,6,0,0,189,87
+11,Mayor Luis J. Fontana,79,1443,348,1,2,0,156,122
+11,Mayor Luis J. Fontana,79,1444,348,5,3,0,162,99
+11,Mayor Luis J. Fontana,79,1445,348,0,0,0,177,94
+11,Mayor Luis J. Fontana,79,1446,348,0,3,0,198,87
+11,Mayor Luis J. Fontana,79,1447,348,0,0,0,176,95
+11,Mayor Luis J. Fontana,79,1448,348,5,0,0,188,89
+11,Mayor Luis J. Fontana,79,1449,348,7,0,0,175,93
+11,Mayor Luis J. Fontana,79,1450,348,4,0,0,198,87
+11,Mayor Luis J. Fontana,79,1451,348,3,6,0,160,102
+11,Mayor Luis J. Fontana,79,1452,348,3,3,0,181,83
+11,Mayor Luis J. Fontana,79,1453,348,2,0,0,172,102
+11,Mayor Luis J. Fontana,79,1454,348,4,0,0,190,87
+11,Mayor Luis J. Fontana,79,1455,347,2,0,0,155,128
+11,Mayor Luis J. Fontana,79,1456,348,0,1,0,200,73
+11,Mayor Luis J. Fontana,79,1457,348,3,1,0,195,72
+11,Mayor Luis J. Fontana,79,1458,348,1,1,0,221,58
+11,Mayor Luis J. Fontana,79,1459,348,7,0,0,178,98
+11,Mayor Luis J. Fontana,79,1460,348,1,3,0,194,93
+11,Mayor Luis J. Fontana,79,1461,348,5,0,0,180,98
+11,Mayor Luis J. Fontana,79,1462,347,6,5,0,203,73
+11,Mayor Luis J. Fontana,79,1463,347,3,0,0,172,100
+11,Mayor Luis J. Fontana,79,1464,347,4,0,0,167,102
+11,Mayor Luis J. Fontana,79,1465,347,2,1,0,179,95
+11,Mayor Luis J. Fontana,79,1466,347,2,1,0,181,96
+11,Mayor Luis J. Fontana,79,1467,347,2,2,0,214,64
+11,Mayor Luis J. Fontana,79,1468,347,0,1,0,241,51
+11,Mayor Luis J. Fontana,79,1469,347,3,0,0,209,75
+11,Mayor Luis J. Fontana,79,1470,347,6,0,0,189,86
+11,Mayor Luis J. Fontana,79,1471,347,9,0,0,139,126
+11,Mayor Luis J. Fontana,79,1472,347,3,0,1,181,93
+11,Mayor Luis J. Fontana,79,1473,347,5,0,0,197,90
+11,Mayor Luis J. Fontana,79,1474,347,4,0,0,162,120
+11,Mayor Luis J. Fontana,80,1475,338,2,0,0,158,103
+11,Mayor Luis J. Fontana,80,1476,338,0,0,0,153,90
+11,Mayor Luis J. Fontana,80,1477,338,4,0,0,139,135
+11,Mayor Luis J. Fontana,80,1478,337,1,0,0,119,156
+11,Mayor Luis J. Fontana,80,1479,337,5,0,0,189,77
+11,Mayor Luis J. Fontana,80,1480,337,4,0,0,172,78
+11,Mayor Luis J. Fontana,80,1481,337,2,0,0,145,132
+11,Mayor Luis J. Fontana,80,1482,337,1,0,0,135,131
+11,Mayor Luis J. Fontana,80,1483,337,0,0,0,158,109
+11,Mayor Luis J. Fontana,80,1484,337,3,0,0,141,125
+11,Mayor Luis J. Fontana,80,1485,337,4,0,0,127,143
+11,Mayor Luis J. Fontana,80,1486,337,4,0,0,79,201
+11,Mayor Luis J. Fontana,80,1487,337,2,0,0,116,156
+11,Mayor Luis J. Fontana,80,1488,337,1,0,0,151,109
+11,Mayor Luis J. Fontana,80,1489,337,2,0,0,153,122
+11,Mayor Luis J. Fontana,80,1490,337,3,0,0,154,100
+11,Mayor Luis J. Fontana,80,1491,337,2,0,0,121,129
+11,Mayor Luis J. Fontana,80,1492,337,2,0,0,168,89
+11,Mayor Luis J. Fontana,80,1493,337,3,0,0,151,114
+11,Mayor Luis J. Fontana,80,1494,337,0,0,0,174,93
+11,Mayor Luis J. Fontana,80,1495,337,6,0,0,128,125
+11,Mayor Luis J. Fontana,80,1496,337,5,0,0,142,120
+11,Mayor Luis J. Fontana,80,1497,337,1,0,0,110,164
+11,Mayor Luis J. Fontana,80,1498,337,3,0,0,115,153
+11,Mayor Luis J. Fontana,80,1499,337,0,2,0,138,116
+11,Mayor Luis J. Fontana,80,1500,337,0,0,0,75,209
+11,Mayor Luis J. Fontana,81,1501,127,1,0,61,31,29
+11,Mayor Luis J. Fontana,82,1502,290,1,0,0,142,75
+11,Mayor Luis J. Fontana,82,1503,290,3,0,0,112,93
+11,Mayor Luis J. Fontana,82,1504,289,0,2,0,109,108
+12,O'Higgins,83,1505,181,1,0,0,69,29
+12,O'Higgins,83,1506,180,0,0,0,62,36
+12,O'Higgins,84,1507,349,0,2,0,209,75
+12,O'Higgins,84,1508,349,0,0,0,219,73
+12,O'Higgins,84,1509,349,0,3,0,199,69
+12,O'Higgins,84,1510,349,2,0,0,177,101
+12,O'Higgins,84,1511,349,4,0,0,211,68
+12,O'Higgins,84,1512,349,2,4,0,173,96
+12,O'Higgins,84,1513,349,0,3,0,208,74
+12,O'Higgins,84,1514,349,0,0,0,172,81
+12,O'Higgins,84,1515,349,3,0,0,201,66
+12,O'Higgins,84,1516,349,6,0,0,182,98
+12,O'Higgins,84,1517,349,2,1,0,140,136
+12,O'Higgins,84,1518,349,11,0,0,187,68
+12,O'Higgins,84,1519,348,8,0,0,208,59
+12,O'Higgins,84,1520,348,14,0,0,183,76
+12,O'Higgins,84,1521,348,2,0,0,172,108
+12,O'Higgins,84,1522,347,3,0,0,188,69
+12,O'Higgins,84,1523,348,0,0,0,150,116
+12,O'Higgins,84,1524,348,3,3,0,180,85
+12,O'Higgins,84,1525,348,0,0,0,200,68
+12,O'Higgins,84,1526,348,0,4,0,209,53
+12,O'Higgins,84,1527,348,1,4,0,177,112
+12,O'Higgins,84,1528,348,0,5,0,172,95
+12,O'Higgins,84,1529,348,0,0,0,179,104
+12,O'Higgins,85,1530,331,0,0,0,222,41
+12,O'Higgins,85,1531,331,1,0,0,186,64
+12,O'Higgins,85,1532,331,0,0,0,194,62
+12,O'Higgins,85,1533,331,1,0,0,178,71
+12,O'Higgins,85,1534,331,1,0,0,200,62
+12,O'Higgins,85,1535,331,0,0,0,200,57
+12,O'Higgins,85,1536,331,0,0,0,163,109
+12,O'Higgins,85,1537,331,1,0,0,190,77
+12,O'Higgins,85,1538,331,3,0,0,181,61
+12,O'Higgins,85,1539,331,0,0,0,174,77
+12,O'Higgins,85,1540,330,0,0,0,207,52
+12,O'Higgins,85,1541,330,1,0,0,174,93
+12,O'Higgins,85,1542,330,0,0,0,175,88
+12,O'Higgins,86,1543,336,0,2,0,215,39
+12,O'Higgins,86,1544,335,0,0,0,213,39
+12,O'Higgins,86,1545,336,1,0,0,199,41
+12,O'Higgins,86,1546,336,0,0,0,238,35
+12,O'Higgins,86,1547,336,1,1,0,200,54
+12,O'Higgins,86,1548,335,3,2,0,177,91
+12,O'Higgins,86,1549,336,0,2,0,196,62
+12,O'Higgins,86,1550,335,1,0,0,204,44
+12,O'Higgins,86,1551,336,2,1,0,176,66
+12,O'Higgins,86,1552,335,1,0,0,195,63
+12,O'Higgins,86,1553,335,1,0,0,200,48
+12,O'Higgins,86,1554,335,0,0,0,183,69
+13,Comandante Fernández,87,1555,296,0,0,0,135,61
+13,Comandante Fernández,87,1556,296,2,0,0,105,90
+13,Comandante Fernández,87,1557,296,0,0,0,108,76
+13,Comandante Fernández,87,1558,296,0,0,0,106,89
+13,Comandante Fernández,87,1559,295,0,0,0,106,91
+13,Comandante Fernández,87,1560,295,2,0,0,87,89
+13,Comandante Fernández,88,1561,350,0,5,0,157,99
+13,Comandante Fernández,88,1562,350,2,2,0,190,82
+13,Comandante Fernández,88,1563,350,0,4,0,167,102
+13,Comandante Fernández,88,1564,350,3,0,0,161,112
+13,Comandante Fernández,88,1565,350,0,4,0,157,101
+13,Comandante Fernández,88,1566,350,3,0,0,190,88
+13,Comandante Fernández,88,1567,350,2,0,0,156,120
+13,Comandante Fernández,88,1568,350,2,0,0,170,105
+13,Comandante Fernández,88,1569,350,6,0,0,134,128
+13,Comandante Fernández,88,1570,350,2,2,0,150,105
+13,Comandante Fernández,88,1571,350,3,1,0,179,88
+13,Comandante Fernández,88,1572,350,1,7,0,195,84
+13,Comandante Fernández,88,1573,350,2,2,0,151,127
+13,Comandante Fernández,88,1574,350,9,0,0,171,95
+13,Comandante Fernández,88,1575,350,3,3,0,129,132
+13,Comandante Fernández,88,1576,350,3,0,0,158,97
+13,Comandante Fernández,88,1577,349,1,5,0,142,122
+13,Comandante Fernández,88,1578,349,2,0,0,148,127
+13,Comandante Fernández,88,1579,350,1,4,0,173,102
+13,Comandante Fernández,88,1580,350,0,4,0,142,95
+13,Comandante Fernández,88,1581,350,0,2,0,167,118
+13,Comandante Fernández,88,1582,350,2,1,0,150,122
+13,Comandante Fernández,88,1583,350,2,0,0,173,93
+13,Comandante Fernández,88,1584,350,4,0,0,170,95
+13,Comandante Fernández,88,1585,350,2,3,0,184,99
+13,Comandante Fernández,88,1586,350,1,3,0,164,91
+13,Comandante Fernández,88,1587,349,1,3,0,158,101
+13,Comandante Fernández,88,1588,350,0,2,0,151,116
+13,Comandante Fernández,88,1589,350,1,1,4,145,123
+13,Comandante Fernández,88,1590,350,3,1,0,126,147
+13,Comandante Fernández,88,1591,350,2,5,0,84,195
+13,Comandante Fernández,88,1592,350,2,0,0,152,119
+13,Comandante Fernández,88,1593,350,0,2,0,162,114
+13,Comandante Fernández,88,1594,350,2,2,0,150,118
+13,Comandante Fernández,88,1595,350,0,3,0,169,104
+13,Comandante Fernández,88,1596,350,1,2,0,137,134
+13,Comandante Fernández,88,1597,350,4,0,0,159,99
+13,Comandante Fernández,88,1598,350,1,5,1,179,88
+13,Comandante Fernández,88,1599,350,0,4,0,149,128
+13,Comandante Fernández,88,1600,349,1,2,0,154,117
+13,Comandante Fernández,88,1601,350,2,0,0,138,134
+13,Comandante Fernández,88,1602,350,0,5,0,149,114
+13,Comandante Fernández,88,1603,350,1,2,0,171,115
+13,Comandante Fernández,88,1604,350,5,0,1,163,106
+13,Comandante Fernández,88,1605,350,7,0,0,166,116
+13,Comandante Fernández,88,1606,350,1,3,0,128,155
+13,Comandante Fernández,88,1607,350,1,1,2,135,129
+13,Comandante Fernández,88,1608,350,4,0,0,195,94
+13,Comandante Fernández,88,1609,350,1,2,0,153,122
+13,Comandante Fernández,88,1610,350,0,0,0,161,123
+13,Comandante Fernández,88,1611,350,3,1,0,181,88
+13,Comandante Fernández,88,1612,350,1,1,0,140,126
+13,Comandante Fernández,88,1613,350,4,2,0,162,111
+13,Comandante Fernández,88,1614,350,1,1,0,143,131
+13,Comandante Fernández,88,1615,350,3,3,0,157,113
+13,Comandante Fernández,88,1616,348,0,6,0,167,101
+13,Comandante Fernández,88,1617,349,0,5,0,145,147
+13,Comandante Fernández,88,1618,349,0,0,0,146,122
+13,Comandante Fernández,88,1619,349,0,2,0,143,114
+13,Comandante Fernández,88,1620,349,1,2,0,151,117
+13,Comandante Fernández,88,1621,349,3,1,0,173,106
+13,Comandante Fernández,88,1622,349,0,1,0,123,147
+13,Comandante Fernández,89,1623,350,0,10,0,145,125
+13,Comandante Fernández,89,1624,350,3,0,0,171,121
+13,Comandante Fernández,89,1625,350,5,4,0,148,121
+13,Comandante Fernández,89,1626,350,2,3,0,182,103
+13,Comandante Fernández,89,1627,350,1,0,0,178,98
+13,Comandante Fernández,89,1628,350,8,0,0,149,139
+13,Comandante Fernández,89,1629,350,4,0,0,143,133
+13,Comandante Fernández,89,1630,350,4,2,0,175,107
+13,Comandante Fernández,89,1631,350,5,3,0,160,115
+13,Comandante Fernández,89,1632,350,0,4,0,149,127
+13,Comandante Fernández,89,1633,350,0,4,0,212,72
+13,Comandante Fernández,89,1634,350,1,5,0,161,112
+13,Comandante Fernández,89,1635,350,3,0,0,162,99
+13,Comandante Fernández,89,1636,350,7,0,0,185,99
+13,Comandante Fernández,89,1637,350,1,0,0,180,89
+13,Comandante Fernández,89,1638,350,0,2,0,163,112
+13,Comandante Fernández,89,1639,350,1,7,0,175,96
+13,Comandante Fernández,89,1640,350,0,11,0,171,100
+13,Comandante Fernández,89,1641,350,0,4,0,147,134
+13,Comandante Fernández,89,1642,350,0,1,0,148,115
+13,Comandante Fernández,89,1643,350,3,1,0,165,120
+13,Comandante Fernández,89,1644,350,2,3,1,166,102
+13,Comandante Fernández,89,1645,350,2,2,0,138,134
+13,Comandante Fernández,89,1646,350,2,0,0,185,105
+13,Comandante Fernández,89,1647,350,1,3,0,203,80
+13,Comandante Fernández,89,1648,350,2,2,0,178,96
+13,Comandante Fernández,89,1649,350,1,4,0,168,104
+13,Comandante Fernández,89,1650,350,1,4,0,164,113
+13,Comandante Fernández,89,1651,350,0,3,0,167,109
+13,Comandante Fernández,89,1652,350,3,3,0,129,155
+13,Comandante Fernández,89,1653,350,3,0,0,175,101
+13,Comandante Fernández,89,1654,350,2,1,1,156,122
+13,Comandante Fernández,89,1655,350,1,1,0,182,103
+13,Comandante Fernández,89,1656,350,0,2,0,181,109
+13,Comandante Fernández,89,1657,350,3,0,0,159,110
+13,Comandante Fernández,89,1658,350,0,0,0,162,126
+13,Comandante Fernández,89,1659,350,0,3,1,179,91
+13,Comandante Fernández,89,1660,350,10,0,0,169,102
+13,Comandante Fernández,89,1661,350,10,0,0,157,103
+13,Comandante Fernández,89,1662,350,4,4,0,174,105
+13,Comandante Fernández,89,1663,350,4,3,0,185,102
+13,Comandante Fernández,89,1664,350,2,7,0,179,96
+13,Comandante Fernández,89,1665,350,2,2,0,170,105
+13,Comandante Fernández,89,1666,350,1,5,0,169,108
+13,Comandante Fernández,89,1667,350,6,4,0,158,106
+13,Comandante Fernández,89,1668,349,0,6,0,151,124
+13,Comandante Fernández,89,1669,349,6,8,0,170,97
+13,Comandante Fernández,89,1670,349,2,4,0,169,110
+13,Comandante Fernández,89,1671,349,1,5,0,147,128
+13,Comandante Fernández,89,1672,349,1,0,0,181,82
+13,Comandante Fernández,89,1673,349,0,5,0,158,109
+13,Comandante Fernández,89,1674,349,1,2,0,142,128
+13,Comandante Fernández,89,1675,349,0,7,0,168,102
+13,Comandante Fernández,89,1676,348,3,1,0,181,88
+13,Comandante Fernández,89,1677,349,2,0,0,191,97
+13,Comandante Fernández,89,1678,349,6,0,0,145,133
+13,Comandante Fernández,89,1679,349,10,3,0,165,103
+13,Comandante Fernández,89,1680,349,1,0,0,158,116
+13,Comandante Fernández,89,1681,349,1,4,0,145,122
+13,Comandante Fernández,89,1682,349,2,1,0,187,96
+13,Comandante Fernández,89,1683,349,1,2,0,168,118
+13,Comandante Fernández,90,1684,314,1,0,0,69,174
+13,Comandante Fernández,90,1685,313,1,3,0,74,150
+13,Comandante Fernández,90,1686,313,8,0,0,73,168
+13,Comandante Fernández,90,1687,313,1,0,0,57,175
+13,Comandante Fernández,90,1688,313,4,0,0,62,160
+13,Comandante Fernández,90,1689,313,0,0,0,54,175
+13,Comandante Fernández,90,1690,313,2,0,0,67,157
+13,Comandante Fernández,90,1691,313,3,3,0,54,184
+13,Comandante Fernández,91,1692,332,0,3,0,94,177
+13,Comandante Fernández,91,1693,332,1,9,0,92,168
+13,Comandante Fernández,91,1694,332,0,2,0,84,163
+13,Comandante Fernández,91,1695,332,3,2,0,101,164
+13,Comandante Fernández,91,1696,332,1,1,0,88,173
+13,Comandante Fernández,91,1697,332,0,1,0,81,185
+13,Comandante Fernández,91,1698,332,2,0,0,95,164
+13,Comandante Fernández,91,1699,332,1,5,0,94,163
+13,Comandante Fernández,91,1700,332,1,0,0,107,161
+13,Comandante Fernández,91,1701,332,2,7,0,84,162
+13,Comandante Fernández,91,1702,332,1,7,0,94,165
+13,Comandante Fernández,91,1703,332,1,5,0,80,167
+13,Comandante Fernández,91,1704,332,2,4,0,87,161
+13,Comandante Fernández,92,1705,339,0,6,0,103,163
+13,Comandante Fernández,92,1706,339,2,0,0,123,151
+13,Comandante Fernández,92,1707,338,0,2,0,90,190
+13,Comandante Fernández,92,1708,338,2,0,0,101,160
+13,Comandante Fernández,92,1709,338,0,3,0,99,156
+13,Comandante Fernández,92,1710,338,2,3,0,119,157
+13,Comandante Fernández,92,1711,338,1,0,0,106,165
+13,Comandante Fernández,92,1712,338,2,1,0,98,170
+13,Comandante Fernández,92,1713,337,0,2,0,91,179
+13,Comandante Fernández,92,1714,338,0,2,0,96,185
+13,Comandante Fernández,92,1715,338,0,3,0,97,173
+13,Comandante Fernández,92,1716,338,2,0,0,82,184
+13,Comandante Fernández,92,1717,338,0,2,1,112,159
+13,Comandante Fernández,92,1718,338,1,2,0,107,156
+13,Comandante Fernández,92,1719,338,4,2,0,102,161
+13,Comandante Fernández,92,1720,338,8,0,0,110,143
+13,Comandante Fernández,92,1721,338,1,8,0,104,156
+13,Comandante Fernández,92,1722,338,1,2,0,122,145
+13,Comandante Fernández,92,1723,338,2,0,0,81,179
+13,Comandante Fernández,92,1724,338,1,4,1,105,166
+13,Comandante Fernández,93,1725,340,1,0,0,103,165
+13,Comandante Fernández,93,1726,340,2,0,0,87,166
+13,Comandante Fernández,93,1727,339,2,0,0,95,165
+13,Comandante Fernández,93,1728,338,1,6,0,84,171
+13,Comandante Fernández,93,1729,339,1,2,0,81,180
+13,Comandante Fernández,93,1730,339,0,2,0,79,163
+13,Comandante Fernández,93,1731,339,1,0,0,99,157
+13,Comandante Fernández,93,1732,339,1,0,0,108,163
+13,Comandante Fernández,93,1733,339,1,0,0,81,158
+13,Comandante Fernández,94,1734,343,3,0,0,124,157
+13,Comandante Fernández,94,1735,343,4,7,0,129,141
+13,Comandante Fernández,94,1736,343,0,2,0,145,135
+13,Comandante Fernández,94,1737,343,0,0,0,122,147
+13,Comandante Fernández,94,1738,342,6,0,0,129,140
+13,Comandante Fernández,94,1739,342,5,0,0,146,117
+13,Comandante Fernández,94,1740,342,3,4,0,140,123
+13,Comandante Fernández,94,1741,342,4,0,0,152,133
+13,Comandante Fernández,94,1742,342,0,8,0,130,139
+13,Comandante Fernández,94,1743,342,2,5,0,131,135
+13,Comandante Fernández,94,1744,342,0,4,0,121,151
+13,Comandante Fernández,94,1745,342,1,2,0,159,116
+13,Comandante Fernández,94,1746,341,1,0,0,151,123
+13,Comandante Fernández,94,1747,342,1,3,2,132,132
+13,Comandante Fernández,94,1748,342,5,0,0,142,123
+13,Comandante Fernández,94,1749,342,3,0,0,92,180
+13,Comandante Fernández,94,1750,342,2,2,0,141,144
+13,Comandante Fernández,94,1751,342,4,0,0,152,106
+13,Comandante Fernández,94,1752,342,1,2,0,129,126
+13,Comandante Fernández,94,1753,342,1,1,0,125,147
+13,Comandante Fernández,94,1754,342,1,6,0,129,144
+13,Comandante Fernández,94,1755,342,1,11,0,126,142
+13,Comandante Fernández,94,1756,342,2,0,0,135,148
+13,Comandante Fernández,94,1757,342,1,0,0,128,152
+13,Comandante Fernández,94,1758,342,0,0,0,134,142
+13,Comandante Fernández,94,1759,341,4,0,0,161,123
+13,Comandante Fernández,94,1760,342,3,3,0,114,147
+13,Comandante Fernández,94,1761,342,0,4,0,130,142
+13,Comandante Fernández,94,1762,342,2,4,0,110,174
+13,Comandante Fernández,94,1763,342,8,1,0,121,163
+13,Comandante Fernández,94,1764,342,2,0,0,120,160
+13,Comandante Fernández,94,1765,342,4,0,0,150,113
+13,Comandante Fernández,94,1766,342,1,6,0,150,125
+13,Comandante Fernández,95,1767,201,1,0,0,66,58
+13,Comandante Fernández,95,1768,201,0,0,0,79,69
+13,Comandante Fernández,96,1769,289,1,1,0,137,62
+13,Comandante Fernández,96,1770,288,2,0,0,115,70
+13,Comandante Fernández,96,1771,288,3,1,0,136,59
+13,Comandante Fernández,96,1772,288,0,1,0,102,95
+13,Comandante Fernández,97,1773,244,2,0,0,85,89
+13,Comandante Fernández,97,1774,244,0,3,0,68,109
+13,Comandante Fernández,97,1775,244,0,1,0,71,100
+14,Quitilipi,98,1776,346,2,0,0,149,108
+14,Quitilipi,98,1777,345,2,0,0,165,100
+14,Quitilipi,98,1778,346,0,1,0,117,139
+14,Quitilipi,98,1779,346,2,0,0,131,125
+14,Quitilipi,98,1780,346,2,2,0,136,121
+14,Quitilipi,98,1781,346,0,1,0,153,95
+14,Quitilipi,98,1782,346,1,0,0,161,100
+14,Quitilipi,98,1783,346,1,1,0,156,119
+14,Quitilipi,98,1784,346,7,0,0,130,130
+14,Quitilipi,98,1785,346,6,0,0,140,145
+14,Quitilipi,98,1786,346,3,0,0,122,148
+14,Quitilipi,98,1787,346,1,0,0,179,78
+14,Quitilipi,98,1788,346,1,2,0,149,119
+14,Quitilipi,98,1789,346,4,1,0,146,124
+14,Quitilipi,98,1790,346,0,3,0,134,132
+14,Quitilipi,98,1791,346,2,0,0,99,162
+14,Quitilipi,98,1792,346,0,2,0,151,99
+14,Quitilipi,98,1793,346,1,1,0,181,90
+14,Quitilipi,98,1794,345,2,0,0,155,82
+14,Quitilipi,98,1795,345,0,2,0,161,108
+14,Quitilipi,98,1796,345,0,3,0,127,121
+14,Quitilipi,98,1797,345,2,3,0,148,114
+14,Quitilipi,98,1798,345,1,1,0,168,100
+14,Quitilipi,98,1799,345,0,0,0,190,79
+14,Quitilipi,98,1800,345,2,3,0,183,75
+14,Quitilipi,98,1801,345,0,0,0,183,92
+14,Quitilipi,98,1802,345,4,0,0,165,100
+14,Quitilipi,98,1803,345,3,0,0,138,136
+14,Quitilipi,98,1804,345,0,1,0,171,103
+14,Quitilipi,98,1805,345,2,5,0,128,143
+14,Quitilipi,98,1806,345,0,0,0,127,151
+14,Quitilipi,98,1807,345,3,0,0,186,86
+14,Quitilipi,98,1808,345,2,0,0,144,112
+14,Quitilipi,98,1809,345,1,0,0,151,103
+14,Quitilipi,98,1810,345,0,1,0,77,185
+14,Quitilipi,98,1811,345,8,0,0,145,106
+14,Quitilipi,98,1812,345,5,0,0,133,116
+14,Quitilipi,98,1813,345,0,0,0,155,117
+14,Quitilipi,98,1814,345,4,0,0,142,131
+14,Quitilipi,98,1815,345,2,0,0,137,118
+14,Quitilipi,98,1816,345,4,0,0,158,98
+14,Quitilipi,98,1817,345,1,2,0,138,127
+14,Quitilipi,98,1818,345,2,0,0,180,93
+14,Quitilipi,98,1819,345,1,0,0,130,143
+14,Quitilipi,98,1820,345,0,3,0,174,110
+14,Quitilipi,98,1821,345,2,0,0,118,137
+14,Quitilipi,98,1822,345,1,0,0,159,97
+14,Quitilipi,98,1823,345,2,2,0,140,114
+14,Quitilipi,98,1824,345,0,1,0,157,111
+14,Quitilipi,98,1825,345,2,0,0,171,83
+14,Quitilipi,98,1826,345,2,0,0,160,99
+14,Quitilipi,98,1827,345,0,1,0,160,91
+14,Quitilipi,98,1828,345,3,0,0,167,98
+14,Quitilipi,98,1829,345,0,0,0,167,101
+14,Quitilipi,98,1830,345,3,0,0,155,109
+14,Quitilipi,98,1831,345,3,0,0,130,152
+14,Quitilipi,98,1832,345,5,0,0,172,104
+14,Quitilipi,98,1833,345,3,0,0,168,92
+14,Quitilipi,98,1834,344,0,0,0,124,143
+14,Quitilipi,98,1835,344,0,0,0,133,130
+14,Quitilipi,98,1836,345,2,0,0,141,115
+14,Quitilipi,99,1837,279,2,0,0,93,89
+14,Quitilipi,99,1838,279,0,0,0,104,77
+14,Quitilipi,99,1839,279,0,0,0,106,70
+14,Quitilipi,99,1840,278,0,0,0,102,85
+14,Quitilipi,100,1841,315,3,0,0,122,76
+14,Quitilipi,100,1842,315,1,0,0,131,50
+14,Quitilipi,100,1843,315,2,0,0,123,63
+14,Quitilipi,100,1844,314,1,0,0,139,63
+14,Quitilipi,100,1845,314,2,1,0,125,76
+14,Quitilipi,100,1846,314,2,2,0,125,72
+14,Quitilipi,100,1847,314,3,2,0,138,61
+14,Quitilipi,101,1848,343,0,0,0,164,85
+14,Quitilipi,101,1849,343,1,0,0,122,105
+14,Quitilipi,101,1850,343,1,0,0,146,69
+14,Quitilipi,101,1851,342,0,0,0,160,74
+14,Quitilipi,101,1852,342,0,0,0,162,88
+14,Quitilipi,101,1853,342,2,0,0,138,88
+14,Quitilipi,101,1854,342,1,0,0,133,91
+15,25 de Mayo,102,1855,212,0,0,0,106,19
+15,25 de Mayo,103,1856,282,3,1,0,147,47
+15,25 de Mayo,103,1857,282,2,0,0,100,61
+15,25 de Mayo,103,1858,282,2,0,0,90,82
+15,25 de Mayo,103,1859,282,1,0,0,110,72
+15,25 de Mayo,103,1860,281,1,0,0,105,83
+15,25 de Mayo,104,1861,347,4,0,0,186,81
+15,25 de Mayo,104,1862,347,4,0,0,192,84
+15,25 de Mayo,104,1863,347,2,2,0,181,88
+15,25 de Mayo,104,1864,347,4,0,0,196,82
+15,25 de Mayo,104,1865,347,0,0,0,166,108
+15,25 de Mayo,104,1866,347,0,0,0,193,93
+15,25 de Mayo,104,1867,347,3,0,0,167,90
+15,25 de Mayo,104,1868,347,1,2,0,163,121
+15,25 de Mayo,104,1869,347,3,0,0,158,126
+15,25 de Mayo,104,1870,347,1,0,0,169,104
+15,25 de Mayo,104,1871,347,2,4,0,186,91
+15,25 de Mayo,104,1872,347,6,0,0,186,88
+15,25 de Mayo,104,1873,347,7,0,0,152,112
+15,25 de Mayo,104,1874,346,0,0,0,146,127
+15,25 de Mayo,104,1875,347,6,0,0,202,69
+15,25 de Mayo,104,1876,347,1,2,0,182,88
+15,25 de Mayo,104,1877,347,2,3,0,161,113
+15,25 de Mayo,104,1878,347,1,1,0,147,126
+15,25 de Mayo,104,1879,347,2,3,0,152,130
+15,25 de Mayo,104,1880,347,1,0,0,161,108
+15,25 de Mayo,104,1881,347,0,4,0,183,83
+15,25 de Mayo,104,1882,347,1,0,0,192,83
+15,25 de Mayo,104,1883,347,2,2,0,183,88
+15,25 de Mayo,104,1884,347,4,0,0,170,90
+15,25 de Mayo,104,1885,347,0,1,0,146,117
+15,25 de Mayo,104,1886,347,1,2,0,178,97
+15,25 de Mayo,104,1887,347,2,0,0,165,100
+15,25 de Mayo,104,1888,347,2,0,0,171,106
+15,25 de Mayo,104,1889,347,0,0,0,173,120
+15,25 de Mayo,104,1890,347,3,0,0,167,107
+15,25 de Mayo,104,1891,347,1,0,0,163,115
+15,25 de Mayo,104,1892,347,6,0,0,181,88
+15,25 de Mayo,104,1893,347,2,0,0,179,87
+15,25 de Mayo,104,1894,347,0,1,0,135,148
+15,25 de Mayo,104,1895,347,1,0,0,150,124
+15,25 de Mayo,104,1896,347,0,1,0,131,141
+15,25 de Mayo,104,1897,347,2,0,0,146,103
+15,25 de Mayo,104,1898,347,0,0,0,178,93
+15,25 de Mayo,104,1899,347,1,0,0,182,79
+15,25 de Mayo,104,1900,347,0,0,0,171,111
+15,25 de Mayo,104,1901,347,3,3,0,145,125
+15,25 de Mayo,104,1902,347,0,3,0,184,83
+15,25 de Mayo,104,1903,347,2,4,0,193,75
+15,25 de Mayo,104,1904,347,3,0,0,165,112
+15,25 de Mayo,104,1905,347,5,0,0,190,71
+15,25 de Mayo,104,1906,347,3,0,0,172,110
+15,25 de Mayo,104,1907,347,0,0,0,170,102
+15,25 de Mayo,104,1908,347,1,1,0,165,103
+15,25 de Mayo,104,1909,347,1,0,0,168,97
+15,25 de Mayo,104,1910,347,2,3,0,180,84
+15,25 de Mayo,104,1911,347,1,0,0,177,95
+15,25 de Mayo,104,1912,346,0,0,0,143,127
+15,25 de Mayo,105,1913,333,0,0,0,199,39
+15,25 de Mayo,105,1914,333,5,1,0,196,56
+15,25 de Mayo,105,1915,333,1,1,0,190,52
+15,25 de Mayo,105,1916,332,1,0,0,215,43
+15,25 de Mayo,105,1917,332,0,1,0,212,34
+15,25 de Mayo,105,1918,332,0,0,0,211,40
+15,25 de Mayo,105,1919,332,1,0,0,216,29
+15,25 de Mayo,105,1920,332,2,0,0,229,31
+15,25 de Mayo,105,1921,332,1,0,0,197,51
+15,25 de Mayo,105,1922,332,0,0,0,215,42
+15,25 de Mayo,105,1923,332,2,3,0,218,41
+15,25 de Mayo,106,1924,159,0,1,0,70,35
+16,Maipú,107,1925,243,0,0,0,75,61
+16,Maipú,107,1926,242,2,0,0,81,51
+16,Maipú,108,1927,348,4,0,0,148,103
+16,Maipú,108,1928,348,3,0,0,156,113
+16,Maipú,108,1929,348,2,0,0,165,107
+16,Maipú,108,1930,348,0,0,0,145,100
+16,Maipú,108,1931,348,2,0,0,162,95
+16,Maipú,108,1932,348,4,0,0,166,101
+16,Maipú,108,1933,348,2,0,0,157,101
+16,Maipú,108,1934,348,6,0,0,135,126
+16,Maipú,108,1935,348,0,2,0,145,124
+16,Maipú,108,1936,348,2,0,0,173,78
+16,Maipú,108,1937,348,1,0,0,153,104
+16,Maipú,108,1938,348,4,0,0,167,76
+16,Maipú,108,1939,348,1,1,0,149,117
+16,Maipú,108,1940,348,2,0,0,144,99
+16,Maipú,108,1941,348,3,0,0,177,82
+16,Maipú,108,1942,348,2,0,0,121,157
+16,Maipú,108,1943,348,1,2,0,175,61
+16,Maipú,108,1944,348,3,0,0,164,92
+16,Maipú,108,1945,348,1,0,0,151,103
+16,Maipú,108,1946,347,0,0,0,127,134
+16,Maipú,108,1947,348,5,1,0,181,61
+16,Maipú,108,1948,348,2,0,0,222,56
+16,Maipú,108,1949,348,1,0,0,178,81
+16,Maipú,108,1950,348,5,0,0,161,87
+16,Maipú,108,1951,347,5,0,0,118,136
+16,Maipú,108,1952,348,2,0,0,93,158
+16,Maipú,108,1953,348,2,2,0,132,135
+16,Maipú,108,1954,348,4,0,0,168,80
+16,Maipú,108,1955,348,2,0,0,155,79
+16,Maipú,108,1956,348,2,0,0,167,86
+16,Maipú,108,1957,348,3,0,0,126,125
+16,Maipú,108,1958,348,2,0,0,164,94
+16,Maipú,108,1959,348,1,0,0,167,94
+16,Maipú,108,1960,348,7,0,0,126,131
+16,Maipú,108,1961,348,3,0,0,172,87
+16,Maipú,108,1962,348,0,0,0,139,117
+16,Maipú,108,1963,348,0,0,0,195,50
+16,Maipú,108,1964,348,3,0,0,162,94
+16,Maipú,108,1965,348,1,0,0,139,118
+16,Maipú,108,1966,348,0,3,0,122,128
+16,Maipú,108,1967,348,0,1,0,150,97
+16,Maipú,108,1968,348,0,0,0,139,114
+16,Maipú,108,1969,348,0,0,0,150,103
+16,Maipú,108,1970,348,4,0,0,140,111
+16,Maipú,108,1971,348,3,0,0,157,93
+16,Maipú,108,1972,348,3,0,0,173,93
+16,Maipú,108,1973,348,3,0,0,145,106
+16,Maipú,108,1974,348,4,0,0,160,96
+16,Maipú,108,1975,348,0,1,0,161,113
+16,Maipú,108,1976,348,4,0,0,149,111
+16,Maipú,108,1977,348,2,0,0,156,105
+16,Maipú,108,1978,348,0,0,0,150,100
+16,Maipú,108,1979,347,0,3,0,130,94
+16,Maipú,108,1980,347,3,0,0,128,136
+16,Maipú,109,1981,301,1,0,0,90,116
+16,Maipú,109,1982,301,1,0,0,104,84
+17,Independencia,110,1983,179,0,0,0,82,28
+17,Independencia,111,1984,327,0,2,0,184,84
+17,Independencia,111,1985,326,3,0,0,172,73
+17,Independencia,111,1986,326,0,1,0,170,76
+17,Independencia,111,1987,326,2,0,0,177,69
+17,Independencia,111,1988,326,3,6,0,129,109
+17,Independencia,111,1989,326,1,2,0,150,101
+17,Independencia,111,1990,326,3,0,0,160,88
+17,Independencia,111,1991,326,0,0,0,161,84
+17,Independencia,111,1992,326,1,0,0,149,108
+17,Independencia,112,1993,348,0,0,0,223,52
+17,Independencia,112,1994,348,3,0,0,225,54
+17,Independencia,112,1995,347,0,1,0,200,68
+17,Independencia,112,1996,347,2,2,0,204,59
+17,Independencia,112,1997,347,0,0,0,214,51
+17,Independencia,112,1998,347,2,0,0,220,53
+17,Independencia,112,1999,347,1,0,0,202,80
+17,Independencia,112,2000,347,2,0,0,206,61
+17,Independencia,112,2001,347,4,0,0,191,77
+17,Independencia,112,2002,347,2,0,0,217,53
+17,Independencia,112,2003,347,3,0,0,225,48
+17,Independencia,112,2004,347,1,1,0,197,68
+17,Independencia,112,2005,347,0,0,0,198,60
+17,Independencia,112,2006,347,0,0,0,207,46
+17,Independencia,112,2007,347,0,0,0,205,77
+17,Independencia,112,2008,347,3,0,0,229,46
+17,Independencia,113,2009,343,1,4,0,196,75
+17,Independencia,113,2010,344,0,1,0,172,91
+17,Independencia,113,2011,343,0,0,0,179,86
+17,Independencia,113,2012,344,0,0,0,208,54
+17,Independencia,113,2013,344,3,0,0,165,87
+17,Independencia,113,2014,344,0,0,0,173,92
+17,Independencia,113,2015,343,2,0,0,195,69
+17,Independencia,113,2016,343,0,0,0,182,68
+17,Independencia,113,2017,343,1,0,0,171,97
+17,Independencia,113,2018,343,0,0,0,195,70
+17,Independencia,113,2019,343,0,3,0,162,93
+17,Independencia,113,2020,343,1,0,0,156,106
+17,Independencia,113,2021,342,0,0,0,179,87
+17,Independencia,113,2022,343,1,0,0,192,86
+17,Independencia,113,2023,343,1,4,0,170,89
+17,Independencia,113,2024,343,1,2,0,186,80
+17,Independencia,113,2025,343,1,2,0,199,67
+17,Independencia,113,2026,343,0,0,0,182,89
+17,Independencia,113,2027,343,0,1,0,199,72
+17,Independencia,113,2028,343,2,2,0,181,81
+17,Independencia,113,2029,343,1,1,0,184,93
+17,Independencia,113,2030,343,2,0,0,150,115
+17,Independencia,113,2031,343,1,0,0,189,80
+17,Independencia,113,2032,343,0,2,0,153,102
+17,Independencia,114,2033,332,3,0,0,153,65
+18,General Belgrano,115,2034,348,0,0,0,185,68
+18,General Belgrano,115,2035,348,0,1,0,205,54
+18,General Belgrano,115,2036,348,0,2,0,174,70
+18,General Belgrano,115,2037,347,1,0,0,188,70
+18,General Belgrano,115,2038,347,0,0,0,203,58
+18,General Belgrano,115,2039,347,0,0,0,208,58
+18,General Belgrano,115,2040,346,1,0,0,186,76
+18,General Belgrano,115,2041,347,3,0,0,216,42
+18,General Belgrano,115,2042,347,1,0,0,183,75
+18,General Belgrano,115,2043,346,2,0,0,196,68
+18,General Belgrano,115,2044,347,1,0,0,199,52
+18,General Belgrano,115,2045,347,1,0,0,165,73
+18,General Belgrano,115,2046,347,1,0,0,191,78
+18,General Belgrano,115,2047,347,3,0,0,160,96
+18,General Belgrano,115,2048,347,0,0,0,183,69
+18,General Belgrano,115,2049,347,2,1,0,159,85
+18,General Belgrano,115,2050,347,1,0,0,176,83
+18,General Belgrano,115,2051,347,0,1,0,200,64
+18,General Belgrano,115,2052,347,0,2,0,158,92
+18,General Belgrano,115,2053,347,3,0,0,179,102
+18,General Belgrano,115,2054,347,2,0,0,193,56
+18,General Belgrano,115,2055,347,1,0,0,213,35
+18,General Belgrano,115,2056,347,3,0,0,166,82
+18,General Belgrano,115,2057,347,3,0,0,186,86
+18,General Belgrano,115,2058,347,3,0,0,174,93
+18,General Belgrano,115,2059,347,1,0,0,190,63
+18,General Belgrano,115,2060,347,0,0,0,163,96
+18,General Belgrano,116,2061,6,0,0,0,3,0
+19,9 de Julio,117,2062,350,0,1,0,179,102
+19,9 de Julio,117,2063,350,3,1,0,196,101
+19,9 de Julio,117,2064,350,1,2,0,131,137
+19,9 de Julio,117,2065,350,4,0,0,152,122
+19,9 de Julio,117,2066,350,2,4,0,156,128
+19,9 de Julio,117,2067,349,1,0,0,170,109
+19,9 de Julio,117,2068,350,2,0,0,138,148
+19,9 de Julio,117,2069,349,1,6,0,137,139
+19,9 de Julio,117,2070,350,2,1,0,177,105
+19,9 de Julio,117,2071,350,1,0,0,198,80
+19,9 de Julio,117,2072,350,0,3,0,196,82
+19,9 de Julio,117,2073,350,2,2,0,154,117
+19,9 de Julio,117,2074,350,2,5,0,157,118
+19,9 de Julio,117,2075,350,2,1,0,178,90
+19,9 de Julio,117,2076,350,3,0,0,123,158
+19,9 de Julio,117,2077,350,0,3,0,183,100
+19,9 de Julio,117,2078,350,1,2,0,143,144
+19,9 de Julio,117,2079,350,1,3,0,159,122
+19,9 de Julio,117,2080,350,2,0,0,139,139
+19,9 de Julio,117,2081,349,4,2,0,156,119
+19,9 de Julio,117,2082,350,2,2,0,178,88
+19,9 de Julio,117,2083,350,2,5,0,138,139
+19,9 de Julio,117,2084,350,1,2,0,183,95
+19,9 de Julio,117,2085,350,1,0,0,180,96
+19,9 de Julio,117,2086,350,0,0,0,155,139
+19,9 de Julio,117,2087,350,0,2,0,164,125
+19,9 de Julio,117,2088,350,0,1,0,158,134
+19,9 de Julio,117,2089,350,4,0,0,178,114
+19,9 de Julio,117,2090,350,0,1,0,98,184
+19,9 de Julio,117,2091,350,0,0,0,175,97
+19,9 de Julio,117,2092,350,0,0,0,186,96
+19,9 de Julio,117,2093,350,0,1,0,172,102
+19,9 de Julio,117,2094,349,0,0,0,164,120
+19,9 de Julio,117,2095,350,0,1,0,160,124
+19,9 de Julio,117,2096,350,1,0,0,164,111
+19,9 de Julio,117,2097,350,2,1,0,182,112
+19,9 de Julio,117,2098,350,1,0,0,166,116
+19,9 de Julio,117,2099,350,0,2,0,149,133
+19,9 de Julio,117,2100,350,2,2,0,166,116
+19,9 de Julio,117,2101,350,2,0,0,183,111
+19,9 de Julio,117,2102,350,3,2,0,186,101
+19,9 de Julio,117,2103,350,0,1,0,202,85
+19,9 de Julio,117,2104,350,1,1,0,167,120
+19,9 de Julio,117,2105,350,1,2,0,145,135
+19,9 de Julio,117,2106,350,0,0,0,160,126
+19,9 de Julio,117,2107,349,1,2,0,191,80
+19,9 de Julio,117,2108,349,0,0,0,155,134
+19,9 de Julio,117,2109,349,0,0,0,203,85
+19,9 de Julio,117,2110,349,0,1,0,174,117
+19,9 de Julio,117,2111,349,2,0,0,143,151
+19,9 de Julio,117,2112,349,0,5,0,121,162
+19,9 de Julio,117,2113,348,0,1,0,170,103
+19,9 de Julio,117,2114,349,0,2,3,154,133
+19,9 de Julio,117,2115,349,1,4,0,122,169
+19,9 de Julio,117,2116,349,2,5,1,178,91
+19,9 de Julio,117,2117,349,5,1,0,145,135
+19,9 de Julio,117,2118,349,4,5,0,170,112
+19,9 de Julio,117,2119,349,1,1,0,130,153
+19,9 de Julio,117A,2120,311,1,0,0,147,83
+19,9 de Julio,117A,2121,312,1,1,0,153,83
+19,9 de Julio,118,2122,333,2,0,0,153,68
+19,9 de Julio,118,2123,333,0,1,0,159,65
+19,9 de Julio,118,2124,333,1,3,0,140,77
+19,9 de Julio,118A,2125,250,0,0,0,125,73
+19,9 de Julio,118A,2126,249,1,0,0,103,58
+19,9 de Julio,118A,2127,249,0,0,0,124,66
+20,Chacabuco,119,2128,347,1,5,1,163,105
+20,Chacabuco,119,2129,345,1,0,0,169,116
+20,Chacabuco,119,2130,347,3,2,0,154,121
+20,Chacabuco,119,2131,346,1,1,0,127,155
+20,Chacabuco,119,2132,347,6,1,0,164,107
+20,Chacabuco,119,2133,347,1,1,0,133,129
+20,Chacabuco,119,2134,346,1,2,0,142,148
+20,Chacabuco,119,2135,347,1,0,0,137,137
+20,Chacabuco,119,2136,347,3,0,0,152,131
+20,Chacabuco,119,2137,347,2,5,0,154,113
+20,Chacabuco,119,2138,347,2,0,0,129,136
+20,Chacabuco,119,2139,346,0,1,0,189,92
+20,Chacabuco,119,2140,345,0,0,0,161,113
+20,Chacabuco,119,2141,347,1,1,0,168,107
+20,Chacabuco,119,2142,346,1,1,0,166,111
+20,Chacabuco,119,2143,347,1,1,0,121,160
+20,Chacabuco,119,2144,347,2,7,0,137,141
+20,Chacabuco,119,2145,347,0,2,0,134,156
+20,Chacabuco,119,2146,347,0,1,0,138,116
+20,Chacabuco,119,2147,347,1,1,0,138,136
+20,Chacabuco,119,2148,347,0,2,0,174,108
+20,Chacabuco,119,2149,347,1,4,0,151,114
+20,Chacabuco,119,2150,347,3,0,0,127,149
+20,Chacabuco,119,2151,347,0,0,0,127,164
+20,Chacabuco,119,2152,346,2,0,0,151,132
+20,Chacabuco,119,2153,347,1,3,6,139,143
+20,Chacabuco,119,2154,347,3,1,0,184,102
+20,Chacabuco,119,2155,347,1,0,0,196,83
+20,Chacabuco,119,2156,347,0,1,1,148,113
+20,Chacabuco,119,2157,347,3,0,0,122,147
+20,Chacabuco,119,2158,347,2,0,0,154,120
+20,Chacabuco,119,2159,347,2,1,0,154,121
+20,Chacabuco,119,2160,347,2,0,0,143,130
+20,Chacabuco,119,2161,347,1,0,0,119,161
+20,Chacabuco,119,2162,347,3,0,0,155,131
+20,Chacabuco,119,2163,346,6,6,0,188,74
+20,Chacabuco,119,2164,347,1,2,0,147,117
+20,Chacabuco,119,2165,347,1,0,0,164,114
+20,Chacabuco,119,2166,347,1,1,0,179,99
+20,Chacabuco,119,2167,347,1,1,0,167,104
+20,Chacabuco,119,2168,347,0,1,0,120,162
+20,Chacabuco,119,2169,347,2,3,0,124,153
+20,Chacabuco,119,2170,347,7,0,0,155,113
+20,Chacabuco,119,2171,347,1,0,0,149,128
+20,Chacabuco,119,2172,347,1,2,0,141,136
+20,Chacabuco,119,2173,347,1,1,0,138,145
+20,Chacabuco,119,2174,347,1,0,0,165,119
+20,Chacabuco,119,2175,346,1,4,0,196,84
+20,Chacabuco,119,2176,346,1,2,0,147,135
+20,Chacabuco,119,2177,347,1,0,0,142,139
+20,Chacabuco,119,2178,347,3,1,0,142,133
+20,Chacabuco,119,2179,347,0,1,0,156,124
+20,Chacabuco,119,2180,347,0,2,0,134,134
+20,Chacabuco,119,2181,347,0,5,0,146,127
+20,Chacabuco,119,2182,347,0,1,0,178,112
+20,Chacabuco,119,2183,347,1,1,0,168,100
+20,Chacabuco,119,2184,347,0,1,0,191,100
+20,Chacabuco,119,2185,347,2,1,1,159,102
+20,Chacabuco,119,2186,346,0,4,0,129,135
+20,Chacabuco,119,2187,347,0,2,0,148,128
+20,Chacabuco,119,2188,347,2,0,0,104,176
+20,Chacabuco,119,2189,346,6,4,0,135,139
+20,Chacabuco,119,2190,347,2,0,0,159,126
+20,Chacabuco,119,2191,347,2,0,0,141,149
+20,Chacabuco,119,2193,347,0,2,0,169,102
+20,Chacabuco,119,2194,347,0,5,0,123,137
+20,Chacabuco,119,2195,347,0,1,0,122,167
+20,Chacabuco,119,2196,347,1,3,0,164,101
+20,Chacabuco,119,2197,347,1,1,0,121,146
+20,Chacabuco,120,2198,312,2,0,0,165,61
+20,Chacabuco,120,2199,314,1,0,0,183,30
+20,Chacabuco,120,2200,314,2,0,0,156,46
+21,12 de Octubre,121,2201,330,0,0,0,157,78
+21,12 de Octubre,121,2202,330,1,1,0,185,48
+21,12 de Octubre,121,2203,330,1,2,0,158,76
+21,12 de Octubre,122,2204,341,2,2,0,152,110
+21,12 de Octubre,122,2205,341,5,0,0,166,89
+21,12 de Octubre,122,2206,341,1,0,0,186,81
+21,12 de Octubre,122,2207,341,0,0,0,123,150
+21,12 de Octubre,122,2208,341,2,0,0,135,108
+21,12 de Octubre,122,2209,340,1,0,0,175,80
+21,12 de Octubre,122,2210,340,3,1,0,193,81
+21,12 de Octubre,122,2211,340,1,0,0,166,106
+21,12 de Octubre,122,2212,340,4,2,0,146,102
+21,12 de Octubre,122,2213,339,1,0,0,155,123
+21,12 de Octubre,122,2214,340,4,0,0,159,94
+21,12 de Octubre,122,2215,340,0,2,0,136,135
+21,12 de Octubre,122,2216,340,0,0,0,161,111
+21,12 de Octubre,122,2217,340,0,1,0,132,116
+21,12 de Octubre,122,2218,340,5,6,0,168,90
+21,12 de Octubre,122,2219,340,2,0,0,156,104
+21,12 de Octubre,122,2220,340,2,0,0,158,110
+21,12 de Octubre,122,2221,340,2,1,0,167,98
+21,12 de Octubre,122,2222,340,1,4,0,154,101
+21,12 de Octubre,122,2223,340,2,2,0,136,119
+21,12 de Octubre,122,2224,340,1,2,0,166,90
+21,12 de Octubre,122,2225,340,0,0,0,146,117
+21,12 de Octubre,122,2226,340,1,0,0,155,106
+21,12 de Octubre,122,2227,340,0,4,0,136,130
+21,12 de Octubre,122,2228,340,0,0,0,142,125
+21,12 de Octubre,122,2229,340,0,1,0,125,139
+21,12 de Octubre,122,2230,340,2,2,0,148,110
+21,12 de Octubre,122,2231,340,0,2,0,165,103
+21,12 de Octubre,122,2232,340,0,1,0,163,106
+21,12 de Octubre,122,2233,340,3,0,0,143,122
+21,12 de Octubre,122,2234,340,2,0,0,158,110
+21,12 de Octubre,122,2235,340,1,3,0,137,118
+21,12 de Octubre,122,2236,340,1,2,0,151,107
+21,12 de Octubre,122,2237,340,1,1,0,143,119
+21,12 de Octubre,122,2238,340,6,1,0,178,105
+21,12 de Octubre,123,2239,290,2,1,0,141,75
+21,12 de Octubre,123,2240,290,0,1,0,121,98
+21,12 de Octubre,123,2241,290,1,0,0,126,87
+21,12 de Octubre,124,2242,269,2,1,0,161,30
+21,12 de Octubre,124,2243,268,0,0,0,178,20
+21,12 de Octubre,124,2244,268,1,0,0,163,32
+21,12 de Octubre,125,2245,331,2,0,0,195,76
+21,12 de Octubre,125,2246,331,5,0,0,192,82
+21,12 de Octubre,125,2247,330,4,0,0,184,81
+21,12 de Octubre,125,2248,330,3,0,0,171,98
+21,12 de Octubre,125,2249,330,2,0,0,174,101
+21,12 de Octubre,125,2250,330,5,0,0,186,85
+21,12 de Octubre,125,2251,330,0,0,0,188,91
+21,12 de Octubre,125,2252,330,3,0,0,178,89
+21,12 de Octubre,125,2253,330,4,0,0,184,93
+21,12 de Octubre,125,2254,330,2,0,0,182,90
+21,12 de Octubre,125,2255,330,0,0,0,164,118
+21,12 de Octubre,125,2256,330,2,0,0,199,80
+22,2 de Abril,126,2257,337,1,0,0,167,111
+22,2 de Abril,126,2258,337,0,0,0,195,78
+22,2 de Abril,126,2259,336,1,2,0,165,110
+22,2 de Abril,126,2260,336,1,0,0,154,116
+22,2 de Abril,126,2261,337,2,0,0,167,100
+22,2 de Abril,126,2262,336,4,0,0,126,142
+22,2 de Abril,126,2263,336,1,0,0,171,116
+22,2 de Abril,126,2264,336,1,0,0,147,125
+22,2 de Abril,126,2265,336,2,0,0,151,107
+22,2 de Abril,126,2266,335,4,0,0,151,121
+22,2 de Abril,126,2267,336,0,0,0,169,116
+22,2 de Abril,126,2268,336,0,3,0,170,95
+22,2 de Abril,126,2269,336,0,0,4,174,103
+22,2 de Abril,126,2270,336,0,0,0,119,156
+22,2 de Abril,126,2271,336,1,1,0,134,141
+22,2 de Abril,126,2272,335,1,0,0,169,110
+22,2 de Abril,127,2273,231,4,0,0,93,70
+23,Fray Justo Santa María de Oro,128,2274,349,1,1,0,196,75
+23,Fray Justo Santa María de Oro,128,2275,349,1,2,0,155,108
+23,Fray Justo Santa María de Oro,128,2276,349,0,1,0,152,109
+23,Fray Justo Santa María de Oro,128,2277,349,0,1,0,139,128
+23,Fray Justo Santa María de Oro,128,2278,349,1,0,0,184,102
+23,Fray Justo Santa María de Oro,128,2279,349,1,1,0,139,123
+23,Fray Justo Santa María de Oro,128,2280,349,1,0,0,161,108
+23,Fray Justo Santa María de Oro,128,2281,349,1,0,0,164,99
+23,Fray Justo Santa María de Oro,128,2282,349,1,0,0,131,123
+23,Fray Justo Santa María de Oro,128,2283,348,1,0,0,166,92
+23,Fray Justo Santa María de Oro,128,2284,348,0,0,0,124,140
+23,Fray Justo Santa María de Oro,128,2285,348,0,0,0,147,132
+23,Fray Justo Santa María de Oro,128,2286,348,1,0,0,160,99
+23,Fray Justo Santa María de Oro,128,2287,348,3,0,0,173,100
+23,Fray Justo Santa María de Oro,128,2288,348,7,0,0,163,102
+23,Fray Justo Santa María de Oro,128,2289,348,0,2,0,184,92
+23,Fray Justo Santa María de Oro,128,2290,348,2,0,1,156,102
+23,Fray Justo Santa María de Oro,128,2291,348,0,1,0,145,129
+23,Fray Justo Santa María de Oro,128,2292,347,1,0,0,186,74
+23,Fray Justo Santa María de Oro,128,2293,348,3,0,0,141,126
+23,Fray Justo Santa María de Oro,128,2294,348,5,0,0,112,158
+23,Fray Justo Santa María de Oro,128,2295,348,1,0,0,158,124
+23,Fray Justo Santa María de Oro,128,2296,348,0,0,0,161,108
+23,Fray Justo Santa María de Oro,129,2297,346,2,0,0,190,48
+23,Fray Justo Santa María de Oro,129,2299,345,3,0,0,186,70
+23,Fray Justo Santa María de Oro,129,2300,345,0,0,3,195,68
+23,Fray Justo Santa María de Oro,129,2301,345,1,0,0,167,69
+24,Almirante Brown,130,2302,332,0,1,0,162,101
+24,Almirante Brown,130,2303,332,0,0,0,177,88
+24,Almirante Brown,130,2304,332,3,0,0,179,80
+24,Almirante Brown,130,2305,332,1,3,0,154,88
+24,Almirante Brown,130,2306,332,5,0,0,195,62
+24,Almirante Brown,130,2307,332,2,0,0,164,90
+24,Almirante Brown,130,2308,332,0,0,0,180,76
+24,Almirante Brown,130,2309,332,0,2,0,206,82
+24,Almirante Brown,130,2310,332,0,2,1,174,83
+24,Almirante Brown,130,2311,332,0,2,0,189,66
+24,Almirante Brown,130,2312,331,0,2,0,162,87
+24,Almirante Brown,130,2313,331,1,2,0,192,56
+24,Almirante Brown,130,2314,331,0,1,0,196,74
+24,Almirante Brown,130,2315,331,1,0,0,198,79
+24,Almirante Brown,130,2316,331,0,0,0,175,72
+24,Almirante Brown,131,2317,337,4,0,0,149,98
+24,Almirante Brown,131,2318,337,5,0,0,138,119
+24,Almirante Brown,131,2319,337,0,2,2,154,114
+24,Almirante Brown,131,2320,337,0,0,0,160,95
+24,Almirante Brown,131,2321,337,0,2,0,157,97
+24,Almirante Brown,131,2322,337,0,1,0,128,108
+24,Almirante Brown,131,2323,337,4,0,0,131,107
+24,Almirante Brown,131,2324,337,2,0,0,164,89
+24,Almirante Brown,131,2325,337,1,1,0,151,102
+24,Almirante Brown,131,2326,337,0,0,0,171,89
+24,Almirante Brown,131,2327,337,6,0,0,176,101
+24,Almirante Brown,131,2328,337,2,0,0,140,125
+24,Almirante Brown,131,2329,337,3,0,0,144,115
+24,Almirante Brown,131,2330,337,1,1,0,163,97
+24,Almirante Brown,131,2331,337,1,0,0,157,93
+24,Almirante Brown,131,2332,337,4,0,0,171,86
+24,Almirante Brown,131,2333,337,1,2,0,181,63
+24,Almirante Brown,131,2334,337,1,1,0,130,128
+24,Almirante Brown,131,2335,336,4,0,0,131,128
+24,Almirante Brown,131,2336,336,3,0,0,157,101
+24,Almirante Brown,131,2337,336,1,0,0,142,82
+24,Almirante Brown,131,2338,336,1,0,0,165,94
+24,Almirante Brown,131,2339,336,3,0,0,135,108
+24,Almirante Brown,131,2340,336,2,2,0,156,91
+24,Almirante Brown,131,2341,336,0,2,0,133,127
+24,Almirante Brown,132,2342,345,0,1,0,165,79
+24,Almirante Brown,132,2343,345,0,2,0,174,67
+24,Almirante Brown,132,2344,345,1,0,0,178,58
+24,Almirante Brown,132,2345,345,1,3,0,178,65
+24,Almirante Brown,132,2346,345,0,1,0,183,85
+24,Almirante Brown,132,2347,345,1,1,0,179,67
+24,Almirante Brown,132,2348,344,0,2,0,195,73
+24,Almirante Brown,132,2349,344,0,1,0,163,76
+24,Almirante Brown,132,2350,344,3,0,0,168,62
+24,Almirante Brown,132,2351,344,1,0,0,172,65
+24,Almirante Brown,132,2352,344,0,0,0,181,47
+24,Almirante Brown,132,2353,344,0,1,0,187,63
+24,Almirante Brown,132,2354,344,2,0,0,159,86
+24,Almirante Brown,132A,2355,277,0,0,0,120,59
+24,Almirante Brown,132A,2356,277,1,0,0,126,71
+24,Almirante Brown,132A,2357,276,1,2,0,130,62
+24,Almirante Brown,133,2358,341,5,0,0,209,41
+24,Almirante Brown,133,2359,340,0,0,0,197,56
+24,Almirante Brown,133,2360,341,1,0,0,181,83
+24,Almirante Brown,133,2361,341,3,4,0,227,38
+24,Almirante Brown,133,2362,339,0,1,0,182,78
+24,Almirante Brown,133,2363,341,0,0,0,185,90
+24,Almirante Brown,133,2364,340,0,0,0,212,62
+24,Almirante Brown,133,2365,341,2,0,0,194,47
+24,Almirante Brown,133,2366,341,2,0,0,184,81
+24,Almirante Brown,133,2367,341,1,0,0,193,68
+24,Almirante Brown,133,2368,341,0,1,0,186,63
+24,Almirante Brown,133,2369,341,2,0,0,202,59
+24,Almirante Brown,133,2370,341,0,0,0,196,75
+24,Almirante Brown,133,2371,341,0,0,0,172,93
+24,Almirante Brown,133,2372,339,0,0,0,216,53
+24,Almirante Brown,133,2373,340,0,0,0,183,74
+24,Almirante Brown,133,2374,340,1,0,0,207,58
+24,Almirante Brown,133,2375,340,0,0,0,200,60
+24,Almirante Brown,133,2376,340,1,0,0,181,74
+24,Almirante Brown,133,2377,339,0,0,0,200,74
+24,Almirante Brown,133,2378,339,2,0,0,194,59
+24,Almirante Brown,133,2379,340,0,0,0,215,53
+24,Almirante Brown,133,2380,340,0,0,1,213,55
+24,Almirante Brown,133,2381,339,0,1,0,198,80
+25,General Güemes,134A,2382,319,4,1,0,169,33
+25,General Güemes,134A,2383,319,0,0,0,194,26
+25,General Güemes,134A,2384,319,3,0,0,185,28
+25,General Güemes,134A,2385,318,0,0,0,206,25
+25,General Güemes,134B,2386,346,4,1,0,188,53
+25,General Güemes,134B,2387,346,0,1,0,183,63
+25,General Güemes,134B,2388,346,5,0,1,186,54
+25,General Güemes,134B,2389,346,0,3,0,175,49
+25,General Güemes,134B,2390,346,0,4,0,216,29
+25,General Güemes,134B,2391,346,2,0,0,211,40
+25,General Güemes,134B,2392,346,1,0,0,221,41
+25,General Güemes,134B,2393,345,3,0,0,228,27
+25,General Güemes,134B,2394,344,0,4,0,222,29
+25,General Güemes,134B,2395,345,5,1,0,170,67
+25,General Güemes,134B,2396,344,0,1,0,158,48
+25,General Güemes,134B,2397,345,0,0,0,226,27
+25,General Güemes,134B,2398,345,1,3,0,192,40
+25,General Güemes,134C,2399,316,2,0,0,181,44
+25,General Güemes,134C,2400,315,1,0,0,194,30
+25,General Güemes,134C,2401,315,1,0,0,192,26
+25,General Güemes,134D,2402,338,2,0,0,181,91
+25,General Güemes,134D,2403,338,1,0,0,176,94
+25,General Güemes,134D,2404,337,1,0,0,155,112
+25,General Güemes,134D,2405,337,5,0,0,143,100
+25,General Güemes,134D,2406,337,3,1,0,142,120
+25,General Güemes,134D,2407,337,1,0,0,127,126
+25,General Güemes,134D,2408,337,2,9,0,134,103
+25,General Güemes,134D,2409,337,3,0,0,161,107
+25,General Güemes,134D,2410,337,1,1,0,145,109
+25,General Güemes,134D,2411,337,2,1,0,131,125
+25,General Güemes,134D,2412,337,1,1,0,181,91
+25,General Güemes,134D,2413,337,1,1,1,146,123
+25,General Güemes,134D,2414,337,0,0,0,178,85
+25,General Güemes,134D,2415,337,1,0,0,118,122
+25,General Güemes,134D,2416,337,1,0,0,149,116
+25,General Güemes,135A,2417,333,1,0,0,149,51
+25,General Güemes,135A,2418,333,1,0,0,183,52
+25,General Güemes,135A,2419,333,1,0,0,146,78
+25,General Güemes,135A,2420,333,1,0,0,169,71
+25,General Güemes,135A,2421,333,1,0,0,162,72
+25,General Güemes,135A,2422,333,0,3,0,184,45
+25,General Güemes,135A,2423,332,0,0,0,166,48
+25,General Güemes,135B,2424,338,0,0,0,168,51
+25,General Güemes,135B,2425,338,2,1,0,156,65
+25,General Güemes,135B,2426,338,1,0,0,169,48
+25,General Güemes,135B,2427,338,0,1,0,191,52
+25,General Güemes,135B,2428,338,2,0,0,155,83
+25,General Güemes,135B,2429,338,3,1,0,164,73
+25,General Güemes,135B,2430,338,0,0,0,177,68
+25,General Güemes,135B,2431,338,1,0,0,160,70
+25,General Güemes,135B,2432,338,3,2,0,167,59
+25,General Güemes,135B,2433,338,1,0,0,150,57
+25,General Güemes,135B,2434,338,0,0,0,140,83
+25,General Güemes,135B,2435,338,2,2,0,144,71
+25,General Güemes,135B,2436,338,1,1,0,149,59
+25,General Güemes,135B,2437,338,0,0,0,173,56
+25,General Güemes,135B,2438,337,2,1,0,149,87
+25,General Güemes,135B,2439,338,0,0,0,164,68
+25,General Güemes,135B,2440,338,2,0,0,169,44
+25,General Güemes,135B,2441,338,0,1,0,151,73
+25,General Güemes,135B,2442,338,1,0,0,174,39
+25,General Güemes,135B,2443,338,2,1,0,155,54
+25,General Güemes,135B,2444,338,0,0,0,152,66
+25,General Güemes,135B,2445,338,0,0,0,166,62
+25,General Güemes,135B,2446,337,1,0,0,173,58
+25,General Güemes,135B,2447,337,3,0,0,157,73
+25,General Güemes,135C,2448,279,0,0,0,112,35
+25,General Güemes,135C,2449,279,0,1,0,104,19
+25,General Güemes,135C,2450,279,0,0,0,122,22
+25,General Güemes,135C,2451,279,2,0,0,102,27
+25,General Güemes,136,2452,346,1,0,0,180,81
+25,General Güemes,136,2453,346,2,0,0,220,41
+25,General Güemes,136,2454,346,4,2,0,195,61
+25,General Güemes,136,2455,346,0,1,0,216,54
+25,General Güemes,136,2456,346,0,2,0,209,50
+25,General Güemes,136,2457,346,3,2,0,193,71
+25,General Güemes,136,2458,345,3,0,0,166,94
+25,General Güemes,136,2459,346,6,0,0,159,113
+25,General Güemes,136,2460,346,1,0,0,139,118
+25,General Güemes,136,2461,346,0,1,0,178,95
+25,General Güemes,136,2462,346,1,0,0,201,64
+25,General Güemes,136,2463,346,5,0,0,209,58
+25,General Güemes,136,2464,346,0,0,0,229,57
+25,General Güemes,136,2465,346,3,2,0,196,54
+25,General Güemes,136,2466,346,0,3,0,167,99
+25,General Güemes,136,2467,346,3,3,0,159,105
+25,General Güemes,136,2468,346,0,1,0,187,61
+25,General Güemes,136,2469,345,3,0,0,164,93
+25,General Güemes,136,2470,345,0,2,0,176,96
+25,General Güemes,136,2471,345,2,0,0,191,71
+25,General Güemes,136,2472,345,6,1,0,146,117
+25,General Güemes,136,2473,345,6,0,0,163,108
+25,General Güemes,136,2474,345,9,0,0,154,114
+25,General Güemes,136,2475,345,1,0,0,194,83
+25,General Güemes,136,2476,345,4,2,0,182,53
+25,General Güemes,136,2477,345,7,0,0,202,46
+25,General Güemes,136,2478,345,0,0,1,209,59
+25,General Güemes,136,2479,345,0,3,0,174,94
+25,General Güemes,136,2480,345,5,1,1,111,152
+25,General Güemes,136,2481,345,2,3,0,125,153
+25,General Güemes,136,2482,345,2,2,0,168,94
+25,General Güemes,136,2483,345,2,0,0,159,123
+25,General Güemes,136,2484,345,4,3,0,106,165
+25,General Güemes,136,2485,345,4,0,0,134,139
+25,General Güemes,136,2486,345,0,1,0,183,79
+25,General Güemes,136,2487,344,2,1,0,215,46
+25,General Güemes,136,2488,345,0,3,0,205,46
+25,General Güemes,136,2489,344,0,5,0,191,70
+25,General Güemes,136,2490,345,2,1,0,149,119
+25,General Güemes,136,2491,345,1,1,0,184,69
+25,General Güemes,136,2492,345,0,2,0,168,112
+25,General Güemes,136,2493,345,3,2,0,171,83
+25,General Güemes,136,2494,345,4,2,0,163,106
+25,General Güemes,136,2495,344,1,5,0,177,89
+25,General Güemes,136,2496,345,0,0,0,214,67
+25,General Güemes,136,2497,345,1,2,0,186,88
+25,General Güemes,136,2498,345,17,1,0,160,88
+25,General Güemes,136,2499,345,4,0,0,189,57
+25,General Güemes,136,2500,345,1,1,0,190,59
+25,General Güemes,136,2501,345,1,5,0,155,119
+25,General Güemes,136,2502,345,0,2,0,209,67
+25,General Güemes,136,2503,345,3,0,0,180,85
+25,General Güemes,136,2504,345,2,2,0,112,180
+25,General Güemes,136,2505,345,1,0,0,164,116
+25,General Güemes,136,2506,345,2,4,0,186,76
+25,General Güemes,136,2507,345,4,0,0,167,107
+25,General Güemes,136,2508,344,7,0,0,148,99
+25,General Güemes,136,2509,345,4,0,0,178,87
+25,General Güemes,136,2510,345,1,0,0,193,70
+25,General Güemes,136,2511,345,1,4,0,197,60
+25,General Güemes,136,2512,345,7,0,0,169,107
+25,General Güemes,136,2513,345,0,4,0,122,146
+25,General Güemes,136,2514,345,0,0,0,194,73
+25,General Güemes,136,2515,345,3,0,0,176,84
+25,General Güemes,136,2516,345,1,0,0,183,73
+25,General Güemes,136,2517,345,5,0,0,170,107
+25,General Güemes,136,2518,345,6,0,0,158,116
+25,General Güemes,136,2519,345,0,2,0,182,99
+25,General Güemes,136,2520,345,5,0,0,166,91
+25,General Güemes,136,2521,345,0,2,0,188,66
+25,General Güemes,136,2522,345,0,0,0,137,144
+25,General Güemes,136,2523,345,2,0,0,148,112
+25,General Güemes,137,2524,333,1,0,0,184,57
+25,General Güemes,137,2525,333,0,0,0,169,63
+25,General Güemes,137,2526,333,1,0,0,179,89
+25,General Güemes,137,2527,332,4,0,0,167,67
+25,General Güemes,138A,2528,278,2,0,0,137,40
+25,General Güemes,138A,2529,278,1,0,0,136,50
+25,General Güemes,138B,2530,341,2,1,0,232,33
+25,General Güemes,138B,2531,341,3,0,0,202,47
+25,General Güemes,138B,2532,340,0,2,0,171,62
+25,General Güemes,138B,2533,341,0,0,0,229,22
+25,General Güemes,138B,2534,341,0,1,0,231,40
+25,General Güemes,138B,2535,341,1,1,0,200,40
+25,General Güemes,138B,2536,341,1,0,0,212,39
+25,General Güemes,138B,2537,341,0,0,0,209,40
+25,General Güemes,138B,2538,341,0,2,0,207,49
+25,General Güemes,138B,2539,341,0,0,0,138,98
+25,General Güemes,138B,2540,341,1,3,0,201,35
+25,General Güemes,138B,2541,340,1,0,0,204,49
+25,General Güemes,138B,2542,339,1,2,0,198,43
+25,General Güemes,138B,2543,340,0,0,0,199,45
+25,General Güemes,138B,2544,340,0,1,0,206,37
+25,General Güemes,138B,2545,340,0,0,0,225,45
+25,General Güemes,138B,2546,340,0,0,0,220,35
+25,General Güemes,138B,2547,340,1,3,0,186,57
+25,General Güemes,139,2548,330,1,0,0,185,11
+25,General Güemes,139,2549,330,0,0,0,217,6
+25,General Güemes,139,2550,330,3,0,0,200,18
+25,General Güemes,139,2551,330,1,1,0,192,20
+25,General Güemes,139,2552,330,3,1,0,212,10
+25,General Güemes,139,2553,330,3,0,0,196,23
+25,General Güemes,139,2554,330,3,1,0,186,26
+25,General Güemes,139,2555,330,1,0,0,224,9
+25,General Güemes,139,2556,329,0,0,0,205,8

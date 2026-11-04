@@ -1,0 +1,258 @@
+codigo_indec,provincia,lista,votos,electores,votantes,blancos,nulos
+02,CABA,Bordón - Álvarez,899230,2530230,2067104,31588,15934
+02,CABA,Menem - Ruckauf,842365,2530230,2067104,31588,15934
+02,CABA,Massaccesi - Hernández,215382,2530230,2067104,31588,15934
+02,CABA,Rico - Fernández Pezzano,24997,2530230,2067104,31588,15934
+02,CABA,Solanas - Imizcoz,11920,2530230,2067104,31588,15934
+02,CABA,Mazzitelli - Fonseca,7018,2530230,2067104,31588,15934
+02,CABA,Méndez - Ambrosio,5172,2530230,2067104,31588,15934
+02,CABA,Zamora - Díaz,4508,2530230,2067104,31588,15934
+02,CABA,Altamira - Molle,3642,2530230,2067104,31588,15934
+02,CABA,Christiansen - Montes,2549,2530230,2067104,31588,15934
+02,CABA,Tumini - Reyna,2001,2530230,2067104,31588,15934
+02,CABA,Santucho - Antognazzi,798,2530230,2067104,31588,15934
+06,Buenos Aires,Menem - Ruckauf,3419089,8210240,6896922,268000,26151
+06,Buenos Aires,Bordón - Álvarez,1965708,8210240,6896922,268000,26151
+06,Buenos Aires,Massaccesi - Hernández,916912,8210240,6896922,268000,26151
+06,Buenos Aires,Rico - Fernández Pezzano,153779,8210240,6896922,268000,26151
+06,Buenos Aires,Solanas - Imizcoz,31831,8210240,6896922,268000,26151
+06,Buenos Aires,Zamora - Díaz,24712,8210240,6896922,268000,26151
+06,Buenos Aires,Mazzitelli - Fonseca,23379,8210240,6896922,268000,26151
+06,Buenos Aires,Altamira - Molle,16356,8210240,6896922,268000,26151
+06,Buenos Aires,Christiansen - Montes,15166,8210240,6896922,268000,26151
+06,Buenos Aires,Méndez - Ambrosio,12776,8210240,6896922,268000,26151
+06,Buenos Aires,Tumini - Reyna,8757,8210240,6896922,268000,26151
+06,Buenos Aires,Santucho - Antognazzi,8571,8210240,6896922,268000,26151
+06,Buenos Aires,Paz - González Chávez,2023,8210240,6896922,268000,26151
+10,Catamarca,Menem - Ruckauf,63701,175321,145533,23313,405
+10,Catamarca,Massaccesi - Hernández,37528,175321,145533,23313,405
+10,Catamarca,Bordón - Álvarez,19339,175321,145533,23313,405
+10,Catamarca,Rico - Fernández Pezzano,498,175321,145533,23313,405
+10,Catamarca,Solanas - Imizcoz,302,175321,145533,23313,405
+10,Catamarca,Altamira - Molle,149,175321,145533,23313,405
+10,Catamarca,Zamora - Díaz,91,175321,145533,23313,405
+10,Catamarca,Tumini - Reyna,88,175321,145533,23313,405
+10,Catamarca,Méndez - Ambrosio,63,175321,145533,23313,405
+10,Catamarca,Christiansen - Montes,56,175321,145533,23313,405
+14,Córdoba,Menem - Ruckauf,752704,1983139,1661491,86414,11849
+14,Córdoba,Massaccesi - Hernández,451719,1983139,1661491,86414,11849
+14,Córdoba,Bordón - Álvarez,324746,1983139,1661491,86414,11849
+14,Córdoba,Rico - Fernández Pezzano,17856,1983139,1661491,86414,11849
+14,Córdoba,Tumini - Reyna,3949,1983139,1661491,86414,11849
+14,Córdoba,Solanas - Imizcoz,3066,1983139,1661491,86414,11849
+14,Córdoba,Zamora - Díaz,2518,1983139,1661491,86414,11849
+14,Córdoba,Mazzitelli - Fonseca,1777,1983139,1661491,86414,11849
+14,Córdoba,Méndez - Ambrosio,1722,1983139,1661491,86414,11849
+14,Córdoba,Altamira - Molle,1712,1983139,1661491,86414,11849
+14,Córdoba,Christiansen - Montes,1216,1983139,1661491,86414,11849
+14,Córdoba,Santucho - Antognazzi,184,1983139,1661491,86414,11849
+14,Córdoba,Paz - González Chávez,59,1983139,1661491,86414,11849
+18,Corrientes,Menem - Ruckauf,165517,536352,400029,22765,2623
+18,Corrientes,Bordón - Álvarez,121999,536352,400029,22765,2623
+18,Corrientes,Massaccesi - Hernández,57082,536352,400029,22765,2623
+18,Corrientes,Rico - Fernández Pezzano,6118,536352,400029,22765,2623
+18,Corrientes,Tumini - Reyna,945,536352,400029,22765,2623
+18,Corrientes,Solanas - Imizcoz,882,536352,400029,22765,2623
+18,Corrientes,Méndez - Ambrosio,613,536352,400029,22765,2623
+18,Corrientes,Christiansen - Montes,540,536352,400029,22765,2623
+18,Corrientes,Santucho - Antognazzi,532,536352,400029,22765,2623
+18,Corrientes,Zamora - Díaz,512,536352,400029,22765,2623
+18,Corrientes,Altamira - Molle,331,536352,400029,22765,2623
+18,Corrientes,Paz - González Chávez,11,536352,400029,22765,2623
+22,Chaco,Menem - Ruckauf,227857,543495,410796,6667,3140
+22,Chaco,Massaccesi - Hernández,91763,543495,410796,6667,3140
+22,Chaco,Bordón - Álvarez,72284,543495,410796,6667,3140
+22,Chaco,Rico - Fernández Pezzano,3567,543495,410796,6667,3140
+22,Chaco,Solanas - Imizcoz,1728,543495,410796,6667,3140
+22,Chaco,Méndez - Ambrosio,812,543495,410796,6667,3140
+22,Chaco,Zamora - Díaz,720,543495,410796,6667,3140
+22,Chaco,Paz - González Chávez,644,543495,410796,6667,3140
+22,Chaco,Altamira - Molle,590,543495,410796,6667,3140
+22,Chaco,Christiansen - Montes,518,543495,410796,6667,3140
+22,Chaco,Tumini - Reyna,506,543495,410796,6667,3140
+26,Chubut,Menem - Ruckauf,95228,220893,179157,10250,2278
+26,Chubut,Massaccesi - Hernández,42891,220893,179157,10250,2278
+26,Chubut,Bordón - Álvarez,25084,220893,179157,10250,2278
+26,Chubut,Rico - Fernández Pezzano,1600,220893,179157,10250,2278
+26,Chubut,Méndez - Ambrosio,390,220893,179157,10250,2278
+26,Chubut,Paz - González Chávez,336,220893,179157,10250,2278
+26,Chubut,Solanas - Imizcoz,298,220893,179157,10250,2278
+26,Chubut,Zamora - Díaz,240,220893,179157,10250,2278
+26,Chubut,Altamira - Molle,199,220893,179157,10250,2278
+26,Chubut,Christiansen - Montes,198,220893,179157,10250,2278
+26,Chubut,Tumini - Reyna,165,220893,179157,10250,2278
+30,Entre Ríos,Menem - Ruckauf,272819,723186,616187,21992,3073
+30,Entre Ríos,Massaccesi - Hernández,157112,723186,616187,21992,3073
+30,Entre Ríos,Bordón - Álvarez,146086,723186,616187,21992,3073
+30,Entre Ríos,Rico - Fernández Pezzano,10026,723186,616187,21992,3073
+30,Entre Ríos,Solanas - Imizcoz,1393,723186,616187,21992,3073
+30,Entre Ríos,Méndez - Ambrosio,852,723186,616187,21992,3073
+30,Entre Ríos,Zamora - Díaz,816,723186,616187,21992,3073
+30,Entre Ríos,Altamira - Molle,763,723186,616187,21992,3073
+30,Entre Ríos,Tumini - Reyna,716,723186,616187,21992,3073
+30,Entre Ríos,Christiansen - Montes,531,723186,616187,21992,3073
+30,Entre Ríos,Paz - González Chávez,8,723186,616187,21992,3073
+34,Formosa,Menem - Ruckauf,85227,241725,177283,3254,1571
+34,Formosa,Massaccesi - Hernández,53778,241725,177283,3254,1571
+34,Formosa,Bordón - Álvarez,29022,241725,177283,3254,1571
+34,Formosa,Rico - Fernández Pezzano,2323,241725,177283,3254,1571
+34,Formosa,Solanas - Imizcoz,618,241725,177283,3254,1571
+34,Formosa,Méndez - Ambrosio,554,241725,177283,3254,1571
+34,Formosa,Altamira - Molle,396,241725,177283,3254,1571
+34,Formosa,Zamora - Díaz,321,241725,177283,3254,1571
+34,Formosa,Tumini - Reyna,219,241725,177283,3254,1571
+38,Jujuy,Menem - Ruckauf,101642,300300,228536,6620,4774
+38,Jujuy,Massaccesi - Hernández,50000,300300,228536,6620,4774
+38,Jujuy,Bordón - Álvarez,46513,300300,228536,6620,4774
+38,Jujuy,Rico - Fernández Pezzano,15602,300300,228536,6620,4774
+38,Jujuy,Solanas - Imizcoz,1085,300300,228536,6620,4774
+38,Jujuy,Zamora - Díaz,712,300300,228536,6620,4774
+38,Jujuy,Altamira - Molle,457,300300,228536,6620,4774
+38,Jujuy,Méndez - Ambrosio,412,300300,228536,6620,4774
+38,Jujuy,Tumini - Reyna,386,300300,228536,6620,4774
+38,Jujuy,Christiansen - Montes,333,300300,228536,6620,4774
+42,La Pampa,Menem - Ruckauf,77506,188751,166083,11334,942
+42,La Pampa,Bordón - Álvarez,37032,188751,166083,11334,942
+42,La Pampa,Massaccesi - Hernández,34892,188751,166083,11334,942
+42,La Pampa,Rico - Fernández Pezzano,2345,188751,166083,11334,942
+42,La Pampa,Solanas - Imizcoz,1007,188751,166083,11334,942
+42,La Pampa,Méndez - Ambrosio,286,188751,166083,11334,942
+42,La Pampa,Altamira - Molle,249,188751,166083,11334,942
+42,La Pampa,Zamora - Díaz,231,188751,166083,11334,942
+42,La Pampa,Tumini - Reyna,139,188751,166083,11334,942
+42,La Pampa,Christiansen - Montes,120,188751,166083,11334,942
+46,La Rioja,Menem - Ruckauf,91803,148971,126013,4803,579
+46,La Rioja,Massaccesi - Hernández,19945,148971,126013,4803,579
+46,La Rioja,Bordón - Álvarez,7588,148971,126013,4803,579
+46,La Rioja,Rico - Fernández Pezzano,495,148971,126013,4803,579
+46,La Rioja,Solanas - Imizcoz,320,148971,126013,4803,579
+46,La Rioja,Zamora - Díaz,208,148971,126013,4803,579
+46,La Rioja,Méndez - Ambrosio,96,148971,126013,4803,579
+46,La Rioja,Altamira - Molle,96,148971,126013,4803,579
+46,La Rioja,Tumini - Reyna,80,148971,126013,4803,579
+50,Mendoza,Menem - Ruckauf,376972,927767,792081,55650,7050
+50,Mendoza,Bordón - Álvarez,246924,927767,792081,55650,7050
+50,Mendoza,Massaccesi - Hernández,88657,927767,792081,55650,7050
+50,Mendoza,Rico - Fernández Pezzano,9294,927767,792081,55650,7050
+50,Mendoza,Solanas - Imizcoz,2810,927767,792081,55650,7050
+50,Mendoza,Zamora - Díaz,1519,927767,792081,55650,7050
+50,Mendoza,Méndez - Ambrosio,914,927767,792081,55650,7050
+50,Mendoza,Christiansen - Montes,726,927767,792081,55650,7050
+50,Mendoza,Santucho - Antognazzi,505,927767,792081,55650,7050
+50,Mendoza,Tumini - Reyna,489,927767,792081,55650,7050
+50,Mendoza,Altamira - Molle,458,927767,792081,55650,7050
+54,Misiones,Menem - Ruckauf,180571,480975,368253,7174,1904
+54,Misiones,Massaccesi - Hernández,138583,480975,368253,7174,1904
+54,Misiones,Bordón - Álvarez,30655,480975,368253,7174,1904
+54,Misiones,Rico - Fernández Pezzano,7927,480975,368253,7174,1904
+54,Misiones,Solanas - Imizcoz,539,480975,368253,7174,1904
+54,Misiones,Christiansen - Montes,215,480975,368253,7174,1904
+54,Misiones,Méndez - Ambrosio,126,480975,368253,7174,1904
+54,Misiones,Zamora - Díaz,103,480975,368253,7174,1904
+54,Misiones,Santucho - Antognazzi,88,480975,368253,7174,1904
+54,Misiones,Tumini - Reyna,73,480975,368253,7174,1904
+54,Misiones,Altamira - Molle,72,480975,368253,7174,1904
+58,Neuquén,Menem - Ruckauf,99033,237979,200986,11443,4868
+58,Neuquén,Bordón - Álvarez,47302,237979,200986,11443,4868
+58,Neuquén,Massaccesi - Hernández,29977,237979,200986,11443,4868
+58,Neuquén,Rico - Fernández Pezzano,3274,237979,200986,11443,4868
+58,Neuquén,Zamora - Díaz,983,237979,200986,11443,4868
+58,Neuquén,Solanas - Imizcoz,975,237979,200986,11443,4868
+58,Neuquén,Méndez - Ambrosio,766,237979,200986,11443,4868
+58,Neuquén,Altamira - Molle,746,237979,200986,11443,4868
+58,Neuquén,Christiansen - Montes,720,237979,200986,11443,4868
+58,Neuquén,Tumini - Reyna,497,237979,200986,11443,4868
+58,Neuquén,Santucho - Antognazzi,402,237979,200986,11443,4868
+62,Río Negro,Menem - Ruckauf,99230,284814,236958,8671,2786
+62,Río Negro,Massaccesi - Hernández,84172,284814,236958,8671,2786
+62,Río Negro,Bordón - Álvarez,36183,284814,236958,8671,2786
+62,Río Negro,Rico - Fernández Pezzano,1893,284814,236958,8671,2786
+62,Río Negro,Solanas - Imizcoz,1025,284814,236958,8671,2786
+62,Río Negro,Zamora - Díaz,721,284814,236958,8671,2786
+62,Río Negro,Méndez - Ambrosio,665,284814,236958,8671,2786
+62,Río Negro,Altamira - Molle,646,284814,236958,8671,2786
+62,Río Negro,Christiansen - Montes,491,284814,236958,8671,2786
+62,Río Negro,Tumini - Reyna,395,284814,236958,8671,2786
+62,Río Negro,Santucho - Antognazzi,46,284814,236958,8671,2786
+62,Río Negro,Paz - González Chávez,11,284814,236958,8671,2786
+66,Salta,Menem - Ruckauf,209291,535770,405361,3191,5121
+66,Salta,Bordón - Álvarez,96812,535770,405361,3191,5121
+66,Salta,Massaccesi - Hernández,65179,535770,405361,3191,5121
+66,Salta,Rico - Fernández Pezzano,15092,535770,405361,3191,5121
+66,Salta,Altamira - Molle,1174,535770,405361,3191,5121
+66,Salta,Solanas - Imizcoz,959,535770,405361,3191,5121
+66,Salta,Méndez - Ambrosio,684,535770,405361,3191,5121
+66,Salta,Tumini - Reyna,567,535770,405361,3191,5121
+66,Salta,Zamora - Díaz,505,535770,405361,3191,5121
+66,Salta,Christiansen - Monte,331,535770,405361,3191,5121
+70,San Juan,Menem - Ruckauf,167205,354651,299213,14228,2519
+70,San Juan,Bordón - Álvarez,85693,354651,299213,14228,2519
+70,San Juan,Massaccesi - Hernández,27550,354651,299213,14228,2519
+70,San Juan,Rico - Fernández Pezzano,934,354651,299213,14228,2519
+70,San Juan,Zamora - Díaz,418,354651,299213,14228,2519
+70,San Juan,Solanas - Imizcoz,357,354651,299213,14228,2519
+70,San Juan,Christiansen - Montes,99,354651,299213,14228,2519
+70,San Juan,Tumini - Reyna,85,354651,299213,14228,2519
+70,San Juan,Méndez - Ambrosio,72,354651,299213,14228,2519
+70,San Juan,Altamira - Molle,50,354651,299213,14228,2519
+70,San Juan,Paz - González Chávez,3,354651,299213,14228,2519
+74,San Luis,Menem - Ruckauf,87369,202003,162040,3777,363
+74,San Luis,Bordón - Álvarez,39944,202003,162040,3777,363
+74,San Luis,Massaccesi - Hernández,27038,202003,162040,3777,363
+74,San Luis,Rico - Fernández Pezzano,1596,202003,162040,3777,363
+74,San Luis,Solanas - Imizcoz,434,202003,162040,3777,363
+74,San Luis,Méndez - Ambrosio,346,202003,162040,3777,363
+74,San Luis,Tumini - Reyna,326,202003,162040,3777,363
+74,San Luis,Zamora - Díaz,299,202003,162040,3777,363
+74,San Luis,Christiansen - Montes,286,202003,162040,3777,363
+74,San Luis,Altamira - Molle,262,202003,162040,3777,363
+78,Santa Cruz,Menem - Ruckauf,41666,92764,75140,2906,491
+78,Santa Cruz,Bordón - Álvarez,16342,92764,75140,2906,491
+78,Santa Cruz,Massaccesi - Hernández,12374,92764,75140,2906,491
+78,Santa Cruz,Rico - Fernández Pezzano,803,92764,75140,2906,491
+78,Santa Cruz,Altamira - Molle,263,92764,75140,2906,491
+78,Santa Cruz,Zamora - Díaz,96,92764,75140,2906,491
+78,Santa Cruz,Méndez - Ambrosio,79,92764,75140,2906,491
+78,Santa Cruz,Christiansen - Montes,68,92764,75140,2906,491
+78,Santa Cruz,Paz - González Chávez,52,92764,75140,2906,491
+82,Santa Fe,Menem - Ruckauf,744576,1999295,1638221,38433,13516
+82,Santa Fe,Bordón - Álvarez,593965,1999295,1638221,38433,13516
+82,Santa Fe,Massaccesi - Hernández,199473,1999295,1638221,38433,13516
+82,Santa Fe,Rico - Fernández Pezzano,24624,1999295,1638221,38433,13516
+82,Santa Fe,Solanas - Imizcoz,7886,1999295,1638221,38433,13516
+82,Santa Fe,Zamora - Díaz,3820,1999295,1638221,38433,13516
+82,Santa Fe,Méndez - Ambrosio,2779,1999295,1638221,38433,13516
+82,Santa Fe,Altamira - Molle,2505,1999295,1638221,38433,13516
+82,Santa Fe,Tumini - Reyna,2401,1999295,1638221,38433,13516
+82,Santa Fe,Christiansen - Montes,2313,1999295,1638221,38433,13516
+82,Santa Fe,Santucho - Antognazzi,1930,1999295,1638221,38433,13516
+86,Santiago del Estero,Menem - Ruckauf,202077,450027,320948,3968,1706
+86,Santiago del Estero,Massaccesi - Hernández,78354,450027,320948,3968,1706
+86,Santiago del Estero,Bordón - Álvarez,31965,450027,320948,3968,1706
+86,Santiago del Estero,Rico - Fernández Pezzano,1543,450027,320948,3968,1706
+86,Santiago del Estero,Solanas - Imizcoz,396,450027,320948,3968,1706
+86,Santiago del Estero,Zamora - Díaz,356,450027,320948,3968,1706
+86,Santiago del Estero,Tumini - Reyna,177,450027,320948,3968,1706
+86,Santiago del Estero,Christiansen - Montes,166,450027,320948,3968,1706
+86,Santiago del Estero,Méndez - Ambrosio,117,450027,320948,3968,1706
+86,Santiago del Estero,Altamira - Molle,113,450027,320948,3968,1706
+86,Santiago del Estero,Santucho - Antognazzi,10,450027,320948,3968,1706
+90,Tucumán,Menem - Ruckauf,262554,759945,593224,6237,11023
+90,Tucumán,Bordón - Álvarez,167796,759945,593224,6237,11023
+90,Tucumán,Massaccesi - Hernández,71137,759945,593224,6237,11023
+90,Tucumán,López de Zavalía - Benejam,64007,759945,593224,6237,11023
+90,Tucumán,Rico - Fernández Pezzano,3161,759945,593224,6237,11023
+90,Tucumán,Solanas - Imizcoz,1794,759945,593224,6237,11023
+90,Tucumán,Zamora - Díaz,1466,759945,593224,6237,11023
+90,Tucumán,Tumini - Reyna,1365,759945,593224,6237,11023
+90,Tucumán,Altamira - Molle,993,759945,593224,6237,11023
+90,Tucumán,Christiansen - Montes,893,759945,593224,6237,11023
+90,Tucumán,Méndez - Ambrosio,798,759945,593224,6237,11023
+94,Tierra del Fuego,Menem - Ruckauf,21509,49608,36365,765,446
+94,Tierra del Fuego,Bordón - Álvarez,7892,49608,36365,765,446
+94,Tierra del Fuego,Massaccesi - Hernández,4639,49608,36365,765,446
+94,Tierra del Fuego,Rico - Fernández Pezzano,722,49608,36365,765,446
+94,Tierra del Fuego,Méndez - Ambrosio,109,49608,36365,765,446
+94,Tierra del Fuego,Christiansen - Montes,108,49608,36365,765,446
+94,Tierra del Fuego,Zamora - Díaz,98,49608,36365,765,446
+94,Tierra del Fuego,Altamira - Molle,77,49608,36365,765,446
