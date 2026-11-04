@@ -6265,6 +6265,33 @@ if _ccs_mes:
                           "pais": r1(_ccs_pais.pct_6a12), "bys_pais": r1(_ccr.at[_ccs_mes, "bys_6a12"] / _ccs_pais.salario * 100),
                           "max": _ccs.iloc[-1].territorio, "max_v": r1(_ccs.iloc[-1].pct_6a12),
                           "min": _ccs.iloc[0].territorio, "min_v": r1(_ccs.iloc[0].pct_6a12), "n_mitad": int((_ccs.pct_6a12 >= 50).sum())}
+# Precios mayoristas frente a precios al consumidor y dólar (pedido del autor del 3 de noviembre de 2026): el IPIM del INDEC (nivel general,
+# productos nacionales e importados), el IPC del país y el dólar mayorista de referencia del Banco Central (el último valor de cada mes), con
+# diciembre de 2016, el primer mes del IPC del país, = 100. La correlación de rangos compara el aumento de un mes de una serie con el aumento
+# de la otra unos meses después, en las dos direcciones
+mayoristas_mensual, MAY_RES = None, None
+if (CRUDO / "indec_ipim.csv").exists() and bcra_variables is not None:
+    _may_r = pd.read_csv(CRUDO / "indec_ipim.csv", sep=";", decimal=",", encoding="latin-1")
+    _may_r["mes"] = _may_r.periodo.str[:7]
+    _may_s = lambda k: _may_r[_may_r.nivel_general_aperturas == k].set_index("mes").indice_ipim.astype(float)
+    _may_d = bcra_variables[bcra_variables.id == 5].set_index("mes").valor  # 5: tipo de cambio mayorista de referencia (A3500)
+    _may = pd.DataFrame({"ipim": _may_s("ng_nivel_general"), "nacionales": _may_s("n_productos_nacionales"), "importados": _may_s("i_productos_importados"),
+                         "ipc": _ipc_ng, "dolar": _may_d}).dropna().sort_index()
+    assert _may.index[0] == "2016-12" and len(_may) == len(pd.period_range(_may.index[0], _may.index[-1], freq="M")), "faltan meses en los precios mayoristas"
+    _may_ia = (_may / _may.shift(12) - 1) * 100
+    _may_b = _may / _may.iloc[0] * 100
+    mayoristas_mensual = pd.DataFrame({"periodo": _may.index, **{c: _may_b[c].round(4).values for c in _may}, **{f"ia_{c}": _may_ia[c].round(4).values for c in _may}})
+    _may_m = _may.pct_change().dropna() * 100
+    def _may_rk(a, b, k):  # la serie a frente a la serie b de k meses antes
+        x = pd.concat([_may_m[a], _may_m[b].shift(k)], axis=1, keys=["a", "b"]).dropna()
+        return round(float(x.a.rank().corr(x.b.rank())), 2)
+    _may_u = _may.index[-1]
+    _may_ua = _may_ia.iloc[-1]
+    MAY_RES = {"mes": _mes_per(_may_u), "desde": _mes_per(_may.index[0]), "desde_anio": int(_may.index[0][:4]) + 1, "hasta_anio": int(_may_u[:4]),
+               "ia_ipim": r1(_may_ua.ipim), "ia_ipc": r1(_may_ua.ipc), "ia_dolar": r1(_may_ua.dolar), "ia_nac": r1(_may_ua.nacionales), "ia_imp": r1(_may_ua.importados),
+               "veces_ipim": r1(_may_b.ipim.iloc[-1] / 100), "veces_ipc": r1(_may_b.ipc.iloc[-1] / 100), "veces_dolar": r1(_may_b.dolar.iloc[-1] / 100),
+               "lag": 3, "r_mismo": _may_rk("ipc", "ipim", 0), "r_may_antes": _may_rk("ipc", "ipim", 3), "r_ipc_antes": _may_rk("ipim", "ipc", 3),
+               "n_meses": len(_may_m)}
 # Producción industrial y minera del INDEC (API, desde el 3 de noviembre de 2026: scripts/indec_api.py): los índices de producción industrial
 # manufacturero y minero. Por rama o por grupo, la variación frente al mismo mes del año anterior (serie original), y mes a mes, el nivel
 # general sin estacionalidad de los dos, con el primer mes que tienen en común = 100. Los nombres de las ramas, más cortos que los del INDEC
@@ -6311,7 +6338,7 @@ IPI_RES = {
     "ind_base": r1(produccion_mensual.industria.iloc[-1] - 100), "min_base": r1(produccion_mensual.mineria.iloc[-1] - 100),
     "ult_mes": _mes_per(_ipi_c[-1]),
 }
-ECO_RES = {"sectores_empleo": SEC_EMP_RES, "ipc": IPC_RES, "canasta": CNT_RES, "salarios": SRL_RES, "actividad": EMA_RES, "super": SUP_RES, "crianza": CCR_RES, "industria": IPI_RES}
+ECO_RES = {"mayoristas": MAY_RES, "sectores_empleo": SEC_EMP_RES, "ipc": IPC_RES, "canasta": CNT_RES, "salarios": SRL_RES, "actividad": EMA_RES, "super": SUP_RES, "crianza": CCR_RES, "industria": IPI_RES}
 
 # ---------------------------------------------------------------- socios comerciales (3 de noviembre de 2026)
 # Pedido del autor del 3 de noviembre de 2026: el comercio de bienes con cada país, de la API del INDEC (scripts/indec_api.py), que lo
@@ -7789,6 +7816,7 @@ tablas = {
     "adulto_equivalente": adulto_equivalente,
     "salario_real_mensual": salario_real_mensual,
     "canasta_crianza": canasta_crianza,
+    **({"mayoristas_mensual": mayoristas_mensual} if mayoristas_mensual is not None else {}),
     "sectores_empleo": sectores_empleo,
     **({"crianza_salario": crianza_salario} if crianza_salario is not None else {}),
     "industria_ramas": industria_ramas,

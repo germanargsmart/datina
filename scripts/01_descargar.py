@@ -437,6 +437,8 @@ FUENTES.update({
     # (octubre de 2016 = 100), las canastas básicas alimentaria y total del Gran Buenos Aires (por adulto equivalente y para los tres hogares
     # de ejemplo) y el Estimador Mensual de Actividad Económica (base 2004 = 100), el total y por sector
     "indec_ipc_divisiones.csv": "https://www.indec.gob.ar/ftp/cuadros/economia/serie_ipc_divisiones.csv",
+    # índice de precios internos al por mayor (IPIM), desde diciembre de 2015 (3 de noviembre de 2026)
+    "indec_ipim.csv": "https://www.indec.gob.ar/ftp/cuadros/economia/indice_ipim.csv",
     "indec_indice_salarios.csv": "https://www.indec.gob.ar/ftp/cuadros/sociedad/indice_salarios.csv",
     "indec_canastas.xls": "https://www.indec.gob.ar/ftp/cuadros/sociedad/serie_cba_cbt.xls",
     "indec_emae.xls": "https://www.indec.gob.ar/ftp/cuadros/economia/sh_emae_mensual_base2004.xls",
@@ -617,6 +619,7 @@ VALIDA.update({
     "indec_canastas.xls": lambda b: b[:4] == bytes.fromhex("d0cf11e0"),
     "indec_emae.xls": lambda b: b[:4] == bytes.fromhex("d0cf11e0"),
     "indec_emae_actividad.xls": lambda b: b[:4] == bytes.fromhex("d0cf11e0"),
+    "indec_ipim.csv": lambda b: b.removeprefix(bytes.fromhex("efbbbf")).startswith(b"periodo;nivel_general_aperturas;indice_ipim"),
     # si el archivo no existe, el INDEC responde una página con código 200: se controla que sea una planilla
     "indec_supermercados.xlsx": lambda b: b[:2] == b"PK",
     "censo2022_migraciones_c1.xlsx": lambda b: b[:2] == b"PK",

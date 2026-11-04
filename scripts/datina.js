@@ -272,6 +272,8 @@ const CB = R.combustibles;  // precios de los combustibles en el surtidor (etapa
 const SA = R.salarios, DC = R.docentes, IE = R.inversion_edu, SG = R.seguridad;
 // Economía y precios (etapa 25): la inflación, las canastas, los salarios y la actividad, todo del INDEC
 const EIP = R.economia.ipc, ECB = R.economia.canasta, ESR = R.economia.salarios, EMA = R.economia.actividad, ESU = R.economia.super;
+// precios mayoristas frente a los precios al consumidor y el dólar (3 de noviembre de 2026)
+const EMY = R.economia.mayoristas;
 // actividad y empleo registrado de cada sector (3 de noviembre de 2026)
 const ESE = R.economia.sectores_empleo;
 // la canasta de crianza (3 de noviembre de 2026): ECR.edades tiene una entrada por grupo de edad, la de 6 a 12 años es la última
@@ -1013,6 +1015,13 @@ const LEAD = {
     `está ${pct(Math.abs(ESR.vs_base_priv))} ${ESR.vs_base_priv < 0 ? "más bajo" : "más alto"} y el público, ${pct(Math.abs(ESR.vs_base_pub))} ` +
     `${ESR.vs_base_pub < 0 ? "más bajo" : "más alto"}. El salario privado registrado más alto de la serie fue el de ${ESR.max_priv_mes} ` +
     `y el más bajo, el de ${ESR.min_priv_mes}.`,
+  // la cifra destacada dice cuánto subieron los mayoristas en doce meses: el texto compara y mira quién va antes
+  mayoristas: v => (v === "nivel" ? `Desde ${EMY.desde}, los precios mayoristas se multiplicaron por ${n1(EMY.veces_ipim)}, los precios al consumidor por ${n1(EMY.veces_ipc)} ` +
+      `y el dólar mayorista por ${n1(EMY.veces_dolar)}. ` : `En los mismos doce meses, los precios al consumidor subieron ${pct(EMY.ia_ipc)} y el dólar mayorista, ${pct(EMY.ia_dolar)}. ` +
+      `Dentro de los mayoristas, los productos nacionales subieron ${pct(EMY.ia_nac)} y los importados, ${pct(EMY.ia_imp)}. `) +
+    `El aumento de los mayoristas de un mes va con el de los precios al consumidor de ${EMY.lag} meses después (correlación de ${n2(EMY.r_may_antes)}, ${fuerza(EMY.r_may_antes)}). ` +
+    `Al revés, el aumento de los precios al consumidor va menos con el de los mayoristas de ${EMY.lag} meses después (${n2(EMY.r_ipc_antes)}, ${fuerza(EMY.r_ipc_antes)}). ` +
+    "Que vayan juntos no prueba que uno cause el otro: los dos pueden responder a la misma inflación general.",
   // la actividad y el empleo de cada sector: el último año o diez años. No hay cifra destacada (muestra la relación entre dos medidas)
   "sectores-empleo": v => {
     const P = ESE[v], per = v === "uno" ? `Entre ${ESE.desde} y ${ESE.hasta}, frente a los doce meses anteriores` :
@@ -1865,6 +1874,11 @@ const TX = {
     `${ESR.base} = 100, el primer mes del índice de precios del país. El índice de salarios tiene ponderaciones fijas: mide cuánto cambian los salarios, no cuánto ` +
     `cobra en promedio cada persona. El INDEC publica también el del sector privado no registrado, que la ficha no muestra: sale de la Encuesta Permanente de ` +
     `Hogares y llega con cinco meses de rezago, así que no se puede comparar con los precios del mismo mes. Los salarios promedio de cada provincia están en Trabajo: son otra medida, el promedio por puesto del OEDE, y pueden variar distinto.`,
+  mayoristas: LEAD.mayoristas("doce"),
+  "mayoristas-nota": `El índice de precios internos al por mayor (IPIM) del INDEC mide los precios de los productos nacionales e importados que se venden en el mercado interno. ` +
+    `El índice de precios al consumidor (IPC) mide lo que pagan los hogares, también por servicios, que el IPIM no cuenta. El dólar es el mayorista de referencia del Banco Central, el último valor de cada mes. ` +
+    `Nivel: cada serie con ${EMY.desde} = 100, el primer mes del IPC del país. La correlación es de rangos entre los aumentos mensuales, ${EMY.n_meses} meses desde ${EMY.desde_anio}: en el mismo mes da ${n2(EMY.r_mismo)}. ` +
+    `Que un aumento venga antes que otro no prueba que lo cause.`,
   "sectores-empleo": LEAD["sectores-empleo"]("uno"),
   "sectores-empleo-nota": `Actividad: el Estimador Mensual de Actividad Económica del INDEC de cada sección de la CIIU (revisión 3), promedio de los doce meses. ` +
     `Empleo: los asalariados registrados del sector privado de la misma sección (OEDE, Secretaría de Trabajo, con datos del SIPA), promedio de los cuatro trimestres. ` +
@@ -2945,7 +2959,7 @@ function mapaCentrales(el, cfg) {
 }
 
 /* ---------- fichas ---------- */
-const MED = {"jueces-federales": "cargos", "fiscalias-federales": "cantidad", "justicia-provincial": "magistratura", dinamica: "pais", rotacion: "edad", fiscal: "autonomia", censo: "cloaca", internet: "accesos_100_hogares", empleo: "cada_100", pisa: "mat", aprender: "mat", protegida: "pct_territorio", eti: "cada_1000", "patentes-prov": "autos_1000", nombres: "F", "visitas-parque": "visitas_ult", "poblacion-proy": "var_pct", "sectores-empleo": "uno", "chicos-escuela": "var_pct"};
+const MED = {"jueces-federales": "cargos", "fiscalias-federales": "cantidad", "justicia-provincial": "magistratura", dinamica: "pais", rotacion: "edad", fiscal: "autonomia", censo: "cloaca", internet: "accesos_100_hogares", empleo: "cada_100", pisa: "mat", aprender: "mat", protegida: "pct_territorio", eti: "cada_1000", "patentes-prov": "autos_1000", nombres: "F", "visitas-parque": "visitas_ult", "poblacion-proy": "var_pct", "sectores-empleo": "uno", mayoristas: "doce", "chicos-escuela": "var_pct"};
 const M = v => n1(v / 1e6) + " M";
 const G = k => document.querySelector(`.grafico[data-g="${k}"]`);
 const NAR = css("--celeste-fuerte"), FRI = css("--sol-fuerte"), GRIS = css("--faint");
@@ -3948,6 +3962,13 @@ Object.assign(DIB, {
       xl: r => mesPer(r.periodo), mensual: true, series: [{k: "privado", lab: "Privado registrado", c: NAR}, {k: "publico", lab: "Público", c: FRI}]});
   }),
   // actividad económica (etapa 25): el EMAE sin estacionalidad mes a mes, o cada sector en los últimos doce meses
+  mayoristas: conTablas("mayoristas", () => ["mayoristas_mensual"], a => {
+    const v = MED.mayoristas || "doce", doce = v === "doce", el = G("mayoristas"), p = doce ? "ia_" : "";
+    $t("mayoristas").textContent = LEAD.mayoristas(v);
+    lineas(el, {anim: a, data: T.mayoristas_mensual.filter(r => r.ia_ipc != null || !doce).map(r => ({...r, t: tPer(r.periodo)})), x: "t", y0: 0,
+      vf: doce ? pct : n0, yf: doce ? (x => n0(x) + "%") : n0, xl: r => mesPer(r.periodo), mensual: true,
+      series: [{k: p + "ipim", lab: "Mayoristas", c: NAR}, {k: p + "ipc", lab: "Al consumidor", c: FRI, ct: css("--sol-texto")}, {k: p + "dolar", lab: "Dólar", c: css("--ink")}]});
+  }),
   "sectores-empleo": a => {
     const v = MED["sectores-empleo"] || "uno", k = v === "uno" ? "1" : "10";
     $t("sectores-empleo").textContent = LEAD["sectores-empleo"](v);
@@ -7106,6 +7127,7 @@ const CLAVE = {
     `personas a mediados de ${MGO.anio}, según las Naciones Unidas`],
   "f-inflacion": [pct(EIP.interanual), `subieron los precios al consumidor en los doce meses hasta ${EIP.mes}, según el INDEC`,
     `en el país, en los doce meses hasta ${EIP.mes}`],
+  "f-mayoristas": [pct(EMY.ia_ipim), `subieron los precios mayoristas en los doce meses hasta ${EMY.mes}, según el INDEC`, `en los doce meses hasta ${EMY.mes}`],
   "f-inflacion-rubros": [pct(EIP.div_max[1]), `subieron los precios de ${inicialMin(EIP.div_max[0])} en los doce meses hasta ${EIP.mes}, el rubro que más aumentó`,
     `${inicialMin(EIP.div_max[0])}, el rubro que más subió`],
   "f-canastas": [`${n0(ECB.cbt_hogar)} pesos`, `por mes necesitaba en ${ECB.mes} un hogar de cuatro integrantes del Gran Buenos Aires para no quedar bajo la línea de pobreza`,
@@ -11531,7 +11553,7 @@ if (PAGINA !== "inicio") {
     "f-auh": ["auh", "asignacion universal"], "f-desempleo": ["desempleo"], "f-aprender": ["aprender"], "f-escolarizacion": ["escolarizacion", "secundaria"],
     "f-censo": ["cloacas", "agua red"], "f-cobertura": ["obra social", "prepaga", "cobertura de salud", "sin cobertura"], "f-dengue": ["dengue", "mosquito"], "f-vacunas": ["vacuna", "vacunas", "vacunacion", "sarampion", "triple viral"], "f-internet": ["internet"], "f-glaciares": ["glaciares"], "f-receptivo": ["turistas", "turismo"], "f-isac": ["construccion"],
     "f-carne": ["carne"], "f-vino": ["vino"], "f-yerba": ["yerba"], "f-electricidad-provincias": ["electricidad", "luz"], "f-subsidios": ["subsidios"],
-    "f-empresas": ["empresas"], "f-sectores-empleo": ["empleo por sector", "productividad"], "f-canastas": ["canasta", "canasta basica"], "f-crianza": ["crianza", "canasta de crianza", "cuota alimentaria"], "f-industria": ["industria", "produccion industrial", "ipi", "mineria"], "f-socios": ["socios comerciales", "saldo con china", "comercio con brasil", "deficit comercial con"], "f-socios-hist": ["historia del comercio exterior", "socios comerciales desde 1986"], "f-emae": ["actividad economica", "emae"], "f-carceles": ["carceles", "presos"], "f-sin-condena": ["sin condena", "presos sin condena", "procesados", "prision preventiva"],
+    "f-empresas": ["empresas"], "f-mayoristas": ["precios mayoristas", "mayoristas", "ipim"], "f-sectores-empleo": ["empleo por sector", "productividad"], "f-canastas": ["canasta", "canasta basica"], "f-crianza": ["crianza", "canasta de crianza", "cuota alimentaria"], "f-industria": ["industria", "produccion industrial", "ipi", "mineria"], "f-socios": ["socios comerciales", "saldo con china", "comercio con brasil", "deficit comercial con"], "f-socios-hist": ["historia del comercio exterior", "socios comerciales desde 1986"], "f-emae": ["actividad economica", "emae"], "f-carceles": ["carceles", "presos"], "f-sin-condena": ["sin condena", "presos sin condena", "procesados", "prision preventiva"],
     "f-coparticipacion": ["coparticipacion", "coparticipacion federal", "reparto de impuestos"],
     "f-sociedades": ["sociedades", "empresas nuevas", "crear empresas", "nuevas sociedades", "emprendimientos"],
     "f-medicos": ["medicos", "medicos por habitante", "cantidad de medicos", "medico"],
