@@ -154,6 +154,9 @@ def revisar(detalle=False):
         peor = min(difs, key=difs.get)
         print(f"Menor cobertura del definitivo: {peor}, {difs[peor]}%. Mayor: {max(difs.values())}%")
 
+    # sin esta regla Cloudflare no comprime las tablas, porque no comprime el CSV: Buenos Aires baja unos 5 MB
+    if "/datos/mesas/*\n  Content-Type: text/plain" not in (RAIZ / "sitio" / "_headers").read_text(encoding="utf-8"):
+        problemas.append("sitio/_headers no tiene la regla que hace que Cloudflare comprima las tablas de sitio/datos/mesas/")
     # los límites de Cloudflare Pages
     for f in SALIDA.rglob("*"):
         if f.is_file() and f.stat().st_size > LIMITE_ARCHIVO:

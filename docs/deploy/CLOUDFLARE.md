@@ -5,7 +5,7 @@ Decisión del autor del 23 de octubre de 2026: el sitio se publica en Cloudflare
 ## Qué ya está preparado en el repositorio
 
 - `sitio/` es lo único que se publica. No hace falta armar nada en Cloudflare: el sitio ya está armado en el repositorio y la actualización mensual lo vuelve a armar en GitHub y lo sube a `main`.
-- `sitio/_headers` (lo escribe `03_construir_sitio.py`): los archivos que las páginas piden con su huella (`?v=...`) se guardan un año en el navegador. Es el equivalente de los `[[headers]]` de `netlify.toml`, que queda en el repositorio sin uso.
+- `sitio/_headers` (lo escribe `03_construir_sitio.py`): los archivos que las páginas piden con su huella (`?v=...`) se guardan un año en el navegador. Es el equivalente de los `[[headers]]` de `netlify.toml`, que queda en el repositorio sin uso. Desde el 4 de noviembre de 2026 también sirve `/datos/mesas/*` como texto, porque Cloudflare no comprime el CSV (`docs/roadmap/MESAS.md`).
 - `sitio/404.html`: Cloudflare la muestra sola en cualquier dirección que no existe.
 - Formularios: con `"formularios": ""` en `datos/manual/sitio.json`, el armado los saca. Con `"netlify"` vuelven (solo sirven en Netlify).
 - La dirección es `https://datina.com.ar` (`"url"` en `datos/manual/sitio.json`, desde el 1 de noviembre de 2026. Del 26 de octubre hasta entonces fue `https://datina.pages.dev`, que sigue andando, igual que `www.datina.com.ar`). Con ella el armado escribe `sitemap.xml`, `robots.txt` y las direcciones completas de cada página (canonical, `og:url` y JSON-LD), sin el `.html`, porque Cloudflare sirve cada página así (`/trabajo`). Con la dirección vacía no escribe ninguna de esas cosas.
