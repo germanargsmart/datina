@@ -35,6 +35,8 @@ Los senadores se eligen por voto directo desde 2001, y por eso no hay senadores 
 
 Medido el 4 de noviembre de 2026: 47 elecciones (22 por mesa), 472 archivos, 87 MB. El mayor es `2025-general-diputados/06.csv`, 2,5 MB. El sitio queda en unos 1.350 archivos, lejos del límite de 20.000 de Cloudflare Pages, y ninguno cerca de los 25 MiB.
 
+Cloudflare comprime el JSON y el texto, pero no el CSV. Por eso `sitio/_headers` (`MESAS_TEXTO` en `03_construir_sitio.py`) sirve `/datos/mesas/*` como `text/plain`: el archivo es el mismo, sigue llamándose `.csv` y los enlaces de descarga llevan el atributo `download`. El peor caso, una sección de Buenos Aires en diputados 2025 (las mesas y la historia), bajó de 5,0 a 1,1 MB, medido en la vista previa del PR #92. `prueba_mesas.py` frena si falta la regla. Las demás tablas CSV del sitio siguen sin comprimir: `tabla_larga.csv` baja 7,1 MB enteros.
+
 ## Sumar una elección nueva
 
 1. Sumar el ZIP en `ZIPS` de `scripts/elecciones_mesas.py`. Si es presidencial, sumar las fórmulas en `FORMULAS`.
