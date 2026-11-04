@@ -2023,7 +2023,9 @@ const bandera = (c, cls = "") => NOMBRES[c] || c === "00"
 // código de una provincia por su nombre, como lo escriben otras fuentes (presidentes, gabinetes)
 const COD_PROV = Object.fromEntries([...PROV.map(([c, n]) => [n, c]), ["Ciudad Autónoma de Buenos Aires", "02"], ["Ciudad de Buenos Aires", "02"]]);
 // La provincia se puede compartir en el enlace (?prov=30) y se recuerda en este navegador
-const leerProv = () => new URLSearchParams(location.search).get("prov") || new URLSearchParams(location.hash.split("?")[1] || "").get("prov") || "";
+const leerProv = () => new URLSearchParams(location.search).get("prov") || new URLSearchParams(location.hash.split("?")[1] || "").get("prov") || document.body.dataset.prov || "";
+// la página fija de cada provincia (D3)
+const urlProv = c => SITIO.prov_pag[c] + ".html";
 let prov = "";
 try { prov = leerProv() || localStorage.getItem("prov") || ""; } catch(_) { prov = leerProv(); }
 if (!NOMBRES[prov]) prov = "";
@@ -2035,6 +2037,8 @@ function elegir(c, desdeHistorial = false) {
   desplegable.marcar();
   try { localStorage.setItem("prov", prov); } catch(_) {}
   if (!desdeHistorial && prov !== antes) {
+    // en la página fija de una provincia, elegir otra es ir a la suya
+    if (document.body.dataset.prov) { location.assign(prov ? urlProv(prov) : "provincia.html"); return; }
     const u = new URL(location.href);
     if (prov) u.searchParams.set("prov", prov); else u.searchParams.delete("prov");
     history.pushState({...history.state, prov}, "", u);
@@ -11523,7 +11527,7 @@ if (PAGINA !== "inicio") {
     IDX = [];
     Object.values(SEC).forEach(t => IDX.push({t: t.t, g: grupoPag(t.id), u: urlPagina(t.id), x: t.x, sec: 1}));
     IDX.push({t: "Tu provincia", g: "Provincias", u: "provincia.html", x: "perfil provincia provincias comparar país posición historia", sec: 1});
-    Object.entries(NOMBRES).forEach(([c, n]) => IDX.push({t: `${n} en números`, g: "Provincias", u: `provincia.html?prov=${c}`, x: n, sec: 2, c}));
+    Object.entries(NOMBRES).forEach(([c, n]) => IDX.push({t: `${n} en números`, g: "Provincias", u: urlProv(c), x: n, sec: 2, c}));
     IDX.push({t: "Laboratorio", g: "Historias", u: "laboratorio.html", x: "piezas visuales gráficos", sec: 1});
     IDX.push({t: "¿Qué gobierno designó a cada juez de la Corte Suprema?", g: "Historias", u: "corte-suprema.html",
       x: "corte suprema justicia jueces ministros designación presidentes gobiernos de facto poder judicial laboratorio", sec: 1});
@@ -11808,7 +11812,7 @@ const pintarChip = () => {
       document.getElementById("chip-bandera").src = `datos/banderas/${prov}.png`;
       document.getElementById("chip-nom").textContent = CORTO_CHIP[nom] || nom;
       const a = document.getElementById("chip-prov");
-      a.href = `provincia.html?prov=${prov}`;
+      a.href = urlProv(prov);
       a.setAttribute("aria-label", `Provincia elegida: ${nom}. Ver su perfil`);
       a.title = `${nom}: ver su perfil`;
       document.getElementById("chip-borrar").setAttribute("aria-label", `Ver todo el país en lugar de ${nom}`);
@@ -11956,7 +11960,7 @@ async function mapa() {
     svg.append("g").selectAll("path").data(paises).join("path").attr("class", "tierra").attr("d", camino);
     const g = svg.append("g").attr("class", "provs");
     const enlaces = g.selectAll("a").data(GEO.features).join("a")
-      .attr("href", d => `provincia.html?prov=${d.properties.codigo_indec}`).attr("tabindex", -1)
+      .attr("href", d => urlProv(d.properties.codigo_indec)).attr("tabindex", -1)
       .attr("data-c", d => d.properties.codigo_indec);
     enlaces.append("path").attr("d", camino);
     // la Ciudad de Buenos Aires es un punto a esta escala: un círculo para poder tocarla
@@ -12005,7 +12009,7 @@ function tarjetaMapa(c) {
   }).join("");
   tarjetaM.setAttribute("aria-label", `Datos de ${NOMBRES[c]}`);
   tarjetaM.innerHTML = `<div class="mt-cab">${conBandera(c, NOMBRES[c])}<button type="button" class="mt-cerrar" aria-label="Cerrar"><span aria-hidden="true">×</span></button></div>` +
-    `<ul>${filas}</ul><a class="boton principal chico" href="provincia.html?prov=${c}">Ver perfil completo</a>`;
+    `<ul>${filas}</ul><a class="boton principal chico" href="${urlProv(c)}">Ver perfil completo</a>`;
   if (ZONA_MAPA && innerWidth >= 760) { tarjetaM.style.left = `${ZONA_MAPA.der + 20}px`; tarjetaM.style.top = `${Math.max(0, ZONA_MAPA.arr + 40)}px`; }
   else { tarjetaM.style.left = ""; tarjetaM.style.top = ""; }
   document.querySelectorAll("#mapa .provs a").forEach(a => a.classList.toggle("tocada", a.dataset.c === c));

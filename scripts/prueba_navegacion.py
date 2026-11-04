@@ -114,7 +114,10 @@ def revisar():
         for x in donde:
             if f'href="{d}' not in (pie_ref if x == "pie" else html.get(x, "")):
                 problemas.append(f"{d}: no lo enlaza {'el pie' if x == 'pie' else x}")
-    provincias = re.findall(r'href="provincia\.html\?prov=(\d\d)"', tramo(ref, '<nav class="menu-panel grupo-panel panel-provincias"', "</nav>"))
+    provincias = re.findall(r'href="provincia-([a-z-]+)\.html"', tramo(ref, '<nav class="menu-panel grupo-panel panel-provincias"', "</nav>"))
+    for x in provincias:
+        if f"provincia-{x}.html" not in html:
+            problemas.append(f"el menú Provincias enlaza provincia-{x}.html, que no existe")
     if len(set(provincias)) != 24:
         problemas.append(f"el menú Provincias tiene {len(set(provincias))} jurisdicciones y no 24")
 

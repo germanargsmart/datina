@@ -88,7 +88,7 @@ docs/roadmap/                  plan vigente, estado, decisiones, criterios de ac
 - Todo valor sale de `:root` en `datina.css` (colores, letra, espacios, radios, sombras, duraciones). Espacios en la escala del autor (4, 8, 12, 16, 24, 32, 48, 72, 96 y 144) con tres ritmos: dentro de un componente, entre bloques (`--bloque`, de 24 a 40) y entre capítulos (`--capitulo`, de 48 a 72, solo donde cambia el tema de la página). El autor pidió el 10 de octubre de 2026 menos espacio en blanco: lo que va junto, junto. Ninguna animación de interfaz pasa de 300 ms. Respetar movimiento reducido.
 - Las secciones se ordenan en grupos y categorías que salen de `GRUPOS` y `MENUS` en `03_construir_sitio.py`: la barra (desde el 23 de octubre de 2026, Temas, Provincias, Historias y Herramientas, cada uno con su menú, y "Menú" hasta 1080 píxeles), migas, pie, portada y recorrido. Barra y portada usan siempre el mismo orden y los mismos nombres. `scripts/prueba_navegacion.py` lo controla.
 - Seis tipos de botón y nada más. Sin viñetas. Sin flechas decorativas.
-- La provincia se elige solo en `provincia.html`.
+- La provincia se elige solo en `provincia.html` y en las 24 páginas fijas que salen de ella (`provincia-neuquen.html`, desde el 3 de noviembre de 2026).
 - Accesibilidad: foco visible, teclado completo, contraste 4,5 a 1, "Ver tabla" como alternativa a los gráficos, nada que dependa solo del mouse.
 - Cambios visuales que el autor no aprobó explícitamente: consultarlos antes.
 

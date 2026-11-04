@@ -360,6 +360,11 @@ with open(DIR_BANDERAS / "fuentes.csv", encoding="utf-8") as f:
     BANDERAS = list(csv.DictReader(f))
 NOMBRE_PROV = {f["codigo_indec"]: f["territorio"] for f in json.loads((SITIO / "datos" / "fichas.json").read_text(encoding="utf-8"))["datos"]["empleo_provincias"]}
 NOMBRE_PROV["00"] = "Argentina (Todo el país)"
+# Una página fija por jurisdicción (D3, decisión del autor del 1 de noviembre de 2026): el enlace dice de qué provincia es. provincia.html sigue
+# siendo donde se elige, y provincia.html?prov=58 sigue andando
+_sin_acento = str.maketrans("áéíóúüñ", "aeiouun")
+PAG_PROV = {c: "provincia-" + re.sub(r"[^a-z]+", "-", n.lower().translate(_sin_acento)).strip("-") for c, n in NOMBRE_PROV.items() if c != "00"}
+assert len(set(PAG_PROV.values())) == 24, f"las páginas de las provincias se repiten: {PAG_PROV}"
 (SITIO / "datos" / "banderas").mkdir(exist_ok=True)
 for b in BANDERAS:
     shutil.copy(DIR_BANDERAS / f"{b['codigo_indec']}.png", SITIO / "datos" / "banderas" / f"{b['codigo_indec']}.png")
@@ -614,7 +619,7 @@ LAB_PIEZAS_IDX = [(i, texto(t)) for i, t in re.findall(r'<article class="lab-pie
 assert LAB_PIEZAS_IDX, "no se encontraron las piezas del Laboratorio para el buscador"
 # el índice del sitio que lee datina.js. Desde la Fase 2 (paso 3) también lleva el menú de cada página (el buscador agrupa los resultados
 # como la barra), las preguntas de ejemplo y las piezas del Laboratorio
-INDICE = {"secciones": SECCIONES, "fichas": FICHAS, "articulos": [[i, html.unescape(t), ico, sec] for i, ico, sec, t in NOTAS], "ubic": UBIC,
+INDICE = {"prov_pag": PAG_PROV, "secciones": SECCIONES, "fichas": FICHAS, "articulos": [[i, html.unescape(t), ico, sec] for i, ico, sec, t in NOTAS], "ubic": UBIC,
           "grupos": [[g, n, [list(it) if isinstance(it, tuple) else it for it in items]] for g, n, items in GRUPOS],
           "cat": {s: subs[0] for s, (_, subs) in CATEGORIA.items()},
           "menu": {p: m for p, (m, _) in MENU_DE.items()}, "ejemplos": [list(x) for x in EJEMPLOS], "lab": [list(x) for x in LAB_PIEZAS_IDX]}
@@ -1031,7 +1036,7 @@ def _grupo(pre, clave, nombre, lis, cls=""):
 
 _sin_tildes = str.maketrans("ÁÉÍÓÚáéíóúÑñ", "AEIOUaeiouNn")
 _PROVS = sorted((c for c in NOMBRE_PROV if c != "00"), key=lambda c: NOMBRE_PROV[c].translate(_sin_tildes))
-_li_prov = lambda c: (f'<li><a class="con-bandera" href="provincia.html?prov={c}"><img class="bandera" src="datos/banderas/{c}.png" alt="" '
+_li_prov = lambda c: (f'<li><a class="con-bandera" href="{PAG_PROV[c]}.html"><img class="bandera" src="datos/banderas/{c}.png" alt="" '
                       f'width="24" height="16" loading="lazy" decoding="async">{e(NOMBRE_PROV[c])}</a></li>')
 
 
@@ -1103,7 +1108,7 @@ _n_temas_perfil = len(re.findall(r'\["(\w+)", "([^"]+)"\]', js[js.index("const P
 _provincias_home = (f'<p class="bloque-sub">El perfil de cada jurisdicción en {_n_temas_perfil} temas, con su historia. Los datos de cada departamento, partido '
                     'o comuna están en <a class="enlace" href="departamentos.html">Departamentos</a>. Para ordenarlas según lo que más te importa, '
                     'está <a class="enlace" href="indice.html">Ordenar las 24</a>.</p><ul class="prov-home">'
-                    + "".join(f'<li><a href="provincia.html?prov={c}"><img class="bandera" src="datos/banderas/{c}.png" alt="" width="24" height="16" '
+                    + "".join(f'<li><a href="{PAG_PROV[c]}.html"><img class="bandera" src="datos/banderas/{c}.png" alt="" width="24" height="16" '
                               f'loading="lazy" decoding="async">{e(NOMBRE_PROV[c])}</a></li>' for c in _PROVS) + "</ul>")
 # Historias con datos: los tres artículos los agrega datina.js (el de la relación más marcada primero, regla aprobada el 5 de octubre de
 # 2026) antes de las piezas del Laboratorio con página propia, que escribe el constructor
@@ -1295,9 +1300,24 @@ def pagina(id_, titulo, descripcion, quedan, recorte=None, titulo_social=None, t
 # Portada: la grilla que lleva a cada seccion
 pagina("inicio", None, None, {"inicio"})
 # Tu provincia: el perfil de la provincia elegida, en su propia pagina (se entra desde el primer destacado)
-pagina("provincia", "Tu provincia",
-       "El perfil de cada provincia: sus indicadores frente al total del país, su posición entre las 24 jurisdicciones, su historia y las provincias que más se le parecen.",
-       {"provincia"})
+_h_prov = pagina("provincia", "Tu provincia",
+                 "El perfil de cada provincia: sus indicadores frente al total del país, su posición entre las 24 jurisdicciones, su historia y las provincias que más se le parecen.",
+                 {"provincia"})
+# Las 24 páginas fijas: la misma página, con su título, su descripción y su dirección, y la provincia ya elegida (data-prov, que lee datina.js)
+for _c, _a in PAG_PROV.items():
+    _n = NOMBRE_PROV[_c]
+    _t, _d = f"{_n} en números", (f"El perfil de {_n}: sus indicadores frente al total del país, su posición entre las 24 jurisdicciones, su historia y las jurisdicciones "
+                                  "que más se le parecen.")
+    _h = _h_prov.replace('<body data-pagina="provincia"', f'<body data-pagina="provincia" data-prov="{_c}"', 1)
+    _h = re.sub(r"<title>[^<]*</title>", f"<title>{e(_t)} | Datina</title>", _h, count=1)
+    for _q, _v in [('name="description"', _d), ('property="og:description"', _d), ('name="twitter:description"', _d), ('property="og:title"', _t), ('name="twitter:title"', _t)]:
+        _h, _cu = re.subn(rf'(<meta {_q} content=")[^"]*"', lambda m: m.group(1) + e(_v) + '"', _h, count=1)
+        assert _cu == 1, f"{_a}: falta {_q}"
+    if URL_SITIO:
+        _h = _h.replace(f'<link rel="canonical" href="{URL_SITIO}/provincia">', f'<link rel="canonical" href="{URL_SITIO}/{_a}">', 1)
+        _h = _h.replace(f'<meta property="og:url" content="{URL_SITIO}/provincia">', f'<meta property="og:url" content="{URL_SITIO}/{_a}">', 1)
+    (SITIO / f"{_a}.html").write_text(_h, encoding="utf-8", newline="\n")
+    INDEXADAS.append(_a)
 # Sobre nosotros: proposito, principios y forma de trabajo de Datina
 pagina("nosotros", "Sobre nosotros",
        "Qué es Datina, para qué existe, de dónde salen sus datos y cómo se hace. Estadísticas públicas de las 24 jurisdicciones de la Argentina.",

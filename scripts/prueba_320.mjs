@@ -24,7 +24,8 @@ const servidor = createServer((req, res) => {
 });
 await new Promise(r => servidor.listen(0, "127.0.0.1", r));
 const B = `http://127.0.0.1:${servidor.address().port}/`;
-const PAGINAS = [...readdirSync(SITIO).filter(f => f.endsWith(".html") && f !== "emprendedores.html").sort(), "relaciones.html?v=tabla", "pobreza/index.html"];
+// de las 24 páginas fijas de las provincias (D3) se mide una: son la misma página
+const PAGINAS = [...readdirSync(SITIO).filter(f => f.endsWith(".html") && f !== "emprendedores.html" && (!f.startsWith("provincia-") || f === "provincia-neuquen.html")).sort(), "relaciones.html?v=tabla", "pobreza/index.html"];
 // los elementos que corren la página: los que pasan el borde derecho sin estar dentro de algo con su propio desplazamiento o recortado
 const MEDIR = `(() => { const d = document.documentElement, fuera = [];
   if (d.scrollWidth <= d.clientWidth + 1) return JSON.stringify({sobra: 0, fuera});
