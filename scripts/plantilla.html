@@ -505,6 +505,19 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <div class="pie"><span>Fuente: INDEC, Índice de precios al consumidor</span><a href="datos/inflacion_rubros.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
+    <article class="ficha" id="f-mayoristas">
+      <h2>¿Suben antes los precios mayoristas que los precios al consumidor?</h2>
+      <p class="ficha-sub">Precios mayoristas (IPIM), precios al consumidor (IPC) y dólar mayorista, variación en doce meses y nivel con {{economia.mayoristas.desde}} = 100, hasta {{economia.mayoristas.mes}}</p>
+      <div class="conmutador" role="group" aria-label="Medida" data-g="mayoristas">
+        <button type="button" data-m="doce" aria-pressed="true">En doce meses</button>
+        <button type="button" data-m="nivel" aria-pressed="false">Nivel</button>
+      </div>
+      <div class="grafico" data-g="mayoristas" data-forma="lineas"></div>
+      <p class="lead" data-t="mayoristas"></p>
+      <p class="nota" data-t="mayoristas-nota"></p>
+      <div class="pie"><span>Fuentes: INDEC, índice de precios internos al por mayor e índice de precios al consumidor, y Banco Central, tipo de cambio mayorista de referencia</span><a href="datos/mayoristas_mensual.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
     <article class="ficha" id="f-expectativas">
       <h2>¿Cuánta inflación espera la gente para los próximos doce meses?</h2>
       <p class="ficha-sub">Mediana y promedio de la inflación que espera la gente para los doce meses siguientes, y la que hubo, mes a mes desde {{expectativas_inflacion.desde_anio}}</p>

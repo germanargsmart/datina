@@ -2558,6 +2558,17 @@
     "archivo": "scripts/indec_api.py",
     "contiene": "\"comercio_exterior_nomenclaturas\": "
    }
+  },
+  {
+   "id": "ds:indec_ipim.csv",
+   "nombre": "Índice de precios internos al por mayor (IPIM)",
+   "fuente": "org:indec",
+   "ruta": "datos/crudo/indec_ipim.csv",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "\"indec_ipim.csv\": \"https://www.indec.gob.ar"
+   },
+   "url": "https://www.indec.gob.ar/ftp/cuadros/economia/indice_ipim.csv"
   }
  ],
  "aristas": [
@@ -7528,6 +7539,46 @@
     }
    ],
    "tabla": "sectores_empleo"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:indec_ipim.csv",
+   "a": "f-mayoristas",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_may_r = pd.read_csv(CRUDO / \"indec_ipim.csv\", sep=\";\", decimal=\",\", encoding=\"latin-1\")"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "**({\"mayoristas_mensual\": mayoristas_mensual} if mayoristas_mensual is not None else {}),"
+    }
+   ],
+   "tabla": "mayoristas_mensual"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:indec_ipc_divisiones.csv",
+   "a": "f-mayoristas",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"ipc\": _ipc_ng, \"dolar\": _may_d}).dropna().sort_index()"
+    }
+   ],
+   "tabla": "mayoristas_mensual"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:bcra_series.csv",
+   "a": "f-mayoristas",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_may_d = bcra_variables[bcra_variables.id == 5].set_index(\"mes\").valor"
+    }
+   ],
+   "tabla": "mayoristas_mensual"
   }
  ],
  "fichas": {

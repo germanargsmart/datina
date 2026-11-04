@@ -1,0 +1,75 @@
+{
+ "tabla": "mayoristas_mensual.csv",
+ "titulo": "¿Suben antes los precios mayoristas que los precios al consumidor?",
+ "descripcion": "Precios mayoristas (IPIM), precios al consumidor (IPC) y dólar mayorista, variación en doce meses y nivel con diciembre de 2016 = 100, hasta septiembre de 2026",
+ "seccion": "Precios y actividad",
+ "ficha": "https://datina.com.ar/economia.html#f-mayoristas",
+ "fuente": "INDEC, índice de precios internos al por mayor e índice de precios al consumidor, y Banco Central, tipo de cambio mayorista de referencia.",
+ "actualizacion": "Se actualiza cada mes.",
+ "cobertura": "Sin desglose territorial",
+ "periodo": "diciembre de 2016 a septiembre de 2026",
+ "filas": 118,
+ "columnas": [
+  {
+   "nombre": "periodo",
+   "tipo": "Fecha",
+   "valores": "diciembre de 2016 a septiembre de 2026"
+  },
+  {
+   "nombre": "ipim",
+   "tipo": "Número",
+   "valores": "100 a 12.714,01"
+  },
+  {
+   "nombre": "nacionales",
+   "tipo": "Número",
+   "valores": "100 a 12.843,5"
+  },
+  {
+   "nombre": "importados",
+   "tipo": "Número",
+   "valores": "100 a 11.068,03"
+  },
+  {
+   "nombre": "ipc",
+   "tipo": "Número",
+   "valores": "100 a 12.514,15"
+  },
+  {
+   "nombre": "dolar",
+   "tipo": "Número",
+   "valores": "97,04 a 9.574,14"
+  },
+  {
+   "nombre": "ia_ipim",
+   "tipo": "Número",
+   "valores": "18,85 a 330,56 (12 celdas vacías)"
+  },
+  {
+   "nombre": "ia_nacionales",
+   "tipo": "Número",
+   "valores": "19,35 a 329,13 (12 celdas vacías)"
+  },
+  {
+   "nombre": "ia_importados",
+   "tipo": "Número",
+   "valores": "-4,17 a 432,62 (12 celdas vacías)"
+  },
+  {
+   "nombre": "ia_ipc",
+   "tipo": "Número",
+   "valores": "24,8 a 289,4 (12 celdas vacías)"
+  },
+  {
+   "nombre": "ia_dolar",
+   "tipo": "Número",
+   "valores": "10,11 a 356,44 (12 celdas vacías)"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "28/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
+ "como_citar": "Datina (año de la consulta). ¿Suben antes los precios mayoristas que los precios al consumidor? Con datos de INDEC, índice de precios internos al por mayor e índice de precios al consumidor, y Banco Central, tipo de cambio mayorista de referencia. https://datina.com.ar/economia.html#f-mayoristas. Consultado el día de la consulta."
+}
