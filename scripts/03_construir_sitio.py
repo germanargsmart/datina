@@ -16,10 +16,15 @@ from decimal import Decimal, ROUND_HALF_UP
 RAIZ = pathlib.Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(RAIZ / "scripts"))
 import consultor_pobreza  # noqa: E402
+import achicar_js  # noqa: E402
 import frescura  # noqa: E402
+import prueba_achicar_js  # noqa: E402
 import imagen_social  # noqa: E402
 import prueba_frescura  # noqa: E402
 # la regla del aviso de dato atrasado (T3) se prueba antes de armar: si falla, el sitio no se arma
+_ac, _ = prueba_achicar_js.revisar()
+if _ac:
+    sys.exit("La prueba del achicador de datina.js falla (scripts/prueba_achicar_js.py): el sitio no se armó.\n  " + "\n  ".join(_ac))
 _fr, _ = prueba_frescura.revisar()
 if _fr:
     sys.exit("La prueba de la frescura de las fichas falla (scripts/prueba_frescura.py): el sitio no se armó.\n  " + "\n  ".join(_fr))
@@ -804,14 +809,16 @@ if CONSULTA_IA:
 else:
     for _f in (_IA_INDICE, _IA_JS, SITIO / "consulta-ia.html"):
         _f.unlink(missing_ok=True)
-(SITIO / "mesas.js").write_text(JS_MESAS, encoding="utf-8", newline="\n")
+(SITIO / "mesas.js").write_text(achicar_js.achicar(JS_MESAS), encoding="utf-8", newline="\n")   # como datina.js, sin comentarios ni sangría
 EN_CATALOGO = sorted(re.findall(r'<li class="cat-item" id="cat-(\w+)"', _catalogo))
 for marca, valor in {"/*ICONOS*/{}": ICONOS, "/*SEC_ICONO*/{}": SEC_ICONO, "/*SIN_RELACIONES*/[]": sorted(relaciones.EXCLUIDAS),
                      "/*EN_CATALOGO*/[]": EN_CATALOGO}.items():
     assert marca in js, marca
     js = js.replace(marca, json.dumps(valor, ensure_ascii=False))
 (SITIO / "datina.css").write_text(css, encoding="utf-8", newline="\n")
-(SITIO / "datina.js").write_text(js, encoding="utf-8", newline="\n")
+# D2 (4 de noviembre de 2026): lo que se publica va sin comentarios ni sangría. Las comprobaciones de abajo siguen leyendo `js`, el código entero
+JS_SITIO = achicar_js.achicar(js)
+(SITIO / "datina.js").write_text(JS_SITIO, encoding="utf-8", newline="\n")
 # D3 y topojson desde el propio sitio (plan de estabilización, P0-1, 22 de octubre de 2026): las mismas versiones que se pedían a cdnjs y
 # jsDelivr, copiadas byte por byte de scripts/lib/ a sitio/lib/ con sus licencias, y pedidas con su huella como datina.js
 LIBS = {"__V_D3__": "d3-7.8.5.min.js", "__V_TOPOJSON__": "topojson-client-3.1.0.min.js"}
@@ -820,7 +827,7 @@ for _lib in (RAIZ / "scripts" / "lib").iterdir():
     shutil.copyfile(_lib, SITIO / "lib" / _lib.name)
 V_LIBS = {marca: hashlib.sha1((SITIO / "lib" / nombre).read_bytes()).hexdigest()[:10] for marca, nombre in LIBS.items()}
 
-for marca, valor in {"__VERSION__": huella(datos), "__V_CSS__": huella(css), "__V_JS__": huella(js), **V_LIBS}.items():
+for marca, valor in {"__VERSION__": huella(datos), "__V_CSS__": huella(css), "__V_JS__": huella(JS_SITIO), **V_LIBS}.items():
     assert marca in base, marca
     base = base.replace(marca, valor)
 # las posiciones de los bloques cambian con el reemplazo de arriba: se vuelven a ubicar
