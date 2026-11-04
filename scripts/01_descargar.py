@@ -1251,7 +1251,9 @@ def oede_empleo():
     """Observatorio de Empleo y Dinámica Empresarial (Ministerio de Capital Humano): asalariados registrados del sector privado por
     provincia y rama de actividad (CIIU revisión 3 a dos dígitos), trimestral desde 1996, con base en el SIPA. Una hoja por provincia
     (Buenos Aires viene separada en partidos del GBA y resto). Se guardan solo construcción (sección F), extracción de petróleo y gas
-    (rama 11) y el total de cada provincia (oede_empleo_ramas.csv). El nombre del Excel cambia con cada edición: se lee de la página."""
+    (rama 11) y el total de cada provincia (oede_empleo_ramas.csv). Desde el 3 de noviembre de 2026 también cada sección (letra) de la CIIU,
+    con la rama "letra_X", para comparar el empleo de cada sector con su actividad (EMAE). El nombre del Excel cambia con cada edición: se lee de
+    la página."""
     import io, pandas as pd
     pagina = leer("https://www.argentina.gob.ar/trabajo/estadisticas/oede-estadisticas-provinciales", 60).decode("utf-8", "ignore")
     enlace = re.search(r'href="(/sites/default/files/provinciales_serie_empleo_trimestral_2dig[^"]*\.xlsx)"', pagina)
@@ -1268,6 +1270,12 @@ def oede_empleo():
             continue
         cod = d[0].astype(str).str.strip()
         sel = {"construccion": cod.eq("F"), "petroleo_gas": cod.eq("11"), "total": d[1].astype(str).str.strip().str.upper().eq("TOTAL")}
+        # las secciones: una fila por letra, salvo las que la provincia no tiene (se saltean)
+        for letra in "ABCDEFGHIJKLMNOPQ":
+            if cod.eq(letra).sum() > 1:
+                raise ValueError(f"OEDE {hoja}: la sección {letra} está repetida")
+            if cod.eq(letra).sum() == 1 and letra != "F":
+                sel[f"letra_{letra}"] = cod.eq(letra)
         for rama, m in sel.items():
             if m.sum() != 1:
                 raise ValueError(f"OEDE {hoja}: no se encontró una única fila de {rama}")
@@ -2686,7 +2694,7 @@ TIPOS_SOCIEDAD = {"SOCIEDAD DE RESPONSABILIDAD LIMITADA", "SOCIEDAD POR ACCION S
                   "SOCIEDAD COLECTIVA", "CAPITAL E INDUSTRIA"}
 # fuentes que arma una función y no una dirección de FUENTES: --solo también las acepta por el nombre del archivo que escriben
 SOLO_FUNCIONES = {"jus_sociedades_resumen.csv": sociedades, "eph_poblacion_aglomerados.csv": eph_poblacion_sola,
-                  "indec_calendario.csv": indec_calendario}
+                  "indec_calendario.csv": indec_calendario, "oede_empleo_ramas.csv": oede_empleo}
 # las tablas de la API del INDEC (2 de noviembre de 2026, scripts/indec_api.py y docs/deploy/INDEC_API.md), una por una
 SOLO_FUNCIONES.update({indec_api.archivo(t): (lambda t=t: indec_api.bajar(CRUDO, [t])) for t in indec_api.TABLAS})
 

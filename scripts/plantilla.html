@@ -568,6 +568,19 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <div class="pie"><span>Fuente: INDEC, Estimador Mensual de Actividad Económica</span><a href="datos/actividad_mensual.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
+    <article class="ficha" id="f-sectores-empleo">
+      <h2>¿Crece el empleo registrado al ritmo de la actividad en cada sector?</h2>
+      <p class="ficha-sub">Variación de la actividad económica y de los asalariados registrados del sector privado por sector, {{economia.sectores_empleo.desde}} a {{economia.sectores_empleo.hasta}}, frente a los doce meses anteriores y a diez años antes</p>
+      <div class="conmutador" role="group" aria-label="Período" data-g="sectores-empleo">
+        <button type="button" data-m="uno" aria-pressed="true">Último año</button>
+        <button type="button" data-m="diez" aria-pressed="false">Diez años</button>
+      </div>
+      <div class="grafico" data-g="sectores-empleo" data-forma="pesas"></div>
+      <p class="lead" data-t="sectores-empleo"></p>
+      <p class="nota" data-t="sectores-empleo-nota"></p>
+      <div class="pie"><span>Fuentes: INDEC, Estimador Mensual de Actividad Económica, y Observatorio de Empleo y Dinámica Empresarial (OEDE), Secretaría de Trabajo, con datos del Sistema Integrado Previsional Argentino (SIPA)</span><a href="datos/sectores_empleo.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
     <!-- la producción industrial y minera del INDEC, de su API (3 de noviembre de 2026) -->
     <article class="ficha" id="f-industria">
       <h2>¿Cuánto cambió la producción de la industria y de la minería?</h2>

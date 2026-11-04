@@ -1,0 +1,15 @@
+letra,sector,corto,empleo,actividad_1,empleo_1,actividad_10,empleo_10
+A,"Agricultura, ganadería, caza y silvicultura",Agro,351019.75,9.9758,-0.8451,2.2395,1.9422
+B,Pesca,Pesca,13824.75,-7.8473,1.9882,10.2351,4.6497
+C,Explotación de minas y canteras,Minas y canteras,92520.0,9.4804,-7.1098,34.1643,2.7267
+D,Industria manufacturera,Industria,1221262.25,-0.6736,-2.2127,-12.5785,-5.881
+E,"Electricidad, gas y agua","Electricidad, gas y agua",76420.75,0.2039,0.432,3.9837,8.5079
+F,Construcción,Construcción,398320.0,3.2918,1.223,-12.0551,-11.779
+G,"Comercio mayorista, minorista y reparaciones",Comercio,1288303.25,1.8914,0.7766,-2.5083,11.7398
+H,Hoteles y restaurantes,Hoteles y restaurantes,313349.5,6.6655,-0.5361,10.7836,13.7185
+I,Transporte y comunicaciones,Transporte,541743.75,2.0062,-1.1014,-1.341,-6.6124
+J,Intermediación financiera,Finanzas,138646.5,19.3492,-2.3652,9.9716,-11.0455
+K,"Actividades inmobiliarias, empresariales y de alquiler",Inmobiliarias,957869.0,2.7688,-0.0704,16.7445,-1.2313
+M,Enseñanza,Enseñanza,529419.25,0.3608,0.4773,11.8978,10.4754
+N,Servicios sociales y de salud,Salud,366937.5,0.0565,-0.0574,8.3402,10.3649
+O,"Otros servicios comunitarios, sociales y personales",Otros servicios,379972.0,0.9503,-1.7479,-14.308,-5.6306
