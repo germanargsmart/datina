@@ -121,8 +121,12 @@ async function revisarCifras(sec, prov) {
   p.errores.forEach(e => problemas.push(`${donde}: ${e}`));
 }
 
-const paginas = readdirSync(SITIO).filter(f => f.endsWith(".html") && !SALTEAR.has(f)).sort();
-for (const pg of paginas) await revisarPagina(pg);
+// de las 24 páginas fijas de las provincias (D3) se revisan dos: son la misma página, y el perfil de cada una se controla abajo con provincia.html?prov=
+const paginas = readdirSync(SITIO).filter(f => f.endsWith(".html") && !SALTEAR.has(f) && (!f.startsWith("provincia-") || ["provincia-neuquen.html", "provincia-caba.html"].includes(f))).sort();
+for (const pg of paginas) {
+  await revisarPagina(pg);
+  if (pg.startsWith("provincia-")) await p.eval(`localStorage.removeItem("prov")`);  // la página fija deja su provincia elegida: lo demás se revisa sin ella
+}
 const ida = new Set(IDA), vuelta = new Set(VUELTA);
 if (!ida.size || !vuelta.size) problemas.push(`enlaces entre artículos y fichas: ${ida.size} de ida y ${vuelta.size} de vuelta`);
 [...ida].filter(x => !vuelta.has(x)).forEach(x => problemas.push(`${x.split(">")[0]} enlaza a ${x.split(">")[1]}, que no lo enlaza de vuelta`));
@@ -226,6 +230,17 @@ for (const prov of PROVINCIAS) {
   const perfil = await p.eval(`[...document.querySelectorAll("#prov-grid .dp")].map(d => d.querySelector(".dp-num").textContent.trim())`);
   if (!perfil.length || perfil.some(v => !v || /NaN|undefined/.test(v))) problemas.push(`provincia.html con la provincia ${prov}: perfil incompleto (${perfil.join(" | ")})`);
 }
+// la página fija de una provincia (D3): abre su perfil sin nada en la dirección, y elegir otra lleva a la página de esa otra
+await p.ir(`${B}provincia-neuquen.html`, 1200);
+{
+  const fija = await p.eval(`({t: document.title, n: document.querySelectorAll("#prov-grid .dp").length, v: document.getElementById("elige-valor").textContent, s: location.search})`);
+  if (!/Neuqu/.test(fija.t) || !fija.n || !/Neuqu/.test(fija.v) || fija.s) problemas.push(`provincia-neuquen.html no abre el perfil de Neuquén: ${JSON.stringify(fija)}`);
+  await p.eval(`document.getElementById("elige-btn").click(); document.getElementById("op-66").click()`);
+  await new Promise(r => setTimeout(r, 1500));
+  const otra = await p.eval(`location.pathname`);
+  if (!otra.endsWith("provincia-salta.html")) problemas.push(`en una página fija, elegir Salta lleva a ${otra}`);
+  await p.eval(`localStorage.removeItem("prov")`);  // lo que sigue se prueba sin provincia elegida
+}
 
 // Sin las CDN (plan de estabilización, P0-1, 22 de octubre de 2026). D3 y topojson se sirven desde sitio/lib/: con cdnjs y jsDelivr
 // bloqueadas, cada página tiene que andar igual, sin errores (un pedido a esas CDN aparece como error), con D3 y topojson cargados,
@@ -277,7 +292,7 @@ if (await q.eval(`document.querySelectorAll("#art-grid-home .art-dek").length`))
 await q.eval(`document.getElementById("busca-portada").focus()`);
 await q.send("Input.insertText", {text: "salta"});
 await espera(300);
-if (!(await q.eval(`document.querySelectorAll('#busca-portada-res a[href="provincia.html?prov=66"]').length`)))
+if (!(await q.eval(`document.querySelectorAll('#busca-portada-res a[href="provincia-salta.html"]').length`)))
   problemas.push("index.html: el buscador de la portada no encuentra Salta");
 // con una lista larga, cada resultado que se ve dentro de la lista se puede tocar en su lugar (la portada recorta lo que sobresale y la
 // lista quedaba cortada o tapada por lo que sigue en la parte azul)
