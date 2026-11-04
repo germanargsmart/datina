@@ -37,6 +37,8 @@ Medido el 4 de noviembre de 2026: 47 elecciones (22 por mesa), 472 archivos, 87 
 
 Cloudflare comprime el JSON y el texto, pero no el CSV. Por eso `sitio/_headers` (`MESAS_TEXTO` en `03_construir_sitio.py`) sirve `/datos/mesas/*` como `text/plain`: el archivo es el mismo, sigue llamándose `.csv` y los enlaces de descarga llevan el atributo `download`. El peor caso, una sección de Buenos Aires en diputados 2025 (las mesas y la historia), bajó de 5,0 a 1,1 MB, medido en la vista previa del PR #92. `prueba_mesas.py` frena si falta la regla. Las demás tablas CSV del sitio siguen sin comprimir: `tabla_larga.csv` baja 7,1 MB enteros.
 
+Una trampa de esa regla: Cloudflare guarda los encabezados de la primera vez que sirve un archivo y, si el archivo no cambió, no los actualiza al revalidarlo (`cf-cache-status: REVALIDATED`). Las tablas pedidas en los 27 minutos entre el PR #91 y el #92 siguieron llegando como `text/csv` y sin comprimir. Por eso `mesas.js` las pide con `?v=` (`VERSION_TABLAS`). Un cambio futuro en cómo se sirven las tablas tiene que subir ese número. Los enlaces de descarga no lo llevan.
+
 ## Sumar una elección nueva
 
 1. Sumar el ZIP en `ZIPS` de `scripts/elecciones_mesas.py`. Si es presidencial, sumar las fórmulas en `FORMULAS`.

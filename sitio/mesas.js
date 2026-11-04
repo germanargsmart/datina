@@ -4,6 +4,7 @@ const raiz = document.getElementById("ms");
 if (!raiz) return;
 const $ = id => document.getElementById(id);
 const BASE = "datos/mesas/";
+const VERSION_TABLAS = "2";
 const CARGOS = {presidente: "Presidente", diputados: "Diputados nacionales", senadores: "Senadores nacionales"};
 const NIVEL_NOMBRE = {presidente: "presidente", diputados: "diputados nacionales", senadores: "senadores nacionales"};
 const n0 = v => Number(v).toLocaleString("es-AR");
@@ -33,7 +34,7 @@ return filas;
 }
 const bajar = ruta => {
 if (pedidas.has(ruta)) return pedidas.get(ruta);
-const p = fetch(BASE + ruta).then(r => { if (!r.ok) throw new Error(`${ruta}: ${r.status}`); return r.text(); }).then(t => {
+const p = fetch(`${BASE}${ruta}?v=${VERSION_TABLAS}`).then(r => { if (!r.ok) throw new Error(`${ruta}: ${r.status}`); return r.text(); }).then(t => {
 if (!t.endsWith("\n")) throw new Error(`${ruta}: la tabla llegó cortada`);
 const f = filasCSV(t);
 if (f.length < 2 || f.some(x => x.length !== f[0].length)) throw new Error(`${ruta}: la tabla no tiene la forma esperada`);
