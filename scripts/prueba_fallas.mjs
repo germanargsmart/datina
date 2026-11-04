@@ -31,11 +31,16 @@ const BASE = `http://127.0.0.1:${servidor.address().port}/`;
 const ch = await abrirChrome(9500 + Math.floor(Math.random() * 400)), p = await ch.pestana();
 await p.tamano(1440, 900);
 // qué hacer con cada pedido: fallar (los que contienen un texto de FALLAR) o cambiar datina.js (CAMBIOS)
-let FALLAR = [], CAMBIOS = [];
+let FALLAR = [], CAMBIOS = [], CORTAR = [];
 await p.send("Fetch.enable", {patterns: [{urlPattern: "*datina.js*"}, {urlPattern: "*/lib/*"}, {urlPattern: "*/datos/*"}]});
 p.on("Fetch.requestPaused", ev => {
   const u = ev.request.url;
   if (FALLAR.some(f => u.includes(f))) return p.send("Fetch.failRequest", {requestId: ev.requestId, errorReason: "Failed"});
+  if (CORTAR.some(f => u.includes(f))) {
+    const d = readFileSync(join(SITIO, new URL(u).pathname));
+    return p.send("Fetch.fulfillRequest", {requestId: ev.requestId, responseCode: 200, body: d.subarray(0, d.length >> 1).toString("base64"),
+      responseHeaders: [{name: "Content-Type", value: "text/csv; charset=utf-8"}]});
+  }
   if (CAMBIOS.length && /\/datina\.js/.test(u)) {
     let s = readFileSync(join(SITIO, "datina.js"), "utf8");
     for (const [a, b] of CAMBIOS) { if (!s.includes(a)) throw new Error("no está: " + a); s = s.replace(a, b); }
@@ -136,6 +141,34 @@ FALLAR = [];
 await p.eval(`(() => { const s = document.getElementById("mp-ind"); s.selectedIndex = 1; s.dispatchEvent(new Event("change")); })()`); await espera(2000);
 r = await p.eval(`document.querySelectorAll('.grafico[data-g="mapa-dep"] path.dep').length`);
 caso("Mapa de departamentos: al cambiar el indicador, se dibuja", r > 100, r + " departamentos");
+
+// 7. Elecciones por mesa (4 de noviembre de 2026): sin su índice, sin la tabla de la elección, sin la de la provincia, con una tabla cortada a la mitad (una falla, no una
+// tabla más corta) y sin la historia (los resultados quedan). Vuelve a intentar sin recargar la página
+const MS = `document.getElementById("ms-resultado").innerText`;
+FALLAR = ["mesas/indice.json"];
+await p.ir(BASE + "mesas.html", 1200);
+r = await p.eval(MS); caso("Mesas sin su índice: aviso", /No se pudo cargar la lista de elecciones/.test(sinNbsp(r)), r.slice(0, 80));
+FALLAR = ["2023-segunda-presidente/pais.csv"];
+await p.ir(BASE + "mesas.html", 1200);
+r = await p.eval(MS); caso("Mesas sin la tabla de la elección: aviso", /No se pudo bajar la tabla/.test(sinNbsp(r)), r.slice(0, 80));
+FALLAR = [];
+await p.eval(`document.getElementById("ms-reintentar").click()`); await espera(900);
+r = await p.eval(MS); caso("Mesas: al volver a intentar, se ve", /Milei - Villarruel/.test(r));
+FALLAR = ["2023-segunda-presidente/06.csv"];
+await p.eval(`document.querySelector('.ms-ir[data-p="06"]').click()`); await espera(900);
+r = await p.eval(MS); caso("Mesas sin la tabla de la provincia: aviso", /No se pudo bajar la tabla/.test(sinNbsp(r)), r.slice(0, 80));
+FALLAR = [];
+await p.eval(`document.getElementById("ms-reintentar").click()`); await espera(1200);
+r = await p.eval(`document.getElementById("ms-titulo")?.textContent`); caso("Mesas: al volver a intentar, la provincia", r === "Buenos Aires", r);
+CORTAR = ["2023-general-presidente/14.csv"];
+await p.ir(BASE + "mesas.html?e=2023-general-presidente&p=14", 1500);
+r = await p.eval(MS); caso("Mesas con una tabla cortada: aviso, no números de menos", /No se pudo bajar la tabla/.test(sinNbsp(r)), r.slice(0, 80));
+CORTAR = [];
+FALLAR = ["circuitos/06.csv"];
+await p.ir(BASE + "mesas.html?p=06&s=61", 1500);
+r = await p.eval(MS);
+caso("Mesas sin la historia: los resultados quedan y lo dice", /La Matanza/.test(r) && /No se pudo bajar la historia/.test(sinNbsp(r)), r.slice(0, 80));
+FALLAR = [];
 
 console.log(res.every(Boolean) ? "Todo bien" : "HAY FALLAS");
 await ch.cerrar(); servidor.close(); process.exit(res.every(Boolean) ? 0 : 1);

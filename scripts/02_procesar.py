@@ -8225,6 +8225,8 @@ resumen["departamentos"] = {"meta": {k: {"nombre": v[0], "unidad": v[1], "fuente
                             "anio_snic": ANIO_DEP, "n": int(len(departamentos)), "pob_ini": PED_INI, "pob_fin": PED_FIN}
 resumen["elecciones"] = el_meta
 resumen["elecciones_ult"] = max(x["anio"] for x in el_meta)   # el título de la ficha de elecciones
+# Elecciones por mesa (scripts/elecciones_mesas.py, 4 de noviembre de 2026): los años de la herramienta, para la plantilla
+resumen["mesas"] = json.loads((RAIZ / "datos" / "manual" / "mesas_control.json").read_text(encoding="utf-8"))["resumen"]
 resumen["anio_pob"] = ANIO_POB   # año de la población de las tasas por habitante (notas y títulos)
 resumen["congreso"] = congreso_res
 congreso_res["anio_fin"] = congreso_res["anio"] + 2   # fin del período legislativo en curso (la descripción de la ficha, etapa 37)

@@ -1,0 +1,93 @@
+codigo_indec,provincia,lista,votos,electores,votantes,blancos,nulos
+10,Catamarca,Alianza Frente Cívico y Social,64703,219817,125227,3825,1483
+10,Catamarca,Justicialista,29407,219817,125227,3825,1483
+10,Catamarca,Alianza Frente de la Gente,17564,219817,125227,3825,1483
+10,Catamarca,Obrero,2233,219817,125227,3825,1483
+10,Catamarca,Frente de los Jubilados,1773,219817,125227,3825,1483
+10,Catamarca,Comunista,1720,219817,125227,3825,1483
+10,Catamarca,Alianza Frente Unidos por Catamarca,860,219817,125227,3825,1483
+10,Catamarca,Humanista,827,219817,125227,3825,1483
+10,Catamarca,Unificación Populista,419,219817,125227,3825,1483
+10,Catamarca,Movimiento Patriótico de Liberación,413,219817,125227,3825,1483
+14,Córdoba,Alianza Unión por Córdoba,450793,2246556,1531334,279436,30549
+14,Córdoba,Alianza Frente Nuevo,348079,2246556,1531334,279436,30549
+14,Córdoba,Unión Cívica Radical,237457,2246556,1531334,279436,30549
+14,Córdoba,Alianza Recrear - Córdoba en Acción,37465,2246556,1531334,279436,30549
+14,Córdoba,Alianza Izquierda Unida,33304,2246556,1531334,279436,30549
+14,Córdoba,Afirmación para una República Igualitaria,24185,2246556,1531334,279436,30549
+14,Córdoba,Unión del Centro Democrático,15459,2246556,1531334,279436,30549
+14,Córdoba,Socialista Popular,12590,2246556,1531334,279436,30549
+14,Córdoba,Socialista Democrático,11797,2246556,1531334,279436,30549
+14,Córdoba,Primero La Gente,10447,2246556,1531334,279436,30549
+14,Córdoba,Nuevo de Acción Solidaria,9975,2246556,1531334,279436,30549
+14,Córdoba,Humanista,9092,2246556,1531334,279436,30549
+14,Córdoba,Movimiento de Acción Vecinal,9002,2246556,1531334,279436,30549
+14,Córdoba,Intransigente,5335,2246556,1531334,279436,30549
+14,Córdoba,De los Trabajadores Socialistas,4799,2246556,1531334,279436,30549
+14,Córdoba,Movimiento Patriótico,1317,2246556,1531334,279436,30549
+14,Córdoba,Obrero,253,2246556,1531334,279436,30549
+18,Corrientes,Alianza Frente de Todos,125147,619819,372835,8993,7167
+18,Corrientes,Nuevo,102776,619819,372835,8993,7167
+18,Corrientes,Liberal,33972,619819,372835,8993,7167
+18,Corrientes,Alianza Frente Proyecto Corrientes,31278,619819,372835,8993,7167
+18,Corrientes,Demócrata Progresista,20777,619819,372835,8993,7167
+18,Corrientes,Conservador Popular,17152,619819,372835,8993,7167
+18,Corrientes,Popular,9275,619819,372835,8993,7167
+18,Corrientes,Demócrata Cristiano,6330,619819,372835,8993,7167
+18,Corrientes,Comunista,5669,619819,372835,8993,7167
+18,Corrientes,Afirmación para una República Igualitaria,4299,619819,372835,8993,7167
+26,Chubut,Justicialista,79808,278888,209948,38939,2880
+26,Chubut,Unión Cívica Radical,63580,278888,209948,38939,2880
+26,Chubut,Acción Chubutense,12519,278888,209948,38939,2880
+26,Chubut,Alianza Corriente Chubutense,5442,278888,209948,38939,2880
+26,Chubut,Humanista,2074,278888,209948,38939,2880
+26,Chubut,Polo Social,1925,278888,209948,38939,2880
+26,Chubut,Comunista,1527,278888,209948,38939,2880
+26,Chubut,Socialista Auténtico del Chubut,1254,278888,209948,38939,2880
+42,La Pampa,Justicialista,77748,223802,181511,24499,1680
+42,La Pampa,Alianza Frente Alternativa Pampeana,40986,223802,181511,24499,1680
+42,La Pampa,Alianza Frente para la Victoria - Afirmacion por una República Igualitaria - Movimiento de Integración y Desarrollo - Acción Desarrollista,27710,223802,181511,24499,1680
+42,La Pampa,Humanista,2819,223802,181511,24499,1680
+42,La Pampa,Pueblo Nuevo,2747,223802,181511,24499,1680
+42,La Pampa,Alianza Movimiento Unidad Popular,1964,223802,181511,24499,1680
+42,La Pampa,Popular de la Reconstrucción,1358,223802,181511,24499,1680
+50,Mendoza,Alianza Frente Justicialista Compromiso por Mendoza,261277,1076309,818522,58747,13629
+50,Mendoza,Unión Cívica Radical,212560,1076309,818522,58747,13629
+50,Mendoza,Demócrata de Mendoza,73073,1076309,818522,58747,13629
+50,Mendoza,Federal,53275,1076309,818522,58747,13629
+50,Mendoza,Afirmación para una República Igualitaria,40701,1076309,818522,58747,13629
+50,Mendoza,Recrear para el Crecimiento,37085,1076309,818522,58747,13629
+50,Mendoza,Blanco,13545,1076309,818522,58747,13629
+50,Mendoza,Unión y Libertad,12003,1076309,818522,58747,13629
+50,Mendoza,Alianza Frente Amplio del Trabajo y la Producción,8437,1076309,818522,58747,13629
+50,Mendoza,De la Victoria,6705,1076309,818522,58747,13629
+50,Mendoza,Obrero,5754,1076309,818522,58747,13629
+50,Mendoza,Polo Social,5187,1076309,818522,58747,13629
+50,Mendoza,Humanista,4582,1076309,818522,58747,13629
+50,Mendoza,Movimiento por el Socialismo y el Trabajo,4261,1076309,818522,58747,13629
+50,Mendoza,Popular de la Reconstrucción,4021,1076309,818522,58747,13629
+50,Mendoza,Del Trabajador por el Socialismo,3680,1076309,818522,58747,13629
+82,Santa Fe,Justicialista,780708,2234151,1691205,294216,20881
+82,Santa Fe,Socialista,405829,2234151,1691205,294216,20881
+82,Santa Fe,Afirmacion para una República Igualitaria,108658,2234151,1691205,294216,20881
+82,Santa Fe,Alianza Movimiento Federal para Recrear El Crecimiento,41004,2234151,1691205,294216,20881
+82,Santa Fe,Alianza Izquierda Unida,10237,2234151,1691205,294216,20881
+82,Santa Fe,Humanista,6087,2234151,1691205,294216,20881
+82,Santa Fe,Obrero,5101,2234151,1691205,294216,20881
+82,Santa Fe,Frente de los Jubilados,4550,2234151,1691205,294216,20881
+82,Santa Fe,Movimiento por la Dignidad y la Independencia,3719,2234151,1691205,294216,20881
+82,Santa Fe,De los Trabajadores Socialistas,3292,2234151,1691205,294216,20881
+82,Santa Fe,De Participación Popular,3053,2234151,1691205,294216,20881
+82,Santa Fe,Autonomista,2568,2234151,1691205,294216,20881
+82,Santa Fe,Alianza Circulo de Integración Republicana,1302,2234151,1691205,294216,20881
+90,Tucumán,Fuerza Republicana,142422,879698,449864,17384,11003
+90,Tucumán,Alianza Frente Fundacional para el Cambio,82388,879698,449864,17384,11003
+90,Tucumán,Alianza Frente Cívico,64528,879698,449864,17384,11003
+90,Tucumán,Alianza Frente Unión por Tucumán,39728,879698,449864,17384,11003
+90,Tucumán,Laborista de Tucumán,29451,879698,449864,17384,11003
+90,Tucumán,Renovación Democrática,21233,879698,449864,17384,11003
+90,Tucumán,Alianza Encuentro Popular Progresista,17460,879698,449864,17384,11003
+90,Tucumán,Humanista,9094,879698,449864,17384,11003
+90,Tucumán,Obrero,7562,879698,449864,17384,11003
+90,Tucumán,Izquierda Unida,6098,879698,449864,17384,11003
+90,Tucumán,Defensa Provincial Bandera Blanca,1513,879698,449864,17384,11003

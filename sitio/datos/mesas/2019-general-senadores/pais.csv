@@ -1,0 +1,37 @@
+codigo_indec,provincia,lista,votos,mesas,electores,votantes,blancos,nulos,recurridos_impugnados
+02,CABA,Juntos por el Cambio,1050100,7337,2540585,2030000,63132,13440,868
+02,CABA,Frente de Todos,668435,7337,2540585,2030000,63132,13440,868
+02,CABA,Consenso Federal,113514,7337,2540585,2030000,63132,13440,868
+02,CABA,Frente de Izquierda y de Trabajadores - Unidad,82242,7337,2540585,2030000,63132,13440,868
+02,CABA,Unite por la Libertad y la Dignidad,38269,7337,2540585,2030000,63132,13440,868
+22,Chaco,Frente de Todos,393465,2754,935082,722705,26402,3943,696
+22,Chaco,Juntos por el Cambio,250983,2754,935082,722705,26402,3943,696
+22,Chaco,Consenso Federal,26482,2754,935082,722705,26402,3943,696
+22,Chaco,Acción Chaqueña,20734,2754,935082,722705,26402,3943,696
+30,Entre Ríos,Juntos por el Cambio,378478,3258,1087084,876879,40680,6676,400
+30,Entre Ríos,Frente de Todos,376576,3258,1087084,876879,40680,6676,400
+30,Entre Ríos,Partido Socialista,55608,3258,1087084,876879,40680,6676,400
+30,Entre Ríos,Nueva Izquierda,18461,3258,1087084,876879,40680,6676,400
+58,Neuquén,Frente de Todos,132187,1490,494894,414027,30583,11695,397
+58,Neuquén,Juntos por el Cambio,120268,1490,494894,414027,30583,11695,397
+58,Neuquén,Movimiento Popular Neuquino,82736,1490,494894,414027,30583,11695,397
+58,Neuquén,Frente de Izquierda y de Trabajadores - Unidad,18789,1490,494894,414027,30583,11695,397
+58,Neuquén,Consenso Federal,17372,1490,494894,414027,30583,11695,397
+62,Río Negro,Frente de Todos,164151,1614,540402,433912,93219,14850,594
+62,Río Negro,Juntos Somos Río Negro,147736,1614,540402,433912,93219,14850,594
+62,Río Negro,Frente de Izquierda y de Trabajadores - Unidad,13362,1614,540402,433912,93219,14850,594
+66,Salta,Frente de Todos,311770,2969,981638,709171,25816,4366,640
+66,Salta,Juntos por el Cambio,239676,2969,981638,709171,25816,4366,640
+66,Salta,Unión por Salta,82577,2969,981638,709171,25816,4366,640
+66,Salta,Frente de Izquierda y de Trabajadores - Unidad,22869,2969,981638,709171,25816,4366,640
+66,Salta,Partido Conservador Popular,21457,2969,981638,709171,25816,4366,640
+86,Santiago del Estero,Frente Cívico por Santiago,318220,2267,742775,589410,25810,2924,386
+86,Santiago del Estero,Frente de Todos,122598,2267,742775,589410,25810,2924,386
+86,Santiago del Estero,Juntos por el Cambio,100940,2267,742775,589410,25810,2924,386
+86,Santiago del Estero,Movimiento Libres del Sur,18532,2267,742775,589410,25810,2924,386
+94,Tierra del Fuego,Frente de Todos,36313,464,134295,101974,10171,3353,99
+94,Tierra del Fuego,Juntos por el Cambio Tierra del Fuego,19971,464,134295,101974,10171,3353,99
+94,Tierra del Fuego,Vamos Todos a Vivir Mejor,16611,464,134295,101974,10171,3353,99
+94,Tierra del Fuego,GEN,7918,464,134295,101974,10171,3353,99
+94,Tierra del Fuego,Partido Social Patagónico,4767,464,134295,101974,10171,3353,99
+94,Tierra del Fuego,Partido Obrero,2771,464,134295,101974,10171,3353,99

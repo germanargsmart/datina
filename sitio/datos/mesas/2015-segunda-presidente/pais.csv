@@ -1,0 +1,49 @@
+codigo_indec,provincia,lista,votos,mesas,electores,votantes,blancos,nulos,recurridos_impugnados
+02,CABA,Macri - Michetti (Cambiemos),1255099,7351,2547827,2014904,43220,32993,1238
+02,CABA,Scioli - Zannini (Frente para la Victoria),682354,7351,2547827,2014904,43220,32993,1238
+06,Buenos Aires,Scioli - Zannini (Frente para la Victoria),4833680,34190,11756541,9700855,133400,101868,5581
+06,Buenos Aires,Macri - Michetti (Cambiemos),4626326,34190,11756541,9700855,133400,101868,5581
+10,Catamarca,Scioli - Zannini (Frente para la Victoria),112368,891,284751,216031,1740,2064,70
+10,Catamarca,Macri - Michetti (Cambiemos),99789,891,284751,216031,1740,2064,70
+14,Córdoba,Macri - Michetti (Cambiemos),1540018,8383,2780010,2209945,23054,32332,930
+14,Córdoba,Scioli - Zannini (Frente para la Victoria),613611,8383,2780010,2209945,23054,32332,930
+18,Corrientes,Scioli - Zannini (Frente para la Victoria),353976,2397,808714,649099,3296,6234,242
+18,Corrientes,Macri - Michetti (Cambiemos),285351,2397,808714,649099,3296,6234,242
+22,Chaco,Scioli - Zannini (Frente para la Victoria),401056,2542,860266,686586,4703,4493,277
+22,Chaco,Macri - Michetti (Cambiemos),276057,2542,860266,686586,4703,4493,277
+26,Chubut,Scioli - Zannini (Frente para la Victoria),185142,1234,414336,324704,3168,6713,166
+26,Chubut,Macri - Michetti (Cambiemos),129515,1234,414336,324704,3168,6713,166
+30,Entre Ríos,Macri - Michetti (Cambiemos),450998,3103,1027493,855137,6872,9916,477
+30,Entre Ríos,Scioli - Zannini (Frente para la Victoria),386874,3103,1027493,855137,6872,9916,477
+34,Formosa,Scioli - Zannini (Frente para la Victoria),205436,1301,419332,324946,1510,2138,116
+34,Formosa,Macri - Michetti (Cambiemos),115746,1301,419332,324946,1510,2138,116
+38,Jujuy,Macri - Michetti (Cambiemos),209342,1538,497409,402399,2250,4357,248
+38,Jujuy,Scioli - Zannini (Frente para la Victoria),186202,1538,497409,402399,2250,4357,248
+42,La Pampa,Macri - Michetti (Cambiemos),107888,826,273581,217052,2091,2975,85
+42,La Pampa,Scioli - Zannini (Frente para la Victoria),104013,826,273581,217052,2091,2975,85
+46,La Rioja,Macri - Michetti (Cambiemos),114092,865,267003,206162,2230,1977,70
+46,La Rioja,Scioli - Zannini (Frente para la Victoria),87793,865,267003,206162,2230,1977,70
+50,Mendoza,Macri - Michetti (Cambiemos),625121,3991,1362349,1118378,11406,19318,721
+50,Mendoza,Scioli - Zannini (Frente para la Victoria),461812,3991,1362349,1118378,11406,19318,721
+54,Misiones,Scioli - Zannini (Frente para la Victoria),384954,2456,841932,672922,4357,5082,221
+54,Misiones,Macri - Michetti (Cambiemos),278308,2456,841932,672922,4357,5082,221
+58,Neuquén,Scioli - Zannini (Frente para la Victoria),198873,1422,468918,390658,4509,9760,166
+58,Neuquén,Macri - Michetti (Cambiemos),177350,1422,468918,390658,4509,9760,166
+62,Río Negro,Scioli - Zannini (Frente para la Victoria),250143,1533,511894,410305,4008,8161,117
+62,Río Negro,Macri - Michetti (Cambiemos),147876,1533,511894,410305,4008,8161,117
+66,Salta,Scioli - Zannini (Frente para la Victoria),373800,2714,906472,702023,5343,7248,688
+66,Salta,Macri - Michetti (Cambiemos),314944,2714,906472,702023,5343,7248,688
+70,San Juan,Scioli - Zannini (Frente para la Victoria),256875,1584,529164,438444,3350,4959,312
+70,San Juan,Macri - Michetti (Cambiemos),172948,1584,529164,438444,3350,4959,312
+74,San Luis,Macri - Michetti (Cambiemos),177183,1123,355463,284187,3287,4435,303
+74,San Luis,Scioli - Zannini (Frente para la Victoria),98979,1123,355463,284187,3287,4435,303
+78,Santa Cruz,Scioli - Zannini (Frente para la Victoria),101270,803,235861,177649,1308,2757,75
+78,Santa Cruz,Macri - Michetti (Cambiemos),72239,803,235861,177649,1308,2757,75
+82,Santa Fe,Macri - Michetti (Cambiemos),1136478,7902,2677017,2104000,29931,34191,490
+82,Santa Fe,Scioli - Zannini (Frente para la Victoria),902910,7902,2677017,2104000,29931,34191,490
+86,Santiago del Estero,Scioli - Zannini (Frente para la Victoria),399189,2119,698178,560625,3095,3448,151
+86,Santiago del Estero,Macri - Michetti (Cambiemos),154742,2119,698178,560625,3095,3448,151
+90,Tucumán,Scioli - Zannini (Frente para la Victoria),562602,3467,1169353,975692,6324,8611,596
+90,Tucumán,Macri - Michetti (Cambiemos),397559,3467,1169353,975692,6324,8611,596
+94,Tierra del Fuego,Scioli - Zannini (Frente para la Victoria),54529,435,127075,95857,777,2176,43
+94,Tierra del Fuego,Macri - Michetti (Cambiemos),38332,435,127075,95857,777,2176,43

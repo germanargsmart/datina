@@ -1,0 +1,1312 @@
+seccion_id,seccion,circuito,mesa,electores,blancos,nulos,recurridos_impugnados,La Libertad Avanza,Unión por San Luis,Juntos por el Cambio,Unión y Libertad,Frente de Izquierda y de Trabajadores - Unidad
+1,Juan Martín de Pueyrredón,2,470,345,20,4,0,99,69,66,6,10
+1,Juan Martín de Pueyrredón,2,471,346,19,2,0,99,57,83,10,16
+1,Juan Martín de Pueyrredón,2,472,346,32,0,0,104,56,67,13,6
+1,Juan Martín de Pueyrredón,2,473,344,14,5,0,79,54,86,14,13
+1,Juan Martín de Pueyrredón,2,474,346,22,1,1,97,60,87,7,5
+1,Juan Martín de Pueyrredón,2,475,346,22,3,0,93,51,92,9,14
+1,Juan Martín de Pueyrredón,2,476,350,19,2,0,95,46,87,10,14
+1,Juan Martín de Pueyrredón,2,477,347,14,5,2,82,58,95,13,15
+1,Juan Martín de Pueyrredón,2,478,346,16,6,0,107,55,78,19,10
+1,Juan Martín de Pueyrredón,2,479,345,18,2,0,115,42,76,13,5
+1,Juan Martín de Pueyrredón,2,480,344,16,0,0,87,61,97,10,6
+1,Juan Martín de Pueyrredón,2,481,347,22,4,0,98,52,68,10,9
+1,Juan Martín de Pueyrredón,2,482,343,20,0,0,93,58,77,11,11
+1,Juan Martín de Pueyrredón,2,483,342,19,3,0,104,47,78,11,11
+1,Juan Martín de Pueyrredón,2,484,347,15,2,0,105,68,77,14,7
+1,Juan Martín de Pueyrredón,2,485,341,15,8,0,91,43,93,14,11
+1,Juan Martín de Pueyrredón,2,486,343,29,0,0,88,58,73,7,8
+1,Juan Martín de Pueyrredón,2,487,345,19,5,0,97,70,59,7,16
+1,Juan Martín de Pueyrredón,2,488,345,19,2,0,99,63,82,10,6
+1,Juan Martín de Pueyrredón,2,489,344,16,0,0,85,47,85,8,13
+1,Juan Martín de Pueyrredón,2,490,347,29,6,0,77,59,77,9,13
+1,Juan Martín de Pueyrredón,2,491,342,16,6,0,100,61,76,8,7
+1,Juan Martín de Pueyrredón,2,492,344,23,4,0,106,44,77,14,8
+1,Juan Martín de Pueyrredón,2,493,347,24,0,0,86,65,78,12,8
+1,Juan Martín de Pueyrredón,2,494,342,18,3,0,101,51,85,10,11
+1,Juan Martín de Pueyrredón,2,495,346,15,2,0,85,62,93,10,11
+1,Juan Martín de Pueyrredón,2,496,339,16,5,0,88,66,80,6,10
+1,Juan Martín de Pueyrredón,2,497,343,11,2,0,86,70,94,14,11
+1,Juan Martín de Pueyrredón,2,498,345,30,2,1,71,67,73,8,9
+1,Juan Martín de Pueyrredón,2,499,347,15,5,0,104,45,77,12,8
+1,Juan Martín de Pueyrredón,2,500,343,25,4,1,95,44,87,12,12
+1,Juan Martín de Pueyrredón,2,501,353,17,0,2,93,65,82,7,8
+1,Juan Martín de Pueyrredón,2,502,344,18,4,0,84,51,89,11,9
+1,Juan Martín de Pueyrredón,2,503,343,22,1,0,98,57,88,7,10
+1,Juan Martín de Pueyrredón,2,504,345,15,2,0,89,52,89,9,13
+1,Juan Martín de Pueyrredón,2,505,343,14,2,0,92,60,96,10,14
+1,Juan Martín de Pueyrredón,2,506,344,22,1,0,102,48,89,11,11
+1,Juan Martín de Pueyrredón,2,507,342,17,3,0,89,51,94,6,7
+1,Juan Martín de Pueyrredón,2,508,343,22,1,0,92,46,78,11,12
+1,Juan Martín de Pueyrredón,2,509,345,16,9,1,95,50,89,7,19
+1,Juan Martín de Pueyrredón,2,510,345,21,3,0,100,60,88,9,5
+1,Juan Martín de Pueyrredón,2,511,344,12,2,0,90,77,77,5,12
+1,Juan Martín de Pueyrredón,2,512,345,18,0,0,101,49,86,9,7
+1,Juan Martín de Pueyrredón,3,513,347,24,0,0,121,55,43,0,12
+1,Juan Martín de Pueyrredón,3,514,346,6,5,0,135,53,59,15,10
+1,Juan Martín de Pueyrredón,3,515,346,19,8,0,115,54,58,11,5
+1,Juan Martín de Pueyrredón,3,516,344,32,5,0,112,48,68,15,6
+1,Juan Martín de Pueyrredón,3,517,344,27,6,0,94,59,61,11,12
+1,Juan Martín de Pueyrredón,3,518,348,18,5,0,117,48,81,12,9
+1,Juan Martín de Pueyrredón,3,519,347,11,6,0,138,55,62,13,7
+1,Juan Martín de Pueyrredón,3,520,346,26,6,0,107,58,63,16,10
+1,Juan Martín de Pueyrredón,3,521,345,20,5,0,116,49,76,17,9
+1,Juan Martín de Pueyrredón,3,522,350,16,6,0,145,53,47,53,9
+1,Juan Martín de Pueyrredón,3,523,349,16,7,0,121,55,64,16,8
+1,Juan Martín de Pueyrredón,3,524,349,20,0,0,127,63,61,16,10
+1,Juan Martín de Pueyrredón,3,525,349,16,4,3,126,66,52,10,11
+1,Juan Martín de Pueyrredón,3,526,344,8,1,0,130,52,56,12,8
+1,Juan Martín de Pueyrredón,3,527,346,17,4,0,130,54,63,11,5
+1,Juan Martín de Pueyrredón,3,528,346,22,3,0,126,65,48,18,11
+1,Juan Martín de Pueyrredón,3,529,346,27,8,0,146,48,53,15,5
+1,Juan Martín de Pueyrredón,3,530,347,21,2,0,139,52,55,11,7
+1,Juan Martín de Pueyrredón,3,531,341,24,6,0,119,62,52,7,8
+1,Juan Martín de Pueyrredón,3,532,347,22,4,0,128,48,64,10,12
+1,Juan Martín de Pueyrredón,3,533,347,18,9,1,110,53,54,20,9
+1,Juan Martín de Pueyrredón,3,534,350,16,3,0,139,38,59,19,5
+1,Juan Martín de Pueyrredón,3,535,345,26,6,0,129,62,46,10,5
+1,Juan Martín de Pueyrredón,3,536,347,18,0,0,115,60,67,12,9
+1,Juan Martín de Pueyrredón,3,537,345,17,3,0,114,45,68,13,17
+1,Juan Martín de Pueyrredón,3,538,345,16,3,0,115,61,64,12,10
+1,Juan Martín de Pueyrredón,3,539,344,14,4,0,134,55,64,9,7
+1,Juan Martín de Pueyrredón,3,540,345,11,3,0,103,70,74,11,12
+1,Juan Martín de Pueyrredón,3,541,345,21,3,0,113,67,60,16,8
+1,Juan Martín de Pueyrredón,3,542,350,20,3,0,127,63,52,7,9
+1,Juan Martín de Pueyrredón,3,543,345,10,4,0,107,59,62,16,10
+1,Juan Martín de Pueyrredón,3,544,345,19,5,0,128,52,65,10,8
+1,Juan Martín de Pueyrredón,3,545,347,18,2,0,111,55,72,8,8
+1,Juan Martín de Pueyrredón,3,546,346,6,1,0,131,60,64,17,5
+1,Juan Martín de Pueyrredón,3,547,346,13,2,0,125,49,67,11,8
+1,Juan Martín de Pueyrredón,3,548,345,15,3,0,114,64,55,10,12
+1,Juan Martín de Pueyrredón,3,549,347,27,7,0,101,65,59,20,8
+1,Juan Martín de Pueyrredón,3,550,345,12,3,0,105,57,67,12,12
+1,Juan Martín de Pueyrredón,3,551,346,10,6,0,125,63,67,14,13
+1,Juan Martín de Pueyrredón,3,552,348,17,7,0,109,52,64,21,10
+1,Juan Martín de Pueyrredón,3,553,345,36,1,0,124,45,59,14,6
+1,Juan Martín de Pueyrredón,3,554,346,9,8,0,119,48,53,17,8
+1,Juan Martín de Pueyrredón,3,555,347,23,5,0,123,63,53,13,11
+1,Juan Martín de Pueyrredón,3,556,349,33,6,0,109,54,61,11,10
+1,Juan Martín de Pueyrredón,4,557,329,26,0,0,81,67,49,13,14
+1,Juan Martín de Pueyrredón,4,558,331,85,1,0,89,0,54,10,4
+1,Juan Martín de Pueyrredón,4,559,333,17,4,0,80,61,58,12,7
+1,Juan Martín de Pueyrredón,4,560,330,16,7,0,89,51,63,17,8
+1,Juan Martín de Pueyrredón,4,561,328,23,0,0,87,65,66,1,13
+1,Juan Martín de Pueyrredón,4,562,331,15,1,0,97,55,52,15,8
+1,Juan Martín de Pueyrredón,4,563,329,14,4,1,94,63,50,14,4
+1,Juan Martín de Pueyrredón,4,564,333,17,1,0,74,56,76,14,11
+1,Juan Martín de Pueyrredón,4,565,334,18,4,0,101,54,54,8,8
+1,Juan Martín de Pueyrredón,4A,566,326,17,1,0,86,46,80,8,11
+1,Juan Martín de Pueyrredón,4A,567,324,9,4,0,83,42,97,4,7
+1,Juan Martín de Pueyrredón,4A,568,326,10,2,0,76,55,76,6,8
+1,Juan Martín de Pueyrredón,4A,569,326,16,1,0,79,64,79,10,13
+1,Juan Martín de Pueyrredón,4A,570,326,20,3,0,79,60,76,5,10
+1,Juan Martín de Pueyrredón,4A,571,326,11,4,4,76,67,67,9,7
+1,Juan Martín de Pueyrredón,4A,572,326,16,2,0,77,65,75,6,5
+1,Juan Martín de Pueyrredón,4A,573,323,16,2,0,61,65,78,6,14
+1,Juan Martín de Pueyrredón,4A,574,329,17,2,0,84,58,75,8,9
+1,Juan Martín de Pueyrredón,5A,575,232,8,0,1,65,62,26,7,8
+1,Juan Martín de Pueyrredón,5B,576,23,4,0,0,4,3,2,0,0
+1,Juan Martín de Pueyrredón,6,577,297,28,0,0,84,93,29,9,0
+1,Juan Martín de Pueyrredón,6,578,299,16,1,0,84,95,27,12,3
+1,Juan Martín de Pueyrredón,7,579,88,7,0,0,36,14,8,3,1
+1,Juan Martín de Pueyrredón,8A,580,188,16,0,0,40,44,15,3,2
+1,Juan Martín de Pueyrredón,8A,581,192,14,2,0,52,53,21,3,1
+1,Juan Martín de Pueyrredón,8B,582,52,0,0,0,7,14,13,1,0
+1,Juan Martín de Pueyrredón,9A,583,218,8,1,0,59,71,32,0,1
+1,Juan Martín de Pueyrredón,9B,584,49,3,0,0,10,15,8,1,0
+1,Juan Martín de Pueyrredón,10,585,355,25,0,0,57,118,33,9,4
+1,Juan Martín de Pueyrredón,10,586,351,30,0,0,74,102,43,5,2
+1,Juan Martín de Pueyrredón,10,587,354,35,0,1,77,82,31,1,3
+1,Juan Martín de Pueyrredón,11,588,40,1,1,0,9,0,12,0,1
+1,Juan Martín de Pueyrredón,12,589,257,0,0,0,89,48,24,2,6
+1,Juan Martín de Pueyrredón,12,590,258,8,0,1,82,51,29,2,6
+1,Juan Martín de Pueyrredón,13,591,176,5,0,0,68,45,9,5,1
+1,Juan Martín de Pueyrredón,14,592,58,1,0,0,11,10,3,4,0
+1,Juan Martín de Pueyrredón,15,593,257,15,2,0,57,55,43,5,2
+1,Juan Martín de Pueyrredón,15,594,256,14,0,1,62,50,59,4,1
+1,Juan Martín de Pueyrredón,1001A,1,348,19,1,0,110,81,38,15,4
+1,Juan Martín de Pueyrredón,1001A,2,346,20,10,0,116,89,36,10,7
+1,Juan Martín de Pueyrredón,1001A,3,350,20,4,0,103,98,40,18,11
+1,Juan Martín de Pueyrredón,1001A,4,351,14,0,1,124,89,39,10,8
+1,Juan Martín de Pueyrredón,1001A,5,350,39,0,0,148,71,32,0,4
+1,Juan Martín de Pueyrredón,1001A,6,349,8,6,0,122,99,37,8,11
+1,Juan Martín de Pueyrredón,1001A,7,354,31,1,0,108,72,47,13,5
+1,Juan Martín de Pueyrredón,1001A,8,346,18,4,0,105,88,41,18,7
+1,Juan Martín de Pueyrredón,1001A,9,347,19,1,3,118,71,38,10,9
+1,Juan Martín de Pueyrredón,1001A,10,348,19,7,0,116,64,56,17,6
+1,Juan Martín de Pueyrredón,1001A,11,348,16,3,0,98,92,35,14,9
+1,Juan Martín de Pueyrredón,1001A,12,354,13,0,0,116,70,39,16,6
+1,Juan Martín de Pueyrredón,1001A,13,351,17,0,0,117,78,29,14,11
+1,Juan Martín de Pueyrredón,1001A,14,349,15,2,0,90,93,43,12,9
+1,Juan Martín de Pueyrredón,1001A,15,349,23,2,0,86,81,34,15,3
+1,Juan Martín de Pueyrredón,1001A,16,351,22,5,0,97,103,30,16,8
+1,Juan Martín de Pueyrredón,1001A,17,354,18,7,0,109,80,44,10,8
+1,Juan Martín de Pueyrredón,1001A,18,347,24,3,0,116,75,37,13,7
+1,Juan Martín de Pueyrredón,1001A,19,352,0,0,0,0,0,0,0,0
+1,Juan Martín de Pueyrredón,1001A,20,350,24,3,0,126,68,41,14,7
+1,Juan Martín de Pueyrredón,1001A,21,350,36,4,0,105,79,46,11,4
+1,Juan Martín de Pueyrredón,1001A,22,350,30,4,0,119,70,27,7,8
+1,Juan Martín de Pueyrredón,1001A,23,350,11,3,0,134,70,35,12,12
+1,Juan Martín de Pueyrredón,1001A,24,349,29,6,0,123,81,31,11,7
+1,Juan Martín de Pueyrredón,1001A,25,349,16,1,2,113,98,35,10,6
+1,Juan Martín de Pueyrredón,1001A,26,353,19,4,0,123,92,29,10,7
+1,Juan Martín de Pueyrredón,1001B,27,327,16,5,0,103,46,66,14,9
+1,Juan Martín de Pueyrredón,1001B,28,326,18,4,0,130,41,69,13,6
+1,Juan Martín de Pueyrredón,1001B,29,327,15,0,0,113,64,67,10,10
+1,Juan Martín de Pueyrredón,1001B,30,325,11,7,0,119,41,64,14,10
+1,Juan Martín de Pueyrredón,1001B,31,325,10,2,0,106,50,73,17,12
+1,Juan Martín de Pueyrredón,1001B,32,324,4,1,2,114,49,69,16,12
+1,Juan Martín de Pueyrredón,1001B,33,325,11,3,0,115,37,81,13,10
+1,Juan Martín de Pueyrredón,1001B,34,326,14,3,2,137,49,46,21,3
+1,Juan Martín de Pueyrredón,1001B,35,327,16,0,0,125,34,67,12,9
+1,Juan Martín de Pueyrredón,1001B,36,325,10,3,0,115,57,67,11,8
+1,Juan Martín de Pueyrredón,1001B,37,330,18,1,0,117,35,74,11,11
+1,Juan Martín de Pueyrredón,1001C,38,346,26,3,0,114,61,72,20,8
+1,Juan Martín de Pueyrredón,1001C,39,345,10,2,0,123,50,86,10,12
+1,Juan Martín de Pueyrredón,1001C,40,340,15,4,0,117,62,75,16,5
+1,Juan Martín de Pueyrredón,1001C,41,346,21,5,0,123,45,76,18,13
+1,Juan Martín de Pueyrredón,1001C,42,345,27,3,1,122,43,73,18,14
+1,Juan Martín de Pueyrredón,1001C,43,344,0,4,0,136,42,93,16,5
+1,Juan Martín de Pueyrredón,1001C,44,346,10,5,0,115,66,71,15,16
+1,Juan Martín de Pueyrredón,1002,45,353,15,12,0,102,87,41,19,8
+1,Juan Martín de Pueyrredón,1002,46,350,23,2,0,96,71,50,18,6
+1,Juan Martín de Pueyrredón,1002,47,349,28,0,0,95,85,53,6,5
+1,Juan Martín de Pueyrredón,1002,48,350,0,0,0,0,0,0,0,0
+1,Juan Martín de Pueyrredón,1002,49,349,29,4,0,93,77,56,10,6
+1,Juan Martín de Pueyrredón,1002,50,349,23,0,0,97,59,76,12,8
+1,Juan Martín de Pueyrredón,1002,51,350,26,5,0,104,68,45,15,13
+1,Juan Martín de Pueyrredón,1002,52,351,18,5,0,104,73,45,16,14
+1,Juan Martín de Pueyrredón,1002,53,348,20,3,0,104,74,53,14,5
+1,Juan Martín de Pueyrredón,1002,54,347,21,4,1,114,72,54,10,6
+1,Juan Martín de Pueyrredón,1002,55,347,17,0,0,112,75,51,12,6
+1,Juan Martín de Pueyrredón,1002,56,350,32,3,2,102,71,48,15,10
+1,Juan Martín de Pueyrredón,1002,57,349,21,2,0,97,83,53,10,11
+1,Juan Martín de Pueyrredón,1002,58,349,13,3,0,124,63,51,11,10
+1,Juan Martín de Pueyrredón,1002,59,348,19,3,0,114,85,43,10,4
+1,Juan Martín de Pueyrredón,1002,60,349,25,0,0,121,68,48,15,4
+1,Juan Martín de Pueyrredón,1002,61,347,16,2,0,127,73,42,13,8
+1,Juan Martín de Pueyrredón,1002,62,348,24,3,1,107,63,56,6,10
+1,Juan Martín de Pueyrredón,1002,63,348,25,3,0,125,60,55,14,9
+1,Juan Martín de Pueyrredón,1002,64,349,19,0,0,101,78,59,15,7
+1,Juan Martín de Pueyrredón,1002,65,348,26,4,0,107,71,49,13,3
+1,Juan Martín de Pueyrredón,1002,66,349,20,3,1,126,68,49,13,13
+1,Juan Martín de Pueyrredón,1003,67,334,18,0,0,82,84,54,13,9
+1,Juan Martín de Pueyrredón,1003,68,332,20,2,0,105,67,61,8,9
+1,Juan Martín de Pueyrredón,1003,69,335,17,1,0,97,73,52,12,7
+1,Juan Martín de Pueyrredón,1003,70,337,29,3,0,99,65,48,15,5
+1,Juan Martín de Pueyrredón,1003,71,334,30,0,0,98,71,48,15,5
+1,Juan Martín de Pueyrredón,1003,72,333,18,4,0,98,70,50,22,6
+1,Juan Martín de Pueyrredón,1003,73,333,25,0,0,91,63,62,10,9
+1,Juan Martín de Pueyrredón,1003,74,329,10,6,0,90,73,56,6,10
+1,Juan Martín de Pueyrredón,1003,75,332,19,2,0,107,70,50,11,4
+1,Juan Martín de Pueyrredón,1003,76,334,15,3,0,92,67,57,13,12
+1,Juan Martín de Pueyrredón,1003,77,334,19,1,0,109,58,47,17,7
+1,Juan Martín de Pueyrredón,1003,78,331,19,1,0,101,53,54,12,10
+1,Juan Martín de Pueyrredón,1003,79,333,0,0,0,85,73,59,17,11
+1,Juan Martín de Pueyrredón,1003,80,333,23,0,0,107,57,65,12,8
+1,Juan Martín de Pueyrredón,1003,81,332,26,3,1,78,76,49,9,10
+1,Juan Martín de Pueyrredón,1003,82,331,27,0,0,91,70,56,8,8
+1,Juan Martín de Pueyrredón,1003,83,332,13,0,0,88,69,53,17,4
+1,Juan Martín de Pueyrredón,1003,84,332,24,0,0,93,79,52,11,2
+1,Juan Martín de Pueyrredón,1003,85,330,6,2,43,74,47,72,15,9
+1,Juan Martín de Pueyrredón,1003,86,336,9,3,0,91,66,58,17,10
+1,Juan Martín de Pueyrredón,1004,87,340,20,0,0,105,87,28,10,6
+1,Juan Martín de Pueyrredón,1004,88,340,16,1,0,81,99,48,8,9
+1,Juan Martín de Pueyrredón,1004,89,339,13,6,0,95,85,34,12,6
+1,Juan Martín de Pueyrredón,1004,90,340,18,2,0,94,104,33,6,7
+1,Juan Martín de Pueyrredón,1004,91,336,23,4,0,91,91,29,12,7
+1,Juan Martín de Pueyrredón,1004,92,339,24,1,0,77,102,31,14,9
+1,Juan Martín de Pueyrredón,1004,93,338,25,0,0,111,83,24,6,9
+1,Juan Martín de Pueyrredón,1004,94,339,21,0,0,92,95,38,8,7
+1,Juan Martín de Pueyrredón,1004,95,336,25,0,0,92,85,26,13,7
+1,Juan Martín de Pueyrredón,1004,96,341,12,5,0,105,96,40,7,5
+1,Juan Martín de Pueyrredón,1004,97,341,22,0,1,105,81,26,13,0
+1,Juan Martín de Pueyrredón,1004,98,340,32,1,0,99,81,51,5,4
+1,Juan Martín de Pueyrredón,1004,99,340,32,1,0,101,87,29,15,7
+1,Juan Martín de Pueyrredón,1004,100,339,13,2,0,92,100,29,6,7
+1,Juan Martín de Pueyrredón,1004,101,337,21,1,0,91,103,23,8,8
+1,Juan Martín de Pueyrredón,1004,102,338,26,8,0,76,93,47,6,1
+1,Juan Martín de Pueyrredón,1004,103,338,18,2,7,103,100,33,18,1
+1,Juan Martín de Pueyrredón,1004,104,339,26,1,0,100,104,29,5,2
+1,Juan Martín de Pueyrredón,1004,105,340,25,1,0,121,64,26,13,5
+1,Juan Martín de Pueyrredón,1004,106,345,21,4,0,81,99,41,9,10
+1,Juan Martín de Pueyrredón,1004,107,340,14,2,0,114,87,33,20,4
+1,Juan Martín de Pueyrredón,1004,108,337,21,0,0,99,97,24,14,9
+1,Juan Martín de Pueyrredón,1004,109,338,12,4,0,91,90,34,15,5
+1,Juan Martín de Pueyrredón,1004,110,339,26,0,0,104,71,34,18,8
+1,Juan Martín de Pueyrredón,1004,111,338,18,6,0,93,109,26,9,7
+1,Juan Martín de Pueyrredón,1004,112,339,9,8,0,102,99,38,10,5
+1,Juan Martín de Pueyrredón,1004,113,337,19,4,0,96,76,29,8,8
+1,Juan Martín de Pueyrredón,1004,114,341,15,4,0,87,90,35,10,10
+1,Juan Martín de Pueyrredón,1004,115,338,13,6,0,93,96,24,10,6
+1,Juan Martín de Pueyrredón,1004,116,340,12,2,0,106,88,33,13,10
+1,Juan Martín de Pueyrredón,1004,117,339,24,4,0,105,75,31,4,6
+1,Juan Martín de Pueyrredón,1004,118,338,21,2,0,108,77,31,14,9
+1,Juan Martín de Pueyrredón,1004,119,342,16,4,0,105,97,32,0,4
+1,Juan Martín de Pueyrredón,1005,120,343,22,1,0,94,86,45,10,5
+1,Juan Martín de Pueyrredón,1005,121,344,24,4,0,90,72,61,9,12
+1,Juan Martín de Pueyrredón,1005,122,345,20,2,0,110,66,52,9,13
+1,Juan Martín de Pueyrredón,1005,123,340,21,2,0,78,84,52,9,10
+1,Juan Martín de Pueyrredón,1005,124,345,20,5,0,94,81,55,12,10
+1,Juan Martín de Pueyrredón,1005,125,341,15,1,1,106,67,53,14,4
+1,Juan Martín de Pueyrredón,1005,126,349,10,1,0,97,66,68,10,4
+1,Juan Martín de Pueyrredón,1005,127,345,23,1,0,98,64,66,5,5
+1,Juan Martín de Pueyrredón,1005,128,346,19,0,2,103,77,46,7,6
+1,Juan Martín de Pueyrredón,1005,129,343,25,3,0,97,68,47,7,9
+1,Juan Martín de Pueyrredón,1005,130,343,11,1,0,100,72,57,8,11
+1,Juan Martín de Pueyrredón,1005,131,345,15,1,0,82,74,67,10,6
+1,Juan Martín de Pueyrredón,1005,132,344,21,3,0,97,73,53,8,10
+1,Juan Martín de Pueyrredón,1005,133,346,16,8,0,84,89,52,9,9
+1,Juan Martín de Pueyrredón,1005,134,354,8,0,0,111,81,63,8,5
+1,Juan Martín de Pueyrredón,1006,135,326,17,1,0,83,73,50,16,4
+1,Juan Martín de Pueyrredón,1006,136,326,20,0,0,95,48,81,7,5
+1,Juan Martín de Pueyrredón,1006,137,326,19,9,0,84,63,59,13,4
+1,Juan Martín de Pueyrredón,1006,138,324,17,4,0,81,60,59,13,6
+1,Juan Martín de Pueyrredón,1006,139,327,17,2,0,87,60,71,6,8
+1,Juan Martín de Pueyrredón,1006,140,327,24,4,1,88,49,62,13,5
+1,Juan Martín de Pueyrredón,1006,141,327,10,4,0,94,62,46,15,10
+1,Juan Martín de Pueyrredón,1006,142,324,14,0,0,92,72,46,12,7
+1,Juan Martín de Pueyrredón,1006,143,326,8,0,0,94,60,65,13,6
+1,Juan Martín de Pueyrredón,1006,144,323,26,0,0,96,56,53,10,10
+1,Juan Martín de Pueyrredón,1006,145,326,20,6,0,78,58,57,13,13
+1,Juan Martín de Pueyrredón,1006,146,326,9,3,0,94,57,62,10,9
+1,Juan Martín de Pueyrredón,1006,147,327,13,2,0,100,49,45,24,2
+1,Juan Martín de Pueyrredón,1006,148,326,14,5,1,96,52,49,8,11
+1,Juan Martín de Pueyrredón,1006,149,328,27,1,0,96,64,53,3,4
+1,Juan Martín de Pueyrredón,1007,150,344,11,1,2,85,85,49,15,8
+1,Juan Martín de Pueyrredón,1007,151,342,21,4,0,103,51,61,12,7
+1,Juan Martín de Pueyrredón,1007,152,346,28,1,3,106,53,61,13,9
+1,Juan Martín de Pueyrredón,1007,153,345,20,5,0,98,57,67,15,7
+1,Juan Martín de Pueyrredón,1007,154,344,24,3,0,75,63,60,10,11
+1,Juan Martín de Pueyrredón,1007,155,345,23,3,75,35,64,54,12,4
+1,Juan Martín de Pueyrredón,1007,156,345,23,1,0,93,67,65,15,10
+1,Juan Martín de Pueyrredón,1007,157,347,13,2,5,84,84,60,15,13
+1,Juan Martín de Pueyrredón,1007,158,347,15,1,0,114,52,67,10,18
+1,Juan Martín de Pueyrredón,1007,159,344,18,3,1,97,62,52,21,13
+1,Juan Martín de Pueyrredón,1007,160,344,10,0,2,102,76,60,12,5
+1,Juan Martín de Pueyrredón,1007,161,343,13,2,0,105,69,67,13,5
+1,Juan Martín de Pueyrredón,1007,162,342,16,4,1,104,56,63,12,3
+1,Juan Martín de Pueyrredón,1007,163,344,17,1,0,108,54,60,10,6
+1,Juan Martín de Pueyrredón,1007,164,341,18,1,0,117,60,59,8,13
+1,Juan Martín de Pueyrredón,1007,165,347,14,7,1,111,62,51,10,10
+1,Juan Martín de Pueyrredón,1007,166,341,27,0,1,105,58,59,13,4
+1,Juan Martín de Pueyrredón,1007,167,343,19,1,0,104,63,67,21,3
+1,Juan Martín de Pueyrredón,1007,168,344,0,0,0,100,73,56,13,8
+1,Juan Martín de Pueyrredón,1007,169,344,19,6,1,94,64,66,14,8
+1,Juan Martín de Pueyrredón,1007,170,343,18,2,1,88,76,62,7,5
+1,Juan Martín de Pueyrredón,1007,171,345,22,2,0,103,53,64,17,10
+1,Juan Martín de Pueyrredón,1007,172,347,11,4,0,103,63,68,17,8
+1,Juan Martín de Pueyrredón,1008A,173,331,17,4,0,129,53,46,15,0
+1,Juan Martín de Pueyrredón,1008A,174,330,22,0,0,134,58,43,17,3
+1,Juan Martín de Pueyrredón,1008A,175,328,17,3,0,124,78,45,13,4
+1,Juan Martín de Pueyrredón,1008A,176,327,20,3,0,135,50,57,14,7
+1,Juan Martín de Pueyrredón,1008A,177,330,17,7,0,123,50,44,16,11
+1,Juan Martín de Pueyrredón,1008A,178,328,24,0,0,119,76,44,13,5
+1,Juan Martín de Pueyrredón,1008A,179,330,26,2,0,100,68,49,17,6
+1,Juan Martín de Pueyrredón,1008A,180,332,24,0,0,126,49,57,15,7
+1,Juan Martín de Pueyrredón,1008B,181,344,26,3,0,119,62,57,17,10
+1,Juan Martín de Pueyrredón,1008B,182,341,30,5,0,105,52,73,21,6
+1,Juan Martín de Pueyrredón,1008B,183,342,14,6,0,127,61,62,13,11
+1,Juan Martín de Pueyrredón,1008B,184,339,19,2,0,126,62,52,17,6
+1,Juan Martín de Pueyrredón,1008B,185,340,10,9,0,129,66,49,14,11
+1,Juan Martín de Pueyrredón,1008B,186,343,24,4,1,126,55,55,13,9
+1,Juan Martín de Pueyrredón,1008B,187,341,19,2,0,124,49,59,15,18
+1,Juan Martín de Pueyrredón,1008B,188,338,19,1,0,98,78,64,17,9
+1,Juan Martín de Pueyrredón,1008B,189,338,15,12,0,122,63,57,15,4
+1,Juan Martín de Pueyrredón,1008B,190,341,16,2,0,142,61,47,10,6
+1,Juan Martín de Pueyrredón,1008B,191,343,17,5,0,134,62,65,9,2
+1,Juan Martín de Pueyrredón,1008C,192,342,27,4,0,124,54,56,16,6
+1,Juan Martín de Pueyrredón,1008C,193,340,15,4,0,119,67,63,20,4
+1,Juan Martín de Pueyrredón,1008C,194,341,24,9,0,117,71,56,0,9
+1,Juan Martín de Pueyrredón,1008C,195,340,17,2,0,132,49,61,17,13
+1,Juan Martín de Pueyrredón,1008C,196,340,18,3,0,118,59,59,13,6
+1,Juan Martín de Pueyrredón,1008C,197,339,13,5,0,114,78,65,23,7
+1,Juan Martín de Pueyrredón,1008C,198,343,3,3,0,127,60,57,16,7
+1,Juan Martín de Pueyrredón,1008C,199,341,23,5,0,110,50,61,14,8
+1,Juan Martín de Pueyrredón,1008C,200,345,13,5,0,121,65,63,17,5
+1,Juan Martín de Pueyrredón,1008C,201,341,20,3,0,114,41,75,10,14
+1,Juan Martín de Pueyrredón,1008C,202,343,25,2,0,137,58,56,15,6
+1,Juan Martín de Pueyrredón,1008C,203,337,16,3,0,119,69,46,18,9
+1,Juan Martín de Pueyrredón,1008C,204,338,12,3,0,137,63,57,16,7
+1,Juan Martín de Pueyrredón,1008C,205,339,20,2,1,113,52,50,12,16
+1,Juan Martín de Pueyrredón,1008C,206,339,5,1,0,126,62,53,17,3
+1,Juan Martín de Pueyrredón,1008C,207,342,27,4,0,129,64,68,18,4
+1,Juan Martín de Pueyrredón,1008C,208,343,19,4,0,113,58,67,23,7
+1,Juan Martín de Pueyrredón,1008D,209,337,18,4,0,125,46,62,17,12
+1,Juan Martín de Pueyrredón,1008D,210,332,16,8,0,132,54,50,7,12
+1,Juan Martín de Pueyrredón,1008D,211,332,12,3,0,101,60,77,14,15
+1,Juan Martín de Pueyrredón,1008D,212,333,18,1,0,134,60,59,10,4
+1,Juan Martín de Pueyrredón,1008D,213,331,25,2,0,112,47,69,15,11
+1,Juan Martín de Pueyrredón,1008D,214,334,22,3,0,122,53,64,20,6
+1,Juan Martín de Pueyrredón,1008D,215,334,12,3,0,109,62,68,14,6
+1,Juan Martín de Pueyrredón,1008D,216,332,21,6,0,110,44,70,14,5
+1,Juan Martín de Pueyrredón,1008D,217,330,16,2,0,120,41,66,15,7
+1,Juan Martín de Pueyrredón,1008D,218,330,0,1,0,133,54,56,8,9
+1,Juan Martín de Pueyrredón,1008D,219,332,13,3,0,109,64,64,16,12
+1,Juan Martín de Pueyrredón,1008D,220,336,18,2,0,127,57,61,20,10
+1,Juan Martín de Pueyrredón,1008E,221,336,21,3,0,101,52,71,11,7
+1,Juan Martín de Pueyrredón,1008E,222,334,0,0,0,0,0,0,0,0
+1,Juan Martín de Pueyrredón,1008E,223,336,24,2,0,91,64,71,8,9
+1,Juan Martín de Pueyrredón,1008E,224,339,20,3,0,83,75,64,16,10
+1,Juan Martín de Pueyrredón,1008E,225,336,12,5,1,103,74,54,12,5
+1,Juan Martín de Pueyrredón,1008E,226,334,0,1,0,113,68,69,10,6
+1,Juan Martín de Pueyrredón,1008E,227,335,27,0,0,94,68,53,15,10
+1,Juan Martín de Pueyrredón,1008E,228,333,24,0,0,107,60,66,10,6
+1,Juan Martín de Pueyrredón,1008E,229,334,1,4,0,86,78,55,12,9
+1,Juan Martín de Pueyrredón,1008E,230,337,18,4,0,92,81,68,13,6
+1,Juan Martín de Pueyrredón,1008E,231,337,26,1,0,101,62,63,10,9
+1,Juan Martín de Pueyrredón,1008E,232,332,19,1,0,92,65,73,12,6
+1,Juan Martín de Pueyrredón,1008E,233,336,12,5,0,97,74,70,8,8
+1,Juan Martín de Pueyrredón,1008E,234,334,19,4,0,119,54,61,10,5
+1,Juan Martín de Pueyrredón,1009,235,327,14,5,0,112,36,89,7,9
+1,Juan Martín de Pueyrredón,1009,236,326,9,2,0,99,37,96,13,6
+1,Juan Martín de Pueyrredón,1009,237,327,17,3,0,72,50,95,17,6
+1,Juan Martín de Pueyrredón,1009,238,325,16,4,0,77,51,91,13,10
+1,Juan Martín de Pueyrredón,1009,239,325,17,1,0,93,49,68,14,7
+1,Juan Martín de Pueyrredón,1009,240,325,12,1,0,89,53,93,11,6
+1,Juan Martín de Pueyrredón,1009,241,327,18,0,0,86,53,89,14,0
+1,Juan Martín de Pueyrredón,1009,242,325,20,2,0,89,46,80,15,16
+1,Juan Martín de Pueyrredón,1009,243,327,16,2,0,118,27,85,10,4
+1,Juan Martín de Pueyrredón,1009,244,329,19,0,0,88,44,85,9,10
+1,Juan Martín de Pueyrredón,1009,245,324,11,2,0,72,42,110,11,3
+1,Juan Martín de Pueyrredón,1009,246,325,9,1,1,114,52,73,10,9
+1,Juan Martín de Pueyrredón,1009,247,329,14,3,0,84,49,83,15,13
+1,Juan Martín de Pueyrredón,1010,248,326,22,3,0,89,52,66,14,9
+1,Juan Martín de Pueyrredón,1010,249,325,22,5,0,71,68,76,7,6
+1,Juan Martín de Pueyrredón,1010,250,329,7,4,0,94,58,67,12,8
+1,Juan Martín de Pueyrredón,1010,251,327,12,1,0,95,67,65,7,10
+1,Juan Martín de Pueyrredón,1010,252,329,9,0,1,102,81,46,10,9
+1,Juan Martín de Pueyrredón,1010,253,325,27,3,0,88,53,59,7,4
+1,Juan Martín de Pueyrredón,1010,254,327,16,1,0,80,61,63,6,8
+1,Juan Martín de Pueyrredón,1010,255,327,16,2,0,83,69,56,15,7
+1,Juan Martín de Pueyrredón,1010,256,327,20,1,0,88,73,52,6,6
+1,Juan Martín de Pueyrredón,1010,257,332,17,5,0,85,66,78,6,8
+1,Juan Martín de Pueyrredón,1011,258,319,20,2,0,73,50,72,11,5
+1,Juan Martín de Pueyrredón,1011,259,317,18,1,0,77,49,55,8,18
+1,Juan Martín de Pueyrredón,1011,260,316,24,5,0,86,51,53,6,10
+1,Juan Martín de Pueyrredón,1011,261,319,24,0,0,83,47,64,11,6
+1,Juan Martín de Pueyrredón,1011,262,320,14,2,0,83,46,63,10,9
+1,Juan Martín de Pueyrredón,1011,263,313,10,2,0,82,50,64,13,12
+1,Juan Martín de Pueyrredón,1011,264,320,14,0,0,80,49,57,16,7
+1,Juan Martín de Pueyrredón,1011,265,317,13,5,0,89,71,50,7,6
+1,Juan Martín de Pueyrredón,1011,266,318,14,2,0,93,56,49,11,10
+1,Juan Martín de Pueyrredón,1011,267,319,0,4,0,74,58,59,10,11
+1,Juan Martín de Pueyrredón,1012,268,333,19,0,0,74,66,74,14,5
+1,Juan Martín de Pueyrredón,1012,269,332,22,2,0,81,41,73,7,8
+1,Juan Martín de Pueyrredón,1012,270,334,19,2,0,67,61,75,5,10
+1,Juan Martín de Pueyrredón,1012,271,335,13,1,0,78,49,86,11,9
+1,Juan Martín de Pueyrredón,1012,272,333,11,2,0,66,63,82,14,11
+1,Juan Martín de Pueyrredón,1012,273,332,19,6,0,79,38,101,8,6
+1,Juan Martín de Pueyrredón,1012,274,331,18,0,0,78,45,86,10,13
+1,Juan Martín de Pueyrredón,1012,275,331,12,1,1,104,47,82,6,8
+1,Juan Martín de Pueyrredón,1012,276,333,14,1,0,83,51,80,7,11
+1,Juan Martín de Pueyrredón,1012,277,333,13,2,0,88,40,80,10,11
+1,Juan Martín de Pueyrredón,1013,278,328,13,4,0,75,46,85,20,8
+1,Juan Martín de Pueyrredón,1013,279,327,20,2,0,64,44,97,8,6
+1,Juan Martín de Pueyrredón,1013,280,329,11,4,0,68,54,73,14,15
+1,Juan Martín de Pueyrredón,1013,281,328,7,1,0,75,40,98,13,12
+1,Juan Martín de Pueyrredón,1013,282,331,11,1,0,52,51,92,6,11
+1,Juan Martín de Pueyrredón,1013,283,330,13,1,0,68,40,92,15,17
+1,Juan Martín de Pueyrredón,1013,284,329,12,2,2,83,44,73,10,7
+1,Juan Martín de Pueyrredón,1013,285,330,20,4,0,65,47,94,8,8
+1,Juan Martín de Pueyrredón,1013,286,329,17,1,1,71,54,77,10,8
+1,Juan Martín de Pueyrredón,1013,287,331,11,1,0,64,62,79,9,8
+1,Juan Martín de Pueyrredón,1013,288,327,11,3,0,80,43,88,6,8
+1,Juan Martín de Pueyrredón,1013,289,330,18,1,0,68,47,80,10,8
+1,Juan Martín de Pueyrredón,1013,290,327,15,1,0,72,61,87,9,10
+1,Juan Martín de Pueyrredón,1013,291,333,22,0,0,71,46,95,4,10
+1,Juan Martín de Pueyrredón,1014,292,340,9,1,0,78,46,108,5,7
+1,Juan Martín de Pueyrredón,1014,293,338,18,9,0,62,55,96,5,6
+1,Juan Martín de Pueyrredón,1014,294,338,14,0,0,84,43,94,7,6
+1,Juan Martín de Pueyrredón,1014,295,353,23,3,0,80,54,87,11,3
+1,Juan Martín de Pueyrredón,1014,296,340,15,1,0,98,53,89,16,10
+1,Juan Martín de Pueyrredón,1014,297,336,21,0,0,68,46,105,11,6
+1,Juan Martín de Pueyrredón,1014,298,338,17,2,0,70,53,91,6,7
+1,Juan Martín de Pueyrredón,1014,299,340,19,0,0,72,57,100,7,7
+1,Juan Martín de Pueyrredón,1014,300,350,19,0,0,72,58,103,15,11
+1,Juan Martín de Pueyrredón,1015A,301,306,37,0,0,78,68,37,4,5
+1,Juan Martín de Pueyrredón,1015A,302,307,23,0,0,87,61,56,11,7
+1,Juan Martín de Pueyrredón,1015A,303,306,17,0,0,85,62,51,7,12
+1,Juan Martín de Pueyrredón,1015B,304,341,34,5,0,92,88,25,18,6
+1,Juan Martín de Pueyrredón,1015B,305,337,37,2,0,78,108,31,9,6
+1,Juan Martín de Pueyrredón,1015B,306,349,31,2,3,96,88,32,11,14
+1,Juan Martín de Pueyrredón,1016,307,317,14,0,0,88,51,75,8,4
+1,Juan Martín de Pueyrredón,1016,308,317,16,5,0,89,49,68,10,7
+1,Juan Martín de Pueyrredón,1016,309,317,13,2,0,99,54,61,7,7
+1,Juan Martín de Pueyrredón,1016,310,317,16,3,0,73,57,69,10,6
+1,Juan Martín de Pueyrredón,1016,311,319,0,0,0,87,49,67,12,9
+1,Juan Martín de Pueyrredón,1016,312,318,5,1,0,83,49,76,10,10
+1,Juan Martín de Pueyrredón,1016,313,317,12,2,2,83,51,67,10,11
+1,Juan Martín de Pueyrredón,1016,314,321,24,0,0,94,38,78,8,4
+1,Juan Martín de Pueyrredón,1017,315,339,26,2,0,74,50,84,9,3
+1,Juan Martín de Pueyrredón,1017,316,342,20,0,0,77,43,106,9,5
+1,Juan Martín de Pueyrredón,1017,317,342,18,0,0,100,51,85,9,11
+1,Juan Martín de Pueyrredón,1017,318,343,16,3,0,83,49,83,9,13
+1,Juan Martín de Pueyrredón,1017,319,342,18,3,0,72,45,101,6,13
+1,Juan Martín de Pueyrredón,1017,320,346,16,1,0,67,39,99,10,8
+1,Juan Martín de Pueyrredón,1017,321,342,23,6,0,79,45,79,9,12
+1,Juan Martín de Pueyrredón,1017,322,338,18,2,0,72,54,91,9,8
+1,Juan Martín de Pueyrredón,1017,323,340,20,4,6,73,54,72,10,12
+1,Juan Martín de Pueyrredón,1017,324,342,19,2,1,81,41,100,8,4
+1,Juan Martín de Pueyrredón,1017,325,342,16,2,0,81,45,79,12,7
+1,Juan Martín de Pueyrredón,1017,326,340,21,0,0,72,39,105,13,10
+1,Juan Martín de Pueyrredón,1017,327,344,12,3,0,74,55,70,14,13
+1,Juan Martín de Pueyrredón,1017,328,342,29,9,0,80,42,98,6,7
+1,Juan Martín de Pueyrredón,1017,329,341,23,0,0,78,40,87,11,4
+1,Juan Martín de Pueyrredón,1017,330,342,23,2,0,86,54,80,13,7
+1,Juan Martín de Pueyrredón,1018,331,338,15,0,0,84,53,74,14,11
+1,Juan Martín de Pueyrredón,1018,332,340,7,0,0,100,46,78,15,7
+1,Juan Martín de Pueyrredón,1018,333,337,20,1,0,87,44,74,12,9
+1,Juan Martín de Pueyrredón,1018,334,337,19,4,0,88,46,87,6,14
+1,Juan Martín de Pueyrredón,1018,335,339,10,1,0,92,61,86,10,9
+1,Juan Martín de Pueyrredón,1018,336,338,8,2,0,71,63,79,15,11
+1,Juan Martín de Pueyrredón,1018,337,337,11,6,0,75,65,66,6,12
+1,Juan Martín de Pueyrredón,1018,338,335,17,2,0,94,67,70,7,8
+1,Juan Martín de Pueyrredón,1018,339,340,15,0,0,105,47,70,10,5
+1,Juan Martín de Pueyrredón,1018,340,336,16,0,0,77,46,82,14,15
+1,Juan Martín de Pueyrredón,1018,341,341,16,1,0,103,43,70,4,4
+1,Juan Martín de Pueyrredón,1018,342,342,13,0,0,88,64,64,9,4
+1,Juan Martín de Pueyrredón,1018,343,338,17,1,0,96,51,70,9,16
+1,Juan Martín de Pueyrredón,1018,344,339,8,2,0,98,56,70,11,6
+1,Juan Martín de Pueyrredón,1018,345,335,10,0,0,78,55,69,18,14
+1,Juan Martín de Pueyrredón,1018,346,338,2,2,0,79,42,97,5,10
+1,Juan Martín de Pueyrredón,1018,347,339,12,1,0,92,60,76,9,5
+1,Juan Martín de Pueyrredón,1019,348,323,19,6,0,96,68,50,9,6
+1,Juan Martín de Pueyrredón,1019,349,325,19,2,0,100,62,46,10,8
+1,Juan Martín de Pueyrredón,1019,350,326,22,7,0,77,64,55,13,4
+1,Juan Martín de Pueyrredón,1019,351,325,22,2,0,77,75,51,10,5
+1,Juan Martín de Pueyrredón,1019,352,325,0,1,7,89,79,35,10,5
+1,Juan Martín de Pueyrredón,1019,353,328,27,1,1,65,75,50,12,5
+1,Juan Martín de Pueyrredón,1019,354,325,25,1,0,89,68,52,6,5
+1,Juan Martín de Pueyrredón,1019,355,326,24,2,0,76,64,41,17,8
+1,Juan Martín de Pueyrredón,1019,356,325,22,3,0,90,57,62,9,7
+1,Juan Martín de Pueyrredón,1019,357,325,31,5,0,85,66,56,6,5
+1,Juan Martín de Pueyrredón,1019,358,325,2,0,1,81,71,55,14,3
+1,Juan Martín de Pueyrredón,1020,359,340,25,0,0,99,63,48,13,5
+1,Juan Martín de Pueyrredón,1020,360,345,24,0,0,96,87,46,11,9
+1,Juan Martín de Pueyrredón,1020,361,344,16,12,0,104,80,39,8,3
+1,Juan Martín de Pueyrredón,1020,362,341,15,2,0,104,91,35,16,5
+1,Juan Martín de Pueyrredón,1020,363,343,14,5,0,121,77,45,12,6
+1,Juan Martín de Pueyrredón,1020,364,345,18,0,0,113,82,35,18,10
+1,Juan Martín de Pueyrredón,1020,365,343,19,3,0,113,70,53,6,6
+1,Juan Martín de Pueyrredón,1020,366,342,0,0,0,115,71,44,19,9
+1,Juan Martín de Pueyrredón,1020,367,341,39,3,0,95,79,41,9,4
+1,Juan Martín de Pueyrredón,1020,368,341,0,3,26,113,78,42,12,7
+1,Juan Martín de Pueyrredón,1020,369,342,21,0,0,105,72,39,13,9
+1,Juan Martín de Pueyrredón,1020,370,340,23,1,0,111,88,35,6,8
+1,Juan Martín de Pueyrredón,1020,371,346,4,2,0,120,55,40,14,6
+1,Juan Martín de Pueyrredón,1020,372,344,25,5,0,98,91,44,12,3
+1,Juan Martín de Pueyrredón,1020,373,343,18,0,0,93,86,39,16,2
+1,Juan Martín de Pueyrredón,1020,374,343,18,0,0,118,61,44,16,11
+1,Juan Martín de Pueyrredón,1020,375,342,0,0,0,108,77,39,0,5
+1,Juan Martín de Pueyrredón,1020,376,343,34,4,0,122,75,40,9,3
+1,Juan Martín de Pueyrredón,1020,377,344,24,4,0,120,79,36,15,4
+1,Juan Martín de Pueyrredón,1020,378,343,0,1,0,122,79,35,15,5
+1,Juan Martín de Pueyrredón,1020,379,340,14,0,0,108,88,38,15,8
+1,Juan Martín de Pueyrredón,1020,380,343,17,0,0,116,73,45,12,10
+1,Juan Martín de Pueyrredón,1020,381,342,19,2,0,115,74,38,7,4
+1,Juan Martín de Pueyrredón,1020,382,340,4,2,0,111,78,31,13,8
+1,Juan Martín de Pueyrredón,1020,383,341,22,3,0,103,71,31,10,5
+1,Juan Martín de Pueyrredón,1020,384,344,9,3,0,107,90,42,14,9
+1,Juan Martín de Pueyrredón,1020,385,340,23,3,2,104,76,35,11,8
+1,Juan Martín de Pueyrredón,1020,386,341,15,9,0,99,86,35,11,4
+1,Juan Martín de Pueyrredón,1020,387,346,51,0,0,95,82,34,0,9
+1,Juan Martín de Pueyrredón,1021A,388,317,26,3,0,74,101,32,10,8
+1,Juan Martín de Pueyrredón,1021A,389,317,15,4,0,95,83,47,11,4
+1,Juan Martín de Pueyrredón,1021A,390,316,21,1,0,108,80,34,6,7
+1,Juan Martín de Pueyrredón,1021A,391,317,14,3,0,95,95,29,12,9
+1,Juan Martín de Pueyrredón,1021A,392,317,16,3,0,85,90,43,15,5
+1,Juan Martín de Pueyrredón,1021A,393,315,23,0,0,92,95,37,9,7
+1,Juan Martín de Pueyrredón,1021A,394,316,18,1,0,77,100,34,18,8
+1,Juan Martín de Pueyrredón,1021A,395,317,24,2,0,102,76,32,12,5
+1,Juan Martín de Pueyrredón,1021A,396,321,13,3,0,114,78,39,11,10
+1,Juan Martín de Pueyrredón,1021B,397,337,17,3,0,101,87,39,8,4
+1,Juan Martín de Pueyrredón,1021B,398,335,15,5,0,110,95,42,19,5
+1,Juan Martín de Pueyrredón,1021B,399,335,33,7,0,110,74,24,13,8
+1,Juan Martín de Pueyrredón,1021B,400,332,35,2,0,81,81,42,8,8
+1,Juan Martín de Pueyrredón,1021B,401,337,21,4,1,126,72,29,15,5
+1,Juan Martín de Pueyrredón,1021B,402,341,16,2,0,110,79,32,10,9
+1,Juan Martín de Pueyrredón,1021C,403,343,17,4,2,138,66,38,17,12
+1,Juan Martín de Pueyrredón,1021C,404,345,19,5,0,133,63,40,20,10
+1,Juan Martín de Pueyrredón,1021C,405,346,17,6,0,145,51,52,17,17
+1,Juan Martín de Pueyrredón,1021C,406,346,26,1,0,145,46,41,16,16
+1,Juan Martín de Pueyrredón,1021C,407,344,17,4,0,143,64,47,14,6
+1,Juan Martín de Pueyrredón,1021C,408,342,24,5,0,138,63,39,15,10
+1,Juan Martín de Pueyrredón,1021C,409,343,17,5,0,137,47,47,18,6
+1,Juan Martín de Pueyrredón,1021C,410,344,32,7,0,129,64,44,17,11
+1,Juan Martín de Pueyrredón,1021C,411,349,22,6,0,167,45,43,13,2
+1,Juan Martín de Pueyrredón,1021C,412,344,20,6,0,139,53,47,27,12
+1,Juan Martín de Pueyrredón,1021C,413,345,34,5,0,121,61,51,9,9
+1,Juan Martín de Pueyrredón,1021C,414,345,19,2,1,137,47,42,16,12
+1,Juan Martín de Pueyrredón,1021C,415,346,22,5,0,136,64,43,12,12
+1,Juan Martín de Pueyrredón,1021C,416,344,21,7,0,126,50,47,18,6
+1,Juan Martín de Pueyrredón,1021C,417,344,20,2,0,144,53,45,16,10
+1,Juan Martín de Pueyrredón,1021C,418,345,15,7,0,155,57,46,14,9
+1,Juan Martín de Pueyrredón,1021C,419,347,8,1,0,166,41,48,11,9
+1,Juan Martín de Pueyrredón,1022A,420,339,25,3,0,131,41,66,8,9
+1,Juan Martín de Pueyrredón,1022A,421,339,0,3,0,100,47,74,17,9
+1,Juan Martín de Pueyrredón,1022A,422,336,18,0,0,109,58,55,16,16
+1,Juan Martín de Pueyrredón,1022A,423,339,28,0,1,94,77,67,11,10
+1,Juan Martín de Pueyrredón,1022A,424,340,17,4,0,118,53,58,12,7
+1,Juan Martín de Pueyrredón,1022A,425,337,22,4,0,93,62,74,12,11
+1,Juan Martín de Pueyrredón,1022A,426,343,24,2,1,112,58,66,10,11
+1,Juan Martín de Pueyrredón,1022B,427,346,21,1,0,110,59,84,16,6
+1,Juan Martín de Pueyrredón,1022B,428,348,16,5,0,91,64,87,17,15
+1,Juan Martín de Pueyrredón,1022B,429,347,16,1,0,89,65,92,11,6
+1,Juan Martín de Pueyrredón,1022B,430,348,19,1,0,102,69,94,6,4
+1,Juan Martín de Pueyrredón,1022B,431,346,6,3,2,92,52,99,22,13
+1,Juan Martín de Pueyrredón,1022B,432,348,10,6,1,107,43,79,15,7
+1,Juan Martín de Pueyrredón,1022B,433,353,15,4,0,127,36,96,8,3
+1,Juan Martín de Pueyrredón,1022C,434,321,14,3,0,117,48,56,16,8
+1,Juan Martín de Pueyrredón,1022C,435,322,22,3,0,107,58,44,20,14
+1,Juan Martín de Pueyrredón,1022C,436,322,25,9,0,119,45,46,18,7
+1,Juan Martín de Pueyrredón,1022C,437,320,21,0,0,119,55,32,18,8
+1,Juan Martín de Pueyrredón,1022C,438,321,12,2,0,110,53,49,25,15
+1,Juan Martín de Pueyrredón,1022C,439,320,14,1,0,111,56,47,13,11
+1,Juan Martín de Pueyrredón,1022C,440,321,15,2,0,108,70,49,18,7
+1,Juan Martín de Pueyrredón,1022C,441,321,25,0,0,115,55,46,18,8
+1,Juan Martín de Pueyrredón,1022C,442,319,12,1,0,115,62,58,11,4
+1,Juan Martín de Pueyrredón,1022C,443,321,13,6,1,119,62,49,23,8
+1,Juan Martín de Pueyrredón,1022D,444,330,13,1,0,120,72,50,16,8
+1,Juan Martín de Pueyrredón,1022D,445,330,16,1,0,98,56,68,15,11
+1,Juan Martín de Pueyrredón,1022D,446,331,19,2,0,122,52,61,12,5
+1,Juan Martín de Pueyrredón,1022D,447,332,14,4,0,109,74,48,16,11
+1,Juan Martín de Pueyrredón,1022D,448,337,19,2,1,116,57,67,12,7
+1,Juan Martín de Pueyrredón,1022D,449,329,21,0,0,133,41,70,14,6
+1,Juan Martín de Pueyrredón,1022D,450,328,25,0,0,86,82,52,14,11
+1,Juan Martín de Pueyrredón,1022D,451,329,18,4,0,115,60,64,13,3
+1,Juan Martín de Pueyrredón,1022D,452,329,13,0,0,121,60,65,12,6
+1,Juan Martín de Pueyrredón,1022E,453,314,17,0,0,105,79,43,11,6
+1,Juan Martín de Pueyrredón,1022E,454,316,30,0,0,108,52,42,17,9
+1,Juan Martín de Pueyrredón,1022E,455,318,13,3,0,112,69,38,8,6
+1,Juan Martín de Pueyrredón,1022E,456,311,15,3,0,100,65,52,16,8
+1,Juan Martín de Pueyrredón,1022E,457,312,18,4,0,108,44,59,7,7
+1,Juan Martín de Pueyrredón,1022E,458,314,14,2,0,119,58,46,21,2
+1,Juan Martín de Pueyrredón,1022E,459,314,22,2,0,106,71,41,10,8
+1,Juan Martín de Pueyrredón,1022E,460,315,11,0,0,131,63,37,15,11
+1,Juan Martín de Pueyrredón,1022E,461,312,15,1,0,102,68,46,20,6
+1,Juan Martín de Pueyrredón,1022E,462,317,0,0,0,114,56,37,9,7
+1,Juan Martín de Pueyrredón,1022F,463,337,32,1,0,113,70,36,13,8
+1,Juan Martín de Pueyrredón,1022F,464,336,28,6,0,117,75,30,18,9
+1,Juan Martín de Pueyrredón,1022F,465,339,19,0,0,98,98,25,17,9
+1,Juan Martín de Pueyrredón,1022F,466,340,13,3,0,115,71,39,21,6
+1,Juan Martín de Pueyrredón,1022F,467,335,16,4,1,109,96,33,12,10
+1,Juan Martín de Pueyrredón,1022F,468,336,36,4,0,105,75,30,15,7
+1,Juan Martín de Pueyrredón,1022F,469,339,14,5,0,104,82,35,17,7
+2,Coronel Pringles,16,595,212,5,1,0,52,66,42,3,0
+2,Coronel Pringles,16,596,214,3,3,0,40,48,41,4,2
+2,Coronel Pringles,17,597,305,0,2,0,78,101,31,6,3
+2,Coronel Pringles,17,598,307,28,2,0,96,87,38,4,5
+2,Coronel Pringles,17,599,305,43,6,0,67,89,48,7,1
+2,Coronel Pringles,17,600,309,0,0,0,100,76,48,7,2
+2,Coronel Pringles,19,623,47,2,0,0,7,12,10,2,0
+2,Coronel Pringles,20,624,34,0,0,0,6,9,5,0,0
+2,Coronel Pringles,21,625,302,27,0,0,83,49,64,7,3
+2,Coronel Pringles,21,626,309,40,1,0,62,61,80,4,1
+2,Coronel Pringles,22,627,36,1,0,0,3,3,8,2,0
+2,Coronel Pringles,22A,628,33,3,0,0,3,0,14,0,1
+2,Coronel Pringles,23,629,104,5,0,0,13,35,18,0,0
+2,Coronel Pringles,24,630,321,22,2,0,75,85,63,6,8
+2,Coronel Pringles,24,631,321,25,6,0,53,82,60,9,6
+2,Coronel Pringles,24,632,317,14,9,0,70,71,70,2,6
+2,Coronel Pringles,24,633,321,22,1,0,52,91,62,7,8
+2,Coronel Pringles,24,634,322,32,8,0,59,79,58,9,11
+2,Coronel Pringles,24,635,320,17,1,0,53,58,89,9,10
+2,Coronel Pringles,24,636,323,19,12,1,56,70,78,8,6
+2,Coronel Pringles,25,637,287,0,0,0,0,0,0,0,0
+2,Coronel Pringles,25,638,288,0,0,0,0,0,0,0,0
+2,Coronel Pringles,26,640,254,0,0,0,54,40,51,11,6
+2,Coronel Pringles,26A,641,244,10,1,1,79,51,36,4,4
+2,Coronel Pringles,26A,642,246,22,4,2,64,41,54,4,7
+2,Coronel Pringles,27,639,114,5,0,0,28,34,20,0,0
+2,Coronel Pringles,28,643,34,0,2,0,1,9,3,1,1
+2,Coronel Pringles,1801,601,288,25,1,0,84,65,48,5,3
+2,Coronel Pringles,1801,602,288,23,0,0,77,83,39,6,1
+2,Coronel Pringles,1801,603,287,23,1,0,83,68,33,8,2
+2,Coronel Pringles,1801,604,283,32,0,0,70,82,38,5,1
+2,Coronel Pringles,1801,605,289,16,2,0,71,76,60,7,3
+2,Coronel Pringles,1802,606,338,27,2,0,103,96,37,10,4
+2,Coronel Pringles,1802,607,338,26,0,0,110,85,40,7,2
+2,Coronel Pringles,1802,608,338,26,0,0,101,92,45,7,4
+2,Coronel Pringles,1802,609,341,44,1,0,109,80,40,7,2
+2,Coronel Pringles,1803,610,305,18,0,0,102,101,32,8,2
+2,Coronel Pringles,1803,611,303,33,1,0,74,101,37,8,1
+2,Coronel Pringles,1803,612,303,0,0,0,72,118,41,7,2
+2,Coronel Pringles,1803,613,303,0,2,0,82,95,31,11,3
+2,Coronel Pringles,1803,614,306,22,5,1,94,69,46,11,3
+2,Coronel Pringles,1803,615,310,20,5,0,87,102,51,4,2
+2,Coronel Pringles,1804,616,316,18,2,0,69,87,62,6,2
+2,Coronel Pringles,1804,617,314,22,3,0,79,85,50,8,1
+2,Coronel Pringles,1804,618,320,24,1,0,79,94,50,2,4
+2,Coronel Pringles,1804,619,316,33,2,0,85,78,54,9,2
+2,Coronel Pringles,1804,620,319,44,1,0,89,73,46,8,2
+2,Coronel Pringles,1804,621,316,23,1,0,96,90,44,7,4
+2,Coronel Pringles,1804,622,319,24,5,0,82,89,56,9,1
+3,General Pedernera,31,954,38,3,0,0,8,4,2,0,0
+3,General Pedernera,32,955,143,0,0,0,0,0,0,0,0
+3,General Pedernera,33,956,12,0,0,0,0,0,2,0,0
+3,General Pedernera,35,988,12,0,0,0,2,4,0,0,0
+3,General Pedernera,36,989,268,20,0,0,71,53,59,4,0
+3,General Pedernera,37,990,62,0,1,0,26,2,13,4,1
+3,General Pedernera,38,991,195,4,0,0,36,54,36,3,1
+3,General Pedernera,38,992,197,5,2,0,33,52,36,2,4
+3,General Pedernera,39,993,250,11,0,0,93,20,47,19,2
+3,General Pedernera,39,994,250,8,0,0,93,28,51,25,1
+3,General Pedernera,40,995,236,9,0,0,71,8,71,5,1
+3,General Pedernera,40,996,236,7,0,0,88,6,72,6,3
+3,General Pedernera,41,997,330,0,0,2,116,62,64,3,5
+3,General Pedernera,3001A,644,321,22,7,0,100,60,39,12,3
+3,General Pedernera,3001A,645,319,18,1,1,91,90,37,9,5
+3,General Pedernera,3001A,646,321,14,3,0,96,86,35,9,2
+3,General Pedernera,3001A,647,325,22,1,0,114,69,39,9,2
+3,General Pedernera,3001A,648,321,13,2,0,98,64,49,11,2
+3,General Pedernera,3001A,649,322,29,1,0,78,80,50,7,3
+3,General Pedernera,3001A,650,321,13,3,0,104,77,39,11,0
+3,General Pedernera,3001A,651,323,32,5,0,84,80,40,4,1
+3,General Pedernera,3001A,652,320,16,4,0,98,65,54,11,8
+3,General Pedernera,3001A,653,322,28,7,0,97,80,42,13,2
+3,General Pedernera,3001B,654,350,17,0,2,153,55,43,12,6
+3,General Pedernera,3001B,655,349,0,0,0,163,43,58,17,6
+3,General Pedernera,3001B,656,346,21,4,0,138,61,50,16,7
+3,General Pedernera,3001B,657,345,25,2,0,140,61,48,17,9
+3,General Pedernera,3001B,658,347,6,3,0,133,50,62,21,3
+3,General Pedernera,3001B,659,347,28,5,0,125,45,59,20,11
+3,General Pedernera,3001B,660,348,16,4,0,161,46,32,14,7
+3,General Pedernera,3001B,661,347,0,4,0,124,48,55,11,13
+3,General Pedernera,3001B,662,347,0,0,0,0,0,0,0,0
+3,General Pedernera,3001B,663,345,17,1,0,175,38,43,16,10
+3,General Pedernera,3001B,664,348,16,9,0,142,49,54,18,9
+3,General Pedernera,3001B,665,352,13,0,0,152,45,48,32,7
+3,General Pedernera,3001B,666,345,26,6,0,140,51,50,14,5
+3,General Pedernera,3001B,667,346,22,9,0,127,66,45,14,9
+3,General Pedernera,3001B,668,347,14,6,0,156,47,49,14,4
+3,General Pedernera,3001B,669,349,9,1,0,133,53,61,19,7
+3,General Pedernera,3001B,670,347,19,2,0,147,52,45,18,13
+3,General Pedernera,3001B,671,348,15,4,0,163,58,31,17,4
+3,General Pedernera,3001B,672,348,6,3,0,127,60,61,21,10
+3,General Pedernera,3001B,673,347,20,2,0,142,63,40,15,10
+3,General Pedernera,3001B,674,349,15,1,0,139,71,52,13,4
+3,General Pedernera,3001B,675,347,13,3,0,147,56,53,15,6
+3,General Pedernera,3001B,676,348,0,0,0,0,0,0,0,0
+3,General Pedernera,3001B,677,348,18,4,0,128,51,49,14,8
+3,General Pedernera,3001B,678,347,0,3,0,151,47,54,15,7
+3,General Pedernera,3001B,679,348,17,1,0,134,65,45,21,10
+3,General Pedernera,3001B,680,348,21,12,0,129,40,54,11,11
+3,General Pedernera,3001B,681,347,27,3,0,135,53,58,12,4
+3,General Pedernera,3001B,682,346,33,5,0,121,56,44,15,12
+3,General Pedernera,3001B,683,347,0,0,0,116,52,53,10,6
+3,General Pedernera,3001B,684,349,30,8,0,132,51,42,19,7
+3,General Pedernera,3001B,685,346,29,3,0,142,54,47,10,5
+3,General Pedernera,3001B,686,347,0,0,0,168,42,33,25,7
+3,General Pedernera,3001B,687,352,29,2,0,118,60,56,16,7
+3,General Pedernera,3002,688,342,14,2,0,111,60,63,19,2
+3,General Pedernera,3002,689,348,17,6,0,98,55,63,21,4
+3,General Pedernera,3002,690,343,18,3,0,108,41,92,15,4
+3,General Pedernera,3002,691,345,13,2,0,120,66,66,19,9
+3,General Pedernera,3002,692,341,14,0,0,113,67,48,15,5
+3,General Pedernera,3002,693,343,24,5,0,118,64,64,8,7
+3,General Pedernera,3002,694,341,10,1,0,135,37,67,12,0
+3,General Pedernera,3002,695,341,14,1,0,103,48,70,20,5
+3,General Pedernera,3002,696,341,15,3,0,122,43,75,16,6
+3,General Pedernera,3002,697,343,20,2,0,116,53,59,15,7
+3,General Pedernera,3002,698,344,16,2,0,95,50,99,10,6
+3,General Pedernera,3002,699,345,5,3,0,126,59,65,12,4
+3,General Pedernera,3002,700,341,13,9,0,105,39,80,18,7
+3,General Pedernera,3002,701,345,25,0,0,120,50,75,14,5
+3,General Pedernera,3003,702,334,17,1,1,105,62,60,18,7
+3,General Pedernera,3003,703,333,17,3,2,109,50,75,13,6
+3,General Pedernera,3003,704,336,33,0,0,113,46,68,16,8
+3,General Pedernera,3003,705,336,27,3,0,113,44,79,17,5
+3,General Pedernera,3003,706,334,23,2,0,122,32,68,14,3
+3,General Pedernera,3003,707,333,21,1,1,97,52,68,19,11
+3,General Pedernera,3003,708,336,17,0,0,99,59,62,17,4
+3,General Pedernera,3003,709,334,26,0,1,103,36,0,0,11
+3,General Pedernera,3003,710,334,16,4,0,114,59,67,12,2
+3,General Pedernera,3003,711,334,41,3,0,109,55,65,13,5
+3,General Pedernera,3003,712,333,14,4,0,124,43,72,13,10
+3,General Pedernera,3003,713,336,10,2,0,112,50,76,16,7
+3,General Pedernera,3003,714,335,9,3,0,102,49,85,22,7
+3,General Pedernera,3003,715,335,20,4,0,105,66,60,7,10
+3,General Pedernera,3003,716,334,10,2,0,112,51,72,16,9
+3,General Pedernera,3003,717,334,27,3,0,94,53,90,10,2
+3,General Pedernera,3003,718,334,10,3,0,103,43,85,16,4
+3,General Pedernera,3003,719,331,3,3,0,90,46,79,15,6
+3,General Pedernera,3003,720,334,31,4,0,96,47,75,18,6
+3,General Pedernera,3003,721,334,24,2,0,115,60,58,19,12
+3,General Pedernera,3003,722,339,11,3,0,120,42,76,21,8
+3,General Pedernera,3004,723,341,17,2,0,112,33,87,11,13
+3,General Pedernera,3004,724,341,14,1,0,121,50,78,16,4
+3,General Pedernera,3004,725,341,18,0,0,131,49,68,19,8
+3,General Pedernera,3004,726,340,20,1,0,119,38,73,18,4
+3,General Pedernera,3004,727,344,16,0,0,112,46,91,11,7
+3,General Pedernera,3004,728,340,18,7,0,122,39,77,17,8
+3,General Pedernera,3004,729,345,21,3,0,125,42,80,9,6
+3,General Pedernera,3004,730,337,18,0,0,121,44,86,16,8
+3,General Pedernera,3004,731,339,26,1,0,108,45,89,14,5
+3,General Pedernera,3004,732,338,13,1,0,125,48,67,19,4
+3,General Pedernera,3004,733,337,11,2,0,116,54,73,16,6
+3,General Pedernera,3004,734,338,16,1,0,137,38,66,14,3
+3,General Pedernera,3004,735,336,14,2,0,133,44,65,15,5
+3,General Pedernera,3004,736,338,11,2,0,109,46,79,16,9
+3,General Pedernera,3004,737,340,14,1,0,115,54,74,17,6
+3,General Pedernera,3005,738,271,16,0,0,80,56,26,21,5
+3,General Pedernera,3005,739,272,10,2,1,95,50,28,17,6
+3,General Pedernera,3005,740,270,10,0,1,100,65,32,8,4
+3,General Pedernera,3005,741,274,12,4,0,91,65,30,10,3
+3,General Pedernera,3006,742,337,17,2,0,115,67,36,16,6
+3,General Pedernera,3006,743,337,24,3,0,103,72,44,9,7
+3,General Pedernera,3006,744,334,11,4,2,142,61,38,8,6
+3,General Pedernera,3006,745,333,4,6,0,94,82,42,14,7
+3,General Pedernera,3006,746,338,28,5,0,120,64,27,12,8
+3,General Pedernera,3006,747,336,28,0,0,103,65,52,11,8
+3,General Pedernera,3006,748,338,26,1,0,116,75,44,13,7
+3,General Pedernera,3006,749,334,1,6,2,106,76,40,17,8
+3,General Pedernera,3006,750,336,19,1,0,124,68,53,10,4
+3,General Pedernera,3006,751,336,22,3,0,117,66,38,12,6
+3,General Pedernera,3006,752,337,7,3,0,128,80,34,25,3
+3,General Pedernera,3006,753,335,17,3,0,124,67,39,16,3
+3,General Pedernera,3006,754,336,19,4,0,136,55,38,16,4
+3,General Pedernera,3007,755,343,24,3,0,123,64,42,12,4
+3,General Pedernera,3007,756,346,23,0,0,124,78,54,18,5
+3,General Pedernera,3007,757,342,23,3,0,115,62,44,16,4
+3,General Pedernera,3007,758,342,19,6,0,109,76,43,22,9
+3,General Pedernera,3007,759,345,76,3,0,150,0,48,0,10
+3,General Pedernera,3007,760,343,80,3,0,112,11,38,16,7
+3,General Pedernera,3007,761,341,21,5,0,108,60,53,13,6
+3,General Pedernera,3007,762,343,24,0,0,130,68,34,12,6
+3,General Pedernera,3007,763,348,11,9,0,129,70,36,10,6
+3,General Pedernera,3007,764,342,27,5,0,103,76,37,19,8
+3,General Pedernera,3007,765,343,13,4,0,97,89,46,10,4
+3,General Pedernera,3007,766,344,14,2,0,133,67,47,13,6
+3,General Pedernera,3007,767,342,18,2,0,122,73,54,10,7
+3,General Pedernera,3007,768,343,21,2,0,117,61,55,17,5
+3,General Pedernera,3007,769,341,17,7,0,110,66,37,8,8
+3,General Pedernera,3007,770,341,19,5,1,123,55,34,11,7
+3,General Pedernera,3007,771,346,13,3,0,117,73,62,11,5
+3,General Pedernera,3008,772,303,24,0,0,67,49,88,9,3
+3,General Pedernera,3008,773,301,15,2,0,81,39,83,8,5
+3,General Pedernera,3008,774,304,12,2,0,92,37,80,10,7
+3,General Pedernera,3008,775,302,18,0,0,72,41,65,17,6
+3,General Pedernera,3008,776,304,12,1,0,75,58,65,16,7
+3,General Pedernera,3008,777,304,0,0,0,96,41,67,13,5
+3,General Pedernera,3009,778,340,20,3,0,101,46,67,18,9
+3,General Pedernera,3009,779,339,26,0,0,93,58,74,13,4
+3,General Pedernera,3009,780,338,11,1,0,91,52,90,15,8
+3,General Pedernera,3009,781,342,10,2,0,108,53,65,14,9
+3,General Pedernera,3009,782,340,14,3,0,82,47,105,7,10
+3,General Pedernera,3009,783,342,19,1,0,90,50,89,17,2
+3,General Pedernera,3009,784,343,21,4,0,96,50,73,16,9
+3,General Pedernera,3009,785,341,0,0,0,105,43,79,11,7
+3,General Pedernera,3009,786,341,14,2,0,95,55,68,18,5
+3,General Pedernera,3009,787,340,11,2,0,99,52,81,16,3
+3,General Pedernera,3009,788,341,20,8,0,81,59,73,17,3
+3,General Pedernera,3009,789,343,19,4,0,95,48,65,13,9
+3,General Pedernera,3009,790,341,14,3,0,84,59,79,13,4
+3,General Pedernera,3009,791,339,0,1,0,101,49,76,11,4
+3,General Pedernera,3009,792,341,18,6,0,107,42,69,7,7
+3,General Pedernera,3009,793,346,23,2,0,106,71,59,16,6
+3,General Pedernera,3010,794,337,7,2,0,104,37,92,6,5
+3,General Pedernera,3010,795,333,21,1,0,94,42,77,9,0
+3,General Pedernera,3010,796,335,6,0,0,109,43,82,19,7
+3,General Pedernera,3010,797,334,14,1,0,84,39,98,9,6
+3,General Pedernera,3010,798,332,20,3,0,86,36,85,11,9
+3,General Pedernera,3010,799,333,14,0,0,82,32,98,6,5
+3,General Pedernera,3010,800,334,6,3,0,98,48,77,12,5
+3,General Pedernera,3010,801,334,12,3,0,99,38,84,17,1
+3,General Pedernera,3010,802,336,19,1,0,82,44,94,20,10
+3,General Pedernera,3010,803,334,17,0,0,95,36,83,14,5
+3,General Pedernera,3010,804,331,17,2,0,98,36,71,10,5
+3,General Pedernera,3010,805,338,16,4,0,97,38,80,13,4
+3,General Pedernera,3011,806,340,0,0,0,93,42,101,17,7
+3,General Pedernera,3011,807,339,18,1,0,84,39,109,13,3
+3,General Pedernera,3011,808,340,18,2,0,87,28,109,16,11
+3,General Pedernera,3011,809,338,15,3,0,82,26,117,10,5
+3,General Pedernera,3011,810,354,13,0,0,106,29,99,16,7
+3,General Pedernera,3011,811,341,16,1,0,102,30,93,13,1
+3,General Pedernera,3011,812,340,22,0,0,82,34,113,14,4
+3,General Pedernera,3011,813,340,17,2,0,93,39,98,7,8
+3,General Pedernera,3011,814,337,15,3,0,94,54,86,13,5
+3,General Pedernera,3011,815,339,10,2,0,100,30,92,15,8
+3,General Pedernera,3011,816,340,17,1,0,97,42,89,12,6
+3,General Pedernera,3012,817,318,11,1,0,83,37,102,11,3
+3,General Pedernera,3012,818,317,6,4,0,93,27,107,5,9
+3,General Pedernera,3012,819,318,19,4,0,66,42,88,11,4
+3,General Pedernera,3012,820,316,19,0,0,83,44,97,5,6
+3,General Pedernera,3012,821,319,14,3,0,88,46,83,11,6
+3,General Pedernera,3012,822,320,14,3,0,88,43,92,6,2
+3,General Pedernera,3012,823,318,7,1,0,85,40,78,6,6
+3,General Pedernera,3012,824,320,11,4,0,86,39,83,10,5
+3,General Pedernera,3013,825,349,16,3,3,82,44,114,6,3
+3,General Pedernera,3013,826,347,11,0,0,95,50,87,5,8
+3,General Pedernera,3013,827,348,2,8,0,97,48,100,15,10
+3,General Pedernera,3013,828,350,18,2,0,91,41,110,14,4
+3,General Pedernera,3013,829,349,12,1,0,94,44,107,13,9
+3,General Pedernera,3013,830,346,14,1,0,80,58,113,8,4
+3,General Pedernera,3013,831,351,16,2,0,99,42,95,8,4
+3,General Pedernera,3014,832,326,20,2,0,105,70,45,5,4
+3,General Pedernera,3014,833,328,0,0,0,98,73,48,9,7
+3,General Pedernera,3014,834,327,20,2,0,97,59,53,9,4
+3,General Pedernera,3014,835,326,16,7,0,74,83,41,8,4
+3,General Pedernera,3014,836,324,25,0,0,77,86,47,13,3
+3,General Pedernera,3014,837,326,12,2,0,100,72,52,11,5
+3,General Pedernera,3014,838,321,19,0,0,85,81,56,4,10
+3,General Pedernera,3014,839,325,23,2,1,91,86,44,10,0
+3,General Pedernera,3014,840,326,11,2,0,94,59,56,14,1
+3,General Pedernera,3014,841,326,11,2,0,94,59,56,14,1
+3,General Pedernera,3014,842,331,18,4,0,75,91,45,0,3
+3,General Pedernera,3015,843,341,27,2,0,83,69,50,9,2
+3,General Pedernera,3015,844,340,22,5,0,113,68,35,13,11
+3,General Pedernera,3015,845,340,17,3,0,119,90,32,14,6
+3,General Pedernera,3015,846,339,33,7,0,71,84,39,13,9
+3,General Pedernera,3015,847,340,19,0,0,96,96,36,15,4
+3,General Pedernera,3015,848,340,19,0,0,106,77,46,14,4
+3,General Pedernera,3015,849,340,30,3,0,89,92,46,9,6
+3,General Pedernera,3015,850,340,20,2,0,91,17,50,80,4
+3,General Pedernera,3015,851,338,23,3,0,111,81,45,5,4
+3,General Pedernera,3015,852,341,30,1,1,104,67,42,18,4
+3,General Pedernera,3015,853,340,7,2,0,99,78,37,12,5
+3,General Pedernera,3015,854,340,26,2,0,99,88,23,27,4
+3,General Pedernera,3015,855,341,12,2,0,106,89,38,18,4
+3,General Pedernera,3015,856,345,23,0,1,104,89,49,10,2
+3,General Pedernera,3016,857,337,17,2,0,102,62,67,15,7
+3,General Pedernera,3016,858,336,24,0,0,130,53,56,17,4
+3,General Pedernera,3016,859,332,0,0,0,105,72,41,18,6
+3,General Pedernera,3016,860,339,27,0,0,112,61,50,10,10
+3,General Pedernera,3016,861,336,11,7,0,118,59,48,21,13
+3,General Pedernera,3016,862,336,25,2,0,109,65,55,12,3
+3,General Pedernera,3016,863,335,26,0,0,109,61,46,19,5
+3,General Pedernera,3016,864,333,13,0,0,125,75,54,10,1
+3,General Pedernera,3016,865,336,15,2,0,105,74,43,20,5
+3,General Pedernera,3016,866,335,20,1,0,112,77,47,17,8
+3,General Pedernera,3016,867,336,20,0,0,121,56,58,14,4
+3,General Pedernera,3016,868,335,18,6,0,107,74,48,17,4
+3,General Pedernera,3016,869,331,21,6,0,106,75,36,19,3
+3,General Pedernera,3016,870,340,21,8,0,114,73,47,11,6
+3,General Pedernera,3017,871,337,21,2,0,115,59,62,20,8
+3,General Pedernera,3017,872,338,15,1,0,157,57,52,15,0
+3,General Pedernera,3017,873,335,18,0,0,126,60,55,14,11
+3,General Pedernera,3017,874,338,29,4,0,125,54,50,26,5
+3,General Pedernera,3017,875,336,16,2,0,115,65,61,15,6
+3,General Pedernera,3017,876,339,17,6,0,125,67,55,14,5
+3,General Pedernera,3017,877,341,13,2,0,136,51,50,18,13
+3,General Pedernera,3017,878,338,20,0,0,138,65,46,8,8
+3,General Pedernera,3017,879,337,20,4,0,131,54,52,19,9
+3,General Pedernera,3017,880,337,24,0,0,131,57,56,17,3
+3,General Pedernera,3017,881,339,15,6,0,139,74,33,20,2
+3,General Pedernera,3017,882,339,17,11,0,127,55,56,15,4
+3,General Pedernera,3017,883,336,27,0,0,136,54,57,0,7
+3,General Pedernera,3017,884,338,23,7,0,98,64,59,19,7
+3,General Pedernera,3017,885,338,36,5,0,139,42,33,22,7
+3,General Pedernera,3017,886,340,2,5,0,125,63,57,14,5
+3,General Pedernera,3018,887,337,28,6,0,111,53,63,16,8
+3,General Pedernera,3018,888,338,0,0,0,140,48,50,19,2
+3,General Pedernera,3018,889,333,12,2,0,122,65,50,16,9
+3,General Pedernera,3018,890,335,21,4,0,123,51,69,13,7
+3,General Pedernera,3018,891,337,4,6,0,114,58,48,12,7
+3,General Pedernera,3018,892,334,14,6,1,120,67,48,19,4
+3,General Pedernera,3018,893,338,0,0,0,125,64,45,12,6
+3,General Pedernera,3018,894,339,7,4,0,127,67,46,19,10
+3,General Pedernera,3018,895,337,8,3,0,141,57,51,14,3
+3,General Pedernera,3018,896,340,34,5,0,116,53,37,17,11
+3,General Pedernera,3018,897,336,10,6,0,122,46,54,14,12
+3,General Pedernera,3018,898,336,33,0,0,115,76,49,12,5
+3,General Pedernera,3018,899,338,17,4,0,123,67,47,15,5
+3,General Pedernera,3018,900,336,20,0,0,113,71,44,15,5
+3,General Pedernera,3018,901,337,13,2,1,122,59,65,14,5
+3,General Pedernera,3018,902,336,18,0,0,130,51,54,17,5
+3,General Pedernera,3018,903,336,25,7,6,131,51,50,16,2
+3,General Pedernera,3018,904,337,14,4,0,125,56,48,11,8
+3,General Pedernera,3018,905,340,24,0,0,113,67,36,18,4
+3,General Pedernera,3019,906,341,20,2,0,96,97,25,15,3
+3,General Pedernera,3019,907,340,0,0,0,88,108,37,12,9
+3,General Pedernera,3019,908,342,23,6,1,101,101,26,16,6
+3,General Pedernera,3019,909,342,13,2,0,2,110,28,13,101
+3,General Pedernera,3019,910,341,25,4,0,115,94,35,8,5
+3,General Pedernera,3019,911,341,18,1,0,123,76,37,14,6
+3,General Pedernera,3019,912,340,13,9,0,114,92,19,15,10
+3,General Pedernera,3019,913,341,2,3,1,107,107,36,8,5
+3,General Pedernera,3019,914,339,8,4,0,80,139,25,9,7
+3,General Pedernera,3019,915,342,8,4,0,117,91,24,17,3
+3,General Pedernera,3019,916,341,2,5,0,133,79,28,13,5
+3,General Pedernera,3019,917,340,13,2,0,78,140,25,11,4
+3,General Pedernera,3019,918,345,14,3,0,108,91,30,17,8
+3,General Pedernera,3020,919,335,27,2,0,126,50,52,18,11
+3,General Pedernera,3020,920,335,0,0,0,0,0,0,0,0
+3,General Pedernera,3020,921,335,19,8,0,116,44,60,17,3
+3,General Pedernera,3020,922,334,19,3,0,128,56,57,23,8
+3,General Pedernera,3020,923,334,15,6,0,119,59,61,17,12
+3,General Pedernera,3020,924,336,16,3,0,121,62,57,17,9
+3,General Pedernera,3020,925,336,22,1,0,136,44,49,16,6
+3,General Pedernera,3020,926,333,15,1,0,134,37,60,22,12
+3,General Pedernera,3020,927,330,15,1,0,139,55,64,7,7
+3,General Pedernera,3020,928,338,14,0,0,131,48,77,14,6
+3,General Pedernera,3020,929,337,0,0,0,124,43,67,21,6
+3,General Pedernera,3021,930,338,26,1,0,107,45,66,16,4
+3,General Pedernera,3021,931,337,64,0,0,157,0,53,0,9
+3,General Pedernera,3021,932,339,22,0,0,124,58,57,19,5
+3,General Pedernera,3021,933,338,17,1,0,130,48,67,13,5
+3,General Pedernera,3021,934,338,23,1,0,111,51,74,24,4
+3,General Pedernera,3021,935,335,14,2,0,147,61,40,16,7
+3,General Pedernera,3021,936,341,14,2,0,111,60,58,24,6
+3,General Pedernera,3021,937,337,0,1,0,140,51,55,13,1
+3,General Pedernera,3021,938,339,19,5,0,139,49,45,13,5
+3,General Pedernera,3021,939,338,4,2,0,121,71,60,13,0
+3,General Pedernera,3021,940,341,14,3,0,131,54,51,20,7
+3,General Pedernera,3021,941,340,26,2,0,112,58,53,23,3
+3,General Pedernera,3021,942,334,10,2,0,127,59,54,11,7
+3,General Pedernera,3021,943,340,1,3,2,123,65,57,0,9
+3,General Pedernera,3021,944,338,24,0,0,128,47,62,12,4
+3,General Pedernera,3021,945,338,13,1,0,126,57,57,19,6
+3,General Pedernera,3021,946,337,20,3,0,132,52,60,13,5
+3,General Pedernera,3021,947,337,13,5,0,136,51,60,14,3
+3,General Pedernera,3021,948,334,1,2,6,124,51,61,21,5
+3,General Pedernera,3021,949,337,0,1,0,135,59,55,12,6
+3,General Pedernera,3021,950,334,14,1,0,133,48,61,9,8
+3,General Pedernera,3021,951,336,11,4,0,123,66,50,16,8
+3,General Pedernera,3021,952,337,21,7,0,136,53,43,18,10
+3,General Pedernera,3021,953,342,15,2,0,129,57,38,24,8
+3,General Pedernera,3401,957,329,20,3,0,77,103,32,18,3
+3,General Pedernera,3401,958,325,13,0,0,87,91,39,17,2
+3,General Pedernera,3401,959,326,35,3,0,97,69,39,11,1
+3,General Pedernera,3401,960,325,17,3,0,84,71,38,25,4
+3,General Pedernera,3401,961,326,23,3,0,80,81,37,28,3
+3,General Pedernera,3401,962,328,23,0,0,80,91,31,16,4
+3,General Pedernera,3402,963,351,14,3,0,99,104,46,23,2
+3,General Pedernera,3402,964,348,17,6,0,102,76,38,23,4
+3,General Pedernera,3402,965,345,27,5,0,101,59,48,22,3
+3,General Pedernera,3402,966,347,18,0,0,105,72,50,19,0
+3,General Pedernera,3402,967,346,17,2,0,111,86,43,13,5
+3,General Pedernera,3403,968,267,16,1,0,64,50,63,19,2
+3,General Pedernera,3403,969,268,12,0,0,64,59,57,9,2
+3,General Pedernera,3403,970,269,7,1,0,71,64,51,11,5
+3,General Pedernera,3404,971,291,15,1,0,73,57,60,19,3
+3,General Pedernera,3404,972,289,9,1,1,82,55,58,19,2
+3,General Pedernera,3404,973,288,18,5,0,77,63,48,13,3
+3,General Pedernera,3404,974,291,14,4,0,96,58,48,9,2
+3,General Pedernera,3405,975,340,22,4,0,82,91,54,25,0
+3,General Pedernera,3405,976,338,17,0,2,91,100,51,18,2
+3,General Pedernera,3405,977,342,10,6,0,95,83,55,21,1
+3,General Pedernera,3405,978,338,7,7,0,90,79,39,28,2
+3,General Pedernera,3405,979,339,16,0,0,111,84,45,16,3
+3,General Pedernera,3405,980,345,34,0,0,90,102,44,12,1
+3,General Pedernera,3406,981,286,15,1,0,78,81,30,17,3
+3,General Pedernera,3406,982,281,18,0,0,81,53,50,12,3
+3,General Pedernera,3406,983,284,17,0,0,78,54,44,13,1
+3,General Pedernera,3406,984,283,25,6,1,72,70,26,17,1
+3,General Pedernera,3407,985,316,22,1,0,79,69,40,21,4
+3,General Pedernera,3407,986,308,14,4,1,99,67,29,26,3
+3,General Pedernera,3407,987,319,20,6,0,91,76,40,14,5
+4,Chacabuco,42,998,335,28,0,0,79,83,56,23,8
+4,Chacabuco,42,999,331,29,4,0,84,76,50,17,1
+4,Chacabuco,42,1000,332,3,20,0,114,59,50,16,1
+4,Chacabuco,42,1001,332,27,0,0,90,86,50,14,3
+4,Chacabuco,42,1002,332,28,0,0,100,66,53,12,2
+4,Chacabuco,42,1003,332,36,0,0,85,78,37,15,10
+4,Chacabuco,42,1004,334,32,5,0,80,81,50,12,3
+4,Chacabuco,42,1005,334,27,0,0,100,76,50,16,7
+4,Chacabuco,42,1006,333,29,0,0,103,67,51,20,1
+4,Chacabuco,42,1007,336,20,0,0,108,69,43,9,8
+4,Chacabuco,42,1008,330,17,0,0,106,82,34,13,5
+4,Chacabuco,42,1009,333,26,2,0,88,96,37,8,5
+4,Chacabuco,42,1010,332,17,0,0,129,48,55,22,3
+4,Chacabuco,42,1011,332,25,2,0,88,76,57,12,4
+4,Chacabuco,42,1012,333,31,0,0,103,66,55,9,2
+4,Chacabuco,42,1013,330,3,2,0,83,62,59,9,5
+4,Chacabuco,42,1014,334,21,0,0,118,79,34,10,2
+4,Chacabuco,43,1015,345,13,1,0,82,127,44,12,4
+4,Chacabuco,43,1016,346,22,2,0,95,88,40,8,5
+4,Chacabuco,44,1017,294,30,0,0,93,74,30,5,3
+4,Chacabuco,45,1018,346,39,4,0,66,92,46,19,6
+4,Chacabuco,45,1019,345,21,3,1,89,0,33,21,4
+4,Chacabuco,45,1020,343,33,0,0,70,82,64,14,5
+4,Chacabuco,45,1021,344,0,10,0,82,89,28,24,1
+4,Chacabuco,45,1022,339,23,9,0,74,84,56,10,7
+4,Chacabuco,45,1023,345,26,7,0,71,89,64,20,5
+4,Chacabuco,45,1024,344,18,5,0,82,85,55,19,6
+4,Chacabuco,45,1025,347,15,6,0,71,82,62,19,4
+4,Chacabuco,45,1026,346,23,6,0,104,77,48,14,6
+4,Chacabuco,45,1027,345,22,1,0,82,94,56,20,7
+4,Chacabuco,45,1028,345,10,0,0,59,98,42,19,4
+4,Chacabuco,45,1029,345,25,3,0,68,76,49,20,2
+4,Chacabuco,45,1030,345,20,5,0,83,84,54,25,1
+4,Chacabuco,45,1031,345,27,3,0,89,83,47,15,5
+4,Chacabuco,45,1032,347,24,5,0,80,95,43,21,5
+4,Chacabuco,46,1033,333,17,5,0,94,68,42,11,2
+4,Chacabuco,46,1034,332,20,0,0,99,60,54,14,9
+4,Chacabuco,46,1035,331,21,1,0,105,73,37,13,7
+4,Chacabuco,46,1036,330,21,0,0,85,80,51,25,2
+4,Chacabuco,46,1037,335,16,3,0,94,80,41,14,7
+4,Chacabuco,47,1038,322,13,0,0,69,77,74,17,3
+4,Chacabuco,47,1039,330,0,6,0,77,79,72,13,3
+4,Chacabuco,48,1040,313,0,0,0,0,0,0,0,0
+4,Chacabuco,48,1041,311,20,0,0,83,57,41,17,5
+4,Chacabuco,48,1042,314,3,0,1,83,72,39,26,3
+4,Chacabuco,49,1043,327,20,2,0,110,55,60,11,1
+4,Chacabuco,49,1044,328,34,2,0,102,46,66,11,3
+4,Chacabuco,49,1045,327,0,2,0,117,61,52,0,3
+4,Chacabuco,49,1046,328,23,5,0,143,47,37,10,2
+4,Chacabuco,49,1047,329,28,2,0,104,46,56,11,2
+4,Chacabuco,49,1048,327,23,1,0,126,39,55,9,4
+4,Chacabuco,49,1049,327,35,3,0,105,55,48,13,4
+4,Chacabuco,49,1050,327,36,4,0,122,47,42,10,2
+4,Chacabuco,49,1051,327,25,4,0,125,44,42,9,6
+4,Chacabuco,49,1052,326,24,0,0,123,40,57,11,3
+4,Chacabuco,49,1053,329,24,2,0,93,75,57,5,3
+4,Chacabuco,50,1054,10,0,0,0,1,0,2,1,0
+4,Chacabuco,51,1055,321,15,1,0,70,70,54,15,8
+4,Chacabuco,51,1056,321,8,9,0,84,75,63,9,6
+4,Chacabuco,51,1057,323,9,3,0,91,66,59,13,7
+4,Chacabuco,51,1058,321,20,4,0,69,70,62,17,4
+4,Chacabuco,51,1059,322,8,0,0,74,72,55,17,9
+4,Chacabuco,51,1060,320,18,5,0,85,70,54,15,8
+4,Chacabuco,51,1061,323,12,5,0,82,74,59,8,6
+5,Libertador General San Martín,52,1062,326,9,0,1,49,117,59,12,4
+5,Libertador General San Martín,52,1063,328,11,0,0,42,145,48,12,3
+5,Libertador General San Martín,52,1064,330,15,1,0,42,141,43,11,2
+5,Libertador General San Martín,53,1065,288,47,0,2,69,57,37,7,8
+5,Libertador General San Martín,53,1066,291,38,3,0,64,58,46,9,4
+5,Libertador General San Martín,54,1067,14,0,0,0,1,1,0,0,0
+5,Libertador General San Martín,55,1068,324,31,5,0,81,90,55,7,4
+5,Libertador General San Martín,55,1069,324,27,3,0,76,76,63,6,3
+5,Libertador General San Martín,56,1070,340,24,2,0,56,155,51,1,0
+5,Libertador General San Martín,57,1071,274,28,7,0,74,68,39,5,1
+5,Libertador General San Martín,58,1072,236,10,0,0,28,102,37,7,0
+5,Libertador General San Martín,58,1073,233,9,0,0,30,97,20,12,3
+5,Libertador General San Martín,58,1074,239,8,1,0,24,111,30,5,2
+5,Libertador General San Martín,59,1075,40,6,0,0,5,13,3,0,0
+5,Libertador General San Martín,60,1076,257,17,1,0,70,79,31,9,2
+5,Libertador General San Martín,60,1077,260,22,0,0,72,72,39,4,0
+5,Libertador General San Martín,61,1078,327,36,2,0,54,97,85,4,0
+5,Libertador General San Martín,62,1079,10,0,0,0,2,1,2,0,1
+6,Junín,63,1080,348,13,0,0,98,93,47,16,6
+6,Junín,63,1081,352,29,3,0,85,94,39,17,4
+6,Junín,63,1082,346,24,5,0,77,88,61,14,5
+6,Junín,63,1083,348,29,0,0,83,77,47,22,5
+6,Junín,63,1084,347,25,0,0,72,73,61,11,4
+6,Junín,63,1085,349,27,0,0,85,76,67,14,3
+6,Junín,63,1086,350,20,4,0,99,73,62,16,6
+6,Junín,63,1087,348,29,0,0,96,61,57,15,10
+6,Junín,63,1088,351,22,6,0,91,78,59,11,5
+6,Junín,63,1089,347,26,0,0,97,58,58,17,4
+6,Junín,63,1090,358,27,0,0,84,88,56,19,8
+6,Junín,63,1091,350,32,0,0,87,93,45,18,1
+6,Junín,63,1092,350,27,3,0,84,107,39,22,0
+6,Junín,63,1093,350,20,0,0,76,86,72,23,3
+6,Junín,63,1094,348,27,0,0,90,59,65,26,4
+6,Junín,63,1095,348,27,0,0,107,56,70,11,8
+6,Junín,63,1096,346,0,0,0,0,0,0,0,0
+6,Junín,63,1097,350,27,0,0,88,62,70,15,7
+6,Junín,64,1098,102,2,0,0,11,22,12,11,2
+6,Junín,65,1099,30,2,0,0,5,6,6,0,2
+6,Junín,66,1100,339,0,0,0,80,80,43,20,4
+6,Junín,66,1101,336,3,2,0,83,67,45,30,1
+6,Junín,66,1102,340,11,0,0,81,80,48,23,2
+6,Junín,67,1103,45,2,0,0,6,18,1,1,1
+6,Junín,68,1104,336,7,0,0,39,212,18,10,0
+6,Junín,69,1105,46,1,0,0,8,0,3,0,0
+6,Junín,72,1169,339,25,2,0,76,75,59,21,11
+6,Junín,72,1170,339,0,7,0,98,61,59,18,8
+6,Junín,72,1171,338,7,3,0,77,69,74,21,9
+6,Junín,72,1172,338,20,1,0,75,78,59,18,9
+6,Junín,72,1173,339,13,3,0,91,73,57,14,10
+6,Junín,72,1174,339,9,2,4,98,55,80,13,9
+6,Junín,72,1175,335,12,3,0,103,49,63,19,9
+6,Junín,72,1176,337,13,11,0,82,71,54,22,9
+6,Junín,72,1177,338,7,0,3,70,68,83,23,22
+6,Junín,72,1178,338,11,3,0,68,59,65,32,18
+6,Junín,73,1179,315,23,4,0,86,64,35,31,5
+6,Junín,73,1180,315,14,3,0,91,70,48,18,6
+6,Junín,73,1181,313,0,0,0,92,70,51,13,12
+6,Junín,73,1182,315,0,2,0,70,77,44,15,2
+6,Junín,73,1183,316,19,0,0,93,75,42,16,8
+6,Junín,74,1184,53,0,0,0,8,17,11,2,0
+6,Junín,7001,1106,335,13,1,0,89,70,48,23,2
+6,Junín,7001,1107,336,15,3,0,104,54,45,32,4
+6,Junín,7001,1108,336,12,2,0,108,54,46,21,7
+6,Junín,7001,1109,334,13,5,0,98,57,35,44,8
+6,Junín,7001,1110,335,20,3,0,91,56,54,23,8
+6,Junín,7001,1111,336,14,8,0,97,51,58,15,7
+6,Junín,7001,1112,337,24,3,1,91,52,69,34,5
+6,Junín,7001,1113,337,6,9,0,93,73,41,27,5
+6,Junín,7001,1114,336,5,4,0,90,59,53,38,13
+6,Junín,7001,1115,333,18,3,0,111,50,44,20,6
+6,Junín,7001,1116,335,17,2,0,110,45,57,23,3
+6,Junín,7001,1117,335,55,0,0,91,58,42,0,9
+6,Junín,7001,1118,334,14,9,0,82,55,66,28,4
+6,Junín,7001,1119,335,12,5,1,105,51,47,28,7
+6,Junín,7001,1120,337,26,6,0,90,52,58,24,5
+6,Junín,7002,1121,344,1,7,0,93,64,47,32,0
+6,Junín,7002,1122,344,11,7,0,104,66,37,33,0
+6,Junín,7002,1123,341,18,4,0,101,69,39,28,0
+6,Junín,7002,1124,341,25,3,0,88,65,51,24,1
+6,Junín,7002,1125,343,16,7,0,89,56,49,20,11
+6,Junín,7002,1126,341,15,6,0,87,57,60,30,6
+6,Junín,7002,1127,341,25,6,0,103,54,45,30,4
+6,Junín,7002,1128,342,9,8,0,93,58,60,24,6
+6,Junín,7002,1129,345,20,8,0,89,73,55,30,4
+6,Junín,7003,1130,347,10,3,0,83,68,63,20,11
+6,Junín,7003,1131,346,15,1,0,76,78,43,27,17
+6,Junín,7003,1132,344,8,4,0,75,76,50,36,6
+6,Junín,7003,1133,345,16,1,0,56,86,56,26,11
+6,Junín,7003,1134,346,17,0,0,82,65,61,23,14
+6,Junín,7003,1135,347,12,3,0,85,79,46,22,10
+6,Junín,7003,1136,348,1,5,0,81,85,48,32,8
+6,Junín,7004,1137,333,13,2,0,77,77,43,30,12
+6,Junín,7004,1138,332,17,2,0,75,65,54,24,9
+6,Junín,7004,1139,337,19,6,0,68,66,47,32,12
+6,Junín,7005,1140,331,13,1,0,87,63,58,20,6
+6,Junín,7005,1141,331,6,6,0,80,56,72,20,7
+6,Junín,7005,1142,331,0,0,0,71,50,59,18,6
+6,Junín,7005,1143,330,18,9,0,70,49,57,23,10
+6,Junín,7005,1144,329,8,8,0,79,45,67,15,10
+6,Junín,7005,1145,330,10,1,0,86,56,70,20,8
+6,Junín,7005,1146,331,19,2,0,77,59,70,18,4
+6,Junín,7005,1147,326,12,11,0,68,38,77,22,9
+6,Junín,7005,1148,331,6,9,0,82,57,70,18,13
+6,Junín,7005,1149,333,7,11,0,80,51,63,13,7
+6,Junín,7006,1150,324,16,4,0,93,46,72,22,4
+6,Junín,7006,1151,327,14,2,0,101,46,59,13,7
+6,Junín,7006,1152,325,13,5,0,84,48,75,13,11
+6,Junín,7006,1153,327,14,3,0,70,49,76,20,0
+6,Junín,7006,1154,325,14,7,0,89,52,68,16,8
+6,Junín,7006,1155,327,11,3,0,89,45,67,19,9
+6,Junín,7006,1156,323,13,1,0,92,48,62,17,9
+6,Junín,7006,1157,323,13,4,0,82,60,58,14,20
+6,Junín,7006,1158,336,12,4,0,80,51,63,11,8
+6,Junín,7007,1159,302,1,0,0,75,64,52,17,7
+6,Junín,7007,1160,303,5,3,0,70,42,68,20,6
+6,Junín,7007,1161,303,15,3,0,62,53,62,17,8
+6,Junín,7007,1162,302,6,4,0,77,50,61,13,11
+6,Junín,7007,1163,304,11,8,0,84,49,44,20,8
+6,Junín,7007,1164,301,15,6,0,71,45,53,12,12
+6,Junín,7007,1165,305,19,4,0,82,40,45,11,14
+6,Junín,7008,1166,305,16,7,0,72,65,50,15,8
+6,Junín,7008,1167,305,19,3,0,63,54,47,25,18
+6,Junín,7008,1168,305,7,6,0,73,59,52,26,4
+7,Ayacucho,75,1185,348,28,3,0,61,108,41,8,3
+7,Ayacucho,75,1186,348,20,8,0,59,93,41,18,4
+7,Ayacucho,75,1187,349,35,2,0,79,76,56,6,7
+7,Ayacucho,75,1188,349,34,3,0,70,81,47,14,8
+7,Ayacucho,75,1189,348,35,6,0,59,96,45,11,9
+7,Ayacucho,75,1190,352,39,4,0,85,89,48,8,6
+7,Ayacucho,75,1191,351,20,4,0,84,92,34,13,3
+7,Ayacucho,75,1192,355,25,4,0,77,105,36,11,3
+7,Ayacucho,75,1193,347,30,1,0,61,76,65,9,7
+7,Ayacucho,75,1194,348,22,5,0,76,90,50,7,3
+7,Ayacucho,75,1195,350,24,1,0,68,100,49,7,2
+7,Ayacucho,75,1196,346,35,6,0,64,91,41,9,12
+7,Ayacucho,75,1197,350,31,1,0,76,102,44,9,7
+7,Ayacucho,75,1198,348,1,1,0,79,65,52,9,6
+7,Ayacucho,76,1199,108,9,0,0,7,44,3,3,13
+7,Ayacucho,77,1200,5,0,0,0,1,1,2,0,0
+7,Ayacucho,78,1201,9,0,0,0,2,3,1,0,0
+7,Ayacucho,79,1202,23,0,0,0,4,6,2,0,0
+7,Ayacucho,80,1203,310,43,3,0,49,76,43,9,1
+7,Ayacucho,80,1204,313,27,2,0,50,94,47,3,6
+7,Ayacucho,81,1205,326,15,3,0,82,92,33,21,10
+7,Ayacucho,81,1206,325,20,0,0,75,75,43,14,1
+7,Ayacucho,81,1207,327,0,1,0,66,81,43,11,4
+7,Ayacucho,81,1208,328,11,5,0,65,94,49,11,4
+7,Ayacucho,81,1209,327,17,3,0,77,94,36,12,4
+7,Ayacucho,81,1210,327,22,0,0,79,80,50,7,6
+7,Ayacucho,81,1211,330,17,0,0,88,80,44,13,3
+7,Ayacucho,82,1212,349,19,1,0,103,0,37,9,1
+7,Ayacucho,82,1213,349,24,4,0,94,99,43,16,2
+7,Ayacucho,82,1214,349,28,3,0,93,92,35,11,2
+7,Ayacucho,82,1215,349,0,0,0,96,115,37,5,2
+7,Ayacucho,82,1216,349,22,5,0,72,118,39,17,1
+7,Ayacucho,82,1217,349,33,1,0,86,74,48,14,0
+7,Ayacucho,82,1218,351,42,0,0,85,89,47,8,3
+7,Ayacucho,82,1219,351,20,5,0,96,86,44,7,5
+7,Ayacucho,82,1220,349,26,6,0,89,94,51,5,3
+7,Ayacucho,82,1221,348,19,2,1,102,86,58,6,1
+7,Ayacucho,82,1222,350,17,3,0,88,85,52,14,4
+7,Ayacucho,82,1223,348,26,5,0,96,84,43,9,3
+7,Ayacucho,82,1224,347,18,9,0,88,92,47,11,1
+7,Ayacucho,82,1225,347,24,2,0,95,86,51,9,0
+7,Ayacucho,82,1226,345,34,3,0,97,98,36,9,1
+7,Ayacucho,82,1227,352,32,2,0,75,99,54,11,1
+7,Ayacucho,82,1228,346,30,1,1,78,93,45,15,2
+7,Ayacucho,82,1229,348,24,3,0,102,95,40,7,3
+7,Ayacucho,82,1230,349,20,4,0,105,76,48,8,8
+7,Ayacucho,82,1231,347,28,0,0,94,82,40,7,0
+7,Ayacucho,82,1232,346,34,3,0,100,83,49,13,1
+7,Ayacucho,82,1233,358,21,5,0,97,96,29,11,4
+7,Ayacucho,83,1234,334,30,0,0,70,103,43,7,5
+7,Ayacucho,83,1235,335,20,0,0,91,102,37,5,1
+7,Ayacucho,83,1236,331,24,0,0,92,101,37,10,1
+7,Ayacucho,83,1237,332,26,0,0,89,96,52,8,1
+7,Ayacucho,83,1238,333,22,0,0,91,96,47,9,1
+7,Ayacucho,83,1239,336,19,0,0,96,102,42,10,1
+7,Ayacucho,83,1240,334,18,3,0,85,110,34,14,1
+7,Ayacucho,83,1241,335,19,0,0,91,100,42,18,3
+7,Ayacucho,83,1242,336,35,0,0,79,112,31,11,5
+7,Ayacucho,83A,1243,10,1,0,1,1,0,1,0,0
+7,Ayacucho,84,1244,145,12,4,0,14,24,15,2,3
+7,Ayacucho,85,1245,48,3,0,0,16,8,4,1,0
+7,Ayacucho,86,1246,107,1,1,0,32,21,13,4,1
+7,Ayacucho,87,1247,45,0,0,0,6,8,8,6,0
+8,Belgrano,88,1248,206,0,0,0,0,0,0,0,0
+8,Belgrano,88,1249,210,16,2,0,47,72,23,2,2
+8,Belgrano,89,1250,34,0,0,0,0,0,0,0,0
+8,Belgrano,90,1251,84,1,0,0,10,43,2,2,0
+8,Belgrano,91,1252,55,7,1,0,18,9,9,1,1
+8,Belgrano,92,1253,289,17,0,0,61,50,74,9,4
+8,Belgrano,92,1254,292,27,2,0,59,75,61,11,2
+8,Belgrano,92,1255,289,26,3,0,61,61,60,8,3
+8,Belgrano,92,1256,295,17,0,0,72,59,58,7,3
+8,Belgrano,93A,1257,176,9,0,0,57,40,29,5,3
+8,Belgrano,93A,1258,175,9,0,0,57,34,21,6,4
+8,Belgrano,93B,1259,45,2,0,0,11,13,8,4,0
+8,Belgrano,94,1260,35,3,1,0,5,4,3,2,0
+8,Belgrano,95,1261,13,0,0,0,0,1,3,0,0
+8,Belgrano,96,1262,150,8,0,1,37,25,24,6,3
+8,Belgrano,97,1263,55,0,0,0,9,13,12,1,2
+8,Belgrano,98,1264,301,0,0,0,0,0,0,0,0
+8,Belgrano,98,1265,297,0,0,0,54,104,56,2,3
+8,Belgrano,98,1266,306,20,1,1,72,77,61,4,3
+8,Belgrano,99,1267,103,3,0,0,13,28,5,3,0
+8,Belgrano,100,1268,331,15,0,0,76,86,64,8,7
+8,Belgrano,100,1269,328,0,0,0,0,0,0,0,0
+8,Belgrano,100,1270,331,15,0,0,70,87,50,5,5
+8,Belgrano,100,1271,335,15,2,0,73,85,65,2,6
+9,Gobernador Dupuy,101,1272,332,32,1,0,109,61,51,7,4
+9,Gobernador Dupuy,101,1273,332,16,2,0,109,67,42,7,1
+9,Gobernador Dupuy,101,1274,333,14,4,0,102,100,35,7,2
+9,Gobernador Dupuy,101,1275,331,18,3,0,115,86,33,10,0
+9,Gobernador Dupuy,101,1276,337,20,2,0,115,87,32,4,4
+9,Gobernador Dupuy,101,1277,334,14,3,0,118,73,35,6,1
+9,Gobernador Dupuy,101,1278,333,23,3,0,90,79,43,6,2
+9,Gobernador Dupuy,101,1279,330,18,2,0,115,74,33,3,2
+9,Gobernador Dupuy,101,1280,330,18,1,0,135,71,26,2,3
+9,Gobernador Dupuy,101,1281,334,22,1,0,130,59,47,8,2
+9,Gobernador Dupuy,102,1282,210,20,0,0,44,61,32,4,4
+9,Gobernador Dupuy,102,1283,211,24,0,0,45,77,22,3,0
+9,Gobernador Dupuy,103,1284,30,2,0,0,2,15,3,0,0
+9,Gobernador Dupuy,104,1285,307,26,0,2,62,62,33,9,2
+9,Gobernador Dupuy,104,1286,309,20,0,0,67,62,25,4,3
+9,Gobernador Dupuy,105,1287,299,29,0,0,83,77,35,6,0
+9,Gobernador Dupuy,105,1288,300,0,0,0,88,77,44,5,0
+9,Gobernador Dupuy,105,1289,303,23,0,0,65,107,17,3,2
+9,Gobernador Dupuy,106,1290,261,23,0,0,86,51,30,5,3
+9,Gobernador Dupuy,107,1291,349,24,0,0,72,140,50,7,2
+9,Gobernador Dupuy,107,1292,348,13,0,0,113,103,42,7,2
+9,Gobernador Dupuy,107,1293,348,12,0,0,99,135,39,2,2
+9,Gobernador Dupuy,107,1294,350,17,0,0,88,122,36,11,3
+9,Gobernador Dupuy,108,1295,318,20,0,0,102,59,54,10,3
+9,Gobernador Dupuy,108,1296,315,11,0,0,85,61,68,5,6
+9,Gobernador Dupuy,108,1297,316,21,3,0,88,54,55,5,3
+9,Gobernador Dupuy,108,1298,319,28,4,1,68,67,42,6,2
+9,Gobernador Dupuy,108,1299,315,18,1,0,96,62,54,8,0
+9,Gobernador Dupuy,108,1300,316,29,2,0,80,50,64,6,3
+9,Gobernador Dupuy,108,1301,314,36,0,0,92,45,60,6,7
+9,Gobernador Dupuy,108,1302,321,36,1,0,89,50,56,7,0
+9,Gobernador Dupuy,109,1303,49,0,0,0,18,8,3,0,0
+9,Gobernador Dupuy,110,1304,324,27,0,0,73,60,91,4,2
+9,Gobernador Dupuy,110,1305,330,14,0,0,57,72,92,4,2
+9,Gobernador Dupuy,111,1306,245,11,1,0,62,73,41,0,7
+9,Gobernador Dupuy,111,1307,246,7,1,0,69,82,42,5,4
+9,Gobernador Dupuy,111,1308,248,8,0,0,56,101,27,2,1
+9,Gobernador Dupuy,112,1309,12,0,0,0,0,1,4,0,0
+9,Gobernador Dupuy,113,1310,307,15,0,0,54,36,117,3,0
+9,Gobernador Dupuy,114,1311,32,0,0,0,5,8,0,1,2

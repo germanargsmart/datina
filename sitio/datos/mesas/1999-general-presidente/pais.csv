@@ -1,0 +1,209 @@
+codigo_indec,provincia,lista,votos,electores,votantes,blancos,nulos
+02,CABA,De la Rúa - Álvarez,1077769,2534214,2059816,46622,29947
+02,CABA,Duhalde - Ortega,467068,2534214,2059816,46622,29947
+02,CABA,Cavallo - Caro Figueroa,322718,2534214,2059816,46622,29947
+02,CABA,Walsh - de Leonardi,32776,2534214,2059816,46622,29947
+02,CABA,Méndez - Pompei,29934,2534214,2059816,46622,29947
+02,CABA,Altamira - Rieznik,20220,2534214,2059816,46622,29947
+02,CABA,Quarracino - Rearte,14675,2534214,2059816,46622,29947
+02,CABA,Reyna - Moccia,7453,2534214,2059816,46622,29947
+02,CABA,Montes - Hernández,7265,2534214,2059816,46622,29947
+02,CABA,Mussa - Herrera,3369,2534214,2059816,46622,29947
+06,Buenos Aires,De la Rúa - Álvarez,3236791,9035493,7670818,335581,56616
+06,Buenos Aires,Duhalde - Ortega,3115966,9035493,7670818,335581,56616
+06,Buenos Aires,Cavallo - Caro Figueroa,670609,9035493,7670818,335581,56616
+06,Buenos Aires,Walsh - de Leonardi,65414,9035493,7670818,335581,56616
+06,Buenos Aires,Méndez - Pompei,54969,9035493,7670818,335581,56616
+06,Buenos Aires,Altamira - Rieznik,49750,9035493,7670818,335581,56616
+06,Buenos Aires,Reyna - Moccia,22663,9035493,7670818,335581,56616
+06,Buenos Aires,Montes - Hernández,21824,9035493,7670818,335581,56616
+06,Buenos Aires,Quarracino - Rearte,20825,9035493,7670818,335581,56616
+06,Buenos Aires,Mussa - Herrera,19810,9035493,7670818,335581,56616
+10,Catamarca,De la Rúa - Álvarez,80456,200064,162923,3134,1211
+10,Catamarca,Duhalde - Ortega,70144,200064,162923,3134,1211
+10,Catamarca,Cavallo - Caro Figueroa,5396,200064,162923,3134,1211
+10,Catamarca,Altamira - Rieznik,828,200064,162923,3134,1211
+10,Catamarca,Reyna - Moccia,706,200064,162923,3134,1211
+10,Catamarca,Méndez - Pompei,430,200064,162923,3134,1211
+10,Catamarca,Mussa - Herrera,329,200064,162923,3134,1211
+10,Catamarca,Walsh - de Leonardi,289,200064,162923,3134,1211
+14,Córdoba,De la Rúa - Álvarez,790103,2117355,1745769,51631,21111
+14,Córdoba,Duhalde - Ortega,672671,2117355,1745769,51631,21111
+14,Córdoba,Cavallo - Caro Figueroa,168365,2117355,1745769,51631,21111
+14,Córdoba,Walsh - de Leonardi,12279,2117355,1745769,51631,21111
+14,Córdoba,Altamira - Rieznik,9341,2117355,1745769,51631,21111
+14,Córdoba,Méndez - Pompei,8620,2117355,1745769,51631,21111
+14,Córdoba,Reyna - Moccia,4164,2117355,1745769,51631,21111
+14,Córdoba,Montes - Hernández,3178,2117355,1745769,51631,21111
+14,Córdoba,Mussa - Herrera,2392,2117355,1745769,51631,21111
+14,Córdoba,Quarracino - Rearte,1914,2117355,1745769,51631,21111
+18,Corrientes,De la Rúa - Álvarez,205831,574489,447856,8375,4161
+18,Corrientes,Duhalde - Ortega,187054,574489,447856,8375,4161
+18,Corrientes,Cavallo - Caro Figueroa,36891,574489,447856,8375,4161
+18,Corrientes,Reyna - Moccia,1684,574489,447856,8375,4161
+18,Corrientes,Méndez - Pompei,1015,574489,447856,8375,4161
+18,Corrientes,Walsh - de Leonardi,924,574489,447856,8375,4161
+18,Corrientes,Mussa - Herrera,690,574489,447856,8375,4161
+18,Corrientes,Altamira - Rieznik,685,574489,447856,8375,4161
+18,Corrientes,Montes - Hernández,546,574489,447856,8375,4161
+22,Chaco,De la Rúa - Álvarez,249780,600782,464765,6906,902
+22,Chaco,Duhalde - Ortega,175541,600782,464765,6906,902
+22,Chaco,Cavallo - Caro Figueroa,22974,600782,464765,6906,902
+22,Chaco,Walsh - de Leonardi,2330,600782,464765,6906,902
+22,Chaco,Méndez - Pompei,1872,600782,464765,6906,902
+22,Chaco,Mussa - Herrera,1520,600782,464765,6906,902
+22,Chaco,Reyna - Moccia,1352,600782,464765,6906,902
+22,Chaco,Montes - Hernández,813,600782,464765,6906,902
+22,Chaco,Altamira - Rieznik,775,600782,464765,6906,902
+26,Chubut,De la Rúa - Álvarez,104134,251093,203920,13932,3182
+26,Chubut,Duhalde - Ortega,56741,251093,203920,13932,3182
+26,Chubut,Cavallo - Caro Figueroa,21469,251093,203920,13932,3182
+26,Chubut,Méndez - Pompei,1270,251093,203920,13932,3182
+26,Chubut,Walsh - de Leonardi,1029,251093,203920,13932,3182
+26,Chubut,Altamira - Rieznik,779,251093,203920,13932,3182
+26,Chubut,Mussa - Herrera,744,251093,203920,13932,3182
+26,Chubut,Montes - Hernández,640,251093,203920,13932,3182
+30,Entre Ríos,De la Rúa - Álvarez,332142,778185,671814,21432,4318
+30,Entre Ríos,Duhalde - Ortega,263967,778185,671814,21432,4318
+30,Entre Ríos,Cavallo - Caro Figueroa,38055,778185,671814,21432,4318
+30,Entre Ríos,Walsh - de Leonardi,3144,778185,671814,21432,4318
+30,Entre Ríos,Méndez - Pompei,2370,778185,671814,21432,4318
+30,Entre Ríos,Mussa - Herrera,2217,778185,671814,21432,4318
+30,Entre Ríos,Altamira - Rieznik,1537,778185,671814,21432,4318
+30,Entre Ríos,Quarracino - Rearte,1400,778185,671814,21432,4318
+30,Entre Ríos,Montes - Hernández,1035,778185,671814,21432,4318
+30,Entre Ríos,Reyna - Moccia,197,778185,671814,21432,4318
+34,Formosa,Duhalde - Ortega,97359,275013,203118,2560,1237
+34,Formosa,De la Rúa - Álvarez,94147,275013,203118,2560,1237
+34,Formosa,Cavallo - Caro Figueroa,5168,275013,203118,2560,1237
+34,Formosa,Méndez - Pompei,897,275013,203118,2560,1237
+34,Formosa,Reyna - Moccia,819,275013,203118,2560,1237
+34,Formosa,Mussa - Herrera,487,275013,203118,2560,1237
+34,Formosa,Altamira - Rieznik,444,275013,203118,2560,1237
+38,Jujuy,De la Rúa - Álvarez,133504,342946,275869,11232,1737
+38,Jujuy,Duhalde - Ortega,116352,342946,275869,11232,1737
+38,Jujuy,Cavallo - Caro Figueroa,10941,342946,275869,11232,1737
+38,Jujuy,Walsh - de Leonardi,902,342946,275869,11232,1737
+38,Jujuy,Montes - Hernández,326,342946,275869,11232,1737
+38,Jujuy,Méndez - Pompei,285,342946,275869,11232,1737
+38,Jujuy,Reyna - Moccia,214,342946,275869,11232,1737
+38,Jujuy,Mussa - Herrera,196,342946,275869,11232,1737
+38,Jujuy,Altamira - Rieznik,180,342946,275869,11232,1737
+42,La Pampa,De la Rúa - Álvarez,90224,207255,182371,8414,1242
+42,La Pampa,Duhalde - Ortega,69397,207255,182371,8414,1242
+42,La Pampa,Cavallo - Caro Figueroa,9796,207255,182371,8414,1242
+42,La Pampa,Méndez - Pompei,833,207255,182371,8414,1242
+42,La Pampa,Walsh - de Leonardi,701,207255,182371,8414,1242
+42,La Pampa,Quarracino - Rearte,524,207255,182371,8414,1242
+42,La Pampa,Mussa - Herrera,473,207255,182371,8414,1242
+42,La Pampa,Altamira - Rieznik,467,207255,182371,8414,1242
+42,La Pampa,Reyna - Moccia,300,207255,182371,8414,1242
+46,La Rioja,Duhalde - Ortega,82590,172775,141223,2367,1493
+46,La Rioja,De la Rúa - Álvarez,44381,172775,141223,2367,1493
+46,La Rioja,Cavallo - Caro Figueroa,6376,172775,141223,2367,1493
+46,La Rioja,Walsh - de Leonardi,1386,172775,141223,2367,1493
+46,La Rioja,Mussa - Herrera,902,172775,141223,2367,1493
+46,La Rioja,Méndez - Pompei,698,172775,141223,2367,1493
+46,La Rioja,Altamira - Rieznik,619,172775,141223,2367,1493
+46,La Rioja,Reyna - Moccia,411,172775,141223,2367,1493
+50,Mendoza,De la Rúa - Álvarez,403535,1014291,851548,87527,9031
+50,Mendoza,Duhalde - Ortega,171435,1014291,851548,87527,9031
+50,Mendoza,Cavallo - Caro Figueroa,163554,1014291,851548,87527,9031
+50,Mendoza,Méndez - Pompei,5175,1014291,851548,87527,9031
+50,Mendoza,Walsh - de Leonardi,4857,1014291,851548,87527,9031
+50,Mendoza,Reyna - Moccia,2148,1014291,851548,87527,9031
+50,Mendoza,Altamira - Rieznik,1605,1014291,851548,87527,9031
+50,Mendoza,Montes - Hernández,1598,1014291,851548,87527,9031
+50,Mendoza,Mussa - Herrera,1083,1014291,851548,87527,9031
+54,Misiones,Duhalde - Ortega,198587,543432,426459,3714,2399
+54,Misiones,De la Rúa - Álvarez,189094,543432,426459,3714,2399
+54,Misiones,Cavallo - Caro Figueroa,21898,543432,426459,3714,2399
+54,Misiones,Mussa - Herrera,3481,543432,426459,3714,2399
+54,Misiones,Méndez - Pompei,2116,543432,426459,3714,2399
+54,Misiones,Walsh - de Leonardi,1801,543432,426459,3714,2399
+54,Misiones,Altamira - Rieznik,1748,543432,426459,3714,2399
+54,Misiones,Reyna - Moccia,1621,543432,426459,3714,2399
+58,Neuquén,De la Rúa - Álvarez,117683,282664,232010,2616,4735
+58,Neuquén,Duhalde - Ortega,63089,282664,232010,2616,4735
+58,Neuquén,Cavallo - Caro Figueroa,31667,282664,232010,2616,4735
+58,Neuquén,Méndez - Pompei,2606,282664,232010,2616,4735
+58,Neuquén,Altamira - Rieznik,2337,282664,232010,2616,4735
+58,Neuquén,Walsh - de Leonardi,2148,282664,232010,2616,4735
+58,Neuquén,Mussa - Herrera,1972,282664,232010,2616,4735
+58,Neuquén,Reyna - Moccia,1679,282664,232010,2616,4735
+58,Neuquén,Montes - Hernández,1478,282664,232010,2616,4735
+62,Río Negro,De la Rúa - Álvarez,147775,326335,268626,11357,4071
+62,Río Negro,Duhalde - Ortega,68922,326335,268626,11357,4071
+62,Río Negro,Cavallo - Caro Figueroa,27826,326335,268626,11357,4071
+62,Río Negro,Walsh - de Leonardi,2278,326335,268626,11357,4071
+62,Río Negro,Méndez - Pompei,2242,326335,268626,11357,4071
+62,Río Negro,Altamira - Rieznik,1581,326335,268626,11357,4071
+62,Río Negro,Reyna - Moccia,1481,326335,268626,11357,4071
+62,Río Negro,Mussa - Herrera,1093,326335,268626,11357,4071
+66,Salta,De la Rúa - Álvarez,217402,614000,466749,8042,4059
+66,Salta,Duhalde - Ortega,194705,614000,466749,8042,4059
+66,Salta,Cavallo - Caro Figueroa,32075,614000,466749,8042,4059
+66,Salta,Altamira - Rieznik,5028,614000,466749,8042,4059
+66,Salta,Méndez - Pompei,2457,614000,466749,8042,4059
+66,Salta,Mussa - Herrera,1948,614000,466749,8042,4059
+66,Salta,Reyna - Moccia,1033,614000,466749,8042,4059
+70,San Juan,De la Rúa - Álvarez,172452,386103,321112,4178,3948
+70,San Juan,Duhalde - Ortega,94007,386103,321112,4178,3948
+70,San Juan,Cavallo - Caro Figueroa,40853,386103,321112,4178,3948
+70,San Juan,Walsh - de Leonardi,1553,386103,321112,4178,3948
+70,San Juan,Mussa - Herrera,1187,386103,321112,4178,3948
+70,San Juan,Méndez - Pompei,1078,386103,321112,4178,3948
+70,San Juan,Montes - Hernández,684,386103,321112,4178,3948
+70,San Juan,Altamira - Rieznik,645,386103,321112,4178,3948
+70,San Juan,Reyna - Moccia,527,386103,321112,4178,3948
+74,San Luis,De la Rúa - Álvarez,102400,229352,186618,7172,1637
+74,San Luis,Duhalde - Ortega,54547,229352,186618,7172,1637
+74,San Luis,Cavallo - Caro Figueroa,16707,229352,186618,7172,1637
+74,San Luis,Mussa - Herrera,1192,229352,186618,7172,1637
+74,San Luis,Walsh - de Leonardi,910,229352,186618,7172,1637
+74,San Luis,Méndez - Pompei,775,229352,186618,7172,1637
+74,San Luis,Altamira - Rieznik,738,229352,186618,7172,1637
+74,San Luis,Reyna - Moccia,540,229352,186618,7172,1637
+78,Santa Cruz,De la Rúa - Álvarez,42629,113216,91769,1214,1676
+78,Santa Cruz,Duhalde - Ortega,36538,113216,91769,1214,1676
+78,Santa Cruz,Cavallo - Caro Figueroa,7845,113216,91769,1214,1676
+78,Santa Cruz,Altamira - Rieznik,671,113216,91769,1214,1676
+78,Santa Cruz,Méndez - Pomp,451,113216,91769,1214,1676
+78,Santa Cruz,Walsh - de Leonardi,379,113216,91769,1214,1676
+78,Santa Cruz,Mussa - Herrera,216,113216,91769,1214,1676
+78,Santa Cruz,Reyna - Moccia,150,113216,91769,1214,1676
+82,Santa Fe,De la Rúa - Álvarez,901300,2138698,1750546,43051,14157
+82,Santa Fe,Duhalde - Ortega,536184,2138698,1750546,43051,14157
+82,Santa Fe,Cavallo - Caro Figueroa,205869,2138698,1750546,43051,14157
+82,Santa Fe,Walsh - de Leonardi,13517,2138698,1750546,43051,14157
+82,Santa Fe,Altamira - Rieznik,10200,2138698,1750546,43051,14157
+82,Santa Fe,Méndez - Pompei,8315,2138698,1750546,43051,14157
+82,Santa Fe,Mussa - Herrera,5289,2138698,1750546,43051,14157
+82,Santa Fe,Reyna - Moccia,4953,2138698,1750546,43051,14157
+82,Santa Fe,Montes - Hernández,3902,2138698,1750546,43051,14157
+82,Santa Fe,Quarracino - Rearte,3809,2138698,1750546,43051,14157
+86,Santiago del Estero,Duhalde - Ortega,193333,483253,348991,6579,2080
+86,Santiago del Estero,De la Rúa - Álvarez,131869,483253,348991,6579,2080
+86,Santiago del Estero,Cavallo - Caro Figueroa,12253,483253,348991,6579,2080
+86,Santiago del Estero,Walsh - de Leonardi,927,483253,348991,6579,2080
+86,Santiago del Estero,Méndez - Pompei,590,483253,348991,6579,2080
+86,Santiago del Estero,Mussa - Herrera,590,483253,348991,6579,2080
+86,Santiago del Estero,Reyna - Moccia,399,483253,348991,6579,2080
+86,Santiago del Estero,Altamira - Rieznik,371,483253,348991,6579,2080
+90,Tucumán,De la Rúa - Álvarez,283802,826570,627480,20731,10673
+90,Tucumán,Duhalde - Ortega,250211,826570,627480,20731,10673
+90,Tucumán,Cavallo - Caro Figueroa,49532,826570,627480,20731,10673
+90,Tucumán,Altamira - Rieznik,3032,826570,627480,20731,10673
+90,Tucumán,Méndez - Pompei,2402,826570,627480,20731,10673
+90,Tucumán,Walsh - de Leonardi,2086,826570,627480,20731,10673
+90,Tucumán,Reyna - Moccia,1924,826570,627480,20731,10673
+90,Tucumán,Mussa - Herrera,1825,826570,627480,20731,10673
+90,Tucumán,Montes - Hernández,1262,826570,627480,20731,10673
+94,Tierra del Fuego,De la Rúa - Álvarez,18017,63692,47171,509,1138
+94,Tierra del Fuego,Duhalde - Ortega,17494,63692,47171,509,1138
+94,Tierra del Fuego,Cavallo - Caro Figueroa,8707,63692,47171,509,1138
+94,Tierra del Fuego,Méndez - Pompei,411,63692,47171,509,1138
+94,Tierra del Fuego,Walsh - de Leonardi,347,63692,47171,509,1138
+94,Tierra del Fuego,Altamira - Rieznik,335,63692,47171,509,1138
+94,Tierra del Fuego,Mussa - Herrera,138,63692,47171,509,1138
+94,Tierra del Fuego,Reyna - Moccia,75,63692,47171,509,1138

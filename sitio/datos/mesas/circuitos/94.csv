@@ -1,0 +1,548 @@
+eleccion,seccion_id,circuito,mesas,electores,votantes,positivos,primera,votos_primera,segunda,votos_segunda
+2011-general-diputados,1,,133,46188,32592,27738,Movimiento Popular Fueguino,9180,Alianza Frente para la Victoria,5778
+2011-general-presidente,1,,133,46188,32791,31531,Fernández de Kirchner - Boudou (Alianza Frente para la Victoria),19852,Binner - Morandini (Alianza Frente Amplio Progresista),4149
+2013-general-diputados,1,,178,52371,37003,31725,Frente para la Victoria,6844,Movimiento Popular Fueguino,6786
+2013-general-senadores,1,,178,52371,36957,31018,Movimiento Popular Fueguino,8906,Frente para la Victoria,7136
+2015-general-diputados,1,,184,54374,39836,32761,Alianza Frente para la Victoria,11511,Alianza Cambiemos Tierra del Fuego,7142
+2015-general-presidente,1,,184,54374,39890,38546,Scioli - Zannini (Alianza Frente para la Victoria),15622,Macri - Michetti (Alianza Cambiemos),10412
+2015-segunda-presidente,1,,187,55265,40664,39411,Scioli - Zannini (Frente para la Victoria),20855,Macri - Michetti (Cambiemos),18556
+2017-general-diputados,1,,200,58106,41957,40139,Cambiemos Tierra del Fuego,13801,Frente Ciudadano y Social,9427
+2019-general-diputados,1,,206,59698,44761,37488,Frente de Todos,13348,Juntos por el Cambio Tierra del Fuego,10730
+2019-general-presidente,1,,206,59698,44793,43388,Fernández - Fernández de Kirchner (Frente de Todos),22142,Macri - Pichetto (Juntos por el Cambio),13634
+2019-general-senadores,1,,206,59698,44834,39148,Frente de Todos,15134,Juntos por el Cambio Tierra del Fuego,10531
+2021-general-diputados,1,,213,62298,44824,42078,Frente de Todos,14748,Juntos por el Cambio Tierra del Fuego,13066
+2023-general-diputados,1,,225,64865,47302,43047,Republicanos Unidos,12747,Unión por la Patria,11931
+2023-general-presidente,1,,225,64865,47470,45879,Milei - Villarruel (La Libertad Avanza),15928,Massa - Rossi (Unión por la Patria),15353
+2023-segunda-presidente,1,,225,64553,46984,44954,Milei - Villarruel (La Libertad Avanza),25840,Massa - Rossi (Unión por la Patria),19114
+2025-general-diputados,1,,201,68415,46814,41767,Alianza La Libertad Avanza,18818,Fuerza Patria,13362
+2025-general-senadores,1,,201,68415,46782,43589,Alianza La Libertad Avanza,20349,Fuerza Patria,13742
+2011-general-diputados,1,1,17,5971,3925,3407,Movimiento Popular Fueguino,1150,Alianza Frente para la Victoria,650
+2011-general-presidente,1,1,17,5971,4008,3848,Fernández de Kirchner - Boudou (Alianza Frente para la Victoria),2308,Binner - Morandini (Alianza Frente Amplio Progresista),569
+2013-general-diputados,1,1,16,4654,3118,2674,Movimiento Popular Fueguino,612,Frente para la Victoria,602
+2013-general-senadores,1,1,16,4654,3124,2650,Movimiento Popular Fueguino,782,Frente para la Victoria,620
+2015-general-diputados,1,1,22,6338,4397,3631,Alianza Frente para la Victoria,1293,Alianza Cambiemos Tierra del Fuego,876
+2015-general-presidente,1,1,22,6338,4394,4253,Scioli - Zannini (Alianza Frente para la Victoria),1711,Macri - Michetti (Alianza Cambiemos),1272
+2015-segunda-presidente,1,1,22,6338,4431,4293,Scioli - Zannini (Frente para la Victoria),2218,Macri - Michetti (Cambiemos),2075
+2011-general-diputados,1,2,10,3470,2378,2022,Movimiento Popular Fueguino,730,Alianza Frente para la Victoria,417
+2011-general-presidente,1,2,10,3470,2378,2310,Fernández de Kirchner - Boudou (Alianza Frente para la Victoria),1399,Binner - Morandini (Alianza Frente Amplio Progresista),328
+2013-general-diputados,1,2,19,5468,3698,3154,Movimiento Popular Fueguino,719,Frente para la Victoria,685
+2013-general-senadores,1,2,19,5468,3684,3101,Movimiento Popular Fueguino,934,Frente para la Victoria,714
+2015-general-diputados,1,2,12,3512,2566,2114,Alianza Frente para la Victoria,678,Alianza Cambiemos Tierra del Fuego,475
+2015-general-presidente,1,2,12,3512,2506,2435,Scioli - Zannini (Alianza Frente para la Victoria),935,Macri - Michetti (Alianza Cambiemos),713
+2015-segunda-presidente,1,2,13,3805,2729,2646,Macri - Michetti (Cambiemos),1327,Scioli - Zannini (Frente para la Victoria),1319
+2011-general-diputados,1,3,19,6423,4498,3804,Movimiento Popular Fueguino,1269,Alianza Frente para la Victoria,798
+2011-general-presidente,1,3,19,6423,4499,4316,Fernández de Kirchner - Boudou (Alianza Frente para la Victoria),2687,Binner - Morandini (Alianza Frente Amplio Progresista),599
+2013-general-diputados,1,3,23,6873,4778,4042,Movimiento Popular Fueguino,886,Frente para la Victoria,879
+2013-general-senadores,1,3,23,6873,4776,4019,Movimiento Popular Fueguino,1211,Frente para la Victoria,909
+2015-general-diputados,1,3,23,6910,5031,4101,Alianza Frente para la Victoria,1412,Alianza Cambiemos Tierra del Fuego,805
+2015-general-presidente,1,3,23,6910,5026,4836,Scioli - Zannini (Alianza Frente para la Victoria),1962,Macri - Michetti (Alianza Cambiemos),1212
+2015-segunda-presidente,1,3,23,6910,5020,4857,Scioli - Zannini (Frente para la Victoria),2607,Macri - Michetti (Cambiemos),2250
+2011-general-diputados,1,4,28,9795,6845,5850,Movimiento Popular Fueguino,1790,Alianza Frente para la Victoria,1185
+2011-general-presidente,1,4,28,9795,6866,6583,Fernández de Kirchner - Boudou (Alianza Frente para la Victoria),4145,Binner - Morandini (Alianza Frente Amplio Progresista),809
+2013-general-diputados,1,4,38,11332,7897,6806,Frente para la Victoria,1414,Movimiento Popular Fueguino,1408
+2013-general-senadores,1,4,38,11332,7895,6535,Movimiento Popular Fueguino,1802,Frente para la Victoria,1468
+2015-general-diputados,1,4,39,11633,8488,6978,Alianza Frente para la Victoria,2381,Alianza Cambiemos Tierra del Fuego,1599
+2015-general-presidente,1,4,39,11633,8543,8250,Scioli - Zannini (Alianza Frente para la Victoria),3287,Macri - Michetti (Alianza Cambiemos),2256
+2015-segunda-presidente,1,4,40,11931,8738,8457,Scioli - Zannini (Frente para la Victoria),4394,Macri - Michetti (Cambiemos),4063
+2011-general-diputados,1,5,34,11896,8503,7215,Movimiento Popular Fueguino,2508,Alianza Frente para la Victoria,1528
+2011-general-presidente,1,5,34,11896,8564,8213,Fernández de Kirchner - Boudou (Alianza Frente para la Victoria),5134,Binner - Morandini (Alianza Frente Amplio Progresista),1182
+2013-general-diputados,1,5,46,13660,9863,8460,Movimiento Popular Fueguino,1862,Frente para la Victoria,1806
+2013-general-senadores,1,5,46,13660,9833,8339,Movimiento Popular Fueguino,2498,Frente para la Victoria,1898
+2015-general-diputados,1,5,48,14347,10571,8737,Alianza Frente para la Victoria,2899,Alianza Cambiemos Tierra del Fuego,1999
+2015-general-presidente,1,5,48,14347,10633,10292,Scioli - Zannini (Alianza Frente para la Victoria),3977,Macri - Michetti (Alianza Cambiemos),2966
+2015-segunda-presidente,1,5,49,14647,10954,10631,Scioli - Zannini (Frente para la Victoria),5482,Macri - Michetti (Cambiemos),5149
+2011-general-diputados,1,6,25,8633,6443,5440,Movimiento Popular Fueguino,1733,Alianza Frente para la Victoria,1200
+2011-general-presidente,1,6,25,8633,6476,6261,Fernández de Kirchner - Boudou (Alianza Frente para la Victoria),4179,Binner - Morandini (Alianza Frente Amplio Progresista),662
+2013-general-diputados,1,6,35,10294,7594,6540,Frente para la Victoria,1448,Movimiento Popular Fueguino,1292
+2013-general-senadores,1,6,35,10294,7590,6333,Movimiento Popular Fueguino,1672,Frente para la Victoria,1517
+2015-general-diputados,1,6,39,11533,8719,7142,Alianza Frente para la Victoria,2823,Alianza Cambiemos Tierra del Fuego,1379
+2015-general-presidente,1,6,39,11533,8724,8418,Scioli - Zannini (Alianza Frente para la Victoria),3721,Macri - Michetti (Alianza Cambiemos),1978
+2015-segunda-presidente,1,6,39,11533,8731,8468,Scioli - Zannini (Frente para la Victoria),4802,Macri - Michetti (Cambiemos),3666
+2013-general-diputados,1,7,1,90,55,49,Frente para la Victoria,10,Espacio Democrático para la Victoria,8
+2013-general-senadores,1,7,1,90,55,41,Frente para la Victoria,10,Espacio Democrático para la Victoria,8
+2015-general-diputados,1,7,1,101,64,58,Alianza Frente para la Victoria,25,Frente Renovador Auténtico,10
+2015-general-presidente,1,7,1,101,64,62,Scioli - Zannini (Alianza Frente para la Victoria),29,Macri - Michetti (Alianza Cambiemos),15
+2015-segunda-presidente,1,7,1,101,61,59,Scioli - Zannini (Frente para la Victoria),33,Macri - Michetti (Cambiemos),26
+2021-general-diputados,1,101,16,4780,3652,3429,Frente de Todos,1181,Juntos por el Cambio Tierra del Fuego,1092
+2023-general-diputados,1,101,19,5216,3958,3631,Unión por la Patria,1063,Republicanos Unidos,931
+2023-general-presidente,1,101,19,5216,3993,3807,Massa - Rossi (Unión por la Patria),1311,Milei - Villarruel (La Libertad Avanza),1187
+2023-segunda-presidente,1,101,19,5502,4159,3942,Milei - Villarruel (La Libertad Avanza),2199,Massa - Rossi (Unión por la Patria),1743
+2025-general-diputados,1,101,18,6124,4369,3929,Alianza La Libertad Avanza,1705,Fuerza Patria,1281
+2025-general-senadores,1,101,18,6124,4372,4053,Alianza La Libertad Avanza,1812,Fuerza Patria,1282
+2021-general-diputados,1,102,16,4577,3311,3097,Frente de Todos,1076,Juntos por el Cambio Tierra del Fuego,1000
+2023-general-diputados,1,102,17,4913,3641,3299,Unión por la Patria,882,Republicanos Unidos,854
+2023-general-presidente,1,102,17,4913,3639,3520,Massa - Rossi (Unión por la Patria),1168,Milei - Villarruel (La Libertad Avanza),1137
+2023-segunda-presidente,1,102,17,4914,3596,3441,Milei - Villarruel (La Libertad Avanza),1926,Massa - Rossi (Unión por la Patria),1515
+2025-general-diputados,1,102,15,5081,3549,3218,Alianza La Libertad Avanza,1410,Fuerza Patria,1032
+2025-general-senadores,1,102,15,5081,3568,3329,Alianza La Libertad Avanza,1527,Fuerza Patria,1057
+2021-general-diputados,1,103,21,6285,4605,4311,Frente de Todos,1562,Juntos por el Cambio Tierra del Fuego,1233
+2023-general-diputados,1,103,22,6573,4857,4400,Republicanos Unidos,1348,Unión por la Patria,1194
+2023-general-presidente,1,103,22,6573,4890,4730,Milei - Villarruel (La Libertad Avanza),1696,Massa - Rossi (Unión por la Patria),1578
+2023-segunda-presidente,1,103,22,5976,4449,4239,Milei - Villarruel (La Libertad Avanza),2451,Massa - Rossi (Unión por la Patria),1788
+2025-general-diputados,1,103,20,6916,4937,4352,Alianza La Libertad Avanza,1963,Fuerza Patria,1369
+2025-general-senadores,1,103,20,6916,4880,4523,Alianza La Libertad Avanza,2117,Fuerza Patria,1379
+2021-general-diputados,1,104,27,7982,5639,5334,Frente de Todos,1747,Juntos por el Cambio Tierra del Fuego,1723
+2023-general-diputados,1,104,27,7901,5736,5230,Republicanos Unidos,1578,Unión por la Patria,1383
+2023-general-presidente,1,104,27,7901,5729,5539,Milei - Villarruel (La Libertad Avanza),1969,Massa - Rossi (Unión por la Patria),1768
+2023-segunda-presidente,1,104,27,7904,5708,5451,Milei - Villarruel (La Libertad Avanza),3225,Massa - Rossi (Unión por la Patria),2226
+2025-general-diputados,1,104,23,7903,5382,4784,Alianza La Libertad Avanza,2191,Fuerza Patria,1539
+2025-general-senadores,1,104,23,7903,5391,5022,Alianza La Libertad Avanza,2402,Fuerza Patria,1580
+2021-general-diputados,1,105,24,7069,5191,4883,Juntos por el Cambio Tierra del Fuego,1800,Frente de Todos,1518
+2023-general-diputados,1,105,24,7100,5236,4796,Republicanos Unidos,1563,Unión por la Patria,1165
+2023-general-presidente,1,105,24,7100,5237,5088,Milei - Villarruel (La Libertad Avanza),1896,Massa - Rossi (Unión por la Patria),1544
+2023-segunda-presidente,1,105,24,7106,5231,5029,Milei - Villarruel (La Libertad Avanza),3065,Massa - Rossi (Unión por la Patria),1964
+2025-general-diputados,1,105,21,7138,4693,4196,Alianza La Libertad Avanza,2090,Fuerza Patria,1180
+2025-general-senadores,1,105,21,7138,4715,4386,Alianza La Libertad Avanza,2246,Fuerza Patria,1224
+2021-general-diputados,1,106,19,5659,3983,3703,Juntos por el Cambio Tierra del Fuego,1249,Frente de Todos,1222
+2023-general-diputados,1,106,19,5616,3976,3639,Unión por la Patria,1011,Republicanos Unidos,961
+2023-general-presidente,1,106,19,5616,4010,3866,Massa - Rossi (Unión por la Patria),1290,Milei - Villarruel (La Libertad Avanza),1205
+2023-segunda-presidente,1,106,19,5612,3987,3802,Milei - Villarruel (La Libertad Avanza),2142,Massa - Rossi (Unión por la Patria),1660
+2025-general-diputados,1,106,16,5558,3741,3359,Alianza La Libertad Avanza,1499,Fuerza Patria,1043
+2025-general-senadores,1,106,16,5558,3741,3494,Alianza La Libertad Avanza,1621,Fuerza Patria,1082
+2021-general-diputados,1,107,12,3580,2648,2466,Frente de Todos,995,Juntos por el Cambio Tierra del Fuego,601
+2023-general-diputados,1,107,14,3716,2818,2460,Republicanos Unidos,807,Unión por la Patria,746
+2023-general-presidente,1,107,14,3716,2784,2671,Milei - Villarruel (La Libertad Avanza),1012,Massa - Rossi (Unión por la Patria),958
+2023-segunda-presidente,1,107,14,4000,2983,2857,Milei - Villarruel (La Libertad Avanza),1631,Massa - Rossi (Unión por la Patria),1226
+2025-general-diputados,1,107,13,4244,3037,2622,Alianza La Libertad Avanza,1157,Fuerza Patria,848
+2025-general-senadores,1,107,13,4244,3051,2835,Alianza La Libertad Avanza,1300,Fuerza Patria,907
+2021-general-diputados,1,108,12,3380,2176,2070,Juntos por el Cambio Tierra del Fuego,851,Frente de Todos,581
+2023-general-diputados,1,108,12,3339,2177,2037,Republicanos Unidos,556,Unión por la Patria,498
+2023-general-presidente,1,108,12,3339,2185,2132,Milei - Villarruel (La Libertad Avanza),673,Massa - Rossi (Unión por la Patria),660
+2023-segunda-presidente,1,108,12,3336,2171,2087,Milei - Villarruel (La Libertad Avanza),1269,Massa - Rossi (Unión por la Patria),818
+2025-general-diputados,1,108,9,3126,1894,1689,Alianza La Libertad Avanza,862,Fuerza Patria,501
+2025-general-senadores,1,108,9,3126,1895,1781,Alianza La Libertad Avanza,931,Fuerza Patria,529
+2021-general-diputados,1,109,9,2674,1854,1749,Frente de Todos,664,Juntos por el Cambio Tierra del Fuego,542
+2023-general-diputados,1,109,10,2707,1942,1784,Unión por la Patria,542,Republicanos Unidos,441
+2023-general-presidente,1,109,10,2707,1952,1886,Massa - Rossi (Unión por la Patria),713,Milei - Villarruel (La Libertad Avanza),566
+2023-segunda-presidente,1,109,10,2707,1934,1851,Milei - Villarruel (La Libertad Avanza),987,Massa - Rossi (Unión por la Patria),864
+2025-general-diputados,1,109,8,2715,1785,1626,Alianza La Libertad Avanza,670,Fuerza Patria,579
+2025-general-senadores,1,109,8,2715,1804,1681,Alianza La Libertad Avanza,703,Fuerza Patria,584
+2021-general-diputados,1,110,9,2522,1739,1623,Frente de Todos,633,Juntos por el Cambio Tierra del Fuego,468
+2023-general-diputados,1,110,10,2720,1867,1725,Unión por la Patria,571,Republicanos Unidos,471
+2023-general-presidente,1,110,10,2720,1867,1816,Massa - Rossi (Unión por la Patria),699,Milei - Villarruel (La Libertad Avanza),566
+2023-segunda-presidente,1,110,10,2719,1871,1798,Milei - Villarruel (La Libertad Avanza),940,Massa - Rossi (Unión por la Patria),858
+2025-general-diputados,1,110,9,3022,1966,1796,Alianza La Libertad Avanza,737,Fuerza Patria,631
+2025-general-senadores,1,110,9,3022,1967,1860,Alianza La Libertad Avanza,786,Fuerza Patria,657
+2021-general-diputados,1,111,21,6166,4406,4108,Frente de Todos,1572,Juntos por el Cambio Tierra del Fuego,1085
+2023-general-diputados,1,111,22,6459,4717,4239,Republicanos Unidos,1414,Unión por la Patria,1162
+2023-general-presidente,1,111,22,6459,4749,4591,Milei - Villarruel (La Libertad Avanza),1749,Massa - Rossi (Unión por la Patria),1517
+2023-segunda-presidente,1,111,22,6170,4534,4355,Milei - Villarruel (La Libertad Avanza),2526,Massa - Rossi (Unión por la Patria),1829
+2025-general-diputados,1,111,20,6813,4660,4108,Alianza La Libertad Avanza,1827,Fuerza Patria,1313
+2025-general-senadores,1,111,20,6813,4654,4309,Alianza La Libertad Avanza,1977,Fuerza Patria,1394
+2021-general-diputados,1,112,12,3403,2644,2473,Frente de Todos,1000,Somos Fueguinos,618
+2023-general-diputados,1,112,14,4184,3237,2935,Republicanos Unidos,1001,Unión por la Patria,895
+2023-general-presidente,1,112,14,4184,3264,3163,Milei - Villarruel (La Libertad Avanza),1249,Massa - Rossi (Unión por la Patria),1130
+2023-segunda-presidente,1,112,14,4186,3241,3132,Milei - Villarruel (La Libertad Avanza),1784,Massa - Rossi (Unión por la Patria),1348
+2025-general-diputados,1,112,15,5204,3745,3311,Alianza La Libertad Avanza,1396,Fuerza Patria,1178
+2025-general-senadores,1,112,15,5204,3675,3422,Alianza La Libertad Avanza,1513,Fuerza Patria,1159
+2021-general-diputados,1,113,14,3957,2820,2681,Frente de Todos,951,Juntos por el Cambio Tierra del Fuego,840
+2023-general-diputados,1,113,14,4150,2981,2735,Republicanos Unidos,786,Unión por la Patria,772
+2023-general-presidente,1,113,14,4150,3012,2918,Milei - Villarruel (La Libertad Avanza),968,Massa - Rossi (Unión por la Patria),956
+2023-segunda-presidente,1,113,14,4150,2978,2832,Milei - Villarruel (La Libertad Avanza),1621,Massa - Rossi (Unión por la Patria),1211
+2025-general-diputados,1,113,13,4268,2906,2642,Alianza La Libertad Avanza,1250,Fuerza Patria,823
+2025-general-senadores,1,113,13,4268,2919,2754,Alianza La Libertad Avanza,1352,Fuerza Patria,861
+2023-general-diputados,1,114,1,271,159,137,Unión por la Patria,47,Republicanos Unidos,36
+2023-general-presidente,1,114,1,271,159,152,Massa - Rossi (Unión por la Patria),61,Milei - Villarruel (La Libertad Avanza),55
+2023-segunda-presidente,1,114,1,271,142,138,Milei - Villarruel (La Libertad Avanza),74,Massa - Rossi (Unión por la Patria),64
+2025-general-diputados,1,114,1,303,150,135,Alianza La Libertad Avanza,61,Fuerza Patria,45
+2025-general-senadores,1,114,1,303,150,140,Alianza La Libertad Avanza,62,Fuerza Patria,47
+2021-general-diputados,1,116,1,264,156,151,Juntos por el Cambio Tierra del Fuego,47,Frente de Todos,46
+2017-general-diputados,1,U001,12,3336,2583,2476,Cambiemos Tierra del Fuego,945,Frente Ciudadano y Social,498
+2017-general-diputados,1,U002,15,4291,3115,2981,Cambiemos Tierra del Fuego,1013,Frente Ciudadano y Social,681
+2017-general-diputados,1,U003,20,5918,4412,4218,Cambiemos Tierra del Fuego,1359,Frente Tierra de Unión,951
+2017-general-diputados,1,U004,27,7876,5572,5318,Cambiemos Tierra del Fuego,1900,Frente Ciudadano y Social,1248
+2017-general-diputados,1,U005,24,7060,5025,4814,Cambiemos Tierra del Fuego,1928,Frente Ciudadano y Social,1071
+2017-general-diputados,1,U006,20,5941,4233,4037,Cambiemos Tierra del Fuego,1432,Frente Ciudadano y Social,980
+2017-general-diputados,1,U007,11,3220,2368,2264,Frente Ciudadano y Social,596,Cambiemos Tierra del Fuego,592
+2017-general-diputados,1,U008,12,3364,2180,2083,Cambiemos Tierra del Fuego,899,Frente Ciudadano y Social,434
+2017-general-diputados,1,U009,9,2701,1882,1801,Cambiemos Tierra del Fuego,635,Frente Ciudadano y Social,404
+2017-general-diputados,1,U010,9,2454,1748,1672,Frente Ciudadano y Social,505,Cambiemos Tierra del Fuego,483
+2017-general-diputados,1,U011,21,6083,4456,4264,Cambiemos Tierra del Fuego,1278,Frente Ciudadano y Social,1063
+2017-general-diputados,1,U012,7,2097,1652,1588,Frente Ciudadano y Social,462,Cambiemos Tierra del Fuego,402
+2017-general-diputados,1,U013,12,3615,2647,2540,Cambiemos Tierra del Fuego,911,Frente Ciudadano y Social,615
+2017-general-diputados,1,U014,1,150,84,83,Frente Tierra de Unión,28,Cambiemos Tierra del Fuego,24
+2019-general-diputados,1,U1,15,4288,3409,2847,Frente de Todos,924,Juntos por el Cambio Tierra del Fuego,814
+2019-general-presidente,1,U1,15,4288,3407,3286,Fernández - Fernández de Kirchner (Frente de Todos),1561,Macri - Pichetto (Juntos por el Cambio),1070
+2019-general-senadores,1,U1,15,4288,3409,2980,Frente de Todos,1056,Juntos por el Cambio Tierra del Fuego,819
+2019-general-diputados,1,U10,10,2785,2029,1739,Frente de Todos,698,Juntos por el Cambio Tierra del Fuego,393
+2019-general-presidente,1,U10,10,2785,2048,1989,Fernández - Fernández de Kirchner (Frente de Todos),1138,Macri - Pichetto (Juntos por el Cambio),503
+2019-general-senadores,1,U10,10,2785,2047,1809,Frente de Todos,781,Juntos por el Cambio Tierra del Fuego,384
+2019-general-diputados,1,U11,21,6145,4640,3814,Frente de Todos,1534,Juntos por el Cambio Tierra del Fuego,937
+2019-general-presidente,1,U11,21,6145,4638,4493,Fernández - Fernández de Kirchner (Frente de Todos),2502,Macri - Pichetto (Juntos por el Cambio),1201
+2019-general-senadores,1,U11,21,6145,4640,3999,Frente de Todos,1778,Juntos por el Cambio Tierra del Fuego,914
+2019-general-diputados,1,U12,8,2175,1781,1489,Frente de Todos,678,Juntos por el Cambio Tierra del Fuego,304
+2019-general-presidente,1,U12,8,2175,1780,1708,Fernández - Fernández de Kirchner (Frente de Todos),999,Macri - Pichetto (Juntos por el Cambio),396
+2019-general-senadores,1,U12,8,2175,1781,1543,Frente de Todos,732,Juntos por el Cambio Tierra del Fuego,305
+2019-general-diputados,1,U13,13,3795,2888,2425,Frente de Todos,847,Juntos por el Cambio Tierra del Fuego,713
+2019-general-presidente,1,U13,13,3795,2887,2814,Fernández - Fernández de Kirchner (Frente de Todos),1388,Macri - Pichetto (Juntos por el Cambio),928
+2019-general-senadores,1,U13,13,3795,2878,2537,Frente de Todos,960,Juntos por el Cambio Tierra del Fuego,701
+2019-general-diputados,1,U14,1,143,130,106,Frente de Todos,35,Juntos por el Cambio Tierra del Fuego,33
+2019-general-presidente,1,U14,1,143,130,129,Fernández - Fernández de Kirchner (Frente de Todos),61,Macri - Pichetto (Juntos por el Cambio),40
+2019-general-senadores,1,U14,1,143,130,114,Frente de Todos,37,Juntos por el Cambio Tierra del Fuego,36
+2019-general-diputados,1,U2,15,4401,3304,2738,Frente de Todos,975,Juntos por el Cambio Tierra del Fuego,801
+2019-general-presidente,1,U2,15,4401,3304,3187,Fernández - Fernández de Kirchner (Frente de Todos),1612,Macri - Pichetto (Juntos por el Cambio),1032
+2019-general-senadores,1,U2,15,4401,3302,2882,Frente de Todos,1109,Juntos por el Cambio Tierra del Fuego,802
+2019-general-diputados,1,U3,19,5526,4254,3554,Frente de Todos,1319,Juntos por el Cambio Tierra del Fuego,896
+2019-general-presidente,1,U3,19,5526,4253,4128,Fernández - Fernández de Kirchner (Frente de Todos),2232,Macri - Pichetto (Juntos por el Cambio),1154
+2019-general-senadores,1,U3,19,5526,4241,3691,Frente de Todos,1472,Juntos por el Cambio Tierra del Fuego,877
+2019-general-diputados,1,U4,27,7966,5897,4931,Frente de Todos,1691,Juntos por el Cambio Tierra del Fuego,1502
+2019-general-presidente,1,U4,27,7966,5917,5742,Fernández - Fernández de Kirchner (Frente de Todos),2889,Macri - Pichetto (Juntos por el Cambio),1884
+2019-general-senadores,1,U4,27,7966,5931,5187,Frente de Todos,1997,Juntos por el Cambio Tierra del Fuego,1469
+2019-general-diputados,1,U5,24,7058,5193,4397,Juntos por el Cambio Tierra del Fuego,1527,Frente de Todos,1377
+2019-general-presidente,1,U5,24,7058,5193,5018,Fernández - Fernández de Kirchner (Frente de Todos),2288,Macri - Pichetto (Juntos por el Cambio),1901
+2019-general-senadores,1,U5,24,7058,5193,4553,Frente de Todos,1560,Juntos por el Cambio Tierra del Fuego,1446
+2019-general-diputados,1,U6,20,5953,4397,3691,Frente de Todos,1219,Juntos por el Cambio Tierra del Fuego,1096
+2019-general-presidente,1,U6,20,5953,4393,4256,Fernández - Fernández de Kirchner (Frente de Todos),2111,Macri - Pichetto (Juntos por el Cambio),1428
+2019-general-senadores,1,U6,20,5953,4394,3854,Frente de Todos,1389,Juntos por el Cambio Tierra del Fuego,1075
+2019-general-diputados,1,U7,12,3390,2587,2093,Frente de Todos,899,Juntos por el Cambio Tierra del Fuego,449
+2019-general-presidente,1,U7,12,3390,2592,2500,Fernández - Fernández de Kirchner (Frente de Todos),1444,Macri - Pichetto (Juntos por el Cambio),559
+2019-general-senadores,1,U7,12,3390,2596,2205,Frente de Todos,993,Juntos por el Cambio Tierra del Fuego,446
+2019-general-diputados,1,U8,12,3394,2317,2003,Juntos por el Cambio Tierra del Fuego,782,Frente de Todos,564
+2019-general-presidente,1,U8,12,3394,2317,2269,Fernández - Fernández de Kirchner (Frente de Todos),955,Macri - Pichetto (Juntos por el Cambio),937
+2019-general-senadores,1,U8,12,3394,2357,2077,Juntos por el Cambio Tierra del Fuego,780,Frente de Todos,635
+2019-general-diputados,1,U9,9,2679,1935,1661,Frente de Todos,588,Juntos por el Cambio Tierra del Fuego,483
+2019-general-presidente,1,U9,9,2679,1934,1869,Fernández - Fernández de Kirchner (Frente de Todos),962,Macri - Pichetto (Juntos por el Cambio),601
+2019-general-senadores,1,U9,9,2679,1935,1717,Frente de Todos,635,Juntos por el Cambio Tierra del Fuego,477
+2011-general-diputados,2,,155,53246,39280,32945,Alianza Frente para la Victoria,9111,Partido Justicialista,7824
+2011-general-presidente,2,,155,52895,39833,38567,Fernández de Kirchner - Boudou (Alianza Frente para la Victoria),28115,Alfonsín - González Fraga (Alianza Unión para el Desarrollo Social),3424
+2013-general-diputados,2,,217,63965,47908,42608,Frente para la Victoria,13465,Movimiento Solidario Popular,11180
+2013-general-senadores,2,,217,63965,47566,38382,Frente para la Victoria,16736,Movimiento Popular Fueguino,6646
+2015-general-diputados,2,,241,71125,54448,44427,Alianza Frente para la Victoria,20938,Frente Renovador Auténtico,8619
+2015-general-presidente,2,,241,71125,54627,52694,Scioli - Zannini (Alianza Frente para la Victoria),25932,Massa - Sáenz (Alianza Unidos por una Nueva Alternativa (UNA)),12837
+2015-segunda-presidente,2,,242,71426,54973,53231,Scioli - Zannini (Frente para la Victoria),33638,Macri - Michetti (Cambiemos),19593
+2017-general-diputados,2,,254,74397,55166,52329,Frente Ciudadano y Social,18340,Cambiemos Tierra del Fuego,13604
+2019-general-diputados,2,,238,69997,53847,44843,Frente de Todos,18425,Vamos Todos a Vivir Mejor,11473
+2019-general-presidente,2,,238,69997,53841,52131,Fernández - Fernández de Kirchner (Frente de Todos),32302,Macri - Pichetto (Juntos por el Cambio),11153
+2019-general-senadores,2,,238,69997,53708,46240,Frente de Todos,19961,Vamos Todos a Vivir Mejor,10949
+2021-general-diputados,2,,250,73881,53945,49416,Frente de Todos,21391,Juntos por el Cambio Tierra del Fuego,13340
+2023-general-diputados,2,,264,76168,57465,52153,Unión por la Patria,20698,Republicanos Unidos,15908
+2023-general-presidente,2,,264,76168,57732,55923,Massa - Rossi (Unión por la Patria),23712,Milei - Villarruel (La Libertad Avanza),17943
+2023-segunda-presidente,2,,264,74718,56311,53858,Massa - Rossi (Unión por la Patria),27266,Milei - Villarruel (La Libertad Avanza),26592
+2025-general-diputados,2,,233,78368,56692,50606,Alianza La Libertad Avanza,16668,Fuerza Patria,15387
+2025-general-senadores,2,,233,78368,56792,52831,Alianza La Libertad Avanza,17856,Fuerza Patria,15962
+2011-general-diputados,2,8,27,9375,7168,5939,Alianza Frente para la Victoria,1706,Partido Justicialista,1380
+2011-general-presidente,2,8,27,9375,7218,7010,Fernández de Kirchner - Boudou (Alianza Frente para la Victoria),5226,Alfonsín - González Fraga (Alianza Unión para el Desarrollo Social),604
+2013-general-diputados,2,8,43,12973,9775,8646,Frente para la Victoria,2852,Movimiento Solidario Popular,2291
+2013-general-senadores,2,8,43,12973,9690,7830,Frente para la Victoria,3550,Movimiento Popular Fueguino,1295
+2015-general-diputados,2,8,54,16008,12579,10029,Alianza Frente para la Victoria,4629,Frente Renovador Auténtico,2017
+2015-general-presidente,2,8,54,16008,12634,12159,Scioli - Zannini (Alianza Frente para la Victoria),5879,Massa - Sáenz (Alianza Unidos por una Nueva Alternativa (UNA)),3138
+2015-segunda-presidente,2,8,54,16008,12599,12194,Scioli - Zannini (Frente para la Victoria),7720,Macri - Michetti (Cambiemos),4474
+2017-general-diputados,2,8,59,17569,13327,12638,Frente Ciudadano y Social,4645,Cambiemos Tierra del Fuego,3158
+2019-general-diputados,2,8,59,17718,13855,11428,Frente de Todos,4441,Vamos Todos a Vivir Mejor,3129
+2019-general-presidente,2,8,59,17718,13806,13418,Fernández - Fernández de Kirchner (Frente de Todos),8284,Macri - Pichetto (Juntos por el Cambio),2720
+2019-general-senadores,2,8,59,17718,13803,11893,Frente de Todos,4963,Vamos Todos a Vivir Mejor,3017
+2021-general-diputados,2,8,65,19407,14259,13027,Frente de Todos,5569,Juntos por el Cambio Tierra del Fuego,3387
+2011-general-diputados,2,9,16,5328,4011,3311,Alianza Frente para la Victoria,884,Partido Justicialista,738
+2011-general-presidente,2,9,16,5328,4012,3890,Fernández de Kirchner - Boudou (Alianza Frente para la Victoria),2781,Alfonsín - González Fraga (Alianza Unión para el Desarrollo Social),342
+2013-general-diputados,2,9,22,6612,4978,4477,Frente para la Victoria,1360,Movimiento Solidario Popular,1212
+2013-general-senadores,2,9,22,6612,4969,3978,Frente para la Victoria,1742,Movimiento Popular Fueguino,774
+2015-general-diputados,2,9,24,7187,5388,4371,Alianza Frente para la Victoria,1938,Frente Renovador Auténtico,878
+2015-general-presidente,2,9,24,7187,5422,5285,Scioli - Zannini (Alianza Frente para la Victoria),2449,Massa - Sáenz (Alianza Unidos por una Nueva Alternativa (UNA)),1322
+2015-segunda-presidente,2,9,24,7187,5514,5298,Scioli - Zannini (Frente para la Victoria),3194,Macri - Michetti (Cambiemos),2104
+2017-general-diputados,2,9,25,7248,5309,5056,Frente Ciudadano y Social,1718,Cambiemos Tierra del Fuego,1481
+2019-general-diputados,2,9,23,6595,5036,4222,Frente de Todos,1610,Vamos Todos a Vivir Mejor,1088
+2019-general-presidente,2,9,23,6595,5040,4887,Fernández - Fernández de Kirchner (Frente de Todos),2858,Macri - Pichetto (Juntos por el Cambio),1205
+2019-general-senadores,2,9,23,6595,5048,4337,Frente de Todos,1752,Vamos Todos a Vivir Mejor,1016
+2021-general-diputados,2,9,23,6810,5017,4598,Frente de Todos,1820,Juntos por el Cambio Tierra del Fuego,1452
+2011-general-diputados,2,10,49,17159,12555,10620,Alianza Frente para la Victoria,2834,Partido Justicialista,2328
+2011-general-presidente,2,10,49,17159,13037,12659,Fernández de Kirchner - Boudou (Alianza Frente para la Victoria),8832,Binner - Morandini (Alianza Frente Amplio Progresista),1220
+2013-general-diputados,2,10,64,18984,14291,12719,Frente para la Victoria,3710,Movimiento Solidario Popular,3655
+2013-general-senadores,2,10,64,18984,14201,11409,Frente para la Victoria,4696,Movimiento Popular Fueguino,2048
+2015-general-diputados,2,10,63,18963,14506,11762,Alianza Frente para la Victoria,5133,Alianza Cambiemos Tierra del Fuego,2239
+2015-general-presidente,2,10,63,18963,14582,14102,Scioli - Zannini (Alianza Frente para la Victoria),6386,Massa - Sáenz (Alianza Unidos por una Nueva Alternativa (UNA)),3303
+2015-segunda-presidente,2,10,64,19264,14807,14379,Scioli - Zannini (Frente para la Victoria),8458,Macri - Michetti (Cambiemos),5921
+2017-general-diputados,2,10,64,18977,13923,13228,Frente Ciudadano y Social,4564,Cambiemos Tierra del Fuego,4044
+2019-general-diputados,2,10,63,18649,14284,11993,Frente de Todos,4224,Vamos Todos a Vivir Mejor,3186
+2019-general-presidente,2,10,63,18649,14256,13774,Fernández - Fernández de Kirchner (Frente de Todos),7970,Macri - Pichetto (Juntos por el Cambio),3489
+2019-general-senadores,2,10,63,18649,14241,12368,Frente de Todos,4707,Vamos Todos a Vivir Mejor,3008
+2021-general-diputados,2,10,63,18873,13749,12634,Frente de Todos,5296,Juntos por el Cambio Tierra del Fuego,3834
+2011-general-diputados,2,11,9,3110,1920,1646,Alianza Frente para la Victoria,392,Partido Justicialista,357
+2011-general-presidente,2,11,9,3110,1982,1924,Fernández de Kirchner - Boudou (Alianza Frente para la Victoria),1235,Binner - Morandini (Alianza Frente Amplio Progresista),220
+2013-general-diputados,2,11,11,3268,2081,1872,Frente para la Victoria,538,Movimiento Solidario Popular,443
+2013-general-senadores,2,11,11,3268,2086,1737,Frente para la Victoria,666,Movimiento Popular Fueguino,428
+2015-general-diputados,2,11,10,2987,1960,1660,Alianza Frente para la Victoria,688,Alianza Cambiemos Tierra del Fuego,360
+2015-general-presidente,2,11,10,2987,1961,1913,Scioli - Zannini (Alianza Frente para la Victoria),837,Massa - Sáenz (Alianza Unidos por una Nueva Alternativa (UNA)),487
+2015-segunda-presidente,2,11,10,2987,1974,1930,Scioli - Zannini (Frente para la Victoria),1099,Macri - Michetti (Cambiemos),831
+2017-general-diputados,2,11,10,2502,1647,1579,Cambiemos Tierra del Fuego,617,Frente Ciudadano y Social,493
+2019-general-diputados,2,11,10,2742,1892,1626,Frente de Todos,537,Juntos por el Cambio Tierra del Fuego,521
+2019-general-presidente,2,11,10,2742,1883,1838,Fernández - Fernández de Kirchner (Frente de Todos),918,Macri - Pichetto (Juntos por el Cambio),655
+2019-general-senadores,2,11,10,2742,1884,1646,Frente de Todos,559,Juntos por el Cambio Tierra del Fuego,524
+2021-general-diputados,2,11,10,2703,1766,1625,Juntos por el Cambio Tierra del Fuego,646,Frente de Todos,542
+2011-general-diputados,2,12,13,4577,3285,2832,Alianza Frente para la Victoria,760,Partido Justicialista,700
+2011-general-presidente,2,12,13,4577,3344,3190,Fernández de Kirchner - Boudou (Alianza Frente para la Victoria),2440,Alfonsín - González Fraga (Alianza Unión para el Desarrollo Social),306
+2013-general-diputados,2,12,17,4899,3653,3281,Frente para la Victoria,1125,Movimiento Solidario Popular,924
+2013-general-senadores,2,12,17,4899,3647,2898,Frente para la Victoria,1402,Movimiento Popular Fueguino,552
+2015-general-diputados,2,12,16,4573,3360,2765,Alianza Frente para la Victoria,1346,Frente Renovador Auténtico,528
+2015-general-presidente,2,12,16,4573,3371,3259,Scioli - Zannini (Alianza Frente para la Victoria),1699,Massa - Sáenz (Alianza Unidos por una Nueva Alternativa (UNA)),785
+2015-segunda-presidente,2,12,16,4573,3366,3269,Scioli - Zannini (Frente para la Victoria),2095,Macri - Michetti (Cambiemos),1174
+2017-general-diputados,2,12,15,4348,3106,2949,Frente Ciudadano y Social,1090,Frente Tierra de Unión,762
+2019-general-diputados,2,12,15,4256,3153,2624,Frente de Todos,1122,Vamos Todos a Vivir Mejor,637
+2019-general-presidente,2,12,15,4256,3173,3085,Fernández - Fernández de Kirchner (Frente de Todos),1894,Macri - Pichetto (Juntos por el Cambio),666
+2019-general-senadores,2,12,15,4256,3173,2748,Frente de Todos,1228,Vamos Todos a Vivir Mejor,634
+2021-general-diputados,2,12,14,4185,2982,2751,Frente de Todos,1178,Juntos por el Cambio Tierra del Fuego,753
+2011-general-diputados,2,13,21,7349,5453,4535,Alianza Frente para la Victoria,1302,Partido Justicialista,1070
+2011-general-presidente,2,13,21,6998,5339,5141,Fernández de Kirchner - Boudou (Alianza Frente para la Victoria),3871,Alfonsín - González Fraga (Alianza Unión para el Desarrollo Social),411
+2013-general-diputados,2,13,27,7957,5870,5196,Frente para la Victoria,1611,Movimiento Solidario Popular,1347
+2013-general-senadores,2,13,27,7957,5773,4579,Frente para la Victoria,1986,Movimiento Popular Fueguino,820
+2015-general-diputados,2,13,25,7479,5656,4615,Alianza Frente para la Victoria,2131,Frente Renovador Auténtico,926
+2015-general-presidente,2,13,25,7479,5656,5408,Scioli - Zannini (Alianza Frente para la Victoria),2627,Massa - Sáenz (Alianza Unidos por una Nueva Alternativa (UNA)),1402
+2015-segunda-presidente,2,13,25,7479,5587,5378,Scioli - Zannini (Frente para la Victoria),3454,Macri - Michetti (Cambiemos),1924
+2017-general-diputados,2,13,24,7213,5288,4970,Frente Ciudadano y Social,1805,Cambiemos Tierra del Fuego,1270
+2019-general-diputados,2,13,24,7113,5401,4485,Frente de Todos,1947,Vamos Todos a Vivir Mejor,1083
+2019-general-presidente,2,13,24,7113,5417,5191,Fernández - Fernández de Kirchner (Frente de Todos),3283,Macri - Pichetto (Juntos por el Cambio),1065
+2019-general-senadores,2,13,24,7113,5452,4659,Frente de Todos,2087,Vamos Todos a Vivir Mejor,1031
+2021-general-diputados,2,13,24,6968,5008,4579,Frente de Todos,1890,Juntos por el Cambio Tierra del Fuego,1243
+2011-general-diputados,2,14,11,3831,3083,2526,Partido Justicialista,833,Alianza Frente para la Victoria,687
+2011-general-presidente,2,14,11,3831,3098,2997,Fernández de Kirchner - Boudou (Alianza Frente para la Victoria),2502,Alfonsín - González Fraga (Alianza Unión para el Desarrollo Social),199
+2013-general-diputados,2,14,21,6139,4999,4370,Frente para la Victoria,1364,Movimiento Solidario Popular,1108
+2013-general-senadores,2,14,21,6139,4921,3931,Frente para la Victoria,1723,Partido Popular,732
+2015-general-diputados,2,14,33,9775,7900,6529,Alianza Frente para la Victoria,3645,Frente Renovador Auténtico,1217
+2015-general-presidente,2,14,33,9775,7893,7556,Scioli - Zannini (Alianza Frente para la Victoria),4434,Massa - Sáenz (Alianza Unidos por una Nueva Alternativa (UNA)),1713
+2015-segunda-presidente,2,14,33,9775,8002,7725,Scioli - Zannini (Frente para la Victoria),5713,Macri - Michetti (Cambiemos),2012
+2017-general-diputados,2,14,40,11828,9151,8633,Frente Ciudadano y Social,3377,Frente Tierra de Unión,2707
+2019-general-diputados,2,14,42,12612,9975,8242,Frente de Todos,4462,Vamos Todos a Vivir Mejor,1950
+2019-general-presidente,2,14,42,12612,10015,9689,Fernández - Fernández de Kirchner (Frente de Todos),6958,Macri - Pichetto (Juntos por el Cambio),1274
+2019-general-senadores,2,14,42,12612,9856,8357,Frente de Todos,4577,Vamos Todos a Vivir Mejor,1863
+2021-general-diputados,2,14,48,14244,10653,9739,Frente de Todos,4935,Juntos por el Cambio Tierra del Fuego,1815
+2011-general-diputados,2,15,1,316,216,179,Movimiento Popular Fueguino,46,Partido Justicialista,35
+2011-general-presidente,2,15,1,316,216,209,Fernández de Kirchner - Boudou (Alianza Frente para la Victoria),114,Binner - Morandini (Alianza Frente Amplio Progresista),39
+2013-general-diputados,2,15,1,323,226,205,Frente para la Victoria,64,Unión Federal,39
+2013-general-senadores,2,15,1,323,226,200,Frente para la Victoria,71,Unión Federal,40
+2015-general-diputados,2,15,2,403,270,221,Alianza Frente para la Victoria,91,Alianza Cambiemos Tierra del Fuego,62
+2015-general-presidente,2,15,2,403,270,262,Scioli - Zannini (Alianza Frente para la Victoria),112,Macri - Michetti (Alianza Cambiemos),82
+2015-segunda-presidente,2,15,2,403,286,283,Scioli - Zannini (Frente para la Victoria),156,Macri - Michetti (Cambiemos),127
+2017-general-diputados,2,15,2,463,338,326,Cambiemos Tierra del Fuego,131,Frente Ciudadano y Social,101
+2019-general-diputados,2,15,1,264,215,188,Frente de Todos,66,Juntos por el Cambio Tierra del Fuego,53
+2019-general-presidente,2,15,1,264,215,213,Fernández - Fernández de Kirchner (Frente de Todos),117,Macri - Pichetto (Juntos por el Cambio),63
+2019-general-senadores,2,15,1,264,215,198,Frente de Todos,73,Juntos por el Cambio Tierra del Fuego,54
+2021-general-diputados,2,15,2,635,478,435,Juntos por el Cambio Tierra del Fuego,190,Frente de Todos,158
+2011-general-diputados,2,16,1,63,39,38,Partido Justicialista,10,Alianza Frente para la Victoria,9
+2011-general-presidente,2,16,1,63,38,37,Fernández de Kirchner - Boudou (Alianza Frente para la Victoria),24,Binner - Morandini (Alianza Frente Amplio Progresista),10
+2013-general-diputados,2,16,1,54,33,29,Frente para la Victoria,9,Partido Popular,7
+2013-general-senadores,2,16,1,54,33,30,Frente para la Victoria,10,Partido Popular,10
+2015-general-diputados,2,16,1,48,33,32,Alianza Frente para la Victoria,14,Alianza Cambiemos Tierra del Fuego,9
+2015-general-presidente,2,16,1,48,33,33,Scioli - Zannini (Alianza Frente para la Victoria),16,Macri - Michetti (Alianza Cambiemos),11
+2015-segunda-presidente,2,16,1,48,33,33,Scioli - Zannini (Frente para la Victoria),18,Macri - Michetti (Cambiemos),15
+2017-general-diputados,2,16,1,46,27,27,Cambiemos Tierra del Fuego,13,Frente Ciudadano y Social,7
+2019-general-diputados,2,16,1,48,36,35,Frente de Todos,16,Juntos por el Cambio Tierra del Fuego,16
+2019-general-presidente,2,16,1,48,36,36,Fernández - Fernández de Kirchner (Frente de Todos),20,Macri - Pichetto (Juntos por el Cambio),16
+2019-general-senadores,2,16,1,48,36,34,Juntos por el Cambio Tierra del Fuego,16,Frente de Todos,15
+2021-general-diputados,2,16,1,56,33,28,Juntos por el Cambio Tierra del Fuego,20,Somos Fueguinos,5
+2011-general-diputados,2,21,7,2138,1550,1319,Alianza Frente para la Victoria,507,Partido Justicialista,373
+2011-general-presidente,2,21,7,2138,1549,1510,Fernández de Kirchner - Boudou (Alianza Frente para la Victoria),1090,Alfonsín - González Fraga (Alianza Unión para el Desarrollo Social),117
+2013-general-diputados,2,21,10,2756,2002,1813,Frente para la Victoria,832,Partido Popular,281
+2013-general-senadores,2,21,10,2756,2020,1790,Frente para la Victoria,890,Partido Popular,354
+2015-general-diputados,2,21,13,3702,2796,2443,Alianza Frente para la Victoria,1323,Frente Renovador Auténtico,505
+2015-general-presidente,2,21,13,3702,2805,2717,Scioli - Zannini (Alianza Frente para la Victoria),1493,Massa - Sáenz (Alianza Unidos por una Nueva Alternativa (UNA)),635
+2015-segunda-presidente,2,21,13,3702,2805,2742,Scioli - Zannini (Frente para la Victoria),1731,Macri - Michetti (Cambiemos),1011
+2017-general-diputados,2,21,14,4203,3050,2923,Frente Tierra de Unión,1357,Cambiemos Tierra del Fuego,749
+2023-general-diputados,2,201,6,1785,1374,1232,Unión por la Patria,496,Republicanos Unidos,413
+2023-general-presidente,2,201,6,1785,1426,1335,Massa - Rossi (Unión por la Patria),570,Milei - Villarruel (La Libertad Avanza),439
+2023-segunda-presidente,2,201,6,1784,1380,1327,Massa - Rossi (Unión por la Patria),667,Milei - Villarruel (La Libertad Avanza),660
+2025-general-diputados,2,201,5,1859,1371,1190,Fuerza Patria,400,Alianza La Libertad Avanza,385
+2025-general-senadores,2,201,5,1859,1373,1255,Fuerza Patria,425,Alianza La Libertad Avanza,409
+2023-general-diputados,2,203,25,7364,5628,5105,Unión por la Patria,2046,Republicanos Unidos,1576
+2023-general-presidente,2,203,25,7364,5743,5570,Massa - Rossi (Unión por la Patria),2453,Milei - Villarruel (La Libertad Avanza),1762
+2023-segunda-presidente,2,203,25,7071,5463,5228,Massa - Rossi (Unión por la Patria),2712,Milei - Villarruel (La Libertad Avanza),2516
+2025-general-diputados,2,203,20,6661,5049,4459,Fuerza Patria,1408,Alianza La Libertad Avanza,1316
+2025-general-senadores,2,203,20,6661,5043,4635,Alianza La Libertad Avanza,1470,Fuerza Patria,1440
+2023-general-diputados,2,204,8,2328,1842,1658,Unión por la Patria,613,Republicanos Unidos,537
+2023-general-presidente,2,204,8,2328,1833,1767,Massa - Rossi (Unión por la Patria),703,Milei - Villarruel (La Libertad Avanza),588
+2023-segunda-presidente,2,204,8,1745,1369,1311,Milei - Villarruel (La Libertad Avanza),694,Massa - Rossi (Unión por la Patria),617
+2025-general-diputados,2,204,11,3594,2681,2404,Alianza La Libertad Avanza,818,Fuerza Patria,726
+2025-general-senadores,2,204,11,3594,2681,2510,Alianza La Libertad Avanza,881,Fuerza Patria,731
+2023-general-diputados,2,205,7,1848,1359,1245,Unión por la Patria,432,Republicanos Unidos,406
+2023-general-presidente,2,205,7,1848,1359,1336,Massa - Rossi (Unión por la Patria),506,Milei - Villarruel (La Libertad Avanza),446
+2023-segunda-presidente,2,205,7,1847,1377,1323,Milei - Villarruel (La Libertad Avanza),709,Massa - Rossi (Unión por la Patria),614
+2025-general-diputados,2,205,6,1937,1322,1201,Alianza La Libertad Avanza,467,Fuerza Patria,342
+2025-general-senadores,2,205,6,1937,1327,1238,Alianza La Libertad Avanza,491,Fuerza Patria,344
+2023-general-diputados,2,206,26,7552,5663,5231,Unión por la Patria,2051,Republicanos Unidos,1607
+2023-general-presidente,2,206,26,7552,5643,5471,Massa - Rossi (Unión por la Patria),2302,Milei - Villarruel (La Libertad Avanza),1771
+2023-segunda-presidente,2,206,26,7269,5407,5189,Massa - Rossi (Unión por la Patria),2635,Milei - Villarruel (La Libertad Avanza),2554
+2025-general-diputados,2,206,22,7558,5430,4864,Alianza La Libertad Avanza,1682,Fuerza Patria,1477
+2025-general-senadores,2,206,22,7558,5462,5089,Alianza La Libertad Avanza,1798,Fuerza Patria,1535
+2023-general-diputados,2,207,15,4205,3063,2758,Unión por la Patria,1069,Republicanos Unidos,904
+2023-general-presidente,2,207,15,4205,3072,2980,Massa - Rossi (Unión por la Patria),1204,Milei - Villarruel (La Libertad Avanza),1007
+2023-segunda-presidente,2,207,15,4205,3050,2907,Milei - Villarruel (La Libertad Avanza),1503,Massa - Rossi (Unión por la Patria),1404
+2025-general-diputados,2,207,12,4080,2815,2508,Alianza La Libertad Avanza,872,Fuerza Patria,712
+2025-general-senadores,2,207,12,4080,2816,2620,Alianza La Libertad Avanza,959,Fuerza Patria,763
+2023-general-diputados,2,208,8,2275,1567,1417,Republicanos Unidos,438,Unión por la Patria,406
+2023-general-presidente,2,208,8,2275,1549,1512,Milei - Villarruel (La Libertad Avanza),512,Massa - Rossi (Unión por la Patria),475
+2023-segunda-presidente,2,208,8,2281,1573,1494,Milei - Villarruel (La Libertad Avanza),908,Massa - Rossi (Unión por la Patria),586
+2025-general-diputados,2,208,7,2279,1461,1340,Alianza La Libertad Avanza,608,Defendamos Tierra del Fuego,309
+2025-general-senadores,2,208,7,2279,1513,1385,Alianza La Libertad Avanza,650,Fuerza Patria,308
+2023-general-diputados,2,209,15,4239,2982,2778,Unión por la Patria,854,Republicanos Unidos,750
+2023-general-presidente,2,209,15,4239,2998,2927,Massa - Rossi (Unión por la Patria),1005,Milei - Villarruel (La Libertad Avanza),825
+2023-segunda-presidente,2,209,15,4235,2947,2804,Milei - Villarruel (La Libertad Avanza),1554,Massa - Rossi (Unión por la Patria),1250
+2025-general-diputados,2,209,13,4240,2812,2593,Alianza La Libertad Avanza,1076,Fuerza Patria,688
+2025-general-senadores,2,209,13,4240,2813,2647,Alianza La Libertad Avanza,1138,Fuerza Patria,670
+2023-general-diputados,2,210,14,3820,2939,2672,Unión por la Patria,1129,Republicanos Unidos,707
+2023-general-presidente,2,210,14,3820,2939,2850,Massa - Rossi (Unión por la Patria),1292,Milei - Villarruel (La Libertad Avanza),789
+2023-segunda-presidente,2,210,14,3813,2914,2802,Massa - Rossi (Unión por la Patria),1499,Milei - Villarruel (La Libertad Avanza),1303
+2025-general-diputados,2,210,12,4061,3020,2714,Fuerza Patria,890,Alianza La Libertad Avanza,808
+2025-general-senadores,2,210,12,4061,3013,2824,Fuerza Patria,912,Alianza La Libertad Avanza,856
+2023-general-diputados,2,211,39,11453,8585,7799,Unión por la Patria,3350,Republicanos Unidos,1939
+2023-general-presidente,2,211,39,11453,8652,8372,Massa - Rossi (Unión por la Patria),3863,Milei - Villarruel (La Libertad Avanza),2186
+2023-segunda-presidente,2,211,39,11452,8528,8133,Massa - Rossi (Unión por la Patria),4573,Milei - Villarruel (La Libertad Avanza),3560
+2025-general-diputados,2,211,33,11359,8195,7469,Fuerza Patria,2386,Alianza La Libertad Avanza,2209
+2025-general-senadores,2,211,33,11359,8209,7679,Fuerza Patria,2403,Alianza La Libertad Avanza,2301
+2023-general-diputados,2,212,10,2985,2254,2049,Unión por la Patria,761,Republicanos Unidos,570
+2023-general-presidente,2,212,10,2985,2254,2208,Massa - Rossi (Unión por la Patria),900,Milei - Villarruel (La Libertad Avanza),635
+2023-segunda-presidente,2,212,10,2989,2260,2155,Milei - Villarruel (La Libertad Avanza),1085,Massa - Rossi (Unión por la Patria),1070
+2025-general-diputados,2,212,9,3141,2307,2094,Alianza La Libertad Avanza,737,Fuerza Patria,614
+2025-general-senadores,2,212,9,3141,2301,2156,Alianza La Libertad Avanza,780,Fuerza Patria,630
+2023-general-diputados,2,214,33,9847,7339,6614,Unión por la Patria,2658,Republicanos Unidos,1926
+2023-general-presidente,2,214,33,9847,7441,7206,Massa - Rossi (Unión por la Patria),3066,Milei - Villarruel (La Libertad Avanza),2305
+2023-segunda-presidente,2,214,33,9848,7370,7032,Massa - Rossi (Unión por la Patria),3531,Milei - Villarruel (La Libertad Avanza),3501
+2025-general-diputados,2,214,29,9817,7028,6216,Alianza La Libertad Avanza,1948,Defendamos Tierra del Fuego,1873
+2025-general-senadores,2,214,29,9817,7056,6543,Alianza La Libertad Avanza,2076,Defendamos Tierra del Fuego,1937
+2023-general-diputados,2,215,8,2206,1775,1588,Unión por la Patria,654,Republicanos Unidos,563
+2023-general-presidente,2,215,8,2206,1775,1711,Massa - Rossi (Unión por la Patria),743,Milei - Villarruel (La Libertad Avanza),645
+2023-segunda-presidente,2,215,8,2206,1744,1665,Milei - Villarruel (La Libertad Avanza),841,Massa - Rossi (Unión por la Patria),824
+2025-general-diputados,2,215,7,2281,1689,1443,Alianza La Libertad Avanza,485,Fuerza Patria,442
+2025-general-senadores,2,215,7,2281,1687,1557,Alianza La Libertad Avanza,535,Fuerza Patria,482
+2023-general-diputados,2,216,7,2022,1569,1413,Unión por la Patria,589,Republicanos Unidos,497
+2023-general-presidente,2,216,7,2022,1569,1515,Massa - Rossi (Unión por la Patria),656,Milei - Villarruel (La Libertad Avanza),560
+2023-segunda-presidente,2,216,7,2022,1558,1488,Massa - Rossi (Unión por la Patria),770,Milei - Villarruel (La Libertad Avanza),718
+2025-general-diputados,2,216,7,2411,1780,1587,Alianza La Libertad Avanza,519,Fuerza Patria,504
+2025-general-senadores,2,216,7,2411,1772,1668,Alianza La Libertad Avanza,557,Fuerza Patria,529
+2023-general-diputados,2,217,5,1442,1136,1045,Unión por la Patria,419,Republicanos Unidos,403
+2023-general-presidente,2,217,5,1442,1062,1033,Milei - Villarruel (La Libertad Avanza),455,Massa - Rossi (Unión por la Patria),389
+2023-segunda-presidente,2,217,5,1444,1137,1108,Milei - Villarruel (La Libertad Avanza),565,Massa - Rossi (Unión por la Patria),543
+2025-general-diputados,2,217,5,1721,1246,1090,Alianza La Libertad Avanza,339,Fuerza Patria,338
+2025-general-senadores,2,217,5,1721,1244,1151,Alianza La Libertad Avanza,373,Fuerza Patria,354
+2023-general-diputados,2,218,8,2304,1789,1587,Unión por la Patria,674,Republicanos Unidos,571
+2023-general-presidente,2,218,8,2304,1789,1727,Massa - Rossi (Unión por la Patria),767,Milei - Villarruel (La Libertad Avanza),660
+2023-segunda-presidente,2,218,8,2303,1767,1689,Massa - Rossi (Unión por la Patria),853,Milei - Villarruel (La Libertad Avanza),836
+2025-general-diputados,2,218,6,2060,1556,1362,Alianza La Libertad Avanza,422,Fuerza Patria,422
+2025-general-senadores,2,218,6,2060,1559,1432,Alianza La Libertad Avanza,457,Fuerza Patria,454
+2023-general-diputados,2,219,26,7529,5822,5276,Unión por la Patria,2256,Republicanos Unidos,1917
+2023-general-presidente,2,219,26,7529,5849,5650,Massa - Rossi (Unión por la Patria),2530,Milei - Villarruel (La Libertad Avanza),2139
+2023-segunda-presidente,2,219,26,7238,5703,5470,Massa - Rossi (Unión por la Patria),2769,Milei - Villarruel (La Libertad Avanza),2701
+2025-general-diputados,2,219,23,7898,5837,5083,Fuerza Patria,1651,Alianza La Libertad Avanza,1625
+2025-general-senadores,2,219,23,7898,5830,5421,Fuerza Patria,1774,Alianza La Libertad Avanza,1764
+2023-general-diputados,2,220,3,914,744,654,Unión por la Patria,235,Republicanos Unidos,174
+2023-general-presidente,2,220,3,914,744,721,Massa - Rossi (Unión por la Patria),279,Milei - Villarruel (La Libertad Avanza),209
+2023-segunda-presidente,2,220,3,915,730,701,Milei - Villarruel (La Libertad Avanza),363,Massa - Rossi (Unión por la Patria),338
+2025-general-diputados,2,220,5,1365,1065,964,Alianza La Libertad Avanza,337,Fuerza Patria,281
+2025-general-senadores,2,220,5,1365,1065,996,Alianza La Libertad Avanza,349,Fuerza Patria,293
+2023-general-diputados,2,227,1,50,35,32,Republicanos Unidos,10,Juntos por el Cambio Tdf,9
+2023-general-presidente,2,227,1,50,35,32,Milei - Villarruel (La Libertad Avanza),10,Bullrich - Petri (Juntos por el Cambio),9
+2023-segunda-presidente,2,227,1,51,34,32,Milei - Villarruel (La Libertad Avanza),21,Massa - Rossi (Unión por la Patria),11
+2025-general-diputados,2,227,1,46,28,25,Alianza La Libertad Avanza,15,Fuerza Patria,4
+2025-general-senadores,2,227,1,46,28,25,Alianza La Libertad Avanza,12,Defendamos Tierra del Fuego,6
+2011-general-diputados,3,,6,194,190,138,Unión Popular,59,Movimiento Popular Fueguino,17
+2011-general-presidente,3,,6,194,190,186,Duhalde - Das Neves (Alianza Frente Popular),68,Rodríguez Saá - Vernet (Alianza Compromiso Federal),39
+2013-general-diputados,3,,9,99,97,96,Unión Cívica Radical,34,Unión Federal,17
+2013-general-senadores,3,,9,99,97,93,Unión Cívica Radical,34,Unión Federal,17
+2015-general-diputados,3,,6,281,154,142,Alianza Cambiemos Tierra del Fuego,88,Frente Renovador Auténtico,32
+2015-general-presidente,3,,6,281,155,155,Macri - Michetti (Alianza Cambiemos),98,Massa - Sáenz (Alianza Unidos por una Nueva Alternativa (UNA)),33
+2015-segunda-presidente,3,,6,384,220,219,Macri - Michetti (Cambiemos),183,Scioli - Zannini (Frente para la Victoria),36
+2017-general-diputados,3,,6,149,143,141,Cambiemos Tierra del Fuego,125,Federal Fueguino,4
+2019-general-diputados,3,,5,230,116,114,Juntos por el Cambio Tierra del Fuego,89,GEN,22
+2019-general-presidente,3,,5,230,159,114,Macri - Pichetto (Juntos por el Cambio),102,Fernández - Fernández de Kirchner (Frente de Todos),5
+2019-general-senadores,3,,5,230,116,114,Juntos por el Cambio Tierra del Fuego,75,GEN,36
+2021-general-diputados,3,,6,279,128,123,Juntos por el Cambio Tierra del Fuego,95,Somos Fueguinos,16
+2023-general-diputados,3,,1,285,201,165,Juntos por el Cambio Tdf,93,Republicanos Unidos,19
+2023-general-presidente,3,,1,285,201,199,Milei - Villarruel (La Libertad Avanza),137,Bullrich - Petri (Juntos por el Cambio),44
+2023-segunda-presidente,3,,1,292,196,191,Milei - Villarruel (La Libertad Avanza),173,Massa - Rossi (Unión por la Patria),18
+2025-general-diputados,3,,1,241,176,173,Alianza La Libertad Avanza,161,Frente Patriota Federal,3
+2025-general-senadores,3,,1,241,176,174,Alianza La Libertad Avanza,165,Frente Patriota Federal,2
+2011-general-diputados,3,22,1,18,18,11,Unión Popular,4,Unión Cívica Radical,2
+2011-general-presidente,3,22,1,18,18,18,Binner - Morandini (Alianza Frente Amplio Progresista),7,Duhalde - Das Neves (Alianza Frente Popular),4
+2013-general-diputados,3,22,1,20,11,11,Movimiento Popular Fueguino,2,Movimiento Solidario Popular,2
+2013-general-senadores,3,22,1,20,11,9,Movimiento Popular Fueguino,2,Unión Cívica Radical,2
+2015-general-diputados,3,22,1,34,19,17,Alianza Cambiemos Tierra del Fuego,13,Frente Renovador Auténtico,2
+2015-general-presidente,3,22,1,34,19,19,Macri - Michetti (Alianza Cambiemos),16,Massa - Sáenz (Alianza Unidos por una Nueva Alternativa (UNA)),2
+2015-segunda-presidente,3,22,1,34,19,19,Macri - Michetti (Cambiemos),19,,0
+2017-general-diputados,3,22,1,21,21,21,Cambiemos Tierra del Fuego,16,Federal Fueguino,3
+2019-general-diputados,3,22,1,31,21,21,Juntos por el Cambio Tierra del Fuego,21,,0
+2019-general-presidente,3,22,1,31,21,21,Macri - Pichetto (Juntos por el Cambio),19,Espert - Rosales (Unite por la Libertad y la Dignidad),2
+2019-general-senadores,3,22,1,31,21,21,Juntos por el Cambio Tierra del Fuego,21,,0
+2011-general-diputados,3,23,1,65,63,49,Unión Popular,23,Movimiento Popular Fueguino,10
+2011-general-presidente,3,23,1,65,63,63,Duhalde - Das Neves (Alianza Frente Popular),22,Rodríguez Saá - Vernet (Alianza Compromiso Federal),22
+2013-general-diputados,3,23,1,13,3,2,Movimiento Popular Fueguino,1,Unión Cívica Radical,1
+2013-general-senadores,3,23,1,13,3,2,Movimiento Popular Fueguino,1,Unión Cívica Radical,1
+2015-general-diputados,3,23,1,64,38,33,Alianza Cambiemos Tierra del Fuego,26,Frente Renovador Auténtico,6
+2015-general-presidente,3,23,1,64,38,38,Macri - Michetti (Alianza Cambiemos),29,Massa - Sáenz (Alianza Unidos por una Nueva Alternativa (UNA)),6
+2015-segunda-presidente,3,23,1,135,74,74,Macri - Michetti (Cambiemos),65,Scioli - Zannini (Frente para la Victoria),9
+2017-general-diputados,3,23,1,42,38,37,Cambiemos Tierra del Fuego,32,Frente Tierra de Unión,3
+2019-general-diputados,3,23,1,103,41,40,Juntos por el Cambio Tierra del Fuego,24,GEN,15
+2019-general-presidente,3,23,1,103,56,40,Macri - Pichetto (Juntos por el Cambio),36,Fernández - Fernández de Kirchner (Frente de Todos),3
+2019-general-senadores,3,23,1,103,41,40,GEN,26,Juntos por el Cambio Tierra del Fuego,13
+2011-general-diputados,3,24,1,42,42,36,Unión Popular,20,Partido Justicialista,6
+2011-general-presidente,3,24,1,42,42,42,Duhalde - Das Neves (Alianza Frente Popular),22,Fernández de Kirchner - Boudou (Alianza Frente para la Victoria),13
+2013-general-diputados,3,24,1,28,39,39,Unión Cívica Radical,15,Movimiento Popular Fueguino,10
+2013-general-senadores,3,24,1,28,39,38,Unión Cívica Radical,15,Movimiento Popular Fueguino,10
+2015-general-diputados,3,24,1,77,39,39,Alianza Cambiemos Tierra del Fuego,15,Frente Renovador Auténtico,12
+2015-general-presidente,3,24,1,77,39,39,Macri - Michetti (Alianza Cambiemos),15,Massa - Sáenz (Alianza Unidos por una Nueva Alternativa (UNA)),12
+2015-segunda-presidente,3,24,1,83,45,45,Macri - Michetti (Cambiemos),39,Scioli - Zannini (Frente para la Victoria),6
+2017-general-diputados,3,24,1,40,40,40,Cambiemos Tierra del Fuego,36,Frente Ciudadano y Social,2
+2011-general-diputados,3,25,1,32,31,18,Unión Popular,8,Coalición Cívica - Afirmación para una República Igualitaria ARI,2
+2011-general-presidente,3,25,1,32,31,31,Duhalde - Das Neves (Alianza Frente Popular),10,Rodríguez Saá - Vernet (Alianza Compromiso Federal),9
+2013-general-diputados,3,25,1,14,21,21,Unión Cívica Radical,15,Unión Federal,4
+2013-general-senadores,3,25,1,14,21,21,Unión Cívica Radical,15,Unión Federal,4
+2015-general-diputados,3,25,1,41,25,22,Alianza Cambiemos Tierra del Fuego,20,Alianza Frente para la Victoria,1
+2015-general-presidente,3,25,1,41,25,25,Macri - Michetti (Alianza Cambiemos),22,Del Caño - Bregman (Alianza Frente de Izquierda y de los Trabajadores),1
+2015-segunda-presidente,3,25,1,67,48,47,Macri - Michetti (Cambiemos),32,Scioli - Zannini (Frente para la Victoria),15
+2017-general-diputados,3,25,1,22,20,20,Cambiemos Tierra del Fuego,20,,0
+2019-general-diputados,3,25,1,34,23,22,Juntos por el Cambio Tierra del Fuego,21,Frente de Todos,1
+2019-general-presidente,3,25,1,34,45,22,Macri - Pichetto (Juntos por el Cambio),21,Fernández - Fernández de Kirchner (Frente de Todos),1
+2019-general-senadores,3,25,1,34,23,22,Juntos por el Cambio Tierra del Fuego,21,Frente de Todos,1
+2011-general-diputados,3,27,1,20,19,11,Unión Popular,3,Alianza Frente para la Victoria,2
+2011-general-presidente,3,27,1,20,19,16,Fernández de Kirchner - Boudou (Alianza Frente para la Victoria),8,Duhalde - Das Neves (Alianza Frente Popular),5
+2013-general-diputados,3,27,1,19,14,14,Frente para la Victoria,10,Unión Federal,2
+2013-general-senadores,3,27,1,19,14,14,Frente para la Victoria,10,Unión Federal,2
+2015-general-diputados,3,27,1,28,17,16,Alianza Cambiemos Tierra del Fuego,9,Alianza Frente para la Victoria,3
+2015-general-presidente,3,27,1,28,17,17,Macri - Michetti (Alianza Cambiemos),11,Massa - Sáenz (Alianza Unidos por una Nueva Alternativa (UNA)),3
+2015-segunda-presidente,3,27,1,28,17,17,Macri - Michetti (Cambiemos),14,Scioli - Zannini (Frente para la Victoria),3
+2017-general-diputados,3,27,1,22,22,21,Cambiemos Tierra del Fuego,21,,0
+2019-general-diputados,3,27,1,37,19,19,Juntos por el Cambio Tierra del Fuego,17,Frente de Todos,1
+2019-general-presidente,3,27,1,37,20,19,Macri - Pichetto (Juntos por el Cambio),17,Fernández - Fernández de Kirchner (Frente de Todos),1
+2019-general-senadores,3,27,1,37,19,19,Juntos por el Cambio Tierra del Fuego,15,GEN,3
+2011-general-diputados,3,28,1,17,17,13,Movimiento Popular Fueguino,3,Unión Cívica Radical,3
+2011-general-presidente,3,28,1,17,17,16,Duhalde - Das Neves (Alianza Frente Popular),5,Rodríguez Saá - Vernet (Alianza Compromiso Federal),4
+2013-general-diputados,3,28,1,5,9,9,Partido Justicialista,5,Movimiento Popular Fueguino,2
+2013-general-senadores,3,28,1,5,9,9,Partido Justicialista,5,Movimiento Popular Fueguino,2
+2015-general-diputados,3,28,1,37,16,15,Frente Renovador Auténtico,8,Alianza Cambiemos Tierra del Fuego,5
+2015-general-presidente,3,28,1,37,17,17,Massa - Sáenz (Alianza Unidos por una Nueva Alternativa (UNA)),9,Macri - Michetti (Alianza Cambiemos),5
+2015-segunda-presidente,3,28,1,37,17,17,Macri - Michetti (Cambiemos),14,Scioli - Zannini (Frente para la Victoria),3
+2017-general-diputados,3,28,1,2,2,2,Frente Ciudadano y Social,1,Obrero,1
+2019-general-diputados,3,28,1,25,12,12,GEN,6,Juntos por el Cambio Tierra del Fuego,6
+2019-general-presidente,3,28,1,25,17,12,Macri - Pichetto (Juntos por el Cambio),9,Espert - Rosales (Unite por la Libertad y la Dignidad),1
+2019-general-senadores,3,28,1,25,12,12,GEN,7,Juntos por el Cambio Tierra del Fuego,5
+2013-general-diputados,3,29,1,0,0,0,,0,,0
+2013-general-senadores,3,29,1,0,0,0,,0,,0
+2013-general-diputados,3,31,1,0,0,0,,0,,0
+2013-general-senadores,3,31,1,0,0,0,,0,,0
+2013-general-diputados,3,32,1,0,0,0,,0,,0
+2013-general-senadores,3,32,1,0,0,0,,0,,0
+2021-general-diputados,3,301,1,38,25,25,Juntos por el Cambio Tierra del Fuego,21,Obrero,3
+2021-general-diputados,3,302,1,60,4,4,Juntos por el Cambio Tierra del Fuego,3,Somos Fueguinos,1
+2021-general-diputados,3,303,1,74,39,38,Juntos por el Cambio Tierra del Fuego,34,Movimiento Popular Fueguino,1
+2023-general-diputados,3,303,1,285,201,165,Juntos por el Cambio Tdf,93,Republicanos Unidos,19
+2023-general-presidente,3,303,1,285,201,199,Milei - Villarruel (La Libertad Avanza),137,Bullrich - Petri (Juntos por el Cambio),44
+2023-segunda-presidente,3,303,1,292,196,191,Milei - Villarruel (La Libertad Avanza),173,Massa - Rossi (Unión por la Patria),18
+2025-general-diputados,3,303,1,241,176,173,Alianza La Libertad Avanza,161,Frente Patriota Federal,3
+2025-general-senadores,3,303,1,241,176,174,Alianza La Libertad Avanza,165,Frente Patriota Federal,2
+2021-general-diputados,3,304,1,36,25,22,Somos Fueguinos,10,Juntos por el Cambio Tierra del Fuego,8
+2021-general-diputados,3,306,1,46,20,19,Juntos por el Cambio Tierra del Fuego,14,Somos Fueguinos,4
+2021-general-diputados,3,307,1,25,15,15,Juntos por el Cambio Tierra del Fuego,15,,0
+2019-general-diputados,5,,15,4370,3315,2669,Frente de Todos,1183,Juntos por el Cambio Tierra del Fuego,631
+2019-general-presidente,5,,15,4370,3311,3170,Fernández - Fernández de Kirchner (Frente de Todos),1865,Macri - Pichetto (Juntos por el Cambio),784
+2019-general-senadores,5,,15,4370,3316,2849,Frente de Todos,1215,Juntos por el Cambio Tierra del Fuego,608
+2021-general-diputados,5,,18,5168,3573,3306,Frente de Todos,1519,Juntos por el Cambio Tierra del Fuego,953
+2023-general-diputados,5,,21,5780,4234,3882,Republicanos Unidos,1596,Unión por la Patria,1304
+2023-general-presidente,5,,21,5780,4249,4118,Milei - Villarruel (La Libertad Avanza),1883,Massa - Rossi (Unión por la Patria),1475
+2023-segunda-presidente,5,,21,5506,3995,3875,Milei - Villarruel (La Libertad Avanza),2227,Massa - Rossi (Unión por la Patria),1648
+2025-general-diputados,5,,18,6099,4195,3694,Alianza La Libertad Avanza,1462,Fuerza Patria,1080
+2025-general-senadores,5,,18,6099,4299,4020,Alianza La Libertad Avanza,1531,Defendamos Tierra del Fuego,1217
+2019-general-diputados,5,21,15,4370,3315,2669,Frente de Todos,1183,Juntos por el Cambio Tierra del Fuego,631
+2019-general-presidente,5,21,15,4370,3311,3170,Fernández - Fernández de Kirchner (Frente de Todos),1865,Macri - Pichetto (Juntos por el Cambio),784
+2019-general-senadores,5,21,15,4370,3316,2849,Frente de Todos,1215,Juntos por el Cambio Tierra del Fuego,608
+2021-general-diputados,5,21,18,5168,3573,3306,Frente de Todos,1519,Juntos por el Cambio Tierra del Fuego,953
+2023-general-diputados,5,501,21,5780,4234,3882,Republicanos Unidos,1596,Unión por la Patria,1304
+2023-general-presidente,5,501,21,5780,4249,4118,Milei - Villarruel (La Libertad Avanza),1883,Massa - Rossi (Unión por la Patria),1475
+2023-segunda-presidente,5,501,21,5506,3995,3875,Milei - Villarruel (La Libertad Avanza),2227,Massa - Rossi (Unión por la Patria),1648
+2025-general-diputados,5,501,18,6099,4195,3694,Alianza La Libertad Avanza,1462,Fuerza Patria,1080
+2025-general-senadores,5,501,18,6099,4299,4020,Alianza La Libertad Avanza,1531,Defendamos Tierra del Fuego,1217

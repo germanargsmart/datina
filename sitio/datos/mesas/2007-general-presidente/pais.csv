@@ -1,0 +1,322 @@
+codigo_indec,provincia,lista,votos,electores,votantes,blancos,nulos
+02,CABA,Carrió - Giustiniani,708323,2583026,1951252,49695,26338
+02,CABA,Fernández de Kirchner - Cobos,445936,2583026,1951252,49695,26338
+02,CABA,Lavagna - Morales,344896,2583026,1951252,49695,26338
+02,CABA,Rodríguez Saá - Maya,155886,2583026,1951252,49695,26338
+02,CABA,Solanas - Cadelli,75866,2583026,1951252,49695,26338
+02,CABA,López Murphy - Bullrich,74233,2583026,1951252,49695,26338
+02,CABA,Ripoll - Bidonde,26434,2583026,1951252,49695,26338
+02,CABA,Sobisch - Asís,14828,2583026,1951252,49695,26338
+02,CABA,Pitrola - Arroyos,10457,2583026,1951252,49695,26338
+02,CABA,Montes - Heberling,5598,2583026,1951252,49695,26338
+02,CABA,Ammann - Deleonardi,4428,2583026,1951252,49695,26338
+02,CABA,Castells - Pelozo,3515,2583026,1951252,49695,26338
+02,CABA,Breide Obeid - Vergara,3311,2583026,1951252,49695,26338
+02,CABA,Mussa - Nespral,1508,2583026,1951252,49695,26338
+06,Buenos Aires,Fernández de Kirchner - Cobos,3283391,10055351,7949130,721330,76273
+06,Buenos Aires,Carrió - Giustiniani,1862932,10055351,7949130,721330,76273
+06,Buenos Aires,Lavagna - Morales,978320,10055351,7949130,721330,76273
+06,Buenos Aires,Rodríguez Saá - Maya,455924,10055351,7949130,721330,76273
+06,Buenos Aires,Solanas - Cadelli,126009,10055351,7949130,721330,76273
+06,Buenos Aires,López Murphy - Bullrich,109394,10055351,7949130,721330,76273
+06,Buenos Aires,Sobisch - Asís,92389,10055351,7949130,721330,76273
+06,Buenos Aires,Ripoll - Bidonde,70260,10055351,7949130,721330,76273
+06,Buenos Aires,Pitrola - Arroyos,55901,10055351,7949130,721330,76273
+06,Buenos Aires,Montes - Heberling,41528,10055351,7949130,721330,76273
+06,Buenos Aires,Castells - Pelozo,26398,10055351,7949130,721330,76273
+06,Buenos Aires,Ammann - Deleonardi,25137,10055351,7949130,721330,76273
+06,Buenos Aires,Breide Obeid - Vergara,15930,10055351,7949130,721330,76273
+06,Buenos Aires,Mussa - Nespral,8014,10055351,7949130,721330,76273
+10,Catamarca,Fernández de Kirchner - Cobos,80733,241881,160709,7322,1754
+10,Catamarca,Lavagna - Morales,31303,241881,160709,7322,1754
+10,Catamarca,Carrió - Giustiniani,16380,241881,160709,7322,1754
+10,Catamarca,Rodríguez Saá - Maya,16225,241881,160709,7322,1754
+10,Catamarca,López Murphy - Bullrich,1936,241881,160709,7322,1754
+10,Catamarca,Sobisch - Asís,1178,241881,160709,7322,1754
+10,Catamarca,Pitrola - Arroyos,1052,241881,160709,7322,1754
+10,Catamarca,Ammann - Deleonardi,857,241881,160709,7322,1754
+10,Catamarca,Montes - Heberling,781,241881,160709,7322,1754
+10,Catamarca,Ripoll - Bidonde,599,241881,160709,7322,1754
+10,Catamarca,Breide Obeid - Vergara,532,241881,160709,7322,1754
+10,Catamarca,Castells - Pelozo,38,241881,160709,7322,1754
+10,Catamarca,Mussa - Nespral,19,241881,160709,7322,1754
+14,Córdoba,Lavagna - Morales,571792,2369662,1704949,60275,25212
+14,Córdoba,Fernández de Kirchner - Cobos,386155,2369662,1704949,60275,25212
+14,Córdoba,Carrió - Giustiniani,307738,2369662,1704949,60275,25212
+14,Córdoba,Rodríguez Saá - Maya,237896,2369662,1704949,60275,25212
+14,Córdoba,Solanas - Cadelli,29985,2369662,1704949,60275,25212
+14,Córdoba,Sobisch - Asís,26872,2369662,1704949,60275,25212
+14,Córdoba,López Murphy - Bullrich,13371,2369662,1704949,60275,25212
+14,Córdoba,Montes - Heberling,10143,2369662,1704949,60275,25212
+14,Córdoba,Castells - Pelozo,8407,2369662,1704949,60275,25212
+14,Córdoba,Ripoll - Bidonde,7770,2369662,1704949,60275,25212
+14,Córdoba,Pitrola - Arroyos,7734,2369662,1704949,60275,25212
+14,Córdoba,Ammann - Deleonardi,7032,2369662,1704949,60275,25212
+14,Córdoba,Breide Obeid - Vergara,4243,2369662,1704949,60275,25212
+14,Córdoba,Mussa - Nespral,324,2369662,1704949,60275,25212
+18,Corrientes,Fernández de Kirchner - Cobos,233078,658669,466907,29556,6713
+18,Corrientes,Carrió - Giustiniani,100478,658669,466907,29556,6713
+18,Corrientes,Lavagna - Morales,63095,658669,466907,29556,6713
+18,Corrientes,Rodríguez Saá - Maya,21799,658669,466907,29556,6713
+18,Corrientes,Sobisch - Asís,4162,658669,466907,29556,6713
+18,Corrientes,Ammann - Deleonardi,2674,658669,466907,29556,6713
+18,Corrientes,López Murphy - Bullrich,2038,658669,466907,29556,6713
+18,Corrientes,Solanas - Cadelli,925,658669,466907,29556,6713
+18,Corrientes,Breide Obeid - Vergara,825,658669,466907,29556,6713
+18,Corrientes,Pitrola - Arroyos,523,658669,466907,29556,6713
+18,Corrientes,Montes - Heberling,499,658669,466907,29556,6713
+18,Corrientes,Ripoll - Bidonde,485,658669,466907,29556,6713
+18,Corrientes,Castells - Pelozo,45,658669,466907,29556,6713
+18,Corrientes,Mussa - Nespral,12,658669,466907,29556,6713
+22,Chaco,Fernández de Kirchner - Cobos,244723,705792,510397,12811,3445
+22,Chaco,Lavagna - Morales,107527,705792,510397,12811,3445
+22,Chaco,Carrió - Giustiniani,104796,705792,510397,12811,3445
+22,Chaco,Rodríguez Saá - Maya,19938,705792,510397,12811,3445
+22,Chaco,Sobisch - Asís,3203,705792,510397,12811,3445
+22,Chaco,López Murphy - Bullrich,2672,705792,510397,12811,3445
+22,Chaco,Pitrola - Arroyos,2194,705792,510397,12811,3445
+22,Chaco,Montes - Heberling,2097,705792,510397,12811,3445
+22,Chaco,Castells - Pelozo,1852,705792,510397,12811,3445
+22,Chaco,Solanas - Cadelli,1512,705792,510397,12811,3445
+22,Chaco,Breide Obeid - Vergara,1310,705792,510397,12811,3445
+22,Chaco,Ammann - Deleonardi,1244,705792,510397,12811,3445
+22,Chaco,Ripoll - Bidonde,1023,705792,510397,12811,3445
+22,Chaco,Mussa - Nespral,50,705792,510397,12811,3445
+26,Chubut,Fernández de Kirchner - Cobos,156914,321970,247754,6750,4272
+26,Chubut,Carrió - Giustiniani,42896,321970,247754,6750,4272
+26,Chubut,Lavagna - Morales,22923,321970,247754,6750,4272
+26,Chubut,Rodríguez Saá - Maya,3957,321970,247754,6750,4272
+26,Chubut,Sobisch - Asís,2353,321970,247754,6750,4272
+26,Chubut,Ripoll - Bidonde,2107,321970,247754,6750,4272
+26,Chubut,López Murphy - Bullrich,2081,321970,247754,6750,4272
+26,Chubut,Pitrola - Arroyos,1409,321970,247754,6750,4272
+26,Chubut,Ammann - Deleonardi,932,321970,247754,6750,4272
+26,Chubut,Breide Obeid - Vergara,494,321970,247754,6750,4272
+26,Chubut,Montes - Heberling,449,321970,247754,6750,4272
+26,Chubut,Solanas - Cadelli,177,321970,247754,6750,4272
+26,Chubut,Castells - Pelozo,23,321970,247754,6750,4272
+26,Chubut,Mussa - Nespral,17,321970,247754,6750,4272
+30,Entre Ríos,Fernández de Kirchner - Cobos,294472,872040,673174,15575,10673
+30,Entre Ríos,Carrió - Giustiniani,127736,872040,673174,15575,10673
+30,Entre Ríos,Lavagna - Morales,113611,872040,673174,15575,10673
+30,Entre Ríos,Rodríguez Saá - Maya,67531,872040,673174,15575,10673
+30,Entre Ríos,López Murphy - Bullrich,10547,872040,673174,15575,10673
+30,Entre Ríos,Sobisch - Asís,7012,872040,673174,15575,10673
+30,Entre Ríos,Solanas - Cadelli,6351,872040,673174,15575,10673
+30,Entre Ríos,Breide Obeid - Vergara,6097,872040,673174,15575,10673
+30,Entre Ríos,Ammann - Deleonardi,4475,872040,673174,15575,10673
+30,Entre Ríos,Ripoll - Bidonde,4209,872040,673174,15575,10673
+30,Entre Ríos,Pitrola - Arroyos,2630,872040,673174,15575,10673
+30,Entre Ríos,Montes - Heberling,2255,872040,673174,15575,10673
+34,Formosa,Fernández de Kirchner - Cobos,162712,333356,236601,15114,2002
+34,Formosa,Lavagna - Morales,32093,333356,236601,15114,2002
+34,Formosa,Carrió - Giustiniani,17500,333356,236601,15114,2002
+34,Formosa,Rodríguez Saá - Maya,4058,333356,236601,15114,2002
+34,Formosa,Sobisch - Asís,637,333356,236601,15114,2002
+34,Formosa,Breide Obeid - Vergara,576,333356,236601,15114,2002
+34,Formosa,Ammann - Deleonardi,461,333356,236601,15114,2002
+34,Formosa,López Murphy - Bullrich,379,333356,236601,15114,2002
+34,Formosa,Montes - Heberling,284,333356,236601,15114,2002
+34,Formosa,Pitrola - Arroyos,273,333356,236601,15114,2002
+34,Formosa,Solanas - Cadelli,209,333356,236601,15114,2002
+34,Formosa,Ripoll - Bidonde,188,333356,236601,15114,2002
+34,Formosa,Mussa - Nespral,85,333356,236601,15114,2002
+34,Formosa,Castells - Pelozo,30,333356,236601,15114,2002
+38,Jujuy,Fernández de Kirchner - Cobos,168927,412807,310091,32051,5150
+38,Jujuy,Lavagna - Morales,72132,412807,310091,32051,5150
+38,Jujuy,Carrió - Giustiniani,16941,412807,310091,32051,5150
+38,Jujuy,Rodríguez Saá - Maya,5139,412807,310091,32051,5150
+38,Jujuy,Ripoll - Bidonde,2366,412807,310091,32051,5150
+38,Jujuy,Sobisch - Asís,2085,412807,310091,32051,5150
+38,Jujuy,Pitrola - Arroyos,1218,412807,310091,32051,5150
+38,Jujuy,Ammann - Deleonardi,1208,412807,310091,32051,5150
+38,Jujuy,Montes - Heberling,1023,412807,310091,32051,5150
+38,Jujuy,Breide Obeid - Vergara,977,412807,310091,32051,5150
+38,Jujuy,López Murphy - Bullrich,850,412807,310091,32051,5150
+38,Jujuy,Castells - Pelozo,10,412807,310091,32051,5150
+38,Jujuy,Mussa - Nespral,7,412807,310091,32051,5150
+38,Jujuy,Solanas - Cadelli,7,412807,310091,32051,5150
+42,La Pampa,Fernández de Kirchner - Cobos,76283,236104,192246,31554,2048
+42,La Pampa,Carrió - Giustiniani,31814,236104,192246,31554,2048
+42,La Pampa,Lavagna - Morales,21584,236104,192246,31554,2048
+42,La Pampa,Rodríguez Saá - Maya,19884,236104,192246,31554,2048
+42,La Pampa,López Murphy - Bullrich,2014,236104,192246,31554,2048
+42,La Pampa,Solanas - Cadelli,2003,236104,192246,31554,2048
+42,La Pampa,Ammann - Deleonardi,1603,236104,192246,31554,2048
+42,La Pampa,Sobisch - Asís,1232,236104,192246,31554,2048
+42,La Pampa,Montes - Heberling,731,236104,192246,31554,2048
+42,La Pampa,Pitrola - Arroyos,491,236104,192246,31554,2048
+42,La Pampa,Ripoll - Bidonde,478,236104,192246,31554,2048
+42,La Pampa,Breide Obeid - Vergara,281,236104,192246,31554,2048
+42,La Pampa,Castells - Pelozo,143,236104,192246,31554,2048
+42,La Pampa,Mussa - Nespral,103,236104,192246,31554,2048
+46,La Rioja,Fernández de Kirchner - Cobos,67980,211444,162320,21576,1413
+46,La Rioja,Rodríguez Saá - Maya,36045,211444,162320,21576,1413
+46,La Rioja,Lavagna - Morales,22008,211444,162320,21576,1413
+46,La Rioja,Carrió - Giustiniani,8454,211444,162320,21576,1413
+46,La Rioja,Ammann - Deleonardi,1513,211444,162320,21576,1413
+46,La Rioja,Montes - Heberling,1430,211444,162320,21576,1413
+46,La Rioja,Sobisch - Asís,763,211444,162320,21576,1413
+46,La Rioja,Solanas - Cadelli,379,211444,162320,21576,1413
+46,La Rioja,Ripoll - Bidonde,338,211444,162320,21576,1413
+46,La Rioja,Pitrola - Arroyos,257,211444,162320,21576,1413
+46,La Rioja,Breide Obeid - Vergara,164,211444,162320,21576,1413
+50,Mendoza,Fernández de Kirchner - Cobos,489922,1141694,892151,70321,17768
+50,Mendoza,Lavagna - Morales,147102,1141694,892151,70321,17768
+50,Mendoza,Carrió - Giustiniani,102903,1141694,892151,70321,17768
+50,Mendoza,Rodríguez Saá - Maya,33897,1141694,892151,70321,17768
+50,Mendoza,Sobisch - Asís,9863,1141694,892151,70321,17768
+50,Mendoza,López Murphy - Bullrich,6069,1141694,892151,70321,17768
+50,Mendoza,Ripoll - Bidonde,3733,1141694,892151,70321,17768
+50,Mendoza,Solanas - Cadelli,2726,1141694,892151,70321,17768
+50,Mendoza,Pitrola - Arroyos,2512,1141694,892151,70321,17768
+50,Mendoza,Montes - Heberling,2144,1141694,892151,70321,17768
+50,Mendoza,Ammann - Deleonardi,1903,1141694,892151,70321,17768
+50,Mendoza,Breide Obeid - Vergara,1274,1141694,892151,70321,17768
+50,Mendoza,Castells - Pelozo,13,1141694,892151,70321,17768
+50,Mendoza,Mussa - Nespral,1,1141694,892151,70321,17768
+54,Misiones,Fernández de Kirchner - Cobos,303227,663647,502188,56471,8003
+54,Misiones,Lavagna - Morales,67528,663647,502188,56471,8003
+54,Misiones,Carrió - Giustiniani,36103,663647,502188,56471,8003
+54,Misiones,Rodríguez Saá - Maya,23758,663647,502188,56471,8003
+54,Misiones,Sobisch - Asís,1517,663647,502188,56471,8003
+54,Misiones,Solanas - Cadelli,1142,663647,502188,56471,8003
+54,Misiones,Montes - Heberling,1017,663647,502188,56471,8003
+54,Misiones,López Murphy - Bullrich,1003,663647,502188,56471,8003
+54,Misiones,Ammann - Deleonardi,796,663647,502188,56471,8003
+54,Misiones,Pitrola - Arroyos,574,663647,502188,56471,8003
+54,Misiones,Ripoll - Bidonde,421,663647,502188,56471,8003
+54,Misiones,Breide Obeid - Vergara,309,663647,502188,56471,8003
+54,Misiones,Castells - Pelozo,173,663647,502188,56471,8003
+54,Misiones,Mussa - Nespral,146,663647,502188,56471,8003
+58,Neuquén,Fernández de Kirchner - Cobos,93307,365807,281457,24378,6200
+58,Neuquén,Carrió - Giustiniani,54940,365807,281457,24378,6200
+58,Neuquén,Sobisch - Asís,51282,365807,281457,24378,6200
+58,Neuquén,Lavagna - Morales,24873,365807,281457,24378,6200
+58,Neuquén,Rodríguez Saá - Maya,9000,365807,281457,24378,6200
+58,Neuquén,Solanas - Cadelli,5728,365807,281457,24378,6200
+58,Neuquén,López Murphy - Bullrich,3667,365807,281457,24378,6200
+58,Neuquén,Pitrola - Arroyos,1932,365807,281457,24378,6200
+58,Neuquén,Breide Obeid - Vergara,1889,365807,281457,24378,6200
+58,Neuquén,Ripoll - Bidonde,1781,365807,281457,24378,6200
+58,Neuquén,Montes - Heberling,1425,365807,281457,24378,6200
+58,Neuquén,Ammann - Deleonardi,1055,365807,281457,24378,6200
+62,Río Negro,Fernández de Kirchner - Cobos,159786,394084,295504,8451,5962
+62,Río Negro,Carrió - Giustiniani,49765,394084,295504,8451,5962
+62,Río Negro,Lavagna - Morales,33583,394084,295504,8451,5962
+62,Río Negro,Sobisch - Asís,12881,394084,295504,8451,5962
+62,Río Negro,Rodríguez Saá - Maya,9602,394084,295504,8451,5962
+62,Río Negro,Solanas - Cadelli,5719,394084,295504,8451,5962
+62,Río Negro,Pitrola - Arroyos,2348,394084,295504,8451,5962
+62,Río Negro,Montes - Heberling,2138,394084,295504,8451,5962
+62,Río Negro,Ammann - Deleonardi,1624,394084,295504,8451,5962
+62,Río Negro,Breide Obeid - Vergara,1389,394084,295504,8451,5962
+62,Río Negro,Ripoll - Bidonde,1155,394084,295504,8451,5962
+62,Río Negro,López Murphy - Bullrich,903,394084,295504,8451,5962
+62,Río Negro,Castells - Pelozo,126,394084,295504,8451,5962
+62,Río Negro,Mussa - Nespral,71,394084,295504,8451,5962
+66,Salta,Fernández de Kirchner - Cobos,379025,752812,543644,39013,4401
+66,Salta,Lavagna - Morales,61040,752812,543644,39013,4401
+66,Salta,Carrió - Giustiniani,33393,752812,543644,39013,4401
+66,Salta,Pitrola - Arroyos,7759,752812,543644,39013,4401
+66,Salta,Rodríguez Saá - Maya,7244,752812,543644,39013,4401
+66,Salta,Sobisch - Asís,3359,752812,543644,39013,4401
+66,Salta,López Murphy - Bullrich,2651,752812,543644,39013,4401
+66,Salta,Ammann - Deleonardi,1453,752812,543644,39013,4401
+66,Salta,Ripoll - Bidonde,1304,752812,543644,39013,4401
+66,Salta,Solanas - Cadelli,1267,752812,543644,39013,4401
+66,Salta,Montes - Heberling,807,752812,543644,39013,4401
+66,Salta,Castells - Pelozo,577,752812,543644,39013,4401
+66,Salta,Breide Obeid - Vergara,331,752812,543644,39013,4401
+66,Salta,Mussa - Nespral,20,752812,543644,39013,4401
+70,San Juan,Fernández de Kirchner - Cobos,178202,439045,318790,8747,4072
+70,San Juan,Lavagna - Morales,72193,439045,318790,8747,4072
+70,San Juan,Carrió - Giustiniani,25794,439045,318790,8747,4072
+70,San Juan,Rodríguez Saá - Maya,21115,439045,318790,8747,4072
+70,San Juan,López Murphy - Bullrich,2593,439045,318790,8747,4072
+70,San Juan,Sobisch - Asís,1591,439045,318790,8747,4072
+70,San Juan,Ripoll - Bidonde,1063,439045,318790,8747,4072
+70,San Juan,Solanas - Cadelli,988,439045,318790,8747,4072
+70,San Juan,Montes - Heberling,859,439045,318790,8747,4072
+70,San Juan,Pitrola - Arroyos,671,439045,318790,8747,4072
+70,San Juan,Ammann - Deleonardi,469,439045,318790,8747,4072
+70,San Juan,Breide Obeid - Vergara,433,439045,318790,8747,4072
+74,San Luis,Rodríguez Saá - Maya,146386,289359,222422,6331,1386
+74,San Luis,Fernández de Kirchner - Cobos,24944,289359,222422,6331,1386
+74,San Luis,Carrió - Giustiniani,24513,289359,222422,6331,1386
+74,San Luis,Lavagna - Morales,12530,289359,222422,6331,1386
+74,San Luis,López Murphy - Bullrich,1350,289359,222422,6331,1386
+74,San Luis,Solanas - Cadelli,1156,289359,222422,6331,1386
+74,San Luis,Sobisch - Asís,1069,289359,222422,6331,1386
+74,San Luis,Ammann - Deleonardi,736,289359,222422,6331,1386
+74,San Luis,Breide Obeid - Vergara,713,289359,222422,6331,1386
+74,San Luis,Ripoll - Bidonde,624,289359,222422,6331,1386
+74,San Luis,Pitrola - Arroyos,522,289359,222422,6331,1386
+74,San Luis,Montes - Heberling,90,289359,222422,6331,1386
+74,San Luis,Castells - Pelozo,50,289359,222422,6331,1386
+74,San Luis,Mussa - Nespral,22,289359,222422,6331,1386
+78,Santa Cruz,Fernández de Kirchner - Cobos,78629,160723,122580,6309,1410
+78,Santa Cruz,Carrió - Giustiniani,20374,160723,122580,6309,1410
+78,Santa Cruz,Lavagna - Morales,11966,160723,122580,6309,1410
+78,Santa Cruz,Rodríguez Saá - Maya,1926,160723,122580,6309,1410
+78,Santa Cruz,Pitrola - Arroyos,809,160723,122580,6309,1410
+78,Santa Cruz,Ripoll - Bidonde,529,160723,122580,6309,1410
+78,Santa Cruz,Sobisch - Asís,390,160723,122580,6309,1410
+78,Santa Cruz,Montes - Heberling,111,160723,122580,6309,1410
+78,Santa Cruz,Breide Obeid - Vergara,70,160723,122580,6309,1410
+78,Santa Cruz,Ammann - Deleonardi,17,160723,122580,6309,1410
+78,Santa Cruz,Mussa - Nespral,15,160723,122580,6309,1410
+78,Santa Cruz,Castells - Pelozo,15,160723,122580,6309,1410
+78,Santa Cruz,Solanas - Cadelli,9,160723,122580,6309,1410
+78,Santa Cruz,López Murphy - Bullrich,1,160723,122580,6309,1410
+82,Santa Fe,Fernández de Kirchner - Cobos,606361,2330010,1793007,71053,13826
+82,Santa Fe,Carrió - Giustiniani,582165,2330010,1793007,71053,13826
+82,Santa Fe,Lavagna - Morales,282702,2330010,1793007,71053,13826
+82,Santa Fe,Rodríguez Saá - Maya,131663,2330010,1793007,71053,13826
+82,Santa Fe,Solanas - Cadelli,36629,2330010,1793007,71053,13826
+82,Santa Fe,López Murphy - Bullrich,18215,2330010,1793007,71053,13826
+82,Santa Fe,Sobisch - Asís,16483,2330010,1793007,71053,13826
+82,Santa Fe,Ripoll - Bidonde,8784,2330010,1793007,71053,13826
+82,Santa Fe,Pitrola - Arroyos,7807,2330010,1793007,71053,13826
+82,Santa Fe,Ammann - Deleonardi,5789,2330010,1793007,71053,13826
+82,Santa Fe,Montes - Heberling,4896,2330010,1793007,71053,13826
+82,Santa Fe,Castells - Pelozo,4194,2330010,1793007,71053,13826
+82,Santa Fe,Breide Obeid - Vergara,2340,2330010,1793007,71053,13826
+82,Santa Fe,Mussa - Nespral,100,2330010,1793007,71053,13826
+86,Santiago del Estero,Fernández de Kirchner - Cobos,271156,559340,355134,11175,2790
+86,Santiago del Estero,Carrió - Giustiniani,30050,559340,355134,11175,2790
+86,Santiago del Estero,Lavagna - Morales,19890,559340,355134,11175,2790
+86,Santiago del Estero,Rodríguez Saá - Maya,6803,559340,355134,11175,2790
+86,Santiago del Estero,López Murphy - Bullrich,3638,559340,355134,11175,2790
+86,Santiago del Estero,Sobisch - Asís,3129,559340,355134,11175,2790
+86,Santiago del Estero,Ripoll - Bidonde,2730,559340,355134,11175,2790
+86,Santiago del Estero,Pitrola - Arroyos,1442,559340,355134,11175,2790
+86,Santiago del Estero,Montes - Heberling,898,559340,355134,11175,2790
+86,Santiago del Estero,Ammann - Deleonardi,789,559340,355134,11175,2790
+86,Santiago del Estero,Castells - Pelozo,643,559340,355134,11175,2790
+86,Santiago del Estero,Breide Obeid - Vergara,1,559340,355134,11175,2790
+90,Tucumán,Fernández de Kirchner - Cobos,434598,950861,724690,23150,8133
+90,Tucumán,Lavagna - Morales,108743,950861,724690,23150,8133
+90,Tucumán,Carrió - Giustiniani,82240,950861,724690,23150,8133
+90,Tucumán,Rodríguez Saá - Maya,21372,950861,724690,23150,8133
+90,Tucumán,López Murphy - Bullrich,13276,950861,724690,23150,8133
+90,Tucumán,Sobisch - Asís,9633,950861,724690,23150,8133
+90,Tucumán,Pitrola - Arroyos,5949,950861,724690,23150,8133
+90,Tucumán,Ripoll - Bidonde,3856,950861,724690,23150,8133
+90,Tucumán,Ammann - Deleonardi,3315,950861,724690,23150,8133
+90,Tucumán,Montes - Heberling,3291,950861,724690,23150,8133
+90,Tucumán,Solanas - Cadelli,2750,950861,724690,23150,8133
+90,Tucumán,Castells - Pelozo,2626,950861,724690,23150,8133
+90,Tucumán,Breide Obeid - Vergara,1714,950861,724690,23150,8133
+90,Tucumán,Mussa - Nespral,44,950861,724690,23150,8133
+94,Tierra del Fuego,Fernández de Kirchner - Cobos,31832,88052,62230,2003,1931
+94,Tierra del Fuego,Carrió - Giustiniani,15414,88052,62230,2003,1931
+94,Tierra del Fuego,Lavagna - Morales,6802,88052,62230,2003,1931
+94,Tierra del Fuego,Rodríguez Saá - Maya,2126,88052,62230,2003,1931
+94,Tierra del Fuego,López Murphy - Bullrich,525,88052,62230,2003,1931
+94,Tierra del Fuego,Sobisch - Asís,490,88052,62230,2003,1931
+94,Tierra del Fuego,Ripoll - Bidonde,291,88052,62230,2003,1931
+94,Tierra del Fuego,Ammann - Deleonardi,277,88052,62230,2003,1931
+94,Tierra del Fuego,Pitrola - Arroyos,224,88052,62230,2003,1931
+94,Tierra del Fuego,Montes - Heberling,200,88052,62230,2003,1931
+94,Tierra del Fuego,Breide Obeid - Vergara,115,88052,62230,2003,1931

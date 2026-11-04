@@ -1,0 +1,31 @@
+codigo_indec,provincia,lista,votos,mesas,electores,votantes,blancos,nulos,recurridos_impugnados
+06,Buenos Aires,Unión por la Patria,4032180,38074,12870010,10164979,913613,59140,12996
+06,Buenos Aires,Juntos por el Cambio,2426257,38074,12870010,10164979,913613,59140,12996
+06,Buenos Aires,La Libertad Avanza,2333297,38074,12870010,10164979,913613,59140,12996
+06,Buenos Aires,Frente de Izquierda y de Trabajadores - Unidad,387496,38074,12870010,10164979,913613,59140,12996
+34,Formosa,Unión por la Patria,181790,1484,477823,361540,24373,1733,262
+34,Formosa,La Libertad Avanza,101245,1484,477823,361540,24373,1733,262
+34,Formosa,Juntos por el Cambio,52137,1484,477823,361540,24373,1733,262
+38,Jujuy,Renovador Federal,151665,1825,584425,458725,55602,4116,320
+38,Jujuy,Unión por la Patria,121553,1825,584425,458725,55602,4116,320
+38,Jujuy,Cambia Jujuy,95923,1825,584425,458725,55602,4116,320
+38,Jujuy,Frente de Izquierda y de Trabajadores - Unidad,29546,1825,584425,458725,55602,4116,320
+46,La Rioja,Unión por la Patria,94524,955,301311,241045,16478,1550,109
+46,La Rioja,La Libertad Avanza,84254,955,301311,241045,16478,1550,109
+46,La Rioja,Juntos por el Cambio,26694,955,301311,241045,16478,1550,109
+46,La Rioja,Demócrata Cristiano,17436,955,301311,241045,16478,1550,109
+54,Misiones,Frente Renovador de la Concordia - Innovación Federal,250454,2879,984018,727045,337167,4740,338
+54,Misiones,Juntos por el Cambio,108796,2879,984018,727045,337167,4740,338
+54,Misiones,Partido Agrario y Social,25550,2879,984018,727045,337167,4740,338
+70,San Juan,La Libertad Avanza,146377,1810,577141,442293,38358,3663,443
+70,San Juan,Unión por la Patria,145615,1810,577141,442293,38358,3663,443
+70,San Juan,Juntos por el Cambio,107837,1810,577141,442293,38358,3663,443
+74,San Luis,La Libertad Avanza,124451,1311,416713,326608,23120,3268,343
+74,San Luis,Unión por San Luis,81542,1311,416713,326608,23120,3268,343
+74,San Luis,Juntos por el Cambio,69350,1311,416713,326608,23120,3268,343
+74,San Luis,Unión y Libertad,16276,1311,416713,326608,23120,3268,343
+74,San Luis,Frente de Izquierda y de Trabajadores - Unidad,8258,1311,416713,326608,23120,3268,343
+78,Santa Cruz,Por Santa Cruz,56188,911,256583,184480,57344,5046,269
+78,Santa Cruz,Unión por la Patria,43732,911,256583,184480,57344,5046,269
+78,Santa Cruz,Cambia Santa Cruz,17932,911,256583,184480,57344,5046,269
+78,Santa Cruz,Frente de Izquierda y de Trabajadores - Unidad,3969,911,256583,184480,57344,5046,269

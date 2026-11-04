@@ -1,0 +1,256 @@
+codigo_indec,provincia,lista,votos,electores,votantes,blancos,nulos
+02,CABA,Unión Cívica Radical,754002,2438267,1940627,54954,16817
+02,CABA,Alianza Frente Justicialista,542302,2438267,1940627,54954,16817
+02,CABA,Unión del Centro Democrático,161343,2438267,1940627,54954,16817
+02,CABA,Alianza Unidad Socialista,119380,2438267,1940627,54954,16817
+02,CABA,Alianza Frente de Justicia Social,69622,2438267,1940627,54954,16817
+02,CABA,Alianza Frente Popular,29661,2438267,1940627,54954,16817
+02,CABA,Verde Ecologista Pacifista,28350,2438267,1940627,54954,16817
+02,CABA,Movimiento al Socialismo,25397,2438267,1940627,54954,16817
+02,CABA,Fuerza Republicana,25072,2438267,1940627,54954,16817
+02,CABA,Vecinal,23075,2438267,1940627,54954,16817
+02,CABA,Comunista,22316,2438267,1940627,54954,16817
+02,CABA,Acción Popular,11163,2438267,1940627,54954,16817
+02,CABA,Federal,10811,2438267,1940627,54954,16817
+02,CABA,Obrero,8701,2438267,1940627,54954,16817
+02,CABA,Nacionalista Constitucional,8237,2438267,1940627,54954,16817
+02,CABA,Demócrata Cristiano,7720,2438267,1940627,54954,16817
+02,CABA,Demócrata,6375,2438267,1940627,54954,16817
+02,CABA,Movimiento de Integración y Desarrollo,5702,2438267,1940627,54954,16817
+02,CABA,Del Trabajo y del Pueblo,3697,2438267,1940627,54954,16817
+02,CABA,Unión Popular,3437,2438267,1940627,54954,16817
+02,CABA,Generación Intermedia,2493,2438267,1940627,54954,16817
+06,Buenos Aires,Alianza Frente Justicialista Federal,2625103,7662634,6317670,385371,50936
+06,Buenos Aires,Unión Cívica Radical,1359954,7662634,6317670,385371,50936
+06,Buenos Aires,Movimiento por la Dignidad y la Independencia,543375,7662634,6317670,385371,50936
+06,Buenos Aires,Unión del Centro Democrático,460868,7662634,6317670,385371,50936
+06,Buenos Aires,Alianza Frente por la Justicia Social,159561,7662634,6317670,385371,50936
+06,Buenos Aires,Alianza Frente Independiente,158559,7662634,6317670,385371,50936
+06,Buenos Aires,Movimiento al Socialismo,145381,7662634,6317670,385371,50936
+06,Buenos Aires,Acción Popular para la Liberación,138529,7662634,6317670,385371,50936
+06,Buenos Aires,Alianza Unidad Socialista - Demócrata Popular,122771,7662634,6317670,385371,50936
+06,Buenos Aires,Comunista de la Provincia de Buenos Aires,50482,7662634,6317670,385371,50936
+06,Buenos Aires,Alianza Frente de Voluntad Popular,40690,7662634,6317670,385371,50936
+06,Buenos Aires,Obrero,27675,7662634,6317670,385371,50936
+06,Buenos Aires,Unión Popular,14510,7662634,6317670,385371,50936
+06,Buenos Aires,Renovador de la Provincia,13362,7662634,6317670,385371,50936
+06,Buenos Aires,Demócrata Progresista,9945,7662634,6317670,385371,50936
+06,Buenos Aires,Nacionalista Constitucional,6361,7662634,6317670,385371,50936
+06,Buenos Aires,Movimiento Popular Bonaerense,4237,7662634,6317670,385371,50936
+10,Catamarca,Alianza Frente Cívico y Social,60103,161631,132670,4714,263
+10,Catamarca,Alianza Movimiento de Afirmación Popular,47066,161631,132670,4714,263
+10,Catamarca,Alianza Frente Esperanza Nueva Catamarca,18250,161631,132670,4714,263
+10,Catamarca,Fuerza Republicana,1225,161631,132670,4714,263
+10,Catamarca,Corriente Patria Libre,374,161631,132670,4714,263
+10,Catamarca,Movimiento al Socialismo,357,161631,132670,4714,263
+10,Catamarca,Comunista,318,161631,132670,4714,263
+14,Córdoba,Unión Cívica Radical,692316,1869405,1562206,77346,6208
+14,Córdoba,Alianza Unión de Fuerzas Sociales,515481,1869405,1562206,77346,6208
+14,Córdoba,Unión del Centro Democrático,121086,1869405,1562206,77346,6208
+14,Córdoba,Federal - Confederación Federalista Independiente,78828,1869405,1562206,77346,6208
+14,Córdoba,Alianza Convocatoria,20343,1869405,1562206,77346,6208
+14,Córdoba,Demócrata Cristiano,13964,1869405,1562206,77346,6208
+14,Córdoba,Alianza Frente Popular,8843,1869405,1562206,77346,6208
+14,Córdoba,Movimiento al Socialismo,7130,1869405,1562206,77346,6208
+14,Córdoba,Movimiento de Integración y Desarrollo,5618,1869405,1562206,77346,6208
+14,Córdoba,Comunista,4278,1869405,1562206,77346,6208
+14,Córdoba,Obrero,4200,1869405,1562206,77346,6208
+14,Córdoba,Social Republicano,3919,1869405,1562206,77346,6208
+14,Córdoba,Acción Popular,2646,1869405,1562206,77346,6208
+18,Corrientes,Alianza Pacto Autonomista Liberal - Demócrata Progresista,167276,503919,394416,6320,1998
+18,Corrientes,Justicialista,129047,503919,394416,6320,1998
+18,Corrientes,Unión Cívica Radical,57447,503919,394416,6320,1998
+18,Corrientes,Acción Correntina,14089,503919,394416,6320,1998
+18,Corrientes,Demócrata Cristiano,13958,503919,394416,6320,1998
+18,Corrientes,Alianza Frente Popular Correntino,1459,503919,394416,6320,1998
+18,Corrientes,Corriente Patria Libre,911,503919,394416,6320,1998
+18,Corrientes,Comunista,783,503919,394416,6320,1998
+18,Corrientes,Movimiento al Socialismo,652,503919,394416,6320,1998
+18,Corrientes,Alianza Convocatoria Abierta para las Bases,469,503919,394416,6320,1998
+18,Corrientes,Nacionalista Constitucional,7,503919,394416,6320,1998
+22,Chaco,Alianza Acción Chaqueña,149441,524643,402668,8324,973
+22,Chaco,Alianza Frente Justicialista Popular,144125,524643,402668,8324,973
+22,Chaco,Unión Cívica Radical,84209,524643,402668,8324,973
+22,Chaco,Alianza Frente por Trabajo y Producción,6127,524643,402668,8324,973
+22,Chaco,Alianza Convergencia Transformadora,4462,524643,402668,8324,973
+22,Chaco,Alianza Cabildo Abierto,2181,524643,402668,8324,973
+22,Chaco,Comunista,1786,524643,402668,8324,973
+22,Chaco,Obrero,1040,524643,402668,8324,973
+26,Chubut,Justicialista,65622,200258,154530,15893,0
+26,Chubut,Unión Cívica Radical,50569,200258,154530,15893,0
+26,Chubut,Acción Chubutense,11572,200258,154530,15893,0
+26,Chubut,Justicia Social,2868,200258,154530,15893,0
+26,Chubut,Alianza Provincial,2736,200258,154530,15893,0
+26,Chubut,Unión del Centro Democrático,1825,200258,154530,15893,0
+26,Chubut,Movimiento al Socialismo,1106,200258,154530,15893,0
+26,Chubut,Alianza Unidad Popular,1101,200258,154530,15893,0
+26,Chubut,Comunista,721,200258,154530,15893,0
+26,Chubut,Del Trabajo y del Pueblo,517,200258,154530,15893,0
+30,Entre Ríos,Alianza Frente Justicialista Entrerriano,270067,684070,581512,33533,2245
+30,Entre Ríos,Unión Cívica Radical,241186,684070,581512,33533,2245
+30,Entre Ríos,Alianza Unión Provincial,23126,684070,581512,33533,2245
+30,Entre Ríos,Socialista Popular,7692,684070,581512,33533,2245
+30,Entre Ríos,Intransigente,3663,684070,581512,33533,2245
+34,Formosa,Alianza Frente de la Victoria Justicialista,72539,219349,171091,6529,953
+34,Formosa,Unión Cívica Radical,55579,219349,171091,6529,953
+34,Formosa,Auténtico Formoseño,30351,219349,171091,6529,953
+34,Formosa,Acción Formoseña - Fuerza Formoseña Integradora,2596,219349,171091,6529,953
+34,Formosa,Nacionalista Constitucional,677,219349,171091,6529,953
+34,Formosa,Fuerza Republicana,457,219349,171091,6529,953
+34,Formosa,Socialista Popular,398,219349,171091,6529,953
+34,Formosa,Alianza Alternativa Popular,367,219349,171091,6529,953
+34,Formosa,Unión del Centro Democrático,357,219349,171091,6529,953
+34,Formosa,Comunista - Izquierda Unida,288,219349,171091,6529,953
+38,Jujuy,Alianza Frente Justicialista Producción y Estabilidad,73768,273959,204996,12137,1866
+38,Jujuy,Movimiento Popular Jujeño,49865,273959,204996,12137,1866
+38,Jujuy,Unión Cívica Radical,38165,273959,204996,12137,1866
+38,Jujuy,Alianza Fuerza Republicana Federal,15579,273959,204996,12137,1866
+38,Jujuy,Alianza Frente de Fe,2909,273959,204996,12137,1866
+38,Jujuy,Autonomista,1121,273959,204996,12137,1866
+38,Jujuy,Movimiento al Socialismo,1112,273959,204996,12137,1866
+38,Jujuy,Comunista,1108,273959,204996,12137,1866
+38,Jujuy,Alianza Frente Político y Social,828,273959,204996,12137,1866
+38,Jujuy,Movimiento de Integración y Desarrollo,646,273959,204996,12137,1866
+42,La Pampa,Justicialista,68733,173517,151511,8544,580
+42,La Pampa,Unión Cívica Radical,42418,173517,151511,8544,580
+42,La Pampa,Convocatoria Independiente,24089,173517,151511,8544,580
+42,La Pampa,Alianza Frente Popular,1966,173517,151511,8544,580
+42,La Pampa,Movimiento Federalista Pampeano,1572,173517,151511,8544,580
+42,La Pampa,Socialista Popular,1529,173517,151511,8544,580
+42,La Pampa,Alianza Pueblo Unido,1372,173517,151511,8544,580
+42,La Pampa,Movimiento al Socialismo,708,173517,151511,8544,580
+46,La Rioja,Justicialista,53656,133945,107156,3020,927
+46,La Rioja,Unión Cívica Radical,20568,133945,107156,3020,927
+46,La Rioja,Movimiento Patriótico de Liberación,7211,133945,107156,3020,927
+46,La Rioja,Movimiento de Integración y Desarrollo,1416,133945,107156,3020,927
+46,La Rioja,Fuerza Republicana,658,133945,107156,3020,927
+46,La Rioja,Alianza Frente Político Riojano,641,133945,107156,3020,927
+46,La Rioja,Comunista,552,133945,107156,3020,927
+46,La Rioja,Movimiento al Socialismo,270,133945,107156,3020,927
+46,La Rioja,Demócrata Cristiano,180,133945,107156,3020,927
+46,La Rioja,Alianza Frente Humanista Verde,52,133945,107156,3020,927
+50,Mendoza,Justicialista,346719,861392,729847,31933,4333
+50,Mendoza,Unión Cívica Radical,209631,861392,729847,31933,4333
+50,Mendoza,Demócrata de Mendoza,100101,861392,729847,31933,4333
+50,Mendoza,Movimiento de Integración y Desarrollo,13170,861392,729847,31933,4333
+50,Mendoza,Alianza Izquierda Unida para el Socialismo,7558,861392,729847,31933,4333
+50,Mendoza,Socialista Popular,4077,861392,729847,31933,4333
+50,Mendoza,Blanco,3191,861392,729847,31933,4333
+50,Mendoza,Unión del Centro Democrático,2076,861392,729847,31933,4333
+50,Mendoza,Movimiento al Socialismo,1864,861392,729847,31933,4333
+50,Mendoza,Alianza Frente Trabajo y Solidaridad,1776,861392,729847,31933,4333
+50,Mendoza,Alianza Frente Político y Social,1409,861392,729847,31933,4333
+50,Mendoza,Demócrata Cristiano,1265,861392,729847,31933,4333
+50,Mendoza,Obrero,744,861392,729847,31933,4333
+54,Misiones,Alianza Frente Justicialista Popular,163954,430928,333820,12476,1639
+54,Misiones,Unión Cívica Radical,140615,430928,333820,12476,1639
+54,Misiones,Unión del Centro Democrático,11788,430928,333820,12476,1639
+54,Misiones,Alianza Solidaria,1300,430928,333820,12476,1639
+54,Misiones,Alianza para el Cambio,1131,430928,333820,12476,1639
+54,Misiones,Alianza Unidad de los Trabajadores y la Izquierda,917,430928,333820,12476,1639
+58,Neuquén,Movimiento Popular Neuquino,80648,200632,168608,7642,1418
+58,Neuquén,Alianza Unidad de los Neuquinos para el Cambio,48213,200632,168608,7642,1418
+58,Neuquén,Unión Cívica Radical,23230,200632,168608,7642,1418
+58,Neuquén,Alianza Frente Social y Político,3213,200632,168608,7642,1418
+58,Neuquén,Alianza Unidad de los Trabajadores y la Izquierda,1655,200632,168608,7642,1418
+58,Neuquén,Obrero,1300,200632,168608,7642,1418
+58,Neuquén,Unión del Centro Democrático,1289,200632,168608,7642,1418
+62,Río Negro,Unión Cívica Radical,64160,259267,183012,10883,5139
+62,Río Negro,Justicialista,48893,259267,183012,10883,5139
+62,Río Negro,Alianza Movimiento Popular,28414,259267,183012,10883,5139
+62,Río Negro,Provincial Rionegrino,11444,259267,183012,10883,5139
+62,Río Negro,Alianza Convocatoria para el Reencuentro,4654,259267,183012,10883,5139
+62,Río Negro,Verde Ecologista Pacifista,2828,259267,183012,10883,5139
+62,Río Negro,Comunista,2695,259267,183012,10883,5139
+62,Río Negro,Movimiento al Socialismo,2450,259267,183012,10883,5139
+62,Río Negro,Del Trabajo y del Pueblo,1452,259267,183012,10883,5139
+66,Salta,Renovador de Salta,189009,491253,375466,2101,2733
+66,Salta,Alianza Frente Justicialista de la Unidad,127796,491253,375466,2101,2733
+66,Salta,Unión Cívica Radical,26804,491253,375466,2101,2733
+66,Salta,Fuerza Republicana,2265,491253,375466,2101,2733
+66,Salta,Demócrata Cristiano - Unir a la Gente,1489,491253,375466,2101,2733
+66,Salta,Obrero,1233,491253,375466,2101,2733
+66,Salta,Alianza Convocatoria Política y Social,985,491253,375466,2101,2733
+66,Salta,Movimiento al Socialismo,873,491253,375466,2101,2733
+66,Salta,Socialista Democrático,705,491253,375466,2101,2733
+66,Salta,Alianza Unidad de la Izquierda Revolucionaria,609,491253,375466,2101,2733
+66,Salta,Tres Banderas,454,491253,375466,2101,2733
+66,Salta,Blanco de los Jubilados,263,491253,375466,2101,2733
+70,San Juan,Alianza Frente Justicialista Popular,83341,328313,275506,10226,1351
+70,San Juan,Cruzada Renovadora,77425,328313,275506,10226,1351
+70,San Juan,Alianza Bloquista,74603,328313,275506,10226,1351
+70,San Juan,Unión Cívica Radical,21752,328313,275506,10226,1351
+70,San Juan,De Centro,3587,328313,275506,10226,1351
+70,San Juan,Alianza Convocatoria Popular,1280,328313,275506,10226,1351
+70,San Juan,Demócrata Cristiano,821,328313,275506,10226,1351
+70,San Juan,Comunista,559,328313,275506,10226,1351
+70,San Juan,Movimiento al Socialismo,534,328313,275506,10226,1351
+70,San Juan,Alianza Movimiento Popular,27,328313,275506,10226,1351
+74,San Luis,Alianza Frente Justicialista,66149,180158,139143,4836,645
+74,San Luis,Unión Cívica Radical,51054,180158,139143,4836,645
+74,San Luis,Alianza Frente Político y Social,9213,180158,139143,4836,645
+74,San Luis,Demócrata Liberal,2019,180158,139143,4836,645
+74,San Luis,Demócrata Progresista,1364,180158,139143,4836,645
+74,San Luis,Lealtad y Justicia Social,605,180158,139143,4836,645
+74,San Luis,Socialista Popular,592,180158,139143,4836,645
+74,San Luis,Alianza Movimiento de Izquierda Abierta,580,180158,139143,4836,645
+74,San Luis,Obrero,531,180158,139143,4836,645
+74,San Luis,Movimiento al Socialismo,494,180158,139143,4836,645
+74,San Luis,Movimiento Popular Provincial,1,180158,139143,4836,645
+78,Santa Cruz,Justicialista,27425,86111,67134,9087,822
+78,Santa Cruz,Unión Cívica Radical,21221,86111,67134,9087,822
+78,Santa Cruz,Movimiento Popular Santacruceño,6270,86111,67134,9087,822
+78,Santa Cruz,Obrero,681,86111,67134,9087,822
+78,Santa Cruz,Fuerza Republicana,660,86111,67134,9087,822
+78,Santa Cruz,Alianza Frente de Integración y Defensa de Santa Cruz,568,86111,67134,9087,822
+78,Santa Cruz,Comunista,400,86111,67134,9087,822
+82,Santa Fe,Alianza Frente Justicialista Popular,461164,1883954,1435854,93931,21188
+82,Santa Fe,Unión Cívica Radical,358386,1883954,1435854,93931,21188
+82,Santa Fe,"Alianza Honestidad, Trabajo y Eficiencia",225769,1883954,1435854,93931,21188
+82,Santa Fe,Demócrata Progresista,121679,1883954,1435854,93931,21188
+82,Santa Fe,Unión del Centro Democrático,42089,1883954,1435854,93931,21188
+82,Santa Fe,Comunista,23080,1883954,1435854,93931,21188
+82,Santa Fe,Unión de los Trabajadores y la Izquierda,21838,1883954,1435854,93931,21188
+82,Santa Fe,Alianza Frente de Recuperación Popular,16915,1883954,1435854,93931,21188
+82,Santa Fe,Del Trabajo y del Pueblo,13876,1883954,1435854,93931,21188
+82,Santa Fe,Demócrata Cristiano,13189,1883954,1435854,93931,21188
+82,Santa Fe,Obrero,12530,1883954,1435854,93931,21188
+82,Santa Fe,De la Liberación,6042,1883954,1435854,93931,21188
+82,Santa Fe,Movimiento Democrático de Participación,4178,1883954,1435854,93931,21188
+86,Santiago del Estero,Alianza Unión Cívica Radical,131193,435196,305345,1497,510
+86,Santiago del Estero,Alianza Frente de la Corriente Renovadora,80476,435196,305345,1497,510
+86,Santiago del Estero,Alianza Justicialista,76244,435196,305345,1497,510
+86,Santiago del Estero,Renovador Tres Banderas,6059,435196,305345,1497,510
+86,Santiago del Estero,Cambio y Justicia,952,435196,305345,1497,510
+86,Santiago del Estero,Alianza Unidad Socialista,884,435196,305345,1497,510
+86,Santiago del Estero,Movimiento al Socialismo,714,435196,305345,1497,510
+86,Santiago del Estero,Comunista,545,435196,305345,1497,510
+86,Santiago del Estero,Blanco de los Jubilados,524,435196,305345,1497,510
+86,Santiago del Estero,Acción Popular,294,435196,305345,1497,510
+90,Tucumán,Alianza Frente de la Esperanza,254173,771330,575055,30499,3779
+90,Tucumán,Fuerza Republicana,235565,771330,575055,30499,3779
+90,Tucumán,Unión Cívica Radical,31088,771330,575055,30499,3779
+90,Tucumán,Unión del Centro Democrático,5397,771330,575055,30499,3779
+90,Tucumán,Laborista de Tucumán,3651,771330,575055,30499,3779
+90,Tucumán,Confederación Federalista Independiente - Federal,3027,771330,575055,30499,3779
+90,Tucumán,Acción Provinciana,2158,771330,575055,30499,3779
+90,Tucumán,Alianza Frente por el Progreso Social,1480,771330,575055,30499,3779
+90,Tucumán,Movimiento al Socialismo,1069,771330,575055,30499,3779
+90,Tucumán,Obrero,979,771330,575055,30499,3779
+90,Tucumán,Comunista,800,771330,575055,30499,3779
+90,Tucumán,Defensa Provincial Bandera Blanca,656,771330,575055,30499,3779
+90,Tucumán,De la Independencia,630,771330,575055,30499,3779
+90,Tucumán,Movimiento Nacionalista,104,771330,575055,30499,3779
+94,Tierra del Fuego,Movimiento Popular Fueguino,9704,42908,28660,2611,0
+94,Tierra del Fuego,Alianza Frente Justicialista para la Victoria,7920,42908,28660,2611,0
+94,Tierra del Fuego,Unión Cívica Radical,4317,42908,28660,2611,0
+94,Tierra del Fuego,Fuerza Republicana,997,42908,28660,2611,0
+94,Tierra del Fuego,Socialista Auténtico,880,42908,28660,2611,0
+94,Tierra del Fuego,Alianza El Frente,325,42908,28660,2611,0
+94,Tierra del Fuego,Unión del Centro Democrático,285,42908,28660,2611,0
+94,Tierra del Fuego,Movimiento al Socialismo,274,42908,28660,2611,0
+94,Tierra del Fuego,Demócrata Progresista,200,42908,28660,2611,0
+94,Tierra del Fuego,Alianza Frente Izquierda Fueguina Revolucionaria,197,42908,28660,2611,0
+94,Tierra del Fuego,Democracia Popular - Frente Social,149,42908,28660,2611,0
+94,Tierra del Fuego,Obrero,117,42908,28660,2611,0
+94,Tierra del Fuego,Nacionalista Constitucional,96,42908,28660,2611,0

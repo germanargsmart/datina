@@ -1,0 +1,44 @@
+codigo_indec,provincia,lista,votos,mesas,electores,votantes,blancos,nulos,recurridos_impugnados
+06,Buenos Aires,Cambiemos Buenos Aires,3878250,37208,12294274,9678647,214119,68255,23318
+06,Buenos Aires,Unidad Ciudadana,3491136,37208,12294274,9678647,214119,68255,23318
+06,Buenos Aires,1País,1061207,37208,12294274,9678647,214119,68255,23318
+06,Buenos Aires,Frente Justicialista,497409,37208,12294274,9678647,214119,68255,23318
+06,Buenos Aires,Frente de Izquierda y de los Trabajadores,444953,37208,12294274,9678647,214119,68255,23318
+34,Formosa,Frente de la Victoria,194947,1373,440022,331468,13238,2909,369
+34,Formosa,Frente Amplio Formoseño Cambiemos,116192,1373,440022,331468,13238,2909,369
+34,Formosa,Obrero,3813,1373,440022,331468,13238,2909,369
+38,Jujuy,Frente Jujeño Cambiemos,171981,1707,494571,381059,47137,6413,710
+38,Jujuy,Frente Justicialista,67526,1707,494571,381059,47137,6413,710
+38,Jujuy,Frente de Izquierda y de los Trabajadores,53437,1707,494571,381059,47137,6413,710
+38,Jujuy,Frente Renovador 1País,29319,1707,494571,381059,47137,6413,710
+38,Jujuy,Movimiento Socialista de los Trabajadores,2527,1707,494571,381059,47137,6413,710
+38,Jujuy,Movimiento Integración Latinoamericana de Expresion Social,2009,1707,494571,381059,47137,6413,710
+46,La Rioja,Cambiemos - Fuerza Cívica Riojana,90250,901,278498,200511,8837,3572,192
+46,La Rioja,Frente Justicialista Riojano,85247,901,278498,200511,8837,3572,192
+46,La Rioja,Alternativa Popular Riojana,4691,901,278498,200511,8837,3572,192
+46,La Rioja,Frente de Izquierda y de los Trabajadores,4250,901,278498,200511,8837,3572,192
+46,La Rioja,Izquierda al Frente por el Socialismo,3245,901,278498,200511,8837,3572,192
+46,La Rioja,Movimiento Norte Grande,227,901,278498,200511,8837,3572,192
+54,Misiones,Frente Renovador de la Concordia,268530,2610,890626,692267,54236,8110,601
+54,Misiones,Frente Cambiemos,209755,2610,890626,692267,54236,8110,601
+54,Misiones,Agrario y Social,83110,2610,890626,692267,54236,8110,601
+54,Misiones,Unión Popular,24414,2610,890626,692267,54236,8110,601
+54,Misiones,Nuevo Octubre,12352,2610,890626,692267,54236,8110,601
+54,Misiones,Frente Avancemos,12041,2610,890626,692267,54236,8110,601
+54,Misiones,Del Obrero,10485,2610,890626,692267,54236,8110,601
+54,Misiones,Instrumento Electoral por la Unidad Popular,8633,2610,890626,692267,54236,8110,601
+70,San Juan,Frente Todos,225239,1656,550080,430829,10478,6829,327
+70,San Juan,Cambiemos San Juan,133602,1656,550080,430829,10478,6829,327
+70,San Juan,1 País Somos San Juan,19297,1656,550080,430829,10478,6829,327
+70,San Juan,ADN - Acción por una Democracia Nueva,12664,1656,550080,430829,10478,6829,327
+70,San Juan,Nueva Izquierda,11400,1656,550080,430829,10478,6829,327
+70,San Juan,Frente Progresista Popular,10993,1656,550080,430829,10478,6829,327
+74,San Luis,Frente Unidad Justicialista San Luis,166462,1188,374525,311829,6721,2937,1937
+74,San Luis,Avanzar y Cambiemos por San Luis,129082,1188,374525,311829,6721,2937,1937
+74,San Luis,De Trabajadores por el Socialismo,4690,1188,374525,311829,6721,2937,1937
+78,Santa Cruz,Unión para Vivir Mejor - Cambiemos,73520,850,247434,175187,2998,5643,95
+78,Santa Cruz,Frente para la Victoria,53307,850,247434,175187,2998,5643,95
+78,Santa Cruz,Frente de Izquierda y de los Trabajadores - Partido Obrero + Izquierda por una Opción Socialista,14884,850,247434,175187,2998,5643,95
+78,Santa Cruz,"Movimiento Político, Social y Cultural Proyecto Sur",12592,850,247434,175187,2998,5643,95
+78,Santa Cruz,Frente Renovador Auténtico,7010,850,247434,175187,2998,5643,95
+78,Santa Cruz,Izquierda al Frente por el Socialismo,5138,850,247434,175187,2998,5643,95
