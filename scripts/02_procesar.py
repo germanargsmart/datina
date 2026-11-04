@@ -6292,6 +6292,43 @@ if (CRUDO / "indec_ipim.csv").exists() and bcra_variables is not None:
                "veces_ipim": r1(_may_b.ipim.iloc[-1] / 100), "veces_ipc": r1(_may_b.ipc.iloc[-1] / 100), "veces_dolar": r1(_may_b.dolar.iloc[-1] / 100),
                "lag": 3, "r_mismo": _may_rk("ipc", "ipim", 0), "r_may_antes": _may_rk("ipc", "ipim", 3), "r_ipc_antes": _may_rk("ipim", "ipc", 3),
                "n_meses": len(_may_m)}
+# Precio y consumo de carne, yerba y vino (pedido del autor del 3 de noviembre de 2026): el precio promedio del Gran Buenos Aires de la planilla
+# del IPC, dividido por el IPC de esa región, promedio de cada año completo, frente a lo que se consume, con 2017, el primer año completo = 100.
+# La carne es el promedio simple de cinco cortes. El INDEC avisa que estos precios sirven para seguir la evolución en el tiempo, no para comparar
+# regiones. Con tan pocos años no se calcula una correlación: se cuentan los años en que los dos fueron en direcciones opuestas
+PCO_PROD = {"carne": (("Asado", "Carne picada común", "Paleta", "Cuadril", "Nalga"), carne, "kg_por_habitante", "kilos por habitante"),
+            "yerba": (("Yerba mate",), yerba, "millones_kg", "millones de kilos"),
+            "vino": (("Vino común",), vino, "millones_litros", "millones de litros")}
+precio_consumo, PCO_RES = None, None
+if (CRUDO / "indec_ipc_precios_promedio.xls").exists():
+    _pco_t = pd.read_excel(CRUDO / "indec_ipc_precios_promedio.xls", "GBA", header=None)
+    _pco_a, _pco_m = _pco_t.iloc[2].ffill(), _pco_t.iloc[3]
+    _pco_col = {f"{re.search(r'[0-9]{4}', str(_pco_a[j])).group()}-{MES.index(str(_pco_m[j]).strip().lower()) + 1:02d}": j
+                for j in range(2, _pco_t.shape[1]) if str(_pco_m[j]).strip().lower() in MES}
+    _pco_f = {str(v).strip(): i for i, v in _pco_t[0].items()}
+    _pco_ipc = IPC_INDEC[(IPC_INDEC.Region == "GBA") & (IPC_INDEC.Codigo == "0")].set_index("periodo").Indice_IPC
+    _pco_filas, PCO_RES = [], {}
+    for _pco_k, (_pco_ns, _pco_d, _pco_c, _pco_u) in PCO_PROD.items():
+        assert all(n in _pco_f for n in _pco_ns), f"faltan productos en la planilla de precios del IPC: {_pco_ns}"
+        _pco_real = []
+        for _pco_n in _pco_ns:
+            _pco_s = pd.Series({m: pd.to_numeric(_pco_t.iat[_pco_f[_pco_n], j], errors="coerce") for m, j in _pco_col.items()}).dropna()
+            _pco_s = _pco_s[_pco_s.index.isin(_pco_ipc.index)] / _pco_ipc.reindex(_pco_s.index[_pco_s.index.isin(_pco_ipc.index)])
+            _pco_g = _pco_s.groupby(_pco_s.index.str[:4].astype(int))
+            _pco_s = _pco_g.mean()[_pco_g.size() == 12]
+            _pco_real.append(_pco_s / _pco_s[2017] * 100)
+        _pco_pr = pd.concat(_pco_real, axis=1).mean(axis=1)
+        _pco_vc = _pco_d.set_index("anio")[_pco_c].astype(float)
+        _pco_aj = sorted(set(_pco_pr.index) & set(_pco_vc.index))
+        assert _pco_aj[0] == 2017 and len(_pco_aj) >= 8, f"pocos años en común en el precio y el consumo de {_pco_k}"
+        _pco_cons = _pco_vc.loc[_pco_aj] / _pco_vc[2017] * 100
+        _pco_prec = _pco_pr.loc[_pco_aj]
+        _pco_filas += [{"producto": _pco_k, "anio": a, "precio_real": round(float(_pco_prec[a]), 4), "consumo": round(float(_pco_cons[a]), 4),
+                        "consumo_valor": round(float(_pco_vc[a]), 4), "consumo_unidad": _pco_u} for a in _pco_aj]
+        _pco_dp, _pco_dc = _pco_prec.diff().dropna(), _pco_cons.diff().dropna()
+        PCO_RES[_pco_k] = {"ini": _pco_aj[0], "fin": _pco_aj[-1], "var_precio": r1(_pco_prec.iloc[-1] - 100), "var_consumo": r1(_pco_cons.iloc[-1] - 100),
+                        "n_anios": len(_pco_dp), "n_opuestos": int(((_pco_dp > 0) != (_pco_dc > 0)).sum())}
+    precio_consumo = pd.DataFrame(_pco_filas)
 # Producción industrial y minera del INDEC (API, desde el 3 de noviembre de 2026: scripts/indec_api.py): los índices de producción industrial
 # manufacturero y minero. Por rama o por grupo, la variación frente al mismo mes del año anterior (serie original), y mes a mes, el nivel
 # general sin estacionalidad de los dos, con el primer mes que tienen en común = 100. Los nombres de las ramas, más cortos que los del INDEC
@@ -7669,6 +7706,7 @@ tablas = {
     "vacunas_provincias": vacunas_provincias,
     "vacunas_serie": vacunas_serie,
     "visitas_por_parque": visitas_parque,
+    **({"precio_consumo": precio_consumo} if precio_consumo is not None else {}),
     "carne_vacuna": carne.round(1),
     "vino_mercado_interno": vino,
     "yerba_molino": yerba,
@@ -8126,6 +8164,7 @@ resumen["envejecimiento"] = env_res
 resumen["piramide"] = pir_res
 resumen["poblacion_proy"] = pob_proy_res
 resumen["chicos_escuela"] = esc_res
+resumen["precio_consumo"] = PCO_RES
 resumen["causas_muerte"] = causas_muerte_res
 resumen["externo"] = SE_RES
 resumen["empresas"] = emp_res

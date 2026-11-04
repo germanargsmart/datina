@@ -84,7 +84,7 @@ const SIN_CIFRA = {
   "f-representacion": POLITICA, "f-congreso": POLITICA, "f-votaciones": POLITICA, "f-voto-provincia": POLITICA, "f-presupuesto": POLITICA, "f-atn": POLITICA,
   "f-muertes": SENSIBLE, "f-suicidio": SENSIBLE, "f-suicidio-prov": SENSIBLE, "f-edad": SENSIBLE,
   "f-expectativas": ENCUESTA, "f-confianza-consumidor": ENCUESTA,
-  "f-adolescentes-nse": RELACION, "f-sectores-empleo": RELACION,
+  "f-adolescentes-nse": RELACION, "f-sectores-empleo": RELACION, "f-precio-consumo": RELACION,
   "f-piramide": REPARTO, "f-causas-infantiles": REPARTO,
 };
 
