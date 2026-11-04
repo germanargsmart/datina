@@ -15,6 +15,9 @@
   if (!raiz) return;
   const $ = id => document.getElementById(id);
   const BASE = "datos/mesas/";
+  // Cloudflare guarda los encabezados de la primera vez que sirve un archivo y, si el archivo no cambió, no los actualiza al revalidarlo. Las tablas pedidas antes de
+  // que se sirvieran como texto seguían llegando sin comprimir: con otra dirección se piden de nuevo. Subir este número hace lo mismo si vuelve a pasar
+  const VERSION_TABLAS = "2";
   const CARGOS = {presidente: "Presidente", diputados: "Diputados nacionales", senadores: "Senadores nacionales"};
   const NIVEL_NOMBRE = {presidente: "presidente", diputados: "diputados nacionales", senadores: "senadores nacionales"};
   const n0 = v => Number(v).toLocaleString("es-AR");
@@ -50,7 +53,7 @@
   // una tabla cortada o con otra forma es una falla, no una tabla más corta: el aviso es el mismo que si no llega
   const bajar = ruta => {
     if (pedidas.has(ruta)) return pedidas.get(ruta);
-    const p = fetch(BASE + ruta).then(r => { if (!r.ok) throw new Error(`${ruta}: ${r.status}`); return r.text(); }).then(t => {
+    const p = fetch(`${BASE}${ruta}?v=${VERSION_TABLAS}`).then(r => { if (!r.ok) throw new Error(`${ruta}: ${r.status}`); return r.text(); }).then(t => {
       if (!t.endsWith("\n")) throw new Error(`${ruta}: la tabla llegó cortada`);
       const f = filasCSV(t);
       if (f.length < 2 || f.some(x => x.length !== f[0].length)) throw new Error(`${ruta}: la tabla no tiene la forma esperada`);
