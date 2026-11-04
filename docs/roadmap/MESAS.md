@@ -67,6 +67,8 @@ Es la advertencia más importante de la herramienta. Los archivos por mesa son e
 
 La página lo avisa por debajo de 97% (`COBERTURA_AVISO` en `mesas.js`). Se mide contra el definitivo de la DINE: presidente 2011 a 2019 y legislativas 2011 a 2019. Las legislativas desde 2021 y las presidenciales de 2023 no tienen un definitivo publicado como datos, así que ahí la página no puede avisar. `prueba_mesas.py` frena si una jurisdicción sale de 75% a 101,5%.
 
+La participación tampoco coincide exacto con la ficha de elecciones de Política, a propósito. La ficha divide por todos los electores del archivo y la herramienta, solo por los de las mesas con resultado: en la segunda vuelta de 2023 da 75,8% en la ficha y 76,3% acá, porque 765 mesas figuran sin cargar.
+
 ## Lo que falta
 
 - Las PASO: 2015 no se puede bajar por mesa y 2023 sale de una copia del Internet Archive.

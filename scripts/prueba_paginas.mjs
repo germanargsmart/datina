@@ -404,7 +404,9 @@ if (await q.eval(`[...document.querySelectorAll(".ficha-sub")].some(s => getComp
 q.errores.forEach(e => problemas.push(`menús con el teclado: ${e}`));
 await q.tamano(1280, 900);
 // Elecciones por mesa (4 de noviembre de 2026): el recorrido de todo el país a una mesa tocando las filas, la historia del circuito, la búsqueda por número, la
-// dirección que guarda el lugar, lo que pasa si el lugar no existe en otra elección, una elección sin mesas, el aviso de lo que le falta al provisorio y 320 píxeles
+// dirección que guarda el lugar, lo que pasa si el lugar no existe en otra elección, una elección sin mesas, el aviso de lo que le falta al provisorio y 320 píxeles.
+// Pide lugares y cifras fijas (La Matanza, sección 61, circuito 627, mesa 258, Formosa 80,8%): son resultados de elecciones pasadas y no cambian. Solo cambian si se
+// vuelve a correr scripts/elecciones_mesas.py con otras reglas
 {
   const antes = q.errores.length;
   const ms = async (u, extra = 1400) => { if (u !== null) await q.ir(B + "mesas.html" + u, extra); else await espera(extra);

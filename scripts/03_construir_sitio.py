@@ -142,7 +142,7 @@ def anios_a_mano(nombre, fuente):
 
 malos = anios_a_mano("plantilla.html", plantilla) + anios_a_mano("datina.js", (RAIZ / "scripts" / "datina.js").read_text(encoding="utf-8"))
 # también la página del Explorador de relaciones, que no sale de la plantilla
-malos += [m for n in ("relaciones.html", "relaciones.js") for m in anios_a_mano(n, (RAIZ / "scripts" / n).read_text(encoding="utf-8"))]
+malos += [m for n in ("relaciones.html", "relaciones.js", "mesas.js") for m in anios_a_mano(n, (RAIZ / "scripts" / n).read_text(encoding="utf-8"))]
 if malos:
     sys.exit("Hay años recientes escritos a mano en los textos: quedarían viejos con la próxima actualización. Usar {{ruta}} en la "
              "plantilla o un dato de R en datina.js, o sumarlo a FIJOS si es un hecho fijo:\n" + "\n".join(malos))
