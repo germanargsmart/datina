@@ -2569,6 +2569,17 @@
     "contiene": "\"indec_ipim.csv\": \"https://www.indec.gob.ar"
    },
    "url": "https://www.indec.gob.ar/ftp/cuadros/economia/indice_ipim.csv"
+  },
+  {
+   "id": "ds:indec_ipc_precios_promedio.xls",
+   "nombre": "Precios promedio de una selección de productos de la canasta del IPC",
+   "fuente": "org:indec",
+   "ruta": "datos/crudo/indec_ipc_precios_promedio.xls",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "\"indec_ipc_precios_promedio.xls\": \"https://www.indec.gob.ar"
+   },
+   "url": "https://www.indec.gob.ar/ftp/cuadros/economia/sh_ipc_precios_promedio.xls"
   }
  ],
  "aristas": [
@@ -7579,6 +7590,82 @@
     }
    ],
    "tabla": "mayoristas_mensual"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:indec_ipc_precios_promedio.xls",
+   "a": "f-precio-consumo",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_pco_t = pd.read_excel(CRUDO / \"indec_ipc_precios_promedio.xls\", \"GBA\", header=None)"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "**({\"precio_consumo\": precio_consumo} if precio_consumo is not None else {}),"
+    }
+   ],
+   "tabla": "precio_consumo"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:indec_ipc_divisiones.csv",
+   "a": "f-precio-consumo",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_pco_ipc = IPC_INDEC[(IPC_INDEC.Region == \"GBA\") & (IPC_INDEC.Codigo == \"0\")].set_index(\"periodo\").Indice_IPC"
+    }
+   ],
+   "tabla": "precio_consumo"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:sspmi_carne_vacuna.csv",
+   "a": "f-precio-consumo",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "cv = sspmi(\"sspmi_carne_vacuna.csv\")"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "PCO_PROD = {\"carne\": ((\"Asado\", \"Carne picada común\", \"Paleta\", \"Cuadril\", \"Nalga\"), carne, \"kg_por_habitante\", \"kilos por habitante\"),"
+    }
+   ],
+   "tabla": "precio_consumo"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:sspmi_yerba_mate.csv",
+   "a": "f-precio-consumo",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "ym = sspmi(\"sspmi_yerba_mate.csv\")"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"yerba\": ((\"Yerba mate\",), yerba, \"millones_kg\", \"millones de kilos\"),"
+    }
+   ],
+   "tabla": "precio_consumo"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:sspmi_vitivinicultura.csv",
+   "a": "f-precio-consumo",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "vi = sspmi(\"sspmi_vitivinicultura.csv\")"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"vino\": ((\"Vino común\",), vino, \"millones_litros\", \"millones de litros\")}"
+    }
+   ],
+   "tabla": "precio_consumo"
   }
  ],
  "fichas": {

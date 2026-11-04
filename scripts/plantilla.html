@@ -2714,6 +2714,20 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <p class="nota" data-t="yerba-nota"></p>
       <div class="pie"><span>Fuente: Ministerio de Economía (SSPMI), con datos del Instituto Nacional de la Yerba Mate</span><a href="datos/yerba_molino.csv" download>Descargar tabla (CSV)</a></div>
     </article>
+
+    <article class="ficha" id="f-precio-consumo">
+      <h2>¿Se consume menos carne, yerba y vino cuando suben de precio?</h2>
+      <p class="ficha-sub">Precio en el Gran Buenos Aires descontada la inflación y consumo, índice {{precio_consumo.carne.ini}} = 100, {{precio_consumo.carne.ini}} a {{precio_consumo.carne.fin}}</p>
+      <div class="conmutador" role="group" aria-label="Producto" data-g="precio-consumo" style="--n:3">
+        <button type="button" data-m="carne" aria-pressed="true">Carne</button>
+        <button type="button" data-m="yerba" aria-pressed="false">Yerba</button>
+        <button type="button" data-m="vino" aria-pressed="false">Vino</button>
+      </div>
+      <div class="grafico" data-g="precio-consumo" data-forma="lineas"></div>
+      <p class="lead" data-t="precio-consumo"></p>
+      <p class="nota" data-t="precio-consumo-nota"></p>
+      <div class="pie"><span>Fuentes: INDEC, precios promedio de la canasta del IPC e índice de precios al consumidor, y Ministerio de Economía (SSPMI), con datos del Ministerio de Agricultura, el Instituto Nacional de la Yerba Mate y el Instituto Nacional de Vitivinicultura</span><a href="datos/precio_consumo.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
     <!-- F16 (plan de mejora, aprobado por el autor el 28 de octubre de 2026, en Curiosidades por su respuesta del 1 de noviembre): "¿Cuánto
          creés que es?", cinco datos del país con su respuesta y su ficha, que arma datina.js desde el resumen. Nunca con suicidio ni muertes violentas -->
     <div class="juego" id="juego">

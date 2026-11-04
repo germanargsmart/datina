@@ -224,7 +224,7 @@ FRECUENCIA = {
     "f-pesca-rio": "anio",
     "f-soja": "anio", "f-cobertura-suelo": "anio",
     # Curiosidades
-    "f-nombres": "anio", "f-carne": "mes", "f-vino": "mes", "f-yerba": "mes", "f-glaciares": "inventario", "f-clima": "anio",
+    "f-nombres": "anio", "f-precio-consumo": "anio", "f-carne": "mes", "f-vino": "mes", "f-yerba": "mes", "f-glaciares": "inventario", "f-clima": "anio",
 }
 # Frescura (plan de mejora, T3, 27 de octubre de 2026, aprobado por el autor): si el último período de una ficha está más atrasado
 # que el doble de su frecuencia frente a la última actualización de los datos, el pie lo dice después de la frecuencia

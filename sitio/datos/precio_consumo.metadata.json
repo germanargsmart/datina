@@ -1,0 +1,50 @@
+{
+ "tabla": "precio_consumo.csv",
+ "titulo": "¿Se consume menos carne, yerba y vino cuando suben de precio?",
+ "descripcion": "Precio en el Gran Buenos Aires descontada la inflación y consumo, índice 2017 = 100, 2017 a 2025",
+ "seccion": "Curiosidades",
+ "ficha": "https://datina.com.ar/curiosidades.html#f-precio-consumo",
+ "fuente": "INDEC, precios promedio de la canasta del IPC e índice de precios al consumidor, y Ministerio de Economía (SSPMI), con datos del Ministerio de Agricultura, el Instituto Nacional de la Yerba Mate y el Instituto Nacional de Vitivinicultura.",
+ "actualizacion": "Se actualiza cada año.",
+ "cobertura": "Sin desglose territorial",
+ "periodo": "2017 a 2025",
+ "filas": 27,
+ "columnas": [
+  {
+   "nombre": "producto",
+   "tipo": "Texto",
+   "valores": "carne, vino, yerba"
+  },
+  {
+   "nombre": "anio",
+   "tipo": "Año",
+   "valores": "2017 a 2025"
+  },
+  {
+   "nombre": "precio_real",
+   "tipo": "Número",
+   "valores": "57,71 a 144,81"
+  },
+  {
+   "nombre": "consumo",
+   "tipo": "Número",
+   "valores": "83,07 a 109,6"
+  },
+  {
+   "nombre": "consumo_valor",
+   "tipo": "Número",
+   "valores": "47,81 a 942,97"
+  },
+  {
+   "nombre": "consumo_unidad",
+   "tipo": "Texto",
+   "valores": "kilos por habitante, millones de kilos, millones de litros"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "28/10/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
+ "como_citar": "Datina (año de la consulta). ¿Se consume menos carne, yerba y vino cuando suben de precio? Con datos de INDEC, precios promedio de la canasta del IPC e índice de precios al consumidor, y Ministerio de Economía (SSPMI), con datos del Ministerio de Agricultura, el Instituto Nacional de la Yerba Mate y el Instituto Nacional de Vitivinicultura. https://datina.com.ar/curiosidades.html#f-precio-consumo. Consultado el día de la consulta."
+}

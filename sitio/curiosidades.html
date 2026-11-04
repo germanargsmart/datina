@@ -218,6 +218,20 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <p class="nota" data-t="yerba-nota"></p>
       <div class="pie"><span>Fuente: Ministerio de Economía (SSPMI), con datos del Instituto Nacional de la Yerba Mate. Se actualiza cada mes.</span><a href="datos/yerba_molino.csv" download>Descargar tabla (CSV)</a></div>
     </article>
+
+    <article class="ficha" id="f-precio-consumo">
+      <h2>¿Se consume menos carne, yerba y vino cuando suben de precio?</h2>
+      <p class="ficha-sub">Precio en el Gran Buenos Aires descontada la inflación y consumo, índice 2017 = 100, 2017 a 2025</p>
+      <div class="conmutador" role="group" aria-label="Producto" data-g="precio-consumo" style="--n:3">
+        <button type="button" data-m="carne" aria-pressed="true">Carne</button>
+        <button type="button" data-m="yerba" aria-pressed="false">Yerba</button>
+        <button type="button" data-m="vino" aria-pressed="false">Vino</button>
+      </div>
+      <div class="grafico" data-g="precio-consumo" data-forma="lineas"></div>
+      <p class="lead" data-t="precio-consumo"></p>
+      <p class="nota" data-t="precio-consumo-nota"></p>
+      <div class="pie"><span>Fuentes: INDEC, precios promedio de la canasta del IPC e índice de precios al consumidor, y Ministerio de Economía (SSPMI), con datos del Ministerio de Agricultura, el Instituto Nacional de la Yerba Mate y el Instituto Nacional de Vitivinicultura. Se actualiza cada año.</span><a href="datos/precio_consumo.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
     <!-- F16 (plan de mejora, aprobado por el autor el 28 de octubre de 2026, en Curiosidades por su respuesta del 1 de noviembre): "¿Cuánto
          creés que es?", cinco datos del país con su respuesta y su ficha, que arma datina.js desde el resumen. Nunca con suicidio ni muertes violentas -->
     <div class="juego" id="juego">
@@ -274,7 +288,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 <p class="solo-lector" id="aviso" aria-live="polite"></p>
 
 <!-- los datos van en un archivo aparte que el navegador guarda una sola vez para todas las páginas -->
-<script src="datos/fichas.js?v=155e42a3cc"></script>
-<script src="datina.js?v=3a3ac078a3"></script>
+<script src="datos/fichas.js?v=2c03a25f22"></script>
+<script src="datina.js?v=2dc927976a"></script>
 </body>
 </html>

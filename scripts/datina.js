@@ -272,6 +272,8 @@ const CB = R.combustibles;  // precios de los combustibles en el surtidor (etapa
 const SA = R.salarios, DC = R.docentes, IE = R.inversion_edu, SG = R.seguridad;
 // Economía y precios (etapa 25): la inflación, las canastas, los salarios y la actividad, todo del INDEC
 const EIP = R.economia.ipc, ECB = R.economia.canasta, ESR = R.economia.salarios, EMA = R.economia.actividad, ESU = R.economia.super;
+// precio y consumo de carne, yerba y vino (3 de noviembre de 2026)
+const PCO = R.precio_consumo, PCO_N = {carne: ["de la carne vacuna", "el consumo por habitante"], yerba: ["de la yerba mate", "lo que despachan los molinos"], vino: ["del vino común", "lo que se vende en el país"]};
 // precios mayoristas frente a los precios al consumidor y el dólar (3 de noviembre de 2026)
 const EMY = R.economia.mayoristas;
 // actividad y empleo registrado de cada sector (3 de noviembre de 2026)
@@ -1015,6 +1017,13 @@ const LEAD = {
     `está ${pct(Math.abs(ESR.vs_base_priv))} ${ESR.vs_base_priv < 0 ? "más bajo" : "más alto"} y el público, ${pct(Math.abs(ESR.vs_base_pub))} ` +
     `${ESR.vs_base_pub < 0 ? "más bajo" : "más alto"}. El salario privado registrado más alto de la serie fue el de ${ESR.max_priv_mes} ` +
     `y el más bajo, el de ${ESR.min_priv_mes}.`,
+  // sin cifra destacada: muestra la relación entre dos medidas. Con pocos años no hay correlación, se cuentan los años en direcciones opuestas
+  "precio-consumo": v => {
+    const P = PCO[v], [art, cons] = PCO_N[v];
+    return `Entre ${P.ini} y ${P.fin}, descontada la inflación, el precio ${art} ${cambioPct(P.var_precio)} y ${cons} ${cambioPct(P.var_consumo)}. ` +
+      `En ${P.n_opuestos} de los ${P.n_anios} cambios de un año al otro, el precio y el consumo fueron en direcciones opuestas. ` +
+      "Son pocos años y el consumo depende también de los ingresos, de los gustos y de lo que cuestan otros productos: esto no alcanza para decir que el precio lo explica.";
+  },
   // la cifra destacada dice cuánto subieron los mayoristas en doce meses: el texto compara y mira quién va antes
   mayoristas: v => (v === "nivel" ? `Desde ${EMY.desde}, los precios mayoristas se multiplicaron por ${n1(EMY.veces_ipim)}, los precios al consumidor por ${n1(EMY.veces_ipc)} ` +
       `y el dólar mayorista por ${n1(EMY.veces_dolar)}. ` : `En los mismos doce meses, los precios al consumidor subieron ${pct(EMY.ia_ipc)} y el dólar mayorista, ${pct(EMY.ia_dolar)}. ` +
@@ -1874,6 +1883,11 @@ const TX = {
     `${ESR.base} = 100, el primer mes del índice de precios del país. El índice de salarios tiene ponderaciones fijas: mide cuánto cambian los salarios, no cuánto ` +
     `cobra en promedio cada persona. El INDEC publica también el del sector privado no registrado, que la ficha no muestra: sale de la Encuesta Permanente de ` +
     `Hogares y llega con cinco meses de rezago, así que no se puede comparar con los precios del mismo mes. Los salarios promedio de cada provincia están en Trabajo: son otra medida, el promedio por puesto del OEDE, y pueden variar distinto.`,
+  "precio-consumo": LEAD["precio-consumo"]("carne"),
+  "precio-consumo-nota": `Precio: el precio promedio del Gran Buenos Aires de la planilla que el INDEC publica con el IPC, dividido por el IPC de esa región, promedio de cada año completo. ` +
+    `Carne vacuna: promedio simple de asado, carne picada común, paleta, cuadril y nalga. Yerba: paquete de 500 gramos. Vino: vino común, por litro. El INDEC aclara que estos precios sirven para seguir la evolución en el tiempo. ` +
+    `Consumo: en la carne, los kilos por habitante de todo el país. En la yerba y el vino, el total del país, sin dividir por habitante: lo que despachan los molinos y lo que se vende en el mercado interno. ` +
+    `Cada serie con ${PCO.carne.ini}, el primer año completo de la planilla frente al IPC, = 100. Con tan pocos años no se calcula una correlación. Que dos cosas vayan en direcciones opuestas no prueba que una cause la otra.`,
   mayoristas: LEAD.mayoristas("doce"),
   "mayoristas-nota": `El índice de precios internos al por mayor (IPIM) del INDEC mide los precios de los productos nacionales e importados que se venden en el mercado interno. ` +
     `El índice de precios al consumidor (IPC) mide lo que pagan los hogares, también por servicios, que el IPIM no cuenta. El dólar es el mayorista de referencia del Banco Central, el último valor de cada mes. ` +
@@ -2959,7 +2973,7 @@ function mapaCentrales(el, cfg) {
 }
 
 /* ---------- fichas ---------- */
-const MED = {"jueces-federales": "cargos", "fiscalias-federales": "cantidad", "justicia-provincial": "magistratura", dinamica: "pais", rotacion: "edad", fiscal: "autonomia", censo: "cloaca", internet: "accesos_100_hogares", empleo: "cada_100", pisa: "mat", aprender: "mat", protegida: "pct_territorio", eti: "cada_1000", "patentes-prov": "autos_1000", nombres: "F", "visitas-parque": "visitas_ult", "poblacion-proy": "var_pct", "sectores-empleo": "uno", mayoristas: "doce", "chicos-escuela": "var_pct"};
+const MED = {"jueces-federales": "cargos", "fiscalias-federales": "cantidad", "justicia-provincial": "magistratura", dinamica: "pais", rotacion: "edad", fiscal: "autonomia", censo: "cloaca", internet: "accesos_100_hogares", empleo: "cada_100", pisa: "mat", aprender: "mat", protegida: "pct_territorio", eti: "cada_1000", "patentes-prov": "autos_1000", nombres: "F", "visitas-parque": "visitas_ult", "poblacion-proy": "var_pct", "sectores-empleo": "uno", mayoristas: "doce", "precio-consumo": "carne", "chicos-escuela": "var_pct"};
 const M = v => n1(v / 1e6) + " M";
 const G = k => document.querySelector(`.grafico[data-g="${k}"]`);
 const NAR = css("--celeste-fuerte"), FRI = css("--sol-fuerte"), GRIS = css("--faint");
@@ -3962,6 +3976,13 @@ Object.assign(DIB, {
       xl: r => mesPer(r.periodo), mensual: true, series: [{k: "privado", lab: "Privado registrado", c: NAR}, {k: "publico", lab: "Público", c: FRI}]});
   }),
   // actividad económica (etapa 25): el EMAE sin estacionalidad mes a mes, o cada sector en los últimos doce meses
+  "precio-consumo": a => {
+    const v = MED["precio-consumo"] || "carne";
+    $t("precio-consumo").textContent = LEAD["precio-consumo"](v);
+    lineas(G("precio-consumo"), {anim: a, data: T.precio_consumo.filter(r => r.producto === v), x: "anio", y0: 40, ref: 100, refLab: `${PCO[v].ini} = 100`, yf: x => x, vf: n0,
+      xl: d => `${d.anio}<br><span class="suave">Consumo: ${n1(d.consumo_valor)} ${d.consumo_unidad}</span>`,
+      series: [{k: "precio_real", lab: "Precio", c: NAR, w: 3}, {k: "consumo", lab: "Consumo", c: FRI, ct: css("--sol-texto"), w: 3}]});
+  },
   mayoristas: conTablas("mayoristas", () => ["mayoristas_mensual"], a => {
     const v = MED.mayoristas || "doce", doce = v === "doce", el = G("mayoristas"), p = doce ? "ia_" : "";
     $t("mayoristas").textContent = LEAD.mayoristas(v);
@@ -11552,7 +11573,7 @@ if (PAGINA !== "inicio") {
     "f-importaciones": ["importaciones"], "f-reservas-bcra": ["reservas"], "f-deuda": ["deuda"], "f-haberes": ["jubilacion", "jubilados", "jubilado"],
     "f-auh": ["auh", "asignacion universal"], "f-desempleo": ["desempleo"], "f-aprender": ["aprender"], "f-escolarizacion": ["escolarizacion", "secundaria"],
     "f-censo": ["cloacas", "agua red"], "f-cobertura": ["obra social", "prepaga", "cobertura de salud", "sin cobertura"], "f-dengue": ["dengue", "mosquito"], "f-vacunas": ["vacuna", "vacunas", "vacunacion", "sarampion", "triple viral"], "f-internet": ["internet"], "f-glaciares": ["glaciares"], "f-receptivo": ["turistas", "turismo"], "f-isac": ["construccion"],
-    "f-carne": ["carne"], "f-vino": ["vino"], "f-yerba": ["yerba"], "f-electricidad-provincias": ["electricidad", "luz"], "f-subsidios": ["subsidios"],
+    "f-precio-consumo": ["precio de la carne", "precio de la yerba", "precio del vino"], "f-carne": ["carne"], "f-vino": ["vino"], "f-yerba": ["yerba"], "f-electricidad-provincias": ["electricidad", "luz"], "f-subsidios": ["subsidios"],
     "f-empresas": ["empresas"], "f-mayoristas": ["precios mayoristas", "mayoristas", "ipim"], "f-sectores-empleo": ["empleo por sector", "productividad"], "f-canastas": ["canasta", "canasta basica"], "f-crianza": ["crianza", "canasta de crianza", "cuota alimentaria"], "f-industria": ["industria", "produccion industrial", "ipi", "mineria"], "f-socios": ["socios comerciales", "saldo con china", "comercio con brasil", "deficit comercial con"], "f-socios-hist": ["historia del comercio exterior", "socios comerciales desde 1986"], "f-emae": ["actividad economica", "emae"], "f-carceles": ["carceles", "presos"], "f-sin-condena": ["sin condena", "presos sin condena", "procesados", "prision preventiva"],
     "f-coparticipacion": ["coparticipacion", "coparticipacion federal", "reparto de impuestos"],
     "f-sociedades": ["sociedades", "empresas nuevas", "crear empresas", "nuevas sociedades", "emprendimientos"],
