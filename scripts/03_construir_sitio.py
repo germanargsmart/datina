@@ -11,11 +11,13 @@ El sitio de consultas de pobreza ya construido (pobreza/dist) se copia a sitio/p
 Uso: python scripts/03_construir_sitio.py [--con-pobreza]
 """
 import csv, datetime, hashlib, html, json, math, pathlib, re, shutil, sys
+from decimal import Decimal, ROUND_HALF_UP
 
 RAIZ = pathlib.Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(RAIZ / "scripts"))
 import consultor_pobreza  # noqa: E402
 import frescura  # noqa: E402
+import imagen_social  # noqa: E402
 import prueba_frescura  # noqa: E402
 # la regla del aviso de dato atrasado (T3) se prueba antes de armar: si falla, el sitio no se arma
 _fr, _ = prueba_frescura.revisar()
@@ -1233,6 +1235,36 @@ def encabezado_principal(h, id_):
 URL_SITIO = SITIO_CONF["url"].strip().rstrip("/")
 assert not URL_SITIO or URL_SITIO.startswith("https://"), "datos/manual/sitio.json: la dirección tiene que empezar con https://"
 INDEXADAS = []
+# El dato destacado de la imagen al compartir de cada página (D3): el de su primera ficha o el más representativo. Sale del resumen, y si un dato
+# no está (una fuente caída), la imagen sale sin él. Las páginas de política y las que no tienen un dato propio llevan solo la pregunta
+_og_n = lambda v, d=0: f"{Decimal(str(v)).quantize(Decimal(1).scaleb(-d), rounding=ROUND_HALF_UP):,}".replace(",", "#").replace(".", ",").replace("#", ".")
+_og_pct = lambda v: _og_n(v, 1) + "%"
+_R = RESUMEN
+OG_DATO = {
+    "trabajo": lambda: (_og_n(_R["empleo"]["cada_100_pais"], 1), f"personas asalariadas registradas en el sector privado cada 100 habitantes, {_R['empleo']['mes']}"),
+    "economia": lambda: (_og_pct(_R["economia"]["ipc"]["interanual"]), f"subieron los precios al consumidor en los doce meses hasta {_R['economia']['ipc']['mes']}"),
+    "empresas": lambda: (_og_n(_R["empresas"]["total_pais"]), f"empresas privadas con personal en relación de dependencia en {_R['empresas']['anio']}"),
+    "pobreza": lambda: (_og_pct(_R["pobreza"]["pob"]), f"de las personas de los 31 aglomerados urbanos bajo la línea de pobreza, {_R['pobreza']['sem']}"),
+    "salud": lambda: (_og_n(_R["mortalidad"]["tasa"], 1), f"muertes de menores de un año cada 1.000 nacidos vivos en {_R['mortalidad']['anio']}"),
+    "seguridad": lambda: (_og_n(_R["seguridad"]["hom_tasa"], 1), f"víctimas de homicidios dolosos cada 100.000 habitantes en {_R['seguridad']['anio']}"),
+    "educacion": lambda: (_og_pct(_R["aprender"]["mat"]), f"de los estudiantes de {_R['aprender']['nivel'].replace(' grado', '° grado')} con nivel satisfactorio o avanzado en matemática, Aprender {_R['aprender']['anio']}"),
+    "externo": lambda: (f"{_og_n(abs(_R['externo']['balanza']['saldo']))} millones", f"de dólares de {'superávit' if _R['externo']['balanza']['saldo'] >= 0 else 'déficit'} comercial en {_R['externo']['balanza']['anio']}"),
+    "poblacion": lambda: (_og_n(_R["nacimientos"]["n_ult"]), f"nacimientos en {_R['nacimientos']['anio_ult']}, {_og_pct(abs(_R['nacimientos']['caida']))} menos que en {_R['nacimientos']['anio_pico']}"),
+    "movilidad": lambda: (f"{_og_n(_R['sube']['total_millones'], 2)} millones", f"de tarjetas SUBE usadas en un día hábil típico de {_R['sube']['mes']}"),
+    "construccion": lambda: (_og_pct(abs(_R["construccion"]["isac_var"])), f"{'cayó' if _R['construccion']['isac_var'] < 0 else 'creció'} la actividad de la construcción en {_R['construccion']['isac_mes']} frente a un año antes"),
+    "energia": lambda: (_og_pct(_R["energia"]["crec_total"]), f"creció la demanda eléctrica entre {_R['energia']['anio_ini']} y {_R['energia']['anio_ult']}"),
+    "petroleo": lambda: (f"{_og_n(_R['petroleo']['kbd'])} mil", f"barriles de petróleo por día en {_R['petroleo']['mes']}"),
+    "turismo": lambda: (f"{_og_n(_R['turismo']['turistas'] / 1e6, 1)} millones", f"de turistas no residentes llegaron al país en {_R['turismo']['anio']}"),
+    "naturaleza": lambda: (_og_pct(_R["naturaleza"]["pct"]), f"del territorio continental en áreas protegidas, {_R['naturaleza']['anio']}"),
+    "curiosidades": lambda: (f"{_og_n(_R['curiosidades']['carne_v'], 1)} kg", f"de carne vacuna por habitante en {_R['curiosidades']['carne_anio']}"),
+}
+
+
+def _og_dato(id_):
+    try:
+        return OG_DATO[id_]() if id_ in OG_DATO else (None, None)
+    except (KeyError, TypeError):
+        return None, None
 
 
 def metadatos(id_, titulo_social, descripcion, tipo):
@@ -1241,10 +1273,16 @@ def metadatos(id_, titulo_social, descripcion, tipo):
     archivo = "" if id_ == "inicio" else id_
     m = [f'<meta property="og:site_name" content="Datina">', '<meta property="og:locale" content="es_AR">',
          f'<meta property="og:type" content="{tipo}">', f'<meta property="og:title" content="{e(titulo_social)}">',
-         f'<meta property="og:description" content="{e(descripcion)}">', '<meta name="twitter:card" content="summary">',
+         f'<meta property="og:description" content="{e(descripcion)}">',
+         f'<meta name="twitter:card" content="{"summary_large_image" if URL_SITIO else "summary"}">',
          f'<meta name="twitter:title" content="{e(titulo_social)}">', f'<meta name="twitter:description" content="{e(descripcion)}">']
     if URL_SITIO:
         m += [f'<link rel="canonical" href="{URL_SITIO}/{archivo}">', f'<meta property="og:url" content="{URL_SITIO}/{archivo}">']
+        # la imagen al compartir: la pregunta sin el nombre de la sección (el título social de una sección es "Trabajo: ¿...?")
+        imagen_social.asegurar(SITIO / "og", id_, re.sub(r"^[^¿]*:\s*(?=¿)", "", titulo_social), *_og_dato(id_))
+        m += [f'<meta property="og:image" content="{URL_SITIO}/og/{id_}.png">', f'<meta property="og:image:width" content="{imagen_social.ANCHO}">',
+              f'<meta property="og:image:height" content="{imagen_social.ALTO}">', f'<meta property="og:image:alt" content="{e(titulo_social)}">',
+              f'<meta name="twitter:image" content="{URL_SITIO}/og/{id_}.png">']
     if tipo == "article":
         ld = {"@context": "https://schema.org", "@type": "Article", "headline": titulo_social, "description": descripcion, "inLanguage": "es-AR",
               "author": {"@type": "Organization", "name": "Datina"}, "publisher": {"@type": "Organization", "name": "Datina"}}
@@ -1303,19 +1341,24 @@ pagina("inicio", None, None, {"inicio"})
 _h_prov = pagina("provincia", "Tu provincia",
                  "El perfil de cada provincia: sus indicadores frente al total del país, su posición entre las 24 jurisdicciones, su historia y las provincias que más se le parecen.",
                  {"provincia"})
-# Las 24 páginas fijas: la misma página, con su título, su descripción y su dirección, y la provincia ya elegida (data-prov, que lee datina.js)
+# Las 24 páginas fijas: la misma página, con su título, su descripción, su dirección y su imagen, y la provincia ya elegida (data-prov, que lee datina.js)
+_POB_PROV = {f["codigo_indec"]: f["personas_hoy"] for f in json.loads((SITIO / "datos" / "fichas.json").read_text(encoding="utf-8"))["datos"]["poblacion_proyectada_provincias"]}
 for _c, _a in PAG_PROV.items():
     _n = NOMBRE_PROV[_c]
     _t, _d = f"{_n} en números", (f"El perfil de {_n}: sus indicadores frente al total del país, su posición entre las 24 jurisdicciones, su historia y las jurisdicciones "
                                   "que más se le parecen.")
     _h = _h_prov.replace('<body data-pagina="provincia"', f'<body data-pagina="provincia" data-prov="{_c}"', 1)
     _h = re.sub(r"<title>[^<]*</title>", f"<title>{e(_t)} | Datina</title>", _h, count=1)
-    for _q, _v in [('name="description"', _d), ('property="og:description"', _d), ('name="twitter:description"', _d), ('property="og:title"', _t), ('name="twitter:title"', _t)]:
+    for _q, _v in [('name="description"', _d), ('property="og:description"', _d), ('name="twitter:description"', _d), ('property="og:title"', _t), ('name="twitter:title"', _t),
+                   ('property="og:image:alt"', _t)]:
         _h, _cu = re.subn(rf'(<meta {_q} content=")[^"]*"', lambda m: m.group(1) + e(_v) + '"', _h, count=1)
         assert _cu == 1, f"{_a}: falta {_q}"
     if URL_SITIO:
         _h = _h.replace(f'<link rel="canonical" href="{URL_SITIO}/provincia">', f'<link rel="canonical" href="{URL_SITIO}/{_a}">', 1)
         _h = _h.replace(f'<meta property="og:url" content="{URL_SITIO}/provincia">', f'<meta property="og:url" content="{URL_SITIO}/{_a}">', 1)
+        _h = _h.replace(f'{URL_SITIO}/og/provincia.png', f'{URL_SITIO}/og/{_a}.png')
+        imagen_social.asegurar(SITIO / "og", _a, _t, _og_n(_POB_PROV[_c]), f"habitantes en {RESUMEN['poblacion_proy']['anio']}, según las proyecciones del INDEC",
+                               SITIO / "datos" / "banderas" / f"{_c}.png")
     (SITIO / f"{_a}.html").write_text(_h, encoding="utf-8", newline="\n")
     INDEXADAS.append(_a)
 # Sobre nosotros: proposito, principios y forma de trabajo de Datina
@@ -1477,6 +1520,7 @@ if 'property="og:title"' not in _rxh:
     _rxd = html.unescape(re.search(r'<meta name="description" content="([^"]*)"', _rxh).group(1))
     _rxh = _rxh.replace('<meta name="description"', metadatos("relaciones", "Explorador de relaciones: ¿de dónde sale cada número?", _rxd, "website") + '\n<meta name="description"', 1)
     _rxp.write_text(_rxh, encoding="utf-8", newline="\n")
+imagen_social.terminar()
 # sitemap.xml y robots.txt solo con la dirección definitiva (datos/manual/sitio.json). Sin ella se borran, si quedaron de antes
 for _f in ("sitemap.xml", "robots.txt"):
     (SITIO / _f).unlink(missing_ok=True)
