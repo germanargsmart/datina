@@ -7671,37 +7671,42 @@ cruces_series.to_csv(SITIO / "cruces_series.csv", index=False, lineterminator="\
 SERIES_IDS = sorted(cruces_series.id.unique())
 
 # ---------------------------------------------------------------- puestos a lo largo del tiempo (F14)
-# F14 (plan de mejora, aprobado por el autor el 28 de octubre de 2026): el puesto de cada provincia entre las 24 en el último año con las 24
-# y diez años antes (o el primero con las 24, si la serie es más corta), en los indicadores del perfil que tienen una serie anual por
-# provincia en la tabla larga. El puesto 1 es la cifra más alta: que una cifra sea alta no dice si es buena o mala. Sin los suicidios (temas
-# sensibles: no entran en el perfil)
+# F14 (plan de mejora, aprobado por el autor el 28 de octubre de 2026): el puesto de cada provincia entre las 24, en los indicadores del
+# perfil que tienen una serie anual por provincia en la tabla larga. Sin los suicidios (temas sensibles: no entran en el perfil).
+# Desde el 5 de noviembre de 2026 (pedido del autor: "poner cada dos o tres años la evolución y no una línea recta", rojo si es negativo y
+# verde si es positivo): una fila por año, cada dos años, desde el último con las 24 hasta diez años antes (o el primero con las 24, si la
+# serie es más corta). El puesto 1 es el mejor según el sentido de cada indicador: "menos" si conviene la cifra más baja, "mas" si conviene la
+# más alta. "neutro" (decisión del autor del mismo día) es un indicador sin un bueno o malo indiscutido: el puesto 1 es la cifra más alta y el
+# gráfico va en gris. El orden de esta lista es el de las tarjetas
 PUESTOS_VARS = {
-    "tasa_mortalidad_infantil": ("Mortalidad infantil", "muertes de menores de un año cada 1.000 nacidos vivos", "f-mortalidad"),
-    "pct_nacimientos_madres_menores_20": ("Maternidad adolescente", "% de los nacimientos con madres menores de 20 años", "f-adolescentes"),
-    "cobertura_triple_viral_dosis1": ("Vacuna triple viral, primera dosis", "% de los chicos de la edad", "f-vacunas"),
-    "tasa_neta_escolarizacion_secundaria": ("Escolarización secundaria", "tasa neta, %", "f-escolarizacion"),
-    "abandono_interanual_secundaria": ("Abandono de la secundaria", "% de los alumnos que no se matriculan al año siguiente", "f-abandono"),
-    "gasto_educativo_por_alumno_estatal": ("Inversión educativa por alumno", "pesos corrientes por alumno de gestión estatal por año", "f-inversion-educativa"),
-    "tasa_victimas_homicidios_dolosos": ("Homicidios dolosos", "víctimas cada 100.000 habitantes", "f-homicidios"),
-    "tasa_robos": ("Robos", "hechos cada 100.000 habitantes", "f-robos"),
-    "recursos_propios_pct_ingresos": ("Recursos propios", "% de los ingresos de la provincia", "f-fiscal"),
-    "gasto_personal_pct_gasto": ("Gasto en personal", "% del gasto de la provincia", "f-fiscal"),
+    "tasa_mortalidad_infantil": ("Mortalidad infantil", "muertes de menores de un año cada 1.000 nacidos vivos", "f-mortalidad", "menos"),
+    "pct_nacimientos_madres_menores_20": ("Maternidad adolescente", "% de los nacimientos con madres menores de 20 años", "f-adolescentes", "menos"),
+    "cobertura_triple_viral_dosis1": ("Vacuna triple viral, primera dosis", "% de los chicos de la edad", "f-vacunas", "mas"),
+    "tasa_neta_escolarizacion_secundaria": ("Escolarización secundaria", "tasa neta, %", "f-escolarizacion", "mas"),
+    "abandono_interanual_secundaria": ("Abandono de la secundaria", "% de los alumnos que no se matriculan al año siguiente", "f-abandono", "menos"),
+    "gasto_educativo_por_alumno_estatal": ("Inversión educativa por alumno", "pesos corrientes por alumno de gestión estatal por año", "f-inversion-educativa", "mas"),
+    "tasa_victimas_homicidios_dolosos": ("Homicidios dolosos", "víctimas cada 100.000 habitantes", "f-homicidios", "menos"),
+    "tasa_robos": ("Robos", "hechos cada 100.000 habitantes", "f-robos", "menos"),
+    "recursos_propios_pct_ingresos": ("Recursos propios", "% de los ingresos de la provincia", "f-fiscal", "mas"),
+    "gasto_personal_pct_gasto": ("Gasto en personal", "% del gasto de la provincia", "f-fiscal", "neutro"),
 }
 _pu_l = pd.concat(largo, ignore_index=True)
 _pu_l = _pu_l[_pu_l.variable.isin(PUESTOS_VARS) & _pu_l.codigo_indec.isin(POB) & _pu_l.periodo.astype(str).str.fullmatch(r"\d{4}")].dropna(subset=["valor"])
 _pu_f = []
-for _pu_v, _pu_g in _pu_l.groupby("variable"):
+for _pu_v, (lab, uni, ficha, _pu_s) in PUESTOS_VARS.items():
+    _pu_g = _pu_l[_pu_l.variable == _pu_v]
     _pu_g = _pu_g.assign(anio=_pu_g.periodo.astype(int)).drop_duplicates(["codigo_indec", "anio"], keep="last")
     _pu_c = sorted(a for a, x in _pu_g.groupby("anio") if x.codigo_indec.nunique() == 24)
     assert len(_pu_c) >= 2, f"puestos: {_pu_v} no tiene dos años con las 24"
     _pu_fin = _pu_c[-1]
     _pu_ini = max([a for a in _pu_c if a <= _pu_fin - 10], default=_pu_c[0])
-    _pu_x = {a: _pu_g[_pu_g.anio == a].set_index("codigo_indec").valor for a in (_pu_ini, _pu_fin)}
-    _pu_r = {a: x.rank(ascending=False, method="min").astype(int) for a, x in _pu_x.items()}
-    lab, uni, ficha = PUESTOS_VARS[_pu_v]
-    _pu_f += [{"variable": _pu_v, "indicador": lab, "unidad": uni, "ficha": ficha, "codigo_indec": c, "territorio": CORTO[c],
-               "anio_inicio": _pu_ini, "anio_final": _pu_fin, "puesto_inicio": int(_pu_r[_pu_ini][c]), "puesto_final": int(_pu_r[_pu_fin][c]),
-               "valor_inicio": float(_pu_x[_pu_ini][c]), "valor_final": float(_pu_x[_pu_fin][c])} for c in sorted(POB)]
+    # de dos en dos desde el último año, con el primero siempre adentro. Si faltara uno de esos años, se salta: el gráfico respeta la distancia
+    _pu_anios = sorted({_pu_ini} | {a for a in _pu_c if a >= _pu_ini and (_pu_fin - a) % 2 == 0})
+    for _pu_a in _pu_anios:
+        _pu_x = _pu_g[_pu_g.anio == _pu_a].set_index("codigo_indec").valor
+        _pu_r = _pu_x.rank(ascending=_pu_s == "menos", method="min").astype(int)
+        _pu_f += [{"variable": _pu_v, "indicador": lab, "unidad": uni, "ficha": ficha, "sentido": _pu_s, "codigo_indec": c, "territorio": CORTO[c],
+                   "anio": _pu_a, "puesto": int(_pu_r[c]), "valor": float(_pu_x[c])} for c in sorted(POB)]
 puestos_provincias = pd.DataFrame(_pu_f)
 assert puestos_provincias.variable.nunique() == len(PUESTOS_VARS), "puestos: falta algún indicador"
 

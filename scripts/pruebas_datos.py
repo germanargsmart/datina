@@ -11,7 +11,8 @@ Qué revisan:
   5. Indicadores con más de una fuente y diferencia mayor al 2%.
   6. Mandatos presidenciales sin huecos ni superposiciones.
   7. La Corte Suprema (etapa 33): jueces en funciones contra los que fija la ley, fechas, superposiciones y quién designó a cada uno.
-  8. Errores que ya pasaron (plan del 26 de octubre de 2026, docs/roadmap/PLAN_MEJORA.md), para que no vuelvan: un bloque con el
+  8. Errores que ya pasaron (plan del 26 de octubre de 2026, docs/roadmap/PLAN_MEJORA.md), para que no vuelvan: los puestos de
+     "Cómo cambió su puesto" (el 1 tiene que ser el mejor, según el sentido del indicador, y tiene que haber una fila cada dos o tres años), un bloque con el
      nombre de una provincia con legisladores de otra (E1), un total de empresas del país que suma las provincias (E2). El total de motos sin las jurisdicciones excluidas (E3) va en
      las sumas de control. Los pozos no convencionales del mismo mes, iguales en la ficha de pozos y en el mapa (E13). El valor del país de los
      recursos propios provinciales, que no puede ser la mediana. El país de nacimiento que es el primero en más jurisdicciones (E13, 27 de
@@ -566,6 +567,24 @@ UNIDADES = {"%", "% de los chicos de la edad", "% de estudiantes de 6 grado", "%
 SIN_TILDE = r"(?i)\b(anios?|capitulo|direccion|dolares|economia|educacion|energia|estadisticas|estimacion|gestion|indices?|informacion|petroleo|poblacion|produccion|secretaria|tramites|vehiculos|via|dia)\b"
 
 
+def prueba_puestos():
+    """"Cómo cambió su puesto" (5 de noviembre de 2026): el color del gráfico depende de que el puesto 1 sea de verdad el mejor."""
+    sale = []
+    pu = pd.read_csv(SITIO / "datos" / "puestos_provincias.csv", dtype={"codigo_indec": str})
+    for (var, anio), g in pu.groupby(["variable", "anio"]):
+        if sorted(g.codigo_indec) != sorted(PROV24) or g.puesto.min() != 1 or g.puesto.max() > 24:
+            sale.append((f"puestos|rango|{var}|{anio}", f"{var} en {anio}: no están las 24 con puestos de 1 a 24"))
+        elif g.sort_values("valor", ascending=g.sentido.iloc[0] == "menos").puesto.iloc[0] != 1:
+            sale.append((f"puestos|sentido|{var}|{anio}", f"{var} en {anio}: el puesto 1 no es la cifra que corresponde a su sentido"))
+    for var, g in pu.groupby("variable"):
+        anios = sorted(g.anio.unique())
+        if len(anios) < 3 or max(b - a for a, b in zip(anios, anios[1:])) > 3:
+            sale.append((f"puestos|anios|{var}", f"{var}: los años no van cada dos o tres ({anios})"))
+    if set(pu.sentido) - {"menos", "mas", "neutro"}:
+        sale.append(("puestos|sentido", f"sentidos desconocidos: {set(pu.sentido)}"))
+    return sale
+
+
 def prueba_unidades(d, t):
     import re
     sale = []
@@ -581,7 +600,7 @@ def prueba_unidades(d, t):
 
 PRUEBAS = [("Sumas de control", prueba_sumas), ("Tasas y porcentajes fuera de rango", prueba_rango), ("Períodos faltantes", prueba_faltantes),
            ("Más de cinco veces la mediana", None), ("Dos fuentes para lo mismo", prueba_fuentes), ("Mandatos presidenciales", prueba_mandatos),
-           ("La Corte Suprema", prueba_corte), ("Errores que ya pasaron", prueba_errores), ("Unidades conocidas", prueba_unidades)]
+           ("La Corte Suprema", prueba_corte), ("Errores que ya pasaron", prueba_errores), ("Puestos de cada provincia", lambda d, t: prueba_puestos()), ("Unidades conocidas", prueba_unidades)]
 
 
 def correr(mostrar=True):

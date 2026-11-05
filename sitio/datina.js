@@ -7334,26 +7334,52 @@ pintarCompara();
 document.getElementById("compara-sel").focus();
 });
 }
+const PUESTO_NOTA = {
+recursos_propios_pct_ingresos: "Más recursos propios cuenta como mejora: es menos dependencia de los fondos nacionales.",
+gasto_personal_pct_gasto: "Va en gris: más gasto en personal no es por sí solo mejor ni peor.",
+};
+function pendientePuesto(s, w) {
+const h = 92, izq = 34, der = 34, arr = 8, ab = 22, ini = s[0], fin = s[s.length - 1];
+const x = a => +(izq + (a - ini.anio) / (fin.anio - ini.anio) * (w - izq - der)).toFixed(1), y = p => +(arr + (p - 1) / 23 * (h - arr - ab)).toFixed(1);
+const marco = p => `<line class="dpp-marco" x1="${izq}" x2="${w - der}" y1="${y(p)}" y2="${y(p)}"/>` +
+(Math.abs(y(p) - y(ini.puesto)) > 11 ? `<text class="dpp-eje" x="${izq - 8}" y="${y(p)}" dy=".35em" text-anchor="end">${p}.º</text>` : "");
+const anios = x(s[1].anio) - x(ini.anio) >= 30 ? s : [ini, fin];
+return marco(1) + marco(24) +
+`<polyline class="dpp-linea" points="${s.map(r => `${x(r.anio)},${y(r.puesto)}`).join(" ")}"/>` +
+s.map((r, i) => `<circle class="${i === 0 ? "dpp-ini" : i === s.length - 1 ? "dpp-fin" : "dpp-punto"}" cx="${x(r.anio)}" cy="${y(r.puesto)}" r="${i === 0 ? 3.5 : i === s.length - 1 ? 4.5 : 2.5}">` +
+`<title>${r.anio}: puesto ${r.puesto}</title></circle>`).join("") +
+`<text class="dpp-eje" x="${izq - 8}" y="${y(ini.puesto)}" dy=".35em" text-anchor="end">${ini.puesto}.º</text>` +
+`<text class="dpp-val" x="${w - der + 8}" y="${y(fin.puesto)}" dy=".35em">${fin.puesto}.º</text>` +
+anios.map(r => `<text class="dpp-anio" x="${x(r.anio)}" y="${h - 4}" text-anchor="middle">${r.anio}</text>`).join("");
+}
 function pintarPuestos() {
 const caja = document.getElementById("prov-puestos"); if (!caja) return;
 if (NOMBRES[prov] && !T.puestos_provincias) { cargarTabla("puestos_provincias").then(pintarPuestos, () => {}); return; }
 const filas = (T.puestos_provincias || []).filter(r => r.codigo_indec === prov);
 if (!NOMBRES[prov] || !filas.length) { caja.hidden = true; caja.innerHTML = ""; return; }
-const frase = o => puestoTxt(o, 24).replace(" de las 24 jurisdicciones", "").replace(/^L/, "l");
-const num = v => Math.abs(v) >= 1000 ? n0(v) : n1(v), y = p => 8 + (p - 1) / 23 * 48;
+const num = v => Math.abs(v) >= 1000 ? n0(v) : n1(v);
+const series = [...d3.group(filas, r => r.variable).entries()].map(([v, s]) => ({v, s: s.sort((a, b) => a.anio - b.anio)}));
+const conMenos = series.filter(({s}) => s[0].sentido === "menos").map(({s}) => s[0].indicador.toLowerCase());
 caja.hidden = false;
 caja.innerHTML = `<h2 class="bloque-grupo" id="prov-puestos-t">Cómo cambió su puesto</h2>` +
-`<p class="prov-destaca-sub">El lugar de ${NOMBRES[prov]} entre las 24 jurisdicciones, diez años antes y en el último año con datos de todas. Arriba, la ` +
-`cifra más alta. Que una cifra sea alta o baja no dice si es buena o mala.</p><div class="perfil-tarjetas">` +
-filas.map(r => `<a class="tarjeta dp" href="${destinoDe("#" + r.ficha) || "#" + r.ficha}"><span class="dp-lab">${r.indicador}</span>` +
-`<span class="dp-det">${r.unidad}</span><svg class="dp-pendiente" viewBox="0 0 220 64" aria-hidden="true">` +
-`<line x1="34" x2="186" y1="${y(r.puesto_inicio)}" y2="${y(r.puesto_final)}" stroke="${css("--celeste")}" stroke-width="2.5"/>` +
-`<circle cx="34" cy="${y(r.puesto_inicio)}" r="5" fill="${css("--bg")}" stroke="${css("--celeste-fuerte")}" stroke-width="2"/>` +
-`<circle cx="186" cy="${y(r.puesto_final)}" r="5.5" fill="${css("--celeste-fuerte")}"/>` +
-`<text x="26" y="${y(r.puesto_inicio)}" dy=".35em" text-anchor="end" font-size="11" fill="${css("--muted")}">${r.anio_inicio}</text>` +
-`<text x="194" y="${y(r.puesto_final)}" dy=".35em" font-size="11" fill="${css("--ink")}">${r.anio_final}</text></svg>` +
-`<span class="dp-pos">En ${r.anio_inicio}, ${frase(r.puesto_inicio)} (${num(r.valor_inicio)}). En ${r.anio_final}, ${frase(r.puesto_final)} ` +
-`(${num(r.valor_final)}).</span></a>`).join("") + `</div>`;
+`<p class="prov-destaca-sub">El lugar de ${NOMBRES[prov]} entre las 24 jurisdicciones, cada dos años. Arriba, el mejor puesto: verde si mejoró y rojo si empeoró. ` +
+`El puesto 1 es la cifra más baja en ${lista(conMenos)}, y la más alta en los demás. Compara con las otras: la cifra puede mejorar aunque pierda lugares.</p>` +
+`<div class="perfil-tarjetas">` +
+series.map(({v, s}) => {
+const ini = s[0], fin = s[s.length - 1], dif = ini.puesto - fin.puesto, neutro = ini.sentido === "neutro";
+const clase = neutro || !dif ? "igual" : dif > 0 ? "sube" : "baja";
+const cambio = !dif ? "Mismo puesto" : neutro ? `Pasó del puesto ${ini.puesto} al ${fin.puesto}` : `${dif > 0 ? "Mejoró" : "Empeoró"} ${Math.abs(dif)} ${Math.abs(dif) === 1 ? "puesto" : "puestos"}`;
+return `<a class="tarjeta dp" href="${destinoDe("#" + ini.ficha) || "#" + ini.ficha}"><span class="dp-lab">${ini.indicador}</span>` +
+`<span class="dp-det">${ini.unidad}</span><svg class="dp-pendiente ${clase}" data-v="${v}" aria-hidden="true"></svg>` +
+`<span class="solo-lector">Puesto por año: ${s.map(r => `${r.anio}, ${r.puesto}`).join(". ")}.</span>` +
+`<span class="dp-pos"><b class="dp-cambio ${clase}">${cambio}.</b> En ${ini.anio}, puesto ${ini.puesto} (${num(ini.valor)}). En ${fin.anio}, puesto ${fin.puesto} ` +
+`(${num(fin.valor)}).</span><span class="dp-aclara">${PUESTO_NOTA[v] || ""}</span></a>`;
+}).join("") + `</div>`;
+caja.querySelectorAll(".dp-pendiente").forEach(svg => {
+const w = Math.max(160, svg.clientWidth || 200), {s} = series.find(o => o.v === svg.dataset.v);
+svg.setAttribute("viewBox", `0 0 ${w} 92`);
+svg.innerHTML = pendientePuesto(s, w);
+});
 }
 function pintarCensos() {
 const caja = document.getElementById("prov-censos"); if (!caja) return;
