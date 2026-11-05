@@ -6160,7 +6160,7 @@ conm.querySelectorAll("button").forEach(x => x.setAttribute("aria-pressed", x ==
 cambiarVista(conm.dataset.dib || k);
 }));
 });
-const EQUILIBRAR = "#herramientas-grid, .perfil-tarjetas, .programas-grid, .pie-mapa";
+const EQUILIBRAR = "#herramientas-grid, .programas-grid, .pie-mapa";
 (() => {
 const visto = new WeakMap(), vigiladas = new WeakSet(), medidas = new ResizeObserver(es => es.forEach(e => equilibrar(e.target)));
 function equilibrar(g) {

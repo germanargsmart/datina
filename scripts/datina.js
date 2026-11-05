@@ -6973,8 +6973,9 @@ document.querySelectorAll(".conmutador:not(.pestanas):not([data-propio])").forEa
    datina.css según el ancho, pero las tarjetas se reparten en filas parejas, que llenan el ancho: con 5 tarjetas y 3 columnas van 3 arriba
    y 2 abajo, más anchas, con 4 y 3 columnas van 2 y 2, y con una sola fila las tarjetas ocupan todo el ancho. Se vuelve a repartir al
    cambiar el ancho o las tarjetas (el perfil provincial cambia con la provincia). En el celular, si la grilla pasa a desplazarse de
-   costado (las tarjetas del perfil), no se toca */
-const EQUILIBRAR = "#herramientas-grid, .perfil-tarjetas, .programas-grid, .pie-mapa";
+   costado, no se toca. Desde el 5 de noviembre de 2026 las tarjetas del perfil provincial no pasan por acá: el autor pidió "que las cards
+   queden todas del mismo tamaño", y repartirlas daba tres anchos en una misma página. Ver .perfil-tarjetas en datina.css */
+const EQUILIBRAR = "#herramientas-grid, .programas-grid, .pie-mapa";
 (() => {
   // visto: el ancho y la cantidad de tarjetas con que se repartió cada grilla, para no repetir el trabajo si no cambiaron
   const visto = new WeakMap(), vigiladas = new WeakSet(), medidas = new ResizeObserver(es => es.forEach(e => equilibrar(e.target)));
