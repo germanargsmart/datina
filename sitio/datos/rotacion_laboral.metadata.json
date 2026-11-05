@@ -28,22 +28,22 @@
   {
    "nombre": "casos",
    "tipo": "Número",
-   "valores": "1.216 a 51.200"
+   "valores": "1.222 a 50.667"
   },
   {
    "nombre": "pct_un_anio_o_menos",
    "tipo": "Número",
-   "valores": "5,7 a 42,5"
+   "valores": "5,8 a 42,5"
   },
   {
    "nombre": "pct_mas_de_cinco_anios",
    "tipo": "Número",
-   "valores": "4,5 a 79,1"
+   "valores": "4,7 a 79,6"
   }
  ],
  "unidades": [],
  "como_se_calcula": "",
- "datos_actualizados": "28/10/2026",
+ "datos_actualizados": "05/11/2026",
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
  "como_citar": "Datina (año de la consulta). ¿Qué parte de los asalariados lleva un año o menos en su empleo? Con datos de INDEC, Encuesta Permanente de Hogares, bases usuarias trimestrales (procesamiento propio). https://datina.com.ar/trabajo.html#f-rotacion. Consultado el día de la consulta."

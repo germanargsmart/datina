@@ -201,7 +201,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     <!-- la canasta de crianza del INDEC, de su API (3 de noviembre de 2026) -->
     <article class="ficha" id="f-crianza">
       <h2>¿Cuánto cuesta por mes criar a un chico?</h2>
-      <p class="ficha-sub">Canasta de crianza por edad, en pesos por mes, septiembre de 2026, mes a mes descontada la inflación desde mayo de 2023, y frente al salario registrado de cada provincia, mayo de 2026</p>
+      <p class="ficha-sub">Canasta de crianza por edad, en pesos por mes, septiembre de 2026, mes a mes descontada la inflación desde enero de 2020, y frente al salario registrado de cada provincia, mayo de 2026</p>
       <div class="conmutador" role="group" aria-label="Vista" data-g="crianza" style="--n:3">
         <button type="button" data-m="edad" aria-pressed="true">Por edad</button>
         <button type="button" data-m="mes" aria-pressed="false">Mes a mes</button>
@@ -247,7 +247,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <div class="grafico" data-g="sectores-empleo" data-forma="pesas"></div>
       <p class="lead" data-t="sectores-empleo"></p>
       <p class="nota" data-t="sectores-empleo-nota"></p>
-      <div class="pie"><span>Fuentes: INDEC, Estimador Mensual de Actividad Económica, y Observatorio de Empleo y Dinámica Empresarial (OEDE), Secretaría de Trabajo, con datos del Sistema Integrado Previsional Argentino (SIPA). Se actualiza cada tres meses.</span><a href="datos/sectores_empleo.csv" download>Descargar tabla (CSV)</a></div>
+      <div class="pie"><span>Fuentes: INDEC, Estimador Mensual de Actividad Económica, y Observatorio de Empleo y Dinámica Empresarial (OEDE), Secretaría de Trabajo, con datos del Sistema Integrado Previsional Argentino (SIPA). Se actualiza cada tres meses. El último dato es de marzo de 2026, más atrasado que lo habitual.</span><a href="datos/sectores_empleo.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <!-- la producción industrial y minera del INDEC, de su API (3 de noviembre de 2026) -->
@@ -262,7 +262,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <div class="grafico" data-g="industria" data-forma="barras" style="--filas:16"></div>
       <p class="lead" data-t="industria"></p>
       <p class="nota" data-t="industria-nota"></p>
-      <div class="pie"><span>Fuente: INDEC, índices de producción industrial manufacturero y minero (Catálogo API-INDEC). Se actualiza cada mes.</span><a href="datos/industria_ramas.csv" download>Descargar tabla (CSV)</a></div>
+      <div class="pie"><span>Fuente: INDEC, índices de producción industrial manufacturero y minero (Catálogo API-INDEC). Se actualiza cada mes. El último dato es de agosto de 2026, más atrasado que lo habitual.</span><a href="datos/industria_ramas.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-supermercados">
@@ -401,7 +401,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 <p class="solo-lector" id="aviso" aria-live="polite"></p>
 
 <!-- los datos van en un archivo aparte que el navegador guarda una sola vez para todas las páginas -->
-<script src="datos/fichas.js?v=467718e6e3"></script>
+<script src="datos/fichas.js?v=c40fde17dc"></script>
 <script src="datina.js?v=eb78011f38"></script>
 </body>
 </html>

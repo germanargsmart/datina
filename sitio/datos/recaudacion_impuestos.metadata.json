@@ -18,17 +18,17 @@
   {
    "nombre": "millones_12_meses",
    "tipo": "Número",
-   "valores": "1.508.374,44 a 72.308.534,77"
+   "valores": "1.567.269,85 a 73.568.096,01"
   },
   {
    "nombre": "pct",
    "tipo": "Número",
-   "valores": "0,68 a 32,47"
+   "valores": "0,69 a 32,25"
   }
  ],
  "unidades": [],
  "como_se_calcula": "",
- "datos_actualizados": "28/10/2026",
+ "datos_actualizados": "05/11/2026",
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
  "como_citar": "Datina (año de la consulta). ¿Cuánto recauda cada impuesto nacional? Con datos de Dirección Nacional de Investigaciones y Análisis Fiscal, Ministerio de Economía, e INDEC. https://datina.com.ar/gobierno.html#f-recaudacion. Consultado el día de la consulta."

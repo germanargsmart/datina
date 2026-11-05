@@ -1,79 +1,79 @@
 {
  "tabla": "canasta_crianza.csv",
  "titulo": "¿Cuánto cuesta por mes criar a un chico?",
- "descripcion": "Canasta de crianza por edad, en pesos por mes, septiembre de 2026, mes a mes descontada la inflación desde mayo de 2023, y frente al salario registrado de cada provincia, mayo de 2026",
+ "descripcion": "Canasta de crianza por edad, en pesos por mes, septiembre de 2026, mes a mes descontada la inflación desde enero de 2020, y frente al salario registrado de cada provincia, mayo de 2026",
  "seccion": "Precios y actividad",
  "ficha": "https://datina.com.ar/economia.html#f-crianza",
  "fuente": "INDEC, valorización de la canasta de crianza (Catálogo API-INDEC) e índice de precios al consumidor, y Observatorio de Empleo y Dinámica Empresarial (OEDE), Secretaría de Trabajo, con datos del Sistema Integrado Previsional Argentino (SIPA).",
  "actualizacion": "Se actualiza cada mes.",
  "cobertura": "Sin desglose territorial",
- "periodo": "mayo de 2023 a septiembre de 2026",
- "filas": 41,
+ "periodo": "enero de 2020 a septiembre de 2026",
+ "filas": 81,
  "columnas": [
   {
    "nombre": "periodo",
    "tipo": "Fecha",
-   "valores": "mayo de 2023 a septiembre de 2026"
+   "valores": "enero de 2020 a septiembre de 2026"
   },
   {
    "nombre": "bys_men1",
    "tipo": "Número",
-   "valores": "24.683 a 184.912"
+   "valores": "4.572,99 a 184.911,53"
   },
   {
    "nombre": "cuid_men1",
    "tipo": "Número",
-   "valores": "73.656 a 385.920"
+   "valores": "13.390,41 a 385.920,04"
   },
   {
    "nombre": "tot_men1",
    "tipo": "Número",
-   "valores": "98.339 a 570.832"
+   "valores": "17.963,41 a 570.831,58"
   },
   {
    "nombre": "bys_1a3",
    "tipo": "Número",
-   "valores": "31.872 a 238.764"
+   "valores": "5.904,8 a 238.764,09"
   },
   {
    "nombre": "cuid_1a3",
    "tipo": "Número",
-   "valores": "84.178 a 441.051"
+   "valores": "15.303,33 a 441.051,48"
   },
   {
    "nombre": "tot_1a3",
    "tipo": "Número",
-   "valores": "116.050 a 679.816"
+   "valores": "21.208,14 a 679.815,57"
   },
   {
    "nombre": "bys_4a5",
    "tipo": "Número",
-   "valores": "40.592 a 304.095"
+   "valores": "7.520,48 a 304.094,69"
   },
   {
    "nombre": "cuid_4a5",
    "tipo": "Número",
-   "valores": "52.611 a 275.657"
+   "valores": "9.564,58 a 275.657,17"
   },
   {
    "nombre": "tot_4a5",
    "tipo": "Número",
-   "valores": "93.204 a 579.752"
+   "valores": "17.085,06 a 579.751,87"
   },
   {
    "nombre": "bys_6a12",
    "tipo": "Número",
-   "valores": "50.355 a 377.231"
+   "valores": "9.329,18 a 377.230,63"
   },
   {
    "nombre": "cuid_6a12",
    "tipo": "Número",
-   "valores": "67.032 a 351.619"
+   "valores": "12.096 a 351.618,96"
   },
   {
    "nombre": "tot_6a12",
    "tipo": "Número",
-   "valores": "117.387 a 728.850"
+   "valores": "21.425,18 a 728.849,59"
   },
   {
    "nombre": "real_men1",
@@ -83,22 +83,22 @@
   {
    "nombre": "real_1a3",
    "tipo": "Número",
-   "valores": "665.526 a 980.409"
+   "valores": "665.527 a 980.406"
   },
   {
    "nombre": "real_4a5",
    "tipo": "Número",
-   "valores": "569.688 a 775.318"
+   "valores": "569.689 a 775.318"
   },
   {
    "nombre": "real_6a12",
    "tipo": "Número",
-   "valores": "716.091 a 977.635"
+   "valores": "716.091 a 977.634"
   }
  ],
  "unidades": [],
  "como_se_calcula": "",
- "datos_actualizados": "28/10/2026",
+ "datos_actualizados": "05/11/2026",
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
  "como_citar": "Datina (año de la consulta). ¿Cuánto cuesta por mes criar a un chico? Con datos de INDEC, valorización de la canasta de crianza (Catálogo API-INDEC) e índice de precios al consumidor, y Observatorio de Empleo y Dinámica Empresarial (OEDE), Secretaría de Trabajo, con datos del Sistema Integrado Previsional Argentino (SIPA). https://datina.com.ar/economia.html#f-crianza. Consultado el día de la consulta."

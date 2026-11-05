@@ -1,7 +1,7 @@
 {
  "tabla": "crianza_salario.csv",
  "titulo": "¿Cuánto cuesta por mes criar a un chico?",
- "descripcion": "Canasta de crianza por edad, en pesos por mes, septiembre de 2026, mes a mes descontada la inflación desde mayo de 2023, y frente al salario registrado de cada provincia, mayo de 2026",
+ "descripcion": "Canasta de crianza por edad, en pesos por mes, septiembre de 2026, mes a mes descontada la inflación desde enero de 2020, y frente al salario registrado de cada provincia, mayo de 2026",
  "seccion": "Precios y actividad",
  "ficha": "https://datina.com.ar/economia.html#f-crianza",
  "fuente": "INDEC, valorización de la canasta de crianza (Catálogo API-INDEC) e índice de precios al consumidor, y Observatorio de Empleo y Dinámica Empresarial (OEDE), Secretaría de Trabajo, con datos del Sistema Integrado Previsional Argentino (SIPA).",
@@ -48,7 +48,7 @@
  ],
  "unidades": [],
  "como_se_calcula": "",
- "datos_actualizados": "28/10/2026",
+ "datos_actualizados": "05/11/2026",
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
  "como_citar": "Datina (año de la consulta). ¿Cuánto cuesta por mes criar a un chico? Con datos de INDEC, valorización de la canasta de crianza (Catálogo API-INDEC) e índice de precios al consumidor, y Observatorio de Empleo y Dinámica Empresarial (OEDE), Secretaría de Trabajo, con datos del Sistema Integrado Previsional Argentino (SIPA). https://datina.com.ar/economia.html#f-crianza. Consultado el día de la consulta."
