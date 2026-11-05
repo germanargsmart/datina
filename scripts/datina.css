@@ -2038,6 +2038,46 @@ p code{overflow-wrap:anywhere}
 .ms-bajadas [hidden]{display:none}
 .ms-limites{margin-top:var(--e-6);padding-top:var(--e-4);border-top:1px dotted var(--azul)}
 .ms-limites ul{margin:var(--e-3) 0 0;max-width:var(--medida);font-size:var(--t-3);line-height:var(--i-texto)}
+/* el mapa por circuito (5 de noviembre de 2026). Los colores de las fuerzas los trae el dato (datos/manual/mesas_fuerzas.json): el autor pidió los de cada logo, así que acá el violeta y el rojo son de los partidos */
+.ms-mapa[hidden],.ms-mapa-f[hidden],.ms-falla[hidden]{display:none}
+.ms-mapa-controles{display:flex;flex-wrap:wrap;align-items:flex-end;gap:var(--e-3) var(--e-4);margin-top:var(--e-4)}
+.ms-mapa-controles .conmutador{margin:0}
+.ms-mapa-controles .selector-ficha{flex:0 1 22em;max-width:none;margin:0}
+.ms-mapa-pasos{display:flex;flex-wrap:wrap;gap:var(--e-2);margin-left:auto}
+.ms-mapa-cuerpo{display:grid;grid-template-columns:minmax(0,1fr) minmax(220px,300px);gap:var(--e-6);align-items:start;margin-top:var(--e-4)}
+.ms-lienzo{position:relative;min-height:240px;touch-action:pan-x pan-y}
+.ms-lienzo svg{display:block;width:100%;height:auto;max-height:84vh;cursor:pointer}
+.ms-c{stroke:var(--bg);stroke-width:.5px;vector-effect:non-scaling-stroke;fill-rule:evenodd}
+.ms-cs-pais .ms-c{stroke-width:.15px}
+.ms-limite{fill:none;stroke:var(--bg);stroke-width:1.4px;vector-effect:non-scaling-stroke;pointer-events:none}
+.ms-sel{fill:none;stroke:var(--azul-hondo);stroke-width:2.5px;vector-effect:non-scaling-stroke;pointer-events:none}
+.ms-zoom{position:absolute;top:0;right:0;display:flex;flex-direction:column;gap:var(--e-1)}
+.ms-zoom button{min-width:34px;min-height:34px;padding:0 var(--e-1);font:500 var(--t-1)/1 var(--mono);color:var(--azul);background:var(--bg);border:1px solid var(--azul);border-radius:var(--r-control);cursor:pointer}
+.ms-zoom button:hover{background:var(--superficie-2)}
+.ms-ley{font-size:var(--t-2);line-height:var(--i-chico)}
+.ms-ley-tit{margin:0 0 var(--e-2);color:var(--muted)}
+.ms-ley-esc{display:flex;justify-content:space-between;gap:var(--e-2);margin:0 0 var(--e-1);font-family:var(--mono);font-size:var(--t-1);color:var(--muted)}
+.ms-ley-fila{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:var(--e-1) var(--e-2);padding:var(--e-2) 0;border-top:1px solid var(--borde)}
+.ms-ley-nom{font-weight:600;color:var(--ink)}
+.ms-ley-n{color:var(--muted);font-variant-numeric:tabular-nums}
+.ms-ley-tonos{grid-column:1/-1;display:flex;gap:2px}
+.ms-ley-tonos i{flex:1;height:12px;border-radius:2px}
+.ms-ley-tramo{display:grid;grid-template-columns:24px minmax(0,1fr) auto;align-items:center;gap:var(--e-2);padding:var(--e-1) 0}
+.ms-ley-tramo i{height:12px;border-radius:2px}
+.ms-ley-tramo .ms-ley-nom{font-weight:400}
+.ms-ley-sin{margin-top:var(--e-2);padding-top:var(--e-2);border-top:1px solid var(--borde)}
+.ms-ley-sin i{outline:1px solid var(--borde);outline-offset:-1px}
+.ms-ley-resto{margin:var(--e-2) 0 0;color:var(--muted)}
+.ms-mapa-pie{margin:var(--e-3) 0 0;font-size:var(--t-2);line-height:var(--i-chico);color:var(--muted)}
+.ms-mapa-pie .enlace[hidden]{display:none}
+.ms-mapa-pie .enlace{margin-right:var(--e-3)}
+@media (max-width:900px){.ms-mapa-cuerpo{grid-template-columns:minmax(0,1fr)}.ms-mapa-pasos{margin-left:0}}
+/* tres botones largos no entran en un celular de 320: uno debajo del otro, sin la pastilla que se desliza de costado */
+@media (max-width:480px){
+  .ms-mapa-controles .conmutador{display:grid;grid-template-columns:minmax(0,1fr);width:100%}
+  .ms-mapa-controles .conmutador::before{display:none}
+  .ms-mapa-controles .conmutador button[aria-pressed="true"]{background:var(--azul);border-radius:calc(var(--r-control) - 3px)}
+}
 @media (max-width:720px){
   .ms-filtros{grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--e-2) var(--e-3)}
   .ms-filtros .selector-ficha:nth-child(-n+2){grid-column:1/-1}   /* "Diputados nacionales" y "2023, segunda vuelta" no entran a media fila */
@@ -2050,7 +2090,7 @@ p code{overflow-wrap:anywhere}
   .ms .tabla-areas :is(td,tbody th){padding:var(--e-2)}
   .ms-tabla-partes td:not(.n){min-width:10em}
 }
-@media print{.ms-filtros,.ms-num,.ms-bajadas{display:none}.ms .tabla-desliza{max-height:none!important;overflow:visible}}
+@media print{.ms-filtros,.ms-num,.ms-bajadas,.ms-mapa-controles,.ms-zoom,.ms-mapa-pie{display:none}.ms .tabla-desliza{max-height:none!important;overflow:visible}}
 
 /* ---------- impresión (plan de mejora, D1, 28 de octubre de 2026) ----------
    Las fichas a la vista, sin el marco, la barra, los menús, los botones de cada ficha ni el pie del sitio, con los textos enteros, las

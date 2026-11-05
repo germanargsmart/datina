@@ -169,6 +169,24 @@ await p.ir(BASE + "mesas.html?p=06&s=61", 1500);
 r = await p.eval(MS);
 caso("Mesas sin la historia: los resultados quedan y lo dice", /La Matanza/.test(r) && /No se pudo bajar la historia/.test(sinNbsp(r)), r.slice(0, 80));
 FALLAR = [];
+// 8. El mapa de Elecciones por mesa (5 de noviembre de 2026): sin sus polígonos, sin sus datos o sin D3 las tablas siguen enteras, y sin polígonos lo dice y vuelve a intentar
+const FALLA_MAPA = `!document.getElementById("ms-mapa-falla").hidden`, CAMINOS = `document.querySelectorAll("#ms-lienzo .ms-c").length`;
+FALLAR = ["mesas/geo/"];
+await p.ir(BASE + "mesas.html", 1800);
+r = await p.eval(MS); caso("Mapa sin sus polígonos: las tablas quedan", /Milei - Villarruel/.test(r), r.slice(0, 80));
+caso("Mapa sin sus polígonos: lo dice", await p.eval(FALLA_MAPA));
+FALLAR = [];
+await p.eval(`document.getElementById("ms-mapa-reintentar").click()`); await espera(1500);
+r = await p.eval(CAMINOS); caso("Mapa: al volver a intentar, se dibuja", r > 5000, r);
+FALLAR = ["mesas/mapa/"];
+await p.ir(BASE + "mesas.html", 1800);
+r = await p.eval(MS); caso("Mapa sin sus datos: las tablas quedan", /Milei - Villarruel/.test(r), r.slice(0, 80));
+caso("Mapa sin sus datos: lo dice", await p.eval(FALLA_MAPA));
+FALLAR = ["lib/d3-"];
+await p.ir(BASE + "mesas.html", 1800);
+r = await p.eval(MS); caso("Mapa sin D3: las tablas quedan", /Milei - Villarruel/.test(r), r.slice(0, 80));
+caso("Mapa sin D3: no se ve", await p.eval(`document.getElementById("ms-mapa").hidden`));
+FALLAR = [];
 
 console.log(res.every(Boolean) ? "Todo bien" : "HAY FALLAS");
 await ch.cerrar(); servidor.close(); process.exit(res.every(Boolean) ? 0 : 1);

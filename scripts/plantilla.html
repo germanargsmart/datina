@@ -2951,9 +2951,42 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
         <p class="ms-num-res" id="ms-num-res" role="status"></p>
       </div>
       <p class="solo-lector" id="ms-estado" role="status">Cargando los resultados.</p>
+      <section class="ms-bloque ms-mapa" id="ms-mapa" aria-labelledby="ms-mapa-tit" hidden>
+        <h2 class="ms-tit" id="ms-mapa-tit">¿Quién ganó en cada circuito?</h2>
+        <p class="ms-sub" id="ms-mapa-sub"></p>
+        <div class="ms-mapa-controles">
+          <div class="conmutador" role="group" aria-label="Qué muestra el mapa" data-propio style="--n:3">
+            <button type="button" data-ver="gana" aria-pressed="true">Quién ganó</button>
+            <button type="button" data-ver="part" aria-pressed="false">Participación</button>
+            <button type="button" data-ver="fuerza" aria-pressed="false">Cada fuerza</button>
+          </div>
+          <label class="selector-ficha" id="ms-mapa-f" hidden><span>Fuerza</span><select id="ms-mapa-fuerza"></select></label>
+          <div class="ms-mapa-pasos">
+            <button type="button" class="boton chico" id="ms-el-ant">Elección anterior</button>
+            <button type="button" class="boton chico" id="ms-el-sig">Elección siguiente</button>
+          </div>
+        </div>
+        <div class="ms-mapa-cuerpo">
+          <div class="ms-lienzo" id="ms-lienzo">
+            <div class="ms-zoom" role="group" aria-label="Acercar o alejar el mapa">
+              <button type="button" data-z="mas" aria-label="Acercar">+</button>
+              <button type="button" data-z="menos" aria-label="Alejar">−</button>
+              <button type="button" data-z="todo" aria-label="Volver a la vista completa">Todo</button>
+            </div>
+            <div class="ms-falla" id="ms-mapa-falla" role="alert" hidden>
+              <p>No se pudo dibujar el mapa. Las tablas de abajo tienen los mismos resultados.</p>
+              <button type="button" class="boton chico" id="ms-mapa-reintentar">Volver a intentar</button>
+            </div>
+          </div>
+          <div class="ms-ley" id="ms-ley"></div>
+        </div>
+        <p class="ms-frase" id="ms-mapa-frase"></p>
+        <p class="ms-otros" id="ms-mapa-nota"></p>
+        <p class="ms-mapa-pie"><button type="button" class="enlace" id="ms-mapa-subir" hidden>Ver todo el país</button> Para acercar, los botones, dos dedos o Ctrl y la rueda del mouse.</p>
+      </section>
       <div id="ms-resultado"></div>
       <div class="ms-pie">
-        <span>Fuente: Dirección Nacional Electoral, Ministerio del Interior (escrutinio provisorio por mesa desde {{mesas.desde_mesa}}, definitivo por jurisdicción antes). Licencia CC-BY 4.0</span>
+        <span>Fuente: Dirección Nacional Electoral, Ministerio del Interior (escrutinio provisorio por mesa desde {{mesas.desde_mesa}}, definitivo por jurisdicción antes). Licencia CC-BY 4.0. Mapa: circuitos de la Cámara Nacional Electoral y de Franco Galeano (CC BY 4.0). Fuerzas y colores a partir de 257arg (CC BY 4.0)</span>
         <span class="ms-bajadas"><a class="enlace" id="ms-bajar" href="datos/mesas/indice.json" download>Descargar tabla (CSV)</a> <a class="enlace" id="ms-bajar-hist" href="datos/mesas/indice.json" download hidden>Descargar secciones y circuitos en cada elección (CSV)</a></span>
       </div>
       <div class="ms-limites nota-limites">
@@ -2962,6 +2995,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
           <li>Desde {{mesas.desde_mesa}} es el escrutinio provisorio, el conteo de la noche de la elección. No trae el voto en el exterior ni el de las personas privadas de la libertad, y le pueden faltar mesas. Por eso sus totales difieren un poco del escrutinio definitivo.</li>
           <li>Una mesa no se puede seguir en el tiempo: el padrón se reparte de nuevo en cada elección y el mismo número de mesa reúne a otras personas. El circuito se puede comparar con más cuidado que certeza: algunos cambian de código o se dividen.</li>
           <li>Una mesa reúne a unos pocos cientos de electores. Su resultado no describe a un barrio y no dice cómo votó ninguna persona.</li>
+          <li>El mapa dibuja los circuitos con su forma reciente, también en las elecciones viejas: un circuito pudo tener otros límites entonces. Un circuito sin mesas queda en gris: si vive gente ahí, vota en mesas de otro circuito.</li>
+          <li>El color del mapa dice qué lista sacó más votos, no por cuánta gente: un circuito rural con pocos electores ocupa mucho más lugar que uno de ciudad con miles. Por eso las zonas de color no miden cuántos votos sacó cada fuerza.</li>
           <li>Hasta {{mesas.hist_hasta}} la herramienta llega a la jurisdicción: por debajo no hay datos que se puedan publicar. Los motivos están en "Para entender los datos".</li>
         </ul>
       </div>

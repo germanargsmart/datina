@@ -449,9 +449,40 @@ await q.tamano(1280, 900);
   if (!/reúne 80,8% de los votos positivos del escrutinio definitivo/.test(r.txt.replace(/\s+/g, " "))) problemas.push("mesas.html: Formosa 2015 no avisa lo que le falta al provisorio");
   r = await ms("?e=2023-general-presidente&p=34");
   if (/escrutinio definitivo/.test(r.txt)) problemas.push("mesas.html: Formosa 2023 no tiene un definitivo para comparar y lo nombra");
+  // el mapa (5 de noviembre de 2026): el país por circuito, entrar a una provincia y elegir un circuito tocándolos, los tres modos, la elección anterior, los botones para acercar,
+  // la jurisdicción que en esa elección llega solo a la sección y una elección sin mapa
+  const mapa = async () => JSON.parse(await q.eval(`JSON.stringify((() => { const cs = [...document.querySelectorAll("#ms-lienzo .ms-c")];
+    return {visible: !document.getElementById("ms-mapa").hidden, caminos: cs.length, pintados: cs.filter(c => c.getAttribute("fill") && c.getAttribute("fill") !== "#EEF1F4").length, tit: document.getElementById("ms-mapa-tit").textContent.replace(/\\u00a0/g, " "),
+      frase: document.getElementById("ms-mapa-frase").textContent, nota: document.getElementById("ms-mapa-nota").textContent, ley: document.getElementById("ms-ley").innerText, nombre: document.querySelector("#ms-lienzo svg")?.getAttribute("aria-label") || "",
+      sel: !!document.querySelector("#ms-lienzo .ms-sel")?.getAttribute("d"), zoom: document.querySelector("#ms-lienzo svg > g")?.getAttribute("transform") || "", falla: !document.getElementById("ms-mapa-falla").hidden, dir: location.search}; })())`));
+  const tocaLugar = (p, s) => q.eval(`(() => { const c = [...document.querySelectorAll("#ms-lienzo .ms-c")].find(x => x.__data__.properties.p === ${JSON.stringify(p)} && (${JSON.stringify(s)} === "" || x.__data__.properties.s === ${JSON.stringify(s)}) && x.getAttribute("fill") !== "#EEF1F4");
+    c.dispatchEvent(new MouseEvent("click", {bubbles: true})); })()`);
+  await ms("?e=2023-segunda-presidente", 2800);
+  let m = await mapa();
+  if (!m.visible || m.falla || m.caminos < 5000 || m.pintados < 4800) problemas.push(`mesas.html: el mapa del país no pinta los circuitos (${m.caminos} polígonos, ${m.pintados} pintados)`);
+  if (!/Milei - Villarruel/.test(m.ley) || !/Massa - Rossi/.test(m.ley) || !/Sin mesas/.test(m.ley) || !/fue la más votada en/.test(m.frase) || !m.nombre.includes("Mapa de todo el país")) problemas.push(`mesas.html: el mapa del país sin su leyenda, su frase o su nombre (${m.frase})`);
+  await tocaLugar("06", ""); r = await ms(null, 2800); m = await mapa();
+  if (!r.tit.startsWith("Buenos Aires") || m.caminos < 1000 || m.caminos > 1400 || !/p=06/.test(m.dir)) problemas.push(`mesas.html: tocar el mapa del país no entra a la provincia (${r.tit}, ${m.caminos} polígonos)`);
+  await tocaLugar("06", "61"); r = await ms(null, 2200); m = await mapa();
+  if (!r.tit.startsWith("Circuito") || !/La Matanza/.test(r.tit) || !m.sel || !/s=61/.test(m.dir) || !/scale/.test(m.zoom)) problemas.push(`mesas.html: tocar un circuito no lo elige, no lo marca o no se acerca a su sección (${r.tit}, ${m.dir}, ${m.zoom})`);
+  await toca('[data-ver="part"]'); await espera(500); m = await mapa();
+  if (!/cuánta gente votó/i.test(m.tit) || !/Menos de 60%/.test(m.ley) || !/ver=part/.test(m.dir) || !m.pintados) problemas.push(`mesas.html: el mapa de participación (${m.tit}, ${m.dir})`);
+  await toca('[data-ver="fuerza"]'); await espera(500); m = await mapa();
+  if (!/sacó más votos/.test(m.tit) || !/f=/.test(m.dir) || !/reunió/.test(m.frase) || await q.eval(`document.getElementById("ms-mapa-f").hidden`)) problemas.push(`mesas.html: el mapa de cada fuerza (${m.tit}, ${m.frase})`);
+  await toca('[data-ver="gana"]'); await espera(300);
+  await ms("?e=2023-segunda-presidente&p=02", 2000);
+  const antesZoom = (await mapa()).zoom;
+  await toca('[data-z="mas"]'); await espera(500); m = await mapa();
+  if (m.zoom === antesZoom || !/scale\(2/.test(m.zoom)) problemas.push(`mesas.html: el botón para acercar el mapa no acerca (${m.zoom})`);
+  await toca("#ms-el-ant"); r = await ms(null, 2000);
+  if (!/e=2023-general-presidente/.test(r.dir)) problemas.push(`mesas.html: "Elección anterior" no lleva a la anterior (${r.dir})`);
+  await ms("?e=2015-general-presidente&p=58", 2000); m = await mapa();
+  if (!/en cada sección/.test(m.tit) || !/llega hasta la sección/.test(m.nota) || !m.pintados) problemas.push(`mesas.html: Neuquén 2015 no pinta por sección ni avisa (${m.tit}, ${m.nota})`);
+  await ms("?e=2009-general-diputados", 1500); m = await mapa();
+  if (m.visible) problemas.push("mesas.html: 2009 no tiene circuitos y muestra el mapa");
   // en el celular no se corre de costado, tampoco con las tablas de abajo a la vista
   await q.tamano(320, 700);
-  for (const u of ["?e=2023-general-diputados&p=06&s=61", "?e=2023-general-presidente&p=06&s=61&c=627", "?e=2009-general-diputados&p=06"]) {
+  for (const u of ["?e=2023-general-diputados&p=06&s=61", "?e=2023-general-presidente&p=06&s=61&c=627", "?e=2009-general-diputados&p=06", "?e=2025-general-diputados&ver=fuerza"]) {
     r = await ms(u, 1200);
     if (r.ancho > 0) problemas.push(`mesas.html${u} en 320 píxeles: se corre de costado (${r.ancho} píxeles)`);
   }

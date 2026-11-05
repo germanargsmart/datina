@@ -1,0 +1,2590 @@
+{
+ "_": "Lo que armó scripts/elecciones_mapa.py. No se edita a mano.",
+ "consulta": "2026-11-05",
+ "fuentes": {
+  "sige": {
+   "url": "https://www.padron.gov.ar/cne_sige/",
+   "organismo": "Cámara Nacional Electoral",
+   "sin_descarga": [
+    "46",
+    "50",
+    "74",
+    "78",
+    "82"
+   ]
+  },
+  "cne": {
+   "url": "https://mapa2.electoral.gov.ar/descargas/",
+   "organismo": "Cámara Nacional Electoral, portal anterior"
+  },
+  "galeano": {
+   "url": "https://github.com/tartagalensis/circuitos_electorales_AR",
+   "autor": "Franco Galeano",
+   "licencia": "CC BY 4.0",
+   "commit": "50692fd821f825566b0589da2cc1fefdef5fa02f"
+  }
+ },
+ "cruce_con_galeano": {
+  "02": {
+   "comunes": 167,
+   "mediana_km": 0.5,
+   "a_mas_de_10_km": 0
+  },
+  "06": {
+   "comunes": 1117,
+   "mediana_km": 0.0,
+   "a_mas_de_10_km": 4
+  },
+  "10": {
+   "comunes": 156,
+   "mediana_km": 4.87,
+   "a_mas_de_10_km": 40
+  },
+  "14": {
+   "comunes": 637,
+   "mediana_km": 3.09,
+   "a_mas_de_10_km": 52
+  },
+  "18": {
+   "comunes": 167,
+   "mediana_km": 0.0,
+   "a_mas_de_10_km": 0
+  },
+  "22": {
+   "comunes": 133,
+   "mediana_km": 0.0,
+   "a_mas_de_10_km": 0
+  },
+  "26": {
+   "comunes": 121,
+   "mediana_km": 0.0,
+   "a_mas_de_10_km": 0
+  },
+  "30": {
+   "comunes": 316,
+   "mediana_km": 0.0,
+   "a_mas_de_10_km": 0
+  },
+  "34": {
+   "comunes": 150,
+   "mediana_km": 0.0,
+   "a_mas_de_10_km": 1
+  },
+  "38": {
+   "comunes": 146,
+   "mediana_km": 0.0,
+   "a_mas_de_10_km": 0
+  },
+  "42": {
+   "comunes": 87,
+   "mediana_km": 0.0,
+   "a_mas_de_10_km": 0
+  },
+  "46": {
+   "comunes": 142,
+   "mediana_km": 6.18,
+   "a_mas_de_10_km": 40
+  },
+  "50": {
+   "comunes": 183,
+   "mediana_km": 0.21,
+   "a_mas_de_10_km": 26
+  },
+  "54": {
+   "comunes": 108,
+   "mediana_km": 0.31,
+   "a_mas_de_10_km": 4
+  },
+  "58": {
+   "comunes": 173,
+   "mediana_km": 0.0,
+   "a_mas_de_10_km": 1
+  },
+  "62": {
+   "comunes": 134,
+   "mediana_km": 0.0,
+   "a_mas_de_10_km": 2
+  },
+  "66": {
+   "comunes": 86,
+   "mediana_km": 1.0,
+   "a_mas_de_10_km": 7
+  },
+  "70": {
+   "comunes": 141,
+   "mediana_km": 0.0,
+   "a_mas_de_10_km": 0
+  },
+  "74": {
+   "comunes": 159,
+   "mediana_km": 0.05,
+   "a_mas_de_10_km": 13
+  },
+  "78": {
+   "comunes": 21,
+   "mediana_km": 0.0,
+   "a_mas_de_10_km": 0
+  },
+  "86": {
+   "comunes": 257,
+   "mediana_km": 5.21,
+   "a_mas_de_10_km": 59
+  },
+  "90": {
+   "comunes": 285,
+   "mediana_km": 0.0,
+   "a_mas_de_10_km": 4
+  },
+  "94": {
+   "comunes": 49,
+   "mediana_km": 0.0,
+   "a_mas_de_10_km": 0
+  }
+ },
+ "elecciones": {
+  "2011-general-diputados": {
+   "02": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "06": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 99.9,
+    "union": 99.9
+   },
+   "10": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "14": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "18": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "22": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 99.8,
+    "union": 99.8
+   },
+   "26": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "30": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "34": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "38": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "42": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "46": {
+    "edicion": "cne",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "50": {
+    "edicion": "cne",
+    "nivel": "circuito",
+    "con_poligono": 99.8,
+    "union": 99.8
+   },
+   "54": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "58": {
+    "edicion": "sige",
+    "nivel": "seccion",
+    "con_poligono": 100.0,
+    "union": 35.0
+   },
+   "62": {
+    "edicion": "sige",
+    "nivel": "seccion",
+    "con_poligono": 100.0,
+    "union": 90.2
+   },
+   "66": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 99.8,
+    "union": 99.8
+   },
+   "70": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 99.9,
+    "union": 99.9
+   },
+   "74": {
+    "edicion": "cne",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "78": {
+    "edicion": "g21",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "82": {
+    "edicion": "g21",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "86": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "90": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 99.8,
+    "union": 99.8
+   },
+   "94": {
+    "edicion": "sige",
+    "nivel": "seccion",
+    "con_poligono": 99.7,
+    "union": 0.0
+   }
+  },
+  "2011-general-presidente": {
+   "02": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "06": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 99.9,
+    "union": 99.9
+   },
+   "10": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "14": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "18": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "22": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 99.8,
+    "union": 99.8
+   },
+   "26": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "30": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "34": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "38": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "42": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "46": {
+    "edicion": "cne",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "50": {
+    "edicion": "cne",
+    "nivel": "circuito",
+    "con_poligono": 99.8,
+    "union": 99.8
+   },
+   "54": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "58": {
+    "edicion": "sige",
+    "nivel": "seccion",
+    "con_poligono": 100.0,
+    "union": 35.0
+   },
+   "62": {
+    "edicion": "sige",
+    "nivel": "seccion",
+    "con_poligono": 100.0,
+    "union": 90.1
+   },
+   "66": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 99.8,
+    "union": 99.8
+   },
+   "70": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 99.9,
+    "union": 99.9
+   },
+   "74": {
+    "edicion": "cne",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "78": {
+    "edicion": "g21",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "82": {
+    "edicion": "g21",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "86": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "90": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 99.8,
+    "union": 99.8
+   },
+   "94": {
+    "edicion": "sige",
+    "nivel": "seccion",
+    "con_poligono": 99.7,
+    "union": 0.0
+   }
+  },
+  "2011-general-senadores": {
+   "06": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 99.9,
+    "union": 99.9
+   },
+   "34": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "38": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "46": {
+    "edicion": "cne",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "54": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "70": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 99.9,
+    "union": 99.9
+   },
+   "74": {
+    "edicion": "cne",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "78": {
+    "edicion": "g21",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   }
+  },
+  "2013-general-diputados": {
+   "02": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "06": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 99.9,
+    "union": 99.9
+   },
+   "10": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "14": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "18": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "22": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 99.8,
+    "union": 99.8
+   },
+   "26": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "30": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "34": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "38": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "42": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "46": {
+    "edicion": "cne",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "50": {
+    "edicion": "cne",
+    "nivel": "circuito",
+    "con_poligono": 99.8,
+    "union": 99.8
+   },
+   "54": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "58": {
+    "edicion": "sige",
+    "nivel": "seccion",
+    "con_poligono": 100.0,
+    "union": 34.2
+   },
+   "62": {
+    "edicion": "sige",
+    "nivel": "seccion",
+    "con_poligono": 100.0,
+    "union": 90.0
+   },
+   "66": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 99.8,
+    "union": 99.8
+   },
+   "70": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 99.9,
+    "union": 99.9
+   },
+   "74": {
+    "edicion": "cne",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "78": {
+    "edicion": "g21",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "82": {
+    "edicion": "g21",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "86": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "90": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 99.8,
+    "union": 99.8
+   },
+   "94": {
+    "edicion": "sige",
+    "nivel": "seccion",
+    "con_poligono": 99.9,
+    "union": 0.0
+   }
+  },
+  "2013-general-senadores": {
+   "02": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "22": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 99.8,
+    "union": 99.8
+   },
+   "30": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "58": {
+    "edicion": "sige",
+    "nivel": "seccion",
+    "con_poligono": 100.0,
+    "union": 34.2
+   },
+   "62": {
+    "edicion": "sige",
+    "nivel": "seccion",
+    "con_poligono": 100.0,
+    "union": 89.9
+   },
+   "66": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 99.8,
+    "union": 99.8
+   },
+   "86": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "94": {
+    "edicion": "sige",
+    "nivel": "seccion",
+    "con_poligono": 99.9,
+    "union": 0.0
+   }
+  },
+  "2015-general-diputados": {
+   "02": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "06": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 99.9,
+    "union": 99.9
+   },
+   "10": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "14": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "18": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "22": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 99.9,
+    "union": 99.9
+   },
+   "26": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "30": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "34": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "38": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "42": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "46": {
+    "edicion": "cne",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "50": {
+    "edicion": "cne",
+    "nivel": "circuito",
+    "con_poligono": 99.8,
+    "union": 99.8
+   },
+   "54": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "58": {
+    "edicion": "sige",
+    "nivel": "seccion",
+    "con_poligono": 100.0,
+    "union": 33.9
+   },
+   "62": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "66": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 99.8,
+    "union": 99.8
+   },
+   "70": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "74": {
+    "edicion": "cne",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "78": {
+    "edicion": "g21",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "82": {
+    "edicion": "g21",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "86": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "90": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 99.8,
+    "union": 99.8
+   },
+   "94": {
+    "edicion": "sige",
+    "nivel": "seccion",
+    "con_poligono": 99.8,
+    "union": 0.0
+   }
+  },
+  "2015-general-presidente": {
+   "02": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "06": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 99.9,
+    "union": 99.9
+   },
+   "10": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "14": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "18": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "22": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 99.8,
+    "union": 99.8
+   },
+   "26": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "30": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "34": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "38": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "42": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "46": {
+    "edicion": "cne",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "50": {
+    "edicion": "cne",
+    "nivel": "circuito",
+    "con_poligono": 99.8,
+    "union": 99.8
+   },
+   "54": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "58": {
+    "edicion": "sige",
+    "nivel": "seccion",
+    "con_poligono": 100.0,
+    "union": 33.9
+   },
+   "62": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "66": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 99.8,
+    "union": 99.8
+   },
+   "70": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "74": {
+    "edicion": "cne",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "78": {
+    "edicion": "g21",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "82": {
+    "edicion": "g21",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "86": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "90": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 99.8,
+    "union": 99.8
+   },
+   "94": {
+    "edicion": "sige",
+    "nivel": "seccion",
+    "con_poligono": 99.8,
+    "union": 0.0
+   }
+  },
+  "2015-general-senadores": {
+   "10": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "14": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "18": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "26": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "42": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "50": {
+    "edicion": "cne",
+    "nivel": "circuito",
+    "con_poligono": 99.8,
+    "union": 99.8
+   },
+   "82": {
+    "edicion": "g21",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "90": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 99.8,
+    "union": 99.8
+   }
+  },
+  "2015-segunda-presidente": {
+   "02": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "06": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 99.9,
+    "union": 99.9
+   },
+   "10": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "14": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "18": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "22": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 99.8,
+    "union": 99.8
+   },
+   "26": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "30": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "34": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "38": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "42": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "46": {
+    "edicion": "cne",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "50": {
+    "edicion": "cne",
+    "nivel": "circuito",
+    "con_poligono": 99.8,
+    "union": 99.8
+   },
+   "54": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "58": {
+    "edicion": "sige",
+    "nivel": "seccion",
+    "con_poligono": 100.0,
+    "union": 34.0
+   },
+   "62": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "66": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 99.8,
+    "union": 99.8
+   },
+   "70": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 99.9,
+    "union": 99.9
+   },
+   "74": {
+    "edicion": "cne",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "78": {
+    "edicion": "g21",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "82": {
+    "edicion": "g21",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "86": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "90": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 99.8,
+    "union": 99.8
+   },
+   "94": {
+    "edicion": "sige",
+    "nivel": "seccion",
+    "con_poligono": 99.8,
+    "union": 0.0
+   }
+  },
+  "2017-general-diputados": {
+   "02": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "06": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 99.9,
+    "union": 99.9
+   },
+   "10": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "14": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "18": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "22": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 99.9,
+    "union": 99.9
+   },
+   "26": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "30": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "34": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "38": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "42": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "46": {
+    "edicion": "cne",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "50": {
+    "edicion": "cne",
+    "nivel": "circuito",
+    "con_poligono": 99.8,
+    "union": 99.8
+   },
+   "54": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 99.9,
+    "union": 99.9
+   },
+   "58": {
+    "edicion": "sige",
+    "nivel": "seccion",
+    "con_poligono": 100.0,
+    "union": 33.4
+   },
+   "62": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "66": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 99.8,
+    "union": 99.8
+   },
+   "70": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 99.9,
+    "union": 99.9
+   },
+   "74": {
+    "edicion": "cne",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "78": {
+    "edicion": "g21",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "82": {
+    "edicion": "g21",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "86": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "90": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 99.8,
+    "union": 99.8
+   },
+   "94": {
+    "edicion": "sige",
+    "nivel": "seccion",
+    "con_poligono": 99.9,
+    "union": 0.0
+   }
+  },
+  "2017-general-senadores": {
+   "06": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 99.9,
+    "union": 99.9
+   },
+   "34": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "38": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "46": {
+    "edicion": "cne",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "54": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 99.9,
+    "union": 99.9
+   },
+   "70": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 99.9,
+    "union": 99.9
+   },
+   "74": {
+    "edicion": "cne",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "78": {
+    "edicion": "g21",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   }
+  },
+  "2019-general-diputados": {
+   "02": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "06": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 99.9,
+    "union": 99.9
+   },
+   "10": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "14": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "18": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "22": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 99.9,
+    "union": 99.9
+   },
+   "26": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "30": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "34": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "38": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "42": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "46": {
+    "edicion": "cne",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "50": {
+    "edicion": "cne",
+    "nivel": "circuito",
+    "con_poligono": 99.7,
+    "union": 99.7
+   },
+   "54": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "58": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "62": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "66": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 99.8,
+    "union": 99.8
+   },
+   "70": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 99.9,
+    "union": 99.9
+   },
+   "74": {
+    "edicion": "cne",
+    "nivel": "circuito",
+    "con_poligono": 99.9,
+    "union": 99.9
+   },
+   "78": {
+    "edicion": "g21",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "82": {
+    "edicion": "g21",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "86": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "90": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 99.8,
+    "union": 99.8
+   },
+   "94": {
+    "edicion": "sige",
+    "nivel": "seccion",
+    "con_poligono": 99.9,
+    "union": 0.0
+   }
+  },
+  "2019-general-presidente": {
+   "02": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "06": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 99.9,
+    "union": 99.9
+   },
+   "10": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "14": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "18": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "22": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 99.9,
+    "union": 99.9
+   },
+   "26": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "30": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "34": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "38": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "42": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "46": {
+    "edicion": "cne",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "50": {
+    "edicion": "cne",
+    "nivel": "circuito",
+    "con_poligono": 99.7,
+    "union": 99.7
+   },
+   "54": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "58": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "62": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "66": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 99.8,
+    "union": 99.8
+   },
+   "70": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 99.9,
+    "union": 99.9
+   },
+   "74": {
+    "edicion": "cne",
+    "nivel": "circuito",
+    "con_poligono": 99.9,
+    "union": 99.9
+   },
+   "78": {
+    "edicion": "g21",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "82": {
+    "edicion": "g21",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "86": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "90": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 99.8,
+    "union": 99.8
+   },
+   "94": {
+    "edicion": "sige",
+    "nivel": "seccion",
+    "con_poligono": 99.8,
+    "union": 0.0
+   }
+  },
+  "2019-general-senadores": {
+   "02": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "22": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 99.9,
+    "union": 99.9
+   },
+   "30": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "58": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "62": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "66": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 99.8,
+    "union": 99.8
+   },
+   "86": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "94": {
+    "edicion": "sige",
+    "nivel": "seccion",
+    "con_poligono": 99.9,
+    "union": 0.0
+   }
+  },
+  "2021-general-diputados": {
+   "02": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "06": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 99.9,
+    "union": 99.9
+   },
+   "10": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "14": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "18": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "22": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 99.9,
+    "union": 99.9
+   },
+   "26": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "30": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "34": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "38": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "42": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "46": {
+    "edicion": "cne",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "50": {
+    "edicion": "cne",
+    "nivel": "circuito",
+    "con_poligono": 99.7,
+    "union": 99.7
+   },
+   "54": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "58": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "62": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "66": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 99.8,
+    "union": 99.8
+   },
+   "70": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 99.9,
+    "union": 99.9
+   },
+   "74": {
+    "edicion": "cne",
+    "nivel": "circuito",
+    "con_poligono": 99.9,
+    "union": 99.9
+   },
+   "78": {
+    "edicion": "g21",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "82": {
+    "edicion": "g21",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "86": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "90": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 99.8,
+    "union": 99.8
+   },
+   "94": {
+    "edicion": "sige",
+    "nivel": "seccion",
+    "con_poligono": 99.9,
+    "union": 43.7
+   }
+  },
+  "2021-general-senadores": {
+   "10": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "14": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "18": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "26": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "42": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "50": {
+    "edicion": "cne",
+    "nivel": "circuito",
+    "con_poligono": 99.7,
+    "union": 99.7
+   },
+   "82": {
+    "edicion": "g21",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "90": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 99.8,
+    "union": 99.8
+   }
+  },
+  "2023-general-diputados": {
+   "02": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "06": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 99.9,
+    "union": 99.9
+   },
+   "10": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "14": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "18": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "22": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 99.9,
+    "union": 99.9
+   },
+   "26": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "30": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "34": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "38": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "42": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "46": {
+    "edicion": "cne",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "50": {
+    "edicion": "cne",
+    "nivel": "circuito",
+    "con_poligono": 99.7,
+    "union": 99.7
+   },
+   "54": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "58": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "62": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "66": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 99.8,
+    "union": 99.8
+   },
+   "70": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 99.9,
+    "union": 99.9
+   },
+   "74": {
+    "edicion": "cne",
+    "nivel": "circuito",
+    "con_poligono": 99.9,
+    "union": 99.9
+   },
+   "78": {
+    "edicion": "cne",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "82": {
+    "edicion": "g25",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "86": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "90": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 99.8,
+    "union": 99.8
+   },
+   "94": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 99.8,
+    "union": 99.8
+   }
+  },
+  "2023-general-presidente": {
+   "02": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "06": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 99.9,
+    "union": 99.9
+   },
+   "10": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "14": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "18": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "22": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 99.9,
+    "union": 99.9
+   },
+   "26": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "30": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "34": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "38": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "42": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "46": {
+    "edicion": "cne",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "50": {
+    "edicion": "cne",
+    "nivel": "circuito",
+    "con_poligono": 99.7,
+    "union": 99.7
+   },
+   "54": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "58": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "62": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "66": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 99.8,
+    "union": 99.8
+   },
+   "70": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 99.9,
+    "union": 99.9
+   },
+   "74": {
+    "edicion": "cne",
+    "nivel": "circuito",
+    "con_poligono": 99.9,
+    "union": 99.9
+   },
+   "78": {
+    "edicion": "cne",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "82": {
+    "edicion": "g25",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "86": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "90": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 99.8,
+    "union": 99.8
+   },
+   "94": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 99.8,
+    "union": 99.8
+   }
+  },
+  "2023-general-senadores": {
+   "06": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 99.9,
+    "union": 99.9
+   },
+   "34": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "38": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "46": {
+    "edicion": "cne",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "54": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "70": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 99.9,
+    "union": 99.9
+   },
+   "74": {
+    "edicion": "cne",
+    "nivel": "circuito",
+    "con_poligono": 99.9,
+    "union": 99.9
+   },
+   "78": {
+    "edicion": "cne",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   }
+  },
+  "2023-segunda-presidente": {
+   "02": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "06": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 99.9,
+    "union": 99.9
+   },
+   "10": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "14": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "18": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "22": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 99.8,
+    "union": 99.8
+   },
+   "26": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "30": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "34": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "38": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "42": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "46": {
+    "edicion": "cne",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "50": {
+    "edicion": "cne",
+    "nivel": "circuito",
+    "con_poligono": 99.7,
+    "union": 99.7
+   },
+   "54": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "58": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "62": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "66": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 99.8,
+    "union": 99.8
+   },
+   "70": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 99.9,
+    "union": 99.9
+   },
+   "74": {
+    "edicion": "cne",
+    "nivel": "circuito",
+    "con_poligono": 99.9,
+    "union": 99.9
+   },
+   "78": {
+    "edicion": "cne",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "82": {
+    "edicion": "g25",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "86": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "90": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 99.8,
+    "union": 99.8
+   },
+   "94": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 99.8,
+    "union": 99.8
+   }
+  },
+  "2025-general-diputados": {
+   "02": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "06": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "10": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "14": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "18": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "22": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 99.8,
+    "union": 99.8
+   },
+   "26": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "30": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "34": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "38": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "42": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "46": {
+    "edicion": "cne",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "50": {
+    "edicion": "cne",
+    "nivel": "circuito",
+    "con_poligono": 99.7,
+    "union": 99.7
+   },
+   "54": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "58": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "62": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "66": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 99.8,
+    "union": 99.8
+   },
+   "70": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 99.9,
+    "union": 99.9
+   },
+   "74": {
+    "edicion": "cne",
+    "nivel": "circuito",
+    "con_poligono": 99.9,
+    "union": 99.9
+   },
+   "78": {
+    "edicion": "cne",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "82": {
+    "edicion": "g25",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "86": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "90": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 99.8,
+    "union": 99.8
+   },
+   "94": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 99.8,
+    "union": 99.8
+   }
+  },
+  "2025-general-senadores": {
+   "02": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "22": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 99.8,
+    "union": 99.8
+   },
+   "30": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "58": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "62": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "66": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 99.8,
+    "union": 99.8
+   },
+   "86": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 100.0,
+    "union": 100.0
+   },
+   "94": {
+    "edicion": "sige",
+    "nivel": "circuito",
+    "con_poligono": 99.8,
+    "union": 99.8
+   }
+  }
+ }
+}
