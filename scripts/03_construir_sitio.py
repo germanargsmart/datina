@@ -1186,13 +1186,27 @@ assert len(PERFIL_G) >= len(CON_PERFIL) and set(PERFIL_G) <= {g for g, _ in PERF
 
 
 def perfil_vacio():
-    """El índice y los grupos del perfil con tarjetas vacías, igual a lo que arma datina.js."""
-    indice = "".join(f'<li><a class="enlace" href="#pg-{g}">{i + 1}. {t}</a></li>' for i, (g, t) in enumerate(PERFIL_GRUPOS))
-    grupos = "".join(f'<section class="perfil-grupo" id="pg-{g}" aria-labelledby="pg-{g}-t"><div class="perfil-cab"><h2 class="bloque-grupo" '
-                     f'id="pg-{g}-t">{i + 1}. <span>{t}</span></h2><a class="enlace" href="#perfil-indice">Volver a los temas</a></div>'
-                     f'<div class="perfil-tarjetas">{tarjetas_vacias(PERFIL_G.count(g), "dp esqueleto")}</div></section>'
-                     for i, (g, t) in enumerate(PERFIL_GRUPOS))
-    return f'<nav class="perfil-indice" id="perfil-indice" aria-label="Temas del perfil"><ol>{indice}</ol></nav>{grupos}'
+    """Los grupos del perfil con tarjetas vacías, igual a lo que arma datina.js."""
+    return "".join(f'<section class="perfil-grupo" id="pg-{g}" aria-labelledby="pg-{g}-t"><div class="perfil-cab"><h2 class="bloque-grupo" '
+                   f'id="pg-{g}-t"><span>{t}</span></h2></div>'
+                   f'<div class="perfil-tarjetas">{tarjetas_vacias(PERFIL_G.count(g), "dp esqueleto")}</div></section>'
+                   for g, t in PERFIL_GRUPOS)
+
+
+def perfil_menu():
+    """El menú de la página de provincia (5 de noviembre de 2026, pedido del autor: la lista numerada "queda horrible", "podría ser un menú
+    longitudinal, o tipo hamburguesa"). Tres grupos, separados por una línea fina: lo de arriba de la página, los temas y la historia, en el
+    orden en que aparecen. datina.js esconde lo que no se ve con la provincia elegida y copia los títulos de las secciones. Mismo aspecto que
+    la fila de capítulos: una letra, un tamaño y sin negrita, con la marca amarilla en lo que se está viendo."""
+    grupos = [[("prov-destaca", "Dónde se destaca"), ("prov-compara", "Comparar con otra provincia"), ("prov-puestos", "Cómo cambió su puesto"),
+               ("prov-censos", "Cómo cambió entre los censos 2010 y 2022")],
+              [(f"pg-{g}", t) for g, t in PERFIL_GRUPOS],
+              [("prov-historia", "Historia")]]
+    listas = "".join("<ul>" + "".join(f'<li><a href="#{i}">{t}</a></li>' for i, t in g) + "</ul>" for g in grupos)
+    return (f'<nav class="prov-indice" id="perfil-indice" aria-label="En esta página">'
+            f'<button type="button" class="pi-btn" aria-expanded="false" aria-controls="pi-listas"><span class="pi-txt">En esta página'
+            f'<span class="pi-actual"></span></span><span class="desp-signo" aria-hidden="true"></span></button>'
+            f'<p class="pi-tit">En esta página</p><div class="pi-listas" id="pi-listas">{listas}</div></nav>')
 # secciones con "En cifras": cinco tarjetas en todas (etapa 15)
 CON_CIFRAS = set(re.findall(r"^\s+(\w+):\s*\[", bloque_js("const EN_CIFRAS = {", "\n};"), re.M))
 tarjetas_vacias = lambda n, cls: "".join(f'<span class="tarjeta {cls}"></span>' for _ in range(n))
@@ -1214,7 +1228,7 @@ def siluetas(h, id_):
             blo = re.sub(r'(<div class="tema-intro">.*?</div>(?:<nav class="subsecciones".*?</nav>)?)', lambda m: m.group(1) + vacias, blo, count=1, flags=re.S)
             h = h[:b["ini"]] + blo + h[b["fin"]:]
     return h.replace('<div class="prov-grid" id="prov-grid"></div>',
-                     f'<div class="prov-grid" id="prov-grid">{perfil_vacio()}</div>', 1)
+                     f'<div class="prov-grid" id="prov-grid">{perfil_vacio()}</div>', 1).replace("<!--PROV-INDICE-->", perfil_menu(), 1)
 
 
 # Un h1 por página (11 de octubre de 2026, auditoría: 49 de 52 páginas no tenían): el título de la página, que hasta acá es el primer h2

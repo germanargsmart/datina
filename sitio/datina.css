@@ -170,7 +170,7 @@ p,li,dd,dt,small,.sec-preg,.c-txt,.dp-det{text-wrap:pretty}
    Los que tienen estilo propio son variantes de esos seis (Fase 2, paso 7, sin cambiar cómo se ven):
    - secundario: .conmutador y .co-btn (con el elegido lleno), .susc-boton, .elige-btn, .lupa-btn, .chip-prov y .chip-borrar
    - enlace: .esp-btn, .vt-ley, .cx-chip, .ver-mas, .dx-quitar y .mt-cerrar (la cruz que cierra la tarjeta del mapa)
-   - despliegue: .despliegue, .sobre, .menu-parte, .cx-detalle, .ph-fuentes, .creditos y .compartir (los de <summary>: el de .compartir,
+   - despliegue: .despliegue, .pi-btn, .sobre, .menu-parte, .cx-detalle, .ph-fuentes, .creditos y .compartir (los de <summary>: el de .compartir,
      con el borde del secundario, porque va junto a "Ver tabla")
    - navegación: .menu-btn, la barra, los menús, las migas, .subsecciones, .pildoras y el pie
    - los puntos y celdas de los gráficos que se tocan (.cx-punto, .cx-celda, .dep, .provs) son parte del dibujo, no botones */
@@ -733,7 +733,7 @@ html:not(.js) .busca-portada{display:none}
   .elige-btn:hover{border-color:var(--borde-claro);background:#FAFCFE}
   .elige-lista li:hover{background:var(--celeste-suave)}
 }
-/* perfil: un indicador por tarjeta, con la tira de las 24, agrupados por tema con un índice arriba (etapa 27) */
+/* perfil: un indicador por tarjeta, con la tira de las 24, agrupados por tema (etapa 27) */
 .prov-grid{margin-top:var(--e-6)}
 .prov-linea{margin:var(--e-3) 0 0;font-size:var(--t-3);color:var(--muted)}
 .prov-destaca{margin-top:var(--e-6)}
@@ -742,13 +742,57 @@ html:not(.js) .busca-portada{display:none}
 .prov-destaca:empty{min-height:350px}
 @media (min-width:768px){.prov-destaca:empty{min-height:480px}}
 .prov-destaca-sub{max-width:65ch;margin:var(--e-2) 0 var(--e-4);font-size:var(--t-3);color:var(--muted)}
-.perfil-indice ol{display:flex;flex-wrap:wrap;gap:var(--e-2) var(--e-6);margin:0;padding:0;list-style:none;font-size:var(--t-3)}
-.perfil-grupo{scroll-margin-top:96px}
+/* El menú de la página de provincia (5 de noviembre de 2026, pedido del autor: "podría ser un menú longitudinal, o tipo hamburguesa"). Siguiendo
+   a NN/g y a Wikipedia: al costado desde 1200 píxeles, fijo y con la sección actual marcada, y en pantallas más chicas una franja fija que dice
+   dónde estás y se despliega. Con 17 entradas, una fila horizontal no entra. Una letra, un tamaño y sin negrita, como la fila de capítulos */
+.prov-cuerpo{--alto-barra:72px;--alto-franja:53px}
+@media (max-width:760px){.prov-cuerpo{--alto-barra:62px}}
+.prov-indice{position:sticky;top:calc(env(safe-area-inset-top,0px) + var(--alto-barra));z-index:5;margin:var(--e-6) calc(-1 * var(--margen)) 0;background:var(--fondo);border-bottom:1px solid var(--borde)}
+/* el botón es de despliegue, con su clase propia: desde 761 píxeles .despliegue es la lista de "Para entender los datos", sin flecha */
+.pi-btn{display:flex;align-items:center;justify-content:space-between;gap:var(--e-4);width:100%;min-height:52px;padding:var(--e-3) var(--margen);
+  font:400 var(--t-3)/1.3 var(--f);color:var(--muted);text-align:left;background:none;border:0;cursor:pointer;transition:background-color var(--dur-1) var(--ease-out)}
+.pi-btn:focus-visible{outline-offset:-3px}
+.js .pi-btn .desp-signo{display:block}
+.pi-btn[aria-expanded="true"] .desp-signo{transform:rotate(180deg);color:var(--azul)}
+@media (hover:hover) and (pointer:fine){.pi-btn:hover{background:var(--superficie)}}
+.pi-txt{min-width:0;color:var(--muted)}
+.pi-actual{color:var(--ink)}
+.pi-actual:not(:empty)::before{content:": ";color:var(--muted)}
+.pi-tit{display:none;margin:0 0 var(--e-2);padding-left:var(--e-3);font-size:var(--t-2);color:var(--muted)}
+.pi-listas{display:none;position:absolute;top:100%;left:0;right:0;max-height:calc(100dvh - var(--alto-barra) - var(--alto-franja));overflow:auto;overscroll-behavior:contain;
+  padding:var(--e-2) var(--margen) var(--e-3);background:var(--bg);border-bottom:1px solid var(--borde);box-shadow:var(--sombra-panel)}
+.prov-indice.abierto .pi-listas{display:block}
+.pi-listas ul{margin:0;padding:0;list-style:none;columns:2;column-gap:var(--e-6)}
+.pi-listas ul[hidden],.pi-listas li[hidden]{display:none}
+.pi-listas ul+ul{margin-top:var(--e-2);padding-top:var(--e-2);border-top:1px solid var(--borde)}
+.pi-listas li{break-inside:avoid}
+.pi-listas a{display:block;padding:var(--e-3) 0;font-size:var(--t-3);line-height:1.3;color:var(--azul);text-decoration:none;transition:color var(--dur-1) var(--ease-out)}
+.pi-listas a[aria-current="true"]{color:var(--ink);box-shadow:inset 2px 0 0 var(--sol);padding-left:var(--e-2)}
+@media (hover:hover) and (pointer:fine){.pi-listas a:not([aria-current="true"]):hover{color:var(--ink)}}
+.prov-destaca,.prov-compara,.prov-puestos,.prov-censos,.prov-historia{scroll-margin-top:calc(var(--alto-barra) + var(--alto-franja) + var(--e-4))}
+.perfil-grupo{scroll-margin-top:calc(var(--alto-barra) + var(--alto-franja) - var(--e-6))}
+/* sin datina.js no se puede abrir: la lista va entera, sin quedar fija */
+html:not(.js) .prov-indice{position:static;background:none}
+html:not(.js) .pi-btn{display:none}
+html:not(.js) .pi-listas{display:block;position:static;box-shadow:none;background:none}
+@media (min-width:1200px){
+  .prov-cuerpo{--alto-franja:0px;display:grid;grid-template-columns:168px minmax(0,1fr);column-gap:var(--e-7);align-items:start;margin-top:var(--e-6)}
+  .prov-contenido{min-width:0}
+  .prov-contenido>:first-child{margin-top:0}
+  .prov-indice,html:not(.js) .prov-indice{position:sticky;top:calc(env(safe-area-inset-top,0px) + var(--alto-barra) + var(--e-4));max-height:calc(100dvh - var(--alto-barra) - var(--e-7));
+    margin:0;overflow:auto;background:none;border:0;scrollbar-width:thin}
+  .pi-btn{display:none}
+  .pi-tit{display:block}
+  .pi-listas,html:not(.js) .pi-listas{display:block;position:static;max-height:none;overflow:visible;padding:0;background:none;border:0;box-shadow:none}
+  .pi-listas ul{columns:auto}
+  .pi-listas ul+ul{margin-top:var(--e-2);padding-top:var(--e-2)}
+  .pi-listas a{padding:var(--e-1) 0 var(--e-1) var(--e-3);font-size:var(--t-2);box-shadow:none}
+  .pi-listas a[aria-current="true"]{padding-left:var(--e-3);box-shadow:inset 2px 0 0 var(--sol)}
+}
 /* cada capítulo de las páginas largas (etapa 6 del plan de mejora) no queda tapado por la barra al llegar desde su índice (.capitulos, arriba) */
 .bloque-grupo[id^="g-"]{scroll-margin-top:96px}
 .perfil-cab{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:var(--e-2) var(--e-6);margin:var(--e-8) 0 var(--e-4)}
 .perfil-cab .bloque-grupo{margin:0}
-.perfil-cab .enlace{font-size:var(--t-2)}
 /* Las tarjetas del perfil (5 de noviembre de 2026, pedido del autor: "que las cards queden todas del mismo tamaño, o que haya proporcionalidad"):
    la misma grilla en toda la página, así las columnas de un tema quedan debajo de las del anterior. Todas las filas de un bloque miden lo
    mismo. Una sola tarjeta colgada en la última fila se ve mal (otro pedido, del 22 de octubre): la anteúltima baja con ella */
@@ -762,7 +806,9 @@ html:not(.js) .busca-portada{display:none}
   .perfil-tarjetas>:nth-child(3n):nth-last-child(2){grid-column-start:auto}
   .perfil-tarjetas>:nth-child(4n):nth-last-child(2){grid-column-start:1}
 }
-.dp{gap:2px;padding:var(--e-4)}
+/* position: el texto para lectores de pantalla de cada tarjeta queda dentro de ella: si no, en el celular se sale de la fila que se desliza y la página se corre de costado */
+.dp{position:relative;gap:2px;padding:var(--e-4)}
+#prov-grid .dp{min-height:276px}
 /* D9 (plan de mejora, 28 de octubre de 2026, aprobado por el autor): las mayúsculas en letra mono quedan para rótulos de hasta tres
    palabras. Los nombres de indicadores del perfil, el lugar de los mapas por departamento, los títulos del diagnóstico, del perfil y de
    Cruces, y las preguntas de los programas de Educación pueden ser más largos: van con la letra del texto, en negrita */
@@ -1354,7 +1400,7 @@ html:not(.js) .esqueleto{display:none}
 /* con las cinco tarjetas en fila (880 píxeles o más) la mayoría de las secciones tiene tarjetas de 149 píxeles y en celular de 141:
    la silueta usa la altura más común para que el texto de abajo casi no salte cuando llega datina.js (medido el 12 de octubre de 2026) */
 @container (min-width:880px){.esqueleto .cifra{min-height:149px}}
-.dp.esqueleto{min-height:224px;background-position:16px 20px,16px 50px,16px 112px,16px 168px;background-size:50% 10px,40% 40px,calc(100% - 32px) 10px,calc(100% - 32px) 12px}
+.dp.esqueleto{min-height:276px;background-position:16px 20px,16px 50px,16px 112px,16px 168px;background-size:50% 10px,40% 40px,calc(100% - 32px) 10px,calc(100% - 32px) 12px}
 
 /* ---------- controles de las fichas: rectos ---------- */
 /* conmutador: botones de opción con un indicador que se desliza */
@@ -2117,7 +2163,8 @@ p code{overflow-wrap:anywhere}
 @media print{
   body{background:#fff}
   body::after,.barra,.saltar,.pildoras,.migas,.subsecciones,.capitulos,.exp-gancho,.explicador,.pasos,.pie-sitio,.tip,.prov-chip,.acciones,
-  .ver-mas,.en-cifras .invita,.programas,.perfil-cab .enlace{display:none!important}
+  .ver-mas,.en-cifras .invita,.programas,.prov-indice{display:none!important}
+  .prov-cuerpo{display:block}
   .cifras-grid{grid-auto-flow:row!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;overflow:visible!important;margin:0!important;padding:0!important}
   .listo .ficha{opacity:1!important;transform:none!important;box-shadow:none}
   .ficha :is(h2,.ficha-sub){break-after:avoid}

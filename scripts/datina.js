@@ -8214,9 +8214,9 @@ const INDP = [
   ...(DS ? [{id:"f-desempleo", g:"social", lab:"Seguro de desempleo", veces:true, det:`beneficiarios cada 1.000 habitantes, ${MESES[DS.prov_mes - 1]} de ${DS.prov_anio}`,
     d:T.prestacion_desempleo_provincias.filter(r => r.codigo_indec !== "00"), k:"cada_1000_habitantes", pais:DS.pais_1000, f:n1}] : []),
 ];
-// el perfil por tema, con un índice arriba (etapa 27, pedido del autor, como los perfiles de USAFacts). Cada indicador lleva su tema en g. El
-// último grupo es la capital de la provincia, con los datos del censo de su municipio y su puesto entre las 24 capitales. El constructor
-// deja la misma estructura con tarjetas vacías mientras carga (lee PERFIL_GRUPOS y los g de acá)
+// el perfil por tema (etapa 27, pedido del autor, como los perfiles de USAFacts). Cada indicador lleva su tema en g. El último grupo es la
+// capital de la provincia, con los datos del censo de su municipio y su puesto entre las 24 capitales. El constructor deja la misma estructura
+// con tarjetas vacías mientras carga (lee PERFIL_GRUPOS y los g de acá) y escribe el menú de la página (perfil_menu en 03)
 const PERFIL_GRUPOS = [["trabajo", "Trabajo"], ["social", "Seguridad social"], ["economia", "Economía"], ["salud", "Salud"], ["educacion", "Educación"], ["seguridad", "Seguridad"],
   ["poblacion", "Población y migraciones"], ["gobierno", "Gobierno"], ["vivienda", "Vivienda y servicios"], ["energia", "Energía"],
   ["turismo", "Turismo y naturaleza"], ["capital", "La capital"]];
@@ -8230,10 +8230,8 @@ const CAP_P = [
 ];
 const PERFIL = [...INDP, ...CAP_P];
 const grilla = document.getElementById("prov-grid") || document.createElement("div");
-grilla.innerHTML = `<nav class="perfil-indice" id="perfil-indice" aria-label="Temas del perfil"><ol>` +
-  PERFIL_GRUPOS.map(([g, tit], i) => `<li><a class="enlace" href="#pg-${g}">${i + 1}. ${tit}</a></li>`).join("") + `</ol></nav>` +
-  PERFIL_GRUPOS.map(([g, tit], i) => `<section class="perfil-grupo" id="pg-${g}" aria-labelledby="pg-${g}-t"><div class="perfil-cab">` +
-    `<h2 class="bloque-grupo" id="pg-${g}-t">${i + 1}. <span>${tit}</span></h2><a class="enlace" href="#perfil-indice">Volver a los temas</a></div>` +
+grilla.innerHTML = PERFIL_GRUPOS.map(([g, tit]) => `<section class="perfil-grupo" id="pg-${g}" aria-labelledby="pg-${g}-t"><div class="perfil-cab">` +
+    `<h2 class="bloque-grupo" id="pg-${g}-t"><span>${tit}</span></h2></div>` +
     `<div class="perfil-tarjetas">` + PERFIL.map((c, j) => c.g !== g ? "" : `<a class="tarjeta dp" href="#${c.id}" data-i="${j}"><span class="dp-lab">${c.lab}</span>
   <span class="dp-num"></span><span class="dp-det">${c.det}</span><svg class="dp-tira" aria-hidden="true"></svg><span class="dp-pos"></span><span class="dp-aclara"></span></a>`).join("") +
     `</div></section>`).join("");
@@ -8324,23 +8322,23 @@ function pintarCompara() {
 // solo: la tarjeta lo dice en palabras. Un indicador "neutro" (el gasto en personal) va en gris, con el puesto 1 como la cifra más alta
 const PUESTO_NOTA = {
   recursos_propios_pct_ingresos: "Más recursos propios cuenta como mejora: es menos dependencia de los fondos nacionales.",
-  gasto_personal_pct_gasto: "Va en gris: más gasto en personal no es por sí solo mejor ni peor.",
+  gasto_personal_pct_gasto: "Va en gris: más gasto en personal no es por sí solo mejor ni peor. El puesto 1 es la cifra más alta.",
 };
-// el dibujo, a la medida de la tarjeta para que la letra no cambie de tamaño. Sin datos de más: el marco es el puesto 1 y el 24, con rótulos
-// solo en los extremos, y los años que entren
+// el dibujo, a la medida de la tarjeta para que la letra no cambie de tamaño. El marco es el puesto 1 y el 24, con el puesto solo en los extremos
 function pendientePuesto(s, w) {
   const h = 92, izq = 34, der = 34, arr = 8, ab = 22, ini = s[0], fin = s[s.length - 1];
   const x = a => +(izq + (a - ini.anio) / (fin.anio - ini.anio) * (w - izq - der)).toFixed(1), y = p => +(arr + (p - 1) / 23 * (h - arr - ab)).toFixed(1);
   const marco = p => `<line class="dpp-marco" x1="${izq}" x2="${w - der}" y1="${y(p)}" y2="${y(p)}"/>` +
     (Math.abs(y(p) - y(ini.puesto)) > 11 ? `<text class="dpp-eje" x="${izq - 8}" y="${y(p)}" dy=".35em" text-anchor="end">${p}.º</text>` : "");
-  const anios = x(s[1].anio) - x(ini.anio) >= 30 ? s : [ini, fin];
+  // los años que entren enteros, y si no entran, los del medio abreviados
+  const entra = x(s[1].anio) - x(ini.anio) >= 30, anio = r => entra || r === ini || r === fin ? r.anio : `’${String(r.anio).slice(2)}`;
   return marco(1) + marco(24) +
     `<polyline class="dpp-linea" points="${s.map(r => `${x(r.anio)},${y(r.puesto)}`).join(" ")}"/>` +
     s.map((r, i) => `<circle class="${i === 0 ? "dpp-ini" : i === s.length - 1 ? "dpp-fin" : "dpp-punto"}" cx="${x(r.anio)}" cy="${y(r.puesto)}" r="${i === 0 ? 3.5 : i === s.length - 1 ? 4.5 : 2.5}">` +
       `<title>${r.anio}: puesto ${r.puesto}</title></circle>`).join("") +
     `<text class="dpp-eje" x="${izq - 8}" y="${y(ini.puesto)}" dy=".35em" text-anchor="end">${ini.puesto}.º</text>` +
     `<text class="dpp-val" x="${w - der + 8}" y="${y(fin.puesto)}" dy=".35em">${fin.puesto}.º</text>` +
-    anios.map(r => `<text class="dpp-anio" x="${x(r.anio)}" y="${h - 4}" text-anchor="middle">${r.anio}</text>`).join("");
+    s.map(r => `<text class="dpp-anio" x="${x(r.anio)}" y="${h - 4}" text-anchor="middle">${anio(r)}</text>`).join("");
 }
 function pintarPuestos() {
   const caja = document.getElementById("prov-puestos"); if (!caja) return;
@@ -8349,16 +8347,15 @@ function pintarPuestos() {
   if (!NOMBRES[prov] || !filas.length) { caja.hidden = true; caja.innerHTML = ""; return; }
   const num = v => Math.abs(v) >= 1000 ? n0(v) : n1(v);
   const series = [...d3.group(filas, r => r.variable).entries()].map(([v, s]) => ({v, s: s.sort((a, b) => a.anio - b.anio)}));
-  const conMenos = series.filter(({s}) => s[0].sentido === "menos").map(({s}) => s[0].indicador.toLowerCase());
   caja.hidden = false;
   caja.innerHTML = `<h2 class="bloque-grupo" id="prov-puestos-t">Cómo cambió su puesto</h2>` +
-    `<p class="prov-destaca-sub">El lugar de ${NOMBRES[prov]} entre las 24 jurisdicciones, cada dos años. Arriba, el mejor puesto: verde si mejoró y rojo si empeoró. ` +
-    `El puesto 1 es la cifra más baja en ${lista(conMenos)}, y la más alta en los demás. Compara con las otras: la cifra puede mejorar aunque pierda lugares.</p>` +
+    `<p class="prov-destaca-sub">El lugar de ${NOMBRES[prov]} entre las 24 jurisdicciones, cada dos años. Arriba, el mejor puesto (en mortalidad o robos, la cifra más baja): ` +
+    `verde si mejoró y rojo si empeoró. Compara con las otras: la cifra puede mejorar aunque pierda lugares.</p>` +
     `<div class="perfil-tarjetas">` +
     series.map(({v, s}) => {
       const ini = s[0], fin = s[s.length - 1], dif = ini.puesto - fin.puesto, neutro = ini.sentido === "neutro";
       const clase = neutro || !dif ? "igual" : dif > 0 ? "sube" : "baja";
-      const cambio = !dif ? "Mismo puesto" : neutro ? `Pasó del puesto ${ini.puesto} al ${fin.puesto}` : `${dif > 0 ? "Mejoró" : "Empeoró"} ${Math.abs(dif)} ${Math.abs(dif) === 1 ? "puesto" : "puestos"}`;
+      const cambio = !dif ? "Mismo puesto" : `${neutro ? "Cambió" : dif > 0 ? "Mejoró" : "Empeoró"} ${Math.abs(dif)} ${Math.abs(dif) === 1 ? "puesto" : "puestos"}`;
       return `<a class="tarjeta dp" href="${destinoDe("#" + ini.ficha) || "#" + ini.ficha}"><span class="dp-lab">${ini.indicador}</span>` +
         `<span class="dp-det">${ini.unidad}</span><svg class="dp-pendiente ${clase}" data-v="${v}" aria-hidden="true"></svg>` +
         `<span class="solo-lector">Puesto por año: ${s.map(r => `${r.anio}, ${r.puesto}`).join(". ")}.</span>` +
@@ -8397,6 +8394,56 @@ function pintarCensos() {
     `<p class="tabla-nota">Cuadros del INDEC de los censos 2010 y 2022. El de 2010 fue un censo de hecho (contó a las personas donde estaban esa noche) y ` +
     `el de 2022, de derecho (donde viven). En 2022 la computadora incluye notebook y tableta, así que su suba puede ser en parte por la pregunta.</p>`;
 }
+/* El menú de la página de provincia (5 de noviembre de 2026, pedido del autor). Lo escribe el constructor (perfil_menu en 03): acá se esconde lo
+   que no se ve con la provincia elegida, los títulos se copian de las secciones para que digan lo mismo, se marca lo que se está viendo y, en
+   pantallas chicas, se abre y se cierra. Lo que se está viendo es la sección que cruza una línea a un cuarto de la pantalla */
+(() => {
+  const nav = document.getElementById("perfil-indice"), contenido = document.querySelector(".prov-contenido");
+  if (!nav || !contenido) return;
+  const btn = nav.querySelector(".pi-btn"), actual = nav.querySelector(".pi-actual"), listas = nav.querySelector(".pi-listas"), enlaces = [...nav.querySelectorAll("a")];
+  const destino = a => document.getElementById(a.getAttribute("href").slice(1));
+  // la historia no se esconde entera: están las de las 24, y se ve la de la provincia elegida
+  const titulo = d => !d || d.hidden ? null : d.id === "prov-historia" ? d.querySelector(".ph:not([hidden]) h2") : d.querySelector("h2");
+  const marcar = a => {
+    enlaces.forEach(x => { if (x === a) x.setAttribute("aria-current", "true"); else x.removeAttribute("aria-current"); });
+    actual.textContent = a ? a.textContent : "";
+    // si el menú no entra en la pantalla, lo marcado queda a la vista. Sin mover la página: solo su propio desplazamiento
+    if (a && nav.scrollHeight > nav.clientHeight) nav.scrollTop = a.offsetTop - nav.clientHeight / 2;
+  };
+  const sincronizar = () => {
+    enlaces.forEach(a => {
+      const h = titulo(destino(a));
+      a.closest("li").hidden = !h;
+      if (h && a.textContent !== h.textContent) a.textContent = h.textContent;
+    });
+    nav.querySelectorAll("ul").forEach(ul => { ul.hidden = !ul.querySelector("li:not([hidden])"); });
+    const marcado = nav.querySelector('a[aria-current="true"]');
+    if (marcado) marcar(marcado.closest("li").hidden ? null : marcado);
+  };
+  let pendiente = false;
+  new MutationObserver(() => {
+    if (pendiente) return;
+    pendiente = true;
+    requestAnimationFrame(() => { pendiente = false; sincronizar(); });
+  }).observe(contenido, {subtree: true, childList: true, attributes: true, attributeFilter: ["hidden"]});
+  sincronizar();
+  const vigiladas = new Map(enlaces.map(a => [destino(a), a]).filter(([d]) => d));
+  const adentro = new Set();
+  const vigia = new IntersectionObserver(es => {
+    es.forEach(e => { if (e.isIntersecting) adentro.add(e.target); else adentro.delete(e.target); });
+    // si la línea cae en el espacio entre dos secciones, sigue marcada la anterior
+    const a = enlaces.filter(x => adentro.has(destino(x))).pop();
+    if (a) marcar(a);
+  }, {rootMargin: "-25% 0px -74% 0px"});
+  vigiladas.forEach((a, d) => vigia.observe(d));
+  const abrir = si => { btn.setAttribute("aria-expanded", si); nav.classList.toggle("abierto", si); };
+  const abierto = () => btn.getAttribute("aria-expanded") === "true";
+  btn.addEventListener("click", () => abrir(!abierto()));
+  listas.addEventListener("click", ev => { if (ev.target.closest("a")) abrir(false); });
+  nav.addEventListener("keydown", ev => { if (ev.key === "Escape" && abierto()) { abrir(false); btn.focus(); } });
+  nav.addEventListener("focusout", ev => { if (ev.relatedTarget && !nav.contains(ev.relatedTarget)) abrir(false); });
+  document.addEventListener("click", ev => { if (abierto() && !nav.contains(ev.target)) abrir(false); });
+})();
 function pintarPanel(animar) {
   const nombre = NOMBRES[prov];
   pintarDestaca();

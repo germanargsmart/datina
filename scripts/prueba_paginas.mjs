@@ -241,6 +241,73 @@ await p.ir(`${B}provincia-neuquen.html`, 1200);
   if (!otra.endsWith("provincia-salta.html")) problemas.push(`en una página fija, elegir Salta lleva a ${otra}`);
   await p.eval(`localStorage.removeItem("prov")`);  // lo que sigue se prueba sin provincia elegida
 }
+// La página de una provincia (5 de noviembre de 2026, pedido del autor): sin provincias parecidas ni "si fuera un país", todas las tarjetas del
+// mismo tamaño, los puestos con el color que corresponde y el menú, al costado desde 1200 píxeles y desplegable en las pantallas más chicas
+await p.ir(`${B}provincia-chaco.html`, 1500);
+{
+  const r = await p.eval(`(() => {
+    const cajas = [...document.querySelectorAll(".perfil-tarjetas")], enlaces = [...document.querySelectorAll("#perfil-indice a")];
+    const alto = c => Math.round(c.getBoundingClientRect().height), ancho = c => Math.round(c.getBoundingClientRect().width);
+    return {
+      viejos: /más parecidas|fuera un país/.test(document.querySelector(".prov-contenido").innerText),
+      anchos: [...new Set(cajas.flatMap(g => [...g.children].map(ancho)))],
+      altos: cajas.filter(g => new Set([...g.children].map(alto)).size > 1).map(g => g.parentElement.id),
+      colgada: cajas.filter(g => { const t = [...g.children].map(c => Math.round(c.getBoundingClientRect().top)); return g.children.length > 1 && t.filter(x => x === t[t.length - 1]).length === 1; }).map(g => g.parentElement.id),
+      numerados: [...document.querySelectorAll("#prov-grid h2")].filter(h => /^\\d/.test(h.textContent)).length,
+      sinDestino: enlaces.filter(a => !document.getElementById(a.getAttribute("href").slice(1))).map(a => a.getAttribute("href")),
+      distintos: enlaces.filter(a => a.offsetParent).filter(a => { const d = document.getElementById(a.getAttribute("href").slice(1)); const h = d.id === "prov-historia" ? d.querySelector(".ph:not([hidden]) h2") : d.querySelector("h2"); return !h || h.textContent !== a.textContent; }).map(a => a.textContent),
+      lado: {pos: getComputedStyle(document.getElementById("perfil-indice")).position, btn: getComputedStyle(document.querySelector(".pi-btn")).display, vis: enlaces.filter(a => a.offsetParent).length},
+      puestos: [...document.querySelectorAll("#prov-puestos .dp")].map(t => {
+        const lin = t.querySelector(".dpp-linea"), ps = lin.getAttribute("points").split(" ").map(q => +q.split(",")[1]);
+        return {lab: t.querySelector(".dp-lab").textContent, clase: t.querySelector(".dp-pendiente").getAttribute("class"), n: ps.length, sube: ps[ps.length - 1] < ps[0], baja: ps[ps.length - 1] > ps[0],
+          dice: t.querySelector(".dp-cambio").textContent, color: getComputedStyle(lin).stroke};
+      }),
+    };
+  })()`);
+  if (r.viejos) problemas.push("provincia-chaco.html: siguen las provincias parecidas o si fuera un país");
+  if (r.anchos.length !== 1) problemas.push(`provincia-chaco.html: las tarjetas tienen ${r.anchos.length} anchos (${r.anchos.join(", ")})`);
+  if (r.altos.length) problemas.push(`provincia-chaco.html: tarjetas de distinto alto en ${r.altos.join(", ")}`);
+  if (r.colgada.length) problemas.push(`provincia-chaco.html: una tarjeta sola en la última fila en ${r.colgada.join(", ")}`);
+  if (r.numerados) problemas.push(`provincia-chaco.html: ${r.numerados} títulos de temas con número`);
+  if (r.sinDestino.length) problemas.push(`provincia-chaco.html: el menú lleva a lo que no existe: ${r.sinDestino.join(", ")}`);
+  if (r.distintos.length) problemas.push(`provincia-chaco.html: el menú no dice lo mismo que el título: ${r.distintos.join(", ")}`);
+  if (r.lado.pos !== "sticky" || r.lado.btn !== "none" || r.lado.vis !== 17) problemas.push(`provincia-chaco.html en 1280: menú lateral mal ${JSON.stringify(r.lado)}`);
+  if (r.puestos.length !== 10) problemas.push(`provincia-chaco.html: ${r.puestos.length} tarjetas de puestos`);
+  const COLOR = {sube: "rgb(0, 158, 115)", baja: "rgb(200, 16, 46)", igual: "rgb(86, 96, 108)"};
+  for (const t of r.puestos) {
+    const clase = t.clase.replace("dp-pendiente ", "");
+    const bien = t.n >= 5 && t.color === COLOR[clase] && (clase === "sube" ? t.sube && /^Mejoró/.test(t.dice) : clase === "baja" ? t.baja && /^Empeoró/.test(t.dice) : /^(Mismo puesto|Cambió)/.test(t.dice));
+    if (!bien) problemas.push(`provincia-chaco.html, puestos: ${t.lab} no coincide: ${JSON.stringify(t)}`);
+    if (t.lab === "Gasto en personal" && clase !== "igual") problemas.push(`provincia-chaco.html: Gasto en personal va en gris y tiene ${clase}`);
+  }
+  // el menú marca lo que se está viendo
+  await p.eval(`document.getElementById("pg-salud").scrollIntoView()`); await espera(400);
+  const marcado = await p.eval(`document.querySelector('#perfil-indice a[aria-current="true"]')?.getAttribute("href") || ""`);
+  if (marcado !== "#pg-salud") problemas.push(`provincia-chaco.html: bajando a Salud, el menú marca ${marcado || "nada"}`);
+  // en el celular, la franja fija que se despliega
+  await p.tamano(390, 844); await espera(400);
+  const cel = await p.eval(`(async () => {
+    const nav = document.getElementById("perfil-indice"), btn = nav.querySelector(".pi-btn"), lista = nav.querySelector(".pi-listas"), vis = () => getComputedStyle(lista).display !== "none";
+    const antes = vis(); btn.click(); const abierto = vis() && btn.getAttribute("aria-expanded") === "true", signo = getComputedStyle(nav.querySelector(".desp-signo")).display;
+    nav.dispatchEvent(new KeyboardEvent("keydown", {key: "Escape", bubbles: true}));
+    const conEscape = !vis() && document.activeElement === btn;
+    btn.click(); document.body.click(); const tocandoAfuera = !vis();
+    btn.click(); nav.querySelector('a[href="#pg-educacion"]').click(); await new Promise(res => setTimeout(res, 400));
+    const h = document.getElementById("pg-educacion-t").getBoundingClientRect(), n = nav.getBoundingClientRect();
+    return {antes, abierto, signo, conEscape, tocandoAfuera, cerro: !vis(), debajo: h.top >= n.bottom, dice: nav.querySelector(".pi-actual").textContent, fija: Math.round(n.top),
+      corrido: document.documentElement.scrollWidth - document.documentElement.clientWidth};
+  })()`);
+  if (cel.antes || !cel.abierto || cel.signo === "none" || !cel.conEscape || !cel.tocandoAfuera || !cel.cerro || !cel.debajo || cel.fija !== 62 || cel.dice !== "Educación" || cel.corrido > 0)
+    problemas.push(`provincia-chaco.html en 390: el menú desplegable falla ${JSON.stringify(cel)}`);
+  await p.tamano(1280, 900);
+}
+// sin provincia elegida, el menú lleva solo a los temas. La página de Chaco la dejó guardada: lo que sigue se prueba sin ella
+await p.eval(`localStorage.removeItem("prov")`);
+await p.ir(`${B}provincia.html`, 1500);
+{
+  const vis = await p.eval(`[...document.querySelectorAll("#perfil-indice a")].filter(a => a.offsetParent).map(a => a.getAttribute("href"))`);
+  if (vis.length !== 12 || vis.some(h => !h.startsWith("#pg-"))) problemas.push(`provincia.html sin provincia: el menú tiene ${vis.join(", ")}`);
+}
 
 // Sin las CDN (plan de estabilización, P0-1, 22 de octubre de 2026). D3 y topojson se sirven desde sitio/lib/: con cdnjs y jsDelivr
 // bloqueadas, cada página tiene que andar igual, sin errores (un pedido a esas CDN aparece como error), con D3 y topojson cargados,
