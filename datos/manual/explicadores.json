@@ -4506,16 +4506,24 @@
   "bloques": [
    {
     "titulo": "Qué muestra",
-    "texto": "Los votos de presidente, diputados y senadores nacionales en cada elección, de todo el país a cada mesa. Cada jurisdicción se divide en secciones electorales, que casi siempre coinciden con un departamento, partido o comuna. Cada sección se divide en circuitos y cada circuito en mesas, donde se vota. Los porcentajes de las listas son sobre los votos positivos, sin contar blancos ni nulos, como en la ficha de elecciones de Política. La participación compara a quienes votaron con los electores, solo en las mesas que tienen resultado.",
+    "texto": "Los votos de presidente, diputados y senadores nacionales en cada elección, de todo el país a cada mesa. Cada jurisdicción se divide en secciones electorales, que casi siempre coinciden con un departamento, partido o comuna. Cada sección se divide en circuitos y cada circuito en mesas, donde se vota. Los porcentajes de las listas son sobre los votos positivos, sin contar blancos ni nulos, como en la ficha de elecciones de Política. La participación compara a quienes votaron con los electores. En el total de cada jurisdicción cuenta todo el padrón, y por debajo, solo las mesas que tienen resultado.",
     "fuentes": []
    },
    {
     "titulo": "De dónde salen los datos",
-    "texto": "Desde 2011 son los archivos por mesa de la Dirección Nacional Electoral, con el escrutinio provisorio, el conteo de los telegramas de la noche de la elección. De 1983 a 2009, el total de cada jurisdicción es el del escrutinio definitivo, que publica el mismo organismo. Los senadores se eligen por voto directo desde 2001, así que antes no hay datos de ese cargo. El Senado se renueva por tercios: cada elección de senadores abarca ocho jurisdicciones.",
+    "texto": "El total del país y el de cada jurisdicción son el escrutinio definitivo, el recuento oficial que hace la Justicia Electoral. Hasta 2021 sale de las planillas de la Dirección Nacional Electoral. Desde 2023 la Dirección no lo publica como datos, y sale de las actas de escrutinio definitivo de cada junta electoral, que la Cámara Nacional Electoral publica escaneadas: Datina las transcribió número por número, con la página de cada uno, y en cada jurisdicción las listas, los blancos y los nulos suman exacto los votos emitidos. Algunas actas escriben mal un total (en San Juan y Corrientes en 2023, en Corrientes y Santa Fe en 2025): ahí manda la suma, que cierra. Por debajo de la jurisdicción, desde 2011, son los archivos por mesa de la Dirección Nacional Electoral, con el escrutinio provisorio, el conteo de los telegramas de la noche de la elección. Ningún organismo publica el definitivo mesa por mesa como datos: la Cámara lo muestra en su consulta pública, de a una mesa. De 1983 a 2009, el total de cada jurisdicción es el definitivo de la Dirección Nacional Electoral. Los senadores se eligen por voto directo desde 2001, así que antes no hay datos de ese cargo. El Senado se renueva por tercios: cada elección de senadores abarca ocho jurisdicciones.",
     "fuentes": [
      {
       "nombre": "Dirección Nacional Electoral, resultados electorales",
       "url": "https://www.argentina.gob.ar/dine/resultados-electorales"
+     },
+     {
+      "nombre": "Cámara Nacional Electoral, actas de escrutinio definitivo (2025)",
+      "url": "https://www.electoral.gob.ar/nuevo/paginas/btn/actas2025.php"
+     },
+     {
+      "nombre": "Cámara Nacional Electoral, actas de escrutinio definitivo (2023)",
+      "url": "https://www.electoral.gob.ar/nuevo/paginas/btn/actas_esc_generales2023.php"
      },
      {
       "nombre": "Datos Argentina, resultados provisionales por mesa",
@@ -4525,7 +4533,7 @@
    },
    {
     "titulo": "Cómo se arma el mapa",
-    "texto": "Cada forma del mapa es un circuito electoral, con la cartografía que publica la Cámara Nacional Electoral. En Santa Fe, y en Santa Cruz hasta 2021, es la de Franco Galeano, porque usa los mismos códigos que las mesas de esos años. El circuito de la mesa y el del mapa se unen por su código y su sección. Cuando un circuito se dividió, los votos se suman o se reparten en sus partes y nunca se cuentan dos veces. En Neuquén hasta 2017, en Río Negro hasta 2013 y en Tierra del Fuego hasta 2021 los códigos de entonces no coinciden con la cartografía, así que esas elecciones se pintan por sección. Los colores son los del logo de cada fuerza o los que históricamente se le asocian. La agrupación de las listas en fuerzas y los colores de partida vienen del proyecto 257arg, con correcciones de Datina. Una lista provincial aliada se pinta con el color de la fuerza nacional con la que se presentó.",
+    "texto": "Cada forma del mapa es un circuito electoral, con la cartografía que publica la Cámara Nacional Electoral, y debajo van los departamentos del Instituto Geográfico Nacional. El circuito de la mesa y el del mapa se unen por su código y su sección. Cuando un circuito se dividió, los votos se suman o se reparten en sus partes y nunca se cuentan dos veces. Un lugar sin mesas propias, como el campo fuera de los pueblos en Catamarca o Tierra del Fuego, se pinta rayado con el resultado de toda su sección: quien vive ahí vota en otro circuito. Lo mismo pasa con lo que la cartografía de la Cámara no dibuja, como casi toda Formosa, y con los circuitos cuyas mesas el provisorio no llegó a cargar. En Santa Fe la Cámara no permite bajar sus circuitos, así que el mapa llega al departamento, con la cartografía del Instituto Geográfico Nacional: las tablas sí llegan a cada mesa. En Neuquén hasta 2017, en Río Negro hasta 2013, en Tierra del Fuego hasta 2021 y en Santa Cruz hasta 2021 los códigos de entonces no coinciden con la cartografía, así que esas elecciones se pintan por sección. Los colores son los del logo de cada fuerza o los que históricamente se le asocian, y una lista provincial aliada se pinta con el color de la fuerza nacional con la que se presentó.",
     "fuentes": [
      {
       "nombre": "Cámara Nacional Electoral, sistema de información geográfica electoral",
@@ -4536,42 +4544,52 @@
       "url": "https://mapa2.electoral.gov.ar/descargas/"
      },
      {
-      "nombre": "Franco Galeano, circuitos_electorales_AR (CC BY 4.0)",
-      "url": "https://github.com/tartagalensis/circuitos_electorales_AR"
-     },
-     {
-      "nombre": "257arg, atlas electorales de la Argentina (CC BY 4.0)",
-      "url": "https://azha2005.github.io/257arg/"
+      "nombre": "Instituto Geográfico Nacional, departamentos (por medio de Georef)",
+      "url": "https://www.ign.gob.ar/"
      }
     ]
    },
    {
     "titulo": "De 1912 a 1973: una historia con huecos",
-    "texto": "Son 20 elecciones de presidente y diputados, desde la primera con la ley Sáenz Peña, por departamento, con los límites de cada época. Los votos salen del proyecto 257arg (CC BY 4.0), que los transcribió de Darío Cantón (1968), de expedientes de la Cámara de Diputados y de la prensa de la época, o los tomó de Lupu y Stokes (2009) en 1948 y 1973. De 1951 se publica por circunscripción, con la tabla de la Wikipedia que cita la publicación oficial de ese año, con límites aproximados. No hay un escrutinio oficial publicado como datos: la página dice qué parte de los votos reúne cada elección. En 1912, 1937 y 1940 hay pocas jurisdicciones. En los años con casi todos los votos, el reparto coincide con el resultado nacional: Perón 53,7% en 1946, Frondizi 49,5% en 1958. Lupu y Stokes solo distinguen algunas fuerzas por departamento. Donde la fuente no tiene departamentos se pinta la jurisdicción entera. CABA se ve por sección hasta 1965, y entera en 1973. Faltan elecciones que 257arg no transcribió, como las de 1931, 1960 y 1963, y las de convencionales.",
+    "texto": "Son 20 elecciones de presidente y diputados, desde la primera con la ley Sáenz Peña, por departamento, con los límites de cada época. Los votos salen de Darío Cantón (1968), de expedientes de la Cámara de Diputados y de la prensa de la época, y de Lupu y Stokes (2009) en 1948 y 1973. De 1951 se publica por circunscripción, con la tabla de la Wikipedia que cita la publicación oficial de ese año, con límites aproximados. No hay un escrutinio oficial publicado como datos: la página dice qué parte de los votos reúne cada elección. En 1912, 1937 y 1940 hay pocas jurisdicciones. En los años con casi todos los votos, el reparto coincide con el resultado nacional: Perón 53,7% en 1946, Frondizi 49,5% en 1958. Lupu y Stokes solo distinguen algunas fuerzas por departamento. Donde la fuente no tiene departamentos se pinta la jurisdicción entera. CABA se ve por sección hasta 1965, y entera en 1973. Faltan elecciones, como las de 1931, 1960 y 1963, y las de convencionales. Créditos: la transcripción es del proyecto 257arg, con licencia CC BY 4.0, que obliga a citarlo.",
     "fuentes": [
      {
-      "nombre": "257arg, atlas electorales de la Argentina (CC BY 4.0)",
+      "nombre": "Créditos: 257arg, transcripción (CC BY 4.0)",
       "url": "https://azha2005.github.io/257arg/"
      }
     ]
    },
    {
     "titulo": "De 1983 a 2009: por departamento",
-    "texto": "La Dirección Nacional Electoral publica por mesa desde 2011. Antes, la herramienta llega al departamento, con los datos que publica el proyecto 257arg con licencia CC BY 4.0: de 1983 a 2001 salen de la base de Ernesto Calvo, y de 2003 a 2009, de PolAr, a partir del Atlas Electoral de Andy Tow. 257arg aclara que no redistribuye la base de Calvo y publica solo el resultado por departamento. No son el escrutinio definitivo: el total de cada jurisdicción sigue siendo el oficial, y si los departamentos se apartan más de 3% de él, la página lo avisa. En 1983 suman casi exacto lo mismo, y en 2003 hay jurisdicciones que pasan de 115%. Donde no hay resultados por departamento (San Luis en 1997 y 1999, Santa Cruz en 1999, La Pampa en 2003), se pinta la jurisdicción entera. CABA tiene 28 circunscripciones hasta 2007: la tabla las lista y el mapa la pinta entera, porque esos límites no están publicados. Los límites de los departamentos son los de la época, de la base de Rodríguez (CEUR-CONICET). Los senadores se publican por jurisdicción: por departamento no hay datos que se puedan publicar.",
+    "texto": "La Dirección Nacional Electoral publica por mesa desde 2011. Antes, la herramienta llega al departamento: de 1983 a 2001 con la base de Ernesto Calvo, y de 2003 a 2009 con PolAr, a partir del Atlas Electoral de Andy Tow, en el resultado por departamento que transcribió el proyecto 257arg (CC BY 4.0). No son el escrutinio definitivo: el total de cada jurisdicción sigue siendo el oficial, y si los departamentos se apartan más de 3% de él, la página lo avisa. En 1983 suman casi exacto lo mismo, y en 2003 hay jurisdicciones que pasan de 115%. Donde no hay resultados por departamento (San Luis en 1997 y 1999, Santa Cruz en 1999, La Pampa en 2003), se pinta la jurisdicción entera. CABA tiene 28 circunscripciones hasta 2007: la tabla las lista y el mapa la pinta entera, porque esos límites no están publicados. Los límites de los departamentos son los de la época, de la base de Rodríguez (CEUR-CONICET). Los senadores se publican por jurisdicción: por departamento no hay datos que se puedan publicar.",
     "fuentes": [
-     {
-      "nombre": "257arg, atlas electorales de la Argentina (CC BY 4.0)",
-      "url": "https://azha2005.github.io/257arg/"
-     },
      {
       "nombre": "Rodríguez, CEUR-CONICET, departamentos históricos de la Argentina (CC BY 2.5 AR)",
       "url": "https://datosdeinvestigacion.conicet.gov.ar/handle/11336/149867"
+     },
+     {
+      "nombre": "Créditos: 257arg, transcripción (CC BY 4.0)",
+      "url": "https://azha2005.github.io/257arg/"
+     }
+    ]
+   },
+   {
+    "titulo": "El exterior y las cárceles",
+    "texto": "Los argentinos que viven en el exterior y las personas privadas de libertad votan en mesas propias, que el escrutinio provisorio no cuenta. En el definitivo van sumados al total de su jurisdicción: quien vive afuera vota por la de su último domicilio en el país. Solo en la segunda vuelta de 2023 la Cámara Nacional Electoral publicó aparte el total del exterior y el de las cárceles, en dos planillas que titula consulta provisoria de totales, y las actas de las jurisdicciones dicen que no los incluyen: por eso esa elección los muestra aparte y no los suma al total del país. Los votos del exterior no se publican país por país: el sistema de la Cámara suma todo el exterior de una jurisdicción en una sola mesa. Lo que sí une cada mesa del exterior con su país es el padrón de 2023 de la Cámara, con el consulado, el número de mesa y cuántos electores de cada jurisdicción votan en ella: el desplegable lo muestra país por país.",
+    "fuentes": [
+     {
+      "nombre": "Cámara Nacional Electoral, Registro de Electores Residentes en el Exterior",
+      "url": "https://www.electoral.gob.ar/nuevo/paginas/datos/reredatos.php"
+     },
+     {
+      "nombre": "Cámara Nacional Electoral, actas de la segunda vuelta de 2023",
+      "url": "https://www.electoral.gob.ar/nuevo/paginas/btn/actas_esc_segvta2023.php"
      }
     ]
    },
    {
     "titulo": "Para tener en cuenta",
-    "texto": "El escrutinio provisorio no es el resultado legal: lo es el definitivo, que hace la Justicia Electoral y corrige errores de carga. Por eso una mesa puede mostrar más votos que electores, o ningún resultado. También le faltan mesas que no llegaron a cargarse, y en algunas jurisdicciones son muchas: cuando un conteo reúne menos de 97% de los votos positivos del definitivo, la herramienta lo avisa. Las legislativas desde 2021 y las presidenciales de 2023 no tienen un definitivo publicado como datos para comparar. Los números de mesa cambian en cada elección porque el padrón se reparte de nuevo, así que no se puede seguir una mesa en el tiempo. Los circuitos se comparan por su código: si un circuito se dividió o cambió de código, la historia lo muestra como ausente en esa elección. Las listas cambian de nombre y de alianzas entre una elección y otra, así que la historia no sigue a un espacio político. Los nombres de las listas son los que publica la fuente, con las mayúsculas y las tildes arregladas.",
+    "texto": "El escrutinio provisorio no es el resultado legal: lo es el definitivo, que hace la Justicia Electoral y corrige errores de carga. Por eso una mesa puede mostrar más votos que electores, o ningún resultado. También le faltan mesas que no llegaron a cargarse, y en algunas jurisdicciones son muchas: la tabla de secciones dice qué parte del definitivo reúnen las mesas, y por debajo de 97% la herramienta lo avisa. Los números de mesa cambian en cada elección porque el padrón se reparte de nuevo, así que no se puede seguir una mesa en el tiempo. Los circuitos se comparan por su código: si un circuito se dividió o cambió de código, la historia lo muestra como ausente en esa elección. Las listas cambian de nombre y de alianzas entre una elección y otra, así que la historia no sigue a un espacio político. Los nombres de las listas son los que publica la fuente, con las mayúsculas y las tildes arregladas.",
     "fuentes": []
    }
   ],

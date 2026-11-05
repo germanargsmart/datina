@@ -1,0 +1,36 @@
+codigo_indec,provincia,lista,votos,electores,votantes,blancos,nulos,recurridos_impugnados
+10,Catamarca,Alianza Frente para la Victoria,97872,294202,237584,43720,618,0
+10,Catamarca,Alianza Frente Cívico y Social,77091,294202,237584,43720,618,0
+10,Catamarca,Alianza Frente Tercera Posicion,18283,294202,237584,43720,618,0
+14,Córdoba,Alianza Cambiemos,1068903,2791736,2216757,71341,17370,0
+14,Córdoba,Alianza Unión por Córdoba,449244,2791736,2216757,71341,17370,0
+14,Córdoba,Alianza Frente para la Victoria,388712,2791736,2216757,71341,17370,0
+14,Córdoba,Alianza Frente de Izquierda y de los Trabajadores,110678,2791736,2216757,71341,17370,0
+14,Córdoba,Alianza Progresistas,62764,2791736,2216757,71341,17370,0
+14,Córdoba,Es Posible,47745,2791736,2216757,71341,17370,0
+18,Corrientes,Alianza Frente para la Victoria,302495,810954,641073,67607,2786,0
+18,Corrientes,Alianza Encuentro por Corrientes,186462,810954,641073,67607,2786,0
+18,Corrientes,Alianza Unidos por una Nueva Alternativa (UNA),81723,810954,641073,67607,2786,0
+26,Chubut,Alianza Frente para la Victoria,103830,416760,332460,83079,5140,0
+26,Chubut,Alianza Frente Unión Chubut Somos Todos,85396,416760,332460,83079,5140,0
+26,Chubut,Alianza Cambiemos Chubut,46664,416760,332460,83079,5140,0
+26,Chubut,Movimiento Polo Social La Tercera Posicion de la Gente,8351,416760,332460,83079,5140,0
+42,La Pampa,Alianza Frente para la Victoria,81064,274702,225308,46767,1725,0
+42,La Pampa,Propuesta Frepam,69983,274702,225308,46767,1725,0
+42,La Pampa,Pueblo Nuevo,21494,274702,225308,46767,1725,0
+42,La Pampa,GEN,4275,274702,225308,46767,1725,0
+50,Mendoza,Alianza Cambiemos,452990,1366067,1118180,48263,13269,0
+50,Mendoza,Alianza Frente para la Victoria,322569,1366067,1118180,48263,13269,0
+50,Mendoza,Alianza Frente Renovador Federal de la Esperanza,134403,1366067,1118180,48263,13269,0
+50,Mendoza,Alianza Frente de Izquierda y de los Trabajadores,102573,1366067,1118180,48263,13269,0
+50,Mendoza,Es Posible,44113,1366067,1118180,48263,13269,0
+82,Santa Fe,Alianza Frente para la Victoria,616146,2689407,2094221,140877,28176,0
+82,Santa Fe,Alianza Cambiemos,570060,2689407,2094221,140877,28176,0
+82,Santa Fe,Alianza Unidos por una Nueva Alternativa (UNA),398980,2689407,2094221,140877,28176,0
+82,Santa Fe,Alianza Frente Progresista Cívico y Social,249246,2689407,2094221,140877,28176,0
+82,Santa Fe,Alianza Frente de Izquierda y de los Trabajadores,66832,2689407,2094221,140877,28176,0
+82,Santa Fe,Alianza Compromiso Federal,23904,2689407,2094221,140877,28176,0
+90,Tucumán,Alianza Frente para la Victoria,423349,1171721,970220,120274,6316,0
+90,Tucumán,Alianza Cambiemos,298257,1171721,970220,120274,6316,0
+90,Tucumán,Partido Movimiento de Participación Ciudadana,99582,1171721,970220,120274,6316,0
+90,Tucumán,Alianza Frente de Izquierda y de los Trabajadores,22442,1171721,970220,120274,6316,0

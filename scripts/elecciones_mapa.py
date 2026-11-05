@@ -4,11 +4,18 @@ Une la cartografía de los circuitos con los resultados que armó scripts/elecci
   sitio/datos/mesas/geo/{edicion}/{codigo_indec}.topo.json   los circuitos de una jurisdicción, con detalle
   sitio/datos/mesas/geo/pais-{periodo}.topo.json             los circuitos de todo el país, más simples
   sitio/datos/mesas/geo/provincias.topo.json                 las 24 jurisdicciones, para las elecciones que no llegan al circuito
+  sitio/datos/mesas/geo/base.topo.json                       los departamentos del IGN con su sección electoral: el fondo, para que ningún lugar quede sin pintar
   sitio/datos/mesas/mapa/{eleccion}.json                     una fila por lugar del mapa, con los votos de cada lista
 y datos/manual/mesas_geo_fuentes.json, con lo que se bajó y lo que se midió. Se corre una vez por elección nueva. Fuentes, reglas y límites: docs/roadmap/MESAS.md.
+Solo cartografía oficial (pedido del autor del 5 de noviembre de 2026): la de la Cámara Nacional Electoral y, donde la Cámara no permite bajar sus circuitos,
+los departamentos del Instituto Geográfico Nacional que ya publica el sitio (sitio/datos/departamentos.topo.json, de Georef).
 
 Uso: python scripts/elecciones_mapa.py --fuentes CARPETA [--solo-resultados]
+     python scripts/elecciones_mapa.py --desde-publicado [--solo-resultados]
      --fuentes guarda lo que baja (unos 150 MB) y lo reutiliza. --solo-resultados no vuelve a dibujar la geometría.
+     --desde-publicado no baja nada: lee los circuitos de la geometría ya publicada en sitio/datos/mesas/geo/ y vuelve a dibujar solo lo que cambia (el país,
+     las jurisdicciones con los departamentos del IGN y el fondo). Desde noviembre de 2026 la Cámara rechaza varias descargas (el sigE de Santa Fe y Santa Cruz,
+     "un administrador deshabilitó la exportación de esta capa", y el portal anterior entero), así que es la forma de rearmar el mapa.
 Necesita Node (mapshaper con npx).
 """
 import argparse
@@ -18,19 +25,15 @@ import glob
 import hashlib
 import html
 import json
-import math
 import os
 import pathlib
 import re
-import shutil
-import statistics
 import subprocess
 import sys
 import tempfile
 import time
 import unicodedata
 import urllib.request
-import zipfile
 
 RAIZ = pathlib.Path(__file__).resolve().parents[1]
 MESAS = RAIZ / "sitio" / "datos" / "mesas"
@@ -39,27 +42,38 @@ CONTROL = RAIZ / "datos" / "manual" / "mesas_geo_fuentes.json"
 UA = {"User-Agent": "datina/1.0 (+https://datina.com.ar)"}
 
 INDEC = ["02", "06", "10", "14", "18", "22", "26", "30", "34", "38", "42", "46", "50", "54", "58", "62", "66", "70", "74", "78", "82", "86", "90", "94"]
-DE_DISTRITO = {f"{i + 1:02d}": c for i, c in enumerate(INDEC)}   # la Cámara y Galeano numeran 01 CABA, 02 Buenos Aires; Datina usa el código del INDEC
+DE_DISTRITO = {f"{i + 1:02d}": c for i, c in enumerate(INDEC)}   # la Cámara numera 01 CABA, 02 Buenos Aires; Datina usa el código del INDEC
 A_DISTRITO = {v: k for k, v in DE_DISTRITO.items()}
-ARCHIVO_GALEANO = {"02": "CABA", "06": "PBA", "10": "Catamarca", "14": "Cordoba", "18": "Corrientes", "22": "Chaco", "26": "Chubut", "30": "EntreRios", "34": "Formosa", "38": "Jujuy",
-                   "42": "LaPampa", "46": "LaRioja", "50": "Mendoza", "54": "Misiones", "58": "Neuquen", "62": "RioNegro", "66": "Salta", "70": "SanJuan", "74": "SanLuis", "78": "SantaCruz",
-                   "82": "SantaFe", "86": "Santiago", "90": "Tucuman", "94": "TdF"}
-GALEANO_COMMIT = "50692fd821f825566b0589da2cc1fefdef5fa02f"
-GALEANO_ZIP = f"https://codeload.github.com/tartagalensis/circuitos_electorales_AR/zip/{GALEANO_COMMIT}"
+IGN = RAIZ / "sitio" / "datos" / "departamentos.topo.json"
+# los departamentos del IGN que se llaman distinto que su sección electoral (los números escritos con letras se igualan en clave_nombre())
+ALIAS_IGN = {("46", "GENERALFELIPEVARELA"): "CORONELFELIPEVARELA", ("46", "ANGELVICENTEPENALOZA"): "GENERALANGELVICENTEPENALOZA",
+             ("86", "JUANFELIPEIBARRA"): "JUANFIBARRA", ("26", "PASODEINDIOS"): "PASODELOSINDIOS", ("62", "SANANTONIO"): "SANANTONIOOESTE",
+             ("06", "CORONELDEMARINALEONARDOROSALES"): "CORONELDEMARINALROSALES", ("54", "CONCEPCION"): "CONCEPCIONDELASIERRA"}
+
+
+def clave_nombre(n):
+    """'Nueve de Julio', '9 de Julio' y '9 De Julio' son el mismo nombre, y '1° de Mayo' y 'Primero de Mayo' también."""
+    k = sin_marcas(n)
+    for a, b in (("NUEVEDE", "9DE"), ("VEINTICINCODE", "25DE"), ("PRIMERODE", "1DE")):
+        if k.startswith(a):
+            k = b + k[len(a):]
+    return k
 SIGE = "https://www.padron.gov.ar/cne_sige/api/download_layer.php?layer=distrito_{d}.circuitos_electorales&format=geojson"
 CNE_PAGINA = "https://mapa2.electoral.gov.ar/descargas/"
 
-# Qué cartografía usa cada jurisdicción en cada período. Por defecto la del sigE de la Cámara Nacional Electoral, la más completa: cubre toda la provincia y cuida la georreferencia
-# (Galeano corre CABA unos 500 metros en 2025 y Neuquén unos 230 en 2021, medido por 257arg). Las excepciones, cada una medida:
+# Qué cartografía usa cada jurisdicción en cada período. Por defecto la del sigE de la Cámara Nacional Electoral, la más completa: cubre toda la provincia y cuida la georreferencia.
+# Solo fuentes oficiales, por pedido del autor del 5 de noviembre de 2026 (hasta ese día Santa Fe y Santa Cruz hasta 2021 usaban la cartografía de Franco Galeano). Las excepciones:
 PERIODOS = {"hasta2021": lambda a: a <= 2021, "desde2023": lambda a: a >= 2023}
 EDICION = {
     # el sigE rechaza estas tres descargas (403): la misma cartografía, del portal anterior de la Cámara
     "46": {"hasta2021": "cne", "desde2023": "cne"}, "50": {"hasta2021": "cne", "desde2023": "cne"}, "74": {"hasta2021": "cne", "desde2023": "cne"},
-    # Santa Fe multiplicó sus códigos por diez en 2023 y la Cámara no trae códigos que se puedan unir: Galeano, un corte para cada numeración
-    "82": {"hasta2021": "g21", "desde2023": "g25"},
-    # Santa Cruz renumeró en 2023: antes solo Galeano 2021 trae los códigos que usan las mesas
-    "78": {"hasta2021": "g21", "desde2023": "cne"},
+    # Santa Fe: la Cámara no permite bajar sus circuitos ni trae códigos que se puedan unir con las mesas. Los departamentos del IGN, sección por sección
+    "82": {"hasta2021": "ign", "desde2023": "ign"},
+    # Santa Cruz renumeró sus circuitos en 2023 y la cartografía de la Cámara trae los códigos nuevos: hasta 2021 se pinta sección por sección
+    "78": {"hasta2021": "cne", "desde2023": "cne"},
 }
+# dónde se pinta sección por sección aunque algún código coincida: con otra numeración, una coincidencia sería una unión falsa
+POR_SECCION = {("78", "hasta2021")}
 # por debajo de esto, los códigos de la jurisdicción no son los del mapa: en esa elección se pinta sección por sección, que son estables, en vez de arriesgar uniones falsas.
 # Pasa en Neuquén hasta 2017, en Río Negro hasta 2013 y en Tierra del Fuego hasta 2021
 UNION_MINIMA = 95
@@ -113,13 +127,6 @@ def bajar(url, destino, espera=0.4):
 
 
 def bajar_fuentes(carpeta):
-    z = carpeta / "galeano.zip"
-    if not bajar(GALEANO_ZIP, z):
-        sys.exit("Falta la cartografía de Galeano")
-    g = carpeta / "galeano"
-    if not g.exists():
-        with zipfile.ZipFile(z) as f:
-            f.extractall(g, [n for n in f.namelist() if n.endswith(".geojson") and "/data/" not in n])
     for d in DE_DISTRITO:
         bajar(SIGE.format(d=d), carpeta / "sige" / f"{d}.json")
     pagina = carpeta / "cne_descargas.html"
@@ -153,13 +160,18 @@ def nombres_de_seccion():
     return out
 
 
+def solo_isla(geo):
+    """Tierra del Fuego: solo la Isla Grande e Isla de los Estados. El sector antártico y las islas del Atlántico Sur no tienen mesas, como en el mapa de departamentos del sitio."""
+    if geo["type"] not in ("Polygon", "MultiPolygon"):
+        return geo
+    polys = geo["coordinates"] if geo["type"] == "MultiPolygon" else [geo["coordinates"]]
+    polys = [q for q in polys if q and q[0] and -69.5 < q[0][0][0] < -63 and -55.7 < q[0][0][1] < -52]
+    return {"type": "MultiPolygon", "coordinates": polys} if polys else None
+
+
 def leer_edicion(fuentes, ed, cod, secciones):
-    d = A_DISTRITO[cod]
-    if ed in ("g21", "g25"):
-        rutas = glob.glob(str(fuentes / "galeano" / "*" / ("20" + ed[1:]) / f"{ARCHIVO_GALEANO[cod]}.geojson"))
-    else:
-        rutas = [str(fuentes / ed / f"{d}.json")]
-    if not rutas or not os.path.exists(rutas[0]):
+    rutas = [str(fuentes / ed / f"{A_DISTRITO[cod]}.json")]
+    if not os.path.exists(rutas[0]):
         return None
     g = json.load(open(rutas[0], encoding="utf-8"))
     out = []
@@ -169,45 +181,119 @@ def leer_edicion(fuentes, ed, cod, secciones):
         geo = x["geometry"]
         if c is None or not geo:
             continue
-        if ed in ("g21", "g25"):
-            s = str(p.get("coddepto") or "").lstrip("0")
-        elif ed == "sige":
+        if ed == "sige":
             s = str(p.get("indra_d") or "").lstrip("0")
         else:
             s = secciones[cod].get(sin_marcas(arreglar_cne(p.get("departamen"))), "")
-        if cod == "94" and geo["type"] in ("Polygon", "MultiPolygon"):
-            # solo la Isla Grande e Isla de los Estados: el sector antártico y las islas del Atlántico Sur no tienen mesas, como en el mapa de departamentos del sitio
-            polys = geo["coordinates"] if geo["type"] == "MultiPolygon" else [geo["coordinates"]]
-            polys = [q for q in polys if q and q[0] and -69.5 < q[0][0][0] < -63 and -55.7 < q[0][0][1] < -52]
-            if not polys:
+        if cod == "94":
+            geo = solo_isla(geo)
+            if not geo:
                 continue
-            geo = {"type": "MultiPolygon", "coordinates": polys}
         out.append({"type": "Feature", "properties": {"p": cod, "s": s, "c": c}, "geometry": geo})
     return out
 
 
-def centro(g):
-    xs, ys = [], []
-
-    def anillos(geo):
-        t = geo["type"]
-        if t == "Polygon":
-            yield from geo["coordinates"]
-        elif t == "MultiPolygon":
-            for q in geo["coordinates"]:
-                yield from q
-        elif t == "GeometryCollection":
-            for x in geo["geometries"]:
-                yield from anillos(x)
-    for a in anillos(g):
+def de_topo(t):
+    """Los rasgos de un TopoJSON como GeoJSON, sin bibliotecas: los arcos vienen en diferencias y con la cuantización de "transform"."""
+    tr, arcos = t.get("transform"), []
+    for a in t["arcs"]:
+        x = y = 0
+        pts = []
         for q in a:
-            xs.append(q[0])
-            ys.append(q[1])
-    return ((min(xs) + max(xs)) / 2, (min(ys) + max(ys)) / 2) if xs else None
+            if tr:
+                x, y = x + q[0], y + q[1]
+                pts.append([x * tr["scale"][0] + tr["translate"][0], y * tr["scale"][1] + tr["translate"][1]])
+            else:
+                pts.append([q[0], q[1]])
+        arcos.append(pts)
+
+    def anillo(ix):
+        pts = []
+        for i in ix:
+            a = arcos[i] if i >= 0 else arcos[~i][::-1]
+            pts.extend(a if not pts else a[1:])
+        return pts
+    out = []
+    for obj in t["objects"].values():
+        for g in obj["geometries"]:
+            if g["type"] == "Polygon":
+                geo = {"type": "Polygon", "coordinates": [anillo(r) for r in g["arcs"]]}
+            elif g["type"] == "MultiPolygon":
+                geo = {"type": "MultiPolygon", "coordinates": [[anillo(r) for r in q] for q in g["arcs"]]}
+            else:
+                continue
+            out.append({"type": "Feature", "properties": dict(g.get("properties") or {}), "geometry": geo})
+    return out
 
 
-def km(a, b):
-    return math.hypot((a[0] - b[0]) * 111.3 * math.cos(math.radians((a[1] + b[1]) / 2)), (a[1] - b[1]) * 111.3)
+def leer_publicado(ed, cod):
+    """Los circuitos de una jurisdicción tal como ya están publicados en sitio/datos/mesas/geo/ (con --desde-publicado)."""
+    r = MESAS / "geo" / ed / f"{cod}.topo.json"
+    if not r.exists():
+        return None
+    out = de_topo(json.loads(r.read_text(encoding="utf-8")))
+    for x in out:
+        x["properties"] = {"p": cod, "s": str(x["properties"].get("s", "")), "c": str(x["properties"].get("c", ""))}
+    return out
+
+
+def secciones_de_mesas(idx):
+    """El código de cada sección de las mesas de 2011 a 2025, por su nombre. Es estable en todo el período; los departamentos de antes tienen otros códigos."""
+    out = collections.defaultdict(dict)
+    for el in idx["elecciones"]:
+        if el["nivel"] != "mesa":
+            continue
+        for cod in el["provincias"]:
+            with open(MESAS / el["id"] / f"{cod}.csv", encoding="utf-8", newline="") as f:
+                ult = None
+                for r in csv.reader(f):
+                    if r[0] != "seccion_id" and r[1] != ult:
+                        out[cod].setdefault(clave_nombre(r[1]), r[0])
+                        ult = r[1]
+    return out
+
+
+def reparar_secciones(ediciones, usadas, idx):
+    """Los circuitos de la cartografía de la Cámara que llegaron sin sección (en Mendoza, San Luis y Santa Cruz el nombre del departamento no se pudo leer) toman
+    la de las mesas, si en todas las elecciones que usan esa cartografía su código es de una sola sección. Devuelve {(edición, jurisdicción): {índice: sección}}."""
+    cambios = {}
+    for (ed, cod), feats in ediciones.items():
+        vacios = [i for i, x in enumerate(feats) if not x["properties"]["s"]]
+        if not vacios:
+            continue
+        de_c = collections.defaultdict(set)
+        for el in idx["elecciones"]:
+            periodo = next((k for k, f in PERIODOS.items() if f(el["anio"])), None)
+            if el["nivel"] != "mesa" or cod not in el["provincias"] or usadas.get((periodo, cod)) != ed:
+                continue
+            with open(MESAS / el["id"] / f"{cod}.csv", encoding="utf-8", newline="") as f:
+                r = csv.reader(f)
+                next(r)
+                for x in r:
+                    de_c[x[2]].add(x[0])
+        for i in vacios:
+            ss = de_c.get(feats[i]["properties"]["c"], set())
+            if len(ss) == 1:
+                feats[i]["properties"]["s"] = next(iter(ss))
+                cambios.setdefault((ed, cod), {})[i] = feats[i]["properties"]["s"]
+    return cambios
+
+
+def leer_ign(cod, secs):
+    """Los departamentos del IGN de una jurisdicción (cod) o de todas (None), cada uno con su sección electoral. Lo que no tiene sección no entra."""
+    out, sueltos = [], []
+    for x in de_topo(json.loads(IGN.read_text(encoding="utf-8"))):
+        p = x["properties"]
+        if cod and p["prov"] != cod:
+            continue
+        k = clave_nombre(p["nombre"])
+        s = secs[p["prov"]].get(ALIAS_IGN.get((p["prov"], k), k))
+        geo = solo_isla(x["geometry"]) if p["prov"] == "94" else x["geometry"]
+        if not s or not geo:
+            sueltos.append(f'{p["prov"]} {p["nombre"]}')
+            continue
+        out.append({"type": "Feature", "properties": {"p": p["prov"], "s": s, "c": "0"}, "geometry": geo})
+    return out, sueltos
 
 
 def resultados_por_circuito(eleccion, cod):
@@ -342,15 +428,20 @@ def dibujar(entrada, salida, intervalo, disolver):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--fuentes", required=True)
+    ap.add_argument("--fuentes")
+    ap.add_argument("--desde-publicado", action="store_true")
     ap.add_argument("--solo-resultados", action="store_true")
     args = ap.parse_args()
-    fuentes = pathlib.Path(args.fuentes).resolve()
-    fuentes.mkdir(parents=True, exist_ok=True)
-    bajar_fuentes(fuentes)
-    secciones = nombres_de_seccion()
+    if not args.fuentes and not args.desde_publicado:
+        sys.exit("Falta --fuentes CARPETA o --desde-publicado")
     idx = json.loads((MESAS / "indice.json").read_text(encoding="utf-8"))
     FZ = json.loads(FUERZAS.read_text(encoding="utf-8"))
+    secs = secciones_de_mesas(idx)
+    if not args.desde_publicado:
+        fuentes = pathlib.Path(args.fuentes).resolve()
+        fuentes.mkdir(parents=True, exist_ok=True)
+        bajar_fuentes(fuentes)
+        secciones = nombres_de_seccion()
 
     ediciones = {}
     usadas = {}
@@ -358,28 +449,28 @@ def main():
         for periodo in PERIODOS:
             ed = EDICION.get(cod, {}).get(periodo, "sige")
             if (ed, cod) not in ediciones:
-                f = leer_edicion(fuentes, ed, cod, secciones)
+                if ed == "ign":
+                    f, sueltos = leer_ign(cod, secs)
+                    if sueltos:
+                        sys.exit(f"Departamentos del IGN sin sección electoral: {sueltos}")
+                else:
+                    f = leer_publicado(ed, cod) if args.desde_publicado else leer_edicion(fuentes, ed, cod, secciones)
                 if not f:
                     sys.exit(f"Falta la cartografía {ed} de {cod}")
                 ediciones[(ed, cod)] = f
             usadas[(periodo, cod)] = ed
+    reparadas = reparar_secciones(ediciones, usadas, idx)
+    for (ed, cod), c in reparadas.items():
+        print(f"  {ed} {cod}: {len(c)} circuitos sin sección en la cartografía toman la de sus mesas", flush=True)
+        if args.desde_publicado:
+            # solo cambian las propiedades: la geometría publicada queda igual
+            r = MESAS / "geo" / ed / f"{cod}.topo.json"
+            t = json.loads(r.read_text(encoding="utf-8"))
+            g = next(iter(t["objects"].values()))["geometries"]
+            for i, sec in c.items():
+                g[i]["properties"]["s"] = sec
+            r.write_text(json.dumps(t, ensure_ascii=False, separators=(",", ":")), encoding="utf-8", newline="\n")
     pols = {k: {(x["properties"]["s"], x["properties"]["c"]) for x in v} for k, v in ediciones.items()}
-
-    # Control: el mismo código tiene que caer en el mismo lugar que en Galeano, que armó su cartografía con los códigos de las mesas. Si no, el código significa otra cosa
-    cruce = {}
-    for (ed, cod), f in ediciones.items():
-        if ed in ("g21", "g25"):
-            continue
-        ref = leer_edicion(fuentes, "g25", cod, secciones) or []
-        rc = {(x["properties"]["s"], x["properties"]["c"]): centro(x["geometry"]) for x in ref}
-        ds = []
-        for x in f:
-            k = (x["properties"]["s"], x["properties"]["c"])
-            a, b = rc.get(k), centro(x["geometry"])
-            if a and b:
-                ds.append(km(a, b))
-        if ds:
-            cruce[cod] = {"comunes": len(ds), "mediana_km": round(statistics.median(ds), 2), "a_mas_de_10_km": sum(1 for d in ds if d > 10)}
 
     # los resultados de cada elección
     (MESAS / "mapa").mkdir(parents=True, exist_ok=True)
@@ -402,7 +493,7 @@ def main():
             total = sum(t_res.values()) or 1
             union_pct = 100 * (1 - sum(sin.values()) / total)
             filas = []
-            if union_pct < UNION_MINIMA:
+            if ed == "ign" or (cod, periodo) in POR_SECCION or union_pct < UNION_MINIMA:
                 # sección por sección: el código de la sección es estable de 2011 a 2025
                 nivel = "seccion"
                 por_sec_r = collections.defaultdict(list)
@@ -447,6 +538,8 @@ def main():
         with tempfile.TemporaryDirectory() as tmp:
             tmp = pathlib.Path(tmp)
             for (ed, cod), f in ediciones.items():
+                if args.desde_publicado and ed != "ign":
+                    continue   # ya está publicada: dibujarla de nuevo la simplificaría dos veces
                 destino = MESAS / "geo" / ed
                 destino.mkdir(parents=True, exist_ok=True)
                 e = tmp / f"{ed}_{cod}.json"
@@ -464,13 +557,21 @@ def main():
                 if periodo == "desde2023":
                     subprocess.run(["npx", "--yes", "mapshaper@0.6.102", str(MESAS / "geo" / f"pais-{periodo}.topo.json"), "-dissolve", "p", "-simplify", "interval=3000", "keep-shapes", "-rename-layers", "provincias",
                                     "-o", "format=topojson", "quantization=1e5", str(MESAS / "geo" / "provincias.topo.json")], check=True, capture_output=True, text=True, shell=os.name == "nt")
+            # el fondo: los departamentos del IGN con su sección, debajo de los circuitos. Donde la cartografía de la Cámara no dibuja nada (casi toda Formosa), se ve la sección
+            base, sueltos = leer_ign(None, secs)
+            e = tmp / "base.json"
+            e.write_text(json.dumps({"type": "FeatureCollection", "features": base}), encoding="utf-8")
+            dibujar(e, MESAS / "geo" / "base.topo.json", INTERVALO_PROVINCIA, "p,s")
+            print("dibujó el fondo", len(base), "departamentos", (MESAS / "geo" / "base.topo.json").stat().st_size, "; sin sección:", sueltos, flush=True)
 
+    anterior = json.loads(CONTROL.read_text(encoding="utf-8")) if CONTROL.exists() else {}
+    sin_sige = [c for c in INDEC if not (fuentes / "sige" / f"{A_DISTRITO[c]}.json").exists()] if not args.desde_publicado else anterior.get("fuentes", {}).get("sige", {}).get("sin_descarga", [])
     control = {"_": "Lo que armó scripts/elecciones_mapa.py. No se edita a mano.",
-               "consulta": time.strftime("%Y-%m-%d"),
-               "fuentes": {"sige": {"url": "https://www.padron.gov.ar/cne_sige/", "organismo": "Cámara Nacional Electoral", "sin_descarga": [c for c in INDEC if not (fuentes / "sige" / f"{A_DISTRITO[c]}.json").exists()]},
+               "consulta": anterior.get("consulta", time.strftime("%Y-%m-%d")) if args.desde_publicado else time.strftime("%Y-%m-%d"),
+               "fuentes": {"sige": {"url": "https://www.padron.gov.ar/cne_sige/", "organismo": "Cámara Nacional Electoral", "sin_descarga": sin_sige},
                            "cne": {"url": CNE_PAGINA, "organismo": "Cámara Nacional Electoral, portal anterior"},
-                           "galeano": {"url": "https://github.com/tartagalensis/circuitos_electorales_AR", "autor": "Franco Galeano", "licencia": "CC BY 4.0", "commit": GALEANO_COMMIT}},
-               "cruce_con_galeano": cruce, "elecciones": medido}
+                           "ign": {"url": "https://www.ign.gob.ar/", "organismo": "Instituto Geográfico Nacional, por medio de Georef", "archivo": "sitio/datos/departamentos.topo.json"}},
+               "ediciones": {f"{cod} {periodo}": usadas[(periodo, cod)] for periodo in PERIODOS for cod in INDEC}, "elecciones": medido}
     CONTROL.write_text(json.dumps(control, ensure_ascii=False, indent=1) + "\n", encoding="utf-8", newline="\n")
 
     # el informe
@@ -480,9 +581,6 @@ def main():
         secc = [c for c, v in d.items() if v["nivel"] == "seccion"]
         peor = min(d.items(), key=lambda x: x[1]["con_poligono"])
         print(f"  {id_:28s} {t:2d} jurisdicciones, la menor {peor[0]} {peor[1]['con_poligono']:5.1f}%, por sección: {secc}")
-    print("\nMismo código que Galeano (mediana en km y a más de 10 km):")
-    for c, v in sorted(cruce.items()):
-        print(f"  {c}: {v['comunes']} en común, mediana {v['mediana_km']} km, {v['a_mas_de_10_km']} a más de 10 km")
     if faltan_fuerza:
         print("\nListas sin fuerza en mesas_fuerzas.json (van a Otras):", list(faltan_fuerza)[:20])
     tam = sum(f.stat().st_size for f in (MESAS / "geo").rglob("*") if f.is_file()) if (MESAS / "geo").exists() else 0

@@ -7,7 +7,10 @@ el sitio por armado si falla. Controla que:
 - ninguna mesa esté repetida, y que el total por jurisdicción (pais.csv) y la tabla de secciones y circuitos den lo mismo que sumar las mesas;
 - los resultados nacionales conocidos del escrutinio provisorio sigan dando lo mismo;
 - contra la ficha de elecciones de Política (datos/manual/presidenciales_provincia.csv): 2023 sale de los mismos archivos y da exacto, y lo que el provisorio
-  reúne del definitivo queda dentro de lo medido al armar (COBERTURA_MIN y COBERTURA_MAX).
+  reúne del definitivo queda dentro de lo medido al armar (COBERTURA_MIN y COBERTURA_MAX);
+- el escrutinio definitivo de cada elección por mesa (5 de noviembre de 2026, scripts/elecciones_definitivo.py): que esté, con todas las jurisdicciones, que cada una
+  cierre sus sumas y que el resultado nacional conocido dé lo mismo;
+- las secciones de Santa Fe con su código y su nombre oficial en todas las elecciones (cambió la numeración en 2023), el padrón del exterior y el fondo del mapa.
 
 Uso: python scripts/prueba_mesas.py [-v]. Devuelve 1 si hay problemas.
 """
@@ -35,6 +38,15 @@ CONOCIDOS = {"2023-general-presidente": {"Massa - Rossi (Unión por la Patria)":
 # qué parte del definitivo reúne el provisorio de una jurisdicción: la menor medida al armar fue 77,2% (Formosa, diputados 2015: en esa general el archivo trae 1.050
 # mesas y el de la segunda vuelta, 1.301). Fuera de estos bordes algo se leyó mal
 COBERTURA_MIN, COBERTURA_MAX = 75, 101.5
+# el resultado nacional del escrutinio definitivo, con un decimal: lo que publican la DINE y la Cámara Nacional Electoral. En la segunda vuelta de 2023 suma el exterior y las cárceles
+CONOCIDOS_DEF = {"2023-segunda-presidente": {"Milei - Villarruel (La Libertad Avanza)": 55.7, "Massa - Rossi (Unión por la Patria)": 44.3},
+                 "2023-general-presidente": {"Massa - Rossi (Unión por la Patria)": 36.8, "Milei - Villarruel (La Libertad Avanza)": 30.0, "Bullrich - Petri (Juntos por el Cambio)": 23.8},
+                 "2019-general-presidente": {"Fernández - Fernández de Kirchner (Frente de Todos)": 48.2, "Macri - Pichetto (Juntos por el Cambio)": 40.3},
+                 "2015-segunda-presidente": {"Macri - Michetti (Cambiemos)": 51.3, "Scioli - Zannini (Frente para la Victoria)": 48.7}}
+# las secciones de Santa Fe desde 2023, el código de la tabla de ámbitos de la DINE. Hasta 2021 se numeraban de otra forma (scripts/elecciones_mesas.py)
+SANTA_FE = {"1": "La Capital", "2": "Las Colonias", "3": "San Jerónimo", "4": "Garay", "5": "Castellanos", "6": "San Martín", "7": "San Cristóbal", "8": "San Justo",
+            "9": "General Obligado", "10": "Vera", "11": "San Javier", "12": "9 de Julio", "13": "Rosario", "14": "Caseros", "15": "Constitución", "16": "General López",
+            "17": "Belgrano", "18": "Iriondo", "19": "San Lorenzo"}
 # qué parte de quienes votaron en una jurisdicción tiene su lugar en el mapa: lo menor medido al armar fue 99,6% (scripts/elecciones_mapa.py). Si baja, se rompió una unión
 MAPA_MINIMO = 99
 FUERZAS = RAIZ / "datos" / "manual" / "mesas_fuerzas.json"
@@ -166,6 +178,76 @@ def revisar(detalle=False):
     if detalle and difs:
         peor = min(difs, key=difs.get)
         print(f"Menor cobertura del definitivo: {peor}, {difs[peor]}%. Mayor: {max(difs.values())}%")
+
+    # el escrutinio definitivo de cada jurisdicción (scripts/elecciones_definitivo.py)
+    def_nac = {}
+    for el in idx["elecciones"]:
+        if el["nivel"] != "mesa":
+            continue
+        id_ = el["id"]
+        if not el.get("definitivo"):
+            problemas.append(f"{id_}: sin escrutinio definitivo. Hay que correr scripts/elecciones_definitivo.py")
+            continue
+        ruta = SALIDA / id_ / "definitivo.csv"
+        if not ruta.exists():
+            problemas.append(f"{id_}: falta definitivo.csv")
+            continue
+        d = leer(ruta)
+        c = {n: i for i, n in enumerate(d[0])}
+        por = {}
+        for r in d[1:]:
+            x = por.setdefault(r[c["codigo_indec"]], {"pos": 0, "otros": [r[c["votantes"]], r[c["blancos"]], r[c["nulos"]], r[c["recurridos_impugnados"]]]})
+            x["pos"] += int(r[c["votos"]])
+            if el["cargo"] == "presidente":
+                t = def_nac.setdefault(id_, {})
+                t[r[c["lista"]]] = t.get(r[c["lista"]], 0) + int(r[c["votos"]])
+        if set(el["provincias"]) - set(por):
+            problemas.append(f"{id_}/definitivo.csv: faltan {sorted(set(el['provincias']) - set(por))}")
+        if set(por) - set(el["provincias"]) - set(el["definitivo"].get("aparte", [])):
+            problemas.append(f"{id_}/definitivo.csv: jurisdicciones que no van {sorted(set(por) - set(el['provincias']))}")
+        for cod, x in por.items():
+            vot, bl, nu, re_ = (int(v) if v else 0 for v in x["otros"])
+            if vot != x["pos"] + bl + nu + re_:
+                problemas.append(f"{id_}/definitivo.csv, {cod}: las listas, blancos, nulos y recurridos suman {x['pos'] + bl + nu + re_:,} y los votantes son {vot:,}")
+        if set(el.get("cobertura", {})) != set(el["provincias"]):
+            problemas.append(f"{id_}: el índice no dice cuánto del definitivo reúne cada jurisdicción")
+    for id_, listas in CONOCIDOS_DEF.items():
+        t = def_nac.get(id_, {})
+        base = sum(t.values()) or 1
+        for lista, esperado in listas.items():
+            if lista not in t:
+                problemas.append(f"{id_}, definitivo: no aparece la lista {lista}. Hay: {sorted(t)[:8]}")
+            elif abs(t[lista] / base * 100 - esperado) > 0.06:
+                problemas.append(f"{id_}, definitivo: {lista} da {t[lista] / base * 100:.2f}%, se esperaba {esperado}%")
+    # Santa Fe: el mismo código es el mismo departamento en todas las elecciones
+    for el in idx["elecciones"]:
+        if el["nivel"] != "mesa" or "82" not in el["provincias"]:
+            continue
+        nombres = {(r[0], r[1]) for r in leer(SALIDA / el["id"] / "82.csv")[1:]}
+        malos = sorted(x for x in nombres if SANTA_FE.get(x[0]) != x[1])
+        if malos:
+            problemas.append(f"{el['id']}/82.csv: secciones de Santa Fe con otro código o nombre que el oficial: {malos[:4]}")
+    # el padrón del exterior
+    ext = idx.get("exterior")
+    if not ext:
+        problemas.append("indice.json: falta el padrón del exterior")
+    elif not (SALIDA / ext["archivo"]).exists():
+        problemas.append(f"falta {ext['archivo']}")
+    else:
+        pad = leer(SALIDA / ext["archivo"])
+        c = {n: i for i, n in enumerate(pad[0])}
+        if sum(int(r[c["electores"]]) for r in pad[1:]) != ext["electores"] or len({r[c["pais"]] for r in pad[1:]}) != ext["paises"]:
+            problemas.append(f"{ext['archivo']}: no suma los electores o los países que dice el índice")
+        if {r[c["codigo_indec"]] for r in pad[1:]} - set(idx["provincias"]):
+            problemas.append(f"{ext['archivo']}: jurisdicciones desconocidas")
+    # el fondo del mapa: los departamentos del IGN con su sección
+    if not (SALIDA / "geo" / "base.topo.json").exists():
+        problemas.append("falta geo/base.topo.json. Hay que correr scripts/elecciones_mapa.py")
+    else:
+        b = json.loads((SALIDA / "geo" / "base.topo.json").read_text(encoding="utf-8"))
+        g = next(iter(b["objects"].values()))["geometries"]
+        if len(g) < 500 or any(not x.get("properties", {}).get("p") or not x["properties"].get("s") for x in g):
+            problemas.append(f"geo/base.topo.json: {len(g)} departamentos, o alguno sin jurisdicción o sin sección")
 
     # el mapa (5 de noviembre de 2026): cada elección por mesa con su archivo, cada lugar del mapa suma lo que dicen las mesas, y casi todos los votantes tienen dónde pintarse
     fuerzas = json.loads(FUERZAS.read_text(encoding="utf-8"))
