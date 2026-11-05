@@ -586,6 +586,25 @@ await q.tamano(1280, 900);
   await q.tamano(1280, 900);
   q.errores.slice(antes).forEach(e => problemas.push(`Elecciones por mesa: ${e}`));
 }
+// "Qué no dice este dato" (pedido del autor del 5 de noviembre de 2026: "queda a la mitad el texto"): desde 900 píxeles el texto llega hasta el borde
+// del contenido, en dos columnas, en los cinco lugares donde está armado distinto: artículo, cruce, Corte Suprema, Elecciones por mesa y Diagnóstico
+const LIMITES = `(() => {
+  const b = [...document.querySelectorAll(".nota-limites,.dx-no-dice")].find(e => e.offsetParent && e.querySelector("li"));
+  if (!b) return null;
+  const caja = b.parentElement, cs = getComputedStyle(caja);
+  const borde = caja.getBoundingClientRect().right - parseFloat(cs.paddingRight) - parseFloat(cs.borderRightWidth);
+  return {columnas: new Set([...b.querySelectorAll("li")].map(l => Math.round(l.getBoundingClientRect().x))).size,
+          falta: Math.round(borde - b.querySelector("ul").getBoundingClientRect().right)};
+})()`;
+const LIMITES_PAG = ["a-salario-real.html", "a-alquiler-pobreza.html", "corte-suprema.html", "mesas.html", "diagnostico.html"];
+await q.tamano(1280, 900);
+for (const pag of LIMITES_PAG) {
+  await q.ir(B + pag, 1500);
+  let r = await q.eval(LIMITES);
+  for (let i = 0; i < 16 && !r; i++) { await new Promise(s => setTimeout(s, 500)); r = await q.eval(LIMITES); }
+  if (!r) problemas.push(`${pag}: no aparece "Qué no dice este dato"`);
+  else if (r.columnas !== 2 || Math.abs(r.falta) > 2) problemas.push(`${pag}: "Qué no dice este dato" no llena el ancho (${r.columnas} columnas, le faltan ${r.falta} píxeles)`);
+}
 await q.send("Network.setBlockedURLs", {urls: [...CDN, "*lib/d3-*"]});
 await q.ir(B + "trabajo.html", 1200);
 const rescate = await q.eval(MIRAR);
@@ -600,6 +619,7 @@ console.log(`Fichas: ${CUENTA.fichas}, todas con "Ver tabla" y sin el nombre de 
 console.log(`Sin cdnjs ni jsDelivr: ${Object.keys(SIN_CDN).length} páginas. Sin D3: las fichas de trabajo.html a la vista. Menús con el teclado, en 1280 y 390 píxeles. Portada: datos destacados y buscador. Lupa: flechas, Enter, sin coincidencias, respuesta rápida y Tab.` +
             (IA ? " Consultas con IA: el buscador las ofrece y la página deja escrita la pregunta del enlace." : ""));
 console.log(`Accesibilidad: gráficos con nombre, "Saltar al contenido" y migas subrayadas en ${CUENTA.paginas} páginas, el salto con el teclado y el nombre del mapa. Pulido: textos de ayuda enteros en 360 y 768 píxeles y descripción de las fichas a la izquierda.`);
+console.log(`"Qué no dice este dato": a todo el ancho y en dos columnas en ${LIMITES_PAG.length} páginas.`);
 if (problemas.length) {
   console.log(`\nProblemas (${problemas.length}):\n- ` + problemas.join("\n- "));
   process.exit(1);
