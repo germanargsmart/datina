@@ -1,0 +1,777 @@
+{
+ "_": "Cada lista de Elecciones por mesa con su fuerza, y el color de cada fuerza, para el mapa. Pedido del autor del 5 de noviembre de 2026: los colores del logo y los que cada fuerza tuvo siempre. Color de partida y agrupación: 257arg (azha2005, CC BY 4.0), corregidos a mano. Una lista nueva va acá: prueba_mesas.py frena si una lista gana un circuito y no está.",
+ "fuerzas": {
+  "peronismo": {
+   "nombre": "Peronismo",
+   "color": "#1C8FE0"
+  },
+  "cambiemos": {
+   "nombre": "PRO, Cambiemos y Juntos por el Cambio",
+   "color": "#F5C400"
+  },
+  "lla": {
+   "nombre": "La Libertad Avanza",
+   "color": "#6C4C98"
+  },
+  "ucr": {
+   "nombre": "Unión Cívica Radical",
+   "color": "#D31515"
+  },
+  "izquierda": {
+   "nombre": "Frente de Izquierda",
+   "color": "#F65058"
+  },
+  "progresismo": {
+   "nombre": "Socialismo y frentes progresistas",
+   "color": "#FF7A1A"
+  },
+  "provincias-unidas": {
+   "nombre": "Provincias Unidas",
+   "color": "#FF682C"
+  },
+  "renovador": {
+   "nombre": "Frente Renovador y UNA",
+   "color": "#3D454D"
+  },
+  "cordoba": {
+   "nombre": "Unión por Córdoba y Hacemos",
+   "color": "#283084"
+  },
+  "consenso": {
+   "nombre": "Consenso Federal",
+   "color": "#2F3B81"
+  },
+  "compromiso": {
+   "nombre": "Compromiso Federal",
+   "color": "#19C48A"
+  },
+  "popular": {
+   "nombre": "Frente Popular",
+   "color": "#B73C96"
+  },
+  "coalicion": {
+   "nombre": "Coalición Cívica",
+   "color": "#6FB53E"
+  },
+  "mpn": {
+   "nombre": "Movimiento Popular Neuquino",
+   "color": "#00708B"
+  },
+  "rio-negro": {
+   "nombre": "Juntos Somos Río Negro",
+   "color": "#49A942"
+  },
+  "concordia": {
+   "nombre": "Frente Renovador de la Concordia",
+   "color": "#5C6BC0"
+  },
+  "otras": {
+   "nombre": "Otras fuerzas",
+   "color": "#98A2AE"
+  },
+  "p-fuerza-republicana": {
+   "nombre": "Fuerza Republicana",
+   "color": "#7B3F00"
+  },
+  "p-unidos-por-la-libertad-y-el-trabajo": {
+   "nombre": "Unidos por la Libertad y el Trabajo",
+   "color": "#8A6D3B"
+  },
+  "p-primero-los-saltenos": {
+   "nombre": "Primero Los Salteños",
+   "color": "#294593"
+  },
+  "p-espert-rosales-unite-por-la-libertad-y-la-dignidad": {
+   "nombre": "Espert - Rosales (Unite por la Libertad y la Dignidad)",
+   "color": "#4cb0e4"
+  },
+  "p-alianza-union-por-entre-rios": {
+   "nombre": "Alianza Unión por Entre Ríos",
+   "color": "#8A6D3B"
+  },
+  "p-unite-por-la-libertad-y-la-dignidad": {
+   "nombre": "Unite por la Libertad y la Dignidad",
+   "color": "#4cb0e4"
+  },
+  "p-salta-somos-todos": {
+   "nombre": "Salta Somos Todos",
+   "color": "#ff69b4"
+  },
+  "p-frente-popular-salteno": {
+   "nombre": "Frente Popular Salteño",
+   "color": "#8E44AD"
+  },
+  "p-la-neuquinidad": {
+   "nombre": "La Neuquinidad",
+   "color": "#28AB5F"
+  },
+  "p-juntos-defendemos-rio-negro": {
+   "nombre": "Juntos Defendemos Río Negro",
+   "color": "#294593"
+  },
+  "p-movimiento-libres-del-sur": {
+   "nombre": "Movimiento Libres del Sur",
+   "color": "#0067A5"
+  },
+  "p-intransigente": {
+   "nombre": "Intransigente",
+   "color": "#D10047"
+  },
+  "p-la-fuerza-de-santa-fe": {
+   "nombre": "La Fuerza de Santa Fe",
+   "color": "#283084"
+  },
+  "p-verde": {
+   "nombre": "Verde",
+   "color": "#8AB33E"
+  },
+  "p-alianza-frente-civico-federal-udeso-mendoza": {
+   "nombre": "Alianza Frente Cívico Federal - UDESO Mendoza",
+   "color": "#d31515"
+  },
+  "p-defendamos-cordoba": {
+   "nombre": "Defendamos Córdoba",
+   "color": "#98142B"
+  },
+  "p-fe": {
+   "nombre": "Fe",
+   "color": "#2f3b81"
+  },
+  "p-union-por-salta": {
+   "nombre": "Unión por Salta",
+   "color": "#2f3b81"
+  },
+  "p-agrario-y-social": {
+   "nombre": "Agrario y Social",
+   "color": "#43CBFF"
+  },
+  "p-alianza-frente-union-chubut-somos-todos": {
+   "nombre": "Alianza Frente Unión Chubut Somos Todos",
+   "color": "#9ccc65"
+  },
+  "p-partido-de-accion-chubutense": {
+   "nombre": "Partido de Acción Chubutense",
+   "color": "#9CCC65"
+  },
+  "p-soberania-popular": {
+   "nombre": "Soberanía Popular",
+   "color": "#569DA7"
+  },
+  "p-union-con-fe": {
+   "nombre": "Unión con Fe",
+   "color": "#2F3B81"
+  },
+  "p-por-santa-cruz": {
+   "nombre": "Por Santa Cruz",
+   "color": "#ea5530"
+  },
+  "p-frente-popular": {
+   "nombre": "Frente Popular",
+   "color": "#b73c96"
+  },
+  "p-por-san-juan": {
+   "nombre": "Por San Juan",
+   "color": "#d6d015"
+  },
+  "p-despierta-santiago": {
+   "nombre": "Despierta Santiago",
+   "color": "#FFD700"
+  },
+  "p-frente-chubut-para-todos": {
+   "nombre": "Frente Chubut para Todos",
+   "color": "#9ccc65"
+  },
+  "p-alianza-compromiso-con-san-juan": {
+   "nombre": "Alianza Compromiso con San Juan",
+   "color": "#231f20"
+  },
+  "p-vecinalismo-independiente": {
+   "nombre": "Vecinalismo Independiente",
+   "color": "#8A6D3B"
+  },
+  "p-frente-si-prs": {
+   "nombre": "Frente SI + Prs",
+   "color": "#1E90FF"
+  },
+  "p-protectora-fuerza-politica": {
+   "nombre": "Protectora Fuerza Política",
+   "color": "#2f3b81"
+  },
+  "p-partido-renovador-de-salta": {
+   "nombre": "Partido Renovador de Salta",
+   "color": "#8e44ad"
+  },
+  "p-compromiso-civico-neuquino": {
+   "nombre": "Compromiso Cívico Neuquino",
+   "color": "#3F8F8B"
+  },
+  "p-unidos-por-salta": {
+   "nombre": "Unidos por Salta",
+   "color": "#B21519"
+  },
+  "p-frente-primero-jujuy-avanza": {
+   "nombre": "Frente Primero Jujuy Avanza",
+   "color": "#c2185b"
+  },
+  "p-movimiento-independiente-de-jubilados-y-desocupados": {
+   "nombre": "Movimiento Independiente de Jubilados y Desocupados",
+   "color": "#AEC306"
+  },
+  "p-chubut-somos-todos": {
+   "nombre": "Chubut Somos Todos",
+   "color": "#9ccc65"
+  },
+  "p-mas-por-neuquen": {
+   "nombre": "Más por Neuquén",
+   "color": "#203466"
+  },
+  "p-partido-agrario-y-social": {
+   "nombre": "Partido Agrario y Social",
+   "color": "#43CBFF"
+  },
+  "p-partido-popular-de-la-reconstruccion": {
+   "nombre": "Partido Popular de la Reconstrucción",
+   "color": "#2B2361"
+  },
+  "p-pueblo-nuevo": {
+   "nombre": "Pueblo Nuevo",
+   "color": "#8A6D3B"
+  },
+  "p-partido-independiente-de-chubut": {
+   "nombre": "Partido Independiente de Chubut",
+   "color": "#b73c96"
+  },
+  "p-frente-popular-agrario-y-social": {
+   "nombre": "Frente Popular Agrario y Social",
+   "color": "#8d5524"
+  },
+  "p-primero-la-gente": {
+   "nombre": "Primero La Gente",
+   "color": "#295292"
+  },
+  "p-movimiento-popular-fueguino": {
+   "nombre": "Movimiento Popular Fueguino",
+   "color": "#000088"
+  },
+  "p-alianza-frente-salteno": {
+   "nombre": "Alianza Frente Salteño",
+   "color": "#b73c96"
+  },
+  "p-republicanos-unidos": {
+   "nombre": "Republicanos Unidos",
+   "color": "#6C4C99"
+  },
+  "p-frente-patriotico-laborista": {
+   "nombre": "Frente Patriótico Laborista",
+   "color": "#1C4C96"
+  },
+  "p-alianza-frente-primero-jujuy": {
+   "nombre": "Alianza Frente Primero Jujuy",
+   "color": "#b73c96"
+  },
+  "p-somos-energia-para-renovar-santa-cruz-ser": {
+   "nombre": "Somos Energía para Renovar Santa Cruz -SER-",
+   "color": "#d81b60"
+  },
+  "p-frente-propuesta-federal": {
+   "nombre": "Frente Propuesta Federal",
+   "color": "#8A6D3B"
+  },
+  "p-frente-tercera-posicion-f3p-unidad-catamarquena": {
+   "nombre": "Frente Tercera Posicion (F3P) Unidad Catamarqueña",
+   "color": "#8A6D3B"
+  },
+  "p-la-fuerza-del-trabajo-chubutense": {
+   "nombre": "La Fuerza del Trabajo Chubutense",
+   "color": "#0088BF"
+  },
+  "p-somos-fueguinos": {
+   "nombre": "Somos Fueguinos",
+   "color": "#FF6600"
+  },
+  "p-movimiento-independiente-justicia-y-dignidad": {
+   "nombre": "Movimiento Independiente Justicia y Dignidad",
+   "color": "#8A6D3B"
+  },
+  "p-frente-plural": {
+   "nombre": "Frente Plural",
+   "color": "#8A6D3B"
+  },
+  "p-frente-primero-jujuy": {
+   "nombre": "Frente Primero Jujuy",
+   "color": "#B73C96"
+  },
+  "p-principios-y-conviccion": {
+   "nombre": "Principios y Convicción",
+   "color": "#180C3A"
+  },
+  "p-movimiento-norte-grande": {
+   "nombre": "Movimiento Norte Grande",
+   "color": "#8A6D3B"
+  }
+ },
+ "listas": {
+  "+ Valores": "otras",
+  "1 País Somos San Juan": "otras",
+  "1 Proyecto Santafesino": "otras",
+  "1País": "renovador",
+  "1País Frente Renovador Neuquén +A": "otras",
+  "ADN - Acción por una Democracia Nueva": "otras",
+  "Acción Chaqueña": "otras",
+  "Acción para el Cambio": "otras",
+  "Activar": "otras",
+  "Acuerdo Republicano Federal": "otras",
+  "Agrario y Social": "p-agrario-y-social",
+  "Ahora": "otras",
+  "Ahora 503": "otras",
+  "Ahora Patria": "lla",
+  "Alfonsín - González Fraga (Alianza Unión para el Desarrollo Social)": "ucr",
+  "Alianza Cambiemos": "cambiemos",
+  "Alianza Cambiemos Chubut": "cambiemos",
+  "Alianza Cambiemos Río Negro": "cambiemos",
+  "Alianza Cambiemos Tierra del Fuego": "cambiemos",
+  "Alianza Ciudadanos": "otras",
+  "Alianza Coalición Cívica - Afirmación para una República Igualitaria ARI": "coalicion",
+  "Alianza Compromiso Federal": "compromiso",
+  "Alianza Compromiso con San Juan": "p-alianza-compromiso-con-san-juan",
+  "Alianza Córdoba Te Quiero": "otras",
+  "Alianza Defendamos Mendoza - Provincias Unidas": "provincias-unidas",
+  "Alianza Encuentro por Corrientes": "cambiemos",
+  "Alianza Encuentro por la República": "otras",
+  "Alianza Frente Amplio Formoseño": "cambiemos",
+  "Alianza Frente Amplio Progresista": "progresismo",
+  "Alianza Frente Cambiemos": "cambiemos",
+  "Alianza Frente Compromiso Federal": "compromiso",
+  "Alianza Frente Cívico Federal - UDESO Mendoza": "p-alianza-frente-civico-federal-udeso-mendoza",
+  "Alianza Frente Cívico por Santiago": "peronismo",
+  "Alianza Frente Cívico y Social": "ucr",
+  "Alianza Frente Encuentro Sur": "otras",
+  "Alianza Frente Federal": "otras",
+  "Alianza Frente Justicialista para la Victoria": "peronismo",
+  "Alianza Frente Pampeano Cívico y Social (FREPAM)": "ucr",
+  "Alianza Frente Popular": "popular",
+  "Alianza Frente Popular Riojano": "peronismo",
+  "Alianza Frente Popular Unión PRO": "cambiemos",
+  "Alianza Frente Primero Jujuy": "p-alianza-frente-primero-jujuy",
+  "Alianza Frente Progresista": "progresismo",
+  "Alianza Frente Progresista Cívico y Social": "progresismo",
+  "Alianza Frente Renovador Federal de la Esperanza": "otras",
+  "Alianza Frente Renovador de la Concordia": "concordia",
+  "Alianza Frente Salteño": "p-alianza-frente-salteno",
+  "Alianza Frente Tercera Posicion": "otras",
+  "Alianza Frente Unidos": "otras",
+  "Alianza Frente Unión Chubut Somos Todos": "p-alianza-frente-union-chubut-somos-todos",
+  "Alianza Frente de Izquierda y de los Trabajadores": "izquierda",
+  "Alianza Frente para la Victoria": "peronismo",
+  "Alianza Frente para la Victoria Riojana": "peronismo",
+  "Alianza Fuerza Patria": "peronismo",
+  "Alianza La Libertad Avanza": "lla",
+  "Alianza Nuevos Aires": "otras",
+  "Alianza PRO - Propuesta Republicana": "cambiemos",
+  "Alianza Potencia": "otras",
+  "Alianza Progresistas": "progresismo",
+  "Alianza Provincias Unidas": "provincias-unidas",
+  "Alianza Proyecto Sur": "otras",
+  "Alianza Unidos por una Nueva Alternativa": "renovador",
+  "Alianza Unidos por una Nueva Alternativa (UNA)": "renovador",
+  "Alianza Unión Federal": "otras",
+  "Alianza Unión para el Desarrollo Social": "ucr",
+  "Alianza Unión por Córdoba": "cordoba",
+  "Alianza Unión por Entre Ríos": "p-alianza-union-por-entre-rios",
+  "Altamira - Castillo (Alianza Frente de Izquierda y de los Trabajadores)": "izquierda",
+  "Alternativa Popular": "otras",
+  "Alternativa Popular Riojana": "otras",
+  "Arriba Neuquén": "lla",
+  "Autodeterminación y Libertad": "otras",
+  "Autonomista": "otras",
+  "Avancemos Hacia 1País Mejor": "otras",
+  "Avanza Libertad": "lla",
+  "Avanzar y Cambiemos por San Luis": "cambiemos",
+  "Binner - Morandini (Alianza Frente Amplio Progresista)": "progresismo",
+  "Bregman - Del Caño (Frente de Izquierda y de Trabajadores - Unidad)": "izquierda",
+  "Bullrich - Petri (Juntos por el Cambio)": "cambiemos",
+  "CREO": "otras",
+  "Cambia Jujuy": "cambiemos",
+  "Cambia La Pampa": "cambiemos",
+  "Cambia Mendoza": "cambiemos",
+  "Cambia Neuquén": "cambiemos",
+  "Cambia Santa Cruz": "cambiemos",
+  "Cambiemos": "cambiemos",
+  "Cambiemos - Fuerza Cívica Riojana": "cambiemos",
+  "Cambiemos Buenos Aires": "cambiemos",
+  "Cambiemos Chubut": "cambiemos",
+  "Cambiemos País": "cambiemos",
+  "Cambiemos Río Negro": "cambiemos",
+  "Cambiemos Salta": "cambiemos",
+  "Cambiemos San Juan": "cambiemos",
+  "Cambiemos Tierra del Fuego": "cambiemos",
+  "Cambiemos para el Bicentenario": "cambiemos",
+  "Cambio Popular": "otras",
+  "Camino Popular": "otras",
+  "Carrió - Pérez (Coalición Cívica - Afirmación para una República Igualitaria ARI)": "coalicion",
+  "Chaco Cambia + Juntos por el Cambio": "cambiemos",
+  "Chubut Somos Todos": "p-chubut-somos-todos",
+  "Ciudad Futura": "otras",
+  "Ciudadanos Unidos": "otras",
+  "Ciudadanos a Gobernar": "otras",
+  "Coalición Cívica - A.R.I": "coalicion",
+  "Coalición Cívica - ARI": "coalicion",
+  "Coalición Cívica - Afirmacion para una República Igualitaria (ARI)": "coalicion",
+  "Coalición Cívica - Afirmación para una República Igualitaria (ARI)": "coalicion",
+  "Coalición Cívica - Afirmación para una República Igualitaria ARI": "coalicion",
+  "Compromiso Cívico Neuquino": "p-compromiso-civico-neuquino",
+  "Compromiso Federal": "compromiso",
+  "Comunista": "otras",
+  "Consenso Federal": "consenso",
+  "Consenso Ischigualasto": "otras",
+  "Conservador Popular": "otras",
+  "Corriente de Pensamiento Bonaerense": "otras",
+  "Corrientes Nos Une": "otras",
+  "Cruzada Renovadora": "otras",
+  "De Trabajadores por el Socialismo": "otras",
+  "De la Cultura La Educación y el Trabajo": "otras",
+  "De los Trabajadores Socialistas": "otras",
+  "Defendamos Córdoba": "p-defendamos-cordoba",
+  "Defendamos Santa Fe": "otras",
+  "Defendamos Tierra del Fuego": "otras",
+  "Del Caño - Bregman (Alianza Frente de Izquierda y de los Trabajadores)": "izquierda",
+  "Del Caño - Del Plá (Frente de Izquierda y de Trabajadores - Unidad)": "izquierda",
+  "Del Obrero": "otras",
+  "Del Trabajo y del Pueblo": "otras",
+  "Demócrata Cristiano": "otras",
+  "Demócrata Independiente": "otras",
+  "Desarrollo Ciudadano": "otras",
+  "Despierta Chubut": "provincias-unidas",
+  "Despierta Santiago": "p-despierta-santiago",
+  "Duhalde - Das Neves (Alianza Frente Popular)": "popular",
+  "ECO + Vamos Corrientes": "cambiemos",
+  "Encuentro Popular": "otras",
+  "Encuentro Vecinal Córdoba": "otras",
+  "Encuentro por Corrientes": "cambiemos",
+  "Encuentro por Corrientes - ECO + Cambiemos": "cambiemos",
+  "Encuentro por Corrientes - ECO + Juntos por el Cambio": "cambiemos",
+  "Encuentro por Corrientes - ECO+Vamos Corrientes": "cambiemos",
+  "Es Posible": "otras",
+  "Espacio Democrático para la Victoria": "peronismo",
+  "Espacio Grande": "otras",
+  "Espert - Rosales (Unite por la Libertad y la Dignidad)": "p-espert-rosales-unite-por-la-libertad-y-la-dignidad",
+  "Evolución": "otras",
+  "Evolución Liberal": "otras",
+  "Fe": "p-fe",
+  "Federal": "otras",
+  "Federal Fueguino": "otras",
+  "Federales Defendamos La Rioja": "peronismo",
+  "Felicidad": "otras",
+  "Fernández - Fernández de Kirchner (Frente de Todos)": "peronismo",
+  "Fernández de Kirchner - Boudou (Alianza Frente para la Victoria)": "peronismo",
+  "Fortaleza": "otras",
+  "Frente Acuerdo Cívico y Social": "ucr",
+  "Frente Amplio Catamarqueño": "otras",
+  "Frente Amplio Formoseño": "cambiemos",
+  "Frente Amplio Formoseño Cambiemos": "cambiemos",
+  "Frente Amplio Formoseño Juntos por el Cambio": "cambiemos",
+  "Frente Amplio Progresista": "progresismo",
+  "Frente Amplio Progresista-Coalición Cívica-ARI": "coalicion",
+  "Frente Amplio por Tucumán": "otras",
+  "Frente Amplio por la Soberanía": "otras",
+  "Frente Avancemos": "otras",
+  "Frente Cambia Jujuy": "cambiemos",
+  "Frente Cambiemos": "cambiemos",
+  "Frente Cambiemos La Pampa": "cambiemos",
+  "Frente Chaco Merece Más": "peronismo",
+  "Frente Chubut para Todos": "p-frente-chubut-para-todos",
+  "Frente Ciudadano para la Victoria": "peronismo",
+  "Frente Ciudadano y Social": "peronismo",
+  "Frente Cívico para la Victoria": "peronismo",
+  "Frente Cívico por Santiago": "peronismo",
+  "Frente Cívico y Social": "ucr",
+  "Frente Cívico y Social - Cambiemos": "cambiemos",
+  "Frente Córdoba Ciudadana": "peronismo",
+  "Frente Defendemos La Pampa": "peronismo",
+  "Frente Federal de Acción Solidaria": "otras",
+  "Frente Fuerza Patria": "peronismo",
+  "Frente Fuerza Patria Peronista": "peronismo",
+  "Frente Integrador": "otras",
+  "Frente Jujeño": "ucr",
+  "Frente Jujeño Cambiemos": "cambiemos",
+  "Frente Jujuy Crece": "provincias-unidas",
+  "Frente Juntos por el Cambio": "cambiemos",
+  "Frente Justicialista": "peronismo",
+  "Frente Justicialista Riojano": "peronismo",
+  "Frente Justicialista Somos Entre Ríos": "peronismo",
+  "Frente Justicialista para la Victoria": "peronismo",
+  "Frente Justicialista por Tucumán": "peronismo",
+  "Frente Liberal": "otras",
+  "Frente Libertario Demócrata": "otras",
+  "Frente Neuquino": "peronismo",
+  "Frente Nos": "otras",
+  "Frente Nuevo Pacto Federal": "otras",
+  "Frente Pampeano Cívico y Social - Frepam": "ucr",
+  "Frente Patriota Federal": "otras",
+  "Frente Patriótico Laborista": "p-frente-patriotico-laborista",
+  "Frente Plural": "p-frente-plural",
+  "Frente Popular": "p-frente-popular",
+  "Frente Popular Agrario y Social": "p-frente-popular-agrario-y-social",
+  "Frente Popular Salteño": "p-frente-popular-salteno",
+  "Frente Popular para la Liberación": "otras",
+  "Frente Primero Jujuy": "p-frente-primero-jujuy",
+  "Frente Primero Jujuy Avanza": "p-frente-primero-jujuy-avanza",
+  "Frente Progresista Cívico y Social": "progresismo",
+  "Frente Progresista Pampeano": "progresismo",
+  "Frente Progresista Popular": "progresismo",
+  "Frente Progresista Sur": "progresismo",
+  "Frente Propuesta Federal": "p-frente-propuesta-federal",
+  "Frente Pueblo": "otras",
+  "Frente Renovador": "renovador",
+  "Frente Renovador - 1País": "otras",
+  "Frente Renovador 1País": "renovador",
+  "Frente Renovador Auténtico": "renovador",
+  "Frente Renovador de la Concordia": "concordia",
+  "Frente Renovador de la Concordia - Innovación Federal": "concordia",
+  "Frente SI + Prs": "p-frente-si-prs",
+  "Frente Social y Popular": "otras",
+  "Frente Tercera Posicion (F3P) Unidad Catamarqueña": "p-frente-tercera-posicion-f3p-unidad-catamarquena",
+  "Frente Tierra de Unión": "peronismo",
+  "Frente Todos": "peronismo",
+  "Frente Tucumán Primero": "peronismo",
+  "Frente Unidad Justicialista San Luis": "peronismo",
+  "Frente Unidad y Renovación": "peronismo",
+  "Frente Unidos": "otras",
+  "Frente Unidos Podemos": "peronismo",
+  "Frente Unión PRO": "cambiemos",
+  "Frente Vamos con Vos": "otras",
+  "Frente Verde": "otras",
+  "Frente de Izquierda y de Trabajadores - Unidad": "izquierda",
+  "Frente de Izquierda y de los Trabajadores": "izquierda",
+  "Frente de Izquierda y de los Trabajadores - Partido Obrero + Izquierda por una Opción Socialista": "izquierda",
+  "Frente de Todos": "peronismo",
+  "Frente de Todos - Todos San Juan": "peronismo",
+  "Frente de Unidad Ciudadana": "peronismo",
+  "Frente de la Victoria": "peronismo",
+  "Frente del Pueblo": "otras",
+  "Frente del Pueblo Unido": "otras",
+  "Frente para la Victoria": "peronismo",
+  "Fuerza Cívica Riojana": "ucr",
+  "Fuerza Entre Ríos": "peronismo",
+  "Fuerza Justicialista Mendoza": "peronismo",
+  "Fuerza Libertaria": "otras",
+  "Fuerza Patria": "peronismo",
+  "Fuerza Republicana": "p-fuerza-republicana",
+  "Fuerza San Juan": "peronismo",
+  "Fuerza San Luis": "peronismo",
+  "Fuerza Santacruceña": "peronismo",
+  "GEN": "progresismo",
+  "Gómez Centurión - Hotton (Frente Nos)": "otras",
+  "Hacemos": "otras",
+  "Hacemos Renacer Catamarca": "otras",
+  "Hacemos por Córdoba": "cordoba",
+  "Hacemos por Nuestro País": "cordoba",
+  "Hacemos por Santiago": "cordoba",
+  "Hagamos Futuro": "otras",
+  "Humanista": "otras",
+  "Ideas de la Libertad": "otras",
+  "Igualdad y Participación": "otras",
+  "Independiente del Chubut": "otras",
+  "Iniciativa por la Unión": "otras",
+  "Instrumento Electoral por la Unidad Popular": "otras",
+  "Integrar": "otras",
+  "Intransigente": "p-intransigente",
+  "Izquierda al Frente por el Socialismo": "otras",
+  "Izquierda del Trabajador por el Socialismo": "otras",
+  "Izquierda por una Opción Socialista": "otras",
+  "Juntos": "cambiemos",
+  "Juntos Defendemos Río Negro": "p-juntos-defendemos-rio-negro",
+  "Juntos Podemos Más": "peronismo",
+  "Juntos Somos Río Negro": "rio-negro",
+  "Juntos por Entre Ríos": "cambiemos",
+  "Juntos por Formosa Libre": "cambiemos",
+  "Juntos por el Cambio": "cambiemos",
+  "Juntos por el Cambio +": "cambiemos",
+  "Juntos por el Cambio Chubut": "cambiemos",
+  "Juntos por el Cambio Jxc": "cambiemos",
+  "Juntos por el Cambio La Pampa": "cambiemos",
+  "Juntos por el Cambio Tdf": "cambiemos",
+  "Juntos por el Cambio Tierra del Fuego": "cambiemos",
+  "Juntos por la Libertad y la República": "cambiemos",
+  "Juntos por la Rioja": "cambiemos",
+  "Justicialista": "peronismo",
+  "La Fuerza de Santa Fe": "p-la-fuerza-de-santa-fe",
+  "La Fuerza del Trabajo Chubutense": "p-la-fuerza-del-trabajo-chubutense",
+  "La Izquierda en la Ciudad": "otras",
+  "La Libertad Avanza": "lla",
+  "La Neuquinidad": "p-la-neuquinidad",
+  "Laborista de la Independencia": "otras",
+  "Las Fuerzas del Centro": "otras",
+  "Lavagna - Urtubey (Consenso Federal)": "consenso",
+  "Liber.Ar": "otras",
+  "Libertad, Valores y Cambio": "otras",
+  "Macri - Michetti (Alianza Cambiemos)": "cambiemos",
+  "Macri - Michetti (Cambiemos)": "cambiemos",
+  "Macri - Pichetto (Juntos por el Cambio)": "cambiemos",
+  "Massa - Rossi (Unión por la Patria)": "peronismo",
+  "Massa - Sáenz (Alianza Unidos por una Nueva Alternativa (UNA))": "renovador",
+  "Memoria y Movilizacion Social": "otras",
+  "Milei - Villarruel (La Libertad Avanza)": "lla",
+  "Movimiento Avanzada Socialista": "otras",
+  "Movimiento Independiente Justicia y Dignidad": "p-movimiento-independiente-justicia-y-dignidad",
+  "Movimiento Independiente Renovador": "otras",
+  "Movimiento Independiente de Jubilados y Desocupados": "p-movimiento-independiente-de-jubilados-y-desocupados",
+  "Movimiento Integración Latinoamericana de Expresion Social": "otras",
+  "Movimiento Libres del Sur": "p-movimiento-libres-del-sur",
+  "Movimiento Norte Grande": "p-movimiento-norte-grande",
+  "Movimiento Plural": "otras",
+  "Movimiento Polo Social Chubut": "otras",
+  "Movimiento Polo Social La Tercera Posicion de la Gente": "otras",
+  "Movimiento Político Social y Cultural Proyecto Sur": "otras",
+  "Movimiento Político, Social y Cultural Proyecto Sur": "otras",
+  "Movimiento Popular Fueguino": "p-movimiento-popular-fueguino",
+  "Movimiento Popular Neuquino": "mpn",
+  "Movimiento Socialista de los Trabajadores": "otras",
+  "Movimiento Socialista de los Trabajadores (MST)": "otras",
+  "Movimiento Solidario Popular": "otras",
+  "Movimiento al Socialismo": "otras",
+  "Movimiento al Socialismo - Más": "otras",
+  "Movimiento de Integración y Desarrollo": "otras",
+  "Movimiento de Integración y Desarrollo - MID": "otras",
+  "Movimiento de Jubilados y Juventud": "otras",
+  "Movimiento de Participación Ciudadana": "otras",
+  "Más para Entre Ríos": "peronismo",
+  "Más por Neuquén": "p-mas-por-neuquen",
+  "Nepar": "otras",
+  "Nueva Dirigencia": "otras",
+  "Nueva Izquierda": "izquierda",
+  "Nuevas Ideas": "otras",
+  "Nuevo Octubre": "otras",
+  "Obrero": "otras",
+  "PRO - Propuesta Republicana": "cambiemos",
+  "PRO Propuesta Republicana": "cambiemos",
+  "PRO-Propuesta Republicana": "cambiemos",
+  "Partido Agrario y Social": "p-partido-agrario-y-social",
+  "Partido Autonomista": "otras",
+  "Partido Cambio Popular Tucumano": "otras",
+  "Partido Ciudadanos a Gobernar": "otras",
+  "Partido Comunista": "otras",
+  "Partido Conservador Popular": "otras",
+  "Partido Demócrata": "otras",
+  "Partido Demócrata Cristiano": "otras",
+  "Partido Dignidad Ciudadana": "otras",
+  "Partido Dignidad Popular": "otras",
+  "Partido Fe": "otras",
+  "Partido Federal": "otras",
+  "Partido Frente Grande": "otras",
+  "Partido Humanista": "peronismo",
+  "Partido Independiente de Chubut": "p-partido-independiente-de-chubut",
+  "Partido Independiente del Chubut": "otras",
+  "Partido Justicialista": "peronismo",
+  "Partido Libertario": "otras",
+  "Partido Movimiento de Participación Ciudadana": "otras",
+  "Partido Nuevo Buenos Aires": "otras",
+  "Partido Obrero": "izquierda",
+  "Partido Polo Social - Movimiento de Bases": "otras",
+  "Partido Popular": "otras",
+  "Partido Popular de la Reconstrucción": "p-partido-popular-de-la-reconstruccion",
+  "Partido Renacer": "otras",
+  "Partido Renovador de Salta": "p-partido-renovador-de-salta",
+  "Partido Social Patagónico": "otras",
+  "Partido Socialista": "progresismo",
+  "Partido Socialista Auténtico": "progresismo",
+  "Partido de Acción Chubutense": "p-partido-de-accion-chubutense",
+  "Partido de la Ciudad en Acción": "otras",
+  "Partido de la Concertación FORJA": "otras",
+  "Partido de la Victoria": "peronismo",
+  "Partido de los Trabajadores Socialistas": "otras",
+  "Partido del Obrero": "otras",
+  "Partido por un Pueblo Unido": "otras",
+  "Podemos": "otras",
+  "Política Abierta para la Integridad Social": "otras",
+  "Política Obrera": "otras",
+  "Política para la Clase Obrera": "otras",
+  "Popular": "otras",
+  "Por San Juan": "p-por-san-juan",
+  "Por Santa Cruz": "p-por-santa-cruz",
+  "Por la Vida y los Valores, por un Nuevo Octubre": "otras",
+  "Por un Santiago Obrero": "otras",
+  "Primero Catamarca": "otras",
+  "Primero La Gente": "p-primero-la-gente",
+  "Primero Los Salteños": "p-primero-los-saltenos",
+  "Primero Río Negro": "otras",
+  "Primero Santa Fe": "otras",
+  "Principios y Convicción": "p-principios-y-conviccion",
+  "Propuesta Federal para el Cambio": "otras",
+  "Propuesta Frepam": "cambiemos",
+  "Protectora Fuerza Política": "p-protectora-fuerza-politica",
+  "Provincias Unidas": "provincias-unidas",
+  "Proyecto Alternativo": "otras",
+  "Proyecto Popular": "otras",
+  "Proyecto Sur": "otras",
+  "Pueblo Nuevo": "p-pueblo-nuevo",
+  "Renovador Federal": "lla",
+  "Renovador de la Concordia Neo": "concordia",
+  "Republicanos Unidos": "p-republicanos-unidos",
+  "Rodríguez Saá - Negre de Alonso (Alianza Compromiso Federal)": "compromiso",
+  "Rodríguez Saá - Vernet (Alianza Compromiso Federal)": "compromiso",
+  "SI - Salta Independiente": "otras",
+  "Salta Somos Todos": "p-salta-somos-todos",
+  "Santafesino Cien por Ciento": "otras",
+  "Schiaretti - Randazzo (Hacemos por Nuestro País)": "cordoba",
+  "Scioli - Zannini (Alianza Frente para la Victoria)": "peronismo",
+  "Scioli - Zannini (Frente para la Victoria)": "peronismo",
+  "Soberanía Popular": "p-soberania-popular",
+  "Social Patagónico": "otras",
+  "Socialista": "otras",
+  "Socialista Auténtico del Chubut": "otras",
+  "Somos Corrientes": "otras",
+  "Somos Energía para Renovar Santa Cruz -SER-": "p-somos-energia-para-renovar-santa-cruz-ser",
+  "Somos Fueguinos": "p-somos-fueguinos",
+  "Somos Futuro": "otras",
+  "Somos Mendoza": "peronismo",
+  "Somos Provincias Unidas - Catamarca": "provincias-unidas",
+  "Stolbizer - Olaviaga (Alianza Progresistas)": "progresismo",
+  "Todos Unidos": "peronismo",
+  "Transformación Libertaria": "otras",
+  "UNEN": "progresismo",
+  "Un Nuevo País (1P)": "otras",
+  "Una Rioja": "otras",
+  "Unidad Ciudadana": "peronismo",
+  "Unidad Ciudadana para la Victoria": "peronismo",
+  "Unidad Porteña": "peronismo",
+  "Unidos": "otras",
+  "Unidos por Salta": "p-unidos-por-salta",
+  "Unidos por San Luis": "cambiemos",
+  "Unidos por Tucumán": "provincias-unidas",
+  "Unidos por la Libertad y el Trabajo": "p-unidos-por-la-libertad-y-el-trabajo",
+  "Unir": "otras",
+  "Unite por la Libertad y la Dignidad": "p-unite-por-la-libertad-y-la-dignidad",
+  "Unite! con Fe por la Cultura, Educación y Trabajo": "otras",
+  "Unión Cívica Radical": "ucr",
+  "Unión Federal": "otras",
+  "Unión Liberal": "otras",
+  "Unión PRO": "cambiemos",
+  "Unión PRO Santa Fe Federal": "cambiemos",
+  "Unión Pd-PRO": "cambiemos",
+  "Unión Popular": "popular",
+  "Unión Popular Federal": "otras",
+  "Unión Provincial Compromiso Federal": "compromiso",
+  "Unión con Fe": "p-union-con-fe",
+  "Unión de los Neuquinos": "otras",
+  "Unión del Centro Democrático": "otras",
+  "Unión para Vivir Mejor": "cambiemos",
+  "Unión para Vivir Mejor - Cambiemos": "cambiemos",
+  "Unión por Chaco": "ucr",
+  "Unión por Córdoba": "cordoba",
+  "Unión por Salta": "p-union-por-salta",
+  "Unión por San Luis": "peronismo",
+  "Unión por la Libertad": "otras",
+  "Unión por la Patria": "peronismo",
+  "Unión y Libertad": "otras",
+  "Vamos ! Mendocinos": "otras",
+  "Vamos Chaco": "provincias-unidas",
+  "Vamos Corrientes": "provincias-unidas",
+  "Vamos Juntos": "cambiemos",
+  "Vamos La Rioja": "cambiemos",
+  "Vamos Todos a Vivir Mejor": "otras",
+  "Vamos con Vos": "otras",
+  "Vecinalismo Independiente": "p-vecinalismo-independiente",
+  "Verde": "p-verde"
+ }
+}

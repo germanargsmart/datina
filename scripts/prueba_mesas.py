@@ -14,6 +14,7 @@ Uso: python scripts/prueba_mesas.py [-v]. Devuelve 1 si hay problemas.
 import csv
 import json
 import pathlib
+import re
 import sys
 
 RAIZ = pathlib.Path(__file__).resolve().parents[1]
@@ -34,6 +35,9 @@ CONOCIDOS = {"2023-general-presidente": {"Massa - Rossi (Unión por la Patria)":
 # qué parte del definitivo reúne el provisorio de una jurisdicción: la menor medida al armar fue 77,2% (Formosa, diputados 2015: en esa general el archivo trae 1.050
 # mesas y el de la segunda vuelta, 1.301). Fuera de estos bordes algo se leyó mal
 COBERTURA_MIN, COBERTURA_MAX = 75, 101.5
+# qué parte de quienes votaron en una jurisdicción tiene su lugar en el mapa: lo menor medido al armar fue 99,6% (scripts/elecciones_mapa.py). Si baja, se rompió una unión
+MAPA_MINIMO = 99
+FUERZAS = RAIZ / "datos" / "manual" / "mesas_fuerzas.json"
 
 
 def leer(ruta):
@@ -153,6 +157,53 @@ def revisar(detalle=False):
     if detalle and difs:
         peor = min(difs, key=difs.get)
         print(f"Menor cobertura del definitivo: {peor}, {difs[peor]}%. Mayor: {max(difs.values())}%")
+
+    # el mapa (5 de noviembre de 2026): cada elección por mesa con su archivo, cada lugar del mapa suma lo que dicen las mesas, y casi todos los votantes tienen dónde pintarse
+    fuerzas = json.loads(FUERZAS.read_text(encoding="utf-8"))
+    for f_id, f in fuerzas["fuerzas"].items():
+        if not re.fullmatch(r"#[0-9A-Fa-f]{6}", f["color"]):
+            problemas.append(f"mesas_fuerzas.json: {f_id} con un color que no es hexadecimal: {f['color']}")
+    for lista, f_id in fuerzas["listas"].items():
+        if f_id not in fuerzas["fuerzas"]:
+            problemas.append(f"mesas_fuerzas.json: {lista} apunta a una fuerza que no existe: {f_id}")
+    pesos_geo = set()
+    for el in idx["elecciones"]:
+        if el["nivel"] != "mesa":
+            continue
+        id_ = el["id"]
+        ruta = SALIDA / "mapa" / f"{id_}.json"
+        if not ruta.exists():
+            problemas.append(f"mapa/{id_}.json: falta. Hay que correr scripts/elecciones_mapa.py")
+            continue
+        doc = json.loads(ruta.read_text(encoding="utf-8"))
+        pesos_geo.add(f"pais-{doc['periodo']}")
+        if sorted(doc["provincias"]) != sorted(el["provincias"]):
+            problemas.append(f"mapa/{id_}.json: no tiene las mismas jurisdicciones que el índice")
+        for n, f_ix in zip(doc["listas"], doc["fuerza"]):
+            if n not in fuerzas["listas"]:
+                problemas.append(f"{id_}: la lista {n} no está en mesas_fuerzas.json")
+            elif doc["fuerzas"][f_ix]["id"] != fuerzas["listas"][n]:
+                problemas.append(f"{id_}: la lista {n} quedó con otra fuerza")
+        origen = ctl["origen"][id_]
+        for cod, pv in doc["provincias"].items():
+            total = sum(int(f[3]) for f in pv["filas"])
+            esperado = origen[cod]["votantes"]
+            if total > esperado:
+                problemas.append(f"mapa/{id_}.json, {cod}: el mapa suma {total:,} votantes y las mesas {esperado:,}: un voto se contó dos veces")
+            parte = 100 * total / esperado if esperado else 100
+            if abs(parte - pv["con"]) > .11:
+                problemas.append(f"mapa/{id_}.json, {cod}: dice que muestra {pv['con']}% y suma {parte:.1f}%")
+            if parte < MAPA_MINIMO:
+                problemas.append(f"mapa/{id_}.json, {cod}: solo {parte:.1f}% de los votantes tiene lugar en el mapa")
+            if not (SALIDA / "geo" / pv["ed"] / f"{cod}.topo.json").exists():
+                problemas.append(f"mapa/{id_}.json, {cod}: falta geo/{pv['ed']}/{cod}.topo.json")
+            for f in pv["filas"]:
+                if len(f[4]) % 2 or any(f[4][i] >= len(doc["listas"]) for i in range(0, len(f[4]), 2)) or any(f[4][i] < f[4][i + 2] for i in range(1, len(f[4]) - 2, 2)):
+                    problemas.append(f"mapa/{id_}.json, {cod}: una fila mal armada: sección {f[0]}, {f[1]}")
+                    break
+    for nombre in pesos_geo:
+        if not (SALIDA / "geo" / f"{nombre}.topo.json").exists():
+            problemas.append(f"falta geo/{nombre}.topo.json")
 
     # sin esta regla Cloudflare no comprime las tablas, porque no comprime el CSV: Buenos Aires baja unos 5 MB
     if "/datos/mesas/*\n  Content-Type: text/plain" not in (RAIZ / "sitio" / "_headers").read_text(encoding="utf-8"):

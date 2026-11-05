@@ -31,6 +31,8 @@ scripts/catalogo.py            arma la lista del Catálogo de datos (catalogo.ht
 scripts/prueba_paginas.mjs     prueba de las páginas armadas en Chrome sin ventana (usa scripts/cdp.mjs)
 scripts/elecciones_mesas.py    desde el 4 de noviembre de 2026, arma sitio/datos/mesas/ (resultados por mesa y circuito, 87 MB), que 03 no toca. Se corre una vez por
                                elección. La página es scripts/mesas.js, aparte de datina.js, y la prueba scripts/prueba_mesas.py: docs/roadmap/MESAS.md
+scripts/elecciones_mapa.py     desde el 5 de noviembre de 2026, el mapa de esa herramienta: une la cartografía de los circuitos con los resultados (sitio/datos/mesas/geo/ y mapa/). Los colores de
+                               cada fuerza, en datos/manual/mesas_fuerzas.json. Se corre después de elecciones_mesas.py
 scripts/*_historia.py, censo_2022_*.py, banderas.py, iconos_isometricos.py, geometria_*.py, *_presupuesto.py, justicia_provincias.py
                                programas que se corren una sola vez o una vez por año y guardan en datos/manual/
 datos/manual/                  datos armados a mano o una sola vez, explicadores.json, distorsiones.json, banderas, íconos

@@ -4524,6 +4524,28 @@
     ]
    },
    {
+    "titulo": "Cómo se arma el mapa",
+    "texto": "Cada forma del mapa es un circuito electoral, con la cartografía que publica la Cámara Nacional Electoral. En Santa Fe, y en Santa Cruz hasta 2021, es la de Franco Galeano, porque usa los mismos códigos que las mesas de esos años. El circuito de la mesa y el del mapa se unen por su código y su sección. Cuando un circuito se dividió, los votos se suman o se reparten en sus partes y nunca se cuentan dos veces. En Neuquén hasta 2017, en Río Negro hasta 2013 y en Tierra del Fuego hasta 2021 los códigos de entonces no coinciden con la cartografía, así que esas elecciones se pintan por sección. Los colores son los del logo de cada fuerza o los que históricamente se le asocian. La agrupación de las listas en fuerzas y los colores de partida vienen del proyecto 257arg, con correcciones de Datina. Una lista provincial aliada se pinta con el color de la fuerza nacional con la que se presentó.",
+    "fuentes": [
+     {
+      "nombre": "Cámara Nacional Electoral, sistema de información geográfica electoral",
+      "url": "https://www.padron.gov.ar/cne_sige/"
+     },
+     {
+      "nombre": "Cámara Nacional Electoral, descargas del mapa electoral",
+      "url": "https://mapa2.electoral.gov.ar/descargas/"
+     },
+     {
+      "nombre": "Franco Galeano, circuitos_electorales_AR (CC BY 4.0)",
+      "url": "https://github.com/tartagalensis/circuitos_electorales_AR"
+     },
+     {
+      "nombre": "257arg, atlas electorales de la Argentina (CC BY 4.0)",
+      "url": "https://azha2005.github.io/257arg/"
+     }
+    ]
+   },
+   {
     "titulo": "Por qué antes de 2011 no hay mesas",
     "texto": "La Dirección Nacional Electoral publica por mesa desde 2011. De 2003 a 2009 los resultados por mesa existen en el Atlas Electoral de Andy Tow, pero Datina no tiene permiso para publicarlos. De 1983 a 2001 hay bases académicas por departamento o por circuito que no están disponibles para publicar. Si esas fuentes lo permiten, se pueden sumar.",
     "fuentes": []
