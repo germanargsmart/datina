@@ -124,10 +124,40 @@ Cuánto suman contra el definitivo, en `suma` de cada jurisdicción: casi exacto
 
 Los senadores de 2001 a 2009 siguen por jurisdicción, con el resultado oficial: `geo/provincias.topo.json`.
 
+## De 1912 a 1973 (5 de noviembre de 2026)
+
+El autor eligió seguir con estos años entre los datos de 257arg que quedaban. `scripts/elecciones_antiguas.py` lee 20 atlas (7 de presidente, contando las dos de 1973, y 13 de diputados), con la geometría de Rodríguez de cada época: 1914 hasta 1940, 1947 para 1946 y 1948, 1960 de 1954 a 1962 y 1970 para 1965 y 1973. Escribe `{eleccion}/pais.csv`, `{eleccion}/{codigo_indec}.csv`, `mapa/{eleccion}.json`, `geo/dep{1914,1947,1960,1970}/`, `geo/circ1951/` y `geo/pais-*.topo.json`, suma las elecciones a `indice.json` y cambia `desde` en `mesas_control.json`, de donde sale el año de la página (`correr_02_con_fecha.py` lo lleva al resumen). Va en un programa aparte para no tocar lo que ya andaba de 1983 en adelante, y usa las funciones de `elecciones_departamentos.py`. Si `elecciones_mesas.py` reescribe el índice, hay que correr los dos.
+
+La diferencia con 1983 a 2009: acá no hay total oficial como datos. `pais.csv` suma lo que trae la fuente, y `reune` compara con el resultado nacional del atlas. La página lo dice si baja de 95% o pasa de 102%.
+
+| Elección | Reúne | Lo más importante |
+|---|---|---|
+| 1912 | 40,5% | 4 jurisdicciones |
+| 1914 | 78,4% | 8 jurisdicciones |
+| 1916 a 1930 | 85,5% a 103,2% | 8 a 15 jurisdicciones |
+| 1937 | 36,9% | 4 jurisdicciones |
+| 1940 | 60,9% | 5 jurisdicciones |
+| 1946 | 100% | Perón 53,7%, igual que el resultado nacional |
+| 1948 | 89,3% | Lupu y Stokes: pocas fuerzas |
+| 1951 | 100% | Por circunscripción, con los límites aproximados de 257arg |
+| 1954 a 1965 | 97,4% a 100% | Frondizi 49,5% en 1958, igual que el resultado nacional |
+| 1973 | 94,3% y 93,5% | Lupu y Stokes: pocas fuerzas |
+
+Trampas:
+
+- **Una lista en la fuerza equivocada**: en septiembre de 1973 Perón daba 86,3% y el resultado nacional dice 61,9%. Se asignaba cada lista al bloque ganador del primer lugar que encabezaba, y donde la UCR salía primera entre listas sueltas el bloque era el de Perón, que suma dos. Ahora manda el color del bloque, también en `elecciones_departamentos.py`. `prueba_mesas.py` controla cinco repartos.
+- **Códigos repetidos en la base**: el mapa de 1947 repite el código de La Plata y Las Conchas, y el de Montecarlo y San Pedro. Al disolver eran un solo polígono: `codigo_geo()`.
+- **Nombres viejos**: `ALIAS_ANTIGUOS`, con cada equivalencia por provincia. El parecido de letras mandaba Tercero Abajo a Tercero Arriba, que es otro departamento. Quedan sin polígono solo unos pocos, como General Taboada hasta 1930, Rivadavia en La Rioja de 1946 a 1958 y dos partidos creados después del mapa de 1960: están en `datos/manual/mesas_antiguas_control.json`, con todo lo unido por parecido.
+- **CABA**: 20 secciones hasta 1965. El mapa de 1960 y el de 1970 traen distritos escolares, así que se usan las secciones de `Departamentos_1960_secc CF`. En 1973 son 28: se pinta entera.
+- **Comodoro Rivadavia** (1951): gobernación militar de entonces. Se suma a Chubut en las tablas.
+
+Lo que hay que tener presente al leer: hasta 1948 votaban solo los varones, los territorios nacionales no votaban, antes de 1973 (salvo 1951) se votaba a electores, hubo denuncias de fraude en los años treinta y el peronismo estuvo proscripto en la mayor parte de las elecciones de 1955 a 1972. La página lo dice en "Qué no dice este dato".
+
 ## Lo que falta
 
 - Las PASO: 2015 no se puede bajar por mesa y 2023 sale de una copia del Internet Archive.
 - Los locales de votación: el archivo de 2025 los trae (escuela y dirección).
 - Mesas de 2003 a 2009 y circuitos de 1983 a 2001, con permiso de sus autores.
 - Los límites de las 28 circunscripciones de CABA hasta 2007.
-- Las elecciones de 1912 a 1973 por departamento: 257arg las tiene, con geometría de cada época.
+- Las PASO de 2011 a 2023 y las estimaciones de cómo pasan los votos de una elección a otra: 257arg las tiene.
+- Convencionales de 1948 y 1957, y las elecciones que 257arg no transcribió, como 1931, 1960 y 1963.

@@ -42,6 +42,11 @@ FUERZAS = RAIZ / "datos" / "manual" / "mesas_fuerzas.json"
 DEPTOS_MIN, DEPTOS_MAX = 85, 118
 # la presidencial de 1983 suma casi exacto el definitivo oficial (14.927.512): sirve de control de toda la cadena
 DEPTOS_CONOCIDOS = {"1983-general-presidente": 14927513}
+# de 1912 a 1973 no hay total oficial como datos: lo que reúne contra el resultado nacional del atlas va de 36,9% (1937, solo cuatro jurisdicciones) a 103,2% (1928). Más arriba se coló un total repetido
+ANTIGUAS_MIN, ANTIGUAS_MAX = 30, 105
+# el reparto, en elecciones casi completas, contra el resultado nacional de la Wikipedia que trae el atlas. Si una lista cae en otra fuerza se nota acá: en septiembre de 1973 Perón daba 86%
+ANTIGUAS_CONOCIDAS = {"1946-general-presidente": ("Juan Domingo Perón", 53.7), "1951-general-diputados": ("Partido Peronista", 62.2), "1958-general-presidente": ("Arturo Frondizi", 49.5),
+                      "1965-general-diputados": ("Unión Popular", 30.9), "1973-septiembre-presidente": ("Juan Domingo Perón", 61.9)}
 
 
 def leer(ruta):
@@ -243,6 +248,29 @@ def revisar(detalle=False):
                 problemas.append(f"{id_}/{cod}.csv: columnas inesperadas o sin filas")
             elif len({r[0] for r in filas[1:]}) != len(filas) - 1:
                 problemas.append(f"{id_}/{cod}.csv: un departamento repetido")
+    # de 1912 a 1973: lo que reúne contra el resultado nacional, y el reparto de las elecciones casi completas
+    for el in idx["elecciones"]:
+        if not el.get("fuente"):
+            continue
+        doc = json.loads((SALIDA / "mapa" / f"{el['id']}.json").read_text(encoding="utf-8"))
+        if doc.get("reune") is not None and not ANTIGUAS_MIN <= doc["reune"] <= ANTIGUAS_MAX:
+            problemas.append(f"mapa/{el['id']}.json: reúne {doc['reune']}% del resultado nacional")
+        for cod, pv in doc["provincias"].items():
+            primeros = [f[0] for f in pv["filas"]]
+            if len(primeros) != len(set(primeros)):
+                problemas.append(f"mapa/{el['id']}.json, {cod}: un lugar del mapa aparece dos veces")
+    for id_, (fuerza, esperado) in ANTIGUAS_CONOCIDAS.items():
+        doc = json.loads((SALIDA / "mapa" / f"{id_}.json").read_text(encoding="utf-8"))
+        por_f = {}
+        for pv in doc["provincias"].values():
+            for f in pv["filas"]:
+                for i in range(0, len(f[4]), 2):
+                    n = doc["fuerzas"][doc["fuerza"][f[4][i]]]["n"]
+                    por_f[n] = por_f.get(n, 0) + f[4][i + 1]
+        base = sum(por_f.values()) or 1
+        dato = next((v for n, v in por_f.items() if n.startswith(fuerza)), 0) / base * 100
+        if abs(dato - esperado) > .5:
+            problemas.append(f"{id_}: {fuerza} da {dato:.1f}% y el resultado nacional dice {esperado}%")
     for id_, esperado in DEPTOS_CONOCIDOS.items():
         doc = json.loads((SALIDA / "mapa" / f"{id_}.json").read_text(encoding="utf-8"))
         total = sum(f[4][i + 1] for pv in doc["provincias"].values() for f in pv["filas"] for i in range(0, len(f[4]), 2))

@@ -4546,6 +4546,16 @@
     ]
    },
    {
+    "titulo": "De 1912 a 1973: una historia con huecos",
+    "texto": "Son 20 elecciones de presidente y diputados, desde la primera con la ley Sáenz Peña, por departamento, con los límites de cada época. Los votos salen del proyecto 257arg (CC BY 4.0), que los transcribió de Darío Cantón (1968), de expedientes de la Cámara de Diputados y de la prensa de la época, o los tomó de Lupu y Stokes (2009) en 1948 y 1973. De 1951 se publica por circunscripción, con la tabla de la Wikipedia que cita la publicación oficial de ese año, con límites aproximados. No hay un escrutinio oficial publicado como datos: la página dice qué parte de los votos reúne cada elección. En 1912, 1937 y 1940 hay pocas jurisdicciones. En los años con casi todos los votos, el reparto coincide con el resultado nacional: Perón 53,7% en 1946, Frondizi 49,5% en 1958. Lupu y Stokes solo distinguen algunas fuerzas por departamento. Donde la fuente no tiene departamentos se pinta la jurisdicción entera. CABA se ve por sección hasta 1965, y entera en 1973. Faltan elecciones que 257arg no transcribió, como las de 1931, 1960 y 1963, y las de convencionales.",
+    "fuentes": [
+     {
+      "nombre": "257arg, atlas electorales de la Argentina (CC BY 4.0)",
+      "url": "https://azha2005.github.io/257arg/"
+     }
+    ]
+   },
+   {
     "titulo": "De 1983 a 2009: por departamento",
     "texto": "La Dirección Nacional Electoral publica por mesa desde 2011. Antes, la herramienta llega al departamento, con los datos que publica el proyecto 257arg con licencia CC BY 4.0: de 1983 a 2001 salen de la base de Ernesto Calvo, y de 2003 a 2009, de PolAr, a partir del Atlas Electoral de Andy Tow. 257arg aclara que no redistribuye la base de Calvo y publica solo el resultado por departamento. No son el escrutinio definitivo: el total de cada jurisdicción sigue siendo el oficial, y si los departamentos se apartan más de 3% de él, la página lo avisa. En 1983 suman casi exacto lo mismo, y en 2003 hay jurisdicciones que pasan de 115%. Donde no hay resultados por departamento (San Luis en 1997 y 1999, Santa Cruz en 1999, La Pampa en 2003), se pinta la jurisdicción entera. CABA tiene 28 circunscripciones hasta 2007: la tabla las lista y el mapa la pinta entera, porque esos límites no están publicados. Los límites de los departamentos son los de la época, de la base de Rodríguez (CEUR-CONICET). Los senadores se publican por jurisdicción: por departamento no hay datos que se puedan publicar.",
     "fuentes": [
