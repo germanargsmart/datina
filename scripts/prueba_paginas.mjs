@@ -507,8 +507,8 @@ await q.tamano(1280, 900);
   r = await ms("?e=2025-general-senadores&p=14");
   if (!/no eligió senadores/.test(r.txt) || r.tit !== "Todo el país") problemas.push(`mesas.html: una jurisdicción que no votó senadores no sube al país con su aviso (${r.tit})`);
   // una elección sin mesas
-  r = await ms("?e=1985-general-diputados&p=14");
-  if (!r.sec || r.filas || !/no hay datos que se puedan publicar/.test(r.txt) || !r.bajar.endsWith("1985-general-diputados/pais.csv")) problemas.push(`mesas.html: 1985 no se queda en la jurisdicción con su aviso (${r.tit}, ${r.bajar})`);
+  r = await ms("?e=2005-general-senadores&p=06");
+  if (!r.sec || r.filas || !/no hay datos que se puedan publicar/.test(r.txt) || !r.bajar.endsWith("2005-general-senadores/pais.csv")) problemas.push(`mesas.html: los senadores de 2005 no se quedan en la jurisdicción con su aviso (${r.tit}, ${r.bajar})`);
   r = await ms("?e=1983-general-presidente");
   if (!/Alfonsín - Martínez/.test(r.txt) || !/51,8%/.test(r.txt)) problemas.push("mesas.html: 1983 no suma las listas de cada provincia por fórmula");
   // lo que le falta al provisorio
@@ -545,8 +545,22 @@ await q.tamano(1280, 900);
   if (!/e=2023-general-presidente/.test(r.dir)) problemas.push(`mesas.html: "Elección anterior" no lleva a la anterior (${r.dir})`);
   await ms("?e=2015-general-presidente&p=58", 2000); m = await mapa();
   if (!/en cada sección/.test(m.tit) || !/llega hasta la sección/.test(m.nota) || !m.pintados) problemas.push(`mesas.html: Neuquén 2015 no pinta por sección ni avisa (${m.tit}, ${m.nota})`);
-  await ms("?e=2009-general-diputados", 1500); m = await mapa();
-  if (m.visible) problemas.push("mesas.html: 2009 no tiene circuitos y muestra el mapa");
+  // de 1983 a 2009, por departamento (257arg): el mapa del país, tocar uno lo elige, el mismo lugar entre elecciones y CABA y San Luis, que no llegan al departamento
+  r = await ms("?e=1983-general-presidente", 2200); m = await mapa();
+  if (!/en cada departamento/.test(m.tit) || m.pintados < 450 || !/Raúl Alfonsín/.test(m.ley) || !/base de Ernesto Calvo/.test(m.nota) || !/51,8%/.test(r.txt)) problemas.push(`mesas.html: 1983 sin su mapa por departamento o sin el total oficial (${m.tit}, ${m.pintados} pintados)`);
+  await tocaLugar("06", ""); r = await ms(null, 2200); m = await mapa();
+  if (!r.tit.startsWith("Buenos Aires") || r.sec || !r.cir || r.filas < 100 || !/Cómo votó cada departamento/.test(r.txt) || !/no son el escrutinio definitivo/.test(r.txt)) problemas.push(`mesas.html: Buenos Aires 1983 sin sus departamentos (${r.tit}, ${r.filas} filas)`);
+  await tocaLugar("06", ""); r = await ms(null, 1800); m = await mapa();
+  if (!/,\s+Buenos\s+Aires$/.test(r.tit) || !m.sel || !/s=06/.test(m.dir) || r.filas) problemas.push(`mesas.html: tocar un departamento no lo elige ni lo marca (${r.tit}, ${m.dir})`);
+  r = await ms("?e=2011-general-presidente&p=06&s=61", 1500);
+  await q.eval(`(() => { const s = document.getElementById("ms-eleccion"); s.value = "2007-general-presidente"; s.dispatchEvent(new Event("change", {bubbles: true})); })()`); r = await ms(null, 2200);
+  if (!r.tit.startsWith("La Matanza")) problemas.push(`mesas.html: pasar de 2011 a 2007 pierde La Matanza, que tiene otro código en cada nivel (${r.tit})`);
+  r = await ms("?e=1995-general-presidente&p=02", 2000); m = await mapa();
+  if (r.filas !== 28 || !/Cómo votó cada circunscripción/.test(r.txt) || !/CABA se pinta entera/.test(m.nota) || !m.pintados) problemas.push(`mesas.html: CABA 1995 sin sus 28 circunscripciones (${r.filas} filas, ${m.nota})`);
+  r = await ms("?e=1997-general-diputados&p=74", 2000); m = await mapa();
+  if (!r.sec || r.filas || !/no hay resultados por departamento/.test(m.nota) || !r.bajar.endsWith("pais.csv")) problemas.push(`mesas.html: San Luis 1997 no se pinta entera con su aviso (${m.nota})`);
+  r = await ms("?e=2007-general-senadores", 2000); m = await mapa();
+  if (!/en cada jurisdicción/.test(m.tit) || m.pintados !== 8 || !/No eligió senadores/.test(m.ley) || !/no hay datos que se puedan publicar/.test(r.txt)) problemas.push(`mesas.html: los senadores de 2007 sin su mapa por jurisdicción (${m.tit}, ${m.pintados} pintados)`);
   // en el celular no se corre de costado, tampoco con las tablas de abajo a la vista
   await q.tamano(320, 700);
   for (const u of ["?e=2023-general-diputados&p=06&s=61", "?e=2023-general-presidente&p=06&s=61&c=627", "?e=2009-general-diputados&p=06", "?e=2025-general-diputados&ver=fuerza"]) {

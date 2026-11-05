@@ -1,0 +1,3587 @@
+{
+ "_": "Lo que armó scripts/elecciones_departamentos.py. No se edita a mano.",
+ "elecciones": {
+  "1983-general-presidente": {
+   "sin_par": [],
+   "parecidos": [
+    "22: Libertador General San Martín -> LIBERTADORGENERALSNMARTIN",
+    "22: San Fernando -> SNFERNANDO",
+    "22: San Lorenzo -> SNLORENZO",
+    "66: Candelaria -> LACANDELARIA",
+    "66: General José de San Martín -> GENERALJOSESANMARTIN",
+    "66: La Capital -> CAPITAL",
+    "74: Libertador General San Martín -> LIBERTADORGENERALSNMARTIN"
+   ],
+   "provincias": {
+    "02": {
+     "nivel": "provincia",
+     "unidades": 28,
+     "distintas": 28,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "06": {
+     "nivel": "departamento",
+     "unidades": 125,
+     "distintas": 125,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "10": {
+     "nivel": "departamento",
+     "unidades": 16,
+     "distintas": 16,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "14": {
+     "nivel": "departamento",
+     "unidades": 26,
+     "distintas": 26,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "18": {
+     "nivel": "departamento",
+     "unidades": 25,
+     "distintas": 25,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "22": {
+     "nivel": "departamento",
+     "unidades": 24,
+     "distintas": 24,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "26": {
+     "nivel": "departamento",
+     "unidades": 15,
+     "distintas": 15,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "30": {
+     "nivel": "departamento",
+     "unidades": 15,
+     "distintas": 15,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "34": {
+     "nivel": "departamento",
+     "unidades": 9,
+     "distintas": 9,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "38": {
+     "nivel": "departamento",
+     "unidades": 15,
+     "distintas": 15,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "42": {
+     "nivel": "departamento",
+     "unidades": 22,
+     "distintas": 22,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "46": {
+     "nivel": "departamento",
+     "unidades": 18,
+     "distintas": 18,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "50": {
+     "nivel": "departamento",
+     "unidades": 18,
+     "distintas": 18,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "54": {
+     "nivel": "departamento",
+     "unidades": 17,
+     "distintas": 17,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "58": {
+     "nivel": "departamento",
+     "unidades": 16,
+     "distintas": 16,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "62": {
+     "nivel": "departamento",
+     "unidades": 13,
+     "distintas": 13,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "66": {
+     "nivel": "departamento",
+     "unidades": 23,
+     "distintas": 23,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "70": {
+     "nivel": "departamento",
+     "unidades": 19,
+     "distintas": 19,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "74": {
+     "nivel": "departamento",
+     "unidades": 9,
+     "distintas": 9,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "78": {
+     "nivel": "departamento",
+     "unidades": 7,
+     "distintas": 7,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "82": {
+     "nivel": "departamento",
+     "unidades": 19,
+     "distintas": 19,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "86": {
+     "nivel": "departamento",
+     "unidades": 27,
+     "distintas": 27,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "90": {
+     "nivel": "departamento",
+     "unidades": 17,
+     "distintas": 17,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "94": {
+     "nivel": "departamento",
+     "unidades": 3,
+     "distintas": 3,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    }
+   }
+  },
+  "1983-general-diputados": {
+   "sin_par": [],
+   "parecidos": [
+    "22: Libertador General San Martín -> LIBERTADORGENERALSNMARTIN",
+    "22: San Fernando -> SNFERNANDO",
+    "22: San Lorenzo -> SNLORENZO",
+    "66: Candelaria -> LACANDELARIA",
+    "66: General José de San Martín -> GENERALJOSESANMARTIN",
+    "66: La Capital -> CAPITAL",
+    "74: Libertador General San Martín -> LIBERTADORGENERALSNMARTIN"
+   ],
+   "provincias": {
+    "02": {
+     "nivel": "provincia",
+     "unidades": 28,
+     "distintas": 28,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "06": {
+     "nivel": "departamento",
+     "unidades": 125,
+     "distintas": 125,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "10": {
+     "nivel": "departamento",
+     "unidades": 16,
+     "distintas": 16,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "14": {
+     "nivel": "departamento",
+     "unidades": 26,
+     "distintas": 26,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "18": {
+     "nivel": "departamento",
+     "unidades": 25,
+     "distintas": 25,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 99.8
+    },
+    "22": {
+     "nivel": "departamento",
+     "unidades": 24,
+     "distintas": 24,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "26": {
+     "nivel": "departamento",
+     "unidades": 15,
+     "distintas": 15,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 99.6
+    },
+    "30": {
+     "nivel": "departamento",
+     "unidades": 15,
+     "distintas": 15,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "34": {
+     "nivel": "departamento",
+     "unidades": 9,
+     "distintas": 9,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "38": {
+     "nivel": "departamento",
+     "unidades": 15,
+     "distintas": 15,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "42": {
+     "nivel": "departamento",
+     "unidades": 22,
+     "distintas": 22,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "46": {
+     "nivel": "departamento",
+     "unidades": 18,
+     "distintas": 18,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "50": {
+     "nivel": "departamento",
+     "unidades": 18,
+     "distintas": 18,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "54": {
+     "nivel": "departamento",
+     "unidades": 17,
+     "distintas": 17,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "58": {
+     "nivel": "departamento",
+     "unidades": 16,
+     "distintas": 16,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "62": {
+     "nivel": "departamento",
+     "unidades": 13,
+     "distintas": 13,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "66": {
+     "nivel": "departamento",
+     "unidades": 23,
+     "distintas": 23,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "70": {
+     "nivel": "departamento",
+     "unidades": 19,
+     "distintas": 19,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "74": {
+     "nivel": "departamento",
+     "unidades": 9,
+     "distintas": 9,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "78": {
+     "nivel": "departamento",
+     "unidades": 7,
+     "distintas": 7,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 99.9
+    },
+    "82": {
+     "nivel": "departamento",
+     "unidades": 19,
+     "distintas": 19,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "86": {
+     "nivel": "departamento",
+     "unidades": 27,
+     "distintas": 27,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 99.8
+    },
+    "90": {
+     "nivel": "departamento",
+     "unidades": 17,
+     "distintas": 17,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "94": {
+     "nivel": "departamento",
+     "unidades": 3,
+     "distintas": 3,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    }
+   }
+  },
+  "1985-general-diputados": {
+   "sin_par": [],
+   "parecidos": [
+    "22: Libertador General San Martín -> LIBERTADORGENERALSNMARTIN",
+    "22: San Fernando -> SNFERNANDO",
+    "22: San Lorenzo -> SNLORENZO",
+    "66: Candelaria -> LACANDELARIA",
+    "66: General José de San Martín -> GENERALJOSESANMARTIN",
+    "66: La Capital -> CAPITAL",
+    "74: Libertador General San Martín -> LIBERTADORGENERALSNMARTIN"
+   ],
+   "provincias": {
+    "02": {
+     "nivel": "provincia",
+     "unidades": 28,
+     "distintas": 28,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "06": {
+     "nivel": "departamento",
+     "unidades": 125,
+     "distintas": 125,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "10": {
+     "nivel": "departamento",
+     "unidades": 16,
+     "distintas": 16,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "14": {
+     "nivel": "departamento",
+     "unidades": 26,
+     "distintas": 26,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "18": {
+     "nivel": "departamento",
+     "unidades": 25,
+     "distintas": 25,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "22": {
+     "nivel": "departamento",
+     "unidades": 24,
+     "distintas": 24,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "26": {
+     "nivel": "departamento",
+     "unidades": 15,
+     "distintas": 15,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "30": {
+     "nivel": "departamento",
+     "unidades": 15,
+     "distintas": 15,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "34": {
+     "nivel": "departamento",
+     "unidades": 9,
+     "distintas": 9,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 99.3
+    },
+    "38": {
+     "nivel": "departamento",
+     "unidades": 15,
+     "distintas": 15,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "42": {
+     "nivel": "departamento",
+     "unidades": 22,
+     "distintas": 22,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "46": {
+     "nivel": "departamento",
+     "unidades": 18,
+     "distintas": 18,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "50": {
+     "nivel": "departamento",
+     "unidades": 18,
+     "distintas": 18,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "54": {
+     "nivel": "departamento",
+     "unidades": 17,
+     "distintas": 17,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "58": {
+     "nivel": "departamento",
+     "unidades": 16,
+     "distintas": 16,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "62": {
+     "nivel": "departamento",
+     "unidades": 13,
+     "distintas": 13,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "66": {
+     "nivel": "departamento",
+     "unidades": 23,
+     "distintas": 23,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "70": {
+     "nivel": "departamento",
+     "unidades": 19,
+     "distintas": 19,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "74": {
+     "nivel": "departamento",
+     "unidades": 9,
+     "distintas": 9,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "78": {
+     "nivel": "departamento",
+     "unidades": 7,
+     "distintas": 7,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "82": {
+     "nivel": "departamento",
+     "unidades": 19,
+     "distintas": 19,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "86": {
+     "nivel": "departamento",
+     "unidades": 27,
+     "distintas": 27,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "90": {
+     "nivel": "departamento",
+     "unidades": 17,
+     "distintas": 17,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "94": {
+     "nivel": "departamento",
+     "unidades": 3,
+     "distintas": 3,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    }
+   }
+  },
+  "1987-general-diputados": {
+   "sin_par": [],
+   "parecidos": [
+    "22: Libertador General San Martín -> LIBERTADORGENERALSNMARTIN",
+    "22: San Fernando -> SNFERNANDO",
+    "22: San Lorenzo -> SNLORENZO",
+    "66: Candelaria -> LACANDELARIA",
+    "66: General José de San Martín -> GENERALJOSESANMARTIN",
+    "66: La Capital -> CAPITAL",
+    "74: Libertador General San Martín -> LIBERTADORGENERALSNMARTIN"
+   ],
+   "provincias": {
+    "02": {
+     "nivel": "provincia",
+     "unidades": 28,
+     "distintas": 28,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "06": {
+     "nivel": "departamento",
+     "unidades": 125,
+     "distintas": 125,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "10": {
+     "nivel": "departamento",
+     "unidades": 16,
+     "distintas": 16,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "14": {
+     "nivel": "departamento",
+     "unidades": 26,
+     "distintas": 26,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "18": {
+     "nivel": "departamento",
+     "unidades": 25,
+     "distintas": 25,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "22": {
+     "nivel": "departamento",
+     "unidades": 24,
+     "distintas": 24,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "26": {
+     "nivel": "departamento",
+     "unidades": 15,
+     "distintas": 15,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "30": {
+     "nivel": "departamento",
+     "unidades": 15,
+     "distintas": 15,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "34": {
+     "nivel": "departamento",
+     "unidades": 9,
+     "distintas": 9,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "38": {
+     "nivel": "departamento",
+     "unidades": 15,
+     "distintas": 15,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "42": {
+     "nivel": "departamento",
+     "unidades": 22,
+     "distintas": 22,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "46": {
+     "nivel": "departamento",
+     "unidades": 18,
+     "distintas": 18,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "50": {
+     "nivel": "departamento",
+     "unidades": 18,
+     "distintas": 18,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "54": {
+     "nivel": "departamento",
+     "unidades": 17,
+     "distintas": 17,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "58": {
+     "nivel": "departamento",
+     "unidades": 16,
+     "distintas": 16,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "62": {
+     "nivel": "departamento",
+     "unidades": 13,
+     "distintas": 13,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "66": {
+     "nivel": "departamento",
+     "unidades": 23,
+     "distintas": 23,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "70": {
+     "nivel": "departamento",
+     "unidades": 19,
+     "distintas": 19,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "74": {
+     "nivel": "departamento",
+     "unidades": 9,
+     "distintas": 9,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "78": {
+     "nivel": "departamento",
+     "unidades": 7,
+     "distintas": 7,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "82": {
+     "nivel": "departamento",
+     "unidades": 19,
+     "distintas": 19,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "86": {
+     "nivel": "departamento",
+     "unidades": 27,
+     "distintas": 27,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "90": {
+     "nivel": "departamento",
+     "unidades": 17,
+     "distintas": 17,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    }
+   }
+  },
+  "1989-general-presidente": {
+   "sin_par": [],
+   "parecidos": [
+    "22: Libertador General San Martín -> LIBERTADORGENERALSNMARTIN",
+    "22: San Fernando -> SNFERNANDO",
+    "22: San Lorenzo -> SNLORENZO",
+    "66: Candelaria -> LACANDELARIA",
+    "66: General José de San Martín -> GENERALJOSESANMARTIN",
+    "66: La Capital -> CAPITAL",
+    "74: Libertador General San Martín -> LIBERTADORGENERALSNMARTIN"
+   ],
+   "provincias": {
+    "02": {
+     "nivel": "provincia",
+     "unidades": 28,
+     "distintas": 28,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "06": {
+     "nivel": "departamento",
+     "unidades": 125,
+     "distintas": 125,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "10": {
+     "nivel": "departamento",
+     "unidades": 16,
+     "distintas": 16,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "14": {
+     "nivel": "departamento",
+     "unidades": 26,
+     "distintas": 26,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "18": {
+     "nivel": "departamento",
+     "unidades": 25,
+     "distintas": 25,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 99.0
+    },
+    "22": {
+     "nivel": "departamento",
+     "unidades": 24,
+     "distintas": 24,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "26": {
+     "nivel": "departamento",
+     "unidades": 15,
+     "distintas": 15,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "30": {
+     "nivel": "departamento",
+     "unidades": 15,
+     "distintas": 15,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "34": {
+     "nivel": "departamento",
+     "unidades": 9,
+     "distintas": 9,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "38": {
+     "nivel": "departamento",
+     "unidades": 15,
+     "distintas": 15,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.4
+    },
+    "42": {
+     "nivel": "departamento",
+     "unidades": 22,
+     "distintas": 22,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.1
+    },
+    "46": {
+     "nivel": "departamento",
+     "unidades": 18,
+     "distintas": 18,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "50": {
+     "nivel": "departamento",
+     "unidades": 18,
+     "distintas": 18,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.1
+    },
+    "54": {
+     "nivel": "departamento",
+     "unidades": 17,
+     "distintas": 17,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "58": {
+     "nivel": "departamento",
+     "unidades": 16,
+     "distintas": 16,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "62": {
+     "nivel": "departamento",
+     "unidades": 13,
+     "distintas": 13,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 101.7
+    },
+    "66": {
+     "nivel": "departamento",
+     "unidades": 23,
+     "distintas": 23,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "70": {
+     "nivel": "departamento",
+     "unidades": 19,
+     "distintas": 19,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "74": {
+     "nivel": "departamento",
+     "unidades": 9,
+     "distintas": 9,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 101.4
+    },
+    "78": {
+     "nivel": "departamento",
+     "unidades": 7,
+     "distintas": 7,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 99.8
+    },
+    "82": {
+     "nivel": "departamento",
+     "unidades": 19,
+     "distintas": 19,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "86": {
+     "nivel": "departamento",
+     "unidades": 27,
+     "distintas": 27,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "90": {
+     "nivel": "departamento",
+     "unidades": 17,
+     "distintas": 17,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "94": {
+     "nivel": "departamento",
+     "unidades": 3,
+     "distintas": 3,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 99.0
+    }
+   }
+  },
+  "1989-general-diputados": {
+   "sin_par": [],
+   "parecidos": [
+    "22: Libertador General San Martín -> LIBERTADORGENERALSNMARTIN",
+    "22: San Fernando -> SNFERNANDO",
+    "22: San Lorenzo -> SNLORENZO",
+    "66: Candelaria -> LACANDELARIA",
+    "66: General José de San Martín -> GENERALJOSESANMARTIN",
+    "66: La Capital -> CAPITAL",
+    "74: Libertador General San Martín -> LIBERTADORGENERALSNMARTIN"
+   ],
+   "provincias": {
+    "02": {
+     "nivel": "provincia",
+     "unidades": 28,
+     "distintas": 28,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "06": {
+     "nivel": "departamento",
+     "unidades": 125,
+     "distintas": 125,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "10": {
+     "nivel": "departamento",
+     "unidades": 16,
+     "distintas": 16,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "14": {
+     "nivel": "departamento",
+     "unidades": 26,
+     "distintas": 26,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "18": {
+     "nivel": "departamento",
+     "unidades": 25,
+     "distintas": 25,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 99.0
+    },
+    "22": {
+     "nivel": "departamento",
+     "unidades": 24,
+     "distintas": 24,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "26": {
+     "nivel": "departamento",
+     "unidades": 15,
+     "distintas": 15,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "30": {
+     "nivel": "departamento",
+     "unidades": 15,
+     "distintas": 15,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "34": {
+     "nivel": "departamento",
+     "unidades": 9,
+     "distintas": 9,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "38": {
+     "nivel": "departamento",
+     "unidades": 15,
+     "distintas": 15,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.4
+    },
+    "42": {
+     "nivel": "departamento",
+     "unidades": 22,
+     "distintas": 22,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.1
+    },
+    "46": {
+     "nivel": "departamento",
+     "unidades": 18,
+     "distintas": 18,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "50": {
+     "nivel": "departamento",
+     "unidades": 18,
+     "distintas": 18,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "54": {
+     "nivel": "departamento",
+     "unidades": 17,
+     "distintas": 17,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "58": {
+     "nivel": "departamento",
+     "unidades": 16,
+     "distintas": 16,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "62": {
+     "nivel": "departamento",
+     "unidades": 13,
+     "distintas": 13,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.8
+    },
+    "66": {
+     "nivel": "departamento",
+     "unidades": 23,
+     "distintas": 23,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "70": {
+     "nivel": "departamento",
+     "unidades": 19,
+     "distintas": 19,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "74": {
+     "nivel": "departamento",
+     "unidades": 9,
+     "distintas": 9,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.9
+    },
+    "78": {
+     "nivel": "departamento",
+     "unidades": 7,
+     "distintas": 7,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 99.8
+    },
+    "82": {
+     "nivel": "departamento",
+     "unidades": 19,
+     "distintas": 19,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "86": {
+     "nivel": "departamento",
+     "unidades": 27,
+     "distintas": 27,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "90": {
+     "nivel": "departamento",
+     "unidades": 17,
+     "distintas": 17,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "94": {
+     "nivel": "departamento",
+     "unidades": 3,
+     "distintas": 3,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 101.3
+    }
+   }
+  },
+  "1991-general-diputados": {
+   "sin_par": [],
+   "parecidos": [
+    "22: Libertador General San Martín -> LIBERTADORGENERALSNMARTIN",
+    "22: San Fernando -> SNFERNANDO",
+    "22: San Lorenzo -> SNLORENZO",
+    "74: Libertador General San Martín -> LIBERTADORGENERALSNMARTIN"
+   ],
+   "provincias": {
+    "02": {
+     "nivel": "provincia",
+     "unidades": 28,
+     "distintas": 28,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "06": {
+     "nivel": "departamento",
+     "unidades": 127,
+     "distintas": 127,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 99.9
+    },
+    "10": {
+     "nivel": "departamento",
+     "unidades": 16,
+     "distintas": 16,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "14": {
+     "nivel": "departamento",
+     "unidades": 26,
+     "distintas": 26,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "18": {
+     "nivel": "departamento",
+     "unidades": 25,
+     "distintas": 25,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "22": {
+     "nivel": "departamento",
+     "unidades": 24,
+     "distintas": 24,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "26": {
+     "nivel": "departamento",
+     "unidades": 15,
+     "distintas": 15,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 96.8
+    },
+    "30": {
+     "nivel": "departamento",
+     "unidades": 16,
+     "distintas": 16,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "34": {
+     "nivel": "departamento",
+     "unidades": 9,
+     "distintas": 9,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "38": {
+     "nivel": "departamento",
+     "unidades": 16,
+     "distintas": 16,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "42": {
+     "nivel": "departamento",
+     "unidades": 22,
+     "distintas": 22,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "46": {
+     "nivel": "departamento",
+     "unidades": 18,
+     "distintas": 18,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "50": {
+     "nivel": "departamento",
+     "unidades": 18,
+     "distintas": 18,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "54": {
+     "nivel": "departamento",
+     "unidades": 17,
+     "distintas": 17,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 99.1
+    },
+    "58": {
+     "nivel": "departamento",
+     "unidades": 16,
+     "distintas": 16,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 99.9
+    },
+    "62": {
+     "nivel": "departamento",
+     "unidades": 13,
+     "distintas": 13,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 101.2
+    },
+    "66": {
+     "nivel": "departamento",
+     "unidades": 23,
+     "distintas": 23,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "70": {
+     "nivel": "departamento",
+     "unidades": 19,
+     "distintas": 19,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "74": {
+     "nivel": "departamento",
+     "unidades": 9,
+     "distintas": 9,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 99.2
+    },
+    "78": {
+     "nivel": "departamento",
+     "unidades": 7,
+     "distintas": 7,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "82": {
+     "nivel": "departamento",
+     "unidades": 19,
+     "distintas": 19,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "86": {
+     "nivel": "departamento",
+     "unidades": 27,
+     "distintas": 27,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "90": {
+     "nivel": "departamento",
+     "unidades": 16,
+     "distintas": 16,
+     "sin_dato_propio": 1,
+     "suma_del_definitivo": 96.5
+    },
+    "94": {
+     "nivel": "departamento",
+     "unidades": 3,
+     "distintas": 3,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.3
+    }
+   }
+  },
+  "1993-general-diputados": {
+   "sin_par": [
+    "22:2 de Abril"
+   ],
+   "parecidos": [
+    "22: Libertador General San Martín -> LIBERTADORGENERALSNMARTIN",
+    "22: San Fernando -> SNFERNANDO",
+    "22: San Lorenzo -> SNLORENZO",
+    "74: Libertador General San Martín -> LIBERTADORGENERALSNMARTIN"
+   ],
+   "provincias": {
+    "02": {
+     "nivel": "provincia",
+     "unidades": 28,
+     "distintas": 28,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 99.9
+    },
+    "06": {
+     "nivel": "departamento",
+     "unidades": 127,
+     "distintas": 127,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "10": {
+     "nivel": "departamento",
+     "unidades": 16,
+     "distintas": 16,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "14": {
+     "nivel": "departamento",
+     "unidades": 26,
+     "distintas": 26,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "18": {
+     "nivel": "departamento",
+     "unidades": 25,
+     "distintas": 25,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "22": {
+     "nivel": "departamento",
+     "unidades": 25,
+     "distintas": 25,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "26": {
+     "nivel": "departamento",
+     "unidades": 15,
+     "distintas": 15,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "30": {
+     "nivel": "departamento",
+     "unidades": 16,
+     "distintas": 16,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 92.7
+    },
+    "34": {
+     "nivel": "departamento",
+     "unidades": 9,
+     "distintas": 9,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "38": {
+     "nivel": "departamento",
+     "unidades": 16,
+     "distintas": 16,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "42": {
+     "nivel": "departamento",
+     "unidades": 22,
+     "distintas": 22,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 98.0
+    },
+    "46": {
+     "nivel": "departamento",
+     "unidades": 18,
+     "distintas": 18,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "50": {
+     "nivel": "departamento",
+     "unidades": 18,
+     "distintas": 18,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "54": {
+     "nivel": "departamento",
+     "unidades": 17,
+     "distintas": 17,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "58": {
+     "nivel": "departamento",
+     "unidades": 16,
+     "distintas": 16,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "62": {
+     "nivel": "departamento",
+     "unidades": 13,
+     "distintas": 13,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "66": {
+     "nivel": "departamento",
+     "unidades": 23,
+     "distintas": 23,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "70": {
+     "nivel": "departamento",
+     "unidades": 19,
+     "distintas": 19,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "74": {
+     "nivel": "departamento",
+     "unidades": 9,
+     "distintas": 9,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 95.0
+    },
+    "78": {
+     "nivel": "departamento",
+     "unidades": 7,
+     "distintas": 7,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "82": {
+     "nivel": "departamento",
+     "unidades": 19,
+     "distintas": 19,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "86": {
+     "nivel": "departamento",
+     "unidades": 27,
+     "distintas": 27,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 99.4
+    },
+    "90": {
+     "nivel": "departamento",
+     "unidades": 17,
+     "distintas": 17,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "94": {
+     "nivel": "departamento",
+     "unidades": 3,
+     "distintas": 3,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 99.6
+    }
+   }
+  },
+  "1995-general-presidente": {
+   "sin_par": [],
+   "parecidos": [
+    "22: Pdte. De la Plaza -> PRESIDENCIADELAPLAZA",
+    "26: Paso de Indios -> PASODELOSINDIOS",
+    "62: Pilcaniyeu -> PILNANIYEU",
+    "66: Gnral.José San Martín -> GENERALJOSEDESANMARTIN",
+    "86: Pellegrini -> PELEGRINI",
+    "90: Famaillá -> FAMALLA"
+   ],
+   "provincias": {
+    "02": {
+     "nivel": "provincia",
+     "unidades": 28,
+     "distintas": 28,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "06": {
+     "nivel": "departamento",
+     "unidades": 134,
+     "distintas": 134,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "10": {
+     "nivel": "departamento",
+     "unidades": 16,
+     "distintas": 16,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "14": {
+     "nivel": "departamento",
+     "unidades": 26,
+     "distintas": 26,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "18": {
+     "nivel": "departamento",
+     "unidades": 25,
+     "distintas": 25,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "22": {
+     "nivel": "departamento",
+     "unidades": 25,
+     "distintas": 25,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "26": {
+     "nivel": "departamento",
+     "unidades": 15,
+     "distintas": 15,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "30": {
+     "nivel": "departamento",
+     "unidades": 16,
+     "distintas": 16,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 99.9
+    },
+    "34": {
+     "nivel": "departamento",
+     "unidades": 9,
+     "distintas": 9,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "38": {
+     "nivel": "departamento",
+     "unidades": 16,
+     "distintas": 16,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "42": {
+     "nivel": "departamento",
+     "unidades": 22,
+     "distintas": 22,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 99.6
+    },
+    "46": {
+     "nivel": "departamento",
+     "unidades": 18,
+     "distintas": 18,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "50": {
+     "nivel": "departamento",
+     "unidades": 18,
+     "distintas": 18,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "54": {
+     "nivel": "departamento",
+     "unidades": 17,
+     "distintas": 17,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.1
+    },
+    "58": {
+     "nivel": "departamento",
+     "unidades": 16,
+     "distintas": 16,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "62": {
+     "nivel": "departamento",
+     "unidades": 13,
+     "distintas": 13,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "66": {
+     "nivel": "departamento",
+     "unidades": 23,
+     "distintas": 23,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "70": {
+     "nivel": "departamento",
+     "unidades": 19,
+     "distintas": 19,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "74": {
+     "nivel": "departamento",
+     "unidades": 9,
+     "distintas": 9,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "78": {
+     "nivel": "departamento",
+     "unidades": 7,
+     "distintas": 7,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 99.5
+    },
+    "82": {
+     "nivel": "departamento",
+     "unidades": 19,
+     "distintas": 19,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "86": {
+     "nivel": "departamento",
+     "unidades": 27,
+     "distintas": 27,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "90": {
+     "nivel": "departamento",
+     "unidades": 17,
+     "distintas": 17,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "94": {
+     "nivel": "departamento",
+     "unidades": 3,
+     "distintas": 3,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 99.4
+    }
+   }
+  },
+  "1995-general-diputados": {
+   "sin_par": [],
+   "parecidos": [
+    "22: Pdte. De la Plaza -> PRESIDENCIADELAPLAZA",
+    "26: Paso de Indios -> PASODELOSINDIOS",
+    "62: Pilcaniyeu -> PILNANIYEU",
+    "66: Gnral.José San Martín -> GENERALJOSEDESANMARTIN",
+    "86: Pellegrini -> PELEGRINI",
+    "90: Famaillá -> FAMALLA"
+   ],
+   "provincias": {
+    "02": {
+     "nivel": "provincia",
+     "unidades": 28,
+     "distintas": 28,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "06": {
+     "nivel": "departamento",
+     "unidades": 134,
+     "distintas": 134,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 99.9
+    },
+    "10": {
+     "nivel": "departamento",
+     "unidades": 16,
+     "distintas": 16,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 99.9
+    },
+    "14": {
+     "nivel": "departamento",
+     "unidades": 26,
+     "distintas": 26,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "18": {
+     "nivel": "departamento",
+     "unidades": 25,
+     "distintas": 25,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.2
+    },
+    "22": {
+     "nivel": "departamento",
+     "unidades": 25,
+     "distintas": 25,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "26": {
+     "nivel": "departamento",
+     "unidades": 15,
+     "distintas": 15,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "30": {
+     "nivel": "departamento",
+     "unidades": 16,
+     "distintas": 16,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "34": {
+     "nivel": "departamento",
+     "unidades": 9,
+     "distintas": 9,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "38": {
+     "nivel": "departamento",
+     "unidades": 16,
+     "distintas": 16,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "42": {
+     "nivel": "departamento",
+     "unidades": 22,
+     "distintas": 22,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 99.6
+    },
+    "46": {
+     "nivel": "departamento",
+     "unidades": 18,
+     "distintas": 18,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "50": {
+     "nivel": "departamento",
+     "unidades": 18,
+     "distintas": 18,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "54": {
+     "nivel": "departamento",
+     "unidades": 17,
+     "distintas": 17,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "58": {
+     "nivel": "departamento",
+     "unidades": 16,
+     "distintas": 16,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "62": {
+     "nivel": "departamento",
+     "unidades": 13,
+     "distintas": 13,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "66": {
+     "nivel": "departamento",
+     "unidades": 23,
+     "distintas": 23,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "70": {
+     "nivel": "departamento",
+     "unidades": 19,
+     "distintas": 19,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "74": {
+     "nivel": "departamento",
+     "unidades": 9,
+     "distintas": 9,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "78": {
+     "nivel": "departamento",
+     "unidades": 7,
+     "distintas": 7,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "82": {
+     "nivel": "departamento",
+     "unidades": 19,
+     "distintas": 19,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "86": {
+     "nivel": "departamento",
+     "unidades": 27,
+     "distintas": 27,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "90": {
+     "nivel": "departamento",
+     "unidades": 17,
+     "distintas": 17,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "94": {
+     "nivel": "departamento",
+     "unidades": 3,
+     "distintas": 3,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 99.5
+    }
+   }
+  },
+  "1997-general-diputados": {
+   "sin_par": [],
+   "parecidos": [
+    "22: Pdte. De la Plaza -> PRESIDENCIADELAPLAZA",
+    "26: Paso de Indios -> PASODELOSINDIOS",
+    "62: Pilcaniyeu -> PILNANIYEU",
+    "66: Gnral.José San Martín -> GENERALJOSEDESANMARTIN",
+    "86: Pellegrini -> PELEGRINI",
+    "90: Famaillá -> FAMALLA"
+   ],
+   "provincias": {
+    "02": {
+     "nivel": "provincia",
+     "unidades": 28,
+     "distintas": 28,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 99.9
+    },
+    "06": {
+     "nivel": "departamento",
+     "unidades": 134,
+     "distintas": 134,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "10": {
+     "nivel": "departamento",
+     "unidades": 16,
+     "distintas": 16,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "14": {
+     "nivel": "departamento",
+     "unidades": 26,
+     "distintas": 26,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "18": {
+     "nivel": "departamento",
+     "unidades": 25,
+     "distintas": 25,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "22": {
+     "nivel": "departamento",
+     "unidades": 25,
+     "distintas": 25,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "26": {
+     "nivel": "departamento",
+     "unidades": 15,
+     "distintas": 15,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "30": {
+     "nivel": "departamento",
+     "unidades": 16,
+     "distintas": 16,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 99.9
+    },
+    "34": {
+     "nivel": "departamento",
+     "unidades": 9,
+     "distintas": 9,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "38": {
+     "nivel": "departamento",
+     "unidades": 16,
+     "distintas": 16,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "42": {
+     "nivel": "departamento",
+     "unidades": 22,
+     "distintas": 22,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "46": {
+     "nivel": "departamento",
+     "unidades": 18,
+     "distintas": 18,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "50": {
+     "nivel": "departamento",
+     "unidades": 18,
+     "distintas": 18,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "54": {
+     "nivel": "departamento",
+     "unidades": 17,
+     "distintas": 17,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 99.9
+    },
+    "58": {
+     "nivel": "departamento",
+     "unidades": 16,
+     "distintas": 16,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "62": {
+     "nivel": "departamento",
+     "unidades": 13,
+     "distintas": 13,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "66": {
+     "nivel": "departamento",
+     "unidades": 23,
+     "distintas": 23,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "70": {
+     "nivel": "departamento",
+     "unidades": 19,
+     "distintas": 19,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "74": {
+     "nivel": "provincia",
+     "unidades": 9,
+     "distintas": 1,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "78": {
+     "nivel": "departamento",
+     "unidades": 7,
+     "distintas": 7,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "82": {
+     "nivel": "departamento",
+     "unidades": 19,
+     "distintas": 19,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "86": {
+     "nivel": "departamento",
+     "unidades": 27,
+     "distintas": 27,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "90": {
+     "nivel": "departamento",
+     "unidades": 17,
+     "distintas": 17,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "94": {
+     "nivel": "departamento",
+     "unidades": 3,
+     "distintas": 3,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 99.6
+    }
+   }
+  },
+  "1999-general-presidente": {
+   "sin_par": [],
+   "parecidos": [
+    "22: Pdte. De la Plaza -> PRESIDENCIADELAPLAZA",
+    "26: Paso de Indios -> PASODELOSINDIOS",
+    "62: Pilcaniyeu -> PILNANIYEU",
+    "66: Gnral.José San Martín -> GENERALJOSEDESANMARTIN",
+    "86: Pellegrini -> PELEGRINI",
+    "90: Famaillá -> FAMALLA"
+   ],
+   "provincias": {
+    "02": {
+     "nivel": "provincia",
+     "unidades": 28,
+     "distintas": 28,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 99.8
+    },
+    "06": {
+     "nivel": "departamento",
+     "unidades": 134,
+     "distintas": 134,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "10": {
+     "nivel": "departamento",
+     "unidades": 16,
+     "distintas": 16,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 98.9
+    },
+    "14": {
+     "nivel": "departamento",
+     "unidades": 26,
+     "distintas": 26,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "18": {
+     "nivel": "departamento",
+     "unidades": 25,
+     "distintas": 25,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "22": {
+     "nivel": "departamento",
+     "unidades": 25,
+     "distintas": 25,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "26": {
+     "nivel": "departamento",
+     "unidades": 15,
+     "distintas": 15,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "30": {
+     "nivel": "departamento",
+     "unidades": 17,
+     "distintas": 17,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "34": {
+     "nivel": "departamento",
+     "unidades": 9,
+     "distintas": 9,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "38": {
+     "nivel": "departamento",
+     "unidades": 16,
+     "distintas": 16,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "42": {
+     "nivel": "departamento",
+     "unidades": 22,
+     "distintas": 22,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "46": {
+     "nivel": "departamento",
+     "unidades": 18,
+     "distintas": 18,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 99.5
+    },
+    "50": {
+     "nivel": "departamento",
+     "unidades": 18,
+     "distintas": 18,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "54": {
+     "nivel": "departamento",
+     "unidades": 17,
+     "distintas": 17,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "58": {
+     "nivel": "departamento",
+     "unidades": 16,
+     "distintas": 16,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "62": {
+     "nivel": "departamento",
+     "unidades": 13,
+     "distintas": 13,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "66": {
+     "nivel": "departamento",
+     "unidades": 23,
+     "distintas": 23,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "70": {
+     "nivel": "departamento",
+     "unidades": 19,
+     "distintas": 19,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "74": {
+     "nivel": "departamento",
+     "unidades": 9,
+     "distintas": 9,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 99.6
+    },
+    "78": {
+     "nivel": "departamento",
+     "unidades": 7,
+     "distintas": 7,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 99.9
+    },
+    "82": {
+     "nivel": "departamento",
+     "unidades": 19,
+     "distintas": 19,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "86": {
+     "nivel": "departamento",
+     "unidades": 27,
+     "distintas": 27,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "90": {
+     "nivel": "departamento",
+     "unidades": 17,
+     "distintas": 17,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 99.7
+    },
+    "94": {
+     "nivel": "departamento",
+     "unidades": 3,
+     "distintas": 3,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    }
+   }
+  },
+  "1999-general-diputados": {
+   "sin_par": [],
+   "parecidos": [
+    "22: Pdte. De la Plaza -> PRESIDENCIADELAPLAZA",
+    "26: Paso de Indios -> PASODELOSINDIOS",
+    "62: Pilcaniyeu -> PILNANIYEU",
+    "66: Gnral.José San Martín -> GENERALJOSEDESANMARTIN",
+    "86: Pellegrini -> PELEGRINI",
+    "90: Famaillá -> FAMALLA"
+   ],
+   "provincias": {
+    "02": {
+     "nivel": "provincia",
+     "unidades": 28,
+     "distintas": 28,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 99.8
+    },
+    "06": {
+     "nivel": "departamento",
+     "unidades": 134,
+     "distintas": 134,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "10": {
+     "nivel": "departamento",
+     "unidades": 16,
+     "distintas": 16,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 98.9
+    },
+    "14": {
+     "nivel": "departamento",
+     "unidades": 26,
+     "distintas": 26,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "18": {
+     "nivel": "departamento",
+     "unidades": 25,
+     "distintas": 25,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 99.1
+    },
+    "22": {
+     "nivel": "departamento",
+     "unidades": 25,
+     "distintas": 25,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "26": {
+     "nivel": "departamento",
+     "unidades": 15,
+     "distintas": 15,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "30": {
+     "nivel": "departamento",
+     "unidades": 17,
+     "distintas": 17,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "34": {
+     "nivel": "departamento",
+     "unidades": 9,
+     "distintas": 9,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "38": {
+     "nivel": "departamento",
+     "unidades": 16,
+     "distintas": 16,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "42": {
+     "nivel": "departamento",
+     "unidades": 22,
+     "distintas": 22,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "46": {
+     "nivel": "departamento",
+     "unidades": 18,
+     "distintas": 18,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "50": {
+     "nivel": "departamento",
+     "unidades": 18,
+     "distintas": 18,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "54": {
+     "nivel": "departamento",
+     "unidades": 17,
+     "distintas": 17,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 99.8
+    },
+    "58": {
+     "nivel": "departamento",
+     "unidades": 16,
+     "distintas": 16,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "62": {
+     "nivel": "departamento",
+     "unidades": 13,
+     "distintas": 13,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "66": {
+     "nivel": "departamento",
+     "unidades": 23,
+     "distintas": 23,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "70": {
+     "nivel": "departamento",
+     "unidades": 19,
+     "distintas": 19,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "74": {
+     "nivel": "provincia",
+     "unidades": 9,
+     "distintas": 1,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "78": {
+     "nivel": "provincia",
+     "unidades": 7,
+     "distintas": 1,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "82": {
+     "nivel": "departamento",
+     "unidades": 19,
+     "distintas": 19,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "86": {
+     "nivel": "departamento",
+     "unidades": 27,
+     "distintas": 27,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "90": {
+     "nivel": "departamento",
+     "unidades": 17,
+     "distintas": 17,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 99.7
+    },
+    "94": {
+     "nivel": "departamento",
+     "unidades": 3,
+     "distintas": 3,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    }
+   }
+  },
+  "2001-general-diputados": {
+   "sin_par": [],
+   "parecidos": [
+    "22: Pdte. De la Plaza -> PRESIDENCIADELAPLAZA",
+    "26: Paso de Indios -> PASODELOSINDIOS",
+    "62: Pilcaniyeu -> PILNANIYEU",
+    "66: Gnral.José San Martín -> GENERALJOSEDESANMARTIN",
+    "86: Pellegrini -> PELEGRINI",
+    "90: Famaillá -> FAMALLA"
+   ],
+   "provincias": {
+    "02": {
+     "nivel": "provincia",
+     "unidades": 28,
+     "distintas": 28,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 98.8
+    },
+    "06": {
+     "nivel": "departamento",
+     "unidades": 134,
+     "distintas": 134,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 95.4
+    },
+    "10": {
+     "nivel": "departamento",
+     "unidades": 16,
+     "distintas": 16,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 98.8
+    },
+    "14": {
+     "nivel": "departamento",
+     "unidades": 26,
+     "distintas": 26,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 99.6
+    },
+    "18": {
+     "nivel": "departamento",
+     "unidades": 25,
+     "distintas": 25,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 102.0
+    },
+    "22": {
+     "nivel": "departamento",
+     "unidades": 25,
+     "distintas": 25,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 99.8
+    },
+    "26": {
+     "nivel": "departamento",
+     "unidades": 15,
+     "distintas": 15,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 98.3
+    },
+    "30": {
+     "nivel": "departamento",
+     "unidades": 17,
+     "distintas": 17,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "34": {
+     "nivel": "departamento",
+     "unidades": 9,
+     "distintas": 9,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 99.6
+    },
+    "38": {
+     "nivel": "departamento",
+     "unidades": 15,
+     "distintas": 15,
+     "sin_dato_propio": 1,
+     "suma_del_definitivo": 98.2
+    },
+    "42": {
+     "nivel": "departamento",
+     "unidades": 22,
+     "distintas": 22,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 99.9
+    },
+    "46": {
+     "nivel": "departamento",
+     "unidades": 18,
+     "distintas": 18,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 99.7
+    },
+    "50": {
+     "nivel": "departamento",
+     "unidades": 18,
+     "distintas": 18,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 99.4
+    },
+    "54": {
+     "nivel": "departamento",
+     "unidades": 17,
+     "distintas": 17,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 98.9
+    },
+    "58": {
+     "nivel": "departamento",
+     "unidades": 16,
+     "distintas": 16,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 99.7
+    },
+    "62": {
+     "nivel": "departamento",
+     "unidades": 13,
+     "distintas": 13,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "66": {
+     "nivel": "departamento",
+     "unidades": 22,
+     "distintas": 22,
+     "sin_dato_propio": 1,
+     "suma_del_definitivo": 93.5
+    },
+    "70": {
+     "nivel": "departamento",
+     "unidades": 19,
+     "distintas": 19,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 99.8
+    },
+    "74": {
+     "nivel": "departamento",
+     "unidades": 9,
+     "distintas": 9,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 98.6
+    },
+    "78": {
+     "nivel": "departamento",
+     "unidades": 7,
+     "distintas": 7,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 99.9
+    },
+    "82": {
+     "nivel": "departamento",
+     "unidades": 19,
+     "distintas": 19,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 99.7
+    },
+    "86": {
+     "nivel": "departamento",
+     "unidades": 27,
+     "distintas": 27,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 96.7
+    },
+    "90": {
+     "nivel": "departamento",
+     "unidades": 17,
+     "distintas": 17,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 99.3
+    },
+    "94": {
+     "nivel": "departamento",
+     "unidades": 3,
+     "distintas": 3,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 99.6
+    }
+   }
+  },
+  "2003-general-diputados": {
+   "sin_par": [],
+   "parecidos": [],
+   "provincias": {
+    "02": {
+     "nivel": "provincia",
+     "unidades": 28,
+     "distintas": 28,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "06": {
+     "nivel": "departamento",
+     "unidades": 134,
+     "distintas": 134,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "10": {
+     "nivel": "departamento",
+     "unidades": 16,
+     "distintas": 16,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "14": {
+     "nivel": "departamento",
+     "unidades": 26,
+     "distintas": 26,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "18": {
+     "nivel": "departamento",
+     "unidades": 25,
+     "distintas": 25,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "22": {
+     "nivel": "departamento",
+     "unidades": 25,
+     "distintas": 25,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "26": {
+     "nivel": "departamento",
+     "unidades": 15,
+     "distintas": 15,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "30": {
+     "nivel": "departamento",
+     "unidades": 17,
+     "distintas": 17,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "34": {
+     "nivel": "departamento",
+     "unidades": 9,
+     "distintas": 9,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "38": {
+     "nivel": "departamento",
+     "unidades": 16,
+     "distintas": 16,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "42": {
+     "nivel": "provincia",
+     "unidades": 22,
+     "distintas": 1,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "46": {
+     "nivel": "departamento",
+     "unidades": 18,
+     "distintas": 18,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "50": {
+     "nivel": "departamento",
+     "unidades": 18,
+     "distintas": 18,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "54": {
+     "nivel": "departamento",
+     "unidades": 17,
+     "distintas": 17,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "58": {
+     "nivel": "departamento",
+     "unidades": 16,
+     "distintas": 16,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "62": {
+     "nivel": "departamento",
+     "unidades": 13,
+     "distintas": 13,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "66": {
+     "nivel": "departamento",
+     "unidades": 23,
+     "distintas": 23,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "70": {
+     "nivel": "departamento",
+     "unidades": 19,
+     "distintas": 19,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "74": {
+     "nivel": "departamento",
+     "unidades": 9,
+     "distintas": 9,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "78": {
+     "nivel": "departamento",
+     "unidades": 7,
+     "distintas": 7,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "82": {
+     "nivel": "departamento",
+     "unidades": 19,
+     "distintas": 19,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "86": {
+     "nivel": "departamento",
+     "unidades": 27,
+     "distintas": 27,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "90": {
+     "nivel": "departamento",
+     "unidades": 17,
+     "distintas": 17,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "94": {
+     "nivel": "departamento",
+     "unidades": 4,
+     "distintas": 4,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    }
+   }
+  },
+  "2003-general-presidente": {
+   "sin_par": [],
+   "parecidos": [],
+   "provincias": {
+    "02": {
+     "nivel": "provincia",
+     "unidades": 28,
+     "distintas": 28,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 99.6
+    },
+    "06": {
+     "nivel": "departamento",
+     "unidades": 134,
+     "distintas": 134,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 99.0
+    },
+    "10": {
+     "nivel": "departamento",
+     "unidades": 16,
+     "distintas": 16,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 104.7
+    },
+    "14": {
+     "nivel": "departamento",
+     "unidades": 26,
+     "distintas": 26,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 99.4
+    },
+    "18": {
+     "nivel": "departamento",
+     "unidades": 25,
+     "distintas": 25,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 115.7
+    },
+    "22": {
+     "nivel": "departamento",
+     "unidades": 25,
+     "distintas": 25,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 99.8
+    },
+    "26": {
+     "nivel": "departamento",
+     "unidades": 15,
+     "distintas": 15,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 99.2
+    },
+    "30": {
+     "nivel": "departamento",
+     "unidades": 17,
+     "distintas": 17,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.8
+    },
+    "34": {
+     "nivel": "departamento",
+     "unidades": 9,
+     "distintas": 9,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 115.1
+    },
+    "38": {
+     "nivel": "departamento",
+     "unidades": 16,
+     "distintas": 16,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 98.9
+    },
+    "42": {
+     "nivel": "departamento",
+     "unidades": 22,
+     "distintas": 22,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 115.5
+    },
+    "46": {
+     "nivel": "departamento",
+     "unidades": 18,
+     "distintas": 18,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 99.4
+    },
+    "50": {
+     "nivel": "departamento",
+     "unidades": 18,
+     "distintas": 18,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 110.9
+    },
+    "54": {
+     "nivel": "departamento",
+     "unidades": 17,
+     "distintas": 17,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 99.5
+    },
+    "58": {
+     "nivel": "departamento",
+     "unidades": 16,
+     "distintas": 16,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 99.8
+    },
+    "62": {
+     "nivel": "departamento",
+     "unidades": 13,
+     "distintas": 13,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 113.0
+    },
+    "66": {
+     "nivel": "departamento",
+     "unidades": 23,
+     "distintas": 23,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 97.0
+    },
+    "70": {
+     "nivel": "departamento",
+     "unidades": 19,
+     "distintas": 19,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 116.1
+    },
+    "74": {
+     "nivel": "departamento",
+     "unidades": 9,
+     "distintas": 9,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 108.0
+    },
+    "78": {
+     "nivel": "departamento",
+     "unidades": 7,
+     "distintas": 7,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 111.5
+    },
+    "82": {
+     "nivel": "departamento",
+     "unidades": 19,
+     "distintas": 19,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 102.6
+    },
+    "86": {
+     "nivel": "departamento",
+     "unidades": 27,
+     "distintas": 27,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 104.0
+    },
+    "90": {
+     "nivel": "departamento",
+     "unidades": 17,
+     "distintas": 17,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 99.7
+    },
+    "94": {
+     "nivel": "departamento",
+     "unidades": 4,
+     "distintas": 4,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 109.8
+    }
+   }
+  },
+  "2005-general-diputados": {
+   "sin_par": [],
+   "parecidos": [],
+   "provincias": {
+    "02": {
+     "nivel": "provincia",
+     "unidades": 28,
+     "distintas": 28,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 98.5
+    },
+    "06": {
+     "nivel": "departamento",
+     "unidades": 134,
+     "distintas": 134,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 96.5
+    },
+    "10": {
+     "nivel": "departamento",
+     "unidades": 16,
+     "distintas": 16,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 103.1
+    },
+    "14": {
+     "nivel": "departamento",
+     "unidades": 26,
+     "distintas": 26,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 99.6
+    },
+    "18": {
+     "nivel": "departamento",
+     "unidades": 25,
+     "distintas": 25,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 99.5
+    },
+    "22": {
+     "nivel": "departamento",
+     "unidades": 25,
+     "distintas": 25,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 99.8
+    },
+    "26": {
+     "nivel": "departamento",
+     "unidades": 15,
+     "distintas": 15,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 99.5
+    },
+    "30": {
+     "nivel": "departamento",
+     "unidades": 17,
+     "distintas": 17,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.3
+    },
+    "34": {
+     "nivel": "departamento",
+     "unidades": 9,
+     "distintas": 9,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 97.5
+    },
+    "38": {
+     "nivel": "departamento",
+     "unidades": 16,
+     "distintas": 16,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 99.2
+    },
+    "42": {
+     "nivel": "departamento",
+     "unidades": 22,
+     "distintas": 22,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "46": {
+     "nivel": "departamento",
+     "unidades": 18,
+     "distintas": 18,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.2
+    },
+    "50": {
+     "nivel": "departamento",
+     "unidades": 18,
+     "distintas": 18,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 108.0
+    },
+    "54": {
+     "nivel": "departamento",
+     "unidades": 17,
+     "distintas": 17,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 99.5
+    },
+    "58": {
+     "nivel": "departamento",
+     "unidades": 16,
+     "distintas": 16,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 99.7
+    },
+    "62": {
+     "nivel": "departamento",
+     "unidades": 13,
+     "distintas": 13,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 99.7
+    },
+    "66": {
+     "nivel": "departamento",
+     "unidades": 23,
+     "distintas": 23,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 96.9
+    },
+    "70": {
+     "nivel": "departamento",
+     "unidades": 19,
+     "distintas": 19,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 98.9
+    },
+    "74": {
+     "nivel": "departamento",
+     "unidades": 9,
+     "distintas": 9,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 112.2
+    },
+    "78": {
+     "nivel": "departamento",
+     "unidades": 7,
+     "distintas": 7,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 108.4
+    },
+    "82": {
+     "nivel": "departamento",
+     "unidades": 19,
+     "distintas": 19,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 101.6
+    },
+    "86": {
+     "nivel": "departamento",
+     "unidades": 27,
+     "distintas": 27,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 104.7
+    },
+    "90": {
+     "nivel": "departamento",
+     "unidades": 17,
+     "distintas": 17,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.1
+    },
+    "94": {
+     "nivel": "departamento",
+     "unidades": 4,
+     "distintas": 4,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 99.7
+    }
+   }
+  },
+  "2007-general-diputados": {
+   "sin_par": [],
+   "parecidos": [],
+   "provincias": {
+    "02": {
+     "nivel": "provincia",
+     "unidades": 28,
+     "distintas": 28,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 98.5
+    },
+    "06": {
+     "nivel": "departamento",
+     "unidades": 134,
+     "distintas": 134,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 97.5
+    },
+    "10": {
+     "nivel": "departamento",
+     "unidades": 16,
+     "distintas": 16,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 104.8
+    },
+    "14": {
+     "nivel": "departamento",
+     "unidades": 26,
+     "distintas": 26,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 91.3
+    },
+    "18": {
+     "nivel": "departamento",
+     "unidades": 25,
+     "distintas": 25,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "22": {
+     "nivel": "departamento",
+     "unidades": 25,
+     "distintas": 25,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 97.2
+    },
+    "26": {
+     "nivel": "departamento",
+     "unidades": 15,
+     "distintas": 15,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 99.5
+    },
+    "30": {
+     "nivel": "departamento",
+     "unidades": 17,
+     "distintas": 17,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 99.6
+    },
+    "34": {
+     "nivel": "departamento",
+     "unidades": 9,
+     "distintas": 9,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 87.7
+    },
+    "38": {
+     "nivel": "departamento",
+     "unidades": 16,
+     "distintas": 16,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 98.7
+    },
+    "42": {
+     "nivel": "departamento",
+     "unidades": 22,
+     "distintas": 22,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 99.3
+    },
+    "46": {
+     "nivel": "departamento",
+     "unidades": 18,
+     "distintas": 18,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 98.8
+    },
+    "50": {
+     "nivel": "departamento",
+     "unidades": 18,
+     "distintas": 18,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 112.2
+    },
+    "54": {
+     "nivel": "departamento",
+     "unidades": 17,
+     "distintas": 17,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 93.1
+    },
+    "58": {
+     "nivel": "departamento",
+     "unidades": 16,
+     "distintas": 16,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 99.3
+    },
+    "62": {
+     "nivel": "departamento",
+     "unidades": 13,
+     "distintas": 13,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 99.2
+    },
+    "66": {
+     "nivel": "departamento",
+     "unidades": 23,
+     "distintas": 23,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 97.7
+    },
+    "70": {
+     "nivel": "departamento",
+     "unidades": 19,
+     "distintas": 19,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 99.4
+    },
+    "74": {
+     "nivel": "departamento",
+     "unidades": 9,
+     "distintas": 9,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 98.8
+    },
+    "78": {
+     "nivel": "departamento",
+     "unidades": 7,
+     "distintas": 7,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 108.4
+    },
+    "82": {
+     "nivel": "departamento",
+     "unidades": 19,
+     "distintas": 19,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.1
+    },
+    "86": {
+     "nivel": "departamento",
+     "unidades": 27,
+     "distintas": 27,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 104.6
+    },
+    "90": {
+     "nivel": "departamento",
+     "unidades": 17,
+     "distintas": 17,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 98.2
+    },
+    "94": {
+     "nivel": "departamento",
+     "unidades": 4,
+     "distintas": 4,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 99.6
+    }
+   }
+  },
+  "2007-general-presidente": {
+   "sin_par": [],
+   "parecidos": [],
+   "provincias": {
+    "02": {
+     "nivel": "provincia",
+     "unidades": 28,
+     "distintas": 28,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 99.2
+    },
+    "06": {
+     "nivel": "departamento",
+     "unidades": 134,
+     "distintas": 134,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 97.4
+    },
+    "10": {
+     "nivel": "departamento",
+     "unidades": 16,
+     "distintas": 16,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 103.4
+    },
+    "14": {
+     "nivel": "departamento",
+     "unidades": 26,
+     "distintas": 26,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 98.5
+    },
+    "18": {
+     "nivel": "departamento",
+     "unidades": 25,
+     "distintas": 25,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 99.2
+    },
+    "22": {
+     "nivel": "departamento",
+     "unidades": 25,
+     "distintas": 25,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 98.5
+    },
+    "26": {
+     "nivel": "departamento",
+     "unidades": 15,
+     "distintas": 15,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 99.8
+    },
+    "30": {
+     "nivel": "departamento",
+     "unidades": 17,
+     "distintas": 17,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.3
+    },
+    "34": {
+     "nivel": "departamento",
+     "unidades": 9,
+     "distintas": 9,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 93.9
+    },
+    "38": {
+     "nivel": "departamento",
+     "unidades": 16,
+     "distintas": 16,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 95.8
+    },
+    "42": {
+     "nivel": "departamento",
+     "unidades": 22,
+     "distintas": 22,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 98.1
+    },
+    "46": {
+     "nivel": "departamento",
+     "unidades": 18,
+     "distintas": 18,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 99.3
+    },
+    "50": {
+     "nivel": "departamento",
+     "unidades": 18,
+     "distintas": 18,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 104.9
+    },
+    "54": {
+     "nivel": "departamento",
+     "unidades": 17,
+     "distintas": 17,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 96.3
+    },
+    "58": {
+     "nivel": "departamento",
+     "unidades": 16,
+     "distintas": 16,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.3
+    },
+    "62": {
+     "nivel": "departamento",
+     "unidades": 13,
+     "distintas": 13,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.1
+    },
+    "66": {
+     "nivel": "departamento",
+     "unidades": 23,
+     "distintas": 23,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 97.9
+    },
+    "70": {
+     "nivel": "departamento",
+     "unidades": 19,
+     "distintas": 19,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 99.8
+    },
+    "74": {
+     "nivel": "departamento",
+     "unidades": 9,
+     "distintas": 9,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 99.6
+    },
+    "78": {
+     "nivel": "departamento",
+     "unidades": 7,
+     "distintas": 7,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 111.2
+    },
+    "82": {
+     "nivel": "departamento",
+     "unidades": 19,
+     "distintas": 19,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.8
+    },
+    "86": {
+     "nivel": "departamento",
+     "unidades": 27,
+     "distintas": 27,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 99.8
+    },
+    "90": {
+     "nivel": "departamento",
+     "unidades": 17,
+     "distintas": 17,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 99.6
+    },
+    "94": {
+     "nivel": "departamento",
+     "unidades": 4,
+     "distintas": 4,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 99.0
+    }
+   }
+  },
+  "2009-general-diputados": {
+   "sin_par": [],
+   "parecidos": [
+    "26: Paso de Indios -> PASODELOSINDIOS",
+    "46: General Juan Facundo Quiroga -> GENERALJUANFQUIROGA",
+    "46: General Ortiz de Ocampo -> GENERALOCAMPO",
+    "62: Pilcaniyeu -> PILNANIYEU",
+    "86: Pellegrini -> PELEGRINI",
+    "90: Famaillá -> FAMALLA"
+   ],
+   "provincias": {
+    "02": {
+     "nivel": "departamento",
+     "unidades": 15,
+     "distintas": 15,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 97.6
+    },
+    "06": {
+     "nivel": "departamento",
+     "unidades": 134,
+     "distintas": 134,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "10": {
+     "nivel": "departamento",
+     "unidades": 16,
+     "distintas": 16,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 101.5
+    },
+    "14": {
+     "nivel": "departamento",
+     "unidades": 26,
+     "distintas": 26,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 99.1
+    },
+    "18": {
+     "nivel": "departamento",
+     "unidades": 25,
+     "distintas": 25,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 99.9
+    },
+    "22": {
+     "nivel": "departamento",
+     "unidades": 25,
+     "distintas": 25,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 99.4
+    },
+    "26": {
+     "nivel": "departamento",
+     "unidades": 15,
+     "distintas": 15,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 99.1
+    },
+    "30": {
+     "nivel": "departamento",
+     "unidades": 17,
+     "distintas": 17,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.8
+    },
+    "34": {
+     "nivel": "departamento",
+     "unidades": 9,
+     "distintas": 9,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 97.6
+    },
+    "38": {
+     "nivel": "departamento",
+     "unidades": 16,
+     "distintas": 16,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 98.4
+    },
+    "42": {
+     "nivel": "departamento",
+     "unidades": 22,
+     "distintas": 22,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "46": {
+     "nivel": "departamento",
+     "unidades": 18,
+     "distintas": 18,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 96.8
+    },
+    "50": {
+     "nivel": "departamento",
+     "unidades": 18,
+     "distintas": 18,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 108.7
+    },
+    "54": {
+     "nivel": "departamento",
+     "unidades": 17,
+     "distintas": 17,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 98.3
+    },
+    "58": {
+     "nivel": "departamento",
+     "unidades": 16,
+     "distintas": 16,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 98.4
+    },
+    "62": {
+     "nivel": "departamento",
+     "unidades": 13,
+     "distintas": 13,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 99.9
+    },
+    "66": {
+     "nivel": "departamento",
+     "unidades": 23,
+     "distintas": 23,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 98.8
+    },
+    "70": {
+     "nivel": "departamento",
+     "unidades": 19,
+     "distintas": 19,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 100.0
+    },
+    "74": {
+     "nivel": "departamento",
+     "unidades": 9,
+     "distintas": 9,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 99.5
+    },
+    "78": {
+     "nivel": "departamento",
+     "unidades": 7,
+     "distintas": 7,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 109.5
+    },
+    "82": {
+     "nivel": "departamento",
+     "unidades": 19,
+     "distintas": 19,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 101.2
+    },
+    "86": {
+     "nivel": "departamento",
+     "unidades": 27,
+     "distintas": 27,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 103.7
+    },
+    "90": {
+     "nivel": "departamento",
+     "unidades": 17,
+     "distintas": 17,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 99.4
+    },
+    "94": {
+     "nivel": "departamento",
+     "unidades": 4,
+     "distintas": 4,
+     "sin_dato_propio": 0,
+     "suma_del_definitivo": 99.9
+    }
+   }
+  }
+ }
+}

@@ -8320,10 +8320,6 @@ function pintarCompara() {
 // Rehecho el 5 de noviembre de 2026 (pedido y decisiones del autor): la evolución cada dos años y no una recta, con el mejor puesto arriba, verde
 // si mejoró y rojo si empeoró. Como arriba siempre es mejor, verde siempre sube y rojo siempre baja, en todas las tarjetas. El color nunca va
 // solo: la tarjeta lo dice en palabras. Un indicador "neutro" (el gasto en personal) va en gris, con el puesto 1 como la cifra más alta
-const PUESTO_NOTA = {
-  recursos_propios_pct_ingresos: "Más recursos propios cuenta como mejora: es menos dependencia de los fondos nacionales.",
-  gasto_personal_pct_gasto: "Va en gris: más gasto en personal no es por sí solo mejor ni peor. El puesto 1 es la cifra más alta.",
-};
 // el dibujo, a la medida de la tarjeta para que la letra no cambie de tamaño. El marco es el puesto 1 y el 24, con el puesto solo en los extremos
 function pendientePuesto(s, w) {
   const h = 92, izq = 34, der = 34, arr = 8, ab = 22, ini = s[0], fin = s[s.length - 1];
@@ -8360,8 +8356,9 @@ function pintarPuestos() {
         `<span class="dp-det">${ini.unidad}</span><svg class="dp-pendiente ${clase}" data-v="${v}" aria-hidden="true"></svg>` +
         `<span class="solo-lector">Puesto por año: ${s.map(r => `${r.anio}, ${r.puesto}`).join(". ")}.</span>` +
         `<span class="dp-pos"><b class="dp-cambio ${clase}">${cambio}.</b> En ${ini.anio}, puesto ${ini.puesto} (${num(ini.valor)}). En ${fin.anio}, puesto ${fin.puesto} ` +
-        `(${num(fin.valor)}).</span><span class="dp-aclara">${PUESTO_NOTA[v] || ""}</span></a>`;
-    }).join("") + `</div>`;
+        `(${num(fin.valor)}).</span></a>`;
+    }).join("") + `</div><p class="tabla-nota">Más recursos propios cuenta como mejora: es menos dependencia de los fondos nacionales. El gasto en personal va en gris porque ` +
+    `más gasto no es por sí solo mejor ni peor, y su puesto 1 es la cifra más alta.</p>`;
   caja.querySelectorAll(".dp-pendiente").forEach(svg => {
     const w = Math.max(160, svg.clientWidth || 200), {s} = series.find(o => o.v === svg.dataset.v);
     svg.setAttribute("viewBox", `0 0 ${w} 92`);

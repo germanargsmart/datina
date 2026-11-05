@@ -2938,7 +2938,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     <h2>Elecciones por mesa</h2>
     <div class="tema-intro">
       <p class="pregunta">¿Cómo se votó en cada circuito y en cada mesa?</p>
-      <p>Los resultados de presidente, diputados y senadores nacionales, de todo el país a cada mesa. Por mesa y por circuito hay datos de {{mesas.desde_mesa}} a {{mesas.hasta}}, y por jurisdicción desde {{mesas.desde}}.</p>
+      <p>Los resultados de presidente, diputados y senadores nacionales, de todo el país a cada mesa. Por mesa y por circuito hay datos de {{mesas.desde_mesa}} a {{mesas.hasta}}, y por departamento desde {{mesas.desde}}.</p>
     </div>
     <!--EXPLICADOR:mesas-->
     <div class="ms" id="ms" aria-busy="true">
@@ -2991,7 +2991,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       </section>
       <div id="ms-resultado"></div>
       <div class="ms-pie">
-        <span>Fuente: Dirección Nacional Electoral, Ministerio del Interior (escrutinio provisorio por mesa desde {{mesas.desde_mesa}}, definitivo por jurisdicción antes). Licencia CC-BY 4.0. Mapa: circuitos de la Cámara Nacional Electoral y de Franco Galeano (CC BY 4.0). Fuerzas y colores a partir de 257arg (CC BY 4.0)</span>
+        <span>Fuente: Dirección Nacional Electoral, Ministerio del Interior (escrutinio provisorio por mesa desde {{mesas.desde_mesa}}, definitivo por jurisdicción antes). Licencia CC-BY 4.0. Mapa: circuitos de la Cámara Nacional Electoral y de Franco Galeano (CC BY 4.0). Departamentos hasta {{mesas.hist_hasta}}: 257arg (CC BY 4.0), a partir de Ernesto Calvo y PolAr, con la geometría de Rodríguez, CEUR-CONICET (CC BY 2.5 AR). Fuerzas y colores a partir de 257arg</span>
         <span class="ms-bajadas"><a class="enlace" id="ms-bajar" href="datos/mesas/indice.json" download>Descargar tabla (CSV)</a> <a class="enlace" id="ms-bajar-hist" href="datos/mesas/indice.json" download hidden>Descargar secciones y circuitos en cada elección (CSV)</a></span>
       </div>
       <div class="ms-limites nota-limites">
@@ -3002,7 +3002,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
           <li>Una mesa reúne a unos pocos cientos de electores. Su resultado no describe a un barrio y no dice cómo votó ninguna persona.</li>
           <li>El mapa dibuja los circuitos con su forma reciente, también en las elecciones viejas: un circuito pudo tener otros límites entonces. Un circuito sin mesas queda en gris: si vive gente ahí, vota en mesas de otro circuito.</li>
           <li>El color del mapa dice qué lista sacó más votos, no por cuánta gente: un circuito rural con pocos electores ocupa mucho más lugar que uno de ciudad con miles. Por eso las zonas de color no miden cuántos votos sacó cada fuerza.</li>
-          <li>Hasta {{mesas.hist_hasta}} la herramienta llega a la jurisdicción: por debajo no hay datos que se puedan publicar. Los motivos están en "Para entender los datos".</li>
+          <li>Hasta {{mesas.hist_hasta}} la herramienta llega al departamento, y los senadores, a la jurisdicción. Los departamentos no son el escrutinio definitivo y pueden no sumar exacto el total oficial. El detalle está en "Para entender los datos".</li>
         </ul>
       </div>
     </div>

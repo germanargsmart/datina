@@ -7332,10 +7332,6 @@ pintarCompara();
 document.getElementById("compara-sel").focus();
 });
 }
-const PUESTO_NOTA = {
-recursos_propios_pct_ingresos: "Más recursos propios cuenta como mejora: es menos dependencia de los fondos nacionales.",
-gasto_personal_pct_gasto: "Va en gris: más gasto en personal no es por sí solo mejor ni peor. El puesto 1 es la cifra más alta.",
-};
 function pendientePuesto(s, w) {
 const h = 92, izq = 34, der = 34, arr = 8, ab = 22, ini = s[0], fin = s[s.length - 1];
 const x = a => +(izq + (a - ini.anio) / (fin.anio - ini.anio) * (w - izq - der)).toFixed(1), y = p => +(arr + (p - 1) / 23 * (h - arr - ab)).toFixed(1);
@@ -7370,8 +7366,9 @@ return `<a class="tarjeta dp" href="${destinoDe("#" + ini.ficha) || "#" + ini.fi
 `<span class="dp-det">${ini.unidad}</span><svg class="dp-pendiente ${clase}" data-v="${v}" aria-hidden="true"></svg>` +
 `<span class="solo-lector">Puesto por año: ${s.map(r => `${r.anio}, ${r.puesto}`).join(". ")}.</span>` +
 `<span class="dp-pos"><b class="dp-cambio ${clase}">${cambio}.</b> En ${ini.anio}, puesto ${ini.puesto} (${num(ini.valor)}). En ${fin.anio}, puesto ${fin.puesto} ` +
-`(${num(fin.valor)}).</span><span class="dp-aclara">${PUESTO_NOTA[v] || ""}</span></a>`;
-}).join("") + `</div>`;
+`(${num(fin.valor)}).</span></a>`;
+}).join("") + `</div><p class="tabla-nota">Más recursos propios cuenta como mejora: es menos dependencia de los fondos nacionales. El gasto en personal va en gris porque ` +
+`más gasto no es por sí solo mejor ni peor, y su puesto 1 es la cifra más alta.</p>`;
 caja.querySelectorAll(".dp-pendiente").forEach(svg => {
 const w = Math.max(160, svg.clientWidth || 200), {s} = series.find(o => o.v === svg.dataset.v);
 svg.setAttribute("viewBox", `0 0 ${w} 92`);
