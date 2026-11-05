@@ -19,8 +19,31 @@ El autor dijo "como hablamos en su momento". Esa charla no está en las sesiones
 | 2003 a 2009 | Mesa | Atlas Electoral de Andy Tow, por medio de electorAr (`PoliticaArgentina/data_warehouse`) | No sin permiso. El proyecto electoral anotó que la licencia es CC BY-ND. El sitio del Atlas pide iniciar sesión y no se pudo comprobar de primera mano |
 | 1983 a 2001 | Circuito y departamento | Base de Ernesto Calvo (el repositorio `azha2005/257arg` dice que no se redistribuye) y base de Lupu y Stokes (por departamento, solo PJ, UCR y otros) | Los circuitos, no sin permiso. Los departamentos sí, por decisión del autor: los publica 257arg con CC BY 4.0 |
 | 1983 a 2009 | Jurisdicción | DINE, escrutinio definitivo: `datos/manual/presidenciales_provincia.csv` para presidente y un Excel por año para diputados y senadores | Sí |
+| 2011 a 2021 | Jurisdicción, definitivo | DINE: Excel por año (2011 a 2019), un CSV en ZIP (2017) y un RAR con un Excel por distrito exportado del sistema de la Cámara (2021) | Sí |
+| 2023 y 2025 | Jurisdicción, definitivo | Cámara Nacional Electoral: actas de escrutinio definitivo de cada junta, escaneadas, transcriptas en `datos/manual/mesas_definitivo_actas.csv` | Sí |
+| 2011 a 2025 | Mesa, definitivo | Cámara Nacional Electoral, `padron.gob.ar/publica`: de a una consulta y con código de seguridad | No como datos |
+| 2023 | Exterior por mesa y país | Cámara Nacional Electoral, padrón del Registro de Electores Residentes en el Exterior: país, consulado, mesa, distrito y electores. Votos por país: ninguna fuente | El padrón sí |
 
 Los senadores se eligen por voto directo desde 2001, y por eso no hay senadores antes. Para llegar más abajo hay que pedir permiso a Andy Tow y a Ernesto Calvo: lo decide y lo hace el autor.
+
+## El escrutinio definitivo (pedido del autor del 5 de noviembre de 2026)
+
+El autor pidió "para todas las elecciones el escrutinio definitivo y no el provisorio". Ningún organismo publica el definitivo mesa por mesa como datos: la Cámara lo muestra en `padron.gob.ar/publica`, de a una consulta y con un código de seguridad (captcha), que está para que no lo lea un programa, así que no se baja de ahí. La DINE y las actas de la Cámara traen el total de cada distrito. El autor eligió (respuesta del mismo día): el total del país y el de cada jurisdicción con el definitivo, en todas las elecciones, y las secciones, los circuitos y las mesas con el provisorio, rotulados, con lo que reúnen a la vista.
+
+- `scripts/elecciones_definitivo.py` escribe `sitio/datos/mesas/{eleccion}/definitivo.csv` (una fila por jurisdicción y lista, con el nombre de lista de las mesas) y suma a cada elección del índice `definitivo` (fuente) y `cobertura`. Se corre después de los otros cuatro programas: `elecciones_mesas.py` reescribe el índice. No baja más de unos MB.
+- Las actas de 2023 (general y segunda vuelta) y 2025 son escaneos. Se transcribieron el 5 de noviembre de 2026 con la página de cada número, y cada distrito cierra: las listas, los blancos y los nulos suman exacto los emitidos. Los recurridos e impugnados ya vienen resueltos (declarados válidos, nulos o blancos) y están dentro de esos totales: se anotan, no se suman. El total nacional de 2023 da exacto el oficial (Massa 9.853.492, Milei 8.034.990, Bullrich 6.379.023).
+- Errores de las actas, anotados en `datos/manual/mesas_definitivo_control.json`: San Juan y Corrientes en 2023 y Corrientes y Santa Fe en 2025 escriben un total de afirmativos que suma o resta los blancos o los nulos (manda la suma de las listas, que cierra con los emitidos). Corrientes 2025 dice 651.679 electores y su propio 59,99% da 951.679 (`CORRECCIONES`). San Luis no dice cuántos electores tiene: se usa el padrón por distrito de la Cámara (`total_electores_2023.zip` y `total_electores2025.zip`), que no cuenta el exterior.
+- El nombre de cada lista del definitivo se empareja con el de las mesas (`emparejar()`): igual, por palabras (con abreviaturas como "Izq." y "Trab."), y por último la única con votos compatibles. Todos los pares se revisaron a mano. Los que parecen raros son la misma lista: en San Juan 2011 la UCR fue dentro de UDESO, y en Santa Fe 2023 la lista de Schiaretti se llamó "La Fuerza de Santa Fe".
+- La página: el país y cada jurisdicción con el definitivo, y la tabla de secciones dice "Escrutinio provisorio" y qué parte del definitivo reúnen las mesas. Si `definitivo.csv` no llega, muestra la suma de las mesas y lo avisa.
+
+## El exterior y las cárceles (pedido del autor del 5 de noviembre de 2026)
+
+"Sumen las actas de voto en el exterior y lo pongas aparte, y en un desplegable pueda ver país por país, y el voto en las cárceles." El autor pidió buscar qué une cada mesa con su país. Lo encontrado:
+
+- El sistema de la Cámara guarda el exterior de cada distrito como una sola sección (900), un solo circuito y una sola mesa, y las cárceles como otra (800): se ve en los menús de `padron.gob.ar/publica`, que se cargan sin código, y en el Excel de 2021 de la DINE ("Residentes Exterior: 1 mesa"). Los votos país por país no existen en ningún sistema público: solo en las actas de cada consulado, en papel.
+- Lo que sí une la mesa con el país es el padrón del exterior de 2023 de la Cámara (`ResidentesExteriorGenerales2023.rar`): país, consulado, número de mesa, distrito por el que vota y electores. Va en `sitio/datos/mesas/exterior/padron-2023.csv` (449.909 electores, 86 países, 302 mesas), con los errores de tipeo de la fuente corregidos (`PAISES` y `CIUDADES`). No hay padrón de otros años en la página de la Cámara.
+- En la segunda vuelta de 2023 la Cámara publicó aparte el total del exterior (RERE) y el de las cárceles (REPL), en planillas que titula "consulta provisoria de totales". Siete actas de distrito dicen que no los incluyen y la suma de los 24 distritos da Milei 14.554.560 y Massa 11.598.720. Por eso van en `definitivo.csv` con los códigos `EX` y `PL`, la página los muestra aparte y no los suma al país. En las demás elecciones van dentro del total de cada distrito (las actas cuentan sus mesas especiales).
+- La página: un bloque debajo de las jurisdicciones, en la vista del país, con el exterior y las cárceles cuando están aparte y el desplegable del padrón en las elecciones de 2023 (`?pais=` guarda el país elegido).
 
 ## Cómo está armado
 
@@ -30,7 +53,8 @@ Los senadores se eligen por voto directo desde 2001, y por eso no hay senadores 
 - `sitio/datos/mesas/{eleccion}/{codigo_indec}.csv`: una fila por mesa, con una columna por lista. Es también la tabla que se descarga. Las columnas fijas son `seccion_id, seccion, circuito, mesa, electores, blancos, nulos, recurridos_impugnados`.
 - `sitio/datos/mesas/circuitos/{codigo_indec}.csv`: cada sección (con `circuito` vacío) y cada circuito en cada elección, con las dos listas más votadas.
 - `scripts/mesas.js`: el código de la página. 03 lo copia a `sitio/mesas.js` y lo pide solo `mesas.html`. Baja la tabla de la jurisdicción al elegirla y suma en el navegador. Las tablas no usan D3 ni DuckDB, y el mapa usa D3.
-- `scripts/prueba_mesas.py`: la corre 03 al final. Lo publicado tiene que sumar exacto lo que el archivo de origen, jurisdicción por jurisdicción, y dar los resultados conocidos.
+- `scripts/prueba_mesas.py`: la corre 03 al final. Lo publicado tiene que sumar exacto lo que el archivo de origen, jurisdicción por jurisdicción, y dar los resultados conocidos. Desde el 5 de noviembre de 2026 también controla el definitivo de cada elección por mesa (todas las jurisdicciones, las sumas y el resultado nacional), los nombres oficiales de las secciones de Santa Fe, el padrón del exterior y el fondo del mapa.
+- Orden para rearmar todo: `elecciones_mesas.py`, `elecciones_mapa.py`, `elecciones_departamentos.py`, `elecciones_antiguas.py` y `elecciones_definitivo.py`. `elecciones_mesas.py` borra `sitio/datos/mesas/` entero: para cambiar solo las elecciones por mesa conviene correrlo hacia otra carpeta y copiar lo suyo, como se hizo el 5 de noviembre de 2026 (comparando: todo lo que no era Santa Fe dio igual byte por byte).
 - No pasa por `tabla_larga.csv` (son millones de filas), y las tablas no van en el Catálogo: su glob mira solo `sitio/datos/*.csv`, y la página del Catálogo enlaza a la herramienta. No es una ficha, así que no necesita origen en `relaciones.json`.
 
 Medido el 4 de noviembre de 2026: 47 elecciones (22 por mesa), 472 archivos, 87 MB. El mayor es `2025-general-diputados/06.csv`, 2,5 MB. El sitio queda en unos 1.350 archivos, lejos del límite de 20.000 de Cloudflare Pages, y ninguno cerca de los 25 MiB.
@@ -52,7 +76,8 @@ Una trampa de esa regla: Cloudflare guarda los encabezados de la primera vez que
 - El mismo circuito llega como "0557 ", "000557" o "557", y la mesa como "0001" o "1". Se normalizan los dos, y se conserva la letra ("0062A" pasa a "62A").
 - "Diputados/as de la Ciudad" es la Legislatura de CABA, no la Cámara nacional.
 - En 2013, 909 mesas (las 9000, de extranjeros) no traen electores ni votos para diputados. Se sacan y se cuentan en el control.
-- El código de sección es estable de 2011 a 2025. Lo que cambia es la escritura ("Matanza", "La Matanza", "LA MATANZA"): 72 de 531 secciones. Se usa el nombre más largo que no venga todo en mayúsculas.
+- El código de sección es estable de 2011 a 2025 en 23 jurisdicciones. Lo que cambia es la escritura ("Matanza", "La Matanza", "LA MATANZA"). Se usa el nombre más largo que no venga todo en mayúsculas.
+- **Santa Fe renumeró sus secciones en 2023** (encontrado el 5 de noviembre de 2026). Hasta 2021 la DINE las numeraba por orden alfabético (1 Belgrano, 9 La Capital, 13 Rosario) y en 2011 y 2013 partía La Capital (la 10) y Rosario (la 14 y la 15), sin nombre. Desde 2023 usa el código oficial (1 La Capital, 13 Rosario, 17 Belgrano). Como se suponía estable, las secciones de Santa Fe llevaban el nombre de otro departamento en todas las elecciones y la historia mezclaba dos. `SANTA_FE_HASTA_2021` pasa cada una al código de 2023, con su nombre oficial: las filas son las mismas y solo cambian el código y el nombre.
 - En presidente antes de 2011 el partido cambia de una provincia a otra, porque las alianzas son provinciales. Se agrupa por fórmula: así 1983 da 51,75% y no 51,34%.
 - Errores de tipeo de los Excel, corregidos solo cuando son imposibles (cambia la cantidad de dígitos): votantes de La Rioja en senadores 2001 (14.642, suman 146.421), votantes de Santiago del Estero en diputados 2013 (51.006, suman 510.066), electores de Tierra del Fuego en diputados 2005 (7.065 con 55.700 votantes). También se saca una fila "DIREFENCIA EN ACTAS" de presidente 2007 en Río Negro. Una diferencia menor queda como la publica la fuente.
 - En 1987 votaron diputados 23 jurisdicciones (no está Tierra del Fuego), y hay 8 por año en senadores desde 2003.
@@ -69,7 +94,7 @@ Es la advertencia más importante de la herramienta. Los archivos por mesa son e
 | Presidente 2015, primera vuelta | Catamarca | 85,3% |
 | Presidente 2019 | Corrientes | 85,6% |
 
-La página lo avisa por debajo de 97% (`COBERTURA_AVISO` en `mesas.js`). Se mide contra el definitivo de la DINE: presidente 2011 a 2019 y legislativas 2011 a 2019. Las legislativas desde 2021 y las presidenciales de 2023 no tienen un definitivo publicado como datos, así que ahí la página no puede avisar. `prueba_mesas.py` frena si una jurisdicción sale de 75% a 101,5%.
+La tabla de secciones de cada jurisdicción lo dice siempre, y por debajo de 97% (`COBERTURA_AVISO` en `mesas.js`) también las secciones y los circuitos. Desde el 5 de noviembre de 2026 se mide en todas las elecciones por mesa (`elecciones_definitivo.py`): 2021 reúne 98,5% en diputados, 2023 98,1% en presidente (la menor, San Juan, 94,9%), la segunda vuelta 99,4% y 2025 99,0%. `prueba_mesas.py` frena si una jurisdicción sale de 75% a 101,5%.
 
 La participación tampoco coincide exacto con la ficha de elecciones de Política, a propósito. La ficha divide por todos los electores del archivo y la herramienta, solo por los de las mesas con resultado: en la segunda vuelta de 2023 da 75,8% en la ficha y 76,3% acá, porque 765 mesas figuran sin cargar.
 
@@ -86,19 +111,23 @@ Qué cartografía usa cada jurisdicción (`EDICION` en el script):
 | Cartografía | Dónde | Por qué |
 |---|---|---|
 | sigE de la Cámara Nacional Electoral | 19 jurisdicciones | La más completa, cubre toda la provincia |
-| Portal anterior de la Cámara | La Rioja, Mendoza, San Luis, Santa Cruz desde 2023 | El sigE rechaza esas descargas (403) |
-| Franco Galeano, corte 2021 (CC BY 4.0) | Santa Fe y Santa Cruz hasta 2021 | Sus códigos son los de las mesas de esos años |
-| Franco Galeano, corte 2025 (CC BY 4.0) | Santa Fe desde 2023 | La Cámara no trae códigos que se puedan unir |
+| Portal anterior de la Cámara | La Rioja, Mendoza, San Luis y Santa Cruz | El sigE rechaza esas descargas (403). En Santa Cruz hasta 2021, que usaba otra numeración, se pinta sección por sección (`POR_SECCION`) |
+| Departamentos del IGN (`sitio/datos/departamentos.topo.json`, de Georef) | Santa Fe | La Cámara no permite bajar sus circuitos ("un administrador deshabilitó la exportación de esta capa") ni trae códigos que se puedan unir. Se pinta por departamento |
 
-No se usó Galeano en todo el país: según 257arg, corre CABA unos 500 metros en 2025 y Neuquén unos 230 en 2021, y en Río Negro cubre 15% de la superficie, San Luis 22%, Mendoza 70% y Tierra del Fuego 3%.
+Solo cartografía oficial, por pedido del autor del 5 de noviembre de 2026 ("Solo deja fuentes oficiales"): hasta ese día Santa Fe y Santa Cruz hasta 2021 usaban la de Franco Galeano (CC BY 4.0), y `geo/g21` y `geo/g25` se borraron. Ese día la Cámara rechazaba desde la nube el portal anterior entero ("Request Rejected") y el sigE de Santa Fe y Santa Cruz, así que el mapa se rearmó con `--desde-publicado`, que lee los circuitos de la geometría ya publicada y solo dibuja lo que cambia. En Mendoza (8), San Luis (11) y Santa Cruz (11) había circuitos sin sección en esa cartografía (no se pudo leer el nombre del departamento): toman la de sus mesas (`reparar_secciones()`), sin tocar la geometría.
+
+**Ninguna provincia gris** (pedido del autor del 5 de noviembre de 2026: "algunas provincias queda gris, todo gris"). No faltaban mesas: era la cartografía. La Cámara dibuja en Catamarca, La Rioja y Tierra del Fuego los pueblos como circuitos y deja el campo como un polígono 0 por sección, sin mesas, y en Formosa dibuja casi solo los pueblos. Ahora:
+- debajo de los circuitos va el fondo `geo/base.topo.json`: los 527 departamentos del IGN con su sección electoral (`ALIAS_IGN` y `clave_nombre()` para los que se escriben distinto, como "Nueve de Julio" y "9 de Julio"),
+- lo que no tiene mesas propias (el fondo, el polígono 0, un circuito sin mesas o con mesas sin cargar) se pinta rayado con el resultado de toda su sección (`porSeccion()` y `rayas()` en `mesas.js`), con su fila en la leyenda y su explicación al pasar. Tocarlo elige la sección.
+- el gris queda solo donde el provisorio no tiene nada: las provincias que no eligen senadores, Antofagasta de la Sierra en 2019 (el provisorio no trae ninguna de sus mesas) y en la segunda vuelta de 2023 (trae sus 7 mesas sin un voto cargado), y Tolhuin en 2015 (no era una sección). La leyenda dice "Sin mesas o sin votos cargados en el provisorio".
 
 Cómo se une un circuito de las mesas con su polígono (`unir()`), en este orden, cada regla por un caso medido: mismo código y sección, el padre sin la letra (364A al 364), los hijos con letra (364 a 364A y 364B), los hijos con dos cifras más de Río Negro (43 a 4301), los parientes de Santa Fe desde 2023, que multiplicó por diez (120 a 121 y 122), el mismo código en otra sección si no se repite en la jurisdicción, y el polígono 0 de la sección, donde Río Negro y Catamarca juntan lo rural. Un grupo conexo de circuitos y polígonos es un lugar del mapa, y sus votos se cuentan una vez.
 
 Si en una elección menos de 95% de los votantes de una jurisdicción encuentra su polígono, sus códigos no son los del mapa y esa elección se pinta sección por sección (`UNION_MINIMA`), en vez de arriesgar uniones falsas: Neuquén hasta 2017, Río Negro hasta 2013 y Tierra del Fuego hasta 2021. La página lo avisa. Con eso, en todas las elecciones por mesa y todas las jurisdicciones, al menos 99,6% de los votantes tiene su lugar en el mapa. `prueba_mesas.py` frena por debajo de 99%.
 
-Control al armar: el mismo código tiene que caer en el mismo lugar que en Galeano. La mediana da 0 km en la mayoría. En Catamarca, Córdoba, La Rioja y Santiago del Estero da de 3 a 6 km porque ahí Galeano reconstruyó los circuitos rurales a mano, no porque el código signifique otra cosa. Queda en `datos/manual/mesas_geo_fuentes.json`.
+Hasta el 5 de noviembre de 2026 había un control contra la cartografía de Galeano (el mismo código en el mismo lugar): salió con ella.
 
-El gris son circuitos sin mesas en esa elección: 100 de 1.146 en Buenos Aires, y buena parte de la superficie de Catamarca y Tierra del Fuego. Es cómo es el dato, no una unión fallida: pasa igual con la cartografía y las mesas del mismo año, 2025. Si vive gente en esos circuitos, vota en mesas de otro.
+Al rearmar con la geometría publicada cambió un detalle en Catamarca y Formosa: unos pocos circuitos (por ejemplo 13|110 y 16|148 en Catamarca) no tienen polígono en la geometría publicada, porque el simplificado los borró por diminutos, y antes apuntaban a un dibujo que no existía. Ahora caen en el polígono 0 de su sección.
 
 La página usa D3 y topojson, ya cargados, con una proyección plana a propósito: con `d3.geoMercator` un anillo que quedó con el giro al revés al simplificar pinta el mundo entero. Si no llega D3 o los polígonos, las tablas siguen andando y solo cae el mapa (`prueba_fallas.mjs`).
 
@@ -109,6 +138,8 @@ Otra elección con el mismo mapa: si su numeración de circuitos cambia, sumar u
 El autor, ante la pregunta de qué hacer en esos años y con la advertencia del permiso a la vista: "usá por departamento". `scripts/elecciones_departamentos.py` lee los `dataset_*.json` de 257arg (20 elecciones: 6 de presidente y 14 de diputados) y la geometría de Rodríguez, CEUR-CONICET (CC BY 2.5 AR). Escribe `{eleccion}/{codigo_indec}.csv` con las columnas de las tablas por mesa, `mapa/{eleccion}.json`, `geo/dep{1991,2001,2010}/` y `geo/pais-dep*.topo.json`, y marca esas elecciones con `nivel: "departamento"` en `indice.json`. Se corre después de `elecciones_mesas.py` y `elecciones_mapa.py`: si `elecciones_mesas.py` reescribe el índice, hay que volver a correrlo con `--solo-resultados`.
 
 **El riesgo que el autor aceptó**: 257arg publica estos agregados con CC BY 4.0, pero de 1983 a 2001 salen de la base de Ernesto Calvo, que el mismo 257arg dice que no redistribuye por no tener documentado el permiso, y de 2003 a 2009 de PolAr, a partir del Atlas de Andy Tow, con una licencia que el proyecto electoral del autor anotó como CC BY-ND. La página cita las tres fuentes. Si Calvo o Tow lo piden, se saca con correr el script sin esas elecciones.
+
+**La mención visible** (pedido del autor del 5 de noviembre de 2026: "257 AR como fuente, eso sácalo. Solo deja fuentes oficiales", y ante la pregunta de si sacar también sus datos, "saca la mención, no el trabajo hecho"): el pie de la herramienta y las notas del mapa y de las tablas nombran a los autores originales (Cantón, Lupu y Stokes, Calvo, PolAr), y 257arg queda solo como crédito en "Para entender los datos", porque su licencia CC BY 4.0 obliga a citarlo mientras se usen sus transcripciones y sus colores de partida. Para que no aparezca en ningún lado habría que sacar esos datos.
 
 Cómo se usa: el total de cada jurisdicción sigue siendo el oficial de la DINE. Los departamentos van en el mapa y en la tabla de abajo, con el aviso de que no son el escrutinio definitivo.
 
@@ -154,6 +185,9 @@ Trampas:
 Lo que hay que tener presente al leer: hasta 1948 votaban solo los varones, los territorios nacionales no votaban, antes de 1973 (salvo 1951) se votaba a electores, hubo denuncias de fraude en los años treinta y el peronismo estuvo proscripto en la mayor parte de las elecciones de 1955 a 1972. La página lo dice en "Qué no dice este dato".
 
 ## Lo que falta
+
+- El definitivo mesa por mesa y los votos del exterior por consulado: solo los tiene la Cámara Nacional Electoral. El camino es un pedido de acceso a la información pública (Ley 27.275) a la Cámara: lo decide y lo hace el autor.
+- El padrón del exterior de otros años: la Cámara publica solo el de 2023.
 
 - Las PASO: 2015 no se puede bajar por mesa y 2023 sale de una copia del Internet Archive.
 - Los locales de votación: el archivo de 2025 los trae (escuela y dirección).
