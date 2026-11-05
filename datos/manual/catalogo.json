@@ -300,15 +300,6 @@
     "contiene": "barrasH(G(\"ministros\"), {anim: a, data: T.ministros_provincias, k: \"ministros\", vf: n0, af: n0});"
    }
   },
-  "mundo_paises": {
-   "en": [
-    "provincia"
-   ],
-   "evidencia": {
-    "archivo": "scripts/datina.js",
-    "contiene": "const cerca = (k, v) => T.mundo_paises.filter(p => p[k] != null).sort((a,"
-   }
-  },
   "obra_publica_serie": {
    "en": [
     "f-obra-publica"

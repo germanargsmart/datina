@@ -5442,7 +5442,7 @@ const redibujan = vistos.filter(([, el]) => !el.resaltar);
 const cambiar = () => { redibujan.forEach(([k]) => DIB[k](false)); pintarPanel(true); tablaAreas(); alCambiarProv.forEach(f => f()); };
 if (REDUCIR || !VT_TIPOS || document.hidden) return cambiar();
 const lugares = [...redibujan.filter(([k]) => !SE_MUEVEN.has(k)).map(([, el]) => () => el),
-() => document.querySelector(".en-cifras"), () => document.getElementById("prov-extra")];
+() => document.querySelector(".en-cifras"), () => document.getElementById("prov-destaca")];
 const nombrar = () => lugares.forEach((l, i) => { const el = l(); if (el && enPantalla(el)) el.style.viewTransitionName = `cambio-${i}`; });
 nombrar();
 const t = document.startViewTransition({update: () => { cambiar(); nombrar(); }, types: ["provincia"]});
@@ -6150,46 +6150,6 @@ document.getElementById("ix-lectura").textContent = t;
 DIB.indice = dibujar;
 return {puntaje, DIMS};
 })();
-const PARECIDAS = (() => {
-const F = T.cruces_provincias, ids = R.cruces.map(m => m.id).filter(k => k !== "poblacion");
-const LOG = new Set(["exportaciones", "velocidad", "turistas_eti", "densidad", "robos"]);
-const z = {};
-ids.forEach(k => {
-const t = v => LOG.has(k) ? Math.log10(v) : v, vals = F.map(f => f[k]).filter(v => v != null).map(t);
-const m = vals.reduce((a, b) => a + b, 0) / vals.length, s = Math.sqrt(vals.reduce((a, v) => a + (v - m) ** 2, 0) / (vals.length - 1));
-z[k] = v => v == null ? null : (t(v) - m) / s;
-});
-const dist = (a, b) => { let s = 0, n = 0; ids.forEach(k => { const x = z[k](a[k]), y = z[k](b[k]); if (x != null && y != null) { s += (x - y) ** 2; n++; } }); return Math.sqrt(s / n); };
-const cerca = (a, b) => ids.filter(k => z[k](a[k]) != null && z[k](b[k]) != null)
-.sort((p, q) => Math.abs(z[p](a[p]) - z[p](b[p])) - Math.abs(z[q](a[q]) - z[q](b[q]))).slice(0, 3);
-return c => {
-const a = F.find(f => f.codigo_indec === c); if (!a) return [];
-return F.filter(f => f !== a).map(f => ({f, a, d: dist(a, f), en: cerca(a, f)})).sort((p, q) => p.d - q.d);
-};
-})();
-function pintarExtra() {
-const caja = document.getElementById("prov-extra"); if (!caja) return;
-if (!NOMBRES[prov]) {
-caja.innerHTML = `<div><h3>Provincias parecidas</h3><p class="suave">Elegí una provincia para ver cuáles se le parecen más en los ${R.cruces.length - 1} indicadores de Cruces.</p></div>` +
-`<div><h3>Si tu provincia fuera un país</h3><p class="suave">Elegí una provincia para ver a qué países se parece en esperanza de vida y mortalidad infantil.</p></div>`;
-return;
-}
-if (!T.mundo_paises) { cargarTabla("mundo_paises").then(pintarExtra, () => { T.mundo_paises = []; pintarExtra(); }); return; }
-const lista = PARECIDAS(prov), ev = T.esperanza_vida_provincias.find(d => d.codigo_indec === prov), mi = T.mortalidad_infantil_provincias.find(d => d.codigo_indec === prov);
-const cerca = (k, v) => T.mundo_paises.filter(p => p[k] != null).sort((a, b) => Math.abs(a[k] - v) - Math.abs(b[k] - v))[0];
-const pe = ev && cerca("esperanza_vida", ev.total), pm = mi && cerca("mortalidad_infantil", mi.tmi_actual);
-const valor = (k, v) => loc.format(`,.${CRU_META[k].dec ?? 1}f`)(v);
-caja.innerHTML = `<div><h3>Provincias más parecidas a ${NOMBRES[prov]}</h3><ol>` +
-lista.slice(0, 3).map(o => `<li><button type="button" class="enlace con-bandera" data-c="${o.f.codigo_indec}">${bandera(o.f.codigo_indec)}<span>${o.f.territorio}</span></button>` +
-`<span class="prov-parece suave">${o.en.map(k => `<span>${CRU_META[k].nombre}: ${valor(k, o.a[k])} y ${valor(k, o.f[k])} (${CRU_META[k].unidad})</span>`).join("")}</span></li>`).join("") + `</ol>` +
-`<p class="suave">Debajo de cada una, los tres indicadores en los que más se parecen: primero el valor de ${NOMBRES[prov]} y después el de la otra.</p>` +
-`<p class="suave">La que menos se le parece es ${lista[lista.length - 1].f.territorio}. La comparación usa los ${R.cruces.length - 1} indicadores de Cruces. Cada uno se lleva a una misma escala, según cuánto se aleja del promedio de las 24 jurisdicciones, para que todos pesen lo mismo.</p></div>` +
-`<div><h3>Si ${NOMBRES[prov]} fuera un país</h3><ul>` +
-(pe ? `<li>Su esperanza de vida al nacer, ${n1(ev.total)} años en ${nv.ev_anio}, se parece a la de <b>${pe.pais}</b> (${n1(pe.esperanza_vida)} años en ${pe.esperanza_vida_anio}).</li>` : "") +
-(pm ? `<li>Su mortalidad infantil, ${n1(mi.tmi_actual)} muertes de menores de un año cada 1.000 nacidos vivos (promedio ${mo.tri_act}), se parece a la de <b>${pm.pais}</b> (${n1(pm.mortalidad_infantil)} en ${pm.mortalidad_infantil_anio}).</li>` : "") +
-`</ul><p class="suave">Los datos de los países son del Banco Mundial y pueden ser de otro año que los de la provincia. La esperanza de vida de la Argentina en su conjunto es de ${n1(nv.ev_pais)} años, y el promedio de los países de la OCDE, de ${n1(OC.esperanza_vida.ocde)}.</p></div>`;
-caja.querySelectorAll("button[data-c]").forEach(b => b.addEventListener("click", () => elegir(b.dataset.c)));
-}
 document.querySelectorAll(".conmutador:not(.pestanas):not([data-propio])").forEach(conm => {
 const k = conm.dataset.g;
 conm.querySelectorAll("button").forEach((b, i) => b.addEventListener("click", () => {
@@ -6200,7 +6160,7 @@ conm.querySelectorAll("button").forEach(x => x.setAttribute("aria-pressed", x ==
 cambiarVista(conm.dataset.dib || k);
 }));
 });
-const EQUILIBRAR = "#herramientas-grid, .perfil-tarjetas, .programas-grid, .pie-mapa";
+const EQUILIBRAR = "#herramientas-grid, .programas-grid, .pie-mapa";
 (() => {
 const visto = new WeakMap(), vigiladas = new WeakSet(), medidas = new ResizeObserver(es => es.forEach(e => equilibrar(e.target)));
 function equilibrar(g) {
@@ -6774,7 +6734,7 @@ document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revoke
 }, "image/png");
 }
 const SIN_RELACIONES = new Set(["f-edad", "f-suicidio", "f-suicidio-prov"]);
-const EN_CATALOGO = new Set(["abandono_pais", "abandono_provincias", "actividad_anual", "actividad_mensual", "actividad_sectores", "adulto_equivalente", "anios_congreso", "apoyo_gobierno_provincias", "aprender_departamentos", "aprender_diagnostico", "aprender_provincias", "areas_produccion", "areas_protegidas_provincias", "areas_serie", "argentinos_exterior", "argentinos_exterior_destinos", "asignaciones_cobertura", "auh_provincias", "balanza_comercial", "balanza_energetica", "bcra_variables", "bcra_variables_lista", "calendario_indec", "canasta_crianza", "canasta_mensual", "canasta_regiones", "capitales", "capitales_eph", "carceles_provincias", "carceles_serie", "carne_vacuna", "causas_muerte_provincias", "censo2022_provincias", "censos_pais", "censos_provincias", "centrales", "chicos_escuela_provincias", "clima_desvio", "cobertura_suelo_pais", "cobertura_suelo_provincias", "combustibles_anual", "combustibles_mensual", "combustibles_provincias", "comercio_rubro_pais", "comercio_socios", "comercio_socios_historia", "comercio_valor_kilo", "compras_dolares_anual", "confianza_consumidor", "confianza_gobierno", "confianza_gobierno_elecciones", "confianza_gobierno_gobiernos", "congreso_composicion", "coparticipacion_provincias", "corte_casos", "corte_composicion", "corte_jueces", "corte_jueces_fuentes", "corte_no_asumieron", "corte_presidentes", "costo_anual", "costo_construccion", "crianza_salario", "cruces_provincias", "cruces_series", "cuenta_corriente", "cuentas_nacion", "curvas_vm", "delitos_serie", "delitos_tipo", "dengue_pais", "dengue_provincias", "departamentos", "desembarques_especies", "desembarques_top", "desocupacion_aglomerados", "desocupacion_serie", "deuda_pbi", "deuda_provincias", "diputados_nacionales", "diseno_pozos_vm", "dolar_inversion_trimestral", "dotacion_nacion", "elecciones_presidenciales", "electricidad_mensual", "electricidad_provincias", "electricidad_sectores", "electricidad_serie", "empleo_construccion_provincias", "empleo_construccion_serie", "empleo_provincias", "empleo_publico_provincias", "empresas_provincias", "empresas_serie_pais", "empresas_tamano_sector", "energia_estacionalidad", "energia_hogares", "envejecimiento_pais", "envejecimiento_provincias", "escolarizacion_secundaria_provincias", "especies_areas_nacionales", "esperanza_vida_provincias", "expectativas_inflacion", "exportaciones_cantidades_anual", "exportaciones_complejos", "exportaciones_destinos", "exportaciones_dolar_trimestral", "exportaciones_provincias", "exportaciones_rubros_anual", "extranjeros_provincias", "fiscal_provincias", "fiscalias_defensorias_federales", "fracturas_anual", "gabinetes_origen", "gas_usuario_mensual", "gas_usuario_provincias", "gas_usuario_serie", "gasto_nacion_tipo", "glaciares_provincias", "haberes_previsionales", "hidrocarburos_anual", "hidrocarburos_empresas", "hidrocarburos_mensual", "hidrocarburos_provincias", "hipotecas_mensual", "homicidios_provincias", "importaciones_origen", "importaciones_usos", "impuestos_provinciales", "industria_ramas", "inflacion_anual", "inflacion_mensual", "inflacion_personal", "inflacion_regiones", "inflacion_rubros", "ingresos_aglomerados", "internet_fijo_provincias", "inversion_educativa", "inversion_educativa_serie", "isac_anual", "isac_insumos", "isac_mensual", "jubilaciones_aportantes", "justicia_federal_provincias", "justicia_provincias", "legisladores_por_periodo", "madres_adolescentes_nse", "madres_adolescentes_provincias", "mayoristas_mensual", "medicos_provincias", "migracion_censos", "migraciones_departamentos", "ministros_nacionales", "ministros_provincias", "mortalidad_infantil_causas", "mortalidad_infantil_provincias", "muertes_violentas", "mundo_hidrocarburos", "mundo_paises", "nacidos_otro_pais_paises", "nacidos_otro_pais_provincias", "nacimientos", "nafta_dolares_anual", "nafta_dolares_mensual", "nombres_serie", "nombres_top", "obra_publica_provincias", "obra_publica_serie", "ocde_comparacion", "parques_nacionales_historia", "parques_nacionales_lista", "patentamientos_anual", "patentamientos_provincias", "pensiones_invalidez", "pensiones_invalidez_provincias", "permisos_mensual", "pesca_continental", "pesca_continental_provincias", "piramide_poblacion", "pisa_argentina_ocde", "poblacion_proyectada_provincias", "pobreza_aglomerados", "pobreza_provincias", "pobreza_serie", "potencia_instalada", "pozos_no_convencionales", "pozos_provincias", "pozos_terminados", "pozos_terminados_provincias", "pozos_tipo", "precio_consumo", "presidentes", "prestacion_desempleo", "prestacion_desempleo_provincias", "presupuesto_votos", "produccion_mensual", "productividad_vm", "puestos_provincias", "radicaciones_anual", "radicaciones_nacionalidad", "recaudacion_anual", "recaudacion_impuestos", "refugio_acnur", "refugio_nacionalidades", "refugio_solicitudes", "regalias_crudo_serie", "regalias_provincias", "representacion_provincias", "reservas_bcra", "reservas_factores", "reservas_hidrocarburos", "reservas_netas", "reservas_provincias", "robos_provincias", "rotacion_laboral", "salario_docente", "salario_docente_serie", "salario_real_mensual", "salarios_provincias", "salarios_serie", "sectores_empleo", "seguridad_serie_prov", "senadores_nacionales", "sociedades_pais", "sociedades_provincias", "soja_departamentos", "soja_pais", "soja_provincias", "sube_dia_habil", "subsidios_energia", "supermercados_mensual", "supermercados_provincias", "telefonia_fija_pais", "telefonia_fija_provincias", "transferencias_acumulado", "transferencias_provincias", "transferencias_serie", "turismo_dolar_mensual", "turistas_extranjeros_provincias", "turistas_no_residentes_anual", "vacunas_provincias", "vacunas_serie", "viajeros_hoteles_anual", "vino_mercado_interno", "visitas_parques_nacionales", "visitas_por_parque", "vivienda_departamentos", "vivienda_provincias", "votaciones_leyes_clave", "voto_legisladores_y_provincia", "yerba_molino"]);
+const EN_CATALOGO = new Set(["abandono_pais", "abandono_provincias", "actividad_anual", "actividad_mensual", "actividad_sectores", "adulto_equivalente", "anios_congreso", "apoyo_gobierno_provincias", "aprender_departamentos", "aprender_diagnostico", "aprender_provincias", "areas_produccion", "areas_protegidas_provincias", "areas_serie", "argentinos_exterior", "argentinos_exterior_destinos", "asignaciones_cobertura", "auh_provincias", "balanza_comercial", "balanza_energetica", "bcra_variables", "bcra_variables_lista", "calendario_indec", "canasta_crianza", "canasta_mensual", "canasta_regiones", "capitales", "capitales_eph", "carceles_provincias", "carceles_serie", "carne_vacuna", "causas_muerte_provincias", "censo2022_provincias", "censos_pais", "censos_provincias", "centrales", "chicos_escuela_provincias", "clima_desvio", "cobertura_suelo_pais", "cobertura_suelo_provincias", "combustibles_anual", "combustibles_mensual", "combustibles_provincias", "comercio_rubro_pais", "comercio_socios", "comercio_socios_historia", "comercio_valor_kilo", "compras_dolares_anual", "confianza_consumidor", "confianza_gobierno", "confianza_gobierno_elecciones", "confianza_gobierno_gobiernos", "congreso_composicion", "coparticipacion_provincias", "corte_casos", "corte_composicion", "corte_jueces", "corte_jueces_fuentes", "corte_no_asumieron", "corte_presidentes", "costo_anual", "costo_construccion", "crianza_salario", "cruces_provincias", "cruces_series", "cuenta_corriente", "cuentas_nacion", "curvas_vm", "delitos_serie", "delitos_tipo", "dengue_pais", "dengue_provincias", "departamentos", "desembarques_especies", "desembarques_top", "desocupacion_aglomerados", "desocupacion_serie", "deuda_pbi", "deuda_provincias", "diputados_nacionales", "diseno_pozos_vm", "dolar_inversion_trimestral", "dotacion_nacion", "elecciones_presidenciales", "electricidad_mensual", "electricidad_provincias", "electricidad_sectores", "electricidad_serie", "empleo_construccion_provincias", "empleo_construccion_serie", "empleo_provincias", "empleo_publico_provincias", "empresas_provincias", "empresas_serie_pais", "empresas_tamano_sector", "energia_estacionalidad", "energia_hogares", "envejecimiento_pais", "envejecimiento_provincias", "escolarizacion_secundaria_provincias", "especies_areas_nacionales", "esperanza_vida_provincias", "expectativas_inflacion", "exportaciones_cantidades_anual", "exportaciones_complejos", "exportaciones_destinos", "exportaciones_dolar_trimestral", "exportaciones_provincias", "exportaciones_rubros_anual", "extranjeros_provincias", "fiscal_provincias", "fiscalias_defensorias_federales", "fracturas_anual", "gabinetes_origen", "gas_usuario_mensual", "gas_usuario_provincias", "gas_usuario_serie", "gasto_nacion_tipo", "glaciares_provincias", "haberes_previsionales", "hidrocarburos_anual", "hidrocarburos_empresas", "hidrocarburos_mensual", "hidrocarburos_provincias", "hipotecas_mensual", "homicidios_provincias", "importaciones_origen", "importaciones_usos", "impuestos_provinciales", "industria_ramas", "inflacion_anual", "inflacion_mensual", "inflacion_personal", "inflacion_regiones", "inflacion_rubros", "ingresos_aglomerados", "internet_fijo_provincias", "inversion_educativa", "inversion_educativa_serie", "isac_anual", "isac_insumos", "isac_mensual", "jubilaciones_aportantes", "justicia_federal_provincias", "justicia_provincias", "legisladores_por_periodo", "madres_adolescentes_nse", "madres_adolescentes_provincias", "mayoristas_mensual", "medicos_provincias", "migracion_censos", "migraciones_departamentos", "ministros_nacionales", "ministros_provincias", "mortalidad_infantil_causas", "mortalidad_infantil_provincias", "muertes_violentas", "mundo_hidrocarburos", "nacidos_otro_pais_paises", "nacidos_otro_pais_provincias", "nacimientos", "nafta_dolares_anual", "nafta_dolares_mensual", "nombres_serie", "nombres_top", "obra_publica_provincias", "obra_publica_serie", "ocde_comparacion", "parques_nacionales_historia", "parques_nacionales_lista", "patentamientos_anual", "patentamientos_provincias", "pensiones_invalidez", "pensiones_invalidez_provincias", "permisos_mensual", "pesca_continental", "pesca_continental_provincias", "piramide_poblacion", "pisa_argentina_ocde", "poblacion_proyectada_provincias", "pobreza_aglomerados", "pobreza_provincias", "pobreza_serie", "potencia_instalada", "pozos_no_convencionales", "pozos_provincias", "pozos_terminados", "pozos_terminados_provincias", "pozos_tipo", "precio_consumo", "presidentes", "prestacion_desempleo", "prestacion_desempleo_provincias", "presupuesto_votos", "produccion_mensual", "productividad_vm", "puestos_provincias", "radicaciones_anual", "radicaciones_nacionalidad", "recaudacion_anual", "recaudacion_impuestos", "refugio_acnur", "refugio_nacionalidades", "refugio_solicitudes", "regalias_crudo_serie", "regalias_provincias", "representacion_provincias", "reservas_bcra", "reservas_factores", "reservas_hidrocarburos", "reservas_netas", "reservas_provincias", "robos_provincias", "rotacion_laboral", "salario_docente", "salario_docente_serie", "salario_real_mensual", "salarios_provincias", "salarios_serie", "sectores_empleo", "seguridad_serie_prov", "senadores_nacionales", "sociedades_pais", "sociedades_provincias", "soja_departamentos", "soja_pais", "soja_provincias", "sube_dia_habil", "subsidios_energia", "supermercados_mensual", "supermercados_provincias", "telefonia_fija_pais", "telefonia_fija_provincias", "transferencias_acumulado", "transferencias_provincias", "transferencias_serie", "turismo_dolar_mensual", "turistas_extranjeros_provincias", "turistas_no_residentes_anual", "vacunas_provincias", "vacunas_serie", "viajeros_hoteles_anual", "vino_mercado_interno", "visitas_parques_nacionales", "visitas_por_parque", "vivienda_departamentos", "vivienda_provincias", "votaciones_leyes_clave", "voto_legisladores_y_provincia", "yerba_molino"]);
 const VARIAS_SECCIONES = new Set([...document.querySelectorAll("article.ficha")].map(f => f.closest(".tema"))).size > 1;
 const PARA_ENTENDER = !!document.getElementById("para-entender");
 document.querySelectorAll("article.ficha").forEach(f => {
@@ -7293,10 +7253,8 @@ d:T.capitales, k:"hacinamiento", pais:VV.pct_hacinamiento, f:pct},
 ];
 const PERFIL = [...INDP, ...CAP_P];
 const grilla = document.getElementById("prov-grid") || document.createElement("div");
-grilla.innerHTML = `<nav class="perfil-indice" id="perfil-indice" aria-label="Temas del perfil"><ol>` +
-PERFIL_GRUPOS.map(([g, tit], i) => `<li><a class="enlace" href="#pg-${g}">${i + 1}. ${tit}</a></li>`).join("") + `</ol></nav>` +
-PERFIL_GRUPOS.map(([g, tit], i) => `<section class="perfil-grupo" id="pg-${g}" aria-labelledby="pg-${g}-t"><div class="perfil-cab">` +
-`<h2 class="bloque-grupo" id="pg-${g}-t">${i + 1}. <span>${tit}</span></h2><a class="enlace" href="#perfil-indice">Volver a los temas</a></div>` +
+grilla.innerHTML = PERFIL_GRUPOS.map(([g, tit]) => `<section class="perfil-grupo" id="pg-${g}" aria-labelledby="pg-${g}-t"><div class="perfil-cab">` +
+`<h2 class="bloque-grupo" id="pg-${g}-t"><span>${tit}</span></h2></div>` +
 `<div class="perfil-tarjetas">` + PERFIL.map((c, j) => c.g !== g ? "" : `<a class="tarjeta dp" href="#${c.id}" data-i="${j}"><span class="dp-lab">${c.lab}</span>
   <span class="dp-num"></span><span class="dp-det">${c.det}</span><svg class="dp-tira" aria-hidden="true"></svg><span class="dp-pos"></span><span class="dp-aclara"></span></a>`).join("") +
 `</div></section>`).join("");
@@ -7374,26 +7332,48 @@ pintarCompara();
 document.getElementById("compara-sel").focus();
 });
 }
+function pendientePuesto(s, w) {
+const h = 92, izq = 34, der = 34, arr = 8, ab = 22, ini = s[0], fin = s[s.length - 1];
+const x = a => +(izq + (a - ini.anio) / (fin.anio - ini.anio) * (w - izq - der)).toFixed(1), y = p => +(arr + (p - 1) / 23 * (h - arr - ab)).toFixed(1);
+const marco = p => `<line class="dpp-marco" x1="${izq}" x2="${w - der}" y1="${y(p)}" y2="${y(p)}"/>` +
+(Math.abs(y(p) - y(ini.puesto)) > 11 ? `<text class="dpp-eje" x="${izq - 8}" y="${y(p)}" dy=".35em" text-anchor="end">${p}.º</text>` : "");
+const entra = x(s[1].anio) - x(ini.anio) >= 30, anio = r => entra || r === ini || r === fin ? r.anio : `’${String(r.anio).slice(2)}`;
+return marco(1) + marco(24) +
+`<polyline class="dpp-linea" points="${s.map(r => `${x(r.anio)},${y(r.puesto)}`).join(" ")}"/>` +
+s.map((r, i) => `<circle class="${i === 0 ? "dpp-ini" : i === s.length - 1 ? "dpp-fin" : "dpp-punto"}" cx="${x(r.anio)}" cy="${y(r.puesto)}" r="${i === 0 ? 3.5 : i === s.length - 1 ? 4.5 : 2.5}">` +
+`<title>${r.anio}: puesto ${r.puesto}</title></circle>`).join("") +
+`<text class="dpp-eje" x="${izq - 8}" y="${y(ini.puesto)}" dy=".35em" text-anchor="end">${ini.puesto}.º</text>` +
+`<text class="dpp-val" x="${w - der + 8}" y="${y(fin.puesto)}" dy=".35em">${fin.puesto}.º</text>` +
+s.map(r => `<text class="dpp-anio" x="${x(r.anio)}" y="${h - 4}" text-anchor="middle">${anio(r)}</text>`).join("");
+}
 function pintarPuestos() {
 const caja = document.getElementById("prov-puestos"); if (!caja) return;
 if (NOMBRES[prov] && !T.puestos_provincias) { cargarTabla("puestos_provincias").then(pintarPuestos, () => {}); return; }
 const filas = (T.puestos_provincias || []).filter(r => r.codigo_indec === prov);
 if (!NOMBRES[prov] || !filas.length) { caja.hidden = true; caja.innerHTML = ""; return; }
-const frase = o => puestoTxt(o, 24).replace(" de las 24 jurisdicciones", "").replace(/^L/, "l");
-const num = v => Math.abs(v) >= 1000 ? n0(v) : n1(v), y = p => 8 + (p - 1) / 23 * 48;
+const num = v => Math.abs(v) >= 1000 ? n0(v) : n1(v);
+const series = [...d3.group(filas, r => r.variable).entries()].map(([v, s]) => ({v, s: s.sort((a, b) => a.anio - b.anio)}));
 caja.hidden = false;
 caja.innerHTML = `<h2 class="bloque-grupo" id="prov-puestos-t">Cómo cambió su puesto</h2>` +
-`<p class="prov-destaca-sub">El lugar de ${NOMBRES[prov]} entre las 24 jurisdicciones, diez años antes y en el último año con datos de todas. Arriba, la ` +
-`cifra más alta. Que una cifra sea alta o baja no dice si es buena o mala.</p><div class="perfil-tarjetas">` +
-filas.map(r => `<a class="tarjeta dp" href="${destinoDe("#" + r.ficha) || "#" + r.ficha}"><span class="dp-lab">${r.indicador}</span>` +
-`<span class="dp-det">${r.unidad}</span><svg class="dp-pendiente" viewBox="0 0 220 64" aria-hidden="true">` +
-`<line x1="34" x2="186" y1="${y(r.puesto_inicio)}" y2="${y(r.puesto_final)}" stroke="${css("--celeste")}" stroke-width="2.5"/>` +
-`<circle cx="34" cy="${y(r.puesto_inicio)}" r="5" fill="${css("--bg")}" stroke="${css("--celeste-fuerte")}" stroke-width="2"/>` +
-`<circle cx="186" cy="${y(r.puesto_final)}" r="5.5" fill="${css("--celeste-fuerte")}"/>` +
-`<text x="26" y="${y(r.puesto_inicio)}" dy=".35em" text-anchor="end" font-size="11" fill="${css("--muted")}">${r.anio_inicio}</text>` +
-`<text x="194" y="${y(r.puesto_final)}" dy=".35em" font-size="11" fill="${css("--ink")}">${r.anio_final}</text></svg>` +
-`<span class="dp-pos">En ${r.anio_inicio}, ${frase(r.puesto_inicio)} (${num(r.valor_inicio)}). En ${r.anio_final}, ${frase(r.puesto_final)} ` +
-`(${num(r.valor_final)}).</span></a>`).join("") + `</div>`;
+`<p class="prov-destaca-sub">El lugar de ${NOMBRES[prov]} entre las 24 jurisdicciones, cada dos años. Arriba, el mejor puesto (en mortalidad o robos, la cifra más baja): ` +
+`verde si mejoró y rojo si empeoró. El puesto compara con las otras jurisdicciones: la cifra de ${NOMBRES[prov]} puede mejorar aunque el puesto empeore.</p>` +
+`<div class="perfil-tarjetas">` +
+series.map(({v, s}) => {
+const ini = s[0], fin = s[s.length - 1], dif = ini.puesto - fin.puesto, neutro = ini.sentido === "neutro";
+const clase = neutro || !dif ? "igual" : dif > 0 ? "sube" : "baja";
+const cambio = !dif ? "Mismo puesto" : `${neutro ? "Cambió" : dif > 0 ? "Mejoró" : "Empeoró"} ${Math.abs(dif)} ${Math.abs(dif) === 1 ? "puesto" : "puestos"}`;
+return `<a class="tarjeta dp" href="${destinoDe("#" + ini.ficha) || "#" + ini.ficha}"><span class="dp-lab">${ini.indicador}</span>` +
+`<span class="dp-det">${ini.unidad}</span><svg class="dp-pendiente ${clase}" data-v="${v}" aria-hidden="true"></svg>` +
+`<span class="solo-lector">Puesto por año: ${s.map(r => `${r.anio}, ${r.puesto}`).join(". ")}.</span>` +
+`<span class="dp-pos"><b class="dp-cambio ${clase}">${cambio}.</b> En ${ini.anio}, puesto ${ini.puesto} (${num(ini.valor)}). En ${fin.anio}, puesto ${fin.puesto} ` +
+`(${num(fin.valor)}).</span></a>`;
+}).join("") + `</div><p class="tabla-nota">Más recursos propios cuenta como mejora: es menos dependencia de los fondos nacionales. El gasto en personal va en gris porque ` +
+`más gasto no es por sí solo mejor ni peor, y su puesto 1 es la cifra más alta.</p>`;
+caja.querySelectorAll(".dp-pendiente").forEach(svg => {
+const w = Math.max(160, svg.clientWidth || 200), {s} = series.find(o => o.v === svg.dataset.v);
+svg.setAttribute("viewBox", `0 0 ${w} 92`);
+svg.innerHTML = pendientePuesto(s, w);
+});
 }
 function pintarCensos() {
 const caja = document.getElementById("prov-censos"); if (!caja) return;
@@ -7419,9 +7399,52 @@ filas.map(r => `<tr><th scope="row">${r.nombre}<small>${r.unidad}</small></th><t
 `<p class="tabla-nota">Cuadros del INDEC de los censos 2010 y 2022. El de 2010 fue un censo de hecho (contó a las personas donde estaban esa noche) y ` +
 `el de 2022, de derecho (donde viven). En 2022 la computadora incluye notebook y tableta, así que su suba puede ser en parte por la pregunta.</p>`;
 }
+(() => {
+const nav = document.getElementById("perfil-indice"), contenido = document.querySelector(".prov-contenido");
+if (!nav || !contenido) return;
+const btn = nav.querySelector(".pi-btn"), actual = nav.querySelector(".pi-actual"), listas = nav.querySelector(".pi-listas"), enlaces = [...nav.querySelectorAll("a")];
+const destino = a => document.getElementById(a.getAttribute("href").slice(1));
+const titulo = d => !d || d.hidden ? null : d.id === "prov-historia" ? d.querySelector(".ph:not([hidden]) h2") : d.querySelector("h2");
+const marcar = a => {
+enlaces.forEach(x => { if (x === a) x.setAttribute("aria-current", "true"); else x.removeAttribute("aria-current"); });
+actual.textContent = a ? a.textContent : "";
+if (a && nav.scrollHeight > nav.clientHeight) nav.scrollTop = a.offsetTop - nav.clientHeight / 2;
+};
+const sincronizar = () => {
+enlaces.forEach(a => {
+const h = titulo(destino(a));
+a.closest("li").hidden = !h;
+if (h && a.textContent !== h.textContent) a.textContent = h.textContent;
+});
+nav.querySelectorAll("ul").forEach(ul => { ul.hidden = !ul.querySelector("li:not([hidden])"); });
+const marcado = nav.querySelector('a[aria-current="true"]');
+if (marcado) marcar(marcado.closest("li").hidden ? null : marcado);
+};
+let pendiente = false;
+new MutationObserver(() => {
+if (pendiente) return;
+pendiente = true;
+requestAnimationFrame(() => { pendiente = false; sincronizar(); });
+}).observe(contenido, {subtree: true, childList: true, attributes: true, attributeFilter: ["hidden"]});
+sincronizar();
+const vigiladas = new Map(enlaces.map(a => [destino(a), a]).filter(([d]) => d));
+const adentro = new Set();
+const vigia = new IntersectionObserver(es => {
+es.forEach(e => { if (e.isIntersecting) adentro.add(e.target); else adentro.delete(e.target); });
+const a = enlaces.filter(x => adentro.has(destino(x))).pop();
+if (a) marcar(a);
+}, {rootMargin: "-25% 0px -74% 0px"});
+vigiladas.forEach((a, d) => vigia.observe(d));
+const abrir = si => { btn.setAttribute("aria-expanded", si); nav.classList.toggle("abierto", si); };
+const abierto = () => btn.getAttribute("aria-expanded") === "true";
+btn.addEventListener("click", () => abrir(!abierto()));
+listas.addEventListener("click", ev => { if (ev.target.closest("a")) abrir(false); });
+nav.addEventListener("keydown", ev => { if (ev.key === "Escape" && abierto()) { abrir(false); btn.focus(); } });
+nav.addEventListener("focusout", ev => { if (ev.relatedTarget && !nav.contains(ev.relatedTarget)) abrir(false); });
+document.addEventListener("click", ev => { if (abierto() && !nav.contains(ev.target)) abrir(false); });
+})();
 function pintarPanel(animar) {
 const nombre = NOMBRES[prov];
-pintarExtra();
 pintarDestaca();
 pintarCompara();
 pintarPuestos();

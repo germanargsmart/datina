@@ -48,9 +48,10 @@
   --sol:#F6B40E; --sol-fuerte:#B27A00; --sol-suave:#FDF0CC; --sol-borde:#85340A;
   --sol-texto:#7F5500;
   /* cambio bueno o malo (etapa 16): verde azulado y bermellón de la paleta de Okabe e Ito, que se distinguen también con daltonismo.
-     Solo donde la dirección no se discute (ver "Reglas de diseño" en CLAUDE.md). Los de texto pasan 4,5 a 1 sobre el blanco */
-  --bueno:#009E73; --bueno-suave:#BFE7DA; --bueno-texto:#007A59; --malo:#D55E00; --malo-suave:#F5D2B8; --malo-texto:#B34700;  /* dorado del sol para texto chico: pasa 4,5 a 1 sobre el blanco y sobre el vidrio del menú encima del azul */
-  --rojo:#C8102E; --rojo-oscuro:#8A1422; /* gorro frigio del escudo */
+     Solo donde la dirección no se discute (ver "Reglas de diseño" en CLAUDE.md). Los de texto pasan 4,5 a 1 sobre el blanco. --bueno-texto, también
+     sobre una tarjeta con el mouse encima (--superficie-3): el 5 de noviembre de 2026 bajó de #007A59 a #007253 */
+  --bueno:#009E73; --bueno-suave:#BFE7DA; --bueno-texto:#007253; --malo:#D55E00; --malo-suave:#F5D2B8; --malo-texto:#B34700;  /* dorado del sol para texto chico: pasa 4,5 a 1 sobre el blanco y sobre el vidrio del menú encima del azul */
+  --rojo:#C8102E; --rojo-oscuro:#8A1422; /* gorro frigio del escudo. También el rojo de "Cómo cambió su puesto": ver .dp-pendiente */
   --ocde:#7A4FA0; --ocde-suave:#ECE3F5; /* promedio de los países de la OCDE, solo dentro de los gráficos */
   /* sobre el azul de la portada */
   --en-azul-texto:rgba(255,255,255,.95); --en-azul-borde:rgba(255,255,255,.7); --en-azul-linea:rgba(255,255,255,.35); --en-azul-velo:rgba(255,255,255,.14);
@@ -170,7 +171,7 @@ p,li,dd,dt,small,.sec-preg,.c-txt,.dp-det{text-wrap:pretty}
    Los que tienen estilo propio son variantes de esos seis (Fase 2, paso 7, sin cambiar cómo se ven):
    - secundario: .conmutador y .co-btn (con el elegido lleno), .susc-boton, .elige-btn, .lupa-btn, .chip-prov y .chip-borrar
    - enlace: .esp-btn, .vt-ley, .cx-chip, .ver-mas, .dx-quitar y .mt-cerrar (la cruz que cierra la tarjeta del mapa)
-   - despliegue: .despliegue, .sobre, .menu-parte, .cx-detalle, .ph-fuentes, .creditos y .compartir (los de <summary>: el de .compartir,
+   - despliegue: .despliegue, .pi-btn, .sobre, .menu-parte, .cx-detalle, .ph-fuentes, .creditos y .compartir (los de <summary>: el de .compartir,
      con el borde del secundario, porque va junto a "Ver tabla")
    - navegación: .menu-btn, la barra, los menús, las migas, .subsecciones, .pildoras y el pie
    - los puntos y celdas de los gráficos que se tocan (.cx-punto, .cx-celda, .dep, .provs) son parte del dibujo, no botones */
@@ -733,7 +734,7 @@ html:not(.js) .busca-portada{display:none}
   .elige-btn:hover{border-color:var(--borde-claro);background:#FAFCFE}
   .elige-lista li:hover{background:var(--celeste-suave)}
 }
-/* perfil: un indicador por tarjeta, con la tira de las 24, agrupados por tema con un índice arriba (etapa 27) */
+/* perfil: un indicador por tarjeta, con la tira de las 24, agrupados por tema (etapa 27) */
 .prov-grid{margin-top:var(--e-6)}
 .prov-linea{margin:var(--e-3) 0 0;font-size:var(--t-3);color:var(--muted)}
 .prov-destaca{margin-top:var(--e-6)}
@@ -742,47 +743,113 @@ html:not(.js) .busca-portada{display:none}
 .prov-destaca:empty{min-height:350px}
 @media (min-width:768px){.prov-destaca:empty{min-height:480px}}
 .prov-destaca-sub{max-width:65ch;margin:var(--e-2) 0 var(--e-4);font-size:var(--t-3);color:var(--muted)}
-.perfil-indice ol{display:flex;flex-wrap:wrap;gap:var(--e-2) var(--e-6);margin:0;padding:0;list-style:none;font-size:var(--t-3)}
-.perfil-grupo{scroll-margin-top:96px}
+/* El menú de la página de provincia (5 de noviembre de 2026, pedido del autor: "podría ser un menú longitudinal, o tipo hamburguesa"). Siguiendo
+   a NN/g y a Wikipedia: al costado desde 1200 píxeles, fijo y con la sección actual marcada, y en pantallas más chicas una franja fija que dice
+   dónde estás y se despliega. Con 17 entradas, una fila horizontal no entra. Una letra, un tamaño y sin negrita, como la fila de capítulos */
+.prov-cuerpo{--alto-barra:72px;--alto-franja:53px}
+@media (max-width:760px){.prov-cuerpo{--alto-barra:62px}}
+.prov-indice{position:sticky;top:calc(env(safe-area-inset-top,0px) + var(--alto-barra));z-index:5;margin:var(--e-6) calc(-1 * var(--margen)) 0;background:var(--fondo);border-bottom:1px solid var(--borde)}
+/* el botón es de despliegue, con su clase propia: desde 761 píxeles .despliegue es la lista de "Para entender los datos", sin flecha */
+.pi-btn{display:flex;align-items:center;justify-content:space-between;gap:var(--e-4);width:100%;min-height:52px;padding:var(--e-3) var(--margen);
+  font:400 var(--t-3)/1.3 var(--f);color:var(--muted);text-align:left;background:none;border:0;cursor:pointer;transition:background-color var(--dur-1) var(--ease-out)}
+.pi-btn:focus-visible{outline-offset:-3px}
+.js .pi-btn .desp-signo{display:block}
+.pi-btn[aria-expanded="true"] .desp-signo{transform:rotate(180deg);color:var(--azul)}
+@media (hover:hover) and (pointer:fine){.pi-btn:hover{background:var(--superficie)}}
+.pi-txt{min-width:0;color:var(--muted)}
+.pi-actual{color:var(--ink)}
+.pi-actual:not(:empty)::before{content:": ";color:var(--muted)}
+.pi-tit{display:none;margin:0 0 var(--e-2);padding-left:var(--e-3);font-size:var(--t-2);color:var(--muted)}
+.pi-listas{display:none;position:absolute;top:100%;left:0;right:0;max-height:calc(100dvh - var(--alto-barra) - var(--alto-franja));overflow:auto;overscroll-behavior:contain;
+  padding:var(--e-2) var(--margen) var(--e-3);background:var(--bg);border-bottom:1px solid var(--borde);box-shadow:var(--sombra-panel)}
+.prov-indice.abierto .pi-listas{display:block}
+.pi-listas ul{margin:0;padding:0;list-style:none;columns:2;column-gap:var(--e-6)}
+.pi-listas ul[hidden],.pi-listas li[hidden]{display:none}
+.pi-listas ul+ul{margin-top:var(--e-2);padding-top:var(--e-2);border-top:1px solid var(--borde)}
+.pi-listas li{break-inside:avoid}
+.pi-listas a:focus-visible{outline-offset:-2px}
+.pi-listas a{display:block;padding:var(--e-3) 0;font-size:var(--t-3);line-height:1.3;color:var(--azul);text-decoration:none;transition:color var(--dur-1) var(--ease-out)}
+.pi-listas a[aria-current="true"]{color:var(--ink);box-shadow:inset 2px 0 0 var(--sol);padding-left:var(--e-2)}
+@media (hover:hover) and (pointer:fine){.pi-listas a:not([aria-current="true"]):hover{color:var(--ink)}}
+.prov-destaca,.prov-compara,.prov-puestos,.prov-censos,.prov-historia{scroll-margin-top:calc(var(--alto-barra) + var(--alto-franja) + var(--e-4))}
+.perfil-grupo{scroll-margin-top:calc(var(--alto-barra) + var(--alto-franja) - var(--e-6))}
+/* sin datina.js no se puede abrir: la lista va entera, sin quedar fija */
+html:not(.js) .prov-indice{position:static;background:none}
+html:not(.js) .pi-btn{display:none}
+html:not(.js) .pi-listas{display:block;position:static;box-shadow:none;background:none}
+@media (min-width:1200px){
+  .prov-cuerpo{--alto-franja:0px;display:grid;grid-template-columns:168px minmax(0,1fr);column-gap:var(--e-7);align-items:start;margin-top:var(--e-6)}
+  .prov-contenido{min-width:0}
+  .prov-contenido>:first-child{margin-top:0}
+  .prov-indice,html:not(.js) .prov-indice{position:sticky;top:calc(env(safe-area-inset-top,0px) + var(--alto-barra) + var(--e-4));max-height:calc(100dvh - var(--alto-barra) - var(--e-7));
+    margin:0;overflow:auto;background:none;border:0;scrollbar-width:thin}
+  .pi-btn{display:none}
+  .pi-tit{display:block}
+  .pi-listas,html:not(.js) .pi-listas{display:block;position:static;max-height:none;overflow:visible;padding:0;background:none;border:0;box-shadow:none}
+  .pi-listas ul{columns:auto}
+  .pi-listas ul+ul{margin-top:var(--e-2);padding-top:var(--e-2)}
+  .pi-listas a{padding:var(--e-1) 0 var(--e-1) var(--e-3);font-size:var(--t-2);box-shadow:none}
+  .pi-listas a[aria-current="true"]{padding-left:var(--e-3);box-shadow:inset 2px 0 0 var(--sol)}
+}
 /* cada capítulo de las páginas largas (etapa 6 del plan de mejora) no queda tapado por la barra al llegar desde su índice (.capitulos, arriba) */
 .bloque-grupo[id^="g-"]{scroll-margin-top:96px}
 .perfil-cab{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:var(--e-2) var(--e-6);margin:var(--e-8) 0 var(--e-4)}
 .perfil-cab .bloque-grupo{margin:0}
-.perfil-cab .enlace{font-size:var(--t-2)}
-.perfil-tarjetas{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:var(--e-4)}
-.dp{gap:2px;padding:var(--e-4) var(--e-6)}
+/* Las tarjetas del perfil (5 de noviembre de 2026, pedido del autor: "que las cards queden todas del mismo tamaño, o que haya proporcionalidad"):
+   la misma grilla en toda la página, así las columnas de un tema quedan debajo de las del anterior. Todas las filas de un bloque miden lo
+   mismo. Una sola tarjeta colgada en la última fila se ve mal (otro pedido, del 22 de octubre): la anteúltima baja con ella */
+.perfil-tarjetas{display:grid;gap:var(--e-4)}
+@media (min-width:761px){
+  .perfil-tarjetas{grid-template-columns:repeat(3,minmax(0,1fr));grid-auto-rows:1fr}
+  .perfil-tarjetas>:nth-child(3n):nth-last-child(2){grid-column-start:1}
+}
+@media (min-width:960px){
+  .perfil-tarjetas{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .perfil-tarjetas>:nth-child(3n):nth-last-child(2){grid-column-start:auto}
+  .perfil-tarjetas>:nth-child(4n):nth-last-child(2){grid-column-start:1}
+}
+/* position: el texto para lectores de pantalla de cada tarjeta queda dentro de ella: si no, en el celular se sale de la fila que se desliza y la página se corre de costado */
+.dp{position:relative;gap:2px;padding:var(--e-4)}
+#prov-grid .dp{min-height:276px}
 /* D9 (plan de mejora, 28 de octubre de 2026, aprobado por el autor): las mayúsculas en letra mono quedan para rótulos de hasta tres
    palabras. Los nombres de indicadores del perfil, el lugar de los mapas por departamento, los títulos del diagnóstico, del perfil y de
    Cruces, y las preguntas de los programas de Educación pueden ser más largos: van con la letra del texto, en negrita */
-.dp-lab{font-size:var(--t-2);font-weight:600;line-height:1.3;color:var(--ink)}
+.dp-lab{min-height:2.6em;font-size:var(--t-2);font-weight:600;line-height:1.3;color:var(--ink)}
 .dp-num{font-size:var(--t-8);line-height:1.1;font-weight:500;letter-spacing:-.03em;color:var(--azul);font-variant-numeric:tabular-nums;font-variation-settings:"wdth" 45,"opsz" 144;font-family:var(--f-c45)}
 /* sin provincia elegida y sin total del país: "Elegí una provincia" en letra de texto, con el alto de la cifra para que nada salte al elegir */
 .dp-num.invita{display:flex;align-items:center;min-height:calc(var(--t-8) * 1.1);font:500 var(--t-4)/1.3 var(--f);letter-spacing:0;font-variation-settings:normal;color:var(--muted)}
-.dp-det{min-height:2.8em;font-size:var(--t-2);line-height:var(--i-chico);color:var(--muted)}
+.dp-det{min-height:calc(3em * var(--i-chico));font-size:var(--t-2);line-height:var(--i-chico);color:var(--muted)}
 .dp-tira{display:block;width:100%;height:26px;margin:var(--e-1) 0 2px;overflow:visible}
 .dp-pos{font-size:var(--t-2);line-height:var(--i-chico);color:var(--muted)}
 /* aclaración de un dato distorsionado (distorsiones.json) en las tarjetas: con la barra del sol, como el aviso de quiebre de serie */
 .dp-aclara,.c-aclara,.mapa-tarjeta li .mt-aclara{display:block;margin-top:var(--e-2);padding:1px 0 1px var(--e-2);border-left:2px solid var(--sol-fuerte);
   font-size:var(--t-1);line-height:var(--i-chico);color:var(--muted)}
 .dp-aclara:empty{display:none}
-/* provincias parecidas y "si tu provincia fuera un país" */
+/* la bandera al lado del título de la provincia */
 #prov-band:not(:empty){display:inline-block;margin-right:var(--e-4);vertical-align:.08em}
 #prov-band .bandera{display:block}
-.prov-extra{display:grid;grid-template-columns:1fr 1fr;gap:var(--e-6);margin-top:var(--e-6)}
-.prov-extra>div{border-top:1px dotted var(--azul);padding-top:var(--e-3)}
-.prov-extra h3{margin:0 0 var(--e-2);font-size:var(--t-3);font-weight:600;line-height:1.3;color:var(--azul)}
-.prov-extra ol,.prov-extra ul{margin:0;font-size:var(--t-3);line-height:var(--i-texto)}
-.prov-extra ol{padding-left:var(--e-6)}
-.prov-extra .suave{color:var(--muted);font-size:var(--t-2)}
-/* F7: los indicadores en los que se parece cada provincia, uno por renglón debajo de su nombre */
-.prov-parece{display:block;margin:var(--e-1) 0 var(--e-2)}.prov-parece>span{display:block}
 /* F11: comparar con otra provincia. Las filas de la tabla llevan su encabezado (el indicador), que no queda fijo arriba como los de las columnas */
 .prov-compara{margin-top:var(--e-6)}.prov-compara .selector-ficha{margin:var(--e-3) 0 var(--e-4)}
 .tabla-compara tbody th{position:static;background:none;font-size:var(--t-3);font-weight:500;color:var(--ink);border-bottom:1px solid var(--borde);vertical-align:top}
 .tabla-compara tbody th small{display:block;font-weight:400;font-size:var(--t-1);color:var(--muted)}
 .tabla-compara tr.compara-grupo th{background:var(--superficie);color:var(--azul);font-weight:600}
-/* F14: el puesto de antes y el de ahora, con una pendiente chica en cada tarjeta */
-.prov-puestos,.prov-censos{margin-top:var(--e-6)}.dp-pendiente{display:block;width:100%;max-width:220px;height:64px;margin:var(--e-2) 0}
+/* F14: la evolución del puesto en cada tarjeta. Desde el 5 de noviembre de 2026, verde si mejoró, rojo si empeoró y gris si no cambió o el
+   indicador no tiene un bueno o malo indiscutido. El marco y los años quedan atrás: lo que se ve primero es la línea. El autor pidió rojo: el
+   bermellón de --malo en una línea fina se ve naranja, así que va --rojo. Con daltonismo se distingue igual: rojo siempre baja, verde siempre
+   sube, y la tarjeta lo dice en palabras */
+.prov-puestos,.prov-censos{margin-top:var(--e-6)}
+.dp-pendiente{--c:var(--muted);--c-texto:var(--muted);display:block;width:100%;height:92px;margin:var(--e-2) 0;overflow:visible}
+.dp-pendiente.sube{--c:var(--bueno);--c-texto:var(--bueno-texto)}
+.dp-pendiente.baja{--c:var(--rojo);--c-texto:var(--rojo)}
+.dp-pendiente text{font-size:var(--t-1);font-variant-numeric:tabular-nums;fill:var(--muted)}
+.dpp-marco{stroke:var(--borde);stroke-width:1}
+.dpp-linea{fill:none;stroke:var(--c);stroke-width:2;stroke-linejoin:round;stroke-linecap:round}
+.dpp-punto,.dpp-fin{fill:var(--c)}
+.dpp-ini{fill:var(--superficie-2);stroke:var(--c);stroke-width:2}
+.dp-pendiente .dpp-val{fill:var(--c-texto);font-weight:600}
+.dp-cambio{font-weight:600;color:var(--ink)}
+.dp-cambio.sube{color:var(--bueno-texto)}
+.dp-cambio.baja{color:var(--rojo)}
 @media (max-width:760px){
   /* en el celular los indicadores de la provincia se deslizan de costado */
   .perfil-tarjetas{grid-auto-flow:column;grid-template-columns:none;grid-auto-columns:80%;overflow-x:auto;scroll-snap-type:x mandatory;
@@ -790,7 +857,6 @@ html:not(.js) .busca-portada{display:none}
   .perfil-tarjetas::-webkit-scrollbar{display:none}
   .perfil-cab{margin-top:var(--e-6)}
   .dp{scroll-snap-align:start}
-  .prov-extra{grid-template-columns:1fr}
 }
 
 /* ---------- Sobre nosotros ---------- */
@@ -1086,10 +1152,10 @@ dl.glosario{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr)
 @media (max-width:760px){.programa{padding:var(--e-6)}}
 /* Listas sin viñetas (etapa 14, pedido del autor: "no me gustan los bullets en ningún lugar"): sin marcador y con una línea fina
    entre un ítem y el siguiente, como las listas de Apple, GOV.UK o Stripe. Las listas numeradas (los rankings) conservan el número */
-.nota-limites ul,.dx-lista,.dx-no-dice ul,.prov-extra ul,.creditos ul{list-style:none;padding-left:0}
-.nota-limites li,.dx-lista li,.dx-no-dice li,.prov-extra ul>li{margin:0;padding:var(--e-3) 0;border-top:1px solid var(--borde)}
-.nota-limites li:first-child,.dx-lista li:first-child,.dx-no-dice li:first-child,.prov-extra ul>li:first-child{border-top:0;padding-top:0}
-.nota-limites li:last-child,.dx-lista li:last-child,.dx-no-dice li:last-child,.prov-extra ul>li:last-child{padding-bottom:0}
+.nota-limites ul,.dx-lista,.dx-no-dice ul,.creditos ul{list-style:none;padding-left:0}
+.nota-limites li,.dx-lista li,.dx-no-dice li{margin:0;padding:var(--e-3) 0;border-top:1px solid var(--borde)}
+.nota-limites li:first-child,.dx-lista li:first-child,.dx-no-dice li:first-child{border-top:0;padding-top:0}
+.nota-limites li:last-child,.dx-lista li:last-child,.dx-no-dice li:last-child{padding-bottom:0}
 /* desplegables chicos (Cruces y los créditos de Sobre nosotros): sin el triángulo del navegador, con el signo + de "Para entender
    los datos" en chico, que gira hasta ser una cruz al abrir */
 .cx-detalle>summary,.creditos>summary,.nota-calculo>summary{display:inline-flex;align-items:center;gap:var(--e-2);list-style:none}
@@ -1336,7 +1402,7 @@ html:not(.js) .esqueleto{display:none}
 /* con las cinco tarjetas en fila (880 píxeles o más) la mayoría de las secciones tiene tarjetas de 149 píxeles y en celular de 141:
    la silueta usa la altura más común para que el texto de abajo casi no salte cuando llega datina.js (medido el 12 de octubre de 2026) */
 @container (min-width:880px){.esqueleto .cifra{min-height:149px}}
-.dp.esqueleto{min-height:224px;background-position:20px 20px,20px 50px,20px 112px,20px 168px;background-size:50% 10px,40% 40px,calc(100% - 40px) 10px,calc(100% - 40px) 12px}
+.dp.esqueleto{min-height:276px;background-position:16px 20px,16px 50px,16px 112px,16px 168px;background-size:50% 10px,40% 40px,calc(100% - 32px) 10px,calc(100% - 32px) 12px}
 
 /* ---------- controles de las fichas: rectos ---------- */
 /* conmutador: botones de opción con un indicador que se desliza */
@@ -2099,7 +2165,8 @@ p code{overflow-wrap:anywhere}
 @media print{
   body{background:#fff}
   body::after,.barra,.saltar,.pildoras,.migas,.subsecciones,.capitulos,.exp-gancho,.explicador,.pasos,.pie-sitio,.tip,.prov-chip,.acciones,
-  .ver-mas,.en-cifras .invita,.programas,.perfil-cab .enlace{display:none!important}
+  .ver-mas,.en-cifras .invita,.programas,.prov-indice{display:none!important}
+  .prov-cuerpo{display:block}
   .cifras-grid{grid-auto-flow:row!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;overflow:visible!important;margin:0!important;padding:0!important}
   .listo .ficha{opacity:1!important;transform:none!important;box-shadow:none}
   .ficha :is(h2,.ficha-sub){break-after:avoid}

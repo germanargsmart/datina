@@ -151,10 +151,13 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </div>
     <!-- habitantes, capital y año de provincialización de cada jurisdicción: los escribe el constructor -->
     <!--PROV-LINEA-->
+    <!-- 5 de noviembre de 2026, pedido del autor: el menú de la página, que escribe el constructor y sigue a quien baja. A la izquierda desde 1200
+         píxeles y, en pantallas más chicas, una franja fija que se despliega -->
+    <div class="prov-cuerpo">
+    <!--PROV-INDICE-->
+    <div class="prov-contenido">
     <!-- "Dónde se destaca" (etapa 6 del plan de mejora): las cifras más altas y más bajas de la provincia elegida, las arma datina.js -->
     <section class="prov-destaca" id="prov-destaca" aria-labelledby="prov-destaca-t" hidden></section>
-    <!-- F7 (plan de mejora, 31 de octubre de 2026): las provincias parecidas suben, debajo de "Dónde se destaca" y antes de los temas -->
-    <div class="prov-extra" id="prov-extra"></div>
     <!-- F11 (plan de mejora, 31 de octubre de 2026): la provincia elegida y otra, lado a lado, con todos los indicadores del perfil (?con=) -->
     <section class="prov-compara" id="prov-compara" aria-labelledby="prov-compara-t" hidden></section>
     <!-- F14 (plan de mejora, 31 de octubre de 2026): el puesto de la provincia diez años antes y en el último año, en los indicadores con serie anual -->
@@ -165,6 +168,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     <!-- la historia de cada jurisdicción (11 de octubre de 2026), al final desde la etapa 6 del plan de mejora: la escribe el constructor
          desde datos/manual/provincias_historia.json -->
     <!--HISTORIA-->
+    </div>
+    </div>
   </section>
 
   <section class="nosotros" id="nosotros" aria-labelledby="nos-tit">
