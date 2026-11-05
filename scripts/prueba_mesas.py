@@ -38,6 +38,10 @@ COBERTURA_MIN, COBERTURA_MAX = 75, 101.5
 # qué parte de quienes votaron en una jurisdicción tiene su lugar en el mapa: lo menor medido al armar fue 99,6% (scripts/elecciones_mapa.py). Si baja, se rompió una unión
 MAPA_MINIMO = 99
 FUERZAS = RAIZ / "datos" / "manual" / "mesas_fuerzas.json"
+# lo que los departamentos de 257arg reúnen del definitivo de una jurisdicción: lo medido al armar va de 87,7% (Formosa, diputados 2007) a 116,1% (San Juan, presidente 2003). Fuera de esto, se coló un total
+DEPTOS_MIN, DEPTOS_MAX = 85, 118
+# la presidencial de 1983 suma casi exacto el definitivo oficial (14.927.512): sirve de control de toda la cadena
+DEPTOS_CONOCIDOS = {"1983-general-presidente": 14927513}
 
 
 def leer(ruta):
@@ -204,6 +208,46 @@ def revisar(detalle=False):
     for nombre in pesos_geo:
         if not (SALIDA / "geo" / f"{nombre}.topo.json").exists():
             problemas.append(f"falta geo/{nombre}.topo.json")
+
+    # de 1983 a 2009: los departamentos de 257arg contra el definitivo oficial, y nunca el total de la provincia repetido en un departamento (Tucumán 1991 sumaba 193%)
+    for el in idx["elecciones"]:
+        if el["nivel"] == "mesa":
+            continue
+        id_ = el["id"]
+        ruta = SALIDA / "mapa" / f"{id_}.json"
+        if not ruta.exists():
+            problemas.append(f"mapa/{id_}.json: falta. Hay que correr scripts/elecciones_departamentos.py")
+            continue
+        doc = json.loads(ruta.read_text(encoding="utf-8"))
+        if sorted(doc["provincias"]) != sorted(el["provincias"]):
+            problemas.append(f"mapa/{id_}.json: no tiene las mismas jurisdicciones que el índice")
+        if el["nivel"] == "provincia":
+            if not (SALIDA / "geo" / "provincias.topo.json").exists():
+                problemas.append("falta geo/provincias.topo.json")
+            continue
+        if not (SALIDA / "geo" / f"pais-{doc['periodo']}.topo.json").exists():
+            problemas.append(f"falta geo/pais-{doc['periodo']}.topo.json")
+        for cod, pv in doc["provincias"].items():
+            if not (SALIDA / "geo" / pv["ed"] / f"{cod}.topo.json").exists():
+                problemas.append(f"mapa/{id_}.json, {cod}: falta geo/{pv['ed']}/{cod}.topo.json")
+            s = pv.get("suma")
+            if s is not None and not DEPTOS_MIN <= s <= DEPTOS_MAX:
+                problemas.append(f"mapa/{id_}.json, {cod}: los departamentos suman {s}% del definitivo")
+        for cod in el.get("departamentos", []):
+            ruta_t = SALIDA / id_ / f"{cod}.csv"
+            if not ruta_t.exists():
+                problemas.append(f"{id_}/{cod}.csv: falta")
+                continue
+            filas = leer(ruta_t)
+            if filas[0][:8] != FIJAS or len(filas) < 2:
+                problemas.append(f"{id_}/{cod}.csv: columnas inesperadas o sin filas")
+            elif len({r[0] for r in filas[1:]}) != len(filas) - 1:
+                problemas.append(f"{id_}/{cod}.csv: un departamento repetido")
+    for id_, esperado in DEPTOS_CONOCIDOS.items():
+        doc = json.loads((SALIDA / "mapa" / f"{id_}.json").read_text(encoding="utf-8"))
+        total = sum(f[4][i + 1] for pv in doc["provincias"].values() for f in pv["filas"] for i in range(0, len(f[4]), 2))
+        if total != esperado:
+            problemas.append(f"mapa/{id_}.json: suma {total:,} votos positivos y se esperaban {esperado:,}")
 
     # sin esta regla Cloudflare no comprime las tablas, porque no comprime el CSV: Buenos Aires baja unos 5 MB
     if "/datos/mesas/*\n  Content-Type: text/plain" not in (RAIZ / "sitio" / "_headers").read_text(encoding="utf-8"):

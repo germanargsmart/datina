@@ -107,9 +107,10 @@ const orden = el.provincias.slice().sort((a, b) => provNombre(a).localeCompare(p
 opciones($("ms-prov"), [["", "Todo el país"], ...orden.map(c => [c, provNombre(c)])], estado.p);
 const secc = $("ms-sec"), circ = $("ms-cir"), mesa = $("ms-mesa"), num = $("ms-num");
 const apagar = (sel, texto) => { opciones(sel, [["", texto]], ""); sel.disabled = true; };
-num.disabled = !D;
-$("ms-num-ir").disabled = !D;
-num.placeholder = D ? "Por ejemplo, 1234" : el.nivel === "mesa" ? "Elegí una provincia" : "Sin datos en esta elección";
+const conMesas = !!D && el.nivel === "mesa";
+num.disabled = !conMesas;
+$("ms-num-ir").disabled = !conMesas;
+num.placeholder = conMesas ? "Por ejemplo, 1234" : el.nivel === "mesa" ? "Elegí una provincia" : "Sin mesas en esta elección";
 if (!D) {
 const t = el.nivel === "mesa" ? "Elegí una provincia" : "Sin datos";
 apagar(secc, t); apagar(circ, t); apagar(mesa, t);
@@ -119,6 +120,7 @@ const nombres = new Map();
 for (const f of D.filas) if (!nombres.has(f.s)) nombres.set(f.s, f.sn);
 secc.disabled = false;
 opciones(secc, [["", "Toda la provincia"], ...[...nombres].sort((a, b) => a[1].localeCompare(b[1], "es", {numeric: true}))], estado.s);
+if (!conMesas) { apagar(circ, "Sin datos en esta elección"); apagar(mesa, "Sin datos en esta elección"); return; }
 if (!estado.s) { apagar(circ, "Elegí una sección"); apagar(mesa, "Elegí una sección"); return; }
 const deSec = D.filas.filter(f => f.s === estado.s);
 circ.disabled = false;
@@ -232,6 +234,23 @@ partes = tablaPartes("¿Cómo votó cada jurisdicción?", "Jurisdicción", filas
 const x = P[estado.p];
 t = {mesas: null, electores: x.electores || 0, votantes: x.votantes, blancos: x.blancos, nulos: x.nulos, recurridos: x.recurridos || 0};
 listas = x.listas.slice().sort((a, b) => b[1] - a[1]);
+} else if (el.nivel === "departamento") {
+const filas = D.filas.filter(f => !estado.s || f.s === estado.s);
+if (estado.s) {
+t = sumar(filas, D.listas.length);
+listas = dos(D.listas, t.v);
+} else {
+const x = P[estado.p];
+t = {mesas: null, electores: x.electores || 0, votantes: x.votantes, blancos: x.blancos, nulos: x.nulos, recurridos: x.recurridos || 0};
+listas = x.listas.slice().sort((a, b) => b[1] - a[1]);
+const circunscripciones = estado.p === "02" && filas[0]?.sn.startsWith("Circ");
+const hijos = filas.map(f => {
+const s = sumar([f], D.listas.length);
+return {clave: "s", valor: f.s, nombre: f.sn, mesas: null, electores: s.electores, part: participacion(s), nombres: D.listas, votos: f.v};
+}).sort((a, b) => natural(a.nombre, b.nombre));
+partes = tablaPartes(circunscripciones ? "¿Cómo votó cada circunscripción?" : "¿Cómo votó cada departamento?", circunscripciones ? "Circunscripción" : "Departamento", hijos, false);
+}
+notas.push(`${estado.s ? "Este resultado no es" : "Los departamentos no son"} el escrutinio definitivo: ${estado.s ? "sale" : "salen"} de ${el.anio <= 2001 ? "la base de Ernesto Calvo" : "PolAr, a partir del Atlas Electoral de Andy Tow"}, por medio de 257arg, y ${estado.s ? "puede" : "pueden"} no sumar exacto el total de la jurisdicción.`);
 } else {
 const filas = D.filas.filter(f => (!estado.s || f.s === estado.s) && (!estado.c || f.c === estado.c) && (!estado.m || f.m === estado.m));
 t = sumar(filas, D.listas.length);
@@ -274,15 +293,15 @@ frase = `La lista más votada ${dondeTxt} fue ${listas[0][0]}, con ${pct(listas[
 if (el.nivel === "provincia") notas.push("Para esta elección no hay datos que se puedan publicar por debajo de la jurisdicción.");
 frase = [frase, ...notas].filter(Boolean).join(" ");
 resumen = `<section class="ms-bloque ms-resultado" aria-labelledby="ms-titulo"><h2 class="ms-tit" id="ms-titulo" tabindex="-1">${esc(lugar(el, D))}</h2>` +
-`<p class="ms-sub">${esc(sub)}</p>` + (aviso ? `<p class="aviso-serie ms-aviso">${esc(aviso)}</p>` : "") + (cob ? `<p class="aviso-serie ms-aviso">${esc(cob)}</p>` : "") + cifras(t, !estado.m) +
+`<p class="ms-sub">${esc(sub)}</p>` + (aviso ? `<p class="aviso-serie ms-aviso">${esc(aviso)}</p>` : "") + (cob ? `<p class="aviso-serie ms-aviso">${esc(cob)}</p>` : "") + cifras(t, !estado.m && el.nivel === "mesa") +
 (frase ? `<p class="ms-frase">${esc(frase)}</p>` : "") + tablaListas(listas, positivos) + otrosVotos(t) + `</section>`;
 $("ms-resultado").innerHTML = resumen + partes + historia;
 const bajarCSV = !estado.p || !D ? `${BASE}${el.id}/pais.csv` : `${BASE}${el.id}/${estado.p}.csv`;
 const a = $("ms-bajar");
 a.href = bajarCSV;
-a.textContent = !estado.p || !D ? "Descargar tabla por jurisdicción (CSV)" : `Descargar las mesas de ${provNombre(estado.p)} (CSV)`;
+a.textContent = !estado.p || !D ? "Descargar tabla por jurisdicción (CSV)" : `Descargar ${el.nivel === "mesa" ? "las mesas" : "los departamentos"} de ${provNombre(estado.p)} (CSV)`;
 const ah = $("ms-bajar-hist");
-ah.hidden = !(estado.p && D);
+ah.hidden = !(estado.p && D && el.nivel === "mesa");
 if (estado.p) ah.href = `${BASE}circuitos/${estado.p}.csv`;
 raiz.setAttribute("aria-busy", "false");
 $("ms-estado").textContent = `Resultados de ${lugar(el, D)}.`;
@@ -318,7 +337,11 @@ const positivosDe = f => { let s = 0; for (let i = 1; i < f[4].length; i += 2) s
 const votosFuerza = (doc, f, ix) => { let s = 0; for (let i = 0; i < f[4].length; i += 2) if (doc.fuerza[f[4][i]] === ix) s += f[4][i + 1]; return s; };
 const circuitosMesa = f => f[5] || (Array.isArray(f[1]) ? f[1].map(c => c.includes("|") ? c : `${f[0]}|${c}`) : [`${f[0]}|${f[1]}`]);
 const seccionDe = f => circuitosMesa(f)[0].split("|")[0];
-const claveRasgo = r => `${r.properties.p}|${r.properties.s}|${r.properties.c}`;
+const claveRasgo = r => `${r.properties.p}|${r.properties.s ?? ""}|${r.properties.c ?? ""}`;
+const nombreLugar = t => String(t).normalize("NFD").replace(/[̀-ͯ]/g, "").toUpperCase().replace(/[^A-Z0-9]/g, "");
+const UNIDADES = {circuito: "circuitos", departamento: "departamentos", provincia: "jurisdicciones"};
+const FUENTES_DEPTOS = {hasta2001: "la base de Ernesto Calvo", desde2003: "PolAr, a partir del Atlas Electoral de Andy Tow"};
+const unidadDe = doc => doc.unidad || "circuito";
 function indexar(doc) {
 const m = new Map();
 for (const cod of Object.keys(doc.provincias)) {
@@ -348,11 +371,14 @@ return mezcla(doc.fuerzas[doc.fuerza[f[4][0]]].c, TONOS[tramo(CORTES.gana, f[4][
 }
 function textoTip(doc, r) {
 const f = MAPA.indice.get(claveRasgo(r)), {p, s, c} = r.properties, pv = doc.provincias[p];
-const prov = provNombre(p);
+const prov = provNombre(p), unidad = unidadDe(doc);
+if (!f && unidad !== "circuito") return `<b>${esc(prov)}</b><br>${unidad === "provincia" ? "No eligió senadores en esta elección" : "Sin dato de este lugar en esta elección"}`;
 if (!f) return `<b>${c === "0" ? "Zona sin circuito" : `Circuito ${esc(c)}`}</b>${pv?.secciones?.[s] ? `, ${esc(pv.secciones[s])}` : ""}, ${esc(prov)}<br>Sin mesas en esta elección`;
 const cs = circuitosMesa(f), sn = pv.secciones[seccionDe(f)] || "";
 let lugar;
-if (pv.nivel === "seccion") lugar = `${esc(sn)}, ${esc(prov)}`;
+if (pv.nivel === "provincia") lugar = `${esc(prov)}, sin dato por departamento`;
+else if (unidad === "provincia" || sn === "CABA") lugar = esc(prov);
+else if (unidad === "departamento" || pv.nivel === "seccion") lugar = `${esc(sn)}, ${esc(prov)}`;
 else if (cs.length === 1) lugar = `Circuito ${esc(cs[0].split("|")[1])}, ${esc(sn)}, ${esc(prov)}`;
 else lugar = `Circuitos ${esc(cs.slice(0, 4).map(x => x.split("|")[1]).join(", "))}${cs.length > 4 ? " y otros" : ""}, ${esc(sn)}`;
 const pos = positivosDe(f), filas = [];
@@ -378,7 +404,7 @@ const camino = d3.geoPath(d3.geoTransform({point(lon, lat) { this.stream.point(o
 const svg = d3.select(lienzo).insert("svg", ":first-child").attr("viewBox", `0 0 ${W} ${H}`).attr("role", "img").attr("preserveAspectRatio", "xMidYMid meet");
 const capa = svg.append("g");
 const caminos = capa.append("g").attr("class", estado.p ? "ms-cs" : "ms-cs ms-cs-pais").selectAll("path").data(rasgos).join("path").attr("class", "ms-c").attr("d", camino);
-const llave = estado.p ? "s" : "p";
+const llave = estado.p && !ruta.includes("provincias") ? "s" : "p";
 capa.append("path").attr("class", "ms-limite").attr("d", camino(topojson.mesh(topo, obj, (a, b) => a.properties[llave] !== b.properties[llave])));
 const sel = capa.append("path").attr("class", "ms-sel");
 const zoom = d3.zoom().scaleExtent([1, 90]).extent([[0, 0], [W, H]]).translateExtent([[0, 0], [W, H]])
@@ -397,23 +423,28 @@ function elegirRasgo(r) {
 const doc = MAPA.doc;
 if (!estado.p) { Object.assign(estado, {p: r.properties.p, s: "", c: "", m: ""}); actualizar(false); return; }
 const f = MAPA.indice.get(claveRasgo(r));
-if (!f) return;
+if (!f || doc.provincias[estado.p].nivel === "provincia" || unidadDe(doc) === "provincia" || seccionDe(f) === "CABA") return;
 const cs = circuitosMesa(f), [s, c] = cs[0].split("|");
-if (doc.provincias[estado.p].nivel === "seccion" || cs.length > 1) Object.assign(estado, {s, c: "", m: ""});
+if (unidadDe(doc) === "departamento" || doc.provincias[estado.p].nivel === "seccion" || cs.length > 1) Object.assign(estado, {s, c: "", m: ""});
 else Object.assign(estado, {s, c, m: ""});
 actualizar(false);
 }
 function enfocar() {
-const clave = `${MAPA.ruta}|${estado.s}`;
+const clave = `${MAPA.ruta}|${estado.p}|${estado.s}`;
 if (clave === MAPA.enfoque) return;
 MAPA.enfoque = clave;
 let t = d3.zoomIdentity;
-if (estado.s) {
-const dentro = MAPA.rasgos.filter(r => { const f = MAPA.indice.get(claveRasgo(r)); return f ? seccionDe(f) === estado.s : r.properties.s === estado.s; });
+const delPais = MAPA.ruta.includes("provincias");
+if (estado.s || (estado.p && delPais)) {
+const dentro = MAPA.rasgos.filter(r => {
+if (!estado.s) return r.properties.p === estado.p;
+const f = MAPA.indice.get(claveRasgo(r));
+return f ? seccionDe(f) === estado.s : r.properties.s === estado.s;
+});
 if (dentro.length) {
 const cajas = dentro.map(r => MAPA.camino.bounds(r));
 const a = Math.min(...cajas.map(b => b[0][0])), b = Math.min(...cajas.map(x => x[0][1])), c = Math.max(...cajas.map(x => x[1][0])), d = Math.max(...cajas.map(x => x[1][1]));
-const k = Math.max(1, Math.min(90, .92 / Math.max((c - a) / MAPA.W, (d - b) / MAPA.H)));
+const k = Math.max(1, Math.min(90, (unidadDe(MAPA.doc) === "circuito" ? .92 : .55) / Math.max((c - a) / MAPA.W, (d - b) / MAPA.H)));
 t = d3.zoomIdentity.translate(MAPA.W / 2, MAPA.H / 2).scale(k).translate(-(a + c) / 2, -(b + d) / 2);
 }
 }
@@ -429,7 +460,7 @@ x.n++; x.listas.add(li);
 cuenta.set(ix, x);
 }
 const orden = [...cuenta].sort((a, b) => b[1].n - a[1].n);
-const nombre = ([ix, x]) => x.listas.size === 1 ? doc.listas[[...x.listas][0]] : doc.fuerzas[ix].n;
+const nombre = ([ix, x]) => doc.unidad === "departamento" || x.listas.size > 1 || doc.fuerzas[ix].id === "otras" ? doc.fuerzas[ix].n : doc.listas[[...x.listas][0]];
 const renglon = (color, n, cant) => `<div class="ms-ley-fila"><span class="ms-ley-nom">${esc(n)}</span><span class="ms-ley-n">${n0(cant)}</span>` +
 `<span class="ms-ley-tonos" aria-hidden="true">${TONOS.map(k => `<i style="background:${mezcla(color, k)}"></i>`).join("")}</span></div>`;
 const visibles = orden.slice(0, 9).map(e => renglon(doc.fuerzas[e[0]].c, nombre(e), e[1].n)).join("");
@@ -445,8 +476,9 @@ return `<p class="ms-ley-tit">${esc(titulo)}</p>` + nombres.map((n, i) =>
 function pintarVista(el) {
 const doc = MAPA.doc, filas = filasEnVista(doc), ver = MAPA.ver;
 MAPA.caminos.attr("fill", r => colorDe(doc, MAPA.indice.get(claveRasgo(r))));
-const pv = estado.p ? doc.provincias[estado.p] : null;
-const clase = pv?.nivel === "seccion" ? "secciones" : "circuitos";
+const pv = estado.p ? doc.provincias[estado.p] : null, unidad = unidadDe(doc);
+const clase = pv?.nivel === "seccion" ? "secciones" : UNIDADES[unidad];
+const singular = {circuitos: "circuito", secciones: "sección", departamentos: "departamento", jurisdicciones: "jurisdicción"}[clase];
 const lugarMapa = [estado.c ? `Circuito ${estado.c}` : "", estado.s ? pv.secciones[estado.s] || "" : "", estado.p ? provNombre(estado.p) : "Todo el país"].filter(Boolean).join(", ");
 const donde = estado.s ? (pv.secciones[estado.s] || "esta sección") : estado.p ? provNombre(estado.p) : "todo el país";
 let frase = "", leyenda = "";
@@ -454,7 +486,10 @@ const conVotos = filas.filter(f => positivosDe(f));
 if (ver === "gana") {
 const l = leyendaGana(doc, filas);
 leyenda = l.html;
-if (l.orden.length) {
+if (conVotos.length === 1) {
+const f = conVotos[0];
+frase = `En ${donde}, la lista más votada fue ${doc.listas[f[4][0]]}, con ${pct(f[4][1] / positivosDe(f) * 100)} de los votos positivos.`;
+} else if (l.orden.length) {
 const primero = l.orden[0];
 frase = `En ${donde}, ${l.nombre(primero)} fue la más votada en ${n0(primero[1].n)} de ${n0(conVotos.length)} ${clase}` +
 (l.orden[1] ? `, y ${l.nombre(l.orden[1])} en ${n0(l.orden[1][1].n)}.` : ".");
@@ -463,10 +498,15 @@ frase = `En ${donde}, ${l.nombre(primero)} fue la más votada en ${n0(primero[1]
 const cuentas = [0, 0, 0, 0, 0];
 const vals = [];
 for (const f of filas) if (f[2] > 0) { const v = f[3] / f[2] * 100; cuentas[tramo(CORTES.part, v)]++; vals.push(v); }
-leyenda = leyendaTramos("Participación: votantes por cada 100 electores de las mesas con resultado", CORTES.part, COLORES_PART, cuentas);
-if (vals.length) {
+leyenda = leyendaTramos(unidad === "circuito" ? "Participación: votantes por cada 100 electores de las mesas con resultado" : "Participación: votantes por cada 100 electores", CORTES.part, COLORES_PART, cuentas);
+if (vals.length > 1) {
 vals.sort((a, b) => a - b);
-frase = `En ${donde}, la mitad de los ${clase} tuvo una participación de ${pct(vals[Math.floor(vals.length / 2)])} o más. La más baja fue de ${pct(vals[0])} y la más alta, de ${pct(vals.at(-1))}.`;
+const mitad = clase === "secciones" || clase === "jurisdicciones" ? "la mitad de las" : "la mitad de los";
+frase = `En ${donde}, ${mitad} ${clase} tuvo una participación de ${pct(vals[Math.floor(vals.length / 2)])} o más. La más baja fue de ${pct(vals[0])} y la más alta, de ${pct(vals.at(-1))}.`;
+} else if (vals.length) {
+frase = `En ${donde}, la participación fue de ${pct(vals[0])}.`;
+} else {
+frase = "Esta elección no trae los electores de cada lugar: el mapa de participación queda sin color.";
 }
 } else {
 const ix = doc.fuerzas.findIndex(x => x.id === MAPA.fuerza);
@@ -478,18 +518,29 @@ leyenda = leyendaTramos(`${doc.fuerzas[ix].n}: porcentaje de los votos positivos
 if (pos) frase = `En ${donde}, ${doc.fuerzas[ix].n} reunió ${pct(suma / pos * 100)} de los votos positivos.`;
 }
 }
-$("ms-ley").innerHTML = leyenda + `<div class="ms-ley-tramo ms-ley-sin"><i style="background:${SIN_MESAS}" aria-hidden="true"></i><span class="ms-ley-nom">Sin mesas en esta elección</span></div>`;
+$("ms-ley").innerHTML = leyenda + `<div class="ms-ley-tramo ms-ley-sin"><i style="background:${SIN_MESAS}" aria-hidden="true"></i><span class="ms-ley-nom">${{circuito: "Sin mesas en esta elección", departamento: "Sin dato en esta elección", provincia: "No eligió senadores en esta elección"}[unidad]}</span></div>`;
 $("ms-mapa-frase").textContent = frase;
-$("ms-mapa-tit").textContent = ver === "gana" ? (pv?.nivel === "seccion" ? "¿Quién ganó en cada sección?" : "¿Quién ganó en cada circuito?") : ver === "part" ? "¿Cuánta gente votó en cada circuito?" : "¿Dónde sacó más votos cada fuerza?";
+$("ms-mapa-tit").textContent = ver === "gana" ? `¿Quién ganó en cada ${singular}?` : ver === "part" ? `¿Cuánta gente votó en cada ${singular}?` : "¿Dónde sacó más votos cada fuerza?";
 $("ms-mapa-sub").textContent = `${CARGOS[el.cargo]}, ${el.etiqueta}. ${lugarMapa}. Tocá un lugar para ver sus resultados.`;
 MAPA.svg.attr("aria-label", `Mapa de ${donde}. ${frase} Los mismos resultados están en las tablas de abajo.`);
 const notas = [];
-const secciones = el.provincias.filter(c => doc.provincias[c]?.nivel === "seccion" && (!estado.p || c === estado.p)).map(provNombre);
+const secciones = el.provincias.filter(c => doc.provincias[c]?.nivel === "seccion" && unidad === "circuito" && (!estado.p || c === estado.p)).map(provNombre);
 if (secciones.length) notas.push(`En ${secciones.join(", ").replace(/, ([^,]*)$/, " y $1")}, en esta elección el mapa llega hasta la sección: los códigos de entonces no coinciden con la cartografía de los circuitos.`);
 const faltan = el.provincias.filter(c => (doc.provincias[c]?.con ?? 100) < 99.5 && (!estado.p || c === estado.p));
 for (const c of faltan.slice(0, 2)) notas.push(`En ${provNombre(c)}, ${pct(100 - doc.provincias[c].con)} de quienes votaron no tiene su circuito en el mapa.`);
+if (doc.unidad === "departamento") {
+notas.push(`Los departamentos salen de ${FUENTES_DEPTOS[doc.origen]}, por medio de 257arg, no del escrutinio definitivo.`);
+if (doc.aviso) notas.push(doc.aviso);
+const lejos = el.provincias.filter(c => doc.provincias[c]?.suma != null && Math.abs(doc.provincias[c].suma - 100) > 3 && (!estado.p || c === estado.p));
+if (estado.p && lejos.length) notas.push(`En ${provNombre(estado.p)}, esta base suma ${pct(doc.provincias[estado.p].suma)} de los votos positivos del definitivo.`);
+else if (lejos.length) notas.push(`En ${lejos.length === 1 ? `${provNombre(lejos[0])}, esta base no suma` : `${lejos.length} jurisdicciones, esta base no suma`} lo mismo que el definitivo: la diferencia pasa de 3%.`);
+const enteras = el.provincias.filter(c => doc.provincias[c]?.nivel === "provincia" && c !== "02" && (!estado.p || c === estado.p)).map(provNombre);
+if (enteras.length) notas.push(`En ${enteras.join(", ").replace(/, ([^,]*)$/, " y $1")} no hay resultados por departamento en esta elección: se pinta la jurisdicción entera.`);
+if (doc.periodo !== "dep2010" && (!estado.p || estado.p === "02")) notas.push("CABA se pinta entera: sus datos son por circunscripción y esos límites no están publicados.");
+}
 $("ms-mapa-nota").textContent = notas.join(" ");
-const elegido = estado.c ? MAPA.rasgos.filter(r => { const f = MAPA.indice.get(claveRasgo(r)); return f && circuitosMesa(f).includes(`${estado.s}|${estado.c}`); }) : [];
+const elegido = estado.c ? MAPA.rasgos.filter(r => { const f = MAPA.indice.get(claveRasgo(r)); return f && circuitosMesa(f).includes(`${estado.s}|${estado.c}`); })
+: estado.s && unidad === "departamento" ? MAPA.rasgos.filter(r => { const f = MAPA.indice.get(claveRasgo(r)); return f && seccionDe(f) === estado.s; }) : [];
 MAPA.sel.attr("d", elegido.length ? elegido.map(r => MAPA.camino(r)).join("") : null);
 const volver = $("ms-mapa-subir");
 volver.hidden = !estado.p;
@@ -509,7 +560,7 @@ const orden = [...suma].sort((a, b) => b[1] - a[1]).map(x => x[0]).filter(ix => 
 if (!orden.some(ix => doc.fuerzas[ix].id === MAPA.fuerza)) MAPA.fuerza = orden.length ? doc.fuerzas[orden[0]].id : "";
 opciones($("ms-mapa-fuerza"), orden.map(ix => [doc.fuerzas[ix].id, doc.fuerzas[ix].n]), MAPA.fuerza);
 }
-const lista = IDX.elecciones.filter(e => e.cargo === el.cargo && e.nivel === "mesa").sort((a, b) => a.anio - b.anio || (a.vuelta === "segunda" ? 1 : -1));
+const lista = IDX.elecciones.filter(e => e.cargo === el.cargo).sort((a, b) => a.anio - b.anio || (a.vuelta === "segunda" ? 1 : -1));
 const i = lista.findIndex(e => e.id === el.id);
 const ant = $("ms-el-ant"), sig = $("ms-el-sig");
 ant.disabled = i <= 0; sig.disabled = i < 0 || i >= lista.length - 1;
@@ -517,14 +568,14 @@ ant.dataset.e = i > 0 ? lista[i - 1].id : ""; sig.dataset.e = lista[i + 1]?.id |
 }
 async function pintarMapa(el) {
 const yo = ++MAPA.turno, caja = $("ms-mapa"), aviso = $("ms-mapa-falla");
-if (el.nivel !== "mesa" || !window.d3 || !window.topojson) { caja.hidden = true; return; }
+if (!window.d3 || !window.topojson) { caja.hidden = true; return; }
 caja.hidden = false;
 aviso.hidden = true;
 try {
 const doc = await bajarJSON(`mapa/${el.id}.json`);
 const ed = estado.p ? doc.provincias[estado.p]?.ed : "";
 if (estado.p && !ed) throw new Error(`mapa/${el.id}.json: falta ${estado.p}`);
-const ruta = estado.p ? `geo/${ed}/${estado.p}.topo.json` : `geo/pais-${doc.periodo}.topo.json`;
+const ruta = doc.periodo === "provincias" ? "geo/provincias.topo.json" : estado.p ? `geo/${ed}/${estado.p}.topo.json` : `geo/pais-${doc.periodo}.topo.json`;
 const topo = await bajarJSON(ruta);
 if (yo !== MAPA.turno) return;
 MAPA.doc = doc;
@@ -581,17 +632,24 @@ if (estado.p && !el.provincias.includes(estado.p)) {
 aviso = `${provNombre(estado.p)} no eligió ${NIVEL_NOMBRE[el.cargo]} en ${el.anio}: se muestra todo el país.`;
 Object.assign(estado, {p: "", s: "", c: "", m: ""});
 }
-if (el.nivel !== "mesa" && estado.s) Object.assign(estado, {s: "", c: "", m: ""});
-const D = estado.p && el.nivel === "mesa" ? await tablaProvincia(el.id, estado.p) : null;
+const hayTabla = el.nivel === "mesa" || (el.nivel === "departamento" && el.departamentos?.includes(estado.p));
+if (!hayTabla && estado.s) Object.assign(estado, {s: "", c: "", m: ""});
+if (el.nivel !== "mesa") Object.assign(estado, {c: "", m: ""});
+const D = estado.p && hayTabla ? await tablaProvincia(el.id, estado.p) : null;
 if (D) {
+if (estado.s && MAPA.seccion && !D.filas.some(f => f.s === estado.s)) {
+const igual = D.filas.find(f => nombreLugar(f.sn) === MAPA.seccion);
+if (igual) estado.s = igual.s;
+}
 const hay = (s, c, m) => D.filas.some(f => f.s === s && (!c || f.c === c) && (!m || f.m === m));
 if (estado.m && !hay(estado.s, estado.c, estado.m)) { aviso = `La mesa ${estado.m} no existe en ese circuito en esta elección: se muestra el circuito. Los números de mesa cambian en cada elección.`; estado.m = ""; }
 if (estado.c && !hay(estado.s, estado.c)) { aviso = `El circuito ${estado.c} no figura con ese código en esta elección: se muestra la sección.`; estado.c = ""; estado.m = ""; }
 if (estado.s && !hay(estado.s)) { aviso = "Esa sección no figura en esta elección: se muestra la provincia."; Object.assign(estado, {s: "", c: "", m: ""}); }
 }
 let H = null;
-if (D && estado.s) H = await tablaHistoria(estado.p).catch(e => { console.warn("Elecciones por mesa:", e); return FALLO_HISTORIA; });
+if (D && estado.s && el.nivel === "mesa") H = await tablaHistoria(estado.p).catch(e => { console.warn("Elecciones por mesa:", e); return FALLO_HISTORIA; });
 if (yo !== turno) return;
+MAPA.seccion = D && estado.s ? nombreLugar(D.filas.find(f => f.s === estado.s).sn) : "";
 pintarControles(el, D);
 pintar(el, P, D, H, aviso);
 pintarMapa(el);

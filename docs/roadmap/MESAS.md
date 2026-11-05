@@ -4,7 +4,7 @@ Herramienta `mesas.html`, en el menú Herramientas, con un enlace desde la ficha
 
 ## Qué se decidió (respuestas del autor del 4 de noviembre de 2026)
 
-- Mesas y circuitos de 2011 a 2025. De 1983 a 2009, hasta jurisdicción, con el aviso de por qué.
+- Mesas y circuitos de 2011 a 2025. De 1983 a 2009, hasta jurisdicción, con el aviso de por qué. El 5 de noviembre de 2026 el autor pidió sumar los departamentos de esos años (ver más abajo).
 - Generales y segundas vueltas. Las PASO quedan para otro cambio.
 - Página propia en Herramientas.
 - Historia por circuito y por sección: en cada elección, las dos listas más votadas y la participación. La mesa no se sigue en el tiempo.
@@ -17,7 +17,7 @@ El autor dijo "como hablamos en su momento". Esa charla no está en las sesiones
 |---|---|---|---|
 | 2011 a 2025 | Mesa | Dirección Nacional Electoral, archivos del "estándar de preservación". 2025 sale de datos.gob.ar. CC-BY 4.0 | Sí |
 | 2003 a 2009 | Mesa | Atlas Electoral de Andy Tow, por medio de electorAr (`PoliticaArgentina/data_warehouse`) | No sin permiso. El proyecto electoral anotó que la licencia es CC BY-ND. El sitio del Atlas pide iniciar sesión y no se pudo comprobar de primera mano |
-| 1983 a 2001 | Circuito y departamento | Base de Ernesto Calvo (el repositorio `azha2005/257arg` dice que no se redistribuye) y base de Lupu y Stokes (por departamento, solo PJ, UCR y otros) | No sin permiso |
+| 1983 a 2001 | Circuito y departamento | Base de Ernesto Calvo (el repositorio `azha2005/257arg` dice que no se redistribuye) y base de Lupu y Stokes (por departamento, solo PJ, UCR y otros) | Los circuitos, no sin permiso. Los departamentos sí, por decisión del autor: los publica 257arg con CC BY 4.0 |
 | 1983 a 2009 | Jurisdicción | DINE, escrutinio definitivo: `datos/manual/presidenciales_provincia.csv` para presidente y un Excel por año para diputados y senadores | Sí |
 
 Los senadores se eligen por voto directo desde 2001, y por eso no hay senadores antes. Para llegar más abajo hay que pedir permiso a Andy Tow y a Ernesto Calvo: lo decide y lo hace el autor.
@@ -104,8 +104,30 @@ La página usa D3 y topojson, ya cargados, con una proyección plana a propósit
 
 Otra elección con el mismo mapa: si su numeración de circuitos cambia, sumar un período en `PERIODOS` y revisar `EDICION`.
 
+## Los departamentos de 1983 a 2009 (5 de noviembre de 2026)
+
+El autor, ante la pregunta de qué hacer en esos años y con la advertencia del permiso a la vista: "usá por departamento". `scripts/elecciones_departamentos.py` lee los `dataset_*.json` de 257arg (20 elecciones: 6 de presidente y 14 de diputados) y la geometría de Rodríguez, CEUR-CONICET (CC BY 2.5 AR). Escribe `{eleccion}/{codigo_indec}.csv` con las columnas de las tablas por mesa, `mapa/{eleccion}.json`, `geo/dep{1991,2001,2010}/` y `geo/pais-dep*.topo.json`, y marca esas elecciones con `nivel: "departamento"` en `indice.json`. Se corre después de `elecciones_mesas.py` y `elecciones_mapa.py`: si `elecciones_mesas.py` reescribe el índice, hay que volver a correrlo con `--solo-resultados`.
+
+**El riesgo que el autor aceptó**: 257arg publica estos agregados con CC BY 4.0, pero de 1983 a 2001 salen de la base de Ernesto Calvo, que el mismo 257arg dice que no redistribuye por no tener documentado el permiso, y de 2003 a 2009 de PolAr, a partir del Atlas de Andy Tow, con una licencia que el proyecto electoral del autor anotó como CC BY-ND. La página cita las tres fuentes. Si Calvo o Tow lo piden, se saca con correr el script sin esas elecciones.
+
+Cómo se usa: el total de cada jurisdicción sigue siendo el oficial de la DINE. Los departamentos van en el mapa y en la tabla de abajo, con el aviso de que no son el escrutinio definitivo.
+
+Trampas de esos archivos:
+
+- **Unidades sin dato propio**: 257arg pone el total de la provincia en un departamento y lo avisa en su `note` ("Sin dato propio"). Sin sacarlo, Tucumán 1991 sumaba 193% (Yerba Buena), y Jujuy y Salta 2001, el doble. Esas unidades no se usan.
+- **Provincia repetida en cada departamento**: San Luis 1997 y 1999, Santa Cruz 1999, La Pampa 2003. Se detecta por las líneas idénticas, y se pinta la jurisdicción entera.
+- **CABA**: 28 circunscripciones hasta 2007, sin geometría publicada (la de 257arg sale de un archivo que no está en su repositorio). La tabla las lista y el mapa la pinta entera. En 2009 ya son comunas.
+- **Nombres**: "Gnral.", "Crnel." y otras abreviaturas se normalizan en `clave()`. La Rioja renombró tres departamentos (General Lavalle a Coronel Felipe Varela, General Sarmiento a Vinchina, Gobernador Gordillo a Chamical): `ALIAS_PROV`. Lo que se une por parecido queda en `datos/manual/mesas_departamentos_control.json`. Queda sin par solo 2 de Abril (Chaco, 1993), creado después del mapa de 1991.
+- **Fuerzas**: 257arg arma bloques con color (`candidates` sin `P_`). Los que coinciden con una fuerza del mapa por circuito toman su color. En las presidenciales cada candidato conserva el suyo: en 2003, Menem, Kirchner y Rodríguez Saá son peronistas y compiten entre sí.
+
+Cuánto suman contra el definitivo, en `suma` de cada jurisdicción: casi exacto de 1983 a 1989 y en 1995. Lo más lejos: Formosa diputados 2007 (87,7%) y San Juan presidente 2003 (116,1%). La página avisa si la diferencia pasa de 3%. `prueba_mesas.py` frena fuera de 85% a 118%, porque sería un total que se coló. Diputados 2003 sale de dat.ar y sus cifras no cierran: la página lo dice.
+
+Los senadores de 2001 a 2009 siguen por jurisdicción, con el resultado oficial: `geo/provincias.topo.json`.
+
 ## Lo que falta
 
 - Las PASO: 2015 no se puede bajar por mesa y 2023 sale de una copia del Internet Archive.
 - Los locales de votación: el archivo de 2025 los trae (escuela y dirección).
 - Mesas de 2003 a 2009 y circuitos de 1983 a 2001, con permiso de sus autores.
+- Los límites de las 28 circunscripciones de CABA hasta 2007.
+- Las elecciones de 1912 a 1973 por departamento: 257arg las tiene, con geometría de cada época.
