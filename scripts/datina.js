@@ -6167,7 +6167,7 @@ function repintarProv() {
   if (REDUCIR || !VT_TIPOS || document.hidden) return cambiar();
   // "En cifras" se arma de nuevo: su lugar se busca antes y después del cambio
   const lugares = [...redibujan.filter(([k]) => !SE_MUEVEN.has(k)).map(([, el]) => () => el),
-    () => document.querySelector(".en-cifras"), () => document.getElementById("prov-extra")];
+    () => document.querySelector(".en-cifras"), () => document.getElementById("prov-destaca")];
   const nombrar = () => lugares.forEach((l, i) => { const el = l(); if (el && enPantalla(el)) el.style.viewTransitionName = `cambio-${i}`; });
   nombrar();
   const t = document.startViewTransition({update: () => { cambiar(); nombrar(); }, types: ["provincia"]});
@@ -6956,51 +6956,6 @@ const IX = (() => {
   DIB.indice = dibujar;
   return {puntaje, DIMS};
 })();
-
-/* ---------- provincias parecidas y "si tu provincia fuera un país" ---------- */
-const PARECIDAS = (() => {
-  const F = T.cruces_provincias, ids = R.cruces.map(m => m.id).filter(k => k !== "poblacion");
-  const LOG = new Set(["exportaciones", "velocidad", "turistas_eti", "densidad", "robos"]);
-  const z = {};
-  ids.forEach(k => {
-    const t = v => LOG.has(k) ? Math.log10(v) : v, vals = F.map(f => f[k]).filter(v => v != null).map(t);
-    const m = vals.reduce((a, b) => a + b, 0) / vals.length, s = Math.sqrt(vals.reduce((a, v) => a + (v - m) ** 2, 0) / (vals.length - 1));
-    z[k] = v => v == null ? null : (t(v) - m) / s;
-  });
-  const dist = (a, b) => { let s = 0, n = 0; ids.forEach(k => { const x = z[k](a[k]), y = z[k](b[k]); if (x != null && y != null) { s += (x - y) ** 2; n++; } }); return Math.sqrt(s / n); };
-  // F7 (plan de mejora, 31 de octubre de 2026): con cada provincia, los tres indicadores en los que más se parecen (la menor distancia en la
-  // misma escala), para mostrar sus valores
-  const cerca = (a, b) => ids.filter(k => z[k](a[k]) != null && z[k](b[k]) != null)
-    .sort((p, q) => Math.abs(z[p](a[p]) - z[p](b[p])) - Math.abs(z[q](a[q]) - z[q](b[q]))).slice(0, 3);
-  return c => {
-    const a = F.find(f => f.codigo_indec === c); if (!a) return [];
-    return F.filter(f => f !== a).map(f => ({f, a, d: dist(a, f), en: cerca(a, f)})).sort((p, q) => p.d - q.d);
-  };
-})();
-function pintarExtra() {
-  const caja = document.getElementById("prov-extra"); if (!caja) return;
-  if (!NOMBRES[prov]) {
-    caja.innerHTML = `<div><h3>Provincias parecidas</h3><p class="suave">Elegí una provincia para ver cuáles se le parecen más en los ${R.cruces.length - 1} indicadores de Cruces.</p></div>` +
-      `<div><h3>Si tu provincia fuera un país</h3><p class="suave">Elegí una provincia para ver a qué países se parece en esperanza de vida y mortalidad infantil.</p></div>`;
-    return;
-  }
-  if (!T.mundo_paises) { cargarTabla("mundo_paises").then(pintarExtra, () => { T.mundo_paises = []; pintarExtra(); }); return; }
-  const lista = PARECIDAS(prov), ev = T.esperanza_vida_provincias.find(d => d.codigo_indec === prov), mi = T.mortalidad_infantil_provincias.find(d => d.codigo_indec === prov);
-  const cerca = (k, v) => T.mundo_paises.filter(p => p[k] != null).sort((a, b) => Math.abs(a[k] - v) - Math.abs(b[k] - v))[0];
-  const pe = ev && cerca("esperanza_vida", ev.total), pm = mi && cerca("mortalidad_infantil", mi.tmi_actual);
-  // F7: debajo de cada una, los tres indicadores en los que más se parece, primero el valor de la provincia elegida
-  const valor = (k, v) => loc.format(`,.${CRU_META[k].dec ?? 1}f`)(v);
-  caja.innerHTML = `<div><h3>Provincias más parecidas a ${NOMBRES[prov]}</h3><ol>` +
-    lista.slice(0, 3).map(o => `<li><button type="button" class="enlace con-bandera" data-c="${o.f.codigo_indec}">${bandera(o.f.codigo_indec)}<span>${o.f.territorio}</span></button>` +
-      `<span class="prov-parece suave">${o.en.map(k => `<span>${CRU_META[k].nombre}: ${valor(k, o.a[k])} y ${valor(k, o.f[k])} (${CRU_META[k].unidad})</span>`).join("")}</span></li>`).join("") + `</ol>` +
-    `<p class="suave">Debajo de cada una, los tres indicadores en los que más se parecen: primero el valor de ${NOMBRES[prov]} y después el de la otra.</p>` +
-    `<p class="suave">La que menos se le parece es ${lista[lista.length - 1].f.territorio}. La comparación usa los ${R.cruces.length - 1} indicadores de Cruces. Cada uno se lleva a una misma escala, según cuánto se aleja del promedio de las 24 jurisdicciones, para que todos pesen lo mismo.</p></div>` +
-    `<div><h3>Si ${NOMBRES[prov]} fuera un país</h3><ul>` +
-    (pe ? `<li>Su esperanza de vida al nacer, ${n1(ev.total)} años en ${nv.ev_anio}, se parece a la de <b>${pe.pais}</b> (${n1(pe.esperanza_vida)} años en ${pe.esperanza_vida_anio}).</li>` : "") +
-    (pm ? `<li>Su mortalidad infantil, ${n1(mi.tmi_actual)} muertes de menores de un año cada 1.000 nacidos vivos (promedio ${mo.tri_act}), se parece a la de <b>${pm.pais}</b> (${n1(pm.mortalidad_infantil)} en ${pm.mortalidad_infantil_anio}).</li>` : "") +
-    `</ul><p class="suave">Los datos de los países son del Banco Mundial y pueden ser de otro año que los de la provincia. La esperanza de vida de la Argentina en su conjunto es de ${n1(nv.ev_pais)} años, y el promedio de los países de la OCDE, de ${n1(OC.esperanza_vida.ocde)}.</p></div>`;
-  caja.querySelectorAll("button[data-c]").forEach(b => b.addEventListener("click", () => elegir(b.dataset.c)));
-}
 
 document.querySelectorAll(".conmutador:not(.pestanas):not([data-propio])").forEach(conm => {
   const k = conm.dataset.g;
@@ -8413,7 +8368,6 @@ function pintarCensos() {
 }
 function pintarPanel(animar) {
   const nombre = NOMBRES[prov];
-  pintarExtra();
   pintarDestaca();
   pintarCompara();
   pintarPuestos();

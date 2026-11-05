@@ -134,8 +134,6 @@
   Cache-Control: public, max-age=31536000, immutable
 /datos/reservas_bcra.json
   Cache-Control: public, max-age=31536000, immutable
-/datos/mundo_paises.json
-  Cache-Control: public, max-age=31536000, immutable
 /datos/voto_legisladores_y_provincia.json
   Cache-Control: public, max-age=31536000, immutable
 /datos/dengue_provincias.json

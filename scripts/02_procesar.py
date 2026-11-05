@@ -2421,23 +2421,6 @@ extranjeros["territorio"] = extranjeros.codigo_indec.map(CORTO)
 extranjeros["cada_100"] = extranjeros.personas / extranjeros.codigo_indec.map(POB) * 100
 top_origen = rx.groupby("pais_nacimiento").cantidad.sum().sort_values(ascending=False)
 
-# ---------------------------------------------------------------- si tu provincia fuera un pais
-# Ultimo valor de cada pais (sin agregados regionales) para esperanza de vida y mortalidad infantil
-paises = [x for x in json.loads((CRUDO / "bm_paises.json").read_text(encoding="utf-8"))[1] if x["region"]["id"] != "NA"]
-NOMBRE_PAIS = {x["id"]: x["name"] for x in paises}
-mundo = pd.DataFrame({"iso3": sorted(NOMBRE_PAIS)})
-mundo["pais"] = mundo.iso3.map(NOMBRE_PAIS)
-for serie, col in [("SP.DYN.LE00.IN", "esperanza_vida"), ("SP.DYN.IMRT.IN", "mortalidad_infantil")]:
-    filas = json.loads((CRUDO / f"bm_mundo_{serie}.json").read_text(encoding="utf-8"))[1]
-    w = pd.DataFrame([{"iso3": x["countryiso3code"], "anio": int(x["date"]), "valor": x["value"]} for x in filas]).dropna()
-    w = w[w.iso3.isin(NOMBRE_PAIS)]
-    if col == "esperanza_vida":  # el mismo anio que las tablas provinciales del INDEC
-        w = w[w.anio <= ANIO_EV]
-    w = w.sort_values("anio").groupby("iso3").last()
-    mundo[col] = mundo.iso3.map(w.valor).round(1)
-    mundo[f"{col}_anio"] = mundo.iso3.map(w.anio).astype("Int64")
-mundo = mundo[(mundo.iso3 != "ARG") & mundo[["esperanza_vida", "mortalidad_infantil"]].notna().any(axis=1)]
-
 # ---------------------------------------------------------------- cuentas fiscales provinciales
 # Esquema ahorro-inversion-financiamiento de cada provincia (Ministerio de Economia), millones de pesos corrientes.
 # Recursos propios = ingresos corrientes menos tributos de origen nacional y transferencias, mas recursos propios de capital.
@@ -7788,7 +7771,6 @@ tablas = {
     "desocupacion_aglomerados": desocupacion_aglomerados,
     "desocupacion_serie": desocupacion_serie,
     "pobreza_aglomerados": pobreza_aglomerados,
-    "mundo_paises": mundo,
     "esperanza_vida_provincias": ev,
     "censo2022_provincias": censo,
     "internet_fijo_provincias": internet_fijo,

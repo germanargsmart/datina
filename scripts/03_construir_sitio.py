@@ -666,7 +666,7 @@ DIFERIDAS = ["elecciones_presidenciales", "anios_congreso", "transferencias_prov
              "exportaciones_destinos", "reservas_netas", "combustibles_anual", "confianza_consumidor", "expectativas_inflacion", "confianza_gobierno",
              # D2, segunda parte (4 de noviembre de 2026): más tablas que solo usa su ficha o el perfil de una provincia. nombres_top y censos_provincias no
              # pueden pasar: el texto de un artículo o una parte del perfil las leen apenas carga la página
-             "puestos_provincias", "reservas_bcra", "mundo_paises", "voto_legisladores_y_provincia", "dengue_provincias", "inflacion_personal",
+             "puestos_provincias", "reservas_bcra", "voto_legisladores_y_provincia", "dengue_provincias", "inflacion_personal",
              "empresas_tamano_sector", "bcra_variables_lista", "congreso_composicion", "justicia_provincias", "ingresos_aglomerados",
              "mortalidad_infantil_causas", "deuda_provincias"]
 D = json.loads((SITIO / "datos" / "fichas.json").read_text(encoding="utf-8"))
