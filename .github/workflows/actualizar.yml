@@ -39,12 +39,8 @@ jobs:
       - name: Version de Chrome
         run: google-chrome --version
       - run: node scripts/prueba_paginas.mjs
+      # sube lo bajado y lo armado. Si mientras corria se unio otra cosa a la rama, vuelve a armar sobre ella con lo que bajo 01 y lo prueba
+      # igual antes de subir: el 5 de noviembre de 2026 la corrida 34 no se guardo porque el PR #95 se unio mientras corria y cambiaba las
+      # mismas paginas (scripts/guardar_actualizacion.sh, y su prueba scripts/prueba_guardar_actualizacion.sh)
       - name: Guardar cambios
-        run: |
-          git config user.name "actualizador"
-          git config user.email "actualizador@users.noreply.github.com"
-          git add -A
-          git diff --cached --quiet || git commit -m "Actualizacion automatica de datos"
-          # si mientras corria se subio otra cosa a la rama, se trae antes de subir (antes el push fallaba y se perdia la corrida)
-          git pull --rebase
-          git push
+        run: bash scripts/guardar_actualizacion.sh
