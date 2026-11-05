@@ -2991,7 +2991,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       </section>
       <div id="ms-resultado"></div>
       <div class="ms-pie">
-        <span>Fuente: Dirección Nacional Electoral, Ministerio del Interior (escrutinio provisorio por mesa desde {{mesas.desde_mesa}}, definitivo por jurisdicción antes). Licencia CC-BY 4.0. Mapa: circuitos de la Cámara Nacional Electoral y de Franco Galeano (CC BY 4.0). Departamentos hasta {{mesas.hist_hasta}}: 257arg (CC BY 4.0), a partir de Ernesto Calvo y PolAr, con la geometría de Rodríguez, CEUR-CONICET (CC BY 2.5 AR). Fuerzas y colores a partir de 257arg</span>
+        <span>Fuente: Dirección Nacional Electoral, Ministerio del Interior (escrutinio provisorio por mesa desde {{mesas.desde_mesa}}, definitivo por jurisdicción antes). Licencia CC-BY 4.0. Mapa: circuitos de la Cámara Nacional Electoral y de Franco Galeano (CC BY 4.0). Departamentos hasta {{mesas.hist_hasta}}: 257arg (CC BY 4.0), a partir de Darío Cantón, Lupu y Stokes, Ernesto Calvo y PolAr, con la geometría de Rodríguez, CEUR-CONICET (CC BY 2.5 AR). Fuerzas y colores a partir de 257arg</span>
         <span class="ms-bajadas"><a class="enlace" id="ms-bajar" href="datos/mesas/indice.json" download>Descargar tabla (CSV)</a> <a class="enlace" id="ms-bajar-hist" href="datos/mesas/indice.json" download hidden>Descargar secciones y circuitos en cada elección (CSV)</a></span>
       </div>
       <div class="ms-limites nota-limites">
@@ -3003,6 +3003,10 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
           <li>El mapa dibuja los circuitos con su forma reciente, también en las elecciones viejas: un circuito pudo tener otros límites entonces. Un circuito sin mesas queda en gris: si vive gente ahí, vota en mesas de otro circuito.</li>
           <li>El color del mapa dice qué lista sacó más votos, no por cuánta gente: un circuito rural con pocos electores ocupa mucho más lugar que uno de ciudad con miles. Por eso las zonas de color no miden cuántos votos sacó cada fuerza.</li>
           <li>Hasta {{mesas.hist_hasta}} la herramienta llega al departamento, y los senadores, a la jurisdicción. Los departamentos no son el escrutinio definitivo y pueden no sumar exacto el total oficial. El detalle está en "Para entender los datos".</li>
+          <li>Hasta 1948 votaban solo los varones: las mujeres votaron por primera vez en una elección nacional en 1951. Quienes vivían en los territorios nacionales, como Chaco, La Pampa o Neuquén, tampoco elegían presidente ni diputados hasta los años cincuenta.</li>
+          <li>Antes de 1973, salvo en 1951, a la presidencia la elegía un colegio electoral: lo que se votaba eran listas de electores.</li>
+          <li>Hay elecciones con resultados de pocas jurisdicciones, y la página dice qué parte de los votos reúnen. Tampoco están todas: faltan, por ejemplo, las de 1931, 1960 y 1963.</li>
+          <li>Las elecciones de los años treinta tuvieron denuncias de fraude, y de 1955 a 1972 el peronismo estuvo proscripto en la mayor parte de las elecciones nacionales. El mapa muestra los votos que publica la fuente: no dice qué habría pasado con todas las opciones en competencia.</li>
         </ul>
       </div>
     </div>

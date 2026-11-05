@@ -34,6 +34,7 @@ scripts/elecciones_mesas.py    desde el 4 de noviembre de 2026, arma sitio/datos
 scripts/elecciones_mapa.py     desde el 5 de noviembre de 2026, el mapa de esa herramienta: une la cartografía de los circuitos con los resultados (sitio/datos/mesas/geo/ y mapa/). Los colores de
                                cada fuerza, en datos/manual/mesas_fuerzas.json. Se corre después de elecciones_mesas.py
 scripts/elecciones_departamentos.py  los departamentos de 1983 a 2009 de esa herramienta, con datos de 257arg: se corre una vez, después de los dos anteriores
+scripts/elecciones_antiguas.py lo mismo de 1912 a 1973: se corre una vez, después de elecciones_departamentos.py
 scripts/*_historia.py, censo_2022_*.py, banderas.py, iconos_isometricos.py, geometria_*.py, *_presupuesto.py, justicia_provincias.py
                                programas que se corren una sola vez o una vez por año y guardan en datos/manual/
 datos/manual/                  datos armados a mano o una sola vez, explicadores.json, distorsiones.json, banderas, íconos

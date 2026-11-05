@@ -561,6 +561,22 @@ await q.tamano(1280, 900);
   if (!r.sec || r.filas || !/no hay resultados por departamento/.test(m.nota) || !r.bajar.endsWith("pais.csv")) problemas.push(`mesas.html: San Luis 1997 no se pinta entera con su aviso (${m.nota})`);
   r = await ms("?e=2007-general-senadores", 2000); m = await mapa();
   if (!/en cada jurisdicción/.test(m.tit) || m.pintados !== 8 || !/No eligió senadores/.test(m.ley) || !/no hay datos que se puedan publicar/.test(r.txt)) problemas.push(`mesas.html: los senadores de 2007 sin su mapa por jurisdicción (${m.tit}, ${m.pintados} pintados)`);
+  // de 1912 a 1973 (257arg, sin total oficial): el país, CABA por sección hasta 1965 y entera en 1973, una provincia entera, 1951 por circunscripción, lo que reúne y una elección con pocas jurisdicciones
+  r = await ms("?e=1946-general-presidente", 2200); m = await mapa();
+  if (!/en cada departamento/.test(m.tit) || m.pintados < 300 || !/Juan Domingo Perón/.test(m.ley) || !/Darío Cantón/.test(m.nota) || !/Juan Domingo Perón|Laborista/.test(r.txt)) problemas.push(`mesas.html: 1946 sin su mapa o sin su fuente (${m.tit}, ${m.pintados} pintados, ${m.nota})`);
+  r = await ms("?e=1946-general-presidente&p=02", 2200); m = await mapa();
+  if (r.filas !== 20 || m.pintados !== 20 || !/Cómo votó cada circunscripción/.test(r.txt)) problemas.push(`mesas.html: CABA 1946 sin sus 20 secciones (${r.filas} filas, ${m.pintados} pintadas)`);
+  r = await ms("?e=1973-general-presidente&p=02", 2200); m = await mapa();
+  // son 28 circunscripciones, y Lupu y Stokes no trae la 21
+  if (r.filas !== 27 || !/CABA se pinta entera/.test(m.nota)) problemas.push(`mesas.html: CABA en marzo de 1973 no se pinta entera con sus 27 circunscripciones con datos (${r.filas} filas, ${m.nota})`);
+  r = await ms("?e=1958-general-presidente&p=18", 2000); m = await mapa();
+  if (!r.sec || !/no hay resultados por departamento/.test(m.nota)) problemas.push(`mesas.html: Corrientes 1958 no se pinta entera con su aviso (${m.nota})`);
+  r = await ms("?e=1951-general-diputados", 2200); m = await mapa();
+  if (!/en cada circunscripción/.test(m.tit) || m.pintados < 100 || !/primera elección nacional con voto de las mujeres/.test(m.nota)) problemas.push(`mesas.html: 1951 sin su mapa por circunscripción (${m.tit}, ${m.pintados} pintadas)`);
+  r = await ms("?e=1937-general-presidente", 2000); m = await mapa();
+  if (!/Hay datos de 4 jurisdicciones, que reúnen 36,9%/.test(m.nota) || !/no votó/.test(m.ley)) problemas.push(`mesas.html: 1937 no dice cuánto reúne (${m.nota})`);
+  r = await ms("?e=1973-septiembre-presidente", 2000);
+  if (!/Perón/.test(r.txt) || (await q.eval(`document.getElementById("ms-eleccion").selectedOptions[0].textContent`)) !== "1973, septiembre") problemas.push("mesas.html: septiembre de 1973 no se distingue de marzo");
   // en el celular no se corre de costado, tampoco con las tablas de abajo a la vista
   await q.tamano(320, 700);
   for (const u of ["?e=2023-general-diputados&p=06&s=61", "?e=2023-general-presidente&p=06&s=61&c=627", "?e=2009-general-diputados&p=06", "?e=2025-general-diputados&ver=fuerza"]) {

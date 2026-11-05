@@ -244,7 +244,7 @@
   }
 
   function pintar(el, P, D, H, aviso) {
-    const sub = `${CARGOS[el.cargo]}, ${el.etiqueta}. Escrutinio ${el.recuento}.`;
+    const sub = `${CARGOS[el.cargo]}, ${el.etiqueta}.${el.recuento ? ` Escrutinio ${el.recuento}.` : ""}`;
     const cob = avisoCobertura(el);
     let resumen = "", listas = [], t = null, partes = "", frase = "", historia = "";
     const notas = [];
@@ -281,14 +281,15 @@
         const x = P[estado.p];
         t = {mesas: null, electores: x.electores || 0, votantes: x.votantes, blancos: x.blancos, nulos: x.nulos, recurridos: x.recurridos || 0};
         listas = x.listas.slice().sort((a, b) => b[1] - a[1]);
-        const circunscripciones = estado.p === "02" && filas[0]?.sn.startsWith("Circ");
+        const circunscripciones = el.rotulo === "circunscripcion" || (estado.p === "02" && filas[0]?.sn.startsWith("Circ"));
         const hijos = filas.map(f => {
           const s = sumar([f], D.listas.length);
           return {clave: "s", valor: f.s, nombre: f.sn, mesas: null, electores: s.electores, part: participacion(s), nombres: D.listas, votos: f.v};
         }).sort((a, b) => natural(a.nombre, b.nombre));
         partes = tablaPartes(circunscripciones ? "¿Cómo votó cada circunscripción?" : "¿Cómo votó cada departamento?", circunscripciones ? "Circunscripción" : "Departamento", hijos, false);
       }
-      notas.push(`${estado.s ? "Este resultado no es" : "Los departamentos no son"} el escrutinio definitivo: ${estado.s ? "sale" : "salen"} de ${el.anio <= 2001 ? "la base de Ernesto Calvo" : "PolAr, a partir del Atlas Electoral de Andy Tow"}, por medio de 257arg, y ${estado.s ? "puede" : "pueden"} no sumar exacto el total de la jurisdicción.`);
+      if (el.fuente) notas.push(`Estos votos salen de ${el.fuente}, por medio de 257arg. No hay un escrutinio oficial publicado como datos.`);
+      else notas.push(`${estado.s ? "Este resultado no es" : "Los departamentos no son"} el escrutinio definitivo: ${estado.s ? "sale" : "salen"} de ${el.anio <= 2001 ? "la base de Ernesto Calvo" : "PolAr, a partir del Atlas Electoral de Andy Tow"}, por medio de 257arg, y ${estado.s ? "puede" : "pueden"} no sumar exacto el total de la jurisdicción.`);
     } else {
       const filas = D.filas.filter(f => (!estado.s || f.s === estado.s) && (!estado.c || f.c === estado.c) && (!estado.m || f.m === estado.m));
       t = sumar(filas, D.listas.length);
@@ -385,7 +386,7 @@
   const seccionDe = f => circuitosMesa(f)[0].split("|")[0];
   const claveRasgo = r => `${r.properties.p}|${r.properties.s ?? ""}|${r.properties.c ?? ""}`;
   const nombreLugar = t => String(t).normalize("NFD").replace(/[̀-ͯ]/g, "").toUpperCase().replace(/[^A-Z0-9]/g, "");
-  const UNIDADES = {circuito: "circuitos", departamento: "departamentos", provincia: "jurisdicciones"};
+  const UNIDADES = {circuito: "circuitos", departamento: "departamentos", provincia: "jurisdicciones", circunscripcion: "circunscripciones"};
   const FUENTES_DEPTOS = {hasta2001: "la base de Ernesto Calvo", desde2003: "PolAr, a partir del Atlas Electoral de Andy Tow"};
   const unidadDe = doc => doc.unidad || "circuito";
 
@@ -536,10 +537,11 @@
     const doc = MAPA.doc, filas = filasEnVista(doc), ver = MAPA.ver;
     MAPA.caminos.attr("fill", r => colorDe(doc, MAPA.indice.get(claveRasgo(r))));
     const pv = estado.p ? doc.provincias[estado.p] : null, unidad = unidadDe(doc);
-    const clase = pv?.nivel === "seccion" ? "secciones" : UNIDADES[unidad];
-    const singular = {circuitos: "circuito", secciones: "sección", departamentos: "departamento", jurisdicciones: "jurisdicción"}[clase];
+    const clase = pv?.nivel === "seccion" || (estado.p === "02" && doc.historica && doc.rotulo === "departamento") ? "secciones" : UNIDADES[doc.rotulo || unidad];
+    const singular = {circuitos: "circuito", secciones: "sección", departamentos: "departamento", jurisdicciones: "jurisdicción", circunscripciones: "circunscripción"}[clase];
     const lugarMapa = [estado.c ? `Circuito ${estado.c}` : "", estado.s ? pv.secciones[estado.s] || "" : "", estado.p ? provNombre(estado.p) : "Todo el país"].filter(Boolean).join(", ");
-    const donde = estado.s ? (pv.secciones[estado.s] || "esta sección") : estado.p ? provNombre(estado.p) : "todo el país";
+    const conPocas = !estado.p && doc.historica && el.provincias.length < 20;
+    const donde = estado.s ? (pv.secciones[estado.s] || "esta sección") : estado.p ? provNombre(estado.p) : conPocas ? `las ${el.provincias.length} jurisdicciones con datos` : "todo el país";
     let frase = "", leyenda = "";
     const conVotos = filas.filter(f => positivosDe(f));
     if (ver === "gana") {
@@ -560,7 +562,7 @@
       leyenda = leyendaTramos(unidad === "circuito" ? "Participación: votantes por cada 100 electores de las mesas con resultado" : "Participación: votantes por cada 100 electores", CORTES.part, COLORES_PART, cuentas);
       if (vals.length > 1) {
         vals.sort((a, b) => a - b);
-        const mitad = clase === "secciones" || clase === "jurisdicciones" ? "la mitad de las" : "la mitad de los";
+        const mitad = ["secciones", "jurisdicciones", "circunscripciones"].includes(clase) ? "la mitad de las" : "la mitad de los";
         frase = `En ${donde}, ${mitad} ${clase} tuvo una participación de ${pct(vals[Math.floor(vals.length / 2)])} o más. La más baja fue de ${pct(vals[0])} y la más alta, de ${pct(vals.at(-1))}.`;
       } else if (vals.length) {
         frase = `En ${donde}, la participación fue de ${pct(vals[0])}.`;
@@ -577,7 +579,7 @@
         if (pos) frase = `En ${donde}, ${doc.fuerzas[ix].n} reunió ${pct(suma / pos * 100)} de los votos positivos.`;
       }
     }
-    $("ms-ley").innerHTML = leyenda + `<div class="ms-ley-tramo ms-ley-sin"><i style="background:${SIN_MESAS}" aria-hidden="true"></i><span class="ms-ley-nom">${{circuito: "Sin mesas en esta elección", departamento: "Sin dato en esta elección", provincia: "No eligió senadores en esta elección"}[unidad]}</span></div>`;
+    $("ms-ley").innerHTML = leyenda + `<div class="ms-ley-tramo ms-ley-sin"><i style="background:${SIN_MESAS}" aria-hidden="true"></i><span class="ms-ley-nom">${doc.historica ? "Sin dato, o no votó en esta elección" : {circuito: "Sin mesas en esta elección", departamento: "Sin dato en esta elección", provincia: "No eligió senadores en esta elección"}[unidad]}</span></div>`;
     $("ms-mapa-frase").textContent = frase;
     $("ms-mapa-tit").textContent = ver === "gana" ? `¿Quién ganó en cada ${singular}?` : ver === "part" ? `¿Cuánta gente votó en cada ${singular}?` : "¿Dónde sacó más votos cada fuerza?";
     $("ms-mapa-sub").textContent = `${CARGOS[el.cargo]}, ${el.etiqueta}. ${lugarMapa}. Tocá un lugar para ver sus resultados.`;
@@ -589,14 +591,16 @@
     const faltan = el.provincias.filter(c => (doc.provincias[c]?.con ?? 100) < 99.5 && (!estado.p || c === estado.p));
     for (const c of faltan.slice(0, 2)) notas.push(`En ${provNombre(c)}, ${pct(100 - doc.provincias[c].con)} de quienes votaron no tiene su circuito en el mapa.`);
     if (doc.unidad === "departamento") {
-      notas.push(`Los departamentos salen de ${FUENTES_DEPTOS[doc.origen]}, por medio de 257arg, no del escrutinio definitivo.`);
+      notas.push(doc.fuente ? `Los votos salen de ${doc.fuente}, por medio de 257arg. No hay un escrutinio oficial publicado como datos.` : `Los departamentos salen de ${FUENTES_DEPTOS[doc.origen]}, por medio de 257arg, no del escrutinio definitivo.`);
       if (doc.aviso) notas.push(doc.aviso);
+      if (doc.reune != null && doc.reune < 95) notas.push(`Hay datos de ${el.provincias.length} jurisdicciones, que reúnen ${pct(doc.reune)} de los votos que publica el resultado nacional de esa elección.`);
+      else if (doc.reune != null && doc.reune > 102) notas.push(`Estos datos suman ${pct(doc.reune)} de los votos que publica el resultado nacional de esa elección: las dos fuentes no coinciden exacto.`);
       const lejos = el.provincias.filter(c => doc.provincias[c]?.suma != null && Math.abs(doc.provincias[c].suma - 100) > 3 && (!estado.p || c === estado.p));
       if (estado.p && lejos.length) notas.push(`En ${provNombre(estado.p)}, esta base suma ${pct(doc.provincias[estado.p].suma)} de los votos positivos del definitivo.`);
       else if (lejos.length) notas.push(`En ${lejos.length === 1 ? `${provNombre(lejos[0])}, esta base no suma` : `${lejos.length} jurisdicciones, esta base no suma`} lo mismo que el definitivo: la diferencia pasa de 3%.`);
       const enteras = el.provincias.filter(c => doc.provincias[c]?.nivel === "provincia" && c !== "02" && (!estado.p || c === estado.p)).map(provNombre);
       if (enteras.length) notas.push(`En ${enteras.join(", ").replace(/, ([^,]*)$/, " y $1")} no hay resultados por departamento en esta elección: se pinta la jurisdicción entera.`);
-      if (doc.periodo !== "dep2010" && (!estado.p || estado.p === "02")) notas.push("CABA se pinta entera: sus datos son por circunscripción y esos límites no están publicados.");
+      if ((doc.caba_entera ?? doc.periodo !== "dep2010") && (!estado.p || estado.p === "02")) notas.push("CABA se pinta entera: sus datos son por circunscripción y esos límites no están publicados.");
     }
     $("ms-mapa-nota").textContent = notas.join(" ");
     // el lugar elegido, con su borde
