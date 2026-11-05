@@ -1,0 +1,1330 @@
+eleccion,distrito,cargo,tipo,numero,nombre,votos,pagina
+2023-general,BUENOS AIRES,,electores,,,13261172,1
+2023-general,BUENOS AIRES,,mesas,,,38074,1
+2023-general,BUENOS AIRES,presidente,lista,132,JUNTOS POR EL CAMBIO,2423384,9
+2023-general,BUENOS AIRES,presidente,lista,133,HACEMOS POR NUESTRO PAIS,373087,9
+2023-general,BUENOS AIRES,presidente,lista,134,UNION POR LA PATRIA,4327441,9
+2023-general,BUENOS AIRES,presidente,lista,135,LA LIBERTAD AVANZA,2593075,9
+2023-general,BUENOS AIRES,presidente,lista,136,FTE. DE IZQUIERDA Y DE TRABAJ-UNIDAD,359538,9
+2023-general,BUENOS AIRES,presidente,nulos,,,69673,9
+2023-general,BUENOS AIRES,presidente,blancos,,,278716,9
+2023-general,BUENOS AIRES,presidente,emitidos,,,10424914,9
+2023-general,BUENOS AIRES,presidente,electores,,,13261172,9
+2023-general,BUENOS AIRES,presidente,mesas,,,38077,9
+2023-general,BUENOS AIRES,senadores,lista,132,Alianza JUNTOS POR EL CAMBIO,2479071,2
+2023-general,BUENOS AIRES,senadores,lista,134,Alianza UNION POR LA PATRIA,4135519,2
+2023-general,BUENOS AIRES,senadores,lista,135,Alianza LA LIBERTAD AVANZA,2386048,2
+2023-general,BUENOS AIRES,senadores,lista,136,Alianza FRENTE DE IZQUIERDA Y DE TRABAJADORES -UNIDAD,396500,2
+2023-general,BUENOS AIRES,senadores,afirmativos,,,9397138,2
+2023-general,BUENOS AIRES,senadores,blancos,,,960739,2
+2023-general,BUENOS AIRES,senadores,nulos,,,61413,2
+2023-general,BUENOS AIRES,senadores,emitidos,,,10419290,2
+2023-general,BUENOS AIRES,diputados,lista,132,Alianza JUNTOS POR EL CAMBIO,2484593,3
+2023-general,BUENOS AIRES,diputados,lista,134,Alianza UNION POR LA PATRIA,4094665,3
+2023-general,BUENOS AIRES,diputados,lista,135,Alianza LA LIBERTAD AVANZA,2382198,3
+2023-general,BUENOS AIRES,diputados,lista,136,Alianza FRENTE DE IZQUIERDA Y DE TRABAJADORES – UNIDAD,405973,3
+2023-general,BUENOS AIRES,diputados,afirmativos,,,9367429,2
+2023-general,BUENOS AIRES,diputados,blancos,,,990720,2
+2023-general,BUENOS AIRES,diputados,nulos,,,61141,2
+2023-general,BUENOS AIRES,diputados,emitidos,,,10419290,2
+2023-general,CAPITAL FEDERAL,,electores,,,2691015,1
+2023-general,CAPITAL FEDERAL,,mesas,,,7329,1
+2023-general,CAPITAL FEDERAL,presidente,lista,132,Alianza Juntos por el Cambio,789454,3
+2023-general,CAPITAL FEDERAL,presidente,lista,133,Alianza Hacemos por Nuestro País,58788,3
+2023-general,CAPITAL FEDERAL,presidente,lista,134,Alianza Unión por la Patria,616182,3
+2023-general,CAPITAL FEDERAL,presidente,lista,135,Alianza la Libertad Avanza,382488,3
+2023-general,CAPITAL FEDERAL,presidente,lista,136,Alianza Frente de Izquierda y de Trabajadores Unidad,67666,3
+2023-general,CAPITAL FEDERAL,presidente,afirmativos,,,1914578,2
+2023-general,CAPITAL FEDERAL,presidente,blancos,,,33063,2
+2023-general,CAPITAL FEDERAL,presidente,nulos,,,15993,2
+2023-general,CAPITAL FEDERAL,presidente,emitidos,,,1963634,2
+2023-general,CAPITAL FEDERAL,diputados,lista,132,Alianza Juntos por el Cambio,782984,3
+2023-general,CAPITAL FEDERAL,diputados,lista,134,Alianza Unión por la Patria,577225,3
+2023-general,CAPITAL FEDERAL,diputados,lista,135,Alianza la Libertad Avanza,377451,3
+2023-general,CAPITAL FEDERAL,diputados,lista,136,Alianza Frente de Izquierda y de Trabajadores Unidad,99947,3
+2023-general,CAPITAL FEDERAL,diputados,afirmativos,,,1837607,2
+2023-general,CAPITAL FEDERAL,diputados,blancos,,,109884,2
+2023-general,CAPITAL FEDERAL,diputados,nulos,,,14377,2
+2023-general,CAPITAL FEDERAL,diputados,emitidos,,,1961868,2
+2023-general,CATAMARCA,,electores,,,341236,1
+2023-general,CATAMARCA,,mesas,,,1061,1
+2023-general,CATAMARCA,presidente,lista,,JUNTOS POR EL CAMBIO,41719,2
+2023-general,CATAMARCA,presidente,lista,,HACEMOS POR NUESTRO PAIS,15677,2
+2023-general,CATAMARCA,presidente,lista,,UNION POR LA PATRIA,104322,2
+2023-general,CATAMARCA,presidente,lista,,LA LIBERTAD AVANZA,78017,2
+2023-general,CATAMARCA,presidente,lista,,FRENTE DE IZQUIERDA Y DE TRABAJADORES - UNIDAD,3841,2
+2023-general,CATAMARCA,presidente,afirmativos,,,243576,2
+2023-general,CATAMARCA,presidente,blancos,,,19072,2
+2023-general,CATAMARCA,presidente,recurridos,,declarados válidos,0,2
+2023-general,CATAMARCA,presidente,impugnados,,declarados válidos,0,2
+2023-general,CATAMARCA,presidente,nulos,,,1544,2
+2023-general,CATAMARCA,presidente,emitidos,,,264192,2
+2023-general,CATAMARCA,diputados,lista,,JUNTOS POR EL CAMBIO,42415,3
+2023-general,CATAMARCA,diputados,lista,,UNION POR LA PATRIA,102943,3
+2023-general,CATAMARCA,diputados,lista,,LA LIBERTAD AVANZA,50657,3
+2023-general,CATAMARCA,diputados,afirmativos,,,196015,2
+2023-general,CATAMARCA,diputados,blancos,,,66783,2
+2023-general,CATAMARCA,diputados,recurridos,,declarados válidos,0,2
+2023-general,CATAMARCA,diputados,impugnados,,declarados válidos,0,2
+2023-general,CATAMARCA,diputados,nulos,,,1006,2
+2023-general,CATAMARCA,diputados,emitidos,,,263804,2
+2023-general,CHACO,,electores,,,1001912,1
+2023-general,CHACO,,mesas,,,2950,1
+2023-general,CHACO,presidente,lista,,JUNTOS POR EL CAMBIO,173253,2
+2023-general,CHACO,presidente,lista,,HACEMOS POR NUESTRO PAÍS,26059,2
+2023-general,CHACO,presidente,lista,,UNIÓN POR LA PATRIA,313941,2
+2023-general,CHACO,presidente,lista,,LA LIBERTAD AVANZA,200006,2
+2023-general,CHACO,presidente,lista,,FRENTE DE IZQUIERDA Y DE TRABAJADORES UNIDAD,5637,2
+2023-general,CHACO,presidente,afirmativos,,,718896,2
+2023-general,CHACO,presidente,blancos,,,8124,2
+2023-general,CHACO,presidente,recurridos,,declarados válidos,0,2
+2023-general,CHACO,presidente,impugnados,,declarados válidos,0,2
+2023-general,CHACO,presidente,nulos,,,3899,2
+2023-general,CHACO,presidente,emitidos,,,730919,2
+2023-general,CHACO,diputados,lista,,JUNTOS POR EL CAMBIO,172929,3
+2023-general,CHACO,diputados,lista,,UNIÓN POR LA PATRIA,305229,3
+2023-general,CHACO,diputados,lista,,LA LIBERTAD AVANZA,192284,3
+2023-general,CHACO,diputados,afirmativos,,,670442,2
+2023-general,CHACO,diputados,blancos,,,56696,2
+2023-general,CHACO,diputados,recurridos,,declarados válidos,0,2
+2023-general,CHACO,diputados,impugnados,,declarados válidos,0,2
+2023-general,CHACO,diputados,nulos,,,3675,2
+2023-general,CHACO,diputados,emitidos,,,730813,2
+2023-general,CHUBUT,,electores,,,477130,1
+2023-general,CHUBUT,,mesas,,,1419,1
+2023-general,CHUBUT,presidente,lista,132,Juntos por el Cambio,71343,2
+2023-general,CHUBUT,presidente,lista,133,Hacemos por Nuestro País,26722,2
+2023-general,CHUBUT,presidente,lista,134,Unión por la Patria,111752,2
+2023-general,CHUBUT,presidente,lista,135,La Libertad Avanza,121842,2
+2023-general,CHUBUT,presidente,lista,136,Frente de Izquierda y de Trabajadores - Unidad,15187,2
+2023-general,CHUBUT,presidente,afirmativos,,,346846,2
+2023-general,CHUBUT,presidente,blancos,,,4505,2
+2023-general,CHUBUT,presidente,recurridos,,declarados válidos,27,2
+2023-general,CHUBUT,presidente,impugnados,,declarados válidos,10,2
+2023-general,CHUBUT,presidente,nulos,,,5688,2
+2023-general,CHUBUT,presidente,emitidos,,,357039,2
+2023-general,CHUBUT,diputados,lista,502,Juntos por el Cambio,71333,3
+2023-general,CHUBUT,diputados,lista,504,Unión por la Patria,101885,3
+2023-general,CHUBUT,diputados,lista,505,La Libertad Avanza,118246,3
+2023-general,CHUBUT,diputados,lista,506,Frente de Izquierda y de Trabajadores - Unidad,18698,3
+2023-general,CHUBUT,diputados,afirmativos,,,310162,3
+2023-general,CHUBUT,diputados,blancos,,,41384,3
+2023-general,CHUBUT,diputados,recurridos,,declarados válidos,29,3
+2023-general,CHUBUT,diputados,impugnados,,declarados válidos,10,3
+2023-general,CHUBUT,diputados,nulos,,,5450,3
+2023-general,CHUBUT,diputados,emitidos,,,356996,3
+2023-general,CORDOBA,,electores,,,3091381,1
+2023-general,CORDOBA,,mesas,,,9239,1
+2023-general,CORDOBA,presidente,lista,132,Juntos por el Cambio,521310,3
+2023-general,CORDOBA,presidente,lista,133,Hacemos por Nuestro País,667447,3
+2023-general,CORDOBA,presidente,lista,134,Unión por la Patria,309044,3
+2023-general,CORDOBA,presidente,lista,135,La Libertad Avanza,773428,3
+2023-general,CORDOBA,presidente,lista,136,Frente de Izquierda y de Trabajadores-Unidad,31922,3
+2023-general,CORDOBA,presidente,afirmativos,,,2303151,2
+2023-general,CORDOBA,presidente,blancos,,,18984,2
+2023-general,CORDOBA,presidente,nulos,,,18968,2
+2023-general,CORDOBA,presidente,emitidos,,,2341103,2
+2023-general,CORDOBA,diputados,lista,501,Juntos por el Cambio,509837,4
+2023-general,CORDOBA,diputados,lista,503,Hacemos por Nuestro País,679603,4
+2023-general,CORDOBA,diputados,lista,502,Unión por la Patria,286615,4
+2023-general,CORDOBA,diputados,lista,506,La Libertad Avanza,751428,4
+2023-general,CORDOBA,diputados,lista,504,Frente de Izquierda y de Trabajadores-Unidad,48057,4
+2023-general,CORDOBA,diputados,afirmativos,,,2275540,4
+2023-general,CORDOBA,diputados,blancos,,,47157,4
+2023-general,CORDOBA,diputados,nulos,,,18406,4
+2023-general,CORDOBA,diputados,emitidos,,,2341103,4
+2023-general,CORRIENTES,,electores,,,933483,1
+2023-general,CORRIENTES,,mesas,,,2760,1
+2023-general,CORRIENTES,presidente,lista,132,Juntos por el Cambio,226371,2
+2023-general,CORRIENTES,presidente,lista,133,Hacemos por Nuestro País,19215,2
+2023-general,CORRIENTES,presidente,lista,134,Unión por la Patria,262170,2
+2023-general,CORRIENTES,presidente,lista,135,La Libertad Avanza,189282,2
+2023-general,CORRIENTES,presidente,lista,136,Frente de Izquierda y de Trabajadores - Unidad,7464,2
+2023-general,CORRIENTES,presidente,afirmativos,,,716375,2
+2023-general,CORRIENTES,presidente,blancos,,,11873,2
+2023-general,CORRIENTES,presidente,recurridos,,declarados válidos,278,2
+2023-general,CORRIENTES,presidente,impugnados,,declarados válidos,50,2
+2023-general,CORRIENTES,presidente,nulos,,,6107,2
+2023-general,CORRIENTES,presidente,emitidos,,,722482,2
+2023-general,CORRIENTES,diputados,lista,501,La Libertad Avanza,178855,4
+2023-general,CORRIENTES,diputados,lista,503,Encuentro por Corrientes- Eco + Vamos Corrientes,222006,4
+2023-general,CORRIENTES,diputados,lista,504,Unión por la Patria,253334,4
+2023-general,CORRIENTES,diputados,afirmativos,,,717281,3
+2023-general,CORRIENTES,diputados,blancos,,,63086,3
+2023-general,CORRIENTES,diputados,recurridos,,declarados válidos,239,3
+2023-general,CORRIENTES,diputados,impugnados,,declarados válidos,54,3
+2023-general,CORRIENTES,diputados,nulos,,,5139,3
+2023-general,CORRIENTES,diputados,emitidos,,,722420,3
+2023-general,ENTRE RIOS,,electores,,,1150954,1
+2023-general,ENTRE RIOS,,mesas,,,3437,1
+2023-general,ENTRE RIOS,presidente,lista,,JUNTOS POR EL CAMBIO,255236,2
+2023-general,ENTRE RIOS,presidente,lista,,HACEMOS POR NUESTRO PAÍS,45540,2
+2023-general,ENTRE RIOS,presidente,lista,,UNIÓN POR LA PATRIA,283136,2
+2023-general,ENTRE RIOS,presidente,lista,,LA LIBERTAD AVANZA,252719,3
+2023-general,ENTRE RIOS,presidente,lista,,FRENTE DE IZQUIERDA Y DE TRABAJADORES,13248,3
+2023-general,ENTRE RIOS,presidente,afirmativos,,,849879,2
+2023-general,ENTRE RIOS,presidente,blancos,,,41050,2
+2023-general,ENTRE RIOS,presidente,recurridos,,declarados válidos,428,2
+2023-general,ENTRE RIOS,presidente,impugnados,,declarados nulos,32,2
+2023-general,ENTRE RIOS,presidente,nulos,,,8708,2
+2023-general,ENTRE RIOS,presidente,emitidos,,,899637,2
+2023-general,ENTRE RIOS,diputados,lista,,JUNTOS POR EL CAMBIO - JUNTOS POR ENTRE RÍOS,269189,3
+2023-general,ENTRE RIOS,diputados,lista,,UNIÓN POR LA PATRIA - MÁS PARA ENTRE RÍOS,293605,3
+2023-general,ENTRE RIOS,diputados,lista,,LA LIBERTAD AVANZA,174787,3
+2023-general,ENTRE RIOS,diputados,afirmativos,,,737581,3
+2023-general,ENTRE RIOS,diputados,blancos,,,154461,3
+2023-general,ENTRE RIOS,diputados,recurridos,,declarados válidos,375,3
+2023-general,ENTRE RIOS,diputados,impugnados,,declarados nulos,32,3
+2023-general,ENTRE RIOS,diputados,nulos,,,6889,3
+2023-general,ENTRE RIOS,diputados,emitidos,,,898931,3
+2023-general,FORMOSA,,electores,,,485962,1
+2023-general,FORMOSA,,mesas,,,1485,1
+2023-general,FORMOSA,presidente,lista,132,JUNTOS POR EL CAMBIO,55738,2
+2023-general,FORMOSA,presidente,lista,133,HACEMOS POR NUESTRO PAÍS,8843,2
+2023-general,FORMOSA,presidente,lista,134,UNIÓN POR LA PATRIA,189593,2
+2023-general,FORMOSA,presidente,lista,135,LA LIBERTAD AVANZA,105330,3
+2023-general,FORMOSA,presidente,lista,136,FRENTE DE IZQUIERDA Y DE TRABAJADORES - UNIDAD,2954,3
+2023-general,FORMOSA,presidente,afirmativos,,,362458,2
+2023-general,FORMOSA,presidente,blancos,,,4871,2
+2023-general,FORMOSA,presidente,nulos,,,2074,2
+2023-general,FORMOSA,presidente,emitidos,,,369403,2
+2023-general,FORMOSA,senadores,lista,,JUNTOS POR EL CAMBIO,52983,4
+2023-general,FORMOSA,senadores,lista,501,UNIÓN POR LA PATRIA,184475,4
+2023-general,FORMOSA,senadores,lista,503,LA LIBERTAD AVANZA,103030,4
+2023-general,FORMOSA,senadores,afirmativos,,,340488,3
+2023-general,FORMOSA,senadores,blancos,,,27072,3
+2023-general,FORMOSA,senadores,nulos,,,1821,3
+2023-general,FORMOSA,senadores,emitidos,,,369381,3
+2023-general,FORMOSA,diputados,lista,,JUNTOS POR EL CAMBIO,53155,4
+2023-general,FORMOSA,diputados,lista,501,UNIÓN POR LA PATRIA,184028,4
+2023-general,FORMOSA,diputados,lista,503,LA LIBERTAD AVANZA,101637,4
+2023-general,FORMOSA,diputados,afirmativos,,,338820,4
+2023-general,FORMOSA,diputados,blancos,,,28746,4
+2023-general,FORMOSA,diputados,nulos,,,1815,4
+2023-general,FORMOSA,diputados,emitidos,,,369381,4
+2023-general,JUJUY,,electores,,,593307,1
+2023-general,JUJUY,,mesas,,,1828,1
+2023-general,JUJUY,presidente,lista,132,Juntos por el Cambio,91373,2
+2023-general,JUJUY,presidente,lista,133,Hacemos por Nuestro País,31063,2
+2023-general,JUJUY,presidente,lista,134,Unión por la Patria,148103,2
+2023-general,JUJUY,presidente,lista,135,La Libertad Avanza,170966,2
+2023-general,JUJUY,presidente,lista,136,Frente de Izquierda y de Trabajadores - Unidad,16193,2
+2023-general,JUJUY,presidente,afirmativos,,,457698,2
+2023-general,JUJUY,presidente,blancos,,,6441,2
+2023-general,JUJUY,presidente,recurridos,,declarados válidos,139,2
+2023-general,JUJUY,presidente,impugnados,,declarados válidos,0,2
+2023-general,JUJUY,presidente,nulos,,,4799,2
+2023-general,JUJUY,presidente,emitidos,,,468938,2
+2023-general,JUJUY,senadores,lista,79,Partido Renovador Federal,153333,4
+2023-general,JUJUY,senadores,lista,501,Unión por la Patria,123453,4
+2023-general,JUJUY,senadores,lista,502,Cambia Jujuy,97481,4
+2023-general,JUJUY,senadores,lista,504,Frente de Izquierda y de Trabajadores - Unidad,29987,4
+2023-general,JUJUY,senadores,afirmativos,,,404254,3
+2023-general,JUJUY,senadores,blancos,,,60438,3
+2023-general,JUJUY,senadores,recurridos,,declarados válidos,111,3
+2023-general,JUJUY,senadores,impugnados,,declarados válidos,0,3
+2023-general,JUJUY,senadores,nulos,,,4230,3
+2023-general,JUJUY,senadores,emitidos,,,468922,3
+2023-general,JUJUY,diputados,lista,79,Partido Renovador Federal,152853,4
+2023-general,JUJUY,diputados,lista,501,Unión por la Patria,123971,4
+2023-general,JUJUY,diputados,lista,502,Cambia Jujuy,96158,4
+2023-general,JUJUY,diputados,lista,504,Frente de Izquierda y de Trabajadores - Unidad,28027,4
+2023-general,JUJUY,diputados,afirmativos,,,401009,4
+2023-general,JUJUY,diputados,blancos,,,63756,4
+2023-general,JUJUY,diputados,recurridos,,declarados válidos,119,4
+2023-general,JUJUY,diputados,impugnados,,declarados válidos,0,4
+2023-general,JUJUY,diputados,nulos,,,4157,4
+2023-general,JUJUY,diputados,emitidos,,,468922,4
+2023-general,LA PAMPA,,electores,,,301448,1
+2023-general,LA PAMPA,,mesas,,,902,1
+2023-general,LA PAMPA,presidente,lista,,AL. JUNTOS POR EL CAMBIO/AL. JUNTOS POR EL CAMBIO LA PAMPA,50640,2
+2023-general,LA PAMPA,presidente,lista,,ALIANZA HACEMOS POR NUESTRO PAIS,17195,2
+2023-general,LA PAMPA,presidente,lista,,ALIANZA UNION POR LA PATRIA,80611,2
+2023-general,LA PAMPA,presidente,lista,,ALIANZA LA LIBERTAD AVANZA,77493,2
+2023-general,LA PAMPA,presidente,lista,,ALIANZA FRENTE DE IZQUIERDA Y DE TRABAJADORES-UNIDAD,5292,2
+2023-general,LA PAMPA,presidente,afirmativos,,,231231,2
+2023-general,LA PAMPA,presidente,blancos,,,2152,2
+2023-general,LA PAMPA,presidente,nulos,,,2167,2
+2023-general,LA PAMPA,presidente,emitidos,,,235550,2
+2023-general,LA PAMPA,diputados,lista,501,AL. JUNTOS POR EL CAMBIO/AL. JUNTOS POR EL CAMBIO LA PAMPA,52574,3
+2023-general,LA PAMPA,diputados,lista,502,ALIANZA UNION POR LA PATRIA,81094,3
+2023-general,LA PAMPA,diputados,lista,,ALIANZA FRENTE DE IZQUIERDA Y DE TRABAJADORES-UNIDAD,5796,3
+2023-general,LA PAMPA,diputados,afirmativos,,,139464,3
+2023-general,LA PAMPA,diputados,blancos,,,94413,3
+2023-general,LA PAMPA,diputados,nulos,,,1650,3
+2023-general,LA PAMPA,diputados,emitidos,,,235527,3
+2023-general,LA RIOJA,,electores,,,304960,1
+2023-general,LA RIOJA,,mesas,,,958,1
+2023-general,LA RIOJA,presidente,lista,,JUNTOS POR EL CAMBIO,28314,2
+2023-general,LA RIOJA,presidente,lista,,HACEMOS POR NUESTRO PAIS- PARTIDO DEMOCRATA CRISTIANO,20416,3
+2023-general,LA RIOJA,presidente,lista,,UNION POR LA PATRIA,98739,3
+2023-general,LA RIOJA,presidente,lista,,LA LIBERTAD AVANZA,90328,3
+2023-general,LA RIOJA,presidente,lista,,FRENTE DE IZQUIERDA Y DE TRABAJADORES - UNIDAD,2219,3
+2023-general,LA RIOJA,presidente,afirmativos,,,240016,2
+2023-general,LA RIOJA,presidente,blancos,,,3857,2
+2023-general,LA RIOJA,presidente,recurridos,,declarados válidos,0,2
+2023-general,LA RIOJA,presidente,impugnados,,declarados válidos,0,2
+2023-general,LA RIOJA,presidente,nulos,,,1703,2
+2023-general,LA RIOJA,presidente,emitidos,,,245576,2
+2023-general,LA RIOJA,senadores,lista,,JUNTOS POR EL CAMBIO,27026,3
+2023-general,LA RIOJA,senadores,lista,,HACEMOS POR NUESTRO PAIS- PARTIDO DEMOCRATA CRISTIANO,17653,3
+2023-general,LA RIOJA,senadores,lista,,UNION POR LA PATRIA,95733,3
+2023-general,LA RIOJA,senadores,lista,,LA LIBERTAD AVANZA,85152,3
+2023-general,LA RIOJA,senadores,afirmativos,,,225564,3
+2023-general,LA RIOJA,senadores,blancos,,,18337,3
+2023-general,LA RIOJA,senadores,recurridos,,declarados válidos,0,3
+2023-general,LA RIOJA,senadores,impugnados,,declarados válidos,0,3
+2023-general,LA RIOJA,senadores,nulos,,,1633,3
+2023-general,LA RIOJA,senadores,emitidos,,,245534,3
+2023-general,LA RIOJA,diputados,lista,,JUNTOS POR EL CAMBIO,28656,4
+2023-general,LA RIOJA,diputados,lista,,HACEMOS POR NUESTRO PAIS-PARTIDO DEMOCRATA CRISTIANO,17603,4
+2023-general,LA RIOJA,diputados,lista,,UNION POR LA PATRIA,93668,4
+2023-general,LA RIOJA,diputados,lista,,LA LIBERTAD AVANZA,85794,4
+2023-general,LA RIOJA,diputados,afirmativos,,,225721,3
+2023-general,LA RIOJA,diputados,blancos,,,18173,3
+2023-general,LA RIOJA,diputados,recurridos,,declarados válidos,0,3
+2023-general,LA RIOJA,diputados,impugnados,,declarados válidos,0,3
+2023-general,LA RIOJA,diputados,nulos,,,1640,3
+2023-general,LA RIOJA,diputados,emitidos,,,245534,3
+2023-general,MENDOZA,,electores,,,1524882,1
+2023-general,MENDOZA,,mesas,,,4357,1
+2023-general,MENDOZA,presidente,emitidos,,,1156534,1
+2023-general,MENDOZA,presidente,afirmativos,,,1121535,1
+2023-general,MENDOZA,presidente,blancos,,,19449,1
+2023-general,MENDOZA,presidente,recurridos,,declarados válidos,0,1
+2023-general,MENDOZA,presidente,impugnados,,declarados válidos,0,2
+2023-general,MENDOZA,presidente,nulos,,,15550,2
+2023-general,MENDOZA,presidente,lista,132,Juntos por el Cambio,289533,2
+2023-general,MENDOZA,presidente,lista,133,Hacemos por Nuestro País,48472,2
+2023-general,MENDOZA,presidente,lista,134,Unión por la Patria,269326,2
+2023-general,MENDOZA,presidente,lista,135,La Libertad Avanza,475272,2
+2023-general,MENDOZA,presidente,lista,136,Frente de Izquierda y de Trabajadores - Unidad,38932,2
+2023-general,MENDOZA,diputados,emitidos,,,1156468,2
+2023-general,MENDOZA,diputados,afirmativos,,,1071506,2
+2023-general,MENDOZA,diputados,blancos,,,68957,2
+2023-general,MENDOZA,diputados,recurridos,,declarados válidos,0,2
+2023-general,MENDOZA,diputados,impugnados,,declarados válidos,0,2
+2023-general,MENDOZA,diputados,nulos,,,16005,2
+2023-general,MENDOZA,diputados,lista,503,Cambia Mendoza,287020,3
+2023-general,MENDOZA,diputados,lista,502,Unión por la Patria,259263,3
+2023-general,MENDOZA,diputados,lista,504,La Libertad Avanza,462657,3
+2023-general,MENDOZA,diputados,lista,501,Frente de Izquierda y de Trabajadores - Unidad,44344,3
+2023-general,MENDOZA,diputados,lista,40,Movimiento Libres del Sur,18222,3
+2023-general,MISIONES,,electores,,,995887,1
+2023-general,MISIONES,,mesas,,,2882,1
+2023-general,MISIONES,presidente,emitidos,,,757594,1
+2023-general,MISIONES,presidente,afirmativos,,,732561,1
+2023-general,MISIONES,presidente,blancos,,,20685,1
+2023-general,MISIONES,presidente,recurridos,,declarados válidos,111,1
+2023-general,MISIONES,presidente,impugnados,,declarados válidos,12,1
+2023-general,MISIONES,presidente,nulos,,,4348,1
+2023-general,MISIONES,presidente,lista,,FRENTE JUNTOS POR EL CAMBIO,105384,2
+2023-general,MISIONES,presidente,lista,,HACEMOS POR NUESRO PAIS,30036,2
+2023-general,MISIONES,presidente,lista,,UNION POR LA PATRIA,277836,2
+2023-general,MISIONES,presidente,lista,,LA LIBERTAD AVANZA,309077,2
+2023-general,MISIONES,presidente,lista,,FRENTE DE IZQUIERDA Y DE TRABAJADORES,10228,2
+2023-general,MISIONES,senadores,emitidos,,,757496,2
+2023-general,MISIONES,senadores,afirmativos,,,389249,2
+2023-general,MISIONES,senadores,blancos,,,364557,2
+2023-general,MISIONES,senadores,recurridos,,declarados válidos,89,2
+2023-general,MISIONES,senadores,impugnados,,declarados válidos,12,2
+2023-general,MISIONES,senadores,nulos,,,3690,2
+2023-general,MISIONES,senadores,lista,501,FRENTE JUNTOS POR EL CAMBIO,109836,2
+2023-general,MISIONES,senadores,lista,502,FRENTE RENOVADOR DE LA CONCORDIA - INNOVACION FEDERAL,253428,2
+2023-general,MISIONES,senadores,lista,,PARTIDO AGRARIO Y SOCIAL,25985,2
+2023-general,MISIONES,diputados,emitidos,,,757496,2
+2023-general,MISIONES,diputados,afirmativos,,,388967,2
+2023-general,MISIONES,diputados,blancos,,,364879,2
+2023-general,MISIONES,diputados,recurridos,,declarados válidos,81,2
+2023-general,MISIONES,diputados,impugnados,,declarados válidos,12,2
+2023-general,MISIONES,diputados,nulos,,,3650,2
+2023-general,MISIONES,diputados,lista,501,FRENTE JUNTOS POR EL CAMBIO,109856,2
+2023-general,MISIONES,diputados,lista,502,FRENTE RENOVADOR DE LA CONCORDIA - INNOVACION FEDERAL,252335,2
+2023-general,MISIONES,diputados,lista,,PARTIDO AGRARIO Y SOCIAL,26776,3
+2023-general,NEUQUEN,,electores,,,556772,1
+2023-general,NEUQUEN,,mesas,,,1674,1
+2023-general,NEUQUEN,presidente,emitidos,,,447264,2
+2023-general,NEUQUEN,presidente,afirmativos,,,427814,2
+2023-general,NEUQUEN,presidente,blancos,,,12443,2
+2023-general,NEUQUEN,presidente,recurridos,,declarados válidos,149,2
+2023-general,NEUQUEN,presidente,impugnados,,declarados válidos,3,2
+2023-general,NEUQUEN,presidente,nulos,,,7007,3
+2023-general,NEUQUEN,presidente,lista,132,Juntos por el Cambio,87952,3
+2023-general,NEUQUEN,presidente,lista,133,Hacemos por Nuestro País,25438,3
+2023-general,NEUQUEN,presidente,lista,134,Unión por la Patria,135881,3
+2023-general,NEUQUEN,presidente,lista,135,La Libertad Avanza,157187,3
+2023-general,NEUQUEN,presidente,lista,136,Frente de Izquierda y de Trabajadores - Unidad,21356,3
+2023-general,NEUQUEN,diputados,emitidos,,,447162,4
+2023-general,NEUQUEN,diputados,afirmativos,,,384398,4
+2023-general,NEUQUEN,diputados,blancos,,,54688,4
+2023-general,NEUQUEN,diputados,recurridos,,declarados válidos,93,4
+2023-general,NEUQUEN,diputados,impugnados,,declarados válidos,3,4
+2023-general,NEUQUEN,diputados,nulos,,,8076,4
+2023-general,NEUQUEN,diputados,lista,504,Juntos por el Cambio,79773,4
+2023-general,NEUQUEN,diputados,lista,503,Unión por la Patria,111828,4
+2023-general,NEUQUEN,diputados,lista,193,Arriba Neuquén,136290,4
+2023-general,NEUQUEN,diputados,lista,502,Frente de Izquierda y de Trabajadores - Unidad,25858,4
+2023-general,NEUQUEN,diputados,lista,151,Movimiento Popular Neuquino,30649,4
+2023-general,RIO NEGRO,,electores,,,599737,1
+2023-general,RIO NEGRO,,mesas,,,1793,1
+2023-general,RIO NEGRO,presidente,emitidos,,,465057,2
+2023-general,RIO NEGRO,presidente,afirmativos,,,444534,2
+2023-general,RIO NEGRO,presidente,lista,132,JUNTOS POR EL CAMBIO,80591,2
+2023-general,RIO NEGRO,presidente,lista,133,HACEMOS POR NUESTRO PAÍS,27782,2
+2023-general,RIO NEGRO,presidente,lista,134,UNIÓN POR LA PATRIA,168235,2
+2023-general,RIO NEGRO,presidente,lista,135,LA LIBERTAD AVANZA,150079,2
+2023-general,RIO NEGRO,presidente,lista,136,FRENTE DE IZQUIERDA Y DE TRABAJADORES – UNIDAD,17847,2
+2023-general,RIO NEGRO,presidente,blancos,,,13739,2
+2023-general,RIO NEGRO,presidente,nulos,,,6784,2
+2023-general,RIO NEGRO,diputados,emitidos,,,464571,3
+2023-general,RIO NEGRO,diputados,afirmativos,,,409353,3
+2023-general,RIO NEGRO,diputados,lista,77,PARTIDO FE,126879,3
+2023-general,RIO NEGRO,diputados,lista,501,JUNTOS SOMOS RÍO NEGRO,60259,3
+2023-general,RIO NEGRO,diputados,lista,502,JUNTOS POR EL CAMBIO,67986,3
+2023-general,RIO NEGRO,diputados,lista,503,UNIÓN POR LA PATRIA,134429,3
+2023-general,RIO NEGRO,diputados,lista,504,FRENTE DE IZQUIERDA Y DE TRABAJADORES – UNIDAD,19800,3
+2023-general,RIO NEGRO,diputados,blancos,,,46683,3
+2023-general,RIO NEGRO,diputados,nulos,,,8535,3
+2023-general,SALTA,,electores,,,1096487,1
+2023-general,SALTA,,mesas,,,3303,1
+2023-general,SALTA,presidente,emitidos,,,827707,2
+2023-general,SALTA,presidente,afirmativos,,,802288,2
+2023-general,SALTA,presidente,blancos,,,17037,2
+2023-general,SALTA,presidente,recurridos,,declarados válidos,396,2
+2023-general,SALTA,presidente,impugnados,,declarados válidos,62,2
+2023-general,SALTA,presidente,nulos,,,8382,2
+2023-general,SALTA,presidente,lista,132,Juntos por el Cambio,110702,2
+2023-general,SALTA,presidente,lista,133,Hacemos por Nuestro País,49587,2
+2023-general,SALTA,presidente,lista,134,Unión por la Patria,304880,2
+2023-general,SALTA,presidente,lista,135,La Libertad Avanza,323105,2
+2023-general,SALTA,presidente,lista,136,Frente de Izquierda y de Trabajadores - Unidad,14014,2
+2023-general,SALTA,diputados,emitidos,,,827669,3
+2023-general,SALTA,diputados,afirmativos,,,767906,3
+2023-general,SALTA,diputados,blancos,,,53647,3
+2023-general,SALTA,diputados,recurridos,,declarados válidos,123,3
+2023-general,SALTA,diputados,impugnados,,declarados válidos,17,3
+2023-general,SALTA,diputados,nulos,,,6116,3
+2023-general,SALTA,diputados,lista,132/502,Juntos por el Cambio,101188,3
+2023-general,SALTA,diputados,lista,133/36,Hacemos por Nuestro País // Partido Autonomista,40723,3
+2023-general,SALTA,diputados,lista,134/503,Unión por la Patria,280111,3
+2023-general,SALTA,diputados,lista,135/231,La Libertad Avanza // Ahora Patria,305397,3
+2023-general,SALTA,diputados,lista,136/501,Frente de Izquierda y de Trabajadores - Unidad,17669,3
+2023-general,SALTA,diputados,lista,229,SI - Salta Independiente,22818,3
+2023-general,SAN JUAN,,electores,,,611502,2
+2023-general,SAN JUAN,,mesas,,,1810,1
+2023-general,SAN JUAN,presidente,emitidos,,,479592,2
+2023-general,SAN JUAN,presidente,afirmativos,,,472411,3
+2023-general,SAN JUAN,presidente,blancos,,,7181,3
+2023-general,SAN JUAN,presidente,recurridos,,declarados válidos,0,3
+2023-general,SAN JUAN,presidente,impugnados,,declarados válidos,0,3
+2023-general,SAN JUAN,presidente,nulos,,,4619,3
+2023-general,SAN JUAN,presidente,lista,,ALIANZA JUNTOS POR EL CAMBIO,108547,3
+2023-general,SAN JUAN,presidente,lista,,ALIANZA HACEMOS POR NUESTRO PAIS,28879,3
+2023-general,SAN JUAN,presidente,lista,,ALIANZA UNION POR LA PATRIA,155794,3
+2023-general,SAN JUAN,presidente,lista,,ALIANZA LA LIBERTAD AVANZA,164117,3
+2023-general,SAN JUAN,presidente,lista,,FRENTE DE IZQUIERDA Y DE TRABAJADORES – UNIDAD,10455,3
+2023-general,SAN JUAN,senadores,emitidos,,,479548,4
+2023-general,SAN JUAN,senadores,afirmativos,,,532392,4
+2023-general,SAN JUAN,senadores,blancos,,,52844,4
+2023-general,SAN JUAN,senadores,recurridos,,declarados válidos,0,4
+2023-general,SAN JUAN,senadores,impugnados,,declarados válidos,0,4
+2023-general,SAN JUAN,senadores,nulos,,,3978,4
+2023-general,SAN JUAN,senadores,lista,,ALIANZA JUNTOS POR EL CAMBIO,113509,4
+2023-general,SAN JUAN,senadores,lista,,ALIANZA UNION POR LA PATRIA,155266,4
+2023-general,SAN JUAN,senadores,lista,,ALIANZA LA LIBERTAD AVANZA,153951,4
+2023-general,SAN JUAN,diputados,emitidos,,,479548,5
+2023-general,SAN JUAN,diputados,afirmativos,,,533179,5
+2023-general,SAN JUAN,diputados,blancos,,,53631,5
+2023-general,SAN JUAN,diputados,recurridos,,declarados válidos,0,5
+2023-general,SAN JUAN,diputados,impugnados,,declarados válidos,0,5
+2023-general,SAN JUAN,diputados,nulos,,,3964,5
+2023-general,SAN JUAN,diputados,lista,,ALIANZA JUNTOS POR EL CAMBIO,113662,5
+2023-general,SAN JUAN,diputados,lista,,ALIANZA UNION POR LA PATRIA,154715,5
+2023-general,SAN JUAN,diputados,lista,,ALIANZA LA LIBERTAD AVANZA,153576,5
+2023-general,SAN LUIS,presidente,emitidos,,,332794,2
+2023-general,SAN LUIS,presidente,afirmativos,,,322860,2
+2023-general,SAN LUIS,presidente,blancos,,,6236,2
+2023-general,SAN LUIS,presidente,nulos,,,3698,2
+2023-general,SAN LUIS,presidente,lista,,JUNTOS POR EL CAMBIO,67517,2
+2023-general,SAN LUIS,presidente,lista,,HACEMOS POR NUESTRO PAIS,20159,2
+2023-general,SAN LUIS,presidente,lista,,UNIÓN POR LA PATRIA,88235,2
+2023-general,SAN LUIS,presidente,lista,,LA LIBERTAD AVANZA,139894,2
+2023-general,SAN LUIS,presidente,lista,,FRENTE DE IZQUIERDA Y DE TRABAJADORES - UNIDAD,7055,2
+2023-general,SAN LUIS,senadores,emitidos,,,332781,3
+2023-general,SAN LUIS,senadores,afirmativos,,,304025,3
+2023-general,SAN LUIS,senadores,blancos,,,25211,3
+2023-general,SAN LUIS,senadores,nulos,,,3545,3
+2023-general,SAN LUIS,senadores,lista,,JUNTOS POR EL CAMBIO,70338,3
+2023-general,SAN LUIS,senadores,lista,,PARTIDO UNIÓN Y LIBERTAD,16426,3
+2023-general,SAN LUIS,senadores,lista,503,UNIÓN POR SAN LUIS,82957,3
+2023-general,SAN LUIS,senadores,lista,501,LA LIBERTAD AVANZA,126012,3
+2023-general,SAN LUIS,senadores,lista,,FRENTE DE IZQUIERDA Y DE TRABAJADORES - UNIDAD,8292,3
+2023-general,SAN LUIS,diputados,emitidos,,,332781,3
+2023-general,SAN LUIS,diputados,afirmativos,,,304598,3
+2023-general,SAN LUIS,diputados,blancos,,,24652,3
+2023-general,SAN LUIS,diputados,nulos,,,3531,3
+2023-general,SAN LUIS,diputados,lista,,JUNTOS POR EL CAMBIO,71718,3
+2023-general,SAN LUIS,diputados,lista,,PARTIDO UNIÓN Y LIBERTAD,16323,3
+2023-general,SAN LUIS,diputados,lista,503,UNIÓN POR SAN LUIS,83178,3
+2023-general,SAN LUIS,diputados,lista,501,LA LIBERTAD AVANZA,125123,3
+2023-general,SAN LUIS,diputados,lista,,FRENTE DE IZQUIERDA Y DE TRABAJADORES - UNIDAD,8256,3
+2023-general,SANTA CRUZ,,electores,,,266865,1
+2023-general,SANTA CRUZ,,mesas,,,914,1
+2023-general,SANTA CRUZ,presidente,emitidos,,,193233,1
+2023-general,SANTA CRUZ,presidente,afirmativos,,,178175,1
+2023-general,SANTA CRUZ,presidente,blancos,,,11777,1
+2023-general,SANTA CRUZ,presidente,nulos,,,3281,1
+2023-general,SANTA CRUZ,presidente,lista,,JUNTOS POR EL CAMBIO,29234,1
+2023-general,SANTA CRUZ,presidente,lista,,HACEMOS POR NUESTRO PAIS,11757,1
+2023-general,SANTA CRUZ,presidente,lista,,UNION POR LA PATRIA,67336,1
+2023-general,SANTA CRUZ,presidente,lista,,LA LIBERTAD AVANZA,64687,1
+2023-general,SANTA CRUZ,presidente,lista,,FRENTE DE IZQUIERDA Y DE TRABAJADORES - UNIDAD,5161,1
+2023-general,SANTA CRUZ,senadores,emitidos,,,193069,2
+2023-general,SANTA CRUZ,senadores,afirmativos,,,126882,2
+2023-general,SANTA CRUZ,senadores,blancos,,,60930,2
+2023-general,SANTA CRUZ,senadores,nulos,,,5257,2
+2023-general,SANTA CRUZ,senadores,lista,,CAMBIA SANTA CRUZ,18826,2
+2023-general,SANTA CRUZ,senadores,lista,504,UNION POR LA PATRIA,45413,2
+2023-general,SANTA CRUZ,senadores,lista,,FRENTE DE IZQUIERDA Y DE TRABAJADORES - UNIDAD,4143,2
+2023-general,SANTA CRUZ,senadores,lista,503,POR SANTA CRUZ,58500,2
+2023-general,SANTA CRUZ,diputados,emitidos,,,193069,2
+2023-general,SANTA CRUZ,diputados,afirmativos,,,123168,2
+2023-general,SANTA CRUZ,diputados,blancos,,,64743,2
+2023-general,SANTA CRUZ,diputados,nulos,,,5158,2
+2023-general,SANTA CRUZ,diputados,lista,,CAMBIA SANTA CRUZ,18595,2
+2023-general,SANTA CRUZ,diputados,lista,504,UNION POR LA PATRIA,45182,2
+2023-general,SANTA CRUZ,diputados,lista,,FRENTE DE IZQUIERDA Y DE TRABAJADORES - UNIDAD,3961,2
+2023-general,SANTA CRUZ,diputados,lista,503,POR SANTA CRUZ,55430,2
+2023-general,SANTA FE,,electores,,,2856178,1
+2023-general,SANTA FE,,mesas,,,8335,1
+2023-general,SANTA FE,presidente,emitidos,,,2088365,2
+2023-general,SANTA FE,presidente,afirmativos,,,2043945,2
+2023-general,SANTA FE,presidente,blancos,,,19267,2
+2023-general,SANTA FE,presidente,recurridos,,declarados válidos,0,2
+2023-general,SANTA FE,presidente,impugnados,,declarados válidos,0,2
+2023-general,SANTA FE,presidente,nulos,,,25153,2
+2023-general,SANTA FE,presidente,lista,132,Juntos por el Cambio,549363,2
+2023-general,SANTA FE,presidente,lista,133,Hacemos por Nuestro País,184337,2
+2023-general,SANTA FE,presidente,lista,134,Unión por la Patria,607088,2
+2023-general,SANTA FE,presidente,lista,135,La Libertad Avanza,664607,2
+2023-general,SANTA FE,presidente,lista,136,Frente de Izquierda y de Trabajadores - Unidad,38550,2
+2023-general,SANTA FE,diputados,emitidos,,,2087720,3
+2023-general,SANTA FE,diputados,afirmativos,,,2009081,3
+2023-general,SANTA FE,diputados,blancos,,,53197,3
+2023-general,SANTA FE,diputados,recurridos,,declarados válidos,0,3
+2023-general,SANTA FE,diputados,impugnados,,declarados válidos,0,3
+2023-general,SANTA FE,diputados,nulos,,,25442,3
+2023-general,SANTA FE,diputados,lista,132/504,Juntos por el Cambio,541534,3
+2023-general,SANTA FE,diputados,lista,133/506,Hacemos por Nuestro País,184680,3
+2023-general,SANTA FE,diputados,lista,134/507,Unión por la Patria,584589,3
+2023-general,SANTA FE,diputados,lista,135/501,La Libertad Avanza,649809,3
+2023-general,SANTA FE,diputados,lista,136/502,Frente de Izquierda y de Trabajadores - Unidad,48469,3
+2023-general,SANTIAGO DEL ESTERO,,electores,,,815636,1
+2023-general,SANTIAGO DEL ESTERO,,mesas,,,2467,1
+2023-general,SANTIAGO DEL ESTERO,presidente,emitidos,,,646721,2
+2023-general,SANTIAGO DEL ESTERO,presidente,afirmativos,,,633406,2
+2023-general,SANTIAGO DEL ESTERO,presidente,blancos,,,9081,2
+2023-general,SANTIAGO DEL ESTERO,presidente,nulos,,,4234,2
+2023-general,SANTIAGO DEL ESTERO,presidente,lista,132,JUNTOS POR EL CAMBIO,50749,3
+2023-general,SANTIAGO DEL ESTERO,presidente,lista,133,HACEMOS POR NUESTRO PAIS,13489,3
+2023-general,SANTIAGO DEL ESTERO,presidente,lista,134,UNION POR LA PATRIA,416597,3
+2023-general,SANTIAGO DEL ESTERO,presidente,lista,135,LA LIBERTAD AVANZA,144659,3
+2023-general,SANTIAGO DEL ESTERO,presidente,lista,136,FRENTE DE IZQUIERDA Y TRABAJADORES UNIDAD,7912,3
+2023-general,SANTIAGO DEL ESTERO,diputados,emitidos,,,646137,3
+2023-general,SANTIAGO DEL ESTERO,diputados,afirmativos,,,467131,3
+2023-general,SANTIAGO DEL ESTERO,diputados,blancos,,,175645,3
+2023-general,SANTIAGO DEL ESTERO,diputados,nulos,,,3361,3
+2023-general,SANTIAGO DEL ESTERO,diputados,lista,86,FRENTE RENOVADOR,38770,3
+2023-general,SANTIAGO DEL ESTERO,diputados,lista,501,FRENTE CIVICO POR SANTIAGO,378246,4
+2023-general,SANTIAGO DEL ESTERO,diputados,lista,502,JUNTOS POR EL CAMBIO,50115,4
+2023-general,TIERRA DEL FUEGO,,electores,,,148870,1
+2023-general,TIERRA DEL FUEGO,,mesas,,,514,1
+2023-general,TIERRA DEL FUEGO,presidente,emitidos,,,110401,2
+2023-general,TIERRA DEL FUEGO,presidente,afirmativos,,,107038,2
+2023-general,TIERRA DEL FUEGO,presidente,blancos,,,1539,2
+2023-general,TIERRA DEL FUEGO,presidente,recurridos,,declarados válidos,70,2
+2023-general,TIERRA DEL FUEGO,presidente,impugnados,,declarados válidos,0,2
+2023-general,TIERRA DEL FUEGO,presidente,nulos,,,1824,2
+2023-general,TIERRA DEL FUEGO,presidente,lista,132,Juntos por el Cambio,16043,2
+2023-general,TIERRA DEL FUEGO,presidente,lista,133,Hacemos por Nuestro País,9767,2
+2023-general,TIERRA DEL FUEGO,presidente,lista,134,Unión por la Patria,40889,2
+2023-general,TIERRA DEL FUEGO,presidente,lista,135,La Libertad Avanza,36202,2
+2023-general,TIERRA DEL FUEGO,presidente,lista,136,Frente de Izquierda y de Trabajadores - Unidad,4137,2
+2023-general,TIERRA DEL FUEGO,diputados,emitidos,,,110390,3
+2023-general,TIERRA DEL FUEGO,diputados,afirmativos,,,100239,3
+2023-general,TIERRA DEL FUEGO,diputados,blancos,,,7158,3
+2023-general,TIERRA DEL FUEGO,diputados,recurridos,,declarados válidos,184,3
+2023-general,TIERRA DEL FUEGO,diputados,impugnados,,declarados válidos,0,3
+2023-general,TIERRA DEL FUEGO,diputados,nulos,,,2993,3
+2023-general,TIERRA DEL FUEGO,diputados,lista,167,Somos Fueguinos,9935,3
+2023-general,TIERRA DEL FUEGO,diputados,lista,212,Republicanos Unidos,30534,3
+2023-general,TIERRA DEL FUEGO,diputados,lista,501,Unión por la Patria,34206,3
+2023-general,TIERRA DEL FUEGO,diputados,lista,502,Juntos por el Cambio Tierra del Fuego,13254,3
+2023-general,TIERRA DEL FUEGO,diputados,lista,503,Hacemos por Nuestro País,7908,3
+2023-general,TIERRA DEL FUEGO,diputados,lista,504,Frente de Izquierda y de Trabajadores - Unidad,4402,3
+2023-general,TUCUMAN,,electores,,,1325268,1
+2023-general,TUCUMAN,,mesas,,,3922,1
+2023-general,TUCUMAN,presidente,emitidos,,,1095271,2
+2023-general,TUCUMAN,presidente,afirmativos,,,1060330,2
+2023-general,TUCUMAN,presidente,blancos,,,25909,2
+2023-general,TUCUMAN,presidente,recurridos,,declarados válidos,0,2
+2023-general,TUCUMAN,presidente,impugnados,,declarados válidos,0,2
+2023-general,TUCUMAN,presidente,nulos,,,9032,2
+2023-general,TUCUMAN,presidente,lista,,JUNTOS POR EL CAMBIO,155273,2
+2023-general,TUCUMAN,presidente,lista,,HACEMOS POR NUESTRO PAIS,42313,2
+2023-general,TUCUMAN,presidente,lista,,UNION POR LA PATRIA,476361,2
+2023-general,TUCUMAN,presidente,lista,,LA LIBERTAD AVANZA / FUERZA REPUBLICANA,371130,2
+2023-general,TUCUMAN,presidente,lista,,FRENTE DE IZQUIERDA Y DE TRABAJADORES - UNIDAD,15253,2
+2023-general,TUCUMAN,diputados,emitidos,,,1095139,2
+2023-general,TUCUMAN,diputados,afirmativos,,,944576,2
+2023-general,TUCUMAN,diputados,blancos,,,142022,2
+2023-general,TUCUMAN,diputados,recurridos,,declarados válidos,0,2
+2023-general,TUCUMAN,diputados,impugnados,,declarados válidos,0,2
+2023-general,TUCUMAN,diputados,nulos,,,8541,2
+2023-general,TUCUMAN,diputados,lista,,MOVIMIENTO LIBRES DEL SUR,23863,2
+2023-general,TUCUMAN,diputados,lista,,JUNTOS POR EL CAMBIO,171603,2
+2023-general,TUCUMAN,diputados,lista,,UNION POR LA PATRIA,443377,2
+2023-general,TUCUMAN,diputados,lista,,LA LIBERTAD AVANZA / FUERZA REPUBLICANA,286594,3
+2023-general,TUCUMAN,diputados,lista,,FRENTE DE IZQUIERDA Y DE TRABAJADORES - UNIDAD,19139,3
+2023-segunda,BUENOS AIRES,,electores,,,13120058,5
+2023-segunda,BUENOS AIRES,,mesas,,,38074,5
+2023-segunda,BUENOS AIRES,presidente,emitidos,,,10073791,5
+2023-segunda,BUENOS AIRES,presidente,lista,134,UNION POR LA PATRIA,4949734,5
+2023-segunda,BUENOS AIRES,presidente,lista,135,LA LIBERTAD AVANZA,4801185,5
+2023-segunda,BUENOS AIRES,presidente,blancos,,,177684,5
+2023-segunda,BUENOS AIRES,presidente,nulos,,,145188,5
+2023-segunda,CAPITAL FEDERAL,,electores,,,2526676,1
+2023-segunda,CAPITAL FEDERAL,,mesas,,,7326,1
+2023-segunda,CAPITAL FEDERAL,presidente,emitidos,,,1905625,2
+2023-segunda,CAPITAL FEDERAL,presidente,afirmativos,,,1813666,2
+2023-segunda,CAPITAL FEDERAL,presidente,lista,134,ALIANZA UNION POR LA PATRIA,775356,3
+2023-segunda,CAPITAL FEDERAL,presidente,lista,135,ALIANZA LA LIBERTAD AVANZA,1038310,3
+2023-segunda,CAPITAL FEDERAL,presidente,blancos,,,53411,2
+2023-segunda,CAPITAL FEDERAL,presidente,nulos,,,38548,2
+2023-segunda,CATAMARCA,,electores,,,340662,1
+2023-segunda,CATAMARCA,,mesas,,,1058,1
+2023-segunda,CATAMARCA,presidente,emitidos,,,243249,2
+2023-segunda,CATAMARCA,presidente,afirmativos,,,237319,2
+2023-segunda,CATAMARCA,presidente,lista,,UNION POR LA PATRIA (SERGIO MASSA - AGUSTIN ROSSI),111994,2
+2023-segunda,CATAMARCA,presidente,lista,,LA LIBERTAD AVANZA (JAVIER MILEI - VICTORIA VILLARRUEL),125325,2
+2023-segunda,CATAMARCA,presidente,blancos,,,3690,2
+2023-segunda,CATAMARCA,presidente,nulos,,,2240,2
+2023-segunda,CATAMARCA,presidente,recurridos,,declarados válidos,0,2
+2023-segunda,CATAMARCA,presidente,impugnados,,declarados válidos,0,2
+2023-segunda,CHACO,,electores,,,999049,1
+2023-segunda,CHACO,,mesas,,,2947,1
+2023-segunda,CHACO,presidente,emitidos,,,730264,2
+2023-segunda,CHACO,presidente,afirmativos,,,716895,2
+2023-segunda,CHACO,presidente,lista,,UNIÓN POR LA PATRIA,359789,2
+2023-segunda,CHACO,presidente,lista,,LA LIBERTAD AVANZA,357106,2
+2023-segunda,CHACO,presidente,blancos,,,6117,2
+2023-segunda,CHACO,presidente,nulos,,,7252,2
+2023-segunda,CHACO,presidente,recurridos,,declarados válidos,0,2
+2023-segunda,CHACO,presidente,impugnados,,declarados válidos,0,2
+2023-segunda,CHUBUT,,electores,,,474583,1
+2023-segunda,CHUBUT,,mesas,,,1416,1
+2023-segunda,CHUBUT,presidente,emitidos,,,350457,2
+2023-segunda,CHUBUT,presidente,afirmativos,,,334892,2
+2023-segunda,CHUBUT,presidente,lista,134,Unión por la Patria,137057,2
+2023-segunda,CHUBUT,presidente,lista,135,La Libertad Avanza,197835,2
+2023-segunda,CHUBUT,presidente,blancos,,,4978,2
+2023-segunda,CHUBUT,presidente,nulos,,,10587,2
+2023-segunda,CHUBUT,presidente,recurridos,,declarados válidos,23,2
+2023-segunda,CHUBUT,presidente,impugnados,,declarados válidos,7,2
+2023-segunda,CORDOBA,,electores,,,3060943,1
+2023-segunda,CORDOBA,,mesas,,,9097,1
+2023-segunda,CORDOBA,presidente,emitidos,,,2298396,2
+2023-segunda,CORDOBA,presidente,afirmativos,,,2213415,2
+2023-segunda,CORDOBA,presidente,lista,134,UNION POR LA PATRIA,574313,2
+2023-segunda,CORDOBA,presidente,lista,135,LA LIBERTAD AVANZA,1639102,2
+2023-segunda,CORDOBA,presidente,blancos,,,36440,2
+2023-segunda,CORDOBA,presidente,nulos,,,48541,2
+2023-segunda,CORRIENTES,,electores,,,930212,1
+2023-segunda,CORRIENTES,,mesas,,,2760,1
+2023-segunda,CORRIENTES,presidente,emitidos,,,705589,2
+2023-segunda,CORRIENTES,presidente,afirmativos,,,695635,2
+2023-segunda,CORRIENTES,presidente,lista,134,Unión por la Patria (Sergio Massa - Agustin Rossi),322694,2
+2023-segunda,CORRIENTES,presidente,lista,135,La Libertad Avanza (Javier Milei - Victoria Villarroel),366228,2
+2023-segunda,CORRIENTES,presidente,blancos,,,6713,2
+2023-segunda,CORRIENTES,presidente,nulos,,,9954,2
+2023-segunda,CORRIENTES,presidente,recurridos,,declarados válidos,71,2
+2023-segunda,CORRIENTES,presidente,impugnados,,declarados válidos,29,2
+2023-segunda,ENTRE RIOS,,electores,,,1144210,1
+2023-segunda,ENTRE RIOS,,mesas,,,3434,1
+2023-segunda,ENTRE RIOS,presidente,emitidos,,,889779,1
+2023-segunda,ENTRE RIOS,presidente,afirmativos,,,861081,2
+2023-segunda,ENTRE RIOS,presidente,lista,,UNIÓN POR LA PATRIA (SERGIO MASSA - AGUSTÍN ROSSI),331763,2
+2023-segunda,ENTRE RIOS,presidente,lista,,LA LIBERTAD AVANZA (JAVIER MILEI - VICTORIA VILLARROEL),529318,2
+2023-segunda,ENTRE RIOS,presidente,blancos,,,11268,2
+2023-segunda,ENTRE RIOS,presidente,nulos,,,17430,2
+2023-segunda,ENTRE RIOS,presidente,recurridos,,declarados válidos,230,2
+2023-segunda,ENTRE RIOS,presidente,impugnados,,declarados nulos,46,2
+2023-segunda,FORMOSA,,electores,,,482485,1
+2023-segunda,FORMOSA,,mesas,,,1484,1
+2023-segunda,FORMOSA,presidente,emitidos,,,362983,2
+2023-segunda,FORMOSA,presidente,afirmativos,,,356594,2
+2023-segunda,FORMOSA,presidente,lista,,UNIÓN POR LA PATRIA,202288,2
+2023-segunda,FORMOSA,presidente,lista,,LA LIBERTAD AVANZA,154306,2
+2023-segunda,FORMOSA,presidente,blancos,,,3193,2
+2023-segunda,FORMOSA,presidente,nulos,,,3196,2
+2023-segunda,FORMOSA,presidente,recurridos,,declarados válidos,0,2
+2023-segunda,FORMOSA,presidente,impugnados,,declarados válidos,0,2
+2023-segunda,JUJUY,,electores,,,590950,1
+2023-segunda,JUJUY,,mesas,,,1825,1
+2023-segunda,JUJUY,presidente,emitidos,,,456914,2
+2023-segunda,JUJUY,presidente,afirmativos,,,445069,2
+2023-segunda,JUJUY,presidente,lista,134,Unión por la Patria,186315,2
+2023-segunda,JUJUY,presidente,lista,135,La Libertad Avanza,258754,2
+2023-segunda,JUJUY,presidente,blancos,,,3525,2
+2023-segunda,JUJUY,presidente,nulos,,,8320,2
+2023-segunda,JUJUY,presidente,recurridos,,declarados válidos,101,2
+2023-segunda,JUJUY,presidente,impugnados,,declarados válidos,0,2
+2023-segunda,LA PAMPA,,electores,,,300057,1
+2023-segunda,LA PAMPA,,mesas,,,902,1
+2023-segunda,LA PAMPA,presidente,emitidos,,,229023,1
+2023-segunda,LA PAMPA,presidente,afirmativos,,,221340,1
+2023-segunda,LA PAMPA,presidente,lista,,UNIÓN POR LA PATRIA,94546,2
+2023-segunda,LA PAMPA,presidente,lista,,LA LIBERTAD AVANZA,126794,2
+2023-segunda,LA PAMPA,presidente,blancos,,,3346,1
+2023-segunda,LA PAMPA,presidente,nulos,,,4337,1
+2023-segunda,LA RIOJA,,electores,,,304415,1
+2023-segunda,LA RIOJA,,mesas,,,955,1
+2023-segunda,LA RIOJA,presidente,emitidos,,,240164,2
+2023-segunda,LA RIOJA,presidente,afirmativos,,,235174,2
+2023-segunda,LA RIOJA,presidente,lista,,UNION POR LA PATRIA,108817,2
+2023-segunda,LA RIOJA,presidente,lista,,LA LIBERTAD AVANZA,126357,2
+2023-segunda,LA RIOJA,presidente,blancos,,,2114,2
+2023-segunda,LA RIOJA,presidente,nulos,,,2876,2
+2023-segunda,LA RIOJA,presidente,recurridos,,declarados válidos,0,2
+2023-segunda,LA RIOJA,presidente,impugnados,,declarados válidos,0,2
+2023-segunda,MENDOZA,,electores,,,1494888,1
+2023-segunda,MENDOZA,,mesas,,,4357,1
+2023-segunda,MENDOZA,presidente,emitidos,,,1143401,1
+2023-segunda,MENDOZA,presidente,afirmativos,,,1101765,1
+2023-segunda,MENDOZA,presidente,lista,,UNIÓN POR LA PATRIA,317656,1
+2023-segunda,MENDOZA,presidente,lista,,LA LIBERTAD AVANZA,784109,1
+2023-segunda,MENDOZA,presidente,blancos,,,16999,1
+2023-segunda,MENDOZA,presidente,nulos,,,24637,1
+2023-segunda,MENDOZA,presidente,recurridos,,declarados válidos,0,1
+2023-segunda,MENDOZA,presidente,impugnados,,declarados válidos,0,1
+2023-segunda,MISIONES,,electores,,,989610,1
+2023-segunda,MISIONES,,mesas,,,2879,1
+2023-segunda,MISIONES,presidente,emitidos,,,729704,2
+2023-segunda,MISIONES,presidente,afirmativos,,,714815,2
+2023-segunda,MISIONES,presidente,lista,134,Unión por la Patria,309355,2
+2023-segunda,MISIONES,presidente,lista,135,La Libertad Avanza,405460,2
+2023-segunda,MISIONES,presidente,blancos,,,8919,2
+2023-segunda,MISIONES,presidente,nulos,,,5970,2
+2023-segunda,MISIONES,presidente,recurridos,,declarados válidos,67,2
+2023-segunda,MISIONES,presidente,impugnados,,declarados válidos,5,2
+2023-segunda,NEUQUEN,,electores,,,554077,1
+2023-segunda,NEUQUEN,,mesas,,,1670,1
+2023-segunda,NEUQUEN,presidente,emitidos,,,440354,2
+2023-segunda,NEUQUEN,presidente,afirmativos,,,421313,2
+2023-segunda,NEUQUEN,presidente,lista,134,Unión por la Patria,166700,2
+2023-segunda,NEUQUEN,presidente,lista,135,La Libertad Avanza,254613,2
+2023-segunda,NEUQUEN,presidente,blancos,,,5689,2
+2023-segunda,NEUQUEN,presidente,nulos,,,13352,2
+2023-segunda,NEUQUEN,presidente,recurridos,,declarados válidos,43,2
+2023-segunda,NEUQUEN,presidente,impugnados,,declarados válidos,6,2
+2023-segunda,REPL,presidente,emitidos,,,25866,1
+2023-segunda,REPL,presidente,lista,134,UNION POR LA PATRIA,20269,1
+2023-segunda,REPL,presidente,lista,135,LA LIBERTAD AVANZA,4779,1
+2023-segunda,REPL,presidente,blancos,,,315,1
+2023-segunda,REPL,presidente,nulos,,,503,1
+2023-segunda,REPL,presidente,recurridos,,,0,1
+2023-segunda,REPL,presidente,impugnados,,,0,1
+2023-segunda,RERE,presidente,emitidos,,,51252,1
+2023-segunda,RERE,presidente,lista,134,UNION POR LA PATRIA,12833,1
+2023-segunda,RERE,presidente,lista,135,LA LIBERTAD AVANZA,37413,1
+2023-segunda,RERE,presidente,blancos,,,582,1
+2023-segunda,RERE,presidente,nulos,,,424,1
+2023-segunda,RERE,presidente,recurridos,,,0,1
+2023-segunda,RERE,presidente,impugnados,,,0,1
+2023-segunda,RIO NEGRO,,electores,,,595968,1
+2023-segunda,RIO NEGRO,,mesas,,,1790,1
+2023-segunda,RIO NEGRO,presidente,emitidos,,,454473,2
+2023-segunda,RIO NEGRO,presidente,afirmativos,,,436765,2
+2023-segunda,RIO NEGRO,presidente,lista,134,UNION POR LA PATRIA,199969,2
+2023-segunda,RIO NEGRO,presidente,lista,135,LA LIBERTAD AVANZA,236796,2
+2023-segunda,RIO NEGRO,presidente,blancos,,,5841,2
+2023-segunda,RIO NEGRO,presidente,nulos,,,11867,2
+2023-segunda,RIO NEGRO,presidente,impugnados,,declarados válidos,0,2
+2023-segunda,SALTA,,electores,,,1091792,1
+2023-segunda,SALTA,,mesas,,,3300,1
+2023-segunda,SALTA,presidente,emitidos,,,819282,2
+2023-segunda,SALTA,presidente,afirmativos,,,800610,2
+2023-segunda,SALTA,presidente,lista,134,Unión por la Patria,338925,2
+2023-segunda,SALTA,presidente,lista,135,La Libertad Avanza,461685,2
+2023-segunda,SALTA,presidente,blancos,,,8002,2
+2023-segunda,SALTA,presidente,nulos,,,10670,2
+2023-segunda,SALTA,presidente,recurridos,,declarados válidos,237,2
+2023-segunda,SALTA,presidente,impugnados,,declarados válidos,5,2
+2023-segunda,SAN JUAN,,electores,,,607479,1
+2023-segunda,SAN JUAN,,mesas,,,1810,1
+2023-segunda,SAN JUAN,presidente,emitidos,,,470354,2
+2023-segunda,SAN JUAN,presidente,afirmativos,,,465129,2
+2023-segunda,SAN JUAN,presidente,lista,,ALIANZA UNION POR LA PATRIA,179706,3
+2023-segunda,SAN JUAN,presidente,lista,,ALIANZA LA LIBERTAD AVANZA,277621,3
+2023-segunda,SAN JUAN,presidente,blancos,,,5225,2
+2023-segunda,SAN JUAN,presidente,nulos,,,7802,2
+2023-segunda,SAN JUAN,presidente,recurridos,,declarados válidos,0,2
+2023-segunda,SAN JUAN,presidente,impugnados,,declarados válidos,0,2
+2023-segunda,SAN LUIS,presidente,emitidos,,,326763,2
+2023-segunda,SAN LUIS,presidente,afirmativos,,,316170,2
+2023-segunda,SAN LUIS,presidente,lista,,UNIÓN POR LA PATRIA,101232,2
+2023-segunda,SAN LUIS,presidente,lista,,LA LIBERTAD AVANZA,214938,2
+2023-segunda,SAN LUIS,presidente,blancos,,,4177,2
+2023-segunda,SAN LUIS,presidente,nulos,,,6416,2
+2023-segunda,SANTA CRUZ,,electores,,,265825,1
+2023-segunda,SANTA CRUZ,,mesas,,,911,1
+2023-segunda,SANTA CRUZ,presidente,emitidos,,,186251,1
+2023-segunda,SANTA CRUZ,presidente,afirmativos,,,180237,1
+2023-segunda,SANTA CRUZ,presidente,lista,,UNION POR LA PATRIA SERGIO MASSA - AGUSTIN ROSSI,75706,1
+2023-segunda,SANTA CRUZ,presidente,lista,,LA LIBERTAD AVANZA JAVIER MILEI - VICTORIA VILLARRUEL,104531,1
+2023-segunda,SANTA CRUZ,presidente,blancos,,,1647,1
+2023-segunda,SANTA CRUZ,presidente,nulos,,,4367,1
+2023-segunda,SANTA FE,,electores,,,2828754,1
+2023-segunda,SANTA FE,,mesas,,,8332,1
+2023-segunda,SANTA FE,presidente,emitidos,,,2120545,2
+2023-segunda,SANTA FE,presidente,afirmativos,,,2074669,2
+2023-segunda,SANTA FE,presidente,lista,134,Unión por la Patria,758396,2
+2023-segunda,SANTA FE,presidente,lista,135,La Libertad Avanza,1282012,2
+2023-segunda,SANTA FE,presidente,blancos,,,34261,2
+2023-segunda,SANTA FE,presidente,nulos,,,45876,2
+2023-segunda,SANTA FE,presidente,recurridos,,declarados válidos,0,2
+2023-segunda,SANTA FE,presidente,impugnados,,declarados válidos,0,2
+2023-segunda,SANTIAGO DEL ESTERO,,electores,,,814184,1
+2023-segunda,SANTIAGO DEL ESTERO,,mesas,,,2464,1
+2023-segunda,SANTIAGO DEL ESTERO,presidente,emitidos,,,640581,2
+2023-segunda,SANTIAGO DEL ESTERO,presidente,afirmativos,,,631238,2
+2023-segunda,SANTIAGO DEL ESTERO,presidente,lista,134,UNIÓN POR LA PATRIA,432433,3
+2023-segunda,SANTIAGO DEL ESTERO,presidente,lista,135,LA LIBERTAD AVANZA,198805,3
+2023-segunda,SANTIAGO DEL ESTERO,presidente,blancos,,,4468,3
+2023-segunda,SANTIAGO DEL ESTERO,presidente,nulos,,,4875,3
+2023-segunda,TIERRA DEL FUEGO,,electores,,,147984,1
+2023-segunda,TIERRA DEL FUEGO,,mesas,,,511,1
+2023-segunda,TIERRA DEL FUEGO,presidente,emitidos,,,109609,1
+2023-segunda,TIERRA DEL FUEGO,presidente,afirmativos,,,104973,1
+2023-segunda,TIERRA DEL FUEGO,presidente,lista,,UNIÓN POR LA PATRIA,48998,2
+2023-segunda,TIERRA DEL FUEGO,presidente,lista,,LA LIBERTAD AVANZA,55975,2
+2023-segunda,TIERRA DEL FUEGO,presidente,blancos,,,1050,2
+2023-segunda,TIERRA DEL FUEGO,presidente,nulos,,,3586,2
+2023-segunda,TUCUMAN,,electores,,,1319493,1
+2023-segunda,TUCUMAN,,mesas,,,3919,1
+2023-segunda,TUCUMAN,presidente,emitidos,,,1094049,1
+2023-segunda,TUCUMAN,presidente,afirmativos,,,1072373,1
+2023-segunda,TUCUMAN,presidente,lista,,UNION POR LA PATRIA,514978,2
+2023-segunda,TUCUMAN,presidente,lista,,LA LIBERTAD AVANZA,557395,2
+2023-segunda,TUCUMAN,presidente,blancos,,,8817,1
+2023-segunda,TUCUMAN,presidente,nulos,,,12859,2
+2023-segunda,TUCUMAN,presidente,recurridos,,declarados válidos,0,1
+2023-segunda,TUCUMAN,presidente,impugnados,,declarados válidos,0,2
+2025-general,BUENOS AIRES,,mesas,,,38760,1
+2025-general,BUENOS AIRES,,electores,,,13506058,1
+2025-general,BUENOS AIRES,diputados,emitidos,,,9127527,2
+2025-general,BUENOS AIRES,diputados,afirmativos,,,8809851,2
+2025-general,BUENOS AIRES,diputados,blancos,,,105964,2
+2025-general,BUENOS AIRES,diputados,nulos,,,211712,2
+2025-general,BUENOS AIRES,diputados,lista,503,ALIANZA LA LIBERTAD AVANZA,3649988,3
+2025-general,BUENOS AIRES,diputados,lista,221,PARTIDO NUEVO BUENOS AIRES,117149,3
+2025-general,BUENOS AIRES,diputados,lista,318,LIBER.AR,16171,3
+2025-general,BUENOS AIRES,diputados,lista,506,FTE. DE IZQUIERDA Y DE TRABAJADORES- UNIDAD,443254,3
+2025-general,BUENOS AIRES,diputados,lista,95,FRENTE PATRIOTA FEDERAL,105900,3
+2025-general,BUENOS AIRES,diputados,lista,153,UNIÓN LIBERAL,38796,3
+2025-general,BUENOS AIRES,diputados,lista,507,ALIANZA FUERZA PATRIA,3620634,3
+2025-general,BUENOS AIRES,diputados,lista,47,COALICIÓN CÍVICA A.R.I.,68195,3
+2025-general,BUENOS AIRES,diputados,lista,305,MOV. POL. SOC. Y CULTURAL PROYECTO SUR,52448,3
+2025-general,BUENOS AIRES,diputados,lista,299,PROPUESTA FEDERAL PARA EL CAMBIO,246246,3
+2025-general,BUENOS AIRES,diputados,lista,508,ALIANZA PROVINCIAS UNIDAS,215585,3
+2025-general,BUENOS AIRES,diputados,lista,504,ALIANZA POTENCIA,61488,3
+2025-general,BUENOS AIRES,diputados,lista,501,ALIANZA UNIÓN FEDERAL,79215,3
+2025-general,BUENOS AIRES,diputados,lista,502,ALIANZA NUEVOS AIRES,45634,3
+2025-general,BUENOS AIRES,diputados,lista,276,MOVIMIENTO AVANZADA SOCIALISTA,49148,3
+2025-general,CAPITAL FEDERAL,,mesas,,,7286,1
+2025-general,CAPITAL FEDERAL,,electores,,,2695520,1
+2025-general,CAPITAL FEDERAL,senadores,emitidos,,,1756902,2
+2025-general,CAPITAL FEDERAL,senadores,afirmativos,,,1693942,2
+2025-general,CAPITAL FEDERAL,senadores,blancos,,,35931,2
+2025-general,CAPITAL FEDERAL,senadores,nulos,,,27029,2
+2025-general,CAPITAL FEDERAL,diputados,emitidos,,,1756902,2
+2025-general,CAPITAL FEDERAL,diputados,afirmativos,,,1651242,2
+2025-general,CAPITAL FEDERAL,diputados,blancos,,,82076,2
+2025-general,CAPITAL FEDERAL,diputados,nulos,,,23584,2
+2025-general,CAPITAL FEDERAL,senadores,lista,20,Unión del Centro Democrático,9075,3
+2025-general,CAPITAL FEDERAL,senadores,lista,69,GEN,38867,3
+2025-general,CAPITAL FEDERAL,senadores,lista,350,La Izquierda en la Ciudad,9698,3
+2025-general,CAPITAL FEDERAL,senadores,lista,502,Alianza Alianza Potencia,19262,3
+2025-general,CAPITAL FEDERAL,senadores,lista,505,Alianza Hagamos Futuro,28574,3
+2025-general,CAPITAL FEDERAL,senadores,lista,501,Alianza Alianza La Libertad Avanza,854122,3
+2025-general,CAPITAL FEDERAL,senadores,lista,8,Partido Federal,7299,3
+2025-general,CAPITAL FEDERAL,senadores,lista,352,Movimiento Plural,2675,3
+2025-general,CAPITAL FEDERAL,senadores,lista,503,Alianza Fuerza Patria,519119,3
+2025-general,CAPITAL FEDERAL,senadores,lista,506,Alianza Frente de Izquierda y de Trabajadores – Unidad,92657,3
+2025-general,CAPITAL FEDERAL,senadores,lista,504,Alianza Ciudadanos Unidos,86100,3
+2025-general,CAPITAL FEDERAL,senadores,lista,95,Frente Patriota Federal,3698,3
+2025-general,CAPITAL FEDERAL,senadores,lista,184,Partido Socialista Auténtico,3058,3
+2025-general,CAPITAL FEDERAL,senadores,lista,314,Partido Comunista,3179,3
+2025-general,CAPITAL FEDERAL,senadores,lista,343,Movimiento de Jubilados y Juventud,16559,3
+2025-general,CAPITAL FEDERAL,diputados,lista,20,Unión del Centro Democrático,5588,4
+2025-general,CAPITAL FEDERAL,diputados,lista,69,GEN,16671,4
+2025-general,CAPITAL FEDERAL,diputados,lista,350,La Izquierda en la Ciudad,9162,4
+2025-general,CAPITAL FEDERAL,diputados,lista,502,Alianza Alianza Potencia,67144,4
+2025-general,CAPITAL FEDERAL,diputados,lista,505,Alianza Hagamos Futuro,29701,4
+2025-general,CAPITAL FEDERAL,diputados,lista,501,Alianza Alianza La Libertad Avanza,783585,4
+2025-general,CAPITAL FEDERAL,diputados,lista,8,Partido Federal,6223,4
+2025-general,CAPITAL FEDERAL,diputados,lista,348,Integrar,7925,4
+2025-general,CAPITAL FEDERAL,diputados,lista,352,Movimiento Plural,3028,4
+2025-general,CAPITAL FEDERAL,diputados,lista,503,Alianza Fuerza Patria,445340,4
+2025-general,CAPITAL FEDERAL,diputados,lista,506,Alianza Frente de Izquierda y de Trabajadores – Unidad,150523,4
+2025-general,CAPITAL FEDERAL,diputados,lista,504,Alianza Ciudadanos Unidos,99034,4
+2025-general,CAPITAL FEDERAL,diputados,lista,95,Frente Patriota Federal,4548,4
+2025-general,CAPITAL FEDERAL,diputados,lista,184,Partido Socialista Auténtico,3309,4
+2025-general,CAPITAL FEDERAL,diputados,lista,314,Partido Comunista,3031,4
+2025-general,CAPITAL FEDERAL,diputados,lista,343,Movimiento de Jubilados y Juventud,11189,4
+2025-general,CAPITAL FEDERAL,diputados,lista,72,Instrumento Electoral por la Unidad Popular,5241,4
+2025-general,CATAMARCA,,mesas,,,1470,1
+2025-general,CATAMARCA,,electores,,,348002,1
+2025-general,CATAMARCA,diputados,emitidos,,,235296,1
+2025-general,CATAMARCA,diputados,afirmativos,,,220737,2
+2025-general,CATAMARCA,diputados,blancos,,,7991,2
+2025-general,CATAMARCA,diputados,nulos,,,6568,2
+2025-general,CATAMARCA,diputados,lista,,MOVIMIENTO DE INTEGRACION Y DESARROLLO - MID,6516,2
+2025-general,CATAMARCA,diputados,lista,,FUERZA PATRIA,100961,2
+2025-general,CATAMARCA,diputados,lista,,PRIMERO CATAMARCA,6883,2
+2025-general,CATAMARCA,diputados,lista,,FRENTE DE IZQUIERDA Y DE TRABAJADORES - UNIDAD,4269,2
+2025-general,CATAMARCA,diputados,lista,,ALIANZA LA LIBERTAD AVANZA,74423,2
+2025-general,CATAMARCA,diputados,lista,,HACEMOS RENACER CATAMARCA,6801,2
+2025-general,CATAMARCA,diputados,lista,,SOMOS PROVINCIA UNIDAS - CATAMARCA,14111,2
+2025-general,CATAMARCA,diputados,lista,,POLITICA OBRERA,3777,2
+2025-general,CATAMARCA,diputados,lista,,FRENTE PATRIOTA FEDERAL,2996,2
+2025-general,CHACO,,mesas,,,2979,1
+2025-general,CHACO,,electores,,,1015299,1
+2025-general,CHACO,senadores,emitidos,,,662409,1
+2025-general,CHACO,senadores,afirmativos,,,636663,1
+2025-general,CHACO,senadores,blancos,,,14580,1
+2025-general,CHACO,senadores,recurridos,,declarados válidos (incluidos en afirmativos),572,1
+2025-general,CHACO,senadores,impugnados,,declarados válidos (incluidos en afirmativos),29,2
+2025-general,CHACO,senadores,nulos,,,11166,2
+2025-general,CHACO,senadores,lista,,PROYECTO SUR,4724,2
+2025-general,CHACO,senadores,lista,,PARTIDO DEL OBRERO,10241,2
+2025-general,CHACO,senadores,lista,,NEPAR,6469,2
+2025-general,CHACO,senadores,lista,,LA LIBERTAD AVANZA,292177,2
+2025-general,CHACO,senadores,lista,,FRENTE INTEGRADOR,8873,2
+2025-general,CHACO,senadores,lista,,VAMOS CHACO,15776,2
+2025-general,CHACO,senadores,lista,,PARTIDO DIGNIDAD POPULAR,4132,2
+2025-general,CHACO,senadores,lista,,FUERZA PATRIA,288771,2
+2025-general,CHACO,senadores,lista,,PARTIDO POLO SOCIAL - MOVIMIENTO DE BASES,1624,2
+2025-general,CHACO,senadores,lista,,UNIR,3876,2
+2025-general,CHACO,diputados,emitidos,,,662409,2
+2025-general,CHACO,diputados,afirmativos,,,584643,2
+2025-general,CHACO,diputados,blancos,,,68353,2
+2025-general,CHACO,diputados,recurridos,,declarados válidos (incluidos en afirmativos),572,2
+2025-general,CHACO,diputados,impugnados,,declarados válidos (incluidos en afirmativos),29,2
+2025-general,CHACO,diputados,nulos,,,9413,2
+2025-general,CHACO,diputados,lista,,PROYECTO SUR,6370,2
+2025-general,CHACO,diputados,lista,,PARTIDO DEL OBRERO,7898,2
+2025-general,CHACO,diputados,lista,,NEPAR,6397,2
+2025-general,CHACO,diputados,lista,,LA LIBERTAD AVANZA,266402,2
+2025-general,CHACO,diputados,lista,,FRENTE INTEGRADOR,13773,2
+2025-general,CHACO,diputados,lista,,VAMOS CHACO,17800,2
+2025-general,CHACO,diputados,lista,,PARTIDO DIGNIDAD POPULAR,3684,2
+2025-general,CHACO,diputados,lista,,FUERZA PATRIA,256077,2
+2025-general,CHACO,diputados,lista,,PARTIDO POLO SOCIAL - MOVIMIENTO DE BASES,1950,2
+2025-general,CHACO,diputados,lista,,UNIR,4292,2
+2025-general,CHUBUT,,mesas,,,1452,1
+2025-general,CHUBUT,,electores,,,487984,1
+2025-general,CHUBUT,diputados,emitidos,,,341614,2
+2025-general,CHUBUT,diputados,afirmativos,,,318660,2
+2025-general,CHUBUT,diputados,blancos,,,8391,2
+2025-general,CHUBUT,diputados,recurridos,,declarados válidos (incluidos en afirmativos),138,2
+2025-general,CHUBUT,diputados,impugnados,,declarados válidos (incluidos en afirmativos),14,2
+2025-general,CHUBUT,diputados,nulos,,,14563,2
+2025-general,CHUBUT,diputados,lista,184,Partido Libertario,13891,2
+2025-general,CHUBUT,diputados,lista,69,GEN,4498,2
+2025-general,CHUBUT,diputados,lista,504,Frente Unidos Podemos,88904,2
+2025-general,CHUBUT,diputados,lista,503,Frente de Izquierda y de Trabajadores - Unidad,16267,2
+2025-general,CHUBUT,diputados,lista,502,Despierta Chubut,64008,2
+2025-general,CHUBUT,diputados,lista,96,La Libertad Avanza,89982,2
+2025-general,CHUBUT,diputados,lista,151,Partido Independiente del Chubut,6406,2
+2025-general,CHUBUT,diputados,lista,501,La Fuerza del Trabajo Chubutense,34704,2
+2025-general,CORDOBA,,mesas,,,9264,1
+2025-general,CORDOBA,,electores,,,3153740,1
+2025-general,CORDOBA,diputados,emitidos,,,2036177,2
+2025-general,CORDOBA,diputados,afirmativos,,,1953503,2
+2025-general,CORDOBA,diputados,blancos,,,29904,2
+2025-general,CORDOBA,diputados,nulos,,,52770,2
+2025-general,CORDOBA,diputados,lista,200,PARTIDO LIBERTARIO,93286,2
+2025-general,CORDOBA,diputados,lista,507,ALIANZA FUERZA PATRIA,99323,3
+2025-general,CORDOBA,diputados,lista,502,ALIANZA CIUDADANOS,10444,3
+2025-general,CORDOBA,diputados,lista,218,UNIÓN POPULAR FEDERAL,2605,3
+2025-general,CORDOBA,diputados,lista,505,ALIANZA ENCUENTRO POR LA REPÚBLICA,31848,3
+2025-general,CORDOBA,diputados,lista,216,FRENTE FEDERAL DE ACCIÓN SOLIDARIA,3894,3
+2025-general,CORDOBA,diputados,lista,231,POLÍTICA ABIERTA PARA LA INTEGRIDAD SOCIAL,6531,3
+2025-general,CORDOBA,diputados,lista,503,ALIANZA CÓRDOBA TE QUIERO,4657,3
+2025-general,CORDOBA,diputados,lista,85,PARTIDO DEMÓCRATA,5049,3
+2025-general,CORDOBA,diputados,lista,169,ACCIÓN PARA EL CAMBIO,5041,3
+2025-general,CORDOBA,diputados,lista,501,DEFENDAMOS CÓRDOBA,170837,3
+2025-general,CORDOBA,diputados,lista,508,FRENTE DE IZQUIERDA Y DE TRABAJADORES - UNIDAD,39545,3
+2025-general,CORDOBA,diputados,lista,504,ALIANZA LA LIBERTAD AVANZA,829022,3
+2025-general,CORDOBA,diputados,lista,3,UNIÓN CÍVICA RADICAL,62863,4
+2025-general,CORDOBA,diputados,lista,64,PRO-PROPUESTA REPUBLICANA,11319,4
+2025-general,CORDOBA,diputados,lista,238,MOVIMIENTO AVANZADA SOCIALISTA,4509,4
+2025-general,CORDOBA,diputados,lista,233,FE,16885,4
+2025-general,CORDOBA,diputados,lista,506,ALIANZA PROVINCIAS UNIDAS,555845,4
+2025-general,CORRIENTES,,mesas,,,2807,1
+2025-general,CORRIENTES,,electores,,,651679,1
+2025-general,CORRIENTES,diputados,emitidos,,,570925,2
+2025-general,CORRIENTES,diputados,afirmativos,,el acta incluye los votos en blanco,556925,2
+2025-general,CORRIENTES,diputados,blancos,,,8111,2
+2025-general,CORRIENTES,diputados,recurridos,,recurridos e impugnados declarados válidos (incluidos en afirmativos),146,2
+2025-general,CORRIENTES,diputados,nulos,,,14000,2
+2025-general,CORRIENTES,diputados,lista,501,La Libertad Avanza,179430,2
+2025-general,CORRIENTES,diputados,lista,502,Vamos Corrientes,185990,2
+2025-general,CORRIENTES,diputados,lista,503,Corrientes Nos Une,20259,2
+2025-general,CORRIENTES,diputados,lista,504,Fuerza Patria,155416,2
+2025-general,CORRIENTES,diputados,lista,225,Ahora,7719,2
+2025-general,ENTRE RIOS,,mesas,,,3469,1
+2025-general,ENTRE RIOS,,electores,,,1162608,1
+2025-general,ENTRE RIOS,senadores,emitidos,,,821063,2
+2025-general,ENTRE RIOS,senadores,afirmativos,,,766783,2
+2025-general,ENTRE RIOS,senadores,blancos,,,27826,2
+2025-general,ENTRE RIOS,senadores,recurridos,,declarados válidos (incluidos en afirmativos),859,2
+2025-general,ENTRE RIOS,senadores,impugnados,,de identidad impugnada declarados nulos (incluidos en nulos),26,2
+2025-general,ENTRE RIOS,senadores,nulos,,,26454,2
+2025-general,ENTRE RIOS,senadores,lista,,MOVIMIENTO AL SOCIALISMO,9970,2
+2025-general,ENTRE RIOS,senadores,lista,,NUEVA IZQUIERDA,14603,2
+2025-general,ENTRE RIOS,senadores,lista,,UNIÓN POPULAR FEDERAL,13964,2
+2025-general,ENTRE RIOS,senadores,lista,,AHORA 503,27988,2
+2025-general,ENTRE RIOS,senadores,lista,,PARTIDO SOCIALISTA,24459,2
+2025-general,ENTRE RIOS,senadores,lista,,FUERZA ENTRE RÍOS,273753,2
+2025-general,ENTRE RIOS,senadores,lista,,ALIANZA LA LIBERTAD AVANZA,402046,2
+2025-general,ENTRE RIOS,diputados,emitidos,,,821063,2
+2025-general,ENTRE RIOS,diputados,afirmativos,,,714079,2
+2025-general,ENTRE RIOS,diputados,blancos,,,85251,2
+2025-general,ENTRE RIOS,diputados,recurridos,,declarados válidos (incluidos en afirmativos),862,2
+2025-general,ENTRE RIOS,diputados,impugnados,,de identidad impugnada declarados nulos (incluidos en nulos),26,2
+2025-general,ENTRE RIOS,diputados,nulos,,,21733,2
+2025-general,ENTRE RIOS,diputados,lista,,MOVIMIENTO AL SOCIALISMO,8380,2
+2025-general,ENTRE RIOS,diputados,lista,,NUEVA IZQUIERDA,18001,2
+2025-general,ENTRE RIOS,diputados,lista,,UNIÓN POPULAR FEDERAL,12645,2
+2025-general,ENTRE RIOS,diputados,lista,,AHORA 503,25473,2
+2025-general,ENTRE RIOS,diputados,lista,,PARTIDO SOCIALISTA,26148,2
+2025-general,ENTRE RIOS,diputados,lista,,FUERZA ENTRE RÍOS,245691,2
+2025-general,ENTRE RIOS,diputados,lista,,ALIANZA LA LIBERTAD AVANZA,377741,2
+2025-general,FORMOSA,,mesas,,,1512,1
+2025-general,FORMOSA,,electores,,,495483,1
+2025-general,FORMOSA,diputados,emitidos,,,335282,2
+2025-general,FORMOSA,diputados,afirmativos,,,327855,2
+2025-general,FORMOSA,diputados,blancos,,,3343,2
+2025-general,FORMOSA,diputados,recurridos,,declarados válidos (incluidos en afirmativos),0,2
+2025-general,FORMOSA,diputados,impugnados,,declarados válidos (incluidos en afirmativos),0,2
+2025-general,FORMOSA,diputados,nulos,,,4084,2
+2025-general,FORMOSA,diputados,lista,,Principios y Convicción,3266,2
+2025-general,FORMOSA,diputados,lista,,Partido del Obrero,3640,2
+2025-general,FORMOSA,diputados,lista,,Frente de la Victoria,191267,2
+2025-general,FORMOSA,diputados,lista,,Alianza La Libertad Avanza,117638,2
+2025-general,FORMOSA,diputados,lista,,Juntos por la Libertad y la República,12044,2
+2025-general,JUJUY,,mesas,,,1808,1
+2025-general,JUJUY,,electores,,,605535,1
+2025-general,JUJUY,diputados,emitidos,,,426235,2
+2025-general,JUJUY,diputados,afirmativos,,,408817,2
+2025-general,JUJUY,diputados,blancos,,,4415,2
+2025-general,JUJUY,diputados,recurridos,,declarados válidos (incluidos en afirmativos),135,2
+2025-general,JUJUY,diputados,recurridos,,declarados nulos (incluidos en nulos),408,2
+2025-general,JUJUY,diputados,recurridos,,declarados blancos (incluidos en blancos),14,2
+2025-general,JUJUY,diputados,nulos,,,13003,2
+2025-general,JUJUY,diputados,lista,,FRENTE DE IZQUIERDA Y DE TRABAJADORES - UNIDAD,40300,2
+2025-general,JUJUY,diputados,lista,,FRENTE JUJUY CRECE,81825,2
+2025-general,JUJUY,diputados,lista,,FRENTE PRIMERO JUJUY AVANZA,61777,2
+2025-general,JUJUY,diputados,lista,,FRENTE FUERZA PATRIA,63443,2
+2025-general,JUJUY,diputados,lista,,FRENTE LIBERAL,5701,2
+2025-general,JUJUY,diputados,lista,,ALIANZA LA LIBERTAD AVANZA,152438,2
+2025-general,JUJUY,diputados,lista,,TRANSFORMACION LIBERTARIA,3333,2
+2025-general,LA PAMPA,,mesas,,,915,1
+2025-general,LA PAMPA,,electores,,,306139,1
+2025-general,LA PAMPA,diputados,emitidos,,,209377,2
+2025-general,LA PAMPA,diputados,afirmativos,,,202761,2
+2025-general,LA PAMPA,diputados,blancos,,,2595,2
+2025-general,LA PAMPA,diputados,nulos,,,4021,2
+2025-general,LA PAMPA,diputados,lista,,FRENTE DEFENDEMOS LA PAMPA,90500,2
+2025-general,LA PAMPA,diputados,lista,,ALIANZA LA LIBERTAD AVANZA,88247,2
+2025-general,LA PAMPA,diputados,lista,,FRENTE DE IZQUIERDA Y DE TRABAJADORES-UNIDAD,4170,2
+2025-general,LA PAMPA,diputados,lista,,CAMBIA LA PAMPA,17428,2
+2025-general,LA PAMPA,diputados,lista,,MOVIMIENTO AL SOCIALISMO,2416,2
+2025-general,LA RIOJA,,mesas,,,1324,1
+2025-general,LA RIOJA,,electores,,,310504,1
+2025-general,LA RIOJA,diputados,emitidos,,,216852,2
+2025-general,LA RIOJA,diputados,afirmativos,,,208354,2
+2025-general,LA RIOJA,diputados,blancos,,,3832,2
+2025-general,LA RIOJA,diputados,recurridos,,declarados válidos (incluidos en afirmativos),0,2
+2025-general,LA RIOJA,diputados,impugnados,,declarados válidos (incluidos en afirmativos),0,2
+2025-general,LA RIOJA,diputados,nulos,,,4666,2
+2025-general,LA RIOJA,diputados,lista,,UNIÓN CÍVICA RADICAL,11705,2
+2025-general,LA RIOJA,diputados,lista,,FEDERALES DEFENDAMOS LA RIOJA,90892,2
+2025-general,LA RIOJA,diputados,lista,,PROVINCIAS UNIDAS,6859,2
+2025-general,LA RIOJA,diputados,lista,,LAS FUERZAS DEL CENTRO,2965,2
+2025-general,LA RIOJA,diputados,lista,,LA LIBERTAD AVANZA,89960,2
+2025-general,LA RIOJA,diputados,lista,,REPUBLICANOS UNIDOS,1910,2
+2025-general,LA RIOJA,diputados,lista,,FRENTE DE IZQUIERDA Y DE TRABAJADORES - UNIDAD,4063,2
+2025-general,MENDOZA,,mesas,,,4445,1
+2025-general,MENDOZA,,electores,,,1555582,1
+2025-general,MENDOZA,diputados,emitidos,,,1067366,1
+2025-general,MENDOZA,diputados,afirmativos,,,1009980,1
+2025-general,MENDOZA,diputados,blancos,,,26099,1
+2025-general,MENDOZA,diputados,recurridos,,declarados válidos (incluidos en afirmativos),0,1
+2025-general,MENDOZA,diputados,impugnados,,declarados válidos (incluidos en afirmativos),0,1
+2025-general,MENDOZA,diputados,nulos,,,31287,1
+2025-general,MENDOZA,diputados,lista,501,FUERZA JUSTICIALISTA MENDOZA,254447,2
+2025-general,MENDOZA,diputados,lista,502,FRENTE VERDE,80597,2
+2025-general,MENDOZA,diputados,lista,222,PROTECTORA FUERZA POLITICA,10186,2
+2025-general,MENDOZA,diputados,lista,504,FRENTE DE IZQUIERDA Y DE TRABAJADORES-UNIDAD,34922,2
+2025-general,MENDOZA,diputados,lista,13,MOVIMIENTO AL SOCIALISMO,3660,2
+2025-general,MENDOZA,diputados,lista,506,FRENTE LIBERTARIO DEMOCRATA,54455,2
+2025-general,MENDOZA,diputados,lista,503,ALIANZA DEFENDAMOS MENDOZA-PROVINCIAS UNIDAS,29120,2
+2025-general,MENDOZA,diputados,lista,505,ALIANZA LA LIBERTAD AVANZA,542593,2
+2025-general,MISIONES,,mesas,,,2931,1
+2025-general,MISIONES,,electores,,,1013980,1
+2025-general,MISIONES,diputados,emitidos,,,628809,2
+2025-general,MISIONES,diputados,afirmativos,,,605513,2
+2025-general,MISIONES,diputados,blancos,,,8860,2
+2025-general,MISIONES,diputados,recurridos,,declarados válidos (incluidos en afirmativos),143,2
+2025-general,MISIONES,diputados,impugnados,,declarados válidos (incluidos en afirmativos),3,2
+2025-general,MISIONES,diputados,nulos,,,14436,2
+2025-general,MISIONES,diputados,lista,,PARTIDO DEL OBRERO,8596,2
+2025-general,MISIONES,diputados,lista,,PARTIDO FE,25912,2
+2025-general,MISIONES,diputados,lista,,RENOVADOR DE LA CONCORDIA NEO,182107,3
+2025-general,MISIONES,diputados,lista,,PARTIDO LIBERTARIO,13440,3
+2025-general,MISIONES,diputados,lista,,UNION CIVICA RADICAL,22936,3
+2025-general,MISIONES,diputados,lista,,PARTIDO DE LA CONCERTACION FORJA,3482,3
+2025-general,MISIONES,diputados,lista,,ALIANZA LA LIBERTAD AVANZA,224583,3
+2025-general,MISIONES,diputados,lista,,"POR LA VIDA Y LOS VALORES, POR UN NUEVO OCTUBRE",7687,3
+2025-general,MISIONES,diputados,lista,,FUERZA PATRIA,56940,3
+2025-general,MISIONES,diputados,lista,,ACTIVAR,9247,3
+2025-general,MISIONES,diputados,lista,,FRENTE POPULAR AGRARIO Y SOCIAL,50583,3
+2025-general,NEUQUEN,,mesas,,,1749,1
+2025-general,NEUQUEN,,electores,,,584622,1
+2025-general,NEUQUEN,senadores,emitidos,,,438824,2
+2025-general,NEUQUEN,senadores,afirmativos,,,408339,2
+2025-general,NEUQUEN,senadores,blancos,,,16038,2
+2025-general,NEUQUEN,senadores,recurridos,,declarados válidos (incluidos en afirmativos),364,2
+2025-general,NEUQUEN,senadores,impugnados,,declarados válidos (incluidos en afirmativos),13,2
+2025-general,NEUQUEN,senadores,nulos,,,14447,2
+2025-general,NEUQUEN,senadores,lista,,FUERZA LIBERTARIA,23314,2
+2025-general,NEUQUEN,senadores,lista,,FRENTE DE IZQUIERDA Y DE TRABAJADORES - UNIDAD,19358,2
+2025-general,NEUQUEN,senadores,lista,,FUERZA PATRIA,56913,2
+2025-general,NEUQUEN,senadores,lista,,DESARROLLO CIUDADANO,5866,2
+2025-general,NEUQUEN,senadores,lista,,MÁS POR NEUQUÉN,32703,2
+2025-general,NEUQUEN,senadores,lista,,LA LIBERTAD AVANZA,145593,3
+2025-general,NEUQUEN,senadores,lista,,LA NEUQUINIDAD,120553,3
+2025-general,NEUQUEN,senadores,lista,,MOVIMIENTO AL SOCIALISMO,4039,3
+2025-general,NEUQUEN,diputados,emitidos,,,438824,3
+2025-general,NEUQUEN,diputados,afirmativos,,,384993,3
+2025-general,NEUQUEN,diputados,blancos,,,42021,3
+2025-general,NEUQUEN,diputados,recurridos,,declarados válidos (incluidos en afirmativos),323,3
+2025-general,NEUQUEN,diputados,impugnados,,declarados válidos (incluidos en afirmativos),13,3
+2025-general,NEUQUEN,diputados,nulos,,,11810,3
+2025-general,NEUQUEN,diputados,lista,,FUERZA LIBERTARIA,27680,3
+2025-general,NEUQUEN,diputados,lista,,FRENTE DE IZQUIERDA Y DE TRABAJADORES - UNIDAD,17316,3
+2025-general,NEUQUEN,diputados,lista,,FUERZA PATRIA,50599,3
+2025-general,NEUQUEN,diputados,lista,,DESARROLLO CIUDADANO,8247,3
+2025-general,NEUQUEN,diputados,lista,,MÁS POR NEUQUÉN,23401,3
+2025-general,NEUQUEN,diputados,lista,,LA LIBERTAD AVANZA,128509,3
+2025-general,NEUQUEN,diputados,lista,,LA NEUQUINIDAD,121504,3
+2025-general,NEUQUEN,diputados,lista,,MOVIMIENTO AL SOCIALISMO,3295,3
+2025-general,NEUQUEN,diputados,lista,,INSTRUMENTO ELECTORAL POR LA UNIDAD POPULAR,4442,3
+2025-general,RIO NEGRO,,mesas,,,1846,1
+2025-general,RIO NEGRO,,electores,,,616451,2
+2025-general,RIO NEGRO,senadores,emitidos,,,427896,3
+2025-general,RIO NEGRO,senadores,afirmativos,,,404581,3
+2025-general,RIO NEGRO,senadores,blancos,,,10305,3
+2025-general,RIO NEGRO,senadores,impugnados,,declarados válidos (incluidos en afirmativos),15,3
+2025-general,RIO NEGRO,senadores,nulos,,,13010,3
+2025-general,RIO NEGRO,senadores,lista,13,MOVIMIENTO AL SOCIALISMO- MAS,4963,3
+2025-general,RIO NEGRO,senadores,lista,64,PRO - PROPUESTA REPUBLICANA,18759,3
+2025-general,RIO NEGRO,senadores,lista,175,PRIMERO RIO NEGRO,11991,3
+2025-general,RIO NEGRO,senadores,lista,501,JUNTOS DEFENDEMOS RIO NEGRO,109339,3
+2025-general,RIO NEGRO,senadores,lista,502,FRENTE DE IZQUIERDA Y DE TRABAJADORES - UNIDAD,13322,3
+2025-general,RIO NEGRO,senadores,lista,503,FUERZA PATRIA,124233,3
+2025-general,RIO NEGRO,senadores,lista,504,ALIANZA LA LIBERTAD AVANZA,121974,3
+2025-general,RIO NEGRO,diputados,emitidos,,,427896,4
+2025-general,RIO NEGRO,diputados,afirmativos,,,384305,4
+2025-general,RIO NEGRO,diputados,blancos,,,32858,4
+2025-general,RIO NEGRO,diputados,impugnados,,declarados válidos (incluidos en afirmativos),15,4
+2025-general,RIO NEGRO,diputados,nulos,,,10733,4
+2025-general,RIO NEGRO,diputados,lista,13,MOVIMIENTO AL SOCIALISMO- MAS,5061,4
+2025-general,RIO NEGRO,diputados,lista,64,PRO - PROPUESTA REPUBLICANA,10538,4
+2025-general,RIO NEGRO,diputados,lista,175,PRIMERO RIO NEGRO,11222,4
+2025-general,RIO NEGRO,diputados,lista,501,JUNTOS DEFENDEMOS RIO NEGRO,100694,4
+2025-general,RIO NEGRO,diputados,lista,502,FRENTE DE IZQUIERDA Y DE TRABAJADORES - UNIDAD,11922,4
+2025-general,RIO NEGRO,diputados,lista,503,FUERZA PATRIA,113311,4
+2025-general,RIO NEGRO,diputados,lista,504,ALIANZA LA LIBERTAD AVANZA,131557,4
+2025-general,SALTA,,mesas,,,3373,1
+2025-general,SALTA,,electores,,,1122179,1
+2025-general,SALTA,senadores,emitidos,,,743821,2
+2025-general,SALTA,senadores,afirmativos,,,689899,2
+2025-general,SALTA,senadores,blancos,,,29815,2
+2025-general,SALTA,senadores,recurridos,,declarados válidos (incluidos en afirmativos),673,2
+2025-general,SALTA,senadores,impugnados,,declarados válidos (incluidos en afirmativos),27,2
+2025-general,SALTA,senadores,nulos,,,24107,2
+2025-general,SALTA,senadores,lista,501,Primero los Salteños,194619,2
+2025-general,SALTA,senadores,lista,502,Frente de Izquierda y de Trabajadores - Unidad,16940,2
+2025-general,SALTA,senadores,lista,503,Fuerza Patria,94691,2
+2025-general,SALTA,senadores,lista,3,Unión Cívica Radical,16143,2
+2025-general,SALTA,senadores,lista,13,Movimiento al Socialismo,3653,2
+2025-general,SALTA,senadores,lista,54,Partido de la Victoria,58373,2
+2025-general,SALTA,senadores,lista,92,Política Obrera,12381,2
+2025-general,SALTA,senadores,lista,96,La Libertad Avanza,284809,2
+2025-general,SALTA,senadores,lista,240,Partido Renacer,8290,2
+2025-general,SALTA,diputados,emitidos,,,743821,3
+2025-general,SALTA,diputados,afirmativos,,,640652,3
+2025-general,SALTA,diputados,blancos,,,82812,3
+2025-general,SALTA,diputados,recurridos,,declarados válidos (incluidos en afirmativos),617,3
+2025-general,SALTA,diputados,impugnados,,declarados válidos (incluidos en afirmativos),27,3
+2025-general,SALTA,diputados,nulos,,,20357,3
+2025-general,SALTA,diputados,lista,501,Primero los Salteños,214854,3
+2025-general,SALTA,diputados,lista,502,Frente de Izquierda y de Trabajadores - Unidad,20176,3
+2025-general,SALTA,diputados,lista,503,Fuerza Patria,78783,3
+2025-general,SALTA,diputados,lista,3,Unión Cívica Radical,14669,3
+2025-general,SALTA,diputados,lista,13,Movimiento al Socialismo,4322,3
+2025-general,SALTA,diputados,lista,54,Partido de la Victoria,41950,3
+2025-general,SALTA,diputados,lista,92,Política Obrera,10432,3
+2025-general,SALTA,diputados,lista,96,La Libertad Avanza,245050,3
+2025-general,SALTA,diputados,lista,240,Partido Renacer,10416,3
+2025-general,SAN JUAN,,mesas,,,1845,1
+2025-general,SAN JUAN,,electores,,,625116,1
+2025-general,SAN JUAN,diputados,emitidos,,,441696,2
+2025-general,SAN JUAN,diputados,afirmativos,,,429498,2
+2025-general,SAN JUAN,diputados,blancos,,,4606,2
+2025-general,SAN JUAN,diputados,recurridos,,declarados válidos (incluidos en afirmativos),0,3
+2025-general,SAN JUAN,diputados,impugnados,,declarados válidos (incluidos en afirmativos),0,3
+2025-general,SAN JUAN,diputados,nulos,,,7592,3
+2025-general,SAN JUAN,diputados,lista,,PARTIDO LIBERTARIO,5453,3
+2025-general,SAN JUAN,diputados,lista,,CRUZADA RENOVADORA,6951,3
+2025-general,SAN JUAN,diputados,lista,,HACEMOS,8129,3
+2025-general,SAN JUAN,diputados,lista,,ALIANZA FUERZA SAN JUAN,148046,3
+2025-general,SAN JUAN,diputados,lista,,EVOLUCION LIBERAL,6586,3
+2025-general,SAN JUAN,diputados,lista,,FRENTE DE IZQUIERDA Y DE TRABAJADORES - UNIDAD,5868,3
+2025-general,SAN JUAN,diputados,lista,,ALIANZA POR SAN JUAN,133432,3
+2025-general,SAN JUAN,diputados,lista,,IDEAS DE LA LIBERTAD,3155,3
+2025-general,SAN JUAN,diputados,lista,,LA LIBERTAD AVANZA,111878,3
+2025-general,SAN LUIS,diputados,emitidos,,,276942,2
+2025-general,SAN LUIS,diputados,afirmativos,,,260110,2
+2025-general,SAN LUIS,diputados,blancos,,,5954,2
+2025-general,SAN LUIS,diputados,nulos,,,10878,2
+2025-general,SAN LUIS,diputados,lista,,FRENTE PUEBLO,17699,2
+2025-general,SAN LUIS,diputados,lista,,FRENTE JUSTICIALISTA,86942,2
+2025-general,SAN LUIS,diputados,lista,,MOVIMIENTO AL SOCIALISMO,2920,2
+2025-general,SAN LUIS,diputados,lista,,PROVINCIAS UNIDAS,9591,2
+2025-general,SAN LUIS,diputados,lista,,FRENTE DE IZQUIERDA Y DE TRABAJADORES - UNIDAD,9104,2
+2025-general,SAN LUIS,diputados,lista,,ALIANZA LA LIBERTADA AVANZA,133854,2
+2025-general,SANTA CRUZ,,mesas,,,881,1
+2025-general,SANTA CRUZ,,electores,,,273145,1
+2025-general,SANTA CRUZ,diputados,emitidos,,,176216,1
+2025-general,SANTA CRUZ,diputados,afirmativos,,,166277,1
+2025-general,SANTA CRUZ,diputados,blancos,,,2229,1
+2025-general,SANTA CRUZ,diputados,recurridos,,declarados válidos (incluidos en afirmativos),0,1
+2025-general,SANTA CRUZ,diputados,impugnados,,declarados válidos (incluidos en afirmativos),0,1
+2025-general,SANTA CRUZ,diputados,nulos,,,7710,1
+2025-general,SANTA CRUZ,diputados,lista,,LA LIBERTAD AVANZA,52646,1
+2025-general,SANTA CRUZ,diputados,lista,,PRO - PROPUESTA REPLUBLICANA,12882,1
+2025-general,SANTA CRUZ,diputados,lista,,FUERZA SANTACRUCEÑA,53421,1
+2025-general,SANTA CRUZ,diputados,lista,,COALICION CIVICA - ARI,5905,1
+2025-general,SANTA CRUZ,diputados,lista,,PROYECTO ALTERNATIVO,5528,1
+2025-general,SANTA CRUZ,diputados,lista,,FRENTE DE IZQUIERDA Y DE TRABAJADORES - UNIDAD,8102,1
+2025-general,SANTA CRUZ,diputados,lista,,POR SANTA CRUZ,25810,1
+2025-general,SANTA CRUZ,diputados,lista,,MOVIMIENTO AL SOCIALISMO,1983,1
+2025-general,SANTA FE,,mesas,,,8423,1
+2025-general,SANTA FE,,electores,,,2879963,1
+2025-general,SANTA FE,diputados,emitidos,,,1807816,2
+2025-general,SANTA FE,diputados,afirmativos,,el acta incluye los votos en blanco,1720898,2
+2025-general,SANTA FE,diputados,blancos,,,40370,2
+2025-general,SANTA FE,diputados,recurridos,,declarados válidos (incluidos en afirmativos),0,2
+2025-general,SANTA FE,diputados,impugnados,,declarados válidos (incluidos en afirmativos),0,2
+2025-general,SANTA FE,diputados,nulos,,,86918,2
+2025-general,SANTA FE,diputados,lista,96,La Libertad Avanza,684533,2
+2025-general,SANTA FE,diputados,lista,505,Fuerza Patria,483403,2
+2025-general,SANTA FE,diputados,lista,503,Provincias Unidas,308470,2
+2025-general,SANTA FE,diputados,lista,501,Frente Amplio por la Soberanía,53564,2
+2025-general,SANTA FE,diputados,lista,502,Frente de Izquierda y de Trabajadores - Unidad,30572,2
+2025-general,SANTA FE,diputados,lista,227,Nuevas Ideas,20561,2
+2025-general,SANTA FE,diputados,lista,47,Coalición Cívica - ARI,14579,2
+2025-general,SANTA FE,diputados,lista,213,Igualdad y Participación,14323,2
+2025-general,SANTA FE,diputados,lista,504,Defendamos Santa Fe,13766,2
+2025-general,SANTA FE,diputados,lista,77,Partido Fe,10244,2
+2025-general,SANTA FE,diputados,lista,13,Movimiento al Socialismo,10050,2
+2025-general,SANTA FE,diputados,lista,92,Política Obrera,9653,2
+2025-general,SANTA FE,diputados,lista,219,Republicanos Unidos,9369,2
+2025-general,SANTA FE,diputados,lista,82,Compromiso Federal,7561,2
+2025-general,SANTA FE,diputados,lista,36,Partido Autonomista,6011,2
+2025-general,SANTA FE,diputados,lista,177,Movimiento Independiente Renovador,3869,2
+2025-general,SANTIAGO DEL ESTERO,,mesas,,,4728,1
+2025-general,SANTIAGO DEL ESTERO,,electores,,,828479,1
+2025-general,SANTIAGO DEL ESTERO,senadores,emitidos,,,606179,2
+2025-general,SANTIAGO DEL ESTERO,senadores,afirmativos,,,585393,2
+2025-general,SANTIAGO DEL ESTERO,senadores,blancos,,,10475,2
+2025-general,SANTIAGO DEL ESTERO,senadores,nulos,,,10311,2
+2025-general,SANTIAGO DEL ESTERO,senadores,lista,503,DESPIERTA SANTIAGO,48079,2
+2025-general,SANTIAGO DEL ESTERO,senadores,lista,208,UNITE POR LA LIBERTAD Y LA DIGNIDAD,3792,2
+2025-general,SANTIAGO DEL ESTERO,senadores,lista,68,NUEVA IZQUIERDA,4743,2
+2025-general,SANTIAGO DEL ESTERO,senadores,lista,501,FRENTE CIVICO POR SANTIAGO,329634,3
+2025-general,SANTIAGO DEL ESTERO,senadores,lista,502,FRENTE FUERZA PATRIA PERONISTA,113630,3
+2025-general,SANTIAGO DEL ESTERO,senadores,lista,504,HACEMOS POR SANTIAGO,5191,3
+2025-general,SANTIAGO DEL ESTERO,senadores,lista,96,LA LIBERTAD AVANZA,80324,3
+2025-general,SANTIAGO DEL ESTERO,diputados,emitidos,,,606179,3
+2025-general,SANTIAGO DEL ESTERO,diputados,afirmativos,,,564752,3
+2025-general,SANTIAGO DEL ESTERO,diputados,blancos,,,33390,3
+2025-general,SANTIAGO DEL ESTERO,diputados,nulos,,,8037,3
+2025-general,SANTIAGO DEL ESTERO,diputados,lista,503,DESPIERTA SANTIAGO,58520,3
+2025-general,SANTIAGO DEL ESTERO,diputados,lista,208,UNITE POR LA LIBERTAD Y LA DIGNIDAD,4282,3
+2025-general,SANTIAGO DEL ESTERO,diputados,lista,68,NUEVA IZQUIERDA,5506,3
+2025-general,SANTIAGO DEL ESTERO,diputados,lista,501,FRENTE CIVICO POR SANTIAGO,290968,3
+2025-general,SANTIAGO DEL ESTERO,diputados,lista,502,FRENTE FUERZA PATRIA PERONISTA,117748,3
+2025-general,SANTIAGO DEL ESTERO,diputados,lista,504,HACEMOS POR SANTIAGO,6261,3
+2025-general,SANTIAGO DEL ESTERO,diputados,lista,96,LA LIBERTAD AVANZA,81467,3
+2025-general,TIERRA DEL FUEGO,,mesas,,,455,1
+2025-general,TIERRA DEL FUEGO,,electores,,,154189,1
+2025-general,TIERRA DEL FUEGO,senadores,emitidos,,,108565,1
+2025-general,TIERRA DEL FUEGO,senadores,afirmativos,,,101332,1
+2025-general,TIERRA DEL FUEGO,senadores,blancos,,,2707,1
+2025-general,TIERRA DEL FUEGO,senadores,recurridos,,declarados válidos (incluidos en afirmativos),239,1
+2025-general,TIERRA DEL FUEGO,senadores,impugnados,,declarados válidos (incluidos en afirmativos),5,1
+2025-general,TIERRA DEL FUEGO,senadores,nulos,,,4526,2
+2025-general,TIERRA DEL FUEGO,senadores,lista,,FRENTE PATRIOTA FEDERAL,1562,2
+2025-general,TIERRA DEL FUEGO,senadores,lista,,PROVINCIAS UNIDAS,3637,2
+2025-general,TIERRA DEL FUEGO,senadores,lista,,PARTIDO FRENTE GRANDE,930,2
+2025-general,TIERRA DEL FUEGO,senadores,lista,,DEFENDAMOS TIERRA DEL FUEGO,20879,2
+2025-general,TIERRA DEL FUEGO,senadores,lista,,FUERZA PATRIA,31129,2
+2025-general,TIERRA DEL FUEGO,senadores,lista,,ALIANZA LA LIBERTAD AVANZA,40118,2
+2025-general,TIERRA DEL FUEGO,senadores,lista,,FRENTE DE IZQUIERDA Y DE TRABAJADORES - UNIDAD,3077,2
+2025-general,TIERRA DEL FUEGO,diputados,emitidos,,,108565,2
+2025-general,TIERRA DEL FUEGO,diputados,afirmativos,,,96804,2
+2025-general,TIERRA DEL FUEGO,diputados,blancos,,,7648,2
+2025-general,TIERRA DEL FUEGO,diputados,recurridos,,declarados válidos (incluidos en afirmativos),239,2
+2025-general,TIERRA DEL FUEGO,diputados,impugnados,,declarados válidos (incluidos en afirmativos),5,2
+2025-general,TIERRA DEL FUEGO,diputados,nulos,,,4113,2
+2025-general,TIERRA DEL FUEGO,diputados,lista,,FRENTE PATRIOTA FEDERAL,1382,2
+2025-general,TIERRA DEL FUEGO,diputados,lista,,MOVIMIENTO AL SOCIALISMO,965,2
+2025-general,TIERRA DEL FUEGO,diputados,lista,,PROVINCIAS UNIDAS,3062,2
+2025-general,TIERRA DEL FUEGO,diputados,lista,,PARTIDO FRENTE GRANDE,863,2
+2025-general,TIERRA DEL FUEGO,diputados,lista,,DEFENDAMOS TIERRA DEL FUEGO,20103,2
+2025-general,TIERRA DEL FUEGO,diputados,lista,,FUERZA PATRIA,30000,2
+2025-general,TIERRA DEL FUEGO,diputados,lista,,ALIANZA LA LIBERTAD AVANZA,37310,2
+2025-general,TIERRA DEL FUEGO,diputados,lista,,FRENTE DE IZQUIERDA Y DE TRABAJADORES - UNIDAD,3119,2
+2025-general,TUCUMAN,,mesas,,,3977,1
+2025-general,TUCUMAN,,electores,,,1347742,1
+2025-general,TUCUMAN,diputados,emitidos,,,1067510,2
+2025-general,TUCUMAN,diputados,afirmativos,,,1039887,2
+2025-general,TUCUMAN,diputados,blancos,,,9772,2
+2025-general,TUCUMAN,diputados,recurridos,,declarados válidos (incluidos en afirmativos),0,2
+2025-general,TUCUMAN,diputados,impugnados,,declarados válidos (incluidos en afirmativos),0,2
+2025-general,TUCUMAN,diputados,nulos,,,17851,2
+2025-general,TUCUMAN,diputados,lista,,UNIDOS POR TUCUMAN,84085,2
+2025-general,TUCUMAN,diputados,lista,,FRENTE TUCUMÁN PRIMERO,526249,2
+2025-general,TUCUMAN,diputados,lista,,ALIANZA LA LIBERTAD AVANZA,365024,2
+2025-general,TUCUMAN,diputados,lista,,FRENTE DEL PUEBLO UNIDO,5973,2
+2025-general,TUCUMAN,diputados,lista,,FUERZA REPUBLICANA,22600,2
+2025-general,TUCUMAN,diputados,lista,,POLITICA PARA LA CLASE OBRERA,4525,2
+2025-general,TUCUMAN,diputados,lista,,DEL TRABAJO Y DEL PUEBLO,5593,2
+2025-general,TUCUMAN,diputados,lista,,FRENTE DE IZQUIERDA Y DE TRABAJADORES - UNIDAD FIT,17301,2
+2025-general,TUCUMAN,diputados,lista,,CREO,8537,2

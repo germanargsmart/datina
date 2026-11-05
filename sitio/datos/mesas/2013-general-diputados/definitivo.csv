@@ -1,0 +1,141 @@
+codigo_indec,provincia,lista,votos,electores,votantes,blancos,nulos,recurridos_impugnados
+02,CABA,Unión PRO,630595,2556869,1971067,120971,19975,0
+02,CABA,UNEN,589545,2556869,1971067,120971,19975,0
+02,CABA,Frente para la Victoria,395664,2556869,1971067,120971,19975,0
+02,CABA,Frente de Izquierda y de los Trabajadores,103166,2556869,1971067,120971,19975,0
+02,CABA,Autodeterminación y Libertad,69447,2556869,1971067,120971,19975,0
+02,CABA,Camino Popular,41704,2556869,1971067,120971,19975,0
+06,Buenos Aires,Frente Renovador,3943056,11465228,9344455,289769,83354,0
+06,Buenos Aires,Frente para la Victoria,2900494,11465228,9344455,289769,83354,0
+06,Buenos Aires,Frente Progresista Cívico y Social,1050608,11465228,9344455,289769,83354,0
+06,Buenos Aires,Unidos por la Libertad y el Trabajo,486753,11465228,9344455,289769,83354,0
+06,Buenos Aires,Frente de Izquierda y de los Trabajadores,449450,11465228,9344455,289769,83354,0
+06,Buenos Aires,Unión con Fe,140971,11465228,9344455,289769,83354,0
+10,Catamarca,Frente Cívico y Social,79512,278298,221972,21000,2271,0
+10,Catamarca,Frente para la Victoria,77148,278298,221972,21000,2271,0
+10,Catamarca,Frente Tercera Posicion (F3P) Unidad Catamarqueña,36997,278298,221972,21000,2271,0
+10,Catamarca,Partido Obrero,5044,278298,221972,21000,2271,0
+14,Córdoba,Unión por Córdoba,532702,2654676,2065680,25451,37359,0
+14,Córdoba,Unión Cívica Radical,454095,2654676,2065680,25451,37359,0
+14,Córdoba,Frente para la Victoria,305789,2654676,2065680,25451,37359,0
+14,Córdoba,Unión PRO,288663,2654676,2065680,25451,37359,0
+14,Córdoba,Frente de Izquierda y de los Trabajadores,149903,2654676,2065680,25451,37359,0
+14,Córdoba,Vecinalismo Independiente,91870,2654676,2065680,25451,37359,0
+14,Córdoba,Frente Progresista Cívico y Social,74587,2654676,2065680,25451,37359,0
+14,Córdoba,Coalición Cívica - Afirmacion para una República Igualitaria (ARI),62449,2654676,2065680,25451,37359,0
+14,Córdoba,Encuentro Vecinal Córdoba,42812,2654676,2065680,25451,37359,0
+18,Corrientes,Encuentro por Corrientes,263713,765426,578032,8653,10047,0
+18,Corrientes,Frente para la Victoria,238850,765426,578032,8653,10047,0
+18,Corrientes,Cambio Popular,56769,765426,578032,8653,10047,0
+22,Chaco,Frente para la Victoria,352091,815675,656042,57692,4791,0
+22,Chaco,Unión por Chaco,214824,815675,656042,57692,4791,0
+22,Chaco,Partido Obrero,26644,815675,656042,57692,4791,0
+26,Chubut,Partido de Acción Chubutense,153395,393120,305311,5007,8822,0
+26,Chubut,Frente para la Victoria,67688,393120,305311,5007,8822,0
+26,Chubut,Unión Cívica Radical,37305,393120,305311,5007,8822,0
+26,Chubut,Movimiento Polo Social La Tercera Posicion de la Gente,13248,393120,305311,5007,8822,0
+26,Chubut,Movimiento Socialista de los Trabajadores (MST),12892,393120,305311,5007,8822,0
+26,Chubut,Coalición Cívica - Afirmacion para una República Igualitaria (ARI),6954,393120,305311,5007,8822,0
+30,Entre Ríos,Frente para la Victoria,362046,982995,807895,20377,11358,0
+30,Entre Ríos,Alianza Unión por Entre Ríos,181700,982995,807895,20377,11358,0
+30,Entre Ríos,Unión Cívica Radical,163550,982995,807895,20377,11358,0
+30,Entre Ríos,Alianza Frente Amplio Progresista,45339,982995,807895,20377,11358,0
+30,Entre Ríos,Nueva Izquierda,23525,982995,807895,20377,11358,0
+34,Formosa,Frente para la Victoria,180379,394735,310219,14149,2973,0
+34,Formosa,Frente Amplio Formoseño,104649,394735,310219,14149,2973,0
+34,Formosa,Partido Obrero,8069,394735,310219,14149,2973,0
+38,Jujuy,Frente Jujeño,129016,479379,394595,64866,5685,0
+38,Jujuy,Frente para la Victoria,127718,479379,394595,64866,5685,0
+38,Jujuy,Frente de Izquierda y de los Trabajadores,22682,479379,394595,64866,5685,0
+38,Jujuy,Frente Primero Jujuy,17156,479379,394595,64866,5685,0
+38,Jujuy,Frente Unión PRO,15146,479379,394595,64866,5685,0
+38,Jujuy,Nueva Izquierda,7122,479379,394595,64866,5685,0
+38,Jujuy,Partido por un Pueblo Unido,5204,479379,394595,64866,5685,0
+42,La Pampa,Partido Justicialista,70844,262070,208079,2293,4112,0
+42,La Pampa,Frente Pampeano Cívico y Social - Frepam,69431,262070,208079,2293,4112,0
+42,La Pampa,Frente Propuesta Federal,38981,262070,208079,2293,4112,0
+42,La Pampa,Pueblo Nuevo,9178,262070,208079,2293,4112,0
+42,La Pampa,Partido Humanista,8207,262070,208079,2293,4112,0
+42,La Pampa,Partido de los Trabajadores Socialistas,5033,262070,208079,2293,4112,0
+46,La Rioja,Frente para la Victoria,88014,254312,202187,11270,3407,0
+46,La Rioja,Fuerza Cívica Riojana,87245,254312,202187,11270,3407,0
+46,La Rioja,Frente Nuevo Pacto Federal,5586,254312,202187,11270,3407,0
+46,La Rioja,Izquierda por una Opción Socialista,4192,254312,202187,11270,3407,0
+46,La Rioja,Compromiso Federal,2473,254312,202187,11270,3407,0
+50,Mendoza,Unión Cívica Radical,487372,1312593,1065582,25985,17568,0
+50,Mendoza,Frente para la Victoria,277760,1312593,1065582,25985,17568,0
+50,Mendoza,Frente de Izquierda y de los Trabajadores,143381,1312593,1065582,25985,17568,0
+50,Mendoza,Unión Pd-PRO,52578,1312593,1065582,25985,17568,0
+50,Mendoza,Compromiso Federal,40331,1312593,1065582,25985,17568,0
+50,Mendoza,Frente Amplio Progresista-Coalición Cívica-ARI,20607,1312593,1065582,25985,17568,0
+54,Misiones,Frente Renovador de la Concordia,260034,788191,621140,9720,9440,0
+54,Misiones,Unión Cívica Radical,160334,788191,621140,9720,9440,0
+54,Misiones,Frente Unidos,88274,788191,621140,9720,9440,0
+54,Misiones,Frente para la Victoria,67589,788191,621140,9720,9440,0
+54,Misiones,Partido Socialista,25749,788191,621140,9720,9440,0
+58,Neuquén,Movimiento Popular Neuquino,133952,437590,357230,13285,10873,0
+58,Neuquén,Frente para la Victoria,70963,437590,357230,13285,10873,0
+58,Neuquén,Compromiso Cívico Neuquino,38483,437590,357230,13285,10873,0
+58,Neuquén,Frente de Izquierda y de los Trabajadores,32933,437590,357230,13285,10873,0
+58,Neuquén,Movimiento Libres del Sur,18477,437590,357230,13285,10873,0
+58,Neuquén,Unión Popular,15402,437590,357230,13285,10873,0
+58,Neuquén,Unión de los Neuquinos,12066,437590,357230,13285,10873,0
+58,Neuquén,Frente Progresista Sur,10796,437590,357230,13285,10873,0
+62,Río Negro,Frente para la Victoria,172457,476852,365748,16887,9127,0
+62,Río Negro,Alianza Frente Progresista,83589,476852,365748,16887,9127,0
+62,Río Negro,Unión Cívica Radical,54587,476852,365748,16887,9127,0
+62,Río Negro,Partido Obrero,29101,476852,365748,16887,9127,0
+66,Salta,Frente Popular Salteño,132242,886432,666454,27825,7716,0
+66,Salta,Partido Justicialista,121084,886432,666454,27825,7716,0
+66,Salta,Partido Obrero,119146,886432,666454,27825,7716,0
+66,Salta,Salta Somos Todos,113404,886432,666454,27825,7716,0
+66,Salta,Partido de la Victoria,48349,886432,666454,27825,7716,0
+66,Salta,Partido Renovador de Salta,37649,886432,666454,27825,7716,0
+66,Salta,Movimiento Independiente Justicia y Dignidad,23470,886432,666454,27825,7716,0
+66,Salta,Frente Plural,17158,886432,666454,27825,7716,0
+66,Salta,Memoria y Movilizacion Social,9770,886432,666454,27825,7716,0
+66,Salta,Movimiento Socialista de los Trabajadores (MST),8641,886432,666454,27825,7716,0
+70,San Juan,Frente para la Victoria,224585,507049,416349,4177,6465,0
+70,San Juan,Compromiso Federal,92778,507049,416349,4177,6465,0
+70,San Juan,Cruzada Renovadora,42852,507049,416349,4177,6465,0
+70,San Juan,Unión Cívica Radical,18300,507049,416349,4177,6465,0
+70,San Juan,Partido Dignidad Ciudadana,15292,507049,416349,4177,6465,0
+70,San Juan,Izquierda por una Opción Socialista,6563,507049,416349,4177,6465,0
+70,San Juan,Frente del Pueblo,5337,507049,416349,4177,6465,0
+74,San Luis,Compromiso Federal,123613,334232,268205,32505,6321,0
+74,San Luis,Frente Progresista Cívico y Social,54014,334232,268205,32505,6321,0
+74,San Luis,Frente para la Victoria,41045,334232,268205,32505,6321,0
+74,San Luis,Demócrata Independiente,10707,334232,268205,32505,6321,0
+78,Santa Cruz,Unión para Vivir Mejor,67043,222733,164354,1081,4250,0
+78,Santa Cruz,Frente para la Victoria,39277,222733,164354,1081,4250,0
+78,Santa Cruz,Partido Justicialista,31910,222733,164354,1081,4250,0
+78,Santa Cruz,Partido Obrero,17697,222733,164354,1081,4250,0
+78,Santa Cruz,Movimiento Socialista de los Trabajadores (MST),3096,222733,164354,1081,4250,0
+82,Santa Fe,Frente Progresista Cívico y Social,803485,2558092,1973306,34781,39537,0
+82,Santa Fe,Unión PRO Santa Fe Federal,516444,2558092,1973306,34781,39537,0
+82,Santa Fe,Frente para la Victoria,430589,2558092,1973306,34781,39537,0
+82,Santa Fe,Frente de Izquierda y de los Trabajadores,48766,2558092,1973306,34781,39537,0
+82,Santa Fe,Nueva Izquierda,36804,2558092,1973306,34781,39537,0
+82,Santa Fe,Santafesino Cien por Ciento,34910,2558092,1973306,34781,39537,0
+82,Santa Fe,"Unite! con Fe por la Cultura, Educación y Trabajo",27990,2558092,1973306,34781,39537,0
+86,Santiago del Estero,Frente Cívico por Santiago,357792,652329,510066,41673,3757,0
+86,Santiago del Estero,Frente Progresista Cívico y Social,65209,652329,510066,41673,3757,0
+86,Santiago del Estero,Frente para la Victoria,20823,652329,510066,41673,3757,0
+86,Santiago del Estero,Izquierda por una Opción Socialista,12614,652329,510066,41673,3757,0
+86,Santiago del Estero,Partido Fe,8198,652329,510066,41673,3757,0
+90,Tucumán,Frente para la Victoria,417729,1078090,908725,7472,11271,0
+90,Tucumán,Frente Acuerdo Cívico y Social,308612,1078090,908725,7472,11271,0
+90,Tucumán,Fuerza Republicana,72782,1078090,908725,7472,11271,0
+90,Tucumán,Alternativa Popular,27481,1078090,908725,7472,11271,0
+90,Tucumán,Frente de Izquierda y de los Trabajadores,26868,1078090,908725,7472,11271,0
+90,Tucumán,PRO Propuesta Republicana,23840,1078090,908725,7472,11271,0
+90,Tucumán,Laborista de la Independencia,12670,1078090,908725,7472,11271,0
+94,Tierra del Fuego,Frente para la Victoria,20458,116511,85664,6169,4584,0
+94,Tierra del Fuego,Movimiento Solidario Popular,16070,116511,85664,6169,4584,0
+94,Tierra del Fuego,Movimiento Popular Fueguino,12796,116511,85664,6169,4584,0
+94,Tierra del Fuego,Unión Federal,7694,116511,85664,6169,4584,0
+94,Tierra del Fuego,Partido Popular,7040,116511,85664,6169,4584,0
+94,Tierra del Fuego,Unión Cívica Radical,3635,116511,85664,6169,4584,0
+94,Tierra del Fuego,Espacio Democrático para la Victoria,2810,116511,85664,6169,4584,0
+94,Tierra del Fuego,Partido Justicialista,2658,116511,85664,6169,4584,0
+94,Tierra del Fuego,GEN,1750,116511,85664,6169,4584,0

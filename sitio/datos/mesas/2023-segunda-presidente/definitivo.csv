@@ -1,0 +1,53 @@
+codigo_indec,provincia,lista,votos,electores,votantes,blancos,nulos,recurridos_impugnados
+02,CABA,Milei - Villarruel (La Libertad Avanza),1038310,2526676,1905625,53411,38548,0
+02,CABA,Massa - Rossi (Unión por la Patria),775356,2526676,1905625,53411,38548,0
+06,Buenos Aires,Massa - Rossi (Unión por la Patria),4949734,13120058,10073791,177684,145188,0
+06,Buenos Aires,Milei - Villarruel (La Libertad Avanza),4801185,13120058,10073791,177684,145188,0
+10,Catamarca,Milei - Villarruel (La Libertad Avanza),125325,340662,243249,3690,2240,0
+10,Catamarca,Massa - Rossi (Unión por la Patria),111994,340662,243249,3690,2240,0
+14,Córdoba,Milei - Villarruel (La Libertad Avanza),1639102,3060943,2298396,36440,48541,0
+14,Córdoba,Massa - Rossi (Unión por la Patria),574313,3060943,2298396,36440,48541,0
+18,Corrientes,Milei - Villarruel (La Libertad Avanza),366228,930212,705589,6713,9954,0
+18,Corrientes,Massa - Rossi (Unión por la Patria),322694,930212,705589,6713,9954,0
+22,Chaco,Massa - Rossi (Unión por la Patria),359789,999049,730264,6117,7252,0
+22,Chaco,Milei - Villarruel (La Libertad Avanza),357106,999049,730264,6117,7252,0
+26,Chubut,Milei - Villarruel (La Libertad Avanza),197835,474583,350457,4978,10587,0
+26,Chubut,Massa - Rossi (Unión por la Patria),137057,474583,350457,4978,10587,0
+30,Entre Ríos,Milei - Villarruel (La Libertad Avanza),529318,1144210,889779,11268,17430,0
+30,Entre Ríos,Massa - Rossi (Unión por la Patria),331763,1144210,889779,11268,17430,0
+34,Formosa,Massa - Rossi (Unión por la Patria),202288,482485,362983,3193,3196,0
+34,Formosa,Milei - Villarruel (La Libertad Avanza),154306,482485,362983,3193,3196,0
+38,Jujuy,Milei - Villarruel (La Libertad Avanza),258754,590950,456914,3525,8320,0
+38,Jujuy,Massa - Rossi (Unión por la Patria),186315,590950,456914,3525,8320,0
+42,La Pampa,Milei - Villarruel (La Libertad Avanza),126794,300057,229023,3346,4337,0
+42,La Pampa,Massa - Rossi (Unión por la Patria),94546,300057,229023,3346,4337,0
+46,La Rioja,Milei - Villarruel (La Libertad Avanza),126357,304415,240164,2114,2876,0
+46,La Rioja,Massa - Rossi (Unión por la Patria),108817,304415,240164,2114,2876,0
+50,Mendoza,Milei - Villarruel (La Libertad Avanza),784109,1494888,1143401,16999,24637,0
+50,Mendoza,Massa - Rossi (Unión por la Patria),317656,1494888,1143401,16999,24637,0
+54,Misiones,Milei - Villarruel (La Libertad Avanza),405460,989610,729704,8919,5970,0
+54,Misiones,Massa - Rossi (Unión por la Patria),309355,989610,729704,8919,5970,0
+58,Neuquén,Milei - Villarruel (La Libertad Avanza),254613,554077,440354,5689,13352,0
+58,Neuquén,Massa - Rossi (Unión por la Patria),166700,554077,440354,5689,13352,0
+62,Río Negro,Milei - Villarruel (La Libertad Avanza),236796,595968,454473,5841,11867,0
+62,Río Negro,Massa - Rossi (Unión por la Patria),199969,595968,454473,5841,11867,0
+66,Salta,Milei - Villarruel (La Libertad Avanza),461685,1091792,819282,8002,10670,0
+66,Salta,Massa - Rossi (Unión por la Patria),338925,1091792,819282,8002,10670,0
+70,San Juan,Milei - Villarruel (La Libertad Avanza),277621,607479,470354,5225,7802,0
+70,San Juan,Massa - Rossi (Unión por la Patria),179706,607479,470354,5225,7802,0
+74,San Luis,Milei - Villarruel (La Libertad Avanza),214938,421370,326763,4177,6416,0
+74,San Luis,Massa - Rossi (Unión por la Patria),101232,421370,326763,4177,6416,0
+78,Santa Cruz,Milei - Villarruel (La Libertad Avanza),104531,265825,186251,1647,4367,0
+78,Santa Cruz,Massa - Rossi (Unión por la Patria),75706,265825,186251,1647,4367,0
+82,Santa Fe,Milei - Villarruel (La Libertad Avanza),1282012,2828754,2120545,34261,45876,0
+82,Santa Fe,Massa - Rossi (Unión por la Patria),758396,2828754,2120545,34261,45876,0
+86,Santiago del Estero,Massa - Rossi (Unión por la Patria),432433,814184,640581,4468,4875,0
+86,Santiago del Estero,Milei - Villarruel (La Libertad Avanza),198805,814184,640581,4468,4875,0
+90,Tucumán,Milei - Villarruel (La Libertad Avanza),557395,1319493,1094049,8817,12859,0
+90,Tucumán,Massa - Rossi (Unión por la Patria),514978,1319493,1094049,8817,12859,0
+94,Tierra del Fuego,Milei - Villarruel (La Libertad Avanza),55975,147984,109609,1050,3586,0
+94,Tierra del Fuego,Massa - Rossi (Unión por la Patria),48998,147984,109609,1050,3586,0
+EX,Residentes en el exterior,Milei - Villarruel (La Libertad Avanza),37413,,51252,582,424,0
+EX,Residentes en el exterior,Massa - Rossi (Unión por la Patria),12833,,51252,582,424,0
+PL,Personas privadas de libertad,Massa - Rossi (Unión por la Patria),20269,,25866,315,503,0
+PL,Personas privadas de libertad,Milei - Villarruel (La Libertad Avanza),4779,,25866,315,503,0

@@ -1,0 +1,2667 @@
+pais,consulado,mesa,codigo_indec,electores
+Alemania,Berlín,69,02,978
+Alemania,Berlín,69,06,626
+Alemania,Berlín,69,10,6
+Alemania,Berlín,69,14,203
+Alemania,Berlín,69,18,9
+Alemania,Berlín,69,22,18
+Alemania,Berlín,69,26,9
+Alemania,Berlín,69,30,27
+Alemania,Berlín,69,34,3
+Alemania,Berlín,69,38,11
+Alemania,Berlín,69,42,3
+Alemania,Berlín,69,46,5
+Alemania,Berlín,69,50,65
+Alemania,Berlín,69,54,19
+Alemania,Berlín,69,58,17
+Alemania,Berlín,69,62,31
+Alemania,Berlín,69,66,16
+Alemania,Berlín,69,70,10
+Alemania,Berlín,69,74,14
+Alemania,Berlín,69,78,12
+Alemania,Berlín,69,82,99
+Alemania,Berlín,69,86,8
+Alemania,Berlín,69,90,32
+Alemania,Berlín,69,94,8
+Alemania,Bonn,65,02,867
+Alemania,Bonn,65,06,844
+Alemania,Bonn,65,10,3
+Alemania,Bonn,65,14,220
+Alemania,Bonn,65,18,20
+Alemania,Bonn,65,22,17
+Alemania,Bonn,65,26,10
+Alemania,Bonn,65,30,33
+Alemania,Bonn,65,34,5
+Alemania,Bonn,65,38,9
+Alemania,Bonn,65,42,5
+Alemania,Bonn,65,46,3
+Alemania,Bonn,65,50,74
+Alemania,Bonn,65,54,64
+Alemania,Bonn,65,58,17
+Alemania,Bonn,65,62,29
+Alemania,Bonn,65,66,29
+Alemania,Bonn,65,70,20
+Alemania,Bonn,65,74,10
+Alemania,Bonn,65,78,3
+Alemania,Bonn,65,82,102
+Alemania,Bonn,65,86,14
+Alemania,Bonn,65,90,32
+Alemania,Bonn,65,94,9
+Alemania,Fráncfort,66,02,1828
+Alemania,Fráncfort,66,06,616
+Alemania,Fráncfort,67,06,989
+Alemania,Fráncfort,67,10,9
+Alemania,Fráncfort,67,14,404
+Alemania,Fráncfort,67,18,23
+Alemania,Fráncfort,67,22,38
+Alemania,Fráncfort,67,26,38
+Alemania,Fráncfort,67,30,76
+Alemania,Fráncfort,67,34,14
+Alemania,Fráncfort,67,38,9
+Alemania,Fráncfort,67,42,6
+Alemania,Fráncfort,67,46,6
+Alemania,Fráncfort,67,50,116
+Alemania,Fráncfort,67,54,185
+Alemania,Fráncfort,67,58,22
+Alemania,Fráncfort,67,62,63
+Alemania,Fráncfort,67,66,41
+Alemania,Fráncfort,67,70,27
+Alemania,Fráncfort,67,74,18
+Alemania,Fráncfort,67,78,5
+Alemania,Fráncfort,67,82,238
+Alemania,Fráncfort,67,86,26
+Alemania,Fráncfort,67,90,90
+Alemania,Fráncfort,67,94,1
+Alemania,Hamburgo,68,02,687
+Alemania,Hamburgo,68,06,649
+Alemania,Hamburgo,68,10,7
+Alemania,Hamburgo,68,14,161
+Alemania,Hamburgo,68,18,11
+Alemania,Hamburgo,68,22,9
+Alemania,Hamburgo,68,26,19
+Alemania,Hamburgo,68,30,30
+Alemania,Hamburgo,68,34,8
+Alemania,Hamburgo,68,38,11
+Alemania,Hamburgo,68,42,10
+Alemania,Hamburgo,68,46,2
+Alemania,Hamburgo,68,50,50
+Alemania,Hamburgo,68,54,47
+Alemania,Hamburgo,68,58,12
+Alemania,Hamburgo,68,62,33
+Alemania,Hamburgo,68,66,18
+Alemania,Hamburgo,68,70,16
+Alemania,Hamburgo,68,74,13
+Alemania,Hamburgo,68,78,5
+Alemania,Hamburgo,68,82,99
+Alemania,Hamburgo,68,86,5
+Alemania,Hamburgo,68,90,39
+Alemania,Hamburgo,68,94,3
+Angola,Luanda,1,02,11
+Angola,Luanda,1,06,8
+Angola,Luanda,1,14,2
+Angola,Luanda,1,22,1
+Angola,Luanda,1,26,1
+Angola,Luanda,1,30,1
+Angola,Luanda,1,50,2
+Angola,Luanda,1,66,1
+Angola,Luanda,1,90,1
+Arabia Saudita,Riad,201,02,36
+Arabia Saudita,Riad,201,06,22
+Arabia Saudita,Riad,201,10,1
+Arabia Saudita,Riad,201,14,6
+Arabia Saudita,Riad,201,18,3
+Arabia Saudita,Riad,201,46,1
+Arabia Saudita,Riad,201,50,10
+Arabia Saudita,Riad,201,70,2
+Arabia Saudita,Riad,201,78,2
+Arabia Saudita,Riad,201,82,2
+Argelia,Argel,72,02,14
+Argelia,Argel,72,06,2
+Argelia,Argel,72,42,1
+Argelia,Argel,72,62,2
+Argelia,Argel,72,66,1
+Argelia,Argel,72,70,1
+Armenia,Ereván,3,02,18
+Armenia,Ereván,3,06,6
+Armenia,Ereván,3,42,1
+Australia,Sídney,4,02,2113
+Australia,Sídney,5,02,42
+Australia,Sídney,5,06,2071
+Australia,Sídney,6,06,22
+Australia,Sídney,6,10,11
+Australia,Sídney,6,14,418
+Australia,Sídney,6,18,21
+Australia,Sídney,6,22,24
+Australia,Sídney,6,26,41
+Australia,Sídney,6,30,73
+Australia,Sídney,6,34,5
+Australia,Sídney,6,38,11
+Australia,Sídney,6,42,8
+Australia,Sídney,6,46,4
+Australia,Sídney,6,50,455
+Australia,Sídney,6,54,38
+Australia,Sídney,6,58,36
+Australia,Sídney,6,62,48
+Australia,Sídney,6,66,40
+Australia,Sídney,6,70,26
+Australia,Sídney,6,74,18
+Australia,Sídney,6,78,18
+Australia,Sídney,6,82,688
+Australia,Sídney,6,86,20
+Australia,Sídney,6,90,75
+Australia,Sídney,6,94,13
+Austria,Viena,7,02,501
+Austria,Viena,7,06,341
+Austria,Viena,7,14,87
+Austria,Viena,7,22,3
+Austria,Viena,7,26,10
+Austria,Viena,7,30,13
+Austria,Viena,7,34,3
+Austria,Viena,7,38,4
+Austria,Viena,7,42,2
+Austria,Viena,7,50,48
+Austria,Viena,7,54,15
+Austria,Viena,7,58,13
+Austria,Viena,7,62,23
+Austria,Viena,7,66,8
+Austria,Viena,7,70,9
+Austria,Viena,7,74,6
+Austria,Viena,7,78,2
+Austria,Viena,7,82,44
+Austria,Viena,7,86,4
+Austria,Viena,7,90,12
+Austria,Viena,7,94,3
+Azerbaiyán,Bakú,8,02,1
+Azerbaiyán,Bakú,8,06,1
+Azerbaiyán,Bakú,8,14,2
+Barbados,Bridgetown,35,02,2
+Barbados,Bridgetown,35,06,3
+Barbados,Bridgetown,35,18,1
+Barbados,Bridgetown,35,66,1
+Barbados,Bridgetown,35,90,1
+Bolivia,Cochabamba,11,02,1511
+Bolivia,Cochabamba,11,06,86
+Bolivia,Cochabamba,12,06,873
+Bolivia,Cochabamba,12,10,5
+Bolivia,Cochabamba,12,14,121
+Bolivia,Cochabamba,12,18,12
+Bolivia,Cochabamba,12,22,2
+Bolivia,Cochabamba,12,26,33
+Bolivia,Cochabamba,12,30,12
+Bolivia,Cochabamba,12,34,5
+Bolivia,Cochabamba,12,38,127
+Bolivia,Cochabamba,12,42,2
+Bolivia,Cochabamba,12,46,1
+Bolivia,Cochabamba,12,50,105
+Bolivia,Cochabamba,12,54,6
+Bolivia,Cochabamba,12,58,22
+Bolivia,Cochabamba,12,62,8
+Bolivia,Cochabamba,12,66,145
+Bolivia,Cochabamba,12,70,8
+Bolivia,Cochabamba,12,74,5
+Bolivia,Cochabamba,12,78,13
+Bolivia,Cochabamba,12,82,31
+Bolivia,Cochabamba,12,86,11
+Bolivia,Cochabamba,12,90,38
+Bolivia,Cochabamba,12,94,12
+Bolivia,La Paz,13,02,846
+Bolivia,La Paz,13,06,288
+Bolivia,La Paz,13,14,86
+Bolivia,La Paz,13,18,3
+Bolivia,La Paz,13,22,5
+Bolivia,La Paz,13,26,1
+Bolivia,La Paz,13,30,7
+Bolivia,La Paz,13,34,4
+Bolivia,La Paz,13,38,84
+Bolivia,La Paz,13,46,3
+Bolivia,La Paz,13,50,29
+Bolivia,La Paz,13,54,2
+Bolivia,La Paz,13,58,5
+Bolivia,La Paz,13,62,1
+Bolivia,La Paz,13,66,69
+Bolivia,La Paz,13,70,3
+Bolivia,La Paz,13,74,5
+Bolivia,La Paz,13,78,1
+Bolivia,La Paz,13,82,17
+Bolivia,La Paz,13,86,12
+Bolivia,La Paz,13,90,44
+Bolivia,La Paz,13,94,1
+Bolivia,Santa Cruz,14,02,1007
+Bolivia,Santa Cruz,14,06,465
+Bolivia,Santa Cruz,15,06,150
+Bolivia,Santa Cruz,15,10,2
+Bolivia,Santa Cruz,15,14,250
+Bolivia,Santa Cruz,15,18,10
+Bolivia,Santa Cruz,15,22,9
+Bolivia,Santa Cruz,15,26,21
+Bolivia,Santa Cruz,15,30,22
+Bolivia,Santa Cruz,15,34,10
+Bolivia,Santa Cruz,15,38,114
+Bolivia,Santa Cruz,15,42,81
+Bolivia,Santa Cruz,15,46,8
+Bolivia,Santa Cruz,15,50,103
+Bolivia,Santa Cruz,15,54,11
+Bolivia,Santa Cruz,15,58,18
+Bolivia,Santa Cruz,15,62,25
+Bolivia,Santa Cruz,15,66,324
+Bolivia,Santa Cruz,15,70,22
+Bolivia,Santa Cruz,15,74,5
+Bolivia,Santa Cruz,15,78,17
+Bolivia,Santa Cruz,15,82,80
+Bolivia,Santa Cruz,15,86,28
+Bolivia,Santa Cruz,15,90,159
+Bolivia,Santa Cruz,15,94,3
+Bolivia,Tarija,16,02,237
+Bolivia,Tarija,16,06,432
+Bolivia,Tarija,16,10,1
+Bolivia,Tarija,16,14,116
+Bolivia,Tarija,16,18,15
+Bolivia,Tarija,16,22,2
+Bolivia,Tarija,16,26,9
+Bolivia,Tarija,16,30,5
+Bolivia,Tarija,16,38,374
+Bolivia,Tarija,16,42,8
+Bolivia,Tarija,16,46,2
+Bolivia,Tarija,16,50,116
+Bolivia,Tarija,16,54,3
+Bolivia,Tarija,16,58,4
+Bolivia,Tarija,16,62,17
+Bolivia,Tarija,16,66,463
+Bolivia,Tarija,16,70,2
+Bolivia,Tarija,16,74,4
+Bolivia,Tarija,16,78,5
+Bolivia,Tarija,16,82,72
+Bolivia,Tarija,16,86,2
+Bolivia,Tarija,16,90,19
+Bolivia,Tarija,16,94,1
+Bolivia,Villazón,17,02,128
+Bolivia,Villazón,17,06,136
+Bolivia,Villazón,17,14,15
+Bolivia,Villazón,17,18,1
+Bolivia,Villazón,17,30,1
+Bolivia,Villazón,17,38,266
+Bolivia,Villazón,17,46,5
+Bolivia,Villazón,17,50,78
+Bolivia,Villazón,17,66,39
+Bolivia,Villazón,17,70,4
+Bolivia,Villazón,17,74,3
+Bolivia,Villazón,17,78,1
+Bolivia,Villazón,17,82,4
+Bolivia,Villazón,17,90,24
+Bolivia,Villazón,17,94,1
+Bolivia,Yacuiba,18,02,10
+Bolivia,Yacuiba,18,06,24
+Bolivia,Yacuiba,18,14,5
+Bolivia,Yacuiba,18,34,2
+Bolivia,Yacuiba,18,38,13
+Bolivia,Yacuiba,18,42,11
+Bolivia,Yacuiba,18,50,10
+Bolivia,Yacuiba,18,62,2
+Bolivia,Yacuiba,18,66,95
+Bolivia,Yacuiba,18,74,2
+Bolivia,Yacuiba,18,78,3
+Bolivia,Yacuiba,18,82,2
+Bolivia,Yacuiba,18,86,1
+Bolivia,Yacuiba,18,90,1
+Brasil,Belo Horizonte,20,02,169
+Brasil,Belo Horizonte,20,06,166
+Brasil,Belo Horizonte,20,10,1
+Brasil,Belo Horizonte,20,14,110
+Brasil,Belo Horizonte,20,18,2
+Brasil,Belo Horizonte,20,22,4
+Brasil,Belo Horizonte,20,26,7
+Brasil,Belo Horizonte,20,30,8
+Brasil,Belo Horizonte,20,34,4
+Brasil,Belo Horizonte,20,38,2
+Brasil,Belo Horizonte,20,42,3
+Brasil,Belo Horizonte,20,50,22
+Brasil,Belo Horizonte,20,54,14
+Brasil,Belo Horizonte,20,58,2
+Brasil,Belo Horizonte,20,62,5
+Brasil,Belo Horizonte,20,66,6
+Brasil,Belo Horizonte,20,70,5
+Brasil,Belo Horizonte,20,74,2
+Brasil,Belo Horizonte,20,78,7
+Brasil,Belo Horizonte,20,82,64
+Brasil,Belo Horizonte,20,86,5
+Brasil,Belo Horizonte,20,90,6
+Brasil,Belo Horizonte,20,94,1
+Brasil,Brasilia,34,02,104
+Brasil,Brasilia,34,06,98
+Brasil,Brasilia,34,10,2
+Brasil,Brasilia,34,14,36
+Brasil,Brasilia,34,18,4
+Brasil,Brasilia,34,26,2
+Brasil,Brasilia,34,30,9
+Brasil,Brasilia,34,34,1
+Brasil,Brasilia,34,38,3
+Brasil,Brasilia,34,42,2
+Brasil,Brasilia,34,50,5
+Brasil,Brasilia,34,54,10
+Brasil,Brasilia,34,58,2
+Brasil,Brasilia,34,62,2
+Brasil,Brasilia,34,66,2
+Brasil,Brasilia,34,70,4
+Brasil,Brasilia,34,74,4
+Brasil,Brasilia,34,82,23
+Brasil,Brasilia,34,90,5
+Brasil,Brasilia,34,94,1
+Brasil,Curitiba,21,02,384
+Brasil,Curitiba,21,06,325
+Brasil,Curitiba,21,10,2
+Brasil,Curitiba,21,14,191
+Brasil,Curitiba,21,18,17
+Brasil,Curitiba,21,22,21
+Brasil,Curitiba,21,30,25
+Brasil,Curitiba,21,34,7
+Brasil,Curitiba,21,38,7
+Brasil,Curitiba,21,42,3
+Brasil,Curitiba,21,46,2
+Brasil,Curitiba,21,50,31
+Brasil,Curitiba,21,54,73
+Brasil,Curitiba,21,58,8
+Brasil,Curitiba,21,62,15
+Brasil,Curitiba,21,66,13
+Brasil,Curitiba,21,70,10
+Brasil,Curitiba,21,74,5
+Brasil,Curitiba,21,82,85
+Brasil,Curitiba,21,86,8
+Brasil,Curitiba,21,90,27
+Brasil,Florianópolis,23,02,405
+Brasil,Florianópolis,23,06,569
+Brasil,Florianópolis,23,10,3
+Brasil,Florianópolis,23,14,130
+Brasil,Florianópolis,23,18,29
+Brasil,Florianópolis,23,22,13
+Brasil,Florianópolis,23,26,6
+Brasil,Florianópolis,23,30,37
+Brasil,Florianópolis,23,34,6
+Brasil,Florianópolis,23,38,2
+Brasil,Florianópolis,23,42,8
+Brasil,Florianópolis,23,46,1
+Brasil,Florianópolis,23,50,22
+Brasil,Florianópolis,23,54,114
+Brasil,Florianópolis,23,58,11
+Brasil,Florianópolis,23,62,14
+Brasil,Florianópolis,23,66,7
+Brasil,Florianópolis,23,70,5
+Brasil,Florianópolis,23,74,6
+Brasil,Florianópolis,23,78,1
+Brasil,Florianópolis,23,82,115
+Brasil,Florianópolis,23,86,9
+Brasil,Florianópolis,23,90,21
+Brasil,Florianópolis,23,94,7
+Brasil,Foz de Iguazú,22,02,112
+Brasil,Foz de Iguazú,22,06,104
+Brasil,Foz de Iguazú,22,10,2
+Brasil,Foz de Iguazú,22,14,20
+Brasil,Foz de Iguazú,22,18,13
+Brasil,Foz de Iguazú,22,22,13
+Brasil,Foz de Iguazú,22,26,5
+Brasil,Foz de Iguazú,22,30,14
+Brasil,Foz de Iguazú,22,34,21
+Brasil,Foz de Iguazú,22,38,1
+Brasil,Foz de Iguazú,22,42,1
+Brasil,Foz de Iguazú,22,46,3
+Brasil,Foz de Iguazú,22,50,9
+Brasil,Foz de Iguazú,22,54,162
+Brasil,Foz de Iguazú,22,58,4
+Brasil,Foz de Iguazú,22,62,4
+Brasil,Foz de Iguazú,22,66,5
+Brasil,Foz de Iguazú,22,70,2
+Brasil,Foz de Iguazú,22,74,1
+Brasil,Foz de Iguazú,22,78,1
+Brasil,Foz de Iguazú,22,82,18
+Brasil,Foz de Iguazú,22,86,3
+Brasil,Foz de Iguazú,22,90,8
+Brasil,Foz de Iguazú,22,94,3
+Brasil,Porto Alegre,19,02,657
+Brasil,Porto Alegre,19,06,511
+Brasil,Porto Alegre,19,10,1
+Brasil,Porto Alegre,19,14,131
+Brasil,Porto Alegre,19,18,95
+Brasil,Porto Alegre,19,22,21
+Brasil,Porto Alegre,19,26,10
+Brasil,Porto Alegre,19,30,47
+Brasil,Porto Alegre,19,34,3
+Brasil,Porto Alegre,19,38,4
+Brasil,Porto Alegre,19,42,3
+Brasil,Porto Alegre,19,46,2
+Brasil,Porto Alegre,19,50,41
+Brasil,Porto Alegre,19,54,284
+Brasil,Porto Alegre,19,58,3
+Brasil,Porto Alegre,19,62,15
+Brasil,Porto Alegre,19,66,11
+Brasil,Porto Alegre,19,70,8
+Brasil,Porto Alegre,19,74,5
+Brasil,Porto Alegre,19,78,3
+Brasil,Porto Alegre,19,82,143
+Brasil,Porto Alegre,19,86,6
+Brasil,Porto Alegre,19,90,23
+Brasil,Porto Alegre,19,94,4
+Brasil,Recife,29,02,161
+Brasil,Recife,29,06,155
+Brasil,Recife,29,10,2
+Brasil,Recife,29,14,27
+Brasil,Recife,29,18,1
+Brasil,Recife,29,22,1
+Brasil,Recife,29,26,3
+Brasil,Recife,29,30,6
+Brasil,Recife,29,34,1
+Brasil,Recife,29,38,1
+Brasil,Recife,29,42,2
+Brasil,Recife,29,50,9
+Brasil,Recife,29,54,4
+Brasil,Recife,29,58,5
+Brasil,Recife,29,62,3
+Brasil,Recife,29,66,2
+Brasil,Recife,29,70,2
+Brasil,Recife,29,74,4
+Brasil,Recife,29,78,1
+Brasil,Recife,29,82,20
+Brasil,Recife,29,86,1
+Brasil,Recife,29,90,5
+Brasil,Recife,29,94,1
+Brasil,Río de Janeiro,30,02,1662
+Brasil,Río de Janeiro,30,06,235
+Brasil,Río de Janeiro,31,06,931
+Brasil,Río de Janeiro,31,10,7
+Brasil,Río de Janeiro,31,14,238
+Brasil,Río de Janeiro,31,18,33
+Brasil,Río de Janeiro,31,22,23
+Brasil,Río de Janeiro,31,26,35
+Brasil,Río de Janeiro,31,30,49
+Brasil,Río de Janeiro,31,34,9
+Brasil,Río de Janeiro,31,38,8
+Brasil,Río de Janeiro,31,42,10
+Brasil,Río de Janeiro,31,46,1
+Brasil,Río de Janeiro,31,50,97
+Brasil,Río de Janeiro,31,54,34
+Brasil,Río de Janeiro,31,58,21
+Brasil,Río de Janeiro,31,62,36
+Brasil,Río de Janeiro,31,66,27
+Brasil,Río de Janeiro,31,70,10
+Brasil,Río de Janeiro,31,74,6
+Brasil,Río de Janeiro,31,78,11
+Brasil,Río de Janeiro,31,82,250
+Brasil,Río de Janeiro,31,86,11
+Brasil,Río de Janeiro,31,90,44
+Brasil,Río de Janeiro,31,94,6
+Brasil,Salvador de Bahía,32,02,316
+Brasil,Salvador de Bahía,32,06,429
+Brasil,Salvador de Bahía,32,10,1
+Brasil,Salvador de Bahía,32,14,82
+Brasil,Salvador de Bahía,32,18,7
+Brasil,Salvador de Bahía,32,22,5
+Brasil,Salvador de Bahía,32,26,9
+Brasil,Salvador de Bahía,32,30,21
+Brasil,Salvador de Bahía,32,34,2
+Brasil,Salvador de Bahía,32,38,2
+Brasil,Salvador de Bahía,32,42,6
+Brasil,Salvador de Bahía,32,50,28
+Brasil,Salvador de Bahía,32,54,16
+Brasil,Salvador de Bahía,32,58,13
+Brasil,Salvador de Bahía,32,62,24
+Brasil,Salvador de Bahía,32,66,6
+Brasil,Salvador de Bahía,32,70,2
+Brasil,Salvador de Bahía,32,74,2
+Brasil,Salvador de Bahía,32,78,1
+Brasil,Salvador de Bahía,32,82,67
+Brasil,Salvador de Bahía,32,86,1
+Brasil,Salvador de Bahía,32,90,12
+Brasil,Salvador de Bahía,32,94,2
+Brasil,San Pablo,24,02,2041
+Brasil,San Pablo,25,02,2041
+Brasil,San Pablo,26,02,839
+Brasil,San Pablo,26,06,1201
+Brasil,San Pablo,27,06,1480
+Brasil,San Pablo,27,10,17
+Brasil,San Pablo,27,14,543
+Brasil,San Pablo,28,14,166
+Brasil,San Pablo,28,18,75
+Brasil,San Pablo,28,22,62
+Brasil,San Pablo,28,26,33
+Brasil,San Pablo,28,30,127
+Brasil,San Pablo,28,34,40
+Brasil,San Pablo,28,38,40
+Brasil,San Pablo,28,42,25
+Brasil,San Pablo,28,46,5
+Brasil,San Pablo,28,50,233
+Brasil,San Pablo,28,54,151
+Brasil,San Pablo,28,58,26
+Brasil,San Pablo,28,62,54
+Brasil,San Pablo,28,66,69
+Brasil,San Pablo,28,70,67
+Brasil,San Pablo,28,74,36
+Brasil,San Pablo,28,78,10
+Brasil,San Pablo,28,82,641
+Brasil,San Pablo,28,86,34
+Brasil,San Pablo,28,90,139
+Brasil,San Pablo,28,94,7
+Brasil,Uruguayana,33,02,23
+Brasil,Uruguayana,33,06,35
+Brasil,Uruguayana,33,14,9
+Brasil,Uruguayana,33,18,84
+Brasil,Uruguayana,33,22,4
+Brasil,Uruguayana,33,26,2
+Brasil,Uruguayana,33,30,20
+Brasil,Uruguayana,33,42,1
+Brasil,Uruguayana,33,50,1
+Brasil,Uruguayana,33,54,117
+Brasil,Uruguayana,33,62,2
+Brasil,Uruguayana,33,66,2
+Brasil,Uruguayana,33,82,7
+Bulgaria,Sofía,10,02,25
+Bulgaria,Sofía,10,06,21
+Bulgaria,Sofía,10,14,4
+Bulgaria,Sofía,10,22,22
+Bulgaria,Sofía,10,26,8
+Bulgaria,Sofía,10,50,2
+Bulgaria,Sofía,10,82,3
+Bélgica,Bruselas,9,02,670
+Bélgica,Bruselas,9,06,418
+Bélgica,Bruselas,9,10,1
+Bélgica,Bruselas,9,14,112
+Bélgica,Bruselas,9,18,13
+Bélgica,Bruselas,9,22,14
+Bélgica,Bruselas,9,26,9
+Bélgica,Bruselas,9,30,16
+Bélgica,Bruselas,9,34,3
+Bélgica,Bruselas,9,38,9
+Bélgica,Bruselas,9,42,3
+Bélgica,Bruselas,9,50,44
+Bélgica,Bruselas,9,54,14
+Bélgica,Bruselas,9,58,21
+Bélgica,Bruselas,9,62,20
+Bélgica,Bruselas,9,66,16
+Bélgica,Bruselas,9,70,4
+Bélgica,Bruselas,9,74,2
+Bélgica,Bruselas,9,78,5
+Bélgica,Bruselas,9,82,109
+Bélgica,Bruselas,9,86,4
+Bélgica,Bruselas,9,90,24
+Bélgica,Bruselas,9,94,6
+Canadá,Montreal,36,02,1678
+Canadá,Montreal,36,06,256
+Canadá,Montreal,37,06,747
+Canadá,Montreal,37,10,3
+Canadá,Montreal,37,14,259
+Canadá,Montreal,37,18,14
+Canadá,Montreal,37,22,21
+Canadá,Montreal,37,26,26
+Canadá,Montreal,37,30,34
+Canadá,Montreal,37,34,5
+Canadá,Montreal,37,38,17
+Canadá,Montreal,37,42,14
+Canadá,Montreal,37,46,5
+Canadá,Montreal,37,50,274
+Canadá,Montreal,37,54,33
+Canadá,Montreal,37,58,30
+Canadá,Montreal,37,62,23
+Canadá,Montreal,37,66,18
+Canadá,Montreal,37,70,69
+Canadá,Montreal,37,74,21
+Canadá,Montreal,37,78,10
+Canadá,Montreal,37,82,225
+Canadá,Montreal,37,86,15
+Canadá,Montreal,37,90,59
+Canadá,Montreal,37,94,11
+Canadá,Toronto,38,02,1755
+Canadá,Toronto,38,06,689
+Canadá,Toronto,39,06,514
+Canadá,Toronto,39,10,1
+Canadá,Toronto,39,14,216
+Canadá,Toronto,39,18,31
+Canadá,Toronto,39,22,22
+Canadá,Toronto,39,26,22
+Canadá,Toronto,39,30,25
+Canadá,Toronto,39,34,1
+Canadá,Toronto,39,38,8
+Canadá,Toronto,39,42,7
+Canadá,Toronto,39,46,2
+Canadá,Toronto,39,50,1105
+Canadá,Toronto,39,54,22
+Canadá,Toronto,39,58,17
+Canadá,Toronto,39,62,27
+Canadá,Toronto,39,66,27
+Canadá,Toronto,39,70,114
+Canadá,Toronto,39,74,26
+Canadá,Toronto,39,78,10
+Canadá,Toronto,39,82,189
+Canadá,Toronto,39,86,9
+Canadá,Toronto,39,90,37
+Canadá,Toronto,39,94,11
+Canadá,Vancouver,40,02,370
+Canadá,Vancouver,40,06,249
+Canadá,Vancouver,40,14,57
+Canadá,Vancouver,40,18,8
+Canadá,Vancouver,40,22,3
+Canadá,Vancouver,40,26,4
+Canadá,Vancouver,40,30,5
+Canadá,Vancouver,40,34,1
+Canadá,Vancouver,40,38,2
+Canadá,Vancouver,40,42,2
+Canadá,Vancouver,40,46,1
+Canadá,Vancouver,40,50,34
+Canadá,Vancouver,40,54,8
+Canadá,Vancouver,40,58,21
+Canadá,Vancouver,40,62,8
+Canadá,Vancouver,40,66,12
+Canadá,Vancouver,40,70,5
+Canadá,Vancouver,40,74,1
+Canadá,Vancouver,40,78,10
+Canadá,Vancouver,40,82,38
+Canadá,Vancouver,40,86,2
+Canadá,Vancouver,40,90,15
+Canadá,Vancouver,40,94,6
+Catar,Doha,198,02,22
+Catar,Doha,198,06,41
+Catar,Doha,198,14,11
+Catar,Doha,198,22,1
+Catar,Doha,198,26,1
+Catar,Doha,198,34,1
+Catar,Doha,198,50,2
+Catar,Doha,198,62,1
+Catar,Doha,198,66,1
+Catar,Doha,198,70,1
+Catar,Doha,198,82,4
+Chile,Antofagasta,44,02,82
+Chile,Antofagasta,44,06,134
+Chile,Antofagasta,44,10,7
+Chile,Antofagasta,44,14,34
+Chile,Antofagasta,44,18,2
+Chile,Antofagasta,44,22,4
+Chile,Antofagasta,44,26,3
+Chile,Antofagasta,44,30,7
+Chile,Antofagasta,44,34,3
+Chile,Antofagasta,44,38,33
+Chile,Antofagasta,44,42,2
+Chile,Antofagasta,44,46,6
+Chile,Antofagasta,44,50,57
+Chile,Antofagasta,44,54,4
+Chile,Antofagasta,44,58,7
+Chile,Antofagasta,44,62,9
+Chile,Antofagasta,44,66,161
+Chile,Antofagasta,44,70,19
+Chile,Antofagasta,44,74,2
+Chile,Antofagasta,44,78,2
+Chile,Antofagasta,44,82,20
+Chile,Antofagasta,44,86,3
+Chile,Antofagasta,44,90,32
+Chile,Antofagasta,44,94,4
+Chile,Concepción,46,02,163
+Chile,Concepción,46,06,308
+Chile,Concepción,46,10,3
+Chile,Concepción,46,14,63
+Chile,Concepción,46,18,5
+Chile,Concepción,46,22,3
+Chile,Concepción,46,26,25
+Chile,Concepción,46,30,16
+Chile,Concepción,46,34,4
+Chile,Concepción,46,38,5
+Chile,Concepción,46,42,14
+Chile,Concepción,46,46,5
+Chile,Concepción,46,50,149
+Chile,Concepción,46,54,5
+Chile,Concepción,46,58,160
+Chile,Concepción,46,62,133
+Chile,Concepción,46,66,15
+Chile,Concepción,46,70,20
+Chile,Concepción,46,74,8
+Chile,Concepción,46,78,20
+Chile,Concepción,46,82,39
+Chile,Concepción,46,86,2
+Chile,Concepción,46,90,20
+Chile,Concepción,46,94,8
+Chile,Puerto Montt,47,02,95
+Chile,Puerto Montt,47,06,181
+Chile,Puerto Montt,47,10,1
+Chile,Puerto Montt,47,14,41
+Chile,Puerto Montt,47,18,6
+Chile,Puerto Montt,47,22,2
+Chile,Puerto Montt,47,26,146
+Chile,Puerto Montt,47,30,8
+Chile,Puerto Montt,47,34,3
+Chile,Puerto Montt,47,38,4
+Chile,Puerto Montt,47,42,5
+Chile,Puerto Montt,47,46,2
+Chile,Puerto Montt,47,50,49
+Chile,Puerto Montt,47,54,9
+Chile,Puerto Montt,47,58,90
+Chile,Puerto Montt,47,62,302
+Chile,Puerto Montt,47,66,1
+Chile,Puerto Montt,47,70,6
+Chile,Puerto Montt,47,74,3
+Chile,Puerto Montt,47,78,72
+Chile,Puerto Montt,47,82,23
+Chile,Puerto Montt,47,86,3
+Chile,Puerto Montt,47,90,9
+Chile,Puerto Montt,47,94,36
+Chile,Punta Arenas,45,02,47
+Chile,Punta Arenas,45,06,19
+Chile,Punta Arenas,45,14,8
+Chile,Punta Arenas,45,18,6
+Chile,Punta Arenas,45,22,2
+Chile,Punta Arenas,45,26,16
+Chile,Punta Arenas,45,34,1
+Chile,Punta Arenas,45,46,3
+Chile,Punta Arenas,45,50,7
+Chile,Punta Arenas,45,58,11
+Chile,Punta Arenas,45,62,4
+Chile,Punta Arenas,45,78,97
+Chile,Punta Arenas,45,82,7
+Chile,Punta Arenas,45,90,1
+Chile,Punta Arenas,45,94,51
+Chile,Santiago,48-1,02,1205
+Chile,Santiago,48-2,02,1204
+Chile,Santiago,49-1,02,907
+Chile,Santiago,49-1,06,297
+Chile,Santiago,49-2,02,1204
+Chile,Santiago,50-1,06,1204
+Chile,Santiago,50-2,06,1204
+Chile,Santiago,51-1,06,138
+Chile,Santiago,51-1,10,22
+Chile,Santiago,51-1,14,730
+Chile,Santiago,51-1,18,56
+Chile,Santiago,51-1,22,41
+Chile,Santiago,51-1,26,70
+Chile,Santiago,51-1,30,121
+Chile,Santiago,51-1,34,23
+Chile,Santiago,51-1,38,3
+Chile,Santiago,51-2,06,858
+Chile,Santiago,51-2,10,7
+Chile,Santiago,51-2,14,216
+Chile,Santiago,51-2,18,19
+Chile,Santiago,51-2,22,17
+Chile,Santiago,51-2,26,31
+Chile,Santiago,51-2,30,41
+Chile,Santiago,51-2,34,15
+Chile,Santiago,52-1,38,17
+Chile,Santiago,52-1,42,12
+Chile,Santiago,52-1,46,17
+Chile,Santiago,52-1,50,1158
+Chile,Santiago,52-2,38,36
+Chile,Santiago,52-2,42,31
+Chile,Santiago,52-2,46,23
+Chile,Santiago,52-2,50,1114
+Chile,Santiago,53-1,54,48
+Chile,Santiago,53-1,58,111
+Chile,Santiago,53-1,62,141
+Chile,Santiago,53-1,66,81
+Chile,Santiago,53-1,70,211
+Chile,Santiago,53-1,74,75
+Chile,Santiago,53-1,78,44
+Chile,Santiago,53-1,82,331
+Chile,Santiago,53-1,86,26
+Chile,Santiago,53-1,90,120
+Chile,Santiago,53-1,94,16
+Chile,Santiago,53-2,50,597
+Chile,Santiago,53-2,54,31
+Chile,Santiago,53-2,58,61
+Chile,Santiago,53-2,62,72
+Chile,Santiago,53-2,66,43
+Chile,Santiago,53-2,70,98
+Chile,Santiago,53-2,74,46
+Chile,Santiago,53-2,78,18
+Chile,Santiago,53-2,82,168
+Chile,Santiago,53-2,86,17
+Chile,Santiago,53-2,90,50
+Chile,Santiago,53-2,94,3
+Chile,Valparaíso,54,02,389
+Chile,Valparaíso,54,06,476
+Chile,Valparaíso,54,10,5
+Chile,Valparaíso,54,14,156
+Chile,Valparaíso,54,18,13
+Chile,Valparaíso,54,22,6
+Chile,Valparaíso,54,26,12
+Chile,Valparaíso,54,30,22
+Chile,Valparaíso,54,34,4
+Chile,Valparaíso,54,38,7
+Chile,Valparaíso,54,42,11
+Chile,Valparaíso,54,46,10
+Chile,Valparaíso,54,50,188
+Chile,Valparaíso,55,50,823
+Chile,Valparaíso,55,54,15
+Chile,Valparaíso,55,58,25
+Chile,Valparaíso,55,62,42
+Chile,Valparaíso,55,66,48
+Chile,Valparaíso,55,70,105
+Chile,Valparaíso,55,74,53
+Chile,Valparaíso,55,78,11
+Chile,Valparaíso,55,82,121
+Chile,Valparaíso,55,86,12
+Chile,Valparaíso,55,90,31
+Chile,Valparaíso,55,94,12
+China,Guangzhou,56,02,449
+China,Guangzhou,56,06,494
+China,Guangzhou,56,14,22
+China,Guangzhou,56,18,2
+China,Guangzhou,56,22,6
+China,Guangzhou,56,30,17
+China,Guangzhou,56,34,1
+China,Guangzhou,56,42,2
+China,Guangzhou,56,50,6
+China,Guangzhou,56,54,6
+China,Guangzhou,56,58,4
+China,Guangzhou,56,62,4
+China,Guangzhou,56,66,1
+China,Guangzhou,56,74,6
+China,Guangzhou,56,78,1
+China,Guangzhou,56,82,50
+China,Guangzhou,56,86,3
+China,Guangzhou,56,90,3
+China,Hong Kong,57,02,211
+China,Hong Kong,57,06,85
+China,Hong Kong,57,10,1
+China,Hong Kong,57,14,19
+China,Hong Kong,57,22,1
+China,Hong Kong,57,30,4
+China,Hong Kong,57,34,1
+China,Hong Kong,57,38,1
+China,Hong Kong,57,50,7
+China,Hong Kong,57,54,5
+China,Hong Kong,57,62,2
+China,Hong Kong,57,82,8
+China,Hong Kong,57,90,2
+China,Hong Kong,57,94,1
+China,Pekín,59,02,129
+China,Pekín,59,06,49
+China,Pekín,59,14,13
+China,Pekín,59,18,1
+China,Pekín,59,22,2
+China,Pekín,59,30,2
+China,Pekín,59,50,3
+China,Pekín,59,54,3
+China,Pekín,59,62,2
+China,Pekín,59,70,3
+China,Pekín,59,82,5
+China,Pekín,59,94,1
+China,Shanghái,58,02,143
+China,Shanghái,58,06,54
+China,Shanghái,58,10,1
+China,Shanghái,58,14,4
+China,Shanghái,58,18,2
+China,Shanghái,58,26,1
+China,Shanghái,58,42,1
+China,Shanghái,58,46,1
+China,Shanghái,58,50,2
+China,Shanghái,58,54,1
+China,Shanghái,58,58,2
+China,Shanghái,58,66,1
+China,Shanghái,58,82,8
+China,Shanghái,58,86,1
+China,Shanghái,58,90,2
+Colombia,Bogotá,60,02,1490
+Colombia,Bogotá,61,02,21
+Colombia,Bogotá,61,06,741
+Colombia,Bogotá,61,10,2
+Colombia,Bogotá,61,14,201
+Colombia,Bogotá,61,18,20
+Colombia,Bogotá,61,22,13
+Colombia,Bogotá,61,26,17
+Colombia,Bogotá,61,30,39
+Colombia,Bogotá,61,34,3
+Colombia,Bogotá,61,38,12
+Colombia,Bogotá,61,42,10
+Colombia,Bogotá,61,46,2
+Colombia,Bogotá,61,50,108
+Colombia,Bogotá,61,54,17
+Colombia,Bogotá,61,58,31
+Colombia,Bogotá,61,62,30
+Colombia,Bogotá,61,66,24
+Colombia,Bogotá,61,70,18
+Colombia,Bogotá,61,74,12
+Colombia,Bogotá,61,78,13
+Colombia,Bogotá,61,82,108
+Colombia,Bogotá,61,86,3
+Colombia,Bogotá,61,90,38
+Colombia,Bogotá,61,94,7
+Corea del Sur,Seúl,162,02,100
+Corea del Sur,Seúl,162,06,18
+Corea del Sur,Seúl,162,14,5
+Corea del Sur,Seúl,162,22,2
+Corea del Sur,Seúl,162,26,1
+Corea del Sur,Seúl,162,30,1
+Corea del Sur,Seúl,162,50,1
+Corea del Sur,Seúl,162,54,2
+Corea del Sur,Seúl,162,62,1
+Corea del Sur,Seúl,162,78,1
+Corea del Sur,Seúl,162,82,1
+Corea del Sur,Seúl,162,90,2
+Corea del Sur,Seúl,162,94,1
+Costa Rica,San José,62,02,506
+Costa Rica,San José,62,06,403
+Costa Rica,San José,62,10,2
+Costa Rica,San José,62,14,107
+Costa Rica,San José,62,18,1
+Costa Rica,San José,62,22,3
+Costa Rica,San José,62,26,9
+Costa Rica,San José,62,30,26
+Costa Rica,San José,62,34,1
+Costa Rica,San José,62,38,1
+Costa Rica,San José,62,42,7
+Costa Rica,San José,62,46,1
+Costa Rica,San José,62,50,44
+Costa Rica,San José,62,54,8
+Costa Rica,San José,62,58,8
+Costa Rica,San José,62,62,19
+Costa Rica,San José,62,66,6
+Costa Rica,San José,62,70,2
+Costa Rica,San José,62,74,9
+Costa Rica,San José,62,78,3
+Costa Rica,San José,62,82,65
+Costa Rica,San José,62,86,3
+Costa Rica,San José,62,90,13
+Costa Rica,San José,62,94,2
+Cuba,La Habana,63,02,113
+Cuba,La Habana,63,06,18
+Cuba,La Habana,63,14,12
+Cuba,La Habana,63,18,1
+Cuba,La Habana,63,30,2
+Cuba,La Habana,63,34,1
+Cuba,La Habana,63,42,2
+Cuba,La Habana,63,50,1
+Cuba,La Habana,63,62,1
+Cuba,La Habana,63,66,2
+Cuba,La Habana,63,78,1
+Cuba,La Habana,63,82,7
+Cuba,La Habana,63,86,2
+Dinamarca,Copenhague,70,02,291
+Dinamarca,Copenhague,70,06,381
+Dinamarca,Copenhague,70,10,2
+Dinamarca,Copenhague,70,14,70
+Dinamarca,Copenhague,70,18,9
+Dinamarca,Copenhague,70,22,3
+Dinamarca,Copenhague,70,26,7
+Dinamarca,Copenhague,70,30,6
+Dinamarca,Copenhague,70,34,3
+Dinamarca,Copenhague,70,38,6
+Dinamarca,Copenhague,70,42,1
+Dinamarca,Copenhague,70,50,31
+Dinamarca,Copenhague,70,54,7
+Dinamarca,Copenhague,70,58,5
+Dinamarca,Copenhague,70,62,16
+Dinamarca,Copenhague,70,66,9
+Dinamarca,Copenhague,70,70,7
+Dinamarca,Copenhague,70,74,2
+Dinamarca,Copenhague,70,78,5
+Dinamarca,Copenhague,70,82,61
+Dinamarca,Copenhague,70,90,5
+Dinamarca,Copenhague,70,94,2
+Ecuador,Guayaquil,73,02,589
+Ecuador,Guayaquil,73,06,393
+Ecuador,Guayaquil,73,10,5
+Ecuador,Guayaquil,73,14,63
+Ecuador,Guayaquil,73,18,10
+Ecuador,Guayaquil,73,22,5
+Ecuador,Guayaquil,73,26,12
+Ecuador,Guayaquil,73,30,28
+Ecuador,Guayaquil,73,34,3
+Ecuador,Guayaquil,73,38,9
+Ecuador,Guayaquil,73,42,3
+Ecuador,Guayaquil,73,46,4
+Ecuador,Guayaquil,73,50,60
+Ecuador,Guayaquil,73,54,12
+Ecuador,Guayaquil,73,58,13
+Ecuador,Guayaquil,73,62,10
+Ecuador,Guayaquil,73,66,9
+Ecuador,Guayaquil,73,70,18
+Ecuador,Guayaquil,73,74,9
+Ecuador,Guayaquil,73,78,4
+Ecuador,Guayaquil,73,82,66
+Ecuador,Guayaquil,73,86,6
+Ecuador,Guayaquil,73,90,18
+Ecuador,Guayaquil,73,94,6
+Ecuador,Quito,74,02,662
+Ecuador,Quito,74,06,290
+Ecuador,Quito,74,10,1
+Ecuador,Quito,74,14,96
+Ecuador,Quito,74,18,4
+Ecuador,Quito,74,22,3
+Ecuador,Quito,74,26,19
+Ecuador,Quito,74,30,21
+Ecuador,Quito,74,34,4
+Ecuador,Quito,74,38,7
+Ecuador,Quito,74,46,6
+Ecuador,Quito,74,50,37
+Ecuador,Quito,74,54,15
+Ecuador,Quito,74,58,30
+Ecuador,Quito,74,62,7
+Ecuador,Quito,74,66,14
+Ecuador,Quito,74,70,9
+Ecuador,Quito,74,74,4
+Ecuador,Quito,74,78,3
+Ecuador,Quito,74,82,45
+Ecuador,Quito,74,86,1
+Ecuador,Quito,74,90,11
+Ecuador,Quito,74,94,2
+Egipto,El Cairo,75,02,29
+Egipto,El Cairo,75,06,16
+Egipto,El Cairo,75,14,1
+Egipto,El Cairo,75,22,1
+Egipto,El Cairo,75,30,2
+Egipto,El Cairo,75,50,6
+Egipto,El Cairo,75,58,1
+Egipto,El Cairo,75,66,1
+Egipto,El Cairo,75,70,1
+Egipto,El Cairo,75,74,2
+Egipto,El Cairo,75,82,6
+Egipto,El Cairo,75,90,4
+El Salvador,San Salvador,203,02,79
+El Salvador,San Salvador,203,06,58
+El Salvador,San Salvador,203,14,17
+El Salvador,San Salvador,203,18,1
+El Salvador,San Salvador,203,22,5
+El Salvador,San Salvador,203,34,2
+El Salvador,San Salvador,203,38,1
+El Salvador,San Salvador,203,50,4
+El Salvador,San Salvador,203,58,1
+El Salvador,San Salvador,203,62,1
+El Salvador,San Salvador,203,66,3
+El Salvador,San Salvador,203,70,2
+El Salvador,San Salvador,203,74,1
+El Salvador,San Salvador,203,78,1
+El Salvador,San Salvador,203,82,6
+El Salvador,San Salvador,203,86,1
+El Salvador,San Salvador,203,90,3
+Emiratos Árabes Unidos,Abu Dabi,2,02,233
+Emiratos Árabes Unidos,Abu Dabi,2,06,158
+Emiratos Árabes Unidos,Abu Dabi,2,14,49
+Emiratos Árabes Unidos,Abu Dabi,2,18,3
+Emiratos Árabes Unidos,Abu Dabi,2,22,4
+Emiratos Árabes Unidos,Abu Dabi,2,26,9
+Emiratos Árabes Unidos,Abu Dabi,2,30,3
+Emiratos Árabes Unidos,Abu Dabi,2,34,1
+Emiratos Árabes Unidos,Abu Dabi,2,38,1
+Emiratos Árabes Unidos,Abu Dabi,2,50,11
+Emiratos Árabes Unidos,Abu Dabi,2,54,7
+Emiratos Árabes Unidos,Abu Dabi,2,58,9
+Emiratos Árabes Unidos,Abu Dabi,2,62,4
+Emiratos Árabes Unidos,Abu Dabi,2,66,2
+Emiratos Árabes Unidos,Abu Dabi,2,70,1
+Emiratos Árabes Unidos,Abu Dabi,2,74,5
+Emiratos Árabes Unidos,Abu Dabi,2,78,2
+Emiratos Árabes Unidos,Abu Dabi,2,82,21
+Emiratos Árabes Unidos,Abu Dabi,2,90,10
+España,Barcelona,76,02,2477
+España,Barcelona,77,02,2477
+España,Barcelona,78,02,2477
+España,Barcelona,79,02,2477
+España,Barcelona,80,02,2477
+España,Barcelona,81,02,373
+España,Barcelona,81,06,2104
+España,Barcelona,82,06,2477
+España,Barcelona,83,06,2477
+España,Barcelona,84,06,2477
+España,Barcelona,85,06,2477
+España,Barcelona,86,06,2477
+España,Barcelona,87,06,2477
+España,Barcelona,88,06,694
+España,Barcelona,88,10,57
+España,Barcelona,88,14,1726
+España,Barcelona,89,14,2213
+España,Barcelona,89,18,234
+España,Barcelona,89,22,30
+España,Barcelona,90,22,169
+España,Barcelona,90,26,248
+España,Barcelona,90,30,474
+España,Barcelona,90,34,72
+España,Barcelona,90,38,118
+España,Barcelona,90,42,147
+España,Barcelona,90,46,54
+España,Barcelona,90,50,1194
+España,Barcelona,91,50,2399
+España,Barcelona,91,54,77
+España,Barcelona,92,54,175
+España,Barcelona,92,58,315
+España,Barcelona,92,62,403
+España,Barcelona,92,66,405
+España,Barcelona,92,70,530
+España,Barcelona,92,74,215
+España,Barcelona,92,78,79
+España,Barcelona,92,82,354
+España,Barcelona,93,82,2476
+España,Barcelona,94,82,1538
+España,Barcelona,94,86,174
+España,Barcelona,94,90,644
+España,Barcelona,94,94,120
+España,Cádiz,100,50,151
+España,Cádiz,100,54,81
+España,Cádiz,100,58,104
+España,Cádiz,100,62,110
+España,Cádiz,100,66,126
+España,Cádiz,100,70,498
+España,Cádiz,100,74,97
+España,Cádiz,100,78,29
+España,Cádiz,100,82,717
+España,Cádiz,100,86,55
+España,Cádiz,100,90,209
+España,Cádiz,100,94,28
+España,Cádiz,95,02,2206
+España,Cádiz,96,02,544
+España,Cádiz,96,06,1662
+España,Cádiz,97,06,2206
+España,Cádiz,98,06,1130
+España,Cádiz,98,10,25
+España,Cádiz,98,14,1037
+España,Cádiz,98,18,14
+España,Cádiz,99,18,69
+España,Cádiz,99,22,83
+España,Cádiz,99,26,108
+España,Cádiz,99,30,127
+España,Cádiz,99,34,25
+España,Cádiz,99,38,51
+España,Cádiz,99,42,41
+España,Cádiz,99,46,26
+España,Cádiz,99,50,1676
+España,Madrid,101,02,2497
+España,Madrid,102,02,2497
+España,Madrid,103,02,2497
+España,Madrid,104,02,2497
+España,Madrid,105,02,2497
+España,Madrid,106,02,253
+España,Madrid,106,06,2244
+España,Madrid,107,06,2497
+España,Madrid,108,06,2497
+España,Madrid,109,06,2497
+España,Madrid,110,06,2315
+España,Madrid,110,10,89
+España,Madrid,110,14,92
+España,Madrid,111,14,2496
+España,Madrid,112,14,14
+España,Madrid,112,18,184
+España,Madrid,112,22,185
+España,Madrid,112,26,206
+España,Madrid,112,30,289
+España,Madrid,112,34,107
+España,Madrid,112,38,130
+España,Madrid,112,42,149
+España,Madrid,112,46,71
+España,Madrid,112,50,1161
+España,Madrid,113,50,766
+España,Madrid,113,54,223
+España,Madrid,113,58,194
+España,Madrid,113,62,221
+España,Madrid,113,66,336
+España,Madrid,113,70,314
+España,Madrid,113,74,158
+España,Madrid,113,78,65
+España,Madrid,113,82,219
+España,Madrid,114,82,1793
+España,Madrid,114,86,160
+España,Madrid,114,90,475
+España,Madrid,114,94,68
+España,Palma de Mallorca,115,02,792
+España,Palma de Mallorca,115,06,1522
+España,Palma de Mallorca,116,06,666
+España,Palma de Mallorca,116,10,6
+España,Palma de Mallorca,116,14,454
+España,Palma de Mallorca,116,18,60
+España,Palma de Mallorca,116,22,18
+España,Palma de Mallorca,116,26,32
+España,Palma de Mallorca,116,30,40
+España,Palma de Mallorca,116,34,3
+España,Palma de Mallorca,116,38,6
+España,Palma de Mallorca,116,42,14
+España,Palma de Mallorca,116,46,6
+España,Palma de Mallorca,116,50,266
+España,Palma de Mallorca,116,54,39
+España,Palma de Mallorca,116,58,36
+España,Palma de Mallorca,116,62,52
+España,Palma de Mallorca,116,66,28
+España,Palma de Mallorca,116,70,17
+España,Palma de Mallorca,116,74,39
+España,Palma de Mallorca,116,78,6
+España,Palma de Mallorca,116,82,422
+España,Palma de Mallorca,116,86,14
+España,Palma de Mallorca,116,90,81
+España,Palma de Mallorca,116,94,8
+España,Tenerife,117,02,1471
+España,Tenerife,117,06,531
+España,Tenerife,118,06,2002
+España,Tenerife,119,06,675
+España,Tenerife,119,10,5
+España,Tenerife,119,14,610
+España,Tenerife,119,18,40
+España,Tenerife,119,22,39
+España,Tenerife,119,26,28
+España,Tenerife,119,30,100
+España,Tenerife,119,34,16
+España,Tenerife,119,38,15
+España,Tenerife,119,42,34
+España,Tenerife,119,46,17
+España,Tenerife,119,50,423
+España,Tenerife,120,50,897
+España,Tenerife,120,54,56
+España,Tenerife,120,58,47
+España,Tenerife,120,62,66
+España,Tenerife,120,66,37
+España,Tenerife,120,70,111
+España,Tenerife,120,74,89
+España,Tenerife,120,78,9
+España,Tenerife,120,82,600
+España,Tenerife,120,86,16
+España,Tenerife,120,90,44
+España,Tenerife,120,94,29
+España,Vigo,121,02,2315
+España,Vigo,122,02,599
+España,Vigo,122,06,1716
+España,Vigo,123,06,1059
+España,Vigo,123,10,7
+España,Vigo,123,14,266
+España,Vigo,123,18,25
+España,Vigo,123,22,34
+España,Vigo,123,26,44
+España,Vigo,123,30,65
+España,Vigo,123,34,5
+España,Vigo,123,38,5
+España,Vigo,123,42,41
+España,Vigo,123,46,15
+España,Vigo,123,50,167
+España,Vigo,123,54,34
+España,Vigo,123,58,22
+España,Vigo,123,62,38
+España,Vigo,123,66,30
+España,Vigo,123,70,29
+España,Vigo,123,74,24
+España,Vigo,123,78,30
+España,Vigo,123,82,271
+España,Vigo,123,86,23
+España,Vigo,123,90,54
+España,Vigo,123,94,27
+Estados Unidos,Atlanta,227,02,870
+Estados Unidos,Atlanta,227,06,634
+Estados Unidos,Atlanta,228,06,274
+Estados Unidos,Atlanta,228,10,2
+Estados Unidos,Atlanta,228,14,237
+Estados Unidos,Atlanta,228,18,18
+Estados Unidos,Atlanta,228,22,13
+Estados Unidos,Atlanta,228,26,37
+Estados Unidos,Atlanta,228,30,46
+Estados Unidos,Atlanta,228,34,12
+Estados Unidos,Atlanta,228,38,9
+Estados Unidos,Atlanta,228,42,14
+Estados Unidos,Atlanta,228,46,3
+Estados Unidos,Atlanta,228,50,513
+Estados Unidos,Atlanta,228,54,17
+Estados Unidos,Atlanta,228,58,12
+Estados Unidos,Atlanta,228,62,21
+Estados Unidos,Atlanta,228,66,36
+Estados Unidos,Atlanta,228,70,25
+Estados Unidos,Atlanta,228,74,12
+Estados Unidos,Atlanta,228,78,6
+Estados Unidos,Atlanta,228,82,145
+Estados Unidos,Atlanta,228,86,10
+Estados Unidos,Atlanta,228,90,37
+Estados Unidos,Atlanta,228,94,5
+Estados Unidos,Chicago,229,02,2073
+Estados Unidos,Chicago,230,02,171
+Estados Unidos,Chicago,230,06,1901
+Estados Unidos,Chicago,231,06,62
+Estados Unidos,Chicago,231,10,13
+Estados Unidos,Chicago,231,14,480
+Estados Unidos,Chicago,231,18,56
+Estados Unidos,Chicago,231,22,64
+Estados Unidos,Chicago,231,26,25
+Estados Unidos,Chicago,231,30,101
+Estados Unidos,Chicago,231,34,14
+Estados Unidos,Chicago,231,38,36
+Estados Unidos,Chicago,231,42,26
+Estados Unidos,Chicago,231,46,10
+Estados Unidos,Chicago,231,50,365
+Estados Unidos,Chicago,231,54,67
+Estados Unidos,Chicago,231,58,17
+Estados Unidos,Chicago,231,62,50
+Estados Unidos,Chicago,231,66,49
+Estados Unidos,Chicago,231,70,42
+Estados Unidos,Chicago,231,74,21
+Estados Unidos,Chicago,231,78,10
+Estados Unidos,Chicago,231,82,427
+Estados Unidos,Chicago,231,86,29
+Estados Unidos,Chicago,231,90,95
+Estados Unidos,Chicago,231,94,13
+Estados Unidos,Houston,232,02,1707
+Estados Unidos,Houston,232,06,59
+Estados Unidos,Houston,233,06,1275
+Estados Unidos,Houston,233,10,6
+Estados Unidos,Houston,233,14,323
+Estados Unidos,Houston,233,18,30
+Estados Unidos,Houston,233,22,15
+Estados Unidos,Houston,233,26,53
+Estados Unidos,Houston,233,30,48
+Estados Unidos,Houston,233,34,11
+Estados Unidos,Houston,233,38,5
+Estados Unidos,Houston,234,38,9
+Estados Unidos,Houston,234,42,12
+Estados Unidos,Houston,234,46,2
+Estados Unidos,Houston,234,50,1064
+Estados Unidos,Houston,234,54,32
+Estados Unidos,Houston,234,58,63
+Estados Unidos,Houston,234,62,50
+Estados Unidos,Houston,234,66,46
+Estados Unidos,Houston,234,70,53
+Estados Unidos,Houston,234,74,27
+Estados Unidos,Houston,234,78,16
+Estados Unidos,Houston,234,82,295
+Estados Unidos,Houston,234,86,19
+Estados Unidos,Houston,234,90,58
+Estados Unidos,Houston,234,94,19
+Estados Unidos,Los Ángeles,235,02,2280
+Estados Unidos,Los Ángeles,236,02,2280
+Estados Unidos,Los Ángeles,237,02,2280
+Estados Unidos,Los Ángeles,238,02,487
+Estados Unidos,Los Ángeles,238,06,1793
+Estados Unidos,Los Ángeles,239,06,2279
+Estados Unidos,Los Ángeles,240,06,2101
+Estados Unidos,Los Ángeles,240,10,10
+Estados Unidos,Los Ángeles,240,14,168
+Estados Unidos,Los Ángeles,241,14,1211
+Estados Unidos,Los Ángeles,241,18,73
+Estados Unidos,Los Ángeles,241,22,108
+Estados Unidos,Los Ángeles,241,26,89
+Estados Unidos,Los Ángeles,241,30,318
+Estados Unidos,Los Ángeles,241,34,34
+Estados Unidos,Los Ángeles,241,38,59
+Estados Unidos,Los Ángeles,241,42,42
+Estados Unidos,Los Ángeles,241,46,23
+Estados Unidos,Los Ángeles,241,50,322
+Estados Unidos,Los Ángeles,242,50,905
+Estados Unidos,Los Ángeles,242,54,129
+Estados Unidos,Los Ángeles,242,58,76
+Estados Unidos,Los Ángeles,242,62,153
+Estados Unidos,Los Ángeles,242,66,123
+Estados Unidos,Los Ángeles,242,70,125
+Estados Unidos,Los Ángeles,242,74,62
+Estados Unidos,Los Ángeles,242,78,32
+Estados Unidos,Los Ángeles,242,82,674
+Estados Unidos,Los Ángeles,243,82,1889
+Estados Unidos,Los Ángeles,243,86,72
+Estados Unidos,Los Ángeles,243,90,286
+Estados Unidos,Los Ángeles,243,94,32
+Estados Unidos,Miami,244-1,02,1194
+Estados Unidos,Miami,244-2,02,1194
+Estados Unidos,Miami,245-1,02,1194
+Estados Unidos,Miami,245-2,02,1194
+Estados Unidos,Miami,246-1,02,1194
+Estados Unidos,Miami,246-2,02,1194
+Estados Unidos,Miami,247-1,02,1194
+Estados Unidos,Miami,247-2,02,1194
+Estados Unidos,Miami,248-1,02,1194
+Estados Unidos,Miami,248-2,02,1194
+Estados Unidos,Miami,249-1,02,407
+Estados Unidos,Miami,249-1,06,787
+Estados Unidos,Miami,249-2,02,1194
+Estados Unidos,Miami,250-1,06,1194
+Estados Unidos,Miami,250-2,06,1193
+Estados Unidos,Miami,251-1,06,1194
+Estados Unidos,Miami,251-2,06,1193
+Estados Unidos,Miami,252-1,06,1194
+Estados Unidos,Miami,252-2,06,1193
+Estados Unidos,Miami,253-1,06,1194
+Estados Unidos,Miami,253-2,06,1193
+Estados Unidos,Miami,254-1,06,269
+Estados Unidos,Miami,254-1,10,25
+Estados Unidos,Miami,254-1,14,900
+Estados Unidos,Miami,254-2,06,1190
+Estados Unidos,Miami,254-2,10,3
+Estados Unidos,Miami,255-1,14,582
+Estados Unidos,Miami,255-1,18,116
+Estados Unidos,Miami,255-1,22,109
+Estados Unidos,Miami,255-1,26,91
+Estados Unidos,Miami,255-1,30,246
+Estados Unidos,Miami,255-1,34,50
+Estados Unidos,Miami,255-2,14,856
+Estados Unidos,Miami,255-2,18,66
+Estados Unidos,Miami,255-2,22,64
+Estados Unidos,Miami,255-2,26,65
+Estados Unidos,Miami,255-2,30,123
+Estados Unidos,Miami,255-2,34,19
+Estados Unidos,Miami,256-1,38,26
+Estados Unidos,Miami,256-1,42,23
+Estados Unidos,Miami,256-1,46,9
+Estados Unidos,Miami,256-1,50,1136
+Estados Unidos,Miami,256-2,38,43
+Estados Unidos,Miami,256-2,42,37
+Estados Unidos,Miami,256-2,46,11
+Estados Unidos,Miami,256-2,50,1102
+Estados Unidos,Miami,257-1,50,54
+Estados Unidos,Miami,257-1,54,178
+Estados Unidos,Miami,257-1,58,92
+Estados Unidos,Miami,257-1,62,125
+Estados Unidos,Miami,257-1,66,133
+Estados Unidos,Miami,257-1,70,172
+Estados Unidos,Miami,257-1,74,96
+Estados Unidos,Miami,257-1,78,24
+Estados Unidos,Miami,257-1,82,320
+Estados Unidos,Miami,257-2,50,796
+Estados Unidos,Miami,257-2,54,85
+Estados Unidos,Miami,257-2,58,38
+Estados Unidos,Miami,257-2,62,57
+Estados Unidos,Miami,257-2,66,77
+Estados Unidos,Miami,257-2,70,83
+Estados Unidos,Miami,257-2,74,41
+Estados Unidos,Miami,257-2,78,16
+Estados Unidos,Miami,258-1,82,915
+Estados Unidos,Miami,258-1,86,51
+Estados Unidos,Miami,258-1,90,203
+Estados Unidos,Miami,258-1,94,25
+Estados Unidos,Miami,258-2,82,956
+Estados Unidos,Miami,258-2,86,42
+Estados Unidos,Miami,258-2,90,160
+Estados Unidos,Miami,258-2,94,35
+Estados Unidos,Nueva York,259,02,2346
+Estados Unidos,Nueva York,260,02,2346
+Estados Unidos,Nueva York,261,02,2346
+Estados Unidos,Nueva York,262,02,2346
+Estados Unidos,Nueva York,263,02,296
+Estados Unidos,Nueva York,263,06,2050
+Estados Unidos,Nueva York,264,06,2346
+Estados Unidos,Nueva York,265,06,2346
+Estados Unidos,Nueva York,266,06,13
+Estados Unidos,Nueva York,266,10,27
+Estados Unidos,Nueva York,266,14,1082
+Estados Unidos,Nueva York,266,18,107
+Estados Unidos,Nueva York,266,22,117
+Estados Unidos,Nueva York,266,26,51
+Estados Unidos,Nueva York,266,30,164
+Estados Unidos,Nueva York,266,34,92
+Estados Unidos,Nueva York,266,38,62
+Estados Unidos,Nueva York,266,42,28
+Estados Unidos,Nueva York,266,46,23
+Estados Unidos,Nueva York,266,50,579
+Estados Unidos,Nueva York,267,50,2345
+Estados Unidos,Nueva York,268,50,35
+Estados Unidos,Nueva York,268,54,155
+Estados Unidos,Nueva York,268,58,67
+Estados Unidos,Nueva York,268,62,73
+Estados Unidos,Nueva York,268,66,130
+Estados Unidos,Nueva York,268,70,399
+Estados Unidos,Nueva York,268,74,100
+Estados Unidos,Nueva York,268,78,27
+Estados Unidos,Nueva York,268,82,1020
+Estados Unidos,Nueva York,268,86,69
+Estados Unidos,Nueva York,268,90,259
+Estados Unidos,Nueva York,268,94,11
+Estados Unidos,Washington,269,02,2361
+Estados Unidos,Washington,270,02,574
+Estados Unidos,Washington,270,06,1787
+Estados Unidos,Washington,271,06,625
+Estados Unidos,Washington,271,10,6
+Estados Unidos,Washington,271,14,361
+Estados Unidos,Washington,271,18,23
+Estados Unidos,Washington,271,22,41
+Estados Unidos,Washington,271,26,64
+Estados Unidos,Washington,271,30,91
+Estados Unidos,Washington,271,34,15
+Estados Unidos,Washington,271,38,26
+Estados Unidos,Washington,271,42,12
+Estados Unidos,Washington,271,46,1
+Estados Unidos,Washington,271,50,398
+Estados Unidos,Washington,271,54,40
+Estados Unidos,Washington,271,58,26
+Estados Unidos,Washington,271,62,52
+Estados Unidos,Washington,271,66,72
+Estados Unidos,Washington,271,70,29
+Estados Unidos,Washington,271,74,28
+Estados Unidos,Washington,271,78,8
+Estados Unidos,Washington,271,82,298
+Estados Unidos,Washington,271,86,17
+Estados Unidos,Washington,271,90,104
+Estados Unidos,Washington,271,94,24
+Etiopía,Etiopía,124,02,1
+Etiopía,Etiopía,124,06,1
+Etiopía,Etiopía,124,14,1
+Filipinas,Manila,185,02,18
+Filipinas,Manila,185,06,16
+Filipinas,Manila,185,14,2
+Filipinas,Manila,185,26,1
+Filipinas,Manila,185,30,2
+Filipinas,Manila,185,34,2
+Filipinas,Manila,185,38,1
+Filipinas,Manila,185,50,4
+Filipinas,Manila,185,54,2
+Filipinas,Manila,185,66,2
+Filipinas,Manila,185,70,1
+Filipinas,Manila,185,86,1
+Finlandia,Helsinki,125,02,110
+Finlandia,Helsinki,125,06,68
+Finlandia,Helsinki,125,10,1
+Finlandia,Helsinki,125,14,22
+Finlandia,Helsinki,125,18,1
+Finlandia,Helsinki,125,22,1
+Finlandia,Helsinki,125,26,2
+Finlandia,Helsinki,125,30,4
+Finlandia,Helsinki,125,38,2
+Finlandia,Helsinki,125,50,15
+Finlandia,Helsinki,125,54,3
+Finlandia,Helsinki,125,62,4
+Finlandia,Helsinki,125,66,3
+Finlandia,Helsinki,125,70,1
+Finlandia,Helsinki,125,74,2
+Finlandia,Helsinki,125,82,16
+Finlandia,Helsinki,125,86,1
+Finlandia,Helsinki,125,90,4
+Finlandia,Helsinki,125,94,1
+Francia,París,126-1,02,1042
+Francia,París,126-2,02,1042
+Francia,París,127-1,02,84
+Francia,París,127-1,06,958
+Francia,París,127-2,02,1025
+Francia,París,127-2,06,17
+Francia,París,128-1,10,10
+Francia,París,128-1,14,286
+Francia,París,128-1,18,18
+Francia,París,128-1,22,16
+Francia,París,128-1,26,42
+Francia,París,128-1,30,45
+Francia,París,128-1,34,6
+Francia,París,128-1,38,20
+Francia,París,128-1,42,7
+Francia,París,128-1,46,7
+Francia,París,128-1,50,123
+Francia,París,128-1,54,21
+Francia,París,128-1,58,32
+Francia,París,128-1,62,43
+Francia,París,128-1,66,49
+Francia,París,128-1,70,16
+Francia,París,128-1,74,18
+Francia,París,128-1,78,5
+Francia,París,128-1,82,189
+Francia,París,128-1,86,9
+Francia,París,128-1,90,71
+Francia,París,128-1,94,9
+Francia,París,128-2,06,407
+Francia,París,128-2,10,3
+Francia,París,128-2,14,171
+Francia,París,128-2,18,13
+Francia,París,128-2,22,10
+Francia,París,128-2,26,18
+Francia,París,128-2,30,41
+Francia,París,128-2,34,6
+Francia,París,128-2,38,5
+Francia,París,128-2,42,2
+Francia,París,128-2,46,4
+Francia,París,128-2,50,75
+Francia,París,128-2,54,16
+Francia,París,128-2,58,14
+Francia,París,128-2,62,30
+Francia,París,128-2,66,32
+Francia,París,128-2,70,15
+Francia,París,128-2,74,4
+Francia,París,128-2,78,6
+Francia,París,128-2,82,118
+Francia,París,128-2,86,10
+Francia,París,128-2,90,41
+Francia,París,128-2,94,1
+Grecia,Atenas,132,02,99
+Grecia,Atenas,132,06,30
+Grecia,Atenas,132,14,13
+Grecia,Atenas,132,26,1
+Grecia,Atenas,132,30,1
+Grecia,Atenas,132,50,2
+Grecia,Atenas,132,54,2
+Grecia,Atenas,132,62,1
+Grecia,Atenas,132,66,5
+Grecia,Atenas,132,82,12
+Grecia,Atenas,132,86,2
+Grecia,Atenas,132,90,2
+Guatemala,Guatemala,133,02,191
+Guatemala,Guatemala,133,06,174
+Guatemala,Guatemala,133,10,2
+Guatemala,Guatemala,133,14,48
+Guatemala,Guatemala,133,18,2
+Guatemala,Guatemala,133,22,2
+Guatemala,Guatemala,133,26,2
+Guatemala,Guatemala,133,30,7
+Guatemala,Guatemala,133,38,4
+Guatemala,Guatemala,133,42,4
+Guatemala,Guatemala,133,46,1
+Guatemala,Guatemala,133,50,12
+Guatemala,Guatemala,133,54,3
+Guatemala,Guatemala,133,58,2
+Guatemala,Guatemala,133,62,4
+Guatemala,Guatemala,133,66,5
+Guatemala,Guatemala,133,70,1
+Guatemala,Guatemala,133,74,1
+Guatemala,Guatemala,133,78,2
+Guatemala,Guatemala,133,82,26
+Guatemala,Guatemala,133,86,1
+Guatemala,Guatemala,133,90,13
+Guatemala,Guatemala,133,94,1
+Guyana,Georgetown,134,02,1
+Haití,Puerto Príncipe,136,02,5
+Haití,Puerto Príncipe,136,06,1
+Haití,Puerto Príncipe,136,14,1
+Haití,Puerto Príncipe,136,18,1
+Haití,Puerto Príncipe,136,22,1
+Haití,Puerto Príncipe,136,26,1
+Haití,Puerto Príncipe,136,82,1
+Honduras,Tegucigalpa,135,02,53
+Honduras,Tegucigalpa,135,06,52
+Honduras,Tegucigalpa,135,14,14
+Honduras,Tegucigalpa,135,30,7
+Honduras,Tegucigalpa,135,34,1
+Honduras,Tegucigalpa,135,50,8
+Honduras,Tegucigalpa,135,54,2
+Honduras,Tegucigalpa,135,58,1
+Honduras,Tegucigalpa,135,66,3
+Honduras,Tegucigalpa,135,70,3
+Honduras,Tegucigalpa,135,78,1
+Honduras,Tegucigalpa,135,82,6
+Honduras,Tegucigalpa,135,86,2
+Honduras,Tegucigalpa,135,90,3
+Hungría,Budapest,137,02,87
+Hungría,Budapest,137,06,75
+Hungría,Budapest,137,10,1
+Hungría,Budapest,137,14,17
+Hungría,Budapest,137,22,2
+Hungría,Budapest,137,26,3
+Hungría,Budapest,137,42,1
+Hungría,Budapest,137,50,7
+Hungría,Budapest,137,54,4
+Hungría,Budapest,137,58,1
+Hungría,Budapest,137,62,5
+Hungría,Budapest,137,66,3
+Hungría,Budapest,137,74,3
+Hungría,Budapest,137,78,4
+Hungría,Budapest,137,82,4
+Hungría,Budapest,137,90,2
+Hungría,Budapest,137,94,2
+India,Bombay,139,02,3
+India,Bombay,139,06,1
+India,Bombay,139,50,1
+India,Nueva Delhi,140,02,12
+India,Nueva Delhi,140,06,10
+India,Nueva Delhi,140,14,9
+India,Nueva Delhi,140,38,2
+India,Nueva Delhi,140,50,2
+India,Nueva Delhi,140,58,4
+India,Nueva Delhi,140,66,3
+India,Nueva Delhi,140,82,1
+India,Nueva Delhi,140,94,2
+Indonesia,Yakarta,138,02,35
+Indonesia,Yakarta,138,06,42
+Indonesia,Yakarta,138,14,4
+Indonesia,Yakarta,138,26,1
+Indonesia,Yakarta,138,46,1
+Indonesia,Yakarta,138,50,1
+Indonesia,Yakarta,138,58,3
+Indonesia,Yakarta,138,62,1
+Indonesia,Yakarta,138,66,1
+Indonesia,Yakarta,138,78,1
+Indonesia,Yakarta,138,82,3
+Indonesia,Yakarta,138,86,1
+Indonesia,Yakarta,138,90,1
+Indonesia,Yakarta,138,94,1
+Irlanda,Dublín,141,02,352
+Irlanda,Dublín,141,06,339
+Irlanda,Dublín,141,10,1
+Irlanda,Dublín,141,14,89
+Irlanda,Dublín,141,18,15
+Irlanda,Dublín,141,22,6
+Irlanda,Dublín,141,26,14
+Irlanda,Dublín,141,30,13
+Irlanda,Dublín,141,34,3
+Irlanda,Dublín,141,38,3
+Irlanda,Dublín,141,50,34
+Irlanda,Dublín,141,54,8
+Irlanda,Dublín,141,58,7
+Irlanda,Dublín,141,62,14
+Irlanda,Dublín,141,66,9
+Irlanda,Dublín,141,70,8
+Irlanda,Dublín,141,74,6
+Irlanda,Dublín,141,78,4
+Irlanda,Dublín,141,82,87
+Irlanda,Dublín,141,86,7
+Irlanda,Dublín,141,90,10
+Irlanda,Dublín,141,94,2
+Irán,Teherán,142,02,6
+Irán,Teherán,142,06,2
+Irán,Teherán,142,82,1
+Israel,Tel Aviv,143,02,2364
+Israel,Tel Aviv,144,02,2364
+Israel,Tel Aviv,145,02,2364
+Israel,Tel Aviv,146,02,2296
+Israel,Tel Aviv,146,06,68
+Israel,Tel Aviv,147,06,1512
+Israel,Tel Aviv,147,10,9
+Israel,Tel Aviv,147,14,788
+Israel,Tel Aviv,147,18,55
+Israel,Tel Aviv,148,18,26
+Israel,Tel Aviv,148,22,157
+Israel,Tel Aviv,148,26,15
+Israel,Tel Aviv,148,30,352
+Israel,Tel Aviv,148,34,5
+Israel,Tel Aviv,148,38,8
+Israel,Tel Aviv,148,42,17
+Israel,Tel Aviv,148,46,5
+Israel,Tel Aviv,148,50,237
+Israel,Tel Aviv,148,54,38
+Israel,Tel Aviv,148,58,18
+Israel,Tel Aviv,148,62,58
+Israel,Tel Aviv,148,66,78
+Israel,Tel Aviv,148,70,52
+Israel,Tel Aviv,148,74,18
+Israel,Tel Aviv,148,78,4
+Israel,Tel Aviv,148,82,1028
+Israel,Tel Aviv,148,86,31
+Israel,Tel Aviv,148,90,215
+Israel,Tel Aviv,148,94,2
+Italia,Milán,149,02,2407
+Italia,Milán,150,02,1816
+Italia,Milán,150,06,591
+Italia,Milán,151,06,2407
+Italia,Milán,152,06,2407
+Italia,Milán,153,06,34
+Italia,Milán,153,10,18
+Italia,Milán,153,14,1504
+Italia,Milán,153,18,71
+Italia,Milán,153,22,93
+Italia,Milán,153,26,77
+Italia,Milán,153,30,157
+Italia,Milán,153,34,26
+Italia,Milán,153,38,45
+Italia,Milán,153,42,53
+Italia,Milán,153,46,23
+Italia,Milán,153,50,306
+Italia,Milán,154,50,351
+Italia,Milán,154,54,102
+Italia,Milán,154,58,72
+Italia,Milán,154,62,114
+Italia,Milán,154,66,75
+Italia,Milán,154,70,90
+Italia,Milán,154,74,59
+Italia,Milán,154,78,23
+Italia,Milán,154,82,1299
+Italia,Milán,154,86,50
+Italia,Milán,154,90,145
+Italia,Milán,154,94,26
+Italia,Roma,155,02,2339
+Italia,Roma,156,02,328
+Italia,Roma,156,06,2011
+Italia,Roma,157,06,1625
+Italia,Roma,157,10,33
+Italia,Roma,157,14,681
+Italia,Roma,158,14,181
+Italia,Roma,158,18,65
+Italia,Roma,158,22,67
+Italia,Roma,158,26,32
+Italia,Roma,158,30,137
+Italia,Roma,158,34,21
+Italia,Roma,158,38,47
+Italia,Roma,158,42,20
+Italia,Roma,158,46,11
+Italia,Roma,158,50,412
+Italia,Roma,158,54,55
+Italia,Roma,158,58,54
+Italia,Roma,158,62,86
+Italia,Roma,158,66,68
+Italia,Roma,158,70,70
+Italia,Roma,158,74,48
+Italia,Roma,158,78,11
+Italia,Roma,158,82,777
+Italia,Roma,158,86,34
+Italia,Roma,158,90,132
+Italia,Roma,158,94,11
+Jamaica,Kingston,159,02,8
+Jamaica,Kingston,159,06,3
+Jamaica,Kingston,159,82,2
+Japón,Tokio,160,02,751
+Japón,Tokio,160,06,911
+Japón,Tokio,160,10,4
+Japón,Tokio,160,14,93
+Japón,Tokio,160,18,19
+Japón,Tokio,160,22,8
+Japón,Tokio,160,26,7
+Japón,Tokio,160,30,5
+Japón,Tokio,160,34,7
+Japón,Tokio,160,38,18
+Japón,Tokio,160,42,3
+Japón,Tokio,160,50,26
+Japón,Tokio,160,54,94
+Japón,Tokio,160,58,6
+Japón,Tokio,160,62,11
+Japón,Tokio,160,66,55
+Japón,Tokio,160,70,2
+Japón,Tokio,160,74,1
+Japón,Tokio,160,78,1
+Japón,Tokio,160,82,70
+Japón,Tokio,160,86,1
+Japón,Tokio,160,90,18
+Japón,Tokio,160,94,1
+Kenia,Nairobi,161,02,13
+Kenia,Nairobi,161,06,6
+Kenia,Nairobi,161,14,2
+Kenia,Nairobi,161,22,1
+Kenia,Nairobi,161,26,1
+Kenia,Nairobi,161,50,1
+Kenia,Nairobi,161,62,1
+Kenia,Nairobi,161,82,1
+Kenia,Nairobi,161,94,1
+Kuwait,Kuwait,163,02,45
+Kuwait,Kuwait,163,06,19
+Kuwait,Kuwait,163,10,1
+Kuwait,Kuwait,163,14,6
+Kuwait,Kuwait,163,30,1
+Kuwait,Kuwait,163,50,2
+Kuwait,Kuwait,163,58,1
+Kuwait,Kuwait,163,66,1
+Kuwait,Kuwait,163,82,1
+Kuwait,Kuwait,163,90,3
+Libia,Trípoli,165,02,2
+Libia,Trípoli,165,14,2
+Líbano,Beirut,164,02,419
+Líbano,Beirut,164,06,56
+Líbano,Beirut,164,10,1
+Líbano,Beirut,164,14,43
+Líbano,Beirut,164,18,2
+Líbano,Beirut,164,22,3
+Líbano,Beirut,164,26,5
+Líbano,Beirut,164,30,23
+Líbano,Beirut,164,38,1
+Líbano,Beirut,164,42,1
+Líbano,Beirut,164,46,2
+Líbano,Beirut,164,50,11
+Líbano,Beirut,164,54,5
+Líbano,Beirut,164,58,1
+Líbano,Beirut,164,62,2
+Líbano,Beirut,164,66,2
+Líbano,Beirut,164,70,13
+Líbano,Beirut,164,74,4
+Líbano,Beirut,164,78,5
+Líbano,Beirut,164,82,27
+Líbano,Beirut,164,86,6
+Líbano,Beirut,164,90,8
+Malasia,Kuala Lumpur,174,02,32
+Malasia,Kuala Lumpur,174,06,28
+Malasia,Kuala Lumpur,174,14,4
+Malasia,Kuala Lumpur,174,22,1
+Malasia,Kuala Lumpur,174,26,1
+Malasia,Kuala Lumpur,174,42,1
+Malasia,Kuala Lumpur,174,46,1
+Malasia,Kuala Lumpur,174,50,8
+Malasia,Kuala Lumpur,174,58,2
+Malasia,Kuala Lumpur,174,62,1
+Malasia,Kuala Lumpur,174,66,1
+Malasia,Kuala Lumpur,174,82,3
+Marruecos,Rabat,166,02,61
+Marruecos,Rabat,166,06,15
+Marruecos,Rabat,166,14,4
+Marruecos,Rabat,166,18,2
+Marruecos,Rabat,166,30,1
+Marruecos,Rabat,166,50,2
+Marruecos,Rabat,166,54,1
+Marruecos,Rabat,166,70,2
+Marruecos,Rabat,166,74,1
+Marruecos,Rabat,166,82,7
+Marruecos,Rabat,166,90,1
+Mozambique,Maputo,173,02,9
+Mozambique,Maputo,173,06,12
+Mozambique,Maputo,173,46,1
+Mozambique,Maputo,173,54,1
+Mozambique,Maputo,173,58,1
+Mozambique,Maputo,173,66,1
+Mozambique,Maputo,173,78,1
+Mozambique,Maputo,173,82,1
+México,México,167,02,2177
+México,México,168,02,2177
+México,México,169,02,116
+México,México,169,06,2061
+México,México,170,06,1309
+México,México,170,10,14
+México,México,170,14,853
+México,México,171-1,18,30
+México,México,171-1,22,30
+México,México,171-1,26,31
+México,México,171-1,30,68
+México,México,171-1,34,11
+México,México,171-1,38,25
+México,México,171-1,42,25
+México,México,171-1,46,7
+México,México,171-1,50,204
+México,México,171-1,54,34
+México,México,171-1,58,49
+México,México,171-1,62,58
+México,México,171-1,66,49
+México,México,171-1,70,34
+México,México,171-1,74,25
+México,México,171-1,78,16
+México,México,171-1,82,279
+México,México,171-1,86,16
+México,México,171-1,90,86
+México,México,171-1,94,11
+México,México,171-2,14,55
+México,México,171-2,18,27
+México,México,171-2,22,27
+México,México,171-2,26,46
+México,México,171-2,30,62
+México,México,171-2,34,17
+México,México,171-2,38,18
+México,México,171-2,42,18
+México,México,171-2,46,6
+México,México,171-2,50,183
+México,México,171-2,54,40
+México,México,171-2,58,37
+México,México,171-2,62,49
+México,México,171-2,66,46
+México,México,171-2,70,20
+México,México,171-2,74,28
+México,México,171-2,78,11
+México,México,171-2,82,293
+México,México,171-2,86,14
+México,México,171-2,90,81
+México,México,171-2,94,10
+México,Playa del Carmen,172,02,443
+México,Playa del Carmen,172,06,609
+México,Playa del Carmen,172,10,8
+México,Playa del Carmen,172,14,306
+México,Playa del Carmen,172,18,10
+México,Playa del Carmen,172,22,7
+México,Playa del Carmen,172,26,15
+México,Playa del Carmen,172,30,29
+México,Playa del Carmen,172,34,3
+México,Playa del Carmen,172,38,5
+México,Playa del Carmen,172,42,7
+México,Playa del Carmen,172,46,1
+México,Playa del Carmen,172,50,80
+México,Playa del Carmen,172,54,10
+México,Playa del Carmen,172,58,24
+México,Playa del Carmen,172,62,28
+México,Playa del Carmen,172,66,17
+México,Playa del Carmen,172,70,18
+México,Playa del Carmen,172,74,3
+México,Playa del Carmen,172,78,2
+México,Playa del Carmen,172,82,96
+México,Playa del Carmen,172,86,10
+México,Playa del Carmen,172,90,25
+México,Playa del Carmen,172,94,6
+Nicaragua,Managua,176,02,31
+Nicaragua,Managua,176,06,18
+Nicaragua,Managua,176,14,7
+Nicaragua,Managua,176,18,2
+Nicaragua,Managua,176,30,2
+Nicaragua,Managua,176,42,1
+Nicaragua,Managua,176,50,3
+Nicaragua,Managua,176,54,1
+Nicaragua,Managua,176,70,1
+Nicaragua,Managua,176,82,3
+Nicaragua,Managua,176,86,1
+Nicaragua,Managua,176,90,1
+Nigeria,Abuja,175,02,21
+Nigeria,Abuja,175,06,5
+Nigeria,Abuja,175,14,3
+Nigeria,Abuja,175,70,1
+Nigeria,Abuja,175,82,1
+Noruega,Oslo,178,02,202
+Noruega,Oslo,178,06,166
+Noruega,Oslo,178,10,2
+Noruega,Oslo,178,14,64
+Noruega,Oslo,178,18,5
+Noruega,Oslo,178,22,3
+Noruega,Oslo,178,26,10
+Noruega,Oslo,178,30,9
+Noruega,Oslo,178,38,7
+Noruega,Oslo,178,46,2
+Noruega,Oslo,178,50,26
+Noruega,Oslo,178,58,8
+Noruega,Oslo,178,62,17
+Noruega,Oslo,178,66,16
+Noruega,Oslo,178,70,3
+Noruega,Oslo,178,74,3
+Noruega,Oslo,178,82,25
+Noruega,Oslo,178,86,4
+Noruega,Oslo,178,90,12
+Nueva Zelanda,Wellington,179,02,459
+Nueva Zelanda,Wellington,179,06,579
+Nueva Zelanda,Wellington,179,10,3
+Nueva Zelanda,Wellington,179,14,245
+Nueva Zelanda,Wellington,179,18,9
+Nueva Zelanda,Wellington,179,22,13
+Nueva Zelanda,Wellington,179,26,26
+Nueva Zelanda,Wellington,179,30,39
+Nueva Zelanda,Wellington,179,34,1
+Nueva Zelanda,Wellington,179,38,7
+Nueva Zelanda,Wellington,179,42,9
+Nueva Zelanda,Wellington,179,46,1
+Nueva Zelanda,Wellington,179,50,73
+Nueva Zelanda,Wellington,179,54,22
+Nueva Zelanda,Wellington,179,58,26
+Nueva Zelanda,Wellington,179,62,26
+Nueva Zelanda,Wellington,179,66,21
+Nueva Zelanda,Wellington,179,70,7
+Nueva Zelanda,Wellington,179,74,12
+Nueva Zelanda,Wellington,179,78,10
+Nueva Zelanda,Wellington,179,82,92
+Nueva Zelanda,Wellington,179,86,13
+Nueva Zelanda,Wellington,179,90,29
+Nueva Zelanda,Wellington,179,94,9
+Pakistán,Islamabad,180,02,3
+Pakistán,Islamabad,180,06,1
+Pakistán,Islamabad,180,14,1
+Panamá,Panamá,181,02,707
+Panamá,Panamá,181,06,382
+Panamá,Panamá,181,10,3
+Panamá,Panamá,181,14,93
+Panamá,Panamá,181,18,8
+Panamá,Panamá,181,22,7
+Panamá,Panamá,181,26,6
+Panamá,Panamá,181,30,16
+Panamá,Panamá,181,38,7
+Panamá,Panamá,181,42,5
+Panamá,Panamá,181,46,2
+Panamá,Panamá,181,50,64
+Panamá,Panamá,181,54,11
+Panamá,Panamá,181,58,7
+Panamá,Panamá,181,62,12
+Panamá,Panamá,181,66,13
+Panamá,Panamá,181,70,7
+Panamá,Panamá,181,74,10
+Panamá,Panamá,181,78,4
+Panamá,Panamá,181,82,43
+Panamá,Panamá,181,86,4
+Panamá,Panamá,181,90,18
+Panamá,Panamá,181,94,1
+Paraguay,Asunción,188,02,2363
+Paraguay,Asunción,189,02,2362
+Paraguay,Asunción,190,02,669
+Paraguay,Asunción,190,06,1693
+Paraguay,Asunción,191,06,2362
+Paraguay,Asunción,192,06,1275
+Paraguay,Asunción,192,10,18
+Paraguay,Asunción,192,14,457
+Paraguay,Asunción,192,18,442
+Paraguay,Asunción,192,22,170
+Paraguay,Asunción,193,22,313
+Paraguay,Asunción,193,26,26
+Paraguay,Asunción,193,30,195
+Paraguay,Asunción,193,34,1828
+Paraguay,Asunción,194,34,603
+Paraguay,Asunción,194,38,29
+Paraguay,Asunción,194,42,23
+Paraguay,Asunción,194,46,12
+Paraguay,Asunción,194,50,101
+Paraguay,Asunción,194,54,723
+Paraguay,Asunción,194,58,19
+Paraguay,Asunción,194,62,42
+Paraguay,Asunción,194,66,73
+Paraguay,Asunción,194,70,29
+Paraguay,Asunción,194,74,19
+Paraguay,Asunción,194,78,11
+Paraguay,Asunción,194,82,551
+Paraguay,Asunción,194,86,37
+Paraguay,Asunción,194,90,87
+Paraguay,Asunción,194,94,3
+Paraguay,Ciudad del Este,195,02,541
+Paraguay,Ciudad del Este,195,06,703
+Paraguay,Ciudad del Este,195,10,1
+Paraguay,Ciudad del Este,195,14,33
+Paraguay,Ciudad del Este,195,18,37
+Paraguay,Ciudad del Este,195,22,28
+Paraguay,Ciudad del Este,195,26,2
+Paraguay,Ciudad del Este,195,30,15
+Paraguay,Ciudad del Este,195,34,85
+Paraguay,Ciudad del Este,195,38,6
+Paraguay,Ciudad del Este,195,42,3
+Paraguay,Ciudad del Este,195,46,1
+Paraguay,Ciudad del Este,195,50,12
+Paraguay,Ciudad del Este,195,54,400
+Paraguay,Ciudad del Este,195,58,4
+Paraguay,Ciudad del Este,195,62,2
+Paraguay,Ciudad del Este,195,66,5
+Paraguay,Ciudad del Este,195,70,5
+Paraguay,Ciudad del Este,195,74,1
+Paraguay,Ciudad del Este,195,82,25
+Paraguay,Ciudad del Este,195,86,3
+Paraguay,Ciudad del Este,195,90,6
+Paraguay,Encarnación,196,02,415
+Paraguay,Encarnación,196,06,630
+Paraguay,Encarnación,196,10,1
+Paraguay,Encarnación,196,14,23
+Paraguay,Encarnación,196,18,74
+Paraguay,Encarnación,196,22,45
+Paraguay,Encarnación,196,26,6
+Paraguay,Encarnación,196,30,43
+Paraguay,Encarnación,196,34,25
+Paraguay,Encarnación,197,34,24
+Paraguay,Encarnación,197,38,3
+Paraguay,Encarnación,197,42,2
+Paraguay,Encarnación,197,46,1
+Paraguay,Encarnación,197,50,4
+Paraguay,Encarnación,197,54,1151
+Paraguay,Encarnación,197,62,2
+Paraguay,Encarnación,197,66,2
+Paraguay,Encarnación,197,70,2
+Paraguay,Encarnación,197,74,2
+Paraguay,Encarnación,197,78,3
+Paraguay,Encarnación,197,82,59
+Paraguay,Encarnación,197,86,1
+Paraguay,Encarnación,197,90,5
+Países Bajos,La Haya,177,02,876
+Países Bajos,La Haya,177,06,712
+Países Bajos,La Haya,177,10,1
+Países Bajos,La Haya,177,14,184
+Países Bajos,La Haya,177,18,12
+Países Bajos,La Haya,177,22,9
+Países Bajos,La Haya,177,26,20
+Países Bajos,La Haya,177,30,17
+Países Bajos,La Haya,177,34,1
+Países Bajos,La Haya,177,38,2
+Países Bajos,La Haya,177,42,4
+Países Bajos,La Haya,177,46,3
+Países Bajos,La Haya,177,50,59
+Países Bajos,La Haya,177,54,12
+Países Bajos,La Haya,177,58,10
+Países Bajos,La Haya,177,62,26
+Países Bajos,La Haya,177,66,28
+Países Bajos,La Haya,177,70,8
+Países Bajos,La Haya,177,74,8
+Países Bajos,La Haya,177,78,2
+Países Bajos,La Haya,177,82,127
+Países Bajos,La Haya,177,86,4
+Países Bajos,La Haya,177,90,29
+Países Bajos,La Haya,177,94,5
+Perú,Lima,182,02,2160
+Perú,Lima,183,02,1010
+Perú,Lima,183,06,1150
+Perú,Lima,184,06,568
+Perú,Lima,184,10,14
+Perú,Lima,184,14,476
+Perú,Lima,184,18,36
+Perú,Lima,184,22,35
+Perú,Lima,184,26,25
+Perú,Lima,184,30,57
+Perú,Lima,184,34,16
+Perú,Lima,184,38,36
+Perú,Lima,184,42,13
+Perú,Lima,184,46,8
+Perú,Lima,184,50,224
+Perú,Lima,184,54,41
+Perú,Lima,184,58,30
+Perú,Lima,184,62,20
+Perú,Lima,184,66,70
+Perú,Lima,184,70,34
+Perú,Lima,184,74,19
+Perú,Lima,184,78,15
+Perú,Lima,184,82,267
+Perú,Lima,184,86,18
+Perú,Lima,184,90,131
+Perú,Lima,184,94,7
+Polonia,Varsovia,186,02,93
+Polonia,Varsovia,186,06,78
+Polonia,Varsovia,186,14,27
+Polonia,Varsovia,186,22,4
+Polonia,Varsovia,186,26,4
+Polonia,Varsovia,186,30,1
+Polonia,Varsovia,186,34,1
+Polonia,Varsovia,186,46,1
+Polonia,Varsovia,186,50,3
+Polonia,Varsovia,186,54,5
+Polonia,Varsovia,186,58,2
+Polonia,Varsovia,186,62,1
+Polonia,Varsovia,186,66,3
+Polonia,Varsovia,186,70,1
+Polonia,Varsovia,186,74,4
+Polonia,Varsovia,186,78,2
+Polonia,Varsovia,186,82,16
+Polonia,Varsovia,186,90,5
+Polonia,Varsovia,186,94,2
+Portugal,Lisboa,187,02,373
+Portugal,Lisboa,187,06,453
+Portugal,Lisboa,187,10,1
+Portugal,Lisboa,187,14,57
+Portugal,Lisboa,187,18,6
+Portugal,Lisboa,187,22,4
+Portugal,Lisboa,187,26,17
+Portugal,Lisboa,187,30,8
+Portugal,Lisboa,187,34,2
+Portugal,Lisboa,187,38,5
+Portugal,Lisboa,187,46,1
+Portugal,Lisboa,187,50,23
+Portugal,Lisboa,187,54,14
+Portugal,Lisboa,187,58,10
+Portugal,Lisboa,187,62,13
+Portugal,Lisboa,187,66,11
+Portugal,Lisboa,187,70,11
+Portugal,Lisboa,187,74,4
+Portugal,Lisboa,187,78,3
+Portugal,Lisboa,187,82,54
+Portugal,Lisboa,187,86,4
+Portugal,Lisboa,187,90,14
+Portugal,Lisboa,187,94,7
+Reino Unido,Londres,129,02,2476
+Reino Unido,Londres,130,02,963
+Reino Unido,Londres,130,06,1513
+Reino Unido,Londres,131,06,800
+Reino Unido,Londres,131,10,4
+Reino Unido,Londres,131,14,418
+Reino Unido,Londres,131,18,25
+Reino Unido,Londres,131,22,28
+Reino Unido,Londres,131,26,64
+Reino Unido,Londres,131,30,64
+Reino Unido,Londres,131,34,12
+Reino Unido,Londres,131,38,22
+Reino Unido,Londres,131,42,18
+Reino Unido,Londres,131,46,3
+Reino Unido,Londres,131,50,199
+Reino Unido,Londres,131,54,32
+Reino Unido,Londres,131,58,58
+Reino Unido,Londres,131,62,64
+Reino Unido,Londres,131,66,73
+Reino Unido,Londres,131,70,29
+Reino Unido,Londres,131,74,30
+Reino Unido,Londres,131,78,22
+Reino Unido,Londres,131,82,398
+Reino Unido,Londres,131,86,23
+Reino Unido,Londres,131,90,80
+Reino Unido,Londres,131,94,9
+República Checa,Praga,64,02,84
+República Checa,Praga,64,06,76
+República Checa,Praga,64,10,2
+República Checa,Praga,64,14,15
+República Checa,Praga,64,18,2
+República Checa,Praga,64,22,15
+República Checa,Praga,64,26,2
+República Checa,Praga,64,30,2
+República Checa,Praga,64,42,1
+República Checa,Praga,64,50,11
+República Checa,Praga,64,54,8
+República Checa,Praga,64,58,1
+República Checa,Praga,64,62,3
+República Checa,Praga,64,66,4
+República Checa,Praga,64,82,20
+República Checa,Praga,64,86,1
+República Checa,Praga,64,90,3
+República Dominicana,Santo Domingo,71,02,420
+República Dominicana,Santo Domingo,71,06,254
+República Dominicana,Santo Domingo,71,14,49
+República Dominicana,Santo Domingo,71,18,3
+República Dominicana,Santo Domingo,71,22,8
+República Dominicana,Santo Domingo,71,26,7
+República Dominicana,Santo Domingo,71,30,13
+República Dominicana,Santo Domingo,71,38,4
+República Dominicana,Santo Domingo,71,42,11
+República Dominicana,Santo Domingo,71,46,1
+República Dominicana,Santo Domingo,71,50,45
+República Dominicana,Santo Domingo,71,54,7
+República Dominicana,Santo Domingo,71,58,11
+República Dominicana,Santo Domingo,71,62,8
+República Dominicana,Santo Domingo,71,66,11
+República Dominicana,Santo Domingo,71,70,6
+República Dominicana,Santo Domingo,71,74,4
+República Dominicana,Santo Domingo,71,78,11
+República Dominicana,Santo Domingo,71,82,46
+República Dominicana,Santo Domingo,71,86,1
+República Dominicana,Santo Domingo,71,90,18
+República Dominicana,Santo Domingo,71,94,7
+Rumania,Bucarest,199,02,29
+Rumania,Bucarest,199,06,27
+Rumania,Bucarest,199,14,7
+Rumania,Bucarest,199,22,1
+Rumania,Bucarest,199,26,1
+Rumania,Bucarest,199,50,1
+Rumania,Bucarest,199,54,1
+Rumania,Bucarest,199,70,2
+Rumania,Bucarest,199,74,1
+Rumania,Bucarest,199,82,5
+Rumania,Bucarest,199,90,1
+Rusia,Moscú,200,02,130
+Rusia,Moscú,200,06,83
+Rusia,Moscú,200,14,6
+Rusia,Moscú,200,22,1
+Rusia,Moscú,200,26,1
+Rusia,Moscú,200,30,1
+Rusia,Moscú,200,34,1
+Rusia,Moscú,200,50,7
+Rusia,Moscú,200,54,5
+Rusia,Moscú,200,58,1
+Rusia,Moscú,200,62,2
+Rusia,Moscú,200,66,1
+Rusia,Moscú,200,70,1
+Rusia,Moscú,200,74,1
+Rusia,Moscú,200,82,5
+Rusia,Moscú,200,90,1
+Senegal,Senegal,275,02,2
+Senegal,Senegal,275,06,1
+Senegal,Senegal,275,50,2
+Serbia,Belgrado,204,02,20
+Serbia,Belgrado,204,06,6
+Serbia,Belgrado,204,14,1
+Serbia,Belgrado,204,22,2
+Serbia,Belgrado,204,26,2
+Serbia,Belgrado,204,30,1
+Serbia,Belgrado,204,46,1
+Serbia,Belgrado,204,58,1
+Serbia,Belgrado,204,66,2
+Serbia,Belgrado,204,78,1
+Singapur,Singapur,202,02,99
+Singapur,Singapur,202,06,67
+Singapur,Singapur,202,10,2
+Singapur,Singapur,202,14,12
+Singapur,Singapur,202,18,3
+Singapur,Singapur,202,26,2
+Singapur,Singapur,202,30,1
+Singapur,Singapur,202,34,1
+Singapur,Singapur,202,50,7
+Singapur,Singapur,202,58,1
+Singapur,Singapur,202,66,2
+Singapur,Singapur,202,82,6
+Singapur,Singapur,202,90,2
+Siria,Damasco,207,02,182
+Siria,Damasco,207,06,30
+Siria,Damasco,207,10,4
+Siria,Damasco,207,14,18
+Siria,Damasco,207,22,2
+Siria,Damasco,207,30,3
+Siria,Damasco,207,34,1
+Siria,Damasco,207,42,2
+Siria,Damasco,207,50,37
+Siria,Damasco,207,58,1
+Siria,Damasco,207,66,6
+Siria,Damasco,207,70,2
+Siria,Damasco,207,74,2
+Siria,Damasco,207,82,15
+Siria,Damasco,207,86,2
+Siria,Damasco,207,90,22
+Sudáfrica,Johannesburgo,208,02,348
+Sudáfrica,Johannesburgo,208,06,293
+Sudáfrica,Johannesburgo,208,14,44
+Sudáfrica,Johannesburgo,208,18,3
+Sudáfrica,Johannesburgo,208,22,2
+Sudáfrica,Johannesburgo,208,26,27
+Sudáfrica,Johannesburgo,208,30,11
+Sudáfrica,Johannesburgo,208,34,3
+Sudáfrica,Johannesburgo,208,42,2
+Sudáfrica,Johannesburgo,208,50,24
+Sudáfrica,Johannesburgo,208,54,5
+Sudáfrica,Johannesburgo,208,58,2
+Sudáfrica,Johannesburgo,208,62,11
+Sudáfrica,Johannesburgo,208,66,7
+Sudáfrica,Johannesburgo,208,70,1
+Sudáfrica,Johannesburgo,208,74,5
+Sudáfrica,Johannesburgo,208,78,1
+Sudáfrica,Johannesburgo,208,82,30
+Sudáfrica,Johannesburgo,208,86,3
+Sudáfrica,Johannesburgo,208,90,2
+Sudáfrica,Johannesburgo,208,94,3
+Suecia,Estocolmo,206,02,491
+Suecia,Estocolmo,206,06,382
+Suecia,Estocolmo,206,10,1
+Suecia,Estocolmo,206,14,98
+Suecia,Estocolmo,206,18,4
+Suecia,Estocolmo,206,22,6
+Suecia,Estocolmo,206,26,8
+Suecia,Estocolmo,206,30,18
+Suecia,Estocolmo,206,34,1
+Suecia,Estocolmo,206,38,9
+Suecia,Estocolmo,206,42,5
+Suecia,Estocolmo,206,46,2
+Suecia,Estocolmo,206,50,51
+Suecia,Estocolmo,206,54,21
+Suecia,Estocolmo,206,58,11
+Suecia,Estocolmo,206,62,14
+Suecia,Estocolmo,206,66,19
+Suecia,Estocolmo,206,70,10
+Suecia,Estocolmo,206,74,5
+Suecia,Estocolmo,206,78,2
+Suecia,Estocolmo,206,82,64
+Suecia,Estocolmo,206,86,6
+Suecia,Estocolmo,206,90,36
+Suecia,Estocolmo,206,94,3
+Suiza,Berna,41,02,1717
+Suiza,Berna,42,02,425
+Suiza,Berna,42,06,1292
+Suiza,Berna,43,06,42
+Suiza,Berna,43,10,8
+Suiza,Berna,43,14,349
+Suiza,Berna,43,18,29
+Suiza,Berna,43,22,28
+Suiza,Berna,43,26,29
+Suiza,Berna,43,30,55
+Suiza,Berna,43,34,11
+Suiza,Berna,43,38,17
+Suiza,Berna,43,42,18
+Suiza,Berna,43,46,4
+Suiza,Berna,43,50,131
+Suiza,Berna,43,54,478
+Suiza,Berna,43,58,34
+Suiza,Berna,43,62,57
+Suiza,Berna,43,66,44
+Suiza,Berna,43,70,17
+Suiza,Berna,43,74,13
+Suiza,Berna,43,78,17
+Suiza,Berna,43,82,235
+Suiza,Berna,43,86,12
+Suiza,Berna,43,90,74
+Suiza,Berna,43,94,15
+Surinam,Paramaribo,205,02,1
+Surinam,Paramaribo,205,06,1
+Tailandia,Bangkok,209,02,63
+Tailandia,Bangkok,209,06,33
+Tailandia,Bangkok,209,14,4
+Tailandia,Bangkok,209,18,1
+Tailandia,Bangkok,209,22,1
+Tailandia,Bangkok,209,42,1
+Tailandia,Bangkok,209,50,5
+Tailandia,Bangkok,209,58,1
+Tailandia,Bangkok,209,62,2
+Tailandia,Bangkok,209,82,11
+Tailandia,Bangkok,209,90,2
+Trinidad y Tobago,Puerto España,210,02,8
+Trinidad y Tobago,Puerto España,210,06,8
+Trinidad y Tobago,Puerto España,210,42,1
+Trinidad y Tobago,Puerto España,210,50,2
+Turquía,Estambul,212,02,24
+Turquía,Estambul,212,06,22
+Turquía,Estambul,212,10,2
+Turquía,Estambul,212,14,2
+Turquía,Estambul,212,26,2
+Turquía,Estambul,212,38,1
+Turquía,Estambul,212,46,1
+Turquía,Estambul,212,50,2
+Turquía,Estambul,212,58,1
+Turquía,Estambul,212,70,1
+Turquía,Estambul,212,82,4
+Turquía,Estambul,213,02,19
+Turquía,Estambul,213,06,12
+Turquía,Estambul,213,14,4
+Turquía,Estambul,213,50,1
+Turquía,Estambul,213,62,1
+Turquía,Estambul,213,70,1
+Turquía,Estambul,213,82,6
+Túnez,Túnez,211,02,8
+Túnez,Túnez,211,14,2
+Túnez,Túnez,211,50,2
+Túnez,Túnez,211,66,1
+Ucrania,Ankara,214,02,79
+Ucrania,Ankara,214,06,51
+Ucrania,Ankara,214,14,1
+Ucrania,Ankara,214,22,8
+Ucrania,Ankara,214,30,1
+Ucrania,Ankara,214,34,1
+Ucrania,Ankara,214,54,6
+Ucrania,Ankara,214,90,1
+Ucrania,Ankara,214,94,1
+Uruguay,Colonia,215,02,386
+Uruguay,Colonia,215,06,518
+Uruguay,Colonia,215,10,1
+Uruguay,Colonia,215,14,29
+Uruguay,Colonia,215,18,13
+Uruguay,Colonia,215,22,7
+Uruguay,Colonia,215,26,2
+Uruguay,Colonia,215,30,56
+Uruguay,Colonia,215,34,2
+Uruguay,Colonia,215,38,3
+Uruguay,Colonia,215,42,40
+Uruguay,Colonia,215,50,6
+Uruguay,Colonia,215,54,1
+Uruguay,Colonia,215,58,2
+Uruguay,Colonia,215,62,5
+Uruguay,Colonia,215,66,5
+Uruguay,Colonia,215,70,1
+Uruguay,Colonia,215,78,4
+Uruguay,Colonia,215,82,22
+Uruguay,Colonia,215,86,2
+Uruguay,Colonia,215,94,2
+Uruguay,Fray Bentos,216,02,143
+Uruguay,Fray Bentos,216,06,184
+Uruguay,Fray Bentos,216,14,21
+Uruguay,Fray Bentos,216,18,9
+Uruguay,Fray Bentos,216,22,2
+Uruguay,Fray Bentos,216,26,1
+Uruguay,Fray Bentos,216,30,200
+Uruguay,Fray Bentos,216,34,1
+Uruguay,Fray Bentos,216,42,30
+Uruguay,Fray Bentos,216,50,1
+Uruguay,Fray Bentos,216,54,9
+Uruguay,Fray Bentos,216,62,2
+Uruguay,Fray Bentos,216,66,1
+Uruguay,Fray Bentos,216,70,1
+Uruguay,Fray Bentos,216,74,1
+Uruguay,Fray Bentos,216,82,21
+Uruguay,Fray Bentos,216,86,2
+Uruguay,Maldonado,217-1,02,721
+Uruguay,Maldonado,217-2,02,721
+Uruguay,Maldonado,218-1,06,449
+Uruguay,Maldonado,218-1,10,2
+Uruguay,Maldonado,218-1,14,45
+Uruguay,Maldonado,218-1,18,8
+Uruguay,Maldonado,218-1,22,6
+Uruguay,Maldonado,218-1,26,5
+Uruguay,Maldonado,218-1,30,42
+Uruguay,Maldonado,218-1,34,1
+Uruguay,Maldonado,218-1,38,6
+Uruguay,Maldonado,218-1,42,2
+Uruguay,Maldonado,218-1,46,2
+Uruguay,Maldonado,218-1,50,20
+Uruguay,Maldonado,218-1,54,10
+Uruguay,Maldonado,218-1,58,6
+Uruguay,Maldonado,218-1,62,11
+Uruguay,Maldonado,218-1,66,5
+Uruguay,Maldonado,218-1,70,4
+Uruguay,Maldonado,218-1,74,1
+Uruguay,Maldonado,218-1,82,74
+Uruguay,Maldonado,218-1,86,4
+Uruguay,Maldonado,218-1,90,15
+Uruguay,Maldonado,218-1,94,3
+Uruguay,Maldonado,218-2,02,71
+Uruguay,Maldonado,218-2,06,417
+Uruguay,Maldonado,218-2,14,55
+Uruguay,Maldonado,218-2,18,9
+Uruguay,Maldonado,218-2,22,5
+Uruguay,Maldonado,218-2,26,5
+Uruguay,Maldonado,218-2,30,33
+Uruguay,Maldonado,218-2,38,1
+Uruguay,Maldonado,218-2,42,4
+Uruguay,Maldonado,218-2,46,1
+Uruguay,Maldonado,218-2,50,12
+Uruguay,Maldonado,218-2,54,4
+Uruguay,Maldonado,218-2,58,5
+Uruguay,Maldonado,218-2,62,13
+Uruguay,Maldonado,218-2,66,16
+Uruguay,Maldonado,218-2,70,5
+Uruguay,Maldonado,218-2,74,2
+Uruguay,Maldonado,218-2,78,1
+Uruguay,Maldonado,218-2,82,54
+Uruguay,Maldonado,218-2,86,3
+Uruguay,Maldonado,218-2,90,5
+Uruguay,Montevideo,219,02,2407
+Uruguay,Montevideo,220,02,2406
+Uruguay,Montevideo,221,02,2243
+Uruguay,Montevideo,221,06,163
+Uruguay,Montevideo,222,06,2406
+Uruguay,Montevideo,223,06,1864
+Uruguay,Montevideo,223,10,18
+Uruguay,Montevideo,223,14,492
+Uruguay,Montevideo,223,18,32
+Uruguay,Montevideo,224,18,125
+Uruguay,Montevideo,224,22,58
+Uruguay,Montevideo,224,26,46
+Uruguay,Montevideo,224,30,705
+Uruguay,Montevideo,224,34,43
+Uruguay,Montevideo,224,38,19
+Uruguay,Montevideo,224,42,57
+Uruguay,Montevideo,224,46,12
+Uruguay,Montevideo,224,50,157
+Uruguay,Montevideo,224,54,88
+Uruguay,Montevideo,224,58,58
+Uruguay,Montevideo,224,62,62
+Uruguay,Montevideo,224,66,66
+Uruguay,Montevideo,224,70,34
+Uruguay,Montevideo,224,74,24
+Uruguay,Montevideo,224,78,28
+Uruguay,Montevideo,224,82,613
+Uruguay,Montevideo,224,86,74
+Uruguay,Montevideo,224,90,127
+Uruguay,Montevideo,224,94,10
+Uruguay,Paysandú,225,02,146
+Uruguay,Paysandú,225,06,111
+Uruguay,Paysandú,225,10,1
+Uruguay,Paysandú,225,14,9
+Uruguay,Paysandú,225,18,29
+Uruguay,Paysandú,225,22,6
+Uruguay,Paysandú,225,26,2
+Uruguay,Paysandú,225,30,535
+Uruguay,Paysandú,225,34,2
+Uruguay,Paysandú,225,42,11
+Uruguay,Paysandú,225,50,3
+Uruguay,Paysandú,225,54,7
+Uruguay,Paysandú,225,58,2
+Uruguay,Paysandú,225,62,4
+Uruguay,Paysandú,225,66,1
+Uruguay,Paysandú,225,82,47
+Uruguay,Paysandú,225,86,3
+Uruguay,Paysandú,225,90,7
+Uruguay,Paysandú,225,94,1
+Uruguay,Salto,226,02,109
+Uruguay,Salto,226,06,105
+Uruguay,Salto,226,10,1
+Uruguay,Salto,226,14,15
+Uruguay,Salto,226,18,73
+Uruguay,Salto,226,22,6
+Uruguay,Salto,226,30,256
+Uruguay,Salto,226,34,2
+Uruguay,Salto,226,42,4
+Uruguay,Salto,226,50,1
+Uruguay,Salto,226,54,8
+Uruguay,Salto,226,58,10
+Uruguay,Salto,226,62,4
+Uruguay,Salto,226,66,1
+Uruguay,Salto,226,70,3
+Uruguay,Salto,226,82,26
+Uruguay,Salto,226,86,1
+Uruguay,Salto,226,90,2
+Venezuela,Caracas,272,02,2060
+Venezuela,Caracas,272,06,194
+Venezuela,Caracas,273,06,1023
+Venezuela,Caracas,273,10,6
+Venezuela,Caracas,273,14,370
+Venezuela,Caracas,273,18,15
+Venezuela,Caracas,273,22,18
+Venezuela,Caracas,273,26,39
+Venezuela,Caracas,273,30,48
+Venezuela,Caracas,273,34,5
+Venezuela,Caracas,273,38,12
+Venezuela,Caracas,273,42,8
+Venezuela,Caracas,273,46,9
+Venezuela,Caracas,273,50,170
+Venezuela,Caracas,273,54,13
+Venezuela,Caracas,273,58,16
+Venezuela,Caracas,273,62,25
+Venezuela,Caracas,273,66,23
+Venezuela,Caracas,273,70,45
+Venezuela,Caracas,273,74,16
+Venezuela,Caracas,273,78,11
+Venezuela,Caracas,273,82,268
+Venezuela,Caracas,273,86,13
+Venezuela,Caracas,273,90,99
+Venezuela,Caracas,273,94,2
+Vietnam,Hanói,274,02,17
+Vietnam,Hanói,274,06,12
+Vietnam,Hanói,274,14,3
+Vietnam,Hanói,274,26,2
+Vietnam,Hanói,274,30,1
+Vietnam,Hanói,274,42,1
+Vietnam,Hanói,274,50,1
+Vietnam,Hanói,274,54,1
+Vietnam,Hanói,274,62,4
+Vietnam,Hanói,274,74,1
