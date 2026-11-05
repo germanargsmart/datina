@@ -7,33 +7,33 @@
  "fuente": "Dirección Nacional de Asuntos Provinciales, Ministerio de Economía, e INDEC.",
  "actualizacion": "Se actualiza cada año.",
  "cobertura": "Sin desglose territorial",
- "periodo": "julio de 2022 a agosto de 2026",
- "filas": 50,
+ "periodo": "julio de 2022 a septiembre de 2026",
+ "filas": 51,
  "columnas": [
   {
    "nombre": "periodo",
    "tipo": "Fecha",
-   "valores": "julio de 2022 a agosto de 2026"
+   "valores": "julio de 2022 a septiembre de 2026"
   },
   {
    "nombre": "total",
    "tipo": "Número",
-   "valores": "269.025 a 343.429"
+   "valores": "266.205 a 343.429"
   },
   {
    "nombre": "administracion",
    "tipo": "Número",
-   "valores": "181.880 a 233.098"
+   "valores": "179.396 a 233.098"
   },
   {
    "nombre": "empresas",
    "tipo": "Número",
-   "valores": "87.145 a 111.389"
+   "valores": "86.809 a 111.389"
   }
  ],
  "unidades": [],
  "como_se_calcula": "",
- "datos_actualizados": "28/10/2026",
+ "datos_actualizados": "05/11/2026",
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
  "como_citar": "Datina (año de la consulta). ¿Cuántos cargos públicos tiene cada provincia? Con datos de Dirección Nacional de Asuntos Provinciales, Ministerio de Economía, e INDEC. https://datina.com.ar/gobierno.html#f-empleo-publico. Consultado el día de la consulta."

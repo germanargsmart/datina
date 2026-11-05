@@ -7,13 +7,13 @@
  "fuente": "BCRA, API de Estadísticas Monetarias y planilla de reservas internacionales y liquidez en moneda extranjera (formato del FMI), mensual.",
  "actualizacion": "Se actualiza cada mes.",
  "cobertura": "Sin desglose territorial",
- "periodo": "febrero de 1940 a octubre de 2026",
- "filas": 1041,
+ "periodo": "febrero de 1940 a noviembre de 2026",
+ "filas": 1042,
  "columnas": [
   {
    "nombre": "mes",
    "tipo": "Fecha",
-   "valores": "febrero de 1940 a octubre de 2026"
+   "valores": "febrero de 1940 a noviembre de 2026"
   },
   {
    "nombre": "millones_usd",
@@ -23,12 +23,12 @@
   {
    "nombre": "meses_importaciones",
    "tipo": "Número",
-   "valores": "3,47 a 17,09 (636 celdas vacías)"
+   "valores": "3,47 a 17,09 (637 celdas vacías)"
   }
  ],
  "unidades": [],
  "como_se_calcula": "",
- "datos_actualizados": "28/10/2026",
+ "datos_actualizados": "05/11/2026",
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
  "como_citar": "Datina (año de la consulta). ¿Cuántas reservas tiene el Banco Central? Con datos de BCRA, API de Estadísticas Monetarias y planilla de reservas internacionales y liquidez en moneda extranjera (formato del FMI), mensual. https://datina.com.ar/externo.html#f-reservas-bcra. Consultado el día de la consulta."

@@ -7,18 +7,18 @@
  "fuente": "Secretaría de Transporte, datos abiertos de SUBE.",
  "actualizacion": "Se actualiza cada mes.",
  "cobertura": "Sin desglose territorial",
- "periodo": "enero de 2020 a septiembre de 2026",
- "filas": 81,
+ "periodo": "enero de 2020 a octubre de 2026",
+ "filas": 82,
  "columnas": [
   {
    "nombre": "periodo",
    "tipo": "Fecha",
-   "valores": "enero de 2020 a septiembre de 2026"
+   "valores": "enero de 2020 a octubre de 2026"
   },
   {
    "nombre": "t",
    "tipo": "Número",
-   "valores": "2.020 a 2.026,67"
+   "valores": "2.020 a 2.026,75"
   },
   {
    "nombre": "total",
@@ -48,7 +48,7 @@
  ],
  "unidades": [],
  "como_se_calcula": "",
- "datos_actualizados": "28/10/2026",
+ "datos_actualizados": "05/11/2026",
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
  "como_citar": "Datina (año de la consulta). ¿Cuántas tarjetas SUBE se usan por día, y cuántas en trenes y subtes? Con datos de Secretaría de Transporte, datos abiertos de SUBE. https://datina.com.ar/movilidad.html#f-sube. Consultado el día de la consulta."

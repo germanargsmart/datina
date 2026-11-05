@@ -1,7 +1,7 @@
 {
  "tabla": "ingresos_aglomerados.csv",
  "titulo": "¿De cuánto es el ingreso por persona de los hogares en cada ciudad?",
- "descripcion": "Mediana del ingreso por persona del hogar y del ingreso de la ocupación principal en los 31 aglomerados urbanos, los cuatro trimestres hasta el primero de 2026, en pesos del primer trimestre de 2026",
+ "descripcion": "Mediana del ingreso por persona del hogar y del ingreso de la ocupación principal en los 31 aglomerados urbanos, los cuatro trimestres hasta el segundo de 2026, en pesos del segundo trimestre de 2026",
  "seccion": "Pobreza y hogares",
  "ficha": "https://datina.com.ar/pobreza.html#f-ingresos-aglomerados",
  "fuente": "INDEC, Encuesta Permanente de Hogares, bases usuarias trimestrales (procesamiento propio).",
@@ -28,22 +28,22 @@
   {
    "nombre": "ipcf_pesos",
    "tipo": "Número",
-   "valores": "340.150 a 925.950"
+   "valores": "333.350 a 936.000"
   },
   {
    "nombre": "ipcf_pct_pais",
    "tipo": "Número",
-   "valores": "68,03 a 185,19"
+   "valores": "66,67 a 187,2"
   },
   {
    "nombre": "ipcf_casos",
    "tipo": "Número",
-   "valores": "1.661 a 130.854"
+   "valores": "1.667 a 129.178"
   },
   {
    "nombre": "ipcf_pesos_ultimo_trimestre",
    "tipo": "Número",
-   "valores": "313.333,33 a 1.000.000"
+   "valores": "335.000 a 900.000"
   },
   {
    "nombre": "ocupacion_pesos",
@@ -58,17 +58,17 @@
   {
    "nombre": "ocupacion_casos",
    "tipo": "Número",
-   "valores": "789 a 62.923"
+   "valores": "790 a 62.592"
   },
   {
    "nombre": "ocupacion_pesos_ultimo_trimestre",
    "tipo": "Número",
-   "valores": "510.000 a 1.500.000"
+   "valores": "560.000 a 1.500.000"
   }
  ],
  "unidades": [],
  "como_se_calcula": "",
- "datos_actualizados": "28/10/2026",
+ "datos_actualizados": "05/11/2026",
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
  "como_citar": "Datina (año de la consulta). ¿De cuánto es el ingreso por persona de los hogares en cada ciudad? Con datos de INDEC, Encuesta Permanente de Hogares, bases usuarias trimestrales (procesamiento propio). https://datina.com.ar/pobreza.html#f-ingresos-aglomerados. Consultado el día de la consulta."
