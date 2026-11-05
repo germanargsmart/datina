@@ -4511,7 +4511,7 @@
    },
    {
     "titulo": "De dónde salen los datos",
-    "texto": "Desde 2011 son los archivos por mesa de la Dirección Nacional Electoral, con el escrutinio provisorio, el conteo de los telegramas de la noche de la elección. De 1983 a 2009 son los resultados del escrutinio definitivo por jurisdicción, que publica el mismo organismo. Los senadores se eligen por voto directo desde 2001, así que antes no hay datos de ese cargo. El Senado se renueva por tercios: cada elección de senadores abarca ocho jurisdicciones.",
+    "texto": "Desde 2011 son los archivos por mesa de la Dirección Nacional Electoral, con el escrutinio provisorio, el conteo de los telegramas de la noche de la elección. De 1983 a 2009, el total de cada jurisdicción es el del escrutinio definitivo, que publica el mismo organismo. Los senadores se eligen por voto directo desde 2001, así que antes no hay datos de ese cargo. El Senado se renueva por tercios: cada elección de senadores abarca ocho jurisdicciones.",
     "fuentes": [
      {
       "nombre": "Dirección Nacional Electoral, resultados electorales",
@@ -4546,9 +4546,18 @@
     ]
    },
    {
-    "titulo": "Por qué antes de 2011 no hay mesas",
-    "texto": "La Dirección Nacional Electoral publica por mesa desde 2011. De 2003 a 2009 los resultados por mesa existen en el Atlas Electoral de Andy Tow, pero Datina no tiene permiso para publicarlos. De 1983 a 2001 hay bases académicas por departamento o por circuito que no están disponibles para publicar. Si esas fuentes lo permiten, se pueden sumar.",
-    "fuentes": []
+    "titulo": "De 1983 a 2009: por departamento",
+    "texto": "La Dirección Nacional Electoral publica por mesa desde 2011. Antes, la herramienta llega al departamento, con los datos que publica el proyecto 257arg con licencia CC BY 4.0: de 1983 a 2001 salen de la base de Ernesto Calvo, y de 2003 a 2009, de PolAr, a partir del Atlas Electoral de Andy Tow. 257arg aclara que no redistribuye la base de Calvo y publica solo el resultado por departamento. No son el escrutinio definitivo: el total de cada jurisdicción sigue siendo el oficial, y si los departamentos se apartan más de 3% de él, la página lo avisa. En 1983 suman casi exacto lo mismo, y en 2003 hay jurisdicciones que pasan de 115%. Donde no hay resultados por departamento (San Luis en 1997 y 1999, Santa Cruz en 1999, La Pampa en 2003), se pinta la jurisdicción entera. CABA tiene 28 circunscripciones hasta 2007: la tabla las lista y el mapa la pinta entera, porque esos límites no están publicados. Los límites de los departamentos son los de la época, de la base de Rodríguez (CEUR-CONICET). Los senadores se publican por jurisdicción: por departamento no hay datos que se puedan publicar.",
+    "fuentes": [
+     {
+      "nombre": "257arg, atlas electorales de la Argentina (CC BY 4.0)",
+      "url": "https://azha2005.github.io/257arg/"
+     },
+     {
+      "nombre": "Rodríguez, CEUR-CONICET, departamentos históricos de la Argentina (CC BY 2.5 AR)",
+      "url": "https://datosdeinvestigacion.conicet.gov.ar/handle/11336/149867"
+     }
+    ]
    },
    {
     "titulo": "Para tener en cuenta",
