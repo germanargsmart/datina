@@ -1580,7 +1580,7 @@ svg.mapa-prov .caba-aparte line{stroke:var(--muted);stroke-width:.8}
 .dx-conjunto,.dx-contexto{margin:0 0 var(--e-4);padding:var(--e-4);background:var(--superficie-2);border-radius:var(--r-interno)}
 .dx-ayuda{margin:var(--e-4) 0 0;color:var(--muted)}
 .dx-no-dice{margin-top:var(--e-6);padding-top:var(--e-6);border-top:1px dotted var(--azul)}
-.dx-no-dice ul{margin:0;font-size:var(--t-2);line-height:var(--i-texto);max-width:var(--medida)}
+.dx-no-dice ul{margin:0;font-size:var(--t-2);line-height:var(--i-texto)}
 @media (max-width:760px){.dx-prov{padding:var(--e-4)}.dx-cifra b{font-size:var(--t-5)}}
 /* en pantallas angostas cada fila de la tabla es un bloque: el indicador arriba y sus tres valores con su rótulo */
 @media (max-width:560px){
@@ -1816,6 +1816,19 @@ svg.mapa-prov .caba-aparte line{stroke:var(--muted);stroke-width:.8}
 .nota-fuentes{margin-top:var(--e-7);padding-top:var(--e-4);border-top:1px dotted var(--azul)}
 .nota .nota-fuentes p{font-size:var(--t-3);color:var(--muted)}
 .nota-fuentes .acciones{margin-left:0}
+/* "Qué no dice este dato" a todo el ancho (pedido del autor del 5 de noviembre de 2026: "queda a la mitad el texto"). Desde 900 píxeles el bloque llega
+   hasta el borde del contenido y, para que las líneas no sean larguísimas, el texto va en dos columnas parejas: cada aclaración entera en su columna,
+   todas con su línea arriba para que las dos columnas arranquen a la misma altura. El resto del artículo sigue en su columna de lectura */
+@media (min-width:900px){
+  .notas>.nota{max-width:none}
+  .notas>.nota>:not(.nota-limites){max-width:740px}
+  .pieza .nota>.nota-limites{max-width:none}
+  .nota-limites ul,.dx-no-dice ul{columns:2;column-gap:var(--e-7)}
+  .nota-limites li,.dx-no-dice li{break-inside:avoid}
+  .nota-limites li:first-child,.dx-no-dice li:first-child{padding-top:var(--e-3);border-top:1px solid var(--borde)}
+  .nota-leer{display:grid;grid-template-columns:1fr 1fr;column-gap:var(--e-7)}
+  .nota-leer h3{margin:0}
+}
 @media (max-width:760px){
   .nota-cab{grid-template-columns:56px 1fr;gap:var(--e-3)}
   .nota-ico{width:56px;height:56px}
@@ -2103,7 +2116,7 @@ p code{overflow-wrap:anywhere}
 .ms-bajadas{display:flex;flex-direction:column;gap:var(--e-1)}
 .ms-bajadas [hidden]{display:none}
 .ms-limites{margin-top:var(--e-6);padding-top:var(--e-4);border-top:1px dotted var(--azul)}
-.ms-limites ul{margin:var(--e-3) 0 0;max-width:var(--medida);font-size:var(--t-3);line-height:var(--i-texto)}
+.ms-limites ul{margin:0;font-size:var(--t-3);line-height:var(--i-texto)}
 /* el mapa por circuito (5 de noviembre de 2026). Los colores de las fuerzas los trae el dato (datos/manual/mesas_fuerzas.json): el autor pidió los de cada logo, así que acá el violeta y el rojo son de los partidos */
 .ms-mapa[hidden],.ms-mapa-f[hidden],.ms-falla[hidden]{display:none}
 .ms-mapa-controles{display:flex;flex-wrap:wrap;align-items:flex-end;gap:var(--e-3) var(--e-4);margin-top:var(--e-4)}
