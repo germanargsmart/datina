@@ -34,6 +34,8 @@ Hecho por el autor el 26 de octubre de 2026: `https://datina.pages.dev`. Cuidado
 
 ## Verificar (después de cada publicación importante)
 
+Antes de pedir nada al sitio, esperar a que el control "Cloudflare Pages" del commit unido termine en verde (`gh api repos/germanargsmart/datina/commits/COMMIT/check-runs`). Una dirección con huella nueva (`datina.css?v=...`) pedida antes de que termine devuelve el archivo viejo, y Cloudflare y el navegador lo guardan un año con esa dirección, sin borrarlo al publicar. Pasó el 5 de noviembre de 2026 con el PR #102: la comprobación se adelantó unos segundos y el arreglo no se veía. Si pasa, se publica el archivo con cualquier cambio, aunque sea en un comentario: cambia la huella y todos bajan el nuevo.
+
 1. Abrir en computadora y en celular: la portada, una sección (por ejemplo, Trabajo), un artículo, Tu provincia, Cruces, el Catálogo, el Explorador de relaciones y el consultor de pobreza (la consulta guiada y abrir el editor de SQL).
 2. Una dirección que no existe (`https://datina.pages.dev/a/b/c`): tiene que mostrar "Esta página no existe" con estilos y la barra.
 3. La caché: en el navegador, herramientas de desarrollo, pestaña "Red", recargar la portada y mirar `datina.js?v=...`: tiene que decir `Cache-Control: public, max-age=31536000, immutable`.

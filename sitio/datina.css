@@ -1816,7 +1816,7 @@ svg.mapa-prov .caba-aparte line{stroke:var(--muted);stroke-width:.8}
 .nota-fuentes{margin-top:var(--e-7);padding-top:var(--e-4);border-top:1px dotted var(--azul)}
 .nota .nota-fuentes p{font-size:var(--t-3);color:var(--muted)}
 .nota-fuentes .acciones{margin-left:0}
-/* "Qué no dice este dato" a todo el ancho (pedido del autor del 5 de noviembre de 2026: "queda a la mitad el texto"). Desde 900 píxeles el bloque llega
+/* "Qué no dice este dato" a todo el ancho (pedido del autor del 5 de noviembre de 2026: "queda a la mitad el texto", PR #102). Desde 900 píxeles el bloque llega
    hasta el borde del contenido y, para que las líneas no sean larguísimas, el texto va en dos columnas parejas: cada aclaración entera en su columna,
    todas con su línea arriba para que las dos columnas arranquen a la misma altura. El resto del artículo sigue en su columna de lectura */
 @media (min-width:900px){
