@@ -48,9 +48,10 @@
   --sol:#F6B40E; --sol-fuerte:#B27A00; --sol-suave:#FDF0CC; --sol-borde:#85340A;
   --sol-texto:#7F5500;
   /* cambio bueno o malo (etapa 16): verde azulado y bermellón de la paleta de Okabe e Ito, que se distinguen también con daltonismo.
-     Solo donde la dirección no se discute (ver "Reglas de diseño" en CLAUDE.md). Los de texto pasan 4,5 a 1 sobre el blanco */
+     Solo donde la dirección no se discute (ver "Reglas de diseño" en CLAUDE.md). Los de texto pasan 4,5 a 1 sobre el blanco. --bueno-texto, también
+     sobre una tarjeta con el mouse encima (--superficie-3): el 5 de noviembre de 2026 bajó de #007A59 a #007253 */
   --bueno:#009E73; --bueno-suave:#BFE7DA; --bueno-texto:#007253; --malo:#D55E00; --malo-suave:#F5D2B8; --malo-texto:#B34700;  /* dorado del sol para texto chico: pasa 4,5 a 1 sobre el blanco y sobre el vidrio del menú encima del azul */
-  --rojo:#C8102E; --rojo-oscuro:#8A1422; /* gorro frigio del escudo */
+  --rojo:#C8102E; --rojo-oscuro:#8A1422; /* gorro frigio del escudo. También el rojo de "Cómo cambió su puesto": ver .dp-pendiente */
   --ocde:#7A4FA0; --ocde-suave:#ECE3F5; /* promedio de los países de la OCDE, solo dentro de los gráficos */
   /* sobre el azul de la portada */
   --en-azul-texto:rgba(255,255,255,.95); --en-azul-borde:rgba(255,255,255,.7); --en-azul-linea:rgba(255,255,255,.35); --en-azul-velo:rgba(255,255,255,.14);

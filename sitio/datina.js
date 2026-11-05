@@ -7356,7 +7356,7 @@ const series = [...d3.group(filas, r => r.variable).entries()].map(([v, s]) => (
 caja.hidden = false;
 caja.innerHTML = `<h2 class="bloque-grupo" id="prov-puestos-t">Cómo cambió su puesto</h2>` +
 `<p class="prov-destaca-sub">El lugar de ${NOMBRES[prov]} entre las 24 jurisdicciones, cada dos años. Arriba, el mejor puesto (en mortalidad o robos, la cifra más baja): ` +
-`verde si mejoró y rojo si empeoró. Compara con las otras: la cifra puede mejorar aunque pierda lugares.</p>` +
+`verde si mejoró y rojo si empeoró. El puesto compara con las otras jurisdicciones: la cifra de ${NOMBRES[prov]} puede mejorar aunque el puesto empeore.</p>` +
 `<div class="perfil-tarjetas">` +
 series.map(({v, s}) => {
 const ini = s[0], fin = s[s.length - 1], dif = ini.puesto - fin.puesto, neutro = ini.sentido === "neutro";
