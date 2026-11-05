@@ -249,14 +249,24 @@ APRENDER = {}  # anio y nivel de la ultima evaluacion Aprender encontrada, para 
 
 
 def aprender(area):
-    """Base agregada de Aprender de 6 grado de primaria del anio mas reciente publicado en datos.gob.ar."""
+    """Base agregada de Aprender de 6 grado de primaria del anio mas reciente publicado en datos.gob.ar.
+    Desde el 5 de noviembre de 2026 los paquetes se llaman educacion-aprender-AAAA (antes aprender-AAAA) y el de 2025 ya no esta en el
+    catalogo (su enlace da 403): nunca se reemplaza la base guardada por la de un anio anterior (aprender_meta.json), se conserva."""
+    try:
+        guardado = json.loads((CRUDO / "aprender_meta.json").read_text(encoding="utf-8"))["anio"]
+    except Exception:
+        guardado = 0
     try:
         res = json.loads(leer("https://datos.gob.ar/api/3/action/package_search?q=aprender&rows=50", 60))["result"]["results"]
-        paquetes = sorted([x for x in res if re.fullmatch(r"aprender-\d{4}", x["name"])], key=lambda x: x["name"], reverse=True)
+        paquetes = sorted([x for x in res if re.fullmatch(r"(?:educacion-)?aprender-\d{4}", x["name"])], key=lambda x: x["name"][-4:], reverse=True)
         for paq in paquetes:
+            anio = int(paq["name"][-4:])
             for r in paq["resources"]:
                 if "Primaria 6" in r["name"] and "Agregada - Desempe" in r["name"] and area in r["name"]:
-                    APRENDER.update(anio=int(paq["name"][-4:]), nivel="6 grado de primaria")
+                    if anio < guardado:
+                        print(f"  aviso: Aprender {area}: el catalogo tiene 6 grado hasta {anio}, se conserva la base guardada de {guardado}")
+                        return None
+                    APRENDER.update(anio=anio, nivel="6 grado de primaria")
                     return r["url"] + ("&" if "?" in r["url"] else "?") + "download=1"
     except Exception:
         pass
