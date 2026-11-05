@@ -8,8 +8,8 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "1996-01-03",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 50228.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 50439.0
  },
  {
   "idVariable": 4,
@@ -20,8 +20,8 @@
   "unidadExpresion": "Pesos argentinos por dólar estadounidense",
   "moneda": "ML",
   "primerFechaInformada": "2010-06-01",
-  "ultFechaInformada": "2026-10-23",
-  "ultValorInformado": 1549.77
+  "ultFechaInformada": "2026-11-04",
+  "ultValorInformado": 1571.4
  },
  {
   "idVariable": 5,
@@ -32,8 +32,8 @@
   "unidadExpresion": "Pesos argentinos por dólar estadounidense",
   "moneda": "ML",
   "primerFechaInformada": "2002-03-04",
-  "ultFechaInformada": "2026-10-23",
-  "ultValorInformado": 1528.263
+  "ultFechaInformada": "2026-11-04",
+  "ultValorInformado": 1548.4941
  },
  {
   "idVariable": 7,
@@ -44,8 +44,8 @@
   "unidadExpresion": "En porcentaje nominal anual",
   "moneda": "ML",
   "primerFechaInformada": "1999-01-04",
-  "ultFechaInformada": "2026-10-22",
-  "ultValorInformado": 22.9375
+  "ultFechaInformada": "2026-11-03",
+  "ultValorInformado": 22.75
  },
  {
   "idVariable": 8,
@@ -56,8 +56,8 @@
   "unidadExpresion": "En porcentaje nominal anual",
   "moneda": "ML",
   "primerFechaInformada": "2017-01-02",
-  "ultFechaInformada": "2026-10-22",
-  "ultValorInformado": 23.375
+  "ultFechaInformada": "2026-11-03",
+  "ultValorInformado": 23.125
  },
  {
   "idVariable": 11,
@@ -68,8 +68,8 @@
   "unidadExpresion": "En porcentaje nominal anual",
   "moneda": "ML",
   "primerFechaInformada": "1999-01-05",
-  "ultFechaInformada": "2026-10-22",
-  "ultValorInformado": 20.97
+  "ultFechaInformada": "2026-11-03",
+  "ultValorInformado": 21.86
  },
  {
   "idVariable": 12,
@@ -80,8 +80,8 @@
   "unidadExpresion": "En porcentaje nominal anual",
   "moneda": "ML",
   "primerFechaInformada": "1985-08-26",
-  "ultFechaInformada": "2026-10-22",
-  "ultValorInformado": 21.99
+  "ultFechaInformada": "2026-11-03",
+  "ultValorInformado": 22.12
  },
  {
   "idVariable": 13,
@@ -92,8 +92,8 @@
   "unidadExpresion": "En porcentaje nominal anual",
   "moneda": "ML",
   "primerFechaInformada": "2009-01-02",
-  "ultFechaInformada": "2026-10-22",
-  "ultValorInformado": 24.79
+  "ultFechaInformada": "2026-11-03",
+  "ultValorInformado": 25.53
  },
  {
   "idVariable": 14,
@@ -104,8 +104,8 @@
   "unidadExpresion": "En porcentaje nominal anual",
   "moneda": "ML",
   "primerFechaInformada": "2010-07-01",
-  "ultFechaInformada": "2026-10-22",
-  "ultValorInformado": 62.57
+  "ultFechaInformada": "2026-11-03",
+  "ultValorInformado": 62.14
  },
  {
   "idVariable": 15,
@@ -116,8 +116,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1996-01-02",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 47197874.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 47241558.0
  },
  {
   "idVariable": 16,
@@ -128,8 +128,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1996-01-02",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 28630453.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 29355590.0
  },
  {
   "idVariable": 17,
@@ -140,8 +140,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1996-01-02",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 26478720.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 27023314.0
  },
  {
   "idVariable": 18,
@@ -152,8 +152,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1984-03-01",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 2151733.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 2332276.0
  },
  {
   "idVariable": 19,
@@ -164,8 +164,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "2001-06-01",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 18567421.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 17885968.0
  },
  {
   "idVariable": 21,
@@ -176,8 +176,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "MEyML",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 249164739.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 251936749.0
  },
  {
   "idVariable": 22,
@@ -188,8 +188,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "MEyML",
   "primerFechaInformada": "1996-01-02",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 36776186.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 34913379.0
  },
  {
   "idVariable": 23,
@@ -200,8 +200,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "MEyML",
   "primerFechaInformada": "1996-01-02",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 77908147.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 82673488.0
  },
  {
   "idVariable": 24,
@@ -212,8 +212,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "MEyML",
   "primerFechaInformada": "1996-01-02",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 118797151.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 118282022.0
  },
  {
   "idVariable": 25,
@@ -224,8 +224,8 @@
   "unidadExpresion": "En porcentaje",
   "moneda": "ML",
   "primerFechaInformada": "2004-02-01",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 20.7
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 21.3
  },
  {
   "idVariable": 26,
@@ -236,8 +236,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "MEyML",
   "primerFechaInformada": "1996-04-01",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 148960577.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 151542993.0
  },
  {
   "idVariable": 27,
@@ -284,8 +284,8 @@
   "unidadExpresion": "Índice base 2.2.02=1",
   "moneda": "ML",
   "primerFechaInformada": "2002-02-02",
-  "ultFechaInformada": "2026-10-24",
-  "ultValorInformado": 859.14048230345
+  "ultFechaInformada": "2026-11-05",
+  "ultValorInformado": 865.42290125649
  },
  {
   "idVariable": 31,
@@ -296,8 +296,8 @@
   "unidadExpresion": "En ARS",
   "moneda": "ML",
   "primerFechaInformada": "2016-03-31",
-  "ultFechaInformada": "2026-10-24",
-  "ultValorInformado": 2168.29
+  "ultFechaInformada": "2026-11-05",
+  "ultValorInformado": 2184.15
  },
  {
   "idVariable": 32,
@@ -308,8 +308,8 @@
   "unidadExpresion": "En ARS",
   "moneda": "ML",
   "primerFechaInformada": "2016-03-31",
-  "ultFechaInformada": "2026-10-24",
-  "ultValorInformado": 1590.78
+  "ultFechaInformada": "2026-11-05",
+  "ultValorInformado": 1599.97
  },
  {
   "idVariable": 35,
@@ -320,8 +320,8 @@
   "unidadExpresion": "En porcentaje efectivo anual",
   "moneda": "ML",
   "primerFechaInformada": "2020-01-23",
-  "ultFechaInformada": "2026-10-22",
-  "ultValorInformado": 25.5
+  "ultFechaInformada": "2026-11-03",
+  "ultValorInformado": 25.26
  },
  {
   "idVariable": 40,
@@ -332,8 +332,8 @@
   "unidadExpresion": "Índice base 30.6.20=1",
   "moneda": "ML",
   "primerFechaInformada": "2020-07-01",
-  "ultFechaInformada": "2026-10-24",
-  "ultValorInformado": 37.05
+  "ultFechaInformada": "2026-11-05",
+  "ultValorInformado": 37.3
  },
  {
   "idVariable": 43,
@@ -344,8 +344,8 @@
   "unidadExpresion": "En porcentaje",
   "moneda": "ML",
   "primerFechaInformada": "1991-04-01",
-  "ultFechaInformada": "2026-10-24",
-  "ultValorInformado": 27573.6388
+  "ultFechaInformada": "2026-11-05",
+  "ultValorInformado": 27740.9488
  },
  {
   "idVariable": 44,
@@ -356,8 +356,8 @@
   "unidadExpresion": "En porcentaje nominal anual",
   "moneda": "ML",
   "primerFechaInformada": "2024-10-01",
-  "ultFechaInformada": "2026-10-22",
-  "ultValorInformado": 24.5
+  "ultFechaInformada": "2026-11-03",
+  "ultValorInformado": 24.0
  },
  {
   "idVariable": 45,
@@ -368,8 +368,8 @@
   "unidadExpresion": "En porcentaje efectivo anual",
   "moneda": "ML",
   "primerFechaInformada": "2024-10-01",
-  "ultFechaInformada": "2026-10-22",
-  "ultValorInformado": 27.43
+  "ultFechaInformada": "2026-11-03",
+  "ultValorInformado": 26.81
  },
  {
   "idVariable": 46,
@@ -380,8 +380,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "2003-01-02",
-  "ultFechaInformada": "2026-10-20",
-  "ultValorInformado": 837072.0
+  "ultFechaInformada": "2026-10-30",
+  "ultValorInformado": 1116347.0
  },
  {
   "idVariable": 47,
@@ -392,8 +392,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "2003-01-02",
-  "ultFechaInformada": "2026-10-20",
-  "ultValorInformado": 157768.25
+  "ultFechaInformada": "2026-10-30",
+  "ultValorInformado": 147570.7
  },
  {
   "idVariable": 48,
@@ -404,7 +404,7 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "2003-01-02",
-  "ultFechaInformada": "2026-10-20",
+  "ultFechaInformada": "2026-10-30",
   "ultValorInformado": 0.0
  },
  {
@@ -416,7 +416,7 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "2003-01-02",
-  "ultFechaInformada": "2026-10-20",
+  "ultFechaInformada": "2026-10-30",
   "ultValorInformado": 0.0
  },
  {
@@ -428,7 +428,7 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "2003-01-02",
-  "ultFechaInformada": "2026-10-20",
+  "ultFechaInformada": "2026-10-30",
   "ultValorInformado": 0.0
  },
  {
@@ -440,8 +440,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "2003-01-02",
-  "ultFechaInformada": "2026-10-20",
-  "ultValorInformado": -383.0982
+  "ultFechaInformada": "2026-10-30",
+  "ultValorInformado": -51456.1215
  },
  {
   "idVariable": 52,
@@ -452,7 +452,7 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "2003-01-02",
-  "ultFechaInformada": "2026-10-20",
+  "ultFechaInformada": "2026-10-30",
   "ultValorInformado": 0.0
  },
  {
@@ -464,7 +464,7 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "2003-01-02",
-  "ultFechaInformada": "2026-10-20",
+  "ultFechaInformada": "2026-10-30",
   "ultValorInformado": 0.0
  },
  {
@@ -476,7 +476,7 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "2003-01-02",
-  "ultFechaInformada": "2026-10-20",
+  "ultFechaInformada": "2026-10-30",
   "ultValorInformado": 0.0
  },
  {
@@ -488,7 +488,7 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "2003-01-02",
-  "ultFechaInformada": "2026-10-20",
+  "ultFechaInformada": "2026-10-30",
   "ultValorInformado": 0.0
  },
  {
@@ -500,7 +500,7 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "2003-01-02",
-  "ultFechaInformada": "2026-10-20",
+  "ultFechaInformada": "2026-10-30",
   "ultValorInformado": 0.0
  },
  {
@@ -512,7 +512,7 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "2003-01-02",
-  "ultFechaInformada": "2026-10-20",
+  "ultFechaInformada": "2026-10-30",
   "ultValorInformado": 0.0
  },
  {
@@ -524,7 +524,7 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "2003-01-02",
-  "ultFechaInformada": "2026-10-20",
+  "ultFechaInformada": "2026-10-30",
   "ultValorInformado": 0.0
  },
  {
@@ -536,8 +536,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "2003-01-02",
-  "ultFechaInformada": "2026-10-20",
-  "ultValorInformado": 679686.8482
+  "ultFechaInformada": "2026-10-30",
+  "ultValorInformado": 1020232.4215
  },
  {
   "idVariable": 60,
@@ -548,8 +548,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "2003-01-02",
-  "ultFechaInformada": "2026-10-20",
-  "ultValorInformado": -70092.0
+  "ultFechaInformada": "2026-10-30",
+  "ultValorInformado": 71242.0
  },
  {
   "idVariable": 61,
@@ -560,8 +560,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "2003-01-02",
-  "ultFechaInformada": "2026-10-20",
-  "ultValorInformado": 13566.0
+  "ultFechaInformada": "2026-10-30",
+  "ultValorInformado": 108353.0
  },
  {
   "idVariable": 62,
@@ -572,7 +572,7 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "2003-01-02",
-  "ultFechaInformada": "2026-10-20",
+  "ultFechaInformada": "2026-10-30",
   "ultValorInformado": 0.0
  },
  {
@@ -584,8 +584,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "2003-01-02",
-  "ultFechaInformada": "2026-10-20",
-  "ultValorInformado": 893598.0
+  "ultFechaInformada": "2026-10-30",
+  "ultValorInformado": 936752.0
  },
  {
   "idVariable": 64,
@@ -596,8 +596,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "2003-01-02",
-  "ultFechaInformada": "2026-10-20",
-  "ultValorInformado": 837072.0
+  "ultFechaInformada": "2026-10-30",
+  "ultValorInformado": 1116347.0
  },
  {
   "idVariable": 65,
@@ -608,7 +608,7 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "2003-01-02",
-  "ultFechaInformada": "2026-10-20",
+  "ultFechaInformada": "2026-10-30",
   "ultValorInformado": 0.0
  },
  {
@@ -620,8 +620,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "2003-01-02",
-  "ultFechaInformada": "2026-10-20",
-  "ultValorInformado": 837072.0
+  "ultFechaInformada": "2026-10-30",
+  "ultValorInformado": 1116347.0
  },
  {
   "idVariable": 67,
@@ -632,8 +632,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "2003-01-02",
-  "ultFechaInformada": "2026-10-20",
-  "ultValorInformado": 26491177.0
+  "ultFechaInformada": "2026-10-30",
+  "ultValorInformado": 26859136.0
  },
  {
   "idVariable": 68,
@@ -644,8 +644,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "2003-01-02",
-  "ultFechaInformada": "2026-10-20",
-  "ultValorInformado": 2185450.0
+  "ultFechaInformada": "2026-10-30",
+  "ultValorInformado": 2287250.0
  },
  {
   "idVariable": 69,
@@ -656,7 +656,7 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "2003-01-02",
-  "ultFechaInformada": "2026-10-20",
+  "ultFechaInformada": "2026-10-30",
   "ultValorInformado": 0.0
  },
  {
@@ -668,8 +668,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "2003-01-02",
-  "ultFechaInformada": "2026-10-20",
-  "ultValorInformado": 18319672.0
+  "ultFechaInformada": "2026-10-30",
+  "ultValorInformado": 18175234.0
  },
  {
   "idVariable": 71,
@@ -680,8 +680,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "2003-01-02",
-  "ultFechaInformada": "2026-10-20",
-  "ultValorInformado": 46996299.0
+  "ultFechaInformada": "2026-10-30",
+  "ultValorInformado": 47321620.0
  },
  {
   "idVariable": 72,
@@ -692,7 +692,7 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "2003-01-02",
-  "ultFechaInformada": "2026-10-20",
+  "ultFechaInformada": "2026-10-30",
   "ultValorInformado": 0.0
  },
  {
@@ -704,8 +704,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "2003-01-02",
-  "ultFechaInformada": "2026-10-20",
-  "ultValorInformado": 46996299.0
+  "ultFechaInformada": "2026-10-30",
+  "ultValorInformado": 47321620.0
  },
  {
   "idVariable": 74,
@@ -716,8 +716,8 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "2003-01-02",
-  "ultFechaInformada": "2026-10-20",
-  "ultValorInformado": 50201.0
+  "ultFechaInformada": "2026-10-30",
+  "ultValorInformado": 48565.0
  },
  {
   "idVariable": 75,
@@ -728,8 +728,8 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "2003-01-02",
-  "ultFechaInformada": "2026-10-20",
-  "ultValorInformado": 50201.0
+  "ultFechaInformada": "2026-10-30",
+  "ultValorInformado": 48565.0
  },
  {
   "idVariable": 76,
@@ -740,7 +740,7 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "2003-01-02",
-  "ultFechaInformada": "2026-10-20",
+  "ultFechaInformada": "2026-10-30",
   "ultValorInformado": 0.0
  },
  {
@@ -752,8 +752,8 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "2003-01-02",
-  "ultFechaInformada": "2026-10-20",
-  "ultValorInformado": 48.4216
+  "ultFechaInformada": "2026-10-30",
+  "ultValorInformado": -1598.5088
  },
  {
   "idVariable": 78,
@@ -764,8 +764,8 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "2003-01-02",
-  "ultFechaInformada": "2026-10-20",
-  "ultValorInformado": 103.5
+  "ultFechaInformada": "2026-10-30",
+  "ultValorInformado": 96.0
  },
  {
   "idVariable": 79,
@@ -776,8 +776,8 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "2003-01-02",
-  "ultFechaInformada": "2026-10-20",
-  "ultValorInformado": 0.0
+  "ultFechaInformada": "2026-10-30",
+  "ultValorInformado": -2.8735
  },
  {
   "idVariable": 80,
@@ -788,8 +788,8 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "2003-01-02",
-  "ultFechaInformada": "2026-10-20",
-  "ultValorInformado": -13.2339
+  "ultFechaInformada": "2026-10-30",
+  "ultValorInformado": -28.4769
  },
  {
   "idVariable": 81,
@@ -800,8 +800,8 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "2003-01-02",
-  "ultFechaInformada": "2026-10-20",
-  "ultValorInformado": -31.7115
+  "ultFechaInformada": "2026-10-30",
+  "ultValorInformado": -1498.2936
  },
  {
   "idVariable": 82,
@@ -812,8 +812,8 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "2003-01-02",
-  "ultFechaInformada": "2026-10-20",
-  "ultValorInformado": -10.1329
+  "ultFechaInformada": "2026-10-30",
+  "ultValorInformado": -164.8648
  },
  {
   "idVariable": 83,
@@ -824,7 +824,7 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "2003-01-02",
-  "ultFechaInformada": "2026-10-20",
+  "ultFechaInformada": "2026-10-30",
   "ultValorInformado": 0.0
  },
  {
@@ -836,8 +836,8 @@
   "unidadExpresion": "Pesos argentinos por dólar estadounidense",
   "moneda": "ML",
   "primerFechaInformada": "2003-01-02",
-  "ultFechaInformada": "2026-10-20",
-  "ultValorInformado": 1524.8401
+  "ultFechaInformada": "2026-10-30",
+  "ultValorInformado": 1537.3487
  },
  {
   "idVariable": 85,
@@ -848,8 +848,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "2002-12-31",
-  "ultFechaInformada": "2026-10-20",
-  "ultValorInformado": 35893138.0
+  "ultFechaInformada": "2026-10-30",
+  "ultValorInformado": 35233834.0
  },
  {
   "idVariable": 86,
@@ -860,8 +860,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "2002-12-31",
-  "ultFechaInformada": "2026-10-20",
-  "ultValorInformado": 28497089.0
+  "ultFechaInformada": "2026-10-30",
+  "ultValorInformado": 34342230.0
  },
  {
   "idVariable": 87,
@@ -872,8 +872,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "2002-12-31",
-  "ultFechaInformada": "2026-10-20",
-  "ultValorInformado": 96854511.394
+  "ultFechaInformada": "2026-10-30",
+  "ultValorInformado": 96385970.188
  },
  {
   "idVariable": 88,
@@ -884,8 +884,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "2003-01-31",
-  "ultFechaInformada": "2026-10-20",
-  "ultValorInformado": 2023941.606
+  "ultFechaInformada": "2026-10-30",
+  "ultValorInformado": 2095485.812
  },
  {
   "idVariable": 89,
@@ -896,8 +896,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "2002-12-31",
-  "ultFechaInformada": "2026-10-20",
-  "ultValorInformado": 3134944.0
+  "ultFechaInformada": "2026-10-30",
+  "ultValorInformado": 3143284.0
  },
  {
   "idVariable": 90,
@@ -908,7 +908,7 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "2002-12-31",
-  "ultFechaInformada": "2026-10-20",
+  "ultFechaInformada": "2026-10-30",
   "ultValorInformado": 0.0
  },
  {
@@ -920,8 +920,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "2002-12-31",
-  "ultFechaInformada": "2026-10-20",
-  "ultValorInformado": 166403624.0
+  "ultFechaInformada": "2026-10-30",
+  "ultValorInformado": 171200804.0
  },
  {
   "idVariable": 92,
@@ -932,7 +932,7 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "2002-12-31",
-  "ultFechaInformada": "2026-10-20",
+  "ultFechaInformada": "2026-10-30",
   "ultValorInformado": 0.0
  },
  {
@@ -944,8 +944,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "2002-12-31",
-  "ultFechaInformada": "2026-10-20",
-  "ultValorInformado": 166403624.0
+  "ultFechaInformada": "2026-10-30",
+  "ultValorInformado": 171200804.0
  },
  {
   "idVariable": 94,
@@ -956,8 +956,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "2002-12-31",
-  "ultFechaInformada": "2026-10-20",
-  "ultValorInformado": 21476219.0
+  "ultFechaInformada": "2026-10-30",
+  "ultValorInformado": 22114743.0
  },
  {
   "idVariable": 95,
@@ -968,8 +968,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "2002-12-31",
-  "ultFechaInformada": "2026-10-20",
-  "ultValorInformado": 27582978.0
+  "ultFechaInformada": "2026-10-30",
+  "ultValorInformado": 33513671.0
  },
  {
   "idVariable": 96,
@@ -980,8 +980,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "2002-12-31",
-  "ultFechaInformada": "2026-10-20",
-  "ultValorInformado": 70215595.394
+  "ultFechaInformada": "2026-10-30",
+  "ultValorInformado": 70809062.188
  },
  {
   "idVariable": 97,
@@ -992,8 +992,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "2003-01-31",
-  "ultFechaInformada": "2026-10-20",
-  "ultValorInformado": 1236892.606
+  "ultFechaInformada": "2026-10-30",
+  "ultValorInformado": 1308430.812
  },
  {
   "idVariable": 98,
@@ -1004,8 +1004,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "2002-12-31",
-  "ultFechaInformada": "2026-10-20",
-  "ultValorInformado": 2025937.0
+  "ultFechaInformada": "2026-10-30",
+  "ultValorInformado": 2185320.0
  },
  {
   "idVariable": 99,
@@ -1016,7 +1016,7 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "2002-12-31",
-  "ultFechaInformada": "2026-10-20",
+  "ultFechaInformada": "2026-10-30",
   "ultValorInformado": 0.0
  },
  {
@@ -1028,8 +1028,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "2002-12-31",
-  "ultFechaInformada": "2026-10-20",
-  "ultValorInformado": 122537622.0
+  "ultFechaInformada": "2026-10-30",
+  "ultValorInformado": 129931227.0
  },
  {
   "idVariable": 101,
@@ -1040,7 +1040,7 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "2002-12-31",
-  "ultFechaInformada": "2026-10-20",
+  "ultFechaInformada": "2026-10-30",
   "ultValorInformado": 0.0
  },
  {
@@ -1052,8 +1052,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "2002-12-31",
-  "ultFechaInformada": "2026-10-20",
-  "ultValorInformado": 122537622.0
+  "ultFechaInformada": "2026-10-30",
+  "ultValorInformado": 129931227.0
  },
  {
   "idVariable": 103,
@@ -1064,8 +1064,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ME",
   "primerFechaInformada": "2002-12-31",
-  "ultFechaInformada": "2026-10-20",
-  "ultValorInformado": 69572354.4026
+  "ultFechaInformada": "2026-10-30",
+  "ultValorInformado": 70544319.7969
  },
  {
   "idVariable": 104,
@@ -1076,8 +1076,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ME",
   "primerFechaInformada": "2002-12-31",
-  "ultFechaInformada": "2026-10-20",
-  "ultValorInformado": 64828576.8515
+  "ultFechaInformada": "2026-10-30",
+  "ultValorInformado": 65926124.3021
  },
  {
   "idVariable": 105,
@@ -1088,8 +1088,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "MEyML",
   "primerFechaInformada": "2002-12-31",
-  "ultFechaInformada": "2026-10-20",
-  "ultValorInformado": 235975978.4026
+  "ultFechaInformada": "2026-10-30",
+  "ultValorInformado": 241745123.7969
  },
  {
   "idVariable": 106,
@@ -1100,8 +1100,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "MEyML",
   "primerFechaInformada": "2002-12-31",
-  "ultFechaInformada": "2026-10-20",
-  "ultValorInformado": 187366198.8515
+  "ultFechaInformada": "2026-10-30",
+  "ultValorInformado": 195857351.3021
  },
  {
   "idVariable": 107,
@@ -1112,8 +1112,8 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "2002-12-31",
-  "ultFechaInformada": "2026-10-20",
-  "ultValorInformado": 45626.0
+  "ultFechaInformada": "2026-10-30",
+  "ultValorInformado": 45887.0
  },
  {
   "idVariable": 108,
@@ -1124,8 +1124,8 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "2002-12-31",
-  "ultFechaInformada": "2026-10-20",
-  "ultValorInformado": 42515.0
+  "ultFechaInformada": "2026-10-30",
+  "ultValorInformado": 42883.0
  },
  {
   "idVariable": 109,
@@ -1136,8 +1136,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "2002-12-31",
-  "ultFechaInformada": "2026-10-20",
-  "ultValorInformado": 90881404.0
+  "ultFechaInformada": "2026-10-30",
+  "ultValorInformado": 96435200.0
  },
  {
   "idVariable": 110,
@@ -1148,8 +1148,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "2002-12-31",
-  "ultFechaInformada": "2026-10-20",
-  "ultValorInformado": 11373312.0
+  "ultFechaInformada": "2026-10-30",
+  "ultValorInformado": 10615796.0
  },
  {
   "idVariable": 111,
@@ -1160,8 +1160,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "2002-12-31",
-  "ultFechaInformada": "2026-10-20",
-  "ultValorInformado": 26839746.0
+  "ultFechaInformada": "2026-10-30",
+  "ultValorInformado": 27346996.0
  },
  {
   "idVariable": 112,
@@ -1172,8 +1172,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "2002-12-31",
-  "ultFechaInformada": "2026-10-20",
-  "ultValorInformado": 9399639.0
+  "ultFechaInformada": "2026-10-30",
+  "ultValorInformado": 9590334.0
  },
  {
   "idVariable": 113,
@@ -1184,8 +1184,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "2002-12-31",
-  "ultFechaInformada": "2026-10-20",
-  "ultValorInformado": 6615980.0
+  "ultFechaInformada": "2026-10-30",
+  "ultValorInformado": 6773819.0
  },
  {
   "idVariable": 114,
@@ -1196,8 +1196,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "2002-12-31",
-  "ultFechaInformada": "2026-10-20",
-  "ultValorInformado": 22436314.0
+  "ultFechaInformada": "2026-10-30",
+  "ultValorInformado": 22540099.0
  },
  {
   "idVariable": 115,
@@ -1208,8 +1208,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "2002-12-31",
-  "ultFechaInformada": "2026-10-20",
-  "ultValorInformado": 23598401.0
+  "ultFechaInformada": "2026-10-30",
+  "ultValorInformado": 25556749.0
  },
  {
   "idVariable": 116,
@@ -1220,8 +1220,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "2002-12-31",
-  "ultFechaInformada": "2026-10-20",
-  "ultValorInformado": 7551620.0
+  "ultFechaInformada": "2026-10-30",
+  "ultValorInformado": 7696892.0
  },
  {
   "idVariable": 117,
@@ -1232,8 +1232,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "2002-12-31",
-  "ultFechaInformada": "2026-10-20",
-  "ultValorInformado": 107815012.0
+  "ultFechaInformada": "2026-10-30",
+  "ultValorInformado": 110120685.0
  },
  {
   "idVariable": 118,
@@ -1244,8 +1244,8 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "2002-12-31",
-  "ultFechaInformada": "2026-10-20",
-  "ultValorInformado": 258.0
+  "ultFechaInformada": "2026-10-30",
+  "ultValorInformado": 321.0
  },
  {
   "idVariable": 119,
@@ -1256,8 +1256,8 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "2002-12-31",
-  "ultFechaInformada": "2026-10-20",
-  "ultValorInformado": 19219.0
+  "ultFechaInformada": "2026-10-30",
+  "ultValorInformado": 19257.0
  },
  {
   "idVariable": 120,
@@ -1268,8 +1268,8 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "2002-12-31",
-  "ultFechaInformada": "2026-10-20",
-  "ultValorInformado": 848.0
+  "ultFechaInformada": "2026-10-30",
+  "ultValorInformado": 873.0
  },
  {
   "idVariable": 121,
@@ -1280,8 +1280,8 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "2002-12-31",
-  "ultFechaInformada": "2026-10-20",
-  "ultValorInformado": 1407.0
+  "ultFechaInformada": "2026-10-30",
+  "ultValorInformado": 1411.0
  },
  {
   "idVariable": 122,
@@ -1292,7 +1292,7 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "2002-12-31",
-  "ultFechaInformada": "2026-10-20",
+  "ultFechaInformada": "2026-10-30",
   "ultValorInformado": 4.0
  },
  {
@@ -1304,8 +1304,8 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "2002-12-31",
-  "ultFechaInformada": "2026-10-20",
-  "ultValorInformado": 619.0
+  "ultFechaInformada": "2026-10-30",
+  "ultValorInformado": 751.0
  },
  {
   "idVariable": 124,
@@ -1316,8 +1316,8 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "2002-12-31",
-  "ultFechaInformada": "2026-10-20",
-  "ultValorInformado": 3675.0
+  "ultFechaInformada": "2026-10-30",
+  "ultValorInformado": 3735.0
  },
  {
   "idVariable": 125,
@@ -1328,8 +1328,8 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "2002-12-31",
-  "ultFechaInformada": "2026-10-20",
-  "ultValorInformado": 26030.0
+  "ultFechaInformada": "2026-10-30",
+  "ultValorInformado": 26352.0
  },
  {
   "idVariable": 126,
@@ -1340,8 +1340,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ME",
   "primerFechaInformada": "2002-12-31",
-  "ultFechaInformada": "2026-10-20",
-  "ultValorInformado": 39691587.803
+  "ultFechaInformada": "2026-10-30",
+  "ultValorInformado": 40512212.9424
  },
  {
   "idVariable": 127,
@@ -1352,8 +1352,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "MEyML",
   "primerFechaInformada": "2002-12-31",
-  "ultFechaInformada": "2026-10-20",
-  "ultValorInformado": 147506599.803
+  "ultFechaInformada": "2026-10-30",
+  "ultValorInformado": 150632897.9424
  },
  {
   "idVariable": 135,
@@ -1364,8 +1364,8 @@
   "unidadExpresion": "En porcentaje nominal anual",
   "moneda": "ML",
   "primerFechaInformada": "2024-10-01",
-  "ultFechaInformada": "2026-10-22",
-  "ultValorInformado": 24.375
+  "ultFechaInformada": "2026-11-03",
+  "ultValorInformado": 23.9375
  },
  {
   "idVariable": 136,
@@ -1376,8 +1376,8 @@
   "unidadExpresion": "En porcentaje nominal anual",
   "moneda": "ML",
   "primerFechaInformada": "2024-10-01",
-  "ultFechaInformada": "2026-10-22",
-  "ultValorInformado": 24.5
+  "ultFechaInformada": "2026-11-03",
+  "ultValorInformado": 24.0
  },
  {
   "idVariable": 137,
@@ -1388,8 +1388,8 @@
   "unidadExpresion": "En porcentaje efectivo anual",
   "moneda": "ML",
   "primerFechaInformada": "2024-10-01",
-  "ultFechaInformada": "2026-10-22",
-  "ultValorInformado": 27.4311
+  "ultFechaInformada": "2026-11-03",
+  "ultValorInformado": 26.8088
  },
  {
   "idVariable": 138,
@@ -1400,8 +1400,8 @@
   "unidadExpresion": "En porcentaje nominal anual",
   "moneda": "ML",
   "primerFechaInformada": "2003-01-02",
-  "ultFechaInformada": "2026-10-22",
-  "ultValorInformado": 22.625
+  "ultFechaInformada": "2026-11-03",
+  "ultValorInformado": 22.75
  },
  {
   "idVariable": 139,
@@ -1412,8 +1412,8 @@
   "unidadExpresion": "En porcentaje nominal anual",
   "moneda": "ML",
   "primerFechaInformada": "2003-01-02",
-  "ultFechaInformada": "2026-10-22",
-  "ultValorInformado": 22.9375
+  "ultFechaInformada": "2026-11-03",
+  "ultValorInformado": 22.75
  },
  {
   "idVariable": 140,
@@ -1424,8 +1424,8 @@
   "unidadExpresion": "En porcentaje efectivo anual",
   "moneda": "ML",
   "primerFechaInformada": "2020-01-23",
-  "ultFechaInformada": "2026-10-22",
-  "ultValorInformado": 25.4954
+  "ultFechaInformada": "2026-11-03",
+  "ultValorInformado": 25.265
  },
  {
   "idVariable": 141,
@@ -1436,8 +1436,8 @@
   "unidadExpresion": "En porcentaje nominal anual",
   "moneda": "ML",
   "primerFechaInformada": "2017-01-02",
-  "ultFechaInformada": "2026-10-22",
-  "ultValorInformado": 23.125
+  "ultFechaInformada": "2026-11-03",
+  "ultValorInformado": 23.1875
  },
  {
   "idVariable": 142,
@@ -1448,8 +1448,8 @@
   "unidadExpresion": "En porcentaje nominal anual",
   "moneda": "ML",
   "primerFechaInformada": "2017-01-02",
-  "ultFechaInformada": "2026-10-22",
-  "ultValorInformado": 23.375
+  "ultFechaInformada": "2026-11-03",
+  "ultValorInformado": 23.125
  },
  {
   "idVariable": 143,
@@ -1460,8 +1460,8 @@
   "unidadExpresion": "En porcentaje efectivo anual",
   "moneda": "ML",
   "primerFechaInformada": "2020-01-23",
-  "ultFechaInformada": "2026-10-22",
-  "ultValorInformado": 26.0347
+  "ultFechaInformada": "2026-11-03",
+  "ultValorInformado": 25.7263
  },
  {
   "idVariable": 144,
@@ -1472,8 +1472,8 @@
   "unidadExpresion": "En porcentaje nominal anual",
   "moneda": "ML",
   "primerFechaInformada": "2010-07-01",
-  "ultFechaInformada": "2026-10-22",
-  "ultValorInformado": 62.57
+  "ultFechaInformada": "2026-11-03",
+  "ultValorInformado": 62.14
  },
  {
   "idVariable": 145,
@@ -1484,8 +1484,8 @@
   "unidadExpresion": "En porcentaje nominal anual",
   "moneda": "ML",
   "primerFechaInformada": "2009-01-02",
-  "ultFechaInformada": "2026-10-22",
-  "ultValorInformado": 24.79
+  "ultFechaInformada": "2026-11-03",
+  "ultValorInformado": 25.53
  },
  {
   "idVariable": 146,
@@ -1496,8 +1496,8 @@
   "unidadExpresion": "En porcentaje nominal anual",
   "moneda": "ML",
   "primerFechaInformada": "2003-01-02",
-  "ultFechaInformada": "2026-10-22",
-  "ultValorInformado": 20.97
+  "ultFechaInformada": "2026-11-03",
+  "ultValorInformado": 21.86
  },
  {
   "idVariable": 147,
@@ -1508,8 +1508,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "2003-01-02",
-  "ultFechaInformada": "2026-10-22",
-  "ultValorInformado": 196052.0
+  "ultFechaInformada": "2026-11-03",
+  "ultValorInformado": 176881.0
  },
  {
   "idVariable": 148,
@@ -1520,8 +1520,8 @@
   "unidadExpresion": "En porcentaje nominal anual",
   "moneda": "ML",
   "primerFechaInformada": "2003-01-02",
-  "ultFechaInformada": "2026-10-22",
-  "ultValorInformado": 21.9
+  "ultFechaInformada": "2026-11-03",
+  "ultValorInformado": 21.29
  },
  {
   "idVariable": 149,
@@ -1532,8 +1532,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "2003-01-02",
-  "ultFechaInformada": "2026-10-22",
-  "ultValorInformado": 440777.0
+  "ultFechaInformada": "2026-11-03",
+  "ultValorInformado": 475208.0
  },
  {
   "idVariable": 150,
@@ -1544,8 +1544,8 @@
   "unidadExpresion": "En porcentaje nominal anual",
   "moneda": "ML",
   "primerFechaInformada": "2008-01-02",
-  "ultFechaInformada": "2026-10-22",
-  "ultValorInformado": 20.82
+  "ultFechaInformada": "2026-11-03",
+  "ultValorInformado": 21.87
  },
  {
   "idVariable": 151,
@@ -1556,8 +1556,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "2008-01-02",
-  "ultFechaInformada": "2026-10-22",
-  "ultValorInformado": 2578452.0
+  "ultFechaInformada": "2026-11-03",
+  "ultValorInformado": 2301780.0
  },
  {
   "idVariable": 152,
@@ -1568,7 +1568,7 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "2004-05-28",
-  "ultFechaInformada": "2026-10-22",
+  "ultFechaInformada": "2026-11-03",
   "ultValorInformado": 0.0
  },
  {
@@ -1580,7 +1580,7 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "2014-01-02",
-  "ultFechaInformada": "2026-10-22",
+  "ultFechaInformada": "2026-11-03",
   "ultValorInformado": 0.0
  },
  {
@@ -1592,7 +1592,7 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "2004-05-28",
-  "ultFechaInformada": "2026-10-22",
+  "ultFechaInformada": "2026-11-03",
   "ultValorInformado": 0.0
  },
  {
@@ -1604,7 +1604,7 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "2018-01-11",
-  "ultFechaInformada": "2026-10-22",
+  "ultFechaInformada": "2026-11-03",
   "ultValorInformado": 0.0
  },
  {
@@ -1616,8 +1616,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "2003-01-02",
-  "ultFechaInformada": "2026-10-22",
-  "ultValorInformado": 228676.1448
+  "ultFechaInformada": "2026-11-03",
+  "ultValorInformado": 246091.1495
  },
  {
   "idVariable": 157,
@@ -1628,7 +1628,7 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "2008-07-04",
-  "ultFechaInformada": "2026-10-22",
+  "ultFechaInformada": "2026-11-03",
   "ultValorInformado": 0.0
  },
  {
@@ -1640,7 +1640,7 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "USD",
   "primerFechaInformada": "2003-01-02",
-  "ultFechaInformada": "2026-10-22",
+  "ultFechaInformada": "2026-11-03",
   "ultValorInformado": 4889.69
  },
  {
@@ -1652,7 +1652,7 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "2018-10-11",
-  "ultFechaInformada": "2026-10-22",
+  "ultFechaInformada": "2026-11-03",
   "ultValorInformado": 0.0
  },
  {
@@ -2108,8 +2108,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "2021-01-04",
-  "ultFechaInformada": "2026-10-20",
-  "ultValorInformado": 62382406.827
+  "ultFechaInformada": "2026-10-30",
+  "ultValorInformado": 69231820.899
  },
  {
   "idVariable": 198,
@@ -2120,8 +2120,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "2025-07-15",
-  "ultFechaInformada": "2026-10-22",
-  "ultValorInformado": 1663798.4706
+  "ultFechaInformada": "2026-11-03",
+  "ultValorInformado": 1451451.3319
  },
  {
   "idVariable": 199,
@@ -13988,8 +13988,8 @@
   "unidadExpresion": "Pesos argentinos por dólar estadounidense",
   "moneda": "ML",
   "primerFechaInformada": "2025-04-14",
-  "ultFechaInformada": "2026-10-23",
-  "ultValorInformado": 715.12
+  "ultFechaInformada": "2026-11-05",
+  "ultValorInformado": 709.69
  },
  {
   "idVariable": 1188,
@@ -14000,8 +14000,8 @@
   "unidadExpresion": "Pesos argentinos por dólar estadounidense",
   "moneda": "ML",
   "primerFechaInformada": "2025-04-14",
-  "ultFechaInformada": "2026-10-23",
-  "ultValorInformado": 1943.56
+  "ultFechaInformada": "2026-11-05",
+  "ultValorInformado": 1958.16
  },
  {
   "idVariable": 1189,
@@ -14012,8 +14012,8 @@
   "unidadExpresion": "En porcentaje nominal anual",
   "moneda": "ML",
   "primerFechaInformada": "2003-01-02",
-  "ultFechaInformada": "2026-10-22",
-  "ultValorInformado": 23.07
+  "ultFechaInformada": "2026-11-03",
+  "ultValorInformado": 23.21
  },
  {
   "idVariable": 1190,
@@ -14024,8 +14024,8 @@
   "unidadExpresion": "En porcentaje nominal anual",
   "moneda": "ML",
   "primerFechaInformada": "2010-01-04",
-  "ultFechaInformada": "2026-10-22",
-  "ultValorInformado": 19.87
+  "ultFechaInformada": "2026-11-03",
+  "ultValorInformado": 20.54
  },
  {
   "idVariable": 1191,
@@ -14036,8 +14036,8 @@
   "unidadExpresion": "En porcentaje efectivo anual",
   "moneda": "ML",
   "primerFechaInformada": "2010-01-04",
-  "ultFechaInformada": "2026-10-22",
-  "ultValorInformado": 24.66
+  "ultFechaInformada": "2026-11-03",
+  "ultValorInformado": 24.12
  },
  {
   "idVariable": 1192,
@@ -14048,8 +14048,8 @@
   "unidadExpresion": "En porcentaje nominal anual",
   "moneda": "ML",
   "primerFechaInformada": "2010-01-04",
-  "ultFechaInformada": "2026-10-22",
-  "ultValorInformado": 23.55
+  "ultFechaInformada": "2026-11-03",
+  "ultValorInformado": 23.31
  },
  {
   "idVariable": 1193,
@@ -14060,8 +14060,8 @@
   "unidadExpresion": "En porcentaje nominal anual",
   "moneda": "ME",
   "primerFechaInformada": "2003-01-02",
-  "ultFechaInformada": "2026-10-22",
-  "ultValorInformado": 1.73
+  "ultFechaInformada": "2026-11-03",
+  "ultValorInformado": 1.5
  },
  {
   "idVariable": 1194,
@@ -14072,8 +14072,8 @@
   "unidadExpresion": "En porcentaje nominal anual",
   "moneda": "ME",
   "primerFechaInformada": "2010-01-04",
-  "ultFechaInformada": "2026-10-22",
-  "ultValorInformado": 1.38
+  "ultFechaInformada": "2026-11-03",
+  "ultValorInformado": 1.42
  },
  {
   "idVariable": 1195,
@@ -14084,8 +14084,8 @@
   "unidadExpresion": "En porcentaje nominal anual",
   "moneda": "ME",
   "primerFechaInformada": "2010-01-04",
-  "ultFechaInformada": "2026-10-22",
-  "ultValorInformado": 1.91
+  "ultFechaInformada": "2026-11-03",
+  "ultValorInformado": 1.08
  },
  {
   "idVariable": 1196,
@@ -14096,8 +14096,8 @@
   "unidadExpresion": "En porcentaje nominal anual",
   "moneda": "ML",
   "primerFechaInformada": "2018-01-02",
-  "ultFechaInformada": "2026-10-22",
-  "ultValorInformado": 14.02
+  "ultFechaInformada": "2026-11-03",
+  "ultValorInformado": 14.27
  },
  {
   "idVariable": 1197,
@@ -14108,8 +14108,8 @@
   "unidadExpresion": "En porcentaje",
   "moneda": "ML",
   "primerFechaInformada": "1993-06-03",
-  "ultFechaInformada": "2026-10-24",
-  "ultValorInformado": 170301.8898
+  "ultFechaInformada": "2026-11-05",
+  "ultValorInformado": 171717.616
  },
  {
   "idVariable": 1198,
@@ -14120,8 +14120,8 @@
   "unidadExpresion": "En porcentaje",
   "moneda": "ML",
   "primerFechaInformada": "1993-06-03",
-  "ultFechaInformada": "2026-10-24",
-  "ultValorInformado": 97187.6735
+  "ultFechaInformada": "2026-11-05",
+  "ultValorInformado": 97888.2454
  },
  {
   "idVariable": 1199,
@@ -14144,8 +14144,8 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "1996-01-02",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 4113.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 4151.0
  },
  {
   "idVariable": 1201,
@@ -14156,8 +14156,8 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "2001-01-02",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 2093.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 2095.0
  },
  {
   "idVariable": 1202,
@@ -14168,8 +14168,8 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "2001-01-02",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 680.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 649.0
  },
  {
   "idVariable": 1203,
@@ -14180,8 +14180,8 @@
   "unidadExpresion": "En porcentaje nominal anual",
   "moneda": "ML",
   "primerFechaInformada": "1990-01-05",
-  "ultFechaInformada": "2026-10-22",
-  "ultValorInformado": 5.19
+  "ultFechaInformada": "2026-11-03",
+  "ultValorInformado": 4.92
  },
  {
   "idVariable": 1204,
@@ -14192,8 +14192,8 @@
   "unidadExpresion": "En porcentaje nominal anual",
   "moneda": "ML",
   "primerFechaInformada": "1993-04-01",
-  "ultFechaInformada": "2026-10-22",
-  "ultValorInformado": 23.07
+  "ultFechaInformada": "2026-11-03",
+  "ultValorInformado": 23.21
  },
  {
   "idVariable": 1205,
@@ -14204,8 +14204,8 @@
   "unidadExpresion": "En porcentaje nominal anual",
   "moneda": "ML",
   "primerFechaInformada": "1993-04-01",
-  "ultFechaInformada": "2026-10-22",
-  "ultValorInformado": 23.09
+  "ultFechaInformada": "2026-11-03",
+  "ultValorInformado": 23.2
  },
  {
   "idVariable": 1207,
@@ -14216,8 +14216,8 @@
   "unidadExpresion": "En porcentaje nominal anual",
   "moneda": "ML",
   "primerFechaInformada": "1985-08-26",
-  "ultFechaInformada": "2026-10-22",
-  "ultValorInformado": 21.99
+  "ultFechaInformada": "2026-11-03",
+  "ultValorInformado": 22.12
  },
  {
   "idVariable": 1208,
@@ -14228,8 +14228,8 @@
   "unidadExpresion": "En porcentaje nominal anual",
   "moneda": "ML",
   "primerFechaInformada": "1993-04-01",
-  "ultFechaInformada": "2026-10-22",
-  "ultValorInformado": 22.2
+  "ultFechaInformada": "2026-11-03",
+  "ultValorInformado": 23.34
  },
  {
   "idVariable": 1209,
@@ -14240,8 +14240,8 @@
   "unidadExpresion": "En porcentaje nominal anual",
   "moneda": "ME",
   "primerFechaInformada": "1994-01-03",
-  "ultFechaInformada": "2026-10-22",
-  "ultValorInformado": 0.23
+  "ultFechaInformada": "2026-11-03",
+  "ultValorInformado": 0.22
  },
  {
   "idVariable": 1210,
@@ -14252,8 +14252,8 @@
   "unidadExpresion": "En porcentaje nominal anual",
   "moneda": "ME",
   "primerFechaInformada": "1994-01-03",
-  "ultFechaInformada": "2026-10-22",
-  "ultValorInformado": 1.74
+  "ultFechaInformada": "2026-11-03",
+  "ultValorInformado": 1.5
  },
  {
   "idVariable": 1211,
@@ -14264,8 +14264,8 @@
   "unidadExpresion": "En porcentaje nominal anual",
   "moneda": "ME",
   "primerFechaInformada": "1994-01-03",
-  "ultFechaInformada": "2026-10-22",
-  "ultValorInformado": 1.09
+  "ultFechaInformada": "2026-11-03",
+  "ultValorInformado": 1.06
  },
  {
   "idVariable": 1213,
@@ -14276,8 +14276,8 @@
   "unidadExpresion": "En porcentaje nominal anual",
   "moneda": "ME",
   "primerFechaInformada": "1994-08-01",
-  "ultFechaInformada": "2026-10-22",
-  "ultValorInformado": 1.1
+  "ultFechaInformada": "2026-11-03",
+  "ultValorInformado": 1.07
  },
  {
   "idVariable": 1214,
@@ -14288,8 +14288,8 @@
   "unidadExpresion": "En porcentaje nominal anual",
   "moneda": "ME",
   "primerFechaInformada": "1994-01-03",
-  "ultFechaInformada": "2026-10-22",
-  "ultValorInformado": 3.07
+  "ultFechaInformada": "2026-11-03",
+  "ultValorInformado": 2.42
  },
  {
   "idVariable": 1215,
@@ -14300,8 +14300,8 @@
   "unidadExpresion": "En porcentaje nominal anual",
   "moneda": "ML",
   "primerFechaInformada": "2002-01-31",
-  "ultFechaInformada": "2026-09-30",
-  "ultValorInformado": 79.23
+  "ultFechaInformada": "2026-10-31",
+  "ultValorInformado": 77.29
  },
  {
   "idVariable": 1216,
@@ -14312,8 +14312,8 @@
   "unidadExpresion": "En porcentaje nominal anual",
   "moneda": "ML",
   "primerFechaInformada": "1993-06-30",
-  "ultFechaInformada": "2026-09-30",
-  "ultValorInformado": 31.35
+  "ultFechaInformada": "2026-10-31",
+  "ultValorInformado": 30.95
  },
  {
   "idVariable": 1217,
@@ -14324,8 +14324,8 @@
   "unidadExpresion": "En porcentaje nominal anual",
   "moneda": "ML",
   "primerFechaInformada": "1993-06-30",
-  "ultFechaInformada": "2026-09-30",
-  "ultValorInformado": 31.59
+  "ultFechaInformada": "2026-10-31",
+  "ultValorInformado": 31.51
  },
  {
   "idVariable": 1218,
@@ -14336,8 +14336,8 @@
   "unidadExpresion": "En porcentaje nominal anual",
   "moneda": "ML",
   "primerFechaInformada": "1993-06-30",
-  "ultFechaInformada": "2026-09-30",
-  "ultValorInformado": 16.31
+  "ultFechaInformada": "2026-10-31",
+  "ultValorInformado": 17.6
  },
  {
   "idVariable": 1219,
@@ -14348,8 +14348,8 @@
   "unidadExpresion": "En porcentaje nominal anual",
   "moneda": "ML",
   "primerFechaInformada": "2002-01-31",
-  "ultFechaInformada": "2026-09-30",
-  "ultValorInformado": 62.63
+  "ultFechaInformada": "2026-10-31",
+  "ultValorInformado": 62.9
  },
  {
   "idVariable": 1220,
@@ -14360,8 +14360,8 @@
   "unidadExpresion": "En porcentaje nominal anual",
   "moneda": "ML",
   "primerFechaInformada": "2010-07-31",
-  "ultFechaInformada": "2026-09-30",
-  "ultValorInformado": 79.23
+  "ultFechaInformada": "2026-10-31",
+  "ultValorInformado": 77.29
  },
  {
   "idVariable": 1221,
@@ -14372,8 +14372,8 @@
   "unidadExpresion": "Porcentaje de depósitos",
   "moneda": "ML",
   "primerFechaInformada": "2017-07-03",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 47.59
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 47.39
  },
  {
   "idVariable": 1222,
@@ -14384,7 +14384,7 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "2018-01-02",
-  "ultFechaInformada": "2026-10-21",
+  "ultFechaInformada": "2026-11-02",
   "ultValorInformado": 16.0
  },
  {
@@ -14396,8 +14396,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "2021-02-08",
-  "ultFechaInformada": "2026-10-22",
-  "ultValorInformado": 228676.1448
+  "ultFechaInformada": "2026-11-03",
+  "ultValorInformado": 246091.1495
  },
  {
   "idVariable": 1224,
@@ -14408,8 +14408,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "2011-11-11",
-  "ultFechaInformada": "2026-10-22",
-  "ultValorInformado": 32147.127
+  "ultFechaInformada": "2026-11-03",
+  "ultValorInformado": 32323.917
  },
  {
   "idVariable": 1225,
@@ -14420,7 +14420,7 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "2003-01-02",
-  "ultFechaInformada": "2026-10-22",
+  "ultFechaInformada": "2026-11-03",
   "ultValorInformado": 4091100.3704
  },
  {
@@ -14432,8 +14432,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "2003-01-02",
-  "ultFechaInformada": "2026-10-22",
-  "ultValorInformado": 76650102.5741
+  "ultFechaInformada": "2026-11-03",
+  "ultValorInformado": 77947943.7333
  },
  {
   "idVariable": 1227,
@@ -14444,8 +14444,8 @@
   "unidadExpresion": "En porcentaje nominal anual",
   "moneda": "ML",
   "primerFechaInformada": "2016-06-23",
-  "ultFechaInformada": "2026-10-22",
-  "ultValorInformado": 1.62
+  "ultFechaInformada": "2026-11-03",
+  "ultValorInformado": 1.52
  },
  {
   "idVariable": 1228,
@@ -14505,7 +14505,7 @@
   "moneda": "ML",
   "primerFechaInformada": "2003-01-02",
   "ultFechaInformada": "2026-05-07",
-  "ultValorInformado": 51264337.3629
+  "ultValorInformado": 51265456.3629
  },
  {
   "idVariable": 1233,
@@ -14517,7 +14517,7 @@
   "moneda": "ML",
   "primerFechaInformada": "2003-01-02",
   "ultFechaInformada": "2026-05-07",
-  "ultValorInformado": 82592867.3629
+  "ultValorInformado": 82593986.3629
  },
  {
   "idVariable": 1234,
@@ -14529,7 +14529,7 @@
   "moneda": "ML",
   "primerFechaInformada": "2003-01-02",
   "ultFechaInformada": "2026-05-07",
-  "ultValorInformado": 167253222.3629
+  "ultValorInformado": 167254341.3629
  },
  {
   "idVariable": 1235,
@@ -14589,7 +14589,7 @@
   "moneda": "ML",
   "primerFechaInformada": "2017-01-02",
   "ultFechaInformada": "2026-05-22",
-  "ultValorInformado": 68586347.0
+  "ultValorInformado": 68584416.0
  },
  {
   "idVariable": 1240,
@@ -14600,8 +14600,8 @@
   "unidadExpresion": "En porcentaje nominal anual",
   "moneda": "ML",
   "primerFechaInformada": "2016-05-31",
-  "ultFechaInformada": "2026-09-30",
-  "ultValorInformado": 6.81
+  "ultFechaInformada": "2026-10-31",
+  "ultValorInformado": 6.65
  },
  {
   "idVariable": 1241,
@@ -14613,7 +14613,7 @@
   "moneda": "ML",
   "primerFechaInformada": "2003-01-02",
   "ultFechaInformada": "2026-05-07",
-  "ultValorInformado": 49862244.0
+  "ultValorInformado": 49863363.0
  },
  {
   "idVariable": 1242,
@@ -14636,8 +14636,8 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "2003-01-02",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 16522.3442
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 16783.6887
  },
  {
   "idVariable": 1244,
@@ -14648,8 +14648,8 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "1996-01-03",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 50228.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 50439.0
  },
  {
   "idVariable": 1245,
@@ -14660,8 +14660,8 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "1996-01-02",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 50228.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 50439.0
  },
  {
   "idVariable": 1246,
@@ -14684,8 +14684,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ME",
   "primerFechaInformada": "1996-01-02",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 72446535.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 73191336.0
  },
  {
   "idVariable": 1248,
@@ -14696,8 +14696,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1996-01-02",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 47197874.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 47241558.0
  },
  {
   "idVariable": 1249,
@@ -14708,8 +14708,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1996-01-02",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 28630453.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 29355590.0
  },
  {
   "idVariable": 1250,
@@ -14720,8 +14720,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "2001-06-01",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 18567421.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 17885968.0
  },
  {
   "idVariable": 1251,
@@ -14732,7 +14732,7 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "2001-06-01",
-  "ultFechaInformada": "2026-10-21",
+  "ultFechaInformada": "2026-11-02",
   "ultValorInformado": 0.0
  },
  {
@@ -14744,8 +14744,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "2001-06-01",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 18567421.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 17885968.0
  },
  {
   "idVariable": 1253,
@@ -14756,7 +14756,7 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "2001-12-28",
-  "ultFechaInformada": "2026-10-21",
+  "ultFechaInformada": "2026-11-02",
   "ultValorInformado": 0.0
  },
  {
@@ -14768,8 +14768,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ME",
   "primerFechaInformada": "1996-01-02",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 25248661.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 25949778.0
  },
  {
   "idVariable": 1255,
@@ -14780,7 +14780,7 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ME",
   "primerFechaInformada": "2001-12-28",
-  "ultFechaInformada": "2026-10-21",
+  "ultFechaInformada": "2026-11-02",
   "ultValorInformado": 0.0
  },
  {
@@ -14792,8 +14792,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ME",
   "primerFechaInformada": "1996-01-02",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 25224108.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 25924936.0
  },
  {
   "idVariable": 1257,
@@ -14804,8 +14804,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ME",
   "primerFechaInformada": "2010-11-23",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 24553.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 24842.0
  },
  {
   "idVariable": 1258,
@@ -14816,8 +14816,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "2002-03-15",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 224220.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 242413.0
  },
  {
   "idVariable": 1259,
@@ -14828,8 +14828,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ME",
   "primerFechaInformada": "2002-03-15",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 7464920.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 7552858.0
  },
  {
   "idVariable": 1260,
@@ -14840,7 +14840,7 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "2018-01-02",
-  "ultFechaInformada": "2026-10-21",
+  "ultFechaInformada": "2026-11-02",
   "ultValorInformado": 0.0
  },
  {
@@ -14852,7 +14852,7 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1996-01-02",
-  "ultFechaInformada": "2026-10-21",
+  "ultFechaInformada": "2026-11-02",
   "ultValorInformado": 0.0
  },
  {
@@ -14864,7 +14864,7 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1996-01-02",
-  "ultFechaInformada": "2026-10-21",
+  "ultFechaInformada": "2026-11-02",
   "ultValorInformado": 0.0
  },
  {
@@ -14876,7 +14876,7 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1996-01-02",
-  "ultFechaInformada": "2026-10-21",
+  "ultFechaInformada": "2026-11-02",
   "ultValorInformado": 0.0
  },
  {
@@ -14888,8 +14888,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1996-01-02",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 10329766.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 10285493.0
  },
  {
   "idVariable": 1265,
@@ -14900,8 +14900,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "2024-01-02",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 8917174.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 8802581.0
  },
  {
   "idVariable": 1266,
@@ -14912,8 +14912,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ME",
   "primerFechaInformada": "2024-01-02",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 1412592.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 1482912.0
  },
  {
   "idVariable": 1267,
@@ -14924,7 +14924,7 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "2002-01-02",
-  "ultFechaInformada": "2026-10-21",
+  "ultFechaInformada": "2026-11-02",
   "ultValorInformado": 0.0
  },
  {
@@ -14936,7 +14936,7 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "2003-01-02",
-  "ultFechaInformada": "2026-10-22",
+  "ultFechaInformada": "2026-11-03",
   "ultValorInformado": 4091100.3704
  },
  {
@@ -14972,8 +14972,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1984-03-01",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 2151733000.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 2332276000.0
  },
  {
   "idVariable": 1272,
@@ -14984,8 +14984,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 18803470.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 18207000.0
  },
  {
   "idVariable": 1273,
@@ -14996,8 +14996,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 109647136.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 111994114.0
  },
  {
   "idVariable": 1274,
@@ -15008,8 +15008,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 1151611.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 1142692.0
  },
  {
   "idVariable": 1275,
@@ -15020,8 +15020,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 114256988.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 116587329.0
  },
  {
   "idVariable": 1276,
@@ -15032,8 +15032,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1996-04-01",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 113587060.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 115991583.0
  },
  {
   "idVariable": 1277,
@@ -15044,8 +15044,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 11017326.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 10590687.0
  },
  {
   "idVariable": 1278,
@@ -15056,8 +15056,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 735990.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 742268.0
  },
  {
   "idVariable": 1279,
@@ -15068,8 +15068,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 18236244.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 18596619.0
  },
  {
   "idVariable": 1280,
@@ -15080,8 +15080,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 8289627.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 8513074.0
  },
  {
   "idVariable": 1281,
@@ -15092,8 +15092,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 2728604.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 2815955.0
  },
  {
   "idVariable": 1282,
@@ -15104,8 +15104,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 9417625.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 9614664.0
  },
  {
   "idVariable": 1283,
@@ -15116,8 +15116,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 6642260.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 6828971.0
  },
  {
   "idVariable": 1284,
@@ -15128,8 +15128,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 22448576.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 22526398.0
  },
  {
   "idVariable": 1285,
@@ -15140,8 +15140,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 23868376.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 25204028.0
  },
  {
   "idVariable": 1286,
@@ -15152,8 +15152,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 233.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 576.0
  },
  {
   "idVariable": 1287,
@@ -15164,8 +15164,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 10202198.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 10558343.0
  },
  {
   "idVariable": 1288,
@@ -15176,8 +15176,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 653928.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 595746.0
  },
  {
   "idVariable": 1289,
@@ -15188,7 +15188,7 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
+  "ultFechaInformada": "2026-11-02",
   "ultValorInformado": 0.0
  },
  {
@@ -15200,8 +15200,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 16000.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 0.0
  },
  {
   "idVariable": 1291,
@@ -15212,8 +15212,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 983768.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 976037.0
  },
  {
   "idVariable": 1292,
@@ -15224,8 +15224,8 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "1996-01-02",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 4113.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 4151.0
  },
  {
   "idVariable": 1293,
@@ -15236,8 +15236,8 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 16359.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 16637.0
  },
  {
   "idVariable": 1294,
@@ -15248,8 +15248,8 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 7110.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 6803.0
  },
  {
   "idVariable": 1295,
@@ -15260,7 +15260,7 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
+  "ultFechaInformada": "2026-11-02",
   "ultValorInformado": 32.0
  },
  {
@@ -15272,8 +15272,8 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 26268.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 26452.0
  },
  {
   "idVariable": 1297,
@@ -15284,8 +15284,8 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "1996-04-01",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 26218.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 26404.0
  },
  {
   "idVariable": 1298,
@@ -15296,7 +15296,7 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
+  "ultFechaInformada": "2026-11-02",
   "ultValorInformado": 0.0
  },
  {
@@ -15308,8 +15308,8 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 259.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 325.0
  },
  {
   "idVariable": 1300,
@@ -15320,8 +15320,8 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 19232.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 19285.0
  },
  {
   "idVariable": 1301,
@@ -15332,7 +15332,7 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
+  "ultFechaInformada": "2026-11-02",
   "ultValorInformado": 0.0
  },
  {
@@ -15344,8 +15344,8 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 18.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 10.0
  },
  {
   "idVariable": 1303,
@@ -15356,8 +15356,8 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 850.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 873.0
  },
  {
   "idVariable": 1304,
@@ -15368,8 +15368,8 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 1407.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 1411.0
  },
  {
   "idVariable": 1305,
@@ -15380,7 +15380,7 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
+  "ultFechaInformada": "2026-11-02",
   "ultValorInformado": 4.0
  },
  {
@@ -15392,8 +15392,8 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 640.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 635.0
  },
  {
   "idVariable": 1307,
@@ -15404,8 +15404,8 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 61.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 68.0
  },
  {
   "idVariable": 1308,
@@ -15416,8 +15416,8 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 3745.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 3794.0
  },
  {
   "idVariable": 1309,
@@ -15428,8 +15428,8 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 50.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 47.0
  },
  {
   "idVariable": 1310,
@@ -15440,7 +15440,7 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
+  "ultFechaInformada": "2026-11-02",
   "ultValorInformado": 0.0
  },
  {
@@ -15452,7 +15452,7 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
+  "ultFechaInformada": "2026-11-02",
   "ultValorInformado": 0.0
  },
  {
@@ -15464,8 +15464,8 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 4.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 3.0
  },
  {
   "idVariable": 1313,
@@ -15476,8 +15476,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 697891.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 952124.0
  },
  {
   "idVariable": 1314,
@@ -15488,8 +15488,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1996-04-01",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 697891.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 952124.0
  },
  {
   "idVariable": 1315,
@@ -15500,8 +15500,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 164130.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 377385.0
  },
  {
   "idVariable": 1316,
@@ -15512,8 +15512,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 18221.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 63180.0
  },
  {
   "idVariable": 1317,
@@ -15524,8 +15524,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 48846.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 48757.0
  },
  {
   "idVariable": 1318,
@@ -15536,8 +15536,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 27794.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 27244.0
  },
  {
   "idVariable": 1319,
@@ -15548,7 +15548,7 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
+  "ultFechaInformada": "2026-11-02",
   "ultValorInformado": 4622.0
  },
  {
@@ -15560,7 +15560,7 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
+  "ultFechaInformada": "2026-11-02",
   "ultValorInformado": 0.0
  },
  {
@@ -15572,8 +15572,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 27440.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 26824.0
  },
  {
   "idVariable": 1322,
@@ -15584,7 +15584,7 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
+  "ultFechaInformada": "2026-11-02",
   "ultValorInformado": 0.0
  },
  {
@@ -15596,8 +15596,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 23855.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 23772.0
  },
  {
   "idVariable": 1324,
@@ -15608,7 +15608,7 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
+  "ultFechaInformada": "2026-11-02",
   "ultValorInformado": 0.0
  },
  {
@@ -15620,8 +15620,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 382983.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 380339.0
  },
  {
   "idVariable": 1326,
@@ -15632,8 +15632,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 143.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 67.0
  },
  {
   "idVariable": 1327,
@@ -15644,7 +15644,7 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
+  "ultFechaInformada": "2026-11-02",
   "ultValorInformado": 96.0
  },
  {
@@ -15656,7 +15656,7 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "1996-04-01",
-  "ultFechaInformada": "2026-10-21",
+  "ultFechaInformada": "2026-11-02",
   "ultValorInformado": 96.0
  },
  {
@@ -15668,7 +15668,7 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
+  "ultFechaInformada": "2026-11-02",
   "ultValorInformado": 0.0
  },
  {
@@ -15680,7 +15680,7 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
+  "ultFechaInformada": "2026-11-02",
   "ultValorInformado": 0.0
  },
  {
@@ -15692,7 +15692,7 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
+  "ultFechaInformada": "2026-11-02",
   "ultValorInformado": 0.0
  },
  {
@@ -15704,7 +15704,7 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
+  "ultFechaInformada": "2026-11-02",
   "ultValorInformado": 0.0
  },
  {
@@ -15716,7 +15716,7 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
+  "ultFechaInformada": "2026-11-02",
   "ultValorInformado": 0.0
  },
  {
@@ -15728,7 +15728,7 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
+  "ultFechaInformada": "2026-11-02",
   "ultValorInformado": 0.0
  },
  {
@@ -15740,7 +15740,7 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
+  "ultFechaInformada": "2026-11-02",
   "ultValorInformado": 0.0
  },
  {
@@ -15752,7 +15752,7 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
+  "ultFechaInformada": "2026-11-02",
   "ultValorInformado": 0.0
  },
  {
@@ -15764,7 +15764,7 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
+  "ultFechaInformada": "2026-11-02",
   "ultValorInformado": 0.0
  },
  {
@@ -15776,7 +15776,7 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
+  "ultFechaInformada": "2026-11-02",
   "ultValorInformado": 0.0
  },
  {
@@ -15788,7 +15788,7 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
+  "ultFechaInformada": "2026-11-02",
   "ultValorInformado": 96.0
  },
  {
@@ -15800,7 +15800,7 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
+  "ultFechaInformada": "2026-11-02",
   "ultValorInformado": 0.0
  },
  {
@@ -15812,8 +15812,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 109633924.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 111432795.0
  },
  {
   "idVariable": 1342,
@@ -15824,8 +15824,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1996-04-01",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 109177177.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 110983555.0
  },
  {
   "idVariable": 1343,
@@ -15836,8 +15836,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1996-04-01",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 10852918.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 10212320.0
  },
  {
   "idVariable": 1344,
@@ -15848,8 +15848,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 707769.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 646287.0
  },
  {
   "idVariable": 1345,
@@ -15860,8 +15860,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1996-04-01",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 17622662.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 17906875.0
  },
  {
   "idVariable": 1346,
@@ -15872,8 +15872,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 7803851.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 8026535.0
  },
  {
   "idVariable": 1347,
@@ -15884,8 +15884,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 1469849.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 1468091.0
  },
  {
   "idVariable": 1348,
@@ -15896,8 +15896,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1996-04-01",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 9417625.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 9614664.0
  },
  {
   "idVariable": 1349,
@@ -15908,8 +15908,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1996-04-01",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 6614820.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 6802146.0
  },
  {
   "idVariable": 1350,
@@ -15920,8 +15920,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 22448576.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 22526398.0
  },
  {
   "idVariable": 1351,
@@ -15932,8 +15932,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 23844028.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 25179693.0
  },
  {
   "idVariable": 1352,
@@ -15944,8 +15944,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 233.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 576.0
  },
  {
   "idVariable": 1353,
@@ -15956,8 +15956,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 8394846.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 8599969.0
  },
  {
   "idVariable": 1354,
@@ -15968,8 +15968,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 843545.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 835559.0
  },
  {
   "idVariable": 1355,
@@ -15980,8 +15980,8 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 26109.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 26305.0
  },
  {
   "idVariable": 1356,
@@ -15992,8 +15992,8 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "1996-04-01",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 26059.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 26258.0
  },
  {
   "idVariable": 1357,
@@ -16004,7 +16004,7 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "1996-04-01",
-  "ultFechaInformada": "2026-10-21",
+  "ultFechaInformada": "2026-11-02",
   "ultValorInformado": 0.0
  },
  {
@@ -16016,8 +16016,8 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "1996-04-01",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 259.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 325.0
  },
  {
   "idVariable": 1359,
@@ -16028,8 +16028,8 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "1996-04-01",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 19207.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 19260.0
  },
  {
   "idVariable": 1360,
@@ -16040,7 +16040,7 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
+  "ultFechaInformada": "2026-11-02",
   "ultValorInformado": 0.0
  },
  {
@@ -16052,8 +16052,8 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 17.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 9.0
  },
  {
   "idVariable": 1362,
@@ -16064,8 +16064,8 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "1996-04-01",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 850.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 873.0
  },
  {
   "idVariable": 1363,
@@ -16076,8 +16076,8 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "1996-04-01",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 1407.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 1411.0
  },
  {
   "idVariable": 1364,
@@ -16088,7 +16088,7 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
+  "ultFechaInformada": "2026-11-02",
   "ultValorInformado": 4.0
  },
  {
@@ -16100,8 +16100,8 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 639.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 634.0
  },
  {
   "idVariable": 1366,
@@ -16112,8 +16112,8 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 61.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 68.0
  },
  {
   "idVariable": 1367,
@@ -16124,8 +16124,8 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 3614.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 3674.0
  },
  {
   "idVariable": 1368,
@@ -16136,8 +16136,8 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 4.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 3.0
  },
  {
   "idVariable": 1369,
@@ -16148,8 +16148,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 179626267.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 181256007.0
  },
  {
   "idVariable": 1370,
@@ -16160,8 +16160,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 179215938.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 180921433.0
  },
  {
   "idVariable": 1371,
@@ -16172,8 +16172,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1996-01-02",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 36751759.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 34845414.0
  },
  {
   "idVariable": 1372,
@@ -16196,8 +16196,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 2008646.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 2026614.0
  },
  {
   "idVariable": 1374,
@@ -16220,8 +16220,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1996-01-02",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 28938796.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 33511890.0
  },
  {
   "idVariable": 1376,
@@ -16244,8 +16244,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1996-01-02",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 85165858.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 84762367.0
  },
  {
   "idVariable": 1378,
@@ -16256,8 +16256,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1996-01-02",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 74194948.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 73791133.0
  },
  {
   "idVariable": 1379,
@@ -16268,8 +16268,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 5881734.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 6012535.0
  },
  {
   "idVariable": 1380,
@@ -16280,8 +16280,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 3279887.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 3200152.0
  },
  {
   "idVariable": 1381,
@@ -16292,8 +16292,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 1361584.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 1332280.0
  },
  {
   "idVariable": 1382,
@@ -16304,8 +16304,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 447705.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 426268.0
  },
  {
   "idVariable": 1383,
@@ -16328,8 +16328,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "2003-01-31",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 1402860.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 1386046.0
  },
  {
   "idVariable": 1385,
@@ -16352,8 +16352,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "2003-01-02",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 1554890.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 1575924.0
  },
  {
   "idVariable": 1387,
@@ -16364,7 +16364,7 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
+  "ultFechaInformada": "2026-11-02",
   "ultValorInformado": 0.0
  },
  {
@@ -16376,8 +16376,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 13631963.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 12657603.0
  },
  {
   "idVariable": 1389,
@@ -16388,7 +16388,7 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
+  "ultFechaInformada": "2026-11-02",
   "ultValorInformado": 0.0
  },
  {
@@ -16400,8 +16400,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 191116.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 200629.0
  },
  {
   "idVariable": 1391,
@@ -16412,8 +16412,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 15086.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 4452.0
  },
  {
   "idVariable": 1392,
@@ -16424,8 +16424,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 55476.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 66723.0
  },
  {
   "idVariable": 1393,
@@ -16436,7 +16436,7 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
+  "ultFechaInformada": "2026-11-02",
   "ultValorInformado": 0.0
  },
  {
@@ -16448,8 +16448,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 908055.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 1044356.0
  },
  {
   "idVariable": 1395,
@@ -16496,8 +16496,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 410329.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 334574.0
  },
  {
   "idVariable": 1399,
@@ -16508,7 +16508,7 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
+  "ultFechaInformada": "2026-11-02",
   "ultValorInformado": 0.0
  },
  {
@@ -16520,7 +16520,7 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
+  "ultFechaInformada": "2026-11-02",
   "ultValorInformado": 0.0
  },
  {
@@ -16532,7 +16532,7 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
+  "ultFechaInformada": "2026-11-02",
   "ultValorInformado": 0.0
  },
  {
@@ -16544,8 +16544,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 35.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 31.0
  },
  {
   "idVariable": 1403,
@@ -16556,8 +16556,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "2001-01-02",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 35.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 31.0
  },
  {
   "idVariable": 1404,
@@ -16568,7 +16568,7 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "2001-01-02",
-  "ultFechaInformada": "2026-10-21",
+  "ultFechaInformada": "2026-11-02",
   "ultValorInformado": 0.0
  },
  {
@@ -16580,8 +16580,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 2143642.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 2319007.0
  },
  {
   "idVariable": 1406,
@@ -16592,8 +16592,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "2001-01-02",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 2143642.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 2319007.0
  },
  {
   "idVariable": 1407,
@@ -16604,7 +16604,7 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "2001-01-02",
-  "ultFechaInformada": "2026-10-21",
+  "ultFechaInformada": "2026-11-02",
   "ultValorInformado": 0.0
  },
  {
@@ -16616,8 +16616,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 2685010.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 2684932.0
  },
  {
   "idVariable": 1409,
@@ -16628,7 +16628,7 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
+  "ultFechaInformada": "2026-11-02",
   "ultValorInformado": 4517.0
  },
  {
@@ -16640,8 +16640,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 41773.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 82.0
  },
  {
   "idVariable": 1411,
@@ -16652,8 +16652,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 1866204.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 1506011.0
  },
  {
   "idVariable": 1412,
@@ -16664,8 +16664,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1996-01-02",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 3652186.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 2536512.0
  },
  {
   "idVariable": 1413,
@@ -16676,8 +16676,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 53883.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 27649.0
  },
  {
   "idVariable": 1414,
@@ -16688,8 +16688,8 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 46158.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 46245.0
  },
  {
   "idVariable": 1415,
@@ -16700,8 +16700,8 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 45818.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 45975.0
  },
  {
   "idVariable": 1416,
@@ -16712,8 +16712,8 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "1996-01-02",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 16.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 44.0
  },
  {
   "idVariable": 1417,
@@ -16736,8 +16736,8 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 311.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 314.0
  },
  {
   "idVariable": 1419,
@@ -16760,8 +16760,8 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "1996-01-02",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 32076.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 31827.0
  },
  {
   "idVariable": 1421,
@@ -16784,8 +16784,8 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "1996-01-02",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 13038.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 13443.0
  },
  {
   "idVariable": 1423,
@@ -16796,8 +16796,8 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "1996-01-02",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 7393.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 7404.0
  },
  {
   "idVariable": 1424,
@@ -16808,8 +16808,8 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 1418.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 1627.0
  },
  {
   "idVariable": 1425,
@@ -16820,8 +16820,8 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 2026.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 2105.0
  },
  {
   "idVariable": 1426,
@@ -16832,8 +16832,8 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 1742.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 1846.0
  },
  {
   "idVariable": 1427,
@@ -16844,7 +16844,7 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
+  "ultFechaInformada": "2026-11-02",
   "ultValorInformado": 460.0
  },
  {
@@ -16868,7 +16868,7 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "2003-01-02",
-  "ultFechaInformada": "2026-10-21",
+  "ultFechaInformada": "2026-11-02",
   "ultValorInformado": 522.0
  },
  {
@@ -16880,7 +16880,7 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
+  "ultFechaInformada": "2026-11-02",
   "ultValorInformado": 0.0
  },
  {
@@ -16892,8 +16892,8 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 62.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 63.0
  },
  {
   "idVariable": 1432,
@@ -16904,7 +16904,7 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
+  "ultFechaInformada": "2026-11-02",
   "ultValorInformado": 0.0
  },
  {
@@ -16916,8 +16916,8 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 155.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 186.0
  },
  {
   "idVariable": 1434,
@@ -16928,7 +16928,7 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
+  "ultFechaInformada": "2026-11-02",
   "ultValorInformado": 0.0
  },
  {
@@ -16940,7 +16940,7 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
+  "ultFechaInformada": "2026-11-02",
   "ultValorInformado": 4.0
  },
  {
@@ -16952,7 +16952,7 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
+  "ultFechaInformada": "2026-11-02",
   "ultValorInformado": 0.0
  },
  {
@@ -16964,8 +16964,8 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 156.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 94.0
  },
  {
   "idVariable": 1438,
@@ -16988,8 +16988,8 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 341.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 270.0
  },
  {
   "idVariable": 1440,
@@ -17000,7 +17000,7 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
+  "ultFechaInformada": "2026-11-02",
   "ultValorInformado": 0.0
  },
  {
@@ -17012,7 +17012,7 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
+  "ultFechaInformada": "2026-11-02",
   "ultValorInformado": 0.0
  },
  {
@@ -17024,7 +17024,7 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
+  "ultFechaInformada": "2026-11-02",
   "ultValorInformado": 0.0
  },
  {
@@ -17036,8 +17036,8 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 2093.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 2095.0
  },
  {
   "idVariable": 1444,
@@ -17048,7 +17048,7 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "2001-01-02",
-  "ultFechaInformada": "2026-10-21",
+  "ultFechaInformada": "2026-11-02",
   "ultValorInformado": 0.0
  },
  {
@@ -17060,8 +17060,8 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "2001-01-02",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 2093.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 2095.0
  },
  {
   "idVariable": 1446,
@@ -17072,8 +17072,8 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 747.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 718.0
  },
  {
   "idVariable": 1447,
@@ -17084,8 +17084,8 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "2001-01-02",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 67.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 69.0
  },
  {
   "idVariable": 1448,
@@ -17096,8 +17096,8 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "2001-01-02",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 680.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 649.0
  },
  {
   "idVariable": 1449,
@@ -17108,7 +17108,7 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
+  "ultFechaInformada": "2026-11-02",
   "ultValorInformado": 3502.0
  },
  {
@@ -17120,7 +17120,7 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
+  "ultFechaInformada": "2026-11-02",
   "ultValorInformado": 399.0
  },
  {
@@ -17132,8 +17132,8 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 0.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 17.0
  },
  {
   "idVariable": 1452,
@@ -17144,8 +17144,8 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 21.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 11.0
  },
  {
   "idVariable": 1453,
@@ -17156,7 +17156,7 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "1996-01-02",
-  "ultFechaInformada": "2026-10-21",
+  "ultFechaInformada": "2026-11-02",
   "ultValorInformado": 0.0
  },
  {
@@ -17168,8 +17168,8 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 107.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 190.0
  },
  {
   "idVariable": 1455,
@@ -17180,8 +17180,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 56212432.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 51741983.0
  },
  {
   "idVariable": 1456,
@@ -17192,8 +17192,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 56212432.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 51741983.0
  },
  {
   "idVariable": 1457,
@@ -17204,8 +17204,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1996-01-02",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 26990303.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 24567997.0
  },
  {
   "idVariable": 1458,
@@ -17228,8 +17228,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 718542.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 743178.0
  },
  {
   "idVariable": 1460,
@@ -17252,8 +17252,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 901009.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 763829.0
  },
  {
   "idVariable": 1462,
@@ -17276,8 +17276,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 14445958.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 13538654.0
  },
  {
   "idVariable": 1464,
@@ -17288,8 +17288,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 9419958.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 8516092.0
  },
  {
   "idVariable": 1465,
@@ -17300,8 +17300,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 2855101.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 2854676.0
  },
  {
   "idVariable": 1466,
@@ -17312,8 +17312,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 1314679.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 1309804.0
  },
  {
   "idVariable": 1467,
@@ -17324,8 +17324,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 493942.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 495797.0
  },
  {
   "idVariable": 1468,
@@ -17336,8 +17336,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 362278.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 362286.0
  },
  {
   "idVariable": 1469,
@@ -17360,8 +17360,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "2003-01-31",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 787049.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 787425.0
  },
  {
   "idVariable": 1471,
@@ -17384,8 +17384,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "2003-01-02",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 705031.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 718217.0
  },
  {
   "idVariable": 1473,
@@ -17396,7 +17396,7 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
+  "ultFechaInformada": "2026-11-02",
   "ultValorInformado": 0.0
  },
  {
@@ -17408,8 +17408,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 12808850.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 11843234.0
  },
  {
   "idVariable": 1475,
@@ -17420,7 +17420,7 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
+  "ultFechaInformada": "2026-11-02",
   "ultValorInformado": 0.0
  },
  {
@@ -17432,8 +17432,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 14837.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 3782.0
  },
  {
   "idVariable": 1477,
@@ -17444,8 +17444,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 48.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 0.0
  },
  {
   "idVariable": 1478,
@@ -17456,8 +17456,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 934.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 909.0
  },
  {
   "idVariable": 1479,
@@ -17468,7 +17468,7 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
+  "ultFechaInformada": "2026-11-02",
   "ultValorInformado": 0.0
  },
  {
@@ -17480,8 +17480,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1996-01-02",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 331951.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 280400.0
  },
  {
   "idVariable": 1481,
@@ -17528,7 +17528,7 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
+  "ultFechaInformada": "2026-11-02",
   "ultValorInformado": 0.0
  },
  {
@@ -17540,7 +17540,7 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
+  "ultFechaInformada": "2026-11-02",
   "ultValorInformado": 0.0
  },
  {
@@ -17552,7 +17552,7 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
+  "ultFechaInformada": "2026-11-02",
   "ultValorInformado": 0.0
  },
  {
@@ -17564,8 +17564,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1996-01-02",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 11549185.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 11801385.0
  },
  {
   "idVariable": 1488,
@@ -17576,7 +17576,7 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
+  "ultFechaInformada": "2026-11-02",
   "ultValorInformado": 0.0
  },
  {
@@ -17588,7 +17588,7 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
+  "ultFechaInformada": "2026-11-02",
   "ultValorInformado": 0.0
  },
  {
@@ -17600,7 +17600,7 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
+  "ultFechaInformada": "2026-11-02",
   "ultValorInformado": 0.0
  },
  {
@@ -17612,8 +17612,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 29000.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 29998.0
  },
  {
   "idVariable": 1492,
@@ -17624,7 +17624,7 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
+  "ultFechaInformada": "2026-11-02",
   "ultValorInformado": 0.0
  },
  {
@@ -17636,8 +17636,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 3121.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 2989.0
  },
  {
   "idVariable": 1494,
@@ -17648,8 +17648,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 3121.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 2989.0
  },
  {
   "idVariable": 1495,
@@ -17660,7 +17660,7 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
+  "ultFechaInformada": "2026-11-02",
   "ultValorInformado": 0.0
  },
  {
@@ -17684,8 +17684,8 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 134.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 135.0
  },
  {
   "idVariable": 1498,
@@ -17708,8 +17708,8 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 1900.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 1617.0
  },
  {
   "idVariable": 1500,
@@ -17732,8 +17732,8 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 1082.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 1235.0
  },
  {
   "idVariable": 1502,
@@ -17744,8 +17744,8 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 309.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 315.0
  },
  {
   "idVariable": 1503,
@@ -17756,8 +17756,8 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 318.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 473.0
  },
  {
   "idVariable": 1504,
@@ -17768,8 +17768,8 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 206.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 194.0
  },
  {
   "idVariable": 1505,
@@ -17780,8 +17780,8 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 248.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 251.0
  },
  {
   "idVariable": 1506,
@@ -17792,7 +17792,7 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
+  "ultFechaInformada": "2026-11-02",
   "ultValorInformado": 2.0
  },
  {
@@ -17816,8 +17816,8 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "2003-01-02",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 132.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 133.0
  },
  {
   "idVariable": 1509,
@@ -17828,7 +17828,7 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
+  "ultFechaInformada": "2026-11-02",
   "ultValorInformado": 0.0
  },
  {
@@ -17840,7 +17840,7 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
+  "ultFechaInformada": "2026-11-02",
   "ultValorInformado": 0.0
  },
  {
@@ -17852,7 +17852,7 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
+  "ultFechaInformada": "2026-11-02",
   "ultValorInformado": 0.0
  },
  {
@@ -17864,8 +17864,8 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 4.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 1.0
  },
  {
   "idVariable": 1513,
@@ -17876,7 +17876,7 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
+  "ultFechaInformada": "2026-11-02",
   "ultValorInformado": 0.0
  },
  {
@@ -17888,7 +17888,7 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
+  "ultFechaInformada": "2026-11-02",
   "ultValorInformado": 0.0
  },
  {
@@ -17900,7 +17900,7 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
+  "ultFechaInformada": "2026-11-02",
   "ultValorInformado": 0.0
  },
  {
@@ -17912,7 +17912,7 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
+  "ultFechaInformada": "2026-11-02",
   "ultValorInformado": 0.0
  },
  {
@@ -17936,7 +17936,7 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
+  "ultFechaInformada": "2026-11-02",
   "ultValorInformado": 0.0
  },
  {
@@ -17948,7 +17948,7 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
+  "ultFechaInformada": "2026-11-02",
   "ultValorInformado": 0.0
  },
  {
@@ -17960,7 +17960,7 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
+  "ultFechaInformada": "2026-11-02",
   "ultValorInformado": 0.0
  },
  {
@@ -17972,7 +17972,7 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
+  "ultFechaInformada": "2026-11-02",
   "ultValorInformado": 0.0
  },
  {
@@ -17984,7 +17984,7 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
+  "ultFechaInformada": "2026-11-02",
   "ultValorInformado": 0.0
  },
  {
@@ -17996,7 +17996,7 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
+  "ultFechaInformada": "2026-11-02",
   "ultValorInformado": 0.0
  },
  {
@@ -18008,7 +18008,7 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
+  "ultFechaInformada": "2026-11-02",
   "ultValorInformado": 0.0
  },
  {
@@ -18020,7 +18020,7 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
+  "ultFechaInformada": "2026-11-02",
   "ultValorInformado": 0.0
  },
  {
@@ -18032,8 +18032,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 122418675.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 128569970.0
  },
  {
   "idVariable": 1527,
@@ -18044,8 +18044,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 122355095.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 128497486.0
  },
  {
   "idVariable": 1528,
@@ -18056,8 +18056,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1996-01-02",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 21223692.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 21974557.0
  },
  {
   "idVariable": 1529,
@@ -18080,8 +18080,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 1279340.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 1273394.0
  },
  {
   "idVariable": 1531,
@@ -18104,8 +18104,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 27864084.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 32551769.0
  },
  {
   "idVariable": 1533,
@@ -18128,8 +18128,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 70377875.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 70880937.0
  },
  {
   "idVariable": 1535,
@@ -18140,8 +18140,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 64453471.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 64952778.0
  },
  {
   "idVariable": 1536,
@@ -18152,8 +18152,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 3026548.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 3157773.0
  },
  {
   "idVariable": 1537,
@@ -18164,8 +18164,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 1944901.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 1870043.0
  },
  {
   "idVariable": 1538,
@@ -18176,8 +18176,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 867549.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 836382.0
  },
  {
   "idVariable": 1539,
@@ -18188,8 +18188,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 85407.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 63961.0
  },
  {
   "idVariable": 1540,
@@ -18212,8 +18212,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "2003-01-31",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 600493.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 583304.0
  },
  {
   "idVariable": 1542,
@@ -18236,8 +18236,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "2003-01-02",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 847726.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 855566.0
  },
  {
   "idVariable": 1544,
@@ -18248,7 +18248,7 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
+  "ultFechaInformada": "2026-11-02",
   "ultValorInformado": 0.0
  },
  {
@@ -18260,8 +18260,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 823113.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 814369.0
  },
  {
   "idVariable": 1546,
@@ -18272,7 +18272,7 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
+  "ultFechaInformada": "2026-11-02",
   "ultValorInformado": 0.0
  },
  {
@@ -18284,8 +18284,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 176251.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 196820.0
  },
  {
   "idVariable": 1548,
@@ -18296,8 +18296,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 6918.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 2197.0
  },
  {
   "idVariable": 1549,
@@ -18308,8 +18308,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 54537.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 65809.0
  },
  {
   "idVariable": 1550,
@@ -18320,7 +18320,7 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
+  "ultFechaInformada": "2026-11-02",
   "ultValorInformado": 0.0
  },
  {
@@ -18332,8 +18332,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 549284.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 737633.0
  },
  {
   "idVariable": 1552,
@@ -18380,8 +18380,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 63580.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 72484.0
  },
  {
   "idVariable": 1556,
@@ -18392,7 +18392,7 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
+  "ultFechaInformada": "2026-11-02",
   "ultValorInformado": 0.0
  },
  {
@@ -18404,7 +18404,7 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
+  "ultFechaInformada": "2026-11-02",
   "ultValorInformado": 0.0
  },
  {
@@ -18416,7 +18416,7 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
+  "ultFechaInformada": "2026-11-02",
   "ultValorInformado": 0.0
  },
  {
@@ -18428,7 +18428,7 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
+  "ultFechaInformada": "2026-11-02",
   "ultValorInformado": 0.0
  },
  {
@@ -18440,8 +18440,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 549289.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 385527.0
  },
  {
   "idVariable": 1561,
@@ -18452,8 +18452,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 61889.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 0.0
  },
  {
   "idVariable": 1562,
@@ -18464,8 +18464,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 140.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 147.0
  },
  {
   "idVariable": 1563,
@@ -18476,8 +18476,8 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 42599.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 42884.0
  },
  {
   "idVariable": 1564,
@@ -18488,8 +18488,8 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 42568.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 42865.0
  },
  {
   "idVariable": 1565,
@@ -18500,8 +18500,8 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 15.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 44.0
  },
  {
   "idVariable": 1566,
@@ -18524,8 +18524,8 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 145.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 146.0
  },
  {
   "idVariable": 1568,
@@ -18548,8 +18548,8 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 30086.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 30126.0
  },
  {
   "idVariable": 1570,
@@ -18572,8 +18572,8 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 11951.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 12203.0
  },
  {
   "idVariable": 1572,
@@ -18584,8 +18584,8 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 7080.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 7085.0
  },
  {
   "idVariable": 1573,
@@ -18596,8 +18596,8 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 1099.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 1154.0
  },
  {
   "idVariable": 1574,
@@ -18608,8 +18608,8 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 1820.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 1911.0
  },
  {
   "idVariable": 1575,
@@ -18620,8 +18620,8 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 1494.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 1595.0
  },
  {
   "idVariable": 1576,
@@ -18632,8 +18632,8 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 458.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 459.0
  },
  {
   "idVariable": 1577,
@@ -18656,8 +18656,8 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "2003-01-02",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 386.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 385.0
  },
  {
   "idVariable": 1579,
@@ -18668,7 +18668,7 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
+  "ultFechaInformada": "2026-11-02",
   "ultValorInformado": 0.0
  },
  {
@@ -18680,8 +18680,8 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 62.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 63.0
  },
  {
   "idVariable": 1581,
@@ -18692,7 +18692,7 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
+  "ultFechaInformada": "2026-11-02",
   "ultValorInformado": 0.0
  },
  {
@@ -18704,8 +18704,8 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 151.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 185.0
  },
  {
   "idVariable": 1583,
@@ -18716,7 +18716,7 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
+  "ultFechaInformada": "2026-11-02",
   "ultValorInformado": 0.0
  },
  {
@@ -18728,7 +18728,7 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
+  "ultFechaInformada": "2026-11-02",
   "ultValorInformado": 4.0
  },
  {
@@ -18740,7 +18740,7 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
+  "ultFechaInformada": "2026-11-02",
   "ultValorInformado": 0.0
  },
  {
@@ -18752,8 +18752,8 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 153.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 94.0
  },
  {
   "idVariable": 1587,
@@ -18776,8 +18776,8 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 31.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 18.0
  },
  {
   "idVariable": 1589,
@@ -18788,7 +18788,7 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
+  "ultFechaInformada": "2026-11-02",
   "ultValorInformado": 0.0
  },
  {
@@ -18800,7 +18800,7 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
+  "ultFechaInformada": "2026-11-02",
   "ultValorInformado": 0.0
  },
  {
@@ -18812,7 +18812,7 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
+  "ultFechaInformada": "2026-11-02",
   "ultValorInformado": 0.0
  },
  {
@@ -18824,8 +18824,8 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 0.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 5.0
  },
  {
   "idVariable": 1593,
@@ -18836,8 +18836,8 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 1.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 5.0
  },
  {
   "idVariable": 1594,
@@ -18848,7 +18848,7 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
+  "ultFechaInformada": "2026-11-02",
   "ultValorInformado": 0.0
  },
  {
@@ -18860,8 +18860,8 @@
   "unidadExpresion": "En millones de USD",
   "moneda": "ME",
   "primerFechaInformada": "1999-12-30",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 404.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 477.0
  },
  {
   "idVariable": 1596,
@@ -18884,8 +18884,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "2018-01-02",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 719692.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 711920.0
  },
  {
   "idVariable": 1598,
@@ -18908,7 +18908,7 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "2018-01-02",
-  "ultFechaInformada": "2026-10-21",
+  "ultFechaInformada": "2026-11-02",
   "ultValorInformado": 0.0
  },
  {
@@ -18932,8 +18932,8 @@
   "unidadExpresion": "En millones de ARS",
   "moneda": "ML",
   "primerFechaInformada": "2018-01-02",
-  "ultFechaInformada": "2026-10-21",
-  "ultValorInformado": 719692.0
+  "ultFechaInformada": "2026-11-02",
+  "ultValorInformado": 711920.0
  },
  {
   "idVariable": 1602,
