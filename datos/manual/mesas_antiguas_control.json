@@ -1,0 +1,2138 @@
+{
+ "_": "Lo que armó scripts/elecciones_antiguas.py. No se edita a mano.",
+ "elecciones": {
+  "1912-general-diputados": {
+   "reune": 40.5,
+   "sin_par": [],
+   "parecidos": [],
+   "choques": [],
+   "provincias": {
+    "02": {
+     "nivel": "departamento",
+     "unidades": 20,
+     "distintas": 20,
+     "positivos": 148056
+    },
+    "14": {
+     "nivel": "departamento",
+     "unidades": 21,
+     "distintas": 21,
+     "positivos": 57148
+    },
+    "50": {
+     "nivel": "departamento",
+     "unidades": 16,
+     "distintas": 16,
+     "positivos": 24150
+    },
+    "82": {
+     "nivel": "departamento",
+     "unidades": 5,
+     "distintas": 5,
+     "positivos": 46851
+    }
+   }
+  },
+  "1914-general-diputados": {
+   "reune": 78.4,
+   "sin_par": [],
+   "parecidos": [
+    "06: Matanza -> LAMATANZA",
+    "82: Capital -> LACAPITAL"
+   ],
+   "choques": [],
+   "provincias": {
+    "02": {
+     "nivel": "departamento",
+     "unidades": 20,
+     "distintas": 20,
+     "positivos": 117199
+    },
+    "06": {
+     "nivel": "departamento",
+     "unidades": 106,
+     "distintas": 104,
+     "positivos": 125344
+    },
+    "14": {
+     "nivel": "departamento",
+     "unidades": 25,
+     "distintas": 25,
+     "positivos": 45832
+    },
+    "18": {
+     "nivel": "departamento",
+     "unidades": 24,
+     "distintas": 24,
+     "positivos": 37556
+    },
+    "30": {
+     "nivel": "departamento",
+     "unidades": 14,
+     "distintas": 14,
+     "positivos": 53901
+    },
+    "46": {
+     "nivel": "departamento",
+     "unidades": 18,
+     "distintas": 18,
+     "positivos": 7334
+    },
+    "50": {
+     "nivel": "departamento",
+     "unidades": 16,
+     "distintas": 16,
+     "positivos": 22738
+    },
+    "82": {
+     "nivel": "departamento",
+     "unidades": 14,
+     "distintas": 14,
+     "positivos": 54056
+    }
+   }
+  },
+  "1916-general-diputados": {
+   "reune": 94.8,
+   "sin_par": [],
+   "parecidos": [
+    "06: Matanza -> LAMATANZA",
+    "90: Burruyacu -> BURRUYACUI",
+    "90: Chicligasta -> CHICLIGASTAI",
+    "90: Cruz Alta -> CRUZALTAI",
+    "90: Famaillá -> FAMAILLAI",
+    "90: Leales -> LEALESI",
+    "90: Monteros -> MONTEROSI",
+    "90: Río Chico -> RIOCHICOI",
+    "90: Trancas -> TRANCASI"
+   ],
+   "choques": [],
+   "provincias": {
+    "02": {
+     "nivel": "departamento",
+     "unidades": 20,
+     "distintas": 20,
+     "positivos": 148127
+    },
+    "06": {
+     "nivel": "departamento",
+     "unidades": 108,
+     "distintas": 106,
+     "positivos": 190409
+    },
+    "10": {
+     "nivel": "departamento",
+     "unidades": 15,
+     "distintas": 15,
+     "positivos": 15341
+    },
+    "14": {
+     "nivel": "departamento",
+     "unidades": 25,
+     "distintas": 24,
+     "positivos": 69618
+    },
+    "18": {
+     "nivel": "departamento",
+     "unidades": 24,
+     "distintas": 24,
+     "positivos": 42909
+    },
+    "30": {
+     "nivel": "departamento",
+     "unidades": 14,
+     "distintas": 14,
+     "positivos": 49464
+    },
+    "38": {
+     "nivel": "departamento",
+     "unidades": 14,
+     "distintas": 14,
+     "positivos": 9270
+    },
+    "46": {
+     "nivel": "departamento",
+     "unidades": 18,
+     "distintas": 18,
+     "positivos": 8973
+    },
+    "50": {
+     "nivel": "departamento",
+     "unidades": 16,
+     "distintas": 16,
+     "positivos": 27516
+    },
+    "66": {
+     "nivel": "departamento",
+     "unidades": 21,
+     "distintas": 21,
+     "positivos": 18453
+    },
+    "70": {
+     "nivel": "departamento",
+     "unidades": 1,
+     "distintas": 1,
+     "positivos": 2083
+    },
+    "74": {
+     "nivel": "departamento",
+     "unidades": 8,
+     "distintas": 8,
+     "positivos": 14961
+    },
+    "82": {
+     "nivel": "departamento",
+     "unidades": 19,
+     "distintas": 19,
+     "positivos": 78462
+    },
+    "90": {
+     "nivel": "departamento",
+     "unidades": 11,
+     "distintas": 11,
+     "positivos": 42731
+    }
+   }
+  },
+  "1918-general-diputados": {
+   "reune": 85.5,
+   "sin_par": [],
+   "parecidos": [
+    "06: Matanza -> LAMATANZA"
+   ],
+   "choques": [],
+   "provincias": {
+    "02": {
+     "nivel": "departamento",
+     "unidades": 20,
+     "distintas": 20,
+     "positivos": 167885
+    },
+    "06": {
+     "nivel": "departamento",
+     "unidades": 108,
+     "distintas": 106,
+     "positivos": 188518
+    },
+    "10": {
+     "nivel": "departamento",
+     "unidades": 15,
+     "distintas": 15,
+     "positivos": 17126
+    },
+    "14": {
+     "nivel": "departamento",
+     "unidades": 25,
+     "distintas": 24,
+     "positivos": 65977
+    },
+    "18": {
+     "nivel": "departamento",
+     "unidades": 24,
+     "distintas": 24,
+     "positivos": 43533
+    },
+    "30": {
+     "nivel": "departamento",
+     "unidades": 14,
+     "distintas": 14,
+     "positivos": 52469
+    },
+    "50": {
+     "nivel": "departamento",
+     "unidades": 16,
+     "distintas": 16,
+     "positivos": 22789
+    },
+    "82": {
+     "nivel": "departamento",
+     "unidades": 19,
+     "distintas": 19,
+     "positivos": 78570
+    }
+   }
+  },
+  "1920-general-diputados": {
+   "reune": 87.1,
+   "sin_par": [],
+   "parecidos": [
+    "06: Matanza -> LAMATANZA",
+    "90: Burruyacu -> BURRUYACUI",
+    "90: Chicligasta -> CHICLIGASTAI",
+    "90: Cruz Alta -> CRUZALTAI",
+    "90: Famaillá -> FAMAILLAI",
+    "90: Leales -> LEALESI",
+    "90: Monteros -> MONTEROSI",
+    "90: Río Chico -> RIOCHICOI",
+    "90: Trancas -> TRANCASI"
+   ],
+   "choques": [],
+   "provincias": {
+    "02": {
+     "nivel": "departamento",
+     "unidades": 20,
+     "distintas": 20,
+     "positivos": 165740
+    },
+    "06": {
+     "nivel": "departamento",
+     "unidades": 108,
+     "distintas": 106,
+     "positivos": 164348
+    },
+    "14": {
+     "nivel": "departamento",
+     "unidades": 25,
+     "distintas": 24,
+     "positivos": 73758
+    },
+    "18": {
+     "nivel": "departamento",
+     "unidades": 24,
+     "distintas": 24,
+     "positivos": 31073
+    },
+    "30": {
+     "nivel": "departamento",
+     "unidades": 13,
+     "distintas": 13,
+     "positivos": 28600
+    },
+    "38": {
+     "nivel": "departamento",
+     "unidades": 14,
+     "distintas": 14,
+     "positivos": 8253
+    },
+    "50": {
+     "nivel": "departamento",
+     "unidades": 16,
+     "distintas": 16,
+     "positivos": 28747
+    },
+    "74": {
+     "nivel": "departamento",
+     "unidades": 8,
+     "distintas": 8,
+     "positivos": 14209
+    },
+    "82": {
+     "nivel": "departamento",
+     "unidades": 19,
+     "distintas": 19,
+     "positivos": 77519
+    },
+    "90": {
+     "nivel": "departamento",
+     "unidades": 11,
+     "distintas": 11,
+     "positivos": 33444
+    }
+   }
+  },
+  "1922-general-presidente": {
+   "reune": 96.0,
+   "sin_par": [],
+   "parecidos": [
+    "06: Matanza -> LAMATANZA",
+    "66: Caldera -> LACALDERA",
+    "66: Candelaria -> LACANDELARIA",
+    "70: Angaco -> ANGACOSUD",
+    "70: Ullún -> ULLUM",
+    "90: Burruyacú -> BURRUYACUI",
+    "90: Famaillá -> FAMAILLAI",
+    "90: Leales -> LEALESI",
+    "90: Monteros -> MONTEROSI",
+    "90: Río Chico -> RIOCHICOI",
+    "90: Trancas -> TRANCASI"
+   ],
+   "choques": [],
+   "provincias": {
+    "02": {
+     "nivel": "departamento",
+     "unidades": 20,
+     "distintas": 20,
+     "positivos": 181158
+    },
+    "06": {
+     "nivel": "departamento",
+     "unidades": 108,
+     "distintas": 106,
+     "positivos": 198129
+    },
+    "10": {
+     "nivel": "departamento",
+     "unidades": 15,
+     "distintas": 15,
+     "positivos": 16436
+    },
+    "14": {
+     "nivel": "departamento",
+     "unidades": 25,
+     "distintas": 24,
+     "positivos": 82563
+    },
+    "18": {
+     "nivel": "departamento",
+     "unidades": 24,
+     "distintas": 24,
+     "positivos": 47862
+    },
+    "30": {
+     "nivel": "departamento",
+     "unidades": 14,
+     "distintas": 14,
+     "positivos": 70536
+    },
+    "38": {
+     "nivel": "departamento",
+     "unidades": 14,
+     "distintas": 14,
+     "positivos": 8257
+    },
+    "46": {
+     "nivel": "departamento",
+     "unidades": 14,
+     "distintas": 14,
+     "positivos": 8401
+    },
+    "66": {
+     "nivel": "departamento",
+     "unidades": 19,
+     "distintas": 19,
+     "positivos": 16265
+    },
+    "70": {
+     "nivel": "departamento",
+     "unidades": 20,
+     "distintas": 17,
+     "positivos": 17927
+    },
+    "74": {
+     "nivel": "departamento",
+     "unidades": 8,
+     "distintas": 8,
+     "positivos": 14439
+    },
+    "82": {
+     "nivel": "departamento",
+     "unidades": 19,
+     "distintas": 19,
+     "positivos": 104050
+    },
+    "90": {
+     "nivel": "departamento",
+     "unidades": 9,
+     "distintas": 9,
+     "positivos": 30626
+    }
+   }
+  },
+  "1926-general-diputados": {
+   "reune": 99.4,
+   "sin_par": [
+    "86:General Taboada"
+   ],
+   "parecidos": [
+    "06: Matanza -> LAMATANZA",
+    "66: Caldera -> LACALDERA",
+    "66: Candelaria -> LACANDELARIA",
+    "70: Angaco -> ANGACOSUD",
+    "90: Burruyacú -> BURRUYACUI",
+    "90: Chicligasta -> CHICLIGASTAI",
+    "90: Cruz Alta -> CRUZALTAI",
+    "90: Famaillá -> FAMAILLAI",
+    "90: Leales -> LEALESI",
+    "90: Monteros -> MONTEROSI",
+    "90: Río Chico -> RIOCHICOI",
+    "90: Trancas -> TRANCASI"
+   ],
+   "choques": [],
+   "provincias": {
+    "02": {
+     "nivel": "departamento",
+     "unidades": 20,
+     "distintas": 20,
+     "positivos": 187357
+    },
+    "06": {
+     "nivel": "departamento",
+     "unidades": 108,
+     "distintas": 106,
+     "positivos": 160128
+    },
+    "10": {
+     "nivel": "departamento",
+     "unidades": 15,
+     "distintas": 15,
+     "positivos": 15470
+    },
+    "14": {
+     "nivel": "departamento",
+     "unidades": 25,
+     "distintas": 24,
+     "positivos": 90809
+    },
+    "18": {
+     "nivel": "departamento",
+     "unidades": 24,
+     "distintas": 24,
+     "positivos": 47004
+    },
+    "30": {
+     "nivel": "departamento",
+     "unidades": 14,
+     "distintas": 14,
+     "positivos": 65015
+    },
+    "38": {
+     "nivel": "departamento",
+     "unidades": 14,
+     "distintas": 14,
+     "positivos": 8727
+    },
+    "46": {
+     "nivel": "departamento",
+     "unidades": 18,
+     "distintas": 18,
+     "positivos": 12295
+    },
+    "50": {
+     "nivel": "departamento",
+     "unidades": 16,
+     "distintas": 16,
+     "positivos": 29758
+    },
+    "66": {
+     "nivel": "departamento",
+     "unidades": 21,
+     "distintas": 21,
+     "positivos": 18475
+    },
+    "70": {
+     "nivel": "departamento",
+     "unidades": 16,
+     "distintas": 13,
+     "positivos": 21113
+    },
+    "82": {
+     "nivel": "departamento",
+     "unidades": 19,
+     "distintas": 19,
+     "positivos": 111632
+    },
+    "86": {
+     "nivel": "departamento",
+     "unidades": 26,
+     "distintas": 26,
+     "positivos": 35757
+    },
+    "90": {
+     "nivel": "departamento",
+     "unidades": 11,
+     "distintas": 11,
+     "positivos": 43765
+    }
+   }
+  },
+  "1928-general-presidente": {
+   "reune": 103.2,
+   "sin_par": [
+    "86:General Taboada"
+   ],
+   "parecidos": [
+    "06: Matanza -> LAMATANZA",
+    "66: Caldera -> LACALDERA",
+    "66: Candelaria -> LACANDELARIA",
+    "70: Angaco -> ANGACOSUD",
+    "70: Ullún -> ULLUM",
+    "90: Burruyacú -> BURRUYACUI",
+    "90: Chicligasta -> CHICLIGASTAI",
+    "90: Cruz Alta -> CRUZALTAI",
+    "90: Famaillá -> FAMAILLAI",
+    "90: Leales -> LEALESI",
+    "90: Monteros -> MONTEROSI",
+    "90: Río Chico -> RIOCHICOI",
+    "90: Trancas -> TRANCASI"
+   ],
+   "choques": [],
+   "provincias": {
+    "02": {
+     "nivel": "departamento",
+     "unidades": 20,
+     "distintas": 20,
+     "positivos": 278192
+    },
+    "06": {
+     "nivel": "departamento",
+     "unidades": 108,
+     "distintas": 106,
+     "positivos": 334065
+    },
+    "10": {
+     "nivel": "departamento",
+     "unidades": 15,
+     "distintas": 15,
+     "positivos": 18920
+    },
+    "14": {
+     "nivel": "departamento",
+     "unidades": 25,
+     "distintas": 24,
+     "positivos": 148963
+    },
+    "18": {
+     "nivel": "departamento",
+     "unidades": 24,
+     "distintas": 24,
+     "positivos": 59204
+    },
+    "30": {
+     "nivel": "departamento",
+     "unidades": 14,
+     "distintas": 14,
+     "positivos": 100884
+    },
+    "38": {
+     "nivel": "departamento",
+     "unidades": 14,
+     "distintas": 14,
+     "positivos": 13675
+    },
+    "46": {
+     "nivel": "departamento",
+     "unidades": 18,
+     "distintas": 18,
+     "positivos": 14073
+    },
+    "50": {
+     "nivel": "departamento",
+     "unidades": 16,
+     "distintas": 16,
+     "positivos": 54211
+    },
+    "66": {
+     "nivel": "departamento",
+     "unidades": 21,
+     "distintas": 21,
+     "positivos": 30094
+    },
+    "70": {
+     "nivel": "departamento",
+     "unidades": 20,
+     "distintas": 17,
+     "positivos": 25852
+    },
+    "74": {
+     "nivel": "departamento",
+     "unidades": 8,
+     "distintas": 8,
+     "positivos": 23464
+    },
+    "82": {
+     "nivel": "departamento",
+     "unidades": 19,
+     "distintas": 19,
+     "positivos": 188532
+    },
+    "86": {
+     "nivel": "departamento",
+     "unidades": 26,
+     "distintas": 26,
+     "positivos": 53807
+    },
+    "90": {
+     "nivel": "departamento",
+     "unidades": 11,
+     "distintas": 11,
+     "positivos": 65813
+    }
+   }
+  },
+  "1930-general-diputados": {
+   "reune": 103.1,
+   "sin_par": [
+    "86:General Taboada"
+   ],
+   "parecidos": [
+    "06: Matanza -> LAMATANZA",
+    "66: Caldera -> LACALDERA",
+    "66: Candelaria -> LACANDELARIA",
+    "70: Angaco -> ANGACOSUD",
+    "70: Ullún -> ULLUM",
+    "90: Burruyacu -> BURRUYACUI",
+    "90: Chicligasta -> CHICLIGASTAI",
+    "90: Cruz Alta -> CRUZALTAI",
+    "90: Famaillá -> FAMAILLAI",
+    "90: Leales -> LEALESI",
+    "90: Monteros -> MONTEROSI",
+    "90: Río Chico -> RIOCHICOI",
+    "90: Trancas -> TRANCASI"
+   ],
+   "choques": [],
+   "provincias": {
+    "02": {
+     "nivel": "departamento",
+     "unidades": 20,
+     "distintas": 20,
+     "positivos": 298730
+    },
+    "06": {
+     "nivel": "departamento",
+     "unidades": 108,
+     "distintas": 106,
+     "positivos": 363961
+    },
+    "10": {
+     "nivel": "departamento",
+     "unidades": 15,
+     "distintas": 15,
+     "positivos": 18778
+    },
+    "14": {
+     "nivel": "departamento",
+     "unidades": 25,
+     "distintas": 24,
+     "positivos": 164186
+    },
+    "18": {
+     "nivel": "departamento",
+     "unidades": 24,
+     "distintas": 24,
+     "positivos": 67166
+    },
+    "30": {
+     "nivel": "departamento",
+     "unidades": 14,
+     "distintas": 14,
+     "positivos": 106714
+    },
+    "38": {
+     "nivel": "departamento",
+     "unidades": 14,
+     "distintas": 14,
+     "positivos": 13594
+    },
+    "46": {
+     "nivel": "departamento",
+     "unidades": 18,
+     "distintas": 18,
+     "positivos": 13450
+    },
+    "50": {
+     "nivel": "departamento",
+     "unidades": 16,
+     "distintas": 16,
+     "positivos": 55478
+    },
+    "66": {
+     "nivel": "departamento",
+     "unidades": 21,
+     "distintas": 21,
+     "positivos": 27329
+    },
+    "70": {
+     "nivel": "departamento",
+     "unidades": 20,
+     "distintas": 17,
+     "positivos": 28367
+    },
+    "82": {
+     "nivel": "departamento",
+     "unidades": 19,
+     "distintas": 19,
+     "positivos": 195625
+    },
+    "86": {
+     "nivel": "departamento",
+     "unidades": 26,
+     "distintas": 26,
+     "positivos": 56347
+    },
+    "90": {
+     "nivel": "departamento",
+     "unidades": 11,
+     "distintas": 11,
+     "positivos": 75962
+    }
+   }
+  },
+  "1937-general-presidente": {
+   "reune": 36.9,
+   "sin_par": [],
+   "parecidos": [
+    "90: Burruyacú -> BURRUYACUI",
+    "90: Chicligasta -> CHICLIGASTAI",
+    "90: Cruz Alta -> CRUZALTAI",
+    "90: Famaillá -> FAMAILLAI",
+    "90: Leales -> LEALESI",
+    "90: Monteros -> MONTEROSI",
+    "90: Río Chico -> RIOCHICOI",
+    "90: Trancas -> TRANCASI"
+   ],
+   "choques": [],
+   "provincias": {
+    "02": {
+     "nivel": "departamento",
+     "unidades": 20,
+     "distintas": 20,
+     "positivos": 395909
+    },
+    "14": {
+     "nivel": "departamento",
+     "unidades": 25,
+     "distintas": 24,
+     "positivos": 223033
+    },
+    "46": {
+     "nivel": "departamento",
+     "unidades": 18,
+     "distintas": 18,
+     "positivos": 16157
+    },
+    "90": {
+     "nivel": "departamento",
+     "unidades": 11,
+     "distintas": 11,
+     "positivos": 91622
+    }
+   }
+  },
+  "1940-general-diputados": {
+   "reune": 60.9,
+   "sin_par": [],
+   "parecidos": [
+    "90: Burruyacú -> BURRUYACUI",
+    "90: Chicligasta -> CHICLIGASTAI",
+    "90: Cruz Alta -> CRUZALTAI",
+    "90: Famaillá -> FAMAILLAI",
+    "90: Leales -> LEALESI",
+    "90: Monteros -> MONTEROSI",
+    "90: Río Chico -> RIOCHICOI",
+    "90: Trancas -> TRANCASI"
+   ],
+   "choques": [],
+   "provincias": {
+    "02": {
+     "nivel": "departamento",
+     "unidades": 20,
+     "distintas": 20,
+     "positivos": 410353
+    },
+    "14": {
+     "nivel": "departamento",
+     "unidades": 25,
+     "distintas": 24,
+     "positivos": 214116
+    },
+    "30": {
+     "nivel": "departamento",
+     "unidades": 14,
+     "distintas": 14,
+     "positivos": 133580
+    },
+    "82": {
+     "nivel": "departamento",
+     "unidades": 19,
+     "distintas": 19,
+     "positivos": 270489
+    },
+    "90": {
+     "nivel": "departamento",
+     "unidades": 11,
+     "distintas": 11,
+     "positivos": 92662
+    }
+   }
+  },
+  "1946-general-presidente": {
+   "reune": 100.0,
+   "sin_par": [
+    "46:Rivadavia"
+   ],
+   "parecidos": [
+    "06: Matanza -> LAMATANZA",
+    "66: Caldera -> LACALDERA",
+    "66: Candelaria -> LACANDELARIA",
+    "70: Ullún -> ULLUM"
+   ],
+   "choques": [],
+   "provincias": {
+    "02": {
+     "nivel": "departamento",
+     "unidades": 20,
+     "distintas": 20,
+     "positivos": 566309
+    },
+    "06": {
+     "nivel": "departamento",
+     "unidades": 112,
+     "distintas": 106,
+     "positivos": 800929
+    },
+    "10": {
+     "nivel": "departamento",
+     "unidades": 16,
+     "distintas": 15,
+     "positivos": 25881
+    },
+    "14": {
+     "nivel": "departamento",
+     "unidades": 25,
+     "distintas": 24,
+     "positivos": 301511
+    },
+    "18": {
+     "nivel": "departamento",
+     "unidades": 24,
+     "distintas": 24,
+     "positivos": 92188
+    },
+    "30": {
+     "nivel": "departamento",
+     "unidades": 14,
+     "distintas": 14,
+     "positivos": 156283
+    },
+    "38": {
+     "nivel": "departamento",
+     "unidades": 14,
+     "distintas": 14,
+     "positivos": 22274
+    },
+    "46": {
+     "nivel": "departamento",
+     "unidades": 18,
+     "distintas": 18,
+     "positivos": 19189
+    },
+    "50": {
+     "nivel": "departamento",
+     "unidades": 17,
+     "distintas": 16,
+     "positivos": 108946
+    },
+    "66": {
+     "nivel": "departamento",
+     "unidades": 21,
+     "distintas": 21,
+     "positivos": 44577
+    },
+    "70": {
+     "nivel": "departamento",
+     "unidades": 18,
+     "distintas": 17,
+     "positivos": 47454
+    },
+    "74": {
+     "nivel": "departamento",
+     "unidades": 8,
+     "distintas": 8,
+     "positivos": 33360
+    },
+    "82": {
+     "nivel": "departamento",
+     "unidades": 19,
+     "distintas": 19,
+     "positivos": 343137
+    },
+    "86": {
+     "nivel": "departamento",
+     "unidades": 27,
+     "distintas": 27,
+     "positivos": 88494
+    },
+    "90": {
+     "nivel": "departamento",
+     "unidades": 11,
+     "distintas": 11,
+     "positivos": 116608
+    }
+   }
+  },
+  "1948-general-diputados": {
+   "reune": 89.3,
+   "sin_par": [
+    "70:Concepcion",
+    "70:Trinidad"
+   ],
+   "parecidos": [
+    "06: Matanza -> LAMATANZA",
+    "70: Ullun -> ULLUM",
+    "86: Quebracho -> QUEBRACHOS"
+   ],
+   "choques": [],
+   "provincias": {
+    "02": {
+     "nivel": "departamento",
+     "unidades": 20,
+     "distintas": 20,
+     "positivos": 615702
+    },
+    "06": {
+     "nivel": "departamento",
+     "unidades": 89,
+     "distintas": 89,
+     "positivos": 495122
+    },
+    "14": {
+     "nivel": "departamento",
+     "unidades": 26,
+     "distintas": 26,
+     "positivos": 306237
+    },
+    "18": {
+     "nivel": "departamento",
+     "unidades": 24,
+     "distintas": 24,
+     "positivos": 82563
+    },
+    "30": {
+     "nivel": "departamento",
+     "unidades": 10,
+     "distintas": 10,
+     "positivos": 104038
+    },
+    "50": {
+     "nivel": "departamento",
+     "unidades": 17,
+     "distintas": 17,
+     "positivos": 97766
+    },
+    "70": {
+     "nivel": "departamento",
+     "unidades": 18,
+     "distintas": 18,
+     "positivos": 42048
+    },
+    "74": {
+     "nivel": "departamento",
+     "unidades": 6,
+     "distintas": 6,
+     "positivos": 12439
+    },
+    "82": {
+     "nivel": "departamento",
+     "unidades": 19,
+     "distintas": 19,
+     "positivos": 331952
+    },
+    "86": {
+     "nivel": "departamento",
+     "unidades": 27,
+     "distintas": 27,
+     "positivos": 71779
+    },
+    "90": {
+     "nivel": "departamento",
+     "unidades": 11,
+     "distintas": 11,
+     "positivos": 110810
+    }
+   }
+  },
+  "1951-general-diputados": {
+   "reune": 100.0,
+   "sin_par": [],
+   "parecidos": [],
+   "choques": [],
+   "provincias": {
+    "02": {
+     "nivel": "departamento",
+     "unidades": 28,
+     "distintas": 28,
+     "positivos": 1512777
+    },
+    "06": {
+     "nivel": "departamento",
+     "unidades": 41,
+     "distintas": 41,
+     "positivos": 2109621
+    },
+    "10": {
+     "nivel": "departamento",
+     "unidades": 2,
+     "distintas": 2,
+     "positivos": 64018
+    },
+    "14": {
+     "nivel": "departamento",
+     "unidades": 13,
+     "distintas": 13,
+     "positivos": 765773
+    },
+    "18": {
+     "nivel": "departamento",
+     "unidades": 5,
+     "distintas": 5,
+     "positivos": 213316
+    },
+    "26": {
+     "nivel": "departamento",
+     "unidades": 2,
+     "distintas": 2,
+     "positivos": 33376
+    },
+    "30": {
+     "nivel": "departamento",
+     "unidades": 6,
+     "distintas": 6,
+     "positivos": 345471
+    },
+    "34": {
+     "nivel": "departamento",
+     "unidades": 2,
+     "distintas": 2,
+     "positivos": 26094
+    },
+    "38": {
+     "nivel": "departamento",
+     "unidades": 2,
+     "distintas": 2,
+     "positivos": 60730
+    },
+    "46": {
+     "nivel": "departamento",
+     "unidades": 2,
+     "distintas": 2,
+     "positivos": 46085
+    },
+    "50": {
+     "nivel": "departamento",
+     "unidades": 6,
+     "distintas": 6,
+     "positivos": 267146
+    },
+    "54": {
+     "nivel": "departamento",
+     "unidades": 2,
+     "distintas": 2,
+     "positivos": 66028
+    },
+    "58": {
+     "nivel": "departamento",
+     "unidades": 1,
+     "distintas": 1,
+     "positivos": 27473
+    },
+    "62": {
+     "nivel": "departamento",
+     "unidades": 2,
+     "distintas": 2,
+     "positivos": 47451
+    },
+    "66": {
+     "nivel": "departamento",
+     "unidades": 3,
+     "distintas": 3,
+     "positivos": 110327
+    },
+    "70": {
+     "nivel": "departamento",
+     "unidades": 3,
+     "distintas": 3,
+     "positivos": 122140
+    },
+    "74": {
+     "nivel": "departamento",
+     "unidades": 2,
+     "distintas": 2,
+     "positivos": 70729
+    },
+    "78": {
+     "nivel": "departamento",
+     "unidades": 1,
+     "distintas": 1,
+     "positivos": 4592
+    },
+    "82": {
+     "nivel": "departamento",
+     "unidades": 15,
+     "distintas": 15,
+     "positivos": 832763
+    },
+    "86": {
+     "nivel": "departamento",
+     "unidades": 5,
+     "distintas": 5,
+     "positivos": 193720
+    },
+    "90": {
+     "nivel": "departamento",
+     "unidades": 6,
+     "distintas": 6,
+     "positivos": 286808
+    },
+    "94": {
+     "nivel": "departamento",
+     "unidades": 1,
+     "distintas": 1,
+     "positivos": 435
+    }
+   }
+  },
+  "1954-general-diputados": {
+   "reune": 97.4,
+   "sin_par": [
+    "22:24 de Febrero",
+    "46:Rivadavia"
+   ],
+   "parecidos": [
+    "06: Gonzales Chaves -> ADOLFOGONZALESCHAVES",
+    "06: Matanza -> LAMATANZA",
+    "22: Fray Justo S. María de Oro -> FRAYJUSTOSANTAMARIADEORO",
+    "22: Lib. General San Martín -> LIBERTADORGENERALSNMARTIN",
+    "22: Presidencia de la Plaza -> PRESIDENTEDELAPLAZA",
+    "22: San Fernando -> SNFERNANDO",
+    "22: San Lorenzo -> SNLORENZO",
+    "26: Paso de los Indios -> PASODEINDIOS",
+    "26: Río Senguerr -> RIOSENGUER",
+    "42: Conhello -> CONHELO",
+    "42: Leventué -> LOVENTUE",
+    "54: Candelarias -> CANDELARIA",
+    "54: General Belgrano -> GENERALMANUELBELGRANO",
+    "66: Caldera -> LACALDERA",
+    "66: Candelaria -> LACANDELARIA",
+    "70: Ullún -> ULLUM",
+    "78: Corpe-Aike -> CORPENAIKE"
+   ],
+   "choques": [],
+   "provincias": {
+    "02": {
+     "nivel": "departamento",
+     "unidades": 20,
+     "distintas": 20,
+     "positivos": 1533316
+    },
+    "06": {
+     "nivel": "departamento",
+     "unidades": 112,
+     "distintas": 106,
+     "positivos": 2320754
+    },
+    "10": {
+     "nivel": "departamento",
+     "unidades": 15,
+     "distintas": 15,
+     "positivos": 65874
+    },
+    "14": {
+     "nivel": "departamento",
+     "unidades": 26,
+     "distintas": 24,
+     "positivos": 748847
+    },
+    "18": {
+     "nivel": "departamento",
+     "unidades": 24,
+     "distintas": 24,
+     "positivos": 211900
+    },
+    "22": {
+     "nivel": "departamento",
+     "unidades": 22,
+     "distintas": 22,
+     "positivos": 155632
+    },
+    "26": {
+     "nivel": "departamento",
+     "unidades": 15,
+     "distintas": 15,
+     "positivos": 34619
+    },
+    "30": {
+     "nivel": "departamento",
+     "unidades": 14,
+     "distintas": 14,
+     "positivos": 333181
+    },
+    "34": {
+     "nivel": "departamento",
+     "unidades": 9,
+     "distintas": 9,
+     "positivos": 28973
+    },
+    "38": {
+     "nivel": "departamento",
+     "unidades": 14,
+     "distintas": 14,
+     "positivos": 63860
+    },
+    "42": {
+     "nivel": "departamento",
+     "unidades": 22,
+     "distintas": 22,
+     "positivos": 58737
+    },
+    "46": {
+     "nivel": "departamento",
+     "unidades": 18,
+     "distintas": 18,
+     "positivos": 49025
+    },
+    "50": {
+     "nivel": "departamento",
+     "unidades": 18,
+     "distintas": 16,
+     "positivos": 300413
+    },
+    "54": {
+     "nivel": "departamento",
+     "unidades": 11,
+     "distintas": 10,
+     "positivos": 64749
+    },
+    "58": {
+     "nivel": "departamento",
+     "unidades": 16,
+     "distintas": 16,
+     "positivos": 30122
+    },
+    "62": {
+     "nivel": "departamento",
+     "unidades": 13,
+     "distintas": 13,
+     "positivos": 51299
+    },
+    "66": {
+     "nivel": "departamento",
+     "unidades": 21,
+     "distintas": 21,
+     "positivos": 119126
+    },
+    "70": {
+     "nivel": "departamento",
+     "unidades": 18,
+     "distintas": 17,
+     "positivos": 130932
+    },
+    "74": {
+     "nivel": "departamento",
+     "unidades": 8,
+     "distintas": 8,
+     "positivos": 39061
+    },
+    "78": {
+     "nivel": "departamento",
+     "unidades": 7,
+     "distintas": 7,
+     "positivos": 5062
+    },
+    "82": {
+     "nivel": "departamento",
+     "unidades": 19,
+     "distintas": 19,
+     "positivos": 857206
+    },
+    "86": {
+     "nivel": "departamento",
+     "unidades": 27,
+     "distintas": 27,
+     "positivos": 182105
+    },
+    "90": {
+     "nivel": "departamento",
+     "unidades": 11,
+     "distintas": 11,
+     "positivos": 153642
+    }
+   }
+  },
+  "1958-general-presidente": {
+   "reune": 100.0,
+   "sin_par": [
+    "46:Rivadavia"
+   ],
+   "parecidos": [
+    "06: Matanza -> LAMATANZA",
+    "14: Ischillín -> ISCHILIN",
+    "22: Fray Justo S. María de Oro -> FRAYJUSTOSANTAMARIADEORO",
+    "22: Lib. General San Martín -> LIBERTADORGENERALSNMARTIN",
+    "22: Presidencia de la Plaza -> PRESIDENTEDELAPLAZA",
+    "22: San Fernando -> SNFERNANDO",
+    "22: San Lorenzo -> SNLORENZO",
+    "26: Río Senguerr -> RIOSENGUER",
+    "42: Conhello -> CONHELO",
+    "54: Candelarias -> CANDELARIA",
+    "66: Caldera -> LACALDERA",
+    "66: Candelaria -> LACANDELARIA",
+    "66: General José de San Martín -> GENERALJOSESANMARTIN",
+    "70: Ullún -> ULLUM",
+    "74: Gobernador Vicente Dupuy -> GOBERNADORDUPUY"
+   ],
+   "choques": [],
+   "provincias": {
+    "02": {
+     "nivel": "departamento",
+     "unidades": 20,
+     "distintas": 20,
+     "positivos": 1478434
+    },
+    "06": {
+     "nivel": "departamento",
+     "unidades": 114,
+     "distintas": 114,
+     "positivos": 2696303
+    },
+    "10": {
+     "nivel": "departamento",
+     "unidades": 15,
+     "distintas": 15,
+     "positivos": 65372
+    },
+    "14": {
+     "nivel": "departamento",
+     "unidades": 26,
+     "distintas": 26,
+     "positivos": 809913
+    },
+    "18": {
+     "nivel": "provincia",
+     "unidades": 25,
+     "distintas": 1,
+     "positivos": 217801
+    },
+    "22": {
+     "nivel": "departamento",
+     "unidades": 24,
+     "distintas": 24,
+     "positivos": 171836
+    },
+    "26": {
+     "nivel": "departamento",
+     "unidades": 15,
+     "distintas": 15,
+     "positivos": 41607
+    },
+    "30": {
+     "nivel": "departamento",
+     "unidades": 14,
+     "distintas": 14,
+     "positivos": 349803
+    },
+    "34": {
+     "nivel": "departamento",
+     "unidades": 9,
+     "distintas": 9,
+     "positivos": 36665
+    },
+    "38": {
+     "nivel": "departamento",
+     "unidades": 15,
+     "distintas": 15,
+     "positivos": 63577
+    },
+    "42": {
+     "nivel": "departamento",
+     "unidades": 22,
+     "distintas": 22,
+     "positivos": 67327
+    },
+    "46": {
+     "nivel": "departamento",
+     "unidades": 18,
+     "distintas": 18,
+     "positivos": 50558
+    },
+    "50": {
+     "nivel": "departamento",
+     "unidades": 18,
+     "distintas": 18,
+     "positivos": 340942
+    },
+    "54": {
+     "nivel": "departamento",
+     "unidades": 11,
+     "distintas": 11,
+     "positivos": 72316
+    },
+    "58": {
+     "nivel": "departamento",
+     "unidades": 16,
+     "distintas": 16,
+     "positivos": 27203
+    },
+    "62": {
+     "nivel": "provincia",
+     "unidades": 13,
+     "distintas": 1,
+     "positivos": 46520
+    },
+    "66": {
+     "nivel": "departamento",
+     "unidades": 23,
+     "distintas": 23,
+     "positivos": 123681
+    },
+    "70": {
+     "nivel": "departamento",
+     "unidades": 19,
+     "distintas": 19,
+     "positivos": 139871
+    },
+    "74": {
+     "nivel": "departamento",
+     "unidades": 9,
+     "distintas": 9,
+     "positivos": 75402
+    },
+    "78": {
+     "nivel": "departamento",
+     "unidades": 7,
+     "distintas": 7,
+     "positivos": 8693
+    },
+    "82": {
+     "nivel": "departamento",
+     "unidades": 19,
+     "distintas": 19,
+     "positivos": 885813
+    },
+    "86": {
+     "nivel": "departamento",
+     "unidades": 27,
+     "distintas": 27,
+     "positivos": 182437
+    },
+    "90": {
+     "nivel": "departamento",
+     "unidades": 11,
+     "distintas": 11,
+     "positivos": 272323
+    }
+   }
+  },
+  "1962-general-diputados": {
+   "reune": 100.0,
+   "sin_par": [
+    "06:Berazategui",
+    "06:Capitán Sarmiento"
+   ],
+   "parecidos": [
+    "06: 3 de Febrero -> TRESDEFEBRERO",
+    "06: Hipólito Irigoyen -> HIPOLITOYRIGOYEN",
+    "06: Matanza -> LAMATANZA",
+    "22: Fray Justo S. María de Oro -> FRAYJUSTOSANTAMARIADEORO",
+    "22: Lib. General San Martín -> LIBERTADORGENERALSNMARTIN",
+    "22: Presidencia de la Plaza -> PRESIDENTEDELAPLAZA",
+    "22: San Fernando -> SNFERNANDO",
+    "22: San Lorenzo -> SNLORENZO",
+    "26: Río Senguerr -> RIOSENGUER",
+    "42: Conhello -> CONHELO",
+    "66: Caldera -> LACALDERA",
+    "66: Candelaria -> LACANDELARIA",
+    "66: General José de San Martín -> GENERALJOSESANMARTIN",
+    "70: Ullún -> ULLUM"
+   ],
+   "choques": [],
+   "provincias": {
+    "02": {
+     "nivel": "departamento",
+     "unidades": 20,
+     "distintas": 20,
+     "positivos": 1574232
+    },
+    "06": {
+     "nivel": "departamento",
+     "unidades": 120,
+     "distintas": 120,
+     "positivos": 3065415
+    },
+    "14": {
+     "nivel": "departamento",
+     "unidades": 26,
+     "distintas": 26,
+     "positivos": 891827
+    },
+    "18": {
+     "nivel": "departamento",
+     "unidades": 25,
+     "distintas": 25,
+     "positivos": 229657
+    },
+    "22": {
+     "nivel": "departamento",
+     "unidades": 24,
+     "distintas": 24,
+     "positivos": 187996
+    },
+    "26": {
+     "nivel": "departamento",
+     "unidades": 15,
+     "distintas": 15,
+     "positivos": 45379
+    },
+    "30": {
+     "nivel": "departamento",
+     "unidades": 14,
+     "distintas": 14,
+     "positivos": 346042
+    },
+    "38": {
+     "nivel": "departamento",
+     "unidades": 15,
+     "distintas": 15,
+     "positivos": 74990
+    },
+    "42": {
+     "nivel": "departamento",
+     "unidades": 22,
+     "distintas": 22,
+     "positivos": 76465
+    },
+    "50": {
+     "nivel": "departamento",
+     "unidades": 18,
+     "distintas": 18,
+     "positivos": 372828
+    },
+    "58": {
+     "nivel": "departamento",
+     "unidades": 16,
+     "distintas": 16,
+     "positivos": 37794
+    },
+    "62": {
+     "nivel": "departamento",
+     "unidades": 13,
+     "distintas": 13,
+     "positivos": 65242
+    },
+    "66": {
+     "nivel": "departamento",
+     "unidades": 23,
+     "distintas": 23,
+     "positivos": 149354
+    },
+    "70": {
+     "nivel": "departamento",
+     "unidades": 19,
+     "distintas": 19,
+     "positivos": 159794
+    },
+    "82": {
+     "nivel": "departamento",
+     "unidades": 19,
+     "distintas": 19,
+     "positivos": 977872
+    },
+    "86": {
+     "nivel": "provincia",
+     "unidades": 27,
+     "distintas": 1,
+     "positivos": 190969
+    },
+    "90": {
+     "nivel": "departamento",
+     "unidades": 11,
+     "distintas": 11,
+     "positivos": 304804
+    }
+   }
+  },
+  "1965-general-diputados": {
+   "reune": 99.9,
+   "sin_par": [],
+   "parecidos": [
+    "06: 3 de Febrero -> TRESDEFEBRERO",
+    "06: Hipólito Irigoyen -> HIPOLITOYRIGOYEN",
+    "06: Matanza -> LAMATANZA",
+    "22: Fray Justo S. María de Oro -> FRAYJUSTOSANTAMARIADEORO",
+    "22: Lib. General San Martín -> LIBERTADORGENERALSANMARTIN",
+    "22: Presidencia de la Plaza -> PRESIDENTEDELAPLAZA",
+    "26: Gaiman -> CAIMAN",
+    "26: Gastre -> CASTRE",
+    "30: Villaguay -> VRLLAGUAY",
+    "34: Bermejo -> BERMEO",
+    "34: Ramón Lista -> RAMORRLISTA",
+    "46: Chilecito -> CHILECLTO",
+    "54: Candelarias -> CANDELARIA",
+    "54: Iguazú -> LGUAZU",
+    "54: Lib. General San Martín -> LIBERTADORGENERALSANMARTIN",
+    "74: Gobernador Vicente Dupuy -> GOBERNADORDUPUY"
+   ],
+   "choques": [],
+   "provincias": {
+    "02": {
+     "nivel": "departamento",
+     "unidades": 20,
+     "distintas": 20,
+     "positivos": 1628523
+    },
+    "06": {
+     "nivel": "departamento",
+     "unidades": 121,
+     "distintas": 121,
+     "positivos": 3303090
+    },
+    "10": {
+     "nivel": "departamento",
+     "unidades": 5,
+     "distintas": 5,
+     "positivos": 16562
+    },
+    "14": {
+     "nivel": "departamento",
+     "unidades": 26,
+     "distintas": 26,
+     "positivos": 923373
+    },
+    "18": {
+     "nivel": "departamento",
+     "unidades": 25,
+     "distintas": 25,
+     "positivos": 239381
+    },
+    "22": {
+     "nivel": "departamento",
+     "unidades": 24,
+     "distintas": 24,
+     "positivos": 185744
+    },
+    "26": {
+     "nivel": "departamento",
+     "unidades": 15,
+     "distintas": 15,
+     "positivos": 49191
+    },
+    "30": {
+     "nivel": "departamento",
+     "unidades": 14,
+     "distintas": 14,
+     "positivos": 383841
+    },
+    "34": {
+     "nivel": "departamento",
+     "unidades": 9,
+     "distintas": 9,
+     "positivos": 52432
+    },
+    "42": {
+     "nivel": "departamento",
+     "unidades": 22,
+     "distintas": 22,
+     "positivos": 80581
+    },
+    "46": {
+     "nivel": "departamento",
+     "unidades": 9,
+     "distintas": 9,
+     "positivos": 37286
+    },
+    "50": {
+     "nivel": "departamento",
+     "unidades": 18,
+     "distintas": 18,
+     "positivos": 341791
+    },
+    "54": {
+     "nivel": "departamento",
+     "unidades": 17,
+     "distintas": 17,
+     "positivos": 101160
+    },
+    "58": {
+     "nivel": "departamento",
+     "unidades": 16,
+     "distintas": 16,
+     "positivos": 40016
+    },
+    "62": {
+     "nivel": "departamento",
+     "unidades": 13,
+     "distintas": 13,
+     "positivos": 69032
+    },
+    "70": {
+     "nivel": "departamento",
+     "unidades": 19,
+     "distintas": 19,
+     "positivos": 168563
+    },
+    "74": {
+     "nivel": "departamento",
+     "unidades": 9,
+     "distintas": 9,
+     "positivos": 87024
+    },
+    "78": {
+     "nivel": "departamento",
+     "unidades": 7,
+     "distintas": 7,
+     "positivos": 14296
+    },
+    "82": {
+     "nivel": "departamento",
+     "unidades": 19,
+     "distintas": 19,
+     "positivos": 934906
+    },
+    "86": {
+     "nivel": "departamento",
+     "unidades": 27,
+     "distintas": 27,
+     "positivos": 182894
+    },
+    "90": {
+     "nivel": "departamento",
+     "unidades": 11,
+     "distintas": 11,
+     "positivos": 314146
+    }
+   }
+  },
+  "1973-general-presidente": {
+   "reune": 94.3,
+   "sin_par": [],
+   "parecidos": [
+    "06: 3 de Febrero -> TRESDEFEBRERO",
+    "06: Hipolito Irigoyen -> HIPOLITOYRIGOYEN",
+    "06: Matanza -> LAMATANZA",
+    "18: Mburcuya -> MBURUCUYA",
+    "22: Lib General San Martin -> LIBERTADORGENERALSANMARTIN",
+    "22: Presidencia de la Plaza -> PRESIDENTEDELAPLAZA",
+    "26: Gaiman -> CAIMAN",
+    "26: Gastre -> CASTRE",
+    "26: Paso de los Indios -> PASODEINDIOS",
+    "26: Rio Senguer -> RIOSENGUERR",
+    "34: Bermejo -> BERMEO",
+    "34: Ramon Lista -> RAMORRLISTA",
+    "42: Conhello -> CONHELO",
+    "42: Leventue -> LOVENTUE",
+    "46: Chilecito -> CHILECLTO",
+    "46: Gral Angel Penaloza -> GENERALANGELVPENALOZA",
+    "54: Gral M Belgrano -> GENERALMANUELBELGRANO",
+    "54: Iguazu -> LGUAZU",
+    "66: Capital -> LACAPITAL",
+    "66: Guachapas -> GUACHIPAS",
+    "66: La Candelaria -> CANDELARIA",
+    "66: Rosario de la Frontera -> ROSARIODEJAFRONTERA",
+    "70: Ullum -> ULLUN",
+    "74: Capital -> LACAPITAL",
+    "86: Gimenez -> JIMENEZ"
+   ],
+   "choques": [],
+   "provincias": {
+    "02": {
+     "nivel": "provincia",
+     "unidades": 27,
+     "distintas": 27,
+     "positivos": 1709432
+    },
+    "06": {
+     "nivel": "departamento",
+     "unidades": 113,
+     "distintas": 113,
+     "positivos": 3891608
+    },
+    "10": {
+     "nivel": "departamento",
+     "unidades": 16,
+     "distintas": 16,
+     "positivos": 83113
+    },
+    "14": {
+     "nivel": "departamento",
+     "unidades": 26,
+     "distintas": 26,
+     "positivos": 1156523
+    },
+    "18": {
+     "nivel": "departamento",
+     "unidades": 25,
+     "distintas": 25,
+     "positivos": 272325
+    },
+    "22": {
+     "nivel": "departamento",
+     "unidades": 22,
+     "distintas": 22,
+     "positivos": 215970
+    },
+    "26": {
+     "nivel": "departamento",
+     "unidades": 15,
+     "distintas": 15,
+     "positivos": 60440
+    },
+    "30": {
+     "nivel": "departamento",
+     "unidades": 10,
+     "distintas": 10,
+     "positivos": 324848
+    },
+    "34": {
+     "nivel": "departamento",
+     "unidades": 9,
+     "distintas": 9,
+     "positivos": 78707
+    },
+    "38": {
+     "nivel": "departamento",
+     "unidades": 15,
+     "distintas": 15,
+     "positivos": 117899
+    },
+    "42": {
+     "nivel": "departamento",
+     "unidades": 22,
+     "distintas": 22,
+     "positivos": 97094
+    },
+    "46": {
+     "nivel": "departamento",
+     "unidades": 18,
+     "distintas": 18,
+     "positivos": 68748
+    },
+    "50": {
+     "nivel": "departamento",
+     "unidades": 18,
+     "distintas": 18,
+     "positivos": 507341
+    },
+    "54": {
+     "nivel": "departamento",
+     "unidades": 17,
+     "distintas": 17,
+     "positivos": 130692
+    },
+    "58": {
+     "nivel": "departamento",
+     "unidades": 16,
+     "distintas": 16,
+     "positivos": 43189
+    },
+    "62": {
+     "nivel": "departamento",
+     "unidades": 13,
+     "distintas": 13,
+     "positivos": 99931
+    },
+    "66": {
+     "nivel": "departamento",
+     "unidades": 23,
+     "distintas": 23,
+     "positivos": 212762
+    },
+    "70": {
+     "nivel": "departamento",
+     "unidades": 19,
+     "distintas": 19,
+     "positivos": 203912
+    },
+    "74": {
+     "nivel": "departamento",
+     "unidades": 9,
+     "distintas": 9,
+     "positivos": 100960
+    },
+    "78": {
+     "nivel": "departamento",
+     "unidades": 7,
+     "distintas": 7,
+     "positivos": 24279
+    },
+    "82": {
+     "nivel": "departamento",
+     "unidades": 19,
+     "distintas": 19,
+     "positivos": 1240091
+    },
+    "86": {
+     "nivel": "departamento",
+     "unidades": 27,
+     "distintas": 27,
+     "positivos": 223902
+    },
+    "90": {
+     "nivel": "departamento",
+     "unidades": 11,
+     "distintas": 11,
+     "positivos": 366441
+    },
+    "94": {
+     "nivel": "departamento",
+     "unidades": 2,
+     "distintas": 1,
+     "positivos": 2948
+    }
+   }
+  },
+  "1973-septiembre-presidente": {
+   "reune": 93.5,
+   "sin_par": [],
+   "parecidos": [
+    "06: 3 de Febrero -> TRESDEFEBRERO",
+    "06: Hipolito Irigoyen -> HIPOLITOYRIGOYEN",
+    "06: Matanza -> LAMATANZA",
+    "18: Mburcuya -> MBURUCUYA",
+    "22: Lib General San Martin -> LIBERTADORGENERALSANMARTIN",
+    "22: Presidencia de la Plaza -> PRESIDENTEDELAPLAZA",
+    "26: Gaiman -> CAIMAN",
+    "26: Gastre -> CASTRE",
+    "26: Paso de los Indios -> PASODEINDIOS",
+    "26: Rio Senguer -> RIOSENGUERR",
+    "34: Bermejo -> BERMEO",
+    "34: Ramon Lista -> RAMORRLISTA",
+    "42: Conhello -> CONHELO",
+    "42: Leventue -> LOVENTUE",
+    "46: Chilecito -> CHILECLTO",
+    "46: Gral Angel Penaloza -> GENERALANGELVPENALOZA",
+    "54: Gral M Belgrano -> GENERALMANUELBELGRANO",
+    "54: Iguazu -> LGUAZU",
+    "66: Capital -> LACAPITAL",
+    "66: La Candelaria -> CANDELARIA",
+    "66: Rosario de la Frontera -> ROSARIODEJAFRONTERA",
+    "74: Capital -> LACAPITAL"
+   ],
+   "choques": [],
+   "provincias": {
+    "02": {
+     "nivel": "provincia",
+     "unidades": 27,
+     "distintas": 27,
+     "positivos": 1702592
+    },
+    "06": {
+     "nivel": "departamento",
+     "unidades": 109,
+     "distintas": 109,
+     "positivos": 3835629
+    },
+    "10": {
+     "nivel": "departamento",
+     "unidades": 12,
+     "distintas": 12,
+     "positivos": 71869
+    },
+    "14": {
+     "nivel": "departamento",
+     "unidades": 26,
+     "distintas": 26,
+     "positivos": 1113363
+    },
+    "18": {
+     "nivel": "departamento",
+     "unidades": 25,
+     "distintas": 25,
+     "positivos": 265161
+    },
+    "22": {
+     "nivel": "departamento",
+     "unidades": 22,
+     "distintas": 22,
+     "positivos": 216827
+    },
+    "26": {
+     "nivel": "departamento",
+     "unidades": 15,
+     "distintas": 15,
+     "positivos": 69454
+    },
+    "30": {
+     "nivel": "departamento",
+     "unidades": 11,
+     "distintas": 11,
+     "positivos": 329897
+    },
+    "34": {
+     "nivel": "departamento",
+     "unidades": 9,
+     "distintas": 9,
+     "positivos": 75147
+    },
+    "38": {
+     "nivel": "departamento",
+     "unidades": 15,
+     "distintas": 15,
+     "positivos": 119989
+    },
+    "42": {
+     "nivel": "departamento",
+     "unidades": 22,
+     "distintas": 22,
+     "positivos": 95469
+    },
+    "46": {
+     "nivel": "departamento",
+     "unidades": 18,
+     "distintas": 18,
+     "positivos": 65473
+    },
+    "50": {
+     "nivel": "departamento",
+     "unidades": 18,
+     "distintas": 18,
+     "positivos": 513220
+    },
+    "54": {
+     "nivel": "departamento",
+     "unidades": 17,
+     "distintas": 17,
+     "positivos": 140132
+    },
+    "58": {
+     "nivel": "departamento",
+     "unidades": 16,
+     "distintas": 16,
+     "positivos": 60636
+    },
+    "62": {
+     "nivel": "departamento",
+     "unidades": 13,
+     "distintas": 13,
+     "positivos": 99377
+    },
+    "66": {
+     "nivel": "departamento",
+     "unidades": 23,
+     "distintas": 23,
+     "positivos": 213513
+    },
+    "70": {
+     "nivel": "departamento",
+     "unidades": 19,
+     "distintas": 19,
+     "positivos": 198985
+    },
+    "74": {
+     "nivel": "departamento",
+     "unidades": 9,
+     "distintas": 9,
+     "positivos": 97144
+    },
+    "78": {
+     "nivel": "departamento",
+     "unidades": 7,
+     "distintas": 7,
+     "positivos": 24431
+    },
+    "82": {
+     "nivel": "departamento",
+     "unidades": 19,
+     "distintas": 19,
+     "positivos": 1229668
+    },
+    "86": {
+     "nivel": "departamento",
+     "unidades": 27,
+     "distintas": 27,
+     "positivos": 202576
+    },
+    "90": {
+     "nivel": "departamento",
+     "unidades": 11,
+     "distintas": 11,
+     "positivos": 378674
+    },
+    "94": {
+     "nivel": "departamento",
+     "unidades": 2,
+     "distintas": 1,
+     "positivos": 3009
+    }
+   }
+  }
+ }
+}

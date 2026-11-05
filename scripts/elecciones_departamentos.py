@@ -218,7 +218,8 @@ def main():
             n = titulo(cand.get(code, {}).get("n", code))
             if n not in listas:
                 listas[n] = len(listas)
-                b = de_lista.get(code) or por_color_bloque.get(str(cand.get(code, {}).get("base", "")).upper())
+                # primero el color del bloque: si un bloque suma varias listas, la que encabeza un lugar ganado puede ser de otro (pasó en septiembre de 1973)
+                b = por_color_bloque.get(str(cand.get(code, {}).get("base", "")).upper()) or de_lista.get(code)
                 fz = bloques[b] if b else ("otras", "Otras fuerzas", "#98A2AE")
                 if fz[0] not in fuerzas:
                     fuerzas[fz[0]] = {"id": fz[0], "n": fz[1], "c": fz[2], "ix": len(fuerzas)}
