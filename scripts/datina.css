@@ -504,7 +504,7 @@ html:not(.js) .busca-portada{display:none}
   .mapa-tarjeta li{padding:2px 0 var(--e-1);border-top-color:var(--en-azul-borde)}
   .mt-lab,.mapa-tarjeta li b{line-height:1.3}
   .mapa-tarjeta li small,.mapa-tarjeta .mt-cerrar{font-size:var(--t-2);line-height:1.25;color:#fff}
-  .mapa-tarjeta .mt-cerrar{width:28px;height:28px;font-size:22px}
+  .mapa-tarjeta .mt-cerrar{width:var(--e-6);height:var(--e-6);font-size:22px}
   .portada-mapa .mapa-tarjeta li .mt-aclara{margin-top:var(--e-1);font-size:var(--t-2);line-height:1.25;color:#fff}
   .mapa-tarjeta .boton{width:auto}
   .mapa-tarjeta .boton.principal{--b-fondo:#fff;--b-tinta:var(--azul);--b-borde:#fff}
@@ -609,12 +609,12 @@ html:not(.js) .busca-portada{display:none}
 .dest-control{display:flex;align-items:center;justify-content:space-between;gap:var(--e-3);margin-top:var(--e-3);padding-top:var(--e-3);border-top:1px solid var(--borde)}
 html:not(.js) .dest-control{display:none}
 .dest-puntos{display:flex;justify-content:center;gap:0}
-.dest-punto{display:grid;place-items:center;width:32px;height:32px;padding:0;background:none;border:0;border-radius:50%;cursor:pointer}
+.dest-punto{display:grid;place-items:center;width:var(--e-7);height:var(--e-7);padding:0;background:none;border:0;border-radius:50%;cursor:pointer}
 .dest-punto::before{content:"";width:10px;height:10px;border-radius:50%;background:var(--superficie-3);box-shadow:inset 0 0 0 1px var(--faint);transition:background-color var(--dur-1) var(--ease-out)}
 .dest-punto[aria-current="true"]::before{background:var(--azul);box-shadow:none}
 .dest-punto:focus-visible{outline:2px solid var(--celeste-fuerte);outline-offset:-2px}
 @media (hover:hover) and (pointer:fine){.dest-punto:not([aria-current="true"]):hover::before{background:var(--celeste)}}
-@media (max-width:400px){.dest-control{gap:var(--e-1)}.dest-punto{width:24px}.dest-control .boton.chico{padding:var(--e-1) var(--e-2)}}
+@media (max-width:400px){.dest-control{gap:var(--e-1)}.dest-punto{width:var(--e-6)}.dest-control .boton.chico{padding:var(--e-1) var(--e-2)}}
 @media print{.destacados-grid{display:block;overflow:visible}.dest-control{display:none}.destacado{break-inside:avoid;margin-bottom:var(--e-4)}}
 /* Provincias en la portada: las 24 jurisdicciones con su bandera */
 .prov-home{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:var(--e-1) var(--e-4);margin:0;padding:0;list-style:none}
