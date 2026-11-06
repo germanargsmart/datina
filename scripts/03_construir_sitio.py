@@ -1128,7 +1128,7 @@ for _g, _id in DESTACADOS:
     assert f'"{_id}":' in _clave_js, f"{_id}: el dato destacado necesita una cifra destacada (CLAVE)"
     assert _id not in TEXTO_ANTES and _ficha[_id][2], f"{_id}: no puede ser un dato destacado o le falta la pregunta fija"
     assert GRUPO_DE[_ficha[_id][1]][0] == _g, f"{_id}: no es del grupo {_g}"
-_destacados = "".join(f'<a class="tarjeta cifra destacado" href="{url_pagina(UBIC[i])}#{i}" data-clave="{i}"><span class="c-lab">{e(_nombre_grupo[g])}</span>'
+_destacados = "".join(f'<a class="destacado" href="{url_pagina(UBIC[i])}#{i}" data-clave="{i}"><span class="c-lab">{e(_nombre_grupo[g])}</span>'
                       f'<span class="c-preg">{e(_PREG_DEST[i])}</span><span class="c-num"></span><span class="c-txt"></span><span class="c-rango"></span></a>'
                       for g, i in DESTACADOS)
 # Provincias: las 24 jurisdicciones con su bandera, cada una a su perfil. Es también la forma de llegar con el teclado a lo que muestra

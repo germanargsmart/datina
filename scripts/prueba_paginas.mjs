@@ -377,6 +377,32 @@ await q.ir(B + "index.html", 1000);
 // y desde el 28 de octubre de 2026 (D7), debajo de cada cifra del país, cómo cambia entre las provincias
 const destacados = await q.eval(`[...document.querySelectorAll(".destacado")].filter(a => a.querySelector(".c-num").textContent.trim() && a.querySelector(".c-txt").textContent.trim() && a.querySelector(".c-rango")?.textContent.trim()).length`);
 if (destacados !== 4) problemas.push(`index.html: ${destacados} de 4 datos destacados con su cifra y su rango por provincia`);
+// un dato por vez (noviembre de 2026): se ve uno, los controles lo cambian, no pasa solo, y en el bloque hay hasta cuatro tamaños de letra y dos familias.
+// La cifra va sola en su línea, sin la unidad
+const carrusel = () => q.eval(`(() => { const p = document.getElementById("destacados"), d = [...p.querySelectorAll(".destacado")], r = p.getBoundingClientRect();
+  const vis = d.filter(a => { const b = a.getBoundingClientRect(); return b.left < r.right - 2 && b.right > r.left + 2; }).length;
+  return {vis, actual: [...document.querySelectorAll(".dest-punto")].findIndex(b => b.getAttribute("aria-current") === "true"), foco: d.filter(a => a.tabIndex === 0).length,
+    izq: Math.round(p.scrollLeft / p.clientWidth * 100) / 100}; })()`);
+const c0 = await carrusel();
+if (c0.vis !== 1 || c0.actual !== 0 || c0.foco !== 1) problemas.push(`index.html: el carrusel de datos destacados no arranca con un dato a la vista (${JSON.stringify(c0)})`);
+await q.eval(`document.querySelector(".dest-sig").click()`);
+await espera(450);
+const c1 = await carrusel();
+if (c1.vis !== 1 || c1.actual !== 1 || c1.izq !== 1) problemas.push(`index.html: "Siguiente" no lleva al segundo dato destacado (${JSON.stringify(c1)})`);
+await q.eval(`document.querySelectorAll(".dest-punto")[3].click()`);
+await espera(450);
+await q.eval(`document.querySelector(".dest-sig").click()`);
+await espera(450);
+const c2 = await carrusel();
+if (c2.actual !== 0 || c2.izq !== 0) problemas.push(`index.html: después del último dato destacado no vuelve al primero (${JSON.stringify(c2)})`);
+await espera(1500);
+if ((await carrusel()).actual !== 0) problemas.push("index.html: el carrusel de datos destacados pasa solo");
+const letra = JSON.parse(await q.eval(`(() => { const t = new Set(), f = new Set(), w = document.createTreeWalker(document.querySelector(".destacados"), NodeFilter.SHOW_TEXT); let n;
+  while ((n = w.nextNode())) { if (!n.textContent.trim() || n.parentElement.closest(".solo-lector")) continue; const c = getComputedStyle(n.parentElement); t.add(c.fontSize); f.add(c.fontFamily.split(",")[0]); }
+  return JSON.stringify({t: [...t], f: [...f]}); })()`));
+if (letra.t.length > 4 || letra.f.length > 2) problemas.push(`index.html: datos destacados con ${letra.t.length} tamaños y ${letra.f.length} familias: ${letra.t} ${letra.f}`);
+const cifraSola = await q.eval(`[...document.querySelectorAll(".destacado .c-num")].filter(n => /[a-zñáéíóú]/i.test(n.textContent.replace(/ mil(lones)?$/, ""))).map(n => n.textContent).join(", ")`);
+if (cifraSola) problemas.push(`index.html: dato destacado con la unidad pegada a la cifra: ${cifraSola}`);
 // en "Explorá la Argentina por tema" el enlace de cada tema cubre el tema entero, también donde hay subtemas, y cada subtema sigue con su enlace
 const temasMal = await q.eval(`[...document.querySelectorAll("#secciones .tg-item")].map(i => { const r = i.getBoundingClientRect(), l = i.querySelector(".tg-link"), f = getComputedStyle(l, "::after");
   const t = i.querySelector("b").textContent;

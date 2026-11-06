@@ -10106,7 +10106,9 @@ arts.map(a => `<a class="enlace" href="${urlPagina(a.id)}">${a.titulo}</a>`).joi
 });
 document.querySelectorAll(".destacado[data-clave]").forEach(a => {
 const c = CLAVE[a.dataset.clave];
-if (c) { a.querySelector(".c-num").innerHTML = c[0]; a.querySelector(".c-txt").innerHTML = c[1]; }
+if (!c) return;
+const [, num, resto] = String(c[0]).match(/^([+-]?[\d.,]+%?(?: mil(?:lones)?)?)\s*(.*)$/) || [, c[0], ""];
+a.querySelector(".c-num").innerHTML = num; a.querySelector(".c-txt").innerHTML = (resto ? resto + " " : "") + c[1];
 });
 const RANGO_DEST = {
 "f-esperanza": [() => T.esperanza_vida_provincias, "total", v => n1(v), " años", "Por provincia"],
@@ -10130,6 +10132,39 @@ el.textContent = `${ini}, de ${f(lo[k])}${u} en ${lo.territorio} a ${f(hi[k])} e
 });
 }
 if (document.querySelector(".destacado .c-rango")) { pintarRangos(); alCambiarProv.push(pintarRangos); }
+(() => {
+const caja = document.getElementById("dest-carrusel"); if (!caja) return;
+const pista = document.getElementById("destacados"), datos = [...pista.querySelectorAll(".destacado")], puntos = document.getElementById("dest-puntos"), estado = document.getElementById("dest-estado");
+let actual = 0, moviendo = false;
+const nombre = i => datos[i].querySelector(".c-lab").textContent;
+puntos.innerHTML = datos.map((d, i) => `<button type="button" class="dest-punto" aria-label="Dato ${i + 1} de ${datos.length}: ${nombre(i)}"></button>`).join("");
+const bots = [...puntos.children];
+const marcar = (i, avisar) => {
+actual = i;
+bots.forEach((b, k) => b.setAttribute("aria-current", String(k === i)));
+datos.forEach((d, k) => { d.tabIndex = k === i ? 0 : -1; if (k === i) d.removeAttribute("aria-hidden"); else d.setAttribute("aria-hidden", "true"); });
+if (avisar) estado.textContent = `Dato ${i + 1} de ${datos.length}: ${datos[i].querySelector(".c-preg").textContent}`;
+};
+const ir = n => {
+const i = (n + datos.length) % datos.length, x = i * pista.clientWidth, x0 = pista.scrollLeft;
+marcar(i, true);
+if (REDUCIR || document.hidden || x === x0) { pista.scrollLeft = x; return; }
+moviendo = true; pista.style.scrollSnapType = "none";
+const t0 = performance.now(), paso = t => {
+const p = Math.min(1, Math.max(0, (t - t0) / 280));
+pista.scrollLeft = x0 + (x - x0) * (1 - (1 - p) ** 3);
+if (p < 1) requestAnimationFrame(paso); else { pista.style.scrollSnapType = ""; moviendo = false; }
+};
+requestAnimationFrame(paso);
+};
+caja.querySelector(".dest-ant").addEventListener("click", () => ir(actual - 1));
+caja.querySelector(".dest-sig").addEventListener("click", () => ir(actual + 1));
+bots.forEach((b, i) => b.addEventListener("click", () => ir(i)));
+caja.addEventListener("keydown", ev => { if (ev.key === "ArrowRight" || ev.key === "ArrowLeft") { ev.preventDefault(); ir(actual + (ev.key === "ArrowRight" ? 1 : -1)); } });
+pista.addEventListener("scroll", () => { if (moviendo) return; const i = Math.round(pista.scrollLeft / pista.clientWidth); if (i !== actual && datos[i]) marcar(i, true); }, {passive: true});
+new ResizeObserver(() => { if (!moviendo) pista.scrollLeft = actual * pista.clientWidth; }).observe(pista);
+marcar(0, false);
+})();
 const NFICHAS = SITIO.fichas.filter(f => !f[5]).length;
 const nosCifras = document.getElementById("nos-cifras");
 if (nosCifras) {

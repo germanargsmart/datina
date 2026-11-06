@@ -574,23 +574,48 @@ html:not(.js) .busca-portada{display:none}
 }
 
 /* ---------- bloques de la portada: el mismo título, la misma bajada y la misma separación ---------- */
-.bloque-tit{margin:0 0 var(--e-2);font-size:var(--t-9);line-height:1;font-weight:500;letter-spacing:-.005em;color:var(--azul);font-variation-settings:"wdth" 55,"opsz" 144;font-family:var(--f-c55)}
+.bloque-tit{margin:0 0 var(--e-2);font-size:var(--t-8);line-height:1;font-weight:500;letter-spacing:-.005em;color:var(--azul);font-variation-settings:"wdth" 55,"opsz" 144;font-family:var(--f-c55)}
 .bloque-sub{margin:0 0 var(--e-6);max-width:62ch;line-height:var(--i-chico);color:var(--muted);text-wrap:balance}
 /* entre los bloques de la portada, el espacio de bloque y no el de capítulo (respuesta del autor del 23 de octubre de 2026, para
    compactar la portada de la Fase 2: de 48 a 72 píxeles pasaron a ser de 24 a 40) */
 .secciones,.articulos-home,.herramientas-home,.destacados,.provincias-home{padding-top:var(--bloque)}
-/* Datos destacados de la portada (Fase 2, paso 2): cuatro tarjetas fijas, de la familia de "En cifras", con el grupo, la pregunta de la
-   ficha y su cifra destacada. La cifra y su texto llegan con datina.js: su lugar queda reservado para que la portada no salte */
-.destacados-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--e-4)}
-/* de a dos también en el celular (respuesta del autor del 23 de octubre de 2026, para compactar la portada): ninguna cifra se corta */
-@media (max-width:1080px){.destacados-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media (max-width:560px){.destacados-grid{gap:var(--e-3)}}
-.destacado .c-preg{font-size:var(--t-3);line-height:1.3;color:var(--ink);text-wrap:pretty}
-.destacado .c-num{min-height:1em}
-.destacado .c-txt{min-height:4.2em}
+/* Datos destacados de la portada (pedido del autor, noviembre de 2026): un dato por vez, sin tarjetas. Hasta entonces, cuatro tarjetas a la vista,
+   con cinco tamaños de letra y dos familias, que en el celular medían 775 píxeles. Una sola familia y cuatro tamaños: la etiqueta (13), el texto
+   (15), la pregunta (20 a 24) y la cifra, del tamaño del título del bloque (28 a 36). La cifra va en ancho normal: en la condensada, "928 mil" se
+   leía "1928 y". Los datos están en una fila que se desliza: el alto es el del más largo, así nada salta al pasar de uno a otro. La cifra y su
+   texto llegan con datina.js: su lugar queda reservado para que la portada no salte */
+.destacados-grid{display:flex;min-height:152px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;overscroll-behavior-x:contain;margin-top:var(--e-3)}
+.destacados-grid::-webkit-scrollbar{display:none}
+.destacado{flex:none;width:100%;scroll-snap-align:start;display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);grid-template-rows:auto auto auto 1fr;column-gap:var(--e-8);
+  padding:var(--e-2) 0;color:var(--ink);text-decoration:none}
+.destacado:focus-visible{outline:2px solid var(--celeste-fuerte);outline-offset:-2px;border-radius:var(--r-control)}
+.destacado .c-lab{grid-column:1;display:block;padding-bottom:var(--e-2);border-bottom:2px solid var(--celeste);font-family:var(--f);font-size:var(--t-2);line-height:1.3;font-weight:500;letter-spacing:0;text-transform:none;color:var(--ink)}
+.destacado .c-preg{grid-column:1;grid-row:2 / -1;margin-top:var(--e-4);font-size:var(--t-6);line-height:1.2;font-weight:500;color:var(--ink);text-wrap:balance}
+.destacado .c-num{grid-column:2;grid-row:1 / span 2;min-height:1em;font-family:var(--f);font-size:var(--t-8);line-height:1.1;font-weight:600;color:var(--azul);font-variation-settings:normal}
+.destacado .c-txt{grid-column:2;grid-row:3;margin-top:var(--e-1);font-size:var(--t-3);line-height:1.4;color:var(--ink)}
 /* D7 (plan de mejora, 28 de octubre de 2026, aprobado por el autor): la cifra es la del país y debajo va cómo cambia entre las provincias,
-   de la más baja a la más alta. Su lugar queda reservado (dos renglones) para que la portada no salte */
-.destacado .c-rango{display:block;min-height:2.8em;margin-top:var(--e-2);padding-top:var(--e-2);border-top:1px solid var(--line);font-size:var(--t-2);line-height:1.4;color:var(--muted)}
+   de la más baja a la más alta */
+.destacado .c-rango{grid-column:2;grid-row:4;display:block;margin-top:var(--e-2);font-size:var(--t-3);line-height:1.4;color:var(--muted)}
+@media (hover:hover) and (pointer:fine){.destacado:hover .c-preg{text-decoration:underline;text-decoration-color:var(--celeste);text-decoration-thickness:1.5px;text-underline-offset:4px}}
+@media (max-width:760px){
+  .destacados-grid{min-height:272px}
+  .destacado{grid-template-columns:minmax(0,1fr);grid-template-rows:none}
+  .destacado .c-lab,.destacado .c-preg,.destacado .c-num,.destacado .c-txt,.destacado .c-rango{grid-column:1;grid-row:auto}
+  .destacado .c-preg{margin:var(--e-3) 0 var(--e-4)}
+}
+/* los controles: los botones de siempre, en la letra de la etiqueta para no sumar un tamaño al bloque, y redondeles, con lugar para el dedo.
+   Sin JavaScript no se ven */
+.dest-control .boton.chico{font-size:var(--t-2)}
+.dest-control{display:flex;align-items:center;justify-content:space-between;gap:var(--e-3);margin-top:var(--e-3);padding-top:var(--e-3);border-top:1px solid var(--borde)}
+html:not(.js) .dest-control{display:none}
+.dest-puntos{display:flex;justify-content:center;gap:0}
+.dest-punto{display:grid;place-items:center;width:32px;height:32px;padding:0;background:none;border:0;border-radius:50%;cursor:pointer}
+.dest-punto::before{content:"";width:10px;height:10px;border-radius:50%;background:var(--superficie-3);box-shadow:inset 0 0 0 1px var(--faint);transition:background-color var(--dur-1) var(--ease-out)}
+.dest-punto[aria-current="true"]::before{background:var(--azul);box-shadow:none}
+.dest-punto:focus-visible{outline:2px solid var(--celeste-fuerte);outline-offset:-2px}
+@media (hover:hover) and (pointer:fine){.dest-punto:not([aria-current="true"]):hover::before{background:var(--celeste)}}
+@media (max-width:400px){.dest-control{gap:var(--e-1)}.dest-punto{width:24px}.dest-control .boton.chico{padding:var(--e-1) var(--e-2)}}
+@media print{.destacados-grid{display:block;overflow:visible}.dest-control{display:none}.destacado{break-inside:avoid;margin-bottom:var(--e-4)}}
 /* Provincias en la portada: las 24 jurisdicciones con su bandera */
 .prov-home{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:var(--e-1) var(--e-4);margin:0;padding:0;list-style:none}
 @media (max-width:1080px){.prov-home{grid-template-columns:repeat(4,minmax(0,1fr))}}
