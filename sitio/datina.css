@@ -511,7 +511,9 @@ html:not(.js) .busca-portada{display:none}
 .mapa-fondo .provs a:focus,.mapa-fondo .provs a:focus-visible{outline:none}
 .mapa-fondo .provs path,.mapa-fondo .provs circle{fill:var(--celeste);stroke:#fff;stroke-width:.9;stroke-linejoin:round;transition:fill var(--dur-1) var(--ease-out)}
 .mapa-fondo .provs circle{stroke-width:1.5}
-.mapa-fondo .provs a.elegida path,.mapa-fondo .provs a.elegida circle{fill:var(--sol);stroke:var(--sol-borde)}
+.mapa-fondo .provs a.elegida path,.mapa-fondo .provs a.elegida circle,.mapa-fondo .provs .malvinas.elegida{fill:var(--sol);stroke:var(--sol-borde)}
+/* las Malvinas: un dibujo del mapa, con el color del país, sin mouse ni clic */
+.mapa-fondo .provs .malvinas{pointer-events:none;transform-box:fill-box;transform-origin:center}
 @media (hover:hover) and (pointer:fine){.mapa-fondo .provs a:hover path,.mapa-fondo .provs a:hover circle{fill:#fff;stroke:var(--azul-hondo)}}
 
 /* Sol de Mayo: 16 rayos rectos y 16 flamígeros alrededor del rostro, con una ráfaga de líneas finas */

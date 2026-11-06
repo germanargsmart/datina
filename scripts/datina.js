@@ -12302,9 +12302,12 @@ async function mapa() {
     }).sort((p, q) => q.dist - p.dist);
     piezas.forEach((p, i) => {
       const t = {delay: i * PASO_P, fill: "backwards"};
-      p.a.animate([{transform: `translate(${p.dx.toFixed(1)}px,${p.dy.toFixed(1)}px) rotate(${p.giro.toFixed(1)}deg)`}, {transform: "none"}],
-        {...t, duration: DUR_P, easing: "cubic-bezier(.16,1,.3,1)"});
-      p.a.animate([{opacity: 0}, {opacity: 1}], {...t, duration: 300, easing: "ease-out"});
+      // las Malvinas llegan con Tierra del Fuego
+      [p.a, ...(p.a.dataset.c === "94" ? [el.querySelector(".malvinas")] : [])].forEach(n => {
+        n.animate([{transform: `translate(${p.dx.toFixed(1)}px,${p.dy.toFixed(1)}px) rotate(${p.giro.toFixed(1)}deg)`}, {transform: "none"}],
+          {...t, duration: DUR_P, easing: "cubic-bezier(.16,1,.3,1)"});
+        n.animate([{opacity: 0}, {opacity: 1}], {...t, duration: 300, easing: "ease-out"});
+      });
     });
     // el sol empieza a nacer cuando la última pieza está llegando
     vuelo = setTimeout(soltar, (piezas.length - 1) * PASO_P + DUR_P * .7);
@@ -12313,6 +12316,14 @@ async function mapa() {
   try { [mundo] = await Promise.all([fetch("datos/mundo-110m.json").then(r => r.json()), cargarGeo()]); } catch (_) { soltar(); return; }
   // la Argentina y las Malvinas del mapa del mundo no se dibujan: van las provincias, con su contorno oficial
   const paises = topojson.feature(mundo, mundo.objects.countries).features.filter(d => d.id !== "032" && d.id !== "238");
+  // Las Malvinas son parte de la provincia en el archivo (código 94, los polígonos al este de los 62 grados oeste). Se dibujan aparte para que
+  // sean un dibujo y nada más: sin mouse, sin clic y sin dar los datos de Tierra del Fuego (pedido del autor, noviembre de 2026). El ajuste del
+  // mapa al lugar sigue usando el archivo entero, y los otros mapas del sitio no cambian
+  const esMalvinas = pol => d3.geoCentroid({type: "Polygon", coordinates: pol})[0] > -62;
+  const conMalvinas = GEO.features.find(f => f.properties.codigo_indec === "94");
+  const soloIslas = {type: "MultiPolygon", coordinates: conMalvinas.geometry.coordinates.filter(esMalvinas)};
+  const sinMalvinas = {...conMalvinas, geometry: {type: "MultiPolygon", coordinates: conMalvinas.geometry.coordinates.filter(p => !esMalvinas(p))}};
+  const provMapa = GEO.features.map(f => f === conMalvinas ? sinMalvinas : f);
   // con mouse se hace clic, en el celular se toca
   const AYUDA = matchMedia("(hover:hover) and (pointer:fine)").matches ? "Hacé clic en una provincia para ver sus datos" : ayuda.textContent;
   ayuda.textContent = AYUDA;
@@ -12337,10 +12348,11 @@ async function mapa() {
       svg.append("path").attr("class","anillo").attr("d", camino(d3.geoCircle().center([-64, -38]).radius(r)())));
     svg.append("g").selectAll("path").data(paises).join("path").attr("class", "tierra").attr("d", camino);
     const g = svg.append("g").attr("class", "provs");
-    const enlaces = g.selectAll("a").data(GEO.features).join("a")
+    const enlaces = g.selectAll("a").data(provMapa).join("a")
       .attr("href", d => urlProv(d.properties.codigo_indec)).attr("tabindex", -1)
       .attr("data-c", d => d.properties.codigo_indec);
     enlaces.append("path").attr("d", camino);
+    g.append("path").attr("class", "malvinas").attr("aria-hidden", "true").attr("d", camino(soloIslas));
     // la Ciudad de Buenos Aires es un punto a esta escala: un círculo para poder tocarla
     const [cx, cy] = proy(d3.geoCentroid(GEO.features.find(f => f.properties.codigo_indec === "02")));
     g.select('a[data-c="02"]').raise().append("circle").attr("cx", cx).attr("cy", cy).attr("r", angosto ? 6 : 5);
@@ -12401,7 +12413,10 @@ function cerrarTarjetaMapa() {
   document.querySelectorAll("#mapa .provs a.tocada").forEach(a => a.classList.remove("tocada"));
 }
 // la provincia elegida, en amarillo
-const marcarMapa = () => document.querySelectorAll("#mapa .provs a").forEach(a => a.classList.toggle("elegida", a.dataset.c === prov));
+const marcarMapa = () => {
+  document.querySelectorAll("#mapa .provs a").forEach(a => a.classList.toggle("elegida", a.dataset.c === prov));
+  document.querySelector("#mapa .malvinas")?.classList.toggle("elegida", prov === "94");
+};
 alCambiarProv.push(marcarMapa);
 // la historia de la provincia elegida en Tu provincia (11 de octubre de 2026): los 24 bloques los escribe el constructor, ocultos
 const mostrarHistoria = () => document.querySelectorAll("#prov-historia .ph, .prov-linea").forEach(a => { a.hidden = a.dataset.c !== prov; });

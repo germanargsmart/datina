@@ -10880,15 +10880,22 @@ return {a, dist: d3.geoDistance(d3.geoCentroid(d), CENTRO), dx: Math.cos(ang) * 
 }).sort((p, q) => q.dist - p.dist);
 piezas.forEach((p, i) => {
 const t = {delay: i * PASO_P, fill: "backwards"};
-p.a.animate([{transform: `translate(${p.dx.toFixed(1)}px,${p.dy.toFixed(1)}px) rotate(${p.giro.toFixed(1)}deg)`}, {transform: "none"}],
+[p.a, ...(p.a.dataset.c === "94" ? [el.querySelector(".malvinas")] : [])].forEach(n => {
+n.animate([{transform: `translate(${p.dx.toFixed(1)}px,${p.dy.toFixed(1)}px) rotate(${p.giro.toFixed(1)}deg)`}, {transform: "none"}],
 {...t, duration: DUR_P, easing: "cubic-bezier(.16,1,.3,1)"});
-p.a.animate([{opacity: 0}, {opacity: 1}], {...t, duration: 300, easing: "ease-out"});
+n.animate([{opacity: 0}, {opacity: 1}], {...t, duration: 300, easing: "ease-out"});
+});
 });
 vuelo = setTimeout(soltar, (piezas.length - 1) * PASO_P + DUR_P * .7);
 };
 let mundo;
 try { [mundo] = await Promise.all([fetch("datos/mundo-110m.json").then(r => r.json()), cargarGeo()]); } catch (_) { soltar(); return; }
 const paises = topojson.feature(mundo, mundo.objects.countries).features.filter(d => d.id !== "032" && d.id !== "238");
+const esMalvinas = pol => d3.geoCentroid({type: "Polygon", coordinates: pol})[0] > -62;
+const conMalvinas = GEO.features.find(f => f.properties.codigo_indec === "94");
+const soloIslas = {type: "MultiPolygon", coordinates: conMalvinas.geometry.coordinates.filter(esMalvinas)};
+const sinMalvinas = {...conMalvinas, geometry: {type: "MultiPolygon", coordinates: conMalvinas.geometry.coordinates.filter(p => !esMalvinas(p))}};
+const provMapa = GEO.features.map(f => f === conMalvinas ? sinMalvinas : f);
 const AYUDA = matchMedia("(hover:hover) and (pointer:fine)").matches ? "Hacé clic en una provincia para ver sus datos" : ayuda.textContent;
 ayuda.textContent = AYUDA;
 const dibujar = (armar = false) => {
@@ -10909,10 +10916,11 @@ svg.append("path").attr("class","grat").attr("d", camino(d3.geoGraticule().step(
 svg.append("path").attr("class","anillo").attr("d", camino(d3.geoCircle().center([-64, -38]).radius(r)())));
 svg.append("g").selectAll("path").data(paises).join("path").attr("class", "tierra").attr("d", camino);
 const g = svg.append("g").attr("class", "provs");
-const enlaces = g.selectAll("a").data(GEO.features).join("a")
+const enlaces = g.selectAll("a").data(provMapa).join("a")
 .attr("href", d => urlProv(d.properties.codigo_indec)).attr("tabindex", -1)
 .attr("data-c", d => d.properties.codigo_indec);
 enlaces.append("path").attr("d", camino);
+g.append("path").attr("class", "malvinas").attr("aria-hidden", "true").attr("d", camino(soloIslas));
 const [cx, cy] = proy(d3.geoCentroid(GEO.features.find(f => f.properties.codigo_indec === "02")));
 g.select('a[data-c="02"]').raise().append("circle").attr("cx", cx).attr("cy", cy).attr("r", angosto ? 6 : 5);
 if (vuelo) soltar();
@@ -10964,7 +10972,10 @@ if (!tarjetaM?.classList.contains("abierta")) return;
 tarjetaM.classList.remove("abierta");
 document.querySelectorAll("#mapa .provs a.tocada").forEach(a => a.classList.remove("tocada"));
 }
-const marcarMapa = () => document.querySelectorAll("#mapa .provs a").forEach(a => a.classList.toggle("elegida", a.dataset.c === prov));
+const marcarMapa = () => {
+document.querySelectorAll("#mapa .provs a").forEach(a => a.classList.toggle("elegida", a.dataset.c === prov));
+document.querySelector("#mapa .malvinas")?.classList.toggle("elegida", prov === "94");
+};
 alCambiarProv.push(marcarMapa);
 const mostrarHistoria = () => document.querySelectorAll("#prov-historia .ph, .prov-linea").forEach(a => { a.hidden = a.dataset.c !== prov; });
 if (document.getElementById("prov-historia")) { mostrarHistoria(); alCambiarProv.push(mostrarHistoria); }

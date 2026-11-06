@@ -403,6 +403,13 @@ if (tapados) problemas.push(`index.html: ${tapados} resultados del buscador de l
 await tecla("Escape");
 if ((await anchoBusca()) > 160 || await q.eval(`document.getElementById("busca-portada").value !== "" || !document.getElementById("busca-portada-res").hidden`))
   problemas.push("index.html: Escape no cierra el buscador de la portada");
+// las Malvinas son un dibujo: el puntero pasa de largo, no hay enlace y Tierra del Fuego ya no llega hasta ellas (noviembre de 2026)
+const malvinas = await q.eval(`(() => { const m = document.querySelector("#mapa .malvinas"), a = document.querySelector('#mapa .provs a[data-c="94"]');
+  if (!m) return "no se dibujan"; const r = m.getBoundingClientRect(), t = a.getBoundingClientRect();
+  if (!r.width) return "no se ven"; if (m.closest("a")) return "están dentro de un enlace"; if (m.getAttribute("aria-hidden") !== "true") return "sin aria-hidden";
+  if (getComputedStyle(m).pointerEvents !== "none") return "reciben el puntero"; if (t.right > r.left) return "Tierra del Fuego llega hasta ellas";
+  const e = document.elementFromPoint(r.left + r.width / 2, r.top + r.height / 2); return e && e.closest("a") ? "el centro tiene un enlace" : ""; })()`);
+if (malvinas) problemas.push(`index.html: Malvinas: ${malvinas}`);
 await q.send("Emulation.setFocusEmulationEnabled", {enabled: false});
 q.errores.forEach(e => problemas.push(`portada: ${e}`));
 await q.ir(B + "trabajo.html", 1000);
