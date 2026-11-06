@@ -487,6 +487,29 @@ html:not(.js) .busca-portada{display:none}
 .mapa-fondo .provs a.tocada path,.mapa-fondo .provs a.tocada circle{fill:#fff;stroke:var(--azul-hondo)}
 /* en el celular, un panel fijo abajo de la pantalla: el mapa sigue a la vista */
 @media (max-width:760px){.mapa-tarjeta{position:fixed;left:12px;right:12px;top:auto;bottom:calc(12px + env(safe-area-inset-bottom,0px));width:auto;z-index:30}}
+/* Desde 1200 píxeles, donde hay lugar (pedido del autor, noviembre de 2026), todo va al costado del país y debajo del sol, sobre el azul, sin recuadro: al pasar
+   el mouse, el nombre y una descripción, en letra legible (antes, una línea de 11 píxeles abajo del mapa), y al hacer clic, los datos de la
+   tarjeta, que ya no tapa el sol. --mapa-der lo calcula datina.js con el borde derecho del país */
+.mapa-lado{display:none}
+@media (min-width:1200px){
+  .mapa-ayuda{display:none}
+  .mapa-lado{position:absolute;left:var(--mapa-der,50%);right:0;top:200px;display:block;color:#fff;pointer-events:none}
+  .mapa-lado[hidden]{display:none}
+  .ml-tit{margin:0 0 var(--e-2);font-size:var(--t-6);line-height:1.15;font-weight:600}
+  .ml-txt{margin:0;font-size:var(--t-4);line-height:1.45;text-wrap:pretty}
+  .ml-tit .bandera{margin-right:var(--e-2);vertical-align:-1px}
+  .mapa-tarjeta{left:var(--mapa-der,50%);right:0;top:200px;width:auto;padding:0;color:#fff;border:0;border-radius:0;background:none;-webkit-backdrop-filter:none;backdrop-filter:none;box-shadow:none}
+  .mt-cab{margin-bottom:var(--e-1);font-size:var(--t-6);line-height:1.15}
+  .mapa-tarjeta ul{margin-bottom:var(--e-1)}
+  .mapa-tarjeta li{padding:2px 0 var(--e-1);border-top-color:var(--en-azul-borde)}
+  .mt-lab,.mapa-tarjeta li b{line-height:1.3}
+  .mapa-tarjeta li small,.mapa-tarjeta .mt-cerrar{font-size:var(--t-2);line-height:1.25;color:#fff}
+  .mapa-tarjeta .mt-cerrar{width:28px;height:28px;font-size:22px}
+  .portada-mapa .mapa-tarjeta li .mt-aclara{margin-top:var(--e-1);font-size:var(--t-2);line-height:1.25;color:#fff}
+  .mapa-tarjeta .boton{width:auto}
+  .mapa-tarjeta .boton.principal{--b-fondo:#fff;--b-tinta:var(--azul);--b-borde:#fff}
+}
+@media (min-width:1200px) and (hover:hover) and (pointer:fine){.mapa-tarjeta .boton.principal:hover{--b-fondo:var(--celeste-suave);--b-borde:var(--celeste-suave)}}
 @media (max-width:1080px){.portada-mapa{min-height:420px}.portada-mapa .sol{width:170px}}
 @media (max-width:760px){
   .portada-grid{grid-template-columns:1fr;gap:var(--e-4);padding:var(--e-4) var(--margen) var(--e-6)}
@@ -546,7 +569,7 @@ html:not(.js) .busca-portada{display:none}
 @media (prefers-reduced-motion:no-preference){
   .js .portada.armando .sol *{animation-play-state:paused!important}
   .js .portada.armando .sol .rafaga{opacity:0}
-  .js .portada.armando .mapa-ayuda{opacity:0}
+  .js .portada.armando .mapa-ayuda,.js .portada.armando .mapa-lado{opacity:0}
   .js .portada.armando .provs a{pointer-events:none}
 }
 

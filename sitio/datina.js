@@ -10896,8 +10896,16 @@ const conMalvinas = GEO.features.find(f => f.properties.codigo_indec === "94");
 const soloIslas = {type: "MultiPolygon", coordinates: conMalvinas.geometry.coordinates.filter(esMalvinas)};
 const sinMalvinas = {...conMalvinas, geometry: {type: "MultiPolygon", coordinates: conMalvinas.geometry.coordinates.filter(p => !esMalvinas(p))}};
 const provMapa = GEO.features.map(f => f === conMalvinas ? sinMalvinas : f);
-const AYUDA = matchMedia("(hover:hover) and (pointer:fine)").matches ? "Hacé clic en una provincia para ver sus datos" : ayuda.textContent;
+const CON_MOUSE = matchMedia("(hover:hover) and (pointer:fine)").matches;
+const AYUDA = CON_MOUSE ? "Hacé clic en una provincia para ver sus datos" : ayuda.textContent;
 ayuda.textContent = AYUDA;
+const lado = document.getElementById("mapa-lado"), EV_LADO = INDP.find(x => x.lab === "Esperanza de vida");
+LADO_REPOSO = `<p class="ml-tit">Las 24 jurisdicciones</p><p class="ml-txt">${AYUDA}</p>`;
+lado.innerHTML = LADO_REPOSO;
+const ladoProv = c => {
+const f = EV_LADO?.d.find(d => d.codigo_indec === c);
+lado.innerHTML = `<p class="ml-tit">${conBandera(c, NOMBRES[c])}</p><p class="ml-txt">${f ? `Esperanza de vida: ${EV_LADO.f(f[EV_LADO.k])} ${EV_LADO.det}. ` : ""}${CON_MOUSE ? "Hacé clic" : "Tocá"} para ver más datos.</p>`;
+};
 const dibujar = (armar = false) => {
 const W = por.clientWidth, H = por.clientHeight, angosto = W < 760;
 const pr = por.getBoundingClientRect(), c = caja.getBoundingClientRect(), sl = document.getElementById("sol").getBoundingClientRect();
@@ -10910,6 +10918,7 @@ const bp = camino.bounds(GEO);
 ayuda.style.left = `${(bp[0][0] + bp[1][0]) / 2 - (c.left - pr.left)}px`;
 ayuda.style.top = `${bp[1][1] - (c.top - pr.top) + 10}px`;
 ZONA_MAPA = {der: bp[1][0] - (c.left - pr.left), arr: bp[0][1] - (c.top - pr.top), aba: bp[1][1] - (c.top - pr.top)};
+caja.style.setProperty("--mapa-der", `${Math.round(ZONA_MAPA.der + 24)}px`);
 svg.selectAll("*").remove();
 svg.append("path").attr("class","grat").attr("d", camino(d3.geoGraticule().step([10, 10])()));
 [10, 20, 30, 45, 60, 80, 100, 130, 160].forEach(r =>
@@ -10926,8 +10935,8 @@ g.select('a[data-c="02"]').raise().append("circle").attr("cx", cx).attr("cy", cy
 if (vuelo) soltar();
 if (armar && pendiente) rompecabezas(enlaces, camino, proy, bp);
 else if (pendiente) g.style("opacity", 0);
-enlaces.on("pointerenter", (ev, d) => { const c = d.properties.codigo_indec; ayuda.innerHTML = conBandera(c, `${NOMBRES[c]}: ver sus datos`); })
-.on("pointerleave", () => { ayuda.textContent = AYUDA; })
+enlaces.on("pointerenter", (ev, d) => { const c = d.properties.codigo_indec; ayuda.innerHTML = conBandera(c, `${NOMBRES[c]}: ver sus datos`); ladoProv(c); })
+.on("pointerleave", () => { ayuda.textContent = AYUDA; lado.innerHTML = LADO_REPOSO; })
 .on("click", (ev, d) => { ev.preventDefault(); tarjetaMapa(d.properties.codigo_indec); });
 marcarMapa();
 el.classList.add("listo");
@@ -10940,7 +10949,7 @@ setTimeout(armar, 2500);
 let ancho = por.clientWidth, t;
 new ResizeObserver(() => { if (por.clientWidth === ancho) return; ancho = por.clientWidth; clearTimeout(t); t = setTimeout(dibujar, 150); }).observe(por);
 }
-let ZONA_MAPA = null, tarjetaM = null;
+let ZONA_MAPA = null, tarjetaM = null, LADO_REPOSO = "";
 const MAPA_IND = ["Empleo privado registrado", "Esperanza de vida", "Mortalidad infantil", "Aprender, matemática"];
 function tarjetaMapa(c) {
 const caja = document.getElementById("portada-mapa");
@@ -10960,7 +10969,8 @@ return `<li><span class="mt-lab">${x.lab}</span><b>${x.f(f[x.k])}</b><small>${pu
 tarjetaM.setAttribute("aria-label", `Datos de ${NOMBRES[c]}`);
 tarjetaM.innerHTML = `<div class="mt-cab">${conBandera(c, NOMBRES[c])}<button type="button" class="mt-cerrar" aria-label="Cerrar"><span aria-hidden="true">×</span></button></div>` +
 `<ul>${filas}</ul><a class="boton principal chico" href="${urlProv(c)}">Ver perfil completo</a>`;
-if (ZONA_MAPA && innerWidth >= 760) { tarjetaM.style.left = `${ZONA_MAPA.der + 20}px`; tarjetaM.style.top = `${Math.max(0, ZONA_MAPA.arr + 40)}px`; }
+document.getElementById("mapa-lado").hidden = true;
+if (ZONA_MAPA && innerWidth >= 760 && innerWidth < 1200) { tarjetaM.style.left = `${ZONA_MAPA.der + 20}px`; tarjetaM.style.top = `${Math.max(0, ZONA_MAPA.arr + 40)}px`; }
 else { tarjetaM.style.left = ""; tarjetaM.style.top = ""; }
 document.querySelectorAll("#mapa .provs a").forEach(a => a.classList.toggle("tocada", a.dataset.c === c));
 const nueva = !tarjetaM.classList.contains("abierta");
@@ -10970,6 +10980,7 @@ if (nueva) tarjetaM.animate(REDUCIR ? [{opacity: 0}, {opacity: 1}] : [{opacity: 
 function cerrarTarjetaMapa() {
 if (!tarjetaM?.classList.contains("abierta")) return;
 tarjetaM.classList.remove("abierta");
+const lado = document.getElementById("mapa-lado"); lado.hidden = false; lado.innerHTML = LADO_REPOSO;
 document.querySelectorAll("#mapa .provs a.tocada").forEach(a => a.classList.remove("tocada"));
 }
 const marcarMapa = () => {

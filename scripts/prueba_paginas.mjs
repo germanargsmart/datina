@@ -410,6 +410,29 @@ const malvinas = await q.eval(`(() => { const m = document.querySelector("#mapa 
   if (getComputedStyle(m).pointerEvents !== "none") return "reciben el puntero"; if (t.right > r.left) return "Tierra del Fuego llega hasta ellas";
   const e = document.elementFromPoint(r.left + r.width / 2, r.top + r.height / 2); return e && e.closest("a") ? "el centro tiene un enlace" : ""; })()`);
 if (malvinas) problemas.push(`index.html: Malvinas: ${malvinas}`);
+// el costado del mapa, desde 1200 píxeles: el nombre y la descripción en letra legible y, al hacer clic en cada una de las 24, sus datos sin
+// recuadro, sin tapar el sol y sin que los corte el borde de lo azul
+for (const W of [1440, 1200]) {
+  await q.tamano(W, 900);
+  await q.ir(B + "index.html", 4000);
+  const lado = await q.eval(`(() => { const l = document.getElementById("mapa-lado"), a = document.querySelector('#mapa .provs a[data-c="78"]');
+    if (!l.offsetParent) return "no se ve"; if (document.getElementById("mapa-ayuda").offsetParent) return "sigue la línea de abajo";
+    a.dispatchEvent(new PointerEvent("pointerenter")); const t = l.textContent, c = parseFloat(getComputedStyle(l.querySelector(".ml-txt")).fontSize);
+    a.dispatchEvent(new PointerEvent("pointerleave")); return !t.includes("Santa Cruz") || !t.includes("Esperanza de vida") ? "no nombra la provincia: " + t : c < 15 ? "letra de " + c : ""; })()`);
+  if (lado) problemas.push(`index.html en ${W} píxeles: costado del mapa: ${lado}`);
+  const costado = await q.eval(`(() => { const malas = [], sol = document.getElementById("sol").getBoundingClientRect(), por = document.querySelector(".portada").getBoundingClientRect();
+    document.querySelectorAll("#mapa .provs a").forEach(a => { a.dispatchEvent(new MouseEvent("click", {bubbles: true, cancelable: true}));
+      const t = document.querySelector(".mapa-tarjeta"), r = t.getBoundingClientRect(), cs = getComputedStyle(t);
+      if (r.top < sol.bottom && r.left < sol.right && r.right > sol.left) malas.push(a.dataset.c + " tapa el sol");
+      if (r.bottom > por.bottom) malas.push(a.dataset.c + " se corta " + Math.round(r.bottom - por.bottom));
+      if (cs.boxShadow !== "none" || parseFloat(cs.borderTopWidth) || cs.backgroundColor !== "rgba(0, 0, 0, 0)") malas.push(a.dataset.c + " con recuadro");
+      if ([...t.querySelectorAll("small, .mt-lab, b")].some(s => getComputedStyle(s).color !== "rgb(255, 255, 255)")) malas.push(a.dataset.c + " con letra que no se lee sobre el azul"); });
+    document.dispatchEvent(new KeyboardEvent("keydown", {key: "Escape"}));
+    if (document.getElementById("mapa-lado").hidden) malas.push("Escape no vuelve a la descripción");
+    return malas.slice(0, 6).join(", "); })()`);
+  if (costado) problemas.push(`index.html en ${W} píxeles: datos de la provincia: ${costado}`);
+}
+await q.tamano(1280, 900);
 await q.send("Emulation.setFocusEmulationEnabled", {enabled: false});
 q.errores.forEach(e => problemas.push(`portada: ${e}`));
 await q.ir(B + "trabajo.html", 1000);
