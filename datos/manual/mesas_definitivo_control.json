@@ -1,0 +1,264 @@
+{
+ "_leeme": "Lo que armó scripts/elecciones_definitivo.py: la fuente del definitivo de cada elección, cuánto reúnen las mesas y las listas del definitivo que no tienen el mismo nombre en las mesas. Lo lee scripts/prueba_mesas.py.",
+ "elecciones": {
+  "2011-general-diputados": {
+   "fuente": "Dirección Nacional Electoral, escrutinio definitivo por distrito",
+   "positivos_definitivo": 20599073,
+   "positivos_mesas": 20158660,
+   "cobertura_pais": 97.86,
+   "menor": [
+    "34",
+    89.07
+   ],
+   "listas_sin_par": []
+  },
+  "2011-general-presidente": {
+   "fuente": "Dirección Nacional Electoral, escrutinio definitivo por distrito",
+   "positivos_definitivo": 21927282,
+   "positivos_mesas": 21484844,
+   "cobertura_pais": 97.98,
+   "menor": [
+    "34",
+    91.8
+   ],
+   "listas_sin_par": []
+  },
+  "2011-general-senadores": {
+   "fuente": "Dirección Nacional Electoral, escrutinio definitivo por distrito",
+   "positivos_definitivo": 10018914,
+   "positivos_mesas": 9744240,
+   "cobertura_pais": 97.26,
+   "menor": [
+    "34",
+    89.42
+   ],
+   "listas_sin_par": []
+  },
+  "2013-general-diputados": {
+   "fuente": "Dirección Nacional Electoral, escrutinio definitivo por distrito",
+   "positivos_definitivo": 23280236,
+   "positivos_mesas": 23069785,
+   "cobertura_pais": 99.1,
+   "menor": [
+    "34",
+    83.59
+   ],
+   "listas_sin_par": []
+  },
+  "2013-general-senadores": {
+   "fuente": "Dirección Nacional Electoral, escrutinio definitivo por distrito",
+   "positivos_definitivo": 5081064,
+   "positivos_mesas": 5033655,
+   "cobertura_pais": 99.07,
+   "menor": [
+    "66",
+    98.12
+   ],
+   "listas_sin_par": []
+  },
+  "2015-general-diputados": {
+   "fuente": "Dirección Nacional Electoral, escrutinio definitivo por distrito",
+   "positivos_definitivo": 23442662,
+   "positivos_mesas": 22679308,
+   "cobertura_pais": 96.74,
+   "menor": [
+    "34",
+    77.22
+   ],
+   "listas_sin_par": []
+  },
+  "2015-general-presidente": {
+   "fuente": "Dirección Nacional Electoral, escrutinio definitivo por distrito",
+   "positivos_definitivo": 25184257,
+   "positivos_mesas": 24420841,
+   "cobertura_pais": 96.97,
+   "menor": [
+    "34",
+    80.77
+   ],
+   "listas_sin_par": []
+  },
+  "2015-general-senadores": {
+   "fuente": "Dirección Nacional Electoral, escrutinio definitivo por distrito",
+   "positivos_definitivo": 7138475,
+   "positivos_mesas": 7012213,
+   "cobertura_pais": 98.23,
+   "menor": [
+    "10",
+    85.02
+   ],
+   "listas_sin_par": []
+  },
+  "2015-segunda-presidente": {
+   "fuente": "Dirección Nacional Electoral, escrutinio definitivo por distrito",
+   "positivos_definitivo": 25297924,
+   "positivos_mesas": 25101742,
+   "cobertura_pais": 99.22,
+   "menor": [
+    "66",
+    95.22
+   ],
+   "listas_sin_par": []
+  },
+  "2017-general-diputados": {
+   "fuente": "Dirección Nacional Electoral, escrutinio definitivo por distrito",
+   "positivos_definitivo": 24579800,
+   "positivos_mesas": 24329184,
+   "cobertura_pais": 98.98,
+   "menor": [
+    "38",
+    90.54
+   ],
+   "listas_sin_par": []
+  },
+  "2017-general-senadores": {
+   "fuente": "Dirección Nacional Electoral, escrutinio definitivo por distrito",
+   "positivos_definitivo": 11861920,
+   "positivos_mesas": 11711816,
+   "cobertura_pais": 98.73,
+   "menor": [
+    "38",
+    90.54
+   ],
+   "listas_sin_par": []
+  },
+  "2019-general-diputados": {
+   "fuente": "Dirección Nacional Electoral, escrutinio definitivo por distrito",
+   "positivos_definitivo": 25641135,
+   "positivos_mesas": 24769142,
+   "cobertura_pais": 96.6,
+   "menor": [
+    "18",
+    85.62
+   ],
+   "listas_sin_par": []
+  },
+  "2019-general-presidente": {
+   "fuente": "Dirección Nacional Electoral, escrutinio definitivo por distrito",
+   "positivos_definitivo": 26838336,
+   "positivos_mesas": 25931564,
+   "cobertura_pais": 96.62,
+   "menor": [
+    "18",
+    85.6
+   ],
+   "listas_sin_par": []
+  },
+  "2019-general-senadores": {
+   "fuente": "Dirección Nacional Electoral, escrutinio definitivo por distrito",
+   "positivos_definitivo": 5635906,
+   "positivos_mesas": 5496938,
+   "cobertura_pais": 97.53,
+   "menor": [
+    "66",
+    95.59
+   ],
+   "listas_sin_par": []
+  },
+  "2021-general-diputados": {
+   "fuente": "Dirección Nacional Electoral, escrutinio definitivo por distrito",
+   "positivos_definitivo": 23602493,
+   "positivos_mesas": 23238621,
+   "cobertura_pais": 98.46,
+   "menor": [
+    "34",
+    93.94
+   ],
+   "listas_sin_par": []
+  },
+  "2021-general-senadores": {
+   "fuente": "Dirección Nacional Electoral, escrutinio definitivo por distrito",
+   "positivos_definitivo": 7018937,
+   "positivos_mesas": 6959726,
+   "cobertura_pais": 99.16,
+   "menor": [
+    "18",
+    97.5
+   ],
+   "listas_sin_par": []
+  },
+  "2023-general-diputados": {
+   "fuente": "Cámara Nacional Electoral, actas de escrutinio definitivo de cada junta electoral",
+   "positivos_definitivo": 24546861,
+   "positivos_mesas": 24059851,
+   "cobertura_pais": 98.02,
+   "menor": [
+    "70",
+    94.53
+   ],
+   "listas_sin_par": []
+  },
+  "2023-general-presidente": {
+   "fuente": "Cámara Nacional Electoral, actas de escrutinio definitivo de cada junta electoral",
+   "positivos_definitivo": 26791634,
+   "positivos_mesas": 26291718,
+   "cobertura_pais": 98.13,
+   "menor": [
+    "70",
+    94.9
+   ],
+   "listas_sin_par": []
+  },
+  "2023-general-senadores": {
+   "fuente": "Cámara Nacional Electoral, actas de escrutinio definitivo de cada junta electoral",
+   "positivos_definitivo": 11610326,
+   "positivos_mesas": 11342324,
+   "cobertura_pais": 97.69,
+   "menor": [
+    "70",
+    94.58
+   ],
+   "listas_sin_par": []
+  },
+  "2023-segunda-presidente": {
+   "fuente": "Cámara Nacional Electoral, actas de escrutinio definitivo de cada junta electoral",
+   "positivos_definitivo": 26153280,
+   "positivos_mesas": 25992604,
+   "cobertura_pais": 99.39,
+   "menor": [
+    "38",
+    97.52
+   ],
+   "listas_sin_par": []
+  },
+  "2025-general-diputados": {
+   "fuente": "Cámara Nacional Electoral, actas de escrutinio definitivo de cada junta electoral",
+   "positivos_definitivo": 23212615,
+   "positivos_mesas": 22977871,
+   "cobertura_pais": 98.99,
+   "menor": [
+    "66",
+    97.03
+   ],
+   "listas_sin_par": []
+  },
+  "2025-general-senadores": {
+   "fuente": "Cámara Nacional Electoral, actas de escrutinio definitivo de cada junta electoral",
+   "positivos_definitivo": 5286932,
+   "positivos_mesas": 5218954,
+   "cobertura_pais": 98.71,
+   "menor": [
+    "66",
+    97.08
+   ],
+   "listas_sin_par": []
+  }
+ },
+ "notas_actas": [
+  "2023-general diputados CORRIENTES: el acta dice 717,281 afirmativos y las listas suman 654,195, que cierra con los emitidos: se usa la suma",
+  "2023-general diputados SAN JUAN: el acta dice 533,179 afirmativos y las listas suman 421,953, que cierra con los emitidos: se usa la suma",
+  "2023-general SAN LUIS: el acta no dice cuántos electores hay: se usa el padrón de la Cámara (421,370), sin el exterior",
+  "2023-general presidente CORRIENTES: el acta dice 716,375 afirmativos y las listas suman 704,502, que cierra con los emitidos: se usa la suma",
+  "2023-general presidente SAN JUAN: el acta dice 472,411 afirmativos y las listas suman 467,792, que cierra con los emitidos: se usa la suma",
+  "2023-general senadores SAN JUAN: el acta dice 532,392 afirmativos y las listas suman 422,726, que cierra con los emitidos: se usa la suma",
+  "2023-segunda presidente CORRIENTES: el acta dice 695,635 afirmativos y las listas suman 688,922, que cierra con los emitidos: se usa la suma",
+  "2023-segunda presidente SAN JUAN: el acta dice 465,129 afirmativos y las listas suman 457,327, que cierra con los emitidos: se usa la suma",
+  "2023-segunda SAN LUIS: el acta no dice cuántos electores hay: se usa el padrón de la Cámara (421,370), sin el exterior",
+  "2023-segunda presidente SANTA FE: el acta dice 2,074,669 afirmativos y las listas suman 2,040,408, que cierra con los emitidos: se usa la suma",
+  "2025-general diputados CORRIENTES: el acta dice 556,925 afirmativos y las listas suman 548,814, que cierra con los emitidos: se usa la suma",
+  "2025-general CORRIENTES: el acta dice 651.679 electores y su propio 59,99% de participación da 951.679: se usa 951,679",
+  "2025-general SAN LUIS: el acta no dice cuántos electores hay: se usa el padrón de la Cámara (429,732), sin el exterior",
+  "2025-general diputados SANTA FE: el acta dice 1,720,898 afirmativos y las listas suman 1,680,528, que cierra con los emitidos: se usa la suma"
+ ],
+ "problemas": []
+}

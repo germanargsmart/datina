@@ -14,7 +14,7 @@ const natural = (a, b) => String(a).localeCompare(String(b), "es", {numeric: tru
 const ent = t => { const v = t === "" || t == null ? null : +t; return Number.isFinite(v) ? v : null; };
 const FALLO_HISTORIA = Symbol("la historia no llegó");
 let IDX = null, turno = 0;
-const estado = {e: "", p: "", s: "", c: "", m: ""};
+const estado = {e: "", p: "", s: "", c: "", m: "", ext: ""};
 const pedidas = new Map();
 function filasCSV(t) {
 const filas = [];
@@ -45,11 +45,11 @@ p.catch(() => pedidas.delete(ruta));
 return p;
 };
 const col = (cab, n) => cab.indexOf(n);
-async function tablaPais(id) {
-const f = await bajar(`${id}/pais.csv`), c = f[0];
+async function tablaPais(id, archivo = "pais.csv") {
+const f = await bajar(`${id}/${archivo}`), c = f[0];
 const i = {cod: col(c, "codigo_indec"), lista: col(c, "lista"), votos: col(c, "votos"), mesas: col(c, "mesas"), el: col(c, "electores"),
 vot: col(c, "votantes"), bl: col(c, "blancos"), nu: col(c, "nulos"), re: col(c, "recurridos_impugnados")};
-if (i.cod < 0 || i.lista < 0 || i.votos < 0) throw new Error(`${id}/pais.csv: faltan columnas`);
+if (i.cod < 0 || i.lista < 0 || i.votos < 0) throw new Error(`${id}/${archivo}: faltan columnas`);
 const pv = {};
 for (const r of f.slice(1)) {
 const p = pv[r[i.cod]] ||= {cod: r[i.cod], listas: [], mesas: ent(r[i.mesas]), electores: ent(r[i.el]), votantes: ent(r[i.vot]),
@@ -157,7 +157,7 @@ if (t.recurridos) partes.push(`${n0(t.recurridos)} recurridos, impugnados o de c
 return partes.length ? `<p class="ms-otros">De quienes votaron: ${partes.join(", ")}.</p>` : "";
 }
 const celdaLista = (nombre, votos, base) => nombre ? `<span class="ms-c-nom">${esc(nombre)}</span> <span class="ms-c-pct">${pct(votos / base * 100)}</span>` : "";
-function tablaPartes(titulo, nombreCol, filas, verMesas) {
+function tablaPartes(titulo, nombreCol, filas, verMesas, nota = "") {
 if (!filas.length) return "";
 const cuerpo = filas.map(f => {
 const orden = dos(f.nombres, f.votos);
@@ -169,7 +169,7 @@ return `<tr><th scope="row"><button type="button" class="enlace ms-ir" data-${f.
 `<td class="n">${p == null ? "sin dato" : pct(p)}</td>` +
 `<td>${a ? celdaLista(a[0], a[1], base) : "sin resultado"}</td><td>${b ? celdaLista(b[0], b[1], base) : ""}</td></tr>`;
 }).join("");
-return `<section class="ms-bloque" aria-labelledby="ms-partes-tit"><h2 class="ms-sub-tit" id="ms-partes-tit">${esc(titulo)}</h2>` +
+return `<section class="ms-bloque" aria-labelledby="ms-partes-tit"><h2 class="ms-sub-tit" id="ms-partes-tit">${esc(titulo)}</h2>` + (nota ? `<p class="ms-sub">${esc(nota)}</p>` : "") +
 `<div class="tabla-desliza ms-tabla-partes" tabindex="0" role="region" aria-labelledby="ms-partes-tit"><table class="tabla-areas">` +
 `<thead><tr><th scope="col">${esc(nombreCol)}</th><th scope="col" class="n ms-ancho">${verMesas ? "Mesas" : "Electores"}</th><th scope="col" class="n">Participación</th>` +
 `<th scope="col">Lista más votada</th><th scope="col">Segunda</th></tr></thead><tbody>${cuerpo}</tbody></table></div></section>`;
@@ -201,27 +201,34 @@ if (estado.p) partes.push(provNombre(estado.p));
 return partes.length ? partes.join(", ") : "Todo el país";
 }
 const COBERTURA_AVISO = 97;
+const POR_QUE_FALTA = "faltan mesas que no se cargaron la noche de la elección, y el provisorio no cuenta el voto en el exterior ni en las cárceles";
 function avisoCobertura(el) {
 const c = estado.p ? el.cobertura?.[estado.p] : el.cobertura_pais;
 if (c == null || c >= COBERTURA_AVISO) return "";
-return `${estado.p ? `En ${provNombre(estado.p)}, este` : "En todo el país, este"} conteo reúne ${pct(c)} de los votos positivos del escrutinio definitivo: faltan mesas que no se cargaron la noche de la elección.`;
+return `${estado.p ? `En ${provNombre(estado.p)}, las` : "En todo el país, las"} mesas del escrutinio provisorio reúnen ${pct(c)} de los votos positivos del definitivo: ${POR_QUE_FALTA}.`;
 }
-function pintar(el, P, D, H, aviso) {
-const sub = `${CARGOS[el.cargo]}, ${el.etiqueta}.${el.recuento ? ` Escrutinio ${el.recuento}.` : ""}`;
-const cob = avisoCobertura(el);
+function pintar(el, P, D, H, aviso, DEF) {
+const usaDef = !!DEF && !estado.s;
+const T = usaDef ? DEF : P;
+const recuento = el.nivel === "mesa" ? (usaDef ? "definitivo" : "provisorio") : el.recuento;
+const sub = `${CARGOS[el.cargo]}, ${el.etiqueta}.${recuento ? ` Escrutinio ${recuento}.` : ""}`;
+const cob = usaDef ? "" : avisoCobertura(el);
 let resumen = "", listas = [], t = null, partes = "", frase = "", historia = "";
 const notas = [];
-const pv = el.provincias.map(c => P[c]).filter(Boolean);
+if (el.definitivo && !DEF && !estado.s) notas.push("No se pudo bajar el escrutinio definitivo: se muestra la suma de las mesas del provisorio.");
+const aparte = usaDef ? ["EX", "PL"].map(c => DEF[c]).filter(Boolean) : [];
+const pv = el.provincias.map(c => T[c]).filter(Boolean);
 if (!estado.p) {
-t = {mesas: pv.every(x => x.mesas != null) ? pv.reduce((s, x) => s + x.mesas, 0) : null,
+const todos = pv;
+t = {mesas: todos.every(x => x.mesas != null) ? todos.reduce((s, x) => s + x.mesas, 0) : null,
 electores: pv.every(x => x.electores != null) ? pv.reduce((s, x) => s + x.electores, 0) : 0,
-votantes: pv.every(x => x.votantes != null) ? pv.reduce((s, x) => s + x.votantes, 0) : null,
-blancos: pv.every(x => x.blancos != null) ? pv.reduce((s, x) => s + x.blancos, 0) : null,
-nulos: pv.every(x => x.nulos != null) ? pv.reduce((s, x) => s + x.nulos, 0) : null,
-recurridos: pv.reduce((s, x) => s + (x.recurridos || 0), 0)};
+votantes: todos.every(x => x.votantes != null) ? todos.reduce((s, x) => s + x.votantes, 0) : null,
+blancos: todos.every(x => x.blancos != null) ? todos.reduce((s, x) => s + x.blancos, 0) : null,
+nulos: todos.every(x => x.nulos != null) ? todos.reduce((s, x) => s + x.nulos, 0) : null,
+recurridos: todos.reduce((s, x) => s + (x.recurridos || 0), 0)};
 if (el.cargo === "presidente") {
 const suma = new Map();
-for (const x of pv) for (const [n, v] of x.listas) suma.set(n, (suma.get(n) || 0) + v);
+for (const x of todos) for (const [n, v] of x.listas) suma.set(n, (suma.get(n) || 0) + v);
 listas = [...suma].sort((a, b) => b[1] - a[1]);
 } else {
 frase = `Cada jurisdicción vota sus propias listas de ${NIVEL_NOMBRE[el.cargo]}, así que no hay un total de listas para el país. Elegí una provincia para ver las suyas.`;
@@ -229,7 +236,11 @@ frase = `Cada jurisdicción vota sus propias listas de ${NIVEL_NOMBRE[el.cargo]}
 const filas = pv.slice().sort((a, b) => provNombre(a.cod).localeCompare(provNombre(b.cod), "es")).map(x => ({
 clave: "p", valor: x.cod, nombre: provNombre(x.cod), mesas: x.mesas, electores: x.electores, part: x.electores && x.votantes != null ? x.votantes / x.electores * 100 : null,
 nombres: x.listas.map(l => l[0]), votos: x.listas.map(l => l[1])}));
-partes = tablaPartes("¿Cómo votó cada jurisdicción?", "Jurisdicción", filas, el.nivel === "mesa");
+partes = tablaPartes("¿Cómo votó cada jurisdicción?", "Jurisdicción", filas, el.nivel === "mesa" && !usaDef,
+!usaDef ? "" : aparte.length ? "Escrutinio definitivo de cada jurisdicción. En esta elección no incluye el voto en el exterior ni en las cárceles: va aparte, más abajo."
+: "Escrutinio definitivo de cada jurisdicción, con el voto de sus electores en el exterior y en las cárceles.");
+if (usaDef) notas.push(aparte.length ? "El total del país suma los escrutinios definitivos de las jurisdicciones. El voto en el exterior y en las cárceles, que la Cámara Nacional Electoral publicó aparte, no está sumado: va más abajo."
+: "El total de cada jurisdicción incluye el voto de sus electores en el exterior y en las cárceles.");
 } else if (!D) {
 const x = P[estado.p];
 t = {mesas: null, electores: x.electores || 0, votantes: x.votantes, blancos: x.blancos, nulos: x.nulos, recurridos: x.recurridos || 0};
@@ -250,12 +261,17 @@ return {clave: "s", valor: f.s, nombre: f.sn, mesas: null, electores: s.electore
 }).sort((a, b) => natural(a.nombre, b.nombre));
 partes = tablaPartes(circunscripciones ? "¿Cómo votó cada circunscripción?" : "¿Cómo votó cada departamento?", circunscripciones ? "Circunscripción" : "Departamento", hijos, false);
 }
-if (el.fuente) notas.push(`Estos votos salen de ${el.fuente}, por medio de 257arg. No hay un escrutinio oficial publicado como datos.`);
-else notas.push(`${estado.s ? "Este resultado no es" : "Los departamentos no son"} el escrutinio definitivo: ${estado.s ? "sale" : "salen"} de ${el.anio <= 2001 ? "la base de Ernesto Calvo" : "PolAr, a partir del Atlas Electoral de Andy Tow"}, por medio de 257arg, y ${estado.s ? "puede" : "pueden"} no sumar exacto el total de la jurisdicción.`);
+if (el.fuente) notas.push(`Estos votos salen de ${el.fuente}. No hay un escrutinio oficial publicado como datos.`);
+else notas.push(`${estado.s ? "Este resultado no es" : "Los departamentos no son"} el escrutinio definitivo: ${estado.s ? "sale" : "salen"} de ${el.anio <= 2001 ? "la base de Ernesto Calvo" : "PolAr, a partir del Atlas Electoral de Andy Tow"}, y ${estado.s ? "puede" : "pueden"} no sumar exacto el total de la jurisdicción.`);
 } else {
 const filas = D.filas.filter(f => (!estado.s || f.s === estado.s) && (!estado.c || f.c === estado.c) && (!estado.m || f.m === estado.m));
 t = sumar(filas, D.listas.length);
 listas = dos(D.listas, t.v);
+const x = usaDef ? DEF[estado.p] : null;
+if (x) {
+t = {mesas: null, electores: x.electores || 0, votantes: x.votantes, blancos: x.blancos, nulos: x.nulos, recurridos: x.recurridos || 0};
+listas = x.listas.slice().sort((a, b) => b[1] - a[1]);
+}
 if (!estado.s || !estado.c) {
 const grupo = new Map();
 for (const f of filas) {
@@ -267,7 +283,9 @@ const hijos = [...grupo].map(([k, g]) => {
 const s = sumar(g, D.listas.length);
 return {clave: estado.s ? "c" : "s", valor: k, nombre: estado.s ? `Circuito ${k}` : g[0].sn, mesas: s.mesas, electores: s.electores, part: participacion(s), nombres: D.listas, votos: s.v};
 }).sort((a, b) => natural(a.nombre, b.nombre));
-partes = tablaPartes(estado.s ? "¿Cómo votó cada circuito?" : "¿Cómo votó cada sección?", estado.s ? "Circuito" : "Sección", hijos, true);
+const c = el.cobertura?.[estado.p];
+partes = tablaPartes(estado.s ? "¿Cómo votó cada circuito?" : "¿Cómo votó cada sección?", estado.s ? "Circuito" : "Sección", hijos, true,
+x ? `Escrutinio provisorio, el único publicado mesa por mesa.${c != null ? ` Las mesas reúnen ${pct(c)} de los votos positivos del definitivo de ${provNombre(estado.p)}: ${POR_QUE_FALTA}.` : ""}` : "");
 } else if (!estado.m) {
 const hijos = filas.slice().sort((a, b) => natural(a.m, b.m)).map(f => {
 const s = sumar([f], D.listas.length);
@@ -278,7 +296,7 @@ partes = tablaPartes("¿Cómo votó cada mesa?", "Mesa", hijos, false);
 if (estado.m && t.votantes > t.electores && t.electores > 0)
 notas.push("Esta mesa registra más votos que electores. Puede ser un error de carga del telegrama, que el escrutinio definitivo corrige.");
 if (estado.m && !t.votantes) notas.push("Esta mesa figura sin resultado en el escrutinio provisorio.");
-if (!estado.m && t.sinVotos) notas.push(`${n0(t.sinVotos)} de ${n0(t.mesas)} mesas figuran sin resultado en el escrutinio provisorio: la participación no las cuenta.`);
+if (!estado.m && !x && t.sinVotos) notas.push(`${n0(t.sinVotos)} de ${n0(t.mesas)} mesas figuran sin resultado en el escrutinio provisorio: la participación no las cuenta.`);
 if (estado.s && H === FALLO_HISTORIA) {
 historia = `<section class="ms-bloque ms-falla" role="alert"><p>No se pudo bajar la historia de ${estado.c ? "este circuito" : "esta sección"}. Los resultados de esta elección están completos. Al elegir otro lugar se vuelve a intentar.</p></section>`;
 } else if (estado.s && H) {
@@ -296,21 +314,102 @@ frase = [frase, ...notas].filter(Boolean).join(" ");
 resumen = `<section class="ms-bloque ms-resultado" aria-labelledby="ms-titulo"><h2 class="ms-tit" id="ms-titulo" tabindex="-1">${esc(lugar(el, D))}</h2>` +
 `<p class="ms-sub">${esc(sub)}</p>` + (aviso ? `<p class="aviso-serie ms-aviso">${esc(aviso)}</p>` : "") + (cob ? `<p class="aviso-serie ms-aviso">${esc(cob)}</p>` : "") + cifras(t, !estado.m && el.nivel === "mesa") +
 (frase ? `<p class="ms-frase">${esc(frase)}</p>` : "") + tablaListas(listas, positivos) + otrosVotos(t) + `</section>`;
-$("ms-resultado").innerHTML = resumen + partes + historia;
-const bajarCSV = !estado.p || !D ? `${BASE}${el.id}/pais.csv` : `${BASE}${el.id}/${estado.p}.csv`;
+$("ms-resultado").innerHTML = resumen + partes + historia + (!estado.p ? bloqueExterior(el, DEF) : "");
+if (!estado.p) llenarPadron(el);
+const porJur = !estado.p || !D;
+const bajarCSV = porJur ? `${BASE}${el.id}/${DEF ? "definitivo" : "pais"}.csv` : `${BASE}${el.id}/${estado.p}.csv`;
 const a = $("ms-bajar");
 a.href = bajarCSV;
-a.textContent = !estado.p || !D ? "Descargar tabla por jurisdicción (CSV)" : `Descargar ${el.nivel === "mesa" ? "las mesas" : "los departamentos"} de ${provNombre(estado.p)} (CSV)`;
+a.textContent = porJur ? (DEF ? "Descargar el escrutinio definitivo por jurisdicción (CSV)" : "Descargar tabla por jurisdicción (CSV)")
+: `Descargar ${el.nivel === "mesa" ? "las mesas" : "los departamentos"} de ${provNombre(estado.p)} (CSV)`;
 const ah = $("ms-bajar-hist");
 ah.hidden = !(estado.p && D && el.nivel === "mesa");
 if (estado.p) ah.href = `${BASE}circuitos/${estado.p}.csv`;
 raiz.setAttribute("aria-busy", "false");
 $("ms-estado").textContent = `Resultados de ${lugar(el, D)}.`;
 }
+function bloqueExterior(el, DEF) {
+if (el.nivel !== "mesa") return "";
+const ap = DEF ? ["EX", "PL"].filter(c => DEF[c]) : [];
+const pad = IDX.exterior?.anio === el.anio ? IDX.exterior : null;
+let cuerpo = "";
+if (ap.length) {
+cuerpo = `<p class="ms-sub">La Cámara Nacional Electoral publicó aparte el voto de los argentinos que viven en el exterior y el de las personas privadas de libertad, en dos planillas que titula "consulta provisoria de totales". No están sumados en el total del país de arriba: las actas de las jurisdicciones dicen que no los incluyen.</p>` +
+ap.map(c => {
+const x = DEF[c], l = x.listas.slice().sort((a, b) => b[1] - a[1]), pos = l.reduce((s, y) => s + y[1], 0);
+const frase = l.length >= 2 ? `<p class="ms-frase">La lista más votada fue ${esc(l[0][0])}, con ${pct(l[0][1] / pos * 100)} de los votos positivos, y la segunda, ${esc(l[1][0])}, con ${pct(l[1][1] / pos * 100)}.</p>` : "";
+return `<h3 class="ms-sub-tit ms-sub-tit-3">${c === "EX" ? "Argentinos que viven en el exterior" : "Personas privadas de libertad"}</h3>` + cifras({votantes: x.votantes}, false) + frase +
+tablaListas(l, pos) + otrosVotos({votantes: x.votantes, blancos: x.blancos, nulos: x.nulos, recurridos: x.recurridos});
+}).join("");
+} else if (DEF) {
+cuerpo = `<p class="ms-sub">En esta elección la Cámara Nacional Electoral no publica aparte el voto en el exterior ni el de las personas privadas de libertad: va sumado en el escrutinio definitivo de cada jurisdicción, que es el total de arriba. Las mesas del provisorio no lo cuentan.</p>`;
+} else {
+cuerpo = `<p class="ms-sub">El escrutinio provisorio no cuenta el voto en el exterior ni el de las personas privadas de libertad, y el definitivo de esta elección no está publicado como datos.</p>`;
+}
+if (pad) {
+cuerpo += `<h3 class="ms-sub-tit ms-sub-tit-3">¿Cuántos argentinos pueden votar en cada país?</h3>` +
+`<p class="ms-sub">Padrón de ${pad.anio} de la Cámara Nacional Electoral: cada mesa del exterior, con su país, su consulado y la jurisdicción por la que vota cada elector. Los votos de cada país no se publican: la Cámara suma todo el exterior de una jurisdicción en una sola mesa.</p>` +
+`<label class="selector-ficha"><span>País</span><select id="ms-ext-pais" disabled><option>Cargando el padrón</option></select></label><div id="ms-ext-res" aria-live="polite"></div>`;
+} else {
+cuerpo += `<p class="ms-otros">El padrón del exterior país por país está publicado solo para ${IDX.exterior ? IDX.exterior.anio : "una elección"}.</p>`;
+}
+return `<section class="ms-bloque" aria-labelledby="ms-ext-tit"><h2 class="ms-sub-tit" id="ms-ext-tit">¿Cómo se votó en el exterior y en las cárceles?</h2>${cuerpo}</section>`;
+}
+let PADRON = null;
+async function llenarPadron(el) {
+const sel = $("ms-ext-pais");
+if (!sel) return;
+const yo = turno;
+try {
+if (!PADRON) {
+const f = await bajar(IDX.exterior.archivo), c = f[0];
+const i = Object.fromEntries(c.map((n, k) => [n, k]));
+if (!("pais" in i) || !("electores" in i) || !("codigo_indec" in i)) throw new Error("padrón del exterior: faltan columnas");
+const m = new Map();
+for (const r of f.slice(1)) {
+const p = m.get(r[i.pais]) || {pais: r[i.pais], electores: 0, mesas: new Set(), consulados: new Map(), prov: new Map()};
+const e = +r[i.electores];
+p.electores += e;
+p.mesas.add(`${r[i.consulado]}|${r[i.mesa]}`);
+p.consulados.set(r[i.consulado], (p.consulados.get(r[i.consulado]) || 0) + e);
+p.prov.set(r[i.codigo_indec], (p.prov.get(r[i.codigo_indec]) || 0) + e);
+m.set(r[i.pais], p);
+}
+PADRON = [...m.values()].sort((a, b) => a.pais.localeCompare(b.pais, "es"));
+}
+if (yo !== turno || !$("ms-ext-pais")) return;
+const mayores = PADRON.slice().sort((a, b) => b.electores - a.electores);
+const total = PADRON.reduce((s, p) => s + p.electores, 0);
+const elegido = estado.ext && PADRON.some(p => p.pais === estado.ext) ? estado.ext : mayores[0].pais;
+opciones(sel, PADRON.map(p => [p.pais, p.pais]), elegido);
+sel.disabled = false;
+const mostrar = () => {
+const p = PADRON.find(x => x.pais === sel.value);
+estado.ext = p.pais;
+const provs = [...p.prov].sort((a, b) => b[1] - a[1]);
+const cons = [...p.consulados].sort((a, b) => b[1] - a[1]);
+const fila = (nombre, n) => `<tr><th scope="row">${esc(nombre)}</th><td class="n">${n0(n)}</td><td class="n">${pct(n / p.electores * 100)}</td></tr>`;
+const resto = provs.slice(10);
+const filas = provs.slice(0, 10).map(([c, n]) => fila(provNombre(c), n)).join("") +
+(resto.length ? fila(resto.length === 1 ? provNombre(resto[0][0]) : `Otras ${resto.length} jurisdicciones`, resto.reduce((s, x) => s + x[1], 0)) : "");
+$("ms-ext-res").innerHTML = `<p class="ms-frase">En ${esc(p.pais)} pueden votar ${n0(p.electores)} argentinos (${pct(p.electores / total * 100)} de los ${n0(total)} del exterior), en ${n0(p.mesas.size)} ${p.mesas.size === 1 ? "mesa" : "mesas"} de ${cons.length === 1 ? "una representación" : `${n0(cons.length)} representaciones`}: ${esc(cons.map(x => x[0]).join(", ").replace(/, ([^,]*)$/, " y $1"))}. Votan por la jurisdicción de su último domicilio en el país.</p>` +
+`<div class="tabla-desliza ms-tabla-partes" tabindex="0" role="region" aria-label="Electores de ${esc(p.pais)} por jurisdicción"><table class="tabla-areas"><caption class="solo-lector">Electores de ${esc(p.pais)} según la jurisdicción por la que votan</caption>` +
+`<thead><tr><th scope="col">Vota por</th><th scope="col" class="n">Electores</th><th scope="col" class="n">%</th></tr></thead><tbody>${filas}</tbody></table></div>`;
+};
+sel.onchange = () => { mostrar(); dirección(); };
+mostrar();
+} catch (e) {
+console.warn("Elecciones por mesa, el padrón del exterior:", e);
+if (yo !== turno || !$("ms-ext-res")) return;
+sel.innerHTML = "<option>Sin datos</option>";
+$("ms-ext-res").innerHTML = `<p class="ms-otros" role="alert">No se pudo bajar el padrón del exterior. Los resultados de esta elección están completos.</p>`;
+}
+}
 function dirección() {
 const q = new URLSearchParams();
 if (estado.e) q.set("e", estado.e);
 for (const k of ["p", "s", "c", "m"]) if (estado[k]) q.set(k, estado[k]);
+if (!estado.p && estado.ext) q.set("pais", estado.ext);
 if (MAPA.ver !== "gana") q.set("ver", MAPA.ver);
 if (MAPA.ver === "fuerza" && MAPA.fuerza) q.set("f", MAPA.fuerza);
 history.replaceState(null, "", `${location.pathname}?${q}${location.hash}`);
@@ -343,6 +442,8 @@ const nombreLugar = t => String(t).normalize("NFD").replace(/[̀-ͯ]/g, "").toUp
 const UNIDADES = {circuito: "circuitos", departamento: "departamentos", provincia: "jurisdicciones", circunscripcion: "circunscripciones"};
 const FUENTES_DEPTOS = {hasta2001: "la base de Ernesto Calvo", desde2003: "PolAr, a partir del Atlas Electoral de Andy Tow"};
 const unidadDe = doc => doc.unidad || "circuito";
+const TERRITORIOS = new Set(["22", "26", "34", "42", "54", "58", "62", "78", "94"]);
+const sinDatoHistorico = (doc, p) => doc.historica && elec().anio < 1951 && TERRITORIOS.has(p) ? "Territorio nacional: no elegía presidente ni diputados" : "Sin dato de este lugar en esta elección";
 function indexar(doc) {
 const m = new Map();
 for (const cod of Object.keys(doc.provincias)) {
@@ -352,6 +453,44 @@ for (const c of Array.isArray(f[1]) ? f[1] : [f[1]]) m.set(`${cod}|${c.includes(
 }
 }
 return m;
+}
+function porSeccion(doc) {
+const m = new Map();
+for (const cod of Object.keys(doc.provincias)) {
+for (const f of doc.provincias[cod].filas) {
+const k = `${cod}|${seccionDe(f)}`, x = m.get(k) || {s: seccionDe(f), e: 0, t: 0, v: new Map()};
+x.e += f[2]; x.t += f[3];
+for (let i = 0; i < f[4].length; i += 2) x.v.set(f[4][i], (x.v.get(f[4][i]) || 0) + f[4][i + 1]);
+m.set(k, x);
+}
+}
+const salida = new Map();
+for (const [k, x] of m) {
+const fila = [x.s, null, x.e, x.t, [...x.v].sort((a, b) => b[1] - a[1]).flat()];
+fila.cod = k.split("|")[0];
+fila.seccion = true;
+salida.set(k, fila);
+}
+return salida;
+}
+const seccionDelRasgo = r => MAPA.doc.secciones?.get(`${r.properties.p}|${r.properties.s}`);
+function rayas(color) {
+if (color === SIN_MESAS || !MAPA.defs) return color;
+const id = `ms-r${color.replace(/[^0-9a-z]/gi, "")}`;
+if (!MAPA.defs.select(`#${id}`).size()) {
+const p = MAPA.defs.append("pattern").attr("id", id).attr("patternUnits", "userSpaceOnUse").attr("width", 5).attr("height", 5)
+.attr("patternTransform", `rotate(45) scale(${1 / (MAPA.k || 1)})`);
+p.append("rect").attr("width", 5).attr("height", 5).attr("fill", "#fff");
+p.append("rect").attr("width", 2.4).attr("height", 5).attr("fill", color);
+}
+return `url(#${id})`;
+}
+function rellenoDe(doc, r) {
+const f = MAPA.indice.get(claveRasgo(r));
+const propio = f ? colorDe(doc, f) : SIN_MESAS;
+if (propio !== SIN_MESAS || unidadDe(doc) !== "circuito") return propio;
+const sec = f ? doc.secciones?.get(`${f.cod}|${seccionDe(f)}`) : seccionDelRasgo(r);
+return sec ? rayas(colorDe(doc, sec)) : SIN_MESAS;
 }
 function filasEnVista(doc) {
 if (!estado.p) return Object.values(doc.provincias).flatMap(p => p.filas);
@@ -373,8 +512,17 @@ return mezcla(doc.fuerzas[doc.fuerza[f[4][0]]].c, TONOS[tramo(CORTES.gana, f[4][
 function textoTip(doc, r) {
 const f = MAPA.indice.get(claveRasgo(r)), {p, s, c} = r.properties, pv = doc.provincias[p];
 const prov = provNombre(p), unidad = unidadDe(doc);
-if (!f && unidad !== "circuito") return `<b>${esc(prov)}</b><br>${unidad === "provincia" ? "No eligió senadores en esta elección" : "Sin dato de este lugar en esta elección"}`;
-if (!f) return `<b>${c === "0" ? "Zona sin circuito" : `Circuito ${esc(c)}`}</b>${pv?.secciones?.[s] ? `, ${esc(pv.secciones[s])}` : ""}, ${esc(prov)}<br>Sin mesas en esta elección`;
+if (!f && unidad !== "circuito") return `<b>${esc(prov)}</b><br>${unidad === "provincia" ? "No eligió senadores en esta elección" : sinDatoHistorico(doc, p)}`;
+if (!f && !pv) return `<b>${esc(prov)}</b><br>No eligió ${NIVEL_NOMBRE[elec().cargo]} en esta elección`;
+if (!f) {
+const sec = seccionDelRasgo(r), sn = pv.secciones?.[s] || "";
+const lugarSin = `<b>${c == null ? "Zona sin circuito en la cartografía" : c === "0" ? "Zona sin circuito propio" : `Circuito ${esc(c)}`}${sn ? `, ${esc(sn)}` : ""}, ${esc(prov)}</b>`;
+if (!sec) return `${lugarSin}<br>Sin mesas en esta elección`;
+if (!positivosDe(sec)) return `${lugarSin}<br>Sin votos cargados en el escrutinio provisorio, en toda la sección. El definitivo de la jurisdicción sí los cuenta`;
+const pos = positivosDe(sec), l = [];
+for (let i = 0; i < Math.min(6, sec[4].length); i += 2) l.push(`${esc(doc.listas[sec[4][i]])}: ${pct(sec[4][i + 1] / pos * 100)}`);
+return `${lugarSin}<br>Sin mesas propias: quien vive acá vota en otro circuito. Se pinta, rayado, con el resultado de toda la sección:<br>${l.join("<br>")}`;
+}
 const cs = circuitosMesa(f), sn = pv.secciones[seccionDe(f)] || "";
 let lugar;
 if (pv.nivel === "provincia") lugar = `${esc(prov)}, sin dato por departamento`;
@@ -384,7 +532,11 @@ else if (cs.length === 1) lugar = `Circuito ${esc(cs[0].split("|")[1])}, ${esc(s
 else lugar = `Circuitos ${esc(cs.slice(0, 4).map(x => x.split("|")[1]).join(", "))}${cs.length > 4 ? " y otros" : ""}, ${esc(sn)}`;
 const pos = positivosDe(f), filas = [];
 for (let i = 0; i < Math.min(6, f[4].length); i += 2) filas.push(`${esc(doc.listas[f[4][i]])}: ${pct(f[4][i + 1] / pos * 100)}`);
-if (!pos) filas.push("Sin votos en esta elección");
+if (!pos) {
+const sec = unidad === "circuito" ? doc.secciones?.get(`${f.cod}|${seccionDe(f)}`) : null;
+filas.push(!sec ? "Sin votos en esta elección" : positivosDe(sec) ? "Sin votos cargados en el escrutinio provisorio: se pinta, rayado, con el resultado de toda la sección"
+: "Sin votos cargados en el escrutinio provisorio, en toda la sección. El definitivo de la jurisdicción sí los cuenta");
+}
 if (MAPA.ver === "fuerza") {
 const ix = doc.fuerzas.findIndex(x => x.id === MAPA.fuerza);
 if (ix >= 0 && pos) filas.unshift(`<b>${esc(doc.fuerzas[ix].n)}: ${pct(votosFuerza(doc, f, ix) / pos * 100)}</b>`);
@@ -392,25 +544,32 @@ if (ix >= 0 && pos) filas.unshift(`<b>${esc(doc.fuerzas[ix].n)}: ${pct(votosFuer
 if (f[2] > 0) filas.push(`Participación: ${pct(f[3] / f[2] * 100)}`);
 return `<b>${lugar}</b><br>${filas.join("<br>")}`;
 }
-function armarLienzo(doc, topo, ruta) {
+function armarLienzo(doc, topo, ruta, base) {
 const lienzo = $("ms-lienzo");
 lienzo.querySelector("svg")?.remove();
 const obj = topo.objects[Object.keys(topo.objects)[0]];
 const rasgos = topojson.feature(topo, obj).features;
+const fondo = base ? topojson.feature(base, base.objects[Object.keys(base.objects)[0]]).features.filter(r => !estado.p || r.properties.p === estado.p) : [];
 const [x0, y0, x1, y1] = topojson.bbox(topo);
 const RAD = Math.PI / 180, my = lat => Math.log(Math.tan(Math.PI / 4 + lat * RAD / 2));
 const dx = (x1 - x0) * RAD, dy = my(y1) - my(y0), W = 720, H = Math.round(Math.min(1160, Math.max(420, W * dy / dx)));
 const k = Math.min((W - 12) / dx, (H - 12) / dy), ox = (W - dx * k) / 2, oy = (H - dy * k) / 2;
 const camino = d3.geoPath(d3.geoTransform({point(lon, lat) { this.stream.point(ox + (lon - x0) * RAD * k, oy + (my(y1) - my(lat)) * k); }}));
 const svg = d3.select(lienzo).insert("svg", ":first-child").attr("viewBox", `0 0 ${W} ${H}`).attr("role", "img").attr("preserveAspectRatio", "xMidYMid meet");
+const defs = svg.append("defs");
 const capa = svg.append("g");
+const fondoSel = capa.append("g").attr("class", "ms-fondo").selectAll("path").data(fondo).join("path").attr("class", "ms-c ms-cf").attr("d", camino);
 const caminos = capa.append("g").attr("class", estado.p ? "ms-cs" : "ms-cs ms-cs-pais").selectAll("path").data(rasgos).join("path").attr("class", "ms-c").attr("d", camino);
 const llave = estado.p && !ruta.includes("provincias") ? "s" : "p";
 capa.append("path").attr("class", "ms-limite").attr("d", camino(topojson.mesh(topo, obj, (a, b) => a.properties[llave] !== b.properties[llave])));
 const sel = capa.append("path").attr("class", "ms-sel");
 const zoom = d3.zoom().scaleExtent([1, 90]).extent([[0, 0], [W, H]]).translateExtent([[0, 0], [W, H]])
 .filter(ev => ev.type === "wheel" ? ev.ctrlKey || ev.metaKey : ev.type === "touchstart" ? ev.touches.length > 1 : !ev.button)
-.on("zoom", ev => capa.attr("transform", ev.transform));
+.on("zoom", ev => {
+capa.attr("transform", ev.transform);
+MAPA.k = ev.transform.k;
+defs.selectAll("pattern").attr("patternTransform", `rotate(45) scale(${1 / ev.transform.k})`);
+});
 svg.call(zoom).on("dblclick.zoom", null);
 const delGrupo = ev => { const d = ev.target?.__data__; return d?.properties ? d : null; };
 capa.on("pointermove", ev => {
@@ -418,12 +577,13 @@ const r = delGrupo(ev);
 if (r && typeof mostrarTip === "function") { const [mx, my2] = d3.pointer(ev, lienzo); mostrarTip(lienzo, textoTip(MAPA.doc, r), mx, my2); }
 }).on("pointerleave", ev => { if (ev.pointerType === "mouse" && typeof ocultarTip === "function") ocultarTip(); })
 .on("click", ev => { const r = delGrupo(ev); if (r) elegirRasgo(r); });
-Object.assign(MAPA, {ruta, topo, rasgos, svg, capa, caminos, sel, zoom, camino, W, H, enfoque: ""});
+Object.assign(MAPA, {ruta, topo, rasgos, svg, capa, caminos, sel, zoom, camino, W, H, enfoque: "", defs, fondoSel, k: 1, conFondo: !!base});
 }
 function elegirRasgo(r) {
 const doc = MAPA.doc;
 if (!estado.p) { Object.assign(estado, {p: r.properties.p, s: "", c: "", m: ""}); actualizar(false); return; }
 const f = MAPA.indice.get(claveRasgo(r));
+if (!f && unidadDe(doc) === "circuito" && seccionDelRasgo(r)) { Object.assign(estado, {s: r.properties.s, c: "", m: ""}); actualizar(false); return; }
 if (!f || doc.provincias[estado.p].nivel === "provincia" || unidadDe(doc) === "provincia" || seccionDe(f) === "CABA") return;
 const cs = circuitosMesa(f), [s, c] = cs[0].split("|");
 if (unidadDe(doc) === "departamento" || doc.provincias[estado.p].nivel === "seccion" || cs.length > 1) Object.assign(estado, {s, c: "", m: ""});
@@ -476,7 +636,8 @@ return `<p class="ms-ley-tit">${esc(titulo)}</p>` + nombres.map((n, i) =>
 }
 function pintarVista(el) {
 const doc = MAPA.doc, filas = filasEnVista(doc), ver = MAPA.ver;
-MAPA.caminos.attr("fill", r => colorDe(doc, MAPA.indice.get(claveRasgo(r))));
+MAPA.caminos.attr("fill", r => rellenoDe(doc, r));
+MAPA.fondoSel.attr("fill", r => rellenoDe(doc, r));
 const pv = estado.p ? doc.provincias[estado.p] : null, unidad = unidadDe(doc);
 const clase = pv?.nivel === "seccion" || (estado.p === "02" && doc.historica && doc.rotulo === "departamento") ? "secciones" : UNIDADES[doc.rotulo || unidad];
 const singular = {circuitos: "circuito", secciones: "sección", departamentos: "departamento", jurisdicciones: "jurisdicción", circunscripciones: "circunscripción"}[clase];
@@ -520,18 +681,27 @@ leyenda = leyendaTramos(`${doc.fuerzas[ix].n}: porcentaje de los votos positivos
 if (pos) frase = `En ${donde}, ${doc.fuerzas[ix].n} reunió ${pct(suma / pos * 100)} de los votos positivos.`;
 }
 }
-$("ms-ley").innerHTML = leyenda + `<div class="ms-ley-tramo ms-ley-sin"><i style="background:${SIN_MESAS}" aria-hidden="true"></i><span class="ms-ley-nom">${doc.historica ? "Sin dato, o no votó en esta elección" : {circuito: "Sin mesas en esta elección", departamento: "Sin dato en esta elección", provincia: "No eligió senadores en esta elección"}[unidad]}</span></div>`;
+const grisTxt = doc.historica ? (el.anio < 1951 ? "Sin dato, o territorio nacional que no votaba" : "Sin dato en esta elección")
+: unidad === "circuito" ? (!estado.p && el.cargo === "senadores" ? "No eligió senadores en esta elección" : "Sin mesas o sin votos cargados en el provisorio")
+: {departamento: "Sin dato en esta elección", provincia: "No eligió senadores en esta elección"}[unidad];
+const hayGris = MAPA.rasgos.some(r => rellenoDe(doc, r) === SIN_MESAS) || MAPA.fondoSel.data().some(r => rellenoDe(doc, r) === SIN_MESAS);
+$("ms-ley").innerHTML = leyenda +
+(unidad === "circuito" ? `<div class="ms-ley-tramo ms-ley-sin"><i class="ms-ley-rayas" aria-hidden="true"></i><span class="ms-ley-nom">Sin mesas propias: el resultado de toda su sección</span></div>` : "") +
+(hayGris ? `<div class="ms-ley-tramo ms-ley-sin"><i style="background:${SIN_MESAS}" aria-hidden="true"></i><span class="ms-ley-nom">${grisTxt}</span></div>` : "");
 $("ms-mapa-frase").textContent = frase;
 $("ms-mapa-tit").textContent = ver === "gana" ? `¿Quién ganó en cada ${singular}?` : ver === "part" ? `¿Cuánta gente votó en cada ${singular}?` : "¿Dónde sacó más votos cada fuerza?";
-$("ms-mapa-sub").textContent = `${CARGOS[el.cargo]}, ${el.etiqueta}. ${lugarMapa}. Tocá un lugar para ver sus resultados.`;
+$("ms-mapa-sub").textContent = `${CARGOS[el.cargo]}, ${el.etiqueta}${unidad === "circuito" ? ", escrutinio provisorio mesa por mesa" : ""}. ${lugarMapa}. Tocá un lugar para ver sus resultados.`;
 MAPA.svg.attr("aria-label", `Mapa de ${donde}. ${frase} Los mismos resultados están en las tablas de abajo.`);
 const notas = [];
-const secciones = el.provincias.filter(c => doc.provincias[c]?.nivel === "seccion" && unidad === "circuito" && (!estado.p || c === estado.p)).map(provNombre);
+const enVista = c => !estado.p || c === estado.p;
+const secciones = el.provincias.filter(c => doc.provincias[c]?.nivel === "seccion" && doc.provincias[c]?.ed !== "ign" && unidad === "circuito" && enVista(c)).map(provNombre);
 if (secciones.length) notas.push(`En ${secciones.join(", ").replace(/, ([^,]*)$/, " y $1")}, en esta elección el mapa llega hasta la sección: los códigos de entonces no coinciden con la cartografía de los circuitos.`);
+const ign = el.provincias.filter(c => doc.provincias[c]?.ed === "ign" && enVista(c)).map(provNombre);
+if (ign.length) notas.push(`En ${ign.join(", ").replace(/, ([^,]*)$/, " y $1")} el mapa llega hasta el departamento, con la cartografía del Instituto Geográfico Nacional: la Cámara Nacional Electoral no permite bajar la de sus circuitos. Las tablas sí llegan a cada circuito y a cada mesa.`);
 const faltan = el.provincias.filter(c => (doc.provincias[c]?.con ?? 100) < 99.5 && (!estado.p || c === estado.p));
 for (const c of faltan.slice(0, 2)) notas.push(`En ${provNombre(c)}, ${pct(100 - doc.provincias[c].con)} de quienes votaron no tiene su circuito en el mapa.`);
 if (doc.unidad === "departamento") {
-notas.push(doc.fuente ? `Los votos salen de ${doc.fuente}, por medio de 257arg. No hay un escrutinio oficial publicado como datos.` : `Los departamentos salen de ${FUENTES_DEPTOS[doc.origen]}, por medio de 257arg, no del escrutinio definitivo.`);
+notas.push(doc.fuente ? `Los votos salen de ${doc.fuente}. No hay un escrutinio oficial publicado como datos.` : `Los departamentos salen de ${FUENTES_DEPTOS[doc.origen]}, no del escrutinio definitivo.`);
 if (doc.aviso) notas.push(doc.aviso);
 if (doc.reune != null && doc.reune < 95) notas.push(`Hay datos de ${el.provincias.length} jurisdicciones, que reúnen ${pct(doc.reune)} de los votos que publica el resultado nacional de esa elección.`);
 else if (doc.reune != null && doc.reune > 102) notas.push(`Estos datos suman ${pct(doc.reune)} de los votos que publica el resultado nacional de esa elección: las dos fuentes no coinciden exacto.`);
@@ -581,11 +751,13 @@ const ed = estado.p ? doc.provincias[estado.p]?.ed : "";
 if (estado.p && !ed) throw new Error(`mapa/${el.id}.json: falta ${estado.p}`);
 const ruta = doc.periodo === "provincias" ? "geo/provincias.topo.json" : estado.p ? `geo/${ed}/${estado.p}.topo.json` : `geo/pais-${doc.periodo}.topo.json`;
 const topo = await bajarJSON(ruta);
+const base = unidadDe(doc) === "circuito" && doc.periodo !== "provincias" ? await bajarJSON("geo/base.topo.json").catch(e => { console.warn("Elecciones por mesa, el fondo del mapa:", e); return null; }) : null;
 if (yo !== MAPA.turno) return;
 MAPA.doc = doc;
 if (!doc.indice) doc.indice = indexar(doc);
+if (!doc.secciones && unidadDe(doc) === "circuito") doc.secciones = porSeccion(doc);
 MAPA.indice = doc.indice;
-if (MAPA.ruta !== ruta || !MAPA.svg) armarLienzo(doc, topo, ruta);
+if (MAPA.ruta !== ruta || !MAPA.svg || MAPA.conFondo !== !!base) armarLienzo(doc, topo, ruta, base);
 pintarControlesMapa(el);
 pintarVista(el);
 if (typeof ocultarTip === "function") ocultarTip();
@@ -632,6 +804,7 @@ $("ms-estado").textContent = "Cargando los resultados.";
 $("ms-num-res").textContent = "";
 try {
 const P = await tablaPais(el.id);
+const DEF = el.definitivo ? await tablaPais(el.id, "definitivo.csv").catch(e => { console.warn("Elecciones por mesa, el definitivo:", e); return null; }) : null;
 if (estado.p && !el.provincias.includes(estado.p)) {
 aviso = `${provNombre(estado.p)} no eligió ${NIVEL_NOMBRE[el.cargo]} en ${el.anio}: se muestra todo el país.`;
 Object.assign(estado, {p: "", s: "", c: "", m: ""});
@@ -655,7 +828,7 @@ if (D && estado.s && el.nivel === "mesa") H = await tablaHistoria(estado.p).catc
 if (yo !== turno) return;
 MAPA.seccion = D && estado.s ? nombreLugar(D.filas.find(f => f.s === estado.s).sn) : "";
 pintarControles(el, D);
-pintar(el, P, D, H, aviso);
+pintar(el, P, D, H, aviso, DEF);
 pintarMapa(el);
 dirección();
 if (enfocar) {
@@ -745,6 +918,7 @@ if (q.get("m")) estado.m = q.get("m").toUpperCase();
 }
 }
 if (["part", "fuerza"].includes(q.get("ver"))) MAPA.ver = q.get("ver");
+if (q.get("pais")) estado.ext = q.get("pais");
 if (q.get("f")) MAPA.fuerza = q.get("f");
 escuchar();
 escucharMapa();

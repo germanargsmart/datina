@@ -1,0 +1,145 @@
+codigo_indec,provincia,lista,votos,electores,votantes,blancos,nulos,recurridos_impugnados
+02,CABA,Macri - Pichetto (Juntos por el Cambio),1068134,2710325,2075434,31085,15143,0
+02,CABA,Fernández - Fernández de Kirchner (Frente de Todos),719655,2710325,2075434,31085,15143,0
+02,CABA,Lavagna - Urtubey (Consenso Federal),130475,2710325,2075434,31085,15143,0
+02,CABA,Del Caño - Del Plá (Frente de Izquierda y de Trabajadores - Unidad),59066,2710325,2075434,31085,15143,0
+02,CABA,Espert - Rosales (Unite por la Libertad y la Dignidad),38013,2710325,2075434,31085,15143,0
+02,CABA,Gómez Centurión - Hotton (Frente Nos),13863,2710325,2075434,31085,15143,0
+06,Buenos Aires,Fernández - Fernández de Kirchner (Frente de Todos),5294879,12641013,10374493,155421,75346,0
+06,Buenos Aires,Macri - Pichetto (Juntos por el Cambio),3640552,12641013,10374493,155421,75346,0
+06,Buenos Aires,Lavagna - Urtubey (Consenso Federal),638990,12641013,10374493,155421,75346,0
+06,Buenos Aires,Del Caño - Del Plá (Frente de Izquierda y de Trabajadores - Unidad),273495,12641013,10374493,155421,75346,0
+06,Buenos Aires,Gómez Centurión - Hotton (Frente Nos),150067,12641013,10374493,155421,75346,0
+06,Buenos Aires,Espert - Rosales (Unite por la Libertad y la Dignidad),145743,12641013,10374493,155421,75346,0
+10,Catamarca,Fernández - Fernández de Kirchner (Frente de Todos),132590,320042,258951,23100,1841,0
+10,Catamarca,Macri - Pichetto (Juntos por el Cambio),79568,320042,258951,23100,1841,0
+10,Catamarca,Lavagna - Urtubey (Consenso Federal),13197,320042,258951,23100,1841,0
+10,Catamarca,Del Caño - Del Plá (Frente de Izquierda y de Trabajadores - Unidad),3508,320042,258951,23100,1841,0
+10,Catamarca,Espert - Rosales (Unite por la Libertad y la Dignidad),3011,320042,258951,23100,1841,0
+10,Catamarca,Gómez Centurión - Hotton (Frente Nos),2136,320042,258951,23100,1841,0
+14,Córdoba,Macri - Pichetto (Juntos por el Cambio),1394104,2965274,2342466,42753,25736,0
+14,Córdoba,Fernández - Fernández de Kirchner (Frente de Todos),666445,2965274,2342466,42753,25736,0
+14,Córdoba,Lavagna - Urtubey (Consenso Federal),113734,2965274,2342466,42753,25736,0
+14,Córdoba,Del Caño - Del Plá (Frente de Izquierda y de Trabajadores - Unidad),37612,2965274,2342466,42753,25736,0
+14,Córdoba,Gómez Centurión - Hotton (Frente Nos),31869,2965274,2342466,42753,25736,0
+14,Córdoba,Espert - Rosales (Unite por la Libertad y la Dignidad),30213,2965274,2342466,42753,25736,0
+18,Corrientes,Fernández - Fernández de Kirchner (Frente de Todos),354968,874945,706468,7062,6009,0
+18,Corrientes,Macri - Pichetto (Juntos por el Cambio),290690,874945,706468,7062,6009,0
+18,Corrientes,Lavagna - Urtubey (Consenso Federal),21658,874945,706468,7062,6009,0
+18,Corrientes,Gómez Centurión - Hotton (Frente Nos),12515,874945,706468,7062,6009,0
+18,Corrientes,Espert - Rosales (Unite por la Libertad y la Dignidad),7044,874945,706468,7062,6009,0
+18,Corrientes,Del Caño - Del Plá (Frente de Izquierda y de Trabajadores - Unidad),6522,874945,706468,7062,6009,0
+22,Chaco,Fernández - Fernández de Kirchner (Frente de Todos),404758,950537,737655,6836,4534,0
+22,Chaco,Macri - Pichetto (Juntos por el Cambio),258432,950537,737655,6836,4534,0
+22,Chaco,Lavagna - Urtubey (Consenso Federal),27636,950537,737655,6836,4534,0
+22,Chaco,Gómez Centurión - Hotton (Frente Nos),20617,950537,737655,6836,4534,0
+22,Chaco,Espert - Rosales (Unite por la Libertad y la Dignidad),7856,950537,737655,6836,4534,0
+22,Chaco,Del Caño - Del Plá (Frente de Izquierda y de Trabajadores - Unidad),6986,950537,737655,6836,4534,0
+26,Chubut,Fernández - Fernández de Kirchner (Frente de Todos),174726,447970,347567,8384,5864,0
+26,Chubut,Macri - Pichetto (Juntos por el Cambio),97837,447970,347567,8384,5864,0
+26,Chubut,Lavagna - Urtubey (Consenso Federal),25357,447970,347567,8384,5864,0
+26,Chubut,Gómez Centurión - Hotton (Frente Nos),14253,447970,347567,8384,5864,0
+26,Chubut,Del Caño - Del Plá (Frente de Izquierda y de Trabajadores - Unidad),13117,447970,347567,8384,5864,0
+26,Chubut,Espert - Rosales (Unite por la Libertad y la Dignidad),8029,447970,347567,8384,5864,0
+30,Entre Ríos,Macri - Pichetto (Juntos por el Cambio),391495,1110559,894959,6640,7945,0
+30,Entre Ríos,Fernández - Fernández de Kirchner (Frente de Todos),390587,1110559,894959,6640,7945,0
+30,Entre Ríos,Lavagna - Urtubey (Consenso Federal),55030,1110559,894959,6640,7945,0
+30,Entre Ríos,Gómez Centurión - Hotton (Frente Nos),14647,1110559,894959,6640,7945,0
+30,Entre Ríos,Del Caño - Del Plá (Frente de Izquierda y de Trabajadores - Unidad),14504,1110559,894959,6640,7945,0
+30,Entre Ríos,Espert - Rosales (Unite por la Libertad y la Dignidad),14111,1110559,894959,6640,7945,0
+34,Formosa,Fernández - Fernández de Kirchner (Frente de Todos),229774,459875,357491,2749,2388,0
+34,Formosa,Macri - Pichetto (Juntos por el Cambio),100280,459875,357491,2749,2388,0
+34,Formosa,Lavagna - Urtubey (Consenso Federal),11057,459875,357491,2749,2388,0
+34,Formosa,Gómez Centurión - Hotton (Frente Nos),5334,459875,357491,2749,2388,0
+34,Formosa,Del Caño - Del Plá (Frente de Izquierda y de Trabajadores - Unidad),3112,459875,357491,2749,2388,0
+34,Formosa,Espert - Rosales (Unite por la Libertad y la Dignidad),2797,459875,357491,2749,2388,0
+38,Jujuy,Fernández - Fernández de Kirchner (Frente de Todos),207120,558872,457045,3665,4951,0
+38,Jujuy,Macri - Pichetto (Juntos por el Cambio),186104,558872,457045,3665,4951,0
+38,Jujuy,Lavagna - Urtubey (Consenso Federal),26835,558872,457045,3665,4951,0
+38,Jujuy,Gómez Centurión - Hotton (Frente Nos),10512,558872,457045,3665,4951,0
+38,Jujuy,Del Caño - Del Plá (Frente de Izquierda y de Trabajadores - Unidad),9241,558872,457045,3665,4951,0
+38,Jujuy,Espert - Rosales (Unite por la Libertad y la Dignidad),8617,558872,457045,3665,4951,0
+42,La Pampa,Fernández - Fernández de Kirchner (Frente de Todos),115095,287461,233515,1479,2186,0
+42,La Pampa,Macri - Pichetto (Juntos por el Cambio),86744,287461,233515,1479,2186,0
+42,La Pampa,Lavagna - Urtubey (Consenso Federal),15137,287461,233515,1479,2186,0
+42,La Pampa,Del Caño - Del Plá (Frente de Izquierda y de Trabajadores - Unidad),4727,287461,233515,1479,2186,0
+42,La Pampa,Gómez Centurión - Hotton (Frente Nos),4676,287461,233515,1479,2186,0
+42,La Pampa,Espert - Rosales (Unite por la Libertad y la Dignidad),3471,287461,233515,1479,2186,0
+46,La Rioja,Fernández - Fernández de Kirchner (Frente de Todos),85779,289327,234064,50804,2160,0
+46,La Rioja,Macri - Pichetto (Juntos por el Cambio),80462,289327,234064,50804,2160,0
+46,La Rioja,Lavagna - Urtubey (Consenso Federal),7844,289327,234064,50804,2160,0
+46,La Rioja,Espert - Rosales (Unite por la Libertad y la Dignidad),2801,289327,234064,50804,2160,0
+46,La Rioja,Del Caño - Del Plá (Frente de Izquierda y de Trabajadores - Unidad),2127,289327,234064,50804,2160,0
+46,La Rioja,Gómez Centurión - Hotton (Frente Nos),2087,289327,234064,50804,2160,0
+50,Mendoza,Macri - Pichetto (Juntos por el Cambio),576493,1448621,1174556,8494,15408,0
+50,Mendoza,Fernández - Fernández de Kirchner (Frente de Todos),435313,1448621,1174556,8494,15408,0
+50,Mendoza,Lavagna - Urtubey (Consenso Federal),75448,1448621,1174556,8494,15408,0
+50,Mendoza,Del Caño - Del Plá (Frente de Izquierda y de Trabajadores - Unidad),26315,1448621,1174556,8494,15408,0
+50,Mendoza,Gómez Centurión - Hotton (Frente Nos),22715,1448621,1174556,8494,15408,0
+50,Mendoza,Espert - Rosales (Unite por la Libertad y la Dignidad),14370,1448621,1174556,8494,15408,0
+54,Misiones,Fernández - Fernández de Kirchner (Frente de Todos),417752,929542,742488,12194,6357,0
+54,Misiones,Macri - Pichetto (Juntos por el Cambio),245254,929542,742488,12194,6357,0
+54,Misiones,Lavagna - Urtubey (Consenso Federal),24451,929542,742488,12194,6357,0
+54,Misiones,Gómez Centurión - Hotton (Frente Nos),21239,929542,742488,12194,6357,0
+54,Misiones,Espert - Rosales (Unite por la Libertad y la Dignidad),8537,929542,742488,12194,6357,0
+54,Misiones,Del Caño - Del Plá (Frente de Izquierda y de Trabajadores - Unidad),6704,929542,742488,12194,6357,0
+58,Neuquén,Fernández - Fernández de Kirchner (Frente de Todos),194205,508431,426909,13277,6741,0
+58,Neuquén,Macri - Pichetto (Juntos por el Cambio),151939,508431,426909,13277,6741,0
+58,Neuquén,Lavagna - Urtubey (Consenso Federal),25628,508431,426909,13277,6741,0
+58,Neuquén,Del Caño - Del Plá (Frente de Izquierda y de Trabajadores - Unidad),15209,508431,426909,13277,6741,0
+58,Neuquén,Gómez Centurión - Hotton (Frente Nos),11743,508431,426909,13277,6741,0
+58,Neuquén,Espert - Rosales (Unite por la Libertad y la Dignidad),8167,508431,426909,13277,6741,0
+62,Río Negro,Fernández - Fernández de Kirchner (Frente de Todos),247664,563382,452148,13158,6262,0
+62,Río Negro,Macri - Pichetto (Juntos por el Cambio),123674,563382,452148,13158,6262,0
+62,Río Negro,Lavagna - Urtubey (Consenso Federal),27483,563382,452148,13158,6262,0
+62,Río Negro,Gómez Centurión - Hotton (Frente Nos),14173,563382,452148,13158,6262,0
+62,Río Negro,Del Caño - Del Plá (Frente de Izquierda y de Trabajadores - Unidad),11252,563382,452148,13158,6262,0
+62,Río Negro,Espert - Rosales (Unite por la Libertad y la Dignidad),8482,563382,452148,13158,6262,0
+66,Salta,Fernández - Fernández de Kirchner (Frente de Todos),374369,1029950,783738,8868,8099,0
+66,Salta,Macri - Pichetto (Juntos por el Cambio),266406,1029950,783738,8868,8099,0
+66,Salta,Lavagna - Urtubey (Consenso Federal),82358,1029950,783738,8868,8099,0
+66,Salta,Gómez Centurión - Hotton (Frente Nos),16635,1029950,783738,8868,8099,0
+66,Salta,Del Caño - Del Plá (Frente de Izquierda y de Trabajadores - Unidad),13625,1029950,783738,8868,8099,0
+66,Salta,Espert - Rosales (Unite por la Libertad y la Dignidad),13378,1029950,783738,8868,8099,0
+70,San Juan,Fernández - Fernández de Kirchner (Frente de Todos),242060,564177,464929,4217,4124,0
+70,San Juan,Macri - Pichetto (Juntos por el Cambio),160449,564177,464929,4217,4124,0
+70,San Juan,Lavagna - Urtubey (Consenso Federal),33004,564177,464929,4217,4124,0
+70,San Juan,Gómez Centurión - Hotton (Frente Nos),8388,564177,464929,4217,4124,0
+70,San Juan,Del Caño - Del Plá (Frente de Izquierda y de Trabajadores - Unidad),6928,564177,464929,4217,4124,0
+70,San Juan,Espert - Rosales (Unite por la Libertad y la Dignidad),5759,564177,464929,4217,4124,0
+74,San Luis,Macri - Pichetto (Juntos por el Cambio),139479,391252,317835,3957,4119,0
+74,San Luis,Fernández - Fernández de Kirchner (Frente de Todos),129118,391252,317835,3957,4119,0
+74,San Luis,Lavagna - Urtubey (Consenso Federal),20954,391252,317835,3957,4119,0
+74,San Luis,Gómez Centurión - Hotton (Frente Nos),7683,391252,317835,3957,4119,0
+74,San Luis,Del Caño - Del Plá (Frente de Izquierda y de Trabajadores - Unidad),7171,391252,317835,3957,4119,0
+74,San Luis,Espert - Rosales (Unite por la Libertad y la Dignidad),5354,391252,317835,3957,4119,0
+78,Santa Cruz,Fernández - Fernández de Kirchner (Frente de Todos),108323,253119,188883,5181,2468,0
+78,Santa Cruz,Macri - Pichetto (Juntos por el Cambio),51183,253119,188883,5181,2468,0
+78,Santa Cruz,Lavagna - Urtubey (Consenso Federal),9123,253119,188883,5181,2468,0
+78,Santa Cruz,Del Caño - Del Plá (Frente de Izquierda y de Trabajadores - Unidad),6032,253119,188883,5181,2468,0
+78,Santa Cruz,Gómez Centurión - Hotton (Frente Nos),5171,253119,188883,5181,2468,0
+78,Santa Cruz,Espert - Rosales (Unite por la Libertad y la Dignidad),1402,253119,188883,5181,2468,0
+82,Santa Fe,Macri - Pichetto (Juntos por el Cambio),937611,2769007,2199500,14121,29501,0
+82,Santa Fe,Fernández - Fernández de Kirchner (Frente de Todos),920202,2769007,2199500,14121,29501,0
+82,Santa Fe,Lavagna - Urtubey (Consenso Federal),193603,2769007,2199500,14121,29501,0
+82,Santa Fe,Espert - Rosales (Unite por la Libertad y la Dignidad),40353,2769007,2199500,14121,29501,0
+82,Santa Fe,Gómez Centurión - Hotton (Frente Nos),33247,2769007,2199500,14121,29501,0
+82,Santa Fe,Del Caño - Del Plá (Frente de Izquierda y de Trabajadores - Unidad),30862,2769007,2199500,14121,29501,0
+86,Santiago del Estero,Fernández - Fernández de Kirchner (Frente de Todos),451082,760878,611732,6652,3272,0
+86,Santiago del Estero,Macri - Pichetto (Juntos por el Cambio),110525,760878,611732,6652,3272,0
+86,Santiago del Estero,Lavagna - Urtubey (Consenso Federal),20103,760878,611732,6652,3272,0
+86,Santiago del Estero,Gómez Centurión - Hotton (Frente Nos),9220,760878,611732,6652,3272,0
+86,Santiago del Estero,Del Caño - Del Plá (Frente de Izquierda y de Trabajadores - Unidad),5755,760878,611732,6652,3272,0
+86,Santiago del Estero,Espert - Rosales (Unite por la Libertad y la Dignidad),5123,760878,611732,6652,3272,0
+90,Tucumán,Fernández - Fernández de Kirchner (Frente de Todos),591686,1258898,1042173,10066,7735,0
+90,Tucumán,Macri - Pichetto (Juntos por el Cambio),347642,1258898,1042173,10066,7735,0
+90,Tucumán,Lavagna - Urtubey (Consenso Federal),42432,1258898,1042173,10066,7735,0
+90,Tucumán,Gómez Centurión - Hotton (Frente Nos),21241,1258898,1042173,10066,7735,0
+90,Tucumán,Del Caño - Del Plá (Frente de Izquierda y de Trabajadores - Unidad),12598,1258898,1042173,10066,7735,0
+90,Tucumán,Espert - Rosales (Unite por la Libertad y la Dignidad),8773,1258898,1042173,10066,7735,0
+94,Tierra del Fuego,Fernández - Fernández de Kirchner (Frente de Todos),57887,138264,104897,1340,1868,0
+94,Tierra del Fuego,Macri - Pichetto (Juntos por el Cambio),26529,138264,104897,1340,1868,0
+94,Tierra del Fuego,Lavagna - Urtubey (Consenso Federal),7785,138264,104897,1340,1868,0
+94,Tierra del Fuego,Gómez Centurión - Hotton (Frente Nos),3925,138264,104897,1340,1868,0
+94,Tierra del Fuego,Espert - Rosales (Unite por la Libertad y la Dignidad),2803,138264,104897,1340,1868,0
+94,Tierra del Fuego,Del Caño - Del Plá (Frente de Izquierda y de Trabajadores - Unidad),2760,138264,104897,1340,1868,0

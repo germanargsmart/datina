@@ -1,0 +1,49 @@
+codigo_indec,provincia,lista,votos,electores,votantes,blancos,nulos,recurridos_impugnados
+02,CABA,Macri - Michetti (Cambiemos),1258151,2552682,2018667,43221,33750,0
+02,CABA,Scioli - Zannini (Frente para la Victoria),683545,2552682,2018667,43221,33750,0
+06,Buenos Aires,Scioli - Zannini (Frente para la Victoria),4882082,11902176,9789880,133940,110923,0
+06,Buenos Aires,Macri - Michetti (Cambiemos),4662935,11902176,9789880,133940,110923,0
+10,Catamarca,Scioli - Zannini (Frente para la Victoria),116158,294143,222225,1925,1702,0
+10,Catamarca,Macri - Michetti (Cambiemos),102440,294143,222225,1925,1702,0
+14,Córdoba,Macri - Michetti (Cambiemos),1546831,2791736,2218843,23388,32622,0
+14,Córdoba,Scioli - Zannini (Frente para la Victoria),616002,2791736,2218843,23388,32622,0
+18,Corrientes,Scioli - Zannini (Frente para la Victoria),355119,810712,651030,3455,6111,0
+18,Corrientes,Macri - Michetti (Cambiemos),286345,810712,651030,3455,6111,0
+22,Chaco,Scioli - Zannini (Frente para la Victoria),403280,864683,690597,4794,4522,0
+22,Chaco,Macri - Michetti (Cambiemos),278001,864683,690597,4794,4522,0
+26,Chubut,Scioli - Zannini (Frente para la Victoria),186155,416710,326421,3218,6885,0
+26,Chubut,Macri - Michetti (Cambiemos),130163,416710,326421,3218,6885,0
+30,Entre Ríos,Macri - Michetti (Cambiemos),453149,1031024,858426,6833,10225,0
+30,Entre Ríos,Scioli - Zannini (Frente para la Victoria),388219,1031024,858426,6833,10225,0
+34,Formosa,Scioli - Zannini (Frente para la Victoria),206762,421702,327083,1376,2220,0
+34,Formosa,Macri - Michetti (Cambiemos),116725,421702,327083,1376,2220,0
+38,Jujuy,Macri - Michetti (Cambiemos),214429,509755,412223,2292,4543,0
+38,Jujuy,Scioli - Zannini (Frente para la Victoria),190959,509755,412223,2292,4543,0
+42,La Pampa,Macri - Michetti (Cambiemos),108543,274272,217844,2161,2971,0
+42,La Pampa,Scioli - Zannini (Frente para la Victoria),104169,274272,217844,2161,2971,0
+46,La Rioja,Macri - Michetti (Cambiemos),114963,269047,207563,2110,1988,0
+46,La Rioja,Scioli - Zannini (Frente para la Victoria),88502,269047,207563,2110,1988,0
+50,Mendoza,Macri - Michetti (Cambiemos),625983,1363970,1119061,11263,19629,0
+50,Mendoza,Scioli - Zannini (Frente para la Victoria),462186,1363970,1119061,11263,19629,0
+54,Misiones,Scioli - Zannini (Frente para la Victoria),388910,849790,679161,4327,5162,0
+54,Misiones,Macri - Michetti (Cambiemos),280762,849790,679161,4327,5162,0
+58,Neuquén,Scioli - Zannini (Frente para la Victoria),199425,470467,391755,4507,9888,0
+58,Neuquén,Macri - Michetti (Cambiemos),177935,470467,391755,4507,9888,0
+62,Río Negro,Scioli - Zannini (Frente para la Victoria),250621,512587,410833,3935,8190,0
+62,Río Negro,Macri - Michetti (Cambiemos),148087,512587,410833,3935,8190,0
+66,Salta,Scioli - Zannini (Frente para la Victoria),399518,956869,736853,5459,8058,0
+66,Salta,Macri - Michetti (Cambiemos),323818,956869,736853,5459,8058,0
+70,San Juan,Scioli - Zannini (Frente para la Victoria),260937,536644,444854,3453,5087,0
+70,San Juan,Macri - Michetti (Cambiemos),175377,536644,444854,3453,5087,0
+74,San Luis,Macri - Michetti (Cambiemos),178156,357275,285782,3403,4556,0
+74,San Luis,Scioli - Zannini (Frente para la Victoria),99667,357275,285782,3403,4556,0
+78,Santa Cruz,Scioli - Zannini (Frente para la Victoria),102003,237519,178993,1317,2797,0
+78,Santa Cruz,Macri - Michetti (Cambiemos),72876,237519,178993,1317,2797,0
+82,Santa Fe,Macri - Michetti (Cambiemos),1141121,2687061,2112592,30219,34426,0
+82,Santa Fe,Scioli - Zannini (Frente para la Victoria),906826,2687061,2112592,30219,34426,0
+86,Santiago del Estero,Scioli - Zannini (Frente para la Victoria),400331,699370,562074,3242,3546,0
+86,Santiago del Estero,Macri - Michetti (Cambiemos),154955,699370,562074,3242,3546,0
+90,Tucumán,Scioli - Zannini (Frente para la Victoria),563696,1171255,976775,6054,8828,0
+90,Tucumán,Macri - Michetti (Cambiemos),398197,1171255,976775,6054,8828,0
+94,Tierra del Fuego,Scioli - Zannini (Frente para la Victoria),54503,127060,95708,579,2219,0
+94,Tierra del Fuego,Macri - Michetti (Cambiemos),38407,127060,95708,579,2219,0

@@ -533,23 +533,36 @@ await q.tamano(1280, 900);
   if (!r.sec || r.filas || !/no hay datos que se puedan publicar/.test(r.txt) || !r.bajar.endsWith("2005-general-senadores/pais.csv")) problemas.push(`mesas.html: los senadores de 2005 no se quedan en la jurisdicción con su aviso (${r.tit}, ${r.bajar})`);
   r = await ms("?e=1983-general-presidente");
   if (!/Alfonsín - Martínez/.test(r.txt) || !/51,8%/.test(r.txt)) problemas.push("mesas.html: 1983 no suma las listas de cada provincia por fórmula");
-  // lo que le falta al provisorio
+  // el definitivo arriba y lo que le falta al provisorio debajo (5 de noviembre de 2026: el país y la jurisdicción, con el escrutinio definitivo)
   r = await ms("?e=2015-general-presidente&p=34");
-  if (!/reúne 80,8% de los votos positivos del escrutinio definitivo/.test(r.txt.replace(/\s+/g, " "))) problemas.push("mesas.html: Formosa 2015 no avisa lo que le falta al provisorio");
-  r = await ms("?e=2023-general-presidente&p=34");
-  if (/escrutinio definitivo/.test(r.txt)) problemas.push("mesas.html: Formosa 2023 no tiene un definitivo para comparar y lo nombra");
+  if (!/Escrutinio definitivo\./.test(r.txt) || !/Las mesas reúnen 80,8% de los votos positivos del definitivo de Formosa/.test(r.txt.replace(/\s+/g, " "))) problemas.push("mesas.html: Formosa 2015 sin el definitivo arriba o sin lo que le falta al provisorio en sus secciones");
+  r = await ms("?e=2023-general-presidente&p=34&s=1");
+  if (!/Escrutinio provisorio\./.test(r.txt) || /Escrutinio definitivo\./.test(r.txt)) problemas.push("mesas.html: una sección de Formosa 2023 no dice que es el provisorio");
+  // el exterior y las cárceles: en la segunda vuelta de 2023, aparte y sin sumar al país, y el padrón país por país
+  r = await ms("?e=2023-segunda-presidente", 2000);
+  const ext = JSON.parse(await q.eval(`JSON.stringify({opciones: document.getElementById("ms-ext-pais")?.options.length || 0, apagado: document.getElementById("ms-ext-pais")?.disabled, res: document.getElementById("ms-ext-res")?.innerText || ""})`));
+  // los títulos llevan un espacio duro antes de la última palabra (sinViuda): se comparan con los espacios iguales
+  const txtExt = r.txt.replace(/\s+/g, " ");
+  if (!/Escrutinio definitivo\./.test(txtExt) || !/Argentinos que viven en el exterior/.test(txtExt) || !/Personas privadas de libertad/.test(txtExt) || !/no está sumado/.test(txtExt) || !r.bajar.endsWith("definitivo.csv"))
+    problemas.push(`mesas.html: la segunda vuelta de 2023 sin el definitivo, sin el exterior y las cárceles aparte o sin su descarga (${r.bajar})`);
+  if (ext.opciones < 50 || ext.apagado || !/pueden votar/.test(ext.res)) problemas.push(`mesas.html: el desplegable del exterior no carga el padrón (${ext.opciones} países)`);
+  await q.eval(`(() => { const s = document.getElementById("ms-ext-pais"); s.value = "Uruguay"; s.dispatchEvent(new Event("change", {bubbles: true})); })()`); await espera(300);
+  if (!/En Uruguay pueden votar/.test(await q.eval(`document.getElementById("ms-ext-res").innerText`)) || !/pais=Uruguay/.test(await q.eval("location.search"))) problemas.push("mesas.html: elegir un país del exterior no lo muestra ni lo guarda en la dirección");
+  r = await ms("?e=2019-general-diputados");
+  if (!/no publica aparte el voto en el exterior/.test(r.txt.replace(/\s+/g, " ")) || /pueden votar en cada país/.test(r.txt.replace(/\s+/g, " "))) problemas.push("mesas.html: una elección sin el exterior aparte no lo explica, o muestra un padrón de otro año");
   // el mapa (5 de noviembre de 2026): el país por circuito, entrar a una provincia y elegir un circuito tocándolos, los tres modos, la elección anterior, los botones para acercar,
   // la jurisdicción que en esa elección llega solo a la sección y una elección sin mapa
   const mapa = async () => JSON.parse(await q.eval(`JSON.stringify((() => { const cs = [...document.querySelectorAll("#ms-lienzo .ms-c")];
     return {visible: !document.getElementById("ms-mapa").hidden, caminos: cs.length, pintados: cs.filter(c => c.getAttribute("fill") && c.getAttribute("fill") !== "#EEF1F4").length, tit: document.getElementById("ms-mapa-tit").textContent.replace(/\\u00a0/g, " "),
       frase: document.getElementById("ms-mapa-frase").textContent, nota: document.getElementById("ms-mapa-nota").textContent, ley: document.getElementById("ms-ley").innerText, nombre: document.querySelector("#ms-lienzo svg")?.getAttribute("aria-label") || "",
       sel: !!document.querySelector("#ms-lienzo .ms-sel")?.getAttribute("d"), zoom: document.querySelector("#ms-lienzo svg > g")?.getAttribute("transform") || "", falla: !document.getElementById("ms-mapa-falla").hidden, dir: location.search}; })())`));
-  const tocaLugar = (p, s) => q.eval(`(() => { const c = [...document.querySelectorAll("#ms-lienzo .ms-c")].find(x => x.__data__.properties.p === ${JSON.stringify(p)} && (${JSON.stringify(s)} === "" || x.__data__.properties.s === ${JSON.stringify(s)}) && x.getAttribute("fill") !== "#EEF1F4");
+  // un lugar con mesas propias: no el gris ni el rayado de lo que no tiene mesas, ni el fondo del IGN
+  const tocaLugar = (p, s) => q.eval(`(() => { const c = [...document.querySelectorAll("#ms-lienzo .ms-cs .ms-c")].find(x => x.__data__.properties.p === ${JSON.stringify(p)} && (${JSON.stringify(s)} === "" || x.__data__.properties.s === ${JSON.stringify(s)}) && x.getAttribute("fill") !== "#EEF1F4" && !x.getAttribute("fill").startsWith("url("));
     c.dispatchEvent(new MouseEvent("click", {bubbles: true})); })()`);
   await ms("?e=2023-segunda-presidente", 2800);
   let m = await mapa();
   if (!m.visible || m.falla || m.caminos < 5000 || m.pintados < 4800) problemas.push(`mesas.html: el mapa del país no pinta los circuitos (${m.caminos} polígonos, ${m.pintados} pintados)`);
-  if (!/Milei - Villarruel/.test(m.ley) || !/Massa - Rossi/.test(m.ley) || !/Sin mesas/.test(m.ley) || !/fue la más votada en/.test(m.frase) || !m.nombre.includes("Mapa de todo el país")) problemas.push(`mesas.html: el mapa del país sin su leyenda, su frase o su nombre (${m.frase})`);
+  if (!/Milei - Villarruel/.test(m.ley) || !/Massa - Rossi/.test(m.ley) || !/Sin mesas propias/.test(m.ley) || !/fue la más votada en/.test(m.frase) || !m.nombre.includes("Mapa de todo el país")) problemas.push(`mesas.html: el mapa del país sin su leyenda, su frase o su nombre (${m.frase})`);
   await tocaLugar("06", ""); r = await ms(null, 2800); m = await mapa();
   if (!r.tit.startsWith("Buenos Aires") || m.caminos < 1000 || m.caminos > 1400 || !/p=06/.test(m.dir)) problemas.push(`mesas.html: tocar el mapa del país no entra a la provincia (${r.tit}, ${m.caminos} polígonos)`);
   await tocaLugar("06", "61"); r = await ms(null, 2200); m = await mapa();
@@ -567,6 +580,19 @@ await q.tamano(1280, 900);
   if (!/e=2023-general-presidente/.test(r.dir)) problemas.push(`mesas.html: "Elección anterior" no lleva a la anterior (${r.dir})`);
   await ms("?e=2015-general-presidente&p=58", 2000); m = await mapa();
   if (!/en cada sección/.test(m.tit) || !/llega hasta la sección/.test(m.nota) || !m.pintados) problemas.push(`mesas.html: Neuquén 2015 no pinta por sección ni avisa (${m.tit}, ${m.nota})`);
+  // ninguna provincia gris (pedido del autor del 5 de noviembre de 2026): en Catamarca lo que no tiene mesas propias va rayado con su sección, y Formosa, que la Cámara
+  // dibuja solo en los pueblos, se ve entera con el fondo del IGN. Santa Fe llega al departamento con la cartografía del IGN y sus secciones tienen su nombre oficial
+  const grises = () => q.eval(`[...document.querySelectorAll("#ms-lienzo .ms-c")].filter(x => x.getAttribute("fill") === "#EEF1F4").length`);
+  const rayados = () => q.eval(`[...document.querySelectorAll("#ms-lienzo .ms-c")].filter(x => (x.getAttribute("fill") || "").startsWith("url(")).length`);
+  for (const p of ["10", "34", "46", "94"]) {
+    await ms(`?e=2025-general-diputados&p=${p}`, 2000); m = await mapa();
+    const g = await grises(), ra = await rayados();
+    if (g || !ra || !/Sin mesas propias/.test(m.ley)) problemas.push(`mesas.html: en 2025 la jurisdicción ${p} tiene ${g} lugares grises o ninguno rayado (${ra})`);
+  }
+  r = await ms("?e=2025-general-diputados&p=82", 2000); m = await mapa();
+  if (!/llega hasta el departamento/.test(m.nota) || !/Garay/.test(r.txt) || !/Iriondo/.test(r.txt) || /Villa Constitución/.test(r.txt) || await grises()) problemas.push(`mesas.html: Santa Fe 2025 sin su mapa por departamento o sin los nombres oficiales de sus secciones (${m.nota})`);
+  r = await ms("?e=2011-general-diputados&p=82&s=1", 1600);
+  if (!r.tit.startsWith("La Capital") || !r.hist) problemas.push(`mesas.html: la sección 1 de Santa Fe en 2011 no es La Capital (${r.tit})`);
   // de 1983 a 2009, por departamento (257arg): el mapa del país, tocar uno lo elige, el mismo lugar entre elecciones y CABA y San Luis, que no llegan al departamento
   r = await ms("?e=1983-general-presidente", 2200); m = await mapa();
   if (!/en cada departamento/.test(m.tit) || m.pintados < 450 || !/Raúl Alfonsín/.test(m.ley) || !/base de Ernesto Calvo/.test(m.nota) || !/51,8%/.test(r.txt)) problemas.push(`mesas.html: 1983 sin su mapa por departamento o sin el total oficial (${m.tit}, ${m.pintados} pintados)`);
@@ -596,7 +622,7 @@ await q.tamano(1280, 900);
   r = await ms("?e=1951-general-diputados", 2200); m = await mapa();
   if (!/en cada circunscripción/.test(m.tit) || m.pintados < 100 || !/primera elección nacional con voto de las mujeres/.test(m.nota)) problemas.push(`mesas.html: 1951 sin su mapa por circunscripción (${m.tit}, ${m.pintados} pintadas)`);
   r = await ms("?e=1937-general-presidente", 2000); m = await mapa();
-  if (!/Hay datos de 4 jurisdicciones, que reúnen 36,9%/.test(m.nota) || !/no votó/.test(m.ley)) problemas.push(`mesas.html: 1937 no dice cuánto reúne (${m.nota})`);
+  if (!/Hay datos de 4 jurisdicciones, que reúnen 36,9%/.test(m.nota) || !/no votaba/.test(m.ley)) problemas.push(`mesas.html: 1937 no dice cuánto reúne (${m.nota})`);
   r = await ms("?e=1973-septiembre-presidente", 2000);
   if (!/Perón/.test(r.txt) || (await q.eval(`document.getElementById("ms-eleccion").selectedOptions[0].textContent`)) !== "1973, septiembre") problemas.push("mesas.html: septiembre de 1973 no se distingue de marzo");
   // en el celular no se corre de costado, tampoco con las tablas de abajo a la vista

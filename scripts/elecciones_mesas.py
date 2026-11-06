@@ -89,6 +89,15 @@ COLS_OTROS = ["blancos", "nulos", "recurridos_impugnados"]
 COLUMNAS = ["distrito_id", "seccion_id", "seccion_nombre", "circuito_id", "mesa_id", "mesa_tipo", "mesa_electores", "cargo_id",
             "cargo_nombre", "agrupacion_nombre", "votos_tipo", "votos_cantidad"]
 CLAVE = ["distrito", "seccion_id", "circuito", "mesa"]
+# Santa Fe cambió la numeración de sus secciones en 2023 (encontrado el 5 de noviembre de 2026). Hasta 2021 la DINE las numeraba por orden alfabético y en 2011 y 2013 partía
+# La Capital (la 10) y Rosario (la 14 y la 15), sin nombre en el archivo: sus circuitos son los de la 9 y la 13 de 2015. Desde 2023 usa el código oficial, el mismo de la tabla
+# de ámbitos de 2023 y 2025. Hasta ese día se suponía que el código era estable en todo el país, y en Santa Fe las secciones llevaban el nombre de otro departamento y su
+# historia mezclaba dos. Acá cada sección de hasta 2021 pasa a su código de 2023, con su nombre oficial. Las otras 23 jurisdicciones solo cambian la escritura del nombre
+SANTA_FE_HASTA_2021 = {1: 17, 2: 14, 3: 5, 4: 15, 5: 4, 6: 16, 7: 9, 8: 18, 9: 1, 10: 1, 11: 2, 12: 12, 13: 13, 14: 13, 15: 13, 16: 7, 17: 11, 18: 3, 19: 8,
+                       20: 19, 21: 6, 22: 10}
+SANTA_FE_NOMBRES = {1: "La Capital", 2: "Las Colonias", 3: "San Jerónimo", 4: "Garay", 5: "Castellanos", 6: "San Martín", 7: "San Cristóbal", 8: "San Justo",
+                    9: "General Obligado", 10: "Vera", 11: "San Javier", 12: "9 de Julio", 13: "Rosario", 14: "Caseros", 15: "Constitución", 16: "General López",
+                    17: "Belgrano", 18: "Iriondo", 19: "San Lorenzo"}
 
 
 def cargo_de(nombre):
@@ -256,6 +265,13 @@ def leer_zip(ruta, anio, vuelta, trabajo):
             d = d[~fuera]
         d["distrito"] = d["distrito"].astype(int)
         d["seccion_id"] = d["seccion_id"].fillna(0).astype(int)
+        sf = d["distrito"] == 21
+        if anio <= 2021 and sf.any():
+            nuevo = d.loc[sf, "seccion_id"].map(SANTA_FE_HASTA_2021)
+            if nuevo.isna().any():
+                sys.exit(f"{ruta.name}: Santa Fe trae secciones sin equivalencia en 2023: {sorted(d.loc[sf & nuevo.isna().reindex(d.index, fill_value=False), 'seccion_id'].unique())}")
+            d.loc[sf, "seccion_id"] = nuevo.astype(int)
+        d.loc[sf, "seccion"] = d.loc[sf, "seccion_id"].map(SANTA_FE_NOMBRES)
         # los totales de control salen de acá, antes de cualquier armado
         pos = d[d["voto"] == "POSITIVO"]
         por_prov = {}

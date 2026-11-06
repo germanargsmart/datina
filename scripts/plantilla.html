@@ -3050,7 +3050,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     <h2>Elecciones por mesa</h2>
     <div class="tema-intro">
       <p class="pregunta">¿Cómo se votó en cada circuito y en cada mesa?</p>
-      <p>Los resultados de presidente, diputados y senadores nacionales, de todo el país a cada mesa. Por mesa y por circuito hay datos de {{mesas.desde_mesa}} a {{mesas.hasta}}, y por departamento desde {{mesas.desde}}.</p>
+      <p>Los resultados de presidente, diputados y senadores nacionales, de todo el país a cada mesa. El total del país y el de cada jurisdicción son el escrutinio definitivo. Por mesa y por circuito hay datos de {{mesas.desde_mesa}} a {{mesas.hasta}}, y por departamento desde {{mesas.desde}}.</p>
     </div>
     <!--EXPLICADOR:mesas-->
     <div class="ms" id="ms" aria-busy="true">
@@ -3103,16 +3103,17 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       </section>
       <div id="ms-resultado"></div>
       <div class="ms-pie">
-        <span>Fuente: Dirección Nacional Electoral, Ministerio del Interior (escrutinio provisorio por mesa desde {{mesas.desde_mesa}}, definitivo por jurisdicción antes). Licencia CC-BY 4.0. Mapa: circuitos de la Cámara Nacional Electoral y de Franco Galeano (CC BY 4.0). Departamentos hasta {{mesas.hist_hasta}}: 257arg (CC BY 4.0), a partir de Darío Cantón, Lupu y Stokes, Ernesto Calvo y PolAr, con la geometría de Rodríguez, CEUR-CONICET (CC BY 2.5 AR). Fuerzas y colores a partir de 257arg</span>
+        <span>Fuente: escrutinio definitivo de cada jurisdicción, de la Dirección Nacional Electoral y de las actas de la Cámara Nacional Electoral. Mesas y circuitos desde {{mesas.desde_mesa}}: escrutinio provisorio de la Dirección Nacional Electoral (CC-BY 4.0). Exterior: padrón y planillas de la Cámara Nacional Electoral. Mapa: circuitos de la Cámara Nacional Electoral y departamentos del Instituto Geográfico Nacional. Departamentos hasta {{mesas.hist_hasta}}: Darío Cantón, Lupu y Stokes, Ernesto Calvo y PolAr, con la geometría de Rodríguez, CEUR-CONICET (CC BY 2.5 AR). Créditos y licencias en "Para entender los datos"</span>
         <span class="ms-bajadas"><a class="enlace" id="ms-bajar" href="datos/mesas/indice.json" download>Descargar tabla (CSV)</a> <a class="enlace" id="ms-bajar-hist" href="datos/mesas/indice.json" download hidden>Descargar secciones y circuitos en cada elección (CSV)</a></span>
       </div>
       <div class="ms-limites nota-limites">
         <h2 class="ms-sub-tit">Qué no dice este dato</h2>
         <ul>
-          <li>Desde {{mesas.desde_mesa}} es el escrutinio provisorio, el conteo de la noche de la elección. No trae el voto en el exterior ni el de las personas privadas de la libertad, y le pueden faltar mesas. Por eso sus totales difieren un poco del escrutinio definitivo.</li>
+          <li>El total del país y el de cada jurisdicción son el escrutinio definitivo. Las secciones, los circuitos y las mesas, desde {{mesas.desde_mesa}}, son el escrutinio provisorio, el conteo de la noche de la elección: es lo único que se publica mesa por mesa. No trae el voto en el exterior ni el de las personas privadas de la libertad, y le pueden faltar mesas, así que suma un poco menos que el definitivo. La tabla de secciones dice cuánto.</li>
+          <li>El voto en el exterior no se publica país por país: la Cámara Nacional Electoral suma todo el exterior de una jurisdicción en una sola mesa. El desplegable dice cuántos argentinos pueden votar en cada país, no cómo votaron.</li>
           <li>Una mesa no se puede seguir en el tiempo: el padrón se reparte de nuevo en cada elección y el mismo número de mesa reúne a otras personas. El circuito se puede comparar con más cuidado que certeza: algunos cambian de código o se dividen.</li>
           <li>Una mesa reúne a unos pocos cientos de electores. Su resultado no describe a un barrio y no dice cómo votó ninguna persona.</li>
-          <li>El mapa dibuja los circuitos con su forma reciente, también en las elecciones viejas: un circuito pudo tener otros límites entonces. Un circuito sin mesas queda en gris: si vive gente ahí, vota en mesas de otro circuito.</li>
+          <li>El mapa dibuja los circuitos con su forma reciente, también en las elecciones viejas: un circuito pudo tener otros límites entonces. Un lugar sin mesas propias se pinta rayado con el resultado de toda su sección: si vive gente ahí, vota en mesas de otro circuito.</li>
           <li>El color del mapa dice qué lista sacó más votos, no por cuánta gente: un circuito rural con pocos electores ocupa mucho más lugar que uno de ciudad con miles. Por eso las zonas de color no miden cuántos votos sacó cada fuerza.</li>
           <li>Hasta {{mesas.hist_hasta}} la herramienta llega al departamento, y los senadores, a la jurisdicción. Los departamentos no son el escrutinio definitivo y pueden no sumar exacto el total oficial. El detalle está en "Para entender los datos".</li>
           <li>Hasta 1948 votaban solo los varones: las mujeres votaron por primera vez en una elección nacional en 1951. Quienes vivían en los territorios nacionales, como Chaco, La Pampa o Neuquén, tampoco elegían presidente ni diputados hasta los años cincuenta.</li>
