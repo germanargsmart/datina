@@ -110,7 +110,7 @@ assert not _rep, f"ids repetidos en la plantilla: {_rep}"
 # que los rodea. Un año reciente escrito a mano en otro lugar hace que el sitio no se arme.
 # (la SUBE desde diciembre de 2024 y mayo de 2025, la encuesta que el INDEC reformula desde 2026, el cambio de fuente de los nacimientos,
 # el nombre de las proyecciones de población del INDEC y los límites para comprar dólares que rigieron hasta abril de 2025)
-FIJOS = ["diciembre de 2024 el subte", "diciembre de 2024 parte de los viajes", "mayo de 2025 pagos con qr", "desde 2026 el indec reformula",
+FIJOS = ["en 2024 se anunció el pase", "diciembre de 2024 el subte", "diciembre de 2024 parte de los viajes", "mayo de 2025 pagos con qr", "desde 2026 el indec reformula",
          "hasta octubre de 2026 el sitio", "2022 a 2040, base censo", "septiembre de 2019 y abril de 2025",
          "enero de 2026 incluyen la venta", "internet archive de septiembre de 2024"]
 
@@ -180,6 +180,7 @@ FRASE_FRECUENCIA = {
     "pausa": "La encuesta está en pausa: el INDEC la está reformulando.",
     "padron": "Se actualiza cuando el Ministerio de Justicia publica un padrón nuevo.",
     "ultimo": "Es el último dato que publicó la fuente.",
+    "a_mano": "Se actualiza a mano, cuando la fuente publica datos nuevos.",
 }
 FRECUENCIA = {
     # Trabajo
@@ -234,6 +235,9 @@ FRECUENCIA = {
     "f-pesca-rio": "anio",
     "f-soja": "anio", "f-cobertura-suelo": "anio",
     # Curiosidades
+    # la Antártida: datos fijos, a pedido del autor (fuera de la descarga del día 5). Sin aviso de atraso, porque nada los actualiza solo
+    "f-ant-mapa": "a_mano", "f-ant-bases": "a_mano", "f-ant-paises": "a_mano", "f-ant-reclamos": "a_mano", "f-ant-tratado": "a_mano", "f-ant-zonas": "a_mano",
+    "f-ant-temperatura": "a_mano", "f-ant-hielo": "a_mano", "f-ant-turismo": "a_mano", "f-ant-presupuesto": "a_mano",
     "f-nombres": "anio", "f-precio-consumo": "anio", "f-carne": "mes", "f-vino": "mes", "f-yerba": "mes", "f-glaciares": "inventario", "f-clima": "anio",
 }
 # Frescura (plan de mejora, T3, 27 de octubre de 2026, aprobado por el autor): si el último período de una ficha está más atrasado
@@ -652,7 +656,8 @@ if CONSULTA_IA:
 # ---------- datos ----------
 # Las tablas mas pesadas, que usan pocas fichas, van en archivos aparte que el navegador baja solo al abrir esas fichas.
 # fichas.js lleva la huella de cada una para que el navegador no use una version vieja.
-DIFERIDAS = ["elecciones_presidenciales", "anios_congreso", "transferencias_provincias", "piramide_poblacion", "apoyo_gobierno_provincias", "aprender_departamentos",
+DIFERIDAS = ["antartida_instalaciones", "antartida_bases", "antartida_paises", "antartida_reclamos", "antartida_tratado", "antartida_tratado_serie", "antartida_zonas_paises",
+             "antartida_temperatura", "antartida_hielo", "antartida_turismo", "antartida_presupuesto", "elecciones_presidenciales", "anios_congreso", "transferencias_provincias", "piramide_poblacion", "apoyo_gobierno_provincias", "aprender_departamentos",
              "hidrocarburos_mensual", "vivienda_departamentos", "isac_mensual", "costo_construccion",
              "empleo_construccion_serie", "pozos_no_convencionales", "areas_produccion", "centrales",
              "gas_usuario_serie", "gas_usuario_mensual", "areas_serie", "combustibles_mensual", "electricidad_serie", "electricidad_mensual",

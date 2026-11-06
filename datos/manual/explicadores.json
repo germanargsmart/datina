@@ -4125,6 +4125,85 @@
       "cita": "Anomalías de temperatura media en Argentina desde 1961 a 2023, con respecto al valor medio 1991-2020"
      }
     ]
+   },
+   {
+    "titulo": "Qué es el Tratado Antártico",
+    "texto": "Lo firmaron doce países en Washington el 1 de diciembre de 1959 y empezó a regir el 23 de junio de 1961. Dice que la Antártida se usa solo con fines pacíficos y que hay libertad para investigar. El artículo IV congela los reclamos territoriales: el Tratado no implica renunciar a un reclamo ni reconocerlo, lo que se haga mientras esté en vigor no sirve para afirmarlo ni para negarlo, y no se admiten reclamos nuevos ni ampliaciones. El Protocolo de protección del medio ambiente, firmado en Madrid en 1991 y vigente desde 1998, prohíbe la actividad minera salvo la investigación científica. No vence en 2048, como a veces se dice: desde ese año, una parte consultiva puede pedir una conferencia para revisarlo. La Secretaría del Tratado funciona en Buenos Aires desde 2004.",
+    "fuentes": [
+     {
+      "nombre": "Secretaría del Tratado Antártico, el Tratado",
+      "url": "https://www.ats.aq/e/antarctictreaty.html",
+      "cita": "signed in Washington on 1 December 1959"
+     },
+     {
+      "nombre": "Tratado Antártico, texto",
+      "url": "https://documents.ats.aq/keydocs/vol_1/vol1_2_AT_Antarctic_Treaty_e.pdf"
+     },
+     {
+      "nombre": "Secretaría del Tratado Antártico, el Protocolo",
+      "url": "https://www.ats.aq/e/protocol.html",
+      "cita": "prohibits all activities relating to Antarctic mineral resources"
+     },
+     {
+      "nombre": "Secretaría del Tratado Antártico, la Secretaría",
+      "url": "https://www.ats.aq/e/secretariat.html",
+      "cita": "located in downtown Buenos Aires"
+     }
+    ]
+   },
+   {
+    "titulo": "Cómo llegó la Argentina a la Antártida",
+    "texto": "La expedición escocesa de William Bruce inauguró un observatorio en la isla Laurie, en las Orcadas del Sur, el 1 de abril de 1903. El 22 de febrero de 1904 pasó a manos argentinas. Ese día es el Día de la Antártida Argentina, y la Cancillería lo presenta como la presencia continua más antigua en el continente. Las bases que siguieron fueron Melchior, en 1947, y Decepción, en 1948. El decreto-ley 2191 de 1957 creó el Territorio Nacional de la Tierra del Fuego, Antártida e Islas del Atlántico Sur, y la Ley 26.552 de 2009 fija los límites del sector en la provincia: los meridianos 25 y 74 Oeste y el paralelo 60 Sur. En diciembre de 1965, la Operación 90 llegó por tierra al Polo Sur. El 7 de enero de 1978 nació en Esperanza Emilio Palma, según la Cancillería el primer nacimiento documentado en la Antártida. La Ley 26.651, de 2010, obliga a usar el mapa bicontinental en la educación y en los organismos públicos. Esta página describe esas normas sin tomar posición sobre la disputa de soberanía.",
+    "fuentes": [
+     {
+      "nombre": "Cancillería, Base Orcadas",
+      "url": "https://www.cancilleria.gob.ar/es/iniciativas/dna/antartida-argentina/bases/orcadas",
+      "cita": "el 22 de febrero de 1904 pasó a manos argentinas"
+     },
+     {
+      "nombre": "Casa Rosada, Día de la Antártida Argentina",
+      "url": "https://www.casarosada.gob.ar/informacion/actividad-oficial/9-noticias/50867-dia-de-la-antartida-argentina",
+      "cita": "estableciendo el 22 de febrero como el Día de la Antártida Argentina"
+     },
+     {
+      "nombre": "Cancillería, Antártida Argentina",
+      "url": "https://cancilleria.gob.ar/es/politica-exterior/antartida-argentina",
+      "cita": "la presencia continua más antigua en dicho continente"
+     },
+     {
+      "nombre": "Decreto-ley 2191/57",
+      "url": "https://servicios.infoleg.gob.ar/infolegInternet/anexos/295000-299999/297138/texact.htm"
+     },
+     {
+      "nombre": "Ley 26.552",
+      "url": "https://www.argentina.gob.ar/normativa/nacional/161401/texto",
+      "cita": "comprendida entre los meridianos 25° Oeste y 74° Oeste y el paralelo 60° Sur"
+     },
+     {
+      "nombre": "Cancillería, Base Esperanza",
+      "url": "https://www.cancilleria.gob.ar/es/iniciativas/dna/antartida-argentina/bases/esperanza",
+      "cita": "primer nacimiento documentado de un ser humano en la Antártida"
+     },
+     {
+      "nombre": "Ley 26.651",
+      "url": "https://servicios.infoleg.gob.ar/infolegInternet/anexos/175000-179999/175020/norma.htm",
+      "cita": "el mapa bicontinental de la República Argentina"
+     }
+    ]
+   },
+   {
+    "titulo": "Cómo se cuentan las bases y el sector",
+    "texto": "COMNAP reúne a los programas antárticos nacionales y publica una lista que informa cada país: estaciones, campamentos, refugios, pistas, laboratorios y depósitos, abiertos o cerrados por ahora. Un refugio cuenta igual que una estación grande. La Argentina cuenta 13 bases: 7 que funcionan todo el año y 6 solo en verano. La superficie cambia según quién mida: el Instituto Geográfico Nacional da 873.718 km² de tierra para el Sector Antártico Argentino, incluidas las Orcadas del Sur, y la Cancillería da 1.461.597 km² en total, con 965.314 km² de tierra firme. La cifra de 965.597 km² que circula es la medición anterior del IGN.",
+    "fuentes": [
+     {
+      "nombre": "COMNAP, Facilities Information",
+      "url": "https://www.comnap.aq/antarctic-facilities-information"
+     },
+     {
+      "nombre": "IGN, división política y superficies",
+      "url": "https://www.ign.gob.ar/NuestrasActividades/Geografia/DatosArgentina/DivisionPolitica"
+     }
+    ]
    }
   ],
   "glosario": [
@@ -4182,6 +4261,46 @@
     "fuente": {
      "nombre": "SMN, El clima en Argentina 2024",
      "url": "https://www.argentina.gob.ar/noticias/el-clima-en-argentina-2024-reporte-final"
+    }
+   },
+   {
+    "termino": "Parte consultiva",
+    "definicion": "País del Tratado Antártico que decide en las reuniones. Son los doce firmantes y los que se sumaron después y hacen investigación científica importante en la Antártida.",
+    "fuente": {
+     "nombre": "Secretaría del Tratado Antártico",
+     "url": "https://www.ats.aq/devAS/Parties?lang=e"
+    }
+   },
+   {
+    "termino": "Sector Antártico Argentino",
+    "definicion": "Lo que la ley argentina incluye en la provincia de Tierra del Fuego entre los meridianos 25 y 74 Oeste, al sur del paralelo 60. Se superpone con los sectores que reclaman Chile y el Reino Unido.",
+    "fuente": {
+     "nombre": "Ley 26.552",
+     "url": "https://www.argentina.gob.ar/normativa/nacional/161401/texto"
+    }
+   },
+   {
+    "termino": "Barrera de hielo",
+    "definicion": "Plataforma de hielo que flota sobre el mar, unida a la tierra. Las medidas de tierra del sector no la incluyen.",
+    "fuente": {
+     "nombre": "Instituto Geográfico Nacional",
+     "url": "https://www.ign.gob.ar/odc-15-almiron"
+    }
+   },
+   {
+    "termino": "Zona antártica especialmente protegida",
+    "definicion": "Área donde el Tratado limita el ingreso y las actividades para cuidar valores ambientales, científicos, históricos o estéticos. Para entrar hace falta un permiso.",
+    "fuente": {
+     "nombre": "Secretaría del Tratado Antártico",
+     "url": "https://www.ats.aq/e/protected.html"
+    }
+   },
+   {
+    "termino": "Extensión del hielo marino",
+    "definicion": "Superficie del mar con al menos 15% de hielo. Es lo que mide el Sea Ice Index del NSIDC.",
+    "fuente": {
+     "nombre": "NSIDC",
+     "url": "https://nsidc.org/data/g02135"
     }
    }
   ]

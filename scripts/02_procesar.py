@@ -7710,6 +7710,159 @@ for _pu_v, (lab, uni, ficha, _pu_s) in PUESTOS_VARS.items():
 puestos_provincias = pd.DataFrame(_pu_f)
 assert puestos_provincias.variable.nunique() == len(PUESTOS_VARS), "puestos: falta algún indicador"
 
+# ---------------------------------------------------------------- Antártida
+# Capítulo de Naturaleza y ambiente (noviembre de 2026, pedido del autor: "datos de la Antártida, bases, un mapa con las bases de la Argentina y de los
+# demás países, el tratado, todo"). El autor pidió dejar los datos fijos, fuera de la descarga del día 5: los guardan en datos/manual/ los programas
+# scripts/antartida_datos.py y scripts/antartida_presupuesto.py, y a mano, con la fuente de cada fila, las bases, los reclamos, el turismo, los censos y
+# las superficies. Decisiones, fuentes y diferencias entre ellas: docs/roadmap/ANTARTIDA.md
+ANT_DIR = RAIZ / "datos" / "manual"
+_ant_r2 = lambda x: round(float(x), 2)
+ANT_COMNAP_FECHA, ANT_ATS_FECHA = "noviembre de 2024", "noviembre de 2026"  # la versión de la lista de COMNAP y el día en que se bajaron las listas de la Secretaría
+ant_inst = pd.read_csv(ANT_DIR / "antartida_instalaciones.csv", dtype={"anio": "Int64", "capacidad": "Int64", "otro_pais": str})
+ant_base = pd.read_csv(ANT_DIR / "antartida_bases.csv", dtype=str)
+_ant_b = ant_inst.set_index("nombre").loc[ant_base.comnap]
+assert (_ant_b.pais == "Argentina").all() and len(ant_inst[ant_inst.pais == "Argentina"]) == len(ant_base), "las bases argentinas de COMNAP no son las de la lista"
+ant_base["anio"] = ant_base.fundacion.str[:4].astype(int)
+assert (ant_base.anio.values == _ant_b.anio.astype(int).values).all(), "el año de una base difiere entre la fuente argentina y COMNAP"
+assert ((ant_base.condicion == "permanente").values == (_ant_b.temporada == "Todo el año").values).all(), "permanente o temporaria difiere entre la fuente argentina y COMNAP"
+antartida_bases = ant_base.drop(columns="comnap").assign(lat=_ant_b.lat.values, lon=_ant_b.lon.values, capacidad=_ant_b.capacidad.values, estado=_ant_b.estado.values)
+antartida_bases = antartida_bases[["base", "condicion", "fundacion", "anio", "lugar", "administra", "capacidad", "estado", "lat", "lon"]]
+# el sector de la ley argentina: entre los meridianos 74 y 25 Oeste, al sur del paralelo 60 (Ley 26.552)
+ant_inst["en_sector_argentino"] = np.where(ant_inst.lon.between(-74, -25) & (ant_inst.lat <= -60), "sí", "no")
+ant_inst["nombre_corto"] = ant_inst.nombre.map(dict(zip(ant_base.comnap, ant_base.base))).fillna("")
+antartida_instalaciones = ant_inst[["nombre", "nombre_corto", "pais", "otro_pais", "tipo", "temporada", "estado", "anio", "capacidad", "en_sector_argentino", "lat", "lon"]]
+_ant_gp = ant_inst.groupby("pais")
+antartida_paises = pd.DataFrame({"instalaciones": _ant_gp.size(), "todo_el_anio": _ant_gp.temporada.apply(lambda s: (s == "Todo el año").sum()),
+                                 "solo_en_verano": _ant_gp.temporada.apply(lambda s: (s == "Solo en verano").sum()), "capacidad": _ant_gp.capacidad.sum().astype(int),
+                                 "sin_capacidad_informada": _ant_gp.capacidad.apply(lambda s: s.isna().sum())}).reset_index().sort_values(["instalaciones", "capacidad"], ascending=False)
+_ant_arg = antartida_paises[antartida_paises.pais == "Argentina"].iloc[0]
+# la vista de la Península del mapa: la misma cuenta que usa el texto
+_ant_pen = ant_inst[ant_inst.lat.between(-70, -60) & ant_inst.lon.between(-75, -40)]
+# los reclamos: cada tramo con sus grados de longitud, y el sector que nadie reclama. Las cuentas de superposición, grado por grado
+ant_rec = pd.read_csv(ANT_DIR / "antartida_reclamos.csv")
+_ant_lon = lambda v: f"{abs(v)}° {'Oeste' if v < 0 else 'Este'}"
+_ant_grados = lambda d, h: {(d + i) % 360 for i in range((h - d) % 360)}
+_ant_sect = {p: set().union(*[_ant_grados(f.desde, f.hasta) for f in t.itertuples()]) for p, t in ant_rec.groupby("pais")}
+_ant_libre = set(range(360)) - set().union(*_ant_sect.values())
+assert sorted(_ant_libre) == sorted(_ant_grados(-150, -90)), "el sector sin reclamar no es el de los meridianos 90 a 150 Oeste"
+antartida_reclamos = ant_rec.assign(tramo=[f"{_ant_lon(d)} a {_ant_lon(h)}" for d, h in zip(ant_rec.desde, ant_rec.hasta)], grados=(ant_rec.hasta - ant_rec.desde) % 360)
+antartida_reclamos = pd.concat([antartida_reclamos, pd.DataFrame([{"pais": "Sin reclamar", "desde": -150, "hasta": -90, "tramo": f"{_ant_lon(-150)} a {_ant_lon(-90)}", "grados": 60, "norma": "Ningún país reclama este sector"}])])
+antartida_reclamos = antartida_reclamos[["pais", "tramo", "grados", "anio", "norma", "desde", "hasta", "fuente"]].astype({"anio": "Int64"})
+ant_sup = pd.read_csv(ANT_DIR / "antartida_superficies.csv").set_index("concepto").km2
+assert abs(ant_sup["Argentina continental"] + ant_sup["Sector Antártico Argentino"] + ant_sup["Islas del Atlántico Sur"] - ant_sup["Total del país"]) < 1, "las superficies del IGN no suman el total"
+ant_cen = pd.read_csv(ANT_DIR / "antartida_censos.csv", dtype={"censo": int}).set_index("censo")
+_ant_c = pd.DataFrame(json.loads((CRUDO / "indec_api_estimaciones_poblacion_departamento_2022_2035.json").read_text(encoding="utf-8")))
+_ant_c = _ant_c[(_ant_c.departamento_cod == "94028") & (_ant_c.fecha == "2022")].assign(poblacion=lambda d: pd.to_numeric(d.poblacion)).set_index("sexo_nom").poblacion
+# el Tratado: una fila por país y, por año, cuántos eran
+antartida_tratado = pd.read_csv(ANT_DIR / "antartida_tratado.csv", dtype=str, keep_default_na=False)
+_ant_tr_a = antartida_tratado.adhesion.str[:4].astype(int)
+_ant_tr_c = antartida_tratado.consultiva_desde.replace("", np.nan).dropna().str[:4].astype(int)
+_ant_tr_u = antartida_tratado.sort_values("adhesion").iloc[-1]
+antartida_tratado_serie = pd.DataFrame({"anio": range(int(_ant_tr_a.min()), int(_ant_tr_a.max()) + 1)})
+antartida_tratado_serie["partes"] = antartida_tratado_serie.anio.map(lambda a: int((_ant_tr_a <= a).sum()))
+antartida_tratado_serie["consultivas"] = antartida_tratado_serie.anio.map(lambda a: int((_ant_tr_c <= a).sum()))
+# las zonas protegidas y los sitios históricos vigentes, por país que los propuso: una propuesta de varios países cuenta para cada uno
+ant_zon = pd.read_csv(ANT_DIR / "antartida_zonas.csv", dtype={"propuesto_por": str})
+_ant_zv = ant_zon[ant_zon.vigente == "sí"]
+antartida_zonas_paises = (_ant_zv.assign(pais=_ant_zv.propuesto_por.str.split("; ")).explode("pais").groupby(["pais", "tipo"]).size().unstack(fill_value=0)
+                          .rename(columns={"ZAEP": "zonas_protegidas", "ZAEA": "zonas_administradas", "SMH": "sitios_historicos"})
+                          .reset_index().sort_values(["zonas_protegidas", "sitios_historicos"], ascending=False))
+_ant_zarg = antartida_zonas_paises[antartida_zonas_paises.pais == "Argentina"].iloc[0]
+_ant_zc = _ant_zv.groupby("tipo").size()
+# temperatura: la diferencia de cada mes con su promedio de 1991 a 2020 (como la ficha del país, f-clima), promediada por año. Un año necesita diez meses con
+# dato. La fuente tiene huecos sobre todo desde 2020: Orcadas no tiene ningún año completo de 2020 a 2024, y por eso no se promedian directo los meses que hay,
+# que darían más frío o más calor según cuál falte. El promedio de diez años pide ocho
+ANT_EST = {"Orcadas": "orcadas", "Esperanza": "esperanza", "Marambio": "marambio", "San Martín": "san_martin", "Carlini": "carlini", "Belgrano II": "belgrano_ii"}
+_ant_t = pd.read_csv(ANT_DIR / "antartida_temperaturas.csv")
+_ant_t = _ant_t[_ant_t.anio < _ant_t.anio.max()]  # el último año del archivo es el de la descarga, sin terminar
+_ant_nor = _ant_t[_ant_t.anio.between(1991, 2020)].groupby(["estacion", "mes"]).temperatura.mean().rename("normal")
+assert (_ant_nor.groupby("estacion").size() == 12).all(), "una base no tiene promedio de 1991 a 2020 para algún mes"
+_ant_t = _ant_t.join(_ant_nor, on=["estacion", "mes"]).assign(desvio=lambda d: d.temperatura - d.normal)
+_ant_ta = _ant_t.groupby(["estacion", "anio"]).desvio.agg(["mean", "count"]).reset_index()
+_ant_ta = _ant_ta[_ant_ta["count"] >= 10]
+antartida_temperatura = _ant_ta.pivot(index="anio", columns="estacion", values="mean").rename(columns=ANT_EST)[list(ANT_EST.values())]
+antartida_temperatura = antartida_temperatura.reindex(range(int(antartida_temperatura.index.min()), int(antartida_temperatura.index.max()) + 1))
+for _ant_s in ANT_EST.values():
+    antartida_temperatura[f"{_ant_s}_10"] = antartida_temperatura[_ant_s].rolling(10, min_periods=8).mean()
+antartida_temperatura = antartida_temperatura.rename_axis("anio").reset_index()
+def _ant_cambio(nombre, s):
+    s = antartida_temperatura.set_index("anio")[s].dropna()
+    ini, fin = s.iloc[:10], s.iloc[-10:]
+    return {"estacion": nombre, "ini": int(s.index[0]), "fin": int(s.index[-1]), "ini_hasta": int(ini.index[-1]), "fin_desde": int(fin.index[0]),
+            "dif": r1(fin.mean() - ini.mean()), "ult": r1(s.iloc[-1]), "media": r1(_ant_nor[nombre].mean()), "anios": int(len(s))}
+# el hielo marino: lo que se dibuja es la diferencia con el promedio de 1981 a 2010, el que usa el NSIDC
+antartida_hielo = pd.read_csv(ANT_DIR / "antartida_hielo.csv")
+_ant_hb = antartida_hielo[antartida_hielo.anio.between(1981, 2010)].mean()
+antartida_hielo["febrero_dif"] = antartida_hielo.febrero - _ant_hb.febrero
+antartida_hielo["septiembre_dif"] = antartida_hielo.septiembre - _ant_hb.septiembre
+_ant_hu = antartida_hielo.iloc[-1]
+# el turismo: la suma de lo que IAATO publica por tipo de visitante. Hasta 1998-99 no hay dato de quienes no desembarcan
+antartida_turismo = pd.read_csv(ANT_DIR / "antartida_turismo.csv").assign(anio=lambda d: d.temporada.str[:4].astype(int) + 1)
+antartida_turismo["total"] = antartida_turismo[["desembarcan", "solo_crucero", "campo_profundo"]].sum(axis=1).astype(int)
+antartida_turismo = antartida_turismo[["temporada", "anio", "total", "desembarcan", "solo_crucero", "campo_profundo", "publicado", "fuente"]].astype({"solo_crucero": "Int64", "campo_profundo": "Int64", "publicado": "Int64"})
+_ant_tu, _ant_tm = antartida_turismo.iloc[-1], antartida_turismo.loc[antartida_turismo.total.idxmax()]
+_ant_t21 = antartida_turismo[antartida_turismo.temporada == "2020-21"].iloc[0]
+# el gasto: pesos del último año con el deflactor del PBI, como las transferencias y la obra pública (series desde 2000, el IPC del INDEC empieza en 2016)
+_ant_p = pd.read_csv(ANT_DIR / "antartida_presupuesto.csv").pivot(index="anio", columns="grupo", values="devengado_millones").fillna(0)
+_ant_p = _ant_p[_ant_p.index <= TR_ULT]
+assert _ant_p.index.min() == 2000 and _ant_p.index.max() == TR_ULT, f"faltan años en antartida_presupuesto.csv: correr scripts/antartida_presupuesto.py (hay hasta {_ant_p.index.max()}, hace falta {TR_ULT})"
+_ant_pr = _ant_p.mul(defl[TR_ULT] / _ant_p.index.map(defl), axis=0) / 1000  # miles de millones de pesos del último año
+_ant_gr = ["sosten_logistico", "plan_antartico", "fuerzas", "irizar"]
+antartida_presupuesto = _ant_pr[_ant_gr].assign(total=_ant_pr[_ant_gr].sum(axis=1), pct_del_gasto_nacional=_ant_p[_ant_gr].sum(axis=1) / _ant_p.total_nacion * 100).rename_axis("anio").reset_index()
+antartida_presupuesto = antartida_presupuesto[["anio", "total", "sosten_logistico", "plan_antartico", "fuerzas", "irizar", "pct_del_gasto_nacional"]]
+_ant_pu, _ant_pm = antartida_presupuesto.iloc[-1], antartida_presupuesto.loc[antartida_presupuesto.total.idxmax()]
+_ant_p20 = antartida_presupuesto[antartida_presupuesto.anio == 2020].iloc[0]
+_ant_arg_tab = lambda d, **k: d.assign(codigo_indec="00", territorio="Argentina", **k)
+agregar(_ant_arg_tab(antartida_presupuesto, periodo=antartida_presupuesto.anio.astype(str), valor=antartida_presupuesto.total * 1000), "antartida_gasto", f"millones de pesos de {TR_ULT}", "Presupuesto Abierto, Secretaría de Hacienda")
+agregar(_ant_arg_tab(antartida_tratado_serie, periodo=antartida_tratado_serie.anio.astype(str), valor=antartida_tratado_serie.partes), "antartida_tratado_partes", "países", "Secretaría del Tratado Antártico")
+agregar(_ant_arg_tab(antartida_turismo, periodo=antartida_turismo.anio.astype(str), valor=antartida_turismo.total), "antartida_visitantes", "visitantes", "IAATO")
+agregar(_ant_arg_tab(antartida_hielo, periodo=antartida_hielo.anio.astype(str), valor=antartida_hielo.septiembre), "antartida_hielo_septiembre", "millones de km²", "NSIDC, Sea Ice Index")
+agregar(_ant_arg_tab(antartida_temperatura.dropna(subset=["orcadas"]), periodo=lambda d: d.anio.astype(str), valor=lambda d: d.orcadas), "antartida_temperatura_orcadas", "grados Celsius", "British Antarctic Survey, READER")
+ant_res = {
+    "comnap_fecha": ANT_COMNAP_FECHA, "ats_fecha": ANT_ATS_FECHA,
+    "n": int(len(ant_inst)), "paises": int(ant_inst.pais.nunique()), "estaciones": int((ant_inst.tipo == "Estación").sum()),
+    "anual": int((ant_inst.temporada == "Todo el año").sum()), "verano": int((ant_inst.temporada == "Solo en verano").sum()),
+    "peninsula": int(len(_ant_pen)), "peninsula_paises": int(_ant_pen.pais.nunique()), "cerradas": int((ant_inst.estado == "Cerrada por ahora").sum()),
+    "top": antartida_paises.iloc[0].pais, "top_v": int(antartida_paises.iloc[0].instalaciones), "tercero": antartida_paises.iloc[2].pais, "tercero_v": int(antartida_paises.iloc[2].instalaciones),
+    "arg": int(_ant_arg.instalaciones), "arg_anual": int(_ant_arg.todo_el_anio), "arg_verano": int(_ant_arg.solo_en_verano), "arg_puesto": int((antartida_paises.instalaciones > _ant_arg.instalaciones).sum()) + 1,
+    "arg_cap": int(_ant_arg.capacidad), "arg_sin_cap": antartida_bases[antartida_bases.capacidad.isna()].base.tolist(),
+    "anual_top": antartida_paises.sort_values("todo_el_anio").iloc[-1].pais, "anual_top_v": int(antartida_paises.todo_el_anio.max()),
+    "anual_arg_puesto": int((antartida_paises.todo_el_anio > _ant_arg.todo_el_anio).sum()) + 1,
+    "cap_top": antartida_paises.sort_values("capacidad").iloc[-1].pais, "cap_top_v": int(antartida_paises.capacidad.max()), "cap_max_base": ant_inst.loc[ant_inst.capacidad.idxmax()].nombre,
+    "cap_max_v": int(ant_inst.capacidad.max()), "cap_total": int(ant_inst.capacidad.sum()), "sin_cap": int(ant_inst.capacidad.isna().sum()),
+    "cap_arg_puesto": int((antartida_paises.capacidad > _ant_arg.capacidad).sum()) + 1,
+    "bases_ini": int(ant_base.anio.min()), "bases_fin": int(ant_base.anio.max()), "base_cap": antartida_bases.loc[antartida_bases.capacidad.idxmax()].base, "base_cap_v": int(antartida_bases.capacidad.max()),
+    "base_cerradas": antartida_bases[antartida_bases.estado == "Cerrada por ahora"].base.tolist(),
+    "censo": int(_ant_c.sum()), "censo_mujeres": int(_ant_c["Mujer"]), "censo_varones": int(_ant_c["Varon"]), "censo10": int(ant_cen.at[2010, "antartida_argentina"]), "censo10_orcadas": int(ant_cen.at[2010, "islas_atlantico_sur"]),
+    "reclaman": int(len(_ant_sect)), "arg_grados": len(_ant_sect["Argentina"]), "arg_con_uk": len(_ant_sect["Argentina"] & _ant_sect["Reino Unido"]), "arg_con_chile": len(_ant_sect["Argentina"] & _ant_sect["Chile"]),
+    "libres": len(_ant_libre), "sector_n": int((ant_inst.en_sector_argentino == "sí").sum()), "sector_paises": int(ant_inst[ant_inst.en_sector_argentino == "sí"].pais.nunique()),
+    "sector_km2": round(float(ant_sup["Sector Antártico Argentino"])), "total_km2": round(float(ant_sup["Total del país"])), "continental_km2": round(float(ant_sup["Argentina continental"])),
+    "sector_pct": r1(ant_sup["Sector Antártico Argentino"] / ant_sup["Total del país"] * 100),
+    "partes": int(len(antartida_tratado)), "consultivas": int((antartida_tratado.consultiva_desde != "").sum()), "no_consultivas": int((antartida_tratado.consultiva_desde == "").sum()),
+    "originales": int((antartida_tratado.firmante_original == "sí").sum()), "protocolo": int((antartida_tratado.protocolo_ambiental != "").sum()),
+    "tr_ini": int(_ant_tr_a.min()), "tr_fin": int(_ant_tr_a.max()), "tr_ult": _ant_tr_u.pais, "tr_ult_anio": int(_ant_tr_u.adhesion[:4]),
+    "tr_latam": antartida_tratado[antartida_tratado.pais.isin(["Argentina", "Chile"]) & (antartida_tratado.firmante_original == "sí")].pais.tolist(),
+    "zaep": int(_ant_zc["ZAEP"]), "zaea": int(_ant_zc["ZAEA"]), "smh": int(_ant_zc["SMH"]), "arg_zaep": int(_ant_zarg.zonas_protegidas), "arg_zaea": int(_ant_zarg.zonas_administradas), "arg_smh": int(_ant_zarg.sitios_historicos),
+    "zaep_top": antartida_zonas_paises.iloc[0].pais, "zaep_top_v": int(antartida_zonas_paises.iloc[0].zonas_protegidas),
+    "smh_top": antartida_zonas_paises.sort_values("sitios_historicos").iloc[-1].pais, "smh_top_v": int(antartida_zonas_paises.sitios_historicos.max()),
+    "smh_arg_puesto": int((antartida_zonas_paises.sitios_historicos > _ant_zarg.sitios_historicos).sum()) + 1, "zaep_arg_puesto": int((antartida_zonas_paises.zonas_protegidas > _ant_zarg.zonas_protegidas).sum()) + 1,
+    "temp": {s: _ant_cambio(n, s) for n, s in ANT_EST.items()}, "temp_fin": int(antartida_temperatura.anio.max()),
+    "hielo_ini": int(antartida_hielo.anio.min()), "hielo_fin": int(_ant_hu.anio), "hielo_sep": _ant_r2(_ant_hu.septiembre), "hielo_feb": _ant_r2(_ant_hu.febrero), "hielo_sep_base": _ant_r2(_ant_hb.septiembre), "hielo_feb_base": _ant_r2(_ant_hb.febrero),
+    "hielo_sep_min": _ant_r2(antartida_hielo.septiembre.min()), "hielo_sep_min_anio": int(antartida_hielo.loc[antartida_hielo.septiembre.idxmin()].anio),
+    "hielo_feb_min": _ant_r2(antartida_hielo.febrero.min()), "hielo_feb_min_anio": int(antartida_hielo.loc[antartida_hielo.febrero.idxmin()].anio),
+    "tu_ini": antartida_turismo.temporada.iloc[0], "tu_fin": _ant_tu.temporada, "tu": int(_ant_tu.total), "tu_desembarcan": int(_ant_tu.desembarcan), "tu_crucero": int(_ant_tu.solo_crucero), "tu_campo": int(_ant_tu.campo_profundo),
+    "tu_max": int(_ant_tm.total), "tu_max_temp": _ant_tm.temporada, "tu_ini_v": int(antartida_turismo.total.iloc[0]), "tu_pandemia": int(_ant_t21.total),
+    "gasto_anio": int(_ant_pu.anio), "gasto": r1(_ant_pu.total), "gasto_ini": int(antartida_presupuesto.anio.iloc[0]), "gasto_ini_v": r1(antartida_presupuesto.total.iloc[0]), "gasto_sosten": r1(_ant_pu.sosten_logistico),
+    "gasto_plan": r1(_ant_pu.plan_antartico), "gasto_fuerzas": r1(_ant_pu.fuerzas), "gasto_pct": round(float(_ant_pu.pct_del_gasto_nacional), 3), "gasto_max": r1(_ant_pm.total), "gasto_max_anio": int(_ant_pm.anio),
+    "gasto_sosten_pct": r1(_ant_pu.sosten_logistico / _ant_pu.total * 100), "gasto_2020": r1(_ant_p20.total), "irizar_ult": int(antartida_presupuesto[antartida_presupuesto.irizar > 0].anio.max()),
+    "fuerzas_desde": 2021, "sosten_desde": int(antartida_presupuesto[antartida_presupuesto.sosten_logistico > 0].anio.min()),
+    "barreras_km2": round(float(ant_sup["Barreras de hielo del sector"])), "cancilleria_km2": round(float(ant_sup["Sector según la Cancillería"])), "cancilleria_tierra_km2": round(float(ant_sup["Tierra firme del sector según la Cancillería"])),
+    "tu_pub_a": int(antartida_turismo[antartida_turismo.temporada == "2023-24"].publicado.iloc[0]), "tu_pub_b": int(antartida_turismo[antartida_turismo.temporada == "2024-25"].publicado.iloc[0]),
+    # Instituto Fueguino de Turismo y Dirección Provincial de Puertos, balance de la temporada: https://www.dpp.gob.ar/web/puerto-de-ushuaia-fuerte-crecimiento-y-amplias-expectativas-por-la-llegada-de-cruceros-a-partir-de-septiembre/
+    "ush_temp": "2023-24", "ush_n": 173211, "ush_pct": 64.4,
+}
+
+
 # ---------------------------------------------------------------- salida
 pd.concat(largo, ignore_index=True).to_csv(ORDEN / "tabla_larga.csv", index=False, lineterminator="\n")
 
@@ -7767,6 +7920,10 @@ tablas = {
     "vino_mercado_interno": vino,
     "yerba_molino": yerba,
     "glaciares_provincias": glaciares,
+    "antartida_instalaciones": antartida_instalaciones, "antartida_bases": antartida_bases, "antartida_paises": antartida_paises,
+    "antartida_reclamos": antartida_reclamos, "antartida_tratado": antartida_tratado, "antartida_tratado_serie": antartida_tratado_serie,
+    "antartida_zonas_paises": antartida_zonas_paises, "antartida_temperatura": antartida_temperatura, "antartida_hielo": antartida_hielo,
+    "antartida_turismo": antartida_turismo, "antartida_presupuesto": antartida_presupuesto,
     "clima_desvio": clima,
     "ocde_comparacion": ocde_tabla,
     "cruces_provincias": cru.round(3),
@@ -8174,6 +8331,7 @@ resumen = {
 }
 
 resumen["ocde"] = ocde_res
+resumen["antartida"] = ant_res
 resumen["distorsiones"] = {k: {CORTO[c]: x for c, x in v.items()} for k, v in DIST.items()}
 top_bot = lambda t, c: (t.sort_values(c).iloc[-1], t.sort_values(c).iloc[0])
 _ev_t, _ev_b = top_bot(ev, "total")

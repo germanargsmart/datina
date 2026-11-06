@@ -190,6 +190,28 @@ if ((await capitulo("con la dirección vieja #f-apoyo", "#g-votaciones", "f-voto
   problemas.push("politica.html#f-apoyo: no abre la pestaña de las transferencias");
 p.errores.forEach(e => problemas.push(`politica.html, capítulos: ${e}`));
 
+// la Antártida (noviembre de 2026), un capítulo de Naturaleza: abre con su dirección, los dos mapas se dibujan, el país elegido cambia los nombres del mapa
+// y la vista de la Península los acerca. Cada ficha se dibuja recién al entrar en pantalla
+await p.ir(B + "naturaleza.html#g-antartida", 1500);
+const ANT_NOMBRES = `[...document.querySelectorAll('.grafico[data-g="ant-mapa"] text')].map(t => t.textContent)`;
+const antVer = async id => { await p.eval(`document.getElementById("${id}").scrollIntoView()`); await espera(1500); };
+await antVer("f-ant-mapa");
+const antCap = JSON.parse(await p.eval(CAP));
+if (antCap.tab !== "#g-antartida" || !antCap.vis.includes("f-ant-mapa") || antCap.vis.includes("f-protegida")) problemas.push(`naturaleza.html#g-antartida: a la vista ${antCap.tab} con ${antCap.vis.join(", ")}`);
+const antNom = await p.eval(ANT_NOMBRES), antPuntos = await p.eval(`document.querySelectorAll('.grafico[data-g="ant-mapa"] circle').length`);
+if (!antNom.includes("Orcadas") || !antNom.includes("Belgrano II") || antPuntos < 113) problemas.push(`naturaleza.html, mapa de la Antártida: ${antPuntos} puntos y los nombres ${antNom.join(", ")}`);
+await p.eval(`(() => { const s = document.getElementById("ant-pais"); s.value = "Chile"; s.dispatchEvent(new Event("change")); })()`); await espera(500);
+const antChile = await p.eval(ANT_NOMBRES);
+if (antChile.includes("Orcadas") || antChile.includes("Marambio")) problemas.push(`naturaleza.html, mapa de la Antártida con Chile elegido: siguen los nombres argentinos (${antChile.join(", ")})`);
+await p.eval(`(() => { const s = document.getElementById("ant-pais"); s.value = "Argentina"; s.dispatchEvent(new Event("change")); })()`); await espera(300);
+await p.eval(`document.querySelector('.conmutador[data-g="ant-mapa"] button[data-m="peninsula"]').click()`); await espera(500);
+const antPen = await p.eval(ANT_NOMBRES);
+if (!antPen.includes("Primavera") || !antPen.includes("Cámara") || antPen.includes("Belgrano II")) problemas.push(`naturaleza.html, la Península: ${antPen.join(", ")}`);
+await antVer("f-ant-reclamos");
+const antRec = await p.eval(`[...document.querySelectorAll('.grafico[data-g="ant-reclamos"] text')].map(t => t.textContent)`);
+for (const n of ["Argentina", "Chile", "Reino Unido", "Noruega", "Australia", "Francia", "Nueva Zelanda", "Sin reclamar"]) if (!antRec.includes(n)) problemas.push(`naturaleza.html, mapa de los reclamos: falta ${n}`);
+p.errores.forEach(e => problemas.push(`naturaleza.html, la Antártida: ${e}`));
+
 // la dirección con la vista de cada ficha (plan de mejora, F1, 28 de octubre de 2026): "Copiar enlace" suma la vista elegida
 // (?vista=desempleo:serie) y abrir esa dirección la vuelve a elegir
 await p.ir(B + "trabajo.html", 1000);
