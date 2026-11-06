@@ -371,14 +371,21 @@ const tecla = async k => {
   await espera(300);
 };
 const enFoco = () => q.eval("(document.activeElement.id || '') + '|' + document.activeElement.textContent.trim().slice(0, 30)");
-// La portada (Fase 2, paso 2): los cuatro datos destacados con su cifra y su texto, y el buscador a la vista, que encuentra una provincia
+// La portada (Fase 2, paso 2): los cuatro datos destacados con su cifra y su texto, y el buscador, que encuentra una provincia. Desde noviembre
+// de 2026 arranca compacto, se abre con el foco y Escape lo cierra
 await q.ir(B + "index.html", 1000);
 // y desde el 28 de octubre de 2026 (D7), debajo de cada cifra del país, cómo cambia entre las provincias
 const destacados = await q.eval(`[...document.querySelectorAll(".destacado")].filter(a => a.querySelector(".c-num").textContent.trim() && a.querySelector(".c-txt").textContent.trim() && a.querySelector(".c-rango")?.textContent.trim()).length`);
 if (destacados !== 4) problemas.push(`index.html: ${destacados} de 4 datos destacados con su cifra y su rango por provincia`);
 // la bajada de cada artículo va en su tarjeta solo en la lista de Artículos, no en la portada (paso 4)
 if (await q.eval(`document.querySelectorAll("#art-grid-home .art-dek").length`)) problemas.push("index.html: las tarjetas de artículos llevan bajada (va solo en Artículos)");
+// sin ventana, Chrome no avisa que el campo recibió el foco si la pestaña no está al frente: se lo simula mientras se prueba el buscador
+await q.send("Emulation.setFocusEmulationEnabled", {enabled: true});
+const anchoBusca = () => q.eval(`document.querySelector(".busca-portada").getBoundingClientRect().width`);
+if ((await anchoBusca()) > 160) problemas.push(`index.html: el buscador de la portada no arranca compacto (${await anchoBusca()} píxeles)`);
 await q.eval(`document.getElementById("busca-portada").focus()`);
+await espera(350);
+if ((await anchoBusca()) < 280) problemas.push(`index.html: el buscador de la portada no se abre con el foco (${await anchoBusca()} píxeles)`);
 await q.send("Input.insertText", {text: "salta"});
 await espera(300);
 if (!(await q.eval(`document.querySelectorAll('#busca-portada-res a[href="provincia-salta.html"]').length`)))
@@ -393,6 +400,10 @@ const tapados = await q.eval(`(() => { const res = document.getElementById("busc
     if (y <= caja.top || y >= Math.min(caja.bottom, innerHeight)) return false;
     const el = document.elementFromPoint(r.left + r.width / 2, y); return !el || !a.contains(el); }).length; })()`);
 if (tapados) problemas.push(`index.html: ${tapados} resultados del buscador de la portada se ven pero no se pueden tocar`);
+await tecla("Escape");
+if ((await anchoBusca()) > 160 || await q.eval(`document.getElementById("busca-portada").value !== "" || !document.getElementById("busca-portada-res").hidden`))
+  problemas.push("index.html: Escape no cierra el buscador de la portada");
+await q.send("Emulation.setFocusEmulationEnabled", {enabled: false});
 q.errores.forEach(e => problemas.push(`portada: ${e}`));
 await q.ir(B + "trabajo.html", 1000);
 await q.eval(`document.getElementById("gb-temas").focus()`);
@@ -484,7 +495,11 @@ for (const W of [360, 768]) {
   const lupaD = await q.eval(DESBORDA("busca"));
   if (lupaD > 0) problemas.push(`trabajo.html en ${W} píxeles: el texto de ayuda de la lupa se corta (${lupaD} píxeles de más)`);
   await q.ir(B + "index.html", 1000);
+  await q.send("Emulation.setFocusEmulationEnabled", {enabled: true});
+  await q.eval(`document.getElementById("busca-portada").focus()`);
+  await espera(350);
   const portadaD = await q.eval(DESBORDA("busca-portada"));
+  await q.send("Emulation.setFocusEmulationEnabled", {enabled: false});
   if (portadaD > 0) problemas.push(`index.html en ${W} píxeles: el texto de ayuda del buscador se corta (${portadaD} píxeles de más)`);
 }
 await q.ir(B + "trabajo.html", 1000);

@@ -10715,18 +10715,22 @@ caja.addEventListener("focusout", ev => { const a = ev.relatedTarget; if (!caja.
 const entP = document.getElementById("busca-portada"), resP = document.getElementById("busca-portada-res");
 const estP = document.getElementById("busca-portada-estado");
 if (entP && resP && estP) {
-const portada = combo(entP, resP, estP, "bp");
+const portada = combo(entP, resP, estP, "bp"), cajaP = entP.closest(".busca-portada");
 const cerrarP = () => { resP.hidden = true; resP.innerHTML = ""; portada.cerrado(); };
+const abrirP = () => cajaP.classList.add("abierta"), plegarP = () => { if (!entP.value) cajaP.classList.remove("abierta"); };
 const ubicarP = () => {
 const r = entP.getBoundingClientRect();
 Object.assign(resP.style, {left: r.left + "px", top: r.bottom + 6 + "px", width: r.width + "px", maxHeight: Math.max(160, innerHeight - r.bottom - 18) + "px"});
 };
 addEventListener("scroll", () => { if (!resP.hidden) ubicarP(); }, {passive: true});
 addEventListener("resize", () => { if (!resP.hidden) ubicarP(); });
-entP.addEventListener("input", () => { if (entP.value.trim()) { resP.hidden = false; portada.mostrar(); ubicarP(); } else cerrarP(); });
-entP.addEventListener("keydown", ev => { if (ev.key === "Escape" && entP.value) { entP.value = ""; cerrarP(); } });
-document.addEventListener("pointerdown", ev => { if (!resP.hidden && !resP.contains(ev.target) && ev.target !== entP) cerrarP(); });
-entP.addEventListener("focusout", ev => { const a = ev.relatedTarget; if (!resP.hidden && a && !resP.contains(a)) cerrarP(); });
+entP.addEventListener("focus", abrirP);
+entP.addEventListener("pointerdown", abrirP);
+cajaP.addEventListener("transitionend", () => { if (!resP.hidden) ubicarP(); });
+entP.addEventListener("input", () => { abrirP(); if (entP.value.trim()) { resP.hidden = false; portada.mostrar(); ubicarP(); } else cerrarP(); });
+entP.addEventListener("keydown", ev => { if (ev.key === "Escape") { entP.value = ""; cerrarP(); plegarP(); } });
+document.addEventListener("pointerdown", ev => { if (resP.contains(ev.target) || ev.target === entP) return; if (!resP.hidden) cerrarP(); plegarP(); });
+entP.addEventListener("focusout", ev => { const a = ev.relatedTarget; if (a && resP.contains(a)) return; if (!resP.hidden && a) cerrarP(); plegarP(); });
 }
 })();
 const vistas = new IntersectionObserver(es => {

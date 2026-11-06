@@ -12078,13 +12078,15 @@ if (PAGINA !== "inicio") {
   // salir con Tab la cierra (paso 6). Solo cuando el foco va a otro lugar conocido: en el celular tocar no siempre mueve el foco, y un
   // relatedTarget vacío no debe cerrarla antes de que llegue el toque
   caja.addEventListener("focusout", ev => { const a = ev.relatedTarget; if (!caja.hidden && a && !caja.contains(a) && a !== btn) cerrar(false); });
-  // el buscador a la vista de la portada (paso 2): la lista aparece debajo del campo mientras se escribe y Escape borra lo escrito. Sin
+  // el buscador de la portada: compacto hasta que se toca o se llega con el teclado (pedido del autor, noviembre de 2026). La lista aparece
+  // debajo del campo mientras se escribe. Escape borra lo escrito y lo cierra, con el foco en el campo: escribir lo vuelve a abrir. Sin
   // JavaScript, el formulario lleva al catálogo de datos
   const entP = document.getElementById("busca-portada"), resP = document.getElementById("busca-portada-res");
   const estP = document.getElementById("busca-portada-estado");
   if (entP && resP && estP) {
-    const portada = combo(entP, resP, estP, "bp");
+    const portada = combo(entP, resP, estP, "bp"), cajaP = entP.closest(".busca-portada");
     const cerrarP = () => { resP.hidden = true; resP.innerHTML = ""; portada.cerrado(); };
+    const abrirP = () => cajaP.classList.add("abierta"), plegarP = () => { if (!entP.value) cajaP.classList.remove("abierta"); };
     // la lista va fija debajo del campo (la portada recorta lo que sobresale): se ubica al abrirla y al moverse la página
     const ubicarP = () => {
       const r = entP.getBoundingClientRect();
@@ -12092,11 +12094,15 @@ if (PAGINA !== "inicio") {
     };
     addEventListener("scroll", () => { if (!resP.hidden) ubicarP(); }, {passive: true});
     addEventListener("resize", () => { if (!resP.hidden) ubicarP(); });
-    entP.addEventListener("input", () => { if (entP.value.trim()) { resP.hidden = false; portada.mostrar(); ubicarP(); } else cerrarP(); });
-    entP.addEventListener("keydown", ev => { if (ev.key === "Escape" && entP.value) { entP.value = ""; cerrarP(); } });
-    document.addEventListener("pointerdown", ev => { if (!resP.hidden && !resP.contains(ev.target) && ev.target !== entP) cerrarP(); });
-    // salir del campo con Tab cierra la lista, que va fija y quedaba flotando (paso 6)
-    entP.addEventListener("focusout", ev => { const a = ev.relatedTarget; if (!resP.hidden && a && !resP.contains(a)) cerrarP(); });
+    entP.addEventListener("focus", abrirP);
+    entP.addEventListener("pointerdown", abrirP);
+    // la lista se ubica de nuevo cuando el campo termina de abrirse
+    cajaP.addEventListener("transitionend", () => { if (!resP.hidden) ubicarP(); });
+    entP.addEventListener("input", () => { abrirP(); if (entP.value.trim()) { resP.hidden = false; portada.mostrar(); ubicarP(); } else cerrarP(); });
+    entP.addEventListener("keydown", ev => { if (ev.key === "Escape") { entP.value = ""; cerrarP(); plegarP(); } });
+    document.addEventListener("pointerdown", ev => { if (resP.contains(ev.target) || ev.target === entP) return; if (!resP.hidden) cerrarP(); plegarP(); });
+    // salir del campo con Tab cierra la lista, que va fija y quedaba flotando (paso 6), y sin nada escrito pliega el campo
+    entP.addEventListener("focusout", ev => { const a = ev.relatedTarget; if (a && resP.contains(a)) return; if (!resP.hidden && a) cerrarP(); plegarP(); });
   }
 })();
 

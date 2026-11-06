@@ -431,18 +431,31 @@ body[data-pagina="inicio"] .barra:not(.clara) .marca{visibility:hidden}
 .estado{margin:var(--e-4) 0 0;font:400 var(--t-1)/1.5 var(--mono);letter-spacing:.04em;color:#fff}
 .estado span{white-space:nowrap}
 .estado span+span{margin-left:var(--e-1);padding-left:var(--e-3);border-left:1px solid rgba(255,255,255,.55)}
-/* el buscador a la vista de la portada (Fase 2, paso 2): un campo blanco sobre el azul, con la lista de resultados debajo. Sin
-   JavaScript el buscador no se ve */
-.busca-portada{position:relative;max-width:30em;margin:0 0 var(--e-6)}
+/* "Elegí tu provincia" y el buscador en una fila. El buscador (pedido del autor, noviembre de 2026; antes, un campo blanco a lo ancho, que
+   cortaba la vista del mapa) es compacto hasta que se hace clic o se llega con el teclado, y entonces se abre con el texto de ayuda. Donde
+   no entra al lado del botón, se abre encima de la fila: nada se mueve. Sin JavaScript el buscador no se ve */
+.portada-acciones{position:relative;display:flex;align-items:center;gap:var(--e-3);margin:0 0 var(--e-4)}
+.busca-portada{position:relative;flex:none;width:124px;height:44px;transition:width var(--dur-3) var(--ease-out)}
+.busca-portada.abierta{width:310px}
+@media (max-width:1199px){.busca-portada.abierta{position:absolute;inset:0;z-index:1;width:auto}}
 /* entra sin moverse, solo con opacidad: un elemento con una animación de transform es la referencia de lo fijo que lleva adentro, y la
    lista de resultados quedaba corrida y recortada por la portada */
-.portada-texto>.busca-portada{z-index:2;animation-name:aparece-quieto}
+.portada-texto>.portada-acciones{z-index:2;animation-name:aparece-quieto}
 @keyframes aparece-quieto{from{opacity:0}to{opacity:1}}
 html:not(.js) .busca-portada{display:none}
-.busca-portada input{display:block;width:100%;height:48px;padding:0 var(--e-4);border:0;border-radius:var(--r-control);background:#fff;color:var(--ink);
-  font-family:var(--f);font-size:var(--t-4);box-shadow:var(--sombra-panel)}
-.busca-portada input::placeholder{color:var(--muted)}
+.busca-portada input{display:block;width:100%;height:100%;padding:0 var(--e-3) 0 calc(var(--e-3) + 19px + var(--e-2));border:1px solid var(--en-azul-borde);border-radius:var(--r-control);
+  background:transparent;color:transparent;font-family:var(--f);font-size:var(--t-4);cursor:pointer;transition:background-color var(--dur-1) var(--ease-out)}
+.busca-portada input::placeholder{color:transparent}
+.busca-portada.abierta input{border-color:#fff;background:#fff;color:var(--ink);cursor:text}
+.busca-portada.abierta input::placeholder{color:var(--muted)}
 .busca-portada input:focus-visible{outline:2px solid var(--sol);outline-offset:2px}
+@media (hover:hover) and (pointer:fine){.busca-portada:not(.abierta) input:hover{background:var(--en-azul-velo)}}
+/* la lupa y "Buscar" van encima del campo y no reciben el mouse: tocarlos es tocar el campo */
+.busca-ico{position:absolute;left:var(--e-3);top:50%;width:19px;height:19px;translate:0 -50%;color:#fff;pointer-events:none}
+.busca-portada.abierta .busca-ico{color:var(--muted)}
+.busca-rotulo{position:absolute;left:calc(var(--e-3) + 19px + var(--e-2));top:50%;translate:0 -50%;font:500 12px/1.2 var(--mono);letter-spacing:.07em;text-transform:uppercase;color:#fff;pointer-events:none}
+.busca-portada.abierta .busca-rotulo{visibility:hidden}
+@media (prefers-reduced-motion:reduce){.busca-portada{transition:none}}
 /* la lista va fija debajo del campo (datina.js la ubica): el bloque azul recorta lo que sobresale, y una lista larga quedaba cortada.
    Por debajo de la barra, que la tapa si se baja por la página con la lista abierta */
 .busca-portada .busca-res{position:fixed;z-index:9;margin:0;padding:var(--e-2) var(--e-3);background:#fff;

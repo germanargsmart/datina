@@ -36,7 +36,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
      mismas versiones que daban cdnjs y jsDelivr): si una de esas CDN fallaba o estaba bloqueada, las páginas quedaban vacías -->
 <script src="lib/d3-7.8.5.min.js?v=a029baa963"></script>
 <script src="lib/topojson-client-3.1.0.min.js?v=bc057598e8"></script>
-<link rel="stylesheet" href="datina.css?v=c60f7661f9">
+<link rel="stylesheet" href="datina.css?v=655851ba4b">
 </head>
 <body data-pagina="inicio">
 <!-- "Saltar al contenido" (Fase 2, paso 6, respuesta del autor del 23 de octubre de 2026): la primera parada del teclado, que solo se ve
@@ -91,15 +91,20 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <h1>Dat<span class="i-gorro">i<svg class="gorro" viewBox="0 0 40 40" aria-hidden="true"><path class="gorro-cuerpo" d="M8.5,33 C7.6,23.5 9.6,14.6 16,8.6 C21.2,3.8 29.4,2.8 34.6,6.8 C38.2,9.6 38,14.8 34.6,16.6 C32.2,17.9 29.6,16.8 28.6,14.6 C27.9,13.1 26.4,12.3 24.8,12.8 C29.4,17.4 31.6,24.4 31.6,33 Z"/><path class="gorro-brillo" d="M13.2,27 C13,20.6 14.8,15.2 18.6,11.4"/><path class="gorro-banda" d="M6.4,31.2 Q20,29.4 33.6,31.2 L33.6,36.6 Q20,38.4 6.4,36.6 Z"/></svg></span>na</h1>
       <p class="lema">Las 24 Argentinas en números</p>
       <p class="bajada">Datos públicos de la Argentina y de sus 24 jurisdicciones, explicados para que cualquiera pueda entenderlos, compararlos y verificarlos.</p>
-      <!-- el buscador a la vista (Fase 2, paso 2, 23 de octubre de 2026): el mismo motor y el mismo índice que la lupa (datina.js). Sin
-           JavaScript no se ve, y si se envía igual lleva al catálogo de datos con lo escrito -->
-      <form class="busca-portada" role="search" action="catalogo.html">
-        <label class="solo-lector" for="busca-portada">Buscar en Datina</label>
-        <input type="search" id="busca-portada" name="q" placeholder="Tema, provincia o pregunta" autocomplete="off" spellcheck="false">
-        <div class="busca-res" id="busca-portada-res" hidden></div>
-        <p class="solo-lector" id="busca-portada-estado" role="status"></p>
-      </form>
-      <nav class="atajos" aria-label="Entradas principales"><a class="boton principal" href="provincia.html">Elegí tu provincia</a></nav>
+      <div class="portada-acciones">
+        <nav class="atajos" aria-label="Entradas principales"><a class="boton principal" href="provincia.html">Elegí tu provincia</a></nav>
+        <!-- el buscador de la portada: compacto, se despliega al hacer clic o al llegar con el teclado, y Escape lo cierra (pedido del autor,
+             noviembre de 2026. Antes, un campo blanco a la vista, de la Fase 2). El mismo motor y el mismo índice que la lupa (datina.js).
+             Sin JavaScript no se ve, y si se envía igual lleva al catálogo de datos con lo escrito -->
+        <form class="busca-portada" role="search" action="catalogo.html">
+          <label class="solo-lector" for="busca-portada">Buscar en Datina</label>
+          <input type="search" id="busca-portada" name="q" placeholder="Tema, provincia o pregunta" autocomplete="off" spellcheck="false">
+          <svg class="ico busca-ico" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true" focusable="false"><path d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"/></svg>
+          <span class="busca-rotulo" aria-hidden="true">Buscar</span>
+          <div class="busca-res" id="busca-portada-res" hidden></div>
+          <p class="solo-lector" id="busca-portada-estado" role="status"></p>
+        </form>
+      </div>
       <p class="estado" id="estado"><span>168 fichas</span> <span>24 jurisdicciones</span> <span>24 artículos</span></p>
     </div>
     <div class="portada-mapa" id="portada-mapa">
@@ -273,6 +278,6 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 
 <!-- los datos van en un archivo aparte que el navegador guarda una sola vez para todas las páginas -->
 <script src="datos/fichas.js?v=eac1d61293"></script>
-<script src="datina.js?v=81048c6464"></script>
+<script src="datina.js?v=bde50f78c3"></script>
 </body>
 </html>
