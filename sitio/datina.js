@@ -7906,8 +7906,10 @@ let t;
 const abierto = () => btn.getAttribute("aria-expanded") === "true";
 const primero = () => [...panel.querySelectorAll("a, summary")].find(a => a.offsetParent);
 const ubicar = () => {
-const b = btn.getBoundingClientRect(), ancho = panel.offsetWidth || 0;
-panel.style.setProperty("--menu-izq", Math.round(Math.max(12, Math.min(b.left - 12, innerWidth - ancho - 12))) + "px");
+const b = btn.getBoundingClientRect(), caja = btn.closest(".envoltura"), c = caja.getBoundingClientRect(), m = parseFloat(getComputedStyle(caja).paddingLeft);
+const izq = c.left + m, der = c.right - m;
+if (panel.classList.contains("panel-temas")) { panel.style.width = `${der - izq}px`; panel.style.setProperty("--menu-izq", Math.round(izq) + "px"); return; }
+panel.style.setProperty("--menu-izq", Math.round(Math.max(12, Math.min(b.left - 12, der - (panel.offsetWidth || 0)))) + "px");
 };
 const abrir = () => {
 MENUS.forEach(m => m !== yo && m.abierto() && m.cerrar(false));

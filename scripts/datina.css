@@ -135,8 +135,9 @@ select option{background:var(--bg);color:var(--ink)}
 h1,h2,h3,h4,.art-txt b,.sec-tarjeta b,.tema-intro .pregunta{text-wrap:balance}
 p,li,dd,dt,small,.sec-preg,.c-txt,.dp-det{text-wrap:pretty}
 .envoltura{max-width:var(--col);margin:0 auto;padding:0 var(--margen)}
-/* bloques anchos de la portada, más allá de la columna de texto */
-.ancho{width:min(var(--ancho-bloques),calc(100vw - 2 * var(--margen)));margin-left:calc(50% - min(var(--ancho-bloques) / 2,50vw - var(--margen)))}
+/* bloques de la portada: el ancho de la columna, con los mismos bordes que la barra. Hasta noviembre de 2026 se calculaba con 100vw, que cuenta
+   la barra de desplazamiento: por debajo de 1180 píxeles, en Windows, estos bloques quedaban 8 píxeles a la izquierda de la barra */
+.ancho{width:100%}
 .ico{display:block;width:1em;height:1em;flex:none}
 @media (max-width:760px){body::after{border-width:0}}
 
@@ -207,8 +208,9 @@ p,li,dd,dt,small,.sec-preg,.c-txt,.dp-det{text-wrap:pretty}
 @media (max-width:760px){.tarjeta{padding:var(--e-4)}}
 
 /* ---------- barra superior: azul sobre la portada y clara al bajar ----------
-   A la izquierda, la marca y los temas principales, que terminan en "Más" (etapa 32, como usafacts.org). A la derecha, la provincia
-   elegida y la lupa. Hasta la etapa 31, "Secciones" iba a la izquierda de la marca y los temas, al centro. */
+   A la izquierda, la marca, sobre el borde del contenido. A la derecha, juntos, los menús, la provincia elegida y la lupa, que termina en
+   el otro borde (pedido del autor, noviembre de 2026). Hasta entonces los menús iban pegados a la marca: en la portada, donde la marca
+   está oculta arriba de todo pero guarda su lugar, quedaba un hueco antes de "Temas". */
 .barra{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;background:var(--azul);view-transition-name:barra;
   transition:background-color var(--dur-3) var(--ease-out),box-shadow var(--dur-3) var(--ease-out),transform var(--dur-3) var(--ease-out)}
 .barra.clara{background:rgba(246,248,251,.94);box-shadow:0 1px 0 rgba(44,116,181,.25);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
@@ -227,7 +229,7 @@ p,li,dd,dt,small,.sec-preg,.c-txt,.dp-det{text-wrap:pretty}
 .barra.clara .marca{color:var(--azul)}
 body[data-pagina="inicio"] .barra:not(.clara) .marca{visibility:hidden}
 /* navegación: el mismo estilo en la barra, la fila de secciones del celular y el pie */
-.barra .temas{grid-column:2;justify-self:start;display:flex;align-items:center;gap:var(--e-6);font-size:var(--t-2);font-weight:600;letter-spacing:.07em;text-transform:uppercase;
+.barra .temas{grid-column:2;justify-self:end;display:flex;align-items:center;gap:var(--e-6);font-size:var(--t-2);font-weight:600;letter-spacing:.07em;text-transform:uppercase;
   font-variation-settings:"wdth" 60,"opsz" 14;color:var(--en-azul-texto);font-family:var(--f-c60)}
 .barra .temas a{padding:var(--e-2) 0;text-decoration:none;white-space:nowrap;transition:color var(--dur-1) var(--ease-out)}
 .barra .temas a[aria-current="true"]{color:#fff;box-shadow:inset 0 -2px 0 var(--sol)}
@@ -327,8 +329,9 @@ body[data-pagina="inicio"] .barra:not(.clara) .marca{visibility:hidden}
 /* el menú de un grupo: una sola columna, con las secciones de una categoría (Migraciones y Turismo debajo de Población) un poco adentro */
 .grupo-panel{grid-template-columns:1fr;width:min(290px,calc(100vw - 24px))}
 .menu-panel .sub a{padding-left:calc(var(--e-3) + var(--e-4))}
-/* Temas: los cuatro grupos en columnas, en el orden de la portada, sin línea entre columnas */
-.panel-temas{grid-template-columns:repeat(4,minmax(0,1fr));gap:0 var(--e-4);width:min(980px,calc(100vw - 24px))}
+/* Temas: los cuatro grupos en columnas, en el orden de la portada, sin línea entre columnas. Ocupa el ancho del contenido, con sus bordes
+   sobre los de la página (el ancho exacto lo pone ubicar(), en datina.js, que descuenta la barra de desplazamiento) */
+.panel-temas{grid-template-columns:repeat(4,minmax(0,1fr));gap:0 var(--e-4);width:min(var(--ancho-bloques),calc(100vw - 24px))}
 .panel-temas .menu-grupo + .menu-grupo{margin-top:0;padding-top:0;border-top:0}
 /* Provincias: las 24 jurisdicciones en dos columnas, cada una con su bandera */
 .panel-provincias{width:min(480px,calc(100vw - 24px))}

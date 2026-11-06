@@ -8943,10 +8943,12 @@ const menuBarra = (btn, panel) => {
   const abierto = () => btn.getAttribute("aria-expanded") === "true";
   // en "Menú" las partes empiezan plegadas: lo primero que se ve es el nombre de una parte (summary)
   const primero = () => [...panel.querySelectorAll("a, summary")].find(a => a.offsetParent);
-  // alineada con el botón, sin salirse de la pantalla a la derecha
+  // alineada con el botón, sin pasarse del borde derecho del contenido. Temas ocupa todo el ancho del contenido, con sus bordes sobre los de la página
   const ubicar = () => {
-    const b = btn.getBoundingClientRect(), ancho = panel.offsetWidth || 0;
-    panel.style.setProperty("--menu-izq", Math.round(Math.max(12, Math.min(b.left - 12, innerWidth - ancho - 12))) + "px");
+    const b = btn.getBoundingClientRect(), caja = btn.closest(".envoltura"), c = caja.getBoundingClientRect(), m = parseFloat(getComputedStyle(caja).paddingLeft);
+    const izq = c.left + m, der = c.right - m;
+    if (panel.classList.contains("panel-temas")) { panel.style.width = `${der - izq}px`; panel.style.setProperty("--menu-izq", Math.round(izq) + "px"); return; }
+    panel.style.setProperty("--menu-izq", Math.round(Math.max(12, Math.min(b.left - 12, der - (panel.offsetWidth || 0)))) + "px");
   };
   // los botones de la barra están fijos arriba: sin preventScroll, Chrome corre la página para "mostrarlos" al darles el foco
   const abrir = () => {
