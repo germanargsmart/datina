@@ -7747,7 +7747,7 @@ _ant_libre = set(range(360)) - set().union(*_ant_sect.values())
 assert sorted(_ant_libre) == sorted(_ant_grados(-150, -90)), "el sector sin reclamar no es el de los meridianos 90 a 150 Oeste"
 antartida_reclamos = ant_rec.assign(tramo=[f"{_ant_lon(d)} a {_ant_lon(h)}" for d, h in zip(ant_rec.desde, ant_rec.hasta)], grados=(ant_rec.hasta - ant_rec.desde) % 360)
 antartida_reclamos = pd.concat([antartida_reclamos, pd.DataFrame([{"pais": "Sin reclamar", "desde": -150, "hasta": -90, "tramo": f"{_ant_lon(-150)} a {_ant_lon(-90)}", "grados": 60, "norma": "Ningún país reclama este sector"}])])
-antartida_reclamos = antartida_reclamos[["pais", "tramo", "grados", "anio", "norma", "desde", "hasta", "fuente"]].astype({"anio": "Int64"})
+antartida_reclamos = antartida_reclamos[["pais", "tramo", "grados", "anio_norma", "norma", "desde", "hasta", "fuente"]].astype({"anio_norma": "Int64"})
 ant_sup = pd.read_csv(ANT_DIR / "antartida_superficies.csv").set_index("concepto").km2
 assert abs(ant_sup["Argentina continental"] + ant_sup["Sector Antártico Argentino"] + ant_sup["Islas del Atlántico Sur"] - ant_sup["Total del país"]) < 1, "las superficies del IGN no suman el total"
 ant_cen = pd.read_csv(ANT_DIR / "antartida_censos.csv", dtype={"censo": int}).set_index("censo")

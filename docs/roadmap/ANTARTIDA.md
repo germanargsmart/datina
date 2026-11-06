@@ -7,7 +7,7 @@ Pedido del autor del 5 de noviembre de 2026: "datos de la antártida, antártida
 - **Dónde va:** un capítulo de Naturaleza y ambiente (`#g-antartida`), no una página propia. Como un capítulo necesita otro al lado para que aparezca la fila, las fichas que ya estaban quedaron en "Ambiente y recursos" (`#g-ambiente`), sin cambiar de orden.
 - **Reclamos:** los siete sectores, con el argentino resaltado. El texto describe cada norma, sin tomar posición, como la historia de Tierra del Fuego.
 - **Datos fijos:** no entran en la descarga del día 5. Se actualizan a mano, volviendo a correr los programas. Por eso las fichas dicen "Se actualiza a mano" (`a_mano` en `FRASE_FRECUENCIA` de 03) y no llevan aviso de atraso.
-- **PR:** esperar a que se una el #104 (un solo PR por vez).
+- **PR:** esperó a que se uniera el #104 (un solo PR por vez), y se abrió el 6 de noviembre de 2026.
 
 ## Qué hay
 

@@ -7,7 +7,7 @@
  "fuente": "Ley 26.552, normas de cada país, Tratado Antártico, artículo IV, e Instituto Geográfico Nacional. Mapa: Natural Earth.",
  "actualizacion": "Se actualiza a mano, cuando la fuente publica datos nuevos.",
  "cobertura": "Sin desglose territorial",
- "periodo": "1908 a 1957",
+ "periodo": "",
  "filas": 9,
  "columnas": [
   {
@@ -26,7 +26,7 @@
    "valores": "6 a 91"
   },
   {
-   "nombre": "anio",
+   "nombre": "anio_norma",
    "tipo": "Año",
    "valores": "1908 a 1957 (1 celda vacía)"
   },
