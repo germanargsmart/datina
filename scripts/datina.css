@@ -639,12 +639,14 @@ html:not(.js) .busca-portada{display:none}
 /* Los temas de la portada (etapa 36): cuatro grupos con sus secciones una debajo de otra y una línea fina entre ellas. Cuatro columnas,
    dos en pantallas medianas y una en el celular. Desde el 10 de octubre de 2026, sin panel gris (el grupo más corto dejaba un panel medio
    vacío): cada grupo es una columna con su nombre sobre una línea, y Curiosidades va debajo de la columna más corta */
-#secciones-grid{grid-template-columns:repeat(4,minmax(0,1fr));grid-auto-rows:auto;align-items:start;gap:var(--e-7) var(--e-7)}
+#secciones-grid{grid-template-columns:repeat(4,minmax(0,1fr));grid-auto-rows:auto;align-items:start;gap:var(--e-6) var(--e-7)}
 @media (max-width:1079px){#secciones-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:640px){#secciones-grid{grid-template-columns:1fr;gap:var(--e-6)}.tg-col{gap:var(--e-6)}}
 .tg-col{display:flex;flex-direction:column;gap:var(--e-7)}
 .tg{padding-top:var(--e-3);border-top:2px solid var(--azul)}
-.tg-tit{margin:0 0 var(--e-2);font:500 var(--t-1)/1.4 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--ink)}
+/* Jerarquía (pedido del autor, noviembre de 2026): primero se leen los cuatro grupos y después sus temas, más chicos, sin negrita y en gris. Hasta
+   entonces era al revés: el grupo en letra mono de 11 píxeles y el tema en condensada de 24, en celeste. El bloque también se achicó */
+.tg-tit{margin:0 0 var(--e-1);font-size:var(--t-5);line-height:1.2;font-weight:600;color:var(--azul)}
 .tg-lista{margin:0;padding:0;list-style:none}
 /* el tema entero es la zona del enlace, con sus subtemas adentro (pedido del autor, noviembre de 2026: el fondo se cortaba donde había subtemas). Un
    enlace no puede ir dentro de otro: el de la página se estira con ::after hasta cubrir el tema y los subtemas quedan arriba, cada uno con el suyo.
@@ -652,15 +654,15 @@ html:not(.js) .busca-portada{display:none}
 .tg-item{position:relative;isolation:isolate}
 .tg-item::before{content:"";position:absolute;inset:0 calc(-1 * var(--e-2));z-index:-1;border-radius:var(--r-control);transition:background-color var(--dur-1) var(--ease-out)}
 .tg-item+.tg-item{border-top:1px solid var(--borde)}
-.tg-link{display:grid;grid-template-columns:44px minmax(0,1fr);gap:var(--e-3);align-items:center;padding:var(--e-3) 0;color:inherit;text-decoration:none}
+.tg-link{display:grid;grid-template-columns:32px minmax(0,1fr);gap:var(--e-3);align-items:center;padding:var(--e-2) 0;color:inherit;text-decoration:none}
 .tg-link::after{content:"";position:absolute;inset:0 calc(-1 * var(--e-2));border-radius:var(--r-control)}
 .tg-link:focus-visible{outline:none}
 .tg-link:focus-visible::after{outline:2px solid var(--celeste-fuerte);outline-offset:-2px}
-.tg-ico{width:44px;height:44px;color:var(--azul);--trazo:1.2px}
+.tg-ico{width:32px;height:32px;color:var(--azul);--trazo:1.2px}
 .tg-txt{display:flex;flex-direction:column;gap:2px}
-.tg-txt b{font-family:var(--f-c45);font-size:var(--t-6);line-height:1.05;font-weight:500;color:var(--azul);font-variation-settings:"wdth" 45,"opsz" 144}
+.tg-txt b{font-size:var(--t-3);line-height:1.25;font-weight:400;color:var(--muted)}
 .tg-preg{font-size:var(--t-2);line-height:var(--i-chico);color:var(--muted);text-wrap:pretty}
-.tg-subs{display:flex;flex-wrap:wrap;gap:2px var(--e-4);margin:calc(-1 * var(--e-2)) 0 var(--e-3) calc(44px + var(--e-3));font-size:var(--t-2)}
+.tg-subs{display:flex;flex-wrap:wrap;gap:2px var(--e-3);margin:calc(-1 * var(--e-1)) 0 var(--e-2) calc(32px + var(--e-3));font-size:var(--t-2)}
 .tg-subs a{position:relative;color:var(--azul);text-decoration:underline;text-decoration-color:var(--celeste);text-underline-offset:3px}
 @media (hover:hover) and (pointer:fine){
   .tg-item:hover::before{background:var(--superficie-3)}
