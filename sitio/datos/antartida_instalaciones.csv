@@ -1,0 +1,115 @@
+nombre,nombre_corto,pais,otro_pais,tipo,temporada,estado,anio,capacidad,en_sector_argentino,lat,lon
+German Antarctic Receiving Station (GARS),,Alemania,,Estación,Todo el año,Abierta,1991,10,sí,-63.3211,-57.9009
+Gondwana Station,,Alemania,,Estación,Solo en verano,Abierta,1983,20,no,-74.6355,164.2212
+Kohnen Station,,Alemania,,Estación,Solo en verano,Cerrada por ahora,2000,28,no,-75.0019,0.0663
+Neumayer-Station III,,Alemania,,Estación,Todo el año,Abierta,2009,60,no,-70.6605,-8.2841
+Base Antártica Belgrano II,Belgrano II,Argentina,,Estación,Todo el año,Abierta,1979,,sí,-77.8739,-34.6278
+Base Antártica Brown,Brown,Argentina,,Estación,Solo en verano,Cerrada por ahora,1951,12,sí,-64.8954,-62.8705
+Base Antártica Carlini,Carlini,Argentina,,Estación,Todo el año,Abierta,1953,80,sí,-62.2379,-58.6668
+Base Antártica Cámara,Cámara,Argentina,,Estación,Solo en verano,Abierta,1953,22,sí,-62.5939,-59.9193
+Base Antártica Decepción,Decepción,Argentina,,Estación,Solo en verano,Abierta,1948,36,sí,-62.9768,-60.7007
+Base Antártica Esperanza,Esperanza,Argentina,,Estación,Todo el año,Abierta,1952,90,sí,-63.397,-56.9981
+Base Antártica Marambio,Marambio,Argentina,,Estación,Todo el año,Abierta,1969,165,sí,-64.2418,-56.6232
+Base Antártica Matienzo,Matienzo,Argentina,,Estación,Solo en verano,Abierta,1961,12,sí,-64.9759,-60.0709
+Base Antártica Melchior,Melchior,Argentina,,Estación,Solo en verano,Cerrada por ahora,1947,15,sí,-64.3257,-62.9763
+Base Antártica Petrel,Petrel,Argentina,,Estación,Todo el año,Abierta,1952,45,sí,-63.4783,-56.231
+Base Antártica Primavera,Primavera,Argentina,,Estación,Solo en verano,Abierta,1977,18,sí,-64.1559,-60.9543
+Base Antártica San Martín,San Martín,Argentina,,Estación,Todo el año,Abierta,1951,21,sí,-68.1303,-67.1029
+Base Orcadas,Orcadas,Argentina,,Estación,Todo el año,Abierta,1904,65,sí,-60.7376,-44.7374
+Casey Station,,Australia,,Estación,Todo el año,Abierta,1969,120,no,-66.2823,110.5268
+Davis Station,,Australia,,Estación,Todo el año,Abierta,1957,91,no,-68.5759,77.9695
+Edgeworth David Camp,,Australia,,Campamento,Solo en verano,Abierta,,,no,-66.2499,100.6042
+Law Station,,Australia,,Refugio,Solo en verano,Abierta,,13,no,-69.3883,76.3807
+Macquarie Island,,Australia,,Estación,Todo el año,Abierta,1948,,no,-54.4994,158.9368
+Mawson Station,,Australia,,Estación,Todo el año,Abierta,1954,53,no,-67.6026,62.873
+Wilkins Aerodrome,,Australia,,Pista con campamento,Solo en verano,Abierta,2007,12,no,-66.6874,111.4871
+Mountain Vechernyaya,,Bielorrusia,,Estación,Solo en verano,Abierta,2006,12,no,-67.6583,46.1533
+Astrônomo Cruls,,Brasil,,Refugio,Solo en verano,Abierta,,,sí,-62.25,-58.98
+Criosfera 1,,Brasil,,Laboratorio,Solo en verano,Abierta,2012,8,no,-84.0,-79.5
+Criosfera 2 (SkyBRA),,Brasil,,Laboratorio,Solo en verano,Abierta,,,no,-79.6967,78.6767
+Emilio Goeldi,,Brasil,,Refugio,Solo en verano,Abierta,1988,,sí,-61.1333,-55.35
+Estacao Antartica Comandante Ferraz,,Brasil,,Estación,Todo el año,Abierta,1984,64,sí,-62.0855,-58.3987
+St. Kliment Ohridski Base,,Bulgaria,,Estación,Solo en verano,Abierta,1988,22,sí,-62.6407,-60.3652
+Princess Elisabeth Antarctica,,Bélgica,,Estación,Solo en verano,Abierta,2008,50,no,-71.9499,23.3469
+Aerodromo Teniente Rodolfo Marsh Martin,,Chile,,Pista con campamento,Todo el año,Abierta,1980,15,sí,-62.1938,-58.9806
+Base Antártica Presidente Gabriel González Videla,,Chile,,Estación,Solo en verano,Abierta,1951,15,sí,-64.8239,-62.8575
+Base Aérea Antártica Presidente Eduardo Frei Montalva,,Chile,,Estación,Todo el año,Abierta,1969,150,sí,-62.2002,-58.9626
+Base Dr. Guillermo Mann,,Chile,,Refugio,Solo en verano,Abierta,1991,6,sí,-62.4701,-60.7712
+Base Naval Antártica Arturo Prat,,Chile,,Estación,Todo el año,Abierta,1947,32,sí,-62.4787,-59.6636
+Base Yelcho,,Chile,,Estación,Solo en verano,Abierta,1962,28,sí,-64.8759,-63.5838
+Estación Marítima Bahía Fildes,,Chile,,Estación,Todo el año,Abierta,,,sí,-62.2015,-58.9612
+Estación Polar Científica Conjunta Glaciar Unión (EPCCGU),,Chile,,Campamento,Solo en verano,Abierta,,,no,-79.7667,-82.9167
+General Bernardo O'Higgins Riquelme,,Chile,,Estación,Todo el año,Abierta,1948,70,sí,-63.321,-57.8998
+Lieutenant Luis Carvajal Villarroel (SCTJ),,Chile,,Estación,Solo en verano,Cerrada por ahora,1985,46,sí,-67.7613,-68.9148
+Luis Risopatrón,,Chile,,Estación,Solo en verano,Abierta,1949,6,sí,-62.3785,-59.7007
+Profesor Julio Escudero Base,,Chile,,Estación,Solo en verano,Abierta,1995,60,sí,-62.2014,-58.9627
+Rada Covadonga,,Chile,,Estación,Solo en verano,Abierta,,,sí,-63.3207,-57.8982
+Ripamonti,,Chile,,Refugio,Solo en verano,Abierta,,,sí,-62.2102,-58.9347
+Great Wall Station,,China,,Estación,Todo el año,Abierta,1985,60,sí,-62.2175,-58.962
+Kunlun Station,,China,,Estación,Solo en verano,Abierta,2009,26,no,-80.4172,77.116
+QinLing,,China,,Estación,Todo el año,Abierta,2024,120,no,-74.9341,163.713
+Taishan,,China,,Campamento,Solo en verano,Abierta,2014,20,no,-73.85,76.9667
+Zhongshan Skiway,,China,,Pista con campamento,Solo en verano,Abierta,2022,20,no,-69.6236,76.4922
+Zhongshan Station,,China,,Estación,Todo el año,Abierta,1989,60,no,-69.3732,76.3719
+Jang Bogo,,Corea del Sur,,Estación,Todo el año,Abierta,2014,80,no,-74.6233,164.2
+King Sejong,,Corea del Sur,,Estación,Todo el año,Abierta,1988,78,sí,-62.2167,-58.7833
+Pedro Vicente Maldonado Station,,Ecuador,,Estación,Solo en verano,Abierta,1990,34,sí,-62.4493,-59.741
+Refugio República del Ecuador,,Ecuador,,Refugio,Solo en verano,Abierta,1990,4,sí,-62.121,-58.3952
+Gabriel de Castilla Station,,España,,Estación,Solo en verano,Abierta,1990,36,sí,-62.9772,-60.6757
+International Field Camp Peninsula Byers,,España,,Campamento,Solo en verano,Abierta,2001,12,sí,-62.6638,-61.0994
+Juan Carlos I Station,,España,,Estación,Solo en verano,Abierta,1988,50,sí,-62.6634,-60.3881
+Amundsen-Scott South Pole Station,,Estados Unidos,,Estación,Todo el año,Abierta,1957,153,no,-89.9833,142.2667
+Byrd Surface Camp,,Estados Unidos,,Campamento,Solo en verano,Cerrada por ahora,,0,no,-80.0139,-119.5614
+Marble Point Refueling Facility,,Estados Unidos,,Depósito,Solo en verano,Abierta,,,no,-77.4333,163.8333
+McMurdo Station,,Estados Unidos,,Estación,Todo el año,Abierta,1956,1200,no,-77.85,166.6667
+Palmer Station,,Estados Unidos,,Estación,Todo el año,Abierta,1965,46,sí,-64.7742,-64.0531
+Siple Dome,,Estados Unidos,,Campamento,Solo en verano,Abierta,1973,10,no,-81.6667,-149.0167
+WAIS Divide Camp,,Estados Unidos,,Campamento,Solo en verano,Abierta,2005,40,no,-79.4833,-112.0833
+Aboa Station,,Finlandia,,Estación,Solo en verano,Cerrada por ahora,1988,15,no,-73.0423,-13.4074
+D85 Skiway camp,,Francia,,Pista con campamento,Solo en verano,Abierta,,0,no,-70.425,134.1458
+Dumont d'Urville Station,,Francia,,Estación,Todo el año,Abierta,1956,90,no,-66.6628,140.0013
+Robert Guillard,,Francia,Italia,Estación,Solo en verano,Abierta,1994,20,no,-66.6876,139.9072
+Bharati Station,,India,,Estación,Todo el año,Abierta,2012,47,no,-69.4068,76.1953
+Maitri Station,,India,,Estación,Todo el año,Abierta,1989,65,no,-70.7668,11.7308
+Browning Pass,,Italia,,Pista con campamento,Solo en verano,Abierta,1997,2,no,-74.6229,163.9152
+Concordia Station,,Italia,Francia,Estación,Todo el año,Abierta,1997,80,no,-75.1,123.3326
+Enigma Lake,,Italia,,Pista con campamento,Solo en verano,Abierta,2005,,no,-74.7192,164.0277
+Stazione Mario Zucchelli,,Italia,,Estación,Solo en verano,Abierta,1986,112,no,-74.6948,164.1133
+Talos Dome,,Italia,,Campamento,Solo en verano,Abierta,,,no,-72.8302,159.2004
+Asuka Station,,Japón,,Estación,Solo en verano,Cerrada por ahora,1985,,no,-71.5263,24.1125
+Dome Fuji Station,,Japón,,Estación,Solo en verano,Cerrada por ahora,1995,15,no,-77.3171,39.6988
+Mizuho Station,,Japón,,Estación,Solo en verano,Cerrada por ahora,1970,,no,-70.699,44.2778
+S17 Camp,,Japón,,Campamento,Solo en verano,Abierta,,,no,-69.0281,40.0924
+Syowa Station,,Japón,,Estación,Todo el año,Abierta,1957,170,no,-69.0041,39.5818
+Tor,,Noruega,,Refugio,Solo en verano,Abierta,1993,6,no,-71.8895,5.1599
+Troll Forskningsstasjon,,Noruega,,Estación,Todo el año,Abierta,1990,80,no,-72.0119,2.5331
+Scott Base Station,,Nueva Zelanda,,Estación,Todo el año,Abierta,1957,86,no,-77.8494,166.7673
+Dirck Gerritsz Laboratory,,Países Bajos,Reino Unido,Laboratorio,Solo en verano,Abierta,2012,10,sí,-67.5686,-68.1244
+Machu Picchu Station,,Perú,,Estación,Solo en verano,Abierta,1989,30,sí,-62.0916,-58.4706
+Henryk Arctowski Polish Antarctic Station,,Polonia,,Estación,Todo el año,Abierta,1977,40,sí,-62.1598,-58.4733
+Fossil Bluff,,Reino Unido,,Depósito,Solo en verano,Abierta,1961,6,sí,-71.3234,-68.2891
+Halley VI,,Reino Unido,,Estación,Solo en verano,Abierta,1956,,sí,-75.5711,-25.4739
+Rothera Research Station,,Reino Unido,,Estación,Todo el año,Abierta,1975,136,sí,-67.5695,-68.1249
+Signy Station,,Reino Unido,,Estación,Solo en verano,Abierta,1947,8,sí,-60.7083,-45.5954
+Sky Blu,,Reino Unido,,Depósito,Solo en verano,Abierta,,6,sí,-74.8564,-71.5852
+CZ*ECO Nelson,,República Checa,,Refugio,Solo en verano,Abierta,1989,8,sí,-62.25,-58.9833
+Ceska vedecka stanice Johanna Gregora Mendela,,República Checa,,Estación,Solo en verano,Abierta,2006,20,sí,-63.8006,-57.8826
+Bellingshausen,,Rusia,,Estación,Todo el año,Abierta,1968,40,sí,-62.1982,-58.9606
+Bunger Oasis,,Rusia,,Estación,Solo en verano,Abierta,,15,no,-66.2667,100.7333
+Druzhnaya IV,,Rusia,,Estación,Solo en verano,Abierta,,50,no,-69.7478,73.7092
+Leningradskaya,,Rusia,,Estación,Solo en verano,Abierta,1971,10,no,-69.5015,159.3911
+Mirny,,Rusia,,Estación,Todo el año,Abierta,1956,50,no,-66.5532,93.0096
+Molodezhnaya,,Rusia,,Estación,Solo en verano,Abierta,1963,15,no,-67.6654,45.842
+Novolazarevskaya,,Rusia,,Estación,Todo el año,Abierta,1961,70,no,-70.7758,11.8322
+Progress,,Rusia,,Estación,Todo el año,Abierta,1989,50,no,-69.3779,76.3882
+Russkaya,,Rusia,,Estación,Solo en verano,Abierta,1980,10,no,-74.7657,-136.8001
+Soyuz,,Rusia,,Estación,Solo en verano,Cerrada por ahora,1982,30,no,-70.5766,68.7949
+Vostok,,Rusia,,Estación,Todo el año,Abierta,1957,30,no,-78.4642,106.8369
+SANAE IV,,Sudáfrica,,Estación,Todo el año,Abierta,1962,80,no,-71.6729,-2.8403
+SANAP Summer Station,,Sudáfrica,,Estación,Solo en verano,Abierta,2010,20,no,-70.65,-8.25
+Svea,,Suecia,,Refugio,Solo en verano,Cerrada por ahora,,,no,-74.5761,-11.2249
+Wasa,,Suecia,,Estación,Solo en verano,Abierta,1989,10,no,-73.0428,-13.4129
+Turkish Scientific Research Camp,,Turquía,,Campamento,Solo en verano,Abierta,2019,20,sí,-67.8297,-67.2377
+Vernadsky,,Ucrania,,Estación,Todo el año,Abierta,1996,24,sí,-65.2457,-64.2575
+Artigas Station,,Uruguay,,Estación,Todo el año,Abierta,1984,50,sí,-62.1846,-58.9024
+Ruperto Elichiribehety Station,,Uruguay,,Estación,Solo en verano,Abierta,1997,8,sí,-63.4024,-56.9909

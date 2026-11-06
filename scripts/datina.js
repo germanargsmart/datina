@@ -3023,7 +3023,7 @@ const antCapa = k => topojson.feature(TOPO_ANT, TOPO_ANT.objects[k]);
 // sin borde: el polígono de la tierra corta el globo por el meridiano 180, y con borde esa línea se ve en el Mar de Ross
 function antFondo(svg, camino, detalle) {
   const g = svg.append("g");
-  g.append("path").datum(antCapa(detalle ? "peninsula" : "tierra")).attr("d", camino).attr("fill", css("--superficie-3"));
+  g.append("path").datum(antCapa(detalle ? "peninsula" : "tierra")).attr("d", camino).attr("fill", css("--faint")).attr("fill-opacity", .5);
   g.append("path").datum(antCapa(detalle ? "peninsula_barreras" : "barreras")).attr("d", camino).attr("fill", css("--superficie"));
   return g;
 }
@@ -3060,14 +3060,15 @@ function mapaAntartida(anim) {
   el.innerHTML = ""; el.removeAttribute("aria-busy"); el.resaltar = null;
   const svg = d3.select(el).append("svg").attr("viewBox", `0 0 ${w} ${h}`).attr("role", "img").style("overflow", "hidden")
     .attr("aria-label", `Mapa de ${pen ? "la Península Antártica" : "la Antártida"} con las instalaciones de los programas antárticos, con las de ${pais} resaltadas. Los datos están en «Ver tabla», debajo`);
-  // el recuadro de cada vista: el continente sin el mar que queda lejos, y la Península desde Bahía Margarita hasta las Orcadas del Sur
-  const marco = pen ? {type: "MultiPoint", coordinates: [[-68.5, -68.8], [-43.6, -60.2], [-66, -61.3], [-50, -66]]}
+  // el recuadro de cada vista: el continente sin el mar que queda lejos, y la Península desde Bahía Margarita hasta las Shetland del Sur. Las Orcadas
+  // quedan afuera: están lejos, dejaban vacío un tercio del recuadro y se ven en el continente
+  const marco = pen ? {type: "MultiPoint", coordinates: [[-70, -68.9], [-53, -61.4], [-66.5, -61.4], [-52, -66]]}
     : {type: "MultiPoint", coordinates: [[-68.3, -53.6], [120, -63], [30, -63], [-150, -63]]};
   const proy = antProy().clipAngle(pen ? 45 : 40).fitExtent([[8, 8], [w - 8, h - 8]], marco), camino = d3.geoPath(proy);
   svg.append("rect").attr("width", w).attr("height", h).attr("fill", css("--celeste-suave")).attr("opacity", .45);
   antFondo(svg, camino, pen);
   svg.append("path").datum(d3.geoCircle().center([0, -90]).radius(30)()).attr("d", camino).attr("fill", "none").attr("stroke", css("--muted")).attr("stroke-width", .8).attr("stroke-dasharray", "3 4");
-  const lugares = pen ? [[-58, -61.4, "Islas Shetland del Sur"], [-44.6, -61, "Orcadas del Sur"], [-63.5, -66.6, "Península Antártica"], [-53, -65.5, "Mar de Weddell"]]
+  const lugares = pen ? [[-59, -61.7, "Islas Shetland del Sur"], [-64.5, -66.8, "Península Antártica"], [-54.5, -66, "Mar de Weddell"]]
     : [[-68.3, -54.8, "Ushuaia"], [60, -90, "Polo Sur"], [-42, -74, "Mar de Weddell"], [-170, -74, "Mar de Ross"], [-60, -60, "Paralelo 60 Sur"]];
   const capaLugares = svg.append("g");
   const marcoV = d => d.px >= 0 && d.px <= w && d.py >= 0 && d.py <= h;
@@ -3079,15 +3080,15 @@ function mapaAntartida(anim) {
   if (anim && !REDUCIR) puntos.attr("opacity", 0).transition().delay(escalon).duration(DUR_G).attr("opacity", 1);
   // primero los nombres de las más grandes y de las que no informan capacidad: suelen ser las más alejadas
   const conNombre = vis.filter(d => d.sel).sort((a, b) => (b.capacidad ?? 999) - (a.capacidad ?? 999));
-  // la leyenda, abajo a la izquierda en el continente y arriba a la izquierda en la Península, donde no hay tierra
-  const leyY = pen ? 18 : h - 50, anchoLey = 92 + Math.max(0, pais.length - 11) * 6 + 110;
-  const ocupado = antEtiquetas(svg.append("g"), conNombre, w, h, antCorto, "etq-fuerte", [[4, leyY - 12, 16 + anchoLey, leyY + 32]]);
+  // la leyenda, donde no hay bases: abajo a la izquierda en el continente y abajo a la derecha en la Península, sobre el Mar de Weddell
+  const leyY = h - 50, anchoLey = 92 + Math.max(0, pais.length - 11) * 6 + 110, leyX = pen ? w - anchoLey - 4 : 12;
+  const ocupado = antEtiquetas(svg.append("g"), conNombre, w, h, antCorto, "etq-fuerte", [[leyX - 8, leyY - 12, leyX + anchoLey + 4, leyY + 32]]);
   lugares.forEach(([lon, lat, nom]) => {
     const [x, y] = proy([lon, lat]), t = capaLugares.append("text").attr("class", "etq-suave").attr("text-anchor", "middle").attr("x", x).attr("y", y).text(nom), l = t.node().getComputedTextLength();
     const c = [x - l / 2, y - 11, x + l / 2, y + 3];
     if (c[0] < 2 || c[2] > w - 2 || ocupado.some(o => c[0] < o[2] && c[2] > o[0] && c[1] < o[3] && c[3] > o[1])) t.remove(); else ocupado.push(c);
   });
-  const ley = svg.append("g").attr("transform", `translate(12,${leyY})`);
+  const ley = svg.append("g").attr("transform", `translate(${leyX},${leyY})`);
   ley.append("rect").attr("x", -6).attr("y", -11).attr("width", anchoLey + 8).attr("height", 42).attr("rx", 6).attr("fill", css("--bg")).attr("opacity", .85);
   [[0, 0, css("--muted"), true, "Todo el año"], [92, 0, css("--muted"), false, "Solo en verano"], [0, 20, css("--celeste-fuerte"), true, pais], [92 + Math.max(0, pais.length - 11) * 6, 20, css("--muted"), true, "Otros países"]].forEach(([x, y, c, ll, t]) => {
     ley.append("circle").attr("cx", x + 5).attr("cy", y).attr("r", 4.5).attr("fill", ll ? c : css("--bg")).attr("stroke", c).attr("stroke-width", 1.4);
