@@ -36,7 +36,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
      mismas versiones que daban cdnjs y jsDelivr): si una de esas CDN fallaba o estaba bloqueada, las páginas quedaban vacías -->
 <script src="lib/d3-7.8.5.min.js?v=a029baa963"></script>
 <script src="lib/topojson-client-3.1.0.min.js?v=bc057598e8"></script>
-<link rel="stylesheet" href="datina.css?v=1d68cd1f45">
+<link rel="stylesheet" href="datina.css?v=9535cfdf7b">
 </head>
 <body data-pagina="inicio">
 <!-- "Saltar al contenido" (Fase 2, paso 6, respuesta del autor del 23 de octubre de 2026): la primera parada del teclado, que solo se ve
@@ -131,15 +131,16 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
        destacados, temas, provincias, historias con datos y herramientas, en el orden de la barra. Lo escribe el constructor -->
   <section class="destacados ancho" aria-labelledby="dest-tit">
     <h2 class="bloque-tit" id="dest-tit">Datos destacados</h2>
-    <!-- un dato por vez (pedido del autor, noviembre de 2026): se pasa a mano, con los botones, las flechas del teclado o deslizando en el celular.
-         Nunca pasa solo (el autor sacó el carrusel viejo, que rotaba, el 10 de octubre de 2026). Los controles los completa datina.js -->
+    <!-- nueve datos, de a tres (pedido del autor, 6 de noviembre de 2026; en el celular, de a uno): se pasan a mano, con los botones, las flechas del
+         teclado o deslizando. Nunca pasan solos (el autor sacó el carrusel viejo, que rotaba, el 10 de octubre de 2026). Los controles los completa datina.js -->
     <div class="dest-carrusel" id="dest-carrusel" role="region" aria-roledescription="carrusel" aria-labelledby="dest-tit">
-      <div class="destacados-grid" id="destacados"><a class="destacado" href="salud.html#f-esperanza" data-clave="f-esperanza"><span class="c-lab">Personas y bienestar</span><span class="c-preg">¿Cuántos años se vive en la Argentina?</span><span class="c-num"></span><span class="c-txt"></span><span class="c-rango"></span></a><a class="destacado" href="trabajo.html#f-salarios" data-clave="f-salarios"><span class="c-lab">Trabajo y economía</span><span class="c-preg">¿Cuánto se gana en un empleo privado registrado?</span><span class="c-num"></span><span class="c-txt"></span><span class="c-rango"></span></a><a class="destacado" href="seguridad.html#f-homicidios" data-clave="f-homicidios"><span class="c-lab">Estado y sociedad</span><span class="c-preg">¿Cuántas víctimas de homicidio hay en la Argentina?</span><span class="c-num"></span><span class="c-txt"></span><span class="c-rango"></span></a><a class="destacado" href="petroleo.html#f-petroleo" data-clave="f-petroleo"><span class="c-lab">Territorio y recursos</span><span class="c-preg">¿Cuánto petróleo produce el país?</span><span class="c-num"></span><span class="c-txt"></span><span class="c-rango"></span></a></div>
       <div class="dest-control">
         <button type="button" class="boton chico dest-ant">Anterior</button>
-        <div class="dest-puntos" id="dest-puntos" role="group" aria-label="Elegir un dato"></div>
+        <div class="dest-puntos" id="dest-puntos" role="group" aria-label="Elegir qué datos ver"></div>
+        <span class="dest-cuenta" id="dest-cuenta" aria-hidden="true"></span>
         <button type="button" class="boton chico dest-sig">Siguiente</button>
       </div>
+      <div class="destacados-grid" id="destacados"><a class="tarjeta destacado" href="poblacion.html#f-nacimientos" data-clave="f-nacimientos"><span class="c-lab">Personas y bienestar</span><span class="c-preg">¿Cuántos chicos nacen por año?</span><span class="c-num"></span><span class="c-txt"></span><span class="c-rango"></span></a><a class="tarjeta destacado" href="trabajo.html#f-salarios" data-clave="f-salarios"><span class="c-lab">Trabajo y economía</span><span class="c-preg">¿Cuánto se gana en un empleo privado registrado?</span><span class="c-num"></span><span class="c-txt"></span><span class="c-rango"></span></a><a class="tarjeta destacado" href="petroleo.html#f-petroleo" data-clave="f-petroleo"><span class="c-lab">Territorio y recursos</span><span class="c-preg">¿Cuánto petróleo produce el país?</span><span class="c-num"></span><span class="c-txt"></span><span class="c-rango"></span></a><a class="tarjeta destacado" href="salud.html#f-esperanza" data-clave="f-esperanza"><span class="c-lab">Personas y bienestar</span><span class="c-preg">¿Cuántos años se vive en la Argentina?</span><span class="c-num"></span><span class="c-txt"></span><span class="c-rango"></span></a><a class="tarjeta destacado" href="economia.html#f-inflacion" data-clave="f-inflacion"><span class="c-lab">Trabajo y economía</span><span class="c-preg">¿Cuánto suben los precios?</span><span class="c-num"></span><span class="c-txt"></span><span class="c-rango"></span></a><a class="tarjeta destacado" href="seguridad.html#f-homicidios" data-clave="f-homicidios"><span class="c-lab">Estado y sociedad</span><span class="c-preg">¿Cuántas víctimas de homicidio hay en la Argentina?</span><span class="c-num"></span><span class="c-txt"></span><span class="c-rango"></span></a><a class="tarjeta destacado" href="pobreza.html#f-pobreza" data-clave="f-pobreza"><span class="c-lab">Personas y bienestar</span><span class="c-preg">¿Cuántas personas viven bajo la línea de pobreza?</span><span class="c-num"></span><span class="c-txt"></span><span class="c-rango"></span></a><a class="tarjeta destacado" href="seguridad.html#f-sin-condena" data-clave="f-sin-condena"><span class="c-lab">Estado y sociedad</span><span class="c-preg">¿Qué parte de las personas presas no tiene condena?</span><span class="c-num"></span><span class="c-txt"></span><span class="c-rango"></span></a><a class="tarjeta destacado" href="naturaleza.html#f-ant-bases" data-clave="f-ant-bases"><span class="c-lab">Territorio y recursos</span><span class="c-preg">¿Cuántas bases tiene la Argentina en la Antártida?</span><span class="c-num"></span><span class="c-txt"></span><span class="c-rango"></span></a></div>
       <p class="solo-lector" id="dest-estado" role="status"></p>
     </div>
   </section>
@@ -288,7 +289,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 <p class="solo-lector" id="aviso" aria-live="polite"></p>
 
 <!-- los datos van en un archivo aparte que el navegador guarda una sola vez para todas las páginas -->
-<script src="datos/fichas.js?v=11ecfe5844"></script>
-<script src="datina.js?v=1b18b805ac"></script>
+<script src="datos/fichas.js?v=ed5fc73350"></script>
+<script src="datina.js?v=f50901cff2"></script>
 </body>
 </html>

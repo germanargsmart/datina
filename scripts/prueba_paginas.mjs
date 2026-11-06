@@ -371,37 +371,39 @@ const tecla = async k => {
   await espera(300);
 };
 const enFoco = () => q.eval("(document.activeElement.id || '') + '|' + document.activeElement.textContent.trim().slice(0, 30)");
-// La portada (Fase 2, paso 2): los cuatro datos destacados con su cifra y su texto, y el buscador, que encuentra una provincia. Desde noviembre
+// La portada (Fase 2, paso 2): los nueve datos destacados con su cifra y su texto, y el buscador, que encuentra una provincia. Desde noviembre
 // de 2026 arranca compacto, se abre con el foco y Escape lo cierra
 await q.ir(B + "index.html", 1000);
 // y desde el 28 de octubre de 2026 (D7), debajo de cada cifra del país, cómo cambia entre las provincias
 const destacados = await q.eval(`[...document.querySelectorAll(".destacado")].filter(a => a.querySelector(".c-num").textContent.trim() && a.querySelector(".c-txt").textContent.trim() && a.querySelector(".c-rango")?.textContent.trim()).length`);
-if (destacados !== 4) problemas.push(`index.html: ${destacados} de 4 datos destacados con su cifra y su rango por provincia`);
-// un dato por vez (noviembre de 2026): se ve uno, los controles lo cambian, no pasa solo, y en el bloque hay hasta cuatro tamaños de letra y dos familias.
-// La cifra va sola en su línea, sin la unidad
-const carrusel = () => q.eval(`(() => { const p = document.getElementById("destacados"), d = [...p.querySelectorAll(".destacado")], r = p.getBoundingClientRect();
-  const vis = d.filter(a => { const b = a.getBoundingClientRect(); return b.left < r.right - 2 && b.right > r.left + 2; }).length;
-  return {vis, actual: [...document.querySelectorAll(".dest-punto")].findIndex(b => b.getAttribute("aria-current") === "true"), foco: d.filter(a => a.tabIndex === 0).length,
-    izq: Math.round(p.scrollLeft / p.clientWidth * 100) / 100}; })()`);
+if (destacados !== 9) problemas.push(`index.html: ${destacados} de 9 datos destacados con su cifra y su texto de apoyo`);
+// de a tres (6 de noviembre de 2026): se ven tres, con las cifras a la misma altura, los controles los cambian, no pasan solos, y en el bloque hay hasta
+// cuatro tamaños de letra y dos familias. La cifra va sola en su línea, sin la unidad
+const carrusel = () => q.eval(`(() => { const p = document.getElementById("destacados"), d = [...p.querySelectorAll(".destacado")], r = p.getBoundingClientRect(), paso = d[1].offsetLeft - d[0].offsetLeft;
+  const vis = d.filter(a => { const b = a.getBoundingClientRect(); return b.left >= r.left - 2 && b.right <= r.right + 2; });
+  return {vis: vis.length, actual: [...document.querySelectorAll(".dest-punto")].findIndex(b => b.getAttribute("aria-current") === "true"), foco: d.filter(a => a.tabIndex === 0).length,
+    pos: Math.round(p.scrollLeft / paso), cuenta: document.getElementById("dest-cuenta").textContent, alturas: new Set(vis.map(a => Math.round(a.querySelector(".c-num").getBoundingClientRect().top))).size}; })()`);
 const c0 = await carrusel();
-if (c0.vis !== 1 || c0.actual !== 0 || c0.foco !== 1) problemas.push(`index.html: el carrusel de datos destacados no arranca con un dato a la vista (${JSON.stringify(c0)})`);
+if (c0.vis !== 3 || c0.actual !== 0 || c0.foco !== 3 || c0.alturas !== 1) problemas.push(`index.html: el carrusel de datos destacados no arranca con tres datos a la vista y las cifras parejas (${JSON.stringify(c0)})`);
 await q.eval(`document.querySelector(".dest-sig").click()`);
 await espera(450);
 const c1 = await carrusel();
-if (c1.vis !== 1 || c1.actual !== 1 || c1.izq !== 1) problemas.push(`index.html: "Siguiente" no lleva al segundo dato destacado (${JSON.stringify(c1)})`);
-await q.eval(`document.querySelectorAll(".dest-punto")[3].click()`);
+if (c1.vis !== 3 || c1.actual !== 1 || c1.pos !== 3) problemas.push(`index.html: "Siguiente" no lleva a los tres datos que siguen (${JSON.stringify(c1)})`);
+await q.eval(`document.querySelectorAll(".dest-punto")[2].click()`);
 await espera(450);
+const c3 = await carrusel();
+if (c3.actual !== 2 || c3.pos !== 6) problemas.push(`index.html: el tercer redondel no lleva a los últimos tres datos (${JSON.stringify(c3)})`);
 await q.eval(`document.querySelector(".dest-sig").click()`);
 await espera(450);
 const c2 = await carrusel();
-if (c2.actual !== 0 || c2.izq !== 0) problemas.push(`index.html: después del último dato destacado no vuelve al primero (${JSON.stringify(c2)})`);
+if (c2.actual !== 0 || c2.pos !== 0) problemas.push(`index.html: después de los últimos datos destacados no vuelve a los primeros (${JSON.stringify(c2)})`);
 await espera(1500);
 if ((await carrusel()).actual !== 0) problemas.push("index.html: el carrusel de datos destacados pasa solo");
 const letra = JSON.parse(await q.eval(`(() => { const t = new Set(), f = new Set(), w = document.createTreeWalker(document.querySelector(".destacados"), NodeFilter.SHOW_TEXT); let n;
   while ((n = w.nextNode())) { if (!n.textContent.trim() || n.parentElement.closest(".solo-lector")) continue; const c = getComputedStyle(n.parentElement); t.add(c.fontSize); f.add(c.fontFamily.split(",")[0]); }
   return JSON.stringify({t: [...t], f: [...f]}); })()`));
 if (letra.t.length > 4 || letra.f.length > 2) problemas.push(`index.html: datos destacados con ${letra.t.length} tamaños y ${letra.f.length} familias: ${letra.t} ${letra.f}`);
-const cifraSola = await q.eval(`[...document.querySelectorAll(".destacado .c-num")].filter(n => /[a-zñáéíóú]/i.test(n.textContent.replace(/ mil(lones)?$/, ""))).map(n => n.textContent).join(", ")`);
+const cifraSola = await q.eval(`[...document.querySelectorAll(".destacado .c-num")].filter(n => /[a-zñáéíóú]/i.test(n.textContent.replace(/ (mil millones|millones|mil)$/, ""))).map(n => n.textContent).join(", ")`);
 if (cifraSola) problemas.push(`index.html: dato destacado con la unidad pegada a la cifra: ${cifraSola}`);
 // en "Explorá la Argentina por tema" el enlace de cada tema cubre el tema entero, también donde hay subtemas, y cada subtema sigue con su enlace
 const temasMal = await q.eval(`[...document.querySelectorAll("#secciones .tg-item")].map(i => { const r = i.getBoundingClientRect(), l = i.querySelector(".tg-link"), f = getComputedStyle(l, "::after");
@@ -467,6 +469,15 @@ for (const W of [1440, 1200]) {
     return malas.slice(0, 6).join(", "); })()`);
   if (costado) problemas.push(`index.html en ${W} píxeles: datos de la provincia: ${costado}`);
 }
+// en el celular, de a uno, con su cuenta: los nueve redondeles no entran
+await q.tamano(390, 844);
+await q.ir(B + "index.html", 1000);
+const cel0 = await carrusel();
+if (cel0.foco !== 1 || cel0.cuenta !== "1 de 9" || await q.eval(`getComputedStyle(document.getElementById("dest-puntos")).display !== "none"`)) problemas.push(`index.html en 390 píxeles: el carrusel no arranca de a uno (${JSON.stringify(cel0)})`);
+await q.eval(`document.querySelector(".dest-sig").click()`);
+await espera(450);
+const cel1 = await carrusel();
+if (cel1.cuenta !== "2 de 9" || cel1.pos !== 1) problemas.push(`index.html en 390 píxeles: "Siguiente" no pasa al dato que sigue (${JSON.stringify(cel1)})`);
 await q.tamano(1280, 900);
 await q.send("Emulation.setFocusEmulationEnabled", {enabled: false});
 q.errores.forEach(e => problemas.push(`portada: ${e}`));

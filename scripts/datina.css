@@ -412,7 +412,8 @@ body[data-pagina="inicio"] .barra:not(.clara) .marca{visibility:hidden}
 .portada{position:relative;overflow:hidden;background:var(--azul);color:#fff}
 .portada-grid{position:relative;max-width:var(--ancho-max);margin:0 auto;padding:var(--e-6) var(--margen) var(--e-7);display:grid;
   grid-template-columns:minmax(0,5fr) minmax(0,6fr);align-items:stretch;gap:var(--e-4);pointer-events:none}
-.portada-texto{position:relative;isolation:isolate;align-self:center;pointer-events:auto}
+/* z-index: la lista de resultados del buscador va adentro y puede bajar más allá de lo azul: tiene que quedar arriba de los bloques que siguen, que tienen posición propia */
+.portada-texto{position:relative;z-index:1;isolation:isolate;align-self:center;pointer-events:auto}
 .portada-texto::before{content:"";position:absolute;inset:-36px -40px;z-index:-1;background:radial-gradient(closest-side,rgba(44,116,181,.92) 60%,rgba(44,116,181,0))}
 /* entrada corta y escalonada: "Elegí tu provincia" está lista antes de los 450 ms */
 .portada-texto>*{animation:aparece var(--dur-4) var(--ease-out) both}
@@ -579,43 +580,52 @@ html:not(.js) .busca-portada{display:none}
 /* entre los bloques de la portada, el espacio de bloque y no el de capítulo (respuesta del autor del 23 de octubre de 2026, para
    compactar la portada de la Fase 2: de 48 a 72 píxeles pasaron a ser de 24 a 40) */
 .secciones,.articulos-home,.herramientas-home,.destacados,.provincias-home{padding-top:var(--bloque)}
-/* Datos destacados de la portada (pedido del autor, noviembre de 2026): un dato por vez, sin tarjetas. Hasta entonces, cuatro tarjetas a la vista,
-   con cinco tamaños de letra y dos familias, que en el celular medían 775 píxeles. Una sola familia y cuatro tamaños: la etiqueta (13), el texto
-   (15), la pregunta (20 a 24) y la cifra, del tamaño del título del bloque (28 a 36). La cifra va en ancho normal: en la condensada, "928 mil" se
-   leía "1928 y". Los datos están en una fila que se desliza: el alto es el del más largo, así nada salta al pasar de uno a otro. La cifra y su
-   texto llegan con datina.js: su lugar queda reservado para que la portada no salte */
-.destacados-grid{display:flex;min-height:152px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;overscroll-behavior-x:contain;margin-top:var(--e-3)}
+/* Datos destacados de la portada (pedido del autor, 6 de noviembre de 2026): nueve datos, de a tres, en tarjetas de fondo gris suave, sin borde ni sombra.
+   Un dato solo, a todo el ancho, quedaba desproporcionado. Una sola familia y cuatro tamaños: la etiqueta (13), el texto (15), la pregunta (18 a 20) y la
+   cifra, del tamaño del título del bloque (28 a 36). La cifra va en ancho normal y sola en su línea: en la condensada, "928 mil" se leía "1928 y". Los nueve
+   comparten las filas de la grilla (subgrid): las cifras quedan a la misma altura y al pasar de tres en tres nada salta. La cifra y su texto llegan con
+   datina.js: se reserva el alto medido en cada ancho, para que la portada casi no salte cuando llegan */
+.destacados{position:relative}
+.dest-carrusel{display:flex;flex-direction:column}
+.destacados-grid{display:grid;grid-auto-flow:column;grid-auto-columns:calc((100% - 2 * var(--e-4)) / 3);grid-template-rows:repeat(5,auto);column-gap:var(--e-4);min-height:295px;margin-top:var(--e-3);
+  overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;overscroll-behavior-x:contain}
 .destacados-grid::-webkit-scrollbar{display:none}
-.destacado{flex:none;width:100%;scroll-snap-align:start;display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);grid-template-rows:auto auto auto 1fr;column-gap:var(--e-8);
-  padding:var(--e-2) 0;color:var(--ink);text-decoration:none}
-.destacado:focus-visible{outline:2px solid var(--celeste-fuerte);outline-offset:-2px;border-radius:var(--r-control)}
-.destacado .c-lab{grid-column:1;display:block;padding-bottom:var(--e-2);border-bottom:2px solid var(--celeste);font-family:var(--f);font-size:var(--t-2);line-height:1.3;font-weight:500;letter-spacing:0;text-transform:none;color:var(--ink)}
-.destacado .c-preg{grid-column:1;grid-row:2 / -1;margin-top:var(--e-4);font-size:var(--t-6);line-height:1.2;font-weight:500;color:var(--ink);text-wrap:balance}
-.destacado .c-num{grid-column:2;grid-row:1 / span 2;min-height:1em;font-family:var(--f);font-size:var(--t-8);line-height:1.1;font-weight:600;color:var(--azul);font-variation-settings:normal}
-.destacado .c-txt{grid-column:2;grid-row:3;margin-top:var(--e-1);font-size:var(--t-3);line-height:1.4;color:var(--ink)}
-/* D7 (plan de mejora, 28 de octubre de 2026, aprobado por el autor): la cifra es la del país y debajo va cómo cambia entre las provincias,
-   de la más baja a la más alta */
-.destacado .c-rango{grid-column:2;grid-row:4;display:block;margin-top:var(--e-2);font-size:var(--t-3);line-height:1.4;color:var(--muted)}
-@media (hover:hover) and (pointer:fine){.destacado:hover .c-preg{text-decoration:underline;text-decoration-color:var(--celeste);text-decoration-thickness:1.5px;text-underline-offset:4px}}
-@media (max-width:760px){
-  .destacados-grid{min-height:272px}
-  .destacado{grid-template-columns:minmax(0,1fr);grid-template-rows:none}
-  .destacado .c-lab,.destacado .c-preg,.destacado .c-num,.destacado .c-txt,.destacado .c-rango{grid-column:1;grid-row:auto}
-  .destacado .c-preg{margin:var(--e-3) 0 var(--e-4)}
-}
-/* los controles: los botones de siempre, en la letra de la etiqueta para no sumar un tamaño al bloque, y redondeles, con lugar para el dedo.
+.destacado{grid-row:span 5;display:grid;grid-template-rows:subgrid;gap:0;padding:var(--e-4) var(--e-6) var(--e-6)}
+.destacado:nth-child(3n+1){scroll-snap-align:start}
+.destacado:focus-visible{outline:2px solid var(--celeste-fuerte);outline-offset:-2px}
+.destacado .c-lab{padding-bottom:var(--e-2);border-bottom:2px solid var(--celeste);font-family:var(--f);font-size:var(--t-2);line-height:1.3;font-weight:500;letter-spacing:0;text-transform:none;color:var(--ink)}
+.destacado .c-preg{margin:var(--e-3) 0 var(--e-2);font-size:var(--t-5);line-height:1.25;font-weight:500;color:var(--ink);text-wrap:balance}
+.destacado .c-num{min-height:1em;font-family:var(--f);font-size:var(--t-8);line-height:1.1;font-weight:600;color:var(--azul);font-variation-settings:normal}
+.destacado .c-txt{margin-top:var(--e-1);font-size:var(--t-3);line-height:1.4;color:var(--ink)}
+/* D7 (plan de mejora, 28 de octubre de 2026, aprobado por el autor): la cifra es la del país y debajo va cómo cambia entre las provincias, de la más baja a
+   la más alta, o el dato que mejor la acompaña */
+.destacado .c-rango{margin-top:var(--e-2);font-size:var(--t-3);line-height:1.4;color:var(--muted)}
+/* los controles: los botones de siempre, en la letra de la etiqueta para no sumar un tamaño al bloque, y redondeles. En la computadora, en la fila del título.
    Sin JavaScript no se ven */
-.dest-control .boton.chico{font-size:var(--t-2)}
-.dest-control{display:flex;align-items:center;justify-content:space-between;gap:var(--e-3);margin-top:var(--e-3);padding-top:var(--e-3);border-top:1px solid var(--borde)}
+.dest-control{position:absolute;top:var(--bloque);right:0;display:flex;align-items:center;gap:var(--e-2)}
 html:not(.js) .dest-control{display:none}
-.dest-puntos{display:flex;justify-content:center;gap:0}
-.dest-punto{display:grid;place-items:center;width:var(--e-7);height:var(--e-7);padding:0;background:none;border:0;border-radius:50%;cursor:pointer}
+.dest-control .boton.chico{font-size:var(--t-2)}
+.dest-puntos{display:flex;justify-content:center}
+.dest-punto{display:grid;place-items:center;width:var(--e-6);height:var(--e-7);padding:0;background:none;border:0;border-radius:50%;cursor:pointer}
 .dest-punto::before{content:"";width:10px;height:10px;border-radius:50%;background:var(--superficie-3);box-shadow:inset 0 0 0 1px var(--faint);transition:background-color var(--dur-1) var(--ease-out)}
 .dest-punto[aria-current="true"]::before{background:var(--azul);box-shadow:none}
 .dest-punto:focus-visible{outline:2px solid var(--celeste-fuerte);outline-offset:-2px}
 @media (hover:hover) and (pointer:fine){.dest-punto:not([aria-current="true"]):hover::before{background:var(--celeste)}}
-@media (max-width:400px){.dest-control{gap:var(--e-1)}.dest-punto{width:var(--e-6)}.dest-control .boton.chico{padding:var(--e-1) var(--e-2)}}
-@media print{.destacados-grid{display:block;overflow:visible}.dest-control{display:none}.destacado{break-inside:avoid;margin-bottom:var(--e-4)}}
+.dest-cuenta{display:none;font-size:var(--t-2);color:var(--muted);white-space:nowrap}
+@media (max-width:1000px){.destacados-grid{grid-auto-columns:calc((100% - 2 * var(--e-3)) / 3);column-gap:var(--e-3)}.destacado{padding:var(--e-3) var(--e-4) var(--e-4)}}
+@media (max-width:900px){.destacados-grid{min-height:337px}}
+/* en el celular, de a uno, con el siguiente asomando, y los controles debajo: "1 de 9", porque nueve redondeles no entran */
+@media (max-width:760px){
+  .destacados-grid{order:1;grid-auto-columns:84%;column-gap:var(--e-3);min-height:226px;margin-right:calc(-1 * var(--margen))}
+  .destacado,.destacado:nth-child(3n+1){scroll-snap-align:start}
+  .dest-control{position:static;order:2;justify-content:space-between;margin-top:var(--e-3);padding-top:var(--e-3);border-top:1px solid var(--borde)}
+  .dest-puntos{display:none}
+  .dest-cuenta{display:block}
+  .dest-control .boton.chico{padding:var(--e-1) var(--e-3)}
+}
+@media (max-width:430px){.destacados-grid{min-height:291px}}
+@media (max-width:360px){.destacados-grid{min-height:312px}}
+@media print{.destacados-grid{display:block;overflow:visible;min-height:0}.dest-control{display:none}.destacado{display:block;break-inside:avoid;margin-bottom:var(--e-4)}}
 /* Provincias en la portada: las 24 jurisdicciones con su bandera */
 .prov-home{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:var(--e-1) var(--e-4);margin:0;padding:0;list-style:none}
 @media (max-width:1080px){.prov-home{grid-template-columns:repeat(4,minmax(0,1fr))}}

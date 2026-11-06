@@ -11359,7 +11359,7 @@ document.querySelectorAll(".destacado[data-clave]").forEach(a => {
   const c = CLAVE[a.dataset.clave];
   if (!c) return;
   // la cifra en su línea y la unidad con lo que mide y su año en la de abajo: "2.151.327 pesos" corrido con su texto se leía mal
-  const [, num, resto] = String(c[0]).match(/^([+-]?[\d.,]+%?(?: mil(?:lones)?)?)\s*(.*)$/) || [, c[0], ""];
+  const [, num, resto] = String(c[0]).match(/^([+-]?[\d.,]+%?(?: mil millones| millones| mil)?)\s*(.*)$/) || [, c[0], ""];
   a.querySelector(".c-num").innerHTML = num; a.querySelector(".c-txt").innerHTML = (resto ? resto + " " : "") + c[1];
 });
 // D7 (plan de mejora, 28 de octubre de 2026, aprobado por el autor): la cifra es la del país, y debajo, de la provincia más baja a la más
@@ -11370,9 +11370,19 @@ const RANGO_DEST = {
   "f-salarios": [() => T.salarios_provincias, "salario", v => n2(v / 1e6), " millones de pesos", "Por provincia"],
   "f-homicidios": [() => T.homicidios_provincias, "tasa_3", n1, "", `Por provincia, en promedio de ${SG.hom3_desde} a ${SG.anio}`],
 };
+// los que no cambian por provincia (6 de noviembre de 2026): el dato que mejor acompaña a la cifra. En las personas presas, el año inicial y no las provincias:
+// la más baja es Neuquén, con 0,0%, y en una sola línea se lee como un error
+const APOYO_DEST = {
+  "f-nacimientos": () => `Son ${pct(Math.abs(nac.caida))} ${nac.caida < 0 ? "menos" : "más"} que en ${nac.anio_pico}, cuando hubo ${n0(nac.pico)}.`,
+  "f-inflacion": () => `El rubro que más subió fue ${inicialMin(EIP.div_max[0])}: ${pct(EIP.div_max[1])}.`,
+  "f-pobreza": () => `Un año antes, ${pct(R.pobreza.pob_prev)}. El máximo fue ${pct(R.pobreza.max)}, en el ${R.pobreza.max_sem}.`,
+  "f-sin-condena": () => `En ${SG.sn_ini} era ${pct(SG.sn_sin_ini)}.`,
+  "f-ant-bases": () => `Según COMNAP, en ${ANT.comnap_fecha}${ANT.anual_top === "Argentina" ? ", ningún otro país tenía tantas abiertas todo el año" : ""}.`,
+};
 function pintarRangos() {
   document.querySelectorAll(".destacado[data-clave] .c-rango").forEach(el => {
     const id = el.closest(".destacado").dataset.clave, r = RANGO_DEST[id];
+    if (APOYO_DEST[id]) { el.textContent = APOYO_DEST[id](); return; }
     if (id === "f-petroleo") {
       const fp = NOMBRES[prov] && T.hidrocarburos_provincias.find(x => x.codigo_indec === prov);
       el.textContent = `El ${pct(PG.top_pct)} salió de ${PG.top} entre ${PG.v_desde} y ${PG.v_hasta}.` + (!NOMBRES[prov] || fp?.territorio === PG.top ? "" :
@@ -11387,24 +11397,29 @@ function pintarRangos() {
   });
 }
 if (document.querySelector(".destacado .c-rango")) { pintarRangos(); alCambiarProv.push(pintarRangos); }
-// El carrusel de los datos destacados (pedido del autor, noviembre de 2026; retoma los botones y el "N de M" de "Datos rápidos", sacado en la etapa 39).
-// Se pasa a mano y nunca solo. Los datos están en una fila que se desliza, también con el dedo. Solo el dato a la vista recibe el foco y lo leen los
-// lectores de pantalla. El movimiento dura 280 ms, sin movimiento con movimiento reducido
+// El carrusel de los datos destacados (pedido del autor, 6 de noviembre de 2026; retoma los botones de "Datos rápidos", sacado en la etapa 39). Nueve datos,
+// de a tres, y en el celular de a uno. Se pasa a mano y nunca solo. Los datos están en una fila que se desliza, también con el dedo. Solo los datos a la
+// vista reciben el foco y los leen los lectores de pantalla. El movimiento dura 280 ms, y no hay movimiento con movimiento reducido
 (() => {
   const caja = document.getElementById("dest-carrusel"); if (!caja) return;
-  const pista = document.getElementById("destacados"), datos = [...pista.querySelectorAll(".destacado")], puntos = document.getElementById("dest-puntos"), estado = document.getElementById("dest-estado");
-  let actual = 0, moviendo = false;
-  const nombre = i => datos[i].querySelector(".c-lab").textContent;
-  puntos.innerHTML = datos.map((d, i) => `<button type="button" class="dest-punto" aria-label="Dato ${i + 1} de ${datos.length}: ${nombre(i)}"></button>`).join("");
-  const bots = [...puntos.children];
+  const pista = document.getElementById("destacados"), datos = [...pista.querySelectorAll(".destacado")], puntos = document.getElementById("dest-puntos");
+  const estado = document.getElementById("dest-estado"), cuenta = document.getElementById("dest-cuenta"), ancho = matchMedia("(min-width:761px)");
+  let actual = 0, moviendo = false, reubicando = 0;
+  const porVez = () => ancho.matches ? 3 : 1;
+  const tandas = () => Math.ceil(datos.length / porVez());
+  const posicion = i => Math.min(datos[i].offsetLeft - datos[0].offsetLeft, pista.scrollWidth - pista.clientWidth);
+  const rotulo = i => porVez() === 1 ? `Dato ${i + 1} de ${datos.length}` : `Datos ${i + 1} a ${Math.min(i + porVez(), datos.length)} de ${datos.length}`;
   const marcar = (i, avisar) => {
-    actual = i;
-    bots.forEach((b, k) => b.setAttribute("aria-current", String(k === i)));
-    datos.forEach((d, k) => { d.tabIndex = k === i ? 0 : -1; if (k === i) d.removeAttribute("aria-hidden"); else d.setAttribute("aria-hidden", "true"); });
-    if (avisar) estado.textContent = `Dato ${i + 1} de ${datos.length}: ${datos[i].querySelector(".c-preg").textContent}`;
+    const n = porVez(); actual = i;
+    [...puntos.children].forEach((b, t) => b.setAttribute("aria-current", String(t === Math.floor(i / n))));
+    datos.forEach((d, k) => { const ve = k >= i && k < i + n; d.tabIndex = ve ? 0 : -1; if (ve) d.removeAttribute("aria-hidden"); else d.setAttribute("aria-hidden", "true"); });
+    // si el foco estaba en un dato que dejó de verse, pasa al primero de los nuevos
+    if (document.activeElement?.closest?.(".destacado")?.getAttribute("aria-hidden")) datos[i].focus({preventScroll: true});
+    cuenta.textContent = `${i + 1} de ${datos.length}`;
+    if (avisar) estado.textContent = `${rotulo(i)}: ${datos.slice(i, i + n).map(d => d.querySelector(".c-preg").textContent).join(" ")}`;
   };
   const ir = n => {
-    const i = (n + datos.length) % datos.length, x = i * pista.clientWidth, x0 = pista.scrollLeft;
+    const i = n < 0 ? (tandas() - 1) * porVez() : n >= datos.length ? 0 : n, x = posicion(i), x0 = pista.scrollLeft;
     marcar(i, true);
     if (REDUCIR || document.hidden || x === x0) { pista.scrollLeft = x; return; }
     moviendo = true; pista.style.scrollSnapType = "none";
@@ -11415,14 +11430,31 @@ if (document.querySelector(".destacado .c-rango")) { pintarRangos(); alCambiarPr
     };
     requestAnimationFrame(paso);
   };
-  caja.querySelector(".dest-ant").addEventListener("click", () => ir(actual - 1));
-  caja.querySelector(".dest-sig").addEventListener("click", () => ir(actual + 1));
-  bots.forEach((b, i) => b.addEventListener("click", () => ir(i)));
-  caja.addEventListener("keydown", ev => { if (ev.key === "ArrowRight" || ev.key === "ArrowLeft") { ev.preventDefault(); ir(actual + (ev.key === "ArrowRight" ? 1 : -1)); } });
-  // deslizando con el dedo: el dato a la vista manda
-  pista.addEventListener("scroll", () => { if (moviendo) return; const i = Math.round(pista.scrollLeft / pista.clientWidth); if (i !== actual && datos[i]) marcar(i, true); }, {passive: true});
-  // si cambia el ancho, sigue en el mismo dato
-  new ResizeObserver(() => { if (!moviendo) pista.scrollLeft = actual * pista.clientWidth; }).observe(pista);
+  // los redondeles, uno por tanda: cambian si cambia cuántos datos se ven por vez
+  const armarPuntos = () => {
+    puntos.innerHTML = Array.from({length: tandas()}, (_, t) => `<button type="button" class="dest-punto" aria-label="${rotulo(t * porVez())}"></button>`).join("");
+    [...puntos.children].forEach((b, t) => b.addEventListener("click", () => ir(t * porVez())));
+  };
+  caja.querySelector(".dest-ant").addEventListener("click", () => ir(actual - porVez()));
+  caja.querySelector(".dest-sig").addEventListener("click", () => ir(actual + porVez()));
+  caja.addEventListener("keydown", ev => { if (ev.key === "ArrowRight" || ev.key === "ArrowLeft") { ev.preventDefault(); ir(actual + (ev.key === "ArrowRight" ? porVez() : -porVez())); } });
+  // deslizando con el dedo: los datos a la vista mandan
+  pista.addEventListener("scroll", () => {
+    if (moviendo || reubicando) return;
+    const n = porVez(), paso = datos[1].offsetLeft - datos[0].offsetLeft;
+    const i = pista.scrollLeft >= pista.scrollWidth - pista.clientWidth - 2 ? (tandas() - 1) * n : Math.round(pista.scrollLeft / paso / n) * n;
+    if (i !== actual && datos[i]) marcar(i, true);
+  }, {passive: true});
+  // si cambia el ancho, sigue en los mismos datos, y el movimiento que eso provoca no cuenta como deslizar. Solo el ancho: el alto cambia con la barra de
+  // direcciones del celular y no tiene que mover nada
+  let anchoPista = pista.clientWidth;
+  const reubicar = () => {
+    pista.scrollLeft = posicion(actual); reubicando++;
+    requestAnimationFrame(() => requestAnimationFrame(() => { reubicando--; }));
+  };
+  ancho.addEventListener("change", () => { armarPuntos(); marcar(Math.floor(actual / porVez()) * porVez(), false); reubicar(); });
+  new ResizeObserver(() => { if (moviendo || pista.clientWidth === anchoPista) return; anchoPista = pista.clientWidth; reubicar(); }).observe(pista);
+  armarPuntos();
   marcar(0, false);
 })();
 

@@ -1113,14 +1113,20 @@ _temas_portada = "".join(f'<div class="tg-col">{_grupo_portada(*x)}</div>' for x
 _preg_js = js[js.index("const PREG = ["):js.index("\n];", js.index("const PREG = ["))]
 for _id, _q in EJEMPLOS:
     assert f'["{_q}"' in _preg_js and f'"#{_id}"' in _preg_js, f"la pregunta de ejemplo {_q} ya no está en PREG"
-# Datos destacados: cuatro fijos, uno por grupo de temas, elegidos por el autor el 23 de octubre de 2026. La cifra es la cifra destacada
-# de la ficha (CLAVE en datina.js), que se calcula en el navegador: el constructor escribe el grupo, la pregunta y el enlace, y deja
-# reservado el lugar de la cifra para que la portada no salte. Nunca una ficha de suicidio ni de muertes violentas
-DESTACADOS = [("personas", "f-esperanza"), ("economia", "f-salarios"), ("estado", "f-homicidios"), ("territorio", "f-petroleo")]
+# Datos destacados: nueve fijos, que se ven de a tres (pedido del autor del 6 de noviembre de 2026, que además pidió uno de la Antártida). Son los cuatro
+# que eligió el 23 de octubre de 2026 (esperanza de vida, salarios, homicidios y petróleo) y cinco más: cada tanda lleva tres grupos distintos. La cifra
+# es la cifra destacada de la ficha (CLAVE en datina.js), que se calcula en el navegador: el constructor escribe el grupo, la pregunta y el enlace, y
+# deja reservado el lugar de la cifra para que la portada no salte. Nunca una ficha de suicidio ni de muertes violentas
+DESTACADOS = [("personas", "f-nacimientos"), ("economia", "f-salarios"), ("territorio", "f-petroleo"),
+              ("personas", "f-esperanza"), ("economia", "f-inflacion"), ("estado", "f-homicidios"),
+              ("personas", "f-pobreza"), ("estado", "f-sin-condena"), ("territorio", "f-ant-bases")]
 # la pregunta de cada dato destacado (D7 del plan del 26 de octubre de 2026): la cifra es la del país, así que la pregunta también. La de
 # la ficha pregunta por las provincias, que muestra su gráfico
 _PREG_DEST = {"f-esperanza": "¿Cuántos años se vive en la Argentina?", "f-salarios": "¿Cuánto se gana en un empleo privado registrado?",
-              "f-homicidios": "¿Cuántas víctimas de homicidio hay en la Argentina?", "f-petroleo": "¿Cuánto petróleo produce el país?"}
+              "f-homicidios": "¿Cuántas víctimas de homicidio hay en la Argentina?", "f-petroleo": "¿Cuánto petróleo produce el país?",
+              "f-nacimientos": "¿Cuántos chicos nacen por año?", "f-inflacion": "¿Cuánto suben los precios?",
+              "f-pobreza": "¿Cuántas personas viven bajo la línea de pobreza?", "f-sin-condena": "¿Qué parte de las personas presas no tiene condena?",
+              "f-ant-bases": "¿Cuántas bases tiene la Argentina en la Antártida?"}
 _clave_js = js[js.index("const CLAVE = {"):js.index("\n};", js.index("const CLAVE = {"))]
 _ficha = {f[0]: f for f in FICHAS}
 _nombre_grupo = {g: n for g, n, _ in GRUPOS}
@@ -1128,7 +1134,7 @@ for _g, _id in DESTACADOS:
     assert f'"{_id}":' in _clave_js, f"{_id}: el dato destacado necesita una cifra destacada (CLAVE)"
     assert _id not in TEXTO_ANTES and _ficha[_id][2], f"{_id}: no puede ser un dato destacado o le falta la pregunta fija"
     assert GRUPO_DE[_ficha[_id][1]][0] == _g, f"{_id}: no es del grupo {_g}"
-_destacados = "".join(f'<a class="destacado" href="{url_pagina(UBIC[i])}#{i}" data-clave="{i}"><span class="c-lab">{e(_nombre_grupo[g])}</span>'
+_destacados = "".join(f'<a class="tarjeta destacado" href="{url_pagina(UBIC[i])}#{i}" data-clave="{i}"><span class="c-lab">{e(_nombre_grupo[g])}</span>'
                       f'<span class="c-preg">{e(_PREG_DEST[i])}</span><span class="c-num"></span><span class="c-txt"></span><span class="c-rango"></span></a>'
                       for g, i in DESTACADOS)
 # Provincias: las 24 jurisdicciones con su bandera, cada una a su perfil. Es también la forma de llegar con el teclado a lo que muestra

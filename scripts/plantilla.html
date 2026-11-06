@@ -115,15 +115,16 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
        destacados, temas, provincias, historias con datos y herramientas, en el orden de la barra. Lo escribe el constructor -->
   <section class="destacados ancho" aria-labelledby="dest-tit">
     <h2 class="bloque-tit" id="dest-tit">Datos destacados</h2>
-    <!-- un dato por vez (pedido del autor, noviembre de 2026): se pasa a mano, con los botones, las flechas del teclado o deslizando en el celular.
-         Nunca pasa solo (el autor sacó el carrusel viejo, que rotaba, el 10 de octubre de 2026). Los controles los completa datina.js -->
+    <!-- nueve datos, de a tres (pedido del autor, 6 de noviembre de 2026; en el celular, de a uno): se pasan a mano, con los botones, las flechas del
+         teclado o deslizando. Nunca pasan solos (el autor sacó el carrusel viejo, que rotaba, el 10 de octubre de 2026). Los controles los completa datina.js -->
     <div class="dest-carrusel" id="dest-carrusel" role="region" aria-roledescription="carrusel" aria-labelledby="dest-tit">
-      <div class="destacados-grid" id="destacados"><!--DESTACADOS--></div>
       <div class="dest-control">
         <button type="button" class="boton chico dest-ant">Anterior</button>
-        <div class="dest-puntos" id="dest-puntos" role="group" aria-label="Elegir un dato"></div>
+        <div class="dest-puntos" id="dest-puntos" role="group" aria-label="Elegir qué datos ver"></div>
+        <span class="dest-cuenta" id="dest-cuenta" aria-hidden="true"></span>
         <button type="button" class="boton chico dest-sig">Siguiente</button>
       </div>
+      <div class="destacados-grid" id="destacados"><!--DESTACADOS--></div>
       <p class="solo-lector" id="dest-estado" role="status"></p>
     </div>
   </section>
