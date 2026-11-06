@@ -377,6 +377,15 @@ await q.ir(B + "index.html", 1000);
 // y desde el 28 de octubre de 2026 (D7), debajo de cada cifra del país, cómo cambia entre las provincias
 const destacados = await q.eval(`[...document.querySelectorAll(".destacado")].filter(a => a.querySelector(".c-num").textContent.trim() && a.querySelector(".c-txt").textContent.trim() && a.querySelector(".c-rango")?.textContent.trim()).length`);
 if (destacados !== 4) problemas.push(`index.html: ${destacados} de 4 datos destacados con su cifra y su rango por provincia`);
+// en "Explorá la Argentina por tema" el enlace de cada tema cubre el tema entero, también donde hay subtemas, y cada subtema sigue con su enlace
+const temasMal = await q.eval(`[...document.querySelectorAll("#secciones .tg-item")].map(i => { const r = i.getBoundingClientRect(), l = i.querySelector(".tg-link"), f = getComputedStyle(l, "::after");
+  const t = i.querySelector("b").textContent;
+  scrollTo(0, scrollY + r.top - 200); const r2 = i.getBoundingClientRect();
+  const alBorde = [[r2.left + 2, r2.top + 2], [r2.right - 2, r2.bottom - 2]].every(([x, y]) => { const e = document.elementFromPoint(x, y); return e === l || e?.closest(".tg-link") === l; });
+  const subs = [...i.querySelectorAll(".tg-subs a")].every(a => { const b = a.getBoundingClientRect(); return document.elementFromPoint(b.left + b.width / 2, b.top + b.height / 2) === a; });
+  return (f.position !== "absolute" || !alBorde) ? t + ": el enlace no cubre el tema" : !subs ? t + ": un subtema no se puede tocar" : ""; }).filter(Boolean).join(", ")`);
+if (temasMal) problemas.push(`index.html: ${temasMal}`);
+await q.eval("scrollTo(0, 0)");
 // la bajada de cada artículo va en su tarjeta solo en la lista de Artículos, no en la portada (paso 4)
 if (await q.eval(`document.querySelectorAll("#art-grid-home .art-dek").length`)) problemas.push("index.html: las tarjetas de artículos llevan bajada (va solo en Artículos)");
 // sin ventana, Chrome no avisa que el campo recibió el foco si la pestaña no está al frente: se lo simula mientras se prueba el buscador

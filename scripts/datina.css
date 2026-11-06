@@ -646,22 +646,29 @@ html:not(.js) .busca-portada{display:none}
 .tg{padding-top:var(--e-3);border-top:2px solid var(--azul)}
 .tg-tit{margin:0 0 var(--e-2);font:500 var(--t-1)/1.4 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--ink)}
 .tg-lista{margin:0;padding:0;list-style:none}
+/* el tema entero es la zona del enlace, con sus subtemas adentro (pedido del autor, noviembre de 2026: el fondo se cortaba donde había subtemas). Un
+   enlace no puede ir dentro de otro: el de la página se estira con ::after hasta cubrir el tema y los subtemas quedan arriba, cada uno con el suyo.
+   El fondo sobresale 8 píxeles a cada lado, para que el texto siga sobre el borde de la columna */
+.tg-item{position:relative;isolation:isolate}
+.tg-item::before{content:"";position:absolute;inset:0 calc(-1 * var(--e-2));z-index:-1;border-radius:var(--r-control);transition:background-color var(--dur-1) var(--ease-out)}
 .tg-item+.tg-item{border-top:1px solid var(--borde)}
-.tg-link{display:grid;grid-template-columns:44px minmax(0,1fr);gap:var(--e-3);align-items:center;margin:0 calc(-1 * var(--e-2));padding:var(--e-3) var(--e-2);
-  color:inherit;text-decoration:none;border-radius:var(--r-control);transition:background-color var(--dur-1) var(--ease-out)}
+.tg-link{display:grid;grid-template-columns:44px minmax(0,1fr);gap:var(--e-3);align-items:center;padding:var(--e-3) 0;color:inherit;text-decoration:none}
+.tg-link::after{content:"";position:absolute;inset:0 calc(-1 * var(--e-2));border-radius:var(--r-control)}
+.tg-link:focus-visible{outline:none}
+.tg-link:focus-visible::after{outline:2px solid var(--celeste-fuerte);outline-offset:-2px}
 .tg-ico{width:44px;height:44px;color:var(--azul);--trazo:1.2px}
 .tg-txt{display:flex;flex-direction:column;gap:2px}
 .tg-txt b{font-family:var(--f-c45);font-size:var(--t-6);line-height:1.05;font-weight:500;color:var(--azul);font-variation-settings:"wdth" 45,"opsz" 144}
 .tg-preg{font-size:var(--t-2);line-height:var(--i-chico);color:var(--muted);text-wrap:pretty}
 .tg-subs{display:flex;flex-wrap:wrap;gap:2px var(--e-4);margin:calc(-1 * var(--e-2)) 0 var(--e-3) calc(44px + var(--e-3));font-size:var(--t-2)}
-.tg-subs a{color:var(--azul);text-decoration:underline;text-decoration-color:var(--celeste);text-underline-offset:3px}
+.tg-subs a{position:relative;color:var(--azul);text-decoration:underline;text-decoration-color:var(--celeste);text-underline-offset:3px}
 @media (hover:hover) and (pointer:fine){
-  .tg-link:hover{background:var(--superficie-3)}
-  .tg-link:hover .tg-ico{transform:translateY(-2px) rotate(-4deg)}
+  .tg-item:hover::before{background:var(--superficie-3)}
+  .tg-item:hover .tg-ico{transform:translateY(-2px) rotate(-4deg)}
   .tg-subs a:hover{text-decoration-color:var(--azul)}
 }
 .tg-ico{transition:transform var(--dur-4) var(--ease-out)}
-@media (prefers-reduced-motion:reduce){.tg-link:hover .tg-ico{transform:none}}
+@media (prefers-reduced-motion:reduce){.tg-item:hover .tg-ico{transform:none}}
 /* herramientas: todas en una fila en la computadora (pedido del autor, 22/10/2026: eran cinco, desde la Fase 2 son seis), de a tres o de
    a dos en pantallas medianas y una debajo de la otra en el celular. Las filas se reparten parejas (datina.js, "Grillas parejas") */
 #herramientas-grid{grid-template-columns:repeat(6,minmax(0,1fr))}
