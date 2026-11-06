@@ -75,15 +75,20 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <h1>Dat<span class="i-gorro">i<svg class="gorro" viewBox="0 0 40 40" aria-hidden="true"><path class="gorro-cuerpo" d="M8.5,33 C7.6,23.5 9.6,14.6 16,8.6 C21.2,3.8 29.4,2.8 34.6,6.8 C38.2,9.6 38,14.8 34.6,16.6 C32.2,17.9 29.6,16.8 28.6,14.6 C27.9,13.1 26.4,12.3 24.8,12.8 C29.4,17.4 31.6,24.4 31.6,33 Z"/><path class="gorro-brillo" d="M13.2,27 C13,20.6 14.8,15.2 18.6,11.4"/><path class="gorro-banda" d="M6.4,31.2 Q20,29.4 33.6,31.2 L33.6,36.6 Q20,38.4 6.4,36.6 Z"/></svg></span>na</h1>
       <p class="lema">Las 24 Argentinas en números</p>
       <p class="bajada">Datos públicos de la Argentina y de sus 24 jurisdicciones, explicados para que cualquiera pueda entenderlos, compararlos y verificarlos.</p>
-      <!-- el buscador a la vista (Fase 2, paso 2, 23 de octubre de 2026): el mismo motor y el mismo índice que la lupa (datina.js). Sin
-           JavaScript no se ve, y si se envía igual lleva al catálogo de datos con lo escrito -->
-      <form class="busca-portada" role="search" action="catalogo.html">
-        <label class="solo-lector" for="busca-portada">Buscar en Datina</label>
-        <input type="search" id="busca-portada" name="q" placeholder="Tema, provincia o pregunta" autocomplete="off" spellcheck="false">
-        <div class="busca-res" id="busca-portada-res" hidden></div>
-        <p class="solo-lector" id="busca-portada-estado" role="status"></p>
-      </form>
-      <nav class="atajos" aria-label="Entradas principales"><a class="boton principal" href="provincia.html">Elegí tu provincia</a></nav>
+      <div class="portada-acciones">
+        <nav class="atajos" aria-label="Entradas principales"><a class="boton principal" href="provincia.html">Elegí tu provincia</a></nav>
+        <!-- el buscador de la portada: compacto, se despliega al hacer clic o al llegar con el teclado, y Escape lo cierra (pedido del autor,
+             noviembre de 2026. Antes, un campo blanco a la vista, de la Fase 2). El mismo motor y el mismo índice que la lupa (datina.js).
+             Sin JavaScript no se ve, y si se envía igual lleva al catálogo de datos con lo escrito -->
+        <form class="busca-portada" role="search" action="catalogo.html">
+          <label class="solo-lector" for="busca-portada">Buscar en Datina</label>
+          <input type="search" id="busca-portada" name="q" placeholder="Tema, provincia o pregunta" autocomplete="off" spellcheck="false">
+          <svg class="ico busca-ico" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true" focusable="false"><path d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"/></svg>
+          <span class="busca-rotulo" aria-hidden="true">Buscar</span>
+          <div class="busca-res" id="busca-portada-res" hidden></div>
+          <p class="solo-lector" id="busca-portada-estado" role="status"></p>
+        </form>
+      </div>
       <p class="estado" id="estado"></p>
     </div>
     <div class="portada-mapa" id="portada-mapa">
@@ -100,6 +105,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
         </g>
       </svg>
       <p class="mapa-ayuda" id="mapa-ayuda" aria-hidden="true">Tocá una provincia para ver sus datos</p>
+      <div class="mapa-lado" id="mapa-lado" aria-hidden="true"><p class="ml-tit">Las 24 jurisdicciones</p><p class="ml-txt">Tocá una provincia para ver sus datos</p></div>
     </div>
   </div>
 </section>
@@ -109,7 +115,18 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
        destacados, temas, provincias, historias con datos y herramientas, en el orden de la barra. Lo escribe el constructor -->
   <section class="destacados ancho" aria-labelledby="dest-tit">
     <h2 class="bloque-tit" id="dest-tit">Datos destacados</h2>
-    <div class="destacados-grid" id="destacados"><!--DESTACADOS--></div>
+    <!-- nueve datos, de a tres (pedido del autor, 6 de noviembre de 2026; en el celular, de a uno): se pasan a mano, con los botones, las flechas del
+         teclado o deslizando. Nunca pasan solos (el autor sacó el carrusel viejo, que rotaba, el 10 de octubre de 2026). Los controles los completa datina.js -->
+    <div class="dest-carrusel" id="dest-carrusel" role="region" aria-roledescription="carrusel" aria-labelledby="dest-tit">
+      <div class="dest-control">
+        <button type="button" class="boton chico dest-ant">Anterior</button>
+        <div class="dest-puntos" id="dest-puntos" role="group" aria-label="Elegir qué datos ver"></div>
+        <span class="dest-cuenta" id="dest-cuenta" aria-hidden="true"></span>
+        <button type="button" class="boton chico dest-sig">Siguiente</button>
+      </div>
+      <div class="destacados-grid" id="destacados"><!--DESTACADOS--></div>
+      <p class="solo-lector" id="dest-estado" role="status"></p>
+    </div>
   </section>
 
   <section class="secciones ancho" id="secciones" aria-labelledby="sec-titulo">

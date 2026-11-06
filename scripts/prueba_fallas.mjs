@@ -80,7 +80,7 @@ const tarjetasAntes = await p.eval(`[...document.querySelectorAll("#art-grid-hom
 CAMBIOS = [["try { a.c = partesArt(a)", 'try { a.c = a.id === "a-alquiler-pobreza" ? null.x : partesArt(a)']];
 await p.ir(BASE + "index.html", 1500);
 r = JSON.parse(await p.eval(`JSON.stringify({tarjetas: [...document.querySelectorAll("#art-grid-home .art-card")].map(a => a.getAttribute("href")).join(" "), destacados: [...document.querySelectorAll(".destacado .c-num")].filter(e => e.textContent.trim()).length})`));
-caso("Artículo que falla: la portada sigue (las mismas tarjetas de artículos y los datos destacados)", r.tarjetas.split(" ").length === tarjetasAntes.split(" ").length && r.destacados === 4, "antes " + tarjetasAntes + " | ahora " + r.tarjetas);
+caso("Artículo que falla: la portada sigue (las mismas tarjetas de artículos y los datos destacados)", r.tarjetas.split(" ").length === tarjetasAntes.split(" ").length && r.destacados === 9, "antes " + tarjetasAntes + " | ahora " + r.tarjetas);
 caso("Artículo que falla: la consola lo anota", p.errores.some(e => /no se pudo armar el artículo a-alquiler-pobreza/.test(e)) && !p.errores.some(e => /^excepción/.test(e)), p.errores.join(" | ").slice(0, 200));
 await p.ir(BASE + "a-alquiler-pobreza.html", 1500);
 r = await p.eval(`document.getElementById("a-alquiler-pobreza").textContent`);

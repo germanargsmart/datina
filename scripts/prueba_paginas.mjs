@@ -371,14 +371,58 @@ const tecla = async k => {
   await espera(300);
 };
 const enFoco = () => q.eval("(document.activeElement.id || '') + '|' + document.activeElement.textContent.trim().slice(0, 30)");
-// La portada (Fase 2, paso 2): los cuatro datos destacados con su cifra y su texto, y el buscador a la vista, que encuentra una provincia
+// La portada (Fase 2, paso 2): los nueve datos destacados con su cifra y su texto, y el buscador, que encuentra una provincia. Desde noviembre
+// de 2026 arranca compacto, se abre con el foco y Escape lo cierra
 await q.ir(B + "index.html", 1000);
 // y desde el 28 de octubre de 2026 (D7), debajo de cada cifra del país, cómo cambia entre las provincias
 const destacados = await q.eval(`[...document.querySelectorAll(".destacado")].filter(a => a.querySelector(".c-num").textContent.trim() && a.querySelector(".c-txt").textContent.trim() && a.querySelector(".c-rango")?.textContent.trim()).length`);
-if (destacados !== 4) problemas.push(`index.html: ${destacados} de 4 datos destacados con su cifra y su rango por provincia`);
+if (destacados !== 9) problemas.push(`index.html: ${destacados} de 9 datos destacados con su cifra y su texto de apoyo`);
+// de a tres (6 de noviembre de 2026): se ven tres, con las cifras a la misma altura, los controles los cambian, no pasan solos, y en el bloque hay hasta
+// cuatro tamaños de letra y dos familias. La cifra va sola en su línea, sin la unidad
+const carrusel = () => q.eval(`(() => { const p = document.getElementById("destacados"), d = [...p.querySelectorAll(".destacado")], r = p.getBoundingClientRect(), paso = d[1].offsetLeft - d[0].offsetLeft;
+  const vis = d.filter(a => { const b = a.getBoundingClientRect(); return b.left >= r.left - 2 && b.right <= r.right + 2; });
+  return {vis: vis.length, actual: [...document.querySelectorAll(".dest-punto")].findIndex(b => b.getAttribute("aria-current") === "true"), foco: d.filter(a => a.tabIndex === 0).length,
+    pos: Math.round(p.scrollLeft / paso), cuenta: document.getElementById("dest-cuenta").textContent, alturas: new Set(vis.map(a => Math.round(a.querySelector(".c-num").getBoundingClientRect().top))).size}; })()`);
+const c0 = await carrusel();
+if (c0.vis !== 3 || c0.actual !== 0 || c0.foco !== 3 || c0.alturas !== 1) problemas.push(`index.html: el carrusel de datos destacados no arranca con tres datos a la vista y las cifras parejas (${JSON.stringify(c0)})`);
+await q.eval(`document.querySelector(".dest-sig").click()`);
+await espera(450);
+const c1 = await carrusel();
+if (c1.vis !== 3 || c1.actual !== 1 || c1.pos !== 3) problemas.push(`index.html: "Siguiente" no lleva a los tres datos que siguen (${JSON.stringify(c1)})`);
+await q.eval(`document.querySelectorAll(".dest-punto")[2].click()`);
+await espera(450);
+const c3 = await carrusel();
+if (c3.actual !== 2 || c3.pos !== 6) problemas.push(`index.html: el tercer redondel no lleva a los últimos tres datos (${JSON.stringify(c3)})`);
+await q.eval(`document.querySelector(".dest-sig").click()`);
+await espera(450);
+const c2 = await carrusel();
+if (c2.actual !== 0 || c2.pos !== 0) problemas.push(`index.html: después de los últimos datos destacados no vuelve a los primeros (${JSON.stringify(c2)})`);
+await espera(1500);
+if ((await carrusel()).actual !== 0) problemas.push("index.html: el carrusel de datos destacados pasa solo");
+const letra = JSON.parse(await q.eval(`(() => { const t = new Set(), f = new Set(), w = document.createTreeWalker(document.querySelector(".destacados"), NodeFilter.SHOW_TEXT); let n;
+  while ((n = w.nextNode())) { if (!n.textContent.trim() || n.parentElement.closest(".solo-lector")) continue; const c = getComputedStyle(n.parentElement); t.add(c.fontSize); f.add(c.fontFamily.split(",")[0]); }
+  return JSON.stringify({t: [...t], f: [...f]}); })()`));
+if (letra.t.length > 4 || letra.f.length > 2) problemas.push(`index.html: datos destacados con ${letra.t.length} tamaños y ${letra.f.length} familias: ${letra.t} ${letra.f}`);
+const cifraSola = await q.eval(`[...document.querySelectorAll(".destacado .c-num")].filter(n => /[a-zñáéíóú]/i.test(n.textContent.replace(/ (mil millones|millones|mil)$/, ""))).map(n => n.textContent).join(", ")`);
+if (cifraSola) problemas.push(`index.html: dato destacado con la unidad pegada a la cifra: ${cifraSola}`);
+// en "Explorá la Argentina por tema" el enlace de cada tema cubre el tema entero, también donde hay subtemas, y cada subtema sigue con su enlace
+const temasMal = await q.eval(`[...document.querySelectorAll("#secciones .tg-item")].map(i => { const r = i.getBoundingClientRect(), l = i.querySelector(".tg-link"), f = getComputedStyle(l, "::after");
+  const t = i.querySelector("b").textContent;
+  scrollTo(0, scrollY + r.top - 200); const r2 = i.getBoundingClientRect();
+  const alBorde = [[r2.left + 2, r2.top + 2], [r2.right - 2, r2.bottom - 2]].every(([x, y]) => { const e = document.elementFromPoint(x, y); return e === l || e?.closest(".tg-link") === l; });
+  const subs = [...i.querySelectorAll(".tg-subs a")].every(a => { const b = a.getBoundingClientRect(); return document.elementFromPoint(b.left + b.width / 2, b.top + b.height / 2) === a; });
+  return (f.position !== "absolute" || !alBorde) ? t + ": el enlace no cubre el tema" : !subs ? t + ": un subtema no se puede tocar" : ""; }).filter(Boolean).join(", ")`);
+if (temasMal) problemas.push(`index.html: ${temasMal}`);
+await q.eval("scrollTo(0, 0)");
 // la bajada de cada artículo va en su tarjeta solo en la lista de Artículos, no en la portada (paso 4)
 if (await q.eval(`document.querySelectorAll("#art-grid-home .art-dek").length`)) problemas.push("index.html: las tarjetas de artículos llevan bajada (va solo en Artículos)");
+// sin ventana, Chrome no avisa que el campo recibió el foco si la pestaña no está al frente: se lo simula mientras se prueba el buscador
+await q.send("Emulation.setFocusEmulationEnabled", {enabled: true});
+const anchoBusca = () => q.eval(`document.querySelector(".busca-portada").getBoundingClientRect().width`);
+if ((await anchoBusca()) > 160) problemas.push(`index.html: el buscador de la portada no arranca compacto (${await anchoBusca()} píxeles)`);
 await q.eval(`document.getElementById("busca-portada").focus()`);
+await espera(350);
+if ((await anchoBusca()) < 280) problemas.push(`index.html: el buscador de la portada no se abre con el foco (${await anchoBusca()} píxeles)`);
 await q.send("Input.insertText", {text: "salta"});
 await espera(300);
 if (!(await q.eval(`document.querySelectorAll('#busca-portada-res a[href="provincia-salta.html"]').length`)))
@@ -393,6 +437,49 @@ const tapados = await q.eval(`(() => { const res = document.getElementById("busc
     if (y <= caja.top || y >= Math.min(caja.bottom, innerHeight)) return false;
     const el = document.elementFromPoint(r.left + r.width / 2, y); return !el || !a.contains(el); }).length; })()`);
 if (tapados) problemas.push(`index.html: ${tapados} resultados del buscador de la portada se ven pero no se pueden tocar`);
+await tecla("Escape");
+if ((await anchoBusca()) > 160 || await q.eval(`document.getElementById("busca-portada").value !== "" || !document.getElementById("busca-portada-res").hidden`))
+  problemas.push("index.html: Escape no cierra el buscador de la portada");
+// las Malvinas son un dibujo: el puntero pasa de largo, no hay enlace y Tierra del Fuego ya no llega hasta ellas (noviembre de 2026)
+const malvinas = await q.eval(`(() => { const m = document.querySelector("#mapa .malvinas"), a = document.querySelector('#mapa .provs a[data-c="94"]');
+  if (!m) return "no se dibujan"; const r = m.getBoundingClientRect(), t = a.getBoundingClientRect();
+  if (!r.width) return "no se ven"; if (m.closest("a")) return "están dentro de un enlace"; if (m.getAttribute("aria-hidden") !== "true") return "sin aria-hidden";
+  if (getComputedStyle(m).pointerEvents !== "none") return "reciben el puntero"; if (t.right > r.left) return "Tierra del Fuego llega hasta ellas";
+  const e = document.elementFromPoint(r.left + r.width / 2, r.top + r.height / 2); return e && e.closest("a") ? "el centro tiene un enlace" : ""; })()`);
+if (malvinas) problemas.push(`index.html: Malvinas: ${malvinas}`);
+// el costado del mapa, desde 1200 píxeles: el nombre y la descripción en letra legible y, al hacer clic en cada una de las 24, sus datos sin
+// recuadro, sin tapar el sol y sin que los corte el borde de lo azul
+for (const W of [1440, 1200]) {
+  await q.tamano(W, 900);
+  await q.ir(B + "index.html", 4000);
+  const lado = await q.eval(`(() => { const l = document.getElementById("mapa-lado"), a = document.querySelector('#mapa .provs a[data-c="78"]');
+    if (!l.offsetParent) return "no se ve"; if (document.getElementById("mapa-ayuda").offsetParent) return "sigue la línea de abajo";
+    a.dispatchEvent(new PointerEvent("pointerenter")); const t = l.textContent, c = parseFloat(getComputedStyle(l.querySelector(".ml-txt")).fontSize);
+    a.dispatchEvent(new PointerEvent("pointerleave")); return !t.includes("Santa Cruz") || !t.includes("Esperanza de vida") ? "no nombra la provincia: " + t : c < 15 ? "letra de " + c : ""; })()`);
+  if (lado) problemas.push(`index.html en ${W} píxeles: costado del mapa: ${lado}`);
+  const costado = await q.eval(`(() => { const malas = [], sol = document.getElementById("sol").getBoundingClientRect(), por = document.querySelector(".portada").getBoundingClientRect();
+    document.querySelectorAll("#mapa .provs a").forEach(a => { a.dispatchEvent(new MouseEvent("click", {bubbles: true, cancelable: true}));
+      const t = document.querySelector(".mapa-tarjeta"), r = t.getBoundingClientRect(), cs = getComputedStyle(t);
+      if (r.top < sol.bottom && r.left < sol.right && r.right > sol.left) malas.push(a.dataset.c + " tapa el sol");
+      if (r.bottom > por.bottom) malas.push(a.dataset.c + " se corta " + Math.round(r.bottom - por.bottom));
+      if (cs.boxShadow !== "none" || parseFloat(cs.borderTopWidth) || cs.backgroundColor !== "rgba(0, 0, 0, 0)") malas.push(a.dataset.c + " con recuadro");
+      if ([...t.querySelectorAll("small, .mt-lab, b")].some(s => getComputedStyle(s).color !== "rgb(255, 255, 255)")) malas.push(a.dataset.c + " con letra que no se lee sobre el azul"); });
+    document.dispatchEvent(new KeyboardEvent("keydown", {key: "Escape"}));
+    if (document.getElementById("mapa-lado").hidden) malas.push("Escape no vuelve a la descripción");
+    return malas.slice(0, 6).join(", "); })()`);
+  if (costado) problemas.push(`index.html en ${W} píxeles: datos de la provincia: ${costado}`);
+}
+// en el celular, de a uno, con su cuenta: los nueve redondeles no entran
+await q.tamano(390, 844);
+await q.ir(B + "index.html", 1000);
+const cel0 = await carrusel();
+if (cel0.foco !== 1 || cel0.cuenta !== "1 de 9" || await q.eval(`getComputedStyle(document.getElementById("dest-puntos")).display !== "none"`)) problemas.push(`index.html en 390 píxeles: el carrusel no arranca de a uno (${JSON.stringify(cel0)})`);
+await q.eval(`document.querySelector(".dest-sig").click()`);
+await espera(450);
+const cel1 = await carrusel();
+if (cel1.cuenta !== "2 de 9" || cel1.pos !== 1) problemas.push(`index.html en 390 píxeles: "Siguiente" no pasa al dato que sigue (${JSON.stringify(cel1)})`);
+await q.tamano(1280, 900);
+await q.send("Emulation.setFocusEmulationEnabled", {enabled: false});
 q.errores.forEach(e => problemas.push(`portada: ${e}`));
 await q.ir(B + "trabajo.html", 1000);
 await q.eval(`document.getElementById("gb-temas").focus()`);
@@ -484,7 +571,11 @@ for (const W of [360, 768]) {
   const lupaD = await q.eval(DESBORDA("busca"));
   if (lupaD > 0) problemas.push(`trabajo.html en ${W} píxeles: el texto de ayuda de la lupa se corta (${lupaD} píxeles de más)`);
   await q.ir(B + "index.html", 1000);
+  await q.send("Emulation.setFocusEmulationEnabled", {enabled: true});
+  await q.eval(`document.getElementById("busca-portada").focus()`);
+  await espera(350);
   const portadaD = await q.eval(DESBORDA("busca-portada"));
+  await q.send("Emulation.setFocusEmulationEnabled", {enabled: false});
   if (portadaD > 0) problemas.push(`index.html en ${W} píxeles: el texto de ayuda del buscador se corta (${portadaD} píxeles de más)`);
 }
 await q.ir(B + "trabajo.html", 1000);

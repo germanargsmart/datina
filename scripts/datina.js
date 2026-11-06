@@ -8943,10 +8943,12 @@ const menuBarra = (btn, panel) => {
   const abierto = () => btn.getAttribute("aria-expanded") === "true";
   // en "Menú" las partes empiezan plegadas: lo primero que se ve es el nombre de una parte (summary)
   const primero = () => [...panel.querySelectorAll("a, summary")].find(a => a.offsetParent);
-  // alineada con el botón, sin salirse de la pantalla a la derecha
+  // alineada con el botón, sin pasarse del borde derecho del contenido. Temas ocupa todo el ancho del contenido, con sus bordes sobre los de la página
   const ubicar = () => {
-    const b = btn.getBoundingClientRect(), ancho = panel.offsetWidth || 0;
-    panel.style.setProperty("--menu-izq", Math.round(Math.max(12, Math.min(b.left - 12, innerWidth - ancho - 12))) + "px");
+    const b = btn.getBoundingClientRect(), caja = btn.closest(".envoltura"), c = caja.getBoundingClientRect(), m = parseFloat(getComputedStyle(caja).paddingLeft);
+    const izq = c.left + m, der = c.right - m;
+    if (panel.classList.contains("panel-temas")) { panel.style.width = `${der - izq}px`; panel.style.setProperty("--menu-izq", Math.round(izq) + "px"); return; }
+    panel.style.setProperty("--menu-izq", Math.round(Math.max(12, Math.min(b.left - 12, der - (panel.offsetWidth || 0)))) + "px");
   };
   // los botones de la barra están fijos arriba: sin preventScroll, Chrome corre la página para "mostrarlos" al darles el foco
   const abrir = () => {
@@ -11355,7 +11357,10 @@ document.querySelectorAll("article.ficha").forEach(f => {
    la misma que muestra cada ficha (CLAVE). El constructor deja la pregunta y el enlace, y el lugar de la cifra reservado */
 document.querySelectorAll(".destacado[data-clave]").forEach(a => {
   const c = CLAVE[a.dataset.clave];
-  if (c) { a.querySelector(".c-num").innerHTML = c[0]; a.querySelector(".c-txt").innerHTML = c[1]; }
+  if (!c) return;
+  // la cifra en su línea y la unidad con lo que mide y su año en la de abajo: "2.151.327 pesos" corrido con su texto se leía mal
+  const [, num, resto] = String(c[0]).match(/^([+-]?[\d.,]+%?(?: mil millones| millones| mil)?)\s*(.*)$/) || [, c[0], ""];
+  a.querySelector(".c-num").innerHTML = num; a.querySelector(".c-txt").innerHTML = (resto ? resto + " " : "") + c[1];
 });
 // D7 (plan de mejora, 28 de octubre de 2026, aprobado por el autor): la cifra es la del país, y debajo, de la provincia más baja a la más
 // alta, como en el gráfico de la ficha (en el petróleo, cuánto sale de la primera). Con una provincia elegida, también la suya. Los
@@ -11365,9 +11370,19 @@ const RANGO_DEST = {
   "f-salarios": [() => T.salarios_provincias, "salario", v => n2(v / 1e6), " millones de pesos", "Por provincia"],
   "f-homicidios": [() => T.homicidios_provincias, "tasa_3", n1, "", `Por provincia, en promedio de ${SG.hom3_desde} a ${SG.anio}`],
 };
+// los que no cambian por provincia (6 de noviembre de 2026): el dato que mejor acompaña a la cifra. En las personas presas, el año inicial y no las provincias:
+// la más baja es Neuquén, con 0,0%, y en una sola línea se lee como un error
+const APOYO_DEST = {
+  "f-nacimientos": () => `Son ${pct(Math.abs(nac.caida))} ${nac.caida < 0 ? "menos" : "más"} que en ${nac.anio_pico}, cuando hubo ${n0(nac.pico)}.`,
+  "f-inflacion": () => `El rubro que más subió fue ${inicialMin(EIP.div_max[0])}: ${pct(EIP.div_max[1])}.`,
+  "f-pobreza": () => `Un año antes, ${pct(R.pobreza.pob_prev)}. El máximo fue ${pct(R.pobreza.max)}, en el ${R.pobreza.max_sem}.`,
+  "f-sin-condena": () => `En ${SG.sn_ini} era ${pct(SG.sn_sin_ini)}.`,
+  "f-ant-bases": () => `Según COMNAP, en ${ANT.comnap_fecha}${ANT.anual_top === "Argentina" ? ", ningún otro país tenía tantas abiertas todo el año" : ""}.`,
+};
 function pintarRangos() {
   document.querySelectorAll(".destacado[data-clave] .c-rango").forEach(el => {
     const id = el.closest(".destacado").dataset.clave, r = RANGO_DEST[id];
+    if (APOYO_DEST[id]) { el.textContent = APOYO_DEST[id](); return; }
     if (id === "f-petroleo") {
       const fp = NOMBRES[prov] && T.hidrocarburos_provincias.find(x => x.codigo_indec === prov);
       el.textContent = `El ${pct(PG.top_pct)} salió de ${PG.top} entre ${PG.v_desde} y ${PG.v_hasta}.` + (!NOMBRES[prov] || fp?.territorio === PG.top ? "" :
@@ -11382,6 +11397,66 @@ function pintarRangos() {
   });
 }
 if (document.querySelector(".destacado .c-rango")) { pintarRangos(); alCambiarProv.push(pintarRangos); }
+// El carrusel de los datos destacados (pedido del autor, 6 de noviembre de 2026; retoma los botones de "Datos rápidos", sacado en la etapa 39). Nueve datos,
+// de a tres, y en el celular de a uno. Se pasa a mano y nunca solo. Los datos están en una fila que se desliza, también con el dedo. Solo los datos a la
+// vista reciben el foco y los leen los lectores de pantalla. El movimiento dura 280 ms, y no hay movimiento con movimiento reducido
+(() => {
+  const caja = document.getElementById("dest-carrusel"); if (!caja) return;
+  const pista = document.getElementById("destacados"), datos = [...pista.querySelectorAll(".destacado")], puntos = document.getElementById("dest-puntos");
+  const estado = document.getElementById("dest-estado"), cuenta = document.getElementById("dest-cuenta"), ancho = matchMedia("(min-width:761px)");
+  let actual = 0, moviendo = false, reubicando = 0;
+  const porVez = () => ancho.matches ? 3 : 1;
+  const tandas = () => Math.ceil(datos.length / porVez());
+  const posicion = i => Math.min(datos[i].offsetLeft - datos[0].offsetLeft, pista.scrollWidth - pista.clientWidth);
+  const rotulo = i => porVez() === 1 ? `Dato ${i + 1} de ${datos.length}` : `Datos ${i + 1} a ${Math.min(i + porVez(), datos.length)} de ${datos.length}`;
+  const marcar = (i, avisar) => {
+    const n = porVez(); actual = i;
+    [...puntos.children].forEach((b, t) => b.setAttribute("aria-current", String(t === Math.floor(i / n))));
+    datos.forEach((d, k) => { const ve = k >= i && k < i + n; d.tabIndex = ve ? 0 : -1; if (ve) d.removeAttribute("aria-hidden"); else d.setAttribute("aria-hidden", "true"); });
+    // si el foco estaba en un dato que dejó de verse, pasa al primero de los nuevos
+    if (document.activeElement?.closest?.(".destacado")?.getAttribute("aria-hidden")) datos[i].focus({preventScroll: true});
+    cuenta.textContent = `${i + 1} de ${datos.length}`;
+    if (avisar) estado.textContent = `${rotulo(i)}: ${datos.slice(i, i + n).map(d => d.querySelector(".c-preg").textContent).join(" ")}`;
+  };
+  const ir = n => {
+    const i = n < 0 ? (tandas() - 1) * porVez() : n >= datos.length ? 0 : n, x = posicion(i), x0 = pista.scrollLeft;
+    marcar(i, true);
+    if (REDUCIR || document.hidden || x === x0) { pista.scrollLeft = x; return; }
+    moviendo = true; pista.style.scrollSnapType = "none";
+    const t0 = performance.now(), paso = t => {
+      const p = Math.min(1, Math.max(0, (t - t0) / 280));
+      pista.scrollLeft = x0 + (x - x0) * (1 - (1 - p) ** 3);
+      if (p < 1) requestAnimationFrame(paso); else { pista.style.scrollSnapType = ""; moviendo = false; }
+    };
+    requestAnimationFrame(paso);
+  };
+  // los redondeles, uno por tanda: cambian si cambia cuántos datos se ven por vez
+  const armarPuntos = () => {
+    puntos.innerHTML = Array.from({length: tandas()}, (_, t) => `<button type="button" class="dest-punto" aria-label="${rotulo(t * porVez())}"></button>`).join("");
+    [...puntos.children].forEach((b, t) => b.addEventListener("click", () => ir(t * porVez())));
+  };
+  caja.querySelector(".dest-ant").addEventListener("click", () => ir(actual - porVez()));
+  caja.querySelector(".dest-sig").addEventListener("click", () => ir(actual + porVez()));
+  caja.addEventListener("keydown", ev => { if (ev.key === "ArrowRight" || ev.key === "ArrowLeft") { ev.preventDefault(); ir(actual + (ev.key === "ArrowRight" ? porVez() : -porVez())); } });
+  // deslizando con el dedo: los datos a la vista mandan
+  pista.addEventListener("scroll", () => {
+    if (moviendo || reubicando) return;
+    const n = porVez(), paso = datos[1].offsetLeft - datos[0].offsetLeft;
+    const i = pista.scrollLeft >= pista.scrollWidth - pista.clientWidth - 2 ? (tandas() - 1) * n : Math.round(pista.scrollLeft / paso / n) * n;
+    if (i !== actual && datos[i]) marcar(i, true);
+  }, {passive: true});
+  // si cambia el ancho, sigue en los mismos datos, y el movimiento que eso provoca no cuenta como deslizar. Solo el ancho: el alto cambia con la barra de
+  // direcciones del celular y no tiene que mover nada
+  let anchoPista = pista.clientWidth;
+  const reubicar = () => {
+    pista.scrollLeft = posicion(actual); reubicando++;
+    requestAnimationFrame(() => requestAnimationFrame(() => { reubicando--; }));
+  };
+  ancho.addEventListener("change", () => { armarPuntos(); marcar(Math.floor(actual / porVez()) * porVez(), false); reubicar(); });
+  new ResizeObserver(() => { if (moviendo || pista.clientWidth === anchoPista) return; anchoPista = pista.clientWidth; reubicar(); }).observe(pista);
+  armarPuntos();
+  marcar(0, false);
+})();
 
 /* Sobre nosotros: cifras contadas en el propio sitio */
 const NFICHAS = SITIO.fichas.filter(f => !f[5]).length;
@@ -12076,13 +12151,15 @@ if (PAGINA !== "inicio") {
   // salir con Tab la cierra (paso 6). Solo cuando el foco va a otro lugar conocido: en el celular tocar no siempre mueve el foco, y un
   // relatedTarget vacío no debe cerrarla antes de que llegue el toque
   caja.addEventListener("focusout", ev => { const a = ev.relatedTarget; if (!caja.hidden && a && !caja.contains(a) && a !== btn) cerrar(false); });
-  // el buscador a la vista de la portada (paso 2): la lista aparece debajo del campo mientras se escribe y Escape borra lo escrito. Sin
+  // el buscador de la portada: compacto hasta que se toca o se llega con el teclado (pedido del autor, noviembre de 2026). La lista aparece
+  // debajo del campo mientras se escribe. Escape borra lo escrito y lo cierra, con el foco en el campo: escribir lo vuelve a abrir. Sin
   // JavaScript, el formulario lleva al catálogo de datos
   const entP = document.getElementById("busca-portada"), resP = document.getElementById("busca-portada-res");
   const estP = document.getElementById("busca-portada-estado");
   if (entP && resP && estP) {
-    const portada = combo(entP, resP, estP, "bp");
+    const portada = combo(entP, resP, estP, "bp"), cajaP = entP.closest(".busca-portada");
     const cerrarP = () => { resP.hidden = true; resP.innerHTML = ""; portada.cerrado(); };
+    const abrirP = () => cajaP.classList.add("abierta"), plegarP = () => { if (!entP.value) cajaP.classList.remove("abierta"); };
     // la lista va fija debajo del campo (la portada recorta lo que sobresale): se ubica al abrirla y al moverse la página
     const ubicarP = () => {
       const r = entP.getBoundingClientRect();
@@ -12090,11 +12167,15 @@ if (PAGINA !== "inicio") {
     };
     addEventListener("scroll", () => { if (!resP.hidden) ubicarP(); }, {passive: true});
     addEventListener("resize", () => { if (!resP.hidden) ubicarP(); });
-    entP.addEventListener("input", () => { if (entP.value.trim()) { resP.hidden = false; portada.mostrar(); ubicarP(); } else cerrarP(); });
-    entP.addEventListener("keydown", ev => { if (ev.key === "Escape" && entP.value) { entP.value = ""; cerrarP(); } });
-    document.addEventListener("pointerdown", ev => { if (!resP.hidden && !resP.contains(ev.target) && ev.target !== entP) cerrarP(); });
-    // salir del campo con Tab cierra la lista, que va fija y quedaba flotando (paso 6)
-    entP.addEventListener("focusout", ev => { const a = ev.relatedTarget; if (!resP.hidden && a && !resP.contains(a)) cerrarP(); });
+    entP.addEventListener("focus", abrirP);
+    entP.addEventListener("pointerdown", abrirP);
+    // la lista se ubica de nuevo cuando el campo termina de abrirse
+    cajaP.addEventListener("transitionend", () => { if (!resP.hidden) ubicarP(); });
+    entP.addEventListener("input", () => { abrirP(); if (entP.value.trim()) { resP.hidden = false; portada.mostrar(); ubicarP(); } else cerrarP(); });
+    entP.addEventListener("keydown", ev => { if (ev.key === "Escape") { entP.value = ""; cerrarP(); plegarP(); } });
+    document.addEventListener("pointerdown", ev => { if (resP.contains(ev.target) || ev.target === entP) return; if (!resP.hidden) cerrarP(); plegarP(); });
+    // salir del campo con Tab cierra la lista, que va fija y quedaba flotando (paso 6), y sin nada escrito pliega el campo
+    entP.addEventListener("focusout", ev => { const a = ev.relatedTarget; if (a && resP.contains(a)) return; if (!resP.hidden && a) cerrarP(); plegarP(); });
   }
 })();
 
@@ -12294,9 +12375,12 @@ async function mapa() {
     }).sort((p, q) => q.dist - p.dist);
     piezas.forEach((p, i) => {
       const t = {delay: i * PASO_P, fill: "backwards"};
-      p.a.animate([{transform: `translate(${p.dx.toFixed(1)}px,${p.dy.toFixed(1)}px) rotate(${p.giro.toFixed(1)}deg)`}, {transform: "none"}],
-        {...t, duration: DUR_P, easing: "cubic-bezier(.16,1,.3,1)"});
-      p.a.animate([{opacity: 0}, {opacity: 1}], {...t, duration: 300, easing: "ease-out"});
+      // las Malvinas llegan con Tierra del Fuego
+      [p.a, ...(p.a.dataset.c === "94" ? [el.querySelector(".malvinas")] : [])].forEach(n => {
+        n.animate([{transform: `translate(${p.dx.toFixed(1)}px,${p.dy.toFixed(1)}px) rotate(${p.giro.toFixed(1)}deg)`}, {transform: "none"}],
+          {...t, duration: DUR_P, easing: "cubic-bezier(.16,1,.3,1)"});
+        n.animate([{opacity: 0}, {opacity: 1}], {...t, duration: 300, easing: "ease-out"});
+      });
     });
     // el sol empieza a nacer cuando la última pieza está llegando
     vuelo = setTimeout(soltar, (piezas.length - 1) * PASO_P + DUR_P * .7);
@@ -12305,9 +12389,26 @@ async function mapa() {
   try { [mundo] = await Promise.all([fetch("datos/mundo-110m.json").then(r => r.json()), cargarGeo()]); } catch (_) { soltar(); return; }
   // la Argentina y las Malvinas del mapa del mundo no se dibujan: van las provincias, con su contorno oficial
   const paises = topojson.feature(mundo, mundo.objects.countries).features.filter(d => d.id !== "032" && d.id !== "238");
+  // Las Malvinas son parte de la provincia en el archivo (código 94, los polígonos al este de los 62 grados oeste). Se dibujan aparte para que
+  // sean un dibujo y nada más: sin mouse, sin clic y sin dar los datos de Tierra del Fuego (pedido del autor, noviembre de 2026). El ajuste del
+  // mapa al lugar sigue usando el archivo entero, y los otros mapas del sitio no cambian
+  const esMalvinas = pol => d3.geoCentroid({type: "Polygon", coordinates: pol})[0] > -62;
+  const conMalvinas = GEO.features.find(f => f.properties.codigo_indec === "94");
+  const soloIslas = {type: "MultiPolygon", coordinates: conMalvinas.geometry.coordinates.filter(esMalvinas)};
+  const sinMalvinas = {...conMalvinas, geometry: {type: "MultiPolygon", coordinates: conMalvinas.geometry.coordinates.filter(p => !esMalvinas(p))}};
+  const provMapa = GEO.features.map(f => f === conMalvinas ? sinMalvinas : f);
   // con mouse se hace clic, en el celular se toca
-  const AYUDA = matchMedia("(hover:hover) and (pointer:fine)").matches ? "Hacé clic en una provincia para ver sus datos" : ayuda.textContent;
+  const CON_MOUSE = matchMedia("(hover:hover) and (pointer:fine)").matches;
+  const AYUDA = CON_MOUSE ? "Hacé clic en una provincia para ver sus datos" : ayuda.textContent;
   ayuda.textContent = AYUDA;
+  // al costado del país, en pantallas anchas: la instrucción y, al pasar el mouse, el nombre con un dato explicado
+  const lado = document.getElementById("mapa-lado"), EV_LADO = INDP.find(x => x.lab === "Esperanza de vida");
+  LADO_REPOSO = `<p class="ml-tit">Las 24 jurisdicciones</p><p class="ml-txt">${AYUDA}</p>`;
+  lado.innerHTML = LADO_REPOSO;
+  const ladoProv = c => {
+    const f = EV_LADO?.d.find(d => d.codigo_indec === c);
+    lado.innerHTML = `<p class="ml-tit">${conBandera(c, NOMBRES[c])}</p><p class="ml-txt">${f ? `Esperanza de vida: ${EV_LADO.f(f[EV_LADO.k])} ${EV_LADO.det}. ` : ""}${CON_MOUSE ? "Hacé clic" : "Tocá"} para ver más datos.</p>`;
+  };
   const dibujar = (armar = false) => {
     const W = por.clientWidth, H = por.clientHeight, angosto = W < 760;
     const pr = por.getBoundingClientRect(), c = caja.getBoundingClientRect(), sl = document.getElementById("sol").getBoundingClientRect();
@@ -12323,16 +12424,18 @@ async function mapa() {
     ayuda.style.left = `${(bp[0][0] + bp[1][0]) / 2 - (c.left - pr.left)}px`;
     ayuda.style.top = `${bp[1][1] - (c.top - pr.top) + 10}px`;
     ZONA_MAPA = {der: bp[1][0] - (c.left - pr.left), arr: bp[0][1] - (c.top - pr.top), aba: bp[1][1] - (c.top - pr.top)};
+    caja.style.setProperty("--mapa-der", `${Math.round(ZONA_MAPA.der + 24)}px`);
     svg.selectAll("*").remove();
     svg.append("path").attr("class","grat").attr("d", camino(d3.geoGraticule().step([10, 10])()));
     [10, 20, 30, 45, 60, 80, 100, 130, 160].forEach(r =>
       svg.append("path").attr("class","anillo").attr("d", camino(d3.geoCircle().center([-64, -38]).radius(r)())));
     svg.append("g").selectAll("path").data(paises).join("path").attr("class", "tierra").attr("d", camino);
     const g = svg.append("g").attr("class", "provs");
-    const enlaces = g.selectAll("a").data(GEO.features).join("a")
+    const enlaces = g.selectAll("a").data(provMapa).join("a")
       .attr("href", d => urlProv(d.properties.codigo_indec)).attr("tabindex", -1)
       .attr("data-c", d => d.properties.codigo_indec);
     enlaces.append("path").attr("d", camino);
+    g.append("path").attr("class", "malvinas").attr("aria-hidden", "true").attr("d", camino(soloIslas));
     // la Ciudad de Buenos Aires es un punto a esta escala: un círculo para poder tocarla
     const [cx, cy] = proy(d3.geoCentroid(GEO.features.find(f => f.properties.codigo_indec === "02")));
     g.select('a[data-c="02"]').raise().append("circle").attr("cx", cx).attr("cy", cy).attr("r", angosto ? 6 : 5);
@@ -12340,8 +12443,8 @@ async function mapa() {
     if (vuelo) soltar();
     if (armar && pendiente) rompecabezas(enlaces, camino, proy, bp);
     else if (pendiente) g.style("opacity", 0);
-    enlaces.on("pointerenter", (ev, d) => { const c = d.properties.codigo_indec; ayuda.innerHTML = conBandera(c, `${NOMBRES[c]}: ver sus datos`); })
-      .on("pointerleave", () => { ayuda.textContent = AYUDA; })
+    enlaces.on("pointerenter", (ev, d) => { const c = d.properties.codigo_indec; ayuda.innerHTML = conBandera(c, `${NOMBRES[c]}: ver sus datos`); ladoProv(c); })
+      .on("pointerleave", () => { ayuda.textContent = AYUDA; lado.innerHTML = LADO_REPOSO; })
       // tocar una provincia abre una tarjeta con datos de su perfil (pedido del autor, octubre de 2026). No la elige: eso se hace
       // solo en provincia.html, al que lleva el botón de la tarjeta
       .on("click", (ev, d) => { ev.preventDefault(); tarjetaMapa(d.properties.codigo_indec); });
@@ -12360,7 +12463,7 @@ async function mapa() {
 }
 // Tarjeta del mapa: cuatro indicadores del perfil con su posición entre las 24 y el enlace al perfil completo.
 // Al lado del país en pantallas anchas y debajo del mapa en el celular. Se cierra con Escape, con "Cerrar" o tocando afuera
-let ZONA_MAPA = null, tarjetaM = null;
+let ZONA_MAPA = null, tarjetaM = null, LADO_REPOSO = "";
 const MAPA_IND = ["Empleo privado registrado", "Esperanza de vida", "Mortalidad infantil", "Aprender, matemática"];
 function tarjetaMapa(c) {
   const caja = document.getElementById("portada-mapa");
@@ -12380,7 +12483,9 @@ function tarjetaMapa(c) {
   tarjetaM.setAttribute("aria-label", `Datos de ${NOMBRES[c]}`);
   tarjetaM.innerHTML = `<div class="mt-cab">${conBandera(c, NOMBRES[c])}<button type="button" class="mt-cerrar" aria-label="Cerrar"><span aria-hidden="true">×</span></button></div>` +
     `<ul>${filas}</ul><a class="boton principal chico" href="${urlProv(c)}">Ver perfil completo</a>`;
-  if (ZONA_MAPA && innerWidth >= 760) { tarjetaM.style.left = `${ZONA_MAPA.der + 20}px`; tarjetaM.style.top = `${Math.max(0, ZONA_MAPA.arr + 40)}px`; }
+  // desde 1200 píxeles la ubica datina.css, debajo del sol y en lugar de la descripción
+  document.getElementById("mapa-lado").hidden = true;
+  if (ZONA_MAPA && innerWidth >= 760 && innerWidth < 1200) { tarjetaM.style.left = `${ZONA_MAPA.der + 20}px`; tarjetaM.style.top = `${Math.max(0, ZONA_MAPA.arr + 40)}px`; }
   else { tarjetaM.style.left = ""; tarjetaM.style.top = ""; }
   document.querySelectorAll("#mapa .provs a").forEach(a => a.classList.toggle("tocada", a.dataset.c === c));
   const nueva = !tarjetaM.classList.contains("abierta");
@@ -12390,10 +12495,14 @@ function tarjetaMapa(c) {
 function cerrarTarjetaMapa() {
   if (!tarjetaM?.classList.contains("abierta")) return;
   tarjetaM.classList.remove("abierta");
+  const lado = document.getElementById("mapa-lado"); lado.hidden = false; lado.innerHTML = LADO_REPOSO;
   document.querySelectorAll("#mapa .provs a.tocada").forEach(a => a.classList.remove("tocada"));
 }
 // la provincia elegida, en amarillo
-const marcarMapa = () => document.querySelectorAll("#mapa .provs a").forEach(a => a.classList.toggle("elegida", a.dataset.c === prov));
+const marcarMapa = () => {
+  document.querySelectorAll("#mapa .provs a").forEach(a => a.classList.toggle("elegida", a.dataset.c === prov));
+  document.querySelector("#mapa .malvinas")?.classList.toggle("elegida", prov === "94");
+};
 alCambiarProv.push(marcarMapa);
 // la historia de la provincia elegida en Tu provincia (11 de octubre de 2026): los 24 bloques los escribe el constructor, ocultos
 const mostrarHistoria = () => document.querySelectorAll("#prov-historia .ph, .prov-linea").forEach(a => { a.hidden = a.dataset.c !== prov; });

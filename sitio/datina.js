@@ -7906,8 +7906,10 @@ let t;
 const abierto = () => btn.getAttribute("aria-expanded") === "true";
 const primero = () => [...panel.querySelectorAll("a, summary")].find(a => a.offsetParent);
 const ubicar = () => {
-const b = btn.getBoundingClientRect(), ancho = panel.offsetWidth || 0;
-panel.style.setProperty("--menu-izq", Math.round(Math.max(12, Math.min(b.left - 12, innerWidth - ancho - 12))) + "px");
+const b = btn.getBoundingClientRect(), caja = btn.closest(".envoltura"), c = caja.getBoundingClientRect(), m = parseFloat(getComputedStyle(caja).paddingLeft);
+const izq = c.left + m, der = c.right - m;
+if (panel.classList.contains("panel-temas")) { panel.style.width = `${der - izq}px`; panel.style.setProperty("--menu-izq", Math.round(izq) + "px"); return; }
+panel.style.setProperty("--menu-izq", Math.round(Math.max(12, Math.min(b.left - 12, der - (panel.offsetWidth || 0)))) + "px");
 };
 const abrir = () => {
 MENUS.forEach(m => m !== yo && m.abierto() && m.cerrar(false));
@@ -10104,16 +10106,26 @@ arts.map(a => `<a class="enlace" href="${urlPagina(a.id)}">${a.titulo}</a>`).joi
 });
 document.querySelectorAll(".destacado[data-clave]").forEach(a => {
 const c = CLAVE[a.dataset.clave];
-if (c) { a.querySelector(".c-num").innerHTML = c[0]; a.querySelector(".c-txt").innerHTML = c[1]; }
+if (!c) return;
+const [, num, resto] = String(c[0]).match(/^([+-]?[\d.,]+%?(?: mil millones| millones| mil)?)\s*(.*)$/) || [, c[0], ""];
+a.querySelector(".c-num").innerHTML = num; a.querySelector(".c-txt").innerHTML = (resto ? resto + " " : "") + c[1];
 });
 const RANGO_DEST = {
 "f-esperanza": [() => T.esperanza_vida_provincias, "total", v => n1(v), " años", "Por provincia"],
 "f-salarios": [() => T.salarios_provincias, "salario", v => n2(v / 1e6), " millones de pesos", "Por provincia"],
 "f-homicidios": [() => T.homicidios_provincias, "tasa_3", n1, "", `Por provincia, en promedio de ${SG.hom3_desde} a ${SG.anio}`],
 };
+const APOYO_DEST = {
+"f-nacimientos": () => `Son ${pct(Math.abs(nac.caida))} ${nac.caida < 0 ? "menos" : "más"} que en ${nac.anio_pico}, cuando hubo ${n0(nac.pico)}.`,
+"f-inflacion": () => `El rubro que más subió fue ${inicialMin(EIP.div_max[0])}: ${pct(EIP.div_max[1])}.`,
+"f-pobreza": () => `Un año antes, ${pct(R.pobreza.pob_prev)}. El máximo fue ${pct(R.pobreza.max)}, en el ${R.pobreza.max_sem}.`,
+"f-sin-condena": () => `En ${SG.sn_ini} era ${pct(SG.sn_sin_ini)}.`,
+"f-ant-bases": () => `Según COMNAP, en ${ANT.comnap_fecha}${ANT.anual_top === "Argentina" ? ", ningún otro país tenía tantas abiertas todo el año" : ""}.`,
+};
 function pintarRangos() {
 document.querySelectorAll(".destacado[data-clave] .c-rango").forEach(el => {
 const id = el.closest(".destacado").dataset.clave, r = RANGO_DEST[id];
+if (APOYO_DEST[id]) { el.textContent = APOYO_DEST[id](); return; }
 if (id === "f-petroleo") {
 const fp = NOMBRES[prov] && T.hidrocarburos_provincias.find(x => x.codigo_indec === prov);
 el.textContent = `El ${pct(PG.top_pct)} salió de ${PG.top} entre ${PG.v_desde} y ${PG.v_hasta}.` + (!NOMBRES[prov] || fp?.territorio === PG.top ? "" :
@@ -10128,6 +10140,58 @@ el.textContent = `${ini}, de ${f(lo[k])}${u} en ${lo.territorio} a ${f(hi[k])} e
 });
 }
 if (document.querySelector(".destacado .c-rango")) { pintarRangos(); alCambiarProv.push(pintarRangos); }
+(() => {
+const caja = document.getElementById("dest-carrusel"); if (!caja) return;
+const pista = document.getElementById("destacados"), datos = [...pista.querySelectorAll(".destacado")], puntos = document.getElementById("dest-puntos");
+const estado = document.getElementById("dest-estado"), cuenta = document.getElementById("dest-cuenta"), ancho = matchMedia("(min-width:761px)");
+let actual = 0, moviendo = false, reubicando = 0;
+const porVez = () => ancho.matches ? 3 : 1;
+const tandas = () => Math.ceil(datos.length / porVez());
+const posicion = i => Math.min(datos[i].offsetLeft - datos[0].offsetLeft, pista.scrollWidth - pista.clientWidth);
+const rotulo = i => porVez() === 1 ? `Dato ${i + 1} de ${datos.length}` : `Datos ${i + 1} a ${Math.min(i + porVez(), datos.length)} de ${datos.length}`;
+const marcar = (i, avisar) => {
+const n = porVez(); actual = i;
+[...puntos.children].forEach((b, t) => b.setAttribute("aria-current", String(t === Math.floor(i / n))));
+datos.forEach((d, k) => { const ve = k >= i && k < i + n; d.tabIndex = ve ? 0 : -1; if (ve) d.removeAttribute("aria-hidden"); else d.setAttribute("aria-hidden", "true"); });
+if (document.activeElement?.closest?.(".destacado")?.getAttribute("aria-hidden")) datos[i].focus({preventScroll: true});
+cuenta.textContent = `${i + 1} de ${datos.length}`;
+if (avisar) estado.textContent = `${rotulo(i)}: ${datos.slice(i, i + n).map(d => d.querySelector(".c-preg").textContent).join(" ")}`;
+};
+const ir = n => {
+const i = n < 0 ? (tandas() - 1) * porVez() : n >= datos.length ? 0 : n, x = posicion(i), x0 = pista.scrollLeft;
+marcar(i, true);
+if (REDUCIR || document.hidden || x === x0) { pista.scrollLeft = x; return; }
+moviendo = true; pista.style.scrollSnapType = "none";
+const t0 = performance.now(), paso = t => {
+const p = Math.min(1, Math.max(0, (t - t0) / 280));
+pista.scrollLeft = x0 + (x - x0) * (1 - (1 - p) ** 3);
+if (p < 1) requestAnimationFrame(paso); else { pista.style.scrollSnapType = ""; moviendo = false; }
+};
+requestAnimationFrame(paso);
+};
+const armarPuntos = () => {
+puntos.innerHTML = Array.from({length: tandas()}, (_, t) => `<button type="button" class="dest-punto" aria-label="${rotulo(t * porVez())}"></button>`).join("");
+[...puntos.children].forEach((b, t) => b.addEventListener("click", () => ir(t * porVez())));
+};
+caja.querySelector(".dest-ant").addEventListener("click", () => ir(actual - porVez()));
+caja.querySelector(".dest-sig").addEventListener("click", () => ir(actual + porVez()));
+caja.addEventListener("keydown", ev => { if (ev.key === "ArrowRight" || ev.key === "ArrowLeft") { ev.preventDefault(); ir(actual + (ev.key === "ArrowRight" ? porVez() : -porVez())); } });
+pista.addEventListener("scroll", () => {
+if (moviendo || reubicando) return;
+const n = porVez(), paso = datos[1].offsetLeft - datos[0].offsetLeft;
+const i = pista.scrollLeft >= pista.scrollWidth - pista.clientWidth - 2 ? (tandas() - 1) * n : Math.round(pista.scrollLeft / paso / n) * n;
+if (i !== actual && datos[i]) marcar(i, true);
+}, {passive: true});
+let anchoPista = pista.clientWidth;
+const reubicar = () => {
+pista.scrollLeft = posicion(actual); reubicando++;
+requestAnimationFrame(() => requestAnimationFrame(() => { reubicando--; }));
+};
+ancho.addEventListener("change", () => { armarPuntos(); marcar(Math.floor(actual / porVez()) * porVez(), false); reubicar(); });
+new ResizeObserver(() => { if (moviendo || pista.clientWidth === anchoPista) return; anchoPista = pista.clientWidth; reubicar(); }).observe(pista);
+armarPuntos();
+marcar(0, false);
+})();
 const NFICHAS = SITIO.fichas.filter(f => !f[5]).length;
 const nosCifras = document.getElementById("nos-cifras");
 if (nosCifras) {
@@ -10713,18 +10777,22 @@ caja.addEventListener("focusout", ev => { const a = ev.relatedTarget; if (!caja.
 const entP = document.getElementById("busca-portada"), resP = document.getElementById("busca-portada-res");
 const estP = document.getElementById("busca-portada-estado");
 if (entP && resP && estP) {
-const portada = combo(entP, resP, estP, "bp");
+const portada = combo(entP, resP, estP, "bp"), cajaP = entP.closest(".busca-portada");
 const cerrarP = () => { resP.hidden = true; resP.innerHTML = ""; portada.cerrado(); };
+const abrirP = () => cajaP.classList.add("abierta"), plegarP = () => { if (!entP.value) cajaP.classList.remove("abierta"); };
 const ubicarP = () => {
 const r = entP.getBoundingClientRect();
 Object.assign(resP.style, {left: r.left + "px", top: r.bottom + 6 + "px", width: r.width + "px", maxHeight: Math.max(160, innerHeight - r.bottom - 18) + "px"});
 };
 addEventListener("scroll", () => { if (!resP.hidden) ubicarP(); }, {passive: true});
 addEventListener("resize", () => { if (!resP.hidden) ubicarP(); });
-entP.addEventListener("input", () => { if (entP.value.trim()) { resP.hidden = false; portada.mostrar(); ubicarP(); } else cerrarP(); });
-entP.addEventListener("keydown", ev => { if (ev.key === "Escape" && entP.value) { entP.value = ""; cerrarP(); } });
-document.addEventListener("pointerdown", ev => { if (!resP.hidden && !resP.contains(ev.target) && ev.target !== entP) cerrarP(); });
-entP.addEventListener("focusout", ev => { const a = ev.relatedTarget; if (!resP.hidden && a && !resP.contains(a)) cerrarP(); });
+entP.addEventListener("focus", abrirP);
+entP.addEventListener("pointerdown", abrirP);
+cajaP.addEventListener("transitionend", () => { if (!resP.hidden) ubicarP(); });
+entP.addEventListener("input", () => { abrirP(); if (entP.value.trim()) { resP.hidden = false; portada.mostrar(); ubicarP(); } else cerrarP(); });
+entP.addEventListener("keydown", ev => { if (ev.key === "Escape") { entP.value = ""; cerrarP(); plegarP(); } });
+document.addEventListener("pointerdown", ev => { if (resP.contains(ev.target) || ev.target === entP) return; if (!resP.hidden) cerrarP(); plegarP(); });
+entP.addEventListener("focusout", ev => { const a = ev.relatedTarget; if (a && resP.contains(a)) return; if (!resP.hidden && a) cerrarP(); plegarP(); });
 }
 })();
 const vistas = new IntersectionObserver(es => {
@@ -10874,17 +10942,32 @@ return {a, dist: d3.geoDistance(d3.geoCentroid(d), CENTRO), dx: Math.cos(ang) * 
 }).sort((p, q) => q.dist - p.dist);
 piezas.forEach((p, i) => {
 const t = {delay: i * PASO_P, fill: "backwards"};
-p.a.animate([{transform: `translate(${p.dx.toFixed(1)}px,${p.dy.toFixed(1)}px) rotate(${p.giro.toFixed(1)}deg)`}, {transform: "none"}],
+[p.a, ...(p.a.dataset.c === "94" ? [el.querySelector(".malvinas")] : [])].forEach(n => {
+n.animate([{transform: `translate(${p.dx.toFixed(1)}px,${p.dy.toFixed(1)}px) rotate(${p.giro.toFixed(1)}deg)`}, {transform: "none"}],
 {...t, duration: DUR_P, easing: "cubic-bezier(.16,1,.3,1)"});
-p.a.animate([{opacity: 0}, {opacity: 1}], {...t, duration: 300, easing: "ease-out"});
+n.animate([{opacity: 0}, {opacity: 1}], {...t, duration: 300, easing: "ease-out"});
+});
 });
 vuelo = setTimeout(soltar, (piezas.length - 1) * PASO_P + DUR_P * .7);
 };
 let mundo;
 try { [mundo] = await Promise.all([fetch("datos/mundo-110m.json").then(r => r.json()), cargarGeo()]); } catch (_) { soltar(); return; }
 const paises = topojson.feature(mundo, mundo.objects.countries).features.filter(d => d.id !== "032" && d.id !== "238");
-const AYUDA = matchMedia("(hover:hover) and (pointer:fine)").matches ? "Hacé clic en una provincia para ver sus datos" : ayuda.textContent;
+const esMalvinas = pol => d3.geoCentroid({type: "Polygon", coordinates: pol})[0] > -62;
+const conMalvinas = GEO.features.find(f => f.properties.codigo_indec === "94");
+const soloIslas = {type: "MultiPolygon", coordinates: conMalvinas.geometry.coordinates.filter(esMalvinas)};
+const sinMalvinas = {...conMalvinas, geometry: {type: "MultiPolygon", coordinates: conMalvinas.geometry.coordinates.filter(p => !esMalvinas(p))}};
+const provMapa = GEO.features.map(f => f === conMalvinas ? sinMalvinas : f);
+const CON_MOUSE = matchMedia("(hover:hover) and (pointer:fine)").matches;
+const AYUDA = CON_MOUSE ? "Hacé clic en una provincia para ver sus datos" : ayuda.textContent;
 ayuda.textContent = AYUDA;
+const lado = document.getElementById("mapa-lado"), EV_LADO = INDP.find(x => x.lab === "Esperanza de vida");
+LADO_REPOSO = `<p class="ml-tit">Las 24 jurisdicciones</p><p class="ml-txt">${AYUDA}</p>`;
+lado.innerHTML = LADO_REPOSO;
+const ladoProv = c => {
+const f = EV_LADO?.d.find(d => d.codigo_indec === c);
+lado.innerHTML = `<p class="ml-tit">${conBandera(c, NOMBRES[c])}</p><p class="ml-txt">${f ? `Esperanza de vida: ${EV_LADO.f(f[EV_LADO.k])} ${EV_LADO.det}. ` : ""}${CON_MOUSE ? "Hacé clic" : "Tocá"} para ver más datos.</p>`;
+};
 const dibujar = (armar = false) => {
 const W = por.clientWidth, H = por.clientHeight, angosto = W < 760;
 const pr = por.getBoundingClientRect(), c = caja.getBoundingClientRect(), sl = document.getElementById("sol").getBoundingClientRect();
@@ -10897,23 +10980,25 @@ const bp = camino.bounds(GEO);
 ayuda.style.left = `${(bp[0][0] + bp[1][0]) / 2 - (c.left - pr.left)}px`;
 ayuda.style.top = `${bp[1][1] - (c.top - pr.top) + 10}px`;
 ZONA_MAPA = {der: bp[1][0] - (c.left - pr.left), arr: bp[0][1] - (c.top - pr.top), aba: bp[1][1] - (c.top - pr.top)};
+caja.style.setProperty("--mapa-der", `${Math.round(ZONA_MAPA.der + 24)}px`);
 svg.selectAll("*").remove();
 svg.append("path").attr("class","grat").attr("d", camino(d3.geoGraticule().step([10, 10])()));
 [10, 20, 30, 45, 60, 80, 100, 130, 160].forEach(r =>
 svg.append("path").attr("class","anillo").attr("d", camino(d3.geoCircle().center([-64, -38]).radius(r)())));
 svg.append("g").selectAll("path").data(paises).join("path").attr("class", "tierra").attr("d", camino);
 const g = svg.append("g").attr("class", "provs");
-const enlaces = g.selectAll("a").data(GEO.features).join("a")
+const enlaces = g.selectAll("a").data(provMapa).join("a")
 .attr("href", d => urlProv(d.properties.codigo_indec)).attr("tabindex", -1)
 .attr("data-c", d => d.properties.codigo_indec);
 enlaces.append("path").attr("d", camino);
+g.append("path").attr("class", "malvinas").attr("aria-hidden", "true").attr("d", camino(soloIslas));
 const [cx, cy] = proy(d3.geoCentroid(GEO.features.find(f => f.properties.codigo_indec === "02")));
 g.select('a[data-c="02"]').raise().append("circle").attr("cx", cx).attr("cy", cy).attr("r", angosto ? 6 : 5);
 if (vuelo) soltar();
 if (armar && pendiente) rompecabezas(enlaces, camino, proy, bp);
 else if (pendiente) g.style("opacity", 0);
-enlaces.on("pointerenter", (ev, d) => { const c = d.properties.codigo_indec; ayuda.innerHTML = conBandera(c, `${NOMBRES[c]}: ver sus datos`); })
-.on("pointerleave", () => { ayuda.textContent = AYUDA; })
+enlaces.on("pointerenter", (ev, d) => { const c = d.properties.codigo_indec; ayuda.innerHTML = conBandera(c, `${NOMBRES[c]}: ver sus datos`); ladoProv(c); })
+.on("pointerleave", () => { ayuda.textContent = AYUDA; lado.innerHTML = LADO_REPOSO; })
 .on("click", (ev, d) => { ev.preventDefault(); tarjetaMapa(d.properties.codigo_indec); });
 marcarMapa();
 el.classList.add("listo");
@@ -10926,7 +11011,7 @@ setTimeout(armar, 2500);
 let ancho = por.clientWidth, t;
 new ResizeObserver(() => { if (por.clientWidth === ancho) return; ancho = por.clientWidth; clearTimeout(t); t = setTimeout(dibujar, 150); }).observe(por);
 }
-let ZONA_MAPA = null, tarjetaM = null;
+let ZONA_MAPA = null, tarjetaM = null, LADO_REPOSO = "";
 const MAPA_IND = ["Empleo privado registrado", "Esperanza de vida", "Mortalidad infantil", "Aprender, matemática"];
 function tarjetaMapa(c) {
 const caja = document.getElementById("portada-mapa");
@@ -10946,7 +11031,8 @@ return `<li><span class="mt-lab">${x.lab}</span><b>${x.f(f[x.k])}</b><small>${pu
 tarjetaM.setAttribute("aria-label", `Datos de ${NOMBRES[c]}`);
 tarjetaM.innerHTML = `<div class="mt-cab">${conBandera(c, NOMBRES[c])}<button type="button" class="mt-cerrar" aria-label="Cerrar"><span aria-hidden="true">×</span></button></div>` +
 `<ul>${filas}</ul><a class="boton principal chico" href="${urlProv(c)}">Ver perfil completo</a>`;
-if (ZONA_MAPA && innerWidth >= 760) { tarjetaM.style.left = `${ZONA_MAPA.der + 20}px`; tarjetaM.style.top = `${Math.max(0, ZONA_MAPA.arr + 40)}px`; }
+document.getElementById("mapa-lado").hidden = true;
+if (ZONA_MAPA && innerWidth >= 760 && innerWidth < 1200) { tarjetaM.style.left = `${ZONA_MAPA.der + 20}px`; tarjetaM.style.top = `${Math.max(0, ZONA_MAPA.arr + 40)}px`; }
 else { tarjetaM.style.left = ""; tarjetaM.style.top = ""; }
 document.querySelectorAll("#mapa .provs a").forEach(a => a.classList.toggle("tocada", a.dataset.c === c));
 const nueva = !tarjetaM.classList.contains("abierta");
@@ -10956,9 +11042,13 @@ if (nueva) tarjetaM.animate(REDUCIR ? [{opacity: 0}, {opacity: 1}] : [{opacity: 
 function cerrarTarjetaMapa() {
 if (!tarjetaM?.classList.contains("abierta")) return;
 tarjetaM.classList.remove("abierta");
+const lado = document.getElementById("mapa-lado"); lado.hidden = false; lado.innerHTML = LADO_REPOSO;
 document.querySelectorAll("#mapa .provs a.tocada").forEach(a => a.classList.remove("tocada"));
 }
-const marcarMapa = () => document.querySelectorAll("#mapa .provs a").forEach(a => a.classList.toggle("elegida", a.dataset.c === prov));
+const marcarMapa = () => {
+document.querySelectorAll("#mapa .provs a").forEach(a => a.classList.toggle("elegida", a.dataset.c === prov));
+document.querySelector("#mapa .malvinas")?.classList.toggle("elegida", prov === "94");
+};
 alCambiarProv.push(marcarMapa);
 const mostrarHistoria = () => document.querySelectorAll("#prov-historia .ph, .prov-linea").forEach(a => { a.hidden = a.dataset.c !== prov; });
 if (document.getElementById("prov-historia")) { mostrarHistoria(); alCambiarProv.push(mostrarHistoria); }

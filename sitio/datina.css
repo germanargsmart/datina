@@ -135,8 +135,9 @@ select option{background:var(--bg);color:var(--ink)}
 h1,h2,h3,h4,.art-txt b,.sec-tarjeta b,.tema-intro .pregunta{text-wrap:balance}
 p,li,dd,dt,small,.sec-preg,.c-txt,.dp-det{text-wrap:pretty}
 .envoltura{max-width:var(--col);margin:0 auto;padding:0 var(--margen)}
-/* bloques anchos de la portada, más allá de la columna de texto */
-.ancho{width:min(var(--ancho-bloques),calc(100vw - 2 * var(--margen)));margin-left:calc(50% - min(var(--ancho-bloques) / 2,50vw - var(--margen)))}
+/* bloques de la portada: el ancho de la columna, con los mismos bordes que la barra. Hasta noviembre de 2026 se calculaba con 100vw, que cuenta
+   la barra de desplazamiento: por debajo de 1180 píxeles, en Windows, estos bloques quedaban 8 píxeles a la izquierda de la barra */
+.ancho{width:100%}
 .ico{display:block;width:1em;height:1em;flex:none}
 @media (max-width:760px){body::after{border-width:0}}
 
@@ -207,8 +208,9 @@ p,li,dd,dt,small,.sec-preg,.c-txt,.dp-det{text-wrap:pretty}
 @media (max-width:760px){.tarjeta{padding:var(--e-4)}}
 
 /* ---------- barra superior: azul sobre la portada y clara al bajar ----------
-   A la izquierda, la marca y los temas principales, que terminan en "Más" (etapa 32, como usafacts.org). A la derecha, la provincia
-   elegida y la lupa. Hasta la etapa 31, "Secciones" iba a la izquierda de la marca y los temas, al centro. */
+   A la izquierda, la marca, sobre el borde del contenido. A la derecha, juntos, los menús, la provincia elegida y la lupa, que termina en
+   el otro borde (pedido del autor, noviembre de 2026). Hasta entonces los menús iban pegados a la marca: en la portada, donde la marca
+   está oculta arriba de todo pero guarda su lugar, quedaba un hueco antes de "Temas". */
 .barra{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;background:var(--azul);view-transition-name:barra;
   transition:background-color var(--dur-3) var(--ease-out),box-shadow var(--dur-3) var(--ease-out),transform var(--dur-3) var(--ease-out)}
 .barra.clara{background:rgba(246,248,251,.94);box-shadow:0 1px 0 rgba(44,116,181,.25);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
@@ -227,7 +229,7 @@ p,li,dd,dt,small,.sec-preg,.c-txt,.dp-det{text-wrap:pretty}
 .barra.clara .marca{color:var(--azul)}
 body[data-pagina="inicio"] .barra:not(.clara) .marca{visibility:hidden}
 /* navegación: el mismo estilo en la barra, la fila de secciones del celular y el pie */
-.barra .temas{grid-column:2;justify-self:start;display:flex;align-items:center;gap:var(--e-6);font-size:var(--t-2);font-weight:600;letter-spacing:.07em;text-transform:uppercase;
+.barra .temas{grid-column:2;justify-self:end;display:flex;align-items:center;gap:var(--e-6);font-size:var(--t-2);font-weight:600;letter-spacing:.07em;text-transform:uppercase;
   font-variation-settings:"wdth" 60,"opsz" 14;color:var(--en-azul-texto);font-family:var(--f-c60)}
 .barra .temas a{padding:var(--e-2) 0;text-decoration:none;white-space:nowrap;transition:color var(--dur-1) var(--ease-out)}
 .barra .temas a[aria-current="true"]{color:#fff;box-shadow:inset 0 -2px 0 var(--sol)}
@@ -327,8 +329,9 @@ body[data-pagina="inicio"] .barra:not(.clara) .marca{visibility:hidden}
 /* el menú de un grupo: una sola columna, con las secciones de una categoría (Migraciones y Turismo debajo de Población) un poco adentro */
 .grupo-panel{grid-template-columns:1fr;width:min(290px,calc(100vw - 24px))}
 .menu-panel .sub a{padding-left:calc(var(--e-3) + var(--e-4))}
-/* Temas: los cuatro grupos en columnas, en el orden de la portada, sin línea entre columnas */
-.panel-temas{grid-template-columns:repeat(4,minmax(0,1fr));gap:0 var(--e-4);width:min(980px,calc(100vw - 24px))}
+/* Temas: los cuatro grupos en columnas, en el orden de la portada, sin línea entre columnas. Ocupa el ancho del contenido, con sus bordes
+   sobre los de la página (el ancho exacto lo pone ubicar(), en datina.js, que descuenta la barra de desplazamiento) */
+.panel-temas{grid-template-columns:repeat(4,minmax(0,1fr));gap:0 var(--e-4);width:min(var(--ancho-bloques),calc(100vw - 24px))}
 .panel-temas .menu-grupo + .menu-grupo{margin-top:0;padding-top:0;border-top:0}
 /* Provincias: las 24 jurisdicciones en dos columnas, cada una con su bandera */
 .panel-provincias{width:min(480px,calc(100vw - 24px))}
@@ -409,7 +412,8 @@ body[data-pagina="inicio"] .barra:not(.clara) .marca{visibility:hidden}
 .portada{position:relative;overflow:hidden;background:var(--azul);color:#fff}
 .portada-grid{position:relative;max-width:var(--ancho-max);margin:0 auto;padding:var(--e-6) var(--margen) var(--e-7);display:grid;
   grid-template-columns:minmax(0,5fr) minmax(0,6fr);align-items:stretch;gap:var(--e-4);pointer-events:none}
-.portada-texto{position:relative;isolation:isolate;align-self:center;pointer-events:auto}
+/* z-index: la lista de resultados del buscador va adentro y puede bajar más allá de lo azul: tiene que quedar arriba de los bloques que siguen, que tienen posición propia */
+.portada-texto{position:relative;z-index:1;isolation:isolate;align-self:center;pointer-events:auto}
 .portada-texto::before{content:"";position:absolute;inset:-36px -40px;z-index:-1;background:radial-gradient(closest-side,rgba(44,116,181,.92) 60%,rgba(44,116,181,0))}
 /* entrada corta y escalonada: "Elegí tu provincia" está lista antes de los 450 ms */
 .portada-texto>*{animation:aparece var(--dur-4) var(--ease-out) both}
@@ -428,18 +432,31 @@ body[data-pagina="inicio"] .barra:not(.clara) .marca{visibility:hidden}
 .estado{margin:var(--e-4) 0 0;font:400 var(--t-1)/1.5 var(--mono);letter-spacing:.04em;color:#fff}
 .estado span{white-space:nowrap}
 .estado span+span{margin-left:var(--e-1);padding-left:var(--e-3);border-left:1px solid rgba(255,255,255,.55)}
-/* el buscador a la vista de la portada (Fase 2, paso 2): un campo blanco sobre el azul, con la lista de resultados debajo. Sin
-   JavaScript el buscador no se ve */
-.busca-portada{position:relative;max-width:30em;margin:0 0 var(--e-6)}
+/* "Elegí tu provincia" y el buscador en una fila. El buscador (pedido del autor, noviembre de 2026; antes, un campo blanco a lo ancho, que
+   cortaba la vista del mapa) es compacto hasta que se hace clic o se llega con el teclado, y entonces se abre con el texto de ayuda. Donde
+   no entra al lado del botón, se abre encima de la fila: nada se mueve. Sin JavaScript el buscador no se ve */
+.portada-acciones{position:relative;display:flex;align-items:center;gap:var(--e-3);margin:0 0 var(--e-4)}
+.busca-portada{position:relative;flex:none;width:124px;height:44px;transition:width var(--dur-3) var(--ease-out)}
+.busca-portada.abierta{width:310px}
+@media (max-width:1199px){.busca-portada.abierta{position:absolute;inset:0;z-index:1;width:auto}}
 /* entra sin moverse, solo con opacidad: un elemento con una animación de transform es la referencia de lo fijo que lleva adentro, y la
    lista de resultados quedaba corrida y recortada por la portada */
-.portada-texto>.busca-portada{z-index:2;animation-name:aparece-quieto}
+.portada-texto>.portada-acciones{z-index:2;animation-name:aparece-quieto}
 @keyframes aparece-quieto{from{opacity:0}to{opacity:1}}
 html:not(.js) .busca-portada{display:none}
-.busca-portada input{display:block;width:100%;height:48px;padding:0 var(--e-4);border:0;border-radius:var(--r-control);background:#fff;color:var(--ink);
-  font-family:var(--f);font-size:var(--t-4);box-shadow:var(--sombra-panel)}
-.busca-portada input::placeholder{color:var(--muted)}
+.busca-portada input{display:block;width:100%;height:100%;padding:0 var(--e-3) 0 calc(var(--e-3) + 19px + var(--e-2));border:1px solid var(--en-azul-borde);border-radius:var(--r-control);
+  background:transparent;color:transparent;font-family:var(--f);font-size:var(--t-4);cursor:pointer;transition:background-color var(--dur-1) var(--ease-out)}
+.busca-portada input::placeholder{color:transparent}
+.busca-portada.abierta input{border-color:#fff;background:#fff;color:var(--ink);cursor:text}
+.busca-portada.abierta input::placeholder{color:var(--muted)}
 .busca-portada input:focus-visible{outline:2px solid var(--sol);outline-offset:2px}
+@media (hover:hover) and (pointer:fine){.busca-portada:not(.abierta) input:hover{background:var(--en-azul-velo)}}
+/* la lupa y "Buscar" van encima del campo y no reciben el mouse: tocarlos es tocar el campo */
+.busca-ico{position:absolute;left:var(--e-3);top:50%;width:19px;height:19px;translate:0 -50%;color:#fff;pointer-events:none}
+.busca-portada.abierta .busca-ico{color:var(--muted)}
+.busca-rotulo{position:absolute;left:calc(var(--e-3) + 19px + var(--e-2));top:50%;translate:0 -50%;font:500 12px/1.2 var(--mono);letter-spacing:.07em;text-transform:uppercase;color:#fff;pointer-events:none}
+.busca-portada.abierta .busca-rotulo{visibility:hidden}
+@media (prefers-reduced-motion:reduce){.busca-portada{transition:none}}
 /* la lista va fija debajo del campo (datina.js la ubica): el bloque azul recorta lo que sobresale, y una lista larga quedaba cortada.
    Por debajo de la barra, que la tapa si se baja por la página con la lista abierta */
 .busca-portada .busca-res{position:fixed;z-index:9;margin:0;padding:var(--e-2) var(--e-3);background:#fff;
@@ -471,6 +488,29 @@ html:not(.js) .busca-portada{display:none}
 .mapa-fondo .provs a.tocada path,.mapa-fondo .provs a.tocada circle{fill:#fff;stroke:var(--azul-hondo)}
 /* en el celular, un panel fijo abajo de la pantalla: el mapa sigue a la vista */
 @media (max-width:760px){.mapa-tarjeta{position:fixed;left:12px;right:12px;top:auto;bottom:calc(12px + env(safe-area-inset-bottom,0px));width:auto;z-index:30}}
+/* Desde 1200 píxeles, donde hay lugar (pedido del autor, noviembre de 2026), todo va al costado del país y debajo del sol, sobre el azul, sin recuadro: al pasar
+   el mouse, el nombre y una descripción, en letra legible (antes, una línea de 11 píxeles abajo del mapa), y al hacer clic, los datos de la
+   tarjeta, que ya no tapa el sol. --mapa-der lo calcula datina.js con el borde derecho del país */
+.mapa-lado{display:none}
+@media (min-width:1200px){
+  .mapa-ayuda{display:none}
+  .mapa-lado{position:absolute;left:var(--mapa-der,50%);right:0;top:200px;display:block;color:#fff;pointer-events:none}
+  .mapa-lado[hidden]{display:none}
+  .ml-tit{margin:0 0 var(--e-2);font-size:var(--t-6);line-height:1.15;font-weight:600}
+  .ml-txt{margin:0;font-size:var(--t-4);line-height:1.45;text-wrap:pretty}
+  .ml-tit .bandera{margin-right:var(--e-2);vertical-align:-1px}
+  .mapa-tarjeta{left:var(--mapa-der,50%);right:0;top:200px;width:auto;padding:0;color:#fff;border:0;border-radius:0;background:none;-webkit-backdrop-filter:none;backdrop-filter:none;box-shadow:none}
+  .mt-cab{margin-bottom:var(--e-1);font-size:var(--t-6);line-height:1.15}
+  .mapa-tarjeta ul{margin-bottom:var(--e-1)}
+  .mapa-tarjeta li{padding:2px 0 var(--e-1);border-top-color:var(--en-azul-borde)}
+  .mt-lab,.mapa-tarjeta li b{line-height:1.3}
+  .mapa-tarjeta li small,.mapa-tarjeta .mt-cerrar{font-size:var(--t-2);line-height:1.25;color:#fff}
+  .mapa-tarjeta .mt-cerrar{width:var(--e-6);height:var(--e-6);font-size:22px}
+  .portada-mapa .mapa-tarjeta li .mt-aclara{margin-top:var(--e-1);font-size:var(--t-2);line-height:1.25;color:#fff}
+  .mapa-tarjeta .boton{width:auto}
+  .mapa-tarjeta .boton.principal{--b-fondo:#fff;--b-tinta:var(--azul);--b-borde:#fff}
+}
+@media (min-width:1200px) and (hover:hover) and (pointer:fine){.mapa-tarjeta .boton.principal:hover{--b-fondo:var(--celeste-suave);--b-borde:var(--celeste-suave)}}
 @media (max-width:1080px){.portada-mapa{min-height:420px}.portada-mapa .sol{width:170px}}
 @media (max-width:760px){
   .portada-grid{grid-template-columns:1fr;gap:var(--e-4);padding:var(--e-4) var(--margen) var(--e-6)}
@@ -495,7 +535,9 @@ html:not(.js) .busca-portada{display:none}
 .mapa-fondo .provs a:focus,.mapa-fondo .provs a:focus-visible{outline:none}
 .mapa-fondo .provs path,.mapa-fondo .provs circle{fill:var(--celeste);stroke:#fff;stroke-width:.9;stroke-linejoin:round;transition:fill var(--dur-1) var(--ease-out)}
 .mapa-fondo .provs circle{stroke-width:1.5}
-.mapa-fondo .provs a.elegida path,.mapa-fondo .provs a.elegida circle{fill:var(--sol);stroke:var(--sol-borde)}
+.mapa-fondo .provs a.elegida path,.mapa-fondo .provs a.elegida circle,.mapa-fondo .provs .malvinas.elegida{fill:var(--sol);stroke:var(--sol-borde)}
+/* las Malvinas: un dibujo del mapa, con el color del país, sin mouse ni clic */
+.mapa-fondo .provs .malvinas{pointer-events:none;transform-box:fill-box;transform-origin:center}
 @media (hover:hover) and (pointer:fine){.mapa-fondo .provs a:hover path,.mapa-fondo .provs a:hover circle{fill:#fff;stroke:var(--azul-hondo)}}
 
 /* Sol de Mayo: 16 rayos rectos y 16 flamígeros alrededor del rostro, con una ráfaga de líneas finas */
@@ -528,28 +570,62 @@ html:not(.js) .busca-portada{display:none}
 @media (prefers-reduced-motion:no-preference){
   .js .portada.armando .sol *{animation-play-state:paused!important}
   .js .portada.armando .sol .rafaga{opacity:0}
-  .js .portada.armando .mapa-ayuda{opacity:0}
+  .js .portada.armando .mapa-ayuda,.js .portada.armando .mapa-lado{opacity:0}
   .js .portada.armando .provs a{pointer-events:none}
 }
 
 /* ---------- bloques de la portada: el mismo título, la misma bajada y la misma separación ---------- */
-.bloque-tit{margin:0 0 var(--e-2);font-size:var(--t-9);line-height:1;font-weight:500;letter-spacing:-.005em;color:var(--azul);font-variation-settings:"wdth" 55,"opsz" 144;font-family:var(--f-c55)}
+.bloque-tit{margin:0 0 var(--e-2);font-size:var(--t-8);line-height:1;font-weight:500;letter-spacing:-.005em;color:var(--azul);font-variation-settings:"wdth" 55,"opsz" 144;font-family:var(--f-c55)}
 .bloque-sub{margin:0 0 var(--e-6);max-width:62ch;line-height:var(--i-chico);color:var(--muted);text-wrap:balance}
 /* entre los bloques de la portada, el espacio de bloque y no el de capítulo (respuesta del autor del 23 de octubre de 2026, para
    compactar la portada de la Fase 2: de 48 a 72 píxeles pasaron a ser de 24 a 40) */
 .secciones,.articulos-home,.herramientas-home,.destacados,.provincias-home{padding-top:var(--bloque)}
-/* Datos destacados de la portada (Fase 2, paso 2): cuatro tarjetas fijas, de la familia de "En cifras", con el grupo, la pregunta de la
-   ficha y su cifra destacada. La cifra y su texto llegan con datina.js: su lugar queda reservado para que la portada no salte */
-.destacados-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--e-4)}
-/* de a dos también en el celular (respuesta del autor del 23 de octubre de 2026, para compactar la portada): ninguna cifra se corta */
-@media (max-width:1080px){.destacados-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media (max-width:560px){.destacados-grid{gap:var(--e-3)}}
-.destacado .c-preg{font-size:var(--t-3);line-height:1.3;color:var(--ink);text-wrap:pretty}
-.destacado .c-num{min-height:1em}
-.destacado .c-txt{min-height:4.2em}
-/* D7 (plan de mejora, 28 de octubre de 2026, aprobado por el autor): la cifra es la del país y debajo va cómo cambia entre las provincias,
-   de la más baja a la más alta. Su lugar queda reservado (dos renglones) para que la portada no salte */
-.destacado .c-rango{display:block;min-height:2.8em;margin-top:var(--e-2);padding-top:var(--e-2);border-top:1px solid var(--line);font-size:var(--t-2);line-height:1.4;color:var(--muted)}
+/* Datos destacados de la portada (pedido del autor, 6 de noviembre de 2026): nueve datos, de a tres, en tarjetas de fondo gris suave, sin borde ni sombra.
+   Un dato solo, a todo el ancho, quedaba desproporcionado. Una sola familia y cuatro tamaños: la etiqueta (13), el texto (15), la pregunta (18 a 20) y la
+   cifra, del tamaño del título del bloque (28 a 36). La cifra va en ancho normal y sola en su línea: en la condensada, "928 mil" se leía "1928 y". Los nueve
+   comparten las filas de la grilla (subgrid): las cifras quedan a la misma altura y al pasar de tres en tres nada salta. La cifra y su texto llegan con
+   datina.js: se reserva el alto medido en cada ancho, para que la portada casi no salte cuando llegan */
+.destacados{position:relative}
+.dest-carrusel{display:flex;flex-direction:column}
+.destacados-grid{display:grid;grid-auto-flow:column;grid-auto-columns:calc((100% - 2 * var(--e-4)) / 3);grid-template-rows:repeat(5,auto);column-gap:var(--e-4);min-height:295px;margin-top:var(--e-3);
+  overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;overscroll-behavior-x:contain}
+.destacados-grid::-webkit-scrollbar{display:none}
+.destacado{grid-row:span 5;display:grid;grid-template-rows:subgrid;gap:0;padding:var(--e-4) var(--e-6) var(--e-6)}
+.destacado:nth-child(3n+1){scroll-snap-align:start}
+.destacado:focus-visible{outline:2px solid var(--celeste-fuerte);outline-offset:-2px}
+.destacado .c-lab{padding-bottom:var(--e-2);border-bottom:2px solid var(--celeste);font-family:var(--f);font-size:var(--t-2);line-height:1.3;font-weight:500;letter-spacing:0;text-transform:none;color:var(--ink)}
+.destacado .c-preg{margin:var(--e-3) 0 var(--e-2);font-size:var(--t-5);line-height:1.25;font-weight:500;color:var(--ink);text-wrap:balance}
+.destacado .c-num{min-height:1em;font-family:var(--f);font-size:var(--t-8);line-height:1.1;font-weight:600;color:var(--azul);font-variation-settings:normal}
+.destacado .c-txt{margin-top:var(--e-1);font-size:var(--t-3);line-height:1.4;color:var(--ink)}
+/* D7 (plan de mejora, 28 de octubre de 2026, aprobado por el autor): la cifra es la del país y debajo va cómo cambia entre las provincias, de la más baja a
+   la más alta, o el dato que mejor la acompaña */
+.destacado .c-rango{margin-top:var(--e-2);font-size:var(--t-3);line-height:1.4;color:var(--muted)}
+/* los controles: los botones de siempre, en la letra de la etiqueta para no sumar un tamaño al bloque, y redondeles. En la computadora, en la fila del título.
+   Sin JavaScript no se ven */
+.dest-control{position:absolute;top:var(--bloque);right:0;display:flex;align-items:center;gap:var(--e-2)}
+html:not(.js) .dest-control{display:none}
+.dest-control .boton.chico{font-size:var(--t-2)}
+.dest-puntos{display:flex;justify-content:center}
+.dest-punto{display:grid;place-items:center;width:var(--e-6);height:var(--e-7);padding:0;background:none;border:0;border-radius:50%;cursor:pointer}
+.dest-punto::before{content:"";width:10px;height:10px;border-radius:50%;background:var(--superficie-3);box-shadow:inset 0 0 0 1px var(--faint);transition:background-color var(--dur-1) var(--ease-out)}
+.dest-punto[aria-current="true"]::before{background:var(--azul);box-shadow:none}
+.dest-punto:focus-visible{outline:2px solid var(--celeste-fuerte);outline-offset:-2px}
+@media (hover:hover) and (pointer:fine){.dest-punto:not([aria-current="true"]):hover::before{background:var(--celeste)}}
+.dest-cuenta{display:none;font-size:var(--t-2);color:var(--muted);white-space:nowrap}
+@media (max-width:1000px){.destacados-grid{grid-auto-columns:calc((100% - 2 * var(--e-3)) / 3);column-gap:var(--e-3)}.destacado{padding:var(--e-3) var(--e-4) var(--e-4)}}
+@media (max-width:900px){.destacados-grid{min-height:337px}}
+/* en el celular, de a uno, con el siguiente asomando, y los controles debajo: "1 de 9", porque nueve redondeles no entran */
+@media (max-width:760px){
+  .destacados-grid{order:1;grid-auto-columns:84%;column-gap:var(--e-3);min-height:226px;margin-right:calc(-1 * var(--margen))}
+  .destacado,.destacado:nth-child(3n+1){scroll-snap-align:start}
+  .dest-control{position:static;order:2;justify-content:space-between;margin-top:var(--e-3);padding-top:var(--e-3);border-top:1px solid var(--borde)}
+  .dest-puntos{display:none}
+  .dest-cuenta{display:block}
+  .dest-control .boton.chico{padding:var(--e-1) var(--e-3)}
+}
+@media (max-width:430px){.destacados-grid{min-height:291px}}
+@media (max-width:360px){.destacados-grid{min-height:312px}}
+@media print{.destacados-grid{display:block;overflow:visible;min-height:0}.dest-control{display:none}.destacado{display:block;break-inside:avoid;margin-bottom:var(--e-4)}}
 /* Provincias en la portada: las 24 jurisdicciones con su bandera */
 .prov-home{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:var(--e-1) var(--e-4);margin:0;padding:0;list-style:none}
 @media (max-width:1080px){.prov-home{grid-template-columns:repeat(4,minmax(0,1fr))}}
@@ -598,29 +674,38 @@ html:not(.js) .busca-portada{display:none}
 /* Los temas de la portada (etapa 36): cuatro grupos con sus secciones una debajo de otra y una línea fina entre ellas. Cuatro columnas,
    dos en pantallas medianas y una en el celular. Desde el 10 de octubre de 2026, sin panel gris (el grupo más corto dejaba un panel medio
    vacío): cada grupo es una columna con su nombre sobre una línea, y Curiosidades va debajo de la columna más corta */
-#secciones-grid{grid-template-columns:repeat(4,minmax(0,1fr));grid-auto-rows:auto;align-items:start;gap:var(--e-7) var(--e-7)}
+#secciones-grid{grid-template-columns:repeat(4,minmax(0,1fr));grid-auto-rows:auto;align-items:start;gap:var(--e-6) var(--e-7)}
 @media (max-width:1079px){#secciones-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:640px){#secciones-grid{grid-template-columns:1fr;gap:var(--e-6)}.tg-col{gap:var(--e-6)}}
 .tg-col{display:flex;flex-direction:column;gap:var(--e-7)}
 .tg{padding-top:var(--e-3);border-top:2px solid var(--azul)}
-.tg-tit{margin:0 0 var(--e-2);font:500 var(--t-1)/1.4 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--ink)}
+/* Jerarquía (pedido del autor, noviembre de 2026): primero se leen los cuatro grupos y después sus temas, más chicos, sin negrita y en gris. Hasta
+   entonces era al revés: el grupo en letra mono de 11 píxeles y el tema en condensada de 24, en celeste. El bloque también se achicó */
+.tg-tit{margin:0 0 var(--e-1);font-size:var(--t-5);line-height:1.2;font-weight:600;color:var(--azul)}
 .tg-lista{margin:0;padding:0;list-style:none}
+/* el tema entero es la zona del enlace, con sus subtemas adentro (pedido del autor, noviembre de 2026: el fondo se cortaba donde había subtemas). Un
+   enlace no puede ir dentro de otro: el de la página se estira con ::after hasta cubrir el tema y los subtemas quedan arriba, cada uno con el suyo.
+   El fondo sobresale 8 píxeles a cada lado, para que el texto siga sobre el borde de la columna */
+.tg-item{position:relative;isolation:isolate}
+.tg-item::before{content:"";position:absolute;inset:0 calc(-1 * var(--e-2));z-index:-1;border-radius:var(--r-control);transition:background-color var(--dur-1) var(--ease-out)}
 .tg-item+.tg-item{border-top:1px solid var(--borde)}
-.tg-link{display:grid;grid-template-columns:44px minmax(0,1fr);gap:var(--e-3);align-items:center;margin:0 calc(-1 * var(--e-2));padding:var(--e-3) var(--e-2);
-  color:inherit;text-decoration:none;border-radius:var(--r-control);transition:background-color var(--dur-1) var(--ease-out)}
-.tg-ico{width:44px;height:44px;color:var(--azul);--trazo:1.2px}
+.tg-link{display:grid;grid-template-columns:32px minmax(0,1fr);gap:var(--e-3);align-items:center;padding:var(--e-2) 0;color:inherit;text-decoration:none}
+.tg-link::after{content:"";position:absolute;inset:0 calc(-1 * var(--e-2));border-radius:var(--r-control)}
+.tg-link:focus-visible{outline:none}
+.tg-link:focus-visible::after{outline:2px solid var(--celeste-fuerte);outline-offset:-2px}
+.tg-ico{width:32px;height:32px;color:var(--azul);--trazo:1.2px}
 .tg-txt{display:flex;flex-direction:column;gap:2px}
-.tg-txt b{font-family:var(--f-c45);font-size:var(--t-6);line-height:1.05;font-weight:500;color:var(--azul);font-variation-settings:"wdth" 45,"opsz" 144}
+.tg-txt b{font-size:var(--t-3);line-height:1.25;font-weight:400;color:var(--muted)}
 .tg-preg{font-size:var(--t-2);line-height:var(--i-chico);color:var(--muted);text-wrap:pretty}
-.tg-subs{display:flex;flex-wrap:wrap;gap:2px var(--e-4);margin:calc(-1 * var(--e-2)) 0 var(--e-3) calc(44px + var(--e-3));font-size:var(--t-2)}
-.tg-subs a{color:var(--azul);text-decoration:underline;text-decoration-color:var(--celeste);text-underline-offset:3px}
+.tg-subs{display:flex;flex-wrap:wrap;gap:2px var(--e-3);margin:calc(-1 * var(--e-1)) 0 var(--e-2) calc(32px + var(--e-3));font-size:var(--t-2)}
+.tg-subs a{position:relative;color:var(--azul);text-decoration:underline;text-decoration-color:var(--celeste);text-underline-offset:3px}
 @media (hover:hover) and (pointer:fine){
-  .tg-link:hover{background:var(--superficie-3)}
-  .tg-link:hover .tg-ico{transform:translateY(-2px) rotate(-4deg)}
+  .tg-item:hover::before{background:var(--superficie-3)}
+  .tg-item:hover .tg-ico{transform:translateY(-2px) rotate(-4deg)}
   .tg-subs a:hover{text-decoration-color:var(--azul)}
 }
 .tg-ico{transition:transform var(--dur-4) var(--ease-out)}
-@media (prefers-reduced-motion:reduce){.tg-link:hover .tg-ico{transform:none}}
+@media (prefers-reduced-motion:reduce){.tg-item:hover .tg-ico{transform:none}}
 /* herramientas: todas en una fila en la computadora (pedido del autor, 22/10/2026: eran cinco, desde la Fase 2 son seis), de a tres o de
    a dos en pantallas medianas y una debajo de la otra en el celular. Las filas se reparten parejas (datina.js, "Grillas parejas") */
 #herramientas-grid{grid-template-columns:repeat(6,minmax(0,1fr))}
