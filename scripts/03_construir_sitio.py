@@ -794,6 +794,11 @@ for _t in _meta_tablas:
           # F2 (plan de mejora, 31 de octubre de 2026): la cita que propone "Usar los datos", con el año y el día de la consulta para completar
           "como_citar": f"Datina (año de la consulta). {_t['titulo']}{'' if _t['titulo'].endswith(('?', '.')) else '.'} Con datos de "
                         f"{_t['fuente'].rstrip('.')}. {_URL_SITIO}/{'' if _d == './' else _d}. Consultado el día de la consulta."}
+    # las listas de COMNAP se pueden usar solo con fines educativos y sin fines comerciales: esa condición gana sobre la licencia general
+    if _t["tabla"] in {"antartida_instalaciones", "antartida_paises", "antartida_bases"}:
+        _m["licencia"] = ("Los datos de las instalaciones son de COMNAP y se pueden usar con fines educativos y sin fines comerciales, citando a COMNAP. "
+                          "Lo que suma Datina tiene licencia Creative Commons Atribución 4.0")
+        _m["licencia_datos_de_base"] = "https://www.comnap.aq/antarctic-facilities-information"
     (SITIO / "datos" / f"{_t['tabla']}.metadata.json").write_text(json.dumps(_m, ensure_ascii=False, indent=1) + "\n", encoding="utf-8", newline="\n")
     _META_HECHOS.add(f"{_t['tabla']}.metadata.json")
 for _f in (SITIO / "datos").glob("*.metadata.json"):

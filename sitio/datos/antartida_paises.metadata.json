@@ -44,7 +44,8 @@
  "unidades": [],
  "como_se_calcula": "",
  "datos_actualizados": "05/11/2026",
- "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia": "Los datos de las instalaciones son de COMNAP y se pueden usar con fines educativos y sin fines comerciales, citando a COMNAP. Lo que suma Datina tiene licencia Creative Commons Atribución 4.0",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿Qué países tienen más bases en la Antártida? Con datos de COMNAP, Antarctic Facilities Information, noviembre de 2024 (uso educativo y sin fines comerciales, citando a COMNAP). https://datina.com.ar/naturaleza.html#f-ant-paises. Consultado el día de la consulta."
+ "como_citar": "Datina (año de la consulta). ¿Qué países tienen más bases en la Antártida? Con datos de COMNAP, Antarctic Facilities Information, noviembre de 2024 (uso educativo y sin fines comerciales, citando a COMNAP). https://datina.com.ar/naturaleza.html#f-ant-paises. Consultado el día de la consulta.",
+ "licencia_datos_de_base": "https://www.comnap.aq/antarctic-facilities-information"
 }
