@@ -34,6 +34,7 @@ PROV24 = [f"{c:02d}" for c in (2, 6, 10, 14, 18, 22, 26, 30, 34, 38, 42, 46, 50,
 
 # Hallazgos explicados: clave -> motivo. La clave es la que imprime cada prueba.
 ACEPTADAS = {
+    "faltan|antartida_temperatura_orcadas|00": "READER no tiene diez meses con dato de Orcadas en esos años: la ficha corta la línea y lo aclara en la nota",
     "bancas|Diputados|2013": "el 1 de marzo de 2014 había tres bancas vacantes: los reemplazos (entre ellos el de Jorge Obeid, que murió en enero) juraron el 3 de abril",
     "rango|tasa_neta_escolarizacion_secundaria|42": "desde el cambio de denominador la matrícula de La Pampa supera a la proyección de población: la ficha lo explica y el valor no entra en el texto de máximo",
     "rango|bm_secundaria|00": "es una tasa bruta de finalización del ciclo básico: por definición puede pasar de 100",
@@ -551,7 +552,7 @@ UNIDADES = {"%", "% de los chicos de la edad", "% de estudiantes de 6 grado", "%
             "etapas de fractura por año", "fiscalías", "grados Celsius", "hechos cada 100.000 habitantes", "hectáreas",
             "hijos con AUH cada 100 menores de 18 años", "médicos cada 10.000 habitantes", "sociedades cada 100.000 habitantes", "hijos por mujer", "kWh por habitante por año", "kilos por habitante por año",
             "kilovatios hora por año", "miles", "miles de barriles por día", "miles de barriles por pozo en sus primeros doce meses",
-            "miles de millones de m³", "miles de pesos", "millones de dólares", "millones de kg", "millones de litros",
+            "miles de millones de m³", "miles de pesos", "millones de km²", "millones de pesos de AAAA", "países", "visitantes", "millones de dólares", "millones de kg", "millones de litros",
             "millones de m³", "millones de m³ por día", "muertes de menores de un año por cada 1.000 nacidos vivos",
             "m² por habitante", "m³ por usuario por año", "nacimientos por cada 1.000 mujeres de 15 a 19 años",
             "pensiones (promedio mensual)", "pensiones cada 1.000 habitantes", "personas", "personas (promedio mensual)",

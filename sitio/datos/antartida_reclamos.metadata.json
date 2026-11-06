@@ -1,0 +1,60 @@
+{
+ "tabla": "antartida_reclamos.csv",
+ "titulo": "¿Qué parte de la Antártida reclama cada país?",
+ "descripcion": "Sectores que reclaman los países, por meridianos, desde el paralelo 60 Sur hasta el Polo Sur, con la norma de cada uno",
+ "seccion": "Naturaleza y ambiente",
+ "ficha": "https://datina.com.ar/naturaleza.html#f-ant-reclamos",
+ "fuente": "Ley 26.552, normas de cada país, Tratado Antártico, artículo IV, e Instituto Geográfico Nacional. Mapa: Natural Earth.",
+ "actualizacion": "Se actualiza a mano, cuando la fuente publica datos nuevos.",
+ "cobertura": "Sin desglose territorial",
+ "periodo": "",
+ "filas": 9,
+ "columnas": [
+  {
+   "nombre": "pais",
+   "tipo": "Texto",
+   "valores": "8 valores distintos"
+  },
+  {
+   "nombre": "tramo",
+   "tipo": "Texto",
+   "valores": "9 valores distintos"
+  },
+  {
+   "nombre": "grados",
+   "tipo": "Número",
+   "valores": "6 a 91"
+  },
+  {
+   "nombre": "anio_norma",
+   "tipo": "Año",
+   "valores": "1908 a 1957 (1 celda vacía)"
+  },
+  {
+   "nombre": "norma",
+   "tipo": "Texto",
+   "valores": "8 valores distintos"
+  },
+  {
+   "nombre": "desde",
+   "tipo": "Número",
+   "valores": "-150 a 160"
+  },
+  {
+   "nombre": "hasta",
+   "tipo": "Número",
+   "valores": "-150 a 160"
+  },
+  {
+   "nombre": "fuente",
+   "tipo": "Texto",
+   "valores": "https://www.argentina.gob.ar/normativa/…, https://www.britishantarcticterritory.o…, https://www.diplomacyandlaw.com/post/wh…, https://www.inach.cl/ubicacion/, https://www.legislation.govt.nz/regulat…, https://www.regjeringen.no/en/documents… (1 celda vacía)"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "05/11/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
+ "como_citar": "Datina (año de la consulta). ¿Qué parte de la Antártida reclama cada país? Con datos de Ley 26.552, normas de cada país, Tratado Antártico, artículo IV, e Instituto Geográfico Nacional. Mapa: Natural Earth. https://datina.com.ar/naturaleza.html#f-ant-reclamos. Consultado el día de la consulta."
+}

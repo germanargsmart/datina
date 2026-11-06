@@ -190,6 +190,28 @@ if ((await capitulo("con la dirección vieja #f-apoyo", "#g-votaciones", "f-voto
   problemas.push("politica.html#f-apoyo: no abre la pestaña de las transferencias");
 p.errores.forEach(e => problemas.push(`politica.html, capítulos: ${e}`));
 
+// la Antártida (noviembre de 2026), un capítulo de Naturaleza: abre con su dirección, los dos mapas se dibujan, el país elegido cambia los nombres del mapa
+// y la vista de la Península los acerca. Cada ficha se dibuja recién al entrar en pantalla
+await p.ir(B + "naturaleza.html#g-antartida", 1500);
+const ANT_NOMBRES = `[...document.querySelectorAll('.grafico[data-g="ant-mapa"] text')].map(t => t.textContent)`;
+const antVer = async id => { await p.eval(`document.getElementById("${id}").scrollIntoView()`); await espera(1500); };
+await antVer("f-ant-mapa");
+const antCap = JSON.parse(await p.eval(CAP));
+if (antCap.tab !== "#g-antartida" || !antCap.vis.includes("f-ant-mapa") || antCap.vis.includes("f-protegida")) problemas.push(`naturaleza.html#g-antartida: a la vista ${antCap.tab} con ${antCap.vis.join(", ")}`);
+const antNom = await p.eval(ANT_NOMBRES), antPuntos = await p.eval(`document.querySelectorAll('.grafico[data-g="ant-mapa"] circle').length`);
+if (!antNom.includes("Orcadas") || !antNom.includes("Belgrano II") || antPuntos < 113) problemas.push(`naturaleza.html, mapa de la Antártida: ${antPuntos} puntos y los nombres ${antNom.join(", ")}`);
+await p.eval(`(() => { const s = document.getElementById("ant-pais"); s.value = "Chile"; s.dispatchEvent(new Event("change")); })()`); await espera(500);
+const antChile = await p.eval(ANT_NOMBRES);
+if (antChile.includes("Orcadas") || antChile.includes("Marambio")) problemas.push(`naturaleza.html, mapa de la Antártida con Chile elegido: siguen los nombres argentinos (${antChile.join(", ")})`);
+await p.eval(`(() => { const s = document.getElementById("ant-pais"); s.value = "Argentina"; s.dispatchEvent(new Event("change")); })()`); await espera(300);
+await p.eval(`document.querySelector('.conmutador[data-g="ant-mapa"] button[data-m="peninsula"]').click()`); await espera(500);
+const antPen = await p.eval(ANT_NOMBRES);
+if (!antPen.includes("Primavera") || !antPen.includes("Cámara") || antPen.includes("Belgrano II")) problemas.push(`naturaleza.html, la Península: ${antPen.join(", ")}`);
+await antVer("f-ant-reclamos");
+const antRec = await p.eval(`[...document.querySelectorAll('.grafico[data-g="ant-reclamos"] text')].map(t => t.textContent)`);
+for (const n of ["Argentina", "Chile", "Reino Unido", "Noruega", "Australia", "Francia", "Nueva Zelanda", "Sin reclamar"]) if (!antRec.includes(n)) problemas.push(`naturaleza.html, mapa de los reclamos: falta ${n}`);
+p.errores.forEach(e => problemas.push(`naturaleza.html, la Antártida: ${e}`));
+
 // la dirección con la vista de cada ficha (plan de mejora, F1, 28 de octubre de 2026): "Copiar enlace" suma la vista elegida
 // (?vista=desempleo:serie) y abrir esa dirección la vuelve a elegir
 await p.ir(B + "trabajo.html", 1000);
@@ -641,7 +663,7 @@ servidor.close();
 
 console.log(`Páginas revisadas: ${paginas.length}. "En cifras": ${SECCIONES.length} secciones, sin provincia y con ${PROVINCIAS.length} provincias.`);
 console.log(`Artículos y fichas: ${ida.size} enlaces de ida y ${vuelta.size} de vuelta. Bajadas en la lista de Artículos: ${bajadas.filter(n => n >= 40).length} de ${nArt}.`);
-console.log(`Fichas: ${CUENTA.fichas}, todas con "Ver tabla" y sin el nombre de la sección arriba, ${CUENTA.como} con "Cómo se calcula". "Ver tabla" abierta en ${PROPIAS.length} fichas nuevas. Capítulos de a uno: la fila, un enlace a otro capítulo y una dirección vieja. La vista de una ficha en su dirección. Al imprimir, ninguna ficha en blanco en ${IMPRIMIR.length} páginas.`);
+console.log(`Fichas: ${CUENTA.fichas}, todas con "Ver tabla" y sin el nombre de la sección arriba, ${CUENTA.como} con "Cómo se calcula". "Ver tabla" abierta en ${PROPIAS.length} fichas nuevas. Capítulos de a uno: la fila, un enlace a otro capítulo y una dirección vieja. La Antártida: el capítulo, los dos mapas y las vistas. La vista de una ficha en su dirección. Al imprimir, ninguna ficha en blanco en ${IMPRIMIR.length} páginas.`);
 console.log(`Sin cdnjs ni jsDelivr: ${Object.keys(SIN_CDN).length} páginas. Sin D3: las fichas de trabajo.html a la vista. Menús con el teclado, en 1280 y 390 píxeles. Portada: datos destacados y buscador. Lupa: flechas, Enter, sin coincidencias, respuesta rápida y Tab.` +
             (IA ? " Consultas con IA: el buscador las ofrece y la página deja escrita la pregunta del enlace." : ""));
 console.log(`Accesibilidad: gráficos con nombre, "Saltar al contenido" y migas subrayadas en ${CUENTA.paginas} páginas, el salto con el teclado y el nombre del mapa. Pulido: textos de ayuda enteros en 360 y 768 píxeles y descripción de las fichas a la izquierda.`);

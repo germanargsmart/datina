@@ -1,0 +1,35 @@
+{
+ "tabla": "antartida_tratado_serie.csv",
+ "titulo": "¿Cuántos países forman parte del Tratado Antártico?",
+ "descripcion": "Partes del Tratado Antártico y, entre ellas, partes consultivas, 1961 a 2024",
+ "seccion": "Naturaleza y ambiente",
+ "ficha": "https://datina.com.ar/naturaleza.html#f-ant-tratado",
+ "fuente": "Secretaría del Tratado Antártico, lista de las partes, noviembre de 2026.",
+ "actualizacion": "Se actualiza a mano, cuando la fuente publica datos nuevos.",
+ "cobertura": "Sin desglose territorial",
+ "periodo": "1961 a 2024",
+ "filas": 64,
+ "columnas": [
+  {
+   "nombre": "anio",
+   "tipo": "Año",
+   "valores": "1961 a 2024"
+  },
+  {
+   "nombre": "partes",
+   "tipo": "Número",
+   "valores": "13 a 58"
+  },
+  {
+   "nombre": "consultivas",
+   "tipo": "Número",
+   "valores": "12 a 29"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "05/11/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
+ "como_citar": "Datina (año de la consulta). ¿Cuántos países forman parte del Tratado Antártico? Con datos de Secretaría del Tratado Antártico, lista de las partes, noviembre de 2026. https://datina.com.ar/naturaleza.html#f-ant-tratado. Consultado el día de la consulta."
+}

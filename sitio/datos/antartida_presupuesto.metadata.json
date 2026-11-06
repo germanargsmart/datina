@@ -1,0 +1,55 @@
+{
+ "tabla": "antartida_presupuesto.csv",
+ "titulo": "¿Cuánto gasta el Estado en la Antártida?",
+ "descripcion": "Gasto devengado de la Administración Nacional en programas antárticos, en miles de millones de pesos de 2025, 2000 a 2025",
+ "seccion": "Naturaleza y ambiente",
+ "ficha": "https://datina.com.ar/naturaleza.html#f-ant-presupuesto",
+ "fuente": "Presupuesto Abierto, Secretaría de Hacienda. Deflactor del PBI: INDEC, vía Banco Mundial.",
+ "actualizacion": "Se actualiza a mano, cuando la fuente publica datos nuevos.",
+ "cobertura": "Sin desglose territorial",
+ "periodo": "2000 a 2025",
+ "filas": 26,
+ "columnas": [
+  {
+   "nombre": "anio",
+   "tipo": "Año",
+   "valores": "2000 a 2025"
+  },
+  {
+   "nombre": "total",
+   "tipo": "Número",
+   "valores": "7,98 a 137,4"
+  },
+  {
+   "nombre": "sosten_logistico",
+   "tipo": "Número",
+   "valores": "0 a 97,65"
+  },
+  {
+   "nombre": "plan_antartico",
+   "tipo": "Número",
+   "valores": "5,39 a 15,92"
+  },
+  {
+   "nombre": "fuerzas",
+   "tipo": "Número",
+   "valores": "0 a 13,72"
+  },
+  {
+   "nombre": "irizar",
+   "tipo": "Número",
+   "valores": "0 a 69,87"
+  },
+  {
+   "nombre": "pct_del_gasto_nacional",
+   "tipo": "Número",
+   "valores": "0,01 a 0,08"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "05/11/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
+ "como_citar": "Datina (año de la consulta). ¿Cuánto gasta el Estado en la Antártida? Con datos de Presupuesto Abierto, Secretaría de Hacienda. Deflactor del PBI: INDEC, vía Banco Mundial. https://datina.com.ar/naturaleza.html#f-ant-presupuesto. Consultado el día de la consulta."
+}

@@ -164,7 +164,7 @@ const yE = s => (/^h?[ií](?![aeiouáéíóú])/i.test(String(s).replace(/<[^>]*
 const lista = xs => xs.length > 1 ? xs.slice(0, -1).join(", ") + " " + yE(xs[xs.length - 1]) : xs.join("");
 const grados = v => (v > 0 ? "+" : "") + n2(v) + " °C";
 const e = R.energia, nac = R.nacimientos, s = R.suicidio, em = R.empleo, mo = R.mortalidad, su = R.sube,
-pz = R.pisa, es = R.escolarizacion, ap = R.aprender, nt = R.naturaleza, tu = R.turismo;
+pz = R.pisa, es = R.escolarizacion, ap = R.aprender, nt = R.naturaleza, tu = R.turismo, ANT = R.antartida;
 const movio = v => `${v < 0 ? "bajaron" : "subieron"} ${n1(Math.abs(v))}%`;
 const cambio = v => v === 0 ? "no cambió" : `${v < 0 ? "bajó" : "subió"} ${Math.abs(v)} ${Math.abs(v) === 1 ? "punto" : "puntos"}`;
 const MESES = ["enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"];
@@ -1683,6 +1683,42 @@ yerba: (cu.yerba_max_anio === cu.yerba_anio ? `${cu.yerba_anio} fue el año en q
 "yerba-nota": `Salida de molino informada por el Instituto Nacional de la Yerba Mate: yerba elaborada que despachan los molinos. Solo se muestran años completos.`,
 glaciares: `${cu.gl_top} tiene ${n0(cu.gl_top_v)} glaciares inventariados ${yE(cu.gl_2)}, ${n0(cu.gl_2_v)}, según el Inventario Nacional de Glaciares. ` +
 `Entre las dos reúnen el ${pct((cu.gl_top_v + cu.gl_2_v) / cu.gl_total * 100)} de los glaciares inventariados del país. El dato cuenta glaciares, no su superficie: una provincia con muchos glaciares chicos puede tener menos hielo que otra con pocos glaciares grandes.`,
+"ant-mapa": `El Consejo de Administradores de Programas Antárticos Nacionales (COMNAP) lista ${ANT.n} instalaciones de ${ANT.paises} países: ${ANT.estaciones} estaciones y el resto entre campamentos, refugios, pistas, laboratorios y depósitos. ` +
+`Funcionan todo el año ${ANT.anual} y solo en verano, ${ANT.verano}. En la Península Antártica y las islas cercanas hay ${ANT.peninsula}, de ${ANT.peninsula_paises} países distintos: por eso esa zona tiene su propia vista en el mapa.`,
+"ant-mapa-nota": `Cada instalación cuenta para el país que la opera en primer lugar, y cada programa nacional informa la suya. Figuran cerradas por ahora ${ANT.cerradas}. Macquarie (Australia), al norte del paralelo 60, queda fuera del mapa y está en la tabla. ` +
+`Corregimos una coordenada de la fuente: Zhongshan Skiway (China) figura con latitud norte, al lado de la base Zhongshan, que está al sur.`,
+"ant-bases": `La Argentina tiene ${ANT.arg} bases: ${ANT.arg_anual} funcionan todo el año y ${ANT.arg_verano}, solo en verano. ${ANT.anual_top === "Argentina" ? "Según COMNAP, ningún otro país tiene tantas abiertas todo el año. " : ""}` +
+`La más antigua es Orcadas, de ${ANT.bases_ini}, y la más nueva, Belgrano II, de ${ANT.bases_fin}. El Censo 2022 contó ${ANT.censo} personas en las bases permanentes: ${ANT.censo_mujeres} mujeres y ${ANT.censo_varones} varones. ` +
+`La capacidad máxima más alta es la de ${ANT.base_cap}: ${ANT.base_cap_v} personas en el momento de mayor actividad.`,
+"ant-bases-nota": `La línea marca desde cuándo existe cada base, no que haya funcionado sin pausa: San Martín, por ejemplo, volvió a abrir en 1976. Las fuentes oficiales no coinciden en Petrel: el Comando Conjunto Antártico, la página de Antártida de la Cancillería y COMNAP la cuentan como permanente, y la página de bases de la Dirección Nacional del Antártico, como temporaria. ` +
+`COMNAP marca a ${ANT.base_cerradas.join(" y ")} como cerradas por ahora. Carlini y Brown figuran a cargo de la Cancillería y las demás, del Comando Conjunto Antártico (Ministerio de Defensa). En 2024 se anunció el pase de esas dos a Defensa, y no encontramos una norma publicada que lo confirme. ` +
+`En el Censo 2010 fueron ${ANT.censo10} personas en el departamento Antártida Argentina, más ${ANT.censo10_orcadas} en Orcadas, que entonces se contaba en Islas del Atlántico Sur. No encontramos una explicación publicada de la diferencia con ${ANT.censo}.`,
+"ant-paises": `${ANT.top} lista ${ANT.top_v} instalaciones, la Argentina ${ANT.arg} ${yE(ANT.tercero)} ${ANT.tercero_v}. Si se cuentan solo las que funcionan todo el año, ${ANT.anual_top === "Argentina" ? "la Argentina" : ANT.anual_top} es la primera, con ${ANT.anual_top_v}. ` +
+`En capacidad, ${ANT.cap_top} queda muy por encima: ${n0(ANT.cap_top_v)} personas, ${n0(ANT.cap_max_v)} de ellas en ${ANT.cap_max_base}.`,
+"ant-paises-nota": `Cada instalación cuenta igual, sea una estación grande o un refugio. La capacidad es la cantidad máxima de personas que informa cada programa para el momento de mayor actividad, no cuánta gente hay un día cualquiera. No la informan ${ANT.sin_cap} instalaciones, entre ellas Belgrano II: por eso la suma de un país puede quedar corta.`,
+"ant-reclamos": `Reclaman sectores de la Antártida ${ANT.reclaman} países. La ley argentina incluye en la provincia de Tierra del Fuego el sector entre los meridianos 25 y 74 Oeste, al sur del paralelo 60. Esos ${ANT.arg_grados} grados de longitud están todos dentro del sector que reclama el Reino Unido, y ${ANT.arg_con_chile} también dentro del que reclama Chile. ` +
+`Entre los meridianos 90 y 150 Oeste no reclama ningún país. El Tratado Antártico no reconoce ni rechaza estos reclamos y no admite reclamos nuevos mientras esté en vigor. Según el Instituto Geográfico Nacional, el Sector Antártico Argentino mide ${n0(ANT.sector_km2)} km², el ${pct(ANT.sector_pct)} de la superficie del país contando ese sector y las islas. Hay ${ANT.sector_n} instalaciones de ${ANT.sector_paises} países dentro de esos meridianos.`,
+"ant-reclamos-nota": `Describimos lo que dice la norma de cada país, sin tomar posición sobre la disputa de soberanía. La medida del IGN no cuenta unos ${n0(ANT.barreras_km2)} km² de barreras de hielo. La Cancillería da otra: ${n0(ANT.cancilleria_km2)} km² en total, con ${n0(ANT.cancilleria_tierra_km2)} km² de tierra firme. Los grados de longitud miden cuánto abarca cada sector alrededor del polo, no su superficie de tierra. La norma de cada país y su fuente están en la tabla: el año es el de esa norma, no necesariamente el del primer reclamo del país.`,
+"ant-tratado": `Lo firmaron ${ANT.originales} países en 1959 y empezó a regir en ${ANT.tr_ini}. Hoy son ${ANT.partes}: ${ANT.consultivas} partes consultivas, las únicas que deciden en las reuniones del Tratado, y ${ANT.no_consultivas} que pueden asistir sin decidir. La Argentina y Chile están entre los firmantes originales. El último país en sumarse fue ${ANT.tr_ult}, en ${ANT.tr_ult_anio}. La Secretaría del Tratado funciona en Buenos Aires desde 2004.`,
+"ant-tratado-nota": `Un país que se suma después de los firmantes es parte consultiva solo si hace investigación científica importante en la Antártida. Tienen vigente además ${ANT.protocolo} países el Protocolo de protección del medio ambiente, de 1991, que prohíbe la actividad minera salvo la investigación científica. La fecha de cada país es la de su adhesión, y en los firmantes originales, la de la entrada en vigor.`,
+"ant-zonas": `Hay ${ANT.zaep} zonas antárticas especialmente protegidas, ${ANT.zaea} zonas especialmente administradas y ${ANT.smh} sitios y monumentos históricos. ${ANT.zaep_top} propuso más zonas protegidas, ${ANT.zaep_top_v}, y ${ANT.smh_top} más sitios históricos, ${ANT.smh_top_v}. ` +
+`La Argentina propuso ${ANT.arg_zaep} zonas protegidas y ${ANT.arg_smh} sitios históricos, entre ellos los observatorios de la isla Laurie, en Orcadas, y el mástil que dejó la Operación 90 en el Polo Sur. También participa en la zona administrada de la isla Decepción.`,
+"ant-zonas-nota": `Una propuesta de varios países cuenta para cada uno. Se cuentan las vigentes en ${ANT.ats_fecha}, sin las revocadas. Una zona protegida limita el ingreso y las actividades para cuidar valores ambientales, científicos o históricos.`,
+"ant-temperatura": `Orcadas tiene la serie más larga de las bases argentinas, desde ${ANT.temp.orcadas.ini}: sus últimos diez años con dato estuvieron ${n1(ANT.temp.orcadas.dif)} °C por encima de los primeros diez. La diferencia es de ${n1(ANT.temp.esperanza.dif)} °C en Esperanza, desde ${ANT.temp.esperanza.ini}, ` +
+`y de ${n1(ANT.temp.marambio.dif)} °C en Marambio, desde ${ANT.temp.marambio.ini}. En Belgrano II, mucho más al sur y con menos años, es de ${n1(ANT.temp.belgrano_ii.dif)} °C.`,
+"ant-temperatura-nota": `Cada línea es una sola base y no dice qué pasa en todo el continente, y las series empiezan en años distintos. Un año entra si tiene al menos diez meses con dato: la fuente tiene huecos, sobre todo desde 2020. Para no mezclar meses fríos y cálidos, cada mes se compara con su promedio de 1991 a 2020, el mismo período de la ficha de la temperatura del país. ` +
+`Carlini figura en la fuente con su nombre anterior, Jubany. La temperatura más alta del continente que verificó la Organización Meteorológica Mundial se midió en Esperanza: 18,3 °C, el 6 de febrero de 2020.`,
+"ant-hielo": `En septiembre de ${ANT.hielo_fin}, cuando más hielo hay, el mar congelado alrededor de la Antártida cubría ${n2(ANT.hielo_sep)} millones de km², ${n2(ANT.hielo_sep_base - ANT.hielo_sep)} menos que el promedio de 1981 a 2010. El septiembre más bajo de la serie fue el de ${ANT.hielo_sep_min_anio}: ${n2(ANT.hielo_sep_min)} millones. ` +
+`En febrero, cuando menos hay, cubría ${n2(ANT.hielo_feb)} millones en ${ANT.hielo_fin}, y el más bajo fue el de ${ANT.hielo_feb_min_anio}: ${n2(ANT.hielo_feb_min)} millones.`,
+"ant-hielo-nota": `Mide la extensión: la superficie del mar con al menos 15% de hielo, en el promedio de cada mes. Es el hielo de mar de todo el continente, no solo el del sector argentino, y no es el de los glaciares ni el de las barreras. La tabla trae los valores de cada mes.`,
+"ant-turismo": `En la temporada ${ANT.tu_fin} viajaron ${n0(ANT.tu)} personas con empresas de IAATO, la asociación de operadores de turismo antártico: ${n0(ANT.tu_desembarcan)} desembarcaron, ${n0(ANT.tu_crucero)} no bajaron del crucero y ${n0(ANT.tu_campo)} fueron al interior del continente. ` +
+`El máximo fue en ${ANT.tu_max_temp}, con ${n0(ANT.tu_max)}. En ${ANT.tu_ini} se contaban ${n0(ANT.tu_ini_v)}, y en la temporada de la pandemia, ${ANT.tu_pandemia}.`,
+"ant-turismo-nota": `Cuenta a quienes viajan con empresas de IAATO, que dice reunir al 98% del turismo, sin científicos ni funcionarios. Hasta 1998-99 no hay dato de quienes no desembarcan, y los que van al interior están completos desde 2014-15: la suma de los años anteriores queda corta. IAATO corrigió años viejos: se usa el documento más reciente de cada temporada. ` +
+`Para ${ANT.tu_max_temp} y la temporada siguiente publicó totales de ${n0(ANT.tu_pub_a)} y ${n0(ANT.tu_pub_b)}, que no coinciden con la suma de su propio desglose, que es la que mostramos. Según IAATO, la mayoría de los viajes sale de Ushuaia, sin dar qué parte. En ese puerto, los cruceros antárticos llevaron al ${pct(ANT.ush_pct)} de los ${n0(ANT.ush_n)} cruceristas de ${ANT.ush_temp}, según el Instituto Fueguino de Turismo.`,
+"ant-presupuesto": `En ${ANT.gasto_anio}, la Nación gastó ${n1(ANT.gasto)} mil millones de pesos en programas antárticos, el ${ANT.gasto_pct.toLocaleString("es-AR")}% de todo su gasto. El ${pct(ANT.gasto_sosten_pct)} fue el Sostén Logístico Antártico del Estado Mayor Conjunto, que paga la campaña y las bases. ` +
+`En pesos de ${ANT.gasto_anio}, el máximo fue en ${ANT.gasto_max_anio}, con ${n1(ANT.gasto_max)} mil millones, cuando también se pagaba la reparación del rompehielos Almirante Irízar.`,
+"ant-presupuesto-nota": `Suma lo devengado en los programas y actividades que el presupuesto rotula como antárticos, más la reparación del Irízar, que terminó de pagarse en ${ANT.irizar_ult}. Lo que las fuerzas gastan en la Antártida sin ese rótulo queda afuera. Desde ${ANT.fuerzas_desde}, el Alistamiento Antártico de cada fuerza aparece con su nombre: ese salto es en parte de rótulo y no de gasto. ` +
+`El Sostén Logístico aparece con ese nombre desde ${ANT.sosten_desde}. Los montos van en pesos de ${ANT.gasto_anio}, con el deflactor del PBI, como la obra pública por provincia.`,
 "glaciares-nota": `Cantidad de glaciares y cuerpos de hielo inventariados por el Instituto Argentino de Nivología, Glaciología y Ciencias Ambientales (IANIGLA). Las provincias que no aparecen no tienen glaciares inventariados.`,
 clima: (cu.cl_fin === cu.cl_max_anio ? "" : `En ${cu.cl_fin}, la temperatura media del país estuvo ${n2(Math.abs(cu.cl_ult))} °C ${cu.cl_ult < 0 ? "por debajo" : "por encima"} del promedio de 1991 a 2020. `) + `De los ${cu.cl_n_desde2000} años desde 2000, ${cu.cl_pos_desde2000} fueron más cálidos que el promedio de 1991 a 2020. El año más frío de la serie fue ${cu.cl_min_anio} (${grados(cu.cl_min)}).`,
 "clima-nota": `Desvío de la temperatura media anual del país respecto del promedio de 1991 a 2020, el período de referencia que usa hoy el Servicio Meteorológico Nacional (SMN). Cada franja es un año: celeste, más frío que la referencia, y rojo, más cálido. Pasá el cursor o tocá para ver el valor.`,
@@ -2536,6 +2572,176 @@ svg.append("rect").attr("width", w).attr("height", h).attr("fill", "transparent"
 .on("pointermove", ver).on("pointerdown", ver).on("pointerleave", () => { anillo.attr("opacity", 0); borde.attr("opacity", 0); ocultarTip(); });
 const fi = el.closest(".ficha"), bi = fi?.querySelector(".accion.imagen"); if (bi) bi.hidden = !svgUnico(fi);
 }
+let TOPO_ANT = null;
+const cargarAnt = () => TOPO_ANT ? Promise.resolve(TOPO_ANT) : d3.json("datos/antartida.topo.json").then(t => (TOPO_ANT = t));
+const antProy = () => d3.geoStereographic().rotate([60, 90]);
+const antCapa = k => topojson.feature(TOPO_ANT, TOPO_ANT.objects[k]);
+function antFondo(svg, camino, detalle) {
+const g = svg.append("g");
+g.append("path").datum(antCapa(detalle ? "peninsula" : "tierra")).attr("d", camino).attr("fill", css("--faint")).attr("fill-opacity", .5);
+g.append("path").datum(antCapa(detalle ? "peninsula_barreras" : "barreras")).attr("d", camino).attr("fill", css("--superficie"));
+return g;
+}
+function antEtiquetas(capa, puntos, w, h, nombre, clase, reservado = []) {
+const ocupado = [...reservado, ...puntos.map(p => [p.px - 5, p.py - 5, p.px + 5, p.py + 5])];
+const choca = c => ocupado.some(o => c[0] < o[2] && c[2] > o[0] && c[1] < o[3] && c[3] > o[1]);
+puntos.forEach(p => {
+const t = capa.append("text").attr("class", clase).text(nombre(p)), l = t.node().getComputedTextLength();
+for (const [dx, dy, anc] of [[8, 4, "start"], [-8, 4, "end"], [0, -9, "middle"], [0, 16, "middle"], [8, -7, "start"], [-8, -7, "end"], [8, 15, "start"], [-8, 15, "end"]]) {
+const x0 = anc === "start" ? p.px + dx : anc === "end" ? p.px + dx - l : p.px - l / 2, c = [x0, p.py + dy - 11, x0 + l, p.py + dy + 3];
+if (c[0] >= 2 && c[2] <= w - 2 && c[1] >= 2 && c[3] <= h - 2 && !choca(c)) { ocupado.push(c); t.attr("x", p.px + dx).attr("y", p.py + dy).attr("text-anchor", anc); return; }
+}
+t.remove();
+});
+return ocupado;
+}
+const antCorto = d => d.nombre_corto || d.nombre.replace(/^Base (Antártica |Naval Antártica |Aérea Antártica )?/, "").replace(/ (Station|Base|Antarctic Station|Research Station)$/, "");
+function mapaAntartida(anim) {
+const el = G("ant-mapa");
+if (!el || !el.offsetParent) return;
+if (!TOPO_ANT || !T.antartida_instalaciones) {
+if (!el.querySelector("svg")) esperando(el);
+Promise.all([cargarAnt(), cargarTabla("antartida_instalaciones")]).then(() => mapaAntartida(anim)).catch(() => sinDatos(el, "No se pudo cargar el mapa."));
+return;
+}
+const sel = document.getElementById("ant-pais"), pais = MED["ant-pais"], pen = MED["ant-mapa"] === "peninsula";
+if (sel && sel.options.length < 2) {
+sel.innerHTML = [...new Set(T.antartida_instalaciones.map(d => d.pais))].sort((a, b) => a.localeCompare(b, "es")).map(p => `<option value="${p}">${p}</option>`).join("");
+sel.value = pais;
+}
+const w = Math.min(720, Math.max(300, el.clientWidth)), h = Math.round(w * (pen ? 1 : 1.1));
+el.innerHTML = ""; el.removeAttribute("aria-busy"); el.resaltar = null;
+const svg = d3.select(el).append("svg").attr("viewBox", `0 0 ${w} ${h}`).attr("role", "img").style("overflow", "hidden")
+.attr("aria-label", `Mapa de ${pen ? "la Península Antártica" : "la Antártida"} con las instalaciones de los programas antárticos, con las de ${pais} resaltadas. Los datos están en «Ver tabla», debajo`);
+const marco = pen ? {type: "MultiPoint", coordinates: [[-70, -68.9], [-53, -61.4], [-66.5, -61.4], [-52, -66]]}
+: {type: "MultiPoint", coordinates: [[-68.3, -53.6], [120, -63], [30, -63], [-150, -63]]};
+const proy = antProy().clipAngle(pen ? 45 : 40).fitExtent([[8, 8], [w - 8, h - 8]], marco), camino = d3.geoPath(proy);
+svg.append("rect").attr("width", w).attr("height", h).attr("fill", css("--celeste-suave")).attr("opacity", .45);
+antFondo(svg, camino, pen);
+svg.append("path").datum(d3.geoCircle().center([0, -90]).radius(30)()).attr("d", camino).attr("fill", "none").attr("stroke", css("--muted")).attr("stroke-width", .8).attr("stroke-dasharray", "3 4");
+const lugares = pen ? [[-59, -61.7, "Islas Shetland del Sur"], [-64.5, -66.8, "Península Antártica"], [-54.5, -66, "Mar de Weddell"]]
+: [[-68.3, -54.8, "Ushuaia"], [60, -90, "Polo Sur"], [-42, -74, "Mar de Weddell"], [-170, -74, "Mar de Ross"], [-60, -60, "Paralelo 60 Sur"]];
+const capaLugares = svg.append("g");
+const marcoV = d => d.px >= 0 && d.px <= w && d.py >= 0 && d.py <= h;
+const vis = T.antartida_instalaciones.map(d => { const [px, py] = proy([d.lon, d.lat]); return {...d, px, py, sel: d.pais === pais || d.otro_pais === pais}; }).filter(marcoV).sort((a, b) => a.sel - b.sel);
+const color = d => d.sel ? css("--celeste-fuerte") : css("--muted");
+const llena = d => d.temporada === "Todo el año";
+const puntos = svg.append("g").selectAll("circle").data(vis).join("circle").attr("cx", d => d.px).attr("cy", d => d.py).attr("r", d => d.sel ? (pen ? 6 : 5) : (pen ? 4 : 3))
+.attr("fill", d => llena(d) ? color(d) : css("--bg")).attr("stroke", color).attr("stroke-width", d => d.sel ? 2 : 1.2);
+if (anim && !REDUCIR) puntos.attr("opacity", 0).transition().delay(escalon).duration(DUR_G).attr("opacity", 1);
+const conNombre = vis.filter(d => d.sel).sort((a, b) => (b.capacidad ?? 999) - (a.capacidad ?? 999));
+const leyY = h - 50, anchoLey = 92 + Math.max(0, pais.length - 11) * 6 + 110, leyX = pen ? w - anchoLey - 4 : 12;
+const ocupado = antEtiquetas(svg.append("g"), conNombre, w, h, antCorto, "etq-fuerte", [[leyX - 8, leyY - 12, leyX + anchoLey + 4, leyY + 32]]);
+lugares.forEach(([lon, lat, nom]) => {
+const [x, y] = proy([lon, lat]), t = capaLugares.append("text").attr("class", "etq-suave").attr("text-anchor", "middle").attr("x", x).attr("y", y).text(nom), l = t.node().getComputedTextLength();
+const c = [x - l / 2, y - 11, x + l / 2, y + 3];
+if (c[0] < 2 || c[2] > w - 2 || ocupado.some(o => c[0] < o[2] && c[2] > o[0] && c[1] < o[3] && c[3] > o[1])) t.remove(); else ocupado.push(c);
+});
+const ley = svg.append("g").attr("transform", `translate(${leyX},${leyY})`);
+ley.append("rect").attr("x", -6).attr("y", -11).attr("width", anchoLey + 8).attr("height", 42).attr("rx", 6).attr("fill", css("--bg")).attr("opacity", .85);
+[[0, 0, css("--muted"), true, "Todo el año"], [92, 0, css("--muted"), false, "Solo en verano"], [0, 20, css("--celeste-fuerte"), true, pais], [92 + Math.max(0, pais.length - 11) * 6, 20, css("--muted"), true, "Otros países"]].forEach(([x, y, c, ll, t]) => {
+ley.append("circle").attr("cx", x + 5).attr("cy", y).attr("r", 4.5).attr("fill", ll ? c : css("--bg")).attr("stroke", c).attr("stroke-width", 1.4);
+ley.append("text").attr("x", x + 14).attr("y", y + 4).attr("class", "etq").text(t);
+});
+const anillo = svg.append("circle").attr("r", 9).attr("fill", "none").attr("stroke", css("--ink")).attr("stroke-width", 1.5).attr("opacity", 0);
+const dl = d3.Delaunay.from(vis, d => d.px, d => d.py);
+const tipo = d => `${d.tipo}, ${d.temporada.toLowerCase()}`;
+const ver = ev => {
+const [sx, sy] = d3.pointer(ev, svg.node()), [ex, ey] = d3.pointer(ev, el), d = vis[dl.find(sx, sy)];
+if (d && Math.hypot(d.px - sx, d.py - sy) < 14) {
+anillo.attr("cx", d.px).attr("cy", d.py).attr("opacity", 1);
+return mostrarTip(el, `<b>${d.nombre}</b><br>${d.pais}${d.otro_pais ? ` ${yE(d.otro_pais)}` : ""}<br>${tipo(d)}` + (d.anio ? `<br>Desde ${d.anio}` : "") +
+(d.capacidad != null ? `<br>Capacidad máxima: ${n0(d.capacidad)} personas` : "<br>Capacidad sin informar") + (d.estado === "Abierta" ? "" : `<br>${d.estado}`), ex, ey);
+}
+anillo.attr("opacity", 0); ocultarTip();
+};
+svg.append("rect").attr("width", w).attr("height", h).attr("fill", "transparent").style("touch-action", "pan-y")
+.on("pointermove", ver).on("pointerdown", ver).on("pointerleave", () => { anillo.attr("opacity", 0); ocultarTip(); });
+const fi = el.closest(".ficha"), bi = fi?.querySelector(".accion.imagen"); if (bi) bi.hidden = !svgUnico(fi);
+}
+function mapaReclamos(anim) {
+const el = G("ant-reclamos");
+if (!el || !el.offsetParent) return;
+if (!TOPO_ANT || !T.antartida_reclamos) {
+if (!el.querySelector("svg")) esperando(el);
+Promise.all([cargarAnt(), cargarTabla("antartida_reclamos")]).then(() => mapaReclamos(anim)).catch(() => sinDatos(el, "No se pudo cargar el mapa."));
+return;
+}
+const w = Math.min(660, Math.max(300, el.clientWidth)), angosto = w < 460, banda = angosto ? 17 : 19, luz = 3, paso = banda + luz, m = 6;
+const R0 = w / 2 - m - paso - (angosto ? 2 : 8), h = 2 * R0 + 4 * paso + 2 * m + (angosto ? 14 : 18), cx = w / 2, cy = m + 3 * paso + R0;
+el.innerHTML = ""; el.removeAttribute("aria-busy"); el.resaltar = null;
+const svg = d3.select(el).append("svg").attr("viewBox", `0 0 ${w} ${h}`).attr("role", "img").style("overflow", "hidden")
+.attr("aria-label", "Mapa de la Antártida con los sectores que reclaman siete países, y dónde se superponen. Los datos están en «Ver tabla», debajo");
+const proy = antProy().clipAngle(30).scale(R0 / Math.tan(Math.PI / 12)).translate([cx, cy]), camino = d3.geoPath(proy);
+const ang = lon => (lon + 60) * Math.PI / 180, pt = (lon, r) => [cx + r * Math.sin(ang(lon)), cy - r * Math.cos(ang(lon))];
+const grados = t => ((t.hasta - t.desde) % 360 + 360) % 360;
+const porcion = t => { const [a, b] = pt(t.desde, R0), [c, d] = pt(t.hasta, R0); return `M${cx},${cy}L${a},${b}A${R0},${R0} 0 ${grados(t) > 180 ? 1 : 0} 1 ${c},${d}Z`; };
+svg.append("circle").attr("cx", cx).attr("cy", cy).attr("r", R0).attr("fill", css("--celeste-suave")).attr("opacity", .45);
+antFondo(svg, camino, false);
+const tramos = T.antartida_reclamos, reclamos = tramos.filter(t => t.pais !== "Sin reclamar");
+const esArg = t => t.pais === "Argentina";
+const porciones = svg.append("g").selectAll("path").data(reclamos).join("path").attr("d", porcion)
+.attr("fill", d => esArg(d) ? css("--celeste-fuerte") : css("--muted")).attr("fill-opacity", d => esArg(d) ? .38 : .16).attr("stroke", css("--bg")).attr("stroke-width", 1);
+if (anim && !REDUCIR) porciones.attr("opacity", 0).transition().delay(escalon).duration(DUR_G).attr("opacity", 1);
+svg.append("circle").attr("cx", cx).attr("cy", cy).attr("r", R0).attr("fill", "none").attr("stroke", css("--muted")).attr("stroke-width", .8);
+svg.append("circle").attr("cx", cx).attr("cy", cy).attr("r", 2.5).attr("fill", css("--ink"));
+svg.append("text").attr("x", cx).attr("y", cy + 16).attr("text-anchor", "middle").attr("class", "etq-suave").text("Polo Sur");
+const renglon = t => t.pais === "Chile" ? 1 : t.pais === "Reino Unido" ? 2 : 0;
+const rDe = t => R0 + luz + banda / 2 + renglon(t) * paso;
+const arco = (t, r, alRevez) => { const [a, b] = pt(t.desde, r), [c, d] = pt(t.hasta, r); return alRevez ? `M${c},${d}A${r},${r} 0 ${grados(t) > 180 ? 1 : 0} 0 ${a},${b}` : `M${a},${b}A${r},${r} 0 ${grados(t) > 180 ? 1 : 0} 1 ${c},${d}`; };
+const capa = svg.append("g");
+tramos.forEach((t, i) => {
+const libre = t.pais === "Sin reclamar", medio = t.desde + grados(t) / 2, abajo = Math.cos(ang(medio)) < 0, r = rDe(t);
+capa.append("path").attr("d", arco(t, r, false)).attr("fill", "none").attr("stroke", esArg(t) ? css("--celeste-fuerte") : libre ? css("--faint") : css("--superficie-3")).attr("stroke-width", libre ? 1.2 : banda)
+.attr("stroke-dasharray", libre ? "3 4" : null);
+const idArco = `ant-arco-${i}`;
+capa.append("path").attr("id", idArco).attr("d", arco(t, abajo ? r + 4 : r - 4, abajo)).attr("fill", "none");
+const nombre = t.pais, medir = capa.append("text").attr("class", "etq").text(nombre), largo = medir.node().getComputedTextLength(); medir.remove();
+if (largo + 10 < r * grados(t) * Math.PI / 180) {
+const tx = capa.append("text").attr("class", esArg(t) ? "etq-fuerte" : libre ? "etq-suave" : "etq").style("fill", esArg(t) ? css("--bg") : null).style("stroke", "none");
+tx.append("textPath").attr("href", `#${idArco}`).attr("startOffset", "50%").attr("text-anchor", "middle").text(nombre);
+} else {
+const [x, y] = pt(medio, r + banda / 2 + (abajo ? 12 : 8));
+capa.append("text").attr("class", "etq").attr("x", x).attr("y", y).attr("text-anchor", "middle").text(nombre);
+}
+});
+const quien = lon => reclamos.filter(t => { const g = ((lon - t.desde) % 360 + 360) % 360; return g < grados(t); });
+const lista = l => l.length > 1 ? `${l.slice(0, -1).join(", ")} ${yE(l[l.length - 1])}` : l[0];
+const ver = ev => {
+const [sx, sy] = d3.pointer(ev, svg.node()), [ex, ey] = d3.pointer(ev, el), dx = sx - cx, dy = sy - cy, r = Math.hypot(dx, dy);
+if (r > R0 + 3 * paso + 4) return ocultarTip();
+const lon = ((Math.atan2(dx, -dy) * 180 / Math.PI - 60 + 540) % 360) - 180, l = quien(lon);
+const mer = `Meridiano ${Math.abs(Math.round(lon))}° ${lon < 0 ? "Oeste" : "Este"}`;
+mostrarTip(el, `<b>${mer}</b><br>` + (l.length ? `Lo reclama${l.length > 1 ? "n" : ""} ${lista([...new Set(l.map(t => t.pais))])}` : "Ningún país lo reclama"), ex, ey);
+};
+svg.append("rect").attr("width", w).attr("height", h).attr("fill", "transparent").style("touch-action", "pan-y").on("pointermove", ver).on("pointerdown", ver).on("pointerleave", ocultarTip);
+const fi = el.closest(".ficha"), bi = fi?.querySelector(".accion.imagen"); if (bi) bi.hidden = !svgUnico(fi);
+}
+function lineaBases(el, anim) {
+const data = [...T.antartida_bases].sort((a, b) => d3.ascending(a.fundacion, b.fundacion)), angosto = el.clientWidth < 520, fila = angosto ? 26 : 28;
+const C = lienzo(el, data.length * fila + 58, {t: 52, r: 14, b: 6, l: angosto ? 76 : 96}), {g, iw, svg} = C;
+const fin = +R.actualizado.slice(-4), x = d3.scaleLinear().domain([1900, fin]).range([0, iw]);
+g.append("g").attr("class", "grilla").call(d3.axisTop(x).tickValues(d3.range(1900, fin, 25)).tickSize(-data.length * fila).tickFormat("")).call(a => a.select(".domain").remove());
+g.append("g").attr("class", "eje").call(d3.axisTop(x).tickValues(d3.range(1900, fin, 25)).tickFormat(d3.format("d")).tickSize(0).tickPadding(6)).call(a => a.select(".domain").remove());
+const col = css("--celeste-fuerte"), perm = d => d.condicion === "permanente";
+const ley = svg.append("g").attr("transform", "translate(6,16)");
+[[0, null, "Todo el año"], [106, "5 4", "Solo en verano"]].forEach(([xx, dash, t]) => {
+ley.append("line").attr("x1", xx).attr("x2", xx + 22).attr("y1", 0).attr("y2", 0).attr("stroke", col).attr("stroke-width", 3).attr("stroke-dasharray", dash);
+ley.append("text").attr("x", xx + 28).attr("y", 4).attr("class", "etq").text(t);
+});
+const filas = g.selectAll("g.f").data(data).join("g").attr("class", "f").attr("transform", (d, i) => `translate(0,${i * fila + fila / 2})`);
+filas.append("rect").attr("x", -C.w).attr("y", -fila / 2).attr("width", C.w * 2).attr("height", fila).attr("fill", "transparent");
+const trazos = filas.append("line").attr("x1", d => x(d.anio)).attr("x2", iw).attr("stroke", col).attr("stroke-width", 3).attr("stroke-dasharray", d => perm(d) ? null : "5 4");
+filas.append("circle").attr("cx", d => x(d.anio)).attr("r", 5).attr("fill", col).attr("stroke", css("--bg")).attr("stroke-width", 1.5);
+filas.append("text").attr("x", -10).attr("dy", ".35em").attr("text-anchor", "end").attr("class", "etq-fuerte").text(d => d.base);
+filas.append("text").attr("x", d => x(d.anio) + 9).attr("y", -6).attr("class", "etq-suave").text(d => d.anio);
+if (anim && !REDUCIR) trazos.attr("opacity", 0).transition().delay(escalon).duration(DUR_G).attr("opacity", 1);
+const dia = s => { const [a, m, dd] = s.split("-"); return `${+dd} de ${MESES[+m - 1]} de ${a}`; };
+filas.on("pointermove pointerdown", (ev, d) => { const [mx, my] = d3.pointer(ev, el);
+mostrarTip(el, `<b>${d.base}</b><br>${d.lugar}<br>Desde el ${dia(d.fundacion)}<br>${perm(d) ? "Funciona todo el año" : "Funciona solo en verano"}<br>A cargo de: ${d.administra}` +
+(d.capacidad != null ? `<br>Capacidad máxima: ${n0(d.capacidad)} personas` : "<br>Capacidad sin informar") + (d.estado === "Abierta" ? "" : `<br>${d.estado} (COMNAP)`), mx, my); })
+.on("pointerleave", ocultarSiMouse);
+}
 function mapaCentrales(el, cfg) {
 if (!GEO) {
 if (!el.querySelector("svg")) esperando(el);
@@ -2568,7 +2774,7 @@ svg.append("rect").attr("width", w).attr("height", h).attr("fill", "transparent"
 .on("pointermove", ver).on("pointerdown", ver).on("pointerleave", () => { anillo.attr("opacity", 0); ocultarTip(); });
 const fi = el.closest(".ficha"), bi = fi?.querySelector(".accion.imagen"); if (bi) bi.hidden = !svgUnico(fi);
 }
-const MED = {"jueces-federales": "cargos", "fiscalias-federales": "cantidad", "justicia-provincial": "magistratura", dinamica: "pais", rotacion: "edad", fiscal: "autonomia", censo: "cloaca", internet: "accesos_100_hogares", empleo: "cada_100", pisa: "mat", aprender: "mat", protegida: "pct_territorio", eti: "cada_1000", "patentes-prov": "autos_1000", nombres: "F", "visitas-parque": "visitas_ult", "poblacion-proy": "var_pct", "sectores-empleo": "uno", mayoristas: "doce", "precio-consumo": "carne", "socios-que": "vende", "valor-kilo": "anual", "chicos-escuela": "var_pct"};
+const MED = {"ant-mapa": "continente", "ant-pais": "Argentina", "ant-paises": "instalaciones", "ant-zonas": "zonas_protegidas", "ant-temperatura": "orcadas", "jueces-federales": "cargos", "fiscalias-federales": "cantidad", "justicia-provincial": "magistratura", dinamica: "pais", rotacion: "edad", fiscal: "autonomia", censo: "cloaca", internet: "accesos_100_hogares", empleo: "cada_100", pisa: "mat", aprender: "mat", protegida: "pct_territorio", eti: "cada_1000", "patentes-prov": "autos_1000", nombres: "F", "visitas-parque": "visitas_ult", "poblacion-proy": "var_pct", "sectores-empleo": "uno", mayoristas: "doce", "precio-consumo": "carne", "socios-que": "vende", "valor-kilo": "anual", "chicos-escuela": "var_pct"};
 const M = v => n1(v / 1e6) + " M";
 const G = k => document.querySelector(`.grafico[data-g="${k}"]`);
 const NAR = css("--celeste-fuerte"), FRI = css("--sol-fuerte"), GRIS = css("--faint");
@@ -2817,6 +3023,27 @@ series:[{k:"millones_litros", lab:"Vino", c:NAR, w:3}]}),
 yerba: a => lineas(G("yerba"), {anim:a, data: T.yerba_molino, x:"anio", y0:0, vf: v => n1(v) + " M kg", yf: v => n0(v) + " M",
 series:[{k:"millones_kg", lab:"Yerba", c:NAR, w:3}]}),
 glaciares: a => barrasH(G("glaciares"), {anim:a, data: T.glaciares_provincias, k:"glaciares", vf: n0, af: n0}),
+"ant-mapa": a => mapaAntartida(a),
+"ant-reclamos": a => mapaReclamos(a),
+"ant-bases": conTablas("ant-bases", ["antartida_bases"], a => lineaBases(G("ant-bases"), a)),
+"ant-paises": conTablas("ant-paises", ["antartida_paises"], a => { const k = MED["ant-paises"];
+barrasH(G("ant-paises"), {anim:a, data: T.antartida_paises.filter(d => d[k] > 0).map(d => ({...d, codigo_indec: d.pais, territorio: d.pais})), k, marcar: new Set(["Argentina"]), vf: n0, af: n0, l: 130, lAngosto: 104,
+tip: d => `<b>${d.pais}</b><br>${d.instalaciones} ${d.instalaciones === 1 ? "instalación" : "instalaciones"}: ${d.todo_el_anio} todo el año y ${d.solo_en_verano} solo en verano<br>Capacidad máxima: ${n0(d.capacidad)} personas` + (d.sin_capacidad_informada ? ` (${d.sin_capacidad_informada} sin informar)` : "")}); }),
+"ant-tratado": conTablas("ant-tratado", ["antartida_tratado_serie"], a => lineas(G("ant-tratado"), {anim:a, data: T.antartida_tratado_serie, x:"anio", y0:0, escalones:true, vf: n0,
+series: [{k:"partes", lab:"Todas las partes", corto:"Partes", c:NAR, w:3}, {k:"consultivas", lab:"Partes consultivas", corto:"Consultivas", c:FRI, w:2.4}]})),
+"ant-zonas": conTablas("ant-zonas", ["antartida_zonas_paises"], a => { const k = MED["ant-zonas"];
+barrasH(G("ant-zonas"), {anim:a, data: T.antartida_zonas_paises.filter(d => d[k] > 0).map(d => ({...d, codigo_indec: d.pais, territorio: d.pais})), k, marcar: new Set(["Argentina"]), vf: n0, af: n0, l: 130, lAngosto: 104,
+tip: d => `<b>${d.pais}</b><br>${d.zonas_protegidas} zonas protegidas, ${d.zonas_administradas} zonas administradas y ${d.sitios_historicos} sitios históricos`}); }),
+"ant-temperatura": conTablas("ant-temperatura", ["antartida_temperatura"], a => { const s = MED["ant-temperatura"], e = ANT.temp[s], sg = v => (v > 0 ? "+" : "") + n1(v);
+lineas(G("ant-temperatura"), {anim:a, data: T.antartida_temperatura.filter(r => r.anio >= e.ini && r.anio <= e.fin), x:"anio", conNegativos:true, ref:0, vf: v => sg(v) + " °C", yf: sg,
+series: [{k:s, lab:"Cada año", c:css("--celeste"), w:1.4, ct:"--celeste-fuerte"}, {k:`${s}_10`, lab:"Promedio de diez años", corto:"Diez años", c:NAR, w:3}]}); }),
+"ant-hielo": conTablas("ant-hielo", ["antartida_hielo"], a => { const sg = v => (v > 0 ? "+" : "") + n2(v);
+lineas(G("ant-hielo"), {anim:a, data: T.antartida_hielo, x:"anio", conNegativos:true, ref:0, vf: sg, yf: v => (v > 0 ? "+" : "") + n1(v),
+series: [{k:"septiembre_dif", lab:"Septiembre", c:NAR, w:2.6}, {k:"febrero_dif", lab:"Febrero", c:FRI, w:2.2}]}); }),
+"ant-turismo": conTablas("ant-turismo", ["antartida_turismo"], a => lineas(G("ant-turismo"), {anim:a, data: T.antartida_turismo, x:"anio", xl: d => d.temporada, y0:0, vf: n0, yf: v => n0(v / 1000) + " mil",
+series: [{k:"total", lab:"En total", c:NAR, w:3}, {k:"desembarcan", lab:"Desembarcan", c:FRI, w:2.2}, {k:"solo_crucero", lab:"Solo crucero", c:GRIS, w:2, ct:"--muted"}]})),
+"ant-presupuesto": conTablas("ant-presupuesto", ["antartida_presupuesto"], a => lineas(G("ant-presupuesto"), {anim:a, data: T.antartida_presupuesto, x:"anio", y0:0, vf: n1, yf: n0,
+series: [{k:"total", lab:"En total", c:NAR, w:3}, {k:"sosten_logistico", lab:"Sostén logístico", corto:"Sostén", c:FRI, w:2.2}, {k:"plan_antartico", lab:"Plan Antártico", corto:"Plan", c:GRIS, w:2, ct:"--muted"}]})),
 clima: a => franjas(G("clima"), {anim:a, data: T.clima_desvio, k:"desvio_temperatura"}),
 esperanza: a => pesas(G("esperanza"), {anim:a, data: T.esperanza_vida_provincias, a:"varones", b:"mujeres", la:"Varones", lb:"Mujeres",
 vf: v => n1(v) + " años", af: v => v, x0: 66, ref: OC.esperanza_vida.ocde, refLab: `Promedio OCDE ${OC.esperanza_vida.anio}: ${n1(OC.esperanza_vida.ocde)}`,
@@ -5089,6 +5316,8 @@ MED.dengue = "provincias";
 MED["dengue-temp"] = DG.juntas;
 $("dg-sel").innerHTML = [[DG.juntas, `De la ${DG.prov_desde} a la ${DG.temp}, juntas`], ...[...DG.temps_prov].reverse().map(t => [t, t])]
 .map(([v, l]) => `<option value="${v}">${l}</option>`).join("");
+$("ant-pais").addEventListener("change", ev => { MED["ant-pais"] = ev.target.value; cambiarVista("ant-mapa"); });
+$("ant-base").addEventListener("change", ev => { MED["ant-temperatura"] = ev.target.value; cambiarVista("ant-temperatura"); });
 $("dg-sel").addEventListener("change", ev => { MED["dengue-temp"] = ev.target.value; cambiarVista("dengue"); });
 const dgFilas = () => T.dengue_provincias.filter(r => r.temporada === MED["dengue-temp"]);
 DIB.dengue = conTablas("dengue", ["dengue_provincias"], a => {
@@ -6414,6 +6643,16 @@ Object.keys(CPA.atrasadas).length ? "por habitante, promedio de las jurisdiccion
 "f-vino": [n0(cu.vino_v), `millones de litros de vino vendidos en el país en ${cu.vino_anio}`,
 `millones de litros en ${cu.vino_anio}, ${pct(Math.abs(cu.vino_caida))} ${cu.vino_caida < 0 ? "menos" : "más"} que en ${cu.vino_ini}`],
 "f-yerba": [n1(cu.yerba_v), `millones de kilos de yerba mate despacharon los molinos en ${cu.yerba_anio}`, `millones de kilos en ${cu.yerba_anio}, en todo el país`],
+"f-ant-mapa": [n0(ANT.n), `instalaciones de ${ANT.paises} países hay en la Antártida, según la lista de ${ANT.comnap_fecha}`, `instalaciones de ${ANT.paises} países`],
+"f-ant-bases": [n0(ANT.arg), `bases tiene la Argentina en la Antártida: ${ANT.arg_anual} funcionan todo el año y ${ANT.arg_verano}, solo en verano`, `bases argentinas: ${ANT.arg_anual} funcionan todo el año`],
+"f-ant-paises": [n0(ANT.top_v), `instalaciones tiene ${ANT.top}, el país con más. La Argentina tiene ${ANT.arg}`, `instalaciones tiene ${ANT.top}. La Argentina, ${ANT.arg}`],
+"f-ant-reclamos": [n0(ANT.reclaman), `países reclaman sectores de la Antártida. Los de la Argentina, Chile y el Reino Unido se superponen`, `países reclaman sectores de la Antártida`],
+"f-ant-tratado": [n0(ANT.partes), `países forman parte del Tratado Antártico. ${ANT.consultivas} deciden en sus reuniones`, `países forman parte del Tratado`],
+"f-ant-zonas": [n0(ANT.zaep), `zonas antárticas especialmente protegidas hay en ${ANT.ats_fecha}. La Argentina propuso ${ANT.arg_zaep}`, `zonas protegidas. La Argentina propuso ${ANT.arg_zaep}`],
+"f-ant-temperatura": [`${n1(ANT.temp.orcadas.dif)} °C`, `más de temperatura media tuvo Orcadas en sus últimos diez años con dato que en los primeros diez, desde ${ANT.temp.orcadas.ini}`, `más en Orcadas que en sus primeros diez años`],
+"f-ant-hielo": [`${n1(ANT.hielo_sep)} millones`, `de km² de hielo marino había en septiembre de ${ANT.hielo_fin}, ${n1(ANT.hielo_sep_base - ANT.hielo_sep)} menos que el promedio de 1981 a 2010`, `de km² de hielo marino en septiembre de ${ANT.hielo_fin}`],
+"f-ant-turismo": [n0(ANT.tu), `personas visitaron la Antártida con empresas de IAATO en la temporada ${ANT.tu_fin}`, `visitantes en la temporada ${ANT.tu_fin}`],
+"f-ant-presupuesto": [`${n1(ANT.gasto)} mil millones`, `de pesos gastó la Nación en programas antárticos en ${ANT.gasto_anio}, el ${ANT.gasto_pct.toLocaleString("es-AR")}% de todo su gasto`, `de pesos en programas antárticos en ${ANT.gasto_anio}`],
 "f-glaciares": [n0(cu.gl_total), `glaciares inventariados en ${cu.gl_n} provincias`, `inventariados en todo el país, en ${cu.gl_n} provincias`],
 "f-clima": [grados(cu.cl_max), `en ${cu.cl_max_anio} frente al promedio de 1991 a 2020, el año más cálido desde ${cu.cl_ini}`, `en ${cu.cl_max_anio}, el año más cálido de la serie`],
 "f-esperanza": [n1(nv.ev_pais), `años de esperanza de vida al nacer en el país en ${nv.ev_anio}`, "años en todo el país, mujeres y varones juntos"],
@@ -6538,7 +6777,7 @@ energia: ["f-hogares", "f-electricidad-provincias", "x-demanda-ytd", "f-gas-hoga
 petroleo: ["f-petroleo", "f-gas", "x-pet-shale", "f-reservas", "f-hidro-provincias", "x-vaca-muerta", "f-mundo-petroleo", "f-balanza-energetica",
 "f-pozos", "f-regalias", "f-empleo-hidro"],
 turismo: ["f-receptivo", "x-turistas-doce", "f-hoteles", "f-eti", "x-hoteles-nr"],
-naturaleza: ["f-protegida", "f-parques", "f-visitas", "f-pesca", "f-especies", "x-parque-top", "f-pesca-rio", "f-soja", "f-clima", "f-glaciares"],
+naturaleza: ["f-protegida", "f-parques", "f-visitas", "f-pesca", "f-especies", "x-parque-top", "f-pesca-rio", "f-soja", "f-clima", "f-glaciares", "f-ant-bases", "f-ant-tratado"],
 curiosidades: ["f-nombres", "x-nombres-prov", "f-carne", "f-vino", "f-yerba"],
 };
 const esc = t => String(t).replace(/[&<>"]/g, c => ({"&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;"})[c]);
@@ -6734,7 +6973,7 @@ document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revoke
 }, "image/png");
 }
 const SIN_RELACIONES = new Set(["f-edad", "f-suicidio", "f-suicidio-prov"]);
-const EN_CATALOGO = new Set(["abandono_pais", "abandono_provincias", "actividad_anual", "actividad_mensual", "actividad_sectores", "adulto_equivalente", "anios_congreso", "apoyo_gobierno_provincias", "aprender_departamentos", "aprender_diagnostico", "aprender_provincias", "areas_produccion", "areas_protegidas_provincias", "areas_serie", "argentinos_exterior", "argentinos_exterior_destinos", "asignaciones_cobertura", "auh_provincias", "balanza_comercial", "balanza_energetica", "bcra_variables", "bcra_variables_lista", "calendario_indec", "canasta_crianza", "canasta_mensual", "canasta_regiones", "capitales", "capitales_eph", "carceles_provincias", "carceles_serie", "carne_vacuna", "causas_muerte_provincias", "censo2022_provincias", "censos_pais", "censos_provincias", "centrales", "chicos_escuela_provincias", "clima_desvio", "cobertura_suelo_pais", "cobertura_suelo_provincias", "combustibles_anual", "combustibles_mensual", "combustibles_provincias", "comercio_rubro_pais", "comercio_socios", "comercio_socios_historia", "comercio_valor_kilo", "compras_dolares_anual", "confianza_consumidor", "confianza_gobierno", "confianza_gobierno_elecciones", "confianza_gobierno_gobiernos", "congreso_composicion", "coparticipacion_provincias", "corte_casos", "corte_composicion", "corte_jueces", "corte_jueces_fuentes", "corte_no_asumieron", "corte_presidentes", "costo_anual", "costo_construccion", "crianza_salario", "cruces_provincias", "cruces_series", "cuenta_corriente", "cuentas_nacion", "curvas_vm", "delitos_serie", "delitos_tipo", "dengue_pais", "dengue_provincias", "departamentos", "desembarques_especies", "desembarques_top", "desocupacion_aglomerados", "desocupacion_serie", "deuda_pbi", "deuda_provincias", "diputados_nacionales", "diseno_pozos_vm", "dolar_inversion_trimestral", "dotacion_nacion", "elecciones_presidenciales", "electricidad_mensual", "electricidad_provincias", "electricidad_sectores", "electricidad_serie", "empleo_construccion_provincias", "empleo_construccion_serie", "empleo_provincias", "empleo_publico_provincias", "empresas_provincias", "empresas_serie_pais", "empresas_tamano_sector", "energia_estacionalidad", "energia_hogares", "envejecimiento_pais", "envejecimiento_provincias", "escolarizacion_secundaria_provincias", "especies_areas_nacionales", "esperanza_vida_provincias", "expectativas_inflacion", "exportaciones_cantidades_anual", "exportaciones_complejos", "exportaciones_destinos", "exportaciones_dolar_trimestral", "exportaciones_provincias", "exportaciones_rubros_anual", "extranjeros_provincias", "fiscal_provincias", "fiscalias_defensorias_federales", "fracturas_anual", "gabinetes_origen", "gas_usuario_mensual", "gas_usuario_provincias", "gas_usuario_serie", "gasto_nacion_tipo", "glaciares_provincias", "haberes_previsionales", "hidrocarburos_anual", "hidrocarburos_empresas", "hidrocarburos_mensual", "hidrocarburos_provincias", "hipotecas_mensual", "homicidios_provincias", "importaciones_origen", "importaciones_usos", "impuestos_provinciales", "industria_ramas", "inflacion_anual", "inflacion_mensual", "inflacion_personal", "inflacion_regiones", "inflacion_rubros", "ingresos_aglomerados", "internet_fijo_provincias", "inversion_educativa", "inversion_educativa_serie", "isac_anual", "isac_insumos", "isac_mensual", "jubilaciones_aportantes", "justicia_federal_provincias", "justicia_provincias", "legisladores_por_periodo", "madres_adolescentes_nse", "madres_adolescentes_provincias", "mayoristas_mensual", "medicos_provincias", "migracion_censos", "migraciones_departamentos", "ministros_nacionales", "ministros_provincias", "mortalidad_infantil_causas", "mortalidad_infantil_provincias", "muertes_violentas", "mundo_hidrocarburos", "nacidos_otro_pais_paises", "nacidos_otro_pais_provincias", "nacimientos", "nafta_dolares_anual", "nafta_dolares_mensual", "nombres_serie", "nombres_top", "obra_publica_provincias", "obra_publica_serie", "ocde_comparacion", "parques_nacionales_historia", "parques_nacionales_lista", "patentamientos_anual", "patentamientos_provincias", "pensiones_invalidez", "pensiones_invalidez_provincias", "permisos_mensual", "pesca_continental", "pesca_continental_provincias", "piramide_poblacion", "pisa_argentina_ocde", "poblacion_proyectada_provincias", "pobreza_aglomerados", "pobreza_provincias", "pobreza_serie", "potencia_instalada", "pozos_no_convencionales", "pozos_provincias", "pozos_terminados", "pozos_terminados_provincias", "pozos_tipo", "precio_consumo", "presidentes", "prestacion_desempleo", "prestacion_desempleo_provincias", "presupuesto_votos", "produccion_mensual", "productividad_vm", "puestos_provincias", "radicaciones_anual", "radicaciones_nacionalidad", "recaudacion_anual", "recaudacion_impuestos", "refugio_acnur", "refugio_nacionalidades", "refugio_solicitudes", "regalias_crudo_serie", "regalias_provincias", "representacion_provincias", "reservas_bcra", "reservas_factores", "reservas_hidrocarburos", "reservas_netas", "reservas_provincias", "robos_provincias", "rotacion_laboral", "salario_docente", "salario_docente_serie", "salario_real_mensual", "salarios_provincias", "salarios_serie", "sectores_empleo", "seguridad_serie_prov", "senadores_nacionales", "sociedades_pais", "sociedades_provincias", "soja_departamentos", "soja_pais", "soja_provincias", "sube_dia_habil", "subsidios_energia", "supermercados_mensual", "supermercados_provincias", "telefonia_fija_pais", "telefonia_fija_provincias", "transferencias_acumulado", "transferencias_provincias", "transferencias_serie", "turismo_dolar_mensual", "turistas_extranjeros_provincias", "turistas_no_residentes_anual", "vacunas_provincias", "vacunas_serie", "viajeros_hoteles_anual", "vino_mercado_interno", "visitas_parques_nacionales", "visitas_por_parque", "vivienda_departamentos", "vivienda_provincias", "votaciones_leyes_clave", "voto_legisladores_y_provincia", "yerba_molino"]);
+const EN_CATALOGO = new Set(["abandono_pais", "abandono_provincias", "actividad_anual", "actividad_mensual", "actividad_sectores", "adulto_equivalente", "anios_congreso", "antartida_bases", "antartida_hielo", "antartida_instalaciones", "antartida_paises", "antartida_presupuesto", "antartida_reclamos", "antartida_temperatura", "antartida_tratado", "antartida_tratado_serie", "antartida_turismo", "antartida_zonas_paises", "apoyo_gobierno_provincias", "aprender_departamentos", "aprender_diagnostico", "aprender_provincias", "areas_produccion", "areas_protegidas_provincias", "areas_serie", "argentinos_exterior", "argentinos_exterior_destinos", "asignaciones_cobertura", "auh_provincias", "balanza_comercial", "balanza_energetica", "bcra_variables", "bcra_variables_lista", "calendario_indec", "canasta_crianza", "canasta_mensual", "canasta_regiones", "capitales", "capitales_eph", "carceles_provincias", "carceles_serie", "carne_vacuna", "causas_muerte_provincias", "censo2022_provincias", "censos_pais", "censos_provincias", "centrales", "chicos_escuela_provincias", "clima_desvio", "cobertura_suelo_pais", "cobertura_suelo_provincias", "combustibles_anual", "combustibles_mensual", "combustibles_provincias", "comercio_rubro_pais", "comercio_socios", "comercio_socios_historia", "comercio_valor_kilo", "compras_dolares_anual", "confianza_consumidor", "confianza_gobierno", "confianza_gobierno_elecciones", "confianza_gobierno_gobiernos", "congreso_composicion", "coparticipacion_provincias", "corte_casos", "corte_composicion", "corte_jueces", "corte_jueces_fuentes", "corte_no_asumieron", "corte_presidentes", "costo_anual", "costo_construccion", "crianza_salario", "cruces_provincias", "cruces_series", "cuenta_corriente", "cuentas_nacion", "curvas_vm", "delitos_serie", "delitos_tipo", "dengue_pais", "dengue_provincias", "departamentos", "desembarques_especies", "desembarques_top", "desocupacion_aglomerados", "desocupacion_serie", "deuda_pbi", "deuda_provincias", "diputados_nacionales", "diseno_pozos_vm", "dolar_inversion_trimestral", "dotacion_nacion", "elecciones_presidenciales", "electricidad_mensual", "electricidad_provincias", "electricidad_sectores", "electricidad_serie", "empleo_construccion_provincias", "empleo_construccion_serie", "empleo_provincias", "empleo_publico_provincias", "empresas_provincias", "empresas_serie_pais", "empresas_tamano_sector", "energia_estacionalidad", "energia_hogares", "envejecimiento_pais", "envejecimiento_provincias", "escolarizacion_secundaria_provincias", "especies_areas_nacionales", "esperanza_vida_provincias", "expectativas_inflacion", "exportaciones_cantidades_anual", "exportaciones_complejos", "exportaciones_destinos", "exportaciones_dolar_trimestral", "exportaciones_provincias", "exportaciones_rubros_anual", "extranjeros_provincias", "fiscal_provincias", "fiscalias_defensorias_federales", "fracturas_anual", "gabinetes_origen", "gas_usuario_mensual", "gas_usuario_provincias", "gas_usuario_serie", "gasto_nacion_tipo", "glaciares_provincias", "haberes_previsionales", "hidrocarburos_anual", "hidrocarburos_empresas", "hidrocarburos_mensual", "hidrocarburos_provincias", "hipotecas_mensual", "homicidios_provincias", "importaciones_origen", "importaciones_usos", "impuestos_provinciales", "industria_ramas", "inflacion_anual", "inflacion_mensual", "inflacion_personal", "inflacion_regiones", "inflacion_rubros", "ingresos_aglomerados", "internet_fijo_provincias", "inversion_educativa", "inversion_educativa_serie", "isac_anual", "isac_insumos", "isac_mensual", "jubilaciones_aportantes", "justicia_federal_provincias", "justicia_provincias", "legisladores_por_periodo", "madres_adolescentes_nse", "madres_adolescentes_provincias", "mayoristas_mensual", "medicos_provincias", "migracion_censos", "migraciones_departamentos", "ministros_nacionales", "ministros_provincias", "mortalidad_infantil_causas", "mortalidad_infantil_provincias", "muertes_violentas", "mundo_hidrocarburos", "nacidos_otro_pais_paises", "nacidos_otro_pais_provincias", "nacimientos", "nafta_dolares_anual", "nafta_dolares_mensual", "nombres_serie", "nombres_top", "obra_publica_provincias", "obra_publica_serie", "ocde_comparacion", "parques_nacionales_historia", "parques_nacionales_lista", "patentamientos_anual", "patentamientos_provincias", "pensiones_invalidez", "pensiones_invalidez_provincias", "permisos_mensual", "pesca_continental", "pesca_continental_provincias", "piramide_poblacion", "pisa_argentina_ocde", "poblacion_proyectada_provincias", "pobreza_aglomerados", "pobreza_provincias", "pobreza_serie", "potencia_instalada", "pozos_no_convencionales", "pozos_provincias", "pozos_terminados", "pozos_terminados_provincias", "pozos_tipo", "precio_consumo", "presidentes", "prestacion_desempleo", "prestacion_desempleo_provincias", "presupuesto_votos", "produccion_mensual", "productividad_vm", "puestos_provincias", "radicaciones_anual", "radicaciones_nacionalidad", "recaudacion_anual", "recaudacion_impuestos", "refugio_acnur", "refugio_nacionalidades", "refugio_solicitudes", "regalias_crudo_serie", "regalias_provincias", "representacion_provincias", "reservas_bcra", "reservas_factores", "reservas_hidrocarburos", "reservas_netas", "reservas_provincias", "robos_provincias", "rotacion_laboral", "salario_docente", "salario_docente_serie", "salario_real_mensual", "salarios_provincias", "salarios_serie", "sectores_empleo", "seguridad_serie_prov", "senadores_nacionales", "sociedades_pais", "sociedades_provincias", "soja_departamentos", "soja_pais", "soja_provincias", "sube_dia_habil", "subsidios_energia", "supermercados_mensual", "supermercados_provincias", "telefonia_fija_pais", "telefonia_fija_provincias", "transferencias_acumulado", "transferencias_provincias", "transferencias_serie", "turismo_dolar_mensual", "turistas_extranjeros_provincias", "turistas_no_residentes_anual", "vacunas_provincias", "vacunas_serie", "viajeros_hoteles_anual", "vino_mercado_interno", "visitas_parques_nacionales", "visitas_por_parque", "vivienda_departamentos", "vivienda_provincias", "votaciones_leyes_clave", "voto_legisladores_y_provincia", "yerba_molino"]);
 const VARIAS_SECCIONES = new Set([...document.querySelectorAll("article.ficha")].map(f => f.closest(".tema"))).size > 1;
 const PARA_ENTENDER = !!document.getElementById("para-entender");
 document.querySelectorAll("article.ficha").forEach(f => {
@@ -7635,6 +7874,12 @@ const PREG = [
 `${n1(cu.asado)} kilos en ${cu.asado_hasta}, en el Gran Buenos Aires. En ${cu.asado_ini_anio} eran ${n1(cu.asado_ini)}.`, "#f-carne"],
 [`¿Cuánto vino menos se vende que en ${cu.vino_ini}?`,
 `${pct(Math.abs(cu.vino_caida))} menos: ${n0(cu.vino_v)} millones de litros en ${cu.vino_anio} contra ${n0(cu.vino_ini_v)} millones.`, "#f-vino"],
+["¿Cuántas bases tiene la Argentina en la Antártida?",
+`${ANT.arg}: ${ANT.arg_anual} funcionan todo el año y ${ANT.arg_verano}, solo en verano. La más antigua es Orcadas, de ${ANT.bases_ini}.`, "#f-ant-bases"],
+["¿Cuántos países forman parte del Tratado Antártico?",
+`${ANT.partes}. ${ANT.consultivas} son partes consultivas, las que deciden en sus reuniones.`, "#f-ant-tratado"],
+["¿Cuántas personas visitan la Antártida?",
+`${n0(ANT.tu)} en la temporada ${ANT.tu_fin}, con empresas de IAATO.`, "#f-ant-turismo"],
 ["¿Qué provincia tiene más glaciares?",
 `${cu.gl_top}, con ${n0(cu.gl_top_v)}. Le sigue ${cu.gl_2}, con ${n0(cu.gl_2_v)}.`, "#f-glaciares"],
 [`¿Cuál fue el año más cálido desde ${cu.cl_ini}?`,
@@ -10342,6 +10587,9 @@ const CON_PERFIL = new Set(INDP.filter(e => e.d).map(e => e.id));
 const PRINCIPAL = Object.entries({
 "f-inflacion": ["inflacion", "precios", "ipc"], "f-salarios": ["salario", "salarios", "sueldo", "sueldos", "gana", "ganan"],
 "f-empleo": ["empleo", "asalariados"], "f-empleo-publico": ["empleo publico", "empleados publicos", "cargos publicos"], "f-pobreza": ["pobreza", "pobres", "indigencia"], "f-combustibles": ["nafta", "combustible", "combustibles", "gasoil"],
+"f-ant-mapa": ["antartida", "mapa antartida", "bases antartida", "bases antarticas"], "f-ant-bases": ["marambio", "orcadas", "base esperanza", "base carlini", "belgrano ii", "base san martin", "base petrel"],
+"f-ant-reclamos": ["sector antartico", "reclamos antartida", "soberania antartida"], "f-ant-tratado": ["tratado antartico", "protocolo de madrid"], "f-ant-zonas": ["zonas protegidas antartida", "monumentos historicos antartida"],
+"f-ant-temperatura": ["temperatura antartida", "temperatura orcadas"], "f-ant-hielo": ["hielo marino"], "f-ant-turismo": ["turismo antartico", "turistas antartida"], "f-ant-presupuesto": ["gasto antartida", "irizar", "rompehielos"],
 "f-bcra": ["dolar"], "f-petroleo": ["petroleo"], "f-gas": ["gas"], "f-gas-consumo": ["consumo gas"], "f-homicidios": ["homicidios", "homicidio", "asesinatos"],
 "f-robos": ["robos", "hurtos"], "f-delitos": ["delitos"], "f-mortalidad": ["mortalidad infantil"], "f-esperanza": ["esperanza vida"],
 "f-poblacion-proy": ["poblacion", "habitantes"], "f-chicos-escuela": ["chicos en edad escolar", "edad escolar", "alumnos"], "f-nacimientos": ["nacimientos", "natalidad"], "f-exportaciones": ["exportaciones", "exporta"],

@@ -2548,10 +2548,12 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
   <section class="tema con-pregunta" id="naturaleza">
     <h2>Naturaleza y ambiente</h2>
     <div class="tema-intro">
-      <p class="pregunta" data-corta="¿Cuánto territorio está protegido?">¿Cuánto territorio está protegido, cuánto se pesca, dónde se siembra soja, cuántos glaciares hay y cuánto cambió la temperatura?</p>
+      <p class="pregunta" data-corta="¿Cuánto territorio está protegido?">¿Cuánto territorio está protegido, cuánto se pesca, dónde se siembra soja, cuántos glaciares hay, cuánto cambió la temperatura y qué hay en la Antártida?</p>
       <p>Las fichas muestran cuánto territorio protege cada provincia, cuánta superficie cubren las áreas protegidas nacionales y cuántas visitas reciben los parques nacionales. También, cuántas especies animales se registran en esas áreas, cuánto se pesca en el mar y en los ríos, dónde se siembra soja, cuántos glaciares tiene cada provincia y cuánto cambió la temperatura media del país.</p>
     </div>
     <!--EXPLICADOR:naturaleza-->
+
+    <h2 class="bloque-grupo" id="g-ambiente">Ambiente y recursos</h2>
 
     <article class="ficha" id="f-protegida">
       <h2>¿Cuánto territorio protegido tiene cada provincia?</h2>
@@ -2687,6 +2689,116 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <p class="lead" data-t="clima"></p>
       <p class="nota" data-t="clima-nota"></p>
       <div class="pie"><span>Fuente: Servicio Meteorológico Nacional, vía Secretaría de Turismo y Ambiente (CIAM)</span><a href="datos/clima_desvio.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <h2 class="bloque-grupo" id="g-antartida">Antártida</h2>
+
+    <article class="ficha" id="f-ant-mapa">
+      <h2>¿Dónde están las bases de la Antártida?</h2>
+      <p class="ficha-sub">Instalaciones de los programas antárticos de cada país, por temporada, lista de {{antartida.comnap_fecha}}</p>
+      <div class="conmutador" role="group" aria-label="Zona del mapa" data-g="ant-mapa">
+        <button type="button" data-m="continente" aria-pressed="true">Continente</button>
+        <button type="button" data-m="peninsula" aria-pressed="false">Península</button>
+      </div>
+      <label class="selector-ficha"><span>País resaltado</span><select id="ant-pais"><option value="Argentina">Argentina</option></select></label>
+      <div class="grafico" data-g="ant-mapa" data-forma="mapa" style="--alto:690px;--alto-c:400px"></div>
+      <p class="lead" data-t="ant-mapa"></p>
+      <p class="nota" data-t="ant-mapa-nota"></p>
+      <div class="pie"><span>Fuente: COMNAP, Antarctic Facilities Information, {{antartida.comnap_fecha}} (uso educativo y sin fines comerciales, citando a COMNAP). Mapa: Natural Earth</span><a href="datos/antartida_instalaciones.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-ant-bases">
+      <h2>¿Cuáles son las bases argentinas y desde cuándo están?</h2>
+      <p class="ficha-sub">Bases argentinas en la Antártida, año en que se fundó cada una y temporada en que funciona, {{antartida.bases_ini}} a {{antartida.bases_fin}}</p>
+      <div class="grafico" data-g="ant-bases" data-forma="barras" style="--filas:15"></div>
+      <p class="lead" data-t="ant-bases"></p>
+      <p class="nota" data-t="ant-bases-nota"></p>
+      <div class="pie"><span>Fuentes: Cancillería (Dirección Nacional del Antártico), Comando Conjunto Antártico, COMNAP, {{antartida.comnap_fecha}}, e INDEC, Censos 2010 y 2022</span><a href="datos/antartida_bases.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-ant-paises">
+      <h2>¿Qué países tienen más bases en la Antártida?</h2>
+      <p class="ficha-sub">Instalaciones de cada país, las que funcionan todo el año y capacidad máxima en personas, lista de {{antartida.comnap_fecha}}</p>
+      <div class="conmutador" role="group" aria-label="Medida" data-g="ant-paises" style="--n:3">
+        <button type="button" data-m="instalaciones" aria-pressed="true">Instalaciones</button>
+        <button type="button" data-m="todo_el_anio" aria-pressed="false">Todo el año</button>
+        <button type="button" data-m="capacidad" aria-pressed="false">Capacidad</button>
+      </div>
+      <div class="grafico" data-g="ant-paises" data-forma="barras" style="--filas:31"></div>
+      <p class="lead" data-t="ant-paises"></p>
+      <p class="nota" data-t="ant-paises-nota"></p>
+      <div class="pie"><span>Fuente: COMNAP, Antarctic Facilities Information, {{antartida.comnap_fecha}} (uso educativo y sin fines comerciales, citando a COMNAP)</span><a href="datos/antartida_paises.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-ant-reclamos">
+      <h2>¿Qué parte de la Antártida reclama cada país?</h2>
+      <p class="ficha-sub">Sectores que reclaman los países, por meridianos, desde el paralelo 60 Sur hasta el Polo Sur, con la norma de cada uno</p>
+      <div class="grafico" data-g="ant-reclamos" data-forma="mapa" style="--alto:690px;--alto-c:400px"></div>
+      <p class="lead" data-t="ant-reclamos"></p>
+      <p class="nota" data-t="ant-reclamos-nota"></p>
+      <div class="pie"><span>Fuentes: Ley 26.552, normas de cada país, Tratado Antártico, artículo IV, e Instituto Geográfico Nacional. Mapa: Natural Earth</span><a href="datos/antartida_reclamos.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-ant-tratado">
+      <h2>¿Cuántos países forman parte del Tratado Antártico?</h2>
+      <p class="ficha-sub">Partes del Tratado Antártico y, entre ellas, partes consultivas, {{antartida.tr_ini}} a {{antartida.tr_fin}}</p>
+      <div class="grafico" data-g="ant-tratado" data-forma="lineas" style="--alto-c:342px"></div>
+      <p class="lead" data-t="ant-tratado"></p>
+      <p class="nota" data-t="ant-tratado-nota"></p>
+      <div class="pie"><span>Fuente: Secretaría del Tratado Antártico, lista de las partes, {{antartida.ats_fecha}}</span><a href="datos/antartida_tratado.csv" download>Por país (CSV)</a><a href="datos/antartida_tratado_serie.csv" download>Por año (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-ant-zonas">
+      <h2>¿Qué países propusieron más zonas protegidas en la Antártida?</h2>
+      <p class="ficha-sub">Zonas antárticas especialmente protegidas y sitios y monumentos históricos vigentes, según qué país los propuso, {{antartida.ats_fecha}}</p>
+      <div class="conmutador" role="group" aria-label="Medida" data-g="ant-zonas">
+        <button type="button" data-m="zonas_protegidas" aria-pressed="true">Zonas protegidas</button>
+        <button type="button" data-m="sitios_historicos" aria-pressed="false">Sitios históricos</button>
+      </div>
+      <div class="grafico" data-g="ant-zonas" data-forma="barras" style="--filas:21"></div>
+      <p class="lead" data-t="ant-zonas"></p>
+      <p class="nota" data-t="ant-zonas-nota"></p>
+      <div class="pie"><span>Fuente: Secretaría del Tratado Antártico, estado de las zonas protegidas y lista de sitios y monumentos históricos, {{antartida.ats_fecha}}</span><a href="datos/antartida_zonas_paises.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-ant-temperatura">
+      <h2>¿Cuánto cambió la temperatura en las bases argentinas?</h2>
+      <p class="ficha-sub">Diferencia de la temperatura media de cada año con el promedio de 1991 a 2020, en grados, hasta {{antartida.temp_fin}}</p>
+      <label class="selector-ficha"><span>Base</span><select id="ant-base">
+        <option value="orcadas">Orcadas</option><option value="esperanza">Esperanza</option><option value="marambio">Marambio</option>
+        <option value="san_martin">San Martín</option><option value="carlini">Carlini</option><option value="belgrano_ii">Belgrano II</option>
+      </select></label>
+      <div class="grafico" data-g="ant-temperatura" data-forma="lineas" style="--alto-c:342px"></div>
+      <p class="lead" data-t="ant-temperatura"></p>
+      <p class="nota" data-t="ant-temperatura-nota"></p>
+      <div class="pie"><span>Fuente: British Antarctic Survey, proyecto READER del Comité Científico de Investigación Antártica, con los registros de cada base</span><a href="datos/antartida_temperatura.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-ant-hielo">
+      <h2>¿Cuánto hielo marino rodea a la Antártida?</h2>
+      <p class="ficha-sub">Extensión del hielo marino en febrero y en septiembre, diferencia con el promedio de 1981 a 2010, en millones de km², {{antartida.hielo_ini}} a {{antartida.hielo_fin}}</p>
+      <div class="grafico" data-g="ant-hielo" data-forma="lineas" style="--alto-c:342px"></div>
+      <p class="lead" data-t="ant-hielo"></p>
+      <p class="nota" data-t="ant-hielo-nota"></p>
+      <div class="pie"><span>Fuente: National Snow and Ice Data Center (NSIDC), Sea Ice Index, versión 4</span><a href="datos/antartida_hielo.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-ant-turismo">
+      <h2>¿Cuántas personas visitan la Antártida?</h2>
+      <p class="ficha-sub">Visitantes por temporada de verano con empresas de IAATO, en total y según si desembarcan, {{antartida.tu_ini}} a {{antartida.tu_fin}}</p>
+      <div class="grafico" data-g="ant-turismo" data-forma="lineas" style="--alto-c:342px"></div>
+      <p class="lead" data-t="ant-turismo"></p>
+      <p class="nota" data-t="ant-turismo-nota"></p>
+      <div class="pie"><span>Fuentes: IAATO, informes a la Reunión Consultiva del Tratado Antártico, e Instituto Fueguino de Turismo</span><a href="datos/antartida_turismo.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-ant-presupuesto">
+      <h2>¿Cuánto gasta el Estado en la Antártida?</h2>
+      <p class="ficha-sub">Gasto devengado de la Administración Nacional en programas antárticos, en miles de millones de pesos de {{antartida.gasto_anio}}, {{antartida.gasto_ini}} a {{antartida.gasto_anio}}</p>
+      <div class="grafico" data-g="ant-presupuesto" data-forma="lineas" style="--alto-c:342px"></div>
+      <p class="lead" data-t="ant-presupuesto"></p>
+      <p class="nota" data-t="ant-presupuesto-nota"></p>
+      <div class="pie"><span>Fuente: Presupuesto Abierto, Secretaría de Hacienda. Deflactor del PBI: INDEC, vía Banco Mundial</span><a href="datos/antartida_presupuesto.csv" download>Descargar tabla (CSV)</a></div>
     </article>
   </section>
 

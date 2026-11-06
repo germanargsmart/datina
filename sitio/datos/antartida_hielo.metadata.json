@@ -1,0 +1,45 @@
+{
+ "tabla": "antartida_hielo.csv",
+ "titulo": "¿Cuánto hielo marino rodea a la Antártida?",
+ "descripcion": "Extensión del hielo marino en febrero y en septiembre, diferencia con el promedio de 1981 a 2010, en millones de km², 1979 a 2026",
+ "seccion": "Naturaleza y ambiente",
+ "ficha": "https://datina.com.ar/naturaleza.html#f-ant-hielo",
+ "fuente": "National Snow and Ice Data Center (NSIDC), Sea Ice Index, versión 4.",
+ "actualizacion": "Se actualiza a mano, cuando la fuente publica datos nuevos.",
+ "cobertura": "Sin desglose territorial",
+ "periodo": "1979 a 2026",
+ "filas": 48,
+ "columnas": [
+  {
+   "nombre": "anio",
+   "tipo": "Año",
+   "valores": "1979 a 2026"
+  },
+  {
+   "nombre": "febrero",
+   "tipo": "Número",
+   "valores": "1,98 a 3,89"
+  },
+  {
+   "nombre": "septiembre",
+   "tipo": "Número",
+   "valores": "16,89 a 19,76"
+  },
+  {
+   "nombre": "febrero_dif",
+   "tipo": "Número",
+   "valores": "-1,09 a 0,82"
+  },
+  {
+   "nombre": "septiembre_dif",
+   "tipo": "Número",
+   "valores": "-1,6 a 1,27"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "05/11/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
+ "como_citar": "Datina (año de la consulta). ¿Cuánto hielo marino rodea a la Antártida? Con datos de National Snow and Ice Data Center (NSIDC), Sea Ice Index, versión 4. https://datina.com.ar/naturaleza.html#f-ant-hielo. Consultado el día de la consulta."
+}

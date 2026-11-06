@@ -1,0 +1,71 @@
+{
+ "tabla": "antartida_bases.csv",
+ "titulo": "¿Cuáles son las bases argentinas y desde cuándo están?",
+ "descripcion": "Bases argentinas en la Antártida, año en que se fundó cada una y temporada en que funciona, 1904 a 1979",
+ "seccion": "Naturaleza y ambiente",
+ "ficha": "https://datina.com.ar/naturaleza.html#f-ant-bases",
+ "fuente": "Cancillería (Dirección Nacional del Antártico), Comando Conjunto Antártico, COMNAP, noviembre de 2024, e INDEC, Censos 2010 y 2022.",
+ "actualizacion": "Se actualiza a mano, cuando la fuente publica datos nuevos.",
+ "cobertura": "Sin desglose territorial",
+ "periodo": "1904 a 1979",
+ "filas": 13,
+ "columnas": [
+  {
+   "nombre": "base",
+   "tipo": "Texto",
+   "valores": "13 valores distintos"
+  },
+  {
+   "nombre": "condicion",
+   "tipo": "Texto",
+   "valores": "permanente, temporaria"
+  },
+  {
+   "nombre": "fundacion",
+   "tipo": "Fecha",
+   "valores": "22 de febrero de 1904 a 5 de febrero de 1979"
+  },
+  {
+   "nombre": "anio",
+   "tipo": "Año",
+   "valores": "1904 a 1979"
+  },
+  {
+   "nombre": "lugar",
+   "tipo": "Texto",
+   "valores": "13 valores distintos"
+  },
+  {
+   "nombre": "administra",
+   "tipo": "Texto",
+   "valores": "Cancillería (Dirección Nacional del Ant…, Comando Conjunto Antártico"
+  },
+  {
+   "nombre": "capacidad",
+   "tipo": "Número",
+   "valores": "12 a 165 (1 celda vacía)"
+  },
+  {
+   "nombre": "estado",
+   "tipo": "Texto",
+   "valores": "Abierta, Cerrada por ahora"
+  },
+  {
+   "nombre": "lat",
+   "tipo": "Número",
+   "valores": "-77,87 a -60,74"
+  },
+  {
+   "nombre": "lon",
+   "tipo": "Número",
+   "valores": "-67,1 a -34,63"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "05/11/2026",
+ "licencia": "Los datos de las instalaciones son de COMNAP y se pueden usar con fines educativos y sin fines comerciales, citando a COMNAP. Lo que suma Datina tiene licencia Creative Commons Atribución 4.0",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
+ "como_citar": "Datina (año de la consulta). ¿Cuáles son las bases argentinas y desde cuándo están? Con datos de Cancillería (Dirección Nacional del Antártico), Comando Conjunto Antártico, COMNAP, noviembre de 2024, e INDEC, Censos 2010 y 2022. https://datina.com.ar/naturaleza.html#f-ant-bases. Consultado el día de la consulta.",
+ "licencia_datos_de_base": "https://www.comnap.aq/antarctic-facilities-information"
+}

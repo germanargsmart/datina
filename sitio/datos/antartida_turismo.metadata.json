@@ -1,0 +1,60 @@
+{
+ "tabla": "antartida_turismo.csv",
+ "titulo": "¿Cuántas personas visitan la Antártida?",
+ "descripcion": "Visitantes por temporada de verano con empresas de IAATO, en total y según si desembarcan, 1992-93 a 2025-26",
+ "seccion": "Naturaleza y ambiente",
+ "ficha": "https://datina.com.ar/naturaleza.html#f-ant-turismo",
+ "fuente": "IAATO, informes a la Reunión Consultiva del Tratado Antártico, e Instituto Fueguino de Turismo.",
+ "actualizacion": "Se actualiza a mano, cuando la fuente publica datos nuevos.",
+ "cobertura": "Sin desglose territorial",
+ "periodo": "1993 a 2026",
+ "filas": 34,
+ "columnas": [
+  {
+   "nombre": "temporada",
+   "tipo": "Fecha",
+   "valores": "1992-93 a 2025-26"
+  },
+  {
+   "nombre": "anio",
+   "tipo": "Año",
+   "valores": "1993 a 2026"
+  },
+  {
+   "nombre": "total",
+   "tipo": "Número",
+   "valores": "15 a 124.418"
+  },
+  {
+   "nombre": "desembarcan",
+   "tipo": "Número",
+   "valores": "15 a 85.195"
+  },
+  {
+   "nombre": "solo_crucero",
+   "tipo": "Número",
+   "valores": "0 a 43.224 (7 celdas vacías)"
+  },
+  {
+   "nombre": "campo_profundo",
+   "tipo": "Número",
+   "valores": "0 a 1.106 (20 celdas vacías)"
+  },
+  {
+   "nombre": "publicado",
+   "tipo": "Número",
+   "valores": "26.519 a 122.072 (29 celdas vacías)"
+  },
+  {
+   "nombre": "fuente",
+   "tipo": "Texto",
+   "valores": "ATCM36 IP103, ATCM43 IP110, ATCM47 IP032 e IP033, ATCM48 IP200 y ATCM47 IP033, ATCM48 IP200, ATCM47 IP031 e IP033, ATCM48 IP200, IP201 e IP194"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "05/11/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
+ "como_citar": "Datina (año de la consulta). ¿Cuántas personas visitan la Antártida? Con datos de IAATO, informes a la Reunión Consultiva del Tratado Antártico, e Instituto Fueguino de Turismo. https://datina.com.ar/naturaleza.html#f-ant-turismo. Consultado el día de la consulta."
+}

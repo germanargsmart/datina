@@ -37,7 +37,7 @@ scripts/elecciones_departamentos.py  los departamentos de 1983 a 2009 de esa her
 scripts/elecciones_antiguas.py lo mismo de 1912 a 1973: se corre una vez, después de elecciones_departamentos.py
 scripts/elecciones_definitivo.py desde el 5 de noviembre de 2026, el escrutinio definitivo de cada jurisdicción de esa herramienta (DINE y actas de la Cámara transcriptas
                                en datos/manual/mesas_definitivo_actas.csv) y el padrón del exterior: se corre último, después de los cuatro anteriores
-scripts/*_historia.py, censo_2022_*.py, banderas.py, iconos_isometricos.py, geometria_*.py, *_presupuesto.py, justicia_provincias.py
+scripts/*_historia.py, censo_2022_*.py, banderas.py, iconos_isometricos.py, geometria_*.py, *_presupuesto.py, justicia_provincias.py, antartida_datos.py
                                programas que se corren una sola vez o una vez por año y guardan en datos/manual/
 datos/manual/                  datos armados a mano o una sola vez, explicadores.json, distorsiones.json, banderas, íconos
 pobreza/                       consultor de pobreza aparte (Observable Framework, DuckDB, Parquet): ver pobreza/README.md

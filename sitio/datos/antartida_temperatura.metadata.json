@@ -1,0 +1,85 @@
+{
+ "tabla": "antartida_temperatura.csv",
+ "titulo": "¿Cuánto cambió la temperatura en las bases argentinas?",
+ "descripcion": "Diferencia de la temperatura media de cada año con el promedio de 1991 a 2020, en grados, hasta 2025",
+ "seccion": "Naturaleza y ambiente",
+ "ficha": "https://datina.com.ar/naturaleza.html#f-ant-temperatura",
+ "fuente": "British Antarctic Survey, proyecto READER del Comité Científico de Investigación Antártica, con los registros de cada base.",
+ "actualizacion": "Se actualiza a mano, cuando la fuente publica datos nuevos.",
+ "cobertura": "Sin desglose territorial",
+ "periodo": "1904 a 2025",
+ "filas": 122,
+ "columnas": [
+  {
+   "nombre": "anio",
+   "tipo": "Año",
+   "valores": "1904 a 2025"
+  },
+  {
+   "nombre": "orcadas",
+   "tipo": "Número",
+   "valores": "-3,99 a 1,65 (5 celdas vacías)"
+  },
+  {
+   "nombre": "esperanza",
+   "tipo": "Número",
+   "valores": "-3,53 a 1,99 (46 celdas vacías)"
+  },
+  {
+   "nombre": "marambio",
+   "tipo": "Número",
+   "valores": "-2,91 a 2,59 (67 celdas vacías)"
+  },
+  {
+   "nombre": "san_martin",
+   "tipo": "Número",
+   "valores": "-3,86 a 2,85 (79 celdas vacías)"
+  },
+  {
+   "nombre": "carlini",
+   "tipo": "Número",
+   "valores": "-1,52 a 1,35 (87 celdas vacías)"
+  },
+  {
+   "nombre": "belgrano_ii",
+   "tipo": "Número",
+   "valores": "-1,36 a 1,73 (85 celdas vacías)"
+  },
+  {
+   "nombre": "orcadas_10",
+   "tipo": "Número",
+   "valores": "-2,29 a 0,37 (10 celdas vacías)"
+  },
+  {
+   "nombre": "esperanza_10",
+   "tipo": "Número",
+   "valores": "-1,5 a 0,97 (56 celdas vacías)"
+  },
+  {
+   "nombre": "marambio_10",
+   "tipo": "Número",
+   "valores": "-1,32 a 0,98 (74 celdas vacías)"
+  },
+  {
+   "nombre": "san_martin_10",
+   "tipo": "Número",
+   "valores": "-1,64 a 0,67 (90 celdas vacías)"
+  },
+  {
+   "nombre": "carlini_10",
+   "tipo": "Número",
+   "valores": "-0,42 a 0,68 (99 celdas vacías)"
+  },
+  {
+   "nombre": "belgrano_ii_10",
+   "tipo": "Número",
+   "valores": "-0,52 a 0,74 (97 celdas vacías)"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "05/11/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
+ "como_citar": "Datina (año de la consulta). ¿Cuánto cambió la temperatura en las bases argentinas? Con datos de British Antarctic Survey, proyecto READER del Comité Científico de Investigación Antártica, con los registros de cada base. https://datina.com.ar/naturaleza.html#f-ant-temperatura. Consultado el día de la consulta."
+}

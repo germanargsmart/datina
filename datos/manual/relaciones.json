@@ -622,6 +622,90 @@
     "Wikipedia",
     "Wikidata"
    ]
+  },
+  {
+   "id": "org:comnap",
+   "nombre": "Council of Managers of National Antarctic Programs",
+   "sigla": "COMNAP",
+   "depende": "Programas antárticos nacionales",
+   "url": "https://www.comnap.aq/antarctic-facilities-information",
+   "alias": [
+    "COMNAP"
+   ]
+  },
+  {
+   "id": "org:ats",
+   "nombre": "Secretaría del Tratado Antártico",
+   "sigla": "ATS",
+   "depende": "Tratado Antártico",
+   "url": "https://www.ats.aq/",
+   "alias": [
+    "Secretaría del Tratado Antártico"
+   ]
+  },
+  {
+   "id": "org:bas",
+   "nombre": "British Antarctic Survey",
+   "sigla": "BAS",
+   "depende": "Reino Unido",
+   "url": "https://legacy.bas.ac.uk/met/READER/",
+   "alias": [
+    "British Antarctic Survey",
+    "READER"
+   ]
+  },
+  {
+   "id": "org:nsidc",
+   "nombre": "National Snow and Ice Data Center",
+   "sigla": "NSIDC",
+   "depende": "Universidad de Colorado y NOAA, Estados Unidos",
+   "url": "https://nsidc.org/data/g02135",
+   "alias": [
+    "NSIDC",
+    "National Snow and Ice Data Center"
+   ]
+  },
+  {
+   "id": "org:iaato",
+   "nombre": "International Association of Antarctica Tour Operators",
+   "sigla": "IAATO",
+   "depende": "Operadores de turismo antártico",
+   "url": "https://iaato.org/news-room/data-statistics",
+   "alias": [
+    "IAATO"
+   ]
+  },
+  {
+   "id": "org:ign",
+   "nombre": "Instituto Geográfico Nacional",
+   "sigla": "IGN",
+   "depende": "Ministerio de Defensa",
+   "url": "https://www.ign.gob.ar/",
+   "alias": [
+    "Instituto Geográfico Nacional",
+    "IGN"
+   ]
+  },
+  {
+   "id": "org:cancilleria",
+   "nombre": "Ministerio de Relaciones Exteriores, Comercio Internacional y Culto",
+   "sigla": "Cancillería",
+   "depende": "Dirección Nacional del Antártico",
+   "url": "https://www.cancilleria.gob.ar/es/iniciativas/dna",
+   "alias": [
+    "Cancillería",
+    "Dirección Nacional del Antártico"
+   ]
+  },
+  {
+   "id": "org:natural-earth",
+   "nombre": "Natural Earth",
+   "sigla": "Natural Earth",
+   "depende": "Dominio público",
+   "url": "https://www.naturalearthdata.com/",
+   "alias": [
+    "Natural Earth"
+   ]
   }
  ],
  "conjuntos": [
@@ -2602,6 +2686,126 @@
     "contiene": "\"comercio_exterior_importacion_bienes:anio_uso_pais\": \""
    },
    "url": "https://api.indec.gob.ar/v1/comercio_exterior_importacion_bienes"
+  },
+  {
+   "id": "ds:antartida_instalaciones.csv",
+   "nombre": "Lista de instalaciones antárticas, fija, de noviembre de 2024",
+   "fuente": "org:comnap",
+   "ruta": "datos/manual/antartida_instalaciones.csv",
+   "evidencia": {
+    "archivo": "scripts/02_procesar.py",
+    "contiene": "ANT_DIR / \"antartida_instalaciones.csv\""
+   }
+  },
+  {
+   "id": "ds:antartida_bases.csv",
+   "nombre": "Las 13 bases argentinas, con su fundación y quién las administra, armada a mano",
+   "fuente": "org:cancilleria",
+   "ruta": "datos/manual/antartida_bases.csv",
+   "evidencia": {
+    "archivo": "scripts/02_procesar.py",
+    "contiene": "ANT_DIR / \"antartida_bases.csv\""
+   }
+  },
+  {
+   "id": "ds:antartida_reclamos.csv",
+   "nombre": "Los reclamos territoriales y su norma, armada a mano",
+   "fuente": "org:ats",
+   "ruta": "datos/manual/antartida_reclamos.csv",
+   "evidencia": {
+    "archivo": "scripts/02_procesar.py",
+    "contiene": "ANT_DIR / \"antartida_reclamos.csv\""
+   }
+  },
+  {
+   "id": "ds:antartida_superficies.csv",
+   "nombre": "Superficies del Sector Antártico Argentino y del país, armada a mano",
+   "fuente": "org:ign",
+   "ruta": "datos/manual/antartida_superficies.csv",
+   "evidencia": {
+    "archivo": "scripts/02_procesar.py",
+    "contiene": "ANT_DIR / \"antartida_superficies.csv\""
+   }
+  },
+  {
+   "id": "ds:antartida_censos.csv",
+   "nombre": "Población censada en la Antártida Argentina y las Islas del Atlántico Sur, armada a mano",
+   "fuente": "org:indec",
+   "ruta": "datos/manual/antartida_censos.csv",
+   "evidencia": {
+    "archivo": "scripts/02_procesar.py",
+    "contiene": "ANT_DIR / \"antartida_censos.csv\""
+   }
+  },
+  {
+   "id": "ds:antartida_tratado.csv",
+   "nombre": "Partes del Tratado Antártico, fija",
+   "fuente": "org:ats",
+   "ruta": "datos/manual/antartida_tratado.csv",
+   "evidencia": {
+    "archivo": "scripts/02_procesar.py",
+    "contiene": "ANT_DIR / \"antartida_tratado.csv\""
+   }
+  },
+  {
+   "id": "ds:antartida_zonas.csv",
+   "nombre": "Zonas protegidas y sitios y monumentos históricos, fija",
+   "fuente": "org:ats",
+   "ruta": "datos/manual/antartida_zonas.csv",
+   "evidencia": {
+    "archivo": "scripts/02_procesar.py",
+    "contiene": "ANT_DIR / \"antartida_zonas.csv\""
+   }
+  },
+  {
+   "id": "ds:antartida_temperaturas.csv",
+   "nombre": "Temperatura media mensual de las bases argentinas, proyecto READER, fija",
+   "fuente": "org:bas",
+   "ruta": "datos/manual/antartida_temperaturas.csv",
+   "evidencia": {
+    "archivo": "scripts/02_procesar.py",
+    "contiene": "ANT_DIR / \"antartida_temperaturas.csv\""
+   }
+  },
+  {
+   "id": "ds:antartida_hielo.csv",
+   "nombre": "Extensión del hielo marino en febrero y septiembre, fija",
+   "fuente": "org:nsidc",
+   "ruta": "datos/manual/antartida_hielo.csv",
+   "evidencia": {
+    "archivo": "scripts/02_procesar.py",
+    "contiene": "ANT_DIR / \"antartida_hielo.csv\""
+   }
+  },
+  {
+   "id": "ds:antartida_turismo.csv",
+   "nombre": "Visitantes por temporada, de los informes de IAATO a la Reunión Consultiva, armada a mano",
+   "fuente": "org:iaato",
+   "ruta": "datos/manual/antartida_turismo.csv",
+   "evidencia": {
+    "archivo": "scripts/02_procesar.py",
+    "contiene": "ANT_DIR / \"antartida_turismo.csv\""
+   }
+  },
+  {
+   "id": "ds:antartida_presupuesto.csv",
+   "nombre": "Gasto devengado en programas antárticos, de Presupuesto Abierto, fija",
+   "fuente": "org:hacienda",
+   "ruta": "datos/manual/antartida_presupuesto.csv",
+   "evidencia": {
+    "archivo": "scripts/02_procesar.py",
+    "contiene": "ANT_DIR / \"antartida_presupuesto.csv\""
+   }
+  },
+  {
+   "id": "ds:antartida.topo.json",
+   "nombre": "Costa y barreras de hielo de la Antártida, geometría simplificada",
+   "fuente": "org:natural-earth",
+   "ruta": "sitio/datos/antartida.topo.json",
+   "evidencia": {
+    "archivo": "scripts/geometria_antartida.py",
+    "contiene": "SALIDA = RAIZ / \"sitio\" / \"datos\" / \"antartida.topo.json\""
+   }
   }
  ],
  "aristas": [
@@ -7768,6 +7972,226 @@
     }
    ],
    "tabla": "comercio_valor_kilo"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:antartida_instalaciones.csv",
+   "a": "f-ant-mapa",
+   "tabla": "antartida_instalaciones",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "ANT_DIR / \"antartida_instalaciones.csv\""
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"antartida_instalaciones\": antartida_instalaciones"
+    }
+   ]
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:antartida_bases.csv",
+   "a": "f-ant-bases",
+   "tabla": "antartida_bases",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "ANT_DIR / \"antartida_bases.csv\""
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"antartida_bases\": antartida_bases"
+    }
+   ]
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:antartida_instalaciones.csv",
+   "a": "f-ant-bases",
+   "tabla": "antartida_bases",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "ANT_DIR / \"antartida_instalaciones.csv\""
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"antartida_bases\": antartida_bases"
+    }
+   ]
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:antartida_censos.csv",
+   "a": "f-ant-bases",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "ANT_DIR / \"antartida_censos.csv\""
+    }
+   ]
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:antartida_instalaciones.csv",
+   "a": "f-ant-paises",
+   "tabla": "antartida_paises",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "ANT_DIR / \"antartida_instalaciones.csv\""
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"antartida_paises\": antartida_paises"
+    }
+   ]
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:antartida_reclamos.csv",
+   "a": "f-ant-reclamos",
+   "tabla": "antartida_reclamos",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "ANT_DIR / \"antartida_reclamos.csv\""
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"antartida_reclamos\": antartida_reclamos"
+    }
+   ]
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:antartida_superficies.csv",
+   "a": "f-ant-reclamos",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "ANT_DIR / \"antartida_superficies.csv\""
+    }
+   ]
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:antartida_tratado.csv",
+   "a": "f-ant-tratado",
+   "tabla": "antartida_tratado",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "ANT_DIR / \"antartida_tratado.csv\""
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"antartida_tratado\": antartida_tratado"
+    }
+   ]
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:antartida_zonas.csv",
+   "a": "f-ant-zonas",
+   "tabla": "antartida_zonas_paises",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "ANT_DIR / \"antartida_zonas.csv\""
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"antartida_zonas_paises\": antartida_zonas_paises"
+    }
+   ]
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:antartida_temperaturas.csv",
+   "a": "f-ant-temperatura",
+   "tabla": "antartida_temperatura",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "ANT_DIR / \"antartida_temperaturas.csv\""
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"antartida_temperatura\": antartida_temperatura"
+    }
+   ]
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:antartida_hielo.csv",
+   "a": "f-ant-hielo",
+   "tabla": "antartida_hielo",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "ANT_DIR / \"antartida_hielo.csv\""
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"antartida_hielo\": antartida_hielo"
+    }
+   ]
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:antartida_turismo.csv",
+   "a": "f-ant-turismo",
+   "tabla": "antartida_turismo",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "ANT_DIR / \"antartida_turismo.csv\""
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"antartida_turismo\": antartida_turismo"
+    }
+   ]
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:antartida_presupuesto.csv",
+   "a": "f-ant-presupuesto",
+   "tabla": "antartida_presupuesto",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "ANT_DIR / \"antartida_presupuesto.csv\""
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"antartida_presupuesto\": antartida_presupuesto"
+    }
+   ]
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:antartida.topo.json",
+   "a": "f-ant-mapa",
+   "evidencia": [
+    {
+     "archivo": "scripts/datina.js",
+     "contiene": "d3.json(\"datos/antartida.topo.json\")"
+    }
+   ]
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:antartida.topo.json",
+   "a": "f-ant-reclamos",
+   "evidencia": [
+    {
+     "archivo": "scripts/datina.js",
+     "contiene": "d3.json(\"datos/antartida.topo.json\")"
+    }
+   ]
   }
  ],
  "fichas": {

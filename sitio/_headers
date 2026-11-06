@@ -14,6 +14,28 @@
   Cache-Control: public, max-age=31536000, immutable
 /datos/relaciones.json
   Cache-Control: public, max-age=31536000, immutable
+/datos/antartida_instalaciones.json
+  Cache-Control: public, max-age=31536000, immutable
+/datos/antartida_bases.json
+  Cache-Control: public, max-age=31536000, immutable
+/datos/antartida_paises.json
+  Cache-Control: public, max-age=31536000, immutable
+/datos/antartida_reclamos.json
+  Cache-Control: public, max-age=31536000, immutable
+/datos/antartida_tratado.json
+  Cache-Control: public, max-age=31536000, immutable
+/datos/antartida_tratado_serie.json
+  Cache-Control: public, max-age=31536000, immutable
+/datos/antartida_zonas_paises.json
+  Cache-Control: public, max-age=31536000, immutable
+/datos/antartida_temperatura.json
+  Cache-Control: public, max-age=31536000, immutable
+/datos/antartida_hielo.json
+  Cache-Control: public, max-age=31536000, immutable
+/datos/antartida_turismo.json
+  Cache-Control: public, max-age=31536000, immutable
+/datos/antartida_presupuesto.json
+  Cache-Control: public, max-age=31536000, immutable
 /datos/elecciones_presidenciales.json
   Cache-Control: public, max-age=31536000, immutable
 /datos/anios_congreso.json

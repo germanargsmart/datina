@@ -49230,3 +49230,292 @@ codigo_indec,territorio,periodo,variable,valor,unidad,fuente
 86,Santiago del Estero,1S2026,pobreza_aglomerados_de_la_provincia,38.5,% de la población,"INDEC, Encuesta Permanente de Hogares (cálculo propio con los aglomerados de cada provincia)"
 90,Tucumán,1S2026,pobreza_aglomerados_de_la_provincia,27.9,% de la población,"INDEC, Encuesta Permanente de Hogares (cálculo propio con los aglomerados de cada provincia)"
 94,Tierra del Fuego,1S2026,pobreza_aglomerados_de_la_provincia,25.9,% de la población,"INDEC, Encuesta Permanente de Hogares (cálculo propio con los aglomerados de cada provincia)"
+00,Argentina,2000,antartida_gasto,14817.698070271126,millones de pesos de 2025,"Presupuesto Abierto, Secretaría de Hacienda"
+00,Argentina,2001,antartida_gasto,10866.277549674232,millones de pesos de 2025,"Presupuesto Abierto, Secretaría de Hacienda"
+00,Argentina,2002,antartida_gasto,8686.725498689826,millones de pesos de 2025,"Presupuesto Abierto, Secretaría de Hacienda"
+00,Argentina,2003,antartida_gasto,7976.576616143742,millones de pesos de 2025,"Presupuesto Abierto, Secretaría de Hacienda"
+00,Argentina,2004,antartida_gasto,27262.344281851314,millones de pesos de 2025,"Presupuesto Abierto, Secretaría de Hacienda"
+00,Argentina,2005,antartida_gasto,41923.44428547211,millones de pesos de 2025,"Presupuesto Abierto, Secretaría de Hacienda"
+00,Argentina,2006,antartida_gasto,43735.33105118701,millones de pesos de 2025,"Presupuesto Abierto, Secretaría de Hacienda"
+00,Argentina,2007,antartida_gasto,61332.44329529802,millones de pesos de 2025,"Presupuesto Abierto, Secretaría de Hacienda"
+00,Argentina,2008,antartida_gasto,94775.28068738634,millones de pesos de 2025,"Presupuesto Abierto, Secretaría de Hacienda"
+00,Argentina,2009,antartida_gasto,95600.07175785772,millones de pesos de 2025,"Presupuesto Abierto, Secretaría de Hacienda"
+00,Argentina,2010,antartida_gasto,99430.28740737993,millones de pesos de 2025,"Presupuesto Abierto, Secretaría de Hacienda"
+00,Argentina,2011,antartida_gasto,99789.6219018028,millones de pesos de 2025,"Presupuesto Abierto, Secretaría de Hacienda"
+00,Argentina,2012,antartida_gasto,137402.93735859927,millones de pesos de 2025,"Presupuesto Abierto, Secretaría de Hacienda"
+00,Argentina,2013,antartida_gasto,91238.23916694403,millones de pesos de 2025,"Presupuesto Abierto, Secretaría de Hacienda"
+00,Argentina,2014,antartida_gasto,126057.46916648581,millones de pesos de 2025,"Presupuesto Abierto, Secretaría de Hacienda"
+00,Argentina,2015,antartida_gasto,115687.84049985204,millones de pesos de 2025,"Presupuesto Abierto, Secretaría de Hacienda"
+00,Argentina,2016,antartida_gasto,82409.9023025277,millones de pesos de 2025,"Presupuesto Abierto, Secretaría de Hacienda"
+00,Argentina,2017,antartida_gasto,59645.15158558666,millones de pesos de 2025,"Presupuesto Abierto, Secretaría de Hacienda"
+00,Argentina,2018,antartida_gasto,52887.29155289796,millones de pesos de 2025,"Presupuesto Abierto, Secretaría de Hacienda"
+00,Argentina,2019,antartida_gasto,51094.17390944888,millones de pesos de 2025,"Presupuesto Abierto, Secretaría de Hacienda"
+00,Argentina,2020,antartida_gasto,38716.393641560346,millones de pesos de 2025,"Presupuesto Abierto, Secretaría de Hacienda"
+00,Argentina,2021,antartida_gasto,45247.692847395585,millones de pesos de 2025,"Presupuesto Abierto, Secretaría de Hacienda"
+00,Argentina,2022,antartida_gasto,41543.80982714534,millones de pesos de 2025,"Presupuesto Abierto, Secretaría de Hacienda"
+00,Argentina,2023,antartida_gasto,40710.152812200555,millones de pesos de 2025,"Presupuesto Abierto, Secretaría de Hacienda"
+00,Argentina,2024,antartida_gasto,48857.98790634484,millones de pesos de 2025,"Presupuesto Abierto, Secretaría de Hacienda"
+00,Argentina,2025,antartida_gasto,31702.531899999998,millones de pesos de 2025,"Presupuesto Abierto, Secretaría de Hacienda"
+00,Argentina,1961,antartida_tratado_partes,13.0,países,Secretaría del Tratado Antártico
+00,Argentina,1962,antartida_tratado_partes,13.0,países,Secretaría del Tratado Antártico
+00,Argentina,1963,antartida_tratado_partes,13.0,países,Secretaría del Tratado Antártico
+00,Argentina,1964,antartida_tratado_partes,13.0,países,Secretaría del Tratado Antártico
+00,Argentina,1965,antartida_tratado_partes,14.0,países,Secretaría del Tratado Antártico
+00,Argentina,1966,antartida_tratado_partes,14.0,países,Secretaría del Tratado Antártico
+00,Argentina,1967,antartida_tratado_partes,15.0,países,Secretaría del Tratado Antártico
+00,Argentina,1968,antartida_tratado_partes,15.0,países,Secretaría del Tratado Antártico
+00,Argentina,1969,antartida_tratado_partes,15.0,países,Secretaría del Tratado Antártico
+00,Argentina,1970,antartida_tratado_partes,15.0,países,Secretaría del Tratado Antártico
+00,Argentina,1971,antartida_tratado_partes,16.0,países,Secretaría del Tratado Antártico
+00,Argentina,1972,antartida_tratado_partes,16.0,países,Secretaría del Tratado Antártico
+00,Argentina,1973,antartida_tratado_partes,16.0,países,Secretaría del Tratado Antártico
+00,Argentina,1974,antartida_tratado_partes,16.0,países,Secretaría del Tratado Antártico
+00,Argentina,1975,antartida_tratado_partes,17.0,países,Secretaría del Tratado Antártico
+00,Argentina,1976,antartida_tratado_partes,17.0,países,Secretaría del Tratado Antártico
+00,Argentina,1977,antartida_tratado_partes,17.0,países,Secretaría del Tratado Antártico
+00,Argentina,1978,antartida_tratado_partes,18.0,países,Secretaría del Tratado Antártico
+00,Argentina,1979,antartida_tratado_partes,19.0,países,Secretaría del Tratado Antártico
+00,Argentina,1980,antartida_tratado_partes,20.0,países,Secretaría del Tratado Antártico
+00,Argentina,1981,antartida_tratado_partes,23.0,países,Secretaría del Tratado Antártico
+00,Argentina,1982,antartida_tratado_partes,24.0,países,Secretaría del Tratado Antártico
+00,Argentina,1983,antartida_tratado_partes,26.0,países,Secretaría del Tratado Antártico
+00,Argentina,1984,antartida_tratado_partes,30.0,países,Secretaría del Tratado Antártico
+00,Argentina,1985,antartida_tratado_partes,30.0,países,Secretaría del Tratado Antártico
+00,Argentina,1986,antartida_tratado_partes,31.0,países,Secretaría del Tratado Antártico
+00,Argentina,1987,antartida_tratado_partes,35.0,países,Secretaría del Tratado Antártico
+00,Argentina,1988,antartida_tratado_partes,36.0,países,Secretaría del Tratado Antártico
+00,Argentina,1989,antartida_tratado_partes,37.0,países,Secretaría del Tratado Antártico
+00,Argentina,1990,antartida_tratado_partes,38.0,países,Secretaría del Tratado Antártico
+00,Argentina,1991,antartida_tratado_partes,39.0,países,Secretaría del Tratado Antártico
+00,Argentina,1992,antartida_tratado_partes,40.0,países,Secretaría del Tratado Antártico
+00,Argentina,1993,antartida_tratado_partes,42.0,países,Secretaría del Tratado Antártico
+00,Argentina,1994,antartida_tratado_partes,42.0,países,Secretaría del Tratado Antártico
+00,Argentina,1995,antartida_tratado_partes,42.0,países,Secretaría del Tratado Antártico
+00,Argentina,1996,antartida_tratado_partes,43.0,países,Secretaría del Tratado Antártico
+00,Argentina,1997,antartida_tratado_partes,43.0,países,Secretaría del Tratado Antártico
+00,Argentina,1998,antartida_tratado_partes,43.0,países,Secretaría del Tratado Antártico
+00,Argentina,1999,antartida_tratado_partes,44.0,países,Secretaría del Tratado Antártico
+00,Argentina,2000,antartida_tratado_partes,44.0,países,Secretaría del Tratado Antártico
+00,Argentina,2001,antartida_tratado_partes,45.0,países,Secretaría del Tratado Antártico
+00,Argentina,2002,antartida_tratado_partes,45.0,países,Secretaría del Tratado Antártico
+00,Argentina,2003,antartida_tratado_partes,45.0,países,Secretaría del Tratado Antártico
+00,Argentina,2004,antartida_tratado_partes,45.0,países,Secretaría del Tratado Antártico
+00,Argentina,2005,antartida_tratado_partes,45.0,países,Secretaría del Tratado Antártico
+00,Argentina,2006,antartida_tratado_partes,46.0,países,Secretaría del Tratado Antártico
+00,Argentina,2007,antartida_tratado_partes,46.0,países,Secretaría del Tratado Antártico
+00,Argentina,2008,antartida_tratado_partes,47.0,países,Secretaría del Tratado Antártico
+00,Argentina,2009,antartida_tratado_partes,47.0,países,Secretaría del Tratado Antártico
+00,Argentina,2010,antartida_tratado_partes,48.0,países,Secretaría del Tratado Antártico
+00,Argentina,2011,antartida_tratado_partes,49.0,países,Secretaría del Tratado Antártico
+00,Argentina,2012,antartida_tratado_partes,50.0,países,Secretaría del Tratado Antártico
+00,Argentina,2013,antartida_tratado_partes,50.0,países,Secretaría del Tratado Antártico
+00,Argentina,2014,antartida_tratado_partes,50.0,países,Secretaría del Tratado Antártico
+00,Argentina,2015,antartida_tratado_partes,53.0,países,Secretaría del Tratado Antártico
+00,Argentina,2016,antartida_tratado_partes,53.0,países,Secretaría del Tratado Antártico
+00,Argentina,2017,antartida_tratado_partes,53.0,países,Secretaría del Tratado Antártico
+00,Argentina,2018,antartida_tratado_partes,53.0,países,Secretaría del Tratado Antártico
+00,Argentina,2019,antartida_tratado_partes,54.0,países,Secretaría del Tratado Antártico
+00,Argentina,2020,antartida_tratado_partes,54.0,países,Secretaría del Tratado Antártico
+00,Argentina,2021,antartida_tratado_partes,54.0,países,Secretaría del Tratado Antártico
+00,Argentina,2022,antartida_tratado_partes,55.0,países,Secretaría del Tratado Antártico
+00,Argentina,2023,antartida_tratado_partes,56.0,países,Secretaría del Tratado Antártico
+00,Argentina,2024,antartida_tratado_partes,58.0,países,Secretaría del Tratado Antártico
+00,Argentina,1993,antartida_visitantes,6704.0,visitantes,IAATO
+00,Argentina,1994,antartida_visitantes,7957.0,visitantes,IAATO
+00,Argentina,1995,antartida_visitantes,8098.0,visitantes,IAATO
+00,Argentina,1996,antartida_visitantes,9212.0,visitantes,IAATO
+00,Argentina,1997,antartida_visitantes,7322.0,visitantes,IAATO
+00,Argentina,1998,antartida_visitantes,9473.0,visitantes,IAATO
+00,Argentina,1999,antartida_visitantes,9857.0,visitantes,IAATO
+00,Argentina,2000,antartida_visitantes,14623.0,visitantes,IAATO
+00,Argentina,2001,antartida_visitantes,12109.0,visitantes,IAATO
+00,Argentina,2002,antartida_visitantes,13458.0,visitantes,IAATO
+00,Argentina,2003,antartida_visitantes,15687.0,visitantes,IAATO
+00,Argentina,2004,antartida_visitantes,24318.0,visitantes,IAATO
+00,Argentina,2005,antartida_visitantes,27324.0,visitantes,IAATO
+00,Argentina,2006,antartida_visitantes,29799.0,visitantes,IAATO
+00,Argentina,2007,antartida_visitantes,35552.0,visitantes,IAATO
+00,Argentina,2008,antartida_visitantes,45652.0,visitantes,IAATO
+00,Argentina,2009,antartida_visitantes,37573.0,visitantes,IAATO
+00,Argentina,2010,antartida_visitantes,36642.0,visitantes,IAATO
+00,Argentina,2011,antartida_visitantes,33438.0,visitantes,IAATO
+00,Argentina,2012,antartida_visitantes,26519.0,visitantes,IAATO
+00,Argentina,2013,antartida_visitantes,34316.0,visitantes,IAATO
+00,Argentina,2014,antartida_visitantes,37044.0,visitantes,IAATO
+00,Argentina,2015,antartida_visitantes,37133.0,visitantes,IAATO
+00,Argentina,2016,antartida_visitantes,38887.0,visitantes,IAATO
+00,Argentina,2017,antartida_visitantes,44865.0,visitantes,IAATO
+00,Argentina,2018,antartida_visitantes,52422.0,visitantes,IAATO
+00,Argentina,2019,antartida_visitantes,56187.0,visitantes,IAATO
+00,Argentina,2020,antartida_visitantes,75112.0,visitantes,IAATO
+00,Argentina,2021,antartida_visitantes,15.0,visitantes,IAATO
+00,Argentina,2022,antartida_visitantes,24082.0,visitantes,IAATO
+00,Argentina,2023,antartida_visitantes,104913.0,visitantes,IAATO
+00,Argentina,2024,antartida_visitantes,124418.0,visitantes,IAATO
+00,Argentina,2025,antartida_visitantes,118162.0,visitantes,IAATO
+00,Argentina,2026,antartida_visitantes,113518.0,visitantes,IAATO
+00,Argentina,1979,antartida_hielo_septiembre,18.2,millones de km²,"NSIDC, Sea Ice Index"
+00,Argentina,1980,antartida_hielo_septiembre,18.82,millones de km²,"NSIDC, Sea Ice Index"
+00,Argentina,1981,antartida_hielo_septiembre,18.6,millones de km²,"NSIDC, Sea Ice Index"
+00,Argentina,1982,antartida_hielo_septiembre,18.35,millones de km²,"NSIDC, Sea Ice Index"
+00,Argentina,1983,antartida_hielo_septiembre,18.59,millones de km²,"NSIDC, Sea Ice Index"
+00,Argentina,1984,antartida_hielo_septiembre,18.17,millones de km²,"NSIDC, Sea Ice Index"
+00,Argentina,1985,antartida_hielo_septiembre,18.7,millones de km²,"NSIDC, Sea Ice Index"
+00,Argentina,1986,antartida_hielo_septiembre,17.68,millones de km²,"NSIDC, Sea Ice Index"
+00,Argentina,1987,antartida_hielo_septiembre,18.25,millones de km²,"NSIDC, Sea Ice Index"
+00,Argentina,1988,antartida_hielo_septiembre,18.31,millones de km²,"NSIDC, Sea Ice Index"
+00,Argentina,1989,antartida_hielo_septiembre,18.12,millones de km²,"NSIDC, Sea Ice Index"
+00,Argentina,1990,antartida_hielo_septiembre,18.19,millones de km²,"NSIDC, Sea Ice Index"
+00,Argentina,1991,antartida_hielo_septiembre,18.31,millones de km²,"NSIDC, Sea Ice Index"
+00,Argentina,1992,antartida_hielo_septiembre,18.15,millones de km²,"NSIDC, Sea Ice Index"
+00,Argentina,1993,antartida_hielo_septiembre,18.54,millones de km²,"NSIDC, Sea Ice Index"
+00,Argentina,1994,antartida_hielo_septiembre,18.61,millones de km²,"NSIDC, Sea Ice Index"
+00,Argentina,1995,antartida_hielo_septiembre,18.37,millones de km²,"NSIDC, Sea Ice Index"
+00,Argentina,1996,antartida_hielo_septiembre,18.63,millones de km²,"NSIDC, Sea Ice Index"
+00,Argentina,1997,antartida_hielo_septiembre,18.6,millones de km²,"NSIDC, Sea Ice Index"
+00,Argentina,1998,antartida_hielo_septiembre,18.9,millones de km²,"NSIDC, Sea Ice Index"
+00,Argentina,1999,antartida_hielo_septiembre,18.7,millones de km²,"NSIDC, Sea Ice Index"
+00,Argentina,2000,antartida_hielo_septiembre,18.89,millones de km²,"NSIDC, Sea Ice Index"
+00,Argentina,2001,antartida_hielo_septiembre,18.17,millones de km²,"NSIDC, Sea Ice Index"
+00,Argentina,2002,antartida_hielo_septiembre,17.89,millones de km²,"NSIDC, Sea Ice Index"
+00,Argentina,2003,antartida_hielo_septiembre,18.3,millones de km²,"NSIDC, Sea Ice Index"
+00,Argentina,2004,antartida_hielo_septiembre,18.92,millones de km²,"NSIDC, Sea Ice Index"
+00,Argentina,2005,antartida_hielo_septiembre,18.8,millones de km²,"NSIDC, Sea Ice Index"
+00,Argentina,2006,antartida_hielo_septiembre,19.09,millones de km²,"NSIDC, Sea Ice Index"
+00,Argentina,2007,antartida_hielo_septiembre,18.86,millones de km²,"NSIDC, Sea Ice Index"
+00,Argentina,2008,antartida_hielo_septiembre,18.15,millones de km²,"NSIDC, Sea Ice Index"
+00,Argentina,2009,antartida_hielo_septiembre,18.96,millones de km²,"NSIDC, Sea Ice Index"
+00,Argentina,2010,antartida_hielo_septiembre,18.8,millones de km²,"NSIDC, Sea Ice Index"
+00,Argentina,2011,antartida_hielo_septiembre,18.74,millones de km²,"NSIDC, Sea Ice Index"
+00,Argentina,2012,antartida_hielo_septiembre,19.21,millones de km²,"NSIDC, Sea Ice Index"
+00,Argentina,2013,antartida_hielo_septiembre,19.39,millones de km²,"NSIDC, Sea Ice Index"
+00,Argentina,2014,antartida_hielo_septiembre,19.76,millones de km²,"NSIDC, Sea Ice Index"
+00,Argentina,2015,antartida_hielo_septiembre,18.44,millones de km²,"NSIDC, Sea Ice Index"
+00,Argentina,2016,antartida_hielo_septiembre,18.15,millones de km²,"NSIDC, Sea Ice Index"
+00,Argentina,2017,antartida_hielo_septiembre,17.91,millones de km²,"NSIDC, Sea Ice Index"
+00,Argentina,2018,antartida_hielo_septiembre,17.96,millones de km²,"NSIDC, Sea Ice Index"
+00,Argentina,2019,antartida_hielo_septiembre,18.33,millones de km²,"NSIDC, Sea Ice Index"
+00,Argentina,2020,antartida_hielo_septiembre,18.84,millones de km²,"NSIDC, Sea Ice Index"
+00,Argentina,2021,antartida_hielo_septiembre,18.51,millones de km²,"NSIDC, Sea Ice Index"
+00,Argentina,2022,antartida_hielo_septiembre,18.06,millones de km²,"NSIDC, Sea Ice Index"
+00,Argentina,2023,antartida_hielo_septiembre,16.89,millones de km²,"NSIDC, Sea Ice Index"
+00,Argentina,2024,antartida_hielo_septiembre,17.15,millones de km²,"NSIDC, Sea Ice Index"
+00,Argentina,2025,antartida_hielo_septiembre,17.64,millones de km²,"NSIDC, Sea Ice Index"
+00,Argentina,2026,antartida_hielo_septiembre,17.32,millones de km²,"NSIDC, Sea Ice Index"
+00,Argentina,1904,antartida_temperatura_orcadas,-2.303154837924953,grados Celsius,"British Antarctic Survey, READER"
+00,Argentina,1905,antartida_temperatura_orcadas,-1.4864881712582863,grados Celsius,"British Antarctic Survey, READER"
+00,Argentina,1906,antartida_temperatura_orcadas,-1.536488171258286,grados Celsius,"British Antarctic Survey, READER"
+00,Argentina,1907,antartida_temperatura_orcadas,-1.8698215045916193,grados Celsius,"British Antarctic Survey, READER"
+00,Argentina,1908,antartida_temperatura_orcadas,0.10517849540838047,grados Celsius,"British Antarctic Survey, READER"
+00,Argentina,1909,antartida_temperatura_orcadas,-1.3948215045916195,grados Celsius,"British Antarctic Survey, READER"
+00,Argentina,1910,antartida_temperatura_orcadas,-0.2781548379249528,grados Celsius,"British Antarctic Survey, READER"
+00,Argentina,1911,antartida_temperatura_orcadas,-0.7448215045916197,grados Celsius,"British Antarctic Survey, READER"
+00,Argentina,1912,antartida_temperatura_orcadas,-2.7281548379249525,grados Celsius,"British Antarctic Survey, READER"
+00,Argentina,1913,antartida_temperatura_orcadas,-1.9448215045916195,grados Celsius,"British Antarctic Survey, READER"
+00,Argentina,1914,antartida_temperatura_orcadas,-0.9114881712582862,grados Celsius,"British Antarctic Survey, READER"
+00,Argentina,1915,antartida_temperatura_orcadas,-3.253154837924953,grados Celsius,"British Antarctic Survey, READER"
+00,Argentina,1916,antartida_temperatura_orcadas,-2.4198215045916194,grados Celsius,"British Antarctic Survey, READER"
+00,Argentina,1917,antartida_temperatura_orcadas,-0.26982150459161947,grados Celsius,"British Antarctic Survey, READER"
+00,Argentina,1918,antartida_temperatura_orcadas,-0.711488171258286,grados Celsius,"British Antarctic Survey, READER"
+00,Argentina,1919,antartida_temperatura_orcadas,-0.45315483792495276,grados Celsius,"British Antarctic Survey, READER"
+00,Argentina,1920,antartida_temperatura_orcadas,-1.653154837924953,grados Celsius,"British Antarctic Survey, READER"
+00,Argentina,1921,antartida_temperatura_orcadas,-1.5364881712582863,grados Celsius,"British Antarctic Survey, READER"
+00,Argentina,1922,antartida_temperatura_orcadas,-1.1198215045916196,grados Celsius,"British Antarctic Survey, READER"
+00,Argentina,1923,antartida_temperatura_orcadas,-1.1448215045916197,grados Celsius,"British Antarctic Survey, READER"
+00,Argentina,1924,antartida_temperatura_orcadas,-2.036488171258286,grados Celsius,"British Antarctic Survey, READER"
+00,Argentina,1925,antartida_temperatura_orcadas,-1.411488171258286,grados Celsius,"British Antarctic Survey, READER"
+00,Argentina,1926,antartida_temperatura_orcadas,-1.2948215045916194,grados Celsius,"British Antarctic Survey, READER"
+00,Argentina,1927,antartida_temperatura_orcadas,-2.411488171258286,grados Celsius,"British Antarctic Survey, READER"
+00,Argentina,1928,antartida_temperatura_orcadas,-3.6031548379249525,grados Celsius,"British Antarctic Survey, READER"
+00,Argentina,1929,antartida_temperatura_orcadas,-2.4198215045916194,grados Celsius,"British Antarctic Survey, READER"
+00,Argentina,1930,antartida_temperatura_orcadas,-3.886488171258286,grados Celsius,"British Antarctic Survey, READER"
+00,Argentina,1931,antartida_temperatura_orcadas,-1.428154837924953,grados Celsius,"British Antarctic Survey, READER"
+00,Argentina,1932,antartida_temperatura_orcadas,-2.0031548379249533,grados Celsius,"British Antarctic Survey, READER"
+00,Argentina,1933,antartida_temperatura_orcadas,-2.0698215045916197,grados Celsius,"British Antarctic Survey, READER"
+00,Argentina,1934,antartida_temperatura_orcadas,-1.4781548379249527,grados Celsius,"British Antarctic Survey, READER"
+00,Argentina,1935,antartida_temperatura_orcadas,-2.2864881712582865,grados Celsius,"British Antarctic Survey, READER"
+00,Argentina,1936,antartida_temperatura_orcadas,-0.5114881712582863,grados Celsius,"British Antarctic Survey, READER"
+00,Argentina,1937,antartida_temperatura_orcadas,0.15517849540838038,grados Celsius,"British Antarctic Survey, READER"
+00,Argentina,1938,antartida_temperatura_orcadas,-1.8364881712582861,grados Celsius,"British Antarctic Survey, READER"
+00,Argentina,1939,antartida_temperatura_orcadas,-2.678154837924953,grados Celsius,"British Antarctic Survey, READER"
+00,Argentina,1940,antartida_temperatura_orcadas,-0.6948215045916194,grados Celsius,"British Antarctic Survey, READER"
+00,Argentina,1941,antartida_temperatura_orcadas,-1.161488171258286,grados Celsius,"British Antarctic Survey, READER"
+00,Argentina,1942,antartida_temperatura_orcadas,-2.061488171258286,grados Celsius,"British Antarctic Survey, READER"
+00,Argentina,1943,antartida_temperatura_orcadas,0.4968451620750471,grados Celsius,"British Antarctic Survey, READER"
+00,Argentina,1944,antartida_temperatura_orcadas,-0.8781548379249529,grados Celsius,"British Antarctic Survey, READER"
+00,Argentina,1945,antartida_temperatura_orcadas,-3.9864881712582867,grados Celsius,"British Antarctic Survey, READER"
+00,Argentina,1946,antartida_temperatura_orcadas,-0.511488171258286,grados Celsius,"British Antarctic Survey, READER"
+00,Argentina,1947,antartida_temperatura_orcadas,-0.7948215045916197,grados Celsius,"British Antarctic Survey, READER"
+00,Argentina,1948,antartida_temperatura_orcadas,-1.7864881712582863,grados Celsius,"British Antarctic Survey, READER"
+00,Argentina,1949,antartida_temperatura_orcadas,-2.9614881712582863,grados Celsius,"British Antarctic Survey, READER"
+00,Argentina,1950,antartida_temperatura_orcadas,-0.7948215045916194,grados Celsius,"British Antarctic Survey, READER"
+00,Argentina,1951,antartida_temperatura_orcadas,-0.22815483792495286,grados Celsius,"British Antarctic Survey, READER"
+00,Argentina,1952,antartida_temperatura_orcadas,-0.9448215045916194,grados Celsius,"British Antarctic Survey, READER"
+00,Argentina,1953,antartida_temperatura_orcadas,-0.6531548379249528,grados Celsius,"British Antarctic Survey, READER"
+00,Argentina,1954,antartida_temperatura_orcadas,-1.1698215045916196,grados Celsius,"British Antarctic Survey, READER"
+00,Argentina,1955,antartida_temperatura_orcadas,0.9385118287417137,grados Celsius,"British Antarctic Survey, READER"
+00,Argentina,1956,antartida_temperatura_orcadas,1.6468451620750473,grados Celsius,"British Antarctic Survey, READER"
+00,Argentina,1957,antartida_temperatura_orcadas,-0.40315483792495294,grados Celsius,"British Antarctic Survey, READER"
+00,Argentina,1958,antartida_temperatura_orcadas,-1.9781548379249527,grados Celsius,"British Antarctic Survey, READER"
+00,Argentina,1959,antartida_temperatura_orcadas,-2.361488171258286,grados Celsius,"British Antarctic Survey, READER"
+00,Argentina,1960,antartida_temperatura_orcadas,0.1468451620750471,grados Celsius,"British Antarctic Survey, READER"
+00,Argentina,1961,antartida_temperatura_orcadas,-1.236488171258286,grados Celsius,"British Antarctic Survey, READER"
+00,Argentina,1962,antartida_temperatura_orcadas,1.0301784954083804,grados Celsius,"British Antarctic Survey, READER"
+00,Argentina,1963,antartida_temperatura_orcadas,-0.4614881712582862,grados Celsius,"British Antarctic Survey, READER"
+00,Argentina,1964,antartida_temperatura_orcadas,-0.978154837924953,grados Celsius,"British Antarctic Survey, READER"
+00,Argentina,1965,antartida_temperatura_orcadas,0.14684516207504714,grados Celsius,"British Antarctic Survey, READER"
+00,Argentina,1966,antartida_temperatura_orcadas,-1.6198215045916193,grados Celsius,"British Antarctic Survey, READER"
+00,Argentina,1967,antartida_temperatura_orcadas,-0.886488171258286,grados Celsius,"British Antarctic Survey, READER"
+00,Argentina,1968,antartida_temperatura_orcadas,0.09684516207504722,grados Celsius,"British Antarctic Survey, READER"
+00,Argentina,1969,antartida_temperatura_orcadas,-0.8448215045916193,grados Celsius,"British Antarctic Survey, READER"
+00,Argentina,1970,antartida_temperatura_orcadas,-0.21148817125828603,grados Celsius,"British Antarctic Survey, READER"
+00,Argentina,1971,antartida_temperatura_orcadas,-0.3198215045916195,grados Celsius,"British Antarctic Survey, READER"
+00,Argentina,1972,antartida_temperatura_orcadas,-1.9948215045916193,grados Celsius,"British Antarctic Survey, READER"
+00,Argentina,1973,antartida_temperatura_orcadas,-1.6448215045916195,grados Celsius,"British Antarctic Survey, READER"
+00,Argentina,1974,antartida_temperatura_orcadas,-0.8281548379249527,grados Celsius,"British Antarctic Survey, READER"
+00,Argentina,1975,antartida_temperatura_orcadas,-1.6698215045916196,grados Celsius,"British Antarctic Survey, READER"
+00,Argentina,1976,antartida_temperatura_orcadas,-0.1448215045916196,grados Celsius,"British Antarctic Survey, READER"
+00,Argentina,1977,antartida_temperatura_orcadas,0.7051784954083803,grados Celsius,"British Antarctic Survey, READER"
+00,Argentina,1978,antartida_temperatura_orcadas,0.09684516207504716,grados Celsius,"British Antarctic Survey, READER"
+00,Argentina,1979,antartida_temperatura_orcadas,-0.7281548379249528,grados Celsius,"British Antarctic Survey, READER"
+00,Argentina,1980,antartida_temperatura_orcadas,-2.6948215045916193,grados Celsius,"British Antarctic Survey, READER"
+00,Argentina,1981,antartida_temperatura_orcadas,-0.6531548379249528,grados Celsius,"British Antarctic Survey, READER"
+00,Argentina,1982,antartida_temperatura_orcadas,0.046845162075047075,grados Celsius,"British Antarctic Survey, READER"
+00,Argentina,1983,antartida_temperatura_orcadas,-0.1281548379249529,grados Celsius,"British Antarctic Survey, READER"
+00,Argentina,1984,antartida_temperatura_orcadas,-0.10315483792495278,grados Celsius,"British Antarctic Survey, READER"
+00,Argentina,1985,antartida_temperatura_orcadas,0.8968451620750472,grados Celsius,"British Antarctic Survey, READER"
+00,Argentina,1986,antartida_temperatura_orcadas,-0.04482150459161952,grados Celsius,"British Antarctic Survey, READER"
+00,Argentina,1987,antartida_temperatura_orcadas,-1.0281548379249528,grados Celsius,"British Antarctic Survey, READER"
+00,Argentina,1988,antartida_temperatura_orcadas,-0.9198215045916195,grados Celsius,"British Antarctic Survey, READER"
+00,Argentina,1989,antartida_temperatura_orcadas,1.3885118287417137,grados Celsius,"British Antarctic Survey, READER"
+00,Argentina,1990,antartida_temperatura_orcadas,0.38851182874171375,grados Celsius,"British Antarctic Survey, READER"
+00,Argentina,1991,antartida_temperatura_orcadas,-1.2281548379249527,grados Celsius,"British Antarctic Survey, READER"
+00,Argentina,1992,antartida_temperatura_orcadas,-0.8698215045916194,grados Celsius,"British Antarctic Survey, READER"
+00,Argentina,1993,antartida_temperatura_orcadas,0.7135118287417139,grados Celsius,"British Antarctic Survey, READER"
+00,Argentina,1994,antartida_temperatura_orcadas,-0.6531548379249529,grados Celsius,"British Antarctic Survey, READER"
+00,Argentina,1995,antartida_temperatura_orcadas,-0.2031548379249528,grados Celsius,"British Antarctic Survey, READER"
+00,Argentina,1996,antartida_temperatura_orcadas,0.3968451620750472,grados Celsius,"British Antarctic Survey, READER"
+00,Argentina,1997,antartida_temperatura_orcadas,-0.8198215045916194,grados Celsius,"British Antarctic Survey, READER"
+00,Argentina,1998,antartida_temperatura_orcadas,-0.003154837924952844,grados Celsius,"British Antarctic Survey, READER"
+00,Argentina,1999,antartida_temperatura_orcadas,1.2135118287417137,grados Celsius,"British Antarctic Survey, READER"
+00,Argentina,2000,antartida_temperatura_orcadas,0.1718451620750471,grados Celsius,"British Antarctic Survey, READER"
+00,Argentina,2001,antartida_temperatura_orcadas,-0.12815483792495277,grados Celsius,"British Antarctic Survey, READER"
+00,Argentina,2004,antartida_temperatura_orcadas,0.32184516207504715,grados Celsius,"British Antarctic Survey, READER"
+00,Argentina,2005,antartida_temperatura_orcadas,-0.13648817125828613,grados Celsius,"British Antarctic Survey, READER"
+00,Argentina,2006,antartida_temperatura_orcadas,0.313511828741714,grados Celsius,"British Antarctic Survey, READER"
+00,Argentina,2007,antartida_temperatura_orcadas,-0.3114881712582862,grados Celsius,"British Antarctic Survey, READER"
+00,Argentina,2008,antartida_temperatura_orcadas,0.7385118287417137,grados Celsius,"British Antarctic Survey, READER"
+00,Argentina,2009,antartida_temperatura_orcadas,0.4299999170688827,grados Celsius,"British Antarctic Survey, READER"
+00,Argentina,2010,antartida_temperatura_orcadas,1.0801784954083804,grados Celsius,"British Antarctic Survey, READER"
+00,Argentina,2011,antartida_temperatura_orcadas,0.4968451620750473,grados Celsius,"British Antarctic Survey, READER"
+00,Argentina,2012,antartida_temperatura_orcadas,-0.6781548379249528,grados Celsius,"British Antarctic Survey, READER"
+00,Argentina,2013,antartida_temperatura_orcadas,-0.044821504591619425,grados Celsius,"British Antarctic Survey, READER"
+00,Argentina,2014,antartida_temperatura_orcadas,-0.41982150459161954,grados Celsius,"British Antarctic Survey, READER"
+00,Argentina,2015,antartida_temperatura_orcadas,-0.7614881712582862,grados Celsius,"British Antarctic Survey, READER"
+00,Argentina,2016,antartida_temperatura_orcadas,0.0551784954083803,grados Celsius,"British Antarctic Survey, READER"
+00,Argentina,2017,antartida_temperatura_orcadas,0.6801784954083804,grados Celsius,"British Antarctic Survey, READER"
+00,Argentina,2018,antartida_temperatura_orcadas,1.1962216582906238,grados Celsius,"British Antarctic Survey, READER"
+00,Argentina,2019,antartida_temperatura_orcadas,-0.9698215045916195,grados Celsius,"British Antarctic Survey, READER"
+00,Argentina,2020,antartida_temperatura_orcadas,-0.656378398102536,grados Celsius,"British Antarctic Survey, READER"
+00,Argentina,2024,antartida_temperatura_orcadas,-1.2408153787464131,grados Celsius,"British Antarctic Survey, READER"
+00,Argentina,2025,antartida_temperatura_orcadas,0.896845162075047,grados Celsius,"British Antarctic Survey, READER"
