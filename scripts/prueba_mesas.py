@@ -15,6 +15,7 @@ el sitio por armado si falla. Controla que:
 Uso: python scripts/prueba_mesas.py [-v]. Devuelve 1 si hay problemas.
 """
 import csv
+from collections import defaultdict
 import json
 import pathlib
 import re
@@ -50,6 +51,16 @@ SANTA_FE = {"1": "La Capital", "2": "Las Colonias", "3": "San Jerónimo", "4": "
 # qué parte de quienes votaron en una jurisdicción tiene su lugar en el mapa: lo menor medido al armar fue 99,6% (scripts/elecciones_mapa.py). Si baja, se rompió una unión
 MAPA_MINIMO = 99
 FUERZAS = RAIZ / "datos" / "manual" / "mesas_fuerzas.json"
+JURISDICCION = RAIZ / "datos" / "manual" / "mesas_jurisdiccion.csv"
+# quién ganó, según la proclamación (en 1999 Buenos Aires con los votos de las listas que llevaron la misma fórmula, y en 1989 la Capital votó electores:
+# la UCR sacó más votos y el colegio eligió a Vaca)
+JURISDICCION_CONOCIDOS = {("1983-general-gobernador", "06"): "Unión Cívica Radical", ("1999-general-gobernador", "06"): "Concertación Justicialista para el Cambio",
+                          ("2015-general-gobernador", "06"): "Alianza Cambiemos Buenos Aires", ("2023-general-gobernador", "06"): "Unión por la Patria",
+                          ("2003-segunda-gobernador", "02"): "Alianza Fuerza Porteña", ("2023-general-gobernador", "02"): "Juntos por el Cambio",
+                          ("2023-general-gobernador", "90"): "Frente de Todos por Tucumán", ("1999-general-gobernador", "30"): "Alianza por el Trabajo",
+                          ("2023-general-gobernador", "30"): "Juntos por el Cambio - Juntos por Entre Ríos", ("1997-segunda-gobernador", "18"): "Alianza FrePaNu",
+                          ("2025-general-gobernador", "18"): "Vamos Corrientes", ("1989-general-senadores", "02"): "Unión Cívica Radical",
+                          ("1995-general-senadores", "02"): "Alianza Frente País Solidario"}
 # lo que los departamentos de 257arg reúnen del definitivo de una jurisdicción: lo medido al armar va de 87,7% (Formosa, diputados 2007) a 116,1% (San Juan, presidente 2003). Fuera de esto, se coló un total
 DEPTOS_MIN, DEPTOS_MAX = 85, 118
 # la presidencial de 1983 suma casi exacto el definitivo oficial (14.927.512): sirve de control de toda la cadena
@@ -358,6 +369,43 @@ def revisar(detalle=False):
         total = sum(f[4][i + 1] for pv in doc["provincias"].values() for f in pv["filas"] for i in range(0, len(f[4]), 2))
         if total != esperado:
             problemas.append(f"mapa/{id_}.json: suma {total:,} votos positivos y se esperaban {esperado:,}")
+
+    # los gobernadores y los senadores por la Capital de 1983 a 1995 (7 de noviembre de 2026, scripts/elecciones_jurisdiccion.py): cada jurisdicción da lo
+    # mismo que lo transcripto de su fuente oficial, con su fecha y su fuente, y nunca a la vez con datos y "sin fuente"
+    trans = defaultdict(lambda: {"positivos": 0})
+    for r in csv.DictReader(open(JURISDICCION, encoding="utf-8", newline="")):
+        x = trans[(f"{r['anio']}-{r['vuelta']}-{r['cargo']}", r["codigo_indec"])]
+        x["positivos"] += int(r["votos"])
+        x.update(votantes=int(r["votantes"]), blancos=int(r["blancos"]), nulos=int(r["nulos"]), electores=int(r["electores"]))
+    hechas = set()
+    for el in idx["elecciones"]:
+        if el.get("origen") != "jurisdiccion":
+            continue
+        id_ = el["id"]
+        pub = defaultdict(lambda: {"positivos": 0})
+        for r in csv.DictReader(open(SALIDA / id_ / "pais.csv", encoding="utf-8", newline="")):
+            x = pub[r["codigo_indec"]]
+            x["positivos"] += int(r["votos"])
+            x.update(votantes=int(r["votantes"]), blancos=int(r["blancos"]), nulos=int(r["nulos"]), electores=int(r["electores"] or 0))
+            x.setdefault("primera", (r["lista"], int(r["votos"])))
+            if int(r["votos"]) > x["primera"][1]:
+                x["primera"] = (r["lista"], int(r["votos"]))
+        for cod, x in pub.items():
+            hechas.add((id_, cod))
+            primera = x.pop("primera")
+            if x != trans.get((id_, cod)):
+                problemas.append(f"{id_}/pais.csv, {cod}: no da lo mismo que datos/manual/mesas_jurisdiccion.csv")
+            if not el.get("fechas", {}).get(cod) or not el.get("fuentes", {}).get(cod):
+                problemas.append(f"{id_}, {cod}: sin fecha o sin fuente en el índice")
+            esperado = JURISDICCION_CONOCIDOS.get((id_, cod))
+            if esperado and not primera[0].startswith(esperado):
+                problemas.append(f"{id_}, {cod}: gana {primera[0]} y se esperaba {esperado}")
+        if set(el.get("sin_fuente", [])) & set(el["provincias"]):
+            problemas.append(f"{id_}: una jurisdicción figura con datos y sin fuente a la vez")
+    if set(trans) - hechas:
+        problemas.append(f"mesas_jurisdiccion.csv: elecciones que no llegaron al sitio {sorted(set(trans) - hechas)[:3]}. Hay que correr scripts/elecciones_jurisdiccion.py")
+    if not set(JURISDICCION_CONOCIDOS) <= hechas:
+        problemas.append("faltan elecciones de gobernador conocidas en el sitio")
 
     # sin esta regla Cloudflare no comprime las tablas, porque no comprime el CSV: Buenos Aires baja unos 5 MB
     if "/datos/mesas/*\n  Content-Type: text/plain" not in (RAIZ / "sitio" / "_headers").read_text(encoding="utf-8"):

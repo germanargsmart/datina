@@ -36,7 +36,9 @@ scripts/elecciones_mapa.py     desde el 5 de noviembre de 2026, el mapa de esa h
 scripts/elecciones_departamentos.py  los departamentos de 1983 a 2009 de esa herramienta, con datos de 257arg: se corre una vez, después de los dos anteriores
 scripts/elecciones_antiguas.py lo mismo de 1912 a 1973: se corre una vez, después de elecciones_departamentos.py
 scripts/elecciones_definitivo.py desde el 5 de noviembre de 2026, el escrutinio definitivo de cada jurisdicción de esa herramienta (DINE y actas de la Cámara transcriptas
-                               en datos/manual/mesas_definitivo_actas.csv) y el padrón del exterior: se corre último, después de los cuatro anteriores
+                               en datos/manual/mesas_definitivo_actas.csv) y el padrón del exterior: se corre después de los cuatro anteriores
+scripts/elecciones_jurisdiccion.py desde el 7 de noviembre de 2026, los gobernadores y los senadores por la Capital de 1983 a 1995 de esa herramienta, solo con fuentes
+                               oficiales transcriptas en datos/manual/mesas_jurisdiccion.csv: se corre después de los cinco anteriores (docs/roadmap/ELECCIONES_PROVINCIAS.md)
 scripts/*_historia.py, censo_2022_*.py, banderas.py, iconos_isometricos.py, geometria_*.py, *_presupuesto.py, justicia_provincias.py, antartida_datos.py
                                programas que se corren una sola vez o una vez por año y guardan en datos/manual/
 datos/manual/                  datos armados a mano o una sola vez, explicadores.json, distorsiones.json, banderas, íconos

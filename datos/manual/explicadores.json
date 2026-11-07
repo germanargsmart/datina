@@ -4630,7 +4630,7 @@
    },
    {
     "titulo": "De dónde salen los datos",
-    "texto": "El total del país y el de cada jurisdicción son el escrutinio definitivo, el recuento oficial que hace la Justicia Electoral. Hasta 2021 sale de las planillas de la Dirección Nacional Electoral. Desde 2023 la Dirección no lo publica como datos, y sale de las actas de escrutinio definitivo de cada junta electoral, que la Cámara Nacional Electoral publica escaneadas: Datina las transcribió número por número, con la página de cada uno, y en cada jurisdicción las listas, los blancos y los nulos suman exacto los votos emitidos. Algunas actas escriben mal un total (en San Juan y Corrientes en 2023, en Corrientes y Santa Fe en 2025): ahí manda la suma, que cierra. Por debajo de la jurisdicción, desde 2011, son los archivos por mesa de la Dirección Nacional Electoral, con el escrutinio provisorio, el conteo de los telegramas de la noche de la elección. Ningún organismo publica el definitivo mesa por mesa como datos: la Cámara lo muestra en su consulta pública, de a una mesa. De 1983 a 2009, el total de cada jurisdicción es el definitivo de la Dirección Nacional Electoral. Los senadores se eligen por voto directo desde 2001, así que antes no hay datos de ese cargo. El Senado se renueva por tercios: cada elección de senadores abarca ocho jurisdicciones.",
+    "texto": "El total del país y el de cada jurisdicción son el escrutinio definitivo, el recuento oficial que hace la Justicia Electoral. Hasta 2021 sale de las planillas de la Dirección Nacional Electoral. Desde 2023 la Dirección no lo publica como datos, y sale de las actas de escrutinio definitivo de cada junta electoral, que la Cámara Nacional Electoral publica escaneadas: Datina las transcribió número por número, con la página de cada uno, y en cada jurisdicción las listas, los blancos y los nulos suman exacto los votos emitidos. Algunas actas escriben mal un total (en San Juan y Corrientes en 2023, en Corrientes y Santa Fe en 2025): ahí manda la suma, que cierra. Por debajo de la jurisdicción, desde 2011, son los archivos por mesa de la Dirección Nacional Electoral, con el escrutinio provisorio, el conteo de los telegramas de la noche de la elección. Ningún organismo publica el definitivo mesa por mesa como datos: la Cámara lo muestra en su consulta pública, de a una mesa. De 1983 a 2009, el total de cada jurisdicción es el definitivo de la Dirección Nacional Electoral. Los senadores se eligen por voto directo desde 2001. Antes los elegía la Legislatura de cada provincia, salvo en la Capital: ahí se votaba a electores de senador, que después elegían en un colegio electoral (1983, 1989 y 1992), y en 1995 a un senador directamente. Esas cuatro elecciones salen de las planillas de la Dirección Nacional Electoral. El Senado se renueva por tercios: cada elección de senadores abarca ocho jurisdicciones.",
     "fuentes": [
      {
       "nombre": "Dirección Nacional Electoral, resultados electorales",
@@ -4647,6 +4647,40 @@
      {
       "nombre": "Datos Argentina, resultados provisionales por mesa",
       "url": "https://datos.gob.ar/dataset?q=resultados+provisionales+elecciones"
+     }
+    ]
+   },
+   {
+    "titulo": "Los gobernadores",
+    "texto": "El gobernador, y en CABA el jefe de Gobierno, llega por ahora al total de cada jurisdicción, desde 1983, y solo en las jurisdicciones que ya se sumaron. Cada provincia organiza y escruta su elección con su propia junta o tribunal electoral, aunque se vote el mismo día que las nacionales, así que no hay una sola fuente: cada jurisdicción y cada elección dicen de dónde salen. Solo se usan fuentes oficiales: las juntas y tribunales electorales, los gobiernos provinciales y sus institutos de estadística. Datina transcribió cada documento y en cada elección las listas, los blancos y los nulos suman exacto los votos emitidos. Donde la fuente tiene un error de tipeo que se puede probar, se corrigió y la nota lo dice. Donde una elección se votó y no hay un escrutinio oficial publicado en línea, la página lo dice en vez de llenar el hueco con otra fuente. Hasta 1991 en Corrientes se votaba a electores de gobernador, que después elegían en un colegio electoral: los votos son de las listas de electores. Cuando varias listas llevaron la misma fórmula y la fuente acumula sus votos, van juntas.",
+    "fuentes": [
+     {
+      "nombre": "Junta Electoral de la Provincia de Buenos Aires, resultados",
+      "url": "https://www.juntaelectoral.gba.gov.ar/"
+     },
+     {
+      "nombre": "Tribunal Superior de Justicia y Tribunal Electoral de CABA, elecciones",
+      "url": "https://www.eleccionesciudad.gob.ar/"
+     },
+     {
+      "nombre": "Instituto de Estadística y Censos de CABA, elecciones",
+      "url": "https://www.estadisticaciudad.gob.ar/eyc/"
+     },
+     {
+      "nombre": "Junta Electoral Provincial de Tucumán, resultados",
+      "url": "https://electoraltucuman.gob.ar/"
+     },
+     {
+      "nombre": "Gobierno de Entre Ríos, información electoral",
+      "url": "https://portal.entrerios.gov.ar/ps/transparencia/informacion-electoral"
+     },
+     {
+      "nombre": "Tribunal Electoral de Entre Ríos",
+      "url": "https://tribunalelectoraler.gob.ar/"
+     },
+     {
+      "nombre": "Subdirección de Cómputos de Corrientes, datos históricos de elecciones",
+      "url": "https://elecciones.corrientes.gob.ar/"
      }
     ]
    },
