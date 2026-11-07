@@ -19,8 +19,16 @@
   // que se sirvieran como texto seguían llegando sin comprimir: con otra dirección se piden de nuevo. Subir este número hace lo mismo si vuelve a pasar.
   // Es 5 y no 2 porque del 1 al 4 se pidieron a mano mientras se publicaba y quedaron guardadas igual: una versión nueva no se prueba antes de publicarla
   const VERSION_TABLAS = "5";
-  const CARGOS = {presidente: "Presidente", diputados: "Diputados nacionales", senadores: "Senadores nacionales"};
-  const NIVEL_NOMBRE = {presidente: "presidente", diputados: "diputados nacionales", senadores: "senadores nacionales"};
+  const CARGOS = {presidente: "Presidente", diputados: "Diputados nacionales", senadores: "Senadores nacionales", gobernador: "Gobernador"};
+  const NIVEL_NOMBRE = {presidente: "presidente", diputados: "diputados nacionales", senadores: "senadores nacionales", gobernador: "gobernador"};
+  // en CABA el cargo es jefe de Gobierno (scripts/elecciones_jurisdiccion.py, pedido del autor del 7 de noviembre de 2026)
+  const cargoNombre = (el, p) => el.cargo === "gobernador" && p === "02" ? "Jefe de Gobierno" : CARGOS[el.cargo];
+  // lo que se dice de una jurisdicción que no está en una elección. Las de elecciones_jurisdiccion.py traen su texto: que votó sin un escrutinio oficial
+  // publicado en línea, o por qué no está. Las demás no eligieron ese cargo ese año (los senadores se renuevan por tercios)
+  function sinDato(el, p) {
+    if (el.sin_fuente?.includes(p)) return "Votó, pero no hay un escrutinio oficial publicado en línea";
+    return el.fuera || `No eligió ${NIVEL_NOMBRE[el.cargo]} en esta elección`;
+  }
   const n0 = v => Number(v).toLocaleString("es-AR");
   // el mismo redondeo que el resto del sitio: un decimal, mitad hacia arriba
   const pct = v => (Math.round(v * 10 + 1e-9) / 10).toLocaleString("es-AR", {minimumFractionDigits: 1, maximumFractionDigits: 1}) + "%";
@@ -126,7 +134,7 @@
     sel.innerHTML = lista.map(([v, t]) => `<option value="${esc(v)}">${esc(t)}</option>`).join("");
     sel.value = valor;
   };
-  const etiquetaEl = e => e.etiqueta + (e.nivel === "provincia" ? ", solo por provincia" : "");
+  const etiquetaEl = e => e.etiqueta + (e.nivel === "provincia" && e.cargo !== "gobernador" ? ", solo por provincia" : "");
   function pintarControles(el, D) {
     opciones($("ms-cargo"), Object.entries(CARGOS), el.cargo);
     const mismas = IDX.elecciones.filter(e => e.cargo === el.cargo).sort((a, b) => b.anio - a.anio || (a.vuelta === "segunda" ? -1 : 1));
@@ -198,7 +206,7 @@
       const base = orden.reduce((s, x) => s + x[1], 0);
       const p = f.part;
       return `<tr><th scope="row"><button type="button" class="enlace ms-ir" data-${f.clave}="${esc(f.valor)}">${esc(f.nombre)}</button></th>` +
-        (verMesas ? `<td class="n ms-ancho">${f.mesas == null ? "" : n0(f.mesas)}</td>` : `<td class="n ms-ancho">${n0(f.electores)}</td>`) +
+        (verMesas ? `<td class="n ms-ancho">${f.mesas == null ? "" : n0(f.mesas)}</td>` : `<td class="n ms-ancho">${f.electores == null ? "sin dato" : n0(f.electores)}</td>`) +
         `<td class="n">${p == null ? "sin dato" : pct(p)}</td>` +
         `<td>${a ? celdaLista(a[0], a[1], base) : "sin resultado"}</td><td>${b ? celdaLista(b[0], b[1], base) : ""}</td></tr>`;
     }).join("");
@@ -252,7 +260,8 @@
     const usaDef = !!DEF && !estado.s;
     const T = usaDef ? DEF : P;
     const recuento = el.nivel === "mesa" ? (usaDef ? "definitivo" : "provisorio") : el.recuento;
-    const sub = `${CARGOS[el.cargo]}, ${el.etiqueta}.${recuento ? ` Escrutinio ${recuento}.` : ""}`;
+    const fecha = estado.p ? el.fechas?.[estado.p] : null;
+    const sub = `${cargoNombre(el, estado.p)}, ${el.etiqueta}.${fecha ? ` Se votó el ${fecha}.` : ""}${recuento ? ` Escrutinio ${recuento}.` : ""}`;
     const cob = usaDef ? "" : avisoCobertura(el);
     let resumen = "", listas = [], t = null, partes = "", frase = "", historia = "";
     const notas = [];
@@ -354,7 +363,13 @@
       const dondeTxt = !estado.p ? "en el país" : estado.m ? "en esta mesa" : estado.c ? "en este circuito" : estado.s ? "en esta sección" : "en esta jurisdicción";
       frase = `La lista más votada ${dondeTxt} fue ${listas[0][0]}, con ${pct(listas[0][1] / positivos * 100)} de los votos positivos, y la segunda, ${listas[1][0]}, con ${pct(listas[1][1] / positivos * 100)}.`;
     }
-    if (el.nivel === "provincia") notas.push("Para esta elección no hay datos que se puedan publicar por debajo de la jurisdicción.");
+    if (el.nivel === "provincia") notas.push(el.nota_nivel || "Para esta elección no hay datos que se puedan publicar por debajo de la jurisdicción.");
+    if (estado.p && el.notas?.[estado.p]) notas.push(el.notas[estado.p]);
+    if (estado.p && el.fuentes?.[estado.p]) notas.push(`Fuente: ${el.fuentes[estado.p]}.`);
+    if (!estado.p && el.sin_fuente?.length) {
+      const sin = el.sin_fuente.map(provNombre).sort((a, b) => a.localeCompare(b, "es"));
+      notas.push(`${sin.join(", ").replace(/, ([^,]*)$/, " y $1")} también ${sin.length === 1 ? "votó" : "votaron"} en ${el.anio}, pero no hay un escrutinio oficial publicado en línea.`);
+    }
     frase = [frase, ...notas].filter(Boolean).join(" ");
     resumen = `<section class="ms-bloque ms-resultado" aria-labelledby="ms-titulo"><h2 class="ms-tit" id="ms-titulo" tabindex="-1">${esc(lugar(el, D))}</h2>` +
       `<p class="ms-sub">${esc(sub)}</p>` + (aviso ? `<p class="aviso-serie ms-aviso">${esc(aviso)}</p>` : "") + (cob ? `<p class="aviso-serie ms-aviso">${esc(cob)}</p>` : "") + cifras(t, !estado.m && el.nivel === "mesa") +
@@ -583,7 +598,7 @@
   function textoTip(doc, r) {
     const f = MAPA.indice.get(claveRasgo(r)), {p, s, c} = r.properties, pv = doc.provincias[p];
     const prov = provNombre(p), unidad = unidadDe(doc);
-    if (!f && unidad !== "circuito") return `<b>${esc(prov)}</b><br>${unidad === "provincia" ? "No eligió senadores en esta elección" : sinDatoHistorico(doc, p)}`;
+    if (!f && unidad !== "circuito") return `<b>${esc(prov)}</b><br>${unidad === "provincia" ? sinDato(elec(), p) : sinDatoHistorico(doc, p)}`;
     if (!f && !pv) return `<b>${esc(prov)}</b><br>No eligió ${NIVEL_NOMBRE[elec().cargo]} en esta elección`;
     if (!f) {
       const sec = seccionDelRasgo(r), sn = pv.secciones?.[s] || "";
@@ -766,14 +781,14 @@
     // abajo de la leyenda: el rayado de lo que no tiene mesas propias y el gris, solo si queda algo gris, con su motivo
     const grisTxt = doc.historica ? (el.anio < 1951 ? "Sin dato, o territorio nacional que no votaba" : "Sin dato en esta elección")
       : unidad === "circuito" ? (!estado.p && el.cargo === "senadores" ? "No eligió senadores en esta elección" : "Sin mesas o sin votos cargados en el provisorio")
-      : {departamento: "Sin dato en esta elección", provincia: "No eligió senadores en esta elección"}[unidad];
+      : {departamento: "Sin dato en esta elección", provincia: el.gris || "No eligió senadores en esta elección"}[unidad];
     const hayGris = MAPA.rasgos.some(r => rellenoDe(doc, r) === SIN_MESAS) || MAPA.fondoSel.data().some(r => rellenoDe(doc, r) === SIN_MESAS);
     $("ms-ley").innerHTML = leyenda +
       (unidad === "circuito" ? `<div class="ms-ley-tramo ms-ley-sin"><i class="ms-ley-rayas" aria-hidden="true"></i><span class="ms-ley-nom">Sin mesas propias: el resultado de toda su sección</span></div>` : "") +
       (hayGris ? `<div class="ms-ley-tramo ms-ley-sin"><i style="background:${SIN_MESAS}" aria-hidden="true"></i><span class="ms-ley-nom">${grisTxt}</span></div>` : "");
     $("ms-mapa-frase").textContent = frase;
     $("ms-mapa-tit").textContent = ver === "gana" ? `¿Quién ganó en cada ${singular}?` : ver === "part" ? `¿Cuánta gente votó en cada ${singular}?` : "¿Dónde sacó más votos cada fuerza?";
-    $("ms-mapa-sub").textContent = `${CARGOS[el.cargo]}, ${el.etiqueta}${unidad === "circuito" ? ", escrutinio provisorio mesa por mesa" : ""}. ${lugarMapa}. Tocá un lugar para ver sus resultados.`;
+    $("ms-mapa-sub").textContent = `${cargoNombre(el, estado.p)}, ${el.etiqueta}${unidad === "circuito" ? ", escrutinio provisorio mesa por mesa" : ""}. ${lugarMapa}. Tocá un lugar para ver sus resultados.`;
     MAPA.svg.attr("aria-label", `Mapa de ${donde}. ${frase} Los mismos resultados están en las tablas de abajo.`);
     // lo que el mapa no alcanza a mostrar
     const notas = [];
@@ -899,7 +914,9 @@
       const DEF = el.definitivo ? await tablaPais(el.id, "definitivo.csv").catch(e => { console.warn("Elecciones por mesa, el definitivo:", e); return null; }) : null;
       // la provincia no votó ese cargo en esa elección (los senadores se renuevan por tercios): se sube al país y se avisa
       if (estado.p && !el.provincias.includes(estado.p)) {
-        aviso = `${provNombre(estado.p)} no eligió ${NIVEL_NOMBRE[el.cargo]} en ${el.anio}: se muestra todo el país.`;
+        aviso = el.sin_fuente?.includes(estado.p) ? `${provNombre(estado.p)} eligió ${NIVEL_NOMBRE[el.cargo]} en ${el.anio}, pero no hay un escrutinio oficial publicado en línea: se muestra todo el país.`
+          : el.origen ? `${provNombre(estado.p)}: ${el.fuera.charAt(0).toLowerCase()}${el.fuera.slice(1)}. Se muestra todo el país.`
+          : `${provNombre(estado.p)} no eligió ${NIVEL_NOMBRE[el.cargo]} en ${el.anio}: se muestra todo el país.`;
         Object.assign(estado, {p: "", s: "", c: "", m: ""});
       }
       const hayTabla = el.nivel === "mesa" || (el.nivel === "departamento" && el.departamentos?.includes(estado.p));
@@ -946,7 +963,9 @@
   function cambiarCargo(cargo) {
     const ahora = elec();
     const candidatas = IDX.elecciones.filter(e => e.cargo === cargo).sort((a, b) => b.anio - a.anio || (a.vuelta === "segunda" ? -1 : 1));
-    const misma = candidatas.find(e => e.anio === ahora.anio && e.vuelta === "general") || candidatas[0];
+    // los gobernadores se votan en otros años según la provincia (Corrientes desde 2001): con una elegida, se busca la suya
+    const suyas = cargo === "gobernador" && estado.p ? candidatas.filter(e => e.provincias.includes(estado.p)) : [];
+    const misma = candidatas.find(e => e.anio === ahora.anio && e.vuelta === "general" && (!suyas.length || e.provincias.includes(estado.p))) || suyas[0] || candidatas[0];
     estado.e = misma.id;
     actualizar(false);
   }
