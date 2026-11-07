@@ -384,15 +384,15 @@ const dd = JSON.parse(await q.eval(`(() => {
   const datos = [...document.querySelectorAll(".dd-dato")], ind = window.DATINA.indice, t = new Set(), f = new Set();
   const w = document.createTreeWalker(document.querySelector("main .tema"), NodeFilter.SHOW_TEXT); let n;
   while ((n = w.nextNode())) { if (!n.textContent.trim() || !n.parentElement.closest(".dd-grupo")) continue; const c = getComputedStyle(n.parentElement); t.add(c.fontSize); f.add(c.fontFamily.split(",")[0]); }
-  const uno = datos[0]; uno.scrollIntoView({block: "center"}); const r = uno.querySelector(".c-num").getBoundingClientRect();
+  const vis = datos.filter(d => !d.hidden), uno = vis[0]; uno.scrollIntoView({block: "center"}); const r = uno.querySelector(".c-num").getBoundingClientRect();
   return JSON.stringify({
     grupos: [...document.querySelectorAll(".dd-grupo-tit")].map(h => h.textContent),
     indice: [...document.querySelectorAll(".dd-indice a")].map(a => a.getAttribute("href").slice(1)).filter(i => document.getElementById(i)?.matches(".dd-grupo-tit")).length,
     grupoDe: ind.grupos.map(g => [g[1], g[2].flatMap(it => Array.isArray(it) ? it[1] : [it])]),
     fichas: ind.fichas.map(x => [x[0], x[1]]),
-    datos: datos.map(d => ({id: d.dataset.clave, tema: d.querySelector(".dd-tema")?.textContent.trim(), preg: d.querySelector(".dd-preg a")?.textContent.trim(), dest: d.querySelector(".dd-preg a")?.getAttribute("href"),
+    datos: datos.map(d => ({id: d.dataset.clave, oculto: d.hidden, tema: d.querySelector(".dd-tema")?.textContent.trim(), preg: d.querySelector(".dd-preg a")?.textContent.trim(), dest: d.querySelector(".dd-preg a")?.getAttribute("href"),
       num: d.querySelector(".c-num")?.textContent.trim(), txt: d.querySelector(".c-txt")?.textContent.trim()})),
-    columnas: new Set(datos.map(d => Math.round(d.getBoundingClientRect().left))).size, tarjetas: document.querySelectorAll(".dd-grupo .tarjeta").length,
+    columnas: new Set(vis.map(d => Math.round(d.getBoundingClientRect().left))).size, tarjetas: document.querySelectorAll(".dd-grupo .tarjeta").length,
     cubre: !!document.elementFromPoint(r.left + r.width / 2, r.top + r.height / 2)?.closest(".dd-preg a"), t: [...t], f: [...f]}); })()`));
 const ddEsperados = dd.grupoDe.flatMap(([, secs]) => secs.flatMap(s => dd.fichas.filter(([id, sec]) => sec === s && conCifra.has(id)).map(([id]) => id)));
 if (JSON.stringify(dd.datos.map(d => d.id)) !== JSON.stringify(ddEsperados))
@@ -400,11 +400,13 @@ if (JSON.stringify(dd.datos.map(d => d.id)) !== JSON.stringify(ddEsperados))
 if (JSON.stringify(dd.grupos) !== JSON.stringify(dd.grupoDe.map(g => g[0])) || dd.indice !== dd.grupos.length) problemas.push(`datos-destacados.html: los grupos no están en el orden de GRUPOS o el índice no lleva a cada uno (${dd.grupos} ${dd.indice})`);
 const ddSensibles = dd.datos.filter(d => SENSIBLES.includes(d.id) || /suicid|muertes violentas/i.test(d.preg + " " + d.txt)).map(d => d.id);
 if (ddSensibles.length) problemas.push(`datos-destacados.html: temas sensibles en la lista: ${ddSensibles}`);
-const ddIncompletos = dd.datos.filter(d => !d.tema || !d.preg || !d.num || !d.txt).map(d => d.id);
+// un dato cuya fuente no llegó queda oculto (su cifra es de las que pueden faltar en CLAVE) y no frena la actualización: se controlan los que se ven
+const ddVisibles = dd.datos.filter(d => !d.oculto);
+const ddIncompletos = ddVisibles.filter(d => !d.tema || !d.preg || !d.num || !d.txt).map(d => d.id);
 if (ddIncompletos.length) problemas.push(`datos-destacados.html: datos incompletos: ${ddIncompletos}`);
-const ddPegadas = dd.datos.filter(d => /[a-zñáéíóú]/i.test(d.num.replace(/^N\.º /, "").replace(/ (mil millones|millones|mil)$/, ""))).map(d => d.num);
+const ddPegadas = ddVisibles.filter(d => /[a-zñáéíóú]/i.test(d.num.replace(/^N\.º /, "").replace(/ (mil millones|millones|mil)$/, ""))).map(d => d.num);
 if (ddPegadas.length) problemas.push(`datos-destacados.html: dato con la unidad pegada a la cifra: ${ddPegadas}`);
-const ddSinAnio = dd.datos.filter(d => !/\b(19|20)\d\d\b/.test(d.txt) && !SIN_ANIO[d.id]).map(d => d.id);
+const ddSinAnio = ddVisibles.filter(d => !/\b(19|20)\d\d\b/.test(d.txt) && !SIN_ANIO[d.id]).map(d => d.id);
 if (ddSinAnio.length) problemas.push(`datos-destacados.html: dato sin su año (si la fuente no da una fecha, va en SIN_ANIO con su motivo): ${ddSinAnio}`);
 const ddRotos = dd.datos.filter(d => { const [pag, ancla] = (d.dest || "").split("#"); return ancla !== d.id || !existsSync(join(SITIO, pag)) || !readFileSync(join(SITIO, pag), "utf8").includes(`id="${d.id}"`); }).map(d => d.id);
 if (ddRotos.length) problemas.push(`datos-destacados.html: el enlace no lleva a la ficha: ${ddRotos}`);
