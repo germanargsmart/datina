@@ -6,6 +6,18 @@ Este documento es el mapa: qué elecciones hubo en cada jurisdicción, quién pu
 
 Revisado el 7 de noviembre de 2026 desde la nube. Cada dirección dice qué contestó ese día. Un 403 o un corte de conexión desde la nube no quiere decir que la página no exista: varios organismos rechazan las conexiones que no vienen de la Argentina.
 
+## Lo principal
+
+| Jurisdicción | Gobernador (o jefe de Gobierno) oficial en línea | Por mesa, oficial | Huecos más grandes |
+|---|---|---|---|
+| CABA | 2000 a 2025: Tribunal Superior de Justicia, Tribunal Electoral, BA Data e IDECBA | 2013 a 2025 en BA Data (2023 y 2025 provisorios por mesa), y la segunda vuelta de 2007 | 1996 sin fuente oficial digital, legisladores 1997 en ninguna fuente, el Concejo Deliberante de 1918 a 1993 |
+| Buenos Aires | 1963 por sección (escaneado), 1973 y 1983 a 1999 el total, 2003 a 2025 por distrito y sección: Junta Electoral. 2005 a 2023 por municipio: Ministerio de Gobierno, CC BY 4.0 | Ninguno como datos (solo la consulta de a una mesa de la Cámara, 2015 a 2023) | El gobernador por partido antes de 2003 y todo lo de 1913 a 1962 |
+| Tucumán | 2003 a 2011 por sección y 2015 a 2023 por mesa: Junta Electoral Provincial | 2015, 2019 y 2023, con circuito | 1983 a 1999 sin nada oficial en línea |
+| Entre Ríos | 1935, 1939, 1950, 1991, 1999 y 2011 a 2023 por departamento, 1963, 1973 y 1983 el total: archivo del gobierno provincial, Tribunal Electoral y DGEC | 2011, en el provisorio de la DINE que Datina ya baja | 1987, 1995, 2003 y 2007 sin nada oficial en línea |
+| Corrientes | 1983 a 2019 (departamento desde 1989, mesa desde 2011): Subdirección de Cómputos. 2025 por mesa: API de la Junta Electoral | 2011 a 2019 y 2025 | 2021 en ninguna fuente accesible |
+
+Para lo anterior a 1983 no hay fuentes oficiales en línea salvo excepciones: los escrutinios de Entre Ríos desde 1935 en el archivo provincial, los electores de gobernador de Buenos Aires de 1963 en la Junta Electoral y la publicación del Ministerio del Interior de 1952 (1946 a 1951), escaneada por la Biblioteca del Congreso. El resto está en papel (las publicaciones del Ministerio del Interior de 1946, 1963 y 1973, el fondo de la Dirección Nacional Electoral en el AGN, los diarios de sesiones de las legislaturas) o en libros con derechos vigentes (Cantón, Cantón y Jorrat, Solís Carnicer, Luzi, Amaral, Ferrari, Walter). Antes de la ley Sáenz Peña, el gobernador lo elegían la Legislatura o un colegio electoral en las cinco, y casi no hay votos publicados.
+
 ## Qué tiene Datina hoy
 
 La herramienta Elecciones por mesa (`mesas.html`, `docs/roadmap/MESAS.md`) tiene solo cargos nacionales: presidente, diputados y senadores. Ningún gobernador, ninguna elección provincial y nada antes de 1912. En las cinco jurisdicciones de esta tanda (`sitio/datos/mesas/indice.json`, 7 de noviembre de 2026):
@@ -42,7 +54,7 @@ Los gobernadores de PolAr que existen como archivo para las cinco jurisdicciones
 | Buenos Aires | 1958, 1962, 1963, 1973, y de 1983 a 2019 cada cuatro años |
 | Tucumán | De 1983 a 2019 cada cuatro años |
 | Entre Ríos | 1958, 1962, 1963, 1973, y de 1983 a 2019 cada cuatro años |
-| Corrientes | 1958, 1962, 1963, 1973, 1983, 1987, 1991, 1993, 1997, 2001, 2005, 2009 y 2017 (faltan 2013 y 2021) |
+| Corrientes | 1958, 1962, 1963, 1973, 1983, 1987, 1991, 1993, 1997, 2001, 2005, 2009 y 2017, con las segundas vueltas en archivos aparte (`corrientes_gober_balota1997.csv` y siguientes). Faltan 2013, 2021 y 2025 |
 
 La Dirección Nacional Electoral no publica ningún resultado definitivo de gobernador. Su escrutinio provisorio por mesa (los ZIP de 2011 en adelante y la API de `resultados.mininterior.gob.ar`) sí trae las categorías provinciales y municipales que se votaron el mismo día con las nacionales, como los legisladores de la CABA o los intendentes de Buenos Aires. El definitivo de esas categorías lo hace cada provincia, con su junta o tribunal electoral, aunque se voten el mismo día que las nacionales.
 
@@ -274,6 +286,83 @@ Las páginas de la Junta de 2003 a 2019 enlazan a direcciones rotas (`…/upload
 
 **Fuentes secundarias**: Cantón (1968) tiene a Tucumán solo en las elecciones nacionales: su capítulo de comicios provinciales no la incluye. Samuel Amaral, *Perón presidente*, tomo 2 (EDUNTREF, 2018), trae en el capítulo 20 Tucumán por departamento en 1946 (electores de presidente y de gobernador, diputados nacionales, también de 1940 y 1942, y legisladores provinciales), en un PDF gratuito (`eduntref.com.ar/magento/pdf/Peron-Presidente-TOMO2.pdf`, 200). Leandro Lichtmajer, "El radicalismo tucumano frente a la irrupción peronista" (Jornadas Interescuelas, 2007, `cdsa.aacademica.org/000-108/518.pdf`, 200), trae el porcentaje de la UCR por departamento. Sin tablas o sin revisar: María Celia Bravo sobre 1870 a 1880 (CONICET, `hdl 11336/49910`), la tesis de Navajas sobre 1852 a 1887 (El Colegio de México, sin acceso), Montilla Zavalía, *Historia del Poder Electoral de Tucumán* (Junta Electoral, 2010, sin digitalizar) y el *Anuario de estadística* de Tucumán de 1896 en Google Books. Las dos obras con tablas tienen derechos vigentes: las cifras se pueden usar citándolas, no copiar el libro.
 
+### Entre Ríos (30)
+
+**Cómo se eligió cada cargo**
+
+- 1822: el Estatuto de Mansilla, la primera constitución provincial del país. De 1854 a 1860 la provincia fue sede federalizada de la Confederación, sin gobierno propio.
+- 1860: una sola cámara, elegida por voto directo por departamento. La misma cámara, con un diputado más por departamento, elegía al gobernador de palabra (Wikisource, comprobado). Así salieron Urquiza, Domínguez, López Jordán, Febre, Antelo y Racedo, entre otros.
+- 1883: Senado y vicegobernador. Colegio Electoral votado por el pueblo por departamento, a simple mayoría. El primero, el 1 de noviembre de 1886.
+- 1903: el colegio pasa a tener el doble de electores que diputados, elegidos por "Círculos" (pares de departamentos), y los diputados por representación proporcional. Con la ley Sáenz Peña, colegio con voto secreto desde 1914 (54 electores).
+- 1933: gobernador por voto directo a simple mayoría, un senador por departamento y 28 diputados en distrito único, con mayoría asegurada al primero. Directas en 1935, 1939 y 1943 (Laurencena ganó y no asumió por el golpe del 4 de junio).
+- 1946 a 1955: directas. 1951, primera elección con voto femenino. En 1955 vuelve la Constitución de 1933.
+- 1958 y 1962 (anulada): directas. 1963: colegio electoral (voto el 7 de julio, colegio el 26 de agosto). 1973: directa con segunda vuelta (11 de marzo y 15 de abril).
+- Desde 1983, directa a simple mayoría. PASO provinciales desde 2011. La reforma de 2008 lleva Diputados a 34 bancas con mayoría asegurada y deja 17 senadores, uno por departamento.
+- Departamentos: 14 hasta 1972 (Federal, ley de facto 5169), Islas del Ibicuy desde 1987 y San Salvador desde 1999.
+- Ley de acceso a la información: la 11.191, con el decreto 2613/25 (vista solo en un buscador).
+
+**Fuentes**
+
+| Fuente | Organismo | Años | Cargos | Nivel | Formato | Dirección | 7 de noviembre |
+|---|---|---|---|---|---|---|---|
+| Archivo digital de la historia política e institucional de Entre Ríos | Gobierno de Entre Ríos (Secretaría de Modernización, con la UNER y el CFI) | 1866 a 2021, 36 años con escrutinios (unos 500 archivos) | Gobernador, legisladores provinciales y cargos nacionales | Departamento, salvo 1963, 1973 y 1983 (provincia) | XLS y XLSX, y PDF en 2019 | Página `portal.entrerios.gov.ar/ps/transparencia/informacion-electoral`. API pública sin clave: `GET portal.entrerios.gov.ar/api/public/informacion_electoral/anios`, `POST …/detalle_anio` con `{"cod_anio": …}` y `POST …/inf_electoral_archivo`, que devuelve el archivo en base64 | 200, comprobado. Faltan 1987, 1995, 2003, 2007 y 2009. Lo anterior a 1983 son transcripciones con errores de fecha y de rótulo (1935, 1963 figura como "1936", 1886) |
+| Escrutinio definitivo 2019 | Tribunal Electoral de Entre Ríos | 2019 (PASO y generales) | Gobernador y legisladores provinciales | Departamento en las generales | HTML y PDF con texto | `tribunalelectoraler.gob.ar/escrutinio-generales-2019` y `escrutinioGenerales2019/GobernadorVicegobernador.pdf` | 200. Para 2015 y 2023 manda a la consulta de la Cámara Nacional Electoral. `jusentrerios.gov.ar/tribunal-electoral/` ya no sirve |
+| Participación electoral | Dirección de Estadística y Censos (DGEC) | 2013 a 2025 | Gobernador y legisladores provinciales 2015, 2019 y 2023, y los nacionales | Departamento | XLSX | `entrerios.gov.ar/dgec/participacion-electoral/` | 200. Sin el exterior ni las cárceles. El anuario 2014 trae 2011 |
+| Escrutinio provisorio por mesa | DINE | 2011 y 2015 | 2011: gobernador. 2015: legisladores provinciales (el gobernador, sin confirmar) | Mesa | CSV en ZIP | Los mismos ZIP que Datina ya usa para las elecciones por mesa | `cargo_de()` de `scripts/elecciones_mesas.py` descarta hoy toda categoría que no sea nacional |
+| Planillas de escrutinio definitivo nacional | Ministerio del Interior, en el archivo provincial | 1989, 1991, 1993, 1997, 1999, 2001 y 2005 | Cargos nacionales | Departamento, una hoja por departamento | XLS | Archivo provincial | 200. Fuente oficial que podría reemplazar los departamentos de Calvo (por medio de 257arg) en esos años |
+| Actas de escrutinio definitivo | Cámara Nacional Electoral | 2019 y 2023 | Solo nacionales | Provincia | PDF | `electoral.gob.ar/nuevo/paginas/pdf/actas_escrutinio/2023/GENERALES/ENTRE%20RIOS.pdf` | 200. El acta dice que los cargos provinciales van en planillas anexas que se mandan al Tribunal Electoral y no se publican |
+| Fondo DNE01 | AGN | 1934 a 1973, 27 carpetas de Entre Ríos | Gobernador y legisladores 1946, 1950, 1951, 1958, 1963 y 1973 | A ver en las imágenes | Imágenes que no están en línea | Inventario del AGN (copia en 257arg) | Pedir copias. La ficha dice acceso y reproducción sin restricciones |
+
+El Juzgado Federal N.º 1 de Paraná (Secretaría Electoral) no tiene sitio propio. El mapa electoral del gobierno provincial (`mapaelectoral.com.ar`, 2011 a 2019 por circuito) ya no anda. El Observatorio de la DINE tiene 2019 solo por provincia.
+
+**Gobernadores**
+
+| Elección | Forma | Qué hay |
+|---|---|---|
+| 1860 a 1883 | Legislatura | La votación de la Legislatura no está en línea |
+| 1886 a 1910 | Colegio | Archivo provincial: 1886 en 7 departamentos y 1890 en 3, a revisar. El resto, nada |
+| 1914, 1918, 1922, 1926, 1930 y 1931 | Colegio con voto secreto | Cantón, tomo I: 1922 y 1930 por Círculo. Totales en la Wikipedia, de diarios |
+| 1935 y 1939 | Directa | Archivo provincial: 14 departamentos |
+| 1943 | Directa, no asumió | Archivo provincial: solo legisladores. Total en la Wikipedia |
+| 1946 | Directa | Amaral (2018) por departamento. AGN |
+| 1950 | Directa | Archivo provincial: 12 departamentos (faltan Victoria y Villaguay) |
+| 1951 | Directa, con voto femenino | AGN. Nada en línea |
+| 1958 y 1962 (anulada) | Directa | PolAr (provincia). AGN y expedientes de Diputados |
+| 1963 | Colegio | Archivo provincial y PolAr (provincia) |
+| 1973 | Directa, dos vueltas | Archivo provincial y PolAr (provincia) |
+| 1983 | Directa | Archivo provincial (provincia). Calvo por medio de 257arg (departamento) |
+| 1987 y 1995 | Directa | Calvo (departamento) y PolAr. Nada oficial en línea |
+| 1991 y 1999 | Directa | Archivo provincial: departamento y sexo (planillas del Ministerio del Interior) |
+| 2003 y 2007 | Directa | PolAr (provincia). Los PDF viejos del Ministerio del Interior, solo en el Internet Archive |
+| 2011 | Directa | Archivo provincial y anuario de la DGEC (departamento). DINE provisorio por mesa |
+| 2015 | Directa | Archivo provincial y DGEC (departamento). Consulta de la Cámara (mesa) |
+| 2019 | Directa | Tribunal Electoral y DGEC (departamento) |
+| 2023 | Directa | DGEC (departamento). Consulta de la Cámara (mesa) |
+
+**Qué falta**: los votos de la Legislatura y de los colegios de 1860 a 1910 (diarios de sesiones y Archivo General de la Provincia), todo lo de 1914 a 1931 en fuentes oficiales digitales, 1946, 1951, 1958 y 1962 por departamento (AGN), 1987, 1995, 2003 y 2007 en fuentes oficiales (pedirlos a la DINE por la Ley 27.275, porque son planillas de su Departamento Estadísticas, o al Tribunal Electoral), el mesa por mesa de los cargos provinciales salvo 2011, y las convenciones. Dos datos no cierran: el Senado de 2023 (la DGEC da 9 bancas a UxP y la prensa 10 a JxC) y las fechas y rótulos del archivo provincial antes de 1983.
+
+**Qué conviene usar**
+
+| Período | Fuente | Trabajo |
+|---|---|---|
+| 2011 a 2023 | Archivo provincial y DGEC (departamento), el Tribunal en 2019. La mesa de 2011, del ZIP de la DINE que Datina ya baja | Bajo, uno o dos días |
+| 1983 a 2007 | Archivo provincial para 1983, 1991 y 1999. Pedido a la DINE o al Tribunal para lo demás. Mientras tanto, Calvo por medio de 257arg (con el riesgo de permiso que el autor ya aceptó) y PolAr | Bajo a medio, más lo que tarde el pedido |
+| 1935 a 1973 | Archivo provincial, controlado con el AGN y con Amaral (1946). PolAr para los totales de 1958 a 1973 | Medio: unas 40 planillas con revisión a mano |
+| 1914 a 1931 | Cantón para 1922 y 1930 | Bajo: dos cuadros de nueve Círculos |
+| 1860 a 1910 | Solo quién fue elegido y cómo, sin votos | |
+
+**Fuentes secundarias**
+
+| Obra | Qué trae | Dónde | Derechos |
+|---|---|---|---|
+| Darío Cantón, *Materiales…*, tomo I (1968) | Gobernador 1922 y 1930 por Círculo, tomados del Anuario *La Razón*, solo varones | Internet Archive (ver las fuentes nacionales) | Derechos vigentes |
+| Samuel Amaral, *Perón presidente*, tomo 2, capítulo 11 (EDUNTREF, 2018) | 1946 por departamento: gobernador, legisladores provinciales, presidente y diputados nacionales, y 1940 | `eduntref.com.ar/magento/pdf/Peron-Presidente-TOMO2.pdf` (200) | Todos los derechos reservados |
+| Martina Ferro Piérola, "Construyendo las elecciones de 1946 en Entre Ríos", *Ejes* (UNER), 2020 | Gobernador 1946 por departamento, tomado de Amaral | `pcient.uner.edu.ar/index.php/ejes/article/download/776/871/4956` (200) | Licencia sin comprobar |
+| Manuel Arlettaz, tesis "Todos unidos triunfaremos" (UCA, 2020) | Gobernador y legisladores de 1983 a 2019, solo en gráficos | `repositorio.uca.edu.ar/bitstream/123456789/11153/1/todos-unidos-triunfaremos-arlettaz.pdf` (200) | |
+| Nicolás Motura, tesis sobre la Entre Ríos de entreguerras (UNL) y artículos sobre las reformas de 1883 y 1903 | Electores de 1914 por partido (42 a 12), según un buscador | Sin copia digital encontrada | Derechos vigentes |
+| Antonio Zinny, *Historia de los gobernadores de las provincias argentinas* (1879 y 1920) | Quién gobernó y cómo fue elegido, sin votos | Internet Archive (`historiadelosgo01zinngoog`) | Dominio público |
+| Filiberto Reula, *Historia de Entre Ríos* (1963 a 1971), Beatriz Bosch, *Historia de Entre Ríos* (1978) | Relato | Sin copia digital | Derechos vigentes |
+
 ### Corrientes (18)
 
 **Cómo se eligió cada cargo**
@@ -356,3 +445,26 @@ Conviene bajar los PDF de la Subdirección una sola vez y guardarlos, porque los
 | Diarios de Sesiones de la Legislatura (1909 a 1925), Boletín Oficial y prensa (*El Liberal*, *Nueva Época*) | Las fuentes de Solís Carnicer, por departamento | Archivo General de la Provincia, sin copia digital | Oficiales |
 
 Lo más valioso que no está en línea es el anexo de la tesis de Solís Carnicer, con el departamento de todas las elecciones provinciales de 1909 a 1930, y su tabla de 1946 por departamento. Habría que pedírselos a la autora (IIGHI-CONICET y UNNE): lo decide y lo hace el autor.
+
+## Qué sigue y qué decide el autor
+
+Propuesta, de lo más fácil y oficial a lo más difícil, un PR por paso:
+
+1. **Senadores por la Capital de 1983, 1992 y 1995** (DINE, tres planillas chicas): el único cargo nacional con voto popular que le falta a Datina entre 1983 y 2001.
+2. **Gobernador por jurisdicción en las cinco, de 1983 a 2025**: el total oficial donde existe (las juntas y tribunales de arriba) y PolAr, citando a Tow, donde no, con el aviso. Es un cargo nuevo en Elecciones por mesa.
+3. **Gobernador por departamento o sección** donde hay fuente oficial: Buenos Aires 2003 a 2025, Corrientes 1989 a 2019, Entre Ríos 1991, 1999 y 2011 a 2023, Tucumán 2003 a 2011, CABA 2000 a 2011.
+4. **Gobernador por mesa** donde hay fuente oficial: Tucumán 2015 a 2023, Corrientes 2011 a 2019 y 2025, CABA 2013 a 2025, y el gobernador de 2011 de los ZIP de la DINE, que ya se bajan para las elecciones por mesa (también sirve para las otras provincias que votaron ese día).
+5. **De 1912 a 1983**, con las fuentes oficiales escaneadas y las académicas con crédito. Y lo nacional anterior a 1912 de la Capital (257arg, de Cantón y Jorrat).
+
+Decisiones que son del autor:
+
+- Si el gobernador entra en la herramienta Elecciones por mesa, como un cargo más, o en otra página. Si entran también los legisladores provinciales, los intendentes y los concejales, que vienen en los mismos archivos.
+- Si se aceptan, con crédito, las fuentes académicas con derechos vigentes para lo que no tiene fuente oficial en línea, como ya se hizo con Calvo y Tow por medio de 257arg. Tres tienen licencia que condiciona el uso: la tesis de Solís Carnicer (CC BY-NC-SA 3.0, no comercial y compartir igual), el artículo de Luzi (CC BY-NC-ND 2.5, sin obras derivadas) y PolAr (el código es MIT, pero los datos son las tablas de Tow, sin licencia).
+- Las descargas, porque `CLAUDE.md` pide su aprobación: los 188 PDF de Corrientes, los PDF por mesa de Tucumán (unos 60 MB), los CSV de BA Data (de 3 a 36 MB cada uno) y las planillas de Entre Ríos. Conviene bajarlos una vez y guardarlos, porque varios sitios de un solo año ya se cayeron.
+- Los pedidos y permisos, que los hace el autor:
+  - Por la Ley 27.275, a la DINE (Entre Ríos 1987, 1995, 2003 y 2007), a la Cámara Nacional Electoral (el mesa por mesa de los cargos provinciales simultáneos) y a los juzgados federales (las actas de 1996 y 1997 de la Capital).
+  - Por las leyes provinciales de acceso a la información: a las juntas y tribunales electorales de Buenos Aires (Ley 12.475), Corrientes (Ley 5834, por 2021), Entre Ríos y la CABA (Ley 104). Tucumán no tiene ley propia: va por nota a la Junta Electoral.
+  - Permisos: a Andy Tow (su Atlas, con contraseña desde 2024), a María del Mar Solís Carnicer (el anexo de su tesis, con el departamento de 1909 a 1930) y al Instituto Histórico de la Ciudad (el CD de Cantón y Jorrat).
+- Revisar desde la computadora del autor lo que la nube no deja ver: el Internet Archive (los PDF viejos "Resultados históricos" de la DINE de 1983 a 1999 y de las elecciones provinciales de 2003 y 2007, y el Atlas de Tow guardado antes de la contraseña), HathiTrust y los expedientes de Diputados (`apym.hcdn.gob.ar`).
+
+Las otras 19 jurisdicciones van en otra tanda, con el mismo esquema.
