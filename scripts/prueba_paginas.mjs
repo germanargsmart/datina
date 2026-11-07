@@ -371,6 +371,49 @@ const tecla = async k => {
   await espera(300);
 };
 const enFoco = () => q.eval("(document.activeElement.id || '') + '|' + document.activeElement.textContent.trim().slice(0, 30)");
+// La página de datos destacados (segunda fase del brief de pulido, 6 de noviembre de 2026): la cifra de cada ficha de los cuatro grupos que tiene una (CLAVE en
+// datina.js), en el orden de GRUPOS, ninguna de un tema sensible. Cada dato con su tema, su pregunta, la cifra sola en su línea, su texto con el año y el enlace a
+// una ficha que existe. Una sola columna, sin tarjetas, una familia y hasta cuatro tamaños. SIN_ANIO: las cifras cuya fuente no da una fecha
+const SIN_ANIO = {"f-especies": "el Sistema de Información de Biodiversidad no fecha sus registros", "f-glaciares": "el inventario no da una sola fecha",
+  "f-ant-reclamos": "cada país reclama por una norma de otro año: están en la tabla"};
+const SENSIBLES = ["f-muertes", "f-suicidio", "f-suicidio-prov", "f-edad"];
+const jsSitio = readFileSync(join(SITIO, "datina.js"), "utf8"), iniClave = jsSitio.indexOf("const CLAVE = {");
+const conCifra = new Set([...jsSitio.slice(iniClave, jsSitio.indexOf("\n};", iniClave)).matchAll(/"(f-[\w-]+)":/g)].map(m => m[1]));
+await q.ir(B + "datos-destacados.html", 1000);
+const dd = JSON.parse(await q.eval(`(() => {
+  const datos = [...document.querySelectorAll(".dd-dato")], ind = window.DATINA.indice, t = new Set(), f = new Set();
+  const w = document.createTreeWalker(document.querySelector("main .tema"), NodeFilter.SHOW_TEXT); let n;
+  while ((n = w.nextNode())) { if (!n.textContent.trim() || !n.parentElement.closest(".dd-grupo")) continue; const c = getComputedStyle(n.parentElement); t.add(c.fontSize); f.add(c.fontFamily.split(",")[0]); }
+  const uno = datos[0]; uno.scrollIntoView({block: "center"}); const r = uno.querySelector(".c-num").getBoundingClientRect();
+  return JSON.stringify({
+    grupos: [...document.querySelectorAll(".dd-grupo-tit")].map(h => h.textContent),
+    indice: [...document.querySelectorAll(".dd-indice a")].map(a => a.getAttribute("href").slice(1)).filter(i => document.getElementById(i)?.matches(".dd-grupo-tit")).length,
+    grupoDe: ind.grupos.map(g => [g[1], g[2].flatMap(it => Array.isArray(it) ? it[1] : [it])]),
+    fichas: ind.fichas.map(x => [x[0], x[1]]),
+    datos: datos.map(d => ({id: d.dataset.clave, tema: d.querySelector(".dd-tema")?.textContent.trim(), preg: d.querySelector(".dd-preg a")?.textContent.trim(), dest: d.querySelector(".dd-preg a")?.getAttribute("href"),
+      num: d.querySelector(".c-num")?.textContent.trim(), txt: d.querySelector(".c-txt")?.textContent.trim()})),
+    columnas: new Set(datos.map(d => Math.round(d.getBoundingClientRect().left))).size, tarjetas: document.querySelectorAll(".dd-grupo .tarjeta").length,
+    cubre: !!document.elementFromPoint(r.left + r.width / 2, r.top + r.height / 2)?.closest(".dd-preg a"), t: [...t], f: [...f]}); })()`));
+const ddEsperados = dd.grupoDe.flatMap(([, secs]) => secs.flatMap(s => dd.fichas.filter(([id, sec]) => sec === s && conCifra.has(id)).map(([id]) => id)));
+if (JSON.stringify(dd.datos.map(d => d.id)) !== JSON.stringify(ddEsperados))
+  problemas.push(`datos-destacados.html: los datos no son los ${ddEsperados.length} de los cuatro grupos en su orden (${dd.datos.length} en la página, faltan ${ddEsperados.filter(i => !dd.datos.some(d => d.id === i)).join(", ") || "ninguno"})`);
+if (JSON.stringify(dd.grupos) !== JSON.stringify(dd.grupoDe.map(g => g[0])) || dd.indice !== dd.grupos.length) problemas.push(`datos-destacados.html: los grupos no están en el orden de GRUPOS o el índice no lleva a cada uno (${dd.grupos} ${dd.indice})`);
+const ddSensibles = dd.datos.filter(d => SENSIBLES.includes(d.id) || /suicid|muertes violentas/i.test(d.preg + " " + d.txt)).map(d => d.id);
+if (ddSensibles.length) problemas.push(`datos-destacados.html: temas sensibles en la lista: ${ddSensibles}`);
+const ddIncompletos = dd.datos.filter(d => !d.tema || !d.preg || !d.num || !d.txt).map(d => d.id);
+if (ddIncompletos.length) problemas.push(`datos-destacados.html: datos incompletos: ${ddIncompletos}`);
+const ddPegadas = dd.datos.filter(d => /[a-zñáéíóú]/i.test(d.num.replace(/^N\.º /, "").replace(/ (mil millones|millones|mil)$/, ""))).map(d => d.num);
+if (ddPegadas.length) problemas.push(`datos-destacados.html: dato con la unidad pegada a la cifra: ${ddPegadas}`);
+const ddSinAnio = dd.datos.filter(d => !/\b(19|20)\d\d\b/.test(d.txt) && !SIN_ANIO[d.id]).map(d => d.id);
+if (ddSinAnio.length) problemas.push(`datos-destacados.html: dato sin su año (si la fuente no da una fecha, va en SIN_ANIO con su motivo): ${ddSinAnio}`);
+const ddRotos = dd.datos.filter(d => { const [pag, ancla] = (d.dest || "").split("#"); return ancla !== d.id || !existsSync(join(SITIO, pag)) || !readFileSync(join(SITIO, pag), "utf8").includes(`id="${d.id}"`); }).map(d => d.id);
+if (ddRotos.length) problemas.push(`datos-destacados.html: el enlace no lleva a la ficha: ${ddRotos}`);
+if (dd.columnas !== 1 || dd.tarjetas) problemas.push(`datos-destacados.html: tiene que ser una sola columna, sin tarjetas (${dd.columnas} columnas, ${dd.tarjetas} tarjetas)`);
+if (dd.t.length > 4 || dd.f.length !== 1) problemas.push(`datos-destacados.html: la lista lleva ${dd.t.length} tamaños y ${dd.f.length} familias: ${dd.t} ${dd.f}`);
+if (!dd.cubre) problemas.push("datos-destacados.html: el enlace de la pregunta no cubre el dato entero");
+// una ficha de una página con capítulos: el enlace abre su capítulo
+await q.ir(B + dd.datos.find(d => d.id === "f-ant-bases").dest, 1000);
+if (!(await q.eval(`!!document.getElementById("f-ant-bases")?.offsetParent`))) problemas.push("datos-destacados.html: el enlace a una ficha de otro capítulo no la deja a la vista");
 // La portada (Fase 2, paso 2): los nueve datos destacados con su cifra y su texto, y el buscador, que encuentra una provincia. Desde noviembre
 // de 2026 arranca compacto, se abre con el foco y Escape lo cierra
 await q.ir(B + "index.html", 1000);
@@ -405,6 +448,8 @@ const letra = JSON.parse(await q.eval(`(() => { const t = new Set(), f = new Set
 if (letra.t.length > 4 || letra.f.length > 2) problemas.push(`index.html: datos destacados con ${letra.t.length} tamaños y ${letra.f.length} familias: ${letra.t} ${letra.f}`);
 const cifraSola = await q.eval(`[...document.querySelectorAll(".destacado .c-num")].filter(n => /[a-zñáéíóú]/i.test(n.textContent.replace(/ (mil millones|millones|mil)$/, ""))).map(n => n.textContent).join(", ")`);
 if (cifraSola) problemas.push(`index.html: dato destacado con la unidad pegada a la cifra: ${cifraSola}`);
+if ((await q.eval(`(() => { const a = document.querySelector(".destacados .dest-carrusel ~ .dest-todos a"); return a ? a.getAttribute("href") + "|" + a.textContent.trim() : ""; })()`)) !== "datos-destacados.html|Ver todos los datos destacados")
+  problemas.push('index.html: falta "Ver todos los datos destacados" debajo del carrusel');
 // en "Explorá la Argentina por tema" el enlace de cada tema cubre el tema entero, también donde hay subtemas, y cada subtema sigue con su enlace
 const temasMal = await q.eval(`[...document.querySelectorAll("#secciones .tg-item")].map(i => { const r = i.getBoundingClientRect(), l = i.querySelector(".tg-link"), f = getComputedStyle(l, "::after");
   const t = i.querySelector("b").textContent;
@@ -759,6 +804,7 @@ console.log(`Sin cdnjs ni jsDelivr: ${Object.keys(SIN_CDN).length} páginas. Sin
             (IA ? " Consultas con IA: el buscador las ofrece y la página deja escrita la pregunta del enlace." : ""));
 console.log(`Accesibilidad: gráficos con nombre, "Saltar al contenido" y migas subrayadas en ${CUENTA.paginas} páginas, el salto con el teclado y el nombre del mapa. Pulido: textos de ayuda enteros en 360 y 768 píxeles y descripción de las fichas a la izquierda.`);
 console.log(`"Qué no dice este dato": a todo el ancho y en dos columnas en ${LIMITES_PAG.length} páginas.`);
+console.log(`Datos destacados: ${dd.datos.length} cifras en ${dd.grupos.length} grupos, cada una con su enlace, ${dd.t.length} tamaños de letra. Sin año, por su fuente: ${Object.keys(SIN_ANIO).length}.`);
 if (problemas.length) {
   console.log(`\nProblemas (${problemas.length}):\n- ` + problemas.join("\n- "));
   process.exit(1);
