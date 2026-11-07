@@ -595,8 +595,8 @@ html:not(.js) .busca-portada{display:none}
 .destacado:focus-visible{outline:2px solid var(--celeste-fuerte);outline-offset:-2px}
 .destacado .c-lab{padding-bottom:var(--e-2);border-bottom:2px solid var(--celeste);font-family:var(--f);font-size:var(--t-2);line-height:1.3;font-weight:500;letter-spacing:0;text-transform:none;color:var(--ink)}
 .destacado .c-preg{margin:var(--e-3) 0 var(--e-2);font-size:var(--t-5);line-height:1.25;font-weight:500;color:var(--ink);text-wrap:balance}
-.destacado .c-num{min-height:1em;font-family:var(--f);font-size:var(--t-8);line-height:1.1;font-weight:600;color:var(--azul);font-variation-settings:normal}
-.destacado .c-txt{margin-top:var(--e-1);font-size:var(--t-3);line-height:1.4;color:var(--ink)}
+.destacado .c-num,.dd-dato .c-num{min-height:1em;font-family:var(--f);font-size:var(--t-8);line-height:1.1;font-weight:600;color:var(--azul);font-variation-settings:normal}
+.destacado .c-txt,.dd-dato .c-txt{margin-top:var(--e-1);font-size:var(--t-3);line-height:1.4;color:var(--ink)}
 /* D7 (plan de mejora, 28 de octubre de 2026, aprobado por el autor): la cifra es la del país y debajo va cómo cambia entre las provincias, de la más baja a
    la más alta, o el dato que mejor la acompaña */
 .destacado .c-rango{margin-top:var(--e-2);font-size:var(--t-3);line-height:1.4;color:var(--muted)}
@@ -626,6 +626,28 @@ html:not(.js) .dest-control{display:none}
 @media (max-width:430px){.destacados-grid{min-height:291px}}
 @media (max-width:360px){.destacados-grid{min-height:312px}}
 @media print{.destacados-grid{display:block;overflow:visible;min-height:0}.dest-control{display:none}.destacado{display:block;break-inside:avoid;margin-bottom:var(--e-4)}}
+/* La página de datos destacados (segunda fase del brief de pulido, 6 de noviembre de 2026). Respuestas del autor: una sola columna, sin tarjetas, y el grupo una vez
+   como título, con la línea celeste. Una familia y cuatro tamaños: el tema (13), el texto (15), la pregunta (20 a 24), y la cifra y el grupo (28 a 36). La pregunta es
+   el enlace y cubre el dato entero, como en "Explorá la Argentina por tema". La línea que separa los datos llega al ancho del contenido, y el texto corta antes para
+   leerse bien. La cifra y su texto llegan con datina.js: se reserva su alto, para que la lista casi no salte */
+.dd-indice{display:flex;flex-wrap:wrap;gap:var(--e-2) var(--e-6);font-size:var(--t-3)}
+.dd-grupo{margin-top:var(--bloque)}
+.dd-grupo-tit{margin:0;padding-bottom:var(--e-2);border-bottom:2px solid var(--celeste);font-family:var(--f);font-size:var(--t-8);line-height:1.1;font-weight:600;color:var(--ink);font-variation-settings:normal;scroll-margin-top:var(--e-10)}
+.dd-lista{margin:0;padding:0;list-style:none}
+.dd-dato{position:relative;isolation:isolate;display:grid;justify-items:start;padding:var(--e-4) 0}
+.dd-dato::before{content:"";position:absolute;inset:0 calc(-1 * var(--e-2));z-index:-1;border-radius:var(--r-control);transition:background-color var(--dur-1) var(--ease-out)}
+.dd-dato[hidden]{display:none}
+.dd-dato+.dd-dato{border-top:1px solid var(--borde)}
+.dd-tema{font-size:var(--t-2);line-height:1.3;font-weight:500;color:var(--muted)}
+.dd-preg{margin:var(--e-1) 0 var(--e-2);font-family:var(--f);font-size:var(--t-6);line-height:1.25;font-weight:500;color:var(--ink);font-variation-settings:normal}
+.dd-preg a{color:inherit;text-decoration:underline;text-decoration-color:var(--celeste);text-decoration-thickness:1.5px;text-underline-offset:3px}
+.dd-preg a::after{content:"";position:absolute;inset:0 calc(-1 * var(--e-2));border-radius:var(--r-control)}
+.dd-preg a:focus-visible{outline:none}
+.dd-preg a:focus-visible::after{outline:2px solid var(--celeste-fuerte);outline-offset:-2px}
+.dd-dato .c-txt{max-width:44em;min-height:1.4em}
+@media (hover:hover) and (pointer:fine){.dd-dato:hover::before{background:var(--superficie-2)}}
+@media (max-width:760px){.dd-dato .c-txt{min-height:2.8em}}
+@media print{.dd-indice{display:none}.dd-dato{break-inside:avoid}}
 /* Provincias en la portada: las 24 jurisdicciones con su bandera */
 .prov-home{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:var(--e-1) var(--e-4);margin:0;padding:0;list-style:none}
 @media (max-width:1080px){.prov-home{grid-template-columns:repeat(4,minmax(0,1fr))}}
