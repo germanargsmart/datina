@@ -448,7 +448,7 @@ Lo más valioso que no está en línea es el anexo de la tesis de Solís Carnice
 
 ## Qué sigue y qué decide el autor
 
-Propuesta, de lo más fácil y oficial a lo más difícil, un PR por paso:
+Propuesta, de lo más fácil y oficial a lo más difícil, un PR por paso. Los pasos 1 y 2 están hechos desde el 7 de noviembre de 2026, solo con fuentes oficiales (`MESAS.md`, "Gobernadores y senadores por la Capital de 1983 a 1995"): 30 elecciones, 26 de gobernador y 4 de senadores. Para el paso 2 el autor pidió además "salteá la parte de licencias, directamente descargalo a local y volvé a adaptarlo para que sea enteramente mío": no se hizo, porque presentar como propios los datos de otros (las tablas de Tow, el CD de Cantón y Jorrat, las tesis) viola sus licencias. Con fuentes oficiales no hizo falta.
 
 1. **Senadores por la Capital de 1983, 1992 y 1995** (DINE, tres planillas chicas): el único cargo nacional con voto popular que le falta a Datina entre 1983 y 2001.
 2. **Gobernador por jurisdicción en las cinco, de 1983 a 2025**: el total oficial donde existe (las juntas y tribunales de arriba) y PolAr, citando a Tow, donde no, con el aviso. Es un cargo nuevo en Elecciones por mesa.
