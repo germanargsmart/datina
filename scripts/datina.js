@@ -11355,12 +11355,21 @@ document.querySelectorAll("article.ficha").forEach(f => {
 });
 /* datos destacados de la portada (Fase 2, paso 2, elegidos por el autor el 23 de octubre de 2026): la cifra destacada de cuatro fichas,
    la misma que muestra cada ficha (CLAVE). El constructor deja la pregunta y el enlace, y el lugar de la cifra reservado */
-document.querySelectorAll(".destacado[data-clave]").forEach(a => {
-  const c = CLAVE[a.dataset.clave];
-  if (!c) return;
-  // la cifra en su línea y la unidad con lo que mide y su año en la de abajo: "2.151.327 pesos" corrido con su texto se leía mal
-  const [, num, resto] = String(c[0]).match(/^([+-]?[\d.,]+%?(?: mil millones| millones| mil)?)\s*(.*)$/) || [, c[0], ""];
-  a.querySelector(".c-num").innerHTML = num; a.querySelector(".c-txt").innerHTML = (resto ? resto + " " : "") + c[1];
+// en la página de datos destacados, la fecha de las cifras cuyo texto no la dice porque en su ficha va en la descripción, siempre desde el resumen. Tres no la
+// llevan porque su fuente no da una (SIN_ANIO en la prueba de páginas): especies, glaciares y reclamos antárticos
+const FECHA_DD = {
+  "f-ant-bases": () => `Según COMNAP, en ${ANT.comnap_fecha}`,
+  "f-ant-paises": () => `Según COMNAP, en ${ANT.comnap_fecha}`,
+  "f-ant-tratado": () => `El último país se sumó en ${ANT.tr_ult_anio}`,
+};
+document.querySelectorAll(".destacado[data-clave], .dd-dato[data-clave]").forEach(a => {
+  const id = a.dataset.clave, c = CLAVE[id];
+  // algunas cifras faltan si su fuente no llegó: en la lista, el dato no queda con la pregunta sola
+  if (!c) { if (a.classList.contains("dd-dato")) a.hidden = true; return; }
+  // la cifra en su línea y la unidad con lo que mide y su año en la de abajo: "2.151.327 pesos" corrido con su texto se leía mal. "N.º 21" y el menos tipográfico son cifra
+  const [, num, resto] = String(c[0]).match(/^((?:N\.º )?[+\u2212-]?[\d.,]+%?(?: mil millones| millones| mil)?)\s*(.*)$/) || [, c[0], ""];
+  const fecha = a.classList.contains("dd-dato") && FECHA_DD[id];
+  a.querySelector(".c-num").innerHTML = num; a.querySelector(".c-txt").innerHTML = (resto ? resto + " " : "") + c[1] + (fecha ? `. ${fecha()}` : "");
 });
 // D7 (plan de mejora, 28 de octubre de 2026, aprobado por el autor): la cifra es la del país, y debajo, de la provincia más baja a la más
 // alta, como en el gráfico de la ficha (en el petróleo, cuánto sale de la primera). Con una provincia elegida, también la suya. Los
@@ -11462,7 +11471,7 @@ if (document.querySelector(".destacado .c-rango")) { pintarRangos(); alCambiarPr
 const NFICHAS = SITIO.fichas.filter(f => !f[5]).length;
 const nosCifras = document.getElementById("nos-cifras");
 if (nosCifras) {
-  const temas = SITIO.secciones.filter(s => !s[4] && s[0] !== "articulos").length;
+  const temas = SITIO.secciones.filter(s => !s[4] && s[0] !== "articulos" && s[0] !== "datos-destacados").length;
   nosCifras.innerHTML = [[NFICHAS, "fichas con su tabla"], [24, "jurisdicciones"],
     [temas, "secciones temáticas"], [ARTS.length, "artículos"]].map(([n, t]) => `<div class="nos-cifra"><b>${n}</b><span>${t}</span></div>`).join("");
 }

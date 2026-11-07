@@ -127,6 +127,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <div class="destacados-grid" id="destacados"><!--DESTACADOS--></div>
       <p class="solo-lector" id="dest-estado" role="status"></p>
     </div>
+    <p class="dest-todos"><a class="enlace" href="datos-destacados.html">Ver todos los datos destacados</a></p>
   </section>
 
   <section class="secciones ancho" id="secciones" aria-labelledby="sec-titulo">
@@ -349,6 +350,17 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
        datina.js (PIEZA_CORTE) con las tablas que calcula 02_procesar.py -->
   <section class="pieza" id="corte-suprema" data-ico="balanza" data-titulo="¿Qué gobierno designó a cada juez de la Corte Suprema?" data-descr="Cada juez de la Corte Suprema de Justicia de la Nación desde 1863, cuánto estuvo en el cargo y qué gobierno lo designó, con la composición de cada año y las leyes que fijaron cuántos jueces tiene.">
     <article class="nota" id="l-corte"></article>
+  </section>
+
+  <section class="tema" id="datos-destacados">
+    <!-- segunda fase del brief de pulido, 6 de noviembre de 2026: la lista completa de las cifras destacadas, por grupo. La escribe el constructor, salvo la cifra
+         y su texto, que calcula datina.js -->
+    <h2>Datos destacados</h2>
+    <div class="tema-intro">
+      <p class="pregunta">¿Cuál es la cifra clave de cada tema?</p>
+      <p>Cada dato es la cifra destacada de una ficha, con lo que mide y de cuándo es, y lleva a esa ficha, con su gráfico, su tabla y su fuente. No todas las fichas destacan una cifra, y las cifras cambian cuando se actualiza cada fuente.</p>
+    </div>
+    <!--DATOS-DESTACADOS-->
   </section>
 
   <section class="tema" id="articulos">

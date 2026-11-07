@@ -10104,11 +10104,17 @@ const arts = ARTS.filter(a => ARTS_DE[f.id]?.includes(a));
 if (arts.length) f.querySelector(".pie").insertAdjacentHTML("beforeend", `<p class="pie-arts"><span>${arts.length > 1 ? "Artículos" : "Artículo"} con este dato:</span>` +
 arts.map(a => `<a class="enlace" href="${urlPagina(a.id)}">${a.titulo}</a>`).join("") + "</p>");
 });
-document.querySelectorAll(".destacado[data-clave]").forEach(a => {
-const c = CLAVE[a.dataset.clave];
-if (!c) return;
-const [, num, resto] = String(c[0]).match(/^([+-]?[\d.,]+%?(?: mil millones| millones| mil)?)\s*(.*)$/) || [, c[0], ""];
-a.querySelector(".c-num").innerHTML = num; a.querySelector(".c-txt").innerHTML = (resto ? resto + " " : "") + c[1];
+const FECHA_DD = {
+"f-ant-bases": () => `Según COMNAP, en ${ANT.comnap_fecha}`,
+"f-ant-paises": () => `Según COMNAP, en ${ANT.comnap_fecha}`,
+"f-ant-tratado": () => `El último país se sumó en ${ANT.tr_ult_anio}`,
+};
+document.querySelectorAll(".destacado[data-clave], .dd-dato[data-clave]").forEach(a => {
+const id = a.dataset.clave, c = CLAVE[id];
+if (!c) { if (a.classList.contains("dd-dato")) a.hidden = true; return; }
+const [, num, resto] = String(c[0]).match(/^((?:N\.º )?[+\u2212-]?[\d.,]+%?(?: mil millones| millones| mil)?)\s*(.*)$/) || [, c[0], ""];
+const fecha = a.classList.contains("dd-dato") && FECHA_DD[id];
+a.querySelector(".c-num").innerHTML = num; a.querySelector(".c-txt").innerHTML = (resto ? resto + " " : "") + c[1] + (fecha ? `. ${fecha()}` : "");
 });
 const RANGO_DEST = {
 "f-esperanza": [() => T.esperanza_vida_provincias, "total", v => n1(v), " años", "Por provincia"],
@@ -10195,7 +10201,7 @@ marcar(0, false);
 const NFICHAS = SITIO.fichas.filter(f => !f[5]).length;
 const nosCifras = document.getElementById("nos-cifras");
 if (nosCifras) {
-const temas = SITIO.secciones.filter(s => !s[4] && s[0] !== "articulos").length;
+const temas = SITIO.secciones.filter(s => !s[4] && s[0] !== "articulos" && s[0] !== "datos-destacados").length;
 nosCifras.innerHTML = [[NFICHAS, "fichas con su tabla"], [24, "jurisdicciones"],
 [temas, "secciones temáticas"], [ARTS.length, "artículos"]].map(([n, t]) => `<div class="nos-cifra"><b>${n}</b><span>${t}</span></div>`).join("");
 }
@@ -10395,7 +10401,7 @@ ev.preventDefault();
 if (destino.tagName === "H1") destino.setAttribute("tabindex", "-1");
 destino.focus();
 });
-const SEC_ICONO = {"articulos": "periodico", "provincia": "pin", "trabajo": "maletin", "empresas": "tienda", "pobreza": "casa", "salud": "botiquin", "educacion": "birrete", "poblacion": "personas", "politica": "congreso", "justicia": "balanza", "movilidad": "colectivo", "construccion": "grua", "energia": "rayo", "petroleo": "ciguena", "seguridad": "escudo", "economia": "carrito", "migraciones": "globo", "gobierno": "mastil", "externo": "buque", "turismo": "valija", "naturaleza": "andes", "curiosidades": "mate", "cruces": "dispersion", "indice": "podio", "departamentos": "mosaico", "diagnostico": "portapapeles", "catalogo": "planilla", "laboratorio": "matraz", "mesas": "urna", "consulta-ia": "dialogo", "a-nombres-provincias": "mosaico", "a-vaca-muerta": "rayo", "a-migracion-interna": "pin", "a-ganador-provincias": "podio", "a-salario-real": "billetes", "a-aportantes": "personas", "a-madres-adolescentes": "mamadera", "a-peso-voto": "congreso", "a-coparticipacion": "balanza", "a-canasta-regiones": "carrito", "a-dolar-inversion": "billetes", "a-compras-dolares": "monedas", "a-turismo-dolar": "valija", "a-nafta-dolares": "ciguena", "a-exportaciones-dolar": "buque", "a-pobreza-desocupacion": "maletin", "a-alquiler-pobreza": "casa", "a-atn-presupuesto": "monedas", "a-viviendas-alquiler": "casa", "a-exportaciones-empleo": "buque", "a-cloacas-mortalidad": "gota", "a-cobertura-esperanza": "reloj", "a-internet-aprender": "laptop", "a-inversion-aprender": "birrete", "corte-suprema": "balanza"};
+const SEC_ICONO = {"articulos": "periodico", "provincia": "pin", "trabajo": "maletin", "empresas": "tienda", "pobreza": "casa", "salud": "botiquin", "educacion": "birrete", "poblacion": "personas", "politica": "congreso", "justicia": "balanza", "movilidad": "colectivo", "construccion": "grua", "energia": "rayo", "petroleo": "ciguena", "seguridad": "escudo", "economia": "carrito", "migraciones": "globo", "gobierno": "mastil", "externo": "buque", "turismo": "valija", "naturaleza": "andes", "curiosidades": "mate", "cruces": "dispersion", "indice": "podio", "departamentos": "mosaico", "diagnostico": "portapapeles", "catalogo": "planilla", "laboratorio": "matraz", "mesas": "urna", "datos-destacados": "mosaico", "consulta-ia": "dialogo", "a-nombres-provincias": "mosaico", "a-vaca-muerta": "rayo", "a-migracion-interna": "pin", "a-ganador-provincias": "podio", "a-salario-real": "billetes", "a-aportantes": "personas", "a-madres-adolescentes": "mamadera", "a-peso-voto": "congreso", "a-coparticipacion": "balanza", "a-canasta-regiones": "carrito", "a-dolar-inversion": "billetes", "a-compras-dolares": "monedas", "a-turismo-dolar": "valija", "a-nafta-dolares": "ciguena", "a-exportaciones-dolar": "buque", "a-pobreza-desocupacion": "maletin", "a-alquiler-pobreza": "casa", "a-atn-presupuesto": "monedas", "a-viviendas-alquiler": "casa", "a-exportaciones-empleo": "buque", "a-cloacas-mortalidad": "gota", "a-cobertura-esperanza": "reloj", "a-internet-aprender": "laptop", "a-inversion-aprender": "birrete", "corte-suprema": "balanza"};
 const pintarCifras = () => {
 const sec = document.getElementById(PAGINA), intro = sec?.querySelector(".tema-intro"), orden = EN_CIFRAS[PAGINA];
 if (sec && intro && orden && !sec.classList.contains("herramienta")) {

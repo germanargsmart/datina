@@ -601,7 +601,8 @@ GRUPOS = [
 # el pie y cada tabla del Catálogo. Consultas con IA la ofrecen el Catálogo y la lupa, y sigue en el pie y en la portada (FUERA_DE_MENU)
 MENUS = [
     ("provincias", "Provincias", "Provincias", "provincia.html", ["provincia", "indice", "departamentos"]),
-    ("historias", "Historias", "Historias con datos", "articulos.html", ["articulos", "laboratorio", "corte-suprema", "curiosidades"]),
+    # Datos destacados, desde el 6 de noviembre de 2026 (segunda fase del brief de pulido de la portada: la página de "Ver todos los datos destacados")
+    ("historias", "Historias", "Historias con datos", "articulos.html", ["articulos", "datos-destacados", "laboratorio", "corte-suprema", "curiosidades"]),
     # Elecciones por mesa, desde el 4 de noviembre de 2026 (decisión del autor: en Herramientas, con un enlace desde la ficha de elecciones de Política)
     ("herramientas", "Herramientas", "Herramientas", "./#herr-titulo", ["cruces", "mesas", "catalogo"]),
 ]
@@ -750,7 +751,7 @@ for _obj in ("LEAD", "TX", "DIB", "CLAVE", "EXTRA", "EN_CIFRAS", "SERIE_CIFRA"):
 SEC_ICONO = {"articulos": "periodico", "provincia": "pin", "trabajo": "maletin", "empresas": "tienda", "pobreza": "casa", "salud": "botiquin",
              "educacion": "birrete", "poblacion": "personas", "politica": "congreso", "justicia": "balanza", "movilidad": "colectivo", "construccion": "grua", "energia": "rayo", "petroleo": "ciguena", "seguridad": "escudo", "economia": "carrito", "migraciones": "globo", "gobierno": "mastil", "externo": "buque", "turismo": "valija",
              "naturaleza": "andes", "curiosidades": "mate", "cruces": "dispersion", "indice": "podio", "departamentos": "mosaico",
-             "diagnostico": "portapapeles", "catalogo": "planilla", "laboratorio": "matraz", "mesas": "urna"} | ({"consulta-ia": "dialogo"} if CONSULTA_IA else {})
+             "diagnostico": "portapapeles", "catalogo": "planilla", "laboratorio": "matraz", "mesas": "urna", "datos-destacados": "mosaico"} | ({"consulta-ia": "dialogo"} if CONSULTA_IA else {})
 SEC_ICONO.update({i: ico for i, ico, _, _ in NOTAS})
 SEC_ICONO.update({i: ico for i, ico, _, _ in PIEZAS})
 assert set(SEC_ICONO.values()) <= set(ICONOS), set(SEC_ICONO.values()) - set(ICONOS)
@@ -885,6 +886,7 @@ def carta(pid, meta=None):
         return (f"{pid}.html", TIT_NOTA[pid], meta or "Artículo", SEC_ICONO[pid], f"t-{pid}")
     sec = next((x for x in SECCIONES if x[0] == pid), None)
     desc = {"provincia": "Cada provincia frente al país", "nosotros": "Qué es Datina", "usar-datos": "Licencia, cita y descargas", "articulos": f"{len(NOTAS)} artículos",
+            "datos-destacados": f"{_N_DATOS_DEST} cifras",
             "laboratorio": f"{LAB_PIEZAS} piezas visuales"}.get(pid) or (
         "Herramienta" if sec and sec[4] else f"{sec[5]} fichas" if sec else "")
     return (url_pagina(pid), TITULO_DE[pid], meta or desc, SEC_ICONO.get(pid, "sol"), f"t-{pid}" if sec else "")
@@ -1137,6 +1139,23 @@ for _g, _id in DESTACADOS:
 _destacados = "".join(f'<a class="tarjeta destacado" href="{url_pagina(UBIC[i])}#{i}" data-clave="{i}"><span class="c-lab">{e(_nombre_grupo[g])}</span>'
                       f'<span class="c-preg">{e(_PREG_DEST[i])}</span><span class="c-num"></span><span class="c-txt"></span><span class="c-rango"></span></a>'
                       for g, i in DESTACADOS)
+# La página de datos destacados (segunda fase del brief de pulido, 6 de noviembre de 2026): la cifra destacada de cada ficha de los cuatro grupos de temas, en
+# el orden de GRUPOS y de la página de cada tema. Respuestas del autor de ese día: una sola columna, sin tarjetas, el grupo una vez como título y en cada dato
+# su tema, con la pregunta de su ficha. Los nueve de la portada llevan la misma pregunta que allá, para que un dato no tenga dos. Las fichas sin cifra
+# destacada (SIN_CIFRA en prueba_cifras.mjs: temas sensibles, Instituciones políticas, encuestas) no están en CLAVE, y Curiosidades no es de ningún grupo. Como
+# en la portada, la cifra y su texto los escribe datina.js, y el enlace es la pregunta, para que el lector de pantalla no lea el dato entero
+_dd_clave = set(re.findall(r'"(f-[\w-]+)":', _clave_js))
+_dd_grupos = [(g, n, [f for s in _secs_de(items) for f in FICHAS if f[1] == s and f[0] in _dd_clave]) for g, n, items in GRUPOS]
+_N_DATOS_DEST = sum(len(fs) for _, _, fs in _dd_grupos)
+for _, _, _fs in _dd_grupos:
+    for _f in _fs:
+        assert _f[0] not in TEXTO_ANTES and not _f[6], f"{_f[0]}: una ficha de un tema sensible no puede estar en Datos destacados"
+        assert _f[2], f"{_f[0]}: a la ficha le falta la pregunta fija, y la necesita en Datos destacados"
+_datos_destacados = ('<nav class="dd-indice" aria-label="Grupos de esta página">' + "".join(f'<a class="enlace" href="#dd-{g}">{e(n)}</a>' for g, n, _ in _dd_grupos) + "</nav>"
+                     + "".join(f'<div class="dd-grupo"><h2 class="dd-grupo-tit" id="dd-{g}">{e(n)}</h2><ul class="dd-lista">'
+                               + "".join(f'<li class="dd-dato" data-clave="{f[0]}"><span class="dd-tema">{e(TITULO_DE[f[1]])}</span>'
+                                         f'<h3 class="dd-preg"><a href="{url_pagina(UBIC[f[0]])}#{f[0]}">{e(_PREG_DEST.get(f[0], f[2]))}</a></h3>'
+                                         '<span class="c-num"></span><span class="c-txt"></span></li>' for f in fs) + "</ul></div>" for g, n, fs in _dd_grupos))
 # Provincias: las 24 jurisdicciones con su bandera, cada una a su perfil. Es también la forma de llegar con el teclado a lo que muestra
 # el mapa de la portada, que el teclado saltea
 _n_temas_perfil = len(re.findall(r'\["(\w+)", "([^"]+)"\]', js[js.index("const PERFIL_GRUPOS = ["):js.index("];", js.index("const PERFIL_GRUPOS = ["))]))
@@ -1161,7 +1180,7 @@ def _tarjeta_herr(p):
 _herramientas_home = "".join(_tarjeta_herr(p) for p in [q for q, m in FUERA_DE_MENU.items() if m == "herramientas"]
                              + _secs_de(next(x[4] for x in MENUS if x[0] == "herramientas")))
 for marca, valor in {"<!--TEMAS-BARRA-->": _barra, "<!--TEMAS-MENU-->": _menu, "<!--GRUPOS-MENU-->": _grupos_menu, "<!--CATALOGO-->": _catalogo,
-                     "<!--DESTACADOS-->": _destacados, "<!--PROVINCIAS-HOME-->": _provincias_home,
+                     "<!--DESTACADOS-->": _destacados, "<!--DATOS-DESTACADOS-->": _datos_destacados, "<!--PROVINCIAS-HOME-->": _provincias_home,
                      "<!--HISTORIAS-HOME-->": _historias_home, "<!--HERRAMIENTAS-HOME-->": _herramientas_home,
                      '<div class="secciones-grid" id="secciones-grid"></div>': f'<div class="secciones-grid" id="secciones-grid">{_temas_portada}</div>'}.items():
     assert base.count(marca) == 1, marca
