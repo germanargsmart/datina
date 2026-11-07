@@ -53,6 +53,7 @@ MAPA_MINIMO = 99
 FUERZAS = RAIZ / "datos" / "manual" / "mesas_fuerzas.json"
 JURISDICCION = RAIZ / "datos" / "manual" / "mesas_jurisdiccion.csv"
 JURISDICCION_DEP = RAIZ / "datos" / "manual" / "mesas_jurisdiccion_departamentos.csv"
+JURISDICCION_MESAS = RAIZ / "datos" / "manual" / "mesas_gobernador"
 # quién ganó, según la proclamación (en 1999 Buenos Aires con los votos de las listas que llevaron la misma fórmula, y en 1989 la Capital votó electores:
 # la UCR sacó más votos y el colegio eligió a Vaca)
 JURISDICCION_CONOCIDOS = {("1983-general-gobernador", "06"): "Unión Cívica Radical", ("1999-general-gobernador", "06"): "Concertación Justicialista para el Cambio",
@@ -340,6 +341,10 @@ def revisar(detalle=False):
             filas = leer(ruta_t)
             if filas[0][:8] != FIJAS or len(filas) < 2:
                 problemas.append(f"{id_}/{cod}.csv: columnas inesperadas o sin filas")
+            elif cod in el.get("mesas_en", {}):
+                # los gobernadores por mesa: una fila por mesa, con el departamento como sección
+                if len({(r[0], r[2], r[3]) for r in filas[1:]}) != len(filas) - 1:
+                    problemas.append(f"{id_}/{cod}.csv: una mesa repetida")
             elif len({r[0] for r in filas[1:]}) != len(filas) - 1:
                 problemas.append(f"{id_}/{cod}.csv: un departamento repetido")
     # de 1912 a 1973: lo que reúne contra el resultado nacional, y el reparto de las elecciones casi completas
@@ -416,8 +421,13 @@ def revisar(detalle=False):
             filas = leer(SALIDA / el["id"] / f"{cod}.csv")
             if set(filas[0][8:]) - listas_pais:
                 problemas.append(f"{el['id']}/{cod}.csv: listas que no están en el total de la jurisdicción")
-            if sum(int(x) for r in filas[1:] for x in r[8:]) != trans_dep.get((el["id"], cod)):
-                problemas.append(f"{el['id']}/{cod}.csv: no da lo mismo que datos/manual/mesas_jurisdiccion_departamentos.csv")
+            if cod in el.get("mesas_en", {}):
+                origen_m = leer(JURISDICCION_MESAS / f"{el['id']}-{cod}.csv")
+                esperado, de = sum(int(x) for r in origen_m[1:] for x in r[8:]), f"datos/manual/mesas_gobernador/{el['id']}-{cod}.csv"
+            else:
+                esperado, de = trans_dep.get((el["id"], cod)), "datos/manual/mesas_jurisdiccion_departamentos.csv"
+            if sum(int(x) for r in filas[1:] for x in r[8:]) != esperado:
+                problemas.append(f"{el['id']}/{cod}.csv: no da lo mismo que {de}")
     if {k for k in trans_dep} - {(e["id"], c) for e in idx["elecciones"] for c in e.get("departamentos", []) if e.get("origen") == "jurisdiccion"}:
         problemas.append("mesas_jurisdiccion_departamentos.csv: departamentos que no llegaron al sitio. Hay que correr scripts/elecciones_jurisdiccion.py")
     if set(trans) - hechas:

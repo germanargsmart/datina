@@ -26,6 +26,20 @@ FUERZAS = RAIZ / "datos" / "manual" / "mesas_fuerzas.json"
 COLUMNAS = ["cargo", "anio", "vuelta", "fecha", "codigo_indec", "lista", "suma_a", "votos", "electores", "votantes", "blancos", "nulos", "fuente", "url", "nota"]
 # por departamento (o comuna, o circunscripción en CABA hasta 2007), con el código del INDEC del departamento en la cartografía de su época
 DEPTOS = RAIZ / "datos" / "manual" / "mesas_jurisdiccion_departamentos.csv"
+# por mesa, donde la fuente oficial lo publica: un archivo por elección y jurisdicción, {eleccion}-{codigo_indec}.csv, con el código del departamento
+MESAS_DIR = RAIZ / "datos" / "manual" / "mesas_gobernador"
+FIJAS_MESAS = ["codigo_departamento", "departamento", "circuito", "mesa", "electores", "blancos", "nulos", "recurridos_impugnados"]
+# de dónde sale cada tabla por mesa, y las que son el escrutinio provisorio (el total de la jurisdicción siempre es el definitivo)
+FUENTES_MESAS = {"90": "la Junta Electoral Provincial de Tucumán", "18": "la Subdirección de Cómputos de Corrientes",
+                 ("2025-general-gobernador", "18"): "la Junta Electoral de Corrientes",
+                 ("2007-segunda-gobernador", "02"): "el Tribunal Superior de Justicia de CABA",
+                 "02": "BA Data, el portal de datos abiertos de CABA"}
+MESAS_PROVISORIO = {("2023-general-gobernador", "02")}
+# por qué las mesas no suman el total de la jurisdicción, donde no lo dice el número solo
+MOTIVO_MESAS = {("2007-segunda-gobernador", "02"): "la planilla por mesa es anterior a resolver 79 votos recurridos e impugnados",
+                ("2015-segunda-gobernador", "02"): "los votos de las personas privadas de libertad van sin comuna",
+                ("2019-general-gobernador", "02"): "el archivo por mesa no trae los votos de los extranjeros, y los de las personas privadas de libertad van sin comuna",
+                ("2023-general-gobernador", "02"): "el provisorio no llegó a cargar todas las mesas"}
 COLUMNAS_DEP = ["cargo", "anio", "vuelta", "codigo_indec", "departamento", "codigo_departamento", "lista", "votos", "electores", "votantes", "blancos", "nulos",
                 "fuente", "url"]
 ORIGEN = "jurisdiccion"   # marca en el índice de lo que arma este programa: lo demás no se toca
@@ -345,6 +359,43 @@ def main():
                 fuentes_dep = sorted({d["fuente"] for d in ds.values()})
                 if fuentes_dep != [j["fuente"]]:
                     notas_dep[cod].append(f"{unidades} salen de: {enumerar(fuentes_dep)}.")
+        # por mesa: la tabla de la jurisdicción pasa a tener una fila por mesa, con el departamento como sección. El mapa sigue por departamento
+        mesas_en = {}
+        for cod, j in juris.items():
+            ruta = MESAS_DIR / f"{id_}-{cod}.csv"
+            if not ruta.exists():
+                continue
+            if cod not in deps:
+                sys.exit(f"{ruta.name}: la jurisdicción no tiene departamentos en mesas_jurisdiccion_departamentos.csv, que pinta el mapa")
+            filas_m = list(csv.reader(open(ruta, encoding="utf-8", newline="")))
+            if filas_m[0][:8] != FIJAS_MESAS:
+                sys.exit(f"{ruta.name}: las columnas tienen que empezar por {FIJAS_MESAS}")
+            ls = filas_m[0][8:]
+            if set(ls) - set(j["etiqueta"]):
+                sys.exit(f"{ruta.name}: listas que no están en el total de la jurisdicción {sorted(set(ls) - set(j['etiqueta']))}")
+            cols = [n for n, _ in j["listas"]]
+            vistas, pos_m = set(), 0
+            with open(carpeta / f"{cod}.csv", "w", encoding="utf-8", newline="\n") as h:
+                w = csv.writer(h, lineterminator="\n")
+                w.writerow(["seccion_id", "seccion", "circuito", "mesa", "electores", "blancos", "nulos", "recurridos_impugnados", *cols])
+                for r in filas_m[1:]:
+                    if (r[0], r[2], r[3]) in vistas:
+                        sys.exit(f"{ruta.name}: la mesa {r[3]} del circuito {r[2]} está dos veces")
+                    vistas.add((r[0], r[2], r[3]))
+                    v = defaultdict(int)
+                    for n, x in zip(ls, r[8:]):
+                        v[j["etiqueta"][n]] += int(x)
+                    pos_m += sum(v.values())
+                    nom = nombres_ep[ep].get(r[0], r[1]) if not r[0].startswith("CABA") else r[1]
+                    w.writerow([r[0], nom, r[2], r[3], *r[4:8], *[v.get(n, 0) for n in cols]])
+            pos = sum(v for _, v in j["listas"])
+            rec = "provisorio" if (id_, cod) in MESAS_PROVISORIO else "definitivo"
+            mesas_en[cod] = rec
+            fuente_m = FUENTES_MESAS.get((id_, cod), FUENTES_MESAS[cod])
+            motivo = MOTIVO_MESAS.get((id_, cod))
+            notas_dep[cod].append(f"Por mesa, el escrutinio {rec} que publica {fuente_m}" + (
+                f". Las mesas suman {miles(abs(pos - pos_m))} votos positivos {'menos' if pos_m < pos else 'más'} que el total de la jurisdicción" + (f": {motivo}." if motivo else ".")
+                if pos_m != pos else "."))
         if deps:
             doc = {"id": id_, "periodo": f"dep{ep}", "unidad": "departamento", "oficial": True, "caba_entera": caba_entera, "listas": list(listas), "fuerza": fuerza,
                    "fuerzas": [{"id": f, "n": colores[f]["nombre"], "c": colores[f]["color"]} for f in fuerzas], "provincias": provincias}
@@ -364,6 +415,8 @@ def main():
         if deps:
             el["nivel"] = "departamento"
             el["departamentos"] = sorted(deps)
+            if mesas_en:
+                el["mesas_en"] = mesas_en
             el["nota_nivel"] = f"Por ahora, solo los gobernadores de {cubre}."
         elif cargo == "gobernador":
             el["nota_nivel"] = f"Por ahora, solo el total de cada jurisdicción, y solo los gobernadores de {cubre}."
