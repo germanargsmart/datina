@@ -203,9 +203,21 @@ Pedido del autor: "sumá los senadores por la Capital y los gobernadores". El ma
 - `prueba_mesas.py` controla que cada jurisdicción publicada dé lo mismo que lo transcripto, que lleve fecha y fuente, que ninguna figure a la vez con datos y sin fuente y quién ganó en trece elecciones conocidas.
 - Para sumar una jurisdicción: sus filas en `mesas_jurisdiccion.csv`, su código en `CUBRE`, sus huecos en `SIN_FUENTE` y `python scripts/elecciones_jurisdiccion.py`. Si `elecciones_mesas.py` reescribe el índice, hay que volver a correrlo.
 
+### Por departamento y por mesa (pedido del autor del 7 de noviembre de 2026, PR #111)
+
+"Seguí con los departamentos y mesas", después de unir el #110. Mismas reglas: solo fuentes oficiales.
+
+- `datos/manual/mesas_jurisdiccion_departamentos.csv`: una fila por elección, departamento y lista, con el código del INDEC del departamento en la cartografía de su época (`epoca()`: hasta 1993 la de 1991, hasta 2007 la de 2001, después la de 2010) y la fuente de cada fila. Las listas llevan el mismo nombre que en `mesas_jurisdiccion.csv` y el programa las acumula igual. Cubre Buenos Aires por partido de 2003 a 2023 (CSV por distrito de la Junta Electoral, con el código del INDEC y los electores del CSV del Ministerio de Gobierno), Entre Ríos en 1991, 1999 y de 2011 a 2023, Tucumán de 2015 a 2023 (suma de sus mesas) y CABA por comuna de 2011 a 2023 y por circunscripción en 2000 y 2007.
+- `datos/manual/mesas_gobernador/{eleccion}-{codigo_indec}.csv`: una fila por mesa, con el departamento, el circuito sin ceros adelante, la mesa, los electores (0 donde la fuente no los da), blancos, nulos y recurridos (en CABA 2023, con los votos de comando). Tucumán de 2015 a 2023 (la Junta Electoral Provincial, definitivo) y CABA en la segunda vuelta de 2007 (planilla del Tribunal Superior, anterior a resolver 79 votos recurridos), 2015, 2019 y 2023 (BA Data: definitivo, salvo 2023, provisorio). Las mesas de CABA de las personas privadas de libertad que no tienen comuna quedan afuera, y en 2015 los extranjeros y las cárceles van en una fila por comuna.
+- La elección pasa a `nivel: "departamento"` si alguna jurisdicción tiene departamentos, con `departamentos` y, donde hay mesas, `mesas_en` (`{codigo: "definitivo" o "provisorio"}`). La tabla de esa jurisdicción es por mesa, con el departamento como sección, y el mapa sigue por departamento. Las que no tienen departamentos se pintan enteras, y CABA antes de 2009 también: sus circunscripciones van solo en la tabla.
+- `JUNTOS_EN_EL_MAPA`: Lezama se separó de Chascomús en 2009 y la cartografía de 2010 los tiene en un solo polígono, con otro código. En la tabla van separados y en el mapa se suman.
+- Las notas de cada jurisdicción las escribe el programa con los datos: cuánto les falta a los departamentos o a las mesas para el total oficial (y por qué, en `MOTIVO_MESAS`), y de dónde salen si no es la misma fuente que el total. Los departamentos suman casi siempre unos pocos votos menos: la fuente no reparte los de las cárceles o los de extranjeros.
+- `mesas.js`: `porMesa(el, p)` dice qué jurisdicciones llegan a la mesa. Con departamentos oficiales la página no dice "no es el escrutinio definitivo", nombra comunas y circunscripciones en CABA, y las notas de la jurisdicción van solo en su vista.
+- `prueba_mesas.py` controla que cada tabla por departamento o por mesa dé lo mismo que lo transcripto, sin mesas ni departamentos repetidos.
+
 ## Lo que falta
 
-- Los gobernadores de las otras 19 jurisdicciones, por departamento y por mesa donde hay fuente oficial (Tucumán 2015 a 2023, Corrientes 2011 a 2025, CABA 2013 a 2025, Buenos Aires 2003 a 2025 por distrito, Entre Ríos por departamento), y el gobernador de 2011 de los ZIP de la DINE: `docs/roadmap/ELECCIONES_PROVINCIAS.md`.
+- Los gobernadores de las otras 19 jurisdicciones, el gobernador por mesa del provisorio de la DINE en 2011 (los ZIP que ya se bajan lo traen) y el mapa por circuito de los gobernadores por mesa (los circuitos de Tucumán usan la numeración nacional): `docs/roadmap/ELECCIONES_PROVINCIAS.md`.
 - El definitivo mesa por mesa y los votos del exterior por consulado: solo los tiene la Cámara Nacional Electoral. El camino es un pedido de acceso a la información pública (Ley 27.275) a la Cámara: lo decide y lo hace el autor.
 - El padrón del exterior de otros años: la Cámara publica solo el de 2023.
 
