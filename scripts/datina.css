@@ -626,6 +626,8 @@ html:not(.js) .dest-control{display:none}
 @media (max-width:430px){.destacados-grid{min-height:291px}}
 @media (max-width:360px){.destacados-grid{min-height:312px}}
 @media print{.destacados-grid{display:block;overflow:visible;min-height:0}.dest-control{display:none}.destacado{display:block;break-inside:avoid;margin-bottom:var(--e-4)}}
+/* el enlace a la página de datos destacados, con la letra del texto para no sumar un tamaño al bloque */
+.dest-todos{margin:var(--e-3) 0 0;font-size:var(--t-3);line-height:1.4}
 /* La página de datos destacados (segunda fase del brief de pulido, 6 de noviembre de 2026). Respuestas del autor: una sola columna, sin tarjetas, y el grupo una vez
    como título, con la línea celeste. Una familia y cuatro tamaños: el tema (13), el texto (15), la pregunta (20 a 24), y la cifra y el grupo (28 a 36). La pregunta es
    el enlace y cubre el dato entero, como en "Explorá la Argentina por tema". La línea que separa los datos llega al ancho del contenido, y el texto corta antes para
