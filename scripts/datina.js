@@ -11358,9 +11358,9 @@ document.querySelectorAll("article.ficha").forEach(f => {
 // en la página de datos destacados, la fecha de las cifras cuyo texto no la dice porque en su ficha va en la descripción, siempre desde el resumen. Tres no la
 // llevan porque su fuente no da una (SIN_ANIO en la prueba de páginas): especies, glaciares y reclamos antárticos
 const FECHA_DD = {
-  "f-ant-bases": () => `Según COMNAP, en ${ANT.comnap_fecha}.`,
-  "f-ant-paises": () => `Según COMNAP, en ${ANT.comnap_fecha}.`,
-  "f-ant-tratado": () => `El último país se sumó en ${ANT.tr_ult_anio}.`,
+  "f-ant-bases": () => `Según COMNAP, en ${ANT.comnap_fecha}`,
+  "f-ant-paises": () => `Según COMNAP, en ${ANT.comnap_fecha}`,
+  "f-ant-tratado": () => `El último país se sumó en ${ANT.tr_ult_anio}`,
 };
 document.querySelectorAll(".destacado[data-clave], .dd-dato[data-clave]").forEach(a => {
   const id = a.dataset.clave, c = CLAVE[id];
