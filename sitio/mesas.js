@@ -261,14 +261,18 @@ const x = P[estado.p];
 t = {mesas: null, electores: x.electores || 0, votantes: x.votantes, blancos: x.blancos, nulos: x.nulos, recurridos: x.recurridos || 0};
 listas = x.listas.slice().sort((a, b) => b[1] - a[1]);
 const circunscripciones = el.rotulo === "circunscripcion" || (estado.p === "02" && filas[0]?.sn.startsWith("Circ"));
+const comunas = estado.p === "02" && filas[0]?.sn.startsWith("Comuna");
 const hijos = filas.map(f => {
 const s = sumar([f], D.listas.length);
 return {clave: "s", valor: f.s, nombre: f.sn, mesas: null, electores: s.electores, part: participacion(s), nombres: D.listas, votos: f.v};
 }).sort((a, b) => natural(a.nombre, b.nombre));
-partes = tablaPartes(circunscripciones ? "¿Cómo votó cada circunscripción?" : "¿Cómo votó cada departamento?", circunscripciones ? "Circunscripción" : "Departamento", hijos, false);
+partes = tablaPartes(circunscripciones ? "¿Cómo votó cada circunscripción?" : comunas ? "¿Cómo votó cada comuna?" : "¿Cómo votó cada departamento?",
+circunscripciones ? "Circunscripción" : comunas ? "Comuna" : "Departamento", hijos, false);
 }
+if (!el.origen) {
 if (el.fuente) notas.push(`Estos votos salen de ${el.fuente}. No hay un escrutinio oficial publicado como datos.`);
 else notas.push(`${estado.s ? "Este resultado no es" : "Los departamentos no son"} el escrutinio definitivo: ${estado.s ? "sale" : "salen"} de ${el.anio <= 2001 ? "la base de Ernesto Calvo" : "PolAr, a partir del Atlas Electoral de Andy Tow"}, y ${estado.s ? "puede" : "pueden"} no sumar exacto el total de la jurisdicción.`);
+}
 } else {
 const filas = D.filas.filter(f => (!estado.s || f.s === estado.s) && (!estado.c || f.c === estado.c) && (!estado.m || f.m === estado.m));
 t = sumar(filas, D.listas.length);
@@ -524,7 +528,7 @@ return mezcla(doc.fuerzas[doc.fuerza[f[4][0]]].c, TONOS[tramo(CORTES.gana, f[4][
 function textoTip(doc, r) {
 const f = MAPA.indice.get(claveRasgo(r)), {p, s, c} = r.properties, pv = doc.provincias[p];
 const prov = provNombre(p), unidad = unidadDe(doc);
-if (!f && unidad !== "circuito") return `<b>${esc(prov)}</b><br>${unidad === "provincia" ? sinDato(elec(), p) : sinDatoHistorico(doc, p)}`;
+if (!f && unidad !== "circuito") return `<b>${esc(prov)}</b><br>${unidad === "provincia" || elec().origen ? sinDato(elec(), p) : sinDatoHistorico(doc, p)}`;
 if (!f && !pv) return `<b>${esc(prov)}</b><br>No eligió ${NIVEL_NOMBRE[elec().cargo]} en esta elección`;
 if (!f) {
 const sec = seccionDelRasgo(r), sn = pv.secciones?.[s] || "";
@@ -695,7 +699,7 @@ if (pos) frase = `En ${donde}, ${doc.fuerzas[ix].n} reunió ${pct(suma / pos * 1
 }
 const grisTxt = doc.historica ? (el.anio < 1951 ? "Sin dato, o territorio nacional que no votaba" : "Sin dato en esta elección")
 : unidad === "circuito" ? (!estado.p && el.cargo === "senadores" ? "No eligió senadores en esta elección" : "Sin mesas o sin votos cargados en el provisorio")
-: {departamento: "Sin dato en esta elección", provincia: el.gris || "No eligió senadores en esta elección"}[unidad];
+: {departamento: el.gris || "Sin dato en esta elección", provincia: el.gris || "No eligió senadores en esta elección"}[unidad];
 const hayGris = MAPA.rasgos.some(r => rellenoDe(doc, r) === SIN_MESAS) || MAPA.fondoSel.data().some(r => rellenoDe(doc, r) === SIN_MESAS);
 $("ms-ley").innerHTML = leyenda +
 (unidad === "circuito" ? `<div class="ms-ley-tramo ms-ley-sin"><i class="ms-ley-rayas" aria-hidden="true"></i><span class="ms-ley-nom">Sin mesas propias: el resultado de toda su sección</span></div>` : "") +
@@ -713,7 +717,7 @@ if (ign.length) notas.push(`En ${ign.join(", ").replace(/, ([^,]*)$/, " y $1")} 
 const faltan = el.provincias.filter(c => (doc.provincias[c]?.con ?? 100) < 99.5 && (!estado.p || c === estado.p));
 for (const c of faltan.slice(0, 2)) notas.push(`En ${provNombre(c)}, ${pct(100 - doc.provincias[c].con)} de quienes votaron no tiene su circuito en el mapa.`);
 if (doc.unidad === "departamento") {
-notas.push(doc.fuente ? `Los votos salen de ${doc.fuente}. No hay un escrutinio oficial publicado como datos.` : `Los departamentos salen de ${FUENTES_DEPTOS[doc.origen]}, no del escrutinio definitivo.`);
+if (!doc.oficial) notas.push(doc.fuente ? `Los votos salen de ${doc.fuente}. No hay un escrutinio oficial publicado como datos.` : `Los departamentos salen de ${FUENTES_DEPTOS[doc.origen]}, no del escrutinio definitivo.`);
 if (doc.aviso) notas.push(doc.aviso);
 if (doc.reune != null && doc.reune < 95) notas.push(`Hay datos de ${el.provincias.length} jurisdicciones, que reúnen ${pct(doc.reune)} de los votos que publica el resultado nacional de esa elección.`);
 else if (doc.reune != null && doc.reune > 102) notas.push(`Estos datos suman ${pct(doc.reune)} de los votos que publica el resultado nacional de esa elección: las dos fuentes no coinciden exacto.`);
