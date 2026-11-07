@@ -62,6 +62,10 @@ SIN_FUENTE = {("gobernador", 1983, "general"): ["90"], ("gobernador", 1987, "gen
 DIFERENCIAS = {("gobernador", 2017, "general", "18"): 9,      # las alianzas suman 9 votos más que los válidos del mismo documento
                ("gobernador", 2025, "general", "18"): -230}   # los positivos de las personas privadas de libertad, sin repartir entre las fórmulas
 
+# lo mismo por departamento: en Corrientes 2017, en 13 departamentos las alianzas suman de 1 a 47 votos más que los válidos del mismo documento. Se publican
+# como vienen, con un tope por departamento
+DIFERENCIAS_DEP = {("gobernador", 2017, "general", "18"): 50}
+
 # las jurisdicciones con sus gobernadores mapeados (la primera tanda de ELECCIONES_PROVINCIAS.md): la página dice que por ahora están solo estas
 CUBRE = ["02", "06", "18", "30", "90"]
 
@@ -212,7 +216,8 @@ def leer_departamentos():
     for clave, por_cod in deps.items():
         for cod, ds in por_cod.items():
             for s, d in ds.items():
-                if sum(d["votos"].values()) + d["blancos"] + d["nulos"] != d["votantes"]:
+                dif = sum(d["votos"].values()) + d["blancos"] + d["nulos"] - d["votantes"]
+                if dif and abs(dif) > DIFERENCIAS_DEP.get((*clave, cod), 0):
                     sys.exit(f"{clave} {cod} {d['nombre']}: las listas, los blancos y los nulos no suman los votantes")
     return deps
 
