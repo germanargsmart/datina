@@ -4,7 +4,7 @@ Pedido del autor del 7 de noviembre de 2026, con el enlace a `azha2005.github.io
 
 Este documento es el mapa: qué elecciones hubo en cada jurisdicción, quién publica sus resultados, hasta qué nivel (jurisdicción, sección o departamento, circuito, mesa), en qué formato y con qué permiso. No suma nada al sitio todavía: lo que se sume sale de acá, con la decisión del autor. Desde el 8 de noviembre de 2026 (PR #112) cubre también las otras 19 jurisdicciones, con el mismo esquema, revisadas ese día desde la nube.
 
-Revisado el 7 de noviembre de 2026 desde la nube. Cada dirección dice qué contestó ese día. Un 403 o un corte de conexión desde la nube no quiere decir que la página no exista: varios organismos rechazan las conexiones que no vienen de la Argentina.
+Revisado el 7 de noviembre de 2026 desde la nube. Cada dirección dice qué contestó ese día. La tabla de "Lo principal" es ese mapa de fuentes: lo que Datina tiene hoy del gobernador, también lo que se sumó después con los informes de la DINE del Internet Archive y la Wikipedia como guía, está en "Qué tiene Datina hoy". Un 403 o un corte de conexión desde la nube no quiere decir que la página no exista: varios organismos rechazan las conexiones que no vienen de la Argentina.
 
 ## Lo principal
 
@@ -39,7 +39,36 @@ Para lo anterior a 1983 no hay fuentes oficiales en línea salvo excepciones: lo
 
 ## Qué tiene Datina hoy
 
-La herramienta Elecciones por mesa (`mesas.html`, `docs/roadmap/MESAS.md`) tiene solo cargos nacionales: presidente, diputados y senadores. Ningún gobernador, ninguna elección provincial y nada antes de 1912. En las cinco jurisdicciones de esta tanda (`sitio/datos/mesas/indice.json`, 7 de noviembre de 2026):
+El gobernador, al 8 de noviembre de 2026 (PR #114), según `mesas_jurisdiccion.csv`, `mesas_jurisdiccion_departamentos.csv` y `mesas_gobernador/`. El total sale del documento oficial o, donde no se pudo abrir, de su transcripción en la Wikipedia, y la fuente de cada elección dice cuál. "Por departamento" cuenta también los que salen de sumar las mesas, que la página rotula. "Sin fuente oficial en línea" son las elecciones del `CALENDARIO` de `elecciones_jurisdiccion.py` que no tienen un escrutinio oficial abierto ni una transcripción que lo cite: 15 de 278. Corrientes 1992 se anuló.
+
+| Jurisdicción | Total de la jurisdicción | Por departamento | Por mesa | Sin fuente oficial en línea |
+|---|---|---|---|---|
+| Buenos Aires | 1983 a 2023 | 2003 a 2023 | 2011 a 2023 (provisorio de la DINE) | Ninguna |
+| CABA | 1996 a 2023 | 2000 y 2007 a 2023 | 2007 segunda y 2015 a 2023 (2023 provisorio) | Ninguna |
+| Catamarca | 1983, 1987, 1991 a 1999 y 2007 a 2023 | 2019 y 2023 | 2019 y 2023 (provisorio de la DINE) | 1988 y 2003 |
+| Chaco | 1983 a 2023 | 2011 a 2023 | 2011 a 2023 | Ninguna |
+| Chubut | 1983 a 2023 | 2015 | 2015 (provisorio de la DINE) | Ninguna |
+| Corrientes | 1983 a 1991 y 1993 a 2025 | 1991, 1993 a 2001, 2009 a 2017 y 2025 | 2013, 2017 y 2025 | 1992 |
+| Córdoba | 1983 a 1995 y 2003 a 2023 | 2003 a 2023 | Ninguna | 1998 |
+| Entre Ríos | 1983 a 2023 | 1991, 1999 y 2011 a 2023 | 2011 y 2015 (provisorio de la DINE) | Ninguna |
+| Formosa | 1983 a 2023 | Ninguna | Ninguna | Ninguna |
+| Jujuy | 1983 a 2023 | 2003 a 2015 | 2011 y 2015 (provisorio de la DINE) | Ninguna |
+| La Pampa | 1983 a 2023 | 2007 y 2011 | Ninguna | Ninguna |
+| La Rioja | 1983 a 2007, 2019 y 2023 | 2003, 2007 y 2023 | Ninguna | 2011 y 2015 |
+| Mendoza | 1983 a 2023 | 2003 a 2015 y 2023 | Ninguna | Ninguna |
+| Misiones | 1975 a 2023 | 2015 a 2023 | 2015 (provisorio de la DINE) | Ninguna |
+| Neuquén | 1983 a 2023 | 2003 y 2007 | Ninguna | Ninguna |
+| Río Negro | 1983 a 2023 | 2003 | Ninguna | Ninguna |
+| Salta | 1983 a 2023 | 2011 a 2023 | 2011 a 2023 | Ninguna |
+| San Juan | 1983, 1991 a 2011 y 2019 | 2003 a 2011 | Ninguna | 1987, 2015 y 2023 |
+| San Luis | 1983 a 1995 y 2003 a 2023 | 2003 y 2011 | Ninguna | 1999 |
+| Santa Cruz | 1983 a 2023 | 2003 y 2011 | Ninguna | Ninguna |
+| Santa Fe | 1983 a 2023 | 1991 a 2023 | Ninguna | Ninguna |
+| Santiago del Estero | 1983 a 1999 y 2013 a 2021 | Ninguna | Ninguna | 2002, 2005, 2008 y 2025 |
+| Tierra del Fuego | 1991 a 2011 y 2015 a 2023 | 2003 segunda, 2015 y 2015 segunda | Ninguna | 2011 segunda |
+| Tucumán | 1983 a 2023 | 2003, 2007 y 2015 a 2023 | 2015 a 2023 | Ninguna |
+
+De los cargos nacionales, Elecciones por mesa (`mesas.html`, `docs/roadmap/MESAS.md`) tiene presidente, diputados y senadores. En las cinco jurisdicciones de la primera tanda (`sitio/datos/mesas/indice.json`, 7 de noviembre de 2026):
 
 | Jurisdicción | Elecciones | Desde | Lo que falta entre 1912 y 1983 |
 |---|---|---|---|
@@ -470,7 +499,7 @@ Lo más valioso que no está en línea es el anexo de la tesis de Solís Carnice
 
 ## Las otras 19 jurisdicciones (8 de noviembre de 2026, PR #112)
 
-Revisadas el 8 de noviembre de 2026 desde la nube, con las mismas reglas: solo fuentes oficiales, cada dirección probada y cada elección transcripta voto por voto (`datos/manual/mesas_jurisdiccion.csv`). Muchos sitios judiciales provinciales y el Internet Archive cortan las conexiones que no vienen de la Argentina: San Luis, Formosa, Santa Cruz, La Pampa, Neuquén y Río Negro tienen sus escrutinios en sitios que no respondieron, y varios informes "Resultados históricos" de la DINE de 1983 a 2007, que traen el gobernador de cada provincia, están solo en el Internet Archive. Hay que revisarlos desde la computadora del autor.
+Revisadas el 8 de noviembre de 2026 desde la nube, con las mismas reglas: solo fuentes oficiales, cada dirección probada y cada elección transcripta voto por voto (`datos/manual/mesas_jurisdiccion.csv`). Muchos sitios judiciales provinciales y el Internet Archive cortan las conexiones que no vienen de la Argentina: San Luis, Formosa, Santa Cruz, La Pampa, Neuquén y Río Negro tienen sus escrutinios en sitios que no respondieron, y varios informes "Resultados históricos" de la DINE de 1983 a 2007, que traen el gobernador de cada provincia, están solo en el Internet Archive. Hay que revisarlos desde la computadora del autor. Después, en los PR #113 y #114, un ayudante pudo bajar del Internet Archive los informes de la DINE de 1983 a 2007, y la Wikipedia sirvió de guía hacia las demás fuentes primarias: lo que se sumó está en "Qué tiene Datina hoy" y las reglas, en `MESAS.md`.
 
 Lo que se decidió al sumarlas:
 
@@ -1455,6 +1484,12 @@ Decisiones que son del autor:
   - Chaco 2023: el sitio de resultados del Tribunal cuenta las 2.951 mesas, y el Acta 14/23 y la planilla del 25 de septiembre, 2.950, con una mesa de La Escondida en discusión (284 votantes, no cambia el resultado). Se usó el sitio.
   - Jujuy 1983: el acta escaneada se lee con dificultad en dos cifras, y la nota da las dos lecturas.
   - Revisar desde la computadora del autor los sitios que no respondieron desde la nube (los tribunales de San Luis, Formosa, Santa Cruz, La Pampa, Neuquén y Río Negro, y la Dirección de Estadística de Mendoza) y los informes viejos de la DINE en el Internet Archive.
+- De los PR #113 y #114 (8 de noviembre de 2026):
+  - Lo que la Wikipedia toma de fuentes que no son oficiales quedó afuera, en los archivos `w_no_oficial_` del trabajo: Santiago del Estero 2002, 2005, 2008 y 2025 (diarios y el provisorio), Tierra del Fuego 2011 segunda, San Juan 2015 y 2023, San Luis 1999, La Rioja 2011 y 2015, Catamarca 1988 (un trabajo académico) y 2003 (solo el Atlas de Andy Tow), y Córdoba 1998 (la tabla no cita nada, aunque los votos de Unión por Córdoba coinciden exacto con el acta del Juzgado). Si se publican con su fuente real, es decisión del autor.
+  - Catamarca 2007: la Wikipedia cita a la vez al Poder Judicial de Catamarca y al Atlas de Andy Tow. Quedó publicada por la cita oficial, con las dos en la nota. Si el autor prefiere, pasa a las que esperan.
+  - Corrientes 2021: la página que cita la Wikipedia (`elecciones2021.corrientes.gob.ar/escrutinio`, de la Junta Electoral) no dice si es el escrutinio definitivo, y un diario dio el 8 de septiembre de 2021 cifras "del recuento definitivo" unos 35 votos menores en cada frente. La nota lo dice.
+  - Corrientes 1983 y 1987: los informes de la DINE dan totales distintos de los de la Subdirección de Cómputos que Datina publica (339.799 votantes contra 336.785 en 1983), y con todas las listas. Falta decidir cuál va.
+  - Las transcripciones de la Wikipedia (CABA 1996, Catamarca 2007 a 2015, Corrientes 2001 segunda y 2021, Entre Ríos 2003 y 2007, Formosa 2003 a 2023) se pueden comparar con sus documentos desde la computadora del autor, donde abre el Internet Archive: los PDF de la DINE de 2001 a 2011 por provincia y los del Tribunal Electoral Permanente de Formosa. Si coinciden, la fuente pasa a ser solo el organismo.
 - Revisar desde la computadora del autor lo que la nube no deja ver: el Internet Archive (los PDF viejos "Resultados históricos" de la DINE de 1983 a 1999 y de las elecciones provinciales de 2003 y 2007, y el Atlas de Tow guardado antes de la contraseña), HathiTrust y los expedientes de Diputados (`apym.hcdn.gob.ar`).
 
 Las otras 19 jurisdicciones se mapearon el 8 de noviembre de 2026, con el mismo esquema (arriba).
