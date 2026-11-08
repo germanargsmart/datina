@@ -40,6 +40,10 @@ MOTIVO_MESAS = {("2007-segunda-gobernador", "02"): "la planilla por mesa es ante
                 ("2015-segunda-gobernador", "02"): "los votos de las personas privadas de libertad van sin comuna",
                 ("2019-general-gobernador", "02"): "el archivo por mesa no trae los votos de los extranjeros, y los de las personas privadas de libertad van sin comuna",
                 ("2023-general-gobernador", "02"): "el provisorio no llegó a cargar todas las mesas"}
+# lo que la tabla por mesa deja afuera aunque sume lo mismo que las listas del total
+APARTE_MESAS = {("2025-general-gobernador", "18"): "sin las 45 mesas de las personas privadas de libertad"}
+# por qué los departamentos no suman el total de la jurisdicción. En Corrientes 2025 la diferencia, lista por lista, es la de esas 45 mesas
+MOTIVO_DEP = {("2025-general-gobernador", "18"): "la Junta suma esos votos en cada municipio"}
 COLUMNAS_DEP = ["cargo", "anio", "vuelta", "codigo_indec", "departamento", "codigo_departamento", "lista", "votos", "electores", "votantes", "blancos", "nulos",
                 "fuente", "url"]
 ORIGEN = "jurisdiccion"   # marca en el índice de lo que arma este programa: lo demás no se toca
@@ -360,7 +364,9 @@ def main():
                 # en CABA, comunas desde 2009 y circunscripciones antes
                 unidades = "Los departamentos" if cod != "02" else "Las comunas" if ep == "2010" else "Las circunscripciones"
                 if pos_dep != pos:
-                    notas_dep[cod].append(f"{unidades} suman {miles(abs(pos - pos_dep))} votos positivos {'menos' if pos_dep < pos else 'más'} que el total de la jurisdicción, que es el oficial.")
+                    motivo_dep = MOTIVO_DEP.get((id_, cod))
+                    notas_dep[cod].append(f"{unidades} suman {miles(abs(pos - pos_dep))} votos positivos {'menos' if pos_dep < pos else 'más'} que el total de la jurisdicción, "
+                                          f"que es el oficial" + (f": {motivo_dep}." if motivo_dep else "."))
                 fuentes_dep = sorted({d["fuente"] for d in ds.values()})
                 if fuentes_dep != [j["fuente"]]:
                     notas_dep[cod].append(f"{unidades} salen de: {enumerar(fuentes_dep)}.")
@@ -398,7 +404,8 @@ def main():
             mesas_en[cod] = rec
             fuente_m = FUENTES_MESAS.get((id_, cod), FUENTES_MESAS[cod])
             motivo = MOTIVO_MESAS.get((id_, cod))
-            notas_dep[cod].append(f"Por mesa, el escrutinio {rec} que publica {fuente_m}" + (
+            aparte = APARTE_MESAS.get((id_, cod))
+            notas_dep[cod].append(f"Por mesa, el escrutinio {rec} que publica {fuente_m}" + (f", {aparte}" if aparte else "") + (
                 f". Las mesas suman {miles(abs(pos - pos_m))} votos positivos {'menos' if pos_m < pos else 'más'} que el total de la jurisdicción" + (f": {motivo}." if motivo else ".")
                 if pos_m != pos else "."))
         if deps:
