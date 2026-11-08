@@ -21,6 +21,16 @@ codigo_indec,provincia,lista,votos,electores,votantes,blancos,nulos
 18,Corrientes,Demócrata Progresista,7607,,336785,3401,1950
 18,Corrientes,Otras listas sin detalle en la fuente,6922,,336785,3401,1950
 18,Corrientes,Demócrata Cristiano - Frente Renovador,4633,,336785,3401,1950
+22,Chaco,Partido Justicialista,156368,,330423,0,0
+22,Chaco,Unión Cívica Radical,152645,,330423,0,0
+22,Chaco,Movimiento de Integración y Desarrollo,9235,,330423,0,0
+22,Chaco,Movimiento de Unidad Chaqueña,3880,,330423,0,0
+22,Chaco,Partido Socialista,2772,,330423,0,0
+22,Chaco,Partido Demócrata Cristiano,2352,,330423,0,0
+22,Chaco,Partido Intransigente,1272,,330423,0,0
+22,Chaco,Partido Federal,1197,,330423,0,0
+22,Chaco,Frente de Izquierda Popular,501,,330423,0,0
+22,Chaco,Movimiento Línea Popular,201,,330423,0,0
 26,Chubut,Unión Cívica Radical,44424,145205,117079,5021,1092
 26,Chubut,Justicialista,43677,145205,117079,5021,1092
 26,Chubut,Acción Chubutense,15152,145205,117079,5021,1092
@@ -39,6 +49,15 @@ codigo_indec,provincia,lista,votos,electores,votantes,blancos,nulos
 30,Entre Ríos,Partido Demócrata Cristiano,6855,621499,520166,12739,3272
 30,Entre Ríos,Partido Demócrata de Entre Ríos,5242,621499,520166,12739,3272
 30,Entre Ríos,Partido Socialista Popular,2476,621499,520166,12739,3272
+38,Jujuy,Justicialista,80853,,181273,6641,1652
+38,Jujuy,Unión Cívica Radical,44727,,181273,6641,1652
+38,Jujuy,Movimiento Popular Jujeño,38916,,181273,6641,1652
+38,Jujuy,Movimiento de Integración y Desarrollo,4100,,181273,6641,1652
+38,Jujuy,Federal,1577,,181273,6641,1652
+38,Jujuy,Comunista,1051,,181273,6641,1652
+38,Jujuy,Intransigente,961,,181273,6641,1652
+38,Jujuy,Movimiento al Socialismo,694,,181273,6641,1652
+38,Jujuy,Frente de Izquierda Popular,101,,181273,6641,1652
 54,Misiones,Unión Cívica Radical,119853,318226,261953,9590,1534
 54,Misiones,Justicialista,113620,318226,261953,9590,1534
 54,Misiones,Movimiento de Integración y Desarrollo,4241,318226,261953,9590,1534

@@ -16,6 +16,9 @@ codigo_indec,provincia,lista,votos,electores,votantes,blancos,nulos
 14,Córdoba,Movimiento al Socialismo,26626,2679883,2009130,77873,67902
 14,Córdoba,MST Nueva Izquierda,26333,2679883,2009130,77873,67902
 14,Córdoba,Frente Progresista y Popular,25121,2679883,2009130,77873,67902
+22,Chaco,Frente Chaco Merece Más,358703,859161,676349,27092,2372
+22,Chaco,Vamos Chaco,273551,859161,676349,27092,2372
+22,Chaco,Partido del Obrero,14631,859161,676349,27092,2372
 26,Chubut,Alianza Frente Unión Chubut Somos Todos,116542,416710,332351,49427,4588
 26,Chubut,Alianza Frente para la Victoria,113054,416710,332351,49427,4588
 26,Chubut,Cambiemos Chubut,41159,416710,332351,49427,4588
@@ -24,6 +27,13 @@ codigo_indec,provincia,lista,votos,electores,votantes,blancos,nulos
 30,Entre Ríos,Cambiemos,303769,1031024,872585,96798,5439
 30,Entre Ríos,Unión Popular,120793,1031024,872585,96798,5439
 30,Entre Ríos,Partido Socialista,19908,1031024,872585,96798,5439
+38,Jujuy,Frente Cambia Jujuy,226646,508861,428856,36418,3734
+38,Jujuy,Frente para la Victoria,139119,508861,428856,36418,3734
+38,Jujuy,Frente de Izquierda y de los Trabajadores,11033,508861,428856,36418,3734
+38,Jujuy,Partido por la Dignidad del Pueblo,6973,508861,428856,36418,3734
+38,Jujuy,Mov. Com. Pluricultural,2465,508861,428856,36418,3734
+38,Jujuy,Instrumento Electoral por la Unidad Popular,1394,508861,428856,36418,3734
+38,Jujuy,Nueva Izquierda,1074,508861,428856,36418,3734
 54,Misiones,Frente Renovador de la Concordia,400536,849788,699364,66184,5277
 54,Misiones,Frente Vamos Juntos,85060,849788,699364,66184,5277
 54,Misiones,Frente Cívico y Social,53605,849788,699364,66184,5277
@@ -34,6 +44,12 @@ codigo_indec,provincia,lista,votos,electores,votantes,blancos,nulos
 54,Misiones,Frente Popular,1792,849788,699364,66184,5277
 54,Misiones,Movimiento Social para una Mejor Vida,974,849788,699364,66184,5277
 54,Misiones,Movimiento Generacional,958,849788,699364,66184,5277
+66,Salta,Frente Justicialista Renovador para la Victoria,340174,931213,685479,21540,0
+66,Salta,Frente Romero + Olmedo,203417,931213,685479,21540,0
+66,Salta,Frente UCR - UNEN - PS,54796,931213,685479,21540,0
+66,Salta,Partido Obrero,41309,931213,685479,21540,0
+66,Salta,Movimiento Socialista de los Trabajadores,12616,931213,685479,21540,0
+66,Salta,Frente Popular,11627,931213,685479,21540,0
 82,Santa Fe,"Frente Progresista, Cívico y Social",584017,2580882,1970001,65975,63802
 82,Santa Fe,Unión PRO Federal,582521,2580882,1970001,65975,63802
 82,Santa Fe,Frente Justicialista para la Victoria,558571,2580882,1970001,65975,63802

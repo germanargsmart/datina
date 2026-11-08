@@ -67,7 +67,9 @@ CADA_4 = [str(a) for a in range(1983, 2024, 4)]
 CALENDARIO = {
     "02": ["1996", "2000", "2003", "2003 segunda", "2007", "2007 segunda", "2011", "2011 segunda", "2015", "2015 segunda", "2019", "2023"],
     "06": CADA_4, "30": CADA_4, "90": CADA_4, "82": CADA_4, "50": CADA_4, "74": CADA_4, "26": CADA_4, "78": CADA_4, "58": CADA_4, "62": CADA_4, "42": CADA_4,
-    "46": CADA_4, "70": CADA_4,
+    "46": CADA_4, "70": CADA_4, "38": CADA_4, "66": CADA_4, "34": CADA_4,
+    # Chaco: segunda vuelta desde la reforma de 1994, que solo hizo falta en 1995
+    "22": [*CADA_4[:4], "1995 segunda", *CADA_4[4:]],
     # Catamarca: la de 1988, después de que terminara el mandato de Vicente Saadi, y la de 1991, después de la intervención federal
     "10": ["1983", "1987", "1988", *CADA_4[2:]],
     # Santiago del Estero: la intervención de 1993 a 1995, el gobernador elegido por la Legislatura en 2001 y la intervención de 2004 y 2005
@@ -107,7 +109,8 @@ DIFERENCIAS = {("gobernador", 2017, "general", "18"): 9,      # las alianzas sum
                ("gobernador", 2025, "general", "18"): -230,   # los positivos de las personas privadas de libertad, sin repartir entre las fórmulas
                ("gobernador", 1987, "general", "26"): -72,    # la tabla de la Secretaría Electoral da 72 votantes más que sus listas, blancos y nulos
                ("gobernador", 1983, "general", "54"): -11124,  # Misiones: el total es el de quienes fueron a votar, y la columna de gobernador suma menos
-               ("gobernador", 1987, "general", "54"): -900}    # Misiones: el documento suma 900 votos de "compensación de diferencias de actas"
+               ("gobernador", 1987, "general", "54"): -900,    # Misiones: el documento suma 900 votos de "compensación de diferencias de actas"
+               ("gobernador", 1999, "general", "22"): 16}      # Chaco: las listas, los blancos y los nulos del acta suman 16 más que sus votantes
 
 # lo mismo por departamento: en Corrientes 2017, en 13 departamentos las alianzas suman de 1 a 47 votos más que los válidos del mismo documento. Se publican
 # como vienen, con un tope por departamento
@@ -145,7 +148,11 @@ PRIMERO = [(r"^(alianza )?frente de todos$", lambda a, c: "ucr" if a < 2019 else
            (r"^frente c[ií]vico y social$", lambda a, c: "otras" if c == "54" else None),
            # Chubut: los frentes de Das Neves (2015) y de Arcioni (2019), con el color de Chubut Somos Todos, y el Partido Acción Chubutense
            (r"^alianza (frente uni[oó]n chubut somos todos|chubut al frente)$", lambda a, c: "p-chubut-somos-todos" if c == "26" else None),
-           (r"^acci[oó]n chubutense", lambda a, c: "p-partido-de-accion-chubutense" if c == "26" else None)]
+           (r"^acci[oó]n chubutense", lambda a, c: "p-partido-de-accion-chubutense" if c == "26" else None),
+           # Chaco: los frentes del PJ de Capitanich (2011 a 2023), y Vamos Chaco en 2015, el de la UCR con el PRO (el nombre volvió en 2025 con
+           # Provincias Unidas). El Frente de Todos de Chaco antes de 2019 es de la UCR, como el de Corrientes (la primera regla)
+           (r"chaco merece m[aá]s$|^frente chaque[ñn]o$", lambda a, c: "peronismo" if c == "22" else None),
+           (r"^vamos chaco$", lambda a, c: "cambiemos" if c == "22" and a < 2025 else None)]
 # después, el nombre en mesas_fuerzas.json, y por último estas
 REGLAS = [(r"justicialis|frente para la victoria|uni[oó]n por la patria|frente de todos|frejupo|concertaci[oó]n justicialista", lambda a, c: "peronismo"),
           # frentes provinciales del PJ: Santa Fe (2011 y 2023), Córdoba (2015, el Frente para la Victoria) y Mendoza (2019 y 2023)
