@@ -67,6 +67,11 @@ CADA_4 = [str(a) for a in range(1983, 2024, 4)]
 CALENDARIO = {
     "02": ["1996", "2000", "2003", "2003 segunda", "2007", "2007 segunda", "2011", "2011 segunda", "2015", "2015 segunda", "2019", "2023"],
     "06": CADA_4, "30": CADA_4, "90": CADA_4, "82": CADA_4, "50": CADA_4, "74": CADA_4, "26": CADA_4, "78": CADA_4, "58": CADA_4, "62": CADA_4, "42": CADA_4,
+    "46": CADA_4, "70": CADA_4,
+    # Catamarca: la de 1988, después de que terminara el mandato de Vicente Saadi, y la de 1991, después de la intervención federal
+    "10": ["1983", "1987", "1988", *CADA_4[2:]],
+    # Santiago del Estero: la intervención de 1993 a 1995, el gobernador elegido por la Legislatura en 2001 y la intervención de 2004 y 2005
+    "86": ["1983", "1987", "1991", "1995", "1999", "2002", "2005", "2008", "2013", "2017", "2021", "2025"],
     # Corrientes: colegio electoral hasta 1991 (que no llegó a elegir), la elección anulada de 1992, directa desde 1993 con balotaje
     "18": ["1983", "1987", "1991", "1992", "1993", "1997", "1997 segunda", "2001", "2001 segunda", "2005", "2009", "2009 segunda", "2013", "2017", "2021",
            "2025"],
@@ -146,10 +151,11 @@ REGLAS = [(r"justicialis|frente para la victoria|uni[oó]n por la patria|frente 
           # frentes provinciales del PJ: Santa Fe (2011 y 2023), Córdoba (2015, el Frente para la Victoria) y Mendoza (2019 y 2023)
           (r"^frente santa fe para todos$|^juntos avancemos$|^c[oó]rdoba podemos$|eleg[ií](?: mendoza)?$", lambda a, c: "peronismo"),
           (r"^hacemos unidos por c[oó]rdoba$", lambda a, c: "cordoba"),
-          # frentes del PJ en Chubut (2019 y 2023), Río Negro (2023) y Tierra del Fuego (2019, Bertone)
-          (r"^alianza frente patri[oó]tico chubutense$|^alianza arriba chubut$|^vamos con todos$|^unidad fueguina$|unidad ciudadana", lambda a, c: "peronismo"),
-          # Cambiemos en Misiones (2015), Río Negro (2023) y Santa Cruz (2019, el lema de la UCR y el PRO)
-          (r"^frente vamos juntos$|^cambia r[ií]o negro$|^nueva santa cruz$", lambda a, c: "cambiemos"),
+          # frentes del PJ en Chubut (2019 y 2023), Río Negro (2023), Tierra del Fuego (2019, Bertone) y San Juan (2019, Uñac)
+          (r"^alianza frente patri[oó]tico chubutense$|^alianza arriba chubut$|^vamos con todos$|^unidad fueguina$|unidad ciudadana|^frente todos$",
+           lambda a, c: "peronismo"),
+          # Cambiemos en Misiones (2015), Río Negro (2023), Santa Cruz (2019, el lema de la UCR y el PRO), La Rioja y San Juan (2019)
+          (r"^frente vamos juntos$|^cambia r[ií]o negro$|^nueva santa cruz$|^juntos por la rioja$|^frente con vos$", lambda a, c: "cambiemos"),
           # Cambiemos en Córdoba (2015 y 2019) y en Mendoza (2019, como Cambia Mendoza en 2023)
           (r"^juntos por c[oó]rdoba$|^c[oó]rdoba cambia$|^frente cambia mendoza$", lambda a, c: "cambiemos"),
           (r"alianza (para|por) el trabajo, la justicia", lambda a, c: "alianza"),

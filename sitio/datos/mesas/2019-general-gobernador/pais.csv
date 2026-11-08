@@ -8,6 +8,10 @@ codigo_indec,provincia,lista,votos,electores,votantes,blancos,nulos
 06,Buenos Aires,Consenso Federal,513850,13185036,10548393,419092,64237
 06,Buenos Aires,Frente de Izquierda y de Trabajadores-Unidad,282830,13185036,10548393,419092,64237
 06,Buenos Aires,Frente NOS,141249,13185036,10548393,419092,64237
+10,Catamarca,Frente de Todos,133441,319543,258499,36653,1092
+10,Catamarca,Juntos por el Cambio,73782,319543,258499,36653,1092
+10,Catamarca,Consenso Federal,9703,319543,258499,36653,1092
+10,Catamarca,GEM,3828,319543,258499,36653,1092
 14,Córdoba,Hacemos por Córdoba,1101960,2889973,2103418,123967,58824
 14,Córdoba,Córdoba Cambia,362101,2889973,2103418,123967,58824
 14,Córdoba,Unión Cívica Radical,222826,2889973,2103418,123967,58824
@@ -41,6 +45,12 @@ codigo_indec,provincia,lista,votos,electores,votantes,blancos,nulos
 42,La Pampa,Frente Popular Pampeano,2879,282055,218061,11090,2606
 42,La Pampa,Desde el Pie,1764,282055,218061,11090,2606
 42,La Pampa,Movimiento Socialista de los Trabajadores,1526,282055,218061,11090,2606
+46,La Rioja,Frente de Todos,95115,290339,234478,19947,2663
+46,La Rioja,Juntos por La Rioja,65561,290339,234478,19947,2663
+46,La Rioja,Alianza Nuestra Rioja,49203,290339,234478,19947,2663
+46,La Rioja,Frente de Izquierda y de Trabajadores - Unidad,1615,290339,234478,19947,2663
+46,La Rioja,Frente Vecinalista del Tercer Sector,281,290339,234478,19947,2663
+46,La Rioja,Movimiento Independiente Justicia y Dignidad,93,290339,234478,19947,2663
 50,Mendoza,Frente Cambia Mendoza,554900,1406082,1111775,23071,14844
 50,Mendoza,Frente Político y Social Elegí,389172,1406082,1111775,23071,14844
 50,Mendoza,Protectora Fuerza Política,93567,1406082,1111775,23071,14844
@@ -65,6 +75,14 @@ codigo_indec,provincia,lista,votos,electores,votantes,blancos,nulos
 62,Río Negro,Partido Unión y Libertad,6956,546067,402681,5159,8144
 62,Río Negro,Movimiento Socialista de los Trabajadores,4669,546067,402681,5159,8144
 62,Río Negro,Movimiento al Socialismo,4392,546067,402681,5159,8144
+70,San Juan,Frente Todos,232879,,417043,0,0
+70,San Juan,Frente con Vos,141428,,417043,0,0
+70,San Juan,Frente San Juan Primero,16454,,417043,0,0
+70,San Juan,Cruzada Renovadora,8936,,417043,0,0
+70,San Juan,Dignidad Ciudadana,6968,,417043,0,0
+70,San Juan,Del Trabajo y del Pueblo,4280,,417043,0,0
+70,San Juan,Nueva Izquierda,3769,,417043,0,0
+70,San Juan,Nueva Dirigencia,2329,,417043,0,0
 78,Santa Cruz,Frente de Todos,93846,252031,180094,16934,2982
 78,Santa Cruz,Nueva Santa Cruz,51307,252031,180094,16934,2982
 78,Santa Cruz,Santa Cruz Somos Todos,11004,252031,180094,16934,2982
