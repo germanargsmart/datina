@@ -14,6 +14,27 @@ codigo_indec,provincia,lista,votos,electores,votantes,blancos,nulos
 06,Buenos Aires,Movimiento Cristiano Independiente,9007,,6894414,401758,30570
 06,Buenos Aires,Corriente Patria Libre,8963,,6894414,401758,30570
 06,Buenos Aires,Frente por la Coincidencia Patriótica,1941,,6894414,401758,30570
+10,Catamarca,Alianza Frente Cívico y Social,72020,175272,145514,9546,154
+10,Catamarca,Alianza Frente Justicialista,59676,175272,145514,9546,154
+10,Catamarca,Unidad Catamarqueña,1404,175272,145514,9546,154
+10,Catamarca,Renovación Popular,786,175272,145514,9546,154
+10,Catamarca,Movimiento Solidaridad,551,175272,145514,9546,154
+10,Catamarca,Movimiento de Integración y Desarrollo,326,175272,145514,9546,154
+10,Catamarca,Frente Grande,290,175272,145514,9546,154
+10,Catamarca,Movimiento por la Dignidad y la Independencia,282,175272,145514,9546,154
+10,Catamarca,Obrero,214,175272,145514,9546,154
+10,Catamarca,Acción Federal,194,175272,145514,9546,154
+10,Catamarca,Corriente Patria Libre,71,175272,145514,9546,154
+14,Córdoba,Unión Cívica Radical,738141,1983139,1660898,87552,9093
+14,Córdoba,Justicialista,626450,1983139,1660898,87552,9093
+14,Córdoba,Alianza Frente País Solidario,78672,1983139,1660898,87552,9093
+14,Córdoba,Unión del Centro Democrático,48450,1983139,1660898,87552,9093
+14,Córdoba,Federal,23711,1983139,1660898,87552,9093
+14,Córdoba,Movimiento de Integración y Desarrollo,23614,1983139,1660898,87552,9093
+14,Córdoba,Movimiento por la Dignidad y la Independencia,12805,1983139,1660898,87552,9093
+14,Córdoba,Movimiento Reformador Independiente,5891,1983139,1660898,87552,9093
+14,Córdoba,Corriente Patria Libre,4442,1983139,1660898,87552,9093
+14,Córdoba,Confederación Solidaridad,2077,1983139,1660898,87552,9093
 22,Chaco,"Partido Justicialista, con Unión del Centro Democrático y Nacionalista Constitucional",180049,547311,421740,9256,1620
 22,Chaco,"Unión Cívica Radical, con Frente País Solidario",145402,547311,421740,9256,1620
 22,Chaco,"Acción Chaqueña, con Movimiento por la Dignidad y la Independencia",83215,547311,421740,9256,1620
@@ -25,6 +46,16 @@ codigo_indec,provincia,lista,votos,electores,votantes,blancos,nulos
 26,Chubut,Acción Chubutense,2067,220893,179157,12054,1503
 26,Chubut,Movimiento Popular Chubutense,1794,220893,179157,12054,1503
 26,Chubut,MODIN,1127,220893,179157,12054,1503
+30,Entre Ríos,Alianza Frente Justicialista Entrerriano,278953,723186,615946,26539,1594
+30,Entre Ríos,Alianza Unión Cívica Radical - Alianza del Pueblo,266667,723186,615946,26539,1594
+30,Entre Ríos,Alianza Frente País Solidario,29910,723186,615946,26539,1594
+30,Entre Ríos,Movimiento por la Dignidad y la Independencia,8842,723186,615946,26539,1594
+30,Entre Ríos,Unión Provincial,2105,723186,615946,26539,1594
+30,Entre Ríos,Alianza Sur - Partido del Trabajo y del Pueblo,1336,723186,615946,26539,1594
+34,Formosa,Justicialista,106804,241725,187253,6040,1220
+34,Formosa,Unión Cívica Radical,72512,241725,187253,6040,1220
+34,Formosa,Autonomista,360,241725,187253,6040,1220
+34,Formosa,Triunfo Base Nativa,317,241725,187253,6040,1220
 38,Jujuy,Frejupo,116775,302678,225539,9056,3466
 38,Jujuy,Frente Cívico,73175,302678,225539,9056,3466
 38,Jujuy,Fuerza Popular,22089,302678,225539,9056,3466

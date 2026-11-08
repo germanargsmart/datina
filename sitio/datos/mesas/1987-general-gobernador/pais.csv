@@ -13,6 +13,27 @@ codigo_indec,provincia,lista,votos,electores,votantes,blancos,nulos
 06,Buenos Aires,Alianza Patriótica,9829,,6178817,105170,30988
 06,Buenos Aires,Alianza Confederación Laborista,7966,,6178817,105170,30988
 06,Buenos Aires,Movimiento Patriótico de Liberación,6705,,6178817,105170,30988
+10,Catamarca,Justicialista,66902,146372,125092,1348,218
+10,Catamarca,Unión Cívica Radical - Movimiento Popular Catamarqueño - Voz del Pueblo,51096,146372,125092,1348,218
+10,Catamarca,Frente Renovador - Demócrata Cristiano - Partido Intransigente,1286,146372,125092,1348,218
+10,Catamarca,Movilización,1261,146372,125092,1348,218
+10,Catamarca,Unión del Centro Democrático - Demócrata,970,146372,125092,1348,218
+10,Catamarca,Movimiento de Integración y Desarrollo,744,146372,125092,1348,218
+10,Catamarca,Movimiento al Socialismo,384,146372,125092,1348,218
+10,Catamarca,Movimiento Patriótico de Liberación,295,146372,125092,1348,218
+10,Catamarca,Alianza Unidad Socialista,294,146372,125092,1348,218
+10,Catamarca,Frente Amplio de Liberación,294,146372,125092,1348,218
+14,Córdoba,Unión Cívica Radical,729927,1770318,1524124,32574,4489
+14,Córdoba,Frente Justicialista de la Renovación,661016,1770318,1524124,32574,4489
+14,Córdoba,Unión del Centro Democrático,36537,1770318,1524124,32574,4489
+14,Córdoba,Movimiento de Integración y Desarrollo,14497,1770318,1524124,32574,4489
+14,Córdoba,Intransigente,10763,1770318,1524124,32574,4489
+14,Córdoba,Alianza Unidad Socialista,10502,1770318,1524124,32574,4489
+14,Córdoba,Frente Amplio de Liberación,10344,1770318,1524124,32574,4489
+14,Córdoba,Unión Popular - Federal Republi.,4888,1770318,1524124,32574,4489
+14,Córdoba,Movimiento al Socialismo,4391,1770318,1524124,32574,4489
+14,Córdoba,Obrero,2802,1770318,1524124,32574,4489
+14,Córdoba,Movimiento Patriótico de Liberación,1394,1770318,1524124,32574,4489
 18,Corrientes,"Alianza (Liberal, Autonomista y Demócrata Progresista)",166746,,380922,3595,1220
 18,Corrientes,Unión Cívica Radical,93495,,380922,3595,1220
 18,Corrientes,Frente Justicialista de Liberación,69377,,380922,3595,1220
@@ -38,6 +59,19 @@ codigo_indec,provincia,lista,votos,electores,votantes,blancos,nulos
 26,Chubut,Alianza Unidad Socialista,587,172934,138221,4746,188
 26,Chubut,Alternativa de Cambio,546,172934,138221,4746,188
 26,Chubut,Obrero,415,172934,138221,4746,188
+30,Entre Ríos,Frente Justicialista Entrerriano,268240,648000,553680,3744,2239
+30,Entre Ríos,Unión Cívica Radical,240178,648000,553680,3744,2239
+30,Entre Ríos,Alianza Popular de Centro,17088,648000,553680,3744,2239
+30,Entre Ríos,Intransigente,6429,648000,553680,3744,2239
+30,Entre Ríos,Socialista Popular,4691,648000,553680,3744,2239
+30,Entre Ríos,Demócrata Cristiano,4430,648000,553680,3744,2239
+30,Entre Ríos,Movimiento de Integración y Desarrollo,4104,648000,553680,3744,2239
+30,Entre Ríos,Comunista,2537,648000,553680,3744,2239
+34,Formosa,Justicialista,82220,196460,158259,1999,943
+34,Formosa,Unión Cívica Radical,72035,196460,158259,1999,943
+34,Formosa,Demócrata Cristiano,462,196460,158259,1999,943
+34,Formosa,Socialista Popular,328,196460,158259,1999,943
+34,Formosa,Frente Amplio de Liberación,272,196460,158259,1999,943
 38,Jujuy,Partido Justicialista,85304,245026,198090,2852,813
 38,Jujuy,Convergencia,65501,245026,198090,2852,813
 38,Jujuy,Movimiento de Unidad Renovador,31811,245026,198090,2852,813

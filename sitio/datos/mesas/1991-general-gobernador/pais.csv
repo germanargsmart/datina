@@ -11,6 +11,25 @@ codigo_indec,provincia,lista,votos,electores,votantes,blancos,nulos
 06,Buenos Aires,Partido Comunista,46434,,6317670,278374,49070
 06,Buenos Aires,Frente de Voluntad Popular,39248,,6317670,278374,49070
 06,Buenos Aires,Partido Obrero,24730,,6317670,278374,49070
+10,Catamarca,Alianza Frente Cívico y Social,62312,161631,129852,2616,247
+10,Catamarca,Alianza Movimiento Afirmación Popular,48002,161631,129852,2616,247
+10,Catamarca,Alianza Frente Esperanza Nueva Catamarca,14806,161631,129852,2616,247
+10,Catamarca,Fuerza Republicana,934,161631,129852,2616,247
+10,Catamarca,Movimiento al Socialismo,338,161631,129852,2616,247
+10,Catamarca,Corriente Patria Libre,311,161631,129852,2616,247
+10,Catamarca,Comunista,286,161631,129852,2616,247
+14,Córdoba,Unión Cívica Radical,781884,1869405,1562206,52210,7298
+14,Córdoba,"Alianza Unión de Fuerzas Sociales, con Federal (C.F.I.)",634639,1869405,1562206,52210,7298
+14,Córdoba,Unión del Centro Democrático,32459,1869405,1562206,52210,7298
+14,Córdoba,Alianza Convocatoria,11805,1869405,1562206,52210,7298
+14,Córdoba,Demócrata Cristiano,10838,1869405,1562206,52210,7298
+14,Córdoba,Alianza Frente Popular,6986,1869405,1562206,52210,7298
+14,Córdoba,Movimiento al Socialismo,6019,1869405,1562206,52210,7298
+14,Córdoba,Movimiento de Integración y Desarrollo,4147,1869405,1562206,52210,7298
+14,Córdoba,Obrero,3968,1869405,1562206,52210,7298
+14,Córdoba,Comunista,3932,1869405,1562206,52210,7298
+14,Córdoba,Social Republicano,3550,1869405,1562206,52210,7298
+14,Córdoba,Acción Popular,2471,1869405,1562206,52210,7298
 18,Corrientes,Alianza Pacto,171528,,396762,3964,1721
 18,Corrientes,Justicialista,132848,,396762,3964,1721
 18,Corrientes,Alianza para el Cambio,69774,,396762,3964,1721
@@ -34,6 +53,15 @@ codigo_indec,provincia,lista,votos,electores,votantes,blancos,nulos
 30,Entre Ríos,Partido Socialista Popular,6261,684070,581512,21564,1946
 30,Entre Ríos,Alianza Frente Pueblo Unido,2918,684070,581512,21564,1946
 30,Entre Ríos,Partido Intransigente,2812,684070,581512,21564,1946
+34,Formosa,Alianza Frente de la Victoria - Justicialista,73581,219349,171091,897,3902
+34,Formosa,Unión Cívica Radical,55726,219349,171091,897,3902
+34,Formosa,Auténtico Formoseño,32008,219349,171091,897,3902
+34,Formosa,Acción Formoseña - Fuerza Formoseña Integradora,3155,219349,171091,897,3902
+34,Formosa,Nacionalista Constitucional,562,219349,171091,897,3902
+34,Formosa,Fuerza Republicana,421,219349,171091,897,3902
+34,Formosa,Socialista Popular,340,219349,171091,897,3902
+34,Formosa,Comunista - Izquierda Unida,287,219349,171091,897,3902
+34,Formosa,Alianza Alternativa Popular,212,219349,171091,897,3902
 38,Jujuy,Fre.Ju.Pe.,94275,273959,204996,5944,1631
 38,Jujuy,Unión Cívica Radical,48817,273959,204996,5944,1631
 38,Jujuy,Movimiento Popular Jujeño,26593,273959,204996,5944,1631

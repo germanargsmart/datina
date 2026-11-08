@@ -33,6 +33,12 @@ codigo_indec,provincia,lista,votos,electores,votantes,blancos,nulos
 06,Buenos Aires,Unión Popular,25215,10328444,7979942,913214,66814
 06,Buenos Aires,Partido de los Comunistas de la Provincia,25107,10328444,7979942,913214,66814
 06,Buenos Aires,Movimiento Independiente de Jubilados y Desocupados,24773,10328444,7979942,913214,66814
+10,Catamarca,Frente Cívico - Frente para la Victoria,92531,234511,167151,10667,602
+10,Catamarca,Frente Justicialista por la Dignidad,58636,234511,167151,10667,602
+10,Catamarca,Partido Obrero,2156,234511,167151,10667,602
+10,Catamarca,Partido Comunista,1215,234511,167151,10667,602
+10,Catamarca,Frente de Participación Popular,728,234511,167151,10667,602
+10,Catamarca,Partido Humanista,616,234511,167151,10667,602
 14,Córdoba,"Partido Justicialista, con Partido Demócrata Cristiano, Unión del Centro Democrático (U.Ce.De.), Acción por la República, Acción Popular, Partido Unión Ciudadana, Unión Vecinal de Córdoba, Partido Nuevo País, Frente Federal de Córdoba, Partido Demócrata, Movimiento de Unidad Vecinalista (M.U.V.) y Política Abierta para la Integridad Social",582973,2371145,1707522,107020,32264
 14,Córdoba,"Alianza Frente Cívico, con Movimiento Libres del Sur, Unión Vecinal Federal, Frente Grande, Movimiento Patriótico, Partido Comunista, Partido Socialista, Vecinalismo Independiente y Partido Intransigente",565239,2371145,1707522,107020,32264
 14,Córdoba,"Unión Cívica Radical, con Afirmación para una República Igualitaria (ARI), Movimiento de Integración y Desarrollo, Recrear para el Crecimiento y Movimiento Popular Cordobés",347698,2371145,1707522,107020,32264
@@ -55,6 +61,20 @@ codigo_indec,provincia,lista,votos,electores,votantes,blancos,nulos
 26,Chubut,Unión Cívica Radical,29601,318252,241166,16126,4916
 26,Chubut,Acción Chubutense (PACH),11372,318252,241166,16126,4916
 26,Chubut,Afirmación para una República Igualitaria,10272,318252,241166,16126,4916
+30,Entre Ríos,Frente Justicialista para la Victoria,294407,864788,665881,30685,8855
+30,Entre Ríos,Unión Cívica Radical,124601,864788,665881,30685,8855
+30,Entre Ríos,Frente para la Victoria y la Justicia Social,117968,864788,665881,30685,8855
+30,Entre Ríos,Concertación Entrerriana,53328,864788,665881,30685,8855
+30,Entre Ríos,Propuesta Republicana,17486,864788,665881,30685,8855
+30,Entre Ríos,Partido Humanista,7901,864788,665881,30685,8855
+30,Entre Ríos,Partido Popular de la Reconstrucción,6553,864788,665881,30685,8855
+30,Entre Ríos,Movimiento Socialista de los Trabajadores,4097,864788,665881,30685,8855
+34,Formosa,Partido Justicialista,163861,333356,236484,19196,1742
+34,Formosa,Confederación Política y Social,41278,333356,236484,19196,1742
+34,Formosa,Afirmación para una República Igualitaria,8607,333356,236484,19196,1742
+34,Formosa,Solidaridad y Organización para la Liberación,839,333356,236484,19196,1742
+34,Formosa,Acción Nativa,505,333356,236484,19196,1742
+34,Formosa,Partido Humanista,456,333356,236484,19196,1742
 38,Jujuy,Alianza Frente para la Victoria,95466,411020,310518,40400,4482
 38,Jujuy,Alianza Frente Primero Jujuy,79603,411020,310518,40400,4482
 38,Jujuy,Alianza Frente Jujeño,56122,411020,310518,40400,4482

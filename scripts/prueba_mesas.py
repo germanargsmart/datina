@@ -73,7 +73,12 @@ JURISDICCION_CONOCIDOS = {("1983-general-gobernador", "06"): "Unión Cívica Rad
                           ("2023-general-gobernador", "10"): "Unión por la Patria", ("2019-general-gobernador", "46"): "Frente de Todos",
                           ("2019-general-gobernador", "70"): "Frente Todos", ("2017-general-gobernador", "86"): "Frente Cívico por Santiago",
                           ("2015-general-gobernador", "38"): "Frente Cambia Jujuy", ("2019-general-gobernador", "66"): "Sáenz Gobernador",
-                          ("1995-segunda-gobernador", "22"): "Unión Cívica Radical", ("2023-general-gobernador", "22"): "Juntos por el Cambio"}
+                          ("1995-segunda-gobernador", "22"): "Unión Cívica Radical", ("2023-general-gobernador", "22"): "Juntos por el Cambio",
+                          # lo que se sumó con la Wikipedia como guía hacia la fuente primaria: Formosa (que no tenía ninguna), CABA 1996 con las listas que llevaron
+                          # la misma fórmula, Catamarca 2007 (Brizuela del Moral, radical, con el Frente para la Victoria) y Córdoba 1991 con el documento de la DINE
+                          ("1995-general-gobernador", "34"): "Justicialista", ("2023-general-gobernador", "34"): "Frente de la Victoria",
+                          ("1996-general-gobernador", "02"): "Unión Cívica Radical, con Frente Progresista", ("2007-general-gobernador", "10"): "Frente Cívico - Frente para la Victoria",
+                          ("1991-general-gobernador", "14"): "Unión Cívica Radical"}
 # lo que los departamentos de 257arg reúnen del definitivo de una jurisdicción: lo medido al armar va de 87,7% (Formosa, diputados 2007) a 116,1% (San Juan, presidente 2003). Fuera de esto, se coló un total
 DEPTOS_MIN, DEPTOS_MAX = 85, 118
 # la presidencial de 1983 suma casi exacto el definitivo oficial (14.927.512): sirve de control de toda la cadena

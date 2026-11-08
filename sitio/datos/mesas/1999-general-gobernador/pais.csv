@@ -7,6 +7,12 @@ codigo_indec,provincia,lista,votos,electores,votantes,blancos,nulos
 06,Buenos Aires,Partido Obrero,43352,9035493,7742506,446219,51445
 06,Buenos Aires,Partido de los Trabajadores Socialistas,20609,9035493,7742506,446219,51445
 06,Buenos Aires,Frente de la Resistencia,19740,9035493,7742506,446219,51445
+10,Catamarca,Frente Cívico y Social,83626,195975,162210,2768,455
+10,Catamarca,Unidos por Catamarca,71095,195975,162210,2768,455
+10,Catamarca,Frente País Solidario,2930,195975,162210,2768,455
+10,Catamarca,Obrero,525,195975,162210,2768,455
+10,Catamarca,Frente de la Resistencia Izquierda Unida,440,195975,162210,2768,455
+10,Catamarca,Humanista,371,195975,162210,2768,455
 22,Chaco,"Alianza Frente de Todos, con Partido Bases y Principios del Chaco",291406,599505,470783,9104,1796
 22,Chaco,"Alianza Unión para el Nuevo Chaco, con Partido Nacionalista Constitucional y Partido Acción Chaqueña",165139,599505,470783,9104,1796
 22,Chaco,Partido Comunista,3354,599505,470783,9104,1796
@@ -20,6 +26,9 @@ codigo_indec,provincia,lista,votos,electores,votantes,blancos,nulos
 30,Entre Ríos,Acción por la República,15786,778185,671814,34911,2444
 30,Entre Ríos,Izquierda Unida - Partido Comunista,3177,778185,671814,34911,2444
 30,Entre Ríos,Partido Humanista,2605,778185,671814,34911,2444
+34,Formosa,Justicialista,150700,275013,209410,3108,1865
+34,Formosa,"Alianza para el Trabajo, la Justicia y la Educación",53272,275013,209410,3108,1865
+34,Formosa,Humanista,465,275013,209410,3108,1865
 38,Jujuy,Frente Justicialista Popular,129318,343332,275814,18536,1578
 38,Jujuy,"Alianza para el Trabajo, la Justicia y la Educación",126382,343332,275814,18536,1578
 42,La Pampa,Justicialista,97937,207255,182371,8370,1189
