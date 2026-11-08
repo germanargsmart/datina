@@ -54,7 +54,9 @@ MOTIVO_DEP = {("2025-general-gobernador", "18"): "la Junta suma esos votos en ca
               ("2007-general-gobernador", "38"): "la planilla del Tribunal cuenta 562 votantes en el total de la provincia y en ningún municipio",
               ("2019-general-gobernador", "54"): "el acta cuenta los votos de las fuerzas de seguridad y de los veedores solo en la planilla provincial",
               ("2023-general-gobernador", "54"): "el acta cuenta los votos del personal asignado a los centros de votación solo en la planilla provincial",
-              ("2003-segunda-gobernador", "94"): "son los de la Antártida, que la planilla da aparte y no tiene departamento en el mapa"}
+              ("2003-segunda-gobernador", "94"): "son los de la Antártida, que la planilla da aparte y no tiene departamento en el mapa",
+              ("2015-general-gobernador", "94"): "son los de la Antártida, que la base del Juzgado da aparte y no tiene departamento en el mapa",
+              ("2015-segunda-gobernador", "94"): "son los de la Antártida, que la base del Juzgado da aparte y no tiene departamento en el mapa"}
 # los electores por departamento que no se publican porque el padrón municipal incluye a los extranjeros, que votan intendente y no gobernador
 SIN_ELECTORES_DEP = {"38", "54"}
 COLUMNAS_DEP = ["cargo", "anio", "vuelta", "codigo_indec", "departamento", "codigo_departamento", "lista", "votos", "electores", "votantes", "blancos", "nulos",
@@ -118,7 +120,12 @@ DIFERENCIAS = {("gobernador", 2017, "general", "18"): 9,      # las alianzas sum
                ("gobernador", 1987, "general", "26"): -72,    # la tabla de la Secretaría Electoral da 72 votantes más que sus listas, blancos y nulos
                ("gobernador", 1983, "general", "54"): -11124,  # Misiones: el total es el de quienes fueron a votar, y la columna de gobernador suma menos
                ("gobernador", 1987, "general", "54"): -900,    # Misiones: el documento suma 900 votos de "compensación de diferencias de actas"
-               ("gobernador", 1999, "general", "22"): 16}      # Chaco: las listas, los blancos y los nulos del acta suman 16 más que sus votantes
+               ("gobernador", 1999, "general", "22"): 16,      # Chaco: las listas, los blancos y los nulos del acta suman 16 más que sus votantes
+               # los informes "Resultados históricos" de la DINE suman una "compensación de diferencias de actas" para llegar a los votantes
+               ("gobernador", 1987, "general", "82"): -3362, ("gobernador", 1987, "general", "86"): -2565, ("gobernador", 1991, "general", "86"): -257,
+               ("gobernador", 1987, "general", "90"): -222, ("gobernador", 1991, "segunda", "94"): -1000,
+               # Tierra del Fuego 2015: los votantes son el total de votos escrutados del Juzgado, que no es la suma de los de gobernador
+               ("gobernador", 2015, "general", "94"): -1010, ("gobernador", 2015, "segunda", "94"): 79}
 
 # lo mismo por departamento: en Corrientes 2017, en 13 departamentos las alianzas suman de 1 a 47 votos más que los válidos del mismo documento. Se publican
 # como vienen, con un tope por departamento
