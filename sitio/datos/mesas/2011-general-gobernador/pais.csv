@@ -69,6 +69,15 @@ codigo_indec,provincia,lista,votos,electores,votantes,blancos,nulos
 54,Misiones,Partido Socialista,4914,718839,543597,43185,4252
 54,Misiones,Unión del Centro Democrático,1600,718839,543597,43185,4252
 54,Misiones,Movimiento Social para una Mejor Vida,1549,718839,543597,43185,4252
+62,Río Negro,Alianza Frente para la Victoria,162883,,340845,16612,5097
+62,Río Negro,Alianza Concertación para el Desarrollo,77914,,340845,16612,5097
+62,Río Negro,Partido Provincial Rionegrino,22356,,340845,16612,5097
+62,Río Negro,Unidos por Río Negro,19835,,340845,16612,5097
+62,Río Negro,Coalición Cívica - Afirmación para una República Igualitaria,17590,,340845,16612,5097
+62,Río Negro,Partido Socialista,6857,,340845,16612,5097
+62,Río Negro,Partido Demócrata Progresista,4695,,340845,16612,5097
+62,Río Negro,Partido Obrero,4104,,340845,16612,5097
+62,Río Negro,Partido Comunista,2902,,340845,16612,5097
 66,Salta,Frente Justicialista Renovador de la Victoria - FREJUREVI,327596,,550019,0,0
 66,Salta,Frente Olmedo Gobernador,138132,,550019,0,0
 66,Salta,Wayar Gobernador,46728,,550019,0,0
@@ -77,6 +86,18 @@ codigo_indec,provincia,lista,votos,electores,votantes,blancos,nulos
 66,Salta,Morello Gobernador - Movimiento Proyecto Sur - PS,9201,,550019,0,0
 66,Salta,Coalición Cívica - Afirmación para una República Igualitaria (A.R.I.),4530,,550019,0,0
 66,Salta,Compromiso Federal,1195,,550019,0,0
+70,San Juan,Frente para la Victoria,227099,468845,369814,34309,2326
+70,San Juan,Compromiso Federal,67807,468845,369814,34309,2326
+70,San Juan,Unión para Desarrollo Social,22187,468845,369814,34309,2326
+70,San Juan,Frente Amplio Progresista,8747,468845,369814,34309,2326
+70,San Juan,Partido Dignidad Ciudadana,7339,468845,369814,34309,2326
+74,San Luis,Compromiso Federal,129170,312046,252106,26437,2225
+74,San Luis,Frente para la Victoria,56896,312046,252106,26437,2225
+74,San Luis,UDESO-UCR-FT Unidos por San Luis,37378,312046,252106,26437,2225
+78,Santa Cruz,Frente para la Victoria Santacruceña,72519,199749,152924,10093,1290
+78,Santa Cruz,Unión para Vivir Mejor,64900,199749,152924,10093,1290
+78,Santa Cruz,Encuentro Ciudadano Sur,2624,199749,152924,10093,1290
+78,Santa Cruz,Partido Obrero,1498,199749,152924,10093,1290
 82,Santa Fe,"Frente Progresista, Cívico y Social",676805,,1824963,41974,77460
 82,Santa Fe,Unión PRO Federal,615368,,1824963,41974,77460
 82,Santa Fe,Frente Santa Fe para Todos,388231,,1824963,41974,77460
