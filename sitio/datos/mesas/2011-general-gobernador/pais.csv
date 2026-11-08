@@ -20,12 +20,48 @@ codigo_indec,provincia,lista,votos,electores,votantes,blancos,nulos
 06,Buenos Aires,Frente Popular,459165,11152684,9015590,1188411,55238
 06,Buenos Aires,Frente de Izquierda y de los Trabajadores,238365,11152684,9015590,1188411,55238
 06,Buenos Aires,Coalición Cívica-Afirmación para una República Igualitaria,145756,11152684,9015590,1188411,55238
+14,Córdoba,Unión por Córdoba,766445,2493687,1894066,50029,44738
+14,Córdoba,Frente Cívico,532281,2493687,1894066,50029,44738
+14,Córdoba,Unión Cívica Radical,412140,2493687,1894066,50029,44738
+14,Córdoba,Frente de Izquierda y de los Trabajadores,25313,2493687,1894066,50029,44738
+14,Córdoba,Nuevo Encuentro,16805,2493687,1894066,50029,44738
+14,Córdoba,Coalición Cívica - Afirmación para una República Igualitaria (CC-ARI),10330,2493687,1894066,50029,44738
+14,Córdoba,Partido Concentración Popular,7891,2493687,1894066,50029,44738
+14,Córdoba,Concertación Vecinal Es Posible,6747,2493687,1894066,50029,44738
+14,Córdoba,Frente Unidad Popular y Humanista,6392,2493687,1894066,50029,44738
+14,Córdoba,Política Abierta para la Integridad Social,5065,2493687,1894066,50029,44738
+14,Córdoba,Partido del Campo Popular,5061,2493687,1894066,50029,44738
+14,Córdoba,Partido Intransigente,4829,2493687,1894066,50029,44738
+26,Chubut,Partido Justicialista,99369,352212,270675,20910,3998
+26,Chubut,Alianza Frente para la Victoria,98984,352212,270675,20910,3998
+26,Chubut,Unión Cívica Radical,31188,352212,270675,20910,3998
+26,Chubut,Movimiento Socialista de los Trabajadores,4476,352212,270675,20910,3998
+26,Chubut,Coalición Cívica ARI,4340,352212,270675,20910,3998
+26,Chubut,Acción Chubutense (P.A.CH.),2971,352212,270675,20910,3998
+26,Chubut,Movimiento Independiente de Jubilados y Desocupados,2429,352212,270675,20910,3998
+26,Chubut,Partido Independiente del Chubut (PICH),2010,352212,270675,20910,3998
 30,Entre Ríos,Frente Justicialista para la Victoria,368111,922398,759332,96480,5221
 30,Entre Ríos,Frente Progresista Cívico y Social,123635,922398,759332,96480,5221
 30,Entre Ríos,Frente Entrerriano Federal,120728,922398,759332,96480,5221
 30,Entre Ríos,Generación para un Encuentro Nacional,25489,922398,759332,96480,5221
 30,Entre Ríos,PRO - Propuesta Republicana,16310,922398,759332,96480,5221
 30,Entre Ríos,Nueva Izquierda,3358,922398,759332,96480,5221
+54,Misiones,Frente Renovador de la Concordia,372490,718839,543597,43185,4252
+54,Misiones,Trabajo y Progreso,30938,718839,543597,43185,4252
+54,Misiones,Unión Cívica Radical,30816,718839,543597,43185,4252
+54,Misiones,Agrario y Social,18122,718839,543597,43185,4252
+54,Misiones,Frente para la Victoria,15804,718839,543597,43185,4252
+54,Misiones,Frente de la Esperanza,11749,718839,543597,43185,4252
+54,Misiones,Frente Progreso Laborista,8178,718839,543597,43185,4252
+54,Misiones,Partido Socialista,4914,718839,543597,43185,4252
+54,Misiones,Unión del Centro Democrático,1600,718839,543597,43185,4252
+54,Misiones,Movimiento Social para una Mejor Vida,1549,718839,543597,43185,4252
+82,Santa Fe,"Frente Progresista, Cívico y Social",676805,,1824963,41974,77460
+82,Santa Fe,Unión PRO Federal,615368,,1824963,41974,77460
+82,Santa Fe,Frente Santa Fe para Todos,388231,,1824963,41974,77460
+82,Santa Fe,Partido Obrero,11161,,1824963,41974,77460
+82,Santa Fe,"Movimiento Independiente, Justicia y Dignidad",9001,,1824963,41974,77460
+82,Santa Fe,Partido Autonomista,4963,,1824963,41974,77460
 90,Tucumán,Frente para la Victoria,589115,1014067,842952,19389,12009
 90,Tucumán,Acuerdo Cívico y Social,122409,1014067,842952,19389,12009
 90,Tucumán,Fuerza Republicana,26191,1014067,842952,19389,12009

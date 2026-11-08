@@ -9,10 +9,36 @@ codigo_indec,provincia,lista,votos,electores,votantes,blancos,nulos
 06,Buenos Aires,Alianza Unidos por una Nueva Alternativa,1763241,12429146,10003443,792230,54553
 06,Buenos Aires,Alianza Frente de Izquierda y de los Trabajadores,338159,12429146,10003443,792230,54553
 06,Buenos Aires,Alianza Progresistas,215159,12429146,10003443,792230,54553
+14,Córdoba,Unión por Córdoba,745240,2679883,2009130,77873,67902
+14,Córdoba,Juntos por Córdoba,628806,2679883,2009130,77873,67902
+14,Córdoba,Córdoba Podemos,319942,2679883,2009130,77873,67902
+14,Córdoba,Frente de Izquierda y de los Trabajadores,91287,2679883,2009130,77873,67902
+14,Córdoba,Movimiento al Socialismo,26626,2679883,2009130,77873,67902
+14,Córdoba,MST Nueva Izquierda,26333,2679883,2009130,77873,67902
+14,Córdoba,Frente Progresista y Popular,25121,2679883,2009130,77873,67902
+26,Chubut,Alianza Frente Unión Chubut Somos Todos,116542,416710,332351,49427,4588
+26,Chubut,Alianza Frente para la Victoria,113054,416710,332351,49427,4588
+26,Chubut,Cambiemos Chubut,41159,416710,332351,49427,4588
+26,Chubut,Polo Social La Tercera Posición de la Gente,7581,416710,332351,49427,4588
 30,Entre Ríos,Frente para la Victoria,325878,1031024,872585,96798,5439
 30,Entre Ríos,Cambiemos,303769,1031024,872585,96798,5439
 30,Entre Ríos,Unión Popular,120793,1031024,872585,96798,5439
 30,Entre Ríos,Partido Socialista,19908,1031024,872585,96798,5439
+54,Misiones,Frente Renovador de la Concordia,400536,849788,699364,66184,5277
+54,Misiones,Frente Vamos Juntos,85060,849788,699364,66184,5277
+54,Misiones,Frente Cívico y Social,53605,849788,699364,66184,5277
+54,Misiones,Frente Unidos UNA,40773,849788,699364,66184,5277
+54,Misiones,Proyecto Agrario y Social,37630,849788,699364,66184,5277
+54,Misiones,Partido del Obrero,4350,849788,699364,66184,5277
+54,Misiones,Unidos por una Nueva Alternativa,2225,849788,699364,66184,5277
+54,Misiones,Frente Popular,1792,849788,699364,66184,5277
+54,Misiones,Movimiento Social para una Mejor Vida,974,849788,699364,66184,5277
+54,Misiones,Movimiento Generacional,958,849788,699364,66184,5277
+82,Santa Fe,"Frente Progresista, Cívico y Social",584017,2580882,1970001,65975,63802
+82,Santa Fe,Unión PRO Federal,582521,2580882,1970001,65975,63802
+82,Santa Fe,Frente Justicialista para la Victoria,558571,2580882,1970001,65975,63802
+82,Santa Fe,Frente Renovador de la Esperanza,70429,2580882,1970001,65975,63802
+82,Santa Fe,Frente de Izquierda y de los Trabajadores,44686,2580882,1970001,65975,63802
 90,Tucumán,Alianza Frente para la Victoria,491951,1119260,952577,25113,10957
 90,Tucumán,Frente Acuerdo para el Bicentenario,380418,1119260,952577,25113,10957
 90,Tucumán,Fuerza Republicana,29904,1119260,952577,25113,10957

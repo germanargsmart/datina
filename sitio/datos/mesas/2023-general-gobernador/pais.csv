@@ -7,9 +7,63 @@ codigo_indec,provincia,lista,votos,electores,votantes,blancos,nulos
 06,Buenos Aires,Juntos por el Cambio,2563582,14059933,10676947,980563,61207
 06,Buenos Aires,La Libertad Avanza,2367294,14059933,10676947,980563,61207
 06,Buenos Aires,Frente de Izquierda y de Trabajadores-Unidad,373819,14059933,10676947,980563,61207
+14,Córdoba,Hacemos Unidos por Córdoba,870935,3051544,2081193,102563,51776
+14,Córdoba,Juntos por el Cambio,806541,3051544,2081193,102563,51776
+14,Córdoba,Encuentro Vecinal Córdoba,60818,3051544,2081193,102563,51776
+14,Córdoba,La Libertad Avanza,50218,3051544,2081193,102563,51776
+14,Córdoba,Frente de Izquierda y de Trabajadores Unidad,47068,3051544,2081193,102563,51776
+14,Córdoba,Creo en Córdoba de Todos,43186,3051544,2081193,102563,51776
+14,Córdoba,Popular,15857,3051544,2081193,102563,51776
+14,Córdoba,Partido Humanista,10174,3051544,2081193,102563,51776
+14,Córdoba,Frente Liberal Demócrata Desarrollista,10123,3051544,2081193,102563,51776
+14,Córdoba,Movimiento al Socialismo,7286,3051544,2081193,102563,51776
+14,Córdoba,Unión Popular Federal,4648,3051544,2081193,102563,51776
+26,Chubut,Alianza Juntos por el Cambio,117628,474242,328852,27409,7894
+26,Chubut,Alianza Arriba Chubut,111415,474242,328852,27409,7894
+26,Chubut,Alianza por la Libertad Independiente Chubutense (PLICH),43096,474242,328852,27409,7894
+26,Chubut,Alianza Frente de Izquierda y de Trabajadores - Unidad,14009,474242,328852,27409,7894
+26,Chubut,Generación para un Encuentro Nacional (GEN),7401,474242,328852,27409,7894
 30,Entre Ríos,Juntos por el Cambio - Juntos por Entre Ríos,327574,1150954,897487,104107,7485
 30,Entre Ríos,Unión por la Patria - Más para Entre Ríos,309929,1150954,897487,104107,7485
 30,Entre Ríos,La Libertad Avanza,148392,1150954,897487,104107,7485
+42,La Pampa,Justicialista Pampeano,97198,299359,220363,13673,2755
+42,La Pampa,Juntos por el Cambio,85855,299359,220363,13673,2755
+42,La Pampa,Comunidad Organizada,13907,299359,220363,13673,2755
+42,La Pampa,Frente de Izquierda y de los Trabajadores,2842,299359,220363,13673,2755
+42,La Pampa,Movimiento Federalista Pampeano,2149,299359,220363,13673,2755
+42,La Pampa,Partido Desde el Pie,1984,299359,220363,13673,2755
+50,Mendoza,Cambia Mendoza,368313,1488736,1017252,48377,36614
+50,Mendoza,La Unión Mendocina,276784,1488736,1017252,48377,36614
+50,Mendoza,Elegí Mendoza,137334,1488736,1017252,48377,36614
+50,Mendoza,Partido Verde,110402,1488736,1017252,48377,36614
+50,Mendoza,Frente de Izquierda y de Trabajadores - Unidad,39428,1488736,1017252,48377,36614
+54,Misiones,Frente Renovador de la Concordia,424533,979882,695983,29917,4582
+54,Misiones,Frente Juntos por el Cambio,175759,979882,695983,29917,4582
+54,Misiones,Frente La Fuerza de Todos,31952,979882,695983,29917,4582
+54,Misiones,Frente Amplio,11726,979882,695983,29917,4582
+54,Misiones,Partido del Obrero,8014,979882,695983,29917,4582
+54,Misiones,Partido de Integración y Militancia,3394,979882,695983,29917,4582
+54,Misiones,Por la Vida y los Valores,3065,979882,695983,29917,4582
+54,Misiones,Partido Demócrata,3041,979882,695983,29917,4582
+58,Neuquén,"Comunidad, con PRO, Desarrollo Ciudadano, Avanzar Neuquén, Arriba Neuquén, Nuevo Compromiso Neuquino, Frente Grande, Partido Socialista y Frente Social por la Dignidad",148136,546166,416166,14736,415
+58,Neuquén,"Movimiento Popular Neuquino, con Juntos por la Vida, Nuevo Neuquén, Iguales, Unión de los Neuquinos, Unión Popular Federal, Frente Integrador Neuquino, Energía Ciudadana, Partido Vecinal Renovador y Movimiento de Integración y Desarrollo",137965,546166,416166,14736,415
+58,Neuquén,"Frente de Todos Neuquino, con Libres del Sur, Kolina, Instrumento Electoral por la Unidad Popular y Partido del Trabajo y del Pueblo",52735,546166,416166,14736,415
+58,Neuquén,Cumplir,33095,546166,416166,14736,415
+58,Neuquén,Juntos por el Cambio,15571,546166,416166,14736,415
+58,Neuquén,Frente de Izquierda y de los Trabajadores,13513,546166,416166,14736,415
+62,Río Negro,"Juntos Somos Río Negro, con Nos Une Río Negro",154089,589251,401599,27082,11322
+62,Río Negro,Cambia Río Negro,86660,589251,401599,27082,11322
+62,Río Negro,Vamos con Todos,38298,589251,401599,27082,11322
+62,Río Negro,Primero Río Negro,33338,589251,401599,27082,11322
+62,Río Negro,Unidad PV,16801,589251,401599,27082,11322
+62,Río Negro,Somos UPS,11680,589251,401599,27082,11322
+62,Río Negro,Frente de Izquierda y de los Trabajadores,10795,589251,401599,27082,11322
+62,Río Negro,Partido Provincial Rionegrino,6182,589251,401599,27082,11322
+62,Río Negro,Movimiento al Socialismo,5352,589251,401599,27082,11322
+82,Santa Fe,Unidos para Cambiar Santa Fe,1031964,2813695,1919625,87209,67348
+82,Santa Fe,Juntos Avancemos,544468,2813695,1919625,87209,67348
+82,Santa Fe,Viva la Libertad,113985,2813695,1919625,87209,67348
+82,Santa Fe,Frente de Izquierda y de Trabajadores,74651,2813695,1919625,87209,67348
 90,Tucumán,Frente de Todos por Tucumán,612862,1312532,1114843,41145,16338
 90,Tucumán,Frente Juntos por el Cambio,371034,1312532,1114843,41145,16338
 90,Tucumán,Fuerza Republicana,44061,1312532,1114843,41145,16338
@@ -18,3 +72,8 @@ codigo_indec,provincia,lista,votos,electores,votantes,blancos,nulos
 90,Tucumán,Política Obrera,3052,1312532,1114843,41145,16338
 90,Tucumán,Nos Une el Cambio,1317,1312532,1114843,41145,16338
 90,Tucumán,Camino a la Lealtad,321,1312532,1114843,41145,16338
+94,Tierra del Fuego,Frente Unidos Hacemos Futuro,52438,147064,104829,22083,2528
+94,Tierra del Fuego,Propuesta Republicana PRO,11309,147064,104829,22083,2528
+94,Tierra del Fuego,Republicanos Unidos,7656,147064,104829,22083,2528
+94,Tierra del Fuego,Juntos por el Cambio Tierra del Fuego,5759,147064,104829,22083,2528
+94,Tierra del Fuego,Frente de Izquierda y Trabajadores Unidad,3056,147064,104829,22083,2528

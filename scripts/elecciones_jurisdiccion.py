@@ -59,29 +59,63 @@ PROVINCIAS = {"02": "CABA", "06": "Buenos Aires", "10": "Catamarca", "14": "Cór
               "94": "Tierra del Fuego"}
 MESES = ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"]
 
-# Elecciones de gobernador que se votaron y no tienen un escrutinio oficial publicado en línea (revisado el 7 de noviembre de 2026, ELECCIONES_PROVINCIAS.md).
-# La página dice que se votó y que falta la fuente, en vez de "no eligió". Las de un año en que ninguna de las cinco jurisdicciones tiene fuente (CABA 1996,
-# Corrientes 2021 y la segunda vuelta de Corrientes 2001) no tienen elección en la página: lo dice MESAS.md
-SIN_FUENTE = {("gobernador", 1983, "general"): ["90"], ("gobernador", 1987, "general"): ["30", "90"], ("gobernador", 1991, "general"): ["90"],
-              ("gobernador", 1995, "general"): ["30", "90"], ("gobernador", 1999, "general"): ["90"], ("gobernador", 2003, "general"): ["30"],
-              ("gobernador", 2007, "general"): ["30"]}
+# Las elecciones de gobernador de cada jurisdicción desde 1983 (y alguna anterior con fuente oficial), "AAAA" la general y "AAAA segunda" el balotaje, según
+# ELECCIONES_PROVINCIAS.md. De acá sale lo que la página dice de una jurisdicción que no está en una elección: si la votó y no hay escrutinio oficial
+# publicado en línea, lo dice (SIN_FUENTE), y si no, que no eligió gobernador. Una elección de la tabla que no está en su calendario frena el programa.
+# Las de un año en que ninguna jurisdicción tiene fuente (CABA 1996, Córdoba 1998, Corrientes 2021...) no tienen elección en la página: lo dice MESAS.md
+CADA_4 = [str(a) for a in range(1983, 2024, 4)]
+CALENDARIO = {
+    "02": ["1996", "2000", "2003", "2003 segunda", "2007", "2007 segunda", "2011", "2011 segunda", "2015", "2015 segunda", "2019", "2023"],
+    "06": CADA_4, "30": CADA_4, "90": CADA_4, "82": CADA_4, "50": CADA_4, "74": CADA_4, "26": CADA_4, "78": CADA_4, "58": CADA_4, "62": CADA_4, "42": CADA_4,
+    # Corrientes: colegio electoral hasta 1991 (que no llegó a elegir), la elección anulada de 1992, directa desde 1993 con balotaje
+    "18": ["1983", "1987", "1991", "1992", "1993", "1997", "1997 segunda", "2001", "2001 segunda", "2005", "2009", "2009 segunda", "2013", "2017", "2021",
+           "2025"],
+    # Córdoba adelantó su elección de 1999 al 20 de diciembre de 1998
+    "14": ["1983", "1987", "1991", "1995", "1998", "2003", "2007", "2011", "2015", "2019", "2023"],
+    # Misiones: la de 1975 tiene fuente oficial
+    "54": ["1975", *CADA_4],
+    # Tierra del Fuego, provincia desde 1990, con balotaje (en 1995, 2019 y 2023 no hizo falta)
+    "94": ["1991", "1991 segunda", "1995", "1999", "1999 segunda", "2003", "2003 segunda", "2007", "2007 segunda", "2011", "2011 segunda", "2015",
+           "2015 segunda", "2019", "2023"],
+}
 
-# las dos elecciones en que la fuente no cierra, con la diferencia exacta (listas + blancos + nulos - votantes) y su motivo en la nota del CSV. Cualquier otra
+
+def sin_fuente(datos):
+    """Lo que se votó y no tiene escrutinio oficial publicado en línea: {(cargo, año, vuelta): [códigos]}. Frena si un dato no está en su calendario."""
+    hay = {(cod, f"{anio}" + (" segunda" if vuelta == "segunda" else "")) for (cargo, anio, vuelta), por_cod in datos.items() if cargo == "gobernador"
+           for cod in por_cod}
+    fuera = sorted(x for x in hay if x[1] not in CALENDARIO.get(x[0], []))
+    if fuera:
+        sys.exit(f"Elecciones de gobernador que no están en CALENDARIO: {fuera}")
+    sin = defaultdict(list)
+    for cod, eleccion in CALENDARIO.items():
+        for e in eleccion:
+            if (cod, e) not in hay:
+                anio, _, vuelta = e.partition(" ")
+                sin[("gobernador", int(anio), vuelta or "general")].append(cod)
+    return {k: sorted(v) for k, v in sin.items()}
+
+
+# las elecciones en que la fuente no cierra, con la diferencia exacta (listas + blancos + nulos - votantes) y su motivo en la nota del CSV. Cualquier otra
 # diferencia frena el programa
 DIFERENCIAS = {("gobernador", 2017, "general", "18"): 9,      # las alianzas suman 9 votos más que los válidos del mismo documento
-               ("gobernador", 2025, "general", "18"): -230}   # los positivos de las personas privadas de libertad, sin repartir entre las fórmulas
+               ("gobernador", 2025, "general", "18"): -230,   # los positivos de las personas privadas de libertad, sin repartir entre las fórmulas
+               ("gobernador", 1987, "general", "26"): -72,    # la tabla de la Secretaría Electoral da 72 votantes más que sus listas, blancos y nulos
+               ("gobernador", 1983, "general", "54"): -11124,  # Misiones: el total es el de quienes fueron a votar, y la columna de gobernador suma menos
+               ("gobernador", 1987, "general", "54"): -900}    # Misiones: el documento suma 900 votos de "compensación de diferencias de actas"
 
 # lo mismo por departamento: en Corrientes 2017, en 13 departamentos las alianzas suman de 1 a 47 votos más que los válidos del mismo documento. Se publican
 # como vienen, con un tope por departamento
 DIFERENCIAS_DEP = {("gobernador", 2017, "general", "18"): 50}
 
-# las jurisdicciones con sus gobernadores mapeados (la primera tanda de ELECCIONES_PROVINCIAS.md): la página dice que por ahora están solo estas
-CUBRE = ["02", "06", "18", "30", "90"]
+# las jurisdicciones con sus gobernadores mapeados: mientras falte alguna, la página dice que por ahora están solo estas
+CUBRE = sorted(CALENDARIO)
+TODAS = len(CUBRE) == 24
 
-# lo que dice la página de las jurisdicciones que no están en una elección
-FUERA = {"gobernador": "Todavía sin datos de gobernador de esta jurisdicción",
+# lo que dice la página de las jurisdicciones que no están en una elección (las que la votaron sin fuente van en sin_fuente)
+FUERA = {"gobernador": "No eligió gobernador en esta elección" if TODAS else "Todavía sin datos de gobernador de esta jurisdicción",
          "senadores": "Sus senadores los elegía la Legislatura provincial, y solo la Capital los votaba"}
-GRIS = {"gobernador": "Sin datos de esta jurisdicción, o sin escrutinio oficial en línea",
+GRIS = {"gobernador": "No eligió gobernador, o no hay un escrutinio oficial en línea" if TODAS else "Sin datos de esta jurisdicción, o sin escrutinio oficial en línea",
         "senadores": "Senadores elegidos por la Legislatura provincial"}
 
 # el color de cada lista en el mapa: primero el de su nombre en mesas_fuerzas.json, después estas reglas. Una lista que no entra en ninguna va en "otras"
@@ -92,9 +126,32 @@ PRIMERO = [(r"^(alianza )?frente de todos$", lambda a, c: "ucr" if a < 2019 else
            (r"^(autonomista|liberal)$|^alianza \(liberal, autonomista|^alianza pacto", lambda a, c: "pacto" if c == "18" else None),
            (r"^encuentro por corrientes$", lambda a, c: "ucr" if a < 2015 else None),
            (r"^frente corrientes podemos m[aá]s$|^limpiar corrientes$", lambda a, c: "peronismo" if c == "18" else None),
-           (r"^frente fundacional$", lambda a, c: "peronismo" if c == "90" else None)]   # el frente del PJ de Tucumán en 2003
+           (r"^frente fundacional$", lambda a, c: "peronismo" if c == "90" else None),   # el frente del PJ de Tucumán en 2003
+           # Santa Fe: el Frente Progresista lo encabezó el socialismo (Binner, Bonfatti, Lifschitz) y la Alianza Santafesina, la UCR. "Juntos" fue en
+           # 2019 el frente del PJ (Perotti). Unidos para Cambiar Santa Fe lo encabezó la UCR (Pullaro), como Vamos Corrientes
+           (r"^frente progresista,? c[ií]vico y social$", lambda a, c: "progresismo" if c == "82" else None),
+           (r"^alianza santafesina$|^unidos para cambiar santa fe$", lambda a, c: "ucr" if c == "82" else None),
+           (r"^juntos$", lambda a, c: "peronismo" if c == "82" and a == 2019 else None),
+           # Misiones: el Frente Renovador de 2003 es el de Rovira, que después se llamó Frente Renovador de la Concordia (no el de Massa), y la Alianza
+           # Frente para el Cambio de 1999, la del PJ con Rovira
+           (r"^frente renovador$", lambda a, c: "concordia" if c == "54" else None),
+           (r"^alianza frente para el cambio$", lambda a, c: "peronismo" if c == "54" else None),
+           # el Frente Cívico y Social de Catamarca es de la UCR: el de Misiones (2015) no se sabe, y va en otras
+           (r"^frente c[ií]vico y social$", lambda a, c: "otras" if c == "54" else None),
+           # Chubut: los frentes de Das Neves (2015) y de Arcioni (2019), con el color de Chubut Somos Todos, y el Partido Acción Chubutense
+           (r"^alianza (frente uni[oó]n chubut somos todos|chubut al frente)$", lambda a, c: "p-chubut-somos-todos" if c == "26" else None),
+           (r"^acci[oó]n chubutense", lambda a, c: "p-partido-de-accion-chubutense" if c == "26" else None)]
 # después, el nombre en mesas_fuerzas.json, y por último estas
 REGLAS = [(r"justicialis|frente para la victoria|uni[oó]n por la patria|frente de todos|frejupo|concertaci[oó]n justicialista", lambda a, c: "peronismo"),
+          # frentes provinciales del PJ: Santa Fe (2011 y 2023), Córdoba (2015, el Frente para la Victoria) y Mendoza (2019 y 2023)
+          (r"^frente santa fe para todos$|^juntos avancemos$|^c[oó]rdoba podemos$|eleg[ií](?: mendoza)?$", lambda a, c: "peronismo"),
+          (r"^hacemos unidos por c[oó]rdoba$", lambda a, c: "cordoba"),
+          # frentes del PJ en Chubut (2019 y 2023), Río Negro (2023) y Tierra del Fuego (2019, Bertone)
+          (r"^alianza frente patri[oó]tico chubutense$|^alianza arriba chubut$|^vamos con todos$|^unidad fueguina$|unidad ciudadana", lambda a, c: "peronismo"),
+          # Cambiemos en Misiones (2015), Río Negro (2023) y Santa Cruz (2019, el lema de la UCR y el PRO)
+          (r"^frente vamos juntos$|^cambia r[ií]o negro$|^nueva santa cruz$", lambda a, c: "cambiemos"),
+          # Cambiemos en Córdoba (2015 y 2019) y en Mendoza (2019, como Cambia Mendoza en 2023)
+          (r"^juntos por c[oó]rdoba$|^c[oó]rdoba cambia$|^frente cambia mendoza$", lambda a, c: "cambiemos"),
           (r"alianza (para|por) el trabajo, la justicia", lambda a, c: "alianza"),
           (r"pa[ií]s solidario", lambda a, c: "frepaso"),
           (r"uni[oó]n c[ií]vica radical|acuerdo c[ií]vico y social|frente progresista c[ií]vico y social|encuentro por corrientes|vamos corrientes",
@@ -283,6 +340,7 @@ def main():
     idx["elecciones"] = [e for e in idx["elecciones"] if e.get("origen") != ORIGEN]
     ya = {e["id"] for e in idx["elecciones"]}
     cubre = enumerar(sorted((PROVINCIAS[c] for c in CUBRE), key=str.casefold))
+    sin_f = sin_fuente(elecciones)
     sin_color = set()
     for (cargo, anio, vuelta), por_cod in sorted(elecciones.items()):
         id_ = f"{anio}-{vuelta}-{cargo}"
@@ -420,7 +478,7 @@ def main():
             doc = {"id": id_, "periodo": "provincias", "unidad": "provincia", "listas": list(listas), "fuerza": fuerza,
                    "fuerzas": [{"id": f, "n": colores[f]["nombre"], "c": colores[f]["color"]} for f in fuerzas], "provincias": provincias}
         (MESAS / "mapa" / f"{id_}.json").write_text(json.dumps(doc, ensure_ascii=False, separators=(",", ":")) + "\n", encoding="utf-8", newline="\n")
-        sin = [c for c in SIN_FUENTE.get((cargo, anio, vuelta), []) if c not in juris]
+        sin = [c for c in sin_f.get((cargo, anio, vuelta), []) if c not in juris]
         el = {"id": id_, "anio": anio, "vuelta": vuelta, "cargo": cargo, "etiqueta": f"{anio}{', segunda vuelta' if vuelta == 'segunda' else ''}",
               "nivel": "provincia", "recuento": "definitivo", "provincias": sorted(juris), "origen": ORIGEN,
               "fechas": {c: fecha_texto(j["fecha"]) for c, j in juris.items()},
@@ -434,9 +492,11 @@ def main():
             el["departamentos"] = sorted(deps)
             if mesas_en:
                 el["mesas_en"] = mesas_en
-            el["nota_nivel"] = f"Por ahora, solo los gobernadores de {cubre}."
+            if not TODAS:
+                el["nota_nivel"] = f"Por ahora, solo los gobernadores de {cubre}."
         elif cargo == "gobernador":
-            el["nota_nivel"] = f"Por ahora, solo el total de cada jurisdicción, y solo los gobernadores de {cubre}."
+            el["nota_nivel"] = ("Para esta elección hay solo el total de cada jurisdicción." if TODAS
+                                else f"Por ahora, solo el total de cada jurisdicción, y solo los gobernadores de {cubre}.")
         else:
             el["nota_nivel"] = "Para esta elección no hay datos que se puedan publicar por debajo de la jurisdicción."
         idx["elecciones"].append(el)
