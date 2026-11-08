@@ -80,7 +80,7 @@ MESES = ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto
 # Las elecciones de gobernador de cada jurisdicción desde 1983 (y alguna anterior con fuente oficial), "AAAA" la general y "AAAA segunda" el balotaje, según
 # ELECCIONES_PROVINCIAS.md. De acá sale lo que la página dice de una jurisdicción que no está en una elección: si la votó y no hay escrutinio oficial
 # publicado en línea, lo dice (SIN_FUENTE), y si no, que no eligió gobernador. Una elección de la tabla que no está en su calendario frena el programa.
-# Las de un año en que ninguna jurisdicción tiene fuente (CABA 1996, Córdoba 1998, Corrientes 2021...) no tienen elección en la página: lo dice MESAS.md
+# Las de un año en que ninguna jurisdicción tiene fuente (Córdoba 1998, Santiago del Estero 2002 y 2008...) no tienen elección en la página: lo dice MESAS.md
 CADA_4 = [str(a) for a in range(1983, 2024, 4)]
 CALENDARIO = {
     "02": ["1996", "2000", "2003", "2003 segunda", "2007", "2007 segunda", "2011", "2011 segunda", "2015", "2015 segunda", "2019", "2023"],
@@ -171,8 +171,15 @@ PRIMERO = [(r"^(alianza )?frente de todos$", lambda a, c: "ucr" if a < 2019 else
            # Frente para el Cambio de 1999, la del PJ con Rovira
            (r"^frente renovador$", lambda a, c: "concordia" if c == "54" else None),
            (r"^alianza frente para el cambio$", lambda a, c: "peronismo" if c == "54" else None),
-           # el Frente Cívico y Social de Catamarca es de la UCR: el de Misiones (2015) no se sabe, y va en otras
+           # el Frente Cívico y Social de Catamarca es de la UCR (la tabla de fuerzas ya lo tiene), también con su nombre completo y en 2007, cuando
+           # Brizuela del Moral fue con el Frente para la Victoria: el de Misiones (2015) no se sabe, y va en otras
            (r"^frente c[ií]vico y social$", lambda a, c: "otras" if c == "54" else None),
+           (r"^frente c[ií]vico y social de catamarca$|^frente c[ií]vico - frente para la victoria$", lambda a, c: "ucr" if c == "10" else None),
+           # los frentes del PJ en Corrientes 2021 (Ríos) y en Córdoba 1991 (De la Sota). La Confederación Formoseña Frente de Todos de 2003 fue
+           # contra el lema del PJ: no es el Frente de Todos de 2019, y va en otras
+           (r"^frente corrientes de todos$", lambda a, c: "peronismo" if c == "18" else None),
+           (r"^alianza uni[oó]n de fuerzas sociales$", lambda a, c: "peronismo" if c == "14" else None),
+           (r"^confederaci[oó]n formose[ñn]a frente de todos$", lambda a, c: "otras" if c == "34" else None),
            # Chubut: los frentes de Das Neves (2015) y de Arcioni (2019), con el color de Chubut Somos Todos, y el Partido Acción Chubutense
            (r"^alianza (frente uni[oó]n chubut somos todos|chubut al frente)$", lambda a, c: "p-chubut-somos-todos" if c == "26" else None),
            (r"^acci[oó]n chubutense", lambda a, c: "p-partido-de-accion-chubutense" if c == "26" else None),

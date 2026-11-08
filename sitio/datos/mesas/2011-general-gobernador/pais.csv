@@ -20,6 +20,11 @@ codigo_indec,provincia,lista,votos,electores,votantes,blancos,nulos
 06,Buenos Aires,Frente Popular,459165,11152684,9015590,1188411,55238
 06,Buenos Aires,Frente de Izquierda y de los Trabajadores,238365,11152684,9015590,1188411,55238
 06,Buenos Aires,Coalición Cívica-Afirmación para una República Igualitaria,145756,11152684,9015590,1188411,55238
+10,Catamarca,Frente para la Victoria,86276,258281,182419,7060,1218
+10,Catamarca,Frente Cívico y Social de Catamarca,79393,258281,182419,7060,1218
+10,Catamarca,Partido Primero Catamarca,4058,258281,182419,7060,1218
+10,Catamarca,Movimiento Socialista de los Trabajadores - Movimiento Proyecto Sur,2494,258281,182419,7060,1218
+10,Catamarca,Partido Obrero,1920,258281,182419,7060,1218
 14,Córdoba,Unión por Córdoba,766445,2493687,1894066,50029,44738
 14,Córdoba,Frente Cívico,532281,2493687,1894066,50029,44738
 14,Córdoba,Unión Cívica Radical,412140,2493687,1894066,50029,44738
@@ -52,6 +57,11 @@ codigo_indec,provincia,lista,votos,electores,votantes,blancos,nulos
 30,Entre Ríos,Generación para un Encuentro Nacional,25489,922398,759332,96480,5221
 30,Entre Ríos,PRO - Propuesta Republicana,16310,922398,759332,96480,5221
 30,Entre Ríos,Nueva Izquierda,3358,922398,759332,96480,5221
+34,Formosa,Frente para la Victoria,189721,360344,276895,22874,1750
+34,Formosa,Frente Amplio Formoseño,61031,360344,276895,22874,1750
+34,Formosa,Acuerdo Republicano Federal,978,360344,276895,22874,1750
+34,Formosa,Partido Obrero,538,360344,276895,22874,1750
+34,Formosa,Acción Nativa,3,360344,276895,22874,1750
 38,Jujuy,Frente para la Victoria,170410,444592,359808,60253,3365
 38,Jujuy,Unión para el Desarrollo Social,76682,444592,359808,60253,3365
 38,Jujuy,Frente Primero Jujuy,30573,444592,359808,60253,3365

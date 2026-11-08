@@ -9,6 +9,9 @@ codigo_indec,provincia,lista,votos,electores,votantes,blancos,nulos
 06,Buenos Aires,Alianza Unidos por una Nueva Alternativa,1763241,12429146,10003443,792230,54553
 06,Buenos Aires,Alianza Frente de Izquierda y de los Trabajadores,338159,12429146,10003443,792230,54553
 06,Buenos Aires,Alianza Progresistas,215159,12429146,10003443,792230,54553
+10,Catamarca,Frente para la Victoria,105710,294143,237539,25577,1066
+10,Catamarca,Frente Cívico y Social de Catamarca,87470,294143,237539,25577,1066
+10,Catamarca,Frente Tercera Posición,17716,294143,237539,25577,1066
 14,Córdoba,Unión por Córdoba,745240,2679883,2009130,77873,67902
 14,Córdoba,Juntos por Córdoba,628806,2679883,2009130,77873,67902
 14,Córdoba,Córdoba Podemos,319942,2679883,2009130,77873,67902
@@ -27,6 +30,9 @@ codigo_indec,provincia,lista,votos,electores,votantes,blancos,nulos
 30,Entre Ríos,Cambiemos,303769,1031024,872585,96798,5439
 30,Entre Ríos,Unión Popular,120793,1031024,872585,96798,5439
 30,Entre Ríos,Partido Socialista,19908,1031024,872585,96798,5439
+34,Formosa,Frente para la Victoria,233150,421770,338014,17428,2202
+34,Formosa,Frente Amplio Formoseño,82694,421770,338014,17428,2202
+34,Formosa,Frente de Izquierda y de los Trabajadores,2540,421770,338014,17428,2202
 38,Jujuy,Frente Cambia Jujuy,226646,508861,428856,36418,3734
 38,Jujuy,Frente para la Victoria,139119,508861,428856,36418,3734
 38,Jujuy,Frente de Izquierda y de los Trabajadores,11033,508861,428856,36418,3734

@@ -13,6 +13,27 @@ codigo_indec,provincia,lista,votos,electores,votantes,blancos,nulos
 06,Buenos Aires,Frente de Izquierda Popular,5651,,5759215,349144,13682
 06,Buenos Aires,Partido Conservador Principista,5268,,5759215,349144,13682
 06,Buenos Aires,Partido Renovador,633,,5759215,349144,13682
+10,Catamarca,Justicialista,41719,132308,107619,1468,1116
+10,Catamarca,Unión Cívica Radical,37874,132308,107619,1468,1116
+10,Catamarca,Movimiento Popular Catamarqueño,17311,132308,107619,1468,1116
+10,Catamarca,La Voz del Pueblo,4290,132308,107619,1468,1116
+10,Catamarca,Movimiento de Integración y Desarrollo,1333,132308,107619,1468,1116
+10,Catamarca,Intransigente,767,132308,107619,1468,1116
+10,Catamarca,Demócrata de Catamarca,694,132308,107619,1468,1116
+10,Catamarca,Demócrata Cristiano,627,132308,107619,1468,1116
+10,Catamarca,Federal,174,132308,107619,1468,1116
+10,Catamarca,Socialista Democrático,150,132308,107619,1468,1116
+10,Catamarca,Movimiento al Socialismo,96,132308,107619,1468,1116
+14,Córdoba,Unión Cívica Radical,778715,1631287,1441217,42657,4073
+14,Córdoba,Justicialista,546945,1631287,1441217,42657,4073
+14,Córdoba,Movimiento de Integración y Desarrollo,22880,1631287,1441217,42657,4073
+14,Córdoba,Demócrata,16107,1631287,1441217,42657,4073
+14,Córdoba,Intransigente,11885,1631287,1441217,42657,4073
+14,Córdoba,Demócrata Cristiano,7974,1631287,1441217,42657,4073
+14,Córdoba,Socialista Popular,3585,1631287,1441217,42657,4073
+14,Córdoba,Socialista Democrático,3518,1631287,1441217,42657,4073
+14,Córdoba,De Centro,1601,1631287,1441217,42657,4073
+14,Córdoba,Frente de Izquierda Popular,1277,1631287,1441217,42657,4073
 18,Corrientes,Autonomista,98278,,336785,3401,1950
 18,Corrientes,Frente Justicialista de Liberación,76071,,336785,3401,1950
 18,Corrientes,Unión Cívica Radical,68629,,336785,3401,1950
@@ -49,6 +70,14 @@ codigo_indec,provincia,lista,votos,electores,votantes,blancos,nulos
 30,Entre Ríos,Partido Demócrata Cristiano,6855,621499,520166,12739,3272
 30,Entre Ríos,Partido Demócrata de Entre Ríos,5242,621499,520166,12739,3272
 30,Entre Ríos,Partido Socialista Popular,2476,621499,520166,12739,3272
+34,Formosa,Justicialista,51867,166651,126522,4469,1023
+34,Formosa,Unión Cívica Radical,33383,166651,126522,4469,1023
+34,Formosa,Movimiento de Integración y Desarrollo,27969,166651,126522,4469,1023
+34,Formosa,Movimiento Línea Popular,5998,166651,126522,4469,1023
+34,Formosa,Demócrata Cristiano,713,166651,126522,4469,1023
+34,Formosa,Intransigente,391,166651,126522,4469,1023
+34,Formosa,Comunista,373,166651,126522,4469,1023
+34,Formosa,Para la Democracia Social,336,166651,126522,4469,1023
 38,Jujuy,Justicialista,80858,215074,181278,6641,1652
 38,Jujuy,Unión Cívica Radical,44727,215074,181278,6641,1652
 38,Jujuy,Movimiento Popular Jujeño,38916,215074,181278,6641,1652
