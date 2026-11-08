@@ -34,14 +34,16 @@ codigo_indec,provincia,lista,votos,electores,votantes,blancos,nulos
 14,Córdoba,Socialista Democrático,3518,1631287,1441217,42657,4073
 14,Córdoba,De Centro,1601,1631287,1441217,42657,4073
 14,Córdoba,Frente de Izquierda Popular,1277,1631287,1441217,42657,4073
-18,Corrientes,Autonomista,98278,,336785,3401,1950
-18,Corrientes,Frente Justicialista de Liberación,76071,,336785,3401,1950
-18,Corrientes,Unión Cívica Radical,68629,,336785,3401,1950
-18,Corrientes,Liberal,56251,,336785,3401,1950
-18,Corrientes,Movimiento de Integración y Desarrollo,13043,,336785,3401,1950
-18,Corrientes,Demócrata Progresista,7607,,336785,3401,1950
-18,Corrientes,Otras listas sin detalle en la fuente,6922,,336785,3401,1950
-18,Corrientes,Demócrata Cristiano - Frente Renovador,4633,,336785,3401,1950
+18,Corrientes,Pacto Autonomista Liberal,154717,439798,339799,6220,1617
+18,Corrientes,Justicialista,76145,439798,339799,6220,1617
+18,Corrientes,Unión Cívica Radical,68723,439798,339799,6220,1617
+18,Corrientes,Movimiento de Integración y Desarrollo,13127,439798,339799,6220,1617
+18,Corrientes,Demócrata Progresista,7608,439798,339799,6220,1617
+18,Corrientes,Demócrata Cristiano,4630,439798,339799,6220,1617
+18,Corrientes,Intransigente,3025,439798,339799,6220,1617
+18,Corrientes,Alianza Federal,2201,439798,339799,6220,1617
+18,Corrientes,Comunista,1450,439798,339799,6220,1617
+18,Corrientes,Frente de Izquierda Popular,336,439798,339799,6220,1617
 22,Chaco,Partido Justicialista,156368,,330423,0,0
 22,Chaco,Unión Cívica Radical,152645,,330423,0,0
 22,Chaco,Movimiento de Integración y Desarrollo,9235,,330423,0,0

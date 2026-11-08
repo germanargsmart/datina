@@ -170,6 +170,8 @@ PRIMERO = [(r"^(alianza )?frente de todos$", lambda a, c: "ucr" if a < 2019 else
            # Misiones: el Frente Renovador de 2003 es el de Rovira, que después se llamó Frente Renovador de la Concordia (no el de Massa), y la Alianza
            # Frente para el Cambio de 1999, la del PJ con Rovira
            (r"^frente renovador$", lambda a, c: "concordia" if c == "54" else None),
+           # el Frente Renovador de Massa es de 2013: los de 1987 (Corrientes, San Luis y Santa Fe) son otros frentes, y van en otras
+           (r"^frente renovador$", lambda a, c: "otras" if a < 2013 else None),
            (r"^alianza frente para el cambio$", lambda a, c: "peronismo" if c == "54" else None),
            # el Frente Cívico y Social de Catamarca es de la UCR (la tabla de fuerzas ya lo tiene), también con su nombre completo y en 2007, cuando
            # Brizuela del Moral fue con el Frente para la Victoria: el de Misiones (2015) no se sabe, y va en otras
