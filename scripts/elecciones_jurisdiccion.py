@@ -39,6 +39,7 @@ FUENTES_MESAS = {"90": "la Junta Electoral Provincial de Tucumán", "18": "la Su
                  ("2025-general-gobernador", "18"): "la Junta Electoral de Corrientes",
                  ("2007-segunda-gobernador", "02"): "el Tribunal Superior de Justicia de CABA",
                  "02": "BA Data, el portal de datos abiertos de CABA",
+                 "22": "el Tribunal Electoral del Chaco", "66": "el Tribunal Electoral de Salta",
                  **{x: "la Dirección Nacional Electoral" for x in DINE_MESAS}}
 MESAS_PROVISORIO = {("2023-general-gobernador", "02"), *DINE_MESAS}
 # por qué las mesas no suman el total de la jurisdicción, donde no lo dice el número solo
@@ -46,7 +47,9 @@ MOTIVO_MESAS = {("2007-segunda-gobernador", "02"): "la planilla por mesa es ante
                 ("2015-segunda-gobernador", "02"): "los votos de las personas privadas de libertad van sin comuna",
                 ("2019-general-gobernador", "02"): "el archivo por mesa no trae los votos de los extranjeros, y los de las personas privadas de libertad van sin comuna",
                 ("2023-general-gobernador", "02"): "el provisorio no llegó a cargar todas las mesas",
-                **{x: "el provisorio no llegó a cargar todas las mesas" for x in DINE_MESAS}}
+                **{x: "el provisorio no llegó a cargar todas las mesas" for x in DINE_MESAS},
+                **{(f"{a}-general-gobernador", "66"): "los votos observados e impugnados que resolvió el Tribunal van por municipio, sin mesa"
+                   for a in (2011, 2019, 2023)}}
 # lo que la tabla por mesa deja afuera aunque sume lo mismo que las listas del total
 APARTE_MESAS = {("2025-general-gobernador", "18"): "sin las 45 mesas de las personas privadas de libertad"}
 # por qué los departamentos no suman el total de la jurisdicción. En Corrientes 2025 la diferencia, lista por lista, es la de esas 45 mesas
