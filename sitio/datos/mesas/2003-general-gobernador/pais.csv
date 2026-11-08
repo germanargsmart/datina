@@ -78,6 +78,29 @@ codigo_indec,provincia,lista,votos,electores,votantes,blancos,nulos
 38,Jujuy,Demócrata Cristiano,1887,377686,275021,31343,2142
 38,Jujuy,Partido de los Trabajadores Socialistas,1388,377686,275021,31343,2142
 38,Jujuy,Partido Humanista,1365,377686,275021,31343,2142
+42,La Pampa,Partido Justicialista,77910,,159127,0,0
+42,La Pampa,Frente Alternativa Pampeana,40771,,159127,0,0
+42,La Pampa,Frente para la Victoria - ARI - MID - Acción Desarrollista,31701,,159127,0,0
+42,La Pampa,Pueblo Nuevo,2812,,159127,0,0
+42,La Pampa,Partido Humanista,2782,,159127,0,0
+42,La Pampa,Alianza Movimiento de Unidad Popular,1766,,159127,0,0
+42,La Pampa,Partido Popular de la Reconstrucción,1385,,159127,0,0
+46,La Rioja,Justicialista,81381,191316,156874,9224,746
+46,La Rioja,Lema Riojano para el Trabajo y la Producción,63812,191316,156874,9224,746
+46,La Rioja,Alianza Izquierda Unida,1193,191316,156874,9224,746
+46,La Rioja,Lema Frente del Pueblo,518,191316,156874,9224,746
+50,Mendoza,"Unión Cívica Radical, con Federal y Recrear para el Crecimiento",328681,1076309,818522,37275,12823
+50,Mendoza,"Alianza Frente Partido Justicialista Compromiso por Mendoza, con De la Victoria",278113,1076309,818522,37275,12823
+50,Mendoza,Demócrata,71639,1076309,818522,37275,12823
+50,Mendoza,Afirmación para una República Igualitaria (ARI),33922,1076309,818522,37275,12823
+50,Mendoza,Blanco,13474,1076309,818522,37275,12823
+50,Mendoza,Unión y Libertad,12189,1076309,818522,37275,12823
+50,Mendoza,Alianza Frente Amplio del Trabajo y la Producción,8267,1076309,818522,37275,12823
+50,Mendoza,Obrero,5650,1076309,818522,37275,12823
+50,Mendoza,Polo Social,4963,1076309,818522,37275,12823
+50,Mendoza,Movimiento por el Socialismo y el Trabajo,4118,1076309,818522,37275,12823
+50,Mendoza,Popular de la Reconstrucción,3918,1076309,818522,37275,12823
+50,Mendoza,De los Trabajadores por el Socialismo,3490,1076309,818522,37275,12823
 54,Misiones,Frente Renovador,216006,604291,465459,10990,3908
 54,Misiones,Frente Justicialista para el Cambio,149141,604291,465459,10990,3908
 54,Misiones,Frente Social y Productivo,61073,604291,465459,10990,3908
@@ -85,6 +108,53 @@ codigo_indec,provincia,lista,votos,electores,votantes,blancos,nulos
 54,Misiones,Frente Popular,7737,604291,465459,10990,3908
 54,Misiones,Afirmación para una República Igualitaria,1982,604291,465459,10990,3908
 54,Misiones,Partido Comunista,908,604291,465459,10990,3908
+58,Neuquén,Movimiento Popular Neuquino,92188,322109,251039,25127,4459
+58,Neuquén,Justicialista,27019,322109,251039,25127,4459
+58,Neuquén,Apertura Popular de Neuquén,18007,322109,251039,25127,4459
+58,Neuquén,Alianza Frente ARI - Encuentro Neuquino,15338,322109,251039,25127,4459
+58,Neuquén,Opción Federal,13976,322109,251039,25127,4459
+58,Neuquén,Recrear para el Crecimiento,10007,322109,251039,25127,4459
+58,Neuquén,El Frente y la Participación Neuquina,9271,322109,251039,25127,4459
+58,Neuquén,Movimiento de Integración y Desarrollo,7813,322109,251039,25127,4459
+58,Neuquén,Corriente Patria Libre,6820,322109,251039,25127,4459
+58,Neuquén,Unión Cívica Radical,6549,322109,251039,25127,4459
+58,Neuquén,Movimiento por la Unidad de los Neuquinos,6244,322109,251039,25127,4459
+58,Neuquén,Alianza Izquierda Unida,2613,322109,251039,25127,4459
+58,Neuquén,Del Obrero,2082,322109,251039,25127,4459
+58,Neuquén,Humanista Ecologista,2023,322109,251039,25127,4459
+58,Neuquén,De los Trabajadores Socialistas,1503,322109,251039,25127,4459
+62,Río Negro,Alianza Concertación para el Desarrollo,78202,354416,262176,18815,3880
+62,Río Negro,Justicialista,53043,354416,262176,18815,3880
+62,Río Negro,Alianza Encuentro por los Rionegrinos,48790,354416,262176,18815,3880
+62,Río Negro,Alianza MARA,24782,354416,262176,18815,3880
+62,Río Negro,Provincial Rionegrino,19455,354416,262176,18815,3880
+62,Río Negro,Humanista,3810,354416,262176,18815,3880
+62,Río Negro,Provincial Izquierda Unida,3564,354416,262176,18815,3880
+62,Río Negro,Recrear para el Crecimiento,3374,354416,262176,18815,3880
+62,Río Negro,Provincial Unión y Libertad,2286,354416,262176,18815,3880
+62,Río Negro,Obrero,2175,354416,262176,18815,3880
+66,Salta,Alianza Frente Justicialista para la Victoria (FREJUVI),211016,677318,461963,35358,3681
+66,Salta,Renovador de Salta,102300,677318,461963,35358,3681
+66,Salta,Alianza Unidos por Salta,71557,677318,461963,35358,3681
+66,Salta,Del Obrero,28339,677318,461963,35358,3681
+66,Salta,Afirmación para una República Igualitaria (ARI),3928,677318,461963,35358,3681
+66,Salta,Alianza Izquierda Unida - Socialista,3610,677318,461963,35358,3681
+66,Salta,Unión Popular,2174,677318,461963,35358,3681
+70,San Juan,"Alianza Frente para la Victoria, con Intransigente - Actuar Intransigente",124793,413060,319680,16093,1892
+70,San Juan,Alianza Frente Movimiento Vida y Compromiso,92768,413060,319680,16093,1892
+70,San Juan,Alianza Frente Provincia Unida,57964,413060,319680,16093,1892
+70,San Juan,Cruzada Renovadora,14257,413060,319680,16093,1892
+70,San Juan,Dignidad Ciudadana,5461,413060,319680,16093,1892
+70,San Juan,Alianza Alternativa Progresista,2466,413060,319680,16093,1892
+70,San Juan,Recrear para el Crecimiento,2064,413060,319680,16093,1892
+70,San Juan,Alianza Izquierda Unida,1922,413060,319680,16093,1892
+74,San Luis,Alianza Frente Movimiento Popular,150995,260318,208483,40178,679
+74,San Luis,Movimiento por la Patria y la Familia,9285,260318,208483,40178,679
+74,San Luis,De la Lealtad Sanluiseña,5680,260318,208483,40178,679
+74,San Luis,Alianza Izquierda Unida,1666,260318,208483,40178,679
+78,Santa Cruz,Frente para la Victoria Santacruceña,62647,130272,99345,10051,1040
+78,Santa Cruz,Frente Convergencia por Santa Cruz,24516,130272,99345,10051,1040
+78,Santa Cruz,Frente de Unidad Trabajadora (FUT),1091,130272,99345,10051,1040
 82,Santa Fe,Partido Justicialista,721394,,1690747,254696,20394
 82,Santa Fe,Partido Socialista,639440,,1690747,254696,20394
 82,Santa Fe,Partido Demócrata Progresista,34388,,1690747,254696,20394
@@ -100,3 +170,11 @@ codigo_indec,provincia,lista,votos,electores,votantes,blancos,nulos
 90,Tucumán,Partido Humanista,1610,873936,635918,15898,8304
 90,Tucumán,Partido Obrero,1416,873936,635918,15898,8304
 90,Tucumán,Vanguardia Provincial,177,873936,635918,15898,8304
+94,Tierra del Fuego,Justicialista / UCD,14986,72340,52059,2756,940
+94,Tierra del Fuego,Frente Unidad Provincial,13954,72340,52059,2756,940
+94,Tierra del Fuego,Movimiento Popular Fueguino,9172,72340,52059,2756,940
+94,Tierra del Fuego,Afirmación para una República Igualitaria,5544,72340,52059,2756,940
+94,Tierra del Fuego,Federal Fueguino,2521,72340,52059,2756,940
+94,Tierra del Fuego,Frente de Acción Fueguina,1003,72340,52059,2756,940
+94,Tierra del Fuego,De la Corriente,825,72340,52059,2756,940
+94,Tierra del Fuego,Humanista,358,72340,52059,2756,940

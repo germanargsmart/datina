@@ -31,9 +31,19 @@ codigo_indec,provincia,lista,votos,electores,votantes,blancos,nulos
 38,Jujuy,Frente para la Victoria,139119,508861,428856,36418,3734
 38,Jujuy,Frente de Izquierda y de los Trabajadores,11033,508861,428856,36418,3734
 38,Jujuy,Partido por la Dignidad del Pueblo,6973,508861,428856,36418,3734
-38,Jujuy,Mov. Com. Pluricultural,2465,508861,428856,36418,3734
+38,Jujuy,Movimiento Comunitario Pluricultural,2465,508861,428856,36418,3734
 38,Jujuy,Instrumento Electoral por la Unidad Popular,1394,508861,428856,36418,3734
 38,Jujuy,Nueva Izquierda,1074,508861,428856,36418,3734
+42,La Pampa,Partido Justicialista,97068,274152,225232,23347,2142
+42,La Pampa,Propuesta Frente Pampeano Cívico y Social,72741,274152,225232,23347,2142
+42,La Pampa,Pueblo Nuevo,13587,274152,225232,23347,2142
+42,La Pampa,Frente Pampeano para la Victoria,11104,274152,225232,23347,2142
+42,La Pampa,Partido GEN,2428,274152,225232,23347,2142
+42,La Pampa,Partido Patria Grande,1687,274152,225232,23347,2142
+42,La Pampa,Partido Socialista Auténtico,1128,274152,225232,23347,2142
+50,Mendoza,Frente Cambia Mendoza,497804,1352973,1074391,31148,14278
+50,Mendoza,Frente para la Victoria,422057,1352973,1074391,31148,14278
+50,Mendoza,Frente de Izquierda y de los Trabajadores,109104,1352973,1074391,31148,14278
 54,Misiones,Frente Renovador de la Concordia,400536,849788,699364,66184,5277
 54,Misiones,Frente Vamos Juntos,85060,849788,699364,66184,5277
 54,Misiones,Frente Cívico y Social,53605,849788,699364,66184,5277
@@ -44,12 +54,34 @@ codigo_indec,provincia,lista,votos,electores,votantes,blancos,nulos
 54,Misiones,Frente Popular,1792,849788,699364,66184,5277
 54,Misiones,Movimiento Social para una Mejor Vida,974,849788,699364,66184,5277
 54,Misiones,Movimiento Generacional,958,849788,699364,66184,5277
+58,Neuquén,"Movimiento Popular Neuquino, con Unión Popular, Partido Adelante Neuquén, Frente Integrador Neuquino y Frente Popular por la Dignidad",141255,482635,372312,14428,9746
+58,Neuquén,"Frente para la Victoria, con Movimiento Libres del Sur, Unión de los Neuquinos y Nuevo Encuentro - Frente Grande",108620,482635,372312,14428,9746
+58,Neuquén,"Propuesta Republicana, con Unión Cívica Radical y Nuevo Compromiso Neuquino",72551,482635,372312,14428,9746
+58,Neuquén,Frente de Izquierda y de los Trabajadores,12565,482635,372312,14428,9746
+58,Neuquén,Coalición Cívica ARI - Partido Socialista,4496,482635,372312,14428,9746
+58,Neuquén,Nueva Izquierda,3651,482635,372312,14428,9746
+58,Neuquén,Frente Popular,3286,482635,372312,14428,9746
+58,Neuquén,Movimiento al Socialismo,1714,482635,372312,14428,9746
+62,Río Negro,Juntos Somos Río Negro,192562,505815,383764,11887,7206
+62,Río Negro,Frente para la Victoria,123772,505815,383764,11887,7206
+62,Río Negro,Frente Progresista por la Igualdad y la República,37019,505815,383764,11887,7206
+62,Río Negro,Unión Cívica Radical,11318,505815,383764,11887,7206
 66,Salta,Frente Justicialista Renovador para la Victoria,340174,931213,685479,21540,0
 66,Salta,Frente Romero + Olmedo,203417,931213,685479,21540,0
 66,Salta,Frente UCR - UNEN - PS,54796,931213,685479,21540,0
 66,Salta,Partido Obrero,41309,931213,685479,21540,0
 66,Salta,Movimiento Socialista de los Trabajadores,12616,931213,685479,21540,0
 66,Salta,Frente Popular,11627,931213,685479,21540,0
+74,San Luis,Compromiso Federal,133789,357130,295045,54680,2768
+74,San Luis,Cambiemos,69339,357130,295045,54680,2768
+74,San Luis,Frente para la Victoria,32404,357130,295045,54680,2768
+74,San Luis,Movimiento de Acción Vecinal,1680,357130,295045,54680,2768
+74,San Luis,Partido Unión Vecinal Provincial,385,357130,295045,54680,2768
+78,Santa Cruz,Frente para la Victoria Santacruceña,87220,237619,184325,11033,2188
+78,Santa Cruz,Unión para Vivir Mejor,79495,237619,184325,11033,2188
+78,Santa Cruz,Frente de Izquierda y de los Trabajadores,3737,237619,184325,11033,2188
+78,Santa Cruz,Movimiento Socialista de los Trabajadores,447,237619,184325,11033,2188
+78,Santa Cruz,Movimiento al Socialismo,205,237619,184325,11033,2188
 82,Santa Fe,"Frente Progresista, Cívico y Social",584017,2580882,1970001,65975,63802
 82,Santa Fe,Unión PRO Federal,582521,2580882,1970001,65975,63802
 82,Santa Fe,Frente Justicialista para la Victoria,558571,2580882,1970001,65975,63802
@@ -62,3 +94,7 @@ codigo_indec,provincia,lista,votos,electores,votantes,blancos,nulos
 90,Tucumán,Alianza Alternativa Popular,4190,1119260,952577,25113,10957
 90,Tucumán,Laborista de la Independencia,2514,1119260,952577,25113,10957
 90,Tucumán,Unión y Progreso Social,1898,1119260,952577,25113,10957
+94,Tierra del Fuego,"Alianza FPV Tierra del Fuego, con Concertación Forja",37994,132846,93200,12389,2287
+94,Tierra del Fuego,"Unión Cívica Radical, con Movimiento Popular Fueguino, Encuentro Solidario Independiente, Nueva Generación, Impulso Fueguino y Juntos por Tierra del Fuego",30781,132846,93200,12389,2287
+94,Tierra del Fuego,Espacio Democrático por la Victoria,4488,132846,93200,12389,2287
+94,Tierra del Fuego,Partido Social Patagónico,4251,132846,93200,12389,2287

@@ -30,27 +30,43 @@ DEPTOS = RAIZ / "datos" / "manual" / "mesas_jurisdiccion_departamentos.csv"
 MESAS_DIR = RAIZ / "datos" / "manual" / "mesas_gobernador"
 FIJAS_MESAS = ["codigo_departamento", "departamento", "circuito", "mesa", "electores", "blancos", "nulos", "recurridos_impugnados"]
 # de dónde sale cada tabla por mesa, y las que son el escrutinio provisorio (el total de la jurisdicción siempre es el definitivo)
+# el provisorio por mesa de la DINE (los ZIP de cada elección nacional, como 2011-provisorios_generales.zip), que trae el gobernador de las provincias
+# que lo votaron con las nacionales. Solo donde hay un total oficial: San Juan, San Luis y Santa Cruz (2011 y 2015) y Catamarca 2015 están en el
+# provisorio y no tienen total oficial en línea. En Entre Ríos 2011 la sección 2, sin nombre, es la parte rural de Paraná
+DINE_MESAS = ({("2011-general-gobernador", c) for c in ("06", "30", "38")} | {("2015-general-gobernador", c) for c in ("06", "26", "30", "38", "54")}
+              | {("2019-general-gobernador", c) for c in ("06", "10")} | {("2023-general-gobernador", c) for c in ("06", "10")})
 FUENTES_MESAS = {"90": "la Junta Electoral Provincial de Tucumán", "18": "la Subdirección de Cómputos de Corrientes",
                  ("2025-general-gobernador", "18"): "la Junta Electoral de Corrientes",
                  ("2007-segunda-gobernador", "02"): "el Tribunal Superior de Justicia de CABA",
                  "02": "BA Data, el portal de datos abiertos de CABA",
-                 # 2011: el provisorio por mesa de la DINE (2011-provisorios_generales.zip), que trae el gobernador de las provincias que lo votaron con las
-                 # nacionales. En Entre Ríos su sección 2, sin nombre, es la parte rural de Paraná
-                 ("2011-general-gobernador", "06"): "la Dirección Nacional Electoral", ("2011-general-gobernador", "30"): "la Dirección Nacional Electoral",
-                 ("2011-general-gobernador", "38"): "la Dirección Nacional Electoral"}
-MESAS_PROVISORIO = {("2023-general-gobernador", "02"), ("2011-general-gobernador", "06"), ("2011-general-gobernador", "30"), ("2011-general-gobernador", "38")}
+                 "22": "el Tribunal Electoral del Chaco", "66": "el Tribunal Electoral de Salta",
+                 **{x: "la Dirección Nacional Electoral" for x in DINE_MESAS}}
+MESAS_PROVISORIO = {("2023-general-gobernador", "02"), *DINE_MESAS}
 # por qué las mesas no suman el total de la jurisdicción, donde no lo dice el número solo
 MOTIVO_MESAS = {("2007-segunda-gobernador", "02"): "la planilla por mesa es anterior a resolver 79 votos recurridos e impugnados",
                 ("2015-segunda-gobernador", "02"): "los votos de las personas privadas de libertad van sin comuna",
                 ("2019-general-gobernador", "02"): "el archivo por mesa no trae los votos de los extranjeros, y los de las personas privadas de libertad van sin comuna",
                 ("2023-general-gobernador", "02"): "el provisorio no llegó a cargar todas las mesas",
-                ("2011-general-gobernador", "06"): "el provisorio no llegó a cargar todas las mesas",
-                ("2011-general-gobernador", "30"): "el provisorio no llegó a cargar todas las mesas",
-                ("2011-general-gobernador", "38"): "el provisorio no llegó a cargar todas las mesas, ninguna de Valle Grande"}
+                **{x: "el provisorio no llegó a cargar todas las mesas" for x in DINE_MESAS},
+                **{(f"{a}-general-gobernador", "66"): "los votos observados e impugnados que resolvió el Tribunal van por municipio, sin mesa"
+                   for a in (2011, 2015, 2019, 2023)}}
 # lo que la tabla por mesa deja afuera aunque sume lo mismo que las listas del total
 APARTE_MESAS = {("2025-general-gobernador", "18"): "sin las 45 mesas de las personas privadas de libertad"}
 # por qué los departamentos no suman el total de la jurisdicción. En Corrientes 2025 la diferencia, lista por lista, es la de esas 45 mesas
-MOTIVO_DEP = {("2025-general-gobernador", "18"): "la Junta suma esos votos en cada municipio"}
+MOTIVO_DEP = {("2025-general-gobernador", "18"): "la Junta suma esos votos en cada municipio",
+              ("2007-general-gobernador", "38"): "la planilla del Tribunal cuenta 562 votantes en el total de la provincia y en ningún municipio",
+              ("2019-general-gobernador", "54"): "el acta cuenta los votos de las fuerzas de seguridad y de los veedores solo en la planilla provincial",
+              ("2023-general-gobernador", "54"): "el acta cuenta los votos del personal asignado a los centros de votación solo en la planilla provincial",
+              ("2003-segunda-gobernador", "94"): "son los de la Antártida, que la planilla da aparte y no tiene departamento en el mapa",
+              ("2015-general-gobernador", "94"): "son los de la Antártida, que la base del Juzgado da aparte y no tiene departamento en el mapa",
+              ("2007-general-gobernador", "42"): "son los de las mesas especiales, que el documento da sin departamento",
+              ("2011-general-gobernador", "42"): "son los de las mesas de las personas privadas de libertad, que el documento da sin departamento",
+              ("2011-general-gobernador", "50"): "son los de las personas privadas de libertad, que el documento da sin departamento",
+              ("2003-general-gobernador", "74"): ("el documento da a De la Lealtad Sanluiseña 130 votos más en los departamentos que en su total. Por "
+                                                  "departamento no da blancos ni nulos: los votantes son la suma de las listas, y no hay participación"),
+              ("2015-segunda-gobernador", "94"): "son los de la Antártida, que la base del Juzgado da aparte y no tiene departamento en el mapa"}
+# los electores por departamento que no se publican porque el padrón municipal incluye a los extranjeros, que votan intendente y no gobernador
+SIN_ELECTORES_DEP = {"38", "54"}
 COLUMNAS_DEP = ["cargo", "anio", "vuelta", "codigo_indec", "departamento", "codigo_departamento", "lista", "votos", "electores", "votantes", "blancos", "nulos",
                 "fuente", "url"]
 ORIGEN = "jurisdiccion"   # marca en el índice de lo que arma este programa: lo demás no se toca
@@ -112,7 +128,14 @@ DIFERENCIAS = {("gobernador", 2017, "general", "18"): 9,      # las alianzas sum
                ("gobernador", 1987, "general", "26"): -72,    # la tabla de la Secretaría Electoral da 72 votantes más que sus listas, blancos y nulos
                ("gobernador", 1983, "general", "54"): -11124,  # Misiones: el total es el de quienes fueron a votar, y la columna de gobernador suma menos
                ("gobernador", 1987, "general", "54"): -900,    # Misiones: el documento suma 900 votos de "compensación de diferencias de actas"
-               ("gobernador", 1999, "general", "22"): 16}      # Chaco: las listas, los blancos y los nulos del acta suman 16 más que sus votantes
+               ("gobernador", 1999, "general", "22"): 16,      # Chaco: las listas, los blancos y los nulos del acta suman 16 más que sus votantes
+               # los informes "Resultados históricos" de la DINE suman una "compensación de diferencias de actas" para llegar a los votantes
+               ("gobernador", 1987, "general", "82"): -3362, ("gobernador", 1987, "general", "86"): -2565, ("gobernador", 1991, "general", "86"): -257,
+               ("gobernador", 1987, "general", "90"): -222, ("gobernador", 1991, "segunda", "94"): -1000,
+               ("gobernador", 1995, "general", "62"): -113, ("gobernador", 1987, "general", "66"): -563, ("gobernador", 1987, "general", "74"): -570,
+               ("gobernador", 1987, "general", "78"): -110, ("gobernador", 1999, "general", "46"): -28,
+               # Tierra del Fuego 2015: los votantes son el total de votos escrutados del Juzgado, que no es la suma de los de gobernador
+               ("gobernador", 2015, "general", "94"): -1010, ("gobernador", 2015, "segunda", "94"): 79}
 
 # lo mismo por departamento: en Corrientes 2017, en 13 departamentos las alianzas suman de 1 a 47 votos más que los válidos del mismo documento. Se publican
 # como vienen, con un tope por departamento
@@ -125,7 +148,9 @@ TODAS = len(CUBRE) == 24
 # lo que dice la página de las jurisdicciones que no están en una elección (las que la votaron sin fuente van en sin_fuente)
 FUERA = {"gobernador": "No eligió gobernador en esta elección" if TODAS else "Todavía sin datos de gobernador de esta jurisdicción",
          "senadores": "Sus senadores los elegía la Legislatura provincial, y solo la Capital los votaba"}
-GRIS = {"gobernador": "No eligió gobernador, o no hay un escrutinio oficial en línea" if TODAS else "Sin datos de esta jurisdicción, o sin escrutinio oficial en línea",
+# en el gris de la leyenda caben las jurisdicciones que no eligieron, las que votaron sin escrutinio en línea y los departamentos sin mesas: el cuadro
+# de cada lugar dice cuál
+GRIS = {"gobernador": "Sin datos en esta elección" if TODAS else "Sin datos de esta jurisdicción, o sin escrutinio oficial en línea",
         "senadores": "Senadores elegidos por la Legislatura provincial"}
 
 # el color de cada lista en el mapa: primero el de su nombre en mesas_fuerzas.json, después estas reglas. Una lista que no entra en ninguna va en "otras"
@@ -303,6 +328,36 @@ def leer_departamentos():
     return deps
 
 
+def departamentos_de_mesas(departamentos):
+    """Las jurisdicciones con tabla por mesa y sin departamentos oficiales (Jujuy 2011, las del provisorio de la DINE): sus departamentos salen de sumar
+    las mesas, para que el mapa muestre quién ganó en cada uno. Devuelve las que armó: {(cargo, año, vuelta, código): (recuento, fuente)}."""
+    armadas = {}
+    for ruta in sorted(MESAS_DIR.glob("*.csv")):
+        m = re.fullmatch(r"(\d{4})-(general|segunda)-(\w+)-(\d\d)", ruta.stem)
+        if not m:
+            sys.exit(f"{ruta.name}: el nombre tiene que ser AAAA-vuelta-cargo-código.csv")
+        anio, vuelta, cargo, cod = int(m[1]), m[2], m[3], m[4]
+        if cod in departamentos.get((cargo, anio, vuelta), {}):
+            continue
+        id_ = f"{anio}-{vuelta}-{cargo}"
+        rec = "provisorio" if (id_, cod) in MESAS_PROVISORIO else "definitivo"
+        fuente = FUENTES_MESAS.get((id_, cod)) or FUENTES_MESAS[cod]
+        filas = list(csv.reader(open(ruta, encoding="utf-8", newline="")))
+        ls = filas[0][8:]
+        ds = {}
+        for r in filas[1:]:
+            d = ds.setdefault(r[0], {"nombre": r[1], "electores": 0, "votantes": 0, "blancos": 0, "nulos": 0, "votos": defaultdict(int),
+                                     "fuente": f"la suma de sus mesas, del escrutinio {rec} de {fuente}"})
+            e, b, nu, rc = (int(x) for x in r[4:8])
+            vs = [int(x) for x in r[8:]]
+            d["electores"] += e; d["blancos"] += b; d["nulos"] += nu + rc; d["votantes"] += b + nu + rc + sum(vs)
+            for n, x in zip(ls, vs):
+                d["votos"][n] += x
+        departamentos.setdefault((cargo, anio, vuelta), {})[cod] = {s: {**d, "votos": dict(d["votos"])} for s, d in ds.items()}
+        armadas[(cargo, anio, vuelta, cod)] = (rec, fuente)
+    return armadas
+
+
 def codigos_geo(ep, cod):
     """Los departamentos de una jurisdicción en la cartografía de una época, como los dibuja la página."""
     g = json.loads((MESAS / "geo" / f"dep{ep}" / f"{cod}.topo.json").read_text(encoding="utf-8"))
@@ -340,6 +395,7 @@ def main():
     if faltan:
         sys.exit(f"mesas_jurisdiccion_departamentos.csv: elecciones sin su total en mesas_jurisdiccion.csv {sorted(faltan)}")
     nombres_ep = {ep: nombres_geo(ep) for ep in ("1991", "2001", "2010")}
+    de_mesas = departamentos_de_mesas(departamentos)
     idx = json.loads((MESAS / "indice.json").read_text(encoding="utf-8"))
     tabla_f = json.loads(FUERZAS.read_text(encoding="utf-8"))
     colores = {**tabla_f["fuerzas"], **FUERZAS_PROPIAS}
@@ -391,6 +447,7 @@ def main():
         deps = departamentos.get((cargo, anio, vuelta), {})
         ep = epoca(anio)
         notas_dep = defaultdict(list)
+        sin_mesas = {}   # los departamentos sin ninguna mesa, cuando el mapa sale de las mesas: van al final de la nota de las mesas
         caba_entera = False
         for cod, j in juris.items():
             pares = pares_de(dict(j["listas"]), cod)
@@ -404,8 +461,7 @@ def main():
                 provincias[cod] = {"ed": f"dep{ep}", "nivel": "provincia", "con": 100, "secciones": {geo[0]: "CABA" if geo == ["CABA"] else "Sin dato por departamento"},
                                    "filas": [[geo[0], "d" if len(geo) == 1 else [f"{c}|d" for c in geo], j["electores"], j["votantes"], pares]], "suma": 100.0}
                 caba_entera |= geo == ["CABA"] and bool(ds)
-                # sin departamentos oficiales pero con mesas (Jujuy 2011, del provisorio de la DINE): el mapa la pinta entera y la tabla llega a la mesa
-                if not ds and not (MESAS_DIR / f"{id_}-{cod}.csv").exists():
+                if not ds:
                     notas_dep[cod].append("En esta elección la fuente llega solo al total de la jurisdicción.")
             # la tabla: una fila por departamento, con las columnas de las tablas por mesa y las listas con el nombre del total de la jurisdicción
             if ds:
@@ -438,16 +494,25 @@ def main():
                                        "filas": [[g, "d", m["e"], m["t"], pares_de(m["v"], cod)] for g, m in sorted(en_mapa.items())],
                                        "suma": round(100 * pos_dep / pos, 1)}
                     sin = [c for c in geo if c not in en_mapa]
+                    if sin and (cargo, anio, vuelta, cod) in de_mesas:
+                        sin_mesas[cod] = (f"El escrutinio {de_mesas[(cargo, anio, vuelta, cod)][0]} no trae ninguna mesa de "
+                                          f"{enumerar([nombres_ep[ep].get(c, c) for c in sin])}: queda sin pintar.")
+                        sin = []
                     if sin or set(en_mapa) - set(geo):
                         sys.exit(f"{id_} {cod}: departamentos de la cartografía sin datos {sin}, o datos sin polígono {sorted(set(en_mapa) - set(geo))}")
                 # en CABA, comunas desde 2009 y circunscripciones antes
                 unidades = "Los departamentos" if cod != "02" else "Las comunas" if ep == "2010" else "Las circunscripciones"
-                if pos_dep != pos:
+                if (cargo, anio, vuelta, cod) in de_mesas:
+                    pass   # lo dice la nota de las mesas, más abajo
+                elif pos_dep != pos:
                     motivo_dep = MOTIVO_DEP.get((id_, cod))
                     notas_dep[cod].append(f"{unidades} suman {miles(abs(pos - pos_dep))} votos positivos {'menos' if pos_dep < pos else 'más'} que el total de la jurisdicción, "
                                           f"que es el oficial" + (f": {motivo_dep}." if motivo_dep else "."))
+                if cod in SIN_ELECTORES_DEP and (cargo, anio, vuelta, cod) not in de_mesas:
+                    notas_dep[cod].append(f"{unidades} van sin electores: el padrón por municipio de la fuente incluye a los extranjeros, que votan "
+                                          "intendente y no gobernador.")
                 fuentes_dep = sorted({d["fuente"] for d in ds.values()})
-                if fuentes_dep != [j["fuente"]]:
+                if fuentes_dep != [j["fuente"]] and (cargo, anio, vuelta, cod) not in de_mesas:
                     notas_dep[cod].append(f"{unidades} salen de: {enumerar(fuentes_dep)}.")
         # por mesa: la tabla de la jurisdicción pasa a tener una fila por mesa, con el departamento como sección. El mapa sigue por departamento
         mesas_en = {}
@@ -484,9 +549,12 @@ def main():
             fuente_m = FUENTES_MESAS.get((id_, cod)) or FUENTES_MESAS[cod]
             motivo = MOTIVO_MESAS.get((id_, cod))
             aparte = APARTE_MESAS.get((id_, cod))
-            notas_dep[cod].append(f"Por mesa, el escrutinio {rec} que publica {fuente_m}" + (f", {aparte}" if aparte else "") + (
+            nivel_m = "Por departamento y por mesa" if (cargo, anio, vuelta, cod) in de_mesas else "Por mesa"
+            notas_dep[cod].append(f"{nivel_m}, el escrutinio {rec} que publica {fuente_m}" + (f", {aparte}" if aparte else "") + (
                 f". Las mesas suman {miles(abs(pos - pos_m))} votos positivos {'menos' if pos_m < pos else 'más'} que el total de la jurisdicción" + (f": {motivo}." if motivo else ".")
                 if pos_m != pos else "."))
+            if cod in sin_mesas:
+                notas_dep[cod].append(sin_mesas[cod])
         if deps:
             doc = {"id": id_, "periodo": f"dep{ep}", "unidad": "departamento", "oficial": True, "caba_entera": caba_entera, "listas": list(listas), "fuerza": fuerza,
                    "fuerzas": [{"id": f, "n": colores[f]["nombre"], "c": colores[f]["color"]} for f in fuerzas], "provincias": provincias}

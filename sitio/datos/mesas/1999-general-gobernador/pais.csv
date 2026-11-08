@@ -20,11 +20,68 @@ codigo_indec,provincia,lista,votos,electores,votantes,blancos,nulos
 30,Entre Ríos,Acción por la República,15786,778185,671814,34911,2444
 30,Entre Ríos,Izquierda Unida - Partido Comunista,3177,778185,671814,34911,2444
 30,Entre Ríos,Partido Humanista,2605,778185,671814,34911,2444
+38,Jujuy,Frente Justicialista Popular,129318,343332,275814,18536,1578
+38,Jujuy,"Alianza para el Trabajo, la Justicia y la Educación",126382,343332,275814,18536,1578
+42,La Pampa,Justicialista,97937,207255,182371,8370,1189
+42,La Pampa,"Alianza para el Trabajo, la Justicia y la Educación",68736,207255,182371,8370,1189
+42,La Pampa,Acción por la República,3371,207255,182371,8370,1189
+42,La Pampa,Frente Pueblo Unido - Socialista Auténtico,1329,207255,182371,8370,1189
+42,La Pampa,Humanista,852,207255,182371,8370,1189
+42,La Pampa,Movimiento Federalista Pampeano,587,207255,182371,8370,1189
+46,La Rioja,Justicialista,89079,171997,136006,5534,594
+46,La Rioja,"Alianza para el Trabajo, la Justicia y la Educación",38326,171997,136006,5534,594
+46,La Rioja,Alianza Izquierda Unida,2445,171997,136006,5534,594
+50,Mendoza,"Alianza para el Trabajo, la Justicia y la Educación",309652,1014291,851597,27742,7701
+50,Mendoza,Demócrata,262575,1014291,851597,27742,7701
+50,Mendoza,Alianza Partido Justicialista,177340,1014291,851597,27742,7701
+50,Mendoza,Acción por la República,57683,1014291,851597,27742,7701
+50,Mendoza,Humanista,4644,1014291,851597,27742,7701
+50,Mendoza,Izquierda Unida,4260,1014291,851597,27742,7701
 54,Misiones,Alianza Frente para el Cambio,224295,541743,428291,8869,2029
 54,Misiones,"Alianza para el Trabajo, la Justicia y la Educación",191271,541743,428291,8869,2029
 54,Misiones,Comunista,1827,541743,428291,8869,2029
+58,Neuquén,Movimiento Popular Neuquino,93807,281712,228502,13649,2610
+58,Neuquén,"Alianza para el Trabajo, la Justicia y la Educación",77830,281712,228502,13649,2610
+58,Neuquén,Justicialista,33259,281712,228502,13649,2610
+58,Neuquén,Corriente Patria Libre,2370,281712,228502,13649,2610
+58,Neuquén,Obrero,1870,281712,228502,13649,2610
+58,Neuquén,Humanista - Ecologista,1863,281712,228502,13649,2610
+58,Neuquén,Movimiento Socialista de los Trabajadores,1244,281712,228502,13649,2610
+62,Río Negro,"Alianza por el Trabajo, la Justicia y la Educación",110866,,245188,9760,7367
+62,Río Negro,Alianza Frente para el Cambio - Unión por Río Negro,95150,,245188,9760,7367
+62,Río Negro,Frente Grande,18151,,245188,9760,7367
+62,Río Negro,Humanista,3894,,245188,9760,7367
+66,Salta,Frente Justicialista,257176,,446393,3532,3115
+66,Salta,Alianza Salteña,176727,,446393,3532,3115
+66,Salta,Obrero hacia el Frente,3230,,446393,3532,3115
+66,Salta,Humanista,1580,,446393,3532,3115
+66,Salta,Alianza Unión Popular,1033,,446393,3532,3115
+70,San Juan,Alianza por San Juan,173119,,321265,7689,2689
+70,San Juan,Frente Justicialista Desarrollo y Esperanza (FREJUSDE),131486,,321265,7689,2689
+70,San Juan,Nueva Alternativa Social y Económica,5382,,321265,7689,2689
+70,San Juan,Movimiento Socialista de los Trabajadores,900,,321265,7689,2689
+78,Santa Cruz,Justicialista,47067,111890,89850,2847,782
+78,Santa Cruz,Convergencia por Santa Cruz,38195,111890,89850,2847,782
+78,Santa Cruz,Frente de Unidad Trabajadora,764,111890,89850,2847,782
+78,Santa Cruz,Humanista,195,111890,89850,2847,782
 82,Santa Fe,Partido Justicialista,925110,,1716598,97227,12488
 82,Santa Fe,Alianza Santafesina,665470,,1716598,97227,12488
 82,Santa Fe,Unidad de la Izquierda y la Resistencia,6808,,1716598,97227,12488
 82,Santa Fe,Partido Humanista,5749,,1716598,97227,12488
 82,Santa Fe,Alianza Social Cristiana del 3 Milenio,3746,,1716598,97227,12488
+86,Santiago del Estero,Frente Justicialista,170761,483253,333220,4355,1931
+86,Santiago del Estero,Nueva Alianza,86089,483253,333220,4355,1931
+86,Santiago del Estero,"Alianza por el Trabajo, la Educación, la Justicia y la Dignidad",45794,483253,333220,4355,1931
+86,Santiago del Estero,Frente por el Futuro,23116,483253,333220,4355,1931
+86,Santiago del Estero,Alianza Izquierda Unida,1174,483253,333220,4355,1931
+90,Tucumán,Frente Fundacional de Tucumán,224900,,635166,10051,8064
+90,Tucumán,Fuerza Republicana,220695,,635166,10051,8064
+90,Tucumán,"Alianza por el Trabajo, la Justicia y la Educación",138398,,635166,10051,8064
+90,Tucumán,Pueblo Unido,31221,,635166,10051,8064
+90,Tucumán,Humanista,1040,,635166,10051,8064
+90,Tucumán,Frente Unidad Trabajadora,766,,635166,10051,8064
+90,Tucumán,Acción Provinciana,31,,635166,10051,8064
+94,Tierra del Fuego,Frente Cívico y Social,17257,65304,46296,2508,623
+94,Tierra del Fuego,Justicialista,15877,65304,46296,2508,623
+94,Tierra del Fuego,Movimiento Popular Fueguino,9635,65304,46296,2508,623
+94,Tierra del Fuego,Frente del Pueblo,396,65304,46296,2508,623

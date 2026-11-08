@@ -532,6 +532,7 @@ return mezcla(doc.fuerzas[doc.fuerza[f[4][0]]].c, TONOS[tramo(CORTES.gana, f[4][
 function textoTip(doc, r) {
 const f = MAPA.indice.get(claveRasgo(r)), {p, s, c} = r.properties, pv = doc.provincias[p];
 const prov = provNombre(p), unidad = unidadDe(doc);
+if (!f && unidad !== "circuito" && elec().origen && pv) return `<b>${esc(prov)}</b><br>Sin datos de este departamento en esta elección`;
 if (!f && unidad !== "circuito") return `<b>${esc(prov)}</b><br>${unidad === "provincia" || elec().origen ? sinDato(elec(), p) : sinDatoHistorico(doc, p)}`;
 if (!f && !pv) return `<b>${esc(prov)}</b><br>No eligió ${NIVEL_NOMBRE[elec().cargo]} en esta elección`;
 if (!f) {

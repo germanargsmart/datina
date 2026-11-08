@@ -64,6 +64,33 @@ codigo_indec,provincia,lista,votos,electores,votantes,blancos,nulos
 38,Jujuy,Movimiento de Acción Popular,2263,411020,310518,40400,4482
 38,Jujuy,Partido Comunista,1384,411020,310518,40400,4482
 38,Jujuy,Partido Obrero,1248,411020,310518,40400,4482
+42,La Pampa,Justicialista,90408,235993,192214,21220,1879
+42,La Pampa,Alianza Frente Pampeano Cívico y Social,61866,235993,192214,21220,1879
+42,La Pampa,Alianza Coalición Cívica,6052,235993,192214,21220,1879
+42,La Pampa,Alianza Frente para el Cambio,5651,235993,192214,21220,1879
+42,La Pampa,Humanista,1974,235993,192214,21220,1879
+42,La Pampa,Recrear,1633,235993,192214,21220,1879
+42,La Pampa,Pueblo Unido,1531,235993,192214,21220,1879
+46,La Rioja,Frente del Pueblo Riojano,65986,209385,158724,2496,1167
+46,La Rioja,Frente para la Victoria,43162,209385,158724,2496,1167
+46,La Rioja,Lealtad y Dignidad,34589,209385,158724,2496,1167
+46,La Rioja,Frente Cívico y Social,7155,209385,158724,2496,1167
+46,La Rioja,Encuentro Popular Riojano,2638,209385,158724,2496,1167
+46,La Rioja,Izquierda Socialista,780,209385,158724,2496,1167
+46,La Rioja,Afirmación para una República Igualitaria,751,209385,158724,2496,1167
+50,Mendoza,"Justicialista, con Frejuvi, Polo Social, Federal y Propuesta para el Cambio en Mendoza",312240,1139111,891710,51488,16020
+50,Mendoza,"Para la Concertación Ciudadana, con Concertación Plural, Demócrata Cristiano, Unidad para el Cambio, Intransigente, Movimiento Libres del Sur, De Todos por los Derechos Sociales, Compromiso por Mendoza y Convergencia del Sur",247126,1139111,891710,51488,16020
+50,Mendoza,"Demócrata, con El Movimiento de las Provincias Unidas",93209,1139111,891710,51488,16020
+50,Mendoza,"Unión Cívica Radical, con Juntos por Mendoza",81538,1139111,891710,51488,16020
+50,Mendoza,Coalición Cívica,41515,1139111,891710,51488,16020
+50,Mendoza,Coalición ARI - Socialista,15575,1139111,891710,51488,16020
+50,Mendoza,Unión y Libertad,12902,1139111,891710,51488,16020
+50,Mendoza,Unión Popular,7037,1139111,891710,51488,16020
+50,Mendoza,Movimiento Socialista de los Trabajadores,3636,1139111,891710,51488,16020
+50,Mendoza,Recrear para el Crecimiento,2995,1139111,891710,51488,16020
+50,Mendoza,Obrero,2534,1139111,891710,51488,16020
+50,Mendoza,De los Trabajadores Socialistas,2031,1139111,891710,51488,16020
+50,Mendoza,Frente Amplio hacia la Unidad Latinoamericana,1864,1139111,891710,51488,16020
 54,Misiones,Frente Renovador de la Concordia,170985,663647,501933,47040,9630
 54,Misiones,Frente para la Victoria,127379,663647,501933,47040,9630
 54,Misiones,Frente Unión Popular,70078,663647,501933,47040,9630
@@ -74,6 +101,57 @@ codigo_indec,provincia,lista,votos,electores,votantes,blancos,nulos
 54,Misiones,Unión del Centro Democrático,1927,663647,501933,47040,9630
 54,Misiones,Unión de Voces y Gente Nueva,753,663647,501933,47040,9630
 54,Misiones,Integración Ciudadana,535,663647,501933,47040,9630
+58,Neuquén,"Movimiento Popular Neuquino, con Opción Federal, Servicio y Comunidad y Apertura Popular de Neuquén",121448,,272715,12143,8996
+58,Neuquén,Concertación Neuquina para la Victoria,88052,,272715,12143,8996
+58,Neuquén,Alianza Frente Alternativa Neuquina,19228,,272715,12143,8996
+58,Neuquén,Frente UNE - Partido Socialista,10293,,272715,12143,8996
+58,Neuquén,Obrero,2666,,272715,12143,8996
+58,Neuquén,Afirmación para una República Igualitaria (ARI),2349,,272715,12143,8996
+58,Neuquén,Intransigente,2229,,272715,12143,8996
+58,Neuquén,Humanista,2035,,272715,12143,8996
+58,Neuquén,De los Trabajadores Socialistas,1905,,272715,12143,8996
+58,Neuquén,Movimiento por el Socialismo y el Trabajo,1371,,272715,12143,8996
+62,Río Negro,Alianza Frente para la Victoria,109346,388168,279649,5140,6706
+62,Río Negro,Alianza Concertación para el Desarrollo,96560,388168,279649,5140,6706
+62,Río Negro,Provincial Rionegrino,30080,388168,279649,5140,6706
+62,Río Negro,Afirmación para una República Igualitaria (ARI),15773,388168,279649,5140,6706
+62,Río Negro,Humanista,4243,388168,279649,5140,6706
+62,Río Negro,Socialista,3159,388168,279649,5140,6706
+62,Río Negro,Obrero,2980,388168,279649,5140,6706
+62,Río Negro,Comunista,2869,388168,279649,5140,6706
+62,Río Negro,Movimiento Socialista de los Trabajadores,2793,388168,279649,5140,6706
+66,Salta,Alianza Frente para la Victoria - Renovador de Salta,235755,752322,540495,29130,3151
+66,Salta,Alianza Frente Justicialista para la Victoria (FREJUVI),229665,752322,540495,29130,3151
+66,Salta,Propuesta Salteña,12596,752322,540495,29130,3151
+66,Salta,Concertación Salteña UCR - MID,10278,752322,540495,29130,3151
+66,Salta,Del Obrero,10173,752322,540495,29130,3151
+66,Salta,Nueva Generación,4345,752322,540495,29130,3151
+66,Salta,Alianza Encuentro Popular Amplio (EPA),2006,752322,540495,29130,3151
+66,Salta,Movimiento Socialista de los Trabajadores (MST),1342,752322,540495,29130,3151
+66,Salta,Movimiento Popular Salteño,1119,752322,540495,29130,3151
+66,Salta,Humanista,935,752322,540495,29130,3151
+70,San Juan,Frente para la Victoria,159086,438193,322956,11553,4324
+70,San Juan,Frente para el Cambio,73459,438193,322956,11553,4324
+70,San Juan,Bloquista,11852,438193,322956,11553,4324
+70,San Juan,Propuesta Republicana (PRO),9789,438193,322956,11553,4324
+70,San Juan,Cruzada Renovadora,9436,438193,322956,11553,4324
+70,San Juan,Movimiento Vida y Compromiso (MOVICOM),8840,438193,322956,11553,4324
+70,San Juan,UNA San Juan,7646,438193,322956,11553,4324
+70,San Juan,Coalición Cívica,6519,438193,322956,11553,4324
+70,San Juan,Dignidad Ciudadana,6376,438193,322956,11553,4324
+70,San Juan,Popular Participativo,4339,438193,322956,11553,4324
+70,San Juan,Alternativa Cívica,3684,438193,322956,11553,4324
+70,San Juan,Concertación Popular,2427,438193,322956,11553,4324
+70,San Juan,Movimiento Democrático Independiente (MODEIN),1905,438193,322956,11553,4324
+70,San Juan,Movimiento Socialista de los Trabajadores,1721,438193,322956,11553,4324
+74,San Luis,Frente Partido Justicialista,134110,287603,196455,40979,0
+74,San Luis,Socialista,15189,287603,196455,40979,0
+74,San Luis,MODIN,6177,287603,196455,40979,0
+78,Santa Cruz,Frente para la Victoria Santacruceña,66417,160626,122535,7008,1257
+78,Santa Cruz,Cambiemos para Crecer,44370,160626,122535,7008,1257
+78,Santa Cruz,Unidos por Santa Cruz,1824,160626,122535,7008,1257
+78,Santa Cruz,Frente de Unidad Trabajadora,1032,160626,122535,7008,1257
+78,Santa Cruz,Movimiento Socialista de los Trabajadores,627,160626,122535,7008,1257
 82,Santa Fe,"Frente Progresista, Cívico y Social",864524,,1791174,133376,16436
 82,Santa Fe,Frente para la Victoria,688197,,1791174,133376,16436
 82,Santa Fe,Unión Cívica Radical,36916,,1791174,133376,16436
@@ -98,3 +176,6 @@ codigo_indec,provincia,lista,votos,electores,votantes,blancos,nulos
 90,Tucumán,Partido Izquierda Unida,3795,945294,700192,12381,10452
 90,Tucumán,Cruzada Peronista,3592,945294,700192,12381,10452
 90,Tucumán,Movimiento Independiente de Jubilados y Desocupados,1012,945294,700192,12381,10452
+94,Tierra del Fuego,"Frente para la Victoria, con Compromiso K, Intransigente, Unión Popular y La Corriente",19711,,63278,7483,2582
+94,Tierra del Fuego,Afirmación para una República Igualitaria,17408,,63278,7483,2582
+94,Tierra del Fuego,"Movimiento Popular Fueguino, con Unión Cívica Radical",16094,,63278,7483,2582

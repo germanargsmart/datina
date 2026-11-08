@@ -50,6 +50,12 @@ codigo_indec,provincia,lista,votos,electores,votantes,blancos,nulos
 42,La Pampa,Frente de Izquierda y de los Trabajadores,2842,299359,220363,13673,2755
 42,La Pampa,Movimiento Federalista Pampeano,2149,299359,220363,13673,2755
 42,La Pampa,Partido Desde el Pie,1984,299359,220363,13673,2755
+46,La Rioja,Frente de Todos,112756,302870,237144,14569,2705
+46,La Rioja,Alianza Juntos por el Cambio,69679,302870,237144,14569,2705
+46,La Rioja,Frente La Libertad Avanza,33452,302870,237144,14569,2705
+46,La Rioja,Frente de Izquierda y de los Trabajadores - Unidad,1958,302870,237144,14569,2705
+46,La Rioja,Frente La Rioja Puede,1107,302870,237144,14569,2705
+46,La Rioja,Alianza Fuerza Liberal,918,302870,237144,14569,2705
 50,Mendoza,Cambia Mendoza,368313,1488736,1017252,48377,36614
 50,Mendoza,La Unión Mendocina,276784,1488736,1017252,48377,36614
 50,Mendoza,Elegí Mendoza,137334,1488736,1017252,48377,36614
@@ -90,6 +96,15 @@ codigo_indec,provincia,lista,votos,electores,votantes,blancos,nulos
 66,Salta,Partido de Trabajadores por el Socialismo,7511,1082462,752841,41278,879
 66,Salta,Instrumento Electoral por la Unidad Popular,7051,1082462,752841,41278,879
 66,Salta,Movimiento al Socialismo,4970,1082462,752841,41278,879
+74,San Luis,Cambia San Luis,162588,418798,319199,9625,4589
+74,San Luis,Unión por San Luis,139475,418798,319199,9625,4589
+74,San Luis,Frente de Izquierda y de Trabajadores - Unidad,2370,418798,319199,9625,4589
+74,San Luis,Movimiento al Socialismo,552,418798,319199,9625,4589
+78,Santa Cruz,Por Santa Cruz,76692,265608,186582,18262,3705
+78,Santa Cruz,Unión por la Patria,71952,265608,186582,18262,3705
+78,Santa Cruz,Cambia Santa Cruz,14064,265608,186582,18262,3705
+78,Santa Cruz,Frente de Izquierda y de Trabajadores - Unidad,1661,265608,186582,18262,3705
+78,Santa Cruz,Movimiento al Socialismo,246,265608,186582,18262,3705
 82,Santa Fe,Unidos para Cambiar Santa Fe,1031964,2813695,1919625,87209,67348
 82,Santa Fe,Juntos Avancemos,544468,2813695,1919625,87209,67348
 82,Santa Fe,Viva la Libertad,113985,2813695,1919625,87209,67348

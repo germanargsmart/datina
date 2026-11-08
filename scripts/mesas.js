@@ -613,6 +613,8 @@
   function textoTip(doc, r) {
     const f = MAPA.indice.get(claveRasgo(r)), {p, s, c} = r.properties, pv = doc.provincias[p];
     const prov = provNombre(p), unidad = unidadDe(doc);
+    // un departamento sin datos en una jurisdicción que sí los tiene (Valle Grande en el provisorio de 2011): no es que no haya votado
+    if (!f && unidad !== "circuito" && elec().origen && pv) return `<b>${esc(prov)}</b><br>Sin datos de este departamento en esta elección`;
     if (!f && unidad !== "circuito") return `<b>${esc(prov)}</b><br>${unidad === "provincia" || elec().origen ? sinDato(elec(), p) : sinDatoHistorico(doc, p)}`;
     if (!f && !pv) return `<b>${esc(prov)}</b><br>No eligió ${NIVEL_NOMBRE[elec().cargo]} en esta elección`;
     if (!f) {
