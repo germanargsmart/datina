@@ -49,7 +49,7 @@ MOTIVO_MESAS = {("2007-segunda-gobernador", "02"): "la planilla por mesa es ante
                 ("2023-general-gobernador", "02"): "el provisorio no llegó a cargar todas las mesas",
                 **{x: "el provisorio no llegó a cargar todas las mesas" for x in DINE_MESAS},
                 **{(f"{a}-general-gobernador", "66"): "los votos observados e impugnados que resolvió el Tribunal van por municipio, sin mesa"
-                   for a in (2011, 2019, 2023)}}
+                   for a in (2011, 2015, 2019, 2023)}}
 # lo que la tabla por mesa deja afuera aunque sume lo mismo que las listas del total
 APARTE_MESAS = {("2025-general-gobernador", "18"): "sin las 45 mesas de las personas privadas de libertad"}
 # por qué los departamentos no suman el total de la jurisdicción. En Corrientes 2025 la diferencia, lista por lista, es la de esas 45 mesas
