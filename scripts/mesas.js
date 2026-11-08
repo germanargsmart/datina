@@ -194,8 +194,9 @@
     if (t.votantes == null || !t.votantes) return "";
     const partes = [];
     if (t.blancos != null) partes.push(`${n0(t.blancos)} en blanco (${pct(t.blancos / t.votantes * 100)})`);
-    if (t.nulos != null) partes.push(`${n0(t.nulos)} nulos (${pct(t.nulos / t.votantes * 100)})`);
-    if (t.recurridos) partes.push(`${n0(t.recurridos)} recurridos, impugnados o de comando (${pct(t.recurridos / t.votantes * 100)})`);
+    // en singular cuando hay uno solo, como en muchas mesas
+    if (t.nulos != null) partes.push(`${n0(t.nulos)} ${t.nulos === 1 ? "nulo" : "nulos"} (${pct(t.nulos / t.votantes * 100)})`);
+    if (t.recurridos) partes.push(`${n0(t.recurridos)} ${t.recurridos === 1 ? "recurrido, impugnado" : "recurridos, impugnados"} o de comando (${pct(t.recurridos / t.votantes * 100)})`);
     return partes.length ? `<p class="ms-otros">De quienes votaron: ${partes.join(", ")}.</p>` : "";
   }
   const celdaLista = (nombre, votos, base) => nombre ? `<span class="ms-c-nom">${esc(nombre)}</span> <span class="ms-c-pct">${pct(votos / base * 100)}</span>` : "";
