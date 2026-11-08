@@ -33,13 +33,18 @@ FIJAS_MESAS = ["codigo_departamento", "departamento", "circuito", "mesa", "elect
 FUENTES_MESAS = {"90": "la Junta Electoral Provincial de Tucumán", "18": "la Subdirección de Cómputos de Corrientes",
                  ("2025-general-gobernador", "18"): "la Junta Electoral de Corrientes",
                  ("2007-segunda-gobernador", "02"): "el Tribunal Superior de Justicia de CABA",
-                 "02": "BA Data, el portal de datos abiertos de CABA"}
-MESAS_PROVISORIO = {("2023-general-gobernador", "02")}
+                 "02": "BA Data, el portal de datos abiertos de CABA",
+                 # 2011: el provisorio por mesa de la DINE (2011-provisorios_generales.zip), que trae el gobernador de las provincias que lo votaron con las
+                 # nacionales. En Entre Ríos su sección 2, sin nombre, es la parte rural de Paraná
+                 ("2011-general-gobernador", "06"): "la Dirección Nacional Electoral", ("2011-general-gobernador", "30"): "la Dirección Nacional Electoral"}
+MESAS_PROVISORIO = {("2023-general-gobernador", "02"), ("2011-general-gobernador", "06"), ("2011-general-gobernador", "30")}
 # por qué las mesas no suman el total de la jurisdicción, donde no lo dice el número solo
 MOTIVO_MESAS = {("2007-segunda-gobernador", "02"): "la planilla por mesa es anterior a resolver 79 votos recurridos e impugnados",
                 ("2015-segunda-gobernador", "02"): "los votos de las personas privadas de libertad van sin comuna",
                 ("2019-general-gobernador", "02"): "el archivo por mesa no trae los votos de los extranjeros, y los de las personas privadas de libertad van sin comuna",
-                ("2023-general-gobernador", "02"): "el provisorio no llegó a cargar todas las mesas"}
+                ("2023-general-gobernador", "02"): "el provisorio no llegó a cargar todas las mesas",
+                ("2011-general-gobernador", "06"): "el provisorio no llegó a cargar todas las mesas",
+                ("2011-general-gobernador", "30"): "el provisorio no llegó a cargar todas las mesas"}
 # lo que la tabla por mesa deja afuera aunque sume lo mismo que las listas del total
 APARTE_MESAS = {("2025-general-gobernador", "18"): "sin las 45 mesas de las personas privadas de libertad"}
 # por qué los departamentos no suman el total de la jurisdicción. En Corrientes 2025 la diferencia, lista por lista, es la de esas 45 mesas
@@ -402,7 +407,7 @@ def main():
             pos = sum(v for _, v in j["listas"])
             rec = "provisorio" if (id_, cod) in MESAS_PROVISORIO else "definitivo"
             mesas_en[cod] = rec
-            fuente_m = FUENTES_MESAS.get((id_, cod), FUENTES_MESAS[cod])
+            fuente_m = FUENTES_MESAS.get((id_, cod)) or FUENTES_MESAS[cod]
             motivo = MOTIVO_MESAS.get((id_, cod))
             aparte = APARTE_MESAS.get((id_, cod))
             notas_dep[cod].append(f"Por mesa, el escrutinio {rec} que publica {fuente_m}" + (f", {aparte}" if aparte else "") + (
