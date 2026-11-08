@@ -8,6 +8,7 @@ const VERSION_TABLAS = "5";
 const CARGOS = {presidente: "Presidente", diputados: "Diputados nacionales", senadores: "Senadores nacionales", gobernador: "Gobernador"};
 const NIVEL_NOMBRE = {presidente: "presidente", diputados: "diputados nacionales", senadores: "senadores nacionales", gobernador: "gobernador"};
 const cargoNombre = (el, p) => el.cargo === "gobernador" && p === "02" ? "Jefe de Gobierno" : CARGOS[el.cargo];
+const porMesa = (el, p) => el.nivel === "mesa" || !!el.mesas_en?.[p];
 function sinDato(el, p) {
 if (el.sin_fuente?.includes(p)) return "Votó, pero no hay un escrutinio oficial publicado en línea";
 return el.fuera || `No eligió ${NIVEL_NOMBRE[el.cargo]} en esta elección`;
@@ -112,10 +113,10 @@ const orden = el.provincias.slice().sort((a, b) => provNombre(a).localeCompare(p
 opciones($("ms-prov"), [["", "Todo el país"], ...orden.map(c => [c, provNombre(c)])], estado.p);
 const secc = $("ms-sec"), circ = $("ms-cir"), mesa = $("ms-mesa"), num = $("ms-num");
 const apagar = (sel, texto) => { opciones(sel, [["", texto]], ""); sel.disabled = true; };
-const conMesas = !!D && el.nivel === "mesa";
+const conMesas = !!D && porMesa(el, estado.p);
 num.disabled = !conMesas;
 $("ms-num-ir").disabled = !conMesas;
-num.placeholder = conMesas ? "Por ejemplo, 1234" : el.nivel === "mesa" ? "Elegí una provincia" : "Sin mesas en esta elección";
+num.placeholder = conMesas ? "Por ejemplo, 1234" : el.nivel === "mesa" || (el.mesas_en && !estado.p) ? "Elegí una provincia" : "Sin mesas en esta elección";
 if (!D) {
 const t = el.nivel === "mesa" ? "Elegí una provincia" : "Sin datos";
 apagar(secc, t); apagar(circ, t); apagar(mesa, t);
@@ -157,8 +158,8 @@ function otrosVotos(t) {
 if (t.votantes == null || !t.votantes) return "";
 const partes = [];
 if (t.blancos != null) partes.push(`${n0(t.blancos)} en blanco (${pct(t.blancos / t.votantes * 100)})`);
-if (t.nulos != null) partes.push(`${n0(t.nulos)} nulos (${pct(t.nulos / t.votantes * 100)})`);
-if (t.recurridos) partes.push(`${n0(t.recurridos)} recurridos, impugnados o de comando (${pct(t.recurridos / t.votantes * 100)})`);
+if (t.nulos != null) partes.push(`${n0(t.nulos)} ${t.nulos === 1 ? "nulo" : "nulos"} (${pct(t.nulos / t.votantes * 100)})`);
+if (t.recurridos) partes.push(`${n0(t.recurridos)} ${t.recurridos === 1 ? "recurrido, impugnado" : "recurridos, impugnados"} o de comando (${pct(t.recurridos / t.votantes * 100)})`);
 return partes.length ? `<p class="ms-otros">De quienes votaron: ${partes.join(", ")}.</p>` : "";
 }
 const celdaLista = (nombre, votos, base) => nombre ? `<span class="ms-c-nom">${esc(nombre)}</span> <span class="ms-c-pct">${pct(votos / base * 100)}</span>` : "";
@@ -215,7 +216,7 @@ return `${estado.p ? `En ${provNombre(estado.p)}, las` : "En todo el país, las"
 function pintar(el, P, D, H, aviso, DEF) {
 const usaDef = !!DEF && !estado.s;
 const T = usaDef ? DEF : P;
-const recuento = el.nivel === "mesa" ? (usaDef ? "definitivo" : "provisorio") : el.recuento;
+const recuento = el.nivel === "mesa" ? (usaDef ? "definitivo" : "provisorio") : el.mesas_en?.[estado.p] && estado.s ? el.mesas_en[estado.p] : el.recuento;
 const fecha = estado.p ? el.fechas?.[estado.p] : null;
 const sub = `${cargoNombre(el, estado.p)}, ${el.etiqueta}.${fecha ? ` Se votó el ${fecha}.` : ""}${recuento ? ` Escrutinio ${recuento}.` : ""}`;
 const cob = usaDef ? "" : avisoCobertura(el);
@@ -251,7 +252,7 @@ if (usaDef) notas.push(aparte.length ? "El total del país suma los escrutinios 
 const x = P[estado.p];
 t = {mesas: null, electores: x.electores || 0, votantes: x.votantes, blancos: x.blancos, nulos: x.nulos, recurridos: x.recurridos || 0};
 listas = x.listas.slice().sort((a, b) => b[1] - a[1]);
-} else if (el.nivel === "departamento") {
+} else if (el.nivel === "departamento" && !porMesa(el, estado.p)) {
 const filas = D.filas.filter(f => !estado.s || f.s === estado.s);
 if (estado.s) {
 t = sumar(filas, D.listas.length);
@@ -261,19 +262,24 @@ const x = P[estado.p];
 t = {mesas: null, electores: x.electores || 0, votantes: x.votantes, blancos: x.blancos, nulos: x.nulos, recurridos: x.recurridos || 0};
 listas = x.listas.slice().sort((a, b) => b[1] - a[1]);
 const circunscripciones = el.rotulo === "circunscripcion" || (estado.p === "02" && filas[0]?.sn.startsWith("Circ"));
+const comunas = estado.p === "02" && filas[0]?.sn.startsWith("Comuna");
 const hijos = filas.map(f => {
 const s = sumar([f], D.listas.length);
 return {clave: "s", valor: f.s, nombre: f.sn, mesas: null, electores: s.electores, part: participacion(s), nombres: D.listas, votos: f.v};
 }).sort((a, b) => natural(a.nombre, b.nombre));
-partes = tablaPartes(circunscripciones ? "¿Cómo votó cada circunscripción?" : "¿Cómo votó cada departamento?", circunscripciones ? "Circunscripción" : "Departamento", hijos, false);
+partes = tablaPartes(circunscripciones ? "¿Cómo votó cada circunscripción?" : comunas ? "¿Cómo votó cada comuna?" : "¿Cómo votó cada departamento?",
+circunscripciones ? "Circunscripción" : comunas ? "Comuna" : "Departamento", hijos, false);
 }
+if (!el.origen) {
 if (el.fuente) notas.push(`Estos votos salen de ${el.fuente}. No hay un escrutinio oficial publicado como datos.`);
 else notas.push(`${estado.s ? "Este resultado no es" : "Los departamentos no son"} el escrutinio definitivo: ${estado.s ? "sale" : "salen"} de ${el.anio <= 2001 ? "la base de Ernesto Calvo" : "PolAr, a partir del Atlas Electoral de Andy Tow"}, y ${estado.s ? "puede" : "pueden"} no sumar exacto el total de la jurisdicción.`);
+}
 } else {
 const filas = D.filas.filter(f => (!estado.s || f.s === estado.s) && (!estado.c || f.c === estado.c) && (!estado.m || f.m === estado.m));
 t = sumar(filas, D.listas.length);
 listas = dos(D.listas, t.v);
-const x = usaDef ? DEF[estado.p] : null;
+const x = usaDef ? DEF[estado.p] : el.origen && !estado.s ? P[estado.p] : null;
+const rec = el.mesas_en?.[estado.p] || "provisorio";
 if (x) {
 t = {mesas: null, electores: x.electores || 0, votantes: x.votantes, blancos: x.blancos, nulos: x.nulos, recurridos: x.recurridos || 0};
 listas = x.listas.slice().sort((a, b) => b[1] - a[1]);
@@ -290,8 +296,9 @@ const s = sumar(g, D.listas.length);
 return {clave: estado.s ? "c" : "s", valor: k, nombre: estado.s ? `Circuito ${k}` : g[0].sn, mesas: s.mesas, electores: s.electores, part: participacion(s), nombres: D.listas, votos: s.v};
 }).sort((a, b) => natural(a.nombre, b.nombre));
 const c = el.cobertura?.[estado.p];
-partes = tablaPartes(estado.s ? "¿Cómo votó cada circuito?" : "¿Cómo votó cada sección?", estado.s ? "Circuito" : "Sección", hijos, true,
-x ? `Escrutinio provisorio, el único publicado mesa por mesa.${c != null ? ` Las mesas reúnen ${pct(c)} de los votos positivos del definitivo de ${provNombre(estado.p)}: ${POR_QUE_FALTA}.` : ""}` : "");
+const seccion = !el.origen ? ["sección", "Sección"] : estado.p === "02" ? (D.filas[0]?.sn.startsWith("Circ") ? ["circunscripción", "Circunscripción"] : ["comuna", "Comuna"]) : ["departamento", "Departamento"];
+partes = tablaPartes(estado.s ? "¿Cómo votó cada circuito?" : `¿Cómo votó cada ${seccion[0]}?`, estado.s ? "Circuito" : seccion[1], hijos, true,
+el.origen ? `Escrutinio ${rec} mesa por mesa.` : x ? `Escrutinio provisorio, el único publicado mesa por mesa.${c != null ? ` Las mesas reúnen ${pct(c)} de los votos positivos del definitivo de ${provNombre(estado.p)}: ${POR_QUE_FALTA}.` : ""}` : "");
 } else if (!estado.m) {
 const hijos = filas.slice().sort((a, b) => natural(a.m, b.m)).map(f => {
 const s = sumar([f], D.listas.length);
@@ -301,8 +308,8 @@ partes = tablaPartes("¿Cómo votó cada mesa?", "Mesa", hijos, false);
 }
 if (estado.m && t.votantes > t.electores && t.electores > 0)
 notas.push("Esta mesa registra más votos que electores. Puede ser un error de carga del telegrama, que el escrutinio definitivo corrige.");
-if (estado.m && !t.votantes) notas.push("Esta mesa figura sin resultado en el escrutinio provisorio.");
-if (!estado.m && !x && t.sinVotos) notas.push(`${n0(t.sinVotos)} de ${n0(t.mesas)} mesas figuran sin resultado en el escrutinio provisorio: la participación no las cuenta.`);
+if (estado.m && !t.votantes) notas.push(`Esta mesa figura sin resultado en el escrutinio ${rec}.`);
+if (!estado.m && !x && t.sinVotos) notas.push(`${n0(t.sinVotos)} de ${n0(t.mesas)} mesas figuran sin resultado en el escrutinio ${rec}: la participación no las cuenta.`);
 if (estado.s && H === FALLO_HISTORIA) {
 historia = `<section class="ms-bloque ms-falla" role="alert"><p>No se pudo bajar la historia de ${estado.c ? "este circuito" : "esta sección"}. Los resultados de esta elección están completos. Al elegir otro lugar se vuelve a intentar.</p></section>`;
 } else if (estado.s && H) {
@@ -312,19 +319,20 @@ historia = tablaHistorial(el, mapa, estado.c ? "este circuito" : "esta sección"
 }
 const positivos = listas.reduce((s, x) => s + x[1], 0);
 if (!frase && listas.length >= 2) {
-const dondeTxt = !estado.p ? "en el país" : estado.m ? "en esta mesa" : estado.c ? "en este circuito" : estado.s ? "en esta sección" : "en esta jurisdicción";
+const enSeccion = !el.origen ? "en esta sección" : estado.p !== "02" ? "en este departamento" : estado.s.startsWith("CABA") ? "en esta circunscripción" : "en esta comuna";
+const dondeTxt = !estado.p ? "en el país" : estado.m ? "en esta mesa" : estado.c ? "en este circuito" : estado.s ? enSeccion : "en esta jurisdicción";
 frase = `La lista más votada ${dondeTxt} fue ${listas[0][0]}, con ${pct(listas[0][1] / positivos * 100)} de los votos positivos, y la segunda, ${listas[1][0]}, con ${pct(listas[1][1] / positivos * 100)}.`;
 }
 if (el.nivel === "provincia") notas.push(el.nota_nivel || "Para esta elección no hay datos que se puedan publicar por debajo de la jurisdicción.");
-if (estado.p && el.notas?.[estado.p]) notas.push(el.notas[estado.p]);
-if (estado.p && el.fuentes?.[estado.p]) notas.push(`Fuente: ${el.fuentes[estado.p]}.`);
+if (estado.p && !estado.s && el.notas?.[estado.p]) notas.push(el.notas[estado.p]);
+if (estado.p && !estado.s && el.fuentes?.[estado.p]) notas.push(`Fuente: ${el.fuentes[estado.p]}.`);
 if (!estado.p && el.sin_fuente?.length) {
 const sin = el.sin_fuente.map(provNombre).sort((a, b) => a.localeCompare(b, "es"));
 notas.push(`${sin.join(", ").replace(/, ([^,]*)$/, " y $1")} también ${sin.length === 1 ? "votó" : "votaron"} en ${el.anio}, pero no hay un escrutinio oficial publicado en línea.`);
 }
 frase = [frase, ...notas].filter(Boolean).join(" ");
 resumen = `<section class="ms-bloque ms-resultado" aria-labelledby="ms-titulo"><h2 class="ms-tit" id="ms-titulo" tabindex="-1">${esc(lugar(el, D))}</h2>` +
-`<p class="ms-sub">${esc(sub)}</p>` + (aviso ? `<p class="aviso-serie ms-aviso">${esc(aviso)}</p>` : "") + (cob ? `<p class="aviso-serie ms-aviso">${esc(cob)}</p>` : "") + cifras(t, !estado.m && el.nivel === "mesa") +
+`<p class="ms-sub">${esc(sub)}</p>` + (aviso ? `<p class="aviso-serie ms-aviso">${esc(aviso)}</p>` : "") + (cob ? `<p class="aviso-serie ms-aviso">${esc(cob)}</p>` : "") + cifras(t, !estado.m && porMesa(el, estado.p)) +
 (frase ? `<p class="ms-frase">${esc(frase)}</p>` : "") + tablaListas(listas, positivos) + otrosVotos(t) + `</section>`;
 $("ms-resultado").innerHTML = resumen + partes + historia + (!estado.p ? bloqueExterior(el, DEF) : "");
 if (!estado.p) llenarPadron(el);
@@ -333,7 +341,7 @@ const bajarCSV = porJur ? `${BASE}${el.id}/${DEF ? "definitivo" : "pais"}.csv` :
 const a = $("ms-bajar");
 a.href = bajarCSV;
 a.textContent = porJur ? (DEF ? "Descargar el escrutinio definitivo por jurisdicción (CSV)" : "Descargar tabla por jurisdicción (CSV)")
-: `Descargar ${el.nivel === "mesa" ? "las mesas" : "los departamentos"} de ${provNombre(estado.p)} (CSV)`;
+: `Descargar ${porMesa(el, estado.p) ? "las mesas" : "los departamentos"} de ${provNombre(estado.p)} (CSV)`;
 const ah = $("ms-bajar-hist");
 ah.hidden = !(estado.p && D && el.nivel === "mesa");
 if (estado.p) ah.href = `${BASE}circuitos/${estado.p}.csv`;
@@ -524,7 +532,7 @@ return mezcla(doc.fuerzas[doc.fuerza[f[4][0]]].c, TONOS[tramo(CORTES.gana, f[4][
 function textoTip(doc, r) {
 const f = MAPA.indice.get(claveRasgo(r)), {p, s, c} = r.properties, pv = doc.provincias[p];
 const prov = provNombre(p), unidad = unidadDe(doc);
-if (!f && unidad !== "circuito") return `<b>${esc(prov)}</b><br>${unidad === "provincia" ? sinDato(elec(), p) : sinDatoHistorico(doc, p)}`;
+if (!f && unidad !== "circuito") return `<b>${esc(prov)}</b><br>${unidad === "provincia" || elec().origen ? sinDato(elec(), p) : sinDatoHistorico(doc, p)}`;
 if (!f && !pv) return `<b>${esc(prov)}</b><br>No eligió ${NIVEL_NOMBRE[elec().cargo]} en esta elección`;
 if (!f) {
 const sec = seccionDelRasgo(r), sn = pv.secciones?.[s] || "";
@@ -695,7 +703,7 @@ if (pos) frase = `En ${donde}, ${doc.fuerzas[ix].n} reunió ${pct(suma / pos * 1
 }
 const grisTxt = doc.historica ? (el.anio < 1951 ? "Sin dato, o territorio nacional que no votaba" : "Sin dato en esta elección")
 : unidad === "circuito" ? (!estado.p && el.cargo === "senadores" ? "No eligió senadores en esta elección" : "Sin mesas o sin votos cargados en el provisorio")
-: {departamento: "Sin dato en esta elección", provincia: el.gris || "No eligió senadores en esta elección"}[unidad];
+: {departamento: el.gris || "Sin dato en esta elección", provincia: el.gris || "No eligió senadores en esta elección"}[unidad];
 const hayGris = MAPA.rasgos.some(r => rellenoDe(doc, r) === SIN_MESAS) || MAPA.fondoSel.data().some(r => rellenoDe(doc, r) === SIN_MESAS);
 $("ms-ley").innerHTML = leyenda +
 (unidad === "circuito" ? `<div class="ms-ley-tramo ms-ley-sin"><i class="ms-ley-rayas" aria-hidden="true"></i><span class="ms-ley-nom">Sin mesas propias: el resultado de toda su sección</span></div>` : "") +
@@ -713,7 +721,7 @@ if (ign.length) notas.push(`En ${ign.join(", ").replace(/, ([^,]*)$/, " y $1")} 
 const faltan = el.provincias.filter(c => (doc.provincias[c]?.con ?? 100) < 99.5 && (!estado.p || c === estado.p));
 for (const c of faltan.slice(0, 2)) notas.push(`En ${provNombre(c)}, ${pct(100 - doc.provincias[c].con)} de quienes votaron no tiene su circuito en el mapa.`);
 if (doc.unidad === "departamento") {
-notas.push(doc.fuente ? `Los votos salen de ${doc.fuente}. No hay un escrutinio oficial publicado como datos.` : `Los departamentos salen de ${FUENTES_DEPTOS[doc.origen]}, no del escrutinio definitivo.`);
+if (!doc.oficial) notas.push(doc.fuente ? `Los votos salen de ${doc.fuente}. No hay un escrutinio oficial publicado como datos.` : `Los departamentos salen de ${FUENTES_DEPTOS[doc.origen]}, no del escrutinio definitivo.`);
 if (doc.aviso) notas.push(doc.aviso);
 if (doc.reune != null && doc.reune < 95) notas.push(`Hay datos de ${el.provincias.length} jurisdicciones, que reúnen ${pct(doc.reune)} de los votos que publica el resultado nacional de esa elección.`);
 else if (doc.reune != null && doc.reune > 102) notas.push(`Estos datos suman ${pct(doc.reune)} de los votos que publica el resultado nacional de esa elección: las dos fuentes no coinciden exacto.`);
@@ -823,9 +831,9 @@ aviso = el.sin_fuente?.includes(estado.p) ? `${provNombre(estado.p)} eligió ${N
 : `${provNombre(estado.p)} no eligió ${NIVEL_NOMBRE[el.cargo]} en ${el.anio}: se muestra todo el país.`;
 Object.assign(estado, {p: "", s: "", c: "", m: ""});
 }
-const hayTabla = el.nivel === "mesa" || (el.nivel === "departamento" && el.departamentos?.includes(estado.p));
+const hayTabla = porMesa(el, estado.p) || (el.nivel === "departamento" && el.departamentos?.includes(estado.p));
 if (!hayTabla && estado.s) Object.assign(estado, {s: "", c: "", m: ""});
-if (el.nivel !== "mesa") Object.assign(estado, {c: "", m: ""});
+if (!porMesa(el, estado.p)) Object.assign(estado, {c: "", m: ""});
 const D = estado.p && hayTabla ? await tablaProvincia(el.id, estado.p) : null;
 if (D) {
 if (estado.s && MAPA.seccion && !D.filas.some(f => f.s === estado.s)) {
