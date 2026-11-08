@@ -182,6 +182,9 @@ PRIMERO = [(r"^(alianza )?frente de todos$", lambda a, c: "ucr" if a < 2019 else
            (r"^frente corrientes de todos$", lambda a, c: "peronismo" if c == "18" else None),
            (r"^alianza uni[oó]n de fuerzas sociales$", lambda a, c: "peronismo" if c == "14" else None),
            (r"^confederaci[oó]n formose[ñn]a frente de todos$", lambda a, c: "otras" if c == "34" else None),
+           # Tucumán: el Acuerdo para el Bicentenario de 2015 lo encabezó la UCR (Cano), y Vamos Tucumán fue en 2019 el frente de Juntos por el Cambio
+           (r"^frente acuerdo para el bicentenario$", lambda a, c: "ucr" if c == "90" else None),
+           (r"^vamos tucum[aá]n$", lambda a, c: "cambiemos" if c == "90" and a == 2019 else None),
            # Chubut: los frentes de Das Neves (2015) y de Arcioni (2019), con el color de Chubut Somos Todos, y el Partido Acción Chubutense
            (r"^alianza (frente uni[oó]n chubut somos todos|chubut al frente)$", lambda a, c: "p-chubut-somos-todos" if c == "26" else None),
            (r"^acci[oó]n chubutense", lambda a, c: "p-partido-de-accion-chubutense" if c == "26" else None),
@@ -384,6 +387,53 @@ def nombres_geo(ep):
     return nombres
 
 
+def norm_circuito(c):
+    """El código del circuito sin ceros adelante ni espacios: las tablas del gobernador y las nacionales lo escriben distinto ("0172" y "172")."""
+    c = c.strip().upper()
+    m = re.fullmatch(r"0*(\d+)([A-Z]*)", c)
+    return f"{int(m[1])}{m[2]}" if m else c
+
+
+def circuitos_de_mapa(anio, cod, res):
+    """El mapa por circuito de una jurisdicción con mesas del gobernador, con los polígonos de la elección nacional del mismo año (pedido del autor del 8 de
+    noviembre de 2026: ver quién ganó en cada circuito). res es {(departamento, circuito): {"e", "t", "v": {lista: votos}}} de la tabla por mesa.
+    Cada circuito se une con la sección de la nacional por su código, que no se repite dentro de una jurisdicción (medido en 2011 a 2023), y si no está,
+    por el circuito sin la letra (64A con 64). Las filas copian los lugares de la nacional, así que se dibujan con sus mismos polígonos, y llevan al final
+    las claves de la tabla del gobernador (departamento|circuito), que es lo que se elige al tocarlas. Devuelve None si no hay una nacional con mapa."""
+    ref = next((x for x in (f"{anio}-general-diputados", f"{anio}-general-presidente") if (MESAS / "mapa" / f"{x}.json").exists()
+                and (MESAS / x / f"{cod}.csv").exists()), None)
+    if not ref:
+        return None
+    nac = json.loads((MESAS / "mapa" / f"{ref}.json").read_text(encoding="utf-8"))
+    pv = nac["provincias"].get(cod)
+    if not pv or pv.get("nivel") not in ("circuito", "seccion"):
+        return None
+    # el circuito de la tabla nacional, con su sección
+    seccion_de = {}
+    for r in csv.DictReader(open(MESAS / ref / f"{cod}.csv", encoding="utf-8", newline="")):
+        seccion_de.setdefault(norm_circuito(r["circuito"]), (r["seccion_id"], r["circuito"]))
+    # cada clave de la tabla nacional, con la fila del mapa que la dibuja
+    fila_de = {}
+    for i, f in enumerate(pv["filas"]):
+        claves = f[5] if len(f) > 5 else [c if "|" in c else f"{f[0]}|{c}" for c in (f[1] if isinstance(f[1], list) else [f[1]])]
+        for k in claves:
+            fila_de[k] = i
+    grupos = defaultdict(list)
+    sec_tabla = defaultdict(lambda: defaultdict(int))
+    t_total = t_mapa = 0
+    for (dep, circ), x in res.items():
+        t_total += x["t"]
+        n = norm_circuito(circ)
+        nac_c = seccion_de.get(n) or seccion_de.get(re.sub(r"[A-Z]+$", "", n))
+        i = fila_de.get(f"{nac_c[0]}|{nac_c[1]}") if nac_c else None
+        if i is None:
+            continue
+        grupos[i].append((dep, circ))
+        sec_tabla[nac_c[0]][dep] += x["t"]
+        t_mapa += x["t"]
+    return ref, nac, pv, grupos, {s: max(d, key=d.get) for s, d in sec_tabla.items()}, (100 * t_mapa / t_total if t_total else 0)
+
+
 def fuerza_de(lista, anio, cod, por_nombre):
     t = lista.lower()
     for rx, f in PRIMERO:
@@ -417,6 +467,10 @@ def main():
                 f.unlink()
             (MESAS / id_).rmdir()
         (MESAS / "mapa" / f"{id_}.json").unlink(missing_ok=True)
+        if (MESAS / "mapa" / id_).exists():
+            for f in (MESAS / "mapa" / id_).glob("*"):
+                f.unlink()
+            (MESAS / "mapa" / id_).rmdir()
     idx["elecciones"] = [e for e in idx["elecciones"] if e.get("origen") != ORIGEN]
     ya = {e["id"] for e in idx["elecciones"]}
     cubre = enumerar(sorted((PROVINCIAS[c] for c in CUBRE), key=str.casefold))
@@ -523,8 +577,10 @@ def main():
                 fuentes_dep = sorted({d["fuente"] for d in ds.values()})
                 if fuentes_dep != [j["fuente"]] and (cargo, anio, vuelta, cod) not in de_mesas:
                     notas_dep[cod].append(f"{unidades} salen de: {enumerar(fuentes_dep)}.")
-        # por mesa: la tabla de la jurisdicción pasa a tener una fila por mesa, con el departamento como sección. El mapa sigue por departamento
+        # por mesa: la tabla de la jurisdicción pasa a tener una fila por mesa, con el departamento como sección. El mapa del país sigue por departamento,
+        # y el de la jurisdicción baja al circuito donde hay una elección nacional el mismo año (circuitos_de_mapa)
         mesas_en = {}
+        circ_res = defaultdict(lambda: defaultdict(lambda: {"e": 0, "t": 0, "v": defaultdict(int)}))
         for cod, j in juris.items():
             ruta = MESAS_DIR / f"{id_}-{cod}.csv"
             if not ruta.exists():
@@ -550,6 +606,13 @@ def main():
                     for n, x in zip(ls, r[8:]):
                         v[j["etiqueta"][n]] += int(x)
                     pos_m += sum(v.values())
+                    # por circuito, para el mapa: la participación cuenta solo las mesas con resultado, como en las nacionales
+                    t = sum(v.values()) + sum(int(a) for a in r[5:8])
+                    c = circ_res[cod][(r[0], r[2])]
+                    c["e"] += int(r[4]) if t else 0
+                    c["t"] += t
+                    for n, x in v.items():
+                        c["v"][n] += x
                     nom = nombres_ep[ep].get(r[0], r[1]) if not r[0].startswith("CABA") else r[1]
                     w.writerow([r[0], nom, r[2], r[3], *r[4:8], *[v.get(n, 0) for n in cols]])
             pos = sum(v for _, v in j["listas"])
@@ -564,6 +627,26 @@ def main():
                 if pos_m != pos else "."))
             if cod in sin_mesas:
                 notas_dep[cod].append(sin_mesas[cod])
+        mapas_circ = {}
+        for cod, res in circ_res.items():
+            hecho = circuitos_de_mapa(anio, cod, res)
+            if not hecho:
+                continue
+            ref, nac, pv, grupos, sec_tabla, con = hecho
+            filas_c = []
+            for i, claves in sorted(grupos.items()):
+                f = pv["filas"][i]
+                v = defaultdict(int)
+                for k in claves:
+                    for n, x in res[k]["v"].items():
+                        v[n] += x
+                filas_c.append([f[0], f[1], sum(res[k]["e"] for k in claves), sum(res[k]["t"] for k in claves), pares_de(v, cod),
+                                [f"{d}|{c}" for d, c in sorted(claves)]])
+            nombres_t = {d: nombres_ep[ep].get(d, d) for d, _ in res}
+            mapas_circ[cod] = {"periodo": nac["periodo"], "ref": ref, "sec_tabla": sec_tabla,
+                               "pv": {"ed": pv["ed"], "nivel": pv["nivel"], "con": round(con, 1), "secciones": nombres_t, "filas": filas_c}}
+            provincias[cod]["circuitos"] = mesas_en[cod]
+            print(f"  {id_} {cod}: mapa por circuito con los polígonos de {ref}, {len(filas_c)} lugares, {con:.1f}% de los votantes")
         if deps:
             doc = {"id": id_, "periodo": f"dep{ep}", "unidad": "departamento", "oficial": True, "caba_entera": caba_entera, "listas": list(listas), "fuerza": fuerza,
                    "fuerzas": [{"id": f, "n": colores[f]["nombre"], "c": colores[f]["color"]} for f in fuerzas], "provincias": provincias}
@@ -571,6 +654,12 @@ def main():
             doc = {"id": id_, "periodo": "provincias", "unidad": "provincia", "listas": list(listas), "fuerza": fuerza,
                    "fuerzas": [{"id": f, "n": colores[f]["nombre"], "c": colores[f]["color"]} for f in fuerzas], "provincias": provincias}
         (MESAS / "mapa" / f"{id_}.json").write_text(json.dumps(doc, ensure_ascii=False, separators=(",", ":")) + "\n", encoding="utf-8", newline="\n")
+        # el mapa por circuito de cada jurisdicción con mesas: lo baja mesas.js al entrar a ella, con las mismas listas y fuerzas
+        for cod, m in mapas_circ.items():
+            doc_c = {"id": id_, "periodo": m["periodo"], "unidad": "circuito", "recuento": mesas_en[cod], "listas": doc["listas"], "fuerza": doc["fuerza"],
+                     "fuerzas": doc["fuerzas"], "sec_tabla": m["sec_tabla"], "provincias": {cod: m["pv"]}}
+            (MESAS / "mapa" / id_).mkdir(exist_ok=True)
+            (MESAS / "mapa" / id_ / f"{cod}.json").write_text(json.dumps(doc_c, ensure_ascii=False, separators=(",", ":")) + "\n", encoding="utf-8", newline="\n")
         sin = [c for c in sin_f.get((cargo, anio, vuelta), []) if c not in juris]
         el = {"id": id_, "anio": anio, "vuelta": vuelta, "cargo": cargo, "etiqueta": f"{anio}{', segunda vuelta' if vuelta == 'segunda' else ''}",
               "nivel": "provincia", "recuento": "definitivo", "provincias": sorted(juris), "origen": ORIGEN,
