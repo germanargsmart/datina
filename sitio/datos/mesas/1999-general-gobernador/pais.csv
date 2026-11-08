@@ -7,8 +7,24 @@ codigo_indec,provincia,lista,votos,electores,votantes,blancos,nulos
 06,Buenos Aires,Partido Obrero,43352,9035493,7742506,446219,51445
 06,Buenos Aires,Partido de los Trabajadores Socialistas,20609,9035493,7742506,446219,51445
 06,Buenos Aires,Frente de la Resistencia,19740,9035493,7742506,446219,51445
+22,Chaco,"Alianza Frente de Todos, con Partido Bases y Principios del Chaco",291406,599505,470783,9104,1796
+22,Chaco,"Alianza Unión para el Nuevo Chaco, con Partido Nacionalista Constitucional y Partido Acción Chaqueña",165139,599505,470783,9104,1796
+22,Chaco,Partido Comunista,3354,599505,470783,9104,1796
+26,Chubut,"Alianza por el Trabajo, la Justicia y la Educación",93234,251093,204159,22850,1965
+26,Chubut,Partido Justicialista,67790,251093,204159,22850,1965
+26,Chubut,Acción Chubutense,14958,251093,204159,22850,1965
+26,Chubut,Socialista Auténtico,1868,251093,204159,22850,1965
+26,Chubut,Humanista,1494,251093,204159,22850,1965
 30,Entre Ríos,"Alianza por el Trabajo, la Justicia y la Educación",311557,778185,671814,34911,2444
 30,Entre Ríos,Concertación Justicialista Nacional y Todo por Entre Ríos,301334,778185,671814,34911,2444
 30,Entre Ríos,Acción por la República,15786,778185,671814,34911,2444
 30,Entre Ríos,Izquierda Unida - Partido Comunista,3177,778185,671814,34911,2444
 30,Entre Ríos,Partido Humanista,2605,778185,671814,34911,2444
+54,Misiones,Alianza Frente para el Cambio,224295,541743,428291,8869,2029
+54,Misiones,"Alianza para el Trabajo, la Justicia y la Educación",191271,541743,428291,8869,2029
+54,Misiones,Comunista,1827,541743,428291,8869,2029
+82,Santa Fe,Partido Justicialista,925110,,1716598,97227,12488
+82,Santa Fe,Alianza Santafesina,665470,,1716598,97227,12488
+82,Santa Fe,Unidad de la Izquierda y la Resistencia,6808,,1716598,97227,12488
+82,Santa Fe,Partido Humanista,5749,,1716598,97227,12488
+82,Santa Fe,Alianza Social Cristiana del 3 Milenio,3746,,1716598,97227,12488

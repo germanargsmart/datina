@@ -8,12 +8,116 @@ codigo_indec,provincia,lista,votos,electores,votantes,blancos,nulos
 06,Buenos Aires,Consenso Federal,513850,13185036,10548393,419092,64237
 06,Buenos Aires,Frente de Izquierda y de Trabajadores-Unidad,282830,13185036,10548393,419092,64237
 06,Buenos Aires,Frente NOS,141249,13185036,10548393,419092,64237
+10,Catamarca,Frente de Todos,133441,319543,258499,36653,1092
+10,Catamarca,Juntos por el Cambio,73782,319543,258499,36653,1092
+10,Catamarca,Consenso Federal,9703,319543,258499,36653,1092
+10,Catamarca,GEM,3828,319543,258499,36653,1092
+14,Córdoba,Hacemos por Córdoba,1101960,2889973,2103418,123967,58824
+14,Córdoba,Córdoba Cambia,362101,2889973,2103418,123967,58824
+14,Córdoba,Unión Cívica Radical,222826,2889973,2103418,123967,58824
+14,Córdoba,Encuentro Vecinal Córdoba,75794,2889973,2103418,123967,58824
+14,Córdoba,Frente de Izquierda y de los Trabajadores,52650,2889973,2103418,123967,58824
+14,Córdoba,MST - Nueva Izquierda,29053,2889973,2103418,123967,58824
+14,Córdoba,Partido Humanista,24126,2889973,2103418,123967,58824
+14,Córdoba,Vecinalismo Independiente,21868,2889973,2103418,123967,58824
+14,Córdoba,Partido Unión Ciudadana,13060,2889973,2103418,123967,58824
+14,Córdoba,Movimiento de Acción Vecinal,6119,2889973,2103418,123967,58824
+14,Córdoba,Movimiento Avanzada Socialista,6076,2889973,2103418,123967,58824
+14,Córdoba,Unión del Centro Democrático (U.Ce.De.),4994,2889973,2103418,123967,58824
+22,Chaco,Frente Chaqueño,305922,941935,678997,56619,4249
+22,Chaco,Chaco Somos Todos,193731,941935,678997,56619,4249
+22,Chaco,Frente Integrador,85955,941935,678997,56619,4249
+22,Chaco,Frente por la Educación y el Trabajo,8287,941935,678997,56619,4249
+22,Chaco,Partido del Obrero,6101,941935,678997,56619,4249
+22,Chaco,Consenso Federal,6100,941935,678997,56619,4249
+22,Chaco,Acción Chaqueña,4607,941935,678997,56619,4249
+22,Chaco,Partido Socialistas Unidos por el Chaco,3207,941935,678997,56619,4249
+22,Chaco,Movimiento Izquierda Justicia y Dignidad,2429,941935,678997,56619,4249
+22,Chaco,"Movimiento Político, Social y Cultural Proyecto Sur",1790,941935,678997,56619,4249
+26,Chubut,Alianza Chubut al Frente,121540,439163,321116,19333,7879
+26,Chubut,Alianza Frente Patriótico Chubutense,99842,439163,321116,19333,7879
+26,Chubut,Alianza Cambiemos Chubut,45495,439163,321116,19333,7879
+26,Chubut,Del Obrero,8904,439163,321116,19333,7879
+26,Chubut,Movimiento Socialista de los Trabajadores,7036,439163,321116,19333,7879
+26,Chubut,Movimiento Polo Social Chubut,6146,439163,321116,19333,7879
+26,Chubut,Independiente del Chubut,4941,439163,321116,19333,7879
 30,Entre Ríos,Frente Justicialista Creer Entre Ríos,436452,1080782,846776,77181,9675
 30,Entre Ríos,Cambiemos,270302,1080782,846776,77181,9675
 30,Entre Ríos,Confederación Vecinalista Entre Ríos,14649,1080782,846776,77181,9675
 30,Entre Ríos,Nueva Izquierda,14562,1080782,846776,77181,9675
 30,Entre Ríos,Partido Socialista,13020,1080782,846776,77181,9675
 30,Entre Ríos,Partido SER,10935,1080782,846776,77181,9675
+38,Jujuy,Frente Cambia Jujuy,176482,547502,430827,21325,6168
+38,Jujuy,Frente Justicialista,132186,547502,430827,21325,6168
+38,Jujuy,Frente Juntos por Jujuy,42062,547502,430827,21325,6168
+38,Jujuy,Frente por Jujuy y su Gente,13543,547502,430827,21325,6168
+38,Jujuy,Frente de Izquierda y de los Trabajadores,12630,547502,430827,21325,6168
+38,Jujuy,Frente Unidad Ciudadana,10239,547502,430827,21325,6168
+38,Jujuy,Partido por la Dignidad del Pueblo,4639,547502,430827,21325,6168
+38,Jujuy,Frente Patriótico-Entre Todos,3457,547502,430827,21325,6168
+38,Jujuy,Frente de Unidad del Pueblo Pluricultural,3303,547502,430827,21325,6168
+38,Jujuy,Frente Unir Mi Jujuy,1913,547502,430827,21325,6168
+38,Jujuy,Movimiento Popular Jujeño,1657,547502,430827,21325,6168
+38,Jujuy,Movimiento Socialista de los Trabajadores,1223,547502,430827,21325,6168
+42,La Pampa,Justicialista Pampeano,107653,282055,218061,11090,2606
+42,La Pampa,Cambiemos La Pampa,64990,282055,218061,11090,2606
+42,La Pampa,Comunidad Organizada,14686,282055,218061,11090,2606
+42,La Pampa,Pueblo Nuevo,7056,282055,218061,11090,2606
+42,La Pampa,Partido Socialista,3811,282055,218061,11090,2606
+42,La Pampa,Frente Popular Pampeano,2879,282055,218061,11090,2606
+42,La Pampa,Desde el Pie,1764,282055,218061,11090,2606
+42,La Pampa,Movimiento Socialista de los Trabajadores,1526,282055,218061,11090,2606
+46,La Rioja,Frente de Todos,95115,290339,234478,19947,2663
+46,La Rioja,Juntos por La Rioja,65561,290339,234478,19947,2663
+46,La Rioja,Alianza Nuestra Rioja,49203,290339,234478,19947,2663
+46,La Rioja,Frente de Izquierda y de Trabajadores - Unidad,1615,290339,234478,19947,2663
+46,La Rioja,Frente Vecinalista del Tercer Sector,281,290339,234478,19947,2663
+46,La Rioja,Movimiento Independiente Justicia y Dignidad,93,290339,234478,19947,2663
+50,Mendoza,Frente Cambia Mendoza,554900,1406082,1111775,23071,14844
+50,Mendoza,Frente Político y Social Elegí,389172,1406082,1111775,23071,14844
+50,Mendoza,Protectora Fuerza Política,93567,1406082,1111775,23071,14844
+50,Mendoza,Frente de Izquierda y de los Trabajadores,36221,1406082,1111775,23071,14844
+54,Misiones,Frente Renovador de la Concordia,494045,907008,712754,28958,5227
+54,Misiones,Juntos por el Cambio,119346,907008,712754,28958,5227
+54,Misiones,Frente Popular Agrario y Social,55369,907008,712754,28958,5227
+54,Misiones,Partido del Obrero,9809,907008,712754,28958,5227
+58,Neuquén,"Movimiento Popular Neuquino, con Frente Nuevo Neuquén, Siempre, Unión Popular y Frente Integrador Neuquino",149897,497448,387557,13894,710
+58,Neuquén,Unidad Ciudadana Frente Neuquino,96700,497448,387557,13894,710
+58,Neuquén,Cambiemos,56097,497448,387557,13894,710
+58,Neuquén,Demócrata Cristiano,36780,497448,387557,13894,710
+58,Neuquén,Frente de Izquierda y de los Trabajadores,13143,497448,387557,13894,710
+58,Neuquén,Movimiento Libres del Sur,10425,497448,387557,13894,710
+58,Neuquén,Iguales,4440,497448,387557,13894,710
+58,Neuquén,Nueva Izquierda,2851,497448,387557,13894,710
+58,Neuquén,Frente Social por la Dignidad,2620,497448,387557,13894,710
+62,Río Negro,Juntos Somos Río Negro,204920,546067,402681,5159,8144
+62,Río Negro,Frente para la Victoria Distrito Río Negro,136170,546067,402681,5159,8144
+62,Río Negro,Cambiemos Río Negro,22053,546067,402681,5159,8144
+62,Río Negro,Frente de Izquierda y de los Trabajadores,10218,546067,402681,5159,8144
+62,Río Negro,Partido Unión y Libertad,6956,546067,402681,5159,8144
+62,Río Negro,Movimiento Socialista de los Trabajadores,4669,546067,402681,5159,8144
+62,Río Negro,Movimiento al Socialismo,4392,546067,402681,5159,8144
+66,Salta,Sáenz Gobernador,377389,1027220,721623,18100,104
+66,Salta,Frente de Todos,184987,1027220,721623,18100,104
+66,Salta,Olmedo Gobernador,107894,1027220,721623,18100,104
+66,Salta,Frente de Izquierda y de Trabajadores - Unidad,17045,1027220,721623,18100,104
+66,Salta,Partido Frente Grande,16104,1027220,721623,18100,104
+70,San Juan,Frente Todos,232879,,417043,0,0
+70,San Juan,Frente con Vos,141428,,417043,0,0
+70,San Juan,Frente San Juan Primero,16454,,417043,0,0
+70,San Juan,Cruzada Renovadora,8936,,417043,0,0
+70,San Juan,Dignidad Ciudadana,6968,,417043,0,0
+70,San Juan,Del Trabajo y del Pueblo,4280,,417043,0,0
+70,San Juan,Nueva Izquierda,3769,,417043,0,0
+70,San Juan,Nueva Dirigencia,2329,,417043,0,0
+78,Santa Cruz,Frente de Todos,93846,252031,180094,16934,2982
+78,Santa Cruz,Nueva Santa Cruz,51307,252031,180094,16934,2982
+78,Santa Cruz,Santa Cruz Somos Todos,11004,252031,180094,16934,2982
+78,Santa Cruz,FIT-Unidad,3574,252031,180094,16934,2982
+78,Santa Cruz,Movimiento al Socialismo,447,252031,180094,16934,2982
+82,Santa Fe,Juntos,745996,2675157,1923720,76962,83765
+82,Santa Fe,"Frente Progresista, Cívico y Social",668269,2675157,1923720,76962,83765
+82,Santa Fe,Cambiemos,348728,2675157,1923720,76962,83765
 90,Tucumán,Frente Justicialista por Tucumán,512853,1225045,1035220,30954,15367
 90,Tucumán,Vamos Tucumán,201831,1225045,1035220,30954,15367
 90,Tucumán,Fuerza Republicana,136313,1225045,1035220,30954,15367
@@ -23,3 +127,6 @@ codigo_indec,provincia,lista,votos,electores,votantes,blancos,nulos
 90,Tucumán,Movimiento Socialista de los Trabajadores,2199,1225045,1035220,30954,15367
 90,Tucumán,Movimiento Izquierda Juventud Dignidad,985,1225045,1035220,30954,15367
 90,Tucumán,Nos Une el Cambio,103,1225045,1035220,30954,15367
+94,Tierra del Fuego,Concertación Forja,50329,136768,101018,7449,2112
+94,Tierra del Fuego,Unidad Fueguina,37369,136768,101018,7449,2112
+94,Tierra del Fuego,Ser Fueguino,3759,136768,101018,7449,2112
