@@ -36,15 +36,17 @@ FUENTES_MESAS = {"90": "la Junta Electoral Provincial de Tucumán", "18": "la Su
                  "02": "BA Data, el portal de datos abiertos de CABA",
                  # 2011: el provisorio por mesa de la DINE (2011-provisorios_generales.zip), que trae el gobernador de las provincias que lo votaron con las
                  # nacionales. En Entre Ríos su sección 2, sin nombre, es la parte rural de Paraná
-                 ("2011-general-gobernador", "06"): "la Dirección Nacional Electoral", ("2011-general-gobernador", "30"): "la Dirección Nacional Electoral"}
-MESAS_PROVISORIO = {("2023-general-gobernador", "02"), ("2011-general-gobernador", "06"), ("2011-general-gobernador", "30")}
+                 ("2011-general-gobernador", "06"): "la Dirección Nacional Electoral", ("2011-general-gobernador", "30"): "la Dirección Nacional Electoral",
+                 ("2011-general-gobernador", "38"): "la Dirección Nacional Electoral"}
+MESAS_PROVISORIO = {("2023-general-gobernador", "02"), ("2011-general-gobernador", "06"), ("2011-general-gobernador", "30"), ("2011-general-gobernador", "38")}
 # por qué las mesas no suman el total de la jurisdicción, donde no lo dice el número solo
 MOTIVO_MESAS = {("2007-segunda-gobernador", "02"): "la planilla por mesa es anterior a resolver 79 votos recurridos e impugnados",
                 ("2015-segunda-gobernador", "02"): "los votos de las personas privadas de libertad van sin comuna",
                 ("2019-general-gobernador", "02"): "el archivo por mesa no trae los votos de los extranjeros, y los de las personas privadas de libertad van sin comuna",
                 ("2023-general-gobernador", "02"): "el provisorio no llegó a cargar todas las mesas",
                 ("2011-general-gobernador", "06"): "el provisorio no llegó a cargar todas las mesas",
-                ("2011-general-gobernador", "30"): "el provisorio no llegó a cargar todas las mesas"}
+                ("2011-general-gobernador", "30"): "el provisorio no llegó a cargar todas las mesas",
+                ("2011-general-gobernador", "38"): "el provisorio no llegó a cargar todas las mesas, ninguna de Valle Grande"}
 # lo que la tabla por mesa deja afuera aunque sume lo mismo que las listas del total
 APARTE_MESAS = {("2025-general-gobernador", "18"): "sin las 45 mesas de las personas privadas de libertad"}
 # por qué los departamentos no suman el total de la jurisdicción. En Corrientes 2025 la diferencia, lista por lista, es la de esas 45 mesas
@@ -402,7 +404,8 @@ def main():
                 provincias[cod] = {"ed": f"dep{ep}", "nivel": "provincia", "con": 100, "secciones": {geo[0]: "CABA" if geo == ["CABA"] else "Sin dato por departamento"},
                                    "filas": [[geo[0], "d" if len(geo) == 1 else [f"{c}|d" for c in geo], j["electores"], j["votantes"], pares]], "suma": 100.0}
                 caba_entera |= geo == ["CABA"] and bool(ds)
-                if not ds:
+                # sin departamentos oficiales pero con mesas (Jujuy 2011, del provisorio de la DINE): el mapa la pinta entera y la tabla llega a la mesa
+                if not ds and not (MESAS_DIR / f"{id_}-{cod}.csv").exists():
                     notas_dep[cod].append("En esta elección la fuente llega solo al total de la jurisdicción.")
             # la tabla: una fila por departamento, con las columnas de las tablas por mesa y las listas con el nombre del total de la jurisdicción
             if ds:
@@ -452,8 +455,8 @@ def main():
             ruta = MESAS_DIR / f"{id_}-{cod}.csv"
             if not ruta.exists():
                 continue
-            if cod not in deps:
-                sys.exit(f"{ruta.name}: la jurisdicción no tiene departamentos en mesas_jurisdiccion_departamentos.csv, que pinta el mapa")
+            if not deps:
+                sys.exit(f"{ruta.name}: ninguna jurisdicción de la elección tiene departamentos, y el mapa por departamento es el que lleva a la mesa")
             filas_m = list(csv.reader(open(ruta, encoding="utf-8", newline="")))
             if filas_m[0][:8] != FIJAS_MESAS:
                 sys.exit(f"{ruta.name}: las columnas tienen que empezar por {FIJAS_MESAS}")
