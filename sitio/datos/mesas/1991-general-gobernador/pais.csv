@@ -34,12 +34,54 @@ codigo_indec,provincia,lista,votos,electores,votantes,blancos,nulos
 30,Entre Ríos,Partido Socialista Popular,6261,684070,581512,21564,1946
 30,Entre Ríos,Alianza Frente Pueblo Unido,2918,684070,581512,21564,1946
 30,Entre Ríos,Partido Intransigente,2812,684070,581512,21564,1946
+38,Jujuy,Fre.Ju.Pe.,94275,273959,204996,5944,1631
+38,Jujuy,Unión Cívica Radical,48817,273959,204996,5944,1631
+38,Jujuy,Movimiento Popular Jujeño,26593,273959,204996,5944,1631
+38,Jujuy,Fuerza Republicana Federal,19750,273959,204996,5944,1631
+38,Jujuy,Frente de Fe,3459,273959,204996,5944,1631
+38,Jujuy,Partido Autonomista,1093,273959,204996,5944,1631
+38,Jujuy,Partido Comunista,1042,273959,204996,5944,1631
+38,Jujuy,Movimiento al Socialismo,997,273959,204996,5944,1631
+38,Jujuy,Frente Político y Social,804,273959,204996,5944,1631
+38,Jujuy,Movimiento de Integración y Desarrollo,591,273959,204996,5944,1631
+42,La Pampa,Justicialista,70225,173517,151511,6078,537
+42,La Pampa,Unión Cívica Radical,40939,173517,151511,6078,537
+42,La Pampa,Convocatoria Independiente,26677,173517,151511,6078,537
+42,La Pampa,Alianza Frente Popular,1905,173517,151511,6078,537
+42,La Pampa,Socialista Popular,1556,173517,151511,6078,537
+42,La Pampa,Movimiento Federalista Pampeano,1506,173517,151511,6078,537
+42,La Pampa,Alianza Pueblo Unido,1402,173517,151511,6078,537
+42,La Pampa,Movimiento al Socialismo,686,173517,151511,6078,537
+46,La Rioja,Justicialista,82051,133945,107156,1626,1294
+46,La Rioja,Unión Cívica Radical,19546,133945,107156,1626,1294
+46,La Rioja,Movimiento de Integración y Desarrollo,928,133945,107156,1626,1294
+46,La Rioja,Comunista - Unidad Pueb.,599,133945,107156,1626,1294
+46,La Rioja,Fuerza Republicana,576,133945,107156,1626,1294
+46,La Rioja,Frente Político Riojano,310,133945,107156,1626,1294
+46,La Rioja,Movimiento al Socialismo,226,133945,107156,1626,1294
+50,Mendoza,"Justicialista, con Movimiento de Integración y Desarrollo",394254,861392,729847,22545,4652
+50,Mendoza,Unión Cívica Radical,235308,861392,729847,22545,4652
+50,Mendoza,Demócrata,54521,861392,729847,22545,4652
+50,Mendoza,Izquierda Unida por el Socialismo,6261,861392,729847,22545,4652
+50,Mendoza,Socialista Popular,3285,861392,729847,22545,4652
+50,Mendoza,Blanco,3244,861392,729847,22545,4652
+50,Mendoza,Frente Trabajo y Solidaridad,1640,861392,729847,22545,4652
+50,Mendoza,Movimiento al Socialismo,1516,861392,729847,22545,4652
+50,Mendoza,Unión del Centro Democrático,1393,861392,729847,22545,4652
+50,Mendoza,Frente Político y Social,1228,861392,729847,22545,4652
 54,Misiones,Frente Justicialista Popular,170567,430928,334833,6780,1435
 54,Misiones,Unión Cívica Radical,143808,430928,334833,6780,1435
 54,Misiones,Unión de Centro Democrático,9355,430928,334833,6780,1435
 54,Misiones,Alianza Solidaria,1138,430928,334833,6780,1435
 54,Misiones,Alianza para el Cambio,921,430928,334833,6780,1435
 54,Misiones,Alianza Unidad de los Trabajadores y la Izquierda,829,430928,334833,6780,1435
+58,Neuquén,Movimiento Popular Neuquino,83841,200632,168608,5691,1300
+58,Neuquén,Unidad de los Neuquinos para el Cambio,49021,200632,168608,5691,1300
+58,Neuquén,Unión Cívica Radical,21647,200632,168608,5691,1300
+58,Neuquén,Frente Social y Político,3129,200632,168608,5691,1300
+58,Neuquén,Unidad de los Trabajadores y la Izquierda,1584,200632,168608,5691,1300
+58,Neuquén,Partido Obrero,1255,200632,168608,5691,1300
+58,Neuquén,Unión del Centro Democrático,1140,200632,168608,5691,1300
 62,Río Negro,Unión Cívica Radical,88356,259267,200775,8659,1871
 62,Río Negro,Justicialista,51269,259267,200775,8659,1871
 62,Río Negro,Alianza Movimiento Popular,27223,259267,200775,8659,1871

@@ -59,6 +59,9 @@ MOTIVO_DEP = {("2025-general-gobernador", "18"): "la Junta suma esos votos en ca
               ("2023-general-gobernador", "54"): "el acta cuenta los votos del personal asignado a los centros de votación solo en la planilla provincial",
               ("2003-segunda-gobernador", "94"): "son los de la Antártida, que la planilla da aparte y no tiene departamento en el mapa",
               ("2015-general-gobernador", "94"): "son los de la Antártida, que la base del Juzgado da aparte y no tiene departamento en el mapa",
+              ("2007-general-gobernador", "42"): "son los de las mesas especiales, que el documento da sin departamento",
+              ("2011-general-gobernador", "42"): "son los de las mesas de las personas privadas de libertad, que el documento da sin departamento",
+              ("2011-general-gobernador", "50"): "son los de las personas privadas de libertad, que el documento da sin departamento",
               ("2003-general-gobernador", "74"): ("el documento da a De la Lealtad Sanluiseña 130 votos más en los departamentos que en su total. Por "
                                                   "departamento no da blancos ni nulos: los votantes son la suma de las listas, y no hay participación"),
               ("2015-segunda-gobernador", "94"): "son los de la Antártida, que la base del Juzgado da aparte y no tiene departamento en el mapa"}
@@ -130,7 +133,7 @@ DIFERENCIAS = {("gobernador", 2017, "general", "18"): 9,      # las alianzas sum
                ("gobernador", 1987, "general", "82"): -3362, ("gobernador", 1987, "general", "86"): -2565, ("gobernador", 1991, "general", "86"): -257,
                ("gobernador", 1987, "general", "90"): -222, ("gobernador", 1991, "segunda", "94"): -1000,
                ("gobernador", 1995, "general", "62"): -113, ("gobernador", 1987, "general", "66"): -563, ("gobernador", 1987, "general", "74"): -570,
-               ("gobernador", 1987, "general", "78"): -110,
+               ("gobernador", 1987, "general", "78"): -110, ("gobernador", 1999, "general", "46"): -28,
                # Tierra del Fuego 2015: los votantes son el total de votos escrutados del Juzgado, que no es la suma de los de gobernador
                ("gobernador", 2015, "general", "94"): -1010, ("gobernador", 2015, "segunda", "94"): 79}
 

@@ -59,6 +59,21 @@ codigo_indec,provincia,lista,votos,electores,votantes,blancos,nulos
 38,Jujuy,Frente de Izquierda y de los Trabajadores,5705,444592,359808,60253,3365
 38,Jujuy,Unión y Libertad,2008,444592,359808,60253,3365
 38,Jujuy,Nueva Izquierda,1587,444592,359808,60253,3365
+42,La Pampa,Partido Justicialista,81895,250334,206932,27470,1496
+42,La Pampa,Frente Pampeano Cívico y Social,55697,250334,206932,27470,1496
+42,La Pampa,Frente para la Comunidad Organizada,26896,250334,206932,27470,1496
+42,La Pampa,Alianza Nuevo Encuentro,7309,250334,206932,27470,1496
+42,La Pampa,Movimiento Federalista Pampeano,5042,250334,206932,27470,1496
+42,La Pampa,Partido Popular Nuevo Tiempo,1127,250334,206932,27470,1496
+50,Mendoza,Frente para la Victoria,372321,1234251,1000269,86401,43215
+50,Mendoza,Frente Cívico Federal Mendoza,244479,1234251,1000269,86401,43215
+50,Mendoza,Compromiso Federal,139075,1234251,1000269,86401,43215
+50,Mendoza,Coalición Cívica ARI,37080,1234251,1000269,86401,43215
+50,Mendoza,Frente Amplio Progresista,30420,1234251,1000269,86401,43215
+50,Mendoza,Partido Federal,19293,1234251,1000269,86401,43215
+50,Mendoza,Izquierda del Trabajador por el Socialismo,14313,1234251,1000269,86401,43215
+50,Mendoza,Nueva Izquierda,7718,1234251,1000269,86401,43215
+50,Mendoza,Unión Popular,5954,1234251,1000269,86401,43215
 54,Misiones,Frente Renovador de la Concordia,372490,718839,543597,43185,4252
 54,Misiones,Trabajo y Progreso,30938,718839,543597,43185,4252
 54,Misiones,Unión Cívica Radical,30816,718839,543597,43185,4252
@@ -69,6 +84,12 @@ codigo_indec,provincia,lista,votos,electores,votantes,blancos,nulos
 54,Misiones,Partido Socialista,4914,718839,543597,43185,4252
 54,Misiones,Unión del Centro Democrático,1600,718839,543597,43185,4252
 54,Misiones,Movimiento Social para una Mejor Vida,1549,718839,543597,43185,4252
+58,Neuquén,"Movimiento Popular Neuquino, con Movimiento de Integración y Desarrollo, Partido Nuevo Neuquén y Unión Popular",136232,411925,301643,14528,8430
+58,Neuquén,"Partido Justicialista, con Coalición UNE - El Frente y la Participación Neuquina, Unión Cívica Radical, Frente Grande - MUN, Partido Socialista y PRO Propuesta Republicana",103117,411925,301643,14528,8430
+58,Neuquén,Coalición Cívica ARI Neuquén,16129,411925,301643,14528,8430
+58,Neuquén,Movimiento Libres del Sur,12097,411925,301643,14528,8430
+58,Neuquén,Izquierda por una Opción Socialista,7593,411925,301643,14528,8430
+58,Neuquén,Nueva Izquierda,3517,411925,301643,14528,8430
 62,Río Negro,Alianza Frente para la Victoria,162883,,340845,16612,5097
 62,Río Negro,Alianza Concertación para el Desarrollo,77914,,340845,16612,5097
 62,Río Negro,Partido Provincial Rionegrino,22356,,340845,16612,5097

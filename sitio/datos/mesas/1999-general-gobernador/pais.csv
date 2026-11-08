@@ -20,9 +20,33 @@ codigo_indec,provincia,lista,votos,electores,votantes,blancos,nulos
 30,Entre Ríos,Acción por la República,15786,778185,671814,34911,2444
 30,Entre Ríos,Izquierda Unida - Partido Comunista,3177,778185,671814,34911,2444
 30,Entre Ríos,Partido Humanista,2605,778185,671814,34911,2444
+38,Jujuy,Frente Justicialista Popular,129318,343332,275814,18536,1578
+38,Jujuy,"Alianza para el Trabajo, la Justicia y la Educación",126382,343332,275814,18536,1578
+42,La Pampa,Justicialista,97937,207255,182371,8370,1189
+42,La Pampa,"Alianza para el Trabajo, la Justicia y la Educación",68736,207255,182371,8370,1189
+42,La Pampa,Acción por la República,3371,207255,182371,8370,1189
+42,La Pampa,Frente Pueblo Unido - Socialista Auténtico,1329,207255,182371,8370,1189
+42,La Pampa,Humanista,852,207255,182371,8370,1189
+42,La Pampa,Movimiento Federalista Pampeano,587,207255,182371,8370,1189
+46,La Rioja,Justicialista,89079,171997,136006,5534,594
+46,La Rioja,"Alianza para el Trabajo, la Justicia y la Educación",38326,171997,136006,5534,594
+46,La Rioja,Alianza Izquierda Unida,2445,171997,136006,5534,594
+50,Mendoza,"Alianza para el Trabajo, la Justicia y la Educación",309652,1014291,851597,27742,7701
+50,Mendoza,Demócrata,262575,1014291,851597,27742,7701
+50,Mendoza,Alianza Partido Justicialista,177340,1014291,851597,27742,7701
+50,Mendoza,Acción por la República,57683,1014291,851597,27742,7701
+50,Mendoza,Humanista,4644,1014291,851597,27742,7701
+50,Mendoza,Izquierda Unida,4260,1014291,851597,27742,7701
 54,Misiones,Alianza Frente para el Cambio,224295,541743,428291,8869,2029
 54,Misiones,"Alianza para el Trabajo, la Justicia y la Educación",191271,541743,428291,8869,2029
 54,Misiones,Comunista,1827,541743,428291,8869,2029
+58,Neuquén,Movimiento Popular Neuquino,93807,281712,228502,13649,2610
+58,Neuquén,"Alianza para el Trabajo, la Justicia y la Educación",77830,281712,228502,13649,2610
+58,Neuquén,Justicialista,33259,281712,228502,13649,2610
+58,Neuquén,Corriente Patria Libre,2370,281712,228502,13649,2610
+58,Neuquén,Obrero,1870,281712,228502,13649,2610
+58,Neuquén,Humanista - Ecologista,1863,281712,228502,13649,2610
+58,Neuquén,Movimiento Socialista de los Trabajadores,1244,281712,228502,13649,2610
 62,Río Negro,"Alianza por el Trabajo, la Justicia y la Educación",110866,,245188,9760,7367
 62,Río Negro,Alianza Frente para el Cambio - Unión por Río Negro,95150,,245188,9760,7367
 62,Río Negro,Frente Grande,18151,,245188,9760,7367

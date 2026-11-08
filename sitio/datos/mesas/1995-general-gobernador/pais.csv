@@ -25,11 +25,47 @@ codigo_indec,provincia,lista,votos,electores,votantes,blancos,nulos
 26,Chubut,Acción Chubutense,2067,220893,179157,12054,1503
 26,Chubut,Movimiento Popular Chubutense,1794,220893,179157,12054,1503
 26,Chubut,MODIN,1127,220893,179157,12054,1503
+38,Jujuy,Frejupo,116775,302678,225539,9056,3466
+38,Jujuy,Frente Cívico,73175,302678,225539,9056,3466
+38,Jujuy,Fuerza Popular,22089,302678,225539,9056,3466
+38,Jujuy,Partido del Trabajo y del Pueblo,978,302678,225539,9056,3466
+42,La Pampa,Justicialista,84778,188751,166026,8962,830
+42,La Pampa,Unión Cívica Radical,34920,188751,166026,8962,830
+42,La Pampa,Alianza Frente de la Gente,19586,188751,166026,8962,830
+42,La Pampa,Alianza Frepaso,7299,188751,166026,8962,830
+42,La Pampa,Convocatoria Independiente,4852,188751,166026,8962,830
+42,La Pampa,Alianza Frente Grande,1931,188751,166026,8962,830
+42,La Pampa,Modin,1915,188751,166026,8962,830
+42,La Pampa,Frente Justicia Social (Fre.Ju.So.),953,188751,166026,8962,830
+46,La Rioja,Justicialista,95810,148971,126013,8435,754
+46,La Rioja,Unión Cívica Radical - Fresol,18822,148971,126013,8435,754
+46,La Rioja,Frepaso,1598,148971,126013,8435,754
+46,La Rioja,Modin,359,148971,126013,8435,754
+46,La Rioja,Movimiento por el Socialismo y el Trabajo,235,148971,126013,8435,754
+50,Mendoza,Justicialista,325142,927767,792081,30220,5665
+50,Mendoza,Unión Cívica Radical,154714,927767,792081,30220,5665
+50,Mendoza,Demócrata,135207,927767,792081,30220,5665
+50,Mendoza,Alianza Frepaso,124584,927767,792081,30220,5665
+50,Mendoza,Modin,5310,927767,792081,30220,5665
+50,Mendoza,Solidaridad,4689,927767,792081,30220,5665
+50,Mendoza,Movimiento de Integración y Desarrollo,2984,927767,792081,30220,5665
+50,Mendoza,Alianza Sur,2222,927767,792081,30220,5665
+50,Mendoza,Movimiento Socialista de los Trabajadores,1344,927767,792081,30220,5665
 54,Misiones,Frente Justicialista Popular,174735,480975,368160,10365,1695
 54,Misiones,Unión Cívica Radical,164883,480975,368160,10365,1695
 54,Misiones,Frente País Solidario,9294,480975,368160,10365,1695
 54,Misiones,Movimiento por la Dignidad y la Independencia,6847,480975,368160,10365,1695
 54,Misiones,Comunista,341,480975,368160,10365,1695
+58,Neuquén,Movimiento Popular Neuquino,108069,237979,199188,20309,2170
+58,Neuquén,Justicialista,25429,237979,199188,20309,2170
+58,Neuquén,Unión Cívica Radical,18543,237979,199188,20309,2170
+58,Neuquén,Alianza Frepaso,17807,237979,199188,20309,2170
+58,Neuquén,Unión del Centro Democrático,3106,237979,199188,20309,2170
+58,Neuquén,Movimiento de Integración y Desarrollo,882,237979,199188,20309,2170
+58,Neuquén,Modin,814,237979,199188,20309,2170
+58,Neuquén,Alianza Frente de Izquierda,775,237979,199188,20309,2170
+58,Neuquén,Del Trabajo y del Pueblo,653,237979,199188,20309,2170
+58,Neuquén,Movimiento Socialista de los Trabajadores,631,237979,199188,20309,2170
 62,Río Negro,Alianza Unión Cívica Radical - Alianza por la Patagonia,97849,284814,236958,16715,2104
 62,Río Negro,Alianza Frente para el Cambio,97225,284814,236958,16715,2104
 62,Río Negro,FREPASO,20343,284814,236958,16715,2104

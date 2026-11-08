@@ -49,15 +49,35 @@ codigo_indec,provincia,lista,votos,electores,votantes,blancos,nulos
 30,Entre Ríos,Partido Demócrata Cristiano,6855,621499,520166,12739,3272
 30,Entre Ríos,Partido Demócrata de Entre Ríos,5242,621499,520166,12739,3272
 30,Entre Ríos,Partido Socialista Popular,2476,621499,520166,12739,3272
-38,Jujuy,Justicialista,80853,,181273,6641,1652
-38,Jujuy,Unión Cívica Radical,44727,,181273,6641,1652
-38,Jujuy,Movimiento Popular Jujeño,38916,,181273,6641,1652
-38,Jujuy,Movimiento de Integración y Desarrollo,4100,,181273,6641,1652
-38,Jujuy,Federal,1577,,181273,6641,1652
-38,Jujuy,Comunista,1051,,181273,6641,1652
-38,Jujuy,Intransigente,961,,181273,6641,1652
-38,Jujuy,Movimiento al Socialismo,694,,181273,6641,1652
-38,Jujuy,Frente de Izquierda Popular,101,,181273,6641,1652
+38,Jujuy,Justicialista,80858,215074,181278,6641,1652
+38,Jujuy,Unión Cívica Radical,44727,215074,181278,6641,1652
+38,Jujuy,Movimiento Popular Jujeño,38916,215074,181278,6641,1652
+38,Jujuy,Movimiento de Integración y Desarrollo,4100,215074,181278,6641,1652
+38,Jujuy,Federal,1577,215074,181278,6641,1652
+38,Jujuy,Comunista,1051,215074,181278,6641,1652
+38,Jujuy,Intransigente,961,215074,181278,6641,1652
+38,Jujuy,Movimiento al Socialismo,694,215074,181278,6641,1652
+38,Jujuy,Frente de Izquierda Popular,101,215074,181278,6641,1652
+42,La Pampa,Justicialista,50088,142988,127997,4406,760
+42,La Pampa,Unión Cívica Radical,39299,142988,127997,4406,760
+42,La Pampa,Movimiento Federalista Pampeano,24619,142988,127997,4406,760
+42,La Pampa,Movimiento de Integración y Desarrollo,5099,142988,127997,4406,760
+42,La Pampa,Demócrata Cristiano,1083,142988,127997,4406,760
+42,La Pampa,Socialista Auténtico,1024,142988,127997,4406,760
+42,La Pampa,Intransigente,918,142988,127997,4406,760
+42,La Pampa,Comunista,701,142988,127997,4406,760
+46,La Rioja,Justicialista,50466,107344,95867,5034,1530
+46,La Rioja,Unión Cívica Radical,35605,107344,95867,5034,1530
+46,La Rioja,Movimiento de Integración y Desarrollo,1650,107344,95867,5034,1530
+46,La Rioja,Demócrata Cristiano,1075,107344,95867,5034,1530
+46,La Rioja,Intransigente,309,107344,95867,5034,1530
+46,La Rioja,Alianza Federal,198,107344,95867,5034,1530
+50,Mendoza,Unión Cívica Radical,300140,749248,649071,6911,4668
+50,Mendoza,Justicialista,229673,749248,649071,6911,4668
+50,Mendoza,Demócrata,83044,749248,649071,6911,4668
+50,Mendoza,Movimiento de Integración y Desarrollo,14329,749248,649071,6911,4668
+50,Mendoza,Comunista,9043,749248,649071,6911,4668
+50,Mendoza,Frente de Izquierda Popular,1263,749248,649071,6911,4668
 54,Misiones,Unión Cívica Radical,119853,318226,261953,9590,1534
 54,Misiones,Justicialista,113620,318226,261953,9590,1534
 54,Misiones,Movimiento de Integración y Desarrollo,4241,318226,261953,9590,1534
@@ -65,6 +85,13 @@ codigo_indec,provincia,lista,votos,electores,votantes,blancos,nulos
 54,Misiones,Demócrata Cristiano,565,318226,261953,9590,1534
 54,Misiones,Unión de Centro Democrático,387,318226,261953,9590,1534
 54,Misiones,Frente de Izquierda Popular,385,318226,261953,9590,1534
+58,Neuquén,Movimiento Popular Neuquino,59626,129662,112550,3582,1062
+58,Neuquén,Justicialista,24413,129662,112550,3582,1062
+58,Neuquén,Unión Cívica Radical,21646,129662,112550,3582,1062
+58,Neuquén,Intransigente,977,129662,112550,3582,1062
+58,Neuquén,Movimiento de Integración y Desarrollo,672,129662,112550,3582,1062
+58,Neuquén,Obrero,297,129662,112550,3582,1062
+58,Neuquén,Movimiento al Socialismo,275,129662,112550,3582,1062
 62,Río Negro,Unión Cívica Radical,82989,195344,167683,8495,1681
 62,Río Negro,Justicialista,58129,195344,167683,8495,1681
 62,Río Negro,Demócrata Cristiano,3694,195344,167683,8495,1681
