@@ -50,7 +50,13 @@ MOTIVO_MESAS = {("2007-segunda-gobernador", "02"): "la planilla por mesa es ante
 # lo que la tabla por mesa deja afuera aunque sume lo mismo que las listas del total
 APARTE_MESAS = {("2025-general-gobernador", "18"): "sin las 45 mesas de las personas privadas de libertad"}
 # por qué los departamentos no suman el total de la jurisdicción. En Corrientes 2025 la diferencia, lista por lista, es la de esas 45 mesas
-MOTIVO_DEP = {("2025-general-gobernador", "18"): "la Junta suma esos votos en cada municipio"}
+MOTIVO_DEP = {("2025-general-gobernador", "18"): "la Junta suma esos votos en cada municipio",
+              ("2007-general-gobernador", "38"): "la planilla del Tribunal cuenta 562 votantes en el total de la provincia y en ningún municipio",
+              ("2019-general-gobernador", "54"): "el acta cuenta los votos de las fuerzas de seguridad y de los veedores solo en la planilla provincial",
+              ("2023-general-gobernador", "54"): "el acta cuenta los votos del personal asignado a los centros de votación solo en la planilla provincial",
+              ("2003-segunda-gobernador", "94"): "son los de la Antártida, que la planilla da aparte y no tiene departamento en el mapa"}
+# los electores por departamento que no se publican porque el padrón municipal incluye a los extranjeros, que votan intendente y no gobernador
+SIN_ELECTORES_DEP = {"38", "54"}
 COLUMNAS_DEP = ["cargo", "anio", "vuelta", "codigo_indec", "departamento", "codigo_departamento", "lista", "votos", "electores", "votantes", "blancos", "nulos",
                 "fuente", "url"]
 ORIGEN = "jurisdiccion"   # marca en el índice de lo que arma este programa: lo demás no se toca
@@ -485,6 +491,9 @@ def main():
                     motivo_dep = MOTIVO_DEP.get((id_, cod))
                     notas_dep[cod].append(f"{unidades} suman {miles(abs(pos - pos_dep))} votos positivos {'menos' if pos_dep < pos else 'más'} que el total de la jurisdicción, "
                                           f"que es el oficial" + (f": {motivo_dep}." if motivo_dep else "."))
+                if cod in SIN_ELECTORES_DEP and (cargo, anio, vuelta, cod) not in de_mesas:
+                    notas_dep[cod].append(f"{unidades} van sin electores: el padrón por municipio de la fuente incluye a los extranjeros, que votan "
+                                          "intendente y no gobernador.")
                 fuentes_dep = sorted({d["fuente"] for d in ds.values()})
                 if fuentes_dep != [j["fuente"]] and (cargo, anio, vuelta, cod) not in de_mesas:
                     notas_dep[cod].append(f"{unidades} salen de: {enumerar(fuentes_dep)}.")
