@@ -62,7 +62,18 @@ JURISDICCION_CONOCIDOS = {("1983-general-gobernador", "06"): "Unión Cívica Rad
                           ("2023-general-gobernador", "90"): "Frente de Todos por Tucumán", ("1999-general-gobernador", "30"): "Alianza por el Trabajo",
                           ("2023-general-gobernador", "30"): "Juntos por el Cambio - Juntos por Entre Ríos", ("1997-segunda-gobernador", "18"): "Alianza FrePaNu",
                           ("2025-general-gobernador", "18"): "Vamos Corrientes", ("1989-general-senadores", "02"): "Unión Cívica Radical",
-                          ("1995-general-senadores", "02"): "Alianza Frente País Solidario"}
+                          ("1995-general-senadores", "02"): "Alianza Frente País Solidario",
+                          # las otras 19 jurisdicciones (PR #112): una o dos elecciones de cada una con datos
+                          ("2003-general-gobernador", "14"): "Partido Justicialista", ("2019-general-gobernador", "14"): "Hacemos por Córdoba",
+                          ("2003-general-gobernador", "82"): "Partido Justicialista", ("2015-general-gobernador", "82"): "Frente Progresista, Cívico y Social",
+                          ("2023-general-gobernador", "50"): "Cambia Mendoza", ("2011-general-gobernador", "26"): "Partido Justicialista",
+                          ("1975-general-gobernador", "54"): "Frente Justicialista de Liberación", ("2023-general-gobernador", "58"): "Comunidad",
+                          ("2019-general-gobernador", "62"): "Juntos Somos Río Negro", ("2023-general-gobernador", "42"): "Justicialista Pampeano",
+                          ("2019-general-gobernador", "78"): "Frente de Todos", ("2003-segunda-gobernador", "94"): "Frente de Unidad Provincial",
+                          ("2023-general-gobernador", "10"): "Unión por la Patria", ("2019-general-gobernador", "46"): "Frente de Todos",
+                          ("2019-general-gobernador", "70"): "Frente Todos", ("2017-general-gobernador", "86"): "Frente Cívico por Santiago",
+                          ("2015-general-gobernador", "38"): "Frente Cambia Jujuy", ("2019-general-gobernador", "66"): "Sáenz Gobernador",
+                          ("1995-segunda-gobernador", "22"): "Unión Cívica Radical", ("2023-general-gobernador", "22"): "Juntos por el Cambio"}
 # lo que los departamentos de 257arg reúnen del definitivo de una jurisdicción: lo medido al armar va de 87,7% (Formosa, diputados 2007) a 116,1% (San Juan, presidente 2003). Fuera de esto, se coló un total
 DEPTOS_MIN, DEPTOS_MAX = 85, 118
 # la presidencial de 1983 suma casi exacto el definitivo oficial (14.927.512): sirve de control de toda la cadena

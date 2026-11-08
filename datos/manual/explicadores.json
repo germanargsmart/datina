@@ -4652,7 +4652,7 @@
    },
    {
     "titulo": "Los gobernadores",
-    "texto": "El gobernador, y en CABA el jefe de Gobierno, está desde 1983 en las jurisdicciones que ya se sumaron. Llega al departamento, o a la comuna, donde la fuente oficial lo publica: los departamentos pueden sumar unos pocos votos menos que el total de la jurisdicción, que es el oficial, porque la fuente no reparte algunos votos, como los de las cárceles o los de extranjeros, y cada jurisdicción lo dice. Cada provincia organiza y escruta su elección con su propia junta o tribunal electoral, aunque se vote el mismo día que las nacionales, así que no hay una sola fuente: cada jurisdicción y cada elección dicen de dónde salen. Solo se usan fuentes oficiales: las juntas y tribunales electorales, los gobiernos provinciales y sus institutos de estadística. Datina transcribió cada documento y en cada elección las listas, los blancos y los nulos suman exacto los votos emitidos. Donde la fuente tiene un error de tipeo que se puede probar, se corrigió y la nota lo dice. Donde una elección se votó y no hay un escrutinio oficial publicado en línea, la página lo dice en vez de llenar el hueco con otra fuente. Hasta 1991 en Corrientes se votaba a electores de gobernador, que después elegían en un colegio electoral: los votos son de las listas de electores. Cuando varias listas llevaron la misma fórmula y la fuente acumula sus votos, van juntas.",
+    "texto": "El gobernador, y en CABA el jefe de Gobierno, está desde 1983 en las 24 jurisdicciones, en cada elección con un escrutinio oficial publicado en línea, y en Misiones también la de 1975. Llega al departamento, o a la comuna, donde la fuente oficial lo publica: los departamentos pueden sumar unos pocos votos menos que el total de la jurisdicción, que es el oficial, porque la fuente no reparte algunos votos, como los de las cárceles o los de extranjeros, y cada jurisdicción lo dice. Cada provincia organiza y escruta su elección con su propia junta o tribunal electoral, aunque se vote el mismo día que las nacionales, así que no hay una sola fuente: cada jurisdicción y cada elección dicen de dónde salen. Solo se usan fuentes oficiales: las juntas y tribunales electorales, los gobiernos provinciales y sus institutos de estadística, y donde la provincia no lo publica, la Dirección Nacional Electoral y las actas de la Junta Electoral Nacional, que hace el escrutinio cuando se vota el mismo día que las nacionales. Datina transcribió cada documento y en cada elección las listas, los blancos y los nulos suman exacto los votos emitidos, salvo donde el documento no cierra o no da los blancos y los nulos: la nota de esa elección lo dice. Donde la fuente tiene un error de tipeo que se puede probar, se corrigió y la nota lo dice. Donde una elección se votó y no hay un escrutinio oficial publicado en línea, la página lo dice en vez de llenar el hueco con otra fuente. Hasta 1991 en Corrientes se votaba a electores de gobernador, que después elegían en un colegio electoral: los votos son de las listas de electores. Cuando varias listas llevaron la misma fórmula y la fuente acumula sus votos, van juntas. Con ley de lemas (Santa Fe de 1991 a 2003, Santa Cruz) va el total de cada lema, y la nota dice quién ganó dentro de él. En 2011 el gobernador de Buenos Aires, Entre Ríos y Jujuy llega a la mesa con el escrutinio provisorio de la Dirección Nacional Electoral, rotulado como tal.",
     "fuentes": [
      {
       "nombre": "Junta Electoral de la Provincia de Buenos Aires, resultados",
@@ -4681,6 +4681,50 @@
      {
       "nombre": "Subdirección de Cómputos de Corrientes, datos históricos de elecciones",
       "url": "https://elecciones.corrientes.gob.ar/"
+     },
+     {
+      "nombre": "Dirección Nacional Electoral, Observatorio Político Electoral",
+      "url": "https://www.argentina.gob.ar/interior/observatorioelectoral"
+     },
+     {
+      "nombre": "Cámara Nacional Electoral, actas de la Junta Electoral Nacional de cada distrito",
+      "url": "https://www.electoral.gob.ar/"
+     },
+     {
+      "nombre": "Tribunal Electoral de la Provincia de Santa Fe",
+      "url": "https://www.santafe.gov.ar/tribunalelectoral/"
+     },
+     {
+      "nombre": "Juzgado Electoral y Tribunal Electoral de Córdoba",
+      "url": "https://www.justiciacordoba.gob.ar/"
+     },
+     {
+      "nombre": "Junta Electoral de la Provincia de Mendoza",
+      "url": "https://jusmendoza.gob.ar/"
+     },
+     {
+      "nombre": "Secretaría Electoral Permanente del Chubut",
+      "url": "https://electoralchubut.gob.ar/"
+     },
+     {
+      "nombre": "Tribunal Electoral de la Provincia de Misiones",
+      "url": "https://www.electoralmisiones.gov.ar/"
+     },
+     {
+      "nombre": "Tribunal Electoral de la Provincia del Chaco",
+      "url": "https://www.electoralchaco.gob.ar/"
+     },
+     {
+      "nombre": "Tribunal Electoral de la Provincia de Salta",
+      "url": "https://www.electoralsalta.gob.ar/"
+     },
+     {
+      "nombre": "Tribunal Electoral Permanente de Jujuy",
+      "url": "https://electoraljujuy.gob.ar/"
+     },
+     {
+      "nombre": "Juzgado Electoral de Tierra del Fuego, en el archivo de la Legislatura",
+      "url": "https://www.legistdf.gob.ar/"
      }
     ]
    },
