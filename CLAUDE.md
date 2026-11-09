@@ -40,6 +40,9 @@ scripts/elecciones_definitivo.py desde el 5 de noviembre de 2026, el escrutinio 
 scripts/elecciones_jurisdiccion.py desde el 7 de noviembre de 2026, los gobernadores y los senadores por la Capital de 1983 a 1995 de esa herramienta, solo con fuentes
                                oficiales transcriptas en datos/manual/mesas_jurisdiccion.csv (por departamento y por mesa, mesas_jurisdiccion_departamentos.csv y mesas_gobernador/):
                                se corre después de los cinco anteriores (docs/roadmap/ELECCIONES_PROVINCIAS.md)
+scripts/establecimientos.py    desde el 9 de noviembre de 2026, las escuelas primarias y secundarias y los hospitales públicos con internación de cada
+                               provincia (padrón, Mapa Educativo, REFES y Georef) en datos/manual/establecimientos/. Se corre a mano con un padrón nuevo.
+                               La prueba es scripts/prueba_establecimientos.py: docs/roadmap/ESTABLECIMIENTOS.md
 scripts/*_historia.py, censo_2022_*.py, banderas.py, iconos_isometricos.py, geometria_*.py, *_presupuesto.py, justicia_provincias.py, antartida_datos.py
                                programas que se corren una sola vez o una vez por año y guardan en datos/manual/
 datos/manual/                  datos armados a mano o una sola vez, explicadores.json, distorsiones.json, banderas, íconos
