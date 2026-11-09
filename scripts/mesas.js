@@ -263,7 +263,10 @@
   function pintar(el, P, D, H, aviso, DEF) {
     const usaDef = !!DEF && !estado.s;
     const T = usaDef ? DEF : P;
-    const recuento = el.nivel === "mesa" ? (usaDef ? "definitivo" : "provisorio") : el.mesas_en?.[estado.p] && estado.s ? el.mesas_en[estado.p] : el.recuento;
+    // las elecciones sin escrutinio oficial en línea, publicadas con su fuente real (decisión del autor del 9 de noviembre de 2026), dicen su propio recuento,
+    // o ninguno si la fuente no lo dice
+    const recuento = el.nivel === "mesa" ? (usaDef ? "definitivo" : "provisorio") : el.mesas_en?.[estado.p] && estado.s ? el.mesas_en[estado.p]
+      : estado.p && el.recuentos && estado.p in el.recuentos ? el.recuentos[estado.p] : el.recuento;
     const fecha = estado.p ? el.fechas?.[estado.p] : null;
     const sub = `${cargoNombre(el, estado.p)}, ${el.etiqueta}.${fecha ? ` Se votó el ${fecha}.` : ""}${recuento ? ` Escrutinio ${recuento}.` : ""}`;
     const cob = usaDef ? "" : avisoCobertura(el);
@@ -380,7 +383,11 @@
     if (el.nivel === "provincia") notas.push(el.nota_nivel || "Para esta elección no hay datos que se puedan publicar por debajo de la jurisdicción.");
     // las notas y la fuente de la jurisdicción van en su vista: más abajo (departamento, circuito, mesa) alargarían cada resultado
     if (estado.p && !estado.s && el.notas?.[estado.p]) notas.push(el.notas[estado.p]);
-    if (estado.p && !estado.s && el.fuentes?.[estado.p]) notas.push(`Fuente: ${el.fuentes[estado.p]}.`);
+    if (estado.p && !estado.s && el.fuentes?.[estado.p]) notas.push(`${el.no_oficial?.includes(estado.p) ? "No hay un escrutinio oficial publicado en línea. " : ""}Fuente: ${el.fuentes[estado.p]}.`);
+    if (!estado.p && el.no_oficial?.length) {
+      const no = el.no_oficial.map(provNombre).sort((a, b) => a.localeCompare(b, "es"));
+      notas.push(`De ${no.join(", ").replace(/, ([^,]*)$/, " y $1")} no hay un escrutinio oficial publicado en línea: ${no.length === 1 ? "su resultado sale" : "sus resultados salen"} de otra fuente, que se nombra al elegir${no.length === 1 ? "la" : " cada una"}.`);
+    }
     if (!estado.p && el.sin_fuente?.length) {
       const sin = el.sin_fuente.map(provNombre).sort((a, b) => a.localeCompare(b, "es"));
       notas.push(`${sin.join(", ").replace(/, ([^,]*)$/, " y $1")} también ${sin.length === 1 ? "votó" : "votaron"} en ${el.anio}, pero no hay un escrutinio oficial publicado en línea.`);

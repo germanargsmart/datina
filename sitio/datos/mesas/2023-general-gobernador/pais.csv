@@ -100,6 +100,10 @@ codigo_indec,provincia,lista,votos,electores,votantes,blancos,nulos
 66,Salta,Partido de Trabajadores por el Socialismo,7511,1082462,752841,41278,879
 66,Salta,Instrumento Electoral por la Unidad Popular,7051,1082462,752841,41278,879
 66,Salta,Movimiento al Socialismo,4970,1082462,752841,41278,879
+70,San Juan,Unidos por San Juan,223642,,441285,2537,5292
+70,San Juan,San Juan por Todos,190450,,441285,2537,5292
+70,San Juan,Desarrollo y Libertad,15892,,441285,2537,5292
+70,San Juan,Frente de Izquierda y de Trabajadores,3472,,441285,2537,5292
 74,San Luis,Cambia San Luis,162588,418798,319199,9625,4589
 74,San Luis,Unión por San Luis,139475,418798,319199,9625,4589
 74,San Luis,Frente de Izquierda y de Trabajadores - Unidad,2370,418798,319199,9625,4589
