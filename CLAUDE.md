@@ -22,7 +22,8 @@ scripts/02_procesar.py         arma datos/ordenado/tabla_larga.csv, sitio/datos/
 scripts/03_construir_sitio.py  corre pruebas_datos.py y escribe sitio/datos/fichas.js, sitio/datina.css, sitio/datina.js y una página por sección
 scripts/plantilla.html         el marcado de todas las secciones: títulos, textos fijos y fichas
 scripts/datina.css / datina.js el diseño (valores en :root) y los textos calculados, gráficos (D3 7.8.5) y comportamiento
-scripts/lib/                   D3 7.8.5 y topojson-client 3.1.0 con sus licencias: 03 los copia a sitio/lib/ (ninguna página los pide a una CDN)
+scripts/lib/                   D3 7.8.5, topojson-client 3.1.0 y Leaflet 1.9.4 (solo el mapa de escuelas y hospitales) con sus licencias: 03 los copia a
+                               sitio/lib/ (ninguna página los pide a una CDN)
 scripts/achicar_js.py          saca comentarios y sangría de sitio/datina.js, sin cambiar el código: los comentarios se leen en scripts/datina.js
 scripts/imagen_social.py       la imagen al compartir de cada página (og:image, sitio/og/): 03 la dibuja con Pillow y Roboto Flex (scripts/fuentes/), solo si cambió lo que lleva
 scripts/pruebas_datos.py       pruebas de los datos: si fallan, no se arma ni se publica
@@ -42,7 +43,8 @@ scripts/elecciones_jurisdiccion.py desde el 7 de noviembre de 2026, los gobernad
                                se corre después de los cinco anteriores (docs/roadmap/ELECCIONES_PROVINCIAS.md)
 scripts/establecimientos.py    desde el 9 de noviembre de 2026, las escuelas primarias y secundarias y los hospitales públicos con internación de cada
                                provincia (padrón, Mapa Educativo, REFES y Georef) en datos/manual/establecimientos/. Se corre a mano con un padrón nuevo.
-                               La prueba es scripts/prueba_establecimientos.py: docs/roadmap/ESTABLECIMIENTOS.md
+                               03 publica una tabla por provincia con scripts/establecimientos_sitio.py para la sección de la página de provincia (Leaflet
+                               y el mapa del IGN). La prueba es scripts/prueba_establecimientos.py: docs/roadmap/ESTABLECIMIENTOS.md
 scripts/*_historia.py, censo_2022_*.py, banderas.py, iconos_isometricos.py, geometria_*.py, *_presupuesto.py, justicia_provincias.py, antartida_datos.py
                                programas que se corren una sola vez o una vez por año y guardan en datos/manual/
 datos/manual/                  datos armados a mano o una sola vez, explicadores.json, distorsiones.json, banderas, íconos

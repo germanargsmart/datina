@@ -7739,6 +7739,9 @@ const b = ev.target.closest("button[data-z]"); if (!b || !EST.mapa) return;
 if (b.dataset.z === "todo") estEncuadrar(!REDUCIR);
 else EST.mapa[b.dataset.z === "mas" ? "zoomIn" : "zoomOut"](1, {animate: !REDUCIR});
 });
+$("est-lead").addEventListener("click", ev => {
+if (ev.target.closest("#est-reintentar")) { $("est-lead").textContent = ""; $("est-lienzo").setAttribute("aria-busy", "true"); estCargar(); }
+});
 $("est-q").addEventListener("input", estBuscar);
 $("est-resultados").addEventListener("click", ev => {
 const b = ev.target.closest("button[data-i]"); if (b) estElegir(EST.filas[+b.dataset.i], true);
@@ -7761,10 +7764,17 @@ const p = EST.prov, caja = $("prov-establecimientos");
 if (!p || EST.cargando === p) return;
 EST.cargando = p;
 Promise.all([cargarTopoDep(), d3.text(`datos/establecimientos/${p}.csv?v=${caja.dataset.v || ""}`)]).then(([topo, txt]) => {
-if (EST.prov !== p) return;
+if (EST.prov !== p) return null;
 const num = v => v === "" || v == null ? null : +v;
 const mezcla = s => [...s].reduce((h, c) => Math.imul(h ^ c.charCodeAt(0), 16777619) >>> 0, 2166136261);
-EST.filas = d3.csvParse(txt, (r, i) => ({...r, i, k: mezcla(r.id), lat: num(r.lat), lon: num(r.lon), fk: num(r.fk)}));
+const filas = d3.csvParse(txt, (r, i) => ({...r, i, k: mezcla(r.id || ""), lat: num(r.lat), lon: num(r.lon), fk: num(r.fk)}));
+const esperadas = +((caja.dataset.n || "").split(",").find(x => x.startsWith(p + ":")) || ":").split(":")[1];
+if ((esperadas && filas.length !== esperadas) || filas.some(r => r.cor === undefined)) throw new Error("tabla incompleta");
+return [topo, filas];
+}).then(x => {
+if (!x || EST.prov !== p) return;
+const [topo, filas] = x;
+EST.filas = filas;
 EST.deps = topojson.feature(topo, topo.objects.departamentos).features.filter(f => f.properties.prov === p);
 EST.nombreDep = Object.fromEntries(EST.deps.map(f => [f.properties.id, f.properties.nombre]));
 $("est-lienzo").removeAttribute("aria-busy");
@@ -7776,8 +7786,8 @@ $("est-mapa").innerHTML = '<p class="nota est-sin-mapa">No se pudo cargar el map
 if (EST.prov !== p) return;
 EST.cargando = null;
 $("est-lienzo").removeAttribute("aria-busy");
-const t = `No se pudieron cargar las escuelas y los hospitales de ${NOMBRES[p]}. Volvé a intentar en un rato.`;
-$("est-lead").textContent = t; avisar(t);
+const t = `No se pudieron cargar las escuelas y los hospitales de ${NOMBRES[p]}.`;
+$("est-lead").innerHTML = `${t} <button type="button" class="enlace" id="est-reintentar">Volver a intentar</button>`; avisar(t);
 });
 }
 function estArmar() {

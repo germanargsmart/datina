@@ -114,7 +114,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     <!-- 5 de noviembre de 2026, pedido del autor: el menú de la página, que escribe el constructor y sigue a quien baja. A la izquierda desde 1200
          píxeles y, en pantallas más chicas, una franja fija que se despliega -->
     <div class="prov-cuerpo">
-    <nav class="prov-indice" id="perfil-indice" aria-label="En esta página"><button type="button" class="pi-btn" aria-expanded="false" aria-controls="pi-listas"><span class="pi-txt">En esta página<span class="pi-actual"></span></span><span class="desp-signo" aria-hidden="true"></span></button><p class="pi-tit">En esta página</p><div class="pi-listas" id="pi-listas"><ul><li><a href="#prov-destaca">Dónde se destaca</a></li><li><a href="#prov-compara">Comparar con otra provincia</a></li><li><a href="#prov-puestos">Cómo cambió su puesto</a></li><li><a href="#prov-censos">Cómo cambió entre los censos 2010 y 2022</a></li></ul><ul><li><a href="#pg-trabajo">Trabajo</a></li><li><a href="#pg-social">Seguridad social</a></li><li><a href="#pg-economia">Economía</a></li><li><a href="#pg-salud">Salud</a></li><li><a href="#pg-educacion">Educación</a></li><li><a href="#pg-seguridad">Seguridad</a></li><li><a href="#pg-poblacion">Población y migraciones</a></li><li><a href="#pg-gobierno">Gobierno</a></li><li><a href="#pg-vivienda">Vivienda y servicios</a></li><li><a href="#pg-energia">Energía</a></li><li><a href="#pg-turismo">Turismo y naturaleza</a></li><li><a href="#pg-capital">La capital</a></li></ul><ul><li><a href="#prov-historia">Historia</a></li></ul></div></nav>
+    <nav class="prov-indice" id="perfil-indice" aria-label="En esta página"><button type="button" class="pi-btn" aria-expanded="false" aria-controls="pi-listas"><span class="pi-txt">En esta página<span class="pi-actual"></span></span><span class="desp-signo" aria-hidden="true"></span></button><p class="pi-tit">En esta página</p><div class="pi-listas" id="pi-listas"><ul><li><a href="#prov-destaca">Dónde se destaca</a></li><li><a href="#prov-compara">Comparar con otra provincia</a></li><li><a href="#prov-puestos">Cómo cambió su puesto</a></li><li><a href="#prov-censos">Cómo cambió entre los censos 2010 y 2022</a></li><li><a href="#prov-establecimientos">Escuelas y hospitales</a></li></ul><ul><li><a href="#pg-trabajo">Trabajo</a></li><li><a href="#pg-social">Seguridad social</a></li><li><a href="#pg-economia">Economía</a></li><li><a href="#pg-salud">Salud</a></li><li><a href="#pg-educacion">Educación</a></li><li><a href="#pg-seguridad">Seguridad</a></li><li><a href="#pg-poblacion">Población y migraciones</a></li><li><a href="#pg-gobierno">Gobierno</a></li><li><a href="#pg-vivienda">Vivienda y servicios</a></li><li><a href="#pg-energia">Energía</a></li><li><a href="#pg-turismo">Turismo y naturaleza</a></li><li><a href="#pg-capital">La capital</a></li></ul><ul><li><a href="#prov-historia">Historia</a></li></ul></div></nav>
     <div class="prov-contenido">
     <!-- "Dónde se destaca" (etapa 6 del plan de mejora): las cifras más altas y más bajas de la provincia elegida, las arma datina.js -->
     <section class="prov-destaca" id="prov-destaca" aria-labelledby="prov-destaca-t" hidden></section>
@@ -128,7 +128,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
          públicos con internación de la jurisdicción, en un mapa de sus departamentos. El marcado es fijo (pintarPanel no lo rehace al cambiar el
          ancho): datina.js lo llena una vez por provincia y el mapa solo se acomoda. 03 le agrega la versión de las tablas y la fecha de cada
          fuente. El mapa es de Leaflet, servida desde el sitio y pedida recién cuando hace falta (con su huella, como D3) -->
-    <section class="prov-establecimientos" id="prov-establecimientos" data-v="68c5b0b70c" data-padron="2026-06-16" data-refes="2026-11-09" aria-labelledby="prov-establecimientos-t" hidden
+    <section class="prov-establecimientos" id="prov-establecimientos" data-v="68c5b0b70c" data-padron="2026-06-16" data-refes="2026-11-09" data-n="02:1165,06:10955,10:705,14:3243,18:1235,22:1618,26:468,30:1881,34:945,38:687,42:389,46:511,50:1322,54:1828,58:577,62:658,66:1149,70:661,74:601,78:225,82:2766,86:1800,90:1321,94:104" aria-labelledby="prov-establecimientos-t" hidden
       data-leaflet="lib/leaflet-1.9.4.min.js?v=5a640ff863" data-leaflet-css="lib/leaflet-1.9.4.css?v=ec929f1100">
       <h2 class="bloque-grupo" id="prov-establecimientos-t">Escuelas y hospitales</h2>
       <p class="prov-destaca-sub" id="est-sub"></p>
@@ -291,6 +291,6 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 
 <!-- los datos van en un archivo aparte que el navegador guarda una sola vez para todas las páginas -->
 <script src="datos/fichas.js?v=2d25a74b92"></script>
-<script src="datina.js?v=ca53036dad"></script>
+<script src="datina.js?v=dd05925e8a"></script>
 </body>
 </html>

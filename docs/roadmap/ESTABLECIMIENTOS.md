@@ -2,7 +2,7 @@
 
 Pedido del autor del 9 de noviembre de 2026: "mapear a través de google maps o las páginas oficiales todos los hospitales nacionales y provinciales, y las escuelas primarias y secundarias, tanto públicas como privadas, de cada una de las provincias. Para ponerlas en un mapa provincia por provincia". Es para profundizar los datos territoriales de las páginas de cada provincia.
 
-Estado: la fase 1 (datos y controles) se unió el 9 de noviembre de 2026 (PR #119). `scripts/establecimientos.py` escribe `datos/manual/establecimientos/` y `scripts/prueba_establecimientos.py` lo controla. El sitio todavía no cambió. Lo próximo es la fase 2, el mapa, con las decisiones 5 a 7 del autor.
+Estado: la fase 1 (datos y controles) se unió el 9 de noviembre de 2026 (PR #119). La fase 2, el mapa en la página de cada provincia, quedó armada ese mismo día en la rama `claude/establecimientos-mapa`, con el diseño aprobado por el autor en capturas. Lo que sigue es la fase 3, los cruces.
 
 ## Las fuentes (verificadas el 9 de noviembre de 2026)
 
@@ -43,6 +43,11 @@ Después de unir la fase 1, el mismo 9 de noviembre, el autor eligió entre opci
 5. **Las escuelas con ubicación aproximada (3.552): igual que las demás.** El mismo punto que el resto en el mapa, sin símbolo distinto. La aclaración va solo en la ficha de cada escuela y en la metodología.
 6. **Los puntos a más de 1 km de su departamento (208 escuelas y 16 hospitales): corregir a mano los peores.** Se revisan a mano los 16 hospitales y las escuelas que quedan lejos (por ejemplo, a más de 20 km), y se corrige solo lo que se pueda confirmar con una fuente oficial, anotando de dónde sale cada corrección. Los que no se puedan confirmar no se dibujan: siguen contando en su departamento y aparecen en la lista con un aviso. A menos de 1 km es el borde de los límites simplificados y no lleva aviso.
 7. **Capturas primero.** El diseño del mapa se le muestra al autor en capturas de 390 y 1440 píxeles antes de abrir el PR de la fase 2.
+
+Con las primeras capturas del mapa, el mismo 9 de noviembre, el autor pidió otro fondo ("el mapa queda feo, los puntos están bien, pero el fondo no me gusta, buscá otros fondos para el mapa no solo división administrativa, para hacerlo más interactivo"). Eligió entre cuatro fondos probados con los mismos puntos:
+
+8. **El fondo: el mapa oficial del Instituto Geográfico Nacional en gris, de entrada**, con un selector para verlo a color (Argenmap) o con la imagen satelital de Esri y los nombres del IGN encima. El relieve del IGN quedó afuera. La decisión 4 cambia: para arrastrar y acercar hasta las calles se suma **Leaflet**, servida desde el propio sitio, y las teselas del fondo se piden a los servidores del IGN y de Esri.
+9. Lo que quedó así porque el autor no pidió cambiarlo: las 175 escuelas a menos de 20 km de su departamento se dibujan donde las pone la fuente, con la distancia en su ficha. Los hospitales van en celeste los provinciales, en amarillo los municipales y en negro los nacionales, universitarios y mixtos. La tabla por departamento arranca cerrada.
 
 ## Lo que dicen los números (9 de noviembre de 2026)
 
@@ -199,7 +204,7 @@ Resultado: 33 puntos corregidos (20 escuelas y 13 hospitales), 8 departamentos c
 
 ## Cómo sigue (un PR por fase)
 
-**Fase 2. El mapa en la página de cada provincia.** Una ficha nueva en `provincia.html` y en las 24 páginas fijas (la provincia se elige solo ahí), que baja el archivo de su provincia cuando la ficha aparece en pantalla (un CSV por provincia en `sitio/datos/establecimientos/`, armado desde `datos/manual/establecimientos/`). Pregunta con respuesta que se cuenta, por ejemplo "¿Cuántas escuelas y hospitales hay en cada departamento?", con dos vistas (escuelas y hospitales) y filtros (primaria o secundaria, estatal, privada o social y cooperativa, dependencia del hospital). Puntos en canvas, no en SVG: Buenos Aires tiene más de 10.600 escuelas. "Ver tabla" da la tabla por departamento y una lista con buscador ("buscá tu escuela"). Lleva su origen en `relaciones.json`, su lugar en `catalogo.json`, la fecha en la descripción con `{{ruta}}` y el texto después del gráfico. El diseño se le muestra al autor con capturas antes de armarlo.
+**Fase 2. El mapa en la página de cada provincia (hecha el 9 de noviembre de 2026, aprobada por el autor con capturas).** Ver "Fase 2: cómo está armada".
 
 **Fase 3. Los cruces (el valor agregado de Datina).** Cada uno, su PR:
 
@@ -208,6 +213,17 @@ Resultado: 33 puntos corregidos (20 escuelas y 13 hospitales), 8 departamentos c
 - Hospitales públicos con terapia intensiva cada 100.000 habitantes por provincia (tipología "alto riesgo con terapia intensiva" del REFES y la población de `POB`).
 - A cuántos kilómetros en línea recta queda el hospital público con internación más cercano de cada escuela rural. Las escuelas sirven de marca de dónde vive la gente, sin necesitar población por radio censal. La distancia en línea recta no es la de la ruta: decirlo.
 - Las escuelas privadas y los resultados de Aprender por departamento (`aprender_departamentos`), con "Qué no dice este dato".
+
+## Fase 2: cómo está armada (9 de noviembre de 2026)
+
+Una sección de la página de provincia, "Escuelas y hospitales", después de "Cómo cambió entre los censos" y en el menú de la página, en `provincia.html` (escondida con "Todo el país") y en las 24 páginas fijas. No es una ficha: las secciones de la página de provincia llevan títulos que dicen qué son, como "Dónde se destaca", no una pregunta.
+
+- **Los datos.** `scripts/establecimientos_sitio.py`, que corre 03 en cada armado, escribe `sitio/datos/establecimientos/{código}.csv` desde `datos/manual/establecimientos/`: una tabla por jurisdicción con escuelas y hospitales, columnas cortas (Buenos Aires son 1,4 MB y unos 400 KB comprimidos) y sin punto para lo que no se dibuja. 03 le pone a la sección la huella de las tablas (las pide con `?v=`), la fecha de cada fuente (el texto la escribe en palabras: ningún año va a mano) y cuántas filas tiene cada provincia: una tabla que llega cortada es una falla, no una provincia con menos escuelas. `_headers` las sirve como texto para que Cloudflare las comprima, como las de Elecciones por mesa. No van al Catálogo de datos (`catalogo.py` mira solo el primer nivel de `sitio/datos/`): cada sección ofrece la descarga de su provincia.
+- **Cuándo baja.** Nada se baja hasta que la sección se acerca a la pantalla (un `IntersectionObserver` guardado en `EST`: sin una referencia, Chrome lo descartaba y no avisaba nunca). Primero la tabla y los departamentos, y con eso se escriben la leyenda, el texto, la tabla por departamento, la nota y el buscador. Después Leaflet (su dirección con huella va en la sección) y el mapa. Si Leaflet no llega, el texto, la tabla y el buscador quedan, y el mapa lo dice.
+- **El marcado es fijo.** `pintarPanel` rehace las otras secciones cada vez que cambia el ancho. Esta no: la llena una vez por provincia y, al cambiar el ancho, Leaflet solo se acomoda (`invalidateSize`). Así no se pierden lo buscado, el punto elegido ni el acercamiento.
+- **El mapa.** Leaflet 1.9.4 en `scripts/lib/` (de npm, igual byte por byte a la de jsDelivr, licencia BSD-2), sin sus botones: van los del sitio (+, − y Todo) y tres conmutadores (Escuelas u Hospitales, el nivel y el fondo). La rueda acerca solo con Ctrl, y en las pantallas táctiles se mueve con dos dedos, para que un dedo siga bajando la página. Con el teclado, el mapa se mueve con las flechas. Los puntos van en el canvas de Leaflet, en un orden mezclado y siempre el mismo (si no, el último color tapaba a los demás en el conurbano), crecen al acercar y llevan borde blanco solo cuando hay lugar. Al tocar uno, o al elegirlo en el buscador, se abre su ficha debajo del mapa, con la aclaración de su ubicación, y queda marcado con un círculo rojo.
+- **Los fondos.** IGN: `capabaseargenmap` (a color), `mapabase_gris` y `mapabase_hibrido` (los nombres, sobre la imagen), en `https://wms.ign.gob.ar/geoserver/gwc/service/tms/1.0.0/{capa}@EPSG%3A3857@png/{z}/{x}/{y}.png` con `tms: true` (el eje y va al revés). Esri: `World_Imagery`. No se encontró una licencia escrita de Argenmap: el IGN pide citarlo, y el sector público nacional tiene que usarlo (Decisión Administrativa 797/2022). Esri pide su crédito y el de sus proveedores, y su uso comercial no está claro: Datina no cobra. Si esos servidores no contestan, los puntos se ven igual sobre los departamentos, y las pruebas no cuentan como error una tesela que no llega (`TESELAS` en `scripts/cdp.mjs`). A la escala de toda la provincia, el gris del IGN tiene una línea blanca fina sobre el mar: es de sus teselas.
+- **Las pruebas.** `prueba_establecimientos.py` controla que lo publicado sea lo que arman los datos. La prueba de páginas abre Chaco: la sección, el mapa, el texto, la leyenda, la tabla, el buscador con su ficha, Hospitales y el cambio de fondo. La de fallas: sin la tabla, con la tabla cortada (y "Volver a intentar") y sin Leaflet.
 
 ## Trampas de los archivos
 
@@ -222,7 +238,7 @@ Resultado: 33 puntos corregidos (20 escuelas y 13 hospitales), 8 departamentos c
 
 ## Pendiente
 
-Decisiones del autor: ninguna antes de la fase 2.
+Decisiones del autor: ninguna pendiente.
 
 Por verificar:
 

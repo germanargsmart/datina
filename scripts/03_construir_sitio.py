@@ -475,8 +475,10 @@ import establecimientos_sitio  # noqa: E402
 _est = establecimientos_sitio.publicar()
 _est_v = hashlib.sha1(b"".join(p.read_bytes() for p in sorted(establecimientos_sitio.DESTINO.glob("*.csv")))).hexdigest()[:10]
 assert base.count('id="prov-establecimientos"') == 1, "falta la sección de escuelas y hospitales en la plantilla"
+# y cuántas filas tiene la tabla de cada provincia: una tabla que llega cortada es una falla, no una provincia con menos escuelas
+_est_n = ",".join(f'{c}:{v["escuelas"] + v["hospitales"]}' for c, v in sorted(_est["por_provincia"].items()))
 base = base.replace('id="prov-establecimientos"', f'id="prov-establecimientos" data-v="{_est_v}" data-padron="{_est["padron"]}" '
-                    f'data-refes="{_est["refes"]}"', 1)
+                    f'data-refes="{_est["refes"]}" data-n="{_est_n}"', 1)
 
 
 def linea_prov(c, h):
@@ -1247,7 +1249,7 @@ def perfil_menu():
     orden en que aparecen. datina.js esconde lo que no se ve con la provincia elegida y copia los títulos de las secciones. Mismo aspecto que
     la fila de capítulos: una letra, un tamaño y sin negrita, con la marca amarilla en lo que se está viendo."""
     grupos = [[("prov-destaca", "Dónde se destaca"), ("prov-compara", "Comparar con otra provincia"), ("prov-puestos", "Cómo cambió su puesto"),
-               ("prov-censos", "Cómo cambió entre los censos 2010 y 2022")],
+               ("prov-censos", "Cómo cambió entre los censos 2010 y 2022"), ("prov-establecimientos", "Escuelas y hospitales")],
               [(f"pg-{g}", t) for g, t in PERFIL_GRUPOS],
               [("prov-historia", "Historia")]]
     listas = "".join("<ul>" + "".join(f'<li><a href="#{i}">{t}</a></li>' for i, t in g) + "</ul>" for g in grupos)

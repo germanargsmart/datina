@@ -188,5 +188,26 @@ r = await p.eval(MS); caso("Mapa sin D3: las tablas quedan", /Milei - Villarruel
 caso("Mapa sin D3: no se ve", await p.eval(`document.getElementById("ms-mapa").hidden`));
 FALLAR = [];
 
+// 8. Escuelas y hospitales de cada provincia (9 de noviembre de 2026): sin la tabla de la provincia o con la tabla cortada a la mitad, la sección
+// lo dice (una tabla cortada no es una provincia con menos escuelas) y vuelve a intentar sin recargar. Sin Leaflet, quedan el texto y la tabla
+const EST_IR = async () => { await p.ir(BASE + "provincia-chaco.html", 1200); await p.eval(`document.getElementById("prov-establecimientos").scrollIntoView()`); await espera(2500); };
+const EST_LEAD = `document.getElementById("est-lead").textContent`;
+FALLAR = ["establecimientos/22.csv"];
+await EST_IR();
+r = await p.eval(EST_LEAD); caso("Escuelas y hospitales sin su tabla: aviso", /No se pudieron cargar las escuelas y los hospitales de Chaco/.test(sinNbsp(r)), r.slice(0, 80));
+FALLAR = [];
+await p.eval(`document.getElementById("est-reintentar").click()`); await espera(2500);
+r = await p.eval(EST_LEAD); caso("Escuelas y hospitales: al volver a intentar, se ve", /^Chaco tiene [\d.]+ escuelas/.test(r), r.slice(0, 60));
+CORTAR = ["establecimientos/22.csv"];
+await EST_IR();
+r = await p.eval(EST_LEAD); caso("Escuelas y hospitales con la tabla cortada: aviso, no menos escuelas", /No se pudieron cargar/.test(sinNbsp(r)), r.slice(0, 80));
+CORTAR = [];
+FALLAR = ["leaflet-1.9.4"];
+await EST_IR();
+r = await p.eval(`({lead: ${EST_LEAD}, mapa: document.getElementById("est-mapa").textContent, filas: document.querySelectorAll("#est-tabla tbody tr").length})`);
+caso("Escuelas y hospitales sin Leaflet: el texto y la tabla quedan, y el mapa lo dice",
+  /^Chaco tiene/.test(r.lead) && /No se pudo cargar el mapa/.test(r.mapa) && r.filas > 20, JSON.stringify(r).slice(0, 120));
+FALLAR = [];
+
 console.log(res.every(Boolean) ? "Todo bien" : "HAY FALLAS");
 await ch.cerrar(); servidor.close(); process.exit(res.every(Boolean) ? 0 : 1);
