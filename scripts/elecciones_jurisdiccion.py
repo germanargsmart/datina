@@ -195,7 +195,12 @@ PRIMERO = [# antes de 1983 (decisión del autor del 9 de noviembre de 2026): el 
            (r"antipersonalista", lambda a, c: "antipersonalistas" if a < 1983 else None),
            (r"bloquista|lencinista", lambda a, c: "otras" if a < 1983 else None),
            (r"dem[oó]crata nacional|^concordancia|^(partido )?conservador$|^(partido )?dem[oó]crata( de buenos aires)?$|dem[oó]crata liberal|"
-            r"dem[oó]crata conservador|autonomista nacional|^uni[oó]n provincial$", lambda a, c: "conservadores" if a < 1983 else None),
+            r"dem[oó]crata conservador|autonomista nacional|^(partido )?uni[oó]n provincial$", lambda a, c: "conservadores" if a < 1983 else None),
+           # la Concentración Popular de Córdoba (Cárcano, 1912) y el Partido Popular de Jujuy y de Mendoza antes de 1946 también, y en Corrientes, el Partido
+           # Liberal de 1962 y 1963, con el Autonomista, es el Pacto
+           (r"^concentraci[oó]n popular$", lambda a, c: "conservadores" if c == "14" and a < 1946 else None),
+           (r"^partido popular$", lambda a, c: "conservadores" if c in ("38", "50") and a < 1946 else None),
+           (r"^partido liberal$", lambda a, c: "pacto" if c == "18" and 1958 <= a < 1983 else None),
            (r"^(alianza )?frente de todos$", lambda a, c: "ucr" if a < 2019 else None),
            (r"^(autonomista|liberal)$|^alianza \(liberal, autonomista|^alianza pacto", lambda a, c: "pacto" if c == "18" else None),
            (r"^encuentro por corrientes$", lambda a, c: "ucr" if a < 2015 else None),

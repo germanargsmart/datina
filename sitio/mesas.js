@@ -158,7 +158,7 @@ return `<div class="tabla-desliza ms-tabla-listas" tabindex="0" role="region" ar
 function otrosVotos(t) {
 if (t.votantes == null || !t.votantes) return "";
 const partes = [];
-if (t.blancos != null) partes.push(`${n0(t.blancos)} en blanco (${pct(t.blancos / t.votantes * 100)})`);
+if (t.blancos != null && !(t.blancos === 0 && elec().origen)) partes.push(`${n0(t.blancos)} en blanco (${pct(t.blancos / t.votantes * 100)})`);
 if (t.nulos != null) partes.push(`${n0(t.nulos)} ${t.nulos === 1 ? "nulo" : "nulos"} (${pct(t.nulos / t.votantes * 100)})`);
 if (t.recurridos) partes.push(`${n0(t.recurridos)} ${t.recurridos === 1 ? "recurrido, impugnado" : "recurridos, impugnados"} o de comando (${pct(t.recurridos / t.votantes * 100)})`);
 return partes.length ? `<p class="ms-otros">De quienes votaron: ${partes.join(", ")}.</p>` : "";
