@@ -6288,27 +6288,57 @@ const leyOrigen = ks => ks.map(k => `<span><i style="background:${ORIGEN_COLOR[k
 const PRR = R.presidentes, GBR = R.gabinetes;
 const apellido = n => ({"Cristina Fernández de Kirchner": "Fernández de Kirchner", "Adolfo Rodríguez Saá": "Rodríguez Saá", "Fernando de la Rúa": "De la Rúa",
   "Interinos de 2001": "Interinos de 2001"})[n] || n.split(" ").slice(-1)[0];
+// el color de cada presidente es el de su espacio político, el mismo que en la composición del Congreso (ESP_COLOR), y en la línea de tiempo van sus
+// iniciales, para que entren todos (pedido del autor del 9 de noviembre de 2026). Dónde nació cada uno sigue en la lista, con su bandera, y en el texto
+const prEspacio = p => /^Unión Cívica Radical/.test(p) ? "UCR y aliados" : /^Partido Justicialista/.test(p) ? "Peronismo" : /^Propuesta Republicana/.test(p) ? "PRO"
+  : /Libertad Avanza/.test(p) ? "La Libertad Avanza" : "Otras fuerzas";
+const prColor = d => ESP_COLOR[prEspacio(d.partido)];
+// letra oscura solo sobre el amarillo del PRO: sobre los demás, blanca
+const prTexto = d => prEspacio(d.partido) === "PRO" ? "#18212B" : "#fff";
+const iniciales = n => n.split(" ").filter(w => /^[A-ZÁÉÍÓÚÑ]/.test(w)).map(w => w[0]).join("");
+const prAnios = d => `${d.inicio.slice(0, 4)}${d.fin && d.fin.slice(0, 4) === d.inicio.slice(0, 4) ? "" : ` a ${d.fin ? d.fin.slice(0, 4) : "hoy"}`}`;
 DIB.presidentes = a => {
   const P = T.presidentes, el = G("presidentes");
   document.querySelector('[data-t="presidentes"]').textContent = `De los ${PRR.n} presidentes desde 1983, contando a los interinos de 2001, ${PRR.amba} nacieron en el Área Metropolitana de Buenos Aires (AMBA), ` +
     `donde vive el ${pct(PRR.amba_pob)} de la población: ${listaY(PRR.amba_nombres.map(apellido))}. Entre ellos gobernaron ${n1(PRR.anios_amba)} de los ${n1(PRR.anios)} años, ` +
     `el ${pct(PRR.pct_tiempo_amba)} del tiempo. Los ${PRR.n} nacieron en ${PRR.prov_distintas} jurisdicciones distintas.`;
-  const usados = [...new Set(P.map(d => d.origen))];
-  document.getElementById("pr-ley").innerHTML = leyOrigen(Object.keys(ORIGEN_COLOR).filter(k => usados.includes(k)));
-  // franja de tiempo: cada presidencia ocupa el ancho de los días que gobernó
-  const angosto = el.clientWidth < 520, C = lienzo(el, 74, {t:8, r:4, b:26, l:4}), {g, iw} = C;
+  const espacios = [...new Set(P.map(d => prEspacio(d.partido)))];
+  document.getElementById("pr-ley").innerHTML = espacios.map(k => `<span><i style="background:${ESP_COLOR[k]}"></i>${k}</span>`).join("");
+  // franja de tiempo: cada presidencia ocupa el ancho de los días que gobernó. Debajo, las iniciales que no entran en su franja (los interinos de 2001)
+  const angosto = el.clientWidth < 520, C = lienzo(el, 98, {t:8, r:4, b:26, l:4}), {g, iw} = C;
   const t0 = new Date(P[0].inicio), t1 = new Date();
   const x = d3.scaleTime().domain([t0, t1]).range([0, iw]);
   const fin = d => d.fin ? new Date(d.fin) : t1;
+  const ancho = d => x(fin(d)) - x(new Date(d.inicio));
   const r = g.append("g").attr("clip-path", recorte(C.svg, 0, 0, iw, 38, RADIO_BARRA)).selectAll("rect").data(P).join("rect").attr("x", d => x(new Date(d.inicio))).attr("y", 0).attr("height", 38)
-    .attr("width", d => Math.max(1.5, x(fin(d)) - x(new Date(d.inicio)) - 1)).attr("fill", d => ORIGEN_COLOR[d.origen]);
-  g.selectAll("text.n").data(P.filter(d => x(fin(d)) - x(new Date(d.inicio)) > (angosto ? 44 : 60))).join("text").attr("class","n")
-    .attr("x", d => x(new Date(d.inicio)) + 5).attr("y", 23).attr("font-size", 12).attr("fill", d => ORIGEN_TEXTO[d.origen]).text(d => apellido(d.nombre));
-  g.append("g").attr("class","eje").attr("transform","translate(0,42)").call(d3.axisBottom(x).ticks(angosto ? 4 : 8).tickSize(0).tickPadding(8)).call(s => s.select(".domain").remove());
+    .attr("width", d => Math.max(1.5, ancho(d) - 1)).attr("fill", prColor);
+  // el ancho de cada sigla, medido con la letra de la página
+  const letra = angosto ? 11 : 12, medir = g.append("text").attr("font-size", letra).attr("font-weight", 600);
+  const largo = s => { medir.text(s); return medir.node().getComputedTextLength(); };
+  const entra = new Set(P.filter(d => ancho(d) >= largo(iniciales(d.nombre)) + 5));
+  medir.remove();
+  g.selectAll("text.n").data(P.filter(d => entra.has(d))).join("text").attr("class", "n").attr("text-anchor", "middle").attr("font-weight", 600)
+    .attr("x", d => x(new Date(d.inicio)) + ancho(d) / 2).attr("y", 23).attr("font-size", letra).attr("fill", prTexto).text(d => iniciales(d.nombre));
+  // las que no entran, juntas cuando son seguidas, con una marca hacia su lugar
+  const grupos = [];
+  for (const d of P) {
+    if (entra.has(d)) continue;
+    const u = grupos.at(-1);
+    if (u && P.indexOf(u.at(-1)) === P.indexOf(d) - 1) u.push(d); else grupos.push([d]);
+  }
+  for (const gr of grupos) {
+    const x0 = x(new Date(gr[0].inicio)), x1 = x(fin(gr.at(-1))), xm = (x0 + x1) / 2;
+    const txt = listaY(gr.map(d => iniciales(d.nombre)));
+    g.append("line").attr("x1", xm).attr("x2", xm).attr("y1", 39).attr("y2", 44).attr("stroke", "var(--ink)").attr("stroke-width", 1);
+    const tx = g.append("text").attr("y", 56).attr("font-size", 11).attr("fill", "var(--ink)").text(txt);
+    const w = tx.node().getComputedTextLength();
+    tx.attr("x", Math.max(0, Math.min(iw - w, xm - w / 2)));
+  }
+  g.append("g").attr("class","eje").attr("transform","translate(0,64)").call(d3.axisBottom(x).ticks(angosto ? 4 : 8).tickSize(0).tickPadding(8)).call(s => s.select(".domain").remove());
   if (a) r.attr("opacity", 0).transition().delay(escalon).duration(DUR_G).attr("opacity", 1);
-  r.on("pointerenter", (ev, d) => mostrarTip(el, `<b>${d.nombre}</b><br>${d.inicio.slice(0, 4)}${d.fin && d.fin.slice(0, 4) === d.inicio.slice(0, 4) ? "" : ` a ${d.fin ? d.fin.slice(0, 4) : "hoy"}`}<br>Nació en ${d.provincia.startsWith("Ciudad") ? "CABA" : `${d.lugar_nacimiento}, ${d.provincia}`}`,
-      4 + x(new Date(d.inicio)) + (x(fin(d)) - x(new Date(d.inicio))) / 2, 8)).on("pointerleave", ocultarSiMouse);
-  document.getElementById("pr-lista").innerHTML = P.map(d => `<li><i style="background:${ORIGEN_COLOR[d.origen]}"></i>${bandera(COD_PROV[d.provincia])}<span>${d.nombre}${d.interino ? " (interino)" : ""}, ${d.inicio.slice(0, 4)}${d.fin && d.fin.slice(0, 4) === d.inicio.slice(0, 4) ? "" : ` a ${d.fin ? d.fin.slice(0, 4) : "hoy"}`}</span>` +
+  r.on("pointerenter", (ev, d) => mostrarTip(el, `<b>${d.nombre} (${iniciales(d.nombre)})</b><br>${d.partido}<br>${prAnios(d)}<br>Nació en ${d.provincia.startsWith("Ciudad") ? "CABA" : `${d.lugar_nacimiento}, ${d.provincia}`}`,
+      4 + x(new Date(d.inicio)) + ancho(d) / 2, 8)).on("pointerleave", ocultarSiMouse);
+  document.getElementById("pr-lista").innerHTML = P.map(d => `<li><i style="background:${prColor(d)}"></i>${bandera(COD_PROV[d.provincia])}<span>${d.nombre} (${iniciales(d.nombre)})${d.interino ? ", interino" : ""}, ${prAnios(d)}</span>` +
     `<small>${d.lugar_nacimiento === d.provincia || d.provincia.startsWith("Ciudad") ? d.provincia.replace("Ciudad Autónoma de Buenos Aires", "CABA") : `${d.lugar_nacimiento}, ${d.provincia}`}</small></li>`).join("");
 };
 MED.ministros = "gobierno";
