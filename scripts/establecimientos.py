@@ -22,6 +22,7 @@ Qué escribe (en LF, ordenado, así correrlo dos veces con las mismas fuentes da
 - datos/manual/establecimientos/hospitales.csv
 - datos/manual/establecimientos/control.json: la fecha de cada fuente, los totales por provincia y los controles. scripts/prueba_establecimientos.py
   compara contra él lo escrito.
+Y lee datos/manual/establecimientos/correcciones.csv: la revisión a mano de los peores puntos fuera de su departamento (ver "correcciones a mano").
 
 Uso: python scripts/establecimientos.py [--cache CARPETA] [--sin-georef]
 --cache: dónde guardar y buscar los archivos bajados, fuera del repositorio (unos 40 MB). Lo que ya está no se vuelve a bajar.
@@ -237,16 +238,16 @@ def pedir_georef(pedidos):
     salida = []
     for i in range(0, len(pedidos), LOTE_GEOREF):
         cuerpo = json.dumps({"direcciones": pedidos[i:i + LOTE_GEOREF]}).encode()
-        for intento in range(3):
+        for intento in range(5):  # Georef contesta 429 si se le pide mucho seguido: se espera cada vez más
             try:
                 req = urllib.request.Request(GEOREF_URL, data=cuerpo, headers={**UA, "Content-Type": "application/json"})
                 with urllib.request.urlopen(req, timeout=300) as r:
                     salida += json.load(r)["resultados"]
                 break
             except Exception as e:  # noqa: BLE001
-                if intento == 2:
+                if intento == 4:
                     frenar(f"Georef no contestó: {e}")
-                time.sleep(10 * (intento + 1))
+                time.sleep(30 * (intento + 1))
         time.sleep(1)
     return salida
 
@@ -370,6 +371,68 @@ def controlar_deptos(t, deptos):
             "fuera_de_su_departamento": int((t.fuera_km > BORDE_KM).sum())}
 
 
+# ---------------------------------------------------------------- correcciones a mano
+
+# Decisión 6 del autor (9 de noviembre de 2026): los peores puntos fuera de su departamento (los hospitales a más de 1 km y las escuelas a
+# más de 20 km) se revisaron a mano con Georef, y cada corrección quedó en correcciones.csv con su fuente:
+# - "punto": el punto estaba mal y la localidad que declara la fuente está, sola, en su departamento. Va a esa localidad (aproximada) o a su
+#   domicilio en la calle (mejorada).
+# - "departamento": el punto está bien y el departamento anotado no: un lugar con el nombre del domicilio o de la localidad está donde cae.
+# - "sin_confirmar": ninguna fuente oficial confirma el punto ni el departamento. No se dibuja en el mapa, sigue contando en su departamento.
+# Una corrección se aplica solo si la fuente sigue diciendo lo mismo que cuando se revisó (el mismo punto, a menos de 100 metros, y el mismo
+# departamento). Si la fuente cambió, no se aplica y queda en control.json para volver a revisarla: no frena, porque el REFES cambia todos los días.
+CORRECCIONES = SALIDA / "correcciones.csv"
+ACCIONES = {"punto": "punto", "departamento": "departamento", "sin_confirmar": "sin confirmar"}
+MISMO_PUNTO_KM = 0.1
+
+
+def leer_correcciones(ruta=CORRECCIONES):
+    c = pd.read_csv(ruta, dtype={"id": str, "codigo_dep_origen": str, "codigo_dep": str}, keep_default_na=False, na_values=[""])
+    if not set(c.accion) <= set(ACCIONES):
+        frenar(f"correcciones.csv: acciones desconocidas {sorted(set(c.accion) - set(ACCIONES))}")
+    if c.fuente.isna().any() or c.fecha.isna().any():
+        frenar("correcciones.csv: una corrección sin fuente o sin fecha")
+    if c.duplicated(["tipo", "id"]).any():
+        frenar("correcciones.csv: una corrección repetida")
+    p = c[c.accion == "punto"]
+    if p[["lat", "lon"]].isna().any().any() or not set(p.precision) <= {"aproximada", "mejorada"}:
+        frenar("correcciones.csv: una corrección de punto sin punto o sin precisión")
+    d = c[c.accion == "departamento"]
+    if not d.codigo_dep.fillna("").str.fullmatch(r"\d{5}").all():
+        frenar("correcciones.csv: una corrección de departamento sin código de cinco cifras")
+    return c
+
+
+def aplicar_correcciones(t, c, tipo, clave):
+    """Aplica las correcciones de un tipo (escuela u hospital). Agrega correccion y correccion_fuente y devuelve el resumen."""
+    t["correccion"] = ""
+    t["correccion_fuente"] = ""
+    res = {"aplicadas": {}, "no_encontradas": [], "la_fuente_cambio": []}
+    fila = dict(zip(t[clave], t.index))
+    for r in c[c.tipo == tipo].itertuples():
+        if r.id not in fila:
+            res["no_encontradas"].append(r.id)
+            continue
+        i = fila[r.id]
+        o = t.loc[i]
+        if o.codigo_dep != r.codigo_dep_origen or pd.isna(o.lat) or km(o.lat, o.lon, r.lat_origen, r.lon_origen) > MISMO_PUNTO_KM:
+            res["la_fuente_cambio"].append(r.id)
+            continue
+        if r.accion == "punto":
+            t.loc[i, ["lat", "lon"]] = [r.lat, r.lon]
+            t.loc[i, "ubicacion"] = r.precision
+        elif r.accion == "departamento":
+            t.loc[i, "codigo_dep"] = r.codigo_dep
+        else:
+            t.loc[i, "ubicacion"] = "sin confirmar"
+        t.loc[i, ["correccion", "correccion_fuente"]] = [ACCIONES[r.accion], r.fuente]
+        res["aplicadas"][r.accion] = res["aplicadas"].get(r.accion, 0) + 1
+    for k in ("no_encontradas", "la_fuente_cambio"):
+        if res[k]:
+            print(f"   AVISO: correcciones de {tipo} que no se aplicaron ({k}): {res[k]}")
+    return res
+
+
 # ---------------------------------------------------------------- todo junto
 
 def escribir(t, ruta, columnas):
@@ -414,7 +477,10 @@ def main():
     print("3. Hospitales")
     h, c_refes = leer_refes(rutas["refes"])
 
-    print("4. Departamentos")
+    print("4. Correcciones a mano y departamentos")
+    correcciones = leer_correcciones()
+    c_corr = {"escuelas": aplicar_correcciones(e, correcciones, "escuela", "cueanexo"),
+              "hospitales": aplicar_correcciones(h, correcciones, "hospital", "refes_id")}
     deptos = leer_deptos(rutas["deptos"])
     nombre_dep = {k: v["nombre"] for k, v in deptos.items()}
     e["departamento"] = e.codigo_dep.map(nombre_dep).fillna(e.departamento)
@@ -426,9 +492,11 @@ def main():
     h = h.sort_values("refes_id")
     SALIDA.mkdir(parents=True, exist_ok=True)
     escribir(e, SALIDA / "escuelas.csv", ["cueanexo", "nombre", "codigo_indec", "codigo_dep", "departamento", "localidad", "sector", "ambito",
-                                          "primaria", "secundaria", "tecnica", "domicilio", "lat", "lon", "ubicacion", "fuera_km"])
+                                          "primaria", "secundaria", "tecnica", "domicilio", "lat", "lon", "ubicacion", "fuera_km",
+                                          "correccion", "correccion_fuente"])
     escribir(h, SALIDA / "hospitales.csv", ["refes_id", "nombre", "codigo_indec", "codigo_dep", "departamento", "localidad", "dependencia",
-                                            "tipologia", "complejidad", "domicilio", "lat", "lon", "ubicacion", "fuera_km"])
+                                            "tipologia", "complejidad", "domicilio", "lat", "lon", "ubicacion", "fuera_km",
+                                            "correccion", "correccion_fuente"])
     control = {
         "armado": hoy,
         "fuentes": {
@@ -450,6 +518,7 @@ def main():
             "ubicacion": {k: int(v) for k, v in h.ubicacion.value_counts().sort_index().items()},
             "coordenadas_descartadas": c_refes["coordenadas_descartadas"], "departamentos": c_dep_h,
         },
+        "correcciones": c_corr,
     }
     (SALIDA / "control.json").write_text(json.dumps(control, ensure_ascii=False, indent=1) + "\n", encoding="utf-8", newline="\n")
     print(f"listo: {len(e)} escuelas y {len(h)} hospitales en {SALIDA.relative_to(RAIZ)}")

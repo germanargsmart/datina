@@ -97,9 +97,11 @@ Después de unir la fase 1, el mismo 9 de noviembre, el autor eligió entre opci
 
 `python scripts/establecimientos.py --cache CARPETA` baja las fuentes a una carpeta fuera del repositorio (unos 40 MB, lo que ya está no se vuelve a bajar), se queda con lo que va al mapa y escribe en `datos/manual/establecimientos/`:
 
-- `escuelas.csv` (5,7 MB): `cueanexo`, `nombre`, `codigo_indec`, `codigo_dep`, `departamento`, `localidad`, `sector`, `ambito`, `primaria`, `secundaria`, `tecnica`, `domicilio`, `lat`, `lon`, `ubicacion` (precisa, mejorada, aproximada o sin dato) y `fuera_km`.
-- `hospitales.csv` (280 KB): `refes_id`, `nombre`, `codigo_indec`, `codigo_dep`, `departamento`, `localidad`, `dependencia`, `tipologia`, `complejidad`, `domicilio`, `lat`, `lon`, `ubicacion` y `fuera_km`.
-- `control.json`: la dirección, la fecha y la licencia de cada fuente, los totales por provincia, por sector y por dependencia, y los resultados de los controles.
+- `escuelas.csv` (5,7 MB): `cueanexo`, `nombre`, `codigo_indec`, `codigo_dep`, `departamento`, `localidad`, `sector`, `ambito`, `primaria`, `secundaria`, `tecnica`, `domicilio`, `lat`, `lon`, `ubicacion` (precisa, mejorada, aproximada, sin dato o sin confirmar), `fuera_km`, `correccion` y `correccion_fuente`.
+- `hospitales.csv` (280 KB): `refes_id`, `nombre`, `codigo_indec`, `codigo_dep`, `departamento`, `localidad`, `dependencia`, `tipologia`, `complejidad`, `domicilio`, `lat`, `lon`, `ubicacion`, `fuera_km`, `correccion` y `correccion_fuente`.
+- `control.json`: la dirección, la fecha y la licencia de cada fuente, los totales por provincia, por sector y por dependencia, y los resultados de los controles y de las correcciones.
+
+Y lee `correcciones.csv`, la revisión a mano de la fase 2 (abajo).
 
 No va a `datos/crudo/` (que está en git y ya pesa 157 MB) ni a la actualización mensual: se corre a mano cuando sale un padrón nuevo, una o dos veces por año. Teléfono, correo y CUIT no se guardan. El nombre de cada departamento sale de Georef, el mismo para escuelas y hospitales. Frena si una fuente cambia de forma: columnas que faltan, un sector, una dependencia o una tipología con internación nuevos, códigos repetidos o los ejes del Mapa Educativo al revés. Una dependencia nueva del REFES hay que decidir si es pública antes de seguir.
 
@@ -121,7 +123,79 @@ Con los límites de Georef, que están simplificados, a menos de 1 km del depart
 - **208 escuelas** (0,6 %): 146 con ubicación precisa y 62 aproximadas. La mitad, a menos de 4 km. Las más lejanas están a cientos de kilómetros, por ejemplo una escuela del departamento Formosa con el punto a 437 km. No se sabe si está mal el punto o el departamento.
 - **16 hospitales**: el Hospital Vecinal San Marcos Sud (departamento Unión, Córdoba) tiene el punto a 219 km, cerca de San Marcos Sierras, y el de Tránsito de Los Pirpintos (Copo, Santiago del Estero) a 227 km. El Hospital Modular Tolhuin queda a 35 km de Río Grande porque el REFES todavía lo anota en ese departamento, del que se separó Tolhuin.
 
-Quedan marcados con `fuera_km`. Los peores se revisan a mano en la fase 2 (decisión 6).
+Quedan marcados con `fuera_km`. Los peores se revisaron a mano (abajo).
+
+### Revisión a mano de los peores (decisión 6, 9 de noviembre de 2026)
+
+Se revisaron los 16 hospitales y las 33 escuelas a más de 20 km de su departamento. Para cada uno se juntaron tres datos de Georef (IGN): en qué departamento cae el punto (`/ubicacion`), dónde está la localidad que declara la fuente, buscada por nombre en su provincia (`/localidades` y `/asentamientos`, que tiene los parajes), y si su domicilio se ubica en la calle dentro del departamento declarado (`/direcciones`). Con una sola regla:
+
+- **Punto corregido**: la localidad declarada está, sola, en el departamento declarado y lejos del punto. Estaba mal el punto. Va a su domicilio en la calle si Georef lo encuentra (`mejorada`) y, si no, al centro de su localidad (`aproximada`, que se muestra igual que las demás por la decisión 5).
+- **Departamento corregido**: un lugar con el nombre de la localidad o del domicilio está en el departamento donde cae el punto. Estaba mal el departamento. El punto queda y la escuela u hospital pasa a contar en ese departamento.
+- **Sin confirmar**: la localidad no aparece, o aparece en los dos departamentos. No se dibuja en el mapa, sigue contando en el departamento que declara la fuente y sale en la lista con un aviso.
+
+Resultado: 33 puntos corregidos (20 escuelas y 13 hospitales), 8 departamentos corregidos (6 escuelas y 2 hospitales) y 8 sin confirmar (7 escuelas y 1 hospital). Cada uno está en `datos/manual/establecimientos/correcciones.csv` con el registro de Georef que lo prueba. `establecimientos.py` lo aplica solo si la fuente sigue diciendo lo mismo que cuando se revisó (el mismo punto, a menos de 100 metros, y el mismo departamento). Si cambió, no lo aplica y lo deja en `control.json` para revisarlo de nuevo. Errores que se repiten: lugares con nombres parecidos ("Vaquería" quedó en Vaqueros, "La Bajada" en Bandera Bajada, San Marcos Sud en San Marcos Sierras) y puntos puestos en la capital de la provincia o en una oficina del ministerio.
+
+
+**Hospitales**
+
+| Hospital | Provincia | Qué se hizo | Por qué |
+|---|---|---|---|
+| HOSPITAL RAMON PERALTA DE SAN CARLOS MINAS (10140702231244) | Córdoba | Punto corregido (a su localidad, aproximado) | El punto caía en San Alberto |
+| HOSPITAL LUIS MARIA BELLODI MINA CLAVERO (10141262231217) | Córdoba | Punto corregido (a su localidad, aproximado) | El punto caía en San Javier |
+| HOSPITAL VECINAL SAN MARCOS SUD (10141822231264) | Córdoba | Punto corregido (a su localidad, aproximado) | El punto caía en San Marcos Sierras (Cruz del Eje), a 289 km de San Marcos Sud |
+| HOSPITAL ZONAL TRELEW DR. ADOLFO MARGARA (10260772129042) | Chubut | Punto corregido (a su localidad, aproximado) | El punto caía a 27 km de Trelew, fuera de los departamentos de Georef |
+| ESTABLECIMIENTO ASISTENCIAL MATILDE Y VIRGINIA GHIOLDI (10421262153039) | La Pampa | Punto corregido (a su localidad, aproximado) | El punto caía en Quemú Quemú |
+| SAMCO DE CARLOS PELLEGRINI - DR. JULIO CORTES BELASCUEN (10821262184076) | Santa Fe | Punto corregido (a su domicilio) | El punto caía en San Lorenzo |
+| HOSPITAL DE TRANSITO DE LOS PIRPINTOS (10860562192023) | Santiago del Estero | Punto corregido (a su domicilio) | El punto caía en Juan Felipe Ibarra, a 242 km de Los Pirpintos |
+| HOSPITAL DISTRITAL COLONIA EL SIMBOLAR (10861612192033) | Santiago del Estero | Punto corregido (a su localidad, aproximado) | El punto caía en Banda |
+| HOSPITAL ZONAL FERNANDEZ DR. RUDECINDO DEL V. CAZZANIGA (10861612192058) | Santiago del Estero | Punto corregido (a su localidad, aproximado) | El punto caía en la ciudad de Santiago del Estero |
+| HOSPITAL COLONIA SANTA MARIA (13140912131359) | Córdoba | Punto corregido (a su localidad, aproximado) | El punto caía en Tercero Arriba |
+| COMUNIDAD TERAPEUTICA LA EDUVIGIS (13220842127139) | Chaco | Punto corregido (a su localidad, aproximado) | El punto caía en 1° de Mayo. Es rural: el domicilio dice ruta 90 y 4 km de camino vecinal |
+| CENTRO RESIDENCIAL DE REHABILITACION Y REINSERCION SOCIAL LAS MORITAS (13900072196064) | Tucumán | Punto corregido (a su localidad, aproximado) | El punto caía 1,2 km dentro de Tafí Viejo. Es rural: ruta 305, km 11 |
+| HOSPITAL ILLIA (50140212232547) | Córdoba | Punto corregido (a su localidad, aproximado) | El punto caía en Punilla, cerca de Villa Carlos Paz |
+| CENTRO DE SALUD GUADALCAZAR (10340352147309) | Formosa | Departamento corregido: Bermejo | El domicilio dice Guadalcázar, que está en Bermejo, donde cae el punto. El REFES lo anota en Patiño, en Posta Cambio Zalazar |
+| HOSPITAL MODULAR TOLHUIN (50940072195790) | Tierra del Fuego | Departamento corregido: Tolhuin | Tolhuin es departamento propio desde 2017. El REFES lo anota todavía en Río Grande |
+| ESTABLECIMIENTO SANITARIO PERIFIFERICO DE ENFERMERIA LA ALUMBRERA (10100352124013) | Catamarca | Sin confirmar: no se dibuja | Georef no tiene La Alumbrera en Belén. El punto cae en Tinogasta |
+
+**Escuelas**
+
+| Escuela | Provincia | Qué se hizo | Por qué |
+|---|---|---|---|
+| INSTITUTO THOMAS EDISON (140577800) | Córdoba | Punto corregido (a su localidad, aproximado) | El punto caía en Río Cuarto, a 201 km de Bialet Massé |
+| COLEGIO SECUNDARIO N 58 (380095500) | Jujuy | Punto corregido (a su localidad, aproximado) | El punto caía cerca de San Salvador de Jujuy |
+| Programa de Inclusión Educativa Vos Podés Técnico (420021601) | La Pampa | Punto corregido (a su localidad, aproximado) | El punto caía en Santa Rosa. El domicilio es la ruta 35, km 405 |
+| 4-258 ESPERANZA DE LAGUNA (500257200) | Mendoza | Punto corregido (a su localidad, aproximado) | El punto caía en Godoy Cruz |
+| Aula Sat. Nº 04: ESC. Nº 374 (540004404) | Misiones | Punto corregido (a su localidad, aproximado) | El punto caía en Iguazú. Es un aula satélite en una comunidad mbya sobre la ruta 14 |
+| Aula Sat. Nº 04: ESC. Nº 483 (540024204) | Misiones | Punto corregido (a su localidad, aproximado) | El punto caía en Iguazú, en el mismo lugar que otra aula satélite |
+| Aula Sat. Nº 01: ESC. Nº 776 (Ex Esc. Nº 863) (540048901) | Misiones | Punto corregido (a su localidad, aproximado) | El punto caía en 25 de Mayo |
+| ESCUELA N° 4368 HÉROE NACIONAL GENERAL GÜEMES (660013000) | Salta | Punto corregido (a su localidad, aproximado) | El punto caía en Vaqueros (La Caldera): se confundió Vaquería con Vaqueros |
+| AERONAUTICA ARGENTINA Nº 4113 - EX N° 192 (660021700) | Salta | Punto corregido (a su localidad, aproximado) | El punto caía cerca de Tartagal |
+| CARMEN GUEMES DE LATORRE EX N° 563 (660044200) | Salta | Punto corregido (a su localidad, aproximado) | El punto caía en La Caldera, en el mismo lugar que otra escuela. Hay tres Bella Vista en Salta: se usa la de Chicoana |
+| MARIA LUISA BRAVO DE MATUTE EX N°534 (660077000) | Salta | Punto corregido (a su localidad, aproximado) | El punto caía en la ciudad de Salta |
+| ESCUELA DE EDUCACIÓN SECUNDARIA ENRIQUE LARRETA (700093700) | San Juan | Punto corregido (a su localidad, aproximado) | El punto caía en otra Punta del Médano, en 25 de Mayo. El domicilio dice Cochagual, que está en Sarmiento a 3 km de esta |
+| ESC.N°323 JUAN W.GEZ (740051601) | San Luis | Punto corregido (a su localidad, aproximado) | El punto caía en General Pedernera. Hay otra Santa Ana en Ayacucho: se usa la de Junín |
+| ESCUELA PART. INC. NRO 1152 SAN JOSE (820189100) | Santa Fe | Punto corregido (a su domicilio) | El punto caía en San Justo |
+| ANEXO ESCUELA Nº 256 GAUCHO RIVERO (860151601) | Santiago del Estero | Punto corregido (a su localidad, aproximado) | El punto caía en Figueroa |
+| CENTRO EXPERIMENTAL Nº 2 FLORENTINO AMEGHINO J/N.14 (860164300) | Santiago del Estero | Punto corregido (a su localidad, aproximado) | El punto caía en Alberdi, a 247 km de Añatuya |
+| AGRUPAMIENTO Nº 86077 SEDE ESC Nº 937 (860208900) | Santiago del Estero | Punto corregido (a su localidad, aproximado) | El punto caía en Aguirre, cerca de Colonia Libertad |
+| Agrupamiento 86164 Esc. Nº 479 (860219202) | Santiago del Estero | Punto corregido (a su localidad, aproximado) | El punto caía en Bandera Bajada (Figueroa): se confundió La Bajada con Bandera Bajada |
+| San Pío de Pietrelcina (860219600) | Santiago del Estero | Punto corregido (a su localidad, aproximado) | El punto caía en Choya, a 132 km de La Banda |
+| INST. SAN JOSE (900008900) | Tucumán | Punto corregido (a su localidad, aproximado) | El punto caía en Tafí del Valle |
+| I.P.E.A. Nº 306 DR. AMADEO SABATTINI ANEXO PIT PARAJE EL QUICHO (140468301) | Córdoba | Departamento corregido: Cruz del Eje | El anexo funciona en el paraje El Quicho, que está en Cruz del Eje, donde cae el punto. El padrón lo anota en Pocho |
+| ESC. N° 94 GRANADERO FRANCISCO GATICA (740002601) | San Luis | Departamento corregido: Libertador General San Martín | El Puesto está en Libertador General San Martín, donde cae el punto. El padrón la anota en Ayacucho |
+| ESC. N° 279 SOLDADO ARGENTINO (740006001) | San Luis | Departamento corregido: Chacabuco | El Recuerdo está en Chacabuco, donde cae el punto. El padrón la anota en Juan Martín de Pueyrredón |
+| AGRUPAMIENTO Nº 86016 ESC Nº 783 (860198101) | Santiago del Estero | Departamento corregido: General Taboada | El domicilio dice La Simona, que está en General Taboada, donde cae el punto. El padrón la anota en San Martín |
+| AGRUPAMIENTO Nº 86016 ESC Nº 501 (860198105) | Santiago del Estero | Departamento corregido: General Taboada | El domicilio dice La Nena, que está en General Taboada, donde cae el punto. El padrón la anota en San Martín |
+| AGRUPAMIENTO Nº 86010 ESC Nº 651 (860215205) | Santiago del Estero | Departamento corregido: Quebrachos | El domicilio dice Ramírez de Velazco, que está en Quebrachos, donde cae el punto. El padrón la anota en Jiménez |
+| EPEP N° 412 ANEXO 2 (340028902) | Formosa | Sin confirmar: no se dibuja | La localidad dice DESCONOCIDO y el domicilio, entre dos comunidades que Georef no tiene |
+| EPEP Nº 188 ANEXO 2 (340029402) | Formosa | Sin confirmar: no se dibuja | Georef no tiene Amarilla. El punto cae en Ramón Lista, a 437 km del departamento Formosa |
+| ESC.PRIV.EVANGELICA LAGUNA YACARE (340061700) | Formosa | Sin confirmar: no se dibuja | Georef no tiene Laguna Yacaré |
+| Aula Sat. Nº 01: C.F.P. itinerante Nº 01 (E.P.E.T. Nº 03) (540202901) | Misiones | Sin confirmar: no se dibuja | El padrón dice Oberá, pero el domicilio es el Ministerio de Educación en Posadas, donde cae el punto. Es un centro itinerante |
+| AGRUPAMIENTO Nº 86077 - ESC N° 180 (860208906) | Santiago del Estero | Sin confirmar: no se dibuja | Hay un Santos Lugares donde cae el punto (Alberdi) y otro en Moreno, el departamento que anota el padrón |
+| Agrupamiento N° 86042 Esc. N° 345 (860216806) | Santiago del Estero | Sin confirmar: no se dibuja | Georef no tiene El Porvenir en Río Hondo: hay uno en Alberdi y otro en Pellegrini |
+| Agrupamiento 86103 Esc. N° 363 (860219302) | Santiago del Estero | Sin confirmar: no se dibuja | Georef no tiene El Barrialito en Banda: hay un Barrialito en Río Hondo, donde cae el punto, y un El Barrialito en Robles |
+
+**Las otras 175 escuelas fuera de su departamento** (entre 1 y 20 km) no se revisaron: la decisión 6 habla de "los peores". Lectura de esta sesión, para que el autor la confirme con las capturas: se dibujan donde dice la fuente, cuentan en el departamento que declara y su ficha dice a cuántos kilómetros de él cae el punto.
 
 ## Cómo sigue (un PR por fase)
 

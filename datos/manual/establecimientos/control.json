@@ -158,9 +158,10 @@
    }
   },
   "ubicacion": {
-   "aproximada": 3552,
-   "mejorada": 731,
-   "precisa": 31063
+   "aproximada": 3555,
+   "mejorada": 732,
+   "precisa": 31052,
+   "sin confirmar": 7
   },
   "mapa_educativo": {
    "puntos": 64695,
@@ -179,8 +180,8 @@
   },
   "departamentos": {
    "codigos_de_departamento_desconocidos": [],
-   "en_el_borde": 462,
-   "fuera_de_su_departamento": 208
+   "en_el_borde": 463,
+   "fuera_de_su_departamento": 182
   },
   "puntos_compartidos_por_3_o_mas": {
    "puntos": 66,
@@ -308,14 +309,37 @@
    }
   },
   "ubicacion": {
-   "precisa": 1426,
+   "aproximada": 11,
+   "mejorada": 2,
+   "precisa": 1412,
+   "sin confirmar": 1,
    "sin dato": 42
   },
   "coordenadas_descartadas": 0,
   "departamentos": {
    "codigos_de_departamento_desconocidos": [],
    "en_el_borde": 15,
-   "fuera_de_su_departamento": 16
+   "fuera_de_su_departamento": 1
+  }
+ },
+ "correcciones": {
+  "escuelas": {
+   "aplicadas": {
+    "punto": 20,
+    "departamento": 6,
+    "sin_confirmar": 7
+   },
+   "no_encontradas": [],
+   "la_fuente_cambio": []
+  },
+  "hospitales": {
+   "aplicadas": {
+    "punto": 13,
+    "departamento": 2,
+    "sin_confirmar": 1
+   },
+   "no_encontradas": [],
+   "la_fuente_cambio": []
   }
  }
 }
