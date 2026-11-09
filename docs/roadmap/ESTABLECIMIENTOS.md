@@ -2,7 +2,7 @@
 
 Pedido del autor del 9 de noviembre de 2026: "mapear a través de google maps o las páginas oficiales todos los hospitales nacionales y provinciales, y las escuelas primarias y secundarias, tanto públicas como privadas, de cada una de las provincias. Para ponerlas en un mapa provincia por provincia". Es para profundizar los datos territoriales de las páginas de cada provincia.
 
-Estado: la fase 1 (datos y controles) está hecha desde el 9 de noviembre de 2026. `scripts/establecimientos.py` escribe `datos/manual/establecimientos/` y `scripts/prueba_establecimientos.py` lo controla. El sitio todavía no cambió. Lo próximo es la fase 2, el mapa, con dos decisiones del autor pendientes (al final).
+Estado: la fase 1 (datos y controles) se unió el 9 de noviembre de 2026 (PR #119). `scripts/establecimientos.py` escribe `datos/manual/establecimientos/` y `scripts/prueba_establecimientos.py` lo controla. El sitio todavía no cambió. Lo próximo es la fase 2, el mapa, con una decisión del autor pendiente (al final).
 
 ## Las fuentes (verificadas el 9 de noviembre de 2026)
 
@@ -38,6 +38,7 @@ Sirve solo para mirar a mano una muestra de puntos dudosos durante el control de
 2. **Las escuelas con ubicación aproximada: mejorarlas antes** con la API Georef. Hecho en la fase 1: ver "Georef" abajo.
 3. **Gestión social o cooperativa: aparte**, como tercera categoría con su color y su filtro (57 escuelas primarias o secundarias).
 4. **El mapa: el del sitio**, D3 sobre los límites de los departamentos, con acercamiento y sin calles. Sin bibliotecas ni servicios nuevos.
+5. **Los puntos fuera de su departamento (decidido después de la fase 1, el mismo 9 de noviembre): se muestran donde dice la fuente, con un aviso.** Son las 208 escuelas y los 16 hospitales a más de 1 km de su departamento (`fuera_km`). En el mapa van en su lugar, y al tocarlos o en la lista dicen que la fuente los anota en otro departamento y a cuántos kilómetros. Se cuentan en el departamento que declara la fuente. A menos de 1 km es el borde de los límites simplificados y no lleva aviso.
 
 ## Lo que dicen los números (9 de noviembre de 2026)
 
@@ -116,7 +117,7 @@ Con los límites de Georef, que están simplificados, a menos de 1 km del depart
 - **208 escuelas** (0,6 %): 146 con ubicación precisa y 62 aproximadas. La mitad, a menos de 4 km. Las más lejanas están a cientos de kilómetros, por ejemplo una escuela del departamento Formosa con el punto a 437 km. No se sabe si está mal el punto o el departamento.
 - **16 hospitales**: el Hospital Vecinal San Marcos Sud (departamento Unión, Córdoba) tiene el punto a 219 km, cerca de San Marcos Sierras, y el de Tránsito de Los Pirpintos (Copo, Santiago del Estero) a 227 km. El Hospital Modular Tolhuin queda a 35 km de Río Grande porque el REFES todavía lo anota en ese departamento, del que se separó Tolhuin.
 
-Quedan marcados con `fuera_km`. Qué hacer con ellos en el mapa lo decide el autor antes de la fase 2.
+Quedan marcados con `fuera_km`. En el mapa se muestran donde dice la fuente, con un aviso (decisión 5).
 
 ## Cómo sigue (un PR por fase)
 
@@ -143,10 +144,9 @@ Quedan marcados con `fuera_km`. Qué hacer con ellos en el mapa lo decide el aut
 
 ## Pendiente
 
-Decisiones del autor antes de la fase 2:
+Decisión del autor antes de la fase 2:
 
-- Cómo se muestran las 3.552 escuelas que siguen aproximadas. La recomendación sigue siendo otro símbolo (un círculo vacío) con la aclaración en la leyenda.
-- Qué se hace con los 208 puntos de escuelas y los 16 de hospitales que caen a más de 1 km de su departamento: mostrarlos donde dice la fuente con un aviso, o dejarlos solo en la lista.
+- Cómo se muestran las 3.552 escuelas que siguen aproximadas: otro símbolo (un círculo vacío) con la aclaración en la leyenda, que es la recomendación, o un solo punto por localidad con la cantidad.
 
 Por verificar:
 
