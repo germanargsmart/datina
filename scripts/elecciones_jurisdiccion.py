@@ -163,6 +163,10 @@ DIFERENCIAS = {("gobernador", 2017, "general", "18"): 9,      # las alianzas sum
                # Tierra del Fuego 2015: los votantes son el total de votos escrutados del Juzgado, que no es la suma de los de gobernador
                ("gobernador", 2015, "general", "94"): -1010, ("gobernador", 2015, "segunda", "94"): 79}
 
+# las de 1912 a 1982, en datos/manual/mesas_jurisdiccion_diferencias.csv: casi todas, votantes que el documento cuenta y no reparte ("diferencias de actas"),
+# y la nota de cada una lo dice
+for _r in csv.DictReader(open(RAIZ / "datos" / "manual" / "mesas_jurisdiccion_diferencias.csv", encoding="utf-8", newline="")):
+    DIFERENCIAS[("gobernador", int(_r["anio"]), _r["vuelta"], _r["codigo_indec"])] = int(_r["diferencia"])
 # lo mismo por departamento: en Corrientes 2017, en 13 departamentos las alianzas suman de 1 a 47 votos más que los válidos del mismo documento. Se publican
 # como vienen, con un tope por departamento
 DIFERENCIAS_DEP = {("gobernador", 2017, "general", "18"): 50}
@@ -183,7 +187,16 @@ GRIS = {"gobernador": "Sin datos en esta elección" if TODAS else "Sin datos de 
 # y el programa la nombra al terminar. "Frente de Todos" antes de 2019 es el de Corrientes, con la UCR (la misma regla que el Congreso en 02_procesar.py)
 # Primero van las reglas que dependen de la jurisdicción y del año, porque el mismo nombre fue otra fuerza: "Frente de Todos" antes de 2019 es el de
 # Corrientes, con la UCR (la misma regla que el Congreso en 02_procesar.py), y Encuentro por Corrientes fue de la UCR antes de sumarse a Cambiemos
-PRIMERO = [(r"^(alianza )?frente de todos$", lambda a, c: "ucr" if a < 2019 else None),
+PRIMERO = [# antes de 1983 (decisión del autor del 9 de noviembre de 2026): el peronismo de 1946 a 1955 y los partidos neoperonistas de la proscripción
+           # (1962 a 1966), la UCRI de 1958 a 1963, los conservadores, los antipersonalistas, y bloquistas y lencinistas, que no son la UCR aunque lo digan
+           (r"peronista|^(partido )?laborista$|junta renovadora|^uni[oó]n popular$|tres banderas|^movimiento popular (juje|salte|mendoc|catamarq)|"
+            r"blanco de los trabajadores", lambda a, c: "peronismo" if a < 1973 else None),
+           (r"uni[oó]n c[ií]vica radical intransigente", lambda a, c: "ucri" if a < 1973 else None),
+           (r"antipersonalista", lambda a, c: "antipersonalistas" if a < 1983 else None),
+           (r"bloquista|lencinista", lambda a, c: "otras" if a < 1983 else None),
+           (r"dem[oó]crata nacional|^concordancia|^(partido )?conservador$|^(partido )?dem[oó]crata( de buenos aires)?$|dem[oó]crata liberal|"
+            r"dem[oó]crata conservador|autonomista nacional|^uni[oó]n provincial$", lambda a, c: "conservadores" if a < 1983 else None),
+           (r"^(alianza )?frente de todos$", lambda a, c: "ucr" if a < 2019 else None),
            (r"^(autonomista|liberal)$|^alianza \(liberal, autonomista|^alianza pacto", lambda a, c: "pacto" if c == "18" else None),
            (r"^encuentro por corrientes$", lambda a, c: "ucr" if a < 2015 else None),
            (r"^frente corrientes podemos m[aá]s$|^limpiar corrientes$", lambda a, c: "peronismo" if c == "18" else None),
@@ -243,7 +256,11 @@ REGLAS = [(r"justicialis|frente para la victoria|uni[oó]n por la patria|frente 
 # elecciones_departamentos.py) o, para el conservadurismo correntino, el de los conservadores en 257arg
 FUERZAS_PROPIAS = {"alianza": {"nombre": "Alianza para el Trabajo, la Justicia y la Educación", "color": "#DC0143"},
                    "frepaso": {"nombre": "Frente País Solidario", "color": "#A349A4"},
-                   "pacto": {"nombre": "Pacto Autonomista Liberal", "color": "#1F2F6B"}}
+                   "pacto": {"nombre": "Pacto Autonomista Liberal", "color": "#1F2F6B"},
+                   # antes de 1983, con el color de los mapas nacionales de esos años (elecciones_antiguas.py) donde lo hay
+                   "ucri": {"nombre": "UCR Intransigente", "color": "#F4845F"},
+                   "conservadores": {"nombre": "Conservadores (PDN, Concordancia y demócratas provinciales)", "color": "#4A5A7A"},
+                   "antipersonalistas": {"nombre": "UCR Antipersonalista", "color": "#A0522D"}}
 
 
 def entero(v, fila, campo):

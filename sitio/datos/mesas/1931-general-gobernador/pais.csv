@@ -1,0 +1,40 @@
+codigo_indec,provincia,lista,votos,electores,votantes,blancos,nulos
+06,Buenos Aires,Partido Demócrata de Buenos Aires,206437,,374979,0,155937
+06,Buenos Aires,Unión Cívica Radical Antipersonalista,12605,,374979,0,155937
+10,Catamarca,"Partido Demócrata Nacional, con Unión Cívica Radical Antipersonalista",18859,25866,21117,0,2258
+14,Córdoba,Partido Demócrata Nacional,92077,,123350,0,0
+14,Córdoba,Partido Socialista,19401,,123350,0,0
+14,Córdoba,Unión Cívica Radical Antipersonalista,7304,,123350,0,0
+14,Córdoba,Unión Nacional Agraria,4568,,123350,0,0
+18,Corrientes,Partido Liberal (rupturista),28469,,61925,0,0
+18,Corrientes,Partido Autonomista,22426,,61925,0,0
+18,Corrientes,Unión Cívica Radical Antipersonalista,5781,,61925,0,0
+18,Corrientes,"Alianza Socialista, Demócrata Progresista y Juventud Liberal",3704,,61925,0,0
+18,Corrientes,Partido Liberal (pactista),1545,,61925,0,0
+30,Entre Ríos,Unión Cívica Radical Antipersonalista,50841,135803,102389,12843,107
+30,Entre Ríos,Partido Demócrata Nacional,33389,135803,102389,12843,107
+30,Entre Ríos,Alianza Civil,5209,135803,102389,12843,107
+38,Jujuy,Partido Popular,9259,,13234,419,489
+38,Jujuy,Unión Cívica Radical Antipersonalista,2153,,13234,419,489
+38,Jujuy,Alianza Civil,914,,13234,419,489
+46,La Rioja,Unión Cívica Radical Antipersonalista,6755,18604,14348,0,221
+46,La Rioja,Partido Demócrata Nacional,6403,18604,14348,0,221
+46,La Rioja,Alianza Civil,969,18604,14348,0,221
+50,Mendoza,Partido Demócrata Nacional,26433,,37830,0,0
+50,Mendoza,Alianza Civil,8985,,37830,0,0
+50,Mendoza,Unión Cívica Radical Tradicional,940,,37830,0,0
+50,Mendoza,Unión Cívica Radical Antipersonalista y Partido Socialista Independiente,913,,37830,0,0
+50,Mendoza,Unión Cívica Radical Roja,559,,37830,0,0
+66,Salta,Partido Demócrata Nacional,18375,43315,30556,3582,8599
+70,San Juan,Unión Cívica Radical Bloquista,21131,,29443,845,0
+70,San Juan,Alianza Civil,3970,,29443,845,0
+70,San Juan,Partido Liberal,2007,,29443,845,0
+70,San Juan,Partido Demócrata Nacional,1490,,29443,845,0
+82,Santa Fe,Partido Demócrata Progresista,98387,,206928,20742,0
+82,Santa Fe,Unión Cívica Radical Unificada,87799,,206928,20742,0
+86,Santiago del Estero,Partido Radical Unificado,31482,85919,61553,0,11311
+86,Santiago del Estero,Partido Demócrata Nacional,18760,85919,61553,0,11311
+90,Tucumán,Defensa Provincial Bandera Blanca,28484,105220,83351,0,17726
+90,Tucumán,Partido Demócrata Nacional,24991,105220,83351,0,17726
+90,Tucumán,Partido Socialista,9617,105220,83351,0,17726
+90,Tucumán,Unión Cívica Radical Antipersonalista,2533,105220,83351,0,17726

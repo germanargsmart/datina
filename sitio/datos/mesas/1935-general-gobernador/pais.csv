@@ -1,0 +1,25 @@
+codigo_indec,provincia,lista,votos,electores,votantes,blancos,nulos
+06,Buenos Aires,Concordancia,278256,731038,489959,0,16746
+06,Buenos Aires,Unión Cívica Radical,171134,731038,489959,0,16746
+06,Buenos Aires,Partido Socialista,17313,731038,489959,0,16746
+06,Buenos Aires,Unión Cívica Radical Antipersonalista,6510,731038,489959,0,16746
+14,Córdoba,Unión Cívica Radical,109867,317670,222401,2761,200
+14,Córdoba,Partido Demócrata,104067,317670,222401,2761,200
+14,Córdoba,Partido Socialista,3596,317670,222401,2761,200
+14,Córdoba,Partido Agrario,1794,317670,222401,2761,200
+14,Córdoba,Unión Cívica Radical Antipersonalista,116,317670,222401,2761,200
+30,Entre Ríos,Unión Cívica Radical,52329,,112383,2874,5413
+30,Entre Ríos,Partido Demócrata Nacional,42661,,112383,2874,5413
+30,Entre Ríos,Unión Cívica Radical (Yrigoyenista),7593,,112383,2874,5413
+30,Entre Ríos,Partido Socialista,1202,,112383,2874,5413
+30,Entre Ríos,Partido Comunista,288,,112383,2874,5413
+30,Entre Ríos,Partido Nacional Laborista,23,,112383,2874,5413
+50,Mendoza,Partido Demócrata,30543,77725,59907,645,0
+50,Mendoza,Unión Cívica Radical Lencinista,15689,77725,59907,645,0
+50,Mendoza,Unión Cívica Radical Federalista,8182,77725,59907,645,0
+50,Mendoza,Partido Socialista,4848,77725,59907,645,0
+86,Santiago del Estero,Unión Cívica Radical Unificada,33388,,64926,0,1274
+86,Santiago del Estero,Unión Cívica Radical,20720,,64926,0,1274
+86,Santiago del Estero,Partido Demócrata Nacional,4815,,64926,0,1274
+86,Santiago del Estero,Unión Cívica Radical Frente Único,2749,,64926,0,1274
+86,Santiago del Estero,Partido Socialista,1980,,64926,0,1274

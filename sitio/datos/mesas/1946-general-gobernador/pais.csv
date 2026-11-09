@@ -1,0 +1,62 @@
+codigo_indec,provincia,lista,votos,electores,votantes,blancos,nulos
+06,Buenos Aires,Peronista,436866,989506,821775,0,20995
+06,Buenos Aires,Unión Cívica Radical,289291,989506,821775,0,20995
+06,Buenos Aires,Partido Demócrata,53034,989506,821775,0,20995
+06,Buenos Aires,Partido Socialista,21589,989506,821775,0,20995
+10,Catamarca,Partido Laborista,14530,34325,27035,0,392
+10,Catamarca,Unión Cívica Radical,9530,34325,27035,0,392
+10,Catamarca,Partido Demócrata,2321,34325,27035,0,392
+10,Catamarca,Unión Cívica Radical Junta Renovadora,114,34325,27035,0,392
+14,Córdoba,Peronista,118660,373928,315299,0,4971
+14,Córdoba,Unión Cívica Radical,118477,373928,315299,0,4971
+14,Córdoba,Partido Demócrata,64465,373928,315299,0,4971
+14,Córdoba,Partido Comunista,4288,373928,315299,0,4971
+14,Córdoba,Partido Socialista,3514,373928,315299,0,4971
+18,Corrientes,Partido Laborista,18092,126262,94003,0,1529
+18,Corrientes,Unión Cívica Radical,16909,126262,94003,0,1529
+18,Corrientes,Partido Liberal,15627,126262,94003,0,1529
+18,Corrientes,Unión Cívica Radical Junta Renovadora,15539,126262,94003,0,1529
+18,Corrientes,Partido Demócrata,13660,126262,94003,0,1529
+18,Corrientes,Partido Demócrata Nacional Autonomista,5839,126262,94003,0,1529
+18,Corrientes,Unión Cívica Radical Antipersonalista,5785,126262,94003,0,1529
+18,Corrientes,Partido Comunista,573,126262,94003,0,1529
+30,Entre Ríos,Peronista,66828,197925,162946,0,1978
+30,Entre Ríos,Unión Cívica Radical,60334,197925,162946,0,1978
+30,Entre Ríos,Partido Demócrata,29859,197925,162946,0,1978
+38,Jujuy,Unión Cívica Radical Yrigoyenista,9246,29267,22950,0,413
+38,Jujuy,Partido Laborista,6063,29267,22950,0,413
+38,Jujuy,Partido Demócrata,4401,29267,22950,0,413
+38,Jujuy,Unión Cívica Radical,2566,29267,22950,0,413
+46,La Rioja,Peronista,10255,25716,19457,0,206
+46,La Rioja,Unión Cívica Radical,7491,25716,19457,0,206
+46,La Rioja,Partido Demócrata,1347,25716,19457,0,206
+50,Mendoza,Partido Laborista,55157,130978,111533,0,542
+50,Mendoza,Unión Cívica Radical,25431,130978,111533,0,542
+50,Mendoza,Partido Demócrata,18359,130978,111533,0,542
+50,Mendoza,Partido Comunista,7078,130978,111533,0,542
+50,Mendoza,Unión Cívica Radical Lencinista,4024,130978,111533,0,542
+66,Salta,Peronista,28692,65203,46729,0,653
+66,Salta,Unión Cívica Radical,9550,65203,46729,0,653
+66,Salta,Partido Demócrata,7297,65203,46729,0,653
+70,San Juan,Partido Laborista y Unión Cívica Radical Junta Renovadora,15912,58738,48271,0,0
+70,San Juan,Unión Cívica Radical Bloquista,13797,58738,48271,0,0
+70,San Juan,Partido Demócrata Nacional,10206,58738,48271,0,0
+70,San Juan,Unión Cívica Radical,7294,58738,48271,0,0
+70,San Juan,Partido Socialista,1062,58738,48271,0,0
+74,San Luis,Peronista,14600,39788,33857,0,239
+74,San Luis,Partido Demócrata,11721,39788,33857,0,239
+74,San Luis,Unión Cívica Radical,6220,39788,33857,0,239
+82,Santa Fe,Peronista,192227,408843,350906,0,4348
+82,Santa Fe,Partido Demócrata Progresista,74861,408843,350906,0,4348
+82,Santa Fe,Unión Cívica Radical,70624,408843,350906,0,4348
+82,Santa Fe,Unión Cívica Radical (Santa Fe),6032,408843,350906,0,4348
+82,Santa Fe,Concentración Cívica Argentina,57,408843,350906,0,4348
+86,Santiago del Estero,Partido Laborista,45908,122495,88673,0,987
+86,Santiago del Estero,Unión Cívica Radical,29897,122495,88673,0,987
+86,Santiago del Estero,Unión Cívica Radical (S.E.),12587,122495,88673,0,987
+90,Tucumán,Partido Laborista,75492,152425,120659,0,2480
+90,Tucumán,Unión Cívica Radical,29240,152425,120659,0,2480
+90,Tucumán,Unión Cívica Radical Yrigoyenista,6067,152425,120659,0,2480
+90,Tucumán,Partido Demócrata,3318,152425,120659,0,2480
+90,Tucumán,Partido Laborista Tucumano,1659,152425,120659,0,2480
+90,Tucumán,Partido Socialista,1150,152425,120659,0,2480

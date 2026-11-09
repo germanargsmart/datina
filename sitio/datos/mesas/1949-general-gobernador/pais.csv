@@ -1,0 +1,20 @@
+codigo_indec,provincia,lista,votos,electores,votantes,blancos,nulos
+10,Catamarca,Partido Peronista,15227,36680,25716,0,1016
+10,Catamarca,Unión Cívica Radical,9459,36680,25716,0,1016
+38,Jujuy,Partido Peronista,14211,36100,22945,0,1087
+38,Jujuy,Unión Cívica Radical,4815,36100,22945,0,1087
+38,Jujuy,Partido Demócrata,2720,36100,22945,0,1087
+46,La Rioja,Partido Peronista,13021,27986,18395,0,454
+46,La Rioja,Unión Cívica Radical,4892,27986,18395,0,454
+66,Salta,Partido Peronista,22296,71302,37528,0,1299
+66,Salta,Unión Cívica Radical,12322,71302,37528,0,1299
+66,Salta,Partido Demócrata,903,71302,37528,0,1299
+66,Salta,Partido Laborista de Salta,277,71302,37528,0,1299
+82,Santa Fe,Partido Peronista,189530,444514,364748,0,9129
+82,Santa Fe,Unión Cívica Radical,124960,444514,364748,0,9129
+82,Santa Fe,Partido Demócrata Progresista,27568,444514,364748,0,9129
+82,Santa Fe,Partido Comunista,5538,444514,364748,0,9129
+82,Santa Fe,Partido Socialista,1929,444514,364748,0,9129
+86,Santiago del Estero,Partido Peronista,44278,134952,70746,0,2777
+86,Santiago del Estero,Unión Cívica Radical,21499,134952,70746,0,2777
+86,Santiago del Estero,Partido Comunista,1463,134952,70746,0,2777

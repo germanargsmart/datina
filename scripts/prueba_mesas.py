@@ -84,7 +84,13 @@ JURISDICCION_CONOCIDOS = {("1983-general-gobernador", "06"): "Unión Cívica Rad
                           ("1991-general-gobernador", "14"): "Unión Cívica Radical",
                           # sin escrutinio oficial en línea, con su fuente real (decisión del autor del 9 de noviembre de 2026)
                           ("1988-general-gobernador", "10"): "Partido Justicialista", ("2023-general-gobernador", "70"): "Unidos por San Juan",
-                          ("2011-segunda-gobernador", "94"): "Partido Social Patagónico"}
+                          ("2011-segunda-gobernador", "94"): "Partido Social Patagónico",
+                          # de 1912 a 1982 (decisión del autor del 9 de noviembre de 2026): la Concordancia de 1913 en Buenos Aires, la UCR santafesina en 1916,
+                          # Entre Ríos 1935 (oficial), Córdoba 1946 (la más reñida), la UCRI en 1958, el neoperonismo en Chaco 1962 y la segunda vuelta de 1973
+                          ("1913-general-gobernador", "06"): "Partido Conservador", ("1916-general-gobernador", "82"): "Unión Cívica Radical de Santa Fe",
+                          ("1935-general-gobernador", "30"): "Unión Cívica Radical", ("1946-general-gobernador", "14"): "Peronista",
+                          ("1958-general-gobernador", "06"): "Unión Cívica Radical Intransigente", ("1962-general-gobernador", "22"): "Partido Laborista",
+                          ("1973-segunda-gobernador", "14"): "Frente Justicialista de Liberación"}
 # lo que los departamentos de 257arg reúnen del definitivo de una jurisdicción: lo medido al armar va de 87,7% (Formosa, diputados 2007) a 116,1% (San Juan, presidente 2003). Fuera de esto, se coló un total
 DEPTOS_MIN, DEPTOS_MAX = 85, 118
 # la presidencial de 1983 suma casi exacto el definitivo oficial (14.927.512): sirve de control de toda la cadena
