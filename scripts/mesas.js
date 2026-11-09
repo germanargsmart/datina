@@ -570,7 +570,9 @@
     }
     return salida;
   }
-  const seccionDelRasgo = r => MAPA.doc.secciones?.get(`${r.properties.p}|${r.properties.s}`);
+  // en el mapa por circuito del gobernador, los polígonos son los de la elección nacional del mismo año y la tabla va por departamento: sec_tabla une las dos
+  const secTabla = r => MAPA.doc?.sec_tabla?.[r.properties.s] ?? r.properties.s;
+  const seccionDelRasgo = r => MAPA.doc.secciones?.get(`${r.properties.p}|${secTabla(r)}`);
   // rayas del color de la sección: se distinguen de un circuito con mesas. Se dibujan en el espacio del mapa, así que al acercar se achican para seguir del mismo ancho
   function rayas(color) {
     if (color === SIN_MESAS || !MAPA.defs) return color;
@@ -618,10 +620,10 @@
     if (!f && unidad !== "circuito") return `<b>${esc(prov)}</b><br>${unidad === "provincia" || elec().origen ? sinDato(elec(), p) : sinDatoHistorico(doc, p)}`;
     if (!f && !pv) return `<b>${esc(prov)}</b><br>No eligió ${NIVEL_NOMBRE[elec().cargo]} en esta elección`;
     if (!f) {
-      const sec = seccionDelRasgo(r), sn = pv.secciones?.[s] || "";
+      const sec = seccionDelRasgo(r), sn = pv.secciones?.[secTabla(r)] || "";
       const lugarSin = `<b>${c == null ? "Zona sin circuito en la cartografía" : c === "0" ? "Zona sin circuito propio" : `Circuito ${esc(c)}`}${sn ? `, ${esc(sn)}` : ""}, ${esc(prov)}</b>`;
       if (!sec) return `${lugarSin}<br>Sin mesas en esta elección`;
-      if (!positivosDe(sec)) return `${lugarSin}<br>Sin votos cargados en el escrutinio provisorio, en toda la sección. El definitivo de la jurisdicción sí los cuenta`;
+      if (!positivosDe(sec)) return `${lugarSin}<br>${doc.recuento === "definitivo" ? "Sin votos en esta elección, en toda la sección" : "Sin votos cargados en el escrutinio provisorio, en toda la sección. El definitivo de la jurisdicción sí los cuenta"}`;
       const pos = positivosDe(sec), l = [];
       for (let i = 0; i < Math.min(6, sec[4].length); i += 2) l.push(`${esc(doc.listas[sec[4][i]])}: ${pct(sec[4][i + 1] / pos * 100)}`);
       return `${lugarSin}<br>Sin mesas propias: quien vive acá vota en otro circuito. Se pinta, rayado, con el resultado de toda la sección:<br>${l.join("<br>")}`;
@@ -691,7 +693,7 @@
     const doc = MAPA.doc;
     if (!estado.p) { Object.assign(estado, {p: r.properties.p, s: "", c: "", m: ""}); actualizar(false); return; }
     const f = MAPA.indice.get(claveRasgo(r));
-    if (!f && unidadDe(doc) === "circuito" && seccionDelRasgo(r)) { Object.assign(estado, {s: r.properties.s, c: "", m: ""}); actualizar(false); return; }
+    if (!f && unidadDe(doc) === "circuito" && seccionDelRasgo(r)) { Object.assign(estado, {s: secTabla(r), c: "", m: ""}); actualizar(false); return; }
     if (!f || doc.provincias[estado.p].nivel === "provincia" || unidadDe(doc) === "provincia" || seccionDe(f) === "CABA") return;
     const cs = circuitosMesa(f), [s, c] = cs[0].split("|");
     if (unidadDe(doc) === "departamento" || doc.provincias[estado.p].nivel === "seccion" || cs.length > 1) Object.assign(estado, {s, c: "", m: ""});
@@ -710,7 +712,7 @@
       const dentro = MAPA.rasgos.filter(r => {
         if (!estado.s) return r.properties.p === estado.p;
         const f = MAPA.indice.get(claveRasgo(r));
-        return f ? seccionDe(f) === estado.s : r.properties.s === estado.s;
+        return f ? seccionDe(f) === estado.s : secTabla(r) === estado.s;
       });
       if (dentro.length) {
         const cajas = dentro.map(r => MAPA.camino.bounds(r));
@@ -797,7 +799,7 @@
     }
     // abajo de la leyenda: el rayado de lo que no tiene mesas propias y el gris, solo si queda algo gris, con su motivo
     const grisTxt = doc.historica ? (el.anio < 1951 ? "Sin dato, o territorio nacional que no votaba" : "Sin dato en esta elección")
-      : unidad === "circuito" ? (!estado.p && el.cargo === "senadores" ? "No eligió senadores en esta elección" : "Sin mesas o sin votos cargados en el provisorio")
+      : unidad === "circuito" ? (!estado.p && el.cargo === "senadores" ? "No eligió senadores en esta elección" : doc.recuento === "definitivo" ? "Sin mesas en esta elección" : "Sin mesas o sin votos cargados en el provisorio")
       : {departamento: el.gris || "Sin dato en esta elección", provincia: el.gris || "No eligió senadores en esta elección"}[unidad];
     const hayGris = MAPA.rasgos.some(r => rellenoDe(doc, r) === SIN_MESAS) || MAPA.fondoSel.data().some(r => rellenoDe(doc, r) === SIN_MESAS);
     $("ms-ley").innerHTML = leyenda +
@@ -805,7 +807,7 @@
       (hayGris ? `<div class="ms-ley-tramo ms-ley-sin"><i style="background:${SIN_MESAS}" aria-hidden="true"></i><span class="ms-ley-nom">${grisTxt}</span></div>` : "");
     $("ms-mapa-frase").textContent = frase;
     $("ms-mapa-tit").textContent = ver === "gana" ? `¿Quién ganó en cada ${singular}?` : ver === "part" ? `¿Cuánta gente votó en cada ${singular}?` : "¿Dónde sacó más votos cada fuerza?";
-    $("ms-mapa-sub").textContent = `${cargoNombre(el, estado.p)}, ${el.etiqueta}${unidad === "circuito" ? ", escrutinio provisorio mesa por mesa" : ""}. ${lugarMapa}. Tocá un lugar para ver sus resultados.`;
+    $("ms-mapa-sub").textContent = `${cargoNombre(el, estado.p)}, ${el.etiqueta}${unidad === "circuito" ? `, escrutinio ${doc.recuento || "provisorio"} mesa por mesa` : ""}. ${lugarMapa}. Tocá un lugar para ver sus resultados.`;
     MAPA.svg.attr("aria-label", `Mapa de ${donde}. ${frase} Los mismos resultados están en las tablas de abajo.`);
     // lo que el mapa no alcanza a mostrar
     const notas = [];
@@ -865,7 +867,10 @@
     caja.hidden = false;
     aviso.hidden = true;
     try {
-      const doc = await bajarJSON(`mapa/${el.id}.json`);
+      let doc = await bajarJSON(`mapa/${el.id}.json`);
+      // el gobernador de una jurisdicción con mesas: al entrar a ella, el mapa baja al circuito. Si ese archivo no llega, sigue por departamento
+      if (estado.p && doc.provincias[estado.p]?.circuitos)
+        doc = await bajarJSON(`mapa/${el.id}/${estado.p}.json`).catch(e => { console.warn("Elecciones por mesa, el mapa por circuito:", e); return doc; });
       const ed = estado.p ? doc.provincias[estado.p]?.ed : "";
       if (estado.p && !ed) throw new Error(`mapa/${el.id}.json: falta ${estado.p}`);
       const ruta = doc.periodo === "provincias" ? "geo/provincias.topo.json" : estado.p ? `geo/${ed}/${estado.p}.topo.json` : `geo/pais-${doc.periodo}.topo.json`;

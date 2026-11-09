@@ -763,6 +763,18 @@ await q.tamano(1280, 900);
   if (!/Hay datos de 4 jurisdicciones, que reúnen 36,9%/.test(m.nota) || !/no votaba/.test(m.ley)) problemas.push(`mesas.html: 1937 no dice cuánto reúne (${m.nota})`);
   r = await ms("?e=1973-septiembre-presidente", 2000);
   if (!/Perón/.test(r.txt) || (await q.eval(`document.getElementById("ms-eleccion").selectedOptions[0].textContent`)) !== "1973, septiembre") problemas.push("mesas.html: septiembre de 1973 no se distingue de marzo");
+  // el gobernador por circuito (pedido del autor del 8 de noviembre de 2026): con mesas, el mapa de la jurisdicción baja al circuito con los polígonos
+  // de la nacional del mismo año, y tocar uno elige su departamento y su circuito en la tabla. Sin mesas (Santa Fe), sigue por departamento
+  r = await ms("?e=2015-general-gobernador&p=90", 2200); m = await mapa();
+  const subMapa = () => q.eval(`document.getElementById("ms-mapa-sub").textContent`);
+  if (!/en cada circuito/.test(m.tit) || !/escrutinio definitivo mesa por mesa/.test(await subMapa()) || m.pintados < 200 || !/Frente para la Victoria/.test(m.ley))
+    problemas.push(`mesas.html: Tucumán 2015 sin el gobernador por circuito (${m.tit}, ${m.pintados} pintados)`);
+  await tocaLugar("90", "4"); r = await ms(null, 1800); m = await mapa();
+  if (!r.tit.startsWith("Circuito") || !/Monteros/.test(r.tit) || !/s=90070/.test(m.dir) || !/c=/.test(m.dir) || !m.sel) problemas.push(`mesas.html: tocar un circuito del gobernador no lo elige en la tabla (${r.tit}, ${m.dir})`);
+  r = await ms("?e=2015-general-gobernador&p=06", 2400); m = await mapa();
+  if (!/en cada circuito/.test(m.tit) || !/escrutinio provisorio mesa por mesa/.test(await subMapa()) || m.pintados < 900) problemas.push(`mesas.html: Buenos Aires 2015 sin el gobernador por circuito del provisorio (${m.tit}, ${m.pintados} pintados)`);
+  r = await ms("?e=2015-general-gobernador&p=82", 2000); m = await mapa();
+  if (!/en cada departamento/.test(m.tit) || m.pintados < 19) problemas.push(`mesas.html: Santa Fe 2015, sin mesas, no sigue por departamento (${m.tit}, ${m.pintados} pintados)`);
   // en el celular no se corre de costado, tampoco con las tablas de abajo a la vista
   await q.tamano(320, 700);
   for (const u of ["?e=2023-general-diputados&p=06&s=61", "?e=2023-general-presidente&p=06&s=61&c=627", "?e=2009-general-diputados&p=06", "?e=2025-general-diputados&ver=fuerza"]) {

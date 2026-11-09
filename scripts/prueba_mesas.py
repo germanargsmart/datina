@@ -48,6 +48,9 @@ CONOCIDOS_DEF = {"2023-segunda-presidente": {"Milei - Villarruel (La Libertad Av
 SANTA_FE = {"1": "La Capital", "2": "Las Colonias", "3": "San Jerónimo", "4": "Garay", "5": "Castellanos", "6": "San Martín", "7": "San Cristóbal", "8": "San Justo",
             "9": "General Obligado", "10": "Vera", "11": "San Javier", "12": "9 de Julio", "13": "Rosario", "14": "Caseros", "15": "Constitución", "16": "General López",
             "17": "Belgrano", "18": "Iriondo", "19": "San Lorenzo"}
+# en el mapa por circuito del gobernador, con los polígonos de la nacional del mismo año: lo menor medido el 8 de noviembre de 2026 fue 98,2% (Salta 2011 y 2015,
+# por los circuitos con letra que la nacional no separa). Si baja, cambió la numeración de los circuitos
+GOBERNADOR_MAPA_MINIMO = 97
 # qué parte de quienes votaron en una jurisdicción tiene su lugar en el mapa: lo menor medido al armar fue 99,6% (scripts/elecciones_mapa.py). Si baja, se rompió una unión
 MAPA_MINIMO = 99
 FUERZAS = RAIZ / "datos" / "manual" / "mesas_fuerzas.json"
@@ -444,6 +447,32 @@ def revisar(detalle=False):
                 esperado, de = trans_dep.get((el["id"], cod)), "datos/manual/mesas_jurisdiccion_departamentos.csv"
             if sum(int(x) for r in filas[1:] for x in r[8:]) != esperado:
                 problemas.append(f"{el['id']}/{cod}.csv: no da lo mismo que {de}")
+            # el mapa por circuito (8 de noviembre de 2026): con los polígonos de la nacional del mismo año, cada circuito de la tabla una sola vez,
+            # y los votantes del mapa no pasan de los de las mesas
+            doc_d = json.loads((SALIDA / "mapa" / f"{el['id']}.json").read_text(encoding="utf-8"))
+            if doc_d["provincias"][cod].get("circuitos"):
+                ruta_c = SALIDA / "mapa" / el["id"] / f"{cod}.json"
+                if not ruta_c.exists():
+                    problemas.append(f"mapa/{el['id']}/{cod}.json: falta. Hay que correr scripts/elecciones_jurisdiccion.py")
+                    continue
+                doc_c = json.loads(ruta_c.read_text(encoding="utf-8"))
+                pv = doc_c["provincias"][cod]
+                if doc_c["unidad"] != "circuito" or doc_c["listas"] != doc_d["listas"] or doc_c["recuento"] != el["mesas_en"][cod]:
+                    problemas.append(f"mapa/{el['id']}/{cod}.json: no es el mapa por circuito de la misma elección")
+                en_tabla = defaultdict(int)
+                for r in filas[1:]:
+                    en_tabla[f"{r[0]}|{r[2]}"] += sum(int(x) for x in r[5:])
+                vistas_c = [k for f in pv["filas"] for k in f[5]]
+                if len(vistas_c) != len(set(vistas_c)) or set(vistas_c) - set(en_tabla):
+                    problemas.append(f"mapa/{el['id']}/{cod}.json: un circuito dos veces, o que no está en la tabla")
+                total, esperado = sum(f[3] for f in pv["filas"]), sum(en_tabla.values())
+                parte = 100 * total / esperado if esperado else 100
+                if total > esperado or abs(parte - pv["con"]) > .11 or parte < GOBERNADOR_MAPA_MINIMO:
+                    problemas.append(f"mapa/{el['id']}/{cod}.json: el mapa suma {total:,} votantes de {esperado:,} ({parte:.1f}%, dice {pv['con']}%)")
+                if not (SALIDA / "geo" / pv["ed"] / f"{cod}.topo.json").exists():
+                    problemas.append(f"mapa/{el['id']}/{cod}.json: falta geo/{pv['ed']}/{cod}.topo.json")
+                if any(sum(f[4][1::2]) > f[3] for f in pv["filas"]):
+                    problemas.append(f"mapa/{el['id']}/{cod}.json: un lugar con más votos que votantes")
     if {k for k in trans_dep} - {(e["id"], c) for e in idx["elecciones"] for c in e.get("departamentos", []) if e.get("origen") == "jurisdiccion"}:
         problemas.append("mesas_jurisdiccion_departamentos.csv: departamentos que no llegaron al sitio. Hay que correr scripts/elecciones_jurisdiccion.py")
     if set(trans) - hechas:
