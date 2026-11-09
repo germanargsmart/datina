@@ -184,6 +184,31 @@ esperado = 0.1 * 111.32 * math.cos(math.radians(34.5))
 ver(abs(r[1] - esperado) < 0.05, f"fuera_km: un punto en el hueco está afuera, a 0,1 grado del borde del hueco (dio {r[1]:.2f})")
 ver(abs(r[2] - esperado) < 0.05, f"fuera_km: un punto a 0,1 grado al este (dio {r[2]:.2f}, se esperaba {esperado:.2f})")
 
+# ---- correcciones a mano sobre una tabla de juguete
+toy = pd.DataFrame({"cueanexo": ["1", "2", "3", "4"], "codigo_dep": ["58035", "58035", "58035", "58035"],
+                    "lat": [-38.95, -38.95, -38.95, -38.95], "lon": [-68.06, -68.06, -68.06, -68.06], "ubicacion": ["precisa"] * 4})
+cor = pd.DataFrame([
+    {"tipo": "escuela", "id": "1", "accion": "punto", "lat_origen": -38.95, "lon_origen": -68.06, "codigo_dep_origen": "58035",
+     "lat": -39.0, "lon": -68.1, "codigo_dep": None, "precision": "aproximada", "fuente": "Georef X", "fecha": "2026-11-09"},
+    {"tipo": "escuela", "id": "2", "accion": "departamento", "lat_origen": -38.95, "lon_origen": -68.06, "codigo_dep_origen": "58035",
+     "lat": None, "lon": None, "codigo_dep": "58042", "precision": None, "fuente": "Georef Y", "fecha": "2026-11-09"},
+    {"tipo": "escuela", "id": "3", "accion": "sin_confirmar", "lat_origen": -38.95, "lon_origen": -68.06, "codigo_dep_origen": "58035",
+     "lat": None, "lon": None, "codigo_dep": None, "precision": None, "fuente": "revisión", "fecha": "2026-11-09"},
+    {"tipo": "escuela", "id": "4", "accion": "punto", "lat_origen": -38.0, "lon_origen": -68.06, "codigo_dep_origen": "58035",
+     "lat": -39.0, "lon": -68.1, "codigo_dep": None, "precision": "aproximada", "fuente": "Georef Z", "fecha": "2026-11-09"},
+    {"tipo": "escuela", "id": "9", "accion": "sin_confirmar", "lat_origen": -38.95, "lon_origen": -68.06, "codigo_dep_origen": "58035",
+     "lat": None, "lon": None, "codigo_dep": None, "precision": None, "fuente": "revisión", "fecha": "2026-11-09"},
+    {"tipo": "hospital", "id": "1", "accion": "sin_confirmar", "lat_origen": -38.95, "lon_origen": -68.06, "codigo_dep_origen": "58035",
+     "lat": None, "lon": None, "codigo_dep": None, "precision": None, "fuente": "revisión", "fecha": "2026-11-09"}])
+r = est.aplicar_correcciones(toy, cor, "escuela", "cueanexo")
+tt = toy.set_index("cueanexo")
+ver(tuple(tt.loc["1", ["lat", "lon", "ubicacion", "correccion"]]) == (-39.0, -68.1, "aproximada", "punto"), "aplicar_correcciones: el punto")
+ver(tt.loc["2", "codigo_dep"] == "58042" and tt.loc["2", "lat"] == -38.95, "aplicar_correcciones: el departamento, sin mover el punto")
+ver(tt.loc["3", "ubicacion"] == "sin confirmar" and tt.loc["3", "lat"] == -38.95, "aplicar_correcciones: sin confirmar conserva el punto de la fuente")
+ver(tt.loc["4", "correccion"] == "" and tt.loc["4", "lat"] == -38.95, "aplicar_correcciones: si la fuente cambió el punto, no se aplica")
+ver(r == {"aplicadas": {"punto": 1, "departamento": 1, "sin_confirmar": 1}, "no_encontradas": ["9"], "la_fuente_cambio": ["4"]},
+    f"aplicar_correcciones: resumen {r}")
+
 # ---- lo escrito, contra su control
 D = est.SALIDA
 if (D / "control.json").exists():
@@ -209,11 +234,46 @@ if (D / "control.json").exists():
     ver(((esc.primaria == 1) | (esc.secundaria == 1)).all(), "escuelas: una sin primaria ni secundaria")
     ver((esc.secundaria[esc.tecnica == 1] == 1).all(), "escuelas: una técnica sin secundaria")
     ver(set(esc.sector) <= est.SECTORES, f"escuelas: sectores {set(esc.sector)}")
-    ver(set(esc.ubicacion) <= {"precisa", "mejorada", "aproximada", "sin dato"}, f"escuelas: ubicaciones {set(esc.ubicacion)}")
+    ver(set(esc.ubicacion) <= {"precisa", "mejorada", "aproximada", "sin dato", "sin confirmar"}, f"escuelas: ubicaciones {set(esc.ubicacion)}")
     ver(set(hos.dependencia) <= est.DEP_PUBLICAS, f"hospitales: dependencias {set(hos.dependencia)}")
     ver(set(hos.tipologia) <= est.HOSPITAL, f"hospitales: tipologías {set(hos.tipologia)}")
-    ver(set(hos.ubicacion) <= {"precisa", "sin dato"}, f"hospitales: ubicaciones {set(hos.ubicacion)}")
+    ver(set(hos.ubicacion) <= {"precisa", "mejorada", "aproximada", "sin dato", "sin confirmar"}, f"hospitales: ubicaciones {set(hos.ubicacion)}")
+    # las correcciones a mano (decisión 6 del autor): todas con fuente y fecha, todas aplicadas, y lo corregido ya cae en su departamento
+    cor = est.leer_correcciones()
+    for k in ("escuelas", "hospitales"):
+        ver(not ctl["correcciones"][k]["no_encontradas"] and not ctl["correcciones"][k]["la_fuente_cambio"],
+            f"correcciones de {k} sin aplicar: {ctl['correcciones'][k]}")
+    for n, t, clave, tipo in (("escuelas", esc, "cueanexo", "escuela"), ("hospitales", hos, "refes_id", "hospital")):
+        ids = set(cor[cor.tipo == tipo].id)
+        ver(ids <= set(t[clave]), f"{n}: correcciones de códigos que no están")
+        hechas = t[t.correccion.notna()]
+        ver(set(hechas[clave]) == ids, f"{n}: las filas corregidas no son las de correcciones.csv")
+        ver(hechas.correccion_fuente.notna().all(), f"{n}: una corrección sin fuente")
+        ok = hechas[hechas.correccion != "sin confirmar"]
+        ver(not (ok.fuera_km > est.BORDE_KM).any(), f"{n}: una corrección que sigue fuera de su departamento: {ok[ok.fuera_km > est.BORDE_KM][clave].tolist()}")
+        ver((t.ubicacion == "sin confirmar").sum() == (hechas.correccion == "sin confirmar").sum(), f"{n}: sin confirmar que no salen de la revisión")
     ver(ctl["escuelas"]["padron_filas"] >= ctl["escuelas"]["total"], "escuelas: más filas que el padrón")
+
+    # ---- lo publicado para la página de provincia (scripts/establecimientos_sitio.py, fase 2): lo mismo que datos/manual, una tabla por
+    # jurisdicción, sin punto lo que no se dibuja, y cada archivo bien lejos del límite de 25 MB de Cloudflare Pages
+    import establecimientos_sitio as pub
+    S = pub.DESTINO
+    if S.exists():
+        esperado = pub.tablas()
+        archivos = sorted(S.glob("*.csv"))
+        ver([a.stem for a in archivos] == sorted(esperado.prov.unique()) and len(archivos) == 24, "sitio: no hay una tabla por jurisdicción")
+        for a in archivos:
+            b = a.read_bytes()
+            g = esperado[esperado.prov == a.stem][pub.COLUMNAS]
+            ver(b == g.to_csv(index=False, lineterminator="\n").encode("utf-8"), f"sitio: {a.name} no es el que arman los datos (correr 03)")
+            ver(len(b) < 5 * 1024 * 1024, f"sitio: {a.name} pesa {len(b)} bytes")
+        ver(len(esperado[esperado.t == "e"]) == len(esc) and len(esperado[esperado.t == "h"]) == len(hos), "sitio: faltan filas")
+        ver(esperado[esperado.u.isin(["c", "n"])].lat.isna().all(), "sitio: se dibuja algo sin confirmar o sin dato")
+        ver(esperado[esperado.u.isin(["p", "m", "a"])].lat.notna().all(), "sitio: falta el punto de algo que se dibuja")
+        ver((esperado.dep.str[:2] == esperado.prov).all(), "sitio: un departamento de otra provincia")
+        ver(set(esperado.cat) <= set(pub.SECTOR.values()) | set(pub.DEPENDENCIA.values()), "sitio: categorías desconocidas")
+    else:
+        fallas.append("no está sitio/datos/establecimientos/: correr python scripts/03_construir_sitio.py")
 else:
     fallas.append("no está datos/manual/establecimientos/control.json: correr python scripts/establecimientos.py")
 
@@ -223,4 +283,4 @@ if fallas:
         print(" -", f)
     sys.exit(1)
 print("prueba_establecimientos: bien (limpieza de domicilios, Georef, códigos del REFES, padrón, Mapa Educativo, REFES, departamentos"
-      " y lo escrito contra su control)")
+      ", correcciones a mano y lo escrito contra su control)")

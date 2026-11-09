@@ -880,7 +880,7 @@ html:not(.js) .dest-control{display:none}
 .pi-listas a{display:block;padding:var(--e-3) 0;font-size:var(--t-3);line-height:1.3;color:var(--azul);text-decoration:none;transition:color var(--dur-1) var(--ease-out)}
 .pi-listas a[aria-current="true"]{color:var(--ink);box-shadow:inset 2px 0 0 var(--sol);padding-left:var(--e-2)}
 @media (hover:hover) and (pointer:fine){.pi-listas a:not([aria-current="true"]):hover{color:var(--ink)}}
-.prov-destaca,.prov-compara,.prov-puestos,.prov-censos,.prov-historia{scroll-margin-top:calc(var(--alto-barra) + var(--alto-franja) + var(--e-4))}
+.prov-destaca,.prov-compara,.prov-puestos,.prov-censos,.prov-establecimientos,.prov-historia{scroll-margin-top:calc(var(--alto-barra) + var(--alto-franja) + var(--e-4))}
 .perfil-grupo{scroll-margin-top:calc(var(--alto-barra) + var(--alto-franja) - var(--e-6))}
 /* sin datina.js no se puede abrir: la lista va entera, sin quedar fija */
 html:not(.js) .prov-indice{position:static;background:none}
@@ -946,7 +946,40 @@ html:not(.js) .pi-listas{display:block;position:static;box-shadow:none;backgroun
    indicador no tiene un bueno o malo indiscutido. El marco y los años quedan atrás: lo que se ve primero es la línea. El autor pidió rojo: el
    bermellón de --malo en una línea fina se ve naranja, así que va --rojo. Con daltonismo se distingue igual: rojo siempre baja, verde siempre
    sube, y la tarjeta lo dice en palabras */
-.prov-puestos,.prov-censos{margin-top:var(--e-6)}
+.prov-puestos,.prov-censos,.prov-establecimientos{margin-top:var(--e-6)}
+/* Escuelas y hospitales (9 de noviembre de 2026, docs/roadmap/ESTABLECIMIENTOS.md): los conmutadores de siempre, la leyenda con la cantidad
+   al lado de cada color, el mapa en un canvas que reserva su alto mientras carga, la ficha del punto elegido y el buscador del formulario */
+.est-controles{display:flex;flex-wrap:wrap;gap:var(--e-2) var(--e-4);align-items:center}
+.est-controles .conmutador{margin-top:0}
+.est-controles [hidden],.est-ficha[hidden]{display:none}
+.est-ley{display:flex;flex-wrap:wrap;gap:var(--e-1) var(--e-4);margin:var(--e-3) 0 var(--e-2);font-size:var(--t-2);color:var(--muted)}
+.est-cl{display:inline-flex;align-items:center;gap:var(--e-1)}
+.est-cl i{flex:none;width:10px;height:10px;border-radius:50%;box-shadow:0 0 0 1px #fff,0 0 0 2px var(--borde)}
+.est-cl-sin{color:var(--muted)}
+.est-lienzo{position:relative}
+/* el mapa de Leaflet: su letra, sus créditos chicos y los botones de acercar del sitio arriba de sus capas */
+.est-mapa{height:clamp(340px,62vh,620px);border:1px solid var(--borde);border-radius:var(--r-interno)}
+/* leaflet.css llega después y trae Arial y su gris: estas reglas pesan más */
+.est-mapa.leaflet-container{font:var(--t-2)/1.35 var(--f);background:var(--superficie)}
+.est-mapa:focus-visible{outline:3px solid var(--sol);outline-offset:1px}
+.est-mapa.leaflet-container .leaflet-control-attribution{font-size:var(--t-1);color:var(--muted)}
+.est-mapa.leaflet-container .leaflet-control-attribution a{color:var(--azul)}
+.leaflet-tooltip.est-tip{font:var(--t-2)/1.35 var(--f);color:var(--ink)}
+.est-sin-mapa{margin:0;padding:var(--e-4)}
+.est-lienzo .ms-zoom{z-index:1000;top:var(--e-2);right:var(--e-2)}
+.est-lienzo[aria-busy="true"]{background:var(--superficie);border-radius:var(--r-interno)}
+.est-ayuda{margin:var(--e-1) 0 0;font-size:var(--t-2);color:var(--muted)}
+.est-ficha{max-width:48em;margin-top:var(--e-3);padding:var(--e-3) var(--e-4);font-size:var(--t-3);background:var(--superficie);border-radius:var(--r-interno)}
+.est-ficha p{margin:0 0 var(--e-1)}
+.est-f-nom{font-weight:600;color:var(--ink)}
+.est-f-nota{font-size:var(--t-2);color:var(--muted)}
+.est-lead{margin-top:var(--e-4)}
+.est-buscar{max-width:36em;margin-top:var(--e-4)}
+.est-resultados{display:grid;gap:var(--e-1);max-width:48em;margin-top:var(--e-2)}
+.est-resultados .enlace{justify-self:start}
+.est-r-det{margin-bottom:var(--e-1);font-size:var(--t-2);color:var(--muted)}
+.est-cuantos{margin:0;font-size:var(--t-2);color:var(--muted)}
+.est-det{margin-top:var(--e-4)}
 .dp-pendiente{--c:var(--muted);--c-texto:var(--muted);display:block;width:100%;height:92px;margin:var(--e-2) 0;overflow:visible}
 .dp-pendiente.sube{--c:var(--bueno);--c-texto:var(--bueno-texto)}
 .dp-pendiente.baja{--c:var(--rojo);--c-texto:var(--rojo)}

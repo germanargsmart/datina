@@ -35,7 +35,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
      mismas versiones que daban cdnjs y jsDelivr): si una de esas CDN fallaba o estaba bloqueada, las páginas quedaban vacías -->
 <script src="lib/d3-7.8.5.min.js?v=a029baa963"></script>
 <script src="lib/topojson-client-3.1.0.min.js?v=bc057598e8"></script>
-<link rel="stylesheet" href="datina.css?v=8d41b30951">
+<link rel="stylesheet" href="datina.css?v=49c38fbe2e">
 </head>
 <body data-pagina="provincia" data-prov="50">
 <!-- "Saltar al contenido" (Fase 2, paso 6, respuesta del autor del 23 de octubre de 2026): la primera parada del teclado, que solo se ve
@@ -114,7 +114,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     <!-- 5 de noviembre de 2026, pedido del autor: el menú de la página, que escribe el constructor y sigue a quien baja. A la izquierda desde 1200
          píxeles y, en pantallas más chicas, una franja fija que se despliega -->
     <div class="prov-cuerpo">
-    <nav class="prov-indice" id="perfil-indice" aria-label="En esta página"><button type="button" class="pi-btn" aria-expanded="false" aria-controls="pi-listas"><span class="pi-txt">En esta página<span class="pi-actual"></span></span><span class="desp-signo" aria-hidden="true"></span></button><p class="pi-tit">En esta página</p><div class="pi-listas" id="pi-listas"><ul><li><a href="#prov-destaca">Dónde se destaca</a></li><li><a href="#prov-compara">Comparar con otra provincia</a></li><li><a href="#prov-puestos">Cómo cambió su puesto</a></li><li><a href="#prov-censos">Cómo cambió entre los censos 2010 y 2022</a></li></ul><ul><li><a href="#pg-trabajo">Trabajo</a></li><li><a href="#pg-social">Seguridad social</a></li><li><a href="#pg-economia">Economía</a></li><li><a href="#pg-salud">Salud</a></li><li><a href="#pg-educacion">Educación</a></li><li><a href="#pg-seguridad">Seguridad</a></li><li><a href="#pg-poblacion">Población y migraciones</a></li><li><a href="#pg-gobierno">Gobierno</a></li><li><a href="#pg-vivienda">Vivienda y servicios</a></li><li><a href="#pg-energia">Energía</a></li><li><a href="#pg-turismo">Turismo y naturaleza</a></li><li><a href="#pg-capital">La capital</a></li></ul><ul><li><a href="#prov-historia">Historia</a></li></ul></div></nav>
+    <nav class="prov-indice" id="perfil-indice" aria-label="En esta página"><button type="button" class="pi-btn" aria-expanded="false" aria-controls="pi-listas"><span class="pi-txt">En esta página<span class="pi-actual"></span></span><span class="desp-signo" aria-hidden="true"></span></button><p class="pi-tit">En esta página</p><div class="pi-listas" id="pi-listas"><ul><li><a href="#prov-destaca">Dónde se destaca</a></li><li><a href="#prov-compara">Comparar con otra provincia</a></li><li><a href="#prov-puestos">Cómo cambió su puesto</a></li><li><a href="#prov-censos">Cómo cambió entre los censos 2010 y 2022</a></li><li><a href="#prov-establecimientos">Escuelas y hospitales</a></li></ul><ul><li><a href="#pg-trabajo">Trabajo</a></li><li><a href="#pg-social">Seguridad social</a></li><li><a href="#pg-economia">Economía</a></li><li><a href="#pg-salud">Salud</a></li><li><a href="#pg-educacion">Educación</a></li><li><a href="#pg-seguridad">Seguridad</a></li><li><a href="#pg-poblacion">Población y migraciones</a></li><li><a href="#pg-gobierno">Gobierno</a></li><li><a href="#pg-vivienda">Vivienda y servicios</a></li><li><a href="#pg-energia">Energía</a></li><li><a href="#pg-turismo">Turismo y naturaleza</a></li><li><a href="#pg-capital">La capital</a></li></ul><ul><li><a href="#prov-historia">Historia</a></li></ul></div></nav>
     <div class="prov-contenido">
     <!-- "Dónde se destaca" (etapa 6 del plan de mejora): las cifras más altas y más bajas de la provincia elegida, las arma datina.js -->
     <section class="prov-destaca" id="prov-destaca" aria-labelledby="prov-destaca-t" hidden></section>
@@ -124,6 +124,43 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     <section class="prov-puestos" id="prov-puestos" aria-labelledby="prov-puestos-t" hidden></section>
     <!-- F12 (plan de mejora, 31 de octubre de 2026): cómo cambió la provincia entre los censos 2010 y 2022, con los tres cambios más grandes -->
     <section class="prov-censos" id="prov-censos" aria-labelledby="prov-censos-t" hidden></section>
+    <!-- Escuelas y hospitales (9 de noviembre de 2026, docs/roadmap/ESTABLECIMIENTOS.md): las escuelas primarias y secundarias y los hospitales
+         públicos con internación de la jurisdicción, en un mapa de sus departamentos. El marcado es fijo (pintarPanel no lo rehace al cambiar el
+         ancho): datina.js lo llena una vez por provincia y el mapa solo se acomoda. 03 le agrega la versión de las tablas y la fecha de cada
+         fuente. El mapa es de Leaflet, servida desde el sitio y pedida recién cuando hace falta (con su huella, como D3) -->
+    <section class="prov-establecimientos" id="prov-establecimientos" data-v="68c5b0b70c" data-padron="2026-06-16" data-refes="2026-11-09" data-n="02:1165,06:10955,10:705,14:3243,18:1235,22:1618,26:468,30:1881,34:945,38:687,42:389,46:511,50:1322,54:1828,58:577,62:658,66:1149,70:661,74:601,78:225,82:2766,86:1800,90:1321,94:104" aria-labelledby="prov-establecimientos-t" hidden
+      data-leaflet="lib/leaflet-1.9.4.min.js?v=5a640ff863" data-leaflet-css="lib/leaflet-1.9.4.css?v=ec929f1100">
+      <h2 class="bloque-grupo" id="prov-establecimientos-t">Escuelas y hospitales</h2>
+      <p class="prov-destaca-sub" id="est-sub"></p>
+      <div class="est-controles">
+        <div class="conmutador" role="group" aria-label="Qué mostrar en el mapa" id="est-capa" data-propio style="--n:2">
+          <button type="button" data-m="e" aria-pressed="true">Escuelas</button><button type="button" data-m="h" aria-pressed="false">Hospitales</button>
+        </div>
+        <div class="conmutador" role="group" aria-label="Nivel de las escuelas" id="est-nivel" data-propio style="--n:3">
+          <button type="button" data-m="" aria-pressed="true">Todas</button><button type="button" data-m="p" aria-pressed="false">Primaria</button><button type="button" data-m="s" aria-pressed="false">Secundaria</button>
+        </div>
+        <div class="conmutador" role="group" aria-label="Fondo del mapa" id="est-fondo" data-propio style="--n:3">
+          <button type="button" data-m="gris" aria-pressed="true">Gris</button><button type="button" data-m="color" aria-pressed="false">Color</button><button type="button" data-m="satelite" aria-pressed="false">Satélite</button>
+        </div>
+      </div>
+      <p class="est-ley" id="est-ley"></p>
+      <div class="est-lienzo" id="est-lienzo">
+        <div class="est-mapa" id="est-mapa" role="region" aria-label="Mapa de las escuelas y los hospitales de la provincia"></div>
+        <div class="ms-zoom" role="group" aria-label="Acercar o alejar el mapa">
+          <button type="button" data-z="mas" aria-label="Acercar">+</button>
+          <button type="button" data-z="menos" aria-label="Alejar">−</button>
+          <button type="button" data-z="todo" aria-label="Volver a la vista completa">Todo</button>
+        </div>
+      </div>
+      <p class="est-ayuda">Tocá un punto para ver de qué escuela u hospital se trata. Para acercar, los botones, dos dedos o Ctrl y la rueda del mouse. Para moverlo, arrastralo (en el celular, con dos dedos).</p>
+      <div class="est-ficha" id="est-ficha" aria-live="polite" hidden></div>
+      <p class="lead est-lead" id="est-lead"></p>
+      <label class="campo est-buscar"><span>Buscar</span><small>Una escuela o un hospital, por nombre, localidad o domicilio</small>
+        <input type="search" id="est-q" autocomplete="off" spellcheck="false"></label>
+      <div class="est-resultados" id="est-resultados"></div>
+      <details class="cx-detalle est-det"><summary>Ver la tabla por departamento</summary><div id="est-tabla"></div></details>
+      <p class="tabla-nota" id="est-nota"></p>
+    </section>
     <div class="prov-grid" id="prov-grid"><section class="perfil-grupo" id="pg-trabajo" aria-labelledby="pg-trabajo-t"><div class="perfil-cab"><h2 class="bloque-grupo" id="pg-trabajo-t"><span>Trabajo</span></h2></div><div class="perfil-tarjetas"><span class="tarjeta dp esqueleto"></span><span class="tarjeta dp esqueleto"></span><span class="tarjeta dp esqueleto"></span><span class="tarjeta dp esqueleto"></span></div></section><section class="perfil-grupo" id="pg-social" aria-labelledby="pg-social-t"><div class="perfil-cab"><h2 class="bloque-grupo" id="pg-social-t"><span>Seguridad social</span></h2></div><div class="perfil-tarjetas"><span class="tarjeta dp esqueleto"></span><span class="tarjeta dp esqueleto"></span><span class="tarjeta dp esqueleto"></span><span class="tarjeta dp esqueleto"></span></div></section><section class="perfil-grupo" id="pg-economia" aria-labelledby="pg-economia-t"><div class="perfil-cab"><h2 class="bloque-grupo" id="pg-economia-t"><span>Economía</span></h2></div><div class="perfil-tarjetas"><span class="tarjeta dp esqueleto"></span><span class="tarjeta dp esqueleto"></span><span class="tarjeta dp esqueleto"></span></div></section><section class="perfil-grupo" id="pg-salud" aria-labelledby="pg-salud-t"><div class="perfil-cab"><h2 class="bloque-grupo" id="pg-salud-t"><span>Salud</span></h2></div><div class="perfil-tarjetas"><span class="tarjeta dp esqueleto"></span><span class="tarjeta dp esqueleto"></span><span class="tarjeta dp esqueleto"></span><span class="tarjeta dp esqueleto"></span><span class="tarjeta dp esqueleto"></span></div></section><section class="perfil-grupo" id="pg-educacion" aria-labelledby="pg-educacion-t"><div class="perfil-cab"><h2 class="bloque-grupo" id="pg-educacion-t"><span>Educación</span></h2></div><div class="perfil-tarjetas"><span class="tarjeta dp esqueleto"></span><span class="tarjeta dp esqueleto"></span><span class="tarjeta dp esqueleto"></span><span class="tarjeta dp esqueleto"></span><span class="tarjeta dp esqueleto"></span></div></section><section class="perfil-grupo" id="pg-seguridad" aria-labelledby="pg-seguridad-t"><div class="perfil-cab"><h2 class="bloque-grupo" id="pg-seguridad-t"><span>Seguridad</span></h2></div><div class="perfil-tarjetas"><span class="tarjeta dp esqueleto"></span><span class="tarjeta dp esqueleto"></span></div></section><section class="perfil-grupo" id="pg-poblacion" aria-labelledby="pg-poblacion-t"><div class="perfil-cab"><h2 class="bloque-grupo" id="pg-poblacion-t"><span>Población y migraciones</span></h2></div><div class="perfil-tarjetas"><span class="tarjeta dp esqueleto"></span><span class="tarjeta dp esqueleto"></span><span class="tarjeta dp esqueleto"></span><span class="tarjeta dp esqueleto"></span></div></section><section class="perfil-grupo" id="pg-gobierno" aria-labelledby="pg-gobierno-t"><div class="perfil-cab"><h2 class="bloque-grupo" id="pg-gobierno-t"><span>Gobierno</span></h2></div><div class="perfil-tarjetas"><span class="tarjeta dp esqueleto"></span><span class="tarjeta dp esqueleto"></span><span class="tarjeta dp esqueleto"></span><span class="tarjeta dp esqueleto"></span></div></section><section class="perfil-grupo" id="pg-vivienda" aria-labelledby="pg-vivienda-t"><div class="perfil-cab"><h2 class="bloque-grupo" id="pg-vivienda-t"><span>Vivienda y servicios</span></h2></div><div class="perfil-tarjetas"><span class="tarjeta dp esqueleto"></span><span class="tarjeta dp esqueleto"></span><span class="tarjeta dp esqueleto"></span></div></section><section class="perfil-grupo" id="pg-energia" aria-labelledby="pg-energia-t"><div class="perfil-cab"><h2 class="bloque-grupo" id="pg-energia-t"><span>Energía</span></h2></div><div class="perfil-tarjetas"><span class="tarjeta dp esqueleto"></span><span class="tarjeta dp esqueleto"></span><span class="tarjeta dp esqueleto"></span></div></section><section class="perfil-grupo" id="pg-turismo" aria-labelledby="pg-turismo-t"><div class="perfil-cab"><h2 class="bloque-grupo" id="pg-turismo-t"><span>Turismo y naturaleza</span></h2></div><div class="perfil-tarjetas"><span class="tarjeta dp esqueleto"></span><span class="tarjeta dp esqueleto"></span></div></section><section class="perfil-grupo" id="pg-capital" aria-labelledby="pg-capital-t"><div class="perfil-cab"><h2 class="bloque-grupo" id="pg-capital-t"><span>La capital</span></h2></div><div class="perfil-tarjetas"><span class="tarjeta dp esqueleto"></span><span class="tarjeta dp esqueleto"></span><span class="tarjeta dp esqueleto"></span></div></section></div>
     <!-- la historia de cada jurisdicción (11 de octubre de 2026), al final desde la etapa 6 del plan de mejora: la escribe el constructor
          desde datos/manual/provincias_historia.json -->
@@ -253,7 +290,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 <p class="solo-lector" id="aviso" aria-live="polite"></p>
 
 <!-- los datos van en un archivo aparte que el navegador guarda una sola vez para todas las páginas -->
-<script src="datos/fichas.js?v=74255b5e0c"></script>
-<script src="datina.js?v=bd001d9e84"></script>
+<script src="datos/fichas.js?v=2d25a74b92"></script>
+<script src="datina.js?v=dd05925e8a"></script>
 </body>
 </html>

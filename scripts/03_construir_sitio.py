@@ -467,6 +467,18 @@ _LINEA_YA = _YA('const a=document.querySelector(\'.prov-linea[data-c="\'+c+\'"]\
                 'const d=document.getElementById("prov-destaca");if(d)d.hidden=false')
 base = base.replace("<!--HISTORIA-->", '<div class="prov-historia" id="prov-historia">'
                     + "".join(historia_prov(c, HISTORIA[c]) for c in sorted(HISTORIA)) + "</div>" + _HIST_YA)
+# Escuelas y hospitales de cada provincia (9 de noviembre de 2026, docs/roadmap/ESTABLECIMIENTOS.md): establecimientos_sitio.py escribe
+# sitio/datos/establecimientos/{código}.csv desde datos/manual/establecimientos/ (con los mismos datos, los mismos archivos). La sección de la
+# página de provincia recibe la huella de esas tablas (las pide con ?v=, así una tabla nueva no queda guardada en el navegador) y la fecha de
+# cada fuente: ningún año se escribe a mano en la plantilla
+import establecimientos_sitio  # noqa: E402
+_est = establecimientos_sitio.publicar()
+_est_v = hashlib.sha1(b"".join(p.read_bytes() for p in sorted(establecimientos_sitio.DESTINO.glob("*.csv")))).hexdigest()[:10]
+assert base.count('id="prov-establecimientos"') == 1, "falta la sección de escuelas y hospitales en la plantilla"
+# y cuántas filas tiene la tabla de cada provincia: una tabla que llega cortada es una falla, no una provincia con menos escuelas
+_est_n = ",".join(f'{c}:{v["escuelas"] + v["hospitales"]}' for c, v in sorted(_est["por_provincia"].items()))
+base = base.replace('id="prov-establecimientos"', f'id="prov-establecimientos" data-v="{_est_v}" data-padron="{_est["padron"]}" '
+                    f'data-refes="{_est["refes"]}" data-n="{_est_n}"', 1)
 
 
 def linea_prov(c, h):
@@ -832,7 +844,10 @@ JS_SITIO = achicar_js.achicar(js)
 (SITIO / "datina.js").write_text(JS_SITIO, encoding="utf-8", newline="\n")
 # D3 y topojson desde el propio sitio (plan de estabilización, P0-1, 22 de octubre de 2026): las mismas versiones que se pedían a cdnjs y
 # jsDelivr, copiadas byte por byte de scripts/lib/ a sitio/lib/ con sus licencias, y pedidas con su huella como datina.js
-LIBS = {"__V_D3__": "d3-7.8.5.min.js", "__V_TOPOJSON__": "topojson-client-3.1.0.min.js"}
+# Leaflet 1.9.4 (9 de noviembre de 2026, el mapa de escuelas y hospitales de cada provincia): bajada de npm e igual byte por byte a la de
+# jsDelivr. La pide datina.js recién cuando la sección se acerca a la pantalla (la dirección va en la sección, con su huella)
+LIBS = {"__V_D3__": "d3-7.8.5.min.js", "__V_TOPOJSON__": "topojson-client-3.1.0.min.js",
+        "__V_LEAFLET__": "leaflet-1.9.4.min.js", "__V_LEAFLET_CSS__": "leaflet-1.9.4.css"}
 (SITIO / "lib").mkdir(exist_ok=True)
 for _lib in (RAIZ / "scripts" / "lib").iterdir():
     shutil.copyfile(_lib, SITIO / "lib" / _lib.name)
@@ -1234,7 +1249,7 @@ def perfil_menu():
     orden en que aparecen. datina.js esconde lo que no se ve con la provincia elegida y copia los títulos de las secciones. Mismo aspecto que
     la fila de capítulos: una letra, un tamaño y sin negrita, con la marca amarilla en lo que se está viendo."""
     grupos = [[("prov-destaca", "Dónde se destaca"), ("prov-compara", "Comparar con otra provincia"), ("prov-puestos", "Cómo cambió su puesto"),
-               ("prov-censos", "Cómo cambió entre los censos 2010 y 2022")],
+               ("prov-censos", "Cómo cambió entre los censos 2010 y 2022"), ("prov-establecimientos", "Escuelas y hospitales")],
               [(f"pg-{g}", t) for g, t in PERFIL_GRUPOS],
               [("prov-historia", "Historia")]]
     listas = "".join("<ul>" + "".join(f'<li><a href="#{i}">{t}</a></li>' for i, t in g) + "</ul>" for g in grupos)
@@ -1602,7 +1617,10 @@ CACHE_LARGO = (["/datina.css", "/datina.js", "/mesas.js", "/datos/fichas.js", "/
 # Las tablas de Elecciones por mesa (4 de noviembre de 2026): Cloudflare comprime el JSON y el texto, pero no el CSV, y Buenos Aires bajaba unos 5 MB. Se sirven como
 # texto: el archivo es el mismo y sigue llamándose .csv, y los enlaces de descarga llevan el atributo download
 MESAS_TEXTO = "/datos/mesas/*\n  Content-Type: text/plain; charset=utf-8\n"
-(SITIO / "_headers").write_text("".join(f"{r}\n  Cache-Control: public, max-age=31536000, immutable\n" for r in CACHE_LARGO) + MESAS_TEXTO, encoding="utf-8", newline="\n")
+# lo mismo con las escuelas y los hospitales de cada provincia (9 de noviembre de 2026): Buenos Aires son 1,4 MB de CSV y unos 400 KB comprimidos
+EST_TEXTO = "/datos/establecimientos/*\n  Content-Type: text/plain; charset=utf-8\n"
+(SITIO / "_headers").write_text("".join(f"{r}\n  Cache-Control: public, max-age=31536000, immutable\n" for r in CACHE_LARGO) + MESAS_TEXTO + EST_TEXTO,
+                                encoding="utf-8", newline="\n")
 # los datos de Elecciones por mesa (scripts/prueba_mesas.py): 03 no los arma, los arma scripts/elecciones_mesas.py, pero si no suman lo que tienen que sumar
 # el sitio no se da por armado
 import prueba_mesas
