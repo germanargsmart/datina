@@ -842,7 +842,10 @@ JS_SITIO = achicar_js.achicar(js)
 (SITIO / "datina.js").write_text(JS_SITIO, encoding="utf-8", newline="\n")
 # D3 y topojson desde el propio sitio (plan de estabilización, P0-1, 22 de octubre de 2026): las mismas versiones que se pedían a cdnjs y
 # jsDelivr, copiadas byte por byte de scripts/lib/ a sitio/lib/ con sus licencias, y pedidas con su huella como datina.js
-LIBS = {"__V_D3__": "d3-7.8.5.min.js", "__V_TOPOJSON__": "topojson-client-3.1.0.min.js"}
+# Leaflet 1.9.4 (9 de noviembre de 2026, el mapa de escuelas y hospitales de cada provincia): bajada de npm e igual byte por byte a la de
+# jsDelivr. La pide datina.js recién cuando la sección se acerca a la pantalla (la dirección va en la sección, con su huella)
+LIBS = {"__V_D3__": "d3-7.8.5.min.js", "__V_TOPOJSON__": "topojson-client-3.1.0.min.js",
+        "__V_LEAFLET__": "leaflet-1.9.4.min.js", "__V_LEAFLET_CSS__": "leaflet-1.9.4.css"}
 (SITIO / "lib").mkdir(exist_ok=True)
 for _lib in (RAIZ / "scripts" / "lib").iterdir():
     shutil.copyfile(_lib, SITIO / "lib" / _lib.name)

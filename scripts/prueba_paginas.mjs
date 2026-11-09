@@ -307,10 +307,14 @@ await p.ir(`${B}provincia-chaco.html`, 1500);
   // Hospitales cambia lo que se muestra
   await p.eval(`document.getElementById("prov-establecimientos").scrollIntoView()`); await espera(2500);
   const est = await p.eval(`(async () => {
-    const $ = id => document.getElementById(id), cv = $("est-canvas");
-    const pintado = () => { const c = document.createElement("canvas"); c.width = cv.width; c.height = cv.height; return cv.width > 300 && cv.toDataURL() !== c.toDataURL(); };
+    const $ = id => document.getElementById(id), mapa = $("est-mapa");
+    // el mapa de Leaflet: su lienzo de puntos dibujado, y el fondo gris del IGN (la capa existe aunque sus teselas no lleguen)
+    const lienzo = mapa.querySelector(".leaflet-overlay-pane canvas"), capas = () => mapa.querySelectorAll(".leaflet-tile-pane .leaflet-layer").length;
     const out = {visible: !$("prov-establecimientos").hidden, lead: $("est-lead").textContent, ley: $("est-ley").textContent, filas: $("est-tabla").querySelectorAll("tbody tr").length,
-                 pintado: pintado(), nombre: cv.getAttribute("aria-label")};
+                 pintado: !!lienzo && lienzo.width > 300, nombre: mapa.getAttribute("aria-label"), fondos: capas()};
+    $("est-fondo").querySelector('button[data-m="satelite"]').click();
+    out.fondosSatelite = capas();
+    $("est-fondo").querySelector('button[data-m="gris"]').click();
     const q = $("est-q"); q.value = "escuela"; q.dispatchEvent(new Event("input"));
     out.resultados = $("est-resultados").querySelectorAll("button[data-i]").length;
     $("est-resultados").querySelector("button[data-i]")?.click();
@@ -320,7 +324,8 @@ await p.ir(`${B}provincia-chaco.html`, 1500);
     $("est-capa").querySelector('button[data-m="e"]').click();
     return out;
   })()`);
-  if (!est.visible || !/^Chaco tiene [\d.]+ escuelas/.test(est.lead) || !est.ley || est.filas < 20 || !est.pintado || !/Mapa de Chaco/.test(est.nombre))
+  if (!est.visible || !/^Chaco tiene [\d.]+ escuelas/.test(est.lead) || !est.ley || est.filas < 20 || !est.pintado || !/Mapa de Chaco con [\d.]+ escuelas/.test(est.nombre)
+      || est.fondos !== 1 || est.fondosSatelite !== 2)
     problemas.push(`provincia-chaco.html: escuelas y hospitales mal ${JSON.stringify(est)}`);
   if (!est.resultados || !est.ficha || !/Hospital|hospital/.test(est.leadH) || !est.nivelOculto)
     problemas.push(`provincia-chaco.html: el buscador o Hospitales no andan ${JSON.stringify(est)}`);

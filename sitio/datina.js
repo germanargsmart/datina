@@ -7663,13 +7663,14 @@ filas.map(r => `<tr><th scope="row">${r.nombre}<small>${r.unidad}</small></th><t
 `<p class="tabla-nota">Cuadros del INDEC de los censos 2010 y 2022. El de 2010 fue un censo de hecho (contó a las personas donde estaban esa noche) y ` +
 `el de 2022, de derecho (donde viven). En 2022 la computadora incluye notebook y tableta, así que su suba puede ser en parte por la pregunta.</p>`;
 }
-const EST = {prov: null, filas: null, cargando: null, visible: false, capa: "e", nivel: "", elegido: null, t: null, zoom: null, listo: false};
+const EST = {prov: null, filas: null, cargando: null, visible: false, capa: "e", nivel: "", fondo: "gris", elegido: null, listo: false};
 const EST_CAT = {
 e: [["est", "estatal", "estatales", "--celeste-fuerte"], ["priv", "privada", "privadas", "--sol"], ["soc", "de gestión social o cooperativa", "de gestión social o cooperativa", "--ink"]],
 h: [["prov", "provincial", "provinciales", "--celeste-fuerte"], ["mun", "municipal", "municipales", "--sol"], ["nac", "nacional", "nacionales", "--ink"],
 ["univ", "universitario", "universitarios", "--ink"], ["mixta", "mixto", "mixtos", "--ink"]]
 };
 const EST_DEP_FUERA = {"94028": "Antártida Argentina"};
+const EST_IGN = "https://wms.ign.gob.ar/geoserver/gwc/service/tms/1.0.0/";
 const estColor = v => getComputedStyle(document.documentElement).getPropertyValue(v).trim() || "#2C74B5";
 const estNorm = s => String(s || "").normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
 const estMes = iso => { const m = /^(\d{4})-(\d{2})/.exec(iso || ""); return m ? `${MESES[+m[2] - 1]} de ${m[1]}` : ""; };
@@ -7696,6 +7697,7 @@ else if (r.u === "m") partes.push("Ubicación tomada de su domicilio con Georef 
 else if (r.u === "a") partes.push("Ubicación aproximada: la fuente da el centro de su localidad, no el edificio.");
 if (r.cor === "d") partes.push(`Departamento corregido por Datina: la fuente ${la} anota en otro, pero el lugar está en ${estDep(r.dep)} según Georef (IGN).`);
 if (r.fk) partes.push(`El punto de la fuente cae a ${estPl(r.fk, "km", "km")} del departamento en que ${la} anota.`);
+if (EST_DEP_FUERA[r.dep]) partes.push("Queda fuera del mapa de departamentos del sitio.");
 return partes.join(" ");
 }
 function pintarEstablecimientos() {
@@ -7703,14 +7705,15 @@ const caja = document.getElementById("prov-establecimientos"); if (!caja) return
 if (!NOMBRES[prov]) { caja.hidden = true; EST.prov = null; EST.filas = null; return; }
 caja.hidden = false;
 if (!EST.listo) estPreparar(caja);
-if (EST.prov === prov) { if (EST.filas) estDibujar(); return; }
-Object.assign(EST, {prov, filas: null, cargando: null, elegido: null, t: d3.zoomIdentity});
+if (EST.prov === prov) { EST.mapa?.invalidateSize(); return; }
+Object.assign(EST, {prov, filas: null, cargando: null, elegido: null, marcas: null});
 const fp = estMes(caja.dataset.padron), fr = estMes(caja.dataset.refes);
-$("est-sub").textContent = `Las escuelas primarias y secundarias y los hospitales públicos con internación de ${NOMBRES[prov]}, en el mapa de sus departamentos. ` +
-`Escuelas del padrón oficial${fp ? ` de ${fp}` : ""} y hospitales del registro federal de salud${fr ? ` de ${fr}` : ""}.`;
+$("est-sub").textContent = `Las escuelas primarias y secundarias y los hospitales públicos con internación de ${NOMBRES[prov]}, sobre el mapa del ` +
+`Instituto Geográfico Nacional. Escuelas del padrón oficial${fp ? ` de ${fp}` : ""} y hospitales del registro federal de salud${fr ? ` de ${fr}` : ""}.`;
 ["est-ley", "est-lead", "est-resultados", "est-tabla", "est-nota"].forEach(id => { $(id).innerHTML = ""; });
 $("est-ficha").hidden = true; $("est-q").value = "";
-const cv = $("est-canvas"), cx = cv.getContext("2d"); cx.setTransform(1, 0, 0, 1, 0, 0); cx.clearRect(0, 0, cv.width, cv.height); EST.pts = null; EST.qt = null;
+EST.capaPuntos?.remove(); EST.capaDeps?.remove(); EST.anillo?.remove();
+EST.capaPuntos = EST.capaDeps = EST.anillo = null;
 $("est-lienzo").setAttribute("aria-busy", "true");
 if (EST.visible) estCargar();
 }
@@ -7725,42 +7728,34 @@ const bs = [...$(id).querySelectorAll("button")];
 bs.forEach(x => x.setAttribute("aria-pressed", String(x === b)));
 $(id).style.setProperty("--i", bs.indexOf(b));
 EST[clave] = b.dataset.m;
+if (clave === "fondo") { estFondo(); return; }
 if (clave === "capa") $("est-nivel").hidden = EST.capa !== "e";
 if (EST.elegido && EST.elegido.t !== EST.capa) { EST.elegido = null; $("est-ficha").hidden = true; }
-if (EST.filas) { estArmar(); estDibujar(true); }
+if (EST.filas) { estArmar(); estMapa(false); }
 });
-elegirEn("est-capa", "capa"); elegirEn("est-nivel", "nivel");
-const cv = d3.select("#est-canvas");
-EST.zoom = d3.zoom().scaleExtent([1, 60])
-.filter(ev => ev.type === "wheel" ? ev.ctrlKey || ev.metaKey : ev.type === "touchstart" ? ev.touches.length > 1 : !ev.button)
-.on("zoom", ev => { EST.t = ev.transform; estPintar(); });
-cv.call(EST.zoom).on("dblclick.zoom", null);
-const cercano = ev => {
-if (!EST.qt) return null;
-const [mx, my] = d3.pointer(ev, cv.node()), [x, y] = EST.t.invert([mx, my]);
-return EST.qt.find(x, y, 12 / EST.t.k) || null;
-};
-cv.on("pointermove", ev => {
-const p = cercano(ev), l = $("est-lienzo");
-cv.style("cursor", p ? "pointer" : null);
-if (p) { const [mx, my] = d3.pointer(ev, l); mostrarTip(l, `<b>${esc(p.r.nombre)}</b><br>${esc(p.r.loc)}`, mx, my); }
-else if (ev.pointerType === "mouse") ocultarTip();
-}).on("pointerleave", ev => { if (ev.pointerType === "mouse") ocultarTip(); })
-.on("click", ev => { const p = cercano(ev); if (p) estElegir(p.r, false); });
+elegirEn("est-capa", "capa"); elegirEn("est-nivel", "nivel"); elegirEn("est-fondo", "fondo");
 $("est-lienzo").querySelector(".ms-zoom").addEventListener("click", ev => {
-const b = ev.target.closest("button[data-z]"); if (!b || !EST.filas) return;
-const s = REDUCIR ? cv : cv.transition().duration(DUR_G);
-if (b.dataset.z === "todo") s.call(EST.zoom.transform, d3.zoomIdentity);
-else s.call(EST.zoom.scaleBy, b.dataset.z === "mas" ? 2 : .5);
+const b = ev.target.closest("button[data-z]"); if (!b || !EST.mapa) return;
+if (b.dataset.z === "todo") estEncuadrar(!REDUCIR);
+else EST.mapa[b.dataset.z === "mas" ? "zoomIn" : "zoomOut"](1, {animate: !REDUCIR});
 });
 $("est-q").addEventListener("input", estBuscar);
 $("est-resultados").addEventListener("click", ev => {
 const b = ev.target.closest("button[data-i]"); if (b) estElegir(EST.filas[+b.dataset.i], true);
 });
 $("est-ficha").addEventListener("click", ev => {
-if (ev.target.closest("[data-cerrar]")) { EST.elegido = null; $("est-ficha").hidden = true; estPintar(); }
+if (ev.target.closest("[data-cerrar]")) { EST.elegido = null; $("est-ficha").hidden = true; estMarcar(); }
 });
 }
+let estLeaflet = null;
+const estCargarLeaflet = () => estLeaflet || (estLeaflet = new Promise((ok, mal) => {
+if (window.L) return ok(window.L);
+const caja = $("prov-establecimientos"), css = document.createElement("link"), s = document.createElement("script");
+css.rel = "stylesheet"; css.href = caja.dataset.leafletCss; document.head.appendChild(css);
+s.src = caja.dataset.leaflet; s.onload = () => (window.L ? ok(window.L) : mal());
+s.onerror = () => { estLeaflet = null; mal(); };
+document.head.appendChild(s);
+}));
 function estCargar() {
 const p = EST.prov, caja = $("prov-establecimientos");
 if (!p || EST.cargando === p) return;
@@ -7774,7 +7769,9 @@ EST.deps = topojson.feature(topo, topo.objects.departamentos).features.filter(f 
 EST.nombreDep = Object.fromEntries(EST.deps.map(f => [f.properties.id, f.properties.nombre]));
 $("est-lienzo").removeAttribute("aria-busy");
 estArmar();
-estDibujar(true);
+estCargarLeaflet().then(() => { if (EST.prov === p) estMapa(true); }, () => {
+$("est-mapa").innerHTML = '<p class="nota est-sin-mapa">No se pudo cargar el mapa. El buscador y la tabla por departamento tienen los mismos datos.</p>';
+});
 }, () => {
 if (EST.prov !== p) return;
 EST.cargando = null;
@@ -7829,65 +7826,81 @@ $("est-nota").innerHTML = `Escuelas: las localizaciones de educación común con
 `${estPl(aprox, "escuela tiene", "escuelas tienen")} ubicación aproximada (el centro de su localidad)` +
 (corr ? `, Datina corrigió a mano ${corr} con Georef (IGN)` : "") +
 (sinConf ? ` y ${sinConf === 1 ? "una no se dibuja" : `${n0(sinConf)} no se dibujan`} porque ninguna fuente oficial confirma dónde ${sinConf === 1 ? "está" : "están"}` : "") +
-`. <a class="enlace" href="datos/establecimientos/${EST.prov}.csv" download>Descargar la tabla de ${esc(nombre)} (CSV)</a>`;
+`. Mapa de fondo: Instituto Geográfico Nacional. Imagen satelital: Esri, Maxar y Earthstar Geographics. ` +
+`<a class="enlace" href="datos/establecimientos/${EST.prov}.csv" download>Descargar la tabla de ${esc(nombre)} (CSV)</a>`;
 }
-function estDibujar(reiniciar) {
-const l = $("est-lienzo"), cv = $("est-canvas");
-if (!EST.filas || !EST.deps?.length) return;
-const w = Math.round(l.clientWidth); if (!w) return;
-const fc = {type: "FeatureCollection", features: EST.deps};
-const b = d3.geoPath(d3.geoMercator().fitWidth(w - 12, fc)).bounds(fc);
-const h = Math.round(Math.max(280, Math.min(b[1][1] - b[0][1] + 12, Math.max(360, innerHeight * .75), 720)));
-const nuevo = reiniciar || EST.w !== w || EST.h !== h;
-if (nuevo) {
-const dpr = Math.min(2, devicePixelRatio || 1);
-cv.width = w * dpr; cv.height = h * dpr; cv.style.width = w + "px"; cv.style.height = h + "px";
-Object.assign(EST, {w, h, dpr, proy: d3.geoMercator().fitExtent([[6, 6], [w - 6, h - 6]], fc), fc});
+function estCrearMapa() {
+const L = window.L, cont = $("est-mapa");
+const ign = n => L.tileLayer(`${EST_IGN}${n}@EPSG%3A3857@png/{z}/{x}/{y}.png`, {tms: true, maxZoom: 18,
+attribution: '<a href="https://www.ign.gob.ar/">Instituto Geográfico Nacional</a>'});
+EST.fondos = {gris: [ign("mapabase_gris")], color: [ign("capabaseargenmap")],
+satelite: [L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+{maxZoom: 18, attribution: "Imagen: Esri, Maxar, Earthstar Geographics"}), ign("mapabase_hibrido")]};
+const tactil = matchMedia("(pointer: coarse)").matches;
+EST.mapa = L.map(cont, {zoomControl: false, scrollWheelZoom: false, dragging: !tactil, tap: false, zoomSnap: .25, minZoom: 3, maxZoom: 18,
+zoomAnimation: !REDUCIR, fadeAnimation: !REDUCIR, markerZoomAnimation: !REDUCIR});
+EST.mapa.attributionControl.setPrefix('<a href="https://leafletjs.com/">Leaflet</a>');
+EST.ren = L.canvas({padding: .3});
+cont.addEventListener("wheel", ev => {
+if (!(ev.ctrlKey || ev.metaKey)) return;
+ev.preventDefault();
+EST.mapa.setZoomAround(EST.mapa.mouseEventToContainerPoint(ev), EST.mapa.getZoom() + (ev.deltaY < 0 ? .5 : -.5), {animate: !REDUCIR});
+}, {passive: false});
+EST.tip = L.tooltip({direction: "top", offset: [0, -6], className: "est-tip"});
+EST.mapa.on("zoomend", estBordes);
+estFondo();
 }
-EST.pts = estVisibles().filter(r => r.lat != null).map(r => { const [x, y] = EST.proy([r.lon, r.lat]); return {r, x, y}; })
-.filter(p => p.x > -10 && p.x < EST.w + 10 && p.y > -10 && p.y < EST.h + 10).sort((a, b) => a.r.k - b.r.k);
-EST.qt = d3.quadtree(EST.pts, p => p.x, p => p.y);
-if (nuevo) {
-EST.zoom.extent([[0, 0], [w, h]]).translateExtent([[0, 0], [w, h]]);
-d3.select(cv).call(EST.zoom.transform, d3.zoomIdentity);
+function estFondo() {
+if (!EST.mapa) return;
+Object.values(EST.fondos).flat().forEach(c => { if (EST.mapa.hasLayer(c)) EST.mapa.removeLayer(c); });
+EST.fondos[EST.fondo].forEach(c => c.addTo(EST.mapa).bringToBack());
 }
-const n = EST.pts.length, quien = EST.capa === "e" ? "escuelas" : "hospitales públicos";
-cv.setAttribute("aria-label", `Mapa de ${NOMBRES[EST.prov]} con ${n0(n)} ${quien} dibujados por departamento. La misma información está en el buscador y en la tabla por departamento.`);
-estPintar();
-}
-function estPintar() {
-const cv = $("est-canvas"), ctx = cv.getContext("2d"), t = EST.t || d3.zoomIdentity;
-if (!EST.proy || !EST.pts) return;
-ctx.setTransform(EST.dpr, 0, 0, EST.dpr, 0, 0);
-ctx.clearRect(0, 0, EST.w, EST.h);
-ctx.save(); ctx.translate(t.x, t.y); ctx.scale(t.k, t.k);
-const camino = d3.geoPath(EST.proy, ctx);
-ctx.beginPath(); camino(EST.fc); ctx.fillStyle = estColor("--superficie"); ctx.fill();
-ctx.lineWidth = 1 / t.k; ctx.strokeStyle = estColor("--borde"); ctx.stroke();
-const radio = (EST.capa === "e" ? 2.6 : 4.4) * Math.min(2.2, Math.pow(t.k, .35)) / t.k;
+function estMapa(encuadrar) {
+if (!window.L || !EST.filas || !$("est-mapa").isConnected) return;
+const L = window.L;
+if (!EST.mapa) estCrearMapa();
+if (!EST.capaDeps) EST.capaDeps = L.geoJSON({type: "FeatureCollection", features: EST.deps},
+{interactive: false, style: {color: estColor("--celeste-fuerte"), weight: 1, opacity: .5, fill: false}}).addTo(EST.mapa);
+EST.capaPuntos?.remove();
 const color = Object.fromEntries(EST_CAT[EST.capa].map(c => [c[0], estColor(c[3])]));
-const borde = EST.capa === "h" || t.k >= 3;
-ctx.lineWidth = .6 / t.k; ctx.strokeStyle = "#fff";
-for (let i = 0; i < EST.pts.length; ) {
-const cat = EST.pts[i].r.cat;
-ctx.beginPath();
-for (; i < EST.pts.length && EST.pts[i].r.cat === cat; i++) { const p = EST.pts[i]; ctx.moveTo(p.x + radio, p.y); ctx.arc(p.x, p.y, radio, 0, 2 * Math.PI); }
-ctx.fillStyle = color[cat] || estColor("--ink"); ctx.fill();
-if (borde) ctx.stroke();
+const r = EST.capa === "e" ? 3.5 : 5.5, capa = L.layerGroup();
+EST.marcas = new Map();
+estVisibles().filter(f => f.lat != null).sort((a, b) => a.k - b.k).forEach(f => {
+const m = L.circleMarker([f.lat, f.lon], {renderer: EST.ren, radius: r, color: "#fff", weight: 0, fillColor: color[f.cat] || estColor("--ink"), fillOpacity: .95});
+m.on("mouseover", () => { EST.tip.setLatLng(m.getLatLng()).setContent(`<b>${esc(f.nombre)}</b><br>${esc(f.loc)}`); EST.mapa.openTooltip(EST.tip); })
+.on("mouseout", () => EST.mapa.closeTooltip(EST.tip))
+.on("click", () => estElegir(f, false));
+EST.marcas.set(f, m); capa.addLayer(m);
+});
+EST.capaPuntos = capa.addTo(EST.mapa);
+if (encuadrar) estEncuadrar(false);
+EST.bordes = null; estBordes(); estMarcar();
+const quien = EST.capa === "e" ? "escuelas" : "hospitales públicos";
+$("est-mapa").setAttribute("aria-label", `Mapa de ${NOMBRES[EST.prov]} con ${n0(EST.marcas.size)} ${quien}. Con el teclado, las flechas lo mueven y las teclas más y menos ` +
+"lo acercan y lo alejan. La misma información está en el buscador y en la tabla por departamento.");
 }
-const el = EST.elegido && EST.pts.find(p => p.r === EST.elegido);
-if (el) {
-ctx.beginPath(); ctx.arc(el.x, el.y, radio + 4 / t.k, 0, 2 * Math.PI);
-ctx.lineWidth = 2.5 / t.k; ctx.strokeStyle = estColor("--rojo"); ctx.stroke();
+const estEncuadrar = anima => { if (EST.mapa && EST.capaDeps) EST.mapa.fitBounds(EST.capaDeps.getBounds(), {padding: [8, 8], animate: anima}); };
+function estBordes() {
+if (!EST.mapa || !EST.capaPuntos) return;
+const z = EST.mapa.getZoom(), w = EST.capa === "h" || z >= 11 ? 1 : 0;
+const r = (EST.capa === "e" ? 3.5 : 5.5) * (z >= 14 ? 1.7 : z >= 11 ? 1.3 : z < 7 ? .75 : 1);
+if (EST.bordes === `${EST.capa}${w}${r}`) return;
+EST.bordes = `${EST.capa}${w}${r}`;
+EST.capaPuntos.eachLayer(m => { m.setStyle({weight: w}); m.setRadius(r); });
+estMarcar();
 }
-ctx.restore();
+function estMarcar() {
+EST.anillo?.remove(); EST.anillo = null;
+const m = EST.elegido && EST.marcas?.get(EST.elegido);
+if (m) EST.anillo = window.L.circleMarker(m.getLatLng(), {renderer: EST.ren, radius: m.getRadius() + 4, color: estColor("--rojo"), weight: 2.5,
+fill: false, interactive: false}).addTo(EST.mapa);
 }
 function estBuscar() {
 const q = estNorm($("est-q").value.trim()), caja = $("est-resultados");
 if (q.length < 2 || !EST.filas) { caja.innerHTML = ""; return; }
 const hay = EST.filas.filter(r => estNorm(`${r.nombre} ${r.loc} ${r.dom}`).includes(q));
-caja.innerHTML = `<p class="est-cuantos" role="status">${hay.length ? `${estPl(hay.length, "coincide", "coinciden")}${hay.length > 30 ? ": las primeras 30" : ""}` : "Ninguna escuela ni hospital coincide."}</p>` +
-hay.slice(0, 30).map(r => `<button type="button" class="enlace" data-i="${r.i}">${esc(r.nombre)}</button><span class="est-r-det">${esc(estTipo(r))}. ${esc(r.loc)}</span>`).join("");
+caja.innerHTML = `<p class="est-cuantos" role="status">${hay.length ? `${estPl(hay.length, "coincide", "coinciden")}${hay.length > 15 ? ": las primeras 15" : ""}` : "Ninguna escuela ni hospital coincide."}</p>` +
+hay.slice(0, 15).map(r => `<button type="button" class="enlace" data-i="${r.i}">${esc(r.nombre)}</button><span class="est-r-det">${esc(estTipo(r))}. ${esc(r.loc)}</span>`).join("");
 }
 function estElegir(r, acercar) {
 if (r.t !== EST.capa) $("est-capa").querySelector(`button[data-m="${r.t}"]`).click();
@@ -7897,11 +7910,9 @@ const f = $("est-ficha"), nota = estNotaPunto(r);
 f.innerHTML = `<p class="est-f-nom">${esc(r.nombre)}</p><p>${esc(estTipo(r))}.</p><p>${esc([r.dom, r.loc].filter(Boolean).join(", "))}. Departamento ${esc(estDep(r.dep))}.</p>` +
 (nota ? `<p class="est-f-nota">${esc(nota)}</p>` : "") + `<button type="button" class="enlace" data-cerrar>Cerrar</button>`;
 f.hidden = false;
-const p = EST.pts.find(x => x.r === r);
-if (p && acercar) {
-const k = Math.max(EST.t.k, 6), cv = d3.select("#est-canvas");
-(REDUCIR ? cv : cv.transition().duration(DUR_G)).call(EST.zoom.transform, d3.zoomIdentity.translate(EST.w / 2 - p.x * k, EST.h / 2 - p.y * k).scale(k));
-} else estPintar();
+const m = EST.marcas?.get(r);
+if (m && acercar) EST.mapa.setView(m.getLatLng(), Math.max(EST.mapa.getZoom(), 15), {animate: !REDUCIR});
+estMarcar();
 }
 (() => {
 const nav = document.getElementById("perfil-indice"), contenido = document.querySelector(".prov-contenido");

@@ -956,8 +956,17 @@ html:not(.js) .pi-listas{display:block;position:static;box-shadow:none;backgroun
 .est-cl{display:inline-flex;align-items:center;gap:var(--e-1)}
 .est-cl i{flex:none;width:10px;height:10px;border-radius:50%;box-shadow:0 0 0 1px #fff,0 0 0 2px var(--borde)}
 .est-cl-sin{color:var(--muted)}
-.est-lienzo{position:relative;max-width:720px;min-height:280px;touch-action:pan-x pan-y}
-.est-lienzo canvas{display:block;max-width:100%}
+.est-lienzo{position:relative}
+/* el mapa de Leaflet: su letra, sus créditos chicos y los botones de acercar del sitio arriba de sus capas */
+.est-mapa{height:clamp(340px,62vh,620px);border:1px solid var(--borde);border-radius:var(--r-interno)}
+/* leaflet.css llega después y trae Arial y su gris: estas reglas pesan más */
+.est-mapa.leaflet-container{font:var(--t-2)/1.35 var(--f);background:var(--superficie)}
+.est-mapa:focus-visible{outline:3px solid var(--sol);outline-offset:1px}
+.est-mapa.leaflet-container .leaflet-control-attribution{font-size:var(--t-1);color:var(--muted)}
+.est-mapa.leaflet-container .leaflet-control-attribution a{color:var(--azul)}
+.leaflet-tooltip.est-tip{font:var(--t-2)/1.35 var(--f);color:var(--ink)}
+.est-sin-mapa{margin:0;padding:var(--e-4)}
+.est-lienzo .ms-zoom{z-index:1000;top:var(--e-2);right:var(--e-2)}
 .est-lienzo[aria-busy="true"]{background:var(--superficie);border-radius:var(--r-interno)}
 .est-ayuda{margin:var(--e-1) 0 0;font-size:var(--t-2);color:var(--muted)}
 .est-ficha{max-width:48em;margin-top:var(--e-3);padding:var(--e-3) var(--e-4);font-size:var(--t-3);background:var(--superficie);border-radius:var(--r-interno)}

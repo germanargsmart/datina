@@ -50,7 +50,10 @@ async function conectar(url) {
   const errores = [];
   on("Runtime.exceptionThrown", p => errores.push("excepción: " + (p.exceptionDetails.exception?.description || p.exceptionDetails.text)));
   on("Runtime.consoleAPICalled", p => { if (p.type === "error") errores.push("console.error: " + p.args.map(a => a.value ?? a.description).join(" ")); });
-  on("Log.entryAdded", p => { if (p.entry.level === "error") errores.push(`log: ${p.entry.text} ${p.entry.url || ""}`); });
+  // las teselas del fondo de los mapas vienen de servidores de afuera (el IGN y Esri, 9 de noviembre de 2026): si no contestan, el mapa sigue
+  // andando con los puntos, así que una tesela que no llega no es un error de la página
+  const TESELAS = /^https:\/\/(wms\.ign\.gob\.ar|server\.arcgisonline\.com)\//;
+  on("Log.entryAdded", p => { if (p.entry.level === "error" && !TESELAS.test(p.entry.url || "")) errores.push(`log: ${p.entry.text} ${p.entry.url || ""}`); });
   let cargada = () => {};
   on("Page.loadEventFired", () => cargada());
   await send("Page.enable"); await send("Runtime.enable"); await send("Log.enable");
