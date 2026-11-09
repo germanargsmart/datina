@@ -1,0 +1,321 @@
+{
+ "armado": "2026-11-09",
+ "fuentes": {
+  "padron": {
+   "url": "https://www.argentina.gob.ar/sites/default/files/2026.06.16_padron_oficial_establecimientos_educativos_die_icse.xlsx",
+   "actualizado": "2026-06-16",
+   "bajado": "2026-11-09",
+   "licencia": "CC BY 4.0"
+  },
+  "mapa_educativo": {
+   "url": "https://mapa.educacion.gob.ar/geoserver/ows?service=WFS&version=2.0.0&request=GetFeature&typeNames=publico:establecimiento_educativo&outputFormat=csv",
+   "bajado": "2026-11-09",
+   "licencia": "sin licencia declarada: sale del padrón (CC BY 4.0)"
+  },
+  "refes": {
+   "url": "https://sisa.msal.gov.ar/datos/descargas/georef/files/refes_georef.zip",
+   "actualizado": "2026-11-09",
+   "bajado": "2026-11-09",
+   "licencia": "CC BY 4.0"
+  },
+  "departamentos": {
+   "url": "https://infra.datos.gob.ar/georef/departamentos.geojson",
+   "bajado": "2026-11-09"
+  }
+ },
+ "escuelas": {
+  "padron_filas": 64696,
+  "total": 35346,
+  "con_primaria": 22629,
+  "con_secundaria": 13750,
+  "por_provincia": {
+   "02": 1125,
+   "06": 10611,
+   "10": 657,
+   "14": 3083,
+   "18": 1176,
+   "22": 1563,
+   "26": 434,
+   "30": 1818,
+   "34": 905,
+   "38": 660,
+   "42": 350,
+   "46": 477,
+   "50": 1293,
+   "54": 1775,
+   "58": 546,
+   "62": 622,
+   "66": 1086,
+   "70": 643,
+   "74": 567,
+   "78": 203,
+   "82": 2629,
+   "86": 1743,
+   "90": 1282,
+   "94": 98
+  },
+  "sector": {
+   "02": {
+    "Estatal": 629,
+    "Privado": 496
+   },
+   "06": {
+    "Estatal": 7222,
+    "Privado": 3389
+   },
+   "10": {
+    "Estatal": 629,
+    "Privado": 28
+   },
+   "14": {
+    "Estatal": 2334,
+    "Privado": 749
+   },
+   "18": {
+    "Estatal": 1074,
+    "Privado": 102
+   },
+   "22": {
+    "Estatal": 1379,
+    "Privado": 157,
+    "Social/cooperativa": 27
+   },
+   "26": {
+    "Estatal": 354,
+    "Privado": 72,
+    "Social/cooperativa": 8
+   },
+   "30": {
+    "Estatal": 1497,
+    "Privado": 317,
+    "Social/cooperativa": 4
+   },
+   "34": {
+    "Estatal": 874,
+    "Privado": 31
+   },
+   "38": {
+    "Estatal": 604,
+    "Privado": 50,
+    "Social/cooperativa": 6
+   },
+   "42": {
+    "Estatal": 318,
+    "Privado": 32
+   },
+   "46": {
+    "Estatal": 440,
+    "Privado": 37
+   },
+   "50": {
+    "Estatal": 1012,
+    "Privado": 281
+   },
+   "54": {
+    "Estatal": 1577,
+    "Privado": 198
+   },
+   "58": {
+    "Estatal": 448,
+    "Privado": 98
+   },
+   "62": {
+    "Estatal": 483,
+    "Privado": 127,
+    "Social/cooperativa": 12
+   },
+   "66": {
+    "Estatal": 969,
+    "Privado": 117
+   },
+   "70": {
+    "Estatal": 539,
+    "Privado": 104
+   },
+   "74": {
+    "Estatal": 519,
+    "Privado": 48
+   },
+   "78": {
+    "Estatal": 157,
+    "Privado": 46
+   },
+   "82": {
+    "Estatal": 1985,
+    "Privado": 644
+   },
+   "86": {
+    "Estatal": 1651,
+    "Privado": 92
+   },
+   "90": {
+    "Estatal": 1019,
+    "Privado": 263
+   },
+   "94": {
+    "Estatal": 77,
+    "Privado": 21
+   }
+  },
+  "ubicacion": {
+   "aproximada": 3552,
+   "mejorada": 731,
+   "precisa": 31063
+  },
+  "mapa_educativo": {
+   "puntos": 64695,
+   "cue_repetidos": 1,
+   "repetidos_con_otro_punto": 0,
+   "fuera_de_la_argentina": 0
+  },
+  "georef": {
+   "aproximadas": 4283,
+   "sin_domicilio_con_numero": 2179,
+   "consultadas": 2104,
+   "aceptada": 731,
+   "sin resultado": 1323,
+   "lejos": 41,
+   "sin número de calle": 9
+  },
+  "departamentos": {
+   "codigos_de_departamento_desconocidos": [],
+   "en_el_borde": 462,
+   "fuera_de_su_departamento": 208
+  },
+  "puntos_compartidos_por_3_o_mas": {
+   "puntos": 66,
+   "escuelas": 241
+  }
+ },
+ "hospitales": {
+  "refes_establecimientos": 39445,
+  "total": 1468,
+  "por_provincia": {
+   "02": 40,
+   "06": 344,
+   "10": 48,
+   "14": 160,
+   "18": 59,
+   "22": 55,
+   "26": 34,
+   "30": 63,
+   "34": 40,
+   "38": 27,
+   "42": 39,
+   "46": 34,
+   "50": 29,
+   "54": 53,
+   "58": 31,
+   "62": 36,
+   "66": 63,
+   "70": 18,
+   "74": 34,
+   "78": 22,
+   "82": 137,
+   "86": 57,
+   "90": 39,
+   "94": 6
+  },
+  "dependencia": {
+   "02": {
+    "Municipal": 33,
+    "Nacional": 2,
+    "Universitario público": 5
+   },
+   "06": {
+    "Municipal": 250,
+    "Nacional": 9,
+    "Provincial": 85
+   },
+   "10": {
+    "Mixta": 1,
+    "Municipal": 1,
+    "Provincial": 46
+   },
+   "14": {
+    "Municipal": 114,
+    "Provincial": 44,
+    "Universitario público": 2
+   },
+   "18": {
+    "Mixta": 1,
+    "Provincial": 58
+   },
+   "22": {
+    "Provincial": 54,
+    "Universitario público": 1
+   },
+   "26": {
+    "Provincial": 34
+   },
+   "30": {
+    "Provincial": 63
+   },
+   "34": {
+    "Provincial": 40
+   },
+   "38": {
+    "Provincial": 27
+   },
+   "42": {
+    "Provincial": 39
+   },
+   "46": {
+    "Provincial": 33,
+    "Universitario público": 1
+   },
+   "50": {
+    "Provincial": 28,
+    "Universitario público": 1
+   },
+   "54": {
+    "Mixta": 1,
+    "Provincial": 52
+   },
+   "58": {
+    "Provincial": 31
+   },
+   "62": {
+    "Provincial": 36
+   },
+   "66": {
+    "Provincial": 63
+   },
+   "70": {
+    "Provincial": 18
+   },
+   "74": {
+    "Provincial": 34
+   },
+   "78": {
+    "Nacional": 1,
+    "Provincial": 21
+   },
+   "82": {
+    "Municipal": 10,
+    "Provincial": 127
+   },
+   "86": {
+    "Mixta": 1,
+    "Provincial": 56
+   },
+   "90": {
+    "Municipal": 1,
+    "Provincial": 38
+   },
+   "94": {
+    "Provincial": 6
+   }
+  },
+  "ubicacion": {
+   "precisa": 1426,
+   "sin dato": 42
+  },
+  "coordenadas_descartadas": 0,
+  "departamentos": {
+   "codigos_de_departamento_desconocidos": [],
+   "en_el_borde": 15,
+   "fuera_de_su_departamento": 16
+  }
+ }
+}
