@@ -346,6 +346,7 @@ const MBS = R.cobertura_suelo;
 // los médicos por provincia del OFETHuS (plan de mejora, sección 10, 31 de octubre de 2026)
 const MDC = R.medicos;
 const HSP = R.establecimientos;  // los hospitales públicos por provincia (fase 3 de docs/roadmap/ESTABLECIMIENTOS.md)
+const DHO = R.distancia_hospital;  // la distancia de las escuelas rurales al hospital público más cercano (fase 3)
 // las sociedades nuevas del Registro Nacional de Sociedades (plan de mejora, sección 10, 31 de octubre de 2026)
 const SOC = R.sociedades;
 const pesosDeuda = v => `${milDeuda(v)} pesos`;
@@ -794,6 +795,17 @@ const LEAD = {
       `${n1(SOC.bajo[1])}.` + (SOC.top[0] === "CABA" ? ` CABA concentró el ${pct(SOC.caba_pct)} de las sociedades nuevas del país: se cuentan ` +
       `por su domicilio fiscal, que puede no ser donde trabajan.` : ""),
   // los médicos por provincia (plan de mejora, sección 10, 31 de octubre de 2026): los activos o los habilitados, cada 10.000 habitantes
+  // la distancia de las escuelas rurales al hospital público más cercano (9 de noviembre de 2026): la mediana del país y de los extremos, entre
+  // las provincias con suficientes escuelas rurales (las que tienen pocas se nombran aparte)
+  "distancia-hospital": v => v === "terapia"
+    ? `Hasta el hospital público con terapia intensiva más cercano, la mitad de las escuelas rurales del país queda a más de ${n1(DHO.pais_ti)} km en ` +
+      `línea recta, y el ${pct(DHO.pct_ti_100)}, a más de 100 km. Las distancias más largas son las de ${DHO.top_ti[0]} (${n1(DHO.top_ti[1])} km) ` +
+      `${yE(DHO.top2_ti[0])} (${n1(DHO.top2_ti[1])} km), y la más corta, la de ${DHO.bajo_ti[0]} (${n1(DHO.bajo_ti[1])} km).`
+    : `La mitad de las ${n0(DHO.rurales)} escuelas rurales del país queda a más de ${n1(DHO.pais)} km en línea recta del hospital público con ` +
+      `internación más cercano, y el ${pct(DHO.pct_20)}, a más de 20 km. Las distancias más largas son las de ${DHO.top[0]} (${n1(DHO.top[1])} km) ` +
+      `${yE(DHO.top2[0])} (${n1(DHO.top2[1])} km), y la más corta, la de ${DHO.bajo[0]} (${n1(DHO.bajo[1])} km).` +
+      (DHO.pocas.length ? ` ${lista(DHO.pocas.map(x => x[0]))} ${DHO.pocas.length > 1 ? "tienen" : "tiene"} muy pocas escuelas rurales ` +
+        `(${lista(DHO.pocas.map(x => n0(x[1])))}), y con tan pocas, una sola cambia la mediana.` : ""),
   // los hospitales públicos por provincia (9 de noviembre de 2026): las dos cifras más altas y las dos más bajas, o la de terapia intensiva
   hospitales: v => v === "terapia"
     ? `En ${HSP.fecha} había ${n0(HSP.con_terapia)} hospitales públicos con terapia intensiva en el país, ${n1(HSP.pais_ti)} cada 100.000 habitantes: ` +
@@ -1817,6 +1829,12 @@ const TX = {
     `una vez, aunque tenga varias actividades. No incluye asociaciones civiles, fundaciones, cooperativas, mutuales ni sucursales de empresas ` +
     `extranjeras. El domicilio fiscal puede no ser donde la sociedad trabaja. Las que se dieron de baja pueden no estar en el registro. Cada ` +
     `100.000 habitantes, con la población del INDEC de ${SOC.anio}.`,
+  "distancia-hospital": LEAD["distancia-hospital"]("hospital"), "distancia-hospital-nota": `Distancia en línea recta, no por ruta: el ` +
+    `viaje real es más largo. Las escuelas rurales (primarias y secundarias comunes del padrón oficial) sirven de marca de dónde vive la gente en ` +
+    `el campo, y cada una cuenta una vez, tenga pocos o muchos alumnos. Los hospitales son los públicos con internación de la ficha de arriba y, ` +
+    `en la otra vista, los que el registro clasifica con terapia intensiva. El más cercano puede estar en otra provincia. Las escuelas sin una ` +
+    `ubicación confirmada no entran. La mediana es la distancia que deja a la mitad de las escuelas más cerca y a la otra mitad más lejos. CABA no ` +
+    `tiene escuelas rurales.`,
   hospitales: LEAD.hospitales("hospitales"), "hospitales-nota": `Hospitales públicos con internación del Registro Federal de ` +
     `Establecimientos de Salud del Ministerio de Salud: nacionales, provinciales, municipales, universitarios y mixtos, sin las residencias para ` +
     `personas mayores. Son los mismos del mapa de escuelas y hospitales de la página de cada provincia. Cuenta establecimientos, no camas: uno de ` +
@@ -3582,7 +3600,7 @@ const DIB = protegerDib({
 
 /* ---------- petróleo y gas, construcción y vivienda (etapa 18) ---------- */
 Object.assign(MED, {refugio: "anio", supermercados: "prov", "cuentas-nacion": "resultado", recaudacion: "impuesto", "empleo-publico": "prov", "nacidos-otro-pais": "prov", "migracion-interna": "prov", radicaciones: "anio", "argentinos-exterior": "anio", inflacion: "doce", "inflacion-rubros": "division", canastas: "region", emae: "mes", "electricidad-provincias": "prov", "electricidad-sectores": "ind", salarios: "prov", "salario-docente": "prov", "inversion-educativa": "alumno",
-  delitos: "tipo", robos: "robos", homicidios: "prov", carceles: "serie", "sin-condena": "prov", coparticipacion: "hab", "deuda-provincias": "hab", abandono: "ab", telefonia: "prov", "cobertura-suelo": "natural", medicos: "activos", hospitales: "hospitales", sociedades: "prov", desocupacion: "ciudad", "empresas-tamano": "tam", "pobreza-aglomerados": "region", combustibles: "nafta", "combustibles-vista": "prov", subsidios: "pbi", "obra-publica": "prov", "gas-consumo": "prov", centrales: "mapa", "mapa-pozos": "cuenca", productividad: "pozo", fracturas: "etapas", "pozos-terminados": "anio", petroleo: "tipo", gas: "tipo", "gas-hogares-vista": "prov", "hidro-provincias": "pet_kbd", "areas-hidro": "pet", arArea: "", pozos: "pozo", "empresas-hidro": "pct_pet",
+  delitos: "tipo", robos: "robos", homicidios: "prov", carceles: "serie", "sin-condena": "prov", coparticipacion: "hab", "deuda-provincias": "hab", abandono: "ab", telefonia: "prov", "cobertura-suelo": "natural", medicos: "activos", hospitales: "hospitales", "distancia-hospital": "hospital", sociedades: "prov", desocupacion: "ciudad", "empresas-tamano": "tam", "pobreza-aglomerados": "region", combustibles: "nafta", "combustibles-vista": "prov", subsidios: "pbi", "obra-publica": "prov", "gas-consumo": "prov", centrales: "mapa", "mapa-pozos": "cuenca", productividad: "pozo", fracturas: "etapas", "pozos-terminados": "anio", petroleo: "tipo", gas: "tipo", "gas-hogares-vista": "prov", "hidro-provincias": "pet_kbd", "areas-hidro": "pet", arArea: "", pozos: "pozo", "empresas-hidro": "pct_pet",
   "empleo-hidro": "prov", regalias: "pct_regalias", reservas: "pet", "mundo-petroleo": "crudo_kbd", insumos: "var_12m",
   "empleo-construccion": "construccion_cada_1000", "trabajadores-vista": "prov", vivienda: "pct_alquila", "vivienda-vista": "prov"});
 const COL_TIPO = {conv: "#A9CBEA", tight: "#F6B40E", shale: "#1F5E97"};
@@ -4129,6 +4147,22 @@ Object.assign(DIB, {
         `${pct(d.pct_sas)} SAS<br>${n0(d.sociedades_anterior)} en ${SOC.anio - 1}`});
   },
   // los médicos por provincia (plan de mejora, sección 10, 31 de octubre de 2026): cada provincia con la línea del país
+  // la distancia de las escuelas rurales al hospital público más cercano (fase 3 de docs/roadmap/ESTABLECIMIENTOS.md, 9 de noviembre de 2026):
+  // cada provincia con la línea del país. CABA no tiene escuelas rurales
+  "distancia-hospital": a => {
+    const v = MED["distancia-hospital"], ti = v === "terapia", k = ti ? "mediana_km_terapia" : "mediana_km_hospital", pais = ti ? DHO.pais_ti : DHO.pais;
+    const fp = T.distancia_hospital_provincias.find(r => r.codigo_indec === prov);
+    const nombrados = ti ? [DHO.top_ti[0], DHO.top2_ti[0], DHO.bajo_ti[0]] : [DHO.top[0], DHO.top2[0], DHO.bajo[0], ...DHO.pocas.map(x => x[0])];
+    let txt = LEAD["distancia-hospital"](v);
+    if (fp && !nombrados.includes(fp.territorio))
+      txt += ` En ${fp.territorio}, la mitad de sus ${n0(fp.escuelas_rurales)} escuelas rurales queda a más de ${n1(fp[k])} km.`;
+    else if (prov === "02") txt += " CABA no tiene escuelas rurales.";
+    $t("distancia-hospital").textContent = txt;
+    barrasH(G("distancia-hospital"), {anim: a, data: T.distancia_hospital_provincias, k, vf: n1, af: n0, ref: pais, refLab: `País ${n1(pais)} km`,
+      tip: d => `<b>${d.territorio}</b><br>${n0(d.escuelas_rurales)} escuelas rurales<br>La mitad, a más de ${n1(d.mediana_km_hospital)} km de un hospital ` +
+        `público con internación (${pct(d.pct_mas_20_km)} a más de 20 km)<br>La mitad, a más de ${n1(d.mediana_km_terapia)} km de uno con terapia ` +
+        `intensiva (${pct(d.pct_terapia_mas_100_km)} a más de 100 km)`});
+  },
   // los hospitales públicos por provincia (fase 3 de docs/roadmap/ESTABLECIMIENTOS.md, 9 de noviembre de 2026): cada provincia con la línea del país
   hospitales: a => {
     const v = MED.hospitales, ti = v === "terapia", k = `${v}_cada_100000`, pais = ti ? HSP.pais_ti : HSP.pais;
@@ -7464,6 +7498,8 @@ const CLAVE = {
     Object.keys(CPA.atrasadas).length ? "por habitante, promedio de las jurisdicciones con datos" : "por habitante, promedio del país"],
   "f-sociedades": [n1(SOC.pais), `sociedades comerciales cada 100.000 habitantes se constituyeron en el país en ${SOC.anio}`,
     `sociedades nuevas cada 100.000 habitantes, ${SOC.anio}`],
+  "f-distancia-hospital": [n1(DHO.pais), `km o más en línea recta separan a la mitad de las escuelas rurales del país del hospital público con ` +
+    `internación más cercano, en ${DHO.fecha}`, `km de la escuela rural mediana al hospital público más cercano, ${DHO.fecha}`],
   "f-hospitales": [n1(HSP.pais), `hospitales públicos con internación cada 100.000 habitantes había en todo el país en ${HSP.fecha}`,
     `hospitales públicos con internación cada 100.000 habitantes, ${HSP.fecha}`],
   "f-medicos": [n1(MDC.pais), `médicos activos cada 10.000 habitantes había en todo el país a fines de ${MDC.anio}`,
@@ -9170,6 +9206,10 @@ const PREG = [
   ["¿Dónde se crean más empresas?",
    `En ${SOC.anio} se constituyeron ${n0(SOC.total)} sociedades comerciales en el país, ${n1(SOC.pais)} cada 100.000 habitantes, según el Registro ` +
    `Nacional de Sociedades. El ${pct(SOC.pct_sas)} fueron SAS.`, "#f-sociedades"],
+  ["¿A cuántos kilómetros de un hospital público quedan las escuelas rurales?",
+   `La mitad de las ${n0(DHO.rurales)} escuelas rurales del país queda a más de ${n1(DHO.pais)} km en línea recta del hospital público con ` +
+   `internación más cercano, y a más de ${n1(DHO.pais_ti)} km del más cercano con terapia intensiva. En ${DHO.top_ti[0]}, a más de ` +
+   `${n1(DHO.top_ti[1])} km de la terapia intensiva.`, "#f-distancia-hospital"],
   ["¿Dónde hay más hospitales públicos por habitante?",
    `En ${HSP.fecha}, en ${HSP.top[0]}, con ${n1(HSP.top[1])} hospitales públicos con internación cada 100.000 habitantes, según el Registro Federal de ` +
    `Establecimientos de Salud. En todo el país, ${n1(HSP.pais)}, y la cifra más baja fue la de ${HSP.bajo[0]}, ${n1(HSP.bajo[1])}. Cuenta establecimientos, no camas.`,
@@ -12386,6 +12426,7 @@ if (PAGINA !== "inicio") {
     "f-sociedades": ["sociedades", "empresas nuevas", "crear empresas", "nuevas sociedades", "emprendimientos"],
     "f-medicos": ["medicos", "medicos por habitante", "cantidad de medicos", "medico"],
     "f-hospitales": ["hospitales", "hospital", "hospitales publicos", "terapia intensiva", "hospitales por habitante"],
+    "f-distancia-hospital": ["distancia al hospital", "hospital mas cercano", "lejos del hospital", "escuelas rurales", "acceso a la salud"],
     "f-cobertura-suelo": ["monte nativo", "monte natural", "bosques", "desmonte", "deforestacion", "mapbiomas", "vegetacion natural"],
     "f-telefonia": ["telefono fijo", "telefonia fija", "linea fija", "telefonia"],
     "f-abandono": ["abandono escolar", "abandono", "repitencia", "repiten", "dejan la escuela", "desercion escolar"],

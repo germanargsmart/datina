@@ -1,0 +1,55 @@
+{
+ "tabla": "distancia_hospital_provincias.csv",
+ "titulo": "¿A cuántos kilómetros de un hospital público quedan las escuelas rurales?",
+ "descripcion": "Mediana de la distancia en línea recta de las escuelas rurales primarias y secundarias al hospital público con internación más cercano y al más cercano con terapia intensiva, por provincia, noviembre de 2026",
+ "seccion": "Salud",
+ "ficha": "https://datina.com.ar/salud.html#f-distancia-hospital",
+ "fuente": "Padrón Oficial de Establecimientos Educativos y Mapa Educativo Nacional, Secretaría de Educación, y Registro Federal de Establecimientos de Salud (REFES), Ministerio de Salud.",
+ "actualizacion": "Se actualiza cada año.",
+ "cobertura": "23 jurisdicciones",
+ "periodo": "",
+ "filas": 23,
+ "columnas": [
+  {
+   "nombre": "codigo_indec",
+   "tipo": "Código",
+   "valores": "23 códigos"
+  },
+  {
+   "nombre": "territorio",
+   "tipo": "Texto",
+   "valores": "23 valores distintos"
+  },
+  {
+   "nombre": "escuelas_rurales",
+   "tipo": "Número",
+   "valores": "5 a 1.860"
+  },
+  {
+   "nombre": "mediana_km_hospital",
+   "tipo": "Número",
+   "valores": "7,35 a 50,4"
+  },
+  {
+   "nombre": "mediana_km_terapia",
+   "tipo": "Número",
+   "valores": "18,8 a 185,5"
+  },
+  {
+   "nombre": "pct_mas_20_km",
+   "tipo": "Número",
+   "valores": "13,38 a 100"
+  },
+  {
+   "nombre": "pct_terapia_mas_100_km",
+   "tipo": "Número",
+   "valores": "0 a 90,86"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "05/11/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
+ "como_citar": "Datina (año de la consulta). ¿A cuántos kilómetros de un hospital público quedan las escuelas rurales? Con datos de Padrón Oficial de Establecimientos Educativos y Mapa Educativo Nacional, Secretaría de Educación, y Registro Federal de Establecimientos de Salud (REFES), Ministerio de Salud. https://datina.com.ar/salud.html#f-distancia-hospital. Consultado el día de la consulta."
+}

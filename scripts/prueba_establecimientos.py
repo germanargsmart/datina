@@ -184,6 +184,10 @@ esperado = 0.1 * 111.32 * math.cos(math.radians(34.5))
 ver(abs(r[1] - esperado) < 0.05, f"fuera_km: un punto en el hueco está afuera, a 0,1 grado del borde del hueco (dio {r[1]:.2f})")
 ver(abs(r[2] - esperado) < 0.05, f"fuera_km: un punto a 0,1 grado al este (dio {r[2]:.2f}, se esperaba {esperado:.2f})")
 
+# ---- distancia al hospital más cercano: un grado de latitud son unos 111,2 km
+d = est.cercano([0.0, 0.0], [0.0, 0.5], [1.0, 2.0], [0.0, 0.0])
+ver(abs(d[0] - 111.19) < .05 and abs(d[1] - est.km(0.0, 0.5, 1.0, 0.0)) < .01, f"cercano: {d}")
+
 # ---- correcciones a mano sobre una tabla de juguete
 toy = pd.DataFrame({"cueanexo": ["1", "2", "3", "4"], "codigo_dep": ["58035", "58035", "58035", "58035"],
                     "lat": [-38.95, -38.95, -38.95, -38.95], "lon": [-68.06, -68.06, -68.06, -68.06], "ubicacion": ["precisa"] * 4})
@@ -253,6 +257,12 @@ if (D / "control.json").exists():
         ver(not (ok.fuera_km > est.BORDE_KM).any(), f"{n}: una corrección que sigue fuera de su departamento: {ok[ok.fuera_km > est.BORDE_KM][clave].tolist()}")
         ver((t.ubicacion == "sin confirmar").sum() == (hechas.correccion == "sin confirmar").sum(), f"{n}: sin confirmar que no salen de la revisión")
     ver(ctl["escuelas"]["padron_filas"] >= ctl["escuelas"]["total"], "escuelas: más filas que el padrón")
+    # la distancia de cada escuela al hospital público más cercano (fase 3): toda escuela que se dibuja la tiene, salvo la de la Antártida, y
+    # el más cercano con terapia intensiva nunca queda más cerca que el más cercano con internación
+    dib = esc.ubicacion.isin(["precisa", "mejorada", "aproximada"]) & (esc.codigo_dep != est.ANTARTIDA)
+    ver((esc.km_hospital.notna() == dib).all() and (esc.km_terapia.notna() == dib).all(), "escuelas: distancias que faltan o sobran")
+    ver((esc.km_terapia[dib] >= esc.km_hospital[dib]).all() and (esc.km_hospital[dib] >= 0).all(), "escuelas: distancias imposibles")
+    ver(ctl["distancias"]["escuelas_con_distancia"] == int(dib.sum()), "escuelas: las distancias no dan el control")
 
     # ---- lo publicado para la página de provincia (scripts/establecimientos_sitio.py, fase 2): lo mismo que datos/manual, una tabla por
     # jurisdicción, sin punto lo que no se dibuja, y cada archivo bien lejos del límite de 25 MB de Cloudflare Pages

@@ -1758,6 +1758,17 @@
    "url": "https://sisa.msal.gov.ar/datos/descargas/georef/files/refes_georef.zip"
   },
   {
+   "id": "ds:manual/establecimientos-escuelas.csv",
+   "nombre": "Escuelas primarias y secundarias comunes de cada provincia, con su ubicación",
+   "fuente": "org:educacion",
+   "ruta": "datos/manual/establecimientos/escuelas.csv",
+   "evidencia": {
+    "archivo": "scripts/establecimientos.py",
+    "contiene": "escribir(e, SALIDA / \"escuelas.csv\", COLUMNAS_E)"
+   },
+   "url": "https://www.argentina.gob.ar/sites/default/files/2026.06.16_padron_oficial_establecimientos_educativos_die_icse.xlsx"
+  },
+  {
    "id": "ds:manual/ponderaciones_ipc.csv",
    "nombre": "Ponderaciones del IPC por región y división (Metodología del IPC, 2019, Anexo II, cuadro 7)",
    "fuente": "org:indec",
@@ -7582,6 +7593,38 @@
   },
   {
    "tipo": "alimenta",
+   "de": "ds:manual/establecimientos-escuelas.csv",
+   "a": "f-distancia-hospital",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_dist_e = pd.read_csv(_hosp_dir / \"escuelas.csv\", dtype={\"codigo_indec\": str, \"cueanexo\": str}, usecols=[\"codigo_indec\", \"ambito\", \"km_hospital\", \"km_terapia\"])"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"distancia_hospital_provincias\": distancia_hospital_provincias,"
+    }
+   ],
+   "tabla": "distancia_hospital_provincias"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:manual/establecimientos-hospitales.csv",
+   "a": "f-distancia-hospital",
+   "evidencia": [
+    {
+     "archivo": "scripts/establecimientos.py",
+     "contiene": "hh = h[h.ubicacion.isin(dibujado) & h.lat.notna()]"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"distancia_hospital_provincias\": distancia_hospital_provincias,"
+    }
+   ],
+   "tabla": "distancia_hospital_provincias"
+  },
+  {
+   "tipo": "alimenta",
    "de": "ds:indec_api_canasta_crianza.json",
    "a": "f-crianza",
    "evidencia": [
@@ -8802,6 +8845,12 @@
    "variables": [
     "hospitales_publicos_internacion_cada_100000_habitantes",
     "hospitales_publicos_terapia_intensiva_cada_100000_habitantes"
+   ]
+  },
+  "f-distancia-hospital": {
+   "variables": [
+    "mediana_km_escuelas_rurales_a_hospital_publico",
+    "mediana_km_escuelas_rurales_a_terapia_intensiva_publica"
    ]
   }
  }

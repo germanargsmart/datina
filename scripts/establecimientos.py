@@ -433,12 +433,67 @@ def aplicar_correcciones(t, c, tipo, clave):
     return res
 
 
+# ---------------------------------------------------------------- distancia al hospital más cercano
+
+# Fase 3 de docs/roadmap/ESTABLECIMIENTOS.md (9 de noviembre de 2026): para cada escuela con punto, la distancia en línea recta al hospital
+# público con internación más cercano (km_hospital) y al más cercano con terapia intensiva (km_terapia), de cualquier provincia: el hospital
+# que queda más cerca puede estar del otro lado del límite. Sin distancia: las escuelas sin punto (sin dato o sin confirmar en la revisión a
+# mano) y la de la Antártida, que no tiene hospitales cerca con los que compararla. 02 las agrega por provincia para las escuelas rurales
+ANTARTIDA = "94028"
+COLUMNAS_E = ["cueanexo", "nombre", "codigo_indec", "codigo_dep", "departamento", "localidad", "sector", "ambito",
+              "primaria", "secundaria", "tecnica", "domicilio", "lat", "lon", "ubicacion", "fuera_km",
+              "correccion", "correccion_fuente"] + ["km_hospital", "km_terapia"]
+
+
+def cercano(lats, lons, hlats, hlons, tramo=2000):
+    """La distancia en km (haversine, radio 6.371 km) de cada punto al más cercano de la otra lista, de a tramos para no llenar la memoria."""
+    la, lo, hla, hlo = (np.radians(np.asarray(x, float)) for x in (lats, lons, hlats, hlons))
+    out = np.empty(len(la))
+    for i in range(0, len(la), tramo):
+        a, b = la[i:i + tramo, None], lo[i:i + tramo, None]
+        x = np.sin((hla[None, :] - a) / 2) ** 2 + np.cos(a) * np.cos(hla[None, :]) * np.sin((hlo[None, :] - b) / 2) ** 2
+        out[i:i + tramo] = (2 * 6371 * np.arcsin(np.sqrt(np.minimum(1, x)))).min(axis=1)
+    return out
+
+
+def distancias(e, h):
+    """Agrega km_hospital y km_terapia a las escuelas y devuelve el resumen de las rurales."""
+    dibujado = ["precisa", "mejorada", "aproximada"]
+    hh = h[h.ubicacion.isin(dibujado) & h.lat.notna()]
+    ti = hh[hh.complejidad.str.contains("terapia intensiva", case=False)]
+    con = e.ubicacion.isin(dibujado) & e.lat.notna() & (e.codigo_dep != ANTARTIDA)
+    e["km_hospital"] = np.nan
+    e["km_terapia"] = np.nan
+    e.loc[con, "km_hospital"] = cercano(e.lat[con], e.lon[con], hh.lat, hh.lon).round(1)
+    e.loc[con, "km_terapia"] = cercano(e.lat[con], e.lon[con], ti.lat, ti.lon).round(1)
+    r = e[con & (e.ambito == "Rural")]
+    return {"hospitales_con_punto": int(len(hh)), "con_terapia_con_punto": int(len(ti)), "escuelas_con_distancia": int(con.sum()),
+            "rurales": int(len(r)), "mediana_rurales_km_hospital": float(r.km_hospital.median()),
+            "mediana_rurales_km_terapia": float(r.km_terapia.median())}
+
+
+def solo_distancias():
+    """Recalcula las distancias con las escuelas y los hospitales ya escritos, sin bajar nada ni consultar Georef."""
+    tipos = {"cueanexo": str, "refes_id": str, "codigo_indec": str, "codigo_dep": str}
+    e = pd.read_csv(SALIDA / "escuelas.csv", dtype=tipos, keep_default_na=False, na_values=[""])
+    h = pd.read_csv(SALIDA / "hospitales.csv", dtype=tipos, keep_default_na=False, na_values=[""])
+    c = distancias(e, h)
+    escribir(e, SALIDA / "escuelas.csv", COLUMNAS_E)
+    control = json.loads((SALIDA / "control.json").read_text(encoding="utf-8"))
+    control["distancias"] = c
+    (SALIDA / "control.json").write_text(json.dumps(control, ensure_ascii=False, indent=1) + "\n", encoding="utf-8", newline="\n")
+    print("distancias:", c)
+
+
 # ---------------------------------------------------------------- todo junto
 
 def escribir(t, ruta, columnas):
     t = t[columnas].copy()
     for c in ("lat", "lon"):
         t[c] = t[c].round(5)
+    for c in ("km_hospital", "km_terapia"):
+        if c in t:
+            t[c] = t[c].round(1)
     t.to_csv(ruta, index=False, encoding="utf-8", lineterminator="\n")
 
 
@@ -452,7 +507,10 @@ def main():
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[1])
     ap.add_argument("--cache")
     ap.add_argument("--sin-georef", action="store_true")
+    ap.add_argument("--solo-distancias", action="store_true", help="recalcula las distancias con lo ya escrito, sin bajar nada")
     a = ap.parse_args()
+    if a.solo_distancias:
+        return solo_distancias()
     cache = Path(a.cache) if a.cache else Path(tempfile.mkdtemp(prefix="establecimientos_"))
     cache.mkdir(parents=True, exist_ok=True)
     hoy = dt.date.today().isoformat()
@@ -487,13 +545,12 @@ def main():
     h["departamento"] = h.codigo_dep.map(nombre_dep).fillna("")
     c_dep_e, c_dep_h = controlar_deptos(e, deptos), controlar_deptos(h, deptos)
     compartidas = e[e.ubicacion != "sin dato"].groupby(["lat", "lon"]).size()
+    c_dist = distancias(e, h)
 
     e = e.sort_values("cueanexo")
     h = h.sort_values("refes_id")
     SALIDA.mkdir(parents=True, exist_ok=True)
-    escribir(e, SALIDA / "escuelas.csv", ["cueanexo", "nombre", "codigo_indec", "codigo_dep", "departamento", "localidad", "sector", "ambito",
-                                          "primaria", "secundaria", "tecnica", "domicilio", "lat", "lon", "ubicacion", "fuera_km",
-                                          "correccion", "correccion_fuente"])
+    escribir(e, SALIDA / "escuelas.csv", COLUMNAS_E)
     escribir(h, SALIDA / "hospitales.csv", ["refes_id", "nombre", "codigo_indec", "codigo_dep", "departamento", "localidad", "dependencia",
                                             "tipologia", "complejidad", "domicilio", "lat", "lon", "ubicacion", "fuera_km",
                                             "correccion", "correccion_fuente"])
@@ -519,6 +576,7 @@ def main():
             "coordenadas_descartadas": c_refes["coordenadas_descartadas"], "departamentos": c_dep_h,
         },
         "correcciones": c_corr,
+        "distancias": c_dist,
     }
     (SALIDA / "control.json").write_text(json.dumps(control, ensure_ascii=False, indent=1) + "\n", encoding="utf-8", newline="\n")
     print(f"listo: {len(e)} escuelas y {len(h)} hospitales en {SALIDA.relative_to(RAIZ)}")

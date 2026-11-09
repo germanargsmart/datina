@@ -1289,6 +1289,38 @@ agregar(hospitales_provincias.assign(periodo=str(HOSP_ANIO), valor=hospitales_pr
 agregar(hospitales_provincias.assign(periodo=str(HOSP_ANIO), valor=hospitales_provincias.terapia_cada_100000),
         "hospitales_publicos_terapia_intensiva_cada_100000_habitantes", "hospitales cada 100.000 habitantes", "Ministerio de Salud, REFES, e INDEC")
 
+# ---------------------------------------------------------------- distancia de las escuelas rurales al hospital público más cercano
+# La distancia en línea recta de cada escuela rural (primaria o secundaria común, del padrón) al hospital público con internación más cercano y
+# al más cercano con terapia intensiva, de cualquier provincia. La calcula scripts/establecimientos.py (km_hospital y km_terapia en
+# escuelas.csv): acá solo se agrega por provincia. Las escuelas sirven de marca de dónde vive la gente en el campo. La mediana dice a cuánto
+# queda la mitad de las escuelas rurales de cada provincia (fase 3 de docs/roadmap/ESTABLECIMIENTOS.md, 9 de noviembre de 2026)
+_dist_e = pd.read_csv(_hosp_dir / "escuelas.csv", dtype={"codigo_indec": str, "cueanexo": str}, usecols=["codigo_indec", "ambito", "km_hospital", "km_terapia"])
+_dist_r = _dist_e[(_dist_e.ambito == "Rural") & _dist_e.km_hospital.notna()]
+distancia_hospital_provincias = (_dist_r.groupby("codigo_indec").agg(
+    escuelas_rurales=("km_hospital", "size"), mediana_km_hospital=("km_hospital", "median"), mediana_km_terapia=("km_terapia", "median"),
+    pct_mas_20_km=("km_hospital", lambda s: (s > 20).mean() * 100), pct_terapia_mas_100_km=("km_terapia", lambda s: (s > 100).mean() * 100))
+    .reset_index().sort_values("codigo_indec").reset_index(drop=True))
+# CABA no tiene escuelas rurales: quedan las otras 23
+assert set(distancia_hospital_provincias.codigo_indec) == set(POB) - {"02"}, "distancia: faltan jurisdicciones con escuelas rurales"
+distancia_hospital_provincias.insert(1, "territorio", distancia_hospital_provincias.codigo_indec.map(CORTO))
+DIST_POCAS = 30   # con menos escuelas rurales, la mediana cambia mucho con una sola: no entran en los extremos del texto y el texto lo avisa
+_dist_m = distancia_hospital_provincias[distancia_hospital_provincias.escuelas_rurales >= DIST_POCAS]
+_dist_o, _dist_ot = _dist_m.sort_values("mediana_km_hospital"), _dist_m.sort_values("mediana_km_terapia")
+DIST_RES = {
+    "fecha": HOSP_RES["fecha"], "rurales": int(len(_dist_r)),
+    "pais": r1(_dist_r.km_hospital.median()), "pais_ti": r1(_dist_r.km_terapia.median()),
+    "pct_20": r1((_dist_r.km_hospital > 20).mean() * 100), "pct_ti_100": r1((_dist_r.km_terapia > 100).mean() * 100),
+    "top": _hosp_par(_dist_o, "mediana_km_hospital", -1), "top2": _hosp_par(_dist_o, "mediana_km_hospital", -2),
+    "bajo": _hosp_par(_dist_o, "mediana_km_hospital", 0),
+    "top_ti": _hosp_par(_dist_ot, "mediana_km_terapia", -1), "top2_ti": _hosp_par(_dist_ot, "mediana_km_terapia", -2),
+    "bajo_ti": _hosp_par(_dist_ot, "mediana_km_terapia", 0),
+    "pocas": [[r.territorio, int(r.escuelas_rurales)] for r in distancia_hospital_provincias.itertuples() if r.escuelas_rurales < DIST_POCAS],
+}
+agregar(distancia_hospital_provincias.assign(periodo=str(HOSP_ANIO), valor=distancia_hospital_provincias.mediana_km_hospital),
+        "mediana_km_escuelas_rurales_a_hospital_publico", "km", "Ministerio de Capital Humano, padrón de escuelas, y Ministerio de Salud, REFES")
+agregar(distancia_hospital_provincias.assign(periodo=str(HOSP_ANIO), valor=distancia_hospital_provincias.mediana_km_terapia),
+        "mediana_km_escuelas_rurales_a_terapia_intensiva_publica", "km", "Ministerio de Capital Humano, padrón de escuelas, y Ministerio de Salud, REFES")
+
 # ---------------------------------------------------------------- soja por departamento (estimaciones agrícolas)
 # Estimaciones agrícolas de la Secretaría de Agricultura, Ganadería y Pesca (datos.magyp.gob.ar): superficie sembrada y cosechada,
 # producción y rendimiento de cada cultivo, por campaña y departamento, desde la campaña 1969/70. Es la primera fuente nueva del plan de
@@ -7987,6 +8019,7 @@ tablas = {
     "cobertura_suelo_pais": cobertura_suelo_pais,
     "medicos_provincias": medicos_provincias,
     "hospitales_provincias": hospitales_provincias,
+    "distancia_hospital_provincias": distancia_hospital_provincias,
     "sociedades_provincias": sociedades_provincias,
     "sociedades_pais": sociedades_pais,
     "puestos_provincias": puestos_provincias,
@@ -8401,6 +8434,7 @@ resumen["telefonia"] = TF_RES
 resumen["cobertura_suelo"] = MB_RES
 resumen["medicos"] = MEDI_RES
 resumen["establecimientos"] = HOSP_RES
+resumen["distancia_hospital"] = DIST_RES
 resumen["sociedades"] = SOC_RES
 resumen["censos"] = CZ_RES
 resumen["inflacion_personal"] = INFP_RES

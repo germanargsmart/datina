@@ -341,5 +341,13 @@
    "no_encontradas": [],
    "la_fuente_cambio": []
   }
+ },
+ "distancias": {
+  "hospitales_con_punto": 1425,
+  "con_terapia_con_punto": 314,
+  "escuelas_con_distancia": 35338,
+  "rurales": 13218,
+  "mediana_rurales_km_hospital": 15.2,
+  "mediana_rurales_km_terapia": 51.25
  }
 }
