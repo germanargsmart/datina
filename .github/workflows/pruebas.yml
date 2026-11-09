@@ -55,5 +55,8 @@ jobs:
       - run: node scripts/prueba_tendencias.mjs
       # la descarga de la API del INDEC (scripts/indec_api.py, 2 de noviembre de 2026): con una API simulada, sin red ni token
       - run: python scripts/prueba_indec_api.py
+      # las escuelas y los hospitales de cada provincia (scripts/establecimientos.py, 9 de noviembre de 2026): archivos de juguete y lo
+      # escrito en datos/manual/establecimientos/ contra su control.json, sin red
+      - run: python scripts/prueba_establecimientos.py
       # el último paso de la actualización mensual (scripts/guardar_actualizacion.sh, 5 de noviembre de 2026): con repositorios de juguete, sin red
       - run: bash scripts/prueba_guardar_actualizacion.sh
