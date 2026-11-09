@@ -7,3 +7,5 @@ datos/ordenado/** text=auto eol=lf
 sitio/datos/*.ics -text
 # los programas de bash (scripts/guardar_actualizacion.sh, el último paso de la actualización mensual) van en LF: con CRLF, bash no corre
 scripts/*.sh text eol=lf
+# las escuelas y los hospitales de cada provincia (scripts/establecimientos.py, 9 de noviembre de 2026) se escriben en LF y su prueba lo controla
+datos/manual/establecimientos/** text eol=lf
