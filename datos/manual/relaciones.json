@@ -436,6 +436,17 @@
    ]
   },
   {
+   "id": "org:refes",
+   "nombre": "Registro Federal de Establecimientos de Salud",
+   "sigla": "REFES",
+   "depende": "Ministerio de Salud",
+   "url": "https://sisa.msal.gov.ar",
+   "alias": [
+    "Registro Federal de Establecimientos de Salud",
+    "REFES"
+   ]
+  },
+  {
    "id": "org:onu-poblacion",
    "nombre": "Naciones Unidas, División de Población",
    "sigla": "ONU Población",
@@ -1734,6 +1745,17 @@
     "contiene": "SALIDA = RAIZ / \"datos\" / \"manual\" / \"medicos_ofethus.csv\""
    },
    "url": "https://www.argentina.gob.ar/sites/default/files/medicos_activos_argentina_2025_ofethus_dncydts_2026_v300926_a_3092026.pdf"
+  },
+  {
+   "id": "ds:manual/establecimientos-hospitales.csv",
+   "nombre": "Hospitales públicos con internación de cada provincia, del REFES",
+   "fuente": "org:refes",
+   "ruta": "datos/manual/establecimientos/hospitales.csv",
+   "evidencia": {
+    "archivo": "scripts/establecimientos.py",
+    "contiene": "escribir(h, SALIDA / \"hospitales.csv\", [\"refes_id\", \"nombre\", \"codigo_indec\", \"codigo_dep\", \"departamento\", \"localidad\", \"dependencia\","
+   },
+   "url": "https://sisa.msal.gov.ar/datos/descargas/georef/files/refes_georef.zip"
   },
   {
    "id": "ds:manual/ponderaciones_ipc.csv",
@@ -7528,6 +7550,38 @@
   },
   {
    "tipo": "alimenta",
+   "de": "ds:manual/establecimientos-hospitales.csv",
+   "a": "f-hospitales",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_hosp_d = pd.read_csv(_hosp_dir / \"hospitales.csv\", dtype={\"codigo_indec\": str, \"refes_id\": str})"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"hospitales_provincias\": hospitales_provincias,"
+    }
+   ],
+   "tabla": "hospitales_provincias"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:indec_proyecciones_provincias.csv",
+   "a": "f-hospitales",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_pr = pd.read_csv(CRUDO / \"indec_proyecciones_provincias.csv\", sep=\";\")"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "hospitales_provincias[\"poblacion\"] = hospitales_provincias.codigo_indec.map(lambda c: POB_POR_ANIO[(c, HOSP_ANIO)])"
+    }
+   ],
+   "tabla": "hospitales_provincias"
+  },
+  {
+   "tipo": "alimenta",
    "de": "ds:indec_api_canasta_crianza.json",
    "a": "f-crianza",
    "evidencia": [
@@ -8742,6 +8796,12 @@
   "f-chicos-escuela": {
    "variables": [
     "poblacion_5_a_14_anios"
+   ]
+  },
+  "f-hospitales": {
+   "variables": [
+    "hospitales_publicos_internacion_cada_100000_habitantes",
+    "hospitales_publicos_terapia_intensiva_cada_100000_habitantes"
    ]
   }
  }

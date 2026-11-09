@@ -1251,6 +1251,44 @@ MEDI_RES = {
 agregar(medicos_provincias.assign(periodo=str(MEDI_ANIO), valor=medicos_provincias.activos_cada_10000), "medicos_activos_cada_10000_habitantes",
         "médicos cada 10.000 habitantes", "Ministerio de Salud, OFETHuS, e INDEC")
 
+# ---------------------------------------------------------------- hospitales públicos por provincia (REFES)
+# Los hospitales públicos con internación de cada provincia (nacionales, provinciales, municipales, universitarios y mixtos, sin las residencias
+# para personas mayores) y, entre ellos, los que el registro clasifica como de alto riesgo con terapia intensiva, del Registro Federal de
+# Establecimientos de Salud del Ministerio de Salud, tal como los deja scripts/establecimientos.py en datos/manual/establecimientos/ (fase 3 de
+# docs/roadmap/ESTABLECIMIENTOS.md, 9 de noviembre de 2026). Cada 100.000 habitantes, con la población del INDEC del año del registro. Cuenta
+# establecimientos, no camas, y solo públicos: las clínicas y los sanatorios privados no están
+_hosp_dir = RAIZ / "datos" / "manual" / "establecimientos"
+_hosp_d = pd.read_csv(_hosp_dir / "hospitales.csv", dtype={"codigo_indec": str, "refes_id": str})
+_hosp_fuentes = json.loads((_hosp_dir / "control.json").read_text(encoding="utf-8"))["fuentes"]
+_HOSP_MESES = ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"]
+_hosp_mes = lambda iso: f"{_HOSP_MESES[int(iso[5:7]) - 1]} de {iso[:4]}"
+HOSP_ANIO = int(_hosp_fuentes["refes"]["actualizado"][:4])
+_hosp_d["terapia"] = _hosp_d.complejidad.str.contains("terapia intensiva", case=False)
+hospitales_provincias = (_hosp_d.groupby("codigo_indec").agg(hospitales=("refes_id", "size"), con_terapia_intensiva=("terapia", "sum"))
+                         .reset_index().sort_values("codigo_indec").reset_index(drop=True))
+assert set(hospitales_provincias.codigo_indec) == set(POB) and len(hospitales_provincias) == 24, "hospitales: las jurisdicciones no son las 24"
+hospitales_provincias.insert(1, "territorio", hospitales_provincias.codigo_indec.map(CORTO))
+hospitales_provincias["poblacion"] = hospitales_provincias.codigo_indec.map(lambda c: POB_POR_ANIO[(c, HOSP_ANIO)])
+hospitales_provincias["hospitales_cada_100000"] = hospitales_provincias.hospitales / hospitales_provincias.poblacion * 1e5
+hospitales_provincias["terapia_cada_100000"] = hospitales_provincias.con_terapia_intensiva / hospitales_provincias.poblacion * 1e5
+hospitales_provincias["pct_terapia"] = hospitales_provincias.con_terapia_intensiva / hospitales_provincias.hospitales * 100
+_hosp_t = hospitales_provincias[["hospitales", "con_terapia_intensiva", "poblacion"]].sum()
+_hosp_o, _hosp_ot = hospitales_provincias.sort_values("hospitales_cada_100000"), hospitales_provincias.sort_values("terapia_cada_100000")
+_hosp_par = lambda d, k, i: [d.iloc[i].territorio, r1(d.iloc[i][k])]
+HOSP_RES = {
+    "fecha": _hosp_mes(_hosp_fuentes["refes"]["actualizado"]), "padron": _hosp_mes(_hosp_fuentes["padron"]["actualizado"]), "anio": HOSP_ANIO,
+    "hospitales": int(_hosp_t.hospitales), "con_terapia": int(_hosp_t.con_terapia_intensiva),
+    "pais": r1(_hosp_t.hospitales / _hosp_t.poblacion * 1e5), "pais_ti": r1(_hosp_t.con_terapia_intensiva / _hosp_t.poblacion * 1e5),
+    "pct_terapia": r1(_hosp_t.con_terapia_intensiva / _hosp_t.hospitales * 100),
+    "top": _hosp_par(_hosp_o, "hospitales_cada_100000", -1), "top2": _hosp_par(_hosp_o, "hospitales_cada_100000", -2),
+    "bajo": _hosp_par(_hosp_o, "hospitales_cada_100000", 0), "bajo2": _hosp_par(_hosp_o, "hospitales_cada_100000", 1),
+    "top_ti": _hosp_par(_hosp_ot, "terapia_cada_100000", -1), "bajo_ti": _hosp_par(_hosp_ot, "terapia_cada_100000", 0),
+}
+agregar(hospitales_provincias.assign(periodo=str(HOSP_ANIO), valor=hospitales_provincias.hospitales_cada_100000),
+        "hospitales_publicos_internacion_cada_100000_habitantes", "hospitales cada 100.000 habitantes", "Ministerio de Salud, REFES, e INDEC")
+agregar(hospitales_provincias.assign(periodo=str(HOSP_ANIO), valor=hospitales_provincias.terapia_cada_100000),
+        "hospitales_publicos_terapia_intensiva_cada_100000_habitantes", "hospitales cada 100.000 habitantes", "Ministerio de Salud, REFES, e INDEC")
+
 # ---------------------------------------------------------------- soja por departamento (estimaciones agrícolas)
 # Estimaciones agrícolas de la Secretaría de Agricultura, Ganadería y Pesca (datos.magyp.gob.ar): superficie sembrada y cosechada,
 # producción y rendimiento de cada cultivo, por campaña y departamento, desde la campaña 1969/70. Es la primera fuente nueva del plan de
@@ -7948,6 +7986,7 @@ tablas = {
     "cobertura_suelo_provincias": cobertura_suelo_provincias,
     "cobertura_suelo_pais": cobertura_suelo_pais,
     "medicos_provincias": medicos_provincias,
+    "hospitales_provincias": hospitales_provincias,
     "sociedades_provincias": sociedades_provincias,
     "sociedades_pais": sociedades_pais,
     "puestos_provincias": puestos_provincias,
@@ -8361,6 +8400,7 @@ resumen["abandono"] = ABN_RES
 resumen["telefonia"] = TF_RES
 resumen["cobertura_suelo"] = MB_RES
 resumen["medicos"] = MEDI_RES
+resumen["establecimientos"] = HOSP_RES
 resumen["sociedades"] = SOC_RES
 resumen["censos"] = CZ_RES
 resumen["inflacion_personal"] = INFP_RES

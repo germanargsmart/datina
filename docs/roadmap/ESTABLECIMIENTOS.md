@@ -2,7 +2,7 @@
 
 Pedido del autor del 9 de noviembre de 2026: "mapear a través de google maps o las páginas oficiales todos los hospitales nacionales y provinciales, y las escuelas primarias y secundarias, tanto públicas como privadas, de cada una de las provincias. Para ponerlas en un mapa provincia por provincia". Es para profundizar los datos territoriales de las páginas de cada provincia.
 
-Estado: la fase 1 (datos y controles) se unió el 9 de noviembre de 2026 (PR #119). La fase 2, el mapa en la página de cada provincia, quedó armada ese mismo día en la rama `claude/establecimientos-mapa`, con el diseño aprobado por el autor en capturas. Lo que sigue es la fase 3, los cruces.
+Estado: la fase 1 (datos y controles) se unió el 9 de noviembre de 2026 (PR #119) y la fase 2, el mapa en la página de cada provincia, también (PR #121), con el diseño aprobado por el autor en capturas. La fase 3, los cruces, empezó ese día con los hospitales públicos por habitante (ver abajo).
 
 ## Las fuentes (verificadas el 9 de noviembre de 2026)
 
@@ -206,11 +206,11 @@ Resultado: 33 puntos corregidos (20 escuelas y 13 hospitales), 8 departamentos c
 
 **Fase 2. El mapa en la página de cada provincia (hecha el 9 de noviembre de 2026, aprobada por el autor con capturas).** Ver "Fase 2: cómo está armada".
 
-**Fase 3. Los cruces (el valor agregado de Datina).** Cada uno, su PR:
+**Fase 3. Los cruces (el valor agregado de Datina).** Cada uno, su PR, en este orden (consultado con el asesor el 9 de noviembre de 2026: primero el de datos más limpios, que arma el camino desde `datos/manual/establecimientos/` hasta 02, y después la distancia, la que más profundiza lo territorial):
 
 - Escuelas cada 1.000 chicos de 5 a 14 años por provincia, con las proyecciones que ya usa `chicos_escuela` en `02_procesar.py`. Cuenta lugares, no vacantes: decirlo.
 - Qué parte de las escuelas es privada en cada departamento (de 44 % en la Ciudad a 3 % en Formosa), en el mapa de departamentos que ya existe.
-- Hospitales públicos con terapia intensiva cada 100.000 habitantes por provincia (tipología "alto riesgo con terapia intensiva" del REFES y la población de `POB`).
+- **Hecho el 9 de noviembre de 2026:** `f-hospitales` en Salud, después de los médicos, "¿Dónde hay más hospitales públicos por habitante?": los hospitales públicos con internación cada 100.000 habitantes por provincia, con una vista para los que tienen terapia intensiva. 02 lee `datos/manual/establecimientos/hospitales.csv` y `control.json` (la fecha del REFES va al resumen, `establecimientos.fecha`), arma `hospitales_provincias` y suma dos variables a la tabla larga, con la población del INDEC del año del registro. La nota dice que cuenta establecimientos y no camas, que no están los privados y que la terapia intensiva es la categoría que declara cada provincia. Todas las jurisdicciones tienen al menos dos con terapia intensiva. En el Explorador, el organismo nuevo es el REFES (`org:refes`) y el archivo, `ds:manual/establecimientos-hospitales.csv` (los ids no admiten una carpeta dentro de `manual/`).
 - A cuántos kilómetros en línea recta queda el hospital público con internación más cercano de cada escuela rural. Las escuelas sirven de marca de dónde vive la gente, sin necesitar población por radio censal. La distancia en línea recta no es la de la ruta: decirlo.
 - Las escuelas privadas y los resultados de Aprender por departamento (`aprender_departamentos`), con "Qué no dice este dato".
 

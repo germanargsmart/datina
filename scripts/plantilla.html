@@ -1008,6 +1008,21 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <div class="pie"><span>Fuentes: Observatorio Federal de Talento Humano en Salud (OFETHuS), Ministerio de Salud, Médicos activos en Argentina, e INDEC, proyecciones de población</span><a href="datos/medicos_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
+    <!-- los hospitales públicos por provincia (fase 3 de docs/roadmap/ESTABLECIMIENTOS.md, 9 de noviembre de 2026): del REFES, como los deja
+         scripts/establecimientos.py. Son los mismos que muestra el mapa de escuelas y hospitales de la página de cada provincia -->
+    <article class="ficha" id="f-hospitales">
+      <h2>¿Dónde hay más hospitales públicos por habitante?</h2>
+      <p class="ficha-sub">Hospitales públicos con internación y, entre ellos, los que tienen terapia intensiva, cada 100.000 habitantes, por provincia, {{establecimientos.fecha}}</p>
+      <div class="conmutador" role="group" aria-label="Vista" data-g="hospitales">
+        <button type="button" data-m="hospitales" aria-pressed="true">Con internación</button>
+        <button type="button" data-m="terapia" aria-pressed="false">Con terapia intensiva</button>
+      </div>
+      <div class="grafico" data-g="hospitales" data-forma="barras"></div>
+      <p class="lead" data-t="hospitales"></p>
+      <p class="nota" data-t="hospitales-nota"></p>
+      <div class="pie"><span>Fuentes: Registro Federal de Establecimientos de Salud (REFES), Ministerio de Salud, e INDEC, proyecciones de población</span><a href="datos/hospitales_provincias.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
     <div class="ayuda" id="ayuda-suicidio" role="note">
       <strong>Si estás atravesando un momento difícil, podés pedir ayuda.</strong> El Centro de Asistencia al Suicida atiende de forma gratuita en el 135 desde CABA y el Gran Buenos Aires, y en el (011) 5275-1135 desde todo el país. En una emergencia, llamá al 107 o acercate a la guardia más cercana.
     </div>

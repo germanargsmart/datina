@@ -345,6 +345,7 @@ const TF = R.telefonia;
 const MBS = R.cobertura_suelo;
 // los médicos por provincia del OFETHuS (plan de mejora, sección 10, 31 de octubre de 2026)
 const MDC = R.medicos;
+const HSP = R.establecimientos;  // los hospitales públicos por provincia (fase 3 de docs/roadmap/ESTABLECIMIENTOS.md)
 // las sociedades nuevas del Registro Nacional de Sociedades (plan de mejora, sección 10, 31 de octubre de 2026)
 const SOC = R.sociedades;
 const pesosDeuda = v => `${milDeuda(v)} pesos`;
@@ -793,6 +794,15 @@ const LEAD = {
       `${n1(SOC.bajo[1])}.` + (SOC.top[0] === "CABA" ? ` CABA concentró el ${pct(SOC.caba_pct)} de las sociedades nuevas del país: se cuentan ` +
       `por su domicilio fiscal, que puede no ser donde trabajan.` : ""),
   // los médicos por provincia (plan de mejora, sección 10, 31 de octubre de 2026): los activos o los habilitados, cada 10.000 habitantes
+  // los hospitales públicos por provincia (9 de noviembre de 2026): las dos cifras más altas y las dos más bajas, o la de terapia intensiva
+  hospitales: v => v === "terapia"
+    ? `En ${HSP.fecha} había ${n0(HSP.con_terapia)} hospitales públicos con terapia intensiva en el país, ${n1(HSP.pais_ti)} cada 100.000 habitantes: ` +
+      `el ${pct(HSP.pct_terapia)} de los hospitales públicos con internación. La cifra más alta es la de ${HSP.top_ti[0]}, ${n1(HSP.top_ti[1])}, y la ` +
+      `más baja, la de ${HSP.bajo_ti[0]}, ${n1(HSP.bajo_ti[1])}.`
+    : `En ${HSP.fecha} había ${n0(HSP.hospitales)} hospitales públicos con internación en el país, ${n1(HSP.pais)} cada 100.000 habitantes. Las ` +
+      `cifras más altas son las de ${HSP.top[0]} (${n1(HSP.top[1])}) ${yE(HSP.top2[0])} (${n1(HSP.top2[1])}), y las más bajas, las de ` +
+      `${HSP.bajo[0]} (${n1(HSP.bajo[1])}) ${yE(HSP.bajo2[0])} (${n1(HSP.bajo2[1])}). Cuenta hospitales, no camas: una provincia con muchos ` +
+      `hospitales chicos queda arriba de una con pocos y grandes.`,
   medicos: v => v === "habilitados"
     ? `A fines de ${MDC.anio} había ${n0(MDC.habilitados)} médicos habilitados en el país, ${n1(MDC.pais_hab)} cada 10.000 habitantes. El ` +
       `${pct(MDC.pct_activos)} estaba activo. La parte de habilitados sin actividad fue mayor en ${MDC.inactivos_max[0]}, el ${pct(MDC.inactivos_max[1])}` +
@@ -1807,6 +1817,12 @@ const TX = {
     `una vez, aunque tenga varias actividades. No incluye asociaciones civiles, fundaciones, cooperativas, mutuales ni sucursales de empresas ` +
     `extranjeras. El domicilio fiscal puede no ser donde la sociedad trabaja. Las que se dieron de baja pueden no estar en el registro. Cada ` +
     `100.000 habitantes, con la población del INDEC de ${SOC.anio}.`,
+  hospitales: LEAD.hospitales("hospitales"), "hospitales-nota": `Hospitales públicos con internación del Registro Federal de ` +
+    `Establecimientos de Salud del Ministerio de Salud: nacionales, provinciales, municipales, universitarios y mixtos, sin las residencias para ` +
+    `personas mayores. Son los mismos del mapa de escuelas y hospitales de la página de cada provincia. Cuenta establecimientos, no camas: uno de ` +
+    `cientos de camas en una ciudad grande vale lo mismo que uno de pocas camas en un pueblo. Las clínicas y los sanatorios privados no están, y ` +
+    `en varias provincias tienen buena parte de las camas. Con terapia intensiva: los que el registro clasifica como de alto riesgo con terapia ` +
+    `intensiva, una categoría que declara cada provincia. Cada 100.000 habitantes, con la población del INDEC de ${HSP.anio}.`,
   medicos: LEAD.medicos("activos"), "medicos-nota": `Médicos por provincia de residencia, según el informe "Médicos activos en Argentina" del ` +
     `Observatorio Federal de Talento Humano en Salud del Ministerio de Salud. Habilitados: con matrícula vigente en la Red Federal de Registros de ` +
     `Profesionales de la Salud. Activos: los que alguna de seis fuentes administrativas de empleo, impuestos, jubilaciones y migraciones muestra ` +
@@ -3566,7 +3582,7 @@ const DIB = protegerDib({
 
 /* ---------- petróleo y gas, construcción y vivienda (etapa 18) ---------- */
 Object.assign(MED, {refugio: "anio", supermercados: "prov", "cuentas-nacion": "resultado", recaudacion: "impuesto", "empleo-publico": "prov", "nacidos-otro-pais": "prov", "migracion-interna": "prov", radicaciones: "anio", "argentinos-exterior": "anio", inflacion: "doce", "inflacion-rubros": "division", canastas: "region", emae: "mes", "electricidad-provincias": "prov", "electricidad-sectores": "ind", salarios: "prov", "salario-docente": "prov", "inversion-educativa": "alumno",
-  delitos: "tipo", robos: "robos", homicidios: "prov", carceles: "serie", "sin-condena": "prov", coparticipacion: "hab", "deuda-provincias": "hab", abandono: "ab", telefonia: "prov", "cobertura-suelo": "natural", medicos: "activos", sociedades: "prov", desocupacion: "ciudad", "empresas-tamano": "tam", "pobreza-aglomerados": "region", combustibles: "nafta", "combustibles-vista": "prov", subsidios: "pbi", "obra-publica": "prov", "gas-consumo": "prov", centrales: "mapa", "mapa-pozos": "cuenca", productividad: "pozo", fracturas: "etapas", "pozos-terminados": "anio", petroleo: "tipo", gas: "tipo", "gas-hogares-vista": "prov", "hidro-provincias": "pet_kbd", "areas-hidro": "pet", arArea: "", pozos: "pozo", "empresas-hidro": "pct_pet",
+  delitos: "tipo", robos: "robos", homicidios: "prov", carceles: "serie", "sin-condena": "prov", coparticipacion: "hab", "deuda-provincias": "hab", abandono: "ab", telefonia: "prov", "cobertura-suelo": "natural", medicos: "activos", hospitales: "hospitales", sociedades: "prov", desocupacion: "ciudad", "empresas-tamano": "tam", "pobreza-aglomerados": "region", combustibles: "nafta", "combustibles-vista": "prov", subsidios: "pbi", "obra-publica": "prov", "gas-consumo": "prov", centrales: "mapa", "mapa-pozos": "cuenca", productividad: "pozo", fracturas: "etapas", "pozos-terminados": "anio", petroleo: "tipo", gas: "tipo", "gas-hogares-vista": "prov", "hidro-provincias": "pet_kbd", "areas-hidro": "pet", arArea: "", pozos: "pozo", "empresas-hidro": "pct_pet",
   "empleo-hidro": "prov", regalias: "pct_regalias", reservas: "pet", "mundo-petroleo": "crudo_kbd", insumos: "var_12m",
   "empleo-construccion": "construccion_cada_1000", "trabajadores-vista": "prov", vivienda: "pct_alquila", "vivienda-vista": "prov"});
 const COL_TIPO = {conv: "#A9CBEA", tight: "#F6B40E", shale: "#1F5E97"};
@@ -4113,6 +4129,19 @@ Object.assign(DIB, {
         `${pct(d.pct_sas)} SAS<br>${n0(d.sociedades_anterior)} en ${SOC.anio - 1}`});
   },
   // los médicos por provincia (plan de mejora, sección 10, 31 de octubre de 2026): cada provincia con la línea del país
+  // los hospitales públicos por provincia (fase 3 de docs/roadmap/ESTABLECIMIENTOS.md, 9 de noviembre de 2026): cada provincia con la línea del país
+  hospitales: a => {
+    const v = MED.hospitales, ti = v === "terapia", k = `${v}_cada_100000`, pais = ti ? HSP.pais_ti : HSP.pais;
+    const fp = T.hospitales_provincias.find(r => r.codigo_indec === prov);
+    const nombrados = ti ? [HSP.top_ti[0], HSP.bajo_ti[0]] : [HSP.top[0], HSP.top2[0], HSP.bajo[0], HSP.bajo2[0]];
+    let txt = LEAD.hospitales(v);
+    if (fp && !nombrados.includes(fp.territorio))
+      txt += ` En ${fp.territorio}, ${n1(fp[k])} cada 100.000 habitantes (${n0(ti ? fp.con_terapia_intensiva : fp.hospitales)}).`;
+    $t("hospitales").textContent = txt;
+    barrasH(G("hospitales"), {anim: a, data: T.hospitales_provincias, k, vf: n1, af: ti ? n1 : n0, ref: pais, refLab: `País ${n1(pais)}`,
+      tip: d => `<b>${d.territorio}</b><br>${n1(d.hospitales_cada_100000)} hospitales públicos con internación cada 100.000 habitantes (${n0(d.hospitales)})<br>` +
+        `${n1(d.terapia_cada_100000)} con terapia intensiva cada 100.000 (${n0(d.con_terapia_intensiva)})`});
+  },
   medicos: a => {
     const v = MED.medicos, k = `${v}_cada_10000`, pais = v === "habilitados" ? MDC.pais_hab : MDC.pais;
     const fp = T.medicos_provincias.find(r => r.codigo_indec === prov);
@@ -7435,6 +7464,8 @@ const CLAVE = {
     Object.keys(CPA.atrasadas).length ? "por habitante, promedio de las jurisdicciones con datos" : "por habitante, promedio del país"],
   "f-sociedades": [n1(SOC.pais), `sociedades comerciales cada 100.000 habitantes se constituyeron en el país en ${SOC.anio}`,
     `sociedades nuevas cada 100.000 habitantes, ${SOC.anio}`],
+  "f-hospitales": [n1(HSP.pais), `hospitales públicos con internación cada 100.000 habitantes había en todo el país en ${HSP.fecha}`,
+    `hospitales públicos con internación cada 100.000 habitantes, ${HSP.fecha}`],
   "f-medicos": [n1(MDC.pais), `médicos activos cada 10.000 habitantes había en todo el país a fines de ${MDC.anio}`,
     `médicos activos cada 10.000 habitantes, ${MDC.anio}`],
   "f-cobertura-suelo": [pct(MBS.nat), `de la superficie del país tenía vegetación natural en ${MBS.fin}, según MapBiomas. En ${MBS.ini}, el ${pct(MBS.nat_ini)}`,
@@ -9139,6 +9170,10 @@ const PREG = [
   ["¿Dónde se crean más empresas?",
    `En ${SOC.anio} se constituyeron ${n0(SOC.total)} sociedades comerciales en el país, ${n1(SOC.pais)} cada 100.000 habitantes, según el Registro ` +
    `Nacional de Sociedades. El ${pct(SOC.pct_sas)} fueron SAS.`, "#f-sociedades"],
+  ["¿Dónde hay más hospitales públicos por habitante?",
+   `En ${HSP.fecha}, en ${HSP.top[0]}, con ${n1(HSP.top[1])} hospitales públicos con internación cada 100.000 habitantes, según el Registro Federal de ` +
+   `Establecimientos de Salud. En todo el país, ${n1(HSP.pais)}, y la cifra más baja fue la de ${HSP.bajo[0]}, ${n1(HSP.bajo[1])}. Cuenta establecimientos, no camas.`,
+   "#f-hospitales"],
   ["¿Dónde hay más médicos por habitante?",
    `A fines de ${MDC.anio}, en ${MDC.top[0]}, con ${n1(MDC.top[1])} médicos activos cada 10.000 habitantes, según el OFETHuS. En todo el país, ` +
    `${n1(MDC.pais)}, y la cifra más baja fue la de ${MDC.bajo[0]}, ${n1(MDC.bajo[1])}.`, "#f-medicos"],
@@ -12350,6 +12385,7 @@ if (PAGINA !== "inicio") {
     "f-coparticipacion": ["coparticipacion", "coparticipacion federal", "reparto de impuestos"],
     "f-sociedades": ["sociedades", "empresas nuevas", "crear empresas", "nuevas sociedades", "emprendimientos"],
     "f-medicos": ["medicos", "medicos por habitante", "cantidad de medicos", "medico"],
+    "f-hospitales": ["hospitales", "hospital", "hospitales publicos", "terapia intensiva", "hospitales por habitante"],
     "f-cobertura-suelo": ["monte nativo", "monte natural", "bosques", "desmonte", "deforestacion", "mapbiomas", "vegetacion natural"],
     "f-telefonia": ["telefono fijo", "telefonia fija", "linea fija", "telefonia"],
     "f-abandono": ["abandono escolar", "abandono", "repitencia", "repiten", "dejan la escuela", "desercion escolar"],
