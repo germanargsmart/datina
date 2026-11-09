@@ -8685,6 +8685,263 @@ function pintarCensos() {
     `<p class="tabla-nota">Cuadros del INDEC de los censos 2010 y 2022. El de 2010 fue un censo de hecho (contó a las personas donde estaban esa noche) y ` +
     `el de 2022, de derecho (donde viven). En 2022 la computadora incluye notebook y tableta, así que su suba puede ser en parte por la pregunta.</p>`;
 }
+/* Escuelas y hospitales de la provincia (9 de noviembre de 2026, docs/roadmap/ESTABLECIMIENTOS.md). La tabla de cada jurisdicción
+   (datos/establecimientos/<código>.csv, la arma establecimientos_sitio.py) se baja cuando la sección se acerca a la pantalla. El marcado es fijo
+   en la plantilla: pintarPanel llama a esta función también cada vez que cambia el ancho, y entonces solo se redibuja el mapa, sin perder lo
+   elegido. Los puntos van en un canvas, porque Buenos Aires tiene más de 10.600 escuelas. Decisiones del autor: las escuelas con ubicación
+   aproximada se ven igual que las demás (la aclaración va en su ficha y en la nota), y lo que la revisión a mano no pudo confirmar no se dibuja
+   (sigue contando en su departamento y está en la lista). Con el teclado, el camino es el buscador y la tabla por departamento. */
+const EST = {prov: null, filas: null, cargando: null, visible: false, capa: "e", nivel: "", elegido: null, t: null, zoom: null, listo: false};
+const EST_CAT = {
+  e: [["est", "estatal", "estatales", "--celeste-fuerte"], ["priv", "privada", "privadas", "--sol"], ["soc", "de gestión social o cooperativa", "de gestión social o cooperativa", "--ink"]],
+  h: [["prov", "provincial", "provinciales", "--celeste-fuerte"], ["mun", "municipal", "municipales", "--sol"], ["nac", "nacional", "nacionales", "--ink"],
+      ["univ", "universitario", "universitarios", "--ink"], ["mixta", "mixto", "mixtos", "--ink"]]
+};
+const EST_DEP_FUERA = {"94028": "Antártida Argentina"};  // en Georef, pero no en el mapa de departamentos del sitio
+const estColor = v => getComputedStyle(document.documentElement).getPropertyValue(v).trim() || "#2C74B5";
+const estNorm = s => String(s || "").normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
+const estMes = iso => { const m = /^(\d{4})-(\d{2})/.exec(iso || ""); return m ? `${MESES[+m[2] - 1]} de ${m[1]}` : ""; };
+const estPl = (n, uno, varios) => `${n0(n)} ${n === 1 ? uno : varios}`;
+const estLista = partes => partes.length < 2 ? partes.join("") : partes.slice(0, -1).join(", ") + " " + yE(partes[partes.length - 1]);
+const estDep = c => EST.nombreDep?.[c] || EST_DEP_FUERA[c] || c;
+const estVisibles = () => (EST.filas || []).filter(r => r.t === EST.capa && (EST.capa !== "e" || !EST.nivel || r.niv.includes(EST.nivel)));
+function estTipo(r) {
+  const cat = EST_CAT[r.t].find(c => c[0] === r.cat);
+  if (r.t === "h") {
+    const clase = r.niv === "ESCIG" ? "general" : r.niv === "ESCIESM" ? "especializado en salud mental" : "especializado";
+    return `Hospital ${cat ? cat[1] : ""} con internación, ${clase}${r.det ? `: ${r.det.charAt(0).toLowerCase() + r.det.slice(1)}` : ""}`;
+  }
+  const niveles = estLista([r.niv.includes("p") ? "primaria" : "", r.niv.includes("t") ? "secundaria técnica" : r.niv.includes("s") ? "secundaria" : ""].filter(Boolean));
+  return `Escuela ${cat ? cat[1] : ""}, ${niveles}${r.det === "r" ? ", rural" : ""}`;
+}
+function estNotaPunto(r) {
+  const la = r.t === "e" ? "la" : "lo";
+  if (r.u === "c") return `Sin ubicación confirmada: la fuente ${la} pone lejos de su departamento y ninguna fuente oficial confirma dónde está. No se dibuja en el mapa.`;
+  if (r.u === "n") return "La fuente no da su ubicación. No se dibuja en el mapa.";
+  const partes = [];
+  if (r.cor === "p") partes.push(`Ubicación corregida por Datina: la fuente ${la} ponía lejos de su departamento, y se usó ${r.u === "m" ? "su domicilio" : "el centro de su localidad"} según Georef (IGN).`);
+  else if (r.u === "m") partes.push("Ubicación tomada de su domicilio con Georef (IGN): la fuente daba solo el centro de su localidad.");
+  else if (r.u === "a") partes.push("Ubicación aproximada: la fuente da el centro de su localidad, no el edificio.");
+  if (r.cor === "d") partes.push(`Departamento corregido por Datina: la fuente ${la} anota en otro, pero el lugar está en ${estDep(r.dep)} según Georef (IGN).`);
+  if (r.fk) partes.push(`El punto de la fuente cae a ${estPl(r.fk, "km", "km")} del departamento en que ${la} anota.`);
+  return partes.join(" ");
+}
+function pintarEstablecimientos() {
+  const caja = document.getElementById("prov-establecimientos"); if (!caja) return;
+  if (!NOMBRES[prov]) { caja.hidden = true; EST.prov = null; EST.filas = null; return; }
+  caja.hidden = false;
+  if (!EST.listo) estPreparar(caja);
+  if (EST.prov === prov) { if (EST.filas) estDibujar(); return; }
+  Object.assign(EST, {prov, filas: null, cargando: null, elegido: null, t: d3.zoomIdentity});
+  const fp = estMes(caja.dataset.padron), fr = estMes(caja.dataset.refes);
+  $("est-sub").textContent = `Las escuelas primarias y secundarias y los hospitales públicos con internación de ${NOMBRES[prov]}, en el mapa de sus departamentos. ` +
+    `Escuelas del padrón oficial${fp ? ` de ${fp}` : ""} y hospitales del registro federal de salud${fr ? ` de ${fr}` : ""}.`;
+  ["est-ley", "est-lead", "est-resultados", "est-tabla", "est-nota"].forEach(id => { $(id).innerHTML = ""; });
+  $("est-ficha").hidden = true; $("est-q").value = "";
+  const cv = $("est-canvas"), cx = cv.getContext("2d"); cx.setTransform(1, 0, 0, 1, 0, 0); cx.clearRect(0, 0, cv.width, cv.height); EST.pts = null; EST.qt = null;
+  $("est-lienzo").setAttribute("aria-busy", "true");
+  if (EST.visible) estCargar();
+}
+// una sola vez: los controles, el mapa y el aviso de que la sección se acerca a la pantalla
+function estPreparar(caja) {
+  EST.listo = true;
+  // guardado en EST: un IntersectionObserver sin nadie que lo nombre puede desaparecer y no avisar nunca
+  if (!("IntersectionObserver" in window)) EST.visible = true;
+  else (EST.obs = new IntersectionObserver(es => { EST.visible = es.some(e => e.isIntersecting); if (EST.visible && EST.prov && !EST.filas) estCargar(); },
+    {rootMargin: "600px 0px"})).observe(caja);
+  const elegirEn = (id, clave) => $(id).addEventListener("click", ev => {
+    const b = ev.target.closest("button[data-m]"); if (!b) return;
+    const bs = [...$(id).querySelectorAll("button")];
+    bs.forEach(x => x.setAttribute("aria-pressed", String(x === b)));
+    $(id).style.setProperty("--i", bs.indexOf(b));  // la marca del elegido (los conmutadores propios la mueven ellos)
+    EST[clave] = b.dataset.m;
+    if (clave === "capa") $("est-nivel").hidden = EST.capa !== "e";
+    if (EST.elegido && EST.elegido.t !== EST.capa) { EST.elegido = null; $("est-ficha").hidden = true; }
+    if (EST.filas) { estArmar(); estDibujar(true); }
+  });
+  elegirEn("est-capa", "capa"); elegirEn("est-nivel", "nivel");
+  const cv = d3.select("#est-canvas");
+  EST.zoom = d3.zoom().scaleExtent([1, 60])
+    // como en Elecciones por mesa: la rueda y un dedo siguen bajando la página. Se acerca con los botones, con dos dedos o con Ctrl y la rueda
+    .filter(ev => ev.type === "wheel" ? ev.ctrlKey || ev.metaKey : ev.type === "touchstart" ? ev.touches.length > 1 : !ev.button)
+    .on("zoom", ev => { EST.t = ev.transform; estPintar(); });
+  cv.call(EST.zoom).on("dblclick.zoom", null);
+  const cercano = ev => {
+    if (!EST.qt) return null;
+    const [mx, my] = d3.pointer(ev, cv.node()), [x, y] = EST.t.invert([mx, my]);
+    return EST.qt.find(x, y, 12 / EST.t.k) || null;
+  };
+  cv.on("pointermove", ev => {
+    const p = cercano(ev), l = $("est-lienzo");
+    cv.style("cursor", p ? "pointer" : null);
+    if (p) { const [mx, my] = d3.pointer(ev, l); mostrarTip(l, `<b>${esc(p.r.nombre)}</b><br>${esc(p.r.loc)}`, mx, my); }
+    else if (ev.pointerType === "mouse") ocultarTip();
+  }).on("pointerleave", ev => { if (ev.pointerType === "mouse") ocultarTip(); })
+    .on("click", ev => { const p = cercano(ev); if (p) estElegir(p.r, false); });
+  $("est-lienzo").querySelector(".ms-zoom").addEventListener("click", ev => {
+    const b = ev.target.closest("button[data-z]"); if (!b || !EST.filas) return;
+    const s = REDUCIR ? cv : cv.transition().duration(DUR_G);
+    if (b.dataset.z === "todo") s.call(EST.zoom.transform, d3.zoomIdentity);
+    else s.call(EST.zoom.scaleBy, b.dataset.z === "mas" ? 2 : .5);
+  });
+  $("est-q").addEventListener("input", estBuscar);
+  $("est-resultados").addEventListener("click", ev => {
+    const b = ev.target.closest("button[data-i]"); if (b) estElegir(EST.filas[+b.dataset.i], true);
+  });
+  $("est-ficha").addEventListener("click", ev => {
+    if (ev.target.closest("[data-cerrar]")) { EST.elegido = null; $("est-ficha").hidden = true; estPintar(); }
+  });
+}
+function estCargar() {
+  const p = EST.prov, caja = $("prov-establecimientos");
+  if (!p || EST.cargando === p) return;
+  EST.cargando = p;
+  Promise.all([cargarTopoDep(), d3.text(`datos/establecimientos/${p}.csv?v=${caja.dataset.v || ""}`)]).then(([topo, txt]) => {
+    if (EST.prov !== p) return;
+    const num = v => v === "" || v == null ? null : +v;
+    // k: un orden de dibujo mezclado y siempre el mismo para cada escuela, así ningún color tapa a los otros donde hay muchas juntas
+    const mezcla = s => [...s].reduce((h, c) => Math.imul(h ^ c.charCodeAt(0), 16777619) >>> 0, 2166136261);
+    EST.filas = d3.csvParse(txt, (r, i) => ({...r, i, k: mezcla(r.id), lat: num(r.lat), lon: num(r.lon), fk: num(r.fk)}));
+    EST.deps = topojson.feature(topo, topo.objects.departamentos).features.filter(f => f.properties.prov === p);
+    EST.nombreDep = Object.fromEntries(EST.deps.map(f => [f.properties.id, f.properties.nombre]));
+    $("est-lienzo").removeAttribute("aria-busy");
+    estArmar();
+    estDibujar(true);
+  }, () => {
+    if (EST.prov !== p) return;
+    EST.cargando = null;
+    $("est-lienzo").removeAttribute("aria-busy");
+    const t = `No se pudieron cargar las escuelas y los hospitales de ${NOMBRES[p]}. Volvé a intentar en un rato.`;
+    $("est-lead").textContent = t; avisar(t);
+  });
+}
+// leyenda, texto, tabla por departamento y nota: cambian con la provincia, con Escuelas u Hospitales y con el nivel
+function estArmar() {
+  const filas = estVisibles(), esE = EST.capa === "e", nombre = NOMBRES[EST.prov];
+  const cuenta = c => filas.filter(r => r.cat === c).length;
+  const sinPunto = filas.filter(r => r.lat == null).length;
+  $("est-ley").innerHTML = EST_CAT[EST.capa].filter(c => cuenta(c[0])).map(c =>
+    `<span class="est-cl"><i style="background:var(${c[3]})" aria-hidden="true"></i>${estPl(cuenta(c[0]), c[1], c[2])}</span>`).join("") +
+    (sinPunto ? `<span class="est-cl est-cl-sin">${estPl(sinPunto, "sin punto en el mapa", "sin punto en el mapa")}: ${sinPunto === 1 ? "está" : "están"} en el buscador</span>` : "");
+  const porDep = d3.rollup(filas, v => v.length, r => r.dep);
+  const deps = [...new Set([...EST.deps.map(f => f.properties.id), ...porDep.keys()])];
+  const top = [...porDep].sort((a, b) => b[1] - a[1] || estDep(a[0]).localeCompare(estDep(b[0])))[0];
+  const nivel = EST.nivel === "p" ? " con primaria" : EST.nivel === "s" ? " con secundaria" : " primarias y secundarias";
+  let lead;
+  if (!filas.length) lead = `${nombre} no tiene ${esE ? "escuelas" + nivel : "hospitales públicos con internación"} en estas fuentes.`;
+  else if (esE) {
+    const rurales = filas.filter(r => r.det === "r").length;
+    lead = `${nombre} tiene ${estPl(filas.length, "escuela", "escuelas")}${filas.length === 1 ? nivel.replace("primarias y secundarias", "primaria o secundaria") : nivel} de educación común: ` +
+      estLista(EST_CAT.e.filter(c => cuenta(c[0])).map(c => estPl(cuenta(c[0]), c[1], c[2]))) + `. El ${pct(rurales / filas.length * 100)} ${rurales === 1 && filas.length === 1 ? "es rural" : "son rurales"}.` +
+      (deps.length > 1 && top ? ` El departamento con más es ${estDep(top[0])}, con ${n0(top[1])}.` : "");
+  } else {
+    const sinH = deps.filter(d => !porDep.get(d)).length, ti = filas.filter(r => /terapia intensiva/i.test(r.det)).length;
+    lead = `${nombre} tiene ${estPl(filas.length, "hospital público", "hospitales públicos")} con internación: ` +
+      estLista(EST_CAT.h.filter(c => cuenta(c[0])).map(c => estPl(cuenta(c[0]), c[1], c[2]))) + `. ` +
+      `${!ti ? "Ninguno tiene" : ti === filas.length ? (ti === 1 ? "Tiene" : "Todos tienen") : estPl(ti, "tiene", "tienen")} terapia intensiva. ` +
+      (deps.length > 1 ? (sinH ? `En ${n0(sinH)} de sus ${n0(deps.length)} departamentos no hay ninguno.` : "Todos sus departamentos tienen al menos uno.") : "");
+  }
+  $("est-lead").textContent = sinViuda(lead);
+  // la tabla por departamento, de mayor a menor
+  const filasDep = deps.map(d => ({d, v: filas.filter(r => r.dep === d)})).sort((a, b) => b.v.length - a.v.length || estDep(a.d).localeCompare(estDep(b.d)));
+  const cols = esE ? [["Escuelas", v => v.length], ["Con primaria", v => v.filter(r => r.niv.includes("p")).length], ["Con secundaria", v => v.filter(r => r.niv.includes("s")).length],
+                       ["Privadas", v => v.filter(r => r.cat === "priv").length], ["Rurales", v => v.filter(r => r.det === "r").length]]
+    : [["Hospitales", v => v.length], ["Provinciales", v => v.filter(r => r.cat === "prov").length], ["Municipales", v => v.filter(r => r.cat === "mun").length],
+       ["Otros públicos", v => v.filter(r => !["prov", "mun"].includes(r.cat)).length], ["Con terapia intensiva", v => v.filter(r => /terapia intensiva/i.test(r.det)).length]];
+  const tit = `${esE ? "Escuelas" + nivel : "Hospitales públicos con internación"} de ${nombre}, por departamento`;
+  $("est-tabla").innerHTML = `<div class="tabla-desliza" tabindex="0" role="region" aria-label="Tabla: ${esc(tit)}"><table class="tabla-areas tabla-compara">` +
+    `<caption class="solo-lector">${esc(tit)}</caption><thead><tr><th scope="col">Departamento</th>${cols.map(c => `<th scope="col" class="n">${c[0]}</th>`).join("")}</tr></thead><tbody>` +
+    filasDep.map(x => `<tr><th scope="row">${esc(estDep(x.d))}</th>${cols.map(c => `<td class="n">${n0(c[1](x.v))}</td>`).join("")}</tr>`).join("") + `</tbody></table></div>`;
+  // la nota: qué se cuenta, de dónde sale y qué se corrigió en esta provincia
+  const todas = EST.filas, caja = $("prov-establecimientos"), de = t => todas.filter(r => r.t === t);
+  const aprox = de("e").filter(r => r.u === "a").length, sinConf = todas.filter(r => r.u === "c").length;
+  const corr = estLista([[todas.filter(r => r.cor === "p").length, "ubicación", "ubicaciones"], [todas.filter(r => r.cor === "d").length, "departamento", "departamentos"]]
+    .filter(c => c[0]).map(c => estPl(...c)));
+  $("est-nota").innerHTML = `Escuelas: las localizaciones de educación común con primaria o secundaria del Padrón Oficial de Establecimientos Educativos ` +
+    `(Ministerio de Capital Humano${caja.dataset.padron ? `, ${estMes(caja.dataset.padron)}` : ""}), con su ubicación del Mapa Educativo Nacional. Un mismo edificio puede ` +
+    `tener dos y una puede dar los dos niveles. Hospitales: los establecimientos públicos con internación del Registro Federal de Establecimientos de Salud ` +
+    `(Ministerio de Salud${caja.dataset.refes ? `, ${estMes(caja.dataset.refes)}` : ""}), sin las residencias para personas mayores. En ${nombre}, ` +
+    `${estPl(aprox, "escuela tiene", "escuelas tienen")} ubicación aproximada (el centro de su localidad)` +
+    (corr ? `, Datina corrigió a mano ${corr} con Georef (IGN)` : "") +
+    (sinConf ? ` y ${sinConf === 1 ? "una no se dibuja" : `${n0(sinConf)} no se dibujan`} porque ninguna fuente oficial confirma dónde ${sinConf === 1 ? "está" : "están"}` : "") +
+    `. <a class="enlace" href="datos/establecimientos/${EST.prov}.csv" download>Descargar la tabla de ${esc(nombre)} (CSV)</a>`;
+}
+// el tamaño del mapa sale del ancho disponible y de la forma de la provincia
+function estDibujar(reiniciar) {
+  const l = $("est-lienzo"), cv = $("est-canvas");
+  if (!EST.filas || !EST.deps?.length) return;
+  const w = Math.round(l.clientWidth); if (!w) return;
+  const fc = {type: "FeatureCollection", features: EST.deps};
+  const b = d3.geoPath(d3.geoMercator().fitWidth(w - 12, fc)).bounds(fc);
+  const h = Math.round(Math.max(280, Math.min(b[1][1] - b[0][1] + 12, Math.max(360, innerHeight * .75), 720)));
+  const nuevo = reiniciar || EST.w !== w || EST.h !== h;
+  if (nuevo) {
+    const dpr = Math.min(2, devicePixelRatio || 1);
+    cv.width = w * dpr; cv.height = h * dpr; cv.style.width = w + "px"; cv.style.height = h + "px";
+    Object.assign(EST, {w, h, dpr, proy: d3.geoMercator().fitExtent([[6, 6], [w - 6, h - 6]], fc), fc});
+  }
+  // los puntos de lo que se ve, en coordenadas del mapa sin acercar. Lo que cae fuera del dibujo (la Antártida) queda solo en el buscador
+  EST.pts = estVisibles().filter(r => r.lat != null).map(r => { const [x, y] = EST.proy([r.lon, r.lat]); return {r, x, y}; })
+    .filter(p => p.x > -10 && p.x < EST.w + 10 && p.y > -10 && p.y < EST.h + 10).sort((a, b) => a.r.k - b.r.k);
+  EST.qt = d3.quadtree(EST.pts, p => p.x, p => p.y);
+  if (nuevo) {
+    EST.zoom.extent([[0, 0], [w, h]]).translateExtent([[0, 0], [w, h]]);
+    d3.select(cv).call(EST.zoom.transform, d3.zoomIdentity);
+  }
+  const n = EST.pts.length, quien = EST.capa === "e" ? "escuelas" : "hospitales públicos";
+  cv.setAttribute("aria-label", `Mapa de ${NOMBRES[EST.prov]} con ${n0(n)} ${quien} dibujados por departamento. La misma información está en el buscador y en la tabla por departamento.`);
+  estPintar();
+}
+function estPintar() {
+  const cv = $("est-canvas"), ctx = cv.getContext("2d"), t = EST.t || d3.zoomIdentity;
+  if (!EST.proy || !EST.pts) return;
+  ctx.setTransform(EST.dpr, 0, 0, EST.dpr, 0, 0);
+  ctx.clearRect(0, 0, EST.w, EST.h);
+  ctx.save(); ctx.translate(t.x, t.y); ctx.scale(t.k, t.k);
+  const camino = d3.geoPath(EST.proy, ctx);
+  ctx.beginPath(); camino(EST.fc); ctx.fillStyle = estColor("--superficie"); ctx.fill();
+  ctx.lineWidth = 1 / t.k; ctx.strokeStyle = estColor("--borde"); ctx.stroke();
+  // en el orden mezclado de estDibujar: cada tramo seguido de la misma categoría va en un solo trazo
+  const radio = (EST.capa === "e" ? 2.6 : 4.4) * Math.min(2.2, Math.pow(t.k, .35)) / t.k;
+  const color = Object.fromEntries(EST_CAT[EST.capa].map(c => [c[0], estColor(c[3])]));
+  // el borde blanco separa los puntos cuando hay lugar: con el mapa alejado, en el conurbano, los bordes juntos tapaban las escuelas
+  const borde = EST.capa === "h" || t.k >= 3;
+  ctx.lineWidth = .6 / t.k; ctx.strokeStyle = "#fff";
+  for (let i = 0; i < EST.pts.length; ) {
+    const cat = EST.pts[i].r.cat;
+    ctx.beginPath();
+    for (; i < EST.pts.length && EST.pts[i].r.cat === cat; i++) { const p = EST.pts[i]; ctx.moveTo(p.x + radio, p.y); ctx.arc(p.x, p.y, radio, 0, 2 * Math.PI); }
+    ctx.fillStyle = color[cat] || estColor("--ink"); ctx.fill();
+    if (borde) ctx.stroke();
+  }
+  const el = EST.elegido && EST.pts.find(p => p.r === EST.elegido);
+  if (el) {
+    ctx.beginPath(); ctx.arc(el.x, el.y, radio + 4 / t.k, 0, 2 * Math.PI);
+    ctx.lineWidth = 2.5 / t.k; ctx.strokeStyle = estColor("--rojo"); ctx.stroke();
+  }
+  ctx.restore();
+}
+function estBuscar() {
+  const q = estNorm($("est-q").value.trim()), caja = $("est-resultados");
+  if (q.length < 2 || !EST.filas) { caja.innerHTML = ""; return; }
+  const hay = EST.filas.filter(r => estNorm(`${r.nombre} ${r.loc} ${r.dom}`).includes(q));
+  caja.innerHTML = `<p class="est-cuantos" role="status">${hay.length ? `${estPl(hay.length, "coincide", "coinciden")}${hay.length > 30 ? ": las primeras 30" : ""}` : "Ninguna escuela ni hospital coincide."}</p>` +
+    hay.slice(0, 30).map(r => `<button type="button" class="enlace" data-i="${r.i}">${esc(r.nombre)}</button><span class="est-r-det">${esc(estTipo(r))}. ${esc(r.loc)}</span>`).join("");
+}
+function estElegir(r, acercar) {
+  if (r.t !== EST.capa) $("est-capa").querySelector(`button[data-m="${r.t}"]`).click();
+  if (r.t === "e" && EST.nivel && !r.niv.includes(EST.nivel)) $("est-nivel").querySelector('button[data-m=""]').click();
+  EST.elegido = r;
+  const f = $("est-ficha"), nota = estNotaPunto(r);
+  f.innerHTML = `<p class="est-f-nom">${esc(r.nombre)}</p><p>${esc(estTipo(r))}.</p><p>${esc([r.dom, r.loc].filter(Boolean).join(", "))}. Departamento ${esc(estDep(r.dep))}.</p>` +
+    (nota ? `<p class="est-f-nota">${esc(nota)}</p>` : "") + `<button type="button" class="enlace" data-cerrar>Cerrar</button>`;
+  f.hidden = false;
+  const p = EST.pts.find(x => x.r === r);
+  if (p && acercar) {
+    const k = Math.max(EST.t.k, 6), cv = d3.select("#est-canvas");
+    (REDUCIR ? cv : cv.transition().duration(DUR_G)).call(EST.zoom.transform, d3.zoomIdentity.translate(EST.w / 2 - p.x * k, EST.h / 2 - p.y * k).scale(k));
+  } else estPintar();
+}
 /* El menú de la página de provincia (5 de noviembre de 2026, pedido del autor). Lo escribe el constructor (perfil_menu en 03): acá se esconde lo
    que no se ve con la provincia elegida, los títulos se copian de las secciones para que digan lo mismo, se marca lo que se está viendo y, en
    pantallas chicas, se abre y se cierra. Lo que se está viendo es la sección que cruza una línea a un cuarto de la pantalla */
@@ -8741,6 +8998,7 @@ function pintarPanel(animar) {
   pintarCompara();
   pintarPuestos();
   pintarCensos();
+  pintarEstablecimientos();
   // el título de la pestaña lleva el nombre de la provincia, también al compartir el enlace (etapa 6 del plan de mejora)
   if (PAGINA === "provincia") document.title = nombre ? `${nombre} en números | Datina` : TITULO_INICIAL;
   cambiarTexto($("prov-titulo-txt"), nombre ? `${nombre} en números` : "¿Cómo se compara tu provincia con el país?", animar);

@@ -467,6 +467,16 @@ _LINEA_YA = _YA('const a=document.querySelector(\'.prov-linea[data-c="\'+c+\'"]\
                 'const d=document.getElementById("prov-destaca");if(d)d.hidden=false')
 base = base.replace("<!--HISTORIA-->", '<div class="prov-historia" id="prov-historia">'
                     + "".join(historia_prov(c, HISTORIA[c]) for c in sorted(HISTORIA)) + "</div>" + _HIST_YA)
+# Escuelas y hospitales de cada provincia (9 de noviembre de 2026, docs/roadmap/ESTABLECIMIENTOS.md): establecimientos_sitio.py escribe
+# sitio/datos/establecimientos/{código}.csv desde datos/manual/establecimientos/ (con los mismos datos, los mismos archivos). La sección de la
+# página de provincia recibe la huella de esas tablas (las pide con ?v=, así una tabla nueva no queda guardada en el navegador) y la fecha de
+# cada fuente: ningún año se escribe a mano en la plantilla
+import establecimientos_sitio  # noqa: E402
+_est = establecimientos_sitio.publicar()
+_est_v = hashlib.sha1(b"".join(p.read_bytes() for p in sorted(establecimientos_sitio.DESTINO.glob("*.csv")))).hexdigest()[:10]
+assert base.count('id="prov-establecimientos"') == 1, "falta la sección de escuelas y hospitales en la plantilla"
+base = base.replace('id="prov-establecimientos"', f'id="prov-establecimientos" data-v="{_est_v}" data-padron="{_est["padron"]}" '
+                    f'data-refes="{_est["refes"]}"', 1)
 
 
 def linea_prov(c, h):
@@ -1602,7 +1612,10 @@ CACHE_LARGO = (["/datina.css", "/datina.js", "/mesas.js", "/datos/fichas.js", "/
 # Las tablas de Elecciones por mesa (4 de noviembre de 2026): Cloudflare comprime el JSON y el texto, pero no el CSV, y Buenos Aires bajaba unos 5 MB. Se sirven como
 # texto: el archivo es el mismo y sigue llamándose .csv, y los enlaces de descarga llevan el atributo download
 MESAS_TEXTO = "/datos/mesas/*\n  Content-Type: text/plain; charset=utf-8\n"
-(SITIO / "_headers").write_text("".join(f"{r}\n  Cache-Control: public, max-age=31536000, immutable\n" for r in CACHE_LARGO) + MESAS_TEXTO, encoding="utf-8", newline="\n")
+# lo mismo con las escuelas y los hospitales de cada provincia (9 de noviembre de 2026): Buenos Aires son 1,4 MB de CSV y unos 400 KB comprimidos
+EST_TEXTO = "/datos/establecimientos/*\n  Content-Type: text/plain; charset=utf-8\n"
+(SITIO / "_headers").write_text("".join(f"{r}\n  Cache-Control: public, max-age=31536000, immutable\n" for r in CACHE_LARGO) + MESAS_TEXTO + EST_TEXTO,
+                                encoding="utf-8", newline="\n")
 # los datos de Elecciones por mesa (scripts/prueba_mesas.py): 03 no los arma, los arma scripts/elecciones_mesas.py, pero si no suman lo que tienen que sumar
 # el sitio no se da por armado
 import prueba_mesas

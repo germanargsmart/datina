@@ -253,6 +253,27 @@ if (D / "control.json").exists():
         ver(not (ok.fuera_km > est.BORDE_KM).any(), f"{n}: una corrección que sigue fuera de su departamento: {ok[ok.fuera_km > est.BORDE_KM][clave].tolist()}")
         ver((t.ubicacion == "sin confirmar").sum() == (hechas.correccion == "sin confirmar").sum(), f"{n}: sin confirmar que no salen de la revisión")
     ver(ctl["escuelas"]["padron_filas"] >= ctl["escuelas"]["total"], "escuelas: más filas que el padrón")
+
+    # ---- lo publicado para la página de provincia (scripts/establecimientos_sitio.py, fase 2): lo mismo que datos/manual, una tabla por
+    # jurisdicción, sin punto lo que no se dibuja, y cada archivo bien lejos del límite de 25 MB de Cloudflare Pages
+    import establecimientos_sitio as pub
+    S = pub.DESTINO
+    if S.exists():
+        esperado = pub.tablas()
+        archivos = sorted(S.glob("*.csv"))
+        ver([a.stem for a in archivos] == sorted(esperado.prov.unique()) and len(archivos) == 24, "sitio: no hay una tabla por jurisdicción")
+        for a in archivos:
+            b = a.read_bytes()
+            g = esperado[esperado.prov == a.stem][pub.COLUMNAS]
+            ver(b == g.to_csv(index=False, lineterminator="\n").encode("utf-8"), f"sitio: {a.name} no es el que arman los datos (correr 03)")
+            ver(len(b) < 5 * 1024 * 1024, f"sitio: {a.name} pesa {len(b)} bytes")
+        ver(len(esperado[esperado.t == "e"]) == len(esc) and len(esperado[esperado.t == "h"]) == len(hos), "sitio: faltan filas")
+        ver(esperado[esperado.u.isin(["c", "n"])].lat.isna().all(), "sitio: se dibuja algo sin confirmar o sin dato")
+        ver(esperado[esperado.u.isin(["p", "m", "a"])].lat.notna().all(), "sitio: falta el punto de algo que se dibuja")
+        ver((esperado.dep.str[:2] == esperado.prov).all(), "sitio: un departamento de otra provincia")
+        ver(set(esperado.cat) <= set(pub.SECTOR.values()) | set(pub.DEPENDENCIA.values()), "sitio: categorías desconocidas")
+    else:
+        fallas.append("no está sitio/datos/establecimientos/: correr python scripts/03_construir_sitio.py")
 else:
     fallas.append("no está datos/manual/establecimientos/control.json: correr python scripts/establecimientos.py")
 

@@ -293,7 +293,7 @@ await p.ir(`${B}provincia-chaco.html`, 1500);
   if (r.numerados) problemas.push(`provincia-chaco.html: ${r.numerados} títulos de temas con número`);
   if (r.sinDestino.length) problemas.push(`provincia-chaco.html: el menú lleva a lo que no existe: ${r.sinDestino.join(", ")}`);
   if (r.distintos.length) problemas.push(`provincia-chaco.html: el menú no dice lo mismo que el título: ${r.distintos.join(", ")}`);
-  if (r.lado.pos !== "sticky" || r.lado.btn !== "none" || r.lado.vis !== 17) problemas.push(`provincia-chaco.html en 1280: menú lateral mal ${JSON.stringify(r.lado)}`);
+  if (r.lado.pos !== "sticky" || r.lado.btn !== "none" || r.lado.vis !== 18) problemas.push(`provincia-chaco.html en 1280: menú lateral mal ${JSON.stringify(r.lado)}`);
   if (r.puestos.length !== 10) problemas.push(`provincia-chaco.html: ${r.puestos.length} tarjetas de puestos`);
   const COLOR = {sube: "rgb(0, 158, 115)", baja: "rgb(200, 16, 46)", igual: "rgb(86, 96, 108)"};
   for (const t of r.puestos) {
@@ -302,6 +302,28 @@ await p.ir(`${B}provincia-chaco.html`, 1500);
     if (!bien) problemas.push(`provincia-chaco.html, puestos: ${t.lab} no coincide: ${JSON.stringify(t)}`);
     if (t.lab === "Gasto en personal" && clase !== "igual") problemas.push(`provincia-chaco.html: Gasto en personal va en gris y tiene ${clase}`);
   }
+  // Escuelas y hospitales (9 de noviembre de 2026, docs/roadmap/ESTABLECIMIENTOS.md): la tabla de la provincia se baja al acercarse la sección,
+  // el mapa se dibuja, el texto, la leyenda y la tabla por departamento se llenan, el buscador encuentra y abre la ficha de un punto, y
+  // Hospitales cambia lo que se muestra
+  await p.eval(`document.getElementById("prov-establecimientos").scrollIntoView()`); await espera(2500);
+  const est = await p.eval(`(async () => {
+    const $ = id => document.getElementById(id), cv = $("est-canvas");
+    const pintado = () => { const c = document.createElement("canvas"); c.width = cv.width; c.height = cv.height; return cv.width > 300 && cv.toDataURL() !== c.toDataURL(); };
+    const out = {visible: !$("prov-establecimientos").hidden, lead: $("est-lead").textContent, ley: $("est-ley").textContent, filas: $("est-tabla").querySelectorAll("tbody tr").length,
+                 pintado: pintado(), nombre: cv.getAttribute("aria-label")};
+    const q = $("est-q"); q.value = "escuela"; q.dispatchEvent(new Event("input"));
+    out.resultados = $("est-resultados").querySelectorAll("button[data-i]").length;
+    $("est-resultados").querySelector("button[data-i]")?.click();
+    out.ficha = !$("est-ficha").hidden && $("est-ficha").textContent;
+    $("est-capa").querySelector('button[data-m="h"]').click();
+    out.leadH = $("est-lead").textContent; out.nivelOculto = $("est-nivel").hidden;
+    $("est-capa").querySelector('button[data-m="e"]').click();
+    return out;
+  })()`);
+  if (!est.visible || !/^Chaco tiene [\d.]+ escuelas/.test(est.lead) || !est.ley || est.filas < 20 || !est.pintado || !/Mapa de Chaco/.test(est.nombre))
+    problemas.push(`provincia-chaco.html: escuelas y hospitales mal ${JSON.stringify(est)}`);
+  if (!est.resultados || !est.ficha || !/Hospital|hospital/.test(est.leadH) || !est.nivelOculto)
+    problemas.push(`provincia-chaco.html: el buscador o Hospitales no andan ${JSON.stringify(est)}`);
   // el menú marca lo que se está viendo
   await p.eval(`document.getElementById("pg-salud").scrollIntoView()`); await espera(400);
   const marcado = await p.eval(`document.querySelector('#perfil-indice a[aria-current="true"]')?.getAttribute("href") || ""`);

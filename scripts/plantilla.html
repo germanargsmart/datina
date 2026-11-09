@@ -182,6 +182,38 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     <section class="prov-puestos" id="prov-puestos" aria-labelledby="prov-puestos-t" hidden></section>
     <!-- F12 (plan de mejora, 31 de octubre de 2026): cómo cambió la provincia entre los censos 2010 y 2022, con los tres cambios más grandes -->
     <section class="prov-censos" id="prov-censos" aria-labelledby="prov-censos-t" hidden></section>
+    <!-- Escuelas y hospitales (9 de noviembre de 2026, docs/roadmap/ESTABLECIMIENTOS.md): las escuelas primarias y secundarias y los hospitales
+         públicos con internación de la jurisdicción, en un mapa de sus departamentos. El marcado es fijo (pintarPanel no lo rehace al cambiar el
+         ancho): datina.js lo llena una vez por provincia y solo redibuja el mapa. 03 le agrega la versión de las tablas y la fecha de cada fuente -->
+    <section class="prov-establecimientos" id="prov-establecimientos" aria-labelledby="prov-establecimientos-t" hidden>
+      <h2 class="bloque-grupo" id="prov-establecimientos-t">Escuelas y hospitales</h2>
+      <p class="prov-destaca-sub" id="est-sub"></p>
+      <div class="est-controles">
+        <div class="conmutador" role="group" aria-label="Qué mostrar en el mapa" id="est-capa" data-propio style="--n:2">
+          <button type="button" data-m="e" aria-pressed="true">Escuelas</button><button type="button" data-m="h" aria-pressed="false">Hospitales</button>
+        </div>
+        <div class="conmutador" role="group" aria-label="Nivel de las escuelas" id="est-nivel" data-propio style="--n:3">
+          <button type="button" data-m="" aria-pressed="true">Todas</button><button type="button" data-m="p" aria-pressed="false">Primaria</button><button type="button" data-m="s" aria-pressed="false">Secundaria</button>
+        </div>
+      </div>
+      <p class="est-ley" id="est-ley"></p>
+      <div class="est-lienzo" id="est-lienzo">
+        <canvas id="est-canvas" role="img" aria-label="Mapa de las escuelas y los hospitales de la provincia"></canvas>
+        <div class="ms-zoom" role="group" aria-label="Acercar o alejar el mapa">
+          <button type="button" data-z="mas" aria-label="Acercar">+</button>
+          <button type="button" data-z="menos" aria-label="Alejar">−</button>
+          <button type="button" data-z="todo" aria-label="Volver a la vista completa">Todo</button>
+        </div>
+      </div>
+      <p class="est-ayuda">Tocá un punto para ver de qué escuela u hospital se trata. Para acercar, los botones, dos dedos o Ctrl y la rueda del mouse.</p>
+      <div class="est-ficha" id="est-ficha" aria-live="polite" hidden></div>
+      <p class="lead est-lead" id="est-lead"></p>
+      <label class="campo est-buscar"><span>Buscar</span><small>Una escuela o un hospital, por nombre, localidad o domicilio</small>
+        <input type="search" id="est-q" autocomplete="off" spellcheck="false"></label>
+      <div class="est-resultados" id="est-resultados"></div>
+      <details class="cx-detalle est-det"><summary>Ver la tabla por departamento</summary><div id="est-tabla"></div></details>
+      <p class="tabla-nota" id="est-nota"></p>
+    </section>
     <div class="prov-grid" id="prov-grid"></div>
     <!-- la historia de cada jurisdicción (11 de octubre de 2026), al final desde la etapa 6 del plan de mejora: la escribe el constructor
          desde datos/manual/provincias_historia.json -->
