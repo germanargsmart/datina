@@ -783,6 +783,11 @@ await q.tamano(1280, 900);
   if (!/Escrutinio provisorio\./.test(r.txt) || !/No hay un escrutinio oficial publicado en línea/.test(r.txt)) problemas.push("mesas.html: La Rioja 2011 no dice que es el escrutinio provisorio");
   r = await ms("?e=2015-general-gobernador", 1800);
   if (!/De La Rioja y San Juan no hay un escrutinio oficial publicado en línea/.test(r.txt.replace(/\s+/g, " "))) problemas.push("mesas.html: el país en 2015 no avisa qué jurisdicciones no tienen escrutinio oficial");
+  // antes de 1983 (decisión del autor del 9 de noviembre de 2026): una elección con su fuente, un territorio nacional que no elegía gobernador y la Capital
+  r = await ms("?e=1958-general-gobernador&p=06", 1800);
+  if (!/Unión Cívica Radical Intransigente/.test(r.txt) || !/Archivo General de la Nación/.test(r.txt)) problemas.push("mesas.html: Buenos Aires 1958 sin su ganador o sin su fuente");
+  r = await ms("?e=1946-general-gobernador&p=22", 1800);
+  if (!/Chaco: territorio nacional: no elegía gobernador\. Se muestra todo el país/.test(r.txt.replace(/\s+/g, " "))) problemas.push("mesas.html: Chaco en 1946 no dice que era territorio nacional");
   // en el celular no se corre de costado, tampoco con las tablas de abajo a la vista
   await q.tamano(320, 700);
   for (const u of ["?e=2023-general-diputados&p=06&s=61", "?e=2023-general-presidente&p=06&s=61&c=627", "?e=2009-general-diputados&p=06", "?e=2025-general-diputados&ver=fuerza"]) {

@@ -1,0 +1,37 @@
+codigo_indec,provincia,lista,votos,electores,votantes,blancos,nulos
+10,Catamarca,Unión Cívica Radical Intransigente,30521,,64669,0,0
+10,Catamarca,Partido Populista,20940,,64669,0,0
+10,Catamarca,Unión Cívica Radical del Pueblo,13208,,64669,0,0
+50,Mendoza,Partido Demócrata,94665,416144,360012,0,19271
+50,Mendoza,Unión Cívica Radical del Pueblo,78885,416144,360012,0,19271
+50,Mendoza,Unión Cívica Radical Intransigente,53093,416144,360012,0,19271
+50,Mendoza,Partido Tres Banderas,49441,416144,360012,0,19271
+50,Mendoza,Partido Socialista Argentino,25682,416144,360012,0,19271
+50,Mendoza,Pueblo Unido,17987,416144,360012,0,19271
+50,Mendoza,Partido Demócrata Cristiano,6392,416144,360012,0,19271
+50,Mendoza,Unión Cívica Radical Renovadora,6392,416144,360012,0,19271
+50,Mendoza,Liberación Popular,2430,416144,360012,0,19271
+50,Mendoza,Partido Demócrata Progresista,1871,416144,360012,0,19271
+50,Mendoza,Unión Republicana,1487,416144,360012,0,19271
+50,Mendoza,Partido Obrero Trotskista,1362,416144,360012,0,19271
+50,Mendoza,Unión Cívica Republicana,1054,416144,360012,0,19271
+74,San Luis,Unión Cívica Radical Intransigente,39702,,87418,1544,229
+74,San Luis,Partido Demócrata Liberal,38851,,87418,1544,229
+74,San Luis,Unión Cívica Radical del Pueblo,3246,,87418,1544,229
+74,San Luis,Partido Demócrata Cristiano,1495,,87418,1544,229
+74,San Luis,Partido Socialista Argentino,1262,,87418,1544,229
+74,San Luis,Partido Socialista Democrático,1089,,87418,1544,229
+82,Santa Fe,Unión Cívica Radical Intransigente,297528,1156403,1002363,0,31013
+82,Santa Fe,Partido Laborista,240912,1156403,1002363,0,31013
+82,Santa Fe,Unión Cívica Radical del Pueblo,137375,1156403,1002363,0,31013
+82,Santa Fe,Partido Demócrata Progresista,135648,1156403,1002363,0,31013
+82,Santa Fe,Partido del Trabajo y el Progreso,47667,1156403,1002363,0,31013
+82,Santa Fe,Partido Tres Banderas,45440,1156403,1002363,0,31013
+82,Santa Fe,Partido Demócrata Cristiano,30685,1156403,1002363,0,31013
+82,Santa Fe,Partido Demócrata,8634,1156403,1002363,0,31013
+82,Santa Fe,Unión Cívica y Movimiento Radical Nacional y Popular,6034,1156403,1002363,0,31013
+82,Santa Fe,Unión Cívica Radical de Santa Fe,5320,1156403,1002363,0,31013
+82,Santa Fe,Partido Socialista Argentino,5041,1156403,1002363,0,31013
+82,Santa Fe,Partido Obrero,3951,1156403,1002363,0,31013
+82,Santa Fe,Partido Socialista Democrático,3906,1156403,1002363,0,31013
+82,Santa Fe,Partido Acción Progresista,3209,1156403,1002363,0,31013

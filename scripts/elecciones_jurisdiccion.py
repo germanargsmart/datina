@@ -68,12 +68,11 @@ MOTIVO_DEP = {("2025-general-gobernador", "18"): "la Junta suma esos votos en ca
 # los electores por departamento que no se publican porque el padrón municipal incluye a los extranjeros, que votan intendente y no gobernador
 SIN_ELECTORES_DEP = {"38", "54"}
 # las elecciones sin escrutinio oficial en línea que se publican con su fuente real (decisión del autor del 9 de noviembre de 2026: "publicalas con su
-# fuente real"), con el recuento que dice la página: "provisorio" si la fuente cuenta parte de las mesas, "definitivo" si dice que lo es, y nada si no se sabe
-NO_OFICIAL = {("1988-general-gobernador", "10"): "", ("2003-general-gobernador", "10"): "", ("1998-general-gobernador", "14"): "",
-              ("2011-general-gobernador", "46"): "provisorio", ("2015-general-gobernador", "46"): "", ("2015-general-gobernador", "70"): "provisorio",
-              ("2023-general-gobernador", "70"): "", ("1999-general-gobernador", "74"): "provisorio", ("2002-general-gobernador", "86"): "provisorio",
-              ("2005-general-gobernador", "86"): "provisorio", ("2008-general-gobernador", "86"): "", ("2025-general-gobernador", "86"): "definitivo",
-              ("2011-segunda-gobernador", "94"): ""}
+# fuente real"), en datos/manual/mesas_jurisdiccion_no_oficial.csv, con el recuento que dice la página: "provisorio" si la fuente cuenta parte de las mesas,
+# "definitivo" si dice que lo es, y nada si no se sabe
+NO_OFICIAL_CSV = RAIZ / "datos" / "manual" / "mesas_jurisdiccion_no_oficial.csv"
+NO_OFICIAL = {(f"{r['anio']}-{r['vuelta']}-gobernador", r["codigo_indec"]): r["recuento"]
+              for r in csv.DictReader(open(NO_OFICIAL_CSV, encoding="utf-8", newline=""))}
 COLUMNAS_DEP = ["cargo", "anio", "vuelta", "codigo_indec", "departamento", "codigo_departamento", "lista", "votos", "electores", "votantes", "blancos", "nulos",
                 "fuente", "url"]
 ORIGEN = "jurisdiccion"   # marca en el índice de lo que arma este programa: lo demás no se toca
@@ -110,6 +109,26 @@ CALENDARIO = {
     "94": ["1991", "1991 segunda", "1995", "1999", "1999 segunda", "2003", "2003 segunda", "2007", "2007 segunda", "2011", "2011 segunda", "2015",
            "2015 segunda", "2019", "2023"],
 }
+# Las de 1912 a 1982 (decisión del autor del 9 de noviembre de 2026), en datos/manual/mesas_jurisdiccion_calendario.csv: cada elección de gobernador de
+# cada provincia, directa o por colegio electoral, tenga datos o no. Las intervenciones federales, los gobiernos de facto y los territorios nacionales que
+# todavía no eran provincia no están: la página dice que esa jurisdicción no eligió gobernador ese año
+CALENDARIO_CSV = RAIZ / "datos" / "manual" / "mesas_jurisdiccion_calendario.csv"
+for _r in csv.DictReader(open(CALENDARIO_CSV, encoding="utf-8", newline="")):
+    _e = _r["anio"] + ("" if _r["vuelta"] == "general" else " segunda")
+    if int(_r["anio"]) >= 1983 or _e in CALENDARIO.setdefault(_r["codigo_indec"], []):
+        sys.exit(f"mesas_jurisdiccion_calendario.csv: {_r['anio']} {_r['vuelta']} {_r['codigo_indec']} es de 1983 en adelante o está repetida")
+    CALENDARIO[_r["codigo_indec"]] = sorted(CALENDARIO[_r["codigo_indec"]] + [_e])
+# por qué una jurisdicción no eligió gobernador: los territorios nacionales hasta su primera elección de gobernador y la Capital, cuyo intendente designaba
+# el presidente hasta 1996
+PRIMERA_ELECCION = {"22": 1953, "42": 1953, "54": 1955, "34": 1958, "58": 1958, "62": 1958, "26": 1958, "78": 1958, "94": 1991, "02": 1996}
+
+
+def por_que_no(cod, anio):
+    if cod == "02" and anio < PRIMERA_ELECCION["02"]:
+        return "La Capital no elegía su gobierno: el intendente lo designaba el presidente"
+    if anio < PRIMERA_ELECCION.get(cod, 0):
+        return "Territorio nacional: no elegía gobernador"
+    return None
 
 
 def sin_fuente(datos):
@@ -144,6 +163,10 @@ DIFERENCIAS = {("gobernador", 2017, "general", "18"): 9,      # las alianzas sum
                # Tierra del Fuego 2015: los votantes son el total de votos escrutados del Juzgado, que no es la suma de los de gobernador
                ("gobernador", 2015, "general", "94"): -1010, ("gobernador", 2015, "segunda", "94"): 79}
 
+# las de 1912 a 1982, en datos/manual/mesas_jurisdiccion_diferencias.csv: casi todas, votantes que el documento cuenta y no reparte ("diferencias de actas"),
+# y la nota de cada una lo dice
+for _r in csv.DictReader(open(RAIZ / "datos" / "manual" / "mesas_jurisdiccion_diferencias.csv", encoding="utf-8", newline="")):
+    DIFERENCIAS[("gobernador", int(_r["anio"]), _r["vuelta"], _r["codigo_indec"])] = int(_r["diferencia"])
 # lo mismo por departamento: en Corrientes 2017, en 13 departamentos las alianzas suman de 1 a 47 votos más que los válidos del mismo documento. Se publican
 # como vienen, con un tope por departamento
 DIFERENCIAS_DEP = {("gobernador", 2017, "general", "18"): 50}
@@ -164,7 +187,21 @@ GRIS = {"gobernador": "Sin datos en esta elección" if TODAS else "Sin datos de 
 # y el programa la nombra al terminar. "Frente de Todos" antes de 2019 es el de Corrientes, con la UCR (la misma regla que el Congreso en 02_procesar.py)
 # Primero van las reglas que dependen de la jurisdicción y del año, porque el mismo nombre fue otra fuerza: "Frente de Todos" antes de 2019 es el de
 # Corrientes, con la UCR (la misma regla que el Congreso en 02_procesar.py), y Encuentro por Corrientes fue de la UCR antes de sumarse a Cambiemos
-PRIMERO = [(r"^(alianza )?frente de todos$", lambda a, c: "ucr" if a < 2019 else None),
+PRIMERO = [# antes de 1983 (decisión del autor del 9 de noviembre de 2026): el peronismo de 1946 a 1955 y los partidos neoperonistas de la proscripción
+           # (1962 a 1966), la UCRI de 1958 a 1963, los conservadores, los antipersonalistas, y bloquistas y lencinistas, que no son la UCR aunque lo digan
+           (r"peronista|^(partido )?laborista$|junta renovadora|^uni[oó]n popular$|tres banderas|^movimiento popular (juje|salte|mendoc|catamarq)|"
+            r"blanco de los trabajadores", lambda a, c: "peronismo" if a < 1973 else None),
+           (r"uni[oó]n c[ií]vica radical intransigente", lambda a, c: "ucri" if a < 1973 else None),
+           (r"antipersonalista", lambda a, c: "antipersonalistas" if a < 1983 else None),
+           (r"bloquista|lencinista", lambda a, c: "otras" if a < 1983 else None),
+           (r"dem[oó]crata nacional|^concordancia|^(partido )?conservador$|^(partido )?dem[oó]crata( de buenos aires)?$|dem[oó]crata liberal|"
+            r"dem[oó]crata conservador|autonomista nacional|^(partido )?uni[oó]n provincial$", lambda a, c: "conservadores" if a < 1983 else None),
+           # la Concentración Popular de Córdoba (Cárcano, 1912) y el Partido Popular de Jujuy y de Mendoza antes de 1946 también, y en Corrientes, el Partido
+           # Liberal de 1962 y 1963, con el Autonomista, es el Pacto
+           (r"^concentraci[oó]n popular$", lambda a, c: "conservadores" if c == "14" and a < 1946 else None),
+           (r"^partido popular$", lambda a, c: "conservadores" if c in ("38", "50") and a < 1946 else None),
+           (r"^partido liberal$", lambda a, c: "pacto" if c == "18" and 1958 <= a < 1983 else None),
+           (r"^(alianza )?frente de todos$", lambda a, c: "ucr" if a < 2019 else None),
            (r"^(autonomista|liberal)$|^alianza \(liberal, autonomista|^alianza pacto", lambda a, c: "pacto" if c == "18" else None),
            (r"^encuentro por corrientes$", lambda a, c: "ucr" if a < 2015 else None),
            (r"^frente corrientes podemos m[aá]s$|^limpiar corrientes$", lambda a, c: "peronismo" if c == "18" else None),
@@ -224,7 +261,11 @@ REGLAS = [(r"justicialis|frente para la victoria|uni[oó]n por la patria|frente 
 # elecciones_departamentos.py) o, para el conservadurismo correntino, el de los conservadores en 257arg
 FUERZAS_PROPIAS = {"alianza": {"nombre": "Alianza para el Trabajo, la Justicia y la Educación", "color": "#DC0143"},
                    "frepaso": {"nombre": "Frente País Solidario", "color": "#A349A4"},
-                   "pacto": {"nombre": "Pacto Autonomista Liberal", "color": "#1F2F6B"}}
+                   "pacto": {"nombre": "Pacto Autonomista Liberal", "color": "#1F2F6B"},
+                   # antes de 1983, con el color de los mapas nacionales de esos años (elecciones_antiguas.py) donde lo hay
+                   "ucri": {"nombre": "UCR Intransigente", "color": "#F4845F"},
+                   "conservadores": {"nombre": "Conservadores (PDN, Concordancia y demócratas provinciales)", "color": "#4A5A7A"},
+                   "antipersonalistas": {"nombre": "UCR Antipersonalista", "color": "#A0522D"}}
 
 
 def entero(v, fila, campo):
@@ -680,6 +721,9 @@ def main():
               "fuera": FUERA[cargo], "gris": GRIS[cargo]}
         if sin:
             el["sin_fuente"] = sin
+        fuera_j = {c: por_que_no(c, anio) for c in PROVINCIAS if c not in juris and c not in sin and por_que_no(c, anio)}
+        if fuera_j and cargo == "gobernador":
+            el["fuera_j"] = fuera_j
         no_of = {c: NO_OFICIAL[(id_, c)] for c in sorted(juris) if (id_, c) in NO_OFICIAL}
         if no_of:
             el["no_oficial"] = sorted(no_of)

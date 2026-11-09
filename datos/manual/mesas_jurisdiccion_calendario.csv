@@ -1,0 +1,272 @@
+anio,vuelta,fecha,codigo_indec,tipo,nota
+1913,general,1913-12-07,06,colegio,
+1918,general,1918-03-03,06,colegio,
+1921,general,1921-12-04,06,colegio,
+1925,general,1925-12-06,06,colegio,
+1929,general,1929-12-01,06,colegio,
+1931,general,1931-11-08,06,colegio,
+1935,general,1935-11-03,06,directa,
+1940,general,1940-02-25,06,directa,Anulada con el escrutinio sin terminar.
+1941,general,1941-12-07,06,directa,
+1946,general,1946-02-24,06,directa,"Elección directa, según Samuel Amaral (Perón presidente, 2018, tabla 2.5)."
+1950,general,1950-03-12,06,directa,"Período de dos años, hasta 1952 (Wikipedia)."
+1951,general,1951-11-11,06,directa,El mismo día que la elección presidencial. Primera con voto de las mujeres.
+1958,general,1958-02-23,06,directa,
+1962,general,1962-03-18,06,directa,"Elección anulada: ganó la fórmula Framini - Anglada (Unión Popular), el gobierno nacional intervino la provincia y después el gobierno de facto anuló la elección. No se encontró un escrutinio completo: PolAr y la Wikipedia (sin fuente citada) dan solo los partidos más votados (Unión Popular 1.200.995, UCRI 761.115 y UCRP 636.000, una cifra redonda) y no coinciden en el resto."
+1963,general,1963-07-07,06,colegio,
+1973,general,1973-03-11,06,directa,
+1912,general,,10,colegio,Ramón Clero Ahumada (Partido Constitucional) asumió el 1 de mayo de 1912. No se encontró la fecha de la elección ni si fue después de la ley Sáenz Peña.
+1915,general,,10,colegio,"Después de la intervención federal de octubre a diciembre de 1915. Fue electo Guillermo Correa (Concentración Catamarqueña), que asumió el 15 de diciembre de 1915. Sin votos en las fuentes revisadas."
+1919,general,,10,colegio,"Después de la intervención federal de 1918. Fue electo Ramón Clero Ahumada (Unión Cívica Radical), que asumió el 1 de enero de 1920. Sin votos en las fuentes revisadas."
+1923,general,1923-08-05,10,colegio,
+1927,general,1927-08-07,10,colegio,Sin gobernador: el Colegio Electoral no tuvo mayoría y se votó de nuevo en 1928.
+1928,general,1928-04-29,10,colegio,
+1931,general,1931-11-08,10,colegio,
+1936,general,1936-03-01,10,colegio,
+1939,general,1939-12-03,10,colegio,Ernesto Andrada no llegó a asumir: intervención federal desde febrero de 1940.
+1941,general,1941-11-23,10,colegio,
+1946,general,1946-02-24,10,colegio,"Se votaba a electores de gobernador, según Samuel Amaral (Perón presidente, 2018, tablas 2.5 y 4.3). Datos en datos/manual/mesas_jurisdiccion_pendiente.csv (publicación del Ministerio del Interior de 1952)."
+1949,general,1949-04-10,10,colegio,"Colegio de 33 electores, según la Wikipedia. Datos en datos/manual/mesas_jurisdiccion_pendiente.csv (publicación del Ministerio del Interior de 1952)."
+1951,general,1951-11-11,10,directa,El mismo día que la elección presidencial. Primera con voto de las mujeres. La Wikipedia no menciona colegio electoral.
+1958,general,1958-02-23,10,colegio,
+1961,general,1961-12-17,10,colegio,Elección anulada.
+1963,general,1963-07-07,10,colegio,
+1973,general,1973-03-11,10,directa,
+1912,general,1912-11-17,14,colegio,
+1915,general,1915-11-14,14,colegio,
+1918,general,1918-11-17,14,colegio,
+1921,general,1921-11-21,14,colegio,
+1925,general,1925-03-08,14,directa,
+1928,general,1928-03-11,14,directa,
+1931,general,1931-11-08,14,directa,
+1935,general,1935-11-03,14,directa,
+1940,general,1940-03-10,14,directa,
+1946,general,1946-02-24,14,directa,"Elección directa, según Samuel Amaral (Perón presidente, 2018, tabla 2.5)."
+1948,general,1948-12-05,14,directa,Después de la intervención federal de 1947. La Wikipedia no menciona colegio electoral.
+1951,general,1951-11-11,14,directa,El mismo día que la elección presidencial. Primera con voto de las mujeres. La Wikipedia no menciona colegio electoral.
+1958,general,1958-02-23,14,directa,
+1962,general,1962-03-18,14,directa,Elección anulada.
+1963,general,1963-07-07,14,colegio,
+1973,general,1973-03-11,14,directa,
+1973,segunda,1973-04-15,14,directa,
+1913,general,,18,colegio,"Una sola lista, la del pacto autonomista liberal, y el Colegio Electoral eligió por unanimidad a Mariano I. Loza. Solís Carnicer (tesis de 2006) no obtuvo resultados ciertos de esta elección. La elección prevista para el 16 de septiembre de 1917 no se hizo: la provincia fue intervenida el 23 de noviembre de 1917."
+1919,general,1919-04-06,18,colegio,
+1921,general,1921-09-18,18,colegio,
+1925,general,1925-09-20,18,colegio,
+1931,general,1931-11-08,18,colegio,
+1935,general,,18,colegio,"Fue electo Juan Francisco Torrent (Partido Autonomista), que asumió el 25 de diciembre de 1935. Sin votos en las fuentes revisadas: Solís Carnicer (E.I.A.L., 2009) da para 1937 a 1939 totales por partido de otras elecciones, tomados de Ricardo Harvey."
+1939,general,1939-09-17,18,colegio,
+1946,general,1946-02-24,18,colegio,"Se votaba a electores de gobernador, según Samuel Amaral (Perón presidente, 2018, tablas 2.5 y 4.3). El colegio eligió gobernador el 15 de mayo de 1946."
+1948,general,1948-12-05,18,colegio,"Colegio de 32 electores, según la Wikipedia. Después de la intervención federal de 1947."
+1951,general,1951-11-11,18,directa,"El mismo día que la elección presidencial. Primera con voto de las mujeres. Primera elección directa de gobernador en Corrientes, según la Wikipedia."
+1958,general,1958-02-23,18,colegio,
+1962,general,1962-03-18,18,colegio,Elección anulada.
+1963,general,1963-07-07,18,colegio,
+1973,general,1973-03-11,18,directa,
+1973,segunda,1973-04-15,18,directa,
+1953,general,1953-04-12,22,directa,"Primera elección de gobernador de la provincia Presidente Perón, hoy Chaco, territorio nacional hasta 1951. La Wikipedia no menciona colegio electoral."
+1958,general,1958-02-23,22,directa,
+1962,general,1962-03-18,22,directa,Elección anulada.
+1963,general,1963-07-07,22,colegio,
+1973,general,1973-03-11,22,directa,"Ya transcripta en datos/manual/mesas_jurisdiccion_pendiente.csv (Acta 14/73 del Tribunal Electoral). Sin segunda vuelta: el Frente Justicialista de Liberación superó la mitad de los votos válidos. La Wikipedia, que cita la publicación del Archivo General de la Nación, da 64.839 votos a la UCR y 3.355 al Partido Intransigente (la transcripción pendiente tiene 64.893 y 3.555): con esas dos cifras las listas suman 232.635, los válidos del Acta 13/73, y desaparece la diferencia de 254 votos. Da además 4.398 blancos, 720 anulados, 237.753 votantes y 330.822 electores."
+1958,general,1958-02-23,26,directa,
+1962,general,1962-03-18,26,directa,Elección anulada.
+1963,general,1963-07-07,26,colegio,
+1973,general,1973-03-11,26,directa,
+1973,segunda,1973-04-15,26,directa,
+1914,general,1914-06-07,30,colegio,
+1918,general,1918-06-02,30,colegio,
+1922,general,1922-06-04,30,colegio,
+1926,general,1926-06-06,30,colegio,
+1930,general,1930-06-01,30,colegio,
+1931,general,1931-11-08,30,colegio,
+1935,general,1935-03-17,30,directa,
+1939,general,1939-03-19,30,directa,
+1943,general,1943-03-21,30,directa,Eduardo Laurencena no asumió por el golpe de Estado del 4 de junio de 1943.
+1946,general,1946-02-24,30,directa,"Elección directa, según Samuel Amaral (Perón presidente, 2018, tabla 2.5)."
+1950,general,1950-03-05,30,directa,La Wikipedia no menciona colegio electoral.
+1951,general,1951-11-11,30,directa,El mismo día que la elección presidencial. Primera con voto de las mujeres. La Wikipedia no menciona colegio electoral.
+1958,general,1958-02-23,30,directa,
+1962,general,1962-03-18,30,directa,Elección anulada.
+1963,general,1963-07-07,30,colegio,
+1973,general,1973-03-11,30,directa,
+1973,segunda,1973-04-15,30,directa,
+1958,general,1958-02-23,34,directa,
+1962,general,1962-01-14,34,directa,Elección anulada.
+1963,general,1963-07-07,34,colegio,
+1973,general,1973-03-11,34,directa,
+1973,segunda,1973-04-15,34,directa,
+1913,general,1913-07-13,38,colegio,
+1916,general,,38,colegio,"Elección de marzo de 1916 (Fleitas, tesis de 2007). Fue electo Mariano Valle (Partido Provincial). Sin votos en las fuentes revisadas."
+1918,general,1918-03-04,38,colegio,
+1921,general,1921-01-02,38,colegio,"Fue electo Mateo Córdova (Unión Cívica Radical). Fleitas (tesis de 2007, p. 288) solo da datos fragmentarios de la prensa."
+1924,general,1924-04-06,38,colegio,
+1927,general,1927-01-09,38,colegio,
+1929,general,1929-09-29,38,colegio,
+1931,general,1931-11-08,38,colegio,
+1934,general,1934-03-05,38,colegio,
+1936,general,1936-03-01,38,directa,
+1940,general,1940-03-03,38,directa,
+1942,general,1942-05-31,38,directa,Después de la intervención federal de enero de 1942. Fue electo Fenelón Quintana (Partido Demócrata Nacional). La Wikipedia da solo una cifra redondeada (15.000 votos). La forma de elección no se comprobó en el texto constitucional.
+1946,general,1946-02-24,38,directa,"Elección directa, según Samuel Amaral (Perón presidente, 2018, tabla 2.5)."
+1949,general,1949-11-27,38,directa,La Wikipedia no menciona colegio electoral.
+1951,general,1951-11-11,38,directa,El mismo día que la elección presidencial. Primera con voto de las mujeres. La Wikipedia no menciona colegio electoral.
+1958,general,1958-02-23,38,directa,
+1962,general,1962-03-18,38,directa,Elección anulada.
+1963,general,1963-07-07,38,colegio,
+1966,general,1966-01-30,38,directa,Elección convocada por la intervención federal de 1964.
+1973,general,1973-03-11,38,directa,
+1953,general,1953-04-12,42,directa,"Primera elección de gobernador de la provincia Eva Perón, hoy La Pampa, territorio nacional hasta 1951. La Wikipedia no menciona colegio electoral."
+1960,general,1960-03-06,42,directa,Fórmula única: los demás partidos no presentaron candidatos a gobernador.
+1963,general,1963-07-07,42,colegio,
+1973,general,1973-03-11,42,directa,
+1973,segunda,1973-04-15,42,directa,
+1913,general,1913-05-25,46,colegio,"Fue electo Tomás Vera Barros (Partido Conservador). La Wikipedia da cifras redondeadas (5.300 y 2.600 votos) tomadas de Armando Bazán, Historia de La Rioja (1991): no se usaron. La forma de elección no se comprobó en el texto constitucional."
+1916,general,,46,colegio,Fue electo Florentino de la Colina (Partido Conservador). Sin votos en las fuentes revisadas. La forma de elección no se comprobó en el texto constitucional.
+1918,general,1918-06-02,46,colegio,"Bajo intervención federal. Fue electo Benjamín Rincón (Unión Cívica Radical), que asumió el 10 de marzo de 1920. La Wikipedia da los votos de cada candidato a elector por departamento, de la Memoria del Ministerio del Interior 1919-1920, sin totales por partido."
+1923,general,,46,colegio,Fue electo Florencio Dávila San Román (Unión Cívica Radical). Darío Cantón (1968) trae para 1923 solo las legislativas. Sin votos de gobernador en las fuentes revisadas.
+1926,general,1926-03-07,46,colegio,
+1929,general,,46,colegio,"Fue electo Juan Zacarías Agüero Vera (Unión Cívica Radical), depuesto en 1930. Sin votos en las fuentes revisadas."
+1931,general,1931-11-08,46,colegio,
+1934,general,,46,colegio,Fue electo Eduardo Fernández Valdés (Partido Demócrata Nacional). Sin votos en las fuentes revisadas. La forma de elección no se comprobó en el texto constitucional.
+1938,general,,46,colegio,Fue electo Héctor de la Fuente (antipersonalista). Sin votos en las fuentes revisadas. La forma de elección no se comprobó en el texto constitucional.
+1942,general,,46,colegio,"Fue electo Félix de la Colina (Partido Demócrata Nacional), depuesto en 1943. Sin votos en las fuentes revisadas. La forma de elección no se comprobó en el texto constitucional."
+1946,general,1946-02-24,46,directa,"Elección directa, según Samuel Amaral (Perón presidente, 2018, tabla 2.5). Datos en datos/manual/mesas_jurisdiccion_pendiente.csv (publicación del Ministerio del Interior de 1952)."
+1949,general,1949-04-10,46,directa,La Wikipedia no menciona colegio electoral. Datos en datos/manual/mesas_jurisdiccion_pendiente.csv (publicación del Ministerio del Interior de 1952).
+1951,general,1951-11-11,46,directa,El mismo día que la elección presidencial. Primera con voto de las mujeres. La Wikipedia no menciona colegio electoral.
+1958,general,1958-02-23,46,directa,
+1962,general,1962-03-18,46,directa,"Elección anulada: ganó Enrique Chumbita (Unión Cívica Radical Intransigente), que no asumió por el golpe de Estado del 29 de marzo de 1962. PolAr y la Wikipedia coinciden en las dos primeras listas (UCRI 21.355 y UCRP 15.969) pero no en el resto: PolAr da 13.986 votos a la democracia cristiana y un resto negativo, y la Wikipedia 6.470."
+1963,general,1963-07-07,46,colegio,
+1973,general,1973-03-11,46,directa,
+1913,general,1913-11-09,50,colegio,
+1918,general,1918-01-20,50,colegio,
+1921,general,,50,colegio,"Después de la intervención federal de 1920. Fue electo Carlos Washington Lencinas (Unión Cívica Radical Lencinista), que asumió el 4 de febrero de 1922. Darío Cantón (1968, p. 270) trae una elección de gobernador de 1922 por departamento, con errores internos (votos de partidos que superan a los votantes): no se usó."
+1926,general,,50,colegio,"Después de la intervención federal de 1924. Fue electo Alejandro Orfila (lencinista), que asumió el 6 de febrero de 1926. Darío Cantón (1968) trae esta elección por departamento: no se transcribió."
+1928,general,,50,colegio,Darío Cantón (1968) trae una elección de gobernador de 1928 por departamento. La provincia fue intervenida el 4 de diciembre de 1928 y no se encontró si la elección se completó. No se transcribió.
+1931,general,1931-11-08,50,colegio,
+1935,general,1935-01-06,50,colegio,
+1938,general,1938-01-02,50,colegio,"Fue electo Rodolfo Corominas Segura (Partido Demócrata). La Wikipedia no da votos. La fecha es la de su ficha: el texto dice 6 de enero, como en 1935."
+1941,general,,50,colegio,"Fue electo Adolfo Vicchi (Partido Demócrata), depuesto en 1943. Sin votos en las fuentes revisadas."
+1946,general,1946-02-24,50,directa,"Elección directa, según Samuel Amaral (Perón presidente, 2018, tabla 2.5)."
+1948,general,1948-12-05,50,directa,El mismo día que los convencionales constituyentes. La Wikipedia no menciona colegio electoral.
+1951,general,1951-11-11,50,directa,El mismo día que la elección presidencial. Primera con voto de las mujeres. La Wikipedia no menciona colegio electoral.
+1958,general,1958-02-23,50,directa,
+1961,general,1961-02-12,50,directa,
+1963,general,1963-07-07,50,colegio,
+1966,general,1966-04-17,50,colegio,No se completó: el golpe de Estado de junio de 1966 impidió que se reuniera el colegio electoral.
+1973,general,1973-03-11,50,directa,
+1973,segunda,1973-04-15,50,directa,
+1955,general,1955-03-20,54,directa,"Primera elección de gobernador de la provincia de Misiones, territorio nacional hasta 1953. Elección directa, según la Wikipedia."
+1960,general,1960-03-27,54,directa,
+1963,general,1963-07-07,54,colegio,
+1973,general,1973-03-11,54,directa,
+1973,segunda,1973-04-15,54,directa,
+1958,general,1958-02-23,58,directa,
+1962,general,1962-03-18,58,directa,Elección anulada.
+1963,general,1963-07-07,58,colegio,
+1973,general,1973-03-11,58,directa,
+1973,segunda,1973-04-15,58,directa,
+1958,general,1958-02-23,62,directa,
+1962,general,1962-03-18,62,directa,Elección anulada.
+1963,general,1963-07-07,62,colegio,
+1973,general,1973-03-11,62,directa,"Debía haber segunda vuelta el 15 de abril, pero el segundo candidato se retiró y no se hizo."
+1912,general,1912-09-22,66,colegio,
+1915,general,,66,colegio,"Fue electo Abraham Cornejo, que asumió el 20 de febrero de 1916. Sin votos en las fuentes revisadas."
+1918,general,,66,colegio,"Después de la intervención federal de 1918. Fue electo Joaquín Castellanos (Unión Cívica Radical), que asumió el 7 de enero de 1919. Sin votos en las fuentes revisadas."
+1922,general,,66,colegio,"Después de la intervención federal de 1921. Fue electo Adolfo Güemes (Unión Cívica Radical), que asumió el 1 de mayo de 1922. Darío Cantón (1968, p. 273) trae por departamento 8.340 votos radicales y 6.490 de la Unión Provincial, sin votantes y con ceros en ocho departamentos: no se usó."
+1924,general,1924-12-28,66,colegio,
+1927,general,1927-12-04,66,colegio,
+1931,general,1931-11-08,66,directa,
+1936,general,,66,directa,Fue electo Luis Patrón Costas (Partido Demócrata Nacional). Sin votos en las fuentes revisadas. La forma de elección no se comprobó en el texto constitucional.
+1940,general,1940-03-03,66,directa,
+1946,general,1946-02-24,66,directa,"Elección directa, según Samuel Amaral (Perón presidente, 2018, tabla 2.5)."
+1949,general,1949-11-27,66,directa,La Wikipedia no menciona colegio electoral.
+1951,general,1951-11-11,66,directa,El mismo día que la elección presidencial. Primera con voto de las mujeres. La Wikipedia no menciona colegio electoral.
+1958,general,1958-02-23,66,directa,
+1962,general,1962-03-18,66,directa,"Elección anulada: ganó Dante Lovaglio (Partido Laborista Nacional, peronista), que no asumió por el golpe de Estado del 29 de marzo de 1962. PolAr y la Wikipedia coinciden en los votos de Lovaglio (65.817) pero se contradicen en el segundo y el tercer puesto: PolAr da 51.178 votos a la UCRI y 36.604 a la UCRP, y la Wikipedia, al revés."
+1963,general,1963-07-07,66,colegio,
+1973,general,1973-03-11,66,directa,
+1914,general,,70,colegio,Fue electo Ángel Dolores Rojas (Concentración Cívica). Sin votos en las fuentes revisadas. La forma de elección no se comprobó en el texto constitucional.
+1917,general,,70,colegio,Fue electo Amador Izasa (Concentración Cívica). Sin votos en las fuentes revisadas. La forma de elección no se comprobó en el texto constitucional.
+1920,general,,70,colegio,"Después de la intervención federal de 1919. Fue electo Amable Jones (Unión Cívica Radical), asesinado en 1921. Sin votos en las fuentes revisadas. La forma de elección no se comprobó en el texto constitucional."
+1923,general,,70,colegio,"Después de la intervención federal de 1922. Fue electo Federico Cantoni (bloquista). Darío Cantón (1968, p. 274) trae solo 14 de los 19 departamentos: no se usó. La forma de elección no se comprobó en el texto constitucional."
+1926,general,1926-10-31,70,colegio,
+1931,general,1931-11-08,70,directa,
+1934,general,,70,directa,Después de la revolución y la intervención de 1934. Fue electo Juan Maurín (Partido Demócrata Nacional). Sin votos en las fuentes revisadas. La forma de elección no se comprobó en el texto constitucional.
+1941,general,,70,directa,"Después de la intervención federal de 1938 a 1942. Fue electo Pedro Valenzuela (Partido Demócrata Nacional), que asumió el 15 de enero de 1942. Sin votos en las fuentes revisadas. La forma de elección no se comprobó en el texto constitucional."
+1946,general,1946-02-24,70,directa,"Elección directa, según Samuel Amaral (Perón presidente, 2018, tabla 2.5)."
+1950,general,1950-01-22,70,directa,La Wikipedia no menciona colegio electoral.
+1951,general,1951-11-11,70,directa,El mismo día que la elección presidencial. Primera con voto de las mujeres. La Wikipedia no menciona colegio electoral.
+1958,general,1958-02-23,70,directa,
+1962,general,1962-03-18,70,directa,Elección anulada.
+1963,general,1963-07-07,70,colegio,
+1973,general,1973-03-11,70,directa,
+1973,segunda,1973-04-15,70,directa,
+1913,general,,74,directa,Fue electo Juan Daract (Partido Demócrata Progresista). Sin votos en las fuentes revisadas. La forma de elección no se comprobó en el texto constitucional.
+1917,general,,74,directa,Fue electo Carlos Alric (Unión Cívica Radical). Sin votos en las fuentes revisadas. La forma de elección no se comprobó en el texto constitucional.
+1922,general,,74,directa,"Después de la intervención federal de 1921. Fue electo León Guillet (Partido Demócrata Liberal). Darío Cantón (1968, p. 275) trae los ocho departamentos, con nombres de facciones radicales que no se leen con certeza: no se usó. La forma de elección no se comprobó en el texto constitucional."
+1926,general,,74,directa,Fue electo Alberto Arancibia Rodríguez (Partido Demócrata Liberal). Sin votos en las fuentes revisadas. La forma de elección no se comprobó en el texto constitucional.
+1930,general,1930-08-17,74,directa,
+1934,general,,74,directa,Fue electo Ricardo Rodríguez Saá (Partido Demócrata Liberal). Sin votos en las fuentes revisadas. La forma de elección no se comprobó en el texto constitucional.
+1938,general,,74,directa,Fue electo Toribio Mendoza (Partido Demócrata Liberal). Sin votos en las fuentes revisadas. La forma de elección no se comprobó en el texto constitucional.
+1942,general,1942-10-11,74,directa,
+1946,general,1946-02-24,74,directa,"Elección directa, según Samuel Amaral (Perón presidente, 2018, tabla 2.5)."
+1950,general,1950-03-26,74,directa,La Wikipedia no menciona colegio electoral.
+1951,general,1951-11-11,74,directa,El mismo día que la elección presidencial. Primera con voto de las mujeres. La Wikipedia no menciona colegio electoral.
+1958,general,1958-02-23,74,directa,
+1961,general,1961-12-17,74,directa,Elección anulada.
+1963,general,1963-07-07,74,colegio,
+1973,general,1973-03-11,74,directa,
+1973,segunda,1973-04-15,74,directa,
+1958,general,1958-02-23,78,directa,
+1962,general,1962-03-18,78,directa,"Elección anulada: ganó Raúl Pellón (Unión Cívica Radical Intransigente), que no asumió por el golpe de Estado de 1962. La tabla de la Wikipedia, sin fuente citada, repite para dos listas las cifras de 1958 y no cierra con sus propios porcentajes. PolAr no tiene Santa Cruz antes de 1983."
+1963,general,1963-07-07,78,colegio,
+1973,general,1973-03-11,78,directa,
+1912,general,1912-03-31,82,colegio,"Primera elección con el padrón nacional. El Colegio Electoral eligió a Manuel Menchaca (Unión Cívica Radical). La Wikipedia da cifras redondeadas (25.000, 20.000 y 17.500 votos): no se usaron."
+1916,general,1916-02-02,82,colegio,
+1920,general,1920-02-01,82,colegio,
+1924,general,1924-02-03,82,colegio,
+1928,general,1928-02-05,82,colegio,
+1931,general,1931-11-08,82,colegio,
+1937,general,1937-02-21,82,colegio,
+1940,general,1940-12-15,82,colegio,
+1946,general,1946-02-24,82,colegio,"Se votaba a electores de gobernador, según Samuel Amaral (Perón presidente, 2018, tablas 2.5 y 4.3). Colegio de 60 electores, según la Wikipedia."
+1949,general,1949-05-08,82,colegio,"Colegio de 60 electores, según la Wikipedia. Después de la intervención federal de 1949."
+1951,general,1951-11-11,82,directa,El mismo día que la elección presidencial. Primera con voto de las mujeres. La Wikipedia no menciona colegio electoral.
+1958,general,1958-02-23,82,colegio,
+1961,general,1961-12-17,82,colegio,Elección anulada.
+1963,general,1963-07-07,82,colegio,
+1973,general,1973-03-11,82,directa,
+1973,segunda,1973-04-15,82,directa,
+1912,general,,86,colegio,"Fue electo Antenor Álvarez, que asumió el 28 de octubre de 1912. Sin votos en las fuentes revisadas."
+1916,general,,86,colegio,"Fue electo José Cabanillas, que asumió el 28 de octubre de 1916. Sin votos en las fuentes revisadas."
+1920,general,1920-01-25,86,colegio,
+1924,general,1924-09-14,86,colegio,
+1928,general,1928-04-01,86,directa,
+1931,general,1931-11-08,86,directa,
+1935,general,1935-09-22,86,directa,
+1940,general,1940-03-03,86,directa,
+1946,general,1946-02-24,86,directa,"Elección directa, según Samuel Amaral (Perón presidente, 2018, tabla 2.5). Datos en datos/manual/mesas_jurisdiccion_pendiente.csv (publicación del Ministerio del Interior de 1952)."
+1949,general,1949-04-10,86,directa,La Wikipedia no menciona colegio electoral. Datos en datos/manual/mesas_jurisdiccion_pendiente.csv (publicación del Ministerio del Interior de 1952).
+1951,general,1951-11-11,86,directa,El mismo día que la elección presidencial. Primera con voto de las mujeres. La Wikipedia no menciona colegio electoral.
+1958,general,1958-02-23,86,directa,
+1962,general,1962-03-18,86,directa,"Elección anulada: ganó Abraham Abdulajad (Partido Tres Banderas, neoperonista) y el golpe de Estado de 1962 anuló la elección. La Wikipedia da solo los tres más votados (Tres Banderas 65.680, UCRP 55.007 y UCRI 49.873) con porcentajes que no corresponden a una misma base. El Archivo General de la Nación tiene planillas de 1962, pero las conocidas son de diputados nacionales. PolAr no tiene Santiago del Estero antes de 1983."
+1963,general,1963-07-07,86,colegio,
+1973,general,1973-03-11,86,directa,
+1973,segunda,1973-09-23,86,directa,"La segunda vuelta se hizo el 23 de septiembre de 1973, junto con la elección presidencial."
+1912,general,1912-12-01,90,colegio,El Colegio Electoral eligió a Ernesto Padilla (Partido Liberal). La Wikipedia da cifras redondeadas (40.000 y 30.000 votos): no se usaron.
+1916,general,1916-12-03,90,colegio,
+1921,general,1921-12-25,90,colegio,
+1924,general,1924-04-06,90,colegio,
+1928,general,1928-01-22,90,colegio,
+1931,general,1931-11-08,90,colegio,
+1934,general,1934-12-16,90,colegio,
+1938,general,1938-10-16,90,colegio,
+1942,general,1942-10-18,90,colegio,El Colegio Electoral no eligió gobernador: intervención federal desde febrero de 1943.
+1946,general,1946-02-24,90,colegio,"Se votaba a electores de gobernador, según Samuel Amaral (Perón presidente, 2018, tablas 2.5 y 4.3). Colegio de 53 electores, según la Wikipedia."
+1950,general,1950-03-12,90,directa,La Wikipedia no menciona colegio electoral. En 1946 se votaba a electores.
+1951,general,1951-11-11,90,directa,El mismo día que la elección presidencial. Primera con voto de las mujeres. La Wikipedia no menciona colegio electoral.
+1958,general,1958-02-23,90,colegio,
+1962,general,1962-03-18,90,colegio,"Elección anulada: ganó la fórmula de Pedro Fernando Riera (Partido Laborista, peronista), el gobierno nacional intervino la provincia al día siguiente y el golpe de Estado de 1962 anuló la elección. La Wikipedia da solo los cuatro más votados, tomados de un escrutinio parcial de El Litoral del 20 de marzo de 1962, y la misma cifra de votantes (316.314) que para 1963. PolAr no tiene Tucumán antes de 1983."
+1963,general,1963-07-07,90,colegio,"Se votaba a 60 electores: según la revista Crónica (26 de agosto de 1963), citada por la Wikipedia, 19 correspondieron a Celestino Gelsi (14 de la UCRI y 5 de la Unión del Pueblo Argentino), 11 a la democracia cristiana, 10 a la UCRP, 9 a Justicia Social, 7 a Defensa Provincial - Bandera Blanca, 2 al Movimiento del Frente Nacional, 1 a Unión Nacional y 1 a la Unión de Jubilados Argentinos. Gelsi cedió sus electores y el colegio eligió a Lázaro Barbieri (UCRP). Los votos que da la Wikipedia no cierran con sus porcentajes ni con los válidos. PolAr no tiene Tucumán antes de 1983."
+1973,general,1973-03-11,90,directa,

@@ -1,0 +1,20 @@
+codigo_indec,provincia,lista,votos,electores,votantes,blancos,nulos
+06,Buenos Aires,Partido Demócrata Nacional,107601,,225540,0,8044
+06,Buenos Aires,Unión Cívica Radical,103825,,225540,0,8044
+06,Buenos Aires,Partido Socialista,6070,,225540,0,8044
+14,Córdoba,Unión Cívica Radical,137482,326030,253532,4601,439
+14,Córdoba,Partido Demócrata Nacional,106819,326030,253532,4601,439
+14,Córdoba,Partido Socialista,3608,326030,253532,4601,439
+38,Jujuy,Unión Cívica Radical,9670,24363,17203,252,51
+38,Jujuy,Partido Popular,7140,24363,17203,252,51
+38,Jujuy,Otras listas sin detalle en la fuente,90,24363,17203,252,51
+66,Salta,Partido Demócrata Nacional,18089,56336,36364,392,1200
+66,Salta,"Unión Cívica Radical, con Unión Cívica Radical de Salta",16636,56336,36364,392,1200
+66,Salta,Partido Socialista,47,56336,36364,392,1200
+82,Santa Fe,Unión Cívica Radical,95449,374972,267467,12308,0
+82,Santa Fe,Unión Cívica Radical de Santa Fe,91062,374972,267467,12308,0
+82,Santa Fe,Partido Demócrata Progresista,65688,374972,267467,12308,0
+82,Santa Fe,Partido Socialista,2960,374972,267467,12308,0
+86,Santiago del Estero,Concentración Cívica,38834,111040,70636,1191,0
+86,Santiago del Estero,Unión Cívica Radical,28750,111040,70636,1191,0
+86,Santiago del Estero,Partido Socialista,1184,111040,70636,1191,0

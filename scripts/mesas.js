@@ -29,7 +29,9 @@
   // lo que se dice de una jurisdicción que no está en una elección. Las de elecciones_jurisdiccion.py traen su texto: que votó sin un escrutinio oficial
   // publicado en línea, o por qué no está. Las demás no eligieron ese cargo ese año (los senadores se renuevan por tercios)
   function sinDato(el, p) {
-    if (el.sin_fuente?.includes(p)) return "Votó, pero no hay un escrutinio oficial publicado en línea";
+    if (el.sin_fuente?.includes(p)) return "Votó, pero no se encontró ninguna fuente con su resultado";
+    // antes de 1983: los territorios nacionales y la Capital, que no elegían gobernador (elecciones_jurisdiccion.py, por_que_no)
+    if (el.fuera_j?.[p]) return el.fuera_j[p];
     return el.fuera || `No eligió ${NIVEL_NOMBRE[el.cargo]} en esta elección`;
   }
   const n0 = v => Number(v).toLocaleString("es-AR");
@@ -193,7 +195,8 @@
   function otrosVotos(t) {
     if (t.votantes == null || !t.votantes) return "";
     const partes = [];
-    if (t.blancos != null) partes.push(`${n0(t.blancos)} en blanco (${pct(t.blancos / t.votantes * 100)})`);
+    // en el gobernador, un cero de blancos es casi siempre que la fuente no los da o los suma a los nulos (la nota lo dice): no se muestra
+    if (t.blancos != null && !(t.blancos === 0 && elec().origen)) partes.push(`${n0(t.blancos)} en blanco (${pct(t.blancos / t.votantes * 100)})`);
     // en singular cuando hay uno solo, como en muchas mesas
     if (t.nulos != null) partes.push(`${n0(t.nulos)} ${t.nulos === 1 ? "nulo" : "nulos"} (${pct(t.nulos / t.votantes * 100)})`);
     if (t.recurridos) partes.push(`${n0(t.recurridos)} ${t.recurridos === 1 ? "recurrido, impugnado" : "recurridos, impugnados"} o de comando (${pct(t.recurridos / t.votantes * 100)})`);
@@ -390,7 +393,7 @@
     }
     if (!estado.p && el.sin_fuente?.length) {
       const sin = el.sin_fuente.map(provNombre).sort((a, b) => a.localeCompare(b, "es"));
-      notas.push(`${sin.join(", ").replace(/, ([^,]*)$/, " y $1")} también ${sin.length === 1 ? "votó" : "votaron"} en ${el.anio}, pero no hay un escrutinio oficial publicado en línea.`);
+      notas.push(`${sin.join(", ").replace(/, ([^,]*)$/, " y $1")} también ${sin.length === 1 ? "votó" : "votaron"} en ${el.anio}, pero no se encontró ninguna fuente con su resultado.`);
     }
     frase = [frase, ...notas].filter(Boolean).join(" ");
     resumen = `<section class="ms-bloque ms-resultado" aria-labelledby="ms-titulo"><h2 class="ms-tit" id="ms-titulo" tabindex="-1">${esc(lugar(el, D))}</h2>` +
@@ -943,8 +946,8 @@
       const DEF = el.definitivo ? await tablaPais(el.id, "definitivo.csv").catch(e => { console.warn("Elecciones por mesa, el definitivo:", e); return null; }) : null;
       // la provincia no votó ese cargo en esa elección (los senadores se renuevan por tercios): se sube al país y se avisa
       if (estado.p && !el.provincias.includes(estado.p)) {
-        aviso = el.sin_fuente?.includes(estado.p) ? `${provNombre(estado.p)} eligió ${NIVEL_NOMBRE[el.cargo]} en ${el.anio}, pero no hay un escrutinio oficial publicado en línea: se muestra todo el país.`
-          : el.origen ? `${provNombre(estado.p)}: ${el.fuera.charAt(0).toLowerCase()}${el.fuera.slice(1)}. Se muestra todo el país.`
+        aviso = el.sin_fuente?.includes(estado.p) ? `${provNombre(estado.p)} eligió ${NIVEL_NOMBRE[el.cargo]} en ${el.anio}, pero no se encontró ninguna fuente con su resultado: se muestra todo el país.`
+          : el.origen ? `${provNombre(estado.p)}: ${(el.fuera_j?.[estado.p] || el.fuera).charAt(0).toLowerCase()}${(el.fuera_j?.[estado.p] || el.fuera).slice(1)}. Se muestra todo el país.`
           : `${provNombre(estado.p)} no eligió ${NIVEL_NOMBRE[el.cargo]} en ${el.anio}: se muestra todo el país.`;
         Object.assign(estado, {p: "", s: "", c: "", m: ""});
       }

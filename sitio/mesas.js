@@ -10,7 +10,8 @@ const NIVEL_NOMBRE = {presidente: "presidente", diputados: "diputados nacionales
 const cargoNombre = (el, p) => el.cargo === "gobernador" && p === "02" ? "Jefe de Gobierno" : CARGOS[el.cargo];
 const porMesa = (el, p) => el.nivel === "mesa" || !!el.mesas_en?.[p];
 function sinDato(el, p) {
-if (el.sin_fuente?.includes(p)) return "Votó, pero no hay un escrutinio oficial publicado en línea";
+if (el.sin_fuente?.includes(p)) return "Votó, pero no se encontró ninguna fuente con su resultado";
+if (el.fuera_j?.[p]) return el.fuera_j[p];
 return el.fuera || `No eligió ${NIVEL_NOMBRE[el.cargo]} en esta elección`;
 }
 const n0 = v => Number(v).toLocaleString("es-AR");
@@ -157,7 +158,7 @@ return `<div class="tabla-desliza ms-tabla-listas" tabindex="0" role="region" ar
 function otrosVotos(t) {
 if (t.votantes == null || !t.votantes) return "";
 const partes = [];
-if (t.blancos != null) partes.push(`${n0(t.blancos)} en blanco (${pct(t.blancos / t.votantes * 100)})`);
+if (t.blancos != null && !(t.blancos === 0 && elec().origen)) partes.push(`${n0(t.blancos)} en blanco (${pct(t.blancos / t.votantes * 100)})`);
 if (t.nulos != null) partes.push(`${n0(t.nulos)} ${t.nulos === 1 ? "nulo" : "nulos"} (${pct(t.nulos / t.votantes * 100)})`);
 if (t.recurridos) partes.push(`${n0(t.recurridos)} ${t.recurridos === 1 ? "recurrido, impugnado" : "recurridos, impugnados"} o de comando (${pct(t.recurridos / t.votantes * 100)})`);
 return partes.length ? `<p class="ms-otros">De quienes votaron: ${partes.join(", ")}.</p>` : "";
@@ -333,7 +334,7 @@ notas.push(`De ${no.join(", ").replace(/, ([^,]*)$/, " y $1")} no hay un escruti
 }
 if (!estado.p && el.sin_fuente?.length) {
 const sin = el.sin_fuente.map(provNombre).sort((a, b) => a.localeCompare(b, "es"));
-notas.push(`${sin.join(", ").replace(/, ([^,]*)$/, " y $1")} también ${sin.length === 1 ? "votó" : "votaron"} en ${el.anio}, pero no hay un escrutinio oficial publicado en línea.`);
+notas.push(`${sin.join(", ").replace(/, ([^,]*)$/, " y $1")} también ${sin.length === 1 ? "votó" : "votaron"} en ${el.anio}, pero no se encontró ninguna fuente con su resultado.`);
 }
 frase = [frase, ...notas].filter(Boolean).join(" ");
 resumen = `<section class="ms-bloque ms-resultado" aria-labelledby="ms-titulo"><h2 class="ms-tit" id="ms-titulo" tabindex="-1">${esc(lugar(el, D))}</h2>` +
@@ -835,8 +836,8 @@ try {
 const P = await tablaPais(el.id);
 const DEF = el.definitivo ? await tablaPais(el.id, "definitivo.csv").catch(e => { console.warn("Elecciones por mesa, el definitivo:", e); return null; }) : null;
 if (estado.p && !el.provincias.includes(estado.p)) {
-aviso = el.sin_fuente?.includes(estado.p) ? `${provNombre(estado.p)} eligió ${NIVEL_NOMBRE[el.cargo]} en ${el.anio}, pero no hay un escrutinio oficial publicado en línea: se muestra todo el país.`
-: el.origen ? `${provNombre(estado.p)}: ${el.fuera.charAt(0).toLowerCase()}${el.fuera.slice(1)}. Se muestra todo el país.`
+aviso = el.sin_fuente?.includes(estado.p) ? `${provNombre(estado.p)} eligió ${NIVEL_NOMBRE[el.cargo]} en ${el.anio}, pero no se encontró ninguna fuente con su resultado: se muestra todo el país.`
+: el.origen ? `${provNombre(estado.p)}: ${(el.fuera_j?.[estado.p] || el.fuera).charAt(0).toLowerCase()}${(el.fuera_j?.[estado.p] || el.fuera).slice(1)}. Se muestra todo el país.`
 : `${provNombre(estado.p)} no eligió ${NIVEL_NOMBRE[el.cargo]} en ${el.anio}: se muestra todo el país.`;
 Object.assign(estado, {p: "", s: "", c: "", m: ""});
 }

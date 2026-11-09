@@ -1,0 +1,157 @@
+codigo_indec,provincia,lista,votos,electores,votantes,blancos,nulos
+06,Buenos Aires,Unión Cívica Radical del Pueblo,836771,,3295918,678470,75022
+06,Buenos Aires,Unión Cívica Radical Intransigente,633034,,3295918,678470,75022
+06,Buenos Aires,Unión del Pueblo Argentino,225192,,3295918,678470,75022
+06,Buenos Aires,Partido Socialista Democrático,191998,,3295918,678470,75022
+06,Buenos Aires,Partido Socialista Argentino (Casa del Pueblo),146869,,3295918,678470,75022
+06,Buenos Aires,Partido Demócrata Progresista,141383,,3295918,678470,75022
+06,Buenos Aires,Unión Conservadora,140743,,3295918,678470,75022
+06,Buenos Aires,Partido Demócrata Cristiano,128160,,3295918,678470,75022
+06,Buenos Aires,Partido del Pueblo,46448,,3295918,678470,75022
+06,Buenos Aires,Partido de la Justicia Social,17014,,3295918,678470,75022
+06,Buenos Aires,Cruzada Acción Nacional,12963,,3295918,678470,75022
+06,Buenos Aires,Movimiento del Frente Nacional,12532,,3295918,678470,75022
+06,Buenos Aires,Partido Social Agrario,9419,,3295918,678470,75022
+10,Catamarca,Unión Cívica Radical del Pueblo,24093,91983,73482,9938,4089
+10,Catamarca,Unión Cívica Radical Intransigente,10786,91983,73482,9938,4089
+10,Catamarca,Partido Demócrata Cristiano,6173,91983,73482,9938,4089
+10,Catamarca,Unión Cívica Radical Intransigente Popular,5374,91983,73482,9938,4089
+10,Catamarca,Unión del Pueblo Argentino,4784,91983,73482,9938,4089
+10,Catamarca,Partido Demócrata Conservador,3775,91983,73482,9938,4089
+10,Catamarca,Partido de la Justicia Social,3497,91983,73482,9938,4089
+10,Catamarca,Partido Socialista Argentino,516,91983,73482,9938,4089
+10,Catamarca,Partido Socialista Democrático,457,91983,73482,9938,4089
+14,Córdoba,Unión Cívica Radical del Pueblo,388247,1083512,944703,275609,6503
+14,Córdoba,Partido Demócrata,72661,1083512,944703,275609,6503
+14,Córdoba,Unión Cívica Radical Intransigente,60848,1083512,944703,275609,6503
+14,Córdoba,Unión del Pueblo Argentino,52477,1083512,944703,275609,6503
+14,Córdoba,Partido Demócrata Cristiano,34834,1083512,944703,275609,6503
+14,Córdoba,Partido Demócrata Progresista,24947,1083512,944703,275609,6503
+14,Córdoba,Movimiento del Frente Nacional,9169,1083512,944703,275609,6503
+14,Córdoba,Partido Socialista Argentino,9129,1083512,944703,275609,6503
+14,Córdoba,Partido Socialista Democrático,7986,1083512,944703,275609,6503
+14,Córdoba,Cruzada Acción Nacional,2293,1083512,944703,275609,6503
+18,Corrientes,"Partido Liberal, con Partido Autonomista",101294,312115,240236,13644,343
+18,Corrientes,Unión Cívica Radical Intransigente,81525,312115,240236,13644,343
+18,Corrientes,Unión Cívica Radical del Pueblo,13345,312115,240236,13644,343
+18,Corrientes,Partido Colorado,11057,312115,240236,13644,343
+18,Corrientes,Partido Demócrata Cristiano,8926,312115,240236,13644,343
+18,Corrientes,Partido Demócrata Progresista,8686,312115,240236,13644,343
+18,Corrientes,Partido Demócrata Autonomista (Junta Renovadora Nacional),1416,312115,240236,13644,343
+22,Chaco,Partido Conservador,69047,272958,202974,27856,2475
+22,Chaco,Unión Cívica Radical del Pueblo,41923,272958,202974,27856,2475
+22,Chaco,Unión Cívica Radical Intransigente,28460,272958,202974,27856,2475
+22,Chaco,Unión del Pueblo Argentino,11209,272958,202974,27856,2475
+22,Chaco,Partido Demócrata Progresista,9890,272958,202974,27856,2475
+22,Chaco,Partido Socialista,5602,272958,202974,27856,2475
+22,Chaco,Partido Demócrata Cristiano,4370,272958,202974,27856,2475
+22,Chaco,Partido Radical Unido,2142,272958,202974,27856,2475
+26,Chubut,Unión Cívica Radical del Pueblo,17743,66897,46190,12305,3709
+26,Chubut,Unión Cívica Radical Intransigente,6154,66897,46190,12305,3709
+26,Chubut,Partido Demócrata Cristiano,2587,66897,46190,12305,3709
+26,Chubut,Partido Demócrata Progresista,2265,66897,46190,12305,3709
+26,Chubut,Unión Demócrata del Chubut,1427,66897,46190,12305,3709
+30,Entre Ríos,Unión Cívica Radical del Pueblo,113436,476101,391074,65964,40903
+30,Entre Ríos,Unión Cívica Radical Intransigente,94660,476101,391074,65964,40903
+30,Entre Ríos,Partido Demócrata Unido,27711,476101,391074,65964,40903
+30,Entre Ríos,Unión del Pueblo Argentino,22167,476101,391074,65964,40903
+30,Entre Ríos,Partido Demócrata Cristiano,18531,476101,391074,65964,40903
+30,Entre Ríos,Partido Socialista Democrático,4440,476101,391074,65964,40903
+30,Entre Ríos,Partido Social Agrario,3262,476101,391074,65964,40903
+34,Formosa,Unión Cívica Radical del Pueblo,19298,64523,48927,8011,66
+34,Formosa,Unión Cívica Radical Intransigente,13543,64523,48927,8011,66
+34,Formosa,Partido Demócrata Cristiano,3496,64523,48927,8011,66
+34,Formosa,Unión del Pueblo Argentino - Partido Demócrata Progresista,1665,64523,48927,8011,66
+34,Formosa,Partido Socialista Argentino,1056,64523,48927,8011,66
+34,Formosa,Unión Cívica Formoseña,962,64523,48927,8011,66
+34,Formosa,Partido Demócrata,830,64523,48927,8011,66
+38,Jujuy,Unión Cívica Radical Intransigente,14996,103141,83717,1789,46836
+38,Jujuy,Unión Cívica Radical del Pueblo,5314,103141,83717,1789,46836
+38,Jujuy,Partido Demócrata Popular,5159,103141,83717,1789,46836
+38,Jujuy,Unión del Pueblo Argentino,4339,103141,83717,1789,46836
+38,Jujuy,Partido Demócrata Cristiano,3734,103141,83717,1789,46836
+38,Jujuy,Partido Nacional Obrero,800,103141,83717,1789,46836
+38,Jujuy,Partido Conservador Obrero Provincial,750,103141,83717,1789,46836
+42,La Pampa,Unión Cívica Radical Intransigente,24514,92964,80979,25666,223
+42,La Pampa,Unión Cívica Radical del Pueblo,18906,92964,80979,25666,223
+42,La Pampa,Unión del Pueblo Argentino,6070,92964,80979,25666,223
+42,La Pampa,Partido Demócrata Cristiano,5600,92964,80979,25666,223
+46,La Rioja,Unión Cívica Radical del Pueblo,17093,70801,56783,12295,214
+46,La Rioja,Partido Demócrata Liberal,7657,70801,56783,12295,214
+46,La Rioja,Unión Cívica Radical Intransigente,6666,70801,56783,12295,214
+46,La Rioja,Partido de la Justicia Social,6471,70801,56783,12295,214
+46,La Rioja,Unión Cívica Radical de La Rioja,3076,70801,56783,12295,214
+46,La Rioja,Partido Demócrata Cristiano,1260,70801,56783,12295,214
+46,La Rioja,Unión del Pueblo Argentino,1245,70801,56783,12295,214
+46,La Rioja,Movimiento del Frente Nacional,806,70801,56783,12295,214
+50,Mendoza,Partido Demócrata,106293,453900,396967,18596,1188
+50,Mendoza,Unión Cívica Radical del Pueblo,76623,453900,396967,18596,1188
+50,Mendoza,Partido Tres Banderas,73090,453900,396967,18596,1188
+50,Mendoza,Partido Blanco,67048,453900,396967,18596,1188
+50,Mendoza,Partido Socialista Argentino,19395,453900,396967,18596,1188
+50,Mendoza,Unión del Pueblo Argentino,15066,453900,396967,18596,1188
+50,Mendoza,Unión Cívica Radical Intransigente,11167,453900,396967,18596,1188
+50,Mendoza,Partido Demócrata Cristiano,5877,453900,396967,18596,1188
+50,Mendoza,Partido Demócrata Progresista,2617,453900,396967,18596,1188
+50,Mendoza,Partido Conservador Popular,7,453900,396967,18596,1188
+54,Misiones,Unión Cívica Radical del Pueblo,20243,132053,95738,18571,5683
+54,Misiones,Unión Cívica Radical Intransigente,19228,132053,95738,18571,5683
+54,Misiones,Partido Demócrata Progresista - Unión del Pueblo Argentino,11622,132053,95738,18571,5683
+54,Misiones,Partido Demócrata Cristiano,8164,132053,95738,18571,5683
+54,Misiones,Unión Cívica Popular Misionera,5519,132053,95738,18571,5683
+54,Misiones,Partido Socialista de Misiones,3821,132053,95738,18571,5683
+54,Misiones,Coalición Acción Nacional - Unión Cívica de los Trabajadores,1659,132053,95738,18571,5683
+54,Misiones,Partido Liberal,1228,132053,95738,18571,5683
+58,Neuquén,Movimiento Popular Neuquino,20972,50727,40508,5230,852
+58,Neuquén,Unión Cívica Radical Intransigente,6209,50727,40508,5230,852
+58,Neuquén,Unión Cívica Radical del Pueblo,3581,50727,40508,5230,852
+58,Neuquén,Partido Demócrata Progresista,1695,50727,40508,5230,852
+58,Neuquén,Partido Demócrata Cristiano,1132,50727,40508,5230,852
+58,Neuquén,Partido Demócrata,837,50727,40508,5230,852
+62,Río Negro,Unión Cívica Radical del Pueblo,15154,92366,68203,23223,845
+62,Río Negro,Unión Cívica Radical Intransigente,12602,92366,68203,23223,845
+62,Río Negro,Partido Demócrata Cristiano,6347,92366,68203,23223,845
+62,Río Negro,Partido Demócrata Progresista,6195,92366,68203,23223,845
+62,Río Negro,Partido Demócrata de Río Negro,3837,92366,68203,23223,845
+66,Salta,Movimiento Federal Democrático,43634,203650,156207,62522,503
+66,Salta,Unión Cívica Radical del Pueblo,21833,203650,156207,62522,503
+66,Salta,Unión Provincial,15423,203650,156207,62522,503
+66,Salta,Unión Cívica Radical Intransigente,7911,203650,156207,62522,503
+66,Salta,Partido Demócrata Cristiano,3779,203650,156207,62522,503
+66,Salta,Cruzada Acción Nacional,602,203650,156207,62522,503
+70,San Juan,Unión Cívica Radical Bloquista,46690,186349,154366,2458,129
+70,San Juan,Unión Cívica Radical Cruzada Renovadora,32471,186349,154366,2458,129
+70,San Juan,Unión Cívica Radical del Pueblo,30620,186349,154366,2458,129
+70,San Juan,Partido Demócrata Conservador Popular,26819,186349,154366,2458,129
+70,San Juan,Concentración Demócrata,6640,186349,154366,2458,129
+70,San Juan,Partido Demócrata Cristiano,3829,186349,154366,2458,129
+70,San Juan,Unión Cívica Radical Intransigente,3155,186349,154366,2458,129
+70,San Juan,Partido Laborista,862,186349,154366,2458,129
+70,San Juan,Cruzada Acción Nacional,693,186349,154366,2458,129
+74,San Luis,Partido Demócrata Liberal,28415,103782,86114,19374,7918
+74,San Luis,Unión Cívica Radical Intransigente,18034,103782,86114,19374,7918
+74,San Luis,Unión Cívica Radical del Pueblo,7592,103782,86114,19374,7918
+74,San Luis,Partido de la Justicia Social,2361,103782,86114,19374,7918
+74,San Luis,Partido Demócrata Cristiano,1762,103782,86114,19374,7918
+74,San Luis,Partido Socialista Democrático,658,103782,86114,19374,7918
+78,Santa Cruz,Unión Cívica Radical del Pueblo,3371,19688,13602,3507,700
+78,Santa Cruz,Unión Cívica Radical Intransigente,2503,19688,13602,3507,700
+78,Santa Cruz,Unión del Pueblo Argentino,1625,19688,13602,3507,700
+78,Santa Cruz,Partido de la Justicia Social,829,19688,13602,3507,700
+78,Santa Cruz,Partido Demócrata Cristiano,680,19688,13602,3507,700
+78,Santa Cruz,PMR Radical,387,19688,13602,3507,700
+82,Santa Fe,Unión Cívica Radical del Pueblo,231386,1178224,1057007,251816,3887
+82,Santa Fe,Partido Demócrata Progresista,183741,1178224,1057007,251816,3887
+82,Santa Fe,Unión Cívica Radical Intransigente,183532,1178224,1057007,251816,3887
+82,Santa Fe,Unión del Pueblo Argentino,86686,1178224,1057007,251816,3887
+82,Santa Fe,Partido Demócrata Cristiano,64438,1178224,1057007,251816,3887
+82,Santa Fe,Partido Demócrata,13934,1178224,1057007,251816,3887
+82,Santa Fe,Unión Nacional,12684,1178224,1057007,251816,3887
+82,Santa Fe,Partido Socialista Democrático,11438,1178224,1057007,251816,3887
+82,Santa Fe,Partido Socialista Argentino,11147,1178224,1057007,251816,3887
+82,Santa Fe,Acción Progresista,2318,1178224,1057007,251816,3887
+86,Santiago del Estero,Unión Cívica Radical del Pueblo,66752,289204,187404,0,51521
+86,Santiago del Estero,Otras listas sin detalle en la fuente,30592,289204,187404,0,51521
+86,Santiago del Estero,Partido Provincial,16628,289204,187404,0,51521
+86,Santiago del Estero,Unión del Pueblo Argentino,11518,289204,187404,0,51521
+86,Santiago del Estero,Partido Demócrata Cristiano,10393,289204,187404,0,51521

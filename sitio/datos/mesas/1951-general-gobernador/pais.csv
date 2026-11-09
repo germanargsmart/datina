@@ -1,0 +1,55 @@
+codigo_indec,provincia,lista,votos,electores,votantes,blancos,nulos
+06,Buenos Aires,Partido Peronista,1325223,2443393,2112550,0,0
+06,Buenos Aires,Unión Cívica Radical,684001,2443393,2112550,0,0
+06,Buenos Aires,Partido Demócrata,59211,2443393,2112550,0,0
+06,Buenos Aires,Partido Socialista,24753,2443393,2112550,0,0
+06,Buenos Aires,Partido Comunista,19362,2443393,2112550,0,0
+10,Catamarca,Partido Peronista,49216,,64718,645,2
+10,Catamarca,Unión Cívica Radical,13779,,64718,645,2
+10,Catamarca,Partido Demócrata Nacional,1076,,64718,645,2
+14,Córdoba,Partido Peronista,395342,858173,777659,0,17129
+14,Córdoba,Unión Cívica Radical,327627,858173,777659,0,17129
+14,Córdoba,Partido Demócrata,37561,858173,777659,0,17129
+18,Corrientes,Partido Peronista,136888,,213960,1256,21
+18,Corrientes,Unión Cívica Radical,57083,,213960,1256,21
+18,Corrientes,Partido Demócrata,18712,,213960,1256,21
+30,Entre Ríos,Partido Peronista,217599,,354721,7052,26
+30,Entre Ríos,Unión Cívica Radical,113157,,354721,7052,26
+30,Entre Ríos,Partido Demócrata,13867,,354721,7052,26
+30,Entre Ríos,Unión Cívica Nacionalista,1500,,354721,7052,26
+30,Entre Ríos,Partido Comunista,834,,354721,7052,26
+30,Entre Ríos,Partido Socialista,686,,354721,7052,26
+38,Jujuy,Partido Peronista,48178,,62214,1432,24
+38,Jujuy,Unión Cívica Radical,9098,,62214,1432,24
+38,Jujuy,Partido Demócrata,3482,,62214,1432,24
+46,La Rioja,Partido Peronista,34747,57962,47874,0,898
+46,La Rioja,Unión Cívica Radical,12229,57962,47874,0,898
+50,Mendoza,Partido Peronista,181551,318828,270229,0,0
+50,Mendoza,Unión Cívica Radical,57601,318828,270229,0,0
+50,Mendoza,Partido Demócrata,21484,318828,270229,0,0
+50,Mendoza,Partido Comunista,7743,318828,270229,0,0
+50,Mendoza,Partido Socialista,1850,318828,270229,0,0
+66,Salta,Partido Peronista,84731,,115484,4283,252
+66,Salta,Unión Cívica Radical,25890,,115484,4283,252
+66,Salta,Partido Laborista,328,,115484,4283,252
+70,San Juan,Partido Peronista,96569,,125895,3033,315
+70,San Juan,Unión Cívica Radical,20520,,125895,3033,315
+70,San Juan,Partido Demócrata,4293,,125895,3033,315
+70,San Juan,Partido Socialista,1165,,125895,3033,315
+74,San Luis,Partido Peronista,50662,88657,72202,0,1000
+74,San Luis,Unión Cívica Radical,11270,88657,72202,0,1000
+74,San Luis,Partido Demócrata Liberal,9265,88657,72202,0,1000
+82,Santa Fe,Partido Peronista,532436,,846127,23258,639
+82,Santa Fe,Unión Cívica Radical,273068,,846127,23258,639
+82,Santa Fe,Partido Comunista,10833,,846127,23258,639
+82,Santa Fe,Partido Socialista,4771,,846127,23258,639
+82,Santa Fe,Partido Demócrata Progresista,1122,,846127,23258,639
+86,Santiago del Estero,Partido Peronista,153538,,197670,2497,141
+86,Santiago del Estero,Unión Cívica Radical,24205,,197670,2497,141
+86,Santiago del Estero,Unión Cívica Radical Unionista,15045,,197670,2497,141
+86,Santiago del Estero,Partido Comunista,2244,,197670,2497,141
+90,Tucumán,Partido Peronista,201036,,290368,5131,646
+90,Tucumán,Unión Cívica Radical,78130,,290368,5131,646
+90,Tucumán,Partido Demócrata,2292,,290368,5131,646
+90,Tucumán,Partido Socialista,1656,,290368,5131,646
+90,Tucumán,Defensa Provincial - Bandera Blanca,1477,,290368,5131,646
