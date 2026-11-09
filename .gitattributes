@@ -9,3 +9,6 @@ sitio/datos/*.ics -text
 scripts/*.sh text eol=lf
 # las escuelas y los hospitales de cada provincia (scripts/establecimientos.py, 9 de noviembre de 2026) se escriben en LF y su prueba lo controla
 datos/manual/establecimientos/** text eol=lf
+# las bibliotecas van tal cual las publica su autor (9 de noviembre de 2026): leaflet.css trae CRLF, y con la regla de arriba el archivo que
+# copia 03 nunca coincidía con el guardado y el control de los PR lo marcaba como cambiado
+sitio/lib/** -text
