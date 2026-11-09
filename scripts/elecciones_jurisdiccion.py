@@ -67,6 +67,13 @@ MOTIVO_DEP = {("2025-general-gobernador", "18"): "la Junta suma esos votos en ca
               ("2015-segunda-gobernador", "94"): "son los de la Antártida, que la base del Juzgado da aparte y no tiene departamento en el mapa"}
 # los electores por departamento que no se publican porque el padrón municipal incluye a los extranjeros, que votan intendente y no gobernador
 SIN_ELECTORES_DEP = {"38", "54"}
+# las elecciones sin escrutinio oficial en línea que se publican con su fuente real (decisión del autor del 9 de noviembre de 2026: "publicalas con su
+# fuente real"), con el recuento que dice la página: "provisorio" si la fuente cuenta parte de las mesas, "definitivo" si dice que lo es, y nada si no se sabe
+NO_OFICIAL = {("1988-general-gobernador", "10"): "", ("2003-general-gobernador", "10"): "", ("1998-general-gobernador", "14"): "",
+              ("2011-general-gobernador", "46"): "provisorio", ("2015-general-gobernador", "46"): "", ("2015-general-gobernador", "70"): "provisorio",
+              ("2023-general-gobernador", "70"): "", ("1999-general-gobernador", "74"): "provisorio", ("2002-general-gobernador", "86"): "provisorio",
+              ("2005-general-gobernador", "86"): "provisorio", ("2008-general-gobernador", "86"): "", ("2025-general-gobernador", "86"): "definitivo",
+              ("2011-segunda-gobernador", "94"): ""}
 COLUMNAS_DEP = ["cargo", "anio", "vuelta", "codigo_indec", "departamento", "codigo_departamento", "lista", "votos", "electores", "votantes", "blancos", "nulos",
                 "fuente", "url"]
 ORIGEN = "jurisdiccion"   # marca en el índice de lo que arma este programa: lo demás no se toca
@@ -449,6 +456,10 @@ def fuerza_de(lista, anio, cod, por_nombre):
 
 def main():
     elecciones = leer()
+    for (id_, cod) in NO_OFICIAL:
+        anio, vuelta, cargo = id_.split("-")
+        if (cargo, int(anio), vuelta) not in elecciones or cod not in elecciones[(cargo, int(anio), vuelta)]:
+            sys.exit(f"NO_OFICIAL: {id_} {cod} no está en mesas_jurisdiccion.csv")
     departamentos = leer_departamentos()
     faltan = set(departamentos) - set(elecciones)
     if faltan:
@@ -669,6 +680,13 @@ def main():
               "fuera": FUERA[cargo], "gris": GRIS[cargo]}
         if sin:
             el["sin_fuente"] = sin
+        no_of = {c: NO_OFICIAL[(id_, c)] for c in sorted(juris) if (id_, c) in NO_OFICIAL}
+        if no_of:
+            el["no_oficial"] = sorted(no_of)
+            el["recuentos"] = no_of
+            # una elección que solo tiene jurisdicciones sin escrutinio oficial (Catamarca 1988) no dice "definitivo" en el país
+            if set(no_of) == set(juris):
+                el["recuento"] = next(iter(set(no_of.values()))) if len(set(no_of.values())) == 1 else ""
         if deps:
             el["nivel"] = "departamento"
             el["departamentos"] = sorted(deps)

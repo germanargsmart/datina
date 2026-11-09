@@ -81,7 +81,10 @@ JURISDICCION_CONOCIDOS = {("1983-general-gobernador", "06"): "Unión Cívica Rad
                           # la misma fórmula, Catamarca 2007 (Brizuela del Moral, radical, con el Frente para la Victoria) y Córdoba 1991 con el documento de la DINE
                           ("1995-general-gobernador", "34"): "Justicialista", ("2023-general-gobernador", "34"): "Frente de la Victoria",
                           ("1996-general-gobernador", "02"): "Unión Cívica Radical, con Frente Progresista", ("2007-general-gobernador", "10"): "Frente Cívico - Frente para la Victoria",
-                          ("1991-general-gobernador", "14"): "Unión Cívica Radical"}
+                          ("1991-general-gobernador", "14"): "Unión Cívica Radical",
+                          # sin escrutinio oficial en línea, con su fuente real (decisión del autor del 9 de noviembre de 2026)
+                          ("1988-general-gobernador", "10"): "Partido Justicialista", ("2023-general-gobernador", "70"): "Unidos por San Juan",
+                          ("2011-segunda-gobernador", "94"): "Partido Social Patagónico"}
 # lo que los departamentos de 257arg reúnen del definitivo de una jurisdicción: lo medido al armar va de 87,7% (Formosa, diputados 2007) a 116,1% (San Juan, presidente 2003). Fuera de esto, se coló un total
 DEPTOS_MIN, DEPTOS_MAX = 85, 118
 # la presidencial de 1983 suma casi exacto el definitivo oficial (14.927.512): sirve de control de toda la cadena
@@ -427,6 +430,9 @@ def revisar(detalle=False):
                 problemas.append(f"{id_}, {cod}: gana {primera[0]} y se esperaba {esperado}")
         if set(el.get("sin_fuente", [])) & set(el["provincias"]):
             problemas.append(f"{id_}: una jurisdicción figura con datos y sin fuente a la vez")
+        # las que no tienen escrutinio oficial dicen su recuento (o ninguno), y son jurisdicciones con datos
+        if set(el.get("no_oficial", [])) - set(el["provincias"]) or set(el.get("recuentos", {})) != set(el.get("no_oficial", [])):
+            problemas.append(f"{id_}: las jurisdicciones sin escrutinio oficial no coinciden con sus datos o con su recuento")
     # por departamento: cada tabla da lo mismo que lo transcripto, con las listas del total de su jurisdicción
     trans_dep = defaultdict(int)
     if JURISDICCION_DEP.exists():

@@ -47,6 +47,15 @@ codigo_indec,provincia,lista,votos,electores,votantes,blancos,nulos
 42,La Pampa,Partido GEN,2428,274152,225232,23347,2142
 42,La Pampa,Partido Patria Grande,1687,274152,225232,23347,2142
 42,La Pampa,Partido Socialista Auténtico,1128,274152,225232,23347,2142
+46,La Rioja,Frente para la Victoria,111843,267531,209272,9679,2471
+46,La Rioja,Fuerza Cívica Riojana,80235,267531,209272,9679,2471
+46,La Rioja,Frente Riojano de Organización Popular,1138,267531,209272,9679,2471
+46,La Rioja,Izquierda por una Opción Socialista,1062,267531,209272,9679,2471
+46,La Rioja,República y Democracia,839,267531,209272,9679,2471
+46,La Rioja,Partido Comunista,573,267531,209272,9679,2471
+46,La Rioja,Nueva Izquierda - Movimiento Socialista de los Trabajadores,561,267531,209272,9679,2471
+46,La Rioja,Frente Grande,455,267531,209272,9679,2471
+46,La Rioja,Partido Es Posible,416,267531,209272,9679,2471
 50,Mendoza,Frente Cambia Mendoza,497804,1352973,1074391,31148,14278
 50,Mendoza,Frente para la Victoria,422057,1352973,1074391,31148,14278
 50,Mendoza,Frente de Izquierda y de los Trabajadores,109104,1352973,1074391,31148,14278
@@ -78,6 +87,12 @@ codigo_indec,provincia,lista,votos,electores,votantes,blancos,nulos
 66,Salta,Partido Obrero,41309,931213,685479,21540,0
 66,Salta,Movimiento Socialista de los Trabajadores,12616,931213,685479,21540,0
 66,Salta,Frente Popular,11627,931213,685479,21540,0
+70,San Juan,Alianza Frente para la Victoria,213244,,427855,25924,4028
+70,San Juan,Alianza Compromiso con San Juan,121838,,427855,25924,4028
+70,San Juan,Juntos por San Juan,48560,,427855,25924,4028
+70,San Juan,Alianza Frente Progresista Popular,6760,,427855,25924,4028
+70,San Juan,Cruzada Renovadora,5596,,427855,25924,4028
+70,San Juan,Nueva Izquierda,1905,,427855,25924,4028
 74,San Luis,Compromiso Federal,133789,357130,295045,54680,2768
 74,San Luis,Cambiemos,69339,357130,295045,54680,2768
 74,San Luis,Frente para la Victoria,32404,357130,295045,54680,2768

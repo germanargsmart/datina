@@ -775,6 +775,14 @@ await q.tamano(1280, 900);
   if (!/en cada circuito/.test(m.tit) || !/escrutinio provisorio mesa por mesa/.test(await subMapa()) || m.pintados < 900) problemas.push(`mesas.html: Buenos Aires 2015 sin el gobernador por circuito del provisorio (${m.tit}, ${m.pintados} pintados)`);
   r = await ms("?e=2015-general-gobernador&p=82", 2000); m = await mapa();
   if (!/en cada departamento/.test(m.tit) || m.pintados < 19) problemas.push(`mesas.html: Santa Fe 2015, sin mesas, no sigue por departamento (${m.tit}, ${m.pintados} pintados)`);
+  // sin escrutinio oficial en línea (decisión del autor del 9 de noviembre de 2026): la fuente real, el aviso y el recuento que dice la fuente
+  r = await ms("?e=1988-general-gobernador&p=10", 1800);
+  if (/Escrutinio definitivo/.test(r.txt) || !/No hay un escrutinio oficial publicado en línea\. Fuente: Leandro Nicolás Carrera/.test(r.txt.replace(/\s+/g, " ")))
+    problemas.push("mesas.html: Catamarca 1988 dice que es el escrutinio definitivo o no nombra su fuente real");
+  r = await ms("?e=2011-general-gobernador&p=46", 1800);
+  if (!/Escrutinio provisorio\./.test(r.txt) || !/No hay un escrutinio oficial publicado en línea/.test(r.txt)) problemas.push("mesas.html: La Rioja 2011 no dice que es el escrutinio provisorio");
+  r = await ms("?e=2015-general-gobernador", 1800);
+  if (!/De La Rioja y San Juan no hay un escrutinio oficial publicado en línea/.test(r.txt.replace(/\s+/g, " "))) problemas.push("mesas.html: el país en 2015 no avisa qué jurisdicciones no tienen escrutinio oficial");
   // en el celular no se corre de costado, tampoco con las tablas de abajo a la vista
   await q.tamano(320, 700);
   for (const u of ["?e=2023-general-diputados&p=06&s=61", "?e=2023-general-presidente&p=06&s=61&c=627", "?e=2009-general-diputados&p=06", "?e=2025-general-diputados&ver=fuerza"]) {
