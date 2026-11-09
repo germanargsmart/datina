@@ -1,0 +1,60 @@
+{
+ "tabla": "hospitales_provincias.csv",
+ "titulo": "¿Dónde hay más hospitales públicos por habitante?",
+ "descripcion": "Hospitales públicos con internación y, entre ellos, los que tienen terapia intensiva, cada 100.000 habitantes, por provincia, noviembre de 2026",
+ "seccion": "Salud",
+ "ficha": "https://datina.com.ar/salud.html#f-hospitales",
+ "fuente": "Registro Federal de Establecimientos de Salud (REFES), Ministerio de Salud, e INDEC, proyecciones de población.",
+ "actualizacion": "Se actualiza cada año.",
+ "cobertura": "Las 24 jurisdicciones",
+ "periodo": "",
+ "filas": 24,
+ "columnas": [
+  {
+   "nombre": "codigo_indec",
+   "tipo": "Código",
+   "valores": "24 códigos"
+  },
+  {
+   "nombre": "territorio",
+   "tipo": "Texto",
+   "valores": "24 valores distintos"
+  },
+  {
+   "nombre": "hospitales",
+   "tipo": "Número",
+   "valores": "6 a 344"
+  },
+  {
+   "nombre": "con_terapia_intensiva",
+   "tipo": "Número",
+   "valores": "2 a 133"
+  },
+  {
+   "nombre": "poblacion",
+   "tipo": "Número",
+   "valores": "182.744 a 17.453.039"
+  },
+  {
+   "nombre": "hospitales_cada_100000",
+   "tipo": "Número",
+   "valores": "1,3 a 10,9"
+  },
+  {
+   "nombre": "terapia_cada_100000",
+   "tipo": "Número",
+   "valores": "0,35 a 1,73"
+  },
+  {
+   "nombre": "pct_terapia",
+   "tipo": "Número",
+   "valores": "8,33 a 70"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "05/11/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
+ "como_citar": "Datina (año de la consulta). ¿Dónde hay más hospitales públicos por habitante? Con datos de Registro Federal de Establecimientos de Salud (REFES), Ministerio de Salud, e INDEC, proyecciones de población. https://datina.com.ar/salud.html#f-hospitales. Consultado el día de la consulta."
+}
