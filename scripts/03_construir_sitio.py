@@ -74,9 +74,6 @@ _ia = re.search(r"\n\n *<!--IA-->.*?<!--/IA-->", plantilla, re.S)
 assert _ia, "falta la sección de las consultas con IA (entre <!--IA--> y <!--/IA-->) en scripts/plantilla.html"
 plantilla = plantilla.replace(_ia.group(0), re.sub(r"<!--/?IA-->", "", _ia.group(0)) if CONSULTA_IA else "")
 if CONSULTA_IA:
-    _herr_sub = '<p class="bloque-sub">Para cruzar indicadores entre'
-    assert plantilla.count(_herr_sub) == 1, "cambió la bajada de Herramientas en la portada: revisar la de las consultas con IA"
-    plantilla = plantilla.replace(_herr_sub, '<p class="bloque-sub">Para hacerles preguntas a los datos, cruzar indicadores entre')
     if MOTOR_IA == "cloudflare":
         for _v, _n in [("No escribas datos personales: para contestarla, la pregunta se envía a Anthropic, la empresa que hace el modelo. Datina no la guarda.",
                         "No escribas datos personales. La pregunta la contesta un modelo abierto de inteligencia artificial que corre en Cloudflare, "
@@ -1190,11 +1187,9 @@ _datos_destacados = ('<nav class="dd-indice" aria-label="Grupos de esta página"
                                          f'<h3 class="dd-preg"><a href="{url_pagina(UBIC[f[0]])}#{f[0]}">{e(_PREG_DEST.get(f[0], f[2]))}</a></h3>'
                                          '<span class="c-num"></span><span class="c-txt"></span></li>' for f in fs) + "</ul></div>" for g, n, fs in _dd_grupos))
 # Provincias: las 24 jurisdicciones con su bandera, cada una a su perfil. Es también la forma de llegar con el teclado a lo que muestra
-# el mapa de la portada, que el teclado saltea
-_n_temas_perfil = len(re.findall(r'\["(\w+)", "([^"]+)"\]', js[js.index("const PERFIL_GRUPOS = ["):js.index("];", js.index("const PERFIL_GRUPOS = ["))]))
-_provincias_home = (f'<p class="bloque-sub">El perfil de cada jurisdicción en {_n_temas_perfil} temas, con su historia. Los datos de cada departamento, partido '
-                    'o comuna están en <a class="enlace" href="departamentos.html">Departamentos</a>. Para ordenarlas según lo que más te importa, '
-                    'está <a class="enlace" href="indice.html">Ordenar las 24</a>.</p><ul class="prov-home">'
+# el mapa de la portada, que el teclado saltea. Sin bajada desde el 10 de noviembre de 2026 (pedido del autor, como Historias y Herramientas):
+# Departamentos y Ordenar las 24 están en el menú Provincias y en el pie
+_provincias_home = ('<ul class="prov-home">'
                     + "".join(f'<li><a href="{PAG_PROV[c]}.html"><img class="bandera" src="datos/banderas/{c}.png" alt="" width="24" height="16" '
                               f'loading="lazy" decoding="async">{e(NOMBRE_PROV[c])}</a></li>' for c in _PROVS) + "</ul>")
 # Historias con datos: los tres artículos los agrega datina.js (el de la relación más marcada primero, regla aprobada el 5 de octubre de

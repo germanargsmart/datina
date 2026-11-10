@@ -574,9 +574,8 @@ html:not(.js) .busca-portada{display:none}
   .js .portada.armando .provs a{pointer-events:none}
 }
 
-/* ---------- bloques de la portada: el mismo título, la misma bajada y la misma separación ---------- */
+/* ---------- bloques de la portada: el mismo título y la misma separación (sin bajadas desde el 10 de noviembre de 2026, pedido del autor) ---------- */
 .bloque-tit{margin:0 0 var(--e-2);font-size:var(--t-8);line-height:1;font-weight:500;letter-spacing:-.005em;color:var(--azul);font-variation-settings:"wdth" 55,"opsz" 144;font-family:var(--f-c55)}
-.bloque-sub{margin:0 0 var(--e-6);max-width:62ch;line-height:var(--i-chico);color:var(--muted);text-wrap:balance}
 /* entre los bloques de la portada, el espacio de bloque y no el de capítulo (respuesta del autor del 23 de octubre de 2026, para
    compactar la portada de la Fase 2: de 48 a 72 píxeles pasaron a ser de 24 a 40) */
 .secciones,.articulos-home,.herramientas-home,.destacados,.provincias-home{padding-top:var(--bloque)}
@@ -1165,7 +1164,7 @@ html.insertar .ins-ficha{margin:0}
    para todos", y la opción A que eligió): Roboto Flex más grande (20 píxeles, 18 en el celular) y más liviana (340), con el tamaño óptico
    de 28 y un gris más oscuro que el de los textos secundarios. En las páginas donde la pregunta todavía es el subtítulo (las herramientas,
    el Laboratorio y Artículos) la pregunta toma la misma letra, un tamaño más grande */
-.tema-intro p:not(.pregunta),.prov-sub,.nos-bajada,.bloque-sub,.nota .nota-bajada{font-family:var(--f-bajada);font-size:var(--t-5);line-height:1.5;
+.tema-intro p:not(.pregunta),.prov-sub,.nos-bajada,.nota .nota-bajada{font-family:var(--f-bajada);font-size:var(--t-5);line-height:1.5;
   font-weight:340;font-variation-settings:"opsz" 28;letter-spacing:-.003em;color:var(--tinta-bajada)}
 .tema:not(.con-pregunta) .tema-intro .pregunta,.laboratorio .tema-intro .pregunta{font-family:var(--f-bajada);font-weight:340;font-variation-settings:"opsz" 28;letter-spacing:-.003em;color:var(--ink)}
 /* en la portada, sobre el azul, la misma letra con su tamaño y su blanco */
@@ -1980,8 +1979,8 @@ svg.mapa-prov .caba-aparte line{stroke:var(--muted);stroke-width:.8}
 
 /* ---------- pie de página: a todo el ancho, alineado con la barra ---------- */
 .pie-sitio{margin-top:var(--ritmo);padding:var(--e-8) 0 var(--e-8);background:#fff;border-top:3px solid var(--azul);font-size:var(--t-3);line-height:1.5;color:var(--muted)}
-.pie-sitio .envoltura{max-width:var(--ancho-max);display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);grid-template-areas:"marca datos" "mapa mapa";gap:var(--e-8)}
-.pie-marca{grid-area:marca}.pie-mapa{grid-area:mapa}.pie-datos{grid-area:datos}
+.pie-sitio .envoltura{max-width:var(--ancho-max);display:grid;grid-template-columns:minmax(0,1fr);grid-template-areas:"marca" "mapa";gap:var(--e-8)}
+.pie-marca{grid-area:marca}.pie-mapa{grid-area:mapa}
 .pie-sitio .marca{display:inline-block;padding-top:var(--e-3);font-size:46px;line-height:1;font-weight:500;letter-spacing:.01em;text-transform:uppercase;
   color:var(--azul);text-decoration:none;font-variation-settings:"wdth" 25,"opsz" 144}
 .pie-lema,.pie-sitio h2{margin:var(--e-2) 0 var(--e-3);font:500 var(--t-1)/1.4 var(--mono);letter-spacing:.07em;text-transform:uppercase;color:var(--ink)}
@@ -1997,7 +1996,7 @@ svg.mapa-prov .caba-aparte line{stroke:var(--muted);stroke-width:.8}
 .pie-mapa a[aria-current="true"]{color:var(--ink);font-weight:600}
 @media (hover:hover) and (pointer:fine){.pie-mapa a:hover{text-decoration:underline}}
 @media (max-width:1080px){.pie-mapa{grid-template-columns:repeat(3,minmax(0,1fr))}}
-@media (max-width:760px){.pie-sitio .envoltura{grid-template-columns:1fr;grid-template-areas:"marca" "mapa" "datos";gap:var(--e-7)}.pie-mapa{grid-template-columns:1fr 1fr}}
+@media (max-width:760px){.pie-sitio .envoltura{gap:var(--e-7)}.pie-mapa{grid-template-columns:1fr 1fr}}
 
 /* ---------- consultas con IA (25 de octubre de 2026, docs/ia/CONSULTAS.md): la página existe solo con "consulta_ia" en
    datos/manual/sitio.json. El formulario es el de Contacto y la respuesta va en una tarjeta como las fichas. El aviso de lo que está leyendo
