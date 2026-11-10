@@ -1155,7 +1155,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     <h2>Educación</h2>
     <div class="tema-intro">
       <p class="pregunta" data-corta="¿Cuántos chicos aprenden lo esperado?">¿Cuántos chicos aprenden lo esperado y cuánto se invierte en su educación?</p>
-      <p>La página sigue a los chicos en la escuela: cuántos adolescentes van a la secundaria, cuántos alumnos de 6° grado alcanzan el nivel esperado en lengua y matemática y cómo le va al país en las pruebas internacionales PISA. También muestra cuánto cobra un maestro de grado en cada provincia y cuánto invierte el Estado por alumno de escuela estatal.</p>
+      <p>La página sigue a los chicos en la escuela: cuántos adolescentes van a la secundaria, cuántos alumnos de 6° grado alcanzan el nivel esperado en lengua y matemática y cómo le va al país en las pruebas internacionales PISA. También muestra cuánto cobra un maestro de grado en cada provincia, cuánto invierte el Estado por alumno de escuela estatal y cuántas escuelas primarias hay por chico.</p>
     </div>
     <!--EXPLICADOR:educacion-->
 
@@ -1237,6 +1237,17 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <p class="lead" data-t="inversion-educativa"></p>
       <p class="nota" data-t="inversion-educativa-nota"></p>
       <div class="pie"><span>Fuente: Coordinación de Evaluación de Costos Educativos, Secretaría de Educación, indicadores de inversión educativa, y Banco Mundial, deflactor del PBI</span><a href="datos/inversion_educativa.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <!-- las escuelas primarias cada 1.000 chicos de 5 a 14 años (fase 3 de docs/roadmap/ESTABLECIMIENTOS.md, 9 de noviembre de 2026): del padrón
+         oficial, como lo deja scripts/establecimientos.py, con las proyecciones del INDEC. Son las escuelas del mapa de la página de cada provincia -->
+    <article class="ficha" id="f-escuelas-primarias">
+      <h2>¿Dónde hay más escuelas primarias por chico?</h2>
+      <p class="ficha-sub">Escuelas primarias cada 1.000 chicos de 5 a 14 años, por provincia, {{escuelas_primarias.fecha}}</p>
+      <div class="grafico" data-g="escuelas-primarias" data-forma="barras"></div>
+      <p class="lead" data-t="escuelas-primarias"></p>
+      <p class="nota" data-t="escuelas-primarias-nota"></p>
+      <div class="pie"><span>Fuentes: Padrón Oficial de Establecimientos Educativos, Secretaría de Educación, e INDEC, proyecciones de población</span><a href="datos/escuelas_primarias_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <!--PROGRAMAS:educacion-->

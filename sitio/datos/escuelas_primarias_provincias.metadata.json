@@ -1,0 +1,70 @@
+{
+ "tabla": "escuelas_primarias_provincias.csv",
+ "titulo": "¿Dónde hay más escuelas primarias por chico?",
+ "descripcion": "Escuelas primarias cada 1.000 chicos de 5 a 14 años, por provincia, junio de 2026",
+ "seccion": "Educación",
+ "ficha": "https://datina.com.ar/educacion.html#f-escuelas-primarias",
+ "fuente": "Padrón Oficial de Establecimientos Educativos, Secretaría de Educación, e INDEC, proyecciones de población.",
+ "actualizacion": "Se actualiza cada año.",
+ "cobertura": "Las 24 jurisdicciones",
+ "periodo": "",
+ "filas": 24,
+ "columnas": [
+  {
+   "nombre": "codigo_indec",
+   "tipo": "Código",
+   "valores": "24 códigos"
+  },
+  {
+   "nombre": "territorio",
+   "tipo": "Texto",
+   "valores": "24 valores distintos"
+  },
+  {
+   "nombre": "escuelas_primarias",
+   "tipo": "Número",
+   "valores": "63 a 5.880"
+  },
+  {
+   "nombre": "estatales",
+   "tipo": "Número",
+   "valores": "50 a 4.180"
+  },
+  {
+   "nombre": "privadas",
+   "tipo": "Número",
+   "valores": "13 a 1.700"
+  },
+  {
+   "nombre": "gestion_social",
+   "tipo": "Número",
+   "valores": "0 a 11"
+  },
+  {
+   "nombre": "rurales",
+   "tipo": "Número",
+   "valores": "0 a 1.441"
+  },
+  {
+   "nombre": "chicos_5_14",
+   "tipo": "Número",
+   "valores": "28.396 a 2.605.146"
+  },
+  {
+   "nombre": "primarias_cada_1000_chicos",
+   "tipo": "Número",
+   "valores": "2,17 a 7,18"
+  },
+  {
+   "nombre": "pct_rurales",
+   "tipo": "Número",
+   "valores": "0 a 83,84"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "05/11/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
+ "como_citar": "Datina (año de la consulta). ¿Dónde hay más escuelas primarias por chico? Con datos de Padrón Oficial de Establecimientos Educativos, Secretaría de Educación, e INDEC, proyecciones de población. https://datina.com.ar/educacion.html#f-escuelas-primarias. Consultado el día de la consulta."
+}

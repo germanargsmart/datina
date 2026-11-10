@@ -347,6 +347,7 @@ const MBS = R.cobertura_suelo;
 const MDC = R.medicos;
 const HSP = R.establecimientos;  // los hospitales públicos por provincia (fase 3 de docs/roadmap/ESTABLECIMIENTOS.md)
 const DHO = R.distancia_hospital;  // la distancia de las escuelas rurales al hospital público más cercano (fase 3)
+const ESP = R.escuelas_primarias;  // las escuelas primarias cada 1.000 chicos de 5 a 14 años (fase 3)
 // las sociedades nuevas del Registro Nacional de Sociedades (plan de mejora, sección 10, 31 de octubre de 2026)
 const SOC = R.sociedades;
 const pesosDeuda = v => `${milDeuda(v)} pesos`;
@@ -809,6 +810,15 @@ const LEAD = {
       `${yE(DHO.top2[0])} (${n1(DHO.top2[1])} km), y la más corta, la de ${DHO.bajo[0]} (${n1(DHO.bajo[1])} km).` +
       (DHO.pocas.length ? ` ${lista(DHO.pocas.map(x => x[0]))} ${DHO.pocas.length > 1 ? "tienen" : "tiene"} muy pocas escuelas rurales ` +
         `(${lista(DHO.pocas.map(x => n0(x[1])))}), y con tan pocas, una sola cambia la mediana.` : ""),
+  // las escuelas primarias cada 1.000 chicos de 5 a 14 años (9 de noviembre de 2026): las dos cifras más altas y las dos más bajas (con una sola
+  // cifra, si quedan iguales al redondear), y la parte rural de las primarias de la provincia con más escuelas por chico y de la que tiene
+  // menos. Corto, para que en 1440 entre entero, sin "Ver más", con la oración de la parte rural a la vista
+  "escuelas-primarias": () => {
+    const dos = (a, b) => n1(a[1]) === n1(b[1]) ? `${n1(a[1])} en ${a[0]} ${yE(b[0])}` : `${n1(a[1])} en ${a[0]} ${yE(`${n1(b[1])} en ${b[0]}`)}`;
+    return `En ${ESP.fecha} había ${n0(ESP.primarias)} escuelas primarias en el país, ${n1(ESP.pais)} cada 1.000 chicos de 5 a 14 años. Van de ` +
+      `${dos(ESP.top, ESP.top2)} a ${dos(ESP.bajo2, ESP.bajo)}. La relación con la parte rural de las primarias es ${fuerza(ESP.r)}: en ` +
+      `${ESP.rural_top[0]} es rural el ${pct(ESP.rural_top[1])}, y en ${ESP.rural_bajo[0]}, el ${pct(ESP.rural_bajo[1])}.`;
+  },
   // los hospitales públicos por provincia (9 de noviembre de 2026): las dos cifras más altas y las dos más bajas, o la de terapia intensiva
   hospitales: v => v === "terapia"
     ? `En ${HSP.fecha} había ${n0(HSP.con_terapia)} hospitales públicos con terapia intensiva en el país, ${n1(HSP.pais_ti)} cada 100.000 habitantes: ` +
@@ -1832,6 +1842,13 @@ const TX = {
     `una vez, aunque tenga varias actividades. No incluye asociaciones civiles, fundaciones, cooperativas, mutuales ni sucursales de empresas ` +
     `extranjeras. El domicilio fiscal puede no ser donde la sociedad trabaja. Las que se dieron de baja pueden no estar en el registro. Cada ` +
     `100.000 habitantes, con la población del INDEC de ${SOC.anio}.`,
+  "escuelas-primarias": LEAD["escuelas-primarias"](), "escuelas-primarias-nota": `Escuelas primarias comunes del Padrón Oficial de ` +
+    `Establecimientos Educativos de ${ESP.fecha}: estatales, privadas y de gestión social o cooperativa, también las que no se dibujan en el ` +
+    `mapa de la página de cada provincia. Cada sede cuenta aparte: un anexo, que funciona en otro lugar, es una escuela más. Cuenta escuelas, no ` +
+    `alumnos ni vacantes: una escuela rural de diez alumnos vale lo mismo que una de cientos en una ciudad. Chicos de 5 a 14 años de las ` +
+    `proyecciones del INDEC de ${ESP.anio}, que vienen en grupos de cinco años: la primaria dura seis o siete años según la provincia, y esos dos ` +
+    `grupos contienen sus edades. La secundaria no está porque ningún grupo de edad coincide con sus años. Que dos medidas vayan juntas no dice ` +
+    `que una cause la otra.`,
   "distancia-hospital": LEAD["distancia-hospital"]("hospital"), "distancia-hospital-nota": `Distancia en línea recta, no por ruta: el ` +
     `viaje real es más largo. Las escuelas rurales (primarias y secundarias comunes del padrón oficial) sirven de marca de dónde vive la gente en ` +
     `el campo, y cada una cuenta una vez, tenga pocos o muchos alumnos. Los hospitales son los públicos con internación de la ficha de arriba y, ` +
@@ -4158,6 +4175,21 @@ Object.assign(DIB, {
         `${pct(d.pct_sas)} SAS<br>${n0(d.sociedades_anterior)} en ${SOC.anio - 1}`});
   },
   // los médicos por provincia (plan de mejora, sección 10, 31 de octubre de 2026): cada provincia con la línea del país
+  // las escuelas primarias cada 1.000 chicos de 5 a 14 años (fase 3 de docs/roadmap/ESTABLECIMIENTOS.md, 9 de noviembre de 2026): cada
+  // provincia con la línea del país
+  "escuelas-primarias": a => {
+    const fp = T.escuelas_primarias_provincias.find(r => r.codigo_indec === prov);
+    const nombrados = [ESP.top[0], ESP.top2[0], ESP.bajo[0], ESP.bajo2[0], ESP.rural_top[0], ESP.rural_bajo[0]];
+    let txt = LEAD["escuelas-primarias"]();
+    if (fp && !nombrados.includes(fp.territorio))
+      txt += ` En ${fp.territorio}, ${n1(fp.primarias_cada_1000_chicos)} cada 1.000 chicos (${n0(fp.escuelas_primarias)} escuelas, el ` +
+        `${pct(fp.pct_rurales)} rurales).`;
+    $t("escuelas-primarias").textContent = txt;
+    barrasH(G("escuelas-primarias"), {anim: a, data: T.escuelas_primarias_provincias, k: "primarias_cada_1000_chicos", vf: n1, af: n0,
+      ref: ESP.pais, refLab: `País ${n1(ESP.pais)}`,
+      tip: d => `<b>${d.territorio}</b><br>${n1(d.primarias_cada_1000_chicos)} escuelas primarias cada 1.000 chicos de 5 a 14 años<br>` +
+        `${n0(d.escuelas_primarias)} escuelas (${pct(d.pct_rurales)} rurales) y ${n0(d.chicos_5_14)} chicos`});
+  },
   // la distancia de las escuelas rurales al hospital público más cercano (fase 3 de docs/roadmap/ESTABLECIMIENTOS.md, 9 de noviembre de 2026):
   // cada provincia con la línea del país. CABA no tiene escuelas rurales
   "distancia-hospital": a => {
@@ -7765,6 +7797,8 @@ const CLAVE = {
     Object.keys(CPA.atrasadas).length ? "por habitante, promedio de las jurisdicciones con datos" : "por habitante, promedio del país"],
   "f-sociedades": [n1(SOC.pais), `sociedades comerciales cada 100.000 habitantes se constituyeron en el país en ${SOC.anio}`,
     `sociedades nuevas cada 100.000 habitantes, ${SOC.anio}`],
+  "f-escuelas-primarias": [n1(ESP.pais), `escuelas primarias cada 1.000 chicos de 5 a 14 años había en todo el país en ${ESP.fecha}`,
+    `escuelas primarias cada 1.000 chicos de 5 a 14 años, ${ESP.fecha}`],
   "f-distancia-hospital": [n1(DHO.pais), `km o más en línea recta separan a la mitad de las escuelas rurales del país del hospital público con ` +
     `internación más cercano, en ${DHO.fecha}`, `km de la escuela rural mediana al hospital público más cercano, ${DHO.fecha}`],
   "f-hospitales": [n1(HSP.pais), `hospitales públicos con internación cada 100.000 habitantes había en todo el país en ${HSP.fecha}`,
@@ -9476,6 +9510,10 @@ const PREG = [
   ["¿Dónde se crean más empresas?",
    `En ${SOC.anio} se constituyeron ${n0(SOC.total)} sociedades comerciales en el país, ${n1(SOC.pais)} cada 100.000 habitantes, según el Registro ` +
    `Nacional de Sociedades. El ${pct(SOC.pct_sas)} fueron SAS.`, "#f-sociedades"],
+  ["¿Dónde hay más escuelas primarias por chico?",
+   `En ${ESP.fecha}, en ${ESP.top[0]}, con ${n1(ESP.top[1])} escuelas primarias cada 1.000 chicos de 5 a 14 años, según el padrón oficial de ` +
+   `escuelas. En todo el país, ${n1(ESP.pais)}, y la cifra más baja fue la de ${ESP.bajo[0]}, ${n1(ESP.bajo[1])}. Cuenta escuelas, no alumnos.`,
+   "#f-escuelas-primarias"],
   ["¿A cuántos kilómetros de un hospital público quedan las escuelas rurales?",
    `La mitad de las ${n0(DHO.rurales)} escuelas rurales del país queda a más de ${n1(DHO.pais)} km en línea recta del hospital público con ` +
    `internación más cercano, y a más de ${n1(DHO.pais_ti)} km del más cercano con terapia intensiva. En ${DHO.top_ti[0]}, a más de ` +
@@ -12699,6 +12737,7 @@ if (PAGINA !== "inicio") {
     "f-medicos": ["medicos", "medicos por habitante", "cantidad de medicos", "medico"],
     "f-hospitales": ["hospitales", "hospital", "hospitales publicos", "terapia intensiva", "hospitales por habitante"],
     "f-distancia-hospital": ["distancia al hospital", "hospital mas cercano", "lejos del hospital", "escuelas rurales", "acceso a la salud"],
+    "f-escuelas-primarias": ["escuelas primarias", "escuela primaria", "cantidad de escuelas", "cuantas escuelas", "escuelas por chico"],
     "f-cobertura-suelo": ["monte nativo", "monte natural", "bosques", "desmonte", "deforestacion", "mapbiomas", "vegetacion natural"],
     "f-telefonia": ["telefono fijo", "telefonia fija", "linea fija", "telefonia"],
     "f-abandono": ["abandono escolar", "abandono", "repitencia", "repiten", "dejan la escuela", "desercion escolar"],

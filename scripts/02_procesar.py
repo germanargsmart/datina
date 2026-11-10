@@ -1321,6 +1321,51 @@ agregar(distancia_hospital_provincias.assign(periodo=str(HOSP_ANIO), valor=dista
 agregar(distancia_hospital_provincias.assign(periodo=str(HOSP_ANIO), valor=distancia_hospital_provincias.mediana_km_terapia),
         "mediana_km_escuelas_rurales_a_terapia_intensiva_publica", "km", "Ministerio de Capital Humano, padrón de escuelas, y Ministerio de Salud, REFES")
 
+# ---------------------------------------------------------------- escuelas primarias cada 1.000 chicos de 5 a 14 años
+# Las escuelas primarias comunes del padrón oficial por provincia (estatales, privadas y de gestión social o cooperativa, cada sede con su
+# CUE-anexo, también las que no se dibujan en el mapa), tal como las deja scripts/establecimientos.py, cada 1.000 chicos de 5 a 14 años de las
+# proyecciones del INDEC del año del padrón (_esc_v, de la ficha de los chicos en edad escolar). Las proyecciones vienen en grupos de cinco
+# años y la primaria dura seis o siete según la provincia: 5 a 14 son los dos grupos que contienen sus edades. La secundaria no entra: ningún
+# par de grupos le calza, y cuántas secundarias hay depende de cómo registra cada provincia las rurales (en San Luis hay más secundarias que
+# primarias). Cuenta escuelas, no alumnos ni vacantes (fase 3 de docs/roadmap/ESTABLECIMIENTOS.md, 9 de noviembre de 2026)
+_escp_e = pd.read_csv(_hosp_dir / "escuelas.csv", dtype={"codigo_indec": str, "cueanexo": str},
+                      usecols=["cueanexo", "codigo_indec", "sector", "ambito", "primaria"])
+_escp_p = _escp_e[_escp_e.primaria == 1]
+assert _escp_p.cueanexo.is_unique, "escuelas primarias: hay un CUE-anexo repetido"
+ESCP_ANIO = int(_hosp_fuentes["padron"]["actualizado"][:4])
+assert ESCP_ANIO in _esc_v.columns, "escuelas primarias: el año del padrón no está en las proyecciones del INDEC"
+escuelas_primarias_provincias = (_escp_p.groupby("codigo_indec").agg(
+    escuelas_primarias=("cueanexo", "size"), estatales=("sector", lambda s: int((s == "Estatal").sum())),
+    privadas=("sector", lambda s: int((s == "Privado").sum())), gestion_social=("sector", lambda s: int((s == "Social/cooperativa").sum())),
+    rurales=("ambito", lambda s: int((s == "Rural").sum())))
+    .reset_index().sort_values("codigo_indec").reset_index(drop=True))
+assert set(escuelas_primarias_provincias.codigo_indec) == set(POB) and len(escuelas_primarias_provincias) == 24, \
+    "escuelas primarias: las jurisdicciones no son las 24"
+assert (escuelas_primarias_provincias[["estatales", "privadas", "gestion_social"]].sum(axis=1) == escuelas_primarias_provincias.escuelas_primarias).all(), \
+    "escuelas primarias: hay un sector que no es estatal, privado ni de gestión social"
+escuelas_primarias_provincias.insert(1, "territorio", escuelas_primarias_provincias.codigo_indec.map(CORTO))
+escuelas_primarias_provincias["chicos_5_14"] = escuelas_primarias_provincias.codigo_indec.map(lambda c: _esc_v.loc[c, ESCP_ANIO]).round(0).astype(int)
+escuelas_primarias_provincias["primarias_cada_1000_chicos"] = (
+    escuelas_primarias_provincias.escuelas_primarias / escuelas_primarias_provincias.chicos_5_14 * 1000).round(4)
+escuelas_primarias_provincias["pct_rurales"] = (escuelas_primarias_provincias.rurales / escuelas_primarias_provincias.escuelas_primarias * 100).round(4)
+_escp_t = escuelas_primarias_provincias[["escuelas_primarias", "rurales", "chicos_5_14"]].sum()
+_escp_o = escuelas_primarias_provincias.sort_values(["primarias_cada_1000_chicos", "codigo_indec"])
+_escp_rur = lambda i: [_escp_o.iloc[i].territorio, r1(_escp_o.iloc[i].pct_rurales)]
+ESCP_RES = {
+    "fecha": _hosp_mes(_hosp_fuentes["padron"]["actualizado"]), "anio": ESCP_ANIO,
+    "primarias": int(_escp_t.escuelas_primarias), "pais": r1(_escp_t.escuelas_primarias / _escp_t.chicos_5_14 * 1000),
+    "pct_rurales": r1(_escp_t.rurales / _escp_t.escuelas_primarias * 100),
+    "top": _hosp_par(_escp_o, "primarias_cada_1000_chicos", -1), "top2": _hosp_par(_escp_o, "primarias_cada_1000_chicos", -2),
+    "bajo": _hosp_par(_escp_o, "primarias_cada_1000_chicos", 0), "bajo2": _hosp_par(_escp_o, "primarias_cada_1000_chicos", 1),
+    # la parte rural de las primarias de la provincia con más escuelas por chico y de la que tiene menos, y la correlación entre las dos
+    # medidas en las 24 jurisdicciones (el texto la nombra con fuerza() de datina.js)
+    "rural_top": _escp_rur(-1), "rural_bajo": _escp_rur(0),
+    "r": round(float(escuelas_primarias_provincias.primarias_cada_1000_chicos.corr(escuelas_primarias_provincias.pct_rurales)), 2),
+}
+agregar(escuelas_primarias_provincias.assign(periodo=str(ESCP_ANIO), valor=escuelas_primarias_provincias.primarias_cada_1000_chicos),
+        "escuelas_primarias_cada_1000_chicos_5_14", "escuelas primarias cada 1.000 chicos de 5 a 14 años",
+        "Ministerio de Capital Humano, padrón de escuelas, e INDEC")
+
 # ---------------------------------------------------------------- soja por departamento (estimaciones agrícolas)
 # Estimaciones agrícolas de la Secretaría de Agricultura, Ganadería y Pesca (datos.magyp.gob.ar): superficie sembrada y cosechada,
 # producción y rendimiento de cada cultivo, por campaña y departamento, desde la campaña 1969/70. Es la primera fuente nueva del plan de
@@ -8029,6 +8074,7 @@ tablas = {
     "medicos_provincias": medicos_provincias,
     "hospitales_provincias": hospitales_provincias,
     "distancia_hospital_provincias": distancia_hospital_provincias,
+    "escuelas_primarias_provincias": escuelas_primarias_provincias,
     "sociedades_provincias": sociedades_provincias,
     "sociedades_pais": sociedades_pais,
     "puestos_provincias": puestos_provincias,
@@ -8449,6 +8495,7 @@ resumen["cobertura_suelo"] = MB_RES
 resumen["medicos"] = MEDI_RES
 resumen["establecimientos"] = HOSP_RES
 resumen["distancia_hospital"] = DIST_RES
+resumen["escuelas_primarias"] = ESCP_RES
 resumen["sociedades"] = SOC_RES
 resumen["censos"] = CZ_RES
 resumen["inflacion_personal"] = INFP_RES

@@ -7680,6 +7680,38 @@
   },
   {
    "tipo": "alimenta",
+   "de": "ds:manual/establecimientos-escuelas.csv",
+   "a": "f-escuelas-primarias",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_escp_e = pd.read_csv(_hosp_dir / \"escuelas.csv\", dtype={\"codigo_indec\": str, \"cueanexo\": str},"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"escuelas_primarias_provincias\": escuelas_primarias_provincias,"
+    }
+   ],
+   "tabla": "escuelas_primarias_provincias"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:indec_proyecciones_provincias.csv",
+   "a": "f-escuelas-primarias",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "proy = pd.read_csv(CRUDO / \"indec_proyecciones_provincias.csv\", sep=\";\")"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "escuelas_primarias_provincias[\"chicos_5_14\"] = escuelas_primarias_provincias.codigo_indec.map(lambda c: _esc_v.loc[c, ESCP_ANIO]).round(0).astype(int)"
+    }
+   ],
+   "tabla": "escuelas_primarias_provincias"
+  },
+  {
+   "tipo": "alimenta",
    "de": "ds:indec_api_canasta_crianza.json",
    "a": "f-crianza",
    "evidencia": [
@@ -8952,6 +8984,11 @@
    "variables": [
     "mediana_km_escuelas_rurales_a_hospital_publico",
     "mediana_km_escuelas_rurales_a_terapia_intensiva_publica"
+   ]
+  },
+  "f-escuelas-primarias": {
+   "variables": [
+    "escuelas_primarias_cada_1000_chicos_5_14"
    ]
   }
  }

@@ -550,7 +550,7 @@ UNIDADES = {"%", "% de los chicos de la edad", "% de estudiantes de 6 grado", "%
             "cargos de juez cada 100.000 habitantes", "casos", "casos cada 100.000 habitantes", "defensorías", "dólares por habitante",
             "dólares por litro al tipo de cambio de referencia (Com. A 3500), mediana de las estaciones", "empresas",
             "etapas de fractura por año", "fiscalías", "grados Celsius", "hechos cada 100.000 habitantes", "hectáreas",
-            "hijos con AUH cada 100 menores de 18 años", "médicos cada 10.000 habitantes", "hospitales cada 100.000 habitantes", "km", "sociedades cada 100.000 habitantes", "hijos por mujer", "kWh por habitante por año", "kilos por habitante por año",
+            "hijos con AUH cada 100 menores de 18 años", "médicos cada 10.000 habitantes", "hospitales cada 100.000 habitantes", "km", "escuelas primarias cada 1.000 chicos de 5 a 14 años", "sociedades cada 100.000 habitantes", "hijos por mujer", "kWh por habitante por año", "kilos por habitante por año",
             "kilovatios hora por año", "miles", "miles de barriles por día", "miles de barriles por pozo en sus primeros doce meses",
             "miles de millones de m³", "miles de pesos", "millones de km²", "millones de pesos de AAAA", "países", "visitantes", "millones de dólares", "millones de kg", "millones de litros",
             "millones de m³", "millones de m³ por día", "muertes de menores de un año por cada 1.000 nacidos vivos",
