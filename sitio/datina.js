@@ -310,6 +310,7 @@ const NOTA_VIV = k => `Datos del Censo 2022 sumados desde los radios censales. U
 `El día del censo, el ${pct(VV.pct_sin_personas)} de las viviendas particulares no tenía personas presentes, y el INDEC registró el motivo: uso temporal, oficina o comercio, alquiler o venta, construcción, residentes que no estaban ese día u otra situación. ` +
 `Por eso el selector muestra motivos por separado y no un total de viviendas vacías: una parte de las viviendas sin personas presentes tiene residentes habituales. ` +
 `En el mapa, el color divide a los departamentos en cinco grupos del mismo tamaño. Si elegís una provincia en Tu provincia, el mapa se acerca a ella.`;
+const CU = {PASO: 100, INDICE: 500, BASE: 3000, R_MAX: 4000, EXAG: 1.5, FI: 36 * Math.PI / 180, GIRO: -0.45, PIE: 250};
 const LEAD = {
 petroleo: v => v === "cuenca"
 ? `En ${PG.mes}, el petróleo salió de cinco cuencas: ${cuencasTxt(PG.cuencas_pet)}. La Neuquina abarca Neuquén y partes de Mendoza, Río Negro y La Pampa.`
@@ -1712,6 +1713,13 @@ vino: `El ${pct(cu.vino_mza)} del vino vendido en el país en ${cu.vino_anio} sa
 yerba: (cu.yerba_max_anio === cu.yerba_anio ? `${cu.yerba_anio} fue el año en que los molinos despacharon más yerba mate desde ${cu.yerba_ini}.`
 : `El año en que los molinos despacharon más yerba mate desde ${cu.yerba_ini} fue ${cu.yerba_max_anio}, con ${n1(cu.yerba_max)} millones de kilos.`) + enLoQueVa(R.ytd.yerba, cu.yerba_anio, "los despachos", "subieron", "bajaron"),
 "yerba-nota": `Salida de molino informada por el Instituto Nacional de la Yerba Mate: yerba elaborada que despachan los molinos. Solo se muestran años completos.`,
+cumbres: `Le sigue ${nt.cu_2}, en ${nt.cu_2_prov}, con ${n0(nt.cu_2_v)} metros: ${n0(nt.cu_dif)} menos. ${nt.cu_prov_top_n} de las ${nt.cu_n} cumbres de la tabla del IGN están en ` +
+`${nt.cu_prov_top} y el resto, en otras ${nt.cu_provs - 1} provincias. Todas superan los ${n0(Math.floor(nt.cu_ult_v / 100) * 100)} metros: la más baja de la tabla, ${nt.cu_ult}, tiene ${n0(nt.cu_ult_v)}.`,
+"cumbres-nota": `Las alturas son las de la tabla «Máximas alturas» del Instituto Geográfico Nacional (IGN), que no dice de qué año es cada medición ni si están todas las cumbres de esa altura. ` +
+`El relieve es un recuadro de 12 km de lado alrededor de cada cumbre, con una curva de nivel cada ${CU.PASO} metros, y sale de un modelo de elevación ` +
+`satelital (SRTM, con un punto cada 30 metros) que no reproduce exacta ninguna cumbre: según el lugar, da unos metros más o menos que la altura oficial. Para que las cumbres ` +
+`se comparen entre sí, todas tienen la misma escala, la altura exagerada ${n1(CU.EXAG)} veces y la base del bloque a ${n0(CU.BASE)} metros. Los glaciares ` +
+`son los del Inventario Nacional de Glaciares, que cuenta también los cubiertos de roca y los de escombros, y llega solo hasta el límite con Chile.`,
 glaciares: `${cu.gl_top} tiene ${n0(cu.gl_top_v)} glaciares inventariados ${yE(cu.gl_2)}, ${n0(cu.gl_2_v)}, según el Inventario Nacional de Glaciares. ` +
 `Entre las dos reúnen el ${pct((cu.gl_top_v + cu.gl_2_v) / cu.gl_total * 100)} de los glaciares inventariados del país. El dato cuenta glaciares, no su superficie: una provincia con muchos glaciares chicos puede tener menos hielo que otra con pocos glaciares grandes.`,
 "ant-mapa": `El Consejo de Administradores de Programas Antárticos Nacionales (COMNAP) lista ${ANT.n} instalaciones de ${ANT.paises} países: ${ANT.estaciones} estaciones y el resto entre campamentos, refugios, pistas, laboratorios y depósitos. ` +
@@ -4299,6 +4307,227 @@ $t("anioscong").textContent = textoAnios(filas, v, p);
 });
 TX["lab-hemiciclo"] = $t("lab-hemiciclo").textContent = `Las ${n0(CG.n_dip)} bancas de la Cámara de Diputados y las ${CG.n_sen} del Senado, cada una con ` +
 `quien la ocupa hoy, agrupadas por espacio político y, dentro de cada espacio, por provincia. Al pasar el mouse o tocar una banca, el cuadro dice quién la ocupa.`;
+CU.tinte = d3.scaleLinear().domain([3000, 4500, 5500, 6400, 7000]).range(["#EADCB8", "#F1E7CF", "#F4EFE4", "#F6F9FC", "#FFFFFF"]).clamp(true);
+const RELIEVE = {"aconcagua": "e014295616", "antofalla": "cf3af4401b", "bonete-chico": "6f5c543508", "cerro-bayo": "4756782b44", "cumbre-del-libertador-general-san-martin": "af14c24008", "el-condor": "e177ca8510", "el-muerto": "cea3d18170", "incahuasi": "bf212562b5", "llullaillaco": "5bc6979152", "mercedario": "7f66b6a569", "monte-pissis": "62f9401a2e", "ojos-del-salado": "d680bdf3d8", "tipas": "29fb91180e", "tres-cruces": "298424f80c", "tupungato": "e875cb2653"};
+const cuPedidos = {};
+const cuCargar = id => cuPedidos[id] ||= d3.json(`datos/relieve/${id}.json?v=${RELIEVE[id]}`).then(d => {
+const n = d.n, bin = atob(d.z), z = new Float64Array(n * n);
+for (let i = 0; i < z.length; i++) z[i] = d.min + (bin.charCodeAt(2 * i) | bin.charCodeAt(2 * i + 1) << 8);
+return prepararCumbre(d, z);
+}, e => { delete cuPedidos[id]; throw e; });
+function prepararCumbre(d, crudo) {
+const n = d.n, celda = d.lado_km * 1000 / n;
+const z = d3.blur2({data: Float64Array.from(crudo), width: n, height: n}, 1).data;
+const aPath = coords => {
+const p = new Path2D();
+for (const pol of coords) for (const anillo of pol) { anillo.forEach(([x, y], k) => k ? p.lineTo(x, y) : p.moveTo(x, y)); p.closePath(); }
+return p;
+};
+const capas = d3.contours().size([n, n]).thresholds(d3.range(CU.BASE + CU.PASO, d3.max(z) + 1, CU.PASO))(z)
+.filter(c => c.coordinates.length).map(c => ({h: c.value, path: aPath(c.coordinates), indice: c.value % CU.INDICE === 0}));
+const esc = z.map(v => Math.max(CU.BASE, Math.floor(v / CU.PASO) * CU.PASO));
+let cima = -1;
+for (let j = 0; j < n; j++) for (let i = 0; i < n; i++)
+if (Math.hypot(i + .5 - n / 2, j + .5 - n / 2) <= 1500 / celda && (cima < 0 || crudo[j * n + i] > crudo[cima])) cima = j * n + i;
+const glaciares = (d.glaciares || []).length ? aPath(d.glaciares) : null;
+return {n, celda, crudo, esc, capas, cima, glaciares, lado: d.lado_km, inventarios: d.inventarios || [], anios: d.anios_imagenes || []};
+}
+function dibujarCumbre(ctx, M, pico, st, W, H) {
+const n = M.n, diag = n * Math.SQRT2, t = st.t;
+const fi = Math.PI / 2 - t * (Math.PI / 2 - CU.FI), sf = Math.sin(fi);
+const s = Math.min(W * .94 / diag, (H - 72) / (diag * sf + CU.R_MAX / M.celda * CU.EXAG * Math.cos(fi)));
+const k = s * CU.EXAG * Math.cos(fi) / M.celda;
+const cx = W / 2, cy = 36 + (H - 72) / 2 + CU.R_MAX * k / 2;
+const th = st.giro * t, cos = Math.cos(th), sin = Math.sin(th);
+const pr = (x, y, h) => {
+const u = x - n / 2, v = y - n / 2;
+return [cx + s * (cos * u - sin * v), cy + s * sf * (sin * u + cos * v) - k * (h - CU.BASE)];
+};
+const E = devicePixelRatio || 1;
+const tr = h => [s * cos, s * sf * sin, -s * sin, s * sf * cos, cx - s * (cos - sin) * n / 2, cy - s * sf * (sin + cos) * n / 2 - k * (h - CU.BASE)].map(v => v * E);
+ctx.setTransform(E, 0, 0, E, 0, 0);
+ctx.clearRect(0, 0, W, H);
+const lados = [
+{nx: 0, ny: 1, a: [0, n], b: [n, n], celda: i => (n - 1) * n + i},
+{nx: 0, ny: -1, a: [n, 0], b: [0, 0], celda: i => n - 1 - i},
+{nx: 1, ny: 0, a: [n, n], b: [n, 0], celda: i => (n - 1 - i) * n + n - 1},
+{nx: -1, ny: 0, a: [0, 0], b: [0, n], celda: i => i * n},
+];
+if (k > 1e-3) for (const L of lados) {
+if (sin * L.nx + cos * L.ny <= 0) continue;
+const pts = [];
+for (let i = 0; i < n; i++) {
+const h = M.esc[L.celda(i)];
+for (const f of [i / n, (i + 1) / n]) pts.push(pr(L.a[0] + (L.b[0] - L.a[0]) * f, L.a[1] + (L.b[1] - L.a[1]) * f, h));
+}
+pts.push(pr(L.b[0], L.b[1], CU.BASE - CU.PIE), pr(L.a[0], L.a[1], CU.BASE - CU.PIE));
+const p = new Path2D(); pts.forEach(([x, y], j) => j ? p.lineTo(x, y) : p.moveTo(x, y)); p.closePath();
+ctx.fillStyle = L.nx ? "#DCCBA2" : "#E5D6B2"; ctx.fill(p);
+ctx.save(); ctx.clip(p); ctx.strokeStyle = "rgba(127,85,0,.22)"; ctx.lineWidth = 1;
+for (let h = CU.BASE; h <= 7000; h += CU.INDICE) {
+const [x1, y1] = pr(L.a[0], L.a[1], h), [x2, y2] = pr(L.b[0], L.b[1], h);
+ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y2); ctx.stroke();
+}
+ctx.restore();
+}
+const todo = new Path2D(); todo.rect(0, 0, n, n);
+ctx.setTransform(...tr(CU.BASE)); ctx.fillStyle = CU.tinte(CU.BASE); ctx.fill(todo);
+const glaciar = (path, h) => {
+if (!M.glaciares) return;
+ctx.save(); ctx.setTransform(...tr(h)); ctx.clip(path, "evenodd"); ctx.fillStyle = "rgba(116,172,223,.5)"; ctx.fill(M.glaciares, "evenodd"); ctx.restore();
+};
+glaciar(todo, CU.BASE);
+const paso = CU.PASO * k, copias = Math.min(6, Math.ceil(paso / 1.2));
+for (const c of M.capas) {
+const color = CU.tinte(c.h);
+if (paso > .3) {
+ctx.fillStyle = d3.interpolateRgb(color, "#A8926A")(.45);
+for (let j = copias; j >= 1; j--) { ctx.setTransform(...tr(c.h - CU.PASO * j / copias)); ctx.fill(c.path, "evenodd"); }
+}
+ctx.setTransform(...tr(c.h)); ctx.fillStyle = color; ctx.fill(c.path, "evenodd");
+glaciar(c.path, c.h);
+ctx.setTransform(...tr(c.h));
+ctx.lineWidth = (c.indice ? 1.3 : .6) / s;
+ctx.strokeStyle = c.indice ? "rgba(44,116,181,.75)" : "rgba(44,116,181,.4)";
+ctx.stroke(c.path);
+}
+ctx.setTransform(E, 0, 0, E, 0, 0);
+const [px, py] = pr(M.cima % n + .5, Math.floor(M.cima / n) + .5, M.esc[M.cima]);
+const tinta = css("--ink");
+ctx.strokeStyle = tinta; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(px, py); ctx.lineTo(px, py - 34); ctx.stroke();
+ctx.fillStyle = tinta; ctx.beginPath(); ctx.arc(px, py, 3, 0, 2 * Math.PI); ctx.fill();
+ctx.textAlign = "center"; ctx.lineJoin = "round"; ctx.strokeStyle = "#fff"; ctx.lineWidth = 4;
+ctx.font = `600 15px ${css("--f")}`;
+ctx.strokeText(pico.nombre, px, py - 56); ctx.fillText(pico.nombre, px, py - 56);
+ctx.font = `500 13px ${css("--mono")}`; ctx.fillStyle = css("--muted");
+ctx.strokeText(`${n0(pico.altura_m)} m`, px, py - 40); ctx.fillText(`${n0(pico.altura_m)} m`, px, py - 40);
+const [nx, ny] = pr(n / 2, -6, CU.BASE);
+ctx.font = `600 13px ${css("--mono")}`; ctx.fillStyle = css("--azul"); ctx.textBaseline = "middle"; ctx.fillText("N", nx, ny); ctx.textBaseline = "alphabetic";
+return {pr, cos, sin};
+}
+DIB.cumbres = a => {
+const el = G("cumbres"), filas = T.cumbres_ign;
+if (!el || !filas) return;
+const st = el.cu ||= {id: filas[0].id, giro: CU.GIRO, t: 1, obj: 1, M: null};
+el.removeAttribute("aria-busy"); ocultarTip();
+el.innerHTML = `<div class="cu-bloque"><canvas tabindex="0"></canvas></div><p class="cu-detalle"></p><p class="cu-ayuda">Arrastrá el relieve de costado o usá las flechas para girarlo.</p>` +
+`<ol class="cu-lista" aria-label="Las ${filas.length} cumbres de la tabla del IGN, de la más alta a la más baja"></ol>`;
+const detalle = el.querySelector(".cu-detalle"), caja = el.querySelector(".cu-bloque"), cv = caja.querySelector("canvas"), ctx = cv.getContext("2d"), lista = el.querySelector(".cu-lista");
+const conm = document.querySelector('.conmutador[data-g="cumbres"]');
+lista.innerHTML = filas.map((f, i) => `<li><button type="button" data-id="${f.id}" aria-pressed="${f.id === st.id}">` +
+`<span><span class="cu-nom">${f.nombre}</span> <span class="cu-prov">${f.provincia}</span></span>` +
+`<span class="cu-alt">${n0(f.altura_m)} m</span></button></li>`).join("");
+let W = 0, H = 0, cam = null;
+const medir = () => {
+W = caja.clientWidth;
+const diag = 160 * Math.SQRT2, s = W * .94 / diag;
+H = Math.round(s * (diag * Math.sin(CU.FI) + CU.R_MAX / 75 * CU.EXAG * Math.cos(CU.FI)) + 72);
+const E = devicePixelRatio || 1;
+cv.style.height = H + "px"; cv.width = Math.round(W * E); cv.height = Math.round(H * E);
+};
+const cumbre = () => filas.find(f => f.id === st.id);
+const dibujar = st.dibujar = () => { if (st.M) cam = dibujarCumbre(ctx, st.M, cumbre(), st, W, H); };
+const nombrar = st.nombrar = () => {
+const f = cumbre(), M = st.M;
+cv.setAttribute("aria-label", `${nombreGrafico(el)}. Relieve de ${f.nombre} (${f.provincia}), ${n0(f.altura_m)} metros según el IGN, ` +
+`en un recuadro de ${M ? n0(M.lado) : 12} km de lado` + (st.obj === 1 ? ", visto de costado" : ", visto desde arriba como mapa"));
+cv.setAttribute("role", "img");
+};
+const elegir = id => {
+st.id = id;
+lista.querySelectorAll("button").forEach(b => b.setAttribute("aria-pressed", b.dataset.id === id));
+cuCargar(id).then(M => {
+if (st.id !== id) return;
+st.M = M; caja.classList.remove("cu-cargando"); dibujar(); nombrar();
+const f = cumbre(), inv = M.inventarios.includes("ING2") ? "de la actualización del Inventario Nacional de Glaciares" : "del Inventario Nacional de Glaciares";
+detalle.textContent = (f.altura_m === M.crudo[M.cima] ? `El modelo de elevación da en la cumbre lo mismo que el IGN, ${n0(f.altura_m)} metros. `
+: `En la cumbre, el modelo de elevación da ${n0(M.crudo[M.cima])} metros y el IGN, ${n0(f.altura_m)}. `) +
+(M.glaciares ? `En celeste, los glaciares ${inv}, con imágenes de ${listaY(M.anios.map(String))}.` : "En el recuadro no hay glaciares inventariados.");
+},
+() => {
+if (st.id !== id) return;
+st.M = null; caja.classList.remove("cu-cargando"); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.clearRect(0, 0, cv.width, cv.height);
+const t = `No se pudo cargar el relieve de ${cumbre().nombre}. Elegila de nuevo en la lista para volver a intentar.`;
+detalle.textContent = t; avisar(t);
+});
+if (!cuPedidos[id] || !st.M) caja.classList.add("cu-cargando");
+};
+const inclinar = (hacia, anim = !REDUCIR) => {
+const desde = st.t, t0 = performance.now(), vuelta = st.vuelta = (st.vuelta || 0) + 1;
+st.obj = hacia;
+if (!anim) { st.t = hacia; st.dibujar(); st.nombrar(); return; }
+const cuadro = ahora => {
+if (vuelta !== st.vuelta) return;
+const f = Math.min(1, (ahora - t0) / DUR_G);
+st.t = desde + (hacia - desde) * EASE(f); st.dibujar();
+if (f < 1) requestAnimationFrame(cuadro); else st.nombrar();
+};
+requestAnimationFrame(cuadro);
+};
+if (conm) {
+conm.dataset.propio = "";
+conm.querySelectorAll("button").forEach((b, i) => {
+b.setAttribute("aria-pressed", (b.dataset.m === "relieve") === (st.obj === 1));
+b.onclick = () => {
+const arriba = b.dataset.m === "relieve";
+if ((st.obj === 1) === arriba) return;
+conm.style.setProperty("--i", i);
+conm.querySelectorAll("button").forEach(x => x.setAttribute("aria-pressed", x === b));
+inclinar(arriba ? 1 : 0);
+};
+});
+conm.style.setProperty("--i", st.obj === 1 ? 0 : 1);
+}
+lista.querySelectorAll("button").forEach(b => b.addEventListener("click", () => elegir(b.dataset.id)));
+const alturaEn = (mx, my) => {
+if (!cam || !st.M) return null;
+const {n, esc} = st.M;
+let mejor = null, prof = -Infinity;
+for (let j = 0; j < n; j++) for (let i = 0; i < n; i++) {
+const [x, y] = cam.pr(i + .5, j + .5, esc[j * n + i]);
+if (Math.abs(x - mx) > 4 || Math.abs(y - my) > 4) continue;
+const d = cam.sin * (i - n / 2) + cam.cos * (j - n / 2);
+if (d > prof) { prof = d; mejor = j * n + i; }
+}
+return mejor;
+};
+let arrastre = null;
+cv.addEventListener("pointerdown", ev => { arrastre = {x: ev.clientX, giro: st.giro, movio: false}; });
+cv.addEventListener("pointermove", ev => {
+const r = cv.getBoundingClientRect(), mx = ev.clientX - r.left, my = ev.clientY - r.top;
+if (arrastre && st.obj === 1 && Math.abs(ev.clientX - arrastre.x) > 4) {
+if (!arrastre.movio) { arrastre.movio = true; cv.setPointerCapture?.(ev.pointerId); }
+st.giro = arrastre.giro - (ev.clientX - arrastre.x) / 180; dibujar(); ocultarTip(); return;
+}
+if (arrastre?.movio) return;
+const idx = alturaEn(mx, my);
+if (idx == null) return ocultarTip();
+mostrarTip(cv, `<b>${n0(st.M.crudo[idx])} m</b> según el modelo de elevación`, mx, my);
+});
+const soltar = ev => {
+const toque = arrastre && !arrastre.movio && ev.type === "pointerup" && ev.pointerType !== "mouse";
+arrastre = null;
+if (!toque) return;
+const r = cv.getBoundingClientRect(), idx = alturaEn(ev.clientX - r.left, ev.clientY - r.top);
+if (idx != null) mostrarTip(cv, `<b>${n0(st.M.crudo[idx])} m</b> según el modelo de elevación`, ev.clientX - r.left, ev.clientY - r.top);
+};
+cv.addEventListener("pointerup", soltar); cv.addEventListener("pointercancel", soltar);
+cv.addEventListener("pointerleave", ocultarSiMouse);
+cv.addEventListener("keydown", ev => {
+if (ev.key !== "ArrowLeft" && ev.key !== "ArrowRight") return;
+ev.preventDefault();
+st.giro += (ev.key === "ArrowLeft" ? 1 : -1) * Math.PI / 12;
+if (st.obj !== 1) conm?.querySelector('[data-m="relieve"]')?.click(); else dibujar();
+});
+medir();
+const ro = new ResizeObserver(() => {
+if (!caja.isConnected) return ro.disconnect();
+if (caja.clientWidth && Math.abs(caja.clientWidth - W) > 1) { medir(); dibujar(); }
+});
+ro.observe(caja);
+elegir(st.id);
+if (a && !REDUCIR && st.t === 1 && !st.vuelta) { st.t = 0; cuCargar(st.id).then(() => inclinar(1), () => { st.t = 1; }); }
+};
 DIB["lab-hemiciclo"] = () => {
 const el = G("lab-hemiciclo"); if (!el) return;
 if (!LGP) { esperando(el); lgCargar().then(DIB["lab-hemiciclo"]).catch(() => sinDatos(el, "No se pudo cargar el hemiciclo.")); return; }
@@ -6708,6 +6937,7 @@ Object.keys(CPA.atrasadas).length ? "por habitante, promedio de las jurisdiccion
 "cada 1.000 habitantes en el país"]} : {}),
 "f-protegida": [pct(nt.pct), `del territorio continental del país está dentro de áreas protegidas, ${nt.anio}`, "del territorio continental del país"],
 "f-parques": [n0(nt.pn_n), `áreas protegidas nacionales. Las primeras se crearon en ${nt.pn_primera_anio}`, "áreas protegidas a cargo de la Administración de Parques Nacionales"],
+"f-cumbres": [n0(nt.cu_top_v), `metros sobre el nivel del mar: ${nt.cu_top}, en ${nt.cu_top_prov}, la cumbre más alta del país`, `metros: ${nt.cu_top}, la cumbre más alta del país`],
 "f-especies": [n0(nt.esp_top_v), `especies animales registradas en ${nt.esp_top}, el área nacional con más registros`, `especies animales registradas en ${nt.esp_top}, el área con más registros`],
 "f-visitas": [n1(nt.vis / 1e6), `millones de visitas a parques nacionales en ${nt.vis_anio}`, `millones de visitas en ${nt.vis_anio}`],
 "f-receptivo": [n1(tu.turistas / 1e6), `millones de turistas no residentes llegaron al país en ${tu.anio}`, `millones en ${tu.anio}, por todos los pasos de frontera`],
@@ -6870,6 +7100,7 @@ const esc = t => String(t).replace(/[&<>"]/g, c => ({"&":"&amp;", "<":"&lt;", ">
 function conBandera(c, nombre) { return `<span class="con-bandera">${bandera(c)}<span>${esc(nombre)}</span></span>`; }
 const nTabla = loc.format(",.2~f");
 const TABLA_VISTA = {
+"f-cumbres": t => t.map(r => ({cumbre: r.nombre_ign, provincia: r.provincia, altura_m: r.altura_m})),
 "f-bcra": t => {
 const v = bcrVar(), filas = t.filter(r => r.id === v.id).reverse();
 const NOM = {valor_real: v.t === "dolar" ? `a precios de ${mesPer(BV.tcr_mes)}` : `en pesos de ${mesPer(BV.ipc_mes)}`, pct_pbi: "en % del PBI",
@@ -7059,7 +7290,7 @@ document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revoke
 }, "image/png");
 }
 const SIN_RELACIONES = new Set(["f-edad", "f-suicidio", "f-suicidio-prov"]);
-const EN_CATALOGO = new Set(["abandono_pais", "abandono_provincias", "actividad_anual", "actividad_mensual", "actividad_sectores", "adulto_equivalente", "anios_congreso", "antartida_bases", "antartida_hielo", "antartida_instalaciones", "antartida_paises", "antartida_presupuesto", "antartida_reclamos", "antartida_temperatura", "antartida_tratado", "antartida_tratado_serie", "antartida_turismo", "antartida_zonas_paises", "apoyo_gobierno_provincias", "aprender_departamentos", "aprender_diagnostico", "aprender_provincias", "areas_produccion", "areas_protegidas_provincias", "areas_serie", "argentinos_exterior", "argentinos_exterior_destinos", "asignaciones_cobertura", "auh_provincias", "balanza_comercial", "balanza_energetica", "bcra_variables", "bcra_variables_lista", "calendario_indec", "canasta_crianza", "canasta_mensual", "canasta_regiones", "capitales", "capitales_eph", "carceles_provincias", "carceles_serie", "carne_vacuna", "causas_muerte_provincias", "censo2022_provincias", "censos_pais", "censos_provincias", "centrales", "chicos_escuela_provincias", "clima_desvio", "cobertura_suelo_pais", "cobertura_suelo_provincias", "combustibles_anual", "combustibles_mensual", "combustibles_provincias", "comercio_rubro_pais", "comercio_socios", "comercio_socios_historia", "comercio_valor_kilo", "compras_dolares_anual", "confianza_consumidor", "confianza_gobierno", "confianza_gobierno_elecciones", "confianza_gobierno_gobiernos", "congreso_composicion", "coparticipacion_provincias", "corte_casos", "corte_composicion", "corte_jueces", "corte_jueces_fuentes", "corte_no_asumieron", "corte_presidentes", "costo_anual", "costo_construccion", "crianza_salario", "cruces_provincias", "cruces_series", "cuenta_corriente", "cuentas_nacion", "curvas_vm", "delitos_serie", "delitos_tipo", "dengue_pais", "dengue_provincias", "departamentos", "desembarques_especies", "desembarques_top", "desocupacion_aglomerados", "desocupacion_serie", "deuda_pbi", "deuda_provincias", "diputados_nacionales", "diseno_pozos_vm", "distancia_hospital_provincias", "dolar_inversion_trimestral", "dotacion_nacion", "elecciones_presidenciales", "electricidad_mensual", "electricidad_provincias", "electricidad_sectores", "electricidad_serie", "empleo_construccion_provincias", "empleo_construccion_serie", "empleo_provincias", "empleo_publico_provincias", "empresas_provincias", "empresas_serie_pais", "empresas_tamano_sector", "energia_estacionalidad", "energia_hogares", "envejecimiento_pais", "envejecimiento_provincias", "escolarizacion_secundaria_provincias", "especies_areas_nacionales", "esperanza_vida_provincias", "expectativas_inflacion", "exportaciones_cantidades_anual", "exportaciones_complejos", "exportaciones_destinos", "exportaciones_dolar_trimestral", "exportaciones_provincias", "exportaciones_rubros_anual", "extranjeros_provincias", "fiscal_provincias", "fiscalias_defensorias_federales", "fracturas_anual", "gabinetes_origen", "gas_usuario_mensual", "gas_usuario_provincias", "gas_usuario_serie", "gasto_nacion_tipo", "glaciares_provincias", "haberes_previsionales", "hidrocarburos_anual", "hidrocarburos_empresas", "hidrocarburos_mensual", "hidrocarburos_provincias", "hipotecas_mensual", "homicidios_provincias", "hospitales_provincias", "importaciones_origen", "importaciones_usos", "impuestos_provinciales", "industria_ramas", "inflacion_anual", "inflacion_mensual", "inflacion_personal", "inflacion_regiones", "inflacion_rubros", "ingresos_aglomerados", "internet_fijo_provincias", "inversion_educativa", "inversion_educativa_serie", "isac_anual", "isac_insumos", "isac_mensual", "jubilaciones_aportantes", "justicia_federal_provincias", "justicia_provincias", "legisladores_por_periodo", "madres_adolescentes_nse", "madres_adolescentes_provincias", "mayoristas_mensual", "medicos_provincias", "migracion_censos", "migraciones_departamentos", "ministros_nacionales", "ministros_provincias", "mortalidad_infantil_causas", "mortalidad_infantil_provincias", "muertes_violentas", "mundo_hidrocarburos", "nacidos_otro_pais_paises", "nacidos_otro_pais_provincias", "nacimientos", "nafta_dolares_anual", "nafta_dolares_mensual", "nombres_serie", "nombres_top", "obra_publica_provincias", "obra_publica_serie", "ocde_comparacion", "parques_nacionales_historia", "parques_nacionales_lista", "patentamientos_anual", "patentamientos_provincias", "pensiones_invalidez", "pensiones_invalidez_provincias", "permisos_mensual", "pesca_continental", "pesca_continental_provincias", "piramide_poblacion", "pisa_argentina_ocde", "poblacion_proyectada_provincias", "pobreza_aglomerados", "pobreza_provincias", "pobreza_serie", "potencia_instalada", "pozos_no_convencionales", "pozos_provincias", "pozos_terminados", "pozos_terminados_provincias", "pozos_tipo", "precio_consumo", "presidentes", "prestacion_desempleo", "prestacion_desempleo_provincias", "presupuesto_votos", "produccion_mensual", "productividad_vm", "puestos_provincias", "radicaciones_anual", "radicaciones_nacionalidad", "recaudacion_anual", "recaudacion_impuestos", "refugio_acnur", "refugio_nacionalidades", "refugio_solicitudes", "regalias_crudo_serie", "regalias_provincias", "representacion_provincias", "reservas_bcra", "reservas_factores", "reservas_hidrocarburos", "reservas_netas", "reservas_provincias", "robos_provincias", "rotacion_laboral", "salario_docente", "salario_docente_serie", "salario_real_mensual", "salarios_provincias", "salarios_serie", "sectores_empleo", "seguridad_serie_prov", "senadores_nacionales", "sociedades_pais", "sociedades_provincias", "soja_departamentos", "soja_pais", "soja_provincias", "sube_dia_habil", "subsidios_energia", "supermercados_mensual", "supermercados_provincias", "telefonia_fija_pais", "telefonia_fija_provincias", "transferencias_acumulado", "transferencias_provincias", "transferencias_serie", "turismo_dolar_mensual", "turistas_extranjeros_provincias", "turistas_no_residentes_anual", "vacunas_provincias", "vacunas_serie", "viajeros_hoteles_anual", "vino_mercado_interno", "visitas_parques_nacionales", "visitas_por_parque", "vivienda_departamentos", "vivienda_provincias", "votaciones_leyes_clave", "voto_legisladores_y_provincia", "yerba_molino"]);
+const EN_CATALOGO = new Set(["abandono_pais", "abandono_provincias", "actividad_anual", "actividad_mensual", "actividad_sectores", "adulto_equivalente", "anios_congreso", "antartida_bases", "antartida_hielo", "antartida_instalaciones", "antartida_paises", "antartida_presupuesto", "antartida_reclamos", "antartida_temperatura", "antartida_tratado", "antartida_tratado_serie", "antartida_turismo", "antartida_zonas_paises", "apoyo_gobierno_provincias", "aprender_departamentos", "aprender_diagnostico", "aprender_provincias", "areas_produccion", "areas_protegidas_provincias", "areas_serie", "argentinos_exterior", "argentinos_exterior_destinos", "asignaciones_cobertura", "auh_provincias", "balanza_comercial", "balanza_energetica", "bcra_variables", "bcra_variables_lista", "calendario_indec", "canasta_crianza", "canasta_mensual", "canasta_regiones", "capitales", "capitales_eph", "carceles_provincias", "carceles_serie", "carne_vacuna", "causas_muerte_provincias", "censo2022_provincias", "censos_pais", "censos_provincias", "centrales", "chicos_escuela_provincias", "clima_desvio", "cobertura_suelo_pais", "cobertura_suelo_provincias", "combustibles_anual", "combustibles_mensual", "combustibles_provincias", "comercio_rubro_pais", "comercio_socios", "comercio_socios_historia", "comercio_valor_kilo", "compras_dolares_anual", "confianza_consumidor", "confianza_gobierno", "confianza_gobierno_elecciones", "confianza_gobierno_gobiernos", "congreso_composicion", "coparticipacion_provincias", "corte_casos", "corte_composicion", "corte_jueces", "corte_jueces_fuentes", "corte_no_asumieron", "corte_presidentes", "costo_anual", "costo_construccion", "crianza_salario", "cruces_provincias", "cruces_series", "cuenta_corriente", "cuentas_nacion", "cumbres_ign", "curvas_vm", "delitos_serie", "delitos_tipo", "dengue_pais", "dengue_provincias", "departamentos", "desembarques_especies", "desembarques_top", "desocupacion_aglomerados", "desocupacion_serie", "deuda_pbi", "deuda_provincias", "diputados_nacionales", "diseno_pozos_vm", "distancia_hospital_provincias", "dolar_inversion_trimestral", "dotacion_nacion", "elecciones_presidenciales", "electricidad_mensual", "electricidad_provincias", "electricidad_sectores", "electricidad_serie", "empleo_construccion_provincias", "empleo_construccion_serie", "empleo_provincias", "empleo_publico_provincias", "empresas_provincias", "empresas_serie_pais", "empresas_tamano_sector", "energia_estacionalidad", "energia_hogares", "envejecimiento_pais", "envejecimiento_provincias", "escolarizacion_secundaria_provincias", "especies_areas_nacionales", "esperanza_vida_provincias", "expectativas_inflacion", "exportaciones_cantidades_anual", "exportaciones_complejos", "exportaciones_destinos", "exportaciones_dolar_trimestral", "exportaciones_provincias", "exportaciones_rubros_anual", "extranjeros_provincias", "fiscal_provincias", "fiscalias_defensorias_federales", "fracturas_anual", "gabinetes_origen", "gas_usuario_mensual", "gas_usuario_provincias", "gas_usuario_serie", "gasto_nacion_tipo", "glaciares_provincias", "haberes_previsionales", "hidrocarburos_anual", "hidrocarburos_empresas", "hidrocarburos_mensual", "hidrocarburos_provincias", "hipotecas_mensual", "homicidios_provincias", "hospitales_provincias", "importaciones_origen", "importaciones_usos", "impuestos_provinciales", "industria_ramas", "inflacion_anual", "inflacion_mensual", "inflacion_personal", "inflacion_regiones", "inflacion_rubros", "ingresos_aglomerados", "internet_fijo_provincias", "inversion_educativa", "inversion_educativa_serie", "isac_anual", "isac_insumos", "isac_mensual", "jubilaciones_aportantes", "justicia_federal_provincias", "justicia_provincias", "legisladores_por_periodo", "madres_adolescentes_nse", "madres_adolescentes_provincias", "mayoristas_mensual", "medicos_provincias", "migracion_censos", "migraciones_departamentos", "ministros_nacionales", "ministros_provincias", "mortalidad_infantil_causas", "mortalidad_infantil_provincias", "muertes_violentas", "mundo_hidrocarburos", "nacidos_otro_pais_paises", "nacidos_otro_pais_provincias", "nacimientos", "nafta_dolares_anual", "nafta_dolares_mensual", "nombres_serie", "nombres_top", "obra_publica_provincias", "obra_publica_serie", "ocde_comparacion", "parques_nacionales_historia", "parques_nacionales_lista", "patentamientos_anual", "patentamientos_provincias", "pensiones_invalidez", "pensiones_invalidez_provincias", "permisos_mensual", "pesca_continental", "pesca_continental_provincias", "piramide_poblacion", "pisa_argentina_ocde", "poblacion_proyectada_provincias", "pobreza_aglomerados", "pobreza_provincias", "pobreza_serie", "potencia_instalada", "pozos_no_convencionales", "pozos_provincias", "pozos_terminados", "pozos_terminados_provincias", "pozos_tipo", "precio_consumo", "presidentes", "prestacion_desempleo", "prestacion_desempleo_provincias", "presupuesto_votos", "produccion_mensual", "productividad_vm", "puestos_provincias", "radicaciones_anual", "radicaciones_nacionalidad", "recaudacion_anual", "recaudacion_impuestos", "refugio_acnur", "refugio_nacionalidades", "refugio_solicitudes", "regalias_crudo_serie", "regalias_provincias", "representacion_provincias", "reservas_bcra", "reservas_factores", "reservas_hidrocarburos", "reservas_netas", "reservas_provincias", "robos_provincias", "rotacion_laboral", "salario_docente", "salario_docente_serie", "salario_real_mensual", "salarios_provincias", "salarios_serie", "sectores_empleo", "seguridad_serie_prov", "senadores_nacionales", "sociedades_pais", "sociedades_provincias", "soja_departamentos", "soja_pais", "soja_provincias", "sube_dia_habil", "subsidios_energia", "supermercados_mensual", "supermercados_provincias", "telefonia_fija_pais", "telefonia_fija_provincias", "transferencias_acumulado", "transferencias_provincias", "transferencias_serie", "turismo_dolar_mensual", "turistas_extranjeros_provincias", "turistas_no_residentes_anual", "vacunas_provincias", "vacunas_serie", "viajeros_hoteles_anual", "vino_mercado_interno", "visitas_parques_nacionales", "visitas_por_parque", "vivienda_departamentos", "vivienda_provincias", "votaciones_leyes_clave", "voto_legisladores_y_provincia", "yerba_molino"]);
 const VARIAS_SECCIONES = new Set([...document.querySelectorAll("article.ficha")].map(f => f.closest(".tema"))).size > 1;
 const PARA_ENTENDER = !!document.getElementById("para-entender");
 document.querySelectorAll("article.ficha").forEach(f => {
@@ -8236,6 +8467,8 @@ const PREG = [
 `${ANT.partes}. ${ANT.consultivas} son partes consultivas, las que deciden en sus reuniones.`, "#f-ant-tratado"],
 ["¿Cuántas personas visitan la Antártida?",
 `${n0(ANT.tu)} en la temporada ${ANT.tu_fin}, con empresas de IAATO.`, "#f-ant-turismo"],
+["¿Cuál es la montaña más alta del país?",
+`${nt.cu_top}, en ${nt.cu_top_prov}, con ${n0(nt.cu_top_v)} metros según el IGN. Le sigue ${nt.cu_2}, en ${nt.cu_2_prov}, con ${n0(nt.cu_2_v)}.`, "#f-cumbres"],
 ["¿Qué provincia tiene más glaciares?",
 `${cu.gl_top}, con ${n0(cu.gl_top_v)}. Le sigue ${cu.gl_2}, con ${n0(cu.gl_2_v)}.`, "#f-glaciares"],
 [`¿Cuál fue el año más cálido desde ${cu.cl_ini}?`,
@@ -11021,7 +11254,7 @@ const PRINCIPAL = Object.entries({
 "f-poblacion-proy": ["poblacion", "habitantes"], "f-chicos-escuela": ["chicos en edad escolar", "edad escolar", "alumnos"], "f-nacimientos": ["nacimientos", "natalidad"], "f-exportaciones": ["exportaciones", "exporta"],
 "f-importaciones": ["importaciones"], "f-reservas-bcra": ["reservas"], "f-deuda": ["deuda"], "f-haberes": ["jubilacion", "jubilados", "jubilado"],
 "f-auh": ["auh", "asignacion universal"], "f-desempleo": ["desempleo"], "f-aprender": ["aprender"], "f-escolarizacion": ["escolarizacion", "secundaria"],
-"f-censo": ["cloacas", "agua red"], "f-cobertura": ["obra social", "prepaga", "cobertura de salud", "sin cobertura"], "f-dengue": ["dengue", "mosquito"], "f-vacunas": ["vacuna", "vacunas", "vacunacion", "sarampion", "triple viral"], "f-internet": ["internet"], "f-glaciares": ["glaciares"], "f-receptivo": ["turistas", "turismo"], "f-isac": ["construccion"],
+"f-censo": ["cloacas", "agua red"], "f-cobertura": ["obra social", "prepaga", "cobertura de salud", "sin cobertura"], "f-dengue": ["dengue", "mosquito"], "f-vacunas": ["vacuna", "vacunas", "vacunacion", "sarampion", "triple viral"], "f-internet": ["internet"], "f-glaciares": ["glaciares"], "f-cumbres": ["montaña", "montañas", "cerro", "cerros", "cumbre", "cumbres", "aconcagua", "altura"], "f-receptivo": ["turistas", "turismo"], "f-isac": ["construccion"],
 "f-precio-consumo": ["precio de la carne", "precio de la yerba", "precio del vino"], "f-carne": ["carne"], "f-vino": ["vino"], "f-yerba": ["yerba"], "f-electricidad-provincias": ["electricidad", "luz"], "f-subsidios": ["subsidios"],
 "f-empresas": ["empresas"], "f-socios-que": ["que le vendemos", "que le compramos", "comparar paises"], "f-valor-kilo": ["valor por kilo", "precio por kilo", "dolares por kilo"], "f-mayoristas": ["precios mayoristas", "mayoristas", "ipim"], "f-sectores-empleo": ["empleo por sector", "productividad"], "f-canastas": ["canasta", "canasta basica"], "f-crianza": ["crianza", "canasta de crianza", "cuota alimentaria"], "f-industria": ["industria", "produccion industrial", "ipi", "mineria"], "f-socios": ["socios comerciales", "saldo con china", "comercio con brasil", "deficit comercial con"], "f-socios-hist": ["historia del comercio exterior", "socios comerciales desde 1986"], "f-emae": ["actividad economica", "emae"], "f-carceles": ["carceles", "presos"], "f-sin-condena": ["sin condena", "presos sin condena", "procesados", "prision preventiva"],
 "f-coparticipacion": ["coparticipacion", "coparticipacion federal", "reparto de impuestos"],

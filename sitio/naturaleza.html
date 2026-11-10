@@ -35,7 +35,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
      mismas versiones que daban cdnjs y jsDelivr): si una de esas CDN fallaba o estaba bloqueada, las páginas quedaban vacías -->
 <script src="lib/d3-7.8.5.min.js?v=a029baa963"></script>
 <script src="lib/topojson-client-3.1.0.min.js?v=bc057598e8"></script>
-<link rel="stylesheet" href="datina.css?v=49c38fbe2e">
+<link rel="stylesheet" href="datina.css?v=0af4a822e9">
 </head>
 <body data-pagina="naturaleza">
 <!-- "Saltar al contenido" (Fase 2, paso 6, respuesta del autor del 23 de octubre de 2026): la primera parada del teclado, que solo se ve
@@ -292,6 +292,19 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <div class="pie"><span>Fuente: MapBiomas Argentina, Colección 3, estadísticas por provincia (licencia CC BY 4.0). Se actualiza cada año.</span><a href="datos/cobertura_suelo_provincias.csv" download>Por provincia (CSV)</a><a href="datos/cobertura_suelo_pais.csv" download>Del país, por año (CSV)</a></div>
     </article>
 
+    <article class="ficha" id="f-cumbres">
+      <h2>¿Cuáles son las montañas más altas de la Argentina?</h2>
+      <p class="ficha-sub">Las 15 cumbres de la tabla de máximas alturas del IGN, en metros sobre el nivel del mar, y el relieve alrededor de cada una</p>
+      <div class="conmutador" role="group" aria-label="Vista del relieve" data-g="cumbres" data-propio>
+        <button type="button" data-m="relieve" aria-pressed="true">Relieve</button>
+        <button type="button" data-m="mapa" aria-pressed="false">Mapa</button>
+      </div>
+      <div class="grafico" data-g="cumbres" data-forma="relieve"></div>
+      <p class="lead" data-t="cumbres"></p>
+      <p class="nota" data-t="cumbres-nota"></p>
+      <div class="pie"><span>Fuente: Instituto Geográfico Nacional (IGN), "Máximas alturas". Relieve: SRTM, cortesía del Servicio Geológico de los Estados Unidos (USGS), vía AWS Terrain Tiles. Glaciares: Inventario Nacional de Glaciares (IANIGLA-CONICET). Se actualiza a mano, cuando la fuente publica datos nuevos.</span><a href="datos/cumbres_ign.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
     <article class="ficha" id="f-glaciares">
       <h2>¿Cuántos glaciares tiene cada provincia?</h2>
       <p class="ficha-sub">Glaciares y cuerpos de hielo inventariados, por provincia</p>
@@ -473,7 +486,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 <p class="solo-lector" id="aviso" aria-live="polite"></p>
 
 <!-- los datos van en un archivo aparte que el navegador guarda una sola vez para todas las páginas -->
-<script src="datos/fichas.js?v=1b484fa253"></script>
-<script src="datina.js?v=4cb96bd0c5"></script>
+<script src="datos/fichas.js?v=eda6a5ec61"></script>
+<script src="datina.js?v=db4bf2d0e1"></script>
 </body>
 </html>

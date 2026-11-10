@@ -2321,6 +2321,30 @@ p code{overflow-wrap:anywhere}
 }
 @media print{.ms-filtros,.ms-num,.ms-bajadas,.ms-mapa-controles,.ms-zoom,.ms-mapa-pie{display:none}.ms .tabla-desliza{max-height:none!important;overflow:visible}}
 
+/* ---------- ¿Cuáles son las montañas más altas? (f-cumbres, pedido del autor del 9 de noviembre de 2026) ----------
+   Arriba, el bloque de relieve de la cumbre elegida (un canvas que se gira de costado: arrastrar para arriba o para abajo sigue moviendo
+   la página), y debajo las cumbres de la tabla del IGN, que lo eligen, en columnas que se leen de arriba abajo, como un ranking */
+/* la silueta crece con el ancho, como el bloque (82% del ancho), más la lista: en dos columnas desde 520 píxeles y en una debajo */
+.grafico[data-forma="relieve"]{--alto:calc(82cqi + 390px);--alto-c:calc(82cqi + 610px)}
+.cu-bloque{position:relative}
+.cu-bloque canvas{display:block;width:100%;touch-action:pan-y;cursor:grab;border-radius:var(--r-interno)}
+.cu-bloque canvas:active{cursor:grabbing}
+.cu-bloque canvas:focus-visible{outline:3px solid var(--azul);outline-offset:2px}
+.cu-bloque.cu-cargando canvas{opacity:.35;transition:opacity var(--dur-2) var(--ease-out)}
+.cu-detalle{margin:var(--e-1) 0 0;font-size:var(--t-2);color:var(--muted);text-wrap:pretty}
+.cu-ayuda{margin:var(--e-1) 0 var(--e-3);font-size:var(--t-2);color:var(--muted)}
+.cu-lista{list-style:none;margin:0;padding:0;columns:2 15.75rem;column-gap:var(--e-4)}
+.cu-lista li{break-inside:avoid}
+.cu-lista button{all:unset;box-sizing:border-box;width:100%;display:grid;grid-template-columns:minmax(0,1fr) auto;column-gap:var(--e-2);
+  align-items:baseline;padding:var(--e-1) var(--e-2);border-radius:var(--r-control);cursor:pointer;line-height:1.3}
+.cu-lista button:hover{background:var(--superficie)}
+.cu-lista button:focus-visible{outline:3px solid var(--azul);outline-offset:-3px}
+.cu-lista button[aria-pressed="true"]{background:var(--celeste-suave)}
+.cu-alt{font:500 var(--t-2)/1.4 var(--mono);color:var(--muted);white-space:nowrap}
+.cu-nom{font-weight:600;font-size:var(--t-3);min-width:0}
+.cu-prov{font-size:var(--t-2);color:var(--muted);white-space:nowrap}
+.cu-lista button[aria-pressed="true"] .cu-alt{color:var(--ink)}
+
 /* ---------- impresión (plan de mejora, D1, 28 de octubre de 2026) ----------
    Las fichas a la vista, sin el marco, la barra, los menús, los botones de cada ficha ni el pie del sitio, con los textos enteros, las
    tarjetas de "En cifras" en filas en lugar de deslizarse y la dirección de cada ficha debajo de ella (la pone datina.js antes de

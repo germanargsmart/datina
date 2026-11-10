@@ -209,5 +209,22 @@ caso("Escuelas y hospitales sin Leaflet: el texto y la tabla quedan, y el mapa l
   /^Chaco tiene/.test(r.lead) && /No se pudo cargar el mapa/.test(r.mapa) && r.filas > 20, JSON.stringify(r).slice(0, 120));
 FALLAR = [];
 
+// f-cumbres (9 de noviembre de 2026): sin el archivo de relieve de la cumbre, el aviso y la lista quedan, y elegirla de nuevo lo vuelve a pedir
+const CU_IR = async () => {
+  await p.ir("about:blank", 100);
+  await p.ir(BASE + "naturaleza.html#f-cumbres", 1500);
+  await p.eval(`document.getElementById("f-cumbres").scrollIntoView()`); await espera(1500);
+};
+const CU_ESTADO = `({detalle: document.querySelector("#f-cumbres .cu-detalle")?.textContent || "", lista: document.querySelectorAll("#f-cumbres .cu-lista button").length,
+  aria: document.querySelector("#f-cumbres .cu-bloque canvas")?.getAttribute("aria-label") || ""})`;
+FALLAR = ["datos/relieve/"];
+await CU_IR();
+r = await p.eval(CU_ESTADO);
+caso("Cumbres sin el archivo de relieve: aviso y lista", /No se pudo cargar el relieve/.test(sinNbsp(r.detalle)) && r.lista >= 10, JSON.stringify(r).slice(0, 120));
+FALLAR = [];
+await p.eval(`document.querySelector("#f-cumbres .cu-lista button").click()`); await espera(1500);
+r = await p.eval(CU_ESTADO);
+caso("Cumbres: al elegirla de nuevo, se ve", /En la cumbre|lo mismo que el IGN/.test(sinNbsp(r.detalle)) && /Relieve de/.test(r.aria), r.detalle.slice(0, 80));
+
 console.log(res.every(Boolean) ? "Todo bien" : "HAY FALLAS");
 await ch.cerrar(); servidor.close(); process.exit(res.every(Boolean) ? 0 : 1);
