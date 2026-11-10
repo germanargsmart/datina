@@ -1503,6 +1503,14 @@ gl["glaciares"] = pd.to_numeric(gl.cantidad_de_glaciares, errors="coerce")
 glaciares = gl.dropna(subset=["codigo_indec", "glaciares"]).groupby("codigo_indec").glaciares.max().reset_index()
 glaciares["territorio"] = glaciares.codigo_indec.map(CORTO)
 
+# Las cumbres más altas del país (pedido del autor del 9 de noviembre de 2026, ficha f-cumbres): la tabla "Máximas alturas" del IGN, en
+# metros, armada una sola vez por scripts/cumbres_relieve.py. El relieve y los glaciares de cada cumbre no pasan por acá: los copia 03 de
+# datos/manual/relieve/ a sitio/datos/relieve/. El IGN no publica la fecha de la tabla, por eso la ficha no tiene año
+cumbres = pd.read_csv(RAIZ / "datos" / "manual" / "cumbres_ign.csv", dtype={"codigo_indec": str})
+cumbres = cumbres.sort_values("altura_m", ascending=False, kind="stable").reset_index(drop=True)
+assert cumbres.id.is_unique and cumbres.codigo_indec.isin(CORTO.keys()).all(), "cumbres_ign.csv: ids repetidos o provincias sin código"
+cu_prov = cumbres.groupby("provincia").size().sort_values(ascending=False, kind="stable")
+
 # Cobertura del suelo por provincia, de 1985 a 2025 (MapBiomas Argentina, Colección 3, CC BY 4.0, plan de mejora, sección 10, aprobada por el
 # autor el 28 de octubre de 2026). Una hoja "Hist" por provincia con las hectáreas de cada clase por año, clasificadas con imágenes satelitales
 # Landsat. Es una red de instituciones y organizaciones, no un organismo oficial. La vegetación natural son los bosques, los arbustales,
@@ -7990,6 +7998,7 @@ tablas = {
     "vino_mercado_interno": vino,
     "yerba_molino": yerba,
     "glaciares_provincias": glaciares,
+    "cumbres_ign": cumbres[["id", "nombre", "nombre_ign", "provincia", "codigo_indec", "altura_m", "lat", "lon"]],
     "antartida_instalaciones": antartida_instalaciones, "antartida_bases": antartida_bases, "antartida_paises": antartida_paises,
     "antartida_reclamos": antartida_reclamos, "antartida_tratado": antartida_tratado, "antartida_tratado_serie": antartida_tratado_serie,
     "antartida_zonas_paises": antartida_zonas_paises, "antartida_temperatura": antartida_temperatura, "antartida_hielo": antartida_hielo,
@@ -8306,6 +8315,11 @@ resumen = {
         "anio_ini": int(pn_hist.anio.min()), "anio_fin": int(pn_hist.anio.max()),
         "esp_top": esp.iloc[0].territorio, "esp_top_v": int(esp.iloc[0].animales), "esp_top_car": esp.iloc[0].caracter,
         "esp_2": esp.iloc[1].territorio, "esp_2_v": int(esp.iloc[1].animales),
+        "cu_n": int(len(cumbres)), "cu_top": cumbres.nombre.iloc[0], "cu_top_prov": cumbres.provincia.iloc[0], "cu_top_v": int(cumbres.altura_m.iloc[0]),
+        "cu_2": cumbres.nombre.iloc[1], "cu_2_prov": cumbres.provincia.iloc[1], "cu_2_v": int(cumbres.altura_m.iloc[1]),
+        "cu_dif": int(cumbres.altura_m.iloc[0] - cumbres.altura_m.iloc[1]),
+        "cu_ult": cumbres.nombre.iloc[-1], "cu_ult_v": int(cumbres.altura_m.iloc[-1]),
+        "cu_prov_top": cu_prov.index[0], "cu_prov_top_n": int(cu_prov.iloc[0]), "cu_provs": int(len(cu_prov)),
         "vis_anio": int(visitas.anio.max()), "vis": int(visitas.total.iloc[-1]), "vis_ini_anio": int(visitas.anio.min()),
         "vis_ini": int(visitas.total.iloc[0]), "vis_max_anio": int(visitas.loc[visitas.total.idxmax(), "anio"]),
         "vis_max": int(visitas.total.max()), "vis_nr_pct": r1(visitas.no_residentes.iloc[-1] / visitas.total.iloc[-1] * 100),

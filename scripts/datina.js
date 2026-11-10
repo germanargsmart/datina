@@ -428,6 +428,9 @@ const NOTA_VIV = k => `Datos del Censo 2022 sumados desde los radios censales. U
   `El día del censo, el ${pct(VV.pct_sin_personas)} de las viviendas particulares no tenía personas presentes, y el INDEC registró el motivo: uso temporal, oficina o comercio, alquiler o venta, construcción, residentes que no estaban ese día u otra situación. ` +
   `Por eso el selector muestra motivos por separado y no un total de viviendas vacías: una parte de las viviendas sin personas presentes tiene residentes habituales. ` +
   `En el mapa, el color divide a los departamentos en cinco grupos del mismo tamaño. Si elegís una provincia en Tu provincia, el mapa se acerca a ella.`;
+// las medidas del bloque de relieve de f-cumbres (el dibujo está con los demás, en DIB.cumbres): van acá porque la nota las usa
+const CU = {PASO: 100, INDICE: 500, BASE: 3000, R_MAX: 4000, EXAG: 1.5, FI: 36 * Math.PI / 180, GIRO: -0.45, PIE: 250};
+
 const LEAD = {
   petroleo: v => v === "cuenca"
     ? `En ${PG.mes}, el petróleo salió de cinco cuencas: ${cuencasTxt(PG.cuencas_pet)}. La Neuquina abarca Neuquén y partes de Mendoza, Río Negro y La Pampa.`
@@ -1994,6 +1997,14 @@ const TX = {
   yerba: (cu.yerba_max_anio === cu.yerba_anio ? `${cu.yerba_anio} fue el año en que los molinos despacharon más yerba mate desde ${cu.yerba_ini}.`
     : `El año en que los molinos despacharon más yerba mate desde ${cu.yerba_ini} fue ${cu.yerba_max_anio}, con ${n1(cu.yerba_max)} millones de kilos.`) + enLoQueVa(R.ytd.yerba, cu.yerba_anio, "los despachos", "subieron", "bajaron"),
   "yerba-nota": `Salida de molino informada por el Instituto Nacional de la Yerba Mate: yerba elaborada que despachan los molinos. Solo se muestran años completos.`,
+  // la cifra destacada ya dice la más alta: el texto sigue con la segunda y con dónde están las demás
+  cumbres: `Le sigue ${nt.cu_2}, en ${nt.cu_2_prov}, con ${n0(nt.cu_2_v)} metros: ${n0(nt.cu_dif)} menos. ${nt.cu_prov_top_n} de las ${nt.cu_n} cumbres de la tabla del IGN están en ` +
+    `${nt.cu_prov_top} y el resto, en otras ${nt.cu_provs - 1} provincias. Todas superan los ${n0(Math.floor(nt.cu_ult_v / 100) * 100)} metros: la más baja de la tabla, ${nt.cu_ult}, tiene ${n0(nt.cu_ult_v)}.`,
+  "cumbres-nota": `Las alturas son las de la tabla «Máximas alturas» del Instituto Geográfico Nacional (IGN), que no dice de qué año es cada medición ni si están todas las cumbres de esa altura. ` +
+    `El relieve es un recuadro de 12 km de lado alrededor de cada cumbre, con una curva de nivel cada ${CU.PASO} metros, y sale de un modelo de elevación ` +
+    `satelital (SRTM, con un punto cada 30 metros) que no reproduce exacta ninguna cumbre: según el lugar, da unos metros más o menos que la altura oficial. Para que las cumbres ` +
+    `se comparen entre sí, todas tienen la misma escala, la altura exagerada ${n1(CU.EXAG)} veces y la base del bloque a ${n0(CU.BASE)} metros. Los glaciares ` +
+    `son los del Inventario Nacional de Glaciares, que cuenta también los cubiertos de roca y los de escombros, y llega solo hasta el límite con Chile.`,
   // la cifra destacada ya dice el total y las provincias: el texto empieza por las dos con más glaciares
   glaciares: `${cu.gl_top} tiene ${n0(cu.gl_top_v)} glaciares inventariados ${yE(cu.gl_2)}, ${n0(cu.gl_2_v)}, según el Inventario Nacional de Glaciares. ` +
     `Entre las dos reúnen el ${pct((cu.gl_top_v + cu.gl_2_v) / cu.gl_total * 100)} de los glaciares inventariados del país. El dato cuenta glaciares, no su superficie: una provincia con muchos glaciares chicos puede tener menos hielo que otra con pocos glaciares grandes.`,
@@ -4881,6 +4892,262 @@ DIB.anioscong = conTablas("anioscong", ["anios_congreso"], a => {
    final) y se vuelven a dibujar al cambiar el ancho o la provincia, como las fichas */
 TX["lab-hemiciclo"] = $t("lab-hemiciclo").textContent = `Las ${n0(CG.n_dip)} bancas de la Cámara de Diputados y las ${CG.n_sen} del Senado, cada una con ` +
   `quien la ocupa hoy, agrupadas por espacio político y, dentro de cada espacio, por provincia. Al pasar el mouse o tocar una banca, el cuadro dice quién la ocupa.`;
+/* ---------- ¿Cuáles son las montañas más altas de la Argentina? (f-cumbres, Naturaleza y ambiente) ----------
+   Pedido del autor del 9 de noviembre de 2026, a partir de un mapa de curvas de nivel que se levanta en relieve. Arriba, el bloque de
+   relieve de la cumbre elegida: un recuadro de 12 km de lado (datos/relieve/<id>.json, que arma scripts/cumbres_relieve.py) con una
+   curva de nivel cada 100 metros (d3.contours). Las curvas se apilan como capas, cada una a su altura y de la más baja a la más alta,
+   en un canvas 2D y sin bibliotecas nuevas: cada capa es un Path2D en coordenadas de la grilla que se dibuja con una transformación
+   afín (giro, inclinación y altura), así un cuadro entero cuesta unos pocos milisegundos. La pared de cada capa son copias corridas
+   hacia abajo, en un tono más oscuro. "Mapa" la ve desde arriba con el norte arriba y "Relieve" la inclina y la levanta (DUR_G, y sin
+   movimiento con movimiento reducido). Se gira arrastrando de costado (arrastrar para arriba o para abajo sigue moviendo la página)
+   o con las flechas, y al pasar el mouse o tocar dice la altura del modelo en ese punto. Los glaciares del Inventario Nacional van en
+   celeste sobre cada capa (solo el lado argentino: el inventario no cubre Chile).
+   Debajo, las 15 cumbres de la tabla del IGN en barras desde cero, que eligen la cumbre del bloque. La altura oficial es la del IGN:
+   el modelo de elevación (SRTM) no reproduce exacta ninguna cumbre, y la nota da las dos.
+   Todas las cumbres usan la misma escala, la misma exageración de la altura (1,5) y la misma base (3.000 metros), así se comparan. */
+CU.tinte = d3.scaleLinear().domain([3000, 4500, 5500, 6400, 7000]).range(["#EADCB8", "#F1E7CF", "#F4EFE4", "#F6F9FC", "#FFFFFF"]).clamp(true);
+const RELIEVE = /*RELIEVE*/{};   // id de cada cumbre -> huella de su archivo (la escribe 03)
+const cuPedidos = {};
+// el archivo de una cumbre: las alturas llegan como enteros de 16 bits en base64 (la altura menos la mínima del recuadro)
+const cuCargar = id => cuPedidos[id] ||= d3.json(`datos/relieve/${id}.json?v=${RELIEVE[id]}`).then(d => {
+  const n = d.n, bin = atob(d.z), z = new Float64Array(n * n);
+  for (let i = 0; i < z.length; i++) z[i] = d.min + (bin.charCodeAt(2 * i) | bin.charCodeAt(2 * i + 1) << 8);
+  return prepararCumbre(d, z);
+}, e => { delete cuPedidos[id]; throw e; });
+
+function prepararCumbre(d, crudo) {
+  const n = d.n, celda = d.lado_km * 1000 / n;
+  // un suavizado de una celda saca las islas de una sola celda que deja el modelo (la altura del puntero usa el dato sin suavizar)
+  const z = d3.blur2({data: Float64Array.from(crudo), width: n, height: n}, 1).data;
+  const aPath = coords => {
+    const p = new Path2D();
+    for (const pol of coords) for (const anillo of pol) { anillo.forEach(([x, y], k) => k ? p.lineTo(x, y) : p.moveTo(x, y)); p.closePath(); }
+    return p;
+  };
+  const capas = d3.contours().size([n, n]).thresholds(d3.range(CU.BASE + CU.PASO, d3.max(z) + 1, CU.PASO))(z)
+    .filter(c => c.coordinates.length).map(c => ({h: c.value, path: aPath(c.coordinates), indice: c.value % CU.INDICE === 0}));
+  // la altura de la capa que cubre cada celda: la de los costados del bloque y la que ubica el puntero
+  const esc = z.map(v => Math.max(CU.BASE, Math.floor(v / CU.PASO) * CU.PASO));
+  // la cumbre: el punto más alto del modelo a menos de 1,5 km de las coordenadas del IGN (en el recuadro puede haber otra más alta)
+  let cima = -1;
+  for (let j = 0; j < n; j++) for (let i = 0; i < n; i++)
+    if (Math.hypot(i + .5 - n / 2, j + .5 - n / 2) <= 1500 / celda && (cima < 0 || crudo[j * n + i] > crudo[cima])) cima = j * n + i;
+  const glaciares = (d.glaciares || []).length ? aPath(d.glaciares) : null;
+  return {n, celda, crudo, esc, capas, cima, glaciares, lado: d.lado_km, inventarios: d.inventarios || [], anios: d.anios_imagenes || []};
+}
+
+function dibujarCumbre(ctx, M, pico, st, W, H) {
+  const n = M.n, diag = n * Math.SQRT2, t = st.t;
+  const fi = Math.PI / 2 - t * (Math.PI / 2 - CU.FI), sf = Math.sin(fi);
+  // que entre entero en los dos estados: inclinado lo limita el ancho y visto desde arriba, el alto
+  const s = Math.min(W * .94 / diag, (H - 72) / (diag * sf + CU.R_MAX / M.celda * CU.EXAG * Math.cos(fi)));
+  const k = s * CU.EXAG * Math.cos(fi) / M.celda;     // píxeles por metro de altura
+  const cx = W / 2, cy = 36 + (H - 72) / 2 + CU.R_MAX * k / 2;
+  // como mapa, el norte arriba: el giro elegido se aplica a medida que se levanta
+  const th = st.giro * t, cos = Math.cos(th), sin = Math.sin(th);
+  const pr = (x, y, h) => {
+    const u = x - n / 2, v = y - n / 2;
+    return [cx + s * (cos * u - sin * v), cy + s * sf * (sin * u + cos * v) - k * (h - CU.BASE)];
+  };
+  const E = devicePixelRatio || 1;
+  const tr = h => [s * cos, s * sf * sin, -s * sin, s * sf * cos, cx - s * (cos - sin) * n / 2, cy - s * sf * (sin + cos) * n / 2 - k * (h - CU.BASE)].map(v => v * E);
+  ctx.setTransform(E, 0, 0, E, 0, 0);
+  ctx.clearRect(0, 0, W, H);
+  // los costados del bloque que miran hacia quien mira, con una línea cada 500 metros
+  const lados = [
+    {nx: 0, ny: 1, a: [0, n], b: [n, n], celda: i => (n - 1) * n + i},
+    {nx: 0, ny: -1, a: [n, 0], b: [0, 0], celda: i => n - 1 - i},
+    {nx: 1, ny: 0, a: [n, n], b: [n, 0], celda: i => (n - 1 - i) * n + n - 1},
+    {nx: -1, ny: 0, a: [0, 0], b: [0, n], celda: i => i * n},
+  ];
+  if (k > 1e-3) for (const L of lados) {
+    if (sin * L.nx + cos * L.ny <= 0) continue;
+    const pts = [];
+    for (let i = 0; i < n; i++) {
+      const h = M.esc[L.celda(i)];
+      for (const f of [i / n, (i + 1) / n]) pts.push(pr(L.a[0] + (L.b[0] - L.a[0]) * f, L.a[1] + (L.b[1] - L.a[1]) * f, h));
+    }
+    pts.push(pr(L.b[0], L.b[1], CU.BASE - CU.PIE), pr(L.a[0], L.a[1], CU.BASE - CU.PIE));
+    const p = new Path2D(); pts.forEach(([x, y], j) => j ? p.lineTo(x, y) : p.moveTo(x, y)); p.closePath();
+    ctx.fillStyle = L.nx ? "#DCCBA2" : "#E5D6B2"; ctx.fill(p);
+    ctx.save(); ctx.clip(p); ctx.strokeStyle = "rgba(127,85,0,.22)"; ctx.lineWidth = 1;
+    for (let h = CU.BASE; h <= 7000; h += CU.INDICE) {
+      const [x1, y1] = pr(L.a[0], L.a[1], h), [x2, y2] = pr(L.b[0], L.b[1], h);
+      ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y2); ctx.stroke();
+    }
+    ctx.restore();
+  }
+  const todo = new Path2D(); todo.rect(0, 0, n, n);
+  ctx.setTransform(...tr(CU.BASE)); ctx.fillStyle = CU.tinte(CU.BASE); ctx.fill(todo);
+  const glaciar = (path, h) => {
+    if (!M.glaciares) return;
+    ctx.save(); ctx.setTransform(...tr(h)); ctx.clip(path, "evenodd"); ctx.fillStyle = "rgba(116,172,223,.5)"; ctx.fill(M.glaciares, "evenodd"); ctx.restore();
+  };
+  glaciar(todo, CU.BASE);
+  // cada capa: su pared (copias corridas hacia abajo), su cara de arriba, los glaciares que caen en ella y su curva
+  const paso = CU.PASO * k, copias = Math.min(6, Math.ceil(paso / 1.2));
+  for (const c of M.capas) {
+    const color = CU.tinte(c.h);
+    if (paso > .3) {
+      ctx.fillStyle = d3.interpolateRgb(color, "#A8926A")(.45);
+      for (let j = copias; j >= 1; j--) { ctx.setTransform(...tr(c.h - CU.PASO * j / copias)); ctx.fill(c.path, "evenodd"); }
+    }
+    ctx.setTransform(...tr(c.h)); ctx.fillStyle = color; ctx.fill(c.path, "evenodd");
+    glaciar(c.path, c.h);
+    ctx.setTransform(...tr(c.h));
+    ctx.lineWidth = (c.indice ? 1.3 : .6) / s;
+    ctx.strokeStyle = c.indice ? "rgba(44,116,181,.75)" : "rgba(44,116,181,.4)";
+    ctx.stroke(c.path);
+  }
+  ctx.setTransform(E, 0, 0, E, 0, 0);
+  // la cumbre con su nombre y la altura oficial, y el norte
+  const [px, py] = pr(M.cima % n + .5, Math.floor(M.cima / n) + .5, M.esc[M.cima]);
+  const tinta = css("--ink");
+  ctx.strokeStyle = tinta; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(px, py); ctx.lineTo(px, py - 34); ctx.stroke();
+  ctx.fillStyle = tinta; ctx.beginPath(); ctx.arc(px, py, 3, 0, 2 * Math.PI); ctx.fill();
+  ctx.textAlign = "center"; ctx.lineJoin = "round"; ctx.strokeStyle = "#fff"; ctx.lineWidth = 4;
+  ctx.font = `600 15px ${css("--f")}`;
+  ctx.strokeText(pico.nombre, px, py - 56); ctx.fillText(pico.nombre, px, py - 56);
+  ctx.font = `500 13px ${css("--mono")}`; ctx.fillStyle = css("--muted");
+  ctx.strokeText(`${n0(pico.altura_m)} m`, px, py - 40); ctx.fillText(`${n0(pico.altura_m)} m`, px, py - 40);
+  const [nx, ny] = pr(n / 2, -6, CU.BASE);
+  ctx.font = `600 13px ${css("--mono")}`; ctx.fillStyle = css("--azul"); ctx.textBaseline = "middle"; ctx.fillText("N", nx, ny); ctx.textBaseline = "alphabetic";
+  return {pr, cos, sin};
+}
+
+/* El dibujo de la ficha: el bloque con su conmutador (Relieve y Mapa, propio: anima la inclinación en lugar de fundir), y la lista de
+   cumbres en barras desde cero, que la elige. El estado (cumbre, giro y vista) queda en el contenedor y sobrevive a los redibujos */
+DIB.cumbres = a => {
+  const el = G("cumbres"), filas = T.cumbres_ign;
+  if (!el || !filas) return;
+  // el estado queda en el contenedor: la cumbre, el giro, la inclinación a la vista (t) y la elegida (obj), y el dibujo del canvas de
+  // ahora (st.dibujar), así una animación que empezó antes de un redibujo (el sitio redibuja al cambiar el ancho o al imprimir) sigue en
+  // el canvas nuevo
+  const st = el.cu ||= {id: filas[0].id, giro: CU.GIRO, t: 1, obj: 1, M: null};
+  el.removeAttribute("aria-busy"); ocultarTip();
+  el.innerHTML = `<div class="cu-bloque"><canvas tabindex="0"></canvas></div><p class="cu-detalle"></p><p class="cu-ayuda">Arrastrá el relieve de costado o usá las flechas para girarlo.</p>` +
+    `<ol class="cu-lista" aria-label="Las ${filas.length} cumbres de la tabla del IGN, de la más alta a la más baja"></ol>`;
+  const detalle = el.querySelector(".cu-detalle"), caja = el.querySelector(".cu-bloque"), cv = caja.querySelector("canvas"), ctx = cv.getContext("2d"), lista = el.querySelector(".cu-lista");
+  const conm = document.querySelector('.conmutador[data-g="cumbres"]');
+  lista.innerHTML = filas.map((f, i) => `<li><button type="button" data-id="${f.id}" aria-pressed="${f.id === st.id}">` +
+    `<span><span class="cu-nom">${f.nombre}</span> <span class="cu-prov">${f.provincia}</span></span>` +
+    `<span class="cu-alt">${n0(f.altura_m)} m</span></button></li>`).join("");
+  let W = 0, H = 0, cam = null;
+  const medir = () => {
+    W = caja.clientWidth;
+    const diag = 160 * Math.SQRT2, s = W * .94 / diag;
+    H = Math.round(s * (diag * Math.sin(CU.FI) + CU.R_MAX / 75 * CU.EXAG * Math.cos(CU.FI)) + 72);
+    const E = devicePixelRatio || 1;
+    cv.style.height = H + "px"; cv.width = Math.round(W * E); cv.height = Math.round(H * E);
+  };
+  const cumbre = () => filas.find(f => f.id === st.id);
+  const dibujar = st.dibujar = () => { if (st.M) cam = dibujarCumbre(ctx, st.M, cumbre(), st, W, H); };
+  const nombrar = st.nombrar = () => {
+    const f = cumbre(), M = st.M;
+    cv.setAttribute("aria-label", `${nombreGrafico(el)}. Relieve de ${f.nombre} (${f.provincia}), ${n0(f.altura_m)} metros según el IGN, ` +
+      `en un recuadro de ${M ? n0(M.lado) : 12} km de lado` + (st.obj === 1 ? ", visto de costado" : ", visto desde arriba como mapa"));
+    cv.setAttribute("role", "img");
+  };
+  const elegir = id => {
+    st.id = id;
+    lista.querySelectorAll("button").forEach(b => b.setAttribute("aria-pressed", b.dataset.id === id));
+    cuCargar(id).then(M => {
+      if (st.id !== id) return;
+      st.M = M; caja.classList.remove("cu-cargando"); dibujar(); nombrar();
+      const f = cumbre(), inv = M.inventarios.includes("ING2") ? "de la actualización del Inventario Nacional de Glaciares" : "del Inventario Nacional de Glaciares";
+      detalle.textContent = (f.altura_m === M.crudo[M.cima] ? `El modelo de elevación da en la cumbre lo mismo que el IGN, ${n0(f.altura_m)} metros. `
+        : `En la cumbre, el modelo de elevación da ${n0(M.crudo[M.cima])} metros y el IGN, ${n0(f.altura_m)}. `) +
+        (M.glaciares ? `En celeste, los glaciares ${inv}, con imágenes de ${listaY(M.anios.map(String))}.` : "En el recuadro no hay glaciares inventariados.");
+    },
+      // si el archivo no llega, el canvas queda vacío y el aviso va donde va el detalle: la lista sigue y elegir de nuevo vuelve a pedirlo
+      () => {
+        if (st.id !== id) return;
+        st.M = null; caja.classList.remove("cu-cargando"); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.clearRect(0, 0, cv.width, cv.height);
+        const t = `No se pudo cargar el relieve de ${cumbre().nombre}. Elegila de nuevo en la lista para volver a intentar.`;
+        detalle.textContent = t; avisar(t);
+      });
+    if (!cuPedidos[id] || !st.M) caja.classList.add("cu-cargando");
+  };
+  // la inclinación: de mapa (0) a relieve (1) en DUR_G, o de una vez con movimiento reducido
+  const inclinar = (hacia, anim = !REDUCIR) => {
+    const desde = st.t, t0 = performance.now(), vuelta = st.vuelta = (st.vuelta || 0) + 1;
+    st.obj = hacia;
+    if (!anim) { st.t = hacia; st.dibujar(); st.nombrar(); return; }
+    const cuadro = ahora => {
+      if (vuelta !== st.vuelta) return;   // otra inclinación la reemplazó
+      const f = Math.min(1, (ahora - t0) / DUR_G);
+      st.t = desde + (hacia - desde) * EASE(f); st.dibujar();
+      if (f < 1) requestAnimationFrame(cuadro); else st.nombrar();
+    };
+    requestAnimationFrame(cuadro);
+  };
+  if (conm) {
+    conm.dataset.propio = "";
+    conm.querySelectorAll("button").forEach((b, i) => {
+      b.setAttribute("aria-pressed", (b.dataset.m === "relieve") === (st.obj === 1));
+      b.onclick = () => {
+        const arriba = b.dataset.m === "relieve";
+        if ((st.obj === 1) === arriba) return;
+        conm.style.setProperty("--i", i);
+        conm.querySelectorAll("button").forEach(x => x.setAttribute("aria-pressed", x === b));
+        inclinar(arriba ? 1 : 0);
+      };
+    });
+    conm.style.setProperty("--i", st.obj === 1 ? 0 : 1);
+  }
+  lista.querySelectorAll("button").forEach(b => b.addEventListener("click", () => elegir(b.dataset.id)));
+  // la altura del modelo donde está el puntero: de las celdas que caen a menos de 4 píxeles, la que está más adelante
+  const alturaEn = (mx, my) => {
+    if (!cam || !st.M) return null;
+    const {n, esc} = st.M;
+    let mejor = null, prof = -Infinity;
+    for (let j = 0; j < n; j++) for (let i = 0; i < n; i++) {
+      const [x, y] = cam.pr(i + .5, j + .5, esc[j * n + i]);
+      if (Math.abs(x - mx) > 4 || Math.abs(y - my) > 4) continue;
+      const d = cam.sin * (i - n / 2) + cam.cos * (j - n / 2);
+      if (d > prof) { prof = d; mejor = j * n + i; }
+    }
+    return mejor;
+  };
+  let arrastre = null;
+  cv.addEventListener("pointerdown", ev => { arrastre = {x: ev.clientX, giro: st.giro, movio: false}; });
+  cv.addEventListener("pointermove", ev => {
+    const r = cv.getBoundingClientRect(), mx = ev.clientX - r.left, my = ev.clientY - r.top;
+    if (arrastre && st.obj === 1 && Math.abs(ev.clientX - arrastre.x) > 4) {
+      if (!arrastre.movio) { arrastre.movio = true; cv.setPointerCapture?.(ev.pointerId); }
+      st.giro = arrastre.giro - (ev.clientX - arrastre.x) / 180; dibujar(); ocultarTip(); return;
+    }
+    if (arrastre?.movio) return;
+    const idx = alturaEn(mx, my);
+    if (idx == null) return ocultarTip();
+    mostrarTip(cv, `<b>${n0(st.M.crudo[idx])} m</b> según el modelo de elevación`, mx, my);
+  });
+  const soltar = ev => {
+    const toque = arrastre && !arrastre.movio && ev.type === "pointerup" && ev.pointerType !== "mouse";
+    arrastre = null;
+    if (!toque) return;
+    const r = cv.getBoundingClientRect(), idx = alturaEn(ev.clientX - r.left, ev.clientY - r.top);
+    if (idx != null) mostrarTip(cv, `<b>${n0(st.M.crudo[idx])} m</b> según el modelo de elevación`, ev.clientX - r.left, ev.clientY - r.top);
+  };
+  cv.addEventListener("pointerup", soltar); cv.addEventListener("pointercancel", soltar);
+  cv.addEventListener("pointerleave", ocultarSiMouse);
+  cv.addEventListener("keydown", ev => {
+    if (ev.key !== "ArrowLeft" && ev.key !== "ArrowRight") return;
+    ev.preventDefault();
+    st.giro += (ev.key === "ArrowLeft" ? 1 : -1) * Math.PI / 12;
+    if (st.obj !== 1) conm?.querySelector('[data-m="relieve"]')?.click(); else dibujar();
+  });
+  medir();
+  const ro = new ResizeObserver(() => {
+    if (!caja.isConnected) return ro.disconnect();
+    if (caja.clientWidth && Math.abs(caja.clientWidth - W) > 1) { medir(); dibujar(); }
+  });
+  ro.observe(caja);
+  elegir(st.id);
+  // al entrar en pantalla, la primera vez, el mapa se levanta
+  if (a && !REDUCIR && st.t === 1 && !st.vuelta) { st.t = 0; cuCargar(st.id).then(() => inclinar(1), () => { st.t = 1; }); }
+};
+
 DIB["lab-hemiciclo"] = () => {
   const el = G("lab-hemiciclo"); if (!el) return;
   if (!LGP) { esperando(el); lgCargar().then(DIB["lab-hemiciclo"]).catch(() => sinDatos(el, "No se pudo cargar el hemiciclo.")); return; }
@@ -7593,6 +7860,7 @@ const CLAVE = {
     "cada 1.000 habitantes en el país"]} : {}),
   "f-protegida": [pct(nt.pct), `del territorio continental del país está dentro de áreas protegidas, ${nt.anio}`, "del territorio continental del país"],
   "f-parques": [n0(nt.pn_n), `áreas protegidas nacionales. Las primeras se crearon en ${nt.pn_primera_anio}`, "áreas protegidas a cargo de la Administración de Parques Nacionales"],
+  "f-cumbres": [n0(nt.cu_top_v), `metros sobre el nivel del mar: ${nt.cu_top}, en ${nt.cu_top_prov}, la cumbre más alta del país`, `metros: ${nt.cu_top}, la cumbre más alta del país`],
   "f-especies": [n0(nt.esp_top_v), `especies animales registradas en ${nt.esp_top}, el área nacional con más registros`, `especies animales registradas en ${nt.esp_top}, el área con más registros`],
   "f-visitas": [n1(nt.vis / 1e6), `millones de visitas a parques nacionales en ${nt.vis_anio}`, `millones de visitas en ${nt.vis_anio}`],
   "f-receptivo": [n1(tu.turistas / 1e6), `millones de turistas no residentes llegaron al país en ${tu.anio}`, `millones en ${tu.anio}, por todos los pasos de frontera`],
@@ -7776,6 +8044,8 @@ const nTabla = loc.format(",.2~f");
 // Tabla de la ficha dentro de la tarjeta (idea de USAFacts), con las mismas filas que el CSV
 // "Ver tabla" de una ficha con una tabla larga de varias series (etapa 41): solo la serie elegida, del mes más reciente al más viejo
 const TABLA_VISTA = {
+  // f-cumbres: la tabla del IGN como la publica, sin los ids del dibujo
+  "f-cumbres": t => t.map(r => ({cumbre: r.nombre_ign, provincia: r.provincia, altura_m: r.altura_m})),
   "f-bcra": t => {
     const v = bcrVar(), filas = t.filter(r => r.id === v.id).reverse();
     const NOM = {valor_real: v.t === "dolar" ? `a precios de ${mesPer(BV.tcr_mes)}` : `en pesos de ${mesPer(BV.ipc_mes)}`, pct_pbi: "en % del PBI",
@@ -9301,6 +9571,8 @@ const PREG = [
    `${ANT.partes}. ${ANT.consultivas} son partes consultivas, las que deciden en sus reuniones.`, "#f-ant-tratado"],
   ["¿Cuántas personas visitan la Antártida?",
    `${n0(ANT.tu)} en la temporada ${ANT.tu_fin}, con empresas de IAATO.`, "#f-ant-turismo"],
+  ["¿Cuál es la montaña más alta del país?",
+   `${nt.cu_top}, en ${nt.cu_top_prov}, con ${n0(nt.cu_top_v)} metros según el IGN. Le sigue ${nt.cu_2}, en ${nt.cu_2_prov}, con ${n0(nt.cu_2_v)}.`, "#f-cumbres"],
   ["¿Qué provincia tiene más glaciares?",
    `${cu.gl_top}, con ${n0(cu.gl_top_v)}. Le sigue ${cu.gl_2}, con ${n0(cu.gl_2_v)}.`, "#f-glaciares"],
   [`¿Cuál fue el año más cálido desde ${cu.cl_ini}?`,
@@ -12419,7 +12691,7 @@ if (PAGINA !== "inicio") {
     "f-poblacion-proy": ["poblacion", "habitantes"], "f-chicos-escuela": ["chicos en edad escolar", "edad escolar", "alumnos"], "f-nacimientos": ["nacimientos", "natalidad"], "f-exportaciones": ["exportaciones", "exporta"],
     "f-importaciones": ["importaciones"], "f-reservas-bcra": ["reservas"], "f-deuda": ["deuda"], "f-haberes": ["jubilacion", "jubilados", "jubilado"],
     "f-auh": ["auh", "asignacion universal"], "f-desempleo": ["desempleo"], "f-aprender": ["aprender"], "f-escolarizacion": ["escolarizacion", "secundaria"],
-    "f-censo": ["cloacas", "agua red"], "f-cobertura": ["obra social", "prepaga", "cobertura de salud", "sin cobertura"], "f-dengue": ["dengue", "mosquito"], "f-vacunas": ["vacuna", "vacunas", "vacunacion", "sarampion", "triple viral"], "f-internet": ["internet"], "f-glaciares": ["glaciares"], "f-receptivo": ["turistas", "turismo"], "f-isac": ["construccion"],
+    "f-censo": ["cloacas", "agua red"], "f-cobertura": ["obra social", "prepaga", "cobertura de salud", "sin cobertura"], "f-dengue": ["dengue", "mosquito"], "f-vacunas": ["vacuna", "vacunas", "vacunacion", "sarampion", "triple viral"], "f-internet": ["internet"], "f-glaciares": ["glaciares"], "f-cumbres": ["montaña", "montañas", "cerro", "cerros", "cumbre", "cumbres", "aconcagua", "altura"], "f-receptivo": ["turistas", "turismo"], "f-isac": ["construccion"],
     "f-precio-consumo": ["precio de la carne", "precio de la yerba", "precio del vino"], "f-carne": ["carne"], "f-vino": ["vino"], "f-yerba": ["yerba"], "f-electricidad-provincias": ["electricidad", "luz"], "f-subsidios": ["subsidios"],
     "f-empresas": ["empresas"], "f-socios-que": ["que le vendemos", "que le compramos", "comparar paises"], "f-valor-kilo": ["valor por kilo", "precio por kilo", "dolares por kilo"], "f-mayoristas": ["precios mayoristas", "mayoristas", "ipim"], "f-sectores-empleo": ["empleo por sector", "productividad"], "f-canastas": ["canasta", "canasta basica"], "f-crianza": ["crianza", "canasta de crianza", "cuota alimentaria"], "f-industria": ["industria", "produccion industrial", "ipi", "mineria"], "f-socios": ["socios comerciales", "saldo con china", "comercio con brasil", "deficit comercial con"], "f-socios-hist": ["historia del comercio exterior", "socios comerciales desde 1986"], "f-emae": ["actividad economica", "emae"], "f-carceles": ["carceles", "presos"], "f-sin-condena": ["sin condena", "presos sin condena", "procesados", "prision preventiva"],
     "f-coparticipacion": ["coparticipacion", "coparticipacion federal", "reparto de impuestos"],

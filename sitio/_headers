@@ -6,6 +6,8 @@
   Cache-Control: public, max-age=31536000, immutable
 /datos/fichas.js
   Cache-Control: public, max-age=31536000, immutable
+/datos/relieve/*
+  Cache-Control: public, max-age=31536000, immutable
 /lib/*
   Cache-Control: public, max-age=31536000, immutable
 /relaciones.css

@@ -1,0 +1,60 @@
+{
+ "tabla": "cumbres_ign.csv",
+ "titulo": "¿Cuáles son las montañas más altas de la Argentina?",
+ "descripcion": "Las 15 cumbres de la tabla de máximas alturas del IGN, en metros sobre el nivel del mar, y el relieve alrededor de cada una",
+ "seccion": "Naturaleza y ambiente",
+ "ficha": "https://datina.com.ar/naturaleza.html#f-cumbres",
+ "fuente": "Instituto Geográfico Nacional (IGN), \"Máximas alturas\". Relieve: SRTM, cortesía del Servicio Geológico de los Estados Unidos (USGS), vía AWS Terrain Tiles. Glaciares: Inventario Nacional de Glaciares (IANIGLA-CONICET).",
+ "actualizacion": "Se actualiza a mano, cuando la fuente publica datos nuevos.",
+ "cobertura": "5 jurisdicciones",
+ "periodo": "",
+ "filas": 15,
+ "columnas": [
+  {
+   "nombre": "id",
+   "tipo": "Código",
+   "valores": "15 códigos"
+  },
+  {
+   "nombre": "nombre",
+   "tipo": "Texto",
+   "valores": "15 valores distintos"
+  },
+  {
+   "nombre": "nombre_ign",
+   "tipo": "Texto",
+   "valores": "15 valores distintos"
+  },
+  {
+   "nombre": "provincia",
+   "tipo": "Texto",
+   "valores": "Catamarca, La Rioja, Mendoza, Salta, San Juan"
+  },
+  {
+   "nombre": "codigo_indec",
+   "tipo": "Código",
+   "valores": "5 códigos"
+  },
+  {
+   "nombre": "altura_m",
+   "tipo": "Número",
+   "valores": "6.344 a 6.961"
+  },
+  {
+   "nombre": "lat",
+   "tipo": "Número",
+   "valores": "-33,36 a -24,72"
+  },
+  {
+   "nombre": "lon",
+   "tipo": "Número",
+   "valores": "-70,11 a -66,39"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "datos_actualizados": "05/11/2026",
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
+ "como_citar": "Datina (año de la consulta). ¿Cuáles son las montañas más altas de la Argentina? Con datos de Instituto Geográfico Nacional (IGN), \"Máximas alturas\". Relieve: SRTM, cortesía del Servicio Geológico de los Estados Unidos (USGS), vía AWS Terrain Tiles. Glaciares: Inventario Nacional de Glaciares (IANIGLA-CONICET). https://datina.com.ar/naturaleza.html#f-cumbres. Consultado el día de la consulta."
+}

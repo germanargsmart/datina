@@ -717,6 +717,28 @@
    "alias": [
     "Natural Earth"
    ]
+  },
+  {
+   "id": "org:usgs",
+   "nombre": "Servicio Geológico de los Estados Unidos",
+   "sigla": "USGS",
+   "depende": "Departamento del Interior de los Estados Unidos",
+   "url": "https://www.usgs.gov/",
+   "alias": [
+    "USGS",
+    "Servicio Geológico de los Estados Unidos"
+   ]
+  },
+  {
+   "id": "org:ianigla",
+   "nombre": "Instituto Argentino de Nivología, Glaciología y Ciencias Ambientales",
+   "sigla": "IANIGLA",
+   "depende": "CONICET",
+   "url": "https://www.glaciaresargentinos.gob.ar/",
+   "alias": [
+    "IANIGLA",
+    "IANIGLA-CONICET"
+   ]
   }
  ],
  "conjuntos": [
@@ -2839,6 +2861,39 @@
     "archivo": "scripts/geometria_antartida.py",
     "contiene": "SALIDA = RAIZ / \"sitio\" / \"datos\" / \"antartida.topo.json\""
    }
+  },
+  {
+   "id": "ds:manual/cumbres_ign.csv",
+   "nombre": "Máximas alturas: las cumbres más altas del país",
+   "fuente": "org:ign",
+   "ruta": "datos/manual/cumbres_ign.csv",
+   "evidencia": {
+    "archivo": "scripts/cumbres_relieve.py",
+    "contiene": "URL_IGN = \"https://www.ign.gob.ar/NuestrasActividades/Geografia/DatosArgentina/MaximasAlturas\""
+   },
+   "url": "https://www.ign.gob.ar/NuestrasActividades/Geografia/DatosArgentina/MaximasAlturas"
+  },
+  {
+   "id": "ds:manual/relieve",
+   "nombre": "Relieve alrededor de cada cumbre (modelo de elevación SRTM, en teselas Terrarium de AWS Terrain Tiles)",
+   "fuente": "org:usgs",
+   "ruta": "datos/manual/relieve",
+   "evidencia": {
+    "archivo": "scripts/cumbres_relieve.py",
+    "contiene": "URL_TESELA = \"https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png\""
+   },
+   "url": "https://registry.opendata.aws/terrain-tiles/"
+  },
+  {
+   "id": "ds:manual/relieve-glaciares",
+   "nombre": "Glaciares alrededor de cada cumbre (Inventario Nacional de Glaciares, servicio WFS)",
+   "fuente": "org:ianigla",
+   "ruta": "datos/manual/relieve",
+   "evidencia": {
+    "archivo": "scripts/cumbres_relieve.py",
+    "contiene": "URL_WFS = \"https://maping.glaciaresargentinos.gob.ar:8443/geoserver/ows\""
+   },
+   "url": "https://maping.glaciaresargentinos.gob.ar:8443/geoserver/ows?service=WFS&version=2.0.0&request=GetCapabilities"
   }
  ],
  "aristas": [
@@ -8287,6 +8342,52 @@
     {
      "archivo": "scripts/datina.js",
      "contiene": "d3.json(\"datos/antartida.topo.json\")"
+    }
+   ]
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:manual/cumbres_ign.csv",
+   "a": "f-cumbres",
+   "tabla": "cumbres_ign",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "cumbres = pd.read_csv(RAIZ / \"datos\" / \"manual\" / \"cumbres_ign.csv\""
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"cumbres_ign\": cumbres[["
+    }
+   ]
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:manual/relieve",
+   "a": "f-cumbres",
+   "evidencia": [
+    {
+     "archivo": "scripts/03_construir_sitio.py",
+     "contiene": "for _f in sorted((RAIZ / \"datos\" / \"manual\" / \"relieve\").glob(\"*.json\")):"
+    },
+    {
+     "archivo": "scripts/datina.js",
+     "contiene": "d3.json(`datos/relieve/${id}.json?v=${RELIEVE[id]}`)"
+    }
+   ]
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:manual/relieve-glaciares",
+   "a": "f-cumbres",
+   "evidencia": [
+    {
+     "archivo": "scripts/cumbres_relieve.py",
+     "contiene": "g[\"glaciares\"], g[\"inventarios\"], g[\"anios_imagenes\"] = glaciares(c, region_ing2)"
+    },
+    {
+     "archivo": "scripts/datina.js",
+     "contiene": "const glaciares = (d.glaciares || []).length ? aPath(d.glaciares) : null;"
     }
    ]
   }

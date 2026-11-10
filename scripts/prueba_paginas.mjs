@@ -402,6 +402,7 @@ const enFoco = () => q.eval("(document.activeElement.id || '') + '|' + document.
 // datina.js), en el orden de GRUPOS, ninguna de un tema sensible. Cada dato con su tema, su pregunta, la cifra sola en su línea, su texto con el año y el enlace a
 // una ficha que existe. Una sola columna, sin tarjetas, una familia y hasta cuatro tamaños. SIN_ANIO: las cifras cuya fuente no da una fecha
 const SIN_ANIO = {"f-especies": "el Sistema de Información de Biodiversidad no fecha sus registros", "f-glaciares": "el inventario no da una sola fecha",
+  "f-cumbres": "el IGN no publica la fecha de su tabla de alturas",
   "f-ant-reclamos": "cada país reclama por una norma de otro año: están en la tabla"};
 const SENSIBLES = ["f-muertes", "f-suicidio", "f-suicidio-prov", "f-edad"];
 const jsSitio = readFileSync(join(SITIO, "datina.js"), "utf8"), iniClave = jsSitio.indexOf("const CLAVE = {");

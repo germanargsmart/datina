@@ -2769,6 +2769,19 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <div class="pie"><span>Fuente: MapBiomas Argentina, Colección 3, estadísticas por provincia (licencia CC BY 4.0)</span><a href="datos/cobertura_suelo_provincias.csv" download>Por provincia (CSV)</a><a href="datos/cobertura_suelo_pais.csv" download>Del país, por año (CSV)</a></div>
     </article>
 
+    <article class="ficha" id="f-cumbres">
+      <h2>¿Cuáles son las montañas más altas de la Argentina?</h2>
+      <p class="ficha-sub">Las {{naturaleza.cu_n}} cumbres de la tabla de máximas alturas del IGN, en metros sobre el nivel del mar, y el relieve alrededor de cada una</p>
+      <div class="conmutador" role="group" aria-label="Vista del relieve" data-g="cumbres" data-propio>
+        <button type="button" data-m="relieve" aria-pressed="true">Relieve</button>
+        <button type="button" data-m="mapa" aria-pressed="false">Mapa</button>
+      </div>
+      <div class="grafico" data-g="cumbres" data-forma="relieve"></div>
+      <p class="lead" data-t="cumbres"></p>
+      <p class="nota" data-t="cumbres-nota"></p>
+      <div class="pie"><span>Fuente: Instituto Geográfico Nacional (IGN), "Máximas alturas". Relieve: SRTM, cortesía del Servicio Geológico de los Estados Unidos (USGS), vía AWS Terrain Tiles. Glaciares: Inventario Nacional de Glaciares (IANIGLA-CONICET)</span><a href="datos/cumbres_ign.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
     <article class="ficha" id="f-glaciares">
       <h2>¿Cuántos glaciares tiene cada provincia?</h2>
       <p class="ficha-sub">Glaciares y cuerpos de hielo inventariados, por provincia</p>

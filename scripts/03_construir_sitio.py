@@ -234,6 +234,8 @@ FRECUENCIA = {
     "f-protegida": "anio", "f-parques": "anio", "f-visitas": "mes", "f-especies": "anio", "f-pesca": "anio",
     "f-pesca-rio": "anio",
     "f-soja": "anio", "f-cobertura-suelo": "anio",
+    # las cumbres más altas: la tabla del IGN y el relieve los arma scripts/cumbres_relieve.py, fuera de la descarga del día 5
+    "f-cumbres": "a_mano",
     # Curiosidades
     # la Antártida: datos fijos, a pedido del autor (fuera de la descarga del día 5). Sin aviso de atraso, porque nada los actualiza solo
     "f-ant-mapa": "a_mano", "f-ant-bases": "a_mano", "f-ant-paises": "a_mano", "f-ant-reclamos": "a_mano", "f-ant-tratado": "a_mano", "f-ant-zonas": "a_mano",
@@ -832,10 +834,26 @@ if CONSULTA_IA:
 else:
     for _f in (_IA_INDICE, _IA_JS, SITIO / "consulta-ia.html"):
         _f.unlink(missing_ok=True)
+# El relieve y los glaciares de cada cumbre de f-cumbres (9 de noviembre de 2026): los arma una sola vez scripts/cumbres_relieve.py en
+# datos/manual/relieve/ y se copian tal cual a sitio/datos/relieve/. datina.js pide cada uno al elegir su cumbre, con su huella. Lo
+# que ya no está en datos/manual se borra, y una cumbre de la tabla sin su relieve frena el armado
+_RELIEVE_DIR = SITIO / "datos" / "relieve"
+_RELIEVE_DIR.mkdir(parents=True, exist_ok=True)
+RELIEVE_V = {}
+for _f in sorted((RAIZ / "datos" / "manual" / "relieve").glob("*.json")):
+    shutil.copyfile(_f, _RELIEVE_DIR / _f.name)
+    RELIEVE_V[_f.stem] = hashlib.sha1(_f.read_bytes()).hexdigest()[:10]
+for _f in _RELIEVE_DIR.glob("*.json"):
+    if _f.stem not in RELIEVE_V:
+        _f.unlink()
+with open(RAIZ / "datos" / "manual" / "cumbres_ign.csv", encoding="utf-8") as _f:
+    _sin_relieve = [r["id"] for r in csv.DictReader(_f) if r["id"] not in RELIEVE_V]
+if _sin_relieve:
+    sys.exit(f"Cumbres sin relieve en datos/manual/relieve/ (correr scripts/cumbres_relieve.py): {_sin_relieve}")
 (SITIO / "mesas.js").write_text(achicar_js.achicar(JS_MESAS), encoding="utf-8", newline="\n")   # como datina.js, sin comentarios ni sangría
 EN_CATALOGO = sorted(re.findall(r'<li class="cat-item" id="cat-(\w+)"', _catalogo))
 for marca, valor in {"/*ICONOS*/{}": ICONOS, "/*SEC_ICONO*/{}": SEC_ICONO, "/*SIN_RELACIONES*/[]": sorted(relaciones.EXCLUIDAS),
-                     "/*EN_CATALOGO*/[]": EN_CATALOGO}.items():
+                     "/*EN_CATALOGO*/[]": EN_CATALOGO, "/*RELIEVE*/{}": RELIEVE_V}.items():
     assert marca in js, marca
     js = js.replace(marca, json.dumps(valor, ensure_ascii=False))
 (SITIO / "datina.css").write_text(css, encoding="utf-8", newline="\n")
@@ -1612,7 +1630,7 @@ if URL_SITIO:
 # Caché en Cloudflare Pages (23 de octubre de 2026, decisión del autor): sitio/_headers es el equivalente de los [[headers]] de
 # netlify.toml. Los archivos que las páginas piden con su huella en la dirección (?v=...) se guardan un año: cuando cambia el contenido
 # cambia la dirección. Los demás (por ejemplo, las tablas que se piden sin huella) quedan con la caché común
-CACHE_LARGO = (["/datina.css", "/datina.js", "/mesas.js", "/datos/fichas.js", "/lib/*", "/relaciones.css", "/relaciones.js", "/datos/relaciones.json"]
+CACHE_LARGO = (["/datina.css", "/datina.js", "/mesas.js", "/datos/fichas.js", "/datos/relieve/*", "/lib/*", "/relaciones.css", "/relaciones.js", "/datos/relaciones.json"]
                + [f"/datos/{n}.json" for n in DIFERIDAS] + ["/consulta-ia.js"] * CONSULTA_IA)
 # Las tablas de Elecciones por mesa (4 de noviembre de 2026): Cloudflare comprime el JSON y el texto, pero no el CSV, y Buenos Aires bajaba unos 5 MB. Se sirven como
 # texto: el archivo es el mismo y sigue llamándose .csv, y los enlaces de descarga llevan el atributo download
