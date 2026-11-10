@@ -10741,8 +10741,11 @@ const RANGO_DEST = {
 "f-esperanza": [() => T.esperanza_vida_provincias, "total", v => n1(v), " años", "Por provincia"],
 "f-salarios": [() => T.salarios_provincias, "salario", v => n2(v / 1e6), " millones de pesos", "Por provincia"],
 "f-homicidios": [() => T.homicidios_provincias, "tasa_3", n1, "", `Por provincia, en promedio de ${SG.hom3_desde} a ${SG.anio}`],
+"f-combustibles": [() => T.combustibles_provincias, "nafta", n0, " pesos", "Por provincia"],
 };
 const APOYO_DEST = {
+"f-desocupacion": () => `En el ${DSO.ultimo}, ${pct(DSO.pais_ultimo)}` + (DSO.pais_anio_antes != null ? `, contra ${pct(DSO.pais_anio_antes)} un año antes.` : "."),
+"f-jueces-federales": () => `En ${R.justicia.federal.fecha_ant} era ${pct(R.justicia.federal.pct_sin_titular_ant)}.`,
 "f-nacimientos": () => `Son ${pct(Math.abs(nac.caida))} ${nac.caida < 0 ? "menos" : "más"} que en ${nac.anio_pico}, cuando hubo ${n0(nac.pico)}.`,
 "f-inflacion": () => `El rubro que más subió fue ${inicialMin(EIP.div_max[0])}: ${pct(EIP.div_max[1])}.`,
 "f-pobreza": () => `Un año antes, ${pct(R.pobreza.pob_prev)}. El máximo fue ${pct(R.pobreza.max)}, en el ${R.pobreza.max_sem}.`,
@@ -10770,9 +10773,9 @@ if (document.querySelector(".destacado .c-rango")) { pintarRangos(); alCambiarPr
 (() => {
 const caja = document.getElementById("dest-carrusel"); if (!caja) return;
 const pista = document.getElementById("destacados"), datos = [...pista.querySelectorAll(".destacado")], puntos = document.getElementById("dest-puntos");
-const estado = document.getElementById("dest-estado"), cuenta = document.getElementById("dest-cuenta"), ancho = matchMedia("(min-width:761px)");
+const estado = document.getElementById("dest-estado"), cuenta = document.getElementById("dest-cuenta");
 let actual = 0, moviendo = false, reubicando = 0;
-const porVez = () => ancho.matches ? 3 : 1;
+const porVez = () => { const paso = datos[1].offsetLeft - datos[0].offsetLeft; return paso > 0 ? Math.max(1, Math.round(pista.clientWidth / paso)) : 1; };
 const tandas = () => Math.ceil(datos.length / porVez());
 const posicion = i => Math.min(datos[i].offsetLeft - datos[0].offsetLeft, pista.scrollWidth - pista.clientWidth);
 const rotulo = i => porVez() === 1 ? `Dato ${i + 1} de ${datos.length}` : `Datos ${i + 1} a ${Math.min(i + porVez(), datos.length)} de ${datos.length}`;
@@ -10809,13 +10812,18 @@ const n = porVez(), paso = datos[1].offsetLeft - datos[0].offsetLeft;
 const i = pista.scrollLeft >= pista.scrollWidth - pista.clientWidth - 2 ? (tandas() - 1) * n : Math.round(pista.scrollLeft / paso / n) * n;
 if (i !== actual && datos[i]) marcar(i, true);
 }, {passive: true});
-let anchoPista = pista.clientWidth;
+let anchoPista = pista.clientWidth, vez = porVez();
 const reubicar = () => {
 pista.scrollLeft = posicion(actual); reubicando++;
 requestAnimationFrame(() => requestAnimationFrame(() => { reubicando--; }));
 };
-ancho.addEventListener("change", () => { armarPuntos(); marcar(Math.floor(actual / porVez()) * porVez(), false); reubicar(); });
-new ResizeObserver(() => { if (moviendo || pista.clientWidth === anchoPista) return; anchoPista = pista.clientWidth; reubicar(); }).observe(pista);
+new ResizeObserver(() => {
+if (moviendo || pista.clientWidth === anchoPista) return;
+anchoPista = pista.clientWidth;
+const n = porVez();
+if (n !== vez) { vez = n; armarPuntos(); marcar(Math.floor(actual / n) * n, false); }
+reubicar();
+}).observe(pista);
 armarPuntos();
 marcar(0, false);
 })();

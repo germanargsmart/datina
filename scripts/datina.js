@@ -12076,10 +12076,14 @@ const RANGO_DEST = {
   "f-esperanza": [() => T.esperanza_vida_provincias, "total", v => n1(v), " años", "Por provincia"],
   "f-salarios": [() => T.salarios_provincias, "salario", v => n2(v / 1e6), " millones de pesos", "Por provincia"],
   "f-homicidios": [() => T.homicidios_provincias, "tasa_3", n1, "", `Por provincia, en promedio de ${SG.hom3_desde} a ${SG.anio}`],
+  "f-combustibles": [() => T.combustibles_provincias, "nafta", n0, " pesos", "Por provincia"],
 };
 // los que no cambian por provincia (6 de noviembre de 2026): el dato que mejor acompaña a la cifra. En las personas presas, el año inicial y no las provincias:
-// la más baja es Neuquén, con 0,0%, y en una sola línea se lee como un error
+// la más baja es Neuquén, con 0,0%, y en una sola línea se lee como un error. En la desocupación (10 de noviembre de 2026), el último trimestre contra el
+// mismo de un año antes y no las ciudades: la más baja, menos del 1%, también se leería como un error
 const APOYO_DEST = {
+  "f-desocupacion": () => `En el ${DSO.ultimo}, ${pct(DSO.pais_ultimo)}` + (DSO.pais_anio_antes != null ? `, contra ${pct(DSO.pais_anio_antes)} un año antes.` : "."),
+  "f-jueces-federales": () => `En ${R.justicia.federal.fecha_ant} era ${pct(R.justicia.federal.pct_sin_titular_ant)}.`,
   "f-nacimientos": () => `Son ${pct(Math.abs(nac.caida))} ${nac.caida < 0 ? "menos" : "más"} que en ${nac.anio_pico}, cuando hubo ${n0(nac.pico)}.`,
   "f-inflacion": () => `El rubro que más subió fue ${inicialMin(EIP.div_max[0])}: ${pct(EIP.div_max[1])}.`,
   "f-pobreza": () => `Un año antes, ${pct(R.pobreza.pob_prev)}. El máximo fue ${pct(R.pobreza.max)}, en el ${R.pobreza.max_sem}.`,
@@ -12104,15 +12108,17 @@ function pintarRangos() {
   });
 }
 if (document.querySelector(".destacado .c-rango")) { pintarRangos(); alCambiarProv.push(pintarRangos); }
-// El carrusel de los datos destacados (pedido del autor, 6 de noviembre de 2026; retoma los botones de "Datos rápidos", sacado en la etapa 39). Nueve datos,
-// de a tres, y en el celular de a uno. Se pasa a mano y nunca solo. Los datos están en una fila que se desliza, también con el dedo. Solo los datos a la
-// vista reciben el foco y los leen los lectores de pantalla. El movimiento dura 280 ms, y no hay movimiento con movimiento reducido
+// El carrusel de los datos destacados (pedido del autor, 6 de noviembre de 2026; retoma los botones de "Datos rápidos", sacado en la etapa 39). Doce datos,
+// de a cuatro en la computadora (10 de noviembre de 2026), de a tres en la tableta y de a uno en el celular: cuántos entran lo dice datina.css, y acá se
+// cuentan. Se pasa a mano y nunca solo. Los datos están en una fila que se desliza, también con el dedo. Solo los datos a la vista reciben el foco y los
+// leen los lectores de pantalla. El movimiento dura 280 ms, y no hay movimiento con movimiento reducido
 (() => {
   const caja = document.getElementById("dest-carrusel"); if (!caja) return;
   const pista = document.getElementById("destacados"), datos = [...pista.querySelectorAll(".destacado")], puntos = document.getElementById("dest-puntos");
-  const estado = document.getElementById("dest-estado"), cuenta = document.getElementById("dest-cuenta"), ancho = matchMedia("(min-width:761px)");
+  const estado = document.getElementById("dest-estado"), cuenta = document.getElementById("dest-cuenta");
   let actual = 0, moviendo = false, reubicando = 0;
-  const porVez = () => ancho.matches ? 3 : 1;
+  // los datos que entran a la vista: el ancho de la fila sobre lo que hay de un dato al siguiente (en el celular el siguiente asoma, y da uno)
+  const porVez = () => { const paso = datos[1].offsetLeft - datos[0].offsetLeft; return paso > 0 ? Math.max(1, Math.round(pista.clientWidth / paso)) : 1; };
   const tandas = () => Math.ceil(datos.length / porVez());
   const posicion = i => Math.min(datos[i].offsetLeft - datos[0].offsetLeft, pista.scrollWidth - pista.clientWidth);
   const rotulo = i => porVez() === 1 ? `Dato ${i + 1} de ${datos.length}` : `Datos ${i + 1} a ${Math.min(i + porVez(), datos.length)} de ${datos.length}`;
@@ -12154,13 +12160,19 @@ if (document.querySelector(".destacado .c-rango")) { pintarRangos(); alCambiarPr
   }, {passive: true});
   // si cambia el ancho, sigue en los mismos datos, y el movimiento que eso provoca no cuenta como deslizar. Solo el ancho: el alto cambia con la barra de
   // direcciones del celular y no tiene que mover nada
-  let anchoPista = pista.clientWidth;
+  let anchoPista = pista.clientWidth, vez = porVez();
   const reubicar = () => {
     pista.scrollLeft = posicion(actual); reubicando++;
     requestAnimationFrame(() => requestAnimationFrame(() => { reubicando--; }));
   };
-  ancho.addEventListener("change", () => { armarPuntos(); marcar(Math.floor(actual / porVez()) * porVez(), false); reubicar(); });
-  new ResizeObserver(() => { if (moviendo || pista.clientWidth === anchoPista) return; anchoPista = pista.clientWidth; reubicar(); }).observe(pista);
+  // si cambian los datos que entran a la vista, cambian los redondeles y la tanda arranca en un múltiplo de los nuevos
+  new ResizeObserver(() => {
+    if (moviendo || pista.clientWidth === anchoPista) return;
+    anchoPista = pista.clientWidth;
+    const n = porVez();
+    if (n !== vez) { vez = n; armarPuntos(); marcar(Math.floor(actual / n) * n, false); }
+    reubicar();
+  }).observe(pista);
   armarPuntos();
   marcar(0, false);
 })();
