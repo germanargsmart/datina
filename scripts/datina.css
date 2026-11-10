@@ -614,8 +614,10 @@ html:not(.js) .dest-control{display:none}
 .dest-punto:focus-visible{outline:2px solid var(--celeste-fuerte);outline-offset:-2px}
 @media (hover:hover) and (pointer:fine){.dest-punto:not([aria-current="true"]):hover::before{background:var(--celeste)}}
 .dest-cuenta{display:none;font-size:var(--t-2);color:var(--muted);white-space:nowrap}
+/* las alturas reservadas, medidas el 10 de noviembre de 2026 en el ancho de los aparatos de cada tramo: 1280 a 1920, 1024, 950, 768 y 820, 744, 390 y 412, 360 */
+@media (max-width:1080px){.destacados-grid{min-height:273px}}
 @media (max-width:1000px){.destacados-grid{grid-auto-columns:calc((100% - 2 * var(--e-3)) / 3);column-gap:var(--e-3)}.destacado{padding:var(--e-3) var(--e-4) var(--e-4)}.destacados-grid{min-height:250px}}
-@media (max-width:900px){.destacados-grid{min-height:266px}}
+@media (max-width:900px){.destacados-grid{min-height:307px}}
 /* en el celular, de a uno, con el siguiente asomando, y los controles debajo: "1 de 9", porque nueve redondeles no entran */
 @media (max-width:760px){
   .destacados-grid{order:1;grid-auto-columns:84%;column-gap:var(--e-3);min-height:188px;margin-right:calc(-1 * var(--margen))}
