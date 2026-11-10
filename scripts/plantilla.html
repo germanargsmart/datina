@@ -115,7 +115,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
        destacados, temas, provincias, historias con datos y herramientas, en el orden de la barra. Lo escribe el constructor -->
   <section class="destacados ancho" aria-labelledby="dest-tit">
     <h2 class="bloque-tit" id="dest-tit">Datos destacados</h2>
-    <!-- nueve datos, de a tres (pedido del autor, 6 de noviembre de 2026; en el celular, de a uno): se pasan a mano, con los botones, las flechas del
+    <!-- doce datos, de a cuatro (pedido del autor, 6 y 10 de noviembre de 2026; hasta 1180 píxeles de a tres y en el celular de a uno): se pasan a mano, con los botones, las flechas del
          teclado o deslizando. Nunca pasan solos (el autor sacó el carrusel viejo, que rotaba, el 10 de octubre de 2026). Los controles los completa datina.js -->
     <div class="dest-carrusel" id="dest-carrusel" role="region" aria-roledescription="carrusel" aria-labelledby="dest-tit">
       <div class="dest-control">
@@ -142,14 +142,12 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 
   <section class="articulos-home ancho" aria-labelledby="arth-tit">
     <h2 class="bloque-tit" id="arth-tit">Historias con datos</h2>
-    <p class="bloque-sub">Artículos que cruzan datos oficiales para contestar una pregunta, y piezas visuales del Laboratorio. Las cifras se recalculan con cada actualización de los datos.</p>
     <div class="art-grid" id="art-grid-home"><!--HISTORIAS-HOME--></div>
     <p class="hist-mas"><a class="boton" href="articulos.html">Todos los artículos</a><a class="boton" href="laboratorio.html">Laboratorio</a><a class="boton" href="curiosidades.html">Curiosidades</a></p>
   </section>
 
   <section class="herramientas-home ancho" aria-labelledby="herr-titulo">
     <h2 class="bloque-tit" id="herr-titulo">Herramientas</h2>
-    <p class="bloque-sub">Para cruzar indicadores entre las 24 jurisdicciones y encontrar cualquier tabla con su fuente para bajarla. Las que sirven para un solo tema están en su página: el <a class="enlace" href="diagnostico.html">Diagnóstico educativo</a> en Educación y el <a class="enlace" href="pobreza/">consultor de pobreza</a> en Pobreza y hogares.</p>
     <div class="secciones-grid" id="herramientas-grid" aria-labelledby="herr-titulo"><!--HERRAMIENTAS-HOME--></div>
   </section>
 
@@ -3316,14 +3314,9 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
         <p class="susc-estado" id="susc-estado" role="status"></p>
       </form>
     </div>
+    <!-- sin "Los datos" (fecha de la actualización, catálogo y tabla completa) desde el 10 de noviembre de 2026, pedido del autor: el catálogo
+         está en Herramientas y la tabla completa en el catálogo -->
     <nav class="pie-mapa" aria-label="Mapa del sitio"><!--MAPA--></nav>
-    <div class="pie-datos">
-      <h2>Los datos</h2>
-      <p data-t="actualizado"></p>
-      <p>Se actualizan solos el día 5 de cada mes, con lo último que publicó cada fuente.</p>
-      <p><a class="enlace" href="catalogo.html">Catálogo de datos</a></p>
-      <p><a class="enlace" href="datos/tabla_larga.csv" download>Descargar la tabla completa (CSV)</a></p>
-    </div>
   </div>
 </footer>
 

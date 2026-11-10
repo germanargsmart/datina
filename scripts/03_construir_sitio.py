@@ -74,9 +74,6 @@ _ia = re.search(r"\n\n *<!--IA-->.*?<!--/IA-->", plantilla, re.S)
 assert _ia, "falta la sección de las consultas con IA (entre <!--IA--> y <!--/IA-->) en scripts/plantilla.html"
 plantilla = plantilla.replace(_ia.group(0), re.sub(r"<!--/?IA-->", "", _ia.group(0)) if CONSULTA_IA else "")
 if CONSULTA_IA:
-    _herr_sub = '<p class="bloque-sub">Para cruzar indicadores entre'
-    assert plantilla.count(_herr_sub) == 1, "cambió la bajada de Herramientas en la portada: revisar la de las consultas con IA"
-    plantilla = plantilla.replace(_herr_sub, '<p class="bloque-sub">Para hacerles preguntas a los datos, cruzar indicadores entre')
     if MOTOR_IA == "cloudflare":
         for _v, _n in [("No escribas datos personales: para contestarla, la pregunta se envía a Anthropic, la empresa que hace el modelo. Datina no la guarda.",
                         "No escribas datos personales. La pregunta la contesta un modelo abierto de inteligencia artificial que corre en Cloudflare, "
@@ -1148,20 +1145,24 @@ _temas_portada = "".join(f'<div class="tg-col">{_grupo_portada(*x)}</div>' for x
 _preg_js = js[js.index("const PREG = ["):js.index("\n];", js.index("const PREG = ["))]
 for _id, _q in EJEMPLOS:
     assert f'["{_q}"' in _preg_js and f'"#{_id}"' in _preg_js, f"la pregunta de ejemplo {_q} ya no está en PREG"
-# Datos destacados: nueve fijos, que se ven de a tres (pedido del autor del 6 de noviembre de 2026, que además pidió uno de la Antártida). Son los cuatro
-# que eligió el 23 de octubre de 2026 (esperanza de vida, salarios, homicidios y petróleo) y cinco más: cada tanda lleva tres grupos distintos. La cifra
-# es la cifra destacada de la ficha (CLAVE en datina.js), que se calcula en el navegador: el constructor escribe el grupo, la pregunta y el enlace, y
-# deja reservado el lugar de la cifra para que la portada no salte. Nunca una ficha de suicidio ni de muertes violentas
-DESTACADOS = [("personas", "f-nacimientos"), ("economia", "f-salarios"), ("territorio", "f-petroleo"),
-              ("personas", "f-esperanza"), ("economia", "f-inflacion"), ("estado", "f-homicidios"),
-              ("personas", "f-pobreza"), ("estado", "f-sin-condena"), ("territorio", "f-ant-bases")]
+# Datos destacados: fijos, que se pasan a mano (pedido del autor del 6 de noviembre de 2026, que además pidió uno de la Antártida). Son los cuatro que
+# eligió el 23 de octubre de 2026 (esperanza de vida, salarios, homicidios y petróleo) y cinco más, y desde el 10 de noviembre de 2026 (pedido del autor:
+# cuatro por vista y doce en total) la desocupación, los cargos de juez federal sin titular y la nafta. En la computadora se ven de a cuatro y cada tanda
+# lleva los cuatro grupos. La cifra es la cifra destacada de la ficha (CLAVE en datina.js), que se calcula en el navegador: el constructor escribe el
+# grupo, la pregunta y el enlace, y deja reservado el lugar de la cifra para que la portada no salte. Nunca una ficha de suicidio ni de muertes violentas
+DESTACADOS = [("personas", "f-nacimientos"), ("economia", "f-salarios"), ("estado", "f-homicidios"), ("territorio", "f-petroleo"),
+              ("personas", "f-esperanza"), ("economia", "f-inflacion"), ("estado", "f-sin-condena"), ("territorio", "f-ant-bases"),
+              ("personas", "f-pobreza"), ("economia", "f-desocupacion"), ("estado", "f-jueces-federales"), ("territorio", "f-combustibles")]
+assert len(DESTACADOS) % 4 == 0 and all(len({g for g, _ in DESTACADOS[i:i + 4]}) == 4 for i in range(0, len(DESTACADOS), 4)), \
+    "datos destacados: cada tanda de cuatro tiene que llevar los cuatro grupos"
 # la pregunta de cada dato destacado (D7 del plan del 26 de octubre de 2026): la cifra es la del país, así que la pregunta también. La de
 # la ficha pregunta por las provincias, que muestra su gráfico
 _PREG_DEST = {"f-esperanza": "¿Cuántos años se vive en la Argentina?", "f-salarios": "¿Cuánto se gana en un empleo privado registrado?",
               "f-homicidios": "¿Cuántas víctimas de homicidio hay en la Argentina?", "f-petroleo": "¿Cuánto petróleo produce el país?",
               "f-nacimientos": "¿Cuántos chicos nacen por año?", "f-inflacion": "¿Cuánto suben los precios?",
               "f-pobreza": "¿Cuántas personas viven bajo la línea de pobreza?", "f-sin-condena": "¿Qué parte de las personas presas no tiene condena?",
-              "f-ant-bases": "¿Cuántas bases tiene la Argentina en la Antártida?"}
+              "f-ant-bases": "¿Cuántas bases tiene la Argentina en la Antártida?", "f-desocupacion": "¿Cuánta gente busca trabajo y no consigue?",
+              "f-jueces-federales": "¿Qué parte de los cargos de juez federal no tiene titular?", "f-combustibles": "¿Cuánto cuesta la nafta?"}
 _clave_js = js[js.index("const CLAVE = {"):js.index("\n};", js.index("const CLAVE = {"))]
 _ficha = {f[0]: f for f in FICHAS}
 _nombre_grupo = {g: n for g, n, _ in GRUPOS}
@@ -1170,11 +1171,11 @@ for _g, _id in DESTACADOS:
     assert _id not in TEXTO_ANTES and _ficha[_id][2], f"{_id}: no puede ser un dato destacado o le falta la pregunta fija"
     assert GRUPO_DE[_ficha[_id][1]][0] == _g, f"{_id}: no es del grupo {_g}"
 _destacados = "".join(f'<a class="tarjeta destacado" href="{url_pagina(UBIC[i])}#{i}" data-clave="{i}"><span class="c-lab">{e(_nombre_grupo[g])}</span>'
-                      f'<span class="c-preg">{e(_PREG_DEST[i])}</span><span class="c-num"></span><span class="c-txt"></span><span class="c-rango"></span></a>'
+                      f'<span class="c-preg">{e(_PREG_DEST[i])}</span><span class="c-num"></span><span class="c-pie"><span class="c-txt"></span><span class="c-rango"></span></span></a>'
                       for g, i in DESTACADOS)
 # La página de datos destacados (segunda fase del brief de pulido, 6 de noviembre de 2026): la cifra destacada de cada ficha de los cuatro grupos de temas, en
 # el orden de GRUPOS y de la página de cada tema. Respuestas del autor de ese día: una sola columna, sin tarjetas, el grupo una vez como título y en cada dato
-# su tema, con la pregunta de su ficha. Los nueve de la portada llevan la misma pregunta que allá, para que un dato no tenga dos. Las fichas sin cifra
+# su tema, con la pregunta de su ficha. Los doce de la portada llevan la misma pregunta que allá, para que un dato no tenga dos. Las fichas sin cifra
 # destacada (SIN_CIFRA en prueba_cifras.mjs: temas sensibles, Instituciones políticas, encuestas) no están en CLAVE, y Curiosidades no es de ningún grupo. Como
 # en la portada, la cifra y su texto los escribe datina.js, y el enlace es la pregunta, para que el lector de pantalla no lea el dato entero
 _dd_clave = set(re.findall(r'"(f-[\w-]+)":', _clave_js))
@@ -1190,11 +1191,9 @@ _datos_destacados = ('<nav class="dd-indice" aria-label="Grupos de esta página"
                                          f'<h3 class="dd-preg"><a href="{url_pagina(UBIC[f[0]])}#{f[0]}">{e(_PREG_DEST.get(f[0], f[2]))}</a></h3>'
                                          '<span class="c-num"></span><span class="c-txt"></span></li>' for f in fs) + "</ul></div>" for g, n, fs in _dd_grupos))
 # Provincias: las 24 jurisdicciones con su bandera, cada una a su perfil. Es también la forma de llegar con el teclado a lo que muestra
-# el mapa de la portada, que el teclado saltea
-_n_temas_perfil = len(re.findall(r'\["(\w+)", "([^"]+)"\]', js[js.index("const PERFIL_GRUPOS = ["):js.index("];", js.index("const PERFIL_GRUPOS = ["))]))
-_provincias_home = (f'<p class="bloque-sub">El perfil de cada jurisdicción en {_n_temas_perfil} temas, con su historia. Los datos de cada departamento, partido '
-                    'o comuna están en <a class="enlace" href="departamentos.html">Departamentos</a>. Para ordenarlas según lo que más te importa, '
-                    'está <a class="enlace" href="indice.html">Ordenar las 24</a>.</p><ul class="prov-home">'
+# el mapa de la portada, que el teclado saltea. Sin bajada desde el 10 de noviembre de 2026 (pedido del autor, como Historias y Herramientas):
+# Departamentos y Ordenar las 24 están en el menú Provincias y en el pie
+_provincias_home = ('<ul class="prov-home">'
                     + "".join(f'<li><a href="{PAG_PROV[c]}.html"><img class="bandera" src="datos/banderas/{c}.png" alt="" width="24" height="16" '
                               f'loading="lazy" decoding="async">{e(NOMBRE_PROV[c])}</a></li>' for c in _PROVS) + "</ul>")
 # Historias con datos: los tres artículos los agrega datina.js (el de la relación más marcada primero, regla aprobada el 5 de octubre de

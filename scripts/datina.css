@@ -574,32 +574,37 @@ html:not(.js) .busca-portada{display:none}
   .js .portada.armando .provs a{pointer-events:none}
 }
 
-/* ---------- bloques de la portada: el mismo título, la misma bajada y la misma separación ---------- */
+/* ---------- bloques de la portada: el mismo título y la misma separación (sin bajadas desde el 10 de noviembre de 2026, pedido del autor) ---------- */
 .bloque-tit{margin:0 0 var(--e-2);font-size:var(--t-8);line-height:1;font-weight:500;letter-spacing:-.005em;color:var(--azul);font-variation-settings:"wdth" 55,"opsz" 144;font-family:var(--f-c55)}
-.bloque-sub{margin:0 0 var(--e-6);max-width:62ch;line-height:var(--i-chico);color:var(--muted);text-wrap:balance}
 /* entre los bloques de la portada, el espacio de bloque y no el de capítulo (respuesta del autor del 23 de octubre de 2026, para
    compactar la portada de la Fase 2: de 48 a 72 píxeles pasaron a ser de 24 a 40) */
 .secciones,.articulos-home,.herramientas-home,.destacados,.provincias-home{padding-top:var(--bloque)}
-/* Datos destacados de la portada (pedido del autor, 6 de noviembre de 2026): nueve datos, de a tres, en tarjetas de fondo gris suave, sin borde ni sombra.
-   Un dato solo, a todo el ancho, quedaba desproporcionado. Una sola familia y cuatro tamaños: la etiqueta (13), el texto (15), la pregunta (18 a 20) y la
-   cifra, del tamaño del título del bloque (28 a 36). La cifra va en ancho normal y sola en su línea: en la condensada, "928 mil" se leía "1928 y". Los nueve
-   comparten las filas de la grilla (subgrid): las cifras quedan a la misma altura y al pasar de tres en tres nada salta. La cifra y su texto llegan con
+/* Datos destacados de la portada (pedido del autor, 6 de noviembre de 2026): datos fijos en tarjetas de fondo gris suave, sin borde ni sombra. Desde el 10 de
+   noviembre de 2026 (pedido del autor) son doce, de a cuatro en la computadora, de a tres hasta 1180 píxeles (más angostas, de a cuatro crecían de alto) y de a uno en el celular.
+   Un dato solo, a todo el ancho, quedaba desproporcionado. Una sola familia y cuatro tamaños, contando el título del bloque. Desde el 10 de noviembre de 2026
+   (pedido del autor: "están todas demasiado gigantes") la etiqueta, el texto y el rango van en 13, como en "En cifras", la pregunta en 16 a 17 y la cifra
+   en 22 a 28, un tamaño menos que el título (28 a 36), con menos relleno. La cifra va en ancho normal y sola en su línea: en la condensada, "928 mil" se leía "1928 y". Los doce
+   comparten las filas de la grilla (subgrid): las cifras quedan a la misma altura y al pasar de tanda nada salta. El texto y el rango van juntos en la
+   última fila (.c-pie), así un texto largo en un dato no deja un hueco entre el texto y el rango de los otros. La cifra y su texto llegan con
    datina.js: se reserva el alto medido en cada ancho, para que la portada casi no salte cuando llegan */
 .destacados{position:relative}
 .dest-carrusel{display:flex;flex-direction:column}
-.destacados-grid{display:grid;grid-auto-flow:column;grid-auto-columns:calc((100% - 2 * var(--e-4)) / 3);grid-template-rows:repeat(5,auto);column-gap:var(--e-4);min-height:295px;margin-top:var(--e-3);
+.destacados-grid{display:grid;grid-auto-flow:column;grid-auto-columns:calc((100% - 3 * var(--e-4)) / 4);grid-template-rows:repeat(4,auto);column-gap:var(--e-4);min-height:295px;margin-top:var(--e-3);
   overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;overscroll-behavior-x:contain}
 .destacados-grid::-webkit-scrollbar{display:none}
-.destacado{grid-row:span 5;display:grid;grid-template-rows:subgrid;gap:0;padding:var(--e-4) var(--e-6) var(--e-6)}
-.destacado:nth-child(3n+1){scroll-snap-align:start}
+.destacado{grid-row:span 4;display:grid;grid-template-rows:subgrid;gap:0;padding:var(--e-4)}
+.destacado:nth-child(4n+1){scroll-snap-align:start}
 .destacado:focus-visible{outline:2px solid var(--celeste-fuerte);outline-offset:-2px}
 .destacado .c-lab{padding-bottom:var(--e-2);border-bottom:2px solid var(--celeste);font-family:var(--f);font-size:var(--t-2);line-height:1.3;font-weight:500;letter-spacing:0;text-transform:none;color:var(--ink)}
-.destacado .c-preg{margin:var(--e-3) 0 var(--e-2);font-size:var(--t-5);line-height:1.25;font-weight:500;color:var(--ink);text-wrap:balance}
+.destacado .c-preg{margin:var(--e-3) 0 var(--e-2);font-size:var(--t-4);line-height:1.3;font-weight:500;color:var(--ink);text-wrap:balance}
 .destacado .c-num,.dd-dato .c-num{min-height:1em;font-family:var(--f);font-size:var(--t-8);line-height:1.1;font-weight:600;color:var(--azul);font-variation-settings:normal}
 .destacado .c-txt,.dd-dato .c-txt{margin-top:var(--e-1);font-size:var(--t-3);line-height:1.4;color:var(--ink)}
+.destacado .c-num{font-size:var(--t-7)}
+.destacado .c-txt{font-size:var(--t-2)}
 /* D7 (plan de mejora, 28 de octubre de 2026, aprobado por el autor): la cifra es la del país y debajo va cómo cambia entre las provincias, de la más baja a
    la más alta, o el dato que mejor la acompaña */
-.destacado .c-rango{margin-top:var(--e-2);font-size:var(--t-3);line-height:1.4;color:var(--muted)}
+.destacado .c-pie{display:flex;flex-direction:column}
+.destacado .c-rango{margin-top:var(--e-2);font-size:var(--t-2);line-height:1.4;color:var(--muted)}
 /* los controles: los botones de siempre, en la letra de la etiqueta para no sumar un tamaño al bloque, y redondeles. En la computadora, en la fila del título.
    Sin JavaScript no se ven */
 .dest-control{position:absolute;top:var(--bloque);right:0;display:flex;align-items:center;gap:var(--e-2)}
@@ -612,22 +617,26 @@ html:not(.js) .dest-control{display:none}
 .dest-punto:focus-visible{outline:2px solid var(--celeste-fuerte);outline-offset:-2px}
 @media (hover:hover) and (pointer:fine){.dest-punto:not([aria-current="true"]):hover::before{background:var(--celeste)}}
 .dest-cuenta{display:none;font-size:var(--t-2);color:var(--muted);white-space:nowrap}
-@media (max-width:1000px){.destacados-grid{grid-auto-columns:calc((100% - 2 * var(--e-3)) / 3);column-gap:var(--e-3)}.destacado{padding:var(--e-3) var(--e-4) var(--e-4)}}
-@media (max-width:900px){.destacados-grid{min-height:337px}}
-/* en el celular, de a uno, con el siguiente asomando, y los controles debajo: "1 de 9", porque nueve redondeles no entran */
+/* las alturas reservadas, medidas el 10 de noviembre de 2026 con los doce datos, en el ancho de los aparatos de cada tramo: 1280 a 1920, 1180, 1024, 950,
+   768 y 820, 744, 390 y 412, 360 */
+@media (max-width:1180px){.destacados-grid{grid-auto-columns:calc((100% - 2 * var(--e-4)) / 3);min-height:273px}.destacado:nth-child(4n+1){scroll-snap-align:none}.destacado:nth-child(3n+1){scroll-snap-align:start}}
+@media (max-width:1080px){.destacados-grid{min-height:273px}}
+@media (max-width:1000px){.destacados-grid{grid-auto-columns:calc((100% - 2 * var(--e-3)) / 3);column-gap:var(--e-3)}.destacado{padding:var(--e-3) var(--e-4) var(--e-4)}.destacados-grid{min-height:267px}}
+@media (max-width:900px){.destacados-grid{min-height:325px}}
+/* en el celular, de a uno, con el siguiente asomando, y los controles debajo: "1 de 12", porque doce redondeles no entran */
 @media (max-width:760px){
-  .destacados-grid{order:1;grid-auto-columns:84%;column-gap:var(--e-3);min-height:226px;margin-right:calc(-1 * var(--margen))}
-  .destacado,.destacado:nth-child(3n+1){scroll-snap-align:start}
+  .destacados-grid{order:1;grid-auto-columns:84%;column-gap:var(--e-3);min-height:188px;margin-right:calc(-1 * var(--margen))}
+  .destacado:nth-child(n){scroll-snap-align:start}
   .dest-control{position:static;order:2;justify-content:space-between;margin-top:var(--e-3);padding-top:var(--e-3);border-top:1px solid var(--borde)}
   .dest-puntos{display:none}
   .dest-cuenta{display:block}
   .dest-control .boton.chico{padding:var(--e-1) var(--e-3)}
 }
-@media (max-width:430px){.destacados-grid{min-height:291px}}
-@media (max-width:360px){.destacados-grid{min-height:312px}}
+@media (max-width:430px){.destacados-grid{min-height:264px}}
+@media (max-width:360px){.destacados-grid{min-height:264px}}
 @media print{.destacados-grid{display:block;overflow:visible;min-height:0}.dest-control{display:none}.destacado{display:block;break-inside:avoid;margin-bottom:var(--e-4)}}
-/* el enlace a la página de datos destacados, con la letra del texto para no sumar un tamaño al bloque */
-.dest-todos{margin:var(--e-3) 0 0;font-size:var(--t-3);line-height:1.4}
+/* el enlace a la página de datos destacados, con la letra de las tarjetas para no sumar un tamaño al bloque */
+.dest-todos{margin:var(--e-3) 0 0;font-size:var(--t-2);line-height:1.4}
 /* La página de datos destacados (segunda fase del brief de pulido, 6 de noviembre de 2026). Respuestas del autor: una sola columna, sin tarjetas, y el grupo una vez
    como título, con la línea celeste. Una familia y cuatro tamaños: el tema (13), el texto (15), la pregunta (20 a 24), y la cifra y el grupo (28 a 36). La pregunta es
    el enlace y cubre el dato entero, como en "Explorá la Argentina por tema". La línea que separa los datos llega al ancho del contenido, y el texto corta antes para
@@ -1165,7 +1174,7 @@ html.insertar .ins-ficha{margin:0}
    para todos", y la opción A que eligió): Roboto Flex más grande (20 píxeles, 18 en el celular) y más liviana (340), con el tamaño óptico
    de 28 y un gris más oscuro que el de los textos secundarios. En las páginas donde la pregunta todavía es el subtítulo (las herramientas,
    el Laboratorio y Artículos) la pregunta toma la misma letra, un tamaño más grande */
-.tema-intro p:not(.pregunta),.prov-sub,.nos-bajada,.bloque-sub,.nota .nota-bajada{font-family:var(--f-bajada);font-size:var(--t-5);line-height:1.5;
+.tema-intro p:not(.pregunta),.prov-sub,.nos-bajada,.nota .nota-bajada{font-family:var(--f-bajada);font-size:var(--t-5);line-height:1.5;
   font-weight:340;font-variation-settings:"opsz" 28;letter-spacing:-.003em;color:var(--tinta-bajada)}
 .tema:not(.con-pregunta) .tema-intro .pregunta,.laboratorio .tema-intro .pregunta{font-family:var(--f-bajada);font-weight:340;font-variation-settings:"opsz" 28;letter-spacing:-.003em;color:var(--ink)}
 /* en la portada, sobre el azul, la misma letra con su tamaño y su blanco */
@@ -1979,25 +1988,28 @@ svg.mapa-prov .caba-aparte line{stroke:var(--muted);stroke-width:.8}
 }
 
 /* ---------- pie de página: a todo el ancho, alineado con la barra ---------- */
-.pie-sitio{margin-top:var(--ritmo);padding:var(--e-8) 0 var(--e-8);background:#fff;border-top:3px solid var(--azul);font-size:var(--t-3);line-height:1.5;color:var(--muted)}
-.pie-sitio .envoltura{max-width:var(--ancho-max);display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);grid-template-areas:"marca datos" "mapa mapa";gap:var(--e-8)}
-.pie-marca{grid-area:marca}.pie-mapa{grid-area:mapa}.pie-datos{grid-area:datos}
-.pie-sitio .marca{display:inline-block;padding-top:var(--e-3);font-size:46px;line-height:1;font-weight:500;letter-spacing:.01em;text-transform:uppercase;
+/* el pie (10 de noviembre de 2026, pedido del autor: "queda gigante todo"): menos relleno y renglones más juntos, y desde 1080 píxeles la marca a la
+   izquierda y el mapa del sitio a la derecha, en cuatro columnas. Si vuelve la suscripción (los formularios), la marca va arriba, como antes, para que
+   entre el campo */
+.pie-sitio{margin-top:var(--ritmo);padding:var(--e-7) 0;background:#fff;border-top:3px solid var(--azul);font-size:var(--t-3);line-height:1.5;color:var(--muted)}
+.pie-sitio .envoltura{max-width:var(--ancho-max);display:grid;grid-template-columns:minmax(0,1fr);grid-template-areas:"marca" "mapa";gap:var(--e-6)}
+@media (min-width:1081px){.pie-sitio .envoltura:not(:has(.form-suscripcion)){grid-template-columns:minmax(0,11rem) minmax(0,1fr);grid-template-areas:"marca mapa";gap:var(--e-8)}}
+.pie-marca{grid-area:marca}.pie-mapa{grid-area:mapa}
+.pie-sitio .marca{display:inline-block;font-size:40px;line-height:1;font-weight:500;letter-spacing:.01em;text-transform:uppercase;
   color:var(--azul);text-decoration:none;font-variation-settings:"wdth" 25,"opsz" 144}
 .pie-lema,.pie-sitio h2{margin:var(--e-2) 0 var(--e-3);font:500 var(--t-1)/1.4 var(--mono);letter-spacing:.07em;text-transform:uppercase;color:var(--ink)}
 /* más aire entre la marca, el lema y el texto (octubre de 2026) */
-.pie-marca .pie-lema{margin:var(--e-4) 0 var(--e-6)}
+.pie-marca .pie-lema{margin:var(--e-3) 0 0}
 .pie-marca p:last-child{line-height:1.6}
 .pie-sitio h2{margin-top:0}
 .pie-sitio p{max-width:30em;margin:0 0 var(--e-3)}
-.pie-mapa{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:var(--e-6)}
-.pie-sitio ul{margin:0 0 var(--e-6);padding:0;list-style:none}
-.pie-sitio li{margin:0 0 var(--e-2);break-inside:avoid}
+.pie-mapa{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--e-6)}
+.pie-sitio ul{margin:0;padding:0;list-style:none}
+.pie-sitio li{margin:0 0 var(--e-1);break-inside:avoid}
 .pie-mapa a{color:var(--azul);text-decoration:none}
 .pie-mapa a[aria-current="true"]{color:var(--ink);font-weight:600}
 @media (hover:hover) and (pointer:fine){.pie-mapa a:hover{text-decoration:underline}}
-@media (max-width:1080px){.pie-mapa{grid-template-columns:repeat(3,minmax(0,1fr))}}
-@media (max-width:760px){.pie-sitio .envoltura{grid-template-columns:1fr;grid-template-areas:"marca" "mapa" "datos";gap:var(--e-7)}.pie-mapa{grid-template-columns:1fr 1fr}}
+@media (max-width:760px){.pie-mapa{grid-template-columns:1fr 1fr}}
 
 /* ---------- consultas con IA (25 de octubre de 2026, docs/ia/CONSULTAS.md): la página existe solo con "consulta_ia" en
    datos/manual/sitio.json. El formulario es el de Contacto y la respuesta va en una tarjeta como las fichas. El aviso de lo que está leyendo
