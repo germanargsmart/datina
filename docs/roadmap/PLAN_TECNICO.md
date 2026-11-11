@@ -131,6 +131,8 @@ Lo que explica los números (de los informes de Lighthouse de la portada y de Ne
 
 ### Fase 1. `llms.txt` y datos estructurados
 
+**Hecha el 11 de noviembre de 2026** (rama `claude/fase1-llms`): `sitio/llms.txt` (unos 127 KB: primero cómo bajar los datos, después cada página con su pregunta, igual que el sitemap, y al final las 261 tablas), un `Dataset` por tabla en la página de su ficha (261: quedan afuera `muertes_violentas` y las tres de COMNAP, cuya licencia no es la de Datina), `lastmod` con la fecha de los datos y los controles en `prueba_metadatos.py`. La regla de lo sensible quedó en una sola función, `tabla_sensible()`, que usan también las Consultas con IA. Las descripciones de muchas páginas son genéricas ("Cada dato con su fuente, su período y su tabla para descargar"): mejorarlas es la cuestión Catálogo 1 de `PENDIENTES.md`.
+
 - `sitio/llms.txt`, armado por 03 desde `GRUPOS`, `MENUS` y el catálogo: qué es Datina, las secciones con su pregunta, cómo descargar los datos, la licencia (CC BY 4.0) y, cuando exista, cómo conectar el MCP.
 - `Dataset` de schema.org para cada tabla del catálogo (en `catalogo.html` o en la página de su ficha), con su `DataDownload`, fuente, período, cobertura y licencia, para Google Dataset Search.
 - `lastmod` en `sitemap.xml`, con la fecha de la última actualización de los datos (no la del día del armado, para que armar otro día dé los mismos archivos).
