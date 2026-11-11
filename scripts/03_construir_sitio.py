@@ -10,7 +10,7 @@ Tambien copia la tabla larga al sitio para que se pueda descargar.
 El sitio de consultas de pobreza ya construido (pobreza/dist) se copia a sitio/pobreza/ solo con --con-pobreza (pobreza/README.md).
 Uso: python scripts/03_construir_sitio.py [--con-pobreza]
 """
-import csv, datetime, hashlib, html, json, math, pathlib, re, shutil, sys
+import collections, csv, datetime, hashlib, html, json, math, pathlib, re, shutil, sys
 from decimal import Decimal, ROUND_HALF_UP
 
 RAIZ = pathlib.Path(__file__).resolve().parents[1]
@@ -788,6 +788,15 @@ def direccion_ficha(r, tabla):
     return (f"{p}.html" if p != "inicio" else "./") + (f"#{r[1:]}" if r.startswith("#") and r[1:] != p else "")
 
 
+# Las tablas sensibles (decisión 5 del autor del 11 de noviembre de 2026, docs/roadmap/PLAN_TECNICO.md): las que hablan de suicidio, también
+# la de muertes violentas, que los cuenta junto con los homicidios (CLAUDE.md, "Temas sensibles"). Quedan fuera del índice de Consultas con
+# IA, de los Dataset de schema.org y de llms.txt: una sola regla para todo lo público
+def tabla_sensible(t):
+    return re.search(r"suicid|autoinflig|autolesi", f'{t["tabla"]} {t["titulo"]} {t["descripcion"]}', re.I) is not None
+
+
+# las listas de COMNAP no tienen la licencia de Datina (ver los metadatos de abajo)
+TABLAS_COMNAP = {"antartida_instalaciones", "antartida_paises", "antartida_bases"}
 # Metadatos de cada tabla (plan de mejora, F3, 28 de octubre de 2026): junto a cada CSV del Catálogo, un .metadata.json con lo mismo que
 # muestra el Catálogo (fuente, cobertura, período, actualización, columnas, unidades y cómo se calcula), la dirección de su ficha y la
 # licencia, para quien baja los datos sin pasar por el sitio. El de una tabla que ya no está se borra
@@ -807,7 +816,7 @@ for _t in _meta_tablas:
           "como_citar": f"Datina (año de la consulta). {_t['titulo']}{'' if _t['titulo'].endswith(('?', '.')) else '.'} Con datos de "
                         f"{_t['fuente'].rstrip('.')}. {_URL_SITIO}/{'' if _d == './' else _d}. Consultado el día de la consulta."}
     # las listas de COMNAP se pueden usar solo con fines educativos y sin fines comerciales: esa condición gana sobre la licencia general
-    if _t["tabla"] in {"antartida_instalaciones", "antartida_paises", "antartida_bases"}:
+    if _t["tabla"] in TABLAS_COMNAP:
         _m["licencia"] = ("Los datos de las instalaciones son de COMNAP y se pueden usar con fines educativos y sin fines comerciales, citando a COMNAP. "
                           "Lo que suma Datina tiene licencia Creative Commons Atribución 4.0")
         _m["licencia_datos_de_base"] = "https://www.comnap.aq/antarctic-facilities-information"
@@ -816,13 +825,23 @@ for _t in _meta_tablas:
 for _f in (SITIO / "datos").glob("*.metadata.json"):
     if _f.name not in _META_HECHOS:
         _f.unlink()
+# Dataset de schema.org (plan técnico, fase 1, 11 de noviembre de 2026): cada tabla del Catálogo, en la página de su ficha, para Google Dataset
+# Search. Sin las sensibles ni las de COMNAP, cuya licencia no es la de Datina. Los escribe metadatos(), que sabe la dirección definitiva
+DATASETS_DE = {}
+for _t in _meta_tablas:
+    if tabla_sensible(_t) or _t["tabla"] in TABLAS_COMNAP:
+        continue
+    _pag, _, _ancla = direccion_ficha(_t["ref"], _t["tabla"]).partition("#")
+    DATASETS_DE.setdefault("inicio" if _pag in ("./", "") else _pag.removesuffix(".html"), []).append((_t, _ancla))
+# varias tablas comparten la pregunta de su ficha: el nombre del Dataset suma entonces el del archivo, para que ninguno se repita
+_NOMBRES_DS = collections.Counter(t["titulo"] for _l in DATASETS_DE.values() for t, _ in _l)
 # Consultas con IA: el índice que lee la función functions/api/consulta.js (las mismas tablas que el Catálogo, sin las de suicidio) y el
 # código de la página. Sin "consulta_ia", la función contesta que no están activadas porque no encuentra el índice
 _IA_INDICE, _IA_JS = SITIO / "datos" / "consulta_ia.json", SITIO / "consulta-ia.js"
 if CONSULTA_IA:
     # sin las tablas que hablan de suicidio, tampoco la de muertes violentas, que los cuenta junto con los homicidios (CLAUDE.md, "Temas
     # sensibles"). La función saca además, de cualquier tabla, las columnas y las filas sobre suicidio
-    _indice_ia = [t for t in _indice_ia if not re.search(r"suicid|autoinflig|autolesi", f'{t["tabla"]} {t["titulo"]} {t["descripcion"]}', re.I)]
+    _indice_ia = [t for t in _indice_ia if not tabla_sensible(t)]
     for _t in _indice_ia:
         _t["url"] = direccion_ficha(_t.pop("ref"), _t["tabla"])
     _IA_INDICE.write_text(json.dumps({"actualizado": RESUMEN["actualizado"], "motor": MOTOR_IA, "tablas": _indice_ia}, ensure_ascii=False, separators=(",", ":")),
@@ -1365,6 +1384,41 @@ def _og_dato(id_):
         return None, None
 
 
+_MESES_ISO = {m: i for i, m in enumerate(["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre",
+                                          "noviembre", "diciembre"], 1)}
+
+
+def periodo_iso(p):
+    """El período del Catálogo en ISO 8601, para temporalCoverage: "2012 a 2024" -> "2012/2024", "enero de 2020 a agosto de 2026" ->
+    "2020-01/2026-08". Lo que no se entiende queda afuera (None)."""
+    def uno(x):
+        x = x.strip()
+        if re.fullmatch(r"\d{4}", x):
+            return x
+        m = re.fullmatch(r"(?:\d{1,2} de )?([a-z]+) de (\d{4})", x)
+        return f"{m.group(2)}-{_MESES_ISO[m.group(1)]:02d}" if m and m.group(1) in _MESES_ISO else None
+    partes = [uno(x) for x in p.split(" a ")] if p else []
+    return "/".join(partes) if 1 <= len(partes) <= 2 and all(partes) else None
+
+
+def dataset_ld(t, ancla, archivo):
+    """El Dataset de una tabla del Catálogo: qué mide, de dónde sale, el período, la licencia y el CSV para descargar."""
+    partes = [t["titulo"], t["descripcion"], f'Fuente: {t["fuente"]}', f'Cobertura: {t["cobertura"]}', f'Período: {t["periodo"]}' if t["periodo"] else "",
+              t["actualizacion"]]
+    partes = [x.strip().rstrip(",:") for x in partes if x and x.strip()]
+    ds = {"@type": "Dataset", "name": t["titulo"] if _NOMBRES_DS[t["titulo"]] == 1 else f'{t["titulo"]} ({t["tabla"]}.csv)',
+          "description": " ".join(x if x.endswith((".", "?")) else x + "." for x in partes),
+          "url": f"{URL_SITIO}/{archivo}" + (f"#{ancla}" if ancla else ""), "inLanguage": "es-AR", "isAccessibleForFree": True,
+          "license": "https://creativecommons.org/licenses/by/4.0/", "creator": {"@type": "Organization", "name": "Datina", "url": f"{URL_SITIO}/"},
+          # el crédito, solo con el organismo: la fuente del Catálogo suma a veces cada cuánto se actualiza y si el dato está atrasado
+          "creditText": "Datina, con datos de " + re.split(r"\. (?=Se actualiza|El último dato|Último dato)", t["fuente"].strip())[0].rstrip("."),
+          "spatialCoverage": "Argentina", "keywords": [t["seccion"]],
+          "distribution": [{"@type": "DataDownload", "encodingFormat": "text/csv", "contentUrl": f'{URL_SITIO}/datos/{t["tabla"]}.csv'}]}
+    if periodo_iso(t["periodo"]):
+        ds["temporalCoverage"] = periodo_iso(t["periodo"])
+    return ds
+
+
 def metadatos(id_, titulo_social, descripcion, tipo):
     # Cloudflare Pages sirve cada página sin el .html (trabajo.html redirige a /trabajo, docs/deploy/CLOUDFLARE.md): las direcciones
     # absolutas (canonical, og:url, JSON-LD y sitemap.xml) van sin él, así los buscadores no pasan por la redirección
@@ -1387,6 +1441,10 @@ def metadatos(id_, titulo_social, descripcion, tipo):
         if URL_SITIO:
             ld["url"] = ld["mainEntityOfPage"] = f"{URL_SITIO}/{archivo}"
         m.append('<script type="application/ld+json">' + json.dumps(ld, ensure_ascii=False).replace("</", "<\\/") + "</script>")
+    # las tablas de las fichas de esta página (fase 1 del plan técnico). Las 24 páginas fijas de las provincias lo sacan: van solo en provincia.html
+    if URL_SITIO and id_ in DATASETS_DE:
+        ld = {"@context": "https://schema.org", "@graph": [dataset_ld(t, a, archivo) for t, a in DATASETS_DE[id_]]}
+        m.append('<script type="application/ld+json" id="ld-tablas">' + json.dumps(ld, ensure_ascii=False).replace("</", "<\\/") + "</script>")
     if id_ == "inicio" and URL_SITIO:
         ld = {"@context": "https://schema.org", "@type": "Dataset", "name": "Datina: tabla completa de indicadores por jurisdicción",
               "description": "Todos los indicadores de Datina en una sola tabla: una fila por jurisdicción, período e indicador, con su unidad y su fuente.",
@@ -1447,6 +1505,7 @@ for _c, _a in PAG_PROV.items():
                                   "que más se le parecen.")
     _h = _h_prov.replace('<body data-pagina="provincia"', f'<body data-pagina="provincia" data-prov="{_c}"', 1)
     _h = re.sub(r"<title>[^<]*</title>", f"<title>{e(_t)} | Datina</title>", _h, count=1)
+    _h = re.sub(r'\n<script type="application/ld\+json" id="ld-tablas">.*?</script>', "", _h, count=1, flags=re.S)
     for _q, _v in [('name="description"', _d), ('property="og:description"', _d), ('name="twitter:description"', _d), ('property="og:title"', _t), ('name="twitter:title"', _t),
                    ('property="og:image:alt"', _t)]:
         _h, _cu = re.subn(rf'(<meta {_q} content=")[^"]*"', lambda m: m.group(1) + e(_v) + '"', _h, count=1)

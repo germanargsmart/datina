@@ -27,10 +27,31 @@ SITIO = RAIZ / "sitio"
 OG = ("og:title", "og:description", "og:type", "og:site_name", "og:locale")
 
 
+def _nodos(x):
+    """Todos los objetos de un JSON-LD, también los de un @graph o los anidados."""
+    if isinstance(x, dict):
+        yield x
+        for v in x.values():
+            yield from _nodos(v)
+    elif isinstance(x, list):
+        for v in x:
+            yield from _nodos(v)
+
+
+def _sin_licencia(x):
+    """El JSON-LD sin las licencias: la de Creative Commons va afuera del sitio a propósito."""
+    if isinstance(x, dict):
+        return {k: _sin_licencia(v) for k, v in x.items() if k != "license"}
+    if isinstance(x, list):
+        return [_sin_licencia(v) for v in x]
+    return x
+
+
 def revisar(url_sitio=None):
     if url_sitio is None:
         url_sitio = json.loads((RAIZ / "datos" / "manual" / "sitio.json").read_text(encoding="utf-8"))["url"].strip().rstrip("/")
     problemas = []
+    datasets = []
     paginas = sorted(SITIO.glob("*.html"))
     textos = {p.name: p.read_text(encoding="utf-8") for p in paginas}
     titulos = Counter(re.search(r"<title>(.*?)</title>", h, re.S).group(1) if "<title>" in h else None for h in textos.values())
@@ -74,14 +95,15 @@ def revisar(url_sitio=None):
         for donde, u in re.findall(r'(rel="canonical" href|property="og:url" content)="([^"]+)"', h):
             if u.startswith("http") and (not url_sitio or not u.startswith(url_sitio + "/")):
                 problemas.append(f"{nombre}: {donde.split('=')[0]} apunta a {u}, que no es la dirección definitiva")
-        for bloque in re.findall(r'<script type="application/ld\+json">(.*?)</script>', h, re.S):
+        for bloque in re.findall(r'<script type="application/ld\+json"[^>]*>(.*?)</script>', h, re.S):
             try:
                 ld = json.loads(bloque)
             except ValueError:
                 problemas.append(f"{nombre}: JSON-LD que no se puede leer")
                 continue
-            # la licencia del Dataset de la portada es la página de Creative Commons: va afuera a propósito
-            for u in re.findall(r'"(https?://[^"]+)"', json.dumps({k: v for k, v in ld.items() if k != "license"})):
+            datasets += [(nombre, n) for n in _nodos(ld) if n.get("@type") == "Dataset"]
+            # la licencia de los Dataset es la página de Creative Commons: va afuera a propósito
+            for u in re.findall(r'"(https?://[^"]+)"', json.dumps(_sin_licencia(ld))):
                 if not u.startswith("https://schema.org") and (not url_sitio or not u.startswith(url_sitio + "/")):
                     problemas.append(f"{nombre}: el JSON-LD apunta a {u}")
         if nombre.startswith("a-") and '"@type": "Article"' not in h:
@@ -108,6 +130,33 @@ def revisar(url_sitio=None):
             problemas.append(f"falta {f} con la dirección definitiva")
         if not url_sitio and existe:
             problemas.append(f"{f} existe sin dirección definitiva en datos/manual/sitio.json")
+    # Dataset de cada tabla del Catálogo (plan técnico, fase 1, 11 de noviembre de 2026): uno solo en todo el sitio, con su CSV, salvo las
+    # tablas sensibles (decisión 5 del autor) y las de COMNAP, cuya licencia no es la de Datina, que no llevan. La regla de lo sensible se
+    # escribe acá otra vez a propósito: la prueba no usa la de 03
+    if url_sitio:
+        sens = re.compile(r"suicid|autoinflig|autolesi|muertes_violentas", re.I)
+        por_csv = Counter()
+        for pag, ds in datasets:
+            if sens.search(json.dumps(ds, ensure_ascii=False)):
+                problemas.append(f"{pag}: el Dataset «{ds.get('name')}» es de un tema sensible")
+            if len(ds.get("description", "")) < 50:
+                problemas.append(f"{pag}: el Dataset «{ds.get('name')}» tiene una descripción de menos de 50 caracteres")
+            for dist in ds.get("distribution", []):
+                arch = dist.get("contentUrl", "").removeprefix(url_sitio + "/")
+                por_csv[arch] += 1
+                if not (SITIO / arch).exists():
+                    problemas.append(f"{pag}: el Dataset «{ds.get('name')}» apunta a {arch}, que no existe")
+        for n, k in Counter(ds.get("name") for _, ds in datasets).items():
+            if k > 1:
+                problemas.append(f"el nombre de Dataset «{n}» se repite {k} veces")
+        for p in sorted((SITIO / "datos").glob("*.metadata.json")):
+            md = json.loads(p.read_text(encoding="utf-8"))
+            no_va = sens.search(f'{md["tabla"]} {md["titulo"]} {md["descripcion"]}') or "COMNAP" in md["licencia"]
+            k = por_csv["datos/" + md["tabla"]]
+            if no_va and k:
+                problemas.append(f"{md['tabla']}: no tiene que tener Dataset (tema sensible o licencia de COMNAP)")
+            elif not no_va and k != 1:
+                problemas.append(f"{md['tabla']}: tiene {k} Dataset en el sitio y tiene que tener uno")
     # lastmod (plan técnico, fase 1, 11 de noviembre de 2026): cada dirección del sitemap lleva la fecha de la última actualización de los
     # datos, la misma que dicen los metadatos de las tablas (no la del día del armado)
     if url_sitio and (SITIO / "sitemap.xml").exists():
