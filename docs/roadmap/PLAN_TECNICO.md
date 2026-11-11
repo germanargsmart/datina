@@ -175,11 +175,12 @@ Inventario del 11 de noviembre de 2026 sobre `docs/roadmap/` y `docs/redaccion/`
 
 Orden: un solo PR abierto a la vez, como siempre. Entre una fase técnica y la siguiente entra a lo sumo un PR de esta lista. Las tareas con fecha (abajo) van cuando llega su fecha, sin esperar a las fases.
 
-### Ordenar la lista (va con la fase 0, solo documentación)
+### Ordenar la lista (hecho en la fase 0, 11 de noviembre de 2026)
 
-- `docs/redaccion/PENDIENTES.md` dice 193 cuestiones, pero no se actualizó después del 27 de octubre de 2026 y los PR #15 a #48 resolvieron muchas. Revisarla ítem por ítem y dejar el número real. (C)
-- ESTADO dice que siguen abiertas "cinco decisiones del autor" de la reescritura. Según el inventario quedan dos, suicidio y Contacto (abajo): confirmarlo y corregir ESTADO. (C)
-- Confirmar cada ítem **[revisar]** de esta sección. (C)
+- `docs/redaccion/PENDIENTES.md`: cada cuestión lleva su estado y su evidencia. De 198 (decía 193, pero las secciones suman 198) quedan 126 abiertas: 84 siguen igual, 27 cambiaron en parte y 15 esperan una decisión del autor. Se resolvieron 72.
+- Las decisiones del resumen de la reescritura eran seis, no cinco. Quedan abiertas dos, suicidio y Contacto (abajo). ESTADO corregido.
+- Los ítems **[revisar]** se confirmaron contra el código y quedan abajo sin la marca.
+- Lo que conviene hacer primero de las 126, porque no cambia el diseño ni espera al autor: los nombres de organismos que todavía no coinciden entre pies, notas, explicadores y `relaciones.json` (turismo, Capital Humano, costos educativos, DEIS) y las descripciones sin período (f-especies, f-glaciares, rotación). (C)
 
 ### Escuelas y hospitales (fase 3 de `ESTABLECIMIENTOS.md`)
 
@@ -203,9 +204,12 @@ Orden: un solo PR abierto a la vez, como siempre. Entre una fase técnica y la s
 - El bloque de la deuda provincial en "Para entender los datos" de Cuentas públicas. (C)
 - Completar las leyes sin verificar de `cortes_provinciales.csv`. (C)
 - Zonas protegidas de la Antártida en el mapa (`apa_shape_2024.zip`) y el enlace desde Tierra del Fuego al capítulo. (C)
-- **[revisar]** E15 (una sola regla de bloques en f-legisladores), R8 (exportaciones por habitante en Trabajo y balanza energética repetida), el pie del perfil provincial con CSV, imagen y cómo citar, y las pruebas T2, T11 y T14 de la sección 9 de `PLAN_MEJORA.md`. (C)
-- Con una descarga que aprueba el autor: informalidad (cuatro trimestres de la EPH), cobertura de salud por tipo, el IPC con más detalle, TV paga del ENACOM **[revisar]** y lo que queda de la sección 3 de `PLAN_MEJORA.md` **[revisar]** (muertes en el tránsito, chicos en hogares pobres, salario mínimo frente a la canasta, tarifas de luz y gas, turismo interno, votantes y bancas de mujeres). (A, después C)
-- F13, la línea de tiempo en los mapas, sigue postergada hasta que un mapa por provincia tenga su serie. **[revisar]** Una segunda corrida mensual después del IPC, la EPH y el EMAE. (A)
+- E15: el Senado sigue por partido o alianza y Diputados por bloque (`PENDIENTES.md`, Estado y sociedad 7). (C)
+- R8, en parte: las exportaciones por habitante siguen en Trabajo (`f-exportaciones`). La balanza energética ya no se repite: queda solo en Petróleo y gas. (C)
+- El pie del perfil provincial: la imagen al compartir ya está (D3). Faltan el CSV del perfil y la cita propia (hoy la página de provincia solo enlaza "Usar los datos"). (C)
+- Las pruebas T2 (`scripts/linea_base.mjs` existe, pero no corre sola una vez por semana), T11 (banco de preguntas con el modelo de verdad) y T14 (huella de estilos) de la sección 9 de `PLAN_MEJORA.md`: siguen sin hacer. (C)
+- Con una descarga que aprueba el autor: informalidad (cuatro trimestres de la EPH), cobertura de salud por tipo, el IPC con más detalle, TV paga del ENACOM (no está en `01_descargar.py`) y lo que queda de la sección 3 de `PLAN_MEJORA.md`, que sigue sin ficha: muertes en el tránsito por provincia, chicos en hogares pobres, salario mínimo frente a la canasta, tarifas de luz y gas, turismo interno (EVyTH), votantes y bancas de mujeres. (A, después C)
+- F13, la línea de tiempo en los mapas, sigue postergada hasta que un mapa por provincia tenga su serie. Una segunda corrida mensual después del IPC, la EPH y el EMAE: `actualizar.yml` sigue con una sola, el día 5. (A)
 
 ### Decisiones del autor que siguen abiertas
 
