@@ -13,8 +13,9 @@ import { abrirChrome } from "./cdp.mjs";
 
 const SITIO = normalize(fileURLToPath(new URL("../sitio/", import.meta.url)));
 const SEIS = ["index.html", "trabajo.html", "a-coparticipacion.html", "provincia-neuquen.html", "mesas.html", "catalogo.html"];
+// sin la 404 ni las direcciones viejas que llevan a otra página (REDIRECCIONES en 03_construir_sitio.py): no tienen contenido propio
 const PAGINAS = process.argv.includes("--todas")
-  ? readdirSync(SITIO).filter(f => f.endsWith(".html") && f !== "404.html").sort()
+  ? readdirSync(SITIO).filter(f => f.endsWith(".html") && f !== "404.html" && !readFileSync(join(SITIO, f), "utf8").includes('http-equiv="refresh"')).sort()
   : SEIS;
 const TIPOS = {".html": "text/html; charset=utf-8", ".js": "text/javascript; charset=utf-8", ".mjs": "text/javascript; charset=utf-8",
   ".css": "text/css; charset=utf-8", ".json": "application/json", ".geojson": "application/json", ".csv": "text/csv; charset=utf-8",
@@ -49,20 +50,25 @@ for (const pg of PAGINAS) {
   for (const [modo, sinJs] of [["con", false], ["sin", true]]) {
     await p.send("Emulation.setScriptExecutionDisabled", {value: sinJs});
     await p.ir(`${B}${pg}`, sinJs ? 300 : 1500);
+    // con JavaScript, bajar por toda la página: algunas partes se escriben al entrar en pantalla
+    if (!sinJs) await p.recorrer();
     r[modo] = await p.eval(MEDIR);
   }
   filas.push([pg, r]);
   const pct = r.con.palabras ? Math.round(100 * r.sin.palabras / r.con.palabras) : 100;
   console.log(`${pg.padEnd(34)} palabras ${String(r.sin.palabras).padStart(6)} de ${String(r.con.palabras).padStart(6)} (${String(pct).padStart(3)}%)`
     + `  cifras ${String(r.sin.cifras).padStart(5)} de ${String(r.con.cifras).padStart(5)}  h1 ${r.sin.h1 ? "sí" : "NO"}`
-    + `  interpretaciones vacías ${r.sin.vacios} de ${r.sin.leads}`);
+    + `  interpretaciones vacías ${r.sin.vacios} de ${r.sin.leads}`
+    + `  (con JavaScript: h1 ${r.con.h1 ? "sí" : "NO"}, vacías ${r.con.vacios})`);
 }
 if (filas.length > 1) {
   const s = (m, k) => filas.reduce((a, [, r]) => a + r[m][k], 0);
   console.log(`\n${filas.length} páginas: palabras ${s("sin", "palabras")} de ${s("con", "palabras")}`
     + ` (${Math.round(100 * s("sin", "palabras") / s("con", "palabras"))}%), cifras ${s("sin", "cifras")} de ${s("con", "cifras")}`
     + ` (${Math.round(100 * s("sin", "cifras") / s("con", "cifras"))}%), sin h1 sin JavaScript ${filas.filter(([, r]) => !r.sin.h1).length},`
-    + ` interpretaciones vacías ${s("sin", "vacios")} de ${s("sin", "leads")}`);
+    + ` interpretaciones vacías ${s("sin", "vacios")} de ${s("sin", "leads")}`
+    + `
+Con JavaScript: sin h1 ${filas.filter(([, r]) => !r.con.h1).length}, interpretaciones vacías ${s("con", "vacios")} de ${s("con", "leads")}`);
 }
 await ch.cerrar();
 servidor.close();

@@ -73,26 +73,27 @@ Una fase por vez, un PR cada una (o más de uno si es grande), commits chicos. A
 | `provincia-neuquen.html` | 202 ms | 1.047 ms | 1.229 KB |
 | `a-coparticipacion.html` | 145 ms | 589 ms | 1.010 KB |
 
-**Qué ve un rastreador sin JavaScript** (`node scripts/medir_rastreador.mjs --todas`, nuevo en esta fase: cada página abierta con JavaScript y sin él, contando el contenido sin la barra, los menús ni el pie).
+**Qué ve un rastreador sin JavaScript** (`node scripts/medir_rastreador.mjs --todas`, nuevo en esta fase: cada página abierta con JavaScript y sin él, contando el contenido sin la barra, los menús ni el pie. Con JavaScript baja por toda la página antes de contar. No cuenta la 404 ni las seis direcciones viejas que llevan a otra página).
 
-| | Sin JavaScript | Con JavaScript |
+| 85 páginas | Sin JavaScript | Con JavaScript |
 |---|---|---|
-| Palabras, 91 páginas | 392.526 (75%) | 521.164 |
-| Cifras, 91 páginas | 24.339 (57%) | 43.074 |
-| Páginas sin título (h1) | 30 | 0 |
-| Párrafos de interpretación vacíos | 213 de 216 | 0 |
+| Palabras | 391.711 (75%) | 520.107 |
+| Cifras | 24.328 (55%) | 43.877 |
+| Páginas sin título (h1) | 25 | 0 |
+| Párrafos de interpretación vacíos | 209 de 212 | 11 de 212 |
+
+La columna que se compara después es la de sin JavaScript: la otra cambia un poco de una corrida a otra (Trabajo dio 123, 142 y 144 cifras). Las 11 interpretaciones vacías aun con JavaScript son de Instituciones políticas (8), Precios y actividad (2) y Sector externo (1), probablemente fichas de capítulos que no están a la vista: se revisa en la fase 4.
 
 El total esconde lo peor, porque el Catálogo y las páginas de provincia ya tienen casi todo su texto en el HTML:
 
-- Los 29 artículos y Corte Suprema: 3 palabras sin JavaScript, ninguna cifra y sin título (de unas 1.100 a 1.400 palabras con JavaScript).
-- Las páginas de tema muestran entre 34% y 59% de sus palabras y entre 16% y 42% de sus cifras (Trabajo: 1.475 de 2.948 palabras y 47 de 142 cifras).
-- La portada: 307 de 675 palabras y 6 de 65 cifras. Datos destacados: 7 de 412 cifras. Artículos: 7% de las cifras. Explorador de relaciones: 13% de las palabras y ninguna cifra.
-- Bien: Catálogo (99%), `provincia-neuquen.html` (86%) y Elecciones por mesa (78% de las palabras, 47% de las cifras).
-- Las cifras con JavaScript cambian un poco de una corrida a otra (Trabajo dio 123 en una y 142 en otra): se compara el porcentaje, no el número exacto.
+- Los 24 artículos y Corte Suprema: 3 palabras sin JavaScript, ninguna cifra y sin título (de unas 1.100 a 1.400 palabras con JavaScript).
+- Las páginas de tema muestran entre 34% y 59% de sus palabras y entre 16% y 42% de sus cifras (Trabajo: 1.475 de 2.958 palabras y 47 de 144 cifras).
+- La portada: 307 de 675 palabras y 6 de 65 cifras. Datos destacados: 7 de 412 cifras. Artículos: 12 de 169 cifras. Explorador de relaciones: 13% de las palabras y ninguna cifra.
+- Bien: Catálogo (100%), `provincia-neuquen.html` (86%) y Elecciones por mesa (78% de las palabras, 47% de las cifras).
 
 La fase 4 se da por cumplida cuando los artículos y las interpretaciones tienen su texto sin JavaScript. El detalle por página queda en la salida del script.
 
-**Lighthouse 13.6.0** (`scripts/medir_lighthouse.mjs`, nuevo en esta fase: sirve `sitio/` en la computadora con brotli, como Cloudflare, y anota la mediana de 3 corridas. Lighthouse no entra al proyecto: el autor aprobó bajarlo el 11 de noviembre de 2026 y se instala en una carpeta aparte, 189 MB con sus dependencias. Mide en la computadora, sin la demora de la red real: sirve para comparar antes y después, no para compararse con otros sitios).
+**Lighthouse 13.6.0** (`scripts/medir_lighthouse.mjs`, nuevo en esta fase: sirve `sitio/` en la computadora con brotli, como Cloudflare, y anota la mediana de 3 corridas. Lighthouse no entra al proyecto: el autor aprobó bajarlo el 11 de noviembre de 2026 y se instala en una carpeta aparte, 189 MB con sus dependencias. Mide en la computadora, sin la demora de la red real: sirve para comparar antes y después, no para compararse con otros sitios. La copia de esta medición estaba en una carpeta temporal: para comparar en las fases 4 y 5 se vuelve a instalar la misma versión, 13.6.0).
 
 Celular (el preajuste de Lighthouse: teléfono de gama media y 4G lenta simulados):
 
@@ -119,6 +120,7 @@ Computadora:
 Lo que explica los números (de los informes de Lighthouse de la portada y de Neuquén):
 
 - **El primer texto tarda lo mismo en todas las páginas, unos 4,4 s en celular**, porque la página espera a bajar y correr D3 (en el `<head>`, sin `defer`), `fichas.js` y `datina.js` antes de pintar. Es lo primero que mira la fase 5.
+- **Elecciones por mesa también se corre un poco en la computadora** (0,174, arriba del 0,1 aceptable, y casi nada en celular).
 - **La página de provincia se corre mientras carga** (0,58 a 0,69, lo aceptable es menos de 0,1): `div.prov-cuerpo`, dentro de `section#provincias`, cambia de alto cuando `datina.js` pone los datos. Por eso tiene 38 en celular. Va a la fase 5, o antes si el autor lo pide, porque se nota al leer.
 - **Accesibilidad de la portada (86 y 90)**, cuatro fallas:
   - las cifras de los datos destacados (`span.c-num`, `#2c74b5` sobre `#edf2f8`) tienen contraste 4,36 a 1, debajo del 4,5 que pide la regla. Es un cambio de color: lo aprueba el autor. (A)
@@ -171,16 +173,16 @@ Lo que explica los números (de los informes de Lighthouse de la portada y de Ne
 
 ## Lo que ya estaba pendiente, en el mismo orden
 
-Inventario del 11 de noviembre de 2026 sobre `docs/roadmap/` y `docs/redaccion/`. Los documentos son registros que crecen hacia abajo y muchos "pendiente" se cierran más abajo: lo marcado **[revisar]** figura como propuesta sin constancia de cierre y se confirma antes de planificarlo. Las letras dicen quién lo mueve: **(C)** Claude puede hacerlo, **(A)** espera una decisión del autor y **(T)** espera a un tercero.
+Inventario del 11 de noviembre de 2026 sobre `docs/roadmap/` y `docs/redaccion/`, confirmado contra el código ese mismo día (los puntos que estaban marcados para revisar ya no llevan la marca). Las letras dicen quién lo mueve: **(C)** Claude puede hacerlo, **(A)** espera una decisión del autor y **(T)** espera a un tercero.
 
 Orden: un solo PR abierto a la vez, como siempre. Entre una fase técnica y la siguiente entra a lo sumo un PR de esta lista. Las tareas con fecha (abajo) van cuando llega su fecha, sin esperar a las fases.
 
 ### Ordenar la lista (hecho en la fase 0, 11 de noviembre de 2026)
 
-- `docs/redaccion/PENDIENTES.md`: cada cuestión lleva su estado y su evidencia. De 198 (decía 193, pero las secciones suman 198) quedan 126 abiertas: 84 siguen igual, 27 cambiaron en parte y 15 esperan una decisión del autor. Se resolvieron 72.
+- `docs/redaccion/PENDIENTES.md`: cada cuestión lleva su estado y su evidencia. De 198 quedan 125 abiertas (antes se hablaba de 193: las 198 menos las cinco del PR #12): 84 siguen igual, 26 cambiaron en parte y 15 esperan una decisión del autor. Se resolvieron 73. Los estados los revisaron tres agentes y se controlaron 15 a mano.
 - Las decisiones del resumen de la reescritura eran seis, no cinco. Quedan abiertas dos, suicidio y Contacto (abajo). ESTADO corregido.
 - Los ítems **[revisar]** se confirmaron contra el código y quedan abajo sin la marca.
-- Lo que conviene hacer primero de las 126, porque no cambia el diseño ni espera al autor: los nombres de organismos que todavía no coinciden entre pies, notas, explicadores y `relaciones.json` (turismo, Capital Humano, costos educativos, DEIS) y las descripciones sin período (f-especies, f-glaciares, rotación). (C)
+- Lo que conviene hacer primero de las 126, porque no cambia el diseño ni espera al autor: los nombres de organismos que todavía no coinciden entre pies, notas y explicadores (turismo en las notas y los explicadores, Capital Humano, costos educativos, DEIS). Los nombres viejos que `relaciones.json` guarda como alias se quedan: son una decisión del autor del 3 de noviembre de 2026 y las descripciones sin período (f-especies, f-glaciares, rotación). (C)
 
 ### Escuelas y hospitales (fase 3 de `ESTABLECIMIENTOS.md`)
 

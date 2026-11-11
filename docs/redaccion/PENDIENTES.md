@@ -2,7 +2,7 @@
 
 Lo que cada grupo de la reescritura no cambió porque necesita corregir un dato, cambiar una vista o la estructura, una decisión del autor o verificar un hecho. Sale de `docs/redaccion/propuestas/*.json` (generado por `scripts/inventario_textos.py`).
 
-**Revisión del 11 de noviembre de 2026 (plan técnico, fase 0).** Cada una de las 198 cuestiones se comparó con el código de `main` (después del PR #127) y lleva debajo su estado y la evidencia. Resueltas: 72. Siguen abiertas: 126, de las cuales 84 siguen igual, 27 cambiaron en parte y 15 esperan una decisión del autor. La revisión la hicieron tres agentes de solo lectura, con una muestra controlada a mano. Lo que no se pudo ver sin el navegador o sin un lector de pantalla lo dice su estado. La lista no se renumera, así las referencias viejas siguen sirviendo. El número que decía antes (193) no coincidía con la suma de las secciones (198).
+**Revisión del 11 de noviembre de 2026 (plan técnico, fase 0).** Cada una de las 198 cuestiones se comparó con el código de `main` (después del PR #127) y lleva debajo su estado y la evidencia. Resueltas: 73. Siguen abiertas: 125, de las cuales 84 siguen igual, 26 cambiaron en parte y 15 esperan una decisión del autor. `ESTADO.md` hablaba de 193: eran las 198 menos las cinco que resolvió el PR #12, que acá cuentan entre las resueltas. La revisión la hicieron tres agentes de solo lectura. A mano se controlaron 15 estados (11 resueltas, en los tres tercios, y 4 abiertas): 14 estaban bien y uno se corrigió (Territorio y recursos 15, que estaba abierta y estaba resuelta). Lo que no se pudo ver sin el navegador o sin un lector de pantalla lo dice su estado. La lista no se renumera, así las referencias viejas siguen sirviendo.
 
 **Actualización del 27 de octubre de 2026.** El PR #12 resolvió los cinco errores de datos de esta lista: Trabajo y economía 1 (E2, el total de empresas), Estado y sociedad 1 (E1, el bloque del PRO), Territorio y recursos 1 y 2 (E3, las motos de Tierra del Fuego, y E13, los pozos) y Perfil provincial 1 (el "País" de los recursos propios). Cómo se ajustaron los textos de la reescritura al unirla: `RESUMEN_REESCRITURA_GLOBAL.md`, "Unión con los arreglos de datos".
 
@@ -631,7 +631,7 @@ Lo que cada grupo de la reescritura no cambió porque necesita corregir un dato,
    - Fragmento: «Ministerio de Turismo y Deportes / Ministerio de Ambiente / Ministerio de Transporte»
    - Motivo: Nombres de organismos anteriores a diciembre de 2023, y en Flora y fauna el mismo organismo aparece como Ministerio de Turismo y Deportes y como Secretaría de Turismo. El repositorio no documenta el nombre vigente.
    - Propuesta: Verificar el nombre vigente de cada organismo, sumarlo a relaciones.json y usar uno solo en todo el sitio.
-   - **Estado al 11 de noviembre de 2026: cambió en parte y sigue abierta.** La plantilla usa "Secretaría de Turismo y Ambiente". relaciones.json sigue con los ministerios viejos.
+   - **Estado al 11 de noviembre de 2026: resuelta.** La plantilla usa "Secretaría de Turismo y Ambiente" y `relaciones.json` también, con los ministerios viejos como alias del Explorador, por decisión del autor del 3 de noviembre de 2026 (no sacarlos). Lo que queda de los nombres de turismo está en Trabajo y economía 28.
 
 16. **curiosidades.html#f-glaciares, naturaleza.html#f-especies** (`scripts/02_procesar.py`)
    - Fragmento: «gl_total, esp_top (sin año)»
