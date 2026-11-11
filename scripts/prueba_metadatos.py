@@ -124,7 +124,7 @@ def revisar(url_sitio=None):
                 destino = destino / "index.html"
             if not destino.exists():
                 problemas.append(f"{nombre}: {attr} a {u}, que no existe")
-    for f in ("sitemap.xml", "robots.txt"):
+    for f in ("sitemap.xml", "robots.txt", "llms.txt"):
         existe = (SITIO / f).exists()
         if url_sitio and not existe:
             problemas.append(f"falta {f} con la dirección definitiva")
@@ -157,6 +157,33 @@ def revisar(url_sitio=None):
                 problemas.append(f"{md['tabla']}: no tiene que tener Dataset (tema sensible o licencia de COMNAP)")
             elif not no_va and k != 1:
                 problemas.append(f"{md['tabla']}: tiene {k} Dataset en el sitio y tiene que tener uno")
+    # llms.txt (plan técnico, fase 1, 11 de noviembre de 2026): cada enlace lleva a un archivo que existe, están todas las páginas del
+    # sitemap y todas las tablas que llevan Dataset, y nada de temas sensibles
+    if url_sitio and (SITIO / "llms.txt").exists():
+        ll = (SITIO / "llms.txt").read_text(encoding="utf-8")
+        if not ll.startswith("# Datina\n\n> "):
+            problemas.append("llms.txt: no empieza con el título y el resumen (formato de llmstxt.org)")
+        if re.search(r"suicid|autoinflig|autolesi|muertes_violentas", ll, re.I):
+            problemas.append("llms.txt: nombra un tema sensible")
+        if ";" in ll:
+            problemas.append("llms.txt: tiene punto y coma")
+        enlaces = re.findall(r"\]\((https?://[^)]+)\)", ll)
+        for u in enlaces:
+            if not u.startswith(url_sitio + "/"):
+                problemas.append(f"llms.txt: enlaza {u}, fuera de la dirección definitiva")
+                continue
+            r = u.removeprefix(url_sitio + "/")
+            if not ((SITIO / r).is_file() or (SITIO / f"{r}.html").exists() or (r == "" and (SITIO / "index.html").exists())):
+                problemas.append(f"llms.txt: enlaza {u}, que no existe")
+        if (SITIO / "sitemap.xml").exists():
+            for u in re.findall(r"<loc>(.*?)</loc>", (SITIO / "sitemap.xml").read_text(encoding="utf-8")):
+                if u != url_sitio + "/" and u not in enlaces:
+                    problemas.append(f"llms.txt: falta {u}, que está en el sitemap")
+        for p in sorted((SITIO / "datos").glob("*.metadata.json")):
+            md = json.loads(p.read_text(encoding="utf-8"))
+            sensible = re.search(r"suicid|autoinflig|autolesi|muertes_violentas", f'{md["tabla"]} {md["titulo"]} {md["descripcion"]}', re.I)
+            if not sensible and "COMNAP" not in md["licencia"] and f'{url_sitio}/datos/{md["tabla"]}' not in enlaces:
+                problemas.append(f"llms.txt: falta la tabla {md['tabla']}")
     # lastmod (plan técnico, fase 1, 11 de noviembre de 2026): cada dirección del sitemap lleva la fecha de la última actualización de los
     # datos, la misma que dicen los metadatos de las tablas (no la del día del armado)
     if url_sitio and (SITIO / "sitemap.xml").exists():

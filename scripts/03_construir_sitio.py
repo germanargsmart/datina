@@ -1352,6 +1352,8 @@ def encabezado_principal(h, id_):
 URL_SITIO = SITIO_CONF["url"].strip().rstrip("/")
 assert not URL_SITIO or URL_SITIO.startswith("https://"), "datos/manual/sitio.json: la dirección tiene que empezar con https://"
 INDEXADAS = []
+# el título y la descripción de cada página que se indexa, para llms.txt (plan técnico, fase 1)
+PAGINA_INFO = {}
 # El dato destacado de la imagen al compartir de cada página (D3): el de su primera ficha o el más representativo. Sale del resumen, y si un dato
 # no está (una fuente caída), la imagen sale sin él. Las páginas de política y las que no tienen un dato propio llevan solo la pregunta
 _og_n = lambda v, d=0: f"{Decimal(str(v)).quantize(Decimal(1).scaleb(-d), rounding=ROUND_HALF_UP):,}".replace(",", "#").replace(".", ",").replace("#", ".")
@@ -1401,6 +1403,11 @@ def periodo_iso(p):
     return "/".join(partes) if 1 <= len(partes) <= 2 and all(partes) else None
 
 
+def fuente_corta(f):
+    """La fuente del Catálogo solo con el organismo: a veces suma cada cuánto se actualiza y si el dato está atrasado."""
+    return re.split(r"\. (?=Se actualiza|El último dato|Último dato)", f.strip())[0].rstrip(".")
+
+
 def dataset_ld(t, ancla, archivo):
     """El Dataset de una tabla del Catálogo: qué mide, de dónde sale, el período, la licencia y el CSV para descargar."""
     partes = [t["titulo"], t["descripcion"], f'Fuente: {t["fuente"]}', f'Cobertura: {t["cobertura"]}', f'Período: {t["periodo"]}' if t["periodo"] else "",
@@ -1410,8 +1417,7 @@ def dataset_ld(t, ancla, archivo):
           "description": " ".join(x if x.endswith((".", "?")) else x + "." for x in partes),
           "url": f"{URL_SITIO}/{archivo}" + (f"#{ancla}" if ancla else ""), "inLanguage": "es-AR", "isAccessibleForFree": True,
           "license": "https://creativecommons.org/licenses/by/4.0/", "creator": {"@type": "Organization", "name": "Datina", "url": f"{URL_SITIO}/"},
-          # el crédito, solo con el organismo: la fuente del Catálogo suma a veces cada cuánto se actualiza y si el dato está atrasado
-          "creditText": "Datina, con datos de " + re.split(r"\. (?=Se actualiza|El último dato|Último dato)", t["fuente"].strip())[0].rstrip("."),
+          "creditText": "Datina, con datos de " + fuente_corta(t["fuente"]),
           "spatialCoverage": "Argentina", "keywords": [t["seccion"]],
           "distribution": [{"@type": "DataDownload", "encodingFormat": "text/csv", "contentUrl": f'{URL_SITIO}/datos/{t["tabla"]}.csv'}]}
     if periodo_iso(t["periodo"]):
@@ -1453,6 +1459,7 @@ def metadatos(id_, titulo_social, descripcion, tipo):
               "distribution": [{"@type": "DataDownload", "encodingFormat": "text/csv", "contentUrl": f"{URL_SITIO}/datos/tabla_larga.csv"}]}
         m.append('<script type="application/ld+json">' + json.dumps(ld, ensure_ascii=False).replace("</", "<\\/") + "</script>")
     INDEXADAS.append(archivo)
+    PAGINA_INFO[archivo] = (titulo_social, descripcion)
     return "\n".join(m)
 
 
@@ -1518,6 +1525,7 @@ for _c, _a in PAG_PROV.items():
                                SITIO / "datos" / "banderas" / f"{_c}.png")
     (SITIO / f"{_a}.html").write_text(_h, encoding="utf-8", newline="\n")
     INDEXADAS.append(_a)
+    PAGINA_INFO[_a] = (_t, _d)
 # Sobre nosotros: proposito, principios y forma de trabajo de Datina
 pagina("nosotros", "Sobre nosotros",
        "Qué es Datina, para qué existe, de dónde salen sus datos y cómo se hace. Estadísticas públicas de las 24 jurisdicciones de la Argentina.",
@@ -1690,6 +1698,53 @@ if URL_SITIO:
                                      "".join(f"  <url><loc>{URL_SITIO}/{a}</loc><lastmod>{LASTMOD}</lastmod></url>\n" for a in INDEXADAS) + "</urlset>\n",
                                      encoding="utf-8", newline="\n")
     (SITIO / "robots.txt").write_text(f"User-agent: *\nAllow: /\nSitemap: {URL_SITIO}/sitemap.xml\n", encoding="utf-8", newline="\n")
+# llms.txt (plan técnico, fase 1, 11 de noviembre de 2026): la guía del sitio para los asistentes de IA (formato de llmstxt.org). Sale de GRUPOS,
+# MENUS, los artículos y el Catálogo, con el título y la descripción de cada página, y lista las mismas páginas que el sitemap. Va primero lo
+# que se lee sin JavaScript: el Catálogo, las tablas y sus metadatos. Sin las tablas sensibles (decisión 5 del autor) ni las de COMNAP, como
+# los Dataset. Solo con la dirección definitiva, como el sitemap
+(SITIO / "llms.txt").unlink(missing_ok=True)
+if URL_SITIO:
+    _llu = lambda a: f"{URL_SITIO}/{a}"
+    _llista = []
+    def _llpag(a):
+        _llista.append(a)
+        _t, _d = PAGINA_INFO[a]
+        # la descripción de las secciones empieza con el mismo título: no se repite
+        _d = _d.removeprefix(_t).strip()
+        return f"- [{_t}]({_llu(a)})" + (f": {_d}" if _d else "")
+    _lltab = [t for t in _meta_tablas if not tabla_sensible(t) and t["tabla"] not in TABLAS_COMNAP]
+    _llej = next((t for t in _lltab if t["tabla"] == "empleo_provincias"), _lltab[0])["tabla"]
+    _ll = ["# Datina", "",
+           f"> Estadísticas públicas de la Argentina y de sus 24 jurisdicciones: cada cifra con qué mide, de qué período es, de dónde sale y su "
+           f"tabla para descargar. {len(_lltab)} tablas con licencia Creative Commons Atribución 4.0. Datos actualizados el {RESUMEN['actualizado']}.", "",
+           "Datina reúne datos de organismos públicos (el INDEC, los ministerios nacionales, el Banco Central y otros) y los compara entre las "
+           "jurisdicciones. En cada página, las cifras y los textos que las explican los escribe el navegador al cargarla: para leer los datos sin "
+           "ejecutar JavaScript, conviene ir a las tablas. Cada tabla en CSV tiene al lado un archivo .metadata.json con su fuente, su período, sus "
+           f"columnas, su licencia y cómo citarla (por ejemplo, {_llu('datos/' + _llej + '.metadata.json')}).", "",
+           "Los textos, los gráficos y las tablas de Datina se pueden copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente "
+           "de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones.", "",
+           "## Datos para descargar", "", _llpag("catalogo"),
+           f"- [Tabla completa de indicadores]({_llu('datos/tabla_larga.csv')}): todos los indicadores en una sola tabla, una fila por jurisdicción, "
+           "período e indicador, con su unidad y su fuente.",
+           _llpag("usar-datos"), _llpag("relaciones")]
+    for _g, _gn, _items in GRUPOS:
+        _ll += ["", f"## {_gn}", ""] + [_llpag(a) for a in _secs_de(_items) if a in PAGINA_INFO]
+    for _m, _, _mn, _, _items in MENUS:
+        _ll += ["", f"## {_mn}", ""] + [_llpag(a) for a in _secs_de(_items) if a in PAGINA_INFO]
+        if _m == "provincias":
+            _ll += [_llpag(a) for a in PAG_PROV.values()]
+        if _m == "historias":
+            _ll += [_llpag(a) for a in ORDEN_ARTS if a in PAGINA_INFO]
+    # las demás páginas del sitemap (Sobre nosotros, Contacto...), para que llms.txt y el sitemap lleven las mismas
+    _llresto = [a for a in INDEXADAS if a and a not in _llista]
+    if _llresto:
+        _ll += ["", "## Sobre Datina", ""] + [_llpag(a) for a in _llresto]
+    _ll += ["", "## Optional", ""] + [
+        f"- [{t['tabla']}.csv]({_llu('datos/' + t['tabla'] + '.csv')}): " + " ".join(
+            x if x.endswith((".", "?")) else x + "." for x in (s.strip().rstrip(",:") for s in
+            (t["titulo"], t["descripcion"], f"Período: {t['periodo']}" if t["periodo"] else "", f"Fuente: {fuente_corta(t['fuente'])}")) if x)
+        for t in _lltab]
+    (SITIO / "llms.txt").write_text("\n".join(_ll) + "\n", encoding="utf-8", newline="\n")
 # Caché en Cloudflare Pages (23 de octubre de 2026, decisión del autor): sitio/_headers es el equivalente de los [[headers]] de
 # netlify.toml. Los archivos que las páginas piden con su huella en la dirección (?v=...) se guardan un año: cuando cambia el contenido
 # cambia la dirección. Los demás (por ejemplo, las tablas que se piden sin huella) quedan con la caché común
@@ -1700,7 +1755,8 @@ CACHE_LARGO = (["/datina.css", "/datina.js", "/mesas.js", "/datos/fichas.js", "/
 MESAS_TEXTO = "/datos/mesas/*\n  Content-Type: text/plain; charset=utf-8\n"
 # lo mismo con las escuelas y los hospitales de cada provincia (9 de noviembre de 2026): Buenos Aires son 1,4 MB de CSV y unos 400 KB comprimidos
 EST_TEXTO = "/datos/establecimientos/*\n  Content-Type: text/plain; charset=utf-8\n"
-(SITIO / "_headers").write_text("".join(f"{r}\n  Cache-Control: public, max-age=31536000, immutable\n" for r in CACHE_LARGO) + MESAS_TEXTO + EST_TEXTO,
+(SITIO / "_headers").write_text("".join(f"{r}\n  Cache-Control: public, max-age=31536000, immutable\n" for r in CACHE_LARGO) + MESAS_TEXTO + EST_TEXTO
+                                + "/llms.txt\n  Content-Type: text/plain; charset=utf-8\n",
                                 encoding="utf-8", newline="\n")
 # los datos de Elecciones por mesa (scripts/prueba_mesas.py): 03 no los arma, los arma scripts/elecciones_mesas.py, pero si no suman lo que tienen que sumar
 # el sitio no se da por armado
