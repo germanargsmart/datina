@@ -1,5 +1,7 @@
 # Plan técnico: buscadores, IA y datos abiertos
 
+**Propuesto, espera la aprobación del autor.** Las decisiones de abajo sí son del autor. El orden de las fases y la forma de intercalar lo pendiente son la propuesta.
+
 Preparado el 11 de noviembre de 2026 a partir del feedback técnico que recibió el autor, evaluado contra el sitio publicado y el repositorio en `main` (commit aa5a1109). Reúne en un solo orden el trabajo técnico nuevo y todo lo que ya estaba pendiente. Nada de lo que estaba en curso se pausa (decisión del autor del 11 de noviembre de 2026).
 
 ## El feedback y qué se decidió
@@ -27,9 +29,11 @@ Next.js lo resolvería escribiendo el texto en el HTML al armar, pero obliga a r
 ## Decisiones del autor del 11 de noviembre de 2026
 
 1. **Decimales**: `tabla_larga.csv` se redondea a cuatro decimales, como dice la regla. Hoy 15.751 valores de 101 variables tienen más (por ejemplo, 29.559005574601997). Lo que se muestra no cambia: se redondea al mostrar.
-2. **Código "00"**: los 31 aglomerados urbanos de la EPH (40 filas de pobreza e indigencia en `tabla_larga.csv`) pasan a tener un código propio, distinto del total del país. Hay que revisar que las fichas de pobreza lo lean bien.
+2. **Código "00"**: los 31 aglomerados urbanos de la EPH (40 filas de pobreza e indigencia en `tabla_larga.csv`) pasan a tener un código propio, distinto del total del país. Las dos variables ya llevan `_31_aglomerados` en el nombre, así que el riesgo de mezclarlas es menor de lo que parecía, pero el MCP filtra por código. La regla dice que los códigos son los del INDEC, de dos dígitos, con "00" para el país: el código nuevo se elige para que encaje en esa regla, o la regla se cambia en el mismo commit, y `pruebas_datos.py` tiene que aceptarlo. Revisar que las fichas de pobreza lo lean bien.
 3. **CABA**: un solo nombre en `tabla_larga.csv`, "CABA". Hoy 833 filas dicen "Ciudad Autónoma de Buenos Aires" (combustibles, salarios, seguridad y otras). Cambia solo la columna del nombre.
-4. **Población de referencia**: cada ficha por habitante usa la proyección del INDEC del mismo año que su dato y lo dice en su nota. Hoy casi todas usan 2025, y hospitales y deuda de las provincias, 2026, sin declararlo. Puede mover un poco algunas tasas: comparar el resumen antes y después.
+4. **Población de referencia**: cada ficha por habitante usa la proyección del INDEC del mismo año que su dato y lo dice en su nota. Ojo con el alcance: la mayoría de las tablas por habitante usan hoy la proyección 2025, también para datos de 2026 (Trabajo lo dice: "La población es la proyección 2025 del INDEC" para el empleo de junio de 2026), y hospitales y deuda de las provincias usan la de 2026. Con esta decisión cambian sobre todo las de 2025. Primer paso, antes de mover ninguna cifra: una tabla para el autor con cada ficha, el período de su dato, el año de población que usa, si lo declara y qué cifra se mueve. El autor la mira y confirma.
+
+Antes de aplicar las decisiones 1 a 4 se busca su historia (`ACEPTADAS` en `scripts/pruebas_datos.py`, la sección 1 de `PLAN_MEJORA.md` y `docs/historico/etapas-previas.md`). Si aparece una decisión anterior del autor que diga otra cosa, se le vuelve a preguntar antes de cambiar nada.
 5. **Suicidio**: las tres variables de suicidio de `tabla_larga.csv` (`victimas_suicidios`, `tasa_suicidios_100mil_5_anios_y_mas`, `bm_suicidio`) quedan fuera del MCP, la API y `llms.txt`. La descarga de la tabla completa queda como está. Tampoco entran las tablas `suicidio_*` ni la de muertes violentas, como en las consultas con IA.
 6. **Elecciones por mesa en el MCP y la API**: solo lo oficial (DINE y justicias electorales). Queda afuera lo que viene de 257arg. El consultor de pobreza no entra.
 7. **Orden**: el MCP antes que el texto en el HTML, como pidió el autor.
@@ -71,7 +75,9 @@ Una fase por vez, un PR cada una (o más de uno si es grande), commits chicos. A
 - Una función de Cloudflare Pages, como `/api/consulta`, que habla MCP por HTTP (sin estado) y lee los archivos ya publicados: sin base de datos, sin clave, sin escribir nada.
 - Herramientas: buscar tablas, describir una tabla, leer una tabla filtrada por jurisdicción y período, y leer un indicador de `tabla_larga.csv`. Cada respuesta lleva la fuente, la fecha, la licencia y el enlace a la ficha.
 - La API, con el mismo código: direcciones `GET` que devuelven lo mismo en JSON.
-- Prueba sin red, como `prueba_consulta_ia.mjs`, que controla también que lo sensible no salga.
+- Lo sensible se filtra por fila, no solo por tabla: las tres variables de suicidio no salen nunca de `tabla_larga.csv`.
+- Elecciones por mesa (`sitio/datos/mesas/`) no está hoy en el catálogo. Requisito previo: una marca de origen por elección (oficial o 257arg) y su entrada en el catálogo. El MCP ofrece solo las oficiales.
+- Prueba sin red, como `prueba_consulta_ia.mjs`, que controla también que lo sensible y lo que no es oficial no salgan.
 - Una página corta en "Usar los datos" que explique cómo conectarlo.
 - **Antes de publicar, el autor**: aprueba la dirección pública nueva y revisa en el panel de Cloudflare el plan de la cuenta (el MCP comparte con `/api/consulta` el límite de pedidos de las funciones) y que no esté prendido el bloqueo de bots de IA.
 - Esfuerzo medio, riesgo bajo en el código. Es una dirección pública nueva.
@@ -99,7 +105,7 @@ Orden: un solo PR abierto a la vez, como siempre. Entre una fase técnica y la s
 ### Ordenar la lista (va con la fase 0, solo documentación)
 
 - `docs/redaccion/PENDIENTES.md` dice 193 cuestiones, pero no se actualizó después del 27 de octubre de 2026 y los PR #15 a #48 resolvieron muchas. Revisarla ítem por ítem y dejar el número real. (C)
-- ESTADO dice que siguen abiertas "cinco decisiones del autor" de la reescritura: solo quedan dos, suicidio y Contacto (abajo). Corregirlo. (C)
+- ESTADO dice que siguen abiertas "cinco decisiones del autor" de la reescritura. Según el inventario quedan dos, suicidio y Contacto (abajo): confirmarlo y corregir ESTADO. (C)
 - Confirmar cada ítem **[revisar]** de esta sección. (C)
 
 ### Escuelas y hospitales (fase 3 de `ESTABLECIMIENTOS.md`)
