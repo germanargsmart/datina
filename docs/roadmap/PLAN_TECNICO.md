@@ -1,6 +1,6 @@
 # Plan técnico: buscadores, IA y datos abiertos
 
-**Propuesto, espera la aprobación del autor.** Las decisiones de abajo sí son del autor. El orden de las fases y la forma de intercalar lo pendiente son la propuesta.
+**Aprobado por el autor el 11 de noviembre de 2026** ("Apruebo el plan"), con las decisiones de abajo, el orden de las fases y la forma de intercalar lo pendiente.
 
 Preparado el 11 de noviembre de 2026 a partir del feedback técnico que recibió el autor, evaluado contra el sitio publicado y el repositorio en `main` (commit aa5a1109). Reúne en un solo orden el trabajo técnico nuevo y todo lo que ya estaba pendiente. Nada de lo que estaba en curso se pausa (decisión del autor del 11 de noviembre de 2026).
 
@@ -49,10 +49,85 @@ Una fase por vez, un PR cada una (o más de uno si es grande), commits chicos. A
 
 ### Fase 0. Medición de base (sin cambios visibles)
 
-- Lighthouse en seis páginas (portada, Trabajo, un artículo, una provincia, Elecciones por mesa, Catálogo) en celular y computadora, y `node scripts/medir_carga.mjs`. Lighthouse se instala con npm: es una descarga chica, que el autor aprueba antes.
+- Lighthouse en seis páginas (portada, Trabajo, un artículo, una provincia, Elecciones por mesa, Catálogo) en celular y computadora, y `node scripts/medir_carga.mjs`. Lighthouse se instala con npm, fuera del repositorio (189 MB con sus dependencias), con la aprobación del autor.
 - Qué ve un rastreador sin JavaScript: el texto de cada página sin ejecutar `datina.js`.
 - Los números quedan en este archivo, para comparar después de las fases 4 y 5.
 - Esfuerzo bajo, riesgo nulo.
+
+#### Medición de base del 11 de noviembre de 2026 (`main` en 51351183)
+
+**Carga** (`node scripts/medir_carga.mjs`: Chrome sin ventana, procesador 4 veces más lento, sin caché, mediana de 5 cargas. Los tiempos cambian de una computadora a otra y de una corrida a otra: se comparan dos corridas en la misma computadora).
+
+| Archivo | Sin comprimir | gzip | brotli |
+|---|---|---|---|
+| `datos/fichas.js` | 1.010 KB | 216 KB | 160 KB |
+| `datina.js` | 1.247 KB | 359 KB | 275 KB |
+| `datina.css` | 213 KB | 51 KB | 42 KB |
+
+| Página | JavaScript | Tareas | Datos que baja |
+|---|---|---|---|
+| `contacto.html` | 160 ms | 425 ms | 1.010 KB |
+| `index.html` | 173 ms | 2.169 ms | 1.118 KB |
+| `trabajo.html` | 166 ms | 908 ms | 1.010 KB |
+| `politica.html` | 163 ms | 875 ms | 1.010 KB |
+| `provincia-neuquen.html` | 202 ms | 1.047 ms | 1.229 KB |
+| `a-coparticipacion.html` | 145 ms | 589 ms | 1.010 KB |
+
+**Qué ve un rastreador sin JavaScript** (`node scripts/medir_rastreador.mjs --todas`, nuevo en esta fase: cada página abierta con JavaScript y sin él, contando el contenido sin la barra, los menús ni el pie. Con JavaScript baja por toda la página antes de contar. No cuenta la 404 ni las seis direcciones viejas que llevan a otra página).
+
+| 85 páginas | Sin JavaScript | Con JavaScript |
+|---|---|---|
+| Palabras | 391.711 (75%) | 520.107 |
+| Cifras | 24.328 (55%) | 43.877 |
+| Páginas sin título (h1) | 25 | 0 |
+| Párrafos de interpretación vacíos | 209 de 212 | 11 de 212 |
+
+La columna que se compara después es la de sin JavaScript: la otra cambia un poco de una corrida a otra (Trabajo dio 123, 142 y 144 cifras). Las 11 interpretaciones vacías aun con JavaScript son de Instituciones políticas (8), Precios y actividad (2) y Sector externo (1), probablemente fichas de capítulos que no están a la vista: se revisa en la fase 4.
+
+El total esconde lo peor, porque el Catálogo y las páginas de provincia ya tienen casi todo su texto en el HTML:
+
+- Los 24 artículos y Corte Suprema: 3 palabras sin JavaScript, ninguna cifra y sin título (de unas 1.100 a 1.400 palabras con JavaScript).
+- Las páginas de tema muestran entre 34% y 59% de sus palabras y entre 16% y 42% de sus cifras (Trabajo: 1.475 de 2.958 palabras y 47 de 144 cifras).
+- La portada: 307 de 675 palabras y 6 de 65 cifras. Datos destacados: 7 de 412 cifras. Artículos: 12 de 169 cifras. Explorador de relaciones: 13% de las palabras y ninguna cifra.
+- Bien: Catálogo (100%), `provincia-neuquen.html` (86%) y Elecciones por mesa (78% de las palabras, 47% de las cifras).
+
+La fase 4 se da por cumplida cuando los artículos y las interpretaciones tienen su texto sin JavaScript. El detalle por página queda en la salida del script.
+
+**Lighthouse 13.6.0** (`scripts/medir_lighthouse.mjs`, nuevo en esta fase: sirve `sitio/` en la computadora con brotli, como Cloudflare, y anota la mediana de 3 corridas. Lighthouse no entra al proyecto: el autor aprobó bajarlo el 11 de noviembre de 2026 y se instala en una carpeta aparte, 189 MB con sus dependencias. Mide en la computadora, sin la demora de la red real: sirve para comparar antes y después, no para compararse con otros sitios. La copia de esta medición estaba en una carpeta temporal: para comparar en las fases 4 y 5 se vuelve a instalar la misma versión, 13.6.0).
+
+Celular (el preajuste de Lighthouse: teléfono de gama media y 4G lenta simulados):
+
+| Página | Rendimiento | Accesibilidad | Prácticas | SEO | Primer texto | Mayor elemento | Bloqueo | Corrimiento |
+|---|---|---|---|---|---|---|---|---|
+| `index.html` | 56 | 86 | 100 | 100 | 4,4 s | 6,3 s | 546 ms | 0,000 |
+| `trabajo.html` | 70 | 96 | 100 | 100 | 4,4 s | 4,4 s | 228 ms | 0,002 |
+| `a-coparticipacion.html` | 67 | 96 | 100 | 100 | 4,3 s | 5,5 s | 150 ms | 0,012 |
+| `provincia-neuquen.html` | 38 | 97 | 100 | 100 | 4,6 s | 6,0 s | 310 ms | 0,687 |
+| `mesas.html` | 65 | 97 | 100 | 100 | 4,3 s | 4,3 s | 415 ms | 0,004 |
+| `catalogo.html` | 59 | 97 | 100 | 100 | 4,9 s | 4,9 s | 441 ms | 0,000 |
+
+Computadora:
+
+| Página | Rendimiento | Accesibilidad | Prácticas | SEO | Primer texto | Mayor elemento | Bloqueo | Corrimiento |
+|---|---|---|---|---|---|---|---|---|
+| `index.html` | 97 | 90 | 100 | 100 | 0,9 s | 1,2 s | 33 ms | 0,010 |
+| `trabajo.html` | 99 | 96 | 100 | 100 | 0,8 s | 0,8 s | 6 ms | 0,004 |
+| `a-coparticipacion.html` | 98 | 96 | 100 | 100 | 0,8 s | 1,0 s | 4 ms | 0,005 |
+| `provincia-neuquen.html` | 76 | 97 | 100 | 100 | 0,9 s | 0,9 s | 25 ms | 0,581 |
+| `mesas.html` | 91 | 97 | 100 | 100 | 0,8 s | 0,8 s | 32 ms | 0,174 |
+| `catalogo.html` | 98 | 97 | 100 | 100 | 0,9 s | 0,9 s | 56 ms | 0,004 |
+
+Lo que explica los números (de los informes de Lighthouse de la portada y de Neuquén):
+
+- **El primer texto tarda lo mismo en todas las páginas, unos 4,4 s en celular**, porque la página espera a bajar y correr D3 (en el `<head>`, sin `defer`), `fichas.js` y `datina.js` antes de pintar. Es lo primero que mira la fase 5.
+- **Elecciones por mesa también se corre un poco en la computadora** (0,174, arriba del 0,1 aceptable, y casi nada en celular).
+- **La página de provincia se corre mientras carga** (0,58 a 0,69, lo aceptable es menos de 0,1): `div.prov-cuerpo`, dentro de `section#provincias`, cambia de alto cuando `datina.js` pone los datos. Por eso tiene 38 en celular. Va a la fase 5, o antes si el autor lo pide, porque se nota al leer.
+- **Accesibilidad de la portada (86 y 90)**, cuatro fallas:
+  - las cifras de los datos destacados (`span.c-num`, `#2c74b5` sobre `#edf2f8`) tienen contraste 4,36 a 1, debajo del 4,5 que pide la regla. Es un cambio de color: lo aprueba el autor. (A)
+  - los 24 enlaces del mapa (`tabindex="-1"`) no tienen nombre que lea un lector de pantalla. (C)
+  - el cartel del mapa (`#tip`, `role="tooltip"`) no tiene nombre. (C)
+  - algunos enlaces de los temas quedan muy juntos para tocarlos con el dedo. (A)
+- Prácticas y SEO dan 100 en las seis páginas. El SEO de Lighthouse no ve el problema de la fase 4: solo controla título, descripción, enlaces y que la página se pueda rastrear.
 
 ### Fase 1. `llms.txt` y datos estructurados
 
@@ -98,15 +173,16 @@ Una fase por vez, un PR cada una (o más de uno si es grande), commits chicos. A
 
 ## Lo que ya estaba pendiente, en el mismo orden
 
-Inventario del 11 de noviembre de 2026 sobre `docs/roadmap/` y `docs/redaccion/`. Los documentos son registros que crecen hacia abajo y muchos "pendiente" se cierran más abajo: lo marcado **[revisar]** figura como propuesta sin constancia de cierre y se confirma antes de planificarlo. Las letras dicen quién lo mueve: **(C)** Claude puede hacerlo, **(A)** espera una decisión del autor y **(T)** espera a un tercero.
+Inventario del 11 de noviembre de 2026 sobre `docs/roadmap/` y `docs/redaccion/`, confirmado contra el código ese mismo día (los puntos que estaban marcados para revisar ya no llevan la marca). Las letras dicen quién lo mueve: **(C)** Claude puede hacerlo, **(A)** espera una decisión del autor y **(T)** espera a un tercero.
 
 Orden: un solo PR abierto a la vez, como siempre. Entre una fase técnica y la siguiente entra a lo sumo un PR de esta lista. Las tareas con fecha (abajo) van cuando llega su fecha, sin esperar a las fases.
 
-### Ordenar la lista (va con la fase 0, solo documentación)
+### Ordenar la lista (hecho en la fase 0, 11 de noviembre de 2026)
 
-- `docs/redaccion/PENDIENTES.md` dice 193 cuestiones, pero no se actualizó después del 27 de octubre de 2026 y los PR #15 a #48 resolvieron muchas. Revisarla ítem por ítem y dejar el número real. (C)
-- ESTADO dice que siguen abiertas "cinco decisiones del autor" de la reescritura. Según el inventario quedan dos, suicidio y Contacto (abajo): confirmarlo y corregir ESTADO. (C)
-- Confirmar cada ítem **[revisar]** de esta sección. (C)
+- `docs/redaccion/PENDIENTES.md`: cada cuestión lleva su estado y su evidencia. De 198 quedan 125 abiertas (antes se hablaba de 193: las 198 menos las cinco del PR #12): 84 siguen igual, 26 cambiaron en parte y 15 esperan una decisión del autor. Se resolvieron 73. Los estados los revisaron tres agentes y se controlaron 15 a mano.
+- Las decisiones del resumen de la reescritura eran seis, no cinco. Quedan abiertas dos, suicidio y Contacto (abajo). ESTADO corregido.
+- Los ítems **[revisar]** se confirmaron contra el código y quedan abajo sin la marca.
+- Lo que conviene hacer primero de las 126, porque no cambia el diseño ni espera al autor: los nombres de organismos que todavía no coinciden entre pies, notas y explicadores (turismo en las notas y los explicadores, Capital Humano, costos educativos, DEIS). Los nombres viejos que `relaciones.json` guarda como alias se quedan: son una decisión del autor del 3 de noviembre de 2026 y las descripciones sin período (f-especies, f-glaciares, rotación). (C)
 
 ### Escuelas y hospitales (fase 3 de `ESTABLECIMIENTOS.md`)
 
@@ -130,9 +206,12 @@ Orden: un solo PR abierto a la vez, como siempre. Entre una fase técnica y la s
 - El bloque de la deuda provincial en "Para entender los datos" de Cuentas públicas. (C)
 - Completar las leyes sin verificar de `cortes_provinciales.csv`. (C)
 - Zonas protegidas de la Antártida en el mapa (`apa_shape_2024.zip`) y el enlace desde Tierra del Fuego al capítulo. (C)
-- **[revisar]** E15 (una sola regla de bloques en f-legisladores), R8 (exportaciones por habitante en Trabajo y balanza energética repetida), el pie del perfil provincial con CSV, imagen y cómo citar, y las pruebas T2, T11 y T14 de la sección 9 de `PLAN_MEJORA.md`. (C)
-- Con una descarga que aprueba el autor: informalidad (cuatro trimestres de la EPH), cobertura de salud por tipo, el IPC con más detalle, TV paga del ENACOM **[revisar]** y lo que queda de la sección 3 de `PLAN_MEJORA.md` **[revisar]** (muertes en el tránsito, chicos en hogares pobres, salario mínimo frente a la canasta, tarifas de luz y gas, turismo interno, votantes y bancas de mujeres). (A, después C)
-- F13, la línea de tiempo en los mapas, sigue postergada hasta que un mapa por provincia tenga su serie. **[revisar]** Una segunda corrida mensual después del IPC, la EPH y el EMAE. (A)
+- E15: el Senado sigue por partido o alianza y Diputados por bloque (`PENDIENTES.md`, Estado y sociedad 7). (C)
+- R8, en parte: las exportaciones por habitante siguen en Trabajo (`f-exportaciones`). La balanza energética ya no se repite: queda solo en Petróleo y gas. (C)
+- El pie del perfil provincial: la imagen al compartir ya está (D3). Faltan el CSV del perfil y la cita propia (hoy la página de provincia solo enlaza "Usar los datos"). (C)
+- Las pruebas T2 (`scripts/linea_base.mjs` existe, pero no corre sola una vez por semana), T11 (banco de preguntas con el modelo de verdad) y T14 (huella de estilos) de la sección 9 de `PLAN_MEJORA.md`: siguen sin hacer. (C)
+- Con una descarga que aprueba el autor: informalidad (cuatro trimestres de la EPH), cobertura de salud por tipo, el IPC con más detalle, TV paga del ENACOM (no está en `01_descargar.py`) y lo que queda de la sección 3 de `PLAN_MEJORA.md`, que sigue sin ficha: muertes en el tránsito por provincia, chicos en hogares pobres, salario mínimo frente a la canasta, tarifas de luz y gas, turismo interno (EVyTH), votantes y bancas de mujeres. (A, después C)
+- F13, la línea de tiempo en los mapas, sigue postergada hasta que un mapa por provincia tenga su serie. Una segunda corrida mensual después del IPC, la EPH y el EMAE: `actualizar.yml` sigue con una sola, el día 5. (A)
 
 ### Decisiones del autor que siguen abiertas
 
