@@ -1,6 +1,6 @@
 # Plan técnico: buscadores, IA y datos abiertos
 
-**Propuesto, espera la aprobación del autor.** Las decisiones de abajo sí son del autor. El orden de las fases y la forma de intercalar lo pendiente son la propuesta.
+**Aprobado por el autor el 11 de noviembre de 2026** ("Apruebo el plan"), con las decisiones de abajo, el orden de las fases y la forma de intercalar lo pendiente.
 
 Preparado el 11 de noviembre de 2026 a partir del feedback técnico que recibió el autor, evaluado contra el sitio publicado y el repositorio en `main` (commit aa5a1109). Reúne en un solo orden el trabajo técnico nuevo y todo lo que ya estaba pendiente. Nada de lo que estaba en curso se pausa (decisión del autor del 11 de noviembre de 2026).
 
@@ -53,6 +53,44 @@ Una fase por vez, un PR cada una (o más de uno si es grande), commits chicos. A
 - Qué ve un rastreador sin JavaScript: el texto de cada página sin ejecutar `datina.js`.
 - Los números quedan en este archivo, para comparar después de las fases 4 y 5.
 - Esfuerzo bajo, riesgo nulo.
+
+#### Medición de base del 11 de noviembre de 2026 (`main` en 51351183)
+
+**Carga** (`node scripts/medir_carga.mjs`: Chrome sin ventana, procesador 4 veces más lento, sin caché, mediana de 5 cargas. Los tiempos cambian de una computadora a otra y de una corrida a otra: se comparan dos corridas en la misma computadora).
+
+| Archivo | Sin comprimir | gzip | brotli |
+|---|---|---|---|
+| `datos/fichas.js` | 1.010 KB | 216 KB | 160 KB |
+| `datina.js` | 1.247 KB | 359 KB | 275 KB |
+| `datina.css` | 213 KB | 51 KB | 42 KB |
+
+| Página | JavaScript | Tareas | Datos que baja |
+|---|---|---|---|
+| `contacto.html` | 160 ms | 425 ms | 1.010 KB |
+| `index.html` | 173 ms | 2.169 ms | 1.118 KB |
+| `trabajo.html` | 166 ms | 908 ms | 1.010 KB |
+| `politica.html` | 163 ms | 875 ms | 1.010 KB |
+| `provincia-neuquen.html` | 202 ms | 1.047 ms | 1.229 KB |
+| `a-coparticipacion.html` | 145 ms | 589 ms | 1.010 KB |
+
+**Qué ve un rastreador sin JavaScript** (`node scripts/medir_rastreador.mjs --todas`, nuevo en esta fase: cada página abierta con JavaScript y sin él, contando el contenido sin la barra, los menús ni el pie).
+
+| | Sin JavaScript | Con JavaScript |
+|---|---|---|
+| Palabras, 91 páginas | 392.526 (75%) | 521.164 |
+| Cifras, 91 páginas | 24.339 (57%) | 43.074 |
+| Páginas sin título (h1) | 30 | 0 |
+| Párrafos de interpretación vacíos | 213 de 216 | 0 |
+
+El total esconde lo peor, porque el Catálogo y las páginas de provincia ya tienen casi todo su texto en el HTML:
+
+- Los 29 artículos y Corte Suprema: 3 palabras sin JavaScript, ninguna cifra y sin título (de unas 1.100 a 1.400 palabras con JavaScript).
+- Las páginas de tema muestran entre 34% y 59% de sus palabras y entre 16% y 42% de sus cifras (Trabajo: 1.475 de 2.948 palabras y 47 de 142 cifras).
+- La portada: 307 de 675 palabras y 6 de 65 cifras. Datos destacados: 7 de 412 cifras. Artículos: 7% de las cifras. Explorador de relaciones: 13% de las palabras y ninguna cifra.
+- Bien: Catálogo (99%), `provincia-neuquen.html` (86%) y Elecciones por mesa (78% de las palabras, 47% de las cifras).
+- Las cifras con JavaScript cambian un poco de una corrida a otra (Trabajo dio 123 en una y 142 en otra): se compara el porcentaje, no el número exacto.
+
+La fase 4 se da por cumplida cuando los artículos y las interpretaciones tienen su texto sin JavaScript. El detalle por página queda en la salida del script.
 
 ### Fase 1. `llms.txt` y datos estructurados
 
