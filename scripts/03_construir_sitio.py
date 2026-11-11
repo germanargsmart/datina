@@ -1622,9 +1622,14 @@ imagen_social.terminar()
 # sitemap.xml y robots.txt solo con la dirección definitiva (datos/manual/sitio.json). Sin ella se borran, si quedaron de antes
 for _f in ("sitemap.xml", "robots.txt"):
     (SITIO / _f).unlink(missing_ok=True)
+# lastmod (plan técnico, fase 1, 11 de noviembre de 2026): la fecha de la última actualización de los datos, la misma para todas las páginas.
+# No la del día del armado: armar otro día tiene que dar los mismos archivos
+LASTMOD = "-".join(reversed(RESUMEN["actualizado"].split("/")))
+assert re.fullmatch(r"\d{4}-\d{2}-\d{2}", LASTMOD), f"la fecha de actualización no se entiende: {RESUMEN['actualizado']}"
 if URL_SITIO:
     (SITIO / "sitemap.xml").write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' +
-                                     "".join(f"  <url><loc>{URL_SITIO}/{a}</loc></url>\n" for a in INDEXADAS) + "</urlset>\n", encoding="utf-8", newline="\n")
+                                     "".join(f"  <url><loc>{URL_SITIO}/{a}</loc><lastmod>{LASTMOD}</lastmod></url>\n" for a in INDEXADAS) + "</urlset>\n",
+                                     encoding="utf-8", newline="\n")
     (SITIO / "robots.txt").write_text(f"User-agent: *\nAllow: /\nSitemap: {URL_SITIO}/sitemap.xml\n", encoding="utf-8", newline="\n")
 # Caché en Cloudflare Pages (23 de octubre de 2026, decisión del autor): sitio/_headers es el equivalente de los [[headers]] de
 # netlify.toml. Los archivos que las páginas piden con su huella en la dirección (?v=...) se guardan un año: cuando cambia el contenido

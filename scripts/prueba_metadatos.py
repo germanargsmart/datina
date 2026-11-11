@@ -108,6 +108,18 @@ def revisar(url_sitio=None):
             problemas.append(f"falta {f} con la dirección definitiva")
         if not url_sitio and existe:
             problemas.append(f"{f} existe sin dirección definitiva en datos/manual/sitio.json")
+    # lastmod (plan técnico, fase 1, 11 de noviembre de 2026): cada dirección del sitemap lleva la fecha de la última actualización de los
+    # datos, la misma que dicen los metadatos de las tablas (no la del día del armado)
+    if url_sitio and (SITIO / "sitemap.xml").exists():
+        sm = (SITIO / "sitemap.xml").read_text(encoding="utf-8")
+        fechas = {json.loads(p.read_text(encoding="utf-8"))["datos_actualizados"] for p in (SITIO / "datos").glob("*.metadata.json")}
+        esperada = "-".join(reversed(fechas.pop().split("/"))) if len(fechas) == 1 else None
+        if esperada is None:
+            problemas.append(f"los metadatos de las tablas no dicen una sola fecha de actualización: {sorted(fechas)}")
+        for u in re.findall(r"<url>(.*?)</url>", sm):
+            lm = re.search(r"<lastmod>(.*?)</lastmod>", u)
+            if not lm or (esperada and lm.group(1) != esperada):
+                problemas.append(f"sitemap.xml: {re.sub(r'</?loc>', '', u.split('<lastmod>')[0])} sin lastmod o con otra fecha que {esperada}")
     # E9 (27 de octubre de 2026): con "formularios" vacío en datos/manual/sitio.json, el armado saca el formulario de Contacto y la
     # suscripción del pie, y ningún texto a la vista puede describirlos como si existieran (Sobre nosotros hablaba de "los formularios de
     # Contacto y de novedades por correo"). Queda solo el aviso de Contacto. Los buscadores también son <form> y no cuentan
