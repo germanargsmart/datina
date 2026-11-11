@@ -49,7 +49,7 @@ Una fase por vez, un PR cada una (o más de uno si es grande), commits chicos. A
 
 ### Fase 0. Medición de base (sin cambios visibles)
 
-- Lighthouse en seis páginas (portada, Trabajo, un artículo, una provincia, Elecciones por mesa, Catálogo) en celular y computadora, y `node scripts/medir_carga.mjs`. Lighthouse se instala con npm: es una descarga chica, que el autor aprueba antes.
+- Lighthouse en seis páginas (portada, Trabajo, un artículo, una provincia, Elecciones por mesa, Catálogo) en celular y computadora, y `node scripts/medir_carga.mjs`. Lighthouse se instala con npm, fuera del repositorio (189 MB con sus dependencias), con la aprobación del autor.
 - Qué ve un rastreador sin JavaScript: el texto de cada página sin ejecutar `datina.js`.
 - Los números quedan en este archivo, para comparar después de las fases 4 y 5.
 - Esfuerzo bajo, riesgo nulo.
@@ -91,6 +91,41 @@ El total esconde lo peor, porque el Catálogo y las páginas de provincia ya tie
 - Las cifras con JavaScript cambian un poco de una corrida a otra (Trabajo dio 123 en una y 142 en otra): se compara el porcentaje, no el número exacto.
 
 La fase 4 se da por cumplida cuando los artículos y las interpretaciones tienen su texto sin JavaScript. El detalle por página queda en la salida del script.
+
+**Lighthouse 13.6.0** (`scripts/medir_lighthouse.mjs`, nuevo en esta fase: sirve `sitio/` en la computadora con brotli, como Cloudflare, y anota la mediana de 3 corridas. Lighthouse no entra al proyecto: el autor aprobó bajarlo el 11 de noviembre de 2026 y se instala en una carpeta aparte, 189 MB con sus dependencias. Mide en la computadora, sin la demora de la red real: sirve para comparar antes y después, no para compararse con otros sitios).
+
+Celular (el preajuste de Lighthouse: teléfono de gama media y 4G lenta simulados):
+
+| Página | Rendimiento | Accesibilidad | Prácticas | SEO | Primer texto | Mayor elemento | Bloqueo | Corrimiento |
+|---|---|---|---|---|---|---|---|---|
+| `index.html` | 56 | 86 | 100 | 100 | 4,4 s | 6,3 s | 546 ms | 0,000 |
+| `trabajo.html` | 70 | 96 | 100 | 100 | 4,4 s | 4,4 s | 228 ms | 0,002 |
+| `a-coparticipacion.html` | 67 | 96 | 100 | 100 | 4,3 s | 5,5 s | 150 ms | 0,012 |
+| `provincia-neuquen.html` | 38 | 97 | 100 | 100 | 4,6 s | 6,0 s | 310 ms | 0,687 |
+| `mesas.html` | 65 | 97 | 100 | 100 | 4,3 s | 4,3 s | 415 ms | 0,004 |
+| `catalogo.html` | 59 | 97 | 100 | 100 | 4,9 s | 4,9 s | 441 ms | 0,000 |
+
+Computadora:
+
+| Página | Rendimiento | Accesibilidad | Prácticas | SEO | Primer texto | Mayor elemento | Bloqueo | Corrimiento |
+|---|---|---|---|---|---|---|---|---|
+| `index.html` | 97 | 90 | 100 | 100 | 0,9 s | 1,2 s | 33 ms | 0,010 |
+| `trabajo.html` | 99 | 96 | 100 | 100 | 0,8 s | 0,8 s | 6 ms | 0,004 |
+| `a-coparticipacion.html` | 98 | 96 | 100 | 100 | 0,8 s | 1,0 s | 4 ms | 0,005 |
+| `provincia-neuquen.html` | 76 | 97 | 100 | 100 | 0,9 s | 0,9 s | 25 ms | 0,581 |
+| `mesas.html` | 91 | 97 | 100 | 100 | 0,8 s | 0,8 s | 32 ms | 0,174 |
+| `catalogo.html` | 98 | 97 | 100 | 100 | 0,9 s | 0,9 s | 56 ms | 0,004 |
+
+Lo que explica los números (de los informes de Lighthouse de la portada y de Neuquén):
+
+- **El primer texto tarda lo mismo en todas las páginas, unos 4,4 s en celular**, porque la página espera a bajar y correr D3 (en el `<head>`, sin `defer`), `fichas.js` y `datina.js` antes de pintar. Es lo primero que mira la fase 5.
+- **La página de provincia se corre mientras carga** (0,58 a 0,69, lo aceptable es menos de 0,1): `div.prov-cuerpo`, dentro de `section#provincias`, cambia de alto cuando `datina.js` pone los datos. Por eso tiene 38 en celular. Va a la fase 5, o antes si el autor lo pide, porque se nota al leer.
+- **Accesibilidad de la portada (86 y 90)**, cuatro fallas:
+  - las cifras de los datos destacados (`span.c-num`, `#2c74b5` sobre `#edf2f8`) tienen contraste 4,36 a 1, debajo del 4,5 que pide la regla. Es un cambio de color: lo aprueba el autor. (A)
+  - los 24 enlaces del mapa (`tabindex="-1"`) no tienen nombre que lea un lector de pantalla. (C)
+  - el cartel del mapa (`#tip`, `role="tooltip"`) no tiene nombre. (C)
+  - algunos enlaces de los temas quedan muy juntos para tocarlos con el dedo. (A)
+- Prácticas y SEO dan 100 en las seis páginas. El SEO de Lighthouse no ve el problema de la fase 4: solo controla título, descripción, enlaces y que la página se pueda rastrear.
 
 ### Fase 1. `llms.txt` y datos estructurados
 
