@@ -88,7 +88,7 @@ snic_prov = leer_csv_snic(CRUDO / "snic_provincias.csv", sep=";", decimal=",", d
 NOMBRE = (snic_prov[["provincia_id", "provincia_nombre"]].drop_duplicates()
           .set_index("provincia_id").provincia_nombre.to_dict())
 NOMBRE["94"] = "Tierra del Fuego"
-CORTO = {**NOMBRE, "02": "CABA"}
+CORTO = {**NOMBRE, "02": "CABA"}  # el nombre de la columna territorio de la tabla larga (decisión 3 del autor del 11 de noviembre de 2026, regla R5)
 # Casos que el lugar de registro o un error de la fuente distorsionan (datos/manual/distorsiones.json): los textos los aclaran
 # en la misma oración o los dejan fuera del máximo, con el motivo
 DIST = {k: v for k, v in json.loads((CRUDO.parent / "manual" / "distorsiones.json").read_text(encoding="utf-8")).items() if not k.startswith("_")}
@@ -3183,7 +3183,7 @@ GAS_KWH_M3 = 9300 * 4.1868 / 3600
 for _gas_t, _gas_var, _gas_uni in [(gas_prov_a[gas_prov_a.usuarios >= GAS_MIN].assign(valor=lambda x: x.m3_usuario), "gas_consumo_usuario_residencial", "m³ por usuario por año"),
                                    (gas_pais_a.reset_index().assign(codigo_indec="00", valor=lambda x: x.m3_usuario), "gas_consumo_usuario_residencial", "m³ por usuario por año"),
                                    (gas_pais_a.reset_index().assign(codigo_indec="00", valor=lambda x: x.miles_m3 / 1000), "gas_residencial_entregado", "millones de m³")]:
-    _gas_d = _gas_t.assign(territorio=_gas_t.codigo_indec.map(lambda c: "Argentina" if c == "00" else NOMBRE[c]), periodo=_gas_t.anio.astype(str))
+    _gas_d = _gas_t.assign(territorio=_gas_t.codigo_indec.map(lambda c: "Argentina" if c == "00" else CORTO[c]), periodo=_gas_t.anio.astype(str))
     agregar(_gas_d[["codigo_indec", "territorio", "periodo", "valor"]], _gas_var, _gas_uni, "ENARGAS, datos operativos de gas natural (cuadro I.10)")
 GAS_RES = {
     "gas_anio": GAS_ULT, "gas_ini": GAS_INI, "gas_hasta": f"{MES[int(GAS_UM[5:7]) - 1]} de {GAS_UM[:4]}", "gas_mes_desde": int(GAS_MES_DESDE[:4]),
@@ -5064,7 +5064,7 @@ obra_publica_provincias = obra_publica_provincias.round({"obras": 1, "transf": 1
 obra_publica_provincias = obra_publica_provincias.sort_values("total_hab", ascending=False).reset_index(drop=True)
 _op_s = obra_publica_serie.set_index("anio")
 _op_o = inv_[(inv_.anio == OP_ULT) & (inv_.k == "obras")]
-_op_d = op_prov.assign(territorio=op_prov.codigo_indec.map(NOMBRE), periodo=op_prov.anio.astype(str), valor=op_prov.total_hab)
+_op_d = op_prov.assign(territorio=op_prov.codigo_indec.map(CORTO), periodo=op_prov.anio.astype(str), valor=op_prov.total_hab)
 agregar(_op_d[["codigo_indec", "territorio", "periodo", "valor"]], "obra_publica_nacion_por_habitante", f"pesos de {OP_ULT} por habitante",
         "Presupuesto Abierto, Secretaría de Hacienda (crédito devengado)")
 OP_RES = {
@@ -5323,10 +5323,10 @@ ELS_RES = {
 }
 for _els_k, _els_var in (("com", "electricidad_comercial_por_habitante"), ("ind", "electricidad_industrial_por_habitante")):
     _els_t = _els_a[_els_k][_els_a[_els_k].codigo_indec != EL_BA]
-    agregar(_els_t.assign(territorio=_els_t.codigo_indec.map(lambda c: "Argentina" if c == "00" else NOMBRE[c]), periodo=_els_t.anio.astype(str), valor=_els_t.kwh_hab)[
+    agregar(_els_t.assign(territorio=_els_t.codigo_indec.map(lambda c: "Argentina" if c == "00" else CORTO[c]), periodo=_els_t.anio.astype(str), valor=_els_t.kwh_hab)[
         ["codigo_indec", "territorio", "periodo", "valor"]], _els_var, "kWh por habitante por año", "CAMMESA, demanda mensual por provincia y tipo de usuario")
 _el_tl = _el_a[_el_a.codigo_indec != EL_BA]
-agregar(_el_tl.assign(territorio=_el_tl.codigo_indec.map(lambda c: "Argentina" if c == "00" else NOMBRE[c]), periodo=_el_tl.anio.astype(str), valor=_el_tl.kwh_hab)[
+agregar(_el_tl.assign(territorio=_el_tl.codigo_indec.map(lambda c: "Argentina" if c == "00" else CORTO[c]), periodo=_el_tl.anio.astype(str), valor=_el_tl.kwh_hab)[
     ["codigo_indec", "territorio", "periodo", "valor"]], "electricidad_residencial_por_habitante", "kWh por habitante por año", "CAMMESA, demanda mensual por provincia y tipo de usuario")
 _el_tp = _el_a[_el_a.codigo_indec == "00"]
 agregar(_el_tp.assign(territorio="Argentina", periodo=_el_tp.anio.astype(str), valor=_el_tp.mwh / 1000)[["codigo_indec", "territorio", "periodo", "valor"]],
@@ -5338,7 +5338,7 @@ assert _cbh.codigo_indec.notna().all(), "provincias sin código en la serie larg
 _cbh = _cbh.pivot_table(index=["periodo", "codigo_indec"], columns="producto", values="mediana").reset_index()
 for _cb_p, _cb_var in (("nafta", "precio_nafta_super_surtidor"), ("gasoil", "precio_gasoil_grado_2_surtidor")):
     _cb_d = pd.concat([_cbh, combustibles_mensual]).rename(columns={_cb_p: "valor"})
-    agregar(_cb_d.assign(territorio=_cb_d.codigo_indec.map(lambda c: "Argentina" if c == "00" else NOMBRE[c]))[["codigo_indec", "territorio", "periodo", "valor"]],
+    agregar(_cb_d.assign(territorio=_cb_d.codigo_indec.map(lambda c: "Argentina" if c == "00" else CORTO[c]))[["codigo_indec", "territorio", "periodo", "valor"]],
             _cb_var, "pesos por litro, mediana de las estaciones", "Secretaria de Energia, precios en estaciones de servicio (Res. 1104/2004)")
 
 # ---------------------------------------------------------------- artículo: el dólar, la inversión y la construcción (etapa 22)
@@ -5529,7 +5529,7 @@ SAL_RES = {
     "real_max_mes": _mes_per(_sal_s.idxmax()), "real_max": float(_sal_s.max()), "real_min_mes": _mes_per(_sal_s.idxmin()), "real_min": float(_sal_s.min()),
 }
 _sal_tl = sal_m[sal_m.index >= "2017-01"].reset_index().melt(id_vars="mes", var_name="codigo_indec", value_name="valor").rename(columns={"mes": "periodo"})
-agregar(_sal_tl.assign(territorio=_sal_tl.codigo_indec.map(lambda c: "Argentina" if c == "00" else NOMBRE[c])), "remuneracion_promedio_asalariados_privados",
+agregar(_sal_tl.assign(territorio=_sal_tl.codigo_indec.map(lambda c: "Argentina" if c == "00" else CORTO[c])), "remuneracion_promedio_asalariados_privados",
         "pesos corrientes por mes, promedio por puesto, con aguinaldo en junio y diciembre", "OEDE, Secretaria de Trabajo (SIPA)")
 
 # ---------------------------------------------------------------- salario docente por provincia (etapa 23)
@@ -5573,7 +5573,7 @@ DOC_RES = {
 }
 _doc_tl = _doc_ok[_doc_ok.anio >= 2017]
 # en la tabla larga, el trimestre se escribe como los semestres de la pobreza: 2T2026
-agregar(_doc_tl.assign(territorio=_doc_tl.codigo_indec.map(lambda c: "Argentina" if c == "00" else NOMBRE[c]), valor=_doc_tl.bruto,
+agregar(_doc_tl.assign(territorio=_doc_tl.codigo_indec.map(lambda c: "Argentina" if c == "00" else CORTO[c]), valor=_doc_tl.bruto,
                        periodo=(_doc_tl.mes // 3).astype(str) + "T" + _doc_tl.anio.astype(str))[["codigo_indec", "territorio", "periodo", "valor"]],
         "salario_bruto_maestro_grado_10_anios", "pesos corrientes por mes", "Coordinacion de Evaluacion de Costos Educativos, Secretaria de Educacion")
 
@@ -5605,7 +5605,7 @@ INV_RES = {
     "ini": int(_ie_ps.index.min()), "real_ini": float(_ie_ps.iloc[0]), "real_max_anio": int(_ie_ps.idxmax()), "real_max": float(_ie_ps.max()),
     "real_min_anio": int(_ie_ps.idxmin()), "real_min": float(_ie_ps.min()),
 }
-agregar(ie_.dropna(subset=["gasto_por_alumno"]).assign(territorio=lambda x: x.codigo_indec.map(lambda c: "Argentina" if c == "00" else NOMBRE[c]),
+agregar(ie_.dropna(subset=["gasto_por_alumno"]).assign(territorio=lambda x: x.codigo_indec.map(lambda c: "Argentina" if c == "00" else CORTO[c]),
                                                        periodo=lambda x: x.anio.astype(str), valor=lambda x: x.gasto_por_alumno)[["codigo_indec", "territorio", "periodo", "valor"]],
         "gasto_educativo_por_alumno_estatal", "pesos corrientes por alumno de gestion estatal por año", "Coordinacion de Evaluacion de Costos Educativos, Secretaria de Educacion")
 
@@ -5741,12 +5741,12 @@ for _seg_k, _seg_var, _seg_uni in (("homicidios", "tasa_victimas_homicidios_dolo
                                    ("robos", "tasa_robos", "hechos cada 100.000 habitantes"), ("hurtos", "tasa_hurtos", "hechos cada 100.000 habitantes")):
     _seg_t = seguridad_serie_prov[["codigo_indec", "anio", _seg_k]].rename(columns={"anio": "periodo", _seg_k: "valor"})
     _seg_t = pd.concat([_seg_t, delitos_serie[["anio", _seg_k]].rename(columns={"anio": "periodo", _seg_k: "valor"}).assign(codigo_indec="00")])
-    agregar(_seg_t.assign(territorio=_seg_t.codigo_indec.map(lambda c: "Argentina" if c == "00" else NOMBRE[c])), _seg_var, _seg_uni, "SNIC, Ministerio de Seguridad")
+    agregar(_seg_t.assign(territorio=_seg_t.codigo_indec.map(lambda c: "Argentina" if c == "00" else CORTO[c])), _seg_var, _seg_uni, "SNIC, Ministerio de Seguridad")
 agregar(carceles_serie.rename(columns={"anio": "periodo", "personas": "valor"}).assign(codigo_indec="00", territorio="Argentina"),
         "personas_privadas_de_libertad_establecimientos_penitenciarios", "personas al 31 de diciembre", "SNEEP, Ministerio de Justicia")
 _sn_l = pd.concat([carceles_serie.rename(columns={"anio": "periodo", "pct_sin_condena": "valor"}).assign(codigo_indec="00")[["codigo_indec", "periodo", "valor"]],
                    carceles_provincias.rename(columns={"pct_sin_condena": "valor"}).assign(periodo=SN_ULT)[["codigo_indec", "periodo", "valor"]]])
-agregar(_sn_l.dropna().assign(territorio=lambda t: t.codigo_indec.map(lambda c: "Argentina" if c == "00" else NOMBRE[c])),
+agregar(_sn_l.dropna().assign(territorio=lambda t: t.codigo_indec.map(lambda c: "Argentina" if c == "00" else CORTO[c])),
         "pct_personas_privadas_de_libertad_sin_condena", "% de las personas privadas de libertad", "SNEEP, Ministerio de Justicia")
 
 # ---------------------------------------------------------------- artículo: el turismo y el dólar (etapa 24)

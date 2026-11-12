@@ -610,6 +610,13 @@ def prueba_formato(d, t):
     largos = crudo[crudo.valor.str.contains(r"\.\d{5,}|[eE]", regex=True)]
     for v, g in largos.groupby("variable"):
         sale.append((f"decimales|{v}", f"{v}: {len(g)} valores con más de cuatro decimales o en notación científica (por ejemplo {g.valor.iloc[0]})"))
+    # 3. un solo nombre por código, y "CABA" para el "02" (regla R5: no "Ciudad Autónoma de Buenos Aires")
+    for c, g in crudo.groupby("codigo_indec"):
+        nombres = sorted(set(g.territorio))
+        if len(nombres) > 1:
+            sale.append((f"nombres|{c}", f"el código {c} tiene {len(nombres)} nombres: {', '.join(nombres)}"))
+    if set(crudo[crudo.codigo_indec == "02"].territorio) - {"CABA"}:
+        sale.append(("caba", "el código 02 no se llama \"CABA\" en todas las filas"))
     return sale
 
 
