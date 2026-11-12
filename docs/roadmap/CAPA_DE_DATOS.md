@@ -72,6 +72,10 @@ Si se cambia la regla, también se actualizan el comentario de `02_procesar.py` 
 
 Las decisiones 1 (cuatro decimales) y 3 (CABA) no necesitaban otra respuesta: la historia las confirma.
 
+## Hecho
+
+- **12 de noviembre de 2026, decisiones 1 a 3** (rama `claude/fase2-datos`), cada una en su commit, con 02 corrido con la fecha del resumen: cuatro decimales (15.751 valores, ninguno movido en más de 0,0001), "CABA" (833 filas) y "AGLO" (81 filas). `fichas.json` no cambió: el sitio muestra las mismas cifras y solo cambia la tabla descargable. `pruebas_datos.py` suma "Formato de la tabla larga". Queda para el MCP: las tablas de las fichas de pobreza y desocupación por aglomerado (`pobreza_aglomerados.csv`, `desocupacion_aglomerados.csv`) todavía tienen una columna `provincias` con "00" para el total de los aglomerados.
+
 ## Orden de trabajo
 
 Un PR para las decisiones 1 a 3 (limpieza de la tabla larga, sin cambiar ninguna cifra visible), otro para la 4 (cambian cifras: se compara el resumen antes y después) y otro para `sitio/datos/catalogo.json`, la prueba entre tablas y `docs/ia/CONSULTAS.md`. Cada decisión en su commit, con su control en `pruebas_datos.py`, corriendo 02 con `scripts/correr_02_con_fecha.py`.
