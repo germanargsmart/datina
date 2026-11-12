@@ -64,6 +64,14 @@ Fuera de la regla, como ya estaba declarado: las tasas que publica la fuente (SN
 
 Si se cambia la regla, también se actualizan el comentario de `02_procesar.py` (líneas 98 a 104), `etapas-previas.md`, el comentario de la AUH y el control de la planilla de la DNAP, que hoy exige la población de 2025.
 
-## Respuestas del autor
+## Respuestas del autor (12 de noviembre de 2026)
 
-(pendiente)
+1. **Población: el mismo año que el dato.** Reemplaza la regla del 2 de octubre de 2026 ("del año 2025"). Cambian las 10 fichas de la tabla, las cifras del país, Cruces y el perfil, y cada ficha dice el año de su población.
+2. **Fichas sin año propio** (bancas por ley, ministros por millón, población y densidad de Cruces): **la población del año en curso**, que es el año de la última actualización de los datos (`RESUMEN["actualizado"]`), no el del día del armado, para que armar otro día dé los mismos archivos.
+3. **Aglomerados: el código "AGLO"**, de letras, para las 81 filas (pobreza, indigencia y desocupación de los 31 aglomerados). La regla de los códigos suma esta excepción en el mismo commit.
+
+Las decisiones 1 (cuatro decimales) y 3 (CABA) no necesitaban otra respuesta: la historia las confirma.
+
+## Orden de trabajo
+
+Un PR para las decisiones 1 a 3 (limpieza de la tabla larga, sin cambiar ninguna cifra visible), otro para la 4 (cambian cifras: se compara el resumen antes y después) y otro para `sitio/datos/catalogo.json`, la prueba entre tablas y `docs/ia/CONSULTAS.md`. Cada decisión en su commit, con su control en `pruebas_datos.py`, corriendo 02 con `scripts/correr_02_con_fecha.py`.
