@@ -7987,7 +7987,13 @@ ant_res = {
 
 
 # ---------------------------------------------------------------- salida
-pd.concat(largo, ignore_index=True).to_csv(ORDEN / "tabla_larga.csv", index=False, lineterminator="\n")
+# Cuatro decimales en la tabla larga (regla del paquete de datos del autor del 2 de octubre de 2026, confirmada el 11 de noviembre de 2026,
+# decisión 1 de docs/roadmap/PLAN_TECNICO.md): se redondea al escribir, mitad hacia arriba como r1(), y no en agregar(), porque "Cómo cambió
+# su puesto" lee `largo` antes con todos los decimales y redondear antes podría mover un empate. El + 0.0 evita escribir "-0.0"
+_tl_salida = pd.concat(largo, ignore_index=True)
+_tl_salida["valor"] = [float(Decimal(float(v)).quantize(Decimal("0.0001"), rounding=ROUND_HALF_UP)) + 0.0 if pd.notna(v) else v
+                       for v in _tl_salida["valor"]]
+_tl_salida.to_csv(ORDEN / "tabla_larga.csv", index=False, lineterminator="\n")
 
 
 

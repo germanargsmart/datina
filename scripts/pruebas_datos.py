@@ -599,9 +599,24 @@ def prueba_unidades(d, t):
     return sale
 
 
+# ---------------------------------------------------------------- formato de la tabla larga
+# Plan técnico, fase 2 (decisiones del autor del 11 de noviembre de 2026, docs/roadmap/CAPA_DE_DATOS.md): la tabla larga es la base del
+# MCP y de la API, así que su forma se controla tal como está escrita en el archivo, no como la lee pandas
+def prueba_formato(d, t):
+    import re
+    crudo = pd.read_csv(RAIZ / "datos" / "ordenado" / "tabla_larga.csv", dtype=str, keep_default_na=False)
+    sale = []
+    # 1. cuatro decimales como máximo, sin notación científica
+    largos = crudo[crudo.valor.str.contains(r"\.\d{5,}|[eE]", regex=True)]
+    for v, g in largos.groupby("variable"):
+        sale.append((f"decimales|{v}", f"{v}: {len(g)} valores con más de cuatro decimales o en notación científica (por ejemplo {g.valor.iloc[0]})"))
+    return sale
+
+
 PRUEBAS = [("Sumas de control", prueba_sumas), ("Tasas y porcentajes fuera de rango", prueba_rango), ("Períodos faltantes", prueba_faltantes),
            ("Más de cinco veces la mediana", None), ("Dos fuentes para lo mismo", prueba_fuentes), ("Mandatos presidenciales", prueba_mandatos),
-           ("La Corte Suprema", prueba_corte), ("Errores que ya pasaron", prueba_errores), ("Puestos de cada provincia", lambda d, t: prueba_puestos()), ("Unidades conocidas", prueba_unidades)]
+           ("La Corte Suprema", prueba_corte), ("Errores que ya pasaron", prueba_errores), ("Puestos de cada provincia", lambda d, t: prueba_puestos()), ("Unidades conocidas", prueba_unidades),
+           ("Formato de la tabla larga", prueba_formato)]
 
 
 def correr(mostrar=True):
