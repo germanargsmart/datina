@@ -599,9 +599,37 @@ def prueba_unidades(d, t):
     return sale
 
 
+# ---------------------------------------------------------------- formato de la tabla larga
+# Plan técnico, fase 2 (decisiones del autor del 11 de noviembre de 2026, docs/roadmap/CAPA_DE_DATOS.md): la tabla larga es la base del
+# MCP y de la API, así que su forma se controla tal como está escrita en el archivo, no como la lee pandas
+def prueba_formato(d, t):
+    import re
+    crudo = pd.read_csv(RAIZ / "datos" / "ordenado" / "tabla_larga.csv", dtype=str, keep_default_na=False)
+    sale = []
+    # 1. cuatro decimales como máximo, sin notación científica
+    largos = crudo[crudo.valor.str.contains(r"\.\d{5,}|[eE]", regex=True)]
+    for v, g in largos.groupby("variable"):
+        sale.append((f"decimales|{v}", f"{v}: {len(g)} valores con más de cuatro decimales o en notación científica (por ejemplo {g.valor.iloc[0]})"))
+    # 3. un solo nombre por código, y "CABA" para el "02" (regla R5: no "Ciudad Autónoma de Buenos Aires")
+    for c, g in crudo.groupby("codigo_indec"):
+        nombres = sorted(set(g.territorio))
+        if len(nombres) > 1:
+            sale.append((f"nombres|{c}", f"el código {c} tiene {len(nombres)} nombres: {', '.join(nombres)}"))
+    if set(crudo[crudo.codigo_indec == "02"].territorio) - {"CABA"}:
+        sale.append(("caba", "el código 02 no se llama \"CABA\" en todas las filas"))
+    # 2. los códigos: los de dos dígitos del INDEC ("00" el país) y "AGLO" para los 31 aglomerados urbanos de la EPH, que no son el país
+    for c in sorted(set(crudo.codigo_indec) - {"AGLO"}):
+        if not re.fullmatch(r"\d{2}", c):
+            sale.append((f"codigo|{c}", f"código que no es de dos dígitos ni AGLO: «{c}»"))
+    for v in sorted(set(crudo[(crudo.codigo_indec != "AGLO") & crudo.variable.str.endswith("_31_aglomerados")].variable)):
+        sale.append((f"aglomerados|{v}", f"{v}: filas de los aglomerados con un código que no es AGLO"))
+    return sale
+
+
 PRUEBAS = [("Sumas de control", prueba_sumas), ("Tasas y porcentajes fuera de rango", prueba_rango), ("Períodos faltantes", prueba_faltantes),
            ("Más de cinco veces la mediana", None), ("Dos fuentes para lo mismo", prueba_fuentes), ("Mandatos presidenciales", prueba_mandatos),
-           ("La Corte Suprema", prueba_corte), ("Errores que ya pasaron", prueba_errores), ("Puestos de cada provincia", lambda d, t: prueba_puestos()), ("Unidades conocidas", prueba_unidades)]
+           ("La Corte Suprema", prueba_corte), ("Errores que ya pasaron", prueba_errores), ("Puestos de cada provincia", lambda d, t: prueba_puestos()), ("Unidades conocidas", prueba_unidades),
+           ("Formato de la tabla larga", prueba_formato)]
 
 
 def correr(mostrar=True):

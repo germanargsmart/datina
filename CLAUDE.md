@@ -72,7 +72,7 @@ docs/roadmap/                  plan vigente, estado, decisiones, criterios de ac
 
 ## Reglas de datos (resumen; completas en `.claude/rules/pipeline-datos.md`)
 
-- `tabla_larga.csv` siempre con `codigo_indec, territorio, periodo, variable, valor, unidad, fuente`. Toda variable nueva entra por `agregar()` de `02_procesar.py`. Códigos INDEC de dos dígitos ("02" CABA, "06" Buenos Aires), "00" total país.
+- `tabla_larga.csv` siempre con `codigo_indec, territorio, periodo, variable, valor, unidad, fuente`. Toda variable nueva entra por `agregar()` de `02_procesar.py`. Códigos INDEC de dos dígitos ("02" CABA, "06" Buenos Aires), "00" total país, y "AGLO" para los 31 aglomerados urbanos de la EPH (decisión del autor del 12 de noviembre de 2026). Un solo nombre por código: "CABA" para el "02".
 - Una fuente principal por indicador, la nacional. El Banco Mundial (`bm_*`) solo en la comparación con la OCDE.
 - Un solo módulo de población: proyecciones del INDEC base Censo 2022 (`POB`). Excepciones declaradas en cada ficha.
 - Redondeo único, al mostrar (`r1()`, mitad hacia arriba). Las tablas guardan cuatro decimales.
