@@ -985,7 +985,7 @@ pobreza["anio"] = pobreza.periodo.str[-4:].astype(int)
 pobreza["t"] = pobreza.anio + (pobreza.semestre - 1) / 2
 for col, var in [("pobreza_personas", "pobreza_personas_31_aglomerados"), ("indigencia_personas", "indigencia_personas_31_aglomerados")]:
     d = pobreza[["periodo", col]].rename(columns={col: "valor"})
-    d["codigo_indec"], d["territorio"] = "00", "31 aglomerados urbanos"
+    d["codigo_indec"], d["territorio"] = "AGLO", "31 aglomerados urbanos"  # no "00", que es el país (decisión 2 del autor del 11 de noviembre de 2026)
     agregar(d, var, "% de personas", "INDEC, Encuesta Permanente de Hogares")
 SEM = {1: "primer", 2: "segundo"}
 sem_txt = lambda f: f"{SEM[int(f.semestre)]} semestre de {int(f.anio)}"
@@ -7676,7 +7676,7 @@ dso_res = {
     "max": [dso_a.iloc[0].nombre, r1(dso_a.iloc[0].desocupacion)], "min": [dso_a.iloc[-1].nombre, r1(dso_a.iloc[-1].desocupacion)],
     "pico": [dso_tx(dso_ss.idxmax()), r1(dso_ss.max())], "piso": [dso_tx(dso_ss.idxmin()), r1(dso_ss.min())],
 }
-agregar(desocupacion_serie.assign(codigo_indec="00", territorio="Argentina", valor=desocupacion_serie.desocupacion),
+agregar(desocupacion_serie.assign(codigo_indec="AGLO", territorio="31 aglomerados urbanos", valor=desocupacion_serie.desocupacion),  # como la pobreza
         "tasa_desocupacion_31_aglomerados", "% de la población económicamente activa", "INDEC, Encuesta Permanente de Hogares")
 
 # ---------------------------------------------------------------- pobreza por región y por aglomerado (plan de mejora, etapa 4, 27 de octubre de 2026)
