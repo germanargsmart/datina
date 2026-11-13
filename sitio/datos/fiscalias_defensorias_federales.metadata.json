@@ -53,7 +53,7 @@
   {
    "nombre": "poblacion",
    "tipo": "Número",
-   "valores": "182.003 a 17.443.372"
+   "valores": "181.263 a 17.431.446"
   },
   {
    "nombre": "fiscalias_cada_100mil",
@@ -63,7 +63,7 @@
   {
    "nombre": "defensorias_cada_100mil",
    "tipo": "Número",
-   "valores": "0,19 a 2,2"
+   "valores": "0,19 a 2,21"
   }
  ],
  "unidades": [],

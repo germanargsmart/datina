@@ -74,7 +74,7 @@ docs/roadmap/                  plan vigente, estado, decisiones, criterios de ac
 
 - `tabla_larga.csv` siempre con `codigo_indec, territorio, periodo, variable, valor, unidad, fuente`. Toda variable nueva entra por `agregar()` de `02_procesar.py`. Códigos INDEC de dos dígitos ("02" CABA, "06" Buenos Aires), "00" total país, y "AGLO" para los 31 aglomerados urbanos de la EPH (decisión del autor del 12 de noviembre de 2026). Un solo nombre por código: "CABA" para el "02".
 - Una fuente principal por indicador, la nacional. El Banco Mundial (`bm_*`) solo en la comparación con la OCDE.
-- Un solo módulo de población: proyecciones del INDEC base Censo 2022 (`POB`). Excepciones declaradas en cada ficha.
+- Un solo módulo de población: proyecciones del INDEC base Censo 2022, del mismo año que el dato (`pob_anio()`, decisión del autor del 12 de noviembre de 2026) y, sin año propio, del año en curso (`POB`). Cada ficha dice el año de su población. Excepciones declaradas en cada ficha.
 - Redondeo único, al mostrar (`r1()`, mitad hacia arriba). Las tablas guardan cuatro decimales.
 - Ningún año que cambia con los datos va escrito a mano: sale del resumen (`{{ruta}}` en la plantilla). El constructor frena el sitio si encuentra uno.
 - Los textos se generan desde `resumen`, nunca con cifras escritas a mano.

@@ -2920,7 +2920,7 @@
    "evidencia": [
     {
      "archivo": "scripts/02_procesar.py",
-     "contiene": "emp[\"poblacion\"] = emp.codigo_indec.map(POB)"
+     "contiene": "emp[\"poblacion\"] = emp.codigo_indec.map(pob_anio(fin.year, \"empleo_provincias\"))"
     }
    ],
    "tabla": "empleo_provincias"
@@ -3035,7 +3035,7 @@
    "evidencia": [
     {
      "archivo": "scripts/02_procesar.py",
-     "contiene": "exp_prov[\"usd_por_habitante\"] = exp_prov.millones_usd * 1e6 / exp_prov.codigo_indec.map(POB)"
+     "contiene": "exp_prov[\"usd_por_habitante\"] = exp_prov.millones_usd * 1e6 / exp_prov.codigo_indec.map(POB_EX)"
     }
    ],
    "tabla": "exportaciones_provincias"
@@ -3251,7 +3251,7 @@
    "evidencia": [
     {
      "archivo": "scripts/02_procesar.py",
-     "contiene": "empresas[\"cada_1000_hab\"] = empresas.empresas / empresas.codigo_indec.map(POB) * 1000"
+     "contiene": "empresas[\"cada_1000_hab\"] = empresas.empresas / empresas.codigo_indec.map(POB_EMP) * 1000"
     }
    ],
    "tabla": "empresas_provincias"
@@ -3299,7 +3299,7 @@
     },
     {
      "archivo": "scripts/02_procesar.py",
-     "contiene": "sociedades_provincias[\"poblacion\"] = sociedades_provincias.codigo_indec.map(lambda c: POB_POR_ANIO[(c, SOC_ULT)])"
+     "contiene": "sociedades_provincias[\"poblacion\"] = sociedades_provincias.codigo_indec.map(pob_anio(SOC_ULT, \"sociedades_provincias\"))"
     }
    ],
    "tabla": "sociedades_provincias"
@@ -4347,7 +4347,7 @@
    "evidencia": [
     {
      "archivo": "scripts/02_procesar.py",
-     "contiene": "extranjeros[\"cada_100\"] = extranjeros.personas / extranjeros.codigo_indec.map(POB) * 100"
+     "contiene": "extranjeros[\"cada_100\"] = extranjeros.personas / extranjeros.codigo_indec.map(POB_XT) * 100"
     }
    ],
    "tabla": "extranjeros_provincias"
@@ -4622,7 +4622,7 @@
     },
     {
      "archivo": "scripts/02_procesar.py",
-     "contiene": "representacion[\"poblacion\"] = representacion.codigo_indec.map(POB).round(0)"
+     "contiene": "representacion[\"poblacion\"] = representacion.codigo_indec.map(pob_anio(ANIO_POB, \"representacion_provincias\")).round(0)"
     },
     {
      "archivo": "scripts/02_procesar.py",
@@ -5063,7 +5063,7 @@
     },
     {
      "archivo": "scripts/02_procesar.py",
-     "contiene": "\"cada_1000\": (_gbc_u.planta / _gbc_u.index.map(POB) * 1000).values"
+     "contiene": "\"cada_1000\": (_gbc_u.planta / _gbc_u.index.map(POB_GBC) * 1000).values"
     }
    ],
    "tabla": "empleo_publico_provincias"
@@ -5095,7 +5095,7 @@
     },
     {
      "archivo": "scripts/02_procesar.py",
-     "contiene": "impuestos_provinciales[\"por_habitante\"] = impuestos_provinciales.millones * 1e6 / impuestos_provinciales.codigo_indec.map(POB)"
+     "contiene": "impuestos_provinciales[\"por_habitante\"] = impuestos_provinciales.millones * 1e6 / impuestos_provinciales.codigo_indec.map(POB_GBP)"
     }
    ],
    "tabla": "impuestos_provinciales"
@@ -5175,7 +5175,7 @@
     },
     {
      "archivo": "scripts/02_procesar.py",
-     "contiene": "deuda_provincias[\"poblacion\"] = deuda_provincias.codigo_indec.map(lambda c: POB_POR_ANIO[(c, DP_ANIO)])"
+     "contiene": "deuda_provincias[\"poblacion\"] = deuda_provincias.codigo_indec.map(pob_anio(DP_ANIO, \"deuda_provincias\"))"
     }
    ],
    "tabla": "deuda_provincias"
@@ -5271,11 +5271,11 @@
     },
     {
      "archivo": "scripts/02_procesar.py",
-     "contiene": "POB = {f\"{int(j):02d}\""
+     "contiene": "POB_POR_ANIO = {(f\"{int(j):02d}\", int(a))"
     },
     {
      "archivo": "scripts/02_procesar.py",
-     "contiene": "pat_prov[\"autos_1000\"] = pat_prov.autos / pat_prov.codigo_indec.map(POB) * 1000"
+     "contiene": "pat_prov[\"autos_1000\"] = pat_prov.autos / pat_prov.codigo_indec.map(POB_AU) * 1000"
     }
    ],
    "tabla": "patentamientos_provincias"
@@ -5475,11 +5475,11 @@
     },
     {
      "archivo": "scripts/02_procesar.py",
-     "contiene": "POB = {f\"{int(j):02d}\""
+     "contiene": "POB_POR_ANIO = {(f\"{int(j):02d}\", int(a))"
     },
     {
      "archivo": "scripts/02_procesar.py",
-     "contiene": "empleo_sec[\"construccion_cada_1000\"] = empleo_sec.construccion / empleo_sec.codigo_indec.map(POB) * 1000"
+     "contiene": "empleo_sec[\"construccion_cada_1000\"] = empleo_sec.construccion / empleo_sec.codigo_indec.map(POB_OE) * 1000"
     }
    ],
    "tabla": "empleo_construccion_provincias"
@@ -6183,7 +6183,7 @@
     },
     {
      "archivo": "scripts/02_procesar.py",
-     "contiene": "empleo_sec[\"petroleo_gas_cada_1000\"] = empleo_sec.petroleo_gas / empleo_sec.codigo_indec.map(POB) * 1000"
+     "contiene": "empleo_sec[\"petroleo_gas_cada_1000\"] = empleo_sec.petroleo_gas / empleo_sec.codigo_indec.map(POB_OE) * 1000"
     }
    ]
   },
@@ -6227,7 +6227,7 @@
    "evidencia": [
     {
      "archivo": "scripts/02_procesar.py",
-     "contiene": "reg_prov[\"usd_crudo_hab\"] = reg_prov.codigo_indec.map(reg_crudo).fillna(0) / reg_prov.codigo_indec.map(POB)"
+     "contiene": "reg_prov[\"usd_crudo_hab\"] = reg_prov.codigo_indec.map(reg_crudo).fillna(0) / reg_prov.codigo_indec.map(pob_anio(REG_ULT, \"regalias_provincias\"))"
     }
    ]
   },
@@ -6419,7 +6419,7 @@
     },
     {
      "archivo": "scripts/02_procesar.py",
-     "contiene": "etp[\"cada_1000\"] = etp.turistas / etp.codigo_indec.map(POB) * 1000"
+     "contiene": "etp[\"cada_1000\"] = etp.turistas / etp.codigo_indec.map(pob_anio(ANIO_ETI, \"turistas_extranjeros_provincias\")) * 1000"
     }
    ]
   },
@@ -6451,7 +6451,7 @@
     },
     {
      "archivo": "scripts/02_procesar.py",
-     "contiene": "area[\"m2_por_habitante\"] = area.ha_terrestres * 1e4 / area.codigo_indec.map(POB)"
+     "contiene": "area[\"m2_por_habitante\"] = area.ha_terrestres * 1e4 / area.codigo_indec.map(POB_AP)"
     }
    ]
   },
@@ -7015,7 +7015,7 @@
    "evidencia": [
     {
      "archivo": "scripts/02_procesar.py",
-     "contiene": "pinv_prov[\"cada_1000\"] = pinv_prov.pensiones / pinv_prov.codigo_indec.map({**POB, \"00\": sum(POB.values())}) * 1000"
+     "contiene": "pob_anio(_pp_a[_pp_ult][0], \"pensiones_invalidez_provincias\")"
     }
    ]
   },
@@ -7055,7 +7055,7 @@
    "evidencia": [
     {
      "archivo": "scripts/02_procesar.py",
-     "contiene": "_auh_men = proy[(proy.anio == ANIO_POB) & (proy.edad <= 15)]"
+     "contiene": "_auh_men = proy[(proy.anio == _auh_anio) & (proy.edad <= 15)]"
     }
    ]
   },
@@ -7195,7 +7195,7 @@
    "evidencia": [
     {
      "archivo": "scripts/02_procesar.py",
-     "contiene": "dsm_prov[\"cada_1000_habitantes\"] = dsm_prov.beneficiarios / dsm_prov.codigo_indec.map({**POB, \"00\": sum(POB.values())}) * 1000"
+     "contiene": "pob_anio(_dsp_a[_dsp_ult][0], \"prestacion_desempleo_provincias\")"
     }
    ]
   },
@@ -7342,7 +7342,7 @@
     },
     {
      "archivo": "scripts/02_procesar.py",
-     "contiene": "justicia_federal[\"poblacion\"] = justicia_federal.codigo_indec.map(POB).round(0)"
+     "contiene": "justicia_federal[\"poblacion\"] = justicia_federal.codigo_indec.map(pob_anio(_jus_f[0], \"justicia_federal_provincias\")).round(0)"
     },
     {
      "archivo": "scripts/02_procesar.py",
@@ -7378,7 +7378,7 @@
     },
     {
      "archivo": "scripts/02_procesar.py",
-     "contiene": "mp_federal[\"poblacion\"] = mp_federal.codigo_indec.map(POB).round(0)"
+     "contiene": "mp_federal[\"poblacion\"] = mp_federal.codigo_indec.map(pob_anio(_jus_f24.group(1), \"fiscalias_defensorias_federales\")).round(0)"
     },
     {
      "archivo": "scripts/02_procesar.py",
@@ -7446,7 +7446,7 @@
     },
     {
      "archivo": "scripts/02_procesar.py",
-     "contiene": "justicia_provincias[\"poblacion\"] = justicia_provincias.codigo_indec.map(POB).round(0)"
+     "contiene": "justicia_provincias[\"poblacion\"] = justicia_provincias.codigo_indec.map(pob_anio(_jus_pa, \"justicia_provincias\")).round(0)"
     },
     {
      "archivo": "scripts/02_procesar.py",
@@ -7609,7 +7609,7 @@
     },
     {
      "archivo": "scripts/02_procesar.py",
-     "contiene": "medicos_provincias[\"poblacion\"] = medicos_provincias.codigo_indec.map(lambda c: POB_POR_ANIO[(c, MEDI_ANIO)])"
+     "contiene": "medicos_provincias[\"poblacion\"] = medicos_provincias.codigo_indec.map(pob_anio(MEDI_ANIO, \"medicos_provincias\"))"
     }
    ],
    "tabla": "medicos_provincias"
@@ -7641,7 +7641,7 @@
     },
     {
      "archivo": "scripts/02_procesar.py",
-     "contiene": "hospitales_provincias[\"poblacion\"] = hospitales_provincias.codigo_indec.map(lambda c: POB_POR_ANIO[(c, HOSP_ANIO)])"
+     "contiene": "hospitales_provincias[\"poblacion\"] = hospitales_provincias.codigo_indec.map(pob_anio(HOSP_ANIO, \"hospitales_provincias\"))"
     }
    ],
    "tabla": "hospitales_provincias"

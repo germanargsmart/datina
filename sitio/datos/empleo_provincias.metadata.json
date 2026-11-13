@@ -28,12 +28,12 @@
   {
    "nombre": "poblacion",
    "tipo": "Número",
-   "valores": "182.003 a 17.443.372"
+   "valores": "182.744 a 17.453.039"
   },
   {
    "nombre": "cada_100",
    "tipo": "Número",
-   "valores": "3,5 a 48"
+   "valores": "3,49 a 48,22"
   },
   {
    "nombre": "var_12m",
@@ -47,7 +47,7 @@
   }
  ],
  "unidades": [],
- "como_se_calcula": "El SIPA, el registro de la seguridad social, cuenta a cada persona en la provincia donde la declara su empleador, que puede no ser la provincia donde vive. Por eso CABA suma a muchas personas que viven en el Gran Buenos Aires y trabajan allí. La población es la proyección 2025 del INDEC.",
+ "como_se_calcula": "El SIPA, el registro de la seguridad social, cuenta a cada persona en la provincia donde la declara su empleador, que puede no ser la provincia donde vive. Por eso CABA suma a muchas personas que viven en el Gran Buenos Aires y trabajan allí. La población es la proyección del INDEC para 2026, el año del dato.",
  "datos_actualizados": "05/11/2026",
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",

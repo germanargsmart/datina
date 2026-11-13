@@ -393,13 +393,13 @@ base = base.replace("<!--BANDERAS-->",
 # Historia de cada jurisdicción en Tu provincia (11 de octubre de 2026, pedido del autor: "cuando entro a una provincia pongas año de
 # fundación, antecedente, a las que corresponda si formó parte de las guerras civiles y la formación del estado nacional argentino, un
 # breve resumen de quiénes fueron y son, cantidad de habitantes y algún fun fact"). Los textos y sus fuentes están en
-# datos/manual/provincias_historia.json. Los habitantes salen de los datos: la proyección del INDEC (base Censo 2022) del año de la
-# población que usa todo el sitio. Se escribe un bloque por jurisdicción, oculto, y datina.js muestra el de la provincia elegida. Si un
+# datos/manual/provincias_historia.json. Los habitantes salen de los datos: la proyección del INDEC (base Censo 2022) del año en curso,
+# la misma de Cruces (decisión 4 del autor del 12 de noviembre de 2026). Se escribe un bloque por jurisdicción, oculto, y datina.js muestra el de la provincia elegida. Si un
 # texto rompe las reglas de redacción o le falta su fuente, el sitio no se arma
 HISTORIA = json.loads((RAIZ / "datos" / "manual" / "provincias_historia.json").read_text(encoding="utf-8"))["provincias"]
 _fj = json.loads((SITIO / "datos" / "fichas.json").read_text(encoding="utf-8"))
-HAB = {f["codigo_indec"]: f["poblacion"] for f in _fj["datos"]["empleo_provincias"] if f.get("poblacion")}
-HAB_ANIO = _fj["resumen"]["anio_pob"]
+HAB = {f["codigo_indec"]: f["poblacion"] for f in _fj["datos"]["cruces_provincias"] if f.get("poblacion")}
+HAB_ANIO = _fj["resumen"]["anio_pob_ficha"]["cruces_provincias"]
 _H_CAMPOS = [("fundacion_capital", "La capital"), ("provincia_desde", "La provincia"), ("antecedente", "Antecedentes"),
              ("guerras_civiles", "Guerras civiles"), ("quienes", "Quiénes"), ("curiosidad", "Dato curioso")]
 _h_txt = lambda h, k: ((h.get(k) or {}).get("texto") if isinstance(h.get(k), dict) else h.get(k)) or ""

@@ -28,7 +28,7 @@
   {
    "nombre": "construccion_cada_1000",
    "tipo": "Número",
-   "valores": "2,52 a 35"
+   "valores": "2,51 a 34,79"
   },
   {
    "nombre": "pct_construccion",
@@ -48,7 +48,7 @@
   {
    "nombre": "petroleo_gas_cada_1000",
    "tipo": "Número",
-   "valores": "0,29 a 35,79 (15 celdas vacías)"
+   "valores": "0,29 a 35,57 (15 celdas vacías)"
   }
  ],
  "unidades": [],
