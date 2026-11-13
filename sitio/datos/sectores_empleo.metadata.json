@@ -4,12 +4,12 @@
  "descripcion": "Variación de la actividad económica y de los asalariados registrados del sector privado por sector, abril de 2025 a marzo de 2026, frente a los doce meses anteriores y a diez años antes",
  "seccion": "Precios y actividad",
  "ficha": "https://datina.com.ar/economia.html#f-sectores-empleo",
- "fuente": "INDEC, Estimador Mensual de Actividad Económica, y Observatorio de Empleo y Dinámica Empresarial (OEDE), Secretaría de Trabajo, con datos del Sistema Integrado Previsional Argentino (SIPA). Se actualiza cada tres meses. El último dato es de marzo de 2026, más atrasado que lo habitual.",
+ "fuente": "INDEC, Estimador Mensual de Actividad Económica, y Observatorio de Empleo y Dinámica Empresarial (OEDE), Secretaría de Trabajo, con datos del Sistema Integrado Previsional Argentino (SIPA).",
  "organismos": [
   "INDEC (Instituto Nacional de Estadística y Censos)",
   "OEDE (Observatorio de Empleo y Dinámica Empresarial)"
  ],
- "actualizacion": "",
+ "actualizacion": "Se actualiza cada tres meses. El último dato es de marzo de 2026, más atrasado que lo habitual.",
  "cobertura": "Sin desglose territorial",
  "periodo": "",
  "anio_desde": 2025,
@@ -81,6 +81,6 @@
  ],
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿Crece el empleo registrado al ritmo de la actividad en cada sector? Con datos de INDEC, Estimador Mensual de Actividad Económica, y Observatorio de Empleo y Dinámica Empresarial (OEDE), Secretaría de Trabajo, con datos del Sistema Integrado Previsional Argentino (SIPA). Se actualiza cada tres meses. El último dato es de marzo de 2026, más atrasado que lo habitual. https://datina.com.ar/economia.html#f-sectores-empleo. Consultado el día de la consulta.",
+ "como_citar": "Datina (año de la consulta). ¿Crece el empleo registrado al ritmo de la actividad en cada sector? Con datos de INDEC, Estimador Mensual de Actividad Económica, y Observatorio de Empleo y Dinámica Empresarial (OEDE), Secretaría de Trabajo, con datos del Sistema Integrado Previsional Argentino (SIPA). https://datina.com.ar/economia.html#f-sectores-empleo. Consultado el día de la consulta.",
  "datos_actualizados": "05/11/2026"
 }

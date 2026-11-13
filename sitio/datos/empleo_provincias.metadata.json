@@ -4,12 +4,12 @@
  "descripcion": "Asalariados privados registrados por provincia, junio de 2026",
  "seccion": "Trabajo",
  "ficha": "https://datina.com.ar/trabajo.html#f-empleo",
- "fuente": "SIPA, publicado por la Subsecretaría de Programación Macroeconómica. Se actualiza cada mes. El último dato es de junio de 2026, más atrasado que lo habitual.",
+ "fuente": "SIPA, publicado por la Subsecretaría de Programación Macroeconómica.",
  "organismos": [
   "INDEC (Instituto Nacional de Estadística y Censos)",
   "SSPM (Subsecretaría de Programación Macroeconómica)"
  ],
- "actualizacion": "",
+ "actualizacion": "Se actualiza cada mes. El último dato es de junio de 2026, más atrasado que lo habitual.",
  "cobertura": "Las 24 jurisdicciones",
  "periodo": "",
  "anio_desde": 2026,
@@ -76,6 +76,6 @@
  ],
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿Cuánto empleo privado registrado hay en cada provincia? Con datos de SIPA, publicado por la Subsecretaría de Programación Macroeconómica. Se actualiza cada mes. El último dato es de junio de 2026, más atrasado que lo habitual. https://datina.com.ar/trabajo.html#f-empleo. Consultado el día de la consulta.",
+ "como_citar": "Datina (año de la consulta). ¿Cuánto empleo privado registrado hay en cada provincia? Con datos de SIPA, publicado por la Subsecretaría de Programación Macroeconómica. https://datina.com.ar/trabajo.html#f-empleo. Consultado el día de la consulta.",
  "datos_actualizados": "05/11/2026"
 }

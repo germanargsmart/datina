@@ -4,11 +4,11 @@
  "descripcion": "Pozos en producción, barriles de petróleo por día que saca cada uno según el tipo de recurso, y mapa de los pozos no convencionales y las áreas de concesión, agosto de 2026",
  "seccion": "Petróleo y gas",
  "ficha": "https://datina.com.ar/petroleo.html#f-pozos",
- "fuente": "Secretaría de Energía, producción que declaran las empresas para cada pozo (Capítulo IV) y concesiones de explotación. Se actualiza cada mes. El último dato es de agosto de 2026, más atrasado que lo habitual.",
+ "fuente": "Secretaría de Energía, producción que declaran las empresas para cada pozo (Capítulo IV) y concesiones de explotación.",
  "organismos": [
   "SE (Secretaría de Energía)"
  ],
- "actualizacion": "",
+ "actualizacion": "Se actualiza cada mes. El último dato es de agosto de 2026, más atrasado que lo habitual.",
  "cobertura": "Sin desglose territorial",
  "periodo": "",
  "anio_desde": 2026,
@@ -85,6 +85,6 @@
  ],
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿Cuántos pozos producen, dónde están y cuánto saca cada uno? Con datos de Secretaría de Energía, producción que declaran las empresas para cada pozo (Capítulo IV) y concesiones de explotación. Se actualiza cada mes. El último dato es de agosto de 2026, más atrasado que lo habitual. https://datina.com.ar/petroleo.html#f-pozos. Consultado el día de la consulta.",
+ "como_citar": "Datina (año de la consulta). ¿Cuántos pozos producen, dónde están y cuánto saca cada uno? Con datos de Secretaría de Energía, producción que declaran las empresas para cada pozo (Capítulo IV) y concesiones de explotación. https://datina.com.ar/petroleo.html#f-pozos. Consultado el día de la consulta.",
  "datos_actualizados": "05/11/2026"
 }

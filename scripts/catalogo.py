@@ -166,7 +166,9 @@ def datos_de_usos(plantilla, js):
         c = m.group(3)
         pie = re.search(r'<div class="pie"><span>([^<]*)</span>', c)
         fuente = re.sub(r"^Fuentes?: ", "", texto(pie.group(1))) if pie else ""
-        frase = re.search(r"(Se actualiza [^.]*\.|La encuesta está en pausa[^.]*\.[^.]*\.)$", fuente)
+        # cada cuánto se actualiza, con el aviso de dato atrasado que suma 03 (scripts/frescura.py) y la encuesta en pausa en una o dos oraciones:
+        # sin ese aviso en la cuenta, la frecuencia quedaba pegada a la fuente y "Actualización" vacía (13 de noviembre de 2026, 36 tablas)
+        frase = re.search(r"(Se actualiza [^.]*\.(?: El último dato [^.]*\.)?|La encuesta está en pausa[^.]*\.(?: [^.]*\.)?)$", fuente)
         sub = re.search(r'<p class="ficha-sub">(.*?)</p>', c, re.S)
         nota = re.search(r'<p class="nota"(?![^>]*data-t)[^>]*>(.*?)</p>', c, re.S)
         d[m.group(2)] = {"titulo": relaciones.nombre_ficha(c, js), "sub": texto(sub.group(1)) if sub else "",
