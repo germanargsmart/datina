@@ -15,7 +15,7 @@ Está prendida desde el 26 de octubre de 2026, con el motor gratis: ese día el 
 1. La página (`scripts/consulta_ia.js`, que el armado copia a `sitio/consulta-ia.js`) manda la pregunta a `/api/consulta`.
 2. Esa dirección es una función de Cloudflare Pages, un programa chico que corre en Cloudflare cada vez que alguien pregunta. Es `functions/api/consulta.js`, y lo que hace está en `functions/_ia/consulta.mjs`. La función:
    - arma el pedido a la API de Claude con las instrucciones fijas (`functions/_ia/indicaciones.mjs`) y el índice de las tablas (`sitio/datos/consulta_ia.json`);
-   - el índice tiene una línea por tabla: nombre, pregunta de su ficha, qué mide, cobertura, período y columnas. Son 208 tablas, unos 58.000 caracteres.
+   - el índice tiene una línea por tabla: nombre, pregunta de su ficha, qué mide, cobertura, período y columnas. Al 13 de noviembre de 2026 son 264 tablas, unos 86.500 caracteres: las 265 del Catálogo menos la de muertes violentas (antes se hablaba de 208 tablas y 58.000 caracteres, las del 25 de octubre). `node scripts/prueba_consulta_ia.mjs` dice la cuenta de cada armado.
 3. El modelo elige qué tablas necesita y las pide con la herramienta `leer_tabla`. La función:
    - las lee del mismo sitio publicado;
    - deja solo las filas y columnas pedidas, por territorio o por período, con un máximo de 300 filas y 30.000 caracteres por tabla;
