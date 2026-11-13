@@ -21,7 +21,8 @@ Qué revisan:
      Las diferencias y los conteos de un texto, con las cifras que se muestran (R12).
   9. Unidades conocidas (R14 y T13): cada unidad de la tabla larga, una de las conocidas, y unidades y fuentes con sus tildes.
   10. Formato de la tabla larga (fase 2 del plan técnico) y población del mismo año que el dato (decisión 4 del autor del 12 de
-      noviembre de 2026): cada tasa por habitante, con la proyección del INDEC del año de su dato.
+      noviembre de 2026): cada tasa por habitante, con la proyección del INDEC del año de su dato. Y desde el 13 de noviembre de 2026, la
+      tabla larga y las tablas de las fichas, que donde miden lo mismo dan lo mismo (los 254 pares de datos/manual/mismo_dato.json).
 
 Lo que está explicado se acepta, con su motivo, en ACEPTADAS (y los casos distorsionados por el lugar de registro, en
 datos/manual/distorsiones.json, que también usan los textos). Un hallazgo nuevo sin motivo hace fallar las pruebas.
@@ -710,10 +711,68 @@ def prueba_poblacion(d, t):
     return sale
 
 
+# ---------------------------------------------------------------- la tabla larga y las tablas de las fichas
+# Plan técnico, fase 2 (13 de noviembre de 2026): el MCP y la API van a leer la tabla larga y las tablas de las fichas, así que donde miden lo
+# mismo tienen que dar lo mismo. Los pares están en datos/manual/mismo_dato.json: la variable de la tabla larga, la tabla y su columna, y el
+# período (la columna de período de la tabla o, si no tiene, "ultimo", el último período de la variable, o un período fijo). Se compara con la
+# precisión de la columna (una tabla que guarda un decimal se compara redondeada a un decimal). Un par que ya no se cruza en ninguna
+# jurisdicción y período también sale: es una tabla que quedó en otro período que la tabla larga
+MISMO_DATO = MANUAL / "mismo_dato.json"
+
+
+def comparar_mismo_dato(par, t, cache):
+    """Las diferencias de un par de mismo_dato.json: [(clave, mensaje)], y cuántas filas se compararon."""
+    import re
+    tabla, col = par["tabla"], par["columna"]
+    if tabla not in cache:
+        ruta = SITIO / "datos" / f"{tabla}.csv"
+        cache[tabla] = pd.read_csv(ruta, dtype=str, keep_default_na=False) if ruta.exists() else None
+    d = cache[tabla]
+    if d is None or col not in d.columns or par.get("columna_periodo", "codigo_indec") not in d.columns:
+        return [(f"mismo|{par['variable']}|{tabla}.{col}", f"{tabla}.csv ya no tiene la columna {col} (o la de su período)")], 0
+    num = pd.to_numeric(d[col], errors="coerce")
+    g = t[t.variable == par["variable"]]
+    # los decimales que guarda cada lado, sin los ceros finales ("61883.0" es un entero): la diferencia admitida es la suma de los dos medios
+    # redondeos (la tabla larga guarda hasta cuatro, y menos si la fuente publica menos, como las tasas del SNIC)
+    decs = lambda vals: max((len(x.rstrip("0").split(".")[1]) for x in vals if re.fullmatch(r"-?\d+\.\d+", x)), default=0)
+    tol_tabla = 0.5 * 10 ** -decs(d[col])
+    cod = d.codigo_indec.str.zfill(2) if "codigo_indec" in d.columns else pd.Series(["00"] * len(d))
+    if "columna_periodo" in par:
+        per = d[par["columna_periodo"]].str.replace(r"\.0$", "", regex=True)
+    else:
+        per = pd.Series([g.periodo.max() if par["periodo"] == "ultimo" else par["periodo"]] * len(d))
+    ref = g.set_index(["codigo_indec", "periodo"]).valor
+    sale, n = [], 0
+    for c, p, x in zip(cod, per, num):
+        if pd.isna(x) or (c, p) not in ref.index:
+            continue
+        y = pd.to_numeric(ref.loc[(c, p)], errors="coerce")
+        y = y.iloc[0] if isinstance(y, pd.Series) else y
+        if pd.isna(y):
+            continue
+        n += 1
+        if abs(x - y) > tol_tabla + 0.5 * 10 ** -decs([f"{y:.4f}"]) + 1e-9:
+            sale.append((f"mismo|{par['variable']}|{tabla}.{col}|{c}|{p}",
+                         f"{par['variable']} ({c}, {p}) es {y} en la tabla larga y {x} en {tabla}.{col}"))
+    if n == 0:
+        sale.append((f"mismo|{par['variable']}|{tabla}.{col}", f"{par['variable']} y {tabla}.{col} ya no comparten ninguna jurisdicción y período"))
+    return sale, n
+
+
+def prueba_mismo_dato(d, t):
+    if not MISMO_DATO.exists():
+        return [("mismo|sin_lista", "falta datos/manual/mismo_dato.json")]
+    cache, sale = {}, []
+    for par in json.loads(MISMO_DATO.read_text(encoding="utf-8"))["pares"]:
+        sale += comparar_mismo_dato(par, t, cache)[0]
+    return sale
+
+
 PRUEBAS = [("Sumas de control", prueba_sumas), ("Tasas y porcentajes fuera de rango", prueba_rango), ("Períodos faltantes", prueba_faltantes),
            ("Más de cinco veces la mediana", None), ("Dos fuentes para lo mismo", prueba_fuentes), ("Mandatos presidenciales", prueba_mandatos),
            ("La Corte Suprema", prueba_corte), ("Errores que ya pasaron", prueba_errores), ("Puestos de cada provincia", lambda d, t: prueba_puestos()), ("Unidades conocidas", prueba_unidades),
-           ("Formato de la tabla larga", prueba_formato), ("Población del mismo año que el dato", prueba_poblacion)]
+           ("Formato de la tabla larga", prueba_formato), ("Población del mismo año que el dato", prueba_poblacion),
+           ("La tabla larga y las tablas de las fichas", prueba_mismo_dato)]
 
 
 def correr(mostrar=True):

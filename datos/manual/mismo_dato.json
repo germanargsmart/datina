@@ -1,0 +1,1529 @@
+{
+ "_leeme": "Pares de la tabla larga (datos/ordenado/tabla_larga.csv) y de las tablas de las fichas (sitio/datos/) que miden lo mismo y tienen que dar lo mismo (plan técnico, fase 2, 13 de noviembre de 2026). Los controla scripts/pruebas_datos.py (\"La tabla larga y las tablas de las fichas\"), con la precisión de cada lado. Cada par: la variable de la tabla larga, la tabla y su columna, y el período: \"columna_periodo\" si la tabla tiene una columna de período, o \"periodo\" si no, con \"ultimo\" (el último período de la variable) o un período fijo. Se buscaron comparando cada variable con cada columna numérica de cada tabla, y quedaron los que coinciden en todas las filas y en un solo período. Una ficha nueva que repite una variable de la tabla larga suma acá su par.",
+ "pares": [
+  {
+   "variable": "abandono_interanual_secundaria",
+   "tabla": "abandono_pais",
+   "columna": "abandono",
+   "columna_periodo": "anio"
+  },
+  {
+   "variable": "abandono_interanual_secundaria",
+   "tabla": "abandono_provincias",
+   "columna": "abandono",
+   "periodo": "ultimo"
+  },
+  {
+   "variable": "abandono_interanual_secundaria",
+   "tabla": "abandono_provincias",
+   "columna": "abandono_2012",
+   "periodo": "2012"
+  },
+  {
+   "variable": "abandono_interanual_secundaria",
+   "tabla": "abandono_provincias",
+   "columna": "abandono_anterior",
+   "periodo": "2023"
+  },
+  {
+   "variable": "antartida_hielo_septiembre",
+   "tabla": "antartida_hielo",
+   "columna": "septiembre",
+   "columna_periodo": "anio"
+  },
+  {
+   "variable": "antartida_temperatura_orcadas",
+   "tabla": "antartida_temperatura",
+   "columna": "orcadas",
+   "columna_periodo": "anio"
+  },
+  {
+   "variable": "antartida_tratado_partes",
+   "tabla": "antartida_tratado_serie",
+   "columna": "partes",
+   "columna_periodo": "anio"
+  },
+  {
+   "variable": "antartida_visitantes",
+   "tabla": "antartida_turismo",
+   "columna": "total",
+   "columna_periodo": "anio"
+  },
+  {
+   "variable": "aportantes_por_beneficio_previsional",
+   "tabla": "jubilaciones_aportantes",
+   "columna": "aportantes_por_beneficio",
+   "columna_periodo": "anio"
+  },
+  {
+   "variable": "aprender_lengua_satisfactorio_o_avanzado",
+   "tabla": "aprender_diagnostico",
+   "columna": "len_logra",
+   "periodo": "ultimo"
+  },
+  {
+   "variable": "aprender_lengua_satisfactorio_o_avanzado",
+   "tabla": "cruces_provincias",
+   "columna": "aprender_len",
+   "periodo": "ultimo"
+  },
+  {
+   "variable": "aprender_matematica_satisfactorio_o_avanzado",
+   "tabla": "aprender_diagnostico",
+   "columna": "mat_logra",
+   "periodo": "ultimo"
+  },
+  {
+   "variable": "aprender_matematica_satisfactorio_o_avanzado",
+   "tabla": "cruces_provincias",
+   "columna": "aprender_mat",
+   "periodo": "ultimo"
+  },
+  {
+   "variable": "asalariados_privados_registrados",
+   "tabla": "empleo_provincias",
+   "columna": "miles",
+   "periodo": "ultimo"
+  },
+  {
+   "variable": "asalariados_privados_registrados",
+   "tabla": "empleo_provincias",
+   "columna": "miles_hace12",
+   "periodo": "2025-06"
+  },
+  {
+   "variable": "auh_cada_100_menores",
+   "tabla": "auh_provincias",
+   "columna": "cada_100_menores",
+   "periodo": "ultimo"
+  },
+  {
+   "variable": "auh_cada_100_menores",
+   "tabla": "cruces_provincias",
+   "columna": "auh",
+   "periodo": "ultimo"
+  },
+  {
+   "variable": "autos_nuevos_inscriptos",
+   "tabla": "patentamientos_anual",
+   "columna": "autos",
+   "columna_periodo": "anio"
+  },
+  {
+   "variable": "beneficiarios_prestacion_desempleo",
+   "tabla": "prestacion_desempleo",
+   "columna": "beneficiarios",
+   "columna_periodo": "anio"
+  },
+  {
+   "variable": "bosques_pct_superficie",
+   "tabla": "cobertura_suelo_pais",
+   "columna": "pct_bosque",
+   "columna_periodo": "anio"
+  },
+  {
+   "variable": "bosques_pct_superficie",
+   "tabla": "cobertura_suelo_provincias",
+   "columna": "pct_bosque_final",
+   "periodo": "ultimo"
+  },
+  {
+   "variable": "bosques_pct_superficie",
+   "tabla": "cobertura_suelo_provincias",
+   "columna": "pct_bosque_inicio",
+   "periodo": "1985"
+  },
+  {
+   "variable": "cargos_administracion_provincial_cada_1000_habitantes",
+   "tabla": "cruces_provincias",
+   "columna": "empleo_publico",
+   "periodo": "ultimo"
+  },
+  {
+   "variable": "cargos_administracion_provincial_cada_1000_habitantes",
+   "tabla": "empleo_publico_provincias",
+   "columna": "cada_1000",
+   "periodo": "ultimo"
+  },
+  {
+   "variable": "censo2022_agua_red",
+   "tabla": "censo2022_provincias",
+   "columna": "agua_red",
+   "periodo": "ultimo"
+  },
+  {
+   "variable": "censo2022_agua_red",
+   "tabla": "cruces_provincias",
+   "columna": "agua_red",
+   "periodo": "ultimo"
+  },
+  {
+   "variable": "censo2022_cloaca",
+   "tabla": "censo2022_provincias",
+   "columna": "cloaca",
+   "periodo": "ultimo"
+  },
+  {
+   "variable": "censo2022_cloaca",
+   "tabla": "cruces_provincias",
+   "columna": "cloaca",
+   "periodo": "ultimo"
+  },
+  {
+   "variable": "censo2022_computadora",
+   "tabla": "censo2022_provincias",
+   "columna": "computadora",
+   "periodo": "ultimo"
+  },
+  {
+   "variable": "censo2022_computadora",
+   "tabla": "cruces_provincias",
+   "columna": "computadora",
+   "periodo": "ultimo"
+  },
+  {
+   "variable": "censo2022_internet",
+   "tabla": "censo2022_provincias",
+   "columna": "internet",
+   "periodo": "ultimo"
+  },
+  {
+   "variable": "censo2022_internet",
+   "tabla": "cruces_provincias",
+   "columna": "internet",
+   "periodo": "ultimo"
+  },
+  {
+   "variable": "censo2022_nbi",
+   "tabla": "censo2022_provincias",
+   "columna": "nbi",
+   "periodo": "ultimo"
+  },
+  {
+   "variable": "censo2022_nbi",
+   "tabla": "cruces_provincias",
+   "columna": "nbi",
+   "periodo": "ultimo"
+  },
+  {
+   "variable": "censo2022_sin_cobertura",
+   "tabla": "censo2022_provincias",
+   "columna": "sin_cobertura",
+   "periodo": "ultimo"
+  },
+  {
+   "variable": "censo2022_sin_cobertura",
+   "tabla": "cruces_provincias",
+   "columna": "pct_pob_solo_cobertura_publica",
+   "periodo": "ultimo"
+  },
+  {
+   "variable": "censo2022_sin_cobertura",
+   "tabla": "cruces_provincias",
+   "columna": "sin_cobertura",
+   "periodo": "ultimo"
+  },
+  {
+   "variable": "censo2022_sin_cobertura",
+   "tabla": "madres_adolescentes_nse",
+   "columna": "pct_pob_solo_cobertura_publica",
+   "periodo": "ultimo"
+  },
+  {
+   "variable": "cobertura_triple_viral_dosis1",
+   "tabla": "vacunas_provincias",
+   "columna": "dosis1",
+   "periodo": "ultimo"
+  },
+  {
+   "variable": "cobertura_triple_viral_dosis1",
+   "tabla": "vacunas_provincias",
+   "columna": "dosis1_2009",
+   "periodo": "2009"
+  },
+  {
+   "variable": "cobertura_triple_viral_dosis1",
+   "tabla": "vacunas_provincias",
+   "columna": "dosis1_2010",
+   "periodo": "2010"
+  },
+  {
+   "variable": "cobertura_triple_viral_dosis1",
+   "tabla": "vacunas_provincias",
+   "columna": "dosis1_2011",
+   "periodo": "2011"
+  },
+  {
+   "variable": "cobertura_triple_viral_dosis1",
+   "tabla": "vacunas_provincias",
+   "columna": "dosis1_2012",
+   "periodo": "2012"
+  },
+  {
+   "variable": "cobertura_triple_viral_dosis1",
+   "tabla": "vacunas_provincias",
+   "columna": "dosis1_2013",
+   "periodo": "2013"
+  },
+  {
+   "variable": "cobertura_triple_viral_dosis1",
+   "tabla": "vacunas_provincias",
+   "columna": "dosis1_2014",
+   "periodo": "2014"
+  },
+  {
+   "variable": "cobertura_triple_viral_dosis1",
+   "tabla": "vacunas_provincias",
+   "columna": "dosis1_2015",
+   "periodo": "2015"
+  },
+  {
+   "variable": "cobertura_triple_viral_dosis1",
+   "tabla": "vacunas_provincias",
+   "columna": "dosis1_2016",
+   "periodo": "2016"
+  },
+  {
+   "variable": "cobertura_triple_viral_dosis1",
+   "tabla": "vacunas_provincias",
+   "columna": "dosis1_2017",
+   "periodo": "2017"
+  },
+  {
+   "variable": "cobertura_triple_viral_dosis1",
+   "tabla": "vacunas_provincias",
+   "columna": "dosis1_2018",
+   "periodo": "2018"
+  },
+  {
+   "variable": "cobertura_triple_viral_dosis1",
+   "tabla": "vacunas_provincias",
+   "columna": "dosis1_2019",
+   "periodo": "2019"
+  },
+  {
+   "variable": "cobertura_triple_viral_dosis1",
+   "tabla": "vacunas_provincias",
+   "columna": "dosis1_2020",
+   "periodo": "2020"
+  },
+  {
+   "variable": "cobertura_triple_viral_dosis1",
+   "tabla": "vacunas_provincias",
+   "columna": "dosis1_2021",
+   "periodo": "2021"
+  },
+  {
+   "variable": "cobertura_triple_viral_dosis1",
+   "tabla": "vacunas_provincias",
+   "columna": "dosis1_2022",
+   "periodo": "2022"
+  },
+  {
+   "variable": "cobertura_triple_viral_dosis1",
+   "tabla": "vacunas_provincias",
+   "columna": "dosis1_2023",
+   "periodo": "2023"
+  },
+  {
+   "variable": "cobertura_triple_viral_dosis1",
+   "tabla": "vacunas_provincias",
+   "columna": "dosis1_2024",
+   "periodo": "ultimo"
+  },
+  {
+   "variable": "cobertura_triple_viral_dosis2",
+   "tabla": "vacunas_provincias",
+   "columna": "dosis2",
+   "periodo": "ultimo"
+  },
+  {
+   "variable": "cobertura_triple_viral_dosis2",
+   "tabla": "vacunas_provincias",
+   "columna": "dosis2_2009",
+   "periodo": "2009"
+  },
+  {
+   "variable": "cobertura_triple_viral_dosis2",
+   "tabla": "vacunas_provincias",
+   "columna": "dosis2_2010",
+   "periodo": "2010"
+  },
+  {
+   "variable": "cobertura_triple_viral_dosis2",
+   "tabla": "vacunas_provincias",
+   "columna": "dosis2_2011",
+   "periodo": "2011"
+  },
+  {
+   "variable": "cobertura_triple_viral_dosis2",
+   "tabla": "vacunas_provincias",
+   "columna": "dosis2_2012",
+   "periodo": "2012"
+  },
+  {
+   "variable": "cobertura_triple_viral_dosis2",
+   "tabla": "vacunas_provincias",
+   "columna": "dosis2_2013",
+   "periodo": "2013"
+  },
+  {
+   "variable": "cobertura_triple_viral_dosis2",
+   "tabla": "vacunas_provincias",
+   "columna": "dosis2_2014",
+   "periodo": "2014"
+  },
+  {
+   "variable": "cobertura_triple_viral_dosis2",
+   "tabla": "vacunas_provincias",
+   "columna": "dosis2_2015",
+   "periodo": "2015"
+  },
+  {
+   "variable": "cobertura_triple_viral_dosis2",
+   "tabla": "vacunas_provincias",
+   "columna": "dosis2_2016",
+   "periodo": "2016"
+  },
+  {
+   "variable": "cobertura_triple_viral_dosis2",
+   "tabla": "vacunas_provincias",
+   "columna": "dosis2_2017",
+   "periodo": "2017"
+  },
+  {
+   "variable": "cobertura_triple_viral_dosis2",
+   "tabla": "vacunas_provincias",
+   "columna": "dosis2_2018",
+   "periodo": "2018"
+  },
+  {
+   "variable": "cobertura_triple_viral_dosis2",
+   "tabla": "vacunas_provincias",
+   "columna": "dosis2_2019",
+   "periodo": "2019"
+  },
+  {
+   "variable": "cobertura_triple_viral_dosis2",
+   "tabla": "vacunas_provincias",
+   "columna": "dosis2_2020",
+   "periodo": "2020"
+  },
+  {
+   "variable": "cobertura_triple_viral_dosis2",
+   "tabla": "vacunas_provincias",
+   "columna": "dosis2_2021",
+   "periodo": "2021"
+  },
+  {
+   "variable": "cobertura_triple_viral_dosis2",
+   "tabla": "vacunas_provincias",
+   "columna": "dosis2_2022",
+   "periodo": "2022"
+  },
+  {
+   "variable": "cobertura_triple_viral_dosis2",
+   "tabla": "vacunas_provincias",
+   "columna": "dosis2_2023",
+   "periodo": "2023"
+  },
+  {
+   "variable": "cobertura_triple_viral_dosis2",
+   "tabla": "vacunas_provincias",
+   "columna": "dosis2_2024",
+   "periodo": "ultimo"
+  },
+  {
+   "variable": "compras_netas_billetes_divisas_sector_privado",
+   "tabla": "compras_dolares_anual",
+   "columna": "millones_usd",
+   "columna_periodo": "anio"
+  },
+  {
+   "variable": "corte_casos_ingresados",
+   "tabla": "corte_casos",
+   "columna": "ingresados",
+   "columna_periodo": "anio"
+  },
+  {
+   "variable": "corte_casos_resueltos",
+   "tabla": "corte_casos",
+   "columna": "resueltos",
+   "columna_periodo": "anio"
+  },
+  {
+   "variable": "defensores_provinciales_cada_100mil",
+   "tabla": "justicia_provincias",
+   "columna": "defensores_cada_100mil",
+   "periodo": "ultimo"
+  },
+  {
+   "variable": "defensorias_federales",
+   "tabla": "fiscalias_defensorias_federales",
+   "columna": "defensorias",
+   "periodo": "ultimo"
+  },
+  {
+   "variable": "defensorias_federales",
+   "tabla": "fiscalias_defensorias_federales",
+   "columna": "defensorias_cargos",
+   "periodo": "ultimo"
+  },
+  {
+   "variable": "demanda_electrica_residencial",
+   "tabla": "energia_hogares",
+   "columna": "residencial",
+   "columna_periodo": "anio"
+  },
+  {
+   "variable": "demanda_electrica_total",
+   "tabla": "energia_hogares",
+   "columna": "total",
+   "columna_periodo": "anio"
+  },
+  {
+   "variable": "desembarques_pesca_maritima",
+   "tabla": "desembarques_especies",
+   "columna": "Total",
+   "columna_periodo": "anio"
+  },
+  {
+   "variable": "desempleo_cada_1000_habitantes",
+   "tabla": "prestacion_desempleo_provincias",
+   "columna": "cada_1000_habitantes",
+   "periodo": "ultimo"
+  },
+  {
+   "variable": "desempleo_cada_100_asalariados_privados",
+   "tabla": "prestacion_desempleo_provincias",
+   "columna": "cada_100_asalariados",
+   "periodo": "ultimo"
+  },
+  {
+   "variable": "desvio_temperatura_media_anual",
+   "tabla": "clima_desvio",
+   "columna": "desvio_temperatura",
+   "columna_periodo": "anio"
+  },
+  {
+   "variable": "deuda_bruta_administracion_central_pct_pbi",
+   "tabla": "deuda_pbi",
+   "columna": "pct_pbi",
+   "columna_periodo": "periodo"
+  },
+  {
+   "variable": "electricidad_comercial_por_habitante",
+   "tabla": "electricidad_sectores",
+   "columna": "kwh_hab_com",
+   "periodo": "ultimo"
+  },
+  {
+   "variable": "electricidad_industrial_por_habitante",
+   "tabla": "electricidad_sectores",
+   "columna": "kwh_hab_ind",
+   "periodo": "ultimo"
+  },
+  {
+   "variable": "electricidad_residencial_por_habitante",
+   "tabla": "electricidad_provincias",
+   "columna": "kwh_hab",
+   "periodo": "ultimo"
+  },
+  {
+   "variable": "electricidad_residencial_por_habitante",
+   "tabla": "electricidad_provincias",
+   "columna": "kwh_hab_antes",
+   "periodo": "2015"
+  },
+  {
+   "variable": "electricidad_residencial_por_habitante",
+   "tabla": "electricidad_sectores",
+   "columna": "kwh_hab_res",
+   "periodo": "ultimo"
+  },
+  {
+   "variable": "electricidad_residencial_por_habitante",
+   "tabla": "electricidad_serie",
+   "columna": "kwh_hab",
+   "columna_periodo": "anio"
+  },
+  {
+   "variable": "empleo_construccion_cada_1000_hab",
+   "tabla": "empleo_construccion_provincias",
+   "columna": "construccion_cada_1000",
+   "periodo": "ultimo"
+  },
+  {
+   "variable": "empresas_privadas_cada_1000_habitantes",
+   "tabla": "cruces_provincias",
+   "columna": "empresas",
+   "periodo": "ultimo"
+  },
+  {
+   "variable": "empresas_privadas_cada_1000_habitantes",
+   "tabla": "empresas_provincias",
+   "columna": "cada_1000_hab",
+   "periodo": "ultimo"
+  },
+  {
+   "variable": "escuelas_primarias_cada_1000_chicos_5_14",
+   "tabla": "escuelas_primarias_provincias",
+   "columna": "primarias_cada_1000_chicos",
+   "periodo": "ultimo"
+  },
+  {
+   "variable": "esperanza_vida_al_nacer",
+   "tabla": "cruces_provincias",
+   "columna": "esperanza_vida",
+   "periodo": "ultimo"
+  },
+  {
+   "variable": "esperanza_vida_al_nacer",
+   "tabla": "esperanza_vida_provincias",
+   "columna": "total",
+   "periodo": "ultimo"
+  },
+  {
+   "variable": "estimador_mensual_actividad_economica",
+   "tabla": "actividad_mensual",
+   "columna": "original",
+   "columna_periodo": "periodo"
+  },
+  {
+   "variable": "etapas_fractura_no_convencional",
+   "tabla": "fracturas_anual",
+   "columna": "etapas",
+   "columna_periodo": "anio"
+  },
+  {
+   "variable": "exportaciones_combustibles_energia",
+   "tabla": "balanza_energetica",
+   "columna": "exportaciones",
+   "columna_periodo": "anio"
+  },
+  {
+   "variable": "exportaciones_combustibles_energia",
+   "tabla": "exportaciones_rubros_anual",
+   "columna": "combustibles",
+   "columna_periodo": "anio"
+  },
+  {
+   "variable": "exportaciones_usd_por_habitante",
+   "tabla": "cruces_provincias",
+   "columna": "exportaciones",
+   "periodo": "ultimo"
+  },
+  {
+   "variable": "exportaciones_usd_por_habitante",
+   "tabla": "exportaciones_provincias",
+   "columna": "usd_por_habitante",
+   "periodo": "ultimo"
+  },
+  {
+   "variable": "fiscales_provinciales_cada_100mil",
+   "tabla": "justicia_provincias",
+   "columna": "fiscales_cada_100mil",
+   "periodo": "ultimo"
+  },
+  {
+   "variable": "fiscalias_federales",
+   "tabla": "fiscalias_defensorias_federales",
+   "columna": "fiscalias",
+   "periodo": "ultimo"
+  },
+  {
+   "variable": "gas_consumo_usuario_residencial",
+   "tabla": "gas_usuario_provincias",
+   "columna": "m3_usuario_2015",
+   "periodo": "2015"
+  },
+  {
+   "variable": "gas_no_convencional",
+   "tabla": "hidrocarburos_anual",
+   "columna": "pct_gas_nc",
+   "columna_periodo": "anio"
+  },
+  {
+   "variable": "gasto_educativo_por_alumno_estatal",
+   "tabla": "cruces_provincias",
+   "columna": "gasto_alumno",
+   "periodo": "ultimo"
+  },
+  {
+   "variable": "gasto_educativo_por_alumno_estatal",
+   "tabla": "inversion_educativa",
+   "columna": "gasto_por_alumno",
+   "periodo": "ultimo"
+  },
+  {
+   "variable": "gasto_personal_pct_gasto",
+   "tabla": "cruces_provincias",
+   "columna": "gasto_personal",
+   "periodo": "ultimo"
+  },
+  {
+   "variable": "gasto_personal_pct_gasto",
+   "tabla": "fiscal_provincias",
+   "columna": "personal",
+   "columna_periodo": "anio"
+  },
+  {
+   "variable": "ha_terrestres_areas_protegidas_nacionales_acumuladas",
+   "tabla": "parques_nacionales_historia",
+   "columna": "ha_terrestres",
+   "columna_periodo": "anio"
+  },
+  {
+   "variable": "haber_minimo_pct_salario",
+   "tabla": "haberes_previsionales",
+   "columna": "pct_minimo_adicionales",
+   "columna_periodo": "anio"
+  },
+  {
+   "variable": "hogares_alquilan",
+   "tabla": "cruces_provincias",
+   "columna": "alquila",
+   "periodo": "ultimo"
+  },
+  {
+   "variable": "hogares_alquilan",
+   "tabla": "vivienda_provincias",
+   "columna": "pct_alquila",
+   "periodo": "ultimo"
+  },
+  {
+   "variable": "hogares_gas_de_red_cocina",
+   "tabla": "vivienda_provincias",
+   "columna": "pct_gas_red",
+   "periodo": "ultimo"
+  },
+  {
+   "variable": "hogares_hacinamiento_critico",
+   "tabla": "vivienda_provincias",
+   "columna": "pct_hacinamiento",
+   "periodo": "ultimo"
+  },
+  {
+   "variable": "hospitales_publicos_internacion_cada_100000_habitantes",
+   "tabla": "hospitales_provincias",
+   "columna": "hospitales_cada_100000",
+   "periodo": "ultimo"
+  },
+  {
+   "variable": "hospitales_publicos_terapia_intensiva_cada_100000_habitantes",
+   "tabla": "hospitales_provincias",
+   "columna": "terapia_cada_100000",
+   "periodo": "ultimo"
+  },
+  {
+   "variable": "importaciones_combustibles_lubricantes",
+   "tabla": "balanza_energetica",
+   "columna": "importaciones",
+   "columna_periodo": "anio"
+  },
+  {
+   "variable": "importaciones_combustibles_lubricantes",
+   "tabla": "importaciones_usos",
+   "columna": "combustibles",
+   "columna_periodo": "anio"
+  },
+  {
+   "variable": "indice_confianza_consumidor",
+   "tabla": "confianza_consumidor",
+   "columna": "nacional",
+   "columna_periodo": "mes"
+  },
+  {
+   "variable": "indice_confianza_gobierno",
+   "tabla": "confianza_gobierno",
+   "columna": "icg",
+   "columna_periodo": "mes"
+  },
+  {
+   "variable": "indice_precios_consumidor",
+   "tabla": "costo_construccion",
+   "columna": "ipc",
+   "columna_periodo": "periodo"
+  },
+  {
+   "variable": "indice_precios_consumidor",
+   "tabla": "inflacion_mensual",
+   "columna": "indice",
+   "columna_periodo": "periodo"
+  },
+  {
+   "variable": "indice_precios_consumidor",
+   "tabla": "mayoristas_mensual",
+   "columna": "ipc",
+   "columna_periodo": "periodo"
+  },
+  {
+   "variable": "indice_ventas_supermercados_precios_constantes",
+   "tabla": "supermercados_mensual",
+   "columna": "original",
+   "columna_periodo": "periodo"
+  },
+  {
+   "variable": "inflacion_esperada_12m_mediana",
+   "tabla": "expectativas_inflacion",
+   "columna": "mediana",
+   "columna_periodo": "mes"
+  },
+  {
+   "variable": "isac_promedio_anual",
+   "tabla": "isac_anual",
+   "columna": "isac",
+   "columna_periodo": "anio"
+  },
+  {
+   "variable": "jubilacion_promedio_pct_salario",
+   "tabla": "haberes_previsionales",
+   "columna": "pct_jubilacion",
+   "columna_periodo": "anio"
+  },
+  {
+   "variable": "jueces_federales_cada_100mil",
+   "tabla": "justicia_federal_provincias",
+   "columna": "cargos_cada_100mil",
+   "periodo": "ultimo"
+  },
+  {
+   "variable": "jueces_federales_cargos",
+   "tabla": "justicia_federal_provincias",
+   "columna": "cargos",
+   "periodo": "ultimo"
+  },
+  {
+   "variable": "jueces_provinciales_cada_100mil",
+   "tabla": "justicia_provincias",
+   "columna": "magistratura_cada_100mil",
+   "periodo": "ultimo"
+  },
+  {
+   "variable": "m2_protegidos_por_habitante",
+   "tabla": "areas_protegidas_provincias",
+   "columna": "m2_por_habitante",
+   "periodo": "ultimo"
+  },
+  {
+   "variable": "mediana_km_escuelas_rurales_a_hospital_publico",
+   "tabla": "distancia_hospital_provincias",
+   "columna": "mediana_km_hospital",
+   "periodo": "ultimo"
+  },
+  {
+   "variable": "mediana_km_escuelas_rurales_a_terapia_intensiva_publica",
+   "tabla": "distancia_hospital_provincias",
+   "columna": "mediana_km_terapia",
+   "periodo": "ultimo"
+  },
+  {
+   "variable": "medicos_activos_cada_10000_habitantes",
+   "tabla": "medicos_provincias",
+   "columna": "activos_cada_10000",
+   "periodo": "ultimo"
+  },
+  {
+   "variable": "microempresas_pct_empresas_industria_comercio_servicios",
+   "tabla": "empresas_tamano_sector",
+   "columna": "pct_micro",
+   "periodo": "ultimo"
+  },
+  {
+   "variable": "motos_nuevas_inscriptas",
+   "tabla": "patentamientos_anual",
+   "columna": "motos",
+   "columna_periodo": "anio"
+  },
+  {
+   "variable": "nacidos_en_argentina_en_otro_pais",
+   "tabla": "argentinos_exterior",
+   "columna": "personas",
+   "columna_periodo": "anio"
+  },
+  {
+   "variable": "nacimientos",
+   "tabla": "nacimientos",
+   "columna": "nacimientos",
+   "columna_periodo": "anio"
+  },
+  {
+   "variable": "obra_publica_nacion_por_habitante",
+   "tabla": "obra_publica_provincias",
+   "columna": "total_hab",
+   "periodo": "ultimo"
+  },
+  {
+   "variable": "ocupados_construccion_censo",
+   "tabla": "cruces_provincias",
+   "columna": "ocupados_construccion",
+   "periodo": "ultimo"
+  },
+  {
+   "variable": "ocupados_construccion_censo",
+   "tabla": "vivienda_provincias",
+   "columna": "pct_ocupados_construccion",
+   "periodo": "ultimo"
+  },
+  {
+   "variable": "participacion_presidencial",
+   "tabla": "cruces_provincias",
+   "columna": "participacion_2023",
+   "periodo": "ultimo"
+  },
+  {
+   "variable": "pct_nacimientos_madres_menores_20",
+   "tabla": "cruces_provincias",
+   "columna": "madres_adolescentes",
+   "periodo": "ultimo"
+  },
+  {
+   "variable": "pct_nacimientos_madres_menores_20",
+   "tabla": "madres_adolescentes_nse",
+   "columna": "pct_2024",
+   "periodo": "ultimo"
+  },
+  {
+   "variable": "pct_personas_privadas_de_libertad_sin_condena",
+   "tabla": "carceles_provincias",
+   "columna": "pct_sin_condena",
+   "periodo": "ultimo"
+  },
+  {
+   "variable": "pct_personas_privadas_de_libertad_sin_condena",
+   "tabla": "carceles_serie",
+   "columna": "pct_sin_condena",
+   "columna_periodo": "anio"
+  },
+  {
+   "variable": "pct_territorio_protegido",
+   "tabla": "areas_protegidas_provincias",
+   "columna": "pct_territorio",
+   "periodo": "ultimo"
+  },
+  {
+   "variable": "pct_territorio_protegido",
+   "tabla": "cruces_provincias",
+   "columna": "protegida",
+   "periodo": "ultimo"
+  },
+  {
+   "variable": "pensiones_invalidez_cada_1000_habitantes",
+   "tabla": "cruces_provincias",
+   "columna": "pensiones_invalidez",
+   "periodo": "ultimo"
+  },
+  {
+   "variable": "pensiones_invalidez_cada_1000_habitantes",
+   "tabla": "pensiones_invalidez_provincias",
+   "columna": "cada_1000",
+   "periodo": "ultimo"
+  },
+  {
+   "variable": "pensiones_no_contributivas_invalidez",
+   "tabla": "pensiones_invalidez",
+   "columna": "pensiones",
+   "columna_periodo": "anio"
+  },
+  {
+   "variable": "personas_privadas_de_libertad_establecimientos_penitenciarios",
+   "tabla": "carceles_serie",
+   "columna": "personas",
+   "columna_periodo": "anio"
+  },
+  {
+   "variable": "petroleo_no_convencional",
+   "tabla": "hidrocarburos_anual",
+   "columna": "pct_pet_nc",
+   "columna_periodo": "anio"
+  },
+  {
+   "variable": "petroleo_primer_anio_pozo_vaca_muerta",
+   "tabla": "productividad_vm",
+   "columna": "pet_12m_kbbl",
+   "columna_periodo": "anio"
+  },
+  {
+   "variable": "poblacion_5_a_14_anios",
+   "tabla": "chicos_escuela_provincias",
+   "columna": "chicos_fin",
+   "periodo": "ultimo"
+  },
+  {
+   "variable": "poblacion_5_a_14_anios",
+   "tabla": "chicos_escuela_provincias",
+   "columna": "chicos_hoy",
+   "periodo": "2026"
+  },
+  {
+   "variable": "poblacion_5_a_14_anios",
+   "tabla": "escuelas_primarias_provincias",
+   "columna": "chicos_5_14",
+   "periodo": "2026"
+  },
+  {
+   "variable": "poblacion_nacida_en_otra_provincia",
+   "tabla": "cruces_provincias",
+   "columna": "otra_provincia",
+   "periodo": "ultimo"
+  },
+  {
+   "variable": "poblacion_nacida_en_otra_provincia",
+   "tabla": "nacidos_otro_pais_provincias",
+   "columna": "pct_otra_provincia",
+   "periodo": "ultimo"
+  },
+  {
+   "variable": "poblacion_nacida_en_otro_pais",
+   "tabla": "nacidos_otro_pais_provincias",
+   "columna": "pct_otro_pais",
+   "periodo": "ultimo"
+  },
+  {
+   "variable": "poblacion_proyectada",
+   "tabla": "cruces_provincias",
+   "columna": "poblacion",
+   "periodo": "2026"
+  },
+  {
+   "variable": "poblacion_proyectada",
+   "tabla": "empleo_provincias",
+   "columna": "poblacion",
+   "periodo": "2026"
+  },
+  {
+   "variable": "poblacion_proyectada",
+   "tabla": "fiscalias_defensorias_federales",
+   "columna": "poblacion",
+   "periodo": "2024"
+  },
+  {
+   "variable": "poblacion_proyectada",
+   "tabla": "hospitales_provincias",
+   "columna": "poblacion",
+   "periodo": "2026"
+  },
+  {
+   "variable": "poblacion_proyectada",
+   "tabla": "justicia_federal_provincias",
+   "columna": "poblacion",
+   "periodo": "2026"
+  },
+  {
+   "variable": "poblacion_proyectada",
+   "tabla": "justicia_provincias",
+   "columna": "poblacion",
+   "periodo": "2025"
+  },
+  {
+   "variable": "poblacion_proyectada",
+   "tabla": "medicos_provincias",
+   "columna": "poblacion",
+   "periodo": "2025"
+  },
+  {
+   "variable": "poblacion_proyectada",
+   "tabla": "poblacion_proyectada_provincias",
+   "columna": "personas_2040",
+   "periodo": "ultimo"
+  },
+  {
+   "variable": "poblacion_proyectada",
+   "tabla": "poblacion_proyectada_provincias",
+   "columna": "personas_hoy",
+   "periodo": "2026"
+  },
+  {
+   "variable": "poblacion_proyectada",
+   "tabla": "representacion_provincias",
+   "columna": "poblacion",
+   "periodo": "2026"
+  },
+  {
+   "variable": "poblacion_proyectada",
+   "tabla": "sociedades_provincias",
+   "columna": "poblacion",
+   "periodo": "2025"
+  },
+  {
+   "variable": "poblacion_proyectada",
+   "tabla": "transferencias_provincias",
+   "columna": "pob",
+   "columna_periodo": "anio"
+  },
+  {
+   "variable": "pobreza_aglomerados_de_la_provincia",
+   "tabla": "pobreza_provincias",
+   "columna": "pobreza",
+   "periodo": "ultimo"
+  },
+  {
+   "variable": "potencia_instalada",
+   "tabla": "potencia_instalada",
+   "columna": "total",
+   "columna_periodo": "anio"
+  },
+  {
+   "variable": "pozos_terminados",
+   "tabla": "pozos_terminados",
+   "columna": "total",
+   "columna_periodo": "anio"
+  },
+  {
+   "variable": "precio_gasoil_grado_2_surtidor",
+   "tabla": "combustibles_mensual",
+   "columna": "gasoil",
+   "columna_periodo": "periodo"
+  },
+  {
+   "variable": "precio_gasoil_grado_2_surtidor",
+   "tabla": "combustibles_provincias",
+   "columna": "gasoil",
+   "periodo": "ultimo"
+  },
+  {
+   "variable": "precio_gasoil_grado_2_surtidor",
+   "tabla": "combustibles_provincias",
+   "columna": "gasoil_antes",
+   "periodo": "2025-07"
+  },
+  {
+   "variable": "precio_nafta_super_surtidor",
+   "tabla": "combustibles_mensual",
+   "columna": "nafta",
+   "columna_periodo": "periodo"
+  },
+  {
+   "variable": "precio_nafta_super_surtidor",
+   "tabla": "combustibles_provincias",
+   "columna": "nafta",
+   "periodo": "ultimo"
+  },
+  {
+   "variable": "precio_nafta_super_surtidor",
+   "tabla": "combustibles_provincias",
+   "columna": "nafta_antes",
+   "periodo": "2025-07"
+  },
+  {
+   "variable": "precio_nafta_super_surtidor",
+   "tabla": "nafta_dolares_mensual",
+   "columna": "nafta",
+   "columna_periodo": "mes"
+  },
+  {
+   "variable": "precio_nafta_super_surtidor_dolares",
+   "tabla": "nafta_dolares_mensual",
+   "columna": "nafta_usd",
+   "columna_periodo": "mes"
+  },
+  {
+   "variable": "produccion_gas_natural",
+   "tabla": "hidrocarburos_anual",
+   "columna": "gas_total",
+   "columna_periodo": "anio"
+  },
+  {
+   "variable": "produccion_petroleo",
+   "tabla": "hidrocarburos_anual",
+   "columna": "pet_total",
+   "columna_periodo": "anio"
+  },
+  {
+   "variable": "recaudacion_tributaria_nacional_pct_pbi",
+   "tabla": "recaudacion_anual",
+   "columna": "total_pbi",
+   "columna_periodo": "anio"
+  },
+  {
+   "variable": "recursos_propios_pct_ingresos",
+   "tabla": "cruces_provincias",
+   "columna": "autonomia_fiscal",
+   "periodo": "ultimo"
+  },
+  {
+   "variable": "recursos_propios_pct_ingresos",
+   "tabla": "fiscal_provincias",
+   "columna": "autonomia",
+   "columna_periodo": "anio"
+  },
+  {
+   "variable": "recursos_tributarios_provinciales_por_habitante",
+   "tabla": "cruces_provincias",
+   "columna": "impuestos_provinciales",
+   "periodo": "ultimo"
+  },
+  {
+   "variable": "recursos_tributarios_provinciales_por_habitante",
+   "tabla": "impuestos_provinciales",
+   "columna": "por_habitante",
+   "periodo": "ultimo"
+  },
+  {
+   "variable": "regalias_pct_ingresos",
+   "tabla": "regalias_provincias",
+   "columna": "pct_regalias",
+   "periodo": "ultimo"
+  },
+  {
+   "variable": "remuneracion_promedio_asalariados_privados",
+   "tabla": "crianza_salario",
+   "columna": "salario",
+   "periodo": "2026-05"
+  },
+  {
+   "variable": "remuneracion_promedio_asalariados_privados",
+   "tabla": "cruces_provincias",
+   "columna": "salario",
+   "periodo": "2026-05"
+  },
+  {
+   "variable": "remuneracion_promedio_asalariados_privados",
+   "tabla": "salarios_provincias",
+   "columna": "salario",
+   "periodo": "2026-05"
+  },
+  {
+   "variable": "remuneracion_promedio_asalariados_privados",
+   "tabla": "salarios_provincias",
+   "columna": "salario_ant",
+   "periodo": "2025-05"
+  },
+  {
+   "variable": "repitencia_secundaria",
+   "tabla": "abandono_pais",
+   "columna": "repitencia",
+   "columna_periodo": "anio"
+  },
+  {
+   "variable": "repitencia_secundaria",
+   "tabla": "abandono_provincias",
+   "columna": "repitencia",
+   "periodo": "ultimo"
+  },
+  {
+   "variable": "reservas_comprobadas_gas",
+   "tabla": "reservas_hidrocarburos",
+   "columna": "gas_miles_millones_m3",
+   "columna_periodo": "anio"
+  },
+  {
+   "variable": "reservas_comprobadas_petroleo",
+   "tabla": "reservas_hidrocarburos",
+   "columna": "pet_millones_m3",
+   "columna_periodo": "anio"
+  },
+  {
+   "variable": "reservas_netas_bcra",
+   "tabla": "reservas_netas",
+   "columna": "netas",
+   "columna_periodo": "mes"
+  },
+  {
+   "variable": "residencias_otorgadas",
+   "tabla": "radicaciones_anual",
+   "columna": "total",
+   "columna_periodo": "anio"
+  },
+  {
+   "variable": "resultado_financiero_pct_ingresos",
+   "tabla": "fiscal_provincias",
+   "columna": "resultado",
+   "columna_periodo": "anio"
+  },
+  {
+   "variable": "resultado_financiero_sector_publico_nacional_pct_pbi",
+   "tabla": "cuentas_nacion",
+   "columna": "resultado_financiero_pbi",
+   "columna_periodo": "anio"
+  },
+  {
+   "variable": "resultado_primario_sector_publico_nacional_pct_pbi",
+   "tabla": "cuentas_nacion",
+   "columna": "resultado_primario_pbi",
+   "columna_periodo": "anio"
+  },
+  {
+   "variable": "salario_bruto_maestro_grado_10_anios",
+   "tabla": "cruces_provincias",
+   "columna": "salario_docente",
+   "periodo": "2T2026"
+  },
+  {
+   "variable": "salario_bruto_maestro_grado_10_anios",
+   "tabla": "salario_docente",
+   "columna": "bruto",
+   "periodo": "2T2026"
+  },
+  {
+   "variable": "salario_bruto_maestro_grado_10_anios",
+   "tabla": "salario_docente",
+   "columna": "bruto_ant",
+   "periodo": "2T2025"
+  },
+  {
+   "variable": "sociedades_comerciales_constituidas_cada_100000",
+   "tabla": "sociedades_provincias",
+   "columna": "cada_100000",
+   "periodo": "ultimo"
+  },
+  {
+   "variable": "solicitudes_de_refugio",
+   "tabla": "refugio_solicitudes",
+   "columna": "solicitudes",
+   "columna_periodo": "anio"
+  },
+  {
+   "variable": "subsidios_economicos_energia_pct_pbi",
+   "tabla": "subsidios_energia",
+   "columna": "pct_pbi",
+   "columna_periodo": "anio"
+  },
+  {
+   "variable": "superficie_sembrada_soja",
+   "tabla": "soja_provincias",
+   "columna": "sembrada_ha",
+   "periodo": "ultimo"
+  },
+  {
+   "variable": "superficie_sembrada_soja",
+   "tabla": "soja_provincias",
+   "columna": "sembrada_ha_campania_anterior",
+   "periodo": "2023/24"
+  },
+  {
+   "variable": "tarjetas_sube_dia_habil_mediana",
+   "tabla": "sube_dia_habil",
+   "columna": "total",
+   "columna_periodo": "periodo"
+  },
+  {
+   "variable": "tasa_hurtos",
+   "tabla": "delitos_serie",
+   "columna": "hurtos",
+   "columna_periodo": "anio"
+  },
+  {
+   "variable": "tasa_hurtos",
+   "tabla": "robos_provincias",
+   "columna": "hurtos",
+   "periodo": "ultimo"
+  },
+  {
+   "variable": "tasa_hurtos",
+   "tabla": "robos_provincias",
+   "columna": "hurtos_ant",
+   "periodo": "2024"
+  },
+  {
+   "variable": "tasa_hurtos",
+   "tabla": "seguridad_serie_prov",
+   "columna": "hurtos",
+   "columna_periodo": "anio"
+  },
+  {
+   "variable": "tasa_mortalidad_infantil",
+   "tabla": "mortalidad_infantil_provincias",
+   "columna": "tmi_ultimo_anio",
+   "periodo": "ultimo"
+  },
+  {
+   "variable": "tasa_neta_escolarizacion_secundaria",
+   "tabla": "aprender_diagnostico",
+   "columna": "esc_desde",
+   "periodo": "2022"
+  },
+  {
+   "variable": "tasa_neta_escolarizacion_secundaria",
+   "tabla": "aprender_diagnostico",
+   "columna": "esc_hasta",
+   "periodo": "ultimo"
+  },
+  {
+   "variable": "tasa_neta_escolarizacion_secundaria",
+   "tabla": "cruces_provincias",
+   "columna": "escolarizacion",
+   "periodo": "ultimo"
+  },
+  {
+   "variable": "tasa_robos",
+   "tabla": "cruces_provincias",
+   "columna": "robos",
+   "periodo": "ultimo"
+  },
+  {
+   "variable": "tasa_robos",
+   "tabla": "delitos_serie",
+   "columna": "robos",
+   "columna_periodo": "anio"
+  },
+  {
+   "variable": "tasa_robos",
+   "tabla": "robos_provincias",
+   "columna": "robos",
+   "periodo": "ultimo"
+  },
+  {
+   "variable": "tasa_robos",
+   "tabla": "robos_provincias",
+   "columna": "robos_ant",
+   "periodo": "2024"
+  },
+  {
+   "variable": "tasa_robos",
+   "tabla": "seguridad_serie_prov",
+   "columna": "robos",
+   "columna_periodo": "anio"
+  },
+  {
+   "variable": "tasa_suicidios_100mil_5_anios_y_mas",
+   "tabla": "suicidio_provincias",
+   "columna": "tasa",
+   "periodo": "ultimo"
+  },
+  {
+   "variable": "tasa_victimas_homicidios_dolosos",
+   "tabla": "delitos_serie",
+   "columna": "homicidios",
+   "columna_periodo": "anio"
+  },
+  {
+   "variable": "tasa_victimas_homicidios_dolosos",
+   "tabla": "seguridad_serie_prov",
+   "columna": "homicidios",
+   "columna_periodo": "anio"
+  },
+  {
+   "variable": "telefonia_fija_accesos_cada_100_hogares",
+   "tabla": "telefonia_fija_pais",
+   "columna": "accesos_100_hogares",
+   "columna_periodo": "periodo"
+  },
+  {
+   "variable": "telefonia_fija_accesos_cada_100_hogares",
+   "tabla": "telefonia_fija_provincias",
+   "columna": "accesos_100_hogares",
+   "periodo": "2T2026"
+  },
+  {
+   "variable": "telefonia_fija_accesos_cada_100_hogares",
+   "tabla": "telefonia_fija_provincias",
+   "columna": "accesos_100_hogares_2014",
+   "periodo": "1T2014"
+  },
+  {
+   "variable": "tipo_cambio_real_multilateral",
+   "tabla": "turismo_dolar_mensual",
+   "columna": "tcr_itcrm",
+   "columna_periodo": "mes"
+  },
+  {
+   "variable": "tributos_origen_nacional_pct_ingresos",
+   "tabla": "coparticipacion_provincias",
+   "columna": "pct_ingresos",
+   "columna_periodo": "anio"
+  },
+  {
+   "variable": "tributos_origen_nacional_por_habitante",
+   "tabla": "coparticipacion_provincias",
+   "columna": "por_habitante",
+   "columna_periodo": "anio"
+  },
+  {
+   "variable": "turistas_extranjeros_ezeiza_aeroparque_por_provincia",
+   "tabla": "turistas_extranjeros_provincias",
+   "columna": "turistas",
+   "periodo": "ultimo"
+  },
+  {
+   "variable": "turistas_no_residentes",
+   "tabla": "turistas_no_residentes_anual",
+   "columna": "turistas",
+   "columna_periodo": "anio"
+  },
+  {
+   "variable": "vegetacion_natural_pct_superficie",
+   "tabla": "cobertura_suelo_pais",
+   "columna": "pct_natural",
+   "columna_periodo": "anio"
+  },
+  {
+   "variable": "vegetacion_natural_pct_superficie",
+   "tabla": "cobertura_suelo_provincias",
+   "columna": "pct_natural_final",
+   "periodo": "ultimo"
+  },
+  {
+   "variable": "vegetacion_natural_pct_superficie",
+   "tabla": "cobertura_suelo_provincias",
+   "columna": "pct_natural_inicio",
+   "periodo": "1985"
+  },
+  {
+   "variable": "viajeros_hospedados_hoteles",
+   "tabla": "viajeros_hoteles_anual",
+   "columna": "total",
+   "columna_periodo": "anio"
+  },
+  {
+   "variable": "viajes_turistas_residentes_al_exterior",
+   "tabla": "turismo_dolar_mensual",
+   "columna": "salen",
+   "columna_periodo": "mes"
+  },
+  {
+   "variable": "victimas_directas_femicidio",
+   "tabla": "muertes_violentas",
+   "columna": "femicidios",
+   "columna_periodo": "anio"
+  },
+  {
+   "variable": "victimas_homicidios",
+   "tabla": "muertes_violentas",
+   "columna": "homicidios",
+   "columna_periodo": "anio"
+  },
+  {
+   "variable": "victimas_siniestros_viales",
+   "tabla": "muertes_violentas",
+   "columna": "siniestros_viales",
+   "columna_periodo": "anio"
+  },
+  {
+   "variable": "victimas_suicidios",
+   "tabla": "muertes_violentas",
+   "columna": "suicidios",
+   "columna_periodo": "anio"
+  },
+  {
+   "variable": "victimas_suicidios",
+   "tabla": "suicidio_serie",
+   "columna": "casos",
+   "columna_periodo": "anio"
+  },
+  {
+   "variable": "vino_mercado_interno",
+   "tabla": "vino_mercado_interno",
+   "columna": "millones_litros",
+   "columna_periodo": "anio"
+  },
+  {
+   "variable": "visitas_parques_nacionales",
+   "tabla": "visitas_parques_nacionales",
+   "columna": "total",
+   "columna_periodo": "anio"
+  },
+  {
+   "variable": "voto_presidente_2023-2_milei",
+   "tabla": "cruces_provincias",
+   "columna": "voto_milei_2023",
+   "periodo": "ultimo"
+  },
+  {
+   "variable": "yerba_mate_salida_de_molino",
+   "tabla": "yerba_molino",
+   "columna": "millones_kg",
+   "columna_periodo": "anio"
+  }
+ ]
+}
