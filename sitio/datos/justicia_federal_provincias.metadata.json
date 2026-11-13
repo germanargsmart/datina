@@ -68,12 +68,12 @@
   {
    "nombre": "poblacion",
    "tipo": "Número",
-   "valores": "182.003 a 17.443.372"
+   "valores": "182.744 a 17.453.039"
   },
   {
    "nombre": "cargos_cada_100mil",
    "tipo": "Número",
-   "valores": "0,47 a 5,07"
+   "valores": "0,47 a 5,09"
   },
   {
    "nombre": "pct_sin_titular",

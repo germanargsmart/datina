@@ -1288,7 +1288,7 @@ const TX = {
   "empleo-construccion-nota": `Asalariados registrados del sector privado en la construcción (rama 45 de la clasificación de actividades), según el SIPA, en promedio del trimestre. ` +
     `El SIPA asigna cada puesto a la provincia donde declara el empleador, no donde está la obra: una empresa con sede en CABA que construye en otra provincia suma en CABA. ` +
     `No incluye a quienes trabajan por su cuenta ni el empleo no registrado: el Censo 2022 contó ${n0(CN.viv_abs.constructores)} personas ocupadas en la construcción, con o sin registro (en la otra pestaña). ` +
-    `La población es la proyección ${R.anio_pob} del INDEC. La provincia de Buenos Aires suma los partidos del Gran Buenos Aires y el resto de la provincia, que el OEDE publica por separado.`,
+    `La población es la proyección del INDEC para ${R.anio_pob_ficha.empleo_construccion_provincias}, el año del dato. La provincia de Buenos Aires suma los partidos del Gran Buenos Aires y el resto de la provincia, que el OEDE publica por separado.`,
   // la cifra destacada ya dice la parte de los ocupados: el texto empieza por cuántas personas son
   trabajadores: `En el Censo 2022, ${n0(CN.viv_abs.constructores)} personas dijeron trabajar en la construcción. El porcentaje se calcula sobre las personas ocupadas que informaron la rama de actividad. ` +
     `La proporción va del ${pct(CN.viv_top.pct_ocupados_construccion[1])} en ${CN.viv_top.pct_ocupados_construccion[0]} al ${pct(CN.viv_low.pct_ocupados_construccion[1])} en ${CN.viv_low.pct_ocupados_construccion[0]}. El censo cuenta a cada persona donde vive y el empleo registrado de la otra pestaña, donde la declara la empresa: por eso las dos vistas ordenan distinto a las provincias.`,
@@ -1323,10 +1323,11 @@ const TX = {
     `Los nombres se muestran sin la forma societaria y la tabla los trae como los publica la fuente. Un mismo grupo puede declarar con más de una razón social. Las demás ${PG.n_empresas - PG.emp_n} empresas que declararon producción sumaron el ${pct(PG.emp_resto_pct)} del petróleo.`,
   "empleo-hidro": LEAD["empleo-hidro"](), "empleo-hidro-nota": `Asalariados registrados del sector privado en la extracción de petróleo y gas y sus servicios (rama 11 de la clasificación de actividades), según el Sistema Integrado Previsional Argentino (SIPA), en promedio del trimestre. ` +
     `El SIPA asigna cada puesto a la provincia donde declara el empleador: por eso CABA, donde tienen sede muchas empresas, aparece con empleo petrolero. ` +
-    `Las provincias con pocos puestos no se muestran porque el OEDE no publica esos datos por el secreto estadístico. La serie del país suma las provincias con dato.`,
+    `Las provincias con pocos puestos no se muestran porque el OEDE no publica esos datos por el secreto estadístico. La serie del país suma las provincias con dato. ` +
+    `Los puestos cada 1.000 habitantes usan la población que proyecta el INDEC para ${R.anio_pob_ficha.empleo_construccion_provincias}, el año del dato.`,
   regalias: LEAD["regalias"]("pct_regalias"), "regalias-nota": `Las regalías son lo que las empresas pagan a la provincia dueña del recurso por lo que extraen. El porcentaje sale de las cuentas de cada provincia (esquema ahorro-inversión-financiamiento del Ministerio de Economía) e incluye todas las regalías, también las mineras y las hidroeléctricas, sobre los ingresos totales.` +
     (Object.keys(PG.reg_atrasadas).length ? ` ${lista(Object.entries(PG.reg_atrasadas).map(([p, a]) => `${p} va con ${a}`))}, su último año publicado.` : "") +
-    ` Los dólares por habitante son solo las regalías de petróleo crudo que publica la Secretaría de Energía, divididas por la población ${R.anio_pob}. La Secretaría publica las de gas en pesos y no se suman acá. Las del mar argentino, ${n1(PG.reg_usd_mar)} millones de dólares en ${PG.reg_usd_anio}, son del Estado nacional.`,
+    ` Los dólares por habitante son solo las regalías de petróleo crudo que publica la Secretaría de Energía, divididas por la población que proyecta el INDEC para ${R.anio_pob_ficha.regalias_provincias}, el mismo año. La Secretaría publica las de gas en pesos y no se suman acá. Las del mar argentino, ${n1(PG.reg_usd_mar)} millones de dólares en ${PG.reg_usd_anio}, son del Estado nacional.`,
   reservas: LEAD["reservas"]("pet"), "reservas-nota": `Reservas comprobadas al 31 de diciembre que las empresas declaran a la Secretaría de Energía según la Resolución SE 324/2006, hasta el final de la vida útil de los yacimientos: lo que se puede extraer con razonable certeza con la técnica y los precios de ese momento. ` +
     `Desde 2017 la Secretaría separa las convencionales de las no convencionales. Los años de producción dividen las reservas por la producción de ese año: no son un pronóstico, porque las reservas cambian con la exploración, la tecnología y los precios.`,
   "balanza-energetica": LEAD["balanza-energetica"](), "balanza-energetica-nota": `Exportaciones del rubro combustibles y energía e importaciones de combustibles y lubricantes, según el Intercambio Comercial Argentino del INDEC, en millones de dólares de cada año. ` +
@@ -1449,7 +1450,7 @@ const TX = {
       `los órganos que funcionan. Hay ${n0(F.sin_funcionar_cargos)} cargos más en ${n0(F.sin_funcionar_organos)} juzgados, cámaras y tribunales creados por ley que ` +
       `todavía no funcionan. No incluye a la Corte Suprema. La Justicia Nacional, que es la justicia ordinaria de CABA (civil, comercial, ` +
       `laboral y penal), tiene otros ${n0(F.nacional_cargos)} cargos, ${n0(F.nacional_sin_titular)} sin titular, y no entra en las barras para que las provincias se ` +
-      `puedan comparar. Padrón del Ministerio de Justicia de ${F.fecha} y población proyectada por el INDEC para ${R.anio_pob}.`; })(),
+      `puedan comparar. Padrón del Ministerio de Justicia de ${F.fecha} y población proyectada por el INDEC para ${R.anio_pob_ficha.justicia_federal_provincias}, el año del padrón.`; })(),
   "fiscalias-federales": (() => { const M = R.justicia.mp, f = T.fiscalias_defensorias_federales,
       tot = d => d.fiscalias_cada_100mil + d.defensorias_cada_100mil,
       mx = f.reduce((a, d) => tot(d) > tot(a) ? d : a), mn = f.reduce((a, d) => tot(d) < tot(a) ? d : a);
@@ -1460,7 +1461,7 @@ const TX = {
     return `Una fiscalía o una defensoría puede tener más de un cargo. Se cuentan las que funcionan. Es el último padrón del Ministerio de Justicia que trae a los ` +
       `fiscales y los defensores: el de ${R.justicia.federal.fecha} trae solo a los jueces. No incluye a la Procuración General ni a la Defensoría General de la ` +
       `Nación. En CABA funcionan además ${n0(M.nacional_fiscalias)} fiscalías y ${n0(M.nacional_defensorias)} defensorías de la Justicia ` +
-      `Nacional, su justicia ordinaria, que no entran en las barras. La población es la que proyecta el INDEC para ${R.anio_pob}, la misma de las otras fichas.`; })(),
+      `Nacional, su justicia ordinaria, que no entran en las barras. La población es la que proyecta el INDEC para ${R.anio_pob_ficha.fiscalias_defensorias_federales}, el año del padrón.`; })(),
   "cortes-provinciales": (() => { const P = R.justicia.prov, v = P.cortes_vacantes.map((c, i) => `el de ${c.territorio}${i ? "," : " tenía ocupados"} ${c.ministros} de ${c.ley}`);
     const lista = v.length > 1 ? v.slice(0, -1).join(", ") + " " + yE(v.at(-1)) : v[0] || "";
     return `En ${P.cortes_ley} de los 24 máximos tribunales se pudo leer en la ley cuántos lugares tienen. De ellos, ${P.cortes_completas} tenían todos sus lugares ocupados ` +
@@ -1489,7 +1490,7 @@ const TX = {
       [...ant, ...bajas].join(" ") + " " +
       P.mp_unico.map(m => `${m.territorio} tiene un solo ministerio público y carga juntos a sus fiscales y defensores (${n0(m.v)}): no entra en esas dos vistas.`).join(" ") +
       ` No incluye a la justicia federal ni a la Justicia Nacional de CABA. Cada jurisdicción carga sus datos en el Mapa de Género de la Justicia Argentina, ` +
-      `de la Oficina de la Mujer de la Corte Suprema. Población proyectada por el INDEC para ${R.anio_pob}.`; })(),
+      `de la Oficina de la Mujer de la Corte Suprema. Cada dato se divide por la población que proyecta el INDEC para su año.`; })(),
   // confianza en el gobierno (etapa 42): los textos de las dos vistas los arma el dibujo
   "confianza-gobierno-nota": R.confianza_gobierno ? `El índice resume cinco preguntas de una encuesta mensual de opinión pública de alcance nacional que hace la Universidad ` +
     `Torcuato Di Tella sobre el gobierno nacional: la evaluación general del gobierno, si gobierna pensando en el bien general o en intereses de sectores, si administra ` +
@@ -1593,7 +1594,7 @@ const TX = {
     `Según las proyecciones del INDEC, en ${EV.anio_fin} serán ${n1(EV.fin)}, unas ${n1(EV.trab_fin)} por cada una. Por provincia, en ${EV.anio} la relación más alta es la de ${EV.max} (${n1(EV.max_v)}) y la más baja, la de ${EV.min} (${n1(EV.min_v)}). El gráfico muestra al lado de cada provincia su valor de ${EV.anio_fin}.`,
   // la cifra destacada ya dice el total y el promedio del país: el texto va a las provincias
   empresas: `Cada 1.000 habitantes, ${EM.top} tenía ${n1(EM.top_v)} empresas privadas con empleados${conVeces(EM.top_v, EM.pais_1000)} y ${EM.low}, ${n1(EM.low_v)}${conVeces(EM.low_v, EM.pais_1000)}.`,
-  "empresas-nota": `Empresas privadas que declaran personal en relación de dependencia ante la seguridad social (el SIPA), cada una identificada por su CUIT. No incluye a quienes trabajan solos como monotributistas o autónomos sin empleados, ni el trabajo en casas particulares. Una empresa con personal en varias provincias se cuenta en cada una: por eso la suma de las provincias es mayor que el total del país, que cuenta a cada empresa una sola vez, en la provincia donde tiene más empleo. La población es la proyección ${R.anio_pob} del INDEC.`,
+  "empresas-nota": `Empresas privadas que declaran personal en relación de dependencia ante la seguridad social (el SIPA), cada una identificada por su CUIT. No incluye a quienes trabajan solos como monotributistas o autónomos sin empleados, ni el trabajo en casas particulares. Una empresa con personal en varias provincias se cuenta en cada una: por eso la suma de las provincias es mayor que el total del país, que cuenta a cada empresa una sola vez, en la provincia donde tiene más empleo. La población es la proyección del INDEC para ${R.anio_pob_ficha.empresas_provincias}, el año de la cantidad de empresas.`,
   // la cifra destacada ya dice cuántas abrieron y cerraron: el texto empieza por las tasas
   dinamica: `En ${EM.ult}, la tasa de entrada, las empresas que abrieron sobre todas las activas en el año, fue de ${pct(EM.te)}, y la de salida, las que cerraron, de ${pct(EM.ts)}. Acá cada empresa cuenta una sola vez, en la provincia donde declara más personal. ` +
     `El cambio neto fue ${EM.neta >= 0 ? "positivo" : "negativo"}, de ${n1(Math.abs(EM.neta))} puntos, y ${EM.positivas < 12 ? "solo " : ""}${EM.positivas === 1 ? "una jurisdicción tuvo" : EM.positivas + " jurisdicciones tuvieron"} más aperturas que cierres. ` +
@@ -1615,7 +1616,7 @@ const TX = {
   "pensiones-invalidez-nota": `La pensión no contributiva por invalidez es para personas que no pueden trabajar por una incapacidad y no tienen ingresos, bienes ni otra ` +
     `jubilación o pensión que alcancen. La paga ANSES. Cada año es el promedio de los doce meses y el último dato es el de un solo mes. Desde abril de 2019 el boletín ` +
     `separa los beneficios suspendidos: en ${MESES[PIN.mes - 1]} de ${PIN.anio} eran ${n0(PIN.v - PIN.v_no_susp)}. Por provincia, el último mes es ${MESES[PIN.prov_mes - 1]} de ` +
-    `${PIN.prov_anio} y la población, la proyección del INDEC para ${R.anio_pob}. No incluye las pensiones por discapacidad que pagan las provincias ni la asignación por hijo ` +
+    `${PIN.prov_anio} y la población, la proyección del INDEC para ${R.anio_pob_ficha.pensiones_invalidez_provincias}, el mismo año. No incluye las pensiones por discapacidad que pagan las provincias ni la asignación por hijo ` +
     `con discapacidad. La proporción depende de la edad y de la situación de cada población, no solo de cómo se otorgan las pensiones.`,
   // seguro de desempleo (etapa 42): los textos de "Frente al empleo registrado" y "Evolución" los arma el dibujo
   desempleo: DS ? `En ${MESES[DS.prov_mes - 1]} de ${DS.prov_anio} cobraban el seguro de desempleo ${n1(DS.pais_1000)} de cada 1.000 habitantes del país. ` +
@@ -1624,14 +1625,14 @@ const TX = {
     `trabajo por un despido sin causa u otro motivo que fija la ley y que aportaron al Fondo Nacional de Empleo. Dura de 2 a 12 meses según el tiempo trabajado y lo paga ANSES. Los trabajadores rurales tienen un sistema aparte, que no ` +
     `se incluye. Cada año es el promedio de los doce meses y el último dato es el de un solo mes. Cada beneficiario cuenta en la provincia donde cobra. El empleo registrado es el ` +
     `de los asalariados privados del SIPA de ${MESES[DS.sipa_mes - 1]} de ${DS.sipa_anio}, que se cuenta donde declara el empleador: por eso CABA queda muy abajo y Buenos Aires ` +
-    `arriba, porque mucha gente vive en el Gran Buenos Aires y trabaja en CABA. La población es la proyección del INDEC para ${R.anio_pob}. La cantidad de beneficiarios ` +
+    `arriba, porque mucha gente vive en el Gran Buenos Aires y trabaja en CABA. La población es la proyección del INDEC para ${R.anio_pob_ficha.prestacion_desempleo_provincias}, el mismo año. La cantidad de beneficiarios ` +
     `depende del desempleo, pero también de cuánta gente tiene un empleo registrado y de los cambios en las reglas del seguro.` : "",
   // Asignación Universal por Hijo (etapa 42): el texto de "Cobertura" lo arma el dibujo
   auh: `En ${MESES[AU.mes - 1]} de ${AU.anio}, ${n0(AU.beneficios)} chicos recibían la AUH, ${n1(AU.pais_100)} cada 100 menores de 18 años. La cobraban ${n0(AU.titulares)} ` +
     `titulares. ${AU.top} tenía la proporción más alta, ${n1(AU.top_v)} cada 100, y ${AU.low} la más baja, ${n1(AU.low_v)}.`,
   "auh-nota": `La AUH la cobra, por cada hijo menor de 18 años o con discapacidad, quien no tiene trabajo, trabaja en la informalidad o en casas particulares, es ` +
     `monotributista social o cobra menos que el salario mínimo. La paga ANSES. Cada beneficio es un hijo: ${n0(AU.discapacidad)} son por hijo con discapacidad, que no tiene ` +
-    `límite de edad. Los menores de 18 de cada provincia salen de las proyecciones del INDEC para ${R.anio_pob}, que vienen en grupos de cinco años (los de 15 a 17 se toman como tres ` +
+    `límite de edad. Los menores de 18 de cada provincia salen de las proyecciones del INDEC para ${R.anio_pob_ficha.auh_provincias}, el mismo año, que vienen en grupos de cinco años (los de 15 a 17 se toman como tres ` +
     `quintos del grupo de 15 a 19), así que la proporción es aproximada. "Cobertura" es el cuadro de cobertura del boletín, que estima la población con ` +
     `proyecciones de las Naciones Unidas y registros de ANSES. Los programas como Volver al Trabajo, Acompañamiento Social o la Prestación Alimentar no publican datos abiertos por provincia.`,
   // haberes frente al salario (etapa 42): el texto de la vista "A precios de hoy" lo arma el dibujo
@@ -1694,7 +1695,7 @@ const TX = {
   protegida: `En ${nt.anio} había ${n0(nt.areas)} áreas protegidas nacionales, provinciales y con designación internacional. Cubrían ${n1(nt.ha_millones)} millones de hectáreas de tierra firme, unos ${n0(nt.m2_pais)} metros cuadrados (m²) por habitante. ` +
     `${nt.top} tenía protegido el ${pct(nt.top_v)} de su superficie${conVeces(nt.top_v, nt.pct)} y ${nt.low}, el ${pct(nt.low_v)}${conVeces(nt.low_v, nt.pct)}. Por habitante, la superficie protegida va de ${n0(nt.m2_top_v)} m² en ${nt.m2_top} a ${n1(nt.m2_low_v)} m² en ${nt.m2_low}. ` +
     `La fuente suma la superficie de cada designación, así que una misma zona puede contarse más de una vez.`,
-  "protegida-nota": `Superficie terrestre dentro de áreas protegidas de jurisdicción nacional o provincial y de sitios con designación internacional, como reservas de biosfera y sitios Ramsar. La fuente suma la superficie de cada designación, así que una misma zona puede contarse más de una vez. No incluye las áreas marinas. Los metros cuadrados por habitante usan la población ${R.anio_pob} proyectada por el INDEC. La línea punteada violeta marca el promedio simple de los países de la OCDE en ${OC.protegida.anio} según el Banco Mundial, que usa otra base (la Base Mundial de Áreas Protegidas) y no suma superposiciones.`,
+  "protegida-nota": `Superficie terrestre dentro de áreas protegidas de jurisdicción nacional o provincial y de sitios con designación internacional, como reservas de biosfera y sitios Ramsar. La fuente suma la superficie de cada designación, así que una misma zona puede contarse más de una vez. No incluye las áreas marinas. Los metros cuadrados por habitante usan la población que proyecta el INDEC para ${R.anio_pob_ficha.areas_protegidas_provincias}, el mismo año. La línea punteada violeta marca el promedio simple de los países de la OCDE en ${OC.protegida.anio} según el Banco Mundial, que usa otra base (la Base Mundial de Áreas Protegidas) y no suma superposiciones.`,
   // la cifra destacada ya dice cuántas áreas tiene Parques Nacionales: el texto da sus nombres y su superficie
   parques: `Los primeros parques nacionales, ${nt.pn_primeras}, se crearon en ${nt.pn_primera_anio}. Hoy las áreas protegidas de la Administración de Parques Nacionales suman ${n1(nt.pn_terr_millones)} millones de hectáreas terrestres y ${n1(nt.pn_mar_millones)} millones marinas. La más grande en tierra es ${nt.pn_mayor}, creada en ${nt.pn_mayor_anio}, con ${n0(nt.pn_mayor_ha)} hectáreas. La más reciente es ${nt.pn_ultima}, de ${nt.pn_ultima_anio}.`,
   "parques-nota": `Superficie acumulada según el año de creación de cada área, con su superficie actual. No refleja ampliaciones posteriores ni cambios de categoría.`,
@@ -1717,7 +1718,7 @@ const TX = {
   // la cifra destacada ya dice la más alta cada 1.000 habitantes (E11): el texto empieza por la cantidad
   eti: `En cantidad, la jurisdicción más visitada en ${tu.eti_anio} por los turistas del exterior que se fueron del país por Ezeiza o Aeroparque fue ${tu.eti_top}, ` +
     `con ${n0(tu.eti_top_v)}, y la segunda, ${tu.eti_2}, con ${n0(tu.eti_2_v)}.`,
-  "eti-nota": `Encuesta de Turismo Internacional. Solo cubre a los turistas que dejan el país por los aeropuertos de Ezeiza y Aeroparque, así que subestima a las provincias que reciben turistas por otros pasos, como las limítrofes. Un turista que visitó varias provincias cuenta en cada una. La cantidad por habitante usa la población ${R.anio_pob} proyectada por el INDEC. Desde 2026 el INDEC reformula esta encuesta y reprogramó su difusión porque no se renovó el convenio de financiamiento con la Secretaría de Turismo.`,
+  "eti-nota": `Encuesta de Turismo Internacional. Solo cubre a los turistas que dejan el país por los aeropuertos de Ezeiza y Aeroparque, así que subestima a las provincias que reciben turistas por otros pasos, como las limítrofes. Un turista que visitó varias provincias cuenta en cada una. La cantidad por habitante usa la población que proyecta el INDEC para ${R.anio_pob_ficha.turistas_extranjeros_provincias}, el mismo año. Desde 2026 el INDEC reformula esta encuesta y reprogramó su difusión porque no se renovó el convenio de financiamiento con la Secretaría de Turismo.`,
   // la cifra destacada ya dice la pobreza del último semestre: el texto empieza por la indigencia
   pobreza: `En el ${R.pobreza.sem}, el ${pct(R.pobreza.ind)} de las personas de los 31 aglomerados urbanos que releva la EPH estaba bajo la línea de indigencia. Un año antes, en el ${R.pobreza.sem_prev}, la pobreza era ${R.pobreza.pob > R.pobreza.pob_prev ? "más baja" : R.pobreza.pob < R.pobreza.pob_prev ? "más alta" : "igual"}: ${pct(R.pobreza.pob_prev)}. La indigencia era del ${pct(R.pobreza.ind_prev)}. El valor más alto de la pobreza en la serie fue ${pct(R.pobreza.max)}, en el ${R.pobreza.max_sem}.`,
   "pobreza-nota": `Porcentaje de personas en hogares cuyos ingresos no alcanzan la canasta básica total (pobreza) o la canasta básica alimentaria (indigencia). La EPH releva solo los 31 aglomerados urbanos, no el total del país ni las provincias. En el consultor de pobreza están los aglomerados, los partidos del Gran Buenos Aires y las comunas de CABA, con sus intervalos de confianza.`,
@@ -1779,7 +1780,7 @@ const TX = {
     `Cada provincia es su servicio penitenciario: CABA no tiene uno propio y el Servicio Penitenciario Federal va aparte. La línea del país suma todos, también el federal. ` +
     `No se cuentan las personas detenidas en comisarías ni las que tienen prisión domiciliaria.`,
   carceles: LEAD.carceles("serie"), "carceles-nota": `Censo de las personas alojadas en establecimientos penitenciarios al 31 de diciembre de cada año. No incluye a las ` +
-    `personas detenidas en comisarías ni a las que tienen prisión domiciliaria. Por provincia, cada servicio penitenciario provincial sobre la población de su provincia: ` +
+    `personas detenidas en comisarías ni a las que tienen prisión domiciliaria. Por provincia, cada servicio penitenciario provincial sobre la población de su provincia que proyecta el INDEC para el mismo año: ` +
     `las cárceles federales van aparte y una cárcel puede alojar a personas detenidas por la justicia de otra provincia. El país, sobre la población que usa el SNIC. ` +
     `El salto de 2004 viene del dato de la provincia de Buenos Aires de ese año, mucho más alto que el de los años vecinos.`,
   // ---- gobierno (etapa 25)
@@ -1799,14 +1800,14 @@ const TX = {
     `Banco Central.`,
   "empleo-publico": LEAD["empleo-publico"]("prov"), "empleo-publico-nota": `Cargos ocupados en las administraciones públicas provinciales (administración ` +
     `central, organismos descentralizados y cuentas especiales) del personal permanente y temporario, según la Dirección Nacional de Asuntos ` +
-    `Provinciales, con la población del INDEC del año. Cuenta cargos, no personas: alguien puede tener dos cargos. Cada provincia informa los suyos` +
+    `Provinciales, con la población que proyecta el INDEC para el mismo año. Cuenta cargos, no personas: alguien puede tener dos cargos. Cada provincia informa los suyos` +
     (GBC.presupuestados.length ? `, y ${lista(GBC.presupuestados)} ${GBC.presupuestados.length > 1 ? "informan" : "informa"} los cargos ` +
       `presupuestados en lugar de los ocupados` : "") + `. La vista de la Nación es la dotación de la administración pública nacional, las empresas y ` +
     `las sociedades del Estado que publica el INDEC: no incluye las universidades, el sistema de ciencia y tecnología, el servicio exterior ni el ` +
     `personal militar y de seguridad, y tiene meses con datos estimados por el INDEC.`,
   "impuestos-provinciales": LEAD["impuestos-provinciales"](), "impuestos-provinciales-nota": `Recursos tributarios de origen provincial: ingresos ` +
     `brutos, inmobiliario, sellos, automotor y otros, según la Dirección Nacional de Asuntos Provinciales, que replica lo que publica la dirección de ` +
-    `rentas de cada provincia. Por habitante con la población del INDEC. Las provincias no cobran los mismos impuestos: en algunas, el automotor lo ` +
+    `rentas de cada provincia. Por habitante con la población que proyecta el INDEC para el mismo año. Las provincias no cobran los mismos impuestos: en algunas, el automotor lo ` +
     `cobran los municipios. Las finanzas de cada provincia, con lo que recibe de la Nación, están en la ficha siguiente.`,
   "pobreza-aglomerados": LEAD["pobreza-aglomerados"]("region"), "pobreza-aglomerados-nota": `Personas en hogares cuyos ingresos no alcanzan la canasta ` +
     `básica total, según la Encuesta Permanente de Hogares del INDEC, que releva 31 aglomerados urbanos y no mide las zonas rurales ni las ciudades chicas. ` +
@@ -1998,7 +1999,7 @@ const TX = {
     `La serie mes a mes pasa los precios a pesos de ${CB.mes} con el índice de precios al consumidor del INDEC. La serie año por año es el promedio de la mediana ` +
     `de los doce meses de cada año, desde ${CB.anual_ini}, el primer año completo desde que rige la resolución, y pasa los precios a pesos de ${CB.anual_ult} con el deflactor ` +
     `del producto interno bruto que publica el Banco Mundial, porque el índice de precios al consumidor del INDEC para todo el país empieza en diciembre de 2016.`,
-  "patentes-prov-nota": `La provincia es la del registro donde se hizo la inscripción, que no siempre coincide con el lugar donde se usa el vehículo. Por eso algunas jurisdicciones muestran valores muy altos. La población es la proyección ${R.anio_pob} del INDEC.`,
+  "patentes-prov-nota": `La provincia es la del registro donde se hizo la inscripción, que no siempre coincide con el lugar donde se usa el vehículo. Por eso algunas jurisdicciones muestran valores muy altos. La población es la proyección del INDEC para ${R.anio_pob_ficha.patentamientos_provincias}, el mismo año.`,
   // la cifra destacada ya dice los nombres más elegidos: el texto empieza por los del primer año de la serie y cuántos bebés los recibieron
   nombres: `En ${cu.nom_anio} se inscribieron ${n0(cu.nena_n)} bebés con el nombre ${cu.nena} ${yE(n0(cu.varon_n))} con el nombre ${cu.varon}. ${cu.varon_prov} fue el nombre de varón más elegido en ${cu.varon_prov_n} de las 24 jurisdicciones. ` +
     `En ${cu.nom_ini}, el primer año de la serie, los más inscriptos habían sido ${cu.nena0} para las nenas ${yE(cu.varon0)} para los varones.` +
@@ -2118,7 +2119,7 @@ const TX = {
   "esperanza-nota": `Años que viviría en promedio una persona nacida en ${nv.ev_anio} si se mantuvieran las tasas de mortalidad por edad de ese año. El círculo claro marca a los varones y el lleno a las mujeres. El INDEC publica tablas para 2020, 2021 y 2022, y las de 2020 y 2021 reflejan la mortalidad de la pandemia de COVID-19. La línea punteada violeta marca el promedio simple de los países de la OCDE en ${OC.esperanza_vida.anio}, para ambos sexos, según el Banco Mundial.`,
   exportaciones: `Por habitante, las exportaciones producidas en ${nv.ex_top} sumaron ${n0(nv.ex_top_v)} dólares${conVeces(nv.ex_top_v, nv.ex_pc_pais)} y las de ${nv.ex_low}, ${n0(nv.ex_low_v)}${conVeces(nv.ex_low_v, nv.ex_pc_pais)}. En total, el país exportó bienes por ${n0(nv.ex_total)} millones de dólares en ${nv.ex_anio}.` + (nv.ex_sem ? ` En el primer semestre de ${nv.ex_sem.anio}, con datos provisorios, las exportaciones sumaron ${n0(nv.ex_sem.total)} millones de dólares, ${pct(Math.abs(nv.ex_sem.var))} ${nv.ex_sem.var >= 0 ? "más" : "menos"} que en el primer semestre de ${nv.ex_sem.anio - 1}, y subieron en ${nv.ex_sem.suben} de las 24 jurisdicciones.` : "") +
     "",
-  "exportaciones-nota": `Valor FOB (la mercadería puesta en el puerto o en la frontera, sin flete ni seguro) de los bienes exportados, según la provincia donde se produjeron. El ${pct(nv.ex_provincial_pct)} del total tiene una provincia de origen identificada. El resto sale de la plataforma continental, es mercadería extranjera o tiene origen indeterminado. La tabla descargable separa productos primarios, manufacturas agropecuarias, manufacturas industriales y combustibles. La población es la proyección ${R.anio_pob} del INDEC.`,
+  "exportaciones-nota": `Valor FOB (la mercadería puesta en el puerto o en la frontera, sin flete ni seguro) de los bienes exportados, según la provincia donde se produjeron. El ${pct(nv.ex_provincial_pct)} del total tiene una provincia de origen identificada. El resto sale de la plataforma continental, es mercadería extranjera o tiene origen indeterminado. La tabla descargable separa productos primarios, manufacturas agropecuarias, manufacturas industriales y combustibles. La población es la proyección del INDEC para ${R.anio_pob_ficha.exportaciones_provincias}, el mismo año.`,
   cobertura: textoCenso("sin_cobertura"), "cobertura-nota": `Personas en viviendas particulares según el Censo 2022 que no tenían obra social (incluido el ` +
     `PAMI), prepaga ni un programa o plan estatal de salud: dependían solo de los hospitales y centros de salud públicos, que atienden a todas las personas. ` +
     `El INDEC no publica estos totales provinciales en un archivo propio: se suman desde los resultados por radio censal, así que pueden diferir levemente de sus cuadros.`,
@@ -2132,7 +2133,7 @@ const TX = {
   extranjeros: `El RENAPER registra ${n0(MG.renaper.personas)} personas nacidas en otro país con DNI argentino, un ${pct(MG.renaper.mas)} más que las que contó el Censo 2022. Los dos cuentan distinto: ` +
     `el RENAPER usa el domicilio que figura en cada DNI, que puede estar desactualizado, y el Censo cuenta a quienes viven en cada vivienda. ` +
     `${nv.xt_top} tiene la proporción más alta, ${n1(nv.xt_top_v)} cada 100 habitantes. Los países de nacimiento más frecuentes son ${lista(nv.xt_origen)}.`,
-  "extranjeros-nota": `Personas nacidas en otro país identificadas por el RENAPER, según la provincia del domicilio que declararon en su DNI: es un registro de domicilios declarados, no un conteo de quienes viven en cada provincia, y puede tener domicilios desactualizados. No incluye a quienes viven en el país sin DNI argentino. La población es la proyección ${R.anio_pob} del INDEC.`,
+  "extranjeros-nota": `Personas nacidas en otro país identificadas por el RENAPER, según la provincia del domicilio que declararon en su DNI: es un registro de domicilios declarados, no un conteo de quienes viven en cada provincia, y puede tener domicilios desactualizados. No incluye a quienes viven en el país sin DNI argentino. La población es la proyección del INDEC para ${R.anio_pob_ficha.extranjeros_provincias}, el año del corte.`,
   "fiscal-nota": `Administración pública no financiera de cada provincia, ejecución del año completo según el Ministerio de Economía. Recursos propios: ingresos corrientes menos los tributos de origen nacional, como la coparticipación, y las transferencias, más los recursos propios de capital, sobre los ingresos totales. Incluye impuestos provinciales y regalías. Resultado financiero: ingresos totales menos gastos totales, sobre los ingresos totales. Gasto en personal: sueldos y cargas sociales sobre el gasto total. La serie desde ${R.fiscal.ini} está en el explorador de cruces.` +
     Object.entries(R.fiscal.atrasadas).map(([p, a]) => ` ${p} todavía no publicó ${R.fiscal.anio}: figura con ${a}.`).join(""),
   "mapa-dep-titulo": `¿Cómo varía cada indicador de un departamento a otro?`,

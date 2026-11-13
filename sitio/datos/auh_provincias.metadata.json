@@ -38,12 +38,12 @@
   {
    "nombre": "menores",
    "tipo": "Número",
-   "valores": "46.674 a 11.766.565"
+   "valores": "45.189 a 11.466.952"
   },
   {
    "nombre": "cada_100_menores",
    "tipo": "Número",
-   "valores": "15,63 a 50,12"
+   "valores": "16,14 a 51,43"
   },
   {
    "nombre": "pct_pais",

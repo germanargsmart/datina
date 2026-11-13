@@ -28,12 +28,12 @@
   {
    "nombre": "poblacion",
    "tipo": "Número",
-   "valores": "182.003 a 17.443.372"
+   "valores": "182.744 a 17.453.039"
   },
   {
    "nombre": "densidad",
    "tipo": "Número",
-   "valores": "1,37 a 15.398,37"
+   "valores": "1,37 a 15.329,95"
   },
   {
    "nombre": "homicidios",
@@ -78,7 +78,7 @@
   {
    "nombre": "empleo_privado",
    "tipo": "Número",
-   "valores": "3,5 a 48"
+   "valores": "3,49 a 48,22"
   },
   {
    "nombre": "empleo_var",
@@ -158,7 +158,7 @@
   {
    "nombre": "empresas",
    "tipo": "Número",
-   "valores": "4,48 a 43,91"
+   "valores": "4,5 a 43,71"
   },
   {
    "nombre": "empresas_neta",
@@ -208,7 +208,7 @@
   {
    "nombre": "peso_voto",
    "tipo": "Número",
-   "valores": "0,59 a 6,2"
+   "valores": "0,59 a 6,18"
   },
   {
    "nombre": "vejez",
@@ -293,7 +293,7 @@
   {
    "nombre": "empleo_construccion",
    "tipo": "Número",
-   "valores": "2,52 a 35"
+   "valores": "2,52 a 34,79"
   },
   {
    "nombre": "regalias",
@@ -318,17 +318,17 @@
   {
    "nombre": "pensiones_invalidez",
    "tipo": "Número",
-   "valores": "7,17 a 76,99"
+   "valores": "7,14 a 76,57"
   },
   {
    "nombre": "auh",
    "tipo": "Número",
-   "valores": "15,63 a 50,12"
+   "valores": "16,14 a 51,43"
   },
   {
    "nombre": "seguro_desempleo",
    "tipo": "Número",
-   "valores": "1,45 a 8,04"
+   "valores": "1,45 a 8,01"
   }
  ],
  "unidades": [],
