@@ -5,9 +5,14 @@
  "seccion": "Turismo",
  "ficha": "https://datina.com.ar/turismo.html#f-hoteles",
  "fuente": "INDEC y Secretaría de Turismo y Ambiente, Encuesta de Ocupación Hotelera. La encuesta está en pausa: el INDEC la está reformulando.",
+ "organismos": [
+  "SINTA (Sistema de Información Turística de la Argentina)"
+ ],
  "actualizacion": "",
  "cobertura": "Sin desglose territorial",
  "periodo": "2007 a 2024",
+ "anio_desde": 2007,
+ "anio_hasta": 2024,
  "filas": 18,
  "columnas": [
   {
@@ -33,8 +38,18 @@
  ],
  "unidades": [],
  "como_se_calcula": "",
- "datos_actualizados": "05/11/2026",
+ "origen": [
+  {
+   "archivo": "datos/crudo/sinta_eoh_viajeros_region.csv",
+   "nombre": "Viajeros hospedados en hoteles y parahoteles por región (Encuesta de Ocupación Hotelera)",
+   "organismo": "SINTA",
+   "descargado": null,
+   "ultimo_intento": "2026-11-05",
+   "estado": "error: HTTP Error 403: Forbidden"
+  }
+ ],
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿Cuántos viajeros se alojan en hoteles? Con datos de INDEC y Secretaría de Turismo y Ambiente, Encuesta de Ocupación Hotelera. La encuesta está en pausa: el INDEC la está reformulando. https://datina.com.ar/turismo.html#f-hoteles. Consultado el día de la consulta."
+ "como_citar": "Datina (año de la consulta). ¿Cuántos viajeros se alojan en hoteles? Con datos de INDEC y Secretaría de Turismo y Ambiente, Encuesta de Ocupación Hotelera. La encuesta está en pausa: el INDEC la está reformulando. https://datina.com.ar/turismo.html#f-hoteles. Consultado el día de la consulta.",
+ "datos_actualizados": "05/11/2026"
 }

@@ -5,9 +5,14 @@
  "seccion": "Migraciones",
  "ficha": "https://datina.com.ar/migraciones.html#f-refugio",
  "fuente": "Comisión Nacional para los Refugiados (CONARE) y ACNUR.",
+ "organismos": [
+  "ACNUR (Alto Comisionado de las Naciones Unidas para los Refugiados)"
+ ],
  "actualizacion": "Se actualiza cada año.",
  "cobertura": "Sin desglose territorial",
  "periodo": "2000 a 2025",
+ "anio_desde": 2000,
+ "anio_hasta": 2025,
  "filas": 26,
  "columnas": [
   {
@@ -33,8 +38,46 @@
  ],
  "unidades": [],
  "como_se_calcula": "",
- "datos_actualizados": "05/11/2026",
+ "origen": [
+  {
+   "archivo": "datos/crudo/acnur_asilo_argentina.csv",
+   "nombre": "ACNUR: personas refugiadas y solicitantes de asilo que viven en la Argentina, por año",
+   "organismo": "ACNUR",
+   "descargado": "2026-11-05",
+   "ultimo_intento": "2026-11-05",
+   "estado": "ok",
+   "url": "https://api.unhcr.org/population/v1/population/"
+  },
+  {
+   "archivo": "datos/crudo/acnur_asilo_argentina_origen.csv",
+   "nombre": "ACNUR: personas refugiadas y solicitantes de asilo en la Argentina, por país de origen",
+   "organismo": "ACNUR",
+   "descargado": "2026-11-05",
+   "ultimo_intento": "2026-11-05",
+   "estado": "ok",
+   "url": "https://api.unhcr.org/population/v1/population/"
+  },
+  {
+   "archivo": "datos/crudo/acnur_origen_argentina.csv",
+   "nombre": "ACNUR: personas de origen argentino refugiadas o solicitantes de asilo en otros países, por año",
+   "organismo": "ACNUR",
+   "descargado": "2026-11-05",
+   "ultimo_intento": "2026-11-05",
+   "estado": "ok",
+   "url": "https://api.unhcr.org/population/v1/population/"
+  },
+  {
+   "archivo": "datos/crudo/acnur_origen_argentina_destino.csv",
+   "nombre": "ACNUR: personas de origen argentino refugiadas o solicitantes de asilo, por país de destino",
+   "organismo": "ACNUR",
+   "descargado": "2026-11-05",
+   "ultimo_intento": "2026-11-05",
+   "estado": "ok",
+   "url": "https://api.unhcr.org/population/v1/population/"
+  }
+ ],
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿Cuántas personas piden refugio en la Argentina? Con datos de Comisión Nacional para los Refugiados (CONARE) y ACNUR. https://datina.com.ar/migraciones.html#f-refugio. Consultado el día de la consulta."
+ "como_citar": "Datina (año de la consulta). ¿Cuántas personas piden refugio en la Argentina? Con datos de Comisión Nacional para los Refugiados (CONARE) y ACNUR. https://datina.com.ar/migraciones.html#f-refugio. Consultado el día de la consulta.",
+ "datos_actualizados": "05/11/2026"
 }

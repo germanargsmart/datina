@@ -5,9 +5,14 @@
  "seccion": "Precios y actividad",
  "ficha": "https://datina.com.ar/economia.html#f-emae",
  "fuente": "INDEC, Estimador Mensual de Actividad Económica.",
+ "organismos": [
+  "INDEC (Instituto Nacional de Estadística y Censos)"
+ ],
  "actualizacion": "Se actualiza cada mes.",
  "cobertura": "Sin desglose territorial",
  "periodo": "2005 a 2025",
+ "anio_desde": 2005,
+ "anio_hasta": 2025,
  "filas": 21,
  "columnas": [
   {
@@ -23,8 +28,28 @@
  ],
  "unidades": [],
  "como_se_calcula": "",
- "datos_actualizados": "05/11/2026",
+ "origen": [
+  {
+   "archivo": "datos/crudo/indec_emae.xls",
+   "nombre": "Estimador Mensual de Actividad Económica, nivel general (base 2004)",
+   "organismo": "INDEC",
+   "descargado": "2026-11-05",
+   "ultimo_intento": "2026-11-05",
+   "estado": "ok",
+   "url": "https://www.indec.gob.ar/ftp/cuadros/economia/sh_emae_mensual_base2004.xls"
+  },
+  {
+   "archivo": "datos/crudo/indec_emae_actividad.xls",
+   "nombre": "Estimador Mensual de Actividad Económica por sector (base 2004)",
+   "organismo": "INDEC",
+   "descargado": "2026-11-05",
+   "ultimo_intento": "2026-11-05",
+   "estado": "ok",
+   "url": "https://www.indec.gob.ar/ftp/cuadros/economia/sh_emae_actividad_base2004.xls"
+  }
+ ],
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿Cuánto crece o cae la actividad económica? Con datos de INDEC, Estimador Mensual de Actividad Económica. https://datina.com.ar/economia.html#f-emae. Consultado el día de la consulta."
+ "como_citar": "Datina (año de la consulta). ¿Cuánto crece o cae la actividad económica? Con datos de INDEC, Estimador Mensual de Actividad Económica. https://datina.com.ar/economia.html#f-emae. Consultado el día de la consulta.",
+ "datos_actualizados": "05/11/2026"
 }

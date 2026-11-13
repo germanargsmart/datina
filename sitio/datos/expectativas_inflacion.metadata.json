@@ -5,9 +5,15 @@
  "seccion": "Precios y actividad",
  "ficha": "https://datina.com.ar/economia.html#f-expectativas",
  "fuente": "Universidad Torcuato Di Tella, Centro de Investigación en Finanzas, Encuesta de Expectativas de Inflación, e INDEC, Índice de precios al consumidor.",
+ "organismos": [
+  "INDEC (Instituto Nacional de Estadística y Censos)",
+  "UTDT (Universidad Torcuato Di Tella)"
+ ],
  "actualizacion": "Se actualiza cada mes.",
  "cobertura": "Sin desglose territorial",
  "periodo": "agosto de 2006 a octubre de 2026",
+ "anio_desde": 2006,
+ "anio_hasta": 2026,
  "filas": 243,
  "columnas": [
   {
@@ -38,8 +44,28 @@
  ],
  "unidades": [],
  "como_se_calcula": "",
- "datos_actualizados": "05/11/2026",
+ "origen": [
+  {
+   "archivo": "datos/crudo/utdt_expectativas.xls",
+   "nombre": "Encuesta de Expectativas de Inflación, serie histórica nacional (Centro de Investigación en Finanzas de la Universidad Torcuato Di Tella)",
+   "organismo": "UTDT",
+   "descargado": "2026-11-05",
+   "ultimo_intento": "2026-11-05",
+   "estado": "ok",
+   "url": "https://www.utdt.edu/listado_contenidos.php?id_item_menu=16455"
+  },
+  {
+   "archivo": "datos/crudo/indec_ipc_divisiones.csv",
+   "nombre": "Índice de precios al consumidor por región, división, categoría y bienes y servicios",
+   "organismo": "INDEC",
+   "descargado": "2026-11-05",
+   "ultimo_intento": "2026-11-05",
+   "estado": "ok",
+   "url": "https://www.indec.gob.ar/ftp/cuadros/economia/serie_ipc_divisiones.csv"
+  }
+ ],
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿Cuánta inflación espera la gente para los próximos doce meses? Con datos de Universidad Torcuato Di Tella, Centro de Investigación en Finanzas, Encuesta de Expectativas de Inflación, e INDEC, Índice de precios al consumidor. https://datina.com.ar/economia.html#f-expectativas. Consultado el día de la consulta."
+ "como_citar": "Datina (año de la consulta). ¿Cuánta inflación espera la gente para los próximos doce meses? Con datos de Universidad Torcuato Di Tella, Centro de Investigación en Finanzas, Encuesta de Expectativas de Inflación, e INDEC, Índice de precios al consumidor. https://datina.com.ar/economia.html#f-expectativas. Consultado el día de la consulta.",
+ "datos_actualizados": "05/11/2026"
 }

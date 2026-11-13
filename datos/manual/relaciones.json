@@ -1,5 +1,5 @@
 {
- "_leeme": "Catálogo del Explorador de relaciones (scripts/relaciones.py). Fuentes: organismos que publican. Conjuntos: archivos que baja o arma Datina, cada uno con su fuente (de ahí sale la relación 'publica'). Aristas: 'alimenta' (archivo a ficha) y 'calcula' (ficha que se calcula a partir de otra), cada una con su evidencia: un texto exacto que tiene que estar en una línea del archivo citado. fichas.f-x.variables: las variables de la tabla larga de cada ficha (dan la unidad). fichas.f-x.nombre: solo si el título no está en la plantilla ni en TX de datina.js. Validar: python scripts/relaciones.py",
+ "_leeme": "Catálogo del Explorador de relaciones (scripts/relaciones.py). Fuentes: organismos que publican. Conjuntos: archivos que baja o arma Datina, cada uno con su fuente (de ahí sale la relación 'publica'). Los que no están en datos/crudo/ llevan 'armado', el día en que se armaron por última vez (AAAA-MM-DD): al volver a armar uno, se cambia esa fecha. Los de datos/crudo/ toman la suya del registro de descargas (datos/crudo/_registro.csv y ARCHIVOS_DEL_REGISTRO de scripts/01_descargar.py). Aristas: 'alimenta' (archivo a ficha) y 'calcula' (ficha que se calcula a partir de otra), cada una con su evidencia: un texto exacto que tiene que estar en una línea del archivo citado. fichas.f-x.variables: las variables de la tabla larga de cada ficha (dan la unidad). fichas.f-x.nombre: solo si el título no está en la plantilla ni en TX de datina.js. Validar: python scripts/relaciones.py",
  "fuentes": [
   {
    "id": "org:acnur",
@@ -747,6 +747,7 @@
    "nombre": "Pobreza e indigencia de los 31 aglomerados urbanos por semestre (extracto del tablero del INDEC)",
    "fuente": "org:indec",
    "ruta": "pobreza/datos/crudo/ALL.json",
+   "armado": "2026-09-28",
    "evidencia": {
     "archivo": "scripts/02_procesar.py",
     "contiene": "\"pobreza\" / \"datos\" / \"crudo\" / \"ALL.json\""
@@ -1142,6 +1143,7 @@
    "nombre": "Áreas de concesión de explotación de hidrocarburos, geometría simplificada",
    "fuente": "org:secretaria-energia",
    "ruta": "sitio/datos/concesiones.topo.json",
+   "armado": "2026-10-03",
    "evidencia": {
     "archivo": "scripts/geometria_concesiones.py",
     "contiene": "SALIDA = RAIZ / \"sitio\" / \"datos\" / \"concesiones.topo.json\""
@@ -1645,6 +1647,7 @@
    "nombre": "Demanda eléctrica mensual por provincia y tipo de usuario, 2014 a 2022",
    "fuente": "org:cammesa",
    "ruta": "datos/manual/cammesa_demanda_2014_2022.csv",
+   "armado": "2026-10-04",
    "evidencia": {
     "archivo": "scripts/cammesa_historia.py",
     "contiene": "SALIDA = Path(__file__).resolve().parents[1] / \"datos\" / \"manual\" / \"cammesa_demanda_2014_2022.csv\""
@@ -1656,6 +1659,7 @@
    "nombre": "Censo 2022: vivienda, combustible para cocinar y rama de actividad por departamento",
    "fuente": "org:indec",
    "ruta": "datos/manual/censo2022_departamentos.csv",
+   "armado": "2026-10-03",
    "evidencia": {
     "archivo": "scripts/censo_2022_vivienda.py",
     "contiene": "SALIDA = RAIZ / \"datos\" / \"manual\" / \"censo2022_departamentos.csv\""
@@ -1667,6 +1671,7 @@
    "nombre": "Censo 2022: lugar y país de nacimiento por departamento",
    "fuente": "org:indec",
    "ruta": "datos/manual/censo2022_migraciones_departamentos.csv",
+   "armado": "2026-10-05",
    "url": "https://censo.gob.ar/index.php/datos_definitivos_{provincia}/",
    "evidencia": {
     "archivo": "scripts/censo_2022_migraciones.py",
@@ -1678,6 +1683,7 @@
    "nombre": "Censo 2022: servicios, equipamiento y cobertura de salud por provincia",
    "fuente": "org:indec",
    "ruta": "datos/manual/censo2022_provincias.csv",
+   "armado": "2026-09-29",
    "evidencia": {
     "archivo": "scripts/censo_2022.py",
     "contiene": "SALIDA = RAIZ / \"datos\" / \"manual\" / \"censo2022_provincias.csv\""
@@ -1689,6 +1695,7 @@
    "nombre": "Serie de los censos nacionales desde 1869: población nacida en otro país (cargada a mano de publicaciones del INDEC)",
    "fuente": "org:indec",
    "ruta": "datos/manual/censos_nacidos_otro_pais.csv",
+   "armado": "2026-10-04",
    "evidencia": {
     "archivo": "scripts/02_procesar.py",
     "contiene": "migracion_censos = pd.read_csv(RAIZ / \"datos\" / \"manual\" / \"censos_nacidos_otro_pais.csv\")"
@@ -1699,6 +1706,7 @@
    "nombre": "Precios de la nafta súper y del gasoil por mes y provincia, 2004 a 2023",
    "fuente": "org:secretaria-energia",
    "ruta": "datos/manual/combustibles_2004_2023.csv",
+   "armado": "2026-10-04",
    "evidencia": {
     "archivo": "scripts/combustibles_historia.py",
     "contiene": "SALIDA = RAIZ / \"datos\" / \"manual\" / \"combustibles_2004_2023.csv\""
@@ -1710,6 +1718,7 @@
    "nombre": "Solicitudes de refugio por nacionalidad y año (extraído del informe en PDF de la CONARE)",
    "fuente": "org:conare",
    "ruta": "datos/manual/conare_nacionalidades.csv",
+   "armado": "2026-10-05",
    "evidencia": {
     "archivo": "scripts/02_procesar.py",
     "contiene": "_rf_n = pd.read_csv(RAIZ / \"datos\" / \"manual\" / \"conare_nacionalidades.csv\")"
@@ -1720,6 +1729,7 @@
    "nombre": "Solicitudes de refugio por año desde 1985 y personas reconocidas (extraído del informe en PDF de la CONARE)",
    "fuente": "org:conare",
    "ruta": "datos/manual/conare_solicitudes.csv",
+   "armado": "2026-10-05",
    "evidencia": {
     "archivo": "scripts/02_procesar.py",
     "contiene": "refugio_solicitudes = pd.read_csv(RAIZ / \"datos\" / \"manual\" / \"conare_solicitudes.csv\")"
@@ -1730,6 +1740,7 @@
    "nombre": "Diputados nacionales desde 1983: bancas, bloques y mandatos",
    "fuente": "org:hcdn",
    "ruta": "datos/manual/diputados_nacionales.csv",
+   "armado": "2026-09-30",
    "evidencia": {
     "archivo": "scripts/legisladores/build.py",
     "contiene": "to_csv(MANUAL / \"diputados_nacionales.csv\""
@@ -1741,6 +1752,7 @@
    "nombre": "Obra pública de la Nación por provincia (construcciones y transferencias de capital)",
    "fuente": "org:presupuesto-abierto",
    "ruta": "datos/manual/inversion_provincias.csv",
+   "armado": "2026-10-04",
    "evidencia": {
     "archivo": "scripts/inversion_presupuesto.py",
     "contiene": "SALIDA = Path(__file__).resolve().parents[1] / \"datos\" / \"manual\" / \"inversion_provincias.csv\""
@@ -1752,6 +1764,7 @@
    "nombre": "Selección de leyes y proyectos clave con el id del acta en cada cámara (ley, qué cambia, desenlace, efecto directo)",
    "fuente": "org:datina",
    "ruta": "datos/manual/leyes_clave.csv",
+   "armado": "2026-10-27",
    "evidencia": {
     "archivo": "scripts/02_procesar.py",
     "contiene": "RAIZ / \"datos\" / \"manual\" / \"leyes_clave.csv\""
@@ -1762,6 +1775,7 @@
    "nombre": "Médicos habilitados y activos por provincia de residencia, 2025",
    "fuente": "org:ofethus",
    "ruta": "datos/manual/medicos_ofethus.csv",
+   "armado": "2026-10-31",
    "evidencia": {
     "archivo": "scripts/medicos_ofethus.py",
     "contiene": "SALIDA = RAIZ / \"datos\" / \"manual\" / \"medicos_ofethus.csv\""
@@ -1773,6 +1787,7 @@
    "nombre": "Hospitales públicos con internación de cada provincia, del REFES",
    "fuente": "org:refes",
    "ruta": "datos/manual/establecimientos/hospitales.csv",
+   "armado": "2026-11-09",
    "evidencia": {
     "archivo": "scripts/establecimientos.py",
     "contiene": "escribir(h, SALIDA / \"hospitales.csv\", [\"refes_id\", \"nombre\", \"codigo_indec\", \"codigo_dep\", \"departamento\", \"localidad\", \"dependencia\","
@@ -1784,6 +1799,7 @@
    "nombre": "Escuelas primarias y secundarias comunes de cada provincia, con su ubicación",
    "fuente": "org:educacion",
    "ruta": "datos/manual/establecimientos/escuelas.csv",
+   "armado": "2026-11-09",
    "evidencia": {
     "archivo": "scripts/establecimientos.py",
     "contiene": "escribir(e, SALIDA / \"escuelas.csv\", COLUMNAS_E)"
@@ -1795,6 +1811,7 @@
    "nombre": "Ponderaciones del IPC por región y división (Metodología del IPC, 2019, Anexo II, cuadro 7)",
    "fuente": "org:indec",
    "ruta": "datos/manual/ponderaciones_ipc.csv",
+   "armado": "2026-11-01",
    "evidencia": {
     "archivo": "scripts/02_procesar.py",
     "contiene": "_infp_w = pd.read_csv(RAIZ / \"datos\" / \"manual\" / \"ponderaciones_ipc.csv\", dtype={\"division\": str}).set_index(\"division\")"
@@ -1806,6 +1823,7 @@
    "nombre": "Ministros y jefes de gabinete desde 1983 con lugar de nacimiento",
    "fuente": "org:wikimedia",
    "ruta": "datos/manual/ministros.csv",
+   "armado": "2026-09-29",
    "evidencia": {
     "archivo": "scripts/ejecutivo/build_ministros.py",
     "contiene": "g.to_csv(os.path.join(HERE, \"ministros.csv\")"
@@ -1817,6 +1835,7 @@
    "nombre": "Censo 2022: nivel socioeconómico por provincia (NBI, cobertura de salud, educación, cloacas)",
    "fuente": "org:indec",
    "ruta": "datos/manual/nse_censo2022_provincias.csv",
+   "armado": "2026-09-30",
    "evidencia": {
     "archivo": "scripts/02_procesar.py",
     "contiene": "nse = pd.read_csv(RAIZ / \"datos\" / \"manual\" / \"nse_censo2022_provincias.csv\")"
@@ -1827,6 +1846,7 @@
    "nombre": "Elecciones presidenciales 1983 a 2023 por provincia (definitivos, provisorios 2023 y PASO)",
    "fuente": "org:dine",
    "ruta": "datos/manual/presidenciales_provincia.csv",
+   "armado": "2026-09-30",
    "evidencia": {
     "archivo": "scripts/elecciones_presidenciales.py",
     "contiene": "SALIDA = Path(__file__)"
@@ -1838,6 +1858,7 @@
    "nombre": "Presidentes desde 1983 con lugar de nacimiento",
    "fuente": "org:wikimedia",
    "ruta": "datos/manual/presidentes.csv",
+   "armado": "2026-09-29",
    "evidencia": {
     "archivo": "scripts/ejecutivo/build_presidentes.py",
     "contiene": "df.to_csv(os.path.join(HERE, \"presidentes.csv\")"
@@ -1849,6 +1870,7 @@
    "nombre": "Acta de la votación en general de cada presupuesto en cada cámara",
    "fuente": "org:datina",
    "ruta": "datos/manual/presupuestos.csv",
+   "armado": "2026-10-05",
    "evidencia": {
     "archivo": "scripts/02_procesar.py",
     "contiene": "RAIZ / \"datos\" / \"manual\" / \"presupuestos.csv\""
@@ -1859,6 +1881,7 @@
    "nombre": "Senadores nacionales desde 1983: bancas, bloques y mandatos",
    "fuente": "org:senado",
    "ruta": "datos/manual/senadores_nacionales.csv",
+   "armado": "2026-09-29",
    "evidencia": {
     "archivo": "scripts/legisladores/build.py",
     "contiene": "to_csv(MANUAL / \"senadores_nacionales.csv\""
@@ -1870,6 +1893,7 @@
    "nombre": "Transferencias de la Nación a gobiernos provinciales y municipales por provincia y tipo (crédito devengado, millones corrientes)",
    "fuente": "org:presupuesto-abierto",
    "ruta": "datos/manual/transferencias_provincias.csv",
+   "armado": "2026-09-30",
    "evidencia": {
     "archivo": "scripts/transferencias_presupuesto.py",
     "contiene": "SALIDA = Path(__file__)"
@@ -1881,6 +1905,7 @@
    "nombre": "Visitas mensuales por parque nacional (exportación del tablero de áreas protegidas)",
    "fuente": "org:sinta",
    "ruta": "datos/manual/visitas_parques_nacionales_mensual.csv",
+   "armado": "2026-09-30",
    "evidencia": {
     "archivo": "scripts/02_procesar.py",
     "contiene": "Tablero de areas protegidas de la Secretaria de Turismo (tableros.yvera.tur.ar/tablero_areas_protegidas)"
@@ -2583,6 +2608,7 @@
    "nombre": "Casos que llegaron a la Corte Suprema y casos que resolvió por año, con los fallos de los últimos años",
    "fuente": "org:csjn-estadisticas",
    "ruta": "datos/manual/corte_casos.csv",
+   "armado": "2026-10-24",
    "evidencia": {
     "archivo": "scripts/02_procesar.py",
     "contiene": "corte_casos = pd.read_csv(RAIZ / \"datos\" / \"manual\" / \"corte_casos.csv\")"
@@ -2616,6 +2642,7 @@
    "nombre": "Jueces, fiscales y defensores de cada provincia y de CABA por año, desde 2011",
    "fuente": "org:csjn-om",
    "ruta": "datos/manual/justicia_provincias.csv",
+   "armado": "2026-10-24",
    "evidencia": {
     "archivo": "scripts/justicia_provincias.py",
     "contiene": "t.to_csv(MANUAL / \"justicia_provincias.csv\""
@@ -2627,6 +2654,7 @@
    "nombre": "Cuántos miembros fija la ley para el máximo tribunal de cada provincia y de CABA",
    "fuente": "org:datina",
    "ruta": "datos/manual/cortes_provinciales.csv",
+   "armado": "2026-10-24",
    "evidencia": {
     "archivo": "scripts/02_procesar.py",
     "contiene": "_jus_cp = pd.read_csv(RAIZ / \"datos\" / \"manual\" / \"cortes_provinciales.csv\", dtype={\"codigo_indec\": str})"
@@ -2747,6 +2775,7 @@
    "nombre": "Lista de instalaciones antárticas, fija, de noviembre de 2024",
    "fuente": "org:comnap",
    "ruta": "datos/manual/antartida_instalaciones.csv",
+   "armado": "2026-11-06",
    "evidencia": {
     "archivo": "scripts/02_procesar.py",
     "contiene": "ANT_DIR / \"antartida_instalaciones.csv\""
@@ -2757,6 +2786,7 @@
    "nombre": "Las 13 bases argentinas, con su fundación y quién las administra, armada a mano",
    "fuente": "org:cancilleria",
    "ruta": "datos/manual/antartida_bases.csv",
+   "armado": "2026-11-06",
    "evidencia": {
     "archivo": "scripts/02_procesar.py",
     "contiene": "ANT_DIR / \"antartida_bases.csv\""
@@ -2767,6 +2797,7 @@
    "nombre": "Los reclamos territoriales y su norma, armada a mano",
    "fuente": "org:ats",
    "ruta": "datos/manual/antartida_reclamos.csv",
+   "armado": "2026-11-06",
    "evidencia": {
     "archivo": "scripts/02_procesar.py",
     "contiene": "ANT_DIR / \"antartida_reclamos.csv\""
@@ -2777,6 +2808,7 @@
    "nombre": "Superficies del Sector Antártico Argentino y del país, armada a mano",
    "fuente": "org:ign",
    "ruta": "datos/manual/antartida_superficies.csv",
+   "armado": "2026-11-06",
    "evidencia": {
     "archivo": "scripts/02_procesar.py",
     "contiene": "ANT_DIR / \"antartida_superficies.csv\""
@@ -2787,6 +2819,7 @@
    "nombre": "Población censada en la Antártida Argentina y las Islas del Atlántico Sur, armada a mano",
    "fuente": "org:indec",
    "ruta": "datos/manual/antartida_censos.csv",
+   "armado": "2026-11-06",
    "evidencia": {
     "archivo": "scripts/02_procesar.py",
     "contiene": "ANT_DIR / \"antartida_censos.csv\""
@@ -2797,6 +2830,7 @@
    "nombre": "Partes del Tratado Antártico, fija",
    "fuente": "org:ats",
    "ruta": "datos/manual/antartida_tratado.csv",
+   "armado": "2026-11-06",
    "evidencia": {
     "archivo": "scripts/02_procesar.py",
     "contiene": "ANT_DIR / \"antartida_tratado.csv\""
@@ -2807,6 +2841,7 @@
    "nombre": "Zonas protegidas y sitios y monumentos históricos, fija",
    "fuente": "org:ats",
    "ruta": "datos/manual/antartida_zonas.csv",
+   "armado": "2026-11-06",
    "evidencia": {
     "archivo": "scripts/02_procesar.py",
     "contiene": "ANT_DIR / \"antartida_zonas.csv\""
@@ -2817,6 +2852,7 @@
    "nombre": "Temperatura media mensual de las bases argentinas, proyecto READER, fija",
    "fuente": "org:bas",
    "ruta": "datos/manual/antartida_temperaturas.csv",
+   "armado": "2026-11-06",
    "evidencia": {
     "archivo": "scripts/02_procesar.py",
     "contiene": "ANT_DIR / \"antartida_temperaturas.csv\""
@@ -2827,6 +2863,7 @@
    "nombre": "Extensión del hielo marino en febrero y septiembre, fija",
    "fuente": "org:nsidc",
    "ruta": "datos/manual/antartida_hielo.csv",
+   "armado": "2026-11-06",
    "evidencia": {
     "archivo": "scripts/02_procesar.py",
     "contiene": "ANT_DIR / \"antartida_hielo.csv\""
@@ -2837,6 +2874,7 @@
    "nombre": "Visitantes por temporada, de los informes de IAATO a la Reunión Consultiva, armada a mano",
    "fuente": "org:iaato",
    "ruta": "datos/manual/antartida_turismo.csv",
+   "armado": "2026-11-06",
    "evidencia": {
     "archivo": "scripts/02_procesar.py",
     "contiene": "ANT_DIR / \"antartida_turismo.csv\""
@@ -2847,6 +2885,7 @@
    "nombre": "Gasto devengado en programas antárticos, de Presupuesto Abierto, fija",
    "fuente": "org:hacienda",
    "ruta": "datos/manual/antartida_presupuesto.csv",
+   "armado": "2026-11-06",
    "evidencia": {
     "archivo": "scripts/02_procesar.py",
     "contiene": "ANT_DIR / \"antartida_presupuesto.csv\""
@@ -2857,6 +2896,7 @@
    "nombre": "Costa y barreras de hielo de la Antártida, geometría simplificada",
    "fuente": "org:natural-earth",
    "ruta": "sitio/datos/antartida.topo.json",
+   "armado": "2026-11-06",
    "evidencia": {
     "archivo": "scripts/geometria_antartida.py",
     "contiene": "SALIDA = RAIZ / \"sitio\" / \"datos\" / \"antartida.topo.json\""
@@ -2867,6 +2907,7 @@
    "nombre": "Máximas alturas: las cumbres más altas del país",
    "fuente": "org:ign",
    "ruta": "datos/manual/cumbres_ign.csv",
+   "armado": "2026-11-09",
    "evidencia": {
     "archivo": "scripts/cumbres_relieve.py",
     "contiene": "URL_IGN = \"https://www.ign.gob.ar/NuestrasActividades/Geografia/DatosArgentina/MaximasAlturas\""
@@ -2878,6 +2919,7 @@
    "nombre": "Relieve alrededor de cada cumbre (modelo de elevación SRTM, en teselas Terrarium de AWS Terrain Tiles)",
    "fuente": "org:usgs",
    "ruta": "datos/manual/relieve",
+   "armado": "2026-11-09",
    "evidencia": {
     "archivo": "scripts/cumbres_relieve.py",
     "contiene": "URL_TESELA = \"https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png\""
@@ -2889,6 +2931,7 @@
    "nombre": "Glaciares alrededor de cada cumbre (Inventario Nacional de Glaciares, servicio WFS)",
    "fuente": "org:ianigla",
    "ruta": "datos/manual/relieve",
+   "armado": "2026-11-09",
    "evidencia": {
     "archivo": "scripts/cumbres_relieve.py",
     "contiene": "URL_WFS = \"https://maping.glaciaresargentinos.gob.ar:8443/geoserver/ows\""

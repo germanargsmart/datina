@@ -5,9 +5,16 @@
  "seccion": "Petróleo y gas",
  "ficha": "https://datina.com.ar/petroleo.html#f-mundo-petroleo",
  "fuente": "Administración de Información Energética de los Estados Unidos (EIA), estadísticas internacionales de energía, y Secretaría de Energía para Neuquén.",
+ "organismos": [
+  "Banco Mundial",
+  "EIA (Administración de Información Energética de los Estados Unidos)",
+  "SE (Secretaría de Energía)"
+ ],
  "actualizacion": "Se actualiza cada año.",
  "cobertura": "Países del mundo",
  "periodo": "2024 a 2025",
+ "anio_desde": 2024,
+ "anio_hasta": 2025,
  "filas": 48,
  "columnas": [
   {
@@ -43,8 +50,36 @@
  ],
  "unidades": [],
  "como_se_calcula": "",
- "datos_actualizados": "05/11/2026",
+ "origen": [
+  {
+   "archivo": "datos/crudo/se_produccion_resumen.csv",
+   "nombre": "Producción mensual por provincia y tipo de recurso, con Vaca Muerta aparte (resumen del archivo agrupado por yacimiento y formación)",
+   "organismo": "SE",
+   "descargado": null,
+   "ultimo_intento": "2026-11-05",
+   "estado": "error: <urlopen error timed out>"
+  },
+  {
+   "archivo": "datos/crudo/eia_produccion_paises.csv",
+   "nombre": "Producción de petróleo y gas por país (estadísticas internacionales de energía)",
+   "organismo": "EIA",
+   "descargado": "2026-11-05",
+   "ultimo_intento": "2026-11-05",
+   "estado": "ok",
+   "url": "https://www.eia.gov/opendata/bulk/INTL.zip"
+  },
+  {
+   "archivo": "datos/crudo/bm_paises.json",
+   "nombre": "Lista de países del Banco Mundial (nombres en español)",
+   "organismo": "Banco Mundial",
+   "descargado": "2026-11-05",
+   "ultimo_intento": "2026-11-05",
+   "estado": "ok",
+   "url": "https://api.worldbank.org/v2/es/country?format=json&per_page=400"
+  }
+ ],
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿Qué lugar ocupa la Argentina entre los productores del mundo? Con datos de Administración de Información Energética de los Estados Unidos (EIA), estadísticas internacionales de energía, y Secretaría de Energía para Neuquén. https://datina.com.ar/petroleo.html#f-mundo-petroleo. Consultado el día de la consulta."
+ "como_citar": "Datina (año de la consulta). ¿Qué lugar ocupa la Argentina entre los productores del mundo? Con datos de Administración de Información Energética de los Estados Unidos (EIA), estadísticas internacionales de energía, y Secretaría de Energía para Neuquén. https://datina.com.ar/petroleo.html#f-mundo-petroleo. Consultado el día de la consulta.",
+ "datos_actualizados": "05/11/2026"
 }

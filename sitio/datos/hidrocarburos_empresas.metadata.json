@@ -5,9 +5,14 @@
  "seccion": "Petróleo y gas",
  "ficha": "https://datina.com.ar/petroleo.html#f-empresas-hidro",
  "fuente": "Secretaría de Energía, producción que declaran las empresas (Capítulo IV), agrupada por yacimiento y formación productiva. Se actualiza cada mes. El último dato es de agosto de 2026, más atrasado que lo habitual.",
+ "organismos": [
+  "SE (Secretaría de Energía)"
+ ],
  "actualizacion": "",
  "cobertura": "Sin desglose territorial",
  "periodo": "",
+ "anio_desde": 2025,
+ "anio_hasta": 2026,
  "filas": 12,
  "columnas": [
   {
@@ -43,8 +48,18 @@
  ],
  "unidades": [],
  "como_se_calcula": "",
- "datos_actualizados": "05/11/2026",
+ "origen": [
+  {
+   "archivo": "datos/crudo/se_produccion_empresas.csv",
+   "nombre": "Producción mensual por empresa desde 2018 (resumen del archivo agrupado)",
+   "organismo": "SE",
+   "descargado": null,
+   "ultimo_intento": "2026-11-05",
+   "estado": "error: <urlopen error timed out>"
+  }
+ ],
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿Qué empresas producen más petróleo y gas? Con datos de Secretaría de Energía, producción que declaran las empresas (Capítulo IV), agrupada por yacimiento y formación productiva. Se actualiza cada mes. El último dato es de agosto de 2026, más atrasado que lo habitual. https://datina.com.ar/petroleo.html#f-empresas-hidro. Consultado el día de la consulta."
+ "como_citar": "Datina (año de la consulta). ¿Qué empresas producen más petróleo y gas? Con datos de Secretaría de Energía, producción que declaran las empresas (Capítulo IV), agrupada por yacimiento y formación productiva. Se actualiza cada mes. El último dato es de agosto de 2026, más atrasado que lo habitual. https://datina.com.ar/petroleo.html#f-empresas-hidro. Consultado el día de la consulta.",
+ "datos_actualizados": "05/11/2026"
 }

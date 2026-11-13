@@ -5,9 +5,15 @@
  "seccion": "Trabajo",
  "ficha": "https://datina.com.ar/trabajo.html#f-empleo",
  "fuente": "SIPA, publicado por la Subsecretaría de Programación Macroeconómica. Se actualiza cada mes. El último dato es de junio de 2026, más atrasado que lo habitual.",
+ "organismos": [
+  "INDEC (Instituto Nacional de Estadística y Censos)",
+  "SSPM (Subsecretaría de Programación Macroeconómica)"
+ ],
  "actualizacion": "",
  "cobertura": "Las 24 jurisdicciones",
  "periodo": "",
+ "anio_desde": 2026,
+ "anio_hasta": 2026,
  "filas": 24,
  "columnas": [
   {
@@ -48,8 +54,28 @@
  ],
  "unidades": [],
  "como_se_calcula": "El SIPA, el registro de la seguridad social, cuenta a cada persona en la provincia donde la declara su empleador, que puede no ser la provincia donde vive. Por eso CABA suma a muchas personas que viven en el Gran Buenos Aires y trabajan allí. La población es la proyección del INDEC para 2026, el año del dato.",
- "datos_actualizados": "05/11/2026",
+ "origen": [
+  {
+   "archivo": "datos/crudo/sipa_provincias.csv",
+   "nombre": "Asalariados privados registrados por provincia (SIPA)",
+   "organismo": "SSPM",
+   "descargado": "2026-11-05",
+   "ultimo_intento": "2026-11-05",
+   "estado": "ok",
+   "url": "https://apis.datos.gob.ar/series/api/series/?format=csv&limit=5000&start_date=2004-01-01&ids="
+  },
+  {
+   "archivo": "datos/crudo/indec_proyecciones_provincias.csv",
+   "nombre": "Proyecciones de población por provincia, sexo y edad, 2022 a 2040",
+   "organismo": "INDEC",
+   "descargado": "2026-11-05",
+   "ultimo_intento": "2026-11-05",
+   "estado": "ok",
+   "url": "https://censo.gob.ar/wp-content/uploads/2025/10/proyecciones_jurisdicciones_2022_2040_base.csv"
+  }
+ ],
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿Cuánto empleo privado registrado hay en cada provincia? Con datos de SIPA, publicado por la Subsecretaría de Programación Macroeconómica. Se actualiza cada mes. El último dato es de junio de 2026, más atrasado que lo habitual. https://datina.com.ar/trabajo.html#f-empleo. Consultado el día de la consulta."
+ "como_citar": "Datina (año de la consulta). ¿Cuánto empleo privado registrado hay en cada provincia? Con datos de SIPA, publicado por la Subsecretaría de Programación Macroeconómica. Se actualiza cada mes. El último dato es de junio de 2026, más atrasado que lo habitual. https://datina.com.ar/trabajo.html#f-empleo. Consultado el día de la consulta.",
+ "datos_actualizados": "05/11/2026"
 }

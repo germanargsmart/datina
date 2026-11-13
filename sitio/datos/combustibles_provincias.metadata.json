@@ -5,9 +5,14 @@
  "seccion": "Movilidad",
  "ficha": "https://datina.com.ar/movilidad.html#f-combustibles",
  "fuente": "Secretaría de Energía, precios y volúmenes de las estaciones de servicio (Resolución 1104/2004).",
+ "organismos": [
+  "SE (Secretaría de Energía)"
+ ],
  "actualizacion": "Se actualiza cada mes.",
  "cobertura": "Las 24 jurisdicciones",
  "periodo": "",
+ "anio_desde": 2005,
+ "anio_hasta": 2026,
  "filas": 24,
  "columnas": [
   {
@@ -53,8 +58,19 @@
  ],
  "unidades": [],
  "como_se_calcula": "",
- "datos_actualizados": "05/11/2026",
+ "origen": [
+  {
+   "archivo": "datos/crudo/se_precios_combustibles.csv",
+   "nombre": "Precios de la nafta súper y del gasoil por mes y provincia (resumen de la Resolución 1104/2004)",
+   "organismo": "SE",
+   "descargado": null,
+   "ultimo_intento": "2026-11-05",
+   "estado": "error: <urlopen error timed out>",
+   "url": "http://datos.energia.gob.ar/api/3/action/package_show?id=708f9ab4-829b-4f02-b507-f303c5bc4800"
+  }
+ ],
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿Cuánto cuesta la nafta en cada provincia? Con datos de Secretaría de Energía, precios y volúmenes de las estaciones de servicio (Resolución 1104/2004). https://datina.com.ar/movilidad.html#f-combustibles. Consultado el día de la consulta."
+ "como_citar": "Datina (año de la consulta). ¿Cuánto cuesta la nafta en cada provincia? Con datos de Secretaría de Energía, precios y volúmenes de las estaciones de servicio (Resolución 1104/2004). https://datina.com.ar/movilidad.html#f-combustibles. Consultado el día de la consulta.",
+ "datos_actualizados": "05/11/2026"
 }

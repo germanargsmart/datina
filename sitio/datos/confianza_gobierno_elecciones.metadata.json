@@ -5,9 +5,14 @@
  "seccion": "Instituciones políticas",
  "ficha": "https://datina.com.ar/politica.html#f-confianza-gobierno",
  "fuente": "Universidad Torcuato Di Tella, Escuela de Gobierno, Índice de Confianza en el Gobierno, y Dirección Nacional Electoral.",
+ "organismos": [
+  "DINE (Dirección Nacional Electoral)"
+ ],
  "actualizacion": "Se actualiza cada mes.",
  "cobertura": "Sin desglose territorial",
  "periodo": "27 de abril de 2003 a 22 de octubre de 2023",
+ "anio_desde": 2003,
+ "anio_hasta": 2023,
  "filas": 10,
  "columnas": [
   {
@@ -68,8 +73,17 @@
  ],
  "unidades": [],
  "como_se_calcula": "",
- "datos_actualizados": "05/11/2026",
+ "origen": [
+  {
+   "archivo": "datos/manual/presidenciales_provincia.csv",
+   "nombre": "Elecciones presidenciales 1983 a 2023 por provincia (definitivos, provisorios 2023 y PASO)",
+   "organismo": "DINE",
+   "armado": "2026-09-30",
+   "url": "https://www.argentina.gob.ar/sites/default/files/"
+  }
+ ],
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿Cuánta confianza genera el gobierno nacional? Con datos de Universidad Torcuato Di Tella, Escuela de Gobierno, Índice de Confianza en el Gobierno, y Dirección Nacional Electoral. https://datina.com.ar/politica.html#f-confianza-gobierno. Consultado el día de la consulta."
+ "como_citar": "Datina (año de la consulta). ¿Cuánta confianza genera el gobierno nacional? Con datos de Universidad Torcuato Di Tella, Escuela de Gobierno, Índice de Confianza en el Gobierno, y Dirección Nacional Electoral. https://datina.com.ar/politica.html#f-confianza-gobierno. Consultado el día de la consulta.",
+ "datos_actualizados": "05/11/2026"
 }

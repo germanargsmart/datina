@@ -2715,6 +2715,21 @@ SOLO_FUNCIONES = {"jus_sociedades_resumen.csv": sociedades, "eph_poblacion_aglom
 SOLO_FUNCIONES.update({indec_api.archivo(t): (lambda t=t: indec_api.bajar(CRUDO, [t])) for t in indec_api.TABLAS})
 
 
+COLUMNAS_REGISTRO = ["archivo", "url", "descargado", "estado", "ultima_ok"]
+
+
+def con_ultima_ok(filas):
+    """Las filas del registro con su quinta columna, "ultima_ok" (plan técnico, fase 2, 13 de noviembre de 2026): el día de la última descarga
+    que anduvo. Si esta vez falló, queda la del registro anterior, porque el archivo que se conserva es el de esa descarga. Es la fecha que
+    publica sitio/datos/catalogo.json. En un registro anterior a esta columna, una fila con error no la tiene: queda vacía hasta que ande"""
+    previas = {}
+    if (CRUDO / "_registro.csv").exists():
+        with open(CRUDO / "_registro.csv", newline="", encoding="utf-8") as f:
+            for r in csv.DictReader(f):
+                previas[r["archivo"]] = r.get("ultima_ok") or (r["descargado"] if r["estado"] == "ok" else "")
+    return [[*fila[:4], fila[2] if fila[3] == "ok" else previas.get(fila[0], "")] for fila in filas]
+
+
 # Una fuente nueva sin bajar todo (24 de octubre de 2026): `python scripts/01_descargar.py --solo archivo [archivo ...]` baja solo esos
 # archivos de FUENTES (o de SOLO_FUNCIONES) y cambia solo sus filas del registro. La actualización mensual corre sin la opción y baja todo
 if "--solo" in sys.argv:
@@ -2733,10 +2748,66 @@ if "--solo" in sys.argv:
             estado = f"error: {e}"
         print(f"{nombre:28s} {estado}")
         _reg[nombre] = [nombre, usada, datetime.datetime.now().isoformat(timespec="seconds"), estado]
+    _nuevas = con_ultima_ok([_reg[n] for n in _solo])
+    _reg.update({fila[0]: fila for fila in _nuevas})
     with open(CRUDO / "_registro.csv", "w", newline="", encoding="utf-8") as f:
-        csv.writer(f).writerows([_filas[0], *_reg.values()])
+        csv.writer(f).writerows([COLUMNAS_REGISTRO, *[(fila + [""])[:5] if len(fila) < 5 else fila for fila in _reg.values()]])
     sys.exit(0 if all(_reg[n][3] == "ok" for n in _solo) else 1)
 
+# Qué archivos de datos/crudo/ escribe cada fila del registro que no lleva el nombre de un archivo (las funciones de abajo, que bajan varios), y los
+# que se escriben aparte de su fila (los .meta.json de Aprender y del CIAM). Lo lee scripts/catalogo.py para la fecha de descarga de cada tabla
+# de sitio/datos/catalogo.json (plan técnico, fase 2, 13 de noviembre de 2026): una tabla del catálogo cuyo archivo no tiene fila ni está acá
+# frena el armado. Tiene que quedar como un diccionario escrito tal cual, sin cuentas (catalogo.py lo lee sin correr este programa). El "*" vale
+# por cualquier texto. Una función nueva en la lista de abajo, o un archivo nuevo de una que ya está, va también acá
+ARCHIVOS_DEL_REGISTRO = {
+    "votaciones nominales": ["congreso_votaciones_diputados.json.gz", "congreso_votaciones_senadores.json.gz", "congreso_votaciones_meta.json"],
+    "exportaciones por semestre": ["exportaciones_semestre.xls", "exportaciones_semestre_meta.json"],
+    "seguridad social (BESS)": ["bess_indicadores.xlsx", "bess_pnc.xlsx", "bess_provincias_pnc.xlsx", "bess_aaff.xlsx", "bess_provincias_aaff.xlsx",
+                                "bess_desempleo.xlsx", "bess_provincias_desempleo.xlsx"],
+    "EPH antiguedad en el empleo": ["eph_antiguedad_resumen.csv", "eph_antiguedad_meta.json", "eph_ingresos_aglomerados.csv", "eph_poblacion_aglomerados.csv",
+                                    "eph_tenencia_aglomerados.csv"],
+    "EPH, pobreza y mercado de trabajo por aglomerado": ["indec_eph_aglomerados.csv", "indec_pobreza_aglomerados.csv"],
+    "empresas por provincia (OEDE)": ["oede_empresas_provincias.xlsx"],
+    "petróleo y gas (resúmenes del Capítulo IV)": ["se_pozos_resumen.csv", "se_produccion_areas.csv", "se_produccion_empresas.csv", "se_produccion_resumen.csv"],
+    "reservas de petróleo y gas": ["se_reservas_resumen.csv"],
+    "empleo por rama y provincia (OEDE)": ["oede_empleo_ramas.csv"],
+    "producción de petróleo y gas por país (EIA)": ["eia_produccion_paises.csv"],
+    "producción por pozo no convencional": ["se_pozos_nc.csv", "se_pozos_nc_cosechas.csv"],
+    "centrales de generación eléctrica": ["se_centrales.csv", "se_centrales_meta.json"],
+    "gas entregado por provincia (ENARGAS)": ["enargas_gas_residencial.csv"],
+    "consumo de gas por medidor en Gran Bretaña (DESNZ)": ["desnz_gas_domestico.csv"],
+    "permisos de edificación (INDEC)": ["indec_permisos.csv"],
+    "créditos hipotecarios UVA (BCRA)": ["bcra_hipotecas_uva.csv"],
+    "crédito a los hogares por país (BIS)": ["bis_credito_hogares.csv"],
+    "electricidad por país (Ember, vía Our World in Data)": ["owid_electricidad.csv"],
+    "precios de los combustibles por estación (Res. 1104/2004)": ["se_precios_combustibles.csv"],
+    "demanda eléctrica por provincia y tipo de usuario (CAMMESA)": ["cammesa_demanda_provincias.csv"],
+    "tipo de cambio real multilateral (BCRA)": ["bcra_itcrm.csv"],
+    "remuneraciones por provincia (OEDE)": ["oede_remuneraciones_provincias.csv"],
+    "salario docente por provincia (CECE)": ["cgecse_salario_docente.csv"],
+    "inversión educativa por provincia (CECE)": ["cgecse_inversion_educativa.csv"],
+    "precio del petróleo Brent (EIA)": ["eia_brent_mensual.csv"],
+    "canastas básicas por región (INDEC)": ["indec_canastas_regiones.csv"],
+    "residencias otorgadas por la Dirección Nacional de Migraciones": ["dnm_radicaciones.csv"],
+    "personas nacidas en la Argentina que viven en otro país (Naciones Unidas)": ["onu_migrantes_argentina.csv"],
+    "personas refugiadas y solicitantes de asilo (ACNUR)": ["acnur_asilo_argentina.csv", "acnur_asilo_argentina_origen.csv", "acnur_origen_argentina.csv",
+                                                            "acnur_origen_argentina_destino.csv"],
+    "deuda pública de la Administración Central (Secretaría de Finanzas)": ["deuda_publica.csv"],
+    "cargos en las administraciones provinciales (DNAP)": ["dnap_cargos_provinciales.csv"],
+    "recursos tributarios de origen provincial (DNAP)": ["dnap_recaudacion_provincial.csv"],
+    "intercambio comercial argentino, anexo de cuadros (INDEC)": ["indec_ica_cuadros.xls", "indec_ica_cuadros_meta.json"],
+    "balanza de pagos, anexo de cuadros (INDEC)": ["indec_balanza_pagos.xls", "indec_balanza_pagos_meta.json"],
+    "series del sector externo (API de Series de Tiempo)": ["series_sector_externo_*.csv", "series_sector_externo_catalogo.json"],
+    "estadísticas monetarias y reservas (API del BCRA)": ["bcra_series.csv", "bcra_variables.json"],
+    "planilla de reservas internacionales y liquidez (BCRA)": ["bcra_planilla_reservas.csv"],
+    "índices de la Universidad Torcuato Di Tella": ["utdt_*.xls", "utdt_*.xlsx", "utdt_archivos.json"],
+    "sociedades constituidas por año y provincia (Registro Nacional de Sociedades)": ["jus_sociedades_resumen.csv"],
+    "calendario de difusión (INDEC)": ["indec_calendario.csv"],
+    "tablas de la API del INDEC": ["indec_api_*.json"],
+    "departamentos (resumen)": ["renaper_departamentos_resumen.csv", "snic_departamentos_resumen.csv"],
+    "aprender_primaria_matematica.csv": ["aprender_meta.json"],
+    "ciam_areas_protegidas_provincias.csv": ["ciam_meta.json"],
+}
 registro = []
 for _nombre, _f in [("votaciones nominales", votaciones), ("exportaciones por semestre", opex_semestre), ("seguridad social (BESS)", bess),
                     ("EPH antiguedad en el empleo", eph_antiguedad),
@@ -2810,7 +2881,9 @@ if meta:
 if APRENDER:
     (CRUDO / "aprender_meta.json").write_text(json.dumps(APRENDER), encoding="utf-8")
 
+# antes de abrir el registro para escribir, que lo vacía: con_ultima_ok() lee el anterior
+_filas_reg = con_ultima_ok(registro)
 with open(CRUDO / "_registro.csv", "w", newline="", encoding="utf-8") as f:
     w = csv.writer(f)
-    w.writerow(["archivo", "url", "descargado", "estado"])
-    w.writerows(registro)
+    w.writerow(COLUMNAS_REGISTRO)
+    w.writerows(_filas_reg)

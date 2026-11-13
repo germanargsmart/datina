@@ -5,9 +5,14 @@
  "seccion": "Naturaleza y ambiente",
  "ficha": "https://datina.com.ar/naturaleza.html#f-ant-mapa",
  "fuente": "COMNAP, Antarctic Facilities Information, noviembre de 2024 (uso educativo y sin fines comerciales, citando a COMNAP). Mapa: Natural Earth.",
+ "organismos": [
+  "COMNAP (Council of Managers of National Antarctic Programs)"
+ ],
  "actualizacion": "Se actualiza a mano, cuando la fuente publica datos nuevos.",
  "cobertura": "Sin desglose territorial",
  "periodo": "1904 a 2024",
+ "anio_desde": 1904,
+ "anio_hasta": 2024,
  "filas": 114,
  "columnas": [
   {
@@ -73,9 +78,17 @@
  ],
  "unidades": [],
  "como_se_calcula": "",
- "datos_actualizados": "05/11/2026",
+ "origen": [
+  {
+   "archivo": "datos/manual/antartida_instalaciones.csv",
+   "nombre": "Lista de instalaciones antárticas, fija, de noviembre de 2024",
+   "organismo": "COMNAP",
+   "armado": "2026-11-06"
+  }
+ ],
  "licencia": "Los datos de las instalaciones son de COMNAP y se pueden usar con fines educativos y sin fines comerciales, citando a COMNAP. Lo que suma Datina tiene licencia Creative Commons Atribución 4.0",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
  "como_citar": "Datina (año de la consulta). ¿Dónde están las bases de la Antártida? Con datos de COMNAP, Antarctic Facilities Information, noviembre de 2024 (uso educativo y sin fines comerciales, citando a COMNAP). Mapa: Natural Earth. https://datina.com.ar/naturaleza.html#f-ant-mapa. Consultado el día de la consulta.",
- "licencia_datos_de_base": "https://www.comnap.aq/antarctic-facilities-information"
+ "licencia_datos_de_base": "https://www.comnap.aq/antarctic-facilities-information",
+ "datos_actualizados": "05/11/2026"
 }

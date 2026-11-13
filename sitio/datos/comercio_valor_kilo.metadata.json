@@ -5,9 +5,14 @@
  "seccion": "Sector externo",
  "ficha": "https://datina.com.ar/externo.html#f-valor-kilo",
  "fuente": "INDEC, valor y peso de las exportaciones y las importaciones de bienes, vía el Catálogo API-INDEC.",
+ "organismos": [
+  "INDEC (Instituto Nacional de Estadística y Censos)"
+ ],
  "actualizacion": "Se actualiza cada año.",
  "cobertura": "Sin desglose territorial",
  "periodo": "1991 a 2025",
+ "anio_desde": 1991,
+ "anio_hasta": 2025,
  "filas": 35,
  "columnas": [
   {
@@ -78,8 +83,28 @@
  ],
  "unidades": [],
  "como_se_calcula": "",
- "datos_actualizados": "05/11/2026",
+ "origen": [
+  {
+   "archivo": "datos/crudo/indec_api_comercio_exterior_exportacion_bienes_anio_rubro_pais.json",
+   "nombre": "Exportaciones de bienes por año, gran rubro y país (Catálogo API-INDEC)",
+   "organismo": "INDEC",
+   "descargado": "2026-11-05",
+   "ultimo_intento": "2026-11-05",
+   "estado": "ok",
+   "url": "https://api.indec.gob.ar/v1/comercio_exterior_exportacion_bienes"
+  },
+  {
+   "archivo": "datos/crudo/indec_api_comercio_exterior_importacion_bienes_anio_uso_pais.json",
+   "nombre": "Importaciones de bienes por año, uso económico y país (Catálogo API-INDEC)",
+   "organismo": "INDEC",
+   "descargado": "2026-11-05",
+   "ultimo_intento": "2026-11-05",
+   "estado": "ok",
+   "url": "https://api.indec.gob.ar/v1/comercio_exterior_importacion_bienes"
+  }
+ ],
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿Cuánto vale un kilo de lo que exporta y de lo que importa la Argentina? Con datos de INDEC, valor y peso de las exportaciones y las importaciones de bienes, vía el Catálogo API-INDEC. https://datina.com.ar/externo.html#f-valor-kilo. Consultado el día de la consulta."
+ "como_citar": "Datina (año de la consulta). ¿Cuánto vale un kilo de lo que exporta y de lo que importa la Argentina? Con datos de INDEC, valor y peso de las exportaciones y las importaciones de bienes, vía el Catálogo API-INDEC. https://datina.com.ar/externo.html#f-valor-kilo. Consultado el día de la consulta.",
+ "datos_actualizados": "05/11/2026"
 }

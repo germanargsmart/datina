@@ -5,9 +5,14 @@
  "seccion": "Naturaleza y ambiente",
  "ficha": "https://datina.com.ar/naturaleza.html#f-ant-turismo",
  "fuente": "IAATO, informes a la Reunión Consultiva del Tratado Antártico, e Instituto Fueguino de Turismo.",
+ "organismos": [
+  "IAATO (International Association of Antarctica Tour Operators)"
+ ],
  "actualizacion": "Se actualiza a mano, cuando la fuente publica datos nuevos.",
  "cobertura": "Sin desglose territorial",
  "periodo": "1993 a 2026",
+ "anio_desde": 1993,
+ "anio_hasta": 2026,
  "filas": 34,
  "columnas": [
   {
@@ -53,8 +58,16 @@
  ],
  "unidades": [],
  "como_se_calcula": "",
- "datos_actualizados": "05/11/2026",
+ "origen": [
+  {
+   "archivo": "datos/manual/antartida_turismo.csv",
+   "nombre": "Visitantes por temporada, de los informes de IAATO a la Reunión Consultiva, armada a mano",
+   "organismo": "IAATO",
+   "armado": "2026-11-06"
+  }
+ ],
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿Cuántas personas visitan la Antártida? Con datos de IAATO, informes a la Reunión Consultiva del Tratado Antártico, e Instituto Fueguino de Turismo. https://datina.com.ar/naturaleza.html#f-ant-turismo. Consultado el día de la consulta."
+ "como_citar": "Datina (año de la consulta). ¿Cuántas personas visitan la Antártida? Con datos de IAATO, informes a la Reunión Consultiva del Tratado Antártico, e Instituto Fueguino de Turismo. https://datina.com.ar/naturaleza.html#f-ant-turismo. Consultado el día de la consulta.",
+ "datos_actualizados": "05/11/2026"
 }

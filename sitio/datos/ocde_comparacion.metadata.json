@@ -5,9 +5,14 @@
  "seccion": "Trabajo",
  "ficha": "https://datina.com.ar/trabajo.html#f-desocupacion",
  "fuente": "INDEC, Encuesta Permanente de Hogares, mercado de trabajo, tasas e indicadores socioeconómicos.",
+ "organismos": [
+  "Banco Mundial"
+ ],
  "actualizacion": "Se actualiza cada tres meses.",
  "cobertura": "Sin desglose territorial",
  "periodo": "1995 a 2025",
+ "anio_desde": 1995,
+ "anio_hasta": 2025,
  "filas": 542,
  "columnas": [
   {
@@ -53,8 +58,112 @@
  ],
  "unidades": [],
  "como_se_calcula": "",
- "datos_actualizados": "05/11/2026",
+ "origen": [
+  {
+   "archivo": "datos/crudo/bm_SL.UEM.TOTL.ZS.json",
+   "nombre": "Tasa de desocupación: Argentina y países de la OCDE",
+   "organismo": "Banco Mundial",
+   "descargado": "2026-11-05",
+   "ultimo_intento": "2026-11-05",
+   "estado": "ok",
+   "url": "https://api.worldbank.org/v2/country/ARG;.../indicator/SL.UEM.TOTL.ZS?format=json"
+  },
+  {
+   "archivo": "datos/crudo/bm_SI.DST.50MD.json",
+   "nombre": "Personas con ingresos bajo la mitad de la mediana: Argentina y países de la OCDE",
+   "organismo": "Banco Mundial",
+   "descargado": "2026-11-05",
+   "ultimo_intento": "2026-11-05",
+   "estado": "ok",
+   "url": "https://api.worldbank.org/v2/country/ARG;.../indicator/SI.DST.50MD?format=json"
+  },
+  {
+   "archivo": "datos/crudo/bm_SP.DYN.LE00.IN.json",
+   "nombre": "Esperanza de vida al nacer: Argentina y países de la OCDE",
+   "organismo": "Banco Mundial",
+   "descargado": "2026-11-05",
+   "ultimo_intento": "2026-11-05",
+   "estado": "ok",
+   "url": "https://api.worldbank.org/v2/country/ARG;.../indicator/SP.DYN.LE00.IN?format=json"
+  },
+  {
+   "archivo": "datos/crudo/bm_SP.DYN.IMRT.IN.json",
+   "nombre": "Tasa de mortalidad infantil: Argentina y países de la OCDE",
+   "organismo": "Banco Mundial",
+   "descargado": "2026-11-05",
+   "ultimo_intento": "2026-11-05",
+   "estado": "ok",
+   "url": "https://api.worldbank.org/v2/country/ARG;.../indicator/SP.DYN.IMRT.IN?format=json"
+  },
+  {
+   "archivo": "datos/crudo/bm_VC.IHR.PSRC.P5.json",
+   "nombre": "Tasa de homicidios intencionales: Argentina y países de la OCDE",
+   "organismo": "Banco Mundial",
+   "descargado": "2026-11-05",
+   "ultimo_intento": "2026-11-05",
+   "estado": "ok",
+   "url": "https://api.worldbank.org/v2/country/ARG;.../indicator/VC.IHR.PSRC.P5?format=json"
+  },
+  {
+   "archivo": "datos/crudo/bm_SH.STA.TRAF.P5.json",
+   "nombre": "Tasa de muertes en siniestros viales: Argentina y países de la OCDE",
+   "organismo": "Banco Mundial",
+   "descargado": "2026-11-05",
+   "ultimo_intento": "2026-11-05",
+   "estado": "ok",
+   "url": "https://api.worldbank.org/v2/country/ARG;.../indicator/SH.STA.TRAF.P5?format=json"
+  },
+  {
+   "archivo": "datos/crudo/bm_SP.DYN.TFRT.IN.json",
+   "nombre": "Tasa global de fecundidad (Banco Mundial, SP.DYN.TFRT.IN), Argentina y OCDE",
+   "organismo": "Banco Mundial",
+   "descargado": "2026-11-05",
+   "ultimo_intento": "2026-11-05",
+   "estado": "ok"
+  },
+  {
+   "archivo": "datos/crudo/bm_SP.ADO.TFRT.json",
+   "nombre": "Fecundidad adolescente (Banco Mundial, SP.ADO.TFRT), Argentina y OCDE",
+   "organismo": "Banco Mundial",
+   "descargado": "2026-11-05",
+   "ultimo_intento": "2026-11-05",
+   "estado": "ok"
+  },
+  {
+   "archivo": "datos/crudo/bm_ST.INT.ARVL.json",
+   "nombre": "Llegadas de turistas internacionales, Argentina y países de la OCDE",
+   "organismo": "Banco Mundial",
+   "descargado": "2026-11-05",
+   "ultimo_intento": "2026-11-05",
+   "estado": "ok"
+  },
+  {
+   "archivo": "datos/crudo/bm_SP.POP.TOTL.json",
+   "nombre": "Población total (Banco Mundial, SP.POP.TOTL), Argentina y OCDE",
+   "organismo": "Banco Mundial",
+   "descargado": "2026-11-05",
+   "ultimo_intento": "2026-11-05",
+   "estado": "ok"
+  },
+  {
+   "archivo": "datos/crudo/bm_ER.LND.PTLD.ZS.json",
+   "nombre": "Superficie terrestre protegida (% del territorio), Argentina y países de la OCDE",
+   "organismo": "Banco Mundial",
+   "descargado": "2026-11-05",
+   "ultimo_intento": "2026-11-05",
+   "estado": "ok"
+  },
+  {
+   "archivo": "datos/crudo/bm_ER.FSH.CAPT.MT.json",
+   "nombre": "Pesca de captura, Argentina y países de la OCDE",
+   "organismo": "Banco Mundial",
+   "descargado": "2026-11-05",
+   "ultimo_intento": "2026-11-05",
+   "estado": "ok"
+  }
+ ],
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿Cuánta gente busca trabajo y no consigue en cada ciudad? Con datos de INDEC, Encuesta Permanente de Hogares, mercado de trabajo, tasas e indicadores socioeconómicos. https://datina.com.ar/trabajo.html#f-desocupacion. Consultado el día de la consulta."
+ "como_citar": "Datina (año de la consulta). ¿Cuánta gente busca trabajo y no consigue en cada ciudad? Con datos de INDEC, Encuesta Permanente de Hogares, mercado de trabajo, tasas e indicadores socioeconómicos. https://datina.com.ar/trabajo.html#f-desocupacion. Consultado el día de la consulta.",
+ "datos_actualizados": "05/11/2026"
 }

@@ -5,9 +5,15 @@
  "seccion": "Justicia",
  "ficha": "https://datina.com.ar/justicia.html#f-jueces-federales",
  "fuente": "Ministerio de Justicia, padrón de magistrados de la Justicia Federal y de la Justicia Nacional, e INDEC, proyecciones de población.",
+ "organismos": [
+  "INDEC (Instituto Nacional de Estadística y Censos)",
+  "Ministerio de Justicia (Dirección Nacional de Relaciones con el Poder Judicial)"
+ ],
  "actualizacion": "Se actualiza cuando el Ministerio de Justicia publica un padrón nuevo.",
  "cobertura": "Las 24 jurisdicciones",
  "periodo": "",
+ "anio_desde": 2026,
+ "anio_hasta": 2026,
  "filas": 24,
  "columnas": [
   {
@@ -83,8 +89,28 @@
  ],
  "unidades": [],
  "como_se_calcula": "",
- "datos_actualizados": "05/11/2026",
+ "origen": [
+  {
+   "archivo": "datos/crudo/jus_magistrados.csv",
+   "nombre": "Jueces de la Justicia Federal y de la Justicia Nacional, un cargo por fila",
+   "organismo": "Ministerio de Justicia",
+   "descargado": "2026-11-05",
+   "ultimo_intento": "2026-11-05",
+   "estado": "ok",
+   "url": "https://datos.jus.gob.ar/dataset/3c18d46e-729e-4973-8efd-f54cab18b7e3/resource/b12bdbb7-646f-4701-99b7-1109ce919dd5/download/magistrados-justicia-federal-nacional-jueces-20260605.csv"
+  },
+  {
+   "archivo": "datos/crudo/indec_proyecciones_provincias.csv",
+   "nombre": "Proyecciones de población por provincia, sexo y edad, 2022 a 2040",
+   "organismo": "INDEC",
+   "descargado": "2026-11-05",
+   "ultimo_intento": "2026-11-05",
+   "estado": "ok",
+   "url": "https://censo.gob.ar/wp-content/uploads/2025/10/proyecciones_jurisdicciones_2022_2040_base.csv"
+  }
+ ],
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿Cuántos cargos de juez federal hay en cada provincia y cuántos tienen titular? Con datos de Ministerio de Justicia, padrón de magistrados de la Justicia Federal y de la Justicia Nacional, e INDEC, proyecciones de población. https://datina.com.ar/justicia.html#f-jueces-federales. Consultado el día de la consulta."
+ "como_citar": "Datina (año de la consulta). ¿Cuántos cargos de juez federal hay en cada provincia y cuántos tienen titular? Con datos de Ministerio de Justicia, padrón de magistrados de la Justicia Federal y de la Justicia Nacional, e INDEC, proyecciones de población. https://datina.com.ar/justicia.html#f-jueces-federales. Consultado el día de la consulta.",
+ "datos_actualizados": "05/11/2026"
 }

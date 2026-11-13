@@ -5,9 +5,15 @@
  "seccion": "Construcción y vivienda",
  "ficha": "https://datina.com.ar/construccion.html#f-empleo-construccion",
  "fuente": "Observatorio de Empleo y Dinámica Empresarial (OEDE), Secretaría de Trabajo, Ministerio de Capital Humano, con datos del Sistema Integrado Previsional Argentino (SIPA), e INDEC, Censo Nacional de Población, Hogares y Viviendas 2022, resultados por radio censal. Se actualiza cada tres meses. El último dato es del primer trimestre de 2026, más atrasado que lo habitual.",
+ "organismos": [
+  "INDEC (Instituto Nacional de Estadística y Censos)",
+  "OEDE (Observatorio de Empleo y Dinámica Empresarial)"
+ ],
  "actualizacion": "",
  "cobertura": "Sin desglose territorial",
  "periodo": "1996 a 2026",
+ "anio_desde": 1996,
+ "anio_hasta": 2026,
  "filas": 121,
  "columnas": [
   {
@@ -38,8 +44,35 @@
  ],
  "unidades": [],
  "como_se_calcula": "",
- "datos_actualizados": "05/11/2026",
+ "origen": [
+  {
+   "archivo": "datos/crudo/oede_empleo_ramas.csv",
+   "nombre": "Empleo registrado privado por provincia y rama (construcción, petróleo y gas, total)",
+   "organismo": "OEDE",
+   "descargado": "2026-11-05",
+   "ultimo_intento": "2026-11-05",
+   "estado": "ok",
+   "url": "https://www.argentina.gob.ar/trabajo/estadisticas/oede-estadisticas-provinciales"
+  },
+  {
+   "archivo": "datos/crudo/indec_proyecciones_provincias.csv",
+   "nombre": "Proyecciones de población por provincia, sexo y edad, 2022 a 2040",
+   "organismo": "INDEC",
+   "descargado": "2026-11-05",
+   "ultimo_intento": "2026-11-05",
+   "estado": "ok",
+   "url": "https://censo.gob.ar/wp-content/uploads/2025/10/proyecciones_jurisdicciones_2022_2040_base.csv"
+  },
+  {
+   "archivo": "datos/manual/censo2022_departamentos.csv",
+   "nombre": "Censo 2022: vivienda, combustible para cocinar y rama de actividad por departamento",
+   "organismo": "INDEC",
+   "armado": "2026-10-03",
+   "url": "https://datos.gob.ar/api/3/action/package_show?id=censo-nacional-de-poblacion-hogares-y-viviendas-2022"
+  }
+ ],
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿Cuántas personas trabajan en la construcción en cada provincia? Con datos de Observatorio de Empleo y Dinámica Empresarial (OEDE), Secretaría de Trabajo, Ministerio de Capital Humano, con datos del Sistema Integrado Previsional Argentino (SIPA), e INDEC, Censo Nacional de Población, Hogares y Viviendas 2022, resultados por radio censal. Se actualiza cada tres meses. El último dato es del primer trimestre de 2026, más atrasado que lo habitual. https://datina.com.ar/construccion.html#f-empleo-construccion. Consultado el día de la consulta."
+ "como_citar": "Datina (año de la consulta). ¿Cuántas personas trabajan en la construcción en cada provincia? Con datos de Observatorio de Empleo y Dinámica Empresarial (OEDE), Secretaría de Trabajo, Ministerio de Capital Humano, con datos del Sistema Integrado Previsional Argentino (SIPA), e INDEC, Censo Nacional de Población, Hogares y Viviendas 2022, resultados por radio censal. Se actualiza cada tres meses. El último dato es del primer trimestre de 2026, más atrasado que lo habitual. https://datina.com.ar/construccion.html#f-empleo-construccion. Consultado el día de la consulta.",
+ "datos_actualizados": "05/11/2026"
 }

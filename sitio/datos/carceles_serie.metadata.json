@@ -5,9 +5,16 @@
  "seccion": "Seguridad",
  "ficha": "https://datina.com.ar/seguridad.html#f-carceles",
  "fuente": "Sistema Nacional de Estadísticas sobre Ejecución de la Pena (SNEEP), Ministerio de Justicia, e INDEC, proyecciones de población.",
+ "organismos": [
+  "INDEC (Instituto Nacional de Estadística y Censos)",
+  "SNEEP (Sistema Nacional de Estadísticas sobre Ejecución de la Pena)",
+  "SNIC (Sistema Nacional de Información Criminal)"
+ ],
  "actualizacion": "Se actualiza cada año.",
  "cobertura": "Sin desglose territorial",
  "periodo": "2002 a 2024",
+ "anio_desde": 2002,
+ "anio_hasta": 2024,
  "filas": 23,
  "columnas": [
   {
@@ -38,8 +45,46 @@
  ],
  "unidades": [],
  "como_se_calcula": "",
- "datos_actualizados": "05/11/2026",
+ "origen": [
+  {
+   "archivo": "datos/crudo/sneep_poblacion.csv",
+   "nombre": "Personas privadas de libertad por servicio penitenciario",
+   "organismo": "SNEEP",
+   "descargado": "2026-11-05",
+   "ultimo_intento": "2026-11-05",
+   "estado": "ok",
+   "url": "https://datos.jus.gob.ar/dataset/70fc10e1-aa70-4dc9-9dfb-478875f684d8/resource/7d10bdae-a3a8-416e-96ce-094c96ecf7d9/download/sneep-poblacion-total.csv"
+  },
+  {
+   "archivo": "datos/crudo/sneep_condenados.csv",
+   "nombre": "Personas condenadas por servicio penitenciario",
+   "organismo": "SNEEP",
+   "descargado": "2026-11-05",
+   "ultimo_intento": "2026-11-05",
+   "estado": "ok",
+   "url": "https://datos.jus.gob.ar/dataset/70fc10e1-aa70-4dc9-9dfb-478875f684d8/resource/414604b9-4937-4568-aba8-c346d8f38ade/download/sneep-situacion-legal-condenados-condenadas.csv"
+  },
+  {
+   "archivo": "datos/crudo/snic_pais.csv",
+   "nombre": "Estadísticas criminales del país por año",
+   "organismo": "SNIC",
+   "descargado": "2026-11-05",
+   "ultimo_intento": "2026-11-05",
+   "estado": "ok",
+   "url": "https://cloud-snic.minseg.gob.ar/Bases/SNIC/snic-pais.csv"
+  },
+  {
+   "archivo": "datos/crudo/indec_proyecciones_provincias.csv",
+   "nombre": "Proyecciones de población por provincia, sexo y edad, 2022 a 2040",
+   "organismo": "INDEC",
+   "descargado": "2026-11-05",
+   "ultimo_intento": "2026-11-05",
+   "estado": "ok",
+   "url": "https://censo.gob.ar/wp-content/uploads/2025/10/proyecciones_jurisdicciones_2022_2040_base.csv"
+  }
+ ],
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿Cuántas personas hay en las cárceles del país y de cada provincia? Con datos de Sistema Nacional de Estadísticas sobre Ejecución de la Pena (SNEEP), Ministerio de Justicia, e INDEC, proyecciones de población. https://datina.com.ar/seguridad.html#f-carceles. Consultado el día de la consulta."
+ "como_citar": "Datina (año de la consulta). ¿Cuántas personas hay en las cárceles del país y de cada provincia? Con datos de Sistema Nacional de Estadísticas sobre Ejecución de la Pena (SNEEP), Ministerio de Justicia, e INDEC, proyecciones de población. https://datina.com.ar/seguridad.html#f-carceles. Consultado el día de la consulta.",
+ "datos_actualizados": "05/11/2026"
 }

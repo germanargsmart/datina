@@ -5,9 +5,14 @@
  "seccion": "Movilidad",
  "ficha": "https://datina.com.ar/movilidad.html#f-patentes",
  "fuente": "Dirección Nacional de los Registros Nacionales de la Propiedad del Automotor y de Créditos Prendarios (DNRPA), Ministerio de Justicia.",
+ "organismos": [
+  "DNRPA (Dirección Nacional de los Registros Nacionales de la Propiedad del Automotor y de Créditos Prendarios)"
+ ],
  "actualizacion": "Se actualiza cada mes.",
  "cobertura": "Sin desglose territorial",
  "periodo": "2000 a 2025",
+ "anio_desde": 2000,
+ "anio_hasta": 2025,
  "filas": 26,
  "columnas": [
   {
@@ -28,8 +33,28 @@
  ],
  "unidades": [],
  "como_se_calcula": "",
- "datos_actualizados": "05/11/2026",
+ "origen": [
+  {
+   "archivo": "datos/crudo/dnrpa_autos_nuevos.csv",
+   "nombre": "Inscripciones iniciales de automotores por provincia y mes",
+   "organismo": "DNRPA",
+   "descargado": "2026-11-05",
+   "ultimo_intento": "2026-11-05",
+   "estado": "ok",
+   "url": "https://datos.jus.gob.ar/dataset/1ab0cc03-ab9b-4520-975c-5757d87d1061/resource/4358c995-bb04-4ad9-be4a-a9076dc3e42c/download/estadistica-inscripciones-iniciales-automotores-2000-01-2026-08.csv"
+  },
+  {
+   "archivo": "datos/crudo/dnrpa_motos_nuevas.csv",
+   "nombre": "Inscripciones iniciales de motovehículos por provincia y mes",
+   "organismo": "DNRPA",
+   "descargado": "2026-11-05",
+   "ultimo_intento": "2026-11-05",
+   "estado": "ok",
+   "url": "https://datos.jus.gob.ar/dataset/72d85f23-b751-4d12-935b-25e32ed9445e/resource/d523dd08-5c12-467e-b947-aa3206a24d21/download/estadistica-inscripciones-iniciales-motovehiculos-2007-01-2026-08.csv"
+  }
+ ],
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿Cuántos autos y motos nuevos se patentan por año? Con datos de Dirección Nacional de los Registros Nacionales de la Propiedad del Automotor y de Créditos Prendarios (DNRPA), Ministerio de Justicia. https://datina.com.ar/movilidad.html#f-patentes. Consultado el día de la consulta."
+ "como_citar": "Datina (año de la consulta). ¿Cuántos autos y motos nuevos se patentan por año? Con datos de Dirección Nacional de los Registros Nacionales de la Propiedad del Automotor y de Créditos Prendarios (DNRPA), Ministerio de Justicia. https://datina.com.ar/movilidad.html#f-patentes. Consultado el día de la consulta.",
+ "datos_actualizados": "05/11/2026"
 }

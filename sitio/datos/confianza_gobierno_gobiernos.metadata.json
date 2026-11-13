@@ -5,9 +5,14 @@
  "seccion": "Instituciones políticas",
  "ficha": "https://datina.com.ar/politica.html#f-confianza-gobierno",
  "fuente": "Universidad Torcuato Di Tella, Escuela de Gobierno, Índice de Confianza en el Gobierno, y Dirección Nacional Electoral.",
+ "organismos": [
+  "Wikimedia (Wikipedia y Wikidata)"
+ ],
  "actualizacion": "Se actualiza cada mes.",
  "cobertura": "Sin desglose territorial",
  "periodo": "",
+ "anio_desde": 2001,
+ "anio_hasta": 2001,
  "filas": 6,
  "columnas": [
   {
@@ -53,8 +58,17 @@
  ],
  "unidades": [],
  "como_se_calcula": "",
- "datos_actualizados": "05/11/2026",
+ "origen": [
+  {
+   "archivo": "datos/manual/presidentes.csv",
+   "nombre": "Presidentes desde 1983 con lugar de nacimiento",
+   "organismo": "Wikimedia",
+   "armado": "2026-09-29",
+   "url": "https://es.wikipedia.org"
+  }
+ ],
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿Cuánta confianza genera el gobierno nacional? Con datos de Universidad Torcuato Di Tella, Escuela de Gobierno, Índice de Confianza en el Gobierno, y Dirección Nacional Electoral. https://datina.com.ar/politica.html#f-confianza-gobierno. Consultado el día de la consulta."
+ "como_citar": "Datina (año de la consulta). ¿Cuánta confianza genera el gobierno nacional? Con datos de Universidad Torcuato Di Tella, Escuela de Gobierno, Índice de Confianza en el Gobierno, y Dirección Nacional Electoral. https://datina.com.ar/politica.html#f-confianza-gobierno. Consultado el día de la consulta.",
+ "datos_actualizados": "05/11/2026"
 }

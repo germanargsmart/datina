@@ -28,7 +28,9 @@ scripts/achicar_js.py          saca comentarios y sangría de sitio/datina.js, s
 scripts/imagen_social.py       la imagen al compartir de cada página (og:image, sitio/og/): 03 la dibuja con Pillow y Roboto Flex (scripts/fuentes/), solo si cambió lo que lleva
 scripts/pruebas_datos.py       pruebas de los datos: si fallan, no se arma ni se publica
 scripts/relaciones.py          arma el Explorador de relaciones (relaciones.html) desde datos/manual/relaciones.json y lo valida
-scripts/catalogo.py            arma la lista del Catálogo de datos (catalogo.html) y valida que cada tabla publicada tenga dónde se usa (datos/manual/catalogo.json)
+scripts/catalogo.py            arma la lista del Catálogo de datos (catalogo.html) y valida que cada tabla publicada tenga dónde se usa (datos/manual/catalogo.json).
+                               Desde el 13 de noviembre de 2026 da también lo de sitio/datos/catalogo.json (03 lo escribe): una entrada por tabla con sus
+                               organismos y la fecha de cada archivo del que sale. De ahí salen el .metadata.json de cada tabla, los Dataset y llms.txt
 scripts/prueba_paginas.mjs     prueba de las páginas armadas en Chrome sin ventana (usa scripts/cdp.mjs)
 scripts/elecciones_mesas.py    desde el 4 de noviembre de 2026, arma sitio/datos/mesas/ (resultados por mesa y circuito, 87 MB), que 03 no toca. Se corre una vez por
                                elección. La página es scripts/mesas.js, aparte de datina.js, y la prueba scripts/prueba_mesas.py: docs/roadmap/MESAS.md

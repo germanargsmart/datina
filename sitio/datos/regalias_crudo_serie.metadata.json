@@ -5,9 +5,16 @@
  "seccion": "Petróleo y gas",
  "ficha": "https://datina.com.ar/petroleo.html#f-regalias",
  "fuente": "Ministerio de Economía, cuentas provinciales (esquema ahorro-inversión-financiamiento), y Secretaría de Energía, regalías de petróleo crudo.",
+ "organismos": [
+  "DNAP (Dirección Nacional de Asuntos Provinciales)",
+  "INDEC (Instituto Nacional de Estadística y Censos)",
+  "SE (Secretaría de Energía)"
+ ],
  "actualizacion": "Se actualiza cada año.",
  "cobertura": "Sin desglose territorial",
  "periodo": "1991 a 2025",
+ "anio_desde": 1991,
+ "anio_hasta": 2025,
  "filas": 35,
  "columnas": [
   {
@@ -23,8 +30,36 @@
  ],
  "unidades": [],
  "como_se_calcula": "",
- "datos_actualizados": "05/11/2026",
+ "origen": [
+  {
+   "archivo": "datos/crudo/se_regalias_crudo.zip",
+   "nombre": "Regalías de petróleo crudo por provincia, en dólares",
+   "organismo": "SE",
+   "descargado": "2026-11-05",
+   "ultimo_intento": "2026-11-05",
+   "estado": "ok"
+  },
+  {
+   "archivo": "datos/crudo/aif_provincias.xlsx",
+   "nombre": "Cuentas fiscales de cada provincia (esquema ahorro-inversión-financiamiento), anual desde 2005",
+   "organismo": "DNAP",
+   "descargado": "2026-11-05",
+   "ultimo_intento": "2026-11-05",
+   "estado": "ok",
+   "url": "https://www.argentina.gob.ar/sites/default/files/serie_aif-apnf-2025.xlsx"
+  },
+  {
+   "archivo": "datos/crudo/indec_proyecciones_provincias.csv",
+   "nombre": "Proyecciones de población por provincia, sexo y edad, 2022 a 2040",
+   "organismo": "INDEC",
+   "descargado": "2026-11-05",
+   "ultimo_intento": "2026-11-05",
+   "estado": "ok",
+   "url": "https://censo.gob.ar/wp-content/uploads/2025/10/proyecciones_jurisdicciones_2022_2040_base.csv"
+  }
+ ],
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿Qué parte de los ingresos de cada provincia son regalías? Con datos de Ministerio de Economía, cuentas provinciales (esquema ahorro-inversión-financiamiento), y Secretaría de Energía, regalías de petróleo crudo. https://datina.com.ar/petroleo.html#f-regalias. Consultado el día de la consulta."
+ "como_citar": "Datina (año de la consulta). ¿Qué parte de los ingresos de cada provincia son regalías? Con datos de Ministerio de Economía, cuentas provinciales (esquema ahorro-inversión-financiamiento), y Secretaría de Energía, regalías de petróleo crudo. https://datina.com.ar/petroleo.html#f-regalias. Consultado el día de la consulta.",
+ "datos_actualizados": "05/11/2026"
 }

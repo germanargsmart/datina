@@ -5,9 +5,15 @@
  "seccion": "Salud",
  "ficha": "https://datina.com.ar/salud.html#f-medicos",
  "fuente": "Observatorio Federal de Talento Humano en Salud (OFETHuS), Ministerio de Salud, Médicos activos en Argentina, e INDEC, proyecciones de población.",
+ "organismos": [
+  "INDEC (Instituto Nacional de Estadística y Censos)",
+  "OFETHuS (Observatorio Federal de Talento Humano en Salud)"
+ ],
  "actualizacion": "Se actualiza cada año.",
  "cobertura": "Las 24 jurisdicciones",
  "periodo": "",
+ "anio_desde": 2025,
+ "anio_hasta": 2025,
  "filas": 24,
  "columnas": [
   {
@@ -53,8 +59,26 @@
  ],
  "unidades": [],
  "como_se_calcula": "",
- "datos_actualizados": "05/11/2026",
+ "origen": [
+  {
+   "archivo": "datos/manual/medicos_ofethus.csv",
+   "nombre": "Médicos habilitados y activos por provincia de residencia, 2025",
+   "organismo": "OFETHuS",
+   "armado": "2026-10-31",
+   "url": "https://www.argentina.gob.ar/sites/default/files/medicos_activos_argentina_2025_ofethus_dncydts_2026_v300926_a_3092026.pdf"
+  },
+  {
+   "archivo": "datos/crudo/indec_proyecciones_provincias.csv",
+   "nombre": "Proyecciones de población por provincia, sexo y edad, 2022 a 2040",
+   "organismo": "INDEC",
+   "descargado": "2026-11-05",
+   "ultimo_intento": "2026-11-05",
+   "estado": "ok",
+   "url": "https://censo.gob.ar/wp-content/uploads/2025/10/proyecciones_jurisdicciones_2022_2040_base.csv"
+  }
+ ],
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿Dónde hay más médicos por habitante? Con datos de Observatorio Federal de Talento Humano en Salud (OFETHuS), Ministerio de Salud, Médicos activos en Argentina, e INDEC, proyecciones de población. https://datina.com.ar/salud.html#f-medicos. Consultado el día de la consulta."
+ "como_citar": "Datina (año de la consulta). ¿Dónde hay más médicos por habitante? Con datos de Observatorio Federal de Talento Humano en Salud (OFETHuS), Ministerio de Salud, Médicos activos en Argentina, e INDEC, proyecciones de población. https://datina.com.ar/salud.html#f-medicos. Consultado el día de la consulta.",
+ "datos_actualizados": "05/11/2026"
 }

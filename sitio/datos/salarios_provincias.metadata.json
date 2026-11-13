@@ -5,9 +5,15 @@
  "seccion": "Trabajo",
  "ficha": "https://datina.com.ar/trabajo.html#f-salarios",
  "fuente": "Observatorio de Empleo y Dinámica Empresarial (OEDE), Secretaría de Trabajo, Ministerio de Capital Humano, con datos del Sistema Integrado Previsional Argentino (SIPA), e INDEC, índice de precios al consumidor.",
+ "organismos": [
+  "INDEC (Instituto Nacional de Estadística y Censos)",
+  "OEDE (Observatorio de Empleo y Dinámica Empresarial)"
+ ],
  "actualizacion": "Se actualiza cada tres meses.",
  "cobertura": "Las 24 jurisdicciones y el total del país",
  "periodo": "",
+ "anio_desde": 2026,
+ "anio_hasta": 2026,
  "filas": 25,
  "columnas": [
   {
@@ -38,8 +44,37 @@
  ],
  "unidades": [],
  "como_se_calcula": "",
- "datos_actualizados": "05/11/2026",
+ "origen": [
+  {
+   "archivo": "datos/crudo/oede_remuneraciones_provincias.csv",
+   "nombre": "Remuneración promedio de asalariados registrados privados por provincia y mes",
+   "organismo": "OEDE",
+   "descargado": "2026-11-05",
+   "ultimo_intento": "2026-11-05",
+   "estado": "ok",
+   "url": "https://www.argentina.gob.ar/trabajo/estadisticas/oede-estadisticas-provinciales"
+  },
+  {
+   "archivo": "datos/crudo/oede_empleo_ramas.csv",
+   "nombre": "Empleo registrado privado por provincia y rama (construcción, petróleo y gas, total)",
+   "organismo": "OEDE",
+   "descargado": "2026-11-05",
+   "ultimo_intento": "2026-11-05",
+   "estado": "ok",
+   "url": "https://www.argentina.gob.ar/trabajo/estadisticas/oede-estadisticas-provinciales"
+  },
+  {
+   "archivo": "datos/crudo/indec_ipc_divisiones.csv",
+   "nombre": "Índice de precios al consumidor por región, división, categoría y bienes y servicios",
+   "organismo": "INDEC",
+   "descargado": "2026-11-05",
+   "ultimo_intento": "2026-11-05",
+   "estado": "ok",
+   "url": "https://www.indec.gob.ar/ftp/cuadros/economia/serie_ipc_divisiones.csv"
+  }
+ ],
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿Dónde se gana más en un empleo privado registrado? Con datos de Observatorio de Empleo y Dinámica Empresarial (OEDE), Secretaría de Trabajo, Ministerio de Capital Humano, con datos del Sistema Integrado Previsional Argentino (SIPA), e INDEC, índice de precios al consumidor. https://datina.com.ar/trabajo.html#f-salarios. Consultado el día de la consulta."
+ "como_citar": "Datina (año de la consulta). ¿Dónde se gana más en un empleo privado registrado? Con datos de Observatorio de Empleo y Dinámica Empresarial (OEDE), Secretaría de Trabajo, Ministerio de Capital Humano, con datos del Sistema Integrado Previsional Argentino (SIPA), e INDEC, índice de precios al consumidor. https://datina.com.ar/trabajo.html#f-salarios. Consultado el día de la consulta.",
+ "datos_actualizados": "05/11/2026"
 }

@@ -5,9 +5,14 @@
  "seccion": "Pobreza y hogares",
  "ficha": "https://datina.com.ar/a-canasta-regiones.html",
  "fuente": "INDEC, canasta básica alimentaria y canasta básica total (valores por región del informe de pobreza, serie mensual del Gran Buenos Aires y tabla de adulto equivalente), e incidencia de la pobreza y la indigencia, Encuesta Permanente de Hogares",
+ "organismos": [
+  "INDEC (Instituto Nacional de Estadística y Censos)"
+ ],
  "actualizacion": "Se actualiza cada semestre.",
  "cobertura": "Sin desglose territorial",
  "periodo": "junio de 2026",
+ "anio_desde": 2026,
+ "anio_hasta": 2026,
  "filas": 6,
  "columnas": [
   {
@@ -48,8 +53,19 @@
  ],
  "unidades": [],
  "como_se_calcula": "",
- "datos_actualizados": "05/11/2026",
+ "origen": [
+  {
+   "archivo": "datos/crudo/indec_canastas_regiones.csv",
+   "nombre": "Canastas básicas por región (del informe semestral de pobreza)",
+   "organismo": "INDEC",
+   "descargado": "2026-11-05",
+   "ultimo_intento": "2026-11-05",
+   "estado": "ok",
+   "url": "https://www.indec.gob.ar/ftp/cuadros/sociedad/cuadros_informe_pobreza_{MM}_{AA}.xls"
+  }
+ ],
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿Cuánto tiene que ganar una familia para no ser pobre en cada región? Con datos de INDEC, canasta básica alimentaria y canasta básica total (valores por región del informe de pobreza, serie mensual del Gran Buenos Aires y tabla de adulto equivalente), e incidencia de la pobreza y la indigencia, Encuesta Permanente de Hogares. https://datina.com.ar/a-canasta-regiones.html. Consultado el día de la consulta."
+ "como_citar": "Datina (año de la consulta). ¿Cuánto tiene que ganar una familia para no ser pobre en cada región? Con datos de INDEC, canasta básica alimentaria y canasta básica total (valores por región del informe de pobreza, serie mensual del Gran Buenos Aires y tabla de adulto equivalente), e incidencia de la pobreza y la indigencia, Encuesta Permanente de Hogares. https://datina.com.ar/a-canasta-regiones.html. Consultado el día de la consulta.",
+ "datos_actualizados": "05/11/2026"
 }

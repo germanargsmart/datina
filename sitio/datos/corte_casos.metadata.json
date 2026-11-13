@@ -5,9 +5,14 @@
  "seccion": "Justicia",
  "ficha": "https://datina.com.ar/justicia.html#f-corte-casos",
  "fuente": "Corte Suprema de Justicia de la Nación, Oficina de Estadísticas, Anuario Estadístico.",
+ "organismos": [
+  "CSJN (Oficina de Estadísticas de la Corte Suprema de Justicia de la Nación)"
+ ],
  "actualizacion": "Se actualiza cada año.",
  "cobertura": "Sin desglose territorial",
  "periodo": "2014 a 2025",
+ "anio_desde": 2014,
+ "anio_hasta": 2025,
  "filas": 12,
  "columnas": [
   {
@@ -43,8 +48,17 @@
  ],
  "unidades": [],
  "como_se_calcula": "",
- "datos_actualizados": "05/11/2026",
+ "origen": [
+  {
+   "archivo": "datos/manual/corte_casos.csv",
+   "nombre": "Casos que llegaron a la Corte Suprema y casos que resolvió por año, con los fallos de los últimos años",
+   "organismo": "CSJN",
+   "armado": "2026-10-24",
+   "url": "https://www.csjn.gov.ar/archivos/estadisticas/informe_anuario_CSJN_2025.pdf"
+  }
+ ],
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿Cuántos casos llegan a la Corte Suprema y cuántos resuelve? Con datos de Corte Suprema de Justicia de la Nación, Oficina de Estadísticas, Anuario Estadístico. https://datina.com.ar/justicia.html#f-corte-casos. Consultado el día de la consulta."
+ "como_citar": "Datina (año de la consulta). ¿Cuántos casos llegan a la Corte Suprema y cuántos resuelve? Con datos de Corte Suprema de Justicia de la Nación, Oficina de Estadísticas, Anuario Estadístico. https://datina.com.ar/justicia.html#f-corte-casos. Consultado el día de la consulta.",
+ "datos_actualizados": "05/11/2026"
 }

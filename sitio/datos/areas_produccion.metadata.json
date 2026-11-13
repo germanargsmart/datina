@@ -5,9 +5,14 @@
  "seccion": "Petróleo y gas",
  "ficha": "https://datina.com.ar/petroleo.html#f-areas-hidro",
  "fuente": "Secretaría de Energía, producción que declaran las empresas (Capítulo IV), agrupada por yacimiento y formación productiva.",
+ "organismos": [
+  "SE (Secretaría de Energía)"
+ ],
  "actualizacion": "Se actualiza cada año.",
  "cobertura": "10 jurisdicciones",
  "periodo": "",
+ "anio_desde": 2006,
+ "anio_hasta": 2025,
  "filas": 256,
  "columnas": [
   {
@@ -83,8 +88,26 @@
  ],
  "unidades": [],
  "como_se_calcula": "",
- "datos_actualizados": "05/11/2026",
+ "origen": [
+  {
+   "archivo": "datos/crudo/se_produccion_resumen.csv",
+   "nombre": "Producción mensual por provincia y tipo de recurso, con Vaca Muerta aparte (resumen del archivo agrupado por yacimiento y formación)",
+   "organismo": "SE",
+   "descargado": null,
+   "ultimo_intento": "2026-11-05",
+   "estado": "error: <urlopen error timed out>"
+  },
+  {
+   "archivo": "datos/crudo/se_produccion_areas.csv",
+   "nombre": "Producción anual por área de concesión (resumen del archivo agrupado)",
+   "organismo": "SE",
+   "descargado": null,
+   "ultimo_intento": "2026-11-05",
+   "estado": "error: <urlopen error timed out>"
+  }
+ ],
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿Qué áreas producen más petróleo y gas? Con datos de Secretaría de Energía, producción que declaran las empresas (Capítulo IV), agrupada por yacimiento y formación productiva. https://datina.com.ar/petroleo.html#f-areas-hidro. Consultado el día de la consulta."
+ "como_citar": "Datina (año de la consulta). ¿Qué áreas producen más petróleo y gas? Con datos de Secretaría de Energía, producción que declaran las empresas (Capítulo IV), agrupada por yacimiento y formación productiva. https://datina.com.ar/petroleo.html#f-areas-hidro. Consultado el día de la consulta.",
+ "datos_actualizados": "05/11/2026"
 }

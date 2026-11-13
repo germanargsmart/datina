@@ -5,9 +5,15 @@
  "seccion": "Instituciones políticas",
  "ficha": "https://datina.com.ar/politica.html#f-presidentes",
  "fuente": "Casa Rosada, Wikipedia y Wikidata, que coinciden en los doce casos.",
+ "organismos": [
+  "RENAPER (Registro Nacional de las Personas)",
+  "Wikimedia (Wikipedia y Wikidata)"
+ ],
  "actualizacion": "Se actualiza con cada cambio de presidente.",
  "cobertura": "Sin desglose territorial",
  "periodo": "",
+ "anio_desde": 1983,
+ "anio_hasta": 1983,
  "filas": 12,
  "columnas": [
   {
@@ -58,8 +64,26 @@
  ],
  "unidades": [],
  "como_se_calcula": "El color de cada presidente es el de su espacio político, el mismo que en la composición del Congreso, y en la línea de tiempo van sus iniciales. AMBA (Área Metropolitana de Buenos Aires): CABA y los 24 partidos del Gran Buenos Aires, según el INDEC. La Plata, donde nació Cristina Fernández de Kirchner, no forma parte de esa definición. Incluye a los presidentes interinos de diciembre de 2001. La proporción de población del AMBA sale de las personas identificadas por el RENAPER.",
- "datos_actualizados": "05/11/2026",
+ "origen": [
+  {
+   "archivo": "datos/manual/presidentes.csv",
+   "nombre": "Presidentes desde 1983 con lugar de nacimiento",
+   "organismo": "Wikimedia",
+   "armado": "2026-09-29",
+   "url": "https://es.wikipedia.org"
+  },
+  {
+   "archivo": "datos/crudo/renaper_departamentos_resumen.csv",
+   "nombre": "Población identificada por departamento, edad y país de nacimiento (resumen)",
+   "organismo": "RENAPER",
+   "descargado": "2026-11-05",
+   "ultimo_intento": "2026-11-05",
+   "estado": "ok",
+   "url": "https://datosabiertos.renaper.gob.ar/poblacion_identificada_departamento_junio_2026.csv"
+  }
+ ],
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿Dónde nacieron los presidentes? Con datos de Casa Rosada, Wikipedia y Wikidata, que coinciden en los doce casos. https://datina.com.ar/politica.html#f-presidentes. Consultado el día de la consulta."
+ "como_citar": "Datina (año de la consulta). ¿Dónde nacieron los presidentes? Con datos de Casa Rosada, Wikipedia y Wikidata, que coinciden en los doce casos. https://datina.com.ar/politica.html#f-presidentes. Consultado el día de la consulta.",
+ "datos_actualizados": "05/11/2026"
 }

@@ -5,9 +5,16 @@
  "seccion": "Construcción y vivienda",
  "ficha": "https://datina.com.ar/construccion.html#f-obra-publica",
  "fuente": "Presupuesto Abierto, Secretaría de Hacienda del Ministerio de Economía, ejecución del gasto de la Administración Pública Nacional (crédito devengado).",
+ "organismos": [
+  "Banco Mundial",
+  "Presupuesto Abierto",
+  "SNIC (Sistema Nacional de Información Criminal)"
+ ],
  "actualizacion": "Se actualiza cada año.",
  "cobertura": "Sin desglose territorial",
  "periodo": "2000 a 2025",
+ "anio_desde": 2000,
+ "anio_hasta": 2025,
  "filas": 26,
  "columnas": [
   {
@@ -38,8 +45,34 @@
  ],
  "unidades": [],
  "como_se_calcula": "",
- "datos_actualizados": "05/11/2026",
+ "origen": [
+  {
+   "archivo": "datos/manual/inversion_provincias.csv",
+   "nombre": "Obra pública de la Nación por provincia (construcciones y transferencias de capital)",
+   "organismo": "Presupuesto Abierto",
+   "armado": "2026-10-04",
+   "url": "https://dgsiaf-repo.mecon.gob.ar/repository/pa/datasets/{a}/credito-anual-{a}.zip"
+  },
+  {
+   "archivo": "datos/crudo/bm_NY.GDP.DEFL.ZS.json",
+   "nombre": "Deflactor del PBI de la Argentina (Banco Mundial, NY.GDP.DEFL.ZS)",
+   "organismo": "Banco Mundial",
+   "descargado": "2026-11-05",
+   "ultimo_intento": "2026-11-05",
+   "estado": "ok"
+  },
+  {
+   "archivo": "datos/crudo/snic_provincias.csv",
+   "nombre": "Estadísticas criminales por provincia y año",
+   "organismo": "SNIC",
+   "descargado": "2026-11-05",
+   "ultimo_intento": "2026-11-05",
+   "estado": "ok",
+   "url": "https://cloud-snic.minseg.gob.ar/Bases/SNIC/snic-provincias.csv"
+  }
+ ],
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿Cuánta obra pública paga la Nación en cada provincia? Con datos de Presupuesto Abierto, Secretaría de Hacienda del Ministerio de Economía, ejecución del gasto de la Administración Pública Nacional (crédito devengado). https://datina.com.ar/construccion.html#f-obra-publica. Consultado el día de la consulta."
+ "como_citar": "Datina (año de la consulta). ¿Cuánta obra pública paga la Nación en cada provincia? Con datos de Presupuesto Abierto, Secretaría de Hacienda del Ministerio de Economía, ejecución del gasto de la Administración Pública Nacional (crédito devengado). https://datina.com.ar/construccion.html#f-obra-publica. Consultado el día de la consulta.",
+ "datos_actualizados": "05/11/2026"
 }

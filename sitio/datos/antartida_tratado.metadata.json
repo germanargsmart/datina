@@ -5,9 +5,14 @@
  "seccion": "Naturaleza y ambiente",
  "ficha": "https://datina.com.ar/naturaleza.html#f-ant-tratado",
  "fuente": "Secretaría del Tratado Antártico, lista de las partes, noviembre de 2026.",
+ "organismos": [
+  "ATS (Secretaría del Tratado Antártico)"
+ ],
  "actualizacion": "Se actualiza a mano, cuando la fuente publica datos nuevos.",
  "cobertura": "Sin desglose territorial",
  "periodo": "",
+ "anio_desde": 1961,
+ "anio_hasta": 2024,
  "filas": 58,
  "columnas": [
   {
@@ -38,8 +43,16 @@
  ],
  "unidades": [],
  "como_se_calcula": "",
- "datos_actualizados": "05/11/2026",
+ "origen": [
+  {
+   "archivo": "datos/manual/antartida_tratado.csv",
+   "nombre": "Partes del Tratado Antártico, fija",
+   "organismo": "ATS",
+   "armado": "2026-11-06"
+  }
+ ],
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿Cuántos países forman parte del Tratado Antártico? Con datos de Secretaría del Tratado Antártico, lista de las partes, noviembre de 2026. https://datina.com.ar/naturaleza.html#f-ant-tratado. Consultado el día de la consulta."
+ "como_citar": "Datina (año de la consulta). ¿Cuántos países forman parte del Tratado Antártico? Con datos de Secretaría del Tratado Antártico, lista de las partes, noviembre de 2026. https://datina.com.ar/naturaleza.html#f-ant-tratado. Consultado el día de la consulta.",
+ "datos_actualizados": "05/11/2026"
 }

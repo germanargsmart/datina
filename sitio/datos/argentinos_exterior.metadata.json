@@ -5,9 +5,14 @@
  "seccion": "Migraciones",
  "ficha": "https://datina.com.ar/migraciones.html#f-argentinos-exterior",
  "fuente": "Naciones Unidas, División de Población, International Migrant Stock (CC BY 3.0 IGO).",
+ "organismos": [
+  "ONU Población (Naciones Unidas, División de Población)"
+ ],
  "actualizacion": "Se actualiza cada cuatro o cinco años.",
  "cobertura": "Sin desglose territorial",
  "periodo": "1990 a 2024",
+ "anio_desde": 1990,
+ "anio_hasta": 2024,
  "filas": 8,
  "columnas": [
   {
@@ -23,8 +28,19 @@
  ],
  "unidades": [],
  "como_se_calcula": "",
- "datos_actualizados": "05/11/2026",
+ "origen": [
+  {
+   "archivo": "datos/crudo/onu_migrantes_argentina.csv",
+   "nombre": "International Migrant Stock 2024: personas nacidas en la Argentina por país de destino",
+   "organismo": "ONU Población",
+   "descargado": "2026-11-05",
+   "ultimo_intento": "2026-11-05",
+   "estado": "ok",
+   "url": "https://www.un.org/development/desa/pd/sites/www.un.org.development.desa.pd/files/undesa_pd_2024_ims_stock_by_sex_destination_and_origin.xlsx"
+  }
+ ],
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿Cuántos argentinos viven en otro país? Con datos de Naciones Unidas, División de Población, International Migrant Stock (CC BY 3.0 IGO). https://datina.com.ar/migraciones.html#f-argentinos-exterior. Consultado el día de la consulta."
+ "como_citar": "Datina (año de la consulta). ¿Cuántos argentinos viven en otro país? Con datos de Naciones Unidas, División de Población, International Migrant Stock (CC BY 3.0 IGO). https://datina.com.ar/migraciones.html#f-argentinos-exterior. Consultado el día de la consulta.",
+ "datos_actualizados": "05/11/2026"
 }

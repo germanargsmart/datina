@@ -5,9 +5,15 @@
  "seccion": "Instituciones políticas",
  "ficha": "https://datina.com.ar/politica.html#f-presupuesto",
  "fuente": "actas de votación nominal del Congreso, vía ¿Cómo Votó?.",
+ "organismos": [
+  "¿Cómo Votó?",
+  "Datina (selección propia)"
+ ],
  "actualizacion": "Se actualiza cada año.",
  "cobertura": "Sin desglose territorial",
  "periodo": "8 de diciembre de 1995 a 26 de diciembre de 2025",
+ "anio_desde": 1995,
+ "anio_hasta": 2025,
  "filas": 36,
  "columnas": [
   {
@@ -98,8 +104,34 @@
  ],
  "unidades": [],
  "como_se_calcula": "Votación en general de cada presupuesto en cada cámara, según su acta (en algunos años, la primera votación del proyecto: el acta de cada uno está en la tabla). Los años que no figuran no tienen una votación en general en las actas de la fuente: puede ser porque no hubo un presupuesto aprobado o porque la copia de las actas no la tiene (en Diputados, la de los presupuestos 1995 y 1998 solo tiene votaciones de algunos artículos). El Senado figura desde 2005. El bloque oficialista es el más numeroso del espacio del presidente en esa votación, como en el apoyo al gobierno: los aliados del gobierno de otros bloques, como la UCR en el gobierno de Macri, y los bloques que se separaron del oficialismo cuentan como de fuera. Las ausencias cuentan: en el Senado, en noviembre de 2022, no estuvo en la votación la mayoría de los senadores de fuera del bloque oficialista.",
- "datos_actualizados": "05/11/2026",
+ "origen": [
+  {
+   "archivo": "datos/crudo/congreso_votaciones_diputados.json.gz",
+   "nombre": "Actas de votación nominal de Diputados (copia comprimida de ¿Cómo Votó?)",
+   "organismo": "Cómo Votó",
+   "descargado": "2026-11-05",
+   "ultimo_intento": "2026-11-05",
+   "estado": "ok",
+   "url": "https://raw.githubusercontent.com/rquiroga7/como_voto/main/data/diputados.json"
+  },
+  {
+   "archivo": "datos/crudo/congreso_votaciones_senadores.json.gz",
+   "nombre": "Actas de votación nominal del Senado (copia comprimida de ¿Cómo Votó?)",
+   "organismo": "Cómo Votó",
+   "descargado": "2026-11-05",
+   "ultimo_intento": "2026-11-05",
+   "estado": "ok",
+   "url": "https://raw.githubusercontent.com/rquiroga7/como_voto/main/data/senadores.json"
+  },
+  {
+   "archivo": "datos/manual/presupuestos.csv",
+   "nombre": "Acta de la votación en general de cada presupuesto en cada cámara",
+   "organismo": "Datina",
+   "armado": "2026-10-05"
+  }
+ ],
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿Qué parte de los legisladores de fuera del oficialismo votó a favor de cada presupuesto? Con datos de actas de votación nominal del Congreso, vía ¿Cómo Votó?. https://datina.com.ar/politica.html#f-presupuesto. Consultado el día de la consulta."
+ "como_citar": "Datina (año de la consulta). ¿Qué parte de los legisladores de fuera del oficialismo votó a favor de cada presupuesto? Con datos de actas de votación nominal del Congreso, vía ¿Cómo Votó?. https://datina.com.ar/politica.html#f-presupuesto. Consultado el día de la consulta.",
+ "datos_actualizados": "05/11/2026"
 }

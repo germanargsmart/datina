@@ -10,6 +10,7 @@ Los textos, los gráficos y las tablas de Datina se pueden copiar y adaptar, tam
 
 - [Catálogo de datos: ¿Qué datos puedo bajar?](https://datina.com.ar/catalogo): Herramienta de Datina con datos públicos de la Argentina y sus 24 jurisdicciones.
 - [Tabla completa de indicadores](https://datina.com.ar/datos/tabla_larga.csv): todos los indicadores en una sola tabla, una fila por jurisdicción, período e indicador, con su unidad y su fuente.
+- [Catálogo en JSON](https://datina.com.ar/datos/catalogo.json): cada tabla con su fuente, sus organismos, el día en que se bajó o se armó cada archivo del que sale, su período, sus columnas y su licencia.
 - [Usar los datos](https://datina.com.ar/usar-datos): Cómo reutilizar los datos de Datina: la licencia, cómo citar una ficha, qué tablas y metadatos se pueden descargar y de dónde sale cada dato.
 - [Explorador de relaciones: ¿de dónde sale cada número?](https://datina.com.ar/relaciones): De dónde sale cada número de Datina: qué organismo publica cada dato, qué archivo baja el sitio y qué fichas arma con él, con la evidencia en el código.
 

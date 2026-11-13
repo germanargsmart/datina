@@ -5,9 +5,14 @@
  "seccion": "Cuentas públicas",
  "ficha": "https://datina.com.ar/gobierno.html#f-deuda",
  "fuente": "Secretaría de Finanzas, Ministerio de Economía, datos trimestrales de la deuda pública.",
+ "organismos": [
+  "Secretaría de Finanzas"
+ ],
  "actualizacion": "Se actualiza cada tres meses.",
  "cobertura": "Sin desglose territorial",
  "periodo": "",
+ "anio_desde": 2000,
+ "anio_hasta": 2025,
  "filas": 28,
  "columnas": [
   {
@@ -28,8 +33,19 @@
  ],
  "unidades": [],
  "como_se_calcula": "",
- "datos_actualizados": "05/11/2026",
+ "origen": [
+  {
+   "archivo": "datos/crudo/deuda_publica.csv",
+   "nombre": "Deuda bruta de la Administración Central: porcentaje del PBI y total en dólares",
+   "organismo": "Finanzas",
+   "descargado": "2026-11-05",
+   "ultimo_intento": "2026-11-05",
+   "estado": "ok",
+   "url": "https://www.argentina.gob.ar/economia/finanzas/datos-trimestrales-de-la-deuda"
+  }
+ ],
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿Cuánto debe el Estado nacional? Con datos de Secretaría de Finanzas, Ministerio de Economía, datos trimestrales de la deuda pública. https://datina.com.ar/gobierno.html#f-deuda. Consultado el día de la consulta."
+ "como_citar": "Datina (año de la consulta). ¿Cuánto debe el Estado nacional? Con datos de Secretaría de Finanzas, Ministerio de Economía, datos trimestrales de la deuda pública. https://datina.com.ar/gobierno.html#f-deuda. Consultado el día de la consulta.",
+ "datos_actualizados": "05/11/2026"
 }

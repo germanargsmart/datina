@@ -5,9 +5,15 @@
  "seccion": "Población",
  "ficha": "https://datina.com.ar/a-nombres-provincias.html",
  "fuente": "Registro Nacional de las Personas (RENAPER), nombres más frecuentes por provincia, y Dirección de Estadísticas e Información en Salud (DEIS), nacimientos",
+ "organismos": [
+  "DEIS (Dirección de Estadísticas e Información de Salud)",
+  "RENAPER (Registro Nacional de las Personas)"
+ ],
  "actualizacion": "Se actualiza cada año.",
  "cobertura": "Sin desglose territorial",
  "periodo": "2012 a 2024",
+ "anio_desde": 2012,
+ "anio_hasta": 2024,
  "filas": 260,
  "columnas": [
   {
@@ -38,8 +44,9 @@
  ],
  "unidades": [],
  "como_se_calcula": "",
- "datos_actualizados": "05/11/2026",
+ "origen": [],
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿Qué nombres se les ponen a los bebés en cada provincia? Con datos de Registro Nacional de las Personas (RENAPER), nombres más frecuentes por provincia, y Dirección de Estadísticas e Información en Salud (DEIS), nacimientos. https://datina.com.ar/a-nombres-provincias.html. Consultado el día de la consulta."
+ "como_citar": "Datina (año de la consulta). ¿Qué nombres se les ponen a los bebés en cada provincia? Con datos de Registro Nacional de las Personas (RENAPER), nombres más frecuentes por provincia, y Dirección de Estadísticas e Información en Salud (DEIS), nacimientos. https://datina.com.ar/a-nombres-provincias.html. Consultado el día de la consulta.",
+ "datos_actualizados": "05/11/2026"
 }

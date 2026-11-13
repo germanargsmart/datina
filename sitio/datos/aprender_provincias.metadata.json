@@ -5,9 +5,14 @@
  "seccion": "Educación",
  "ficha": "https://datina.com.ar/educacion.html#f-aprender",
  "fuente": "Secretaría de Educación, evaluación Aprender, base agregada.",
+ "organismos": [
+  "Secretaría de Educación"
+ ],
  "actualizacion": "Se actualiza con cada evaluación Aprender.",
  "cobertura": "Las 24 jurisdicciones",
  "periodo": "",
+ "anio_desde": 2025,
+ "anio_hasta": 2025,
  "filas": 24,
  "columnas": [
   {
@@ -43,8 +48,34 @@
  ],
  "unidades": [],
  "como_se_calcula": "",
- "datos_actualizados": "05/11/2026",
+ "origen": [
+  {
+   "archivo": "datos/crudo/aprender_primaria_matematica.csv",
+   "nombre": "Aprender, 6° grado de primaria, matemática: base agregada de desempeño",
+   "organismo": "Educación",
+   "descargado": null,
+   "ultimo_intento": "2026-11-05",
+   "estado": "error: no se encontro la direccion en el catalogo"
+  },
+  {
+   "archivo": "datos/crudo/aprender_primaria_lengua.csv",
+   "nombre": "Aprender, 6° grado de primaria, lengua: base agregada de desempeño",
+   "organismo": "Educación",
+   "descargado": null,
+   "ultimo_intento": "2026-11-05",
+   "estado": "error: no se encontro la direccion en el catalogo"
+  },
+  {
+   "archivo": "datos/crudo/aprender_meta.json",
+   "nombre": "Año y nivel de la base de Aprender (registro que arma la descarga)",
+   "organismo": "Educación",
+   "descargado": null,
+   "ultimo_intento": "2026-11-05",
+   "estado": "error: no se encontro la direccion en el catalogo"
+  }
+ ],
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿Cuántos chicos de 6° grado tienen un nivel satisfactorio en Aprender? Con datos de Secretaría de Educación, evaluación Aprender, base agregada. https://datina.com.ar/educacion.html#f-aprender. Consultado el día de la consulta."
+ "como_citar": "Datina (año de la consulta). ¿Cuántos chicos de 6° grado tienen un nivel satisfactorio en Aprender? Con datos de Secretaría de Educación, evaluación Aprender, base agregada. https://datina.com.ar/educacion.html#f-aprender. Consultado el día de la consulta.",
+ "datos_actualizados": "05/11/2026"
 }

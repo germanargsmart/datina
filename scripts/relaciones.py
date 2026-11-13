@@ -12,7 +12,7 @@ sitio/relaciones.css, sitio/relaciones.js y sitio/relaciones.html.
 Lo llama 03_construir_sitio.py, que no arma el sitio si el catálogo tiene un error.
 Solo validar el catálogo: python scripts/relaciones.py
 """
-import csv, hashlib, html, json, pathlib, re, sys
+import ast, csv, datetime, fnmatch, hashlib, html, json, pathlib, re, sys
 
 RAIZ = pathlib.Path(__file__).resolve().parents[1]
 CATALOGO = RAIZ / "datos" / "manual" / "relaciones.json"
@@ -99,6 +99,40 @@ def norm(t):
 
 LINEAS = Lineas()
 
+REGISTRO = RAIZ / "datos" / "crudo" / "_registro.csv"
+
+
+def archivos_del_registro():
+    """ARCHIVOS_DEL_REGISTRO de 01_descargar.py (qué archivos escribe cada fila del registro que no lleva el nombre de un archivo), leído
+    sin correr el programa, que bajaría todo"""
+    src = (RAIZ / "scripts" / "01_descargar.py").read_text(encoding="utf-8")
+    for n in ast.parse(src).body:
+        if isinstance(n, ast.Assign) and any(isinstance(t, ast.Name) and t.id == "ARCHIVOS_DEL_REGISTRO" for t in n.targets):
+            return ast.literal_eval(n.value)
+    return {}
+
+
+def leer_registro():
+    """Las filas de datos/crudo/_registro.csv, que escribe 01_descargar.py: {nombre: fila}."""
+    return {f["archivo"]: f for f in tabla_csv(REGISTRO)} if REGISTRO.exists() else {}
+
+
+def descarga(ruta, registro, por_fila):
+    """La última descarga de un archivo de datos/crudo/ (plan técnico, fase 2, 13 de noviembre de 2026): {"fecha", "estado", "ultima_ok"} o
+    None si ninguna fila del registro lo nombra. Las filas que lo nombran son la suya y las de ARCHIVOS_DEL_REGISTRO que lo incluyen. Una ruta
+    con "AAAA" es una serie de archivos, uno por año: valen todas sus filas. "fecha" es el último intento (con varias filas, el más reciente) y
+    "estado", "ok" solo si todas lo están (si no, el primer error: el archivo que quedó es el de antes). "ultima_ok" es el día de la última
+    descarga que anduvo (la columna que suma 01 desde el 13 de noviembre de 2026; con varias filas, la más vieja), o None si no se sabe"""
+    nombre = pathlib.Path(ruta).name
+    filas = [f for n, f in registro.items() if fnmatch.fnmatchcase(n, nombre.replace("AAAA", "*"))]
+    filas += [registro[n] for n, archs in por_fila.items() if n in registro and any(fnmatch.fnmatchcase(nombre, x) for x in archs)]
+    if not filas:
+        return None
+    errores = [f["estado"] for f in filas if f["estado"] != "ok"]
+    buenas = [f["descargado"][:10] if f["estado"] == "ok" else (f.get("ultima_ok") or "")[:10] for f in filas]
+    return {"fecha": max(f["descargado"][:10] for f in filas), "estado": errores[0] if errores else "ok",
+            "ultima_ok": min(buenas) if all(buenas) else None}
+
 
 def validar(cat, plantilla):
     """Lista de errores del catálogo. Vacía si está bien."""
@@ -107,6 +141,9 @@ def validar(cat, plantilla):
     js = JS()
     fichas = fichas_de(plantilla)
     todas = set(re.findall(r'<article class="ficha[^"]*" id="(f-[^"]+)"', plantilla))
+    registro, por_fila = leer_registro(), archivos_del_registro()
+    for n in sorted(set(por_fila) - set(registro)):
+        err.append(f"ARCHIVOS_DEL_REGISTRO de 01_descargar.py nombra la fila {n!r}, que no está en datos/crudo/_registro.csv")
     for k in ("fuentes", "conjuntos", "aristas"):
         if not isinstance(cat.get(k), list):
             return [f"el catálogo no tiene la lista '{k}'"]
@@ -140,6 +177,18 @@ def validar(cat, plantilla):
                 err.append(f"{i}: ningún archivo coincide con {ruta}")
         elif not (RAIZ / ruta).exists():
             err.append(f"{i}: no existe {ruta}")
+        # la fecha de cada archivo (plan técnico, fase 2): los que baja 01_descargar.py, de su fila del registro, y los armados a mano o una
+        # sola vez, de "armado", el día en que se armaron por última vez (al volver a armar uno, se cambia la fecha acá)
+        if ruta.startswith("datos/crudo/"):
+            if "armado" in c:
+                err.append(f"{i}: un archivo que se descarga no lleva 'armado': su fecha sale del registro de descargas")
+            elif descarga(ruta, registro, por_fila) is None:
+                err.append(f"{i}: ninguna fila de datos/crudo/_registro.csv nombra {pathlib.Path(ruta).name}: sumarlo en ARCHIVOS_DEL_REGISTRO de 01_descargar.py")
+        elif ruta:
+            try:
+                assert datetime.date.fromisoformat(c.get("armado", "")) <= datetime.date.today()
+            except (AssertionError, ValueError, TypeError):
+                err.append(f"{i}: falta 'armado', el día en que se armó {ruta} (AAAA-MM-DD, no posterior a hoy)")
         _, problema = ubicar_evidencia(c.get("evidencia"), lineas)
         if problema:
             err.append(f"{i}: {problema}")
@@ -254,11 +303,7 @@ def publicar(cat, plantilla, secciones, ubic):
         for fila in csv.DictReader(f):
             v = largo.setdefault(fila["variable"], {"unidad": fila["unidad"], "per": set()})
             v["per"].add(fila["periodo"])
-    registro = {}
-    reg = RAIZ / "datos" / "crudo" / "_registro.csv"
-    if reg.exists():
-        for fila in tabla_csv(reg):
-            registro[fila["archivo"]] = fila
+    registro, por_fila = leer_registro(), archivos_del_registro()
     nodos, aristas = [], []
     for f in cat["fuentes"]:
         nodos.append({"id": f["id"], "tipo": "fuente", "nombre": f["nombre"], "sigla": f.get("sigla", ""), "depende": f.get("depende", ""),
@@ -270,12 +315,12 @@ def publicar(cat, plantilla, secciones, ubic):
     for c in cat["conjuntos"]:
         if c["id"] not in usados:
             continue
-        r = registro.get(pathlib.Path(c["ruta"]).name)
+        r = descarga(c["ruta"], registro, por_fila) if c["ruta"].startswith("datos/crudo/") else None
         ubic_ev, _ = ubicar_evidencia(c["evidencia"], lineas)
         nodos.append({"id": c["id"], "tipo": "conjunto", "nombre": c["nombre"], "fuente": c["fuente"], "ruta": c["ruta"], "url": c.get("url", ""),
                       "origen": "Se descarga en la actualización mensual" if c["ruta"].startswith("datos/crudo/") else
                       "Se armó a mano o una sola vez con un programa del sitio",
-                      "descarga": {"fecha": r["descargado"][:10], "estado": r["estado"]} if r else None,
+                      "descarga": r, "armado": c.get("armado"),
                       "evidencia": {"archivo": c["evidencia"]["archivo"], "linea": ubic_ev[0], "texto": ubic_ev[1]} if ubic_ev else None})
         aristas.append({"de": c["fuente"], "a": c["id"], "tipo": "publica", "evidencia": []})
     for i in alcance:

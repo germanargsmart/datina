@@ -5,9 +5,14 @@
  "seccion": "Cuentas públicas",
  "ficha": "https://datina.com.ar/gobierno.html#f-fiscal",
  "fuente": "Ministerio de Economía, Dirección Nacional de Asuntos Provinciales, esquema ahorro inversión financiamiento.",
+ "organismos": [
+  "DNAP (Dirección Nacional de Asuntos Provinciales)"
+ ],
  "actualizacion": "Se actualiza cada año.",
  "cobertura": "Las 24 jurisdicciones",
  "periodo": "2024 a 2025",
+ "anio_desde": 2024,
+ "anio_hasta": 2025,
  "filas": 24,
  "columnas": [
   {
@@ -43,8 +48,19 @@
  ],
  "unidades": [],
  "como_se_calcula": "",
- "datos_actualizados": "05/11/2026",
+ "origen": [
+  {
+   "archivo": "datos/crudo/aif_provincias.xlsx",
+   "nombre": "Cuentas fiscales de cada provincia (esquema ahorro-inversión-financiamiento), anual desde 2005",
+   "organismo": "DNAP",
+   "descargado": "2026-11-05",
+   "ultimo_intento": "2026-11-05",
+   "estado": "ok",
+   "url": "https://www.argentina.gob.ar/sites/default/files/serie_aif-apnf-2025.xlsx"
+  }
+ ],
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿Qué parte de sus ingresos recauda cada provincia por su cuenta? Con datos de Ministerio de Economía, Dirección Nacional de Asuntos Provinciales, esquema ahorro inversión financiamiento. https://datina.com.ar/gobierno.html#f-fiscal. Consultado el día de la consulta."
+ "como_citar": "Datina (año de la consulta). ¿Qué parte de sus ingresos recauda cada provincia por su cuenta? Con datos de Ministerio de Economía, Dirección Nacional de Asuntos Provinciales, esquema ahorro inversión financiamiento. https://datina.com.ar/gobierno.html#f-fiscal. Consultado el día de la consulta.",
+ "datos_actualizados": "05/11/2026"
 }

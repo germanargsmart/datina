@@ -5,9 +5,14 @@
  "seccion": "Turismo",
  "ficha": "https://datina.com.ar/turismo.html#f-receptivo",
  "fuente": "Secretaría de Turismo y Ambiente, SINTA, estimación de turismo internacional.",
+ "organismos": [
+  "SINTA (Sistema de Información Turística de la Argentina)"
+ ],
  "actualizacion": "Se actualiza cada mes.",
  "cobertura": "Sin desglose territorial",
  "periodo": "2010 a 2025",
+ "anio_desde": 2010,
+ "anio_hasta": 2025,
  "filas": 16,
  "columnas": [
   {
@@ -23,8 +28,18 @@
  ],
  "unidades": [],
  "como_se_calcula": "",
- "datos_actualizados": "05/11/2026",
+ "origen": [
+  {
+   "archivo": "datos/crudo/sinta_turistas_no_residentes.csv",
+   "nombre": "Turistas no residentes que llegan al país, mensual desde 2010",
+   "organismo": "SINTA",
+   "descargado": null,
+   "ultimo_intento": "2026-11-05",
+   "estado": "error: HTTP Error 403: Forbidden"
+  }
+ ],
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿Cuántos turistas del exterior llegan al país? Con datos de Secretaría de Turismo y Ambiente, SINTA, estimación de turismo internacional. https://datina.com.ar/turismo.html#f-receptivo. Consultado el día de la consulta."
+ "como_citar": "Datina (año de la consulta). ¿Cuántos turistas del exterior llegan al país? Con datos de Secretaría de Turismo y Ambiente, SINTA, estimación de turismo internacional. https://datina.com.ar/turismo.html#f-receptivo. Consultado el día de la consulta.",
+ "datos_actualizados": "05/11/2026"
 }
