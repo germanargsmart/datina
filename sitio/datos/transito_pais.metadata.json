@@ -1,0 +1,46 @@
+{
+ "tabla": "transito_pais.csv",
+ "titulo": "¿Dónde mueren más personas en el tránsito?",
+ "descripcion": "Muertes en siniestros viales por año cada 100.000 habitantes por provincia, promedio de 2023 a 2025, y muertes en el país por año desde 2000",
+ "seccion": "Salud",
+ "ficha": "https://datina.com.ar/salud.html#f-transito",
+ "fuente": "Ministerio de Seguridad, Sistema Nacional de Información Criminal (SNIC), e INDEC, proyecciones de población 2022 a 2040, base Censo 2022.",
+ "organismos": [
+  "SNIC (Sistema Nacional de Información Criminal)"
+ ],
+ "actualizacion": "Se actualiza cada año.",
+ "cobertura": "Sin desglose territorial",
+ "periodo": "2000 a 2025",
+ "anio_desde": 2000,
+ "anio_hasta": 2025,
+ "filas": 26,
+ "columnas": [
+  {
+   "nombre": "anio",
+   "tipo": "Año",
+   "valores": "2000 a 2025"
+  },
+  {
+   "nombre": "muertes",
+   "tipo": "Número",
+   "valores": "2.983 a 4.803"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "origen": [
+  {
+   "archivo": "datos/crudo/snic_pais.csv",
+   "nombre": "Estadísticas criminales del país por año",
+   "organismo": "SNIC",
+   "descargado": "2026-11-05",
+   "ultimo_intento": "2026-11-05",
+   "estado": "ok",
+   "url": "https://cloud-snic.minseg.gob.ar/Bases/SNIC/snic-pais.csv"
+  }
+ ],
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
+ "como_citar": "Datina (año de la consulta). ¿Dónde mueren más personas en el tránsito? Con datos de Ministerio de Seguridad, Sistema Nacional de Información Criminal (SNIC), e INDEC, proyecciones de población 2022 a 2040, base Censo 2022. https://datina.com.ar/salud.html#f-transito. Consultado el día de la consulta.",
+ "datos_actualizados": "05/11/2026"
+}

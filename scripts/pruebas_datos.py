@@ -639,6 +639,7 @@ ANIO_DATO = {  # tabla -> dónde dice el resumen el año del dato (None: sin añ
     "empleo_provincias": ("empleo", "mes"), "empresas_provincias": ("empresas", "anio"), "extranjeros_provincias": ("nuevos", "xt_corte"),
     "empleo_construccion_provincias": ("construccion", "emp_trim"), "pensiones_invalidez_provincias": ("pensiones_invalidez", "prov_anio"),
     "auh_provincias": ("auh", "anio"), "prestacion_desempleo_provincias": ("desempleo", "prov_anio"),
+    "transito_provincias": ("transito", "anio_pob"),  # muertes en siniestros viales: promedio de tres años, con la población del año del medio
     "justicia_federal_provincias": ("justicia", "federal", "anio"), "fiscalias_defensorias_federales": ("justicia", "mp", "anio"),
     "justicia_provincias": ("justicia", "prov", "anio"), "areas_protegidas_provincias": ("naturaleza", "anio"),
     "turistas_extranjeros_provincias": ("turismo", "eti_anio"), "patentamientos_provincias": ("autos", "anio"),

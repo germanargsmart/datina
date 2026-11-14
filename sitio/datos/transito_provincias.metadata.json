@@ -1,0 +1,81 @@
+{
+ "tabla": "transito_provincias.csv",
+ "titulo": "¿Dónde mueren más personas en el tránsito?",
+ "descripcion": "Muertes en siniestros viales por año cada 100.000 habitantes por provincia, promedio de 2023 a 2025, y muertes en el país por año desde 2000",
+ "seccion": "Salud",
+ "ficha": "https://datina.com.ar/salud.html#f-transito",
+ "fuente": "Ministerio de Seguridad, Sistema Nacional de Información Criminal (SNIC), e INDEC, proyecciones de población 2022 a 2040, base Censo 2022.",
+ "organismos": [
+  "INDEC (Instituto Nacional de Estadística y Censos)",
+  "SNIC (Sistema Nacional de Información Criminal)"
+ ],
+ "actualizacion": "Se actualiza cada año.",
+ "cobertura": "Las 24 jurisdicciones y el total del país",
+ "periodo": "",
+ "anio_desde": 2000,
+ "anio_hasta": 2025,
+ "filas": 25,
+ "columnas": [
+  {
+   "nombre": "codigo_indec",
+   "tipo": "Código",
+   "valores": "25 códigos"
+  },
+  {
+   "nombre": "territorio",
+   "tipo": "Texto",
+   "valores": "25 valores distintos"
+  },
+  {
+   "nombre": "muertes_2023",
+   "tipo": "Número",
+   "valores": "6 a 3.956"
+  },
+  {
+   "nombre": "muertes_2024",
+   "tipo": "Número",
+   "valores": "6 a 3.555"
+  },
+  {
+   "nombre": "muertes_2025",
+   "tipo": "Número",
+   "valores": "10 a 3.583"
+  },
+  {
+   "nombre": "muertes_por_anio",
+   "tipo": "Número",
+   "valores": "7,33 a 3.698"
+  },
+  {
+   "nombre": "cada_100000",
+   "tipo": "Número",
+   "valores": "3,28 a 16,61"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "origen": [
+  {
+   "archivo": "datos/crudo/snic_provincias.csv",
+   "nombre": "Estadísticas criminales por provincia y año",
+   "organismo": "SNIC",
+   "descargado": "2026-11-05",
+   "ultimo_intento": "2026-11-05",
+   "estado": "ok",
+   "url": "https://cloud-snic.minseg.gob.ar/Bases/SNIC/snic-provincias.csv"
+  },
+  {
+   "archivo": "datos/crudo/indec_proyecciones_provincias.csv",
+   "nombre": "Proyecciones de población por provincia, sexo y edad, 2022 a 2040",
+   "organismo": "INDEC",
+   "descargado": "2026-11-05",
+   "ultimo_intento": "2026-11-05",
+   "estado": "ok",
+   "url": "https://censo.gob.ar/wp-content/uploads/2025/10/proyecciones_jurisdicciones_2022_2040_base.csv"
+  }
+ ],
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
+ "como_citar": "Datina (año de la consulta). ¿Dónde mueren más personas en el tránsito? Con datos de Ministerio de Seguridad, Sistema Nacional de Información Criminal (SNIC), e INDEC, proyecciones de población 2022 a 2040, base Censo 2022. https://datina.com.ar/salud.html#f-transito. Consultado el día de la consulta.",
+ "datos_actualizados": "05/11/2026"
+}

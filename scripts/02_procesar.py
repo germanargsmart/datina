@@ -607,6 +607,42 @@ causas_muerte_res = {
                 "min": CORTO[_cm24[f"tasa_{k}"].idxmin()], "min_v": r1(_cm24[f"tasa_{k}"].min())} for k, lab, _ in GRUPOS_CM],
 }
 
+# muertes en el tránsito (fuentes nuevas aprobadas por el autor el 14 de noviembre de 2026): las víctimas fatales de siniestros viales del
+# SNIC (Ministerio de Seguridad), por provincia donde ocurrió el hecho. No se usan las defunciones de la DEIS: en CABA y en Buenos Aires
+# la mayoría de las muertes por causas externas quedan como de intención no determinada o accidente sin especificar (Y10 a Y34 y X59), sin
+# decir si fue en el tránsito, y en las demás provincias no, así que las provincias no se pueden comparar con esa fuente (en CABA darían
+# 0,6 muertes cada 100.000 habitantes). Por provincia, el promedio de los tres últimos años, cada 100.000 habitantes con la población del año
+# del medio, para que una provincia chica no salte de un año a otro. Del país, la serie desde 2000. Prefijo trn_
+_trn = snic_prov[snic_prov.codigo_delito_snic_nombre == "Muertes en accidentes viales"].copy()
+_trn["codigo_indec"] = _trn.provincia_id.astype(str).str.zfill(2)
+TRN_ULT = int(_trn.anio.max())
+TRN_ANIOS = [TRN_ULT - 2, TRN_ULT - 1, TRN_ULT]
+_trn_u = _trn[_trn.anio.isin(TRN_ANIOS)].pivot_table(index="codigo_indec", columns="anio", values="cantidad_victimas", aggfunc="sum")
+assert set(_trn_u.index) == set(PROV24) and _trn_u.notna().all().all(), "faltan provincias o años en las muertes viales del SNIC"
+_trn_pob = pob_anio(TRN_ANIOS[1], "transito_provincias")
+transito_provincias = pd.DataFrame({"codigo_indec": PROV24, "territorio": [CORTO[c] for c in PROV24],
+                                    **{f"muertes_{a}": [int(_trn_u.at[c, a]) for c in PROV24] for a in TRN_ANIOS}})
+transito_provincias["muertes_por_anio"] = transito_provincias[[f"muertes_{a}" for a in TRN_ANIOS]].mean(axis=1)
+transito_provincias["cada_100000"] = transito_provincias.muertes_por_anio / transito_provincias.codigo_indec.map(_trn_pob) * 1e5
+_trn_pais = transito_provincias.muertes_por_anio.sum() / sum(_trn_pob[c] for c in PROV24) * 1e5
+transito_provincias = pd.concat([transito_provincias, pd.DataFrame([{"codigo_indec": "00", "territorio": "Total del país",
+    **{f"muertes_{a}": int(_trn_u[a].sum()) for a in TRN_ANIOS}, "muertes_por_anio": _trn_u.sum().mean(), "cada_100000": _trn_pais}])],
+    ignore_index=True).round(4)
+# el país por año, del archivo nacional del SNIC (de 2009 a 2013 completa lo que falta de Buenos Aires y Córdoba)
+transito_pais = muertes[["anio", "siniestros_viales"]].dropna().rename(columns={"siniestros_viales": "muertes"}).astype({"anio": int, "muertes": int})
+assert int(transito_pais.anio.max()) == TRN_ULT and transito_pais[transito_pais.anio.isin(TRN_ANIOS)].muertes.sum() == int(_trn_u.sum().sum()), \
+    "las muertes viales del país no coinciden con la suma de las provincias"
+_trn_24 = transito_provincias[transito_provincias.codigo_indec != "00"].set_index("codigo_indec")
+_trn_tp = transito_pais.set_index("anio").muertes
+TRN_RES = {"desde": TRN_ANIOS[0], "hasta": TRN_ULT, "anio_pob": TRN_ANIOS[1], "por_anio": int(round(_trn_u.sum().mean())), "pais": r1(_trn_pais),
+           # las que empatan con la más alta al redondear van todas, de la más alta a la más baja
+           "max": [CORTO[c] for c, v in _trn_24.cada_100000.sort_values(ascending=False).items() if r1(v) == r1(_trn_24.cada_100000.max())],
+           "max_v": r1(_trn_24.cada_100000.max()),
+           "min": CORTO[_trn_24.cada_100000.idxmin()], "min_v": r1(_trn_24.cada_100000.min()),
+           "veces": r1(_trn_24.cada_100000.max() / _trn_24.cada_100000.min()), "ult": TRN_ULT, "ult_v": int(_trn_tp[TRN_ULT]),
+           "serie_desde": int(_trn_tp.index.min()), "serie_max": int(_trn_tp.idxmax()), "serie_max_v": int(_trn_tp.max()),
+           "serie_min": int(_trn_tp.idxmin()), "serie_min_v": int(_trn_tp.min())}
+
 # ---------------------------------------------------------------- SUBE
 # Tarjetas distintas que registraron al menos un viaje cada dia (Ministerio de Transporte).
 sube = pd.read_csv(CRUDO / "sube_usuarios_dia.csv", parse_dates=["indice_tiempo"])
@@ -8266,6 +8302,8 @@ tablas = {
     "envejecimiento_provincias": envejec,
     "mortalidad_infantil_causas": mi_causas,
     "causas_muerte_provincias": causas_muerte,
+    "transito_provincias": transito_provincias,
+    "transito_pais": transito_pais,
     "madres_adolescentes_nse": nse_ado,
     "envejecimiento_pais": envejec_pais,
     "piramide_poblacion": piramide,
@@ -8696,6 +8734,7 @@ resumen["poblacion_proy"] = pob_proy_res
 resumen["chicos_escuela"] = esc_res
 resumen["precio_consumo"] = PCO_RES
 resumen["causas_muerte"] = causas_muerte_res
+resumen["transito"] = TRN_RES
 resumen["externo"] = SE_RES
 resumen["empresas"] = emp_res
 resumen["rotacion"] = rot_res
