@@ -366,7 +366,7 @@ def programas(sec):
 def gancho(sec):
     """Etapa 31: donde estaba "Para entender los datos" queda una línea que lleva hasta el bloque, al final de la página."""
     return ('<p class="exp-gancho"><a href="#para-entender">Para entender los datos</a>: qué se mide, de dónde sale y qué tener en cuenta, '
-            'al final de la página ↓</p>') if EXP.get(sec) else ""
+            'al final de la página</p>') if EXP.get(sec) else ""
 
 
 # el bloque entero se guarda en una marca y navegacion() lo pone al final de la página, antes de "Seguí explorando"
@@ -952,7 +952,9 @@ TITULO_DE.update({"provincia": "Tu provincia", "nosotros": "Sobre nosotros", "us
 # piezas del Laboratorio: las cuenta la tarjeta que lleva a él en "Seguí explorando"
 LAB_PIEZAS = len(re.findall(r'<article class="lab-pieza', base))
 assert LAB_PIEZAS, "no se encontraron las piezas del Laboratorio en la plantilla"
-FLECHA_ANT, FLECHA_SIG = '<span aria-hidden="true">\u2190</span> ', ' <span aria-hidden="true">\u2192</span>'
+# sin flechas desde el 14 de noviembre de 2026 (decisión del autor, con capturas: regla "sin flechas decorativas"). Quedan los nombres para
+# no tocar las llamadas
+FLECHA_ANT, FLECHA_SIG = "", ""
 TIT_NOTA = {i: html.unescape(t) for i, _, _, t in NOTAS}
 TITULO_DE.update({i: html.unescape(t) for i, _, t, _ in PIEZAS})
 
