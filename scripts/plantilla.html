@@ -597,6 +597,16 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <div class="pie"><span>Fuente: INDEC, canasta básica alimentaria y canasta básica total, e informe de pobreza e indigencia</span><a href="datos/canasta_mensual.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
+    <!-- el salario mínimo frente a la canasta básica de un hogar de cuatro integrantes (14 de noviembre de 2026, fuentes nuevas aprobadas por el autor) -->
+    <article class="ficha" id="f-salario-minimo">
+      <h2>¿Qué parte de la canasta básica de una familia paga el salario mínimo?</h2>
+      <p class="ficha-sub">Salario mínimo, vital y móvil como porcentaje de la canasta básica total y de la alimentaria de un hogar de cuatro integrantes del Gran Buenos Aires, mes a mes, {{economia.salario_minimo.anio_ini}} a {{economia.salario_minimo.anio}}</p>
+      <div class="grafico" data-g="salario-minimo" data-forma="lineas"></div>
+      <p class="lead" data-t="salario-minimo"></p>
+      <p class="nota" data-t="salario-minimo-nota"></p>
+      <div class="pie"><span>Fuentes: Consejo Nacional del Empleo, la Productividad y el Salario Mínimo, Vital y Móvil (serie de la Subsecretaría de Programación Macroeconómica, API de Series de Tiempo), e INDEC, canasta básica alimentaria y canasta básica total</span><a href="datos/salario_minimo_canasta.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
     <!-- la canasta de crianza del INDEC, de su API (3 de noviembre de 2026) -->
     <article class="ficha" id="f-crianza">
       <h2>¿Cuánto cuesta por mes criar a un chico?</h2>

@@ -192,7 +192,7 @@ FRECUENCIA = {
     "f-balanza": "mes", "f-exporta-rubros": "mes", "f-complejos": "semestre", "f-destinos": "semestre", "f-exporta-provincias": "anio",
     "f-importaciones": "mes", "f-origen": "mes", "f-cuenta-corriente": "trimestre", "f-reservas-bcra": "mes", 
     # Economía y precios
-    "f-inflacion": "mes", "f-inflacion-rubros": "mes", "f-mayoristas": "mes", "f-socios-que": "anio", "f-valor-kilo": "anio", "f-canastas": "mes", "f-crianza": "mes", "f-salario-real": "mes", "f-emae": "mes", "f-sectores-empleo": "trimestre", "f-industria": "mes", "f-socios": "mes", "f-socios-hist": "anio", "f-supermercados": "mes", "f-bcra": "mes", "f-expectativas": "mes", "f-confianza-consumidor": "mes",
+    "f-inflacion": "mes", "f-inflacion-rubros": "mes", "f-mayoristas": "mes", "f-socios-que": "anio", "f-valor-kilo": "anio", "f-canastas": "mes", "f-salario-minimo": "mes", "f-crianza": "mes", "f-salario-real": "mes", "f-emae": "mes", "f-sectores-empleo": "trimestre", "f-industria": "mes", "f-socios": "mes", "f-socios-hist": "anio", "f-supermercados": "mes", "f-bcra": "mes", "f-expectativas": "mes", "f-confianza-consumidor": "mes",
     # Empresas y oportunidades
     "f-empresas": "anio", "f-empresas-tamano": "anio", "f-dinamica-empresas": "anio", "f-sociedades": "anio",
     # Pobreza y hogares
@@ -682,7 +682,7 @@ DIFERIDAS = ["antartida_instalaciones", "antartida_bases", "antartida_paises", "
              "dolar_inversion_trimestral", "compras_dolares_anual", "salarios_serie", "salario_docente_serie", "canasta_crianza", "mayoristas_mensual", "comercio_rubro_pais", "comercio_valor_kilo", "produccion_mensual", "comercio_socios_historia", "inversion_educativa_serie",
              "seguridad_serie_prov", "turismo_dolar_mensual", "nafta_dolares_mensual", "nafta_dolares_anual", "nombres_serie",
              "exportaciones_dolar_trimestral", "exportaciones_cantidades_anual",
-             "inflacion_mensual", "canasta_mensual", "salario_real_mensual", "actividad_mensual",
+             "inflacion_mensual", "canasta_mensual", "salario_minimo_canasta", "salario_real_mensual", "actividad_mensual",
              "nacidos_otro_pais_paises", "radicaciones_nacionalidad", "argentinos_exterior_destinos",
              "migraciones_departamentos", "soja_departamentos", "supermercados_mensual", "corte_jueces", "corte_composicion", "corte_presidentes", "bcra_variables",
              # D2 del plan de mejora (28 de octubre de 2026): las tablas más pesadas que solo usa el dibujo de su ficha

@@ -1,0 +1,76 @@
+{
+ "tabla": "salario_minimo_canasta.csv",
+ "titulo": "¿Qué parte de la canasta básica de una familia paga el salario mínimo?",
+ "descripcion": "Salario mínimo, vital y móvil como porcentaje de la canasta básica total y de la alimentaria de un hogar de cuatro integrantes del Gran Buenos Aires, mes a mes, 2016 a 2026",
+ "seccion": "Precios y actividad",
+ "ficha": "https://datina.com.ar/economia.html#f-salario-minimo",
+ "fuente": "Consejo Nacional del Empleo, la Productividad y el Salario Mínimo, Vital y Móvil (serie de la Subsecretaría de Programación Macroeconómica, API de Series de Tiempo), e INDEC, canasta básica alimentaria y canasta básica total.",
+ "organismos": [
+  "Consejo del Salario (Consejo Nacional del Empleo, la Productividad y el Salario Mínimo, Vital y Móvil)",
+  "INDEC (Instituto Nacional de Estadística y Censos)"
+ ],
+ "actualizacion": "Se actualiza cada mes.",
+ "cobertura": "Sin desglose territorial",
+ "periodo": "abril de 2016 a septiembre de 2026",
+ "anio_desde": 2016,
+ "anio_hasta": 2026,
+ "filas": 126,
+ "columnas": [
+  {
+   "nombre": "periodo",
+   "tipo": "Fecha",
+   "valores": "abril de 2016 a septiembre de 2026"
+  },
+  {
+   "nombre": "salario_minimo",
+   "tipo": "Número",
+   "valores": "6.060 a 383.800"
+  },
+  {
+   "nombre": "cba_hogar",
+   "tipo": "Número",
+   "valores": "4.679,91 a 738.689,9"
+  },
+  {
+   "nombre": "cbt_hogar",
+   "tipo": "Número",
+   "valores": "11.320,71 a 1.632.504,69"
+  },
+  {
+   "nombre": "pct_canasta_total",
+   "tipo": "Número",
+   "valores": "23,46 a 60,49"
+  },
+  {
+   "nombre": "pct_canasta_alimentaria",
+   "tipo": "Número",
+   "valores": "51,84 a 145,79"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "origen": [
+  {
+   "archivo": "datos/crudo/smvm.csv",
+   "nombre": "Salario mínimo, vital y móvil mensual (serie de la API de Series de Tiempo)",
+   "organismo": "Consejo del Salario",
+   "descargado": "2026-11-14",
+   "ultimo_intento": "2026-11-14",
+   "estado": "ok",
+   "url": "https://apis.datos.gob.ar/series/api/series/?format=csv&ids=57.1_SMVMM_0_M_34"
+  },
+  {
+   "archivo": "datos/crudo/indec_canastas.xls",
+   "nombre": "Canastas básicas alimentaria y total del Gran Buenos Aires (serie mensual)",
+   "organismo": "INDEC",
+   "descargado": "2026-11-05",
+   "ultimo_intento": "2026-11-05",
+   "estado": "ok",
+   "url": "https://www.indec.gob.ar/ftp/cuadros/sociedad/serie_cba_cbt.xls"
+  }
+ ],
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
+ "como_citar": "Datina (año de la consulta). ¿Qué parte de la canasta básica de una familia paga el salario mínimo? Con datos de Consejo Nacional del Empleo, la Productividad y el Salario Mínimo, Vital y Móvil (serie de la Subsecretaría de Programación Macroeconómica, API de Series de Tiempo), e INDEC, canasta básica alimentaria y canasta básica total. https://datina.com.ar/economia.html#f-salario-minimo. Consultado el día de la consulta.",
+ "datos_actualizados": "05/11/2026"
+}

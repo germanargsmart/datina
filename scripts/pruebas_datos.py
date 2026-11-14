@@ -40,6 +40,7 @@ ACEPTADAS = {
     "faltan|antartida_temperatura_orcadas|00": "READER no tiene diez meses con dato de Orcadas en esos años: la ficha corta la línea y lo aclara en la nota",
     "bancas|Diputados|2013": "el 1 de marzo de 2014 había tres bancas vacantes: los reemplazos (entre ellos el de Jorge Obeid, que murió en enero) juraron el 3 de abril",
     "rango|tasa_neta_escolarizacion_secundaria|42": "desde el cambio de denominador la matrícula de La Pampa supera a la proyección de población: la ficha lo explica y el valor no entra en el texto de máximo",
+    "rango|salario_minimo_canasta.pct_canasta_alimentaria|": "real: es el salario mínimo como parte de la canasta alimentaria de un hogar de cuatro integrantes, y en muchos meses hasta 2021 alcanzaba para más que esa canasta (más de 100%)",
     "rango|bm_secundaria|00": "es una tasa bruta de finalización del ciclo básico: por definición puede pasar de 100",
     "rango|inflacion_esperada_12m_mediana|00": "real: es la inflación que se espera para un año y puede pasar de 100% (la mediana de las respuestas fue 150% a fines de 2023, según la Di Tella)",
     "rango|resultado_primario_sector_publico_nacional_pct_pbi|00": "real: un déficit es un resultado negativo (Secretaría de Hacienda)",
