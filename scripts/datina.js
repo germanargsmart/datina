@@ -273,6 +273,7 @@ const CB = R.combustibles;  // precios de los combustibles en el surtidor (etapa
 // salarios, salario docente, inversión en educación y seguridad (etapa 23)
 const SA = R.salarios, DC = R.docentes, IE = R.inversion_edu, SG = R.seguridad;
 // Economía y precios (etapa 25): la inflación, las canastas, los salarios y la actividad, todo del INDEC
+const ESM = R.economia.salario_minimo;
 const EIP = R.economia.ipc, ECB = R.economia.canasta, ESR = R.economia.salarios, EMA = R.economia.actividad, ESU = R.economia.super;
 // qué le vende y qué le compra la Argentina a cada país, y cuánto vale el kilo (4 de noviembre de 2026)
 const SQ = R.externo.socios_rubro, VK = R.externo.valor_kilo;
@@ -1943,6 +1944,18 @@ const TX = {
     `En "Tu inflación", los pesos de partida son los de cada región en el índice (la Encuesta Nacional de Gastos de los Hogares 2004/05, la que usa el INDEC), ` +
     `cambiados por lo que subió cada rubro hasta el comienzo de los doce meses: con ellos la cuenta da la inflación oficial de la región, con menos de tres ` +
     `décimas de diferencia. Es una aproximación: el INDEC calcula cada rubro con más detalle. Lo que se escribe en la calculadora no se guarda ni se envía.`,
+  // el salario mínimo frente a la canasta (14 de noviembre de 2026): la cifra destacada dice la parte de la canasta total del último mes
+  "salario-minimo": `En ${ESM.mes}, el salario mínimo, vital y móvil era de ${n0(ESM.smvm)} pesos por mes y la canasta básica total del hogar de ` +
+    `referencia del INDEC, de ${n0(ESM.cbt_hogar)} pesos. Con un solo salario mínimo ese hogar pagaba ${pct(ESM.pct_cba)} de su canasta alimentaria` +
+    (ESM.pct_anio_ant != null ? `, y un año antes pagaba ${pct(ESM.pct_anio_ant)} de la total` : "") + `. Desde ${ESM.desde}, el primer mes de la ` +
+    `serie, el punto más alto fue ${ESM.max[0]}, con ${pct(ESM.max[1])} de la canasta total, y el más bajo, ${ESM.min[0]}, con ${pct(ESM.min[1])}.` +
+    (ESM.fijado_hasta ? ` El Consejo del Salario ya fijó los aumentos hasta ${ESM.fijado_hasta}, cuando llegará a ${n0(ESM.fijado_valor)} pesos.` : ""),
+  "salario-minimo-nota": `El salario mínimo, vital y móvil es el piso legal del sueldo mensual de un trabajador registrado de jornada completa. Lo fija ` +
+    `el Consejo Nacional del Empleo, la Productividad y el Salario Mínimo, Vital y Móvil, que reúne a las cámaras empresarias, los sindicatos y el ` +
+    `Gobierno, y si no hay acuerdo lo decide el Gobierno. La canasta es la del hogar de referencia del INDEC para la línea de pobreza: un varón de 35 ` +
+    `años, una mujer de 31, un hijo de 6 y una hija de 8, en el Gran Buenos Aires. Qué no dice este dato: cuántos hogares son pobres. Un hogar puede ` +
+    `tener más de un ingreso, y el salario mínimo es el piso, no el sueldo habitual. Muestra cuánto alcanza un solo salario mínimo frente a lo que ` +
+    `necesita esa familia. Los dos están en pesos de cada mes, así que el porcentaje ya descuenta la suba de los precios.`,
   canastas: LEAD.canastas("region"), "canastas-nota": `Canasta básica alimentaria: los alimentos que cubren las necesidades de energía y de proteínas de un varón ` +
     `adulto de actividad moderada, el adulto equivalente. La canasta básica total suma los demás bienes y servicios, como la ropa, el transporte, la educación y la ` +
     `salud. Las dos se valorizan con los precios del índice de precios al consumidor. Un hogar es pobre si sus ingresos no alcanzan para su canasta básica total, e ` +
@@ -4317,6 +4330,13 @@ Object.assign(DIB, {
       paisLab: "Nivel general", l: g === "division" ? 236 : 150, lAngosto: 150, corto: d => d.corto,
       tip: d => `<b>${d.territorio}</b><br>${pct(d.ia)} en los doce meses hasta ${EIP.mes}<br>${pct(d.m)} en el mes`});
   },
+  // el salario mínimo frente a la canasta básica total y la alimentaria de un hogar de cuatro integrantes, mes a mes (14 de noviembre de 2026).
+  // La línea del 100% es la canasta entera
+  "salario-minimo": conTablas("salario-minimo", ["salario_minimo_canasta"], a => lineas(G("salario-minimo"), {anim: a, mensual: true,
+    data: T.salario_minimo_canasta.map(r => ({...r, t: tPer(r.periodo)})), x: "t", y0: 0, vf: pct, yf: v => n0(v) + "%", xl: r => mesPer(r.periodo),
+    ref: 100, refLab: "100%: la canasta entera", refLabCorto: "100%",
+    series: [{k: "pct_canasta_alimentaria", lab: "Canasta alimentaria", corto: "Alimentaria", c: FRI},
+      {k: "pct_canasta_total", lab: "Canasta total", corto: "Total", c: NAR, w: 3}]})),
   // canastas básicas (etapa 25): las seis regiones en el último mes del informe semestral, o la del Gran Buenos Aires frente a los precios
   canastas: conTablas("canastas", () => MED.canastas === "precios" ? ["canasta_mensual"] : [], a => {
     const v = MED.canastas, el = G("canastas"), regs = REG_IPC[prov] || [];
@@ -7799,6 +7819,8 @@ const CLAVE = {
   "f-mayoristas": [pct(EMY.ia_ipim), `subieron los precios mayoristas en los doce meses hasta ${EMY.mes}, según el INDEC`, `en los doce meses hasta ${EMY.mes}`],
   "f-inflacion-rubros": [pct(EIP.div_max[1]), `subieron los precios de ${inicialMin(EIP.div_max[0])} en los doce meses hasta ${EIP.mes}, el rubro que más aumentó`,
     `${inicialMin(EIP.div_max[0])}, el rubro que más subió`],
+  "f-salario-minimo": [pct(ESM.pct), `de la canasta básica total de un hogar de cuatro integrantes del Gran Buenos Aires pagaba el salario mínimo en ${ESM.mes}`,
+    `de la canasta básica total de un hogar de cuatro integrantes pagaba el salario mínimo en ${ESM.mes}`],
   "f-canastas": [`${n0(ECB.cbt_hogar)} pesos`, `por mes necesitaba en ${ECB.mes} un hogar de cuatro integrantes del Gran Buenos Aires para no quedar bajo la línea de pobreza`,
     `por mes, la canasta básica total de un hogar de cuatro integrantes del Gran Buenos Aires en ${ECB.mes}`],
   "f-industria": [pct(Math.abs(IND.ia)), `${IND.ia < 0 ? "cayó" : "creció"} la producción de la industria en ${IND.mes} frente a ${IND.mes_ant}, según el INDEC`,
@@ -12474,6 +12496,7 @@ const SERIE_CIFRA = {
   // economía y precios (etapa 25): los últimos diez meses de cada cifra
   "f-inflacion": () => serieM("Inflación en doce meses, mes a mes", EIP.mini_ia.map(([p, v]) => [mesCorto(p), v]), pct),
   "x-inflacion-mes": () => serieM("Inflación de cada mes", EIP.mini_m.map(([p, v]) => [mesCorto(p), v]), pct),
+  "f-salario-minimo": () => serieM("Salario mínimo, % de la canasta básica total de un hogar de cuatro integrantes del Gran Buenos Aires", ESM.mini.map(([p, v]) => [mesCorto(p), v]), pct),
   "f-canastas": () => serieM("Canasta básica total de un hogar de cuatro integrantes del Gran Buenos Aires, pesos", ECB.mini.map(([p, v]) => [mesCorto(p), v]), n0),
   "f-salario-real": () => serieM("Salario registrado privado descontada la inflación, cambio en doce meses", ESR.mini.map(([p, v]) => [mesCorto(p), v]), pct),
   "f-emae": () => serieM("Actividad económica, cambio frente al mismo mes del año anterior", EMA.mini.map(([p, v]) => [mesCorto(p), v]), pct),

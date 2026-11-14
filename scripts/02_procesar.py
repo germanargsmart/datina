@@ -6090,6 +6090,43 @@ CNT_RES = {
     "mini": [[p, float(v)] for p, v in cnt_.set_index("periodo").cbt_hogar.iloc[-10:].items()],
 }
 
+# El salario mínimo, vital y móvil frente a la canasta básica total de un hogar de cuatro integrantes, el hogar 2 del INDEC de arriba
+# (f-salario-minimo, 14 de noviembre de 2026, fuentes nuevas aprobadas por el autor). El salario mínimo es el que fija el Consejo del Salario
+# para cada mes (la serie trae también los aumentos ya fijados para los meses que vienen) y la canasta, la del Gran Buenos Aires: es la
+# referencia del INDEC para la línea de pobreza. Se comparan solo los meses que tienen las dos. Prefijo de este bloque: _smv
+_smv = pd.read_csv(CRUDO / "smvm.csv", parse_dates=["indice_tiempo"])
+assert list(_smv.columns) == ["indice_tiempo", "salario_minimo_vital_movil_mensual"], "cambió la serie del salario mínimo"
+_smv["periodo"] = _smv.indice_tiempo.dt.strftime("%Y-%m")
+_smv = _smv.dropna(subset=["salario_minimo_vital_movil_mensual"]).rename(columns={"salario_minimo_vital_movil_mensual": "salario_minimo"})
+assert _smv.periodo.is_unique and _smv.salario_minimo.gt(0).all(), "el salario mínimo tiene meses repetidos o en cero"
+smv_canasta = _smv[["periodo", "salario_minimo"]].merge(cnt_[["periodo", "cba_hogar", "cbt_hogar"]], on="periodo", how="inner", validate="1:1")
+smv_canasta["pct_canasta_total"] = smv_canasta.salario_minimo / smv_canasta.cbt_hogar * 100
+smv_canasta["pct_canasta_alimentaria"] = smv_canasta.salario_minimo / smv_canasta.cba_hogar * 100
+# si la serie del salario mínimo se atrasa, la ficha dice su último mes con las dos y el aviso de dato atrasado lo marca: no frena el armado
+assert len(smv_canasta) >= 100, "el salario mínimo y la canasta tienen pocos meses en común"
+smv_canasta = smv_canasta.round(4)
+_smv_u, _smv_0 = smv_canasta.iloc[-1], smv_canasta.iloc[0]
+_smv_mx, _smv_mn = smv_canasta.loc[smv_canasta.pct_canasta_total.idxmax()], smv_canasta.loc[smv_canasta.pct_canasta_total.idxmin()]
+_smv_fij = _smv[_smv.periodo > _smv_u.periodo]
+_smv_a = smv_canasta[smv_canasta.periodo == f"{int(_smv_u.periodo[:4]) - 1}{_smv_u.periodo[4:]}"]
+SMV_RES = {
+    "mes": _mes_per(_smv_u.periodo), "anio": int(_smv_u.periodo[:4]), "desde": _mes_per(_smv_0.periodo), "anio_ini": int(_smv_0.periodo[:4]),
+    "smvm": float(_smv_u.salario_minimo), "cbt_hogar": float(_smv_u.cbt_hogar), "pct": float(_smv_u.pct_canasta_total),
+    "pct_cba": float(_smv_u.pct_canasta_alimentaria), "pct_ini": float(_smv_0.pct_canasta_total),
+    "pct_anio_ant": float(_smv_a.pct_canasta_total.iloc[0]) if len(_smv_a) else None,
+    "max": [_mes_per(_smv_mx.periodo), float(_smv_mx.pct_canasta_total)], "min": [_mes_per(_smv_mn.periodo), float(_smv_mn.pct_canasta_total)],
+    # los aumentos ya fijados: el último mes de la serie y su valor (la canasta de esos meses todavía no se conoce)
+    "fijado_hasta": _mes_per(_smv_fij.periodo.iloc[-1]) if len(_smv_fij) else None,
+    "fijado_valor": float(_smv_fij.salario_minimo.iloc[-1]) if len(_smv_fij) else None,
+    "mini": [[p, float(v)] for p, v in smv_canasta.set_index("periodo").pct_canasta_total.iloc[-10:].items()],
+}
+for _smv_c, _smv_v, _smv_un in [("salario_minimo", "salario_minimo_vital_movil", "pesos corrientes por mes"),
+                                 ("pct_canasta_total", "salario_minimo_pct_canasta_total_hogar", "%")]:
+    _smv_d = smv_canasta[["periodo", _smv_c]].rename(columns={_smv_c: "valor"})
+    _smv_d["codigo_indec"], _smv_d["territorio"] = "00", "Argentina"
+    agregar(_smv_d, _smv_v, _smv_un, "Consejo Nacional del Empleo, la Productividad y el Salario Mínimo, Vital y Móvil, e INDEC" if _smv_c != "salario_minimo"
+            else "Consejo Nacional del Empleo, la Productividad y el Salario Mínimo, Vital y Móvil")
+
 # Tabla de equivalencias del INDEC (etapa 5 del plan de mejora, octubre de 2026): las unidades de adulto equivalente de cada edad y sexo,
 # de la misma planilla de las canastas, para la calculadora del artículo de la canasta por región. Se controla con los tres hogares de
 # ejemplo que publica el INDEC en esa hoja.
@@ -6506,7 +6543,7 @@ IPI_RES = {
     "ind_base": r1(produccion_mensual.industria.iloc[-1] - 100), "min_base": r1(produccion_mensual.mineria.iloc[-1] - 100),
     "ult_mes": _mes_per(_ipi_c[-1]),
 }
-ECO_RES = {"mayoristas": MAY_RES, "sectores_empleo": SEC_EMP_RES, "ipc": IPC_RES, "canasta": CNT_RES, "salarios": SRL_RES, "actividad": EMA_RES, "super": SUP_RES, "crianza": CCR_RES, "industria": IPI_RES}
+ECO_RES = {"mayoristas": MAY_RES, "sectores_empleo": SEC_EMP_RES, "ipc": IPC_RES, "canasta": CNT_RES, "salario_minimo": SMV_RES, "salarios": SRL_RES, "actividad": EMA_RES, "super": SUP_RES, "crianza": CCR_RES, "industria": IPI_RES}
 
 # ---------------------------------------------------------------- socios comerciales (3 de noviembre de 2026)
 # Pedido del autor del 3 de noviembre de 2026: el comercio de bienes con cada país, de la API del INDEC (scripts/indec_api.py), que lo
@@ -8222,6 +8259,7 @@ tablas = {
     "inflacion_regiones": inflacion_regiones,
     "inflacion_rubros": inflacion_rubros,
     "canasta_mensual": canasta_mensual,
+    "salario_minimo_canasta": smv_canasta,
     "canasta_regiones": canasta_regiones,
     "adulto_equivalente": adulto_equivalente,
     "salario_real_mensual": salario_real_mensual,

@@ -583,6 +583,17 @@
    ]
   },
   {
+   "id": "org:consejo-salario",
+   "nombre": "Consejo Nacional del Empleo, la Productividad y el Salario Mínimo, Vital y Móvil",
+   "sigla": "Consejo del Salario",
+   "depende": "Ministerio de Capital Humano (Secretaría de Trabajo, Empleo y Seguridad Social)",
+   "url": "https://www.argentina.gob.ar/trabajo/consejodelsalario",
+   "alias": [
+    "Consejo del Salario",
+    "Consejo Nacional del Empleo, la Productividad y el Salario Mínimo, Vital y Móvil"
+   ]
+  },
+  {
    "id": "org:sspmi",
    "nombre": "Subsecretaría de Programación Microeconómica",
    "sigla": "SSPMI",
@@ -1455,6 +1466,17 @@
     "contiene": "\"imig_mensual.csv\": \"https://infra.datos.gob.ar"
    },
    "url": "https://infra.datos.gob.ar/catalog/sspm/dataset/452/distribution/452.3/download/imig-mensual.csv"
+  },
+  {
+   "id": "ds:smvm.csv",
+   "nombre": "Salario mínimo, vital y móvil mensual (serie de la API de Series de Tiempo)",
+   "fuente": "org:consejo-salario",
+   "ruta": "datos/crudo/smvm.csv",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "\"smvm.csv\": API + \"57.1_SMVMM_0_M_34\""
+   },
+   "url": "https://apis.datos.gob.ar/series/api/series/?format=csv&ids=57.1_SMVMM_0_M_34"
   },
   {
    "id": "ds:indec_canastas.xls",
@@ -3150,6 +3172,38 @@
     }
    ],
    "tabla": "canasta_regiones"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:smvm.csv",
+   "a": "f-salario-minimo",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_smv = pd.read_csv(CRUDO / \"smvm.csv\", parse_dates=[\"indice_tiempo\"])"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"salario_minimo_canasta\": smv_canasta,"
+    }
+   ],
+   "tabla": "salario_minimo_canasta"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:indec_canastas.xls",
+   "a": "f-salario-minimo",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "smv_canasta = _smv[[\"periodo\", \"salario_minimo\"]].merge(cnt_[[\"periodo\", \"cba_hogar\", \"cbt_hogar\"]]"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"salario_minimo_canasta\": smv_canasta,"
+    }
+   ],
+   "tabla": "salario_minimo_canasta"
   },
   {
    "tipo": "alimenta",
@@ -9032,6 +9086,12 @@
   "f-escuelas-primarias": {
    "variables": [
     "escuelas_primarias_cada_1000_chicos_5_14"
+   ]
+  },
+  "f-salario-minimo": {
+   "variables": [
+    "salario_minimo_pct_canasta_total_hogar",
+    "salario_minimo_vital_movil"
    ]
   }
  }

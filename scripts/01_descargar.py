@@ -408,6 +408,9 @@ FUENTES.update({
     "se_regalias_crudo.zip": SE_REG + "Regalias_CRUDO.zip",
     # Exportaciones de combustibles y energía e importaciones de combustibles y lubricantes, millones de dólares (INDEC, ICA)
     "indec_ica_energia.csv": API + "74.3_IECE_0_M_35,74.3_IICL_0_M_42",
+    # Salario mínimo, vital y móvil mensual en pesos corrientes (Consejo del Salario, publicado por la Subsecretaría de Programación
+    # Macroeconómica), con los aumentos ya fijados por resolución: f-salario-minimo (14 de noviembre de 2026, fuentes nuevas aprobadas por el autor)
+    "smvm.csv": API + "57.1_SMVMM_0_M_34",
     # Indicador Sintético de la Actividad de la Construcción (INDEC): nivel general y despachos de insumos, base 2004 = 100
     "isac.csv": ISAC + "33.2/download/indicador-sintetico-actividad-construccion-valores-mensuales-base-2004.csv",
     "isac_insumos.csv": ISAC + "33.3/download/indicador-sintetico-actividad-construccion-insumos-serie-original.csv",
@@ -600,6 +603,7 @@ VALIDA.update({
     "enacom_telefonia_fija_pais.csv": lambda b: b.startswith(b"anio,trimestre,accesos_100_hab,accesos_100_hog"),
     "exportaciones_provincias.xls": lambda b: b[:4] == bytes.fromhex("d0cf11e0"),
     "renaper_extranjeros.csv": lambda b: b.startswith(b"pais_nacimiento"),
+    "smvm.csv": lambda b: b.startswith(b"indice_tiempo,salario_minimo_vital_movil_mensual"),
 })
 VALIDA["bm_paises.json"] = lambda b: b'"capitalCity"' in b
 # Los dos CSV del SNIC tienen que traer las columnas que tenían hasta octubre de 2026, que son las que lee 02 (puede haber más). La

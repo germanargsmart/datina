@@ -3425,6 +3425,30 @@
    "ficha": "https://datina.com.ar/educacion.html#f-salario-docente"
   },
   {
+   "variable": "salario_minimo_pct_canasta_total_hogar",
+   "unidad": "%",
+   "fuente": "Consejo Nacional del Empleo, la Productividad y el Salario Mínimo, Vital y Móvil, e INDEC",
+   "desde": "2016-04",
+   "hasta": "2026-09",
+   "filas": 126,
+   "jurisdicciones": [
+    "00"
+   ],
+   "ficha": "https://datina.com.ar/economia.html#f-salario-minimo"
+  },
+  {
+   "variable": "salario_minimo_vital_movil",
+   "unidad": "pesos corrientes por mes",
+   "fuente": "Consejo Nacional del Empleo, la Productividad y el Salario Mínimo, Vital y Móvil",
+   "desde": "2016-04",
+   "hasta": "2026-09",
+   "filas": 126,
+   "jurisdicciones": [
+    "00"
+   ],
+   "ficha": "https://datina.com.ar/economia.html#f-salario-minimo"
+  },
+  {
    "variable": "saldo_comercial_usd",
    "unidad": "millones de dólares",
    "fuente": "INDEC, Intercambio Comercial Argentino",
