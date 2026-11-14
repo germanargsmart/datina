@@ -116,6 +116,8 @@
   Cache-Control: public, max-age=31536000, immutable
 /datos/inflacion_mensual.json
   Cache-Control: public, max-age=31536000, immutable
+/datos/inflacion_detalle.json
+  Cache-Control: public, max-age=31536000, immutable
 /datos/canasta_mensual.json
   Cache-Control: public, max-age=31536000, immutable
 /datos/salario_minimo_canasta.json

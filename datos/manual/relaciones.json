@@ -1577,6 +1577,17 @@
    "url": "https://www.indec.gob.ar/ftp/cuadros/economia/serie_ipc_divisiones.csv"
   },
   {
+   "id": "ds:indec_ipc_aperturas.csv",
+   "nombre": "Índice de precios al consumidor por región, grupo y clase (aperturas)",
+   "fuente": "org:indec",
+   "ruta": "datos/crudo/indec_ipc_aperturas.csv",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "\"indec_ipc_aperturas.csv\": \"https://www.indec.gob.ar"
+   },
+   "url": "https://www.indec.gob.ar/ftp/cuadros/economia/serie_ipc_aperturas.csv"
+  },
+  {
    "id": "ds:indec_permisos.csv",
    "nombre": "Permisos de edificación: superficie autorizada por mes en la nómina de municipios",
    "fuente": "org:indec",
@@ -3163,6 +3174,22 @@
     }
    ],
    "tabla": "inflacion_rubros"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:indec_ipc_aperturas.csv",
+   "a": "f-inflacion-rubros",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_ipa_r = _ipa[(_ipa.periodo == _ipa_u) & (_ipa.Codigo != \"0\")]"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"inflacion_detalle\": inflacion_detalle,"
+    }
+   ],
+   "tabla": "inflacion_detalle"
   },
   {
    "tipo": "alimenta",

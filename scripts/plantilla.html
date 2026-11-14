@@ -563,15 +563,17 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     <article class="ficha" id="f-inflacion-rubros">
       <h2>¿Qué rubros subieron más en los últimos doce meses?</h2>
       <p class="ficha-sub">Inflación por rubro en los doce meses hasta {{economia.ipc.mes}}</p>
-      <div class="conmutador" role="group" aria-label="Vista" data-g="inflacion-rubros" style="--n:3">
+      <div class="conmutador" role="group" aria-label="Vista" data-g="inflacion-rubros" style="--n:4">
         <button type="button" data-m="division" aria-pressed="true">Rubros</button>
         <button type="button" data-m="categoria" aria-pressed="false">Categorías</button>
+        <button type="button" data-m="detalle" aria-pressed="false">Detalle</button>
         <button type="button" data-m="tu" aria-pressed="false">Tu inflación</button>
       </div>
+      <label class="selector-ficha" id="ipd-elige" hidden><span>Región</span><select id="ipd-sel"><option value="gba">Gran Buenos Aires</option><option value="pampeana">Pampeana</option><option value="noreste">Noreste</option><option value="noroeste">Noroeste</option><option value="cuyo">Cuyo</option><option value="patagonia">Patagonia</option></select></label>
       <div class="grafico" data-g="inflacion-rubros" data-forma="barras" style="--filas:12"></div>
       <p class="lead" data-t="inflacion-rubros"></p>
       <p class="nota" data-t="inflacion-rubros-nota"></p>
-      <div class="pie"><span>Fuente: INDEC, Índice de precios al consumidor</span><a href="datos/inflacion_rubros.csv" download>Descargar tabla (CSV)</a></div>
+      <div class="pie"><span>Fuente: INDEC, Índice de precios al consumidor</span><a href="datos/inflacion_rubros.csv" download>Rubros y categorías (CSV)</a><a href="datos/inflacion_detalle.csv" download>Detalle por región (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-mayoristas">

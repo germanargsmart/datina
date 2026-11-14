@@ -4379,7 +4379,10 @@ Object.assign(DIB, {
   "inflacion-rubros": a => {
     const g = MED["inflacion-rubros"];
     $t("inflacion-rubros").textContent = LEAD["inflacion-rubros"](g);
+    $("ipd-elige").hidden = g !== "detalle";
     if (g === "tu") return cargarTabla("inflacion_personal").then(() => calcInflacionPersonal(G("inflacion-rubros")),
+      () => sinDatos(G("inflacion-rubros"), "No se pudieron cargar los datos. Probá recargar la página."));
+    if (g === "detalle") return cargarTabla("inflacion_detalle").then(() => ipcDetalle(a),
       () => sinDatos(G("inflacion-rubros"), "No se pudieron cargar los datos. Probá recargar la página."));
     // los códigos van con una letra delante: un código de rubro no tiene que coincidir con el de la provincia elegida
     const data = T.inflacion_rubros.filter(r => r.grupo === g).map(r => ({codigo_indec: "i" + r.codigo, territorio: r.rubro, corto: r.corto, ia: r.interanual, m: r.mensual}));
@@ -6438,6 +6441,10 @@ $("dg-sel").innerHTML = [[DG.juntas, `De la ${DG.prov_desde} a la ${DG.temp}, ju
 $("ant-pais").addEventListener("change", ev => { MED["ant-pais"] = ev.target.value; cambiarVista("ant-mapa"); });
 $("ant-base").addEventListener("change", ev => { MED["ant-temperatura"] = ev.target.value; cambiarVista("ant-temperatura"); });
 $("dg-sel").addEventListener("change", ev => { MED["dengue-temp"] = ev.target.value; cambiarVista("dengue"); });
+// la región del IPC con más detalle: la de la provincia elegida, o el Gran Buenos Aires
+MED["ipc-reg"] = (REG_IPC[prov] || ["gba"])[0];
+$("ipd-sel").value = MED["ipc-reg"];
+$("ipd-sel").addEventListener("change", ev => { MED["ipc-reg"] = ev.target.value; cambiarVista("inflacion-rubros"); });
 const dgFilas = () => T.dengue_provincias.filter(r => r.temporada === MED["dengue-temp"]);
 DIB.dengue = conTablas("dengue", ["dengue_provincias"], a => {
   const v = MED.dengue, el = G("dengue");
@@ -12272,6 +12279,23 @@ function calcInflacion(el) {
 /* F10 (plan de mejora, 1 de noviembre de 2026): tu inflación personal. Para la región elegida, un campo por rubro con el porcentaje del gasto, que
    arranca con el peso efectivo del INDEC al empezar los doce meses (así da la inflación oficial). La inflación personal es el promedio de la variación
    de cada rubro, pesado por lo que escribe la persona. Lo que se escribe no se guarda ni se envía */
+// IPC con más detalle (fuentes nuevas aprobadas por el autor el 14 de noviembre de 2026): los grupos y las clases de una región en los doce
+// meses hasta el último mes. El INDEC no publica este nivel para el país entero, por eso se elige la región
+function ipcDetalle(a) {
+  const el = G("inflacion-rubros"), r = MED["ipc-reg"], ED = EIP.detalle, n = $("ipd-sel").selectedOptions[0].textContent, gen = ED.general[r];
+  // dos aperturas el INDEC las publica solo en el Gran Buenos Aires
+  const data = T.inflacion_detalle.filter(d => d["interanual_" + r] != null).map(d => ({codigo_indec: "d" + d.codigo, territorio: d.rubro, corto: d.rubro, ia: d["interanual_" + r], m: d["mensual_" + r],
+    desc: d.descripcion_indec}));
+  const ord = [...data].sort((x, y) => y.ia - x.ia), max = ord[0], min = ord[ord.length - 1];
+  $t("inflacion-rubros").textContent = `En ${REG_ART[n] || n}, en los doce meses hasta ${ED.mes}, el aumento más grande fue el de ${inicialMin(max.territorio)}, ` +
+    `${pct(max.ia)}, según el INDEC. ` + (min.ia < 0 ? `En cambio, ${inicialMin(min.territorio)} costaba ${pct(-min.ia)} menos que un año antes. ` :
+    `El más chico, el de ${inicialMin(min.territorio)}, ${pct(min.ia)}. `) + `El nivel general de la región, ${pct(gen)}. El INDEC publica este detalle ` +
+    `por región y no para el país entero.`;
+  refrescarTabla("f-inflacion-rubros");
+  barrasH(el, {anim: a, data, k: "ia", vf: pct, af: v => n0(v) + "%", ref: gen, refLab: `Nivel general ${pct(gen)}`, paisLab: "Nivel general",
+    l: 190, lAngosto: 150, corto: d => d.corto,
+    tip: d => `<b>${d.territorio}</b><br>${d.desc}<br>${pct(d.ia)} en los doce meses hasta ${ED.mes}<br>${pct(d.m)} en el mes`});
+}
 function calcInflacionPersonal(el) {
   const filas = T.inflacion_personal, REGS = [["gba", "Gran Buenos Aires"], ["pampeana", "Pampeana"], ["noreste", "Noreste"], ["noroeste", "Noroeste"],
     ["cuyo", "Cuyo"], ["patagonia", "Patagonia"]];

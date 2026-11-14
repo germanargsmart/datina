@@ -6027,6 +6027,49 @@ _ipr_ytd = (_ipr_i.at[_ipr_u, "nacional"] / _ipr_i.at[_ipr_dic, "nacional"] - 1)
 _ipr_mx = _ipr_a.nacional.dropna()
 _ipr_rg = inflacion_regiones[inflacion_regiones.codigo != "nacional"].sort_values("interanual")
 _ipr_cat = inflacion_rubros.set_index("codigo")
+# IPC con más detalle (fuentes nuevas aprobadas por el autor el 14 de noviembre de 2026): los grupos y las clases que publica el INDEC por
+# región (serie_ipc_aperturas.csv), en el último mes. El INDEC no publica este nivel para el país entero. Se muestra el nivel más fino de
+# cada rama: si hay clase (carnes, verduras), no se repite su grupo (alimentos), así nada se cuenta dos veces en el mismo gráfico. Educación no
+# tiene grupos: va la división entera
+_ipa_b = (CRUDO / "indec_ipc_aperturas.csv").read_bytes()
+try:
+    _ipa_t = _ipa_b.decode("utf-8-sig")
+except UnicodeDecodeError:
+    _ipa_t = _ipa_b.decode("cp1252")
+_ipa = pd.read_csv(io.StringIO(_ipa_t), sep=";", decimal=",", na_values="NA", dtype={"Codigo": str, "Periodo": str})
+assert set(_ipa.Region) == set(ECO_REG) - {"Nacional"}, "cambiaron las regiones de las aperturas del IPC del INDEC"
+_ipa["periodo"] = _ipa.Periodo.str[:4] + "-" + _ipa.Periodo.str[4:6]
+_ipa["reg"] = _ipa.Region.map(ECO_REG)
+# el mismo mes que el resto de la ficha (el archivo de divisiones), que puede bajarse otro día y traer un mes menos. Si las aperturas
+# quedan atrás, el texto dice su propio mes
+_ipa_u = min(_ipa.periodo.max(), _ipr_u)
+_ipa_r = _ipa[(_ipa.periodo == _ipa_u) & (_ipa.Codigo != "0")]
+_ipa_cod = sorted(set(_ipa_r.Codigo))
+_ipa_hojas = [c for c in _ipa_cod if not any(o != c and o.startswith(c + ".") for o in _ipa_cod)]
+# nombres que entran en una línea del gráfico: el del INDEC queda en descripcion_indec
+IPA_NOM = {"01.1.1": "Pan y cereales", "01.1.2": "Carnes", "01.1.4": "Leche, lácteos y huevos", "01.1.5": "Aceites y grasas", "01.1.6": "Frutas",
+           "01.1.7": "Verduras y legumbres", "01.1.8": "Azúcar y golosinas", "01.2.1": "Café, té, yerba y cacao",
+           "01.2.2": "Aguas, gaseosas y jugos", "02.1": "Bebidas alcohólicas", "02.2": "Tabaco", "03.1": "Ropa", "03.2": "Calzado",
+           "04.1.1": "Alquiler de la vivienda", "04.3": "Arreglos de la vivienda", "04.5": "Luz, gas y combustibles",
+           "05.6": "Cuidado del hogar", "06.1": "Medicamentos", "06.4.1": "Prepagas", "07.1": "Compra de vehículos",
+           "07.2.2": "Combustible del auto", "07.3": "Transporte público", "08.3": "Teléfono e internet", "09.1": "Electrónica",
+           "09.4": "Recreación y cultura", "09.5": "Libros y papelería", "10": "Educación", "11.1": "Comer afuera", "12.1": "Cuidado personal"}
+assert set(_ipa_hojas) == set(IPA_NOM), f"cambiaron las aperturas del IPC del INDEC: {sorted(set(_ipa_hojas) ^ set(IPA_NOM))}"
+_ipa_ia = _ipa_r.pivot(index="Codigo", columns="reg", values="v_i_a_IPC")
+_ipa_m = _ipa_r.pivot(index="Codigo", columns="reg", values="v_m_IPC")
+# el INDEC publica dos aperturas solo en el Gran Buenos Aires (arreglos de la vivienda y electrónica): en las demás regiones quedan vacías
+assert _ipa_ia.loc[_ipa_hojas, "gba"].notna().all() and _ipa_ia.loc[_ipa_hojas].notna().sum().min() >= len(_ipa_hojas) - 2, \
+    "falta la variación en doce meses de alguna apertura del IPC"
+_ipa_desc = _ipa_r.drop_duplicates("Codigo").set_index("Codigo").Descripcion_aperturas
+inflacion_detalle = pd.DataFrame([{"codigo": c, "division": c[:2], "rubro": IPA_NOM[c],
+                                   "descripcion_indec": (lambda t: t[:1].upper() + t[1:])(" ".join(str(_ipa_desc[c]).split())),
+                                   **{f"interanual_{r}": _ipa_ia.at[c, r] for r in ECO_REGIONES},
+                                   **{f"mensual_{r}": _ipa_m.at[c, r] for r in ECO_REGIONES}} for c in _ipa_hojas])
+_ipa_g = _ipa[(_ipa.periodo == _ipa_u) & (_ipa.Codigo == "0")].set_index("reg")
+# el nivel general de cada región tiene que ser el mismo del archivo de divisiones
+for _ipa_rg in ECO_REGIONES:
+    assert abs(_ipa_g.at[_ipa_rg, "v_i_a_IPC"] - _ipr_a.at[_ipa_u, _ipa_rg]) < .05, f"el nivel general de {_ipa_rg} no coincide entre los dos archivos del IPC"
+IPA_RES = {"periodo": _ipa_u, "mes": _mes_per(_ipa_u), "n": len(_ipa_hojas), "general": {r: float(_ipa_g.at[r, "v_i_a_IPC"]) for r in ECO_REGIONES}}
 IPC_RES = {
     "periodo": _ipr_u, "mes": _mes_per(_ipr_u), "anio": int(_ipr_u[:4]), "mes_ant": _mes_per(_ipr_ant),
     "mensual": float(_ipr_m.at[_ipr_u, "nacional"]), "interanual": float(_ipr_a.at[_ipr_u, "nacional"]), "en_el_anio": r1(_ipr_ytd),
@@ -6562,6 +6605,7 @@ IPI_RES = {
     "ind_base": r1(produccion_mensual.industria.iloc[-1] - 100), "min_base": r1(produccion_mensual.mineria.iloc[-1] - 100),
     "ult_mes": _mes_per(_ipi_c[-1]),
 }
+IPC_RES["detalle"] = IPA_RES
 ECO_RES = {"mayoristas": MAY_RES, "sectores_empleo": SEC_EMP_RES, "ipc": IPC_RES, "canasta": CNT_RES, "salario_minimo": SMV_RES, "salarios": SRL_RES, "actividad": EMA_RES, "super": SUP_RES, "crianza": CCR_RES, "industria": IPI_RES}
 
 # ---------------------------------------------------------------- socios comerciales (3 de noviembre de 2026)
@@ -8320,6 +8364,7 @@ tablas = {
     "inflacion_anual": inflacion_anual,
     "inflacion_regiones": inflacion_regiones,
     "inflacion_rubros": inflacion_rubros,
+    "inflacion_detalle": inflacion_detalle,
     "canasta_mensual": canasta_mensual,
     "salario_minimo_canasta": smv_canasta,
     "canasta_regiones": canasta_regiones,
