@@ -957,6 +957,7 @@ Lo que cada grupo de la reescritura no cambió porque necesita corregir un dato,
    - Motivo: Las exportaciones por habitante miden lo que vende la provincia, no el bienestar de quien vive ahí (el explicador ahora lo dice). Cambiar el indicador es decisión del autor.
    - Propuesta: Consultar al autor si van el salario registrado o la tasa de empleo.
    - **Estado al 11 de noviembre de 2026: espera una decisión del autor.** El grupo "Trabajo y producción" sigue con exportaciones.
+   - **Estado al 14 de noviembre de 2026: resuelta.** Decisión del autor: el salario registrado reemplaza a las exportaciones, y el grupo pasa a llamarse "Trabajo y salarios".
 
 16. **indice.html** (`scripts/datina.js`)
    - Fragmento: «<small>${d.ind.map(([k]) => M[k].nombre).join(", ")}</small>»

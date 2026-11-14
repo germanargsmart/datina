@@ -4455,12 +4455,12 @@
    },
    {
     "titulo": "La escala de cero a diez",
-    "texto": "Cada indicador se pasa a una escala de cero a diez: la provincia con el peor valor recibe cero, la del mejor recibe diez y el resto queda en proporción. Así se pueden promediar indicadores con unidades distintas. Las exportaciones por habitante y la velocidad de internet se miden en escala logarítmica, para que unas pocas provincias con valores muy altos no aplasten al resto. Si a una jurisdicción le falta un indicador, su dimensión se calcula con los demás.",
+    "texto": "Cada indicador se pasa a una escala de cero a diez: la provincia con el peor valor recibe cero, la del mejor recibe diez y el resto queda en proporción. Así se pueden promediar indicadores con unidades distintas. La velocidad de internet se mide en escala logarítmica, para que unas pocas provincias con valores muy altos no aplasten al resto. Si a una jurisdicción le falta un indicador, su dimensión se calcula con los demás.",
     "fuentes": []
    },
    {
     "titulo": "Lo que el índice no dice",
-    "texto": "La escala compara a las jurisdicciones entre sí. Un diez es el mejor valor entre las 24, no un nivel ideal. Si todas mejoran o empeoran juntas, el índice no lo muestra. Cada indicador es de su último año disponible, y no todos coinciden. Los indicadores de cada dimensión los eligió Datina y no son los únicos posibles: por ejemplo, las exportaciones por habitante miden lo que vende la provincia, no el ingreso de quienes viven en ella. Por eso conviene mirar también las fichas de cada tema, que muestran los valores y su evolución.",
+    "texto": "La escala compara a las jurisdicciones entre sí. Un diez es el mejor valor entre las 24, no un nivel ideal. Si todas mejoran o empeoran juntas, el índice no lo muestra. Cada indicador es de su último año disponible, y no todos coinciden. Los indicadores de cada dimensión los eligió Datina y no son los únicos posibles: por ejemplo, el salario registrado no cuenta a quienes trabajan sin registro ni por su cuenta, y no descuenta las diferencias de precios entre provincias. Por eso conviene mirar también las fichas de cada tema, que muestran los valores y su evolución.",
     "fuentes": []
    }
   ],

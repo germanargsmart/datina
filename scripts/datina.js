@@ -7483,11 +7483,11 @@ const MAPA_DEP = (() => {
 /* ---------- tu índice: pesos elegidos por cada persona, al estilo del Índice para una Vida Mejor de la OCDE ---------- */
 const IX = (() => {
   const F = T.cruces_provincias, M = Object.fromEntries(R.cruces.map(m => [m.id, m]));
-  const LOG = new Set(["exportaciones", "velocidad", "turistas_eti", "densidad"]);
+  const LOG = new Set(["velocidad", "turistas_eti", "densidad"]);
   const DIMS = [
     {id: "salud", nombre: "Salud", c: "#C8102E", ind: [["esperanza_vida", 1], ["mortalidad_infantil", -1], ["sin_cobertura", -1]]},
     {id: "educacion", nombre: "Educación", c: "#2C74B5", ind: [["escolarizacion", 1], ["aprender_mat", 1], ["aprender_len", 1]]},
-    {id: "trabajo", nombre: "Trabajo y producción", c: "#B27A00", ind: [["empleo_privado", 1], ["exportaciones", 1]]},
+    {id: "trabajo", nombre: "Trabajo y salarios", c: "#B27A00", ind: [["empleo_privado", 1], ["salario", 1]]},  // el salario reemplazó a las exportaciones el 14 de noviembre de 2026 (decisión del autor)
     {id: "vivienda", nombre: "Vivienda y servicios", c: "#7A4FA0", ind: [["agua_red", 1], ["cloaca", 1], ["nbi", -1]]},
     {id: "conectividad", nombre: "Conectividad", c: "#74ACDF", ind: [["internet", 1], ["computadora", 1], ["velocidad", 1]]},
     {id: "seguridad", nombre: "Seguridad", c: "#18212B", ind: [["homicidios", -1], ["robos", -1], ["viales", -1]]},
@@ -7528,7 +7528,7 @@ const IX = (() => {
   document.getElementById("ix-leyenda").innerHTML = DIMS.map(d => `<span><i style="background:${d.c}"></i>${d.nombre}</span>`).join("");
   // los años de los indicadores salen de su período en Cruces (antes "entre 2022 y 2026" escrito a mano)
   const IX_ANIOS = DIMS.flatMap(d => d.ind.flatMap(([k]) => (String(M[k]?.periodo || "").match(/\d{4}/g) || []).map(Number)));
-  document.getElementById("ix-nota").textContent = "Cada indicador se lleva a una escala de 0 a 10: 0 es el peor valor entre las 24 jurisdicciones y 10, el mejor. Las exportaciones y la velocidad de internet se pasan antes a escala logarítmica, para que un valor extremo no aplaste al resto. Cada dimensión es el promedio de sus indicadores, y el índice, el promedio de las dimensiones con los pesos elegidos. Si a una jurisdicción le falta un indicador, su dimensión se calcula con los demás. Los indicadores son de años distintos, entre " + Math.min(...IX_ANIOS) + " y " + Math.max(...IX_ANIOS) + ". No es un índice oficial: muestra cómo cambia el orden según lo que cada uno valora. Los pesos elegidos quedan en el enlace, para compartirlo.";
+  document.getElementById("ix-nota").textContent = "Cada indicador se lleva a una escala de 0 a 10: 0 es el peor valor entre las 24 jurisdicciones y 10, el mejor. La velocidad de internet se pasa antes a escala logarítmica, para que un valor extremo no aplaste al resto. Cada dimensión es el promedio de sus indicadores, y el índice, el promedio de las dimensiones con los pesos elegidos. Si a una jurisdicción le falta un indicador, su dimensión se calcula con los demás. Los indicadores son de años distintos, entre " + Math.min(...IX_ANIOS) + " y " + Math.max(...IX_ANIOS) + ". No es un índice oficial: muestra cómo cambia el orden según lo que cada uno valora. Los pesos elegidos quedan en el enlace, para compartirlo.";
 
   let yPrev = {};
   function dibujar(anim) {
