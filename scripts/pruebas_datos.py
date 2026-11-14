@@ -742,7 +742,9 @@ def comparar_mismo_dato(par, t, cache):
     if "columna_periodo" in par:
         per = d[par["columna_periodo"]].str.replace(r"\.0$", "", regex=True)
     else:
-        per = pd.Series([g.periodo.max() if par["periodo"] == "ultimo" else par["periodo"]] * len(d))
+        # "ultimo" ordena por fecha los trimestres y semestres escritos "2T2026" o "1S2026" (como texto, "4T2025" quedaría después)
+        per = pd.Series([max(g.periodo.astype(str), key=lambda p: re.sub(r"^(\d)([TS])(\d{4})$", r"\3-\2\1", p)) if par["periodo"] == "ultimo"
+                         else par["periodo"]] * len(d))
     ref = g.set_index(["codigo_indec", "periodo"]).valor
     sale, n = [], 0
     for c, p, x in zip(cod, per, num):

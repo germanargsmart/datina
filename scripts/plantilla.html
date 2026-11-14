@@ -898,6 +898,19 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <div class="pie"><span>Fuente: Ente Nacional de Comunicaciones (ENACOM)</span><a href="datos/telefonia_fija_provincias.csv" download>Por provincia (CSV)</a><a href="datos/telefonia_fija_pais.csv" download>Del país, por trimestre (CSV)</a></div>
     </article>
 
+    <article class="ficha" id="f-tv-paga">
+      <h2>¿Cuántos abonos de TV paga hay cada 100 hogares?</h2>
+      <p class="ficha-sub">Accesos de TV por suscripción cada 100 hogares, por provincia, {{tv_paga.trim}}, y en el país desde {{tv_paga.ini}}, con la TV satelital</p>
+      <div class="conmutador" role="group" aria-label="Vista" data-g="tv-paga">
+        <button type="button" data-m="prov" aria-pressed="true">Por provincia</button>
+        <button type="button" data-m="serie" aria-pressed="false">Evolución</button>
+      </div>
+      <div class="grafico" data-g="tv-paga" data-forma="barras"></div>
+      <p class="lead" data-t="tv-paga"></p>
+      <p class="nota" data-t="tv-paga-nota"></p>
+      <div class="pie"><span>Fuente: Ente Nacional de Comunicaciones (ENACOM)</span><a href="datos/tv_paga_provincias.csv" download>Por provincia (CSV)</a><a href="datos/tv_paga_pais.csv" download>Del país, por trimestre (CSV)</a></div>
+    </article>
+
     <article class="ficha" id="f-pensiones-invalidez">
       <h2>¿Cuántas personas cobran una pensión por invalidez?</h2>
       <p class="ficha-sub">Pensiones no contributivas por invalidez que paga ANSES, por provincia y en el país, {{pensiones_invalidez.ini}} a {{pensiones_invalidez.anio}}</p>

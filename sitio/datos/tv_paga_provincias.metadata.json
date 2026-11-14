@@ -1,0 +1,61 @@
+{
+ "tabla": "tv_paga_provincias.csv",
+ "titulo": "¿Cuántos abonos de TV paga hay cada 100 hogares?",
+ "descripcion": "Accesos de TV por suscripción cada 100 hogares, por provincia, 2.º trimestre de 2026, y en el país desde 2014, con la TV satelital",
+ "seccion": "Pobreza y hogares",
+ "ficha": "https://datina.com.ar/pobreza.html#f-tv-paga",
+ "fuente": "Ente Nacional de Comunicaciones (ENACOM).",
+ "organismos": [
+  "ENACOM (Ente Nacional de Comunicaciones)"
+ ],
+ "actualizacion": "Se actualiza cada tres meses.",
+ "cobertura": "Las 24 jurisdicciones",
+ "periodo": "",
+ "anio_desde": 2014,
+ "anio_hasta": 2026,
+ "filas": 24,
+ "columnas": [
+  {
+   "nombre": "codigo_indec",
+   "tipo": "Código",
+   "valores": "24 códigos"
+  },
+  {
+   "nombre": "territorio",
+   "tipo": "Texto",
+   "valores": "24 valores distintos"
+  },
+  {
+   "nombre": "accesos_100_hogares",
+   "tipo": "Número",
+   "valores": "15,69 a 80,81"
+  },
+  {
+   "nombre": "accesos_100_habitantes",
+   "tipo": "Número",
+   "valores": "4,71 a 29,34"
+  },
+  {
+   "nombre": "accesos_100_hogares_2014",
+   "tipo": "Número",
+   "valores": "22,38 a 90,25"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "origen": [
+  {
+   "archivo": "datos/crudo/enacom_tv_provincias.csv",
+   "nombre": "Accesos de TV por suscripción cada 100 hogares y cada 100 habitantes por provincia, por trimestre",
+   "organismo": "ENACOM",
+   "descargado": "2026-11-14",
+   "ultimo_intento": "2026-11-14",
+   "estado": "ok",
+   "url": "https://indicadores.enacom.gob.ar/Files/DatosAbiertos/tv_penetracion_provincias.csv"
+  }
+ ],
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
+ "como_citar": "Datina (año de la consulta). ¿Cuántos abonos de TV paga hay cada 100 hogares? Con datos de Ente Nacional de Comunicaciones (ENACOM). https://datina.com.ar/pobreza.html#f-tv-paga. Consultado el día de la consulta.",
+ "datos_actualizados": "05/11/2026"
+}

@@ -183,3 +183,5 @@ bm_NY.GDP.DEFL.ZS.json,https://api.worldbank.org/v2/country/ARG;AUS;AUT;BEL;CAN;
 smvm.csv,https://apis.datos.gob.ar/series/api/series/?format=csv&limit=5000&start_date=2004-01-01&ids=57.1_SMVMM_0_M_34,2026-11-14T02:49:12,ok,2026-11-14T02:49:12
 eph_informalidad.csv,https://www.indec.gob.ar/ftp/cuadros/menusuperior/eph/EPH_usu_2_Trim_2026_txt.zip,2026-11-14T03:21:09,ok,2026-11-14T03:21:09
 indec_ipc_aperturas.csv,https://www.indec.gob.ar/ftp/cuadros/economia/serie_ipc_aperturas.csv,2026-11-14T04:00:53,ok,2026-11-14T04:00:53
+enacom_tv_provincias.csv,https://indicadores.enacom.gob.ar/Files/DatosAbiertos/tv_penetracion_provincias.csv,2026-11-14T05:05:18,ok,2026-11-14T05:05:18
+enacom_tv_pais.csv,https://indicadores.enacom.gob.ar/Files/DatosAbiertos/tv_penetracion.csv,2026-11-14T05:06:50,ok,2026-11-14T05:06:50

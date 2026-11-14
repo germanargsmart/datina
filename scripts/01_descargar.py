@@ -501,6 +501,10 @@ FUENTES.update({
     # sección 10, aprobada por el autor el 28 de octubre de 2026)
     "enacom_telefonia_fija_provincias.csv": "https://indicadores.enacom.gob.ar/Files/DatosAbiertos/telefonia_fija_penetracion_provincias.csv",
     "enacom_telefonia_fija_pais.csv": "https://indicadores.enacom.gob.ar/Files/DatosAbiertos/telefonia_fija_penetracion.csv",
+    # ENACOM: TV paga (fuentes nuevas aprobadas por el autor el 14 de noviembre de 2026). Por provincia, solo la TV por suscripción (cable y
+    # fibra), cada 100 hogares y cada 100 habitantes. Del país, también la satelital, que el ENACOM no publica por provincia
+    "enacom_tv_provincias.csv": "https://indicadores.enacom.gob.ar/Files/DatosAbiertos/tv_penetracion_provincias.csv",
+    "enacom_tv_pais.csv": "https://indicadores.enacom.gob.ar/Files/DatosAbiertos/tv_penetracion.csv",
     # Exportaciones por provincia de origen y rubro, millones de dólares, 1993 al último año (INDEC, Origen Provincial de las Exportaciones)
     "exportaciones_provincias.xls": "https://www.indec.gob.ar/ftp/cuadros/economia/sh_opex_regiones_economicas_grubros_1993_2025.xls",
     # Personas nacidas en otro país identificadas por el RENAPER, por provincia de residencia
@@ -604,6 +608,8 @@ VALIDA.update({
     "enacom_internet_velocidad.csv": lambda b: b.startswith(b"anio,trimestre,provincia"),
     "enacom_telefonia_fija_provincias.csv": lambda b: b.startswith(b"anio,trimestre,provincia,accesos_100_hab,accesos_100_hog"),
     "enacom_telefonia_fija_pais.csv": lambda b: b.startswith(b"anio,trimestre,accesos_100_hab,accesos_100_hog"),
+    "enacom_tv_provincias.csv": lambda b: b.startswith(b"anio,trimestre,provincia,tv_suscripcion_100habitantes,tv_suscripcion_100hogares"),
+    "enacom_tv_pais.csv": lambda b: b.startswith(b"anio,trimestre,tv_suscripcion_100_habitantes,tv_satelital_100_habitantes"),
     "exportaciones_provincias.xls": lambda b: b[:4] == bytes.fromhex("d0cf11e0"),
     "renaper_extranjeros.csv": lambda b: b.startswith(b"pais_nacimiento"),
     "smvm.csv": lambda b: b.startswith(b"indice_tiempo,salario_minimo_vital_movil_mensual"),

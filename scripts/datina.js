@@ -343,7 +343,7 @@ const milDeuda = v => v >= 1e6 ? `${n2(v / 1e6)} millones` : v >= 1000 ? `${n0(v
 // régimen académico nuevo en el último ciclo (Buenos Aires desde 2024), que no se nombran entre las más bajas
 const ABN = R.abandono;
 // la telefonía fija del ENACOM (plan de mejora, sección 10, 31 de octubre de 2026)
-const TF = R.telefonia;
+const TF = R.telefonia, TVP = R.tv_paga;
 // la cobertura del suelo de MapBiomas (plan de mejora, sección 10, 31 de octubre de 2026)
 const MBS = R.cobertura_suelo;
 // los médicos por provincia del OFETHuS (plan de mejora, sección 10, 31 de octubre de 2026)
@@ -854,6 +854,13 @@ const LEAD = {
     : `En el ${TF.trim}, había ${n1(TF.pais)} accesos de telefonía fija cada 100 hogares en todo el país. La cifra más alta fue la de ${TF.top[0]}, ` +
       `con ${n1(TF.top[1])}, y le seguía ${TF.top2[0]}, con ${n1(TF.top2[1])}. La más baja, la de ${TF.bajo[0]}, con ${n1(TF.bajo[1])}. Desde el ` +
       `${TF.ini_trim}, bajó en ${TF.bajaron === 24 ? "las 24 jurisdicciones" : `${TF.bajaron} de las 24 jurisdicciones`}.`,
+  // la TV paga (fuentes nuevas aprobadas por el autor el 14 de noviembre de 2026): por provincia en el último trimestre, o la evolución del país
+  "tv-paga": v => v === "serie"
+    ? `En el ${TVP.ini_trim} había en el país ${n1(TVP.pais_ini)} accesos de TV por suscripción cada 100 hogares y ${n1(TVP.sat_ini)} de TV satelital. ` +
+      `En el ${TVP.trim}, ${n1(TVP.pais)} y ${n1(TVP.sat)}.`
+    : `La cifra más alta fue la de ${TVP.top[0]}, con ${n1(TVP.top[1])} accesos de TV por suscripción cada 100 hogares, y le seguía ${TVP.top2[0]}, ` +
+      `con ${n1(TVP.top2[1])}. La más baja, la de ${TVP.bajo[0]}, con ${n1(TVP.bajo[1])}. Desde el ${TVP.ini_prov_trim}, bajó en ` +
+      `${TVP.bajaron === 24 ? "las 24 jurisdicciones" : `${TVP.bajaron} de las 24 jurisdicciones`}. La TV satelital suma ${n1(TVP.sat)} cada 100 hogares en el país.`,
   // el abandono y la repitencia en la secundaria (plan de mejora, sección 10, 31 de octubre de 2026): por provincia en el último ciclo, o la
   // evolución del país. La caída del último ciclo no se cuenta sin el cambio de régimen de Buenos Aires
   abandono: v => {
@@ -1910,6 +1917,9 @@ const TX = {
   telefonia: LEAD.telefonia("prov"), "telefonia-nota": `Accesos de telefonía fija en servicio, según el ENACOM. Son líneas, no hogares: cuentan ` +
     `las de los hogares y también las de comercios, organismos públicos y otros usos, así que una jurisdicción puede pasar de 100 cada 100 hogares. ` +
     `Los accesos a internet fijo están en la ficha anterior.`,
+  "tv-paga": LEAD["tv-paga"]("prov"), "tv-paga-nota": `Accesos de TV por suscripción (cable y fibra) en servicio, según el ENACOM. Son abonos, ` +
+    `no hogares: cuentan también los de comercios y otros usos. Por provincia el ENACOM publica solo la TV por suscripción, sin la satelital, ` +
+    `que está en la evolución del país. Qué no dice este dato: no cuenta las plataformas por internet, como las de películas y series.`,
   abandono: LEAD.abandono("ab"), "abandono-nota": `Tasa de abandono interanual: alumnos de la secundaria de un año que no se matriculan en el ` +
     `año lectivo siguiente. Tasa de repitencia: alumnos que al año siguiente se matriculan en el mismo año de estudio. En % de los alumnos de la ` +
     `secundaria común de cada jurisdicción, según los Relevamientos Anuales de la Secretaría de Educación. La fuente aclara que el cálculo supone que ` +
@@ -3706,7 +3716,7 @@ const DIB = protegerDib({
 
 /* ---------- petróleo y gas, construcción y vivienda (etapa 18) ---------- */
 Object.assign(MED, {refugio: "anio", supermercados: "prov", "cuentas-nacion": "resultado", recaudacion: "impuesto", "empleo-publico": "prov", "nacidos-otro-pais": "prov", "migracion-interna": "prov", radicaciones: "anio", "argentinos-exterior": "anio", inflacion: "doce", "inflacion-rubros": "division", canastas: "region", emae: "mes", "electricidad-provincias": "prov", "electricidad-sectores": "ind", salarios: "prov", "salario-docente": "prov", "inversion-educativa": "alumno",
-  delitos: "tipo", robos: "robos", homicidios: "prov", carceles: "serie", "sin-condena": "prov", coparticipacion: "hab", "deuda-provincias": "hab", abandono: "ab", telefonia: "prov", "cobertura-suelo": "natural", medicos: "activos", hospitales: "hospitales", "distancia-hospital": "hospital", sociedades: "prov", desocupacion: "ciudad", "empresas-tamano": "tam", "pobreza-aglomerados": "region", combustibles: "nafta", "combustibles-vista": "prov", subsidios: "pbi", "obra-publica": "prov", "gas-consumo": "prov", centrales: "mapa", "mapa-pozos": "cuenca", productividad: "pozo", fracturas: "etapas", "pozos-terminados": "anio", petroleo: "tipo", gas: "tipo", "gas-hogares-vista": "prov", "hidro-provincias": "pet_kbd", "areas-hidro": "pet", arArea: "", pozos: "pozo", "empresas-hidro": "pct_pet",
+  delitos: "tipo", robos: "robos", homicidios: "prov", carceles: "serie", "sin-condena": "prov", coparticipacion: "hab", "deuda-provincias": "hab", abandono: "ab", telefonia: "prov", "tv-paga": "prov", "cobertura-suelo": "natural", medicos: "activos", hospitales: "hospitales", "distancia-hospital": "hospital", sociedades: "prov", desocupacion: "ciudad", "empresas-tamano": "tam", "pobreza-aglomerados": "region", combustibles: "nafta", "combustibles-vista": "prov", subsidios: "pbi", "obra-publica": "prov", "gas-consumo": "prov", centrales: "mapa", "mapa-pozos": "cuenca", productividad: "pozo", fracturas: "etapas", "pozos-terminados": "anio", petroleo: "tipo", gas: "tipo", "gas-hogares-vista": "prov", "hidro-provincias": "pet_kbd", "areas-hidro": "pet", arArea: "", pozos: "pozo", "empresas-hidro": "pct_pet",
   "empleo-hidro": "prov", regalias: "pct_regalias", reservas: "pet", "mundo-petroleo": "crudo_kbd", insumos: "var_12m",
   "empleo-construccion": "construccion_cada_1000", "trabajadores-vista": "prov", vivienda: "pct_alquila", "vivienda-vista": "prov"});
 const COL_TIPO = {conv: "#A9CBEA", tight: "#F6B40E", shale: "#1F5E97"};
@@ -4366,6 +4376,21 @@ Object.assign(DIB, {
     barrasH(el, {anim: a, data: T.telefonia_fija_provincias, k: "accesos_100_hogares", vf: n1, af: n0, ref: TF.pais, refLab: `País ${n1(TF.pais)}`,
       tip: d => `<b>${d.territorio}</b><br>${n1(d.accesos_100_hogares)} accesos cada 100 hogares en el ${TF.trim}<br>${n1(d.accesos_100_habitantes)} cada ` +
         `100 habitantes<br>En el ${TF.ini_trim}, ${n1(d[`accesos_100_hogares_${TF.ini}`])} cada 100 hogares`});
+  },
+  "tv-paga": a => {
+    const v = MED["tv-paga"], el = G("tv-paga"), fp = T.tv_paga_provincias.find(r => r.codigo_indec === prov);
+    let txt = LEAD["tv-paga"](v);
+    if (v === "serie") {
+      $t("tv-paga").textContent = txt;
+      return lineas(el, {anim: a, data: T.tv_paga_pais, x: "x", y0: 0, vf: n1, yf: n0, xl: r => `${r.periodo[0]}.º trimestre de ${r.periodo.slice(2)}`, mensual: true,
+        series: [{k: "suscripcion_100_hogares", lab: "TV por suscripción", corto: "Suscripción", c: NAR}, {k: "satelital_100_hogares", lab: "TV satelital", corto: "Satelital", c: FRI}]});
+    }
+    if (fp && ![TVP.top[0], TVP.top2[0], TVP.bajo[0]].includes(fp.territorio))
+      txt += ` En ${fp.territorio}, ${n1(fp.accesos_100_hogares)}, contra ${n1(fp[`accesos_100_hogares_${TVP.ini_prov}`])} en el ${TVP.ini_prov_trim}.`;
+    $t("tv-paga").textContent = txt;
+    barrasH(el, {anim: a, data: T.tv_paga_provincias, k: "accesos_100_hogares", vf: n1, af: n0, ref: TVP.pais, refLab: `País ${n1(TVP.pais)}`,
+      tip: d => `<b>${d.territorio}</b><br>${n1(d.accesos_100_hogares)} accesos cada 100 hogares en el ${TVP.trim}<br>${n1(d.accesos_100_habitantes)} cada ` +
+        `100 habitantes<br>En el ${TVP.ini_prov_trim}, ${n1(d[`accesos_100_hogares_${TVP.ini_prov}`])} cada 100 hogares`});
   },
   // el abandono y la repitencia en la secundaria (plan de mejora, sección 10, 31 de octubre de 2026): cada provincia con la línea del país, la
   // que tiene el régimen académico nuevo con la aclaración al lado del nombre, o la evolución del país
@@ -7915,6 +7940,8 @@ const CLAVE = {
     `médicos activos cada 10.000 habitantes, ${MDC.anio}`],
   "f-cobertura-suelo": [pct(MBS.nat), `de la superficie del país tenía vegetación natural en ${MBS.fin}, según MapBiomas. En ${MBS.ini}, el ${pct(MBS.nat_ini)}`,
     `de la superficie con vegetación natural, ${MBS.fin}`],
+  "f-tv-paga": [n1(TVP.pais), `accesos de TV por suscripción cada 100 hogares había en todo el país en el ${TVP.trim}`,
+    `accesos de TV por suscripción cada 100 hogares, ${TVP.trim}`],
   "f-telefonia": [n1(TF.pais), `accesos de telefonía fija cada 100 hogares había en todo el país en el ${TF.trim}`,
     `accesos de telefonía fija cada 100 hogares, ${TF.trim}`],
   "f-abandono": [pct(ABN.pais), `de los alumnos de la secundaria de ${ABN.anio} no se volvió a matricular en ${ABN.sig}, en todo el país`,
@@ -12885,7 +12912,7 @@ if (PAGINA !== "inicio") {
     "f-distancia-hospital": ["distancia al hospital", "hospital mas cercano", "lejos del hospital", "escuelas rurales", "acceso a la salud"],
     "f-escuelas-primarias": ["escuelas primarias", "escuela primaria", "cantidad de escuelas", "cuantas escuelas", "escuelas por chico"],
     "f-cobertura-suelo": ["monte nativo", "monte natural", "bosques", "desmonte", "deforestacion", "mapbiomas", "vegetacion natural"],
-    "f-telefonia": ["telefono fijo", "telefonia fija", "linea fija", "telefonia"],
+    "f-telefonia": ["telefono fijo", "telefonia fija", "linea fija", "telefonia"], "f-tv-paga": ["tv paga", "television paga", "cable", "tv por cable", "tv satelital"],
     "f-abandono": ["abandono escolar", "abandono", "repitencia", "repiten", "dejan la escuela", "desercion escolar"],
     "f-deuda-provincias": ["deuda provincial", "deuda de las provincias", "deuda por provincia", "bonos provinciales"],
     "f-desocupacion": ["desocupacion", "desocupados", "desocupada", "tasa de desocupacion"],

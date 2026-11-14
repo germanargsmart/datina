@@ -206,6 +206,10 @@ def revisar(url_sitio=None):
             visible = re.sub(r"<[^>]+>", " ", re.sub(r"<!--.*?-->|<(script|style)\b[^>]*>.*?</\1>", " ", h, flags=re.S))
             for m in re.finditer(r"[^.]{0,60}\b(formularios?|suscrib\w*|suscripci\w*|novedades por correo)\b[^.]{0,60}", visible, re.I):
                 frase = " ".join(m.group(0).split())
+                # la "TV por suscripción" del ENACOM (ficha de la TV paga, 14 de noviembre de 2026) y los nombres de columna del catálogo no
+                # hablan de suscribirse a nada
+                if re.search(r"TV por suscripci|suscripcion_", m.group(0), re.I) and not re.search(r"suscrib|formulario|novedades", m.group(0), re.I):
+                    continue
                 if frase != "El formulario de contacto todavía no está disponible":
                     problemas.append(f"{nombre}: habla de formularios que están apagados: «{frase}»")
     return sorted(set(problemas))
