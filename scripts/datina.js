@@ -239,7 +239,7 @@ const MESES = ["enero","febrero","marzo","abril","mayo","junio","julio","agosto"
 const signo = v => v < 0 ? `cayó ${n1(Math.abs(v))}%` : `creció ${n1(v)}%`;
 const enLoQueVa = (o, ultimo, que, sube, baja) => o && o.anio > ultimo
   ? ` Entre enero y ${MESES[o.mes - 1]} de ${o.anio}, ${que} ${o.var >= 0 ? sube : baja} ${pct(Math.abs(o.var))} respecto de los mismos meses de ${o.anio - 1}.` : "";
-const EV = R.envejecimiento, PPY = R.poblacion_proy, CM = R.causas_muerte, SX = R.externo;
+const EV = R.envejecimiento, PPY = R.poblacion_proy, CM = R.causas_muerte, SX = R.externo, TRN = R.transito;
 // chicos de 5 a 14 años por provincia (3 de noviembre de 2026), de las proyecciones del INDEC
 const ESC = R.chicos_escuela;
 // sector externo: una fecha del BCRA (dd/mm/aaaa) y un mes (aaaa-mm) dichos en palabras, un trimestre (2T2026) y un saldo con su sentido
@@ -1547,6 +1547,17 @@ const TX = {
     `los préstamos en dólares, en % del PBI, se pasan a pesos con el dólar mayorista de fin de cada mes.` +
     (SX.bcra.rem_viejo ? ` La inflación esperada es la del Relevamiento de Expectativas de Mercado actual: la API también trae datos de ${SX.bcra.rem_viejo[0]} a ${SX.bcra.rem_viejo[1]} ` +
       `de un relevamiento anterior, que no se muestran porque no son comparables con los del actual.` : ""),
+  // muertes en el tránsito (fuentes nuevas aprobadas por el autor el 14 de noviembre de 2026): la cifra destacada dice la provincia con la tasa
+  // más alta, el texto empieza por el país
+  transito: `De ${TRN.desde} a ${TRN.hasta} murieron en el país unas ${n0(TRN.por_anio)} personas por año en siniestros viales, según el SNIC: ` +
+    `${n1(TRN.pais)} cada 100.000 habitantes. La tasa más baja es la de ${TRN.min}, ${n1(TRN.min_v)}, y la más alta es ${n1(TRN.veces)} veces esa.`,
+  "transito-serie": `En ${TRN.ult} murieron ${n0(TRN.ult_v)} personas en siniestros viales en el país, según el SNIC. Desde ${TRN.serie_desde}, el año con más ` +
+    `muertes fue ${TRN.serie_max}, con ${n0(TRN.serie_max_v)}, y el de menos, ${TRN.serie_min}, con ${n0(TRN.serie_min_v)}.`,
+  "transito-nota": `Personas que murieron en siniestros viales según los registros de las policías y las fuerzas federales (SNIC, Ministerio de ` +
+    `Seguridad), por la provincia donde ocurrió el hecho. Cada 100.000 habitantes con la población de ${TRN.anio_pob}, el año del medio. Qué no dice ` +
+    `este dato: la Agencia Nacional de Seguridad Vial cuenta también a quienes mueren dentro de los 30 días del siniestro y da otros números. Las ` +
+    `estadísticas vitales del Ministerio de Salud no sirven para comparar provincias: en CABA y en Buenos Aires la mayoría de las muertes por causas ` +
+    `externas se registran sin decir si fueron en el tránsito.`,
   // la cifra destacada dice la primera causa del país: el texto compara las provincias con la tasa ajustada y explica por qué difiere de la bruta
   "causas-muerte": `Ajustada por edad, la mortalidad va de ${n0(CM.min_v)} muertes por año cada 100.000 habitantes en ${CM.min} a ${n0(CM.max_v)} en ${CM.max}. ` +
     `Sin ajustar por edad, la más alta es la de ${CM.bruta_max} (${n0(CM.bruta_max_v)}${CM.bruta_max === EV.max ? ", con la población más envejecida" : ""})` +
@@ -6071,6 +6082,20 @@ DIB["causas-muerte"] = a => {
       (g === "total" ? `<br>${n0(d.tasa_bruta)} sin ajustar` : `<br>${pct(d[mk] / d.muertes * 100)} de las muertes de la provincia`) +
       `<br>${n0(d[mk])} muertes de ${CM.desde} a ${CM.hasta}`});
 };
+// muertes en el tránsito por provincia, con la línea del país, o las del país por año
+MED.transito = "prov";
+DIB.transito = conTablas("transito", () => MED.transito === "serie" ? ["transito_pais"] : [], a => {
+  const el = G("transito");
+  $t("transito").textContent = MED.transito === "serie" ? TX["transito-serie"] : TX.transito;
+  if (MED.transito === "serie") return barrasH(el, {anim: a, sinOrden: true, vf: n0, af: ejeMil, l: 60, lAngosto: 48, k: "muertes",
+    data: T.transito_pais.map(r => ({codigo_indec: "a" + r.anio, territorio: String(r.anio), muertes: r.muertes})),
+    tip: d => `<b>${d.territorio}</b><br>${n0(d.muertes)} muertes en siniestros viales`});
+  const filas = T.transito_provincias, pais = filas.find(r => r.codigo_indec === "00");
+  barrasH(el, {anim: a, data: filas.filter(r => r.codigo_indec !== "00"), k: "cada_100000", vf: n1, af: n0, ref: pais.cada_100000,
+    refLab: `País ${n1(pais.cada_100000)}`,
+    tip: d => `<b>${d.territorio}</b><br>${n1(d.cada_100000)} muertes por año cada 100.000 habitantes<br>${n0(d.muertes_por_anio)} muertes por año, ` +
+      `promedio de ${TRN.desde} a ${TRN.hasta}`});
+});
 DIB.adonse = a => {
   const i = AN.indicadores.find(x => x.k === MED.adonse), otros = AN.indicadores.filter(x => x !== i);
   const rel = x => `${fuerza(x.r)}${x.r < 0 ? " e inversa" : ""}`;
@@ -8013,6 +8038,8 @@ const CLAVE = {
   "f-bcra": BCR_INI.t === "dolar"
     ? [`${n0(BCR_INI.v)} pesos`, `costaba el ${BCR_INI.n.toLowerCase()}, el ${fLarga(BCR_INI.f)}, según el Banco Central`, `costaba el ${BCR_INI.n.toLowerCase()}, el ${fLarga(BCR_INI.f)}`]
     : [pct(BCR_PF.v), `nominal anual pagaban en promedio los plazos fijos a 30 días el ${fLarga(BCR_PF.f)}`, `nominal anual en plazos fijos a 30 días, el ${fLarga(BCR_PF.f)}`],
+  "f-transito": [n1(TRN.max_v), `muertes en siniestros viales por año cada 100.000 habitantes hubo en ${listaY(TRN.max)} de ${TRN.desde} a ${TRN.hasta}, ${TRN.max.length > 1 ? "las tasas más altas" : "la tasa más alta"}`,
+    `muertes en siniestros viales por año cada 100.000 habitantes en ${listaY(TRN.max)}, ${TRN.max.length > 1 ? "las tasas más altas" : "la tasa más alta"}`],
   "f-causas-muerte": [pct(CMG[0].pct), `de las muertes del país de ${CM.desde} a ${CM.hasta} fueron por ${CM_FRASE[CMG[0].k]}, la primera causa`,
     `de las muertes del país, por ${CM_FRASE[CMG[0].k]}, la primera causa`],
   "f-exportaciones": [n0(nv.ex_pc_pais), `dólares por habitante exportó el país en ${nv.ex_anio}`, "dólares por habitante, promedio del país"],
@@ -12612,6 +12639,7 @@ const SERIE_CIFRA = {
   "f-censo": () => provM("Hogares con desagüe a red cloacal, en %, Censo 2022", T.censo2022_provincias, "cloaca", nv.censo.cloaca, pct),
   "f-internet": () => provM("Accesos a internet fijo cada 100 hogares", T.internet_fijo_provincias, "accesos_100_hogares", null, n1),
   "f-esperanza": () => provM(`Esperanza de vida al nacer, en años, ${nv.ev_anio}`, T.esperanza_vida_provincias, "total", nv.ev_pais, n1),
+  "f-transito": () => provM(`Muertes en siniestros viales por año cada 100.000 habitantes, ${TRN.desde} a ${TRN.hasta}`, T.transito_provincias, "cada_100000", TRN.pais, n1),
   "f-causas-muerte": () => provM(`Muertes por año cada 100.000 habitantes, ajustadas por edad, ${CM.desde} a ${CM.hasta}`, T.causas_muerte_provincias, "tasa_total", CM.pais, n0),
   "x-ev-brecha": () => provM(`Años más de esperanza de vida de las mujeres que de los varones, ${nv.ev_anio}`,
     T.esperanza_vida_provincias.map(r => ({...r, brecha: r.mujeres - r.varones})), "brecha", nv.ev_m - nv.ev_v, n1),

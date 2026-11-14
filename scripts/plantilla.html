@@ -944,6 +944,19 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <div class="pie"><span>Fuentes: DEIS, Ministerio de Salud, estadísticas vitales, e INDEC, proyecciones de población 2022 a 2040, base Censo 2022</span><a href="datos/causas_muerte_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
+    <article class="ficha" id="f-transito">
+      <h2>¿Dónde mueren más personas en el tránsito?</h2>
+      <p class="ficha-sub">Muertes en siniestros viales por año cada 100.000 habitantes por provincia, promedio de {{transito.desde}} a {{transito.hasta}}, y muertes en el país por año desde {{transito.serie_desde}}</p>
+      <div class="conmutador" role="group" aria-label="Vista" data-g="transito" style="--n:2">
+        <button type="button" data-m="prov" aria-pressed="true">Provincias</button>
+        <button type="button" data-m="serie" aria-pressed="false">País, por año</button>
+      </div>
+      <div class="grafico" data-g="transito" data-forma="barras"></div>
+      <p class="lead" data-t="transito"></p>
+      <p class="nota" data-t="transito-nota"></p>
+      <div class="pie"><span>Fuentes: Ministerio de Seguridad, Sistema Nacional de Información Criminal (SNIC), e INDEC, proyecciones de población 2022 a 2040, base Censo 2022</span><a href="datos/transito_provincias.csv" download>Por provincia (CSV)</a><a href="datos/transito_pais.csv" download>Del país, por año (CSV)</a></div>
+    </article>
+
     <article class="ficha" id="f-mortalidad">
       <h2>¿Cuántos bebés mueren antes del año en cada provincia?</h2>
       <p class="ficha-sub">Muertes de menores de un año cada 1.000 nacidos vivos por provincia, promedios de {{mortalidad.tri_base}} y de {{mortalidad.tri_act}}</p>
