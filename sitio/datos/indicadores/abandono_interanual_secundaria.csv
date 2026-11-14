@@ -1,0 +1,326 @@
+codigo_indec,territorio,periodo,valor
+00,Argentina,2024,6.9201
+06,Buenos Aires,2024,4.1277
+10,Catamarca,2024,5.6117
+22,Chaco,2024,12.5906
+26,Chubut,2024,6.8313
+02,CABA,2024,6.3984
+14,Córdoba,2024,7.2842
+18,Corrientes,2024,9.7554
+30,Entre Ríos,2024,8.8764
+34,Formosa,2024,10.4397
+38,Jujuy,2024,8.0846
+42,La Pampa,2024,7.2357
+46,La Rioja,2024,6.8858
+50,Mendoza,2024,9.304
+54,Misiones,2024,13.0971
+58,Neuquén,2024,5.3045
+62,Río Negro,2024,6.2391
+66,Salta,2024,11.91
+70,San Juan,2024,8.8218
+74,San Luis,2024,5.1891
+78,Santa Cruz,2024,8.7533
+82,Santa Fe,2024,11.9794
+86,Santiago del Estero,2024,9.5959
+94,Tierra del Fuego,2024,5.7352
+90,Tucumán,2024,8.4689
+00,Argentina,2023,8.0472
+06,Buenos Aires,2023,6.6887
+10,Catamarca,2023,6.2367
+22,Chaco,2023,14.2773
+26,Chubut,2023,6.5743
+02,CABA,2023,7.2177
+14,Córdoba,2023,7.5789
+18,Corrientes,2023,8.7144
+30,Entre Ríos,2023,8.8337
+34,Formosa,2023,11.0088
+38,Jujuy,2023,8.899
+42,La Pampa,2023,7.2484
+46,La Rioja,2023,6.5928
+50,Mendoza,2023,10.1842
+54,Misiones,2023,11.9785
+58,Neuquén,2023,6.8303
+62,Río Negro,2023,7.6821
+66,Salta,2023,12.0584
+70,San Juan,2023,8.4784
+74,San Luis,2023,5.103
+78,Santa Cruz,2023,10.863
+82,Santa Fe,2023,11.2711
+86,Santiago del Estero,2023,9.1001
+94,Tierra del Fuego,2023,6.1962
+90,Tucumán,2023,7.097
+00,Argentina,2022,8.157
+06,Buenos Aires,2022,6.7158
+10,Catamarca,2022,7.1356
+22,Chaco,2022,11.8156
+26,Chubut,2022,6.5219
+02,CABA,2022,6.4882
+14,Córdoba,2022,8.1115
+18,Corrientes,2022,9.6993
+30,Entre Ríos,2022,9.1917
+34,Formosa,2022,11.2067
+38,Jujuy,2022,9.3438
+42,La Pampa,2022,5.7926
+46,La Rioja,2022,3.8318
+50,Mendoza,2022,10.1152
+54,Misiones,2022,13.4231
+58,Neuquén,2022,9.3839
+62,Río Negro,2022,10.0749
+66,Salta,2022,11.6633
+70,San Juan,2022,8.1944
+74,San Luis,2022,5.4312
+78,Santa Cruz,2022,9.0691
+82,Santa Fe,2022,11.0755
+86,Santiago del Estero,2022,11.68
+94,Tierra del Fuego,2022,5.7201
+90,Tucumán,2022,7.4411
+00,Argentina,2021,7.6623
+06,Buenos Aires,2021,5.9042
+10,Catamarca,2021,6.7586
+22,Chaco,2021,12.8682
+26,Chubut,2021,8.6349
+02,CABA,2021,6.4797
+14,Córdoba,2021,7.4888
+18,Corrientes,2021,7.637
+30,Entre Ríos,2021,7.9402
+34,Formosa,2021,11.399
+38,Jujuy,2021,9.3495
+42,La Pampa,2021,7.42
+46,La Rioja,2021,8.0842
+50,Mendoza,2021,9.136
+54,Misiones,2021,12.7642
+58,Neuquén,2021,8.9268
+62,Río Negro,2021,11.7823
+66,Salta,2021,10.486
+70,San Juan,2021,7.4954
+74,San Luis,2021,5.8693
+78,Santa Cruz,2021,8.3492
+82,Santa Fe,2021,11.0415
+86,Santiago del Estero,2021,9.8345
+94,Tierra del Fuego,2021,5.7124
+90,Tucumán,2021,7.612
+00,Argentina,2020,4.4847
+06,Buenos Aires,2020,3.1056
+10,Catamarca,2020,4.6357
+22,Chaco,2020,8.295
+26,Chubut,2020,5.5095
+02,CABA,2020,2.951
+14,Córdoba,2020,6.8862
+18,Corrientes,2020,3.9808
+30,Entre Ríos,2020,7.9387
+34,Formosa,2020,6.2676
+38,Jujuy,2020,5.2391
+42,La Pampa,2020,4.9768
+46,La Rioja,2020,3.6647
+50,Mendoza,2020,4.7803
+54,Misiones,2020,11.8959
+58,Neuquén,2020,4.9613
+62,Río Negro,2020,8.628
+66,Salta,2020,6.1547
+70,San Juan,2020,3.5183
+74,San Luis,2020,2.4729
+78,Santa Cruz,2020,5.8521
+82,Santa Fe,2020,3.793
+86,Santiago del Estero,2020,6.0826
+94,Tierra del Fuego,2020,6.5183
+90,Tucumán,2020,2.1795
+00,Argentina,2019,8.6151
+06,Buenos Aires,2019,6.9334
+10,Catamarca,2019,7.9184
+22,Chaco,2019,10.0041
+26,Chubut,2019,5.8742
+02,CABA,2019,7.8994
+14,Córdoba,2019,8.0465
+18,Corrientes,2019,10.3184
+30,Entre Ríos,2019,8.2707
+34,Formosa,2019,10.6059
+38,Jujuy,2019,11.7844
+42,La Pampa,2019,6.0406
+46,La Rioja,2019,7.8974
+50,Mendoza,2019,6.7184
+54,Misiones,2019,13.9865
+58,Neuquén,2019,10.5053
+62,Río Negro,2019,7.632
+66,Salta,2019,13.3042
+70,San Juan,2019,8.6441
+74,San Luis,2019,7.7232
+78,Santa Cruz,2019,9.9256
+82,Santa Fe,2019,12.956
+86,Santiago del Estero,2019,11.7335
+94,Tierra del Fuego,2019,5.5506
+90,Tucumán,2019,12.247
+00,Argentina,2018,8.7288
+06,Buenos Aires,2018,7.4142
+10,Catamarca,2018,7.4841
+22,Chaco,2018,12.6185
+26,Chubut,2018,6.0636
+02,CABA,2018,7.1139
+14,Córdoba,2018,8.2378
+18,Corrientes,2018,9.5745
+30,Entre Ríos,2018,8.8479
+34,Formosa,2018,10.1685
+38,Jujuy,2018,9.8956
+42,La Pampa,2018,7.2171
+46,La Rioja,2018,8.7838
+50,Mendoza,2018,10.9024
+54,Misiones,2018,14.4908
+58,Neuquén,2018,9.4408
+62,Río Negro,2018,8.0122
+66,Salta,2018,11.8294
+70,San Juan,2018,9.9163
+74,San Luis,2018,6.6539
+78,Santa Cruz,2018,10.8918
+82,Santa Fe,2018,11.3665
+86,Santiago del Estero,2018,10.3512
+94,Tierra del Fuego,2018,7.1513
+90,Tucumán,2018,9.4353
+00,Argentina,2017,9.4478
+06,Buenos Aires,2017,8.1333
+10,Catamarca,2017,7.468
+22,Chaco,2017,13.1425
+26,Chubut,2017,8.2706
+02,CABA,2017,8.2665
+14,Córdoba,2017,9.0125
+18,Corrientes,2017,8.823
+30,Entre Ríos,2017,9.9777
+34,Formosa,2017,10.8123
+38,Jujuy,2017,10.8968
+42,La Pampa,2017,7.5536
+46,La Rioja,2017,7.5084
+50,Mendoza,2017,10.919
+54,Misiones,2017,14.8864
+58,Neuquén,2017,9.3983
+62,Río Negro,2017,9.2555
+66,Salta,2017,13.1199
+70,San Juan,2017,9.3837
+74,San Luis,2017,7.087
+78,Santa Cruz,2017,14.5897
+82,Santa Fe,2017,11.8802
+86,Santiago del Estero,2017,11.2694
+94,Tierra del Fuego,2017,6.4573
+90,Tucumán,2017,10.8983
+00,Argentina,2016,10.5292
+06,Buenos Aires,2016,9.939
+10,Catamarca,2016,10.9922
+22,Chaco,2016,13.7057
+26,Chubut,2016,10.2591
+02,CABA,2016,7.9489
+14,Córdoba,2016,9.3172
+18,Corrientes,2016,9.6195
+30,Entre Ríos,2016,9.7945
+34,Formosa,2016,11.3932
+38,Jujuy,2016,11.3939
+42,La Pampa,2016,7.6651
+46,La Rioja,2016,9.7784
+50,Mendoza,2016,12.8154
+54,Misiones,2016,14.792
+58,Neuquén,2016,10.0579
+62,Río Negro,2016,9.915
+66,Salta,2016,13.5866
+70,San Juan,2016,11.3691
+74,San Luis,2016,8.5011
+78,Santa Cruz,2016,11.8571
+82,Santa Fe,2016,12.4763
+86,Santiago del Estero,2016,12.1752
+94,Tierra del Fuego,2016,7.9591
+90,Tucumán,2016,10.8938
+00,Argentina,2015,10.2214
+06,Buenos Aires,2015,9.5894
+10,Catamarca,2015,7.7506
+22,Chaco,2015,12.5529
+26,Chubut,2015,9.1947
+02,CABA,2015,9.2491
+14,Córdoba,2015,9.7502
+18,Corrientes,2015,9.9689
+30,Entre Ríos,2015,9.8257
+34,Formosa,2015,11.543
+38,Jujuy,2015,11.1848
+42,La Pampa,2015,8.5011
+46,La Rioja,2015,7.1405
+50,Mendoza,2015,11.5473
+54,Misiones,2015,13.3474
+58,Neuquén,2015,11.6705
+62,Río Negro,2015,9.7838
+66,Salta,2015,13.1496
+70,San Juan,2015,11.7736
+74,San Luis,2015,7.7462
+78,Santa Cruz,2015,10.2204
+82,Santa Fe,2015,11.9035
+86,Santiago del Estero,2015,11.7696
+94,Tierra del Fuego,2015,8.0624
+90,Tucumán,2015,9.9419
+00,Argentina,2014,10.8304
+06,Buenos Aires,2014,10.3172
+10,Catamarca,2014,11.3293
+22,Chaco,2014,12.5873
+26,Chubut,2014,9.9966
+02,CABA,2014,8.848
+14,Córdoba,2014,9.6027
+18,Corrientes,2014,9.4202
+30,Entre Ríos,2014,10.3071
+34,Formosa,2014,10.7072
+38,Jujuy,2014,12.5238
+42,La Pampa,2014,8.0853
+46,La Rioja,2014,9.8923
+50,Mendoza,2014,13.5122
+54,Misiones,2014,14.0848
+58,Neuquén,2014,13.0013
+62,Río Negro,2014,12.8783
+66,Salta,2014,13.2187
+70,San Juan,2014,12.3502
+74,San Luis,2014,11.0776
+78,Santa Cruz,2014,9.7452
+82,Santa Fe,2014,12.3827
+86,Santiago del Estero,2014,13.2297
+94,Tierra del Fuego,2014,9.3408
+90,Tucumán,2014,9.8672
+00,Argentina,2013,11.0764
+06,Buenos Aires,2013,10.6985
+10,Catamarca,2013,7.6396
+22,Chaco,2013,13.1158
+26,Chubut,2013,10.5737
+02,CABA,2013,9.6792
+14,Córdoba,2013,10.1428
+18,Corrientes,2013,11.3434
+30,Entre Ríos,2013,10.1652
+34,Formosa,2013,11.0343
+38,Jujuy,2013,9.7394
+42,La Pampa,2013,8.5082
+46,La Rioja,2013,9.6017
+50,Mendoza,2013,13.052
+54,Misiones,2013,13.951
+58,Neuquén,2013,13.3736
+62,Río Negro,2013,14.0677
+66,Salta,2013,12.7976
+70,San Juan,2013,12.1061
+74,San Luis,2013,8.2979
+78,Santa Cruz,2013,11.8647
+82,Santa Fe,2013,13.1076
+86,Santiago del Estero,2013,13.2282
+94,Tierra del Fuego,2013,6.9359
+90,Tucumán,2013,10.4757
+00,Argentina,2012,11.3725
+06,Buenos Aires,2012,10.9238
+10,Catamarca,2012,4.8993
+22,Chaco,2012,14.1506
+26,Chubut,2012,9.9137
+02,CABA,2012,9.3759
+14,Córdoba,2012,11.0062
+18,Corrientes,2012,9.6554
+30,Entre Ríos,2012,10.6842
+34,Formosa,2012,11.8685
+38,Jujuy,2012,12.5665
+42,La Pampa,2012,8.4409
+46,La Rioja,2012,6.3309
+50,Mendoza,2012,15.033
+54,Misiones,2012,13.9196
+58,Neuquén,2012,13.2427
+62,Río Negro,2012,12.2786
+66,Salta,2012,14.032
+70,San Juan,2012,12.5358
+74,San Luis,2012,9.4703
+78,Santa Cruz,2012,12.3665
+82,Santa Fe,2012,13.1315
+86,Santiago del Estero,2012,15.5284
+94,Tierra del Fuego,2012,7.8404
+90,Tucumán,2012,10.3082

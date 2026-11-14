@@ -1212,3 +1212,4 @@ Lo que cada grupo de la reescritura no cambió porque necesita corregir un dato,
    - Motivo: Los habitantes salen del año de población que usa todo el sitio (ANIO_POB = 2025, decisión documentada del autor). La auditoría pregunta si pasa a 2026. Es dato.
    - Propuesta: Pregunta al autor de la auditoría (sección B): ¿la población pasa a 2026?
    - **Estado al 11 de noviembre de 2026: espera una decisión del autor.** La población sigue en 2025 (ANIO_POB). Pasar a 2026 espera al autor.
+   - **Estado al 14 de noviembre de 2026: resuelta.** Decisión 4 del autor del 12 de noviembre de 2026 (`docs/roadmap/CAPA_DE_DATOS.md`): las páginas de provincia muestran los habitantes del año en curso, 2026, los mismos de Cruces (PR #131).
