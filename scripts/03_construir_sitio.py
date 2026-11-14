@@ -1,6 +1,6 @@
 """
 Paso 3. Arma las paginas.
-Escribe sitio/datos/fichas.js (los datos de sitio/datos/fichas.json y el indice del sitio, compartidos por todas las paginas),
+Escribe sitio/datos/fichas.js (los datos de datos/ordenado/fichas.json y el indice del sitio, compartidos por todas las paginas),
 sitio/datina.css y sitio/datina.js (el diseño y el comportamiento, tambien compartidos)
 y una pagina por seccion a partir de scripts/plantilla.html: sitio/index.html (portada) y sitio/{seccion}.html.
 Cada pagina lleva solo el marcado de su seccion. Lo que necesita saber de las demas (titulos, fichas, en que pagina
@@ -149,7 +149,11 @@ if malos:
 # Años y otros datos en los textos fijos de la plantilla (etapa 17): {{ruta}} con una ruta del resumen de los datos, por ejemplo
 # {{nacimientos.anio_ult}}. Se completan acá en cada actualización, así un título o una nota no quedan con el año viejo. Si la
 # ruta no existe en el resumen, el sitio no se arma.
-RESUMEN = json.loads((SITIO / "datos" / "fichas.json").read_text(encoding="utf-8"))["resumen"]
+# lo que arma 02_procesar.py: el resumen y las tablas. Desde el 14 de noviembre de 2026 está en datos/ordenado/ y no se publica (decisión del
+# autor: ninguna página lo usaba). Uno que quedó en sitio/datos/ de un armado anterior se borra
+FICHAS_JSON = RAIZ / "datos" / "ordenado" / "fichas.json"
+(SITIO / "datos" / "fichas.json").unlink(missing_ok=True)
+RESUMEN = json.loads((FICHAS_JSON).read_text(encoding="utf-8"))["resumen"]
 
 
 def dato_resumen(m):
@@ -373,7 +377,7 @@ base = re.sub(r"<!--PROGRAMAS:(\w+)-->", lambda m: programas(m.group(1)), base)
 DIR_BANDERAS = RAIZ / "datos" / "manual" / "banderas"
 with open(DIR_BANDERAS / "fuentes.csv", encoding="utf-8") as f:
     BANDERAS = list(csv.DictReader(f))
-NOMBRE_PROV = {f["codigo_indec"]: f["territorio"] for f in json.loads((SITIO / "datos" / "fichas.json").read_text(encoding="utf-8"))["datos"]["empleo_provincias"]}
+NOMBRE_PROV = {f["codigo_indec"]: f["territorio"] for f in json.loads((FICHAS_JSON).read_text(encoding="utf-8"))["datos"]["empleo_provincias"]}
 NOMBRE_PROV["00"] = "Argentina (Todo el país)"
 # Una página fija por jurisdicción (D3, decisión del autor del 1 de noviembre de 2026): el enlace dice de qué provincia es. provincia.html sigue
 # siendo donde se elige, y provincia.html?prov=58 sigue andando
@@ -399,7 +403,7 @@ base = base.replace("<!--BANDERAS-->",
 # la misma de Cruces (decisión 4 del autor del 12 de noviembre de 2026). Se escribe un bloque por jurisdicción, oculto, y datina.js muestra el de la provincia elegida. Si un
 # texto rompe las reglas de redacción o le falta su fuente, el sitio no se arma
 HISTORIA = json.loads((RAIZ / "datos" / "manual" / "provincias_historia.json").read_text(encoding="utf-8"))["provincias"]
-_fj = json.loads((SITIO / "datos" / "fichas.json").read_text(encoding="utf-8"))
+_fj = json.loads((FICHAS_JSON).read_text(encoding="utf-8"))
 HAB = {f["codigo_indec"]: f["poblacion"] for f in _fj["datos"]["cruces_provincias"] if f.get("poblacion")}
 HAB_ANIO = _fj["resumen"]["anio_pob_ficha"]["cruces_provincias"]
 _H_CAMPOS = [("fundacion_capital", "La capital"), ("provincia_desde", "La provincia"), ("antecedente", "Antecedentes"),
@@ -688,7 +692,7 @@ DIFERIDAS = ["antartida_instalaciones", "antartida_bases", "antartida_paises", "
              "puestos_provincias", "reservas_bcra", "voto_legisladores_y_provincia", "dengue_provincias", "inflacion_personal",
              "empresas_tamano_sector", "bcra_variables_lista", "congreso_composicion", "justicia_provincias", "ingresos_aglomerados",
              "mortalidad_infantil_causas", "deuda_provincias"]
-D = json.loads((SITIO / "datos" / "fichas.json").read_text(encoding="utf-8"))
+D = json.loads((FICHAS_JSON).read_text(encoding="utf-8"))
 D["diferidas"] = {}
 for nombre in DIFERIDAS:
     filas = D["datos"].pop(nombre)
@@ -1551,7 +1555,7 @@ _h_prov = pagina("provincia", "Tu provincia",
                  "El perfil de cada provincia: sus indicadores frente al total del país, su posición entre las 24 jurisdicciones, su historia y las provincias que más se le parecen.",
                  {"provincia"})
 # Las 24 páginas fijas: la misma página, con su título, su descripción, su dirección y su imagen, y la provincia ya elegida (data-prov, que lee datina.js)
-_POB_PROV = {f["codigo_indec"]: f["personas_hoy"] for f in json.loads((SITIO / "datos" / "fichas.json").read_text(encoding="utf-8"))["datos"]["poblacion_proyectada_provincias"]}
+_POB_PROV = {f["codigo_indec"]: f["personas_hoy"] for f in json.loads((FICHAS_JSON).read_text(encoding="utf-8"))["datos"]["poblacion_proyectada_provincias"]}
 for _c, _a in PAG_PROV.items():
     _n = NOMBRE_PROV[_c]
     _t, _d = f"{_n} en números", (f"El perfil de {_n}: sus indicadores frente al total del país, su posición entre las 24 jurisdicciones, su historia y las jurisdicciones "

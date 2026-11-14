@@ -18,7 +18,7 @@ El autor no programa. Claude Code es el asistente principal: explicar cada cambi
 scripts/01_descargar.py        baja cada fuente tal como la publica el organismo a datos/crudo/ (FUENTES: archivo -> URL)
 scripts/indec_api.py           desde el 2 de noviembre de 2026, tablas de la API del INDEC con el token del autor (INDEC_API_TOKEN, secreto de
                                GitHub, vence el 1 de mayo de 2027). Sin token no baja nada. Qué baja y qué ficha usa cada una: docs/deploy/INDEC_API.md
-scripts/02_procesar.py         arma datos/ordenado/tabla_larga.csv, sitio/datos/fichas.json y un CSV por tabla
+scripts/02_procesar.py         arma datos/ordenado/tabla_larga.csv, datos/ordenado/fichas.json (desde el 14 de noviembre de 2026 no se publica) y un CSV por tabla
 scripts/03_construir_sitio.py  corre pruebas_datos.py y escribe sitio/datos/fichas.js, sitio/datina.css, sitio/datina.js y una página por sección
 scripts/plantilla.html         el marcado de todas las secciones: títulos, textos fijos y fichas
 scripts/datina.css / datina.js el diseño (valores en :root) y los textos calculados, gráficos (D3 7.8.5) y comportamiento
