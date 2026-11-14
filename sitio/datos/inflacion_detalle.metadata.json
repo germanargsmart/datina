@@ -1,0 +1,116 @@
+{
+ "tabla": "inflacion_detalle.csv",
+ "titulo": "¿Qué rubros subieron más en los últimos doce meses?",
+ "descripcion": "Inflación por rubro en los doce meses hasta septiembre de 2026",
+ "seccion": "Precios y actividad",
+ "ficha": "https://datina.com.ar/economia.html#f-inflacion-rubros",
+ "fuente": "INDEC, Índice de precios al consumidor.",
+ "organismos": [
+  "INDEC (Instituto Nacional de Estadística y Censos)"
+ ],
+ "actualizacion": "Se actualiza cada mes.",
+ "cobertura": "Sin desglose territorial",
+ "periodo": "",
+ "anio_desde": 2026,
+ "anio_hasta": 2026,
+ "filas": 29,
+ "columnas": [
+  {
+   "nombre": "codigo",
+   "tipo": "Código",
+   "valores": "29 códigos"
+  },
+  {
+   "nombre": "division",
+   "tipo": "Número",
+   "valores": "1 a 12"
+  },
+  {
+   "nombre": "rubro",
+   "tipo": "Texto",
+   "valores": "29 valores distintos"
+  },
+  {
+   "nombre": "descripcion_indec",
+   "tipo": "Texto",
+   "valores": "29 valores distintos"
+  },
+  {
+   "nombre": "interanual_gba",
+   "tipo": "Número",
+   "valores": "7,6 a 55,8"
+  },
+  {
+   "nombre": "interanual_pampeana",
+   "tipo": "Número",
+   "valores": "8 a 59,1 (2 celdas vacías)"
+  },
+  {
+   "nombre": "interanual_noreste",
+   "tipo": "Número",
+   "valores": "8,2 a 94,7 (2 celdas vacías)"
+  },
+  {
+   "nombre": "interanual_noroeste",
+   "tipo": "Número",
+   "valores": "11,3 a 76,2 (2 celdas vacías)"
+  },
+  {
+   "nombre": "interanual_cuyo",
+   "tipo": "Número",
+   "valores": "11,4 a 75,8 (2 celdas vacías)"
+  },
+  {
+   "nombre": "interanual_patagonia",
+   "tipo": "Número",
+   "valores": "10,5 a 63,7 (2 celdas vacías)"
+  },
+  {
+   "nombre": "mensual_gba",
+   "tipo": "Número",
+   "valores": "-2,4 a 12,5"
+  },
+  {
+   "nombre": "mensual_pampeana",
+   "tipo": "Número",
+   "valores": "-0,5 a 8,8 (2 celdas vacías)"
+  },
+  {
+   "nombre": "mensual_noreste",
+   "tipo": "Número",
+   "valores": "-0,2 a 4,9 (2 celdas vacías)"
+  },
+  {
+   "nombre": "mensual_noroeste",
+   "tipo": "Número",
+   "valores": "-0,1 a 8,5 (2 celdas vacías)"
+  },
+  {
+   "nombre": "mensual_cuyo",
+   "tipo": "Número",
+   "valores": "-0,8 a 8,8 (2 celdas vacías)"
+  },
+  {
+   "nombre": "mensual_patagonia",
+   "tipo": "Número",
+   "valores": "-1,6 a 5,9 (2 celdas vacías)"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "origen": [
+  {
+   "archivo": "datos/crudo/indec_ipc_aperturas.csv",
+   "nombre": "Índice de precios al consumidor por región, grupo y clase (aperturas)",
+   "organismo": "INDEC",
+   "descargado": "2026-11-14",
+   "ultimo_intento": "2026-11-14",
+   "estado": "ok",
+   "url": "https://www.indec.gob.ar/ftp/cuadros/economia/serie_ipc_aperturas.csv"
+  }
+ ],
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
+ "como_citar": "Datina (año de la consulta). ¿Qué rubros subieron más en los últimos doce meses? Con datos de INDEC, Índice de precios al consumidor. https://datina.com.ar/economia.html#f-inflacion-rubros. Consultado el día de la consulta.",
+ "datos_actualizados": "05/11/2026"
+}

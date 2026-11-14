@@ -450,6 +450,9 @@ FUENTES.update({
     # (octubre de 2016 = 100), las canastas básicas alimentaria y total del Gran Buenos Aires (por adulto equivalente y para los tres hogares
     # de ejemplo) y el Estimador Mensual de Actividad Económica (base 2004 = 100), el total y por sector
     "indec_ipc_divisiones.csv": "https://www.indec.gob.ar/ftp/cuadros/economia/serie_ipc_divisiones.csv",
+    # IPC con más detalle (fuentes nuevas aprobadas por el autor el 14 de noviembre de 2026): grupos y clases de cada región (carnes, verduras,
+    # alquiler, prepagas, combustibles), el mismo formato que el de divisiones. El INDEC no publica el país en este nivel
+    "indec_ipc_aperturas.csv": "https://www.indec.gob.ar/ftp/cuadros/economia/serie_ipc_aperturas.csv",
     # índice de precios internos al por mayor (IPIM), desde diciembre de 2015 (3 de noviembre de 2026)
     "indec_ipim.csv": "https://www.indec.gob.ar/ftp/cuadros/economia/indice_ipim.csv",
     # precios promedio de una selección de productos del IPC, en el Gran Buenos Aires desde abril de 2016 (3 de noviembre de 2026)
@@ -631,6 +634,7 @@ VALIDA.update({
     "isac_insumos.csv": lambda b: b.startswith(b"indice_tiempo,isac_articulos_sanitarios"),
     "indec_icc.xls": lambda b: b[:4] == bytes.fromhex("d0cf11e0"),
     "indec_ipc_divisiones.csv": lambda b: b.removeprefix(bytes.fromhex("efbbbf")).startswith(b"Codigo;Descripcion;Clasificador;Periodo;Indice_IPC;v_m_IPC;v_i_a_IPC;Region"),
+    "indec_ipc_aperturas.csv": lambda b: b.removeprefix(bytes.fromhex("efbbbf")).startswith(b"Codigo;Descripcion_aperturas;Clasificador;Periodo;Indice_IPC;v_m_IPC;v_i_a_IPC;Region"),
     "indec_indice_salarios.csv": lambda b: b.removeprefix(bytes.fromhex("efbbbf")).startswith(b"periodo;IS_sector_privado_registrado;IS_sector_publico;IS_total_registrado"),
     "indec_canastas.xls": lambda b: b[:4] == bytes.fromhex("d0cf11e0"),
     "indec_emae.xls": lambda b: b[:4] == bytes.fromhex("d0cf11e0"),
