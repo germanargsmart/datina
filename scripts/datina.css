@@ -1140,8 +1140,9 @@ html.insertar .ins-ficha{margin:0}
 .pol-ley i.lab-ini{width:9px;height:9px;border-radius:50%;background:#fff;border:1.5px solid var(--celeste)}
 .pol-ley i.lab-fin{width:10px;height:10px;border-radius:50%;background:var(--celeste)}
 .lab-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));column-gap:var(--e-6)}
-/* con dos piezas (desde el 14 de noviembre de 2026, sin el hemiciclo ni los años en el Congreso), dos columnas: no queda un hueco a la derecha */
-.lab-grid:has(>.lab-pieza:nth-child(2):last-child){grid-template-columns:repeat(2,minmax(0,1fr))}
+/* con dos piezas (desde el 14 de noviembre de 2026, sin el hemiciclo ni los años en el Congreso), dos columnas: no queda un hueco a la derecha. Solo
+   desde 1080 píxeles: más angosto ya van en dos o en una, y esta regla pesaba más que la del celular */
+@media (min-width:1080px){.lab-grid:has(>.lab-pieza:nth-child(2):last-child){grid-template-columns:repeat(2,minmax(0,1fr))}}
 .lab-grid>.lab-pieza{display:grid;grid-row:span 3;grid-template-rows:subgrid;row-gap:var(--e-3);margin:var(--e-2) 0 var(--e-6)}
 .lab-grid .lab-lead{margin:0;font-size:var(--t-3)}
 @media (min-width:1080px){
