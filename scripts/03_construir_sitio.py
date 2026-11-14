@@ -10,7 +10,7 @@ Tambien copia la tabla larga al sitio para que se pueda descargar.
 El sitio de consultas de pobreza ya construido (pobreza/dist) se copia a sitio/pobreza/ solo con --con-pobreza (pobreza/README.md).
 Uso: python scripts/03_construir_sitio.py [--con-pobreza]
 """
-import collections, csv, datetime, hashlib, html, json, math, pathlib, re, shutil, sys
+import collections, csv, datetime, hashlib, html, json, math, pathlib, re, shutil, sys, unicodedata
 from decimal import Decimal, ROUND_HALF_UP
 
 RAIZ = pathlib.Path(__file__).resolve().parents[1]
@@ -91,6 +91,8 @@ _IA_PRIV = {"cloudflare": "<p>Las preguntas de Consultas con IA las contesta un 
                          "No escribas datos personales en una pregunta.</p>"}
 assert plantilla.count("<!--IA-PRIVACIDAD-->") == 1, "falta la marca <!--IA-PRIVACIDAD--> en Tus datos (Sobre nosotros)"
 plantilla = plantilla.replace("<!--IA-PRIVACIDAD-->", _IA_PRIV[MOTOR_IA] if CONSULTA_IA else "")
+# la dirección del sitio en "Usar los datos" (la API y el MCP, plan técnico, fase 3): la de datos/manual/sitio.json, sin escribirla a mano
+plantilla = plantilla.replace("__URL_SITIO__", json.loads((RAIZ / "datos" / "manual" / "sitio.json").read_text(encoding="utf-8"))["url"].strip().rstrip("/"))
 JS_IA = (RAIZ / "scripts" / "consulta_ia.js").read_text(encoding="utf-8")
 plantilla = plantilla.replace("__V_IA_JS__", hashlib.sha1(JS_IA.encode("utf-8")).hexdigest()[:10])
 # Elecciones por mesa (4 de noviembre de 2026): su código va aparte, lo pide solo mesas.html
@@ -835,6 +837,18 @@ for _t in _meta_tablas:
                 "sensible": "habla de suicidio (CLAUDE.md, \"Temas sensibles\"): no va en los Dataset, en llms.txt ni en Consultas con IA",
                 "uso_libre": "false si los datos de base no tienen la licencia de Datina (ver \"licencia\")"},
      "tablas": CATALOGO}, ensure_ascii=False, indent=1) + "\n", encoding="utf-8", newline="\n")
+# el índice chico de la API y el MCP (plan técnico, fase 3, 14 de noviembre de 2026, functions/_datos/datos.mjs): solo las tablas que se
+# ofrecen (ni sensibles ni sin la licencia de Datina) y lo que hace falta para buscarlas. Leer el catálogo entero en cada pedido gastaba la mitad
+# de los 10 ms de procesador que Cloudflare da a cada uno. Para describir una tabla, la función lee su .metadata.json
+# el texto donde se busca, sin tildes ni mayúsculas, como lo compara normal() de la función: así no se normaliza en cada pedido
+_api_sin_tildes = lambda t: "".join(ch for ch in unicodedata.normalize("NFD", t) if not unicodedata.combining(ch)).lower().strip()
+(SITIO / "datos" / "catalogo_api.json").write_text(json.dumps(
+    {"datos_actualizados": RESUMEN["actualizado"], "tablas": [
+        {k: _c[k] for k in ("tabla", "titulo", "descripcion", "seccion", "cobertura", "periodo", "anio_desde", "anio_hasta", "ficha", "organismos")}
+        | {"columnas": [x["nombre"] for x in _c["columnas"]], "buscar": _api_sin_tildes(" ".join(
+            [_c["tabla"].replace("_", " "), _c["titulo"], _c["descripcion"], _c["seccion"], *_c["organismos"], *(x["nombre"].replace("_", " ") for x in _c["columnas"])]))}
+        for _c in CATALOGO if not _c["sensible"] and _c["uso_libre"]]},
+    ensure_ascii=False, separators=(",", ":")) + "\n", encoding="utf-8", newline="\n")
 # Metadatos de cada tabla (plan de mejora, F3, 28 de octubre de 2026): junto a cada CSV del Catálogo, un .metadata.json con su entrada de
 # catalogo.json, para quien baja los datos sin pasar por el sitio. El de una tabla que ya no está se borra
 _META_HECHOS = set()
@@ -1678,6 +1692,41 @@ for viejo, nuevo in REDIRECCIONES.items():
         f'<body><p><a href="{nuevo}.html">Esta página se mudó</a></p></body></html>\n', encoding="utf-8", newline="\n")
 
 shutil.copy(RAIZ / "datos" / "ordenado" / "tabla_larga.csv", SITIO / "datos" / "tabla_larga.csv")
+# Un archivo por indicador de la tabla larga (plan técnico, fase 3, 14 de noviembre de 2026): sitio/datos/indicadores/<variable>.csv, con
+# jurisdicción, período y valor, y sitio/datos/indicadores.json, con la unidad, la fuente, los períodos y la ficha de cada uno. Los lee la API
+# y el MCP de functions/_datos/: la tabla larga entera (7 MB) no entra en los 10 ms de procesador que Cloudflare da a cada pedido. Las
+# variables de suicidio no salen (CLAUDE.md, "Temas sensibles"): ni archivo ni entrada en el índice
+SIN_SUICIDIO_RE = re.compile(r"suicid|autoinflig|autolesi", re.I)
+_IND_DIR = SITIO / "datos" / "indicadores"
+_IND_DIR.mkdir(parents=True, exist_ok=True)
+_ind_ficha = {}
+for _f, _m in json.loads(relaciones.CATALOGO.read_text(encoding="utf-8")).get("fichas", {}).items():
+    for _v in _m.get("variables", []):
+        _ind_ficha.setdefault(_v, _f)
+_ind_filas = collections.defaultdict(list)
+with open(RAIZ / "datos" / "ordenado" / "tabla_larga.csv", encoding="utf-8", newline="") as _fh:
+    for _r in csv.DictReader(_fh):
+        if not SIN_SUICIDIO_RE.search(f'{_r["variable"]} {_r["unidad"]} {_r["fuente"]}'):
+            _ind_filas[_r["variable"]].append(_r)
+_ind_indice, _ind_hechos = [], set()
+for _v, _filas in sorted(_ind_filas.items()):
+    assert re.fullmatch(r"[\w-]+", _v), f"variable con un nombre que no sirve de archivo: {_v!r}"
+    with open(_IND_DIR / f"{_v}.csv", "w", encoding="utf-8", newline="") as _fh:
+        _w = csv.writer(_fh, lineterminator="\n")
+        _w.writerow(["codigo_indec", "territorio", "periodo", "valor"])
+        _w.writerows([_r["codigo_indec"], _r["territorio"], _r["periodo"], _r["valor"]] for _r in _filas)
+    _ind_hechos.add(f"{_v}.csv")
+    _pers = sorted({_r["periodo"] for _r in _filas})
+    _fi = _ind_ficha.get(_v)
+    _ind_indice.append({"variable": _v, "unidad": _filas[0]["unidad"], "fuente": _filas[0]["fuente"], "desde": _pers[0], "hasta": _pers[-1],
+                        "filas": len(_filas), "jurisdicciones": sorted({_r["codigo_indec"] for _r in _filas}),
+                        "ficha": (_URL_SITIO + "/" + direccion_ficha(f"#{_fi}", _v).replace("./", "")) if _fi and _fi[0:2] == "f-" and _fi in UBIC else None})
+for _f in _IND_DIR.glob("*.csv"):
+    if _f.name not in _ind_hechos:
+        _f.unlink()
+(SITIO / "datos" / "indicadores.json").write_text(json.dumps(
+    {"datos_actualizados": RESUMEN["actualizado"], "licencia": LICENCIA, "licencia_url": LICENCIA_URL, "indicadores": _ind_indice},
+    ensure_ascii=False, indent=1) + "\n", encoding="utf-8", newline="\n")
 # Sitio de consultas de pobreza (Observable Framework). Se construye aparte con "npm run build" dentro de pobreza/ (pobreza/README.md)
 # y su resultado se copia a sitio/pobreza/ solo con --con-pobreza (scripts/consultor_pobreza.py): desde el 22 de octubre de 2026 una
 # pobreza/dist vieja ya no reemplaza el consultor publicado
@@ -1753,6 +1802,9 @@ if URL_SITIO:
            "período e indicador, con su unidad y su fuente.",
            f"- [Catálogo en JSON]({_llu('datos/catalogo.json')}): cada tabla con su fuente, sus organismos, el día en que se bajó o se armó cada "
            "archivo del que sale, su período, sus columnas y su licencia.",
+           f"- API de datos, en JSON y de solo lectura: {URL_SITIO}/api/datos (busca tablas e indicadores, los describe y da sus filas "
+           "filtradas por jurisdicción y período). Servidor MCP con las mismas consultas, para asistentes de IA: "
+           f"{URL_SITIO}/api/mcp (sin clave). Las direcciones de la API no son páginas: por eso van sin enlace.",
            _llpag("usar-datos"), _llpag("relaciones")]
     for _g, _gn, _items in GRUPOS:
         _ll += ["", f"## {_gn}", ""] + [_llpag(a) for a in _secs_de(_items) if a in PAGINA_INFO]

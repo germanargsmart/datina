@@ -51,6 +51,9 @@ jobs:
       - run: node scripts/prueba_cifras.mjs
       - run: node scripts/prueba_fallas.mjs
       - run: node scripts/prueba_consulta_ia.mjs
+      # el MCP y la API de datos (functions/_datos, plan tecnico, fase 3, 14 de noviembre de 2026): contra el sitio recien armado, sin red.
+      # Controla el protocolo, las consultas y que nunca salga nada sensible
+      - run: node scripts/prueba_datos_api.mjs
       # las búsquedas de Google (functions/_tendencias, 2 de noviembre de 2026): con un RSS de ejemplo, sin red
       - run: node scripts/prueba_tendencias.mjs
       # la descarga de la API del INDEC (scripts/indec_api.py, 2 de noviembre de 2026): con una API simulada, sin red ni token

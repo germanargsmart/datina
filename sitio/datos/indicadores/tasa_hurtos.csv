@@ -1,0 +1,651 @@
+codigo_indec,territorio,periodo,valor
+02,CABA,2000,2137.51
+02,CABA,2001,2058.86
+02,CABA,2002,2053.88
+02,CABA,2003,1700.13
+02,CABA,2004,1629.53
+02,CABA,2005,1684.39
+02,CABA,2006,1824.45
+02,CABA,2007,1802.5
+02,CABA,2008,1856.41
+02,CABA,2009,1879.31
+02,CABA,2010,1796.54
+02,CABA,2011,1814.78
+02,CABA,2012,1827.43
+02,CABA,2013,1650.45
+02,CABA,2014,1584.56
+02,CABA,2015,1388.55
+02,CABA,2016,1444.04
+02,CABA,2017,1375.77
+02,CABA,2018,1377.88
+02,CABA,2019,1635.63
+02,CABA,2020,843.73
+02,CABA,2021,1192.59
+02,CABA,2022,1761.09
+02,CABA,2023,2035.59
+02,CABA,2024,2044.97
+02,CABA,2025,1629.75
+06,Buenos Aires,2000,427.77
+06,Buenos Aires,2001,412.17
+06,Buenos Aires,2002,571.2
+06,Buenos Aires,2003,491.65
+06,Buenos Aires,2004,396.62
+06,Buenos Aires,2005,256.27
+06,Buenos Aires,2006,242.24
+06,Buenos Aires,2007,239.41
+06,Buenos Aires,2008,316.22
+06,Buenos Aires,2009,308.88
+06,Buenos Aires,2010,353.46
+06,Buenos Aires,2011,358.76
+06,Buenos Aires,2012,383.51
+06,Buenos Aires,2013,384.05
+06,Buenos Aires,2014,337.01
+06,Buenos Aires,2015,312.47
+06,Buenos Aires,2016,317.83
+06,Buenos Aires,2017,308.37
+06,Buenos Aires,2018,369.1
+06,Buenos Aires,2019,568.82
+06,Buenos Aires,2020,385.73
+06,Buenos Aires,2021,408.74
+06,Buenos Aires,2022,430.06
+06,Buenos Aires,2023,502.61
+06,Buenos Aires,2024,503.84
+06,Buenos Aires,2025,432.43
+10,Catamarca,2000,955.17
+10,Catamarca,2001,918.84
+10,Catamarca,2002,1376.57
+10,Catamarca,2003,1298.4
+10,Catamarca,2004,1050.81
+10,Catamarca,2005,1192.06
+10,Catamarca,2006,1450.55
+10,Catamarca,2007,1248.94
+10,Catamarca,2008,1050.13
+10,Catamarca,2009,1117.27
+10,Catamarca,2010,1214.53
+10,Catamarca,2011,1049.93
+10,Catamarca,2012,1075.22
+10,Catamarca,2013,1131.9
+10,Catamarca,2014,1090.85
+10,Catamarca,2015,1051.92
+10,Catamarca,2016,1063.7
+10,Catamarca,2017,883.95
+10,Catamarca,2018,815.87
+10,Catamarca,2019,806.17
+10,Catamarca,2020,595.76
+10,Catamarca,2021,698.11
+10,Catamarca,2022,769.19
+10,Catamarca,2023,1123.2
+10,Catamarca,2024,1142.15
+10,Catamarca,2025,849.16
+14,Córdoba,2000,806.19
+14,Córdoba,2001,882.41
+14,Córdoba,2002,1032.45
+14,Córdoba,2003,967.69
+14,Córdoba,2004,904.0
+14,Córdoba,2005,877.74
+14,Córdoba,2006,846.33
+14,Córdoba,2007,770.41
+14,Córdoba,2008,744.55
+14,Córdoba,2009,712.53
+14,Córdoba,2010,666.38
+14,Córdoba,2011,645.97
+14,Córdoba,2012,481.44
+14,Córdoba,2013,117.32
+14,Córdoba,2014,772.87
+14,Córdoba,2015,694.07
+14,Córdoba,2016,777.64
+14,Córdoba,2017,810.08
+14,Córdoba,2018,930.44
+14,Córdoba,2019,1062.96
+14,Córdoba,2020,717.95
+14,Córdoba,2021,834.49
+14,Córdoba,2022,950.41
+14,Córdoba,2023,1180.73
+14,Córdoba,2024,1224.87
+14,Córdoba,2025,917.91
+18,Corrientes,2000,904.91
+18,Corrientes,2001,945.83
+18,Corrientes,2002,1328.3
+18,Corrientes,2003,1181.58
+18,Corrientes,2004,1008.33
+18,Corrientes,2005,942.86
+18,Corrientes,2006,817.99
+18,Corrientes,2007,677.71
+18,Corrientes,2008,613.77
+18,Corrientes,2009,541.69
+18,Corrientes,2010,534.62
+18,Corrientes,2011,455.92
+18,Corrientes,2012,442.34
+18,Corrientes,2013,294.19
+18,Corrientes,2014,263.91
+18,Corrientes,2015,276.47
+18,Corrientes,2016,228.29
+18,Corrientes,2017,232.46
+18,Corrientes,2018,250.03
+18,Corrientes,2019,313.4
+18,Corrientes,2020,271.68
+18,Corrientes,2021,329.2
+18,Corrientes,2022,360.47
+18,Corrientes,2023,374.47
+18,Corrientes,2024,314.23
+18,Corrientes,2025,291.97
+22,Chaco,2000,1817.86
+22,Chaco,2001,2027.63
+22,Chaco,2002,2441.74
+22,Chaco,2003,1784.49
+22,Chaco,2004,1542.24
+22,Chaco,2005,1358.89
+22,Chaco,2006,1208.98
+22,Chaco,2007,1003.57
+22,Chaco,2008,868.57
+22,Chaco,2009,704.81
+22,Chaco,2010,622.95
+22,Chaco,2011,608.44
+22,Chaco,2012,693.94
+22,Chaco,2013,826.69
+22,Chaco,2014,865.29
+22,Chaco,2015,629.55
+22,Chaco,2016,687.45
+22,Chaco,2017,670.45
+22,Chaco,2018,746.48
+22,Chaco,2019,665.51
+22,Chaco,2020,489.73
+22,Chaco,2021,565.18
+22,Chaco,2022,596.01
+22,Chaco,2023,671.34
+22,Chaco,2024,677.44
+22,Chaco,2025,493.29
+26,Chubut,2000,443.67
+26,Chubut,2001,432.56
+26,Chubut,2002,497.97
+26,Chubut,2003,604.46
+26,Chubut,2004,522.4
+26,Chubut,2005,456.46
+26,Chubut,2006,509.06
+26,Chubut,2007,502.47
+26,Chubut,2008,430.54
+26,Chubut,2009,518.49
+26,Chubut,2010,486.53
+26,Chubut,2011,398.7
+26,Chubut,2012,320.03
+26,Chubut,2013,549.25
+26,Chubut,2014,558.49
+26,Chubut,2015,479.43
+26,Chubut,2016,507.22
+26,Chubut,2017,491.36
+26,Chubut,2018,555.0
+26,Chubut,2019,586.3
+26,Chubut,2020,470.12
+26,Chubut,2021,611.59
+26,Chubut,2022,670.28
+26,Chubut,2023,849.66
+26,Chubut,2024,795.27
+26,Chubut,2025,607.46
+30,Entre Ríos,2000,453.16
+30,Entre Ríos,2001,467.39
+30,Entre Ríos,2002,633.72
+30,Entre Ríos,2003,571.48
+30,Entre Ríos,2004,551.04
+30,Entre Ríos,2005,494.74
+30,Entre Ríos,2006,436.55
+30,Entre Ríos,2007,416.01
+30,Entre Ríos,2008,422.44
+30,Entre Ríos,2009,400.42
+30,Entre Ríos,2010,381.18
+30,Entre Ríos,2011,400.55
+30,Entre Ríos,2012,427.48
+30,Entre Ríos,2013,367.3
+30,Entre Ríos,2014,401.21
+30,Entre Ríos,2015,410.24
+30,Entre Ríos,2016,452.38
+30,Entre Ríos,2017,525.56
+30,Entre Ríos,2018,662.14
+30,Entre Ríos,2019,677.87
+30,Entre Ríos,2020,502.47
+30,Entre Ríos,2021,560.67
+30,Entre Ríos,2022,644.23
+30,Entre Ríos,2023,744.33
+30,Entre Ríos,2024,797.73
+30,Entre Ríos,2025,613.84
+34,Formosa,2000,619.86
+34,Formosa,2001,731.32
+34,Formosa,2002,977.25
+34,Formosa,2003,847.65
+34,Formosa,2004,833.36
+34,Formosa,2005,725.17
+34,Formosa,2006,667.66
+34,Formosa,2007,561.17
+34,Formosa,2008,578.92
+34,Formosa,2009,631.0
+34,Formosa,2010,577.57
+34,Formosa,2011,497.83
+34,Formosa,2012,589.91
+34,Formosa,2013,688.16
+34,Formosa,2014,752.32
+34,Formosa,2015,637.55
+34,Formosa,2016,603.99
+34,Formosa,2017,608.05
+34,Formosa,2018,726.73
+34,Formosa,2019,807.36
+34,Formosa,2020,601.3
+34,Formosa,2021,694.57
+34,Formosa,2022,729.25
+34,Formosa,2023,857.45
+34,Formosa,2024,969.96
+34,Formosa,2025,859.33
+38,Jujuy,2000,853.1
+38,Jujuy,2001,1031.82
+38,Jujuy,2002,1185.84
+38,Jujuy,2003,1137.43
+38,Jujuy,2004,1346.83
+38,Jujuy,2005,1276.48
+38,Jujuy,2006,1080.78
+38,Jujuy,2007,946.56
+38,Jujuy,2008,949.03
+38,Jujuy,2009,885.48
+38,Jujuy,2010,766.48
+38,Jujuy,2011,686.04
+38,Jujuy,2012,677.93
+38,Jujuy,2013,536.25
+38,Jujuy,2014,747.04
+38,Jujuy,2015,723.57
+38,Jujuy,2016,786.92
+38,Jujuy,2017,636.7
+38,Jujuy,2018,625.02
+38,Jujuy,2019,726.75
+38,Jujuy,2020,602.17
+38,Jujuy,2021,708.15
+38,Jujuy,2022,804.03
+38,Jujuy,2023,902.16
+38,Jujuy,2024,1043.11
+38,Jujuy,2025,802.5
+42,La Pampa,2000,1827.0
+42,La Pampa,2001,1643.92
+42,La Pampa,2002,2201.1
+42,La Pampa,2003,1818.2
+42,La Pampa,2004,1601.89
+42,La Pampa,2005,1172.92
+42,La Pampa,2006,1037.71
+42,La Pampa,2007,924.11
+42,La Pampa,2008,1016.32
+42,La Pampa,2009,1068.0
+42,La Pampa,2010,1080.03
+42,La Pampa,2011,1080.33
+42,La Pampa,2012,1214.11
+42,La Pampa,2013,1132.44
+42,La Pampa,2014,1182.13
+42,La Pampa,2015,968.06
+42,La Pampa,2016,870.33
+42,La Pampa,2017,798.74
+42,La Pampa,2018,600.21
+42,La Pampa,2019,429.35
+42,La Pampa,2020,226.54
+42,La Pampa,2021,370.23
+42,La Pampa,2022,523.3
+42,La Pampa,2023,633.69
+42,La Pampa,2024,785.9
+42,La Pampa,2025,642.53
+46,La Rioja,2000,679.39
+46,La Rioja,2001,710.12
+46,La Rioja,2002,907.94
+46,La Rioja,2003,989.02
+46,La Rioja,2004,921.58
+46,La Rioja,2005,757.38
+46,La Rioja,2006,639.91
+46,La Rioja,2007,491.75
+46,La Rioja,2008,546.66
+46,La Rioja,2009,473.75
+46,La Rioja,2010,440.77
+46,La Rioja,2011,395.69
+46,La Rioja,2012,415.35
+46,La Rioja,2013,425.99
+46,La Rioja,2014,571.42
+46,La Rioja,2015,522.94
+46,La Rioja,2016,469.59
+46,La Rioja,2017,556.54
+46,La Rioja,2018,638.01
+46,La Rioja,2019,699.3
+46,La Rioja,2020,649.25
+46,La Rioja,2021,579.71
+46,La Rioja,2022,584.92
+46,La Rioja,2023,614.35
+46,La Rioja,2024,686.84
+46,La Rioja,2025,629.12
+50,Mendoza,2000,1483.14
+50,Mendoza,2001,1441.63
+50,Mendoza,2002,1599.31
+50,Mendoza,2003,1415.83
+50,Mendoza,2004,1369.91
+50,Mendoza,2005,1472.19
+50,Mendoza,2006,1537.11
+50,Mendoza,2007,1449.71
+50,Mendoza,2008,1359.68
+50,Mendoza,2009,1546.88
+50,Mendoza,2010,1452.72
+50,Mendoza,2011,1531.07
+50,Mendoza,2012,1586.99
+50,Mendoza,2013,1639.42
+50,Mendoza,2014,1717.34
+50,Mendoza,2015,1706.56
+50,Mendoza,2016,1454.82
+50,Mendoza,2017,866.98
+50,Mendoza,2018,832.76
+50,Mendoza,2019,916.25
+50,Mendoza,2020,600.75
+50,Mendoza,2021,858.65
+50,Mendoza,2022,962.87
+50,Mendoza,2023,1085.45
+50,Mendoza,2024,1025.15
+50,Mendoza,2025,910.18
+54,Misiones,2000,760.75
+54,Misiones,2001,887.49
+54,Misiones,2002,1269.0
+54,Misiones,2003,1094.78
+54,Misiones,2004,944.54
+54,Misiones,2005,1001.16
+54,Misiones,2006,760.39
+54,Misiones,2007,702.76
+54,Misiones,2008,754.02
+54,Misiones,2009,696.26
+54,Misiones,2010,657.16
+54,Misiones,2011,600.46
+54,Misiones,2012,640.8
+54,Misiones,2013,648.84
+54,Misiones,2014,844.07
+54,Misiones,2015,769.43
+54,Misiones,2016,838.74
+54,Misiones,2017,711.62
+54,Misiones,2018,702.49
+54,Misiones,2019,791.91
+54,Misiones,2020,652.74
+54,Misiones,2021,670.75
+54,Misiones,2022,599.43
+54,Misiones,2023,671.81
+54,Misiones,2024,676.72
+54,Misiones,2025,612.85
+58,Neuquén,2000,1574.08
+58,Neuquén,2001,1633.6
+58,Neuquén,2002,2089.29
+58,Neuquén,2003,2087.29
+58,Neuquén,2004,2093.27
+58,Neuquén,2005,1852.65
+58,Neuquén,2006,1627.05
+58,Neuquén,2007,1502.04
+58,Neuquén,2008,1518.88
+58,Neuquén,2009,1521.65
+58,Neuquén,2010,1375.57
+58,Neuquén,2011,1227.22
+58,Neuquén,2012,1093.64
+58,Neuquén,2013,1062.89
+58,Neuquén,2014,1129.5
+58,Neuquén,2015,1046.08
+58,Neuquén,2016,975.2
+58,Neuquén,2017,916.9
+58,Neuquén,2018,1014.25
+58,Neuquén,2019,1107.24
+58,Neuquén,2020,883.21
+58,Neuquén,2021,952.92
+58,Neuquén,2022,967.32
+58,Neuquén,2023,882.5
+58,Neuquén,2024,725.65
+58,Neuquén,2025,572.84
+62,Río Negro,2000,966.24
+62,Río Negro,2001,1019.19
+62,Río Negro,2002,1199.27
+62,Río Negro,2003,1041.83
+62,Río Negro,2004,968.96
+62,Río Negro,2005,848.99
+62,Río Negro,2006,847.75
+62,Río Negro,2007,948.6
+62,Río Negro,2008,1027.85
+62,Río Negro,2009,1053.8
+62,Río Negro,2010,883.73
+62,Río Negro,2011,915.28
+62,Río Negro,2012,1094.57
+62,Río Negro,2013,1023.87
+62,Río Negro,2014,988.86
+62,Río Negro,2015,881.56
+62,Río Negro,2016,836.63
+62,Río Negro,2017,753.5
+62,Río Negro,2018,791.59
+62,Río Negro,2019,791.94
+62,Río Negro,2020,606.06
+62,Río Negro,2021,695.72
+62,Río Negro,2022,713.43
+62,Río Negro,2023,805.36
+62,Río Negro,2024,832.54
+62,Río Negro,2025,644.39
+66,Salta,2000,696.14
+66,Salta,2001,725.07
+66,Salta,2002,809.08
+66,Salta,2003,969.98
+66,Salta,2004,1356.58
+66,Salta,2005,1526.94
+66,Salta,2006,1312.07
+66,Salta,2007,0.34
+66,Salta,2008,1184.2
+66,Salta,2009,1072.7
+66,Salta,2010,1002.01
+66,Salta,2011,982.74
+66,Salta,2012,959.39
+66,Salta,2013,1033.76
+66,Salta,2014,1328.49
+66,Salta,2015,1253.37
+66,Salta,2016,1168.74
+66,Salta,2017,1163.63
+66,Salta,2018,1215.38
+66,Salta,2019,1297.75
+66,Salta,2020,970.31
+66,Salta,2021,1201.05
+66,Salta,2022,1336.12
+66,Salta,2023,1402.63
+66,Salta,2024,1435.02
+66,Salta,2025,1207.52
+70,San Juan,2000,1418.6
+70,San Juan,2001,1740.85
+70,San Juan,2002,2005.21
+70,San Juan,2003,2091.18
+70,San Juan,2004,2139.39
+70,San Juan,2005,1881.36
+70,San Juan,2006,1773.62
+70,San Juan,2007,1521.77
+70,San Juan,2008,1423.9
+70,San Juan,2009,1465.38
+70,San Juan,2010,1318.53
+70,San Juan,2011,1361.81
+70,San Juan,2012,1225.81
+70,San Juan,2013,995.39
+70,San Juan,2014,1034.22
+70,San Juan,2015,945.65
+70,San Juan,2016,1042.02
+70,San Juan,2017,1021.57
+70,San Juan,2018,1040.6
+70,San Juan,2019,1020.86
+70,San Juan,2020,812.71
+70,San Juan,2021,840.92
+70,San Juan,2022,962.69
+70,San Juan,2023,1245.19
+70,San Juan,2024,1146.35
+70,San Juan,2025,864.43
+74,San Luis,2000,606.75
+74,San Luis,2001,520.05
+74,San Luis,2002,582.14
+74,San Luis,2003,630.82
+74,San Luis,2004,478.51
+74,San Luis,2005,464.61
+74,San Luis,2006,369.51
+74,San Luis,2007,403.24
+74,San Luis,2008,529.2
+74,San Luis,2009,561.07
+74,San Luis,2010,564.94
+74,San Luis,2011,453.34
+74,San Luis,2012,423.05
+74,San Luis,2013,318.94
+74,San Luis,2014,356.47
+74,San Luis,2015,328.96
+74,San Luis,2016,341.76
+74,San Luis,2017,274.92
+74,San Luis,2018,272.99
+74,San Luis,2019,303.78
+74,San Luis,2020,254.56
+74,San Luis,2021,330.15
+74,San Luis,2022,430.5
+74,San Luis,2023,516.77
+74,San Luis,2024,606.41
+74,San Luis,2025,464.4
+78,Santa Cruz,2000,726.32
+78,Santa Cruz,2001,877.24
+78,Santa Cruz,2002,1261.74
+78,Santa Cruz,2003,1180.73
+78,Santa Cruz,2004,968.24
+78,Santa Cruz,2005,838.82
+78,Santa Cruz,2006,732.59
+78,Santa Cruz,2007,833.48
+78,Santa Cruz,2008,809.76
+78,Santa Cruz,2009,897.76
+78,Santa Cruz,2010,886.91
+78,Santa Cruz,2011,821.69
+78,Santa Cruz,2012,746.4
+78,Santa Cruz,2013,649.76
+78,Santa Cruz,2014,668.82
+78,Santa Cruz,2015,579.46
+78,Santa Cruz,2016,619.43
+78,Santa Cruz,2017,524.01
+78,Santa Cruz,2018,550.64
+78,Santa Cruz,2019,634.8
+78,Santa Cruz,2020,503.69
+78,Santa Cruz,2021,571.31
+78,Santa Cruz,2022,729.67
+78,Santa Cruz,2023,885.09
+78,Santa Cruz,2024,874.08
+78,Santa Cruz,2025,627.85
+82,Santa Fe,2000,584.36
+82,Santa Fe,2001,648.68
+82,Santa Fe,2002,844.17
+82,Santa Fe,2003,755.12
+82,Santa Fe,2004,742.37
+82,Santa Fe,2005,723.73
+82,Santa Fe,2006,602.88
+82,Santa Fe,2007,534.59
+82,Santa Fe,2008,536.65
+82,Santa Fe,2009,515.8
+82,Santa Fe,2010,461.0
+82,Santa Fe,2011,425.7
+82,Santa Fe,2012,413.59
+82,Santa Fe,2013,364.69
+82,Santa Fe,2014,369.74
+82,Santa Fe,2015,356.91
+82,Santa Fe,2016,364.78
+82,Santa Fe,2017,359.3
+82,Santa Fe,2018,401.78
+82,Santa Fe,2019,415.46
+82,Santa Fe,2020,321.34
+82,Santa Fe,2021,377.23
+82,Santa Fe,2022,420.74
+82,Santa Fe,2023,492.19
+82,Santa Fe,2024,514.57
+82,Santa Fe,2025,460.25
+86,Santiago del Estero,2000,755.95
+86,Santiago del Estero,2001,768.3
+86,Santiago del Estero,2002,952.16
+86,Santiago del Estero,2003,897.03
+86,Santiago del Estero,2004,1026.9
+86,Santiago del Estero,2005,782.53
+86,Santiago del Estero,2006,843.06
+86,Santiago del Estero,2007,636.61
+86,Santiago del Estero,2008,516.97
+86,Santiago del Estero,2009,446.89
+86,Santiago del Estero,2010,353.03
+86,Santiago del Estero,2011,275.09
+86,Santiago del Estero,2012,207.35
+86,Santiago del Estero,2013,149.19
+86,Santiago del Estero,2014,334.15
+86,Santiago del Estero,2015,528.82
+86,Santiago del Estero,2016,643.42
+86,Santiago del Estero,2017,843.2
+86,Santiago del Estero,2018,946.1
+86,Santiago del Estero,2019,961.88
+86,Santiago del Estero,2020,596.43
+86,Santiago del Estero,2021,587.2
+86,Santiago del Estero,2022,691.01
+86,Santiago del Estero,2023,835.36
+86,Santiago del Estero,2024,1051.63
+86,Santiago del Estero,2025,1012.89
+90,Tucumán,2000,364.07
+90,Tucumán,2001,362.68
+90,Tucumán,2002,470.69
+90,Tucumán,2003,458.34
+90,Tucumán,2004,488.0
+90,Tucumán,2005,554.65
+90,Tucumán,2006,465.21
+90,Tucumán,2007,386.19
+90,Tucumán,2008,338.97
+90,Tucumán,2009,298.4
+90,Tucumán,2010,270.21
+90,Tucumán,2011,240.47
+90,Tucumán,2012,250.54
+90,Tucumán,2013,317.06
+90,Tucumán,2014,345.18
+90,Tucumán,2015,348.68
+90,Tucumán,2016,356.93
+90,Tucumán,2017,404.65
+90,Tucumán,2018,394.65
+90,Tucumán,2019,428.93
+90,Tucumán,2020,338.71
+90,Tucumán,2021,377.84
+90,Tucumán,2022,428.83
+90,Tucumán,2023,585.74
+90,Tucumán,2024,573.41
+90,Tucumán,2025,532.32
+94,Tierra del Fuego,2000,656.18
+94,Tierra del Fuego,2001,623.23
+94,Tierra del Fuego,2002,856.64
+94,Tierra del Fuego,2003,776.09
+94,Tierra del Fuego,2004,809.87
+94,Tierra del Fuego,2005,699.57
+94,Tierra del Fuego,2006,778.46
+94,Tierra del Fuego,2007,635.86
+94,Tierra del Fuego,2008,648.97
+94,Tierra del Fuego,2009,669.41
+94,Tierra del Fuego,2010,540.78
+94,Tierra del Fuego,2011,506.11
+94,Tierra del Fuego,2012,517.69
+94,Tierra del Fuego,2013,623.67
+94,Tierra del Fuego,2014,619.0
+94,Tierra del Fuego,2015,579.71
+94,Tierra del Fuego,2016,595.49
+94,Tierra del Fuego,2017,650.2
+94,Tierra del Fuego,2018,605.05
+94,Tierra del Fuego,2019,656.69
+94,Tierra del Fuego,2020,426.1
+94,Tierra del Fuego,2021,506.48
+94,Tierra del Fuego,2022,629.57
+94,Tierra del Fuego,2023,639.14
+94,Tierra del Fuego,2024,667.54
+94,Tierra del Fuego,2025,560.98
+00,Argentina,2000,800.5784
+00,Argentina,2001,818.4961
+00,Argentina,2002,993.2677
+00,Argentina,2003,882.8834
+00,Argentina,2004,826.7416
+00,Argentina,2005,755.136
+00,Argentina,2006,717.1046
+00,Argentina,2007,628.5048
+00,Argentina,2008,682.886
+00,Argentina,2009,673.4553
+00,Argentina,2010,652.2508
+00,Argentina,2011,639.0971
+00,Argentina,2012,655.3284
+00,Argentina,2013,640.5052
+00,Argentina,2014,652.4426
+00,Argentina,2015,603.8932
+00,Argentina,2016,609.9719
+00,Argentina,2017,573.9768
+00,Argentina,2018,621.9757
+00,Argentina,2019,743.2701
+00,Argentina,2020,509.3378
+00,Argentina,2021,592.2974
+00,Argentina,2022,680.0977
+00,Argentina,2023,793.0764
+00,Argentina,2024,805.2397
+00,Argentina,2025,665.1052

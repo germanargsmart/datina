@@ -156,6 +156,7 @@ Lo que explica los números (de los informes de Lighthouse de la portada y de Ne
 - Elecciones por mesa (`sitio/datos/mesas/`) no está hoy en el catálogo. Requisito previo: una marca de origen por elección (oficial o 257arg) y su entrada en el catálogo. El MCP ofrece solo las oficiales.
 - Prueba sin red, como `prueba_consulta_ia.mjs`, que controla también que lo sensible y lo que no es oficial no salgan.
 - Una página corta en "Usar los datos" que explique cómo conectarlo.
+- **Armado el 14 de noviembre de 2026** (`docs/ia/MCP.md`): `/api/mcp` y `/api/datos/...`, cinco herramientas, 71 controles en `scripts/prueba_datos_api.mjs` y la sección en "Usar los datos". Sin Elecciones por mesa, que necesita antes la marca de origen de cada elección: queda pendiente.
 - **Antes de publicar, el autor**: aprueba la dirección pública nueva y revisa en el panel de Cloudflare el plan de la cuenta (el MCP comparte con `/api/consulta` el límite de pedidos de las funciones) y que no esté prendido el bloqueo de bots de IA.
 - Esfuerzo medio, riesgo bajo en el código. Es una dirección pública nueva.
 

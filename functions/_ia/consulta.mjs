@@ -24,11 +24,11 @@ export const MODELO = "claude-opus-5-5";
 // topes de cada consulta: largo de la pregunta, vueltas del modelo (cada lectura de tablas es una vuelta), tokens que puede escribir en
 // cada vuelta (contando lo que piensa), filas y caracteres que recibe de cada tabla
 export const TOPES = {pregunta: 400, vueltas: 6, tokens: 8000, filas: 300, caracteres: 30000};
-const SIN_SUICIDIO = /suicid|autoinflig|autolesi/i;
+export const SIN_SUICIDIO = /suicid|autoinflig|autolesi/i;
 // la columna de período de cada tabla, la primera que tenga (el año antes que el mes: en algunas tablas "mes" es el número del mes)
-const COLS_PERIODO = ["periodo", "fecha", "anio", "año", "mes", "eleccion"];
+export const COLS_PERIODO = ["periodo", "fecha", "anio", "año", "mes", "eleccion"];
 // los semestres ("1S2026") se comparan como "2026-S1", así entran en el orden de los años (26 de octubre de 2026)
-const clavePeriodo = v => { const m = /^(\d)([ST])(\d{4})$/i.exec(v); return m ? `${m[3]}-${m[2].toUpperCase()}${m[1]}` : v; };
+export const clavePeriodo = v => { const m = /^(\d)([ST])(\d{4})$/i.exec(v); return m ? `${m[3]}-${m[2].toUpperCase()}${m[1]}` : v; };
 const COBERTURA = {"Las 24 jurisdicciones y el total del país": "provincias y país", "Las 24 jurisdicciones": "provincias",
                    "Total del país": "país", "Sin desglose territorial": "sin provincias"};
 const NO_ACTIVA = "Las consultas con IA no están activadas.";
@@ -39,7 +39,7 @@ const NO_PUEDO = "No puedo contestar esa pregunta con los datos de Datina.";
 const responderJSON = (estado, cuerpo, extra = {}) => new Response(JSON.stringify(cuerpo), {
   status: estado, headers: {"Content-Type": "application/json; charset=utf-8", "Cache-Control": "no-store", ...extra}});
 // para comparar sin mayúsculas ni tildes (lo que es solo ASCII, que es casi todo, no pasa por normalize)
-const normal = s => /^[\x00-\x7f]*$/.test(s) ? s.toLowerCase().trim() : String(s).normalize("NFD").replace(/\p{M}/gu, "").toLowerCase().trim();
+export const normal = s => /^[\x00-\x7f]*$/.test(s) ? s.toLowerCase().trim() : String(s).normalize("NFD").replace(/\p{M}/gu, "").toLowerCase().trim();
 
 // ---------- el índice de tablas ----------
 // se lee en cada consulta (un archivo del propio sitio): así nunca queda uno viejo después de publicar
@@ -79,7 +79,8 @@ function impar(l) {
   for (let j = l.indexOf('"'); j >= 0; j = l.indexOf('"', j + 1)) n++;
   return n % 2 === 1;
 }
-function filasCSV(texto, pasa = () => true, max = Infinity) {
+// también lo usa la API de datos (functions/_datos/datos.mjs, 14 de noviembre de 2026)
+export function filasCSV(texto, pasa = () => true, max = Infinity) {
   const lineas = texto.replace(/^\uFEFF/, "").split("\n"), filas = [];
   let cab = null, total = 0;
   for (let i = 0; i < lineas.length; i++) {
