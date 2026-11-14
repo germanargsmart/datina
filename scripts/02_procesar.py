@@ -1781,6 +1781,25 @@ for c in CENSO_COLS:
     d = censo[["codigo_indec", "territorio", c]].rename(columns={c: "valor"}); d["periodo"] = 2022
     agregar(d, f"censo2022_{c}", "% de hogares" if c != "sin_cobertura" else "% de personas", "INDEC, Censo 2022")
 
+# La cobertura de salud por tipo (14 de noviembre de 2026, fuentes nuevas aprobadas por el autor): las tres respuestas de la pregunta del censo
+# (obra social o prepaga, incluido el PAMI, programas o planes estatales de salud, o ninguna), sumadas por scripts/censo_2022_cobertura.py
+# desde los resultados por radio censal. La parte sin cobertura tiene que dar lo mismo que la de arriba. Prefijo de este bloque: cbs_
+cbs_ = pd.read_csv(RAIZ / "datos" / "manual" / "censo2022_cobertura.csv", dtype={"codigo_indec": str, "codigo_dep": str})
+cbs_p = cbs_[cbs_.codigo_dep.isna()].set_index("codigo_indec")
+assert set(cbs_p.index) == set(POB), "la cobertura por tipo no trae las 24 jurisdicciones"
+assert (cbs_p.sin_cobertura_pct - censo.set_index("codigo_indec").sin_cobertura).abs().max() < .01, "la cobertura por tipo no coincide con el censo"
+CBS_TIPOS = ["obra_social_prepaga", "plan_estatal", "sin_cobertura"]
+cobertura_tipo_provincias = pd.DataFrame({"codigo_indec": cbs_p.index, "territorio": cbs_p.index.map(CORTO), "personas": cbs_p.personas.values,
+                                          **{t: cbs_p[f"{t}_pct"].values for t in CBS_TIPOS}}).sort_values("obra_social_prepaga", ascending=False)
+cbs_pais = {t: float(cbs_p[t].sum() / cbs_p.personas.sum() * 100) for t in CBS_TIPOS}
+cbs_o = cobertura_tipo_provincias.sort_values("plan_estatal")
+cbs_res = {"pais": cbs_pais, "os_max": [cobertura_tipo_provincias.iloc[0].territorio, float(cobertura_tipo_provincias.iloc[0].obra_social_prepaga)],
+           "os_min": [cobertura_tipo_provincias.iloc[-1].territorio, float(cobertura_tipo_provincias.iloc[-1].obra_social_prepaga)],
+           "plan_max": [cbs_o.iloc[-1].territorio, float(cbs_o.iloc[-1].plan_estatal)], "plan_min": [cbs_o.iloc[0].territorio, float(cbs_o.iloc[0].plan_estatal)]}
+for _cbs_c, _cbs_v in [("obra_social_prepaga", "censo2022_obra_social_prepaga"), ("plan_estatal", "censo2022_plan_estatal_salud")]:
+    agregar(cobertura_tipo_provincias[["codigo_indec", "territorio", _cbs_c]].rename(columns={_cbs_c: "valor"}).assign(periodo=2022),
+            _cbs_v, "% de personas", "INDEC, Censo 2022")
+
 # Cómo cambió cada provincia entre los censos 2010 y 2022 (F12 del plan de mejora, aprobado por el autor el 28 de octubre de 2026). Los valores
 # de 2010 los arma una sola vez scripts/censo_2010.py desde los cuadros del INDEC (datos/manual/censo2010_provincias.csv), con las mismas
 # definiciones que los de 2022 de arriba. El país de 2010 suma las provincias, pesadas por sus hogares o por su población en viviendas
@@ -8171,6 +8190,7 @@ tablas = {
     "pobreza_aglomerados": pobreza_aglomerados,
     "esperanza_vida_provincias": ev,
     "censo2022_provincias": censo,
+    "cobertura_tipo_provincias": cobertura_tipo_provincias,
     "internet_fijo_provincias": internet_fijo,
     "exportaciones_provincias": exp_prov,
     "extranjeros_provincias": extranjeros,
@@ -8819,6 +8839,7 @@ resumen["capitales_pais"] = CAP_PAIS
 resumen["ingresos_aglomerados"] = ipa_res
 resumen["desocupacion"] = dso_res
 resumen["informalidad"] = inf_res
+resumen["cobertura_tipo"] = cbs_res
 resumen["pobreza_aglomerados"] = pza_res
 resumen["capitales_eph"] = [{"id": k, "nombre": v[0], "unidad": v[1], "periodo": v[2], "tema": v[3], "fuente": v[4], "ficha": v[5], "dec": v[6]}
                             for k, v in CAPITALES_EPH_META.items()]

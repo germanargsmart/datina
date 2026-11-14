@@ -1701,6 +1701,18 @@
    }
   },
   {
+   "id": "ds:manual/censo2022_cobertura.csv",
+   "nombre": "Censo 2022: cobertura de salud por tipo, por provincia y departamento",
+   "fuente": "org:indec",
+   "ruta": "datos/manual/censo2022_cobertura.csv",
+   "armado": "2026-11-14",
+   "evidencia": {
+    "archivo": "scripts/censo_2022_cobertura.py",
+    "contiene": "SALIDA = RAIZ / \"datos\" / \"manual\" / \"censo2022_cobertura.csv\""
+   },
+   "url": "https://datos.gob.ar/api/3/action/package_show?id=censo-nacional-de-poblacion-hogares-y-viviendas-2022"
+  },
+  {
    "id": "ds:manual/censo2022_provincias.csv",
    "nombre": "Censo 2022: servicios, equipamiento y cobertura de salud por provincia",
    "fuente": "org:indec",
@@ -3475,6 +3487,22 @@
     }
    ],
    "tabla": "censo2022_provincias"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:manual/censo2022_cobertura.csv",
+   "a": "f-cobertura",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "cbs_ = pd.read_csv(RAIZ / \"datos\" / \"manual\" / \"censo2022_cobertura.csv\""
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"cobertura_tipo_provincias\": cobertura_tipo_provincias,"
+    }
+   ],
+   "tabla": "cobertura_tipo_provincias"
   },
   {
    "tipo": "alimenta",
@@ -9043,7 +9071,9 @@
   },
   "f-cobertura": {
    "variables": [
-    "censo2022_sin_cobertura"
+    "censo2022_sin_cobertura",
+    "censo2022_obra_social_prepaga",
+    "censo2022_plan_estatal_salud"
    ]
   },
   "f-pozos": {},

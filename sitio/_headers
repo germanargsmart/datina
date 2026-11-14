@@ -184,6 +184,8 @@
   Cache-Control: public, max-age=31536000, immutable
 /datos/informalidad_grupos.json
   Cache-Control: public, max-age=31536000, immutable
+/datos/cobertura_tipo_provincias.json
+  Cache-Control: public, max-age=31536000, immutable
 /consulta-ia.js
   Cache-Control: public, max-age=31536000, immutable
 /datos/mesas/*

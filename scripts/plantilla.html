@@ -965,11 +965,16 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 <!-- la cobertura de salud del Censo 2022 (plan de mejora, etapa 4, 27 de octubre de 2026): hasta entonces, una opción de la ficha del censo en Pobreza -->
     <article class="ficha" id="f-cobertura">
       <h2>¿Cuánta gente no tiene obra social, prepaga ni plan estatal de salud?</h2>
-      <p class="ficha-sub">Personas sin obra social, prepaga ni plan estatal de salud, en % de la población de cada provincia, Censo 2022</p>
+      <p class="ficha-sub">Personas sin obra social, prepaga ni plan estatal de salud, y cada tipo de cobertura, en % de la población de cada provincia, Censo 2022</p>
+      <div class="conmutador" role="group" aria-label="Vista" data-g="cobertura">
+        <button type="button" data-m="sin" aria-pressed="true">Sin cobertura</button>
+        <button type="button" data-m="tipo" aria-pressed="false">Por tipo</button>
+      </div>
+      <div class="pol-ley" id="cobertura-ley" aria-hidden="true" hidden></div>
       <div class="grafico" data-g="cobertura" data-forma="barras"></div>
       <p class="lead" data-t="cobertura"></p>
       <p class="nota" data-t="cobertura-nota"></p>
-      <div class="pie"><span>Fuente: INDEC, Censo Nacional de Población, Hogares y Viviendas 2022</span><a href="datos/censo2022_provincias.csv" download>Descargar tabla (CSV)</a></div>
+      <div class="pie"><span>Fuente: INDEC, Censo Nacional de Población, Hogares y Viviendas 2022</span><a href="datos/censo2022_provincias.csv" download>Sin cobertura (CSV)</a><a href="datos/cobertura_tipo_provincias.csv" download>Por tipo (CSV)</a></div>
     </article>
 
 <!-- dengue y vacuna triple viral (plan de mejora, sección 10, aprobadas por el autor el 28 de octubre de 2026) -->
