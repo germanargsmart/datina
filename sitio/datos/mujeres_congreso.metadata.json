@@ -1,0 +1,84 @@
+{
+ "tabla": "mujeres_congreso.csv",
+ "titulo": "¿Cuántas bancas del Congreso ocupan mujeres?",
+ "descripcion": "Parte de las bancas de Diputados y del Senado ocupadas por mujeres, por provincia hoy y al 1 de marzo de cada período legislativo desde 1983",
+ "seccion": "Instituciones políticas",
+ "ficha": "https://datina.com.ar/politica.html#f-mujeres-congreso",
+ "fuente": "Senado de la Nación y Cámara de Diputados de la Nación, datos abiertos y Patrimonio Legislativo.",
+ "organismos": [
+  "HCDN (Cámara de Diputados de la Nación)"
+ ],
+ "actualizacion": "Se actualiza con cada renovación del Congreso.",
+ "cobertura": "Sin desglose territorial",
+ "periodo": "1983 a 2025",
+ "anio_desde": 1983,
+ "anio_hasta": 2025,
+ "filas": 22,
+ "columnas": [
+  {
+   "nombre": "anio",
+   "tipo": "Año",
+   "valores": "1983 a 2025"
+  },
+  {
+   "nombre": "periodo",
+   "tipo": "Texto",
+   "valores": "22 valores distintos"
+  },
+  {
+   "nombre": "bancas_diputados",
+   "tipo": "Número",
+   "valores": "251 a 257"
+  },
+  {
+   "nombre": "bancas_senado",
+   "tipo": "Número",
+   "valores": "45 a 72"
+  },
+  {
+   "nombre": "mujeres_diputados",
+   "tipo": "Número",
+   "valores": "10 a 115"
+  },
+  {
+   "nombre": "mujeres_senado",
+   "tipo": "Número",
+   "valores": "2 a 33"
+  },
+  {
+   "nombre": "pct_mujeres_diputados",
+   "tipo": "Número",
+   "valores": "3,89 a 44,75"
+  },
+  {
+   "nombre": "pct_mujeres_senado",
+   "tipo": "Número",
+   "valores": "2,9 a 45,83"
+  },
+  {
+   "nombre": "sin_determinar_diputados",
+   "tipo": "Número",
+   "valores": "0 a 1"
+  },
+  {
+   "nombre": "sin_determinar_senado",
+   "tipo": "Número",
+   "valores": "0"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "origen": [
+  {
+   "archivo": "datos/manual/diputados_nacionales.csv",
+   "nombre": "Diputados nacionales desde 1983: bancas, bloques y mandatos",
+   "organismo": "HCDN",
+   "armado": "2026-09-30",
+   "url": "https://datos.hcdn.gob.ar"
+  }
+ ],
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
+ "como_citar": "Datina (año de la consulta). ¿Cuántas bancas del Congreso ocupan mujeres? Con datos de Senado de la Nación y Cámara de Diputados de la Nación, datos abiertos y Patrimonio Legislativo. https://datina.com.ar/politica.html#f-mujeres-congreso. Consultado el día de la consulta.",
+ "datos_actualizados": "05/11/2026"
+}

@@ -239,7 +239,7 @@ const MESES = ["enero","febrero","marzo","abril","mayo","junio","julio","agosto"
 const signo = v => v < 0 ? `cayó ${n1(Math.abs(v))}%` : `creció ${n1(v)}%`;
 const enLoQueVa = (o, ultimo, que, sube, baja) => o && o.anio > ultimo
   ? ` Entre enero y ${MESES[o.mes - 1]} de ${o.anio}, ${que} ${o.var >= 0 ? sube : baja} ${pct(Math.abs(o.var))} respecto de los mismos meses de ${o.anio - 1}.` : "";
-const EV = R.envejecimiento, PPY = R.poblacion_proy, CM = R.causas_muerte, SX = R.externo, TRN = R.transito, PNZ = R.pobreza_ninez;
+const EV = R.envejecimiento, PPY = R.poblacion_proy, CM = R.causas_muerte, SX = R.externo, TRN = R.transito, PNZ = R.pobreza_ninez, MJC = R.mujeres_congreso;
 // chicos de 5 a 14 años por provincia (3 de noviembre de 2026), de las proyecciones del INDEC
 const ESC = R.chicos_escuela;
 // sector externo: una fecha del BCRA (dd/mm/aaaa) y un mes (aaaa-mm) dichos en palabras, un trimestre (2T2026) y un saldo con su sentido
@@ -1554,6 +1554,19 @@ const TX = {
     `los préstamos en dólares, en % del PBI, se pasan a pesos con el dólar mayorista de fin de cada mes.` +
     (SX.bcra.rem_viejo ? ` La inflación esperada es la del Relevamiento de Expectativas de Mercado actual: la API también trae datos de ${SX.bcra.rem_viejo[0]} a ${SX.bcra.rem_viejo[1]} ` +
       `de un relevamiento anterior, que no se muestran porque no son comparables con los del actual.` : ""),
+  // bancas de mujeres (fuentes nuevas aprobadas por el autor el 14 de noviembre de 2026): la cifra destacada dice la parte del Congreso
+  "mujeres-congreso": `Hoy hay ${MJC.diputadas} diputadas en ${MJC.dip_bancas} bancas (${pct(MJC.dip)}) y ${MJC.senadoras} senadoras en ${MJC.sen_bancas} ` +
+    `(${pct(MJC.sen)}). Por provincia, contando sus diputados y sus senadores, la parte de mujeres va de ${pct(MJC.min[1])} en ${MJC.min[0]} a ` +
+    `${pct(MJC.max[1])} en ${MJC.max[0]}. Las delegaciones chicas cambian mucho con una sola banca.`,
+  "mujeres-congreso-serie": `En ${MJC.ini}, las mujeres tenían el ${pct(MJC.dip_ini)} de las bancas de Diputados y el ${pct(MJC.sen_ini)} del Senado. ` +
+    `La ley de cupo de 1991 obligó a poner al menos un 30% de mujeres en lugares con chances en las listas, y desde la elección de 1993 ` +
+    `la parte de diputadas creció (${pct(MJC.dip_93)} en 1993). En el Senado el salto llegó en 2001, con la primera elección directa. Desde ` +
+    `2019 rige la ley de paridad, que obliga a alternar mujeres y varones en las listas. Hoy, ${pct(MJC.dip)} en Diputados y ${pct(MJC.sen)} en el Senado.`,
+  "mujeres-congreso-nota": `Bancas ocupadas hoy y el 1 de marzo de cada período, como en la ficha de las bancas de cada espacio político. Los ` +
+    `registros de las cámaras no dicen el sexo de cada legislador: Datina lo toma de su nombre de pila, con una tabla revisada a mano, y los ` +
+    `nombres que pueden ser de mujer o de varón se revisaron uno por uno. ${MJC.sin_det_serie ? `En ${MJC.sin_det_serie} casos de toda la serie no se ` +
+    `pudo determinar y quedan fuera del porcentaje. ` : ""}Qué no dice este dato: cuántas mujeres encabezan listas, presiden bloques o comisiones, ` +
+    `ni cuántas votantes hay en cada padrón.`,
   // muertes en el tránsito (fuentes nuevas aprobadas por el autor el 14 de noviembre de 2026): la cifra destacada dice la provincia con la tasa
   // más alta, el texto empieza por el país
   transito: `De ${TRN.desde} a ${TRN.hasta} murieron en el país unas ${n0(TRN.por_anio)} personas por año en siniestros viales, según el SNIC: ` +
@@ -5043,6 +5056,16 @@ function textoAnios(filas, v, p) {
 TX["anioscong"] = $t("anioscong").textContent = textoAnios(AC.top.map(d => ({nombre: d.nombre, anios_total: d.total, anios_diputados: d.dip,
   anios_senado: d.sen, sigue: d.sigue})), "total", "");
 MED.anioscong = "total";
+// bancas de mujeres: cada provincia (diputados y senadores juntos) con la línea de todo el Congreso, o las dos cámaras desde 1983
+MED["mujeres-congreso"] = "prov";
+DIB["mujeres-congreso"] = conTablas("mujeres-congreso", () => MED["mujeres-congreso"] === "serie" ? ["mujeres_congreso"] : [], a => {
+  const el = G("mujeres-congreso"), v = MED["mujeres-congreso"];
+  $t("mujeres-congreso").textContent = v === "serie" ? TX["mujeres-congreso-serie"] : TX["mujeres-congreso"];
+  if (v === "serie") return lineas(el, {anim: a, data: T.mujeres_congreso, x: "anio", y0: 0, vf: pct, yf: v => n0(v) + "%", xl: r => `Período ${r.periodo}`,
+    series: [{k: "pct_mujeres_diputados", lab: "Diputados", corto: "Diputados", c: NAR, w: 3}, {k: "pct_mujeres_senado", lab: "Senado", corto: "Senado", c: FRI, w: 2.4}]});
+  barrasH(el, {anim: a, data: T.mujeres_congreso_provincias, k: "pct_mujeres", vf: pct, af: v => n0(v) + "%", ref: MJC.total, refLab: `Todo el Congreso ${pct(MJC.total)}`,
+    tip: d => `<b>${d.territorio}</b><br>${d.mujeres_diputados} diputadas de ${d.bancas_diputados}<br>${d.mujeres_senado} senadoras de ${d.bancas_senado}`});
+});
 DIB.anioscong = conTablas("anioscong", ["anios_congreso"], a => {
   const el = G("anioscong"); if (!el) return;
   const v = MED.anioscong, k = AC_K[v], p = NOMBRES[prov] ? prov : "";
@@ -8093,6 +8116,8 @@ const CLAVE = {
   "f-bcra": BCR_INI.t === "dolar"
     ? [`${n0(BCR_INI.v)} pesos`, `costaba el ${BCR_INI.n.toLowerCase()}, el ${fLarga(BCR_INI.f)}, según el Banco Central`, `costaba el ${BCR_INI.n.toLowerCase()}, el ${fLarga(BCR_INI.f)}`]
     : [pct(BCR_PF.v), `nominal anual pagaban en promedio los plazos fijos a 30 días el ${fLarga(BCR_PF.f)}`, `nominal anual en plazos fijos a 30 días, el ${fLarga(BCR_PF.f)}`],
+  "f-mujeres-congreso": [pct(MJC.total), `de las bancas del Congreso ocupaban mujeres el ${MJC.fecha}: ${pct(MJC.dip)} en Diputados y ${pct(MJC.sen)} en el Senado`,
+    `de las bancas del Congreso, ocupadas por mujeres`],
   "f-transito": [n1(TRN.max_v), `muertes en siniestros viales por año cada 100.000 habitantes hubo en ${listaY(TRN.max)} de ${TRN.desde} a ${TRN.hasta}, ${TRN.max.length > 1 ? "las tasas más altas" : "la tasa más alta"}`,
     `muertes en siniestros viales por año cada 100.000 habitantes en ${listaY(TRN.max)}, ${TRN.max.length > 1 ? "las tasas más altas" : "la tasa más alta"}`],
   "f-causas-muerte": [pct(CMG[0].pct), `de las muertes del país de ${CM.desde} a ${CM.hasta} fueron por ${CM_FRASE[CMG[0].k]}, la primera causa`,

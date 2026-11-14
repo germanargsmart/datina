@@ -1631,6 +1631,19 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <div class="pie"><span>Fuentes: Senado de la Nación y Cámara de Diputados de la Nación, datos abiertos y Patrimonio Legislativo</span><a href="datos/congreso_composicion.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
+    <article class="ficha" id="f-mujeres-congreso">
+      <h2>¿Cuántas bancas del Congreso ocupan mujeres?</h2>
+      <p class="ficha-sub">Parte de las bancas de Diputados y del Senado ocupadas por mujeres, por provincia hoy y al 1 de marzo de cada período legislativo desde {{mujeres_congreso.ini}}</p>
+      <div class="conmutador" role="group" aria-label="Vista" data-g="mujeres-congreso" style="--n:2">
+        <button type="button" data-m="prov" aria-pressed="true">Por provincia</button>
+        <button type="button" data-m="serie" aria-pressed="false">Desde 1983</button>
+      </div>
+      <div class="grafico" data-g="mujeres-congreso" data-forma="barras"></div>
+      <p class="lead" data-t="mujeres-congreso"></p>
+      <p class="nota" data-t="mujeres-congreso-nota"></p>
+      <div class="pie"><span>Fuentes: Senado de la Nación y Cámara de Diputados de la Nación, datos abiertos y Patrimonio Legislativo</span><a href="datos/mujeres_congreso_provincias.csv" download>Por provincia (CSV)</a><a href="datos/mujeres_congreso.csv" download>Por período (CSV)</a></div>
+    </article>
+
     <h2 class="bloque-grupo" id="g-votaciones">Cómo vota el Congreso</h2>
 
     <!-- f-votaciones y f-votaciones-espacios, unidas (plan de mejora, R7, decisión del autor del 28 de octubre de 2026): la dirección vieja lleva a la pestaña de cada espacio. Va a todo el ancho, como iba la tabla de los espacios -->
