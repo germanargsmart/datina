@@ -580,6 +580,7 @@ Lo que cada grupo de la reescritura no cambió porque necesita corregir un dato,
    - Motivo: La cifra destacada es una cantidad de áreas. La pregunta nueva nombra cantidad y superficie, pero la superficie no tiene cifra.
    - Propuesta: Si el autor prefiere una sola pregunta de superficie: cifra con nt.pn_terr_millones + nt.pn_mar_millones ("millones de hectáreas, siete de cada diez en el mar").
    - **Estado al 11 de noviembre de 2026: espera una decisión del autor.** La cifra sigue siendo la cantidad de áreas y la pregunta nombra también la superficie.
+   - **Estado al 14 de noviembre de 2026: resuelta.** Decisión del autor: la pregunta habla solo de la cantidad de áreas, como la cifra. La superficie sigue en las vistas y en la descripción.
 
 7. **petroleo.html#f-regalias** (`scripts/datina.js`)
    - Fragmento: «vf: usd ? n0 : v => n1(v) + "%"»
