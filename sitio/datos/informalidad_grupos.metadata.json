@@ -1,0 +1,66 @@
+{
+ "tabla": "informalidad_grupos.csv",
+ "titulo": "¿Qué parte de quienes trabajan tiene un empleo informal?",
+ "descripcion": "Ocupados con un empleo informal en los 31 aglomerados urbanos de la EPH, % de los ocupados, los cuatro trimestres hasta el segundo de 2026, por ciudad y por tipo de trabajo, sexo y edad",
+ "seccion": "Trabajo",
+ "ficha": "https://datina.com.ar/trabajo.html#f-informalidad",
+ "fuente": "INDEC, Encuesta Permanente de Hogares, bases usuarias trimestrales (procesamiento propio de la condición de formalidad).",
+ "organismos": [
+  "INDEC (Instituto Nacional de Estadística y Censos)"
+ ],
+ "actualizacion": "Se actualiza cada tres meses.",
+ "cobertura": "Sin desglose territorial",
+ "periodo": "",
+ "anio_desde": 2026,
+ "anio_hasta": 2026,
+ "filas": 12,
+ "columnas": [
+  {
+   "nombre": "dimension",
+   "tipo": "Texto",
+   "valores": "categoria, edad, sexo"
+  },
+  {
+   "nombre": "grupo",
+   "tipo": "Texto",
+   "valores": "12 valores distintos"
+  },
+  {
+   "nombre": "orden",
+   "tipo": "Número",
+   "valores": "0 a 5"
+  },
+  {
+   "nombre": "informalidad",
+   "tipo": "Número",
+   "valores": "25,6 a 100"
+  },
+  {
+   "nombre": "informalidad_ultimo_trimestre",
+   "tipo": "Número",
+   "valores": "26,16 a 100"
+  },
+  {
+   "nombre": "ocupados_encuestados",
+   "tipo": "Número",
+   "valores": "302 a 56.491"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "origen": [
+  {
+   "archivo": "datos/crudo/eph_informalidad.csv",
+   "nombre": "Informalidad de los ocupados por aglomerado, categoría ocupacional, sexo y edad (resumen de las bases usuarias de la EPH)",
+   "organismo": "INDEC",
+   "descargado": "2026-11-05",
+   "ultimo_intento": "2026-11-14",
+   "estado": "ok",
+   "url": "https://www.indec.gob.ar/ftp/cuadros/menusuperior/eph/EPH_usu_{trimestre}_Trim_{anio}_txt.zip"
+  }
+ ],
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
+ "como_citar": "Datina (año de la consulta). ¿Qué parte de quienes trabajan tiene un empleo informal? Con datos de INDEC, Encuesta Permanente de Hogares, bases usuarias trimestrales (procesamiento propio de la condición de formalidad). https://datina.com.ar/trabajo.html#f-informalidad. Consultado el día de la consulta.",
+ "datos_actualizados": "05/11/2026"
+}

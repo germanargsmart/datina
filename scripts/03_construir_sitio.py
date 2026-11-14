@@ -205,7 +205,7 @@ FRECUENCIA = {
     # Educación
     "f-escolarizacion": "anio", "f-abandono": "anio", "f-aprender": "aprender", "f-pisa": "pisa", "f-salario-docente": "trimestre", "f-inversion-educativa": "anio", "f-escuelas-primarias": "anio",
     # Población
-    "f-nacimientos": "anio", "f-poblacion-proy": "anio", "f-chicos-escuela": "anio", "f-piramide": "anio", "f-envejecimiento": "anio", "f-haberes": "trimestre", "f-pensiones-invalidez": "trimestre", "f-auh": "trimestre", "f-desocupacion": "trimestre", "f-pobreza-aglomerados": "semestre", "f-desempleo": "trimestre", "f-adolescentes": "anio",
+    "f-nacimientos": "anio", "f-poblacion-proy": "anio", "f-chicos-escuela": "anio", "f-piramide": "anio", "f-envejecimiento": "anio", "f-haberes": "trimestre", "f-pensiones-invalidez": "trimestre", "f-auh": "trimestre", "f-desocupacion": "trimestre", "f-informalidad": "trimestre", "f-pobreza-aglomerados": "semestre", "f-desempleo": "trimestre", "f-adolescentes": "anio",
     "f-adolescentes-nse": "anio",
     # Migraciones
     "f-nacidos-otro-pais": "censo", "f-migracion-interna": "censo", "f-migracion-historia": "censo", "f-extranjeros": "anio",
@@ -691,7 +691,7 @@ DIFERIDAS = ["antartida_instalaciones", "antartida_bases", "antartida_paises", "
              # pueden pasar: el texto de un artículo o una parte del perfil las leen apenas carga la página
              "puestos_provincias", "reservas_bcra", "voto_legisladores_y_provincia", "dengue_provincias", "inflacion_personal",
              "empresas_tamano_sector", "bcra_variables_lista", "congreso_composicion", "justicia_provincias", "ingresos_aglomerados",
-             "mortalidad_infantil_causas", "deuda_provincias"]
+             "mortalidad_infantil_causas", "deuda_provincias", "informalidad_aglomerados", "informalidad_grupos"]
 D = json.loads((FICHAS_JSON).read_text(encoding="utf-8"))
 D["diferidas"] = {}
 for nombre in DIFERIDAS:
