@@ -1936,6 +1936,46 @@ agregar(tf_p.assign(periodo=[f"{t}T{a}" for a, t in zip(tf_p.anio, tf_p.trimestr
 agregar(telefonia_fija_pais.assign(valor=telefonia_fija_pais.accesos_100_hogares, codigo_indec="00", territorio="Argentina"),
         "telefonia_fija_accesos_cada_100_hogares", "accesos cada 100 hogares", "ENACOM")
 
+# TV paga (fuentes nuevas aprobadas por el autor el 14 de noviembre de 2026): accesos de TV por suscripción (cable y fibra) cada 100 hogares
+# por provincia en el último trimestre (ENACOM), y del país desde 2014 con la satelital, que el ENACOM no publica por provincia. Como la
+# telefonía fija, son abonos, no hogares: cuentan también los de comercios y otros usos. Prefijo tvp_
+tvp_p = pd.read_csv(CRUDO / "enacom_tv_provincias.csv")
+tvp_p["codigo_indec"] = tvp_p.provincia.map(cod2)
+assert tvp_p.codigo_indec.notna().all(), "Hay provincias de ENACOM sin codigo en la TV paga"
+tvp_n = pd.read_csv(CRUDO / "enacom_tv_pais.csv").sort_values(["anio", "trimestre"]).reset_index(drop=True)
+_tvp_u, _tvp_0 = tvp_n.iloc[-1], tvp_n.iloc[0]
+TVP_ANIO, TVP_TRIM = int(_tvp_u.anio), int(_tvp_u.trimestre)
+_tvp_ult = tvp_p[(tvp_p.anio == TVP_ANIO) & (tvp_p.trimestre == TVP_TRIM)].set_index("codigo_indec")
+# el primer trimestre con las 24 jurisdicciones (el de comienzo de 2014 trae solo 16)
+_tvp_n24 = tvp_p.groupby(["anio", "trimestre"]).codigo_indec.nunique()
+_tvp_p0 = pd.Series(dict(zip(["anio", "trimestre"], _tvp_n24[_tvp_n24 == 24].index[0])))
+# el país desde el mismo trimestre: antes faltan provincias y la serie salta de golpe
+tvp_n = tvp_n[tvp_n.anio * 10 + tvp_n.trimestre >= _tvp_p0.anio * 10 + _tvp_p0.trimestre].reset_index(drop=True)
+_tvp_0 = tvp_n.iloc[0]
+_tvp_pri = tvp_p[(tvp_p.anio == _tvp_p0.anio) & (tvp_p.trimestre == _tvp_p0.trimestre)].set_index("codigo_indec")
+assert len(_tvp_ult) == 24 and len(_tvp_pri) == 24, "faltan provincias en la TV paga"
+TVP_INI = int(_tvp_p0.anio)
+tv_paga_provincias = pd.DataFrame({"codigo_indec": sorted(POB), "territorio": [CORTO[c] for c in sorted(POB)]})
+tv_paga_provincias["accesos_100_hogares"] = tv_paga_provincias.codigo_indec.map(_tvp_ult.tv_suscripcion_100hogares)
+tv_paga_provincias["accesos_100_habitantes"] = tv_paga_provincias.codigo_indec.map(_tvp_ult.tv_suscripcion_100habitantes)
+tv_paga_provincias[f"accesos_100_hogares_{TVP_INI}"] = tv_paga_provincias.codigo_indec.map(_tvp_pri.tv_suscripcion_100hogares)
+tv_paga_pais = pd.DataFrame({"periodo": [f"{t}T{a}" for a, t in zip(tvp_n.anio, tvp_n.trimestre)], "x": tvp_n.anio + (tvp_n.trimestre - 1) / 4,
+                             "suscripcion_100_hogares": tvp_n.tv_suscripcion_100_hogares, "satelital_100_hogares": tvp_n.tv_satelital_100_hogares})
+_tvp_o = tv_paga_provincias.sort_values("accesos_100_hogares")
+TVP_RES = {
+    "trim": f"{TVP_TRIM}.º trimestre de {TVP_ANIO}", "ini_trim": f"{int(_tvp_0.trimestre)}.º trimestre de {int(_tvp_0.anio)}", "ini": int(_tvp_0.anio),
+    "ini_prov_trim": f"{int(_tvp_p0.trimestre)}.º trimestre de {TVP_INI}", "ini_prov": TVP_INI,
+    "pais": r1(_tvp_u.tv_suscripcion_100_hogares), "pais_ini": r1(_tvp_0.tv_suscripcion_100_hogares),
+    "sat": r1(_tvp_u.tv_satelital_100_hogares), "sat_ini": r1(_tvp_0.tv_satelital_100_hogares),
+    "top": [_tvp_o.iloc[-1].territorio, r1(_tvp_o.iloc[-1].accesos_100_hogares)], "top2": [_tvp_o.iloc[-2].territorio, r1(_tvp_o.iloc[-2].accesos_100_hogares)],
+    "bajo": [_tvp_o.iloc[0].territorio, r1(_tvp_o.iloc[0].accesos_100_hogares)],
+    "bajaron": int((tv_paga_provincias.accesos_100_hogares < tv_paga_provincias[f"accesos_100_hogares_{TVP_INI}"]).sum()),
+}
+agregar(tvp_p.assign(periodo=[f"{t}T{a}" for a, t in zip(tvp_p.anio, tvp_p.trimestre)], valor=tvp_p.tv_suscripcion_100hogares, territorio=tvp_p.codigo_indec.map(CORTO)),
+        "tv_suscripcion_accesos_cada_100_hogares", "accesos cada 100 hogares", "ENACOM")
+agregar(tv_paga_pais.assign(valor=tv_paga_pais.suscripcion_100_hogares, codigo_indec="00", territorio="Argentina"),
+        "tv_suscripcion_accesos_cada_100_hogares", "accesos cada 100 hogares", "ENACOM")
+
 # Exportaciones por provincia de origen, en dolares por habitante (INDEC, Origen Provincial de las Exportaciones).
 # Planilla con una hoja por bloque de anios: provincias en filas y, por cada rubro (total, PP, MOA, MOI, CyE), una columna por anio.
 # Las hojas de antes de 2017 nombran los rubros sin la sigla ("Productos primarios"): hasta el 2 de noviembre de 2026 solo se reconocía la
@@ -8301,6 +8341,8 @@ tablas = {
     "abandono_pais": abandono_pais,
     "telefonia_fija_provincias": telefonia_fija_provincias,
     "telefonia_fija_pais": telefonia_fija_pais,
+    "tv_paga_provincias": tv_paga_provincias,
+    "tv_paga_pais": tv_paga_pais,
     "cobertura_suelo_provincias": cobertura_suelo_provincias,
     "cobertura_suelo_pais": cobertura_suelo_pais,
     "medicos_provincias": medicos_provincias,
@@ -8728,6 +8770,7 @@ resumen["coparticipacion"] = cpa_res
 resumen["deuda_provincias"] = DP_RES
 resumen["abandono"] = ABN_RES
 resumen["telefonia"] = TF_RES
+resumen["tv_paga"] = TVP_RES
 resumen["cobertura_suelo"] = MB_RES
 resumen["medicos"] = MEDI_RES
 resumen["establecimientos"] = HOSP_RES

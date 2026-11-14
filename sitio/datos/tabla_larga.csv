@@ -16080,6 +16080,1247 @@ AGLO,31 aglomerados urbanos,1S2026,pobreza_0_17_31_aglomerados,45.2,% de persona
 00,Argentina,4T2025,telefonia_fija_accesos_cada_100_hogares,40.26,accesos cada 100 hogares,ENACOM
 00,Argentina,1T2026,telefonia_fija_accesos_cada_100_hogares,40.84,accesos cada 100 hogares,ENACOM
 00,Argentina,2T2026,telefonia_fija_accesos_cada_100_hogares,40.38,accesos cada 100 hogares,ENACOM
+06,Buenos Aires,1T2014,tv_suscripcion_accesos_cada_100_hogares,47.07,accesos cada 100 hogares,ENACOM
+02,CABA,1T2014,tv_suscripcion_accesos_cada_100_hogares,59.71,accesos cada 100 hogares,ENACOM
+10,Catamarca,1T2014,tv_suscripcion_accesos_cada_100_hogares,18.25,accesos cada 100 hogares,ENACOM
+22,Chaco,1T2014,tv_suscripcion_accesos_cada_100_hogares,29.18,accesos cada 100 hogares,ENACOM
+26,Chubut,1T2014,tv_suscripcion_accesos_cada_100_hogares,40.33,accesos cada 100 hogares,ENACOM
+14,Córdoba,1T2014,tv_suscripcion_accesos_cada_100_hogares,47.34,accesos cada 100 hogares,ENACOM
+18,Corrientes,1T2014,tv_suscripcion_accesos_cada_100_hogares,21.89,accesos cada 100 hogares,ENACOM
+30,Entre Ríos,1T2014,tv_suscripcion_accesos_cada_100_hogares,27.92,accesos cada 100 hogares,ENACOM
+34,Formosa,1T2014,tv_suscripcion_accesos_cada_100_hogares,20.56,accesos cada 100 hogares,ENACOM
+38,Jujuy,1T2014,tv_suscripcion_accesos_cada_100_hogares,35.13,accesos cada 100 hogares,ENACOM
+42,La Pampa,1T2014,tv_suscripcion_accesos_cada_100_hogares,60.56,accesos cada 100 hogares,ENACOM
+46,La Rioja,1T2014,tv_suscripcion_accesos_cada_100_hogares,26.04,accesos cada 100 hogares,ENACOM
+50,Mendoza,1T2014,tv_suscripcion_accesos_cada_100_hogares,20.58,accesos cada 100 hogares,ENACOM
+54,Misiones,1T2014,tv_suscripcion_accesos_cada_100_hogares,31.04,accesos cada 100 hogares,ENACOM
+58,Neuquén,1T2014,tv_suscripcion_accesos_cada_100_hogares,58.31,accesos cada 100 hogares,ENACOM
+62,Río Negro,1T2014,tv_suscripcion_accesos_cada_100_hogares,18.96,accesos cada 100 hogares,ENACOM
+06,Buenos Aires,2T2014,tv_suscripcion_accesos_cada_100_hogares,49.35,accesos cada 100 hogares,ENACOM
+02,CABA,2T2014,tv_suscripcion_accesos_cada_100_hogares,59.78,accesos cada 100 hogares,ENACOM
+10,Catamarca,2T2014,tv_suscripcion_accesos_cada_100_hogares,27.4,accesos cada 100 hogares,ENACOM
+22,Chaco,2T2014,tv_suscripcion_accesos_cada_100_hogares,28.39,accesos cada 100 hogares,ENACOM
+26,Chubut,2T2014,tv_suscripcion_accesos_cada_100_hogares,40.27,accesos cada 100 hogares,ENACOM
+14,Córdoba,2T2014,tv_suscripcion_accesos_cada_100_hogares,90.25,accesos cada 100 hogares,ENACOM
+18,Corrientes,2T2014,tv_suscripcion_accesos_cada_100_hogares,31.71,accesos cada 100 hogares,ENACOM
+30,Entre Ríos,2T2014,tv_suscripcion_accesos_cada_100_hogares,37.9,accesos cada 100 hogares,ENACOM
+34,Formosa,2T2014,tv_suscripcion_accesos_cada_100_hogares,31.9,accesos cada 100 hogares,ENACOM
+38,Jujuy,2T2014,tv_suscripcion_accesos_cada_100_hogares,39.19,accesos cada 100 hogares,ENACOM
+42,La Pampa,2T2014,tv_suscripcion_accesos_cada_100_hogares,68.57,accesos cada 100 hogares,ENACOM
+46,La Rioja,2T2014,tv_suscripcion_accesos_cada_100_hogares,26.0,accesos cada 100 hogares,ENACOM
+50,Mendoza,2T2014,tv_suscripcion_accesos_cada_100_hogares,22.38,accesos cada 100 hogares,ENACOM
+54,Misiones,2T2014,tv_suscripcion_accesos_cada_100_hogares,35.78,accesos cada 100 hogares,ENACOM
+58,Neuquén,2T2014,tv_suscripcion_accesos_cada_100_hogares,85.26,accesos cada 100 hogares,ENACOM
+62,Río Negro,2T2014,tv_suscripcion_accesos_cada_100_hogares,27.45,accesos cada 100 hogares,ENACOM
+66,Salta,2T2014,tv_suscripcion_accesos_cada_100_hogares,52.19,accesos cada 100 hogares,ENACOM
+70,San Juan,2T2014,tv_suscripcion_accesos_cada_100_hogares,22.67,accesos cada 100 hogares,ENACOM
+74,San Luis,2T2014,tv_suscripcion_accesos_cada_100_hogares,41.46,accesos cada 100 hogares,ENACOM
+78,Santa Cruz,2T2014,tv_suscripcion_accesos_cada_100_hogares,50.33,accesos cada 100 hogares,ENACOM
+82,Santa Fe,2T2014,tv_suscripcion_accesos_cada_100_hogares,61.4,accesos cada 100 hogares,ENACOM
+86,Santiago del Estero,2T2014,tv_suscripcion_accesos_cada_100_hogares,42.54,accesos cada 100 hogares,ENACOM
+94,Tierra del Fuego,2T2014,tv_suscripcion_accesos_cada_100_hogares,79.22,accesos cada 100 hogares,ENACOM
+90,Tucumán,2T2014,tv_suscripcion_accesos_cada_100_hogares,30.88,accesos cada 100 hogares,ENACOM
+06,Buenos Aires,3T2014,tv_suscripcion_accesos_cada_100_hogares,49.38,accesos cada 100 hogares,ENACOM
+02,CABA,3T2014,tv_suscripcion_accesos_cada_100_hogares,59.53,accesos cada 100 hogares,ENACOM
+10,Catamarca,3T2014,tv_suscripcion_accesos_cada_100_hogares,27.57,accesos cada 100 hogares,ENACOM
+22,Chaco,3T2014,tv_suscripcion_accesos_cada_100_hogares,28.35,accesos cada 100 hogares,ENACOM
+26,Chubut,3T2014,tv_suscripcion_accesos_cada_100_hogares,40.21,accesos cada 100 hogares,ENACOM
+14,Córdoba,3T2014,tv_suscripcion_accesos_cada_100_hogares,90.4,accesos cada 100 hogares,ENACOM
+18,Corrientes,3T2014,tv_suscripcion_accesos_cada_100_hogares,32.2,accesos cada 100 hogares,ENACOM
+30,Entre Ríos,3T2014,tv_suscripcion_accesos_cada_100_hogares,38.53,accesos cada 100 hogares,ENACOM
+34,Formosa,3T2014,tv_suscripcion_accesos_cada_100_hogares,31.81,accesos cada 100 hogares,ENACOM
+38,Jujuy,3T2014,tv_suscripcion_accesos_cada_100_hogares,40.27,accesos cada 100 hogares,ENACOM
+42,La Pampa,3T2014,tv_suscripcion_accesos_cada_100_hogares,69.63,accesos cada 100 hogares,ENACOM
+46,La Rioja,3T2014,tv_suscripcion_accesos_cada_100_hogares,25.51,accesos cada 100 hogares,ENACOM
+50,Mendoza,3T2014,tv_suscripcion_accesos_cada_100_hogares,22.5,accesos cada 100 hogares,ENACOM
+54,Misiones,3T2014,tv_suscripcion_accesos_cada_100_hogares,36.24,accesos cada 100 hogares,ENACOM
+58,Neuquén,3T2014,tv_suscripcion_accesos_cada_100_hogares,85.28,accesos cada 100 hogares,ENACOM
+62,Río Negro,3T2014,tv_suscripcion_accesos_cada_100_hogares,27.48,accesos cada 100 hogares,ENACOM
+66,Salta,3T2014,tv_suscripcion_accesos_cada_100_hogares,52.4,accesos cada 100 hogares,ENACOM
+70,San Juan,3T2014,tv_suscripcion_accesos_cada_100_hogares,23.0,accesos cada 100 hogares,ENACOM
+74,San Luis,3T2014,tv_suscripcion_accesos_cada_100_hogares,40.81,accesos cada 100 hogares,ENACOM
+78,Santa Cruz,3T2014,tv_suscripcion_accesos_cada_100_hogares,47.28,accesos cada 100 hogares,ENACOM
+82,Santa Fe,3T2014,tv_suscripcion_accesos_cada_100_hogares,61.77,accesos cada 100 hogares,ENACOM
+86,Santiago del Estero,3T2014,tv_suscripcion_accesos_cada_100_hogares,42.95,accesos cada 100 hogares,ENACOM
+94,Tierra del Fuego,3T2014,tv_suscripcion_accesos_cada_100_hogares,79.91,accesos cada 100 hogares,ENACOM
+90,Tucumán,3T2014,tv_suscripcion_accesos_cada_100_hogares,30.77,accesos cada 100 hogares,ENACOM
+06,Buenos Aires,4T2014,tv_suscripcion_accesos_cada_100_hogares,49.65,accesos cada 100 hogares,ENACOM
+02,CABA,4T2014,tv_suscripcion_accesos_cada_100_hogares,59.62,accesos cada 100 hogares,ENACOM
+10,Catamarca,4T2014,tv_suscripcion_accesos_cada_100_hogares,28.27,accesos cada 100 hogares,ENACOM
+22,Chaco,4T2014,tv_suscripcion_accesos_cada_100_hogares,30.14,accesos cada 100 hogares,ENACOM
+26,Chubut,4T2014,tv_suscripcion_accesos_cada_100_hogares,40.15,accesos cada 100 hogares,ENACOM
+14,Córdoba,4T2014,tv_suscripcion_accesos_cada_100_hogares,90.44,accesos cada 100 hogares,ENACOM
+18,Corrientes,4T2014,tv_suscripcion_accesos_cada_100_hogares,32.71,accesos cada 100 hogares,ENACOM
+30,Entre Ríos,4T2014,tv_suscripcion_accesos_cada_100_hogares,38.85,accesos cada 100 hogares,ENACOM
+34,Formosa,4T2014,tv_suscripcion_accesos_cada_100_hogares,31.92,accesos cada 100 hogares,ENACOM
+38,Jujuy,4T2014,tv_suscripcion_accesos_cada_100_hogares,43.19,accesos cada 100 hogares,ENACOM
+42,La Pampa,4T2014,tv_suscripcion_accesos_cada_100_hogares,71.25,accesos cada 100 hogares,ENACOM
+46,La Rioja,4T2014,tv_suscripcion_accesos_cada_100_hogares,27.31,accesos cada 100 hogares,ENACOM
+50,Mendoza,4T2014,tv_suscripcion_accesos_cada_100_hogares,22.35,accesos cada 100 hogares,ENACOM
+54,Misiones,4T2014,tv_suscripcion_accesos_cada_100_hogares,35.23,accesos cada 100 hogares,ENACOM
+58,Neuquén,4T2014,tv_suscripcion_accesos_cada_100_hogares,85.26,accesos cada 100 hogares,ENACOM
+62,Río Negro,4T2014,tv_suscripcion_accesos_cada_100_hogares,27.43,accesos cada 100 hogares,ENACOM
+66,Salta,4T2014,tv_suscripcion_accesos_cada_100_hogares,52.45,accesos cada 100 hogares,ENACOM
+70,San Juan,4T2014,tv_suscripcion_accesos_cada_100_hogares,23.12,accesos cada 100 hogares,ENACOM
+74,San Luis,4T2014,tv_suscripcion_accesos_cada_100_hogares,41.16,accesos cada 100 hogares,ENACOM
+78,Santa Cruz,4T2014,tv_suscripcion_accesos_cada_100_hogares,47.59,accesos cada 100 hogares,ENACOM
+82,Santa Fe,4T2014,tv_suscripcion_accesos_cada_100_hogares,61.59,accesos cada 100 hogares,ENACOM
+86,Santiago del Estero,4T2014,tv_suscripcion_accesos_cada_100_hogares,43.19,accesos cada 100 hogares,ENACOM
+94,Tierra del Fuego,4T2014,tv_suscripcion_accesos_cada_100_hogares,79.26,accesos cada 100 hogares,ENACOM
+90,Tucumán,4T2014,tv_suscripcion_accesos_cada_100_hogares,30.85,accesos cada 100 hogares,ENACOM
+06,Buenos Aires,1T2015,tv_suscripcion_accesos_cada_100_hogares,49.29,accesos cada 100 hogares,ENACOM
+02,CABA,1T2015,tv_suscripcion_accesos_cada_100_hogares,59.5,accesos cada 100 hogares,ENACOM
+10,Catamarca,1T2015,tv_suscripcion_accesos_cada_100_hogares,27.85,accesos cada 100 hogares,ENACOM
+22,Chaco,1T2015,tv_suscripcion_accesos_cada_100_hogares,30.01,accesos cada 100 hogares,ENACOM
+26,Chubut,1T2015,tv_suscripcion_accesos_cada_100_hogares,39.51,accesos cada 100 hogares,ENACOM
+14,Córdoba,1T2015,tv_suscripcion_accesos_cada_100_hogares,89.31,accesos cada 100 hogares,ENACOM
+18,Corrientes,1T2015,tv_suscripcion_accesos_cada_100_hogares,32.1,accesos cada 100 hogares,ENACOM
+30,Entre Ríos,1T2015,tv_suscripcion_accesos_cada_100_hogares,38.5,accesos cada 100 hogares,ENACOM
+34,Formosa,1T2015,tv_suscripcion_accesos_cada_100_hogares,31.44,accesos cada 100 hogares,ENACOM
+38,Jujuy,1T2015,tv_suscripcion_accesos_cada_100_hogares,43.05,accesos cada 100 hogares,ENACOM
+42,La Pampa,1T2015,tv_suscripcion_accesos_cada_100_hogares,71.97,accesos cada 100 hogares,ENACOM
+46,La Rioja,1T2015,tv_suscripcion_accesos_cada_100_hogares,26.13,accesos cada 100 hogares,ENACOM
+50,Mendoza,1T2015,tv_suscripcion_accesos_cada_100_hogares,22.02,accesos cada 100 hogares,ENACOM
+54,Misiones,1T2015,tv_suscripcion_accesos_cada_100_hogares,35.31,accesos cada 100 hogares,ENACOM
+58,Neuquén,1T2015,tv_suscripcion_accesos_cada_100_hogares,60.33,accesos cada 100 hogares,ENACOM
+62,Río Negro,1T2015,tv_suscripcion_accesos_cada_100_hogares,26.78,accesos cada 100 hogares,ENACOM
+66,Salta,1T2015,tv_suscripcion_accesos_cada_100_hogares,52.15,accesos cada 100 hogares,ENACOM
+70,San Juan,1T2015,tv_suscripcion_accesos_cada_100_hogares,23.36,accesos cada 100 hogares,ENACOM
+74,San Luis,1T2015,tv_suscripcion_accesos_cada_100_hogares,40.83,accesos cada 100 hogares,ENACOM
+78,Santa Cruz,1T2015,tv_suscripcion_accesos_cada_100_hogares,57.29,accesos cada 100 hogares,ENACOM
+82,Santa Fe,1T2015,tv_suscripcion_accesos_cada_100_hogares,56.6,accesos cada 100 hogares,ENACOM
+86,Santiago del Estero,1T2015,tv_suscripcion_accesos_cada_100_hogares,42.69,accesos cada 100 hogares,ENACOM
+94,Tierra del Fuego,1T2015,tv_suscripcion_accesos_cada_100_hogares,78.55,accesos cada 100 hogares,ENACOM
+90,Tucumán,1T2015,tv_suscripcion_accesos_cada_100_hogares,30.27,accesos cada 100 hogares,ENACOM
+06,Buenos Aires,2T2015,tv_suscripcion_accesos_cada_100_hogares,49.69,accesos cada 100 hogares,ENACOM
+02,CABA,2T2015,tv_suscripcion_accesos_cada_100_hogares,59.77,accesos cada 100 hogares,ENACOM
+10,Catamarca,2T2015,tv_suscripcion_accesos_cada_100_hogares,28.27,accesos cada 100 hogares,ENACOM
+22,Chaco,2T2015,tv_suscripcion_accesos_cada_100_hogares,29.95,accesos cada 100 hogares,ENACOM
+26,Chubut,2T2015,tv_suscripcion_accesos_cada_100_hogares,39.62,accesos cada 100 hogares,ENACOM
+14,Córdoba,2T2015,tv_suscripcion_accesos_cada_100_hogares,89.71,accesos cada 100 hogares,ENACOM
+18,Corrientes,2T2015,tv_suscripcion_accesos_cada_100_hogares,32.54,accesos cada 100 hogares,ENACOM
+30,Entre Ríos,2T2015,tv_suscripcion_accesos_cada_100_hogares,38.98,accesos cada 100 hogares,ENACOM
+34,Formosa,2T2015,tv_suscripcion_accesos_cada_100_hogares,31.46,accesos cada 100 hogares,ENACOM
+38,Jujuy,2T2015,tv_suscripcion_accesos_cada_100_hogares,44.92,accesos cada 100 hogares,ENACOM
+42,La Pampa,2T2015,tv_suscripcion_accesos_cada_100_hogares,73.38,accesos cada 100 hogares,ENACOM
+46,La Rioja,2T2015,tv_suscripcion_accesos_cada_100_hogares,25.98,accesos cada 100 hogares,ENACOM
+50,Mendoza,2T2015,tv_suscripcion_accesos_cada_100_hogares,22.2,accesos cada 100 hogares,ENACOM
+54,Misiones,2T2015,tv_suscripcion_accesos_cada_100_hogares,35.93,accesos cada 100 hogares,ENACOM
+58,Neuquén,2T2015,tv_suscripcion_accesos_cada_100_hogares,60.36,accesos cada 100 hogares,ENACOM
+62,Río Negro,2T2015,tv_suscripcion_accesos_cada_100_hogares,27.1,accesos cada 100 hogares,ENACOM
+66,Salta,2T2015,tv_suscripcion_accesos_cada_100_hogares,52.44,accesos cada 100 hogares,ENACOM
+70,San Juan,2T2015,tv_suscripcion_accesos_cada_100_hogares,23.16,accesos cada 100 hogares,ENACOM
+74,San Luis,2T2015,tv_suscripcion_accesos_cada_100_hogares,40.8,accesos cada 100 hogares,ENACOM
+78,Santa Cruz,2T2015,tv_suscripcion_accesos_cada_100_hogares,56.91,accesos cada 100 hogares,ENACOM
+82,Santa Fe,2T2015,tv_suscripcion_accesos_cada_100_hogares,57.28,accesos cada 100 hogares,ENACOM
+86,Santiago del Estero,2T2015,tv_suscripcion_accesos_cada_100_hogares,42.89,accesos cada 100 hogares,ENACOM
+94,Tierra del Fuego,2T2015,tv_suscripcion_accesos_cada_100_hogares,80.01,accesos cada 100 hogares,ENACOM
+90,Tucumán,2T2015,tv_suscripcion_accesos_cada_100_hogares,30.82,accesos cada 100 hogares,ENACOM
+06,Buenos Aires,3T2015,tv_suscripcion_accesos_cada_100_hogares,49.36,accesos cada 100 hogares,ENACOM
+02,CABA,3T2015,tv_suscripcion_accesos_cada_100_hogares,61.71,accesos cada 100 hogares,ENACOM
+10,Catamarca,3T2015,tv_suscripcion_accesos_cada_100_hogares,28.83,accesos cada 100 hogares,ENACOM
+22,Chaco,3T2015,tv_suscripcion_accesos_cada_100_hogares,30.37,accesos cada 100 hogares,ENACOM
+26,Chubut,3T2015,tv_suscripcion_accesos_cada_100_hogares,39.66,accesos cada 100 hogares,ENACOM
+14,Córdoba,3T2015,tv_suscripcion_accesos_cada_100_hogares,90.37,accesos cada 100 hogares,ENACOM
+18,Corrientes,3T2015,tv_suscripcion_accesos_cada_100_hogares,32.8,accesos cada 100 hogares,ENACOM
+30,Entre Ríos,3T2015,tv_suscripcion_accesos_cada_100_hogares,38.91,accesos cada 100 hogares,ENACOM
+34,Formosa,3T2015,tv_suscripcion_accesos_cada_100_hogares,31.5,accesos cada 100 hogares,ENACOM
+38,Jujuy,3T2015,tv_suscripcion_accesos_cada_100_hogares,46.13,accesos cada 100 hogares,ENACOM
+42,La Pampa,3T2015,tv_suscripcion_accesos_cada_100_hogares,76.23,accesos cada 100 hogares,ENACOM
+46,La Rioja,3T2015,tv_suscripcion_accesos_cada_100_hogares,26.36,accesos cada 100 hogares,ENACOM
+50,Mendoza,3T2015,tv_suscripcion_accesos_cada_100_hogares,22.35,accesos cada 100 hogares,ENACOM
+54,Misiones,3T2015,tv_suscripcion_accesos_cada_100_hogares,36.62,accesos cada 100 hogares,ENACOM
+58,Neuquén,3T2015,tv_suscripcion_accesos_cada_100_hogares,60.4,accesos cada 100 hogares,ENACOM
+62,Río Negro,3T2015,tv_suscripcion_accesos_cada_100_hogares,26.6,accesos cada 100 hogares,ENACOM
+66,Salta,3T2015,tv_suscripcion_accesos_cada_100_hogares,52.79,accesos cada 100 hogares,ENACOM
+70,San Juan,3T2015,tv_suscripcion_accesos_cada_100_hogares,23.17,accesos cada 100 hogares,ENACOM
+74,San Luis,3T2015,tv_suscripcion_accesos_cada_100_hogares,40.19,accesos cada 100 hogares,ENACOM
+78,Santa Cruz,3T2015,tv_suscripcion_accesos_cada_100_hogares,57.76,accesos cada 100 hogares,ENACOM
+82,Santa Fe,3T2015,tv_suscripcion_accesos_cada_100_hogares,57.46,accesos cada 100 hogares,ENACOM
+86,Santiago del Estero,3T2015,tv_suscripcion_accesos_cada_100_hogares,43.28,accesos cada 100 hogares,ENACOM
+94,Tierra del Fuego,3T2015,tv_suscripcion_accesos_cada_100_hogares,82.22,accesos cada 100 hogares,ENACOM
+90,Tucumán,3T2015,tv_suscripcion_accesos_cada_100_hogares,31.12,accesos cada 100 hogares,ENACOM
+06,Buenos Aires,4T2015,tv_suscripcion_accesos_cada_100_hogares,49.34,accesos cada 100 hogares,ENACOM
+02,CABA,4T2015,tv_suscripcion_accesos_cada_100_hogares,61.8,accesos cada 100 hogares,ENACOM
+10,Catamarca,4T2015,tv_suscripcion_accesos_cada_100_hogares,29.1,accesos cada 100 hogares,ENACOM
+22,Chaco,4T2015,tv_suscripcion_accesos_cada_100_hogares,29.75,accesos cada 100 hogares,ENACOM
+26,Chubut,4T2015,tv_suscripcion_accesos_cada_100_hogares,39.67,accesos cada 100 hogares,ENACOM
+14,Córdoba,4T2015,tv_suscripcion_accesos_cada_100_hogares,91.11,accesos cada 100 hogares,ENACOM
+18,Corrientes,4T2015,tv_suscripcion_accesos_cada_100_hogares,33.52,accesos cada 100 hogares,ENACOM
+30,Entre Ríos,4T2015,tv_suscripcion_accesos_cada_100_hogares,39.12,accesos cada 100 hogares,ENACOM
+34,Formosa,4T2015,tv_suscripcion_accesos_cada_100_hogares,31.48,accesos cada 100 hogares,ENACOM
+38,Jujuy,4T2015,tv_suscripcion_accesos_cada_100_hogares,46.57,accesos cada 100 hogares,ENACOM
+42,La Pampa,4T2015,tv_suscripcion_accesos_cada_100_hogares,77.17,accesos cada 100 hogares,ENACOM
+46,La Rioja,4T2015,tv_suscripcion_accesos_cada_100_hogares,25.72,accesos cada 100 hogares,ENACOM
+50,Mendoza,4T2015,tv_suscripcion_accesos_cada_100_hogares,22.23,accesos cada 100 hogares,ENACOM
+54,Misiones,4T2015,tv_suscripcion_accesos_cada_100_hogares,36.83,accesos cada 100 hogares,ENACOM
+58,Neuquén,4T2015,tv_suscripcion_accesos_cada_100_hogares,60.29,accesos cada 100 hogares,ENACOM
+62,Río Negro,4T2015,tv_suscripcion_accesos_cada_100_hogares,26.33,accesos cada 100 hogares,ENACOM
+66,Salta,4T2015,tv_suscripcion_accesos_cada_100_hogares,53.61,accesos cada 100 hogares,ENACOM
+70,San Juan,4T2015,tv_suscripcion_accesos_cada_100_hogares,23.52,accesos cada 100 hogares,ENACOM
+74,San Luis,4T2015,tv_suscripcion_accesos_cada_100_hogares,40.04,accesos cada 100 hogares,ENACOM
+78,Santa Cruz,4T2015,tv_suscripcion_accesos_cada_100_hogares,57.8,accesos cada 100 hogares,ENACOM
+82,Santa Fe,4T2015,tv_suscripcion_accesos_cada_100_hogares,57.46,accesos cada 100 hogares,ENACOM
+86,Santiago del Estero,4T2015,tv_suscripcion_accesos_cada_100_hogares,43.42,accesos cada 100 hogares,ENACOM
+94,Tierra del Fuego,4T2015,tv_suscripcion_accesos_cada_100_hogares,83.62,accesos cada 100 hogares,ENACOM
+90,Tucumán,4T2015,tv_suscripcion_accesos_cada_100_hogares,31.76,accesos cada 100 hogares,ENACOM
+06,Buenos Aires,1T2016,tv_suscripcion_accesos_cada_100_hogares,48.77,accesos cada 100 hogares,ENACOM
+02,CABA,1T2016,tv_suscripcion_accesos_cada_100_hogares,61.98,accesos cada 100 hogares,ENACOM
+10,Catamarca,1T2016,tv_suscripcion_accesos_cada_100_hogares,28.68,accesos cada 100 hogares,ENACOM
+22,Chaco,1T2016,tv_suscripcion_accesos_cada_100_hogares,29.61,accesos cada 100 hogares,ENACOM
+26,Chubut,1T2016,tv_suscripcion_accesos_cada_100_hogares,38.61,accesos cada 100 hogares,ENACOM
+14,Córdoba,1T2016,tv_suscripcion_accesos_cada_100_hogares,90.54,accesos cada 100 hogares,ENACOM
+18,Corrientes,1T2016,tv_suscripcion_accesos_cada_100_hogares,32.5,accesos cada 100 hogares,ENACOM
+30,Entre Ríos,1T2016,tv_suscripcion_accesos_cada_100_hogares,38.69,accesos cada 100 hogares,ENACOM
+34,Formosa,1T2016,tv_suscripcion_accesos_cada_100_hogares,31.18,accesos cada 100 hogares,ENACOM
+38,Jujuy,1T2016,tv_suscripcion_accesos_cada_100_hogares,45.09,accesos cada 100 hogares,ENACOM
+42,La Pampa,1T2016,tv_suscripcion_accesos_cada_100_hogares,78.61,accesos cada 100 hogares,ENACOM
+46,La Rioja,1T2016,tv_suscripcion_accesos_cada_100_hogares,24.43,accesos cada 100 hogares,ENACOM
+50,Mendoza,1T2016,tv_suscripcion_accesos_cada_100_hogares,21.85,accesos cada 100 hogares,ENACOM
+54,Misiones,1T2016,tv_suscripcion_accesos_cada_100_hogares,36.94,accesos cada 100 hogares,ENACOM
+58,Neuquén,1T2016,tv_suscripcion_accesos_cada_100_hogares,59.38,accesos cada 100 hogares,ENACOM
+62,Río Negro,1T2016,tv_suscripcion_accesos_cada_100_hogares,25.21,accesos cada 100 hogares,ENACOM
+66,Salta,1T2016,tv_suscripcion_accesos_cada_100_hogares,52.13,accesos cada 100 hogares,ENACOM
+70,San Juan,1T2016,tv_suscripcion_accesos_cada_100_hogares,22.19,accesos cada 100 hogares,ENACOM
+74,San Luis,1T2016,tv_suscripcion_accesos_cada_100_hogares,39.83,accesos cada 100 hogares,ENACOM
+78,Santa Cruz,1T2016,tv_suscripcion_accesos_cada_100_hogares,55.62,accesos cada 100 hogares,ENACOM
+82,Santa Fe,1T2016,tv_suscripcion_accesos_cada_100_hogares,56.74,accesos cada 100 hogares,ENACOM
+86,Santiago del Estero,1T2016,tv_suscripcion_accesos_cada_100_hogares,42.51,accesos cada 100 hogares,ENACOM
+94,Tierra del Fuego,1T2016,tv_suscripcion_accesos_cada_100_hogares,83.95,accesos cada 100 hogares,ENACOM
+90,Tucumán,1T2016,tv_suscripcion_accesos_cada_100_hogares,32.35,accesos cada 100 hogares,ENACOM
+06,Buenos Aires,2T2016,tv_suscripcion_accesos_cada_100_hogares,49.04,accesos cada 100 hogares,ENACOM
+02,CABA,2T2016,tv_suscripcion_accesos_cada_100_hogares,61.8,accesos cada 100 hogares,ENACOM
+10,Catamarca,2T2016,tv_suscripcion_accesos_cada_100_hogares,29.1,accesos cada 100 hogares,ENACOM
+22,Chaco,2T2016,tv_suscripcion_accesos_cada_100_hogares,30.56,accesos cada 100 hogares,ENACOM
+26,Chubut,2T2016,tv_suscripcion_accesos_cada_100_hogares,41.2,accesos cada 100 hogares,ENACOM
+14,Córdoba,2T2016,tv_suscripcion_accesos_cada_100_hogares,91.15,accesos cada 100 hogares,ENACOM
+18,Corrientes,2T2016,tv_suscripcion_accesos_cada_100_hogares,32.61,accesos cada 100 hogares,ENACOM
+30,Entre Ríos,2T2016,tv_suscripcion_accesos_cada_100_hogares,38.9,accesos cada 100 hogares,ENACOM
+34,Formosa,2T2016,tv_suscripcion_accesos_cada_100_hogares,31.19,accesos cada 100 hogares,ENACOM
+38,Jujuy,2T2016,tv_suscripcion_accesos_cada_100_hogares,45.33,accesos cada 100 hogares,ENACOM
+42,La Pampa,2T2016,tv_suscripcion_accesos_cada_100_hogares,78.65,accesos cada 100 hogares,ENACOM
+46,La Rioja,2T2016,tv_suscripcion_accesos_cada_100_hogares,24.59,accesos cada 100 hogares,ENACOM
+50,Mendoza,2T2016,tv_suscripcion_accesos_cada_100_hogares,21.85,accesos cada 100 hogares,ENACOM
+54,Misiones,2T2016,tv_suscripcion_accesos_cada_100_hogares,37.31,accesos cada 100 hogares,ENACOM
+58,Neuquén,2T2016,tv_suscripcion_accesos_cada_100_hogares,59.37,accesos cada 100 hogares,ENACOM
+62,Río Negro,2T2016,tv_suscripcion_accesos_cada_100_hogares,25.14,accesos cada 100 hogares,ENACOM
+66,Salta,2T2016,tv_suscripcion_accesos_cada_100_hogares,53.3,accesos cada 100 hogares,ENACOM
+70,San Juan,2T2016,tv_suscripcion_accesos_cada_100_hogares,22.3,accesos cada 100 hogares,ENACOM
+74,San Luis,2T2016,tv_suscripcion_accesos_cada_100_hogares,39.1,accesos cada 100 hogares,ENACOM
+78,Santa Cruz,2T2016,tv_suscripcion_accesos_cada_100_hogares,52.86,accesos cada 100 hogares,ENACOM
+82,Santa Fe,2T2016,tv_suscripcion_accesos_cada_100_hogares,57.15,accesos cada 100 hogares,ENACOM
+86,Santiago del Estero,2T2016,tv_suscripcion_accesos_cada_100_hogares,42.59,accesos cada 100 hogares,ENACOM
+94,Tierra del Fuego,2T2016,tv_suscripcion_accesos_cada_100_hogares,82.24,accesos cada 100 hogares,ENACOM
+90,Tucumán,2T2016,tv_suscripcion_accesos_cada_100_hogares,31.23,accesos cada 100 hogares,ENACOM
+06,Buenos Aires,3T2016,tv_suscripcion_accesos_cada_100_hogares,49.12,accesos cada 100 hogares,ENACOM
+02,CABA,3T2016,tv_suscripcion_accesos_cada_100_hogares,61.7,accesos cada 100 hogares,ENACOM
+10,Catamarca,3T2016,tv_suscripcion_accesos_cada_100_hogares,29.22,accesos cada 100 hogares,ENACOM
+22,Chaco,3T2016,tv_suscripcion_accesos_cada_100_hogares,29.22,accesos cada 100 hogares,ENACOM
+26,Chubut,3T2016,tv_suscripcion_accesos_cada_100_hogares,41.12,accesos cada 100 hogares,ENACOM
+14,Córdoba,3T2016,tv_suscripcion_accesos_cada_100_hogares,91.66,accesos cada 100 hogares,ENACOM
+18,Corrientes,3T2016,tv_suscripcion_accesos_cada_100_hogares,32.63,accesos cada 100 hogares,ENACOM
+30,Entre Ríos,3T2016,tv_suscripcion_accesos_cada_100_hogares,39.0,accesos cada 100 hogares,ENACOM
+34,Formosa,3T2016,tv_suscripcion_accesos_cada_100_hogares,31.19,accesos cada 100 hogares,ENACOM
+38,Jujuy,3T2016,tv_suscripcion_accesos_cada_100_hogares,44.93,accesos cada 100 hogares,ENACOM
+42,La Pampa,3T2016,tv_suscripcion_accesos_cada_100_hogares,79.73,accesos cada 100 hogares,ENACOM
+46,La Rioja,3T2016,tv_suscripcion_accesos_cada_100_hogares,24.81,accesos cada 100 hogares,ENACOM
+50,Mendoza,3T2016,tv_suscripcion_accesos_cada_100_hogares,21.88,accesos cada 100 hogares,ENACOM
+54,Misiones,3T2016,tv_suscripcion_accesos_cada_100_hogares,37.38,accesos cada 100 hogares,ENACOM
+58,Neuquén,3T2016,tv_suscripcion_accesos_cada_100_hogares,59.31,accesos cada 100 hogares,ENACOM
+62,Río Negro,3T2016,tv_suscripcion_accesos_cada_100_hogares,25.03,accesos cada 100 hogares,ENACOM
+66,Salta,3T2016,tv_suscripcion_accesos_cada_100_hogares,52.73,accesos cada 100 hogares,ENACOM
+70,San Juan,3T2016,tv_suscripcion_accesos_cada_100_hogares,22.27,accesos cada 100 hogares,ENACOM
+74,San Luis,3T2016,tv_suscripcion_accesos_cada_100_hogares,39.18,accesos cada 100 hogares,ENACOM
+78,Santa Cruz,3T2016,tv_suscripcion_accesos_cada_100_hogares,52.32,accesos cada 100 hogares,ENACOM
+82,Santa Fe,3T2016,tv_suscripcion_accesos_cada_100_hogares,57.1,accesos cada 100 hogares,ENACOM
+86,Santiago del Estero,3T2016,tv_suscripcion_accesos_cada_100_hogares,42.59,accesos cada 100 hogares,ENACOM
+94,Tierra del Fuego,3T2016,tv_suscripcion_accesos_cada_100_hogares,83.34,accesos cada 100 hogares,ENACOM
+90,Tucumán,3T2016,tv_suscripcion_accesos_cada_100_hogares,31.4,accesos cada 100 hogares,ENACOM
+06,Buenos Aires,4T2016,tv_suscripcion_accesos_cada_100_hogares,49.41,accesos cada 100 hogares,ENACOM
+02,CABA,4T2016,tv_suscripcion_accesos_cada_100_hogares,61.33,accesos cada 100 hogares,ENACOM
+10,Catamarca,4T2016,tv_suscripcion_accesos_cada_100_hogares,29.58,accesos cada 100 hogares,ENACOM
+22,Chaco,4T2016,tv_suscripcion_accesos_cada_100_hogares,28.63,accesos cada 100 hogares,ENACOM
+26,Chubut,4T2016,tv_suscripcion_accesos_cada_100_hogares,41.14,accesos cada 100 hogares,ENACOM
+14,Córdoba,4T2016,tv_suscripcion_accesos_cada_100_hogares,91.48,accesos cada 100 hogares,ENACOM
+18,Corrientes,4T2016,tv_suscripcion_accesos_cada_100_hogares,32.88,accesos cada 100 hogares,ENACOM
+30,Entre Ríos,4T2016,tv_suscripcion_accesos_cada_100_hogares,39.11,accesos cada 100 hogares,ENACOM
+34,Formosa,4T2016,tv_suscripcion_accesos_cada_100_hogares,31.13,accesos cada 100 hogares,ENACOM
+38,Jujuy,4T2016,tv_suscripcion_accesos_cada_100_hogares,43.44,accesos cada 100 hogares,ENACOM
+42,La Pampa,4T2016,tv_suscripcion_accesos_cada_100_hogares,88.24,accesos cada 100 hogares,ENACOM
+46,La Rioja,4T2016,tv_suscripcion_accesos_cada_100_hogares,25.94,accesos cada 100 hogares,ENACOM
+50,Mendoza,4T2016,tv_suscripcion_accesos_cada_100_hogares,22.0,accesos cada 100 hogares,ENACOM
+54,Misiones,4T2016,tv_suscripcion_accesos_cada_100_hogares,37.6,accesos cada 100 hogares,ENACOM
+58,Neuquén,4T2016,tv_suscripcion_accesos_cada_100_hogares,59.26,accesos cada 100 hogares,ENACOM
+62,Río Negro,4T2016,tv_suscripcion_accesos_cada_100_hogares,24.8,accesos cada 100 hogares,ENACOM
+66,Salta,4T2016,tv_suscripcion_accesos_cada_100_hogares,52.87,accesos cada 100 hogares,ENACOM
+70,San Juan,4T2016,tv_suscripcion_accesos_cada_100_hogares,20.95,accesos cada 100 hogares,ENACOM
+74,San Luis,4T2016,tv_suscripcion_accesos_cada_100_hogares,39.37,accesos cada 100 hogares,ENACOM
+78,Santa Cruz,4T2016,tv_suscripcion_accesos_cada_100_hogares,52.04,accesos cada 100 hogares,ENACOM
+82,Santa Fe,4T2016,tv_suscripcion_accesos_cada_100_hogares,57.33,accesos cada 100 hogares,ENACOM
+86,Santiago del Estero,4T2016,tv_suscripcion_accesos_cada_100_hogares,42.14,accesos cada 100 hogares,ENACOM
+94,Tierra del Fuego,4T2016,tv_suscripcion_accesos_cada_100_hogares,83.59,accesos cada 100 hogares,ENACOM
+90,Tucumán,4T2016,tv_suscripcion_accesos_cada_100_hogares,31.11,accesos cada 100 hogares,ENACOM
+06,Buenos Aires,1T2017,tv_suscripcion_accesos_cada_100_hogares,47.43,accesos cada 100 hogares,ENACOM
+02,CABA,1T2017,tv_suscripcion_accesos_cada_100_hogares,55.24,accesos cada 100 hogares,ENACOM
+10,Catamarca,1T2017,tv_suscripcion_accesos_cada_100_hogares,28.91,accesos cada 100 hogares,ENACOM
+22,Chaco,1T2017,tv_suscripcion_accesos_cada_100_hogares,28.32,accesos cada 100 hogares,ENACOM
+26,Chubut,1T2017,tv_suscripcion_accesos_cada_100_hogares,40.65,accesos cada 100 hogares,ENACOM
+14,Córdoba,1T2017,tv_suscripcion_accesos_cada_100_hogares,91.97,accesos cada 100 hogares,ENACOM
+18,Corrientes,1T2017,tv_suscripcion_accesos_cada_100_hogares,32.59,accesos cada 100 hogares,ENACOM
+30,Entre Ríos,1T2017,tv_suscripcion_accesos_cada_100_hogares,39.98,accesos cada 100 hogares,ENACOM
+34,Formosa,1T2017,tv_suscripcion_accesos_cada_100_hogares,32.53,accesos cada 100 hogares,ENACOM
+38,Jujuy,1T2017,tv_suscripcion_accesos_cada_100_hogares,44.31,accesos cada 100 hogares,ENACOM
+42,La Pampa,1T2017,tv_suscripcion_accesos_cada_100_hogares,89.04,accesos cada 100 hogares,ENACOM
+46,La Rioja,1T2017,tv_suscripcion_accesos_cada_100_hogares,24.37,accesos cada 100 hogares,ENACOM
+50,Mendoza,1T2017,tv_suscripcion_accesos_cada_100_hogares,21.76,accesos cada 100 hogares,ENACOM
+54,Misiones,1T2017,tv_suscripcion_accesos_cada_100_hogares,37.3,accesos cada 100 hogares,ENACOM
+58,Neuquén,1T2017,tv_suscripcion_accesos_cada_100_hogares,58.61,accesos cada 100 hogares,ENACOM
+62,Río Negro,1T2017,tv_suscripcion_accesos_cada_100_hogares,23.85,accesos cada 100 hogares,ENACOM
+66,Salta,1T2017,tv_suscripcion_accesos_cada_100_hogares,51.67,accesos cada 100 hogares,ENACOM
+70,San Juan,1T2017,tv_suscripcion_accesos_cada_100_hogares,22.6,accesos cada 100 hogares,ENACOM
+74,San Luis,1T2017,tv_suscripcion_accesos_cada_100_hogares,40.96,accesos cada 100 hogares,ENACOM
+78,Santa Cruz,1T2017,tv_suscripcion_accesos_cada_100_hogares,50.4,accesos cada 100 hogares,ENACOM
+82,Santa Fe,1T2017,tv_suscripcion_accesos_cada_100_hogares,55.65,accesos cada 100 hogares,ENACOM
+86,Santiago del Estero,1T2017,tv_suscripcion_accesos_cada_100_hogares,41.61,accesos cada 100 hogares,ENACOM
+94,Tierra del Fuego,1T2017,tv_suscripcion_accesos_cada_100_hogares,81.97,accesos cada 100 hogares,ENACOM
+90,Tucumán,1T2017,tv_suscripcion_accesos_cada_100_hogares,31.05,accesos cada 100 hogares,ENACOM
+06,Buenos Aires,2T2017,tv_suscripcion_accesos_cada_100_hogares,47.17,accesos cada 100 hogares,ENACOM
+02,CABA,2T2017,tv_suscripcion_accesos_cada_100_hogares,54.96,accesos cada 100 hogares,ENACOM
+10,Catamarca,2T2017,tv_suscripcion_accesos_cada_100_hogares,39.35,accesos cada 100 hogares,ENACOM
+22,Chaco,2T2017,tv_suscripcion_accesos_cada_100_hogares,29.32,accesos cada 100 hogares,ENACOM
+26,Chubut,2T2017,tv_suscripcion_accesos_cada_100_hogares,40.37,accesos cada 100 hogares,ENACOM
+14,Córdoba,2T2017,tv_suscripcion_accesos_cada_100_hogares,91.43,accesos cada 100 hogares,ENACOM
+18,Corrientes,2T2017,tv_suscripcion_accesos_cada_100_hogares,32.41,accesos cada 100 hogares,ENACOM
+30,Entre Ríos,2T2017,tv_suscripcion_accesos_cada_100_hogares,40.36,accesos cada 100 hogares,ENACOM
+34,Formosa,2T2017,tv_suscripcion_accesos_cada_100_hogares,31.92,accesos cada 100 hogares,ENACOM
+38,Jujuy,2T2017,tv_suscripcion_accesos_cada_100_hogares,44.42,accesos cada 100 hogares,ENACOM
+42,La Pampa,2T2017,tv_suscripcion_accesos_cada_100_hogares,86.33,accesos cada 100 hogares,ENACOM
+46,La Rioja,2T2017,tv_suscripcion_accesos_cada_100_hogares,23.99,accesos cada 100 hogares,ENACOM
+50,Mendoza,2T2017,tv_suscripcion_accesos_cada_100_hogares,21.06,accesos cada 100 hogares,ENACOM
+54,Misiones,2T2017,tv_suscripcion_accesos_cada_100_hogares,37.09,accesos cada 100 hogares,ENACOM
+58,Neuquén,2T2017,tv_suscripcion_accesos_cada_100_hogares,58.35,accesos cada 100 hogares,ENACOM
+62,Río Negro,2T2017,tv_suscripcion_accesos_cada_100_hogares,26.38,accesos cada 100 hogares,ENACOM
+66,Salta,2T2017,tv_suscripcion_accesos_cada_100_hogares,77.34,accesos cada 100 hogares,ENACOM
+70,San Juan,2T2017,tv_suscripcion_accesos_cada_100_hogares,21.11,accesos cada 100 hogares,ENACOM
+74,San Luis,2T2017,tv_suscripcion_accesos_cada_100_hogares,39.25,accesos cada 100 hogares,ENACOM
+78,Santa Cruz,2T2017,tv_suscripcion_accesos_cada_100_hogares,49.88,accesos cada 100 hogares,ENACOM
+82,Santa Fe,2T2017,tv_suscripcion_accesos_cada_100_hogares,57.03,accesos cada 100 hogares,ENACOM
+86,Santiago del Estero,2T2017,tv_suscripcion_accesos_cada_100_hogares,41.35,accesos cada 100 hogares,ENACOM
+94,Tierra del Fuego,2T2017,tv_suscripcion_accesos_cada_100_hogares,81.79,accesos cada 100 hogares,ENACOM
+90,Tucumán,2T2017,tv_suscripcion_accesos_cada_100_hogares,44.32,accesos cada 100 hogares,ENACOM
+06,Buenos Aires,3T2017,tv_suscripcion_accesos_cada_100_hogares,46.79,accesos cada 100 hogares,ENACOM
+02,CABA,3T2017,tv_suscripcion_accesos_cada_100_hogares,54.92,accesos cada 100 hogares,ENACOM
+10,Catamarca,3T2017,tv_suscripcion_accesos_cada_100_hogares,39.57,accesos cada 100 hogares,ENACOM
+22,Chaco,3T2017,tv_suscripcion_accesos_cada_100_hogares,28.87,accesos cada 100 hogares,ENACOM
+26,Chubut,3T2017,tv_suscripcion_accesos_cada_100_hogares,38.81,accesos cada 100 hogares,ENACOM
+14,Córdoba,3T2017,tv_suscripcion_accesos_cada_100_hogares,91.61,accesos cada 100 hogares,ENACOM
+18,Corrientes,3T2017,tv_suscripcion_accesos_cada_100_hogares,32.58,accesos cada 100 hogares,ENACOM
+30,Entre Ríos,3T2017,tv_suscripcion_accesos_cada_100_hogares,40.98,accesos cada 100 hogares,ENACOM
+34,Formosa,3T2017,tv_suscripcion_accesos_cada_100_hogares,32.84,accesos cada 100 hogares,ENACOM
+38,Jujuy,3T2017,tv_suscripcion_accesos_cada_100_hogares,44.34,accesos cada 100 hogares,ENACOM
+42,La Pampa,3T2017,tv_suscripcion_accesos_cada_100_hogares,86.5,accesos cada 100 hogares,ENACOM
+46,La Rioja,3T2017,tv_suscripcion_accesos_cada_100_hogares,23.76,accesos cada 100 hogares,ENACOM
+50,Mendoza,3T2017,tv_suscripcion_accesos_cada_100_hogares,21.09,accesos cada 100 hogares,ENACOM
+54,Misiones,3T2017,tv_suscripcion_accesos_cada_100_hogares,37.61,accesos cada 100 hogares,ENACOM
+58,Neuquén,3T2017,tv_suscripcion_accesos_cada_100_hogares,57.79,accesos cada 100 hogares,ENACOM
+62,Río Negro,3T2017,tv_suscripcion_accesos_cada_100_hogares,26.13,accesos cada 100 hogares,ENACOM
+66,Salta,3T2017,tv_suscripcion_accesos_cada_100_hogares,76.63,accesos cada 100 hogares,ENACOM
+70,San Juan,3T2017,tv_suscripcion_accesos_cada_100_hogares,20.49,accesos cada 100 hogares,ENACOM
+74,San Luis,3T2017,tv_suscripcion_accesos_cada_100_hogares,44.62,accesos cada 100 hogares,ENACOM
+78,Santa Cruz,3T2017,tv_suscripcion_accesos_cada_100_hogares,47.36,accesos cada 100 hogares,ENACOM
+82,Santa Fe,3T2017,tv_suscripcion_accesos_cada_100_hogares,56.64,accesos cada 100 hogares,ENACOM
+86,Santiago del Estero,3T2017,tv_suscripcion_accesos_cada_100_hogares,41.54,accesos cada 100 hogares,ENACOM
+94,Tierra del Fuego,3T2017,tv_suscripcion_accesos_cada_100_hogares,83.42,accesos cada 100 hogares,ENACOM
+90,Tucumán,3T2017,tv_suscripcion_accesos_cada_100_hogares,44.27,accesos cada 100 hogares,ENACOM
+06,Buenos Aires,4T2017,tv_suscripcion_accesos_cada_100_hogares,48.1,accesos cada 100 hogares,ENACOM
+02,CABA,4T2017,tv_suscripcion_accesos_cada_100_hogares,57.5,accesos cada 100 hogares,ENACOM
+10,Catamarca,4T2017,tv_suscripcion_accesos_cada_100_hogares,28.46,accesos cada 100 hogares,ENACOM
+22,Chaco,4T2017,tv_suscripcion_accesos_cada_100_hogares,32.34,accesos cada 100 hogares,ENACOM
+26,Chubut,4T2017,tv_suscripcion_accesos_cada_100_hogares,39.13,accesos cada 100 hogares,ENACOM
+14,Córdoba,4T2017,tv_suscripcion_accesos_cada_100_hogares,92.84,accesos cada 100 hogares,ENACOM
+18,Corrientes,4T2017,tv_suscripcion_accesos_cada_100_hogares,36.7,accesos cada 100 hogares,ENACOM
+30,Entre Ríos,4T2017,tv_suscripcion_accesos_cada_100_hogares,51.81,accesos cada 100 hogares,ENACOM
+34,Formosa,4T2017,tv_suscripcion_accesos_cada_100_hogares,32.57,accesos cada 100 hogares,ENACOM
+38,Jujuy,4T2017,tv_suscripcion_accesos_cada_100_hogares,45.43,accesos cada 100 hogares,ENACOM
+42,La Pampa,4T2017,tv_suscripcion_accesos_cada_100_hogares,72.78,accesos cada 100 hogares,ENACOM
+46,La Rioja,4T2017,tv_suscripcion_accesos_cada_100_hogares,23.42,accesos cada 100 hogares,ENACOM
+50,Mendoza,4T2017,tv_suscripcion_accesos_cada_100_hogares,21.08,accesos cada 100 hogares,ENACOM
+54,Misiones,4T2017,tv_suscripcion_accesos_cada_100_hogares,40.01,accesos cada 100 hogares,ENACOM
+58,Neuquén,4T2017,tv_suscripcion_accesos_cada_100_hogares,40.41,accesos cada 100 hogares,ENACOM
+62,Río Negro,4T2017,tv_suscripcion_accesos_cada_100_hogares,40.87,accesos cada 100 hogares,ENACOM
+66,Salta,4T2017,tv_suscripcion_accesos_cada_100_hogares,52.87,accesos cada 100 hogares,ENACOM
+70,San Juan,4T2017,tv_suscripcion_accesos_cada_100_hogares,20.41,accesos cada 100 hogares,ENACOM
+74,San Luis,4T2017,tv_suscripcion_accesos_cada_100_hogares,44.52,accesos cada 100 hogares,ENACOM
+78,Santa Cruz,4T2017,tv_suscripcion_accesos_cada_100_hogares,49.29,accesos cada 100 hogares,ENACOM
+82,Santa Fe,4T2017,tv_suscripcion_accesos_cada_100_hogares,57.72,accesos cada 100 hogares,ENACOM
+86,Santiago del Estero,4T2017,tv_suscripcion_accesos_cada_100_hogares,40.76,accesos cada 100 hogares,ENACOM
+94,Tierra del Fuego,4T2017,tv_suscripcion_accesos_cada_100_hogares,83.2,accesos cada 100 hogares,ENACOM
+90,Tucumán,4T2017,tv_suscripcion_accesos_cada_100_hogares,28.85,accesos cada 100 hogares,ENACOM
+06,Buenos Aires,1T2018,tv_suscripcion_accesos_cada_100_hogares,47.83,accesos cada 100 hogares,ENACOM
+02,CABA,1T2018,tv_suscripcion_accesos_cada_100_hogares,57.64,accesos cada 100 hogares,ENACOM
+10,Catamarca,1T2018,tv_suscripcion_accesos_cada_100_hogares,85.99,accesos cada 100 hogares,ENACOM
+22,Chaco,1T2018,tv_suscripcion_accesos_cada_100_hogares,34.9,accesos cada 100 hogares,ENACOM
+26,Chubut,1T2018,tv_suscripcion_accesos_cada_100_hogares,39.93,accesos cada 100 hogares,ENACOM
+14,Córdoba,1T2018,tv_suscripcion_accesos_cada_100_hogares,98.26,accesos cada 100 hogares,ENACOM
+18,Corrientes,1T2018,tv_suscripcion_accesos_cada_100_hogares,36.62,accesos cada 100 hogares,ENACOM
+30,Entre Ríos,1T2018,tv_suscripcion_accesos_cada_100_hogares,51.87,accesos cada 100 hogares,ENACOM
+34,Formosa,1T2018,tv_suscripcion_accesos_cada_100_hogares,34.77,accesos cada 100 hogares,ENACOM
+38,Jujuy,1T2018,tv_suscripcion_accesos_cada_100_hogares,46.16,accesos cada 100 hogares,ENACOM
+42,La Pampa,1T2018,tv_suscripcion_accesos_cada_100_hogares,72.41,accesos cada 100 hogares,ENACOM
+46,La Rioja,1T2018,tv_suscripcion_accesos_cada_100_hogares,23.39,accesos cada 100 hogares,ENACOM
+50,Mendoza,1T2018,tv_suscripcion_accesos_cada_100_hogares,16.3,accesos cada 100 hogares,ENACOM
+54,Misiones,1T2018,tv_suscripcion_accesos_cada_100_hogares,40.15,accesos cada 100 hogares,ENACOM
+58,Neuquén,1T2018,tv_suscripcion_accesos_cada_100_hogares,40.2,accesos cada 100 hogares,ENACOM
+62,Río Negro,1T2018,tv_suscripcion_accesos_cada_100_hogares,40.36,accesos cada 100 hogares,ENACOM
+66,Salta,1T2018,tv_suscripcion_accesos_cada_100_hogares,52.4,accesos cada 100 hogares,ENACOM
+70,San Juan,1T2018,tv_suscripcion_accesos_cada_100_hogares,19.3,accesos cada 100 hogares,ENACOM
+74,San Luis,1T2018,tv_suscripcion_accesos_cada_100_hogares,43.87,accesos cada 100 hogares,ENACOM
+78,Santa Cruz,1T2018,tv_suscripcion_accesos_cada_100_hogares,51.84,accesos cada 100 hogares,ENACOM
+82,Santa Fe,1T2018,tv_suscripcion_accesos_cada_100_hogares,57.1,accesos cada 100 hogares,ENACOM
+86,Santiago del Estero,1T2018,tv_suscripcion_accesos_cada_100_hogares,40.67,accesos cada 100 hogares,ENACOM
+94,Tierra del Fuego,1T2018,tv_suscripcion_accesos_cada_100_hogares,83.12,accesos cada 100 hogares,ENACOM
+90,Tucumán,1T2018,tv_suscripcion_accesos_cada_100_hogares,28.81,accesos cada 100 hogares,ENACOM
+06,Buenos Aires,2T2018,tv_suscripcion_accesos_cada_100_hogares,47.76,accesos cada 100 hogares,ENACOM
+02,CABA,2T2018,tv_suscripcion_accesos_cada_100_hogares,57.79,accesos cada 100 hogares,ENACOM
+10,Catamarca,2T2018,tv_suscripcion_accesos_cada_100_hogares,75.66,accesos cada 100 hogares,ENACOM
+22,Chaco,2T2018,tv_suscripcion_accesos_cada_100_hogares,34.41,accesos cada 100 hogares,ENACOM
+26,Chubut,2T2018,tv_suscripcion_accesos_cada_100_hogares,40.8,accesos cada 100 hogares,ENACOM
+14,Córdoba,2T2018,tv_suscripcion_accesos_cada_100_hogares,98.89,accesos cada 100 hogares,ENACOM
+18,Corrientes,2T2018,tv_suscripcion_accesos_cada_100_hogares,34.64,accesos cada 100 hogares,ENACOM
+30,Entre Ríos,2T2018,tv_suscripcion_accesos_cada_100_hogares,51.97,accesos cada 100 hogares,ENACOM
+34,Formosa,2T2018,tv_suscripcion_accesos_cada_100_hogares,34.39,accesos cada 100 hogares,ENACOM
+38,Jujuy,2T2018,tv_suscripcion_accesos_cada_100_hogares,46.68,accesos cada 100 hogares,ENACOM
+42,La Pampa,2T2018,tv_suscripcion_accesos_cada_100_hogares,71.15,accesos cada 100 hogares,ENACOM
+46,La Rioja,2T2018,tv_suscripcion_accesos_cada_100_hogares,22.44,accesos cada 100 hogares,ENACOM
+50,Mendoza,2T2018,tv_suscripcion_accesos_cada_100_hogares,16.4,accesos cada 100 hogares,ENACOM
+54,Misiones,2T2018,tv_suscripcion_accesos_cada_100_hogares,40.22,accesos cada 100 hogares,ENACOM
+58,Neuquén,2T2018,tv_suscripcion_accesos_cada_100_hogares,40.96,accesos cada 100 hogares,ENACOM
+62,Río Negro,2T2018,tv_suscripcion_accesos_cada_100_hogares,39.17,accesos cada 100 hogares,ENACOM
+66,Salta,2T2018,tv_suscripcion_accesos_cada_100_hogares,50.31,accesos cada 100 hogares,ENACOM
+70,San Juan,2T2018,tv_suscripcion_accesos_cada_100_hogares,24.63,accesos cada 100 hogares,ENACOM
+74,San Luis,2T2018,tv_suscripcion_accesos_cada_100_hogares,40.4,accesos cada 100 hogares,ENACOM
+78,Santa Cruz,2T2018,tv_suscripcion_accesos_cada_100_hogares,51.68,accesos cada 100 hogares,ENACOM
+82,Santa Fe,2T2018,tv_suscripcion_accesos_cada_100_hogares,56.25,accesos cada 100 hogares,ENACOM
+86,Santiago del Estero,2T2018,tv_suscripcion_accesos_cada_100_hogares,40.56,accesos cada 100 hogares,ENACOM
+94,Tierra del Fuego,2T2018,tv_suscripcion_accesos_cada_100_hogares,84.2,accesos cada 100 hogares,ENACOM
+90,Tucumán,2T2018,tv_suscripcion_accesos_cada_100_hogares,29.07,accesos cada 100 hogares,ENACOM
+06,Buenos Aires,3T2018,tv_suscripcion_accesos_cada_100_hogares,48.16,accesos cada 100 hogares,ENACOM
+02,CABA,3T2018,tv_suscripcion_accesos_cada_100_hogares,58.84,accesos cada 100 hogares,ENACOM
+10,Catamarca,3T2018,tv_suscripcion_accesos_cada_100_hogares,80.0,accesos cada 100 hogares,ENACOM
+22,Chaco,3T2018,tv_suscripcion_accesos_cada_100_hogares,31.38,accesos cada 100 hogares,ENACOM
+26,Chubut,3T2018,tv_suscripcion_accesos_cada_100_hogares,48.85,accesos cada 100 hogares,ENACOM
+14,Córdoba,3T2018,tv_suscripcion_accesos_cada_100_hogares,95.33,accesos cada 100 hogares,ENACOM
+18,Corrientes,3T2018,tv_suscripcion_accesos_cada_100_hogares,34.85,accesos cada 100 hogares,ENACOM
+30,Entre Ríos,3T2018,tv_suscripcion_accesos_cada_100_hogares,50.81,accesos cada 100 hogares,ENACOM
+34,Formosa,3T2018,tv_suscripcion_accesos_cada_100_hogares,39.48,accesos cada 100 hogares,ENACOM
+38,Jujuy,3T2018,tv_suscripcion_accesos_cada_100_hogares,47.51,accesos cada 100 hogares,ENACOM
+42,La Pampa,3T2018,tv_suscripcion_accesos_cada_100_hogares,71.61,accesos cada 100 hogares,ENACOM
+46,La Rioja,3T2018,tv_suscripcion_accesos_cada_100_hogares,23.49,accesos cada 100 hogares,ENACOM
+50,Mendoza,3T2018,tv_suscripcion_accesos_cada_100_hogares,21.56,accesos cada 100 hogares,ENACOM
+54,Misiones,3T2018,tv_suscripcion_accesos_cada_100_hogares,40.22,accesos cada 100 hogares,ENACOM
+58,Neuquén,3T2018,tv_suscripcion_accesos_cada_100_hogares,41.66,accesos cada 100 hogares,ENACOM
+62,Río Negro,3T2018,tv_suscripcion_accesos_cada_100_hogares,42.4,accesos cada 100 hogares,ENACOM
+66,Salta,3T2018,tv_suscripcion_accesos_cada_100_hogares,52.22,accesos cada 100 hogares,ENACOM
+70,San Juan,3T2018,tv_suscripcion_accesos_cada_100_hogares,23.1,accesos cada 100 hogares,ENACOM
+74,San Luis,3T2018,tv_suscripcion_accesos_cada_100_hogares,38.9,accesos cada 100 hogares,ENACOM
+78,Santa Cruz,3T2018,tv_suscripcion_accesos_cada_100_hogares,54.66,accesos cada 100 hogares,ENACOM
+82,Santa Fe,3T2018,tv_suscripcion_accesos_cada_100_hogares,57.53,accesos cada 100 hogares,ENACOM
+86,Santiago del Estero,3T2018,tv_suscripcion_accesos_cada_100_hogares,45.7,accesos cada 100 hogares,ENACOM
+94,Tierra del Fuego,3T2018,tv_suscripcion_accesos_cada_100_hogares,94.26,accesos cada 100 hogares,ENACOM
+90,Tucumán,3T2018,tv_suscripcion_accesos_cada_100_hogares,30.64,accesos cada 100 hogares,ENACOM
+06,Buenos Aires,4T2018,tv_suscripcion_accesos_cada_100_hogares,47.45,accesos cada 100 hogares,ENACOM
+02,CABA,4T2018,tv_suscripcion_accesos_cada_100_hogares,58.54,accesos cada 100 hogares,ENACOM
+10,Catamarca,4T2018,tv_suscripcion_accesos_cada_100_hogares,32.19,accesos cada 100 hogares,ENACOM
+22,Chaco,4T2018,tv_suscripcion_accesos_cada_100_hogares,31.54,accesos cada 100 hogares,ENACOM
+26,Chubut,4T2018,tv_suscripcion_accesos_cada_100_hogares,49.04,accesos cada 100 hogares,ENACOM
+14,Córdoba,4T2018,tv_suscripcion_accesos_cada_100_hogares,93.29,accesos cada 100 hogares,ENACOM
+18,Corrientes,4T2018,tv_suscripcion_accesos_cada_100_hogares,35.13,accesos cada 100 hogares,ENACOM
+30,Entre Ríos,4T2018,tv_suscripcion_accesos_cada_100_hogares,51.0,accesos cada 100 hogares,ENACOM
+34,Formosa,4T2018,tv_suscripcion_accesos_cada_100_hogares,38.73,accesos cada 100 hogares,ENACOM
+38,Jujuy,4T2018,tv_suscripcion_accesos_cada_100_hogares,50.96,accesos cada 100 hogares,ENACOM
+42,La Pampa,4T2018,tv_suscripcion_accesos_cada_100_hogares,69.86,accesos cada 100 hogares,ENACOM
+46,La Rioja,4T2018,tv_suscripcion_accesos_cada_100_hogares,24.21,accesos cada 100 hogares,ENACOM
+50,Mendoza,4T2018,tv_suscripcion_accesos_cada_100_hogares,21.48,accesos cada 100 hogares,ENACOM
+54,Misiones,4T2018,tv_suscripcion_accesos_cada_100_hogares,40.84,accesos cada 100 hogares,ENACOM
+58,Neuquén,4T2018,tv_suscripcion_accesos_cada_100_hogares,41.33,accesos cada 100 hogares,ENACOM
+62,Río Negro,4T2018,tv_suscripcion_accesos_cada_100_hogares,40.5,accesos cada 100 hogares,ENACOM
+66,Salta,4T2018,tv_suscripcion_accesos_cada_100_hogares,52.3,accesos cada 100 hogares,ENACOM
+70,San Juan,4T2018,tv_suscripcion_accesos_cada_100_hogares,22.29,accesos cada 100 hogares,ENACOM
+74,San Luis,4T2018,tv_suscripcion_accesos_cada_100_hogares,38.7,accesos cada 100 hogares,ENACOM
+78,Santa Cruz,4T2018,tv_suscripcion_accesos_cada_100_hogares,54.46,accesos cada 100 hogares,ENACOM
+82,Santa Fe,4T2018,tv_suscripcion_accesos_cada_100_hogares,54.55,accesos cada 100 hogares,ENACOM
+86,Santiago del Estero,4T2018,tv_suscripcion_accesos_cada_100_hogares,44.06,accesos cada 100 hogares,ENACOM
+94,Tierra del Fuego,4T2018,tv_suscripcion_accesos_cada_100_hogares,93.44,accesos cada 100 hogares,ENACOM
+90,Tucumán,4T2018,tv_suscripcion_accesos_cada_100_hogares,30.44,accesos cada 100 hogares,ENACOM
+06,Buenos Aires,1T2019,tv_suscripcion_accesos_cada_100_hogares,47.51,accesos cada 100 hogares,ENACOM
+02,CABA,1T2019,tv_suscripcion_accesos_cada_100_hogares,61.57,accesos cada 100 hogares,ENACOM
+10,Catamarca,1T2019,tv_suscripcion_accesos_cada_100_hogares,31.71,accesos cada 100 hogares,ENACOM
+22,Chaco,1T2019,tv_suscripcion_accesos_cada_100_hogares,33.71,accesos cada 100 hogares,ENACOM
+26,Chubut,1T2019,tv_suscripcion_accesos_cada_100_hogares,48.87,accesos cada 100 hogares,ENACOM
+14,Córdoba,1T2019,tv_suscripcion_accesos_cada_100_hogares,93.09,accesos cada 100 hogares,ENACOM
+18,Corrientes,1T2019,tv_suscripcion_accesos_cada_100_hogares,34.75,accesos cada 100 hogares,ENACOM
+30,Entre Ríos,1T2019,tv_suscripcion_accesos_cada_100_hogares,51.36,accesos cada 100 hogares,ENACOM
+34,Formosa,1T2019,tv_suscripcion_accesos_cada_100_hogares,37.24,accesos cada 100 hogares,ENACOM
+38,Jujuy,1T2019,tv_suscripcion_accesos_cada_100_hogares,45.25,accesos cada 100 hogares,ENACOM
+42,La Pampa,1T2019,tv_suscripcion_accesos_cada_100_hogares,69.67,accesos cada 100 hogares,ENACOM
+46,La Rioja,1T2019,tv_suscripcion_accesos_cada_100_hogares,25.19,accesos cada 100 hogares,ENACOM
+50,Mendoza,1T2019,tv_suscripcion_accesos_cada_100_hogares,25.65,accesos cada 100 hogares,ENACOM
+54,Misiones,1T2019,tv_suscripcion_accesos_cada_100_hogares,40.64,accesos cada 100 hogares,ENACOM
+58,Neuquén,1T2019,tv_suscripcion_accesos_cada_100_hogares,41.2,accesos cada 100 hogares,ENACOM
+62,Río Negro,1T2019,tv_suscripcion_accesos_cada_100_hogares,39.87,accesos cada 100 hogares,ENACOM
+66,Salta,1T2019,tv_suscripcion_accesos_cada_100_hogares,51.51,accesos cada 100 hogares,ENACOM
+70,San Juan,1T2019,tv_suscripcion_accesos_cada_100_hogares,22.47,accesos cada 100 hogares,ENACOM
+74,San Luis,1T2019,tv_suscripcion_accesos_cada_100_hogares,37.44,accesos cada 100 hogares,ENACOM
+78,Santa Cruz,1T2019,tv_suscripcion_accesos_cada_100_hogares,54.01,accesos cada 100 hogares,ENACOM
+82,Santa Fe,1T2019,tv_suscripcion_accesos_cada_100_hogares,54.52,accesos cada 100 hogares,ENACOM
+86,Santiago del Estero,1T2019,tv_suscripcion_accesos_cada_100_hogares,45.61,accesos cada 100 hogares,ENACOM
+94,Tierra del Fuego,1T2019,tv_suscripcion_accesos_cada_100_hogares,92.18,accesos cada 100 hogares,ENACOM
+90,Tucumán,1T2019,tv_suscripcion_accesos_cada_100_hogares,28.71,accesos cada 100 hogares,ENACOM
+06,Buenos Aires,2T2019,tv_suscripcion_accesos_cada_100_hogares,47.28,accesos cada 100 hogares,ENACOM
+02,CABA,2T2019,tv_suscripcion_accesos_cada_100_hogares,63.29,accesos cada 100 hogares,ENACOM
+10,Catamarca,2T2019,tv_suscripcion_accesos_cada_100_hogares,31.61,accesos cada 100 hogares,ENACOM
+22,Chaco,2T2019,tv_suscripcion_accesos_cada_100_hogares,34.08,accesos cada 100 hogares,ENACOM
+26,Chubut,2T2019,tv_suscripcion_accesos_cada_100_hogares,47.05,accesos cada 100 hogares,ENACOM
+14,Córdoba,2T2019,tv_suscripcion_accesos_cada_100_hogares,93.42,accesos cada 100 hogares,ENACOM
+18,Corrientes,2T2019,tv_suscripcion_accesos_cada_100_hogares,37.08,accesos cada 100 hogares,ENACOM
+30,Entre Ríos,2T2019,tv_suscripcion_accesos_cada_100_hogares,51.58,accesos cada 100 hogares,ENACOM
+34,Formosa,2T2019,tv_suscripcion_accesos_cada_100_hogares,40.03,accesos cada 100 hogares,ENACOM
+38,Jujuy,2T2019,tv_suscripcion_accesos_cada_100_hogares,45.46,accesos cada 100 hogares,ENACOM
+42,La Pampa,2T2019,tv_suscripcion_accesos_cada_100_hogares,71.03,accesos cada 100 hogares,ENACOM
+46,La Rioja,2T2019,tv_suscripcion_accesos_cada_100_hogares,25.07,accesos cada 100 hogares,ENACOM
+50,Mendoza,2T2019,tv_suscripcion_accesos_cada_100_hogares,25.43,accesos cada 100 hogares,ENACOM
+54,Misiones,2T2019,tv_suscripcion_accesos_cada_100_hogares,41.68,accesos cada 100 hogares,ENACOM
+58,Neuquén,2T2019,tv_suscripcion_accesos_cada_100_hogares,40.62,accesos cada 100 hogares,ENACOM
+62,Río Negro,2T2019,tv_suscripcion_accesos_cada_100_hogares,47.94,accesos cada 100 hogares,ENACOM
+66,Salta,2T2019,tv_suscripcion_accesos_cada_100_hogares,54.51,accesos cada 100 hogares,ENACOM
+70,San Juan,2T2019,tv_suscripcion_accesos_cada_100_hogares,22.04,accesos cada 100 hogares,ENACOM
+74,San Luis,2T2019,tv_suscripcion_accesos_cada_100_hogares,37.32,accesos cada 100 hogares,ENACOM
+78,Santa Cruz,2T2019,tv_suscripcion_accesos_cada_100_hogares,49.61,accesos cada 100 hogares,ENACOM
+82,Santa Fe,2T2019,tv_suscripcion_accesos_cada_100_hogares,54.69,accesos cada 100 hogares,ENACOM
+86,Santiago del Estero,2T2019,tv_suscripcion_accesos_cada_100_hogares,45.38,accesos cada 100 hogares,ENACOM
+94,Tierra del Fuego,2T2019,tv_suscripcion_accesos_cada_100_hogares,91.52,accesos cada 100 hogares,ENACOM
+90,Tucumán,2T2019,tv_suscripcion_accesos_cada_100_hogares,28.35,accesos cada 100 hogares,ENACOM
+06,Buenos Aires,3T2019,tv_suscripcion_accesos_cada_100_hogares,47.95,accesos cada 100 hogares,ENACOM
+02,CABA,3T2019,tv_suscripcion_accesos_cada_100_hogares,67.41,accesos cada 100 hogares,ENACOM
+10,Catamarca,3T2019,tv_suscripcion_accesos_cada_100_hogares,38.92,accesos cada 100 hogares,ENACOM
+22,Chaco,3T2019,tv_suscripcion_accesos_cada_100_hogares,34.93,accesos cada 100 hogares,ENACOM
+26,Chubut,3T2019,tv_suscripcion_accesos_cada_100_hogares,37.57,accesos cada 100 hogares,ENACOM
+14,Córdoba,3T2019,tv_suscripcion_accesos_cada_100_hogares,96.72,accesos cada 100 hogares,ENACOM
+18,Corrientes,3T2019,tv_suscripcion_accesos_cada_100_hogares,37.21,accesos cada 100 hogares,ENACOM
+30,Entre Ríos,3T2019,tv_suscripcion_accesos_cada_100_hogares,52.61,accesos cada 100 hogares,ENACOM
+34,Formosa,3T2019,tv_suscripcion_accesos_cada_100_hogares,38.61,accesos cada 100 hogares,ENACOM
+38,Jujuy,3T2019,tv_suscripcion_accesos_cada_100_hogares,46.81,accesos cada 100 hogares,ENACOM
+42,La Pampa,3T2019,tv_suscripcion_accesos_cada_100_hogares,70.43,accesos cada 100 hogares,ENACOM
+46,La Rioja,3T2019,tv_suscripcion_accesos_cada_100_hogares,19.39,accesos cada 100 hogares,ENACOM
+50,Mendoza,3T2019,tv_suscripcion_accesos_cada_100_hogares,18.87,accesos cada 100 hogares,ENACOM
+54,Misiones,3T2019,tv_suscripcion_accesos_cada_100_hogares,42.16,accesos cada 100 hogares,ENACOM
+58,Neuquén,3T2019,tv_suscripcion_accesos_cada_100_hogares,39.58,accesos cada 100 hogares,ENACOM
+62,Río Negro,3T2019,tv_suscripcion_accesos_cada_100_hogares,49.0,accesos cada 100 hogares,ENACOM
+66,Salta,3T2019,tv_suscripcion_accesos_cada_100_hogares,55.2,accesos cada 100 hogares,ENACOM
+70,San Juan,3T2019,tv_suscripcion_accesos_cada_100_hogares,15.61,accesos cada 100 hogares,ENACOM
+74,San Luis,3T2019,tv_suscripcion_accesos_cada_100_hogares,34.42,accesos cada 100 hogares,ENACOM
+78,Santa Cruz,3T2019,tv_suscripcion_accesos_cada_100_hogares,45.11,accesos cada 100 hogares,ENACOM
+82,Santa Fe,3T2019,tv_suscripcion_accesos_cada_100_hogares,59.34,accesos cada 100 hogares,ENACOM
+86,Santiago del Estero,3T2019,tv_suscripcion_accesos_cada_100_hogares,37.25,accesos cada 100 hogares,ENACOM
+94,Tierra del Fuego,3T2019,tv_suscripcion_accesos_cada_100_hogares,85.1,accesos cada 100 hogares,ENACOM
+90,Tucumán,3T2019,tv_suscripcion_accesos_cada_100_hogares,26.44,accesos cada 100 hogares,ENACOM
+06,Buenos Aires,4T2019,tv_suscripcion_accesos_cada_100_hogares,49.23,accesos cada 100 hogares,ENACOM
+02,CABA,4T2019,tv_suscripcion_accesos_cada_100_hogares,70.13,accesos cada 100 hogares,ENACOM
+10,Catamarca,4T2019,tv_suscripcion_accesos_cada_100_hogares,39.03,accesos cada 100 hogares,ENACOM
+22,Chaco,4T2019,tv_suscripcion_accesos_cada_100_hogares,35.71,accesos cada 100 hogares,ENACOM
+26,Chubut,4T2019,tv_suscripcion_accesos_cada_100_hogares,37.2,accesos cada 100 hogares,ENACOM
+14,Córdoba,4T2019,tv_suscripcion_accesos_cada_100_hogares,97.3,accesos cada 100 hogares,ENACOM
+18,Corrientes,4T2019,tv_suscripcion_accesos_cada_100_hogares,37.38,accesos cada 100 hogares,ENACOM
+30,Entre Ríos,4T2019,tv_suscripcion_accesos_cada_100_hogares,53.48,accesos cada 100 hogares,ENACOM
+34,Formosa,4T2019,tv_suscripcion_accesos_cada_100_hogares,38.59,accesos cada 100 hogares,ENACOM
+38,Jujuy,4T2019,tv_suscripcion_accesos_cada_100_hogares,48.55,accesos cada 100 hogares,ENACOM
+42,La Pampa,4T2019,tv_suscripcion_accesos_cada_100_hogares,68.97,accesos cada 100 hogares,ENACOM
+46,La Rioja,4T2019,tv_suscripcion_accesos_cada_100_hogares,18.26,accesos cada 100 hogares,ENACOM
+50,Mendoza,4T2019,tv_suscripcion_accesos_cada_100_hogares,18.54,accesos cada 100 hogares,ENACOM
+54,Misiones,4T2019,tv_suscripcion_accesos_cada_100_hogares,42.32,accesos cada 100 hogares,ENACOM
+58,Neuquén,4T2019,tv_suscripcion_accesos_cada_100_hogares,39.15,accesos cada 100 hogares,ENACOM
+62,Río Negro,4T2019,tv_suscripcion_accesos_cada_100_hogares,48.46,accesos cada 100 hogares,ENACOM
+66,Salta,4T2019,tv_suscripcion_accesos_cada_100_hogares,55.23,accesos cada 100 hogares,ENACOM
+70,San Juan,4T2019,tv_suscripcion_accesos_cada_100_hogares,14.93,accesos cada 100 hogares,ENACOM
+74,San Luis,4T2019,tv_suscripcion_accesos_cada_100_hogares,33.53,accesos cada 100 hogares,ENACOM
+78,Santa Cruz,4T2019,tv_suscripcion_accesos_cada_100_hogares,44.72,accesos cada 100 hogares,ENACOM
+82,Santa Fe,4T2019,tv_suscripcion_accesos_cada_100_hogares,59.45,accesos cada 100 hogares,ENACOM
+86,Santiago del Estero,4T2019,tv_suscripcion_accesos_cada_100_hogares,37.24,accesos cada 100 hogares,ENACOM
+94,Tierra del Fuego,4T2019,tv_suscripcion_accesos_cada_100_hogares,82.03,accesos cada 100 hogares,ENACOM
+90,Tucumán,4T2019,tv_suscripcion_accesos_cada_100_hogares,27.21,accesos cada 100 hogares,ENACOM
+06,Buenos Aires,1T2020,tv_suscripcion_accesos_cada_100_hogares,51.27,accesos cada 100 hogares,ENACOM
+02,CABA,1T2020,tv_suscripcion_accesos_cada_100_hogares,58.06,accesos cada 100 hogares,ENACOM
+10,Catamarca,1T2020,tv_suscripcion_accesos_cada_100_hogares,37.33,accesos cada 100 hogares,ENACOM
+22,Chaco,1T2020,tv_suscripcion_accesos_cada_100_hogares,35.7,accesos cada 100 hogares,ENACOM
+26,Chubut,1T2020,tv_suscripcion_accesos_cada_100_hogares,35.73,accesos cada 100 hogares,ENACOM
+14,Córdoba,1T2020,tv_suscripcion_accesos_cada_100_hogares,92.63,accesos cada 100 hogares,ENACOM
+18,Corrientes,1T2020,tv_suscripcion_accesos_cada_100_hogares,37.41,accesos cada 100 hogares,ENACOM
+30,Entre Ríos,1T2020,tv_suscripcion_accesos_cada_100_hogares,53.38,accesos cada 100 hogares,ENACOM
+34,Formosa,1T2020,tv_suscripcion_accesos_cada_100_hogares,38.56,accesos cada 100 hogares,ENACOM
+38,Jujuy,1T2020,tv_suscripcion_accesos_cada_100_hogares,49.72,accesos cada 100 hogares,ENACOM
+42,La Pampa,1T2020,tv_suscripcion_accesos_cada_100_hogares,67.85,accesos cada 100 hogares,ENACOM
+46,La Rioja,1T2020,tv_suscripcion_accesos_cada_100_hogares,18.08,accesos cada 100 hogares,ENACOM
+50,Mendoza,1T2020,tv_suscripcion_accesos_cada_100_hogares,18.63,accesos cada 100 hogares,ENACOM
+54,Misiones,1T2020,tv_suscripcion_accesos_cada_100_hogares,41.88,accesos cada 100 hogares,ENACOM
+58,Neuquén,1T2020,tv_suscripcion_accesos_cada_100_hogares,39.8,accesos cada 100 hogares,ENACOM
+62,Río Negro,1T2020,tv_suscripcion_accesos_cada_100_hogares,47.97,accesos cada 100 hogares,ENACOM
+66,Salta,1T2020,tv_suscripcion_accesos_cada_100_hogares,54.45,accesos cada 100 hogares,ENACOM
+70,San Juan,1T2020,tv_suscripcion_accesos_cada_100_hogares,15.28,accesos cada 100 hogares,ENACOM
+74,San Luis,1T2020,tv_suscripcion_accesos_cada_100_hogares,32.9,accesos cada 100 hogares,ENACOM
+78,Santa Cruz,1T2020,tv_suscripcion_accesos_cada_100_hogares,40.14,accesos cada 100 hogares,ENACOM
+82,Santa Fe,1T2020,tv_suscripcion_accesos_cada_100_hogares,60.49,accesos cada 100 hogares,ENACOM
+86,Santiago del Estero,1T2020,tv_suscripcion_accesos_cada_100_hogares,36.76,accesos cada 100 hogares,ENACOM
+94,Tierra del Fuego,1T2020,tv_suscripcion_accesos_cada_100_hogares,81.36,accesos cada 100 hogares,ENACOM
+90,Tucumán,1T2020,tv_suscripcion_accesos_cada_100_hogares,26.4,accesos cada 100 hogares,ENACOM
+06,Buenos Aires,2T2020,tv_suscripcion_accesos_cada_100_hogares,50.34,accesos cada 100 hogares,ENACOM
+02,CABA,2T2020,tv_suscripcion_accesos_cada_100_hogares,57.85,accesos cada 100 hogares,ENACOM
+10,Catamarca,2T2020,tv_suscripcion_accesos_cada_100_hogares,38.08,accesos cada 100 hogares,ENACOM
+22,Chaco,2T2020,tv_suscripcion_accesos_cada_100_hogares,36.56,accesos cada 100 hogares,ENACOM
+26,Chubut,2T2020,tv_suscripcion_accesos_cada_100_hogares,33.84,accesos cada 100 hogares,ENACOM
+14,Córdoba,2T2020,tv_suscripcion_accesos_cada_100_hogares,95.46,accesos cada 100 hogares,ENACOM
+18,Corrientes,2T2020,tv_suscripcion_accesos_cada_100_hogares,37.81,accesos cada 100 hogares,ENACOM
+30,Entre Ríos,2T2020,tv_suscripcion_accesos_cada_100_hogares,52.78,accesos cada 100 hogares,ENACOM
+34,Formosa,2T2020,tv_suscripcion_accesos_cada_100_hogares,38.52,accesos cada 100 hogares,ENACOM
+38,Jujuy,2T2020,tv_suscripcion_accesos_cada_100_hogares,49.64,accesos cada 100 hogares,ENACOM
+42,La Pampa,2T2020,tv_suscripcion_accesos_cada_100_hogares,68.53,accesos cada 100 hogares,ENACOM
+46,La Rioja,2T2020,tv_suscripcion_accesos_cada_100_hogares,18.44,accesos cada 100 hogares,ENACOM
+50,Mendoza,2T2020,tv_suscripcion_accesos_cada_100_hogares,18.5,accesos cada 100 hogares,ENACOM
+54,Misiones,2T2020,tv_suscripcion_accesos_cada_100_hogares,41.42,accesos cada 100 hogares,ENACOM
+58,Neuquén,2T2020,tv_suscripcion_accesos_cada_100_hogares,40.23,accesos cada 100 hogares,ENACOM
+62,Río Negro,2T2020,tv_suscripcion_accesos_cada_100_hogares,48.58,accesos cada 100 hogares,ENACOM
+66,Salta,2T2020,tv_suscripcion_accesos_cada_100_hogares,58.79,accesos cada 100 hogares,ENACOM
+70,San Juan,2T2020,tv_suscripcion_accesos_cada_100_hogares,16.66,accesos cada 100 hogares,ENACOM
+74,San Luis,2T2020,tv_suscripcion_accesos_cada_100_hogares,31.59,accesos cada 100 hogares,ENACOM
+78,Santa Cruz,2T2020,tv_suscripcion_accesos_cada_100_hogares,40.26,accesos cada 100 hogares,ENACOM
+82,Santa Fe,2T2020,tv_suscripcion_accesos_cada_100_hogares,60.53,accesos cada 100 hogares,ENACOM
+86,Santiago del Estero,2T2020,tv_suscripcion_accesos_cada_100_hogares,37.14,accesos cada 100 hogares,ENACOM
+94,Tierra del Fuego,2T2020,tv_suscripcion_accesos_cada_100_hogares,81.69,accesos cada 100 hogares,ENACOM
+90,Tucumán,2T2020,tv_suscripcion_accesos_cada_100_hogares,23.17,accesos cada 100 hogares,ENACOM
+06,Buenos Aires,3T2020,tv_suscripcion_accesos_cada_100_hogares,50.73,accesos cada 100 hogares,ENACOM
+02,CABA,3T2020,tv_suscripcion_accesos_cada_100_hogares,58.16,accesos cada 100 hogares,ENACOM
+10,Catamarca,3T2020,tv_suscripcion_accesos_cada_100_hogares,38.54,accesos cada 100 hogares,ENACOM
+22,Chaco,3T2020,tv_suscripcion_accesos_cada_100_hogares,37.19,accesos cada 100 hogares,ENACOM
+26,Chubut,3T2020,tv_suscripcion_accesos_cada_100_hogares,34.61,accesos cada 100 hogares,ENACOM
+14,Córdoba,3T2020,tv_suscripcion_accesos_cada_100_hogares,94.86,accesos cada 100 hogares,ENACOM
+18,Corrientes,3T2020,tv_suscripcion_accesos_cada_100_hogares,38.59,accesos cada 100 hogares,ENACOM
+30,Entre Ríos,3T2020,tv_suscripcion_accesos_cada_100_hogares,56.66,accesos cada 100 hogares,ENACOM
+34,Formosa,3T2020,tv_suscripcion_accesos_cada_100_hogares,39.01,accesos cada 100 hogares,ENACOM
+38,Jujuy,3T2020,tv_suscripcion_accesos_cada_100_hogares,55.33,accesos cada 100 hogares,ENACOM
+42,La Pampa,3T2020,tv_suscripcion_accesos_cada_100_hogares,67.01,accesos cada 100 hogares,ENACOM
+46,La Rioja,3T2020,tv_suscripcion_accesos_cada_100_hogares,18.74,accesos cada 100 hogares,ENACOM
+50,Mendoza,3T2020,tv_suscripcion_accesos_cada_100_hogares,18.87,accesos cada 100 hogares,ENACOM
+54,Misiones,3T2020,tv_suscripcion_accesos_cada_100_hogares,40.08,accesos cada 100 hogares,ENACOM
+58,Neuquén,3T2020,tv_suscripcion_accesos_cada_100_hogares,40.47,accesos cada 100 hogares,ENACOM
+62,Río Negro,3T2020,tv_suscripcion_accesos_cada_100_hogares,48.81,accesos cada 100 hogares,ENACOM
+66,Salta,3T2020,tv_suscripcion_accesos_cada_100_hogares,58.97,accesos cada 100 hogares,ENACOM
+70,San Juan,3T2020,tv_suscripcion_accesos_cada_100_hogares,16.89,accesos cada 100 hogares,ENACOM
+74,San Luis,3T2020,tv_suscripcion_accesos_cada_100_hogares,31.41,accesos cada 100 hogares,ENACOM
+78,Santa Cruz,3T2020,tv_suscripcion_accesos_cada_100_hogares,40.8,accesos cada 100 hogares,ENACOM
+82,Santa Fe,3T2020,tv_suscripcion_accesos_cada_100_hogares,61.98,accesos cada 100 hogares,ENACOM
+86,Santiago del Estero,3T2020,tv_suscripcion_accesos_cada_100_hogares,37.66,accesos cada 100 hogares,ENACOM
+94,Tierra del Fuego,3T2020,tv_suscripcion_accesos_cada_100_hogares,82.13,accesos cada 100 hogares,ENACOM
+90,Tucumán,3T2020,tv_suscripcion_accesos_cada_100_hogares,26.18,accesos cada 100 hogares,ENACOM
+06,Buenos Aires,4T2020,tv_suscripcion_accesos_cada_100_hogares,50.85,accesos cada 100 hogares,ENACOM
+02,CABA,4T2020,tv_suscripcion_accesos_cada_100_hogares,59.48,accesos cada 100 hogares,ENACOM
+10,Catamarca,4T2020,tv_suscripcion_accesos_cada_100_hogares,39.7,accesos cada 100 hogares,ENACOM
+22,Chaco,4T2020,tv_suscripcion_accesos_cada_100_hogares,36.51,accesos cada 100 hogares,ENACOM
+26,Chubut,4T2020,tv_suscripcion_accesos_cada_100_hogares,38.34,accesos cada 100 hogares,ENACOM
+14,Córdoba,4T2020,tv_suscripcion_accesos_cada_100_hogares,92.81,accesos cada 100 hogares,ENACOM
+18,Corrientes,4T2020,tv_suscripcion_accesos_cada_100_hogares,37.77,accesos cada 100 hogares,ENACOM
+30,Entre Ríos,4T2020,tv_suscripcion_accesos_cada_100_hogares,52.01,accesos cada 100 hogares,ENACOM
+34,Formosa,4T2020,tv_suscripcion_accesos_cada_100_hogares,38.56,accesos cada 100 hogares,ENACOM
+38,Jujuy,4T2020,tv_suscripcion_accesos_cada_100_hogares,55.4,accesos cada 100 hogares,ENACOM
+42,La Pampa,4T2020,tv_suscripcion_accesos_cada_100_hogares,67.11,accesos cada 100 hogares,ENACOM
+46,La Rioja,4T2020,tv_suscripcion_accesos_cada_100_hogares,22.5,accesos cada 100 hogares,ENACOM
+50,Mendoza,4T2020,tv_suscripcion_accesos_cada_100_hogares,19.09,accesos cada 100 hogares,ENACOM
+54,Misiones,4T2020,tv_suscripcion_accesos_cada_100_hogares,40.12,accesos cada 100 hogares,ENACOM
+58,Neuquén,4T2020,tv_suscripcion_accesos_cada_100_hogares,40.0,accesos cada 100 hogares,ENACOM
+62,Río Negro,4T2020,tv_suscripcion_accesos_cada_100_hogares,48.23,accesos cada 100 hogares,ENACOM
+66,Salta,4T2020,tv_suscripcion_accesos_cada_100_hogares,58.78,accesos cada 100 hogares,ENACOM
+70,San Juan,4T2020,tv_suscripcion_accesos_cada_100_hogares,16.89,accesos cada 100 hogares,ENACOM
+74,San Luis,4T2020,tv_suscripcion_accesos_cada_100_hogares,31.32,accesos cada 100 hogares,ENACOM
+78,Santa Cruz,4T2020,tv_suscripcion_accesos_cada_100_hogares,40.33,accesos cada 100 hogares,ENACOM
+82,Santa Fe,4T2020,tv_suscripcion_accesos_cada_100_hogares,61.38,accesos cada 100 hogares,ENACOM
+86,Santiago del Estero,4T2020,tv_suscripcion_accesos_cada_100_hogares,37.87,accesos cada 100 hogares,ENACOM
+94,Tierra del Fuego,4T2020,tv_suscripcion_accesos_cada_100_hogares,81.71,accesos cada 100 hogares,ENACOM
+90,Tucumán,4T2020,tv_suscripcion_accesos_cada_100_hogares,26.34,accesos cada 100 hogares,ENACOM
+06,Buenos Aires,1T2021,tv_suscripcion_accesos_cada_100_hogares,49.78,accesos cada 100 hogares,ENACOM
+02,CABA,1T2021,tv_suscripcion_accesos_cada_100_hogares,58.22,accesos cada 100 hogares,ENACOM
+10,Catamarca,1T2021,tv_suscripcion_accesos_cada_100_hogares,40.24,accesos cada 100 hogares,ENACOM
+22,Chaco,1T2021,tv_suscripcion_accesos_cada_100_hogares,36.52,accesos cada 100 hogares,ENACOM
+26,Chubut,1T2021,tv_suscripcion_accesos_cada_100_hogares,38.13,accesos cada 100 hogares,ENACOM
+14,Córdoba,1T2021,tv_suscripcion_accesos_cada_100_hogares,93.65,accesos cada 100 hogares,ENACOM
+18,Corrientes,1T2021,tv_suscripcion_accesos_cada_100_hogares,38.1,accesos cada 100 hogares,ENACOM
+30,Entre Ríos,1T2021,tv_suscripcion_accesos_cada_100_hogares,53.16,accesos cada 100 hogares,ENACOM
+34,Formosa,1T2021,tv_suscripcion_accesos_cada_100_hogares,39.06,accesos cada 100 hogares,ENACOM
+38,Jujuy,1T2021,tv_suscripcion_accesos_cada_100_hogares,53.82,accesos cada 100 hogares,ENACOM
+42,La Pampa,1T2021,tv_suscripcion_accesos_cada_100_hogares,67.45,accesos cada 100 hogares,ENACOM
+46,La Rioja,1T2021,tv_suscripcion_accesos_cada_100_hogares,18.62,accesos cada 100 hogares,ENACOM
+50,Mendoza,1T2021,tv_suscripcion_accesos_cada_100_hogares,18.99,accesos cada 100 hogares,ENACOM
+54,Misiones,1T2021,tv_suscripcion_accesos_cada_100_hogares,39.92,accesos cada 100 hogares,ENACOM
+58,Neuquén,1T2021,tv_suscripcion_accesos_cada_100_hogares,39.29,accesos cada 100 hogares,ENACOM
+62,Río Negro,1T2021,tv_suscripcion_accesos_cada_100_hogares,47.74,accesos cada 100 hogares,ENACOM
+66,Salta,1T2021,tv_suscripcion_accesos_cada_100_hogares,58.63,accesos cada 100 hogares,ENACOM
+70,San Juan,1T2021,tv_suscripcion_accesos_cada_100_hogares,16.93,accesos cada 100 hogares,ENACOM
+74,San Luis,1T2021,tv_suscripcion_accesos_cada_100_hogares,31.08,accesos cada 100 hogares,ENACOM
+78,Santa Cruz,1T2021,tv_suscripcion_accesos_cada_100_hogares,40.0,accesos cada 100 hogares,ENACOM
+82,Santa Fe,1T2021,tv_suscripcion_accesos_cada_100_hogares,61.46,accesos cada 100 hogares,ENACOM
+86,Santiago del Estero,1T2021,tv_suscripcion_accesos_cada_100_hogares,65.27,accesos cada 100 hogares,ENACOM
+94,Tierra del Fuego,1T2021,tv_suscripcion_accesos_cada_100_hogares,80.43,accesos cada 100 hogares,ENACOM
+90,Tucumán,1T2021,tv_suscripcion_accesos_cada_100_hogares,26.12,accesos cada 100 hogares,ENACOM
+06,Buenos Aires,2T2021,tv_suscripcion_accesos_cada_100_hogares,49.7,accesos cada 100 hogares,ENACOM
+02,CABA,2T2021,tv_suscripcion_accesos_cada_100_hogares,58.32,accesos cada 100 hogares,ENACOM
+10,Catamarca,2T2021,tv_suscripcion_accesos_cada_100_hogares,40.2,accesos cada 100 hogares,ENACOM
+22,Chaco,2T2021,tv_suscripcion_accesos_cada_100_hogares,36.1,accesos cada 100 hogares,ENACOM
+26,Chubut,2T2021,tv_suscripcion_accesos_cada_100_hogares,38.37,accesos cada 100 hogares,ENACOM
+14,Córdoba,2T2021,tv_suscripcion_accesos_cada_100_hogares,92.34,accesos cada 100 hogares,ENACOM
+18,Corrientes,2T2021,tv_suscripcion_accesos_cada_100_hogares,37.88,accesos cada 100 hogares,ENACOM
+30,Entre Ríos,2T2021,tv_suscripcion_accesos_cada_100_hogares,53.29,accesos cada 100 hogares,ENACOM
+34,Formosa,2T2021,tv_suscripcion_accesos_cada_100_hogares,39.07,accesos cada 100 hogares,ENACOM
+38,Jujuy,2T2021,tv_suscripcion_accesos_cada_100_hogares,53.47,accesos cada 100 hogares,ENACOM
+42,La Pampa,2T2021,tv_suscripcion_accesos_cada_100_hogares,67.0,accesos cada 100 hogares,ENACOM
+46,La Rioja,2T2021,tv_suscripcion_accesos_cada_100_hogares,19.13,accesos cada 100 hogares,ENACOM
+50,Mendoza,2T2021,tv_suscripcion_accesos_cada_100_hogares,19.39,accesos cada 100 hogares,ENACOM
+54,Misiones,2T2021,tv_suscripcion_accesos_cada_100_hogares,40.43,accesos cada 100 hogares,ENACOM
+58,Neuquén,2T2021,tv_suscripcion_accesos_cada_100_hogares,39.07,accesos cada 100 hogares,ENACOM
+62,Río Negro,2T2021,tv_suscripcion_accesos_cada_100_hogares,47.74,accesos cada 100 hogares,ENACOM
+66,Salta,2T2021,tv_suscripcion_accesos_cada_100_hogares,56.03,accesos cada 100 hogares,ENACOM
+70,San Juan,2T2021,tv_suscripcion_accesos_cada_100_hogares,16.79,accesos cada 100 hogares,ENACOM
+74,San Luis,2T2021,tv_suscripcion_accesos_cada_100_hogares,31.05,accesos cada 100 hogares,ENACOM
+78,Santa Cruz,2T2021,tv_suscripcion_accesos_cada_100_hogares,38.06,accesos cada 100 hogares,ENACOM
+82,Santa Fe,2T2021,tv_suscripcion_accesos_cada_100_hogares,60.28,accesos cada 100 hogares,ENACOM
+86,Santiago del Estero,2T2021,tv_suscripcion_accesos_cada_100_hogares,66.08,accesos cada 100 hogares,ENACOM
+94,Tierra del Fuego,2T2021,tv_suscripcion_accesos_cada_100_hogares,80.18,accesos cada 100 hogares,ENACOM
+90,Tucumán,2T2021,tv_suscripcion_accesos_cada_100_hogares,26.9,accesos cada 100 hogares,ENACOM
+06,Buenos Aires,3T2021,tv_suscripcion_accesos_cada_100_hogares,50.19,accesos cada 100 hogares,ENACOM
+02,CABA,3T2021,tv_suscripcion_accesos_cada_100_hogares,58.69,accesos cada 100 hogares,ENACOM
+10,Catamarca,3T2021,tv_suscripcion_accesos_cada_100_hogares,40.8,accesos cada 100 hogares,ENACOM
+22,Chaco,3T2021,tv_suscripcion_accesos_cada_100_hogares,35.49,accesos cada 100 hogares,ENACOM
+26,Chubut,3T2021,tv_suscripcion_accesos_cada_100_hogares,38.64,accesos cada 100 hogares,ENACOM
+14,Córdoba,3T2021,tv_suscripcion_accesos_cada_100_hogares,94.91,accesos cada 100 hogares,ENACOM
+18,Corrientes,3T2021,tv_suscripcion_accesos_cada_100_hogares,38.82,accesos cada 100 hogares,ENACOM
+30,Entre Ríos,3T2021,tv_suscripcion_accesos_cada_100_hogares,58.25,accesos cada 100 hogares,ENACOM
+34,Formosa,3T2021,tv_suscripcion_accesos_cada_100_hogares,42.57,accesos cada 100 hogares,ENACOM
+38,Jujuy,3T2021,tv_suscripcion_accesos_cada_100_hogares,54.05,accesos cada 100 hogares,ENACOM
+42,La Pampa,3T2021,tv_suscripcion_accesos_cada_100_hogares,67.98,accesos cada 100 hogares,ENACOM
+46,La Rioja,3T2021,tv_suscripcion_accesos_cada_100_hogares,19.49,accesos cada 100 hogares,ENACOM
+50,Mendoza,3T2021,tv_suscripcion_accesos_cada_100_hogares,20.0,accesos cada 100 hogares,ENACOM
+54,Misiones,3T2021,tv_suscripcion_accesos_cada_100_hogares,40.38,accesos cada 100 hogares,ENACOM
+58,Neuquén,3T2021,tv_suscripcion_accesos_cada_100_hogares,38.84,accesos cada 100 hogares,ENACOM
+62,Río Negro,3T2021,tv_suscripcion_accesos_cada_100_hogares,48.08,accesos cada 100 hogares,ENACOM
+66,Salta,3T2021,tv_suscripcion_accesos_cada_100_hogares,69.51,accesos cada 100 hogares,ENACOM
+70,San Juan,3T2021,tv_suscripcion_accesos_cada_100_hogares,16.88,accesos cada 100 hogares,ENACOM
+74,San Luis,3T2021,tv_suscripcion_accesos_cada_100_hogares,31.41,accesos cada 100 hogares,ENACOM
+78,Santa Cruz,3T2021,tv_suscripcion_accesos_cada_100_hogares,37.74,accesos cada 100 hogares,ENACOM
+82,Santa Fe,3T2021,tv_suscripcion_accesos_cada_100_hogares,73.52,accesos cada 100 hogares,ENACOM
+86,Santiago del Estero,3T2021,tv_suscripcion_accesos_cada_100_hogares,77.62,accesos cada 100 hogares,ENACOM
+94,Tierra del Fuego,3T2021,tv_suscripcion_accesos_cada_100_hogares,80.26,accesos cada 100 hogares,ENACOM
+90,Tucumán,3T2021,tv_suscripcion_accesos_cada_100_hogares,26.64,accesos cada 100 hogares,ENACOM
+06,Buenos Aires,4T2021,tv_suscripcion_accesos_cada_100_hogares,50.38,accesos cada 100 hogares,ENACOM
+02,CABA,4T2021,tv_suscripcion_accesos_cada_100_hogares,58.79,accesos cada 100 hogares,ENACOM
+10,Catamarca,4T2021,tv_suscripcion_accesos_cada_100_hogares,42.01,accesos cada 100 hogares,ENACOM
+22,Chaco,4T2021,tv_suscripcion_accesos_cada_100_hogares,35.97,accesos cada 100 hogares,ENACOM
+26,Chubut,4T2021,tv_suscripcion_accesos_cada_100_hogares,39.48,accesos cada 100 hogares,ENACOM
+14,Córdoba,4T2021,tv_suscripcion_accesos_cada_100_hogares,95.8,accesos cada 100 hogares,ENACOM
+18,Corrientes,4T2021,tv_suscripcion_accesos_cada_100_hogares,39.01,accesos cada 100 hogares,ENACOM
+30,Entre Ríos,4T2021,tv_suscripcion_accesos_cada_100_hogares,54.64,accesos cada 100 hogares,ENACOM
+34,Formosa,4T2021,tv_suscripcion_accesos_cada_100_hogares,43.27,accesos cada 100 hogares,ENACOM
+38,Jujuy,4T2021,tv_suscripcion_accesos_cada_100_hogares,54.13,accesos cada 100 hogares,ENACOM
+42,La Pampa,4T2021,tv_suscripcion_accesos_cada_100_hogares,68.95,accesos cada 100 hogares,ENACOM
+46,La Rioja,4T2021,tv_suscripcion_accesos_cada_100_hogares,24.01,accesos cada 100 hogares,ENACOM
+50,Mendoza,4T2021,tv_suscripcion_accesos_cada_100_hogares,20.53,accesos cada 100 hogares,ENACOM
+54,Misiones,4T2021,tv_suscripcion_accesos_cada_100_hogares,40.03,accesos cada 100 hogares,ENACOM
+58,Neuquén,4T2021,tv_suscripcion_accesos_cada_100_hogares,38.12,accesos cada 100 hogares,ENACOM
+62,Río Negro,4T2021,tv_suscripcion_accesos_cada_100_hogares,47.53,accesos cada 100 hogares,ENACOM
+66,Salta,4T2021,tv_suscripcion_accesos_cada_100_hogares,58.79,accesos cada 100 hogares,ENACOM
+70,San Juan,4T2021,tv_suscripcion_accesos_cada_100_hogares,16.59,accesos cada 100 hogares,ENACOM
+74,San Luis,4T2021,tv_suscripcion_accesos_cada_100_hogares,31.37,accesos cada 100 hogares,ENACOM
+78,Santa Cruz,4T2021,tv_suscripcion_accesos_cada_100_hogares,37.05,accesos cada 100 hogares,ENACOM
+82,Santa Fe,4T2021,tv_suscripcion_accesos_cada_100_hogares,66.45,accesos cada 100 hogares,ENACOM
+86,Santiago del Estero,4T2021,tv_suscripcion_accesos_cada_100_hogares,77.49,accesos cada 100 hogares,ENACOM
+94,Tierra del Fuego,4T2021,tv_suscripcion_accesos_cada_100_hogares,79.76,accesos cada 100 hogares,ENACOM
+90,Tucumán,4T2021,tv_suscripcion_accesos_cada_100_hogares,25.79,accesos cada 100 hogares,ENACOM
+06,Buenos Aires,1T2022,tv_suscripcion_accesos_cada_100_hogares,49.7,accesos cada 100 hogares,ENACOM
+02,CABA,1T2022,tv_suscripcion_accesos_cada_100_hogares,58.78,accesos cada 100 hogares,ENACOM
+10,Catamarca,1T2022,tv_suscripcion_accesos_cada_100_hogares,43.97,accesos cada 100 hogares,ENACOM
+22,Chaco,1T2022,tv_suscripcion_accesos_cada_100_hogares,36.61,accesos cada 100 hogares,ENACOM
+26,Chubut,1T2022,tv_suscripcion_accesos_cada_100_hogares,39.88,accesos cada 100 hogares,ENACOM
+14,Córdoba,1T2022,tv_suscripcion_accesos_cada_100_hogares,96.05,accesos cada 100 hogares,ENACOM
+18,Corrientes,1T2022,tv_suscripcion_accesos_cada_100_hogares,43.83,accesos cada 100 hogares,ENACOM
+30,Entre Ríos,1T2022,tv_suscripcion_accesos_cada_100_hogares,54.48,accesos cada 100 hogares,ENACOM
+34,Formosa,1T2022,tv_suscripcion_accesos_cada_100_hogares,43.1,accesos cada 100 hogares,ENACOM
+38,Jujuy,1T2022,tv_suscripcion_accesos_cada_100_hogares,54.78,accesos cada 100 hogares,ENACOM
+42,La Pampa,1T2022,tv_suscripcion_accesos_cada_100_hogares,65.7,accesos cada 100 hogares,ENACOM
+46,La Rioja,1T2022,tv_suscripcion_accesos_cada_100_hogares,22.19,accesos cada 100 hogares,ENACOM
+50,Mendoza,1T2022,tv_suscripcion_accesos_cada_100_hogares,21.37,accesos cada 100 hogares,ENACOM
+54,Misiones,1T2022,tv_suscripcion_accesos_cada_100_hogares,39.96,accesos cada 100 hogares,ENACOM
+58,Neuquén,1T2022,tv_suscripcion_accesos_cada_100_hogares,37.67,accesos cada 100 hogares,ENACOM
+62,Río Negro,1T2022,tv_suscripcion_accesos_cada_100_hogares,45.94,accesos cada 100 hogares,ENACOM
+66,Salta,1T2022,tv_suscripcion_accesos_cada_100_hogares,61.35,accesos cada 100 hogares,ENACOM
+70,San Juan,1T2022,tv_suscripcion_accesos_cada_100_hogares,17.02,accesos cada 100 hogares,ENACOM
+74,San Luis,1T2022,tv_suscripcion_accesos_cada_100_hogares,31.32,accesos cada 100 hogares,ENACOM
+78,Santa Cruz,1T2022,tv_suscripcion_accesos_cada_100_hogares,36.9,accesos cada 100 hogares,ENACOM
+82,Santa Fe,1T2022,tv_suscripcion_accesos_cada_100_hogares,66.1,accesos cada 100 hogares,ENACOM
+86,Santiago del Estero,1T2022,tv_suscripcion_accesos_cada_100_hogares,58.96,accesos cada 100 hogares,ENACOM
+94,Tierra del Fuego,1T2022,tv_suscripcion_accesos_cada_100_hogares,79.88,accesos cada 100 hogares,ENACOM
+90,Tucumán,1T2022,tv_suscripcion_accesos_cada_100_hogares,27.93,accesos cada 100 hogares,ENACOM
+06,Buenos Aires,2T2022,tv_suscripcion_accesos_cada_100_hogares,49.48,accesos cada 100 hogares,ENACOM
+02,CABA,2T2022,tv_suscripcion_accesos_cada_100_hogares,52.97,accesos cada 100 hogares,ENACOM
+10,Catamarca,2T2022,tv_suscripcion_accesos_cada_100_hogares,38.58,accesos cada 100 hogares,ENACOM
+22,Chaco,2T2022,tv_suscripcion_accesos_cada_100_hogares,32.61,accesos cada 100 hogares,ENACOM
+26,Chubut,2T2022,tv_suscripcion_accesos_cada_100_hogares,36.75,accesos cada 100 hogares,ENACOM
+14,Córdoba,2T2022,tv_suscripcion_accesos_cada_100_hogares,81.84,accesos cada 100 hogares,ENACOM
+18,Corrientes,2T2022,tv_suscripcion_accesos_cada_100_hogares,34.92,accesos cada 100 hogares,ENACOM
+30,Entre Ríos,2T2022,tv_suscripcion_accesos_cada_100_hogares,45.96,accesos cada 100 hogares,ENACOM
+34,Formosa,2T2022,tv_suscripcion_accesos_cada_100_hogares,33.97,accesos cada 100 hogares,ENACOM
+38,Jujuy,2T2022,tv_suscripcion_accesos_cada_100_hogares,45.73,accesos cada 100 hogares,ENACOM
+42,La Pampa,2T2022,tv_suscripcion_accesos_cada_100_hogares,55.05,accesos cada 100 hogares,ENACOM
+46,La Rioja,2T2022,tv_suscripcion_accesos_cada_100_hogares,19.06,accesos cada 100 hogares,ENACOM
+50,Mendoza,2T2022,tv_suscripcion_accesos_cada_100_hogares,19.92,accesos cada 100 hogares,ENACOM
+54,Misiones,2T2022,tv_suscripcion_accesos_cada_100_hogares,33.48,accesos cada 100 hogares,ENACOM
+58,Neuquén,2T2022,tv_suscripcion_accesos_cada_100_hogares,29.44,accesos cada 100 hogares,ENACOM
+62,Río Negro,2T2022,tv_suscripcion_accesos_cada_100_hogares,38.56,accesos cada 100 hogares,ENACOM
+66,Salta,2T2022,tv_suscripcion_accesos_cada_100_hogares,51.05,accesos cada 100 hogares,ENACOM
+70,San Juan,2T2022,tv_suscripcion_accesos_cada_100_hogares,15.12,accesos cada 100 hogares,ENACOM
+74,San Luis,2T2022,tv_suscripcion_accesos_cada_100_hogares,25.4,accesos cada 100 hogares,ENACOM
+78,Santa Cruz,2T2022,tv_suscripcion_accesos_cada_100_hogares,35.23,accesos cada 100 hogares,ENACOM
+82,Santa Fe,2T2022,tv_suscripcion_accesos_cada_100_hogares,58.15,accesos cada 100 hogares,ENACOM
+86,Santiago del Estero,2T2022,tv_suscripcion_accesos_cada_100_hogares,46.85,accesos cada 100 hogares,ENACOM
+94,Tierra del Fuego,2T2022,tv_suscripcion_accesos_cada_100_hogares,64.18,accesos cada 100 hogares,ENACOM
+90,Tucumán,2T2022,tv_suscripcion_accesos_cada_100_hogares,26.22,accesos cada 100 hogares,ENACOM
+06,Buenos Aires,3T2022,tv_suscripcion_accesos_cada_100_hogares,49.62,accesos cada 100 hogares,ENACOM
+02,CABA,3T2022,tv_suscripcion_accesos_cada_100_hogares,52.9,accesos cada 100 hogares,ENACOM
+10,Catamarca,3T2022,tv_suscripcion_accesos_cada_100_hogares,38.53,accesos cada 100 hogares,ENACOM
+22,Chaco,3T2022,tv_suscripcion_accesos_cada_100_hogares,32.06,accesos cada 100 hogares,ENACOM
+26,Chubut,3T2022,tv_suscripcion_accesos_cada_100_hogares,37.08,accesos cada 100 hogares,ENACOM
+14,Córdoba,3T2022,tv_suscripcion_accesos_cada_100_hogares,81.35,accesos cada 100 hogares,ENACOM
+18,Corrientes,3T2022,tv_suscripcion_accesos_cada_100_hogares,35.93,accesos cada 100 hogares,ENACOM
+30,Entre Ríos,3T2022,tv_suscripcion_accesos_cada_100_hogares,45.94,accesos cada 100 hogares,ENACOM
+34,Formosa,3T2022,tv_suscripcion_accesos_cada_100_hogares,34.1,accesos cada 100 hogares,ENACOM
+38,Jujuy,3T2022,tv_suscripcion_accesos_cada_100_hogares,47.63,accesos cada 100 hogares,ENACOM
+42,La Pampa,3T2022,tv_suscripcion_accesos_cada_100_hogares,51.93,accesos cada 100 hogares,ENACOM
+46,La Rioja,3T2022,tv_suscripcion_accesos_cada_100_hogares,18.99,accesos cada 100 hogares,ENACOM
+50,Mendoza,3T2022,tv_suscripcion_accesos_cada_100_hogares,20.43,accesos cada 100 hogares,ENACOM
+54,Misiones,3T2022,tv_suscripcion_accesos_cada_100_hogares,33.29,accesos cada 100 hogares,ENACOM
+58,Neuquén,3T2022,tv_suscripcion_accesos_cada_100_hogares,28.83,accesos cada 100 hogares,ENACOM
+62,Río Negro,3T2022,tv_suscripcion_accesos_cada_100_hogares,35.96,accesos cada 100 hogares,ENACOM
+66,Salta,3T2022,tv_suscripcion_accesos_cada_100_hogares,50.98,accesos cada 100 hogares,ENACOM
+70,San Juan,3T2022,tv_suscripcion_accesos_cada_100_hogares,15.83,accesos cada 100 hogares,ENACOM
+74,San Luis,3T2022,tv_suscripcion_accesos_cada_100_hogares,25.66,accesos cada 100 hogares,ENACOM
+78,Santa Cruz,3T2022,tv_suscripcion_accesos_cada_100_hogares,35.36,accesos cada 100 hogares,ENACOM
+82,Santa Fe,3T2022,tv_suscripcion_accesos_cada_100_hogares,58.31,accesos cada 100 hogares,ENACOM
+86,Santiago del Estero,3T2022,tv_suscripcion_accesos_cada_100_hogares,47.79,accesos cada 100 hogares,ENACOM
+94,Tierra del Fuego,3T2022,tv_suscripcion_accesos_cada_100_hogares,66.75,accesos cada 100 hogares,ENACOM
+90,Tucumán,3T2022,tv_suscripcion_accesos_cada_100_hogares,25.86,accesos cada 100 hogares,ENACOM
+06,Buenos Aires,4T2022,tv_suscripcion_accesos_cada_100_hogares,49.16,accesos cada 100 hogares,ENACOM
+02,CABA,4T2022,tv_suscripcion_accesos_cada_100_hogares,52.65,accesos cada 100 hogares,ENACOM
+10,Catamarca,4T2022,tv_suscripcion_accesos_cada_100_hogares,39.9,accesos cada 100 hogares,ENACOM
+22,Chaco,4T2022,tv_suscripcion_accesos_cada_100_hogares,32.2,accesos cada 100 hogares,ENACOM
+26,Chubut,4T2022,tv_suscripcion_accesos_cada_100_hogares,37.22,accesos cada 100 hogares,ENACOM
+14,Córdoba,4T2022,tv_suscripcion_accesos_cada_100_hogares,81.08,accesos cada 100 hogares,ENACOM
+18,Corrientes,4T2022,tv_suscripcion_accesos_cada_100_hogares,36.76,accesos cada 100 hogares,ENACOM
+30,Entre Ríos,4T2022,tv_suscripcion_accesos_cada_100_hogares,46.04,accesos cada 100 hogares,ENACOM
+34,Formosa,4T2022,tv_suscripcion_accesos_cada_100_hogares,33.98,accesos cada 100 hogares,ENACOM
+38,Jujuy,4T2022,tv_suscripcion_accesos_cada_100_hogares,48.65,accesos cada 100 hogares,ENACOM
+42,La Pampa,4T2022,tv_suscripcion_accesos_cada_100_hogares,58.66,accesos cada 100 hogares,ENACOM
+46,La Rioja,4T2022,tv_suscripcion_accesos_cada_100_hogares,18.77,accesos cada 100 hogares,ENACOM
+50,Mendoza,4T2022,tv_suscripcion_accesos_cada_100_hogares,20.88,accesos cada 100 hogares,ENACOM
+54,Misiones,4T2022,tv_suscripcion_accesos_cada_100_hogares,33.38,accesos cada 100 hogares,ENACOM
+58,Neuquén,4T2022,tv_suscripcion_accesos_cada_100_hogares,29.82,accesos cada 100 hogares,ENACOM
+62,Río Negro,4T2022,tv_suscripcion_accesos_cada_100_hogares,37.43,accesos cada 100 hogares,ENACOM
+66,Salta,4T2022,tv_suscripcion_accesos_cada_100_hogares,51.27,accesos cada 100 hogares,ENACOM
+70,San Juan,4T2022,tv_suscripcion_accesos_cada_100_hogares,15.88,accesos cada 100 hogares,ENACOM
+74,San Luis,4T2022,tv_suscripcion_accesos_cada_100_hogares,26.51,accesos cada 100 hogares,ENACOM
+78,Santa Cruz,4T2022,tv_suscripcion_accesos_cada_100_hogares,31.05,accesos cada 100 hogares,ENACOM
+82,Santa Fe,4T2022,tv_suscripcion_accesos_cada_100_hogares,58.27,accesos cada 100 hogares,ENACOM
+86,Santiago del Estero,4T2022,tv_suscripcion_accesos_cada_100_hogares,48.73,accesos cada 100 hogares,ENACOM
+94,Tierra del Fuego,4T2022,tv_suscripcion_accesos_cada_100_hogares,67.54,accesos cada 100 hogares,ENACOM
+90,Tucumán,4T2022,tv_suscripcion_accesos_cada_100_hogares,27.05,accesos cada 100 hogares,ENACOM
+06,Buenos Aires,1T2023,tv_suscripcion_accesos_cada_100_hogares,50.23,accesos cada 100 hogares,ENACOM
+02,CABA,1T2023,tv_suscripcion_accesos_cada_100_hogares,53.83,accesos cada 100 hogares,ENACOM
+10,Catamarca,1T2023,tv_suscripcion_accesos_cada_100_hogares,39.42,accesos cada 100 hogares,ENACOM
+22,Chaco,1T2023,tv_suscripcion_accesos_cada_100_hogares,30.5,accesos cada 100 hogares,ENACOM
+26,Chubut,1T2023,tv_suscripcion_accesos_cada_100_hogares,35.64,accesos cada 100 hogares,ENACOM
+14,Córdoba,1T2023,tv_suscripcion_accesos_cada_100_hogares,81.38,accesos cada 100 hogares,ENACOM
+18,Corrientes,1T2023,tv_suscripcion_accesos_cada_100_hogares,37.29,accesos cada 100 hogares,ENACOM
+30,Entre Ríos,1T2023,tv_suscripcion_accesos_cada_100_hogares,45.47,accesos cada 100 hogares,ENACOM
+34,Formosa,1T2023,tv_suscripcion_accesos_cada_100_hogares,37.01,accesos cada 100 hogares,ENACOM
+38,Jujuy,1T2023,tv_suscripcion_accesos_cada_100_hogares,49.92,accesos cada 100 hogares,ENACOM
+42,La Pampa,1T2023,tv_suscripcion_accesos_cada_100_hogares,56.68,accesos cada 100 hogares,ENACOM
+46,La Rioja,1T2023,tv_suscripcion_accesos_cada_100_hogares,19.37,accesos cada 100 hogares,ENACOM
+50,Mendoza,1T2023,tv_suscripcion_accesos_cada_100_hogares,21.62,accesos cada 100 hogares,ENACOM
+54,Misiones,1T2023,tv_suscripcion_accesos_cada_100_hogares,32.77,accesos cada 100 hogares,ENACOM
+58,Neuquén,1T2023,tv_suscripcion_accesos_cada_100_hogares,30.72,accesos cada 100 hogares,ENACOM
+62,Río Negro,1T2023,tv_suscripcion_accesos_cada_100_hogares,37.21,accesos cada 100 hogares,ENACOM
+66,Salta,1T2023,tv_suscripcion_accesos_cada_100_hogares,50.7,accesos cada 100 hogares,ENACOM
+70,San Juan,1T2023,tv_suscripcion_accesos_cada_100_hogares,16.9,accesos cada 100 hogares,ENACOM
+74,San Luis,1T2023,tv_suscripcion_accesos_cada_100_hogares,26.47,accesos cada 100 hogares,ENACOM
+78,Santa Cruz,1T2023,tv_suscripcion_accesos_cada_100_hogares,30.5,accesos cada 100 hogares,ENACOM
+82,Santa Fe,1T2023,tv_suscripcion_accesos_cada_100_hogares,57.21,accesos cada 100 hogares,ENACOM
+86,Santiago del Estero,1T2023,tv_suscripcion_accesos_cada_100_hogares,49.41,accesos cada 100 hogares,ENACOM
+94,Tierra del Fuego,1T2023,tv_suscripcion_accesos_cada_100_hogares,69.04,accesos cada 100 hogares,ENACOM
+90,Tucumán,1T2023,tv_suscripcion_accesos_cada_100_hogares,27.44,accesos cada 100 hogares,ENACOM
+06,Buenos Aires,2T2023,tv_suscripcion_accesos_cada_100_hogares,52.03,accesos cada 100 hogares,ENACOM
+02,CABA,2T2023,tv_suscripcion_accesos_cada_100_hogares,58.53,accesos cada 100 hogares,ENACOM
+10,Catamarca,2T2023,tv_suscripcion_accesos_cada_100_hogares,39.63,accesos cada 100 hogares,ENACOM
+22,Chaco,2T2023,tv_suscripcion_accesos_cada_100_hogares,31.42,accesos cada 100 hogares,ENACOM
+26,Chubut,2T2023,tv_suscripcion_accesos_cada_100_hogares,35.36,accesos cada 100 hogares,ENACOM
+14,Córdoba,2T2023,tv_suscripcion_accesos_cada_100_hogares,84.96,accesos cada 100 hogares,ENACOM
+18,Corrientes,2T2023,tv_suscripcion_accesos_cada_100_hogares,39.37,accesos cada 100 hogares,ENACOM
+30,Entre Ríos,2T2023,tv_suscripcion_accesos_cada_100_hogares,47.14,accesos cada 100 hogares,ENACOM
+34,Formosa,2T2023,tv_suscripcion_accesos_cada_100_hogares,37.6,accesos cada 100 hogares,ENACOM
+38,Jujuy,2T2023,tv_suscripcion_accesos_cada_100_hogares,50.64,accesos cada 100 hogares,ENACOM
+42,La Pampa,2T2023,tv_suscripcion_accesos_cada_100_hogares,56.14,accesos cada 100 hogares,ENACOM
+46,La Rioja,2T2023,tv_suscripcion_accesos_cada_100_hogares,19.87,accesos cada 100 hogares,ENACOM
+50,Mendoza,2T2023,tv_suscripcion_accesos_cada_100_hogares,21.96,accesos cada 100 hogares,ENACOM
+54,Misiones,2T2023,tv_suscripcion_accesos_cada_100_hogares,33.21,accesos cada 100 hogares,ENACOM
+58,Neuquén,2T2023,tv_suscripcion_accesos_cada_100_hogares,34.04,accesos cada 100 hogares,ENACOM
+62,Río Negro,2T2023,tv_suscripcion_accesos_cada_100_hogares,35.54,accesos cada 100 hogares,ENACOM
+66,Salta,2T2023,tv_suscripcion_accesos_cada_100_hogares,52.85,accesos cada 100 hogares,ENACOM
+70,San Juan,2T2023,tv_suscripcion_accesos_cada_100_hogares,16.66,accesos cada 100 hogares,ENACOM
+74,San Luis,2T2023,tv_suscripcion_accesos_cada_100_hogares,26.7,accesos cada 100 hogares,ENACOM
+78,Santa Cruz,2T2023,tv_suscripcion_accesos_cada_100_hogares,33.21,accesos cada 100 hogares,ENACOM
+82,Santa Fe,2T2023,tv_suscripcion_accesos_cada_100_hogares,58.43,accesos cada 100 hogares,ENACOM
+86,Santiago del Estero,2T2023,tv_suscripcion_accesos_cada_100_hogares,50.17,accesos cada 100 hogares,ENACOM
+94,Tierra del Fuego,2T2023,tv_suscripcion_accesos_cada_100_hogares,70.66,accesos cada 100 hogares,ENACOM
+90,Tucumán,2T2023,tv_suscripcion_accesos_cada_100_hogares,28.25,accesos cada 100 hogares,ENACOM
+06,Buenos Aires,3T2023,tv_suscripcion_accesos_cada_100_hogares,50.19,accesos cada 100 hogares,ENACOM
+02,CABA,3T2023,tv_suscripcion_accesos_cada_100_hogares,52.2,accesos cada 100 hogares,ENACOM
+10,Catamarca,3T2023,tv_suscripcion_accesos_cada_100_hogares,41.06,accesos cada 100 hogares,ENACOM
+22,Chaco,3T2023,tv_suscripcion_accesos_cada_100_hogares,30.5,accesos cada 100 hogares,ENACOM
+26,Chubut,3T2023,tv_suscripcion_accesos_cada_100_hogares,36.56,accesos cada 100 hogares,ENACOM
+14,Córdoba,3T2023,tv_suscripcion_accesos_cada_100_hogares,80.31,accesos cada 100 hogares,ENACOM
+18,Corrientes,3T2023,tv_suscripcion_accesos_cada_100_hogares,37.56,accesos cada 100 hogares,ENACOM
+30,Entre Ríos,3T2023,tv_suscripcion_accesos_cada_100_hogares,45.64,accesos cada 100 hogares,ENACOM
+34,Formosa,3T2023,tv_suscripcion_accesos_cada_100_hogares,37.24,accesos cada 100 hogares,ENACOM
+38,Jujuy,3T2023,tv_suscripcion_accesos_cada_100_hogares,51.1,accesos cada 100 hogares,ENACOM
+42,La Pampa,3T2023,tv_suscripcion_accesos_cada_100_hogares,56.01,accesos cada 100 hogares,ENACOM
+46,La Rioja,3T2023,tv_suscripcion_accesos_cada_100_hogares,26.72,accesos cada 100 hogares,ENACOM
+50,Mendoza,3T2023,tv_suscripcion_accesos_cada_100_hogares,22.1,accesos cada 100 hogares,ENACOM
+54,Misiones,3T2023,tv_suscripcion_accesos_cada_100_hogares,32.07,accesos cada 100 hogares,ENACOM
+58,Neuquén,3T2023,tv_suscripcion_accesos_cada_100_hogares,29.92,accesos cada 100 hogares,ENACOM
+62,Río Negro,3T2023,tv_suscripcion_accesos_cada_100_hogares,35.92,accesos cada 100 hogares,ENACOM
+66,Salta,3T2023,tv_suscripcion_accesos_cada_100_hogares,51.16,accesos cada 100 hogares,ENACOM
+70,San Juan,3T2023,tv_suscripcion_accesos_cada_100_hogares,17.62,accesos cada 100 hogares,ENACOM
+74,San Luis,3T2023,tv_suscripcion_accesos_cada_100_hogares,26.8,accesos cada 100 hogares,ENACOM
+78,Santa Cruz,3T2023,tv_suscripcion_accesos_cada_100_hogares,34.96,accesos cada 100 hogares,ENACOM
+82,Santa Fe,3T2023,tv_suscripcion_accesos_cada_100_hogares,56.45,accesos cada 100 hogares,ENACOM
+86,Santiago del Estero,3T2023,tv_suscripcion_accesos_cada_100_hogares,47.7,accesos cada 100 hogares,ENACOM
+94,Tierra del Fuego,3T2023,tv_suscripcion_accesos_cada_100_hogares,71.05,accesos cada 100 hogares,ENACOM
+90,Tucumán,3T2023,tv_suscripcion_accesos_cada_100_hogares,25.22,accesos cada 100 hogares,ENACOM
+06,Buenos Aires,4T2023,tv_suscripcion_accesos_cada_100_hogares,50.36,accesos cada 100 hogares,ENACOM
+02,CABA,4T2023,tv_suscripcion_accesos_cada_100_hogares,51.41,accesos cada 100 hogares,ENACOM
+10,Catamarca,4T2023,tv_suscripcion_accesos_cada_100_hogares,38.01,accesos cada 100 hogares,ENACOM
+22,Chaco,4T2023,tv_suscripcion_accesos_cada_100_hogares,29.49,accesos cada 100 hogares,ENACOM
+26,Chubut,4T2023,tv_suscripcion_accesos_cada_100_hogares,35.9,accesos cada 100 hogares,ENACOM
+14,Córdoba,4T2023,tv_suscripcion_accesos_cada_100_hogares,78.7,accesos cada 100 hogares,ENACOM
+18,Corrientes,4T2023,tv_suscripcion_accesos_cada_100_hogares,33.83,accesos cada 100 hogares,ENACOM
+30,Entre Ríos,4T2023,tv_suscripcion_accesos_cada_100_hogares,50.56,accesos cada 100 hogares,ENACOM
+34,Formosa,4T2023,tv_suscripcion_accesos_cada_100_hogares,38.68,accesos cada 100 hogares,ENACOM
+38,Jujuy,4T2023,tv_suscripcion_accesos_cada_100_hogares,49.98,accesos cada 100 hogares,ENACOM
+42,La Pampa,4T2023,tv_suscripcion_accesos_cada_100_hogares,55.5,accesos cada 100 hogares,ENACOM
+46,La Rioja,4T2023,tv_suscripcion_accesos_cada_100_hogares,18.27,accesos cada 100 hogares,ENACOM
+50,Mendoza,4T2023,tv_suscripcion_accesos_cada_100_hogares,22.18,accesos cada 100 hogares,ENACOM
+54,Misiones,4T2023,tv_suscripcion_accesos_cada_100_hogares,30.19,accesos cada 100 hogares,ENACOM
+58,Neuquén,4T2023,tv_suscripcion_accesos_cada_100_hogares,26.55,accesos cada 100 hogares,ENACOM
+62,Río Negro,4T2023,tv_suscripcion_accesos_cada_100_hogares,33.82,accesos cada 100 hogares,ENACOM
+66,Salta,4T2023,tv_suscripcion_accesos_cada_100_hogares,50.87,accesos cada 100 hogares,ENACOM
+70,San Juan,4T2023,tv_suscripcion_accesos_cada_100_hogares,16.43,accesos cada 100 hogares,ENACOM
+74,San Luis,4T2023,tv_suscripcion_accesos_cada_100_hogares,29.09,accesos cada 100 hogares,ENACOM
+78,Santa Cruz,4T2023,tv_suscripcion_accesos_cada_100_hogares,35.6,accesos cada 100 hogares,ENACOM
+82,Santa Fe,4T2023,tv_suscripcion_accesos_cada_100_hogares,52.65,accesos cada 100 hogares,ENACOM
+86,Santiago del Estero,4T2023,tv_suscripcion_accesos_cada_100_hogares,50.47,accesos cada 100 hogares,ENACOM
+94,Tierra del Fuego,4T2023,tv_suscripcion_accesos_cada_100_hogares,70.85,accesos cada 100 hogares,ENACOM
+90,Tucumán,4T2023,tv_suscripcion_accesos_cada_100_hogares,25.6,accesos cada 100 hogares,ENACOM
+06,Buenos Aires,1T2024,tv_suscripcion_accesos_cada_100_hogares,49.85,accesos cada 100 hogares,ENACOM
+02,CABA,1T2024,tv_suscripcion_accesos_cada_100_hogares,50.57,accesos cada 100 hogares,ENACOM
+10,Catamarca,1T2024,tv_suscripcion_accesos_cada_100_hogares,37.12,accesos cada 100 hogares,ENACOM
+22,Chaco,1T2024,tv_suscripcion_accesos_cada_100_hogares,29.36,accesos cada 100 hogares,ENACOM
+26,Chubut,1T2024,tv_suscripcion_accesos_cada_100_hogares,35.76,accesos cada 100 hogares,ENACOM
+14,Córdoba,1T2024,tv_suscripcion_accesos_cada_100_hogares,78.65,accesos cada 100 hogares,ENACOM
+18,Corrientes,1T2024,tv_suscripcion_accesos_cada_100_hogares,33.52,accesos cada 100 hogares,ENACOM
+30,Entre Ríos,1T2024,tv_suscripcion_accesos_cada_100_hogares,50.22,accesos cada 100 hogares,ENACOM
+34,Formosa,1T2024,tv_suscripcion_accesos_cada_100_hogares,46.91,accesos cada 100 hogares,ENACOM
+38,Jujuy,1T2024,tv_suscripcion_accesos_cada_100_hogares,49.9,accesos cada 100 hogares,ENACOM
+42,La Pampa,1T2024,tv_suscripcion_accesos_cada_100_hogares,54.56,accesos cada 100 hogares,ENACOM
+46,La Rioja,1T2024,tv_suscripcion_accesos_cada_100_hogares,17.68,accesos cada 100 hogares,ENACOM
+50,Mendoza,1T2024,tv_suscripcion_accesos_cada_100_hogares,21.52,accesos cada 100 hogares,ENACOM
+54,Misiones,1T2024,tv_suscripcion_accesos_cada_100_hogares,29.78,accesos cada 100 hogares,ENACOM
+58,Neuquén,1T2024,tv_suscripcion_accesos_cada_100_hogares,25.87,accesos cada 100 hogares,ENACOM
+62,Río Negro,1T2024,tv_suscripcion_accesos_cada_100_hogares,32.99,accesos cada 100 hogares,ENACOM
+66,Salta,1T2024,tv_suscripcion_accesos_cada_100_hogares,51.8,accesos cada 100 hogares,ENACOM
+70,San Juan,1T2024,tv_suscripcion_accesos_cada_100_hogares,15.18,accesos cada 100 hogares,ENACOM
+74,San Luis,1T2024,tv_suscripcion_accesos_cada_100_hogares,33.08,accesos cada 100 hogares,ENACOM
+78,Santa Cruz,1T2024,tv_suscripcion_accesos_cada_100_hogares,33.74,accesos cada 100 hogares,ENACOM
+82,Santa Fe,1T2024,tv_suscripcion_accesos_cada_100_hogares,52.53,accesos cada 100 hogares,ENACOM
+86,Santiago del Estero,1T2024,tv_suscripcion_accesos_cada_100_hogares,47.04,accesos cada 100 hogares,ENACOM
+94,Tierra del Fuego,1T2024,tv_suscripcion_accesos_cada_100_hogares,70.85,accesos cada 100 hogares,ENACOM
+90,Tucumán,1T2024,tv_suscripcion_accesos_cada_100_hogares,25.35,accesos cada 100 hogares,ENACOM
+06,Buenos Aires,2T2024,tv_suscripcion_accesos_cada_100_hogares,47.74,accesos cada 100 hogares,ENACOM
+02,CABA,2T2024,tv_suscripcion_accesos_cada_100_hogares,49.76,accesos cada 100 hogares,ENACOM
+10,Catamarca,2T2024,tv_suscripcion_accesos_cada_100_hogares,39.86,accesos cada 100 hogares,ENACOM
+22,Chaco,2T2024,tv_suscripcion_accesos_cada_100_hogares,28.95,accesos cada 100 hogares,ENACOM
+26,Chubut,2T2024,tv_suscripcion_accesos_cada_100_hogares,35.97,accesos cada 100 hogares,ENACOM
+14,Córdoba,2T2024,tv_suscripcion_accesos_cada_100_hogares,78.08,accesos cada 100 hogares,ENACOM
+18,Corrientes,2T2024,tv_suscripcion_accesos_cada_100_hogares,33.34,accesos cada 100 hogares,ENACOM
+30,Entre Ríos,2T2024,tv_suscripcion_accesos_cada_100_hogares,50.23,accesos cada 100 hogares,ENACOM
+34,Formosa,2T2024,tv_suscripcion_accesos_cada_100_hogares,46.86,accesos cada 100 hogares,ENACOM
+38,Jujuy,2T2024,tv_suscripcion_accesos_cada_100_hogares,49.97,accesos cada 100 hogares,ENACOM
+42,La Pampa,2T2024,tv_suscripcion_accesos_cada_100_hogares,53.88,accesos cada 100 hogares,ENACOM
+46,La Rioja,2T2024,tv_suscripcion_accesos_cada_100_hogares,17.78,accesos cada 100 hogares,ENACOM
+50,Mendoza,2T2024,tv_suscripcion_accesos_cada_100_hogares,21.37,accesos cada 100 hogares,ENACOM
+54,Misiones,2T2024,tv_suscripcion_accesos_cada_100_hogares,30.0,accesos cada 100 hogares,ENACOM
+58,Neuquén,2T2024,tv_suscripcion_accesos_cada_100_hogares,25.54,accesos cada 100 hogares,ENACOM
+62,Río Negro,2T2024,tv_suscripcion_accesos_cada_100_hogares,33.34,accesos cada 100 hogares,ENACOM
+66,Salta,2T2024,tv_suscripcion_accesos_cada_100_hogares,52.2,accesos cada 100 hogares,ENACOM
+70,San Juan,2T2024,tv_suscripcion_accesos_cada_100_hogares,14.93,accesos cada 100 hogares,ENACOM
+74,San Luis,2T2024,tv_suscripcion_accesos_cada_100_hogares,33.24,accesos cada 100 hogares,ENACOM
+78,Santa Cruz,2T2024,tv_suscripcion_accesos_cada_100_hogares,33.59,accesos cada 100 hogares,ENACOM
+82,Santa Fe,2T2024,tv_suscripcion_accesos_cada_100_hogares,52.22,accesos cada 100 hogares,ENACOM
+86,Santiago del Estero,2T2024,tv_suscripcion_accesos_cada_100_hogares,46.75,accesos cada 100 hogares,ENACOM
+94,Tierra del Fuego,2T2024,tv_suscripcion_accesos_cada_100_hogares,71.48,accesos cada 100 hogares,ENACOM
+90,Tucumán,2T2024,tv_suscripcion_accesos_cada_100_hogares,25.13,accesos cada 100 hogares,ENACOM
+06,Buenos Aires,3T2024,tv_suscripcion_accesos_cada_100_hogares,48.49,accesos cada 100 hogares,ENACOM
+02,CABA,3T2024,tv_suscripcion_accesos_cada_100_hogares,51.24,accesos cada 100 hogares,ENACOM
+10,Catamarca,3T2024,tv_suscripcion_accesos_cada_100_hogares,40.23,accesos cada 100 hogares,ENACOM
+22,Chaco,3T2024,tv_suscripcion_accesos_cada_100_hogares,29.07,accesos cada 100 hogares,ENACOM
+26,Chubut,3T2024,tv_suscripcion_accesos_cada_100_hogares,36.05,accesos cada 100 hogares,ENACOM
+14,Córdoba,3T2024,tv_suscripcion_accesos_cada_100_hogares,79.02,accesos cada 100 hogares,ENACOM
+18,Corrientes,3T2024,tv_suscripcion_accesos_cada_100_hogares,33.9,accesos cada 100 hogares,ENACOM
+30,Entre Ríos,3T2024,tv_suscripcion_accesos_cada_100_hogares,50.94,accesos cada 100 hogares,ENACOM
+34,Formosa,3T2024,tv_suscripcion_accesos_cada_100_hogares,46.4,accesos cada 100 hogares,ENACOM
+38,Jujuy,3T2024,tv_suscripcion_accesos_cada_100_hogares,48.95,accesos cada 100 hogares,ENACOM
+42,La Pampa,3T2024,tv_suscripcion_accesos_cada_100_hogares,53.5,accesos cada 100 hogares,ENACOM
+46,La Rioja,3T2024,tv_suscripcion_accesos_cada_100_hogares,17.55,accesos cada 100 hogares,ENACOM
+50,Mendoza,3T2024,tv_suscripcion_accesos_cada_100_hogares,21.76,accesos cada 100 hogares,ENACOM
+54,Misiones,3T2024,tv_suscripcion_accesos_cada_100_hogares,30.86,accesos cada 100 hogares,ENACOM
+58,Neuquén,3T2024,tv_suscripcion_accesos_cada_100_hogares,26.77,accesos cada 100 hogares,ENACOM
+62,Río Negro,3T2024,tv_suscripcion_accesos_cada_100_hogares,33.97,accesos cada 100 hogares,ENACOM
+66,Salta,3T2024,tv_suscripcion_accesos_cada_100_hogares,52.21,accesos cada 100 hogares,ENACOM
+70,San Juan,3T2024,tv_suscripcion_accesos_cada_100_hogares,15.3,accesos cada 100 hogares,ENACOM
+74,San Luis,3T2024,tv_suscripcion_accesos_cada_100_hogares,33.51,accesos cada 100 hogares,ENACOM
+78,Santa Cruz,3T2024,tv_suscripcion_accesos_cada_100_hogares,33.53,accesos cada 100 hogares,ENACOM
+82,Santa Fe,3T2024,tv_suscripcion_accesos_cada_100_hogares,51.76,accesos cada 100 hogares,ENACOM
+86,Santiago del Estero,3T2024,tv_suscripcion_accesos_cada_100_hogares,47.05,accesos cada 100 hogares,ENACOM
+94,Tierra del Fuego,3T2024,tv_suscripcion_accesos_cada_100_hogares,72.2,accesos cada 100 hogares,ENACOM
+90,Tucumán,3T2024,tv_suscripcion_accesos_cada_100_hogares,25.93,accesos cada 100 hogares,ENACOM
+06,Buenos Aires,4T2024,tv_suscripcion_accesos_cada_100_hogares,48.64,accesos cada 100 hogares,ENACOM
+02,CABA,4T2024,tv_suscripcion_accesos_cada_100_hogares,52.45,accesos cada 100 hogares,ENACOM
+10,Catamarca,4T2024,tv_suscripcion_accesos_cada_100_hogares,41.36,accesos cada 100 hogares,ENACOM
+22,Chaco,4T2024,tv_suscripcion_accesos_cada_100_hogares,28.96,accesos cada 100 hogares,ENACOM
+26,Chubut,4T2024,tv_suscripcion_accesos_cada_100_hogares,36.39,accesos cada 100 hogares,ENACOM
+14,Córdoba,4T2024,tv_suscripcion_accesos_cada_100_hogares,80.14,accesos cada 100 hogares,ENACOM
+18,Corrientes,4T2024,tv_suscripcion_accesos_cada_100_hogares,34.06,accesos cada 100 hogares,ENACOM
+30,Entre Ríos,4T2024,tv_suscripcion_accesos_cada_100_hogares,51.49,accesos cada 100 hogares,ENACOM
+34,Formosa,4T2024,tv_suscripcion_accesos_cada_100_hogares,47.46,accesos cada 100 hogares,ENACOM
+38,Jujuy,4T2024,tv_suscripcion_accesos_cada_100_hogares,52.61,accesos cada 100 hogares,ENACOM
+42,La Pampa,4T2024,tv_suscripcion_accesos_cada_100_hogares,53.93,accesos cada 100 hogares,ENACOM
+46,La Rioja,4T2024,tv_suscripcion_accesos_cada_100_hogares,18.19,accesos cada 100 hogares,ENACOM
+50,Mendoza,4T2024,tv_suscripcion_accesos_cada_100_hogares,21.35,accesos cada 100 hogares,ENACOM
+54,Misiones,4T2024,tv_suscripcion_accesos_cada_100_hogares,30.7,accesos cada 100 hogares,ENACOM
+58,Neuquén,4T2024,tv_suscripcion_accesos_cada_100_hogares,27.05,accesos cada 100 hogares,ENACOM
+62,Río Negro,4T2024,tv_suscripcion_accesos_cada_100_hogares,35.7,accesos cada 100 hogares,ENACOM
+66,Salta,4T2024,tv_suscripcion_accesos_cada_100_hogares,52.69,accesos cada 100 hogares,ENACOM
+70,San Juan,4T2024,tv_suscripcion_accesos_cada_100_hogares,15.16,accesos cada 100 hogares,ENACOM
+74,San Luis,4T2024,tv_suscripcion_accesos_cada_100_hogares,34.3,accesos cada 100 hogares,ENACOM
+78,Santa Cruz,4T2024,tv_suscripcion_accesos_cada_100_hogares,33.34,accesos cada 100 hogares,ENACOM
+82,Santa Fe,4T2024,tv_suscripcion_accesos_cada_100_hogares,52.21,accesos cada 100 hogares,ENACOM
+86,Santiago del Estero,4T2024,tv_suscripcion_accesos_cada_100_hogares,47.21,accesos cada 100 hogares,ENACOM
+94,Tierra del Fuego,4T2024,tv_suscripcion_accesos_cada_100_hogares,72.14,accesos cada 100 hogares,ENACOM
+90,Tucumán,4T2024,tv_suscripcion_accesos_cada_100_hogares,26.59,accesos cada 100 hogares,ENACOM
+06,Buenos Aires,1T2025,tv_suscripcion_accesos_cada_100_hogares,48.67,accesos cada 100 hogares,ENACOM
+02,CABA,1T2025,tv_suscripcion_accesos_cada_100_hogares,53.72,accesos cada 100 hogares,ENACOM
+10,Catamarca,1T2025,tv_suscripcion_accesos_cada_100_hogares,41.11,accesos cada 100 hogares,ENACOM
+22,Chaco,1T2025,tv_suscripcion_accesos_cada_100_hogares,28.86,accesos cada 100 hogares,ENACOM
+26,Chubut,1T2025,tv_suscripcion_accesos_cada_100_hogares,38.43,accesos cada 100 hogares,ENACOM
+14,Córdoba,1T2025,tv_suscripcion_accesos_cada_100_hogares,80.42,accesos cada 100 hogares,ENACOM
+18,Corrientes,1T2025,tv_suscripcion_accesos_cada_100_hogares,35.48,accesos cada 100 hogares,ENACOM
+30,Entre Ríos,1T2025,tv_suscripcion_accesos_cada_100_hogares,51.59,accesos cada 100 hogares,ENACOM
+34,Formosa,1T2025,tv_suscripcion_accesos_cada_100_hogares,44.53,accesos cada 100 hogares,ENACOM
+38,Jujuy,1T2025,tv_suscripcion_accesos_cada_100_hogares,53.04,accesos cada 100 hogares,ENACOM
+42,La Pampa,1T2025,tv_suscripcion_accesos_cada_100_hogares,52.42,accesos cada 100 hogares,ENACOM
+46,La Rioja,1T2025,tv_suscripcion_accesos_cada_100_hogares,15.79,accesos cada 100 hogares,ENACOM
+50,Mendoza,1T2025,tv_suscripcion_accesos_cada_100_hogares,18.79,accesos cada 100 hogares,ENACOM
+54,Misiones,1T2025,tv_suscripcion_accesos_cada_100_hogares,29.85,accesos cada 100 hogares,ENACOM
+58,Neuquén,1T2025,tv_suscripcion_accesos_cada_100_hogares,26.92,accesos cada 100 hogares,ENACOM
+62,Río Negro,1T2025,tv_suscripcion_accesos_cada_100_hogares,39.7,accesos cada 100 hogares,ENACOM
+66,Salta,1T2025,tv_suscripcion_accesos_cada_100_hogares,48.21,accesos cada 100 hogares,ENACOM
+70,San Juan,1T2025,tv_suscripcion_accesos_cada_100_hogares,15.58,accesos cada 100 hogares,ENACOM
+74,San Luis,1T2025,tv_suscripcion_accesos_cada_100_hogares,32.65,accesos cada 100 hogares,ENACOM
+78,Santa Cruz,1T2025,tv_suscripcion_accesos_cada_100_hogares,29.01,accesos cada 100 hogares,ENACOM
+82,Santa Fe,1T2025,tv_suscripcion_accesos_cada_100_hogares,51.94,accesos cada 100 hogares,ENACOM
+86,Santiago del Estero,1T2025,tv_suscripcion_accesos_cada_100_hogares,35.91,accesos cada 100 hogares,ENACOM
+94,Tierra del Fuego,1T2025,tv_suscripcion_accesos_cada_100_hogares,71.69,accesos cada 100 hogares,ENACOM
+90,Tucumán,1T2025,tv_suscripcion_accesos_cada_100_hogares,26.77,accesos cada 100 hogares,ENACOM
+06,Buenos Aires,2T2025,tv_suscripcion_accesos_cada_100_hogares,42.77,accesos cada 100 hogares,ENACOM
+02,CABA,2T2025,tv_suscripcion_accesos_cada_100_hogares,52.32,accesos cada 100 hogares,ENACOM
+10,Catamarca,2T2025,tv_suscripcion_accesos_cada_100_hogares,40.67,accesos cada 100 hogares,ENACOM
+22,Chaco,2T2025,tv_suscripcion_accesos_cada_100_hogares,29.1,accesos cada 100 hogares,ENACOM
+26,Chubut,2T2025,tv_suscripcion_accesos_cada_100_hogares,33.75,accesos cada 100 hogares,ENACOM
+14,Córdoba,2T2025,tv_suscripcion_accesos_cada_100_hogares,79.33,accesos cada 100 hogares,ENACOM
+18,Corrientes,2T2025,tv_suscripcion_accesos_cada_100_hogares,35.36,accesos cada 100 hogares,ENACOM
+30,Entre Ríos,2T2025,tv_suscripcion_accesos_cada_100_hogares,51.92,accesos cada 100 hogares,ENACOM
+34,Formosa,2T2025,tv_suscripcion_accesos_cada_100_hogares,45.63,accesos cada 100 hogares,ENACOM
+38,Jujuy,2T2025,tv_suscripcion_accesos_cada_100_hogares,52.21,accesos cada 100 hogares,ENACOM
+42,La Pampa,2T2025,tv_suscripcion_accesos_cada_100_hogares,53.08,accesos cada 100 hogares,ENACOM
+46,La Rioja,2T2025,tv_suscripcion_accesos_cada_100_hogares,16.99,accesos cada 100 hogares,ENACOM
+50,Mendoza,2T2025,tv_suscripcion_accesos_cada_100_hogares,17.02,accesos cada 100 hogares,ENACOM
+54,Misiones,2T2025,tv_suscripcion_accesos_cada_100_hogares,29.32,accesos cada 100 hogares,ENACOM
+58,Neuquén,2T2025,tv_suscripcion_accesos_cada_100_hogares,23.68,accesos cada 100 hogares,ENACOM
+62,Río Negro,2T2025,tv_suscripcion_accesos_cada_100_hogares,33.54,accesos cada 100 hogares,ENACOM
+66,Salta,2T2025,tv_suscripcion_accesos_cada_100_hogares,53.07,accesos cada 100 hogares,ENACOM
+70,San Juan,2T2025,tv_suscripcion_accesos_cada_100_hogares,11.28,accesos cada 100 hogares,ENACOM
+74,San Luis,2T2025,tv_suscripcion_accesos_cada_100_hogares,35.11,accesos cada 100 hogares,ENACOM
+78,Santa Cruz,2T2025,tv_suscripcion_accesos_cada_100_hogares,30.95,accesos cada 100 hogares,ENACOM
+82,Santa Fe,2T2025,tv_suscripcion_accesos_cada_100_hogares,51.97,accesos cada 100 hogares,ENACOM
+86,Santiago del Estero,2T2025,tv_suscripcion_accesos_cada_100_hogares,37.49,accesos cada 100 hogares,ENACOM
+94,Tierra del Fuego,2T2025,tv_suscripcion_accesos_cada_100_hogares,72.13,accesos cada 100 hogares,ENACOM
+90,Tucumán,2T2025,tv_suscripcion_accesos_cada_100_hogares,27.15,accesos cada 100 hogares,ENACOM
+06,Buenos Aires,3T2025,tv_suscripcion_accesos_cada_100_hogares,48.58,accesos cada 100 hogares,ENACOM
+02,CABA,3T2025,tv_suscripcion_accesos_cada_100_hogares,53.96,accesos cada 100 hogares,ENACOM
+10,Catamarca,3T2025,tv_suscripcion_accesos_cada_100_hogares,41.61,accesos cada 100 hogares,ENACOM
+22,Chaco,3T2025,tv_suscripcion_accesos_cada_100_hogares,28.83,accesos cada 100 hogares,ENACOM
+26,Chubut,3T2025,tv_suscripcion_accesos_cada_100_hogares,36.28,accesos cada 100 hogares,ENACOM
+14,Córdoba,3T2025,tv_suscripcion_accesos_cada_100_hogares,79.57,accesos cada 100 hogares,ENACOM
+18,Corrientes,3T2025,tv_suscripcion_accesos_cada_100_hogares,35.34,accesos cada 100 hogares,ENACOM
+30,Entre Ríos,3T2025,tv_suscripcion_accesos_cada_100_hogares,51.35,accesos cada 100 hogares,ENACOM
+34,Formosa,3T2025,tv_suscripcion_accesos_cada_100_hogares,45.59,accesos cada 100 hogares,ENACOM
+38,Jujuy,3T2025,tv_suscripcion_accesos_cada_100_hogares,51.82,accesos cada 100 hogares,ENACOM
+42,La Pampa,3T2025,tv_suscripcion_accesos_cada_100_hogares,52.84,accesos cada 100 hogares,ENACOM
+46,La Rioja,3T2025,tv_suscripcion_accesos_cada_100_hogares,16.37,accesos cada 100 hogares,ENACOM
+50,Mendoza,3T2025,tv_suscripcion_accesos_cada_100_hogares,19.04,accesos cada 100 hogares,ENACOM
+54,Misiones,3T2025,tv_suscripcion_accesos_cada_100_hogares,29.9,accesos cada 100 hogares,ENACOM
+58,Neuquén,3T2025,tv_suscripcion_accesos_cada_100_hogares,26.88,accesos cada 100 hogares,ENACOM
+62,Río Negro,3T2025,tv_suscripcion_accesos_cada_100_hogares,35.2,accesos cada 100 hogares,ENACOM
+66,Salta,3T2025,tv_suscripcion_accesos_cada_100_hogares,49.06,accesos cada 100 hogares,ENACOM
+70,San Juan,3T2025,tv_suscripcion_accesos_cada_100_hogares,15.89,accesos cada 100 hogares,ENACOM
+74,San Luis,3T2025,tv_suscripcion_accesos_cada_100_hogares,34.92,accesos cada 100 hogares,ENACOM
+78,Santa Cruz,3T2025,tv_suscripcion_accesos_cada_100_hogares,30.82,accesos cada 100 hogares,ENACOM
+82,Santa Fe,3T2025,tv_suscripcion_accesos_cada_100_hogares,52.21,accesos cada 100 hogares,ENACOM
+86,Santiago del Estero,3T2025,tv_suscripcion_accesos_cada_100_hogares,36.51,accesos cada 100 hogares,ENACOM
+94,Tierra del Fuego,3T2025,tv_suscripcion_accesos_cada_100_hogares,71.99,accesos cada 100 hogares,ENACOM
+90,Tucumán,3T2025,tv_suscripcion_accesos_cada_100_hogares,26.62,accesos cada 100 hogares,ENACOM
+06,Buenos Aires,4T2025,tv_suscripcion_accesos_cada_100_hogares,45.8,accesos cada 100 hogares,ENACOM
+02,CABA,4T2025,tv_suscripcion_accesos_cada_100_hogares,59.61,accesos cada 100 hogares,ENACOM
+10,Catamarca,4T2025,tv_suscripcion_accesos_cada_100_hogares,51.52,accesos cada 100 hogares,ENACOM
+22,Chaco,4T2025,tv_suscripcion_accesos_cada_100_hogares,34.2,accesos cada 100 hogares,ENACOM
+26,Chubut,4T2025,tv_suscripcion_accesos_cada_100_hogares,40.87,accesos cada 100 hogares,ENACOM
+14,Córdoba,4T2025,tv_suscripcion_accesos_cada_100_hogares,95.44,accesos cada 100 hogares,ENACOM
+18,Corrientes,4T2025,tv_suscripcion_accesos_cada_100_hogares,43.41,accesos cada 100 hogares,ENACOM
+30,Entre Ríos,4T2025,tv_suscripcion_accesos_cada_100_hogares,61.0,accesos cada 100 hogares,ENACOM
+34,Formosa,4T2025,tv_suscripcion_accesos_cada_100_hogares,56.89,accesos cada 100 hogares,ENACOM
+38,Jujuy,4T2025,tv_suscripcion_accesos_cada_100_hogares,61.84,accesos cada 100 hogares,ENACOM
+42,La Pampa,4T2025,tv_suscripcion_accesos_cada_100_hogares,62.8,accesos cada 100 hogares,ENACOM
+46,La Rioja,4T2025,tv_suscripcion_accesos_cada_100_hogares,18.75,accesos cada 100 hogares,ENACOM
+50,Mendoza,4T2025,tv_suscripcion_accesos_cada_100_hogares,21.04,accesos cada 100 hogares,ENACOM
+54,Misiones,4T2025,tv_suscripcion_accesos_cada_100_hogares,36.82,accesos cada 100 hogares,ENACOM
+58,Neuquén,4T2025,tv_suscripcion_accesos_cada_100_hogares,32.55,accesos cada 100 hogares,ENACOM
+62,Río Negro,4T2025,tv_suscripcion_accesos_cada_100_hogares,47.51,accesos cada 100 hogares,ENACOM
+66,Salta,4T2025,tv_suscripcion_accesos_cada_100_hogares,56.73,accesos cada 100 hogares,ENACOM
+70,San Juan,4T2025,tv_suscripcion_accesos_cada_100_hogares,18.92,accesos cada 100 hogares,ENACOM
+74,San Luis,4T2025,tv_suscripcion_accesos_cada_100_hogares,38.72,accesos cada 100 hogares,ENACOM
+78,Santa Cruz,4T2025,tv_suscripcion_accesos_cada_100_hogares,28.0,accesos cada 100 hogares,ENACOM
+82,Santa Fe,4T2025,tv_suscripcion_accesos_cada_100_hogares,60.3,accesos cada 100 hogares,ENACOM
+86,Santiago del Estero,4T2025,tv_suscripcion_accesos_cada_100_hogares,44.4,accesos cada 100 hogares,ENACOM
+94,Tierra del Fuego,4T2025,tv_suscripcion_accesos_cada_100_hogares,80.1,accesos cada 100 hogares,ENACOM
+90,Tucumán,4T2025,tv_suscripcion_accesos_cada_100_hogares,31.16,accesos cada 100 hogares,ENACOM
+06,Buenos Aires,1T2026,tv_suscripcion_accesos_cada_100_hogares,47.67,accesos cada 100 hogares,ENACOM
+02,CABA,1T2026,tv_suscripcion_accesos_cada_100_hogares,51.91,accesos cada 100 hogares,ENACOM
+10,Catamarca,1T2026,tv_suscripcion_accesos_cada_100_hogares,40.3,accesos cada 100 hogares,ENACOM
+22,Chaco,1T2026,tv_suscripcion_accesos_cada_100_hogares,28.27,accesos cada 100 hogares,ENACOM
+26,Chubut,1T2026,tv_suscripcion_accesos_cada_100_hogares,39.16,accesos cada 100 hogares,ENACOM
+14,Córdoba,1T2026,tv_suscripcion_accesos_cada_100_hogares,79.97,accesos cada 100 hogares,ENACOM
+18,Corrientes,1T2026,tv_suscripcion_accesos_cada_100_hogares,36.12,accesos cada 100 hogares,ENACOM
+30,Entre Ríos,1T2026,tv_suscripcion_accesos_cada_100_hogares,51.5,accesos cada 100 hogares,ENACOM
+34,Formosa,1T2026,tv_suscripcion_accesos_cada_100_hogares,44.81,accesos cada 100 hogares,ENACOM
+38,Jujuy,1T2026,tv_suscripcion_accesos_cada_100_hogares,52.86,accesos cada 100 hogares,ENACOM
+42,La Pampa,1T2026,tv_suscripcion_accesos_cada_100_hogares,50.15,accesos cada 100 hogares,ENACOM
+46,La Rioja,1T2026,tv_suscripcion_accesos_cada_100_hogares,15.92,accesos cada 100 hogares,ENACOM
+50,Mendoza,1T2026,tv_suscripcion_accesos_cada_100_hogares,19.47,accesos cada 100 hogares,ENACOM
+54,Misiones,1T2026,tv_suscripcion_accesos_cada_100_hogares,29.33,accesos cada 100 hogares,ENACOM
+58,Neuquén,1T2026,tv_suscripcion_accesos_cada_100_hogares,27.05,accesos cada 100 hogares,ENACOM
+62,Río Negro,1T2026,tv_suscripcion_accesos_cada_100_hogares,36.12,accesos cada 100 hogares,ENACOM
+66,Salta,1T2026,tv_suscripcion_accesos_cada_100_hogares,48.52,accesos cada 100 hogares,ENACOM
+70,San Juan,1T2026,tv_suscripcion_accesos_cada_100_hogares,15.03,accesos cada 100 hogares,ENACOM
+74,San Luis,1T2026,tv_suscripcion_accesos_cada_100_hogares,32.89,accesos cada 100 hogares,ENACOM
+78,Santa Cruz,1T2026,tv_suscripcion_accesos_cada_100_hogares,28.99,accesos cada 100 hogares,ENACOM
+82,Santa Fe,1T2026,tv_suscripcion_accesos_cada_100_hogares,52.3,accesos cada 100 hogares,ENACOM
+86,Santiago del Estero,1T2026,tv_suscripcion_accesos_cada_100_hogares,35.8,accesos cada 100 hogares,ENACOM
+94,Tierra del Fuego,1T2026,tv_suscripcion_accesos_cada_100_hogares,71.2,accesos cada 100 hogares,ENACOM
+90,Tucumán,1T2026,tv_suscripcion_accesos_cada_100_hogares,26.17,accesos cada 100 hogares,ENACOM
+06,Buenos Aires,2T2026,tv_suscripcion_accesos_cada_100_hogares,49.1,accesos cada 100 hogares,ENACOM
+02,CABA,2T2026,tv_suscripcion_accesos_cada_100_hogares,53.61,accesos cada 100 hogares,ENACOM
+10,Catamarca,2T2026,tv_suscripcion_accesos_cada_100_hogares,41.79,accesos cada 100 hogares,ENACOM
+22,Chaco,2T2026,tv_suscripcion_accesos_cada_100_hogares,28.99,accesos cada 100 hogares,ENACOM
+26,Chubut,2T2026,tv_suscripcion_accesos_cada_100_hogares,39.79,accesos cada 100 hogares,ENACOM
+14,Córdoba,2T2026,tv_suscripcion_accesos_cada_100_hogares,80.81,accesos cada 100 hogares,ENACOM
+18,Corrientes,2T2026,tv_suscripcion_accesos_cada_100_hogares,37.85,accesos cada 100 hogares,ENACOM
+30,Entre Ríos,2T2026,tv_suscripcion_accesos_cada_100_hogares,52.4,accesos cada 100 hogares,ENACOM
+34,Formosa,2T2026,tv_suscripcion_accesos_cada_100_hogares,45.58,accesos cada 100 hogares,ENACOM
+38,Jujuy,2T2026,tv_suscripcion_accesos_cada_100_hogares,53.48,accesos cada 100 hogares,ENACOM
+42,La Pampa,2T2026,tv_suscripcion_accesos_cada_100_hogares,50.78,accesos cada 100 hogares,ENACOM
+46,La Rioja,2T2026,tv_suscripcion_accesos_cada_100_hogares,16.57,accesos cada 100 hogares,ENACOM
+50,Mendoza,2T2026,tv_suscripcion_accesos_cada_100_hogares,20.1,accesos cada 100 hogares,ENACOM
+54,Misiones,2T2026,tv_suscripcion_accesos_cada_100_hogares,29.89,accesos cada 100 hogares,ENACOM
+58,Neuquén,2T2026,tv_suscripcion_accesos_cada_100_hogares,27.45,accesos cada 100 hogares,ENACOM
+62,Río Negro,2T2026,tv_suscripcion_accesos_cada_100_hogares,34.51,accesos cada 100 hogares,ENACOM
+66,Salta,2T2026,tv_suscripcion_accesos_cada_100_hogares,51.29,accesos cada 100 hogares,ENACOM
+70,San Juan,2T2026,tv_suscripcion_accesos_cada_100_hogares,15.69,accesos cada 100 hogares,ENACOM
+74,San Luis,2T2026,tv_suscripcion_accesos_cada_100_hogares,33.44,accesos cada 100 hogares,ENACOM
+78,Santa Cruz,2T2026,tv_suscripcion_accesos_cada_100_hogares,29.09,accesos cada 100 hogares,ENACOM
+82,Santa Fe,2T2026,tv_suscripcion_accesos_cada_100_hogares,53.46,accesos cada 100 hogares,ENACOM
+86,Santiago del Estero,2T2026,tv_suscripcion_accesos_cada_100_hogares,37.45,accesos cada 100 hogares,ENACOM
+94,Tierra del Fuego,2T2026,tv_suscripcion_accesos_cada_100_hogares,71.29,accesos cada 100 hogares,ENACOM
+90,Tucumán,2T2026,tv_suscripcion_accesos_cada_100_hogares,28.2,accesos cada 100 hogares,ENACOM
+00,Argentina,2T2014,tv_suscripcion_accesos_cada_100_hogares,50.61,accesos cada 100 hogares,ENACOM
+00,Argentina,3T2014,tv_suscripcion_accesos_cada_100_hogares,50.7,accesos cada 100 hogares,ENACOM
+00,Argentina,4T2014,tv_suscripcion_accesos_cada_100_hogares,50.92,accesos cada 100 hogares,ENACOM
+00,Argentina,1T2015,tv_suscripcion_accesos_cada_100_hogares,49.86,accesos cada 100 hogares,ENACOM
+00,Argentina,2T2015,tv_suscripcion_accesos_cada_100_hogares,50.25,accesos cada 100 hogares,ENACOM
+00,Argentina,3T2015,tv_suscripcion_accesos_cada_100_hogares,50.48,accesos cada 100 hogares,ENACOM
+00,Argentina,4T2015,tv_suscripcion_accesos_cada_100_hogares,50.61,accesos cada 100 hogares,ENACOM
+00,Argentina,1T2016,tv_suscripcion_accesos_cada_100_hogares,50.08,accesos cada 100 hogares,ENACOM
+00,Argentina,2T2016,tv_suscripcion_accesos_cada_100_hogares,50.3,accesos cada 100 hogares,ENACOM
+00,Argentina,3T2016,tv_suscripcion_accesos_cada_100_hogares,50.34,accesos cada 100 hogares,ENACOM
+00,Argentina,4T2016,tv_suscripcion_accesos_cada_100_hogares,50.45,accesos cada 100 hogares,ENACOM
+00,Argentina,1T2017,tv_suscripcion_accesos_cada_100_hogares,49.01,accesos cada 100 hogares,ENACOM
+00,Argentina,2T2017,tv_suscripcion_accesos_cada_100_hogares,50.0,accesos cada 100 hogares,ENACOM
+00,Argentina,3T2017,tv_suscripcion_accesos_cada_100_hogares,49.84,accesos cada 100 hogares,ENACOM
+00,Argentina,4T2017,tv_suscripcion_accesos_cada_100_hogares,50.12,accesos cada 100 hogares,ENACOM
+00,Argentina,1T2018,tv_suscripcion_accesos_cada_100_hogares,50.73,accesos cada 100 hogares,ENACOM
+00,Argentina,2T2018,tv_suscripcion_accesos_cada_100_hogares,50.56,accesos cada 100 hogares,ENACOM
+00,Argentina,3T2018,tv_suscripcion_accesos_cada_100_hogares,51.21,accesos cada 100 hogares,ENACOM
+00,Argentina,4T2018,tv_suscripcion_accesos_cada_100_hogares,50.1,accesos cada 100 hogares,ENACOM
+00,Argentina,1T2019,tv_suscripcion_accesos_cada_100_hogares,50.42,accesos cada 100 hogares,ENACOM
+00,Argentina,2T2019,tv_suscripcion_accesos_cada_100_hogares,50.76,accesos cada 100 hogares,ENACOM
+00,Argentina,3T2019,tv_suscripcion_accesos_cada_100_hogares,51.37,accesos cada 100 hogares,ENACOM
+00,Argentina,4T2019,tv_suscripcion_accesos_cada_100_hogares,52.21,accesos cada 100 hogares,ENACOM
+00,Argentina,1T2020,tv_suscripcion_accesos_cada_100_hogares,51.51,accesos cada 100 hogares,ENACOM
+00,Argentina,2T2020,tv_suscripcion_accesos_cada_100_hogares,51.36,accesos cada 100 hogares,ENACOM
+00,Argentina,3T2020,tv_suscripcion_accesos_cada_100_hogares,51.95,accesos cada 100 hogares,ENACOM
+00,Argentina,4T2020,tv_suscripcion_accesos_cada_100_hogares,51.8,accesos cada 100 hogares,ENACOM
+00,Argentina,1T2021,tv_suscripcion_accesos_cada_100_hogares,51.74,accesos cada 100 hogares,ENACOM
+00,Argentina,2T2021,tv_suscripcion_accesos_cada_100_hogares,51.48,accesos cada 100 hogares,ENACOM
+00,Argentina,3T2021,tv_suscripcion_accesos_cada_100_hogares,53.72,accesos cada 100 hogares,ENACOM
+00,Argentina,4T2021,tv_suscripcion_accesos_cada_100_hogares,52.99,accesos cada 100 hogares,ENACOM
+00,Argentina,1T2022,tv_suscripcion_accesos_cada_100_hogares,52.61,accesos cada 100 hogares,ENACOM
+00,Argentina,2T2022,tv_suscripcion_accesos_cada_100_hogares,48.0,accesos cada 100 hogares,ENACOM
+00,Argentina,3T2022,tv_suscripcion_accesos_cada_100_hogares,48.03,accesos cada 100 hogares,ENACOM
+00,Argentina,4T2022,tv_suscripcion_accesos_cada_100_hogares,48.04,accesos cada 100 hogares,ENACOM
+00,Argentina,1T2023,tv_suscripcion_accesos_cada_100_hogares,48.52,accesos cada 100 hogares,ENACOM
+00,Argentina,2T2023,tv_suscripcion_accesos_cada_100_hogares,50.34,accesos cada 100 hogares,ENACOM
+00,Argentina,3T2023,tv_suscripcion_accesos_cada_100_hogares,48.25,accesos cada 100 hogares,ENACOM
+00,Argentina,4T2023,tv_suscripcion_accesos_cada_100_hogares,47.65,accesos cada 100 hogares,ENACOM
+00,Argentina,1T2024,tv_suscripcion_accesos_cada_100_hogares,47.32,accesos cada 100 hogares,ENACOM
+00,Argentina,2T2024,tv_suscripcion_accesos_cada_100_hogares,46.39,accesos cada 100 hogares,ENACOM
+00,Argentina,3T2024,tv_suscripcion_accesos_cada_100_hogares,46.97,accesos cada 100 hogares,ENACOM
+00,Argentina,4T2024,tv_suscripcion_accesos_cada_100_hogares,47.43,accesos cada 100 hogares,ENACOM
+00,Argentina,1T2025,tv_suscripcion_accesos_cada_100_hogares,47.15,accesos cada 100 hogares,ENACOM
+00,Argentina,2T2025,tv_suscripcion_accesos_cada_100_hogares,44.55,accesos cada 100 hogares,ENACOM
+00,Argentina,3T2025,tv_suscripcion_accesos_cada_100_hogares,47.01,accesos cada 100 hogares,ENACOM
+00,Argentina,4T2025,tv_suscripcion_accesos_cada_100_hogares,47.05,accesos cada 100 hogares,ENACOM
+00,Argentina,1T2026,tv_suscripcion_accesos_cada_100_hogares,46.47,accesos cada 100 hogares,ENACOM
+00,Argentina,2T2026,tv_suscripcion_accesos_cada_100_hogares,47.67,accesos cada 100 hogares,ENACOM
 02,CABA,2025,exportaciones_usd_por_habitante,132.8865,dólares por habitante,"INDEC, Origen Provincial de las Exportaciones"
 06,Buenos Aires,2025,exportaciones_usd_por_habitante,1816.383,dólares por habitante,"INDEC, Origen Provincial de las Exportaciones"
 10,Catamarca,2025,exportaciones_usd_por_habitante,915.2748,dólares por habitante,"INDEC, Origen Provincial de las Exportaciones"

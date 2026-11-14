@@ -196,7 +196,7 @@ FRECUENCIA = {
     # Empresas y oportunidades
     "f-empresas": "anio", "f-empresas-tamano": "anio", "f-dinamica-empresas": "anio", "f-sociedades": "anio",
     # Pobreza y hogares
-    "f-pobreza": "semestre", "f-pobreza-ninez": "semestre", "f-ingresos-aglomerados": "trimestre", "f-censo": "censo", "f-internet": "trimestre", "f-telefonia": "trimestre",
+    "f-pobreza": "semestre", "f-pobreza-ninez": "semestre", "f-ingresos-aglomerados": "trimestre", "f-censo": "censo", "f-internet": "trimestre", "f-telefonia": "trimestre", "f-tv-paga": "trimestre",
     # Salud
     "f-esperanza": "censo", "f-cobertura": "censo", "f-dengue": "anio", "f-vacunas": "anio", "f-medicos": "anio", "f-hospitales": "anio", "f-distancia-hospital": "anio", "f-causas-muerte": "anio", "f-transito": "anio", "f-mortalidad": "anio", "f-causas-infantiles": "anio", "f-muertes": "anio", "f-suicidio": "anio",
     "f-suicidio-prov": "anio", "f-edad": "anio",

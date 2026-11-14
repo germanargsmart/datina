@@ -1265,19 +1265,13 @@
    "variable": "salario_bruto_maestro_grado_10_anios",
    "tabla": "cruces_provincias",
    "columna": "salario_docente",
-   "periodo": "2T2026"
+   "periodo": "ultimo"
   },
   {
    "variable": "salario_bruto_maestro_grado_10_anios",
    "tabla": "salario_docente",
    "columna": "bruto",
-   "periodo": "2T2026"
-  },
-  {
-   "variable": "salario_bruto_maestro_grado_10_anios",
-   "tabla": "salario_docente",
-   "columna": "bruto_ant",
-   "periodo": "2T2025"
+   "periodo": "ultimo"
   },
   {
    "variable": "salario_minimo_pct_canasta_total_hogar",
@@ -1433,7 +1427,7 @@
    "variable": "telefonia_fija_accesos_cada_100_hogares",
    "tabla": "telefonia_fija_provincias",
    "columna": "accesos_100_hogares",
-   "periodo": "2T2026"
+   "periodo": "ultimo"
   },
   {
    "variable": "telefonia_fija_accesos_cada_100_hogares",
@@ -1470,6 +1464,24 @@
    "tabla": "turistas_no_residentes_anual",
    "columna": "turistas",
    "columna_periodo": "anio"
+  },
+  {
+   "variable": "tv_suscripcion_accesos_cada_100_hogares",
+   "tabla": "tv_paga_pais",
+   "columna": "suscripcion_100_hogares",
+   "columna_periodo": "periodo"
+  },
+  {
+   "variable": "tv_suscripcion_accesos_cada_100_hogares",
+   "tabla": "tv_paga_provincias",
+   "columna": "accesos_100_hogares_2014",
+   "periodo": "2T2014"
+  },
+  {
+   "variable": "tv_suscripcion_accesos_cada_100_hogares",
+   "tabla": "tv_paga_provincias",
+   "columna": "accesos_100_hogares",
+   "periodo": "ultimo"
   },
   {
    "variable": "vegetacion_natural_pct_superficie",
