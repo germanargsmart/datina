@@ -239,7 +239,7 @@ const MESES = ["enero","febrero","marzo","abril","mayo","junio","julio","agosto"
 const signo = v => v < 0 ? `cayó ${n1(Math.abs(v))}%` : `creció ${n1(v)}%`;
 const enLoQueVa = (o, ultimo, que, sube, baja) => o && o.anio > ultimo
   ? ` Entre enero y ${MESES[o.mes - 1]} de ${o.anio}, ${que} ${o.var >= 0 ? sube : baja} ${pct(Math.abs(o.var))} respecto de los mismos meses de ${o.anio - 1}.` : "";
-const EV = R.envejecimiento, PPY = R.poblacion_proy, CM = R.causas_muerte, SX = R.externo, TRN = R.transito;
+const EV = R.envejecimiento, PPY = R.poblacion_proy, CM = R.causas_muerte, SX = R.externo, TRN = R.transito, PNZ = R.pobreza_ninez;
 // chicos de 5 a 14 años por provincia (3 de noviembre de 2026), de las proyecciones del INDEC
 const ESC = R.chicos_escuela;
 // sector externo: una fecha del BCRA (dd/mm/aaaa) y un mes (aaaa-mm) dichos en palabras, un trimestre (2T2026) y un saldo con su sentido
@@ -1735,6 +1735,17 @@ const TX = {
   "eti-nota": `Encuesta de Turismo Internacional. Solo cubre a los turistas que dejan el país por los aeropuertos de Ezeiza y Aeroparque, así que subestima a las provincias que reciben turistas por otros pasos, como las limítrofes. Un turista que visitó varias provincias cuenta en cada una. La cantidad por habitante usa la población que proyecta el INDEC para ${R.anio_pob_ficha.turistas_extranjeros_provincias}, el mismo año. Desde 2026 el INDEC reformula esta encuesta y reprogramó su difusión porque no se renovó el convenio de financiamiento con la Secretaría de Turismo.`,
   // la cifra destacada ya dice la pobreza del último semestre: el texto empieza por la indigencia
   pobreza: `En el ${R.pobreza.sem}, el ${pct(R.pobreza.ind)} de las personas de los 31 aglomerados urbanos que releva la EPH estaba bajo la línea de indigencia. Un año antes, en el ${R.pobreza.sem_prev}, la pobreza era ${R.pobreza.pob > R.pobreza.pob_prev ? "más baja" : R.pobreza.pob < R.pobreza.pob_prev ? "más alta" : "igual"}: ${pct(R.pobreza.pob_prev)}. La indigencia era del ${pct(R.pobreza.ind_prev)}. El valor más alto de la pobreza en la serie fue ${pct(R.pobreza.max)}, en el ${R.pobreza.max_sem}.`,
+  // chicos en hogares pobres (fuentes nuevas aprobadas por el autor el 14 de noviembre de 2026): la cifra destacada dice la pobreza de 0 a 17
+  // años, el texto la compara con la de toda la población y con la serie
+  "pobreza-ninez": `En el mismo semestre, la pobreza de toda la población era de ${pct(PNZ.ptotal)}: la de los chicos es ${n1(PNZ.veces)} veces esa` +
+    `${PNZ.siempre_mas ? ", y fue más alta en todos los semestres de la serie" : ""}. Un año antes, en el ${PNZ.anterior}, era de ${pct(PNZ.p0_17_ant)}. ` +
+    `La más alta de la serie fue ${pct(PNZ.max_v)}, en el ${PNZ.max}, y la más baja, ${pct(PNZ.min_v)}, en el ${PNZ.min}. El ${pct(PNZ.i0_17)} de los chicos ` +
+    `vivía bajo la línea de indigencia.`,
+  "pobreza-ninez-edad": `En el ${PNZ.fin} vivía en hogares pobres el ${pct(PNZ.p0_5)} de los chicos de 0 a 5 años, el ${pct(PNZ.p6_11)} de los de 6 a 11 ` +
+    `y el ${pct(PNZ.p12_17)} de los de 12 a 17. En las personas de 65 años y más, el ${pct(PNZ.p65_y_mas)}.`,
+  "pobreza-ninez-nota": `Personas de 0 a 17 años que viven en hogares cuyos ingresos no alcanzan la canasta básica total (pobreza) o la canasta ` +
+    `básica alimentaria (indigencia). La pobreza se mide por hogar: un chico es pobre si su hogar lo es. Qué no dice este dato: la EPH releva solo ` +
+    `los 31 aglomerados urbanos, no el campo ni las ciudades chicas, y no mide otras carencias, como la vivienda, la salud o la escuela.`,
   "pobreza-nota": `Porcentaje de personas en hogares cuyos ingresos no alcanzan la canasta básica total (pobreza) o la canasta básica alimentaria (indigencia). La EPH releva solo los 31 aglomerados urbanos, no el total del país ni las provincias. En el consultor de pobreza están los aglomerados, los partidos del Gran Buenos Aires y las comunas de CABA, con sus intervalos de confianza.`,
   "mapa-areas-nota": `Color: porcentaje de la superficie de cada provincia dentro de áreas protegidas de cualquier jurisdicción, ${nt.anio}. Círculos: áreas protegidas nacionales terrestres, con tamaño proporcional a su superficie. Pasá el cursor o tocá para ver los valores.`,
   "lista-areas-nota": `Las ${nt.pn_n} áreas protegidas de la Administración de Parques Nacionales, ordenadas por año de creación. Superficie actual en hectáreas según el Sistema de Información de Biodiversidad.`,
@@ -3554,6 +3565,21 @@ const DIB = protegerDib({
   pobreza: a => lineas(G("pobreza"), {anim:a, data: T.pobreza_serie, x:"t", y0:0, mensual:true, vf: v => n1(v) + "%", yf: v => v + "%",
     xl: d => `${d.semestre === 1 ? "Primer" : "Segundo"} semestre ${d.anio}`,
     series:[{k:"pobreza_personas", lab:"Pobreza", c:NAR, w:3}, {k:"indigencia_personas", lab:"Indigencia", c:FRI, w:2.4}]}),
+  // chicos en hogares pobres: la serie de 0 a 17 años frente a toda la población, o el último semestre por tramo de edad
+  "pobreza-ninez": a => {
+    const el = G("pobreza-ninez"), v = MED["pobreza-ninez"];
+    $t("pobreza-ninez").textContent = v === "edad" ? TX["pobreza-ninez-edad"] : TX["pobreza-ninez"];
+    if (v === "edad") {
+      const u = T.pobreza_ninez[T.pobreza_ninez.length - 1];
+      return barrasH(el, {anim: a, sinOrden: true, vf: pct, af: v => n0(v) + "%", l: 130, lAngosto: 110, k: "p",
+        data: [["0_5", "0 a 5 años"], ["6_11", "6 a 11 años"], ["12_17", "12 a 17 años"], ["65_y_mas", "65 años y más"], ["total", "Toda la población"]]
+          .map(([k, n]) => ({codigo_indec: "e" + k, territorio: n, p: u["pobreza_" + k], i: u["indigencia_" + k]})),
+        tip: d => `<b>${d.territorio}</b><br>${pct(d.p)} bajo la línea de pobreza<br>${pct(d.i)} bajo la línea de indigencia<br>${PNZ.fin}`});
+    }
+    return lineas(el, {anim: a, data: T.pobreza_ninez, x: "t", y0: 0, mensual: true, vf: v => n1(v) + "%", yf: v => v + "%",
+      xl: d => `${d.semestre === 1 ? "Primer" : "Segundo"} semestre ${d.anio}`,
+      series: [{k: "pobreza_0_17", lab: "De 0 a 17 años", corto: "0 a 17", c: NAR, w: 3}, {k: "pobreza_total", lab: "Toda la población", corto: "Total", c: FRI, w: 2.4}]});
+  },
   "mapa-areas": a => mapaAreas(a),
   "visitas-parque": a => barrasH(G("visitas-parque"), {anim:a, data: T.visitas_por_parque.filter(d => d[MED["visitas-parque"]] != null),
     k: MED["visitas-parque"], vf: n0, af: v => n0(v / 1000) + " mil", l: 270, lAngosto: 175}),
@@ -7986,6 +8012,8 @@ const CLAVE = {
   // E11: la cifra de la vista inicial, cada 1.000 habitantes. Antes era la cantidad de CABA, que está en la otra vista
   "f-eti": [n1(tu.eti_pc_top_v), `turistas del exterior cada 1.000 habitantes visitaron ${tu.eti_pc_top} en ${tu.eti_anio}, la jurisdicción con más en relación con su población, ` +
     `entre los que se fueron del país por Ezeiza o Aeroparque`, `cada 1.000 habitantes visitaron ${tu.eti_pc_top}, la jurisdicción con más en relación con su población`],
+  "f-pobreza-ninez": [pct(PNZ.p0_17), `de las personas de 0 a 17 años de los 31 aglomerados urbanos vivía en hogares pobres en el ${PNZ.fin}`,
+    `de los chicos, en hogares pobres en el ${PNZ.fin}`],
   "f-pobreza": [pct(R.pobreza.pob), `de las personas de los 31 aglomerados urbanos estaba bajo la línea de pobreza en el ${R.pobreza.sem}`,
     `de las personas, bajo la línea de pobreza en el ${R.pobreza.sem}`],
   // sin las motos de las jurisdicciones excluidas en distorsiones.json (E3, 26 de octubre de 2026): el total del país ya viene sin ellas
@@ -12634,6 +12662,7 @@ const SERIE_CIFRA = {
   "f-dinamica-empresas": () => serieM("Cambio neto de empresas por año: tasa de entrada menos tasa de salida", T.empresas_serie_pais.map(r => [r.anio, r.tasa_neta]), sg),
   "x-emp-saldo": () => SERIE_CIFRA["f-dinamica-empresas"](),
   "x-emp-negativos": () => SERIE_CIFRA["f-dinamica-empresas"](),
+  "f-pobreza-ninez": () => serieM("Pobreza de las personas de 0 a 17 años en los 31 aglomerados urbanos, por semestre", T.pobreza_ninez.map(r => [semCorto(r), r.pobreza_0_17]), pct, 8),
   "f-pobreza": () => serieM("Pobreza en los 31 aglomerados urbanos, por semestre", T.pobreza_serie.map(r => [semCorto(r), r.pobreza_personas]), pct, 8),
   "x-indigencia": () => serieM("Indigencia en los 31 aglomerados urbanos, por semestre", T.pobreza_serie.map(r => [semCorto(r), r.indigencia_personas]), pct, 8),
   "f-censo": () => provM("Hogares con desagüe a red cloacal, en %, Censo 2022", T.censo2022_provincias, "cloaca", nv.censo.cloaca, pct),

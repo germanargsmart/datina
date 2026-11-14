@@ -1042,6 +1042,26 @@ SEM = {1: "primer", 2: "segundo"}
 sem_txt = lambda f: f"{SEM[int(f.semestre)]} semestre de {int(f.anio)}"
 pu_, pp_ = pobreza.iloc[-1], pobreza.iloc[-3]
 pmax = pobreza.loc[pobreza.pobreza_personas.idxmax()]
+# chicos en hogares pobres (fuentes nuevas aprobadas por el autor el 14 de noviembre de 2026): la pobreza y la indigencia de las personas
+# de 0 a 17 años y de cada tramo de edad, del mismo archivo (los cuadros por edad del INDEC). Prefijo pnz_
+_pnz_n, _pnz_e = todo_pob["edad_ninos"], todo_pob["edad"]
+assert set(_pnz_n) == {"Total 0-17", "0-5", "6-11", "12-17"} and {"Total", "65 y más"} <= set(_pnz_e), "cambiaron los grupos de edad de la pobreza"
+assert all(len(v[k]) == len(pobreza) for v in [*_pnz_n.values(), *_pnz_e.values()] for k in ("pobres", "indigentes")), "la pobreza por edad no tiene todos los semestres"
+PNZ_COL = {"0_17": _pnz_n["Total 0-17"], "0_5": _pnz_n["0-5"], "6_11": _pnz_n["6-11"], "12_17": _pnz_n["12-17"], "65_y_mas": _pnz_e["65 y más"], "total": _pnz_e["Total"]}
+pobreza_ninez = pd.DataFrame({"periodo": pobreza.periodo, "anio": pobreza.anio, "semestre": pobreza.semestre, "t": pobreza.t,
+                              **{f"pobreza_{k}": v["pobres"] for k, v in PNZ_COL.items()}, **{f"indigencia_{k}": v["indigentes"] for k, v in PNZ_COL.items()}}).round(4)
+# el total por edad es la serie de la ficha de pobreza
+assert (pobreza_ninez.pobreza_total - pobreza.pobreza_personas).abs().max() < .15, "la pobreza por edad no coincide con la serie del país"
+_pnz_u, _pnz_a = pobreza_ninez.iloc[-1], pobreza_ninez.iloc[-3]
+_pnz_mx, _pnz_mn = pobreza_ninez.loc[pobreza_ninez.pobreza_0_17.idxmax()], pobreza_ninez.loc[pobreza_ninez.pobreza_0_17.idxmin()]
+PNZ_RES = {"ini": sem_txt(pobreza_ninez.iloc[0]), "fin": sem_txt(_pnz_u), "anterior": sem_txt(_pnz_a),
+           **{f"p{k}": r1(_pnz_u[f"pobreza_{k}"]) for k in PNZ_COL}, **{f"i{k}": r1(_pnz_u[f"indigencia_{k}"]) for k in PNZ_COL},
+           "p0_17_ant": r1(_pnz_a.pobreza_0_17), "max": sem_txt(_pnz_mx), "max_v": r1(_pnz_mx.pobreza_0_17), "min": sem_txt(_pnz_mn),
+           "min_v": r1(_pnz_mn.pobreza_0_17), "veces": r1(_pnz_u.pobreza_0_17 / _pnz_u.pobreza_total),
+           "siempre_mas": bool((pobreza_ninez.pobreza_0_17 > pobreza_ninez.pobreza_total).all())}
+d = pobreza_ninez[["periodo", "pobreza_0_17"]].rename(columns={"pobreza_0_17": "valor"})
+d["codigo_indec"], d["territorio"] = "AGLO", "31 aglomerados urbanos"
+agregar(d, "pobreza_0_17_31_aglomerados", "% de personas de 0 a 17 años", "INDEC, Encuesta Permanente de Hogares")
 
 # ---------------------------------------------------------------- autos y motos nuevos (DNRPA)
 def patentes(archivo, nombre):
@@ -8338,6 +8358,7 @@ tablas = {
     "gabinetes_origen": gabinetes,
     "ministros_provincias": ministros_prov,
     "pobreza_serie": pobreza[["periodo", "anio", "semestre", "t", "pobreza_personas", "indigencia_personas", "pobreza_hogares", "indigencia_hogares"]],
+    "pobreza_ninez": pobreza_ninez,
     # petróleo y gas (etapa 18)
     "hidrocarburos_mensual": hidro_m,
     "hidrocarburos_anual": hidro_a,
@@ -8925,6 +8946,7 @@ resumen["desocupacion"] = dso_res
 resumen["informalidad"] = inf_res
 resumen["cobertura_tipo"] = cbs_res
 resumen["pobreza_aglomerados"] = pza_res
+resumen["pobreza_ninez"] = PNZ_RES
 resumen["capitales_eph"] = [{"id": k, "nombre": v[0], "unidad": v[1], "periodo": v[2], "tema": v[3], "fuente": v[4], "ficha": v[5], "dec": v[6]}
                             for k, v in CAPITALES_EPH_META.items()]
 assert all(m["id"] in capitales_eph.columns for m in resumen["capitales_eph"])

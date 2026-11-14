@@ -2997,6 +2997,18 @@
    "ficha": "https://datina.com.ar/poblacion.html#f-poblacion-proy"
   },
   {
+   "variable": "pobreza_0_17_31_aglomerados",
+   "unidad": "% de personas de 0 a 17 años",
+   "fuente": "INDEC, Encuesta Permanente de Hogares",
+   "desde": "1S2017",
+   "hasta": "2S2025",
+   "filas": 20,
+   "jurisdicciones": [
+    "AGLO"
+   ],
+   "ficha": "https://datina.com.ar/pobreza.html#f-pobreza-ninez"
+  },
+  {
    "variable": "pobreza_aglomerados_de_la_provincia",
    "unidad": "% de la población",
    "fuente": "INDEC, Encuesta Permanente de Hogares (cálculo propio con los aglomerados de cada provincia)",
