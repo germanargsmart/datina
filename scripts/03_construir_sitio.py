@@ -1277,15 +1277,22 @@ for marca, valor in {"<!--TEMAS-BARRA-->": _barra, "<!--TEMAS-MENU-->": _menu, "
     base = base.replace(marca, valor)
 # Formularios de contacto y suscripción: los recibía Netlify. Desde el 23 de octubre de 2026 el sitio va a Cloudflare Pages, que no los
 # recibe, y el autor decidió ocultarlos hasta elegir otro servicio. Con "formularios" vacío en datos/manual/sitio.json, el armado saca la
-# suscripción del pie y el formulario de Contacto, que dice que todavía no está disponible. Con "netlify", quedan como estaban
+# suscripción del pie y el formulario de Contacto, que da el correo de "correo_contacto" o dice que todavía no está disponible. Con "netlify", quedan como estaban
 SITIO_CONF = json.loads((RAIZ / "datos" / "manual" / "sitio.json").read_text(encoding="utf-8"))
 FORMULARIOS = SITIO_CONF.get("formularios", "").strip()
 assert FORMULARIOS in ("", "netlify"), 'datos/manual/sitio.json: "formularios" tiene que ser "netlify" o quedar vacío'
 if not FORMULARIOS:
     base, _n = re.subn(r'\s*<!-- suscripción \(11 de octubre.*?</form>', "", base, count=1, flags=re.S)
     assert _n == 1, "no se encontró la suscripción del pie en la plantilla"
+    # con "correo_contacto" (14 de noviembre de 2026, decisión del autor), el correo en lugar del aviso: va al revés en data-correo y datina.js
+    # lo arma al cargar, así los robots que juntan correos no lo leen. Sin JavaScript, escrito con "arroba"
+    _correo = SITIO_CONF.get("correo_contacto", "").strip()
+    assert not _correo or re.fullmatch(r"[\w.+-]+@[\w-]+(\.[\w-]+)+", _correo), 'datos/manual/sitio.json: "correo_contacto" no es un correo'
+    _contacto = (f'<p class="form-nota contacto-correo">Escribinos a <a data-correo="{_correo[::-1]}" href="contacto.html">nuestro correo</a>.'
+                 f'<noscript> {_correo.replace("@", " arroba ")}</noscript></p>' if _correo else
+                 '<p class="form-nota">El formulario de contacto todavía no está disponible.</p>')
     base, _n = re.subn(r'<!-- formulario de Netlify.*?<p class="form-gracias" id="susc-gracias" hidden>[^<]*</p>',
-                       '<p class="form-nota">El formulario de contacto todavía no está disponible.</p>', base, count=1, flags=re.S)
+                       lambda m: _contacto, base, count=1, flags=re.S)
     assert _n == 1, "no se encontró el formulario de Contacto en la plantilla"
     # y "Tus datos", en Sobre nosotros, deja de hablar de los formularios (auditoría del 26 de octubre de 2026, E9)
     base, _n = re.subn(r'<p>Los formularios de Contacto y de novedades por correo.*?</p>', "", base, count=1, flags=re.S)

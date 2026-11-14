@@ -179,6 +179,8 @@ const vigiaTextos = new MutationObserver(ms => ms.forEach(m => {
 const ICONOS = /*ICONOS*/{};
 const icono = (n, cls = "") => ICONOS[n] ? `<svg class="iso tono-${ICONOS[n].t} ${cls}" viewBox="0 0 120 120" aria-hidden="true" focusable="false">${ICONOS[n].d}</svg>` : "";
 document.querySelectorAll("[data-icono]").forEach(el => { el.innerHTML = icono(el.dataset.icono); });
+// el correo de Contacto (14 de noviembre de 2026): viene al revés en data-correo, así los robots que juntan correos de las páginas no lo leen
+document.querySelectorAll("a[data-correo]").forEach(a => { const c = [...a.dataset.correo].reverse().join(""); a.href = "mailto:" + c; a.textContent = c; });
 
 /* ---------- Sol de Mayo ---------- */
 (function sol() {
