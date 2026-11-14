@@ -1,8 +1,9 @@
-# Actualiza los datos y la pagina el dia 5 de cada mes (y a pedido desde la pestana Actions)
+# Actualiza los datos y la pagina los dias 5, 15 y 23 de cada mes (y a pedido desde la pestana Actions). Hasta el 14 de noviembre de 2026 era
+# solo el 5: el autor sumo el 15, despues del IPC (cerca del 13), y el 23, despues del EMAE (cerca del 22)
 name: Actualizar datos
 on:
   schedule:
-    - cron: "0 12 5 * *"
+    - cron: "0 12 5,15,23 * *"
   workflow_dispatch:
 permissions:
   contents: write
