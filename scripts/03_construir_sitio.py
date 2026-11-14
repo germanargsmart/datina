@@ -211,7 +211,7 @@ FRECUENCIA = {
     "f-nacidos-otro-pais": "censo", "f-migracion-interna": "censo", "f-migracion-historia": "censo", "f-extranjeros": "anio",
     "f-radicaciones": "anio", "f-refugio": "anio", "f-argentinos-exterior": "onu",
     # Política
-    "f-elecciones": "eleccion", "f-legisladores": "congreso", "f-anios-congreso": "congreso", "f-representacion": "anio", "f-congreso": "congreso", "f-mujeres-congreso": "congreso", "f-votaciones": "leyes",
+    "f-elecciones": "eleccion", "f-legisladores": "congreso", "f-anios-congreso": "congreso", "f-representacion": "anio", "f-congreso": "congreso", "f-mujeres-congreso": "congreso", "f-tarifa-luz": "mes", "f-votaciones": "leyes",
     "f-voto-provincia": "eleccion", "f-atn": "anio", "f-presupuesto": "anio",
     "f-presidentes": "presidente", "f-ministros": "gabinete", "f-confianza-gobierno": "mes",
     "f-corte-casos": "anio", "f-jueces-federales": "padron", "f-fiscalias-federales": "ultimo",
@@ -682,7 +682,7 @@ DIFERIDAS = ["antartida_instalaciones", "antartida_bases", "antartida_paises", "
              "dolar_inversion_trimestral", "compras_dolares_anual", "salarios_serie", "salario_docente_serie", "canasta_crianza", "mayoristas_mensual", "comercio_rubro_pais", "comercio_valor_kilo", "produccion_mensual", "comercio_socios_historia", "inversion_educativa_serie",
              "seguridad_serie_prov", "turismo_dolar_mensual", "nafta_dolares_mensual", "nafta_dolares_anual", "nombres_serie",
              "exportaciones_dolar_trimestral", "exportaciones_cantidades_anual",
-             "inflacion_mensual", "inflacion_detalle", "transito_pais", "mujeres_congreso", "canasta_mensual", "salario_minimo_canasta", "salario_real_mensual", "actividad_mensual",
+             "inflacion_mensual", "inflacion_detalle", "transito_pais", "mujeres_congreso", "tarifa_luz", "canasta_mensual", "salario_minimo_canasta", "salario_real_mensual", "actividad_mensual",
              "nacidos_otro_pais_paises", "radicaciones_nacionalidad", "argentinos_exterior_destinos",
              "migraciones_departamentos", "soja_departamentos", "supermercados_mensual", "corte_jueces", "corte_composicion", "corte_presidentes", "bcra_variables",
              # D2 del plan de mejora (28 de octubre de 2026): las tablas más pesadas que solo usa el dibujo de su ficha

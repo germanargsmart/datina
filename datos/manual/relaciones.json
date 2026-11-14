@@ -291,6 +291,16 @@
    ]
   },
   {
+   "id": "org:enre",
+   "nombre": "Ente Nacional Regulador de la Electricidad",
+   "sigla": "ENRE",
+   "depende": "Secretaría de Energía",
+   "url": "https://www.argentina.gob.ar/enre",
+   "alias": [
+    "ENRE"
+   ]
+  },
+  {
    "id": "org:enargas",
    "nombre": "Ente Nacional Regulador del Gas",
    "sigla": "ENARGAS",
@@ -1412,6 +1422,17 @@
     "contiene": "\"enacom_tv_provincias.csv\": \"https://"
    },
    "url": "https://indicadores.enacom.gob.ar/Files/DatosAbiertos/tv_penetracion_provincias.csv"
+  },
+  {
+   "id": "ds:enre_cuadros.json.gz",
+   "nombre": "Cuadros tarifarios de Edenor y Edesur desde 1995",
+   "fuente": "org:enre",
+   "ruta": "datos/crudo/enre_cuadros.json.gz",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "destino = CRUDO / \"enre_cuadros.json.gz\""
+   },
+   "url": "https://www.enre.gov.ar/web/TARIFASD.nsf/todoscuadros?OpenView"
   },
   {
    "id": "ds:enargas_gas_residencial.csv",
@@ -5991,6 +6012,34 @@
     }
    ],
    "tabla": "energia_estacionalidad"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:enre_cuadros.json.gz",
+   "a": "f-tarifa-luz",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_enr_g = json.loads(gzip.decompress((CRUDO / \"enre_cuadros.json.gz\").read_bytes()))"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"tarifa_luz\": tarifa_luz,"
+    }
+   ],
+   "tabla": "tarifa_luz"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:smvm.csv",
+   "a": "f-tarifa-luz",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "tarifa_luz = tarifa_luz.merge(_smv[[\"periodo\", \"salario_minimo\"]], on=\"periodo\", how=\"left\")"
+    }
+   ],
+   "tabla": "tarifa_luz"
   },
   {
    "tipo": "alimenta",

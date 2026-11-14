@@ -2932,7 +2932,6 @@ ARCHIVOS_DEL_REGISTRO = {
     "índices de la Universidad Torcuato Di Tella": ["utdt_*.xls", "utdt_*.xlsx", "utdt_archivos.json"],
     "sociedades constituidas por año y provincia (Registro Nacional de Sociedades)": ["jus_sociedades_resumen.csv"],
     "calendario de difusión (INDEC)": ["indec_calendario.csv"],
-    "cuadros tarifarios de Edenor y Edesur (ENRE)": ["enre_cuadros.json.gz"],
     "tablas de la API del INDEC": ["indec_api_*.json"],
     "departamentos (resumen)": ["renaper_departamentos_resumen.csv", "snic_departamentos_resumen.csv"],
     "aprender_primaria_matematica.csv": ["aprender_meta.json"],
@@ -2950,7 +2949,8 @@ for _nombre, _f in [("votaciones nominales", votaciones), ("exportaciones por se
                     ("permisos de edificación (INDEC)", permisos_edificacion), ("créditos hipotecarios UVA (BCRA)", hipotecas_uva),
                     ("crédito a los hogares por país (BIS)", bis_credito_hogares), ("electricidad por país (Ember, vía Our World in Data)", owid_electricidad),
                     ("precios de los combustibles por estación (Res. 1104/2004)", precios_combustibles),
-                    ("cuadros tarifarios de Edenor y Edesur (ENRE)", enre_tarifas),
+                    # con el nombre del archivo, el mismo que pone --solo: así la fila del registro es una sola
+                    ("enre_cuadros.json.gz", enre_tarifas),
                     ("demanda eléctrica por provincia y tipo de usuario (CAMMESA)", cammesa_demanda),
                     ("tipo de cambio real multilateral (BCRA)", tipo_cambio_real),
                     ("remuneraciones por provincia (OEDE)", oede_remuneraciones), ("salario docente por provincia (CECE)", cgecse_salario_docente),

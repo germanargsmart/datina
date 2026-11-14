@@ -2390,6 +2390,20 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <div class="pie"><span>Fuente: CAMMESA, vía API de Series de Tiempo</span><a href="datos/energia_estacionalidad.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
+    <article class="ficha" id="f-tarifa-luz">
+      <h2>¿Cuánto cuesta la luz de una casa del Gran Buenos Aires?</h2>
+      <p class="ficha-sub">Factura mensual de luz sin impuestos de una casa de Edenor o Edesur según cuánto consume, en % del salario mínimo, de {{tarifa_luz.smvm_desde}} a {{tarifa_luz.mes}}</p>
+      <div class="conmutador" role="group" aria-label="Consumo por mes" data-g="tarifa-luz" style="--n:3;--i:1">
+        <button type="button" data-m="150" aria-pressed="false">150 kWh</button>
+        <button type="button" data-m="250" aria-pressed="true">250 kWh</button>
+        <button type="button" data-m="400" aria-pressed="false">400 kWh</button>
+      </div>
+      <div class="grafico" data-g="tarifa-luz" data-forma="lineas"></div>
+      <p class="lead" data-t="tarifa-luz"></p>
+      <p class="nota" data-t="tarifa-luz-nota"></p>
+      <div class="pie"><span>Fuentes: Ente Nacional Regulador de la Electricidad (ENRE), cuadros tarifarios, y Consejo Nacional del Empleo, la Productividad y el Salario Mínimo, Vital y Móvil</span><a href="datos/tarifa_luz.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
     <h2 class="bloque-grupo" id="g-generacion">Generación</h2>
 
     <article class="ficha" id="f-centrales">
