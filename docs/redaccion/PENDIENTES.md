@@ -1115,6 +1115,7 @@ Lo que cada grupo de la reescritura no cambió porque necesita corregir un dato,
    - Motivo: Término técnico para el público general. Aparece en el botón de vista, en aria-roledescription, en el aria-label del dibujo y en relaciones.js.
    - Propuesta: 'Diagrama' en todos esos lugares a la vez, si el autor lo prefiere.
    - **Estado al 11 de noviembre de 2026: espera una decisión del autor.** "Grafo" sigue en el botón y en los nombres para lectores de pantalla.
+   - **Estado al 14 de noviembre de 2026: resuelta.** Decisión del autor: "Diagrama" en el botón, en `aria-roledescription` y en el `aria-label` (`scripts/relaciones.html`). Los nombres internos y `?v=grafo` quedan, para que los enlaces viejos sigan andando.
 
 13. **relaciones.html, catalogo.html, nosotros.html** (`scripts/relaciones.js, scripts/catalogo.py`)
    - Fragmento: «46 organismos, 167 archivos y 141 fichas / 209 tablas»
