@@ -1,0 +1,13 @@
+dimension,grupo,orden,informalidad,informalidad_ultimo_trimestre,ocupados_encuestados
+categoria,Asalariados,0,37.2,37.95,56491
+categoria,Cuenta propia,1,64.98,66.21,19576
+categoria,Patrones,2,25.6,26.16,2910
+categoria,Trabajadores familiares sin remuneración,3,100.0,100.0,302
+sexo,Mujeres,0,45.24,46.03,36024
+sexo,Varones,1,42.85,44.23,43255
+edad,Hasta 24 años,0,68.58,69.93,7886
+edad,25 a 34,1,49.01,48.8,18673
+edad,35 a 44,2,37.62,39.85,19695
+edad,45 a 54,3,34.35,35.96,18407
+edad,55 a 64,4,38.46,39.63,11021
+edad,65 y más,5,58.77,59.3,3597

@@ -7743,6 +7743,46 @@ dso_res = {
 agregar(desocupacion_serie.assign(codigo_indec="AGLO", territorio="31 aglomerados urbanos", valor=desocupacion_serie.desocupacion),  # como la pobreza
         "tasa_desocupacion_31_aglomerados", "% de la población económicamente activa", "INDEC, Encuesta Permanente de Hogares")
 
+# ---------------------------------------------------------------- informalidad por aglomerado (14 de noviembre de 2026, fuentes nuevas aprobadas por el autor)
+# La parte de los ocupados con un empleo informal, con la condición de formalidad que el INDEC publica en las bases usuarias de la EPH desde el
+# cuarto trimestre de 2023 (01_descargar.py, eph_informalidad): la misma de las tasas de empleo formal e informal de su informe. Cada aglomerado
+# con los cuatro trimestres juntos (los chicos tienen pocos casos) y el último aparte, y para el total, por categoría ocupacional, sexo y edad.
+# Son 32 áreas, como la desocupación. Prefijo de este bloque: inf_
+inf = pd.read_csv(CRUDO / "eph_informalidad.csv")
+inf_a = inf[inf.dimension == "aglomerado"].assign(aglomerado=lambda x: x.grupo.astype(int))
+assert set(inf_a.aglomerado) == set(dso_ag) | {0}, f"la informalidad no trae los 32 aglomerados ({sorted(set(dso_ag) ^ set(inf_a.aglomerado) - {0})})"
+assert inf.trimestre_ultimo.nunique() == 1 and inf_a.pct_informal.between(10, 80).all(), "la informalidad salió fuera de lo esperado"
+informalidad_aglomerados = pd.DataFrame({
+    "aglomerado": inf_a.aglomerado.values, "nombre": inf_a.aglomerado.map(lambda c: dso_ag[c][1] if c else "31 aglomerados urbanos").values,
+    "provincias": inf_a.aglomerado.map(lambda c: dso_ag[c][0] if c else "00").values, "informalidad": inf_a.pct_informal.values,
+    "informalidad_ultimo_trimestre": inf_a.pct_informal_ultimo.values, "ocupados_encuestados": inf_a.casos.values,
+}).sort_values("informalidad", ascending=False).reset_index(drop=True)
+INF_ORDEN = {"categoria": ["Asalariados", "Cuenta propia", "Patrones", "Trabajadores familiares sin remuneración"], "sexo": ["Mujeres", "Varones"],
+             "edad": ["Hasta 24 años", "25 a 34", "35 a 44", "45 a 54", "55 a 64", "65 y más"]}
+inf_g = inf[inf.dimension != "aglomerado"]
+assert all(set(inf_g[inf_g.dimension == d].grupo) == set(o) for d, o in INF_ORDEN.items()), "cambiaron los grupos de la informalidad"
+informalidad_grupos = pd.DataFrame([{"dimension": d, "grupo": g, "orden": i, **inf_g[(inf_g.dimension == d) & (inf_g.grupo == g)].iloc[0][
+    ["pct_informal", "pct_informal_ultimo", "casos"]].rename({"pct_informal": "informalidad", "pct_informal_ultimo": "informalidad_ultimo_trimestre",
+                                                              "casos": "ocupados_encuestados"}).to_dict()} for d, o in INF_ORDEN.items() for i, g in enumerate(o)])
+inf_tx = lambda p: f"{_eph_ord[int(p[0]) - 1].replace('primero', 'primer').replace('tercero', 'tercer')} trimestre de {p[2:]}"
+inf_tt = inf.trimestres.iloc[0].split()
+inf_aa = informalidad_aglomerados[informalidad_aglomerados.aglomerado > 0]
+inf_p = informalidad_aglomerados.set_index("aglomerado").loc[0]
+inf_gv = informalidad_grupos.set_index("grupo").informalidad
+inf_res = {
+    "trimestres": f"los cuatro trimestres hasta el {_eph_ord[int(inf_tt[-1][0]) - 1]} de {inf_tt[-1][2:]}", "ultimo": inf_tx(inf_tt[-1]),
+    "ini": inf_tx(inf_tt[0]), "pais": r1(inf_p.informalidad), "pais_ultimo": r1(inf_p.informalidad_ultimo_trimestre),
+    "max": [inf_aa.iloc[0].nombre, r1(inf_aa.iloc[0].informalidad)], "min": [inf_aa.iloc[-1].nombre, r1(inf_aa.iloc[-1].informalidad)],
+    "asalariados": r1(inf_gv["Asalariados"]), "cuenta_propia": r1(inf_gv["Cuenta propia"]), "patrones": r1(inf_gv["Patrones"]),
+    "mujeres": r1(inf_gv["Mujeres"]), "varones": r1(inf_gv["Varones"]), "jovenes": r1(inf_gv["Hasta 24 años"]), "mayores": r1(inf_gv["65 y más"]),
+    "edad_min": [informalidad_grupos[informalidad_grupos.dimension == "edad"].sort_values("informalidad").iloc[0].grupo,
+                 r1(informalidad_grupos[informalidad_grupos.dimension == "edad"].informalidad.min())],
+    "casos_min": int(inf_aa.ocupados_encuestados.min()),
+}
+agregar(pd.DataFrame({"codigo_indec": ["AGLO"], "territorio": ["31 aglomerados urbanos"], "periodo": [f"{inf_tt[-1][0]}T{inf_tt[-1][2:]}"],
+                      "valor": [inf_p.informalidad_ultimo_trimestre]}),
+        "informalidad_ocupados_31_aglomerados", "% de las personas ocupadas", "INDEC, Encuesta Permanente de Hogares, procesamiento propio de las bases")
+
 # ---------------------------------------------------------------- pobreza por región y por aglomerado (plan de mejora, etapa 4, 27 de octubre de 2026)
 # El mismo cuadro del INDEC que la pobreza de las capitales: las seis regiones de la EPH y los 31 aglomerados (32 áreas, como la desocupación),
 # del último semestre, con el coeficiente de variación que publica el INDEC (pide leer con cuidado de 16% a 25% y no confiar en más de 25%)
@@ -8126,6 +8166,8 @@ tablas = {
     **({"ingresos_aglomerados": ipa_tabla} if ipa_tabla is not None else {}),
     "desocupacion_aglomerados": desocupacion_aglomerados,
     "desocupacion_serie": desocupacion_serie,
+    "informalidad_aglomerados": informalidad_aglomerados,
+    "informalidad_grupos": informalidad_grupos,
     "pobreza_aglomerados": pobreza_aglomerados,
     "esperanza_vida_provincias": ev,
     "censo2022_provincias": censo,
@@ -8776,6 +8818,7 @@ assert all(m["id"] in capitales.columns for m in resumen["capitales"])
 resumen["capitales_pais"] = CAP_PAIS
 resumen["ingresos_aglomerados"] = ipa_res
 resumen["desocupacion"] = dso_res
+resumen["informalidad"] = inf_res
 resumen["pobreza_aglomerados"] = pza_res
 resumen["capitales_eph"] = [{"id": k, "nombre": v[0], "unidad": v[1], "periodo": v[2], "tema": v[3], "fuente": v[4], "ficha": v[5], "dec": v[6]}
                             for k, v in CAPITALES_EPH_META.items()]

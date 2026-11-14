@@ -1032,6 +1032,68 @@ def eph_poblacion_sola():
     return url
 
 
+def eph_informalidad(b, pd):
+    """La informalidad de los ocupados por aglomerado de la EPH (14 de noviembre de 2026, fuentes nuevas aprobadas por el autor). Usa la condición
+    de formalidad que el INDEC publica en las bases usuarias desde el cuarto trimestre de 2023 (EMPLEO: 1 formal, 2 informal, 9 sin dato), la
+    misma de sus tasas de empleo formal e informal (cuadro 1.1 del informe del mercado de trabajo): con el segundo trimestre de 2026 da 24,7 y
+    20,2 sobre la población, como el cuadro. Se cuentan los ocupados con dato (ESTADO 1 y EMPLEO 1 o 2), con PONDERA. Como en los ingresos, se
+    juntan los cuatro trimestres porque los aglomerados chicos tienen pocos casos, y se guarda también el último trimestre. Además, para el
+    total de los aglomerados, la informalidad por categoría ocupacional, sexo y edad. Una fila por grupo: el aglomerado 0 es el total"""
+    o = b.assign(EMPLEO=pd.to_numeric(b.EMPLEO, errors="coerce"), PONDERA=pd.to_numeric(b.PONDERA, errors="coerce"))
+    o = o[(o.ESTADO == 1) & o.EMPLEO.isin([1, 2])].copy()
+    o["trim"] = o.ANO4.astype(int) * 10 + o.TRIMESTRE.astype(int)
+    o["inf"] = o.EMPLEO.eq(2) * o.PONDERA
+    ult = int(o.trim.max())
+    if o.trim.nunique() != 4:
+        raise ValueError("EPH: la condición de formalidad no está en los cuatro trimestres")
+    pct = lambda g: round(float(g.inf.sum() / g.PONDERA.sum() * 100), 2)
+    filas = []
+    for ag, g in [(0, o), *o.groupby("AGLOMERADO")]:
+        u = g[g.trim == ult]
+        filas.append({"dimension": "aglomerado", "grupo": str(int(ag)), "casos": len(g), "pct_informal": pct(g),
+                      "casos_ultimo": len(u), "pct_informal_ultimo": pct(u) if len(u) else None})
+    grupos = {
+        "categoria": o.CAT_OCUP.map({3: "Asalariados", 2: "Cuenta propia", 1: "Patrones", 4: "Trabajadores familiares sin remuneración"}),
+        "sexo": o.CH04.map({1: "Varones", 2: "Mujeres"}),
+        "edad": pd.cut(o.CH06, [0, 24, 34, 44, 54, 64, 120], labels=["Hasta 24 años", "25 a 34", "35 a 44", "45 a 54", "55 a 64", "65 y más"]).astype(object),
+    }
+    for dim, gr in grupos.items():
+        for cat, g in o.groupby(gr):
+            u = g[g.trim == ult]
+            filas.append({"dimension": dim, "grupo": cat, "casos": len(g), "pct_informal": pct(g), "casos_ultimo": len(u),
+                          "pct_informal_ultimo": pct(u) if len(u) else None})
+    r = pd.DataFrame(filas)
+    r["trimestre_ultimo"] = f"{ult % 10}T{ult // 10}"
+    r["trimestres"] = " ".join(f"{t % 10}T{t // 10}" for t in sorted(o.trim.unique()))
+    a = r[r.dimension == "aglomerado"]
+    if len(a) < 33 or a.casos.iloc[1:].min() < 300 or not a.pct_informal.between(10, 80).all():
+        raise ValueError("EPH: faltan aglomerados o la informalidad salió fuera de lo esperado")
+    r.to_csv(CRUDO / "eph_informalidad.csv", index=False)
+
+
+def eph_informalidad_sola():
+    """eph_informalidad con las bases de personas de los cuatro últimos trimestres, solo con las columnas que necesita (para --solo). La
+    actualización la arma dentro de eph_antiguedad, con las mismas bases."""
+    import io, zipfile, pandas as pd
+    hoy, bases, url = datetime.date.today(), [], ""
+    for a, t in [(a, t) for a in range(hoy.year, hoy.year - 3, -1) for t in (4, 3, 2, 1)]:
+        u = f"https://www.indec.gob.ar/ftp/cuadros/menusuperior/eph/EPH_usu_{t}_Trim_{a}_txt.zip"
+        try:
+            z = zipfile.ZipFile(io.BytesIO(leer(u, 300)))
+        except Exception:
+            continue
+        ind = next(n for n in z.namelist() if "individual" in n.lower())
+        bases.append(pd.read_csv(z.open(ind), sep=";", low_memory=False, decimal=",",
+                                 usecols=["ANO4", "TRIMESTRE", "AGLOMERADO", "PONDERA", "ESTADO", "CAT_OCUP", "CH04", "CH06", "EMPLEO"]))
+        url = url or u
+        if len(bases) == 4:
+            break
+    if len(bases) < 4:
+        raise ValueError("no se encontraron cuatro trimestres de la EPH")
+    eph_informalidad(pd.concat(bases), pd)
+    return url
+
+
 def eph_antiguedad():
     """Encuesta Permanente de Hogares (INDEC), bases usuarias de los cuatro ultimos trimestres publicados.
     Se bajan a memoria y se guarda solo un resumen: porcentaje de asalariados (sin servicio domestico, que no responde
@@ -1056,7 +1118,7 @@ def eph_antiguedad():
         ind = next(n for n in z.namelist() if "individual" in n.lower())
         d = pd.read_csv(z.open(ind), sep=";", low_memory=False, decimal=",",
                         usecols=["ANO4", "TRIMESTRE", "ESTADO", "CAT_OCUP", "PP07A", "PP07H", "CH06", "NIVEL_ED", "P_DECCF", "PONDERA", "PONDIH",
-                                 "PP04A", "PP04C", "PP04C99", "PP04D_COD", "AGLOMERADO", "IPCF", "P21", "PONDIIO"], dtype={"PP04D_COD": str})
+                                 "PP04A", "PP04C", "PP04C99", "PP04D_COD", "AGLOMERADO", "IPCF", "P21", "PONDIIO", "CH04", "EMPLEO"], dtype={"PP04D_COD": str})
         bases.append(d)
         # la tenencia de la vivienda por aglomerado (etapa 27): la base de hogares del mismo trimestre
         hog = next(n for n in z.namelist() if "hogar" in n.lower())
@@ -1067,6 +1129,7 @@ def eph_antiguedad():
         raise ValueError("no se encontraron cuatro trimestres de la EPH")
     eph_ingresos(pd.concat(bases), np, pd)
     eph_poblacion(pd.concat(bases), pd)
+    eph_informalidad(pd.concat(bases), pd)
     d = pd.concat(bases)
     d = d[(d.ESTADO == 1) & (d.CAT_OCUP == 3) & d.PP07A.between(1, 6)].copy()
     d["corto"] = d.PP07A.between(1, 4)
@@ -2714,6 +2777,7 @@ TIPOS_SOCIEDAD = {"SOCIEDAD DE RESPONSABILIDAD LIMITADA", "SOCIEDAD POR ACCION S
                   "SOCIEDAD COLECTIVA", "CAPITAL E INDUSTRIA"}
 # fuentes que arma una función y no una dirección de FUENTES: --solo también las acepta por el nombre del archivo que escriben
 SOLO_FUNCIONES = {"jus_sociedades_resumen.csv": sociedades, "eph_poblacion_aglomerados.csv": eph_poblacion_sola,
+                  "eph_informalidad.csv": eph_informalidad_sola,
                   "indec_calendario.csv": indec_calendario, "oede_empleo_ramas.csv": oede_empleo}
 # las tablas de la API del INDEC (2 de noviembre de 2026, scripts/indec_api.py y docs/deploy/INDEC_API.md), una por una
 SOLO_FUNCIONES.update({indec_api.archivo(t): (lambda t=t: indec_api.bajar(CRUDO, [t])) for t in indec_api.TABLAS})
@@ -2769,7 +2833,7 @@ ARCHIVOS_DEL_REGISTRO = {
     "seguridad social (BESS)": ["bess_indicadores.xlsx", "bess_pnc.xlsx", "bess_provincias_pnc.xlsx", "bess_aaff.xlsx", "bess_provincias_aaff.xlsx",
                                 "bess_desempleo.xlsx", "bess_provincias_desempleo.xlsx"],
     "EPH antiguedad en el empleo": ["eph_antiguedad_resumen.csv", "eph_antiguedad_meta.json", "eph_ingresos_aglomerados.csv", "eph_poblacion_aglomerados.csv",
-                                    "eph_tenencia_aglomerados.csv"],
+                                    "eph_tenencia_aglomerados.csv", "eph_informalidad.csv"],
     "EPH, pobreza y mercado de trabajo por aglomerado": ["indec_eph_aglomerados.csv", "indec_pobreza_aglomerados.csv"],
     "empresas por provincia (OEDE)": ["oede_empresas_provincias.xlsx"],
     "petróleo y gas (resúmenes del Capítulo IV)": ["se_pozos_resumen.csv", "se_produccion_areas.csv", "se_produccion_empresas.csv", "se_produccion_resumen.csv"],

@@ -49576,6 +49576,7 @@ AGLO,31 aglomerados urbanos,3T2025,tasa_desocupacion_31_aglomerados,6.6,% de la 
 AGLO,31 aglomerados urbanos,4T2025,tasa_desocupacion_31_aglomerados,7.5,% de la población económicamente activa,"INDEC, Encuesta Permanente de Hogares"
 AGLO,31 aglomerados urbanos,1T2026,tasa_desocupacion_31_aglomerados,7.8,% de la población económicamente activa,"INDEC, Encuesta Permanente de Hogares"
 AGLO,31 aglomerados urbanos,2T2026,tasa_desocupacion_31_aglomerados,7.9,% de la población económicamente activa,"INDEC, Encuesta Permanente de Hogares"
+AGLO,31 aglomerados urbanos,2T2026,informalidad_ocupados_31_aglomerados,45.03,% de las personas ocupadas,"INDEC, Encuesta Permanente de Hogares, procesamiento propio de las bases"
 02,CABA,1S2026,pobreza_aglomerados_de_la_provincia,11.1,% de la población,"INDEC, Encuesta Permanente de Hogares (cálculo propio con los aglomerados de cada provincia)"
 06,Buenos Aires,1S2026,pobreza_aglomerados_de_la_provincia,36.0049,% de la población,"INDEC, Encuesta Permanente de Hogares (cálculo propio con los aglomerados de cada provincia)"
 10,Catamarca,1S2026,pobreza_aglomerados_de_la_provincia,37.3,% de la población,"INDEC, Encuesta Permanente de Hogares (cálculo propio con los aglomerados de cada provincia)"

@@ -2071,6 +2071,18 @@
    "ficha": "https://datina.com.ar/economia.html#f-expectativas"
   },
   {
+   "variable": "informalidad_ocupados_31_aglomerados",
+   "unidad": "% de las personas ocupadas",
+   "fuente": "INDEC, Encuesta Permanente de Hogares, procesamiento propio de las bases",
+   "desde": "2T2026",
+   "hasta": "2T2026",
+   "filas": 1,
+   "jurisdicciones": [
+    "AGLO"
+   ],
+   "ficha": "https://datina.com.ar/trabajo.html#f-informalidad"
+  },
+  {
    "variable": "isac_promedio_anual",
    "unidad": "índice, 2004 = 100",
    "fuente": "INDEC, ISAC",

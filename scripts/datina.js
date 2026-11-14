@@ -333,7 +333,7 @@ const rangoDep = (filas, k, que) => {
 };
 // Gobierno (etapa 25): las cuentas de la Nación, la recaudación, la deuda, el empleo público y los impuestos de las provincias
 // la desocupación de los aglomerados de la EPH (plan de mejora, etapa 4)
-const DSO = R.desocupacion, PZA = R.pobreza_aglomerados;
+const DSO = R.desocupacion, PZA = R.pobreza_aglomerados, INF = R.informalidad;
 const GOB = R.gobierno, GBN = GOB.nacion, GRT = GOB.recaudacion, GBD = GOB.deuda, GBC = GOB.empleo, GBP = GOB.provincial, CPA = R.coparticipacion;
 // la deuda de cada provincia (plan de mejora, sección 10, 31 de octubre de 2026): en el texto, "2,48 millones de pesos", "780 mil pesos" o
 // "392 pesos", y en las barras lo mismo sin "pesos", como el eje
@@ -1826,6 +1826,16 @@ const TX = {
     `tamaño es el de toda la empresa, según su personal promedio de los últimos cuatro trimestres, con topes distintos en cada rama: en el comercio minorista, ` +
     `una microempresa tiene hasta 5 personas, una pequeña hasta 26 y una mediana hasta 100. El OEDE clasifica por tamaño solo a la industria, el comercio y ` +
     `los servicios, el ${pct(EM.tam_cubre)} de las empresas del país: el agro, la minería, la construcción y la electricidad, gas y agua no entran en esa vista.`,
+  // la informalidad (14 de noviembre de 2026): la cifra destacada dice la del último trimestre en el total de los 31 aglomerados
+  informalidad: `La parte de los ocupados con un empleo informal iba del ${pct(INF.min[1])} en ${INF.min[0]} al ${pct(INF.max[1])} en ${INF.max[0]}. ` +
+    `Solo en el ${INF.ultimo}, en el total de los 31 aglomerados, fue el ${pct(INF.pais_ultimo)}.`,
+  "informalidad-nota": `Informal es el empleo sin la protección de la seguridad social. Para los asalariados, el que no tiene descuento jubilatorio. ` +
+    `Para los patrones y los trabajadores por cuenta propia, el de quienes no tienen su actividad registrada, ` +
+    `con los criterios del INDEC. Los trabajadores familiares sin remuneración son informales por ` +
+    `definición. Es la clasificación que el INDEC agregó a la Encuesta Permanente de Hogares desde el ${INF.ini}, la misma de sus tasas de empleo ` +
+    `formal e informal: el cálculo de Datina con las bases da su misma cifra del total. En las ciudades chicas un trimestre tiene pocas personas ` +
+    `encuestadas, así que se juntan los cuatro trimestres (el aglomerado con menos casos tiene ${n0(INF.casos_min)} ocupados encuestados). La EPH ` +
+    `mide 31 aglomerados urbanos, no las provincias enteras ni el campo. Qué no dice este dato: no dice cuánto se gana ni si el trabajo alcanza para vivir.`,
   desocupacion: LEAD.desocupacion("ciudad"), "desocupacion-nota": `Desocupada es la persona que no tiene trabajo, lo buscó activamente y está ` +
     `disponible para trabajar. La tasa se calcula sobre la población económicamente activa: las personas que trabajan o buscan trabajo. La EPH es una ` +
     `encuesta del INDEC en 31 aglomerados urbanos, que no mide las zonas rurales ni las ciudades chicas. Un aglomerado es una ciudad con su área urbana ` +
@@ -4104,6 +4114,37 @@ Object.assign(DIB, {
     const pais = T.empresas_tamano_sector.find(r => r.codigo_indec === "00");
     // los valores con un decimal, como el texto y la cifra destacada
     apiladasH(el, {anim: a, claves: cl, valF: n1, data: [pais, ...T.empresas_tamano_sector.filter(r => r.codigo_indec !== "00").sort((p, q) => q[cl[0].k] - p[cl[0].k])]});
+  }),
+  // la informalidad (14 de noviembre de 2026): cada aglomerado de la EPH con la línea de los 31, resaltados los de la provincia elegida, como la
+  // desocupación, o el total de los 31 por tipo de trabajo, sexo y edad, en ese orden (sin los trabajadores familiares, informales por definición)
+  informalidad: conTablas("informalidad", () => MED.informalidad === "grupo" ? ["informalidad_grupos"] : ["informalidad_aglomerados"], a => {
+    const el = G("informalidad");
+    if (MED.informalidad === "grupo") {
+      $t("informalidad").textContent = `En ${INF.trimestres}, tenía un empleo informal el ${pct(INF.asalariados)} de los asalariados, el ` +
+        `${pct(INF.cuenta_propia)} de los trabajadores por cuenta propia y el ${pct(INF.patrones)} de los patrones. Entre las mujeres ocupadas, ` +
+        `el ${pct(INF.mujeres)}, y entre los varones, el ${pct(INF.varones)}. Por edad, era más alta entre los ocupados de hasta 24 años, el ` +
+        `${pct(INF.jovenes)}, y los de 65 y más, el ${pct(INF.mayores)}, y más baja entre los de ${INF.edad_min[0]} años, el ${pct(INF.edad_min[1])}.`;
+      const filas = T.informalidad_grupos.filter(r => r.grupo !== "Trabajadores familiares sin remuneración")
+        .map(r => ({...r, codigo_indec: "g" + r.dimension + r.orden, territorio: r.dimension === "edad" && r.grupo !== "Hasta 24 años" ? r.grupo + " años" : r.grupo}));
+      barrasH(el, {anim: a, data: filas, k: "informalidad", vf: pct, af: v => n0(v) + "%", ref: INF.pais, refLab: `Total ${pct(INF.pais)}`, sinOrden: true,
+        l: 150, lAngosto: 118, tip: d => `<b>${d.territorio}</b><br>${pct(d.informalidad)} con empleo informal, ${INF.trimestres}` +
+          `<br>Solo el ${INF.ultimo}: ${pct(d.informalidad_ultimo_trimestre)}<br>${n0(d.ocupados_encuestados)} ocupados encuestados`});
+      el.resaltar = null;
+      return;
+    }
+    const filas = T.informalidad_aglomerados.filter(r => r.aglomerado > 0).map(r => ({...r, codigo_indec: "a" + r.aglomerado, territorio: r.nombre}));
+    const suyas = prov ? filas.filter(r => String(r.provincias).split(",").includes(prov)) : [];
+    let txt = TX.informalidad;
+    if (suyas.length === 1 && suyas[0].nombre !== INF.max[0] && suyas[0].nombre !== INF.min[0]) txt += ` En ${suyas[0].nombre}, el ${pct(suyas[0].informalidad)}.`;
+    if (suyas.length > 1) txt += ` En los aglomerados de ${NOMBRES[prov]}, ${lista(suyas.map(r => `${pct(r.informalidad)} en ${r.nombre}`))}.`;
+    $t("informalidad").textContent = txt;
+    barrasH(el, {anim: a, data: filas, k: "informalidad", vf: pct, af: v => n0(v) + "%", ref: INF.pais, refLab: `31 aglomerados ${pct(INF.pais)}`,
+      marcar: new Set(suyas.map(r => r.codigo_indec)), l: 220, lAngosto: 132,
+      corto: d => d.nombre === "Partidos del Gran Buenos Aires" ? "Partidos del GBA" : IA_CORTO[d.nombre] || d.nombre,
+      tip: d => `<b>${d.nombre}</b><br>${pct(d.informalidad)} de los ocupados con empleo informal, ${INF.trimestres}` +
+        (d.informalidad_ultimo_trimestre != null ? `<br>Solo el ${INF.ultimo}: ${pct(d.informalidad_ultimo_trimestre)}` : "") +
+        `<br>${n0(d.ocupados_encuestados)} ocupados encuestados`});
+    el.resaltar = null;
   }),
   // la desocupación (plan de mejora, etapa 4): cada aglomerado de la EPH con la línea de los 31, resaltados los de la provincia elegida (se
   // redibuja al cambiarla, como los ingresos por aglomerado), o el total de los 31 trimestre a trimestre
@@ -7781,6 +7822,8 @@ const CLAVE = {
     `en el ${PZA.semestre}, la región con más pobreza`, `de las personas de los aglomerados urbanos ${delReg(PZA.reg_max[0])}, la región con más pobreza, en el ${PZA.semestre}`],
   "f-empresas-tamano": [pct(EM.tam_micro), `de las empresas privadas de industria, comercio y servicios del país eran microempresas en ${EM.anio}`,
     `de las empresas de industria, comercio y servicios del país eran microempresas en ${EM.anio}`],
+  "f-informalidad": [pct(INF.pais), `de los ocupados de los 31 aglomerados urbanos tenía un empleo informal, en promedio, en ${INF.trimestres}, según la EPH del INDEC`,
+    `de los ocupados tenía un empleo informal, promedio de ${INF.trimestres}`],
   "f-desocupacion": [pct(DSO.pais), `de las personas que trabajaban o buscaban trabajo en los 31 aglomerados urbanos estaba desocupada, en promedio, en ${DSO.trimestres}`,
     `desocupación de los 31 aglomerados, promedio de ${DSO.trimestres}`],
   "f-coparticipacion": [`${n2(CPA.pais_hab / 1e6)} millones de pesos`, `por habitante recibieron las provincias y CABA en ${CPA.anio} por la coparticipación federal y otros ` +

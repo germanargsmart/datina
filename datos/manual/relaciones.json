@@ -2604,6 +2604,17 @@
    "url": "https://www.indec.gob.ar/ftp/cuadros/menusuperior/eph/EPH_usu_{trimestre}_Trim_{anio}_txt.zip"
   },
   {
+   "id": "ds:eph_informalidad.csv",
+   "nombre": "Informalidad de los ocupados por aglomerado, categoría ocupacional, sexo y edad (resumen de las bases usuarias de la EPH)",
+   "fuente": "org:indec",
+   "ruta": "datos/crudo/eph_informalidad.csv",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "r.to_csv(CRUDO / \"eph_informalidad.csv\", index=False)"
+   },
+   "url": "https://www.indec.gob.ar/ftp/cuadros/menusuperior/eph/EPH_usu_{trimestre}_Trim_{anio}_txt.zip"
+  },
+  {
    "id": "ds:indec_pobreza_aglomerados.csv",
    "nombre": "Pobreza e indigencia de las regiones y los 31 aglomerados de la EPH, último semestre, con su coeficiente de variación",
    "fuente": "org:indec",
@@ -8519,6 +8530,22 @@
      "contiene": "const glaciares = (d.glaciares || []).length ? aPath(d.glaciares) : null;"
     }
    ]
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:eph_informalidad.csv",
+   "a": "f-informalidad",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "inf = pd.read_csv(CRUDO / \"eph_informalidad.csv\")"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"informalidad_aglomerados\": informalidad_aglomerados,"
+    }
+   ],
+   "tabla": "informalidad_aglomerados"
   }
  ],
  "fichas": {
@@ -9092,6 +9119,11 @@
    "variables": [
     "salario_minimo_pct_canasta_total_hogar",
     "salario_minimo_vital_movil"
+   ]
+  },
+  "f-informalidad": {
+   "variables": [
+    "informalidad_ocupados_31_aglomerados"
    ]
   }
  }
