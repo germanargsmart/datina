@@ -739,7 +739,7 @@ if "calendario_indec" in D["datos"]:
         _ics += ["BEGIN:VEVENT", f"UID:{huella(_c['fecha'] + _c['informe'])}@datina", f"DTSTAMP:{_ics_a}{_ics_m}{_ics_d}T000000Z",
                  f"DTSTART:{_ini:%Y%m%dT%H%M%SZ}", f"DTEND:{_ini + datetime.timedelta(minutes=30):%Y%m%dT%H%M%SZ}",
                  "SUMMARY:" + _ics_texto(f"INDEC: {_c['informe']}"),
-                 "DESCRIPTION:" + _ics_texto(f"El INDEC publica este informe a las {_c['hora']}. Datina lo suma en su actualización del día 5 que sigue. "
+                 "DESCRIPTION:" + _ics_texto(f"El INDEC publica este informe a las {_c['hora']}. Datina lo suma en su actualización siguiente (los días 5, 15 y 23). "
                                              f"En Datina: {_ics_tit[_c['ficha']]} {_dir}"),
                  f"URL:{_dir}", "END:VEVENT"]
     _ics.append("END:VCALENDAR")
