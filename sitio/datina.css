@@ -103,7 +103,7 @@
   --sombra-panel:0 18px 30px rgba(24,33,43,.14);
   /* el vidrio de los menús desplegables (11 de octubre de 2026, pedido del autor: "pasar de fondo blanco a transparente"): traslúcido y
      desenfocado, para que el texto se siga leyendo sobre cualquier parte de la página */
-  --vidrio-menu:rgba(246,248,251,.72); --vidrio-blur:blur(18px) saturate(1.4);
+  --vidrio-menu:rgba(246,248,251,.72); --vidrio-blur:blur(18px) saturate(1.4); --tarjeta-mapa:rgb(255 255 255 / .9);
   --sombra-boton:0 2px 0 rgba(24,33,43,.14);
   /* movimiento: curvas y duraciones. 150 ms respuesta al mouse, 200 menús, cuadros y cambios de vista, 250 fichas y barra, 300 páginas y gráficos.
      Nada de la interfaz pasa de 300 ms: solo el sol y el gorro de la portada, que son decorativos */
@@ -487,6 +487,9 @@ html:not(.js) .busca-portada{display:none}
 @media (hover:hover) and (pointer:fine){.mapa-tarjeta .boton.principal:hover{--b-fondo:var(--azul-hondo);--b-borde:var(--azul-hondo)}}
 .mapa-fondo .provs a.tocada path,.mapa-fondo .provs a.tocada circle{fill:#fff;stroke:var(--azul-hondo)}
 /* en el celular, un panel fijo abajo de la pantalla: el mapa sigue a la vista */
+/* entre 761 y 1199 píxeles la tarjeta va encima del mapa: más clara y sin borde ni sombra (decisión del autor del 14 de noviembre de 2026, con
+   capturas). Sin recuadro el texto no se leería sobre el mapa */
+@media (min-width:761px) and (max-width:1199px){.mapa-tarjeta{border:0;box-shadow:none;background:var(--tarjeta-mapa)}}
 @media (max-width:760px){.mapa-tarjeta{position:fixed;left:12px;right:12px;top:auto;bottom:calc(12px + env(safe-area-inset-bottom,0px));width:auto;z-index:30}}
 /* Desde 1200 píxeles, donde hay lugar (pedido del autor, noviembre de 2026), todo va al costado del país y debajo del sol, sobre el azul, sin recuadro: al pasar
    el mouse, el nombre y una descripción, en letra legible (antes, una línea de 11 píxeles abajo del mapa), y al hacer clic, los datos de la
