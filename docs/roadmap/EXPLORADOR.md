@@ -23,7 +23,7 @@ Cada ficha muestra además lo que ya está escrito en el sitio: título, secció
 
 ## Decisiones dudosas que quedaron anotadas
 
-Los agentes que rastrearon el catálogo anotaron 52 dudas. Las principales, por si el autor quiere cambiarlas en `datos/manual/relaciones.json`:
+Los agentes que rastrearon el catálogo anotaron 52 dudas. **Resueltas el 14 de noviembre de 2026**: el autor pidió que las resuelva Claude con el criterio más conservador, y ese criterio es dejarlas como están. Cada asignación tiene su evidencia en el código y el pie de cada ficha nombra a su organismo (el validador lo controla), y cambiar un organismo sin una fuente que lo pida movería el pie de varias fichas. La única con un problema real es `energia_emae.csv`, que trae la demanda eléctrica (Secretaría de Energía, con datos de CAMMESA) y el EMAE del INDEC en un mismo archivo: un archivo tiene un solo organismo en el catálogo, así que queda con CAMMESA, y la ficha de electricidad de los hogares nombra al INDEC en su pie. Las principales:
 
 - Archivos de la API de Series de Tiempo que mezclan series de varios organismos: se asignaron al que produce la serie que usa la ficha (`energia_emae.csv` a CAMMESA, el ISAC al INDEC, los subsidios a Hacienda).
 - Selecciones armadas a mano (leyes clave, actas del presupuesto): organismo "Datina (selección propia)".
