@@ -1002,6 +1002,7 @@ Lo que cada grupo de la reescritura no cambió porque necesita corregir un dato,
    - Motivo: La regla de diseño dice «sin flechas decorativas» y la auditoría las marcó. Sacarlas cambia lo que se ve: necesita aprobación visual.
    - Propuesta: Sacar las flechas y dejar «Anterior», «Siguiente», «Todos los temas» y «al final de la página».
    - **Estado al 11 de noviembre de 2026: espera una decisión del autor.** Siguen las flechas de Anterior, Siguiente y "al final de la página". Falta la aprobación visual.
+   - **Estado al 14 de noviembre de 2026: resuelta.** El autor lo aprobó con capturas: sin flechas en "Anterior", "Siguiente", "Todos los temas" y "al final de la página" (`FLECHA_ANT`, `FLECHA_SIG` y `gancho()` en 03).
 
 3. **páginas de sección con provincia elegida, portada (tarjeta del mapa)** (`scripts/datina.js`)
    - Fragmento: «Posición ${orden} de ${c.d.length}, de mayor a menor. / ${pos}.º de ${x.d.length}, de mayor a menor.»
