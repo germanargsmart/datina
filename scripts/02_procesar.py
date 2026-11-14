@@ -6328,6 +6328,165 @@ _smv_u, _smv_0 = smv_canasta.iloc[-1], smv_canasta.iloc[0]
 _smv_mx, _smv_mn = smv_canasta.loc[smv_canasta.pct_canasta_total.idxmax()], smv_canasta.loc[smv_canasta.pct_canasta_total.idxmin()]
 _smv_fij = _smv[_smv.periodo > _smv_u.periodo]
 _smv_a = smv_canasta[smv_canasta.periodo == f"{int(_smv_u.periodo[:4]) - 1}{_smv_u.periodo[4:]}"]
+# la factura de luz de una casa del Gran Buenos Aires (fuentes nuevas aprobadas por el autor el 14 de noviembre de 2026, que pasó la página de
+# tarifas del ENRE): con cada cuadro tarifario de Edenor y Edesur desde noviembre de 1995 (enre_cuadros.json.gz, 01_descargar.py), lo que
+# paga por mes, sin impuestos, una casa que consume 150, 250 o 400 kWh por mes: el cargo fijo y el variable de la categoría que le toca. Hasta
+# 2016 la facturación era bimestral (el doble de consumo, y la factura se divide por dos). La tarifa es la general hasta agosto de 2022 y,
+# desde la segmentación de septiembre de 2022, la de los usuarios sin subsidio (nivel 1 o "sin subsidio"). De marzo de 2016 a noviembre de
+# 2017 los cuadros traen columnas para los usuarios que ahorraron: se usa "Sin ahorro". Los cuadros de la tarifa social no se usan. Prefijo enr_
+ENR_CONSUMOS = (150, 250, 400)
+
+
+def enr_num(x):
+    try:
+        return float(str(x).strip().replace(",", ""))
+    except ValueError:
+        return None
+
+
+def enr_rango(txt):
+    m = re.search(r"(\d+)\s*-\s*(\d+)", txt)
+    if m:
+        return int(m.group(1)), int(m.group(2))
+    m = re.search(r"\+\s*(\d+)", txt)
+    return (int(m.group(1)) + 1, 10 ** 9) if m else None
+
+
+def enr_leer(html):
+    """Los tramos residenciales de un cuadro: {(sección, empresa): {(categoría, rango): {per, cf, cv, cv_base, cv_exc}}}"""
+    sec, out = "general", {}
+    for p_ in re.split(r"(<table.*?</table>)", html, flags=re.S | re.I):
+        if not p_.lower().startswith("<table"):
+            for h in re.findall(r"Tarifa 1 - R[^<\[]{0,60}|Usuarios Generales", re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", p_))):
+                hl = h.lower()
+                sec = ("pleno" if "nivel 1" in hl or "sin subsidio" in hl else "n2" if "nivel 2" in hl else "n3" if "nivel 3" in hl
+                       else "subsidio" if "con subsidio" in hl else "fin" if "generales" in hl else sec)
+            continue
+        if sec == "fin":
+            continue
+        try:
+            t = pd.read_html(io.StringIO(p_), thousands=None)[0].fillna("").astype(str)
+        except ValueError:
+            continue
+        # la fila con la categoría (R1, Tarifa 1 - R2...) y las empresas: la primera o, con las columnas de ahorro, la segunda
+        h = next((i for i in range(min(3, len(t))) if re.match(r"^(Tarifa 1\s*-\s*)?R\s*\d+\b", t.iat[i, 0].strip())), None)
+        if h is None:
+            continue
+        cat = int(re.search(r"R\s*(\d+)", t.iat[h, 0]).group(1))
+        cols = {}
+        for j in range(2, t.shape[1]):
+            e = t.iat[h, j].strip().upper()
+            if e in ("EDENOR", "EDESUR") and e not in cols:  # la primera columna de cada empresa ("Sin ahorro")
+                cols[e] = j
+        for i in range(h + 1, len(t)):
+            lab, uni = t.iat[i, 0].strip(), t.iat[i, 1]
+            for e, j in cols.items():
+                v = enr_num(t.iat[i, j])
+                if v is None:
+                    continue
+                d = out.setdefault((sec, e), {}).setdefault((cat, enr_rango(lab)), {})
+                ll = lab.lower()
+                if ll.startswith("cargo fijo"):
+                    d["cf"], d["per"] = v, "bim" if "bim" in uni else "mes"
+                elif "excedente" in ll:
+                    d["cv_exc"] = v
+                elif "base" in ll:
+                    d["cv_base"] = v
+                elif ll.startswith("cargo variable"):
+                    d["cv"] = v
+    # el cargo fijo y el variable de un tramo pueden venir en filas con el mismo rango o el variable sin rango: se unen por categoría
+    for k, cats in out.items():
+        for (c, rg), d in list(cats.items()):
+            if "cf" not in d and rg is None:
+                otro = next((x for (c2, r2), x in cats.items() if c2 == c and "cf" in x), None)
+                if otro is not None:
+                    otro.update({a: b for a, b in d.items() if a not in otro})
+                    del cats[(c, rg)]
+    return out
+
+
+def enr_factura(cats, kwh_mes, base=None):
+    """La factura mensual sin impuestos de un consumo: el cargo fijo y el variable de la categoría que le corresponde"""
+    per = next((d["per"] for d in cats.values() if "per" in d), "mes")
+    c = kwh_mes * (2 if per == "bim" else 1)
+    for (cat, rg), d in sorted(cats.items(), key=lambda x: (x[0][0], (x[0][1] or (0, 0))[0])):
+        lo, hi = rg if rg else ((0, 300) if per == "bim" and cat == 1 else (301, 10 ** 9) if per == "bim" else (None, None))
+        if lo is None or not lo <= c <= hi or "cf" not in d:
+            continue
+        if "cv" in d:
+            var = d["cv"] * c
+        elif "cv_base" in d and base:
+            var = d["cv_base"] * min(c, base) + d.get("cv_exc", d["cv_base"]) * max(c - base, 0)
+        else:
+            return None
+        return (d["cf"] + var) / (2 if per == "bim" else 1)
+    return None
+
+
+# consumo base de los usuarios con subsidio (nota de los cuadros desde 2024): 300 kWh por mes de diciembre a febrero y de mayo a agosto, y
+# 150 kWh en los demás meses
+ENR_BASE_NOTA = "Períodos dic/feb y mayo/agosto: consumo base de 300 kWh/mes. Períodos marzo/abril y septiembre/noviembre: consumo base de 150 kWh/mes"
+_enr_g = json.loads(gzip.decompress((CRUDO / "enre_cuadros.json.gz").read_bytes()))
+_enr_f = []
+for _enr_doc, _enr_v in _enr_g.items():
+    _enr_m = re.search(r"del (\d{2})-(\d{4})", _enr_v["titulo"])
+    _enr_txt = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", _enr_v["html"]))
+    # los cuadros de la tarifa social y las variantes con ahorro de febrero de 2016 no son la tarifa general
+    if not _enr_m or "Tarifario Social" in _enr_txt[:3000] or "(" in _enr_v["titulo"]:
+        continue
+    _enr_t = enr_leer(_enr_v["html"])
+    _enr_sec = "pleno" if any(k[0] == "pleno" for k in _enr_t) else "general"
+    _enr_mes = f"{_enr_m.group(2)}-{_enr_m.group(1)}"
+    _enr_base = (300 if int(_enr_m.group(1)) in (12, 1, 2, 5, 6, 7, 8) else 150) if ENR_BASE_NOTA in _enr_txt else None
+    for _enr_e in ("EDENOR", "EDESUR"):
+        if (_enr_sec, _enr_e) not in _enr_t:
+            continue
+        fila = {"mes": _enr_mes, "orden": _enr_v["orden"], "empresa": _enr_e.lower()}
+        for c in ENR_CONSUMOS:
+            fila[f"k{c}"] = enr_factura(_enr_t[(_enr_sec, _enr_e)], c)
+            fila[f"s{c}"] = (enr_factura(_enr_t[("subsidio", _enr_e)], c, _enr_base)
+                             if ("subsidio", _enr_e) in _enr_t and _enr_base else None)
+        _enr_f.append(fila)
+_enr_d = pd.DataFrame(_enr_f)
+assert _enr_d[[f"k{c}" for c in ENR_CONSUMOS]].notna().all().all(), \
+    f"cuadros del ENRE sin la factura de algún consumo: {sorted(_enr_d[_enr_d[[f'k{c}' for c in ENR_CONSUMOS]].isna().any(axis=1)].mes)}"
+# en un mes con más de un cuadro, el más nuevo (el primero del índice del ENRE)
+_enr_d = _enr_d.sort_values("orden").drop_duplicates(["mes", "empresa"])
+assert _enr_d.mes.nunique() >= 300 and (_enr_d.groupby("mes").empresa.nunique() == 2).all(), "faltan cuadros del ENRE o una de las dos empresas"
+_enr_p = _enr_d.pivot(index="mes", columns="empresa", values=[f"k{c}" for c in ENR_CONSUMOS] + [f"s{c}" for c in ENR_CONSUMOS])
+_enr_p.columns = [f"{e}_{'sin' if k[0] == 'k' else 'con'}_subsidio_{k[1:]}" for k, e in _enr_p.columns]
+# cada mes, el último cuadro vigente: los meses sin cuadro nuevo repiten el anterior
+_enr_meses = pd.period_range(_enr_p.index.min(), _enr_p.index.max(), freq="M").strftime("%Y-%m")
+tarifa_luz = _enr_p.reindex(_enr_meses).ffill().rename_axis("periodo").reset_index()
+for c in ENR_CONSUMOS:
+    tarifa_luz[f"promedio_{c}"] = (tarifa_luz[f"edenor_sin_subsidio_{c}"] + tarifa_luz[f"edesur_sin_subsidio_{c}"]) / 2
+    tarifa_luz[f"promedio_con_subsidio_{c}"] = (tarifa_luz[f"edenor_con_subsidio_{c}"] + tarifa_luz[f"edesur_con_subsidio_{c}"]) / 2
+tarifa_luz = tarifa_luz.merge(_smv[["periodo", "salario_minimo"]], on="periodo", how="left")
+for c in ENR_CONSUMOS:
+    tarifa_luz[f"pct_salario_minimo_{c}"] = tarifa_luz[f"promedio_{c}"] / tarifa_luz.salario_minimo * 100
+# las columnas con subsidio solo existen desde que hay cuadros con y sin subsidio: antes quedan vacías (el ffill las deja vacías)
+tarifa_luz = tarifa_luz[["periodo", *[f"{e}_sin_subsidio_{c}" for c in ENR_CONSUMOS for e in ("edenor", "edesur")],
+                         *[f"promedio_{c}" for c in ENR_CONSUMOS], *[f"promedio_con_subsidio_{c}" for c in ENR_CONSUMOS],
+                         "salario_minimo", *[f"pct_salario_minimo_{c}" for c in ENR_CONSUMOS]]].round(4)
+_enr_u = tarifa_luz.iloc[-1]
+_enr_s = tarifa_luz.dropna(subset=["pct_salario_minimo_250"])
+_enr_0 = _enr_s.iloc[0]
+_enr_mn, _enr_mx = _enr_s.loc[_enr_s.pct_salario_minimo_250.idxmin()], _enr_s.loc[_enr_s.pct_salario_minimo_250.idxmax()]
+# el tramo más largo con la misma factura de 250 kWh (el congelamiento)
+_enr_r = (tarifa_luz.promedio_250.round(2) != tarifa_luz.promedio_250.round(2).shift()).cumsum()
+_enr_c = tarifa_luz.groupby(_enr_r).periodo.agg(["first", "last", "size"]).sort_values("size").iloc[-1]
+ENR_RES = {"mes": _mes_per(_enr_u.periodo), "desde": _mes_per(tarifa_luz.periodo.iloc[0]), "anio_ini": int(tarifa_luz.periodo.iloc[0][:4]),
+           "smvm_desde": _mes_per(_enr_0.periodo), "smvm_hasta": _mes_per(_enr_s.periodo.iloc[-1]),
+           **{f"f{c}": float(_enr_u[f"promedio_{c}"]) for c in ENR_CONSUMOS},
+           **{f"s{c}": (float(_enr_u[f"promedio_con_subsidio_{c}"]) if pd.notna(_enr_u[f"promedio_con_subsidio_{c}"]) else None) for c in ENR_CONSUMOS},
+           "edenor": float(_enr_u.edenor_sin_subsidio_250), "edesur": float(_enr_u.edesur_sin_subsidio_250),
+           "pct": r1(_enr_s.pct_salario_minimo_250.iloc[-1]), "pct_ini": r1(_enr_0.pct_salario_minimo_250),
+           **{f"pct{c}": r1(_enr_s[f"pct_salario_minimo_{c}"].iloc[-1]) for c in ENR_CONSUMOS},
+           **{f"pct_ini{c}": r1(_enr_0[f"pct_salario_minimo_{c}"]) for c in ENR_CONSUMOS},
+           "min": [_mes_per(_enr_mn.periodo), round(float(_enr_mn.pct_salario_minimo_250), 2)],
+           "max": [_mes_per(_enr_mx.periodo), r1(_enr_mx.pct_salario_minimo_250)],
+           "congelada": [_mes_per(_enr_c["first"]), _mes_per(_enr_c["last"]), round(int(_enr_c["size"]) / 12, 1)],
+           "f250_congelada": float(tarifa_luz.loc[tarifa_luz.periodo == _enr_c["first"], "promedio_250"].iloc[0])}
 SMV_RES = {
     "mes": _mes_per(_smv_u.periodo), "anio": int(_smv_u.periodo[:4]), "desde": _mes_per(_smv_0.periodo), "anio_ini": int(_smv_0.periodo[:4]),
     "smvm": float(_smv_u.salario_minimo), "cbt_hogar": float(_smv_u.cbt_hogar), "pct": float(_smv_u.pct_canasta_total),
@@ -8529,6 +8688,7 @@ tablas = {
     "inflacion_regiones": inflacion_regiones,
     "inflacion_rubros": inflacion_rubros,
     "inflacion_detalle": inflacion_detalle,
+    "tarifa_luz": tarifa_luz,
     "canasta_mensual": canasta_mensual,
     "salario_minimo_canasta": smv_canasta,
     "canasta_regiones": canasta_regiones,
@@ -8854,6 +9014,7 @@ resumen["anio_pob"] = ANIO_POB   # el año en curso: la población de lo que no 
 resumen["anio_pob_ficha"] = dict(sorted(ANIO_POB_FICHA.items()))   # tabla -> año de la población que usa (las notas de cada ficha)
 resumen["congreso"] = congreso_res
 resumen["mujeres_congreso"] = CGM_RES
+resumen["tarifa_luz"] = ENR_RES
 congreso_res["anio_fin"] = congreso_res["anio"] + 2   # fin del período legislativo en curso (la descripción de la ficha, etapa 37)
 resumen["presidentes"] = pres_res
 resumen["envejecimiento"] = env_res

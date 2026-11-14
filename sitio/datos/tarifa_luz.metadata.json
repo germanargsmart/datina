@@ -1,0 +1,131 @@
+{
+ "tabla": "tarifa_luz.csv",
+ "titulo": "¿Cuánto cuesta la luz de una casa del Gran Buenos Aires?",
+ "descripcion": "Factura mensual de luz sin impuestos de una casa de Edenor o Edesur según cuánto consume, en % del salario mínimo, de enero de 2004 a noviembre de 2026",
+ "seccion": "Energía",
+ "ficha": "https://datina.com.ar/energia.html#f-tarifa-luz",
+ "fuente": "Ente Nacional Regulador de la Electricidad (ENRE), cuadros tarifarios, y Consejo Nacional del Empleo, la Productividad y el Salario Mínimo, Vital y Móvil.",
+ "organismos": [
+  "Consejo del Salario (Consejo Nacional del Empleo, la Productividad y el Salario Mínimo, Vital y Móvil)",
+  "ENRE (Ente Nacional Regulador de la Electricidad)"
+ ],
+ "actualizacion": "Se actualiza cada mes.",
+ "cobertura": "Sin desglose territorial",
+ "periodo": "noviembre de 1995 a noviembre de 2026",
+ "anio_desde": 1995,
+ "anio_hasta": 2026,
+ "filas": 373,
+ "columnas": [
+  {
+   "nombre": "periodo",
+   "tipo": "Fecha",
+   "valores": "noviembre de 1995 a noviembre de 2026"
+  },
+  {
+   "nombre": "edenor_sin_subsidio_150",
+   "tipo": "Número",
+   "valores": "12,63 a 26.410,06"
+  },
+  {
+   "nombre": "edesur_sin_subsidio_150",
+   "tipo": "Número",
+   "valores": "12,79 a 25.999,81"
+  },
+  {
+   "nombre": "edenor_sin_subsidio_250",
+   "tipo": "Número",
+   "valores": "15,3 a 45.059,26"
+  },
+  {
+   "nombre": "edesur_sin_subsidio_250",
+   "tipo": "Número",
+   "valores": "15,3 a 44.271,12"
+  },
+  {
+   "nombre": "edenor_sin_subsidio_400",
+   "tipo": "Número",
+   "valores": "19,2 a 69.701,11"
+  },
+  {
+   "nombre": "edesur_sin_subsidio_400",
+   "tipo": "Número",
+   "valores": "19,2 a 68.533,77"
+  },
+  {
+   "nombre": "promedio_150",
+   "tipo": "Número",
+   "valores": "12,71 a 26.204,94"
+  },
+  {
+   "nombre": "promedio_250",
+   "tipo": "Número",
+   "valores": "15,3 a 44.665,19"
+  },
+  {
+   "nombre": "promedio_400",
+   "tipo": "Número",
+   "valores": "19,2 a 69.117,44"
+  },
+  {
+   "nombre": "promedio_con_subsidio_150",
+   "tipo": "Número",
+   "valores": "9.202,68 a 12.298 (363 celdas vacías)"
+  },
+  {
+   "nombre": "promedio_con_subsidio_250",
+   "tipo": "Número",
+   "valores": "16.112,26 a 29.900,31 (363 celdas vacías)"
+  },
+  {
+   "nombre": "promedio_con_subsidio_400",
+   "tipo": "Número",
+   "valores": "31.936,26 a 54.352,57 (363 celdas vacías)"
+  },
+  {
+   "nombre": "salario_minimo",
+   "tipo": "Número",
+   "valores": "350 a 398.800 (98 celdas vacías)"
+  },
+  {
+   "nombre": "pct_salario_minimo_150",
+   "tipo": "Número",
+   "valores": "0,24 a 6,74 (98 celdas vacías)"
+  },
+  {
+   "nombre": "pct_salario_minimo_250",
+   "tipo": "Número",
+   "valores": "0,31 a 11,47 (98 celdas vacías)"
+  },
+  {
+   "nombre": "pct_salario_minimo_400",
+   "tipo": "Número",
+   "valores": "0,46 a 17,78 (98 celdas vacías)"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "origen": [
+  {
+   "archivo": "datos/crudo/enre_cuadros.json.gz",
+   "nombre": "Cuadros tarifarios de Edenor y Edesur desde 1995",
+   "organismo": "ENRE",
+   "descargado": "2026-11-14",
+   "ultimo_intento": "2026-11-14",
+   "estado": "ok",
+   "url": "https://www.enre.gov.ar/web/TARIFASD.nsf/todoscuadros?OpenView"
+  },
+  {
+   "archivo": "datos/crudo/smvm.csv",
+   "nombre": "Salario mínimo, vital y móvil mensual (serie de la API de Series de Tiempo)",
+   "organismo": "Consejo del Salario",
+   "descargado": "2026-11-14",
+   "ultimo_intento": "2026-11-14",
+   "estado": "ok",
+   "url": "https://apis.datos.gob.ar/series/api/series/?format=csv&ids=57.1_SMVMM_0_M_34"
+  }
+ ],
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
+ "como_citar": "Datina (año de la consulta). ¿Cuánto cuesta la luz de una casa del Gran Buenos Aires? Con datos de Ente Nacional Regulador de la Electricidad (ENRE), cuadros tarifarios, y Consejo Nacional del Empleo, la Productividad y el Salario Mínimo, Vital y Móvil. https://datina.com.ar/energia.html#f-tarifa-luz. Consultado el día de la consulta.",
+ "datos_actualizados": "05/11/2026"
+}

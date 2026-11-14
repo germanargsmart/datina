@@ -2781,6 +2781,56 @@ def indec_calendario():
     return "https://www.indec.gob.ar/indec/web/Calendario-Fecha-0"
 
 
+def enre_tarifas():
+    """Cuadros tarifarios de Edenor y Edesur del ENRE, uno por cada cambio de tarifa desde noviembre de 1995 (fuentes nuevas aprobadas por el
+    autor el 14 de noviembre de 2026, que pasó la página de tarifas del ENRE). Son páginas HTML de una base Lotus Notes: se lee el índice
+    (de a 30) y se guarda cada cuadro tal como llega, en enre_cuadros.json.gz, con su título y su lugar en el índice (el primero es el más
+    nuevo). Los cuadros ya guardados no se vuelven a bajar: cada actualización baja solo los nuevos. 02 lee las tablas residenciales."""
+    import gzip, time
+    base = "https://www.enre.gov.ar"
+    # el servidor del ENRE solo ofrece cifrados viejos que Python ya no acepta por defecto: se bajan a nivel de seguridad 1 solo para él,
+    # y el certificado se sigue verificando (curl y los navegadores entran igual)
+    ctx = ssl.create_default_context()
+    ctx.set_ciphers("DEFAULT:@SECLEVEL=1")
+    abridor = urllib.request.build_opener(urllib.request.HTTPSHandler(context=ctx))
+    abridor.addheaders = list(UA.items())
+
+    def leer(url, timeout):
+        # el servidor corta a veces la conexión: hasta tres intentos
+        for intento in range(3):
+            try:
+                with abridor.open(url, timeout=timeout) as r:
+                    return r.read()
+            except (urllib.error.URLError, ConnectionError, TimeoutError):
+                if intento == 2:
+                    raise
+                time.sleep(5)
+    destino = CRUDO / "enre_cuadros.json.gz"
+    guardados = json.loads(gzip.decompress(destino.read_bytes())) if destino.exists() else {}
+    indice, inicio = [], 1
+    while True:
+        html = leer(f"{base}/web/TARIFASD.nsf/todoscuadros?OpenView&Start={inicio}&CollapseView", 120).decode("latin1")
+        items = re.findall(r'href="([^"]+?/todoscuadros/([0-9A-F]{32})\?opendocument)"[^>]*>\s*([^<]*)<', html, flags=re.I)
+        indice += items
+        if len(items) < 30:
+            break
+        inicio += 30
+    assert len(indice) > 300, f"el índice del ENRE trae {len(indice)} cuadros"
+    nuevos = 0
+    for orden, (href, doc, titulo) in enumerate(indice):
+        doc = doc.upper()
+        if doc not in guardados:
+            guardados[doc] = {"titulo": titulo.strip(), "html": leer(base + href.replace("\\", "/"), 120).decode("latin1")}
+            nuevos += 1
+            time.sleep(0.3)
+        guardados[doc]["orden"] = orden
+        guardados[doc]["titulo"] = titulo.strip()
+    assert all("Cuadro Tarifario" in v["titulo"] for v in guardados.values()), "un título del índice del ENRE no es un cuadro tarifario"
+    destino.write_bytes(gzip.compress(json.dumps(guardados, ensure_ascii=False, sort_keys=True).encode("utf-8"), mtime=0))
+    print(f"ENRE: {len(guardados)} cuadros, {nuevos} nuevos")
+    return f"{base}/web/TARIFASD.nsf/todoscuadros?OpenView"
+
+
 # los tipos societarios de la Ley General de Sociedades (19.550) y las sociedades por acciones simplificadas (Ley 27.349), como los escribe el registro
 TIPOS_SOCIEDAD = {"SOCIEDAD DE RESPONSABILIDAD LIMITADA", "SOCIEDAD POR ACCION SIMPLIFICADA", "SOCIEDAD ANONIMA", "SOCIEDAD ANONIMA UNIPERSONAL",
                   "SOCIEDAD LEY 19550 CAPITULO I SECCION IV", "SOCIEDAD EN COMANDITA SIMPLE", "SOCIEDAD EN COMANDITA POR ACCIONES",
@@ -2788,6 +2838,7 @@ TIPOS_SOCIEDAD = {"SOCIEDAD DE RESPONSABILIDAD LIMITADA", "SOCIEDAD POR ACCION S
 # fuentes que arma una función y no una dirección de FUENTES: --solo también las acepta por el nombre del archivo que escriben
 SOLO_FUNCIONES = {"jus_sociedades_resumen.csv": sociedades, "eph_poblacion_aglomerados.csv": eph_poblacion_sola,
                   "eph_informalidad.csv": eph_informalidad_sola,
+                  "enre_cuadros.json.gz": enre_tarifas,
                   "indec_calendario.csv": indec_calendario, "oede_empleo_ramas.csv": oede_empleo}
 # las tablas de la API del INDEC (2 de noviembre de 2026, scripts/indec_api.py y docs/deploy/INDEC_API.md), una por una
 SOLO_FUNCIONES.update({indec_api.archivo(t): (lambda t=t: indec_api.bajar(CRUDO, [t])) for t in indec_api.TABLAS})
@@ -2898,6 +2949,8 @@ for _nombre, _f in [("votaciones nominales", votaciones), ("exportaciones por se
                     ("permisos de edificación (INDEC)", permisos_edificacion), ("créditos hipotecarios UVA (BCRA)", hipotecas_uva),
                     ("crédito a los hogares por país (BIS)", bis_credito_hogares), ("electricidad por país (Ember, vía Our World in Data)", owid_electricidad),
                     ("precios de los combustibles por estación (Res. 1104/2004)", precios_combustibles),
+                    # con el nombre del archivo, el mismo que pone --solo: así la fila del registro es una sola
+                    ("enre_cuadros.json.gz", enre_tarifas),
                     ("demanda eléctrica por provincia y tipo de usuario (CAMMESA)", cammesa_demanda),
                     ("tipo de cambio real multilateral (BCRA)", tipo_cambio_real),
                     ("remuneraciones por provincia (OEDE)", oede_remuneraciones), ("salario docente por provincia (CECE)", cgecse_salario_docente),

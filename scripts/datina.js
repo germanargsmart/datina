@@ -239,7 +239,7 @@ const MESES = ["enero","febrero","marzo","abril","mayo","junio","julio","agosto"
 const signo = v => v < 0 ? `cayó ${n1(Math.abs(v))}%` : `creció ${n1(v)}%`;
 const enLoQueVa = (o, ultimo, que, sube, baja) => o && o.anio > ultimo
   ? ` Entre enero y ${MESES[o.mes - 1]} de ${o.anio}, ${que} ${o.var >= 0 ? sube : baja} ${pct(Math.abs(o.var))} respecto de los mismos meses de ${o.anio - 1}.` : "";
-const EV = R.envejecimiento, PPY = R.poblacion_proy, CM = R.causas_muerte, SX = R.externo, TRN = R.transito, PNZ = R.pobreza_ninez, MJC = R.mujeres_congreso;
+const EV = R.envejecimiento, PPY = R.poblacion_proy, CM = R.causas_muerte, SX = R.externo, TRN = R.transito, PNZ = R.pobreza_ninez, MJC = R.mujeres_congreso, ENR = R.tarifa_luz;
 // chicos de 5 a 14 años por provincia (3 de noviembre de 2026), de las proyecciones del INDEC
 const ESC = R.chicos_escuela;
 // sector externo: una fecha del BCRA (dd/mm/aaaa) y un mes (aaaa-mm) dichos en palabras, un trimestre (2T2026) y un saldo con su sentido
@@ -854,6 +854,14 @@ const LEAD = {
     : `En el ${TF.trim}, había ${n1(TF.pais)} accesos de telefonía fija cada 100 hogares en todo el país. La cifra más alta fue la de ${TF.top[0]}, ` +
       `con ${n1(TF.top[1])}, y le seguía ${TF.top2[0]}, con ${n1(TF.top2[1])}. La más baja, la de ${TF.bajo[0]}, con ${n1(TF.bajo[1])}. Desde el ` +
       `${TF.ini_trim}, bajó en ${TF.bajaron === 24 ? "las 24 jurisdicciones" : `${TF.bajaron} de las 24 jurisdicciones`}.`,
+  // la factura de luz (fuentes nuevas aprobadas por el autor el 14 de noviembre de 2026): la cifra destacada dice la parte del salario mínimo
+  // para 250 kWh, el texto da los pesos, cómo era antes y el congelamiento
+  "tarifa-luz": c => `En ${ENR.mes}, sin impuestos, una casa que consume ${c} kWh por mes pagaba ${n0(ENR["f" + c])} pesos de luz sin subsidio` +
+    (ENR["s" + c] ? ` y ${n0(ENR["s" + c])} con subsidio` : "") +
+    // con 250 kWh, la parte del salario mínimo ya la dice la cifra destacada
+    (c === "250" ? ". En " : `, el ${pct(ENR["pct" + c])} del salario mínimo sin subsidio. En `) + `${ENR.smvm_desde}, sin subsidio, era ` +
+    `el ${pct(ENR["pct_ini" + c])}. Entre ${ENR.congelada[0]} y ${ENR.congelada[1]} la factura de 250 kWh no cambió, y con la inflación ` +
+    `su parte del salario mínimo cayó hasta ${pct(ENR.min[1])} en ${ENR.min[0]}. Desde entonces volvió a subir.`,
   // la TV paga (fuentes nuevas aprobadas por el autor el 14 de noviembre de 2026): por provincia en el último trimestre, o la evolución del país
   "tv-paga": v => v === "serie"
     ? `En el ${TVP.ini_trim} había en el país ${n1(TVP.pais_ini)} accesos de TV por suscripción cada 100 hogares y ${n1(TVP.sat_ini)} de TV satelital. ` +
@@ -1562,6 +1570,12 @@ const TX = {
     `La ley de cupo de 1991 obligó a poner al menos un 30% de mujeres en lugares con chances en las listas, y desde la elección de 1993 ` +
     `la parte de diputadas creció (${pct(MJC.dip_93)} en 1993). En el Senado el salto llegó en 2001, con la primera elección directa. Desde ` +
     `2019 rige la ley de paridad, que obliga a alternar mujeres y varones en las listas. Hoy, ${pct(MJC.dip)} en Diputados y ${pct(MJC.sen)} en el Senado.`,
+  "tarifa-luz": LEAD["tarifa-luz"]("250"), "tarifa-luz-nota": `Cargo fijo y cargo variable de la categoría residencial que corresponde a cada consumo, en el cuadro tarifario del ENRE ` +
+    `vigente cada mes, promedio de Edenor y Edesur. Cuando la factura era bimestral se toma la mitad. Hasta ` +
+    `agosto de 2022 la tarifa era la misma para todos los hogares y tenía subsidios del Estado en el precio de la energía. Desde la segmentación ` +
+    `de septiembre de 2022 la línea es la de los hogares sin subsidio: los que tienen subsidio pagan menos. Qué no dice este dato: no suma el ` +
+    `IVA ni las tasas, y vale solo para la zona de Edenor y Edesur (CABA y el conurbano). En el resto del país las tarifas las fijan las ` +
+    `provincias o los municipios.`,
   "mujeres-congreso-nota": `Bancas ocupadas hoy y el 1 de marzo de cada período, como en la ficha de las bancas de cada espacio político. Los ` +
     `registros de las cámaras no dicen el sexo de cada legislador: Datina lo toma de su nombre de pila, con una tabla revisada a mano, y los ` +
     `nombres que pueden ser de mujer o de varón se revisaron uno por uno. ${MJC.sin_det_serie ? `En ${MJC.sin_det_serie} casos de toda la serie no se ` +
@@ -3728,7 +3742,7 @@ const DIB = protegerDib({
 });
 
 /* ---------- petróleo y gas, construcción y vivienda (etapa 18) ---------- */
-Object.assign(MED, {refugio: "anio", supermercados: "prov", "cuentas-nacion": "resultado", recaudacion: "impuesto", "empleo-publico": "prov", "nacidos-otro-pais": "prov", "migracion-interna": "prov", radicaciones: "anio", "argentinos-exterior": "anio", inflacion: "doce", "inflacion-rubros": "division", canastas: "region", emae: "mes", "electricidad-provincias": "prov", "electricidad-sectores": "ind", salarios: "prov", "salario-docente": "prov", "inversion-educativa": "alumno",
+Object.assign(MED, {refugio: "anio", supermercados: "prov", "cuentas-nacion": "resultado", recaudacion: "impuesto", "empleo-publico": "prov", "nacidos-otro-pais": "prov", "migracion-interna": "prov", radicaciones: "anio", "argentinos-exterior": "anio", inflacion: "doce", "inflacion-rubros": "division", "tarifa-luz": "250", canastas: "region", emae: "mes", "electricidad-provincias": "prov", "electricidad-sectores": "ind", salarios: "prov", "salario-docente": "prov", "inversion-educativa": "alumno",
   delitos: "tipo", robos: "robos", homicidios: "prov", carceles: "serie", "sin-condena": "prov", coparticipacion: "hab", "deuda-provincias": "hab", abandono: "ab", telefonia: "prov", "tv-paga": "prov", "cobertura-suelo": "natural", medicos: "activos", hospitales: "hospitales", "distancia-hospital": "hospital", sociedades: "prov", desocupacion: "ciudad", "empresas-tamano": "tam", "pobreza-aglomerados": "region", combustibles: "nafta", "combustibles-vista": "prov", subsidios: "pbi", "obra-publica": "prov", "gas-consumo": "prov", centrales: "mapa", "mapa-pozos": "cuenca", productividad: "pozo", fracturas: "etapas", "pozos-terminados": "anio", petroleo: "tipo", gas: "tipo", "gas-hogares-vista": "prov", "hidro-provincias": "pet_kbd", "areas-hidro": "pet", arArea: "", pozos: "pozo", "empresas-hidro": "pct_pet",
   "empleo-hidro": "prov", regalias: "pct_regalias", reservas: "pet", "mundo-petroleo": "crudo_kbd", insumos: "var_12m",
   "empleo-construccion": "construccion_cada_1000", "trabajadores-vista": "prov", vivienda: "pct_alquila", "vivienda-vista": "prov"});
@@ -5056,6 +5070,14 @@ function textoAnios(filas, v, p) {
 TX["anioscong"] = $t("anioscong").textContent = textoAnios(AC.top.map(d => ({nombre: d.nombre, anios_total: d.total, anios_diputados: d.dip,
   anios_senado: d.sen, sigue: d.sigue})), "total", "");
 MED.anioscong = "total";
+// la factura de luz: la parte del salario mínimo que se lleva cada consumo, mes a mes
+DIB["tarifa-luz"] = conTablas("tarifa-luz", ["tarifa_luz"], a => {
+  const c = MED["tarifa-luz"], k = "pct_salario_minimo_" + c;
+  $t("tarifa-luz").textContent = LEAD["tarifa-luz"](c);
+  lineas(G("tarifa-luz"), {anim: a, mensual: true, y0: 0, vf: pct, yf: v => n0(v) + "%", x: "t", xl: r => mesPer(r.periodo),
+    data: T.tarifa_luz.filter(r => r[k] != null).map(r => ({...r, t: tPer(r.periodo)})),
+    series: [{k, lab: `${c} kWh por mes, sin subsidio`, corto: `${c} kWh`, c: NAR, w: 3}]});
+});
 // bancas de mujeres: cada provincia (diputados y senadores juntos) con la línea de todo el Congreso, o las dos cámaras desde 1983
 MED["mujeres-congreso"] = "prov";
 DIB["mujeres-congreso"] = conTablas("mujeres-congreso", () => MED["mujeres-congreso"] === "serie" ? ["mujeres_congreso"] : [], a => {
@@ -8116,6 +8138,8 @@ const CLAVE = {
   "f-bcra": BCR_INI.t === "dolar"
     ? [`${n0(BCR_INI.v)} pesos`, `costaba el ${BCR_INI.n.toLowerCase()}, el ${fLarga(BCR_INI.f)}, según el Banco Central`, `costaba el ${BCR_INI.n.toLowerCase()}, el ${fLarga(BCR_INI.f)}`]
     : [pct(BCR_PF.v), `nominal anual pagaban en promedio los plazos fijos a 30 días el ${fLarga(BCR_PF.f)}`, `nominal anual en plazos fijos a 30 días, el ${fLarga(BCR_PF.f)}`],
+  "f-tarifa-luz": [pct(ENR.pct250), `del salario mínimo costaba en ${ENR.mes} la luz de una casa de Edenor o Edesur que consume 250 kWh por mes, sin impuestos ni subsidio`,
+    `del salario mínimo, la luz de una casa que consume 250 kWh por mes`],
   "f-mujeres-congreso": [pct(MJC.total), `de las bancas del Congreso ocupaban mujeres el ${MJC.fecha}: ${pct(MJC.dip)} en Diputados y ${pct(MJC.sen)} en el Senado`,
     `de las bancas del Congreso, ocupadas por mujeres`],
   "f-transito": [n1(TRN.max_v), `muertes en siniestros viales por año cada 100.000 habitantes hubo en ${listaY(TRN.max)} de ${TRN.desde} a ${TRN.hasta}, ${TRN.max.length > 1 ? "las tasas más altas" : "la tasa más alta"}`,
