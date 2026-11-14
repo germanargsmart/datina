@@ -4557,6 +4557,122 @@
    "como_citar": "Datina (año de la consulta). ¿Cuánta pobreza hay en cada región, en cada provincia y en cada ciudad? Con datos de INDEC, Encuesta Permanente de Hogares, incidencia de la pobreza y la indigencia. https://datina.com.ar/pobreza.html#f-pobreza-aglomerados. Consultado el día de la consulta."
   },
   {
+   "tabla": "pobreza_ninez",
+   "csv": "https://datina.com.ar/datos/pobreza_ninez.csv",
+   "metadatos": "https://datina.com.ar/datos/pobreza_ninez.metadata.json",
+   "titulo": "¿Cuántos chicos viven en hogares pobres?",
+   "descripcion": "Porcentaje de personas de 0 a 17 años bajo las líneas de pobreza e indigencia en los 31 aglomerados urbanos, por semestre y por edad, del segundo semestre de 2016 al primer semestre de 2026",
+   "seccion": "Pobreza y hogares",
+   "ficha": "https://datina.com.ar/pobreza.html#f-pobreza-ninez",
+   "fuente": "INDEC, Encuesta Permanente de Hogares, incidencia de la pobreza y la indigencia por edad.",
+   "organismos": [
+    "INDEC (Instituto Nacional de Estadística y Censos)"
+   ],
+   "actualizacion": "Se actualiza cada seis meses.",
+   "cobertura": "Sin desglose territorial",
+   "periodo": "2016 a 2026",
+   "anio_desde": 2016,
+   "anio_hasta": 2026,
+   "filas": 20,
+   "columnas": [
+    {
+     "nombre": "periodo",
+     "tipo": "Texto",
+     "valores": "20 valores distintos"
+    },
+    {
+     "nombre": "anio",
+     "tipo": "Año",
+     "valores": "2016 a 2026"
+    },
+    {
+     "nombre": "semestre",
+     "tipo": "Número",
+     "valores": "1 a 2"
+    },
+    {
+     "nombre": "t",
+     "tipo": "Número",
+     "valores": "2.016,5 a 2.026"
+    },
+    {
+     "nombre": "pobreza_0_17",
+     "tipo": "Número",
+     "valores": "40,07 a 67,1"
+    },
+    {
+     "nombre": "pobreza_0_5",
+     "tipo": "Número",
+     "valores": "35,7 a 63,9"
+    },
+    {
+     "nombre": "pobreza_6_11",
+     "tipo": "Número",
+     "valores": "40,13 a 67"
+    },
+    {
+     "nombre": "pobreza_12_17",
+     "tipo": "Número",
+     "valores": "41,54 a 69,4"
+    },
+    {
+     "nombre": "pobreza_65_y_mas",
+     "tipo": "Número",
+     "valores": "6,3 a 29,7"
+    },
+    {
+     "nombre": "pobreza_total",
+     "tipo": "Número",
+     "valores": "25,7 a 52,9"
+    },
+    {
+     "nombre": "indigencia_0_17",
+     "tipo": "Número",
+     "valores": "7,89 a 27,3"
+    },
+    {
+     "nombre": "indigencia_0_5",
+     "tipo": "Número",
+     "valores": "6,6 a 23,3"
+    },
+    {
+     "nombre": "indigencia_6_11",
+     "tipo": "Número",
+     "valores": "8,19 a 27,7"
+    },
+    {
+     "nombre": "indigencia_12_17",
+     "tipo": "Número",
+     "valores": "7,96 a 29,4"
+    },
+    {
+     "nombre": "indigencia_65_y_mas",
+     "tipo": "Número",
+     "valores": "0,6 a 4"
+    },
+    {
+     "nombre": "indigencia_total",
+     "tipo": "Número",
+     "valores": "4,8 a 18,1"
+    }
+   ],
+   "unidades": [],
+   "como_se_calcula": "",
+   "origen": [
+    {
+     "archivo": "pobreza/datos/crudo/ALL.json",
+     "nombre": "Pobreza e indigencia de los 31 aglomerados urbanos por semestre (extracto del tablero del INDEC)",
+     "organismo": "INDEC",
+     "armado": "2026-09-28"
+    }
+   ],
+   "sensible": false,
+   "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+   "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
+   "uso_libre": true,
+   "como_citar": "Datina (año de la consulta). ¿Cuántos chicos viven en hogares pobres? Con datos de INDEC, Encuesta Permanente de Hogares, incidencia de la pobreza y la indigencia por edad. https://datina.com.ar/pobreza.html#f-pobreza-ninez. Consultado el día de la consulta."
+  },
+  {
    "tabla": "ingresos_aglomerados",
    "csv": "https://datina.com.ar/datos/ingresos_aglomerados.csv",
    "metadatos": "https://datina.com.ar/datos/ingresos_aglomerados.metadata.json",

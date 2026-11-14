@@ -828,6 +828,19 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <div class="pie"><span>Fuente: INDEC, Encuesta Permanente de Hogares, incidencia de la pobreza y la indigencia</span><a href="datos/pobreza_aglomerados.csv" download>Por región y ciudad (CSV)</a><a href="datos/pobreza_provincias.csv" download>Por provincia (CSV)</a></div>
     </article>
 
+    <article class="ficha" id="f-pobreza-ninez">
+      <h2>¿Cuántos chicos viven en hogares pobres?</h2>
+      <p class="ficha-sub">Porcentaje de personas de 0 a 17 años bajo las líneas de pobreza e indigencia en los 31 aglomerados urbanos, por semestre y por edad, del {{pobreza_ninez.ini}} al {{pobreza_ninez.fin}}</p>
+      <div class="conmutador" role="group" aria-label="Vista" data-g="pobreza-ninez" style="--n:2">
+        <button type="button" data-m="serie" aria-pressed="true">Por semestre</button>
+        <button type="button" data-m="edad" aria-pressed="false">Por edad</button>
+      </div>
+      <div class="grafico" data-g="pobreza-ninez" data-forma="lineas"></div>
+      <p class="lead" data-t="pobreza-ninez"></p>
+      <p class="nota" data-t="pobreza-ninez-nota"></p>
+      <div class="pie"><span>Fuente: INDEC, Encuesta Permanente de Hogares, incidencia de la pobreza y la indigencia por edad</span><a href="datos/pobreza_ninez.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
     <article class="ficha" id="f-ingresos-aglomerados">
       <h2>¿De cuánto es el ingreso por persona de los hogares en cada ciudad?</h2>
       <p class="ficha-sub">Mediana del ingreso por persona del hogar y del ingreso de la ocupación principal en los 31 aglomerados urbanos, {{ingresos_aglomerados.trimestres}}, en pesos del {{ingresos_aglomerados.trimestre}}</p>

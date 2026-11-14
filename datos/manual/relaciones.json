@@ -3469,6 +3469,22 @@
   },
   {
    "tipo": "alimenta",
+   "de": "ds:ALL.json",
+   "a": "f-pobreza-ninez",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_pnz_n, _pnz_e = todo_pob[\"edad_ninos\"], todo_pob[\"edad\"]"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"pobreza_ninez\": pobreza_ninez,"
+    }
+   ],
+   "tabla": "pobreza_ninez"
+  },
+  {
+   "tipo": "alimenta",
    "de": "ds:bm_SI.DST.50MD.json",
    "a": "f-pobreza",
    "evidencia": [
@@ -9225,6 +9241,11 @@
   "f-informalidad": {
    "variables": [
     "informalidad_ocupados_31_aglomerados"
+   ]
+  },
+  "f-pobreza-ninez": {
+   "variables": [
+    "pobreza_0_17_31_aglomerados"
    ]
   }
  }
