@@ -81,7 +81,7 @@ Los textos, los gráficos y las tablas de Datina se pueden copiar y adaptar, tam
 
 - [Artículos: ¿Qué cuentan los datos cuando se los cruza?](https://datina.com.ar/articulos): Cada artículo cruza datos oficiales y dice sus fuentes y sus límites.
 - [Datos destacados: ¿Cuál es la cifra clave de cada tema?](https://datina.com.ar/datos-destacados): Cada dato con su fuente, su período y su tabla para descargar.
-- [Laboratorio](https://datina.com.ar/laboratorio): Piezas visuales con datos públicos: cada juez de la Corte Suprema, cada banca del Congreso, cada pozo de Vaca Muerta y las 24 jurisdicciones año por año, con sus fuentes.
+- [Laboratorio](https://datina.com.ar/laboratorio): Piezas visuales con datos públicos: cada juez de la Corte Suprema, cada pozo de Vaca Muerta y las 24 jurisdicciones año por año, con sus fuentes.
 - [¿Qué gobierno designó a cada juez de la Corte Suprema?](https://datina.com.ar/corte-suprema): Cada juez de la Corte Suprema de Justicia de la Nación desde 1863, cuánto estuvo en el cargo y qué gobierno lo designó, con la composición de cada año y las leyes que fijaron cuántos jueces tiene.
 - [Curiosidades: ¿Qué nombres se eligen para los bebés y cuánta carne, vino y yerba consumimos?](https://datina.com.ar/curiosidades): Cada dato con su fuente, su período y su tabla para descargar.
 - [¿Cuánto creció Vaca Muerta y cuánto le deja a Neuquén?](https://datina.com.ar/a-vaca-muerta): Compara series oficiales del país y dice de dónde salen y qué no permiten concluir.

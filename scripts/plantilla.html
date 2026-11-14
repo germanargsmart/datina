@@ -316,10 +316,12 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
        https://usafacts.org/the-viz-lab/"): piezas visuales grandes, como The Viz Lab de USAFacts, cada una con su gráfico vivo y un
        texto corto que calcula datina.js. Arriba lo más nuevo y abajo "Más del Laboratorio". Las que salen de una ficha llevan a ella -->
   <section class="laboratorio" id="laboratorio" aria-labelledby="lab-tit">
-    <h2 id="lab-tit">Laboratorio</h2>
+    <!-- el título es una pregunta (decisión del autor del 14 de noviembre de 2026). El nombre "Laboratorio" de los menús y las migas sale
+         de TITULO_DE en 03_construir_sitio.py. El hemiciclo y los años en el Congreso salieron ese día: repetían fichas de Instituciones políticas -->
+    <h2 id="lab-tit">¿Cómo se ve la Argentina dato por dato?</h2>
     <div class="tema-intro">
       <p class="pregunta">Muchos datos en un solo gráfico.</p>
-      <p>Piezas para mirar con tiempo, como los jueces de la Corte Suprema, cada banca del Congreso o cada pozo de Vaca Muerta. Cada una dice de dónde salen sus datos y lleva a su ficha o a su página, con las tablas para descargar.</p>
+      <p>Piezas para mirar con tiempo, como los jueces de la Corte Suprema o cada pozo de Vaca Muerta. Cada una dice de dónde salen sus datos y lleva a su ficha o a su página, con las tablas para descargar.</p>
     </div>
     <h2 class="bloque-grupo">Lo último</h2>
     <article class="lab-pieza grande" id="l-corte-lab" aria-labelledby="l-corte-t">
@@ -334,15 +336,6 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
         <div class="grafico" data-g="lab-corte" data-forma="lineas"></div>
       </div>
     </article>
-    <article class="lab-pieza grande invertida" id="l-hemiciclo" aria-labelledby="l-hemiciclo-t">
-      <div class="lab-texto">
-        <span class="etiqueta">Instituciones políticas</span>
-        <h2 id="l-hemiciclo-t">¿Quién ocupa cada banca del Congreso?</h2>
-        <p class="lab-lead" data-t="lab-hemiciclo"></p>
-        <a class="enlace" href="#f-legisladores">Ver la ficha completa <span aria-hidden="true">&rarr;</span></a>
-      </div>
-      <div class="grafico lab-hemi" data-g="lab-hemiciclo" data-forma="bloque" style="--alto:490px;--alto-c:775px"></div>
-    </article>
     <h2 class="bloque-grupo">Más del Laboratorio</h2>
     <div class="lab-grid">
       <article class="lab-pieza" id="l-pozos" aria-labelledby="l-pozos-t">
@@ -356,18 +349,6 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
           <div class="grafico" data-g="lab-pozos" data-forma="mapa"></div>
         </div>
         <a class="enlace" href="#f-mapa-pozos">Ver la ficha completa <span aria-hidden="true">&rarr;</span></a>
-      </article>
-      <article class="lab-pieza" id="l-anios" aria-labelledby="l-anios-t">
-        <div class="lab-texto">
-          <span class="etiqueta">Instituciones políticas</span>
-          <h2 id="l-anios-t">¿Quiénes pasaron más años en el Congreso?</h2>
-          <p class="lab-lead" data-t="lab-anios"></p>
-        </div>
-        <div class="lab-graf">
-          <div class="pol-ley" id="lab-anios-ley" aria-hidden="true"></div>
-          <div class="grafico" data-g="lab-anios" data-forma="barras" style="--filas:10;--alto:230px;--alto-c:225px"></div>
-        </div>
-        <a class="enlace" href="#f-anios-congreso">Ver la ficha completa <span aria-hidden="true">&rarr;</span></a>
       </article>
       <article class="lab-pieza" id="l-cruces" aria-labelledby="l-cruces-t">
         <div class="lab-texto">

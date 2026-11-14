@@ -4333,8 +4333,6 @@ tipExtra: d => `<br>${bandera(d.prov)}${d.provincias}` + (d.periodos_diputados ?
 el.resaltar = null;
 $t("anioscong").textContent = textoAnios(filas, v, p);
 });
-TX["lab-hemiciclo"] = $t("lab-hemiciclo").textContent = `Las ${n0(CG.n_dip)} bancas de la Cámara de Diputados y las ${CG.n_sen} del Senado, cada una con ` +
-`quien la ocupa hoy, agrupadas por espacio político y, dentro de cada espacio, por provincia. Al pasar el mouse o tocar una banca, el cuadro dice quién la ocupa.`;
 CU.tinte = d3.scaleLinear().domain([3000, 4500, 5500, 6400, 7000]).range(["#EADCB8", "#F1E7CF", "#F4EFE4", "#F6F9FC", "#FFFFFF"]).clamp(true);
 const RELIEVE = {"aconcagua": "e014295616", "antofalla": "cf3af4401b", "bonete-chico": "6f5c543508", "cerro-bayo": "4756782b44", "cumbre-del-libertador-general-san-martin": "af14c24008", "el-condor": "e177ca8510", "el-muerto": "cea3d18170", "incahuasi": "bf212562b5", "llullaillaco": "5bc6979152", "mercedario": "7f66b6a569", "monte-pissis": "62f9401a2e", "ojos-del-salado": "d680bdf3d8", "tipas": "29fb91180e", "tres-cruces": "298424f80c", "tupungato": "e875cb2653"};
 const cuPedidos = {};
@@ -4556,38 +4554,12 @@ ro.observe(caja);
 elegir(st.id);
 if (a && !REDUCIR && st.t === 1 && !st.vuelta) { st.t = 0; cuCargar(st.id).then(() => inclinar(1), () => { st.t = 1; }); }
 };
-DIB["lab-hemiciclo"] = () => {
-const el = G("lab-hemiciclo"); if (!el) return;
-if (!LGP) { esperando(el); lgCargar().then(DIB["lab-hemiciclo"]).catch(() => sinDatos(el, "No se pudo cargar el hemiciclo.")); return; }
-el.removeAttribute("aria-busy");
-const bh = bancasHemi(LG_ULT), marcada = NOMBRES[prov] ? prov : "";
-el.innerHTML = `<div class="lg-hemis">${hemiFig(bh, 0)}${hemiFig(bh, 1)}` +
-[0, 1].map(cam => `<div class="pol-ley ha-l${cam}">${leyHemi(bh.filter(b => b.cam === cam))}</div>`).join("") +
-`<p class="hemi-pie">Cada punto es una banca. Los espacios van en el orden de la leyenda y, dentro de cada uno, por provincia. ` +
-(marcada ? `Las bancas de ${NOMBRES[marcada]} quedan resaltadas.` : "Con una provincia elegida, sus bancas quedan resaltadas.") + `</p></div>`;
-el.querySelectorAll(".hemi-svg").forEach(h => hemiciclo(h, bh.filter(b => b.cam === +h.dataset.cam), marcada, tipBanca));
-};
 const COL_CORTES = c => [`Hasta ${c[0]}`, `${c[0] + 1} a ${c[1]}`, `${c[1] + 1} a ${c[2]}`, `${c[2] + 1} a ${c[3]}`, `Desde ${c[3] + 1}`].map((lab, i) => ({lab, c: COL_POZOS[i]}));
 TX["lab-pozos"] = $t("lab-pozos").textContent = `Cada punto es uno de los ${n0(PG.map_n)} pozos no convencionales que produjeron petróleo o gas desde ${PG.map_ini}, ` +
 `con el color del año en que empezó a producir y más claro si no produjo en ${PG.map_mes}. Debajo, las áreas de concesión.`;
 DIB["lab-pozos"] = conTablas("lab-pozos", ["pozos_no_convencionales", "areas_produccion"], a => {
 leyenda("lab-pozos-ley", COL_CORTES(PG.map_cortes));
 mapaPozos(G("lab-pozos"), {anim: a, vista: "cuenca"});
-});
-TX["lab-anios"] = $t("lab-anios").textContent = `Desde 1983, ${n0(AC.personas)} personas ocuparon una banca en el Congreso nacional y ${AC.veinte} sumaron ` +
-`20 años o más. El gráfico muestra a las 10 con más años: las barras separan los años en Diputados y en el Senado, y en negrita van quienes siguen en el cargo.`;
-DIB["lab-anios"] = conTablas("lab-anios", ["anios_congreso"], a => {
-const el = G("lab-anios"); if (!el) return;
-const filas = T.anios_congreso.filter(d => d.anios_total > 0)
-.sort((x, y) => y.anios_total - x.anios_total || x.nombre.localeCompare(y.nombre, "es")).slice(0, 10);
-const claves = [{k: "dip", lab: "Años en Diputados", c: css("--azul")}, {k: "sen", lab: "Años en el Senado", c: css("--celeste"), texto: css("--ink")}];
-leyenda("lab-anios-ley", claves);
-const data = filas.map((d, i) => ({...d, codigo_indec: "a" + i, prov: d.codigo_indec, territorio: d.nombre, dip: d.anios_diputados, sen: d.anios_senado}));
-const tope = (d3.max(filas, d => d.anios_total) || 1) * 1.18, marcas = d3.range(0, tope, 10);
-apiladasH(el, {anim: a, data, claves, max: tope, ticks: marcas, ejeF: x => x,
-izq: () => 172, recortar: true, sinProv: true, tipF: n1, alFinal: d => n1(d.anios_total), fuerte: d => d.sigue,
-tipExtra: d => `<br>${bandera(d.prov)}${d.provincias}` + (d.sigue ? "<br>Sigue en el cargo" : "")});
-el.resaltar = null;
 });
 const LAB_X = "natalidad", LAB_Y = "mortalidad_infantil", CRU_SR = R.cruces_series || {};
 const LAB_A0 = Math.max(CRU_SR[LAB_X][0], CRU_SR[LAB_Y][0]), LAB_A1 = Math.min(CRU_SR[LAB_X][1], CRU_SR[LAB_Y][1]);

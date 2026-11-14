@@ -1582,7 +1582,7 @@ pagina("usar-datos", "Usar los datos",
        {"usar-datos"})
 # Laboratorio (etapa 33): piezas visuales grandes, como The Viz Lab de USAFacts
 pagina("laboratorio", "Laboratorio",
-       "Piezas visuales con datos públicos: cada juez de la Corte Suprema, cada banca del Congreso, cada pozo de Vaca Muerta y las 24 jurisdicciones año por año, con sus fuentes.",
+       "Piezas visuales con datos públicos: cada juez de la Corte Suprema, cada pozo de Vaca Muerta y las 24 jurisdicciones año por año, con sus fuentes.",
        {"laboratorio"})
 for id_, _, titulo, descr in PIEZAS:
     pagina(id_, html.unescape(titulo), html.unescape(descr), {id_}, tipo="article")

@@ -468,6 +468,7 @@ Lo que cada grupo de la reescritura no cambió porque necesita corregir un dato,
    - Motivo: El h1 del Laboratorio es su nombre, no una pregunta: la sección no es "tema con-pregunta" y el constructor no convierte la p.pregunta en h1. Volverlo pregunta es estructura, y eximirlo es una decisión del autor.
    - Propuesta: Escribir en CLAUDE.md que el Laboratorio, por ser una galería, lleva su nombre como título.
    - **Estado al 11 de noviembre de 2026: espera una decisión del autor.** El título sigue siendo "Laboratorio", sin la excepción escrita en CLAUDE.md.
+   - **Estado al 14 de noviembre de 2026: resuelta.** Decisión del autor: el título es "¿Cómo se ve la Argentina dato por dato?". "Laboratorio" sigue en los menús, las migas y el título de la pestaña.
 
 18. **laboratorio.html#l-cruces** (`datos (R.cruces, unidad de la mortalidad infantil)`)
    - Fragmento: «muertes de menores de 1 año cada 1.000 nacidos vivos, promedio 3 años»
@@ -534,6 +535,7 @@ Lo que cada grupo de la reescritura no cambió porque necesita corregir un dato,
    - Motivo: Dos de las cinco piezas repiten fichas de Instituciones políticas. Es estructura.
    - Propuesta: Que el autor decida si quedan.
    - **Estado al 11 de noviembre de 2026: espera una decisión del autor.** El hemiciclo y los años siguen en el Laboratorio.
+   - **Estado al 14 de noviembre de 2026: resuelta.** Decisión del autor: salieron del Laboratorio (plantilla, `TX` y `DIB` de `datina.js` y su CSS). Quedan en Instituciones políticas.
 
 29. **politica.html (todas las fichas de leyes)** (`datos/manual/leyes_clave.csv`)
    - Fragmento: «nombres de leyes cambiados»
