@@ -301,9 +301,10 @@ export const TOPES_CF = {tablas: 3, filas: 60, caracteres: 6000, tokens: 700};
 const AGOTADO = "Por hoy se terminaron las consultas gratis de Datina. Se renuevan a las 21, hora de Argentina. Mientras, podés buscar el dato en el Catálogo de datos.";
 const SIN_TABLAS = "No encontré tablas de Datina sobre eso. Probá con otras palabras o buscá en el Catálogo de datos.";
 // sobre suicidio el modelo no se llama: la respuesta es siempre esta (CLAUDE.md, "Temas sensibles")
-export const AYUDA_SUICIDIO = "Datina trata ese tema en la sección Salud, sin cifras destacadas ni comparaciones entre provincias. Si vos o alguien cercano " +
-  "está pasando un momento difícil, podés pedir ayuda gratis al Centro de Asistencia al Suicida: 135 desde la Ciudad de Buenos Aires y el Gran " +
-  "Buenos Aires, (011) 5275-1135 desde todo el país, y en una emergencia, 107.";
+// el texto de la auditoría, aprobado por el autor el 14 de noviembre de 2026: igual al recuadro de ayuda de Salud ("CABA", no "la Ciudad")
+export const AYUDA_SUICIDIO = "Datina trata ese tema al final de la sección Salud. Si estás atravesando un momento difícil, o alguien cercano lo está, " +
+  "podés pedir ayuda. El Centro de Asistencia al Suicida atiende gratis en el 135 desde CABA y el Gran Buenos Aires, y en el (011) 5275-1135 " +
+  "desde todo el país. En una emergencia, llamá al 107.";
 // las provincias, para filtrar las tablas por su código (las más largas primero: "Ciudad de Buenos Aires" antes que "Buenos Aires")
 const PROVINCIAS = [["ciudad autonoma de buenos aires", "02"], ["ciudad de buenos aires", "02"], ["capital federal", "02"], ["caba", "02"],
   ["provincia de buenos aires", "06"], ["buenos aires", "06"], ["pba", "06"], ["catamarca", "10"], ["cordoba", "14"], ["corrientes", "18"],

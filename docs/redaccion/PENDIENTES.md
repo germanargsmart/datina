@@ -1066,6 +1066,7 @@ Lo que cada grupo de la reescritura no cambió porque necesita corregir un dato,
    - Motivo: La primera oración no es exacta: Salud tiene la ficha de suicidio por provincia (f-suicidio-prov), que compara las 24 jurisdicciones, y su forma está en discusión (decisión del autor, sección 13, punto 3). Además dice 'la Ciudad de Buenos Aires' donde el recuadro de ayuda del sitio dice 'CABA'. Es un tema sensible y un texto fijo de la función: lo decide el autor.
    - Propuesta: Datina trata ese tema al final de la sección Salud. Si estás atravesando un momento difícil, o alguien cercano lo está, podés pedir ayuda. El Centro de Asistencia al Suicida atiende gratis en el 135 desde CABA y el Gran Buenos Aires, y en el (011) 5275-1135 desde todo el país. En una emergencia, llamá al 107. (Conserva 135 y 107, que busca scripts/prueba_consulta_ia.mjs, y las tres líneas.)
    - **Estado al 11 de noviembre de 2026: espera una decisión del autor.** El aviso de suicidio de las consultas con IA sigue igual.
+   - **Estado al 14 de noviembre de 2026: resuelta.** El autor aprobó la propuesta: `AYUDA_SUICIDIO` en `functions/_ia/consulta.mjs`.
 
 5. **consulta-ia.html** (`scripts/plantilla.html, scripts/03_construir_sitio.py`)
    - Fragmento: «La pregunta la contesta un modelo abierto de inteligencia artificial que corre en Cloudflare»
