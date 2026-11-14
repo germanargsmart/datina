@@ -1,6 +1,6 @@
 """
 Paso 3. Arma las paginas.
-Escribe sitio/datos/fichas.js (los datos de sitio/datos/fichas.json y el indice del sitio, compartidos por todas las paginas),
+Escribe sitio/datos/fichas.js (los datos de datos/ordenado/fichas.json y el indice del sitio, compartidos por todas las paginas),
 sitio/datina.css y sitio/datina.js (el diseño y el comportamiento, tambien compartidos)
 y una pagina por seccion a partir de scripts/plantilla.html: sitio/index.html (portada) y sitio/{seccion}.html.
 Cada pagina lleva solo el marcado de su seccion. Lo que necesita saber de las demas (titulos, fichas, en que pagina
@@ -149,7 +149,11 @@ if malos:
 # Años y otros datos en los textos fijos de la plantilla (etapa 17): {{ruta}} con una ruta del resumen de los datos, por ejemplo
 # {{nacimientos.anio_ult}}. Se completan acá en cada actualización, así un título o una nota no quedan con el año viejo. Si la
 # ruta no existe en el resumen, el sitio no se arma.
-RESUMEN = json.loads((SITIO / "datos" / "fichas.json").read_text(encoding="utf-8"))["resumen"]
+# lo que arma 02_procesar.py: el resumen y las tablas. Desde el 14 de noviembre de 2026 está en datos/ordenado/ y no se publica (decisión del
+# autor: ninguna página lo usaba). Uno que quedó en sitio/datos/ de un armado anterior se borra
+FICHAS_JSON = RAIZ / "datos" / "ordenado" / "fichas.json"
+(SITIO / "datos" / "fichas.json").unlink(missing_ok=True)
+RESUMEN = json.loads((FICHAS_JSON).read_text(encoding="utf-8"))["resumen"]
 
 
 def dato_resumen(m):
@@ -373,7 +377,7 @@ base = re.sub(r"<!--PROGRAMAS:(\w+)-->", lambda m: programas(m.group(1)), base)
 DIR_BANDERAS = RAIZ / "datos" / "manual" / "banderas"
 with open(DIR_BANDERAS / "fuentes.csv", encoding="utf-8") as f:
     BANDERAS = list(csv.DictReader(f))
-NOMBRE_PROV = {f["codigo_indec"]: f["territorio"] for f in json.loads((SITIO / "datos" / "fichas.json").read_text(encoding="utf-8"))["datos"]["empleo_provincias"]}
+NOMBRE_PROV = {f["codigo_indec"]: f["territorio"] for f in json.loads((FICHAS_JSON).read_text(encoding="utf-8"))["datos"]["empleo_provincias"]}
 NOMBRE_PROV["00"] = "Argentina (Todo el país)"
 # Una página fija por jurisdicción (D3, decisión del autor del 1 de noviembre de 2026): el enlace dice de qué provincia es. provincia.html sigue
 # siendo donde se elige, y provincia.html?prov=58 sigue andando
@@ -399,7 +403,7 @@ base = base.replace("<!--BANDERAS-->",
 # la misma de Cruces (decisión 4 del autor del 12 de noviembre de 2026). Se escribe un bloque por jurisdicción, oculto, y datina.js muestra el de la provincia elegida. Si un
 # texto rompe las reglas de redacción o le falta su fuente, el sitio no se arma
 HISTORIA = json.loads((RAIZ / "datos" / "manual" / "provincias_historia.json").read_text(encoding="utf-8"))["provincias"]
-_fj = json.loads((SITIO / "datos" / "fichas.json").read_text(encoding="utf-8"))
+_fj = json.loads((FICHAS_JSON).read_text(encoding="utf-8"))
 HAB = {f["codigo_indec"]: f["poblacion"] for f in _fj["datos"]["cruces_provincias"] if f.get("poblacion")}
 HAB_ANIO = _fj["resumen"]["anio_pob_ficha"]["cruces_provincias"]
 _H_CAMPOS = [("fundacion_capital", "La capital"), ("provincia_desde", "La provincia"), ("antecedente", "Antecedentes"),
@@ -688,7 +692,7 @@ DIFERIDAS = ["antartida_instalaciones", "antartida_bases", "antartida_paises", "
              "puestos_provincias", "reservas_bcra", "voto_legisladores_y_provincia", "dengue_provincias", "inflacion_personal",
              "empresas_tamano_sector", "bcra_variables_lista", "congreso_composicion", "justicia_provincias", "ingresos_aglomerados",
              "mortalidad_infantil_causas", "deuda_provincias"]
-D = json.loads((SITIO / "datos" / "fichas.json").read_text(encoding="utf-8"))
+D = json.loads((FICHAS_JSON).read_text(encoding="utf-8"))
 D["diferidas"] = {}
 for nombre in DIFERIDAS:
     filas = D["datos"].pop(nombre)
@@ -1277,15 +1281,22 @@ for marca, valor in {"<!--TEMAS-BARRA-->": _barra, "<!--TEMAS-MENU-->": _menu, "
     base = base.replace(marca, valor)
 # Formularios de contacto y suscripción: los recibía Netlify. Desde el 23 de octubre de 2026 el sitio va a Cloudflare Pages, que no los
 # recibe, y el autor decidió ocultarlos hasta elegir otro servicio. Con "formularios" vacío en datos/manual/sitio.json, el armado saca la
-# suscripción del pie y el formulario de Contacto, que dice que todavía no está disponible. Con "netlify", quedan como estaban
+# suscripción del pie y el formulario de Contacto, que da el correo de "correo_contacto" o dice que todavía no está disponible. Con "netlify", quedan como estaban
 SITIO_CONF = json.loads((RAIZ / "datos" / "manual" / "sitio.json").read_text(encoding="utf-8"))
 FORMULARIOS = SITIO_CONF.get("formularios", "").strip()
 assert FORMULARIOS in ("", "netlify"), 'datos/manual/sitio.json: "formularios" tiene que ser "netlify" o quedar vacío'
 if not FORMULARIOS:
     base, _n = re.subn(r'\s*<!-- suscripción \(11 de octubre.*?</form>', "", base, count=1, flags=re.S)
     assert _n == 1, "no se encontró la suscripción del pie en la plantilla"
+    # con "correo_contacto" (14 de noviembre de 2026, decisión del autor), el correo en lugar del aviso: va al revés en data-correo y datina.js
+    # lo arma al cargar, así los robots que juntan correos no lo leen. Sin JavaScript, escrito con "arroba"
+    _correo = SITIO_CONF.get("correo_contacto", "").strip()
+    assert not _correo or re.fullmatch(r"[\w.+-]+@[\w-]+(\.[\w-]+)+", _correo), 'datos/manual/sitio.json: "correo_contacto" no es un correo'
+    _contacto = (f'<p class="form-nota contacto-correo">Escribinos a <a data-correo="{_correo[::-1]}" href="contacto.html">nuestro correo</a>.'
+                 f'<noscript> {_correo.replace("@", " arroba ")}</noscript></p>' if _correo else
+                 '<p class="form-nota">El formulario de contacto todavía no está disponible.</p>')
     base, _n = re.subn(r'<!-- formulario de Netlify.*?<p class="form-gracias" id="susc-gracias" hidden>[^<]*</p>',
-                       '<p class="form-nota">El formulario de contacto todavía no está disponible.</p>', base, count=1, flags=re.S)
+                       lambda m: _contacto, base, count=1, flags=re.S)
     assert _n == 1, "no se encontró el formulario de Contacto en la plantilla"
     # y "Tus datos", en Sobre nosotros, deja de hablar de los formularios (auditoría del 26 de octubre de 2026, E9)
     base, _n = re.subn(r'<p>Los formularios de Contacto y de novedades por correo.*?</p>', "", base, count=1, flags=re.S)
@@ -1544,7 +1555,7 @@ _h_prov = pagina("provincia", "Tu provincia",
                  "El perfil de cada provincia: sus indicadores frente al total del país, su posición entre las 24 jurisdicciones, su historia y las provincias que más se le parecen.",
                  {"provincia"})
 # Las 24 páginas fijas: la misma página, con su título, su descripción, su dirección y su imagen, y la provincia ya elegida (data-prov, que lee datina.js)
-_POB_PROV = {f["codigo_indec"]: f["personas_hoy"] for f in json.loads((SITIO / "datos" / "fichas.json").read_text(encoding="utf-8"))["datos"]["poblacion_proyectada_provincias"]}
+_POB_PROV = {f["codigo_indec"]: f["personas_hoy"] for f in json.loads((FICHAS_JSON).read_text(encoding="utf-8"))["datos"]["poblacion_proyectada_provincias"]}
 for _c, _a in PAG_PROV.items():
     _n = NOMBRE_PROV[_c]
     _t, _d = f"{_n} en números", (f"El perfil de {_n}: sus indicadores frente al total del país, su posición entre las 24 jurisdicciones, su historia y las jurisdicciones "
@@ -1575,7 +1586,7 @@ pagina("usar-datos", "Usar los datos",
        {"usar-datos"})
 # Laboratorio (etapa 33): piezas visuales grandes, como The Viz Lab de USAFacts
 pagina("laboratorio", "Laboratorio",
-       "Piezas visuales con datos públicos: cada juez de la Corte Suprema, cada banca del Congreso, cada pozo de Vaca Muerta y las 24 jurisdicciones año por año, con sus fuentes.",
+       "Piezas visuales con datos públicos: cada juez de la Corte Suprema, cada pozo de Vaca Muerta y las 24 jurisdicciones año por año, con sus fuentes.",
        {"laboratorio"})
 for id_, _, titulo, descr in PIEZAS:
     pagina(id_, html.unescape(titulo), html.unescape(descr), {id_}, tipo="article")

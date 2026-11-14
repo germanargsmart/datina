@@ -2,6 +2,8 @@
   "url": "https://datina.com.ar",
   "formularios": "",
   "nota_formularios": "Quién recibe el formulario de Contacto y la suscripción del pie. Vacío (23 de octubre de 2026, decisión del autor al pasar a Cloudflare Pages, que no los recibe): el armado los saca y Contacto dice que el formulario todavía no está disponible. Con \"netlify\" vuelven como estaban, para Netlify Forms.",
+  "correo_contacto": "germansmart95@gmail.com",
+  "nota_correo_contacto": "El correo que muestra Contacto mientras los formularios están apagados (14 de noviembre de 2026, decisión del autor: el suyo hasta que cree uno de Datina). El armado lo escribe al revés y datina.js lo arma al cargar la página, así los robots que juntan correos no lo leen fácil. Para cambiarlo, solo acá. Vacío: Contacto vuelve a decir que el formulario todavía no está disponible.",
   "nota": "Dirección pública definitiva del sitio, con https y sin barra final (por ejemplo, https://datina.ar). Desde el 26 de octubre de 2026, la de Cloudflare Pages (https://datina.pages.dev), y desde el 1 de noviembre de 2026 el dominio propio datina.com.ar, que el autor conectó en Cloudflare (la de Pages sigue andando). Mientras esté vacía, 03_construir_sitio.py no publica canonical absolutos, og:url, sitemap.xml, robots.txt ni el Dataset en JSON-LD, para no apuntar a un dominio inventado. Al completarla, el próximo armado los agrega solos.",
   "consulta_ia": true,
   "consulta_ia_motor": "cloudflare",

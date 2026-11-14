@@ -8,10 +8,10 @@
 <meta property="og:locale" content="es_AR">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Laboratorio">
-<meta property="og:description" content="Piezas visuales con datos públicos: cada juez de la Corte Suprema, cada banca del Congreso, cada pozo de Vaca Muerta y las 24 jurisdicciones año por año, con sus fuentes.">
+<meta property="og:description" content="Piezas visuales con datos públicos: cada juez de la Corte Suprema, cada pozo de Vaca Muerta y las 24 jurisdicciones año por año, con sus fuentes.">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Laboratorio">
-<meta name="twitter:description" content="Piezas visuales con datos públicos: cada juez de la Corte Suprema, cada banca del Congreso, cada pozo de Vaca Muerta y las 24 jurisdicciones año por año, con sus fuentes.">
+<meta name="twitter:description" content="Piezas visuales con datos públicos: cada juez de la Corte Suprema, cada pozo de Vaca Muerta y las 24 jurisdicciones año por año, con sus fuentes.">
 <link rel="canonical" href="https://datina.com.ar/laboratorio">
 <meta property="og:url" content="https://datina.com.ar/laboratorio">
 <meta property="og:image" content="https://datina.com.ar/og/laboratorio.png">
@@ -19,7 +19,7 @@
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Laboratorio">
 <meta name="twitter:image" content="https://datina.com.ar/og/laboratorio.png">
-<meta name="description" content="Piezas visuales con datos públicos: cada juez de la Corte Suprema, cada banca del Congreso, cada pozo de Vaca Muerta y las 24 jurisdicciones año por año, con sus fuentes.">
+<meta name="description" content="Piezas visuales con datos públicos: cada juez de la Corte Suprema, cada pozo de Vaca Muerta y las 24 jurisdicciones año por año, con sus fuentes.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 36'%3E%3Cpath fill='%23C8102E' d='M7,29 C5.5,17 10,6.5 19.5,4.2 C26.5,2.6 33.5,5.2 36,10.6 C37.2,13.2 35,15.4 32.6,13.8 C31,12.6 29.2,11.6 27,12.2 C31.6,16 33.8,21.6 33.6,29 Z'/%3E%3Cpath fill='%238A1422' d='M5.6,27.6 L35,27.6 Q35.8,31.6 35,33.4 Q20.3,35.6 5.6,33.4 Q4.8,31.6 5.6,27.6 Z'/%3E%3C/svg%3E">
 <script>document.documentElement.classList.add("js");
 // transición entre páginas: mientras dura, las fichas que ya se ven entran con la página y no por su cuenta
@@ -35,7 +35,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
      mismas versiones que daban cdnjs y jsDelivr): si una de esas CDN fallaba o estaba bloqueada, las páginas quedaban vacías -->
 <script src="lib/d3-7.8.5.min.js?v=a029baa963"></script>
 <script src="lib/topojson-client-3.1.0.min.js?v=bc057598e8"></script>
-<link rel="stylesheet" href="datina.css?v=cb86f5ecc8">
+<link rel="stylesheet" href="datina.css?v=f552980d3a">
 </head>
 <body data-pagina="laboratorio">
 <!-- "Saltar al contenido" (Fase 2, paso 6, respuesta del autor del 23 de octubre de 2026): la primera parada del teclado, que solo se ve
@@ -111,10 +111,12 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
        https://usafacts.org/the-viz-lab/"): piezas visuales grandes, como The Viz Lab de USAFacts, cada una con su gráfico vivo y un
        texto corto que calcula datina.js. Arriba lo más nuevo y abajo "Más del Laboratorio". Las que salen de una ficha llevan a ella -->
   <section class="laboratorio" id="laboratorio" aria-labelledby="lab-tit">
-    <nav class="migas" aria-label="Ubicación"><ol><li><a href="./">Datina</a></li><li><span>Historias con datos</span></li><li class="migas-prov" hidden></li></ol></nav><h1 id="lab-tit">Laboratorio</h1>
+    <!-- el título es una pregunta (decisión del autor del 14 de noviembre de 2026). El nombre "Laboratorio" de los menús y las migas sale
+         de TITULO_DE en 03_construir_sitio.py. El hemiciclo y los años en el Congreso salieron ese día: repetían fichas de Instituciones políticas -->
+    <nav class="migas" aria-label="Ubicación"><ol><li><a href="./">Datina</a></li><li><span>Historias con datos</span></li><li class="migas-prov" hidden></li></ol></nav><h1 id="lab-tit">¿Cómo se ve la Argentina dato por dato?</h1>
     <div class="tema-intro">
       <p class="pregunta">Muchos datos en un solo gráfico.</p>
-      <p>Piezas para mirar con tiempo, como los jueces de la Corte Suprema, cada banca del Congreso o cada pozo de Vaca Muerta. Cada una dice de dónde salen sus datos y lleva a su ficha o a su página, con las tablas para descargar.</p>
+      <p>Piezas para mirar con tiempo, como los jueces de la Corte Suprema o cada pozo de Vaca Muerta. Cada una dice de dónde salen sus datos y lleva a su ficha o a su página, con las tablas para descargar.</p>
     </div>
     <h2 class="bloque-grupo">Lo último</h2>
     <article class="lab-pieza grande" id="l-corte-lab" aria-labelledby="l-corte-t">
@@ -129,15 +131,6 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
         <div class="grafico" data-g="lab-corte" data-forma="lineas"></div>
       </div>
     </article>
-    <article class="lab-pieza grande invertida" id="l-hemiciclo" aria-labelledby="l-hemiciclo-t">
-      <div class="lab-texto">
-        <span class="etiqueta">Instituciones políticas</span>
-        <h2 id="l-hemiciclo-t">¿Quién ocupa cada banca del Congreso?</h2>
-        <p class="lab-lead" data-t="lab-hemiciclo"></p>
-        <a class="enlace" href="politica.html#f-legisladores">Ver la ficha completa <span aria-hidden="true">&rarr;</span></a>
-      </div>
-      <div class="grafico lab-hemi" data-g="lab-hemiciclo" data-forma="bloque" style="--alto:490px;--alto-c:775px"></div>
-    </article>
     <h2 class="bloque-grupo">Más del Laboratorio</h2>
     <div class="lab-grid">
       <article class="lab-pieza" id="l-pozos" aria-labelledby="l-pozos-t">
@@ -151,18 +144,6 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
           <div class="grafico" data-g="lab-pozos" data-forma="mapa"></div>
         </div>
         <a class="enlace" href="petroleo.html#f-mapa-pozos">Ver la ficha completa <span aria-hidden="true">&rarr;</span></a>
-      </article>
-      <article class="lab-pieza" id="l-anios" aria-labelledby="l-anios-t">
-        <div class="lab-texto">
-          <span class="etiqueta">Instituciones políticas</span>
-          <h2 id="l-anios-t">¿Quiénes pasaron más años en el Congreso?</h2>
-          <p class="lab-lead" data-t="lab-anios"></p>
-        </div>
-        <div class="lab-graf">
-          <div class="pol-ley" id="lab-anios-ley" aria-hidden="true"></div>
-          <div class="grafico" data-g="lab-anios" data-forma="barras" style="--filas:10;--alto:230px;--alto-c:225px"></div>
-        </div>
-        <a class="enlace" href="politica.html#f-anios-congreso">Ver la ficha completa <span aria-hidden="true">&rarr;</span></a>
       </article>
       <article class="lab-pieza" id="l-cruces" aria-labelledby="l-cruces-t">
         <div class="lab-texto">
@@ -280,7 +261,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 <p class="solo-lector" id="aviso" aria-live="polite"></p>
 
 <!-- los datos van en un archivo aparte que el navegador guarda una sola vez para todas las páginas -->
-<script src="datos/fichas.js?v=70ab612016"></script>
-<script src="datina.js?v=f1447bad96"></script>
+<script src="datos/fichas.js?v=c64cc08f47"></script>
+<script src="datina.js?v=40940e7907"></script>
 </body>
 </html>

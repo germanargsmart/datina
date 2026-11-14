@@ -114,7 +114,7 @@ ACEPTADAS = {
 
 
 def cargar():
-    d = json.loads((SITIO / "datos" / "fichas.json").read_text(encoding="utf-8"))
+    d = json.loads((RAIZ / "datos" / "ordenado" / "fichas.json").read_text(encoding="utf-8"))
     t = pd.read_csv(RAIZ / "datos" / "ordenado" / "tabla_larga.csv", dtype={"codigo_indec": str, "periodo": str})
     t["codigo_indec"] = t.codigo_indec.fillna("--")
     dis = json.loads((MANUAL / "distorsiones.json").read_text(encoding="utf-8")) if (MANUAL / "distorsiones.json").exists() else {}

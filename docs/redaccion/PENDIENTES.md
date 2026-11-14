@@ -468,6 +468,7 @@ Lo que cada grupo de la reescritura no cambió porque necesita corregir un dato,
    - Motivo: El h1 del Laboratorio es su nombre, no una pregunta: la sección no es "tema con-pregunta" y el constructor no convierte la p.pregunta en h1. Volverlo pregunta es estructura, y eximirlo es una decisión del autor.
    - Propuesta: Escribir en CLAUDE.md que el Laboratorio, por ser una galería, lleva su nombre como título.
    - **Estado al 11 de noviembre de 2026: espera una decisión del autor.** El título sigue siendo "Laboratorio", sin la excepción escrita en CLAUDE.md.
+   - **Estado al 14 de noviembre de 2026: resuelta.** Decisión del autor: el título es "¿Cómo se ve la Argentina dato por dato?". "Laboratorio" sigue en los menús, las migas y el título de la pestaña.
 
 18. **laboratorio.html#l-cruces** (`datos (R.cruces, unidad de la mortalidad infantil)`)
    - Fragmento: «muertes de menores de 1 año cada 1.000 nacidos vivos, promedio 3 años»
@@ -534,6 +535,7 @@ Lo que cada grupo de la reescritura no cambió porque necesita corregir un dato,
    - Motivo: Dos de las cinco piezas repiten fichas de Instituciones políticas. Es estructura.
    - Propuesta: Que el autor decida si quedan.
    - **Estado al 11 de noviembre de 2026: espera una decisión del autor.** El hemiciclo y los años siguen en el Laboratorio.
+   - **Estado al 14 de noviembre de 2026: resuelta.** Decisión del autor: salieron del Laboratorio (plantilla, `TX` y `DIB` de `datina.js` y su CSS). Quedan en Instituciones políticas.
 
 29. **politica.html (todas las fichas de leyes)** (`datos/manual/leyes_clave.csv`)
    - Fragmento: «nombres de leyes cambiados»
@@ -578,6 +580,7 @@ Lo que cada grupo de la reescritura no cambió porque necesita corregir un dato,
    - Motivo: La cifra destacada es una cantidad de áreas. La pregunta nueva nombra cantidad y superficie, pero la superficie no tiene cifra.
    - Propuesta: Si el autor prefiere una sola pregunta de superficie: cifra con nt.pn_terr_millones + nt.pn_mar_millones ("millones de hectáreas, siete de cada diez en el mar").
    - **Estado al 11 de noviembre de 2026: espera una decisión del autor.** La cifra sigue siendo la cantidad de áreas y la pregunta nombra también la superficie.
+   - **Estado al 14 de noviembre de 2026: resuelta.** Decisión del autor: la pregunta habla solo de la cantidad de áreas, como la cifra. La superficie sigue en las vistas y en la descripción.
 
 7. **petroleo.html#f-regalias** (`scripts/datina.js`)
    - Fragmento: «vf: usd ? n0 : v => n1(v) + "%"»
@@ -954,6 +957,7 @@ Lo que cada grupo de la reescritura no cambió porque necesita corregir un dato,
    - Motivo: Las exportaciones por habitante miden lo que vende la provincia, no el bienestar de quien vive ahí (el explicador ahora lo dice). Cambiar el indicador es decisión del autor.
    - Propuesta: Consultar al autor si van el salario registrado o la tasa de empleo.
    - **Estado al 11 de noviembre de 2026: espera una decisión del autor.** El grupo "Trabajo y producción" sigue con exportaciones.
+   - **Estado al 14 de noviembre de 2026: resuelta.** Decisión del autor: el salario registrado reemplaza a las exportaciones, y el grupo pasa a llamarse "Trabajo y salarios".
 
 16. **indice.html** (`scripts/datina.js`)
    - Fragmento: «<small>${d.ind.map(([k]) => M[k].nombre).join(", ")}</small>»
@@ -1066,6 +1070,7 @@ Lo que cada grupo de la reescritura no cambió porque necesita corregir un dato,
    - Motivo: La primera oración no es exacta: Salud tiene la ficha de suicidio por provincia (f-suicidio-prov), que compara las 24 jurisdicciones, y su forma está en discusión (decisión del autor, sección 13, punto 3). Además dice 'la Ciudad de Buenos Aires' donde el recuadro de ayuda del sitio dice 'CABA'. Es un tema sensible y un texto fijo de la función: lo decide el autor.
    - Propuesta: Datina trata ese tema al final de la sección Salud. Si estás atravesando un momento difícil, o alguien cercano lo está, podés pedir ayuda. El Centro de Asistencia al Suicida atiende gratis en el 135 desde CABA y el Gran Buenos Aires, y en el (011) 5275-1135 desde todo el país. En una emergencia, llamá al 107. (Conserva 135 y 107, que busca scripts/prueba_consulta_ia.mjs, y las tres líneas.)
    - **Estado al 11 de noviembre de 2026: espera una decisión del autor.** El aviso de suicidio de las consultas con IA sigue igual.
+   - **Estado al 14 de noviembre de 2026: resuelta.** El autor aprobó la propuesta: `AYUDA_SUICIDIO` en `functions/_ia/consulta.mjs`.
 
 5. **consulta-ia.html** (`scripts/plantilla.html, scripts/03_construir_sitio.py`)
    - Fragmento: «La pregunta la contesta un modelo abierto de inteligencia artificial que corre en Cloudflare»
@@ -1114,6 +1119,7 @@ Lo que cada grupo de la reescritura no cambió porque necesita corregir un dato,
    - Motivo: Término técnico para el público general. Aparece en el botón de vista, en aria-roledescription, en el aria-label del dibujo y en relaciones.js.
    - Propuesta: 'Diagrama' en todos esos lugares a la vez, si el autor lo prefiere.
    - **Estado al 11 de noviembre de 2026: espera una decisión del autor.** "Grafo" sigue en el botón y en los nombres para lectores de pantalla.
+   - **Estado al 14 de noviembre de 2026: resuelta.** Decisión del autor: "Diagrama" en el botón, en `aria-roledescription` y en el `aria-label` (`scripts/relaciones.html`). Los nombres internos y `?v=grafo` quedan, para que los enlaces viejos sigan andando.
 
 13. **relaciones.html, catalogo.html, nosotros.html** (`scripts/relaciones.js, scripts/catalogo.py`)
    - Fragmento: «46 organismos, 167 archivos y 141 fichas / 209 tablas»

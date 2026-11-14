@@ -2,7 +2,7 @@
 Paso 2. Ordena los datos y arma las fichas.
 Lee datos/crudo/, escribe:
   datos/ordenado/tabla_larga.csv   todas las series en un solo formato
-  sitio/datos/fichas.json          lo que dibuja el sitio
+  datos/ordenado/fichas.json       lo que dibuja el sitio (03 lo pasa a sitio/datos/fichas.js)
   sitio/datos/<ficha>.csv          la tabla de cada ficha, para descargar
 Uso: python scripts/02_procesar.py
 """
@@ -8763,7 +8763,9 @@ def _crm_res(d, col="valor"):
 resumen["cruces_series_med"] = {k: _crm_res(cruces_series[cruces_series.id == k]) for k in SERIES_IDS}
 resumen["cruces_series_med"]["gasto_alumno"] = _crm_res(inversion_educativa_serie[inversion_educativa_serie.codigo_indec != "00"], "por_alumno_real")
 
-(SITIO / "fichas.json").write_text(json.dumps({
+# fichas.json: el resumen y las tablas que lee 03 para armar sitio/datos/fichas.js. Desde el 14 de noviembre de 2026 (decisión del autor) va
+# en datos/ordenado/ y no se publica: ninguna página lo usaba
+(RAIZ / "datos" / "ordenado" / "fichas.json").write_text(json.dumps({
     "resumen": resumen,
     # las tablas que solo se usan al abrir un bloque se cargan aparte desde su CSV
     "datos": {k: json.loads(t.to_json(orient="records")) for k, t in tablas.items() if k not in {"ocde_comparacion"}},

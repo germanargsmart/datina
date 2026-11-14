@@ -1,5 +1,5 @@
 """
-Corre 02_procesar.py con la fecha de la última actualización de los datos (resumen["actualizado"] de sitio/datos/fichas.json) y no con la de
+Corre 02_procesar.py con la fecha de la última actualización de los datos (resumen["actualizado"] de datos/ordenado/fichas.json) y no con la de
 hoy. 31 de octubre de 2026. Sirve cuando se suma una fuente o se cambia un cálculo fuera de la actualización mensual: si 02 pone la fecha de
 hoy, cambian la fecha de todas las páginas y los avisos de dato atrasado (scripts/frescura.py), y el resumen ya no se puede comparar con el
 anterior. Así el resumen cambia solo en lo que se tocó.
@@ -13,7 +13,9 @@ from pathlib import Path
 import pandas as pd
 
 RAIZ = Path(__file__).resolve().parent.parent
-act = json.loads((RAIZ / "sitio" / "datos" / "fichas.json").read_text(encoding="utf-8"))["resumen"]["actualizado"]
+# desde el 14 de noviembre de 2026 fichas.json está en datos/ordenado/ (antes en sitio/datos/, que se publicaba)
+f = RAIZ / "datos" / "ordenado" / "fichas.json"
+act = json.loads((f if f.exists() else RAIZ / "sitio" / "datos" / "fichas.json").read_text(encoding="utf-8"))["resumen"]["actualizado"]
 d, m, a = act.split("/")
 pd.Timestamp.now = classmethod(lambda cls, tz=None: pd.Timestamp(f"{a}-{m}-{d} 12:00"))
 print("fecha del resumen:", act)

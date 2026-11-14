@@ -179,6 +179,8 @@ const vigiaTextos = new MutationObserver(ms => ms.forEach(m => {
 const ICONOS = /*ICONOS*/{};
 const icono = (n, cls = "") => ICONOS[n] ? `<svg class="iso tono-${ICONOS[n].t} ${cls}" viewBox="0 0 120 120" aria-hidden="true" focusable="false">${ICONOS[n].d}</svg>` : "";
 document.querySelectorAll("[data-icono]").forEach(el => { el.innerHTML = icono(el.dataset.icono); });
+// el correo de Contacto (14 de noviembre de 2026): viene al revés en data-correo, así los robots que juntan correos de las páginas no lo leen
+document.querySelectorAll("a[data-correo]").forEach(a => { const c = [...a.dataset.correo].reverse().join(""); a.href = "mailto:" + c; a.textContent = c; });
 
 /* ---------- Sol de Mayo ---------- */
 (function sol() {
@@ -4922,8 +4924,6 @@ DIB.anioscong = conTablas("anioscong", ["anios_congreso"], a => {
 /* ---------- Laboratorio (etapa 33): piezas visuales grandes, como The Viz Lab de USAFacts ----------
    Cada pieza usa el mismo dibujo que su ficha, con un texto corto que sale del resumen. Se dibujan al entrar en pantalla (vistasL, al
    final) y se vuelven a dibujar al cambiar el ancho o la provincia, como las fichas */
-TX["lab-hemiciclo"] = $t("lab-hemiciclo").textContent = `Las ${n0(CG.n_dip)} bancas de la Cámara de Diputados y las ${CG.n_sen} del Senado, cada una con ` +
-  `quien la ocupa hoy, agrupadas por espacio político y, dentro de cada espacio, por provincia. Al pasar el mouse o tocar una banca, el cuadro dice quién la ocupa.`;
 /* ---------- ¿Cuáles son las montañas más altas de la Argentina? (f-cumbres, Naturaleza y ambiente) ----------
    Pedido del autor del 9 de noviembre de 2026, a partir de un mapa de curvas de nivel que se levanta en relieve. Arriba, el bloque de
    relieve de la cumbre elegida: un recuadro de 12 km de lado (datos/relieve/<id>.json, que arma scripts/cumbres_relieve.py) con una
@@ -5180,41 +5180,12 @@ DIB.cumbres = a => {
   if (a && !REDUCIR && st.t === 1 && !st.vuelta) { st.t = 0; cuCargar(st.id).then(() => inclinar(1), () => { st.t = 1; }); }
 };
 
-DIB["lab-hemiciclo"] = () => {
-  const el = G("lab-hemiciclo"); if (!el) return;
-  if (!LGP) { esperando(el); lgCargar().then(DIB["lab-hemiciclo"]).catch(() => sinDatos(el, "No se pudo cargar el hemiciclo.")); return; }
-  el.removeAttribute("aria-busy");
-  const bh = bancasHemi(LG_ULT), marcada = NOMBRES[prov] ? prov : "";
-  el.innerHTML = `<div class="lg-hemis">${hemiFig(bh, 0)}${hemiFig(bh, 1)}` +
-    [0, 1].map(cam => `<div class="pol-ley ha-l${cam}">${leyHemi(bh.filter(b => b.cam === cam))}</div>`).join("") +
-    `<p class="hemi-pie">Cada punto es una banca. Los espacios van en el orden de la leyenda y, dentro de cada uno, por provincia. ` +
-    (marcada ? `Las bancas de ${NOMBRES[marcada]} quedan resaltadas.` : "Con una provincia elegida, sus bancas quedan resaltadas.") + `</p></div>`;
-  el.querySelectorAll(".hemi-svg").forEach(h => hemiciclo(h, bh.filter(b => b.cam === +h.dataset.cam), marcada, tipBanca));
-};
 const COL_CORTES = c => [`Hasta ${c[0]}`, `${c[0] + 1} a ${c[1]}`, `${c[1] + 1} a ${c[2]}`, `${c[2] + 1} a ${c[3]}`, `Desde ${c[3] + 1}`].map((lab, i) => ({lab, c: COL_POZOS[i]}));
 TX["lab-pozos"] = $t("lab-pozos").textContent = `Cada punto es uno de los ${n0(PG.map_n)} pozos no convencionales que produjeron petróleo o gas desde ${PG.map_ini}, ` +
   `con el color del año en que empezó a producir y más claro si no produjo en ${PG.map_mes}. Debajo, las áreas de concesión.`;
 DIB["lab-pozos"] = conTablas("lab-pozos", ["pozos_no_convencionales", "areas_produccion"], a => {
   leyenda("lab-pozos-ley", COL_CORTES(PG.map_cortes));
   mapaPozos(G("lab-pozos"), {anim: a, vista: "cuenca"});
-});
-TX["lab-anios"] = $t("lab-anios").textContent = `Desde 1983, ${n0(AC.personas)} personas ocuparon una banca en el Congreso nacional y ${AC.veinte} sumaron ` +
-  `20 años o más. El gráfico muestra a las 10 con más años: las barras separan los años en Diputados y en el Senado, y en negrita van quienes siguen en el cargo.`;
-DIB["lab-anios"] = conTablas("lab-anios", ["anios_congreso"], a => {
-  const el = G("lab-anios"); if (!el) return;
-  // siempre del país: el texto de la pieza habla de todo el Congreso
-  const filas = T.anios_congreso.filter(d => d.anios_total > 0)
-    .sort((x, y) => y.anios_total - x.anios_total || x.nombre.localeCompare(y.nombre, "es")).slice(0, 10);
-  // en la tarjeta el eje es angosto: la unidad va en la leyenda
-  const claves = [{k: "dip", lab: "Años en Diputados", c: css("--azul")}, {k: "sen", lab: "Años en el Senado", c: css("--celeste"), texto: css("--ink")}];
-  leyenda("lab-anios-ley", claves);
-  const data = filas.map((d, i) => ({...d, codigo_indec: "a" + i, prov: d.codigo_indec, territorio: d.nombre, dip: d.anios_diputados, sen: d.anios_senado}));
-  const tope = (d3.max(filas, d => d.anios_total) || 1) * 1.18, marcas = d3.range(0, tope, 10);
-  // en la tarjeta, sin banderas, así entran los nombres: la provincia va en el cuadro
-  apiladasH(el, {anim: a, data, claves, max: tope, ticks: marcas, ejeF: x => x,
-    izq: () => 172, recortar: true, sinProv: true, tipF: n1, alFinal: d => n1(d.anios_total), fuerte: d => d.sigue,
-    tipExtra: d => `<br>${bandera(d.prov)}${d.provincias}` + (d.sigue ? "<br>Sigue en el cargo" : "")});
-  el.resaltar = null;
 });
 /* Las 24 año por año: cada jurisdicción es una línea que va de su natalidad y su mortalidad infantil del primer año con las dos series a las del
    último, con un punto vacío al principio y uno lleno al final. Es lo que Cruces anima año por año, en un solo dibujo */
@@ -7512,11 +7483,11 @@ const MAPA_DEP = (() => {
 /* ---------- tu índice: pesos elegidos por cada persona, al estilo del Índice para una Vida Mejor de la OCDE ---------- */
 const IX = (() => {
   const F = T.cruces_provincias, M = Object.fromEntries(R.cruces.map(m => [m.id, m]));
-  const LOG = new Set(["exportaciones", "velocidad", "turistas_eti", "densidad"]);
+  const LOG = new Set(["velocidad", "turistas_eti", "densidad"]);
   const DIMS = [
     {id: "salud", nombre: "Salud", c: "#C8102E", ind: [["esperanza_vida", 1], ["mortalidad_infantil", -1], ["sin_cobertura", -1]]},
     {id: "educacion", nombre: "Educación", c: "#2C74B5", ind: [["escolarizacion", 1], ["aprender_mat", 1], ["aprender_len", 1]]},
-    {id: "trabajo", nombre: "Trabajo y producción", c: "#B27A00", ind: [["empleo_privado", 1], ["exportaciones", 1]]},
+    {id: "trabajo", nombre: "Trabajo y salarios", c: "#B27A00", ind: [["empleo_privado", 1], ["salario", 1]]},  // el salario reemplazó a las exportaciones el 14 de noviembre de 2026 (decisión del autor)
     {id: "vivienda", nombre: "Vivienda y servicios", c: "#7A4FA0", ind: [["agua_red", 1], ["cloaca", 1], ["nbi", -1]]},
     {id: "conectividad", nombre: "Conectividad", c: "#74ACDF", ind: [["internet", 1], ["computadora", 1], ["velocidad", 1]]},
     {id: "seguridad", nombre: "Seguridad", c: "#18212B", ind: [["homicidios", -1], ["robos", -1], ["viales", -1]]},
@@ -7557,7 +7528,7 @@ const IX = (() => {
   document.getElementById("ix-leyenda").innerHTML = DIMS.map(d => `<span><i style="background:${d.c}"></i>${d.nombre}</span>`).join("");
   // los años de los indicadores salen de su período en Cruces (antes "entre 2022 y 2026" escrito a mano)
   const IX_ANIOS = DIMS.flatMap(d => d.ind.flatMap(([k]) => (String(M[k]?.periodo || "").match(/\d{4}/g) || []).map(Number)));
-  document.getElementById("ix-nota").textContent = "Cada indicador se lleva a una escala de 0 a 10: 0 es el peor valor entre las 24 jurisdicciones y 10, el mejor. Las exportaciones y la velocidad de internet se pasan antes a escala logarítmica, para que un valor extremo no aplaste al resto. Cada dimensión es el promedio de sus indicadores, y el índice, el promedio de las dimensiones con los pesos elegidos. Si a una jurisdicción le falta un indicador, su dimensión se calcula con los demás. Los indicadores son de años distintos, entre " + Math.min(...IX_ANIOS) + " y " + Math.max(...IX_ANIOS) + ". No es un índice oficial: muestra cómo cambia el orden según lo que cada uno valora. Los pesos elegidos quedan en el enlace, para compartirlo.";
+  document.getElementById("ix-nota").textContent = "Cada indicador se lleva a una escala de 0 a 10: 0 es el peor valor entre las 24 jurisdicciones y 10, el mejor. La velocidad de internet se pasa antes a escala logarítmica, para que un valor extremo no aplaste al resto. Cada dimensión es el promedio de sus indicadores, y el índice, el promedio de las dimensiones con los pesos elegidos. Si a una jurisdicción le falta un indicador, su dimensión se calcula con los demás. Los indicadores son de años distintos, entre " + Math.min(...IX_ANIOS) + " y " + Math.max(...IX_ANIOS) + ". No es un índice oficial: muestra cómo cambia el orden según lo que cada uno valora. Los pesos elegidos quedan en el enlace, para compartirlo.";
 
   let yPrev = {};
   function dibujar(anim) {
