@@ -4369,6 +4369,67 @@ for a in PERIODOS:
     filas_p.append(m)
 congreso = pd.DataFrame(comp).pivot_table(index=["camara", "anio", "periodo"], columns="espacio", values="bancas", fill_value=0).reset_index()
 congreso = congreso[["camara", "anio", "periodo"] + [e for e in ESPACIOS if e in congreso.columns]]
+# bancas de mujeres (fuentes nuevas aprobadas por el autor el 14 de noviembre de 2026): las mujeres en cada cámara en la misma fecha que la
+# composición de arriba (el 1 de marzo de cada período) y hoy, por provincia. Los registros de las cámaras no dicen el sexo de cada
+# legislador: sale de su nombre de pila con la tabla de datos/manual/legisladores_sexo.csv, revisada a mano (los nombres que pueden ser de
+# mujer o de varón, uno por uno, y los que no se pudieron determinar, vacíos). Un nombre que no está en la tabla queda sin determinar y se
+# cuenta aparte. Prefijo cgm_
+_cgm_t = pd.read_csv(RAIZ / "datos" / "manual" / "legisladores_sexo.csv", keep_default_na=False)
+assert set(_cgm_t.sexo) <= {"mujer", "varon", ""} and set(_cgm_t.tipo) <= {"pila", "persona"}, "valores raros en legisladores_sexo.csv"
+_cgm_pila = dict(zip(_cgm_t[_cgm_t.tipo == "pila"].clave, _cgm_t[_cgm_t.tipo == "pila"].sexo))
+_cgm_pers = dict(zip(_cgm_t[_cgm_t.tipo == "persona"].clave, _cgm_t[_cgm_t.tipo == "persona"].sexo))
+_cgm_up = lambda t: re.sub(r"\s+", " ", unicodedata.normalize("NFKD", str(t)).encode("ascii", "ignore").decode().upper()).strip()
+
+
+def cgm_sexo(nombre):
+    clave = _cgm_up(nombre)
+    if clave in _cgm_pers:
+        return _cgm_pers[clave]
+    pila = [x for x in re.split(r"[\s.]+", clave.split(",", 1)[1] if "," in clave else clave) if x]
+    return _cgm_pila.get(pila[0], "") if pila else ""
+
+
+_cgm_nom = man.drop_duplicates(["camara", "id", "mandato_fin"]).set_index(["camara", "id", "mandato_fin"])
+_cgm_f = []
+for _cgm_a in PERIODOS + ["hoy"]:
+    _cgm_c = HOY if _cgm_a == "hoy" else min(pd.Timestamp(f"{_cgm_a + 1}-03-01"), HOY)
+    _cgm_b = en_la_banca(_cgm_c).join(_cgm_nom[["nombre", "codigo_indec"]], on=["camara", "id", "mandato_fin"])
+    _cgm_b["sexo"] = _cgm_b.nombre.map(cgm_sexo)
+    if _cgm_a == "hoy":
+        CGM_HOY = _cgm_b
+        continue
+    for cam_, g_ in _cgm_b.groupby("camara"):
+        _cgm_f.append({"camara": cam_, "anio": _cgm_a, "periodo": f"{_cgm_a} a {_cgm_a + 2}", "bancas": len(g_),
+                       "mujeres": int((g_.sexo == "mujer").sum()), "sin_determinar": int((g_.sexo == "").sum())})
+mujeres_congreso = pd.DataFrame(_cgm_f)
+mujeres_congreso["pct_mujeres"] = mujeres_congreso.mujeres / (mujeres_congreso.bancas - mujeres_congreso.sin_determinar) * 100
+mujeres_congreso = mujeres_congreso.pivot_table(index=["anio", "periodo"], columns="camara",
+                                                values=["bancas", "mujeres", "sin_determinar", "pct_mujeres"]).reset_index()
+mujeres_congreso.columns = [f"{v}_{c.lower()}" if c else v for v, c in mujeres_congreso.columns]
+mujeres_congreso = mujeres_congreso.round(4)
+_cgm_h = CGM_HOY.assign(m=CGM_HOY.sexo == "mujer", d=CGM_HOY.sexo != "")
+_cgm_p = _cgm_h.groupby(["codigo_indec", "camara"]).agg(bancas=("id", "count"), mujeres=("m", "sum"), det=("d", "sum")).unstack(fill_value=0)
+mujeres_congreso_provincias = pd.DataFrame({"codigo_indec": sorted(POB), "territorio": [CORTO[c] for c in sorted(POB)]})
+for cam_, k_ in [("Diputados", "diputados"), ("Senado", "senado")]:
+    mujeres_congreso_provincias[f"bancas_{k_}"] = mujeres_congreso_provincias.codigo_indec.map(_cgm_p["bancas"][cam_]).fillna(0).astype(int)
+    mujeres_congreso_provincias[f"mujeres_{k_}"] = mujeres_congreso_provincias.codigo_indec.map(_cgm_p["mujeres"][cam_]).fillna(0).astype(int)
+_cgm_det = mujeres_congreso_provincias.codigo_indec.map(_cgm_p["det"].sum(axis=1)).fillna(0)
+mujeres_congreso_provincias["pct_mujeres"] = ((mujeres_congreso_provincias.mujeres_diputados + mujeres_congreso_provincias.mujeres_senado) / _cgm_det * 100).round(4)
+assert 240 <= mujeres_congreso_provincias.bancas_diputados.sum() <= 257 and 66 <= mujeres_congreso_provincias.bancas_senado.sum() <= 72, \
+    "las bancas de hoy no suman lo que tienen las cámaras"
+_cgm_u = mujeres_congreso.iloc[-1]
+_cgm_hd, _cgm_hs = _cgm_h[_cgm_h.camara == "Diputados"], _cgm_h[_cgm_h.camara == "Senado"]
+_cgm_pct = lambda g: float(g.m.sum() / g.d.sum() * 100)
+_cgm_o = mujeres_congreso_provincias.sort_values("pct_mujeres")
+_cgm_93 = mujeres_congreso[mujeres_congreso.anio == 1993]
+CGM_RES = {"fecha": f"{HOY.day} de {MES[HOY.month - 1]} de {HOY.year}", "ini": int(mujeres_congreso.anio.iloc[0]),
+           "dip_ini": r1(mujeres_congreso.pct_mujeres_diputados.iloc[0]), "sen_ini": r1(mujeres_congreso.pct_mujeres_senado.iloc[0]),
+           "dip_93": r1(_cgm_93.pct_mujeres_diputados.iloc[0]) if len(_cgm_93) else None,
+           "dip": r1(_cgm_pct(_cgm_hd)), "sen": r1(_cgm_pct(_cgm_hs)), "diputadas": int(_cgm_hd.m.sum()), "senadoras": int(_cgm_hs.m.sum()),
+           "dip_bancas": len(_cgm_hd), "sen_bancas": len(_cgm_hs),
+           "total": r1((_cgm_h.m.sum()) / _cgm_h.d.sum() * 100),
+           "max": [_cgm_o.iloc[-1].territorio, r1(_cgm_o.iloc[-1].pct_mujeres)], "min": [_cgm_o.iloc[0].territorio, r1(_cgm_o.iloc[0].pct_mujeres)],
+           "sin_det": int((_cgm_h.sexo == "").sum()), "sin_det_serie": int(mujeres_congreso[["sin_determinar_diputados", "sin_determinar_senado"]].sum().sum())}
 leg_p = pd.concat(filas_p, ignore_index=True).sort_values(["periodo", "camara", "codigo_indec", "inicio", "nombre"],
                                                           key=lambda c: c.map(NPR.clave_persona) if c.name == "nombre" else c)
 leg_p["territorio"] = leg_p.codigo_indec.map(CORTO)
@@ -8358,6 +8419,8 @@ tablas = {
     "inflacion_personal": inflacion_personal,
     "elecciones_presidenciales": presidenciales,
     "congreso_composicion": congreso,
+    "mujeres_congreso": mujeres_congreso,
+    "mujeres_congreso_provincias": mujeres_congreso_provincias,
     "anios_congreso": anios_congreso,
     "presupuesto_votos": presupuesto_votos,
     "representacion_provincias": representacion,
@@ -8790,6 +8853,7 @@ resumen["mesas"] = json.loads((RAIZ / "datos" / "manual" / "mesas_control.json")
 resumen["anio_pob"] = ANIO_POB   # el año en curso: la población de lo que no tiene año propio (bancas, ministros, Cruces y el perfil)
 resumen["anio_pob_ficha"] = dict(sorted(ANIO_POB_FICHA.items()))   # tabla -> año de la población que usa (las notas de cada ficha)
 resumen["congreso"] = congreso_res
+resumen["mujeres_congreso"] = CGM_RES
 congreso_res["anio_fin"] = congreso_res["anio"] + 2   # fin del período legislativo en curso (la descripción de la ficha, etapa 37)
 resumen["presidentes"] = pres_res
 resumen["envejecimiento"] = env_res

@@ -1956,6 +1956,17 @@
    "url": "https://www.senado.gob.ar/micrositios/DatosAbiertos/ExportarListadoSenadoresHistorico/json"
   },
   {
+   "id": "ds:manual/legisladores_sexo.csv",
+   "nombre": "Sexo de los legisladores según su nombre de pila, revisado a mano",
+   "fuente": "org:datina",
+   "ruta": "datos/manual/legisladores_sexo.csv",
+   "evidencia": {
+    "archivo": "scripts/02_procesar.py",
+    "contiene": "_cgm_t = pd.read_csv(RAIZ / \"datos\" / \"manual\" / \"legisladores_sexo.csv\", keep_default_na=False)"
+   },
+   "armado": "2026-11-14"
+  },
+  {
    "id": "ds:manual/transferencias_provincias.csv",
    "nombre": "Transferencias de la Nación a gobiernos provinciales y municipales por provincia y tipo (crédito devengado, millones corrientes)",
    "fuente": "org:presupuesto-abierto",
@@ -4871,6 +4882,66 @@
     }
    ],
    "tabla": "congreso_composicion"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:manual/diputados_nacionales.csv",
+   "a": "f-mujeres-congreso",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_cgm_b = en_la_banca(_cgm_c).join(_cgm_nom[[\"nombre\", \"codigo_indec\"]], on=[\"camara\", \"id\", \"mandato_fin\"])"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"mujeres_congreso\": mujeres_congreso,"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"mujeres_congreso_provincias\": mujeres_congreso_provincias,"
+    }
+   ],
+   "tabla": "mujeres_congreso"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:manual/senadores_nacionales.csv",
+   "a": "f-mujeres-congreso",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_cgm_b = en_la_banca(_cgm_c).join(_cgm_nom[[\"nombre\", \"codigo_indec\"]], on=[\"camara\", \"id\", \"mandato_fin\"])"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"mujeres_congreso\": mujeres_congreso,"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"mujeres_congreso_provincias\": mujeres_congreso_provincias,"
+    }
+   ],
+   "tabla": "mujeres_congreso_provincias"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:manual/legisladores_sexo.csv",
+   "a": "f-mujeres-congreso",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_cgm_b = en_la_banca(_cgm_c).join(_cgm_nom[[\"nombre\", \"codigo_indec\"]], on=[\"camara\", \"id\", \"mandato_fin\"])"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"mujeres_congreso\": mujeres_congreso,"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"mujeres_congreso_provincias\": mujeres_congreso_provincias,"
+    }
+   ],
+   "tabla": "mujeres_congreso_provincias"
   },
   {
    "tipo": "alimenta",
