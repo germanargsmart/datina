@@ -5,9 +5,15 @@
  "seccion": "Curiosidades",
  "ficha": "https://datina.com.ar/curiosidades.html#f-precio-consumo",
  "fuente": "INDEC, precios promedio de la canasta del IPC e índice de precios al consumidor, y Ministerio de Economía (SSPMI), con datos del Ministerio de Agricultura, el Instituto Nacional de la Yerba Mate y el Instituto Nacional de Vitivinicultura.",
+ "organismos": [
+  "INDEC (Instituto Nacional de Estadística y Censos)",
+  "SSPMI (Subsecretaría de Programación Microeconómica)"
+ ],
  "actualizacion": "Se actualiza cada año.",
  "cobertura": "Sin desglose territorial",
  "periodo": "2017 a 2025",
+ "anio_desde": 2017,
+ "anio_hasta": 2025,
  "filas": 27,
  "columnas": [
   {
@@ -43,8 +49,55 @@
  ],
  "unidades": [],
  "como_se_calcula": "",
- "datos_actualizados": "05/11/2026",
+ "origen": [
+  {
+   "archivo": "datos/crudo/indec_ipc_precios_promedio.xls",
+   "nombre": "Precios promedio de una selección de productos de la canasta del IPC",
+   "organismo": "INDEC",
+   "descargado": "2026-11-05",
+   "ultimo_intento": "2026-11-05",
+   "estado": "ok",
+   "url": "https://www.indec.gob.ar/ftp/cuadros/economia/sh_ipc_precios_promedio.xls"
+  },
+  {
+   "archivo": "datos/crudo/indec_ipc_divisiones.csv",
+   "nombre": "Índice de precios al consumidor por región, división, categoría y bienes y servicios",
+   "organismo": "INDEC",
+   "descargado": "2026-11-05",
+   "ultimo_intento": "2026-11-05",
+   "estado": "ok",
+   "url": "https://www.indec.gob.ar/ftp/cuadros/economia/serie_ipc_divisiones.csv"
+  },
+  {
+   "archivo": "datos/crudo/sspmi_carne_vacuna.csv",
+   "nombre": "Indicadores de la cadena de carne vacuna",
+   "organismo": "SSPMI",
+   "descargado": "2026-11-05",
+   "ultimo_intento": "2026-11-05",
+   "estado": "ok",
+   "url": "https://www.economia.gob.ar/catalogo-sspmi/nuevo_dataset/sspmi_carnica-vacuna.csv"
+  },
+  {
+   "archivo": "datos/crudo/sspmi_yerba_mate.csv",
+   "nombre": "Indicadores de la yerba mate",
+   "organismo": "SSPMI",
+   "descargado": "2026-11-05",
+   "ultimo_intento": "2026-11-05",
+   "estado": "ok",
+   "url": "https://www.economia.gob.ar/catalogo-sspmi/nuevo_dataset/sspmi_yerba-mate.csv"
+  },
+  {
+   "archivo": "datos/crudo/sspmi_vitivinicultura.csv",
+   "nombre": "Indicadores de la vitivinicultura",
+   "organismo": "SSPMI",
+   "descargado": "2026-11-05",
+   "ultimo_intento": "2026-11-05",
+   "estado": "ok",
+   "url": "https://www.economia.gob.ar/catalogo-sspmi/nuevo_dataset/sspmi_vitivinicultura.csv"
+  }
+ ],
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿Se consume menos carne, yerba y vino cuando suben de precio? Con datos de INDEC, precios promedio de la canasta del IPC e índice de precios al consumidor, y Ministerio de Economía (SSPMI), con datos del Ministerio de Agricultura, el Instituto Nacional de la Yerba Mate y el Instituto Nacional de Vitivinicultura. https://datina.com.ar/curiosidades.html#f-precio-consumo. Consultado el día de la consulta."
+ "como_citar": "Datina (año de la consulta). ¿Se consume menos carne, yerba y vino cuando suben de precio? Con datos de INDEC, precios promedio de la canasta del IPC e índice de precios al consumidor, y Ministerio de Economía (SSPMI), con datos del Ministerio de Agricultura, el Instituto Nacional de la Yerba Mate y el Instituto Nacional de Vitivinicultura. https://datina.com.ar/curiosidades.html#f-precio-consumo. Consultado el día de la consulta.",
+ "datos_actualizados": "05/11/2026"
 }

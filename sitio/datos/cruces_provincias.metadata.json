@@ -5,9 +5,22 @@
  "seccion": "Cruces",
  "ficha": "https://datina.com.ar/cruces.html#f-cruces",
  "fuente": "las de cada indicador, que figuran debajo del gráfico",
+ "organismos": [
+  "Banco Mundial",
+  "CIAM (Centro de Información Ambiental)",
+  "DEIS (Dirección de Estadísticas e Información de Salud)",
+  "Secretaría de Hacienda",
+  "INDEC (Instituto Nacional de Estadística y Censos)",
+  "OCDE (Organización para la Cooperación y el Desarrollo Económicos)",
+  "Presupuesto Abierto",
+  "SE (Secretaría de Energía)",
+  "SSPM (Subsecretaría de Programación Macroeconómica)"
+ ],
  "actualizacion": "",
  "cobertura": "Las 24 jurisdicciones",
  "periodo": "",
+ "anio_desde": null,
+ "anio_hasta": null,
  "filas": 24,
  "columnas": [
   {
@@ -28,12 +41,12 @@
   {
    "nombre": "poblacion",
    "tipo": "Número",
-   "valores": "182.003 a 17.443.372"
+   "valores": "182.744 a 17.453.039"
   },
   {
    "nombre": "densidad",
    "tipo": "Número",
-   "valores": "1,37 a 15.398,37"
+   "valores": "1,37 a 15.329,95"
   },
   {
    "nombre": "homicidios",
@@ -78,7 +91,7 @@
   {
    "nombre": "empleo_privado",
    "tipo": "Número",
-   "valores": "3,5 a 48"
+   "valores": "3,49 a 48,22"
   },
   {
    "nombre": "empleo_var",
@@ -158,7 +171,7 @@
   {
    "nombre": "empresas",
    "tipo": "Número",
-   "valores": "4,48 a 43,91"
+   "valores": "4,5 a 43,71"
   },
   {
    "nombre": "empresas_neta",
@@ -208,7 +221,7 @@
   {
    "nombre": "peso_voto",
    "tipo": "Número",
-   "valores": "0,59 a 6,2"
+   "valores": "0,59 a 6,18"
   },
   {
    "nombre": "vejez",
@@ -293,7 +306,7 @@
   {
    "nombre": "empleo_construccion",
    "tipo": "Número",
-   "valores": "2,52 a 35"
+   "valores": "2,52 a 34,79"
   },
   {
    "nombre": "regalias",
@@ -318,23 +331,24 @@
   {
    "nombre": "pensiones_invalidez",
    "tipo": "Número",
-   "valores": "7,17 a 76,99"
+   "valores": "7,14 a 76,57"
   },
   {
    "nombre": "auh",
    "tipo": "Número",
-   "valores": "15,63 a 50,12"
+   "valores": "16,14 a 51,43"
   },
   {
    "nombre": "seguro_desempleo",
    "tipo": "Número",
-   "valores": "1,45 a 8,04"
+   "valores": "1,45 a 8,01"
   }
  ],
  "unidades": [],
  "como_se_calcula": "Tocá un punto, o llegá a él con Tab y apretá Enter, para sacar esa jurisdicción del cálculo. Hacé lo mismo para volver a sumarla. La recta es la que mejor resume los puntos (regresión lineal por mínimos cuadrados), y la franja celeste es su margen de error, con un 95% de confianza. Con 24 casos, una correlación moderada puede aparecer por azar. Los datos son de cada jurisdicción en su conjunto: no dicen nada de cada persona. Dos indicadores también pueden ir juntos porque los dos dependen de un tercero, como el ingreso o la urbanización.",
- "datos_actualizados": "05/11/2026",
+ "origen": [],
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿Cómo se relacionan dos indicadores entre las provincias? Con datos de las de cada indicador, que figuran debajo del gráfico. https://datina.com.ar/cruces.html#f-cruces. Consultado el día de la consulta."
+ "como_citar": "Datina (año de la consulta). ¿Cómo se relacionan dos indicadores entre las provincias? Con datos de las de cada indicador, que figuran debajo del gráfico. https://datina.com.ar/cruces.html#f-cruces. Consultado el día de la consulta.",
+ "datos_actualizados": "05/11/2026"
 }

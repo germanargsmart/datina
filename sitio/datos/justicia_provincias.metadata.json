@@ -5,9 +5,16 @@
  "seccion": "Justicia",
  "ficha": "https://datina.com.ar/justicia.html#f-cortes-provinciales",
  "fuente": "Corte Suprema de Justicia de la Nación, Oficina de la Mujer, Mapa de Género de la Justicia Argentina, y constituciones y leyes orgánicas de cada provincia.",
+ "organismos": [
+  "Datina (selección propia)",
+  "INDEC (Instituto Nacional de Estadística y Censos)",
+  "OM-CSJN (Oficina de la Mujer de la Corte Suprema de Justicia de la Nación)"
+ ],
  "actualizacion": "Se actualiza cada año.",
  "cobertura": "Las 24 jurisdicciones",
  "periodo": "",
+ "anio_desde": 2025,
+ "anio_hasta": 2025,
  "filas": 24,
  "columnas": [
   {
@@ -98,8 +105,32 @@
  ],
  "unidades": [],
  "como_se_calcula": "",
- "datos_actualizados": "05/11/2026",
+ "origen": [
+  {
+   "archivo": "datos/manual/justicia_provincias.csv",
+   "nombre": "Jueces, fiscales y defensores de cada provincia y de CABA por año, desde 2011",
+   "organismo": "OM-CSJN",
+   "armado": "2026-10-24",
+   "url": "https://om.csjn.gob.ar/mapagenero/"
+  },
+  {
+   "archivo": "datos/manual/cortes_provinciales.csv",
+   "nombre": "Cuántos miembros fija la ley para el máximo tribunal de cada provincia y de CABA",
+   "organismo": "Datina",
+   "armado": "2026-10-24"
+  },
+  {
+   "archivo": "datos/crudo/indec_proyecciones_provincias.csv",
+   "nombre": "Proyecciones de población por provincia, sexo y edad, 2022 a 2040",
+   "organismo": "INDEC",
+   "descargado": "2026-11-05",
+   "ultimo_intento": "2026-11-05",
+   "estado": "ok",
+   "url": "https://censo.gob.ar/wp-content/uploads/2025/10/proyecciones_jurisdicciones_2022_2040_base.csv"
+  }
+ ],
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿Cuántos jueces tiene la corte de cada provincia y cuántos lugares están vacantes? Con datos de Corte Suprema de Justicia de la Nación, Oficina de la Mujer, Mapa de Género de la Justicia Argentina, y constituciones y leyes orgánicas de cada provincia. https://datina.com.ar/justicia.html#f-cortes-provinciales. Consultado el día de la consulta."
+ "como_citar": "Datina (año de la consulta). ¿Cuántos jueces tiene la corte de cada provincia y cuántos lugares están vacantes? Con datos de Corte Suprema de Justicia de la Nación, Oficina de la Mujer, Mapa de Género de la Justicia Argentina, y constituciones y leyes orgánicas de cada provincia. https://datina.com.ar/justicia.html#f-cortes-provinciales. Consultado el día de la consulta.",
+ "datos_actualizados": "05/11/2026"
 }

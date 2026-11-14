@@ -20,6 +20,9 @@ Qué revisan:
      Una jurisdicción con otro año que el de su ficha (E12): rotulada y fuera de la mediana.
      Las diferencias y los conteos de un texto, con las cifras que se muestran (R12).
   9. Unidades conocidas (R14 y T13): cada unidad de la tabla larga, una de las conocidas, y unidades y fuentes con sus tildes.
+  10. Formato de la tabla larga (fase 2 del plan técnico) y población del mismo año que el dato (decisión 4 del autor del 12 de
+      noviembre de 2026): cada tasa por habitante, con la proyección del INDEC del año de su dato. Y desde el 13 de noviembre de 2026, la
+      tabla larga y las tablas de las fichas, que donde miden lo mismo dan lo mismo (los 254 pares de datos/manual/mismo_dato.json).
 
 Lo que está explicado se acepta, con su motivo, en ACEPTADAS (y los casos distorsionados por el lugar de registro, en
 datos/manual/distorsiones.json, que también usan los textos). Un hallazgo nuevo sin motivo hace fallar las pruebas.
@@ -626,10 +629,150 @@ def prueba_formato(d, t):
     return sale
 
 
+# ---------------------------------------------------------------- población del mismo año que el dato
+# Decisión 4 del autor del 12 de noviembre de 2026 (docs/roadmap/CAPA_DE_DATOS.md): toda tasa por habitante usa la población proyectada
+# por el INDEC del mismo año que el dato, y lo que no tiene año propio, la del año en curso (resumen["anio_pob"]). 02 anota en
+# resumen["anio_pob_ficha"] el año que usó cada tabla. Se controla que ese año sea el del dato y que las tasas publicadas den con esa
+# población y no con la de otro año (la población cambia menos de 1% por año: la tolerancia es una décima de eso)
+ANIO_DATO = {  # tabla -> dónde dice el resumen el año del dato (None: sin año propio, el año en curso)
+    "empleo_provincias": ("empleo", "mes"), "empresas_provincias": ("empresas", "anio"), "extranjeros_provincias": ("nuevos", "xt_corte"),
+    "empleo_construccion_provincias": ("construccion", "emp_trim"), "pensiones_invalidez_provincias": ("pensiones_invalidez", "prov_anio"),
+    "auh_provincias": ("auh", "anio"), "prestacion_desempleo_provincias": ("desempleo", "prov_anio"),
+    "justicia_federal_provincias": ("justicia", "federal", "anio"), "fiscalias_defensorias_federales": ("justicia", "mp", "anio"),
+    "justicia_provincias": ("justicia", "prov", "anio"), "areas_protegidas_provincias": ("naturaleza", "anio"),
+    "turistas_extranjeros_provincias": ("turismo", "eti_anio"), "patentamientos_provincias": ("autos", "anio"),
+    "exportaciones_provincias": ("nuevos", "ex_anio"), "empleo_publico_provincias": ("gobierno", "empleo", "anio"),
+    "impuestos_provinciales": ("gobierno", "provincial", "anio"), "regalias_provincias": ("petroleo", "reg_usd_anio"),
+    "medicos_provincias": ("medicos", "anio"), "hospitales_provincias": ("establecimientos", "anio"),
+    "deuda_provincias": ("deuda_provincias", "anio"), "sociedades_provincias": ("sociedades", "anio"),
+    "representacion_provincias": None, "ministros_provincias": None, "cruces_provincias": None,
+}
+TASAS_POB = {  # tabla -> [(numerador, multiplicador del numerador, tasa publicada, cada cuántos habitantes)]
+    "empleo_provincias": [("miles", 1000, "cada_100", 100)], "empresas_provincias": [("empresas", 1, "cada_1000_hab", 1000)],
+    "extranjeros_provincias": [("personas", 1, "cada_100", 100)],
+    "empleo_construccion_provincias": [("construccion", 1, "construccion_cada_1000", 1000), ("petroleo_gas", 1, "petroleo_gas_cada_1000", 1000)],
+    "pensiones_invalidez_provincias": [("pensiones", 1, "cada_1000", 1000)],
+    "prestacion_desempleo_provincias": [("beneficiarios", 1, "cada_1000_habitantes", 1000)],
+    "justicia_federal_provincias": [("cargos", 1, "cargos_cada_100mil", 1e5)],
+    "fiscalias_defensorias_federales": [("fiscalias", 1, "fiscalias_cada_100mil", 1e5), ("defensorias", 1, "defensorias_cada_100mil", 1e5)],
+    "areas_protegidas_provincias": [("ha_terrestres", 1e4, "m2_por_habitante", 1)], "turistas_extranjeros_provincias": [("turistas", 1, "cada_1000", 1000)],
+    "patentamientos_provincias": [("autos", 1, "autos_1000", 1000)], "exportaciones_provincias": [("millones_usd", 1e6, "usd_por_habitante", 1)],
+    "empleo_publico_provincias": [("cargos", 1, "cada_1000", 1000)], "impuestos_provinciales": [("millones", 1e6, "por_habitante", 1)],
+    "regalias_provincias": [("usd_crudo_millones", 1e6, "usd_crudo_hab", 1)],
+}
+
+
+def prueba_poblacion(d, t):
+    import re
+    pr = pd.read_csv(CRUDO / "indec_proyecciones_provincias.csv", sep=";")
+    pr.columns = [c.strip() for c in pr.columns]
+    pr["Poblacion"] = pd.to_numeric(pr.Poblacion.astype(str).str.replace(".", "", regex=False), errors="coerce")
+    pob = {(f"{int(j):02d}", int(a)): float(v) for (j, a), v in pr.groupby(["Jurisdiccion", "Fecha"]).Poblacion.sum().items()}
+    r, sale = d["resumen"], []
+    usados = r.get("anio_pob_ficha") or {}
+    if not usados:
+        return [("poblacion|sin_registro", "el resumen no dice qué año de población usa cada tabla (anio_pob_ficha)")]
+    for tabla in sorted(set(usados) ^ set(ANIO_DATO)):
+        sale.append((f"poblacion|lista|{tabla}", f"{tabla}: está en anio_pob_ficha o en ANIO_DATO de pruebas_datos.py, pero no en los dos"))
+    for tabla, ruta in ANIO_DATO.items():
+        if tabla not in usados:
+            continue
+        if ruta is None:
+            esperado = r["anio_pob"]
+        else:
+            v = r
+            for k in ruta:
+                v = v.get(k) if isinstance(v, dict) else None
+            m = re.search(r"\d{4}", str(v))
+            esperado = int(m.group()) if m else None
+        if usados[tabla] != esperado:
+            sale.append((f"poblacion|anio|{tabla}", f"{tabla}: usa la población de {usados[tabla]} y el dato es de {esperado}"))
+        filas = d["datos"].get(tabla) or []
+        for f in filas:
+            c = f.get("codigo_indec")
+            if f.get("poblacion") is not None and (c, usados[tabla]) in pob and abs(f["poblacion"] - pob[(c, usados[tabla])]) > 1:
+                sale.append((f"poblacion|columna|{tabla}|{c}", f"{tabla}, {c}: la población {f['poblacion']:.0f} no es la proyección del INDEC de {usados[tabla]}"))
+            for num, mult, tasa, cada in TASAS_POB.get(tabla, []):
+                if (c, usados[tabla]) not in pob or f.get(num) is None or f.get(tasa) is None:
+                    continue
+                calc = f[num] * mult / pob[(c, usados[tabla])] * cada
+                if abs(calc - f[tasa]) > max(abs(calc) * 1e-3, 1e-3):
+                    sale.append((f"poblacion|tasa|{tabla}.{tasa}|{c}", f"{tabla}, {c}: {tasa} es {f[tasa]} y con la población de {usados[tabla]} da {calc:.4f}"))
+        # justicia de las provincias: cada dato con la población de su propio año (una provincia que no cargó el último año usa el anterior)
+        if tabla == "justicia_provincias":
+            for f in filas:
+                for k in ("magistratura", "fiscales", "defensores"):
+                    a = f.get(f"{k}_anio")
+                    if f.get(k) is None or a is None or f.get(f"{k}_cada_100mil") is None:
+                        continue
+                    calc = f[k] / pob[(f["codigo_indec"], int(a))] * 1e5
+                    if abs(calc - f[f"{k}_cada_100mil"]) > calc * 1e-3:
+                        sale.append((f"poblacion|tasa|{tabla}.{k}|{f['codigo_indec']}", f"{tabla}, {f['codigo_indec']}: {k} no usa la población de {int(a)}"))
+    return sale
+
+
+# ---------------------------------------------------------------- la tabla larga y las tablas de las fichas
+# Plan técnico, fase 2 (13 de noviembre de 2026): el MCP y la API van a leer la tabla larga y las tablas de las fichas, así que donde miden lo
+# mismo tienen que dar lo mismo. Los pares están en datos/manual/mismo_dato.json: la variable de la tabla larga, la tabla y su columna, y el
+# período (la columna de período de la tabla o, si no tiene, "ultimo", el último período de la variable, o un período fijo). Se compara con la
+# precisión de la columna (una tabla que guarda un decimal se compara redondeada a un decimal). Un par que ya no se cruza en ninguna
+# jurisdicción y período también sale: es una tabla que quedó en otro período que la tabla larga
+MISMO_DATO = MANUAL / "mismo_dato.json"
+
+
+def comparar_mismo_dato(par, t, cache):
+    """Las diferencias de un par de mismo_dato.json: [(clave, mensaje)], y cuántas filas se compararon."""
+    import re
+    tabla, col = par["tabla"], par["columna"]
+    if tabla not in cache:
+        ruta = SITIO / "datos" / f"{tabla}.csv"
+        cache[tabla] = pd.read_csv(ruta, dtype=str, keep_default_na=False) if ruta.exists() else None
+    d = cache[tabla]
+    if d is None or col not in d.columns or par.get("columna_periodo", "codigo_indec") not in d.columns:
+        return [(f"mismo|{par['variable']}|{tabla}.{col}", f"{tabla}.csv ya no tiene la columna {col} (o la de su período)")], 0
+    num = pd.to_numeric(d[col], errors="coerce")
+    g = t[t.variable == par["variable"]]
+    # los decimales que guarda cada lado, sin los ceros finales ("61883.0" es un entero): la diferencia admitida es la suma de los dos medios
+    # redondeos (la tabla larga guarda hasta cuatro, y menos si la fuente publica menos, como las tasas del SNIC)
+    decs = lambda vals: max((len(x.rstrip("0").split(".")[1]) for x in vals if re.fullmatch(r"-?\d+\.\d+", x)), default=0)
+    tol_tabla = 0.5 * 10 ** -decs(d[col])
+    cod = d.codigo_indec.str.zfill(2) if "codigo_indec" in d.columns else pd.Series(["00"] * len(d))
+    if "columna_periodo" in par:
+        per = d[par["columna_periodo"]].str.replace(r"\.0$", "", regex=True)
+    else:
+        per = pd.Series([g.periodo.max() if par["periodo"] == "ultimo" else par["periodo"]] * len(d))
+    ref = g.set_index(["codigo_indec", "periodo"]).valor
+    sale, n = [], 0
+    for c, p, x in zip(cod, per, num):
+        if pd.isna(x) or (c, p) not in ref.index:
+            continue
+        y = pd.to_numeric(ref.loc[(c, p)], errors="coerce")
+        y = y.iloc[0] if isinstance(y, pd.Series) else y
+        if pd.isna(y):
+            continue
+        n += 1
+        if abs(x - y) > tol_tabla + 0.5 * 10 ** -decs([f"{y:.4f}"]) + 1e-9:
+            sale.append((f"mismo|{par['variable']}|{tabla}.{col}|{c}|{p}",
+                         f"{par['variable']} ({c}, {p}) es {y} en la tabla larga y {x} en {tabla}.{col}"))
+    if n == 0:
+        sale.append((f"mismo|{par['variable']}|{tabla}.{col}", f"{par['variable']} y {tabla}.{col} ya no comparten ninguna jurisdicción y período"))
+    return sale, n
+
+
+def prueba_mismo_dato(d, t):
+    if not MISMO_DATO.exists():
+        return [("mismo|sin_lista", "falta datos/manual/mismo_dato.json")]
+    cache, sale = {}, []
+    for par in json.loads(MISMO_DATO.read_text(encoding="utf-8"))["pares"]:
+        sale += comparar_mismo_dato(par, t, cache)[0]
+    return sale
+
+
 PRUEBAS = [("Sumas de control", prueba_sumas), ("Tasas y porcentajes fuera de rango", prueba_rango), ("Períodos faltantes", prueba_faltantes),
            ("Más de cinco veces la mediana", None), ("Dos fuentes para lo mismo", prueba_fuentes), ("Mandatos presidenciales", prueba_mandatos),
            ("La Corte Suprema", prueba_corte), ("Errores que ya pasaron", prueba_errores), ("Puestos de cada provincia", lambda d, t: prueba_puestos()), ("Unidades conocidas", prueba_unidades),
-           ("Formato de la tabla larga", prueba_formato)]
+           ("Formato de la tabla larga", prueba_formato), ("Población del mismo año que el dato", prueba_poblacion),
+           ("La tabla larga y las tablas de las fichas", prueba_mismo_dato)]
 
 
 def correr(mostrar=True):

@@ -5,9 +5,14 @@
  "seccion": "Precios y actividad",
  "ficha": "https://datina.com.ar/economia.html#f-salario-real",
  "fuente": "INDEC, Índice de salarios e Índice de precios al consumidor.",
+ "organismos": [
+  "INDEC (Instituto Nacional de Estadística y Censos)"
+ ],
  "actualizacion": "Se actualiza cada mes.",
  "cobertura": "Sin desglose territorial",
  "periodo": "diciembre de 2016 a agosto de 2026",
+ "anio_desde": 2016,
+ "anio_hasta": 2026,
  "filas": 117,
  "columnas": [
   {
@@ -48,8 +53,28 @@
  ],
  "unidades": [],
  "como_se_calcula": "",
- "datos_actualizados": "05/11/2026",
+ "origen": [
+  {
+   "archivo": "datos/crudo/indec_indice_salarios.csv",
+   "nombre": "Índice de salarios",
+   "organismo": "INDEC",
+   "descargado": "2026-11-05",
+   "ultimo_intento": "2026-11-05",
+   "estado": "ok",
+   "url": "https://www.indec.gob.ar/ftp/cuadros/sociedad/indice_salarios.csv"
+  },
+  {
+   "archivo": "datos/crudo/indec_ipc_divisiones.csv",
+   "nombre": "Índice de precios al consumidor por región, división, categoría y bienes y servicios",
+   "organismo": "INDEC",
+   "descargado": "2026-11-05",
+   "ultimo_intento": "2026-11-05",
+   "estado": "ok",
+   "url": "https://www.indec.gob.ar/ftp/cuadros/economia/serie_ipc_divisiones.csv"
+  }
+ ],
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿Cuánto cambió el poder de compra de los salarios registrados? Con datos de INDEC, Índice de salarios e Índice de precios al consumidor. https://datina.com.ar/economia.html#f-salario-real. Consultado el día de la consulta."
+ "como_citar": "Datina (año de la consulta). ¿Cuánto cambió el poder de compra de los salarios registrados? Con datos de INDEC, Índice de salarios e Índice de precios al consumidor. https://datina.com.ar/economia.html#f-salario-real. Consultado el día de la consulta.",
+ "datos_actualizados": "05/11/2026"
 }

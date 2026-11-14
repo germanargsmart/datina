@@ -5,9 +5,14 @@
  "seccion": "Sector externo",
  "ficha": "https://datina.com.ar/externo.html#f-balanza",
  "fuente": "INDEC, intercambio comercial argentino, vía la API de Series de Tiempo.",
+ "organismos": [
+  "INDEC (Instituto Nacional de Estadística y Censos)"
+ ],
  "actualizacion": "Se actualiza cada mes.",
  "cobertura": "Sin desglose territorial",
  "periodo": "1992 a 2025",
+ "anio_desde": 1992,
+ "anio_hasta": 2025,
  "filas": 34,
  "columnas": [
   {
@@ -33,8 +38,18 @@
  ],
  "unidades": [],
  "como_se_calcula": "",
- "datos_actualizados": "05/11/2026",
+ "origen": [
+  {
+   "archivo": "datos/crudo/series_sector_externo_M.csv",
+   "nombre": "Intercambio comercial argentino: exportaciones, importaciones por uso económico y saldo, mensuales (series del INDEC en la API de Series de Tiempo)",
+   "organismo": "INDEC",
+   "descargado": "2026-11-05",
+   "ultimo_intento": "2026-11-05",
+   "estado": "ok"
+  }
+ ],
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿Cuánto exporta e importa la Argentina en bienes y cuál es el saldo? Con datos de INDEC, intercambio comercial argentino, vía la API de Series de Tiempo. https://datina.com.ar/externo.html#f-balanza. Consultado el día de la consulta."
+ "como_citar": "Datina (año de la consulta). ¿Cuánto exporta e importa la Argentina en bienes y cuál es el saldo? Con datos de INDEC, intercambio comercial argentino, vía la API de Series de Tiempo. https://datina.com.ar/externo.html#f-balanza. Consultado el día de la consulta.",
+ "datos_actualizados": "05/11/2026"
 }

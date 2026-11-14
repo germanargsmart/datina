@@ -1,8 +1,8 @@
 """
 Pruebas del validador del catálogo del Explorador de relaciones (scripts/relaciones.py, tarea D3-02 del plan Datina Lab).
-Rompe a propósito una copia del catálogo de quince formas distintas y controla que el validador marque cada una: relaciones huérfanas,
-evidencia que no está en el código, tipos que no corresponden, fichas sin origen, metadatos que faltan, ciclos y organismos que el
-pie de la ficha no nombra. También controla que el catálogo real no tenga errores.
+Rompe a propósito una copia del catálogo de 21 formas distintas y controla que el validador marque cada una: relaciones huérfanas,
+evidencia que no está en el código, tipos que no corresponden, fichas sin origen, metadatos que faltan, ciclos, organismos que el
+pie de la ficha no nombra y, desde el 13 de noviembre de 2026, archivos sin su fecha (la de armado o una fila del registro de descargas). También controla que el catálogo real no tenga errores.
 La corre 03_construir_sitio.py antes de armar el explorador. Sola: python scripts/prueba_relaciones.py
 """
 import copy, json, pathlib, sys
@@ -58,6 +58,19 @@ def _ruta_inexistente(c):
     c["conjuntos"][0]["ruta"] = "datos/crudo/no_existe.csv"
 
 
+def _sin_armado(c):
+    next(x for x in c["conjuntos"] if x["ruta"].startswith("datos/manual/")).pop("armado")
+
+
+def _armado_futuro(c):
+    next(x for x in c["conjuntos"] if x["ruta"].startswith("datos/manual/"))["armado"] = "2999-01-01"
+
+
+def _descarga_sin_fila(c):
+    # un archivo de datos/crudo/ que existe y que ninguna fila del registro nombra: el propio registro
+    next(x for x in c["conjuntos"] if x["ruta"].startswith("datos/crudo/"))["ruta"] = "datos/crudo/_registro.csv"
+
+
 def _ficha_sin_origen(c):
     c["aristas"] = [x for x in c["aristas"] if x["a"] != "f-homicidios"]
 
@@ -107,6 +120,9 @@ CASOS = [
     ("relación sin evidencia", _sin_evidencia, "falta la evidencia"),
     ("archivo con un organismo que no está", _fuente_inexistente, "no está en el catálogo"),
     ("archivo con una ruta que no existe", _ruta_inexistente, "no existe datos/crudo/no_existe.csv"),
+    ("archivo armado a mano sin su fecha", _sin_armado, "falta 'armado'"),
+    ("archivo armado a mano con una fecha que no llegó", _armado_futuro, "falta 'armado'"),
+    ("archivo descargado sin fila en el registro", _descarga_sin_fila, "ninguna fila de datos/crudo/_registro.csv"),
     ("ficha sin origen", _ficha_sin_origen, "f-homicidios: ninguna relación"),
     ("archivo que no alimenta nada", _conjunto_sin_uso, "conjunto que no alimenta"),
     ("organismo sin archivos", _fuente_sin_conjuntos, "fuente que no publica"),

@@ -4,10 +4,15 @@
  "descripcion": "Asalariados registrados en la construcción privada, por provincia, primer trimestre de 2026, y porcentaje de las personas ocupadas que trabajan en la construcción, con o sin registro, por provincia y departamento, Censo 2022",
  "seccion": "Construcción y vivienda",
  "ficha": "https://datina.com.ar/construccion.html#f-empleo-construccion",
- "fuente": "Observatorio de Empleo y Dinámica Empresarial (OEDE), Secretaría de Trabajo, Ministerio de Capital Humano, con datos del Sistema Integrado Previsional Argentino (SIPA), e INDEC, Censo Nacional de Población, Hogares y Viviendas 2022, resultados por radio censal. Se actualiza cada tres meses. El último dato es del primer trimestre de 2026, más atrasado que lo habitual.",
- "actualizacion": "",
+ "fuente": "Observatorio de Empleo y Dinámica Empresarial (OEDE), Secretaría de Trabajo, Ministerio de Capital Humano, con datos del Sistema Integrado Previsional Argentino (SIPA), e INDEC, Censo Nacional de Población, Hogares y Viviendas 2022, resultados por radio censal.",
+ "organismos": [
+  "INDEC (Instituto Nacional de Estadística y Censos)"
+ ],
+ "actualizacion": "Se actualiza cada tres meses. El último dato es del primer trimestre de 2026, más atrasado que lo habitual.",
  "cobertura": "Las 24 jurisdicciones",
  "periodo": "",
+ "anio_desde": 2022,
+ "anio_hasta": 2026,
  "filas": 24,
  "columnas": [
   {
@@ -113,8 +118,17 @@
  ],
  "unidades": [],
  "como_se_calcula": "",
- "datos_actualizados": "05/11/2026",
+ "origen": [
+  {
+   "archivo": "datos/manual/censo2022_departamentos.csv",
+   "nombre": "Censo 2022: vivienda, combustible para cocinar y rama de actividad por departamento",
+   "organismo": "INDEC",
+   "armado": "2026-10-03",
+   "url": "https://datos.gob.ar/api/3/action/package_show?id=censo-nacional-de-poblacion-hogares-y-viviendas-2022"
+  }
+ ],
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿Cuántas personas trabajan en la construcción en cada provincia? Con datos de Observatorio de Empleo y Dinámica Empresarial (OEDE), Secretaría de Trabajo, Ministerio de Capital Humano, con datos del Sistema Integrado Previsional Argentino (SIPA), e INDEC, Censo Nacional de Población, Hogares y Viviendas 2022, resultados por radio censal. Se actualiza cada tres meses. El último dato es del primer trimestre de 2026, más atrasado que lo habitual. https://datina.com.ar/construccion.html#f-empleo-construccion. Consultado el día de la consulta."
+ "como_citar": "Datina (año de la consulta). ¿Cuántas personas trabajan en la construcción en cada provincia? Con datos de Observatorio de Empleo y Dinámica Empresarial (OEDE), Secretaría de Trabajo, Ministerio de Capital Humano, con datos del Sistema Integrado Previsional Argentino (SIPA), e INDEC, Censo Nacional de Población, Hogares y Viviendas 2022, resultados por radio censal. https://datina.com.ar/construccion.html#f-empleo-construccion. Consultado el día de la consulta.",
+ "datos_actualizados": "05/11/2026"
 }

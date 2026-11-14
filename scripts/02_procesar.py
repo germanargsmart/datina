@@ -96,19 +96,34 @@ EXCLUIR = lambda clave: [c for c, x in DIST.get(clave, {}).items() if x["accion"
 
 # ---------------------------------------------------------------- poblacion
 # Un solo modulo de poblacion (regla del autor, octubre de 2026): toda tasa por habitante que arma el sitio usa las proyecciones
-# del INDEC 2022 a 2040 (base Censo 2022), por provincia, del anio 2025. Antes se deducia de las tasas de hurtos del SNIC
+# del INDEC 2022 a 2040 (base Censo 2022), por provincia. Antes se deducia de las tasas de hurtos del SNIC
 # (cantidad / tasa x 100.000), que dan exactamente los mismos valores porque el SNIC usa esas proyecciones (verificado en las 24).
+# Del mismo año que el dato (decisión 4 del autor del 12 de noviembre de 2026, docs/roadmap/CAPA_DE_DATOS.md, que reemplaza la
+# regla del 2 de octubre de 2026, "del año 2025"): cada tasa pide la suya con pob_anio(año del dato, tabla). Lo que no tiene año
+# propio (las bancas por ley, los ministros desde 1983, la población y la densidad de Cruces y del perfil) usa la del año en
+# curso, ANIO_POB, que es el de la fecha de la actualización (pd.Timestamp.now(), que correr_02_con_fecha.py fija en la del
+# resumen) y no el del día del armado: armar otro día da los mismos archivos.
 # Excepciones, declaradas en cada ficha: las tasas que publica la fuente (SNIC, DEIS, ENACOM) se usan tal cual, y las series
 # por provincia anteriores a 2022 (transferencias y cruces animados) usan la poblacion implicita en las tasas del SNIC de cada
 # anio, que sale de las proyecciones del INDEC vigentes en ese momento.
-ANIO_POB = 2025
 _pr = pd.read_csv(CRUDO / "indec_proyecciones_provincias.csv", sep=";")
 _pr.columns = [c.strip() for c in _pr.columns]
 _pr["Poblacion"] = pd.to_numeric(_pr.Poblacion.astype(str).str.replace(".", "", regex=False), errors="coerce")
-POB = {f"{int(j):02d}": float(v) for j, v in _pr[_pr.Fecha == ANIO_POB].groupby("Jurisdiccion").Poblacion.sum().items()}
-assert len(POB) == 24, "faltan provincias en las proyecciones del INDEC"
-# la misma población, de cada año de las proyecciones (2022 a 2040), para los datos de un año que no es ANIO_POB
+# la población de cada jurisdicción y de cada año de las proyecciones (2022 a 2040)
 POB_POR_ANIO = {(f"{int(j):02d}", int(a)): float(v) for (j, a), v in _pr.groupby(["Jurisdiccion", "Fecha"]).Poblacion.sum().items()}
+ANIO_POB = int(pd.Timestamp.now().year)
+POB = {j: v for (j, a), v in POB_POR_ANIO.items() if a == ANIO_POB}
+assert len(POB) == 24, f"faltan provincias en las proyecciones del INDEC de {ANIO_POB}"
+# tabla publicada -> año de la población que usa: lo leen las notas de las fichas (resumen["anio_pob_ficha"]) y pruebas_datos.py
+ANIO_POB_FICHA = {}
+
+
+def pob_anio(anio, tabla):
+    """La población de las 24 jurisdicciones del año del dato (decisión 4 del autor), y la anota para la tabla publicada."""
+    anio = int(anio)
+    assert ("02", anio) in POB_POR_ANIO, f"{tabla}: no hay proyección del INDEC para {anio} (hay de 2022 a 2040)"
+    assert ANIO_POB_FICHA.setdefault(tabla, anio) == anio, f"{tabla}: pidió la población de dos años, {ANIO_POB_FICHA[tabla]} y {anio}"
+    return {c: POB_POR_ANIO[(c, anio)] for c in POB}
 
 # Proyecciones del INDEC por provincia, sexo y edad (base Censo 2022): envejecimiento y relacion de dependencia
 proy = pd.read_csv(CRUDO / "indec_proyecciones_provincias.csv", sep=";")
@@ -397,7 +412,7 @@ hace12 = fin - pd.DateOffset(years=1)
 emp = pd.DataFrame({"codigo_indec": list(COL.values())})
 emp["miles"] = emp.codigo_indec.map(s.set_index("indice_tiempo").loc[fin])
 emp["miles_hace12"] = emp.codigo_indec.map(s.set_index("indice_tiempo").loc[hace12])
-emp["poblacion"] = emp.codigo_indec.map(POB)
+emp["poblacion"] = emp.codigo_indec.map(pob_anio(fin.year, "empleo_provincias"))
 emp["cada_100"] = emp.miles * 1000 / emp.poblacion * 100
 emp["var_12m"] = (emp.miles / emp.miles_hace12 - 1) * 100
 emp["territorio"] = emp.codigo_indec.map(CORTO)
@@ -850,7 +865,6 @@ DX_ENMASCARADOS = {"alumnos": round(float(dx_m[_enm].n.sum())), "provincias": in
 
 # ---------------------------------------------------------------- naturaleza
 COD_NOMBRE.update({"ciudad a. de buenos aires": "02", "total": "00"})
-POB_PAIS = sum(POB.values())
 
 # Superficie protegida por provincia: nacional, provincial y con designacion internacional (Ministerio de Ambiente, CIAM)
 anio_ap = json.loads((CRUDO / "ciam_meta.json").read_text(encoding="utf-8"))["anio"]
@@ -862,11 +876,12 @@ for c in ["total_cantidad", "terrestre_ha", "porcentaje_terrestre_protegido"]:
 assert apr.codigo_indec.nunique() == 25, "Faltan jurisdicciones en las areas protegidas"
 area = apr[apr.codigo_indec != "00"].rename(columns={"total_cantidad": "areas", "terrestre_ha": "ha_terrestres",
                                                      "porcentaje_terrestre_protegido": "pct_territorio"})
-area["m2_por_habitante"] = area.ha_terrestres * 1e4 / area.codigo_indec.map(POB)
+POB_AP = pob_anio(anio_ap, "areas_protegidas_provincias")
+area["m2_por_habitante"] = area.ha_terrestres * 1e4 / area.codigo_indec.map(POB_AP)
 area["territorio"] = area.codigo_indec.map(CORTO)
 area = area[["codigo_indec", "territorio", "areas", "ha_terrestres", "pct_territorio", "m2_por_habitante"]]
 ap_tot = apr[apr.codigo_indec == "00"].iloc[0]
-m2_pais = ap_tot.terrestre_ha * 1e4 / POB_PAIS
+m2_pais = ap_tot.terrestre_ha * 1e4 / sum(POB_AP.values())
 for col, var, uni in [("pct_territorio", "pct_territorio_protegido", "% de la superficie continental"),
                       ("m2_por_habitante", "m2_protegidos_por_habitante", "m2 por habitante")]:
     d = area[["codigo_indec", "territorio", col]].rename(columns={col: "valor"}); d["periodo"] = anio_ap
@@ -966,7 +981,7 @@ etp = e_.groupby("provincia_de_destino").turistas_no_residentes.sum().reset_inde
 etp["codigo_indec"] = etp.provincia_de_destino.map(codigo)
 etp = etp.dropna(subset=["codigo_indec"]).rename(columns={"turistas_no_residentes": "turistas"})
 assert len(etp) == 24, "Faltan provincias en la Encuesta de Turismo Internacional"
-etp["cada_1000"] = etp.turistas / etp.codigo_indec.map(POB) * 1000
+etp["cada_1000"] = etp.turistas / etp.codigo_indec.map(pob_anio(ANIO_ETI, "turistas_extranjeros_provincias")) * 1000
 etp["territorio"] = etp.codigo_indec.map(CORTO)
 etp = etp[["codigo_indec", "territorio", "turistas", "cada_1000"]]
 d = etp[["codigo_indec", "territorio", "turistas"]].rename(columns={"turistas": "valor"}); d["periodo"] = ANIO_ETI
@@ -1010,8 +1025,9 @@ ytd_au = au[(au.anio == au.anio.max()) & (au.mes <= ult_au)].autos.sum()
 ytd_au_prev = au[(au.anio == au.anio.max() - 1) & (au.mes <= ult_au)].autos.sum()
 pat_prov = (au[au.anio == ANIO_AU].groupby("codigo_indec").autos.sum().to_frame()
             .join(mo_[mo_.anio == ANIO_AU].groupby("codigo_indec").motos.sum()).reset_index())
-pat_prov["autos_1000"] = pat_prov.autos / pat_prov.codigo_indec.map(POB) * 1000
-pat_prov["motos_1000"] = pat_prov.motos / pat_prov.codigo_indec.map(POB) * 1000
+POB_AU = pob_anio(ANIO_AU, "patentamientos_provincias")
+pat_prov["autos_1000"] = pat_prov.autos / pat_prov.codigo_indec.map(POB_AU) * 1000
+pat_prov["motos_1000"] = pat_prov.motos / pat_prov.codigo_indec.map(POB_AU) * 1000
 pat_prov["territorio"] = pat_prov.codigo_indec.map(CORTO)
 assert pat_prov.territorio.notna().all() and len(pat_prov) == 24, "Faltan provincias en los patentamientos"
 # Las motos de las jurisdicciones marcadas "excluir" en datos/manual/distorsiones.json (E3 de docs/roadmap/PLAN_MEJORA.md, 26 de octubre
@@ -1021,7 +1037,7 @@ assert pat_prov.territorio.notna().all() and len(pat_prov) == 24, "Faltan provin
 MOTOS_EXCL = EXCLUIR("patentamientos_provincias.motos_1000")
 _motos_excl = pat_prov.codigo_indec.isin(MOTOS_EXCL)
 patent.loc[patent.anio == ANIO_AU, "motos"] -= float(pat_prov[_motos_excl].motos.sum())
-MOTOS_PAIS_1000 = pat_prov[~_motos_excl].motos.sum() / (POB_PAIS - sum(POB[c] for c in MOTOS_EXCL)) * 1000
+MOTOS_PAIS_1000 = pat_prov[~_motos_excl].motos.sum() / (sum(POB_AU.values()) - sum(POB_AU[c] for c in MOTOS_EXCL)) * 1000
 for col, var in [("autos", "autos_nuevos_inscriptos"), ("motos", "motos_nuevas_inscriptas")]:
     d = patent[["anio", col]].dropna().rename(columns={"anio": "periodo", col: "valor"})
     d["codigo_indec"], d["territorio"] = "00", "Argentina"
@@ -1234,7 +1250,7 @@ assert set(medi_d.codigo_indec) == set(POB) and len(medi_d) == 24, "medicos: las
 MEDI_ANIO = int(medi_d.anio.max())
 medicos_provincias = medi_d.sort_values("codigo_indec")[["codigo_indec", "habilitados", "activos"]].reset_index(drop=True)
 medicos_provincias.insert(1, "territorio", medicos_provincias.codigo_indec.map(CORTO))
-medicos_provincias["poblacion"] = medicos_provincias.codigo_indec.map(lambda c: POB_POR_ANIO[(c, MEDI_ANIO)])
+medicos_provincias["poblacion"] = medicos_provincias.codigo_indec.map(pob_anio(MEDI_ANIO, "medicos_provincias"))
 medicos_provincias["activos_cada_10000"] = medicos_provincias.activos / medicos_provincias.poblacion * 1e4
 medicos_provincias["habilitados_cada_10000"] = medicos_provincias.habilitados / medicos_provincias.poblacion * 1e4
 medicos_provincias["pct_activos"] = medicos_provincias.activos / medicos_provincias.habilitados * 100
@@ -1268,7 +1284,7 @@ hospitales_provincias = (_hosp_d.groupby("codigo_indec").agg(hospitales=("refes_
                          .reset_index().sort_values("codigo_indec").reset_index(drop=True))
 assert set(hospitales_provincias.codigo_indec) == set(POB) and len(hospitales_provincias) == 24, "hospitales: las jurisdicciones no son las 24"
 hospitales_provincias.insert(1, "territorio", hospitales_provincias.codigo_indec.map(CORTO))
-hospitales_provincias["poblacion"] = hospitales_provincias.codigo_indec.map(lambda c: POB_POR_ANIO[(c, HOSP_ANIO)])
+hospitales_provincias["poblacion"] = hospitales_provincias.codigo_indec.map(pob_anio(HOSP_ANIO, "hospitales_provincias"))
 hospitales_provincias["hospitales_cada_100000"] = hospitales_provincias.hospitales / hospitales_provincias.poblacion * 1e5
 hospitales_provincias["terapia_cada_100000"] = hospitales_provincias.con_terapia_intensiva / hospitales_provincias.poblacion * 1e5
 hospitales_provincias["pct_terapia"] = hospitales_provincias.con_terapia_intensiva / hospitales_provincias.hospitales * 100
@@ -1880,7 +1896,8 @@ assert ex[ex.anio == ANIO_EX].codigo_indec.nunique() == 25, "Faltan provincias e
 RUB_EX = ["primarios", "manufacturas_agro", "manufacturas_industriales", "combustibles_energia"]
 exp_prov = ex[(ex.anio == ANIO_EX) & (ex.codigo_indec != "00")].copy()
 exp_prov["territorio"] = exp_prov.codigo_indec.map(CORTO)
-exp_prov["usd_por_habitante"] = exp_prov.millones_usd * 1e6 / exp_prov.codigo_indec.map(POB)
+POB_EX = pob_anio(ANIO_EX, "exportaciones_provincias")
+exp_prov["usd_por_habitante"] = exp_prov.millones_usd * 1e6 / exp_prov.codigo_indec.map(POB_EX)
 exp_prov["rubro_principal"] = exp_prov[RUB_EX].idxmax(axis=1)
 exp_prov = exp_prov[["codigo_indec", "territorio", "millones_usd", "usd_por_habitante", "rubro_principal"] + RUB_EX]
 EXP_TOTAL = float(ex[(ex.anio == ANIO_EX) & (ex.codigo_indec == "00")].millones_usd.iloc[0])
@@ -2432,7 +2449,8 @@ if (CRUDO / "oede_empresas_provincias.xlsx").exists():
     assert len(empresas) == 24, "Faltan provincias en las empresas del OEDE"
     empresas["territorio"] = empresas.codigo_indec.map(CORTO)
     empresas["empresas"] = empresas.codigo_indec.map(_cant).round(0)
-    empresas["cada_1000_hab"] = empresas.empresas / empresas.codigo_indec.map(POB) * 1000
+    POB_EMP = pob_anio(_anio_emp, "empresas_provincias")  # la de la cantidad de empresas (2024), no la de las tasas de entrada y salida
+    empresas["cada_1000_hab"] = empresas.empresas / empresas.codigo_indec.map(POB_EMP) * 1000
     for k in ("aperturas", "cierres", "tasa_entrada", "tasa_salida", "tasa_neta"):
         empresas[f"{k}_{_ult}"] = empresas.codigo_indec.map(_u[k])
     empresas[f"tasa_neta_{_ult - 4}_{_ult}"] = empresas.codigo_indec.map((_c5.aperturas - _c5.cierres) / _c5.base * 100)
@@ -2454,7 +2472,7 @@ if (CRUDO / "oede_empresas_provincias.xlsx").exists():
     assert EMP_PAIS < EMP_SUMA, f"OEDE: las empresas locales del país ({EMP_PAIS}) no dan menos que la suma de las provincias ({EMP_SUMA})"
     emp_res = {"anio": _anio_emp, "ult": _ult, "total_pais": EMP_PAIS, "suma_provincias": EMP_SUMA,
                "top": _e.iloc[-1].territorio, "top_v": r1(_e.cada_1000_hab.max()), "low": _e.iloc[0].territorio, "low_v": r1(_e.cada_1000_hab.min()),
-               "pais_1000": round(EMP_PAIS / POB_PAIS * 1000, 1),
+               "pais_1000": round(EMP_PAIS / sum(POB_EMP.values()) * 1000, 1),
                "ap": int(_es.aperturas[_ult]), "ci": int(_es.cierres[_ult]), "te": r1(_es.tasa_entrada[_ult]), "ts": r1(_es.tasa_salida[_ult]),
                "neta": r1(_es.tasa_neta[_ult]), "neta_top": _n.iloc[-1].territorio, "neta_top_v": r1(_n[f"tasa_neta_{_ult}"].max()),
                "neta_low": _n.iloc[0].territorio, "neta_low_v": r1(_n[f"tasa_neta_{_ult}"].min()),
@@ -2541,7 +2559,8 @@ rx = pd.read_csv(CRUDO / "renaper_extranjeros.csv")
 rx["codigo_indec"] = rx.provincia_id.map(lambda x: f"{int(x):02d}")
 extranjeros = rx.groupby("codigo_indec").cantidad.sum().rename("personas").reset_index()
 extranjeros["territorio"] = extranjeros.codigo_indec.map(CORTO)
-extranjeros["cada_100"] = extranjeros.personas / extranjeros.codigo_indec.map(POB) * 100
+POB_XT = pob_anio(re.search(r"\d{4}", RENAPER_CORTE).group(), "extranjeros_provincias")
+extranjeros["cada_100"] = extranjeros.personas / extranjeros.codigo_indec.map(POB_XT) * 100
 top_origen = rx.groupby("pais_nacimiento").cantidad.sum().sort_values(ascending=False)
 
 # ---------------------------------------------------------------- cuentas fiscales provinciales
@@ -2657,7 +2676,7 @@ deuda_provincias.loc[~_dp_sin, list(DP_ACREEDORES)] = deuda_provincias.loc[~_dp_
 assert ((deuda_provincias[list(DP_ACREEDORES)].sum(axis=1) - deuda_provincias.millones).abs()[~_dp_sin] < 1).all(), \
     "los acreedores no suman el total del stock de deuda provincial"
 deuda_provincias.insert(2, "fecha", f"{DP_ANIO}-{_dp_mes * 3:02d}-{int(_dp_f.group(1)):02d}")
-deuda_provincias["poblacion"] = deuda_provincias.codigo_indec.map(lambda c: POB_POR_ANIO[(c, DP_ANIO)])
+deuda_provincias["poblacion"] = deuda_provincias.codigo_indec.map(pob_anio(DP_ANIO, "deuda_provincias"))
 deuda_provincias["por_habitante"] = deuda_provincias.millones * 1e6 / deuda_provincias.poblacion
 DP_GRUPOS = {"bonos": ["bonos"], "organismos": ["organismos_internacionales"], "nacion": ["gobierno_nacional", "fffir", "ffdp"],
              "bancos_otros": ["bancos", "deuda_consolidada"]}
@@ -2701,7 +2720,7 @@ _soc_g = lambda a, k="sociedades": soc_d[soc_d.anio == a].groupby("codigo_indec"
 sociedades_provincias["sociedades"] = sociedades_provincias.codigo_indec.map(_soc_g(SOC_ULT))
 sociedades_provincias["sociedades_anterior"] = sociedades_provincias.codigo_indec.map(_soc_g(SOC_ULT - 1)).fillna(0)
 sociedades_provincias["pct_sas"] = sociedades_provincias.codigo_indec.map(_soc_g(SOC_ULT, "sas")) / sociedades_provincias.sociedades * 100
-sociedades_provincias["poblacion"] = sociedades_provincias.codigo_indec.map(lambda c: POB_POR_ANIO[(c, SOC_ULT)])
+sociedades_provincias["poblacion"] = sociedades_provincias.codigo_indec.map(pob_anio(SOC_ULT, "sociedades_provincias"))
 sociedades_provincias["cada_100000"] = sociedades_provincias.sociedades / sociedades_provincias.poblacion * 1e5
 sociedades_pais = soc_d.groupby("anio").agg(sociedades=("sociedades", "sum"), sas=("sas", "sum")).reset_index().astype(int)
 sociedades_pais["otras"] = sociedades_pais.sociedades - sociedades_pais.sas
@@ -3256,7 +3275,7 @@ _rl["codigo_indec"] = _rl.provincia.map(lambda t: MAR if norm(t) == "estado naci
 assert _rl.codigo_indec.notna().all(), f"provincias sin código en regalías: {_rl[_rl.codigo_indec.isna()].provincia.unique()}"
 reg_crudo = _rl[_rl["AÑO"] == REG_ULT].groupby("codigo_indec").usd.sum()
 reg_prov["usd_crudo_millones"] = reg_prov.codigo_indec.map(reg_crudo / 1e6).fillna(0)
-reg_prov["usd_crudo_hab"] = reg_prov.codigo_indec.map(reg_crudo).fillna(0) / reg_prov.codigo_indec.map(POB)
+reg_prov["usd_crudo_hab"] = reg_prov.codigo_indec.map(reg_crudo).fillna(0) / reg_prov.codigo_indec.map(pob_anio(REG_ULT, "regalias_provincias"))
 reg_prov = reg_prov.rename(columns={"regalias": "pct_regalias", "anio": "anio_aif"})[["codigo_indec", "territorio", "anio_aif", "pct_regalias", "usd_crudo_millones", "usd_crudo_hab"]]
 regalias_serie = (_rl[_rl["AÑO"] <= REG_ULT].groupby("AÑO").usd.sum() / 1e6).rename("usd_crudo_millones").reset_index().rename(columns={"AÑO": "anio"})
 regalias_serie["anio"] = regalias_serie.anio.astype(int)
@@ -3340,11 +3359,12 @@ _wu, _wa = _w[_w.t == OE_T].set_index("codigo_indec"), _w[_w.t == OE_ANT].set_in
 empleo_sec = pd.DataFrame({"codigo_indec": sorted(_wu.index)})
 empleo_sec["territorio"] = empleo_sec.codigo_indec.map(CORTO)
 empleo_sec["construccion"] = empleo_sec.codigo_indec.map(_wu.construccion)
-empleo_sec["construccion_cada_1000"] = empleo_sec.construccion / empleo_sec.codigo_indec.map(POB) * 1000
+POB_OE = pob_anio(OE_T // 10, "empleo_construccion_provincias")
+empleo_sec["construccion_cada_1000"] = empleo_sec.construccion / empleo_sec.codigo_indec.map(POB_OE) * 1000
 empleo_sec["pct_construccion"] = empleo_sec.construccion / empleo_sec.codigo_indec.map(_wu.total) * 100
 empleo_sec["var_construccion"] = (empleo_sec.construccion / empleo_sec.codigo_indec.map(_wa.construccion) - 1) * 100
 empleo_sec["petroleo_gas"] = empleo_sec.codigo_indec.map(_wu.petroleo_gas)
-empleo_sec["petroleo_gas_cada_1000"] = empleo_sec.petroleo_gas / empleo_sec.codigo_indec.map(POB) * 1000
+empleo_sec["petroleo_gas_cada_1000"] = empleo_sec.petroleo_gas / empleo_sec.codigo_indec.map(POB_OE) * 1000
 _ser_c = oe[oe.rama.isin(["construccion", "petroleo_gas", "total"])].groupby(["t", "anio", "trimestre", "rama"]).valor.sum().unstack().reset_index()
 empleo_constr_serie = _ser_c[_ser_c.t <= OE_T][["anio", "trimestre", "construccion", "petroleo_gas", "total"]]
 _ec_u = empleo_constr_serie.iloc[-1]
@@ -3541,7 +3561,7 @@ if (CRUDO / "bess_indicadores.xlsx").exists():
 # de 2026: "cantidad de pensiones por discapacidad, pensiones por discapacidad por provincia, hacer un mapa"). BESS, capítulo III: del país,
 # el promedio mensual de cada año desde 2001 y el último mes (cuadro 3.1, con los beneficios no suspendidos desde 2019), y por jurisdicción
 # (edición por provincia, cuadro 3.6), el promedio de cada año y el último mes, que puede ser anterior al del país. Cada 1.000 habitantes con
-# la población del sitio (POB). Las otorga la Agencia Nacional de Discapacidad y las paga ANSES.
+# la población del mismo año (pob_anio). Las otorga la Agencia Nacional de Discapacidad y las paga ANSES.
 pinv_res, pinv_pais, pinv_prov = None, None, None
 if (CRUDO / "bess_pnc.xlsx").exists() and (CRUDO / "bess_provincias_pnc.xlsx").exists():
     def _pinv_periodo(v):
@@ -3582,7 +3602,7 @@ if (CRUDO / "bess_pnc.xlsx").exists() and (CRUDO / "bess_provincias_pnc.xlsx").e
     _pp_pais = pinv_prov.set_index("codigo_indec").pensiones["00"]
     assert abs(pinv_prov[pinv_prov.codigo_indec != "00"].pensiones.sum() - _pp_pais) / _pp_pais < .01, "BESS 3.6: las provincias no suman el total"
     pinv_prov["territorio"] = pinv_prov.codigo_indec.map({**CORTO, "00": "Argentina"})
-    pinv_prov["cada_1000"] = pinv_prov.pensiones / pinv_prov.codigo_indec.map({**POB, "00": sum(POB.values())}) * 1000
+    pinv_prov["cada_1000"] = pinv_prov.pensiones / pinv_prov.codigo_indec.map((lambda p: {**p, "00": sum(p.values())})(pob_anio(_pp_a[_pp_ult][0], "pensiones_invalidez_provincias"))) * 1000
     pinv_prov["pct_pais"] = pinv_prov.pensiones / _pp_pais * 100
     pinv_prov["var_anio_ant"] = (pinv_prov.pensiones / pinv_prov.pensiones_anio_ant - 1) * 100
     pinv_prov = pinv_prov[["codigo_indec", "territorio", "pensiones", "cada_1000", "pct_pais", "pensiones_anio_ant", "var_anio_ant",
@@ -3606,7 +3626,7 @@ if (CRUDO / "bess_pnc.xlsx").exists() and (CRUDO / "bess_provincias_pnc.xlsx").e
 
 # Asignación Universal por Hijo por provincia (etapa 42, pedido del autor del 12 de octubre de 2026: "auh, planes sociales"). BESS, edición
 # por provincia, cuadro 5.8: los beneficios (uno por cada hijo, con los de hijo con discapacidad) del último mes, que sale de la fecha de corte
-# del cuadro (el mes anterior). Cada 100 menores de 18 años de la población del sitio (ANIO_POB): las proyecciones vienen en grupos de cinco
+# del cuadro (el mes anterior). Cada 100 menores de 18 años de la población del mismo año (decisión 4 del autor): las proyecciones vienen en grupos de cinco
 # años, así que se toman los de 0 a 14 y tres quintos del de 15 a 19. Del país, el cuadro 6.8 de la edición nacional: qué parte de los
 # menores de 18 cobra alguna asignación familiar y por qué vía (la AUH o la de sus padres asalariados, monotributistas, jubilados, etc.).
 auh_res, auh_prov, auh_cob = None, None, None
@@ -3622,7 +3642,9 @@ if (CRUDO / "bess_provincias_aaff.xlsx").exists() and (CRUDO / "bess_aaff.xlsx")
     assert sorted(auh_prov.codigo_indec) == sorted(["00", *POB]), "BESS 5.8: faltan jurisdicciones o hay de más"
     _auh_pais = auh_prov.set_index("codigo_indec").beneficios["00"]
     assert abs(auh_prov[auh_prov.codigo_indec != "00"].beneficios.sum() - _auh_pais) / _auh_pais < .01, "BESS 5.8: las provincias no suman el total"
-    _auh_men = proy[(proy.anio == ANIO_POB) & (proy.edad <= 15)].assign(m=lambda x: np.where(x.edad == 15, x.pob * .6, x.pob)).groupby("codigo_indec").m.sum()
+    _auh_anio = _auh_mes.year
+    pob_anio(_auh_anio, "auh_provincias")  # solo lo anota: los menores salen de las proyecciones por edad del mismo año
+    _auh_men = proy[(proy.anio == _auh_anio) & (proy.edad <= 15)].assign(m=lambda x: np.where(x.edad == 15, x.pob * .6, x.pob)).groupby("codigo_indec").m.sum()
     _auh_men["00"] = _auh_men.sum()
     auh_prov["territorio"] = auh_prov.codigo_indec.map({**CORTO, "00": "Argentina"})
     auh_prov["menores"] = auh_prov.codigo_indec.map(_auh_men).round()
@@ -3709,7 +3731,7 @@ if (CRUDO / "bess_desempleo.xlsx").exists() and (CRUDO / "bess_provincias_desemp
     dsm_prov["territorio"] = dsm_prov.codigo_indec.map({**CORTO, "00": "Argentina"})
     dsm_prov["asalariados_privados"] = dsm_prov.codigo_indec.map(_dsm_asal).round()
     dsm_prov["cada_100_asalariados"] = dsm_prov.beneficiarios / dsm_prov.asalariados_privados * 100
-    dsm_prov["cada_1000_habitantes"] = dsm_prov.beneficiarios / dsm_prov.codigo_indec.map({**POB, "00": sum(POB.values())}) * 1000
+    dsm_prov["cada_1000_habitantes"] = dsm_prov.beneficiarios / dsm_prov.codigo_indec.map((lambda p: {**p, "00": sum(p.values())})(pob_anio(_dsp_a[_dsp_ult][0], "prestacion_desempleo_provincias"))) * 1000
     dsm_prov["pct_pais"] = dsm_prov.beneficiarios / _dsp_pais * 100
     dsm_prov = dsm_prov[["codigo_indec", "territorio", "beneficiarios", "asalariados_privados", "cada_100_asalariados", "cada_1000_habitantes", "pct_pais",
                          *[c for c in dsm_prov.columns if c.startswith("promedio_")]]]
@@ -4363,7 +4385,7 @@ DIP_LEY = {"02": 25, "06": 70, "10": 5, "14": 18, "18": 7, "22": 7, "26": 5, "30
 assert sum(DIP_LEY.values()) == 257
 representacion = pd.DataFrame({"codigo_indec": list(DIP_LEY), "diputados": list(DIP_LEY.values())})
 representacion["territorio"] = representacion.codigo_indec.map(CORTO)
-representacion["poblacion"] = representacion.codigo_indec.map(POB).round(0)
+representacion["poblacion"] = representacion.codigo_indec.map(pob_anio(ANIO_POB, "representacion_provincias")).round(0)  # sin año propio: el año en curso
 representacion["hab_por_diputado"] = (representacion.poblacion / representacion.diputados).round(0)
 representacion["hab_por_senador"] = (representacion.poblacion / 3).round(0)
 # peso del voto: bancas totales (diputados mas senadores) sobre la proporcion de poblacion; 1 = proporcional
@@ -4817,7 +4839,7 @@ for _jus_c, _jus_t in [("organos", None), ("juzgados", "Juzgado"), ("camaras", "
 justicia_federal["cargos_sin_funcionar"] = _jus_fed[~_jus_fed.funciona].groupby("codigo_indec").size().reindex(justicia_federal.index, fill_value=0)
 justicia_federal = justicia_federal.reset_index()
 justicia_federal.insert(1, "territorio", justicia_federal.codigo_indec.map(CORTO))
-justicia_federal["poblacion"] = justicia_federal.codigo_indec.map(POB).round(0)
+justicia_federal["poblacion"] = justicia_federal.codigo_indec.map(pob_anio(_jus_f[0], "justicia_federal_provincias")).round(0)
 justicia_federal["cargos_cada_100mil"] = (justicia_federal.cargos / justicia_federal.poblacion * 1e5).round(4)
 justicia_federal["pct_sin_titular"] = ((justicia_federal.subrogante + justicia_federal.sin_cubrir) / justicia_federal.cargos * 100).round(4)
 assert justicia_federal.cargos.gt(0).all(), "padrón de magistrados: una provincia sin jueces federales"
@@ -4835,7 +4857,7 @@ for _jus_c, _jus_t in [("fiscalias", "Fiscal"), ("defensorias", "Defensor")]:
     mp_federal[f"{_jus_c}_cargos"] = mp_federal.codigo_indec.map(_jus_o.groupby("codigo_indec").size()).fillna(0).astype(int)
     mp_federal[f"{_jus_c}_cargos_sin_titular"] = mp_federal.codigo_indec.map(_jus_o[_jus_o.cargo_vacante.eq("SI")].groupby("codigo_indec").size()).fillna(0).astype(int)
 mp_federal.insert(1, "territorio", mp_federal.codigo_indec.map(CORTO))
-mp_federal["poblacion"] = mp_federal.codigo_indec.map(POB).round(0)
+mp_federal["poblacion"] = mp_federal.codigo_indec.map(pob_anio(_jus_f24.group(1), "fiscalias_defensorias_federales")).round(0)
 mp_federal["fiscalias_cada_100mil"] = (mp_federal.fiscalias / mp_federal.poblacion * 1e5).round(4)
 mp_federal["defensorias_cada_100mil"] = (mp_federal.defensorias / mp_federal.poblacion * 1e5).round(4)
 assert mp_federal.fiscalias.gt(0).all() and mp_federal.defensorias.gt(0).all(), "padrón de 2024: una provincia sin fiscalías o sin defensorías federales"
@@ -4871,9 +4893,12 @@ _jus_mpu = justicia_provincias.codigo_indec.isin(JUS_MP_UNICO)
 justicia_provincias["ministerio_publico_unico"] = justicia_provincias.fiscales.where(_jus_mpu)
 justicia_provincias.loc[_jus_mpu, ["fiscales", "fiscales_anio", "defensores", "defensores_anio"]] = pd.NA
 assert justicia_provincias[["ministros", "magistratura"]].notna().all().all(), "justicia de las provincias: falta un máximo tribunal o un poder judicial"
-justicia_provincias["poblacion"] = justicia_provincias.codigo_indec.map(POB).round(0)
+# la población del año de cada dato (decisión 4 del autor): la columna "poblacion" es la del año del Mapa (_jus_pa), y un dato que la
+# provincia no cargó ese año y se toma del anterior se divide por la población de ese año anterior
+justicia_provincias["poblacion"] = justicia_provincias.codigo_indec.map(pob_anio(_jus_pa, "justicia_provincias")).round(0)
 for _jus_k in ["magistratura", "fiscales", "defensores"]:
-    justicia_provincias[f"{_jus_k}_cada_100mil"] = (justicia_provincias[_jus_k].astype(float) / justicia_provincias.poblacion * 1e5).round(4)
+    _jus_pob = [POB_POR_ANIO[(c, int(a))] if pd.notna(a) else np.nan for c, a in zip(justicia_provincias.codigo_indec, justicia_provincias[f"{_jus_k}_anio"])]
+    justicia_provincias[f"{_jus_k}_cada_100mil"] = (justicia_provincias[_jus_k].astype(float) / np.array(_jus_pob, dtype=float) * 1e5).round(4)
     agregar(justicia_provincias.dropna(subset=[_jus_k]).assign(periodo=justicia_provincias[f"{_jus_k}_anio"].astype(str),
                                                                valor=justicia_provincias[f"{_jus_k}_cada_100mil"]),
             {"magistratura": "jueces_provinciales_cada_100mil"}.get(_jus_k, f"{_jus_k}_provinciales_cada_100mil"), "personas cada 100.000 habitantes",
@@ -4904,7 +4929,7 @@ JUSTICIA_RES = {
         "cargos": int(justicia_federal.cargos.sum()), "titular": int(justicia_federal.titular.sum()), "subrogante": int(justicia_federal.subrogante.sum()),
         "sin_cubrir": int(justicia_federal.sin_cubrir.sum()), "organos": int(justicia_federal.organos.sum()),
         "pct_sin_titular": r1((justicia_federal.subrogante.sum() + justicia_federal.sin_cubrir.sum()) / justicia_federal.cargos.sum() * 100),
-        "cada_100mil": r1(justicia_federal.cargos.sum() / sum(POB.values()) * 1e5),
+        "cada_100mil": r1(justicia_federal.cargos.sum() / justicia_federal.poblacion.sum() * 1e5),
         "max": {"codigo": _jus_jf.iloc[-1].codigo_indec, "territorio": _jus_jf.iloc[-1].territorio, "valor": r1(_jus_jf.iloc[-1].cargos_cada_100mil)},
         "min": {"codigo": _jus_jf.iloc[0].codigo_indec, "territorio": _jus_jf.iloc[0].territorio, "valor": r1(_jus_jf.iloc[0].cargos_cada_100mil)},
         "caba": int(justicia_federal.set_index("codigo_indec").cargos["02"]),
@@ -4964,7 +4989,7 @@ por_prov_mi = personas.assign(codigo_indec=personas.provincia_nacimiento.map(cod
 ministros_prov = pd.DataFrame({"codigo_indec": sorted(DIP_LEY)})
 ministros_prov["territorio"] = ministros_prov.codigo_indec.map(CORTO)
 ministros_prov["ministros"] = ministros_prov.codigo_indec.map(por_prov_mi).fillna(0).astype(int)
-ministros_prov["por_millon"] = (ministros_prov.ministros / ministros_prov.codigo_indec.map(POB) * 1e6).round(2)
+ministros_prov["por_millon"] = (ministros_prov.ministros / ministros_prov.codigo_indec.map(pob_anio(ANIO_POB, "ministros_provincias")) * 1e6).round(2)  # sin año propio: el año en curso
 _g = gabinetes.set_index("gobierno")
 _amba_gob = (_g["Ciudad de Buenos Aires"] + _g.get("Conurbano", 0))
 gab_res = {"personas": int(len(personas)), "con_dato": int(len(_con)), "amba": int(len(_amba_mi)),
@@ -7008,12 +7033,13 @@ assert _gbc.codigo_indec.notna().all() and _gbc.groupby("anio").codigo_indec.nun
 GBC_ULT = int(_gbc.anio.max())
 _gbc_u = _gbc[_gbc.anio == GBC_ULT].set_index("codigo_indec")
 _gbc_10 = _gbc[_gbc.anio == _gbc.anio.min()].set_index("codigo_indec")
-assert (abs(_gbc_u.habitantes / pd.Series(POB) - 1) < .001).all(), "la población de la planilla de cargos no es la proyección del INDEC del sitio"
+POB_GBC = pob_anio(GBC_ULT, "empleo_publico_provincias")
+assert (abs(_gbc_u.habitantes / pd.Series(POB_GBC) - 1) < .001).all(), f"la población de la planilla de cargos no es la proyección del INDEC de {GBC_ULT}"
 empleo_publico_provincias = pd.DataFrame({"codigo_indec": _gbc_u.index, "territorio": _gbc_u.index.map(CORTO), "cargos": _gbc_u.planta.values,
-                                          "cada_1000": (_gbc_u.planta / _gbc_u.index.map(POB) * 1000).values,
+                                          "cada_1000": (_gbc_u.planta / _gbc_u.index.map(POB_GBC) * 1000).values,
                                           "cargos_inicio": _gbc_u.index.map(_gbc_10.planta).values,
                                           "gasto_medio_mensual": _gbc_u.gasto_medio.values, "presupuestados": _gbc_u.marca.values}).sort_values("codigo_indec")
-_gbc_p = _gbc_u.planta.sum() / sum(POB.values()) * 1000
+_gbc_p = _gbc_u.planta.sum() / sum(POB_GBC.values()) * 1000
 _gbc_o = empleo_publico_provincias.sort_values("cada_1000")
 # dotación de la administración pública nacional, las empresas y las sociedades del Estado (INDEC), por mes desde julio de 2022
 _gbx = pd.read_excel(CRUDO / "indec_dotacion_apn.xlsx", sheet_name=0, header=None)
@@ -7050,10 +7076,11 @@ _gbp_u = _gbp[_gbp.anio == GBP_ULT].set_index("codigo_indec")
 GBP_FALTAN = sorted(c for c in POB if c not in _gbp_u.index or pd.isna(_gbp_u.at[c, "total"]) or _gbp_u.at[c, "total"] <= 0)
 impuestos_provinciales = pd.DataFrame({"codigo_indec": sorted(POB), "territorio": [CORTO[c] for c in sorted(POB)]})
 impuestos_provinciales["millones"] = impuestos_provinciales.codigo_indec.map(_gbp_u.total).where(~impuestos_provinciales.codigo_indec.isin(GBP_FALTAN))
-impuestos_provinciales["por_habitante"] = impuestos_provinciales.millones * 1e6 / impuestos_provinciales.codigo_indec.map(POB)
+POB_GBP = pob_anio(GBP_ULT, "impuestos_provinciales")
+impuestos_provinciales["por_habitante"] = impuestos_provinciales.millones * 1e6 / impuestos_provinciales.codigo_indec.map(POB_GBP)
 impuestos_provinciales["pct_ingresos_brutos"] = impuestos_provinciales.codigo_indec.map(_gbp_u.ingresos_brutos) / impuestos_provinciales.millones * 100
 _gbp_t = impuestos_provinciales.dropna(subset=["por_habitante"])
-_gbp_pais = _gbp_t.millones.sum() * 1e6 / sum(POB[c] for c in _gbp_t.codigo_indec)
+_gbp_pais = _gbp_t.millones.sum() * 1e6 / sum(POB_GBP[c] for c in _gbp_t.codigo_indec)
 _gbp_o = _gbp_t.sort_values("por_habitante")
 GBP_RES = {
     "anio": GBP_ULT, "pais": float(_gbp_pais), "faltan": [CORTO[c] for c in GBP_FALTAN],
@@ -7339,7 +7366,7 @@ REGION = {"02": "CABA", **{c: "Pampeana" for c in ["06", "14", "30", "42", "82"]
 cru = pd.DataFrame({"codigo_indec": sorted(REGION)})
 cru["territorio"] = cru.codigo_indec.map(CORTO)
 cru["region"] = cru.codigo_indec.map(REGION)
-cru["poblacion"] = cru.codigo_indec.map(POB).round(0)
+cru["poblacion"] = cru.codigo_indec.map(pob_anio(ANIO_POB, "cruces_provincias")).round(0)  # sin año propio: el año en curso
 sup = pd.read_csv(CRUDO / "ciam_superficie_provincias.csv", sep=";", dtype=str)
 sup["codigo_indec"] = sup["jurisdicción"].map(codigo)
 sup["km2"] = pd.to_numeric(sup.superficie_en_km2, errors="coerce")
@@ -8464,7 +8491,7 @@ resumen = {
         "moto_top": pat_prov[~pat_prov.codigo_indec.isin(EXCLUIR("patentamientos_provincias.motos_1000"))].sort_values("motos_1000").iloc[-1].territorio,
         "moto_top_v": r1(pat_prov[~pat_prov.codigo_indec.isin(EXCLUIR("patentamientos_provincias.motos_1000"))].motos_1000.max()),
         "moto_excluidos": [CORTO[c] for c in EXCLUIR("patentamientos_provincias.motos_1000")],
-        "pais_1000": r1(pat_prov.autos.sum() / POB_PAIS * 1000), "motos_pais_1000": r1(MOTOS_PAIS_1000),
+        "pais_1000": r1(pat_prov.autos.sum() / sum(POB_AU.values()) * 1000), "motos_pais_1000": r1(MOTOS_PAIS_1000),
     },
 }
 
@@ -8513,7 +8540,8 @@ resumen["elecciones"] = el_meta
 resumen["elecciones_ult"] = max(x["anio"] for x in el_meta)   # el título de la ficha de elecciones
 # Elecciones por mesa (scripts/elecciones_mesas.py, 4 de noviembre de 2026): los años de la herramienta, para la plantilla
 resumen["mesas"] = json.loads((RAIZ / "datos" / "manual" / "mesas_control.json").read_text(encoding="utf-8"))["resumen"]
-resumen["anio_pob"] = ANIO_POB   # año de la población de las tasas por habitante (notas y títulos)
+resumen["anio_pob"] = ANIO_POB   # el año en curso: la población de lo que no tiene año propio (bancas, ministros, Cruces y el perfil)
+resumen["anio_pob_ficha"] = dict(sorted(ANIO_POB_FICHA.items()))   # tabla -> año de la población que usa (las notas de cada ficha)
 resumen["congreso"] = congreso_res
 congreso_res["anio_fin"] = congreso_res["anio"] + 2   # fin del período legislativo en curso (la descripción de la ficha, etapa 37)
 resumen["presidentes"] = pres_res
@@ -8548,10 +8576,10 @@ resumen["nuevos"] = {
     "censo_low": {c: [censo.sort_values(c).iloc[0].territorio, r1(censo[c].min())] for c in CENSO_COLS},
     "in_trim": TRIM_ENACOM, "in_top": _in_t.territorio, "in_top_v": r1(_in_t.accesos_100_hogares), "in_low": _in_b.territorio, "in_low_v": r1(_in_b.accesos_100_hogares),
     "ve_top": _ve_t.territorio, "ve_top_v": r1(_ve_t.mbps), "ve_low": _ve_b.territorio, "ve_low_v": r1(_ve_b.mbps),
-    "ex_anio": ANIO_EX, "ex_total": round(EXP_TOTAL), "ex_pc_pais": round(EXP_TOTAL * 1e6 / POB_PAIS),
+    "ex_anio": ANIO_EX, "ex_total": round(EXP_TOTAL), "ex_pc_pais": round(EXP_TOTAL * 1e6 / sum(POB_EX.values())),
     "ex_top": _ex_t.territorio, "ex_top_v": round(float(_ex_t.usd_por_habitante)), "ex_low": _ex_b.territorio, "ex_low_v": round(float(_ex_b.usd_por_habitante)),
     "ex_provincial_pct": r1(exp_prov.millones_usd.sum() / EXP_TOTAL * 100), "ex_sem": EX_SEM,
-    "xt_pais": r1(extranjeros.personas.sum() / POB_PAIS * 100), "xt_top": extranjeros.sort_values("cada_100").iloc[-1].territorio,
+    "xt_pais": r1(extranjeros.personas.sum() / sum(POB_XT.values()) * 100), "xt_top": extranjeros.sort_values("cada_100").iloc[-1].territorio,
     "xt_top_v": r1(extranjeros.cada_100.max()), "xt_origen": list(top_origen.index[:3]), "xt_corte": RENAPER_CORTE,
 }
 # petróleo y gas, y construcción y vivienda (etapa 18): todo lo que dicen los textos, sin años escritos a mano
@@ -8681,7 +8709,7 @@ resumen["construccion"] = {
     "cemento_12m": r1(isac_insumos.set_index("codigo_indec").var_12m.get("cemento_portland")),
     "emp_trim": _t_txt(OE_T), "emp_trim_ant": _t_txt(OE_ANT), "emp_total": int(_ec_u.construccion), "emp_var": r1((_ec_u.construccion / _ec_a.construccion - 1) * 100),
     "emp_max": int(_ec_max.construccion), "emp_max_trim": _t_txt(int(_ec_max.anio) * 10 + int(_ec_max.trimestre)),
-    "emp_pct": r1(_ec_u.construccion / _ec_u.total * 100), "emp_cada_1000": r1(_ec_u.construccion / POB_PAIS * 1000),
+    "emp_pct": r1(_ec_u.construccion / _ec_u.total * 100), "emp_cada_1000": r1(_ec_u.construccion / sum(POB_OE.values()) * 1000),
     "emp_ini": int(empleo_constr_serie.anio.min()),
     "emp_top": _ec.iloc[-1].territorio, "emp_top_v": r1(_ec.iloc[-1].construccion_cada_1000),
     "emp_low": _ec.iloc[0].territorio, "emp_low_v": r1(_ec.iloc[0].construccion_cada_1000),

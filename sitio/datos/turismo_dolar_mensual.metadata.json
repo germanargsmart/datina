@@ -5,9 +5,17 @@
  "seccion": "Turismo",
  "ficha": "https://datina.com.ar/a-turismo-dolar.html",
  "fuente": "Secretaría de Turismo y Ambiente, SINTA, estimación de turismo internacional (viajes de turistas no residentes y residentes), y Banco Central de la República Argentina, índices de tipo de cambio real multilateral y bilaterales",
+ "organismos": [
+  "BCRA (Banco Central de la República Argentina)",
+  "CIAM (Centro de Información Ambiental)",
+  "SE (Secretaría de Energía)",
+  "SINTA (Sistema de Información Turística de la Argentina)"
+ ],
  "actualizacion": "Se actualiza cada mes.",
  "cobertura": "Sin desglose territorial",
  "periodo": "enero de 2010 a agosto de 2026",
+ "anio_desde": 2010,
+ "anio_hasta": 2026,
  "filas": 200,
  "columnas": [
   {
@@ -143,8 +151,9 @@
  ],
  "unidades": [],
  "como_se_calcula": "",
- "datos_actualizados": "05/11/2026",
+ "origen": [],
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿Llegan más turistas y viajan menos residentes al exterior cuando el dólar está caro? Con datos de Secretaría de Turismo y Ambiente, SINTA, estimación de turismo internacional (viajes de turistas no residentes y residentes), y Banco Central de la República Argentina, índices de tipo de cambio real multilateral y bilaterales. https://datina.com.ar/a-turismo-dolar.html. Consultado el día de la consulta."
+ "como_citar": "Datina (año de la consulta). ¿Llegan más turistas y viajan menos residentes al exterior cuando el dólar está caro? Con datos de Secretaría de Turismo y Ambiente, SINTA, estimación de turismo internacional (viajes de turistas no residentes y residentes), y Banco Central de la República Argentina, índices de tipo de cambio real multilateral y bilaterales. https://datina.com.ar/a-turismo-dolar.html. Consultado el día de la consulta.",
+ "datos_actualizados": "05/11/2026"
 }

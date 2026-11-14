@@ -5,9 +5,14 @@
  "seccion": "Naturaleza y ambiente",
  "ficha": "https://datina.com.ar/naturaleza.html#f-soja",
  "fuente": "Secretaría de Agricultura, Ganadería y Pesca, Estimaciones agrícolas.",
+ "organismos": [
+  "SAGyP (Secretaría de Agricultura, Ganadería y Pesca)"
+ ],
  "actualizacion": "Se actualiza cada año.",
  "cobertura": "15 jurisdicciones y el total del país",
  "periodo": "",
+ "anio_desde": 1969,
+ "anio_hasta": 2024,
  "filas": 16,
  "columnas": [
   {
@@ -63,8 +68,19 @@
  ],
  "unidades": [],
  "como_se_calcula": "",
- "datos_actualizados": "05/11/2026",
+ "origen": [
+  {
+   "archivo": "datos/crudo/magyp_estimaciones_agricolas.csv",
+   "nombre": "Estimaciones agrícolas: superficie sembrada y cosechada, producción y rendimiento de cada cultivo, por campaña y departamento",
+   "organismo": "SAGyP",
+   "descargado": "2026-11-05",
+   "ultimo_intento": "2026-11-05",
+   "estado": "ok",
+   "url": "https://datos.magyp.gob.ar/dataset/estimaciones-agricolas"
+  }
+ ],
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿Dónde se siembra más soja? Con datos de Secretaría de Agricultura, Ganadería y Pesca, Estimaciones agrícolas. https://datina.com.ar/naturaleza.html#f-soja. Consultado el día de la consulta."
+ "como_citar": "Datina (año de la consulta). ¿Dónde se siembra más soja? Con datos de Secretaría de Agricultura, Ganadería y Pesca, Estimaciones agrícolas. https://datina.com.ar/naturaleza.html#f-soja. Consultado el día de la consulta.",
+ "datos_actualizados": "05/11/2026"
 }

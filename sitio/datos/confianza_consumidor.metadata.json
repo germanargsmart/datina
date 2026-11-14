@@ -5,9 +5,14 @@
  "seccion": "Precios y actividad",
  "ficha": "https://datina.com.ar/economia.html#f-confianza-consumidor",
  "fuente": "Universidad Torcuato Di Tella, Centro de Investigación en Finanzas, Índice de Confianza del Consumidor.",
+ "organismos": [
+  "UTDT (Universidad Torcuato Di Tella)"
+ ],
  "actualizacion": "Se actualiza cada mes.",
  "cobertura": "Sin desglose territorial",
  "periodo": "marzo de 2001 a octubre de 2026",
+ "anio_desde": 2001,
+ "anio_hasta": 2026,
  "filas": 308,
  "columnas": [
   {
@@ -53,8 +58,19 @@
  ],
  "unidades": [],
  "como_se_calcula": "",
- "datos_actualizados": "05/11/2026",
+ "origen": [
+  {
+   "archivo": "datos/crudo/utdt_icc.xls",
+   "nombre": "Índice de Confianza del Consumidor, series históricas por región y por subíndice (Centro de Investigación en Finanzas de la Universidad Torcuato Di Tella)",
+   "organismo": "UTDT",
+   "descargado": "2026-11-05",
+   "ultimo_intento": "2026-11-05",
+   "estado": "ok",
+   "url": "https://www.utdt.edu/ver_contenido.php?id_contenido=8513&id_item_menu=16458"
+  }
+ ],
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿Cuánta confianza tienen los consumidores en la economía? Con datos de Universidad Torcuato Di Tella, Centro de Investigación en Finanzas, Índice de Confianza del Consumidor. https://datina.com.ar/economia.html#f-confianza-consumidor. Consultado el día de la consulta."
+ "como_citar": "Datina (año de la consulta). ¿Cuánta confianza tienen los consumidores en la economía? Con datos de Universidad Torcuato Di Tella, Centro de Investigación en Finanzas, Índice de Confianza del Consumidor. https://datina.com.ar/economia.html#f-confianza-consumidor. Consultado el día de la consulta.",
+ "datos_actualizados": "05/11/2026"
 }

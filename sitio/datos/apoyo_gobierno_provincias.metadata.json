@@ -5,9 +5,16 @@
  "seccion": "Instituciones políticas",
  "ficha": "https://datina.com.ar/politica.html#f-voto-provincia",
  "fuente": "Dirección Nacional Electoral, actas de votación nominal de Diputados y del Senado, vía ¿Cómo Votó?, y Presupuesto Abierto, Secretaría de Hacienda.",
+ "organismos": [
+  "¿Cómo Votó?",
+  "Datina (selección propia)",
+  "DINE (Dirección Nacional Electoral)"
+ ],
  "actualizacion": "Se actualiza con cada elección.",
  "cobertura": "Las 24 jurisdicciones",
  "periodo": "2005 a 2025",
+ "anio_desde": 2005,
+ "anio_hasta": 2025,
  "filas": 504,
  "columnas": [
   {
@@ -53,8 +60,41 @@
  ],
  "unidades": [],
  "como_se_calcula": "",
- "datos_actualizados": "05/11/2026",
+ "origen": [
+  {
+   "archivo": "datos/manual/presidenciales_provincia.csv",
+   "nombre": "Elecciones presidenciales 1983 a 2023 por provincia (definitivos, provisorios 2023 y PASO)",
+   "organismo": "DINE",
+   "armado": "2026-09-30",
+   "url": "https://www.argentina.gob.ar/sites/default/files/"
+  },
+  {
+   "archivo": "datos/crudo/congreso_votaciones_diputados.json.gz",
+   "nombre": "Actas de votación nominal de Diputados (copia comprimida de ¿Cómo Votó?)",
+   "organismo": "Cómo Votó",
+   "descargado": "2026-11-05",
+   "ultimo_intento": "2026-11-05",
+   "estado": "ok",
+   "url": "https://raw.githubusercontent.com/rquiroga7/como_voto/main/data/diputados.json"
+  },
+  {
+   "archivo": "datos/crudo/congreso_votaciones_senadores.json.gz",
+   "nombre": "Actas de votación nominal del Senado (copia comprimida de ¿Cómo Votó?)",
+   "organismo": "Cómo Votó",
+   "descargado": "2026-11-05",
+   "ultimo_intento": "2026-11-05",
+   "estado": "ok",
+   "url": "https://raw.githubusercontent.com/rquiroga7/como_voto/main/data/senadores.json"
+  },
+  {
+   "archivo": "datos/manual/leyes_clave.csv",
+   "nombre": "Selección de leyes y proyectos clave con el id del acta en cada cámara (ley, qué cambia, desenlace, efecto directo)",
+   "organismo": "Datina",
+   "armado": "2026-10-27"
+  }
+ ],
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿Votan más con el oficialismo los legisladores de las provincias donde más votos sacó el presidente, o de las que reciben más transferencias? Con datos de Dirección Nacional Electoral, actas de votación nominal de Diputados y del Senado, vía ¿Cómo Votó?, y Presupuesto Abierto, Secretaría de Hacienda. https://datina.com.ar/politica.html#f-voto-provincia. Consultado el día de la consulta."
+ "como_citar": "Datina (año de la consulta). ¿Votan más con el oficialismo los legisladores de las provincias donde más votos sacó el presidente, o de las que reciben más transferencias? Con datos de Dirección Nacional Electoral, actas de votación nominal de Diputados y del Senado, vía ¿Cómo Votó?, y Presupuesto Abierto, Secretaría de Hacienda. https://datina.com.ar/politica.html#f-voto-provincia. Consultado el día de la consulta.",
+ "datos_actualizados": "05/11/2026"
 }

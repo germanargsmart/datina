@@ -4,10 +4,15 @@
  "descripcion": "Consumo de gas natural por usuario residencial, en metros cúbicos (m³), 1993 a agosto de 2026",
  "seccion": "Energía",
  "ficha": "https://datina.com.ar/energia.html#f-gas-consumo",
- "fuente": "ENARGAS, datos operativos de gas natural (gas entregado y usuarios por provincia y tipo de usuario). Se actualiza cada mes. El último dato es de agosto de 2026, más atrasado que lo habitual.",
- "actualizacion": "",
+ "fuente": "ENARGAS, datos operativos de gas natural (gas entregado y usuarios por provincia y tipo de usuario).",
+ "organismos": [
+  "ENARGAS (Ente Nacional Regulador del Gas)"
+ ],
+ "actualizacion": "Se actualiza cada mes. El último dato es de agosto de 2026, más atrasado que lo habitual.",
  "cobertura": "20 jurisdicciones",
  "periodo": "",
+ "anio_desde": 1993,
+ "anio_hasta": 2026,
  "filas": 20,
  "columnas": [
   {
@@ -48,8 +53,19 @@
  ],
  "unidades": [],
  "como_se_calcula": "",
- "datos_actualizados": "05/11/2026",
+ "origen": [
+  {
+   "archivo": "datos/crudo/enargas_gas_residencial.csv",
+   "nombre": "Gas entregado y usuarios residenciales por provincia y mes",
+   "organismo": "ENARGAS",
+   "descargado": "2026-11-05",
+   "ultimo_intento": "2026-11-05",
+   "estado": "ok",
+   "url": "https://www.enargas.gob.ar/secciones/transporte-y-distribucion/datos-estadisticos/GED/GED.xlsx"
+  }
+ ],
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿Cuánto gas consume un usuario residencial en cada provincia? Con datos de ENARGAS, datos operativos de gas natural (gas entregado y usuarios por provincia y tipo de usuario). Se actualiza cada mes. El último dato es de agosto de 2026, más atrasado que lo habitual. https://datina.com.ar/energia.html#f-gas-consumo. Consultado el día de la consulta."
+ "como_citar": "Datina (año de la consulta). ¿Cuánto gas consume un usuario residencial en cada provincia? Con datos de ENARGAS, datos operativos de gas natural (gas entregado y usuarios por provincia y tipo de usuario). https://datina.com.ar/energia.html#f-gas-consumo. Consultado el día de la consulta.",
+ "datos_actualizados": "05/11/2026"
 }

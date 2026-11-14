@@ -5,9 +5,14 @@
  "seccion": "Precios y actividad",
  "ficha": "https://datina.com.ar/economia.html#f-bcra",
  "fuente": "BCRA, API de Estadísticas Monetarias, e INDEC, índice de precios al consumidor.",
+ "organismos": [
+  "BCRA (Banco Central de la República Argentina)"
+ ],
  "actualizacion": "Se actualiza cada mes.",
  "cobertura": "Sin desglose territorial",
  "periodo": "",
+ "anio_desde": 1976,
+ "anio_hasta": 1976,
  "filas": 49,
  "columnas": [
   {
@@ -48,8 +53,19 @@
  ],
  "unidades": [],
  "como_se_calcula": "",
- "datos_actualizados": "05/11/2026",
+ "origen": [
+  {
+   "archivo": "datos/crudo/bcra_variables.json",
+   "nombre": "Catálogo de variables de la API de Estadísticas Monetarias (nombre, categoría, unidad y último dato)",
+   "organismo": "BCRA",
+   "descargado": "2026-11-05",
+   "ultimo_intento": "2026-11-05",
+   "estado": "ok",
+   "url": "https://api.bcra.gob.ar/estadisticas/v4.0/Monetarias"
+  }
+ ],
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿Cuánto cambiaron el dólar, las tasas y el dinero? Con datos de BCRA, API de Estadísticas Monetarias, e INDEC, índice de precios al consumidor. https://datina.com.ar/economia.html#f-bcra. Consultado el día de la consulta."
+ "como_citar": "Datina (año de la consulta). ¿Cuánto cambiaron el dólar, las tasas y el dinero? Con datos de BCRA, API de Estadísticas Monetarias, e INDEC, índice de precios al consumidor. https://datina.com.ar/economia.html#f-bcra. Consultado el día de la consulta.",
+ "datos_actualizados": "05/11/2026"
 }

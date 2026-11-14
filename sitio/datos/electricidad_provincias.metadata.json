@@ -5,9 +5,16 @@
  "seccion": "Energía",
  "ficha": "https://datina.com.ar/energia.html#f-electricidad-provincias",
  "fuente": "CAMMESA, demanda mensual por provincia y tipo de usuario (Informe Síntesis Mensual), e INDEC, proyecciones de población.",
+ "organismos": [
+  "CAMMESA (Compañía Administradora del Mercado Mayorista Eléctrico)",
+  "INDEC (Instituto Nacional de Estadística y Censos)",
+  "SNIC (Sistema Nacional de Información Criminal)"
+ ],
  "actualizacion": "Se actualiza cada mes.",
  "cobertura": "21 jurisdicciones",
  "periodo": "",
+ "anio_desde": 2014,
+ "anio_hasta": 2025,
  "filas": 22,
  "columnas": [
   {
@@ -43,8 +50,44 @@
  ],
  "unidades": [],
  "como_se_calcula": "",
- "datos_actualizados": "05/11/2026",
+ "origen": [
+  {
+   "archivo": "datos/crudo/cammesa_demanda_provincias.csv",
+   "nombre": "Demanda eléctrica mensual por provincia y tipo de usuario",
+   "organismo": "CAMMESA",
+   "descargado": "2026-11-05",
+   "ultimo_intento": "2026-11-05",
+   "estado": "ok",
+   "url": "https://cammesaweb.cammesa.com/?wpdmdl=41426"
+  },
+  {
+   "archivo": "datos/manual/cammesa_demanda_2014_2022.csv",
+   "nombre": "Demanda eléctrica mensual por provincia y tipo de usuario, 2014 a 2022",
+   "organismo": "CAMMESA",
+   "armado": "2026-10-04",
+   "url": "https://microfe.cammesa.com/static-content/CammesaWeb/download-manager-files/Sintesis%20Mensual/BASE_INFORME_MENSUAL_{}.zip"
+  },
+  {
+   "archivo": "datos/crudo/indec_proyecciones_provincias.csv",
+   "nombre": "Proyecciones de población por provincia, sexo y edad, 2022 a 2040",
+   "organismo": "INDEC",
+   "descargado": "2026-11-05",
+   "ultimo_intento": "2026-11-05",
+   "estado": "ok",
+   "url": "https://censo.gob.ar/wp-content/uploads/2025/10/proyecciones_jurisdicciones_2022_2040_base.csv"
+  },
+  {
+   "archivo": "datos/crudo/snic_provincias.csv",
+   "nombre": "Estadísticas criminales por provincia y año",
+   "organismo": "SNIC",
+   "descargado": "2026-11-05",
+   "ultimo_intento": "2026-11-05",
+   "estado": "ok",
+   "url": "https://cloud-snic.minseg.gob.ar/Bases/SNIC/snic-provincias.csv"
+  }
+ ],
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿Cuánta electricidad consumen los hogares de cada provincia? Con datos de CAMMESA, demanda mensual por provincia y tipo de usuario (Informe Síntesis Mensual), e INDEC, proyecciones de población. https://datina.com.ar/energia.html#f-electricidad-provincias. Consultado el día de la consulta."
+ "como_citar": "Datina (año de la consulta). ¿Cuánta electricidad consumen los hogares de cada provincia? Con datos de CAMMESA, demanda mensual por provincia y tipo de usuario (Informe Síntesis Mensual), e INDEC, proyecciones de población. https://datina.com.ar/energia.html#f-electricidad-provincias. Consultado el día de la consulta.",
+ "datos_actualizados": "05/11/2026"
 }

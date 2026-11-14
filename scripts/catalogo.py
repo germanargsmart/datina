@@ -10,6 +10,10 @@ su evidencia en el código). El período y la cobertura salen de la propia tabla
 
 Las tablas de suicidio quedan afuera, como en el Explorador de relaciones: en Salud van después de las líneas de ayuda (CLAUDE.md).
 
+Desde el 13 de noviembre de 2026 (plan técnico, fase 2) cada tabla suma, para sitio/datos/catalogo.json que escribe 03, sus organismos, el
+primer y el último año con datos y de dónde sale: cada archivo que la alimenta en el Explorador de relaciones, con el día de su última descarga
+buena (del registro de descargas, relaciones.descarga()) o el día en que se armó a mano ("armado" en datos/manual/relaciones.json).
+
 Lo llama 03_construir_sitio.py, que no arma el sitio si una tabla publicada no tiene dónde se usa, si una evidencia no está en el código o si
 un uso nombra algo que no existe. Solo validar: python scripts/catalogo.py
 """
@@ -162,7 +166,9 @@ def datos_de_usos(plantilla, js):
         c = m.group(3)
         pie = re.search(r'<div class="pie"><span>([^<]*)</span>', c)
         fuente = re.sub(r"^Fuentes?: ", "", texto(pie.group(1))) if pie else ""
-        frase = re.search(r"(Se actualiza [^.]*\.|La encuesta está en pausa[^.]*\.[^.]*\.)$", fuente)
+        # cada cuánto se actualiza, con el aviso de dato atrasado que suma 03 (scripts/frescura.py) y la encuesta en pausa en una o dos oraciones:
+        # sin ese aviso en la cuenta, la frecuencia quedaba pegada a la fuente y "Actualización" vacía (13 de noviembre de 2026, 36 tablas)
+        frase = re.search(r"(Se actualiza [^.]*\.(?: El último dato [^.]*\.)?|La encuesta está en pausa[^.]*\.(?: [^.]*\.)?)$", fuente)
         sub = re.search(r'<p class="ficha-sub">(.*?)</p>', c, re.S)
         nota = re.search(r'<p class="nota"(?![^>]*data-t)[^>]*>(.*?)</p>', c, re.S)
         d[m.group(2)] = {"titulo": relaciones.nombre_ficha(c, js), "sub": texto(sub.group(1)) if sub else "",
@@ -239,13 +245,42 @@ def armar(plantilla, secciones, ubic, grupos, sitio=RAIZ / "sitio", indice=None,
     org = {f["id"]: f for f in cat_rel["fuentes"]}
     alias = {f["id"]: [norm(x) for x in [f.get("sigla", ""), f["nombre"], *f.get("alias", [])] if x] for f in cat_rel["fuentes"]}
 
-    def organismos(t, us):
-        al = [a for a in cat_rel["aristas"] if a["tipo"] == "alimenta"]
-        con_tabla = {fuente_de.get(a["de"]) for a in al if a.get("tabla") == t}
-        por_ficha = {fuente_de.get(a["de"]) for i, _ in us for a in al if a["a"] == i}
-        por_texto = {o for i, _ in us for o, als in alias.items() if info.get(i, {}).get("fuente") and any(x in norm(info[i]["fuente"]) for x in als)}
-        return sorted((con_tabla or por_ficha or por_texto) - {None}, key=lambda o: norm(org[o].get("sigla") or org[o]["nombre"]))
+    al = [a for a in cat_rel["aristas"] if a["tipo"] == "alimenta"]
 
+    def conjuntos_de(t, us):
+        """Los archivos que alimentan la tabla en el Explorador de relaciones: primero las relaciones que la nombran, si no, las de su ficha."""
+        con_tabla = [a["de"] for a in al if a.get("tabla") == t]
+        return list(dict.fromkeys(con_tabla or [a["de"] for i, _ in us for a in al if a["a"] == i]))
+
+    def organismos(t, us):
+        por_conjunto = {fuente_de.get(c) for c in conjuntos_de(t, us)}
+        por_texto = {o for i, _ in us for o, als in alias.items() if info.get(i, {}).get("fuente") and any(x in norm(info[i]["fuente"]) for x in als)}
+        return sorted((por_conjunto or por_texto) - {None}, key=lambda o: norm(org[o].get("sigla") or org[o]["nombre"]))
+
+    # de dónde sale cada tabla, con su fecha (plan técnico, fase 2, 13 de noviembre de 2026, para sitio/datos/catalogo.json): los archivos que
+    # baja 01_descargar.py, con su última descarga, y los armados a mano o una sola vez, con el día en que se armaron
+    conj = {c["id"]: c for c in cat_rel["conjuntos"]}
+    registro, por_fila = relaciones.leer_registro(), relaciones.archivos_del_registro()
+
+    def origen(t, us):
+        sale = []
+        for c in conjuntos_de(t, us):
+            x = conj[c]
+            o = org.get(x["fuente"], {})
+            d = {"archivo": x["ruta"], "nombre": x["nombre"], "organismo": o.get("sigla") or o.get("nombre", "")}
+            if x["ruta"].startswith("datos/crudo/"):
+                r = relaciones.descarga(x["ruta"], registro, por_fila) or {}
+                d.update({"descargado": r.get("ultima_ok"), "ultimo_intento": r.get("fecha"), "estado": r.get("estado")})
+            else:
+                d["armado"] = x.get("armado")
+            if x.get("url"):
+                d["url"] = x["url"]
+            sale.append(d)
+        return sale
+
+    # la sigla va entre paréntesis solo si no está ya en el nombre: "Datina (selección propia)", "¿Cómo Votó?" o "Secretaría de Hacienda", no
+    # "Datina (Datina (selección propia))" ni "Hacienda (Secretaría de Hacienda)" (auditoría del 26 de octubre de 2026, R11)
+    nom_org = lambda o: org[o]["nombre"] if not org[o].get("sigla") or re.search(rf"(^|\W){re.escape(norm(org[o]['sigla']))}($|\W)", norm(org[o]["nombre"])) else f'{org[o]["sigla"]} ({org[o]["nombre"]})'
     tit_sec = {s[0]: s[1] for s in secciones} | {"provincia": "Tu provincia", "laboratorio": "Laboratorio"}
     # la tabla del pie de cada ficha (la primera que ofrece)
     pie_de = {}
@@ -289,7 +324,8 @@ def armar(plantilla, secciones, ubic, grupos, sitio=RAIZ / "sitio", indice=None,
         para_indice.append((orden, {"tabla": t, "titulo": d.get("titulo") or t, "descripcion": d.get("sub", ""), "seccion": tit_sec.get(sec, ""),
                                     "ref": ref(prin), "fuente": d.get("fuente", ""), "actualizacion": d.get("frecuencia", ""), "cobertura": cob,
                                     "periodo": per, "filas": len(filas), "columnas": dic, "unidades": unidades if len(unidades) <= 8 else [],
-                                    "nota": d.get("nota", "")}))
+                                    "nota": d.get("nota", ""), "organismos": [nom_org(o) for o in orgs], "origen": origen(t, us),
+                                    "anio_desde": a0, "anio_hasta": a1}))
         items.append((orden,
             f'<li class="cat-item" id="cat-{t}" data-tema="{e(sec)}" data-org="{" ".join(orgs)}" data-cob="{cob_k}" '
             f'data-a0="{"" if a0 is None else a0}" data-a1="{"" if a1 is None else a1}">'
@@ -327,9 +363,6 @@ def armar(plantilla, secciones, ubic, grupos, sitio=RAIZ / "sitio", indice=None,
     if resto:
         op_tema += '<optgroup label="Otras páginas del sitio">' + "".join(
             f'<option value="{s}">{e(tit_sec.get(s, s))}</option>' for s in resto) + "</optgroup>"
-    # la sigla va entre paréntesis solo si no está ya en el nombre: "Datina (selección propia)", "¿Cómo Votó?" o "Secretaría de Hacienda", no
-    # "Datina (Datina (selección propia))" ni "Hacienda (Secretaría de Hacienda)" (auditoría del 26 de octubre de 2026, R11)
-    nom_org = lambda o: org[o]["nombre"] if not org[o].get("sigla") or re.search(rf"(^|\W){re.escape(norm(org[o]['sigla']))}($|\W)", norm(org[o]["nombre"])) else f'{org[o]["sigla"]} ({org[o]["nombre"]})'
     op_org = "".join(f'<option value="{o}">{e(nom_org(o))}</option>' for o in sorted(cuenta_org, key=lambda o: norm(nom_org(o)).lstrip("¿")))
     cobs = {re.search(r'data-cob="(\w+)"', x).group(1) for x in items}
     op_cob = "".join(f'<option value="{k}">{n}</option>' for k, n in COBERTURAS if k in cobs)

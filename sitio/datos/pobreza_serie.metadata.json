@@ -5,9 +5,14 @@
  "seccion": "Pobreza y hogares",
  "ficha": "https://datina.com.ar/pobreza.html#f-pobreza",
  "fuente": "INDEC, Encuesta Permanente de Hogares.",
+ "organismos": [
+  "INDEC (Instituto Nacional de Estadística y Censos)"
+ ],
  "actualizacion": "Se actualiza cada seis meses.",
  "cobertura": "Sin desglose territorial",
  "periodo": "2016 a 2026",
+ "anio_desde": 2016,
+ "anio_hasta": 2026,
  "filas": 20,
  "columnas": [
   {
@@ -53,8 +58,16 @@
  ],
  "unidades": [],
  "como_se_calcula": "",
- "datos_actualizados": "05/11/2026",
+ "origen": [
+  {
+   "archivo": "pobreza/datos/crudo/ALL.json",
+   "nombre": "Pobreza e indigencia de los 31 aglomerados urbanos por semestre (extracto del tablero del INDEC)",
+   "organismo": "INDEC",
+   "armado": "2026-09-28"
+  }
+ ],
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿Cuántas personas viven bajo la línea de pobreza? Con datos de INDEC, Encuesta Permanente de Hogares. https://datina.com.ar/pobreza.html#f-pobreza. Consultado el día de la consulta."
+ "como_citar": "Datina (año de la consulta). ¿Cuántas personas viven bajo la línea de pobreza? Con datos de INDEC, Encuesta Permanente de Hogares. https://datina.com.ar/pobreza.html#f-pobreza. Consultado el día de la consulta.",
+ "datos_actualizados": "05/11/2026"
 }

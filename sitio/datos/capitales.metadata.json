@@ -5,9 +5,12 @@
  "seccion": "Construcción y vivienda",
  "ficha": "https://datina.com.ar/a-viviendas-alquiler.html",
  "fuente": "",
+ "organismos": [],
  "actualizacion": "",
  "cobertura": "Las 24 jurisdicciones",
  "periodo": "",
+ "anio_desde": null,
+ "anio_hasta": null,
  "filas": 24,
  "columnas": [
   {
@@ -73,8 +76,9 @@
  ],
  "unidades": [],
  "como_se_calcula": "",
- "datos_actualizados": "05/11/2026",
+ "origen": [],
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿Alquilan más hogares en las capitales con más departamentos? Con datos de . https://datina.com.ar/a-viviendas-alquiler.html. Consultado el día de la consulta."
+ "como_citar": "Datina (año de la consulta). ¿Alquilan más hogares en las capitales con más departamentos? Con datos de . https://datina.com.ar/a-viviendas-alquiler.html. Consultado el día de la consulta.",
+ "datos_actualizados": "05/11/2026"
 }

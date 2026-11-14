@@ -5,9 +5,15 @@
  "seccion": "Sector privado",
  "ficha": "https://datina.com.ar/empresas.html#f-empresas",
  "fuente": "Observatorio de Empleo y Dinámica Empresarial (OEDE), Secretaría de Trabajo, Ministerio de Capital Humano, con datos del Sistema Integrado Previsional Argentino (SIPA).",
+ "organismos": [
+  "INDEC (Instituto Nacional de Estadística y Censos)",
+  "OEDE (Observatorio de Empleo y Dinámica Empresarial)"
+ ],
  "actualizacion": "Se actualiza cada año.",
  "cobertura": "Las 24 jurisdicciones",
  "periodo": "",
+ "anio_desde": 2024,
+ "anio_hasta": 2024,
  "filas": 24,
  "columnas": [
   {
@@ -28,7 +34,7 @@
   {
    "nombre": "cada_1000_hab",
    "tipo": "Número",
-   "valores": "4,48 a 43,91"
+   "valores": "4,5 a 43,71"
   },
   {
    "nombre": "aperturas_2024",
@@ -63,8 +69,28 @@
  ],
  "unidades": [],
  "como_se_calcula": "",
- "datos_actualizados": "05/11/2026",
+ "origen": [
+  {
+   "archivo": "datos/crudo/oede_empresas_provincias.xlsx",
+   "nombre": "Empresas empleadoras, aperturas y cierres por provincia",
+   "organismo": "OEDE",
+   "descargado": "2026-11-05",
+   "ultimo_intento": "2026-11-05",
+   "estado": "ok",
+   "url": "https://www.argentina.gob.ar/trabajo/estadisticas/oede-estadisticas-provinciales"
+  },
+  {
+   "archivo": "datos/crudo/indec_proyecciones_provincias.csv",
+   "nombre": "Proyecciones de población por provincia, sexo y edad, 2022 a 2040",
+   "organismo": "INDEC",
+   "descargado": "2026-11-05",
+   "ultimo_intento": "2026-11-05",
+   "estado": "ok",
+   "url": "https://censo.gob.ar/wp-content/uploads/2025/10/proyecciones_jurisdicciones_2022_2040_base.csv"
+  }
+ ],
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿Cuántas empresas privadas hay en cada provincia? Con datos de Observatorio de Empleo y Dinámica Empresarial (OEDE), Secretaría de Trabajo, Ministerio de Capital Humano, con datos del Sistema Integrado Previsional Argentino (SIPA). https://datina.com.ar/empresas.html#f-empresas. Consultado el día de la consulta."
+ "como_citar": "Datina (año de la consulta). ¿Cuántas empresas privadas hay en cada provincia? Con datos de Observatorio de Empleo y Dinámica Empresarial (OEDE), Secretaría de Trabajo, Ministerio de Capital Humano, con datos del Sistema Integrado Previsional Argentino (SIPA). https://datina.com.ar/empresas.html#f-empresas. Consultado el día de la consulta.",
+ "datos_actualizados": "05/11/2026"
 }

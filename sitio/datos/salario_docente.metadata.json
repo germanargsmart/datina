@@ -5,9 +5,14 @@
  "seccion": "Educación",
  "ficha": "https://datina.com.ar/educacion.html#f-salario-docente",
  "fuente": "Coordinación de Evaluación de Costos Educativos, Secretaría de Educación, series del salario docente, e INDEC, índice de precios al consumidor.",
+ "organismos": [
+  "Secretaría de Educación"
+ ],
  "actualizacion": "Se actualiza cada tres meses.",
  "cobertura": "Las 24 jurisdicciones y el total del país",
  "periodo": "",
+ "anio_desde": 2026,
+ "anio_hasta": 2026,
  "filas": 25,
  "columnas": [
   {
@@ -43,8 +48,19 @@
  ],
  "unidades": [],
  "como_se_calcula": "",
- "datos_actualizados": "05/11/2026",
+ "origen": [
+  {
+   "archivo": "datos/crudo/cgecse_salario_docente.csv",
+   "nombre": "Salario docente por jurisdicción y trimestre (bruto y sumas adicionales)",
+   "organismo": "Educación",
+   "descargado": "2026-11-05",
+   "ultimo_intento": "2026-11-05",
+   "estado": "ok",
+   "url": "https://www.argentina.gob.ar/capital-humano/educacion/informacion-y-evaluacion-educativa/series-salario-docente"
+  }
+ ],
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿Cuánto cobra un maestro en cada provincia? Con datos de Coordinación de Evaluación de Costos Educativos, Secretaría de Educación, series del salario docente, e INDEC, índice de precios al consumidor. https://datina.com.ar/educacion.html#f-salario-docente. Consultado el día de la consulta."
+ "como_citar": "Datina (año de la consulta). ¿Cuánto cobra un maestro en cada provincia? Con datos de Coordinación de Evaluación de Costos Educativos, Secretaría de Educación, series del salario docente, e INDEC, índice de precios al consumidor. https://datina.com.ar/educacion.html#f-salario-docente. Consultado el día de la consulta.",
+ "datos_actualizados": "05/11/2026"
 }

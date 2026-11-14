@@ -5,9 +5,14 @@
  "seccion": "Naturaleza y ambiente",
  "ficha": "https://datina.com.ar/naturaleza.html#f-cumbres",
  "fuente": "Instituto Geográfico Nacional (IGN), \"Máximas alturas\". Relieve: SRTM, cortesía del Servicio Geológico de los Estados Unidos (USGS), vía AWS Terrain Tiles. Glaciares: Inventario Nacional de Glaciares (IANIGLA-CONICET).",
+ "organismos": [
+  "IGN (Instituto Geográfico Nacional)"
+ ],
  "actualizacion": "Se actualiza a mano, cuando la fuente publica datos nuevos.",
  "cobertura": "5 jurisdicciones",
  "periodo": "",
+ "anio_desde": null,
+ "anio_hasta": null,
  "filas": 15,
  "columnas": [
   {
@@ -53,8 +58,17 @@
  ],
  "unidades": [],
  "como_se_calcula": "",
- "datos_actualizados": "05/11/2026",
+ "origen": [
+  {
+   "archivo": "datos/manual/cumbres_ign.csv",
+   "nombre": "Máximas alturas: las cumbres más altas del país",
+   "organismo": "IGN",
+   "armado": "2026-11-09",
+   "url": "https://www.ign.gob.ar/NuestrasActividades/Geografia/DatosArgentina/MaximasAlturas"
+  }
+ ],
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿Cuáles son las montañas más altas de la Argentina? Con datos de Instituto Geográfico Nacional (IGN), \"Máximas alturas\". Relieve: SRTM, cortesía del Servicio Geológico de los Estados Unidos (USGS), vía AWS Terrain Tiles. Glaciares: Inventario Nacional de Glaciares (IANIGLA-CONICET). https://datina.com.ar/naturaleza.html#f-cumbres. Consultado el día de la consulta."
+ "como_citar": "Datina (año de la consulta). ¿Cuáles son las montañas más altas de la Argentina? Con datos de Instituto Geográfico Nacional (IGN), \"Máximas alturas\". Relieve: SRTM, cortesía del Servicio Geológico de los Estados Unidos (USGS), vía AWS Terrain Tiles. Glaciares: Inventario Nacional de Glaciares (IANIGLA-CONICET). https://datina.com.ar/naturaleza.html#f-cumbres. Consultado el día de la consulta.",
+ "datos_actualizados": "05/11/2026"
 }

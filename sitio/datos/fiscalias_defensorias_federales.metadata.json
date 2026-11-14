@@ -5,9 +5,15 @@
  "seccion": "Justicia",
  "ficha": "https://datina.com.ar/justicia.html#f-fiscalias-federales",
  "fuente": "Ministerio de Justicia, padrón de magistrados de la Justicia Federal y de la Justicia Nacional, e INDEC, proyecciones de población. Es el último dato que publicó la fuente.",
+ "organismos": [
+  "INDEC (Instituto Nacional de Estadística y Censos)",
+  "Ministerio de Justicia (Dirección Nacional de Relaciones con el Poder Judicial)"
+ ],
  "actualizacion": "",
  "cobertura": "Las 24 jurisdicciones",
  "periodo": "",
+ "anio_desde": 2024,
+ "anio_hasta": 2024,
  "filas": 24,
  "columnas": [
   {
@@ -53,7 +59,7 @@
   {
    "nombre": "poblacion",
    "tipo": "Número",
-   "valores": "182.003 a 17.443.372"
+   "valores": "181.263 a 17.431.446"
   },
   {
    "nombre": "fiscalias_cada_100mil",
@@ -63,13 +69,33 @@
   {
    "nombre": "defensorias_cada_100mil",
    "tipo": "Número",
-   "valores": "0,19 a 2,2"
+   "valores": "0,19 a 2,21"
   }
  ],
  "unidades": [],
  "como_se_calcula": "",
- "datos_actualizados": "05/11/2026",
+ "origen": [
+  {
+   "archivo": "datos/crudo/jus_magistrados_2024.zip",
+   "nombre": "Jueces, fiscales y defensores de la Justicia Federal y de la Justicia Nacional, abril de 2024",
+   "organismo": "Ministerio de Justicia",
+   "descargado": "2026-11-05",
+   "ultimo_intento": "2026-11-05",
+   "estado": "ok",
+   "url": "https://datos.jus.gob.ar/dataset/3c18d46e-729e-4973-8efd-f54cab18b7e3/resource/6f12c193-8502-449b-a04f-458ca0eb770f/download/magistrados-justicia-federal-nacional-2024.zip"
+  },
+  {
+   "archivo": "datos/crudo/indec_proyecciones_provincias.csv",
+   "nombre": "Proyecciones de población por provincia, sexo y edad, 2022 a 2040",
+   "organismo": "INDEC",
+   "descargado": "2026-11-05",
+   "ultimo_intento": "2026-11-05",
+   "estado": "ok",
+   "url": "https://censo.gob.ar/wp-content/uploads/2025/10/proyecciones_jurisdicciones_2022_2040_base.csv"
+  }
+ ],
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿Cuántas fiscalías y defensorías federales hay en cada provincia? Con datos de Ministerio de Justicia, padrón de magistrados de la Justicia Federal y de la Justicia Nacional, e INDEC, proyecciones de población. Es el último dato que publicó la fuente. https://datina.com.ar/justicia.html#f-fiscalias-federales. Consultado el día de la consulta."
+ "como_citar": "Datina (año de la consulta). ¿Cuántas fiscalías y defensorías federales hay en cada provincia? Con datos de Ministerio de Justicia, padrón de magistrados de la Justicia Federal y de la Justicia Nacional, e INDEC, proyecciones de población. Es el último dato que publicó la fuente. https://datina.com.ar/justicia.html#f-fiscalias-federales. Consultado el día de la consulta.",
+ "datos_actualizados": "05/11/2026"
 }

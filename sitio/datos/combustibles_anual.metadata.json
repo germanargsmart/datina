@@ -5,9 +5,15 @@
  "seccion": "Movilidad",
  "ficha": "https://datina.com.ar/movilidad.html#f-combustibles",
  "fuente": "Secretaría de Energía, precios y volúmenes de las estaciones de servicio (Resolución 1104/2004).",
+ "organismos": [
+  "Banco Mundial",
+  "SE (Secretaría de Energía)"
+ ],
  "actualizacion": "Se actualiza cada mes.",
  "cobertura": "Las 24 jurisdicciones y el total del país",
  "periodo": "2005 a 2025",
+ "anio_desde": 2005,
+ "anio_hasta": 2025,
  "filas": 525,
  "columnas": [
   {
@@ -43,8 +49,25 @@
  ],
  "unidades": [],
  "como_se_calcula": "",
- "datos_actualizados": "05/11/2026",
+ "origen": [
+  {
+   "archivo": "datos/manual/combustibles_2004_2023.csv",
+   "nombre": "Precios de la nafta súper y del gasoil por mes y provincia, 2004 a 2023",
+   "organismo": "SE",
+   "armado": "2026-10-04",
+   "url": "http://datos.energia.gob.ar/api/3/action/package_show?id=708f9ab4-829b-4f02-b507-f303c5bc4800"
+  },
+  {
+   "archivo": "datos/crudo/bm_NY.GDP.DEFL.ZS.json",
+   "nombre": "Deflactor del PBI de la Argentina (Banco Mundial, NY.GDP.DEFL.ZS)",
+   "organismo": "Banco Mundial",
+   "descargado": "2026-11-05",
+   "ultimo_intento": "2026-11-05",
+   "estado": "ok"
+  }
+ ],
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿Cuánto cuesta la nafta en cada provincia? Con datos de Secretaría de Energía, precios y volúmenes de las estaciones de servicio (Resolución 1104/2004). https://datina.com.ar/movilidad.html#f-combustibles. Consultado el día de la consulta."
+ "como_citar": "Datina (año de la consulta). ¿Cuánto cuesta la nafta en cada provincia? Con datos de Secretaría de Energía, precios y volúmenes de las estaciones de servicio (Resolución 1104/2004). https://datina.com.ar/movilidad.html#f-combustibles. Consultado el día de la consulta.",
+ "datos_actualizados": "05/11/2026"
 }

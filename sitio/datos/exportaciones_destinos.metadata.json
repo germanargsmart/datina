@@ -5,9 +5,14 @@
  "seccion": "Sector externo",
  "ficha": "https://datina.com.ar/externo.html#f-destinos",
  "fuente": "INDEC, Origen Provincial de las Exportaciones, por zona económica y país (provisorio).",
+ "organismos": [
+  "INDEC (Instituto Nacional de Estadística y Censos)"
+ ],
  "actualizacion": "Se actualiza cada seis meses.",
  "cobertura": "Las 24 jurisdicciones y el total del país",
  "periodo": "",
+ "anio_desde": 2026,
+ "anio_hasta": 2026,
  "filas": 575,
  "columnas": [
   {
@@ -48,8 +53,19 @@
  ],
  "unidades": [],
  "como_se_calcula": "",
- "datos_actualizados": "05/11/2026",
+ "origen": [
+  {
+   "archivo": "datos/crudo/exportaciones_semestre.xls",
+   "nombre": "Origen provincial de las exportaciones, anexo del último semestre",
+   "organismo": "INDEC",
+   "descargado": "2026-11-05",
+   "ultimo_intento": "2026-11-05",
+   "estado": "ok",
+   "url": "https://www.indec.gob.ar/ftp/cuadros/economia/opex_anexo_cuadros_{DD_MM_YY}.xls"
+  }
+ ],
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿Adónde exporta la Argentina y cada provincia? Con datos de INDEC, Origen Provincial de las Exportaciones, por zona económica y país (provisorio). https://datina.com.ar/externo.html#f-destinos. Consultado el día de la consulta."
+ "como_citar": "Datina (año de la consulta). ¿Adónde exporta la Argentina y cada provincia? Con datos de INDEC, Origen Provincial de las Exportaciones, por zona económica y país (provisorio). https://datina.com.ar/externo.html#f-destinos. Consultado el día de la consulta.",
+ "datos_actualizados": "05/11/2026"
 }

@@ -28,7 +28,9 @@ scripts/achicar_js.py          saca comentarios y sangría de sitio/datina.js, s
 scripts/imagen_social.py       la imagen al compartir de cada página (og:image, sitio/og/): 03 la dibuja con Pillow y Roboto Flex (scripts/fuentes/), solo si cambió lo que lleva
 scripts/pruebas_datos.py       pruebas de los datos: si fallan, no se arma ni se publica
 scripts/relaciones.py          arma el Explorador de relaciones (relaciones.html) desde datos/manual/relaciones.json y lo valida
-scripts/catalogo.py            arma la lista del Catálogo de datos (catalogo.html) y valida que cada tabla publicada tenga dónde se usa (datos/manual/catalogo.json)
+scripts/catalogo.py            arma la lista del Catálogo de datos (catalogo.html) y valida que cada tabla publicada tenga dónde se usa (datos/manual/catalogo.json).
+                               Desde el 13 de noviembre de 2026 da también lo de sitio/datos/catalogo.json (03 lo escribe): una entrada por tabla con sus
+                               organismos y la fecha de cada archivo del que sale. De ahí salen el .metadata.json de cada tabla, los Dataset y llms.txt
 scripts/prueba_paginas.mjs     prueba de las páginas armadas en Chrome sin ventana (usa scripts/cdp.mjs)
 scripts/elecciones_mesas.py    desde el 4 de noviembre de 2026, arma sitio/datos/mesas/ (resultados por mesa y circuito, 87 MB), que 03 no toca. Se corre una vez por
                                elección. La página es scripts/mesas.js, aparte de datina.js, y la prueba scripts/prueba_mesas.py: docs/roadmap/MESAS.md
@@ -74,7 +76,7 @@ docs/roadmap/                  plan vigente, estado, decisiones, criterios de ac
 
 - `tabla_larga.csv` siempre con `codigo_indec, territorio, periodo, variable, valor, unidad, fuente`. Toda variable nueva entra por `agregar()` de `02_procesar.py`. Códigos INDEC de dos dígitos ("02" CABA, "06" Buenos Aires), "00" total país, y "AGLO" para los 31 aglomerados urbanos de la EPH (decisión del autor del 12 de noviembre de 2026). Un solo nombre por código: "CABA" para el "02".
 - Una fuente principal por indicador, la nacional. El Banco Mundial (`bm_*`) solo en la comparación con la OCDE.
-- Un solo módulo de población: proyecciones del INDEC base Censo 2022 (`POB`). Excepciones declaradas en cada ficha.
+- Un solo módulo de población: proyecciones del INDEC base Censo 2022, del mismo año que el dato (`pob_anio()`, decisión del autor del 12 de noviembre de 2026) y, sin año propio, del año en curso (`POB`). Cada ficha dice el año de su población. Excepciones declaradas en cada ficha.
 - Redondeo único, al mostrar (`r1()`, mitad hacia arriba). Las tablas guardan cuatro decimales.
 - Ningún año que cambia con los datos va escrito a mano: sale del resumen (`{{ruta}}` en la plantilla). El constructor frena el sitio si encuentra uno.
 - Los textos se generan desde `resumen`, nunca con cifras escritas a mano.

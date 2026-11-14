@@ -5,9 +5,15 @@
  "seccion": "Naturaleza y ambiente",
  "ficha": "https://datina.com.ar/naturaleza.html#f-protegida",
  "fuente": "Secretaría de Turismo y Ambiente, Centro de Información Ambiental (CIAM).",
+ "organismos": [
+  "CIAM (Centro de Información Ambiental)",
+  "INDEC (Instituto Nacional de Estadística y Censos)"
+ ],
  "actualizacion": "Se actualiza cada año.",
  "cobertura": "Las 24 jurisdicciones",
  "periodo": "",
+ "anio_desde": 2025,
+ "anio_hasta": 2025,
  "filas": 24,
  "columnas": [
   {
@@ -43,8 +49,28 @@
  ],
  "unidades": [],
  "como_se_calcula": "",
- "datos_actualizados": "05/11/2026",
+ "origen": [
+  {
+   "archivo": "datos/crudo/ciam_areas_protegidas_provincias.csv",
+   "nombre": "Áreas protegidas por provincia",
+   "organismo": "CIAM",
+   "descargado": "2026-11-05",
+   "ultimo_intento": "2026-11-05",
+   "estado": "ok",
+   "url": "https://ciam.ambiente.gob.ar/dt_csv.php?dt_id=394"
+  },
+  {
+   "archivo": "datos/crudo/indec_proyecciones_provincias.csv",
+   "nombre": "Proyecciones de población por provincia, sexo y edad, 2022 a 2040",
+   "organismo": "INDEC",
+   "descargado": "2026-11-05",
+   "ultimo_intento": "2026-11-05",
+   "estado": "ok",
+   "url": "https://censo.gob.ar/wp-content/uploads/2025/10/proyecciones_jurisdicciones_2022_2040_base.csv"
+  }
+ ],
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿Cuánto territorio protegido tiene cada provincia? Con datos de Secretaría de Turismo y Ambiente, Centro de Información Ambiental (CIAM). https://datina.com.ar/naturaleza.html#f-protegida. Consultado el día de la consulta."
+ "como_citar": "Datina (año de la consulta). ¿Cuánto territorio protegido tiene cada provincia? Con datos de Secretaría de Turismo y Ambiente, Centro de Información Ambiental (CIAM). https://datina.com.ar/naturaleza.html#f-protegida. Consultado el día de la consulta.",
+ "datos_actualizados": "05/11/2026"
 }

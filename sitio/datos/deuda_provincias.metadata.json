@@ -5,9 +5,15 @@
  "seccion": "Cuentas públicas",
  "ficha": "https://datina.com.ar/gobierno.html#f-deuda-provincias",
  "fuente": "Subsecretaría de Coordinación Fiscal Provincial, Ministerio de Economía, evolución del stock de deuda provincial, e INDEC, proyecciones de población.",
+ "organismos": [
+  "INDEC (Instituto Nacional de Estadística y Censos)",
+  "SSCFP (Subsecretaría de Coordinación Fiscal Provincial)"
+ ],
  "actualizacion": "Se actualiza cada tres meses.",
  "cobertura": "Las 24 jurisdicciones",
  "periodo": "30 de junio de 2026",
+ "anio_desde": 2026,
+ "anio_hasta": 2026,
  "filas": 24,
  "columnas": [
   {
@@ -98,8 +104,28 @@
  ],
  "unidades": [],
  "como_se_calcula": "",
- "datos_actualizados": "05/11/2026",
+ "origen": [
+  {
+   "archivo": "datos/crudo/cfp_stock_deuda_provincial.xlsx",
+   "nombre": "Stock de deuda de cada provincia por acreedor, al último trimestre",
+   "organismo": "SSCFP",
+   "descargado": "2026-11-05",
+   "ultimo_intento": "2026-11-05",
+   "estado": "ok",
+   "url": "https://www.argentina.gob.ar/economia/sechacienda/coordinacion-fiscal-provincial/deuda-publica-provincial/evolucion-de-stock"
+  },
+  {
+   "archivo": "datos/crudo/indec_proyecciones_provincias.csv",
+   "nombre": "Proyecciones de población por provincia, sexo y edad, 2022 a 2040",
+   "organismo": "INDEC",
+   "descargado": "2026-11-05",
+   "ultimo_intento": "2026-11-05",
+   "estado": "ok",
+   "url": "https://censo.gob.ar/wp-content/uploads/2025/10/proyecciones_jurisdicciones_2022_2040_base.csv"
+  }
+ ],
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿Qué provincias deben más por habitante? Con datos de Subsecretaría de Coordinación Fiscal Provincial, Ministerio de Economía, evolución del stock de deuda provincial, e INDEC, proyecciones de población. https://datina.com.ar/gobierno.html#f-deuda-provincias. Consultado el día de la consulta."
+ "como_citar": "Datina (año de la consulta). ¿Qué provincias deben más por habitante? Con datos de Subsecretaría de Coordinación Fiscal Provincial, Ministerio de Economía, evolución del stock de deuda provincial, e INDEC, proyecciones de población. https://datina.com.ar/gobierno.html#f-deuda-provincias. Consultado el día de la consulta.",
+ "datos_actualizados": "05/11/2026"
 }

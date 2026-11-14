@@ -4,10 +4,15 @@
  "descripcion": "Índices de producción industrial manufacturero y minero del INDEC, por rama frente al mismo mes del año anterior, agosto de 2026, y mes a mes desde enero de 2017",
  "seccion": "Precios y actividad",
  "ficha": "https://datina.com.ar/economia.html#f-industria",
- "fuente": "INDEC, índices de producción industrial manufacturero y minero (Catálogo API-INDEC). Se actualiza cada mes. El último dato es de agosto de 2026, más atrasado que lo habitual.",
- "actualizacion": "",
+ "fuente": "INDEC, índices de producción industrial manufacturero y minero (Catálogo API-INDEC).",
+ "organismos": [
+  "INDEC (Instituto Nacional de Estadística y Censos)"
+ ],
+ "actualizacion": "Se actualiza cada mes. El último dato es de agosto de 2026, más atrasado que lo habitual.",
  "cobertura": "Sin desglose territorial",
  "periodo": "enero de 2017 a agosto de 2026",
+ "anio_desde": 2017,
+ "anio_hasta": 2026,
  "filas": 116,
  "columnas": [
   {
@@ -28,8 +33,28 @@
  ],
  "unidades": [],
  "como_se_calcula": "",
- "datos_actualizados": "05/11/2026",
+ "origen": [
+  {
+   "archivo": "datos/crudo/indec_api_ipi_manufacturero.json",
+   "nombre": "Índice de producción industrial manufacturero (Catálogo API-INDEC)",
+   "organismo": "INDEC",
+   "descargado": "2026-11-05",
+   "ultimo_intento": "2026-11-05",
+   "estado": "ok",
+   "url": "https://api.indec.gob.ar/v1/ipi_manufacturero"
+  },
+  {
+   "archivo": "datos/crudo/indec_api_ipi_minero.json",
+   "nombre": "Índice de producción industrial minero (Catálogo API-INDEC)",
+   "organismo": "INDEC",
+   "descargado": "2026-11-05",
+   "ultimo_intento": "2026-11-05",
+   "estado": "ok",
+   "url": "https://api.indec.gob.ar/v1/ipi_minero"
+  }
+ ],
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿Cuánto cambió la producción de la industria y de la minería? Con datos de INDEC, índices de producción industrial manufacturero y minero (Catálogo API-INDEC). Se actualiza cada mes. El último dato es de agosto de 2026, más atrasado que lo habitual. https://datina.com.ar/economia.html#f-industria. Consultado el día de la consulta."
+ "como_citar": "Datina (año de la consulta). ¿Cuánto cambió la producción de la industria y de la minería? Con datos de INDEC, índices de producción industrial manufacturero y minero (Catálogo API-INDEC). https://datina.com.ar/economia.html#f-industria. Consultado el día de la consulta.",
+ "datos_actualizados": "05/11/2026"
 }

@@ -5,9 +5,14 @@
  "seccion": "Salud",
  "ficha": "https://datina.com.ar/salud.html#f-vacunas",
  "fuente": "Dirección de Control de Enfermedades Inmunoprevenibles (DICEI), Ministerio de Salud.",
+ "organismos": [
+  "DICEI (Dirección de Control de Enfermedades Inmunoprevenibles)"
+ ],
  "actualizacion": "Se actualiza cada año.",
  "cobertura": "Sin desglose territorial",
  "periodo": "2009 a 2024",
+ "anio_desde": 2009,
+ "anio_hasta": 2024,
  "filas": 16,
  "columnas": [
   {
@@ -48,8 +53,19 @@
  ],
  "unidades": [],
  "como_se_calcula": "",
- "datos_actualizados": "05/11/2026",
+ "origen": [
+  {
+   "archivo": "datos/crudo/salud_vacuna_triple_viral.xls",
+   "nombre": "Cobertura de la vacuna triple viral por jurisdicción, primera y segunda dosis, desde 2009",
+   "organismo": "DICEI",
+   "descargado": "2026-11-05",
+   "ultimo_intento": "2026-11-05",
+   "estado": "ok",
+   "url": "https://datos.salud.gob.ar/dataset/porc-de-cobertura-de-la-vacuna-triple-viral-srp-sarampion-parotiditis-o-paperas-y-rubeola"
+  }
+ ],
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿Dónde se vacuna menos a los chicos? Con datos de Dirección de Control de Enfermedades Inmunoprevenibles (DICEI), Ministerio de Salud. https://datina.com.ar/salud.html#f-vacunas. Consultado el día de la consulta."
+ "como_citar": "Datina (año de la consulta). ¿Dónde se vacuna menos a los chicos? Con datos de Dirección de Control de Enfermedades Inmunoprevenibles (DICEI), Ministerio de Salud. https://datina.com.ar/salud.html#f-vacunas. Consultado el día de la consulta.",
+ "datos_actualizados": "05/11/2026"
 }

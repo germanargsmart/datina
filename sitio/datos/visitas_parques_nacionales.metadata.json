@@ -5,9 +5,14 @@
  "seccion": "Naturaleza y ambiente",
  "ficha": "https://datina.com.ar/naturaleza.html#f-visitas",
  "fuente": "Secretaría de Turismo y Ambiente, Sistema de Información Turística de la Argentina (SINTA) y tablero de áreas protegidas, con datos de la Administración de Parques Nacionales.",
+ "organismos": [
+  "SINTA (Sistema de Información Turística de la Argentina)"
+ ],
  "actualizacion": "Se actualiza cada mes.",
  "cobertura": "Sin desglose territorial",
  "periodo": "2008 a 2025",
+ "anio_desde": 2008,
+ "anio_hasta": 2025,
  "filas": 18,
  "columnas": [
   {
@@ -33,8 +38,18 @@
  ],
  "unidades": [],
  "como_se_calcula": "",
- "datos_actualizados": "05/11/2026",
+ "origen": [
+  {
+   "archivo": "datos/crudo/sinta_visitas_parques.csv",
+   "nombre": "Visitas mensuales a parques nacionales, residentes y no residentes",
+   "organismo": "SINTA",
+   "descargado": null,
+   "ultimo_intento": "2026-11-05",
+   "estado": "error: HTTP Error 403: Forbidden"
+  }
+ ],
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿Cuántas visitas reciben los parques nacionales, y cuáles reciben más? Con datos de Secretaría de Turismo y Ambiente, Sistema de Información Turística de la Argentina (SINTA) y tablero de áreas protegidas, con datos de la Administración de Parques Nacionales. https://datina.com.ar/naturaleza.html#f-visitas. Consultado el día de la consulta."
+ "como_citar": "Datina (año de la consulta). ¿Cuántas visitas reciben los parques nacionales, y cuáles reciben más? Con datos de Secretaría de Turismo y Ambiente, Sistema de Información Turística de la Argentina (SINTA) y tablero de áreas protegidas, con datos de la Administración de Parques Nacionales. https://datina.com.ar/naturaleza.html#f-visitas. Consultado el día de la consulta.",
+ "datos_actualizados": "05/11/2026"
 }

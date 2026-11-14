@@ -5,9 +5,15 @@
  "seccion": "Cuentas públicas",
  "ficha": "https://datina.com.ar/gobierno.html#f-recaudacion",
  "fuente": "Dirección Nacional de Investigaciones y Análisis Fiscal, Ministerio de Economía, e INDEC.",
+ "organismos": [
+  "DNIAF (Dirección Nacional de Investigaciones y Análisis Fiscal)",
+  "INDEC (Instituto Nacional de Estadística y Censos)"
+ ],
  "actualizacion": "Se actualiza cada mes.",
  "cobertura": "Sin desglose territorial",
  "periodo": "2004 a 2025",
+ "anio_desde": 2004,
+ "anio_hasta": 2025,
  "filas": 22,
  "columnas": [
   {
@@ -28,8 +34,37 @@
  ],
  "unidades": [],
  "como_se_calcula": "",
- "datos_actualizados": "05/11/2026",
+ "origen": [
+  {
+   "archivo": "datos/crudo/recaudacion_mensual.csv",
+   "nombre": "Recursos tributarios nacionales por tributo, mensual",
+   "organismo": "DNIAF",
+   "descargado": "2026-11-05",
+   "ultimo_intento": "2026-11-05",
+   "estado": "ok",
+   "url": "https://infra.datos.gob.ar/catalog/sspm/dataset/142/distribution/142.3/download/recursos-tributarios-totales-por-tributo-mensual-base-2001.csv"
+  },
+  {
+   "archivo": "datos/crudo/pib_corriente.csv",
+   "nombre": "PBI a precios corrientes, trimestral (oferta y demanda globales)",
+   "organismo": "INDEC",
+   "descargado": "2026-11-05",
+   "ultimo_intento": "2026-11-05",
+   "estado": "ok",
+   "url": "https://apis.datos.gob.ar/series/api/series/?ids=4.4_OGP_2004_T_17"
+  },
+  {
+   "archivo": "datos/crudo/indec_ipc_divisiones.csv",
+   "nombre": "Índice de precios al consumidor por región, división, categoría y bienes y servicios",
+   "organismo": "INDEC",
+   "descargado": "2026-11-05",
+   "ultimo_intento": "2026-11-05",
+   "estado": "ok",
+   "url": "https://www.indec.gob.ar/ftp/cuadros/economia/serie_ipc_divisiones.csv"
+  }
+ ],
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿Cuánto recauda cada impuesto nacional? Con datos de Dirección Nacional de Investigaciones y Análisis Fiscal, Ministerio de Economía, e INDEC. https://datina.com.ar/gobierno.html#f-recaudacion. Consultado el día de la consulta."
+ "como_citar": "Datina (año de la consulta). ¿Cuánto recauda cada impuesto nacional? Con datos de Dirección Nacional de Investigaciones y Análisis Fiscal, Ministerio de Economía, e INDEC. https://datina.com.ar/gobierno.html#f-recaudacion. Consultado el día de la consulta.",
+ "datos_actualizados": "05/11/2026"
 }

@@ -5,9 +5,14 @@
  "seccion": "Energía",
  "ficha": "https://datina.com.ar/energia.html#f-hogares",
  "fuente": "CAMMESA, publicado por la Subsecretaría de Programación Macroeconómica en la API de Series de Tiempo de datos.gob.ar, e INDEC.",
+ "organismos": [
+  "CAMMESA (Compañía Administradora del Mercado Mayorista Eléctrico)"
+ ],
  "actualizacion": "Se actualiza cada mes.",
  "cobertura": "Sin desglose territorial",
  "periodo": "2005 a 2025",
+ "anio_desde": 2005,
+ "anio_hasta": 2025,
  "filas": 21,
  "columnas": [
   {
@@ -58,8 +63,18 @@
  ],
  "unidades": [],
  "como_se_calcula": "Índices con base 2005 = 100. La actividad económica es el promedio anual del Estimador Mensual de Actividad Económica (EMAE) del INDEC, serie original. El resto de los usuarios agrupa comercios, industrias y grandes usuarios conectados al mercado eléctrico mayorista.",
- "datos_actualizados": "05/11/2026",
+ "origen": [
+  {
+   "archivo": "datos/crudo/energia_emae.csv",
+   "nombre": "Demanda eléctrica total y residencial y Estimador Mensual de Actividad Económica (EMAE), en series de tiempo",
+   "organismo": "CAMMESA",
+   "descargado": "2026-11-05",
+   "ultimo_intento": "2026-11-05",
+   "estado": "ok"
+  }
+ ],
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿Cuánto creció la demanda eléctrica frente a la economía? Con datos de CAMMESA, publicado por la Subsecretaría de Programación Macroeconómica en la API de Series de Tiempo de datos.gob.ar, e INDEC. https://datina.com.ar/energia.html#f-hogares. Consultado el día de la consulta."
+ "como_citar": "Datina (año de la consulta). ¿Cuánto creció la demanda eléctrica frente a la economía? Con datos de CAMMESA, publicado por la Subsecretaría de Programación Macroeconómica en la API de Series de Tiempo de datos.gob.ar, e INDEC. https://datina.com.ar/energia.html#f-hogares. Consultado el día de la consulta.",
+ "datos_actualizados": "05/11/2026"
 }

@@ -1,13 +1,18 @@
 {
  "tabla": "representacion_provincias.csv",
  "titulo": "¿Cuántos habitantes hay por banca de diputado en cada provincia?",
- "descripcion": "Habitantes por banca de diputado nacional en cada provincia, con la población proyectada para 2025",
+ "descripcion": "Habitantes por banca de diputado nacional en cada provincia, con la población proyectada para 2026",
  "seccion": "Instituciones políticas",
  "ficha": "https://datina.com.ar/politica.html#f-representacion",
  "fuente": "Ley 22.847 e INDEC, proyecciones de población.",
+ "organismos": [
+  "INDEC (Instituto Nacional de Estadística y Censos)"
+ ],
  "actualizacion": "Se actualiza cada año.",
  "cobertura": "Las 24 jurisdicciones",
  "periodo": "",
+ "anio_desde": 2026,
+ "anio_hasta": 2026,
  "filas": 24,
  "columnas": [
   {
@@ -28,28 +33,39 @@
   {
    "nombre": "poblacion",
    "tipo": "Número",
-   "valores": "182.003 a 17.443.372"
+   "valores": "182.744 a 17.453.039"
   },
   {
    "nombre": "hab_por_diputado",
    "tipo": "Número",
-   "valores": "36.401 a 249.191"
+   "valores": "36.549 a 249.329"
   },
   {
    "nombre": "hab_por_senador",
    "tipo": "Número",
-   "valores": "60.668 a 5.814.457"
+   "valores": "60.915 a 5.817.680"
   },
   {
    "nombre": "peso_voto",
    "tipo": "Número",
-   "valores": "0,59 a 6,2"
+   "valores": "0,59 a 6,18"
   }
  ],
  "unidades": [],
- "como_se_calcula": "Diputados por provincia según la ley 22.847 de 1983, que fija un mínimo de cinco por provincia y todavía usa como base el censo de 1980. Población proyectada por el INDEC para 2025. El peso en el Congreso compara la proporción de bancas de las dos cámaras que tiene cada provincia con su proporción de la población: 1 es proporcional.",
- "datos_actualizados": "05/11/2026",
+ "como_se_calcula": "Diputados por provincia según la ley 22.847 de 1983, que fija un mínimo de cinco por provincia y todavía usa como base el censo de 1980. Población proyectada por el INDEC para 2026. El peso en el Congreso compara la proporción de bancas de las dos cámaras que tiene cada provincia con su proporción de la población: 1 es proporcional.",
+ "origen": [
+  {
+   "archivo": "datos/crudo/indec_proyecciones_provincias.csv",
+   "nombre": "Proyecciones de población por provincia, sexo y edad, 2022 a 2040",
+   "organismo": "INDEC",
+   "descargado": "2026-11-05",
+   "ultimo_intento": "2026-11-05",
+   "estado": "ok",
+   "url": "https://censo.gob.ar/wp-content/uploads/2025/10/proyecciones_jurisdicciones_2022_2040_base.csv"
+  }
+ ],
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿Cuántos habitantes hay por banca de diputado en cada provincia? Con datos de Ley 22.847 e INDEC, proyecciones de población. https://datina.com.ar/politica.html#f-representacion. Consultado el día de la consulta."
+ "como_citar": "Datina (año de la consulta). ¿Cuántos habitantes hay por banca de diputado en cada provincia? Con datos de Ley 22.847 e INDEC, proyecciones de población. https://datina.com.ar/politica.html#f-representacion. Consultado el día de la consulta.",
+ "datos_actualizados": "05/11/2026"
 }

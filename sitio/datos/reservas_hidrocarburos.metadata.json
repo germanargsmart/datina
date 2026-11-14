@@ -5,9 +5,14 @@
  "seccion": "Petróleo y gas",
  "ficha": "https://datina.com.ar/petroleo.html#f-reservas",
  "fuente": "Secretaría de Energía, reservas de petróleo y gas al 31 de diciembre (Resolución SE 324/2006).",
+ "organismos": [
+  "SE (Secretaría de Energía)"
+ ],
  "actualizacion": "Se actualiza cada año.",
  "cobertura": "Sin desglose territorial",
  "periodo": "2006 a 2025",
+ "anio_desde": 2006,
+ "anio_hasta": 2025,
  "filas": 20,
  "columnas": [
   {
@@ -53,8 +58,34 @@
  ],
  "unidades": [],
  "como_se_calcula": "",
- "datos_actualizados": "05/11/2026",
+ "origen": [
+  {
+   "archivo": "datos/crudo/se_reservas_resumen.csv",
+   "nombre": "Reservas de petróleo y gas al 31 de diciembre (resumen de un ZIP por año)",
+   "organismo": "SE",
+   "descargado": null,
+   "ultimo_intento": "2026-11-05",
+   "estado": "error: <urlopen error timed out>"
+  },
+  {
+   "archivo": "datos/crudo/se_petroleo_cuenca.csv",
+   "nombre": "Producción de petróleo por cuenca y tipo de recurso (Capítulo IV)",
+   "organismo": "SE",
+   "descargado": null,
+   "ultimo_intento": "2026-11-05",
+   "estado": "error: <urlopen error [Errno 110] Connection timed out>"
+  },
+  {
+   "archivo": "datos/crudo/se_gas_cuenca.csv",
+   "nombre": "Producción de gas natural por cuenca y tipo de recurso (Capítulo IV)",
+   "organismo": "SE",
+   "descargado": null,
+   "ultimo_intento": "2026-11-05",
+   "estado": "error: <urlopen error [Errno 110] Connection timed out>"
+  }
+ ],
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿Para cuántos años alcanzan las reservas de petróleo y gas? Con datos de Secretaría de Energía, reservas de petróleo y gas al 31 de diciembre (Resolución SE 324/2006). https://datina.com.ar/petroleo.html#f-reservas. Consultado el día de la consulta."
+ "como_citar": "Datina (año de la consulta). ¿Para cuántos años alcanzan las reservas de petróleo y gas? Con datos de Secretaría de Energía, reservas de petróleo y gas al 31 de diciembre (Resolución SE 324/2006). https://datina.com.ar/petroleo.html#f-reservas. Consultado el día de la consulta.",
+ "datos_actualizados": "05/11/2026"
 }

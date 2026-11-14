@@ -5,9 +5,14 @@
  "seccion": "Precios y actividad",
  "ficha": "https://datina.com.ar/economia.html#f-supermercados",
  "fuente": "INDEC, Encuesta de Supermercados e índice de precios al consumidor.",
+ "organismos": [
+  "INDEC (Instituto Nacional de Estadística y Censos)"
+ ],
  "actualizacion": "Se actualiza cada mes.",
  "cobertura": "Las 24 jurisdicciones",
  "periodo": "",
+ "anio_desde": 2017,
+ "anio_hasta": 2026,
  "filas": 24,
  "columnas": [
   {
@@ -38,8 +43,28 @@
  ],
  "unidades": [],
  "como_se_calcula": "",
- "datos_actualizados": "05/11/2026",
+ "origen": [
+  {
+   "archivo": "datos/crudo/indec_supermercados.xlsx",
+   "nombre": "Encuesta de Supermercados (ventas por jurisdicción)",
+   "organismo": "INDEC",
+   "descargado": "2026-11-05",
+   "ultimo_intento": "2026-11-05",
+   "estado": "ok",
+   "url": "https://www.indec.gob.ar/ftp/cuadros/economia/serie_supermercados.xlsx"
+  },
+  {
+   "archivo": "datos/crudo/indec_ipc_divisiones.csv",
+   "nombre": "Índice de precios al consumidor por región, división, categoría y bienes y servicios",
+   "organismo": "INDEC",
+   "descargado": "2026-11-05",
+   "ultimo_intento": "2026-11-05",
+   "estado": "ok",
+   "url": "https://www.indec.gob.ar/ftp/cuadros/economia/serie_ipc_divisiones.csv"
+  }
+ ],
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿Cuánto cambiaron las ventas en supermercados en cada provincia? Con datos de INDEC, Encuesta de Supermercados e índice de precios al consumidor. https://datina.com.ar/economia.html#f-supermercados. Consultado el día de la consulta."
+ "como_citar": "Datina (año de la consulta). ¿Cuánto cambiaron las ventas en supermercados en cada provincia? Con datos de INDEC, Encuesta de Supermercados e índice de precios al consumidor. https://datina.com.ar/economia.html#f-supermercados. Consultado el día de la consulta.",
+ "datos_actualizados": "05/11/2026"
 }

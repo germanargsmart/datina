@@ -5,9 +5,14 @@
  "seccion": "Salud",
  "ficha": "https://datina.com.ar/salud.html#f-mortalidad",
  "fuente": "Dirección de Estadísticas e Información en Salud (DEIS), Ministerio de Salud.",
+ "organismos": [
+  "DEIS (Dirección de Estadísticas e Información de Salud)"
+ ],
  "actualizacion": "Se actualiza cada año.",
  "cobertura": "Las 24 jurisdicciones",
  "periodo": "",
+ "anio_desde": 2012,
+ "anio_hasta": 2024,
  "filas": 24,
  "columnas": [
   {
@@ -38,8 +43,19 @@
  ],
  "unidades": [],
  "como_se_calcula": "",
- "datos_actualizados": "05/11/2026",
+ "origen": [
+  {
+   "archivo": "datos/crudo/deis_mortalidad_infantil.csv",
+   "nombre": "Tasa de mortalidad infantil por jurisdicción, 1990 en adelante",
+   "organismo": "DEIS",
+   "descargado": "2026-11-05",
+   "ultimo_intento": "2026-11-05",
+   "estado": "ok",
+   "url": "https://datos.salud.gob.ar/dataset/2eff770c-1c2b-4a22-9281-c3b5e9412086/resource/c1253897-d507-41f7-a3e1-6ed756e7243b/download/tasa-mortalidad-infantil-deis-1990-2024.csv"
+  }
+ ],
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿Cuántos bebés mueren antes del año en cada provincia? Con datos de Dirección de Estadísticas e Información en Salud (DEIS), Ministerio de Salud. https://datina.com.ar/salud.html#f-mortalidad. Consultado el día de la consulta."
+ "como_citar": "Datina (año de la consulta). ¿Cuántos bebés mueren antes del año en cada provincia? Con datos de Dirección de Estadísticas e Información en Salud (DEIS), Ministerio de Salud. https://datina.com.ar/salud.html#f-mortalidad. Consultado el día de la consulta.",
+ "datos_actualizados": "05/11/2026"
 }

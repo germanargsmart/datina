@@ -5,9 +5,15 @@
  "seccion": "Migraciones",
  "ficha": "https://datina.com.ar/migraciones.html#f-extranjeros",
  "fuente": "RENAPER, población extranjera identificada por provincia.",
+ "organismos": [
+  "INDEC (Instituto Nacional de Estadística y Censos)",
+  "RENAPER (Registro Nacional de las Personas)"
+ ],
  "actualizacion": "Se actualiza cada año.",
  "cobertura": "Las 24 jurisdicciones",
  "periodo": "",
+ "anio_desde": 2026,
+ "anio_hasta": 2026,
  "filas": 24,
  "columnas": [
   {
@@ -28,13 +34,33 @@
   {
    "nombre": "cada_100",
    "tipo": "Número",
-   "valores": "0,29 a 19,38"
+   "valores": "0,29 a 19,46"
   }
  ],
  "unidades": [],
  "como_se_calcula": "",
- "datos_actualizados": "05/11/2026",
+ "origen": [
+  {
+   "archivo": "datos/crudo/renaper_extranjeros.csv",
+   "nombre": "Población extranjera identificada por provincia de residencia",
+   "organismo": "RENAPER",
+   "descargado": "2026-11-05",
+   "ultimo_intento": "2026-11-05",
+   "estado": "ok",
+   "url": "https://datosabiertos.renaper.gob.ar/poblacion_extranjera_identificada_provincia_junio_206.csv"
+  },
+  {
+   "archivo": "datos/crudo/indec_proyecciones_provincias.csv",
+   "nombre": "Proyecciones de población por provincia, sexo y edad, 2022 a 2040",
+   "organismo": "INDEC",
+   "descargado": "2026-11-05",
+   "ultimo_intento": "2026-11-05",
+   "estado": "ok",
+   "url": "https://censo.gob.ar/wp-content/uploads/2025/10/proyecciones_jurisdicciones_2022_2040_base.csv"
+  }
+ ],
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿Cuántas personas nacidas en otro país tienen DNI argentino? Con datos de RENAPER, población extranjera identificada por provincia. https://datina.com.ar/migraciones.html#f-extranjeros. Consultado el día de la consulta."
+ "como_citar": "Datina (año de la consulta). ¿Cuántas personas nacidas en otro país tienen DNI argentino? Con datos de RENAPER, población extranjera identificada por provincia. https://datina.com.ar/migraciones.html#f-extranjeros. Consultado el día de la consulta.",
+ "datos_actualizados": "05/11/2026"
 }

@@ -5,9 +5,15 @@
  "seccion": "Naturaleza y ambiente",
  "ficha": "https://datina.com.ar/naturaleza.html#f-visitas",
  "fuente": "Secretaría de Turismo y Ambiente, Sistema de Información Turística de la Argentina (SINTA) y tablero de áreas protegidas, con datos de la Administración de Parques Nacionales.",
+ "organismos": [
+  "SIB (Sistema de Información de Biodiversidad)",
+  "SINTA (Sistema de Información Turística de la Argentina)"
+ ],
  "actualizacion": "Se actualiza cada mes.",
  "cobertura": "Sin desglose territorial",
  "periodo": "",
+ "anio_desde": 2008,
+ "anio_hasta": 2026,
  "filas": 41,
  "columnas": [
   {
@@ -43,8 +49,26 @@
  ],
  "unidades": [],
  "como_se_calcula": "",
- "datos_actualizados": "05/11/2026",
+ "origen": [
+  {
+   "archivo": "datos/manual/visitas_parques_nacionales_mensual.csv",
+   "nombre": "Visitas mensuales por parque nacional (exportación del tablero de áreas protegidas)",
+   "organismo": "SINTA",
+   "armado": "2026-09-30",
+   "url": "https://tableros.yvera.tur.ar/tablero_areas_protegidas"
+  },
+  {
+   "archivo": "datos/crudo/sib_areas_protegidas.json",
+   "nombre": "Áreas protegidas con año de creación, superficie y especies registradas",
+   "organismo": "SIB",
+   "descargado": "2026-11-05",
+   "ultimo_intento": "2026-11-05",
+   "estado": "ok",
+   "url": "https://sib.gob.ar/api/2.0.0/ficha-area-protegida/areas-protegidas"
+  }
+ ],
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿Cuántas visitas reciben los parques nacionales, y cuáles reciben más? Con datos de Secretaría de Turismo y Ambiente, Sistema de Información Turística de la Argentina (SINTA) y tablero de áreas protegidas, con datos de la Administración de Parques Nacionales. https://datina.com.ar/naturaleza.html#f-visitas. Consultado el día de la consulta."
+ "como_citar": "Datina (año de la consulta). ¿Cuántas visitas reciben los parques nacionales, y cuáles reciben más? Con datos de Secretaría de Turismo y Ambiente, Sistema de Información Turística de la Argentina (SINTA) y tablero de áreas protegidas, con datos de la Administración de Parques Nacionales. https://datina.com.ar/naturaleza.html#f-visitas. Consultado el día de la consulta.",
+ "datos_actualizados": "05/11/2026"
 }

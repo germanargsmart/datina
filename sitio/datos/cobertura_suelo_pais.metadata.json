@@ -5,9 +5,14 @@
  "seccion": "Naturaleza y ambiente",
  "ficha": "https://datina.com.ar/naturaleza.html#f-cobertura-suelo",
  "fuente": "MapBiomas Argentina, Colección 3, estadísticas por provincia (licencia CC BY 4.0).",
+ "organismos": [
+  "MapBiomas Argentina"
+ ],
  "actualizacion": "Se actualiza cada año.",
  "cobertura": "Sin desglose territorial",
  "periodo": "1985 a 2025",
+ "anio_desde": 1985,
+ "anio_hasta": 2025,
  "filas": 41,
  "columnas": [
   {
@@ -43,8 +48,19 @@
  ],
  "unidades": [],
  "como_se_calcula": "",
- "datos_actualizados": "05/11/2026",
+ "origen": [
+  {
+   "archivo": "datos/crudo/mapbiomas_provincias.zip",
+   "nombre": "Cobertura del suelo por provincia y clase, de 1985 a 2025 (Colección 3)",
+   "organismo": "MapBiomas",
+   "descargado": "2026-11-05",
+   "ultimo_intento": "2026-11-05",
+   "estado": "ok",
+   "url": "https://argentina.mapbiomas.org/wp-content/uploads/sites/8/2026/09/Estadisticas_por_Provincia.zip"
+  }
+ ],
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿Cuánto monte natural perdió cada provincia? Con datos de MapBiomas Argentina, Colección 3, estadísticas por provincia (licencia CC BY 4.0). https://datina.com.ar/naturaleza.html#f-cobertura-suelo. Consultado el día de la consulta."
+ "como_citar": "Datina (año de la consulta). ¿Cuánto monte natural perdió cada provincia? Con datos de MapBiomas Argentina, Colección 3, estadísticas por provincia (licencia CC BY 4.0). https://datina.com.ar/naturaleza.html#f-cobertura-suelo. Consultado el día de la consulta.",
+ "datos_actualizados": "05/11/2026"
 }

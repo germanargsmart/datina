@@ -393,13 +393,13 @@ base = base.replace("<!--BANDERAS-->",
 # Historia de cada jurisdicción en Tu provincia (11 de octubre de 2026, pedido del autor: "cuando entro a una provincia pongas año de
 # fundación, antecedente, a las que corresponda si formó parte de las guerras civiles y la formación del estado nacional argentino, un
 # breve resumen de quiénes fueron y son, cantidad de habitantes y algún fun fact"). Los textos y sus fuentes están en
-# datos/manual/provincias_historia.json. Los habitantes salen de los datos: la proyección del INDEC (base Censo 2022) del año de la
-# población que usa todo el sitio. Se escribe un bloque por jurisdicción, oculto, y datina.js muestra el de la provincia elegida. Si un
+# datos/manual/provincias_historia.json. Los habitantes salen de los datos: la proyección del INDEC (base Censo 2022) del año en curso,
+# la misma de Cruces (decisión 4 del autor del 12 de noviembre de 2026). Se escribe un bloque por jurisdicción, oculto, y datina.js muestra el de la provincia elegida. Si un
 # texto rompe las reglas de redacción o le falta su fuente, el sitio no se arma
 HISTORIA = json.loads((RAIZ / "datos" / "manual" / "provincias_historia.json").read_text(encoding="utf-8"))["provincias"]
 _fj = json.loads((SITIO / "datos" / "fichas.json").read_text(encoding="utf-8"))
-HAB = {f["codigo_indec"]: f["poblacion"] for f in _fj["datos"]["empleo_provincias"] if f.get("poblacion")}
-HAB_ANIO = _fj["resumen"]["anio_pob"]
+HAB = {f["codigo_indec"]: f["poblacion"] for f in _fj["datos"]["cruces_provincias"] if f.get("poblacion")}
+HAB_ANIO = _fj["resumen"]["anio_pob_ficha"]["cruces_provincias"]
 _H_CAMPOS = [("fundacion_capital", "La capital"), ("provincia_desde", "La provincia"), ("antecedente", "Antecedentes"),
              ("guerras_civiles", "Guerras civiles"), ("quienes", "Quiénes"), ("curiosidad", "Dato curioso")]
 _h_txt = lambda h, k: ((h.get(k) or {}).get("texto") if isinstance(h.get(k), dict) else h.get(k)) or ""
@@ -778,7 +778,8 @@ _meta_tablas = []
 _catalogo, _cat_err = catalogo.armar(plantilla, SECCIONES, UBIC, GRUPOS + _menus_catalogo, indice=_meta_tablas, ia=CONSULTA_IA)
 if _cat_err:
     sys.exit("El catálogo de datos tiene problemas: el sitio no se armó.\n" + "\n".join(_cat_err))
-_indice_ia = [dict(t) for t in _meta_tablas] if CONSULTA_IA else None
+# el índice de Consultas con IA lleva lo mismo que antes: sin los organismos ni el origen de cada tabla, que suma catalogo.json
+_indice_ia = [{k: v for k, v in t.items() if k not in ("organismos", "origen", "anio_desde", "anio_hasta")} for t in _meta_tablas] if CONSULTA_IA else None
 
 
 def direccion_ficha(r, tabla):
@@ -797,40 +798,64 @@ def tabla_sensible(t):
 
 # las listas de COMNAP no tienen la licencia de Datina (ver los metadatos de abajo)
 TABLAS_COMNAP = {"antartida_instalaciones", "antartida_paises", "antartida_bases"}
-# Metadatos de cada tabla (plan de mejora, F3, 28 de octubre de 2026): junto a cada CSV del Catálogo, un .metadata.json con lo mismo que
-# muestra el Catálogo (fuente, cobertura, período, actualización, columnas, unidades y cómo se calcula), la dirección de su ficha y la
-# licencia, para quien baja los datos sin pasar por el sitio. El de una tabla que ya no está se borra
+# Catálogo único (plan técnico, fase 2, 13 de noviembre de 2026): sitio/datos/catalogo.json, con una entrada por tabla del Catálogo: qué mide,
+# de dónde sale (los organismos y cada archivo, con el día en que se bajó o se armó), cada cuánto se actualiza, la cobertura, el período,
+# las columnas, la licencia, la ficha y si es sensible. De ahí salen el .metadata.json de cada tabla, los Dataset de schema.org y llms.txt,
+# y saldrán el MCP y la API (fase 3), que dejan afuera lo sensible y lo que no tiene la licencia de Datina
 _URL_SITIO = json.loads((RAIZ / "datos" / "manual" / "sitio.json").read_text(encoding="utf-8"))["url"].rstrip("/")
-_META_HECHOS = set()
+LICENCIA = ("Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a "
+            "la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones")
+LICENCIA_URL = "https://creativecommons.org/licenses/by/4.0/deed.es"
+CATALOGO = []
 for _t in _meta_tablas:
     _d = direccion_ficha(_t["ref"], _t["tabla"])
-    _m = {"tabla": f"{_t['tabla']}.csv", "titulo": _t["titulo"], "descripcion": _t["descripcion"], "seccion": _t["seccion"],
-          "ficha": _URL_SITIO + "/" + ("" if _d == "./" else _d), "fuente": _t["fuente"], "actualizacion": _t["actualizacion"],
-          "cobertura": _t["cobertura"], "periodo": _t["periodo"], "filas": _t["filas"],
-          "columnas": [{"nombre": c, "tipo": ti, "valores": v} for c, ti, v in _t["columnas"]], "unidades": _t["unidades"],
-          "como_se_calcula": _t["nota"], "datos_actualizados": RESUMEN["actualizado"],
-          "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a "
-                      "la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
-          "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
+    _ficha = _URL_SITIO + "/" + ("" if _d == "./" else _d)
+    _c = {"tabla": _t["tabla"], "csv": f"{_URL_SITIO}/datos/{_t['tabla']}.csv", "metadatos": f"{_URL_SITIO}/datos/{_t['tabla']}.metadata.json",
+          "titulo": _t["titulo"], "descripcion": _t["descripcion"], "seccion": _t["seccion"], "ficha": _ficha, "fuente": _t["fuente"],
+          "organismos": _t["organismos"], "actualizacion": _t["actualizacion"], "cobertura": _t["cobertura"], "periodo": _t["periodo"],
+          "anio_desde": _t["anio_desde"], "anio_hasta": _t["anio_hasta"], "filas": _t["filas"], "columnas": [{"nombre": c, "tipo": ti, "valores": v} for c, ti, v in _t["columnas"]], "unidades": _t["unidades"],
+          "como_se_calcula": _t["nota"], "origen": _t["origen"], "sensible": tabla_sensible(_t), "licencia": LICENCIA, "licencia_url": LICENCIA_URL,
+          "uso_libre": True,
           # F2 (plan de mejora, 31 de octubre de 2026): la cita que propone "Usar los datos", con el año y el día de la consulta para completar
           "como_citar": f"Datina (año de la consulta). {_t['titulo']}{'' if _t['titulo'].endswith(('?', '.')) else '.'} Con datos de "
-                        f"{_t['fuente'].rstrip('.')}. {_URL_SITIO}/{'' if _d == './' else _d}. Consultado el día de la consulta."}
+                        f"{_t['fuente'].rstrip('.')}. {_ficha}. Consultado el día de la consulta."}
     # las listas de COMNAP se pueden usar solo con fines educativos y sin fines comerciales: esa condición gana sobre la licencia general
     if _t["tabla"] in TABLAS_COMNAP:
-        _m["licencia"] = ("Los datos de las instalaciones son de COMNAP y se pueden usar con fines educativos y sin fines comerciales, citando a COMNAP. "
-                          "Lo que suma Datina tiene licencia Creative Commons Atribución 4.0")
-        _m["licencia_datos_de_base"] = "https://www.comnap.aq/antarctic-facilities-information"
-    (SITIO / "datos" / f"{_t['tabla']}.metadata.json").write_text(json.dumps(_m, ensure_ascii=False, indent=1) + "\n", encoding="utf-8", newline="\n")
-    _META_HECHOS.add(f"{_t['tabla']}.metadata.json")
+        _c.update({"licencia": "Los datos de las instalaciones son de COMNAP y se pueden usar con fines educativos y sin fines comerciales, citando a "
+                               "COMNAP. Lo que suma Datina tiene licencia Creative Commons Atribución 4.0",
+                   "licencia_datos_de_base": "https://www.comnap.aq/antarctic-facilities-information", "uso_libre": False})
+    CATALOGO.append(_c)
+(SITIO / "datos" / "catalogo.json").write_text(json.dumps(
+    {"sitio": _URL_SITIO, "datos_actualizados": RESUMEN["actualizado"], "licencia": LICENCIA, "licencia_url": LICENCIA_URL,
+     "tabla_completa": f"{_URL_SITIO}/datos/tabla_larga.csv",
+     "campos": {"anio_desde": "primer y último año con datos (\"anio_hasta\"), de la tabla o, si no tiene una columna de período, de su descripción",
+                "origen": "los archivos de los que sale la tabla: \"descargado\" es el día de la última descarga que anduvo (null si no se sabe), "
+                          "\"ultimo_intento\" y \"estado\" los de la última actualización (si falló, la tabla usa el archivo anterior), y \"armado\" "
+                          "el día en que se armó por última vez un archivo hecho a mano o una sola vez",
+                "sensible": "habla de suicidio (CLAUDE.md, \"Temas sensibles\"): no va en los Dataset, en llms.txt ni en Consultas con IA",
+                "uso_libre": "false si los datos de base no tienen la licencia de Datina (ver \"licencia\")"},
+     "tablas": CATALOGO}, ensure_ascii=False, indent=1) + "\n", encoding="utf-8", newline="\n")
+# Metadatos de cada tabla (plan de mejora, F3, 28 de octubre de 2026): junto a cada CSV del Catálogo, un .metadata.json con su entrada de
+# catalogo.json, para quien baja los datos sin pasar por el sitio. El de una tabla que ya no está se borra
+_META_HECHOS = set()
+_META_FUERA = {"csv", "metadatos", "sensible", "uso_libre"}
+for _c in CATALOGO:
+    _m = {k: v for k, v in _c.items() if k not in _META_FUERA}
+    _m["tabla"] = f"{_c['tabla']}.csv"
+    _m["datos_actualizados"] = RESUMEN["actualizado"]
+    (SITIO / "datos" / f"{_c['tabla']}.metadata.json").write_text(json.dumps(_m, ensure_ascii=False, indent=1) + "\n", encoding="utf-8", newline="\n")
+    _META_HECHOS.add(f"{_c['tabla']}.metadata.json")
 for _f in (SITIO / "datos").glob("*.metadata.json"):
     if _f.name not in _META_HECHOS:
         _f.unlink()
 # Dataset de schema.org (plan técnico, fase 1, 11 de noviembre de 2026): cada tabla del Catálogo, en la página de su ficha, para Google Dataset
 # Search. Sin las sensibles ni las de COMNAP, cuya licencia no es la de Datina. Los escribe metadatos(), que sabe la dirección definitiva
 DATASETS_DE = {}
-for _t in _meta_tablas:
-    if tabla_sensible(_t) or _t["tabla"] in TABLAS_COMNAP:
+_DS_REF = {t["tabla"]: t["ref"] for t in _meta_tablas}
+for _t in CATALOGO:
+    if _t["sensible"] or not _t["uso_libre"]:
         continue
+    _t = {**_t, "ref": _DS_REF[_t["tabla"]]}
     _pag, _, _ancla = direccion_ficha(_t["ref"], _t["tabla"]).partition("#")
     DATASETS_DE.setdefault("inicio" if _pag in ("./", "") else _pag.removesuffix(".html"), []).append((_t, _ancla))
 # varias tablas comparten la pregunta de su ficha: el nombre del Dataset suma entonces el del archivo, para que ninguno se repita
@@ -1712,7 +1737,7 @@ if URL_SITIO:
         # la descripción de las secciones empieza con el mismo título: no se repite
         _d = _d.removeprefix(_t).strip()
         return f"- [{_t}]({_llu(a)})" + (f": {_d}" if _d else "")
-    _lltab = [t for t in _meta_tablas if not tabla_sensible(t) and t["tabla"] not in TABLAS_COMNAP]
+    _lltab = [t for t in CATALOGO if not t["sensible"] and t["uso_libre"]]
     _llej = next((t for t in _lltab if t["tabla"] == "empleo_provincias"), _lltab[0])["tabla"]
     _ll = ["# Datina", "",
            f"> Estadísticas públicas de la Argentina y de sus 24 jurisdicciones: cada cifra con qué mide, de qué período es, de dónde sale y su "
@@ -1726,6 +1751,8 @@ if URL_SITIO:
            "## Datos para descargar", "", _llpag("catalogo"),
            f"- [Tabla completa de indicadores]({_llu('datos/tabla_larga.csv')}): todos los indicadores en una sola tabla, una fila por jurisdicción, "
            "período e indicador, con su unidad y su fuente.",
+           f"- [Catálogo en JSON]({_llu('datos/catalogo.json')}): cada tabla con su fuente, sus organismos, el día en que se bajó o se armó cada "
+           "archivo del que sale, su período, sus columnas y su licencia.",
            _llpag("usar-datos"), _llpag("relaciones")]
     for _g, _gn, _items in GRUPOS:
         _ll += ["", f"## {_gn}", ""] + [_llpag(a) for a in _secs_de(_items) if a in PAGINA_INFO]
