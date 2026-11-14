@@ -3628,6 +3628,22 @@ const DIB = protegerDib({
   },
   // la cobertura de salud (plan de mejora, etapa 4): la misma tabla del censo, en su ficha de Salud
   cobertura: a => {
+    $("cobertura-ley").hidden = MED.cobertura !== "tipo";
+    // por tipo (14 de noviembre de 2026): las tres respuestas del censo, de la provincia con más obra social o prepaga a la que menos
+    if (MED.cobertura === "tipo") return conTablas("cobertura", ["cobertura_tipo_provincias"], b => {
+      const CT = R.cobertura_tipo, P = CT.pais, ft = T.cobertura_tipo_provincias.find(r => r.codigo_indec === prov);
+      const cl = [{k: "obra_social_prepaga", lab: "Obra social o prepaga", c: css("--celeste-fuerte")},
+        {k: "plan_estatal", lab: "Plan estatal de salud", c: css("--sol"), texto: css("--ink")},
+        {k: "sin_cobertura", lab: "Ninguna", c: css("--celeste"), texto: css("--ink")}];
+      leyenda("cobertura-ley", cl);
+      $t("cobertura").textContent = `En el Censo 2022, el ${pct(P.obra_social_prepaga)} de las personas tenía obra social o prepaga, incluido el PAMI, ` +
+        `el ${pct(P.plan_estatal)} solo un programa o plan estatal de salud y el ${pct(P.sin_cobertura)} ninguna de las dos. La obra social o prepaga ` +
+        `iba del ${pct(CT.os_min[1])} en ${CT.os_min[0]} al ${pct(CT.os_max[1])} en ${CT.os_max[0]}, y el plan estatal, del ${pct(CT.plan_min[1])} en ` +
+        `${CT.plan_min[0]} al ${pct(CT.plan_max[1])} en ${CT.plan_max[0]}.` + (ft ? ` En ${ft.territorio}, ${pct(ft.obra_social_prepaga)}, ${pct(ft.plan_estatal)} ` +
+        `y ${pct(ft.sin_cobertura)}.` : "");
+      apiladasH(G("cobertura"), {anim: b, claves: cl, valF: n1, data: [{...P, codigo_indec: "00", territorio: "Todo el país"}, ...T.cobertura_tipo_provincias]});
+      G("cobertura").resaltar = null;
+    })(a);
     const fp = T.censo2022_provincias.find(r => r.codigo_indec === prov);
     let txt = textoCenso("sin_cobertura");
     if (fp && fp.territorio !== nv.censo_top.sin_cobertura[0] && fp.territorio !== nv.censo_low.sin_cobertura[0]) txt += ` En ${fp.territorio}, el ${pct(fp.sin_cobertura)}.`;

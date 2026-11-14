@@ -691,7 +691,7 @@ DIFERIDAS = ["antartida_instalaciones", "antartida_bases", "antartida_paises", "
              # pueden pasar: el texto de un artículo o una parte del perfil las leen apenas carga la página
              "puestos_provincias", "reservas_bcra", "voto_legisladores_y_provincia", "dengue_provincias", "inflacion_personal",
              "empresas_tamano_sector", "bcra_variables_lista", "congreso_composicion", "justicia_provincias", "ingresos_aglomerados",
-             "mortalidad_infantil_causas", "deuda_provincias", "informalidad_aglomerados", "informalidad_grupos"]
+             "mortalidad_infantil_causas", "deuda_provincias", "informalidad_aglomerados", "informalidad_grupos", "cobertura_tipo_provincias"]
 D = json.loads((FICHAS_JSON).read_text(encoding="utf-8"))
 D["diferidas"] = {}
 for nombre in DIFERIDAS:

@@ -206,8 +206,26 @@
    "periodo": "ultimo"
   },
   {
+   "variable": "censo2022_obra_social_prepaga",
+   "tabla": "cobertura_tipo_provincias",
+   "columna": "obra_social_prepaga",
+   "periodo": "ultimo"
+  },
+  {
+   "variable": "censo2022_plan_estatal_salud",
+   "tabla": "cobertura_tipo_provincias",
+   "columna": "plan_estatal",
+   "periodo": "ultimo"
+  },
+  {
    "variable": "censo2022_sin_cobertura",
    "tabla": "censo2022_provincias",
+   "columna": "sin_cobertura",
+   "periodo": "ultimo"
+  },
+  {
+   "variable": "censo2022_sin_cobertura",
+   "tabla": "cobertura_tipo_provincias",
    "columna": "sin_cobertura",
    "periodo": "ultimo"
   },
