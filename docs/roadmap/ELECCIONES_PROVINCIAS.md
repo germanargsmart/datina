@@ -16,7 +16,7 @@ Revisado el 7 de noviembre de 2026 desde la nube. Cada dirección dice qué cont
 | Entre Ríos | 1935, 1939, 1950, 1991, 1999 y 2011 a 2023 por departamento, 1963, 1973 y 1983 el total: archivo del gobierno provincial, Tribunal Electoral y DGEC | 2011, en el provisorio de la DINE que Datina ya baja | 1987, 1995, 2003 y 2007 sin nada oficial en línea |
 | Corrientes | 1983 a 2019 (departamento desde 1989, mesa desde 2011): Subdirección de Cómputos. 2025 por mesa: API de la Junta Electoral | 2011 a 2019 y 2025 | 2021 en ninguna fuente accesible |
 | Catamarca | 2019 y 2023: actas de la Junta Electoral Nacional (se votó con las nacionales) | Ninguno | 1983 a 2015 sin nada oficial en línea |
-| Córdoba | 2003 a 2023: Juzgado Electoral y Tribunal Electoral Ad Hoc, también por departamento, circuito y localidad | 1998, incompleto | 1983 a 1995, y el total de 1998 |
+| Córdoba | 2003 a 2023: Juzgado Electoral y Tribunal Electoral Ad Hoc, también por departamento, circuito y localidad. 1998: la suma del mesa por mesa del Juzgado, incompleto (15 de noviembre de 2026) | 1998, incompleto | 1983 a 1995 |
 | Chaco | 1983 a 2023, con las dos vueltas de 1995 (de 1983 a 1991 sin blancos ni nulos): Tribunal Electoral | 2011 a 2023 en la API de resultados del Tribunal, sin probar | Lo anterior a 1973 |
 | Chubut | 1983 a 2023: Secretaría Electoral Permanente | 2019 en el sitio viejo del Tribunal, que no responde | El detalle por localidad y por mesa |
 | Formosa | Nada accesible desde la nube | Ninguno | Todo: el archivo del Tribunal Electoral Permanente no responde desde la nube |
@@ -49,7 +49,7 @@ El gobernador, al 8 de noviembre de 2026 (PR #114), según `mesas_jurisdiccion.c
 | Chaco | 1983 a 2023 | 2011 a 2023 | 2011 a 2023 | Ninguna |
 | Chubut | 1983 a 2023 | 2015 | 2015 (provisorio de la DINE) | Ninguna |
 | Corrientes | 1983 a 1991 y 1993 a 2025 | 1991, 1993 a 2001, 2009 a 2017 y 2025 | 2013, 2017 y 2025 | 1992 |
-| Córdoba | 1983 a 1995 y 2003 a 2023 | 2003 a 2023 | Ninguna | 1998 |
+| Córdoba | 1983 a 1998 y 2003 a 2023 | 2003 a 2023 | Ninguna | Ninguna (1998, con la suma de un mesa por mesa incompleto) |
 | Entre Ríos | 1983 a 2023 | 1991, 1999 y 2011 a 2023 | 2011 y 2015 (provisorio de la DINE) | Ninguna |
 | Formosa | 1983 a 2023 | Ninguna | Ninguna | Ninguna |
 | Jujuy | 1983 a 2023 | 2003 a 2015 | 2011 y 2015 (provisorio de la DINE) | Ninguna |
@@ -592,7 +592,7 @@ Transcriptas en `10.csv`: 1946, 1949, 2019 y 2023, todas en primera vuelta (Cata
 | Elección | Forma | Qué hay |
 |---|---|---|
 | 1983, 1987, 1991 y 1995 | Directa | Nada oficial en línea. El Juzgado publica desde 1998. Total de la provincia solo en PolAr (1983, 1987 y 1991) y en la Wikipedia |
-| 1998 (20 de diciembre) | Directa, con sumatoria | Sin transcribir. El acta de proclamación da solo los votos de Unión por Córdoba (Partido Justicialista 542.789, UCeDe 137.653 y Acción para el Cambio 113.474: 793.916) y el archivo mesa por mesa está incompleto (48 mesas en cero, falta la 7835). Se podría sumar el archivo con una nota, si el autor lo decide |
+| 1998 (20 de diciembre) | Directa, con sumatoria | Desde el 15 de noviembre de 2026 (decisión del autor del 14): la suma del archivo mesa por mesa del Juzgado, con una nota, en lugar de la tabla de la Wikipedia, que no citaba fuente. El archivo está incompleto (48 mesas en cero, falta la 7835): suma 788.011 para Unión por Córdoba contra los 793.916 del acta 3 del 23 de junio de 1999 (Partido Justicialista 542.789, UCeDe 137.653 y Acción para el Cambio 113.474). Según el acta, la UCR sumó solo al MID y a Unión Vecinal de Córdoba: PAIS va sola (la Wikipedia la sumaba). Sin padrón (electores en 0) |
 | 2003 | Directa, con sumatoria | Transcripto: provincia, Juzgado Electoral. 23 listas, con `suma_a` según el acta 38/2003. El acta da 53.686 votos a Acción por la República y el reporte 53.685 (queda el del reporte, que cierra con los válidos) |
 | 2007 | Directa, con sumatoria | Transcripto: provincia, Juzgado Electoral. 32 listas, con `suma_a` según la resolución 3/2007 (Unión por Córdoba, 582.973) y el reporte de sumatoria (Frente Cívico 565.239 y UCR 347.698). La UCR suma MID, Movimiento Popular Cordobés, ARI y Recrear: sale de la resta, porque ningún documento lo enumera |
 | 2011, 2015, 2019 y 2023 | Directa, por alianzas | Transcriptos: provincia, Tribunal Electoral Ad Hoc. Las cifras de 2011, 2015 y 2019 coinciden con las resoluciones de adjudicación y proclamación |
