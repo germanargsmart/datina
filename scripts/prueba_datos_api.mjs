@@ -143,6 +143,8 @@ ok(!eoF("fuente").some(f => /wikipedia|257arg|calvo|polar|tow|cant[oó]n|lupu/i.
 ok(eoF("recuento").every(r => r === "definitivo"), "los totales de Buenos Aires son escrutinios definitivos");
 const eoPres = (await herramienta("leer_tabla", {tabla: "elecciones_oficiales_presidente", jurisdiccion: ["02"], desde: "2023", hasta: "2023"})).structuredContent;
 const eoAnios = (await herramienta("leer_tabla", {tabla: "elecciones_oficiales_presidente", columnas: ["anio"], limite: TOPES.filas})).structuredContent;
+const eoVacio = (await herramienta("leer_tabla", {tabla: "elecciones_oficiales_totales", jurisdiccion: ["14"], desde: "1998", hasta: "1998"})).structuredContent;
+ok(eoVacio.total === 0 && !eoVacio.avisos.some(a => /no tiene una columna de período/.test(a)), "un filtro sin filas no dice que la tabla no tiene período (Córdoba 1998 no es oficial)");
 ok(eoPres.filas.length > 3 && eoPres.filas.every(f => f[0] === "2023") && Math.min(...eoAnios.filas.map(f => +f[0])) === 1983,
    "presidente: CABA en 2023 se lee con su año, y nada antes de 1983");
 ok((await herramienta("leer_tabla", {tabla: "../mesas/indice"})).isError, "no se puede salir de las tablas del catálogo con la ruta");
