@@ -415,17 +415,23 @@ const dd = JSON.parse(await q.eval(`(() => {
   const vis = datos.filter(d => !d.hidden), uno = vis[0]; uno.scrollIntoView({block: "center"}); const r = uno.querySelector(".c-num").getBoundingClientRect();
   return JSON.stringify({
     grupos: [...document.querySelectorAll(".dd-grupo-tit")].map(h => h.textContent),
-    indice: [...document.querySelectorAll(".dd-indice a")].map(a => a.getAttribute("href").slice(1)).filter(i => document.getElementById(i)?.matches(".dd-grupo-tit")).length,
+    filtros: !document.querySelector(".dd-filtros")?.hidden, opciones: [...document.querySelectorAll("#dd-tema option")].map(o => o.value),
+    cabeza: [...document.querySelectorAll(".dd-tabla thead th")].map(th => th.textContent.trim()),
     grupoDe: ind.grupos.map(g => [g[1], g[2].flatMap(it => Array.isArray(it) ? it[1] : [it])]),
     fichas: ind.fichas.map(x => [x[0], x[1]]),
     datos: datos.map(d => ({id: d.dataset.clave, oculto: d.hidden, tema: d.querySelector(".dd-tema")?.textContent.trim(), preg: d.querySelector(".dd-preg a")?.textContent.trim(), dest: d.querySelector(".dd-preg a")?.getAttribute("href"),
       num: d.querySelector(".c-num")?.textContent.trim(), txt: d.querySelector(".c-txt")?.textContent.trim()})),
-    columnas: new Set(vis.map(d => Math.round(d.getBoundingClientRect().left))).size, tarjetas: document.querySelectorAll(".dd-grupo .tarjeta").length,
+    tarjetas: document.querySelectorAll(".dd-grupo .tarjeta").length,
     cubre: !!document.elementFromPoint(r.left + r.width / 2, r.top + r.height / 2)?.closest(".dd-preg a"), t: [...t], f: [...f]}); })()`));
 const ddEsperados = dd.grupoDe.flatMap(([, secs]) => secs.flatMap(s => dd.fichas.filter(([id, sec]) => sec === s && conCifra.has(id)).map(([id]) => id)));
 if (JSON.stringify(dd.datos.map(d => d.id)) !== JSON.stringify(ddEsperados))
   problemas.push(`datos-destacados.html: los datos no son los ${ddEsperados.length} de los cuatro grupos en su orden (${dd.datos.length} en la página, faltan ${ddEsperados.filter(i => !dd.datos.some(d => d.id === i)).join(", ") || "ninguno"})`);
-if (JSON.stringify(dd.grupos) !== JSON.stringify(dd.grupoDe.map(g => g[0])) || dd.indice !== dd.grupos.length) problemas.push(`datos-destacados.html: los grupos no están en el orden de GRUPOS o el índice no lleva a cada uno (${dd.grupos} ${dd.indice})`);
+if (JSON.stringify(dd.grupos) !== JSON.stringify(dd.grupoDe.map(g => g[0]))) problemas.push(`datos-destacados.html: los grupos no están en el orden de GRUPOS (${dd.grupos})`);
+// la tabla con filtros (15 de noviembre de 2026, decisión del autor): sus cuatro columnas, y los filtros a la vista con JavaScript, con todos los grupos y temas
+if (JSON.stringify(dd.cabeza) !== JSON.stringify(["Tema", "Pregunta", "Cifra", "Qué mide"])) problemas.push(`datos-destacados.html: las columnas de la tabla no son tema, pregunta, cifra y qué mide (${dd.cabeza})`);
+const ddTemas = [...new Set(dd.datos.map(d => dd.fichas.find(([id]) => id === d.id)?.[1]))];
+if (!dd.filtros || dd.opciones[0] !== "" || dd.grupoDe.some((_, i) => !dd.opciones.includes("g:" + ["personas", "economia", "estado", "territorio"][i])) || ddTemas.some(t => !dd.opciones.includes(t)))
+  problemas.push(`datos-destacados.html: faltan los filtros o la lista de temas no tiene todos los grupos y temas (${dd.opciones})`);
 const ddSensibles = dd.datos.filter(d => SENSIBLES.includes(d.id) || /suicid|muertes violentas/i.test(d.preg + " " + d.txt)).map(d => d.id);
 if (ddSensibles.length) problemas.push(`datos-destacados.html: temas sensibles en la lista: ${ddSensibles}`);
 // un dato cuya fuente no llegó queda oculto (su cifra es de las que pueden faltar en CLAVE) y no frena la actualización: se controlan los que se ven
@@ -438,9 +444,25 @@ const ddSinAnio = ddVisibles.filter(d => !/\b(19|20)\d\d\b/.test(d.txt) && !SIN_
 if (ddSinAnio.length) problemas.push(`datos-destacados.html: dato sin su año (si la fuente no da una fecha, va en SIN_ANIO con su motivo): ${ddSinAnio}`);
 const ddRotos = dd.datos.filter(d => { const [pag, ancla] = (d.dest || "").split("#"); return ancla !== d.id || !existsSync(join(SITIO, pag)) || !readFileSync(join(SITIO, pag), "utf8").includes(`id="${d.id}"`); }).map(d => d.id);
 if (ddRotos.length) problemas.push(`datos-destacados.html: el enlace no lleva a la ficha: ${ddRotos}`);
-if (dd.columnas !== 1 || dd.tarjetas) problemas.push(`datos-destacados.html: tiene que ser una sola columna, sin tarjetas (${dd.columnas} columnas, ${dd.tarjetas} tarjetas)`);
+if (dd.tarjetas) problemas.push(`datos-destacados.html: la tabla no lleva tarjetas (${dd.tarjetas})`);
 if (dd.t.length > 4 || dd.f.length !== 1) problemas.push(`datos-destacados.html: la lista lleva ${dd.t.length} tamaños y ${dd.f.length} familias: ${dd.t} ${dd.f}`);
 if (!dd.cubre) problemas.push("datos-destacados.html: el enlace de la pregunta no cubre el dato entero");
+// los filtros: buscar sin tildes, elegir un tema, los dos juntos, nada que coincida, y el enlace que los trae puestos
+const ddFiltro = async (texto, tema) => JSON.parse(await q.eval(`(() => { const q = document.getElementById("dd-q"), t = document.getElementById("dd-tema");
+  q.value = ${JSON.stringify(texto)}; t.value = ${JSON.stringify(tema)}; q.dispatchEvent(new Event("input")); t.dispatchEvent(new Event("change"));
+  const vis = [...document.querySelectorAll(".dd-dato")].filter(f => !f.hidden && f.offsetParent);
+  return JSON.stringify({n: vis.length, temas: [...new Set(vis.map(f => f.dataset.tema))], grupos: [...document.querySelectorAll(".dd-grupo")].filter(g => !g.hidden).length,
+    cuenta: document.getElementById("dd-cuenta").textContent, vacio: !document.getElementById("dd-vacio").hidden, url: location.search}); })()`));
+const ddVisN = ddVisibles.length;
+const ddInfl = await ddFiltro("inflacion", ""), ddSalud = await ddFiltro("", "salud"), ddGrupo = await ddFiltro("", "g:territorio"), ddNada = await ddFiltro("zzzz", ""), ddTodo = await ddFiltro("", "");
+if (!(ddInfl.n > 0 && ddInfl.n < ddVisN && /tema=|q=inflacion/.test(ddInfl.url))) problemas.push(`datos-destacados.html: buscar "inflacion" sin tilde no filtra (${JSON.stringify(ddInfl)})`);
+if (!(ddSalud.n > 0 && ddSalud.temas.join() === "salud" && ddSalud.grupos === 1 && ddSalud.cuenta.includes(`de ${ddVisN}`))) problemas.push(`datos-destacados.html: el tema Salud no deja solo sus datos (${JSON.stringify(ddSalud)})`);
+if (!(ddGrupo.grupos === 1 && ddGrupo.n > ddSalud.n)) problemas.push(`datos-destacados.html: un grupo entero no se filtra (${JSON.stringify(ddGrupo)})`);
+if (!(ddNada.n === 0 && ddNada.vacio && ddNada.grupos === 0)) problemas.push(`datos-destacados.html: sin coincidencias no avisa (${JSON.stringify(ddNada)})`);
+if (!(ddTodo.n === ddVisN && !ddTodo.vacio && ddTodo.url === "")) problemas.push(`datos-destacados.html: al vaciar los filtros no vuelve la tabla entera (${JSON.stringify(ddTodo)})`);
+await q.ir(B + "datos-destacados.html?tema=salud", 1000);
+if ((await q.eval(`document.getElementById("dd-tema").value + "|" + [...document.querySelectorAll(".dd-dato")].filter(f => !f.hidden).every(f => f.dataset.tema === "salud")`)) !== "salud|true")
+  problemas.push("datos-destacados.html: el enlace con ?tema=salud no trae el filtro puesto");
 // una ficha de una página con capítulos: el enlace abre su capítulo
 await q.ir(B + dd.datos.find(d => d.id === "f-ant-bases").dest, 1000);
 if (!(await q.eval(`!!document.getElementById("f-ant-bases")?.offsetParent`))) problemas.push("datos-destacados.html: el enlace a una ficha de otro capítulo no la deja a la vista");

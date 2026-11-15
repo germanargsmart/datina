@@ -12289,6 +12289,47 @@ document.querySelectorAll(".destacado[data-clave], .dd-dato[data-clave]").forEac
   const fecha = a.classList.contains("dd-dato") && FECHA_DD[id];
   a.querySelector(".c-num").innerHTML = num; a.querySelector(".c-txt").innerHTML = (resto ? resto + " " : "") + c[1] + (fecha ? `. ${fecha()}` : "");
 });
+/* la página de datos destacados es una tabla con filtros (15 de noviembre de 2026, el autor eligió "C: tabla con filtros"): el buscador y la lista de temas
+   del Catálogo. Busca con todas las palabras y sin tildes en el tema, la pregunta, la cifra y qué mide, y guarda la búsqueda y el tema en el enlace. Sin
+   JavaScript se ve la tabla entera, sin filtros */
+(() => {
+  const caja = document.querySelector(".dd-filtros");
+  if (!caja) return;
+  const q = document.getElementById("dd-q"), tema = document.getElementById("dd-tema"), cuenta = document.getElementById("dd-cuenta");
+  const vacio = document.getElementById("dd-vacio"), grupos = [...document.querySelectorAll(".dd-grupo")];
+  // las filas que quedaron sin cifra (su fuente no llegó) ya están ocultas: no cuentan
+  const filas = [...document.querySelectorAll(".dd-dato")].filter(f => !f.hidden);
+  const sinTildes = t => t.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+  const textos = new Map(filas.map(f => [f, sinTildes(f.textContent)]));
+  caja.hidden = false;
+  function filtrar(guardar = true) {
+    const pal = sinTildes(q.value).split(/\s+/).filter(Boolean), t = tema.value;
+    let n = 0;
+    grupos.forEach(g => {
+      let hay = 0;
+      g.querySelectorAll(".dd-dato").forEach(f => {
+        if (!textos.has(f)) return;
+        const ok = pal.every(p => textos.get(f).includes(p)) && (!t || (t.startsWith("g:") ? g.dataset.grupo === t.slice(2) : f.dataset.tema === t));
+        f.hidden = !ok; hay += ok;
+      });
+      g.hidden = !hay; n += hay;
+    });
+    const filtrado = pal.length || t;
+    cuenta.innerHTML = filtrado ? `<b>${n}</b> de ${filas.length} datos` : `<b>${n}</b> datos`;
+    vacio.hidden = n > 0;
+    if (!guardar) return;
+    const u = new URL(location.href);
+    [["q", q.value.trim()], ["tema", t]].forEach(([k, v]) => v ? u.searchParams.set(k, v) : u.searchParams.delete(k));
+    history.replaceState(history.state, "", u);
+  }
+  // un enlace con filtros (datos-destacados.html?tema=salud) los trae puestos, si existen
+  const par = new URLSearchParams(location.search);
+  q.value = par.get("q") || "";
+  if ([...tema.options].some(o => o.value === par.get("tema"))) tema.value = par.get("tema");
+  filtrar(false);
+  q.addEventListener("input", () => filtrar());
+  tema.addEventListener("change", () => filtrar());
+})();
 // D7 (plan de mejora, 28 de octubre de 2026, aprobado por el autor): la cifra es la del país, y debajo, de la provincia más baja a la más
 // alta, como en el gráfico de la ficha (en el petróleo, cuánto sale de la primera). Con una provincia elegida, también la suya. Los
 // homicidios por provincia van, como en su ficha, en el promedio de tres años: en las provincias chicas un año solo salta mucho
