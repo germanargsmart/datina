@@ -10936,42 +10936,6 @@ const [, num, resto] = String(c[0]).match(/^((?:N\.º )?[+\u2212-]?[\d.,]+%?(?: 
 const fecha = a.classList.contains("dd-dato") && FECHA_DD[id];
 a.querySelector(".c-num").innerHTML = num; a.querySelector(".c-txt").innerHTML = (resto ? resto + " " : "") + c[1] + (fecha ? `. ${fecha()}` : "");
 });
-(() => {
-const caja = document.querySelector(".dd-filtros");
-if (!caja) return;
-const q = document.getElementById("dd-q"), tema = document.getElementById("dd-tema"), cuenta = document.getElementById("dd-cuenta");
-const vacio = document.getElementById("dd-vacio"), grupos = [...document.querySelectorAll(".dd-grupo")];
-const filas = [...document.querySelectorAll(".dd-dato")].filter(f => !f.hidden);
-const sinTildes = t => t.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
-const textos = new Map(filas.map(f => [f, sinTildes(f.textContent)]));
-caja.hidden = false;
-function filtrar(guardar = true) {
-const pal = sinTildes(q.value).split(/\s+/).filter(Boolean), t = tema.value;
-let n = 0;
-grupos.forEach(g => {
-let hay = 0;
-g.querySelectorAll(".dd-dato").forEach(f => {
-if (!textos.has(f)) return;
-const ok = pal.every(p => textos.get(f).includes(p)) && (!t || (t.startsWith("g:") ? g.dataset.grupo === t.slice(2) : f.dataset.tema === t));
-f.hidden = !ok; hay += ok;
-});
-g.hidden = !hay; n += hay;
-});
-const filtrado = pal.length || t;
-cuenta.innerHTML = filtrado ? `<b>${n}</b> de ${filas.length} datos` : `<b>${n}</b> datos`;
-vacio.hidden = n > 0;
-if (!guardar) return;
-const u = new URL(location.href);
-[["q", q.value.trim()], ["tema", t]].forEach(([k, v]) => v ? u.searchParams.set(k, v) : u.searchParams.delete(k));
-history.replaceState(history.state, "", u);
-}
-const par = new URLSearchParams(location.search);
-q.value = par.get("q") || "";
-if ([...tema.options].some(o => o.value === par.get("tema"))) tema.value = par.get("tema");
-filtrar(false);
-q.addEventListener("input", () => filtrar());
-tema.addEventListener("change", () => filtrar());
-})();
 const RANGO_DEST = {
 "f-esperanza": [() => T.esperanza_vida_provincias, "total", v => n1(v), " años", "Por provincia"],
 "f-salarios": [() => T.salarios_provincias, "salario", v => n2(v / 1e6), " millones de pesos", "Por provincia"],
@@ -11470,6 +11434,66 @@ if (!actual) return;
 if (actual !== document.activeElement) return ocultar();
 cancelAnimationFrame(cuadro); cuadro = requestAnimationFrame(() => actual && ver(actual));
 }, {passive: true});
+})();
+(() => {
+const conm = document.querySelector(".dd-grupos");
+if (!conm) return;
+const grupos = [...document.querySelectorAll(".dd-grupo")], bots = [...conm.querySelectorAll("button")];
+const esc3 = t => String(t).replace(/[&<>"]/g, c => ({"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;"})[c]);
+const tablasDe = id => {
+const f = SERIE_CIFRA[id]; if (!f) return [];
+const otra = String(f).match(/SERIE_CIFRA\["([\w-]+)"\]/), src = String(f) + (otra && SERIE_CIFRA[otra[1]] ? String(SERIE_CIFRA[otra[1]]) : "");
+return [...new Set([...src.matchAll(/\bT\.(\w+)/g)].map(m => m[1]))].filter(n => DIFERIDAS[n] && !T[n]);
+};
+const W = 240, H = 58, X0 = 4, X1 = W - 4;
+function mini(o) {
+if (o.d) {
+const d = o.d, n = d.length, ys = d.map(x => x[1]), lo = Math.min(...ys), hi = Math.max(...ys), rango = hi - lo || 1;
+const x = i => X0 + 4 + i * (X1 - X0 - 8) / (n - 1), y = v => 8 + (1 - (v - lo) / rango) * (H - 30);
+const k = o.hl != null ? Math.max(0, d.findIndex(r => String(r[0]) === String(o.hl))) : n - 1;
+const linea = d.map((r, i) => `${i ? "L" : "M"}${x(i).toFixed(1)} ${y(r[1]).toFixed(1)}`).join("");
+const area = `${linea}L${x(n - 1).toFixed(1)} ${H - 18}L${x(0).toFixed(1)} ${H - 18}Z`;
+const lab = `${o.tit}: ${o.f(d[0][1])} en ${d[0][0]} y ${o.f(d[n - 1][1])} en ${d[n - 1][0]}`;
+return `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc3(lab)}"><path class="dd-area" d="${area}"/><path class="dd-linea" d="${linea}"/>` +
+`<circle class="dd-punto" cx="${x(k).toFixed(1)}" cy="${y(d[k][1]).toFixed(1)}" r="4.5"/>` +
+`<text x="${X0}" y="${H - 2}" class="dd-mx">${esc3(d[0][0])}</text><text x="${X1}" y="${H - 2}" class="dd-mx" text-anchor="end">${esc3(d[n - 1][0])}</text></svg>`;
+}
+const ps = [...o.prov].sort((a, b) => a.v - b.v), lo = ps[0].v, hi = ps[ps.length - 1].v, rango = hi - lo || 1, x = v => X0 + 6 + (v - lo) / rango * (X1 - X0 - 12);
+const pais = o.pais != null && isFinite(o.pais) && o.pais >= lo && o.pais <= hi ? `<line class="dd-pais" x1="${x(o.pais).toFixed(1)}" x2="${x(o.pais).toFixed(1)}" y1="10" y2="${H - 26}"/>` : "";
+const lab = `${o.tit}: de ${o.f(lo)} en ${NOMBRES[ps[0].c]} a ${o.f(hi)} en ${NOMBRES[ps[ps.length - 1].c]}` + (o.pais != null ? `, país ${o.f(o.pais)}` : "");
+return `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc3(lab)}"><line class="dd-eje" x1="${X0}" x2="${X1}" y1="${(H - 26) / 2 + 5}" y2="${(H - 26) / 2 + 5}"/>${pais}` +
+ps.map(r => `<circle class="dd-prov" cx="${x(r.v).toFixed(1)}" cy="${(H - 26) / 2 + 5}" r="4"/>`).join("") +
+`<text x="${X0}" y="${H - 2}" class="dd-mx">${esc3(NOMBRES[ps[0].c])}</text><text x="${X1}" y="${H - 2}" class="dd-mx" text-anchor="end">${esc3(NOMBRES[ps[ps.length - 1].c])}</text></svg>`;
+}
+const hechos = new Set();
+async function minis(g) {
+const datos = [...g.querySelectorAll(".dd-dato")].filter(d => !d.hidden && !hechos.has(d));
+datos.forEach(d => hechos.add(d));
+await Promise.all([...new Set(datos.flatMap(d => tablasDe(d.dataset.clave)))].map(n => cargarTabla(n).catch(() => null)));
+datos.forEach(d => {
+let o = null;
+try { o = SERIE_CIFRA[d.dataset.clave]?.(); } catch (_) { o = null; }
+const caja = d.querySelector(".dd-mini");
+if (!o || (o.prov ? o.prov.length < 4 : !o.d || o.d.length < 3)) { d.classList.add("sin-mini"); caja.remove(); return; }
+caja.innerHTML = mini(o);
+caja.classList.add("lista");
+});
+}
+grupos.forEach(g => [...g.querySelectorAll(".dd-dato")].filter(d => !d.hidden).forEach((d, i) => d.style.setProperty("--k", Math.min(i, 8))));
+function elegir(id, guardar = true, animar = true) {
+const g = grupos.find(x => x.dataset.grupo === id) || grupos[0];
+bots.forEach((b, i) => { const on = b.dataset.g === g.dataset.grupo; b.setAttribute("aria-pressed", on); if (on) conm.style.setProperty("--i", i); });
+grupos.forEach(x => { x.hidden = x !== g; x.classList.remove("entra"); });
+if (animar) { void g.offsetWidth; g.classList.add("entra"); }
+minis(g);
+if (!guardar) return;
+const u = new URL(location.href);
+g === grupos[0] ? u.searchParams.delete("grupo") : u.searchParams.set("grupo", g.dataset.grupo);
+history.replaceState(history.state, "", u);
+}
+conm.hidden = false;
+bots.forEach(b => b.addEventListener("click", () => { if (b.getAttribute("aria-pressed") !== "true") elegir(b.dataset.g); }));
+elegir(new URLSearchParams(location.search).get("grupo") || grupos[0].dataset.grupo, false, false);
 })();
 if (PAGINA !== "inicio") {
 pintarCifras(); alCambiarProv.push(pintarCifras);
