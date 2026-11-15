@@ -590,6 +590,12 @@
    "periodo": "ultimo"
   },
   {
+   "variable": "escuelas_secundarias_cada_1000_chicos_12_17",
+   "tabla": "escuelas_secundarias_provincias",
+   "columna": "secundarias_cada_1000_chicos",
+   "periodo": "ultimo"
+  },
+  {
    "variable": "esperanza_vida_al_nacer",
    "tabla": "cruces_provincias",
    "columna": "esperanza_vida",
