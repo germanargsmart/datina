@@ -467,36 +467,25 @@ await q.ir(B + "index.html", 1000);
 // y desde el 28 de octubre de 2026 (D7), debajo de cada cifra del país, cómo cambia entre las provincias
 const destacados = await q.eval(`[...document.querySelectorAll(".destacado")].filter(a => a.querySelector(".c-num").textContent.trim() && a.querySelector(".c-txt").textContent.trim() && a.querySelector(".c-rango")?.textContent.trim()).length`);
 if (destacados !== 12) problemas.push(`index.html: ${destacados} de 12 datos destacados con su cifra y su texto de apoyo`);
-// de a cuatro en 1280 píxeles (6 y 10 de noviembre de 2026): se ven cuatro, con las cifras a la misma altura, los controles los cambian, no pasan solos, y en el bloque hay hasta
-// cuatro tamaños de letra y dos familias. La cifra va sola en su línea, sin la unidad
-const carrusel = () => q.eval(`(() => { const p = document.getElementById("destacados"), d = [...p.querySelectorAll(".destacado")], r = p.getBoundingClientRect(), paso = d[1].offsetLeft - d[0].offsetLeft;
-  const vis = d.filter(a => { const b = a.getBoundingClientRect(); return b.left >= r.left - 2 && b.right <= r.right + 2; });
-  return {vis: vis.length, actual: [...document.querySelectorAll(".dest-punto")].findIndex(b => b.getAttribute("aria-current") === "true"), foco: d.filter(a => a.tabIndex === 0).length,
-    pos: Math.round(p.scrollLeft / paso), cuenta: document.getElementById("dest-cuenta").textContent, alturas: new Set(vis.map(a => Math.round(a.querySelector(".c-num").getBoundingClientRect().top))).size}; })()`);
-const c0 = await carrusel();
-if (c0.vis !== 4 || c0.actual !== 0 || c0.foco !== 4 || c0.alturas !== 1) problemas.push(`index.html: el carrusel de datos destacados no arranca con cuatro datos a la vista y las cifras parejas (${JSON.stringify(c0)})`);
-await q.eval(`document.querySelector(".dest-sig").click()`);
-await espera(450);
-const c1 = await carrusel();
-if (c1.vis !== 4 || c1.actual !== 1 || c1.pos !== 4) problemas.push(`index.html: "Siguiente" no lleva a los cuatro datos que siguen (${JSON.stringify(c1)})`);
-await q.eval(`document.querySelectorAll(".dest-punto")[2].click()`);
-await espera(450);
-const c3 = await carrusel();
-if (c3.actual !== 2 || c3.pos !== 8) problemas.push(`index.html: el tercer redondel no lleva a los últimos cuatro datos (${JSON.stringify(c3)})`);
-await q.eval(`document.querySelector(".dest-sig").click()`);
-await espera(450);
-const c2 = await carrusel();
-if (c2.actual !== 0 || c2.pos !== 0) problemas.push(`index.html: después de los últimos datos destacados no vuelve a los primeros (${JSON.stringify(c2)})`);
-await espera(1500);
-if ((await carrusel()).actual !== 0) problemas.push("index.html: el carrusel de datos destacados pasa solo");
+// desde el 15 de noviembre de 2026 (pedido del autor), en cuatro columnas, una por grupo y en el orden de GRUPOS, con tres datos cada una, todos a la vista y
+// del mismo tamaño, con la pregunta, la cifra y el pie alineados en cada fila. En el bloque hay hasta cuatro tamaños de letra y dos familias. La cifra va sola
+const grillaDest = () => q.eval(`(() => { const cols = [...document.querySelectorAll("#destacados .dg-col")], d = [...document.querySelectorAll("#destacados .destacado")];
+  const r = el => el.getBoundingClientRect(), fila = k => cols.map(c => c.querySelectorAll(".destacado")[k]).filter(Boolean);
+  return {cols: cols.map(c => c.querySelector(".dg-tit").textContent.trim()), porCol: cols.map(c => c.querySelectorAll(".destacado").length), grupos: window.DATINA.indice.grupos.map(g => g[1]),
+    altos: new Set(d.map(a => Math.round(r(a).height))).size, anchos: new Set(d.map(a => Math.round(r(a).width))).size,
+    cifras: [0, 1, 2].map(k => new Set(fila(k).map(a => Math.round(r(a.querySelector(".c-num")).top))).size), foco: d.filter(a => a.tabIndex === 0 && !a.closest("[aria-hidden]")).length,
+    lineas: cols.map(c => getComputedStyle(c.querySelector(".dg-tit")).borderBottomWidth).filter(w => w !== "0px").length}; })()`);
+const g0 = await grillaDest();
+if (JSON.stringify(g0.cols) !== JSON.stringify(g0.grupos) || g0.porCol.join() !== "3,3,3,3") problemas.push(`index.html: los datos destacados no son cuatro columnas, una por grupo en el orden de GRUPOS, con tres datos cada una (${JSON.stringify(g0)})`);
+if (g0.altos !== 1 || g0.anchos !== 1 || g0.cifras.some(n => n !== 1) || g0.foco !== 12 || g0.lineas) problemas.push(`index.html: las tarjetas de datos destacados no miden lo mismo, sus cifras no están alineadas, alguna no recibe el foco o hay una línea bajo un título (${JSON.stringify(g0)})`);
 const letra = JSON.parse(await q.eval(`(() => { const t = new Set(), f = new Set(), w = document.createTreeWalker(document.querySelector(".destacados"), NodeFilter.SHOW_TEXT); let n;
   while ((n = w.nextNode())) { if (!n.textContent.trim() || n.parentElement.closest(".solo-lector")) continue; const c = getComputedStyle(n.parentElement); t.add(c.fontSize); f.add(c.fontFamily.split(",")[0]); }
   return JSON.stringify({t: [...t], f: [...f]}); })()`));
 if (letra.t.length > 4 || letra.f.length > 2) problemas.push(`index.html: datos destacados con ${letra.t.length} tamaños y ${letra.f.length} familias: ${letra.t} ${letra.f}`);
 const cifraSola = await q.eval(`[...document.querySelectorAll(".destacado .c-num")].filter(n => /[a-zñáéíóú]/i.test(n.textContent.replace(/ (mil millones|millones|mil)$/, ""))).map(n => n.textContent).join(", ")`);
 if (cifraSola) problemas.push(`index.html: dato destacado con la unidad pegada a la cifra: ${cifraSola}`);
-if ((await q.eval(`(() => { const a = document.querySelector(".destacados .dest-carrusel ~ .dest-todos a"); return a ? a.getAttribute("href") + "|" + a.textContent.trim() : ""; })()`)) !== "datos-destacados.html|Ver todos los datos destacados")
-  problemas.push('index.html: falta "Ver todos los datos destacados" debajo del carrusel');
+if ((await q.eval(`(() => { const a = document.querySelector(".destacados .dg-grid ~ .dest-todos a"); return a ? a.getAttribute("href") + "|" + a.textContent.trim() : ""; })()`)) !== "datos-destacados.html|Ver todos los datos destacados")
+  problemas.push('index.html: falta "Ver todos los datos destacados" debajo de los datos destacados');
 // en "Explorá la Argentina por tema" el enlace de cada tema cubre el tema entero, también donde hay subtemas, y cada subtema sigue con su enlace
 const temasMal = await q.eval(`[...document.querySelectorAll("#secciones .tg-item")].map(i => { const r = i.getBoundingClientRect(), l = i.querySelector(".tg-link"), f = getComputedStyle(l, "::after");
   const t = i.querySelector("b").textContent;
@@ -561,15 +550,12 @@ for (const W of [1440, 1200]) {
     return malas.slice(0, 6).join(", "); })()`);
   if (costado) problemas.push(`index.html en ${W} píxeles: datos de la provincia: ${costado}`);
 }
-// en el celular, de a uno, con su cuenta: los doce redondeles no entran
+// en el celular cada grupo es una fila que se desliza, con la tarjeta siguiente asomando (15 de noviembre de 2026)
 await q.tamano(390, 844);
 await q.ir(B + "index.html", 1000);
-const cel0 = await carrusel();
-if (cel0.foco !== 1 || cel0.cuenta !== "1 de 12" || await q.eval(`getComputedStyle(document.getElementById("dest-puntos")).display !== "none"`)) problemas.push(`index.html en 390 píxeles: el carrusel no arranca de a uno (${JSON.stringify(cel0)})`);
-await q.eval(`document.querySelector(".dest-sig").click()`);
-await espera(450);
-const cel1 = await carrusel();
-if (cel1.cuenta !== "2 de 12" || cel1.pos !== 1) problemas.push(`index.html en 390 píxeles: "Siguiente" no pasa al dato que sigue (${JSON.stringify(cel1)})`);
+const celDest = JSON.parse(await q.eval(`JSON.stringify([...document.querySelectorAll("#destacados .dg-lista")].map(l => { const c = l.querySelectorAll(".destacado"), a = c[0].getBoundingClientRect(), b = c[1].getBoundingClientRect();
+  return {desliza: l.scrollWidth > l.clientWidth + 20 && getComputedStyle(l).overflowX === "auto", asoma: b.left < innerWidth && b.left > a.left}; }))`));
+if (celDest.length !== 4 || celDest.some(x => !x.desliza || !x.asoma)) problemas.push(`index.html en 390 píxeles: los grupos de datos destacados no se deslizan con la tarjeta siguiente asomando (${JSON.stringify(celDest)})`);
 await q.tamano(1280, 900);
 await q.send("Emulation.setFocusEmulationEnabled", {enabled: false});
 q.errores.forEach(e => problemas.push(`portada: ${e}`));

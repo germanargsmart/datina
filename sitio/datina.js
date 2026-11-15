@@ -10969,63 +10969,6 @@ el.textContent = `${ini}, de ${f(lo[k])}${u} en ${lo.territorio} a ${f(hi[k])} e
 });
 }
 if (document.querySelector(".destacado .c-rango")) { pintarRangos(); alCambiarProv.push(pintarRangos); }
-(() => {
-const caja = document.getElementById("dest-carrusel"); if (!caja) return;
-const pista = document.getElementById("destacados"), datos = [...pista.querySelectorAll(".destacado")], puntos = document.getElementById("dest-puntos");
-const estado = document.getElementById("dest-estado"), cuenta = document.getElementById("dest-cuenta");
-let actual = 0, moviendo = false, reubicando = 0;
-const porVez = () => { const paso = datos[1].offsetLeft - datos[0].offsetLeft; return paso > 0 ? Math.max(1, Math.round(pista.clientWidth / paso)) : 1; };
-const tandas = () => Math.ceil(datos.length / porVez());
-const posicion = i => Math.min(datos[i].offsetLeft - datos[0].offsetLeft, pista.scrollWidth - pista.clientWidth);
-const rotulo = i => porVez() === 1 ? `Dato ${i + 1} de ${datos.length}` : `Datos ${i + 1} a ${Math.min(i + porVez(), datos.length)} de ${datos.length}`;
-const marcar = (i, avisar) => {
-const n = porVez(); actual = i;
-[...puntos.children].forEach((b, t) => b.setAttribute("aria-current", String(t === Math.floor(i / n))));
-datos.forEach((d, k) => { const ve = k >= i && k < i + n; d.tabIndex = ve ? 0 : -1; if (ve) d.removeAttribute("aria-hidden"); else d.setAttribute("aria-hidden", "true"); });
-if (document.activeElement?.closest?.(".destacado")?.getAttribute("aria-hidden")) datos[i].focus({preventScroll: true});
-cuenta.textContent = `${i + 1} de ${datos.length}`;
-if (avisar) estado.textContent = `${rotulo(i)}: ${datos.slice(i, i + n).map(d => d.querySelector(".c-preg").textContent).join(" ")}`;
-};
-const ir = n => {
-const i = n < 0 ? (tandas() - 1) * porVez() : n >= datos.length ? 0 : n, x = posicion(i), x0 = pista.scrollLeft;
-marcar(i, true);
-if (REDUCIR || document.hidden || x === x0) { pista.scrollLeft = x; return; }
-moviendo = true; pista.style.scrollSnapType = "none";
-const t0 = performance.now(), paso = t => {
-const p = Math.min(1, Math.max(0, (t - t0) / 280));
-pista.scrollLeft = x0 + (x - x0) * (1 - (1 - p) ** 3);
-if (p < 1) requestAnimationFrame(paso); else { pista.style.scrollSnapType = ""; moviendo = false; }
-};
-requestAnimationFrame(paso);
-};
-const armarPuntos = () => {
-puntos.innerHTML = Array.from({length: tandas()}, (_, t) => `<button type="button" class="dest-punto" aria-label="${rotulo(t * porVez())}"></button>`).join("");
-[...puntos.children].forEach((b, t) => b.addEventListener("click", () => ir(t * porVez())));
-};
-caja.querySelector(".dest-ant").addEventListener("click", () => ir(actual - porVez()));
-caja.querySelector(".dest-sig").addEventListener("click", () => ir(actual + porVez()));
-caja.addEventListener("keydown", ev => { if (ev.key === "ArrowRight" || ev.key === "ArrowLeft") { ev.preventDefault(); ir(actual + (ev.key === "ArrowRight" ? porVez() : -porVez())); } });
-pista.addEventListener("scroll", () => {
-if (moviendo || reubicando) return;
-const n = porVez(), paso = datos[1].offsetLeft - datos[0].offsetLeft;
-const i = pista.scrollLeft >= pista.scrollWidth - pista.clientWidth - 2 ? (tandas() - 1) * n : Math.round(pista.scrollLeft / paso / n) * n;
-if (i !== actual && datos[i]) marcar(i, true);
-}, {passive: true});
-let anchoPista = pista.clientWidth, vez = porVez();
-const reubicar = () => {
-pista.scrollLeft = posicion(actual); reubicando++;
-requestAnimationFrame(() => requestAnimationFrame(() => { reubicando--; }));
-};
-new ResizeObserver(() => {
-if (moviendo || pista.clientWidth === anchoPista) return;
-anchoPista = pista.clientWidth;
-const n = porVez();
-if (n !== vez) { vez = n; armarPuntos(); marcar(Math.floor(actual / n) * n, false); }
-reubicar();
-}).observe(pista);
-armarPuntos();
-marcar(0, false);
-})();
 const NFICHAS = SITIO.fichas.filter(f => !f[5]).length;
 const nosCifras = document.getElementById("nos-cifras");
 if (nosCifras) {
