@@ -37,6 +37,9 @@ TABLAS = {
     # qué se le vende y qué se le compra a cada país, y cuánto vale el kilo (4 de noviembre de 2026)
     "comercio_exterior_exportacion_bienes:anio_rubro_pais": "Anio,rubro_cod,pais_cod",
     "comercio_exterior_importacion_bienes:anio_uso_pais": "Anio,uso_economico_cod,pais_cod",
+    # las rutas comerciales (15 de noviembre de 2026, docs/roadmap/RUTAS_COMERCIALES.md): qué producto va a qué país, por año y subrubro
+    # (los 50 de la API, como "Cereales" o "Semillas y frutos oleaginosos"). Solo desde FILTROS, para que el archivo no pase de unos MB
+    "comercio_exterior_exportacion_bienes:anio_subrubro_pais": "Anio,subrubro_cod,pais_cod",
 }
 
 # las tablas que se piden sumadas: lo que se suma y el sufijo del archivo. La API agrupa por las columnas de TABLAS. Con una sola columna, la API
@@ -46,6 +49,13 @@ SUMAS = {
     "comercio_exterior_importacion_bienes": ("valor_CIF", "mes_pais"),
     "comercio_exterior_exportacion_bienes:anio_rubro_pais": (("valor:valor_FOB", "peso:Peso_Neto"), "anio_rubro_pais"),
     "comercio_exterior_importacion_bienes:anio_uso_pais": (("valor:valor_CIF", "peso:peso_neto"), "anio_uso_pais"),
+    "comercio_exterior_exportacion_bienes:anio_subrubro_pais": (("valor:valor_FOB", "peso:Peso_Neto"), "anio_subrubro_pais"),
+}
+
+# las tablas que se piden con un filtro, al estilo PostgREST (columna=operador.valor). Las rutas comerciales usan los últimos años: con los 50
+# subrubros desde 1986 el archivo pesaría unos 13 MB
+FILTROS = {
+    "comercio_exterior_exportacion_bienes:anio_subrubro_pais": "Anio=gte.2015",
 }
 
 
@@ -94,6 +104,7 @@ def bajar_tabla(tabla, tok, base=BASE):
     las filas sin sumar: ahí se controla, en cambio, que ningún grupo llegue dos veces"""
     filas, total = [], None
     sel = f"select={seleccion(tabla)}&" if tabla in SUMAS else ""
+    sel += f"{FILTROS[tabla]}&" if tabla in FILTROS else ""
     while True:
         lote, rango = _pedir(f"{base}{tabla.split(':')[0]}?{sel}order={TABLAS[tabla]}&limit={POR_PAGINA}&offset={len(filas)}", tok)
         if not isinstance(lote, list):

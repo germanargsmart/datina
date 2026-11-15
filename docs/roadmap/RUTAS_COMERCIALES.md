@@ -2,6 +2,17 @@
 
 Pedido: "una sección de rutas comerciales que simulen de dónde salen los productos que exporta la Argentina y visualicen en un mapa hasta qué parte del mundo llegan en los barcos según producto y destino". Queda para después de las fuentes nuevas del 14 de noviembre de 2026.
 
+## Decisiones del autor (15 de noviembre de 2026)
+
+- Va como **herramienta**, con página propia en el menú Herramientas, como Elecciones por mesa.
+- Se puede instalar `searoute` para calcular los caminos por mar (una sola vez, fuera del repositorio: en Python 3.13 de Debian no compila con el `setuptools` del sistema, y anda en un entorno aparte, `python -m venv`, con `setuptools` al día). Probada el 15 de noviembre de 2026: de Rosario a Rotterdam da 12.074 km.
+
+## Qué producto va a qué país: la API del INDEC (15 de noviembre de 2026)
+
+- El zip público (`exponm25.csv`) trae la posición NCM de 8 dígitos, pero el país viene con el código numérico de la Aduana (203 Brasil, 212 Estados Unidos, 310 China), que el INDEC no publica en una tabla, y el secreto estadístico esconde partes distintas que en la API. Emparejar los códigos por los totales de cada país no da exacto: se descartó.
+- La API del INDEC tiene la misma tabla con el subrubro (50 grupos de productos, con nombre en `comercio_exterior_nomenclaturas`) y el país con su código ISO. Desde el 15 de noviembre de 2026 `indec_api.py` la pide sumada por año, subrubro y país, desde 2015 (`indec_api_comercio_exterior_exportacion_bienes_anio_subrubro_pais.json`). Los productos de la página son esos subrubros: "Semillas y frutos oleaginosos" (soja), "Residuos y desperdicios de la industria alimentaria" (harina de soja), "Grasas y aceites", "Cereales", "Carnes y sus preparados", "Petróleo crudo", "Material de transporte terrestre", "Piedras, metales preciosos" (oro), "Minerales metalíferos" y "Productos químicos" (con el litio). Lo confidencial va aparte, como en las fichas de socios comerciales.
+- La provincia de origen sigue siendo la del OPEX (provincia y gran rubro, mes a mes, en el mismo zip público). Cruzar provincia con producto y destino es la parte simulada.
+
 ## Fuentes (probadas el 14 de noviembre de 2026 desde la sesión en la nube)
 
 - **Exportaciones por producto y país de destino**: `https://comex.indec.gob.ar/files/zips/exports_AAAA_M.zip` (INDEC, unos 4 MB por año). `exponm25.csv` trae año, mes, posición NCM de 8 dígitos, país de destino (código `Pdes`), kilos y dólares FOB. Las celdas protegidas por el secreto estadístico vienen como "s": se cuentan aparte y el texto lo dice.
