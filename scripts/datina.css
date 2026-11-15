@@ -640,45 +640,46 @@ html:not(.js) .dest-control{display:none}
 @media print{.destacados-grid{display:block;overflow:visible;min-height:0}.dest-control{display:none}.destacado{display:block;break-inside:avoid;margin-bottom:var(--e-4)}}
 /* el enlace a la página de datos destacados, con la letra de las tarjetas para no sumar un tamaño al bloque */
 .dest-todos{margin:var(--e-3) 0 0;font-size:var(--t-2);line-height:1.4}
-/* La página de datos destacados. Desde el 15 de noviembre de 2026 (el autor eligió, entre tres bocetos, "C: tabla con filtros") es una tabla: el tema, la
-   pregunta (el enlace, que cubre la fila entera), la cifra y qué mide, por grupo, con el título del grupo y la línea celeste. Los filtros son los del Catálogo
-   (.cat-filtros, .cat-busca, .cx-campo). Una familia y cuatro tamaños: el tema y qué mide (13), la pregunta (15), la cifra y el grupo (20 a 24). La cifra y
-   su texto llegan con datina.js: su celda reserva el alto de una línea. En el celular cada fila se apila: el tema, la pregunta y la cifra, y debajo qué mide */
-.dd-filtros{margin:var(--e-6) 0 var(--e-4)}
-/* .cat-filtros va más abajo en este archivo: la clase doble le gana */
-@media (min-width:761px){.cat-filtros.dd-filtros{grid-template-columns:minmax(0,2fr) minmax(0,1fr);max-width:960px}.dd-filtros .cat-busca{grid-column:auto;max-width:none}}
-.cat-cuenta.dd-cuenta{margin:0 0 var(--e-6)}
-.dd-cuenta:empty{display:none}
-.dd-tabla{width:100%;border-collapse:collapse;font-family:var(--f)}
-.dd-tabla thead th{padding:0 var(--e-3) var(--e-2);font-family:var(--mono);font-size:var(--t-1);font-weight:500;letter-spacing:.08em;text-transform:uppercase;text-align:left;color:var(--muted);border-bottom:2px solid var(--celeste)}
-.dd-tabla thead .dd-c-num{text-align:right}
-.dd-grupo-tit{padding:var(--e-7) var(--e-3) var(--e-2);font-size:var(--t-6);line-height:1.2;font-weight:600;text-align:left;color:var(--ink);border-bottom:1px solid var(--celeste)}
-.dd-grupo:first-of-type .dd-grupo-tit{padding-top:var(--e-6)}
-.dd-dato{position:relative}
-.dd-dato td{padding:var(--e-3);vertical-align:baseline;border-bottom:1px solid var(--borde)}
-.dd-tema{width:11em;font-size:var(--t-2);line-height:1.4;color:var(--muted)}
-.dd-preg{width:34%;font-size:var(--t-3);line-height:1.4;font-weight:500;color:var(--ink);text-wrap:pretty}
-.dd-preg a{color:inherit;text-decoration:underline;text-decoration-color:var(--celeste);text-decoration-thickness:1.5px;text-underline-offset:3px}
-.dd-preg a::after{content:"";position:absolute;inset:0;border-radius:var(--r-control)}
+/* La página de datos destacados, "Pulso" (15 de noviembre de 2026, elegido por el autor entre cinco bocetos): un tablero de celdas con el ícono y el
+   tema, la pregunta (el enlace, que cubre la celda), la cifra, qué mide y un minigráfico. Los filtros son el conmutador del sitio, con los cuatro grupos.
+   Al cambiar de grupo las celdas entran con un fundido y 6 píxeles hacia arriba, escalonadas de a 18 ms hasta la novena (144 ms), en --dur-3. Con
+   movimiento reducido, solo el fundido. Una familia y cuatro tamaños: el tema, qué mide y los rótulos del minigráfico (13), la pregunta (15), la cifra y
+   el grupo (20 a 24). El minigráfico reserva su alto mientras carga, para que nada salte */
+.dd-grupos{margin:var(--e-6) 0 var(--e-3)}
+.dd-ley{margin:0 0 var(--e-6);font-size:var(--t-2);color:var(--muted)}
+.dd-grupo{margin-top:var(--e-6)}
+.dd-grupo[hidden]{display:none}
+.dd-grupo-tit{margin:0 0 var(--e-4);padding-bottom:var(--e-2);border-bottom:2px solid var(--celeste);font-family:var(--f);font-size:var(--t-6);line-height:1.2;font-weight:600;color:var(--ink);font-variation-settings:normal}
+.dd-grilla{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:1px;margin:0;padding:0;list-style:none;background:var(--borde);border:1px solid var(--borde);border-radius:var(--r-panel);overflow:hidden}
+.dd-dato{position:relative;display:flex;flex-direction:column;gap:var(--e-1);padding:var(--e-4);background:var(--bg);transition:background-color var(--dur-1) var(--ease-out)}
+.dd-dato[hidden]{display:none}
+.dd-tema{display:flex;align-items:center;gap:var(--e-2);font-size:var(--t-2);line-height:1.3;color:var(--muted)}
+.dd-tema .iso{flex:none;width:24px;height:24px}
+.dd-preg{margin:var(--e-1) 0 0;font-family:var(--f);font-size:var(--t-3);line-height:1.35;font-weight:500;color:var(--ink);font-variation-settings:normal;text-wrap:pretty}
+.dd-preg a{color:inherit;text-decoration:none}
+.dd-preg a::after{content:"";position:absolute;inset:0}
 .dd-preg a:focus-visible{outline:none}
-.dd-preg a:focus-visible::after{outline:2px solid var(--celeste-fuerte);outline-offset:-2px}
-.dd-dato .c-num{min-height:1.2em;font-family:var(--f);font-variation-settings:normal;font-size:var(--t-6);line-height:1.2;font-weight:600;text-align:right;white-space:nowrap;color:var(--azul);font-variant-numeric:tabular-nums}
-.dd-dato .c-txt{font-size:var(--t-2);line-height:1.4;color:var(--ink);text-wrap:pretty}
-.dd-dato[hidden],.dd-grupo[hidden]{display:none}
-@media (hover:hover) and (pointer:fine){.dd-dato:hover td{background:var(--superficie-2)}}
-@media (max-width:760px){
-  .dd-tabla thead{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
-  .dd-tabla,.dd-tabla tbody{display:block}
-  .dd-grupo-fila{display:block}
-  .dd-grupo-tit{display:block;padding:var(--e-6) 0 var(--e-2)}
-  .dd-dato{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:var(--e-1) var(--e-3);padding:var(--e-3) 0;border-bottom:1px solid var(--borde)}
-  .dd-dato td{display:block;width:auto;padding:0;border:0}
-  .dd-tema{grid-column:1/-1}
-  .dd-preg{grid-column:1}
-  .dd-dato .c-num{grid-column:2;grid-row:2}
-  .dd-dato .c-txt{grid-column:1/-1}
-}
-@media print{.dd-filtros,.dd-cuenta{display:none}.dd-dato{break-inside:avoid}}
+.dd-preg a:focus-visible::after{outline:2px solid var(--celeste-fuerte);outline-offset:-3px;border-radius:var(--r-control)}
+.dd-dato .c-num{min-height:1.15em;margin-top:var(--e-2);font-family:var(--f);font-size:var(--t-6);line-height:1.15;font-weight:600;color:var(--azul);font-variation-settings:normal;font-variant-numeric:tabular-nums}
+.dd-dato .c-txt{min-height:2.8em;margin-bottom:var(--e-3);font-size:var(--t-2);line-height:1.4;color:var(--ink);text-wrap:pretty}
+.dd-mini{display:block;width:100%;max-width:280px;margin-top:auto;aspect-ratio:240/58;opacity:0;transition:opacity var(--dur-3) var(--ease-out)}
+.dd-mini.lista{opacity:1}
+.dd-mini svg{display:block;width:100%;height:100%;overflow:visible}
+.dd-area{fill:var(--celeste);fill-opacity:.14}
+.dd-linea{fill:none;stroke:var(--azul);stroke-width:2;stroke-linejoin:round;stroke-linecap:round}
+.dd-punto{fill:var(--sol);stroke:var(--azul);stroke-width:1.5}
+.dd-eje{stroke:var(--borde);stroke-width:1.5}
+.dd-prov{fill:var(--celeste);fill-opacity:.7}
+.dd-pais{stroke:var(--ink);stroke-width:2}
+.dd-mx{font-family:var(--f);font-size:var(--t-2);fill:var(--muted)}
+@media (hover:hover) and (pointer:fine){.dd-dato:hover{background:var(--superficie)}.dd-dato:hover .dd-preg a{text-decoration:underline;text-decoration-color:var(--celeste);text-underline-offset:3px}}
+.dd-dato:active{background:var(--superficie-2)}
+@keyframes dd-entra{from{opacity:0;transform:translateY(6px)}}
+@keyframes dd-funde{from{opacity:0}}
+.dd-grupo.entra .dd-dato{animation:dd-entra var(--dur-3) var(--ease-out) both;animation-delay:calc(var(--k,0) * 18ms)}
+@media (prefers-reduced-motion:reduce){.dd-grupo.entra .dd-dato{animation-name:dd-funde;animation-delay:0s}}
+@media (max-width:760px){.dd-grilla{grid-template-columns:1fr}.dd-dato .c-txt{min-height:0}}
+@media print{.dd-grupos,.dd-ley{display:none}.dd-grupo[hidden]{display:block}.dd-dato{break-inside:avoid}.dd-mini{opacity:1}}
 /* Provincias en la portada: las 24 jurisdicciones con su bandera */
 .prov-home{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:var(--e-1) var(--e-4);margin:0;padding:0;list-style:none}
 @media (max-width:1080px){.prov-home{grid-template-columns:repeat(4,minmax(0,1fr))}}

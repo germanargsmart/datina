@@ -41,7 +41,7 @@ El plan gratis de Cloudflare da 10 ms de procesador por pedido, y las funciones 
 
 ## Pruebas
 
-`node scripts/prueba_datos_api.mjs`, con el sitio armado y sin red. La corre cada PR. Son 77 controles (71 hasta el 15 de noviembre de 2026):
+`node scripts/prueba_datos_api.mjs`, con el sitio armado y sin red. La corre cada PR. Son 78 controles (71 hasta el 15 de noviembre de 2026):
 
 - el protocolo: `initialize`, las notificaciones, `tools/list`, los errores, `GET` y `OPTIONS`;
 - las búsquedas, la descripción, la lectura con filtros y los topes;

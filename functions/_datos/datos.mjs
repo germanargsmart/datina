@@ -126,7 +126,9 @@ export async function leerTabla(leer, tabla, {jurisdiccion = [], desde = "", has
   }
   if (d || h) {
     const cp = COLS_PERIODO.map(pos).find(i => i >= 0);
-    if (cp === undefined || !filas.some(f => /^\d{4}/.test(clavePeriodo(f[cp] ?? "")))) avisos.push("Esta tabla no tiene una columna de período con años: no se aplicaron desde ni hasta.");
+    // sin filas (ninguna de la jurisdicción pedida, o ninguna del período por los prefiltros) no hay de dónde ver si la columna tiene años: se filtra igual.
+    // Antes eso daba el aviso de que la tabla no tenía período, que es falso (lo encontró la prueba del 15 de noviembre de 2026 con Córdoba 1998)
+    if (cp === undefined || (filas.length && !filas.some(f => /^\d{4}/.test(clavePeriodo(f[cp] ?? ""))))) avisos.push("Esta tabla no tiene una columna de período con años: no se aplicaron desde ni hasta.");
     else filas = filas.filter(f => { const k = clavePeriodo(f[cp] ?? ""); return /^\d{4}/.test(k) && (!d || k >= d) && (!h || k <= h + "￿"); });
   }
   const total = sinFiltro ? leida.total : filas.length;
