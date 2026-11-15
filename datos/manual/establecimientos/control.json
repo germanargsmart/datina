@@ -180,12 +180,12 @@
   },
   "departamentos": {
    "codigos_de_departamento_desconocidos": [],
-   "en_el_borde": 463,
-   "fuera_de_su_departamento": 182
+   "en_el_borde": 464,
+   "fuera_de_su_departamento": 176
   },
   "puntos_compartidos_por_3_o_mas": {
-   "puntos": 66,
-   "escuelas": 241
+   "puntos": 74,
+   "escuelas": 269
   }
  },
  "hospitales": {
@@ -325,8 +325,8 @@
  "correcciones": {
   "escuelas": {
    "aplicadas": {
-    "punto": 20,
-    "departamento": 6,
+    "punto": 25,
+    "departamento": 7,
     "sin_confirmar": 7
    },
    "no_encontradas": [],
@@ -348,6 +348,7 @@
   "escuelas_con_distancia": 35338,
   "rurales": 13218,
   "mediana_rurales_km_hospital": 15.2,
-  "mediana_rurales_km_terapia": 51.25
- }
+  "mediana_rurales_km_terapia": 51.2
+ },
+ "correcciones_sin_rearmar": "2026-11-15"
 }

@@ -25,6 +25,8 @@ Qué escribe (en LF, ordenado, así correrlo dos veces con las mismas fuentes da
 Y lee datos/manual/establecimientos/correcciones.csv: la revisión a mano de los peores puntos fuera de su departamento (ver "correcciones a mano").
 
 Uso: python scripts/establecimientos.py [--cache CARPETA] [--sin-georef]
+--solo-correcciones: aplica las correcciones nuevas de correcciones.csv a lo ya escrito sin bajar el padrón ni el Mapa Educativo
+  (baja solo los departamentos de Georef). Después, como con --solo-distancias, va correr_02_con_fecha.py.
 --cache: dónde guardar y buscar los archivos bajados, fuera del repositorio (unos 40 MB). Lo que ya está no se vuelve a bajar.
 --sin-georef: no consulta Georef (las aproximadas quedan como están).
 Se corre a mano cuando sale un padrón nuevo (una o dos veces por año). No entra en la actualización mensual.
@@ -485,6 +487,51 @@ def solo_distancias():
     print("distancias:", c)
 
 
+def solo_correcciones(cache):
+    """Aplica las correcciones de correcciones.csv que todavía no están en lo ya escrito, sin bajar el padrón, el Mapa Educativo ni el REFES
+    (15 de noviembre de 2026: el Mapa Educativo corta la conexión desde la sesión en la nube). Baja solo los departamentos de Georef para
+    volver a medir a cuántos km de su departamento cae cada punto, y recalcula las distancias a los hospitales. Una fila sin corrección
+    tiene el punto y el departamento de la fuente, así que la corrección se controla contra ellos igual que en el armado completo."""
+    tipos = {"cueanexo": str, "refes_id": str, "codigo_indec": str, "codigo_dep": str}
+    e = pd.read_csv(SALIDA / "escuelas.csv", dtype=tipos, keep_default_na=False, na_values=[""])
+    h = pd.read_csv(SALIDA / "hospitales.csv", dtype=tipos, keep_default_na=False, na_values=[""])
+    control = json.loads((SALIDA / "control.json").read_text(encoding="utf-8"))
+    cor = leer_correcciones()
+    for t, tipo, clave, nombre in [(e, "escuela", "cueanexo", "escuelas"), (h, "hospital", "refes_id", "hospitales")]:
+        nuevas = cor[(cor.tipo == tipo) & ~cor.id.isin(t.loc[t.correccion.notna(), clave])]
+        if nuevas.empty:
+            continue
+        sub = t[t[clave].isin(nuevas.id)].copy()
+        r = aplicar_correcciones(sub, nuevas, tipo, clave)
+        hechas = sub[sub.correccion != ""]
+        for col in ("lat", "lon", "ubicacion", "codigo_dep", "correccion", "correccion_fuente"):
+            t.loc[hechas.index, col] = hechas[col]
+        prev = control["correcciones"][nombre]
+        for k, v in r["aplicadas"].items():
+            prev["aplicadas"][k] = prev["aplicadas"].get(k, 0) + v
+        prev["no_encontradas"] += r["no_encontradas"]
+        prev["la_fuente_cambio"] += r["la_fuente_cambio"]
+        print(f"   {nombre}: {r}")
+    deptos = leer_deptos(bajar(DEPTOS_URL, Path(cache) / "departamentos.geojson"))
+    nombre_dep = {k: v["nombre"] for k, v in deptos.items()}
+    e["departamento"] = e.codigo_dep.map(nombre_dep).fillna(e.departamento)
+    h["departamento"] = h.codigo_dep.map(nombre_dep).fillna("")
+    control["escuelas"]["departamentos"], control["hospitales"]["departamentos"] = controlar_deptos(e, deptos), controlar_deptos(h, deptos)
+    control["escuelas"]["ubicacion"] = {k: int(v) for k, v in e.ubicacion.value_counts().sort_index().items()}
+    control["hospitales"]["ubicacion"] = {k: int(v) for k, v in h.ubicacion.value_counts().sort_index().items()}
+    compartidas = e[e.ubicacion != "sin dato"].groupby(["lat", "lon"]).size()
+    control["escuelas"]["puntos_compartidos_por_3_o_mas"] = {"puntos": int((compartidas >= 3).sum()), "escuelas": int(compartidas[compartidas >= 3].sum())}
+    control["distancias"] = distancias(e, h)
+    control["correcciones_sin_rearmar"] = dt.date.today().isoformat()
+    escribir(e, SALIDA / "escuelas.csv", COLUMNAS_E)
+    escribir(h, SALIDA / "hospitales.csv", ["refes_id", "nombre", "codigo_indec", "codigo_dep", "departamento", "localidad", "dependencia",
+                                            "tipologia", "complejidad", "domicilio", "lat", "lon", "ubicacion", "fuera_km",
+                                            "correccion", "correccion_fuente"])
+    (SALIDA / "control.json").write_text(json.dumps(control, ensure_ascii=False, indent=1) + "\n", encoding="utf-8", newline="\n")
+    print("correcciones:", control["correcciones"])
+    print("departamentos:", control["escuelas"]["departamentos"])
+
+
 # ---------------------------------------------------------------- todo junto
 
 def escribir(t, ruta, columnas):
@@ -508,9 +555,13 @@ def main():
     ap.add_argument("--cache")
     ap.add_argument("--sin-georef", action="store_true")
     ap.add_argument("--solo-distancias", action="store_true", help="recalcula las distancias con lo ya escrito, sin bajar nada")
+    ap.add_argument("--solo-correcciones", action="store_true",
+                    help="aplica las correcciones nuevas a lo ya escrito: baja solo los departamentos de Georef")
     a = ap.parse_args()
     if a.solo_distancias:
         return solo_distancias()
+    if a.solo_correcciones:
+        return solo_correcciones(a.cache or tempfile.mkdtemp(prefix="establecimientos_"))
     cache = Path(a.cache) if a.cache else Path(tempfile.mkdtemp(prefix="establecimientos_"))
     cache.mkdir(parents=True, exist_ok=True)
     hoy = dt.date.today().isoformat()

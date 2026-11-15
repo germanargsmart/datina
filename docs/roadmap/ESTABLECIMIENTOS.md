@@ -47,7 +47,7 @@ Después de unir la fase 1, el mismo 9 de noviembre, el autor eligió entre opci
 Con las primeras capturas del mapa, el mismo 9 de noviembre, el autor pidió otro fondo ("el mapa queda feo, los puntos están bien, pero el fondo no me gusta, buscá otros fondos para el mapa no solo división administrativa, para hacerlo más interactivo"). Eligió entre cuatro fondos probados con los mismos puntos:
 
 8. **El fondo: el mapa oficial del Instituto Geográfico Nacional en gris, de entrada**, con un selector para verlo a color (Argenmap) o con la imagen satelital de Esri y los nombres del IGN encima. El relieve del IGN quedó afuera. La decisión 4 cambia: para arrastrar y acercar hasta las calles se suma **Leaflet**, servida desde el propio sitio, y las teselas del fondo se piden a los servidores del IGN y de Esri.
-9. Lo que quedó así porque el autor no pidió cambiarlo: las 175 escuelas a menos de 20 km de su departamento se dibujan donde las pone la fuente, con la distancia en su ficha. Los hospitales van en celeste los provinciales, en amarillo los municipales y en negro los nacionales, universitarios y mixtos. La tabla por departamento arranca cerrada.
+9. Lo que quedó así porque el autor no pidió cambiarlo: las escuelas a menos de 20 km de su departamento se dibujan donde las pone la fuente, con la distancia en su ficha (revisadas el 15 de noviembre de 2026: 6 se corrigieron, ver "Las otras 175 escuelas"). Los hospitales van en celeste los provinciales, en amarillo los municipales y en negro los nacionales, universitarios y mixtos. La tabla por departamento arranca cerrada.
 
 ## Lo que dicen los números (9 de noviembre de 2026)
 
@@ -201,6 +201,14 @@ Resultado: 33 puntos corregidos (20 escuelas y 13 hospitales), 8 departamentos c
 | Agrupamiento 86103 Esc. N° 363 (860219302) | Santiago del Estero | Sin confirmar: no se dibuja | Georef no tiene El Barrialito en Banda: hay un Barrialito en Río Hondo, donde cae el punto, y un El Barrialito en Robles |
 
 **Las otras 175 escuelas fuera de su departamento** (entre 1 y 20 km) no se revisaron: la decisión 6 habla de "los peores". Lectura de esta sesión, para que el autor la confirme con las capturas: se dibujan donde dice la fuente, cuentan en el departamento que declara y su ficha dice a cuántos kilómetros de él cae el punto.
+
+**Revisadas el 15 de noviembre de 2026** (decisión del autor del 14: "Revisalas vos"). Eran 185 con la fuente de ese día. Para cada una se consultó en Georef dónde cae el punto y si la localidad que anota el padrón existe, sola, en el departamento que declara. Se corrigieron 6 (`correcciones.csv`, fecha 2026-11-15):
+- 5 "punto": puntos aproximados (ya eran el centro de una localidad) que caían a más de 10 km de la única localidad con ese nombre en su departamento. Pasan a ese centro (Fracrán y Campo Grande en Misiones, Leandro N. Alem, Los Médanos en San Juan y Candelaria en San Luis).
+- 1 "departamento": el anexo de la escuela 1176 de Santiago del Estero. Santo Domingo, la localidad que anota, está a 0,5 km del punto, en Pellegrini, y el padrón la anota en Alberdi.
+
+Las otras 179 quedan como estaban: se dibujan donde dice la fuente y cuentan en el departamento que declara. 140 tienen punto preciso (las coordenadas del propio Mapa Educativo). Moverlas al centro de una localidad las empeoraría: por ejemplo, un colegio de CABA terminaría en el centro de la Ciudad. Las demás no tienen una corrección segura. Un caso aparte es el del límite entre Catamarca y Santiago del Estero: varias escuelas de La Paz (Catamarca) caen en Choya (Santiago del Estero), y la propia Georef pone el centro de Las Palmitas, que asigna a La Paz, del lado de Choya. Es la zona del límite en discusión entre las dos provincias, y no se corrige.
+
+Cómo se aplicó: el Mapa Educativo corta la conexión desde la sesión en la nube y el armado completo no se pudo correr. `establecimientos.py --solo-correcciones` aplica las correcciones nuevas a lo ya escrito, baja solo los departamentos de Georef para volver a medir y recalcula las distancias a los hospitales. Después va `correr_02_con_fecha.py`, como con `--solo-distancias`.
 
 ## Cómo sigue (un PR por fase)
 

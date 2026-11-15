@@ -395,7 +395,7 @@ e,540039802,Aula Sat. Nº 02: ESC. Nº 779,54112,SAN PEDRO,COLONIA ESMERALDA 2 C
 e,540040000,ESC. Nº 780,54056,FRACRAN,Colonia Santa Rita,est,p,r,-26.58011,-54.01732,p,20,
 e,540040001,Aula Sat. Nº 01: ESC. Nº 780 (Ex Aula Sat. Nº 02: ESC. Nº 341),54112,SAN PEDRO,Ruta Nacional 14 - Paraje Pedregullo,est,p,r,-26.63077,-54.11297,p,,
 e,540040002,Aula Sat. Nº 02: ESC. Nº 780 (Ex Aula Sat. Nº 03: ESC. Nº 341),54056,FRACRAN,Ruta Nacional 14- Aldea Guavira Poty Nº 03,est,p,r,-26.63808,-54.27654,p,,
-e,540040003,Aula Sat. Nº 03: ESC. Nº 780,54056,FRACRAN,Colonia Santa Rita. Comunidad Aborígen Kurupayti,est,p,r,-26.58013,-54.01751,a,20,
+e,540040003,Aula Sat. Nº 03: ESC. Nº 780,54056,FRACRAN,Colonia Santa Rita. Comunidad Aborígen Kurupayti,est,p,r,-26.74343,-54.29745,a,,p
 e,540040100,ESC. Nº 792,54112,SAN PEDRO,RUTA PROV. Nº 21-KM 9 RUTA N°21- PARAJE FORTALEZA FONDO-,est,p,,-26.75769,-54.17604,p,,
 e,540040200,ESC. Nº 81: DON JUAN JUAÑUK (J.C),54112,SAN PEDRO,INTERSEC.RUTA PROV.Nº16 Y RUTA NAC.14 PARAJE PALMERA BOCA- LOTE 7-SEC.1-FRAC.C,est,p,r,-26.6051,-54.07702,p,,
 e,540040300,ESC. Nº 382: LUCA GIOVANNI FOSSATI,54112,SAN PEDRO,"R.NAC.14 Y C.VEC.-A 8KM R.20 AºBONITO GENTIL RUTA NACIONAL N°14- KM 1348- PJE.GENTIL,",est,p,r,-26.56531,-53.99448,p,,
@@ -1584,7 +1584,7 @@ e,540184408,U.G.L. Nº 10 (Ext. Esc. Nº 639),54091,CAMPO RAMON,LOTE Nº 96 - SE
 e,540184409,U.G.L. Nº 10 (Ext. Esc. Nº 702),54091,CAMPO RAMON,PARAJE ARROYO EL BONITO - LOTE Nº 91 - SECC. X - CAMPO RAMON,est,s,r,-27.55314,-54.97174,a,,
 e,540184500,U.G.L. Nº 11: Leandro N. Alem,54070,ARROYO DEL MEDIO,9 de Julio Centro frente a la plaza 20 de junio,est,s,r,-27.59745,-55.3201,p,,
 e,540184501,U.G.L. Nº 11 (Ext. Esc. Nº 226),54070,LEANDRO N. ALEM,9 de Julio centro frente a la plaza 20 de junio,est,s,r,-27.74646,-55.30348,a,,
-e,540184503,U.G.L. Nº 11 (Ext. Esc. Nº 55),54070,LEANDRO N. ALEM,9 de julio frente a la plaza 20 de junio,est,s,r,-27.76696,-55.25026,a,3,
+e,540184503,U.G.L. Nº 11 (Ext. Esc. Nº 55),54070,LEANDRO N. ALEM,9 de julio frente a la plaza 20 de junio,est,s,r,-27.60373,-55.32362,a,,p
 e,540184506,U.G.L. Nº 11 (Ext. Esc. Nº 139),54070,LEANDRO N. ALEM,9 de julio Centro frente a la plaza 20 de junio,est,s,,-27.61139,-55.56781,a,,
 e,540184507,U.G.L. Nº 11 (Ext. Esc. Nº 148),54070,LEANDRO N. ALEM,9 de julio centro frente a la plaza 20 de junio,est,s,r,-27.74375,-55.38273,p,,
 e,540184510,U.G.L. Nº 11 (Ext. Esc. Nº 176),54070,DOS ARROYOS,9 de julio Centro frente a la plaza 20 de junio,est,s,r,-27.73767,-55.22919,p,,
@@ -1659,7 +1659,7 @@ e,540187900,I.E.A. Nº 17,54049,BERNARDO DE IRIGOYEN,Ruta Prov. Nº 17 Ruta Prov
 e,540187901,Aula Sat. Nº 01:I.E.A. Nº 17 (Ex Aula Sat. Nº 01:E.P.E.T. Nº 28),54112,POZO AZUL,"El Polvorín Ruta Prov. Nº 224 - Km 3,5 - San Pedro",est,st,,-26.62308,-54.09543,a,,
 e,540188000,INST. CRISTIANO EMANUEL,54028,POSADAS,Lorenzini 2550 Ch. 32-33 Cristo Rey,priv,ps,,-27.39905,-55.90596,p,,
 e,540188100,ESC. Nº 943:Aldea Ko´eju,54014,CAMPO GRANDE,RUTA PROV. 7 Aldea Ko´eju PUENTE RUTA 7 - KUÑA PIRU II,est,p,,-27.09517,-54.93665,p,,
-e,540188101,Aula Sat. Nº 01: ESC. Nº 943:Aldea Ko´eju ( Ex. Aula Sat. Nº 04: ESC. Nº 657),54014,CAMPO GRANDE,Ruta Prov 7 Aldea Ko´eju kuña piru- Ruta Prov 7 entre Campo Grande y A DEl VALLE. CAINGUAS,est,p,,-27.05184,-55.06024,a,1,
+e,540188101,Aula Sat. Nº 01: ESC. Nº 943:Aldea Ko´eju ( Ex. Aula Sat. Nº 04: ESC. Nº 657),54014,CAMPO GRANDE,Ruta Prov 7 Aldea Ko´eju kuña piru- Ruta Prov 7 entre Campo Grande y A DEl VALLE. CAINGUAS,est,p,,-27.20796,-54.9797,a,,p
 e,540188300,E.P.E.T. Nº 51,54063,PUERTO IGUAZU,2000 Has Pje. 2000 Has- Pto Iguazú,est,st,,-25.65693,-54.56384,p,,
 e,540188500,B.O.P. Nº 113 (Ex Ext. Esc. Nº 207-U.G.L. Nº 04),54056,SAN VICENTE,CUARTEL TARUMA Colonia Taruma Colonia Tarumá - San Vicente - Ex. Esc. Prov. Nº 207,est,s,,-27.01462,-54.44916,p,,
 e,540188600,B.O.P. Nº 114 (Ex Ext. Esc. Nº 518: U.G.L. Nº 12),54098,SANTO PIPO,Colonia Tacuara Colonia Tacuara- San Ignacio.Ruta Prov. Nº 6 casi intersección ruta Nº 5,est,s,,-27.27337,-55.25554,p,,

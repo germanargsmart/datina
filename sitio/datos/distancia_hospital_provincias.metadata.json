@@ -34,7 +34,7 @@
   {
    "nombre": "mediana_km_hospital",
    "tipo": "Número",
-   "valores": "7,35 a 50,4"
+   "valores": "7,2 a 50,4"
   },
   {
    "nombre": "mediana_km_terapia",
@@ -44,7 +44,7 @@
   {
    "nombre": "pct_mas_20_km",
    "tipo": "Número",
-   "valores": "13,38 a 100"
+   "valores": "13,51 a 100"
   },
   {
    "nombre": "pct_terapia_mas_100_km",
@@ -59,7 +59,7 @@
    "archivo": "datos/manual/establecimientos/escuelas.csv",
    "nombre": "Escuelas primarias y secundarias comunes de cada provincia, con su ubicación",
    "organismo": "Educación",
-   "armado": "2026-11-09",
+   "armado": "2026-11-15",
    "url": "https://www.argentina.gob.ar/sites/default/files/2026.06.16_padron_oficial_establecimientos_educativos_die_icse.xlsx"
   },
   {

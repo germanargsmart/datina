@@ -1887,7 +1887,7 @@
    "nombre": "Escuelas primarias y secundarias comunes de cada provincia, con su ubicación",
    "fuente": "org:educacion",
    "ruta": "datos/manual/establecimientos/escuelas.csv",
-   "armado": "2026-11-09",
+   "armado": "2026-11-15",
    "evidencia": {
     "archivo": "scripts/establecimientos.py",
     "contiene": "escribir(e, SALIDA / \"escuelas.csv\", COLUMNAS_E)"
