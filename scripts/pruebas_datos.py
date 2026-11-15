@@ -554,7 +554,7 @@ UNIDADES = {"%", "% de los chicos de la edad", "% de estudiantes de 6 grado", "%
             "cargos de juez cada 100.000 habitantes", "casos", "casos cada 100.000 habitantes", "defensorías", "dólares por habitante",
             "dólares por litro al tipo de cambio de referencia (Com. A 3500), mediana de las estaciones", "empresas",
             "etapas de fractura por año", "fiscalías", "grados Celsius", "hechos cada 100.000 habitantes", "hectáreas",
-            "hijos con AUH cada 100 menores de 18 años", "médicos cada 10.000 habitantes", "hospitales cada 100.000 habitantes", "km", "escuelas primarias cada 1.000 chicos de 5 a 14 años", "sociedades cada 100.000 habitantes", "hijos por mujer", "kWh por habitante por año", "kilos por habitante por año",
+            "hijos con AUH cada 100 menores de 18 años", "médicos cada 10.000 habitantes", "hospitales cada 100.000 habitantes", "km", "escuelas primarias cada 1.000 chicos de 5 a 14 años", "escuelas secundarias cada 1.000 chicos de 12 a 17 años", "sociedades cada 100.000 habitantes", "hijos por mujer", "kWh por habitante por año", "kilos por habitante por año",
             "kilovatios hora por año", "miles", "miles de barriles por día", "miles de barriles por pozo en sus primeros doce meses",
             "miles de millones de m³", "miles de pesos", "millones de km²", "millones de pesos de AAAA", "países", "visitantes", "millones de dólares", "millones de kg", "millones de litros",
             "millones de m³", "millones de m³ por día", "muertes de menores de un año por cada 1.000 nacidos vivos",
@@ -716,10 +716,27 @@ def prueba_poblacion(d, t):
 # ---------------------------------------------------------------- la tabla larga y las tablas de las fichas
 # Plan técnico, fase 2 (13 de noviembre de 2026): el MCP y la API van a leer la tabla larga y las tablas de las fichas, así que donde miden lo
 # mismo tienen que dar lo mismo. Los pares están en datos/manual/mismo_dato.json: la variable de la tabla larga, la tabla y su columna, y el
-# período (la columna de período de la tabla o, si no tiene, "ultimo", el último período de la variable, o un período fijo). Se compara con la
+# período (la columna de período de la tabla o, si no tiene, un período relativo al último de la variable, ver periodo_relativo(), o uno fijo). Se compara con la
 # precisión de la columna (una tabla que guarda un decimal se compara redondeada a un decimal). Un par que ya no se cruza en ninguna
 # jurisdicción y período también sale: es una tabla que quedó en otro período que la tabla larga
 MISMO_DATO = MANUAL / "mismo_dato.json"
+
+
+def periodo_relativo(periodo, periodos):
+    """El período de un par de mismo_dato.json. Un período fijo queda igual. Los relativos se resuelven con los períodos de la variable, ordenados por
+    fecha (los trimestres y semestres escritos "2T2026" o "1S2026" se ordenan por año: como texto, "4T2025" quedaría después de "2T2026"):
+    "ultimo" es el último, "ultimo-12" el que está doce lugares antes (en una serie mensual, el mismo mes del año anterior), y
+    "ultimo_sin_aguinaldo" el último mes que no es junio ni diciembre, el que usan los salarios (con "-12", el mismo mes del año anterior).
+    Antes del 15 de noviembre de 2026 los meses de un año antes iban escritos a mano y la actualización de ese día se frenó cuando llegó un mes nuevo"""
+    import re
+    m = re.fullmatch(r"(ultimo|ultimo_sin_aguinaldo)(?:-(\d+))?", str(periodo))
+    if not m:
+        return periodo
+    orden = sorted(set(periodos.astype(str)), key=lambda p: re.sub(r"^(\d)([TS])(\d{4})$", r"\3-\2\1", p))
+    if m.group(1) == "ultimo_sin_aguinaldo":
+        orden = orden[:max(i for i, p in enumerate(orden) if p[5:7] not in ("06", "12")) + 1]
+    atras = int(m.group(2) or 0)
+    return orden[-1 - atras] if len(orden) > atras else periodo
 
 
 def comparar_mismo_dato(par, t, cache):
@@ -742,9 +759,7 @@ def comparar_mismo_dato(par, t, cache):
     if "columna_periodo" in par:
         per = d[par["columna_periodo"]].str.replace(r"\.0$", "", regex=True)
     else:
-        # "ultimo" ordena por fecha los trimestres y semestres escritos "2T2026" o "1S2026" (como texto, "4T2025" quedaría después)
-        per = pd.Series([max(g.periodo.astype(str), key=lambda p: re.sub(r"^(\d)([TS])(\d{4})$", r"\3-\2\1", p)) if par["periodo"] == "ultimo"
-                         else par["periodo"]] * len(d))
+        per = pd.Series([periodo_relativo(par["periodo"], g.periodo)] * len(d))
     ref = g.set_index(["codigo_indec", "periodo"]).valor
     sale, n = [], 0
     for c, p, x in zip(cod, per, num):

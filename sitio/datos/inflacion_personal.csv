@@ -1,73 +1,73 @@
 region,division,rubro,ponderacion_2016,peso_efectivo,indice_inicio,indice_final,variacion_12m
-gba,01,Alimentos y bebidas no alcohólicas,23.44,25.0509,10022.1907,13494.1371,34.6426
-gba,02,Bebidas alcohólicas y tabaco,3.27,2.4778,7105.7319,8718.5476,22.6974
-gba,03,Prendas de vestir y calzado,8.49,7.0634,7801.9502,8522.6935,9.238
-gba,04,"Vivienda, agua, electricidad, gas y otros combustibles",10.46,10.0761,9033.504,13116.3256,45.1964
-gba,05,Equipamiento y mantenimiento del hogar,6.27,5.3403,7987.2451,9960.6292,24.7067
-gba,06,Salud,8.8,9.5022,10125.9997,13556.1289,33.8745
-gba,07,Transporte,11.59,11.4651,9276.6359,12713.1595,37.0449
-gba,08,Comunicación,2.81,2.6259,8763.1823,12155.9037,38.7156
-gba,09,Recreación y cultura,7.46,7.0282,8834.8546,11672.7071,32.1211
-gba,10,Educación,3.02,2.8739,8923.9746,12594.535,41.1315
-gba,11,Restaurantes y hoteles,10.84,12.991,11238.5637,15237.9312,35.5861
-gba,12,Bienes y servicios varios,3.55,3.5053,9259.5673,12505.0404,35.0499
-pampeana,01,Alimentos y bebidas no alcohólicas,28.65,30.3374,9918.3048,13419.2099,35.2974
-pampeana,02,Bebidas alcohólicas y tabaco,3.8,2.8698,7073.7187,8622.5587,21.8957
-pampeana,03,Prendas de vestir y calzado,10.43,8.3608,7508.4177,8300.813,10.5534
-pampeana,04,"Vivienda, agua, electricidad, gas y otros combustibles",8.67,8.4637,9143.7143,13650.9775,49.2936
-pampeana,05,Equipamiento y mantenimiento del hogar,6.34,5.4938,8116.5079,10046.2824,23.7759
-pampeana,06,Salud,8.16,9.6396,11065.0533,14765.7431,33.4448
-pampeana,07,Transporte,10.41,11.0253,9920.2881,13427.6882,35.3558
-pampeana,08,Comunicación,2.86,2.5881,8476.1088,11562.4143,36.4118
-pampeana,09,Recreación y cultura,7.39,6.6343,8408.7468,11285.1069,34.2068
-pampeana,10,Educación,1.61,1.3292,7732.8254,10600.7536,37.0877
-pampeana,11,Restaurantes y hoteles,8.1,9.829,11365.9708,15383.7051,35.3488
-pampeana,12,Bienes y servicios varios,3.58,3.4289,8971.4095,11757.6105,31.0564
-noreste,01,Alimentos y bebidas no alcohólicas,35.3,35.8436,9358.7022,13180.4666,40.8365
-noreste,02,Bebidas alcohólicas y tabaco,3.64,2.8024,7095.9379,8648.3138,21.877
-noreste,03,Prendas de vestir y calzado,11.6,8.6534,6875.5296,7563.0018,9.9988
-noreste,04,"Vivienda, agua, electricidad, gas y otros combustibles",8.11,10.3351,11745.5798,20773.6383,76.8635
-noreste,05,Equipamiento y mantenimiento del hogar,7.78,6.5626,7774.5381,9301.5117,19.6407
-noreste,06,Salud,5.26,6.3567,11138.4083,14655.1395,31.573
-noreste,07,Transporte,9.63,11.0909,10614.9465,13713.8464,29.1937
-noreste,08,Comunicación,2.82,2.6009,8500.6163,11528.646,35.6213
-noreste,09,Recreación y cultura,6.23,5.4401,8048.2424,10486.8682,30.3001
-noreste,10,Educación,1.36,1.1778,7982.2185,11601.8715,45.3465
-noreste,11,Restaurantes y hoteles,4.96,5.808,10792.5721,14917.7629,38.2225
-noreste,12,Bienes y servicios varios,3.3,3.3285,9296.3033,11921.1563,28.2354
-noroeste,01,Alimentos y bebidas no alcohólicas,34.67,34.8551,9506.1282,13004.1721,36.7978
-noroeste,02,Bebidas alcohólicas y tabaco,3.13,2.2171,6697.8624,8194.0523,22.3383
-noroeste,03,Prendas de vestir y calzado,12.37,9.2914,7102.3474,7934.5745,11.7176
-noroeste,04,"Vivienda, agua, electricidad, gas y otros combustibles",7.0,9.2456,12489.0557,18985.5506,52.0175
-noroeste,05,Equipamiento y mantenimiento del hogar,6.12,5.1014,7881.838,9733.1255,23.488
-noroeste,06,Salud,6.33,7.3792,11022.9049,14519.914,31.7249
-noroeste,07,Transporte,8.41,8.4874,9542.6607,13144.7228,37.7469
-noroeste,08,Comunicación,2.59,2.4131,8809.9234,11944.3376,35.5782
-noroeste,09,Recreación y cultura,5.95,5.2747,8382.408,10921.8014,30.2943
-noroeste,10,Educación,2.04,2.2832,10582.9523,15018.8003,41.915
-noroeste,11,Restaurantes y hoteles,7.99,10.2389,12117.0509,15970.9778,31.8058
-noroeste,12,Bienes y servicios varios,3.4,3.2129,8935.3649,11592.085,29.7326
-cuyo,01,Alimentos y bebidas no alcohólicas,28.42,29.985,9986.7158,13447.5743,34.6546
-cuyo,02,Bebidas alcohólicas y tabaco,3.57,2.5163,6671.7862,8197.9665,22.8751
-cuyo,03,Prendas de vestir y calzado,11.38,8.2453,6858.1401,7932.0468,15.6589
-cuyo,04,"Vivienda, agua, electricidad, gas y otros combustibles",8.88,9.9974,10656.5233,15884.873,49.0624
-cuyo,05,Equipamiento y mantenimiento del hogar,6.28,5.4087,8152.1842,9927.4493,21.7766
-cuyo,06,Salud,7.4,8.8533,11324.4114,14884.103,31.4338
-cuyo,07,Transporte,12.1,12.8831,10078.0803,14226.3564,41.1614
-cuyo,08,Comunicación,2.53,2.0898,7818.558,10586.2016,35.3984
-cuyo,09,Recreación y cultura,6.72,5.8308,8213.0373,10550.7214,28.4631
-cuyo,10,Educación,2.24,1.714,7242.614,9942.2618,37.2745
-cuyo,11,Restaurantes y hoteles,6.85,8.9234,12330.5079,15741.491,27.663
-cuyo,12,Bienes y servicios varios,3.63,3.5529,9264.3243,12121.399,30.8395
-patagonia,01,Alimentos y bebidas no alcohólicas,27.43,28.2585,9831.9869,12763.0497,29.8115
-patagonia,02,Bebidas alcohólicas y tabaco,3.5,2.5986,7085.7779,8797.5399,24.1577
-patagonia,03,Prendas de vestir y calzado,12.82,10.2321,7617.1784,8538.0786,12.0898
-patagonia,04,"Vivienda, agua, electricidad, gas y otros combustibles",10.06,12.2555,11626.6,17280.914,48.6326
-patagonia,05,Equipamiento y mantenimiento del hogar,6.55,5.863,8542.7344,10250.9576,19.9962
-patagonia,06,Salud,4.95,5.6979,10985.7915,14604.694,32.9417
-patagonia,07,Transporte,13.42,14.8577,10566.1698,14159.6575,34.0094
-patagonia,08,Comunicación,3.19,2.4956,7466.136,10051.1481,34.6232
-patagonia,09,Recreación y cultura,7.77,6.3769,7832.6527,9859.1744,25.8727
-patagonia,10,Educación,2.09,1.7992,8215.7791,11411.3987,38.8961
-patagonia,11,Restaurantes y hoteles,5.08,6.3528,11934.9974,15346.5159,28.5842
-patagonia,12,Bienes y servicios varios,3.14,3.2122,9763.1401,12531.1237,28.3514
+gba,01,Alimentos y bebidas no alcohólicas,23.44,25.0607,10266.4083,13745.8403,33.8914
+gba,02,Bebidas alcohólicas y tabaco,3.27,2.4738,7264.321,8793.3369,21.0483
+gba,03,Prendas de vestir y calzado,8.49,7.1201,8053.0169,8809.5854,9.3948
+gba,04,"Vivienda, agua, electricidad, gas y otros combustibles",10.46,10.0633,9238.2438,13517.7636,46.324
+gba,05,Equipamiento y mantenimiento del hogar,6.27,5.32,8147.5824,10103.6495,24.0079
+gba,06,Salud,8.8,9.4168,10275.5213,13755.1719,33.8635
+gba,07,Transporte,11.59,11.5765,9591.3012,12995.8774,35.4965
+gba,08,Comunicación,2.81,2.624,8966.7851,12413.4327,38.4379
+gba,09,Recreación y cultura,7.46,6.9654,8965.7522,11982.0056,33.6419
+gba,10,Educación,3.02,2.8506,9063.6685,12732.6841,40.4805
+gba,11,Restaurantes y hoteles,10.84,13.0255,11538.4844,15382.1363,33.3116
+gba,12,Bienes y servicios varios,3.55,3.5033,9476.215,12808.2219,35.1618
+pampeana,01,Alimentos y bebidas no alcohólicas,28.65,30.2889,10132.2569,13694.4053,35.1565
+pampeana,02,Bebidas alcohólicas y tabaco,3.8,2.8711,7241.1962,8703.5937,20.1955
+pampeana,03,Prendas de vestir y calzado,10.43,8.2896,7617.2626,8404.0278,10.3287
+pampeana,04,"Vivienda, agua, electricidad, gas y otros combustibles",8.67,8.5395,9439.7255,14527.855,53.9012
+pampeana,05,Equipamiento y mantenimiento del hogar,6.34,5.4431,8228.1319,10204.2574,24.0167
+pampeana,06,Salud,8.16,9.636,11317.6435,15053.7325,33.0112
+pampeana,07,Transporte,10.41,11.1863,10298.7295,13701.202,33.0378
+pampeana,08,Comunicación,2.86,2.5792,8642.9079,11779.4576,36.2904
+pampeana,09,Recreación y cultura,7.39,6.5994,8558.717,11837.5026,38.3093
+pampeana,10,Educación,1.61,1.3249,7886.6605,10784.9801,36.7496
+pampeana,11,Restaurantes y hoteles,8.1,9.8043,11600.613,15746.0804,35.7349
+pampeana,12,Bienes y servicios varios,3.58,3.4377,9202.9795,12032.8169,30.7491
+noreste,01,Alimentos y bebidas no alcohólicas,35.3,35.8435,9563.1121,13481.1066,40.9699
+noreste,02,Bebidas alcohólicas y tabaco,3.64,2.8157,7285.3433,8728.9898,19.8158
+noreste,03,Prendas de vestir y calzado,11.6,8.6127,6992.7319,7669.8812,9.6836
+noreste,04,"Vivienda, agua, electricidad, gas y otros combustibles",8.11,10.3167,11980.7072,20585.6459,71.8233
+noreste,05,Equipamiento y mantenimiento del hogar,7.78,6.4636,7824.495,9390.5781,20.0151
+noreste,06,Salud,5.26,6.3554,11379.4463,14916.1812,31.08
+noreste,07,Transporte,9.63,11.2129,10966.1702,13899.8437,26.752
+noreste,08,Comunicación,2.82,2.5998,8682.7205,11732.2137,35.1214
+noreste,09,Recreación y cultura,6.23,5.4513,8240.8643,10661.7152,29.3762
+noreste,10,Educación,1.36,1.1577,8017.1428,11790.6254,47.0677
+noreste,11,Restaurantes y hoteles,4.96,5.831,11072.0505,15156.1571,36.8866
+noreste,12,Bienes y servicios varios,3.3,3.3398,9531.5793,12181.0816,27.7971
+noroeste,01,Alimentos y bebidas no alcohólicas,34.67,34.8926,9719.8249,13236.5335,36.1808
+noroeste,02,Bebidas alcohólicas y tabaco,3.13,2.2375,6904.1035,8231.3105,19.2235
+noroeste,03,Prendas de vestir y calzado,12.37,9.3028,7263.1204,8035.7254,10.6374
+noroeste,04,"Vivienda, agua, electricidad, gas y otros combustibles",7.0,9.2607,12776.9169,19449.765,52.2258
+noroeste,05,Equipamiento y mantenimiento del hogar,6.12,5.0682,7997.9402,9867.7926,23.3792
+noroeste,06,Salud,6.33,7.3299,11183.4333,14750.621,31.8971
+noroeste,07,Transporte,8.41,8.5077,9770.03,13342.9545,36.5703
+noroeste,08,Comunicación,2.59,2.4187,9019.0011,12190.0621,35.1598
+noroeste,09,Recreación y cultura,5.95,5.2563,8531.8401,11173.6617,30.9643
+noroeste,10,Educación,2.04,2.271,10751.6478,15184.7915,41.2322
+noroeste,11,Restaurantes y hoteles,7.99,10.2357,12372.2614,16109.3743,30.2056
+noroeste,12,Bienes y servicios varios,3.4,3.2188,9143.2411,11817.4496,29.2479
+cuyo,01,Alimentos y bebidas no alcohólicas,28.42,30.0688,10249.2753,13794.9509,34.5944
+cuyo,02,Bebidas alcohólicas y tabaco,3.57,2.5189,6835.2096,8227.8116,20.3739
+cuyo,03,Prendas de vestir y calzado,11.38,8.2605,7031.7671,7985.1193,13.5578
+cuyo,04,"Vivienda, agua, electricidad, gas y otros combustibles",8.88,10.2103,11138.5067,16937.8939,52.0661
+cuyo,05,Equipamiento y mantenimiento del hogar,6.28,5.3405,8238.0036,10027.7923,21.726
+cuyo,06,Salud,7.4,8.8331,11563.3665,15165.4237,31.1506
+cuyo,07,Transporte,12.1,12.9515,10369.0028,14458.1422,39.4362
+cuyo,08,Comunicación,2.53,2.1012,8045.4429,10753.6032,33.6608
+cuyo,09,Recreación y cultura,6.72,5.7596,8302.7295,10761.4138,29.613
+cuyo,10,Educación,2.24,1.7075,7384.1698,10124.8449,37.1155
+cuyo,11,Restaurantes y hoteles,6.85,8.7043,12309.5953,15825.4365,28.5618
+cuyo,12,Bienes y servicios varios,3.63,3.5438,9457.3463,12326.5671,30.3385
+patagonia,01,Alimentos y bebidas no alcohólicas,27.43,28.0155,9982.8336,12973.4248,29.9573
+patagonia,02,Bebidas alcohólicas y tabaco,3.5,2.6028,7268.6649,8819.77,21.3396
+patagonia,03,Prendas de vestir y calzado,12.82,10.2023,7778.4176,8587.0321,10.3956
+patagonia,04,"Vivienda, agua, electricidad, gas y otros combustibles",10.06,12.5161,12160.5661,18510.8458,52.2203
+patagonia,05,Equipamiento y mantenimiento del hogar,6.55,5.828,8696.7971,10407.1197,19.6661
+patagonia,06,Salud,4.95,5.6481,11152.7333,14887.6865,33.4891
+patagonia,07,Transporte,13.42,15.055,10965.0468,14557.0326,32.7585
+patagonia,08,Comunicación,3.19,2.4865,7618.6045,10205.7976,33.9589
+patagonia,09,Recreación y cultura,7.77,6.3009,7926.1145,10016.0003,26.3671
+patagonia,10,Educación,2.09,1.7929,8384.6395,11518.6599,37.3781
+patagonia,11,Restaurantes y hoteles,5.08,6.3233,12166.4506,15706.9433,29.1005
+patagonia,12,Bienes y servicios varios,3.14,3.2285,10049.6425,12737.4499,26.7453

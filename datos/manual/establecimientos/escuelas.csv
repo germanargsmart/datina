@@ -972,7 +972,7 @@ cueanexo,nombre,codigo_indec,codigo_dep,departamento,localidad,sector,ambito,pri
 020171200,JUAN LARREA,02,02014,Comuna 2,CIUDAD DE BUENOS AIRES,Estatal,Urbano,1,0,0,LAPRIDA 1235 RECOLETA,-34.59455,-58.40751,precisa,,,,0.3,0.3
 020171300,DR. ARTURO MATEO BAS,02,02021,Comuna 3,CIUDAD DE BUENOS AIRES,Estatal,Urbano,1,0,0,TUCUMAN 3233 BALVANERA,-34.60033,-58.41131,precisa,,,,0.6,0.6
 020171700,LICEO Nº 07 DOMINGO FAUSTINO SARMIENTO DE 01,02,02021,Comuna 3,CIUDAD DE BUENOS AIRES,Estatal,Urbano,0,1,0,AVDA. CALLAO 450 BALVANERA,-34.60382,-58.39253,precisa,0.1,,,0.9,0.9
-020171900,REPUBLICA ISLAMICA DE IRAN,02,02014,Comuna 2,CIUDAD DE BUENOS AIRES,Estatal,Urbano,1,0,0,JOSE ANTONIO CABRERA 3484 RECOLETA,-34.59685,-58.41527,precisa,,,,0.5,0.5
+020171900,REPUBLICA ISLAMICA DE IRAN,02,02014,Comuna 2,CIUDAD DE BUENOS AIRES,Estatal,Urbano,1,0,0,JOSE ANTONIO CABRERA 3484 RECOLETA,-34.59685,-58.41527,precisa,0.1,,,0.5,0.5
 020173600,INSTITUTO LA ESCUELITA,02,02091,Comuna 13,CIUDAD DE BUENOS AIRES,Privado,Urbano,1,0,0,AVDA. JORGE NEWBERY 2950 COLEGIALES,-34.57618,-58.44496,precisa,,,,2.6,2.7
 020173900,INSTITUTO HORIZONTES,02,02084,Comuna 12,CIUDAD DE BUENOS AIRES,Privado,Urbano,1,0,0,ESTOMBA 2636 COGHLAN,-34.56592,-58.47552,precisa,,,,0.4,0.4
 020175000,INST. JUAN SANTOS GAYNOR,02,02084,Comuna 12,CIUDAD DE BUENOS AIRES,Privado,Urbano,1,1,0,ESTOMBA 1830 VILLA URQUIZA,-34.57315,-58.46958,precisa,,,,0.9,0.9
@@ -4533,7 +4533,7 @@ cueanexo,nombre,codigo_indec,codigo_dep,departamento,localidad,sector,ambito,pri
 060686300,ESCUELA CRISTIANA DE BERAZATEGUI,06,06091,Berazategui,BERAZATEGUI,Privado,Urbano,0,1,0,BELGRANO E/ 146 Y 147 4644,-34.76175,-58.21219,precisa,,,,1.7,5.3
 060686400,ESCUELA DE EDUCACIÓN PRIMARIA Nº44 JUAN XXIII,06,06091,Berazategui,BERAZATEGUI,Estatal,Urbano,1,0,0,155 ENTRE 17 Y 18 BARRIO JUAN EL BUENO,-34.76037,-58.19959,precisa,,,,2.6,6.2
 060686500,ESCUELA DE EDUCACIÓN PRIMARIA Nº5 GENERAL JOSÉ DE SAN MARTIN,06,06091,Berazategui,BERAZATEGUI,Estatal,Urbano,1,0,0,LISANDRO DE LA TORRE 1684,-34.76423,-58.20747,precisa,,,,1.9,5.7
-060686700,ESCUELA PRIMARIA DR. EDUARDO BRAUN MENENDEZ,06,06091,Berazategui,BERAZATEGUI,Privado,Urbano,1,0,0,LISANDRO DE LA TORRE 91,-34.75448,-58.22948,precisa,0.1,,,1.4,4.1
+060686700,ESCUELA PRIMARIA DR. EDUARDO BRAUN MENENDEZ,06,06091,Berazategui,BERAZATEGUI,Privado,Urbano,1,0,0,LISANDRO DE LA TORRE 91,-34.75448,-58.22948,precisa,0.2,,,1.4,4.1
 060686900,ESCUELA DE EDUCACIÓN SECUNDARIA Nº15 INDEPENDENCIA DEL PERÚ,06,06658,Quilmes,QUILMES,Estatal,Urbano,0,1,0,BOTTARO ( EX. PAZ ) 1125,-34.72854,-58.24633,precisa,,,,0.9,0.9
 060687000,ESCUELA DE EDUCACIÓN SECUNDARIA Nº15,06,06539,Merlo,PONTEVEDRA,Estatal,Urbano,0,1,0,ISABEL DE BARNES 4320,-34.74997,-58.69843,precisa,,,,0.2,5.1
 060687200,COLEGIO PARISH ROBERTSON,06,06260,Esteban Echeverría,MONTE GRANDE,Privado,Urbano,1,0,0,PARISH ROBERTSON Y LAS HERAS 159,-34.81938,-58.46266,precisa,,,,0.7,0.7
@@ -24547,7 +24547,7 @@ cueanexo,nombre,codigo_indec,codigo_dep,departamento,localidad,sector,ambito,pri
 540040000,ESC. Nº 780,54,54056,Guaraní,FRACRAN,Estatal,Rural,1,0,0,Colonia Santa Rita,-26.58011,-54.01732,precisa,19.6,,,10.0,61.0
 540040001,Aula Sat. Nº 01: ESC. Nº 780 (Ex Aula Sat. Nº 02: ESC. Nº 341),54,54112,San Pedro,SAN PEDRO,Estatal,Rural,1,0,0,Ruta Nacional 14 - Paraje Pedregullo,-26.63077,-54.11297,precisa,,,,1.4,53.7
 540040002,Aula Sat. Nº 02: ESC. Nº 780 (Ex Aula Sat. Nº 03: ESC. Nº 341),54,54056,Guaraní,FRACRAN,Estatal,Rural,1,0,0,Ruta Nacional 14- Aldea Guavira Poty Nº 03,-26.63808,-54.27654,precisa,1.0,,,16.8,41.2
-540040003,Aula Sat. Nº 03: ESC. Nº 780,54,54056,Guaraní,FRACRAN,Estatal,Rural,1,0,0,Colonia Santa Rita. Comunidad Aborígen Kurupayti,-26.58013,-54.01751,aproximada,19.5,,,10.0,60.9
+540040003,Aula Sat. Nº 03: ESC. Nº 780,54,54056,Guaraní,FRACRAN,Estatal,Rural,1,0,0,Colonia Santa Rita. Comunidad Aborígen Kurupayti,-26.74343,-54.29745,aproximada,,punto,"Georef (IGN), localidad 54056020 Fracrán: su centroide",23.4,32.6
 540040100,ESC. Nº 792,54,54112,San Pedro,SAN PEDRO,Estatal,Urbano,1,0,0,RUTA PROV. Nº 21-KM 9 RUTA N°21- PARAJE FORTALEZA FONDO-,-26.75769,-54.17604,precisa,,,,16.9,39.4
 540040200,ESC. Nº 81: DON JUAN JUAÑUK (J.C),54,54112,San Pedro,SAN PEDRO,Estatal,Rural,1,0,0,INTERSEC.RUTA PROV.Nº16 Y RUTA NAC.14 PARAJE PALMERA BOCA- LOTE 7-SEC.1-FRAC.C,-26.6051,-54.07702,precisa,,,,3.5,56.4
 540040300,ESC. Nº 382: LUCA GIOVANNI FOSSATI,54,54112,San Pedro,SAN PEDRO,Estatal,Rural,1,0,0,"R.NAC.14 Y C.VEC.-A 8KM R.20 AºBONITO GENTIL RUTA NACIONAL N°14- KM 1348- PJE.GENTIL,",-26.56531,-53.99448,precisa,,,,12.8,62.6
@@ -25736,7 +25736,7 @@ cueanexo,nombre,codigo_indec,codigo_dep,departamento,localidad,sector,ambito,pri
 540184409,U.G.L. Nº 10 (Ext. Esc. Nº 702),54,54091,Oberá,CAMPO RAMON,Estatal,Rural,0,1,0,PARAJE ARROYO EL BONITO - LOTE Nº 91 - SECC. X - CAMPO RAMON,-27.55314,-54.97174,aproximada,,,,18.4,18.4
 540184500,U.G.L. Nº 11: Leandro N. Alem,54,54070,Leandro N. Alem,ARROYO DEL MEDIO,Estatal,Rural,0,1,0,9 de Julio Centro frente a la plaza 20 de junio,-27.59745,-55.3201,precisa,,,,1.4,1.5
 540184501,U.G.L. Nº 11 (Ext. Esc. Nº 226),54,54070,Leandro N. Alem,LEANDRO N. ALEM,Estatal,Rural,0,1,0,9 de Julio centro frente a la plaza 20 de junio,-27.74646,-55.30348,aproximada,,,,15.6,15.6
-540184503,U.G.L. Nº 11 (Ext. Esc. Nº 55),54,54070,Leandro N. Alem,LEANDRO N. ALEM,Estatal,Rural,0,1,0,9 de julio frente a la plaza 20 de junio,-27.76696,-55.25026,aproximada,2.6,,,15.9,19.4
+540184503,U.G.L. Nº 11 (Ext. Esc. Nº 55),54,54070,Leandro N. Alem,LEANDRO N. ALEM,Estatal,Rural,0,1,0,9 de julio frente a la plaza 20 de junio,-27.60373,-55.32362,aproximada,,punto,"Georef (IGN), localidad 54070070 Leandro N. Alem: su centroide",0.7,0.8
 540184506,U.G.L. Nº 11 (Ext. Esc. Nº 139),54,54070,Leandro N. Alem,LEANDRO N. ALEM,Estatal,Urbano,0,1,0,9 de julio Centro frente a la plaza 20 de junio,-27.61139,-55.56781,aproximada,,,,16.9,23.4
 540184507,U.G.L. Nº 11 (Ext. Esc. Nº 148),54,54070,Leandro N. Alem,LEANDRO N. ALEM,Estatal,Rural,0,1,0,9 de julio centro frente a la plaza 20 de junio,-27.74375,-55.38273,precisa,,,,16.0,16.0
 540184510,U.G.L. Nº 11 (Ext. Esc. Nº 176),54,54070,Leandro N. Alem,DOS ARROYOS,Estatal,Rural,0,1,0,9 de julio Centro frente a la plaza 20 de junio,-27.73767,-55.22919,precisa,,,,17.2,17.5
@@ -25811,7 +25811,7 @@ cueanexo,nombre,codigo_indec,codigo_dep,departamento,localidad,sector,ambito,pri
 540187901,Aula Sat. Nº 01:I.E.A. Nº 17 (Ex Aula Sat. Nº 01:E.P.E.T. Nº 28),54,54112,San Pedro,POZO AZUL,Estatal,Urbano,0,1,1,"El Polvorín Ruta Prov. Nº 224 - Km 3,5 - San Pedro",-26.62308,-54.09543,aproximada,,,,1.4,55.6
 540188000,INST. CRISTIANO EMANUEL,54,54028,Capital,POSADAS,Privado,Urbano,1,1,0,Lorenzini 2550 Ch. 32-33 Cristo Rey,-27.39905,-55.90596,precisa,,,,1.0,2.1
 540188100,ESC. Nº 943:Aldea Ko´eju,54,54014,Cainguás,CAMPO GRANDE,Estatal,Urbano,1,0,0,RUTA PROV. 7 Aldea Ko´eju PUENTE RUTA 7 - KUÑA PIRU II,-27.09517,-54.93665,precisa,,,,4.9,29.7
-540188101,Aula Sat. Nº 01: ESC. Nº 943:Aldea Ko´eju (	Ex. Aula Sat. Nº 04: ESC. Nº 657),54,54014,Cainguás,CAMPO GRANDE,Estatal,Urbano,1,0,0,Ruta Prov 7 Aldea Ko´eju kuña piru- Ruta Prov 7 entre Campo Grande y A DEl VALLE. CAINGUAS,-27.05184,-55.06024,aproximada,1.2,,,13.4,16.8
+540188101,Aula Sat. Nº 01: ESC. Nº 943:Aldea Ko´eju (	Ex. Aula Sat. Nº 04: ESC. Nº 657),54,54014,Cainguás,CAMPO GRANDE,Estatal,Urbano,1,0,0,Ruta Prov 7 Aldea Ko´eju kuña piru- Ruta Prov 7 entre Campo Grande y A DEl VALLE. CAINGUAS,-27.20796,-54.9797,aproximada,,punto,"Georef (IGN), localidad 54014020 Campo Grande: su centroide",0.5,31.1
 540188300,E.P.E.T. Nº 51,54,54063,Iguazú,PUERTO IGUAZU,Estatal,Urbano,0,1,1,2000 Has Pje. 2000 Has- Pto Iguazú,-25.65693,-54.56384,precisa,,,,6.2,6.2
 540188500,B.O.P. Nº 113 (Ex Ext. Esc. Nº 207-U.G.L. Nº 04),54,54056,Guaraní,SAN VICENTE,Estatal,Urbano,0,1,0,CUARTEL TARUMA Colonia Taruma Colonia Tarumá - San Vicente - Ex. Esc. Prov. Nº 207,-27.01462,-54.44916,precisa,,,,4.0,4.0
 540188600,B.O.P. Nº 114 (Ex Ext. Esc. Nº 518: U.G.L. Nº 12),54,54098,San Ignacio,SANTO PIPO,Estatal,Urbano,0,1,0,Colonia Tacuara Colonia Tacuara- San Ignacio.Ruta Prov. Nº 6 casi intersección ruta Nº 5,-27.27337,-55.25554,precisa,,,,21.1,26.2
@@ -28731,7 +28731,7 @@ cueanexo,nombre,codigo_indec,codigo_dep,departamento,localidad,sector,ambito,pri
 700092300,ESCUELA DE EDUCACIÓN SECUNDARIA PROVINCIA DE NEUQUÉN,70,70091,San Martín,DOS ACEQUIAS,Estatal,Rural,0,1,0,NACIONAL S/N,-31.49282,-68.41501,aproximada,,,,4.8,10.7
 700092500,ESCUELA DE EDUCACIÓN SECUNDARIA GENERAL ANTONIO GONZÁLEZ BALCARCE,70,70098,Santa Lucía,ALTO DE SIERRA,Estatal,Urbano,0,1,0,RAUL CUELLO ESTE 4569 BALCARCE,-31.53373,-68.41684,aproximada,,,,6.5,9.1
 700092700,COLEGIO DE EDUCACIÓN INICIAL Y PRIMARIA ARCO IRIS,70,70084,Rivadavia,RIVADAVIA,Privado,Urbano,1,0,0,SARGENTO CABRAL OESTE 4995 MUDAP,-31.51769,-68.54237,aproximada,1.7,,,3.7,3.7
-700092900,ESCUELA DE EDUCACIÓN SECUNDARIA HIPÓLITO VIEYTES,70,70035,Caucete,LOS MEDANOS,Estatal,Rural,0,1,0,JUAN JOSE BUSTOS S/N,-31.60684,-68.44966,aproximada,8.8,,,9.6,9.6
+700092900,ESCUELA DE EDUCACIÓN SECUNDARIA HIPÓLITO VIEYTES,70,70035,Caucete,LOS MEDANOS,Estatal,Rural,0,1,0,JUAN JOSE BUSTOS S/N,-31.60423,-68.26963,aproximada,,punto,"Georef (IGN), localidad 7003504002 Los Médanos: su centroide",5.2,24.2
 700093300,ESCUELA DE EDUCACIÓN SECUNDARIA JOSÉ MANUEL ESTRADA,70,70077,Rawson,RAWSON,Estatal,Urbano,0,1,0,CHACABUCO,-31.5847,-68.5269,aproximada,,,,3.5,3.5
 700093400,ESCUELA DE EDUCACIÓN SECUNDARIA ESTEBAN ECHEVERRÍA,70,70028,Capital,CONCEPCION,Estatal,Urbano,0,1,0,SALTA NORTE 1279,-31.52145,-68.53672,aproximada,,,,3.0,3.0
 700093700,ESCUELA DE EDUCACIÓN SECUNDARIA ENRIQUE LARRETA,70,70105,Sarmiento,PUNTA DEL MEDANO,Estatal,Rural,0,1,0,RUTA PROVINCIAL 295 COCHAGUAL,-31.89418,-68.41876,aproximada,,punto,"Georef (IGN), localidad 70105090 Punta del Médano: su centroide",10.1,39.4
@@ -29199,7 +29199,7 @@ cueanexo,nombre,codigo_indec,codigo_dep,departamento,localidad,sector,ambito,pri
 740048200,ESC. N° 378 PROFESORA CELMIRA FIGUEROA,74,74007,Ayacucho,CANDELARIA,Estatal,Urbano,1,0,0,RUTA NACIONAL 76 S/N,-31.94501,-65.72833,precisa,8.7,,,33.1,53.0
 740048201,ESC. N° 378 PROFESORA CELMIRA FIGUEROA,74,74007,Ayacucho,CANDELARIA,Estatal,Rural,0,1,0,,-31.94422,-65.82223,aproximada,,,,32.2,61.9
 740048300,ESC. N° 316 MAESTRA CARMEN FLORES DE NIÑO,74,74007,Ayacucho,NO FIGURA EN TABLA,Estatal,Rural,1,0,0,LA MEDULA CANDELARIA,-31.89735,-65.82311,precisa,0.2,,,37.4,62.3
-740048301,ESC. N° 316 MAESTRA CARMEN FLORES DE NIÑO,74,74007,Ayacucho,CANDELARIA,Estatal,Urbano,0,1,0,,-31.89748,-65.64916,aproximada,16.6,,,40.5,45.9
+740048301,ESC. N° 316 MAESTRA CARMEN FLORES DE NIÑO,74,74007,Ayacucho,CANDELARIA,Estatal,Urbano,0,1,0,,-32.06127,-65.82482,aproximada,,punto,"Georef (IGN), localidad 74007010 Candelaria: su centroide",19.2,63.3
 740048400,ESC. N° 236 VICEDIRECTORA JUANA BELZUNCE,74,74007,Ayacucho,LA BOTIJA,Estatal,Rural,1,0,0,LA BOTIJA,-32.23778,-66.57901,precisa,,,,49.1,100.2
 740048401,ESC. N° 236 VICEDIRECTORA JUANA BELZUNCE,74,74007,Ayacucho,LA BOTIJA,Estatal,Rural,0,1,0,,-32.23768,-66.57893,precisa,,,,49.1,100.2
 740048500,ESC. N° 430 VICEDIRECTOR ALFREDO DOMINGUEZ,74,74007,Ayacucho,SANTO DOMINGO,Estatal,Rural,1,0,0,SANTO DOMINGO,-32.34971,-66.72684,precisa,,,,43.4,107.9
@@ -33732,7 +33732,7 @@ cueanexo,nombre,codigo_indec,codigo_dep,departamento,localidad,sector,ambito,pri
 860210502,AGRUPAMIENTO Nº 86063 - ESC N° 1177,86,86056,Copo,ISKOY POZO,Estatal,Rural,0,1,0,YSCAI POZO,-26.12259,-63.63586,aproximada,,,,6.9,138.9
 860210503,AGRUPAMIENTO Nº 86063 - ESC N° 380,86,86056,Copo,PIRUAJ BAJO,Estatal,Rural,0,1,0,PIRUAJ BAJO,-26.17513,-63.62755,aproximada,,,,9.3,141.3
 860210504,AGRUPAMIENTO Nº 86063 - ESC N° 353,86,86056,Copo,EL PUESTO,Estatal,Rural,0,1,0,EL PUESTO,-26.08105,-63.62299,aproximada,,,,9.7,139.0
-860210506,AGRUPAMIENTO Nº 86063 - ESC N° 1176,86,86014,Alberdi,SANTO DOMINGO,Estatal,Rural,0,1,0,SANTO DOMINGO,-26.21367,-63.78109,aproximada,1.9,,,12.2,128.2
+860210506,AGRUPAMIENTO Nº 86063 - ESC N° 1176,86,86133,Pellegrini,SANTO DOMINGO,Estatal,Rural,0,1,0,SANTO DOMINGO,-26.21367,-63.78109,aproximada,,departamento,"Georef (IGN), localidad 86133060 Santo Domingo, en el departamento 86133, a 0,5 km del punto",12.2,128.2
 860210507,AGRUPAMIENTO Nº 86063 - ESC N°376,86,86014,Alberdi,ESTECO,Estatal,Rural,0,1,0,ESTEKO,-26.2745,-63.73851,aproximada,,,,16.6,134.6
 860210508,AGRUPAMIENTO Nº 86063 - ESC N°357,86,86056,Copo,MANGA BAJADA,Estatal,Rural,0,1,0,LA MANGA,-25.9,-63.71658,aproximada,,,,25.4,126.7
 860210510,AGRUPAMIENTO Nº 86063 - ESC N° 1147,86,86056,Copo,VINAL SUNI,Estatal,Rural,0,1,0,VINAL SUNI,-26.05198,-63.66904,aproximada,,,,9.2,133.9

@@ -203,7 +203,7 @@ FRECUENCIA = {
     # Seguridad
     "f-delitos": "anio", "f-robos": "anio", "f-homicidios": "anio", "f-carceles": "anio", "f-sin-condena": "anio",
     # Educación
-    "f-escolarizacion": "anio", "f-abandono": "anio", "f-aprender": "aprender", "f-pisa": "pisa", "f-salario-docente": "trimestre", "f-inversion-educativa": "anio", "f-escuelas-primarias": "anio",
+    "f-escolarizacion": "anio", "f-abandono": "anio", "f-aprender": "aprender", "f-pisa": "pisa", "f-salario-docente": "trimestre", "f-inversion-educativa": "anio", "f-escuelas-primarias": "anio", "f-escuelas-secundarias": "anio",
     # Población
     "f-nacimientos": "anio", "f-poblacion-proy": "anio", "f-chicos-escuela": "anio", "f-piramide": "anio", "f-envejecimiento": "anio", "f-haberes": "trimestre", "f-pensiones-invalidez": "trimestre", "f-auh": "trimestre", "f-desocupacion": "trimestre", "f-informalidad": "trimestre", "f-pobreza-aglomerados": "semestre", "f-desempleo": "trimestre", "f-adolescentes": "anio",
     "f-adolescentes-nse": "anio",
@@ -773,6 +773,11 @@ SEC_ICONO.update({i: ico for i, ico, _, _ in NOTAS})
 SEC_ICONO.update({i: ico for i, ico, _, _ in PIEZAS})
 assert set(SEC_ICONO.values()) <= set(ICONOS), set(SEC_ICONO.values()) - set(ICONOS)
 import relaciones  # noqa: E402
+# Los resultados oficiales de Elecciones por mesa por jurisdicción (15 de noviembre de 2026, plan técnico, punto 6): cinco tablas en
+# sitio/datos/ que salen de sitio/datos/mesas/, para el Catálogo, el MCP y la API de datos. Solo lo oficial: ver elecciones_oficiales.py
+import elecciones_oficiales  # noqa: E402
+_eo = elecciones_oficiales.escribir()
+print("Elecciones oficiales por jurisdicción: " + ", ".join(f"{t.removeprefix('elecciones_oficiales_')} {n}" for t, n in _eo.items()) + " filas")
 # Catálogo de datos (11 de octubre de 2026, propuesta aprobada por el autor): la lista de tablas con sus filtros la arma scripts/catalogo.py.
 # Si una tabla publicada no tiene dónde se usa o una evidencia de datos/manual/catalogo.json no está en el código, el sitio no se arma.
 # Va acá, antes de escribir datina.js, porque el botón "En el catálogo" del pie de cada ficha (pedido del autor del 11 de octubre) solo
@@ -1249,11 +1254,25 @@ for _, _, _fs in _dd_grupos:
     for _f in _fs:
         assert _f[0] not in TEXTO_ANTES and not _f[6], f"{_f[0]}: una ficha de un tema sensible no puede estar en Datos destacados"
         assert _f[2], f"{_f[0]}: a la ficha le falta la pregunta fija, y la necesita en Datos destacados"
-_datos_destacados = ('<nav class="dd-indice" aria-label="Grupos de esta página">' + "".join(f'<a class="enlace" href="#dd-{g}">{e(n)}</a>' for g, n, _ in _dd_grupos) + "</nav>"
-                     + "".join(f'<div class="dd-grupo"><h2 class="dd-grupo-tit" id="dd-{g}">{e(n)}</h2><ul class="dd-lista">'
-                               + "".join(f'<li class="dd-dato" data-clave="{f[0]}"><span class="dd-tema">{e(TITULO_DE[f[1]])}</span>'
-                                         f'<h3 class="dd-preg"><a href="{url_pagina(UBIC[f[0]])}#{f[0]}">{e(_PREG_DEST.get(f[0], f[2]))}</a></h3>'
-                                         '<span class="c-num"></span><span class="c-txt"></span></li>' for f in fs) + "</ul></div>" for g, n, fs in _dd_grupos))
+# Desde el 15 de noviembre de 2026 (el autor eligió, entre tres bocetos con capturas, "C: tabla con filtros"): una tabla con el tema, la pregunta (el
+# enlace a la ficha), la cifra y qué mide, por grupo, con el buscador y la lista de temas del Catálogo (las mismas clases, ningún control nuevo). Sin
+# JavaScript se ve la tabla entera y los filtros quedan ocultos. En el celular cada fila se apila (datina.css)
+_dd_opciones = '<option value="">Todos</option>' + "".join(
+    f'<optgroup label="{e(n)}"><option value="g:{g}">{e(n)}, todos</option>'
+    + "".join(f'<option value="{sec}">{e(TITULO_DE[sec])}</option>' for sec in dict.fromkeys(f[1] for f in fs)) + "</optgroup>"
+    for g, n, fs in _dd_grupos)
+_datos_destacados = ('<div class="cat-filtros dd-filtros" role="search" aria-label="Buscar entre los datos destacados" hidden>'
+                     '<label class="cat-busca" for="dd-q"><span>Buscar</span><input type="search" id="dd-q" autocomplete="off" '
+                     'placeholder="inflación, escuelas, petróleo…" aria-describedby="dd-cuenta"></label>'
+                     f'<label class="cx-campo" for="dd-tema"><span>Tema</span><select id="dd-tema">{_dd_opciones}</select></label></div>'
+                     '<p class="cat-cuenta dd-cuenta" id="dd-cuenta" aria-live="polite"></p>'
+                     '<table class="dd-tabla"><caption class="solo-lector">La cifra destacada de cada ficha, por grupo de temas</caption>'
+                     '<thead><tr><th scope="col">Tema</th><th scope="col">Pregunta</th><th scope="col" class="dd-c-num">Cifra</th><th scope="col">Qué mide</th></tr></thead>'
+                     + "".join(f'<tbody class="dd-grupo" data-grupo="{g}"><tr class="dd-grupo-fila"><th colspan="4" scope="colgroup" class="dd-grupo-tit" id="dd-{g}">{e(n)}</th></tr>'
+                               + "".join(f'<tr class="dd-dato" data-clave="{f[0]}" data-tema="{f[1]}"><td class="dd-tema">{e(TITULO_DE[f[1]])}</td>'
+                                         f'<td class="dd-preg"><a href="{url_pagina(UBIC[f[0]])}#{f[0]}">{e(_PREG_DEST.get(f[0], f[2]))}</a></td>'
+                                         '<td class="c-num"></td><td class="c-txt"></td></tr>' for f in fs) + "</tbody>" for g, n, fs in _dd_grupos)
+                     + '</table><p class="cat-vacio" id="dd-vacio" hidden>Ningún dato coincide con la búsqueda. Probá con otra palabra o con todos los temas.</p>')
 # Provincias: las 24 jurisdicciones con su bandera, cada una a su perfil. Es también la forma de llegar con el teclado a lo que muestra
 # el mapa de la portada, que el teclado saltea. Sin bajada desde el 10 de noviembre de 2026 (pedido del autor, como Historias y Herramientas):
 # Departamentos y Ordenar las 24 están en el menú Provincias y en el pie

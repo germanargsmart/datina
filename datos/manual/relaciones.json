@@ -1887,7 +1887,7 @@
    "nombre": "Escuelas primarias y secundarias comunes de cada provincia, con su ubicación",
    "fuente": "org:educacion",
    "ruta": "datos/manual/establecimientos/escuelas.csv",
-   "armado": "2026-11-09",
+   "armado": "2026-11-15",
    "evidencia": {
     "archivo": "scripts/establecimientos.py",
     "contiene": "escribir(e, SALIDA / \"escuelas.csv\", COLUMNAS_E)"
@@ -8109,6 +8109,34 @@
   },
   {
    "tipo": "alimenta",
+   "de": "ds:manual/establecimientos-escuelas.csv",
+   "a": "f-escuelas-secundarias",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_escs_s = _escs_e[_escs_e.secundaria == 1]"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"escuelas_secundarias_provincias\": escuelas_secundarias_provincias,"
+    }
+   ],
+   "tabla": "escuelas_secundarias_provincias"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:indec_proyecciones_provincias.csv",
+   "a": "f-escuelas-secundarias",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_escs_v = (proy[proy.edad.isin(ESCS_EDADES)].groupby([\"codigo_indec\", \"anio\"]).pob.sum() * 3 / 5).unstack()"
+    }
+   ],
+   "tabla": "escuelas_secundarias_provincias"
+  },
+  {
+   "tipo": "alimenta",
    "de": "ds:indec_api_canasta_crianza.json",
    "a": "f-crianza",
    "evidencia": [
@@ -9425,6 +9453,11 @@
   "f-tv-paga": {
    "variables": [
     "tv_suscripcion_accesos_cada_100_hogares"
+   ]
+  },
+  "f-escuelas-secundarias": {
+   "variables": [
+    "escuelas_secundarias_cada_1000_chicos_12_17"
    ]
   }
  }

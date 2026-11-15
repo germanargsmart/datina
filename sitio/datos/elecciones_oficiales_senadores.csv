@@ -1,0 +1,970 @@
+anio,vuelta,codigo_indec,jurisdiccion,lista,votos,porcentaje
+2001,general,02,CABA,"Alianza 2001 para el Trabajo, la Justicia y la Educación",291049,21.5338
+2001,general,02,CABA,Alianza Alternativa para una República de Iguales Popular Nuevo Milenio,229509,16.9806
+2001,general,02,CABA,Alianza Frente por un Nuevo País,226998,16.7949
+2001,general,02,CABA,Alianza Frente Unión por Buenos Aires - Alianza de Centro,150291,11.1196
+2001,general,02,CABA,Autodeterminación y Libertad,92647,6.8547
+2001,general,02,CABA,Alianza Izquierda Unida,87157,6.4485
+2001,general,02,CABA,Humanista,65170,4.8217
+2001,general,02,CABA,Jubilados en Acción,51975,3.8455
+2001,general,02,CABA,Alianza Frente Polo Social,28053,2.0756
+2001,general,02,CABA,Alianza Obrero - Movimiento al Socialismo,24059,1.7800
+2001,general,02,CABA,Socialista Auténtico,23917,1.7695
+2001,general,02,CABA,Demócrata Cristiano,23826,1.7628
+2001,general,02,CABA,Nacionalista Constitucional,22968,1.6993
+2001,general,02,CABA,De los Trabajadores Socialistas,16501,1.2209
+2001,general,02,CABA,Social Demócrata,6462,0.4781
+2001,general,02,CABA,Generacion Intermedia,6192,0.4581
+2001,general,02,CABA,Movimiento por la Dignidad y la Independencia,4818,0.3565
+2001,general,06,Buenos Aires,Justicialista,2071284,37.5861
+2001,general,06,Buenos Aires,"Alianza para el Trabajo, la Justicia y la Educación",829549,15.0532
+2001,general,06,Buenos Aires,Alianza Alternativa para una República de Iguales,495125,8.9847
+2001,general,06,Buenos Aires,Alianza Frente Polo Social,492700,8.9407
+2001,general,06,Buenos Aires,Unidad Federalista,312676,5.6739
+2001,general,06,Buenos Aires,Unión de Centro Democrático,279232,5.0670
+2001,general,06,Buenos Aires,Alianza Izquierda Unida,269117,4.8835
+2001,general,06,Buenos Aires,Humanista,172588,3.1318
+2001,general,06,Buenos Aires,Alianza del Obrero - Movimiento al Socialismo,139019,2.5227
+2001,general,06,Buenos Aires,Acción por la República,93441,1.6956
+2001,general,06,Buenos Aires,Del Socialismo Auténtico,68750,1.2476
+2001,general,06,Buenos Aires,De los Trabajadores Socialistas,60841,1.1040
+2001,general,06,Buenos Aires,Alianza Frente Compromiso Social,56663,1.0282
+2001,general,06,Buenos Aires,Alianza Frente Renovador Popular,43349,0.7866
+2001,general,06,Buenos Aires,Popular de la Reconstrucción,36626,0.6646
+2001,general,06,Buenos Aires,Laborista,30634,0.5559
+2001,general,06,Buenos Aires,Movimiento Popular para la Reconquista,21030,0.3816
+2001,general,06,Buenos Aires,Movimiento Popular Bonaerense,20793,0.3773
+2001,general,06,Buenos Aires,Progreso Social,17348,0.3148
+2001,general,10,Catamarca,Alianza Frente Cívico y Social,72061,47.7428
+2001,general,10,Catamarca,Justicialista,53376,35.3633
+2001,general,10,Catamarca,Alianza Frente Unidos por Catamarca,20041,13.2778
+2001,general,10,Catamarca,Obrero,2536,1.6802
+2001,general,10,Catamarca,Humanista,1548,1.0256
+2001,general,10,Catamarca,Corriente Patria Libre,1374,0.9103
+2001,general,14,Córdoba,Justicialista,352754,26.9269
+2001,general,14,Córdoba,Unión Cívica Radical,342670,26.1571
+2001,general,14,Córdoba,Movimiento Acción Vecinal,103350,7.8890
+2001,general,14,Córdoba,Unión del Centro Democrático,93630,7.1471
+2001,general,14,Córdoba,Socialista Popular,56235,4.2926
+2001,general,14,Córdoba,Socialista Democrático,52959,4.0425
+2001,general,14,Córdoba,Movimiento de Integración y Desarrollo,51393,3.9230
+2001,general,14,Córdoba,Acción para el Cambio,35614,2.7185
+2001,general,14,Córdoba,Demócrata Cristiano,30998,2.3662
+2001,general,14,Córdoba,Acción Popular,29244,2.2323
+2001,general,14,Córdoba,Alianza Polo Social Intransigente,28849,2.2021
+2001,general,14,Córdoba,Movimiento por el Socialismo y el Trabajo,17784,1.3575
+2001,general,14,Córdoba,Ecologista,17656,1.3477
+2001,general,14,Córdoba,Nuevo Movimiento,16619,1.2686
+2001,general,14,Córdoba,Demócrata Liberal,16355,1.2484
+2001,general,14,Córdoba,Cambio Córdoba,15501,1.1832
+2001,general,14,Córdoba,Obrero,14981,1.1435
+2001,general,14,Córdoba,Acción por la República,13221,1.0092
+2001,general,14,Córdoba,De los Trabajadores Socialistas,7189,0.5488
+2001,general,14,Córdoba,Movimiento de Unidad Vecinalista,7005,0.5347
+2001,general,14,Córdoba,Frente Federal de Córdoba,5861,0.4474
+2001,general,14,Córdoba,Unión Vecinal de Córdoba,177,0.0135
+2001,general,18,Corrientes,Frente para la Unidad,174797,43.9280
+2001,general,18,Corrientes,Alianza Frente de Todos,151711,38.1263
+2001,general,18,Corrientes,Frente Cívico y Social Correntino,46202,11.6110
+2001,general,18,Corrientes,Frente Polo Social,13486,3.3891
+2001,general,18,Corrientes,Alianza Solidaridad y Esperanza,7092,1.7823
+2001,general,18,Corrientes,Comunista,4629,1.1633
+2001,general,22,Chaco,Alianza Frente de Todos,211575,48.4665
+2001,general,22,Chaco,Justicialista,151194,34.6347
+2001,general,22,Chaco,Movimiento de Bases,40197,9.2081
+2001,general,22,Chaco,Comunista,12174,2.7888
+2001,general,22,Chaco,Alianza Polo Social,7586,1.7378
+2001,general,22,Chaco,Socialista Democrático,7487,1.7151
+2001,general,22,Chaco,Nacionalista Constitucional,6326,1.4491
+2001,general,26,Chubut,Unión Cívica Radical,62683,41.4406
+2001,general,26,Chubut,Justicialista,44989,29.7428
+2001,general,26,Chubut,Acción Chubutense,22379,14.7951
+2001,general,26,Chubut,Humanista,6335,4.1882
+2001,general,26,Chubut,Frente País Solidario,4807,3.1780
+2001,general,26,Chubut,Demócrata Cristiano,4509,2.9810
+2001,general,26,Chubut,Acción por la República,2794,1.8472
+2001,general,26,Chubut,Nueva Dirigencia,2764,1.8273
+2001,general,30,Entre Ríos,Justicialista,232573,47.3132
+2001,general,30,Entre Ríos,Alianza Grande,137065,27.8837
+2001,general,30,Entre Ríos,Movimiento Social Entrerriano,40113,8.1603
+2001,general,30,Entre Ríos,Comunista,16881,3.4342
+2001,general,30,Entre Ríos,Popular de la Reconstrucción,16514,3.3595
+2001,general,30,Entre Ríos,Humanista,15149,3.0818
+2001,general,30,Entre Ríos,Confederación Frente País Solidario,15032,3.0580
+2001,general,30,Entre Ríos,Acción por la República,12688,2.5812
+2001,general,30,Entre Ríos,Unidad Federalista,5545,1.1280
+2001,general,34,Formosa,Alianza Frente de la Unidad,81190,43.1139
+2001,general,34,Formosa,Unión Cívica Radical,60722,32.2449
+2001,general,34,Formosa,Acción Nativa,20333,10.7973
+2001,general,34,Formosa,Movimiento de Integración y Desarrollo,10090,5.3580
+2001,general,34,Formosa,Acción Cívica Provincial,3182,1.6897
+2001,general,34,Formosa,"Alianza Pacto de Unidad, Fe y Esperanza",2926,1.5538
+2001,general,34,Formosa,Frente Grande,2506,1.3307
+2001,general,34,Formosa,Humanista,2483,1.3185
+2001,general,34,Formosa,Alianza Frente Polo Social,2480,1.3169
+2001,general,34,Formosa,Alianza Unidad Social,2310,1.2267
+2001,general,34,Formosa,Nuevo Frente,93,0.0494
+2001,general,38,Jujuy,Alianza Frente Cívico Jujeño,83291,40.8047
+2001,general,38,Jujuy,Alianza Frente Justicialista Popular,71804,35.1772
+2001,general,38,Jujuy,Por un Nuevo Jujuy,15871,7.7753
+2001,general,38,Jujuy,Movimiento de Renovación Cívica,12518,6.1326
+2001,general,38,Jujuy,Movimiento Socialista de los Trabajadores,7134,3.4950
+2001,general,38,Jujuy,De los Trabajadores Socialistas,5805,2.8439
+2001,general,38,Jujuy,Humanista,5127,2.5117
+2001,general,38,Jujuy,Acción por la República,2571,1.2595
+2001,general,42,La Pampa,Justicialista,73302,50.3382
+2001,general,42,La Pampa,"Alianza para el Trabajo, la Justicia y la Educación",29536,20.2831
+2001,general,42,La Pampa,Alianza Frente Alternativa para una República de Iguales,24885,17.0891
+2001,general,42,La Pampa,Socialista Popular,7374,5.0639
+2001,general,42,La Pampa,Humanista - Ecologista,4581,3.1459
+2001,general,42,La Pampa,Pueblo Unido,3246,2.2291
+2001,general,42,La Pampa,Acción por la República,2695,1.8507
+2001,general,46,La Rioja,Justicialista,69756,54.9091
+2001,general,46,La Rioja,Frente con Todos,42326,33.3173
+2001,general,46,La Rioja,Unión Cívica Radical,14957,11.7735
+2001,general,50,Mendoza,Justicialista,184070,27.9802
+2001,general,50,Mendoza,Alianza por Mendoza,131852,20.0427
+2001,general,50,Mendoza,Demócrata de Mendoza,127343,19.3572
+2001,general,50,Mendoza,Alianza Frente de Integración Social para un Cambio en Libertad,87354,13.2786
+2001,general,50,Mendoza,Intransigente,45257,6.8795
+2001,general,50,Mendoza,Demócrata Cristiano,24673,3.7505
+2001,general,50,Mendoza,Alianza Frente Polo Social,17571,2.6709
+2001,general,50,Mendoza,"Humanista, Derechos Humanos y Ecologia",17428,2.6492
+2001,general,50,Mendoza,Movimiento Socialista de los Trabajadores,14444,2.1956
+2001,general,50,Mendoza,De los Trabajadores Socialistas,7865,1.1955
+2001,general,54,Misiones,Alianza Frente para el Cambio,162496,43.8434
+2001,general,54,Misiones,"Alianza para el Trabajo, la Justicia y la Educación",150626,40.6408
+2001,general,54,Misiones,Alianza Frente de la Gente,23321,6.2923
+2001,general,54,Misiones,Movimiento de Acción Popular,21146,5.7055
+2001,general,54,Misiones,Acción por la República,6357,1.7152
+2001,general,54,Misiones,Comunista,3610,0.9740
+2001,general,54,Misiones,Humanista,3072,0.8289
+2001,general,58,Neuquén,Movimiento Popular Neuquino,61613,35.5935
+2001,general,58,Neuquén,Justicialista,39973,23.0922
+2001,general,58,Neuquén,"Alianza para el Trabajo, la Justicia y la Educación",28784,16.6283
+2001,general,58,Neuquén,Movimiento de Integración y Desarrollo,13787,7.9647
+2001,general,58,Neuquén,Alianza Frente Polo Social,10530,6.0831
+2001,general,58,Neuquén,Del Obrero,6301,3.6401
+2001,general,58,Neuquén,Humanista - Ecologista,5866,3.3888
+2001,general,58,Neuquén,De los Trabajadores Socialistas,3291,1.9012
+2001,general,58,Neuquén,Movimiento por el Socialismo y el Trabajo,2957,1.7082
+2001,general,62,Río Negro,"Alianza para el Trabajo, la Justicia y la Educación",65026,35.7168
+2001,general,62,Río Negro,Justicialista,48772,26.7890
+2001,general,62,Río Negro,Humanista,14020,7.7008
+2001,general,62,Río Negro,Provincial Rionegrino,11771,6.4655
+2001,general,62,Río Negro,Movimiento Patagónico Popular,11547,6.3424
+2001,general,62,Río Negro,Socialista Democrático,10932,6.0046
+2001,general,62,Río Negro,Comunista,7422,4.0767
+2001,general,62,Río Negro,Socialista Popular,6710,3.6856
+2001,general,62,Río Negro,Demócrata Cristiano,5860,3.2187
+2001,general,66,Salta,Justicialista,206152,53.9623
+2001,general,66,Salta,Renovador de Salta,94423,24.7161
+2001,general,66,Salta,"Alianza para el Trabajo, la Justicia y la Educación",37086,9.7076
+2001,general,66,Salta,Obrero,19600,5.1305
+2001,general,66,Salta,Humanista,9768,2.5569
+2001,general,66,Salta,Alianza Frente del Norte - Alternativa para una República de Iguales,6548,1.7140
+2001,general,66,Salta,Demócrata Cristiano,5535,1.4488
+2001,general,66,Salta,Acción por la República,2918,0.7638
+2001,general,70,San Juan,Alianza Unidos por San Juan,83006,35.9015
+2001,general,70,San Juan,Alianza por San Juan,81699,35.3362
+2001,general,70,San Juan,Desarrollo y Justicia,18183,7.8644
+2001,general,70,San Juan,Movimiento de Integración y Desarrollo,11643,5.0358
+2001,general,70,San Juan,Movimiento Democrático Independiente,10343,4.4735
+2001,general,70,San Juan,Acción por la República,9254,4.0025
+2001,general,70,San Juan,Socialista Popular,6898,2.9835
+2001,general,70,San Juan,Movimiento por el Socialismo y el Trabajo,4501,1.9468
+2001,general,70,San Juan,Humanista,2932,1.2681
+2001,general,70,San Juan,Demócrata Cristiano,2746,1.1877
+2001,general,74,San Luis,Alianza Frente Justicialista Todos por el Cambio,116637,67.6847
+2001,general,74,San Luis,Unión Cívica Radical,25228,14.6399
+2001,general,74,San Luis,Alianza Alternativa para una República de Iguales,16265,9.4386
+2001,general,74,San Luis,Alianza Frente Popular,12896,7.4836
+2001,general,74,San Luis,Acción por la República,1298,0.7532
+2001,general,78,Santa Cruz,Justicialista,52499,61.9099
+2001,general,78,Santa Cruz,"Alianza Santacruceña para el Trabajo, la Justicia y la Educación",17434,20.5592
+2001,general,78,Santa Cruz,Movimiento Federal Santacruceño,8514,10.0402
+2001,general,78,Santa Cruz,Frente Unidad Trabajadora,4500,5.3067
+2001,general,78,Santa Cruz,Humanista,1852,2.1840
+2001,general,82,Santa Fe,Alianza Frente Justicialista por Santa Fe,353573,35.9698
+2001,general,82,Santa Fe,Alianza Santafesina,245907,25.0167
+2001,general,82,Santa Fe,Socialista Auténtico,123532,12.5672
+2001,general,82,Santa Fe,Demócrata Progresista,104411,10.6220
+2001,general,82,Santa Fe,Alianza Izquierda Unida,37411,3.8059
+2001,general,82,Santa Fe,Frente de los Jubilados,25294,2.5732
+2001,general,82,Santa Fe,Obrero,20237,2.0588
+2001,general,82,Santa Fe,Acción por la República,20009,2.0356
+2001,general,82,Santa Fe,Humanista,18745,1.9070
+2001,general,82,Santa Fe,Alianza Frente Polo Social,14918,1.5176
+2001,general,82,Santa Fe,Movimiento por la Dignidad y la Independencia,8031,0.8170
+2001,general,82,Santa Fe,Autonomista,6638,0.6753
+2001,general,82,Santa Fe,De los Trabajadores Socialistas,4265,0.4339
+2001,general,86,Santiago del Estero,Alianza Frente Justicialista,170860,53.9389
+2001,general,86,Santiago del Estero,Alianza Fuerza de Unidad Popular,88349,27.8909
+2001,general,86,Santiago del Estero,Alianza Frente Unión para Cambio,24020,7.5829
+2001,general,86,Santiago del Estero,Alianza Frente Cívico para una República de Iguales,13030,4.1134
+2001,general,86,Santiago del Estero,Alianza Frente de Liberación,10464,3.3034
+2001,general,86,Santiago del Estero,Memoria y Participación,6582,2.0779
+2001,general,86,Santiago del Estero,Movimiento por el Socialismo y el Trabajo,3461,1.0926
+2001,general,90,Tucumán,Alianza Frente Fundacional Justicialista,185184,37.3760
+2001,general,90,Tucumán,Fuerza Republicana,99408,20.0637
+2001,general,90,Tucumán,Alianza Frente para Todos,77128,15.5669
+2001,general,90,Tucumán,"Alianza para el Trabajo, la Justicia y la Educación",68913,13.9088
+2001,general,90,Tucumán,Frente del Pueblo Unido,19646,3.9652
+2001,general,90,Tucumán,Humanista,12056,2.4333
+2001,general,90,Tucumán,Alianza Frente del Polo Social,11446,2.3102
+2001,general,90,Tucumán,Izquierda Unida,11250,2.2706
+2001,general,90,Tucumán,Frente Unidad Trabajadora,6437,1.2992
+2001,general,90,Tucumán,Acción por la República,3994,0.8061
+2001,general,94,Tierra del Fuego,Justicialista,9456,26.4474
+2001,general,94,Tierra del Fuego,Unión Cívica Radical,7334,20.5124
+2001,general,94,Tierra del Fuego,Federal Fueguino,6330,17.7043
+2001,general,94,Tierra del Fuego,Unión del Centro Democrático,2967,8.2984
+2001,general,94,Tierra del Fuego,Movimiento Popular Fueguino,2757,7.7110
+2001,general,94,Tierra del Fuego,Alianza Alternativa para una República de Iguales,2665,7.4537
+2001,general,94,Tierra del Fuego,Acción por la República,1592,4.4526
+2001,general,94,Tierra del Fuego,Polo Social,1316,3.6807
+2001,general,94,Tierra del Fuego,Alianza Frente de la Gente,716,2.0026
+2001,general,94,Tierra del Fuego,Unidad Federalista,621,1.7369
+2003,general,10,Catamarca,Alianza Frente Cívico y Social,64703,53.9556
+2003,general,10,Catamarca,Justicialista,29407,24.5224
+2003,general,10,Catamarca,Alianza Frente de la Gente,17564,14.6466
+2003,general,10,Catamarca,Obrero,2233,1.8621
+2003,general,10,Catamarca,Frente de los Jubilados,1773,1.4785
+2003,general,10,Catamarca,Comunista,1720,1.4343
+2003,general,10,Catamarca,Alianza Frente Unidos por Catamarca,860,0.7172
+2003,general,10,Catamarca,Humanista,827,0.6896
+2003,general,10,Catamarca,Unificación Populista,419,0.3494
+2003,general,10,Catamarca,Movimiento Patriótico de Liberación,413,0.3444
+2003,general,14,Córdoba,Alianza Unión por Córdoba,450793,36.9094
+2003,general,14,Córdoba,Alianza Frente Nuevo,348079,28.4996
+2003,general,14,Córdoba,Unión Cívica Radical,237457,19.4422
+2003,general,14,Córdoba,Alianza Recrear - Córdoba en Acción,37465,3.0675
+2003,general,14,Córdoba,Alianza Izquierda Unida,33304,2.7268
+2003,general,14,Córdoba,Afirmación para una República Igualitaria,24185,1.9802
+2003,general,14,Córdoba,Unión del Centro Democrático,15459,1.2657
+2003,general,14,Córdoba,Socialista Popular,12590,1.0308
+2003,general,14,Córdoba,Socialista Democrático,11797,0.9659
+2003,general,14,Córdoba,Primero La Gente,10447,0.8554
+2003,general,14,Córdoba,Nuevo de Acción Solidaria,9975,0.8167
+2003,general,14,Córdoba,Humanista,9092,0.7444
+2003,general,14,Córdoba,Movimiento de Acción Vecinal,9002,0.7371
+2003,general,14,Córdoba,Intransigente,5335,0.4368
+2003,general,14,Córdoba,De los Trabajadores Socialistas,4799,0.3929
+2003,general,14,Córdoba,Movimiento Patriótico,1317,0.1078
+2003,general,14,Córdoba,Obrero,253,0.0207
+2003,general,18,Corrientes,Alianza Frente de Todos,125147,35.0871
+2003,general,18,Corrientes,Nuevo,102776,28.8150
+2003,general,18,Corrientes,Liberal,33972,9.5246
+2003,general,18,Corrientes,Alianza Frente Proyecto Corrientes,31278,8.7693
+2003,general,18,Corrientes,Demócrata Progresista,20777,5.8252
+2003,general,18,Corrientes,Conservador Popular,17152,4.8089
+2003,general,18,Corrientes,Popular,9275,2.6004
+2003,general,18,Corrientes,Demócrata Cristiano,6330,1.7747
+2003,general,18,Corrientes,Comunista,5669,1.5894
+2003,general,18,Corrientes,Afirmación para una República Igualitaria,4299,1.2053
+2003,general,26,Chubut,Justicialista,79808,47.4683
+2003,general,26,Chubut,Unión Cívica Radical,63580,37.8162
+2003,general,26,Chubut,Acción Chubutense,12519,7.4461
+2003,general,26,Chubut,Alianza Corriente Chubutense,5442,3.2368
+2003,general,26,Chubut,Humanista,2074,1.2336
+2003,general,26,Chubut,Polo Social,1925,1.1450
+2003,general,26,Chubut,Comunista,1527,0.9082
+2003,general,26,Chubut,Socialista Auténtico del Chubut,1254,0.7459
+2003,general,42,La Pampa,Justicialista,77748,50.0528
+2003,general,42,La Pampa,Alianza Frente Alternativa Pampeana,40986,26.3861
+2003,general,42,La Pampa,Alianza Frente para la Victoria - Afirmacion por una República Igualitaria - Movimiento de Integración y Desarrollo - Acción Desarrollista,27710,17.8392
+2003,general,42,La Pampa,Humanista,2819,1.8148
+2003,general,42,La Pampa,Pueblo Nuevo,2747,1.7685
+2003,general,42,La Pampa,Alianza Movimiento Unidad Popular,1964,1.2644
+2003,general,42,La Pampa,Popular de la Reconstrucción,1358,0.8743
+2003,general,50,Mendoza,Alianza Frente Justicialista Compromiso por Mendoza,261277,35.0169
+2003,general,50,Mendoza,Unión Cívica Radical,212560,28.4877
+2003,general,50,Mendoza,Demócrata de Mendoza,73073,9.7934
+2003,general,50,Mendoza,Federal,53275,7.1400
+2003,general,50,Mendoza,Afirmación para una República Igualitaria,40701,5.4548
+2003,general,50,Mendoza,Recrear para el Crecimiento,37085,4.9702
+2003,general,50,Mendoza,Blanco,13545,1.8153
+2003,general,50,Mendoza,Unión y Libertad,12003,1.6087
+2003,general,50,Mendoza,Alianza Frente Amplio del Trabajo y la Producción,8437,1.1307
+2003,general,50,Mendoza,De la Victoria,6705,0.8986
+2003,general,50,Mendoza,Obrero,5754,0.7712
+2003,general,50,Mendoza,Polo Social,5187,0.6952
+2003,general,50,Mendoza,Humanista,4582,0.6141
+2003,general,50,Mendoza,Movimiento por el Socialismo y el Trabajo,4261,0.5711
+2003,general,50,Mendoza,Popular de la Reconstrucción,4021,0.5389
+2003,general,50,Mendoza,Del Trabajador por el Socialismo,3680,0.4932
+2003,general,82,Santa Fe,Justicialista,780708,56.7330
+2003,general,82,Santa Fe,Socialista,405829,29.4911
+2003,general,82,Santa Fe,Afirmacion para una República Igualitaria,108658,7.8960
+2003,general,82,Santa Fe,Alianza Movimiento Federal para Recrear El Crecimiento,41004,2.9797
+2003,general,82,Santa Fe,Alianza Izquierda Unida,10237,0.7439
+2003,general,82,Santa Fe,Humanista,6087,0.4423
+2003,general,82,Santa Fe,Obrero,5101,0.3707
+2003,general,82,Santa Fe,Frente de los Jubilados,4550,0.3306
+2003,general,82,Santa Fe,Movimiento por la Dignidad y la Independencia,3719,0.2703
+2003,general,82,Santa Fe,De los Trabajadores Socialistas,3292,0.2392
+2003,general,82,Santa Fe,De Participación Popular,3053,0.2219
+2003,general,82,Santa Fe,Autonomista,2568,0.1866
+2003,general,82,Santa Fe,Alianza Circulo de Integración Republicana,1302,0.0946
+2003,general,90,Tucumán,Fuerza Republicana,142422,33.7912
+2003,general,90,Tucumán,Alianza Frente Fundacional para el Cambio,82388,19.5474
+2003,general,90,Tucumán,Alianza Frente Cívico,64528,15.3100
+2003,general,90,Tucumán,Alianza Frente Unión por Tucumán,39728,9.4259
+2003,general,90,Tucumán,Laborista de Tucumán,29451,6.9876
+2003,general,90,Tucumán,Renovación Democrática,21233,5.0378
+2003,general,90,Tucumán,Alianza Encuentro Popular Progresista,17460,4.1426
+2003,general,90,Tucumán,Humanista,9094,2.1577
+2003,general,90,Tucumán,Obrero,7562,1.7942
+2003,general,90,Tucumán,Izquierda Unida,6098,1.4468
+2003,general,90,Tucumán,Defensa Provincial Bandera Blanca,1513,0.3590
+2005,general,06,Buenos Aires,Alianza Frente para la Victoria,3056572,45.7743
+2005,general,06,Buenos Aires,Alianza Frente Justicialista,1364527,20.4348
+2005,general,06,Buenos Aires,Afirmación para una República Igualitaria,566332,8.4812
+2005,general,06,Buenos Aires,Unión Cívica Radical,514884,7.7107
+2005,general,06,Buenos Aires,Alianza Propuesta Republicana,509756,7.6340
+2005,general,06,Buenos Aires,Alianza Confederación Vecinal,137634,2.0612
+2005,general,06,Buenos Aires,Humanista,110966,1.6618
+2005,general,06,Buenos Aires,Obrero,96500,1.4452
+2005,general,06,Buenos Aires,Movimiento Socialista de los Trabajadores,91296,1.3672
+2005,general,06,Buenos Aires,Alianza Encuentro Amplio,80098,1.1995
+2005,general,06,Buenos Aires,Alianza Movimiento al Socialismo - De los Trabajadores Socialistas,40037,0.5996
+2005,general,06,Buenos Aires,Popular de la Reconstrucción,27820,0.4166
+2005,general,06,Buenos Aires,Convergencia Socialista,21860,0.3274
+2005,general,06,Buenos Aires,Alianza Frente Popular,20418,0.3058
+2005,general,06,Buenos Aires,Movimiento Independiente de Jubilados y Desocupados,18595,0.2785
+2005,general,06,Buenos Aires,Alianza Frente Popular Auténtico,11445,0.1714
+2005,general,06,Buenos Aires,Para la Acción Solidaria Independiente Bonaerense,8743,0.1309
+2005,general,34,Formosa,Alianza Frente para la Victoria,122117,59.8053
+2005,general,34,Formosa,Unión Cívica Radical,57478,28.1491
+2005,general,34,Formosa,Alianza Frente para la Nueva Mayoría,12587,6.1643
+2005,general,34,Formosa,Veinticinco de Mayo,4932,2.4154
+2005,general,34,Formosa,De la Victoria,2847,1.3943
+2005,general,34,Formosa,Afirmación para una República Igualitaria,2138,1.0471
+2005,general,34,Formosa,Movimiento de Integración y Desarrollo,2092,1.0245
+2005,general,38,Jujuy,Alianza Frente para la Victoria,119826,47.2720
+2005,general,38,Jujuy,Alianza Frente Jujeño,78927,31.1371
+2005,general,38,Jujuy,Alianza Unión por Jujuy,23016,9.0799
+2005,general,38,Jujuy,Libertad y Democracia Responsable,10854,4.2820
+2005,general,38,Jujuy,Humanista,4574,1.8045
+2005,general,38,Jujuy,Obrero,4551,1.7954
+2005,general,38,Jujuy,Movimiento Socialista de los Trabajadores,3803,1.5003
+2005,general,38,Jujuy,Comunista,2882,1.1370
+2005,general,38,Jujuy,De los Trabajadores Socialistas,2582,1.0186
+2005,general,38,Jujuy,Nueva Dirigencia,2467,0.9732
+2005,general,46,La Rioja,De la Victoria,75704,51.1234
+2005,general,46,La Rioja,Justicialista,59856,40.4211
+2005,general,46,La Rioja,Unión Cívica Radical,8023,5.4180
+2005,general,46,La Rioja,Alianza Izquierda Unida,3724,2.5148
+2005,general,46,La Rioja,Humanista,774,0.5227
+2005,general,54,Misiones,Alianza Frente Renovador de la Concordia,188488,45.6492
+2005,general,54,Misiones,Alianza Frente Justicialista para la Victoria,114851,27.8154
+2005,general,54,Misiones,Alianza Frente Cívico Radical Intransigente,46172,11.1822
+2005,general,54,Misiones,Movimiento Acción Popular,29785,7.2135
+2005,general,54,Misiones,Socialista,7422,1.7975
+2005,general,54,Misiones,Movimiento de Integración y Desarrollo,6522,1.5795
+2005,general,54,Misiones,Frente Grande,6459,1.5643
+2005,general,54,Misiones,Alianza Frente Unidad para el Cambio,5877,1.4233
+2005,general,54,Misiones,Afirmación para una República Igualitaria,4185,1.0136
+2005,general,54,Misiones,Comunista,3144,0.7614
+2005,general,70,San Juan,Alianza Frente para la Victoria,140139,50.0486
+2005,general,70,San Juan,Alianza Frente Producción y Trabajo,73093,26.1041
+2005,general,70,San Juan,Alianza Unidad Bloquista,22243,7.9438
+2005,general,70,San Juan,Alianza Frente Opositor para la Unidad,21322,7.6148
+2005,general,70,San Juan,Dignidad Ciudadana,8637,3.0846
+2005,general,70,San Juan,Unión Cívica Radical,6205,2.2160
+2005,general,70,San Juan,Alianza Izquierda Unida,3835,1.3696
+2005,general,70,San Juan,Afirmación para una República Igualitaria,2608,0.9314
+2005,general,70,San Juan,Unión y Libertad,1924,0.6871
+2005,general,74,San Luis,Alianza Frente Justicialista,113738,62.9033
+2005,general,74,San Luis,Alianza Frente para la Victoria,30807,17.0380
+2005,general,74,San Luis,"Alianza Frente Radical, Democrático, Cívico y Social",11918,6.5913
+2005,general,74,San Luis,Alianza Frente de la Victoria Sanluiseña,7276,4.0240
+2005,general,74,San Luis,Movimiento de Integración y Desarrollo,5582,3.0872
+2005,general,74,San Luis,Alianza Unidad Popular,3191,1.7648
+2005,general,74,San Luis,Libre en Movimiento,2706,1.4966
+2005,general,74,San Luis,Socialista,2568,1.4202
+2005,general,74,San Luis,Nueva Generación,2362,1.3063
+2005,general,74,San Luis,Movimiento por la Dignidad y la Independencia,666,0.3683
+2005,general,78,Santa Cruz,Alianza Frente para la Victoria,57940,57.9574
+2005,general,78,Santa Cruz,Unión Cívica Radical,27505,27.5133
+2005,general,78,Santa Cruz,Frente de Unidad Trabajadora,7369,7.3712
+2005,general,78,Santa Cruz,Socialista,7156,7.1581
+2007,general,02,CABA,Alianza Coalición Cívica,530304,28.8403
+2007,general,02,CABA,Alianza Frente para la Victoria,407601,22.1671
+2007,general,02,CABA,Alianza Propuesta Republicana,248881,13.5352
+2007,general,02,CABA,Alianza Proyecto Sur,126859,6.8992
+2007,general,02,CABA,Unión Cívica Radical,121331,6.5985
+2007,general,02,CABA,Demócrata Progresista,78547,4.2717
+2007,general,02,CABA,Alianza Concertación para una Nación Avanzada,69119,3.7590
+2007,general,02,CABA,"Alianza Frente Justicia, Unión y Libertad",47570,2.5871
+2007,general,02,CABA,Consenso Porteño,45464,2.4725
+2007,general,02,CABA,Unión del Centro Democrático,41274,2.2447
+2007,general,02,CABA,Movimiento Socialista de los Trabajadores,32323,1.7579
+2007,general,02,CABA,Autonomista,26308,1.4307
+2007,general,02,CABA,Obrero,11437,0.6220
+2007,general,02,CABA,Alianza Frente Partido de los Trabajadores Socialistas - Movimiento al Socialismo - Izquierda Socialista,7472,0.4064
+2007,general,02,CABA,Alianza El Movimiento de las Provincias Unidas,5769,0.3137
+2007,general,02,CABA,Alianza Frente Amplio Hacia La Unidad Latinoamericana,5129,0.2789
+2007,general,02,CABA,Liga Socialista Revolucionaria,4538,0.2468
+2007,general,02,CABA,Demócrata Cristiano,4411,0.2399
+2007,general,02,CABA,Popular de la Reconstrucción,3886,0.2113
+2007,general,02,CABA,Unión Popular,3852,0.2095
+2007,general,02,CABA,Movimiento Independiente de Jubilados y Desocupados,3721,0.2024
+2007,general,02,CABA,Convergencia Socialista,3413,0.1856
+2007,general,02,CABA,Movimiento por la Dignidad y la Independencia,2673,0.1454
+2007,general,02,CABA,Acción Ciudadana,2668,0.1451
+2007,general,02,CABA,Asambleas Populares,2537,0.1380
+2007,general,02,CABA,Fuerza Independiente de Centro,867,0.0472
+2007,general,02,CABA,Convocatoria de Integración Ciudadana,653,0.0355
+2007,general,02,CABA,El Movimiento,155,0.0084
+2007,general,22,Chaco,Alianza Frente Justicialista Chaco Merece Más,229186,47.7540
+2007,general,22,Chaco,Alianza Frente de Todos,147491,30.7318
+2007,general,22,Chaco,Afirmación para una República Igualitaria,78075,16.2680
+2007,general,22,Chaco,Lealtad Popular,15310,3.1900
+2007,general,22,Chaco,Alianza Frente Soberanía Popular,3589,0.7478
+2007,general,22,Chaco,Obrero,2401,0.5003
+2007,general,22,Chaco,Nueva Generación,2057,0.4286
+2007,general,22,Chaco,Movimiento Independiente de Jubilados y Desocupados,1821,0.3794
+2007,general,30,Entre Ríos,Alianza Frente Justicialista para la Victoria,294176,47.0776
+2007,general,30,Entre Ríos,Unión Cívica Radical,114499,18.3235
+2007,general,30,Entre Ríos,Socialista,113762,18.2056
+2007,general,30,Entre Ríos,Alianza Viva Entre Ríos,59557,9.5310
+2007,general,30,Entre Ríos,Recrear para el Crecimiento,11503,1.8408
+2007,general,30,Entre Ríos,Encuentro Amplio Entreriano,7615,1.2186
+2007,general,30,Entre Ríos,Popular de la Reconstrucción,6765,1.0826
+2007,general,30,Entre Ríos,Alianza Frente Amplio Hacia La Unidad Latinoamericana,5223,0.8358
+2007,general,30,Entre Ríos,Movimiento Socialista de los Trabajadores,4849,0.7760
+2007,general,30,Entre Ríos,Demócrata Cristiano,3594,0.5752
+2007,general,30,Entre Ríos,Política Abierta para la Integridad Social,2733,0.4374
+2007,general,30,Entre Ríos,Acción por la República,599,0.0959
+2007,general,58,Neuquén,Alianza Frente para la Victoria,72911,36.9525
+2007,general,58,Neuquén,Movimiento Popular Neuquino,51451,26.0762
+2007,general,58,Neuquén,Alianza Afirmación para una República Igualitaria - Socialista,43671,22.1332
+2007,general,58,Neuquén,Movimiento de Integración y Desarrollo,16742,8.4851
+2007,general,58,Neuquén,Recrear para el Crecimiento,3891,1.9720
+2007,general,58,Neuquén,Del Obrero,3130,1.5863
+2007,general,58,Neuquén,Nueva Izquierda,2257,1.1439
+2007,general,58,Neuquén,De los Trabajadores Socialistas,1894,0.9599
+2007,general,58,Neuquén,Frente Amplio Hacia La Unidad Latinoamericana,1360,0.6893
+2007,general,58,Neuquén,Popular,3,0.0015
+2007,general,62,Río Negro,Alianza Frente para la Victoria,83892,34.0548
+2007,general,62,Río Negro,Alianza Concertación para el Desarrollo,81200,32.9620
+2007,general,62,Río Negro,Afirmación para una República Igualitaria,28603,11.6110
+2007,general,62,Río Negro,Alianza Concertación para una Nación Avanzada,23949,9.7218
+2007,general,62,Río Negro,Socialista,15298,6.2100
+2007,general,62,Río Negro,El Movimiento de las Provincias Unidas,7433,3.0173
+2007,general,62,Río Negro,Obrero,3497,1.4196
+2007,general,62,Río Negro,Alianza Frente Amplio Hacia La Unidad Latinoamericana,2472,1.0035
+2007,general,66,Salta,Alianza Frente Justicialista para la Victoria,224696,47.0201
+2007,general,66,Salta,Alianza Frente para la Victoria - Renovador de Salta,190539,39.8724
+2007,general,66,Salta,Propuesta Salteña,13353,2.7943
+2007,general,66,Salta,Alianza Concertación para una Nación Avanzada,13171,2.7562
+2007,general,66,Salta,Obrero,12464,2.6082
+2007,general,66,Salta,Alianza Coalición Cívica Salta,7401,1.5487
+2007,general,66,Salta,Demócrata Cristiano,5207,1.0896
+2007,general,66,Salta,Movimiento Futura República,2267,0.4744
+2007,general,66,Salta,Alianza Encuentro Popular Amplio,1782,0.3729
+2007,general,66,Salta,Recrear para el Crecimiento,1653,0.3459
+2007,general,66,Salta,Movimiento Popular Salteño,1518,0.3177
+2007,general,66,Salta,Movimiento Socialista de los Trabajadores,1453,0.3041
+2007,general,66,Salta,Humanista,998,0.2088
+2007,general,66,Salta,El Movimiento de las Provincias Unidas,990,0.2072
+2007,general,66,Salta,Movimiento Independiente de Jubilados y Desocupados,380,0.0795
+2007,general,86,Santiago del Estero,Alianza Frente Cívico por Santiago,179136,53.2588
+2007,general,86,Santiago del Estero,Movimiento Santiago Viable,35459,10.5423
+2007,general,86,Santiago del Estero,Una Nueva Opción,33041,9.8234
+2007,general,86,Santiago del Estero,Alianza Frente para la Victoria,19977,5.9393
+2007,general,86,Santiago del Estero,Alianza Frente Justicialista para la Victoria,16213,4.8203
+2007,general,86,Santiago del Estero,De la Corriente Renovadora,13564,4.0327
+2007,general,86,Santiago del Estero,Demócrata Cristiano,9327,2.7730
+2007,general,86,Santiago del Estero,Socialista,7815,2.3235
+2007,general,86,Santiago del Estero,Movimiento de Integración y Desarrollo,6131,1.8228
+2007,general,86,Santiago del Estero,Alianza Propuesta Republicana,4825,1.4345
+2007,general,86,Santiago del Estero,"Alianza Frente Justicia, Unión y Libertad",3398,1.0103
+2007,general,86,Santiago del Estero,Movimiento Socialista de los Trabajadores,2894,0.8604
+2007,general,86,Santiago del Estero,El Movimiento de las Provincias Unidas,1668,0.4959
+2007,general,86,Santiago del Estero,Obrero,1551,0.4611
+2007,general,86,Santiago del Estero,Comunista,770,0.2289
+2007,general,86,Santiago del Estero,Movimiento Independiente de Jubilados y Desocupados,581,0.1727
+2007,general,94,Tierra del Fuego,Afirmación para una República Igualitaria,9017,17.7169
+2007,general,94,Tierra del Fuego,Unidad Federalista,7550,14.8345
+2007,general,94,Tierra del Fuego,Alianza Frente para la Victoria,6440,12.6535
+2007,general,94,Tierra del Fuego,Compromiso K,5158,10.1346
+2007,general,94,Tierra del Fuego,Compromiso para el Cambio,4802,9.4351
+2007,general,94,Tierra del Fuego,Demócrata Cristiano,4423,8.6904
+2007,general,94,Tierra del Fuego,Unión Cívica Radical,3918,7.6982
+2007,general,94,Tierra del Fuego,Socialista,2556,5.0221
+2007,general,94,Tierra del Fuego,Frente de Acción Fueguino,1935,3.8019
+2007,general,94,Tierra del Fuego,Movimiento Popular Fueguino,1585,3.1143
+2007,general,94,Tierra del Fuego,Unión y Libertad,1455,2.8588
+2007,general,94,Tierra del Fuego,Auténtico Fueguino,1344,2.6407
+2007,general,94,Tierra del Fuego,Humanista,712,1.3990
+2009,general,10,Catamarca,Alianza Frente Cívico y Social,58917,38.9725
+2009,general,10,Catamarca,Alianza Frente Justicialista para la Victoria,50650,33.5040
+2009,general,10,Catamarca,Alianza Frente Movimiento Acción Popular,27125,17.9427
+2009,general,10,Catamarca,Obrero,7468,4.9399
+2009,general,10,Catamarca,Alianza Frente Catamarca Federal,4447,2.9416
+2009,general,10,Catamarca,Autonomista,2569,1.6993
+2009,general,14,Córdoba,Alianza Frente Cívico,512306,30.6482
+2009,general,14,Córdoba,Unión Cívica Radical,445848,26.6725
+2009,general,14,Córdoba,Alianza Unión por Córdoba - Compromiso Federal,436940,26.1395
+2009,general,14,Córdoba,Alianza Frente para la Victoria por la Equidad y la Justicia Social,146163,8.7441
+2009,general,14,Córdoba,"Alianza Frente de Izquierda y los Trabajadores, Anticapitalista y Socialista",33430,1.9999
+2009,general,14,Córdoba,Encuentro por Córdoba,20329,1.2162
+2009,general,14,Córdoba,Alianza Frente Es Posible,18597,1.1125
+2009,general,14,Córdoba,Obrero,16191,0.9686
+2009,general,14,Córdoba,Movimiento Socialista de los Trabajadores,13224,0.7911
+2009,general,14,Córdoba,Movimiento de Integración y Desarrollo,7613,0.4554
+2009,general,14,Córdoba,Demócrata,7490,0.4481
+2009,general,14,Córdoba,Movimiento de Unidad Popular,7479,0.4474
+2009,general,14,Córdoba,Concentracion Popular,5957,0.3564
+2009,general,18,Corrientes,Alianza Frente de Todos,152854,34.8682
+2009,general,18,Corrientes,Alianza Encuentro por Corrientes - Acuerdo Cívico y Social,146810,33.4895
+2009,general,18,Corrientes,Alianza Frente Correntinos por el Cambio,110857,25.2881
+2009,general,18,Corrientes,Autonomista,27855,6.3541
+2009,general,26,Chubut,Alianza Frente por la Integración,133758,55.9755
+2009,general,26,Chubut,Unión Cívica Radical,42476,17.7755
+2009,general,26,Chubut,Acción Chubutense,19494,8.1579
+2009,general,26,Chubut,Afirmación para una República Igualitaria,16625,6.9573
+2009,general,26,Chubut,Alianza Frente Cívico Popular,11459,4.7954
+2009,general,26,Chubut,Movimiento Socialista de los Trabajadores,7631,3.1934
+2009,general,26,Chubut,Socialista Auténtico del Chubut,7515,3.1449
+2009,general,42,La Pampa,Justicialista,69616,38.7100
+2009,general,42,La Pampa,Alianza Frente Pampeano Cívico y Social,62550,34.7809
+2009,general,42,La Pampa,Pueblo Nuevo,23840,13.2562
+2009,general,42,La Pampa,Alianza Frente Es Posible,11723,6.5186
+2009,general,42,La Pampa,Alianza Frente Amplio,5546,3.0839
+2009,general,42,La Pampa,Pueblo Unido,3494,1.9428
+2009,general,42,La Pampa,Movimiento Federalista Pampeano,3071,1.7076
+2009,general,50,Mendoza,Alianza Frente Cívico Federal - Unión Cívica Radical - Consenso Federal,422524,48.7880
+2009,general,50,Mendoza,Alianza Frente para la Victoria,235962,27.2461
+2009,general,50,Mendoza,Alianza Frente Demócrata - Unión PRO,122907,14.1918
+2009,general,50,Mendoza,Socialista,15583,1.7993
+2009,general,50,Mendoza,Alianza Frente Unidad para el Cambio,14262,1.6468
+2009,general,50,Mendoza,La Coalición,13303,1.5361
+2009,general,50,Mendoza,Obrero,9372,1.0822
+2009,general,50,Mendoza,Mendoza Merece Más,7201,0.8315
+2009,general,50,Mendoza,Es Posible,6801,0.7853
+2009,general,50,Mendoza,De los Trabajadores Socialistas,6340,0.7321
+2009,general,50,Mendoza,Movimiento Socialista de los Trabajadores,6282,0.7254
+2009,general,50,Mendoza,Juntos por Mendoza,5504,0.6355
+2009,general,82,Santa Fe,Alianza Santa Fe Federal,724066,42.3367
+2009,general,82,Santa Fe,Alianza Frente Progresista Cívico y Social,693766,40.5651
+2009,general,82,Santa Fe,Alianza Frente para la Victoria,132935,7.7728
+2009,general,82,Santa Fe,Socialista Auténtico,43230,2.5277
+2009,general,82,Santa Fe,Política Abierta para la Integridad Social,22489,1.3150
+2009,general,82,Santa Fe,Del Campo Popular,18060,1.0560
+2009,general,82,Santa Fe,Obrero,16727,0.9780
+2009,general,82,Santa Fe,Frente de los Jubilados,11904,0.6960
+2009,general,82,Santa Fe,Nacionalista Constitucional - Unir,9347,0.5465
+2009,general,82,Santa Fe,Movimiento por la Dignidad y la Independencia,9248,0.5407
+2009,general,82,Santa Fe,Movimiento Socialista de los Trabajadores,8957,0.5237
+2009,general,82,Santa Fe,De los Trabajadores Socialistas,8589,0.5022
+2009,general,82,Santa Fe,Movimiento Independiente Renovador,6109,0.3572
+2009,general,82,Santa Fe,Autonomista,4828,0.2823
+2009,general,90,Tucumán,Alianza Frente para la Victoria,382168,52.2461
+2009,general,90,Tucumán,Alianza Frente Acuerdo Cívico y Social,116437,15.9181
+2009,general,90,Tucumán,Alianza Frente Unión PRO - Federal,71846,9.8220
+2009,general,90,Tucumán,Fuerza Republicana,58300,7.9702
+2009,general,90,Tucumán,Laborista de Tucumán,24646,3.3693
+2009,general,90,Tucumán,Frente del Pueblo Unido,18865,2.5790
+2009,general,90,Tucumán,Alianza con Conciencia Voluntad Solidaria,18109,2.4757
+2009,general,90,Tucumán,Movimiento Libres del Sur,13111,1.7924
+2009,general,90,Tucumán,Obrero,9925,1.3568
+2009,general,90,Tucumán,Izquierda Unida,5386,0.7363
+2009,general,90,Tucumán,Humanista,4807,0.6572
+2009,general,90,Tucumán,De la Independencia,2792,0.3817
+2009,general,90,Tucumán,De los Trabajadores Socialistas,2593,0.3545
+2009,general,90,Tucumán,Federal,2492,0.3407
+2011,general,06,Buenos Aires,Alianza Frente para la Victoria,4639554,56.7845
+2011,general,06,Buenos Aires,Alianza Frente Amplio Progresista,1092503,13.3714
+2011,general,06,Buenos Aires,Alianza Unión para el Desarrollo Social,880892,10.7814
+2011,general,06,Buenos Aires,Alianza Frente Popular,603236,7.3831
+2011,general,06,Buenos Aires,Alianza Compromiso Federal,484318,5.9277
+2011,general,06,Buenos Aires,Alianza Frente de Izquierda y de los Trabajadores,278617,3.4101
+2011,general,06,Buenos Aires,Coalición Cívica - Afirmación para una República Igualitaria ARI,191336,2.3418
+2011,general,34,Formosa,Alianza Frente para la Victoria,179985,78.3859
+2011,general,34,Formosa,Unión Cívica Radical,46732,20.3524
+2011,general,34,Formosa,Fortaleza,1456,0.6341
+2011,general,34,Formosa,Acuerdo Republicano Federal,1441,0.6276
+2011,general,38,Jujuy,Alianza Frente para la Victoria,157364,53.4294
+2011,general,38,Jujuy,Alianza Unión para el Desarrollo Social,85825,29.1399
+2011,general,38,Jujuy,Alianza Frente Primero Jujuy,24127,8.1918
+2011,general,38,Jujuy,Alianza Frente Amplio Progresista,11419,3.8771
+2011,general,38,Jujuy,Alianza Frente de Izquierda y de los Trabajadores,6872,2.3332
+2011,general,38,Jujuy,Es Posible,5681,1.9289
+2011,general,38,Jujuy,Unión Popular,3239,1.0997
+2011,general,46,La Rioja,Alianza Frente Popular Riojano,56409,35.4154
+2011,general,46,La Rioja,Alianza Frente para la Victoria Riojana,53865,33.8182
+2011,general,46,La Rioja,Unión Cívica Radical,37477,23.5293
+2011,general,46,La Rioja,PRO-Propuesta Republicana,11527,7.2370
+2011,general,54,Misiones,Alianza Frente Renovador de la Concordia,256137,49.7835
+2011,general,54,Misiones,Alianza Frente para la Victoria,98769,19.1970
+2011,general,54,Misiones,Unión Cívica Radical,75600,14.6938
+2011,general,54,Misiones,Alianza Frente Popular Unión PRO,43496,8.4540
+2011,general,54,Misiones,Partido Socialista,25958,5.0453
+2011,general,54,Misiones,Alianza Frente Compromiso Federal,14542,2.8264
+2011,general,70,San Juan,Alianza Frente para la Victoria,214776,66.8387
+2011,general,70,San Juan,Alianza Compromiso Federal,60238,18.7462
+2011,general,70,San Juan,Unión Cívica Radical,22450,6.9865
+2011,general,70,San Juan,Cruzada Renovadora,10873,3.3837
+2011,general,70,San Juan,Partido Dignidad Ciudadana,7450,2.3185
+2011,general,70,San Juan,Alianza Frente Popular,5548,1.7265
+2011,general,74,San Luis,Alianza Compromiso Federal,127642,60.6987
+2011,general,74,San Luis,Alianza Frente para la Victoria,60516,28.7777
+2011,general,74,San Luis,Unión Cívica Radical,22130,10.5237
+2011,general,78,Santa Cruz,Alianza Frente para la Victoria,78281,65.8299
+2011,general,78,Santa Cruz,Unión Cívica Radical,27153,22.8341
+2011,general,78,Santa Cruz,Coalición Cívica - Afirmación para una República Igualitaria ARI,4697,3.9499
+2011,general,78,Santa Cruz,Partido Socialista,3606,3.0324
+2011,general,78,Santa Cruz,Partido Obrero,3026,2.5447
+2011,general,78,Santa Cruz,Alianza Frente Encuentro Sur,2151,1.8089
+2013,general,02,CABA,Unión PRO,722831,39.2612
+2013,general,02,CABA,UNEN,509446,27.6710
+2013,general,02,CABA,Frente para la Victoria,428289,23.2629
+2013,general,02,CABA,Frente de Izquierda y de los Trabajadores,86141,4.6788
+2013,general,02,CABA,Camino Popular,47189,2.5631
+2013,general,02,CABA,Autodeterminación y Libertad,47188,2.5631
+2013,general,22,Chaco,Frente para la Victoria,366184,60.6180
+2013,general,22,Chaco,Unión por Chaco,211023,34.9327
+2013,general,22,Chaco,Partido Obrero,26878,4.4494
+2013,general,30,Entre Ríos,Frente para la Victoria,362664,46.2477
+2013,general,30,Entre Ríos,Alianza Unión por Entre Ríos,201562,25.7036
+2013,general,30,Entre Ríos,Unión Cívica Radical,155426,19.8202
+2013,general,30,Entre Ríos,Alianza Frente Amplio Progresista,41903,5.3436
+2013,general,30,Entre Ríos,Nueva Izquierda,22623,2.8849
+2013,general,58,Neuquén,Movimiento Popular Neuquino,141066,41.9184
+2013,general,58,Neuquén,Frente para la Victoria,69517,20.6573
+2013,general,58,Neuquén,Compromiso Cívico Neuquino,39116,11.6235
+2013,general,58,Neuquén,Frente de Izquierda y de los Trabajadores,32282,9.5927
+2013,general,58,Neuquén,Movimiento Libres del Sur,17066,5.0712
+2013,general,58,Neuquén,Unión Popular,15929,4.7334
+2013,general,58,Neuquén,Unión de los Neuquinos,11318,3.3632
+2013,general,58,Neuquén,Frente Progresista Sur,10231,3.0402
+2013,general,62,Río Negro,Frente para la Victoria,172511,49.9242
+2013,general,62,Río Negro,Alianza Frente Progresista,90864,26.2958
+2013,general,62,Río Negro,Unión Cívica Radical,54961,15.9056
+2013,general,62,Río Negro,Partido Obrero,27210,7.8745
+2013,general,66,Salta,Frente para la Victoria,184747,29.3580
+2013,general,66,Salta,Frente Popular Salteño,154619,24.5703
+2013,general,66,Salta,Salta Somos Todos,142468,22.6394
+2013,general,66,Salta,Partido Obrero,105581,16.7778
+2013,general,66,Salta,Partido Renovador de Salta,41876,6.6545
+2013,general,86,Santiago del Estero,Frente Cívico por Santiago,225828,48.0026
+2013,general,86,Santiago del Estero,Frente Popular,136481,29.0107
+2013,general,86,Santiago del Estero,Frente Progresista Cívico y Social,66031,14.0357
+2013,general,86,Santiago del Estero,Frente para la Victoria,21576,4.5862
+2013,general,86,Santiago del Estero,Izquierda por una Opción Socialista,12485,2.6538
+2013,general,86,Santiago del Estero,Partido Fe,8049,1.7109
+2013,general,94,Tierra del Fuego,Frente para la Victoria,24071,34.4339
+2013,general,94,Tierra del Fuego,Movimiento Popular Fueguino,15639,22.3718
+2013,general,94,Tierra del Fuego,Partido Popular,10509,15.0333
+2013,general,94,Tierra del Fuego,Unión Federal,9639,13.7887
+2013,general,94,Tierra del Fuego,Espacio Democrático para la Victoria,3883,5.5547
+2013,general,94,Tierra del Fuego,Unión Cívica Radical,3761,5.3802
+2013,general,94,Tierra del Fuego,Partido Justicialista,2403,3.4375
+2015,general,10,Catamarca,Alianza Frente para la Victoria,97872,50.6463
+2015,general,10,Catamarca,Alianza Frente Cívico y Social,77091,39.8927
+2015,general,10,Catamarca,Alianza Frente Tercera Posicion,18283,9.4610
+2015,general,14,Córdoba,Alianza Cambiemos,1068903,50.2293
+2015,general,14,Córdoba,Alianza Unión por Córdoba,449244,21.1106
+2015,general,14,Córdoba,Alianza Frente para la Victoria,388712,18.2661
+2015,general,14,Córdoba,Alianza Frente de Izquierda y de los Trabajadores,110678,5.2009
+2015,general,14,Córdoba,Alianza Progresistas,62764,2.9494
+2015,general,14,Córdoba,Es Posible,47745,2.2436
+2015,general,18,Corrientes,Alianza Frente para la Victoria,302495,53.0061
+2015,general,18,Corrientes,Alianza Encuentro por Corrientes,186462,32.6737
+2015,general,18,Corrientes,Alianza Unidos por una Nueva Alternativa (UNA),81723,14.3203
+2015,general,26,Chubut,Alianza Frente para la Victoria,103830,42.5113
+2015,general,26,Chubut,Alianza Frente Unión Chubut Somos Todos,85396,34.9638
+2015,general,26,Chubut,Alianza Cambiemos Chubut,46664,19.1057
+2015,general,26,Chubut,Movimiento Polo Social La Tercera Posicion de la Gente,8351,3.4192
+2015,general,42,La Pampa,Alianza Frente para la Victoria,81064,45.8465
+2015,general,42,La Pampa,Propuesta Frepam,69983,39.5796
+2015,general,42,La Pampa,Pueblo Nuevo,21494,12.1561
+2015,general,42,La Pampa,GEN,4275,2.4178
+2015,general,50,Mendoza,Alianza Cambiemos,452990,42.8705
+2015,general,50,Mendoza,Alianza Frente para la Victoria,322569,30.5276
+2015,general,50,Mendoza,Alianza Frente Renovador Federal de la Esperanza,134403,12.7198
+2015,general,50,Mendoza,Alianza Frente de Izquierda y de los Trabajadores,102573,9.7074
+2015,general,50,Mendoza,Es Posible,44113,4.1748
+2015,general,82,Santa Fe,Alianza Frente para la Victoria,616146,32.0048
+2015,general,82,Santa Fe,Alianza Cambiemos,570060,29.6109
+2015,general,82,Santa Fe,Alianza Unidos por una Nueva Alternativa (UNA),398980,20.7244
+2015,general,82,Santa Fe,Alianza Frente Progresista Cívico y Social,249246,12.9467
+2015,general,82,Santa Fe,Alianza Frente de Izquierda y de los Trabajadores,66832,3.4715
+2015,general,82,Santa Fe,Alianza Compromiso Federal,23904,1.2417
+2015,general,90,Tucumán,Alianza Frente para la Victoria,423349,50.1818
+2015,general,90,Tucumán,Alianza Cambiemos,298257,35.3540
+2015,general,90,Tucumán,Partido Movimiento de Participación Ciudadana,99582,11.8040
+2015,general,90,Tucumán,Alianza Frente de Izquierda y de los Trabajadores,22442,2.6602
+2017,general,06,Buenos Aires,Cambiemos Buenos Aires,3912526,41.3497
+2017,general,06,Buenos Aires,Unidad Ciudadana,3529900,37.3059
+2017,general,06,Buenos Aires,1País,1069747,11.3057
+2017,general,06,Buenos Aires,Frente Justicialista,500945,5.2943
+2017,general,06,Buenos Aires,Frente de Izquierda y de los Trabajadores,448933,4.7446
+2017,general,34,Formosa,Frente de la Victoria,201972,61.6914
+2017,general,34,Formosa,Frente Amplio Formoseño Cambiemos,121520,37.1177
+2017,general,34,Formosa,Obrero,3899,1.1909
+2017,general,38,Jujuy,Frente Jujeño Cambiemos,189858,52.5987
+2017,general,38,Jujuy,Frente Justicialista,75062,20.7953
+2017,general,38,Jujuy,Frente de Izquierda y de los Trabajadores,57164,15.8368
+2017,general,38,Jujuy,Frente Renovador 1País,33997,9.4186
+2017,general,38,Jujuy,Movimiento Socialista de los Trabajadores,2690,0.7452
+2017,general,38,Jujuy,Movimiento Integración Latinoamericana de Expresion Social,2185,0.6053
+2017,general,46,La Rioja,Cambiemos - Fuerza Cívica Riojana,91307,48.0232
+2017,general,46,La Rioja,Frente Justicialista Riojano,86518,45.5044
+2017,general,46,La Rioja,Alternativa Popular Riojana,4741,2.4935
+2017,general,46,La Rioja,Frente de Izquierda y de los Trabajadores,4299,2.2611
+2017,general,46,La Rioja,Izquierda al Frente por el Socialismo,3266,1.7178
+2017,general,54,Misiones,Frente Renovador de la Concordia,271051,42.7576
+2017,general,54,Misiones,Frente Cambiemos,210956,33.2778
+2017,general,54,Misiones,Agrario y Social,84310,13.2997
+2017,general,54,Misiones,Unión Popular,24435,3.8546
+2017,general,54,Misiones,Nuevo Octubre,12406,1.9570
+2017,general,54,Misiones,Frente Avancemos,11712,1.8475
+2017,general,54,Misiones,Del Obrero,10440,1.6469
+2017,general,54,Misiones,Instrumento Electoral por la Unidad Popular,8614,1.3588
+2017,general,70,San Juan,Frente Todos,227503,54.5499
+2017,general,70,San Juan,Cambiemos San Juan,134742,32.3080
+2017,general,70,San Juan,1 País Somos San Juan,19446,4.6627
+2017,general,70,San Juan,ADN - Acción por una Democracia Nueva,12860,3.0835
+2017,general,70,San Juan,Nueva Izquierda,11451,2.7457
+2017,general,70,San Juan,Frente Progresista Popular,11053,2.6502
+2017,general,74,San Luis,Frente Unidad Justicialista San Luis,168167,55.4772
+2017,general,74,San Luis,Avanzar y Cambiemos por San Luis,130165,42.9406
+2017,general,74,San Luis,De Trabajadores por el Socialismo,4796,1.5822
+2017,general,78,Santa Cruz,Unión para Vivir Mejor - Cambiemos,73812,44.1238
+2017,general,78,Santa Cruz,Frente para la Victoria,53646,32.0688
+2017,general,78,Santa Cruz,Frente de Izquierda y de los Trabajadores - Partido Obrero + Izquierda por una Opción Socialista,15020,8.9787
+2017,general,78,Santa Cruz,"Movimiento Político, Social y Cultural Proyecto Sur",12620,7.5441
+2017,general,78,Santa Cruz,Frente Renovador Auténtico,7032,4.2036
+2017,general,78,Santa Cruz,Izquierda al Frente por el Socialismo,5154,3.0810
+2019,general,02,CABA,Juntos por el Cambio,1076452,53.9894
+2019,general,02,CABA,Frente de Todos,679569,34.0838
+2019,general,02,CABA,Consenso Federal,114907,5.7632
+2019,general,02,CABA,Frente de Izquierda y de Trabajadores - Unidad,83922,4.2091
+2019,general,02,CABA,Unite por la Libertad y la Dignidad,38970,1.9545
+2019,general,22,Chaco,Frente de Todos,400188,56.9776
+2019,general,22,Chaco,Juntos por el Cambio,254215,36.1944
+2019,general,22,Chaco,Consenso Federal,26766,3.8109
+2019,general,22,Chaco,Acción Chaqueña,21191,3.0171
+2019,general,30,Entre Ríos,Juntos por el Cambio,384300,45.5947
+2019,general,30,Entre Ríos,Frente de Todos,383238,45.4687
+2019,general,30,Entre Ríos,Partido Socialista,56606,6.7159
+2019,general,30,Entre Ríos,Nueva Izquierda,18718,2.2208
+2019,general,58,Neuquén,Frente de Todos,136350,35.6588
+2019,general,58,Neuquén,Juntos por el Cambio,123490,32.2956
+2019,general,58,Neuquén,Movimiento Popular Neuquino,85617,22.3909
+2019,general,58,Neuquén,Frente de Izquierda y de Trabajadores - Unidad,19319,5.0524
+2019,general,58,Neuquén,Consenso Federal,17598,4.6023
+2019,general,62,Río Negro,Frente de Todos,169726,50.3777
+2019,general,62,Río Negro,Juntos Somos Río Negro,153338,45.5135
+2019,general,62,Río Negro,Frente de Izquierda y de Trabajadores - Unidad,13843,4.1088
+2019,general,66,Salta,Frente de Todos,330324,46.5483
+2019,general,66,Salta,Juntos por el Cambio,247699,34.9050
+2019,general,66,Salta,Unión por Salta,85601,12.0626
+2019,general,66,Salta,Frente de Izquierda y de Trabajadores - Unidad,23708,3.3409
+2019,general,66,Salta,Partido Conservador Popular,22305,3.1432
+2019,general,86,Santiago del Estero,Frente Cívico por Santiago,328627,56.9579
+2019,general,86,Santiago del Estero,Frente de Todos,126413,21.9100
+2019,general,86,Santiago del Estero,Juntos por el Cambio,103581,17.9527
+2019,general,86,Santiago del Estero,Movimiento Libres del Sur,18344,3.1794
+2019,general,94,Tierra del Fuego,Frente de Todos,37413,41.1218
+2019,general,94,Tierra del Fuego,Juntos por el Cambio Tierra del Fuego,20573,22.6124
+2019,general,94,Tierra del Fuego,Vamos Todos a Vivir Mejor,17210,18.9160
+2019,general,94,Tierra del Fuego,GEN,8144,8.9513
+2019,general,94,Tierra del Fuego,Partido Social Patagónico,4826,5.3044
+2019,general,94,Tierra del Fuego,Partido Obrero,2815,3.0941
+2021,general,10,Catamarca,Frente de Todos,104412,50.7628
+2021,general,10,Catamarca,Juntos por el Cambio,76354,37.1216
+2021,general,10,Catamarca,Frente Amplio Catamarqueño,10167,4.9430
+2021,general,10,Catamarca,Frente de Izquierda y de Trabajadores - Unidad,8687,4.2234
+2021,general,10,Catamarca,Corriente de Pensamiento Bonaerense,6066,2.9492
+2021,general,14,Córdoba,Juntos por el Cambio,1063595,54.0920
+2021,general,14,Córdoba,Hacemos por Córdoba,491029,24.9726
+2021,general,14,Córdoba,Frente de Todos,206300,10.4919
+2021,general,14,Córdoba,Encuentro Vecinal Córdoba,74024,3.7647
+2021,general,14,Córdoba,Frente de Izquierda y de Trabajadores - Unidad,69644,3.5419
+2021,general,14,Córdoba,La Libertad Avanza,44819,2.2794
+2021,general,14,Córdoba,Unión Popular Federal,16860,0.8575
+2021,general,18,Corrientes,ECO + Vamos Corrientes,328217,58.8231
+2021,general,18,Corrientes,Frente de Todos,204917,36.7253
+2021,general,18,Corrientes,Vamos con Vos,13934,2.4973
+2021,general,18,Corrientes,Compromiso Federal,10905,1.9544
+2021,general,26,Chubut,Juntos por el Cambio Chubut,110997,37.8682
+2021,general,26,Chubut,Frente de Todos,82674,28.2054
+2021,general,26,Chubut,Independiente del Chubut,44736,15.2623
+2021,general,26,Chubut,Chubut Somos Todos,29937,10.2134
+2021,general,26,Chubut,Frente de Izquierda y de Trabajadores - Unidad,24770,8.4506
+2021,general,42,La Pampa,Juntos por el Cambio,102218,48.2529
+2021,general,42,La Pampa,Frente de Todos,89409,42.2063
+2021,general,42,La Pampa,Frente de Izquierda y de Trabajadores - Unidad,9066,4.2797
+2021,general,42,La Pampa,Socialista,6206,2.9296
+2021,general,42,La Pampa,Movimiento al Socialismo,4939,2.3315
+2021,general,50,Mendoza,Cambia Mendoza,490754,49.5664
+2021,general,50,Mendoza,Frente de Todos,259054,26.1646
+2021,general,50,Mendoza,Verde,90949,9.1859
+2021,general,50,Mendoza,Frente de Izquierda y de Trabajadores - Unidad,47864,4.8343
+2021,general,50,Mendoza,Federal,38417,3.8801
+2021,general,50,Mendoza,Vamos ! Mendocinos,37992,3.8372
+2021,general,50,Mendoza,Compromiso Federal,25065,2.5316
+2021,general,82,Santa Fe,Juntos por el Cambio,738568,40.4060
+2021,general,82,Santa Fe,Frente de Todos,589837,32.2691
+2021,general,82,Santa Fe,Frente Amplio Progresista,228459,12.4987
+2021,general,82,Santa Fe,Unite por la Libertad y la Dignidad,66910,3.6605
+2021,general,82,Santa Fe,Soberanía Popular,64010,3.5019
+2021,general,82,Santa Fe,Somos Futuro,39526,2.1624
+2021,general,82,Santa Fe,Frente de Izquierda y de Trabajadores - Unidad,38854,2.1256
+2021,general,82,Santa Fe,Podemos,31588,1.7281
+2021,general,82,Santa Fe,Primero Santa Fe,30117,1.6477
+2021,general,90,Tucumán,Frente de Todos,401344,41.5431
+2021,general,90,Tucumán,Juntos por el Cambio Jxc,379739,39.3068
+2021,general,90,Tucumán,Fuerza Republicana,107829,11.1614
+2021,general,90,Tucumán,Frente Amplio por Tucumán,42466,4.3957
+2021,general,90,Tucumán,Frente de Izquierda y de Trabajadores - Unidad,34713,3.5931
+2023,general,06,Buenos Aires,Unión por la Patria,4135519,44.0083
+2023,general,06,Buenos Aires,Juntos por el Cambio,2479071,26.3811
+2023,general,06,Buenos Aires,La Libertad Avanza,2386048,25.3912
+2023,general,06,Buenos Aires,Frente de Izquierda y de Trabajadores - Unidad,396500,4.2194
+2023,general,34,Formosa,Unión por la Patria,184475,54.1796
+2023,general,34,Formosa,La Libertad Avanza,103030,30.2595
+2023,general,34,Formosa,Juntos por el Cambio,52983,15.5609
+2023,general,38,Jujuy,Renovador Federal,153333,37.9299
+2023,general,38,Jujuy,Unión por la Patria,123453,30.5385
+2023,general,38,Jujuy,Cambia Jujuy,97481,24.1138
+2023,general,38,Jujuy,Frente de Izquierda y de Trabajadores - Unidad,29987,7.4179
+2023,general,46,La Rioja,Unión por la Patria,95733,42.4416
+2023,general,46,La Rioja,La Libertad Avanza,85152,37.7507
+2023,general,46,La Rioja,Juntos por el Cambio,27026,11.9815
+2023,general,46,La Rioja,Demócrata Cristiano,17653,7.8262
+2023,general,54,Misiones,Frente Renovador de la Concordia - Innovación Federal,253428,65.1069
+2023,general,54,Misiones,Juntos por el Cambio,109836,28.2174
+2023,general,54,Misiones,Partido Agrario y Social,25985,6.6757
+2023,general,70,San Juan,Unión por la Patria,155266,36.7297
+2023,general,70,San Juan,La Libertad Avanza,153951,36.4186
+2023,general,70,San Juan,Juntos por el Cambio,113509,26.8517
+2023,general,74,San Luis,La Libertad Avanza,126012,41.4479
+2023,general,74,San Luis,Unión por San Luis,82957,27.2862
+2023,general,74,San Luis,Juntos por el Cambio,70338,23.1356
+2023,general,74,San Luis,Unión y Libertad,16426,5.4028
+2023,general,74,San Luis,Frente de Izquierda y de Trabajadores - Unidad,8292,2.7274
+2023,general,78,Santa Cruz,Por Santa Cruz,58500,46.1058
+2023,general,78,Santa Cruz,Unión por la Patria,45413,35.7915
+2023,general,78,Santa Cruz,Cambia Santa Cruz,18826,14.8374
+2023,general,78,Santa Cruz,Frente de Izquierda y de Trabajadores - Unidad,4143,3.2652
+2025,general,02,CABA,Alianza La Libertad Avanza,854122,50.4222
+2025,general,02,CABA,Fuerza Patria,519119,30.6456
+2025,general,02,CABA,Frente de Izquierda y de Trabajadores - Unidad,92657,5.4699
+2025,general,02,CABA,Ciudadanos Unidos,86100,5.0828
+2025,general,02,CABA,GEN,38867,2.2945
+2025,general,02,CABA,Hagamos Futuro,28574,1.6868
+2025,general,02,CABA,Alianza Potencia,19262,1.1371
+2025,general,02,CABA,Movimiento de Jubilados y Juventud,16559,0.9775
+2025,general,02,CABA,La Izquierda en la Ciudad,9698,0.5725
+2025,general,02,CABA,Unión del Centro Democrático,9075,0.5357
+2025,general,02,CABA,Partido Federal,7299,0.4309
+2025,general,02,CABA,Frente Patriota Federal,3698,0.2183
+2025,general,02,CABA,Partido Comunista,3179,0.1877
+2025,general,02,CABA,Partido Socialista Auténtico,3058,0.1805
+2025,general,02,CABA,Movimiento Plural,2675,0.1579
+2025,general,22,Chaco,La Libertad Avanza,292177,45.8919
+2025,general,22,Chaco,Fuerza Patria,288771,45.3570
+2025,general,22,Chaco,Vamos Chaco,15776,2.4779
+2025,general,22,Chaco,Partido del Obrero,10241,1.6085
+2025,general,22,Chaco,Frente Integrador,8873,1.3937
+2025,general,22,Chaco,Nepar,6469,1.0161
+2025,general,22,Chaco,Proyecto Sur,4724,0.7420
+2025,general,22,Chaco,Partido Dignidad Popular,4132,0.6490
+2025,general,22,Chaco,Unir,3876,0.6088
+2025,general,22,Chaco,Partido Polo Social - Movimiento de Bases,1624,0.2551
+2025,general,30,Entre Ríos,Alianza La Libertad Avanza,402046,52.4328
+2025,general,30,Entre Ríos,Fuerza Entre Ríos,273753,35.7015
+2025,general,30,Entre Ríos,Ahora 503,27988,3.6501
+2025,general,30,Entre Ríos,Partido Socialista,24459,3.1898
+2025,general,30,Entre Ríos,Nueva Izquierda,14603,1.9045
+2025,general,30,Entre Ríos,Unión Popular Federal,13964,1.8211
+2025,general,30,Entre Ríos,Movimiento al Socialismo,9970,1.3002
+2025,general,58,Neuquén,La Libertad Avanza,145593,35.6549
+2025,general,58,Neuquén,La Neuquinidad,120553,29.5228
+2025,general,58,Neuquén,Fuerza Patria,56913,13.9377
+2025,general,58,Neuquén,Más por Neuquén,32703,8.0088
+2025,general,58,Neuquén,Fuerza Libertaria,23314,5.7095
+2025,general,58,Neuquén,Frente de Izquierda y de Trabajadores - Unidad,19358,4.7407
+2025,general,58,Neuquén,Desarrollo Ciudadano,5866,1.4366
+2025,general,58,Neuquén,Movimiento al Socialismo,4039,0.9891
+2025,general,62,Río Negro,Fuerza Patria,124233,30.7066
+2025,general,62,Río Negro,Alianza La Libertad Avanza,121974,30.1482
+2025,general,62,Río Negro,Juntos Defendemos Río Negro,109339,27.0252
+2025,general,62,Río Negro,PRO - Propuesta Republicana,18759,4.6366
+2025,general,62,Río Negro,Frente de Izquierda y de Trabajadores - Unidad,13322,3.2928
+2025,general,62,Río Negro,Primero Río Negro,11991,2.9638
+2025,general,62,Río Negro,Movimiento al Socialismo - Más,4963,1.2267
+2025,general,66,Salta,La Libertad Avanza,284809,41.2827
+2025,general,66,Salta,Primero Los Salteños,194619,28.2098
+2025,general,66,Salta,Fuerza Patria,94691,13.7253
+2025,general,66,Salta,Partido de la Victoria,58373,8.4611
+2025,general,66,Salta,Frente de Izquierda y de Trabajadores - Unidad,16940,2.4554
+2025,general,66,Salta,Unión Cívica Radical,16143,2.3399
+2025,general,66,Salta,Política Obrera,12381,1.7946
+2025,general,66,Salta,Partido Renacer,8290,1.2016
+2025,general,66,Salta,Movimiento al Socialismo,3653,0.5295
+2025,general,86,Santiago del Estero,Frente Cívico por Santiago,329634,56.3099
+2025,general,86,Santiago del Estero,Frente Fuerza Patria Peronista,113630,19.4109
+2025,general,86,Santiago del Estero,La Libertad Avanza,80324,13.7214
+2025,general,86,Santiago del Estero,Despierta Santiago,48079,8.2131
+2025,general,86,Santiago del Estero,Hacemos por Santiago,5191,0.8868
+2025,general,86,Santiago del Estero,Nueva Izquierda,4743,0.8102
+2025,general,86,Santiago del Estero,Unite por la Libertad y la Dignidad,3792,0.6478
+2025,general,94,Tierra del Fuego,Alianza La Libertad Avanza,40118,39.5907
+2025,general,94,Tierra del Fuego,Fuerza Patria,31129,30.7198
+2025,general,94,Tierra del Fuego,Defendamos Tierra del Fuego,20879,20.6045
+2025,general,94,Tierra del Fuego,Provincias Unidas,3637,3.5892
+2025,general,94,Tierra del Fuego,Frente de Izquierda y de Trabajadores - Unidad,3077,3.0366
+2025,general,94,Tierra del Fuego,Frente Patriota Federal,1562,1.5415
+2025,general,94,Tierra del Fuego,Partido Frente Grande,930,0.9178
+1983,general,02,CABA,Unión Cívica Radical,1204664,61.3638
+1983,general,02,CABA,Justicialista,511797,26.0702
+1983,general,02,CABA,Intransigente,112452,5.7281
+1983,general,02,CABA,Unión de Centro Democrático,43439,2.2127
+1983,general,02,CABA,Movimiento de Integración y Desarrollo,23324,1.1881
+1983,general,02,CABA,Alianza Federal,19658,1.0013
+1983,general,02,CABA,Alianza Demócrata Socialista,14907,0.7593
+1983,general,02,CABA,Demócrata Cristiano,11739,0.5980
+1983,general,02,CABA,Movimiento al Socialismo,11689,0.5954
+1983,general,02,CABA,Socialista Popular,4235,0.2157
+1983,general,02,CABA,Obrero,3543,0.1805
+1983,general,02,CABA,Frente de Izquierda Popular,1703,0.0867
+1989,general,02,CABA,Unión Cívica Radical,674935,33.1111
+1989,general,02,CABA,Frente Justicialista Popular,664422,32.5953
+1989,general,02,CABA,Alianza de Centro,399911,19.6189
+1989,general,02,CABA,Confederación Federalista Independiente,138139,6.7768
+1989,general,02,CABA,Alianza Izquierda Unida,91289,4.4785
+1989,general,02,CABA,Alianza Unidad Socialista,51893,2.5458
+1989,general,02,CABA,Blanco de los Jubilados,6500,0.3189
+1989,general,02,CABA,Frente Humanista - Verde,5369,0.2634
+1989,general,02,CABA,Obrero,4819,0.2364
+1989,general,02,CABA,Acuerdo Popular,1119,0.0549
+1992,general,02,CABA,Unión Cívica Radical,922994,50.0106
+1992,general,02,CABA,Justicialista - Unión del Centro Democrático - Partido Intransigente,584532,31.6717
+1992,general,02,CABA,Frente País Solidario,137955,7.4748
+1992,general,02,CABA,Movimiento por la Dignidad y la Independencia,103718,5.6198
+1992,general,02,CABA,Alianza Unidad Socialista,57500,3.1155
+1992,general,02,CABA,Demócrata Cristiano,11411,0.6183
+1992,general,02,CABA,Vecinal de la Ciudad,11192,0.6064
+1992,general,02,CABA,Movimiento al Socialismo,9688,0.5249
+1992,general,02,CABA,Social Demócrata,6605,0.3579
+1995,general,02,CABA,Alianza Frente País Solidario,820586,45.5602
+1995,general,02,CABA,Unión Cívica Radical,386801,21.4758
+1995,general,02,CABA,Justicialista,312849,17.3699
+1995,general,02,CABA,Unión de Centro Democrático,94085,5.2237
+1995,general,02,CABA,Alianza Autonomía Porteña,41645,2.3122
+1995,general,02,CABA,Alianza para el Desarrollo,29334,1.6287
+1995,general,02,CABA,Frente de los Jubilados,28246,1.5683
+1995,general,02,CABA,Social Demócrata,23029,1.2786
+1995,general,02,CABA,Socialista Auténtico,15419,0.8561
+1995,general,02,CABA,Humanista,14642,0.8129
+1995,general,02,CABA,Trabajadores por el Socialismo,10206,0.5667
+1995,general,02,CABA,Obrero,10146,0.5633
+1995,general,02,CABA,Movimiento Socialista de los Trabajadores,8379,0.4652
+1995,general,02,CABA,Alianza Centrista por la Ciudad,5735,0.3184

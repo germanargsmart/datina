@@ -3,7 +3,7 @@
 // correr antes 03_construir_sitio.py), sin red. Controla el protocolo MCP (initialize, tools/list, tools/call, notificaciones, errores), las
 // mismas consultas por la API, los filtros por jurisdicción y período, los topes, que cada respuesta lleve fuente, fecha, licencia y ficha, y
 // que nunca salga nada sensible: ni las tablas de suicidio ni la de muertes violentas, ni una columna, una fila o un indicador sobre suicidio,
-// ni las tablas sin la licencia de Datina (COMNAP), ni Elecciones por mesa. También mide cuánto procesador gasta cada consulta.
+// ni las tablas sin la licencia de Datina (COMNAP), ni de Elecciones por mesa nada que no sea oficial. También mide cuánto procesador gasta cada consulta.
 import { readFileSync, existsSync } from "node:fs";
 import { join, dirname, normalize } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -131,8 +131,20 @@ if (ocde) {
   ok(!JSON.stringify(lo).match(SUICIDIO), "de ocde_comparacion no sale ninguna fila ni columna sobre suicidio");
   ok(!JSON.stringify((await herramienta("describir_tabla", {tabla: "ocde_comparacion"})).structuredContent.columnas).match(SUICIDIO), "ni en la descripción de sus columnas");
 }
-// Elecciones por mesa no está en el catálogo
-ok(!CAT.tablas.some(t => t.tabla.startsWith("mesas")), "Elecciones por mesa no está en el catálogo");
+// Elecciones por mesa: solo los resultados oficiales por jurisdicción (15 de noviembre de 2026), nunca las mesas ni lo que no es oficial
+ok(!CAT.tablas.some(t => t.tabla.startsWith("mesas")), "las mesas de Elecciones por mesa no están en el catálogo");
+const EO = ["totales", "presidente", "diputados", "senadores", "gobernador"].map(c => `elecciones_oficiales_${c}`);
+ok(EO.every(t => CAT.tablas.some(x => x.tabla === t && x.uso_libre && !x.sensible)), "las cinco tablas de elecciones oficiales están en el catálogo");
+const eoTot = (await herramienta("leer_tabla", {tabla: "elecciones_oficiales_totales", jurisdiccion: ["06"], limite: TOPES.filas})).structuredContent;
+const eoF = c => eoTot.filas.map(f => f[eoTot.columnas.indexOf(c)]);
+ok(eoTot.total > 20 && eoF("codigo_indec").every(c => c === "06"), "leer_tabla filtra los totales de Buenos Aires");
+ok(!eoF("fuente").some(f => /wikipedia|257arg|calvo|polar|tow|cant[oó]n|lupu/i.test(f)) && eoF("fuente").every(f => /electoral|ministerio del interior|c[oó]mputos|gobierno de|estad[ií]stica/i.test(f)),
+   "cada total sale de un organismo electoral o de gobierno, nunca de la Wikipedia ni de una fuente académica");
+ok(eoF("recuento").every(r => r === "definitivo"), "los totales de Buenos Aires son escrutinios definitivos");
+const eoPres = (await herramienta("leer_tabla", {tabla: "elecciones_oficiales_presidente", jurisdiccion: ["02"], desde: "2023", hasta: "2023"})).structuredContent;
+const eoAnios = (await herramienta("leer_tabla", {tabla: "elecciones_oficiales_presidente", columnas: ["anio"], limite: TOPES.filas})).structuredContent;
+ok(eoPres.filas.length > 3 && eoPres.filas.every(f => f[0] === "2023") && Math.min(...eoAnios.filas.map(f => +f[0])) === 1983,
+   "presidente: CABA en 2023 se lee con su año, y nada antes de 1983");
 ok((await herramienta("leer_tabla", {tabla: "../mesas/indice"})).isError, "no se puede salir de las tablas del catálogo con la ruta");
 
 // ---------- la API: lo mismo en JSON ----------
@@ -158,7 +170,8 @@ const medir = async (que, f) => { const t0 = performance.now(); for (let i = 0; 
 const tiempos = [await medir("buscar_tablas", () => herramienta("buscar_tablas", {q: "salario provincia"})),
   await medir("leer_tabla empleo_provincias", () => herramienta("leer_tabla", {tabla: "empleo_provincias"})),
   await medir(`leer_tabla ${grande.tabla} (la más grande)`, () => herramienta("leer_tabla", {tabla: grande.tabla, jurisdiccion: ["14"]})),
-  await medir("leer_indicador nafta (el más largo)", () => herramienta("leer_indicador", {variable: "precio_nafta_super_surtidor", jurisdiccion: ["14"]}))];
+  await medir("leer_indicador nafta (el más largo)", () => herramienta("leer_indicador", {variable: "precio_nafta_super_surtidor", jurisdiccion: ["14"]})),
+  await medir("leer_tabla elecciones_oficiales_diputados", () => herramienta("leer_tabla", {tabla: "elecciones_oficiales_diputados", jurisdiccion: ["06"]}))];
 for (const [que, ms] of tiempos) ok(ms < 50, `${que}: ${ms.toFixed(1)} ms`);
 
 console.log(tiempos.map(([q, ms]) => `${q}: ${ms.toFixed(1)} ms`).join(". ") + ".");

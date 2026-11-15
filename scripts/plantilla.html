@@ -275,7 +275,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
            03_construir_sitio.py con la dirección de datos/manual/sitio.json. Las direcciones van como texto: no son páginas para abrir -->
       <h2 id="api-mcp">¿Cómo se leen desde un programa o un asistente de IA?</h2>
       <p>Las mismas tablas se pueden leer sin pasar por las páginas. <code>__URL_SITIO__/datos/catalogo.json</code> describe todas: qué mide cada una, de dónde sale, el día en que se bajó cada archivo, sus columnas y su licencia. La API de datos contesta en JSON en <code>__URL_SITIO__/api/datos</code>: busca tablas e indicadores, los describe y da sus filas filtradas por jurisdicción y período.</p>
-      <p>Un asistente de IA que use el protocolo MCP, como Claude, se conecta con <code>__URL_SITIO__/api/mcp</code>, que se agrega como conector personalizado y no pide clave. Es de solo lectura y cada respuesta trae la fuente, la fecha, la licencia y la ficha del dato. No incluye datos sobre suicidio ni Elecciones por mesa.</p>
+      <p>Un asistente de IA que use el protocolo MCP, como Claude, se conecta con <code>__URL_SITIO__/api/mcp</code>, que se agrega como conector personalizado y no pide clave. Es de solo lectura y cada respuesta trae la fuente, la fecha, la licencia y la ficha del dato. No incluye datos sobre suicidio. De Elecciones por mesa ofrece solo los resultados oficiales por jurisdicción: no las mesas, que son el escrutinio provisorio, ni lo que sale de fuentes académicas o de otros sitios.</p>
       <!-- F5 (plan de mejora, aprobado por el autor el 28 de octubre de 2026): las próximas fechas del INDEC que tocan fichas de Datina, que
            arma datina.js desde calendario_indec (de 02), y el mismo calendario en .ics (lo escribe 03) -->
       <h2 id="proximos-datos">¿Cuándo salen los próximos datos?</h2>
@@ -1302,6 +1302,15 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <p class="lead" data-t="escuelas-primarias"></p>
       <p class="nota" data-t="escuelas-primarias-nota"></p>
       <div class="pie"><span>Fuentes: Padrón Oficial de Establecimientos Educativos, Secretaría de Educación, e INDEC, proyecciones de población</span><a href="datos/escuelas_primarias_provincias.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-escuelas-secundarias">
+      <h2>¿Dónde hay más escuelas secundarias por chico?</h2>
+      <p class="ficha-sub">Escuelas secundarias cada 1.000 chicos de 12 a 17 años, por provincia, {{escuelas_secundarias.fecha}}</p>
+      <div class="grafico" data-g="escuelas-secundarias" data-forma="barras"></div>
+      <p class="lead" data-t="escuelas-secundarias"></p>
+      <p class="nota" data-t="escuelas-secundarias-nota"></p>
+      <div class="pie"><span>Fuentes: Padrón Oficial de Establecimientos Educativos, Secretaría de Educación, e INDEC, proyecciones de población</span><a href="datos/escuelas_secundarias_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <!--PROGRAMAS:educacion-->
@@ -3335,7 +3344,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     <h2>Catálogo de datos</h2>
     <div class="tema-intro">
       <p class="pregunta">¿Qué datos puedo bajar?</p>
-      <p>Acá están las tablas de Datina, cada una con su fuente, su período, su cobertura y sus columnas, para saber qué trae antes de descargarla. Los resultados por mesa se descargan, por elección y por jurisdicción, en <a href="mesas.html">Elecciones por mesa</a>. También podés descargar la tabla completa, con todos los indicadores en un solo archivo. Las tablas se pueden reutilizar citando a Datina y a la fuente de cada una: <a href="usar-datos.html">Usar los datos</a> explica la licencia y cómo citar.</p>
+      <p>Acá están las tablas de Datina, cada una con su fuente, su período, su cobertura y sus columnas, para saber qué trae antes de descargarla. Los resultados oficiales de cada elección por jurisdicción están acá. Los de cada mesa se descargan, por elección y por jurisdicción, en <a href="mesas.html">Elecciones por mesa</a>. También podés descargar la tabla completa, con todos los indicadores en un solo archivo. Las tablas se pueden reutilizar citando a Datina y a la fuente de cada una: <a href="usar-datos.html">Usar los datos</a> explica la licencia y cómo citar.</p>
     </div>
     <!--CATALOGO-->
   </section>

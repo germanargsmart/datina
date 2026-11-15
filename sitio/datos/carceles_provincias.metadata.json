@@ -58,8 +58,8 @@
    "archivo": "datos/crudo/sneep_poblacion.csv",
    "nombre": "Personas privadas de libertad por servicio penitenciario",
    "organismo": "SNEEP",
-   "descargado": "2026-11-05",
-   "ultimo_intento": "2026-11-05",
+   "descargado": "2026-11-15",
+   "ultimo_intento": "2026-11-15",
    "estado": "ok",
    "url": "https://datos.jus.gob.ar/dataset/70fc10e1-aa70-4dc9-9dfb-478875f684d8/resource/7d10bdae-a3a8-416e-96ce-094c96ecf7d9/download/sneep-poblacion-total.csv"
   },
@@ -67,8 +67,8 @@
    "archivo": "datos/crudo/sneep_condenados.csv",
    "nombre": "Personas condenadas por servicio penitenciario",
    "organismo": "SNEEP",
-   "descargado": "2026-11-05",
-   "ultimo_intento": "2026-11-05",
+   "descargado": "2026-11-15",
+   "ultimo_intento": "2026-11-15",
    "estado": "ok",
    "url": "https://datos.jus.gob.ar/dataset/70fc10e1-aa70-4dc9-9dfb-478875f684d8/resource/414604b9-4937-4568-aba8-c346d8f38ade/download/sneep-situacion-legal-condenados-condenadas.csv"
   }
@@ -76,5 +76,5 @@
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
  "como_citar": "Datina (año de la consulta). ¿Qué parte de las personas presas no tiene condena? Con datos de Sistema Nacional de Estadísticas sobre Ejecución de la Pena (SNEEP), Ministerio de Justicia. https://datina.com.ar/seguridad.html#f-sin-condena. Consultado el día de la consulta.",
- "datos_actualizados": "05/11/2026"
+ "datos_actualizados": "15/11/2026"
 }

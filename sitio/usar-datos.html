@@ -19,7 +19,7 @@
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Usar los datos">
 <meta name="twitter:image" content="https://datina.com.ar/og/usar-datos.png">
-<script type="application/ld+json" id="ld-tablas">{"@context": "https://schema.org", "@graph": [{"@type": "Dataset", "name": "calendario_indec", "description": "calendario_indec. Fuente. Cobertura: Sin desglose territorial. Período: 6 de noviembre de 2026 a 26 de enero de 2027.", "url": "https://datina.com.ar/usar-datos", "inLanguage": "es-AR", "isAccessibleForFree": true, "license": "https://creativecommons.org/licenses/by/4.0/", "creator": {"@type": "Organization", "name": "Datina", "url": "https://datina.com.ar/"}, "creditText": "Datina, con datos de ", "spatialCoverage": "Argentina", "keywords": ["Laboratorio"], "distribution": [{"@type": "DataDownload", "encodingFormat": "text/csv", "contentUrl": "https://datina.com.ar/datos/calendario_indec.csv"}], "temporalCoverage": "2026-11/2027-01"}]}</script>
+<script type="application/ld+json" id="ld-tablas">{"@context": "https://schema.org", "@graph": [{"@type": "Dataset", "name": "calendario_indec", "description": "calendario_indec. Fuente. Cobertura: Sin desglose territorial. Período: 17 de noviembre de 2026 a 26 de enero de 2027.", "url": "https://datina.com.ar/usar-datos", "inLanguage": "es-AR", "isAccessibleForFree": true, "license": "https://creativecommons.org/licenses/by/4.0/", "creator": {"@type": "Organization", "name": "Datina", "url": "https://datina.com.ar/"}, "creditText": "Datina, con datos de ", "spatialCoverage": "Argentina", "keywords": ["Laboratorio"], "distribution": [{"@type": "DataDownload", "encodingFormat": "text/csv", "contentUrl": "https://datina.com.ar/datos/calendario_indec.csv"}], "temporalCoverage": "2026-11/2027-01"}]}</script>
 <meta name="description" content="Cómo reutilizar los datos de Datina: la licencia, cómo citar una ficha, qué tablas y metadatos se pueden descargar y de dónde sale cada dato.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 36'%3E%3Cpath fill='%23C8102E' d='M7,29 C5.5,17 10,6.5 19.5,4.2 C26.5,2.6 33.5,5.2 36,10.6 C37.2,13.2 35,15.4 32.6,13.8 C31,12.6 29.2,11.6 27,12.2 C31.6,16 33.8,21.6 33.6,29 Z'/%3E%3Cpath fill='%238A1422' d='M5.6,27.6 L35,27.6 Q35.8,31.6 35,33.4 Q20.3,35.6 5.6,33.4 Q4.8,31.6 5.6,27.6 Z'/%3E%3C/svg%3E">
 <script>document.documentElement.classList.add("js");
@@ -36,7 +36,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
      mismas versiones que daban cdnjs y jsDelivr): si una de esas CDN fallaba o estaba bloqueada, las páginas quedaban vacías -->
 <script src="lib/d3-7.8.5.min.js?v=a029baa963"></script>
 <script src="lib/topojson-client-3.1.0.min.js?v=bc057598e8"></script>
-<link rel="stylesheet" href="datina.css?v=1900ecaea2">
+<link rel="stylesheet" href="datina.css?v=c90a9cecde">
 </head>
 <body data-pagina="usar-datos">
 <!-- "Saltar al contenido" (Fase 2, paso 6, respuesta del autor del 23 de octubre de 2026): la primera parada del teclado, que solo se ve
@@ -118,7 +118,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
            03_construir_sitio.py con la dirección de datos/manual/sitio.json. Las direcciones van como texto: no son páginas para abrir -->
       <h2 id="api-mcp">¿Cómo se leen desde un programa o un asistente de IA?</h2>
       <p>Las mismas tablas se pueden leer sin pasar por las páginas. <code>https://datina.com.ar/datos/catalogo.json</code> describe todas: qué mide cada una, de dónde sale, el día en que se bajó cada archivo, sus columnas y su licencia. La API de datos contesta en JSON en <code>https://datina.com.ar/api/datos</code>: busca tablas e indicadores, los describe y da sus filas filtradas por jurisdicción y período.</p>
-      <p>Un asistente de IA que use el protocolo MCP, como Claude, se conecta con <code>https://datina.com.ar/api/mcp</code>, que se agrega como conector personalizado y no pide clave. Es de solo lectura y cada respuesta trae la fuente, la fecha, la licencia y la ficha del dato. No incluye datos sobre suicidio ni Elecciones por mesa.</p>
+      <p>Un asistente de IA que use el protocolo MCP, como Claude, se conecta con <code>https://datina.com.ar/api/mcp</code>, que se agrega como conector personalizado y no pide clave. Es de solo lectura y cada respuesta trae la fuente, la fecha, la licencia y la ficha del dato. No incluye datos sobre suicidio. De Elecciones por mesa ofrece solo los resultados oficiales por jurisdicción: no las mesas, que son el escrutinio provisorio, ni lo que sale de fuentes académicas o de otros sitios.</p>
       <!-- F5 (plan de mejora, aprobado por el autor el 28 de octubre de 2026): las próximas fechas del INDEC que tocan fichas de Datina, que
            arma datina.js desde calendario_indec (de 02), y el mismo calendario en .ics (lo escribe 03) -->
       <h2 id="proximos-datos">¿Cuándo salen los próximos datos?</h2>
@@ -242,7 +242,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 <p class="solo-lector" id="aviso" aria-live="polite"></p>
 
 <!-- los datos van en un archivo aparte que el navegador guarda una sola vez para todas las páginas -->
-<script src="datos/fichas.js?v=24f6975152"></script>
-<script src="datina.js?v=158730a903"></script>
+<script src="datos/fichas.js?v=bfb733350d"></script>
+<script src="datina.js?v=15b8b79a31"></script>
 </body>
 </html>

@@ -32,7 +32,8 @@ Los escribe `03_construir_sitio.py`:
 - De cualquier tabla, una columna o una fila que nombre el suicidio.
 - Los tres indicadores de suicidio de la tabla larga: 03 no les escribe archivo.
 - Las tablas sin la licencia de Datina (las listas de COMNAP de la Antártida).
-- Elecciones por mesa, que no está en el catálogo. El plan pide antes marcar el origen de cada elección (oficial o 257arg) y ofrecer solo las oficiales: queda para después.
+- De Elecciones por mesa, todo lo que no es oficial. Desde el 15 de noviembre de 2026 el catálogo tiene cinco tablas con los resultados oficiales por jurisdicción, que `scripts/elecciones_oficiales.py` arma en cada armado desde `sitio/datos/mesas/`: `elecciones_oficiales_totales` (electores, votantes, positivos, blancos, nulos, el recuento, la fuente y su dirección, una fila por elección y jurisdicción) y una por cargo con los votos de cada lista y su porcentaje de los positivos (`elecciones_oficiales_presidente`, `_diputados`, `_senadores` y `_gobernador`). Oficial quiere decir el escrutinio de la Dirección Nacional Electoral, de la Cámara Nacional Electoral o de la justicia electoral (o el gobierno) de cada jurisdicción. Quedan afuera las mesas (son el escrutinio provisorio), las elecciones nacionales de 1912 a 1973 (fuentes académicas), los departamentos de 1983 a 2009 (257arg), las jurisdicciones que la página marca como no oficiales y las transcripciones de la Wikipedia, aunque copien un documento oficial. Si el autor decide sumar esas transcripciones, es una línea en `oficiales()`.
+- Por qué cinco tablas y no una: con los totales y la fuente repetidos en cada lista, la de diputados pesaba 1,2 MB y leerla tardaba unos 6 ms solo en separar las filas, más del triple que la tabla más grande que se ofrecía. Separadas, la más grande pesa 300 KB.
 
 ## Procesador
 
@@ -40,12 +41,12 @@ El plan gratis de Cloudflare da 10 ms de procesador por pedido, y las funciones 
 
 ## Pruebas
 
-`node scripts/prueba_datos_api.mjs`, con el sitio armado y sin red. La corre cada PR. Son 71 controles:
+`node scripts/prueba_datos_api.mjs`, con el sitio armado y sin red. La corre cada PR. Son 77 controles (71 hasta el 15 de noviembre de 2026):
 
 - el protocolo: `initialize`, las notificaciones, `tools/list`, los errores, `GET` y `OPTIONS`;
 - las búsquedas, la descripción, la lectura con filtros y los topes;
 - que la API dé lo mismo que el MCP;
-- que no salga nada sensible, ni las tablas de COMNAP, ni Elecciones por mesa;
+- que no salga nada sensible ni las tablas de COMNAP, y de Elecciones por mesa solo las cinco tablas oficiales, cada total con su organismo y nada antes de 1983 en presidente;
 - el tiempo de cada consulta.
 
 ## Antes de publicar (decisión del autor)

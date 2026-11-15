@@ -350,7 +350,7 @@ const MBS = R.cobertura_suelo;
 const MDC = R.medicos;
 const HSP = R.establecimientos;  // los hospitales públicos por provincia (fase 3 de docs/roadmap/ESTABLECIMIENTOS.md)
 const DHO = R.distancia_hospital;  // la distancia de las escuelas rurales al hospital público más cercano (fase 3)
-const ESP = R.escuelas_primarias;  // las escuelas primarias cada 1.000 chicos de 5 a 14 años (fase 3)
+const ESP = R.escuelas_primarias, ESS = R.escuelas_secundarias;  // las escuelas primarias cada 1.000 chicos de 5 a 14 años (fase 3)
 // las sociedades nuevas del Registro Nacional de Sociedades (plan de mejora, sección 10, 31 de octubre de 2026)
 const SOC = R.sociedades;
 const pesosDeuda = v => `${milDeuda(v)} pesos`;
@@ -821,6 +821,15 @@ const LEAD = {
     return `En ${ESP.fecha} había ${n0(ESP.primarias)} escuelas primarias en el país, ${n1(ESP.pais)} cada 1.000 chicos de 5 a 14 años. Van de ` +
       `${dos(ESP.top, ESP.top2)} a ${dos(ESP.bajo2, ESP.bajo)}. La relación con la parte rural de las primarias es ${fuerza(ESP.r)}: en ` +
       `${ESP.rural_top[0]} es rural el ${pct(ESP.rural_top[1])}, y en ${ESP.rural_bajo[0]}, el ${pct(ESP.rural_bajo[1])}.`;
+  },
+  // las escuelas secundarias por chico (pedido del autor del 14 de noviembre de 2026): igual que las primarias, con lo que cambia de una
+  // provincia a otra la forma de registrar las secundarias rurales
+  "escuelas-secundarias": () => {
+    const dos = (a, b) => n1(a[1]) === n1(b[1]) ? `${n1(a[1])} en ${a[0]} ${yE(b[0])}` : `${n1(a[1])} en ${a[0]} ${yE(`${n1(b[1])} en ${b[0]}`)}`;
+    return `En ${ESS.fecha} había ${n0(ESS.secundarias)} escuelas secundarias en el país. Van de ${dos(ESS.top, ESS.top2)} a ` +
+      `${dos(ESS.bajo2, ESS.bajo)} cada 1.000 chicos de 12 a 17 años. Por cada escuela primaria hay ${n2(ESS.por_primaria_min[1])} secundarias en ` +
+      `${ESS.por_primaria_min[0]} y ${n2(ESS.por_primaria_max[1])} en ${ESS.por_primaria_max[0]}: depende también de cómo registra cada provincia ` +
+      `sus escuelas rurales.`;
   },
   // los hospitales públicos por provincia (9 de noviembre de 2026): las dos cifras más altas y las dos más bajas, o la de terapia intensiva
   hospitales: v => v === "terapia"
@@ -1917,8 +1926,12 @@ const TX = {
     `mapa de la página de cada provincia. Cada sede cuenta aparte: un anexo, que funciona en otro lugar, es una escuela más. Cuenta escuelas, no ` +
     `alumnos ni vacantes: una escuela rural de diez alumnos vale lo mismo que una de cientos en una ciudad. Chicos de 5 a 14 años de las ` +
     `proyecciones del INDEC de ${ESP.anio}, que vienen en grupos de cinco años: la primaria dura seis o siete años según la provincia, y esos dos ` +
-    `grupos contienen sus edades. La secundaria no está porque ningún grupo de edad coincide con sus años. Que dos medidas vayan juntas no dice ` +
-    `que una cause la otra.`,
+    `grupos contienen sus edades. Las secundarias están en la ficha siguiente. Que dos medidas vayan juntas no dice que una cause la otra.`,
+  "escuelas-secundarias": LEAD["escuelas-secundarias"](), "escuelas-secundarias-nota": `Escuelas con secundaria común del Padrón Oficial ` +
+    `de Establecimientos Educativos de ${ESS.fecha}, estatales, privadas y de gestión social o cooperativa. Cada sede cuenta aparte, como en ` +
+    `las primarias. Chicos de 12 a 17 años de las proyecciones del INDEC de ${ESS.anio}: vienen en grupos de cinco años, así que son tres quintos ` +
+    `del grupo de 10 a 14 y tres quintos del de 15 a 19. Qué no dice este dato: cuenta escuelas, no alumnos ni vacantes, y algunas provincias ` +
+    `registran como secundarias aparte las secciones rurales que funcionan en otra escuela, así que tienen más escuelas sin tener más lugar.`,
   "distancia-hospital": LEAD["distancia-hospital"]("hospital"), "distancia-hospital-nota": `Distancia en línea recta, no por ruta: el ` +
     `viaje real es más largo. Las escuelas rurales (primarias y secundarias comunes del padrón oficial) sirven de marca de dónde vive la gente en ` +
     `el campo, y cada una cuenta una vez, tenga pocos o muchos alumnos. Los hospitales son los públicos con internación de la ficha de arriba y, ` +
@@ -4335,6 +4348,20 @@ Object.assign(DIB, {
       ref: ESP.pais, refLab: `País ${n1(ESP.pais)}`,
       tip: d => `<b>${d.territorio}</b><br>${n1(d.primarias_cada_1000_chicos)} escuelas primarias cada 1.000 chicos de 5 a 14 años<br>` +
         `${n0(d.escuelas_primarias)} escuelas (${pct(d.pct_rurales)} rurales) y ${n0(d.chicos_5_14)} chicos`});
+  },
+  "escuelas-secundarias": a => {
+    const fp = T.escuelas_secundarias_provincias.find(r => r.codigo_indec === prov);
+    const nombrados = [ESS.top[0], ESS.top2[0], ESS.bajo[0], ESS.bajo2[0], ESS.por_primaria_min[0], ESS.por_primaria_max[0]];
+    let txt = LEAD["escuelas-secundarias"]();
+    if (fp && !nombrados.includes(fp.territorio))
+      txt += ` En ${fp.territorio}, ${n1(fp.secundarias_cada_1000_chicos)} cada 1.000 chicos (${n0(fp.escuelas_secundarias)} escuelas, el ` +
+        `${pct(fp.pct_rurales)} rurales).`;
+    $t("escuelas-secundarias").textContent = txt;
+    barrasH(G("escuelas-secundarias"), {anim: a, data: T.escuelas_secundarias_provincias, k: "secundarias_cada_1000_chicos", vf: n1, af: n0,
+      ref: ESS.pais, refLab: `País ${n1(ESS.pais)}`,
+      tip: d => `<b>${d.territorio}</b><br>${n1(d.secundarias_cada_1000_chicos)} escuelas secundarias cada 1.000 chicos de 12 a 17 años<br>` +
+        `${n0(d.escuelas_secundarias)} escuelas (${pct(d.pct_rurales)} rurales) y ${n0(d.chicos_12_17)} chicos<br>` +
+        `${n2(d.secundarias_por_primaria)} secundarias por cada primaria`});
   },
   // la distancia de las escuelas rurales al hospital público más cercano (fase 3 de docs/roadmap/ESTABLECIMIENTOS.md, 9 de noviembre de 2026):
   // cada provincia con la línea del país. CABA no tiene escuelas rurales
@@ -7975,6 +8002,8 @@ const CLAVE = {
     Object.keys(CPA.atrasadas).length ? "por habitante, promedio de las jurisdicciones con datos" : "por habitante, promedio del país"],
   "f-sociedades": [n1(SOC.pais), `sociedades comerciales cada 100.000 habitantes se constituyeron en el país en ${SOC.anio}`,
     `sociedades nuevas cada 100.000 habitantes, ${SOC.anio}`],
+  "f-escuelas-secundarias": [n1(ESS.pais), `escuelas secundarias cada 1.000 chicos de 12 a 17 años había en todo el país en ${ESS.fecha}`,
+    `escuelas secundarias cada 1.000 chicos de 12 a 17 años, ${ESS.fecha}`],
   "f-escuelas-primarias": [n1(ESP.pais), `escuelas primarias cada 1.000 chicos de 5 a 14 años había en todo el país en ${ESP.fecha}`,
     `escuelas primarias cada 1.000 chicos de 5 a 14 años, ${ESP.fecha}`],
   "f-distancia-hospital": [n1(DHO.pais), `km o más en línea recta separan a la mitad de las escuelas rurales del país del hospital público con ` +
@@ -12260,6 +12289,47 @@ document.querySelectorAll(".destacado[data-clave], .dd-dato[data-clave]").forEac
   const fecha = a.classList.contains("dd-dato") && FECHA_DD[id];
   a.querySelector(".c-num").innerHTML = num; a.querySelector(".c-txt").innerHTML = (resto ? resto + " " : "") + c[1] + (fecha ? `. ${fecha()}` : "");
 });
+/* la página de datos destacados es una tabla con filtros (15 de noviembre de 2026, el autor eligió "C: tabla con filtros"): el buscador y la lista de temas
+   del Catálogo. Busca con todas las palabras y sin tildes en el tema, la pregunta, la cifra y qué mide, y guarda la búsqueda y el tema en el enlace. Sin
+   JavaScript se ve la tabla entera, sin filtros */
+(() => {
+  const caja = document.querySelector(".dd-filtros");
+  if (!caja) return;
+  const q = document.getElementById("dd-q"), tema = document.getElementById("dd-tema"), cuenta = document.getElementById("dd-cuenta");
+  const vacio = document.getElementById("dd-vacio"), grupos = [...document.querySelectorAll(".dd-grupo")];
+  // las filas que quedaron sin cifra (su fuente no llegó) ya están ocultas: no cuentan
+  const filas = [...document.querySelectorAll(".dd-dato")].filter(f => !f.hidden);
+  const sinTildes = t => t.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+  const textos = new Map(filas.map(f => [f, sinTildes(f.textContent)]));
+  caja.hidden = false;
+  function filtrar(guardar = true) {
+    const pal = sinTildes(q.value).split(/\s+/).filter(Boolean), t = tema.value;
+    let n = 0;
+    grupos.forEach(g => {
+      let hay = 0;
+      g.querySelectorAll(".dd-dato").forEach(f => {
+        if (!textos.has(f)) return;
+        const ok = pal.every(p => textos.get(f).includes(p)) && (!t || (t.startsWith("g:") ? g.dataset.grupo === t.slice(2) : f.dataset.tema === t));
+        f.hidden = !ok; hay += ok;
+      });
+      g.hidden = !hay; n += hay;
+    });
+    const filtrado = pal.length || t;
+    cuenta.innerHTML = filtrado ? `<b>${n}</b> de ${filas.length} datos` : `<b>${n}</b> datos`;
+    vacio.hidden = n > 0;
+    if (!guardar) return;
+    const u = new URL(location.href);
+    [["q", q.value.trim()], ["tema", t]].forEach(([k, v]) => v ? u.searchParams.set(k, v) : u.searchParams.delete(k));
+    history.replaceState(history.state, "", u);
+  }
+  // un enlace con filtros (datos-destacados.html?tema=salud) los trae puestos, si existen
+  const par = new URLSearchParams(location.search);
+  q.value = par.get("q") || "";
+  if ([...tema.options].some(o => o.value === par.get("tema"))) tema.value = par.get("tema");
+  filtrar(false);
+  q.addEventListener("input", () => filtrar());
+  tema.addEventListener("change", () => filtrar());
+})();
 // D7 (plan de mejora, 28 de octubre de 2026, aprobado por el autor): la cifra es la del país, y debajo, de la provincia más baja a la más
 // alta, como en el gráfico de la ficha (en el petróleo, cuánto sale de la primera). Con una provincia elegida, también la suya. Los
 // homicidios por provincia van, como en su ficha, en el promedio de tres años: en las provincias chicas un año solo salta mucho
@@ -12959,7 +13029,7 @@ if (PAGINA !== "inicio") {
     "f-medicos": ["medicos", "medicos por habitante", "cantidad de medicos", "medico"],
     "f-hospitales": ["hospitales", "hospital", "hospitales publicos", "terapia intensiva", "hospitales por habitante"],
     "f-distancia-hospital": ["distancia al hospital", "hospital mas cercano", "lejos del hospital", "escuelas rurales", "acceso a la salud"],
-    "f-escuelas-primarias": ["escuelas primarias", "escuela primaria", "cantidad de escuelas", "cuantas escuelas", "escuelas por chico"],
+    "f-escuelas-primarias": ["escuelas primarias", "escuela primaria", "cantidad de escuelas", "cuantas escuelas", "escuelas por chico"], "f-escuelas-secundarias": ["escuelas secundarias", "escuela secundaria", "colegios secundarios", "secundarias por chico"],
     "f-cobertura-suelo": ["monte nativo", "monte natural", "bosques", "desmonte", "deforestacion", "mapbiomas", "vegetacion natural"],
     "f-telefonia": ["telefono fijo", "telefonia fija", "linea fija", "telefonia"], "f-tv-paga": ["tv paga", "television paga", "cable", "tv por cable", "tv satelital"],
     "f-abandono": ["abandono escolar", "abandono", "repitencia", "repiten", "dejan la escuela", "desercion escolar"],

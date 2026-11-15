@@ -91,12 +91,12 @@
   {
    "nombre": "empleo_privado",
    "tipo": "Número",
-   "valores": "3,49 a 48,22"
+   "valores": "3,49 a 48,35"
   },
   {
    "nombre": "empleo_var",
    "tipo": "Número",
-   "valores": "-13,13 a 5,22"
+   "valores": "-13,03 a 5,41"
   },
   {
    "nombre": "protegida",
@@ -350,5 +350,5 @@
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
  "como_citar": "Datina (año de la consulta). ¿Cómo se relacionan dos indicadores entre las provincias? Con datos de las de cada indicador, que figuran debajo del gráfico. https://datina.com.ar/cruces.html#f-cruces. Consultado el día de la consulta.",
- "datos_actualizados": "05/11/2026"
+ "datos_actualizados": "15/11/2026"
 }

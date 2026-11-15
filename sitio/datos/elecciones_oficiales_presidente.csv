@@ -1,0 +1,2346 @@
+anio,vuelta,codigo_indec,jurisdiccion,lista,votos,porcentaje
+1983,general,02,CABA,Alfonsín - Martínez,1269352,64.2626
+1983,general,02,CABA,Luder - Bittel,540389,27.3579
+1983,general,02,CABA,Alende - Viale,88480,4.4794
+1983,general,02,CABA,Alsogaray - Oria,25263,1.2790
+1983,general,02,CABA,Frigerio - Salonia,14480,0.7331
+1983,general,02,CABA,Manrique - Rawson,14190,0.7184
+1983,general,02,CABA,Zamora - Díaz,7854,0.3976
+1983,general,02,CABA,Martínez Raymonda - Balestra,6238,0.3158
+1983,general,02,CABA,Cerro - Ponsati,3630,0.1838
+1983,general,02,CABA,Flores - Guagnini,2606,0.1319
+1983,general,02,CABA,Estevéz Boero - Rossi,1740,0.0881
+1983,general,02,CABA,Ramos - Colombo,1035,0.0524
+1983,general,06,Buenos Aires,Alfonsín - Martínez,2878858,51.4124
+1983,general,06,Buenos Aires,Luder - Bittel,2364585,42.2282
+1983,general,06,Buenos Aires,Alende - Viale,181488,3.2411
+1983,general,06,Buenos Aires,Frigerio - Salonia,47004,0.8394
+1983,general,06,Buenos Aires,Manrique - Rawson,33203,0.5930
+1983,general,06,Buenos Aires,Alsogaray - Oria,24882,0.4444
+1983,general,06,Buenos Aires,Zamora - Díaz,24462,0.4369
+1983,general,06,Buenos Aires,Martínez Raymonda - Balestra,13785,0.2462
+1983,general,06,Buenos Aires,Cerro - Ponsati,12764,0.2279
+1983,general,06,Buenos Aires,Flores - Guagnini,6173,0.1102
+1983,general,06,Buenos Aires,Estevéz Boero - Rossi,4816,0.0860
+1983,general,06,Buenos Aires,Ramos - Colombo,4074,0.0728
+1983,general,06,Buenos Aires,Conservador Principista,3000,0.0536
+1983,general,06,Buenos Aires,Renovador de la Provincia,448,0.0080
+1983,general,10,Catamarca,Alfonsín - Martínez,48595,46.7903
+1983,general,10,Catamarca,Luder - Bittel,45329,43.6456
+1983,general,10,Catamarca,Catamarqueño,4464,4.2982
+1983,general,10,Catamarca,La Voz del Pueblo,2735,2.6334
+1983,general,10,Catamarca,Frigerio - Salonia,805,0.7751
+1983,general,10,Catamarca,Alende - Viale,602,0.5796
+1983,general,10,Catamarca,Cerro - Ponsati,491,0.4728
+1983,general,10,Catamarca,Demócrata de Catamarca,401,0.3861
+1983,general,10,Catamarca,Manrique - Rawson,219,0.2109
+1983,general,10,Catamarca,Martínez Raymonda - Balestra,127,0.1223
+1983,general,10,Catamarca,Zamora - Díaz,89,0.0857
+1983,general,14,Córdoba,Alfonsín - Martínez,791470,56.2189
+1983,general,14,Córdoba,Luder - Bittel,561954,39.9162
+1983,general,14,Córdoba,Frigerio - Salonia,13078,0.9289
+1983,general,14,Córdoba,Alende - Viale,12245,0.8698
+1983,general,14,Córdoba,Manrique - Rawson,12232,0.8689
+1983,general,14,Córdoba,Cerro - Ponsati,5218,0.3706
+1983,general,14,Córdoba,Martínez Raymonda - Balestra,2628,0.1867
+1983,general,14,Córdoba,Estevéz Boero - Rossi,2563,0.1821
+1983,general,14,Córdoba,Zamora - Díaz,2351,0.1670
+1983,general,14,Córdoba,Alsogaray - Oria,2257,0.1603
+1983,general,14,Córdoba,Ramos - Colombo,1073,0.0762
+1983,general,14,Córdoba,Flores - Guagnini,767,0.0545
+1983,general,18,Corrientes,Alfonsín - Martínez,112216,33.8441
+1983,general,18,Corrientes,Pacto Autonomista Liberal,104052,31.3819
+1983,general,18,Corrientes,Luder - Bittel,94105,28.3819
+1983,general,18,Corrientes,Frigerio - Salonia,11662,3.5172
+1983,general,18,Corrientes,Cerro - Ponsati,2533,0.7639
+1983,general,18,Corrientes,Alende - Viale,2467,0.7440
+1983,general,18,Corrientes,Manrique - Rawson,2169,0.6542
+1983,general,18,Corrientes,Demócrata Progresista,1926,0.5809
+1983,general,18,Corrientes,Ramos - Colombo,271,0.0817
+1983,general,18,Corrientes,Estevéz Boero - Rossi,166,0.0501
+1983,general,22,Chaco,Luder - Bittel,158721,47.9839
+1983,general,22,Chaco,Alfonsín - Martínez,153971,46.5479
+1983,general,22,Chaco,Frigerio - Salonia,7141,2.1588
+1983,general,22,Chaco,Movimiento de Unidad Chaqueña,2853,0.8625
+1983,general,22,Chaco,Socialista,2289,0.6920
+1983,general,22,Chaco,Cerro - Ponsati,1688,0.5103
+1983,general,22,Chaco,Manrique - Rawson,1536,0.4644
+1983,general,22,Chaco,Alende - Viale,1391,0.4205
+1983,general,22,Chaco,Ramos - Colombo,496,0.1499
+1983,general,22,Chaco,Martínez Raymonda - Balestra,428,0.1294
+1983,general,22,Chaco,Zamora - Díaz,266,0.0804
+1983,general,26,Chubut,Alfonsín - Martínez,56912,50.8542
+1983,general,26,Chubut,Luder - Bittel,46400,41.4611
+1983,general,26,Chubut,Acción Chubutense,2640,2.3590
+1983,general,26,Chubut,Frigerio - Salonia,2362,2.1106
+1983,general,26,Chubut,Alende - Viale,1957,1.7487
+1983,general,26,Chubut,Cerro - Ponsati,490,0.4378
+1983,general,26,Chubut,Manrique - Rawson,415,0.3708
+1983,general,26,Chubut,Zamora - Díaz,301,0.2690
+1983,general,26,Chubut,Estevéz Boero - Rossi,263,0.2350
+1983,general,26,Chubut,Martines Raymonda - Balestra,129,0.1153
+1983,general,26,Chubut,Flores - Guagnini,43,0.0384
+1983,general,30,Entre Ríos,Alfonsín - Martínez,251811,49.5304
+1983,general,30,Entre Ríos,Luder - Bittel,224778,44.2131
+1983,general,30,Entre Ríos,Manrique - Rawson,7952,1.5641
+1983,general,30,Entre Ríos,Frigerio - Salonia,7949,1.5635
+1983,general,30,Entre Ríos,Alende - Viale,7558,1.4866
+1983,general,30,Entre Ríos,Cerro - Ponsati,4773,0.9388
+1983,general,30,Entre Ríos,Estevéz Boero - Rossi,1562,0.3072
+1983,general,30,Entre Ríos,Alsogaray - Oria,1065,0.2095
+1983,general,30,Entre Ríos,Ramos - Colombo,577,0.1135
+1983,general,30,Entre Ríos,Martínez Raymonda - Balestra,372,0.0732
+1983,general,34,Formosa,Luder - Bittel,54660,45.1165
+1983,general,34,Formosa,Alfonsín - Martínez,45065,37.1968
+1983,general,34,Formosa,Frigerio - Salonia,16680,13.7677
+1983,general,34,Formosa,Movimiento Línea Popular,3074,2.5373
+1983,general,34,Formosa,Cerro - Ponsati,586,0.4837
+1983,general,34,Formosa,Alende - Viale,560,0.4622
+1983,general,34,Formosa,Para la Democracia Social,257,0.2121
+1983,general,34,Formosa,Ramos - Colombo,166,0.1370
+1983,general,34,Formosa,Martínez Raymonda - Balestra,105,0.0867
+1983,general,38,Jujuy,Luder - Bittel,84051,48.7249
+1983,general,38,Jujuy,Alfonsín - Martínez,61173,35.4624
+1983,general,38,Jujuy,Movimineto Popular Jujeño,22303,12.9292
+1983,general,38,Jujuy,Frigerio - Salonia,1421,0.8238
+1983,general,38,Jujuy,Manrique - Rawson,1288,0.7467
+1983,general,38,Jujuy,Alende - Viale,877,0.5084
+1983,general,38,Jujuy,Zamora - Díaz,506,0.2933
+1983,general,38,Jujuy,Estevéz Boero - Rossi,369,0.2139
+1983,general,38,Jujuy,Flores - Guagnini,303,0.1757
+1983,general,38,Jujuy,Martínez Raymonda - Balestra,138,0.0800
+1983,general,38,Jujuy,Ramos - Colombo,72,0.0417
+1983,general,42,La Pampa,Alfonsín - Martínez,50753,41.3814
+1983,general,42,La Pampa,Luder - Bittel,50138,40.8799
+1983,general,42,La Pampa,Movimiento Federalista Pampeano,15298,12.4732
+1983,general,42,La Pampa,Frigerio - Salonia,3294,2.6858
+1983,general,42,La Pampa,Alende - Viale,1922,1.5671
+1983,general,42,La Pampa,Socialista Auténtico,531,0.4329
+1983,general,42,La Pampa,Cerro - Ponsati,479,0.3906
+1983,general,42,La Pampa,Zamora - Díaz,121,0.0987
+1983,general,42,La Pampa,Estevéz Boero - Rossi,111,0.0905
+1983,general,46,La Rioja,Luder - Bittel,48073,55.5231
+1983,general,46,La Rioja,Alfonsín - Martínez,35534,41.0409
+1983,general,46,La Rioja,Frigerio - Salonia,1588,1.8341
+1983,general,46,La Rioja,Alende - Viale,462,0.5336
+1983,general,46,La Rioja,Cerro - Ponsati,308,0.3557
+1983,general,46,La Rioja,Ramos - Colombo,300,0.3465
+1983,general,46,La Rioja,Manrique - Rawson,215,0.2483
+1983,general,46,La Rioja,Zamora - Díaz,102,0.1178
+1983,general,50,Mendoza,Alfonsín - Martínez,368484,57.8113
+1983,general,50,Mendoza,Luder - Bittel,233035,36.5608
+1983,general,50,Mendoza,Manrique - Rawson,17192,2.6972
+1983,general,50,Mendoza,Frigerio - Salonia,7233,1.1348
+1983,general,50,Mendoza,Alende - Viale,6073,0.9528
+1983,general,50,Mendoza,Cerro - Ponsati,1435,0.2251
+1983,general,50,Mendoza,Alsogaray - Oria,1031,0.1618
+1983,general,50,Mendoza,Zamora - Díaz,919,0.1442
+1983,general,50,Mendoza,Ramos - Colombo,812,0.1274
+1983,general,50,Mendoza,Martínez Raymonda - Balestra,584,0.0916
+1983,general,50,Mendoza,Estevéz Boero - Rossi,471,0.0739
+1983,general,50,Mendoza,Flores - Guagnini,122,0.0191
+1983,general,54,Misiones,Alfonsín - Martínez,118676,49.5578
+1983,general,54,Misiones,Luder - Bittel,114454,47.7947
+1983,general,54,Misiones,Frigerio - Salonia,3885,1.6223
+1983,general,54,Misiones,Alende - Viale,738,0.3082
+1983,general,54,Misiones,Cerro - Ponsati,538,0.2247
+1983,general,54,Misiones,Alsogaray - Oria,535,0.2234
+1983,general,54,Misiones,Ramos - Colombo,378,0.1578
+1983,general,54,Misiones,Manrique - Rawson,194,0.0810
+1983,general,54,Misiones,Flores - Guagnini,72,0.0301
+1983,general,58,Neuquén,Alfonsín - Martínez,48279,45.3137
+1983,general,58,Neuquén,Movimiento Popular Neuquino,30546,28.6698
+1983,general,58,Neuquén,Luder - Bittel,23653,22.2002
+1983,general,58,Neuquén,Alende - Viale,2114,1.9842
+1983,general,58,Neuquén,Frigerio - Salonia,904,0.8485
+1983,general,58,Neuquén,Alsogaray - Oria,336,0.3154
+1983,general,58,Neuquén,Zamora - Díaz,321,0.3013
+1983,general,58,Neuquén,Flores - Guagnini,250,0.2346
+1983,general,58,Neuquén,Ramos - Colombo,141,0.1323
+1983,general,62,Río Negro,Alfonsín - Martínez,84226,53.5666
+1983,general,62,Río Negro,Luder - Bittel,62801,39.9406
+1983,general,62,Río Negro,Alende - Viale,2868,1.8240
+1983,general,62,Río Negro,Frigerio - Salonia,2616,1.6637
+1983,general,62,Río Negro,Cerro - Ponsati,1481,0.9419
+1983,general,62,Río Negro,Provincial Rionegrino,1113,0.7079
+1983,general,62,Río Negro,Zamora - Díaz,685,0.4357
+1983,general,62,Río Negro,Alsogaray - Oria,458,0.2913
+1983,general,62,Río Negro,Martínez Raymonda - Balestra,257,0.1634
+1983,general,62,Río Negro,Manrique - Rawson,256,0.1628
+1983,general,62,Río Negro,Ramos - Colombo,249,0.1584
+1983,general,62,Río Negro,Flores - Guagnini,226,0.1437
+1983,general,66,Salta,Luder - Bittel,137369,45.2738
+1983,general,66,Salta,Alfonsín - Martínez,135398,44.6242
+1983,general,66,Salta,Renovador de Salta,18844,6.2106
+1983,general,66,Salta,Movimiento Popular Salteño,3197,1.0537
+1983,general,66,Salta,Alianza Salteña,3089,1.0181
+1983,general,66,Salta,Frigerio - Salonia,1774,0.5847
+1983,general,66,Salta,Alende - Viale,1340,0.4416
+1983,general,66,Salta,Cerro - Ponsati,1122,0.3698
+1983,general,66,Salta,Flores - Guagnini,475,0.1565
+1983,general,66,Salta,Ramos - Colombo,454,0.1496
+1983,general,66,Salta,Martínez Raymonda - Balestra,356,0.1173
+1983,general,70,San Juan,Alfonsín - Martínez,98916,40.2292
+1983,general,70,San Juan,Luder - Bittel,75368,30.6522
+1983,general,70,San Juan,Bloquista,58038,23.6041
+1983,general,70,San Juan,Cruzada Renovadora,5539,2.2527
+1983,general,70,San Juan,Frigerio - Salonia,2940,1.1957
+1983,general,70,San Juan,Alende - Viale,2152,0.8752
+1983,general,70,San Juan,Alsogaray - Oria,991,0.4030
+1983,general,70,San Juan,Estevéz Boero - Rossi,616,0.2505
+1983,general,70,San Juan,Cerro - Ponsati,498,0.2025
+1983,general,70,San Juan,Zamora - Díaz,463,0.1883
+1983,general,70,San Juan,Ramos - Colombo,296,0.1204
+1983,general,70,San Juan,Manrique - Rawson,64,0.0260
+1983,general,74,San Luis,Alfonsín - Martínez,58723,48.5812
+1983,general,74,San Luis,Luder - Bittel,50095,41.4433
+1983,general,74,San Luis,Manrique - Rawson,6439,5.3269
+1983,general,74,San Luis,Frigerio - Salonia,4434,3.6682
+1983,general,74,San Luis,Alende - Viale,549,0.4542
+1983,general,74,San Luis,Alsogaray - Oria,184,0.1522
+1983,general,74,San Luis,Ramos - Colombo,181,0.1497
+1983,general,74,San Luis,Cerro - Ponsati,165,0.1365
+1983,general,74,San Luis,Estevéz Boero - Rossi,106,0.0877
+1983,general,78,Santa Cruz,Luder - Bittel,22324,51.4971
+1983,general,78,Santa Cruz,Alfonsín - Martínez,19077,44.0069
+1983,general,78,Santa Cruz,Frigerio - Salonia,844,1.9469
+1983,general,78,Santa Cruz,Alende - Viale,668,1.5409
+1983,general,78,Santa Cruz,Zamora - Díaz,146,0.3368
+1983,general,78,Santa Cruz,Flores - Guagnini,123,0.2837
+1983,general,78,Santa Cruz,Ramos - Colombo,87,0.2007
+1983,general,78,Santa Cruz,Martínez Raymonda - Balestra,44,0.1015
+1983,general,78,Santa Cruz,Estevéz Boero - Rossi,37,0.0854
+1983,general,82,Santa Fe,Alfonsín - Martínez,719186,50.2148
+1983,general,82,Santa Fe,Luder - Bittel,615007,42.9408
+1983,general,82,Santa Fe,Alende - Viale,26835,1.8737
+1983,general,82,Santa Fe,Martínez Raymonda - Balestra,21767,1.5198
+1983,general,82,Santa Fe,Frigerio - Salonia,20519,1.4327
+1983,general,82,Santa Fe,Estevéz Boero - Rossi,6732,0.4700
+1983,general,82,Santa Fe,Cerro - Ponsati,5480,0.3826
+1983,general,82,Santa Fe,Manrique - Rawson,4151,0.2898
+1983,general,82,Santa Fe,Línea Popular,4044,0.2824
+1983,general,82,Santa Fe,Zamora - Díaz,2953,0.2062
+1983,general,82,Santa Fe,Alsogaray - Oria,2414,0.1685
+1983,general,82,Santa Fe,Ramos - Colombo,1883,0.1315
+1983,general,82,Santa Fe,Flores - Guagnini,1248,0.0871
+1983,general,86,Santiago del Estero,Luder - Bittel,130411,48.5331
+1983,general,86,Santiago del Estero,Alfonsín - Martínez,109012,40.5694
+1983,general,86,Santiago del Estero,Tres Banderas,22583,8.4044
+1983,general,86,Santiago del Estero,Alianza Popular,2568,0.9557
+1983,general,86,Santiago del Estero,Alende - Viale,1146,0.4265
+1983,general,86,Santiago del Estero,Frigerio - Salonia,1106,0.4116
+1983,general,86,Santiago del Estero,Estevéz Boero - Rossi,709,0.2639
+1983,general,86,Santiago del Estero,Manrique - Rawson,669,0.2490
+1983,general,86,Santiago del Estero,Ramos - Colombo,501,0.1864
+1983,general,90,Tucumán,Luder - Bittel,253522,51.7754
+1983,general,90,Tucumán,Alfonsín - Martínez,203462,41.5519
+1983,general,90,Tucumán,Vanguardia Federal,12373,2.5269
+1983,general,90,Tucumán,Frigerio - Salonia,3378,0.6899
+1983,general,90,Tucumán,Cerro - Ponsati,2800,0.5718
+1983,general,90,Tucumán,Alende - Viale,2756,0.5628
+1983,general,90,Tucumán,Alsogaray - Oria,1738,0.3549
+1983,general,90,Tucumán,Manrique - Rawson,1653,0.3376
+1983,general,90,Tucumán,De Centro,1592,0.3251
+1983,general,90,Tucumán,Martínez Raymonda - Balestra,1300,0.2655
+1983,general,90,Tucumán,Ramos - Colombo,1161,0.2371
+1983,general,90,Tucumán,Zamora - Díaz,961,0.1963
+1983,general,90,Tucumán,Unión Popular,934,0.1907
+1983,general,90,Tucumán,Estevéz Boero - Rossi,739,0.1509
+1983,general,90,Tucumán,Flores - Guagnini,630,0.1287
+1983,general,90,Tucumán,Movimiento Nacionalista,394,0.0805
+1983,general,90,Tucumán,Defensa Provincial,264,0.0539
+1983,general,94,Tierra del Fuego,Alfonsín - Martínez,5410,50.4006
+1983,general,94,Tierra del Fuego,Luder - Bittel,4180,38.9417
+1983,general,94,Tierra del Fuego,Alende - Viale,406,3.7824
+1983,general,94,Tierra del Fuego,Frigerio - Salonia,329,3.0650
+1983,general,94,Tierra del Fuego,Alsogaray - Oria,108,1.0061
+1983,general,94,Tierra del Fuego,Manrique - Rawson,77,0.7173
+1983,general,94,Tierra del Fuego,Cerro - Ponsati,65,0.6056
+1983,general,94,Tierra del Fuego,Socialismo Auténtico,54,0.5031
+1983,general,94,Tierra del Fuego,Ramos - Colombo,52,0.4844
+1983,general,94,Tierra del Fuego,Flores - Guagnini,29,0.2702
+1983,general,94,Tierra del Fuego,Conservador Popular,13,0.1211
+1983,general,94,Tierra del Fuego,Estevéz Boero - Rossi,11,0.1025
+1989,general,02,CABA,Angeloz - Casella,922893,45.1250
+1989,general,02,CABA,Menem - Duhalde,749409,36.6425
+1989,general,02,CABA,Alsogaray - Natale,252620,12.3519
+1989,general,02,CABA,Vicente - Zamora,69035,3.3755
+1989,general,02,CABA,Estévez Boero - Bravo,35365,1.7292
+1989,general,02,CABA,Corzo Gómez - Houssay,5915,0.2892
+1989,general,02,CABA,Ammann - Méndez,4614,0.2256
+1989,general,02,CABA,Altamira - Flores,4250,0.2078
+1989,general,02,CABA,Bustelo - Hernández,1090,0.0533
+1989,general,06,Buenos Aires,Menem - Duhalde,3160004,50.0715
+1989,general,06,Buenos Aires,Angeloz - Casella,2101158,33.2937
+1989,general,06,Buenos Aires,Alsogaray - Natale,427455,6.7732
+1989,general,06,Buenos Aires,Corzo Gómez - Houssay,288867,4.5772
+1989,general,06,Buenos Aires,Vicente - Zamora,204154,3.2349
+1989,general,06,Buenos Aires,Estévez Boero - Bravo,92876,1.4717
+1989,general,06,Buenos Aires,Altamira - Flores,16465,0.2609
+1989,general,06,Buenos Aires,Ammann - Méndez,12466,0.1975
+1989,general,06,Buenos Aires,De la Independencia,4083,0.0647
+1989,general,06,Buenos Aires,Bustelo - Hernández,3459,0.0548
+1989,general,10,Catamarca,Menem - Duhalde,69840,55.1515
+1989,general,10,Catamarca,Angeloz - Casella,50970,40.2502
+1989,general,10,Catamarca,Corzo Gómez - Houssay,1719,1.3575
+1989,general,10,Catamarca,Vicente - Zamora,1349,1.0653
+1989,general,10,Catamarca,Alsogaray - Natale,1236,0.9760
+1989,general,10,Catamarca,Estévez Boero - Bravo,633,0.4999
+1989,general,10,Catamarca,Ammann - Méndez,409,0.3230
+1989,general,10,Catamarca,Unificación Populista,243,0.1919
+1989,general,10,Catamarca,Bustelo - Hernández,234,0.1848
+1989,general,14,Córdoba,Angeloz - Casella,747049,48.4789
+1989,general,14,Córdoba,Menem - Duhalde,686193,44.5297
+1989,general,14,Córdoba,Alsogaray - Natale,57805,3.7512
+1989,general,14,Córdoba,Vicente - Zamora,23280,1.5107
+1989,general,14,Córdoba,Estévez Boero - Bravo,16239,1.0538
+1989,general,14,Córdoba,Altamira - Flores,6050,0.3926
+1989,general,14,Córdoba,Ammann - Méndez,4363,0.2831
+1989,general,18,Corrientes,Menem - Duhalde,161716,42.0407
+1989,general,18,Corrientes,Angeloz - Casella,107013,27.8198
+1989,general,18,Corrientes,Pacto Autonomista Liberal - Demócrata Progresista - Movimiento Liberación Popular,106774,27.7577
+1989,general,18,Corrientes,Alsogaray - Natale,4600,1.1958
+1989,general,18,Corrientes,Vicente - Zamora,2114,0.5496
+1989,general,18,Corrientes,Bustelo - Hernández,915,0.2379
+1989,general,18,Corrientes,Altamira - Flores,604,0.1570
+1989,general,18,Corrientes,Ammann - Méndez,500,0.1300
+1989,general,18,Corrientes,Movimiento Democrático Popular Antiimperialista,429,0.1115
+1989,general,22,Chaco,Menem - Duhalde,203934,52.2320
+1989,general,22,Chaco,Angeloz - Casella,148712,38.0884
+1989,general,22,Chaco,Acción Chaqueña,19831,5.0792
+1989,general,22,Chaco,Alsogaray - Natale,7419,1.9002
+1989,general,22,Chaco,Socialista,3595,0.9208
+1989,general,22,Chaco,Vicente - Zamora,2599,0.6657
+1989,general,22,Chaco,Angeloz - Guzmán,2173,0.5566
+1989,general,22,Chaco,Ammann - Méndez,1255,0.3214
+1989,general,22,Chaco,Altamira - Flores,921,0.2359
+1989,general,26,Chubut,Angeloz - Casella,65930,45.7860
+1989,general,26,Chubut,Menem - Duhalde,61507,42.7144
+1989,general,26,Chubut,Alsogaray - Natale,10115,7.0245
+1989,general,26,Chubut,Vicente - Zamora,2895,2.0105
+1989,general,26,Chubut,Estévez Boero - Bravo,1389,0.9646
+1989,general,26,Chubut,Justicia Social,1147,0.7965
+1989,general,26,Chubut,Altamira - Flores,693,0.4813
+1989,general,26,Chubut,Ammann - Méndez,320,0.2222
+1989,general,30,Entre Ríos,Menem - Duhalde,291070,51.5968
+1989,general,30,Entre Ríos,Angeloz - Casella,220505,39.0880
+1989,general,30,Entre Ríos,Alsogaray - Natale,34408,6.0994
+1989,general,30,Entre Ríos,Estévez Boero - Bravo,7858,1.3930
+1989,general,30,Entre Ríos,Vicente - Zamora,6346,1.1249
+1989,general,30,Entre Ríos,Ammann - Méndez,2468,0.4375
+1989,general,30,Entre Ríos,Altamira - Flores,1469,0.2604
+1989,general,34,Formosa,Menem - Duhalde,95407,58.7033
+1989,general,34,Formosa,Angeloz - Casella,64247,39.5308
+1989,general,34,Formosa,Alsogaray - Natale,1476,0.9082
+1989,general,34,Formosa,Vicente - Zamora,625,0.3846
+1989,general,34,Formosa,Bustelo - Hernández,399,0.2455
+1989,general,34,Formosa,Ammann - Méndez,184,0.1132
+1989,general,34,Formosa,Auténtico Formoseño,181,0.1114
+1989,general,34,Formosa,Socialista,5,0.0031
+1989,general,38,Jujuy,Menem - Duhalde,87719,42.4701
+1989,general,38,Jujuy,Angeloz - Casella,77317,37.4339
+1989,general,38,Jujuy,Bussi - Álvarez,15326,7.4202
+1989,general,38,Jujuy,Movimiento Unidad Renovadora,7661,3.7092
+1989,general,38,Jujuy,"Azul, Lealtad, Restauración",7287,3.5281
+1989,general,38,Jujuy,Vicente - Zamora,3482,1.6858
+1989,general,38,Jujuy,Alsogaray - Natale,2712,1.3130
+1989,general,38,Jujuy,Demócrata,2487,1.2041
+1989,general,38,Jujuy,Estévez Boero - Bravo,1096,0.5306
+1989,general,38,Jujuy,Altamira - Flores,832,0.4028
+1989,general,38,Jujuy,Ammann - Méndez,624,0.3021
+1989,general,42,La Pampa,Menem - Duhalde,74344,51.5880
+1989,general,42,La Pampa,Angeloz - Casella,58051,40.2821
+1989,general,42,La Pampa,Alsogaray - Natale,6455,4.4792
+1989,general,42,La Pampa,Vicente - Zamora,2769,1.9214
+1989,general,42,La Pampa,Estévez Boero - Bravo,1963,1.3621
+1989,general,42,La Pampa,Ammann - Méndez,529,0.3671
+1989,general,46,La Rioja,Menem - Duhalde,70233,66.6094
+1989,general,46,La Rioja,Angeloz - Casella,30269,28.7073
+1989,general,46,La Rioja,Corzo Gómez - Houssay,1877,1.7802
+1989,general,46,La Rioja,Alsogaray - Natale,1498,1.4207
+1989,general,46,La Rioja,Vicente - Zamora,806,0.7644
+1989,general,46,La Rioja,Desarrollo,557,0.5283
+1989,general,46,La Rioja,Ammann - Méndez,200,0.1897
+1989,general,50,Mendoza,Menem - Duhalde,291272,42.2777
+1989,general,50,Mendoza,Angeloz - Casella,227009,32.9500
+1989,general,50,Mendoza,Alsogaray - Natale,114486,16.6175
+1989,general,50,Mendoza,Vicente - Zamora,27471,3.9874
+1989,general,50,Mendoza,Estévez Boero - Bravo,11601,1.6839
+1989,general,50,Mendoza,Angeloz - Guzmán,4631,0.6722
+1989,general,50,Mendoza,Altamira - Flores,3506,0.5089
+1989,general,50,Mendoza,Ammann - Méndez,3488,0.5063
+1989,general,50,Mendoza,Del Trabajo y del Pueblo,2770,0.4021
+1989,general,50,Mendoza,Socialista Obrero para la Liberación,2715,0.3941
+1989,general,54,Misiones,Menem - Duhalde,165331,52.8787
+1989,general,54,Misiones,Angeloz - Casella,127588,40.8071
+1989,general,54,Misiones,Alsogaray - Natale,14246,4.5564
+1989,general,54,Misiones,Estévez Boero - Bravo,1658,0.5303
+1989,general,54,Misiones,Vicente - Zamora,1624,0.5194
+1989,general,54,Misiones,Ammann - Méndez,1458,0.4663
+1989,general,54,Misiones,Altamira - Flores,756,0.2418
+1989,general,58,Neuquén,Menem - Duhalde,58416,39.4404
+1989,general,58,Neuquén,Angeloz - Casella,43387,29.2934
+1989,general,58,Neuquén,Movimiento Popular Neuquino,35466,23.9454
+1989,general,58,Neuquén,Alsogaray - Natale,5772,3.8971
+1989,general,58,Neuquén,Vicente - Zamora,2896,1.9553
+1989,general,58,Neuquén,Estévez Boero - Bravo,1047,0.7069
+1989,general,58,Neuquén,Ammann - Méndez,625,0.4220
+1989,general,58,Neuquén,Altamira - Flores,503,0.3396
+1989,general,62,Río Negro,Menem - Duhalde,94826,47.4301
+1989,general,62,Río Negro,Angeloz - Casella,83661,41.8456
+1989,general,62,Río Negro,Alsogaray - Natale,12848,6.4263
+1989,general,62,Río Negro,Vicente - Zamora,4630,2.3158
+1989,general,62,Río Negro,Estévez Boero - Bravo,1746,0.8733
+1989,general,62,Río Negro,Altamira - Flores,1260,0.6302
+1989,general,62,Río Negro,Ammann - Méndez,957,0.4787
+1989,general,66,Salta,Angeloz - Casella,171417,47.0374
+1989,general,66,Salta,Menem - Duhalde,160393,44.0124
+1989,general,66,Salta,Alsogaray - Natale,11111,3.0489
+1989,general,66,Salta,Bussi - Álvarez,9897,2.7158
+1989,general,66,Salta,Vicente - Zamora,4303,1.1808
+1989,general,66,Salta,Altamira - Flores,2735,0.7505
+1989,general,66,Salta,Ammann - Méndez,1492,0.4094
+1989,general,66,Salta,Estévez Boero - Bravo,1195,0.3279
+1989,general,66,Salta,Unión Provincial,966,0.2651
+1989,general,66,Salta,De la Liberación,918,0.2519
+1989,general,70,San Juan,Menem - Duhalde,121692,46.5509
+1989,general,70,San Juan,Angeloz - Casella,76658,29.3240
+1989,general,70,San Juan,Alianza Bloquista,27004,10.3299
+1989,general,70,San Juan,Alsogaray - Natale,15982,6.1136
+1989,general,70,San Juan,Cruzada Renovadora,11236,4.2981
+1989,general,70,San Juan,Vicente - Zamora,4855,1.8572
+1989,general,70,San Juan,Estévez Boero - Bravo,1637,0.6262
+1989,general,70,San Juan,De los Jubilados,1526,0.5837
+1989,general,70,San Juan,Ammann - Méndez,827,0.3164
+1989,general,74,San Luis,Menem - Duhalde,69480,49.2424
+1989,general,74,San Luis,Angeloz - Casella,59266,42.0034
+1989,general,74,San Luis,Alsogaray - Natale,5066,3.5904
+1989,general,74,San Luis,Vicente - Zamora,2850,2.0199
+1989,general,74,San Luis,Demócrata Liberal - Movimiento Popular Provincial,2327,1.6492
+1989,general,74,San Luis,De los Jubilados,814,0.5769
+1989,general,74,San Luis,Estévez Boero - Bravo,654,0.4635
+1989,general,74,San Luis,Ammann - Méndez,641,0.4543
+1989,general,78,Santa Cruz,Menem - Duhalde,34756,54.7261
+1989,general,78,Santa Cruz,Angeloz - Casella,24241,38.1694
+1989,general,78,Santa Cruz,Alsogaray - Natale,2573,4.0514
+1989,general,78,Santa Cruz,Vicente - Zamora,1028,1.6187
+1989,general,78,Santa Cruz,Altamira - Flores,474,0.7464
+1989,general,78,Santa Cruz,Estévez Boero - Bravo,305,0.4802
+1989,general,78,Santa Cruz,Ammann - Méndez,132,0.2078
+1989,general,82,Santa Fe,Menem - Duhalde,809082,51.9540
+1989,general,82,Santa Fe,Angeloz - Casella,544777,34.9821
+1989,general,82,Santa Fe,Alsogaray - Natale,93652,6.0137
+1989,general,82,Santa Fe,Estévez Boero - Bravo,54395,3.4929
+1989,general,82,Santa Fe,Vicente - Zamora,30952,1.9875
+1989,general,82,Santa Fe,Corzo Gómez - Houssay,12811,0.8226
+1989,general,82,Santa Fe,Altamira - Flores,4074,0.2616
+1989,general,82,Santa Fe,Ammann - Méndez,3293,0.2115
+1989,general,82,Santa Fe,Frente Renovador,1281,0.0823
+1989,general,82,Santa Fe,Tradición y Coherencia,1181,0.0758
+1989,general,82,Santa Fe,Movimiento Democrático Popular Antiimperialista,916,0.0588
+1989,general,82,Santa Fe,De la Liberación,890,0.0572
+1989,general,86,Santiago del Estero,Menem - Duhalde,196916,64.1615
+1989,general,86,Santiago del Estero,Angeloz - Casella,89169,29.0541
+1989,general,86,Santiago del Estero,Bussi - Álvarez,6199,2.0198
+1989,general,86,Santiago del Estero,Angeloz - Guzmán,3655,1.1909
+1989,general,86,Santiago del Estero,Corzo Gómez - Houssay,3596,1.1717
+1989,general,86,Santiago del Estero,Vicente - Zamora,2287,0.7452
+1989,general,86,Santiago del Estero,Alsogaray - Natale,2001,0.6520
+1989,general,86,Santiago del Estero,Estévez Boero - Bravo,1672,0.5448
+1989,general,86,Santiago del Estero,Frente Unión Autonomista,973,0.3170
+1989,general,86,Santiago del Estero,Ammann - Méndez,439,0.1430
+1989,general,90,Tucumán,Menem - Duhalde,228388,41.4909
+1989,general,90,Tucumán,Bussi - Álvarez,153614,27.9068
+1989,general,90,Tucumán,Angeloz - Casella,150267,27.2988
+1989,general,90,Tucumán,Alsogaray - Natale,5458,0.9915
+1989,general,90,Tucumán,Vicente - Zamora,5393,0.9797
+1989,general,90,Tucumán,Estévez Boero - Bravo,2952,0.5363
+1989,general,90,Tucumán,Altamira - Flores,932,0.1693
+1989,general,90,Tucumán,Ammann - Méndez,900,0.1635
+1989,general,90,Tucumán,Acción Provinciana,838,0.1522
+1989,general,90,Tucumán,Corzo Gómez - Houssay,815,0.1481
+1989,general,90,Tucumán,Defensa Provincial Bandera Blanca,651,0.1183
+1989,general,90,Tucumán,Movimiento Nacionalista,245,0.0445
+1989,general,94,Tierra del Fuego,Menem - Duhalde,12263,42.6821
+1989,general,94,Tierra del Fuego,Angeloz - Casella,10609,36.9253
+1989,general,94,Tierra del Fuego,Alsogaray - Natale,2404,8.3673
+1989,general,94,Tierra del Fuego,Vicente - Zamora,1507,5.2452
+1989,general,94,Tierra del Fuego,Angeloz - Guzmán,595,2.0709
+1989,general,94,Tierra del Fuego,Movimiento Popular Fueguino,472,1.6428
+1989,general,94,Tierra del Fuego,Estévez Boero - Bravo,251,0.8736
+1989,general,94,Tierra del Fuego,Altamira - Flores,239,0.8319
+1989,general,94,Tierra del Fuego,Socialista Auténtico,216,0.7518
+1989,general,94,Tierra del Fuego,Ammann - Méndez,132,0.4594
+1989,general,94,Tierra del Fuego,De la Liberación,43,0.1497
+1995,general,02,CABA,Bordón - Álvarez,899230,44.5256
+1995,general,02,CABA,Menem - Ruckauf,842365,41.7099
+1995,general,02,CABA,Massaccesi - Hernández,215382,10.6647
+1995,general,02,CABA,Rico - Fernández Pezzano,24997,1.2377
+1995,general,02,CABA,Solanas - Imizcoz,11920,0.5902
+1995,general,02,CABA,Mazzitelli - Fonseca,7018,0.3475
+1995,general,02,CABA,Méndez - Ambrosio,5172,0.2561
+1995,general,02,CABA,Zamora - Díaz,4508,0.2232
+1995,general,02,CABA,Altamira - Molle,3642,0.1803
+1995,general,02,CABA,Christiansen - Montes,2549,0.1262
+1995,general,02,CABA,Tumini - Reyna,2001,0.0991
+1995,general,02,CABA,Santucho - Antognazzi,798,0.0395
+1995,general,06,Buenos Aires,Menem - Ruckauf,3419089,51.8118
+1995,general,06,Buenos Aires,Bordón - Álvarez,1965708,29.7877
+1995,general,06,Buenos Aires,Massaccesi - Hernández,916912,13.8946
+1995,general,06,Buenos Aires,Rico - Fernández Pezzano,153779,2.3303
+1995,general,06,Buenos Aires,Solanas - Imizcoz,31831,0.4824
+1995,general,06,Buenos Aires,Zamora - Díaz,24712,0.3745
+1995,general,06,Buenos Aires,Mazzitelli - Fonseca,23379,0.3543
+1995,general,06,Buenos Aires,Altamira - Molle,16356,0.2479
+1995,general,06,Buenos Aires,Christiansen - Montes,15166,0.2298
+1995,general,06,Buenos Aires,Méndez - Ambrosio,12776,0.1936
+1995,general,06,Buenos Aires,Tumini - Reyna,8757,0.1327
+1995,general,06,Buenos Aires,Santucho - Antognazzi,8571,0.1299
+1995,general,06,Buenos Aires,Paz - González Chávez,2023,0.0307
+1995,general,10,Catamarca,Menem - Ruckauf,63701,52.2932
+1995,general,10,Catamarca,Massaccesi - Hernández,37528,30.8074
+1995,general,10,Catamarca,Bordón - Álvarez,19339,15.8757
+1995,general,10,Catamarca,Rico - Fernández Pezzano,498,0.4088
+1995,general,10,Catamarca,Solanas - Imizcoz,302,0.2479
+1995,general,10,Catamarca,Altamira - Molle,149,0.1223
+1995,general,10,Catamarca,Zamora - Díaz,91,0.0747
+1995,general,10,Catamarca,Tumini - Reyna,88,0.0722
+1995,general,10,Catamarca,Méndez - Ambrosio,63,0.0517
+1995,general,10,Catamarca,Christiansen - Montes,56,0.0460
+1995,general,14,Córdoba,Menem - Ruckauf,752704,48.1506
+1995,general,14,Córdoba,Massaccesi - Hernández,451719,28.8966
+1995,general,14,Córdoba,Bordón - Álvarez,324746,20.7741
+1995,general,14,Córdoba,Rico - Fernández Pezzano,17856,1.1423
+1995,general,14,Córdoba,Tumini - Reyna,3949,0.2526
+1995,general,14,Córdoba,Solanas - Imizcoz,3066,0.1961
+1995,general,14,Córdoba,Zamora - Díaz,2518,0.1611
+1995,general,14,Córdoba,Mazzitelli - Fonseca,1777,0.1137
+1995,general,14,Córdoba,Méndez - Ambrosio,1722,0.1102
+1995,general,14,Córdoba,Altamira - Molle,1712,0.1095
+1995,general,14,Córdoba,Christiansen - Montes,1216,0.0778
+1995,general,14,Córdoba,Santucho - Antognazzi,184,0.0118
+1995,general,14,Córdoba,Paz - González Chávez,59,0.0038
+1995,general,18,Corrientes,Menem - Ruckauf,165517,46.6137
+1995,general,18,Corrientes,Bordón - Álvarez,121999,34.3580
+1995,general,18,Corrientes,Massaccesi - Hernández,57082,16.0757
+1995,general,18,Corrientes,Rico - Fernández Pezzano,6118,1.7230
+1995,general,18,Corrientes,Tumini - Reyna,945,0.2661
+1995,general,18,Corrientes,Solanas - Imizcoz,882,0.2484
+1995,general,18,Corrientes,Méndez - Ambrosio,613,0.1726
+1995,general,18,Corrientes,Christiansen - Montes,540,0.1521
+1995,general,18,Corrientes,Santucho - Antognazzi,532,0.1498
+1995,general,18,Corrientes,Zamora - Díaz,512,0.1442
+1995,general,18,Corrientes,Altamira - Molle,331,0.0932
+1995,general,18,Corrientes,Paz - González Chávez,11,0.0031
+1995,general,22,Chaco,Menem - Ruckauf,227857,56.8238
+1995,general,22,Chaco,Massaccesi - Hernández,91763,22.8842
+1995,general,22,Chaco,Bordón - Álvarez,72284,18.0264
+1995,general,22,Chaco,Rico - Fernández Pezzano,3567,0.8896
+1995,general,22,Chaco,Solanas - Imizcoz,1728,0.4309
+1995,general,22,Chaco,Méndez - Ambrosio,812,0.2025
+1995,general,22,Chaco,Zamora - Díaz,720,0.1796
+1995,general,22,Chaco,Paz - González Chávez,644,0.1606
+1995,general,22,Chaco,Altamira - Molle,590,0.1471
+1995,general,22,Chaco,Christiansen - Montes,518,0.1292
+1995,general,22,Chaco,Tumini - Reyna,506,0.1262
+1995,general,26,Chubut,Menem - Ruckauf,95228,57.1497
+1995,general,26,Chubut,Massaccesi - Hernández,42891,25.7404
+1995,general,26,Chubut,Bordón - Álvarez,25084,15.0538
+1995,general,26,Chubut,Rico - Fernández Pezzano,1600,0.9602
+1995,general,26,Chubut,Méndez - Ambrosio,390,0.2341
+1995,general,26,Chubut,Paz - González Chávez,336,0.2016
+1995,general,26,Chubut,Solanas - Imizcoz,298,0.1788
+1995,general,26,Chubut,Zamora - Díaz,240,0.1440
+1995,general,26,Chubut,Altamira - Molle,199,0.1194
+1995,general,26,Chubut,Christiansen - Montes,198,0.1188
+1995,general,26,Chubut,Tumini - Reyna,165,0.0990
+1995,general,30,Entre Ríos,Menem - Ruckauf,272819,46.1527
+1995,general,30,Entre Ríos,Massaccesi - Hernández,157112,26.5786
+1995,general,30,Entre Ríos,Bordón - Álvarez,146086,24.7133
+1995,general,30,Entre Ríos,Rico - Fernández Pezzano,10026,1.6961
+1995,general,30,Entre Ríos,Solanas - Imizcoz,1393,0.2357
+1995,general,30,Entre Ríos,Méndez - Ambrosio,852,0.1441
+1995,general,30,Entre Ríos,Zamora - Díaz,816,0.1380
+1995,general,30,Entre Ríos,Altamira - Molle,763,0.1291
+1995,general,30,Entre Ríos,Tumini - Reyna,716,0.1211
+1995,general,30,Entre Ríos,Christiansen - Montes,531,0.0898
+1995,general,30,Entre Ríos,Paz - González Chávez,8,0.0014
+1995,general,34,Formosa,Menem - Ruckauf,85227,49.4190
+1995,general,34,Formosa,Massaccesi - Hernández,53778,31.1832
+1995,general,34,Formosa,Bordón - Álvarez,29022,16.8284
+1995,general,34,Formosa,Rico - Fernández Pezzano,2323,1.3470
+1995,general,34,Formosa,Solanas - Imizcoz,618,0.3583
+1995,general,34,Formosa,Méndez - Ambrosio,554,0.3212
+1995,general,34,Formosa,Altamira - Molle,396,0.2296
+1995,general,34,Formosa,Zamora - Díaz,321,0.1861
+1995,general,34,Formosa,Tumini - Reyna,219,0.1270
+1995,general,38,Jujuy,Menem - Ruckauf,101642,46.8090
+1995,general,38,Jujuy,Massaccesi - Hernández,50000,23.0264
+1995,general,38,Jujuy,Bordón - Álvarez,46513,21.4205
+1995,general,38,Jujuy,Rico - Fernández Pezzano,15602,7.1852
+1995,general,38,Jujuy,Solanas - Imizcoz,1085,0.4997
+1995,general,38,Jujuy,Zamora - Díaz,712,0.3279
+1995,general,38,Jujuy,Altamira - Molle,457,0.2105
+1995,general,38,Jujuy,Méndez - Ambrosio,412,0.1897
+1995,general,38,Jujuy,Tumini - Reyna,386,0.1778
+1995,general,38,Jujuy,Christiansen - Montes,333,0.1534
+1995,general,42,La Pampa,Menem - Ruckauf,77506,50.3917
+1995,general,42,La Pampa,Bordón - Álvarez,37032,24.0769
+1995,general,42,La Pampa,Massaccesi - Hernández,34892,22.6856
+1995,general,42,La Pampa,Rico - Fernández Pezzano,2345,1.5246
+1995,general,42,La Pampa,Solanas - Imizcoz,1007,0.6547
+1995,general,42,La Pampa,Méndez - Ambrosio,286,0.1859
+1995,general,42,La Pampa,Altamira - Molle,249,0.1619
+1995,general,42,La Pampa,Zamora - Díaz,231,0.1502
+1995,general,42,La Pampa,Tumini - Reyna,139,0.0904
+1995,general,42,La Pampa,Christiansen - Montes,120,0.0780
+1995,general,46,La Rioja,Menem - Ruckauf,91803,76.1023
+1995,general,46,La Rioja,Massaccesi - Hernández,19945,16.5339
+1995,general,46,La Rioja,Bordón - Álvarez,7588,6.2903
+1995,general,46,La Rioja,Rico - Fernández Pezzano,495,0.4103
+1995,general,46,La Rioja,Solanas - Imizcoz,320,0.2653
+1995,general,46,La Rioja,Zamora - Díaz,208,0.1724
+1995,general,46,La Rioja,Méndez - Ambrosio,96,0.0796
+1995,general,46,La Rioja,Altamira - Molle,96,0.0796
+1995,general,46,La Rioja,Tumini - Reyna,80,0.0663
+1995,general,50,Mendoza,Menem - Ruckauf,376972,51.6918
+1995,general,50,Mendoza,Bordón - Álvarez,246924,33.8592
+1995,general,50,Mendoza,Massaccesi - Hernández,88657,12.1570
+1995,general,50,Mendoza,Rico - Fernández Pezzano,9294,1.2744
+1995,general,50,Mendoza,Solanas - Imizcoz,2810,0.3853
+1995,general,50,Mendoza,Zamora - Díaz,1519,0.2083
+1995,general,50,Mendoza,Méndez - Ambrosio,914,0.1253
+1995,general,50,Mendoza,Christiansen - Montes,726,0.0996
+1995,general,50,Mendoza,Santucho - Antognazzi,505,0.0692
+1995,general,50,Mendoza,Tumini - Reyna,489,0.0671
+1995,general,50,Mendoza,Altamira - Molle,458,0.0628
+1995,general,54,Misiones,Menem - Ruckauf,180571,50.3051
+1995,general,54,Misiones,Massaccesi - Hernández,138583,38.6077
+1995,general,54,Misiones,Bordón - Álvarez,30655,8.5401
+1995,general,54,Misiones,Rico - Fernández Pezzano,7927,2.2084
+1995,general,54,Misiones,Solanas - Imizcoz,539,0.1502
+1995,general,54,Misiones,Christiansen - Montes,215,0.0599
+1995,general,54,Misiones,Méndez - Ambrosio,126,0.0351
+1995,general,54,Misiones,Zamora - Díaz,103,0.0287
+1995,general,54,Misiones,Santucho - Antognazzi,88,0.0245
+1995,general,54,Misiones,Tumini - Reyna,73,0.0203
+1995,general,54,Misiones,Altamira - Molle,72,0.0201
+1995,general,58,Neuquén,Menem - Ruckauf,99033,53.6256
+1995,general,58,Neuquén,Bordón - Álvarez,47302,25.6136
+1995,general,58,Neuquén,Massaccesi - Hernández,29977,16.2323
+1995,general,58,Neuquén,Rico - Fernández Pezzano,3274,1.7728
+1995,general,58,Neuquén,Zamora - Díaz,983,0.5323
+1995,general,58,Neuquén,Solanas - Imizcoz,975,0.5280
+1995,general,58,Neuquén,Méndez - Ambrosio,766,0.4148
+1995,general,58,Neuquén,Altamira - Molle,746,0.4040
+1995,general,58,Neuquén,Christiansen - Montes,720,0.3899
+1995,general,58,Neuquén,Tumini - Reyna,497,0.2691
+1995,general,58,Neuquén,Santucho - Antognazzi,402,0.2177
+1995,general,62,Río Negro,Menem - Ruckauf,99230,44.0087
+1995,general,62,Río Negro,Massaccesi - Hernández,84172,37.3305
+1995,general,62,Río Negro,Bordón - Álvarez,36183,16.0472
+1995,general,62,Río Negro,Rico - Fernández Pezzano,1893,0.8395
+1995,general,62,Río Negro,Solanas - Imizcoz,1025,0.4546
+1995,general,62,Río Negro,Zamora - Díaz,721,0.3198
+1995,general,62,Río Negro,Méndez - Ambrosio,665,0.2949
+1995,general,62,Río Negro,Altamira - Molle,646,0.2865
+1995,general,62,Río Negro,Christiansen - Montes,491,0.2178
+1995,general,62,Río Negro,Tumini - Reyna,395,0.1752
+1995,general,62,Río Negro,Santucho - Antognazzi,46,0.0204
+1995,general,62,Río Negro,Paz - González Chávez,11,0.0049
+1995,general,66,Salta,Menem - Ruckauf,209291,53.5827
+1995,general,66,Salta,Bordón - Álvarez,96812,24.7858
+1995,general,66,Salta,Massaccesi - Hernández,65179,16.6871
+1995,general,66,Salta,Rico - Fernández Pezzano,15092,3.8639
+1995,general,66,Salta,Altamira - Molle,1174,0.3006
+1995,general,66,Salta,Solanas - Imizcoz,959,0.2455
+1995,general,66,Salta,Méndez - Ambrosio,684,0.1751
+1995,general,66,Salta,Tumini - Reyna,567,0.1452
+1995,general,66,Salta,Zamora - Díaz,505,0.1293
+1995,general,66,Salta,Christiansen - Monte,331,0.0847
+1995,general,70,San Juan,Menem - Ruckauf,167205,59.1947
+1995,general,70,San Juan,Bordón - Álvarez,85693,30.3375
+1995,general,70,San Juan,Massaccesi - Hernández,27550,9.7534
+1995,general,70,San Juan,Rico - Fernández Pezzano,934,0.3307
+1995,general,70,San Juan,Zamora - Díaz,418,0.1480
+1995,general,70,San Juan,Solanas - Imizcoz,357,0.1264
+1995,general,70,San Juan,Christiansen - Montes,99,0.0350
+1995,general,70,San Juan,Tumini - Reyna,85,0.0301
+1995,general,70,San Juan,Méndez - Ambrosio,72,0.0255
+1995,general,70,San Juan,Altamira - Molle,50,0.0177
+1995,general,70,San Juan,Paz - González Chávez,3,0.0011
+1995,general,74,San Luis,Menem - Ruckauf,87369,55.3319
+1995,general,74,San Luis,Bordón - Álvarez,39944,25.2970
+1995,general,74,San Luis,Massaccesi - Hernández,27038,17.1235
+1995,general,74,San Luis,Rico - Fernández Pezzano,1596,1.0108
+1995,general,74,San Luis,Solanas - Imizcoz,434,0.2749
+1995,general,74,San Luis,Méndez - Ambrosio,346,0.2191
+1995,general,74,San Luis,Tumini - Reyna,326,0.2065
+1995,general,74,San Luis,Zamora - Díaz,299,0.1894
+1995,general,74,San Luis,Christiansen - Montes,286,0.1811
+1995,general,74,San Luis,Altamira - Molle,262,0.1659
+1995,general,78,Santa Cruz,Menem - Ruckauf,41666,58.0767
+1995,general,78,Santa Cruz,Bordón - Álvarez,16342,22.7785
+1995,general,78,Santa Cruz,Massaccesi - Hernández,12374,17.2477
+1995,general,78,Santa Cruz,Rico - Fernández Pezzano,803,1.1193
+1995,general,78,Santa Cruz,Altamira - Molle,263,0.3666
+1995,general,78,Santa Cruz,Zamora - Díaz,96,0.1338
+1995,general,78,Santa Cruz,Méndez - Ambrosio,79,0.1101
+1995,general,78,Santa Cruz,Christiansen - Montes,68,0.0948
+1995,general,78,Santa Cruz,Paz - González Chávez,52,0.0725
+1995,general,82,Santa Fe,Menem - Ruckauf,744576,46.9387
+1995,general,82,Santa Fe,Bordón - Álvarez,593965,37.4441
+1995,general,82,Santa Fe,Massaccesi - Hernández,199473,12.5750
+1995,general,82,Santa Fe,Rico - Fernández Pezzano,24624,1.5523
+1995,general,82,Santa Fe,Solanas - Imizcoz,7886,0.4971
+1995,general,82,Santa Fe,Zamora - Díaz,3820,0.2408
+1995,general,82,Santa Fe,Méndez - Ambrosio,2779,0.1752
+1995,general,82,Santa Fe,Altamira - Molle,2505,0.1579
+1995,general,82,Santa Fe,Tumini - Reyna,2401,0.1514
+1995,general,82,Santa Fe,Christiansen - Montes,2313,0.1458
+1995,general,82,Santa Fe,Santucho - Antognazzi,1930,0.1217
+1995,general,86,Santiago del Estero,Menem - Ruckauf,202077,64.0957
+1995,general,86,Santiago del Estero,Massaccesi - Hernández,78354,24.8527
+1995,general,86,Santiago del Estero,Bordón - Álvarez,31965,10.1388
+1995,general,86,Santiago del Estero,Rico - Fernández Pezzano,1543,0.4894
+1995,general,86,Santiago del Estero,Solanas - Imizcoz,396,0.1256
+1995,general,86,Santiago del Estero,Zamora - Díaz,356,0.1129
+1995,general,86,Santiago del Estero,Tumini - Reyna,177,0.0561
+1995,general,86,Santiago del Estero,Christiansen - Montes,166,0.0527
+1995,general,86,Santiago del Estero,Méndez - Ambrosio,117,0.0371
+1995,general,86,Santiago del Estero,Altamira - Molle,113,0.0358
+1995,general,86,Santiago del Estero,Santucho - Antognazzi,10,0.0032
+1995,general,90,Tucumán,Menem - Ruckauf,262554,45.5851
+1995,general,90,Tucumán,Bordón - Álvarez,167796,29.1331
+1995,general,90,Tucumán,Massaccesi - Hernández,71137,12.3509
+1995,general,90,Tucumán,López de Zavalía - Benejam,64007,11.1130
+1995,general,90,Tucumán,Rico - Fernández Pezzano,3161,0.5488
+1995,general,90,Tucumán,Solanas - Imizcoz,1794,0.3115
+1995,general,90,Tucumán,Zamora - Díaz,1466,0.2545
+1995,general,90,Tucumán,Tumini - Reyna,1365,0.2370
+1995,general,90,Tucumán,Altamira - Molle,993,0.1724
+1995,general,90,Tucumán,Christiansen - Montes,893,0.1550
+1995,general,90,Tucumán,Méndez - Ambrosio,798,0.1386
+1995,general,94,Tierra del Fuego,Menem - Ruckauf,21509,61.1851
+1995,general,94,Tierra del Fuego,Bordón - Álvarez,7892,22.4498
+1995,general,94,Tierra del Fuego,Massaccesi - Hernández,4639,13.1962
+1995,general,94,Tierra del Fuego,Rico - Fernández Pezzano,722,2.0538
+1995,general,94,Tierra del Fuego,Méndez - Ambrosio,109,0.3101
+1995,general,94,Tierra del Fuego,Christiansen - Montes,108,0.3072
+1995,general,94,Tierra del Fuego,Zamora - Díaz,98,0.2788
+1995,general,94,Tierra del Fuego,Altamira - Molle,77,0.2190
+1999,general,02,CABA,De la Rúa - Álvarez,1077769,54.3437
+1999,general,02,CABA,Duhalde - Ortega,467068,23.5507
+1999,general,02,CABA,Cavallo - Caro Figueroa,322718,16.2722
+1999,general,02,CABA,Walsh - de Leonardi,32776,1.6526
+1999,general,02,CABA,Méndez - Pompei,29934,1.5093
+1999,general,02,CABA,Altamira - Rieznik,20220,1.0195
+1999,general,02,CABA,Quarracino - Rearte,14675,0.7399
+1999,general,02,CABA,Reyna - Moccia,7453,0.3758
+1999,general,02,CABA,Montes - Hernández,7265,0.3663
+1999,general,02,CABA,Mussa - Herrera,3369,0.1699
+1999,general,06,Buenos Aires,De la Rúa - Álvarez,3236791,44.4698
+1999,general,06,Buenos Aires,Duhalde - Ortega,3115966,42.8098
+1999,general,06,Buenos Aires,Cavallo - Caro Figueroa,670609,9.2134
+1999,general,06,Buenos Aires,Walsh - de Leonardi,65414,0.8987
+1999,general,06,Buenos Aires,Méndez - Pompei,54969,0.7552
+1999,general,06,Buenos Aires,Altamira - Rieznik,49750,0.6835
+1999,general,06,Buenos Aires,Reyna - Moccia,22663,0.3114
+1999,general,06,Buenos Aires,Montes - Hernández,21824,0.2998
+1999,general,06,Buenos Aires,Quarracino - Rearte,20825,0.2861
+1999,general,06,Buenos Aires,Mussa - Herrera,19810,0.2722
+1999,general,10,Catamarca,De la Rúa - Álvarez,80456,50.7359
+1999,general,10,Catamarca,Duhalde - Ortega,70144,44.2331
+1999,general,10,Catamarca,Cavallo - Caro Figueroa,5396,3.4027
+1999,general,10,Catamarca,Altamira - Rieznik,828,0.5221
+1999,general,10,Catamarca,Reyna - Moccia,706,0.4452
+1999,general,10,Catamarca,Méndez - Pompei,430,0.2712
+1999,general,10,Catamarca,Mussa - Herrera,329,0.2075
+1999,general,10,Catamarca,Walsh - de Leonardi,289,0.1822
+1999,general,14,Córdoba,De la Rúa - Álvarez,790103,47.2260
+1999,general,14,Córdoba,Duhalde - Ortega,672671,40.2068
+1999,general,14,Córdoba,Cavallo - Caro Figueroa,168365,10.0635
+1999,general,14,Córdoba,Walsh - de Leonardi,12279,0.7339
+1999,general,14,Córdoba,Altamira - Rieznik,9341,0.5583
+1999,general,14,Córdoba,Méndez - Pompei,8620,0.5152
+1999,general,14,Córdoba,Reyna - Moccia,4164,0.2489
+1999,general,14,Córdoba,Montes - Hernández,3178,0.1900
+1999,general,14,Córdoba,Mussa - Herrera,2392,0.1430
+1999,general,14,Córdoba,Quarracino - Rearte,1914,0.1144
+1999,general,18,Corrientes,De la Rúa - Álvarez,205831,47.2827
+1999,general,18,Corrientes,Duhalde - Ortega,187054,42.9693
+1999,general,18,Corrientes,Cavallo - Caro Figueroa,36891,8.4745
+1999,general,18,Corrientes,Reyna - Moccia,1684,0.3868
+1999,general,18,Corrientes,Méndez - Pompei,1015,0.2332
+1999,general,18,Corrientes,Walsh - de Leonardi,924,0.2123
+1999,general,18,Corrientes,Mussa - Herrera,690,0.1585
+1999,general,18,Corrientes,Altamira - Rieznik,685,0.1574
+1999,general,18,Corrientes,Montes - Hernández,546,0.1254
+1999,general,22,Chaco,De la Rúa - Álvarez,249780,54.6616
+1999,general,22,Chaco,Duhalde - Ortega,175541,38.4152
+1999,general,22,Chaco,Cavallo - Caro Figueroa,22974,5.0276
+1999,general,22,Chaco,Walsh - de Leonardi,2330,0.5099
+1999,general,22,Chaco,Méndez - Pompei,1872,0.4097
+1999,general,22,Chaco,Mussa - Herrera,1520,0.3326
+1999,general,22,Chaco,Reyna - Moccia,1352,0.2959
+1999,general,22,Chaco,Montes - Hernández,813,0.1779
+1999,general,22,Chaco,Altamira - Rieznik,775,0.1696
+1999,general,26,Chubut,De la Rúa - Álvarez,104134,55.7445
+1999,general,26,Chubut,Duhalde - Ortega,56741,30.3743
+1999,general,26,Chubut,Cavallo - Caro Figueroa,21469,11.4927
+1999,general,26,Chubut,Méndez - Pompei,1270,0.6798
+1999,general,26,Chubut,Walsh - de Leonardi,1029,0.5508
+1999,general,26,Chubut,Altamira - Rieznik,779,0.4170
+1999,general,26,Chubut,Mussa - Herrera,744,0.3983
+1999,general,26,Chubut,Montes - Hernández,640,0.3426
+1999,general,30,Entre Ríos,De la Rúa - Álvarez,332142,51.4101
+1999,general,30,Entre Ríos,Duhalde - Ortega,263967,40.8577
+1999,general,30,Entre Ríos,Cavallo - Caro Figueroa,38055,5.8903
+1999,general,30,Entre Ríos,Walsh - de Leonardi,3144,0.4866
+1999,general,30,Entre Ríos,Méndez - Pompei,2370,0.3668
+1999,general,30,Entre Ríos,Mussa - Herrera,2217,0.3432
+1999,general,30,Entre Ríos,Altamira - Rieznik,1537,0.2379
+1999,general,30,Entre Ríos,Quarracino - Rearte,1400,0.2167
+1999,general,30,Entre Ríos,Montes - Hernández,1035,0.1602
+1999,general,30,Entre Ríos,Reyna - Moccia,197,0.0305
+1999,general,34,Formosa,Duhalde - Ortega,97359,48.8453
+1999,general,34,Formosa,De la Rúa - Álvarez,94147,47.2339
+1999,general,34,Formosa,Cavallo - Caro Figueroa,5168,2.5928
+1999,general,34,Formosa,Méndez - Pompei,897,0.4500
+1999,general,34,Formosa,Reyna - Moccia,819,0.4109
+1999,general,34,Formosa,Mussa - Herrera,487,0.2443
+1999,general,34,Formosa,Altamira - Rieznik,444,0.2228
+1999,general,38,Jujuy,De la Rúa - Álvarez,133504,50.7813
+1999,general,38,Jujuy,Duhalde - Ortega,116352,44.2571
+1999,general,38,Jujuy,Cavallo - Caro Figueroa,10941,4.1617
+1999,general,38,Jujuy,Walsh - de Leonardi,902,0.3431
+1999,general,38,Jujuy,Montes - Hernández,326,0.1240
+1999,general,38,Jujuy,Méndez - Pompei,285,0.1084
+1999,general,38,Jujuy,Reyna - Moccia,214,0.0814
+1999,general,38,Jujuy,Mussa - Herrera,196,0.0746
+1999,general,38,Jujuy,Altamira - Rieznik,180,0.0685
+1999,general,42,La Pampa,De la Rúa - Álvarez,90224,52.2387
+1999,general,42,La Pampa,Duhalde - Ortega,69397,40.1801
+1999,general,42,La Pampa,Cavallo - Caro Figueroa,9796,5.6718
+1999,general,42,La Pampa,Méndez - Pompei,833,0.4823
+1999,general,42,La Pampa,Walsh - de Leonardi,701,0.4059
+1999,general,42,La Pampa,Quarracino - Rearte,524,0.3034
+1999,general,42,La Pampa,Mussa - Herrera,473,0.2739
+1999,general,42,La Pampa,Altamira - Rieznik,467,0.2704
+1999,general,42,La Pampa,Reyna - Moccia,300,0.1737
+1999,general,46,La Rioja,Duhalde - Ortega,82590,60.1254
+1999,general,46,La Rioja,De la Rúa - Álvarez,44381,32.3093
+1999,general,46,La Rioja,Cavallo - Caro Figueroa,6376,4.6417
+1999,general,46,La Rioja,Walsh - de Leonardi,1386,1.0090
+1999,general,46,La Rioja,Mussa - Herrera,902,0.6567
+1999,general,46,La Rioja,Méndez - Pompei,698,0.5081
+1999,general,46,La Rioja,Altamira - Rieznik,619,0.4506
+1999,general,46,La Rioja,Reyna - Moccia,411,0.2992
+1999,general,50,Mendoza,De la Rúa - Álvarez,403535,53.4491
+1999,general,50,Mendoza,Duhalde - Ortega,171435,22.7069
+1999,general,50,Mendoza,Cavallo - Caro Figueroa,163554,21.6631
+1999,general,50,Mendoza,Méndez - Pompei,5175,0.6854
+1999,general,50,Mendoza,Walsh - de Leonardi,4857,0.6433
+1999,general,50,Mendoza,Reyna - Moccia,2148,0.2845
+1999,general,50,Mendoza,Altamira - Rieznik,1605,0.2126
+1999,general,50,Mendoza,Montes - Hernández,1598,0.2117
+1999,general,50,Mendoza,Mussa - Herrera,1083,0.1434
+1999,general,54,Misiones,Duhalde - Ortega,198587,47.2437
+1999,general,54,Misiones,De la Rúa - Álvarez,189094,44.9853
+1999,general,54,Misiones,Cavallo - Caro Figueroa,21898,5.2095
+1999,general,54,Misiones,Mussa - Herrera,3481,0.8281
+1999,general,54,Misiones,Méndez - Pompei,2116,0.5034
+1999,general,54,Misiones,Walsh - de Leonardi,1801,0.4285
+1999,general,54,Misiones,Altamira - Rieznik,1748,0.4158
+1999,general,54,Misiones,Reyna - Moccia,1621,0.3856
+1999,general,58,Neuquén,De la Rúa - Álvarez,117683,52.3829
+1999,general,58,Neuquén,Duhalde - Ortega,63089,28.0821
+1999,general,58,Neuquén,Cavallo - Caro Figueroa,31667,14.0956
+1999,general,58,Neuquén,Méndez - Pompei,2606,1.1600
+1999,general,58,Neuquén,Altamira - Rieznik,2337,1.0402
+1999,general,58,Neuquén,Walsh - de Leonardi,2148,0.9561
+1999,general,58,Neuquén,Mussa - Herrera,1972,0.8778
+1999,general,58,Neuquén,Reyna - Moccia,1679,0.7474
+1999,general,58,Neuquén,Montes - Hernández,1478,0.6579
+1999,general,62,Río Negro,De la Rúa - Álvarez,147775,58.3634
+1999,general,62,Río Negro,Duhalde - Ortega,68922,27.2206
+1999,general,62,Río Negro,Cavallo - Caro Figueroa,27826,10.9898
+1999,general,62,Río Negro,Walsh - de Leonardi,2278,0.8997
+1999,general,62,Río Negro,Méndez - Pompei,2242,0.8855
+1999,general,62,Río Negro,Altamira - Rieznik,1581,0.6244
+1999,general,62,Río Negro,Reyna - Moccia,1481,0.5849
+1999,general,62,Río Negro,Mussa - Herrera,1093,0.4317
+1999,general,66,Salta,De la Rúa - Álvarez,217402,47.8177
+1999,general,66,Salta,Duhalde - Ortega,194705,42.8254
+1999,general,66,Salta,Cavallo - Caro Figueroa,32075,7.0549
+1999,general,66,Salta,Altamira - Rieznik,5028,1.1059
+1999,general,66,Salta,Méndez - Pompei,2457,0.5404
+1999,general,66,Salta,Mussa - Herrera,1948,0.4285
+1999,general,66,Salta,Reyna - Moccia,1033,0.2272
+1999,general,70,San Juan,De la Rúa - Álvarez,172452,55.0990
+1999,general,70,San Juan,Duhalde - Ortega,94007,30.0355
+1999,general,70,San Juan,Cavallo - Caro Figueroa,40853,13.0527
+1999,general,70,San Juan,Walsh - de Leonardi,1553,0.4962
+1999,general,70,San Juan,Mussa - Herrera,1187,0.3793
+1999,general,70,San Juan,Méndez - Pompei,1078,0.3444
+1999,general,70,San Juan,Montes - Hernández,684,0.2185
+1999,general,70,San Juan,Altamira - Rieznik,645,0.2061
+1999,general,70,San Juan,Reyna - Moccia,527,0.1684
+1999,general,74,San Luis,De la Rúa - Álvarez,102400,57.5899
+1999,general,74,San Luis,Duhalde - Ortega,54547,30.6773
+1999,general,74,San Luis,Cavallo - Caro Figueroa,16707,9.3960
+1999,general,74,San Luis,Mussa - Herrera,1192,0.6704
+1999,general,74,San Luis,Walsh - de Leonardi,910,0.5118
+1999,general,74,San Luis,Méndez - Pompei,775,0.4359
+1999,general,74,San Luis,Altamira - Rieznik,738,0.4151
+1999,general,74,San Luis,Reyna - Moccia,540,0.3037
+1999,general,78,Santa Cruz,De la Rúa - Álvarez,42629,47.9630
+1999,general,78,Santa Cruz,Duhalde - Ortega,36538,41.1098
+1999,general,78,Santa Cruz,Cavallo - Caro Figueroa,7845,8.8266
+1999,general,78,Santa Cruz,Altamira - Rieznik,671,0.7550
+1999,general,78,Santa Cruz,Méndez - Pomp,451,0.5074
+1999,general,78,Santa Cruz,Walsh - de Leonardi,379,0.4264
+1999,general,78,Santa Cruz,Mussa - Herrera,216,0.2430
+1999,general,78,Santa Cruz,Reyna - Moccia,150,0.1688
+1999,general,82,Santa Fe,De la Rúa - Álvarez,901300,53.2262
+1999,general,82,Santa Fe,Duhalde - Ortega,536184,31.6643
+1999,general,82,Santa Fe,Cavallo - Caro Figueroa,205869,12.1576
+1999,general,82,Santa Fe,Walsh - de Leonardi,13517,0.7982
+1999,general,82,Santa Fe,Altamira - Rieznik,10200,0.6024
+1999,general,82,Santa Fe,Méndez - Pompei,8315,0.4910
+1999,general,82,Santa Fe,Mussa - Herrera,5289,0.3123
+1999,general,82,Santa Fe,Reyna - Moccia,4953,0.2925
+1999,general,82,Santa Fe,Montes - Hernández,3902,0.2304
+1999,general,82,Santa Fe,Quarracino - Rearte,3809,0.2249
+1999,general,86,Santiago del Estero,Duhalde - Ortega,193333,56.8072
+1999,general,86,Santiago del Estero,De la Rúa - Álvarez,131869,38.7472
+1999,general,86,Santiago del Estero,Cavallo - Caro Figueroa,12253,3.6003
+1999,general,86,Santiago del Estero,Walsh - de Leonardi,927,0.2724
+1999,general,86,Santiago del Estero,Méndez - Pompei,590,0.1734
+1999,general,86,Santiago del Estero,Mussa - Herrera,590,0.1734
+1999,general,86,Santiago del Estero,Reyna - Moccia,399,0.1172
+1999,general,86,Santiago del Estero,Altamira - Rieznik,371,0.1090
+1999,general,90,Tucumán,De la Rúa - Álvarez,283802,47.6117
+1999,general,90,Tucumán,Duhalde - Ortega,250211,41.9764
+1999,general,90,Tucumán,Cavallo - Caro Figueroa,49532,8.3097
+1999,general,90,Tucumán,Altamira - Rieznik,3032,0.5087
+1999,general,90,Tucumán,Méndez - Pompei,2402,0.4030
+1999,general,90,Tucumán,Walsh - de Leonardi,2086,0.3500
+1999,general,90,Tucumán,Reyna - Moccia,1924,0.3228
+1999,general,90,Tucumán,Mussa - Herrera,1825,0.3062
+1999,general,90,Tucumán,Montes - Hernández,1262,0.2117
+1999,general,94,Tierra del Fuego,De la Rúa - Álvarez,18017,39.5769
+1999,general,94,Tierra del Fuego,Duhalde - Ortega,17494,38.4281
+1999,general,94,Tierra del Fuego,Cavallo - Caro Figueroa,8707,19.1262
+1999,general,94,Tierra del Fuego,Méndez - Pompei,411,0.9028
+1999,general,94,Tierra del Fuego,Walsh - de Leonardi,347,0.7622
+1999,general,94,Tierra del Fuego,Altamira - Rieznik,335,0.7359
+1999,general,94,Tierra del Fuego,Mussa - Herrera,138,0.3031
+1999,general,94,Tierra del Fuego,Reyna - Moccia,75,0.1647
+2003,general,02,CABA,López Murphy - Gómez Diez,506631,25.8502
+2003,general,02,CABA,Carrió - Gutiérrez,389321,19.8646
+2003,general,02,CABA,Kirchner - Scioli,381334,19.4571
+2003,general,02,CABA,Menem - Romero,314528,16.0484
+2003,general,02,CABA,Rodríguez Saá - Posse,160913,8.2104
+2003,general,02,CABA,Walsh - Parrilli,56357,2.8755
+2003,general,02,CABA,Bravo - Giustiniani,50997,2.6021
+2003,general,02,CABA,Venturino - Pinto Kramer,16739,0.8541
+2003,general,02,CABA,Moreau - Losada,16330,0.8332
+2003,general,02,CABA,Sulling - Ambrosio,16215,0.8274
+2003,general,02,CABA,Altamira - Salas,14713,0.7507
+2003,general,02,CABA,Arcagni - Zenof,10936,0.5580
+2003,general,02,CABA,Mazzitelli - Camps,7210,0.3679
+2003,general,02,CABA,Herrera - Cúneo,6263,0.3196
+2003,general,02,CABA,Breide Obeid - Vasena,3947,0.2014
+2003,general,02,CABA,Zaffore - Perie,2974,0.1517
+2003,general,02,CABA,Mussa - Suárez,2726,0.1391
+2003,general,02,CABA,Terán - Bonacci,1736,0.0886
+2003,general,06,Buenos Aires,Kirchner - Scioli,1910516,25.7197
+2003,general,06,Buenos Aires,Menem - Romero,1515638,20.4038
+2003,general,06,Buenos Aires,López Murphy - Gómez Diez,1176058,15.8323
+2003,general,06,Buenos Aires,Carrió - Gutiérrez,1136160,15.2952
+2003,general,06,Buenos Aires,Rodríguez Saá - Posse,1027635,13.8342
+2003,general,06,Buenos Aires,Walsh - Parrilli,169757,2.2853
+2003,general,06,Buenos Aires,Bravo - Giustiniani,88556,1.1922
+2003,general,06,Buenos Aires,Moreau - Losada,82302,1.1080
+2003,general,06,Buenos Aires,Venturino - Pinto Kramer,74534,1.0034
+2003,general,06,Buenos Aires,Altamira - Salas,59947,0.8070
+2003,general,06,Buenos Aires,Sulling - Ambrosio,49430,0.6654
+2003,general,06,Buenos Aires,Arcagni - Zenof,34690,0.4670
+2003,general,06,Buenos Aires,Mazzitelli - Camps,25837,0.3478
+2003,general,06,Buenos Aires,Breide Obeid - Vasena,18236,0.2455
+2003,general,06,Buenos Aires,Mussa - Suárez,17404,0.2343
+2003,general,06,Buenos Aires,Zaffore - Perie,15701,0.2114
+2003,general,06,Buenos Aires,Herrera - Cúneo,15272,0.2056
+2003,general,06,Buenos Aires,Terán - Bonacci,10537,0.1419
+2003,general,10,Catamarca,Menem - Romero,80833,49.5200
+2003,general,10,Catamarca,Kirchner - Scioli,22265,13.6400
+2003,general,10,Catamarca,López Murphy - Gómez Diez,18977,11.6257
+2003,general,10,Catamarca,Rodríguez Saá - Posse,18015,11.0364
+2003,general,10,Catamarca,Moreau - Losada,12825,7.8569
+2003,general,10,Catamarca,Carrió - Gutiérrez,5812,3.5606
+2003,general,10,Catamarca,Altamira - Salas,1173,0.7186
+2003,general,10,Catamarca,Walsh - Parrilli,963,0.5900
+2003,general,10,Catamarca,Bravo - Giustiniani,655,0.4013
+2003,general,10,Catamarca,Sulling - Ambrosio,601,0.3682
+2003,general,10,Catamarca,Zaffore - Perie,506,0.3100
+2003,general,10,Catamarca,Herrera - Cúneo,486,0.2977
+2003,general,10,Catamarca,Breide Obeid - Vasena,110,0.0674
+2003,general,10,Catamarca,Terán - Bonacci,7,0.0043
+2003,general,10,Catamarca,Alianza Unidos O Dominados,5,0.0031
+2003,general,14,Córdoba,Menem - Romero,477738,28.4185
+2003,general,14,Córdoba,López Murphy - Gómez Diez,363347,21.6139
+2003,general,14,Córdoba,Rodríguez Saá - Posse,323293,19.2313
+2003,general,14,Córdoba,Carrió - Gutiérrez,188564,11.2168
+2003,general,14,Córdoba,Kirchner - Scioli,181702,10.8086
+2003,general,14,Córdoba,Moreau - Losada,47199,2.8077
+2003,general,14,Córdoba,Walsh - Parrilli,25878,1.5394
+2003,general,14,Córdoba,Altamira - Salas,14261,0.8483
+2003,general,14,Córdoba,Bravo - Giustiniani,11693,0.6956
+2003,general,14,Córdoba,Venturino - Pinto Kramer,10603,0.6307
+2003,general,14,Córdoba,Sulling - Ambrosio,8284,0.4928
+2003,general,14,Córdoba,Mussa - Suárez,5671,0.3373
+2003,general,14,Córdoba,Herrera - Cúneo,5518,0.3282
+2003,general,14,Córdoba,Zaffore - Perie,4298,0.2557
+2003,general,14,Córdoba,Mazzitelli - Camps,3571,0.2124
+2003,general,14,Córdoba,Arcagni - Zenof,3534,0.2102
+2003,general,14,Córdoba,Terán - Bonacci,3438,0.2045
+2003,general,14,Córdoba,Breide Obeid - Vasena,2489,0.1481
+2003,general,18,Corrientes,Menem - Romero,155352,35.0221
+2003,general,18,Corrientes,Kirchner - Scioli,117081,26.3944
+2003,general,18,Corrientes,López Murphy - Gómez Diez,51549,11.6210
+2003,general,18,Corrientes,Carrió - Gutiérrez,45571,10.2734
+2003,general,18,Corrientes,Moreau - Losada,31795,7.1678
+2003,general,18,Corrientes,Rodríguez Saá - Posse,24547,5.5338
+2003,general,18,Corrientes,Walsh - Parrilli,3143,0.7085
+2003,general,18,Corrientes,Zaffore - Perie,2164,0.4878
+2003,general,18,Corrientes,Altamira - Salas,1772,0.3995
+2003,general,18,Corrientes,Venturino - Pinto Kramer,1685,0.3799
+2003,general,18,Corrientes,Herrera - Cúneo,1575,0.3551
+2003,general,18,Corrientes,Bravo - Giustiniani,1261,0.2843
+2003,general,18,Corrientes,Sulling - Ambrosio,1189,0.2680
+2003,general,18,Corrientes,Mazzitelli - Camps,1105,0.2491
+2003,general,18,Corrientes,Mussa - Suárez,1079,0.2432
+2003,general,18,Corrientes,Breide Obeid - Vasena,982,0.2214
+2003,general,18,Corrientes,Terán - Bonacci,959,0.2162
+2003,general,18,Corrientes,Arcagni - Zenof,774,0.1745
+2003,general,22,Chaco,Menem - Romero,172207,35.1510
+2003,general,22,Chaco,Moreau - Losada,96142,19.6245
+2003,general,22,Chaco,Kirchner - Scioli,93744,19.1351
+2003,general,22,Chaco,Carrió - Gutiérreza,55751,11.3799
+2003,general,22,Chaco,López Murphy - Gómez Diez,32073,6.5468
+2003,general,22,Chaco,Rodríguez Saá - Posse,23422,4.7809
+2003,general,22,Chaco,Walsh - Parrilli,2965,0.6052
+2003,general,22,Chaco,Bravo - Giustiniani,1896,0.3870
+2003,general,22,Chaco,Altamira - Salas,1762,0.3597
+2003,general,22,Chaco,Venturino - Pinto Kramer,1726,0.3523
+2003,general,22,Chaco,Mazzitelli - Camps,1535,0.3133
+2003,general,22,Chaco,Zaffore - Perie,1431,0.2921
+2003,general,22,Chaco,Mussa - Suárez,1289,0.2631
+2003,general,22,Chaco,Sulling - Ambrosio,1240,0.2531
+2003,general,22,Chaco,Terán - Bonacci,1053,0.2149
+2003,general,22,Chaco,Herrera - Cúneo,1039,0.2121
+2003,general,22,Chaco,Arcagni - Zenof,499,0.1019
+2003,general,22,Chaco,Breide Obeid - Vasena,133,0.0271
+2003,general,26,Chubut,Kirchner - Scioli,104286,50.2235
+2003,general,26,Chubut,Menem - Romero,38755,18.6642
+2003,general,26,Chubut,Carrió - Gutiérrez,22772,10.9668
+2003,general,26,Chubut,López Murphy - Gómez Diez,17429,8.3937
+2003,general,26,Chubut,Rodríguez Saá - Posse,9917,4.7760
+2003,general,26,Chubut,Moreau - Losada,5552,2.6738
+2003,general,26,Chubut,Walsh - Parrilli,2342,1.1279
+2003,general,26,Chubut,Bravo - Giustiniani,1382,0.6656
+2003,general,26,Chubut,Sulling - Ambrosio,1241,0.5977
+2003,general,26,Chubut,Altamira - Salas,897,0.4320
+2003,general,26,Chubut,Zaffore - Perie,804,0.3872
+2003,general,26,Chubut,Arcagni - Zenof,692,0.3333
+2003,general,26,Chubut,Venturino - Pinto Kramer,626,0.3015
+2003,general,26,Chubut,Breide Obeid - Vasena,365,0.1758
+2003,general,26,Chubut,Herrera - Cúneo,307,0.1478
+2003,general,26,Chubut,Socialista Auténtico,277,0.1334
+2003,general,30,Entre Ríos,Menem - Romero,185370,29.7655
+2003,general,30,Entre Ríos,Kirchner - Scioli,129190,20.7445
+2003,general,30,Entre Ríos,López Murphy - Gómez Diez,89487,14.3692
+2003,general,30,Entre Ríos,Rodríguez Saá - Posse,88563,14.2209
+2003,general,30,Entre Ríos,Carrió - Gutiérrez,75288,12.0893
+2003,general,30,Entre Ríos,Moreau - Losada,25457,4.0877
+2003,general,30,Entre Ríos,Bravo - Giustiniani,4886,0.7846
+2003,general,30,Entre Ríos,Walsh - Parrilli,4620,0.7418
+2003,general,30,Entre Ríos,Breide Obeid - Vasena,3561,0.5718
+2003,general,30,Entre Ríos,Arcagni - Zenof,2782,0.4467
+2003,general,30,Entre Ríos,Sulling - Ambrosio,2226,0.3574
+2003,general,30,Entre Ríos,Altamira - Salas,1987,0.3191
+2003,general,30,Entre Ríos,Venturino - Pinto Kramer,1959,0.3146
+2003,general,30,Entre Ríos,Zaffore - Perie,1577,0.2532
+2003,general,30,Entre Ríos,Herrera - Cúneo,1557,0.2500
+2003,general,30,Entre Ríos,Terán - Bonacci,1495,0.2401
+2003,general,30,Entre Ríos,Mussa - Suárez,1456,0.2338
+2003,general,30,Entre Ríos,Mazzitelli - Camps,1307,0.2099
+2003,general,34,Formosa,Kirchner - Scioli,85937,41.1089
+2003,general,34,Formosa,Menem - Romero,55078,26.3472
+2003,general,34,Formosa,Carrió - Gutiérrez,19897,9.5180
+2003,general,34,Formosa,Rodríguez Saá - Posse,19353,9.2577
+2003,general,34,Formosa,López Murphy - Gómez Diez,13360,6.3909
+2003,general,34,Formosa,Moreau - Losada,7912,3.7848
+2003,general,34,Formosa,Zaffore - Perie,1538,0.7357
+2003,general,34,Formosa,Sulling - Ambrosio,839,0.4013
+2003,general,34,Formosa,Walsh - Parrilli,822,0.3932
+2003,general,34,Formosa,Venturino - Pinto Kramer,806,0.3856
+2003,general,34,Formosa,Altamira - Salas,785,0.3755
+2003,general,34,Formosa,Terán - Bonacci,765,0.3659
+2003,general,34,Formosa,Bravo - Giustiniani,702,0.3358
+2003,general,34,Formosa,Mazzitelli - Camps,655,0.3133
+2003,general,34,Formosa,Herrera - Cúneo,578,0.2765
+2003,general,34,Formosa,Arcagni - Zenof,9,0.0043
+2003,general,34,Formosa,Mussa - Suárez,7,0.0033
+2003,general,34,Formosa,Breide Obeid - Vasena,4,0.0019
+2003,general,38,Jujuy,Kirchner - Scioli,116943,42.4217
+2003,general,38,Jujuy,Menem - Romero,51260,18.5948
+2003,general,38,Jujuy,Rodríguez Saá - Posse,49505,17.9582
+2003,general,38,Jujuy,Carrió - Gutiérrez,18621,6.7549
+2003,general,38,Jujuy,López Murphy - Gómez Diez,16362,5.9354
+2003,general,38,Jujuy,Moreau - Losada,11146,4.0433
+2003,general,38,Jujuy,Walsh - Parrilli,5060,1.8355
+2003,general,38,Jujuy,Altamira - Salas,1168,0.4237
+2003,general,38,Jujuy,Sulling - Ambrosio,932,0.3381
+2003,general,38,Jujuy,Bravo - Giustiniani,778,0.2822
+2003,general,38,Jujuy,Venturino - Pinto Kramer,758,0.2750
+2003,general,38,Jujuy,Zaffore - Perie,726,0.2634
+2003,general,38,Jujuy,Herrera - Cúneo,581,0.2108
+2003,general,38,Jujuy,Mussa - Suárez,525,0.1904
+2003,general,38,Jujuy,Terán - Bonacci,463,0.1680
+2003,general,38,Jujuy,Breide Obeid - Vasena,442,0.1603
+2003,general,38,Jujuy,Socialista Auténtico,398,0.1444
+2003,general,42,La Pampa,Menem - Romero,48997,27.8070
+2003,general,42,La Pampa,Rodríguez Saá - Posse,36118,20.4978
+2003,general,42,La Pampa,Kirchner - Scioli,31320,17.7749
+2003,general,42,La Pampa,López Murphy - Gómez Diez,25103,14.2466
+2003,general,42,La Pampa,Carrió - Gutiérrez,19591,11.1184
+2003,general,42,La Pampa,Moreau - Losada,5143,2.9188
+2003,general,42,La Pampa,Bravo - Giustiniani,2403,1.3638
+2003,general,42,La Pampa,Walsh - Parrilli,1464,0.8309
+2003,general,42,La Pampa,Sulling - Ambrosio,1229,0.6975
+2003,general,42,La Pampa,Zaffore - Perie,857,0.4864
+2003,general,42,La Pampa,Breide Obeid - Vasena,850,0.4824
+2003,general,42,La Pampa,Altamira - Salas,780,0.4427
+2003,general,42,La Pampa,Mazzitelli - Camps,551,0.3127
+2003,general,42,La Pampa,Mussa - Suárez,478,0.2713
+2003,general,42,La Pampa,Arcagni - Zenof,460,0.2611
+2003,general,42,La Pampa,Herrera - Cúneo,418,0.2372
+2003,general,42,La Pampa,Terán - Bonacci,401,0.2276
+2003,general,42,La Pampa,Venturino - Pinto Kramer,41,0.0233
+2003,general,46,La Rioja,Menem - Romero,116309,81.9331
+2003,general,46,La Rioja,Kirchner - Scioli,8873,6.2505
+2003,general,46,La Rioja,López Murphy - Gómez Diez,6421,4.5232
+2003,general,46,La Rioja,Rodríguez Saá - Posse,4213,2.9678
+2003,general,46,La Rioja,Carrió - Gutiérrez,2443,1.7210
+2003,general,46,La Rioja,Moreau - Losada,1998,1.4075
+2003,general,46,La Rioja,Walsh - Parrilli,997,0.7023
+2003,general,46,La Rioja,Altamira - Salas,127,0.0895
+2003,general,46,La Rioja,Sulling - Ambrosio,123,0.0866
+2003,general,46,La Rioja,Bravo - Giustiniani,108,0.0761
+2003,general,46,La Rioja,Zaffore - Perie,63,0.0444
+2003,general,46,La Rioja,Herrera - Cúneo,58,0.0409
+2003,general,46,La Rioja,Venturino - Pinto Kramer,57,0.0402
+2003,general,46,La Rioja,Terán - Bonacci,51,0.0359
+2003,general,46,La Rioja,Mussa - Suárez,43,0.0303
+2003,general,46,La Rioja,Arcagni - Zenof,42,0.0296
+2003,general,46,La Rioja,Breide Obeid - Vasena,30,0.0211
+2003,general,50,Mendoza,Rodríguez Saá - Posse,302185,36.7606
+2003,general,50,Mendoza,López Murphy - Gómez Diez,160612,19.5383
+2003,general,50,Mendoza,Menem - Romero,156911,19.0881
+2003,general,50,Mendoza,Kirchner - Scioli,79396,9.6585
+2003,general,50,Mendoza,Carrió - Gutiérrez,70120,8.5301
+2003,general,50,Mendoza,Moreau - Losada,10184,1.2389
+2003,general,50,Mendoza,Walsh - Parrilli,8597,1.0458
+2003,general,50,Mendoza,Bravo - Giustiniani,8112,0.9868
+2003,general,50,Mendoza,Sulling - Ambrosio,4015,0.4884
+2003,general,50,Mendoza,Venturino - Pinto Kramer,3876,0.4715
+2003,general,50,Mendoza,Breide Obeid - Vasena,3457,0.4205
+2003,general,50,Mendoza,Altamira - Salas,3351,0.4076
+2003,general,50,Mendoza,Mazzitelli - Camps,2237,0.2721
+2003,general,50,Mendoza,Arcagni - Zenof,2079,0.2529
+2003,general,50,Mendoza,Mussa - Suárez,2062,0.2508
+2003,general,50,Mendoza,Herrera - Cúneo,2024,0.2462
+2003,general,50,Mendoza,Zaffore - Perie,1650,0.2007
+2003,general,50,Mendoza,Terán - Bonacci,1167,0.1420
+2003,general,54,Misiones,Menem - Romero,170711,38.9130
+2003,general,54,Misiones,Kirchner - Scioli,100707,22.9558
+2003,general,54,Misiones,Carrió - Gutiérrez,40239,9.1723
+2003,general,54,Misiones,Rodríguez Saá - Posse,39165,8.9275
+2003,general,54,Misiones,López Murphy - Gómez Diez,38064,8.6766
+2003,general,54,Misiones,Moreau - Losada,33016,7.5259
+2003,general,54,Misiones,Bravo - Giustiniani,2460,0.5607
+2003,general,54,Misiones,Walsh - Parrilli,2418,0.5512
+2003,general,54,Misiones,Zaffore - Perie,2291,0.5222
+2003,general,54,Misiones,Venturino - Pinto Kramer,1991,0.4538
+2003,general,54,Misiones,Altamira - Salas,1738,0.3962
+2003,general,54,Misiones,Sulling - Ambrosio,1566,0.3570
+2003,general,54,Misiones,Mussa - Suárez,1464,0.3337
+2003,general,54,Misiones,Terán - Bonacci,1449,0.3303
+2003,general,54,Misiones,Arcagni - Zenof,1179,0.2687
+2003,general,54,Misiones,Breide Obeid - Vasena,151,0.0344
+2003,general,54,Misiones,Herrera - Cúneo,75,0.0171
+2003,general,54,Misiones,Mazzitelli - Camps,15,0.0034
+2003,general,58,Neuquén,Kirchner - Scioli,61121,25.2707
+2003,general,58,Neuquén,Menem - Romero,60525,25.0243
+2003,general,58,Neuquén,Carrió - Gutiérrez,41271,17.0637
+2003,general,58,Neuquén,López Murphy - Gómez Diez,40925,16.9206
+2003,general,58,Neuquén,Rodríguez Saá - Posse,19846,8.2054
+2003,general,58,Neuquén,Walsh - Parrilli,3947,1.6319
+2003,general,58,Neuquén,Altamira - Salas,2859,1.1821
+2003,general,58,Neuquén,Bravo - Giustiniani,2684,1.1097
+2003,general,58,Neuquén,Sulling - Ambrosio,2072,0.8567
+2003,general,58,Neuquén,Moreau - Losada,1985,0.8207
+2003,general,58,Neuquén,Zaffore - Perie,1164,0.4813
+2003,general,58,Neuquén,Mussa - Suárez,1058,0.4374
+2003,general,58,Neuquén,Breide Obeid - Vasena,871,0.3601
+2003,general,58,Neuquén,Terán - Bonacci,841,0.3477
+2003,general,58,Neuquén,Herrera - Cúneo,684,0.2828
+2003,general,58,Neuquén,Confederación Para Que Se Vayan Todos,12,0.0050
+2003,general,62,Río Negro,Kirchner - Scioli,92726,35.3892
+2003,general,62,Río Negro,Menem - Romero,45925,17.5274
+2003,general,62,Río Negro,López Murphy - Gómez Diez,40517,15.4634
+2003,general,62,Río Negro,Carrió - Gutiérrez,39139,14.9375
+2003,general,62,Río Negro,Rodríguez Saá - Posse,19235,7.3411
+2003,general,62,Río Negro,Moreau - Losada,8709,3.3238
+2003,general,62,Río Negro,Walsh - Parrilli,3182,1.2144
+2003,general,62,Río Negro,Bravo - Giustiniani,2590,0.9885
+2003,general,62,Río Negro,Sulling - Ambrosio,2407,0.9186
+2003,general,62,Río Negro,Altamira - Salas,2155,0.8225
+2003,general,62,Río Negro,Venturino - Pinto Kramer,1252,0.4778
+2003,general,62,Río Negro,Zaffore - Perie,1069,0.4080
+2003,general,62,Río Negro,Herrera - Cúneo,1012,0.3862
+2003,general,62,Río Negro,Mussa - Suárez,878,0.3351
+2003,general,62,Río Negro,Breide Obeid - Vasena,595,0.2271
+2003,general,62,Río Negro,Terán - Bonacci,582,0.2221
+2003,general,62,Río Negro,Arcagni - Zenof,39,0.0149
+2003,general,62,Río Negro,Mazzitelli - Camps,6,0.0023
+2003,general,66,Salta,Menem - Romero,217474,44.7979
+2003,general,66,Salta,López Murphy - Gómez Diez,94359,19.4372
+2003,general,66,Salta,Kirchner - Scioli,64048,13.1934
+2003,general,66,Salta,Carrió - Gutiérrez,40265,8.2943
+2003,general,66,Salta,Rodríguez Saá - Posse,32732,6.7425
+2003,general,66,Salta,Altamira - Salas,13814,2.8456
+2003,general,66,Salta,Moreau - Losada,7885,1.6242
+2003,general,66,Salta,Walsh - Parrilli,3370,0.6942
+2003,general,66,Salta,Sulling - Ambrosio,2315,0.4769
+2003,general,66,Salta,Bravo - Giustiniani,2056,0.4235
+2003,general,66,Salta,Venturino - Pinto Kramer,1748,0.3601
+2003,general,66,Salta,Zaffore - Perie,1475,0.3038
+2003,general,66,Salta,Herrera - Cúneo,1404,0.2892
+2003,general,66,Salta,Terán - Bonacci,1162,0.2394
+2003,general,66,Salta,Mussa - Suárez,816,0.1681
+2003,general,66,Salta,Breide Obeid - Vasena,429,0.0884
+2003,general,66,Salta,Arcagni - Zenof,88,0.0181
+2003,general,66,Salta,Mazzitelli - Camps,16,0.0033
+2003,general,70,San Juan,Rodríguez Saá - Posse,112955,35.6789
+2003,general,70,San Juan,Menem - Romero,85278,26.9366
+2003,general,70,San Juan,Kirchner - Scioli,64097,20.2462
+2003,general,70,San Juan,López Murphy - Gómez Diez,30572,9.6567
+2003,general,70,San Juan,Carrió - Gutiérrez,10220,3.2282
+2003,general,70,San Juan,Moreau - Losada,3384,1.0689
+2003,general,70,San Juan,Walsh - Parrilli,2509,0.7925
+2003,general,70,San Juan,Bravo - Giustiniani,1678,0.5300
+2003,general,70,San Juan,Venturino - Pinto Kramer,826,0.2609
+2003,general,70,San Juan,Altamira - Salas,774,0.2445
+2003,general,70,San Juan,Zaffore - Perie,719,0.2271
+2003,general,70,San Juan,Sulling - Ambrosio,660,0.2085
+2003,general,70,San Juan,Herrera - Cúneo,643,0.2031
+2003,general,70,San Juan,Mazzitelli - Camps,567,0.1791
+2003,general,70,San Juan,Arcagni - Zenof,460,0.1453
+2003,general,70,San Juan,Mussa - Suárez,451,0.1425
+2003,general,70,San Juan,Terán - Bonacci,401,0.1267
+2003,general,70,San Juan,Breide Obeid - Vasena,394,0.1245
+2003,general,74,San Luis,Rodríguez Saá - Posse,179162,87.3850
+2003,general,74,San Luis,López Murphy - Gómez Diez,7207,3.5152
+2003,general,74,San Luis,Carrió - Gutiérrez,6927,3.3786
+2003,general,74,San Luis,Menem - Romero,4687,2.2861
+2003,general,74,San Luis,Kirchner - Scioli,2627,1.2813
+2003,general,74,San Luis,Moreau - Losada,1567,0.7643
+2003,general,74,San Luis,Walsh - Parrilli,1131,0.5516
+2003,general,74,San Luis,Bravo - Giustiniani,572,0.2790
+2003,general,74,San Luis,Herrera - Cúneo,346,0.1688
+2003,general,74,San Luis,Altamira - Salas,294,0.1434
+2003,general,74,San Luis,Sulling - Ambrosio,187,0.0912
+2003,general,74,San Luis,Mussa - Suárez,183,0.0893
+2003,general,74,San Luis,Terán - Bonacci,133,0.0649
+2003,general,74,San Luis,Venturino - Pinto Kramer,3,0.0015
+2003,general,78,Santa Cruz,Kirchner - Scioli,79120,79.2492
+2003,general,78,Santa Cruz,Menem - Romero,7093,7.1046
+2003,general,78,Santa Cruz,Carrió - Gutiérrez,4567,4.5745
+2003,general,78,Santa Cruz,López Murphy - Gómez Diez,3906,3.9124
+2003,general,78,Santa Cruz,Rodríguez Saá - Posse,2053,2.0564
+2003,general,78,Santa Cruz,Moreau - Losada,990,0.9916
+2003,general,78,Santa Cruz,Altamira - Salas,613,0.6140
+2003,general,78,Santa Cruz,Walsh - Parrilli,363,0.3636
+2003,general,78,Santa Cruz,Bravo - Giustiniani,248,0.2484
+2003,general,78,Santa Cruz,Sulling - Ambrosio,194,0.1943
+2003,general,78,Santa Cruz,Venturino - Pinto Kramer,181,0.1813
+2003,general,78,Santa Cruz,Herrera - Cúneo,129,0.1292
+2003,general,78,Santa Cruz,Mazzitelli - Camps,98,0.0982
+2003,general,78,Santa Cruz,Zaffore - Perie,91,0.0911
+2003,general,78,Santa Cruz,Mussa - Suárez,72,0.0721
+2003,general,78,Santa Cruz,Terán - Bonacci,72,0.0721
+2003,general,78,Santa Cruz,Breide Obeid - Vasena,45,0.0451
+2003,general,78,Santa Cruz,Arcagni - Zenof,2,0.0020
+2003,general,82,Santa Fe,Menem - Romero,425886,25.2641
+2003,general,82,Santa Fe,Carrió - Gutiérrez,424085,25.1573
+2003,general,82,Santa Fe,López Murphy - Gómez Diez,292124,17.3292
+2003,general,82,Santa Fe,Kirchner - Scioli,271591,16.1111
+2003,general,82,Santa Fe,Rodríguez Saá - Posse,144154,8.5514
+2003,general,82,Santa Fe,Moreau - Losada,27074,1.6061
+2003,general,82,Santa Fe,Bravo - Giustiniani,26894,1.5954
+2003,general,82,Santa Fe,Walsh - Parrilli,24187,1.4348
+2003,general,82,Santa Fe,Altamira - Salas,8984,0.5329
+2003,general,82,Santa Fe,Venturino - Pinto Kramer,8100,0.4805
+2003,general,82,Santa Fe,Sulling - Ambrosio,5669,0.3363
+2003,general,82,Santa Fe,Herrera - Cúneo,4774,0.2832
+2003,general,82,Santa Fe,Zaffore - Perie,4755,0.2821
+2003,general,82,Santa Fe,Arcagni - Zenof,4531,0.2688
+2003,general,82,Santa Fe,Mazzitelli - Camps,3949,0.2343
+2003,general,82,Santa Fe,Breide Obeid - Vasena,3844,0.2280
+2003,general,82,Santa Fe,Terán - Bonacci,3453,0.2048
+2003,general,82,Santa Fe,Mussa - Suárez,1681,0.0997
+2003,general,86,Santiago del Estero,Menem - Romero,144213,41.6544
+2003,general,86,Santiago del Estero,Kirchner - Scioli,137899,39.8307
+2003,general,86,Santiago del Estero,López Murphy - Gómez Diez,22513,6.5026
+2003,general,86,Santiago del Estero,Rodríguez Saá - Posse,15164,4.3800
+2003,general,86,Santiago del Estero,Carrió - Gutiérrez,11447,3.3063
+2003,general,86,Santiago del Estero,Moreau - Losada,8819,2.5473
+2003,general,86,Santiago del Estero,Walsh - Parrilli,2668,0.7706
+2003,general,86,Santiago del Estero,Bravo - Giustiniani,1077,0.3111
+2003,general,86,Santiago del Estero,Herrera - Cúneo,1043,0.3013
+2003,general,86,Santiago del Estero,Altamira - Salas,430,0.1242
+2003,general,86,Santiago del Estero,Zaffore - Perie,318,0.0919
+2003,general,86,Santiago del Estero,Breide Obeid - Vasena,309,0.0893
+2003,general,86,Santiago del Estero,Terán - Bonacci,245,0.0708
+2003,general,86,Santiago del Estero,Mussa - Suárez,68,0.0196
+2003,general,90,Tucumán,Menem - Romero,199699,31.3589
+2003,general,90,Tucumán,Kirchner - Scioli,153171,24.0526
+2003,general,90,Tucumán,López Murphy - Gómez Diez,122383,19.2179
+2003,general,90,Tucumán,Rodríguez Saá - Posse,80867,12.6986
+2003,general,90,Tucumán,Carrió - Gutiérrez,49005,7.6953
+2003,general,90,Tucumán,Walsh - Parrilli,5552,0.8718
+2003,general,90,Tucumán,Moreau - Losada,5547,0.8710
+2003,general,90,Tucumán,Altamira - Salas,4845,0.7608
+2003,general,90,Tucumán,Bravo - Giustiniani,3300,0.5182
+2003,general,90,Tucumán,Sulling - Ambrosio,2872,0.4510
+2003,general,90,Tucumán,Venturino - Pinto Kramer,2099,0.3296
+2003,general,90,Tucumán,Herrera - Cúneo,1871,0.2938
+2003,general,90,Tucumán,Zaffore - Perie,1711,0.2687
+2003,general,90,Tucumán,Mazzitelli - Camps,1644,0.2582
+2003,general,90,Tucumán,Breide Obeid - Vasena,1162,0.1825
+2003,general,90,Tucumán,Terán - Bonacci,1017,0.1597
+2003,general,90,Tucumán,Arcagni - Zenof,52,0.0082
+2003,general,90,Tucumán,Mussa - Suárez,21,0.0033
+2003,general,94,Tierra del Fuego,Kirchner - Scioli,23437,47.6013
+2003,general,94,Tierra del Fuego,Menem - Romero,10735,21.8032
+2003,general,94,Tierra del Fuego,Carrió - Gutiérrez,6131,12.4523
+2003,general,94,Tierra del Fuego,López Murphy - Gómez Diez,3605,7.3219
+2003,general,94,Tierra del Fuego,Rodríguez Saá - Posse,3079,6.2536
+2003,general,94,Tierra del Fuego,Moreau - Losada,412,0.8368
+2003,general,94,Tierra del Fuego,Walsh - Parrilli,411,0.8348
+2003,general,94,Tierra del Fuego,Bravo - Giustiniani,399,0.8104
+2003,general,94,Tierra del Fuego,Sulling - Ambrosio,199,0.4042
+2003,general,94,Tierra del Fuego,Altamira - Salas,173,0.3514
+2003,general,94,Tierra del Fuego,Venturino - Pinto Kramer,172,0.3493
+2003,general,94,Tierra del Fuego,Arcagni - Zenof,123,0.2498
+2003,general,94,Tierra del Fuego,Herrera - Cúneo,98,0.1990
+2003,general,94,Tierra del Fuego,Mussa - Suárez,73,0.1483
+2003,general,94,Tierra del Fuego,Zaffore - Perie,72,0.1462
+2003,general,94,Tierra del Fuego,Terán - Bonacci,62,0.1259
+2003,general,94,Tierra del Fuego,Breide Obeid - Vasena,55,0.1117
+2007,general,02,CABA,Carrió - Giustiniani,708323,37.7728
+2007,general,02,CABA,Fernández de Kirchner - Cobos,445936,23.7805
+2007,general,02,CABA,Lavagna - Morales,344896,18.3923
+2007,general,02,CABA,Rodríguez Saá - Maya,155886,8.3129
+2007,general,02,CABA,Solanas - Cadelli,75866,4.0457
+2007,general,02,CABA,López Murphy - Bullrich,74233,3.9586
+2007,general,02,CABA,Ripoll - Bidonde,26434,1.4096
+2007,general,02,CABA,Sobisch - Asís,14828,0.7907
+2007,general,02,CABA,Pitrola - Arroyos,10457,0.5576
+2007,general,02,CABA,Montes - Heberling,5598,0.2985
+2007,general,02,CABA,Ammann - Deleonardi,4428,0.2361
+2007,general,02,CABA,Castells - Pelozo,3515,0.1874
+2007,general,02,CABA,Breide Obeid - Vergara,3311,0.1766
+2007,general,02,CABA,Mussa - Nespral,1508,0.0804
+2007,general,06,Buenos Aires,Fernández de Kirchner - Cobos,3283391,45.9117
+2007,general,06,Buenos Aires,Carrió - Giustiniani,1862932,26.0494
+2007,general,06,Buenos Aires,Lavagna - Morales,978320,13.6799
+2007,general,06,Buenos Aires,Rodríguez Saá - Maya,455924,6.3752
+2007,general,06,Buenos Aires,Solanas - Cadelli,126009,1.7620
+2007,general,06,Buenos Aires,López Murphy - Bullrich,109394,1.5297
+2007,general,06,Buenos Aires,Sobisch - Asís,92389,1.2919
+2007,general,06,Buenos Aires,Ripoll - Bidonde,70260,0.9824
+2007,general,06,Buenos Aires,Pitrola - Arroyos,55901,0.7817
+2007,general,06,Buenos Aires,Montes - Heberling,41528,0.5807
+2007,general,06,Buenos Aires,Castells - Pelozo,26398,0.3691
+2007,general,06,Buenos Aires,Ammann - Deleonardi,25137,0.3515
+2007,general,06,Buenos Aires,Breide Obeid - Vergara,15930,0.2227
+2007,general,06,Buenos Aires,Mussa - Nespral,8014,0.1121
+2007,general,10,Catamarca,Fernández de Kirchner - Cobos,80733,53.2424
+2007,general,10,Catamarca,Lavagna - Morales,31303,20.6439
+2007,general,10,Catamarca,Carrió - Giustiniani,16380,10.8024
+2007,general,10,Catamarca,Rodríguez Saá - Maya,16225,10.7002
+2007,general,10,Catamarca,López Murphy - Bullrich,1936,1.2768
+2007,general,10,Catamarca,Sobisch - Asís,1178,0.7769
+2007,general,10,Catamarca,Pitrola - Arroyos,1052,0.6938
+2007,general,10,Catamarca,Ammann - Deleonardi,857,0.5652
+2007,general,10,Catamarca,Montes - Heberling,781,0.5151
+2007,general,10,Catamarca,Ripoll - Bidonde,599,0.3950
+2007,general,10,Catamarca,Breide Obeid - Vergara,532,0.3508
+2007,general,10,Catamarca,Castells - Pelozo,38,0.0251
+2007,general,10,Catamarca,Mussa - Nespral,19,0.0125
+2007,general,14,Córdoba,Lavagna - Morales,571792,35.3075
+2007,general,14,Córdoba,Fernández de Kirchner - Cobos,386155,23.8446
+2007,general,14,Córdoba,Carrió - Giustiniani,307738,19.0025
+2007,general,14,Córdoba,Rodríguez Saá - Maya,237896,14.6898
+2007,general,14,Córdoba,Solanas - Cadelli,29985,1.8515
+2007,general,14,Córdoba,Sobisch - Asís,26872,1.6593
+2007,general,14,Córdoba,López Murphy - Bullrich,13371,0.8256
+2007,general,14,Córdoba,Montes - Heberling,10143,0.6263
+2007,general,14,Córdoba,Castells - Pelozo,8407,0.5191
+2007,general,14,Córdoba,Ripoll - Bidonde,7770,0.4798
+2007,general,14,Córdoba,Pitrola - Arroyos,7734,0.4776
+2007,general,14,Córdoba,Ammann - Deleonardi,7032,0.4342
+2007,general,14,Córdoba,Breide Obeid - Vergara,4243,0.2620
+2007,general,14,Córdoba,Mussa - Nespral,324,0.0200
+2007,general,18,Corrientes,Fernández de Kirchner - Cobos,233078,54.1239
+2007,general,18,Corrientes,Carrió - Giustiniani,100478,23.3324
+2007,general,18,Corrientes,Lavagna - Morales,63095,14.6515
+2007,general,18,Corrientes,Rodríguez Saá - Maya,21799,5.0620
+2007,general,18,Corrientes,Sobisch - Asís,4162,0.9665
+2007,general,18,Corrientes,Ammann - Deleonardi,2674,0.6209
+2007,general,18,Corrientes,López Murphy - Bullrich,2038,0.4733
+2007,general,18,Corrientes,Solanas - Cadelli,925,0.2148
+2007,general,18,Corrientes,Breide Obeid - Vergara,825,0.1916
+2007,general,18,Corrientes,Pitrola - Arroyos,523,0.1214
+2007,general,18,Corrientes,Montes - Heberling,499,0.1159
+2007,general,18,Corrientes,Ripoll - Bidonde,485,0.1126
+2007,general,18,Corrientes,Castells - Pelozo,45,0.0104
+2007,general,18,Corrientes,Mussa - Nespral,12,0.0028
+2007,general,22,Chaco,Fernández de Kirchner - Cobos,244723,49.5249
+2007,general,22,Chaco,Lavagna - Morales,107527,21.7604
+2007,general,22,Chaco,Carrió - Giustiniani,104796,21.2077
+2007,general,22,Chaco,Rodríguez Saá - Maya,19938,4.0349
+2007,general,22,Chaco,Sobisch - Asís,3203,0.6482
+2007,general,22,Chaco,López Murphy - Bullrich,2672,0.5407
+2007,general,22,Chaco,Pitrola - Arroyos,2194,0.4440
+2007,general,22,Chaco,Montes - Heberling,2097,0.4244
+2007,general,22,Chaco,Castells - Pelozo,1852,0.3748
+2007,general,22,Chaco,Solanas - Cadelli,1512,0.3060
+2007,general,22,Chaco,Breide Obeid - Vergara,1310,0.2651
+2007,general,22,Chaco,Ammann - Deleonardi,1244,0.2518
+2007,general,22,Chaco,Ripoll - Bidonde,1023,0.2070
+2007,general,22,Chaco,Mussa - Nespral,50,0.0101
+2007,general,26,Chubut,Fernández de Kirchner - Cobos,156914,66.2834
+2007,general,26,Chubut,Carrió - Giustiniani,42896,18.1201
+2007,general,26,Chubut,Lavagna - Morales,22923,9.6831
+2007,general,26,Chubut,Rodríguez Saá - Maya,3957,1.6715
+2007,general,26,Chubut,Sobisch - Asís,2353,0.9940
+2007,general,26,Chubut,Ripoll - Bidonde,2107,0.8900
+2007,general,26,Chubut,López Murphy - Bullrich,2081,0.8791
+2007,general,26,Chubut,Pitrola - Arroyos,1409,0.5952
+2007,general,26,Chubut,Ammann - Deleonardi,932,0.3937
+2007,general,26,Chubut,Breide Obeid - Vergara,494,0.2087
+2007,general,26,Chubut,Montes - Heberling,449,0.1897
+2007,general,26,Chubut,Solanas - Cadelli,177,0.0748
+2007,general,26,Chubut,Castells - Pelozo,23,0.0097
+2007,general,26,Chubut,Mussa - Nespral,17,0.0072
+2007,general,30,Entre Ríos,Fernández de Kirchner - Cobos,294472,45.5187
+2007,general,30,Entre Ríos,Carrió - Giustiniani,127736,19.7451
+2007,general,30,Entre Ríos,Lavagna - Morales,113611,17.5617
+2007,general,30,Entre Ríos,Rodríguez Saá - Maya,67531,10.4388
+2007,general,30,Entre Ríos,López Murphy - Bullrich,10547,1.6303
+2007,general,30,Entre Ríos,Sobisch - Asís,7012,1.0839
+2007,general,30,Entre Ríos,Solanas - Cadelli,6351,0.9817
+2007,general,30,Entre Ríos,Breide Obeid - Vergara,6097,0.9425
+2007,general,30,Entre Ríos,Ammann - Deleonardi,4475,0.6917
+2007,general,30,Entre Ríos,Ripoll - Bidonde,4209,0.6506
+2007,general,30,Entre Ríos,Pitrola - Arroyos,2630,0.4065
+2007,general,30,Entre Ríos,Montes - Heberling,2255,0.3486
+2007,general,34,Formosa,Fernández de Kirchner - Cobos,162712,74.1335
+2007,general,34,Formosa,Lavagna - Morales,32093,14.6220
+2007,general,34,Formosa,Carrió - Giustiniani,17500,7.9732
+2007,general,34,Formosa,Rodríguez Saá - Maya,4058,1.8489
+2007,general,34,Formosa,Sobisch - Asís,637,0.2902
+2007,general,34,Formosa,Breide Obeid - Vergara,576,0.2624
+2007,general,34,Formosa,Ammann - Deleonardi,461,0.2100
+2007,general,34,Formosa,López Murphy - Bullrich,379,0.1727
+2007,general,34,Formosa,Montes - Heberling,284,0.1294
+2007,general,34,Formosa,Pitrola - Arroyos,273,0.1244
+2007,general,34,Formosa,Solanas - Cadelli,209,0.0952
+2007,general,34,Formosa,Ripoll - Bidonde,188,0.0857
+2007,general,34,Formosa,Mussa - Nespral,85,0.0387
+2007,general,34,Formosa,Castells - Pelozo,30,0.0137
+2007,general,38,Jujuy,Fernández de Kirchner - Cobos,168927,61.9030
+2007,general,38,Jujuy,Lavagna - Morales,72132,26.4326
+2007,general,38,Jujuy,Carrió - Giustiniani,16941,6.2080
+2007,general,38,Jujuy,Rodríguez Saá - Maya,5139,1.8832
+2007,general,38,Jujuy,Ripoll - Bidonde,2366,0.8670
+2007,general,38,Jujuy,Sobisch - Asís,2085,0.7640
+2007,general,38,Jujuy,Pitrola - Arroyos,1218,0.4463
+2007,general,38,Jujuy,Ammann - Deleonardi,1208,0.4427
+2007,general,38,Jujuy,Montes - Heberling,1023,0.3749
+2007,general,38,Jujuy,Breide Obeid - Vergara,977,0.3580
+2007,general,38,Jujuy,López Murphy - Bullrich,850,0.3115
+2007,general,38,Jujuy,Castells - Pelozo,10,0.0037
+2007,general,38,Jujuy,Mussa - Nespral,7,0.0026
+2007,general,38,Jujuy,Solanas - Cadelli,7,0.0026
+2007,general,42,La Pampa,Fernández de Kirchner - Cobos,76283,48.0844
+2007,general,42,La Pampa,Carrió - Giustiniani,31814,20.0537
+2007,general,42,La Pampa,Lavagna - Morales,21584,13.6053
+2007,general,42,La Pampa,Rodríguez Saá - Maya,19884,12.5337
+2007,general,42,La Pampa,López Murphy - Bullrich,2014,1.2695
+2007,general,42,La Pampa,Solanas - Cadelli,2003,1.2626
+2007,general,42,La Pampa,Ammann - Deleonardi,1603,1.0104
+2007,general,42,La Pampa,Sobisch - Asís,1232,0.7766
+2007,general,42,La Pampa,Montes - Heberling,731,0.4608
+2007,general,42,La Pampa,Pitrola - Arroyos,491,0.3095
+2007,general,42,La Pampa,Ripoll - Bidonde,478,0.3013
+2007,general,42,La Pampa,Breide Obeid - Vergara,281,0.1771
+2007,general,42,La Pampa,Castells - Pelozo,143,0.0901
+2007,general,42,La Pampa,Mussa - Nespral,103,0.0649
+2007,general,46,La Rioja,Fernández de Kirchner - Cobos,67980,48.7903
+2007,general,46,La Rioja,Rodríguez Saá - Maya,36045,25.8701
+2007,general,46,La Rioja,Lavagna - Morales,22008,15.7955
+2007,general,46,La Rioja,Carrió - Giustiniani,8454,6.0676
+2007,general,46,La Rioja,Ammann - Deleonardi,1513,1.0859
+2007,general,46,La Rioja,Montes - Heberling,1430,1.0263
+2007,general,46,La Rioja,Sobisch - Asís,763,0.5476
+2007,general,46,La Rioja,Solanas - Cadelli,379,0.2720
+2007,general,46,La Rioja,Ripoll - Bidonde,338,0.2426
+2007,general,46,La Rioja,Pitrola - Arroyos,257,0.1845
+2007,general,46,La Rioja,Breide Obeid - Vergara,164,0.1177
+2007,general,50,Mendoza,Fernández de Kirchner - Cobos,489922,60.9309
+2007,general,50,Mendoza,Lavagna - Morales,147102,18.2949
+2007,general,50,Mendoza,Carrió - Giustiniani,102903,12.7979
+2007,general,50,Mendoza,Rodríguez Saá - Maya,33897,4.2157
+2007,general,50,Mendoza,Sobisch - Asís,9863,1.2266
+2007,general,50,Mendoza,López Murphy - Bullrich,6069,0.7548
+2007,general,50,Mendoza,Ripoll - Bidonde,3733,0.4643
+2007,general,50,Mendoza,Solanas - Cadelli,2726,0.3390
+2007,general,50,Mendoza,Pitrola - Arroyos,2512,0.3124
+2007,general,50,Mendoza,Montes - Heberling,2144,0.2666
+2007,general,50,Mendoza,Ammann - Deleonardi,1903,0.2367
+2007,general,50,Mendoza,Breide Obeid - Vergara,1274,0.1584
+2007,general,50,Mendoza,Castells - Pelozo,13,0.0016
+2007,general,50,Mendoza,Mussa - Nespral,1,0.0001
+2007,general,54,Misiones,Fernández de Kirchner - Cobos,303227,69.2751
+2007,general,54,Misiones,Lavagna - Morales,67528,15.4274
+2007,general,54,Misiones,Carrió - Giustiniani,36103,8.2481
+2007,general,54,Misiones,Rodríguez Saá - Maya,23758,5.4277
+2007,general,54,Misiones,Sobisch - Asís,1517,0.3466
+2007,general,54,Misiones,Solanas - Cadelli,1142,0.2609
+2007,general,54,Misiones,Montes - Heberling,1017,0.2323
+2007,general,54,Misiones,López Murphy - Bullrich,1003,0.2291
+2007,general,54,Misiones,Ammann - Deleonardi,796,0.1819
+2007,general,54,Misiones,Pitrola - Arroyos,574,0.1311
+2007,general,54,Misiones,Ripoll - Bidonde,421,0.0962
+2007,general,54,Misiones,Breide Obeid - Vergara,309,0.0706
+2007,general,54,Misiones,Castells - Pelozo,173,0.0395
+2007,general,54,Misiones,Mussa - Nespral,146,0.0334
+2007,general,58,Neuquén,Fernández de Kirchner - Cobos,93307,37.1920
+2007,general,58,Neuquén,Carrió - Giustiniani,54940,21.8990
+2007,general,58,Neuquén,Sobisch - Asís,51282,20.4409
+2007,general,58,Neuquén,Lavagna - Morales,24873,9.9143
+2007,general,58,Neuquén,Rodríguez Saá - Maya,9000,3.5874
+2007,general,58,Neuquén,Solanas - Cadelli,5728,2.2832
+2007,general,58,Neuquén,López Murphy - Bullrich,3667,1.4617
+2007,general,58,Neuquén,Pitrola - Arroyos,1932,0.7701
+2007,general,58,Neuquén,Breide Obeid - Vergara,1889,0.7530
+2007,general,58,Neuquén,Ripoll - Bidonde,1781,0.7099
+2007,general,58,Neuquén,Montes - Heberling,1425,0.5680
+2007,general,58,Neuquén,Ammann - Deleonardi,1055,0.4205
+2007,general,62,Río Negro,Fernández de Kirchner - Cobos,159786,56.8451
+2007,general,62,Río Negro,Carrió - Giustiniani,49765,17.7043
+2007,general,62,Río Negro,Lavagna - Morales,33583,11.9474
+2007,general,62,Río Negro,Sobisch - Asís,12881,4.5825
+2007,general,62,Río Negro,Rodríguez Saá - Maya,9602,3.4160
+2007,general,62,Río Negro,Solanas - Cadelli,5719,2.0346
+2007,general,62,Río Negro,Pitrola - Arroyos,2348,0.8353
+2007,general,62,Río Negro,Montes - Heberling,2138,0.7606
+2007,general,62,Río Negro,Ammann - Deleonardi,1624,0.5778
+2007,general,62,Río Negro,Breide Obeid - Vergara,1389,0.4941
+2007,general,62,Río Negro,Ripoll - Bidonde,1155,0.4109
+2007,general,62,Río Negro,López Murphy - Bullrich,903,0.3212
+2007,general,62,Río Negro,Castells - Pelozo,126,0.0448
+2007,general,62,Río Negro,Mussa - Nespral,71,0.0253
+2007,general,66,Salta,Fernández de Kirchner - Cobos,379025,75.7701
+2007,general,66,Salta,Lavagna - Morales,61040,12.2024
+2007,general,66,Salta,Carrió - Giustiniani,33393,6.6755
+2007,general,66,Salta,Pitrola - Arroyos,7759,1.5511
+2007,general,66,Salta,Rodríguez Saá - Maya,7244,1.4481
+2007,general,66,Salta,Sobisch - Asís,3359,0.6715
+2007,general,66,Salta,López Murphy - Bullrich,2651,0.5300
+2007,general,66,Salta,Ammann - Deleonardi,1453,0.2905
+2007,general,66,Salta,Ripoll - Bidonde,1304,0.2607
+2007,general,66,Salta,Solanas - Cadelli,1267,0.2533
+2007,general,66,Salta,Montes - Heberling,807,0.1613
+2007,general,66,Salta,Castells - Pelozo,577,0.1153
+2007,general,66,Salta,Breide Obeid - Vergara,331,0.0662
+2007,general,66,Salta,Mussa - Nespral,20,0.0040
+2007,general,70,San Juan,Fernández de Kirchner - Cobos,178202,58.2415
+2007,general,70,San Juan,Lavagna - Morales,72193,23.5947
+2007,general,70,San Juan,Carrió - Giustiniani,25794,8.4302
+2007,general,70,San Juan,Rodríguez Saá - Maya,21115,6.9010
+2007,general,70,San Juan,López Murphy - Bullrich,2593,0.8475
+2007,general,70,San Juan,Sobisch - Asís,1591,0.5200
+2007,general,70,San Juan,Ripoll - Bidonde,1063,0.3474
+2007,general,70,San Juan,Solanas - Cadelli,988,0.3229
+2007,general,70,San Juan,Montes - Heberling,859,0.2807
+2007,general,70,San Juan,Pitrola - Arroyos,671,0.2193
+2007,general,70,San Juan,Ammann - Deleonardi,469,0.1533
+2007,general,70,San Juan,Breide Obeid - Vergara,433,0.1415
+2007,general,74,San Luis,Rodríguez Saá - Maya,146386,68.1801
+2007,general,74,San Luis,Fernández de Kirchner - Cobos,24944,11.6178
+2007,general,74,San Luis,Carrió - Giustiniani,24513,11.4171
+2007,general,74,San Luis,Lavagna - Morales,12530,5.8359
+2007,general,74,San Luis,López Murphy - Bullrich,1350,0.6288
+2007,general,74,San Luis,Solanas - Cadelli,1156,0.5384
+2007,general,74,San Luis,Sobisch - Asís,1069,0.4979
+2007,general,74,San Luis,Ammann - Deleonardi,736,0.3428
+2007,general,74,San Luis,Breide Obeid - Vergara,713,0.3321
+2007,general,74,San Luis,Ripoll - Bidonde,624,0.2906
+2007,general,74,San Luis,Pitrola - Arroyos,522,0.2431
+2007,general,74,San Luis,Montes - Heberling,90,0.0419
+2007,general,74,San Luis,Castells - Pelozo,50,0.0233
+2007,general,74,San Luis,Mussa - Nespral,22,0.0102
+2007,general,78,Santa Cruz,Fernández de Kirchner - Cobos,78629,68.4558
+2007,general,78,Santa Cruz,Carrió - Giustiniani,20374,17.7380
+2007,general,78,Santa Cruz,Lavagna - Morales,11966,10.4178
+2007,general,78,Santa Cruz,Rodríguez Saá - Maya,1926,1.6768
+2007,general,78,Santa Cruz,Pitrola - Arroyos,809,0.7043
+2007,general,78,Santa Cruz,Ripoll - Bidonde,529,0.4606
+2007,general,78,Santa Cruz,Sobisch - Asís,390,0.3395
+2007,general,78,Santa Cruz,Montes - Heberling,111,0.0966
+2007,general,78,Santa Cruz,Breide Obeid - Vergara,70,0.0609
+2007,general,78,Santa Cruz,Ammann - Deleonardi,17,0.0148
+2007,general,78,Santa Cruz,Mussa - Nespral,15,0.0131
+2007,general,78,Santa Cruz,Castells - Pelozo,15,0.0131
+2007,general,78,Santa Cruz,Solanas - Cadelli,9,0.0078
+2007,general,78,Santa Cruz,López Murphy - Bullrich,1,0.0009
+2007,general,82,Santa Fe,Fernández de Kirchner - Cobos,606361,35.4986
+2007,general,82,Santa Fe,Carrió - Giustiniani,582165,34.0820
+2007,general,82,Santa Fe,Lavagna - Morales,282702,16.5504
+2007,general,82,Santa Fe,Rodríguez Saá - Maya,131663,7.7080
+2007,general,82,Santa Fe,Solanas - Cadelli,36629,2.1444
+2007,general,82,Santa Fe,López Murphy - Bullrich,18215,1.0664
+2007,general,82,Santa Fe,Sobisch - Asís,16483,0.9650
+2007,general,82,Santa Fe,Ripoll - Bidonde,8784,0.5142
+2007,general,82,Santa Fe,Pitrola - Arroyos,7807,0.4571
+2007,general,82,Santa Fe,Ammann - Deleonardi,5789,0.3389
+2007,general,82,Santa Fe,Montes - Heberling,4896,0.2866
+2007,general,82,Santa Fe,Castells - Pelozo,4194,0.2455
+2007,general,82,Santa Fe,Breide Obeid - Vergara,2340,0.1370
+2007,general,82,Santa Fe,Mussa - Nespral,100,0.0059
+2007,general,86,Santiago del Estero,Fernández de Kirchner - Cobos,271156,79.4785
+2007,general,86,Santiago del Estero,Carrió - Giustiniani,30050,8.8080
+2007,general,86,Santiago del Estero,Lavagna - Morales,19890,5.8300
+2007,general,86,Santiago del Estero,Rodríguez Saá - Maya,6803,1.9940
+2007,general,86,Santiago del Estero,López Murphy - Bullrich,3638,1.0663
+2007,general,86,Santiago del Estero,Sobisch - Asís,3129,0.9171
+2007,general,86,Santiago del Estero,Ripoll - Bidonde,2730,0.8002
+2007,general,86,Santiago del Estero,Pitrola - Arroyos,1442,0.4227
+2007,general,86,Santiago del Estero,Montes - Heberling,898,0.2632
+2007,general,86,Santiago del Estero,Ammann - Deleonardi,789,0.2313
+2007,general,86,Santiago del Estero,Castells - Pelozo,643,0.1885
+2007,general,86,Santiago del Estero,Breide Obeid - Vergara,1,0.0003
+2007,general,90,Tucumán,Fernández de Kirchner - Cobos,434598,62.6757
+2007,general,90,Tucumán,Lavagna - Morales,108743,15.6824
+2007,general,90,Tucumán,Carrió - Giustiniani,82240,11.8603
+2007,general,90,Tucumán,Rodríguez Saá - Maya,21372,3.0822
+2007,general,90,Tucumán,López Murphy - Bullrich,13276,1.9146
+2007,general,90,Tucumán,Sobisch - Asís,9633,1.3892
+2007,general,90,Tucumán,Pitrola - Arroyos,5949,0.8579
+2007,general,90,Tucumán,Ripoll - Bidonde,3856,0.5561
+2007,general,90,Tucumán,Ammann - Deleonardi,3315,0.4781
+2007,general,90,Tucumán,Montes - Heberling,3291,0.4746
+2007,general,90,Tucumán,Solanas - Cadelli,2750,0.3966
+2007,general,90,Tucumán,Castells - Pelozo,2626,0.3787
+2007,general,90,Tucumán,Breide Obeid - Vergara,1714,0.2472
+2007,general,90,Tucumán,Mussa - Nespral,44,0.0063
+2007,general,94,Tierra del Fuego,Fernández de Kirchner - Cobos,31832,54.6041
+2007,general,94,Tierra del Fuego,Carrió - Giustiniani,15414,26.4409
+2007,general,94,Tierra del Fuego,Lavagna - Morales,6802,11.6680
+2007,general,94,Tierra del Fuego,Rodríguez Saá - Maya,2126,3.6469
+2007,general,94,Tierra del Fuego,López Murphy - Bullrich,525,0.9006
+2007,general,94,Tierra del Fuego,Sobisch - Asís,490,0.8405
+2007,general,94,Tierra del Fuego,Ripoll - Bidonde,291,0.4992
+2007,general,94,Tierra del Fuego,Ammann - Deleonardi,277,0.4752
+2007,general,94,Tierra del Fuego,Pitrola - Arroyos,224,0.3842
+2007,general,94,Tierra del Fuego,Montes - Heberling,200,0.3431
+2007,general,94,Tierra del Fuego,Breide Obeid - Vergara,115,0.1973
+2011,general,02,CABA,Fernández de Kirchner - Boudou (Alianza Frente para la Victoria),660275,35.1109
+2011,general,02,CABA,Binner - Morandini (Alianza Frente Amplio Progresista),522979,27.8100
+2011,general,02,CABA,Duhalde - Das Neves (Alianza Frente Popular),192503,10.2366
+2011,general,02,CABA,Rodríguez Saá - Vernet (Alianza Compromiso Federal),185114,9.8436
+2011,general,02,CABA,Alfonsín - González Fraga (Alianza Unión para el Desarrollo Social),177720,9.4505
+2011,general,02,CABA,Carrió - Pérez (Coalición Cívica - Afirmación para una República Igualitaria ARI),80807,4.2970
+2011,general,02,CABA,Altamira - Castillo (Alianza Frente de Izquierda y de los Trabajadores),61145,3.2515
+2011,general,06,Buenos Aires,Fernández de Kirchner - Boudou (Alianza Frente para la Victoria),4841169,56.4264
+2011,general,06,Buenos Aires,Binner - Morandini (Alianza Frente Amplio Progresista),1280857,14.9291
+2011,general,06,Buenos Aires,Alfonsín - González Fraga (Alianza Unión para el Desarrollo Social),830991,9.6856
+2011,general,06,Buenos Aires,Rodríguez Saá - Vernet (Alianza Compromiso Federal),629129,7.3328
+2011,general,06,Buenos Aires,Duhalde - Das Neves (Alianza Frente Popular),612907,7.1438
+2011,general,06,Buenos Aires,Altamira - Castillo (Alianza Frente de Izquierda y de los Trabajadores),234965,2.7386
+2011,general,06,Buenos Aires,Carrió - Pérez (Coalición Cívica - Afirmación para una República Igualitaria ARI),149595,1.7436
+2011,general,10,Catamarca,Fernández de Kirchner - Boudou (Alianza Frente para la Victoria),133306,69.7890
+2011,general,10,Catamarca,Alfonsín - González Fraga (Alianza Unión para el Desarrollo Social),34229,17.9197
+2011,general,10,Catamarca,Binner - Morandini (Alianza Frente Amplio Progresista),9819,5.1405
+2011,general,10,Catamarca,Duhalde - Das Neves (Alianza Frente Popular),5117,2.6789
+2011,general,10,Catamarca,Rodríguez Saá - Vernet (Alianza Compromiso Federal),3343,1.7501
+2011,general,10,Catamarca,Altamira - Castillo (Alianza Frente de Izquierda y de los Trabajadores),2912,1.5245
+2011,general,10,Catamarca,Carrió - Pérez (Coalición Cívica - Afirmación para una República Igualitaria ARI),2287,1.1973
+2011,general,14,Córdoba,Fernández de Kirchner - Boudou (Alianza Frente para la Victoria),689271,37.2923
+2011,general,14,Córdoba,Binner - Morandini (Alianza Frente Amplio Progresista),432351,23.3919
+2011,general,14,Córdoba,Alfonsín - González Fraga (Alianza Unión para el Desarrollo Social),332760,18.0037
+2011,general,14,Córdoba,Rodríguez Saá - Vernet (Alianza Compromiso Federal),226817,12.2717
+2011,general,14,Córdoba,Duhalde - Das Neves (Alianza Frente Popular),84876,4.5921
+2011,general,14,Córdoba,Altamira - Castillo (Alianza Frente de Izquierda y de los Trabajadores),52628,2.8474
+2011,general,14,Córdoba,Carrió - Pérez (Coalición Cívica - Afirmación para una República Igualitaria ARI),29588,1.6008
+2011,general,18,Corrientes,Fernández de Kirchner - Boudou (Alianza Frente para la Victoria),342284,68.0361
+2011,general,18,Corrientes,Alfonsín - González Fraga (Alianza Unión para el Desarrollo Social),64889,12.8980
+2011,general,18,Corrientes,Binner - Morandini (Alianza Frente Amplio Progresista),36209,7.1973
+2011,general,18,Corrientes,Duhalde - Das Neves (Alianza Frente Popular),23223,4.6161
+2011,general,18,Corrientes,Rodríguez Saá - Vernet (Alianza Compromiso Federal),20305,4.0360
+2011,general,18,Corrientes,Carrió - Pérez (Coalición Cívica - Afirmación para una República Igualitaria ARI),11896,2.3646
+2011,general,18,Corrientes,Altamira - Castillo (Alianza Frente de Izquierda y de los Trabajadores),4286,0.8519
+2011,general,22,Chaco,Fernández de Kirchner - Boudou (Alianza Frente para la Victoria),368884,65.2387
+2011,general,22,Chaco,Alfonsín - González Fraga (Alianza Unión para el Desarrollo Social),100093,17.7019
+2011,general,22,Chaco,Binner - Morandini (Alianza Frente Amplio Progresista),40601,7.1805
+2011,general,22,Chaco,Duhalde - Das Neves (Alianza Frente Popular),23475,4.1517
+2011,general,22,Chaco,Rodríguez Saá - Vernet (Alianza Compromiso Federal),17024,3.0108
+2011,general,22,Chaco,Carrió - Pérez (Coalición Cívica - Afirmación para una República Igualitaria ARI),10949,1.9364
+2011,general,22,Chaco,Altamira - Castillo (Alianza Frente de Izquierda y de los Trabajadores),4411,0.7801
+2011,general,26,Chubut,Fernández de Kirchner - Boudou (Alianza Frente para la Victoria),165080,59.8153
+2011,general,26,Chubut,Duhalde - Das Neves (Alianza Frente Popular),45335,16.4267
+2011,general,26,Chubut,Alfonsín - González Fraga (Alianza Unión para el Desarrollo Social),26603,9.6394
+2011,general,26,Chubut,Binner - Morandini (Alianza Frente Amplio Progresista),21231,7.6929
+2011,general,26,Chubut,Rodríguez Saá - Vernet (Alianza Compromiso Federal),8378,3.0357
+2011,general,26,Chubut,Altamira - Castillo (Alianza Frente de Izquierda y de los Trabajadores),5170,1.8733
+2011,general,26,Chubut,Carrió - Pérez (Coalición Cívica - Afirmación para una República Igualitaria ARI),4186,1.5168
+2011,general,30,Entre Ríos,Fernández de Kirchner - Boudou (Alianza Frente para la Victoria),367427,54.6304
+2011,general,30,Entre Ríos,Binner - Morandini (Alianza Frente Amplio Progresista),137351,20.4218
+2011,general,30,Entre Ríos,Alfonsín - González Fraga (Alianza Unión para el Desarrollo Social),97285,14.4647
+2011,general,30,Entre Ríos,Duhalde - Das Neves (Alianza Frente Popular),29360,4.3654
+2011,general,30,Entre Ríos,Rodríguez Saá - Vernet (Alianza Compromiso Federal),27394,4.0730
+2011,general,30,Entre Ríos,Altamira - Castillo (Alianza Frente de Izquierda y de los Trabajadores),6966,1.0357
+2011,general,30,Entre Ríos,Carrió - Pérez (Coalición Cívica - Afirmación para una República Igualitaria ARI),6786,1.0090
+2011,general,34,Formosa,Fernández de Kirchner - Boudou (Alianza Frente para la Victoria),201036,79.2701
+2011,general,34,Formosa,Alfonsín - González Fraga (Alianza Unión para el Desarrollo Social),37189,14.6639
+2011,general,34,Formosa,Binner - Morandini (Alianza Frente Amplio Progresista),6572,2.5914
+2011,general,34,Formosa,Duhalde - Das Neves (Alianza Frente Popular),4606,1.8162
+2011,general,34,Formosa,Rodríguez Saá - Vernet (Alianza Compromiso Federal),2096,0.8265
+2011,general,34,Formosa,Altamira - Castillo (Alianza Frente de Izquierda y de los Trabajadores),1081,0.4262
+2011,general,34,Formosa,Carrió - Pérez (Coalición Cívica - Afirmación para una República Igualitaria ARI),1029,0.4057
+2011,general,38,Jujuy,Fernández de Kirchner - Boudou (Alianza Frente para la Victoria),207286,64.4304
+2011,general,38,Jujuy,Alfonsín - González Fraga (Alianza Unión para el Desarrollo Social),60623,18.8433
+2011,general,38,Jujuy,Binner - Morandini (Alianza Frente Amplio Progresista),25948,8.0654
+2011,general,38,Jujuy,Rodríguez Saá - Vernet (Alianza Compromiso Federal),11538,3.5863
+2011,general,38,Jujuy,Altamira - Castillo (Alianza Frente de Izquierda y de los Trabajadores),6408,1.9918
+2011,general,38,Jujuy,Duhalde - Das Neves (Alianza Frente Popular),6236,1.9383
+2011,general,38,Jujuy,Carrió - Pérez (Coalición Cívica - Afirmación para una República Igualitaria ARI),3682,1.1445
+2011,general,42,La Pampa,Fernández de Kirchner - Boudou (Alianza Frente para la Victoria),104905,58.2718
+2011,general,42,La Pampa,Binner - Morandini (Alianza Frente Amplio Progresista),24468,13.5913
+2011,general,42,La Pampa,Alfonsín - González Fraga (Alianza Unión para el Desarrollo Social),23969,13.3141
+2011,general,42,La Pampa,Rodríguez Saá - Vernet (Alianza Compromiso Federal),15363,8.5337
+2011,general,42,La Pampa,Duhalde - Das Neves (Alianza Frente Popular),6867,3.8144
+2011,general,42,La Pampa,Carrió - Pérez (Coalición Cívica - Afirmación para una República Igualitaria ARI),2232,1.2398
+2011,general,42,La Pampa,Altamira - Castillo (Alianza Frente de Izquierda y de los Trabajadores),2223,1.2348
+2011,general,46,La Rioja,Fernández de Kirchner - Boudou (Alianza Frente para la Victoria),77953,51.2785
+2011,general,46,La Rioja,Rodríguez Saá - Vernet (Alianza Compromiso Federal),31686,20.8434
+2011,general,46,La Rioja,Alfonsín - González Fraga (Alianza Unión para el Desarrollo Social),26514,17.4412
+2011,general,46,La Rioja,Binner - Morandini (Alianza Frente Amplio Progresista),9129,6.0052
+2011,general,46,La Rioja,Duhalde - Das Neves (Alianza Frente Popular),3089,2.0320
+2011,general,46,La Rioja,Altamira - Castillo (Alianza Frente de Izquierda y de los Trabajadores),2269,1.4926
+2011,general,46,La Rioja,Carrió - Pérez (Coalición Cívica - Afirmación para una República Igualitaria ARI),1379,0.9071
+2011,general,50,Mendoza,Fernández de Kirchner - Boudou (Alianza Frente para la Victoria),449680,51.1197
+2011,general,50,Mendoza,Rodríguez Saá - Vernet (Alianza Compromiso Federal),179067,20.3564
+2011,general,50,Mendoza,Binner - Morandini (Alianza Frente Amplio Progresista),107710,12.2445
+2011,general,50,Mendoza,Alfonsín - González Fraga (Alianza Unión para el Desarrollo Social),96936,11.0197
+2011,general,50,Mendoza,Carrió - Pérez (Coalición Cívica - Afirmación para una República Igualitaria ARI),18342,2.0851
+2011,general,50,Mendoza,Duhalde - Das Neves (Alianza Frente Popular),14563,1.6555
+2011,general,50,Mendoza,Altamira - Castillo (Alianza Frente de Izquierda y de los Trabajadores),13363,1.5191
+2011,general,54,Misiones,Fernández de Kirchner - Boudou (Alianza Frente para la Victoria),366727,67.0837
+2011,general,54,Misiones,Alfonsín - González Fraga (Alianza Unión para el Desarrollo Social),75077,13.7335
+2011,general,54,Misiones,Duhalde - Das Neves (Alianza Frente Popular),44177,8.0811
+2011,general,54,Misiones,Binner - Morandini (Alianza Frente Amplio Progresista),31156,5.6992
+2011,general,54,Misiones,Rodríguez Saá - Vernet (Alianza Compromiso Federal),16917,3.0945
+2011,general,54,Misiones,Carrió - Pérez (Coalición Cívica - Afirmación para una República Igualitaria ARI),7105,1.2997
+2011,general,54,Misiones,Altamira - Castillo (Alianza Frente de Izquierda y de los Trabajadores),5512,1.0083
+2011,general,58,Neuquén,Fernández de Kirchner - Boudou (Alianza Frente para la Victoria),193014,61.1316
+2011,general,58,Neuquén,Binner - Morandini (Alianza Frente Amplio Progresista),45273,14.3389
+2011,general,58,Neuquén,Alfonsín - González Fraga (Alianza Unión para el Desarrollo Social),29336,9.2913
+2011,general,58,Neuquén,Rodríguez Saá - Vernet (Alianza Compromiso Federal),20240,6.4104
+2011,general,58,Neuquén,Duhalde - Das Neves (Alianza Frente Popular),11408,3.6132
+2011,general,58,Neuquén,Altamira - Castillo (Alianza Frente de Izquierda y de los Trabajadores),10224,3.2382
+2011,general,58,Neuquén,Carrió - Pérez (Coalición Cívica - Afirmación para una República Igualitaria ARI),6240,1.9763
+2011,general,62,Río Negro,Fernández de Kirchner - Boudou (Alianza Frente para la Victoria),225805,68.0681
+2011,general,62,Río Negro,Binner - Morandini (Alianza Frente Amplio Progresista),39876,12.0205
+2011,general,62,Río Negro,Alfonsín - González Fraga (Alianza Unión para el Desarrollo Social),30790,9.2815
+2011,general,62,Río Negro,Rodríguez Saá - Vernet (Alianza Compromiso Federal),13261,3.9975
+2011,general,62,Río Negro,Duhalde - Das Neves (Alianza Frente Popular),9791,2.9515
+2011,general,62,Río Negro,Altamira - Castillo (Alianza Frente de Izquierda y de los Trabajadores),6765,2.0393
+2011,general,62,Río Negro,Carrió - Pérez (Coalición Cívica - Afirmación para una República Igualitaria ARI),5446,1.6417
+2011,general,66,Salta,Fernández de Kirchner - Boudou (Alianza Frente para la Victoria),395548,64.5487
+2011,general,66,Salta,Alfonsín - González Fraga (Alianza Unión para el Desarrollo Social),89383,14.5862
+2011,general,66,Salta,Binner - Morandini (Alianza Frente Amplio Progresista),50916,8.3089
+2011,general,66,Salta,Duhalde - Das Neves (Alianza Frente Popular),25479,4.1579
+2011,general,66,Salta,Altamira - Castillo (Alianza Frente de Izquierda y de los Trabajadores),22267,3.6337
+2011,general,66,Salta,Rodríguez Saá - Vernet (Alianza Compromiso Federal),19970,3.2589
+2011,general,66,Salta,Carrió - Pérez (Coalición Cívica - Afirmación para una República Igualitaria ARI),9227,1.5057
+2011,general,70,San Juan,Fernández de Kirchner - Boudou (Alianza Frente para la Victoria),222118,65.4052
+2011,general,70,San Juan,Rodríguez Saá - Vernet (Alianza Compromiso Federal),57968,17.0693
+2011,general,70,San Juan,Alfonsín - González Fraga (Alianza Unión para el Desarrollo Social),24225,7.1333
+2011,general,70,San Juan,Binner - Morandini (Alianza Frente Amplio Progresista),21140,6.2249
+2011,general,70,San Juan,Duhalde - Das Neves (Alianza Frente Popular),7500,2.2085
+2011,general,70,San Juan,Altamira - Castillo (Alianza Frente de Izquierda y de los Trabajadores),3624,1.0671
+2011,general,70,San Juan,Carrió - Pérez (Coalición Cívica - Afirmación para una República Igualitaria ARI),3028,0.8916
+2011,general,74,San Luis,Rodríguez Saá - Vernet (Alianza Compromiso Federal),120924,51.4965
+2011,general,74,San Luis,Fernández de Kirchner - Boudou (Alianza Frente para la Victoria),73812,31.4334
+2011,general,74,San Luis,Alfonsín - González Fraga (Alianza Unión para el Desarrollo Social),21349,9.0916
+2011,general,74,San Luis,Binner - Morandini (Alianza Frente Amplio Progresista),12005,5.1124
+2011,general,74,San Luis,Altamira - Castillo (Alianza Frente de Izquierda y de los Trabajadores),2349,1.0003
+2011,general,74,San Luis,Duhalde - Das Neves (Alianza Frente Popular),2294,0.9769
+2011,general,74,San Luis,Carrió - Pérez (Coalición Cívica - Afirmación para una República Igualitaria ARI),2087,0.8888
+2011,general,78,Santa Cruz,Fernández de Kirchner - Boudou (Alianza Frente para la Victoria),107540,74.8729
+2011,general,78,Santa Cruz,Alfonsín - González Fraga (Alianza Unión para el Desarrollo Social),17028,11.8555
+2011,general,78,Santa Cruz,Binner - Morandini (Alianza Frente Amplio Progresista),10543,7.3404
+2011,general,78,Santa Cruz,Altamira - Castillo (Alianza Frente de Izquierda y de los Trabajadores),2457,1.7106
+2011,general,78,Santa Cruz,Duhalde - Das Neves (Alianza Frente Popular),2161,1.5046
+2011,general,78,Santa Cruz,Carrió - Pérez (Coalición Cívica - Afirmación para una República Igualitaria ARI),2070,1.4412
+2011,general,78,Santa Cruz,Rodríguez Saá - Vernet (Alianza Compromiso Federal),1831,1.2748
+2011,general,82,Santa Fe,Fernández de Kirchner - Boudou (Alianza Frente para la Victoria),758721,41.9566
+2011,general,82,Santa Fe,Binner - Morandini (Alianza Frente Amplio Progresista),707088,39.1013
+2011,general,82,Santa Fe,Alfonsín - González Fraga (Alianza Unión para el Desarrollo Social),103221,5.7080
+2011,general,82,Santa Fe,Duhalde - Das Neves (Alianza Frente Popular),91233,5.0451
+2011,general,82,Santa Fe,Rodríguez Saá - Vernet (Alianza Compromiso Federal),86760,4.7977
+2011,general,82,Santa Fe,Altamira - Castillo (Alianza Frente de Izquierda y de los Trabajadores),31107,1.7202
+2011,general,82,Santa Fe,Carrió - Pérez (Coalición Cívica - Afirmación para una República Igualitaria ARI),30218,1.6710
+2011,general,86,Santiago del Estero,Fernández de Kirchner - Boudou (Alianza Frente para la Victoria),338482,82.1126
+2011,general,86,Santiago del Estero,Alfonsín - González Fraga (Alianza Unión para el Desarrollo Social),29197,7.0829
+2011,general,86,Santiago del Estero,Binner - Morandini (Alianza Frente Amplio Progresista),16942,4.1100
+2011,general,86,Santiago del Estero,Duhalde - Das Neves (Alianza Frente Popular),13665,3.3150
+2011,general,86,Santiago del Estero,Rodríguez Saá - Vernet (Alianza Compromiso Federal),6830,1.6569
+2011,general,86,Santiago del Estero,Altamira - Castillo (Alianza Frente de Izquierda y de los Trabajadores),4396,1.0664
+2011,general,86,Santiago del Estero,Carrió - Pérez (Coalición Cívica - Afirmación para una República Igualitaria ARI),2705,0.6562
+2011,general,90,Tucumán,Fernández de Kirchner - Boudou (Alianza Frente para la Victoria),526267,65.1859
+2011,general,90,Tucumán,Alfonsín - González Fraga (Alianza Unión para el Desarrollo Social),107492,13.3145
+2011,general,90,Tucumán,Binner - Morandini (Alianza Frente Amplio Progresista),87539,10.8430
+2011,general,90,Tucumán,Rodríguez Saá - Vernet (Alianza Compromiso Federal),39367,4.8762
+2011,general,90,Tucumán,Duhalde - Das Neves (Alianza Frente Popular),23455,2.9052
+2011,general,90,Tucumán,Altamira - Castillo (Alianza Frente de Izquierda y de los Trabajadores),15474,1.9167
+2011,general,90,Tucumán,Carrió - Pérez (Coalición Cívica - Afirmación para una República Igualitaria ARI),7738,0.9585
+2011,general,94,Tierra del Fuego,Fernández de Kirchner - Boudou (Alianza Frente para la Victoria),48465,68.4302
+2011,general,94,Tierra del Fuego,Binner - Morandini (Alianza Frente Amplio Progresista),7267,10.2606
+2011,general,94,Tierra del Fuego,Alfonsín - González Fraga (Alianza Unión para el Desarrollo Social),6117,8.6369
+2011,general,94,Tierra del Fuego,Rodríguez Saá - Vernet (Alianza Compromiso Federal),4032,5.6930
+2011,general,94,Tierra del Fuego,Duhalde - Das Neves (Alianza Frente Popular),2510,3.5440
+2011,general,94,Tierra del Fuego,Altamira - Castillo (Alianza Frente de Izquierda y de los Trabajadores),1370,1.9344
+2011,general,94,Tierra del Fuego,Carrió - Pérez (Coalición Cívica - Afirmación para una República Igualitaria ARI),1063,1.5009
+2015,general,02,CABA,Macri - Michetti (Alianza Cambiemos),1001379,50.6097
+2015,general,02,CABA,Scioli - Zannini (Alianza Frente para la Victoria),476632,24.0890
+2015,general,02,CABA,Massa - Sáenz (Alianza Unidos por una Nueva Alternativa (UNA)),302065,15.2664
+2015,general,02,CABA,Stolbizer - Olaviaga (Alianza Progresistas),100462,5.0773
+2015,general,02,CABA,Del Caño - Bregman (Alianza Frente de Izquierda y de los Trabajadores),84238,4.2574
+2015,general,02,CABA,Rodríguez Saá - Negre de Alonso (Alianza Compromiso Federal),13856,0.7003
+2015,general,06,Buenos Aires,Scioli - Zannini (Alianza Frente para la Victoria),3563089,37.2836
+2015,general,06,Buenos Aires,Macri - Michetti (Alianza Cambiemos),3134779,32.8018
+2015,general,06,Buenos Aires,Massa - Sáenz (Alianza Unidos por una Nueva Alternativa (UNA)),2143827,22.4326
+2015,general,06,Buenos Aires,Del Caño - Bregman (Alianza Frente de Izquierda y de los Trabajadores),351786,3.6810
+2015,general,06,Buenos Aires,Stolbizer - Olaviaga (Alianza Progresistas),272801,2.8545
+2015,general,06,Buenos Aires,Rodríguez Saá - Negre de Alonso (Alianza Compromiso Federal),90448,0.9464
+2015,general,10,Catamarca,Scioli - Zannini (Alianza Frente para la Victoria),98831,44.8378
+2015,general,10,Catamarca,Macri - Michetti (Alianza Cambiemos),78958,35.8218
+2015,general,10,Catamarca,Massa - Sáenz (Alianza Unidos por una Nueva Alternativa (UNA)),35046,15.8997
+2015,general,10,Catamarca,Del Caño - Bregman (Alianza Frente de Izquierda y de los Trabajadores),3447,1.5638
+2015,general,10,Catamarca,Stolbizer - Olaviaga (Alianza Progresistas),2419,1.0975
+2015,general,10,Catamarca,Rodríguez Saá - Negre de Alonso (Alianza Compromiso Federal),1718,0.7794
+2015,general,14,Córdoba,Macri - Michetti (Alianza Cambiemos),1155333,53.2156
+2015,general,14,Córdoba,Massa - Sáenz (Alianza Unidos por una Nueva Alternativa (UNA)),443204,20.4143
+2015,general,14,Córdoba,Scioli - Zannini (Alianza Frente para la Victoria),418221,19.2636
+2015,general,14,Córdoba,Del Caño - Bregman (Alianza Frente de Izquierda y de los Trabajadores),69051,3.1805
+2015,general,14,Córdoba,Rodríguez Saá - Negre de Alonso (Alianza Compromiso Federal),46235,2.1296
+2015,general,14,Córdoba,Stolbizer - Olaviaga (Alianza Progresistas),38998,1.7963
+2015,general,18,Corrientes,Scioli - Zannini (Alianza Frente para la Victoria),313292,50.2641
+2015,general,18,Corrientes,Macri - Michetti (Alianza Cambiemos),198241,31.8055
+2015,general,18,Corrientes,Massa - Sáenz (Alianza Unidos por una Nueva Alternativa (UNA)),95106,15.2587
+2015,general,18,Corrientes,Del Caño - Bregman (Alianza Frente de Izquierda y de los Trabajadores),6824,1.0948
+2015,general,18,Corrientes,Stolbizer - Olaviaga (Alianza Progresistas),6487,1.0408
+2015,general,18,Corrientes,Rodríguez Saá - Negre de Alonso (Alianza Compromiso Federal),3342,0.5362
+2015,general,22,Chaco,Scioli - Zannini (Alianza Frente para la Victoria),352304,53.6926
+2015,general,22,Chaco,Macri - Michetti (Alianza Cambiemos),185563,28.2806
+2015,general,22,Chaco,Massa - Sáenz (Alianza Unidos por una Nueva Alternativa (UNA)),97469,14.8547
+2015,general,22,Chaco,Del Caño - Bregman (Alianza Frente de Izquierda y de los Trabajadores),9315,1.4196
+2015,general,22,Chaco,Stolbizer - Olaviaga (Alianza Progresistas),6990,1.0653
+2015,general,22,Chaco,Rodríguez Saá - Negre de Alonso (Alianza Compromiso Federal),4509,0.6872
+2015,general,26,Chubut,Scioli - Zannini (Alianza Frente para la Victoria),121314,41.6692
+2015,general,26,Chubut,Massa - Sáenz (Alianza Unidos por una Nueva Alternativa (UNA)),86026,29.5484
+2015,general,26,Chubut,Macri - Michetti (Alianza Cambiemos),62142,21.3447
+2015,general,26,Chubut,Del Caño - Bregman (Alianza Frente de Izquierda y de los Trabajadores),10439,3.5856
+2015,general,26,Chubut,Stolbizer - Olaviaga (Alianza Progresistas),8466,2.9079
+2015,general,26,Chubut,Rodríguez Saá - Negre de Alonso (Alianza Compromiso Federal),2749,0.9442
+2015,general,30,Entre Ríos,Macri - Michetti (Alianza Cambiemos),314057,37.7598
+2015,general,30,Entre Ríos,Scioli - Zannini (Alianza Frente para la Victoria),313022,37.6353
+2015,general,30,Entre Ríos,Massa - Sáenz (Alianza Unidos por una Nueva Alternativa (UNA)),164799,19.8141
+2015,general,30,Entre Ríos,Stolbizer - Olaviaga (Alianza Progresistas),17501,2.1042
+2015,general,30,Entre Ríos,Del Caño - Bregman (Alianza Frente de Izquierda y de los Trabajadores),14420,1.7337
+2015,general,30,Entre Ríos,Rodríguez Saá - Negre de Alonso (Alianza Compromiso Federal),7925,0.9528
+2015,general,34,Formosa,Scioli - Zannini (Alianza Frente para la Victoria),217026,66.9809
+2015,general,34,Formosa,Massa - Sáenz (Alianza Unidos por una Nueva Alternativa (UNA)),53817,16.6096
+2015,general,34,Formosa,Macri - Michetti (Alianza Cambiemos),48742,15.0433
+2015,general,34,Formosa,Del Caño - Bregman (Alianza Frente de Izquierda y de los Trabajadores),2615,0.8071
+2015,general,34,Formosa,Stolbizer - Olaviaga (Alianza Progresistas),1116,0.3444
+2015,general,34,Formosa,Rodríguez Saá - Negre de Alonso (Alianza Compromiso Federal),696,0.2148
+2015,general,38,Jujuy,Massa - Sáenz (Alianza Unidos por una Nueva Alternativa (UNA)),168571,41.5863
+2015,general,38,Jujuy,Scioli - Zannini (Alianza Frente para la Victoria),152345,37.5834
+2015,general,38,Jujuy,Macri - Michetti (Alianza Cambiemos),69882,17.2398
+2015,general,38,Jujuy,Del Caño - Bregman (Alianza Frente de Izquierda y de los Trabajadores),9564,2.3594
+2015,general,38,Jujuy,Stolbizer - Olaviaga (Alianza Progresistas),3144,0.7756
+2015,general,38,Jujuy,Rodríguez Saá - Negre de Alonso (Alianza Compromiso Federal),1846,0.4554
+2015,general,42,La Pampa,Scioli - Zannini (Alianza Frente para la Victoria),79963,37.9410
+2015,general,42,La Pampa,Macri - Michetti (Alianza Cambiemos),70783,33.5853
+2015,general,42,La Pampa,Massa - Sáenz (Alianza Unidos por una Nueva Alternativa (UNA)),45465,21.5723
+2015,general,42,La Pampa,Stolbizer - Olaviaga (Alianza Progresistas),5509,2.6139
+2015,general,42,La Pampa,Del Caño - Bregman (Alianza Frente de Izquierda y de los Trabajadores),5332,2.5299
+2015,general,42,La Pampa,Rodríguez Saá - Negre de Alonso (Alianza Compromiso Federal),3704,1.7575
+2015,general,46,La Rioja,Scioli - Zannini (Alianza Frente para la Victoria),73527,36.3216
+2015,general,46,La Rioja,Macri - Michetti (Alianza Cambiemos),64106,31.6678
+2015,general,46,La Rioja,Massa - Sáenz (Alianza Unidos por una Nueva Alternativa (UNA)),52492,25.9306
+2015,general,46,La Rioja,Rodríguez Saá - Negre de Alonso (Alianza Compromiso Federal),6706,3.3127
+2015,general,46,La Rioja,Del Caño - Bregman (Alianza Frente de Izquierda y de los Trabajadores),3403,1.6811
+2015,general,46,La Rioja,Stolbizer - Olaviaga (Alianza Progresistas),2199,1.0863
+2015,general,50,Mendoza,Macri - Michetti (Alianza Cambiemos),443913,40.8051
+2015,general,50,Mendoza,Scioli - Zannini (Alianza Frente para la Victoria),341163,31.3602
+2015,general,50,Mendoza,Massa - Sáenz (Alianza Unidos por una Nueva Alternativa (UNA)),156503,14.3860
+2015,general,50,Mendoza,Del Caño - Bregman (Alianza Frente de Izquierda y de los Trabajadores),82734,7.6050
+2015,general,50,Mendoza,Rodríguez Saá - Negre de Alonso (Alianza Compromiso Federal),47874,4.4006
+2015,general,50,Mendoza,Stolbizer - Olaviaga (Alianza Progresistas),15698,1.4430
+2015,general,54,Misiones,Scioli - Zannini (Alianza Frente para la Victoria),403671,61.1141
+2015,general,54,Misiones,Macri - Michetti (Alianza Cambiemos),149940,22.7003
+2015,general,54,Misiones,Massa - Sáenz (Alianza Unidos por una Nueva Alternativa (UNA)),90464,13.6959
+2015,general,54,Misiones,Stolbizer - Olaviaga (Alianza Progresistas),8244,1.2481
+2015,general,54,Misiones,Del Caño - Bregman (Alianza Frente de Izquierda y de los Trabajadores),5809,0.8795
+2015,general,54,Misiones,Rodríguez Saá - Negre de Alonso (Alianza Compromiso Federal),2392,0.3621
+2015,general,58,Neuquén,Scioli - Zannini (Alianza Frente para la Victoria),132691,35.7374
+2015,general,58,Neuquén,Macri - Michetti (Alianza Cambiemos),103860,27.9724
+2015,general,58,Neuquén,Massa - Sáenz (Alianza Unidos por una Nueva Alternativa (UNA)),98061,26.4105
+2015,general,58,Neuquén,Del Caño - Bregman (Alianza Frente de Izquierda y de los Trabajadores),20055,5.4014
+2015,general,58,Neuquén,Stolbizer - Olaviaga (Alianza Progresistas),9883,2.6618
+2015,general,58,Neuquén,Rodríguez Saá - Negre de Alonso (Alianza Compromiso Federal),6745,1.8166
+2015,general,62,Río Negro,Scioli - Zannini (Alianza Frente para la Victoria),179872,45.1970
+2015,general,62,Río Negro,Massa - Sáenz (Alianza Unidos por una Nueva Alternativa (UNA)),96769,24.3155
+2015,general,62,Río Negro,Macri - Michetti (Alianza Cambiemos),89103,22.3892
+2015,general,62,Río Negro,Del Caño - Bregman (Alianza Frente de Izquierda y de los Trabajadores),15506,3.8962
+2015,general,62,Río Negro,Stolbizer - Olaviaga (Alianza Progresistas),11119,2.7939
+2015,general,62,Río Negro,Rodríguez Saá - Negre de Alonso (Alianza Compromiso Federal),5604,1.4081
+2015,general,66,Salta,Scioli - Zannini (Alianza Frente para la Victoria),292699,40.9760
+2015,general,66,Salta,Massa - Sáenz (Alianza Unidos por una Nueva Alternativa (UNA)),242704,33.9770
+2015,general,66,Salta,Macri - Michetti (Alianza Cambiemos),146875,20.5616
+2015,general,66,Salta,Del Caño - Bregman (Alianza Frente de Izquierda y de los Trabajadores),19036,2.6649
+2015,general,66,Salta,Stolbizer - Olaviaga (Alianza Progresistas),7506,1.0508
+2015,general,66,Salta,Rodríguez Saá - Negre de Alonso (Alianza Compromiso Federal),5498,0.7697
+2015,general,70,San Juan,Scioli - Zannini (Alianza Frente para la Victoria),192377,45.9570
+2015,general,70,San Juan,Massa - Sáenz (Alianza Unidos por una Nueva Alternativa (UNA)),111444,26.6229
+2015,general,70,San Juan,Macri - Michetti (Alianza Cambiemos),86920,20.7644
+2015,general,70,San Juan,Rodríguez Saá - Negre de Alonso (Alianza Compromiso Federal),14470,3.4567
+2015,general,70,San Juan,Stolbizer - Olaviaga (Alianza Progresistas),7264,1.7353
+2015,general,70,San Juan,Del Caño - Bregman (Alianza Frente de Izquierda y de los Trabajadores),6127,1.4637
+2015,general,74,San Luis,Rodríguez Saá - Negre de Alonso (Alianza Compromiso Federal),102684,36.8294
+2015,general,74,San Luis,Macri - Michetti (Alianza Cambiemos),86225,30.9261
+2015,general,74,San Luis,Scioli - Zannini (Alianza Frente para la Victoria),43442,15.5812
+2015,general,74,San Luis,Massa - Sáenz (Alianza Unidos por una Nueva Alternativa (UNA)),37810,13.5612
+2015,general,74,San Luis,Del Caño - Bregman (Alianza Frente de Izquierda y de los Trabajadores),4947,1.7743
+2015,general,74,San Luis,Stolbizer - Olaviaga (Alianza Progresistas),3702,1.3278
+2015,general,78,Santa Cruz,Scioli - Zannini (Alianza Frente para la Victoria),82595,47.0648
+2015,general,78,Santa Cruz,Macri - Michetti (Alianza Cambiemos),44880,25.5738
+2015,general,78,Santa Cruz,Massa - Sáenz (Alianza Unidos por una Nueva Alternativa (UNA)),39626,22.5799
+2015,general,78,Santa Cruz,Del Caño - Bregman (Alianza Frente de Izquierda y de los Trabajadores),5533,3.1529
+2015,general,78,Santa Cruz,Stolbizer - Olaviaga (Alianza Progresistas),2064,1.1761
+2015,general,78,Santa Cruz,Rodríguez Saá - Negre de Alonso (Alianza Compromiso Federal),794,0.4524
+2015,general,82,Santa Fe,Macri - Michetti (Alianza Cambiemos),712100,35.2942
+2015,general,82,Santa Fe,Scioli - Zannini (Alianza Frente para la Victoria),640924,31.7665
+2015,general,82,Santa Fe,Massa - Sáenz (Alianza Unidos por una Nueva Alternativa (UNA)),500897,24.8262
+2015,general,82,Santa Fe,Stolbizer - Olaviaga (Alianza Progresistas),79721,3.9513
+2015,general,82,Santa Fe,Del Caño - Bregman (Alianza Frente de Izquierda y de los Trabajadores),53801,2.6666
+2015,general,82,Santa Fe,Rodríguez Saá - Negre de Alonso (Alianza Compromiso Federal),30168,1.4952
+2015,general,86,Santiago del Estero,Scioli - Zannini (Alianza Frente para la Victoria),351388,63.1309
+2015,general,86,Santiago del Estero,Massa - Sáenz (Alianza Unidos por una Nueva Alternativa (UNA)),107427,19.3005
+2015,general,86,Santiago del Estero,Macri - Michetti (Alianza Cambiemos),81825,14.7008
+2015,general,86,Santiago del Estero,Del Caño - Bregman (Alianza Frente de Izquierda y de los Trabajadores),8099,1.4551
+2015,general,86,Santiago del Estero,Stolbizer - Olaviaga (Alianza Progresistas),5268,0.9465
+2015,general,86,Santiago del Estero,Rodríguez Saá - Negre de Alonso (Alianza Compromiso Federal),2595,0.4662
+2015,general,90,Tucumán,Scioli - Zannini (Alianza Frente para la Victoria),456053,48.4594
+2015,general,90,Tucumán,Macri - Michetti (Alianza Cambiemos),251299,26.7026
+2015,general,90,Tucumán,Massa - Sáenz (Alianza Unidos por una Nueva Alternativa (UNA)),195784,20.8037
+2015,general,90,Tucumán,Del Caño - Bregman (Alianza Frente de Izquierda y de los Trabajadores),16394,1.7420
+2015,general,90,Tucumán,Stolbizer - Olaviaga (Alianza Progresistas),13012,1.3826
+2015,general,90,Tucumán,Rodríguez Saá - Negre de Alonso (Alianza Compromiso Federal),8562,0.9098
+2015,general,94,Tierra del Fuego,Scioli - Zannini (Alianza Frente para la Victoria),42049,45.5238
+2015,general,94,Tierra del Fuego,Massa - Sáenz (Alianza Unidos por una Nueva Alternativa (UNA)),21601,23.3861
+2015,general,94,Tierra del Fuego,Macri - Michetti (Alianza Cambiemos),20226,21.8974
+2015,general,94,Tierra del Fuego,Del Caño - Bregman (Alianza Frente de Izquierda y de los Trabajadores),4055,4.3901
+2015,general,94,Tierra del Fuego,Stolbizer - Olaviaga (Alianza Progresistas),2978,3.2241
+2015,general,94,Tierra del Fuego,Rodríguez Saá - Negre de Alonso (Alianza Compromiso Federal),1458,1.5785
+2015,segunda,02,CABA,Macri - Michetti (Cambiemos),1258151,64.7965
+2015,segunda,02,CABA,Scioli - Zannini (Frente para la Victoria),683545,35.2035
+2015,segunda,06,Buenos Aires,Scioli - Zannini (Frente para la Victoria),4882082,51.1480
+2015,segunda,06,Buenos Aires,Macri - Michetti (Cambiemos),4662935,48.8520
+2015,segunda,10,Catamarca,Scioli - Zannini (Frente para la Victoria),116158,53.1377
+2015,segunda,10,Catamarca,Macri - Michetti (Cambiemos),102440,46.8623
+2015,segunda,14,Córdoba,Macri - Michetti (Cambiemos),1546831,71.5187
+2015,segunda,14,Córdoba,Scioli - Zannini (Frente para la Victoria),616002,28.4813
+2015,segunda,18,Corrientes,Scioli - Zannini (Frente para la Victoria),355119,55.3607
+2015,segunda,18,Corrientes,Macri - Michetti (Cambiemos),286345,44.6393
+2015,segunda,22,Chaco,Scioli - Zannini (Frente para la Victoria),403280,59.1944
+2015,segunda,22,Chaco,Macri - Michetti (Cambiemos),278001,40.8056
+2015,segunda,26,Chubut,Scioli - Zannini (Frente para la Victoria),186155,58.8506
+2015,segunda,26,Chubut,Macri - Michetti (Cambiemos),130163,41.1494
+2015,segunda,30,Entre Ríos,Macri - Michetti (Cambiemos),453149,53.8586
+2015,segunda,30,Entre Ríos,Scioli - Zannini (Frente para la Victoria),388219,46.1414
+2015,segunda,34,Formosa,Scioli - Zannini (Frente para la Victoria),206762,63.9166
+2015,segunda,34,Formosa,Macri - Michetti (Cambiemos),116725,36.0834
+2015,segunda,38,Jujuy,Macri - Michetti (Cambiemos),214429,52.8948
+2015,segunda,38,Jujuy,Scioli - Zannini (Frente para la Victoria),190959,47.1052
+2015,segunda,42,La Pampa,Macri - Michetti (Cambiemos),108543,51.0282
+2015,segunda,42,La Pampa,Scioli - Zannini (Frente para la Victoria),104169,48.9718
+2015,segunda,46,La Rioja,Macri - Michetti (Cambiemos),114963,56.5026
+2015,segunda,46,La Rioja,Scioli - Zannini (Frente para la Victoria),88502,43.4974
+2015,segunda,50,Mendoza,Macri - Michetti (Cambiemos),625983,57.5263
+2015,segunda,50,Mendoza,Scioli - Zannini (Frente para la Victoria),462186,42.4737
+2015,segunda,54,Misiones,Scioli - Zannini (Frente para la Victoria),388910,58.0747
+2015,segunda,54,Misiones,Macri - Michetti (Cambiemos),280762,41.9253
+2015,segunda,58,Neuquén,Scioli - Zannini (Frente para la Victoria),199425,52.8474
+2015,segunda,58,Neuquén,Macri - Michetti (Cambiemos),177935,47.1526
+2015,segunda,62,Río Negro,Scioli - Zannini (Frente para la Victoria),250621,62.8583
+2015,segunda,62,Río Negro,Macri - Michetti (Cambiemos),148087,37.1417
+2015,segunda,66,Salta,Scioli - Zannini (Frente para la Victoria),399518,55.2327
+2015,segunda,66,Salta,Macri - Michetti (Cambiemos),323818,44.7673
+2015,segunda,70,San Juan,Scioli - Zannini (Frente para la Victoria),260937,59.8049
+2015,segunda,70,San Juan,Macri - Michetti (Cambiemos),175377,40.1951
+2015,segunda,74,San Luis,Macri - Michetti (Cambiemos),178156,64.1257
+2015,segunda,74,San Luis,Scioli - Zannini (Frente para la Victoria),99667,35.8743
+2015,segunda,78,Santa Cruz,Scioli - Zannini (Frente para la Victoria),102003,58.3278
+2015,segunda,78,Santa Cruz,Macri - Michetti (Cambiemos),72876,41.6722
+2015,segunda,82,Santa Fe,Macri - Michetti (Cambiemos),1141121,55.7202
+2015,segunda,82,Santa Fe,Scioli - Zannini (Frente para la Victoria),906826,44.2798
+2015,segunda,86,Santiago del Estero,Scioli - Zannini (Frente para la Victoria),400331,72.0946
+2015,segunda,86,Santiago del Estero,Macri - Michetti (Cambiemos),154955,27.9054
+2015,segunda,90,Tucumán,Scioli - Zannini (Frente para la Victoria),563696,58.6028
+2015,segunda,90,Tucumán,Macri - Michetti (Cambiemos),398197,41.3972
+2015,segunda,94,Tierra del Fuego,Scioli - Zannini (Frente para la Victoria),54503,58.6621
+2015,segunda,94,Tierra del Fuego,Macri - Michetti (Cambiemos),38407,41.3379
+2019,general,02,CABA,Macri - Pichetto (Juntos por el Cambio),1068134,52.6380
+2019,general,02,CABA,Fernández - Fernández de Kirchner (Frente de Todos),719655,35.4649
+2019,general,02,CABA,Lavagna - Urtubey (Consenso Federal),130475,6.4299
+2019,general,02,CABA,Del Caño - Del Plá (Frente de Izquierda y de Trabajadores - Unidad),59066,2.9108
+2019,general,02,CABA,Espert - Rosales (Unite por la Libertad y la Dignidad),38013,1.8733
+2019,general,02,CABA,Gómez Centurión - Hotton (Frente Nos),13863,0.6832
+2019,general,06,Buenos Aires,Fernández - Fernández de Kirchner (Frente de Todos),5294879,52.1986
+2019,general,06,Buenos Aires,Macri - Pichetto (Juntos por el Cambio),3640552,35.8897
+2019,general,06,Buenos Aires,Lavagna - Urtubey (Consenso Federal),638990,6.2994
+2019,general,06,Buenos Aires,Del Caño - Del Plá (Frente de Izquierda y de Trabajadores - Unidad),273495,2.6962
+2019,general,06,Buenos Aires,Gómez Centurión - Hotton (Frente Nos),150067,1.4794
+2019,general,06,Buenos Aires,Espert - Rosales (Unite por la Libertad y la Dignidad),145743,1.4368
+2019,general,10,Catamarca,Fernández - Fernández de Kirchner (Frente de Todos),132590,56.6600
+2019,general,10,Catamarca,Macri - Pichetto (Juntos por el Cambio),79568,34.0020
+2019,general,10,Catamarca,Lavagna - Urtubey (Consenso Federal),13197,5.6395
+2019,general,10,Catamarca,Del Caño - Del Plá (Frente de Izquierda y de Trabajadores - Unidad),3508,1.4991
+2019,general,10,Catamarca,Espert - Rosales (Unite por la Libertad y la Dignidad),3011,1.2867
+2019,general,10,Catamarca,Gómez Centurión - Hotton (Frente Nos),2136,0.9128
+2019,general,14,Córdoba,Macri - Pichetto (Juntos por el Cambio),1394104,61.3069
+2019,general,14,Córdoba,Fernández - Fernández de Kirchner (Frente de Todos),666445,29.3075
+2019,general,14,Córdoba,Lavagna - Urtubey (Consenso Federal),113734,5.0015
+2019,general,14,Córdoba,Del Caño - Del Plá (Frente de Izquierda y de Trabajadores - Unidad),37612,1.6540
+2019,general,14,Córdoba,Gómez Centurión - Hotton (Frente Nos),31869,1.4015
+2019,general,14,Córdoba,Espert - Rosales (Unite por la Libertad y la Dignidad),30213,1.3286
+2019,general,18,Corrientes,Fernández - Fernández de Kirchner (Frente de Todos),354968,51.1926
+2019,general,18,Corrientes,Macri - Pichetto (Juntos por el Cambio),290690,41.9226
+2019,general,18,Corrientes,Lavagna - Urtubey (Consenso Federal),21658,3.1235
+2019,general,18,Corrientes,Gómez Centurión - Hotton (Frente Nos),12515,1.8049
+2019,general,18,Corrientes,Espert - Rosales (Unite por la Libertad y la Dignidad),7044,1.0159
+2019,general,18,Corrientes,Del Caño - Del Plá (Frente de Izquierda y de Trabajadores - Unidad),6522,0.9406
+2019,general,22,Chaco,Fernández - Fernández de Kirchner (Frente de Todos),404758,55.7299
+2019,general,22,Chaco,Macri - Pichetto (Juntos por el Cambio),258432,35.5827
+2019,general,22,Chaco,Lavagna - Urtubey (Consenso Federal),27636,3.8051
+2019,general,22,Chaco,Gómez Centurión - Hotton (Frente Nos),20617,2.8387
+2019,general,22,Chaco,Espert - Rosales (Unite por la Libertad y la Dignidad),7856,1.0817
+2019,general,22,Chaco,Del Caño - Del Plá (Frente de Izquierda y de Trabajadores - Unidad),6986,0.9619
+2019,general,26,Chubut,Fernández - Fernández de Kirchner (Frente de Todos),174726,52.4201
+2019,general,26,Chubut,Macri - Pichetto (Juntos por el Cambio),97837,29.3524
+2019,general,26,Chubut,Lavagna - Urtubey (Consenso Federal),25357,7.6074
+2019,general,26,Chubut,Gómez Centurión - Hotton (Frente Nos),14253,4.2761
+2019,general,26,Chubut,Del Caño - Del Plá (Frente de Izquierda y de Trabajadores - Unidad),13117,3.9353
+2019,general,26,Chubut,Espert - Rosales (Unite por la Libertad y la Dignidad),8029,2.4088
+2019,general,30,Entre Ríos,Macri - Pichetto (Juntos por el Cambio),391495,44.4692
+2019,general,30,Entre Ríos,Fernández - Fernández de Kirchner (Frente de Todos),390587,44.3660
+2019,general,30,Entre Ríos,Lavagna - Urtubey (Consenso Federal),55030,6.2508
+2019,general,30,Entre Ríos,Gómez Centurión - Hotton (Frente Nos),14647,1.6637
+2019,general,30,Entre Ríos,Del Caño - Del Plá (Frente de Izquierda y de Trabajadores - Unidad),14504,1.6475
+2019,general,30,Entre Ríos,Espert - Rosales (Unite por la Libertad y la Dignidad),14111,1.6028
+2019,general,34,Formosa,Fernández - Fernández de Kirchner (Frente de Todos),229774,65.2111
+2019,general,34,Formosa,Macri - Pichetto (Juntos por el Cambio),100280,28.4600
+2019,general,34,Formosa,Lavagna - Urtubey (Consenso Federal),11057,3.1380
+2019,general,34,Formosa,Gómez Centurión - Hotton (Frente Nos),5334,1.5138
+2019,general,34,Formosa,Del Caño - Del Plá (Frente de Izquierda y de Trabajadores - Unidad),3112,0.8832
+2019,general,34,Formosa,Espert - Rosales (Unite por la Libertad y la Dignidad),2797,0.7938
+2019,general,38,Jujuy,Fernández - Fernández de Kirchner (Frente de Todos),207120,46.1879
+2019,general,38,Jujuy,Macri - Pichetto (Juntos por el Cambio),186104,41.5013
+2019,general,38,Jujuy,Lavagna - Urtubey (Consenso Federal),26835,5.9842
+2019,general,38,Jujuy,Gómez Centurión - Hotton (Frente Nos),10512,2.3442
+2019,general,38,Jujuy,Del Caño - Del Plá (Frente de Izquierda y de Trabajadores - Unidad),9241,2.0607
+2019,general,38,Jujuy,Espert - Rosales (Unite por la Libertad y la Dignidad),8617,1.9216
+2019,general,42,La Pampa,Fernández - Fernández de Kirchner (Frente de Todos),115095,50.0740
+2019,general,42,La Pampa,Macri - Pichetto (Juntos por el Cambio),86744,37.7394
+2019,general,42,La Pampa,Lavagna - Urtubey (Consenso Federal),15137,6.5856
+2019,general,42,La Pampa,Del Caño - Del Plá (Frente de Izquierda y de Trabajadores - Unidad),4727,2.0566
+2019,general,42,La Pampa,Gómez Centurión - Hotton (Frente Nos),4676,2.0344
+2019,general,42,La Pampa,Espert - Rosales (Unite por la Libertad y la Dignidad),3471,1.5101
+2019,general,46,La Rioja,Fernández - Fernández de Kirchner (Frente de Todos),85779,47.3655
+2019,general,46,La Rioja,Macri - Pichetto (Juntos por el Cambio),80462,44.4296
+2019,general,46,La Rioja,Lavagna - Urtubey (Consenso Federal),7844,4.3313
+2019,general,46,La Rioja,Espert - Rosales (Unite por la Libertad y la Dignidad),2801,1.5467
+2019,general,46,La Rioja,Del Caño - Del Plá (Frente de Izquierda y de Trabajadores - Unidad),2127,1.1745
+2019,general,46,La Rioja,Gómez Centurión - Hotton (Frente Nos),2087,1.1524
+2019,general,50,Mendoza,Macri - Pichetto (Juntos por el Cambio),576493,50.1013
+2019,general,50,Mendoza,Fernández - Fernández de Kirchner (Frente de Todos),435313,37.8318
+2019,general,50,Mendoza,Lavagna - Urtubey (Consenso Federal),75448,6.5570
+2019,general,50,Mendoza,Del Caño - Del Plá (Frente de Izquierda y de Trabajadores - Unidad),26315,2.2870
+2019,general,50,Mendoza,Gómez Centurión - Hotton (Frente Nos),22715,1.9741
+2019,general,50,Mendoza,Espert - Rosales (Unite por la Libertad y la Dignidad),14370,1.2489
+2019,general,54,Misiones,Fernández - Fernández de Kirchner (Frente de Todos),417752,57.7056
+2019,general,54,Misiones,Macri - Pichetto (Juntos por el Cambio),245254,33.8778
+2019,general,54,Misiones,Lavagna - Urtubey (Consenso Federal),24451,3.3775
+2019,general,54,Misiones,Gómez Centurión - Hotton (Frente Nos),21239,2.9338
+2019,general,54,Misiones,Espert - Rosales (Unite por la Libertad y la Dignidad),8537,1.1792
+2019,general,54,Misiones,Del Caño - Del Plá (Frente de Izquierda y de Trabajadores - Unidad),6704,0.9260
+2019,general,58,Neuquén,Fernández - Fernández de Kirchner (Frente de Todos),194205,47.7290
+2019,general,58,Neuquén,Macri - Pichetto (Juntos por el Cambio),151939,37.3415
+2019,general,58,Neuquén,Lavagna - Urtubey (Consenso Federal),25628,6.2985
+2019,general,58,Neuquén,Del Caño - Del Plá (Frente de Izquierda y de Trabajadores - Unidad),15209,3.7379
+2019,general,58,Neuquén,Gómez Centurión - Hotton (Frente Nos),11743,2.8860
+2019,general,58,Neuquén,Espert - Rosales (Unite por la Libertad y la Dignidad),8167,2.0072
+2019,general,62,Río Negro,Fernández - Fernández de Kirchner (Frente de Todos),247664,57.2332
+2019,general,62,Río Negro,Macri - Pichetto (Juntos por el Cambio),123674,28.5801
+2019,general,62,Río Negro,Lavagna - Urtubey (Consenso Federal),27483,6.3511
+2019,general,62,Río Negro,Gómez Centurión - Hotton (Frente Nos),14173,3.2753
+2019,general,62,Río Negro,Del Caño - Del Plá (Frente de Izquierda y de Trabajadores - Unidad),11252,2.6002
+2019,general,62,Río Negro,Espert - Rosales (Unite por la Libertad y la Dignidad),8482,1.9601
+2019,general,66,Salta,Fernández - Fernández de Kirchner (Frente de Todos),374369,48.8241
+2019,general,66,Salta,Macri - Pichetto (Juntos por el Cambio),266406,34.7439
+2019,general,66,Salta,Lavagna - Urtubey (Consenso Federal),82358,10.7409
+2019,general,66,Salta,Gómez Centurión - Hotton (Frente Nos),16635,2.1695
+2019,general,66,Salta,Del Caño - Del Plá (Frente de Izquierda y de Trabajadores - Unidad),13625,1.7769
+2019,general,66,Salta,Espert - Rosales (Unite por la Libertad y la Dignidad),13378,1.7447
+2019,general,70,San Juan,Fernández - Fernández de Kirchner (Frente de Todos),242060,53.0150
+2019,general,70,San Juan,Macri - Pichetto (Juntos por el Cambio),160449,35.1409
+2019,general,70,San Juan,Lavagna - Urtubey (Consenso Federal),33004,7.2284
+2019,general,70,San Juan,Gómez Centurión - Hotton (Frente Nos),8388,1.8371
+2019,general,70,San Juan,Del Caño - Del Plá (Frente de Izquierda y de Trabajadores - Unidad),6928,1.5173
+2019,general,70,San Juan,Espert - Rosales (Unite por la Libertad y la Dignidad),5759,1.2613
+2019,general,74,San Luis,Macri - Pichetto (Juntos por el Cambio),139479,45.0282
+2019,general,74,San Luis,Fernández - Fernández de Kirchner (Frente de Todos),129118,41.6834
+2019,general,74,San Luis,Lavagna - Urtubey (Consenso Federal),20954,6.7646
+2019,general,74,San Luis,Gómez Centurión - Hotton (Frente Nos),7683,2.4803
+2019,general,74,San Luis,Del Caño - Del Plá (Frente de Izquierda y de Trabajadores - Unidad),7171,2.3150
+2019,general,74,San Luis,Espert - Rosales (Unite por la Libertad y la Dignidad),5354,1.7284
+2019,general,78,Santa Cruz,Fernández - Fernández de Kirchner (Frente de Todos),108323,59.7697
+2019,general,78,Santa Cruz,Macri - Pichetto (Juntos por el Cambio),51183,28.2414
+2019,general,78,Santa Cruz,Lavagna - Urtubey (Consenso Federal),9123,5.0338
+2019,general,78,Santa Cruz,Del Caño - Del Plá (Frente de Izquierda y de Trabajadores - Unidad),6032,3.3283
+2019,general,78,Santa Cruz,Gómez Centurión - Hotton (Frente Nos),5171,2.8532
+2019,general,78,Santa Cruz,Espert - Rosales (Unite por la Libertad y la Dignidad),1402,0.7736
+2019,general,82,Santa Fe,Macri - Pichetto (Juntos por el Cambio),937611,43.4909
+2019,general,82,Santa Fe,Fernández - Fernández de Kirchner (Frente de Todos),920202,42.6834
+2019,general,82,Santa Fe,Lavagna - Urtubey (Consenso Federal),193603,8.9802
+2019,general,82,Santa Fe,Espert - Rosales (Unite por la Libertad y la Dignidad),40353,1.8718
+2019,general,82,Santa Fe,Gómez Centurión - Hotton (Frente Nos),33247,1.5422
+2019,general,82,Santa Fe,Del Caño - Del Plá (Frente de Izquierda y de Trabajadores - Unidad),30862,1.4315
+2019,general,86,Santiago del Estero,Fernández - Fernández de Kirchner (Frente de Todos),451082,74.9545
+2019,general,86,Santiago del Estero,Macri - Pichetto (Juntos por el Cambio),110525,18.3655
+2019,general,86,Santiago del Estero,Lavagna - Urtubey (Consenso Federal),20103,3.3404
+2019,general,86,Santiago del Estero,Gómez Centurión - Hotton (Frente Nos),9220,1.5321
+2019,general,86,Santiago del Estero,Del Caño - Del Plá (Frente de Izquierda y de Trabajadores - Unidad),5755,0.9563
+2019,general,86,Santiago del Estero,Espert - Rosales (Unite por la Libertad y la Dignidad),5123,0.8513
+2019,general,90,Tucumán,Fernández - Fernández de Kirchner (Frente de Todos),591686,57.7609
+2019,general,90,Tucumán,Macri - Pichetto (Juntos por el Cambio),347642,33.9371
+2019,general,90,Tucumán,Lavagna - Urtubey (Consenso Federal),42432,4.1422
+2019,general,90,Tucumán,Gómez Centurión - Hotton (Frente Nos),21241,2.0736
+2019,general,90,Tucumán,Del Caño - Del Plá (Frente de Izquierda y de Trabajadores - Unidad),12598,1.2298
+2019,general,90,Tucumán,Espert - Rosales (Unite por la Libertad y la Dignidad),8773,0.8564
+2019,general,94,Tierra del Fuego,Fernández - Fernández de Kirchner (Frente de Todos),57887,56.9255
+2019,general,94,Tierra del Fuego,Macri - Pichetto (Juntos por el Cambio),26529,26.0884
+2019,general,94,Tierra del Fuego,Lavagna - Urtubey (Consenso Federal),7785,7.6557
+2019,general,94,Tierra del Fuego,Gómez Centurión - Hotton (Frente Nos),3925,3.8598
+2019,general,94,Tierra del Fuego,Espert - Rosales (Unite por la Libertad y la Dignidad),2803,2.7564
+2019,general,94,Tierra del Fuego,Del Caño - Del Plá (Frente de Izquierda y de Trabajadores - Unidad),2760,2.7142
+2023,general,02,CABA,Bullrich - Petri (Juntos por el Cambio),789454,41.2338
+2023,general,02,CABA,Massa - Rossi (Unión por la Patria),616182,32.1837
+2023,general,02,CABA,Milei - Villarruel (La Libertad Avanza),382488,19.9777
+2023,general,02,CABA,Bregman - Del Caño (Frente de Izquierda y de Trabajadores - Unidad),67666,3.5343
+2023,general,02,CABA,Schiaretti - Randazzo (Hacemos por Nuestro País),58788,3.0705
+2023,general,06,Buenos Aires,Massa - Rossi (Unión por la Patria),4327441,42.9458
+2023,general,06,Buenos Aires,Milei - Villarruel (La Libertad Avanza),2593075,25.7338
+2023,general,06,Buenos Aires,Bullrich - Petri (Juntos por el Cambio),2423384,24.0498
+2023,general,06,Buenos Aires,Schiaretti - Randazzo (Hacemos por Nuestro País),373087,3.7025
+2023,general,06,Buenos Aires,Bregman - Del Caño (Frente de Izquierda y de Trabajadores - Unidad),359538,3.5681
+2023,general,10,Catamarca,Massa - Rossi (Unión por la Patria),104322,42.8293
+2023,general,10,Catamarca,Milei - Villarruel (La Libertad Avanza),78017,32.0298
+2023,general,10,Catamarca,Bullrich - Petri (Juntos por el Cambio),41719,17.1277
+2023,general,10,Catamarca,Schiaretti - Randazzo (Hacemos por Nuestro País),15677,6.4362
+2023,general,10,Catamarca,Bregman - Del Caño (Frente de Izquierda y de Trabajadores - Unidad),3841,1.5769
+2023,general,14,Córdoba,Milei - Villarruel (La Libertad Avanza),773428,33.5813
+2023,general,14,Córdoba,Schiaretti - Randazzo (Hacemos por Nuestro País),667447,28.9797
+2023,general,14,Córdoba,Bullrich - Petri (Juntos por el Cambio),521310,22.6346
+2023,general,14,Córdoba,Massa - Rossi (Unión por la Patria),309044,13.4183
+2023,general,14,Córdoba,Bregman - Del Caño (Frente de Izquierda y de Trabajadores - Unidad),31922,1.3860
+2023,general,18,Corrientes,Massa - Rossi (Unión por la Patria),262170,37.2135
+2023,general,18,Corrientes,Bullrich - Petri (Juntos por el Cambio),226371,32.1321
+2023,general,18,Corrientes,Milei - Villarruel (La Libertad Avanza),189282,26.8675
+2023,general,18,Corrientes,Schiaretti - Randazzo (Hacemos por Nuestro País),19215,2.7275
+2023,general,18,Corrientes,Bregman - Del Caño (Frente de Izquierda y de Trabajadores - Unidad),7464,1.0595
+2023,general,22,Chaco,Massa - Rossi (Unión por la Patria),313941,43.6699
+2023,general,22,Chaco,Milei - Villarruel (La Libertad Avanza),200006,27.8213
+2023,general,22,Chaco,Bullrich - Petri (Juntos por el Cambio),173253,24.0999
+2023,general,22,Chaco,Schiaretti - Randazzo (Hacemos por Nuestro País),26059,3.6249
+2023,general,22,Chaco,Bregman - Del Caño (Frente de Izquierda y de Trabajadores - Unidad),5637,0.7841
+2023,general,26,Chubut,Milei - Villarruel (La Libertad Avanza),121842,35.1286
+2023,general,26,Chubut,Massa - Rossi (Unión por la Patria),111752,32.2195
+2023,general,26,Chubut,Bullrich - Petri (Juntos por el Cambio),71343,20.5691
+2023,general,26,Chubut,Schiaretti - Randazzo (Hacemos por Nuestro País),26722,7.7043
+2023,general,26,Chubut,Bregman - Del Caño (Frente de Izquierda y de Trabajadores - Unidad),15187,4.3786
+2023,general,30,Entre Ríos,Massa - Rossi (Unión por la Patria),283136,33.3149
+2023,general,30,Entre Ríos,Bullrich - Petri (Juntos por el Cambio),255236,30.0320
+2023,general,30,Entre Ríos,Milei - Villarruel (La Libertad Avanza),252719,29.7359
+2023,general,30,Entre Ríos,Schiaretti - Randazzo (Hacemos por Nuestro País),45540,5.3584
+2023,general,30,Entre Ríos,Bregman - Del Caño (Frente de Izquierda y de Trabajadores - Unidad),13248,1.5588
+2023,general,34,Formosa,Massa - Rossi (Unión por la Patria),189593,52.3076
+2023,general,34,Formosa,Milei - Villarruel (La Libertad Avanza),105330,29.0599
+2023,general,34,Formosa,Bullrich - Petri (Juntos por el Cambio),55738,15.3778
+2023,general,34,Formosa,Schiaretti - Randazzo (Hacemos por Nuestro País),8843,2.4397
+2023,general,34,Formosa,Bregman - Del Caño (Frente de Izquierda y de Trabajadores - Unidad),2954,0.8150
+2023,general,38,Jujuy,Milei - Villarruel (La Libertad Avanza),170966,37.3535
+2023,general,38,Jujuy,Massa - Rossi (Unión por la Patria),148103,32.3582
+2023,general,38,Jujuy,Bullrich - Petri (Juntos por el Cambio),91373,19.9636
+2023,general,38,Jujuy,Schiaretti - Randazzo (Hacemos por Nuestro País),31063,6.7868
+2023,general,38,Jujuy,Bregman - Del Caño (Frente de Izquierda y de Trabajadores - Unidad),16193,3.5379
+2023,general,42,La Pampa,Massa - Rossi (Unión por la Patria),80611,34.8617
+2023,general,42,La Pampa,Milei - Villarruel (La Libertad Avanza),77493,33.5132
+2023,general,42,La Pampa,Bullrich - Petri (Juntos por el Cambio),50640,21.9002
+2023,general,42,La Pampa,Schiaretti - Randazzo (Hacemos por Nuestro País),17195,7.4363
+2023,general,42,La Pampa,Bregman - Del Caño (Frente de Izquierda y de Trabajadores - Unidad),5292,2.2886
+2023,general,46,La Rioja,Massa - Rossi (Unión por la Patria),98739,41.1385
+2023,general,46,La Rioja,Milei - Villarruel (La Libertad Avanza),90328,37.6342
+2023,general,46,La Rioja,Bullrich - Petri (Juntos por el Cambio),28314,11.7967
+2023,general,46,La Rioja,Schiaretti - Randazzo (Hacemos por Nuestro País),20416,8.5061
+2023,general,46,La Rioja,Bregman - Del Caño (Frente de Izquierda y de Trabajadores - Unidad),2219,0.9245
+2023,general,50,Mendoza,Milei - Villarruel (La Libertad Avanza),475272,42.3769
+2023,general,50,Mendoza,Bullrich - Petri (Juntos por el Cambio),289533,25.8158
+2023,general,50,Mendoza,Massa - Rossi (Unión por la Patria),269326,24.0141
+2023,general,50,Mendoza,Schiaretti - Randazzo (Hacemos por Nuestro País),48472,4.3219
+2023,general,50,Mendoza,Bregman - Del Caño (Frente de Izquierda y de Trabajadores - Unidad),38932,3.4713
+2023,general,54,Misiones,Milei - Villarruel (La Libertad Avanza),309077,42.1913
+2023,general,54,Misiones,Massa - Rossi (Unión por la Patria),277836,37.9267
+2023,general,54,Misiones,Bullrich - Petri (Juntos por el Cambio),105384,14.3857
+2023,general,54,Misiones,Schiaretti - Randazzo (Hacemos por Nuestro País),30036,4.1001
+2023,general,54,Misiones,Bregman - Del Caño (Frente de Izquierda y de Trabajadores - Unidad),10228,1.3962
+2023,general,58,Neuquén,Milei - Villarruel (La Libertad Avanza),157187,36.7419
+2023,general,58,Neuquén,Massa - Rossi (Unión por la Patria),135881,31.7617
+2023,general,58,Neuquén,Bullrich - Petri (Juntos por el Cambio),87952,20.5585
+2023,general,58,Neuquén,Schiaretti - Randazzo (Hacemos por Nuestro País),25438,5.9460
+2023,general,58,Neuquén,Bregman - Del Caño (Frente de Izquierda y de Trabajadores - Unidad),21356,4.9919
+2023,general,62,Río Negro,Massa - Rossi (Unión por la Patria),168235,37.8452
+2023,general,62,Río Negro,Milei - Villarruel (La Libertad Avanza),150079,33.7610
+2023,general,62,Río Negro,Bullrich - Petri (Juntos por el Cambio),80591,18.1293
+2023,general,62,Río Negro,Schiaretti - Randazzo (Hacemos por Nuestro País),27782,6.2497
+2023,general,62,Río Negro,Bregman - Del Caño (Frente de Izquierda y de Trabajadores - Unidad),17847,4.0148
+2023,general,66,Salta,Milei - Villarruel (La Libertad Avanza),323105,40.2729
+2023,general,66,Salta,Massa - Rossi (Unión por la Patria),304880,38.0013
+2023,general,66,Salta,Bullrich - Petri (Juntos por el Cambio),110702,13.7983
+2023,general,66,Salta,Schiaretti - Randazzo (Hacemos por Nuestro País),49587,6.1807
+2023,general,66,Salta,Bregman - Del Caño (Frente de Izquierda y de Trabajadores - Unidad),14014,1.7468
+2023,general,70,San Juan,Milei - Villarruel (La Libertad Avanza),164117,35.0833
+2023,general,70,San Juan,Massa - Rossi (Unión por la Patria),155794,33.3041
+2023,general,70,San Juan,Bullrich - Petri (Juntos por el Cambio),108547,23.2041
+2023,general,70,San Juan,Schiaretti - Randazzo (Hacemos por Nuestro País),28879,6.1735
+2023,general,70,San Juan,Bregman - Del Caño (Frente de Izquierda y de Trabajadores - Unidad),10455,2.2350
+2023,general,74,San Luis,Milei - Villarruel (La Libertad Avanza),139894,43.3296
+2023,general,74,San Luis,Massa - Rossi (Unión por la Patria),88235,27.3292
+2023,general,74,San Luis,Bullrich - Petri (Juntos por el Cambio),67517,20.9122
+2023,general,74,San Luis,Schiaretti - Randazzo (Hacemos por Nuestro País),20159,6.2439
+2023,general,74,San Luis,Bregman - Del Caño (Frente de Izquierda y de Trabajadores - Unidad),7055,2.1852
+2023,general,78,Santa Cruz,Massa - Rossi (Unión por la Patria),67336,37.7921
+2023,general,78,Santa Cruz,Milei - Villarruel (La Libertad Avanza),64687,36.3053
+2023,general,78,Santa Cruz,Bullrich - Petri (Juntos por el Cambio),29234,16.4075
+2023,general,78,Santa Cruz,Schiaretti - Randazzo (Hacemos por Nuestro País),11757,6.5986
+2023,general,78,Santa Cruz,Bregman - Del Caño (Frente de Izquierda y de Trabajadores - Unidad),5161,2.8966
+2023,general,82,Santa Fe,Milei - Villarruel (La Libertad Avanza),664607,32.5159
+2023,general,82,Santa Fe,Massa - Rossi (Unión por la Patria),607088,29.7018
+2023,general,82,Santa Fe,Bullrich - Petri (Juntos por el Cambio),549363,26.8776
+2023,general,82,Santa Fe,Schiaretti - Randazzo (Hacemos por Nuestro País),184337,9.0187
+2023,general,82,Santa Fe,Bregman - Del Caño (Frente de Izquierda y de Trabajadores - Unidad),38550,1.8861
+2023,general,86,Santiago del Estero,Massa - Rossi (Unión por la Patria),416597,65.7709
+2023,general,86,Santiago del Estero,Milei - Villarruel (La Libertad Avanza),144659,22.8383
+2023,general,86,Santiago del Estero,Bullrich - Petri (Juntos por el Cambio),50749,8.0121
+2023,general,86,Santiago del Estero,Schiaretti - Randazzo (Hacemos por Nuestro País),13489,2.1296
+2023,general,86,Santiago del Estero,Bregman - Del Caño (Frente de Izquierda y de Trabajadores - Unidad),7912,1.2491
+2023,general,90,Tucumán,Massa - Rossi (Unión por la Patria),476361,44.9257
+2023,general,90,Tucumán,Milei - Villarruel (La Libertad Avanza),371130,35.0014
+2023,general,90,Tucumán,Bullrich - Petri (Juntos por el Cambio),155273,14.6438
+2023,general,90,Tucumán,Schiaretti - Randazzo (Hacemos por Nuestro País),42313,3.9906
+2023,general,90,Tucumán,Bregman - Del Caño (Frente de Izquierda y de Trabajadores - Unidad),15253,1.4385
+2023,general,94,Tierra del Fuego,Massa - Rossi (Unión por la Patria),40889,38.2005
+2023,general,94,Tierra del Fuego,Milei - Villarruel (La Libertad Avanza),36202,33.8216
+2023,general,94,Tierra del Fuego,Bullrich - Petri (Juntos por el Cambio),16043,14.9881
+2023,general,94,Tierra del Fuego,Schiaretti - Randazzo (Hacemos por Nuestro País),9767,9.1248
+2023,general,94,Tierra del Fuego,Bregman - Del Caño (Frente de Izquierda y de Trabajadores - Unidad),4137,3.8650
+2023,segunda,02,CABA,Milei - Villarruel (La Libertad Avanza),1038310,57.2492
+2023,segunda,02,CABA,Massa - Rossi (Unión por la Patria),775356,42.7508
+2023,segunda,06,Buenos Aires,Massa - Rossi (Unión por la Patria),4949734,50.7617
+2023,segunda,06,Buenos Aires,Milei - Villarruel (La Libertad Avanza),4801185,49.2383
+2023,segunda,10,Catamarca,Milei - Villarruel (La Libertad Avanza),125325,52.8087
+2023,segunda,10,Catamarca,Massa - Rossi (Unión por la Patria),111994,47.1913
+2023,segunda,14,Córdoba,Milei - Villarruel (La Libertad Avanza),1639102,74.0531
+2023,segunda,14,Córdoba,Massa - Rossi (Unión por la Patria),574313,25.9469
+2023,segunda,18,Corrientes,Milei - Villarruel (La Libertad Avanza),366228,53.1596
+2023,segunda,18,Corrientes,Massa - Rossi (Unión por la Patria),322694,46.8404
+2023,segunda,22,Chaco,Massa - Rossi (Unión por la Patria),359789,50.1871
+2023,segunda,22,Chaco,Milei - Villarruel (La Libertad Avanza),357106,49.8129
+2023,segunda,26,Chubut,Milei - Villarruel (La Libertad Avanza),197835,59.0743
+2023,segunda,26,Chubut,Massa - Rossi (Unión por la Patria),137057,40.9257
+2023,segunda,30,Entre Ríos,Milei - Villarruel (La Libertad Avanza),529318,61.4713
+2023,segunda,30,Entre Ríos,Massa - Rossi (Unión por la Patria),331763,38.5287
+2023,segunda,34,Formosa,Massa - Rossi (Unión por la Patria),202288,56.7278
+2023,segunda,34,Formosa,Milei - Villarruel (La Libertad Avanza),154306,43.2722
+2023,segunda,38,Jujuy,Milei - Villarruel (La Libertad Avanza),258754,58.1380
+2023,segunda,38,Jujuy,Massa - Rossi (Unión por la Patria),186315,41.8620
+2023,segunda,42,La Pampa,Milei - Villarruel (La Libertad Avanza),126794,57.2847
+2023,segunda,42,La Pampa,Massa - Rossi (Unión por la Patria),94546,42.7153
+2023,segunda,46,La Rioja,Milei - Villarruel (La Libertad Avanza),126357,53.7292
+2023,segunda,46,La Rioja,Massa - Rossi (Unión por la Patria),108817,46.2708
+2023,segunda,50,Mendoza,Milei - Villarruel (La Libertad Avanza),784109,71.1684
+2023,segunda,50,Mendoza,Massa - Rossi (Unión por la Patria),317656,28.8316
+2023,segunda,54,Misiones,Milei - Villarruel (La Libertad Avanza),405460,56.7224
+2023,segunda,54,Misiones,Massa - Rossi (Unión por la Patria),309355,43.2776
+2023,segunda,58,Neuquén,Milei - Villarruel (La Libertad Avanza),254613,60.4332
+2023,segunda,58,Neuquén,Massa - Rossi (Unión por la Patria),166700,39.5668
+2023,segunda,62,Río Negro,Milei - Villarruel (La Libertad Avanza),236796,54.2159
+2023,segunda,62,Río Negro,Massa - Rossi (Unión por la Patria),199969,45.7841
+2023,segunda,66,Salta,Milei - Villarruel (La Libertad Avanza),461685,57.6667
+2023,segunda,66,Salta,Massa - Rossi (Unión por la Patria),338925,42.3333
+2023,segunda,70,San Juan,Milei - Villarruel (La Libertad Avanza),277621,60.7051
+2023,segunda,70,San Juan,Massa - Rossi (Unión por la Patria),179706,39.2949
+2023,segunda,74,San Luis,Milei - Villarruel (La Libertad Avanza),214938,67.9818
+2023,segunda,74,San Luis,Massa - Rossi (Unión por la Patria),101232,32.0182
+2023,segunda,78,Santa Cruz,Milei - Villarruel (La Libertad Avanza),104531,57.9964
+2023,segunda,78,Santa Cruz,Massa - Rossi (Unión por la Patria),75706,42.0036
+2023,segunda,82,Santa Fe,Milei - Villarruel (La Libertad Avanza),1282012,62.8312
+2023,segunda,82,Santa Fe,Massa - Rossi (Unión por la Patria),758396,37.1688
+2023,segunda,86,Santiago del Estero,Massa - Rossi (Unión por la Patria),432433,68.5055
+2023,segunda,86,Santiago del Estero,Milei - Villarruel (La Libertad Avanza),198805,31.4945
+2023,segunda,90,Tucumán,Milei - Villarruel (La Libertad Avanza),557395,51.9777
+2023,segunda,90,Tucumán,Massa - Rossi (Unión por la Patria),514978,48.0223
+2023,segunda,94,Tierra del Fuego,Milei - Villarruel (La Libertad Avanza),55975,53.3232
+2023,segunda,94,Tierra del Fuego,Massa - Rossi (Unión por la Patria),48998,46.6768

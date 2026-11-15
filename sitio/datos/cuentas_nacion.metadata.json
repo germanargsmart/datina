@@ -74,8 +74,8 @@
    "archivo": "datos/crudo/imig_mensual.csv",
    "nombre": "Informe mensual de ingresos y gastos del Sector Público Nacional no Financiero (base caja)",
    "organismo": "Hacienda",
-   "descargado": "2026-11-05",
-   "ultimo_intento": "2026-11-05",
+   "descargado": "2026-11-15",
+   "ultimo_intento": "2026-11-15",
    "estado": "ok",
    "url": "https://infra.datos.gob.ar/catalog/sspm/dataset/452/distribution/452.3/download/imig-mensual.csv"
   },
@@ -83,8 +83,8 @@
    "archivo": "datos/crudo/pib_corriente.csv",
    "nombre": "PBI a precios corrientes, trimestral (oferta y demanda globales)",
    "organismo": "INDEC",
-   "descargado": "2026-11-05",
-   "ultimo_intento": "2026-11-05",
+   "descargado": "2026-11-15",
+   "ultimo_intento": "2026-11-15",
    "estado": "ok",
    "url": "https://apis.datos.gob.ar/series/api/series/?ids=4.4_OGP_2004_T_17"
   }
@@ -92,5 +92,5 @@
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
  "como_citar": "Datina (año de la consulta). ¿Cuánto ingresa y cuánto gasta el Estado nacional? Con datos de Secretaría de Hacienda, Informe mensual de ingresos y gastos del Sector Público Nacional no Financiero, e INDEC. https://datina.com.ar/gobierno.html#f-cuentas-nacion. Consultado el día de la consulta.",
- "datos_actualizados": "05/11/2026"
+ "datos_actualizados": "15/11/2026"
 }

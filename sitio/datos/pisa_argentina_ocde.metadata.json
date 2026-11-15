@@ -78,8 +78,8 @@
    "archivo": "datos/crudo/pisa_owid.csv",
    "nombre": "PISA: puntajes de Argentina y promedio OCDE (republicación de Our World in Data)",
    "organismo": "OCDE",
-   "descargado": "2026-11-05",
-   "ultimo_intento": "2026-11-05",
+   "descargado": "2026-11-15",
+   "ultimo_intento": "2026-11-15",
    "estado": "ok",
    "url": "https://ourworldindata.org/grapher/average-performance-of-15-year-olds-in-mathematics-reading-and-science.csv?v=1&csvType=full&useColumnShortNames=true"
   }
@@ -87,5 +87,5 @@
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
  "como_citar": "Datina (año de la consulta). ¿Qué puntaje saca la Argentina en las pruebas PISA? Con datos de OCDE, Programa para la Evaluación Internacional de Alumnos (PISA), vía Our World in Data. https://datina.com.ar/educacion.html#f-pisa. Consultado el día de la consulta.",
- "datos_actualizados": "05/11/2026"
+ "datos_actualizados": "15/11/2026"
 }

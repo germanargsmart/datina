@@ -89,7 +89,7 @@
    "variable": "asalariados_privados_registrados",
    "tabla": "empleo_provincias",
    "columna": "miles_hace12",
-   "periodo": "2025-06"
+   "periodo": "ultimo-12"
   },
   {
    "variable": "auh_cada_100_menores",
@@ -587,6 +587,12 @@
    "variable": "escuelas_primarias_cada_1000_chicos_5_14",
    "tabla": "escuelas_primarias_provincias",
    "columna": "primarias_cada_1000_chicos",
+   "periodo": "ultimo"
+  },
+  {
+   "variable": "escuelas_secundarias_cada_1000_chicos_12_17",
+   "tabla": "escuelas_secundarias_provincias",
+   "columna": "secundarias_cada_1000_chicos",
    "periodo": "ultimo"
   },
   {
@@ -1103,7 +1109,7 @@
    "variable": "precio_gasoil_grado_2_surtidor",
    "tabla": "combustibles_provincias",
    "columna": "gasoil_antes",
-   "periodo": "2025-07"
+   "periodo": "ultimo-12"
   },
   {
    "variable": "precio_nafta_super_surtidor",
@@ -1121,7 +1127,7 @@
    "variable": "precio_nafta_super_surtidor",
    "tabla": "combustibles_provincias",
    "columna": "nafta_antes",
-   "periodo": "2025-07"
+   "periodo": "ultimo-12"
   },
   {
    "variable": "precio_nafta_super_surtidor",
@@ -1187,25 +1193,25 @@
    "variable": "remuneracion_promedio_asalariados_privados",
    "tabla": "crianza_salario",
    "columna": "salario",
-   "periodo": "2026-05"
+   "periodo": "ultimo_sin_aguinaldo"
   },
   {
    "variable": "remuneracion_promedio_asalariados_privados",
    "tabla": "cruces_provincias",
    "columna": "salario",
-   "periodo": "2026-05"
+   "periodo": "ultimo_sin_aguinaldo"
   },
   {
    "variable": "remuneracion_promedio_asalariados_privados",
    "tabla": "salarios_provincias",
    "columna": "salario",
-   "periodo": "2026-05"
+   "periodo": "ultimo_sin_aguinaldo"
   },
   {
    "variable": "remuneracion_promedio_asalariados_privados",
    "tabla": "salarios_provincias",
    "columna": "salario_ant",
-   "periodo": "2025-05"
+   "periodo": "ultimo_sin_aguinaldo-12"
   },
   {
    "variable": "repitencia_secundaria",
@@ -1313,7 +1319,7 @@
    "variable": "superficie_sembrada_soja",
    "tabla": "soja_provincias",
    "columna": "sembrada_ha_campania_anterior",
-   "periodo": "2023/24"
+   "periodo": "ultimo-1"
   },
   {
    "variable": "tarjetas_sube_dia_habil_mediana",

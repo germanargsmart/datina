@@ -155,8 +155,14 @@ def usos_automaticos(plantilla, js, cat_rel):
 ref = lambda i: "provincia.html" if i == "provincia" else f"#{i}"
 
 
+# las herramientas que tienen tablas en el Catálogo: la tabla lleva a su página ("Ver la página")
+HERRAMIENTAS = {"mesas"}
+# lo que catalogo.json puede decir de una tabla que no sale de una ficha: la pregunta, la descripción, la fuente, la actualización y la nota
+PROPIOS = {"titulo", "sub", "fuente", "frecuencia", "nota"}
+
+
 def tipo_de(i):
-    return "ficha" if i.startswith("f-") else "articulo" if i.startswith("a-") else "pagina" if i == "provincia" else "pieza"
+    return "ficha" if i.startswith("f-") else "articulo" if i.startswith("a-") else "pagina" if i == "provincia" or i in HERRAMIENTAS else "pieza"
 
 
 def datos_de_usos(plantilla, js):
@@ -297,7 +303,8 @@ def armar(plantilla, secciones, ubic, grupos, sitio=RAIZ / "sitio", indice=None,
         cols, filas = leer(ruta)
         us = usos[t]
         prin = us[0][0]
-        d = info.get(prin, {})
+        # una tabla de una herramienta (Elecciones por mesa) no tiene ficha de donde sacar su pregunta: la trae catalogo.json
+        d = {**info.get(prin, {}), **{k: v for k, v in cat_uso["tablas"].get(t, {}).items() if k in PROPIOS}}
         sec = pagina_de(prin)
         per, a0, a1 = periodo(cols, filas)
         if a0 is None:

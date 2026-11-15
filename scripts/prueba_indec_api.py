@@ -14,7 +14,9 @@ FILAS = {"canasta-crianza": [{"Periodo": f"2026{m:02d}", "n": i} for i, m in enu
          "ipi_minero": [{"periodo": str(i), "valor": i} for i in range(2500)],
          "comercio_exterior_importacion_bienes": [{"Periodo": f"{2000 + i // 12}{i % 12 + 1:02d}", "pais_cod": p, "sum": i} for i in range(600)
                                                   for p in ("BR", "CN")],
-         "comercio_exterior_exportacion_bienes:anio_rubro_pais": [{"Anio": 2000 + i, "rubro_cod": "1", "pais_cod": "BR", "valor": i, "peso": i} for i in range(20)]}
+         "comercio_exterior_exportacion_bienes:anio_rubro_pais": [{"Anio": 2000 + i, "rubro_cod": "1", "pais_cod": "BR", "valor": i, "peso": i} for i in range(20)],
+         "comercio_exterior_exportacion_bienes:anio_subrubro_pais": [{"Anio": 2005 + i, "subrubro_cod": "106", "pais_cod": "CN", "valor": i, "peso": i}
+                                                                    for i in range(20)]}
 estado = {"pedidos": [], "falla": {}, "total_mal": False, "repetida": False}
 
 
@@ -40,6 +42,12 @@ class Simulada(BaseHTTPRequestHandler):
         if tabla in api.SUMAS and q.get("select") != api.seleccion(tabla):
             return self.responder(400, {"message": "sin la suma"})
         todas, desde, cuantas = FILAS[tabla], int(q["offset"]), min(int(q["limit"]), 1000)
+        # un filtro de PostgREST sobre el año ("Anio=gte.2015"): sin el filtro que pide FILTROS, contesta mal a propósito
+        if tabla in api.FILTROS:
+            col, cond = api.FILTROS[tabla].split("=", 1)
+            if q.get(col) != cond:
+                return self.responder(400, {"message": "sin el filtro"})
+            todas = [f for f in todas if f[col] >= int(cond.split(".", 1)[1])]
         lote, total = todas[desde:desde + cuantas], len(todas) + (5 if estado["total_mal"] else 0)
         if tabla in api.SUMAS:
             total = 1_000_000  # como la de verdad: el total de las filas sin sumar
@@ -126,6 +134,15 @@ filas = api.bajar_tabla("comercio_exterior_exportacion_bienes:anio_rubro_pais", 
 ver(len(filas) == 20 and estado["pedidos"][0][0] == "comercio_exterior_exportacion_bienes"
     and estado["pedidos"][0][1]["select"] == "Anio,rubro_cod,pais_cod,valor:valor_FOB.sum(),peso:Peso_Neto.sum()", "un corte pide sus dos sumas a la tabla de la API")
 ver(api.archivo("comercio_exterior_exportacion_bienes:anio_rubro_pais") == "indec_api_comercio_exterior_exportacion_bienes_anio_rubro_pais.json",
+    "y se guarda con su propio sufijo")
+
+# un corte con filtro (15 de noviembre de 2026, rutas comerciales): pide solo los años de FILTROS y la API devuelve solo esos
+estado["pedidos"].clear()
+filas = api.bajar_tabla("comercio_exterior_exportacion_bienes:anio_subrubro_pais", TOKEN, BASE)
+ver(len(filas) == 10 and min(f["Anio"] for f in filas) == 2015 and estado["pedidos"][0][1].get("Anio") == "gte.2015"
+    and estado["pedidos"][0][1]["select"] == "Anio,subrubro_cod,pais_cod,valor:valor_FOB.sum(),peso:Peso_Neto.sum()",
+    "el corte de las rutas comerciales pide sus sumas desde 2015")
+ver(api.archivo("comercio_exterior_exportacion_bienes:anio_subrubro_pais") == "indec_api_comercio_exterior_exportacion_bienes_anio_subrubro_pais.json",
     "y se guarda con su propio sufijo")
 
 # todo junto: guarda las que salen y conserva el archivo anterior de la que falla
