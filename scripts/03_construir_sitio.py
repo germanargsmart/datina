@@ -773,6 +773,11 @@ SEC_ICONO.update({i: ico for i, ico, _, _ in NOTAS})
 SEC_ICONO.update({i: ico for i, ico, _, _ in PIEZAS})
 assert set(SEC_ICONO.values()) <= set(ICONOS), set(SEC_ICONO.values()) - set(ICONOS)
 import relaciones  # noqa: E402
+# Los resultados oficiales de Elecciones por mesa por jurisdicción (15 de noviembre de 2026, plan técnico, punto 6): cinco tablas en
+# sitio/datos/ que salen de sitio/datos/mesas/, para el Catálogo, el MCP y la API de datos. Solo lo oficial: ver elecciones_oficiales.py
+import elecciones_oficiales  # noqa: E402
+_eo = elecciones_oficiales.escribir()
+print("Elecciones oficiales por jurisdicción: " + ", ".join(f"{t.removeprefix('elecciones_oficiales_')} {n}" for t, n in _eo.items()) + " filas")
 # Catálogo de datos (11 de octubre de 2026, propuesta aprobada por el autor): la lista de tablas con sus filtros la arma scripts/catalogo.py.
 # Si una tabla publicada no tiene dónde se usa o una evidencia de datos/manual/catalogo.json no está en el código, el sitio no se arma.
 # Va acá, antes de escribir datina.js, porque el botón "En el catálogo" del pie de cada ficha (pedido del autor del 11 de octubre) solo

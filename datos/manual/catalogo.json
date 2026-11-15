@@ -180,6 +180,81 @@
     "contiene": "{anim: a, cadaTick: 2, l: 46, data: T.diseno_pozos_vm.filter(r => r.anio >= PG.dv_ini),"
    }
   },
+  "elecciones_oficiales_diputados": {
+   "en": [
+    "mesas"
+   ],
+   "complementaria": true,
+   "titulo": "¿Cuántos votos sacó cada lista de diputados nacionales en cada jurisdicción?",
+   "sub": "Votos de cada lista de diputados nacionales y su porcentaje de los positivos, por jurisdicción, en el escrutinio definitivo",
+   "fuente": "Dirección Nacional Electoral, Cámara Nacional Electoral y la justicia electoral de cada jurisdicción. La fuente de cada elección y jurisdicción va en la tabla elecciones_oficiales_totales",
+   "frecuencia": "Se actualiza después de cada elección.",
+   "nota": "Solo los resultados oficiales por jurisdicción. Presidente, diputados y senadores nacionales: de 1983 a 2009, el escrutinio definitivo de la Dirección Nacional Electoral por distrito, y desde 2011, el definitivo de cada jurisdicción. Gobernador y senadores por la Capital: cada jurisdicción con su escrutinio oficial. No van las elecciones de 1912 a 1973, que salen de fuentes académicas, ni los departamentos de 1983 a 2009, que salen de 257arg, ni las mesas, que son el escrutinio provisorio, ni las transcripciones de la Wikipedia. El porcentaje de cada lista es sobre los votos positivos de su jurisdicción.",
+   "evidencia": {
+    "archivo": "scripts/elecciones_oficiales.py",
+    "contiene": "hechas[f\"elecciones_oficiales_{cargo}\"] = escribir_csv("
+   }
+  },
+  "elecciones_oficiales_gobernador": {
+   "en": [
+    "mesas"
+   ],
+   "complementaria": true,
+   "titulo": "¿Cuántos votos sacó cada lista de gobernador en cada jurisdicción?",
+   "sub": "Votos de cada lista de gobernador y jefe de gobierno y su porcentaje de los positivos, por jurisdicción, en el escrutinio oficial de cada provincia",
+   "fuente": "Dirección Nacional Electoral, Cámara Nacional Electoral y la justicia electoral de cada jurisdicción. La fuente de cada elección y jurisdicción va en la tabla elecciones_oficiales_totales",
+   "frecuencia": "Se actualiza después de cada elección.",
+   "nota": "Solo los resultados oficiales por jurisdicción. Presidente, diputados y senadores nacionales: de 1983 a 2009, el escrutinio definitivo de la Dirección Nacional Electoral por distrito, y desde 2011, el definitivo de cada jurisdicción. Gobernador y senadores por la Capital: cada jurisdicción con su escrutinio oficial. No van las elecciones de 1912 a 1973, que salen de fuentes académicas, ni los departamentos de 1983 a 2009, que salen de 257arg, ni las mesas, que son el escrutinio provisorio, ni las transcripciones de la Wikipedia. El porcentaje de cada lista es sobre los votos positivos de su jurisdicción.",
+   "evidencia": {
+    "archivo": "scripts/elecciones_oficiales.py",
+    "contiene": "hechas[f\"elecciones_oficiales_{cargo}\"] = escribir_csv("
+   }
+  },
+  "elecciones_oficiales_presidente": {
+   "en": [
+    "mesas"
+   ],
+   "complementaria": true,
+   "titulo": "¿Cuántos votos sacó cada fórmula presidencial en cada jurisdicción?",
+   "sub": "Votos de cada fórmula presidencial y su porcentaje de los positivos, por jurisdicción, en el escrutinio definitivo",
+   "fuente": "Dirección Nacional Electoral, Cámara Nacional Electoral y la justicia electoral de cada jurisdicción. La fuente de cada elección y jurisdicción va en la tabla elecciones_oficiales_totales",
+   "frecuencia": "Se actualiza después de cada elección.",
+   "nota": "Solo los resultados oficiales por jurisdicción. Presidente, diputados y senadores nacionales: de 1983 a 2009, el escrutinio definitivo de la Dirección Nacional Electoral por distrito, y desde 2011, el definitivo de cada jurisdicción. Gobernador y senadores por la Capital: cada jurisdicción con su escrutinio oficial. No van las elecciones de 1912 a 1973, que salen de fuentes académicas, ni los departamentos de 1983 a 2009, que salen de 257arg, ni las mesas, que son el escrutinio provisorio, ni las transcripciones de la Wikipedia. El porcentaje de cada lista es sobre los votos positivos de su jurisdicción.",
+   "evidencia": {
+    "archivo": "scripts/elecciones_oficiales.py",
+    "contiene": "hechas[f\"elecciones_oficiales_{cargo}\"] = escribir_csv("
+   }
+  },
+  "elecciones_oficiales_senadores": {
+   "en": [
+    "mesas"
+   ],
+   "complementaria": true,
+   "titulo": "¿Cuántos votos sacó cada lista de senadores en cada jurisdicción?",
+   "sub": "Votos de cada lista de senadores nacionales y de senadores por la Capital elegidos por voto directo, y su porcentaje de los positivos, por jurisdicción, en el escrutinio oficial",
+   "fuente": "Dirección Nacional Electoral, Cámara Nacional Electoral y la justicia electoral de cada jurisdicción. La fuente de cada elección y jurisdicción va en la tabla elecciones_oficiales_totales",
+   "frecuencia": "Se actualiza después de cada elección.",
+   "nota": "Solo los resultados oficiales por jurisdicción. Presidente, diputados y senadores nacionales: de 1983 a 2009, el escrutinio definitivo de la Dirección Nacional Electoral por distrito, y desde 2011, el definitivo de cada jurisdicción. Gobernador y senadores por la Capital: cada jurisdicción con su escrutinio oficial. No van las elecciones de 1912 a 1973, que salen de fuentes académicas, ni los departamentos de 1983 a 2009, que salen de 257arg, ni las mesas, que son el escrutinio provisorio, ni las transcripciones de la Wikipedia. El porcentaje de cada lista es sobre los votos positivos de su jurisdicción.",
+   "evidencia": {
+    "archivo": "scripts/elecciones_oficiales.py",
+    "contiene": "hechas[f\"elecciones_oficiales_{cargo}\"] = escribir_csv("
+   }
+  },
+  "elecciones_oficiales_totales": {
+   "en": [
+    "mesas"
+   ],
+   "complementaria": true,
+   "titulo": "¿Cuántos votaron en cada elección y en cada jurisdicción?",
+   "sub": "Electores, votantes, votos positivos, blancos y nulos del escrutinio oficial de cada elección, por jurisdicción, con su fuente",
+   "fuente": "Dirección Nacional Electoral, Cámara Nacional Electoral y la justicia electoral de cada jurisdicción. La de cada elección y jurisdicción va en las columnas fuente y url",
+   "frecuencia": "Se actualiza después de cada elección.",
+   "nota": "Solo los resultados oficiales por jurisdicción. Presidente, diputados y senadores nacionales: de 1983 a 2009, el escrutinio definitivo de la Dirección Nacional Electoral por distrito, y desde 2011, el definitivo de cada jurisdicción. Gobernador y senadores por la Capital: cada jurisdicción con su escrutinio oficial. No van las elecciones de 1912 a 1973, que salen de fuentes académicas, ni los departamentos de 1983 a 2009, que salen de 257arg, ni las mesas, que son el escrutinio provisorio, ni las transcripciones de la Wikipedia. El porcentaje de cada lista es sobre los votos positivos de su jurisdicción.",
+   "evidencia": {
+    "archivo": "scripts/elecciones_oficiales.py",
+    "contiene": "hechas[\"elecciones_oficiales_totales\"] = escribir_csv("
+   }
+  },
   "electricidad_mensual": {
    "en": [
     "f-electricidad-provincias"

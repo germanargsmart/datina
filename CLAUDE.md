@@ -43,6 +43,8 @@ scripts/elecciones_definitivo.py desde el 5 de noviembre de 2026, el escrutinio 
 scripts/elecciones_jurisdiccion.py desde el 7 de noviembre de 2026, los gobernadores y los senadores por la Capital de 1983 a 1995 de esa herramienta, solo con fuentes
                                oficiales transcriptas en datos/manual/mesas_jurisdiccion.csv (por departamento y por mesa, mesas_jurisdiccion_departamentos.csv y mesas_gobernador/):
                                se corre después de los cinco anteriores (docs/roadmap/ELECCIONES_PROVINCIAS.md)
+scripts/elecciones_oficiales.py desde el 15 de noviembre de 2026, 03 lo corre en cada armado: los resultados oficiales por jurisdicción de esa herramienta,
+                               en cinco tablas del Catálogo (elecciones_oficiales_*) para el MCP y la API. Qué entra y qué no: docs/ia/MCP.md
 scripts/establecimientos.py    desde el 9 de noviembre de 2026, las escuelas primarias y secundarias y los hospitales públicos con internación de cada
                                provincia (padrón, Mapa Educativo, REFES y Georef) en datos/manual/establecimientos/. Se corre a mano con un padrón nuevo.
                                03 publica una tabla por provincia con scripts/establecimientos_sitio.py para la sección de la página de provincia (Leaflet

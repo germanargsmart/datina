@@ -1,0 +1,89 @@
+{
+ "tabla": "elecciones_oficiales_totales.csv",
+ "titulo": "¿Cuántos votaron en cada elección y en cada jurisdicción?",
+ "descripcion": "Electores, votantes, votos positivos, blancos y nulos del escrutinio oficial de cada elección, por jurisdicción, con su fuente",
+ "seccion": "Elecciones por mesa",
+ "ficha": "https://datina.com.ar/mesas.html",
+ "fuente": "Dirección Nacional Electoral, Cámara Nacional Electoral y la justicia electoral de cada jurisdicción. La de cada elección y jurisdicción va en las columnas fuente y url",
+ "organismos": [],
+ "actualizacion": "Se actualiza después de cada elección.",
+ "cobertura": "Las 24 jurisdicciones",
+ "periodo": "1935 a 2025",
+ "anio_desde": 1935,
+ "anio_hasta": 2025,
+ "filas": 1207,
+ "columnas": [
+  {
+   "nombre": "anio",
+   "tipo": "Año",
+   "valores": "1935 a 2025"
+  },
+  {
+   "nombre": "vuelta",
+   "tipo": "Texto",
+   "valores": "general, segunda"
+  },
+  {
+   "nombre": "cargo",
+   "tipo": "Texto",
+   "valores": "diputados, gobernador, presidente, senadores"
+  },
+  {
+   "nombre": "codigo_indec",
+   "tipo": "Código",
+   "valores": "24 códigos"
+  },
+  {
+   "nombre": "jurisdiccion",
+   "tipo": "Texto",
+   "valores": "24 valores distintos"
+  },
+  {
+   "nombre": "recuento",
+   "tipo": "Texto",
+   "valores": "definitivo"
+  },
+  {
+   "nombre": "electores",
+   "tipo": "Número",
+   "valores": "15.349 a 14.059.933 (44 celdas vacías)"
+  },
+  {
+   "nombre": "votantes",
+   "tipo": "Número",
+   "valores": "13.900 a 10.676.947"
+  },
+  {
+   "nombre": "positivos",
+   "tipo": "Número",
+   "valores": "10.363 a 10.143.726"
+  },
+  {
+   "nombre": "blancos",
+   "tipo": "Número",
+   "valores": "0 a 1.202.465 (1 celda vacía)"
+  },
+  {
+   "nombre": "nulos",
+   "tipo": "Número",
+   "valores": "0 a 1.019.572 (1 celda vacía)"
+  },
+  {
+   "nombre": "fuente",
+   "tipo": "Texto",
+   "valores": "139 valores distintos"
+  },
+  {
+   "nombre": "url",
+   "tipo": "Texto",
+   "valores": "182 valores distintos"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "Solo los resultados oficiales por jurisdicción. Presidente, diputados y senadores nacionales: de 1983 a 2009, el escrutinio definitivo de la Dirección Nacional Electoral por distrito, y desde 2011, el definitivo de cada jurisdicción. Gobernador y senadores por la Capital: cada jurisdicción con su escrutinio oficial. No van las elecciones de 1912 a 1973, que salen de fuentes académicas, ni los departamentos de 1983 a 2009, que salen de 257arg, ni las mesas, que son el escrutinio provisorio, ni las transcripciones de la Wikipedia. El porcentaje de cada lista es sobre los votos positivos de su jurisdicción.",
+ "origen": [],
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
+ "como_citar": "Datina (año de la consulta). ¿Cuántos votaron en cada elección y en cada jurisdicción? Con datos de Dirección Nacional Electoral, Cámara Nacional Electoral y la justicia electoral de cada jurisdicción. La de cada elección y jurisdicción va en las columnas fuente y url. https://datina.com.ar/mesas.html. Consultado el día de la consulta.",
+ "datos_actualizados": "15/11/2026"
+}

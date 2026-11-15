@@ -9,7 +9,8 @@
 //   licencia de Datina ("uso_libre": false, las listas de COMNAP)
 // - de cualquier tabla, una columna o una fila que nombre el suicidio (filasCSV de functions/_ia/consulta.mjs)
 // - las variables de suicidio de la tabla larga: 03 no les escribe archivo ni entrada en el índice, y acá tampoco se ofrecen
-// - Elecciones por mesa: no está en el catálogo (el plan pide antes marcar el origen de cada elección, oficial o de 257arg)
+// - de Elecciones por mesa, todo lo que no es oficial: desde el 15 de noviembre de 2026 el catálogo tiene solo los resultados oficiales por
+//   jurisdicción (elecciones_oficiales_*, de scripts/elecciones_oficiales.py), sin las mesas, sin 1912 a 1973 ni los departamentos de 257arg
 // La prueba, sin red: node scripts/prueba_datos_api.mjs
 import { SIN_SUICIDIO, COLS_PERIODO, clavePeriodo, normal, filasCSV } from "../_ia/consulta.mjs";
 
@@ -266,7 +267,7 @@ export async function responderAPI(request, {leer, ruta = []}) {
   const cache = {"Cache-Control": "public, max-age=600"};
   try {
     if (!partes.length) return json(200, {nombre: "API de datos de Datina", version: VERSION, base: "/api/datos/", rutas: RUTAS, mcp: "/api/mcp",
-      licencia: LICENCIA_CORTA, aviso: "Solo lectura. No incluye datos sobre suicidio ni Elecciones por mesa."}, cache);
+      licencia: LICENCIA_CORTA, aviso: "Solo lectura. No incluye datos sobre suicidio. De Elecciones por mesa, solo los resultados oficiales por jurisdicción."}, cache);
     const [a, b, c, ...resto] = partes;
     if (resto.length) throw new ErrorDatos("Esa dirección no existe. Ver /api/datos.", 404);
     if (a === "tablas" && !b) return json(200, await buscarTablas(leer, {q: q("q"), seccion: q("seccion"), limite: q("limite")}), cache);
