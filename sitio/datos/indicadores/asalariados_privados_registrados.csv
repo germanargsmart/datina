@@ -200,15 +200,16 @@ codigo_indec,territorio,periodo,valor
 02,CABA,2025-07,1502.648
 02,CABA,2025-08,1499.028
 02,CABA,2025-09,1499.639
-02,CABA,2025-10,1505.868
-02,CABA,2025-11,1502.139
-02,CABA,2025-12,1504.031
-02,CABA,2026-01,1491.619
-02,CABA,2026-02,1491.942
-02,CABA,2026-03,1497.528
-02,CABA,2026-04,1484.823
-02,CABA,2026-05,1477.745
-02,CABA,2026-06,1478.33
+02,CABA,2025-10,1505.903
+02,CABA,2025-11,1502.165
+02,CABA,2025-12,1504.066
+02,CABA,2026-01,1489.733
+02,CABA,2026-02,1490.208
+02,CABA,2026-03,1495.903
+02,CABA,2026-04,1483.223
+02,CABA,2026-05,1475.927
+02,CABA,2026-06,1476.512
+02,CABA,2026-07,1482.507
 06,Buenos Aires,2009-01,1787.64
 06,Buenos Aires,2009-02,1769.223
 06,Buenos Aires,2009-03,1745.913
@@ -410,15 +411,16 @@ codigo_indec,territorio,periodo,valor
 06,Buenos Aires,2025-07,1964.512
 06,Buenos Aires,2025-08,1959.111
 06,Buenos Aires,2025-09,1957.595
-06,Buenos Aires,2025-10,1955.878
-06,Buenos Aires,2025-11,1955.902
-06,Buenos Aires,2025-12,1959.647
-06,Buenos Aires,2026-01,1974.093
-06,Buenos Aires,2026-02,1962.013
-06,Buenos Aires,2026-03,1951.317
-06,Buenos Aires,2026-04,1935.36
-06,Buenos Aires,2026-05,1925.664
-06,Buenos Aires,2026-06,1917.49
+06,Buenos Aires,2025-10,1955.934
+06,Buenos Aires,2025-11,1956.044
+06,Buenos Aires,2025-12,1959.718
+06,Buenos Aires,2026-01,1969.24
+06,Buenos Aires,2026-02,1957.155
+06,Buenos Aires,2026-03,1946.558
+06,Buenos Aires,2026-04,1930.796
+06,Buenos Aires,2026-05,1920.414
+06,Buenos Aires,2026-06,1912.267
+06,Buenos Aires,2026-07,1902.951
 10,Catamarca,2009-01,29.789
 10,Catamarca,2009-02,30.504
 10,Catamarca,2009-03,31.819
@@ -620,15 +622,16 @@ codigo_indec,territorio,periodo,valor
 10,Catamarca,2025-07,35.742
 10,Catamarca,2025-08,35.592
 10,Catamarca,2025-09,35.7
-10,Catamarca,2025-10,35.363
-10,Catamarca,2025-11,35.232
-10,Catamarca,2025-12,34.535
-10,Catamarca,2026-01,34.524
-10,Catamarca,2026-02,35.641
-10,Catamarca,2026-03,35.181
-10,Catamarca,2026-04,34.84
-10,Catamarca,2026-05,34.865
-10,Catamarca,2026-06,34.883
+10,Catamarca,2025-10,35.354
+10,Catamarca,2025-11,35.228
+10,Catamarca,2025-12,34.529
+10,Catamarca,2026-01,34.52
+10,Catamarca,2026-02,35.635
+10,Catamarca,2026-03,35.174
+10,Catamarca,2026-04,34.835
+10,Catamarca,2026-05,34.85
+10,Catamarca,2026-06,34.862
+10,Catamarca,2026-07,34.975
 22,Chaco,2009-01,59.917
 22,Chaco,2009-02,60.212
 22,Chaco,2009-03,61.331
@@ -830,15 +833,16 @@ codigo_indec,territorio,periodo,valor
 22,Chaco,2025-07,72.614
 22,Chaco,2025-08,72.102
 22,Chaco,2025-09,71.857
-22,Chaco,2025-10,71.679
-22,Chaco,2025-11,71.209
-22,Chaco,2025-12,70.522
-22,Chaco,2026-01,69.85
-22,Chaco,2026-02,69.77
-22,Chaco,2026-03,70.003
-22,Chaco,2026-04,69.802
-22,Chaco,2026-05,69.679
-22,Chaco,2026-06,69.737
+22,Chaco,2025-10,71.677
+22,Chaco,2025-11,71.208
+22,Chaco,2025-12,70.525
+22,Chaco,2026-01,69.851
+22,Chaco,2026-02,69.778
+22,Chaco,2026-03,70.014
+22,Chaco,2026-04,69.823
+22,Chaco,2026-05,69.7
+22,Chaco,2026-06,69.764
+22,Chaco,2026-07,69.562
 26,Chubut,2009-01,93.274
 26,Chubut,2009-02,92.852
 26,Chubut,2009-03,93.235
@@ -1040,15 +1044,16 @@ codigo_indec,territorio,periodo,valor
 26,Chubut,2025-07,89.242
 26,Chubut,2025-08,91.544
 26,Chubut,2025-09,92.264
-26,Chubut,2025-10,89.588
-26,Chubut,2025-11,92.677
+26,Chubut,2025-10,89.581
+26,Chubut,2025-11,92.674
 26,Chubut,2025-12,93.102
-26,Chubut,2026-01,92.972
-26,Chubut,2026-02,92.252
+26,Chubut,2026-01,92.958
+26,Chubut,2026-02,92.244
 26,Chubut,2026-03,91.119
-26,Chubut,2026-04,86.524
-26,Chubut,2026-05,85.828
-26,Chubut,2026-06,87.175
+26,Chubut,2026-04,86.523
+26,Chubut,2026-05,85.768
+26,Chubut,2026-06,87.121
+26,Chubut,2026-07,87.89
 14,Córdoba,2009-01,457.589
 14,Córdoba,2009-02,456.084
 14,Córdoba,2009-03,454.039
@@ -1250,15 +1255,16 @@ codigo_indec,territorio,periodo,valor
 14,Córdoba,2025-07,520.028
 14,Córdoba,2025-08,519.847
 14,Córdoba,2025-09,518.348
-14,Córdoba,2025-10,520.23
-14,Córdoba,2025-11,519.059
-14,Córdoba,2025-12,518.353
-14,Córdoba,2026-01,518.696
-14,Córdoba,2026-02,519.756
-14,Córdoba,2026-03,515.198
-14,Córdoba,2026-04,512.724
-14,Córdoba,2026-05,511.585
-14,Córdoba,2026-06,509.911
+14,Córdoba,2025-10,520.236
+14,Córdoba,2025-11,519.056
+14,Córdoba,2025-12,518.365
+14,Córdoba,2026-01,518.753
+14,Córdoba,2026-02,519.816
+14,Córdoba,2026-03,515.31
+14,Córdoba,2026-04,512.873
+14,Córdoba,2026-05,511.519
+14,Córdoba,2026-06,509.852
+14,Córdoba,2026-07,509.696
 18,Corrientes,2009-01,63.403
 18,Corrientes,2009-02,63.791
 18,Corrientes,2009-03,64.836
@@ -1460,15 +1466,16 @@ codigo_indec,territorio,periodo,valor
 18,Corrientes,2025-07,79.284
 18,Corrientes,2025-08,79.485
 18,Corrientes,2025-09,78.9
-18,Corrientes,2025-10,78.562
-18,Corrientes,2025-11,77.8
-18,Corrientes,2025-12,78.128
-18,Corrientes,2026-01,76.311
-18,Corrientes,2026-02,76.392
-18,Corrientes,2026-03,76.213
-18,Corrientes,2026-04,75.747
-18,Corrientes,2026-05,75.624
-18,Corrientes,2026-06,75.374
+18,Corrientes,2025-10,78.569
+18,Corrientes,2025-11,77.81
+18,Corrientes,2025-12,78.141
+18,Corrientes,2026-01,76.333
+18,Corrientes,2026-02,76.421
+18,Corrientes,2026-03,76.598
+18,Corrientes,2026-04,75.765
+18,Corrientes,2026-05,75.692
+18,Corrientes,2026-06,75.447
+18,Corrientes,2026-07,74.968
 30,Entre Ríos,2009-01,118.24
 30,Entre Ríos,2009-02,118.017
 30,Entre Ríos,2009-03,119.666
@@ -1671,14 +1678,15 @@ codigo_indec,territorio,periodo,valor
 30,Entre Ríos,2025-08,135.821
 30,Entre Ríos,2025-09,136.588
 30,Entre Ríos,2025-10,137.795
-30,Entre Ríos,2025-11,138.017
-30,Entre Ríos,2025-12,136.519
-30,Entre Ríos,2026-01,135.788
-30,Entre Ríos,2026-02,134.946
-30,Entre Ríos,2026-03,134.856
-30,Entre Ríos,2026-04,134.371
-30,Entre Ríos,2026-05,134.002
-30,Entre Ríos,2026-06,134.495
+30,Entre Ríos,2025-11,138.021
+30,Entre Ríos,2025-12,136.518
+30,Entre Ríos,2026-01,135.794
+30,Entre Ríos,2026-02,134.956
+30,Entre Ríos,2026-03,134.874
+30,Entre Ríos,2026-04,134.388
+30,Entre Ríos,2026-05,134.018
+30,Entre Ríos,2026-06,134.487
+30,Entre Ríos,2026-07,134.121
 34,Formosa,2009-01,20.594
 34,Formosa,2009-02,20.837
 34,Formosa,2009-03,20.947
@@ -1880,15 +1888,16 @@ codigo_indec,territorio,periodo,valor
 34,Formosa,2025-07,22.977
 34,Formosa,2025-08,22.99
 34,Formosa,2025-09,22.782
-34,Formosa,2025-10,22.49
-34,Formosa,2025-11,22.276
-34,Formosa,2025-12,22.049
-34,Formosa,2026-01,21.455
-34,Formosa,2026-02,21.499
-34,Formosa,2026-03,21.597
-34,Formosa,2026-04,21.585
-34,Formosa,2026-05,21.755
-34,Formosa,2026-06,21.948
+34,Formosa,2025-10,22.494
+34,Formosa,2025-11,22.284
+34,Formosa,2025-12,22.045
+34,Formosa,2026-01,21.457
+34,Formosa,2026-02,21.505
+34,Formosa,2026-03,21.606
+34,Formosa,2026-04,21.595
+34,Formosa,2026-05,21.819
+34,Formosa,2026-06,22.01
+34,Formosa,2026-07,21.931
 38,Jujuy,2009-01,50.544
 38,Jujuy,2009-02,50.327
 38,Jujuy,2009-03,47.76
@@ -2090,15 +2099,16 @@ codigo_indec,territorio,periodo,valor
 38,Jujuy,2025-07,56.666
 38,Jujuy,2025-08,58.576
 38,Jujuy,2025-09,59.462
-38,Jujuy,2025-10,59.708
-38,Jujuy,2025-11,60.773
-38,Jujuy,2025-12,60.95
-38,Jujuy,2026-01,60.432
-38,Jujuy,2026-02,59.881
-38,Jujuy,2026-03,56.65
-38,Jujuy,2026-04,54.777
-38,Jujuy,2026-05,54.544
-38,Jujuy,2026-06,54.639
+38,Jujuy,2025-10,59.696
+38,Jujuy,2025-11,60.763
+38,Jujuy,2025-12,60.961
+38,Jujuy,2026-01,60.419
+38,Jujuy,2026-02,59.87
+38,Jujuy,2026-03,56.681
+38,Jujuy,2026-04,54.844
+38,Jujuy,2026-05,54.604
+38,Jujuy,2026-06,54.706
+38,Jujuy,2026-07,54.625
 42,La Pampa,2009-01,35.412
 42,La Pampa,2009-02,35.541
 42,La Pampa,2009-03,35.636
@@ -2300,15 +2310,16 @@ codigo_indec,territorio,periodo,valor
 42,La Pampa,2025-07,38.868
 42,La Pampa,2025-08,38.918
 42,La Pampa,2025-09,38.839
-42,La Pampa,2025-10,38.833
-42,La Pampa,2025-11,38.817
-42,La Pampa,2025-12,38.848
+42,La Pampa,2025-10,38.835
+42,La Pampa,2025-11,38.819
+42,La Pampa,2025-12,38.852
 42,La Pampa,2026-01,38.162
 42,La Pampa,2026-02,38.464
-42,La Pampa,2026-03,38.235
-42,La Pampa,2026-04,38.151
-42,La Pampa,2026-05,38.052
-42,La Pampa,2026-06,38.219
+42,La Pampa,2026-03,38.245
+42,La Pampa,2026-04,38.154
+42,La Pampa,2026-05,38.045
+42,La Pampa,2026-06,38.21
+42,La Pampa,2026-07,38.128
 46,La Rioja,2009-01,25.573
 46,La Rioja,2009-02,28.996
 46,La Rioja,2009-03,29.18
@@ -2510,15 +2521,16 @@ codigo_indec,territorio,periodo,valor
 46,La Rioja,2025-07,28.103
 46,La Rioja,2025-08,27.404
 46,La Rioja,2025-09,27.11
-46,La Rioja,2025-10,26.904
-46,La Rioja,2025-11,26.43
-46,La Rioja,2025-12,26.385
-46,La Rioja,2026-01,27.634
-46,La Rioja,2026-02,34.539
-46,La Rioja,2026-03,33.471
-46,La Rioja,2026-04,31.358
-46,La Rioja,2026-05,30.305
-46,La Rioja,2026-06,28.656
+46,La Rioja,2025-10,26.906
+46,La Rioja,2025-11,26.45
+46,La Rioja,2025-12,26.402
+46,La Rioja,2026-01,27.656
+46,La Rioja,2026-02,34.536
+46,La Rioja,2026-03,33.473
+46,La Rioja,2026-04,31.366
+46,La Rioja,2026-05,30.309
+46,La Rioja,2026-06,28.672
+46,La Rioja,2026-07,27.868
 50,Mendoza,2009-01,224.357
 50,Mendoza,2009-02,231.265
 50,Mendoza,2009-03,236.927
@@ -2720,15 +2732,16 @@ codigo_indec,territorio,periodo,valor
 50,Mendoza,2025-07,242.707
 50,Mendoza,2025-08,242.643
 50,Mendoza,2025-09,239.926
-50,Mendoza,2025-10,240.719
-50,Mendoza,2025-11,242.175
-50,Mendoza,2025-12,242.86
-50,Mendoza,2026-01,242.868
-50,Mendoza,2026-02,246.085
-50,Mendoza,2026-03,246.778
-50,Mendoza,2026-04,240.509
-50,Mendoza,2026-05,232.434
-50,Mendoza,2026-06,231.834
+50,Mendoza,2025-10,240.713
+50,Mendoza,2025-11,242.163
+50,Mendoza,2025-12,242.852
+50,Mendoza,2026-01,242.888
+50,Mendoza,2026-02,246.136
+50,Mendoza,2026-03,246.795
+50,Mendoza,2026-04,240.642
+50,Mendoza,2026-05,232.518
+50,Mendoza,2026-06,231.909
+50,Mendoza,2026-07,230.746
 54,Misiones,2009-01,82.01
 54,Misiones,2009-02,83.435
 54,Misiones,2009-03,84.734
@@ -2930,15 +2943,16 @@ codigo_indec,territorio,periodo,valor
 54,Misiones,2025-07,106.412
 54,Misiones,2025-08,104.879
 54,Misiones,2025-09,101.211
-54,Misiones,2025-10,96.059
-54,Misiones,2025-11,95.557
-54,Misiones,2025-12,95.057
-54,Misiones,2026-01,94.364
-54,Misiones,2026-02,94.692
-54,Misiones,2026-03,97.377
-54,Misiones,2026-04,98.598
-54,Misiones,2026-05,100.112
-54,Misiones,2026-06,100.588
+54,Misiones,2025-10,96.05
+54,Misiones,2025-11,95.546
+54,Misiones,2025-12,95.046
+54,Misiones,2026-01,94.36
+54,Misiones,2026-02,94.695
+54,Misiones,2026-03,97.39
+54,Misiones,2026-04,98.622
+54,Misiones,2026-05,100.121
+54,Misiones,2026-06,100.591
+54,Misiones,2026-07,100.269
 58,Neuquén,2009-01,92.927
 58,Neuquén,2009-02,93.316
 58,Neuquén,2009-03,91.581
@@ -3140,15 +3154,16 @@ codigo_indec,territorio,periodo,valor
 58,Neuquén,2025-07,148.336
 58,Neuquén,2025-08,147.46
 58,Neuquén,2025-09,147.414
-58,Neuquén,2025-10,147.578
-58,Neuquén,2025-11,148.364
-58,Neuquén,2025-12,149.067
-58,Neuquén,2026-01,151.809
-58,Neuquén,2026-02,153.784
-58,Neuquén,2026-03,154.984
-58,Neuquén,2026-04,154.05
-58,Neuquén,2026-05,153.336
-58,Neuquén,2026-06,154.676
+58,Neuquén,2025-10,147.595
+58,Neuquén,2025-11,148.352
+58,Neuquén,2025-12,149.063
+58,Neuquén,2026-01,151.82
+58,Neuquén,2026-02,153.786
+58,Neuquén,2026-03,155.02
+58,Neuquén,2026-04,154.067
+58,Neuquén,2026-05,154.043
+58,Neuquén,2026-06,155.375
+58,Neuquén,2026-07,156.361
 62,Río Negro,2009-01,109.325
 62,Río Negro,2009-02,111.229
 62,Río Negro,2009-03,107.136
@@ -3350,15 +3365,16 @@ codigo_indec,territorio,periodo,valor
 62,Río Negro,2025-07,108.934
 62,Río Negro,2025-08,108.495
 62,Río Negro,2025-09,108.306
-62,Río Negro,2025-10,109.332
-62,Río Negro,2025-11,110.356
-62,Río Negro,2025-12,111.354
-62,Río Negro,2026-01,120.396
-62,Río Negro,2026-02,121.072
+62,Río Negro,2025-10,109.317
+62,Río Negro,2025-11,110.382
+62,Río Negro,2025-12,111.415
+62,Río Negro,2026-01,120.388
+62,Río Negro,2026-02,121.076
 62,Río Negro,2026-03,119.352
-62,Río Negro,2026-04,113.362
-62,Río Negro,2026-05,111.188
-62,Río Negro,2026-06,111.469
+62,Río Negro,2026-04,113.427
+62,Río Negro,2026-05,111.258
+62,Río Negro,2026-06,111.578
+62,Río Negro,2026-07,112.797
 66,Salta,2009-01,100.327
 66,Salta,2009-02,100.914
 66,Salta,2009-03,100.215
@@ -3560,15 +3576,16 @@ codigo_indec,territorio,periodo,valor
 66,Salta,2025-07,119.343
 66,Salta,2025-08,119.53
 66,Salta,2025-09,121.761
-66,Salta,2025-10,122.496
-66,Salta,2025-11,122.218
-66,Salta,2025-12,122.39
-66,Salta,2026-01,122.559
-66,Salta,2026-02,122.257
-66,Salta,2026-03,121.02
-66,Salta,2026-04,117.342
-66,Salta,2026-05,116.788
-66,Salta,2026-06,116.423
+66,Salta,2025-10,122.501
+66,Salta,2025-11,122.223
+66,Salta,2025-12,122.401
+66,Salta,2026-01,122.589
+66,Salta,2026-02,122.266
+66,Salta,2026-03,121.043
+66,Salta,2026-04,117.365
+66,Salta,2026-05,116.826
+66,Salta,2026-06,116.455
+66,Salta,2026-07,116.579
 70,San Juan,2009-01,73.954
 70,San Juan,2009-02,74.532
 70,San Juan,2009-03,76.425
@@ -3770,15 +3787,16 @@ codigo_indec,territorio,periodo,valor
 70,San Juan,2025-07,78.46
 70,San Juan,2025-08,78.825
 70,San Juan,2025-09,79.618
-70,San Juan,2025-10,81.095
-70,San Juan,2025-11,80.609
-70,San Juan,2025-12,81.127
-70,San Juan,2026-01,81.681
-70,San Juan,2026-02,81.804
-70,San Juan,2026-03,82.381
-70,San Juan,2026-04,81.695
-70,San Juan,2026-05,81.135
-70,San Juan,2026-06,80.069
+70,San Juan,2025-10,81.062
+70,San Juan,2025-11,80.56
+70,San Juan,2025-12,81.087
+70,San Juan,2026-01,81.665
+70,San Juan,2026-02,81.778
+70,San Juan,2026-03,82.395
+70,San Juan,2026-04,81.698
+70,San Juan,2026-05,81.002
+70,San Juan,2026-06,79.946
+70,San Juan,2026-07,79.408
 74,San Luis,2009-01,52.385
 74,San Luis,2009-02,51.639
 74,San Luis,2009-03,51.528
@@ -3980,15 +3998,16 @@ codigo_indec,territorio,periodo,valor
 74,San Luis,2025-07,52.056
 74,San Luis,2025-08,51.577
 74,San Luis,2025-09,51.758
-74,San Luis,2025-10,51.624
-74,San Luis,2025-11,51.264
-74,San Luis,2025-12,51.135
-74,San Luis,2026-01,51.068
-74,San Luis,2026-02,51.124
-74,San Luis,2026-03,51.136
-74,San Luis,2026-04,51.166
-74,San Luis,2026-05,50.855
-74,San Luis,2026-06,50.543
+74,San Luis,2025-10,51.621
+74,San Luis,2025-11,51.278
+74,San Luis,2025-12,51.126
+74,San Luis,2026-01,51.083
+74,San Luis,2026-02,51.146
+74,San Luis,2026-03,51.185
+74,San Luis,2026-04,51.232
+74,San Luis,2026-05,50.874
+74,San Luis,2026-06,50.561
+74,San Luis,2026-07,50.243
 78,Santa Cruz,2009-01,54.735
 78,Santa Cruz,2009-02,55.166
 78,Santa Cruz,2009-03,54.718
@@ -4190,15 +4209,16 @@ codigo_indec,territorio,periodo,valor
 78,Santa Cruz,2025-07,50.58
 78,Santa Cruz,2025-08,50.718
 78,Santa Cruz,2025-09,51.139
-78,Santa Cruz,2025-10,51.388
-78,Santa Cruz,2025-11,50.934
-78,Santa Cruz,2025-12,51.383
-78,Santa Cruz,2026-01,52.856
-78,Santa Cruz,2026-02,52.829
-78,Santa Cruz,2026-03,52.189
-78,Santa Cruz,2026-04,50.654
-78,Santa Cruz,2026-05,49.655
-78,Santa Cruz,2026-06,50.065
+78,Santa Cruz,2025-10,51.385
+78,Santa Cruz,2025-11,50.947
+78,Santa Cruz,2025-12,51.38
+78,Santa Cruz,2026-01,52.848
+78,Santa Cruz,2026-02,52.822
+78,Santa Cruz,2026-03,52.188
+78,Santa Cruz,2026-04,50.659
+78,Santa Cruz,2026-05,49.624
+78,Santa Cruz,2026-06,50.023
+78,Santa Cruz,2026-07,49.096
 82,Santa Fe,2009-01,459.325
 82,Santa Fe,2009-02,453.637
 82,Santa Fe,2009-03,454.632
@@ -4400,15 +4420,16 @@ codigo_indec,territorio,periodo,valor
 82,Santa Fe,2025-07,510.484
 82,Santa Fe,2025-08,509.755
 82,Santa Fe,2025-09,510.761
-82,Santa Fe,2025-10,511.227
-82,Santa Fe,2025-11,511.949
-82,Santa Fe,2025-12,511.877
-82,Santa Fe,2026-01,508.279
-82,Santa Fe,2026-02,507.878
-82,Santa Fe,2026-03,509.938
-82,Santa Fe,2026-04,506.055
-82,Santa Fe,2026-05,505.62
-82,Santa Fe,2026-06,503.796
+82,Santa Fe,2025-10,511.228
+82,Santa Fe,2025-11,511.948
+82,Santa Fe,2025-12,511.937
+82,Santa Fe,2026-01,508.305
+82,Santa Fe,2026-02,507.936
+82,Santa Fe,2026-03,509.989
+82,Santa Fe,2026-04,506.137
+82,Santa Fe,2026-05,505.674
+82,Santa Fe,2026-06,503.873
+82,Santa Fe,2026-07,502.037
 86,Santiago del Estero,2009-01,41.929
 86,Santiago del Estero,2009-02,41.987
 86,Santiago del Estero,2009-03,42.328
@@ -4610,15 +4631,16 @@ codigo_indec,territorio,periodo,valor
 86,Santiago del Estero,2025-07,51.151
 86,Santiago del Estero,2025-08,51.532
 86,Santiago del Estero,2025-09,51.836
-86,Santiago del Estero,2025-10,51.726
-86,Santiago del Estero,2025-11,51.478
-86,Santiago del Estero,2025-12,50.858
+86,Santiago del Estero,2025-10,51.724
+86,Santiago del Estero,2025-11,51.468
+86,Santiago del Estero,2025-12,50.854
 86,Santiago del Estero,2026-01,50.092
-86,Santiago del Estero,2026-02,49.706
-86,Santiago del Estero,2026-03,49.466
-86,Santiago del Estero,2026-04,49.322
-86,Santiago del Estero,2026-05,49.342
-86,Santiago del Estero,2026-06,48.967
+86,Santiago del Estero,2026-02,49.702
+86,Santiago del Estero,2026-03,49.472
+86,Santiago del Estero,2026-04,49.335
+86,Santiago del Estero,2026-05,49.314
+86,Santiago del Estero,2026-06,48.938
+86,Santiago del Estero,2026-07,48.972
 94,Tierra del Fuego,2009-01,27.006
 94,Tierra del Fuego,2009-02,26.465
 94,Tierra del Fuego,2009-03,26.185
@@ -4820,15 +4842,16 @@ codigo_indec,territorio,periodo,valor
 94,Tierra del Fuego,2025-07,35.321
 94,Tierra del Fuego,2025-08,35.289
 94,Tierra del Fuego,2025-09,35.277
-94,Tierra del Fuego,2025-10,35.28
-94,Tierra del Fuego,2025-11,34.942
-94,Tierra del Fuego,2025-12,34.79
-94,Tierra del Fuego,2026-01,32.737
-94,Tierra del Fuego,2026-02,32.264
-94,Tierra del Fuego,2026-03,32.049
-94,Tierra del Fuego,2026-04,31.287
-94,Tierra del Fuego,2026-05,30.836
-94,Tierra del Fuego,2026-06,30.551
+94,Tierra del Fuego,2025-10,35.283
+94,Tierra del Fuego,2025-11,34.943
+94,Tierra del Fuego,2025-12,34.793
+94,Tierra del Fuego,2026-01,32.735
+94,Tierra del Fuego,2026-02,32.26
+94,Tierra del Fuego,2026-03,32.046
+94,Tierra del Fuego,2026-04,31.282
+94,Tierra del Fuego,2026-05,30.817
+94,Tierra del Fuego,2026-06,30.529
+94,Tierra del Fuego,2026-07,30.719
 90,Tucumán,2009-01,129.765
 90,Tucumán,2009-02,130.383
 90,Tucumán,2009-03,137.924
@@ -5030,12 +5053,13 @@ codigo_indec,territorio,periodo,valor
 90,Tucumán,2025-07,168.634
 90,Tucumán,2025-08,165.708
 90,Tucumán,2025-09,163.182
-90,Tucumán,2025-10,158.374
-90,Tucumán,2025-11,154.996
-90,Tucumán,2025-12,154.257
-90,Tucumán,2026-01,149.544
-90,Tucumán,2026-02,148.046
-90,Tucumán,2026-03,151.054
-90,Tucumán,2026-04,161.749
-90,Tucumán,2026-05,167.157
-90,Tucumán,2026-06,167.49
+90,Tucumán,2025-10,158.378
+90,Tucumán,2025-11,155.0
+90,Tucumán,2025-12,154.207
+90,Tucumán,2026-01,149.54
+90,Tucumán,2026-02,148.056
+90,Tucumán,2026-03,151.08
+90,Tucumán,2026-04,161.79
+90,Tucumán,2026-05,167.475
+90,Tucumán,2026-06,168.167
+90,Tucumán,2026-07,168.027

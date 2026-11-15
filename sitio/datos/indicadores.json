@@ -1,5 +1,5 @@
 {
- "datos_actualizados": "05/11/2026",
+ "datos_actualizados": "15/11/2026",
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
  "indicadores": [
@@ -188,8 +188,8 @@
    "unidad": "miles",
    "fuente": "SIPA, SSPM, API Series de Tiempo",
    "desde": "2009-01",
-   "hasta": "2026-06",
-   "filas": 5040,
+   "hasta": "2026-07",
+   "filas": 5064,
    "jurisdicciones": [
     "02",
     "06",
@@ -1618,8 +1618,8 @@
    "unidad": "millones de dólares",
    "fuente": "INDEC, Intercambio Comercial Argentino",
    "desde": "1992-01",
-   "hasta": "2026-08",
-   "filas": 416,
+   "hasta": "2026-09",
+   "filas": 417,
    "jurisdicciones": [
     "00"
    ],
@@ -2072,8 +2072,8 @@
    "unidad": "millones de dólares",
    "fuente": "INDEC, Intercambio Comercial Argentino",
    "desde": "1992-01",
-   "hasta": "2026-08",
-   "filas": 416,
+   "hasta": "2026-09",
+   "filas": 417,
    "jurisdicciones": [
     "00"
    ],
@@ -2132,8 +2132,8 @@
    "unidad": "índice, diciembre de 2016 = 100",
    "fuente": "INDEC, Índice de precios al consumidor",
    "desde": "2016-12",
-   "hasta": "2026-09",
-   "filas": 118,
+   "hasta": "2026-10",
+   "filas": 119,
    "jurisdicciones": [
     "00"
    ],
@@ -3558,8 +3558,8 @@
    "unidad": "%",
    "fuente": "Consejo Nacional del Empleo, la Productividad y el Salario Mínimo, Vital y Móvil, e INDEC",
    "desde": "2016-04",
-   "hasta": "2026-09",
-   "filas": 126,
+   "hasta": "2026-10",
+   "filas": 127,
    "jurisdicciones": [
     "00"
    ],
@@ -3570,8 +3570,8 @@
    "unidad": "pesos corrientes por mes",
    "fuente": "Consejo Nacional del Empleo, la Productividad y el Salario Mínimo, Vital y Móvil",
    "desde": "2016-04",
-   "hasta": "2026-09",
-   "filas": 126,
+   "hasta": "2026-10",
+   "filas": 127,
    "jurisdicciones": [
     "00"
    ],
@@ -3582,8 +3582,8 @@
    "unidad": "millones de dólares",
    "fuente": "INDEC, Intercambio Comercial Argentino",
    "desde": "1992-01",
-   "hasta": "2026-08",
-   "filas": 416,
+   "hasta": "2026-09",
+   "filas": 417,
    "jurisdicciones": [
     "00"
    ],

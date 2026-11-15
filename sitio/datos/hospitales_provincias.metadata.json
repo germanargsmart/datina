@@ -71,8 +71,8 @@
    "archivo": "datos/crudo/indec_proyecciones_provincias.csv",
    "nombre": "Proyecciones de población por provincia, sexo y edad, 2022 a 2040",
    "organismo": "INDEC",
-   "descargado": "2026-11-05",
-   "ultimo_intento": "2026-11-05",
+   "descargado": "2026-11-15",
+   "ultimo_intento": "2026-11-15",
    "estado": "ok",
    "url": "https://censo.gob.ar/wp-content/uploads/2025/10/proyecciones_jurisdicciones_2022_2040_base.csv"
   }
@@ -80,5 +80,5 @@
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
  "como_citar": "Datina (año de la consulta). ¿Dónde hay más hospitales públicos por habitante? Con datos de Registro Federal de Establecimientos de Salud (REFES), Ministerio de Salud, e INDEC, proyecciones de población. https://datina.com.ar/salud.html#f-hospitales. Consultado el día de la consulta.",
- "datos_actualizados": "05/11/2026"
+ "datos_actualizados": "15/11/2026"
 }

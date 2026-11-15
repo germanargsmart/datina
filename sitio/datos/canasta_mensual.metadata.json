@@ -10,35 +10,35 @@
  ],
  "actualizacion": "Se actualiza cada mes.",
  "cobertura": "Sin desglose territorial",
- "periodo": "abril de 2016 a septiembre de 2026",
+ "periodo": "abril de 2016 a octubre de 2026",
  "anio_desde": 2016,
  "anio_hasta": 2026,
- "filas": 126,
+ "filas": 127,
  "columnas": [
   {
    "nombre": "periodo",
    "tipo": "Fecha",
-   "valores": "abril de 2016 a septiembre de 2026"
+   "valores": "abril de 2016 a octubre de 2026"
   },
   {
    "nombre": "cba",
    "tipo": "Número",
-   "valores": "1.514,53 a 239.058,22"
+   "valores": "1.514,53 a 246.362,93"
   },
   {
    "nombre": "cbt",
    "tipo": "Número",
-   "valores": "3.663,66 a 528.318,67"
+   "valores": "3.663,66 a 546.925,7"
   },
   {
    "nombre": "cba_hogar",
    "tipo": "Número",
-   "valores": "4.679,91 a 738.689,9"
+   "valores": "4.679,91 a 761.261,45"
   },
   {
    "nombre": "cbt_hogar",
    "tipo": "Número",
-   "valores": "11.320,71 a 1.632.504,69"
+   "valores": "11.320,71 a 1.690.000,41"
   },
   {
    "nombre": "mensual_cba",
@@ -73,8 +73,8 @@
    "archivo": "datos/crudo/indec_canastas.xls",
    "nombre": "Canastas básicas alimentaria y total del Gran Buenos Aires (serie mensual)",
    "organismo": "INDEC",
-   "descargado": "2026-11-05",
-   "ultimo_intento": "2026-11-05",
+   "descargado": "2026-11-15",
+   "ultimo_intento": "2026-11-15",
    "estado": "ok",
    "url": "https://www.indec.gob.ar/ftp/cuadros/sociedad/serie_cba_cbt.xls"
   },
@@ -82,8 +82,8 @@
    "archivo": "datos/crudo/indec_ipc_divisiones.csv",
    "nombre": "Índice de precios al consumidor por región, división, categoría y bienes y servicios",
    "organismo": "INDEC",
-   "descargado": "2026-11-05",
-   "ultimo_intento": "2026-11-05",
+   "descargado": "2026-11-15",
+   "ultimo_intento": "2026-11-15",
    "estado": "ok",
    "url": "https://www.indec.gob.ar/ftp/cuadros/economia/serie_ipc_divisiones.csv"
   }
@@ -91,5 +91,5 @@
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
  "como_citar": "Datina (año de la consulta). ¿Cuánto necesita un hogar por mes para no quedar bajo la línea de pobreza? Con datos de INDEC, canasta básica alimentaria y canasta básica total, e informe de pobreza e indigencia. https://datina.com.ar/economia.html#f-canastas. Consultado el día de la consulta.",
- "datos_actualizados": "05/11/2026"
+ "datos_actualizados": "15/11/2026"
 }

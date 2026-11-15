@@ -114,8 +114,8 @@
    "archivo": "datos/crudo/deis_defunciones_AAAA.csv",
    "nombre": "Defunciones por causa CIE-10, provincia, sexo y edad (un archivo por año)",
    "organismo": "DEIS",
-   "descargado": "2026-11-05",
-   "ultimo_intento": "2026-11-05",
+   "descargado": "2026-11-15",
+   "ultimo_intento": "2026-11-15",
    "estado": "ok",
    "url": "https://www.argentina.gob.ar/sites/default/files/2021/03/"
   },
@@ -123,8 +123,8 @@
    "archivo": "datos/crudo/deis_nacidos_AAAA.csv",
    "nombre": "Nacidos vivos por provincia de residencia (un archivo por año)",
    "organismo": "DEIS",
-   "descargado": "2026-11-05",
-   "ultimo_intento": "2026-11-05",
+   "descargado": "2026-11-15",
+   "ultimo_intento": "2026-11-15",
    "estado": "ok",
    "url": "https://www.argentina.gob.ar/sites/default/files/2021/03/"
   },
@@ -138,5 +138,5 @@
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
  "como_citar": "Datina (año de la consulta). ¿De qué mueren los bebés antes de cumplir un año? Con datos de DEIS, Ministerio de Salud, defunciones por causa y nacidos vivos, e INDEC, Censo 2022. https://datina.com.ar/salud.html#f-causas-infantiles. Consultado el día de la consulta.",
- "datos_actualizados": "05/11/2026"
+ "datos_actualizados": "15/11/2026"
 }

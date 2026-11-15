@@ -1,7 +1,7 @@
 {
  "tabla": "inflacion_rubros.csv",
  "titulo": "¿Qué rubros subieron más en los últimos doce meses?",
- "descripcion": "Inflación por rubro en los doce meses hasta septiembre de 2026",
+ "descripcion": "Inflación por rubro en los doce meses hasta octubre de 2026",
  "seccion": "Precios y actividad",
  "ficha": "https://datina.com.ar/economia.html#f-inflacion-rubros",
  "fuente": "INDEC, Índice de precios al consumidor.",
@@ -38,42 +38,42 @@
   {
    "nombre": "interanual",
    "tipo": "Número",
-   "valores": "10,3 a 49,1"
+   "valores": "10 a 51,1"
   },
   {
    "nombre": "mensual",
    "tipo": "Número",
-   "valores": "1,1 a 3,1"
+   "valores": "0,8 a 5,5"
   },
   {
    "nombre": "interanual_gba",
    "tipo": "Número",
-   "valores": "9,2 a 45,2"
+   "valores": "9,4 a 46,3"
   },
   {
    "nombre": "interanual_pampeana",
    "tipo": "Número",
-   "valores": "10,6 a 49,3"
+   "valores": "10,3 a 53,9"
   },
   {
    "nombre": "interanual_noreste",
    "tipo": "Número",
-   "valores": "10 a 76,9"
+   "valores": "9,7 a 71,8"
   },
   {
    "nombre": "interanual_noroeste",
    "tipo": "Número",
-   "valores": "11,7 a 52"
+   "valores": "10,6 a 52,2"
   },
   {
    "nombre": "interanual_cuyo",
    "tipo": "Número",
-   "valores": "15,7 a 49,1"
+   "valores": "13,6 a 52,1"
   },
   {
    "nombre": "interanual_patagonia",
    "tipo": "Número",
-   "valores": "12,1 a 48,6"
+   "valores": "10,4 a 52,2"
   }
  ],
  "unidades": [],
@@ -83,8 +83,8 @@
    "archivo": "datos/crudo/indec_ipc_divisiones.csv",
    "nombre": "Índice de precios al consumidor por región, división, categoría y bienes y servicios",
    "organismo": "INDEC",
-   "descargado": "2026-11-05",
-   "ultimo_intento": "2026-11-05",
+   "descargado": "2026-11-15",
+   "ultimo_intento": "2026-11-15",
    "estado": "ok",
    "url": "https://www.indec.gob.ar/ftp/cuadros/economia/serie_ipc_divisiones.csv"
   }
@@ -92,5 +92,5 @@
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
  "como_citar": "Datina (año de la consulta). ¿Qué rubros subieron más en los últimos doce meses? Con datos de INDEC, Índice de precios al consumidor. https://datina.com.ar/economia.html#f-inflacion-rubros. Consultado el día de la consulta.",
- "datos_actualizados": "05/11/2026"
+ "datos_actualizados": "15/11/2026"
 }

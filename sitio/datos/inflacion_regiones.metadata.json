@@ -28,22 +28,22 @@
   {
    "nombre": "interanual",
    "tipo": "Número",
-   "valores": "30,3 a 36,9"
+   "valores": "30,4 a 35,9"
   },
   {
    "nombre": "mensual",
    "tipo": "Número",
-   "valores": "1,4 a 2"
+   "valores": "1,5 a 2,6"
   },
   {
    "nombre": "en_el_anio",
    "tipo": "Número",
-   "valores": "21,21 a 26,55"
+   "valores": "24,23 a 28,4"
   },
   {
    "nombre": "veces_desde_dic_2016",
    "tipo": "Número",
-   "valores": "124,34 a 126,31"
+   "valores": "127,45 a 128,82"
   }
  ],
  "unidades": [],
@@ -53,8 +53,8 @@
    "archivo": "datos/crudo/indec_ipc_divisiones.csv",
    "nombre": "Índice de precios al consumidor por región, división, categoría y bienes y servicios",
    "organismo": "INDEC",
-   "descargado": "2026-11-05",
-   "ultimo_intento": "2026-11-05",
+   "descargado": "2026-11-15",
+   "ultimo_intento": "2026-11-15",
    "estado": "ok",
    "url": "https://www.indec.gob.ar/ftp/cuadros/economia/serie_ipc_divisiones.csv"
   }
@@ -62,5 +62,5 @@
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
  "como_citar": "Datina (año de la consulta). ¿Cuánto suben los precios en cada región? Con datos de INDEC, Índice de precios al consumidor. https://datina.com.ar/economia.html#f-inflacion. Consultado el día de la consulta.",
- "datos_actualizados": "05/11/2026"
+ "datos_actualizados": "15/11/2026"
 }

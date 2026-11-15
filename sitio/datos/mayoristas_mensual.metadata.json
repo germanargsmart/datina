@@ -79,8 +79,8 @@
    "archivo": "datos/crudo/indec_ipim.csv",
    "nombre": "Índice de precios internos al por mayor (IPIM)",
    "organismo": "INDEC",
-   "descargado": "2026-11-05",
-   "ultimo_intento": "2026-11-05",
+   "descargado": "2026-11-15",
+   "ultimo_intento": "2026-11-15",
    "estado": "ok",
    "url": "https://www.indec.gob.ar/ftp/cuadros/economia/indice_ipim.csv"
   },
@@ -88,8 +88,8 @@
    "archivo": "datos/crudo/indec_ipc_divisiones.csv",
    "nombre": "Índice de precios al consumidor por región, división, categoría y bienes y servicios",
    "organismo": "INDEC",
-   "descargado": "2026-11-05",
-   "ultimo_intento": "2026-11-05",
+   "descargado": "2026-11-15",
+   "ultimo_intento": "2026-11-15",
    "estado": "ok",
    "url": "https://www.indec.gob.ar/ftp/cuadros/economia/serie_ipc_divisiones.csv"
   },
@@ -97,8 +97,8 @@
    "archivo": "datos/crudo/bcra_series.csv",
    "nombre": "Reservas internacionales, factores de su variación y variables principales (API de Estadísticas Monetarias v4.0)",
    "organismo": "BCRA",
-   "descargado": "2026-11-05",
-   "ultimo_intento": "2026-11-05",
+   "descargado": "2026-11-15",
+   "ultimo_intento": "2026-11-15",
    "estado": "ok",
    "url": "https://api.bcra.gob.ar/estadisticas/v4.0/Monetarias"
   }
@@ -106,5 +106,5 @@
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
  "como_citar": "Datina (año de la consulta). ¿Suben antes los precios mayoristas que los precios al consumidor? Con datos de INDEC, índice de precios internos al por mayor e índice de precios al consumidor, y Banco Central, tipo de cambio mayorista de referencia. https://datina.com.ar/economia.html#f-mayoristas. Consultado el día de la consulta.",
- "datos_actualizados": "05/11/2026"
+ "datos_actualizados": "15/11/2026"
 }

@@ -1,7 +1,7 @@
 {
  "tabla": "empleo_provincias.csv",
  "titulo": "¿Cuánto empleo privado registrado hay en cada provincia?",
- "descripcion": "Asalariados privados registrados por provincia, junio de 2026",
+ "descripcion": "Asalariados privados registrados por provincia, julio de 2026",
  "seccion": "Trabajo",
  "ficha": "https://datina.com.ar/trabajo.html#f-empleo",
  "fuente": "SIPA, publicado por la Subsecretaría de Programación Macroeconómica.",
@@ -9,7 +9,7 @@
   "INDEC (Instituto Nacional de Estadística y Censos)",
   "SSPM (Subsecretaría de Programación Macroeconómica)"
  ],
- "actualizacion": "Se actualiza cada mes. El último dato es de junio de 2026, más atrasado que lo habitual.",
+ "actualizacion": "Se actualiza cada mes.",
  "cobertura": "Las 24 jurisdicciones",
  "periodo": "",
  "anio_desde": 2026,
@@ -24,12 +24,12 @@
   {
    "nombre": "miles",
    "tipo": "Número",
-   "valores": "21,95 a 1.917,49"
+   "valores": "21,93 a 1.902,95"
   },
   {
    "nombre": "miles_hace12",
    "tipo": "Número",
-   "valores": "23,14 a 1.966,05"
+   "valores": "22,98 a 1.964,51"
   },
   {
    "nombre": "poblacion",
@@ -39,12 +39,12 @@
   {
    "nombre": "cada_100",
    "tipo": "Número",
-   "valores": "3,49 a 48,22"
+   "valores": "3,49 a 48,35"
   },
   {
    "nombre": "var_12m",
    "tipo": "Número",
-   "valores": "-13,13 a 5,22"
+   "valores": "-13,03 a 5,41"
   },
   {
    "nombre": "territorio",
@@ -59,8 +59,8 @@
    "archivo": "datos/crudo/sipa_provincias.csv",
    "nombre": "Asalariados privados registrados por provincia (SIPA)",
    "organismo": "SSPM",
-   "descargado": "2026-11-05",
-   "ultimo_intento": "2026-11-05",
+   "descargado": "2026-11-15",
+   "ultimo_intento": "2026-11-15",
    "estado": "ok",
    "url": "https://apis.datos.gob.ar/series/api/series/?format=csv&limit=5000&start_date=2004-01-01&ids="
   },
@@ -68,8 +68,8 @@
    "archivo": "datos/crudo/indec_proyecciones_provincias.csv",
    "nombre": "Proyecciones de población por provincia, sexo y edad, 2022 a 2040",
    "organismo": "INDEC",
-   "descargado": "2026-11-05",
-   "ultimo_intento": "2026-11-05",
+   "descargado": "2026-11-15",
+   "ultimo_intento": "2026-11-15",
    "estado": "ok",
    "url": "https://censo.gob.ar/wp-content/uploads/2025/10/proyecciones_jurisdicciones_2022_2040_base.csv"
   }
@@ -77,5 +77,5 @@
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
  "como_citar": "Datina (año de la consulta). ¿Cuánto empleo privado registrado hay en cada provincia? Con datos de SIPA, publicado por la Subsecretaría de Programación Macroeconómica. https://datina.com.ar/trabajo.html#f-empleo. Consultado el día de la consulta.",
- "datos_actualizados": "05/11/2026"
+ "datos_actualizados": "15/11/2026"
 }
