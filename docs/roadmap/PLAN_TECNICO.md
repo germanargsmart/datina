@@ -200,6 +200,36 @@ El total de palabras con JavaScript baja de 524.786 a 231.306 porque las página
 - Enlaces internos sin ".html", para evitar la redirección 308 en cada clic. Contra: la vista local con `python -m http.server` deja de andar igual. Hecho el 16 de noviembre de 2026 con la aprobación del autor: los enlaces de las páginas, de `datina.js`, del Catálogo, del Explorador, de la API y de Consultas con IA van sin el `.html`, los servidores de las pruebas responden como Cloudflare, `prueba_metadatos.py` marca un enlace interno con `.html`, y para ver el sitio está `python scripts/servir.py`.
 - Esfuerzo medio, riesgo medio.
 
+#### Hecho el 16 de noviembre de 2026
+
+Con el texto ya en el HTML (fase 4), tres cambios:
+
+1. **D3, topojson, `fichas.js` y `datina.js` con `defer`**: la página se pinta sin esperar a bajarlos y correrlos. El 11 de octubre de 2026 se había probado y descartado porque la página se mostraba vacía y saltaba (comentario en `scripts/plantilla.html`): ahora el texto ya está. El Explorador de relaciones sigue cargando D3 sin `defer`.
+2. **`scrollbar-gutter: stable`** en `html`: con `defer` la página se pinta antes de terminar de leerse, todavía corta y sin barra de desplazamiento, y al aparecer la barra todo se corría 7 píxeles (0,20 en las páginas de provincia en computadora, encontrado en la traza de Lighthouse).
+3. **No volver a escribir lo que ya está** (`yaEscrito` en `datina.js`, `data-pre` en `texto_en_html.mjs`): la huella FNV-1a de lo que `datina.js` escribió en cada artículo y en Dónde se destaca, Cómo cambió su puesto y los censos. Si coincide, no reescribe: reescribirlo hacía que el navegador contara el texto como pintado recién al correr el script. Si no coincide, escribe como antes.
+
+`medir_lighthouse.mjs` necesitaba `--no-sandbox` en Linux, como `cdp.mjs`. Lighthouse 13.6.0, en `/home/user/lighthouse` en la sesión en la nube. Medición del mismo día, mediana de 3 corridas. "Antes" es `main` con la fase 4 ya unida.
+
+| Celular | Antes | Después | Primer texto | Mayor elemento |
+|---|---|---|---|---|
+| `index.html` | 71 | 96 | 4,3 → 1,5 s | 4,3 → 1,5 s |
+| `trabajo.html` | 71 | 95 | 4,4 → 1,5 s | 4,4 → 1,5 s |
+| `a-coparticipacion.html` | 72 | 99 | 4,3 → 1,5 s | 4,6 → 1,5 s |
+| `provincia-neuquen.html` | 62 | 86 | 4,6 → 1,6 s | 5,9 → 3,3 s |
+| `mesas.html` | 61 | 79 | 4,5 → 1,6 s | 4,5 → 1,6 s |
+| `catalogo.html` | 83 | 92 | 2,1 → 1,7 s | 2,1 → 1,7 s |
+
+| Computadora | Antes | Después | Primer texto | Corrimiento |
+|---|---|---|---|---|
+| `index.html` | 96 | 100 | 0,9 → 0,5 s | 0,022 → 0,012 |
+| `trabajo.html` | 98 | 100 | 0,9 → 0,5 s | 0,017 → 0,017 |
+| `a-coparticipacion.html` | 97 | 100 | 0,9 → 0,5 s | 0,004 → 0,004 |
+| `provincia-neuquen.html` | 98 | 100 | 0,9 → 0,6 s | 0,016 → 0,016 |
+| `mesas.html` | 91 | 92 | 0,9 → 0,5 s | 0,171 → 0,171 |
+| `catalogo.html` | 93 | 94 | 0,5 → 0,5 s | 0,149 → 0,149 |
+
+Contra la medición de base del 11 de noviembre, Neuquén en celular pasó de 38 a 86 y su corrimiento de 0,687 a 0. Quedan: el corrimiento de Elecciones por mesa y del Catálogo en computadora (el del Catálogo era 0,004 el 11 de noviembre: lo cambió algo de los días siguientes, no esta fase), el bloqueo de Elecciones por mesa en celular (700 ms) y partir `datina.js` por página, que sigue en el plan con cuidado: cada página baja 1,2 MB de JavaScript (280 KB comprimido), aunque ya no frena la primera pintura.
+
 ## Lo que ya estaba pendiente, en el mismo orden
 
 Inventario del 11 de noviembre de 2026 sobre `docs/roadmap/` y `docs/redaccion/`, confirmado contra el código ese mismo día (los puntos que estaban marcados para revisar ya no llevan la marca). Las letras dicen quién lo mueve: **(C)** Claude puede hacerlo, **(A)** espera una decisión del autor y **(T)** espera a un tercero.
