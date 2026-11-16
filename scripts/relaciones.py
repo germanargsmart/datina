@@ -383,8 +383,9 @@ def construir(plantilla, base, secciones, ubic, v_css, sitio=RAIZ / "sitio"):
     pie = re.search(r'<footer class="pie-sitio">.*?</footer>', base, re.S).group(0)
     pie = re.sub(r'\s*<p data-t="actualizado"></p>', "", pie)
     icono = re.search(r'<link rel="icon"[^>]*>', base).group(0)
-    # D3 desde el propio sitio, la misma etiqueta (y la misma huella) que las demás páginas
-    d3 = re.search(r'<script src="lib/d3-[^"]+"></script>', base).group(0)
+    # D3 desde el propio sitio, la misma etiqueta (y la misma huella) que las demás páginas. Sin defer: desde el 16 de noviembre de 2026 las
+    # demás páginas lo cargan con defer (plan técnico, fase 5), pero relaciones.js no espera a que termine la página
+    d3 = re.search(r'<script src="lib/d3-[^"]+"(?: defer)?></script>', base).group(0).replace(" defer>", ">")
     for marca_, valor in {"<!--ICONO-->": icono, "<!--D3-->": d3, "<!--MARCA-->": marca, "<!--TEMAS-->": temas, "<!--PIE-->": pie, "__V_CSS__": v_css,
                           "__V_RX_CSS__": huella(css), "__V_RX_JS__": huella(js), "__V_RX_DATOS__": huella(datos)}.items():
         assert marca_ in h, f"falta {marca_} en scripts/relaciones.html"

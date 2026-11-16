@@ -52,17 +52,19 @@ const ANTES = `{
   const D = Date, T = ${RELOJ};
   function F(...a) { if (!new.target) return new D(T).toString(); return new D(...(a.length ? a : [T])); }
   F.prototype = D.prototype; F.now = () => T; F.UTC = D.UTC; F.parse = D.parse; window.Date = F;
-  window.__notas = {};
+  window.__notas = {}; window.__secciones = {};
   const ih = Object.getOwnPropertyDescriptor(Element.prototype, "innerHTML");
   Object.defineProperty(Element.prototype, "innerHTML", {configurable: true, get() { return ih.get.call(this); }, set(v) {
     if (this.matches && this.matches("article.nota") && this.id && !(this.id in window.__notas)) window.__notas[this.id] = String(v);
+    // de las secciones de la provincia que datina.js escribe con yaEscrito(), lo último que escribió (para su huella)
+    if (this.id && ${JSON.stringify(["prov-destaca", "prov-puestos", "prov-censos"])}.includes(this.id) && v) window.__secciones[this.id] = String(v);
     ih.set.call(this, v);
   }});
 }`;
 
 // las secciones de la página fija de cada provincia que arma datina.js con sus datos
 const PROV = ["prov-grid", "prov-destaca", "prov-puestos", "prov-censos"];
-const LEER = `(() => ({notas: window.__notas, dt: [...document.querySelectorAll("[data-t]")].map(e => [e.dataset.t, e.textContent]),
+const LEER = `(() => ({notas: window.__notas, secciones: window.__secciones, dt: [...document.querySelectorAll("[data-t]")].map(e => [e.dataset.t, e.textContent]),
   prov: document.body.dataset.prov ? Object.fromEntries(${JSON.stringify(PROV)}.map(id => document.getElementById(id)).filter(Boolean).map(e => {
     const c = e.cloneNode(true); c.querySelectorAll("svg").forEach(s => s.replaceChildren());
     // los enlaces a una ficha de otra página (#f-empleo) los resuelve datina.js al tocarlos: en el HTML van con la dirección de su página,
@@ -104,6 +106,10 @@ await ch.cerrar();
 servidor.close();
 if (problemas.length) { console.error("Errores en las páginas al tomar su texto: el texto no se escribió.\n" + problemas.join("\n")); process.exit(1); }
 
+// la huella de lo que escribió datina.js (FNV-1a de 32 bits sobre el texto, la misma función que huellaHTML en datina.js): con data-pre, datina.js
+// no vuelve a escribir lo que ya está (fase 5). Si las dos funciones dejaran de coincidir, datina.js escribe todo como antes
+const huella = s => { let h = 2166136261; for (let i = 0; i < s.length; i++) h = Math.imul(h ^ s.charCodeAt(i), 16777619); return (h >>> 0).toString(36); };
+const conPre = (abre, html) => abre.replace(/\sdata-pre="[^"]*"/, "").replace(/>$/, ` data-pre="${huella(html)}">`);
 const esc = s => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 const reEsc = s => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 // el contenido de un elemento con su id: desde su etiqueta hasta la que la cierra, contando las del mismo nombre que se abren adentro
@@ -116,20 +122,25 @@ function reemplazar(h, id, html, oculto) {
   while ((x = re.exec(h))) { n += x[0].startsWith("</") ? -1 : 1; if (!n) break; }
   if (n) return null;
   const abre = m[0].replace(/\shidden(?=[\s>])/, "").replace(/>$/, oculto ? " hidden>" : ">");
-  return h.slice(0, m.index) + abre + html + h.slice(x.index);
+  return {antes: h.slice(0, m.index), abre, resto: h.slice(x.index), html};
+}
+function reemplazarTodo(h, id, html, oculto, escrito) {
+  const r = reemplazar(h, id, html, oculto);
+  if (!r) return null;
+  return r.antes + (escrito ? conPre(r.abre, escrito) : r.abre) + html + r.resto;
 }
 let nArt = 0, nPar = 0, nProv = 0;
 for (const f of PAGINAS) {
   let h = leer(f);
-  const {notas, dt, prov} = resultado[f];
+  const {notas, secciones, dt, prov} = resultado[f];
   for (const [id, {html, oculto}] of Object.entries(prov)) {
-    const nuevo = reemplazar(h, id, html, oculto);
+    const nuevo = reemplazarTodo(h, id, html, oculto, secciones[id]);
     if (nuevo == null) { console.error(`${f}: no se encontró dónde termina #${id}`); process.exit(1); }
     h = nuevo; nProv++;
   }
   for (const [id, html] of Object.entries(notas)) {
     const re = new RegExp(`(<article class="nota"[^>]*\\bid="${reEsc(id)}"[^>]*>)(</article>)`);
-    if (re.test(h)) { h = h.replace(re, (_, a, b) => a + html + b); nArt++; }
+    if (re.test(h)) { h = h.replace(re, (_, a, b) => conPre(a, html) + html + b); nArt++; }
   }
   // un párrafo por clave: si la página tiene dos con la misma, no se escribe ninguno (no se sabe cuál es cuál)
   const cuenta = {};

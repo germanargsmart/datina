@@ -28,14 +28,15 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wdth,wght@8..144,25..151,300..800&family=Roboto+Mono:wght@400..600&display=swap" rel="stylesheet">
-<!-- D3 y topojson en el head, sin defer, a propósito. El 11 de octubre de 2026 se probó con defer (los cuatro scripts): la página se
-     mostraba antes, vacía, y después saltaba cuando datina.js armaba el contenido (CLS de 0,70 en la Corte Suprema y 0,10 en Trabajo,
-     contra 0 así). Para cargar sin frenar y sin saltos, las notas y las piezas tienen que venir armadas en el HTML o reservar su alto.
+<!-- D3 y topojson en el head, con defer (como fichas.js y datina.js, al final): se ejecutan en este orden cuando termina de leerse la página.
+     El 11 de octubre de 2026 se había probado y descartado: la página se mostraba antes, vacía, y después saltaba cuando datina.js armaba el
+     contenido. Desde el 16 de noviembre de 2026 (plan técnico, fases 4 y 5) el texto ya viene escrito en el HTML (scripts/texto_en_html.mjs) y
+     datina.js no lo vuelve a escribir (yaEscrito): la página se pinta en 1,5 s en un celular en lugar de 4,4, sin saltos.
      Desde el 22 de octubre de 2026 se sirven desde el propio sitio (sitio/lib/, copiados de scripts/lib/ por 03_construir_sitio.py, las
      mismas versiones que daban cdnjs y jsDelivr): si una de esas CDN fallaba o estaba bloqueada, las páginas quedaban vacías -->
-<script src="lib/d3-7.8.5.min.js?v=a029baa963"></script>
-<script src="lib/topojson-client-3.1.0.min.js?v=bc057598e8"></script>
-<link rel="stylesheet" href="datina.css?v=9fe44cb98f">
+<script src="lib/d3-7.8.5.min.js?v=a029baa963" defer></script>
+<script src="lib/topojson-client-3.1.0.min.js?v=bc057598e8" defer></script>
+<link rel="stylesheet" href="datina.css?v=be7b33e35d">
 </head>
 <body data-pagina="laboratorio">
 <!-- "Saltar al contenido" (Fase 2, paso 6, respuesta del autor del 23 de octubre de 2026): la primera parada del teclado, que solo se ve
@@ -261,7 +262,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 <p class="solo-lector" id="aviso" aria-live="polite"></p>
 
 <!-- los datos van en un archivo aparte que el navegador guarda una sola vez para todas las páginas -->
-<script src="datos/fichas.js?v=9fb2823194"></script>
-<script src="datina.js?v=aebbde3429"></script>
+<script src="datos/fichas.js?v=9fb2823194" defer></script>
+<script src="datina.js?v=8e2186d49a" defer></script>
 </body>
 </html>
