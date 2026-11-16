@@ -33,8 +33,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
      contra 0 así). Para cargar sin frenar y sin saltos, las notas y las piezas tienen que venir armadas en el HTML o reservar su alto.
      Desde el 22 de octubre de 2026 se sirven desde el propio sitio (sitio/lib/, copiados de scripts/lib/ por 03_construir_sitio.py, las
      mismas versiones que daban cdnjs y jsDelivr): si una de esas CDN fallaba o estaba bloqueada, las páginas quedaban vacías -->
-<script src="lib/d3-7.8.5.min.js?v=a029baa963"></script>
-<script src="lib/topojson-client-3.1.0.min.js?v=bc057598e8"></script>
+<script src="lib/d3-7.8.5.min.js?v=a029baa963" defer></script>
+<script src="lib/topojson-client-3.1.0.min.js?v=bc057598e8" defer></script>
 <link rel="stylesheet" href="datina.css?v=9fe44cb98f">
 </head>
 <body data-pagina="provincia" data-prov="94">
@@ -327,7 +327,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 <p class="solo-lector" id="aviso" aria-live="polite"></p>
 
 <!-- los datos van en un archivo aparte que el navegador guarda una sola vez para todas las páginas -->
-<script src="datos/fichas.js?v=9fb2823194"></script>
-<script src="datina.js?v=aebbde3429"></script>
+<script src="datos/fichas.js?v=9fb2823194" defer></script>
+<script src="datina.js?v=aebbde3429" defer></script>
 </body>
 </html>
