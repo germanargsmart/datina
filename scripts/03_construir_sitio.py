@@ -1576,11 +1576,21 @@ _h_prov = pagina("provincia", "Tu provincia",
                  {"provincia"})
 # Las 24 páginas fijas: la misma página, con su título, su descripción, su dirección y su imagen, y la provincia ya elegida (data-prov, que lee datina.js)
 _POB_PROV = {f["codigo_indec"]: f["personas_hoy"] for f in json.loads((FICHAS_JSON).read_text(encoding="utf-8"))["datos"]["poblacion_proyectada_provincias"]}
+# el título, la línea de arriba y la historia de la provincia ya escritos y a la vista (plan técnico, fase 4, tercera parte, 16 de noviembre de
+# 2026): sin JavaScript se leían el título de la página general y las historias de las 24, ocultas, el mismo texto en las 24 páginas. Las
+# otras 23 no van: en una página fija, elegir otra provincia lleva a su página
+_HIST_TODAS = "".join(historia_prov(c, HISTORIA[c]) for c in sorted(HISTORIA))
+_LINEA_TODAS = "".join(linea_prov(c, HISTORIA.get(c, {})) for c in sorted(NOMBRE_PROV) if c != "00")
+_TIT_GENERAL = '<span id="prov-titulo-txt">¿Cómo se compara tu provincia con el país?</span>'
+assert all(_h_prov.count(x) == 1 for x in (_HIST_TODAS, _LINEA_TODAS, _TIT_GENERAL)), "la página de provincia cambió: revisar las páginas fijas"
 for _c, _a in PAG_PROV.items():
     _n = NOMBRE_PROV[_c]
     _t, _d = f"{_n} en números", (f"El perfil de {_n}: sus indicadores frente al total del país, su posición entre las 24 jurisdicciones, su historia y las jurisdicciones "
                                   "que más se le parecen.")
     _h = _h_prov.replace('<body data-pagina="provincia"', f'<body data-pagina="provincia" data-prov="{_c}"', 1)
+    _h = (_h.replace(_TIT_GENERAL, f'<span id="prov-titulo-txt">{e(_t)}</span>', 1)
+          .replace(_HIST_TODAS, historia_prov(_c, HISTORIA[_c]).replace(" hidden>", ">", 1) if _c in HISTORIA else "", 1)
+          .replace(_LINEA_TODAS, linea_prov(_c, HISTORIA.get(_c, {})).replace(" hidden>", ">", 1), 1))
     _h = re.sub(r"<title>[^<]*</title>", f"<title>{e(_t)} | Datina</title>", _h, count=1)
     _h = re.sub(r'\n<script type="application/ld\+json" id="ld-tablas">.*?</script>', "", _h, count=1, flags=re.S)
     for _q, _v in [('name="description"', _d), ('property="og:description"', _d), ('name="twitter:description"', _d), ('property="og:title"', _t), ('name="twitter:title"', _t),

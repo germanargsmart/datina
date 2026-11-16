@@ -7,7 +7,10 @@
 // - Chrome arranca sin nada guardado (ninguna provincia elegida), no baja por la página (no se dibuja ningún gráfico fuera de la primera
 //   pantalla) y espera a que no quede nada por bajar,
 // - de cada artículo se guarda lo primero que datina.js escribe en él, antes de que se dibujen sus gráficos, y de cada párrafo con su texto
-//   calculado (data-t), su texto sin marcas.
+//   calculado (data-t), su texto sin marcas,
+// - en las 24 páginas fijas de las provincias (tercera parte, el mismo día), las tarjetas del perfil, "Dónde se destaca", "Cómo cambió su
+//   puesto" y los censos, ya completos y sin sus gráficos (cada svg queda vacío: los dibuja datina.js, que al cargar vuelve a escribir todo).
+//   "Comparar con otra provincia" no entra: es un selector.
 // Uso: node scripts/texto_en_html.mjs 2026-11-15   (Node 22 o más y Google Chrome: otra ruta, variable CHROME)
 import { createServer } from "node:http";
 import { readFileSync, readdirSync, writeFileSync } from "node:fs";
@@ -41,7 +44,7 @@ const B = `http://127.0.0.1:${servidor.address().port}/`;
 const leer = f => readFileSync(join(SITIO, f), "utf8");
 const PAGINAS = readdirSync(SITIO).filter(f => f.endsWith(".html") && f !== "404.html").filter(f => {
   const h = leer(f);
-  return !h.includes("Esta página se mudó") && (/<article class="nota"/.test(h) || /\sdata-t="/.test(h));
+  return !h.includes("Esta página se mudó") && (/<article class="nota"/.test(h) || /\sdata-t="/.test(h) || /<body[^>]*\sdata-prov="/.test(h));
 }).sort();
 
 // lo que corre en la página antes que datina.js: el reloj fijo y el registro de lo primero que se escribe en cada artículo
@@ -57,7 +60,17 @@ const ANTES = `{
   }});
 }`;
 
-const LEER = `(() => ({notas: window.__notas, dt: [...document.querySelectorAll("[data-t]")].map(e => [e.dataset.t, e.textContent])}))()`;
+// las secciones de la página fija de cada provincia que arma datina.js con sus datos
+const PROV = ["prov-grid", "prov-destaca", "prov-puestos", "prov-censos"];
+const LEER = `(() => ({notas: window.__notas, dt: [...document.querySelectorAll("[data-t]")].map(e => [e.dataset.t, e.textContent]),
+  prov: document.body.dataset.prov ? Object.fromEntries(${JSON.stringify(PROV)}.map(id => document.getElementById(id)).filter(Boolean).map(e => {
+    const c = e.cloneNode(true); c.querySelectorAll("svg").forEach(s => s.replaceChildren());
+    // los enlaces a una ficha de otra página (#f-empleo) los resuelve datina.js al tocarlos: en el HTML van con la dirección de su página,
+    // como hace destinoDe en datina.js
+    const I = window.DATINA.indice, pag = id => I.ubic[id] || I.ubic[(I.alias || {})[id]];
+    c.querySelectorAll('a[href^="#"]').forEach(a => { const id = a.getAttribute("href").slice(1).split("?")[0], p = id && pag(id);
+      if (p && p !== document.body.dataset.pagina) a.setAttribute("href", (p === "inicio" ? "./" : p) + (p === id ? "" : "#" + id)); });
+    return [e.id, {html: c.innerHTML, oculto: e.hidden}]; })) : {}}))()`;
 
 async function pestana(ch) {
   const p = await ch.pestana();
@@ -93,10 +106,27 @@ if (problemas.length) { console.error("Errores en las páginas al tomar su texto
 
 const esc = s => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 const reEsc = s => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-let nArt = 0, nPar = 0;
+// el contenido de un elemento con su id: desde su etiqueta hasta la que la cierra, contando las del mismo nombre que se abren adentro
+function reemplazar(h, id, html, oculto) {
+  const m = new RegExp(`<([a-z]+)\\b[^>]*\\sid="${reEsc(id)}"[^>]*>`).exec(h);
+  if (!m) return null;
+  const tag = m[1], ini = m.index + m[0].length, re = new RegExp(`<${tag}\\b|</${tag}>`, "g");
+  re.lastIndex = ini;
+  let n = 1, x;
+  while ((x = re.exec(h))) { n += x[0].startsWith("</") ? -1 : 1; if (!n) break; }
+  if (n) return null;
+  const abre = m[0].replace(/\shidden(?=[\s>])/, "").replace(/>$/, oculto ? " hidden>" : ">");
+  return h.slice(0, m.index) + abre + html + h.slice(x.index);
+}
+let nArt = 0, nPar = 0, nProv = 0;
 for (const f of PAGINAS) {
   let h = leer(f);
-  const {notas, dt} = resultado[f];
+  const {notas, dt, prov} = resultado[f];
+  for (const [id, {html, oculto}] of Object.entries(prov)) {
+    const nuevo = reemplazar(h, id, html, oculto);
+    if (nuevo == null) { console.error(`${f}: no se encontró dónde termina #${id}`); process.exit(1); }
+    h = nuevo; nProv++;
+  }
   for (const [id, html] of Object.entries(notas)) {
     const re = new RegExp(`(<article class="nota"[^>]*\\bid="${reEsc(id)}"[^>]*>)(</article>)`);
     if (re.test(h)) { h = h.replace(re, (_, a, b) => a + html + b); nArt++; }
@@ -111,4 +141,4 @@ for (const f of PAGINAS) {
   }
   writeFileSync(join(SITIO, f), h);
 }
-console.log(`Texto en el HTML: ${PAGINAS.length} páginas, ${nArt} artículos y ${nPar} párrafos calculados.`);
+console.log(`Texto en el HTML: ${PAGINAS.length} páginas, ${nArt} artículos, ${nPar} párrafos calculados y ${nProv} secciones de las provincias.`);
