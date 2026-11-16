@@ -145,8 +145,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
         <button type="button" data-m="monto" aria-pressed="false">Actualizar un monto</button>
       </div>
       <div class="grafico" data-g="inflacion" data-forma="lineas"></div>
-      <p class="lead" data-t="inflacion"></p>
-      <p class="nota" data-t="inflacion-nota"></p>
+      <p class="lead" data-t="inflacion">En octubre de 2026, frente al mes anterior, el índice de precios al consumidor del país subió 2,2%, según el INDEC. En lo que va del año, subió 26,3%, y en 2025, de diciembre a diciembre, la inflación fue de 31,5%. Desde diciembre de 2017, la variación en doce meses más alta fue la de abril de 2024, 289,4%, y la más baja, la de diciembre de 2017, 24,8%. Por región, en los doce meses hasta octubre de 2026, los precios subieron de 30,4% en la Patagonia a 35,9% en el Noreste.</p>
+      <p class="nota" data-t="inflacion-nota">Índice de precios al consumidor del INDEC, base diciembre de 2016 = 100: mide cuánto cambia el costo de una canasta fija de bienes y servicios que compran los hogares de las ciudades del país. Las variaciones del mes y de doce meses son las que publica el INDEC, con un decimal, y la de lo que va del año sale del índice. El índice del país empieza en diciembre de 2016: no hay uno anterior para todo el país. Las regiones son grupos de ciudades donde se relevan los precios. El Gran Buenos Aires es CABA y los 24 partidos que la rodean. La región Pampeana reúne el resto de la provincia de Buenos Aires, con el Gran La Plata, y Córdoba, Entre Ríos, La Pampa y Santa Fe. Las demás reúnen estas provincias: Noreste (Corrientes, Chaco, Formosa y Misiones), Noroeste (Catamarca, Jujuy, La Rioja, Salta, Santiago del Estero y Tucumán), Cuyo (Mendoza, San Juan y San Luis) y Patagonia (Chubut, Neuquén, Río Negro, Santa Cruz y Tierra del Fuego). Si elegís una provincia en Tu provincia, el gráfico suma su región.</p>
       <div class="pie"><span>Fuente: INDEC, Índice de precios al consumidor. Se actualiza cada mes.</span><a href="datos/inflacion_mensual.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
@@ -161,8 +161,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       </div>
       <label class="selector-ficha" id="ipd-elige" hidden><span>Región</span><select id="ipd-sel"><option value="gba">Gran Buenos Aires</option><option value="pampeana">Pampeana</option><option value="noreste">Noreste</option><option value="noroeste">Noroeste</option><option value="cuyo">Cuyo</option><option value="patagonia">Patagonia</option></select></label>
       <div class="grafico" data-g="inflacion-rubros" data-forma="barras" style="--filas:12"></div>
-      <p class="lead" data-t="inflacion-rubros"></p>
-      <p class="nota" data-t="inflacion-rubros-nota"></p>
+      <p class="lead" data-t="inflacion-rubros">El rubro con la suba más baja fue prendas de vestir y calzado, 10,0%, según el INDEC. Los alimentos y las bebidas no alcohólicas subieron 34,6%. El nivel general, 33,1%.</p>
+      <p class="nota" data-t="inflacion-rubros-nota">Variación de los precios de cada rubro en los doce meses hasta octubre de 2026, en todo el país, según el INDEC. Los rubros son las doce divisiones de la clasificación del consumo que usa el índice. Los precios regulados son los de los combustibles para la vivienda, la electricidad, el agua, los sistemas de salud, el transporte público, el funcionamiento y el mantenimiento de los vehículos, con la nafta, el correo, el teléfono, la educación formal y los cigarrillos. Los estacionales, los de las frutas, las verduras, la ropa exterior, el transporte por turismo y el alojamiento. La inflación núcleo es la de los demás. La tabla tiene también la variación de cada rubro en las seis regiones. En "Tu inflación", los pesos de partida son los de cada región en el índice (la Encuesta Nacional de Gastos de los Hogares 2004/05, la que usa el INDEC), cambiados por lo que subió cada rubro hasta el comienzo de los doce meses: con ellos la cuenta da la inflación oficial de la región, con menos de tres décimas de diferencia. Es una aproximación: el INDEC calcula cada rubro con más detalle. Lo que se escribe en la calculadora no se guarda ni se envía.</p>
       <div class="pie"><span>Fuente: INDEC, Índice de precios al consumidor. Se actualiza cada mes.</span><a href="datos/inflacion_rubros.csv" download>Rubros y categorías (CSV)</a><a href="datos/inflacion_detalle.csv" download>Detalle por región (CSV)</a></div>
     </article>
 
@@ -174,8 +174,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
         <button type="button" data-m="nivel" aria-pressed="false">Nivel</button>
       </div>
       <div class="grafico" data-g="mayoristas" data-forma="lineas"></div>
-      <p class="lead" data-t="mayoristas"></p>
-      <p class="nota" data-t="mayoristas-nota"></p>
+      <p class="lead" data-t="mayoristas">En los mismos doce meses, los precios al consumidor subieron 33,4% y el dólar mayorista, 11,0%. Dentro de los mayoristas, los productos nacionales subieron 30,5% y los importados, 11,8%. El aumento de los mayoristas de un mes va con el de los precios al consumidor de 3 meses después (correlación de 0,68, fuerte). Al revés, el aumento de los precios al consumidor va menos con el de los mayoristas de 3 meses después (0,43, moderada). Que vayan juntos no prueba que uno cause el otro: los dos pueden responder a la misma inflación general.</p>
+      <p class="nota" data-t="mayoristas-nota">El índice de precios internos al por mayor (IPIM) del INDEC mide los precios de los productos nacionales e importados que se venden en el mercado interno. El índice de precios al consumidor (IPC) mide lo que pagan los hogares, también por servicios, que el IPIM no cuenta. El dólar es el mayorista de referencia del Banco Central, el último valor de cada mes. Nivel: cada serie con diciembre de 2016 = 100, el primer mes del IPC del país. La correlación es de rangos entre los aumentos mensuales, 117 meses desde 2017: en el mismo mes da 0,74. Que un aumento venga antes que otro no prueba que lo cause.</p>
       <div class="pie"><span>Fuentes: INDEC, índice de precios internos al por mayor e índice de precios al consumidor, y Banco Central, tipo de cambio mayorista de referencia. Se actualiza cada mes.</span><a href="datos/mayoristas_mensual.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
@@ -184,7 +184,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <p class="ficha-sub">Mediana y promedio de la inflación que espera la gente para los doce meses siguientes, y la que hubo, mes a mes desde 2006</p>
       <div class="grafico" data-g="expectativas" data-forma="lineas"></div>
       <p class="lead" data-t="expectativas"></p>
-      <p class="nota" data-t="expectativas-nota"></p>
+      <p class="nota" data-t="expectativas-nota">Encuesta mensual de la Universidad Torcuato Di Tella a personas de todo el país: cada una dice cuánta inflación espera para los doce meses siguientes. La mediana es el valor que deja la mitad de las respuestas por debajo y la otra mitad por encima, y suele ir en números redondos. El promedio lo mueven más las respuestas extremas. La inflación que hubo en los doce meses siguientes sale del índice de precios al consumidor nacional del INDEC, que empieza en diciembre de 2016: antes no hay con qué comparar en el sitio, y en los meses más recientes todavía no pasaron los doce meses. Lo que esperan los analistas, según el Relevamiento de Expectativas de Mercado del Banco Central, está en la última ficha de la página.</p>
       <div class="pie"><span>Fuente: Universidad Torcuato Di Tella, Centro de Investigación en Finanzas, Encuesta de Expectativas de Inflación, e INDEC, Índice de precios al consumidor. Se actualiza cada mes.</span><a href="datos/expectativas_inflacion.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
@@ -198,8 +198,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
         <button type="button" data-m="precios" aria-pressed="false">Mes a mes</button>
       </div>
       <div class="grafico" data-g="canastas" data-forma="barras" style="--filas:6"></div>
-      <p class="lead" data-t="canastas"></p>
-      <p class="nota" data-t="canastas-nota"></p>
+      <p class="lead" data-t="canastas">La canasta básica total marca la línea de pobreza. El hogar de referencia del INDEC lo forman un varón de 35 años, una mujer de 31, un hijo de 6 y una hija de 8. Para no quedar bajo la línea de indigencia, ese hogar del Gran Buenos Aires necesitaba 761.261 pesos por mes en octubre de 2026, el valor de su canasta básica alimentaria. El gráfico muestra la canasta por adulto equivalente, las necesidades de un varón adulto de actividad moderada: en junio de 2026, el último mes del informe semestral del INDEC, la canasta básica total iba de 397.842 pesos en el Noroeste a 577.633 en la Patagonia.</p>
+      <p class="nota" data-t="canastas-nota">Canasta básica alimentaria: los alimentos que cubren las necesidades de energía y de proteínas de un varón adulto de actividad moderada, el adulto equivalente. La canasta básica total suma los demás bienes y servicios, como la ropa, el transporte, la educación y la salud. Las dos se valorizan con los precios del índice de precios al consumidor. Un hogar es pobre si sus ingresos no alcanzan para su canasta básica total, e indigente si no alcanzan para la alimentaria. Lo que necesita cada hogar depende de cuántas personas lo forman, su edad y su sexo: el hogar de cuatro integrantes del ejemplo del INDEC equivale a 3,09 adultos equivalentes. Las canastas de las seis regiones salen cada semestre, con el informe de pobreza del INDEC: la última es de junio de 2026. Cuántas personas son pobres está en Pobreza y hogares.</p>
       <div class="pie"><span>Fuente: INDEC, canasta básica alimentaria y canasta básica total, e informe de pobreza e indigencia. Se actualiza cada mes.</span><a href="datos/canasta_mensual.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
@@ -208,8 +208,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <h2>¿Qué parte de la canasta básica de una familia paga el salario mínimo?</h2>
       <p class="ficha-sub">Salario mínimo, vital y móvil como porcentaje de la canasta básica total y de la alimentaria de un hogar de cuatro integrantes del Gran Buenos Aires, mes a mes, 2016 a 2026</p>
       <div class="grafico" data-g="salario-minimo" data-forma="lineas"></div>
-      <p class="lead" data-t="salario-minimo"></p>
-      <p class="nota" data-t="salario-minimo-nota"></p>
+      <p class="lead" data-t="salario-minimo">En octubre de 2026, el salario mínimo, vital y móvil era de 391.200 pesos por mes y la canasta básica total del hogar de referencia del INDEC, de 1.690.000 pesos. Con un solo salario mínimo ese hogar pagaba 51,4% de su canasta alimentaria, y un año antes pagaba 26,5% de la total. Desde abril de 2016, el primer mes de la serie, el punto más alto fue enero de 2017, con 60,5% de la canasta total, y el más bajo, octubre de 2026, con 23,1%. El Consejo del Salario ya fijó los aumentos hasta abril de 2027, cuando llegará a 437.000 pesos.</p>
+      <p class="nota" data-t="salario-minimo-nota">El salario mínimo, vital y móvil es el piso legal del sueldo mensual de un trabajador registrado de jornada completa. Lo fija el Consejo Nacional del Empleo, la Productividad y el Salario Mínimo, Vital y Móvil, que reúne a las cámaras empresarias, los sindicatos y el Gobierno, y si no hay acuerdo lo decide el Gobierno. La canasta es la del hogar de referencia del INDEC para la línea de pobreza: un varón de 35 años, una mujer de 31, un hijo de 6 y una hija de 8, en el Gran Buenos Aires. Qué no dice este dato: cuántos hogares son pobres. Un hogar puede tener más de un ingreso, y el salario mínimo es el piso, no el sueldo habitual. Muestra cuánto alcanza un solo salario mínimo frente a lo que necesita esa familia. Los dos están en pesos de cada mes, así que el porcentaje ya descuenta la suba de los precios.</p>
       <div class="pie"><span>Fuentes: Consejo Nacional del Empleo, la Productividad y el Salario Mínimo, Vital y Móvil (serie de la Subsecretaría de Programación Macroeconómica, API de Series de Tiempo), e INDEC, canasta básica alimentaria y canasta básica total. Se actualiza cada mes.</span><a href="datos/salario_minimo_canasta.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
@@ -223,8 +223,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
         <button type="button" data-m="salario" aria-pressed="false">Frente al salario</button>
       </div>
       <div class="grafico" data-g="crianza" data-forma="barras" style="--filas:4"></div>
-      <p class="lead" data-t="crianza"></p>
-      <p class="nota" data-t="crianza-nota"></p>
+      <p class="lead" data-t="crianza">De los 728.849 pesos que costaba en septiembre de 2026 criar a un chico de 6 a 12 años, 377.230 eran bienes y servicios y 351.618, el tiempo de cuidado. Es la edad que más cuesta. La que menos, la de menores de 1 año, con 570.831 pesos. El cuidado es 67,6% del total en los menores de 1 año y 48,2% en los de 6 a 12.</p>
+      <p class="nota" data-t="crianza-nota">La canasta de crianza del INDEC mide lo que cuesta por mes criar a un chico según su edad. Los bienes y servicios (alimentos, ropa, salud, educación, transporte y vivienda) salen de la canasta básica total. El cuidado es el tiempo que el chico necesita de un adulto, valuado con el salario de las trabajadoras de casas particulares que cuidan personas. No es lo que gasta una familia en particular, sino una referencia, que se usa por ejemplo para calcular cuotas alimentarias. Mes a mes, en pesos del último mes con datos de precios, descontada la inflación con el índice de precios al consumidor del país. Frente al salario: la canasta de 6 a 12 años del mes de los salarios dividida por el salario bruto promedio de los asalariados registrados del sector privado de cada provincia (OEDE, con datos del SIPA), el último mes sin aguinaldo. El salario bruto incluye los aportes que se le descuentan al trabajador. La canasta se arma con precios del Gran Buenos Aires y es una sola para todo el país.</p>
       <div class="pie"><span>Fuentes: INDEC, valorización de la canasta de crianza (Catálogo API-INDEC) e índice de precios al consumidor, y Observatorio de Empleo y Dinámica Empresarial (OEDE), Secretaría de Trabajo, con datos del Sistema Integrado Previsional Argentino (SIPA). Se actualiza cada mes.</span><a href="datos/canasta_crianza.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
@@ -232,8 +232,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <h2>¿Cuánto cambió el poder de compra de los salarios registrados?</h2>
       <p class="ficha-sub">Índice de salarios registrados del sector privado y del sector público descontada la inflación (diciembre de 2016 = 100), 2016 a 2026</p>
       <div class="grafico" data-g="salario-real" data-forma="lineas"></div>
-      <p class="lead" data-t="salario-real"></p>
-      <p class="nota" data-t="salario-real-nota"></p>
+      <p class="lead" data-t="salario-real">En el sector público, el salario registrado bajó 1,6% en los doce meses hasta septiembre de 2026, descontada la inflación. Sin descontarla, según el índice de salarios del INDEC, el privado subió 31,2% y el público 31,2%, y los precios subieron 33,4%. Descontada la inflación, frente a diciembre de 2016 el privado está 19,6% más bajo y el público, 34,0% más bajo. El salario privado registrado más alto de la serie fue el de agosto de 2017 y el más bajo, el de marzo de 2024.</p>
+      <p class="nota" data-t="salario-real-nota">Índice de salarios del INDEC dividido por el índice de precios al consumidor del país, con diciembre de 2016 = 100, el primer mes del índice de precios del país. El índice de salarios tiene ponderaciones fijas: mide cuánto cambian los salarios, no cuánto cobra en promedio cada persona. El INDEC publica también el del sector privado no registrado, que la ficha no muestra: sale de la Encuesta Permanente de Hogares y llega con cinco meses de rezago, así que no se puede comparar con los precios del mismo mes. Los salarios promedio de cada provincia están en Trabajo: son otra medida, el promedio por puesto del OEDE, y pueden variar distinto.</p>
       <div class="pie"><span>Fuente: INDEC, Índice de salarios e Índice de precios al consumidor. Se actualiza cada mes.</span><a href="datos/salario_real_mensual.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
@@ -247,8 +247,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
         <button type="button" data-m="sector" aria-pressed="false">Por sector</button>
       </div>
       <div class="grafico" data-g="emae" data-forma="lineas"></div>
-      <p class="lead" data-t="emae"></p>
-      <p class="nota" data-t="emae-nota"></p>
+      <p class="lead" data-t="emae">Frente al mes anterior y sin el efecto de la época del año, la actividad subió 0,1%, según el Estimador Mensual de Actividad Económica del INDEC. En lo que va del año subió 1,2% frente a los mismos meses del año anterior, y en los últimos doce meses, subió 1,8%. En 2025, subió 4,5%.</p>
+      <p class="nota" data-t="emae-nota">Estimador Mensual de Actividad Económica del INDEC, base 2004 = 100: un indicador provisorio de cómo cambia el producto interno bruto a precios constantes, que se arma con información parcial. El INDEC revisa la serie completa con cada publicación. La serie sin estacionalidad quita el efecto de la época del año, para comparar un mes con el anterior. Por sector, los últimos doce meses frente a los doce anteriores, porque algunos, como la pesca y el agro, cambian mucho de un mes a otro. La vista por sector no incluye los impuestos netos de subsidios, que el INDEC suma al total.</p>
       <div class="pie"><span>Fuente: INDEC, Estimador Mensual de Actividad Económica. Se actualiza cada mes.</span><a href="datos/actividad_mensual.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
@@ -260,8 +260,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
         <button type="button" data-m="diez" aria-pressed="false">Diez años</button>
       </div>
       <div class="grafico" data-g="sectores-empleo" data-forma="pesas"></div>
-      <p class="lead" data-t="sectores-empleo"></p>
-      <p class="nota" data-t="sectores-empleo-nota"></p>
+      <p class="lead" data-t="sectores-empleo">El círculo claro es la actividad de cada sector y el lleno, sus asalariados registrados del sector privado. Entre abril de 2025 y marzo de 2026, frente a los doce meses anteriores, la actividad de toda la economía subió 3,6% y el empleo registrado privado bajó 0,6%. En 6 de los 14 sectores la actividad creció y el empleo registrado bajó. La distancia más grande está en la intermediación financiera, la explotación de minas y canteras y el agro. Al revés, el empleo creció y la actividad bajó en la pesca. Que vayan en distinta dirección no dice por qué: puede ser un cambio de productividad, de empleo no registrado o de lo que produce cada sector.</p>
+      <p class="nota" data-t="sectores-empleo-nota">Actividad: el Estimador Mensual de Actividad Económica del INDEC de cada sección de la CIIU (revisión 3), promedio de los doce meses. Empleo: los asalariados registrados del sector privado de la misma sección (OEDE, Secretaría de Trabajo, con datos del SIPA), promedio de los cuatro trimestres. Sin la administración pública, que el OEDE no cuenta. En la enseñanza y la salud la actividad incluye a los establecimientos públicos y el empleo, solo a los privados. El empleo registrado no incluye a los asalariados sin aportes ni a los cuentapropistas. El texto nombra un sector cuando la actividad y el empleo se mueven 0,5 puntos o más cada uno. Que dos variaciones vayan juntas o separadas no prueba una causa.</p>
       <div class="pie"><span>Fuentes: INDEC, Estimador Mensual de Actividad Económica, y Observatorio de Empleo y Dinámica Empresarial (OEDE), Secretaría de Trabajo, con datos del Sistema Integrado Previsional Argentino (SIPA). Se actualiza cada tres meses. El último dato es de marzo de 2026, más atrasado que lo habitual.</span><a href="datos/sectores_empleo.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
@@ -275,8 +275,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
         <button type="button" data-m="mes" aria-pressed="false">Mes a mes</button>
       </div>
       <div class="grafico" data-g="industria" data-forma="barras" style="--filas:16"></div>
-      <p class="lead" data-t="industria"></p>
-      <p class="nota" data-t="industria-nota"></p>
+      <p class="lead" data-t="industria">5 de las 16 ramas de la industria produjo más que en agosto de 2025. La que más creció fue otro equipo de transporte, 12,1%, y la que más cayó, maquinaria y equipo, 24,0%. En lo que va del año, la industria bajó 2,7% frente a los mismos meses del año anterior.</p>
+      <p class="nota" data-t="industria-nota">Los índices de producción industrial del INDEC miden cuánto producen, en cantidades y no en pesos, las ramas de la industria manufacturera y de la minería. Por rama, la variación frente al mismo mes del año anterior, con la serie original. Mes a mes, la serie sin estacionalidad, que quita el efecto de la época del año, con el primer mes que tienen en común los dos índices = 100. La minería incluye la extracción de petróleo y gas: su producción en metros cúbicos, con los datos de la Secretaría de Energía, está en Petróleo y gas.</p>
       <div class="pie"><span>Fuente: INDEC, índices de producción industrial manufacturero y minero (Catálogo API-INDEC). Se actualiza cada mes. El último dato es de agosto de 2026, más atrasado que lo habitual.</span><a href="datos/industria_ramas.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
@@ -288,8 +288,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
         <button type="button" data-m="mes" aria-pressed="false">Mes a mes</button>
       </div>
       <div class="grafico" data-g="supermercados" data-forma="barras"></div>
-      <p class="lead" data-t="supermercados"></p>
-      <p class="nota" data-t="supermercados-nota"></p>
+      <p class="lead" data-t="supermercados">Descontada la inflación de cada región, con datos del INDEC, las ventas subieron en 3 jurisdicciones y bajaron en 21 en los doce meses hasta agosto de 2026: la variación fue de +5,4% en Neuquén a −12,8% en Corrientes.</p>
+      <p class="nota" data-t="supermercados-nota">Encuesta de Supermercados del INDEC: un panel fijo de empresas de supermercados con alguna boca de 200 m² o más, o que suman esa superficie entre todas sus bocas, que no es una muestra al azar. Las ventas incluyen el IVA. La serie mes a mes es el índice del país que publica el INDEC a precios constantes, que descuenta los precios de cada grupo de artículos con el índice de precios al consumidor del país. El INDEC publica las ventas de cada provincia solo a precios corrientes: el sitio las lleva a pesos de agosto de 2026 con el índice de precios de los bienes de su región (en la provincia de Buenos Aires, los 24 partidos del Gran Buenos Aires con el de esa región y el resto con el de la región Pampeana), así que la variación del país de ese gráfico difiere un poco de la del índice del INDEC. No se comparan las ventas por habitante: dependen de cuántos locales del panel hay en cada provincia.</p>
       <div class="pie"><span>Fuente: INDEC, Encuesta de Supermercados e índice de precios al consumidor. Se actualiza cada mes.</span><a href="datos/supermercados_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
@@ -302,7 +302,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       </div>
       <div class="grafico" data-g="confianza-consumidor" data-forma="lineas"></div>
       <p class="lead" data-t="confianza-consumidor"></p>
-      <p class="nota" data-t="confianza-consumidor-nota"></p>
+      <p class="nota" data-t="confianza-consumidor-nota">Encuesta mensual de la Universidad Torcuato Di Tella. El índice va de 0 a 100 y resume tres partes: la situación económica personal y de la familia, la situación económica del país y si es un buen momento para comprar bienes durables, como electrodomésticos, e inmuebles. Por región, la encuesta separa CABA, los partidos del Gran Buenos Aires (GBA en el gráfico) y el interior del país. Como toda encuesta, tiene margen de error: los cambios chicos de un mes al otro pueden no ser significativos.</p>
       <div class="pie"><span>Fuente: Universidad Torcuato Di Tella, Centro de Investigación en Finanzas, Índice de Confianza del Consumidor. Se actualiza cada mes.</span><a href="datos/confianza_consumidor.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
@@ -318,7 +318,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       </div>
       <div class="grafico" data-g="bcra" data-forma="lineas"></div>
       <p class="lead" data-t="bcra"></p>
-      <p class="nota" data-t="bcra-nota"></p>
+      <p class="nota" data-t="bcra-nota">Datos de la API de Estadísticas Monetarias del Banco Central, con el último dato publicado de cada mes, cada serie desde que empieza. Son 49 de sus variables principales: las reservas están en Sector externo y la inflación, al principio de esta página, con los datos del INDEC. Las tasas son anuales: la nominal no suma los intereses de los intereses y la efectiva sí. BADLAR, TM20 y TAMAR son las tasas que pagan los bancos privados por plazos fijos de 30 a 35 días de más de un millón de pesos, de 20 millones o más y de 1.000 millones o más, y BAIBAR es la de los préstamos entre bancos privados. Las tasas para juicios son valores acumulados desde el comienzo de cada serie, que los tribunales usan para calcular intereses. Para descontar la inflación, los montos en pesos pasan a pesos de octubre de 2026 con el índice de precios al consumidor del INDEC, que empieza en diciembre de 2016 (antes no hay un índice para todo el país), o se miden en % del PBI a precios corrientes del INDEC, desde 2004. En la vista «Sin inflación», el dólar descuenta la inflación de la Argentina y la de los Estados Unidos con el tipo de cambio real bilateral del BCRA. La tasa real compara lo que paga una tasa a 30 días con la inflación del mes siguiente, y los índices de actualización y las tasas para juicios se comparan con la inflación de los mismos doce meses. Los montos, el dólar y los índices en pesos de cada mes van en escala logarítmica: una misma pendiente es un mismo ritmo de crecimiento. La serie histórica del dinero (base monetaria, M1, M2 y M3) está expresada en la moneda actual: entre 1970 y 1992 a la moneda se le sacaron 13 ceros. El BCRA la publica desde 1940, en miles de pesos con cuatro decimales, así que los primeros años dan cero o quedan redondeados: acá empieza en 1976, cuando el redondeo ya pesa menos de 0,5%. La parte del M3 en moneda extranjera la calcula Datina con los dos M3 del BCRA. Los depósitos y los préstamos en dólares, en % del PBI, se pasan a pesos con el dólar mayorista de fin de cada mes. La inflación esperada es la del Relevamiento de Expectativas de Mercado actual: la API también trae datos de 2004 a 2012 de un relevamiento anterior, que no se muestran porque no son comparables con los del actual.</p>
       <div class="pie"><span>Fuentes: BCRA, API de Estadísticas Monetarias, e INDEC, índice de precios al consumidor. Se actualiza cada mes.</span><a href="datos/bcra_variables.csv" download>Valores por mes (CSV)</a><a href="datos/bcra_variables_lista.csv" download>Lista de variables (CSV)</a></div>
     </article>
 

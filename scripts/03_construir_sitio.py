@@ -1827,8 +1827,8 @@ if URL_SITIO:
            f"> Estadísticas públicas de la Argentina y de sus 24 jurisdicciones: cada cifra con qué mide, de qué período es, de dónde sale y su "
            f"tabla para descargar. {len(_lltab)} tablas con licencia Creative Commons Atribución 4.0. Datos actualizados el {RESUMEN['actualizado']}.", "",
            "Datina reúne datos de organismos públicos (el INDEC, los ministerios nacionales, el Banco Central y otros) y los compara entre las "
-           "jurisdicciones. En cada página, las cifras y los textos que las explican los escribe el navegador al cargarla: para leer los datos sin "
-           "ejecutar JavaScript, conviene ir a las tablas. Cada tabla en CSV tiene al lado un archivo .metadata.json con su fuente, su período, sus "
+           "jurisdicciones. El texto de los artículos y la interpretación de cada ficha vienen escritos en cada página. Los gráficos, las tablas de "
+           "las fichas y algunas cifras los arma el navegador al cargarla: para leer todos los datos sin ejecutar JavaScript, conviene ir a las tablas. Cada tabla en CSV tiene al lado un archivo .metadata.json con su fuente, su período, sus "
            f"columnas, su licencia y cómo citarla (por ejemplo, {_llu('datos/' + _llej + '.metadata.json')}).", "",
            "Los textos, los gráficos y las tablas de Datina se pueden copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente "
            "de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones.", "",
@@ -1872,6 +1872,18 @@ EST_TEXTO = "/datos/establecimientos/*\n  Content-Type: text/plain; charset=utf-
 (SITIO / "_headers").write_text("".join(f"{r}\n  Cache-Control: public, max-age=31536000, immutable\n" for r in CACHE_LARGO) + MESAS_TEXTO + EST_TEXTO
                                 + "/llms.txt\n  Content-Type: text/plain; charset=utf-8\n",
                                 encoding="utf-8", newline="\n")
+# El texto en el HTML (plan técnico, fase 4, 16 de noviembre de 2026): el cuerpo de los artículos y la interpretación de cada ficha los
+# escribe datina.js al cargar, y los rastreadores de los buscadores de IA no ejecutan JavaScript. scripts/texto_en_html.mjs abre cada página en
+# Chrome sin ventana, con el reloj en la fecha de los datos (armar otro día da los mismos archivos), y deja ese texto escrito en el HTML. Necesita
+# Node 22 o más y Chrome, como la prueba de páginas. Va antes de las pruebas de metadatos, encabezados y navegación, que revisan lo que escribe
+import subprocess  # noqa: E402
+try:
+    _txt = subprocess.run(["node", str(RAIZ / "scripts" / "texto_en_html.mjs"), LASTMOD], cwd=RAIZ, capture_output=True, text=True, encoding="utf-8")
+except FileNotFoundError:
+    sys.exit("Falta Node (22 o más) para escribir el texto en el HTML (scripts/texto_en_html.mjs): el sitio no se dio por armado.")
+if _txt.returncode:
+    sys.exit("No se pudo escribir el texto en el HTML (scripts/texto_en_html.mjs): el sitio no se dio por armado.\n" + (_txt.stderr or _txt.stdout)[-3000:])
+print(_txt.stdout.strip())
 # los datos de Elecciones por mesa (scripts/prueba_mesas.py): 03 no los arma, los arma scripts/elecciones_mesas.py, pero si no suman lo que tienen que sumar
 # el sitio no se da por armado
 import prueba_mesas

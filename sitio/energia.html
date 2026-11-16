@@ -179,7 +179,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
         <button type="button" data-m="usuarios" aria-pressed="false">Hogares y resto</button>
       </div>
       <div class="grafico" data-g="hogares" data-forma="lineas"></div>
-      <p class="lead" data-t="hogares"></p>
+      <p class="lead" data-t="hogares">En 2025, el país demandó 141.251 gigavatios hora (GWh) de electricidad, y los hogares fueron el 47,0%. En 2005 eran el 32,6%. Desde 2005, la demanda de los hogares creció 120,7%, más que la actividad económica, y la del resto de los usuarios creció 20,3%, menos que la economía. Entre enero y septiembre de 2026, la demanda total subió 1,9% respecto de los mismos meses de 2025.</p>
       <p class="nota">Índices con base 2005 = 100. La actividad económica es el promedio anual del Estimador Mensual de Actividad Económica (EMAE) del INDEC, serie original. El resto de los usuarios agrupa comercios, industrias y grandes usuarios conectados al mercado eléctrico mayorista.</p>
       <div class="pie"><span>Fuentes: CAMMESA, publicado por la Subsecretaría de Programación Macroeconómica en la API de Series de Tiempo de datos.gob.ar, e INDEC. Se actualiza cada mes.</span><a href="datos/energia_hogares.csv" download>Descargar tabla (CSV)</a></div>
     </article>
@@ -193,8 +193,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
         <button type="button" data-m="serie" aria-pressed="false">Año por año</button>
       </div>
       <div class="grafico" data-g="electricidad-provincias" data-forma="barras" style="--filas:22"></div>
-      <p class="lead" data-t="electricidad-provincias"></p>
-      <p class="nota" data-t="electricidad-provincias-nota"></p>
+      <p class="lead" data-t="electricidad-provincias">En 2025, los hogares de La Rioja consumieron 2.078 kilovatios hora (kWh) por habitante, el valor más alto. Los de Jujuy consumieron 675 (menos de la mitad del valor del país), el más bajo. En Chaco, los hogares fueron el 71,4% de la demanda de electricidad, y en Chubut, el 12,8%. Los datos son de CAMMESA, la empresa que administra el mercado eléctrico mayorista, que informa juntas CABA y la provincia de Buenos Aires y no incluye Tierra del Fuego.</p>
+      <p class="nota" data-t="electricidad-provincias-nota">Demanda residencial que los distribuidores declaran cada mes a CAMMESA, por provincia, dividida por la población de cada año (proyecciones del INDEC desde 2022 y, antes, la población que se deduce de las tasas del Sistema Nacional de Información Criminal, SNIC). La parte de los hogares se calcula sobre las tres categorías de tarifa que publica CAMMESA: residencial, comercial e industrial o comercial grande. CAMMESA no separa CABA de la provincia de Buenos Aires, así que van juntas, y no informa Tierra del Fuego: el valor del país es el de las demás jurisdicciones. La serie empieza en 2014 porque antes CAMMESA contaba el alumbrado público como residencial. Los últimos meses son provisorios (el último publicado es septiembre de 2026). Si elegís CABA o la provincia de Buenos Aires en Tu provincia, el gráfico resalta la fila que las junta.</p>
       <div class="pie"><span>Fuentes: CAMMESA, demanda mensual por provincia y tipo de usuario (Informe Síntesis Mensual), e INDEC, proyecciones de población. Se actualiza cada mes.</span><a href="datos/electricidad_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
@@ -208,8 +208,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       </div>
       <div class="pol-ley" id="electricidad-sectores-ley" aria-hidden="true" hidden></div>
       <div class="grafico" data-g="electricidad-sectores" data-forma="barras" style="--filas:22"></div>
-      <p class="lead" data-t="electricidad-sectores"></p>
-      <p class="nota" data-t="electricidad-sectores-nota"></p>
+      <p class="lead" data-t="electricidad-sectores">En 2025, las industrias y los grandes comercios (los que demandan una potencia de 300 kilovatios o más) usaron 788 kWh de electricidad por habitante en el país. El valor más alto fue el de Chubut, con 6.450 (8,2 veces el valor del país), y el más bajo, el de Santiago del Estero, con 140 (menos de la cuarta parte del valor del país). Donde hay una gran planta industrial o minera, una sola empresa puede concentrar buena parte de la demanda de la provincia.</p>
+      <p class="nota" data-t="electricidad-sectores-nota">Demanda que los distribuidores y los grandes usuarios declaran cada mes a CAMMESA, por provincia y categoría de tarifa, dividida por la población del año (proyecciones del INDEC). Comercios y servicios son los usuarios de las distribuidoras que no son hogares y demandan menos de 300 kW, con los clubes y el alumbrado público. Industrias y grandes comercios son las demandas de 300 kW o más: las que abastecen las distribuidoras y los grandes usuarios que compran su energía en el mercado mayorista, que CAMMESA registra en la provincia donde consumen. Por eso, donde hay una gran planta industrial o minera, una sola empresa puede concentrar buena parte de la demanda de la provincia. CAMMESA no separa CABA de la provincia de Buenos Aires, así que van juntas, y no informa Tierra del Fuego: el valor del país es el de las demás jurisdicciones. Los últimos meses son provisorios (el último publicado es septiembre de 2026).</p>
       <div class="pie"><span>Fuentes: CAMMESA, demanda mensual por provincia y tipo de usuario (Informe Síntesis Mensual), e INDEC, proyecciones de población. Se actualiza cada mes.</span><a href="datos/electricidad_sectores.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
@@ -217,8 +217,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <h2>¿En qué meses se usa más electricidad?</h2>
       <p class="ficha-sub">Demanda eléctrica promedio de cada mes, en gigavatios hora (GWh), 2023 a 2025</p>
       <div class="grafico" data-g="meses" data-forma="columnas" style="--alto:280px;--alto-c:280px"></div>
-      <p class="lead" data-t="meses"></p>
-      <p class="nota" data-t="meses-nota"></p>
+      <p class="lead" data-t="meses">El año tiene dos picos de demanda eléctrica, uno por refrigeración en verano y otro por calefacción en invierno. En promedio entre 2023 y 2025, enero fue el mes de mayor demanda, con 13.430 gigavatios hora (GWh), y abril el de menor, con 9.958.</p>
+      <p class="nota" data-t="meses-nota">Promedio mensual de la demanda total en GWh para 2023, 2024 y 2025. El último mes disponible en la fuente es septiembre de 2026.</p>
       <div class="pie"><span>Fuente: CAMMESA, vía API de Series de Tiempo. Se actualiza cada mes.</span><a href="datos/energia_estacionalidad.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
@@ -231,8 +231,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
         <button type="button" data-m="400" aria-pressed="false">400 kWh</button>
       </div>
       <div class="grafico" data-g="tarifa-luz" data-forma="lineas"></div>
-      <p class="lead" data-t="tarifa-luz"></p>
-      <p class="nota" data-t="tarifa-luz-nota"></p>
+      <p class="lead" data-t="tarifa-luz">En noviembre de 2026, sin impuestos, una casa que consume 250 kWh por mes pagaba 44.665 pesos de luz sin subsidio y 29.900 con subsidio. En enero de 2004, sin subsidio, era el 5,8%. Entre octubre de 2008 y enero de 2016 la factura de 250 kWh no cambió, y con la inflación su parte del salario mínimo cayó hasta 0,3% en enero de 2016. Desde entonces volvió a subir.</p>
+      <p class="nota" data-t="tarifa-luz-nota">Cargo fijo y cargo variable de la categoría residencial que corresponde a cada consumo, en el cuadro tarifario del ENRE vigente cada mes, promedio de Edenor y Edesur. Cuando la factura era bimestral se toma la mitad. Hasta agosto de 2022 la tarifa era la misma para todos los hogares y tenía subsidios del Estado en el precio de la energía. Desde la segmentación de septiembre de 2022 la línea es la de los hogares sin subsidio: los que tienen subsidio pagan menos. Qué no dice este dato: no suma el IVA ni las tasas, y vale solo para la zona de Edenor y Edesur (CABA y el conurbano). En el resto del país las tarifas las fijan las provincias o los municipios.</p>
       <div class="pie"><span>Fuentes: Ente Nacional Regulador de la Electricidad (ENRE), cuadros tarifarios, y Consejo Nacional del Empleo, la Productividad y el Salario Mínimo, Vital y Móvil. Se actualiza cada mes.</span><a href="datos/tarifa_luz.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
@@ -247,8 +247,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       </div>
       <div class="pol-ley" id="centrales-ley" aria-hidden="true"></div>
       <div class="grafico" data-g="centrales" data-forma="mapa" style="--alto:820px;--alto-c:500px"></div>
-      <p class="lead" data-t="centrales"></p>
-      <p class="nota" data-t="centrales-nota"></p>
+      <p class="lead" data-t="centrales">El listado de centrales de la Secretaría de Energía, actualizado en septiembre de 2026, tiene 474 centrales: 205 térmicas, 84 solares, 71 eólicas, 62 hidroeléctricas, 50 de biomasa o biogás y 2 nucleares. La provincia con más centrales eólicas es Buenos Aires (29) y la que tiene más solares, San Juan (23).</p>
+      <p class="nota" data-t="centrales-nota">Centrales del listado de la Secretaría de Energía, con datos de CAMMESA, actualizado en septiembre de 2026. El tamaño de cada círculo es su potencia, y las 177 centrales que no la informan (102 de ellas conectadas al mercado eléctrico mayorista) van como círculos vacíos: por eso la potencia no se suma por provincia. La potencia del país es la que publica CAMMESA para cada año, por tecnología: la térmica reúne ciclos combinados, turbinas a gas, turbinas de vapor y motores diésel, y la hidroeléctrica incluye las centrales de menos de 50 megavatios.</p>
       <div class="pie"><span>Fuentes: Secretaría de Energía, centrales de generación eléctrica (con datos de CAMMESA), y CAMMESA, potencia instalada, vía API de Series de Tiempo. Se actualiza cada año.</span><a href="datos/centrales.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
@@ -263,8 +263,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       </div>
       <div class="pol-ley" id="gas-hogares-ley" aria-hidden="true"></div>
       <div class="grafico mp-mapa" data-g="gas-hogares" data-forma="barras" style="--filas:25"></div>
-      <p class="lead" data-t="gas-hogares"></p>
-      <p class="nota" data-t="gas-hogares-nota"></p>
+      <p class="lead" data-t="gas-hogares">En el Censo 2022, el 38,9% de los hogares cocinaba con gas en garrafa. En Corrientes, Chaco, Formosa y Misiones, menos de 3 de cada 100 hogares cocinaban con gas de red. Los porcentajes más altos eran los de Santa Cruz (93,0%), La Pampa (89,5%) y Chubut (86,2%).</p>
+      <p class="nota" data-t="gas-hogares-nota">Combustible que el hogar usa principalmente para cocinar, según el Censo 2022. El gas de red es el que llega por cañería de una distribuidora. El zeppelin es un tanque de gas a granel en el lugar. En el mapa, cada departamento muestra el porcentaje de hogares que cocina con gas de red, en cinco grupos del mismo tamaño. Si elegís una provincia en Tu provincia, el mapa se acerca a ella.</p>
       <div class="pie"><span>Fuente: INDEC, Censo Nacional de Población, Hogares y Viviendas 2022, resultados por radio censal. Se actualiza con cada censo.</span><a href="datos/vivienda_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
@@ -277,8 +277,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
         <button type="button" data-m="serie" aria-pressed="false">Año por año</button>
       </div>
       <div class="grafico" data-g="gas-consumo" data-forma="barras" style="--filas:20"></div>
-      <p class="lead" data-t="gas-consumo"></p>
-      <p class="nota" data-t="gas-consumo-nota"></p>
+      <p class="lead" data-t="gas-consumo">En 2025, un usuario residencial de Tierra del Fuego consumió en promedio 7.743 metros cúbicos de gas natural, 6,8 veces el promedio del país, y uno de Santiago del Estero, 412, el valor más bajo. Las cinco provincias patagónicas tenían el 8,0% de los usuarios residenciales y consumieron el 27,9% del gas residencial. Entre enero y agosto de 2026, el consumo por usuario del país subió 4,0% frente a los mismos meses de 2025. Corrientes y Chaco quedan afuera por tener menos de 1.000 usuarios residenciales. Formosa y Misiones no figuran en los datos de las distribuidoras.</p>
+      <p class="nota" data-t="gas-consumo-nota">Gas que las distribuidoras entregaron en el año a sus usuarios residenciales (domiciliarios), dividido por el promedio de esos usuarios, según los datos operativos del ENARGAS. El ENARGAS cuenta clientes y no hogares: un edificio con caldera central para calefacción o agua caliente es un solo usuario, y los usuarios de las subdistribuidoras, que llevan el gas desde la red de una distribuidora hasta un grupo de usuarios, no figuran. Es el gas entregado en cada mes, que no coincide exactamente con el facturado. El consumo depende del clima de cada lugar y de lo frío que sea cada invierno, y también de la tarifa: la Patagonia, el departamento de Malargüe y la Puna tienen el régimen de zona fría (ver Para entender los datos). Corrientes (148 usuarios) y Chaco (68 usuarios) tienen menos de 1.000 usuarios residenciales y no se comparan. Formosa y Misiones no figuran en los datos de las distribuidoras. Para tener una referencia, en Gran Bretaña un medidor residencial consumió en promedio 11.359 kilovatios hora de gas en 2024, con la corrección por clima de su fuente, el Departamento de Seguridad Energética y Cero Neto del Reino Unido: unos 1.050 metros cúbicos de gas de 9.300 kilocalorías, en una conversión aproximada. Ese año, un usuario residencial de la Argentina consumió 1.151 metros cúbicos.</p>
       <div class="pie"><span>Fuente: ENARGAS, datos operativos de gas natural (gas entregado y usuarios por provincia y tipo de usuario). Se actualiza cada mes. El último dato es de agosto de 2026, más atrasado que lo habitual.</span><a href="datos/gas_usuario_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
@@ -292,8 +292,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
         <button type="button" data-m="pesos" aria-pressed="false">En pesos de 2025</button>
       </div>
       <div class="grafico" data-g="subsidios" data-forma="columnas" style="--alto:340px;--alto-c:300px"></div>
-      <p class="lead" data-t="subsidios"></p>
-      <p class="nota" data-t="subsidios-nota"></p>
+      <p class="lead" data-t="subsidios">Entre enero y septiembre de 2026, los subsidios económicos a la energía que registra la Secretaría de Hacienda sumaron un 27,3% más que en los mismos meses de 2025, descontada la inflación. Como parte del producto interno bruto, el valor de 2025 es el más bajo de la serie, que empieza en 2016. El más alto fue el de 2016, el primer año con dato, con el 2,54%.</p>
+      <p class="nota" data-t="subsidios-nota">Gasto corriente en subsidios económicos a la energía del Sector Público Nacional no Financiero, en base caja, según el Informe Mensual de Ingresos y Gastos que la Secretaría de Hacienda publica desde 2016. Es la serie oficial tal como la publica Hacienda: el sitio no arma su propia definición de subsidio. El PBI es el del INDEC a precios corrientes. Los pesos de 2025 usan el deflactor del PBI, y la comparación de lo que va del año, el índice de precios al consumidor del INDEC. La Oficina de Presupuesto del Congreso sigue los subsidios con otro criterio (cuenta los gastos devengados de la Administración Nacional), y sus cifras pueden diferir.</p>
       <div class="pie"><span>Fuentes: Secretaría de Hacienda, Informe Mensual de Ingresos y Gastos del Sector Público Nacional no Financiero, e INDEC, producto interno bruto a precios corrientes, vía API de Series de Tiempo. Se actualiza cada mes.</span><a href="datos/subsidios_energia.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 

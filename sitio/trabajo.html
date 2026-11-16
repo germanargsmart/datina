@@ -140,7 +140,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       </div>
       <p class="clave-color" id="clave-empleo" hidden><span class="c-bueno">En verde</span>, donde el empleo creció. <span class="c-malo">En rojo</span>, donde cayó.</p>
       <div class="grafico" data-g="empleo" data-forma="barras"></div>
-      <p class="lead" data-t="empleo"></p>
+      <p class="lead" data-t="empleo">En julio de 2026 había 6,1 millones de personas asalariadas registradas en el sector privado. En doce meses, el total del país cayó 2,2% y el empleo creció en 3 de las 24 jurisdicciones. El registro cuenta a cada persona en la provincia donde la declara su empleador: por eso CABA suma a muchas personas que viven en el Gran Buenos Aires.</p>
       <p class="nota">El SIPA, el registro de la seguridad social, cuenta a cada persona en la provincia donde la declara su empleador, que puede no ser la provincia donde vive. Por eso CABA suma a muchas personas que viven en el Gran Buenos Aires y trabajan allí. La población es la proyección del INDEC para 2026, el año del dato.</p>
       <div class="pie"><span>Fuente: SIPA, publicado por la Subsecretaría de Programación Macroeconómica. Se actualiza cada mes.</span><a href="datos/empleo_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
@@ -153,8 +153,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
         <button type="button" data-m="mes" aria-pressed="false">Mes a mes</button>
       </div>
       <div class="grafico" data-g="salarios" data-forma="barras"></div>
-      <p class="lead" data-t="salarios"></p>
-      <p class="nota" data-t="salarios-nota"></p>
+      <p class="lead" data-t="salarios">Descontada la inflación, el salario promedio del país bajó 1,3% frente a mayo de 2025 y subió en 5 de las 24 jurisdicciones. El más alto fue el de Neuquén, con 4.094.579 pesos (1,9 veces el valor del país), y el más bajo, el de Santiago del Estero, con 1.377.565.</p>
+      <p class="nota" data-t="salarios-nota">Remuneración bruta promedio por todo concepto (antes de los aportes y las contribuciones) de los asalariados registrados del sector privado, por puesto de trabajo: una persona con dos empleos cuenta dos veces. Cada puesto se cuenta en la provincia donde el trabajador está declarado. Es un promedio y no una mediana, así que unos pocos sueldos muy altos lo suben. Junio y diciembre incluyen el aguinaldo: por eso la comparación entre provincias usa mayo de 2026, el último mes sin aguinaldo (el último publicado es junio de 2026). La provincia de Buenos Aires reúne los partidos del Gran Buenos Aires y el resto de la provincia, ponderados por su empleo. No incluye el empleo público ni el trabajo no registrado. Los dos últimos años son provisorios. La variación del salario en Precios y actividad sale de otra medida, el índice de salarios del INDEC, y puede dar otro número.</p>
       <div class="pie"><span>Fuente: Observatorio de Empleo y Dinámica Empresarial (OEDE), Secretaría de Trabajo, Ministerio de Capital Humano, con datos del Sistema Integrado Previsional Argentino (SIPA), e INDEC, índice de precios al consumidor. Se actualiza cada tres meses.</span><a href="datos/salarios_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
@@ -173,8 +173,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
           <option value="calificacion">Calificación de la tarea</option>
         </select></label>
       <div class="grafico" data-g="rotacion" data-forma="barras" style="--alto:232px;--alto-c:232px"></div>
-      <p class="lead" data-t="rotacion"></p>
-      <p class="nota" data-t="rotacion-nota"></p>
+      <p class="lead" data-t="rotacion">Entre el tercer trimestre de 2025 y el segundo trimestre de 2026, el 50,6% de las personas asalariadas llevaba más de cinco años en su empleo. Llevar un año o menos es más común entre quienes tienen menos de 25 años (42,5%), en los empleos sin descuento jubilatorio (33,0%, contra 8,3% en los registrados) y en los hogares del quintil de menores ingresos (31,3%, contra 10,1% en el de mayores ingresos). Según el tipo de trabajo, es más común en el empleo privado (19,9%) que en el estatal (5,8%), en los lugares donde trabajan hasta cinco personas (28,7%, contra 9,1% donde trabajan más de 40) y en las tareas no calificadas (29,3%, contra 9,6% en las profesionales).</p>
+      <p class="nota" data-t="rotacion-nota">Procesamiento propio de las bases usuarias de la Encuesta Permanente de Hogares del INDEC, con 50.667 respuestas de los cuatro últimos trimestres publicados. Se usa la pregunta sobre cuánto tiempo hace que la persona trabaja en ese empleo en forma continua, que se hace a los asalariados salvo el servicio doméstico. La antigüedad corta no siempre significa rotación: también incluye a quienes consiguieron su primer empleo o volvieron a trabajar. La generación se calcula con la edad declarada. El tamaño del lugar de trabajo es la cantidad de personas que trabajan allí, en los tramos que usa el INDEC. La calificación es la de la tarea y no la de la persona, según el Clasificador Nacional de Ocupaciones del INDEC: mide la complejidad de lo que se hace en ese puesto. Los quintiles ordenan a las personas por el ingreso per cápita de su hogar y usan el ponderador de ingresos del INDEC. La encuesta cubre solo aglomerados urbanos y no permite resultados confiables por provincia con este detalle.</p>
       <div class="pie"><span>Fuente: INDEC, Encuesta Permanente de Hogares, bases usuarias trimestrales (procesamiento propio). Se actualiza cada tres meses.</span><a href="datos/rotacion_laboral.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
@@ -187,8 +187,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
         <button type="button" data-m="serie" aria-pressed="false">Evolución</button>
       </div>
       <div class="grafico" data-g="desocupacion" data-forma="barras" style="--filas:32"></div>
-      <p class="lead" data-t="desocupacion"></p>
-      <p class="nota" data-t="desocupacion-nota"></p>
+      <p class="lead" data-t="desocupacion">En los cuatro trimestres hasta el segundo de 2026, en promedio, el 7,5% de las personas que trabajaban o buscaban trabajo en los 31 aglomerados urbanos estaba desocupada: buscaba trabajo y no conseguía. La tasa iba del 0,9% en Santiago del Estero-La Banda al 9,4% en Río Gallegos.</p>
+      <p class="nota" data-t="desocupacion-nota">Desocupada es la persona que no tiene trabajo, lo buscó activamente y está disponible para trabajar. La tasa se calcula sobre la población económicamente activa: las personas que trabajan o buscan trabajo. La EPH es una encuesta del INDEC en 31 aglomerados urbanos, que no mide las zonas rurales ni las ciudades chicas. Un aglomerado es una ciudad con su área urbana y puede juntar dos ciudades (Neuquén con Plottier) o dos provincias (Viedma con Carmen de Patagones). El Gran Buenos Aires va en dos partes, CABA y los partidos del conurbano. En los aglomerados chicos la encuesta tiene pocos casos y la tasa de un trimestre, un margen de error grande: por eso cada uno va con el promedio de cuatro trimestres, y dos ciudades con tasas parecidas pueden no ser distintas. Si el INDEC no publicó la tasa de un aglomerado en un trimestre, por tener pocos casos, el promedio usa los otros tres. El seguro de desempleo, en la ficha siguiente, cuenta otra cosa: las personas que cobran la prestación.</p>
       <div class="pie"><span>Fuente: INDEC, Encuesta Permanente de Hogares, mercado de trabajo, tasas e indicadores socioeconómicos. Se actualiza cada tres meses.</span><a href="datos/desocupacion_aglomerados.csv" download>Por aglomerado (CSV)</a><a href="datos/desocupacion_serie.csv" download>Total de los 31, por trimestre (CSV)</a></div>
     </article>
 
@@ -201,8 +201,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
         <button type="button" data-m="grupo" aria-pressed="false">Por grupo</button>
       </div>
       <div class="grafico" data-g="informalidad" data-forma="barras" style="--filas:32"></div>
-      <p class="lead" data-t="informalidad"></p>
-      <p class="nota" data-t="informalidad-nota"></p>
+      <p class="lead" data-t="informalidad">La parte de los ocupados con un empleo informal iba del 20,0% en Ushuaia-Río Grande al 61,5% en Gran San Juan. Solo en el segundo trimestre de 2026, en el total de los 31 aglomerados, fue el 45,0%.</p>
+      <p class="nota" data-t="informalidad-nota">Informal es el empleo sin la protección de la seguridad social. Para los asalariados, el que no tiene descuento jubilatorio. Para los patrones y los trabajadores por cuenta propia, el de quienes no tienen su actividad registrada, con los criterios del INDEC. Los trabajadores familiares sin remuneración son informales por definición. Es la clasificación que el INDEC agregó a la Encuesta Permanente de Hogares desde el tercer trimestre de 2025, la misma de sus tasas de empleo formal e informal: el cálculo de Datina con las bases da su misma cifra del total. En las ciudades chicas un trimestre tiene pocas personas encuestadas, así que se juntan los cuatro trimestres (el aglomerado con menos casos tiene 1.175 ocupados encuestados). La EPH mide 31 aglomerados urbanos, no las provincias enteras ni el campo. Qué no dice este dato: no dice cuánto se gana ni si el trabajo alcanza para vivir.</p>
       <div class="pie"><span>Fuente: INDEC, Encuesta Permanente de Hogares, bases usuarias trimestrales (procesamiento propio de la condición de formalidad). Se actualiza cada tres meses.</span><a href="datos/informalidad_aglomerados.csv" download>Por aglomerado (CSV)</a><a href="datos/informalidad_grupos.csv" download>Por grupo (CSV)</a></div>
     </article>
 
@@ -216,8 +216,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
         <button type="button" data-m="serie" aria-pressed="false">Evolución</button>
       </div>
       <div class="grafico" data-g="desempleo" data-forma="barras"></div>
-      <p class="lead" data-t="desempleo"></p>
-      <p class="nota" data-t="desempleo-nota"></p>
+      <p class="lead" data-t="desempleo">En mayo de 2026 cobraban el seguro de desempleo 2,5 de cada 1.000 habitantes del país. Tierra del Fuego tenía la proporción más alta, 8,0 cada 1.000, y Santiago del Estero la más baja, 1,4. La provincia de Buenos Aires tenía el 42,7% de los beneficiarios.</p>
+      <p class="nota" data-t="desempleo-nota">El seguro de desempleo, cuyo nombre oficial es prestación por desempleo, lo cobran los asalariados registrados de la Ley de Contrato de Trabajo y de la construcción que quedan sin trabajo por un despido sin causa u otro motivo que fija la ley y que aportaron al Fondo Nacional de Empleo. Dura de 2 a 12 meses según el tiempo trabajado y lo paga ANSES. Los trabajadores rurales tienen un sistema aparte, que no se incluye. Cada año es el promedio de los doce meses y el último dato es el de un solo mes. Cada beneficiario cuenta en la provincia donde cobra. El empleo registrado es el de los asalariados privados del SIPA de mayo de 2026, que se cuenta donde declara el empleador: por eso CABA queda muy abajo y Buenos Aires arriba, porque mucha gente vive en el Gran Buenos Aires y trabaja en CABA. La población es la proyección del INDEC para 2026, el mismo año. La cantidad de beneficiarios depende del desempleo, pero también de cuánta gente tiene un empleo registrado y de los cambios en las reglas del seguro.</p>
       <div class="pie"><span>Fuente: Secretaría de Seguridad Social, Boletín Estadístico de la Seguridad Social (capítulo de desempleo y edición por provincia), con datos de ANSES, SIPA y proyecciones de población del INDEC. Se actualiza cada tres meses.</span><a href="datos/prestacion_desempleo_provincias.csv" download>Por provincia (CSV)</a><a href="datos/prestacion_desempleo.csv" download>Del país, por año (CSV)</a></div>
     </article>
 
@@ -225,8 +225,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <h2>¿Cuánto exporta cada provincia por habitante?</h2>
       <p class="ficha-sub">Exportaciones de bienes por habitante, en dólares, según la provincia de origen, 2025</p>
       <div class="grafico" data-g="exportaciones" data-forma="barras"></div>
-      <p class="lead" data-t="exportaciones"></p>
-      <p class="nota" data-t="exportaciones-nota"></p>
+      <p class="lead" data-t="exportaciones">Por habitante, las exportaciones producidas en Neuquén sumaron 8.965 dólares (4,8 veces el valor del país) y las de Formosa, 47 (menos de la décima parte del valor del país). En total, el país exportó bienes por 87.111 millones de dólares en 2025. En el primer semestre de 2026, con datos provisorios, las exportaciones sumaron 49.511 millones de dólares, 24,6% más que en el primer semestre de 2025, y subieron en 23 de las 24 jurisdicciones.</p>
+      <p class="nota" data-t="exportaciones-nota">Valor FOB (la mercadería puesta en el puerto o en la frontera, sin flete ni seguro) de los bienes exportados, según la provincia donde se produjeron. El 98,0% del total tiene una provincia de origen identificada. El resto sale de la plataforma continental, es mercadería extranjera o tiene origen indeterminado. La tabla descargable separa productos primarios, manufacturas agropecuarias, manufacturas industriales y combustibles. La población es la proyección del INDEC para 2025, el mismo año.</p>
       <div class="pie"><span>Fuente: INDEC, Origen Provincial de las Exportaciones (el último año es provisorio). Se actualiza cada seis meses.</span><a href="datos/exportaciones_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 

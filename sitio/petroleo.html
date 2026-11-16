@@ -179,8 +179,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
         <button type="button" data-m="cuenca" aria-pressed="false">Por cuenca</button>
       </div>
       <div class="grafico" data-g="petroleo" data-forma="lineas"></div>
-      <p class="lead" data-t="petroleo"></p>
-      <p class="nota" data-t="petroleo-nota"></p>
+      <p class="lead" data-t="petroleo">Entre enero y agosto de 2026, la producción de petróleo creció 16,1% frente a los mismos meses de 2025. En agosto de 2026, el 72,8% salió de pozos no convencionales: el 72,4% de shale y el resto de tight. El promedio anual más bajo de la serie, que empieza en 2006, fue el de 2017, con 488 mil barriles por día.</p>
+      <p class="nota" data-t="petroleo-nota">Producción declarada por las empresas en el Capítulo IV de la Resolución SE 319/1993, que la Secretaría de Energía publica en metros cúbicos. Para pasarla a barriles por día se usan los días de cada mes y el mismo factor que la Secretaría aplica en su serie, 6,29 barriles por metro cúbico. Shale y tight son las dos formas de explotación no convencional que define la Ley 27.007: el shale sale de formaciones de esquisto o pizarra y el tight, de areniscas compactas. El último mes puede cambiar cuando lleguen declaraciones atrasadas.</p>
       <div class="pie"><span>Fuente: Secretaría de Energía, producción que declaran las empresas según el Capítulo IV de la Resolución SE 319/1993, por cuenca y tipo de recurso. Se actualiza cada mes.</span><a href="datos/hidrocarburos_mensual.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
@@ -192,8 +192,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
         <button type="button" data-m="cuenca" aria-pressed="false">Por cuenca</button>
       </div>
       <div class="grafico" data-g="gas" data-forma="lineas"></div>
-      <p class="lead" data-t="gas"></p>
-      <p class="nota" data-t="gas-nota"></p>
+      <p class="lead" data-t="gas">Entre enero y agosto de 2026, la producción de gas natural creció 0,2% frente a los mismos meses de 2025. En agosto de 2026, el 71,0% salió de pozos no convencionales. El promedio de 2025 fue de 141,4 millones de metros cúbicos por día, y el promedio anual más bajo de la serie, el de 2014, con 113,7.</p>
+      <p class="nota" data-t="gas-nota">Millones de metros cúbicos por día: la producción de cada mes, que la Secretaría de Energía publica en miles de metros cúbicos, dividida por sus días. El tight gas es el que sale de areniscas compactas y el shale gas, de formaciones de esquisto o pizarra (Ley 27.007). El último mes puede cambiar cuando lleguen declaraciones atrasadas.</p>
       <div class="pie"><span>Fuente: Secretaría de Energía, producción que declaran las empresas según el Capítulo IV de la Resolución SE 319/1993, por cuenca y tipo de recurso. Se actualiza cada mes.</span><a href="datos/hidrocarburos_mensual.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
@@ -205,8 +205,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
         <button type="button" data-m="gas_mmm3d" aria-pressed="false">Gas</button>
       </div>
       <div class="grafico" data-g="hidro-provincias" data-forma="barras" style="--filas:11"></div>
-      <p class="lead" data-t="hidro-provincias"></p>
-      <p class="nota" data-t="hidro-provincias-nota"></p>
+      <p class="lead" data-t="hidro-provincias">Entre septiembre de 2025 y agosto de 2026, Neuquén produjo 619 mil barriles de petróleo por día, contra 108 mil en los mismos meses de diez años antes. Chubut, la segunda, produjo 118 mil, contra 154 mil. En total, 10 provincias producen petróleo o gas, además de los yacimientos del mar de jurisdicción nacional. La formación Vaca Muerta dio el 68,2% del petróleo del país.</p>
+      <p class="nota" data-t="hidro-provincias-nota">Promedio de los doce meses en miles de barriles de petróleo y en millones de metros cúbicos de gas por día. "Mar argentino" son los yacimientos del mar a más de doce millas de la costa, que son del Estado nacional (la fuente los llama Estado Nacional). Al pasar el mouse o tocar una barra se ven la parte del país, la parte no convencional y la producción de los mismos meses diez años antes, entre septiembre de 2015 y agosto de 2016.</p>
       <div class="pie"><span>Fuente: Secretaría de Energía, producción que declaran las empresas (Capítulo IV), agrupada por yacimiento y formación productiva. Se actualiza cada mes. El último dato es de agosto de 2026, más atrasado que lo habitual.</span><a href="datos/hidrocarburos_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
@@ -220,8 +220,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <label class="selector-ficha"><span>Área</span><select id="ar-sel"><option value="">Las 15 que más producen</option></select></label>
       <div class="pol-ley" id="areas-hidro-ley" aria-hidden="true" hidden></div>
       <div class="grafico" data-g="areas-hidro" data-forma="barras" style="--filas:15"></div>
-      <p class="lead" data-t="areas-hidro"></p>
-      <p class="nota" data-t="areas-hidro-nota"></p>
+      <p class="lead" data-t="areas-hidro">En 2025, 256 áreas de concesión produjeron petróleo o gas. La mitad del petróleo del país salió de 8 de ellas. La primera fue Loma Campana, en Neuquén, con 89 mil barriles de petróleo por día, el 11,0% del país, casi todo de formaciones no convencionales. En 2015 producía 22 mil barriles de petróleo por día.</p>
+      <p class="nota" data-t="areas-hidro-nota">Promedio de cada año en miles de barriles de petróleo y en millones de metros cúbicos de gas por día, según lo que declaran las empresas para cada área de concesión en el Capítulo IV. La empresa de cada área es la que declaró la mayor parte de su producción en 2025. No convencional es lo que sale de formaciones de shale y tight, y convencional, el resto. "Mar argentino" son las áreas del mar a más de doce millas de la costa, que son del Estado nacional. En 2007, 2015, 2019 y 2024 la fuente tiene algún mes que no llega al 99% del total del país: en esos años, lo que produjo cada área puede quedar algo por debajo. Elegí un área en la lista para ver lo que produjo cada año desde 2006. Si elegiste una provincia en Tu provincia, sus áreas se resaltan entre las 15 que más producen.</p>
       <div class="pie"><span>Fuente: Secretaría de Energía, producción que declaran las empresas (Capítulo IV), agrupada por yacimiento y formación productiva. Se actualiza cada año.</span><a href="datos/areas_produccion.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
@@ -251,10 +251,10 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
         <div class="pol-ley" id="mapa-pozos-ley" aria-hidden="true"></div>
         <div class="grafico" data-g="mapa-pozos" data-forma="mapa" style="--alto:490px;--alto-c:300px"></div>
       </div>
-      <p data-panel="pan-f-pozos-1" class="lead" data-t="pozos"></p>
-      <p data-panel="pan-f-pozos-1" class="nota" data-t="pozos-nota"></p>
-      <p data-panel="pan-f-pozos-2" hidden class="lead" data-t="mapa-pozos"></p>
-      <p data-panel="pan-f-pozos-2" hidden class="nota" data-t="mapa-pozos-nota"></p>
+      <p data-panel="pan-f-pozos-1" class="lead" data-t="pozos">En agosto de 2026 produjeron petróleo o gas 23.558 pozos. Los 2.922 de shale, el 12,4% del total, dieron el 71,5% del petróleo. En promedio, un pozo de shale produjo 248 barriles de petróleo por día y uno convencional, 14,0. Chubut es la provincia con más pozos en producción: 6.514, 6.511 de ellos convencionales.</p>
+      <p data-panel="pan-f-pozos-1" class="nota" data-t="pozos-nota">Pozos que declararon producción de petróleo o de gas en el mes. La producción de petróleo por pozo divide el petróleo del mes por los días del mes y por los pozos que produjeron petróleo, así que un pozo que produjo solo algunos días baja el promedio. Un mismo pozo puede producir petróleo y gas. Con el factor de la Secretaría, un barril equivale a unos 159 litros.</p>
+      <p data-panel="pan-f-pozos-2" hidden class="lead" data-t="mapa-pozos">Desde 2006, 4.940 pozos no convencionales produjeron petróleo o gas. De los que seguían produciendo en agosto de 2026, 2.922 eran de shale y 1.236 de tight. Las áreas con más pozos en producción son Loma Campana (726), La Amarga Chica (317) y Bandurria Sur (221).</p>
+      <p data-panel="pan-f-pozos-2" hidden class="nota" data-t="mapa-pozos-nota">Cada punto es un pozo no convencional que produjo petróleo o gas alguna vez, según la producción por pozo del Capítulo IV, en la ubicación que informa la Secretaría de Energía (en unos pocos pozos la latitud y la longitud vienen cambiadas y se corrigen). El color dice el año en que empezó a producir, y los que no produjeron en agosto de 2026 van más claros. Las áreas son las concesiones de explotación, con una geometría simplificada: al pasar el mouse o tocar un área se ve lo que produjo en 2025. La vista de la cuenca Neuquina abarca Neuquén, Río Negro, Mendoza y La Pampa. Las cantidades de pozos del texto salen del mismo resumen de la Secretaría de Energía que usa la ficha de los pozos en producción, así que las dos dicen lo mismo. El listado con la ubicación de cada pozo se baja aparte y puede tener unos pocos pozos más o menos.</p>
       <div class="pie"><span>Fuentes: Secretaría de Energía, producción que declaran las empresas para cada pozo (Capítulo IV) y concesiones de explotación. Se actualiza cada mes. El último dato es de agosto de 2026, más atrasado que lo habitual.</span><a href="datos/pozos_tipo.csv" data-panel="pan-f-pozos-1" download>Descargar tabla (CSV)</a><a href="datos/pozos_no_convencionales.csv" data-panel="pan-f-pozos-2" hidden download>Descargar tabla (CSV)</a></div>
     </article>
 
@@ -283,10 +283,10 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
         <div class="pol-ley" id="pozos-terminados-ley" aria-hidden="true"></div>
         <div class="grafico" data-g="pozos-terminados" data-forma="columnas" style="--alto:340px;--alto-c:300px"></div>
       </div>
-      <p data-panel="pan-f-fracturas-1" class="lead" data-t="fracturas"></p>
-      <p data-panel="pan-f-fracturas-1" class="nota" data-t="fracturas-nota"></p>
-      <p data-panel="pan-f-fracturas-2" hidden class="lead" data-t="pozos-terminados"></p>
-      <p data-panel="pan-f-fracturas-2" hidden class="nota" data-t="pozos-terminados-nota"></p>
+      <p data-panel="pan-f-fracturas-1" class="lead" data-t="fracturas">Las etapas de fractura de 2025 fueron el máximo de la serie: 41,3% más que en 2024 y 32 veces las de 2013. Cada etapa es un tramo de la rama horizontal del pozo que se fractura por separado. En total se bombearon 5,4 millones de toneladas de arena.</p>
+      <p data-panel="pan-f-fracturas-1" class="nota" data-t="fracturas-nota">Fracturas que las empresas informan a la Secretaría de Energía (Adjunto IV), contadas por el año en que empezó cada una, en formaciones no convencionales. Las empresas informan con demora, así que las de 2025 todavía pueden sumar más. La rama horizontal y las etapas por pozo son promedios de los pozos de Vaca Muerta según el año de su primera fractura, y la rama cuenta solo los pozos que la informan. La fuente aclara que son datos preliminares, sujetos a revisión.</p>
+      <p data-panel="pan-f-fracturas-2" hidden class="lead" data-t="pozos-terminados">De los pozos de petróleo y gas terminados en 2025, 564 fueron de explotación, 67 de exploración o de avanzada y el resto, de servicio.</p>
+      <p data-panel="pan-f-fracturas-2" hidden class="nota" data-t="pozos-terminados-nota">Pozos terminados por tipo, según la Secretaría de Energía. Por provincia, los doce meses más recientes, entre septiembre de 2025 y agosto de 2026.</p>
       <div class="pie"><span>Fuentes: Secretaría de Energía, datos de fractura de pozos de hidrocarburos (Adjunto IV) y perforación de pozos de petróleo y gas. Se actualiza cada año.</span><a href="datos/fracturas_anual.csv" data-panel="pan-f-fracturas-1" download>Descargar tabla (CSV)</a><a href="datos/pozos_terminados.csv" data-panel="pan-f-fracturas-2" hidden download>Descargar tabla (CSV)</a></div>
     </article>
 
@@ -299,8 +299,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
         <button type="button" data-m="curvas" aria-pressed="false">Mes a mes</button>
       </div>
       <div class="grafico" data-g="productividad" data-forma="columnas" style="--alto:340px;--alto-c:300px"></div>
-      <p class="lead" data-t="productividad"></p>
-      <p class="nota" data-t="productividad-nota"></p>
+      <p class="lead" data-t="productividad">En 2024 empezaron a producir 318 pozos petroleros de shale en Vaca Muerta. Los que más petróleo sacaron en sus primeros doce meses fueron los de 2022, con 253 mil barriles en promedio cada uno. La serie llega hasta 2024 porque no todos los pozos que empezaron después cumplieron todavía doce meses de producción.</p>
+      <p class="nota" data-t="productividad-nota">Pozos de shale de Vaca Muerta que la producción por pozo del Capítulo IV clasifica como petrolíferos, según el año del primer mes con producción. El primer año son los doce meses desde ese inicio, y los meses sin declaración cuentan como cero. Van solo los años de inicio en los que todos los pozos ya tienen doce meses de historia (los datos llegan a agosto de 2026). La rama horizontal sale de los datos de fractura: por cada 1.000 metros cuentan los pozos que la informan, desde 2016, el primer año con al menos 50. Las curvas siguen a cada año de inicio mientras al menos el 80% de sus pozos tiene esos meses de historia.</p>
       <div class="pie"><span>Fuentes: Secretaría de Energía, producción por pozo no convencional (Capítulo IV) y datos de fractura de pozos (Adjunto IV). Se actualiza cada año.</span><a href="datos/productividad_vm.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
@@ -314,8 +314,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
         <button type="button" data-m="pct_gas" aria-pressed="false">Gas</button>
       </div>
       <div class="grafico" data-g="empresas-hidro" data-forma="barras" style="--filas:13"></div>
-      <p class="lead" data-t="empresas-hidro"></p>
-      <p class="nota" data-t="empresas-hidro-nota"></p>
+      <p class="lead" data-t="empresas-hidro">Entre septiembre de 2025 y agosto de 2026, 58 empresas declararon producción de petróleo. Las 11 del gráfico sumaron el 84,5%. Un mismo grupo empresario puede aparecer en más de una barra, porque puede declarar con más de una razón social.</p>
+      <p class="nota" data-t="empresas-hidro-nota">Producción declarada por cada empresa en el Capítulo IV, como operadora de sus áreas: en las áreas compartidas, la producción figura a nombre de la empresa que la declara. Los nombres se muestran sin la forma societaria y la tabla los trae como los publica la fuente. Un mismo grupo puede declarar con más de una razón social. Las demás 47 empresas que declararon producción sumaron el 15,5% del petróleo.</p>
       <div class="pie"><span>Fuente: Secretaría de Energía, producción que declaran las empresas (Capítulo IV), agrupada por yacimiento y formación productiva. Se actualiza cada mes. El último dato es de agosto de 2026, más atrasado que lo habitual.</span><a href="datos/hidrocarburos_empresas.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
@@ -327,8 +327,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
         <button type="button" data-m="serie" aria-pressed="false">Evolución del país</button>
       </div>
       <div class="grafico" data-g="empleo-hidro" data-forma="barras" style="--filas:12"></div>
-      <p class="lead" data-t="empleo-hidro"></p>
-      <p class="nota" data-t="empleo-hidro-nota"></p>
+      <p class="lead" data-t="empleo-hidro">En el primer trimestre de 2026, los puestos asalariados registrados del sector privado en la extracción de petróleo y gas y sus servicios cayeron 10,6% frente al primer trimestre de 2025, en las provincias con dato en los dos trimestres. Neuquén es la provincia con más puestos: 25.154. CABA aparece en el gráfico porque el registro cuenta cada puesto en la provincia donde la empresa declara a sus trabajadores, que puede no ser la del yacimiento.</p>
+      <p class="nota" data-t="empleo-hidro-nota">Asalariados registrados del sector privado en la extracción de petróleo y gas y sus servicios (rama 11 de la clasificación de actividades), según el Sistema Integrado Previsional Argentino (SIPA), en promedio del trimestre. El SIPA asigna cada puesto a la provincia donde declara el empleador: por eso CABA, donde tienen sede muchas empresas, aparece con empleo petrolero. Las provincias con pocos puestos no se muestran porque el OEDE no publica esos datos por el secreto estadístico. La serie del país suma las provincias con dato. Los puestos cada 1.000 habitantes usan la población que proyecta el INDEC para 2026, el año del dato.</p>
       <div class="pie"><span>Fuente: Observatorio de Empleo y Dinámica Empresarial (OEDE), Secretaría de Trabajo, Ministerio de Capital Humano, con datos del Sistema Integrado Previsional Argentino (SIPA). Se actualiza cada tres meses. El último dato es del primer trimestre de 2026, más atrasado que lo habitual.</span><a href="datos/empleo_construccion_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
@@ -340,8 +340,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
         <button type="button" data-m="usd_crudo_hab" aria-pressed="false">Dólares por habitante, petróleo</button>
       </div>
       <div class="grafico" data-g="regalias" data-forma="barras"></div>
-      <p class="lead" data-t="regalias"></p>
-      <p class="nota" data-t="regalias-nota"></p>
+      <p class="lead" data-t="regalias">En 2025, las regalías fueron el 10% o más de los ingresos totales en 3 provincias y quedaron entre el 1% y el 10% en otras 7. En las 14 jurisdicciones restantes fueron menos del 1%. El porcentaje suma todas las regalías: las de petróleo y gas, y también las mineras y las hidroeléctricas. La Pampa va con 2024, su último año publicado.</p>
+      <p class="nota" data-t="regalias-nota">Las regalías son lo que las empresas pagan a la provincia dueña del recurso por lo que extraen. El porcentaje sale de las cuentas de cada provincia (esquema ahorro-inversión-financiamiento del Ministerio de Economía) e incluye todas las regalías, también las mineras y las hidroeléctricas, sobre los ingresos totales. La Pampa va con 2024, su último año publicado. Los dólares por habitante son solo las regalías de petróleo crudo que publica la Secretaría de Energía, divididas por la población que proyecta el INDEC para 2025, el mismo año. La Secretaría publica las de gas en pesos y no se suman acá. Las del mar argentino, 3,8 millones de dólares en 2025, son del Estado nacional.</p>
       <div class="pie"><span>Fuentes: Ministerio de Economía, cuentas provinciales (esquema ahorro-inversión-financiamiento), y Secretaría de Energía, regalías de petróleo crudo. Se actualiza cada año.</span><a href="datos/regalias_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
@@ -349,8 +349,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <h2>¿Cuánto exporta e importa el país en combustibles y energía?</h2>
       <p class="ficha-sub">Exportaciones de combustibles y energía e importaciones de combustibles y lubricantes, en millones de dólares, 2004 a 2025</p>
       <div class="grafico" data-g="balanza-energetica" data-forma="lineas"></div>
-      <p class="lead" data-t="balanza-energetica"></p>
-      <p class="nota" data-t="balanza-energetica-nota"></p>
+      <p class="lead" data-t="balanza-energetica">En 2025, la Argentina exportó 11.100 millones de dólares en combustibles y energía. Importó 3.271 millones en combustibles y lubricantes. Entre 2011 y 2023, el saldo fue negativo en 12 de 13 años. El déficit más grande fue el de 2013: 6.902 millones. Entre enero y septiembre de 2026, el saldo fue de 9.428 millones a favor y las exportaciones crecieron 53,6% frente a los mismos meses de 2025.</p>
+      <p class="nota" data-t="balanza-energetica-nota">Exportaciones del rubro combustibles y energía e importaciones de combustibles y lubricantes, según el Intercambio Comercial Argentino del INDEC, en millones de dólares de cada año. Son dos clasificaciones distintas, una por rubro y otra por uso económico, pero cubren lo mismo en lo principal: petróleo crudo, gas y combustibles.</p>
       <div class="pie"><span>Fuente: INDEC, Intercambio Comercial Argentino, vía API de Series de Tiempo. Se actualiza cada mes.</span><a href="datos/balanza_energetica.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
@@ -366,8 +366,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       </div>
       <div class="pol-ley" id="reservas-ley" aria-hidden="true"></div>
       <div class="grafico" data-g="reservas" data-forma="columnas" style="--alto:340px;--alto-c:300px"></div>
-      <p class="lead" data-t="reservas"></p>
-      <p class="nota" data-t="reservas-nota"></p>
+      <p class="lead" data-t="reservas">Al 31 de diciembre de 2025, las reservas comprobadas de petróleo eran de 625 millones de metros cúbicos, unos 3.900 millones de barriles. Crecieron 27,0% frente a 2024. El 66,4% era no convencional y el 66,5% estaba en Neuquén. Las de gas alcanzaban para 11,3 años de producción.</p>
+      <p class="nota" data-t="reservas-nota">Reservas comprobadas al 31 de diciembre que las empresas declaran a la Secretaría de Energía según la Resolución SE 324/2006, hasta el final de la vida útil de los yacimientos: lo que se puede extraer con razonable certeza con la técnica y los precios de ese momento. Desde 2017 la Secretaría separa las convencionales de las no convencionales. Los años de producción dividen las reservas por la producción de ese año: no son un pronóstico, porque las reservas cambian con la exploración, la tecnología y los precios.</p>
       <div class="pie"><span>Fuente: Secretaría de Energía, reservas de petróleo y gas al 31 de diciembre (Resolución SE 324/2006). Se actualiza cada año.</span><a href="datos/reservas_hidrocarburos.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
@@ -379,8 +379,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
         <button type="button" data-m="gas_bcm" aria-pressed="false">Gas</button>
       </div>
       <div class="grafico" data-g="mundo-petroleo" data-forma="barras" style="--filas:29"></div>
-      <p class="lead" data-t="mundo-petroleo"></p>
-      <p class="nota" data-t="mundo-petroleo-nota"></p>
+      <p class="lead" data-t="mundo-petroleo">Según la estimación de la Administración de Información Energética de los Estados Unidos (EIA), en 2025 la Argentina produjo 794 mil barriles de petróleo por día, el 0,9% del total mundial. La Secretaría de Energía, que usa el resto de la página, registra 803 mil: la EIA estima a todos los países con un mismo criterio. Si Neuquén fuera un país, con 521 mil barriles por día estaría en el puesto 28, entre Azerbaiyán y Malasia.</p>
+      <p class="nota" data-t="mundo-petroleo-nota">Petróleo crudo con condensado y gas natural seco, según las estadísticas internacionales de la Administración de Información Energética de los Estados Unidos (EIA), que estima a todos los países con un mismo criterio. Para la Argentina estima 794 mil barriles por día en 2025, y la serie de la Secretaría de Energía que usa el resto de la página da 803 mil. El dato de Neuquén es de la Secretaría de Energía. El gas llega hasta 2024, el último año que la EIA publica para casi todos los países. Se muestran los países que producen más que la Argentina y algunos de los que siguen.</p>
       <div class="pie"><span>Fuente: Administración de Información Energética de los Estados Unidos (EIA), estadísticas internacionales de energía, y Secretaría de Energía para Neuquén. Se actualiza cada año.</span><a href="datos/mundo_hidrocarburos.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 

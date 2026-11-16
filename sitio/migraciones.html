@@ -156,8 +156,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
         <button type="button" data-m="mapa" aria-pressed="false">Mapa</button>
       </div>
       <div class="grafico mp-mapa" data-g="nacidos-otro-pais" data-forma="barras"></div>
-      <p class="lead" data-t="nacidos-otro-pais"></p>
-      <p class="nota" data-t="nacidos-otro-pais-nota"></p>
+      <p class="lead" data-t="nacidos-otro-pais">En el Censo 2022, 1.933.463 personas que vivían en el país habían nacido en otro país. La parte de la población nacida en otro país era más alta en CABA, 13,5% (3,2 veces el valor del país), y más baja en Catamarca, Chaco y Santiago del Estero, 0,5%. Paraguay, el país de nacimiento más frecuente en el total, era también el primero en 7 de las 24 jurisdicciones, y Chile, en 8, más que ningún otro país.</p>
+      <p class="nota" data-t="nacidos-otro-pais-nota">Personas que vivían en viviendas particulares y nacieron en otro país, según el Censo 2022 del INDEC, como parte de toda la población en viviendas particulares de cada provincia. Es el primer censo de derecho: cuenta a cada persona donde vive habitualmente. El país de nacimiento es el que declaró cada persona, y el 9,3% no lo declaró (en algunas provincias, muchas más: el texto lo aclara cuando pasa de la quinta parte). Con una provincia elegida, la vista por país muestra los de esa provincia. El mapa usa los cuadros de cada provincia, con un dato por departamento, partido o comuna: al pasar el mouse muestra también el origen más frecuente entre quienes declararon su país, donde lo declararon al menos 100 personas. El RENAPER identifica más personas nacidas en otro país porque cuenta los DNI con el domicilio declarado: está más abajo, en la ficha del RENAPER.</p>
       <div class="pie"><span>Fuente: INDEC, Censo Nacional de Población, Hogares y Viviendas 2022. Se actualiza con cada censo.</span><a href="datos/nacidos_otro_pais_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
@@ -170,8 +170,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       </div>
       <div class="pol-ley" id="migracion-interna-ley" aria-hidden="true"></div>
       <div class="grafico mp-mapa" data-g="migracion-interna" data-forma="barras" style="--filas:25"></div>
-      <p class="lead" data-t="migracion-interna"></p>
-      <p class="nota" data-t="migracion-interna-nota"></p>
+      <p class="lead" data-t="migracion-interna">En el Censo 2022, 6.912.603 personas que vivían en el país habían nacido en otra provincia. En proporción a la población de cada provincia, la parte más alta era la de Tierra del Fuego, donde más de la mitad había nacido en otra provincia (50,9%), y la más baja, la de Chaco, con el 8,3%. En todo el país, el 4,2% había nacido en otro país.</p>
+      <p class="nota" data-t="migracion-interna-nota">Personas que vivían en viviendas particulares según dónde nacieron: en la misma provincia, en otra provincia o en otro país, según el Censo 2022 del INDEC. Cuenta dónde nació cada persona y dónde vive, no cuándo se mudó ni cuántas veces. El mapa usa los cuadros de cada provincia, con un dato por departamento, partido o comuna, y divide a los departamentos en cinco grupos del mismo tamaño.</p>
       <div class="pie"><span>Fuente: INDEC, Censo Nacional de Población, Hogares y Viviendas 2022. Se actualiza con cada censo.</span><a href="datos/nacidos_otro_pais_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
@@ -179,8 +179,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <h2>¿Cuántas personas nacidas en otro país contó cada censo?</h2>
       <p class="ficha-sub">Parte de la población nacida en otro país en cada censo nacional, en porcentaje, 1869 a 2022</p>
       <div class="grafico" data-g="migracion-historia" data-forma="lineas"></div>
-      <p class="lead" data-t="migracion-historia"></p>
-      <p class="nota" data-t="migracion-historia-nota"></p>
+      <p class="lead" data-t="migracion-historia">En el primer censo nacional, el de 1869, el 12,1% de la población había nacido en otro país. Después del censo de 1914, esa parte bajó: en el Censo 2022 fue el 4,2%. Las personas nacidas en países limítrofes fueron en todos los censos entre el 2,0% y el 2,9% de la población. Hasta el censo de 1980, la mayoría de las personas nacidas en otro país venía de Europa, y desde el de 1991, de los países limítrofes: en 2022, el 65,9% de las que declararon su país.</p>
+      <p class="nota" data-t="migracion-historia-nota">Personas nacidas en otro país como parte de la población total de cada censo nacional. Hasta 2001, según el INDEC (Aquí se cuenta, número 12, 2004), y en 2010 y 2022, según la publicación del Censo 2022 sobre migraciones. Los nacidos en países limítrofes (Bolivia, Brasil, Chile, Paraguay y Uruguay) hasta 2001 son los de esa publicación del INDEC, y los de 2022 los calcula el sitio con el cuadro de países de nacimiento del Censo 2022, sobre la población en viviendas particulares. Para 2010 no hay un dato publicado con la misma definición. Hasta 2001 los censos contaban a cada persona donde pasó la noche del censo, y el de 2022, donde vive habitualmente.</p>
       <div class="pie"><span>Fuente: INDEC, censos nacionales de población. Se actualiza con cada censo.</span><a href="datos/migracion_censos.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
@@ -188,8 +188,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <h2>¿Cuántas personas nacidas en otro país tienen DNI argentino?</h2>
       <p class="ficha-sub">Personas nacidas en otro país con DNI argentino cada 100 habitantes, por provincia, junio de 2026</p>
       <div class="grafico" data-g="extranjeros" data-forma="barras"></div>
-      <p class="lead" data-t="extranjeros"></p>
-      <p class="nota" data-t="extranjeros-nota"></p>
+      <p class="lead" data-t="extranjeros">El RENAPER registra 2.367.573 personas nacidas en otro país con DNI argentino, un 22,5% más que las que contó el Censo 2022. Los dos cuentan distinto: el RENAPER usa el domicilio que figura en cada DNI, que puede estar desactualizado, y el Censo cuenta a quienes viven en cada vivienda. CABA tiene la proporción más alta, 19,5 cada 100 habitantes. Los países de nacimiento más frecuentes son Paraguay, Bolivia y Perú.</p>
+      <p class="nota" data-t="extranjeros-nota">Personas nacidas en otro país identificadas por el RENAPER, según la provincia del domicilio que declararon en su DNI: es un registro de domicilios declarados, no un conteo de quienes viven en cada provincia, y puede tener domicilios desactualizados. No incluye a quienes viven en el país sin DNI argentino. La población es la proyección del INDEC para 2026, el año del corte.</p>
       <div class="pie"><span>Fuente: RENAPER, población extranjera identificada por provincia. Se actualiza cada año.</span><a href="datos/extranjeros_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
@@ -202,8 +202,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       </div>
       <div class="pol-ley" id="radicaciones-ley" aria-hidden="true"></div>
       <div class="grafico" data-g="radicaciones" data-forma="columnas"></div>
-      <p class="lead" data-t="radicaciones"></p>
-      <p class="nota" data-t="radicaciones-nota"></p>
+      <p class="lead" data-t="radicaciones">En 2024, la Dirección Nacional de Migraciones otorgó 66.510 residencias permanentes y 68.244 temporarias, 18,6% menos que en el año anterior. Desde 2019, el año con más fue 2021, con 198.969, y el que menos, 2020, con 88.018, el año de la pandemia.</p>
+      <p class="nota" data-t="radicaciones-nota">Trámites de residencia resueltos a favor por la Dirección Nacional de Migraciones, por año y nacionalidad. Cuenta trámites, no personas: alguien puede recibir una residencia temporaria un año y la permanente otro. La residencia permanente es para quien quiere establecerse en el país, y la temporaria, para quien viene por un tiempo, por ejemplo a trabajar o a estudiar. Las personas de los países del Mercosur y asociados tienen un trámite propio por nacionalidad. No hay datos por provincia.</p>
       <div class="pie"><span>Fuente: Dirección Nacional de Migraciones, trámites de radicación resueltos. Se actualiza cada año.</span><a href="datos/radicaciones_nacionalidad.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
@@ -216,8 +216,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
         <button type="button" data-m="acnur" aria-pressed="false">Refugiados</button>
       </div>
       <div class="grafico" data-g="refugio" data-forma="columnas"></div>
-      <p class="lead" data-t="refugio"></p>
-      <p class="nota" data-t="refugio-nota"></p>
+      <p class="lead" data-t="refugio">En 2025, las solicitudes de reconocimiento de la condición de persona refugiada ante la Comisión Nacional para los Refugiados (CONARE) bajaron 31,7% frente a las 1.714 de 2024. El año con más solicitudes desde 1985 fue 2019, con 3.184. En 2025, la CONARE reconoció como refugiadas a 578 personas, contra 343 en 2024.</p>
+      <p class="nota" data-t="refugio-nota">Solicitudes de reconocimiento de la condición de persona refugiada presentadas cada año ante la CONARE, que decide quién es reconocida como refugiada, y personas reconocidas, según sus estadísticas de 2025. La CONARE las publica solo en PDF: el sitio copia sus cuadros. Las cifras de ACNUR son las personas refugiadas y solicitantes de asilo que vivían en el país a fin de cada año, que informa cada gobierno: no se suman a las solicitudes, que son trámites de cada año. ACNUR cuenta aparte a las otras personas que necesitan protección internacional, que no figuran como refugiadas ni como solicitantes de asilo.</p>
       <div class="pie"><span>Fuentes: Comisión Nacional para los Refugiados (CONARE) y ACNUR. Se actualiza cada año.</span><a href="datos/refugio_solicitudes.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
@@ -229,8 +229,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
         <button type="button" data-m="pais" aria-pressed="false">Por país</button>
       </div>
       <div class="grafico" data-g="argentinos-exterior" data-forma="lineas"></div>
-      <p class="lead" data-t="argentinos-exterior"></p>
-      <p class="nota" data-t="argentinos-exterior-nota"></p>
+      <p class="lead" data-t="argentinos-exterior">Según la estimación de las Naciones Unidas, en 1990 vivían en otro país 406.466 personas nacidas en la Argentina, y en 2020, 1.014.400. A mediados de 2024 eran 2,9 veces las de 1990.</p>
+      <p class="nota" data-t="argentinos-exterior-nota">Estimación de la División de Población de las Naciones Unidas (International Migrant Stock), a mediados de cada año, con los censos y los registros de cada país de destino: no es un conteo. En la mayoría de los países cuenta a las personas nacidas en la Argentina, y en algunos, a las de nacionalidad argentina. No es comparable con las cifras de los censos del país. La lista de destinos no incluye las Islas Malvinas.</p>
       <div class="pie"><span>Fuente: Naciones Unidas, División de Población, International Migrant Stock (CC BY 3.0 IGO). Se actualiza cada cuatro o cinco años.</span><a href="datos/argentinos_exterior_destinos.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 

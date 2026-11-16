@@ -4,8 +4,9 @@ Cada página de contenido tiene un solo h1, que es el primer encabezado de <main
 cada una con su motivo:
 - Redirecciones (alias de una dirección vieja, como emprendedores.html): no son páginas de contenido. Llevan robots noindex, un
   canonical y ningún encabezado.
-- Artículos (<article class="nota">) y piezas del Laboratorio (<section class="pieza">): datina.js arma la nota entera al cargar, así
-  que en el HTML no hay h1. Se controla que datina.js escriba el título como h1 (class="nota-tit").
+- Piezas del Laboratorio (<section class="pieza">): datina.js arma la pieza entera al cargar, así que en el HTML no hay h1. Se controla
+  que datina.js escriba el título como h1 (class="nota-tit"). Los artículos (<article class="nota">) eran así hasta el 16 de noviembre de
+  2026: desde entonces vienen escritos en el HTML (plan técnico, fase 4) y su título (h1.nota-tit) sigue la regla de todas las páginas.
 - El consultor de pobreza (sitio/pobreza/) lo arma Observable Framework: se controla que tenga un solo h1, sin exigir el resto.
 - La portada (index.html): su h1 ("Datina") va en el bloque azul, antes de <main>. Se controla que sea el único.
 
@@ -92,7 +93,12 @@ def revisar():
             else:
                 excepciones.append(f"{nombre}: consultor de pobreza (Observable Framework), un h1")
             continue
-        if '<article class="nota"' in h or '<section class="pieza"' in h:
+        # desde el 16 de noviembre de 2026 (plan técnico, fase 4) el artículo viene escrito en el HTML (scripts/texto_en_html.mjs, que corre 03):
+        # su título es el h1 y la página sigue la regla de todas
+        if '<article class="nota"' in h and not re.search(r'<h1 class="nota-tit"', h):
+            problemas.append(f"{nombre}: el artículo no tiene su título (h1) escrito en el HTML (lo escribe scripts/texto_en_html.mjs)")
+            continue
+        if '<section class="pieza"' in h and not re.search(r'<h1 class="nota-tit"', h):
             if enc.h1_total:
                 problemas.append(f"{nombre}: el título lo arma datina.js, pero el HTML ya tiene {enc.h1_total} h1")
             elif not js_titulo_h1:

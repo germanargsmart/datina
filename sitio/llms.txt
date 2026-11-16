@@ -2,7 +2,7 @@
 
 > Estadísticas públicas de la Argentina y de sus 24 jurisdicciones: cada cifra con qué mide, de qué período es, de dónde sale y su tabla para descargar. 280 tablas con licencia Creative Commons Atribución 4.0. Datos actualizados el 15/11/2026.
 
-Datina reúne datos de organismos públicos (el INDEC, los ministerios nacionales, el Banco Central y otros) y los compara entre las jurisdicciones. En cada página, las cifras y los textos que las explican los escribe el navegador al cargarla: para leer los datos sin ejecutar JavaScript, conviene ir a las tablas. Cada tabla en CSV tiene al lado un archivo .metadata.json con su fuente, su período, sus columnas, su licencia y cómo citarla (por ejemplo, https://datina.com.ar/datos/empleo_provincias.metadata.json).
+Datina reúne datos de organismos públicos (el INDEC, los ministerios nacionales, el Banco Central y otros) y los compara entre las jurisdicciones. El texto de los artículos y la interpretación de cada ficha vienen escritos en cada página. Los gráficos, las tablas de las fichas y algunas cifras los arma el navegador al cargarla: para leer todos los datos sin ejecutar JavaScript, conviene ir a las tablas. Cada tabla en CSV tiene al lado un archivo .metadata.json con su fuente, su período, sus columnas, su licencia y cómo citarla (por ejemplo, https://datina.com.ar/datos/empleo_provincias.metadata.json).
 
 Los textos, los gráficos y las tablas de Datina se pueden copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones.
 

@@ -23,6 +23,11 @@ jobs:
         with:
           python-version: "3.12"
       - run: pip install -r requirements.txt
+      # Node 22 antes del armado: desde el 16 de noviembre de 2026 (plan tecnico, fase 4) 03 escribe el texto en el HTML con Chrome sin
+      # ventana (scripts/texto_en_html.mjs), y el Node que trae la maquina no tiene WebSocket
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "22"
       - run: python scripts/01_descargar.py
         # la API del INDEC (docs/deploy/INDEC_API.md): sin el secreto, esas tablas no se bajan y el resto sigue igual
         env:
@@ -33,9 +38,6 @@ jobs:
       - run: python scripts/03_construir_sitio.py
       # revisa las paginas armadas en Chrome sin ventana (scripts/prueba_paginas.mjs): sin errores, sin NaN ni undefined en los
       # textos y "En cifras" completa. Si algo falla, el trabajo se detiene aca y no se guarda ni se publica nada
-      - uses: actions/setup-node@v7
-        with:
-          node-version: "22"
       # la prueba de paginas usa el Chrome que trae la maquina de GitHub: queda anotada su version por si un dia cambia y falla
       - name: Version de Chrome
         run: google-chrome --version

@@ -163,8 +163,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
         <button type="button" data-m="gasto" aria-pressed="false">En qué se gasta</button>
       </div>
       <div class="grafico" data-g="cuentas-nacion" data-forma="lineas"></div>
-      <p class="lead" data-t="cuentas-nacion"></p>
-      <p class="nota" data-t="cuentas-nacion-nota"></p>
+      <p class="lead" data-t="cuentas-nacion">En 2025, los ingresos del Sector Público Nacional fueron el 15,9% del PBI y el gasto sin los intereses de la deuda, el 14,5%. Después de pagar los intereses (1,2% del PBI), el resultado financiero fue un superávit de 0,2%, según la Secretaría de Hacienda. Desde 2016, el déficit financiero más grande fue el de 2020, 8,4% del PBI. Hasta septiembre de 2026, el resultado primario del año fue un superávit de 13,7 billones de pesos corrientes, y el financiero, un superávit de 3,3 billones de pesos corrientes.</p>
+      <p class="nota" data-t="cuentas-nacion-nota">Informe mensual de ingresos y gastos del Sector Público Nacional no Financiero de la Secretaría de Hacienda, en base caja: lo que efectivamente entra y sale cada mes. Como parte del PBI a precios corrientes del INDEC de cada año completo, y los últimos años del PBI son provisorios. Los ingresos son los que le quedan a la Nación: lo que se reparte en forma automática con las provincias por la coparticipación no está. Las utilidades que transfiere el Banco Central no cuentan como ingreso, y los intereses son netos de los que se paga el propio Estado. Las transferencias corrientes a las provincias son las que no son automáticas. Los ingresos de enero de 2026 incluyen la venta de las acciones del Estado en centrales hidroeléctricas.</p>
       <div class="pie"><span>Fuentes: Secretaría de Hacienda, Informe mensual de ingresos y gastos del Sector Público Nacional no Financiero, e INDEC. Se actualiza cada mes.</span><a href="datos/cuentas_nacion.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
@@ -176,8 +176,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
         <button type="button" data-m="anio" aria-pressed="false">Año por año</button>
       </div>
       <div class="grafico" data-g="recaudacion" data-forma="barras" style="--filas:10"></div>
-      <p class="lead" data-t="recaudacion"></p>
-      <p class="nota" data-t="recaudacion-nota"></p>
+      <p class="lead" data-t="recaudacion">En los doce meses hasta octubre de 2026, la recaudación de impuestos nacionales sumó 228,1 billones de pesos corrientes. Los aportes y contribuciones a la seguridad social fueron el 24,9% y Ganancias, el 22,1%. Los derechos de exportación aportaron el 3,6%. Entre enero y octubre de 2026, descontada la inflación, la recaudación bajó 2,7% frente a los mismos meses del año anterior.</p>
+      <p class="nota" data-t="recaudacion-nota">Recursos tributarios nacionales de la Dirección Nacional de Investigaciones y Análisis Fiscal: lo que cobran la ARCA y otros organismos nacionales, antes de repartir entre la Nación y las provincias. Como parte del PBI a precios corrientes del INDEC de cada año completo. La variación de lo que va del año descuenta la inflación con el índice de precios al consumidor del INDEC. La ley de coparticipación reparte con las provincias casi todos los impuestos nacionales, pero no los derechos de exportación y de importación.</p>
       <div class="pie"><span>Fuentes: Dirección Nacional de Investigaciones y Análisis Fiscal, Ministerio de Economía, e INDEC. Se actualiza cada mes.</span><a href="datos/recaudacion_impuestos.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
@@ -185,8 +185,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <h2>¿Cuánto debe el Estado nacional?</h2>
       <p class="ficha-sub">Deuda bruta de la Administración Central como parte del PBI, 2000 a 2025 y el último trimestre</p>
       <div class="grafico" data-g="deuda" data-forma="lineas"></div>
-      <p class="lead" data-t="deuda"></p>
-      <p class="nota" data-t="deuda-nota"></p>
+      <p class="lead" data-t="deuda">La deuda bruta de la Administración Central sumaba 474.198 millones de dólares al 30 de junio de 2026, según la Secretaría de Finanzas, e incluye la que tienen otros organismos del propio Estado. A fin de 2025 era el 78,1% del PBI. Desde 2000, el valor más alto fue el de 2002, 166,7%, y el más bajo, el de 2011, 38,9%. Como buena parte de la deuda está en moneda extranjera, el porcentaje sube cuando el peso se devalúa, aunque la deuda en dólares no cambie.</p>
+      <p class="nota" data-t="deuda-nota">Deuda bruta de la Administración Central según la Secretaría de Finanzas: la deuda en situación de pago normal, los atrasos y la deuda que todavía no entró en las reestructuraciones, también la que tienen otros organismos del propio Estado. Como parte del PBI, como la publica la Secretaría para cada fin de año y para cada trimestre del año en curso. No incluye la deuda de las provincias ni la del Banco Central.</p>
       <div class="pie"><span>Fuente: Secretaría de Finanzas, Ministerio de Economía, datos trimestrales de la deuda pública. Se actualiza cada tres meses.</span><a href="datos/deuda_pbi.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
@@ -198,8 +198,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
         <button type="button" data-m="nacion" aria-pressed="false">Nación</button>
       </div>
       <div class="grafico" data-g="empleo-publico" data-forma="barras"></div>
-      <p class="lead" data-t="empleo-publico"></p>
-      <p class="nota" data-t="empleo-publico-nota"></p>
+      <p class="lead" data-t="empleo-publico">En total, las administraciones de las provincias y de CABA tenían 2.308.763 cargos ocupados en 2025, según la Dirección Nacional de Asuntos Provinciales. Cada 1.000 habitantes, iban de 32,9 en Córdoba a 139,7 en Tierra del Fuego (2,8 veces el valor del país). Cuenta cargos, no personas, y no incluye a los municipios ni a las empresas provinciales.</p>
+      <p class="nota" data-t="empleo-publico-nota">Cargos ocupados en las administraciones públicas provinciales (administración central, organismos descentralizados y cuentas especiales) del personal permanente y temporario, según la Dirección Nacional de Asuntos Provinciales, con la población que proyecta el INDEC para el mismo año. Cuenta cargos, no personas: alguien puede tener dos cargos. Cada provincia informa los suyos, y La Pampa y San Luis informan los cargos presupuestados en lugar de los ocupados. La vista de la Nación es la dotación de la administración pública nacional, las empresas y las sociedades del Estado que publica el INDEC: no incluye las universidades, el sistema de ciencia y tecnología, el servicio exterior ni el personal militar y de seguridad, y tiene meses con datos estimados por el INDEC.</p>
       <div class="pie"><span>Fuentes: Dirección Nacional de Asuntos Provinciales, Ministerio de Economía, e INDEC. Se actualiza cada año.</span><a href="datos/empleo_publico_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
@@ -207,8 +207,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <h2>¿Cuánto recauda cada provincia de impuestos propios por habitante?</h2>
       <p class="ficha-sub">Impuestos provinciales por habitante, 2025</p>
       <div class="grafico" data-g="impuestos-provinciales" data-forma="barras"></div>
-      <p class="lead" data-t="impuestos-provinciales"></p>
-      <p class="nota" data-t="impuestos-provinciales-nota"></p>
+      <p class="lead" data-t="impuestos-provinciales">En total, las provincias y CABA recaudaron 41,7 billones de pesos de impuestos propios en 2025, sin contar La Pampa, según la Dirección Nacional de Asuntos Provinciales. El 78,9% fue de ingresos brutos. La recaudación por habitante iba de 256.360 pesos en Santiago del Estero a 3.257.960 en CABA (3,6 veces el valor del país). La Pampa no tiene datos completos del año y no entra en el total ni en el gráfico.</p>
+      <p class="nota" data-t="impuestos-provinciales-nota">Recursos tributarios de origen provincial: ingresos brutos, inmobiliario, sellos, automotor y otros, según la Dirección Nacional de Asuntos Provinciales, que replica lo que publica la dirección de rentas de cada provincia. Por habitante con la población que proyecta el INDEC para el mismo año. Las provincias no cobran los mismos impuestos: en algunas, el automotor lo cobran los municipios. Las finanzas de cada provincia, con lo que recibe de la Nación, están en la ficha siguiente.</p>
       <div class="pie"><span>Fuentes: Dirección Nacional de Asuntos Provinciales, Ministerio de Economía, e INDEC, proyecciones de población. Se actualiza cada año.</span><a href="datos/impuestos_provinciales.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
@@ -222,7 +222,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       </div>
       <div class="grafico" data-g="fiscal" data-forma="barras"></div>
       <p class="lead" data-t="fiscal"></p>
-      <p class="nota" data-t="fiscal-nota"></p>
+      <p class="nota" data-t="fiscal-nota">Administración pública no financiera de cada provincia, ejecución del año completo según el Ministerio de Economía. Recursos propios: ingresos corrientes menos los tributos de origen nacional, como la coparticipación, y las transferencias, más los recursos propios de capital, sobre los ingresos totales. Incluye impuestos provinciales y regalías. Resultado financiero: ingresos totales menos gastos totales, sobre los ingresos totales. Gasto en personal: sueldos y cargas sociales sobre el gasto total. La serie desde 2005 está en el explorador de cruces. La Pampa todavía no publicó 2025: figura con 2024.</p>
       <div class="pie"><span>Fuente: Ministerio de Economía, Dirección Nacional de Asuntos Provinciales, esquema ahorro inversión financiamiento. Se actualiza cada año.</span><a href="datos/fiscal_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
@@ -235,8 +235,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
         <button type="button" data-m="pct" aria-pressed="false">% de sus ingresos</button>
       </div>
       <div class="grafico" data-g="coparticipacion" data-forma="barras"></div>
-      <p class="lead" data-t="coparticipacion"></p>
-      <p class="nota" data-t="coparticipacion-nota"></p>
+      <p class="lead" data-t="coparticipacion">En 2025, las provincias y CABA recibieron 59,4 billones de pesos por la coparticipación federal y otros impuestos nacionales que se reparten por ley, sin contar La Pampa: 1,29 millones de pesos por habitante. El 90,5% fue coparticipación federal. Por habitante, iba de 0,43 millones de pesos en CABA a 3,84 millones en Tierra del Fuego (3 veces el valor del país). La Pampa todavía no publicó 2025: está en la vista en % de sus ingresos, con 2024, y no en esta, porque los pesos de 2024 no se comparan con los de 2025.</p>
+      <p class="nota" data-t="coparticipacion-nota">Tributos de origen nacional del esquema ahorro inversión financiamiento de cada provincia, según el Ministerio de Economía: la coparticipación federal de impuestos (Ley 23.548, con la parte que la Ley 26.075 destina a educación) y otros impuestos nacionales que se reparten por ley. No incluye lo que pasa por el presupuesto nacional, como los ATN y las demás transferencias no automáticas, que están en Instituciones políticas. El reparto entre provincias no sigue a la población: la Ley 23.548, de 1988, fija un porcentaje para cada una. CABA y Tierra del Fuego, que en 1988 no eran provincias, reciben su parte de la que le toca a la Nación, con porcentajes que fijan otras normas: los de CABA cambiaron en 2016 y en 2020. En pesos de cada año. Por habitante, con la población del INDEC de ese año.</p>
       <div class="pie"><span>Fuentes: Ministerio de Economía, Dirección Nacional de Asuntos Provinciales, esquema ahorro inversión financiamiento, e INDEC, proyecciones de población. Se actualiza cada año.</span><a href="datos/coparticipacion_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
@@ -251,8 +251,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       </div>
       <div class="pol-ley" id="deuda-provincias-ley" aria-hidden="true" hidden></div>
       <div class="grafico" data-g="deuda-provincias" data-forma="barras"></div>
-      <p class="lead" data-t="deuda-provincias"></p>
-      <p class="nota" data-t="deuda-provincias-nota"></p>
+      <p class="lead" data-t="deuda-provincias">Al 30 de junio de 2026, las provincias y CABA debían 36,0 billones de pesos, sin contar La Pampa, que no informó su deuda: 780 mil pesos por habitante. La deuda por habitante iba de 392 pesos en San Luis a 2,48 millones pesos en Chubut (3,2 veces el valor del país), y le seguía La Rioja. Buenos Aires debía el 49,9% del total. Una deuda alta por habitante no dice por sí sola si es mucha para la provincia: eso depende de sus ingresos y de los plazos para pagarla.</p>
+      <p class="nota" data-t="deuda-provincias-nota">Stock de deuda pública de cada provincia y de CABA al 30 de junio de 2026, en pesos, según la Subsecretaría de Coordinación Fiscal Provincial del Ministerio de Economía. Los datos son preliminares y pueden revisarse. No incluye la deuda flotante ni la contingente, y los bonos van a su valor residual, como aclara la fuente. El Gobierno nacional incluye dos fondos fiduciarios nacionales, el Fondo Fiduciario Federal de Infraestructura Regional y el Fondo Fiduciario para el Desarrollo Provincial. Bancos y otros incluye lo que la fuente llama deuda consolidada. Por habitante, con la población del INDEC de 2026. La Pampa no informó su deuda de esa fecha: queda sin dato.</p>
       <div class="pie"><span>Fuentes: Subsecretaría de Coordinación Fiscal Provincial, Ministerio de Economía, evolución del stock de deuda provincial, e INDEC, proyecciones de población. Se actualiza cada tres meses.</span><a href="datos/deuda_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 

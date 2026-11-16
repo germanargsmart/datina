@@ -169,8 +169,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <h2>¿Cuánto exporta e importa la Argentina en bienes y cuál es el saldo?</h2>
       <p class="ficha-sub">Exportaciones e importaciones de bienes y su saldo, en millones de dólares por año, 1992 a 2025</p>
       <div class="grafico" data-g="balanza" data-forma="lineas"></div>
-      <p class="lead" data-t="balanza"></p>
-      <p class="nota" data-t="balanza-nota"></p>
+      <p class="lead" data-t="balanza">En 2025, la Argentina exportó 87.111 millones de dólares en bienes e importó 75.791 millones: el saldo fue de 11.320 millones a favor. Desde 1992, las importaciones superaron a las exportaciones en 10 años, el último en 2023. El saldo más alto de la serie fue el de 2024, con 18.928 millones. Entre enero y septiembre de 2026, meses que el gráfico todavía no muestra porque el año está incompleto, las exportaciones crecieron 21,6% y las importaciones cayeron 2,5% frente a los mismos meses del año anterior.</p>
+      <p class="nota" data-t="balanza-nota">Exportaciones en valores FOB (la mercadería puesta en el puerto o en la frontera) e importaciones en valores CIF (con el flete y el seguro), en dólares de cada año, sin descontar la inflación de los Estados Unidos. El saldo es la diferencia entre las dos. Son solo bienes: los servicios, como el turismo, y los intereses y las utilidades están en la cuenta corriente, más abajo. El año en curso, incompleto, no va en el gráfico.</p>
       <div class="pie"><span>Fuente: INDEC, intercambio comercial argentino, vía la API de Series de Tiempo. Se actualiza cada mes.</span><a href="datos/balanza_comercial.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
@@ -178,8 +178,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <h2>¿Qué exporta la Argentina?</h2>
       <p class="ficha-sub">Exportaciones de bienes por gran rubro, en millones de dólares por año, 2004 a 2025</p>
       <div class="grafico" data-g="exporta-rubros" data-forma="lineas" style="--alto:383px;--alto-c:343px"></div>
-      <p class="lead" data-t="exporta-rubros"></p>
-      <p class="nota" data-t="exporta-rubros-nota"></p>
+      <p class="lead" data-t="exporta-rubros">La agroindustria, es decir las manufacturas de origen agropecuario, fue el 35,0% de lo exportado en 2025, la industria, el 26,9%, los productos primarios, el 25,4%, y la energía, el 12,7%. El año con más exportaciones de la serie fue 2022, con 88.445 millones de dólares. Entre enero y septiembre de 2026 se exportaron 77.267 millones, un 21,6% más que en los mismos meses del año anterior.</p>
+      <p class="nota" data-t="exporta-rubros-nota">Valores FOB (la mercadería puesta en el puerto o en la frontera, sin flete ni seguro), en dólares de cada año: no descuentan la inflación de los Estados Unidos. Primarios: granos, semillas, minerales, frutas y pescado sin procesar. Agroindustria: las manufacturas de origen agropecuario, como harinas, aceites, carnes, lácteos y vinos. Industria: las manufacturas de origen industrial, como vehículos, químicos, metales y oro. Energía: petróleo, gas y combustibles. El año en curso, incompleto, no va en el gráfico.</p>
       <div class="pie"><span>Fuente: INDEC, intercambio comercial argentino, vía la API de Series de Tiempo. Se actualiza cada mes.</span><a href="datos/exportaciones_rubros_anual.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
@@ -187,8 +187,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <h2>¿Qué cadenas productivas exportan más?</h2>
       <p class="ficha-sub">Exportaciones de bienes por complejo exportador, en % del total, primer semestre de 2026</p>
       <div class="grafico" data-g="complejos" data-forma="barras" style="--filas:20"></div>
-      <p class="lead" data-t="complejos"></p>
-      <p class="nota" data-t="complejos-nota"></p>
+      <p class="lead" data-t="complejos">Los que más exportaron en el primer semestre de 2026 fueron el sector oleaginoso (23,9%), el complejo petrolero-petroquímico (16,4%), el sector cerealero (15,6%) y el sector minero metalífero y litio (12,2%). Entre los sectores y los complejos que vendieron más de 500 millones de dólares, el que más creció frente al mismo período del año anterior fue el complejo litio: +186,3%.</p>
+      <p class="nota" data-t="complejos-nota">Un complejo exportador reúne los productos de una misma cadena, desde la materia prima hasta las manufacturas: el complejo soja suma los porotos, la harina, el aceite y el biodiésel. Los sectores agrupan varios complejos, y el cuadro de cada barra dice cuánto aportó cada uno. Datos provisorios, en dólares FOB (sin flete ni seguro).</p>
       <div class="pie"><span>Fuente: INDEC, complejos exportadores (anexo del Origen Provincial de las Exportaciones, provisorio). Se actualiza cada seis meses.</span><a href="datos/exportaciones_complejos.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
@@ -197,7 +197,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <p class="ficha-sub">Exportaciones de bienes por destino, del país o de la provincia elegida, en % del total, primer semestre de 2026</p>
       <div class="grafico" data-g="destinos" data-forma="barras" style="--filas:23"></div>
       <p class="lead" data-t="destinos"></p>
-      <p class="nota" data-t="destinos-nota"></p>
+      <p class="nota" data-t="destinos-nota">Exportaciones de bienes según el país de destino. Las zonas que juntan varios países (resto del Mercosur, resto de América Latina sin México, resto del Sudeste Asiático) no incluyen a los que aparecen solos. Cuando el dato de una provincia permitiría identificar a una empresa, el INDEC lo reserva por secreto estadístico y va como "sin detalle". Datos provisorios. Si elegís una provincia en Tu provincia, el gráfico muestra sus destinos.</p>
       <div class="pie"><span>Fuente: INDEC, Origen Provincial de las Exportaciones, por zona económica y país (provisorio). Se actualiza cada seis meses.</span><a href="datos/exportaciones_destinos.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
@@ -210,8 +210,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       </div>
       <div class="pol-ley" id="exprov-ley" aria-hidden="true"></div>
       <div class="grafico" data-g="exprov" data-forma="barras" style="--filas:25"></div>
-      <p class="lead" data-t="exprov"></p>
-      <p class="nota" data-t="exprov-nota"></p>
+      <p class="lead" data-t="exprov">Si se clasifica a cada jurisdicción por el rubro que más pesó en sus exportaciones de 2025, hay 10 provincias de productos primarios, 7 de manufacturas de origen industrial, 5 de manufacturas de origen agropecuario y 2 de combustibles y energía.</p>
+      <p class="nota" data-t="exprov-nota">Origen Provincial de las Exportaciones del INDEC: cada venta se asigna a la provincia donde se produjo el bien o se hizo su última transformación, no a la del puerto por donde salió. Una parte no tiene provincia (plataforma continental, extranjero o indeterminado), por eso las provincias no suman el total del país. El último año es provisorio.</p>
       <div class="pie"><span>Fuente: INDEC, Origen Provincial de las Exportaciones (el último año es provisorio). Se actualiza cada año.</span><a href="datos/exportaciones_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
@@ -221,8 +221,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <h2>¿Qué compra la Argentina?</h2>
       <p class="ficha-sub">Importaciones de bienes por uso económico, en millones de dólares por año, 1992 a 2025</p>
       <div class="grafico" data-g="importaciones" data-forma="lineas" style="--alto:383px;--alto-c:343px"></div>
-      <p class="lead" data-t="importaciones"></p>
-      <p class="nota" data-t="importaciones-nota"></p>
+      <p class="lead" data-t="importaciones">En 2025, el 32,1% de lo importado fueron bienes intermedios, los insumos que se transforman en el país, el 19,9% piezas y accesorios y el 19,9% bienes de capital, como máquinas y equipos. Los bienes de consumo fueron el 15,0% y los autos, el 7,5%. Frente al año anterior, las compras de bienes de consumo crecieron 54,0% y las de autos crecieron 97,6%. Las de combustibles tuvieron su máximo en 2022, con 12.868 millones de dólares, y en 2025 fueron el 4,3% del total.</p>
+      <p class="nota" data-t="importaciones-nota">Valores CIF (con el flete y el seguro), en dólares de cada año. Es la clasificación por uso económico del INDEC: los bienes intermedios son insumos como productos químicos, plásticos, metales o minerales, las piezas y accesorios son partes de máquinas y vehículos, los bienes de capital son máquinas, equipos y vehículos de carga, y los vehículos de pasajeros son los autos. El año en curso, incompleto, no va en el gráfico.</p>
       <div class="pie"><span>Fuente: INDEC, intercambio comercial argentino, vía la API de Series de Tiempo. Se actualiza cada mes.</span><a href="datos/importaciones_usos.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
@@ -230,8 +230,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <h2>¿De dónde vienen las importaciones?</h2>
       <p class="ficha-sub">Importaciones de bienes por origen, en % del total, enero a septiembre de 2026</p>
       <div class="grafico" data-g="origen" data-forma="barras" style="--filas:25"></div>
-      <p class="lead" data-t="origen"></p>
-      <p class="nota" data-t="origen-nota"></p>
+      <p class="lead" data-t="origen">Después de China vinieron Brasil (21,4%) y Estados Unidos (9,2%). En total se importaron 56.069 millones de dólares, un 2,5% menos que en los mismos meses del año anterior. Entre los cinco primeros orígenes, las compras que más crecieron fueron las de Paraguay (+47,9%) y las que más cayeron, las de Brasil (−17,0%).</p>
+      <p class="nota" data-t="origen-nota">Importaciones de bienes según el país de origen, en dólares CIF, desde enero hasta el último mes publicado y comparadas con los mismos meses del año anterior. Las zonas que juntan varios países (resto de la Unión Europea, resto de América Latina sin México, resto del Sudeste Asiático) no incluyen a los que aparecen solos. México y Canadá son los socios de los Estados Unidos en el tratado comercial de América del Norte. No van los orígenes que no llegan al 0,05%. Datos provisorios.</p>
       <div class="pie"><span>Fuente: INDEC, intercambio comercial argentino, importaciones por zona económica y país (provisorio). Se actualiza cada mes.</span><a href="datos/importaciones_origen.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
@@ -246,8 +246,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
         <button type="button" data-m="importa" aria-pressed="false">Importaciones</button>
       </div>
       <div class="grafico" data-g="socios" data-forma="barras" style="--filas:16"></div>
-      <p class="lead" data-t="socios"></p>
-      <p class="nota" data-t="socios-nota"></p>
+      <p class="lead" data-t="socios">Entre octubre de 2025 y septiembre de 2026, la Argentina exportó 100.845 millones de dólares en bienes e importó 74.373 millones. Con 9 de sus 15 principales socios vendió más de lo que compró, y el mayor saldo a favor fue con Chile: 5.495 millones. El 12,4% de lo exportado no tiene país informado, así que lo vendido a cada país, y su saldo, pueden ser más altos que lo que se ve.</p>
+      <p class="nota" data-t="socios-nota">Exportaciones en valores FOB (la mercadería puesta en el puerto o en la frontera) e importaciones en valores CIF (con el flete y el seguro), en dólares, sumadas en los últimos doce meses publicados. El saldo es la diferencia entre las dos. Son los 15 países con más comercio, sumando lo exportado y lo importado: la tabla descargable tiene los 202. Desde 2018 el INDEC publica una parte de las exportaciones como confidenciales, sin rubro ni país, para que no se pueda deducir lo que vende una empresa: van en "Sin país informado". Un saldo en contra con un país no es en sí bueno ni malo: se compra a unos y se vende a otros, y lo que cuenta para las cuentas externas es el saldo con todos.</p>
       <div class="pie"><span>Fuente: INDEC, exportaciones e importaciones de bienes por país, vía el Catálogo API-INDEC. Se actualiza cada mes.</span><a href="datos/comercio_socios.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
@@ -259,8 +259,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
         <button type="button" data-m="exporta" aria-pressed="false">Exportaciones</button>
       </div>
       <div class="grafico" data-g="socios-hist" data-forma="lineas"></div>
-      <p class="lead" data-t="socios-hist"></p>
-      <p class="nota" data-t="socios-hist-nota"></p>
+      <p class="lead" data-t="socios-hist">Parte de cada país en lo que importó la Argentina: en 1991, Brasil 18,5%, China 2,3%, Estados Unidos 17,8% y Alemania 7,6%. En 2025, Brasil 24,3%, Estados Unidos 8,7% y Alemania 4,1%. China le vendió a la Argentina más que Brasil en 2021 y 2022.</p>
+      <p class="nota" data-t="socios-hist-nota">Parte de cada país en el total de cada año, con los valores en dólares del INDEC: FOB las exportaciones y CIF las importaciones. En cada sentido, los 4 países que más pesaron en 2025, la tabla descargable tiene todos. Lo que no tiene país informado cuenta en el total: en las exportaciones, desde 2018, sobre todo por el secreto estadístico. Por eso la parte de cada país en esos años puede ser más baja que la real. La serie empieza en 1991: en los años anteriores, que el INDEC también publica, una parte grande del comercio figura sin país y Alemania no aparece. El año en curso, incompleto, no va en el gráfico.</p>
       <div class="pie"><span>Fuente: INDEC, exportaciones e importaciones de bienes por país, vía el Catálogo API-INDEC. Se actualiza cada año.</span><a href="datos/comercio_socios_historia.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
@@ -275,8 +275,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       </div>
       <div class="pol-ley" id="socios-que-ley" aria-hidden="true"></div>
       <div class="grafico" data-g="socios-que" data-forma="barras" style="--filas:3"></div>
-      <p class="lead" data-t="socios-que"></p>
-      <p class="nota" data-t="socios-que-nota"></p>
+      <p class="lead" data-t="socios-que">En 2025, la Argentina le vendió 12.769 millones de dólares a Brasil y 9.117 millones a China. De lo que le vendió a Brasil, el 64,2% fueron manufacturas industriales. De lo que le vendió a China, el 63,8% fueron productos primarios. Cada kilo vendido valió 1,12 dólares con Brasil, 0,59 dólares con China y 0,60 dólares con todo el mundo. Hay 9.864 millones de dólares, el 11,3% de lo exportado, sin país ni rubro informado por el secreto estadístico: con ellos, estas proporciones podrían ser otras.</p>
+      <p class="nota" data-t="socios-que-nota">Valor FOB de las exportaciones y CIF de las importaciones, en dólares, del INDEC. Se pueden elegir los 85 países con al menos 50 millones de dólares de intercambio en 2025. Desde 2018, el INDEC publica parte de las exportaciones como confidenciales, sin país ni rubro. En la fila de todo el mundo son "Sin rubro informado" y no están en la de ningún país. Por eso estos porcentajes no son los de "¿Qué exporta la Argentina?", donde el INDEC reparte lo confidencial entre los rubros. El valor por kilo es el total en dólares dividido por el peso neto, en dólares de cada año: mezcla productos muy distintos y no es un precio.</p>
       <div class="pie"><span>Fuente: INDEC, exportaciones por rubro e importaciones por uso económico y país, vía el Catálogo API-INDEC. Se actualiza cada año.</span><a href="datos/comercio_rubro_pais.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
@@ -288,8 +288,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
         <button type="button" data-m="rubro" aria-pressed="false">Por rubro</button>
       </div>
       <div class="grafico" data-g="valor-kilo" data-forma="lineas"></div>
-      <p class="lead" data-t="valor-kilo"></p>
-      <p class="nota" data-t="valor-kilo-nota"></p>
+      <p class="lead" data-t="valor-kilo">Un kilo importado valió 2,27 dólares en 2025, 3,8 veces lo que un kilo exportado. Eso no quiere decir que el mismo producto se venda barato y se compre caro: el 70,5% de los kilos exportados son productos primarios y manufacturas agropecuarias, que pesan mucho y valen poco por kilo. La vista por rubro compara cada tipo de bien.</p>
+      <p class="nota" data-t="valor-kilo-nota">Valor FOB de las exportaciones y CIF de las importaciones, en dólares de cada año, sin descontar la inflación, dividido por el peso neto, del INDEC. El CIF incluye el flete y el seguro hasta la Argentina, y el FOB no. Cuenta solo lo que tiene peso informado: queda afuera el 1,7% de lo importado en 2025. Lo confidencial de las exportaciones entra en el total, y no en ningún rubro. Los promedios cambian con lo que se vende y se compra cada año: una suba no quiere decir que el mismo producto valga más.</p>
       <div class="pie"><span>Fuente: INDEC, valor y peso de las exportaciones y las importaciones de bienes, vía el Catálogo API-INDEC. Se actualiza cada año.</span><a href="datos/comercio_valor_kilo.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
@@ -299,8 +299,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <h2>¿Cuál es el saldo con el exterior en bienes, servicios y rentas?</h2>
       <p class="ficha-sub">Cuenta corriente del balance de pagos y sus partes, en millones de dólares por año, 2006 a 2025</p>
       <div class="grafico" data-g="cuenta-corriente" data-forma="lineas"></div>
-      <p class="lead" data-t="cuenta-corriente"></p>
-      <p class="nota" data-t="cuenta-corriente-nota"></p>
+      <p class="lead" data-t="cuenta-corriente">En 2025, el comercio de bienes dejó un saldo de 15.359 millones a favor, los servicios, de 11.601 millones en contra, el ingreso primario (intereses, utilidades y dividendos), de 14.079 millones en contra y las transferencias, de 2.532 millones a favor. El saldo de bienes no coincide con el de la primera ficha porque el balance de pagos los registra y los valúa de otra manera. Desde 2006, la cuenta corriente tuvo superávit en 7 años: 2006, 2007, 2008, 2009, 2020, 2021 y 2024. En el segundo trimestre de 2026, el último publicado, el saldo fue de 2.214 millones a favor.</p>
+      <p class="nota" data-t="cuenta-corriente-nota">Balance de pagos del INDEC, con la metodología del sexto manual del FMI. La cuenta corriente suma el saldo de los bienes (valuados FOB y registrados cuando cambian de dueño, por eso difiere del intercambio comercial de más arriba), el de los servicios (viajes, fletes, seguros y servicios profesionales e informáticos), el del ingreso primario (los intereses, las utilidades y los dividendos que se pagan y se cobran con el exterior, y los salarios) y el del ingreso secundario (transferencias, como las remesas). Cuando la cuenta corriente tiene déficit, la diferencia se cubre con deuda, inversiones del exterior o reservas: esos movimientos van en la cuenta financiera del balance de pagos, que esta ficha no muestra. El gráfico no muestra el ingreso secundario, que es chico, pero el total lo incluye. El año en curso, incompleto, no va en el gráfico.</p>
       <div class="pie"><span>Fuente: INDEC, balance de pagos, vía la API de Series de Tiempo. Se actualiza cada tres meses.</span><a href="datos/cuenta_corriente.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
@@ -328,10 +328,10 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
         </div>
         <div class="grafico" data-g="reservas-netas" data-forma="lineas"></div>
       </div>
-      <p data-panel="pan-f-reservas-bcra-1" class="lead" data-t="reservas-bcra"></p>
-      <p data-panel="pan-f-reservas-bcra-1" class="nota" data-t="reservas-bcra-nota"></p>
+      <p data-panel="pan-f-reservas-bcra-1" class="lead" data-t="reservas-bcra">Un año antes, las reservas brutas eran 40.500 millones de dólares. El máximo de la serie, con los datos de cada día, fue de 77.481 millones, en abril de 2019. En lo que va de 2026 subieron 8.492 millones: lo que más las hizo subir fueron las compras de divisas (+16.028 millones) y lo que más las hizo bajar, las operaciones con organismos internacionales (−5.859 millones).</p>
+      <p data-panel="pan-f-reservas-bcra-1" class="nota" data-t="reservas-bcra-nota">Reservas internacionales brutas del Banco Central: el oro, las divisas, las colocaciones y los demás activos en el exterior. Incluyen algunos que tienen una deuda como contrapartida, como los depósitos en dólares que los bancos dejan en el BCRA o los canjes de monedas con otros bancos centrales, por eso no todas se pueden usar libremente: la pestaña de las netas las desagrega y resta esas deudas. Cada punto es el último día con dato de cada mes, desde 1940 con la serie mensual del BCRA. "Meses de importación" divide las reservas por el promedio mensual de lo importado en los doce meses anteriores (INDEC): una referencia tradicional es que cubran al menos tres meses. "Qué las movió" muestra los factores con que el BCRA explica la variación de las reservas en lo que va del año, hasta el 5 de noviembre de 2026: compras y ventas de divisas, préstamos y pagos de organismos internacionales como el FMI, otras operaciones del Tesoro, cambios en el efectivo mínimo que los bancos dejan en el BCRA y otras operaciones, entre ellas los cambios de cotización del oro y de las monedas. La tabla trae esos factores por año desde 2003.</p>
       <p data-panel="pan-f-reservas-bcra-2" hidden class="lead" data-t="reservas-netas"></p>
-      <p data-panel="pan-f-reservas-bcra-2" hidden class="nota" data-t="reservas-netas-nota"></p>
+      <p data-panel="pan-f-reservas-bcra-2" hidden class="nota" data-t="reservas-netas-nota">Las reservas netas son, con el criterio de Datina, las brutas menos todo lo que el BCRA tiene que pagar o devolver en moneda extranjera dentro de un año según su planilla de reservas internacionales y liquidez, que publica cada mes con el formato del FMI: los dólares que los bancos dejan en el BCRA como respaldo de los depósitos en dólares, los depósitos del Tesoro, otras deudas a un año, el tramo a término del canje de monedas con el Banco Popular de China (los yuanes cuentan en las brutas, pero hay que devolverlos) y los pases con bancos del exterior. No hay una cifra oficial de reservas netas: otras estimaciones no restan los depósitos del Tesoro o restan también los préstamos de organismos internacionales, y dan otros números. Hasta 2021 la planilla anota el canje con China junto con los pases. Las brutas de la planilla coinciden con las de la API del BCRA. El oro se valúa al precio de mercado y los derechos especiales de giro (DEG) son la moneda del FMI.</p>
       <div class="pie"><span>Fuentes: BCRA, API de Estadísticas Monetarias y planilla de reservas internacionales y liquidez en moneda extranjera (formato del FMI), mensual. Se actualiza cada mes.</span><a href="datos/reservas_bcra.csv" data-panel="pan-f-reservas-bcra-1" download>Reservas por mes (CSV)</a><a href="datos/reservas_factores.csv" data-panel="pan-f-reservas-bcra-1" download>Qué las movió, por año (CSV)</a><a href="datos/reservas_netas.csv" data-panel="pan-f-reservas-bcra-2" hidden download>Descargar tabla (CSV)</a></div>
     </article>
 
