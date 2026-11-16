@@ -180,6 +180,19 @@ Lo que explica los números (de los informes de Lighthouse de la portada y de Ne
 
 Los 24 artículos y Corte Suprema se leen enteros sin JavaScript. Quedan: el texto propio de cada provincia en su página fija (la tercera parte: hoy las 24 muestran sin JavaScript el mismo texto, sin sus cifras, y su párrafo de escuelas y hospitales vacío), los 12 párrafos de los capítulos de Instituciones políticas que no están a la vista y unos pocos de Precios y actividad, Sector externo, Cuentas públicas, Población, Pobreza y hogares y Salud, que se escriben cuando se dibuja su gráfico.
 
+#### Tercera parte, hecha el mismo día
+
+En las 24 páginas fijas, `texto_en_html.mjs` escribe también las tarjetas del perfil, "Dónde se destaca", "Cómo cambió su puesto" y los censos, ya completos y sin sus gráficos (cada `svg` queda vacío), con los enlaces a las fichas de otra página resueltos como lo hace `destinoDe`. "Comparar con otra provincia" no entra: es un selector. Y 03 escribe en cada página fija su título ("Neuquén en números"), su línea de habitantes y su historia, a la vista: antes llevaba el título de la página general y las historias de las 24, ocultas, así que un buscador leía el mismo texto en las 24 páginas. Las otras 23 ya no van (cada página pasa de 226 KB a 84 KB).
+
+| 85 páginas, sin JavaScript | 11 de noviembre | 16 de noviembre, al final |
+|---|---|---|
+| Palabras | 75% | 88% (204.069 de 231.306) |
+| Cifras | 55% | 87% (25.291 de 29.000) |
+| Páginas sin título (h1) | 25 | 0 |
+| Interpretaciones vacías | 209 de 212 | 47 de 220 |
+
+El total de palabras con JavaScript baja de 524.786 a 231.306 porque las páginas fijas ya no repiten las 24 historias. Cada página de provincia da ahora 91% o 92% de sus palabras y 94% o 95% de sus cifras sin JavaScript. Las interpretaciones que siguen vacías: el párrafo de escuelas y hospitales de cada provincia (se escribe cuando llega su tabla), los capítulos de Instituciones políticas que no están a la vista y unas pocas que se escriben al dibujar su gráfico. La fase 4 queda cumplida según su criterio (los artículos y las interpretaciones con texto sin JavaScript). Falta medir Lighthouse antes y después, con la fase 5.
+
 ### Fase 5. Rendimiento
 
 - Medir de nuevo y comparar con la fase 0.
