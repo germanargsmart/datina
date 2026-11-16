@@ -3,7 +3,7 @@
  "titulo": "¿Cuántos chicos de 6° grado tienen un nivel satisfactorio en Aprender?",
  "descripcion": "Estudiantes de 6° grado con nivel satisfactorio o avanzado en Aprender por provincia, 2025",
  "seccion": "Educación",
- "ficha": "https://datina.com.ar/educacion.html#f-aprender",
+ "ficha": "https://datina.com.ar/educacion#f-aprender",
  "fuente": "Secretaría de Educación, evaluación Aprender, base agregada.",
  "organismos": [
   "Secretaría de Educación"
@@ -76,6 +76,6 @@
  ],
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿Cuántos chicos de 6° grado tienen un nivel satisfactorio en Aprender? Con datos de Secretaría de Educación, evaluación Aprender, base agregada. https://datina.com.ar/educacion.html#f-aprender. Consultado el día de la consulta.",
+ "como_citar": "Datina (año de la consulta). ¿Cuántos chicos de 6° grado tienen un nivel satisfactorio en Aprender? Con datos de Secretaría de Educación, evaluación Aprender, base agregada. https://datina.com.ar/educacion#f-aprender. Consultado el día de la consulta.",
  "datos_actualizados": "15/11/2026"
 }

@@ -3,7 +3,7 @@
  "titulo": "¿Cuánta gente no tiene obra social, prepaga ni plan estatal de salud?",
  "descripcion": "Personas sin obra social, prepaga ni plan estatal de salud, y cada tipo de cobertura, en % de la población de cada provincia, Censo 2022",
  "seccion": "Salud",
- "ficha": "https://datina.com.ar/salud.html#f-cobertura",
+ "ficha": "https://datina.com.ar/salud#f-cobertura",
  "fuente": "INDEC, Censo Nacional de Población, Hogares y Viviendas 2022.",
  "organismos": [
   "INDEC (Instituto Nacional de Estadística y Censos)"
@@ -59,6 +59,6 @@
  ],
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿Cuánta gente no tiene obra social, prepaga ni plan estatal de salud? Con datos de INDEC, Censo Nacional de Población, Hogares y Viviendas 2022. https://datina.com.ar/salud.html#f-cobertura. Consultado el día de la consulta.",
+ "como_citar": "Datina (año de la consulta). ¿Cuánta gente no tiene obra social, prepaga ni plan estatal de salud? Con datos de INDEC, Censo Nacional de Población, Hogares y Viviendas 2022. https://datina.com.ar/salud#f-cobertura. Consultado el día de la consulta.",
  "datos_actualizados": "15/11/2026"
 }

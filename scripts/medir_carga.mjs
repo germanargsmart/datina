@@ -17,6 +17,8 @@ const TIPOS = {".html": "text/html; charset=utf-8", ".js": "text/javascript; cha
 const servidor = createServer((req, res) => {
   let ruta = decodeURIComponent(new URL(req.url, "http://local").pathname);
   if (ruta.endsWith("/")) ruta += "index.html";
+  // como Cloudflare Pages: /trabajo sirve trabajo.html (los enlaces van sin el .html desde el 16 de noviembre de 2026)
+  else if (!/\.[a-z0-9]+$/i.test(ruta)) ruta += ".html";
   const archivo = normalize(join(SITIO, ruta));
   if (!archivo.startsWith(SITIO)) { res.writeHead(403); res.end(); return; }
   try { const d = readFileSync(archivo); res.writeHead(200, {"Content-Type": TIPOS[extname(archivo)] || "application/octet-stream"}); res.end(d); }

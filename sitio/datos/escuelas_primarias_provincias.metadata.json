@@ -3,7 +3,7 @@
  "titulo": "¿Dónde hay más escuelas primarias por chico?",
  "descripcion": "Escuelas primarias cada 1.000 chicos de 5 a 14 años, por provincia, junio de 2026",
  "seccion": "Educación",
- "ficha": "https://datina.com.ar/educacion.html#f-escuelas-primarias",
+ "ficha": "https://datina.com.ar/educacion#f-escuelas-primarias",
  "fuente": "Padrón Oficial de Establecimientos Educativos, Secretaría de Educación, e INDEC, proyecciones de población.",
  "organismos": [
   "Secretaría de Educación",
@@ -89,6 +89,6 @@
  ],
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿Dónde hay más escuelas primarias por chico? Con datos de Padrón Oficial de Establecimientos Educativos, Secretaría de Educación, e INDEC, proyecciones de población. https://datina.com.ar/educacion.html#f-escuelas-primarias. Consultado el día de la consulta.",
+ "como_citar": "Datina (año de la consulta). ¿Dónde hay más escuelas primarias por chico? Con datos de Padrón Oficial de Establecimientos Educativos, Secretaría de Educación, e INDEC, proyecciones de población. https://datina.com.ar/educacion#f-escuelas-primarias. Consultado el día de la consulta.",
  "datos_actualizados": "15/11/2026"
 }

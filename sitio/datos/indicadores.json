@@ -37,7 +37,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/educacion.html#f-abandono"
+   "ficha": "https://datina.com.ar/educacion#f-abandono"
   },
   {
    "variable": "antartida_gasto",
@@ -109,7 +109,7 @@
    "jurisdicciones": [
     "00"
    ],
-   "ficha": "https://datina.com.ar/poblacion.html#f-envejecimiento"
+   "ficha": "https://datina.com.ar/poblacion#f-envejecimiento"
   },
   {
    "variable": "aprender_lengua_satisfactorio_o_avanzado",
@@ -145,7 +145,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/educacion.html#f-aprender"
+   "ficha": "https://datina.com.ar/educacion#f-aprender"
   },
   {
    "variable": "aprender_matematica_satisfactorio_o_avanzado",
@@ -181,7 +181,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/educacion.html#f-aprender"
+   "ficha": "https://datina.com.ar/educacion#f-aprender"
   },
   {
    "variable": "asalariados_privados_registrados",
@@ -216,7 +216,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/trabajo.html#f-empleo"
+   "ficha": "https://datina.com.ar/trabajo#f-empleo"
   },
   {
    "variable": "auh_cada_100_menores",
@@ -251,7 +251,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/pobreza.html#f-auh"
+   "ficha": "https://datina.com.ar/pobreza#f-auh"
   },
   {
    "variable": "autos_nuevos_inscriptos",
@@ -263,7 +263,7 @@
    "jurisdicciones": [
     "00"
    ],
-   "ficha": "https://datina.com.ar/movilidad.html#f-patentes"
+   "ficha": "https://datina.com.ar/movilidad#f-patentes"
   },
   {
    "variable": "beneficiarios_prestacion_desempleo",
@@ -275,7 +275,7 @@
    "jurisdicciones": [
     "00"
    ],
-   "ficha": "https://datina.com.ar/trabajo.html#f-desempleo"
+   "ficha": "https://datina.com.ar/trabajo#f-desempleo"
   },
   {
    "variable": "bis_credito_hogares",
@@ -359,7 +359,7 @@
    "jurisdicciones": [
     "00"
    ],
-   "ficha": "https://datina.com.ar/poblacion.html#f-nacimientos"
+   "ficha": "https://datina.com.ar/poblacion#f-nacimientos"
   },
   {
    "variable": "bm_fecundidad_adolescente",
@@ -371,7 +371,7 @@
    "jurisdicciones": [
     "00"
    ],
-   "ficha": "https://datina.com.ar/poblacion.html#f-adolescentes"
+   "ficha": "https://datina.com.ar/poblacion#f-adolescentes"
   },
   {
    "variable": "bm_gasto_salud",
@@ -479,7 +479,7 @@
    "jurisdicciones": [
     "00"
    ],
-   "ficha": "https://datina.com.ar/educacion.html#f-escolarizacion"
+   "ficha": "https://datina.com.ar/educacion#f-escolarizacion"
   },
   {
    "variable": "bm_turistas",
@@ -539,7 +539,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/naturaleza.html#f-cobertura-suelo"
+   "ficha": "https://datina.com.ar/naturaleza#f-cobertura-suelo"
   },
   {
    "variable": "cargos_administracion_provincial_cada_1000_habitantes",
@@ -574,7 +574,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/gobierno.html#f-empleo-publico"
+   "ficha": "https://datina.com.ar/gobierno#f-empleo-publico"
   },
   {
    "variable": "casos_dengue_cada_100000",
@@ -610,7 +610,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/salud.html#f-dengue"
+   "ficha": "https://datina.com.ar/salud#f-dengue"
   },
   {
    "variable": "casos_dengue_temporada",
@@ -622,7 +622,7 @@
    "jurisdicciones": [
     "00"
    ],
-   "ficha": "https://datina.com.ar/salud.html#f-dengue"
+   "ficha": "https://datina.com.ar/salud#f-dengue"
   },
   {
    "variable": "censo2022_agua_red",
@@ -832,7 +832,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/salud.html#f-cobertura"
+   "ficha": "https://datina.com.ar/salud#f-cobertura"
   },
   {
    "variable": "censo2022_plan_estatal_salud",
@@ -867,7 +867,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/salud.html#f-cobertura"
+   "ficha": "https://datina.com.ar/salud#f-cobertura"
   },
   {
    "variable": "censo2022_sin_cobertura",
@@ -902,7 +902,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/salud.html#f-cobertura"
+   "ficha": "https://datina.com.ar/salud#f-cobertura"
   },
   {
    "variable": "cobertura_triple_viral_dosis1",
@@ -937,7 +937,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/salud.html#f-vacunas"
+   "ficha": "https://datina.com.ar/salud#f-vacunas"
   },
   {
    "variable": "cobertura_triple_viral_dosis2",
@@ -972,7 +972,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/salud.html#f-vacunas"
+   "ficha": "https://datina.com.ar/salud#f-vacunas"
   },
   {
    "variable": "compras_netas_billetes_divisas_sector_privado",
@@ -996,7 +996,7 @@
    "jurisdicciones": [
     "00"
    ],
-   "ficha": "https://datina.com.ar/curiosidades.html#f-carne"
+   "ficha": "https://datina.com.ar/curiosidades#f-carne"
   },
   {
    "variable": "corte_casos_ingresados",
@@ -1008,7 +1008,7 @@
    "jurisdicciones": [
     "00"
    ],
-   "ficha": "https://datina.com.ar/justicia.html#f-corte-casos"
+   "ficha": "https://datina.com.ar/justicia#f-corte-casos"
   },
   {
    "variable": "corte_casos_resueltos",
@@ -1020,7 +1020,7 @@
    "jurisdicciones": [
     "00"
    ],
-   "ficha": "https://datina.com.ar/justicia.html#f-corte-casos"
+   "ficha": "https://datina.com.ar/justicia#f-corte-casos"
   },
   {
    "variable": "cuenta_corriente_usd",
@@ -1032,7 +1032,7 @@
    "jurisdicciones": [
     "00"
    ],
-   "ficha": "https://datina.com.ar/externo.html#f-cuenta-corriente"
+   "ficha": "https://datina.com.ar/externo#f-cuenta-corriente"
   },
   {
    "variable": "defensores_provinciales_cada_100mil",
@@ -1066,7 +1066,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/justicia.html#f-justicia-provincial"
+   "ficha": "https://datina.com.ar/justicia#f-justicia-provincial"
   },
   {
    "variable": "defensorias_federales",
@@ -1101,7 +1101,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/justicia.html#f-fiscalias-federales"
+   "ficha": "https://datina.com.ar/justicia#f-fiscalias-federales"
   },
   {
    "variable": "demanda_electrica_residencial",
@@ -1113,7 +1113,7 @@
    "jurisdicciones": [
     "00"
    ],
-   "ficha": "https://datina.com.ar/energia.html#f-hogares"
+   "ficha": "https://datina.com.ar/energia#f-hogares"
   },
   {
    "variable": "demanda_electrica_total",
@@ -1125,7 +1125,7 @@
    "jurisdicciones": [
     "00"
    ],
-   "ficha": "https://datina.com.ar/energia.html#f-hogares"
+   "ficha": "https://datina.com.ar/energia#f-hogares"
   },
   {
    "variable": "desembarques_pesca_maritima",
@@ -1137,7 +1137,7 @@
    "jurisdicciones": [
     "00"
    ],
-   "ficha": "https://datina.com.ar/naturaleza.html#f-pesca"
+   "ficha": "https://datina.com.ar/naturaleza#f-pesca"
   },
   {
    "variable": "desempleo_cada_1000_habitantes",
@@ -1172,7 +1172,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/trabajo.html#f-desempleo"
+   "ficha": "https://datina.com.ar/trabajo#f-desempleo"
   },
   {
    "variable": "desempleo_cada_100_asalariados_privados",
@@ -1207,7 +1207,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/trabajo.html#f-desempleo"
+   "ficha": "https://datina.com.ar/trabajo#f-desempleo"
   },
   {
    "variable": "desvio_temperatura_media_anual",
@@ -1219,7 +1219,7 @@
    "jurisdicciones": [
     "00"
    ],
-   "ficha": "https://datina.com.ar/naturaleza.html#f-clima"
+   "ficha": "https://datina.com.ar/naturaleza#f-clima"
   },
   {
    "variable": "deuda_bruta_administracion_central_pct_pbi",
@@ -1231,7 +1231,7 @@
    "jurisdicciones": [
     "00"
    ],
-   "ficha": "https://datina.com.ar/gobierno.html#f-deuda"
+   "ficha": "https://datina.com.ar/gobierno#f-deuda"
   },
   {
    "variable": "deuda_provincial_por_habitante",
@@ -1265,7 +1265,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/gobierno.html#f-deuda-provincias"
+   "ficha": "https://datina.com.ar/gobierno#f-deuda-provincias"
   },
   {
    "variable": "eia_produccion_crudo",
@@ -1277,7 +1277,7 @@
    "jurisdicciones": [
     "00"
    ],
-   "ficha": "https://datina.com.ar/petroleo.html#f-mundo-petroleo"
+   "ficha": "https://datina.com.ar/petroleo#f-mundo-petroleo"
   },
   {
    "variable": "electricidad_comercial_por_habitante",
@@ -1310,7 +1310,7 @@
     "86",
     "90"
    ],
-   "ficha": "https://datina.com.ar/energia.html#f-electricidad-sectores"
+   "ficha": "https://datina.com.ar/energia#f-electricidad-sectores"
   },
   {
    "variable": "electricidad_industrial_por_habitante",
@@ -1343,7 +1343,7 @@
     "86",
     "90"
    ],
-   "ficha": "https://datina.com.ar/energia.html#f-electricidad-sectores"
+   "ficha": "https://datina.com.ar/energia#f-electricidad-sectores"
   },
   {
    "variable": "electricidad_residencial_gwh",
@@ -1355,7 +1355,7 @@
    "jurisdicciones": [
     "00"
    ],
-   "ficha": "https://datina.com.ar/energia.html#f-electricidad-provincias"
+   "ficha": "https://datina.com.ar/energia#f-electricidad-provincias"
   },
   {
    "variable": "electricidad_residencial_por_habitante",
@@ -1388,7 +1388,7 @@
     "86",
     "90"
    ],
-   "ficha": "https://datina.com.ar/energia.html#f-electricidad-provincias"
+   "ficha": "https://datina.com.ar/energia#f-electricidad-provincias"
   },
   {
    "variable": "emae_promedio_anual",
@@ -1400,7 +1400,7 @@
    "jurisdicciones": [
     "00"
    ],
-   "ficha": "https://datina.com.ar/energia.html#f-hogares"
+   "ficha": "https://datina.com.ar/energia#f-hogares"
   },
   {
    "variable": "ember_eolica_solar",
@@ -1447,7 +1447,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/construccion.html#f-empleo-construccion"
+   "ficha": "https://datina.com.ar/construccion#f-empleo-construccion"
   },
   {
    "variable": "empresas_privadas_cada_1000_habitantes",
@@ -1482,7 +1482,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/empresas.html#f-empresas"
+   "ficha": "https://datina.com.ar/empresas#f-empresas"
   },
   {
    "variable": "escuelas_primarias_cada_1000_chicos_5_14",
@@ -1517,7 +1517,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/educacion.html#f-escuelas-primarias"
+   "ficha": "https://datina.com.ar/educacion#f-escuelas-primarias"
   },
   {
    "variable": "escuelas_secundarias_cada_1000_chicos_12_17",
@@ -1552,7 +1552,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/educacion.html#f-escuelas-secundarias"
+   "ficha": "https://datina.com.ar/educacion#f-escuelas-secundarias"
   },
   {
    "variable": "esperanza_vida_al_nacer",
@@ -1587,7 +1587,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/salud.html#f-esperanza"
+   "ficha": "https://datina.com.ar/salud#f-esperanza"
   },
   {
    "variable": "estimador_mensual_actividad_economica",
@@ -1611,7 +1611,7 @@
    "jurisdicciones": [
     "00"
    ],
-   "ficha": "https://datina.com.ar/petroleo.html#f-fracturas"
+   "ficha": "https://datina.com.ar/petroleo#f-fracturas"
   },
   {
    "variable": "exportaciones_bienes_usd",
@@ -1623,7 +1623,7 @@
    "jurisdicciones": [
     "00"
    ],
-   "ficha": "https://datina.com.ar/externo.html#f-balanza"
+   "ficha": "https://datina.com.ar/externo#f-balanza"
   },
   {
    "variable": "exportaciones_combustibles_energia",
@@ -1635,7 +1635,7 @@
    "jurisdicciones": [
     "00"
    ],
-   "ficha": "https://datina.com.ar/petroleo.html#f-balanza-energetica"
+   "ficha": "https://datina.com.ar/petroleo#f-balanza-energetica"
   },
   {
    "variable": "exportaciones_usd_por_habitante",
@@ -1670,7 +1670,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/trabajo.html#f-exportaciones"
+   "ficha": "https://datina.com.ar/trabajo#f-exportaciones"
   },
   {
    "variable": "fiscales_provinciales_cada_100mil",
@@ -1704,7 +1704,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/justicia.html#f-justicia-provincial"
+   "ficha": "https://datina.com.ar/justicia#f-justicia-provincial"
   },
   {
    "variable": "fiscalias_federales",
@@ -1739,7 +1739,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/justicia.html#f-fiscalias-federales"
+   "ficha": "https://datina.com.ar/justicia#f-fiscalias-federales"
   },
   {
    "variable": "gas_consumo_usuario_residencial",
@@ -1771,7 +1771,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/energia.html#f-gas-consumo"
+   "ficha": "https://datina.com.ar/energia#f-gas-consumo"
   },
   {
    "variable": "gas_no_convencional",
@@ -1783,7 +1783,7 @@
    "jurisdicciones": [
     "00"
    ],
-   "ficha": "https://datina.com.ar/petroleo.html#f-gas"
+   "ficha": "https://datina.com.ar/petroleo#f-gas"
   },
   {
    "variable": "gas_residencial_entregado",
@@ -1795,7 +1795,7 @@
    "jurisdicciones": [
     "00"
    ],
-   "ficha": "https://datina.com.ar/energia.html#f-gas-consumo"
+   "ficha": "https://datina.com.ar/energia#f-gas-consumo"
   },
   {
    "variable": "gasto_educativo_por_alumno_estatal",
@@ -1831,7 +1831,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/educacion.html#f-inversion-educativa"
+   "ficha": "https://datina.com.ar/educacion#f-inversion-educativa"
   },
   {
    "variable": "gasto_personal_pct_gasto",
@@ -1866,7 +1866,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/gobierno.html#f-fiscal"
+   "ficha": "https://datina.com.ar/gobierno#f-fiscal"
   },
   {
    "variable": "ha_terrestres_areas_protegidas_nacionales_acumuladas",
@@ -1878,7 +1878,7 @@
    "jurisdicciones": [
     "00"
    ],
-   "ficha": "https://datina.com.ar/naturaleza.html#f-parques"
+   "ficha": "https://datina.com.ar/naturaleza#f-parques"
   },
   {
    "variable": "haber_minimo_pct_salario",
@@ -1890,7 +1890,7 @@
    "jurisdicciones": [
     "00"
    ],
-   "ficha": "https://datina.com.ar/poblacion.html#f-haberes"
+   "ficha": "https://datina.com.ar/poblacion#f-haberes"
   },
   {
    "variable": "hogares_alquilan",
@@ -1925,7 +1925,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/construccion.html#f-vivienda"
+   "ficha": "https://datina.com.ar/construccion#f-vivienda"
   },
   {
    "variable": "hogares_gas_de_red_cocina",
@@ -1960,7 +1960,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/energia.html#f-gas-hogares"
+   "ficha": "https://datina.com.ar/energia#f-gas-hogares"
   },
   {
    "variable": "hogares_hacinamiento_critico",
@@ -1995,7 +1995,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/construccion.html#f-vivienda"
+   "ficha": "https://datina.com.ar/construccion#f-vivienda"
   },
   {
    "variable": "hospitales_publicos_internacion_cada_100000_habitantes",
@@ -2030,7 +2030,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/salud.html#f-hospitales"
+   "ficha": "https://datina.com.ar/salud#f-hospitales"
   },
   {
    "variable": "hospitales_publicos_terapia_intensiva_cada_100000_habitantes",
@@ -2065,7 +2065,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/salud.html#f-hospitales"
+   "ficha": "https://datina.com.ar/salud#f-hospitales"
   },
   {
    "variable": "importaciones_bienes_usd",
@@ -2077,7 +2077,7 @@
    "jurisdicciones": [
     "00"
    ],
-   "ficha": "https://datina.com.ar/externo.html#f-balanza"
+   "ficha": "https://datina.com.ar/externo#f-balanza"
   },
   {
    "variable": "importaciones_combustibles_lubricantes",
@@ -2089,7 +2089,7 @@
    "jurisdicciones": [
     "00"
    ],
-   "ficha": "https://datina.com.ar/petroleo.html#f-balanza-energetica"
+   "ficha": "https://datina.com.ar/petroleo#f-balanza-energetica"
   },
   {
    "variable": "indice_cantidad_exportaciones",
@@ -2113,7 +2113,7 @@
    "jurisdicciones": [
     "00"
    ],
-   "ficha": "https://datina.com.ar/economia.html#f-confianza-consumidor"
+   "ficha": "https://datina.com.ar/economia#f-confianza-consumidor"
   },
   {
    "variable": "indice_confianza_gobierno",
@@ -2125,7 +2125,7 @@
    "jurisdicciones": [
     "00"
    ],
-   "ficha": "https://datina.com.ar/politica.html#f-confianza-gobierno"
+   "ficha": "https://datina.com.ar/politica#f-confianza-gobierno"
   },
   {
    "variable": "indice_precios_consumidor",
@@ -2137,7 +2137,7 @@
    "jurisdicciones": [
     "00"
    ],
-   "ficha": "https://datina.com.ar/economia.html#f-inflacion"
+   "ficha": "https://datina.com.ar/economia#f-inflacion"
   },
   {
    "variable": "indice_ventas_supermercados_precios_constantes",
@@ -2149,7 +2149,7 @@
    "jurisdicciones": [
     "00"
    ],
-   "ficha": "https://datina.com.ar/economia.html#f-supermercados"
+   "ficha": "https://datina.com.ar/economia#f-supermercados"
   },
   {
    "variable": "indigencia_personas_31_aglomerados",
@@ -2173,7 +2173,7 @@
    "jurisdicciones": [
     "00"
    ],
-   "ficha": "https://datina.com.ar/economia.html#f-expectativas"
+   "ficha": "https://datina.com.ar/economia#f-expectativas"
   },
   {
    "variable": "informalidad_ocupados_31_aglomerados",
@@ -2185,7 +2185,7 @@
    "jurisdicciones": [
     "AGLO"
    ],
-   "ficha": "https://datina.com.ar/trabajo.html#f-informalidad"
+   "ficha": "https://datina.com.ar/trabajo#f-informalidad"
   },
   {
    "variable": "isac_promedio_anual",
@@ -2197,7 +2197,7 @@
    "jurisdicciones": [
     "00"
    ],
-   "ficha": "https://datina.com.ar/construccion.html#f-isac"
+   "ficha": "https://datina.com.ar/construccion#f-isac"
   },
   {
    "variable": "jubilacion_promedio_pct_salario",
@@ -2209,7 +2209,7 @@
    "jurisdicciones": [
     "00"
    ],
-   "ficha": "https://datina.com.ar/poblacion.html#f-haberes"
+   "ficha": "https://datina.com.ar/poblacion#f-haberes"
   },
   {
    "variable": "jueces_federales_cada_100mil",
@@ -2244,7 +2244,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/justicia.html#f-jueces-federales"
+   "ficha": "https://datina.com.ar/justicia#f-jueces-federales"
   },
   {
    "variable": "jueces_federales_cargos",
@@ -2279,7 +2279,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/justicia.html#f-jueces-federales"
+   "ficha": "https://datina.com.ar/justicia#f-jueces-federales"
   },
   {
    "variable": "jueces_provinciales_cada_100mil",
@@ -2314,7 +2314,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/justicia.html#f-justicia-provincial"
+   "ficha": "https://datina.com.ar/justicia#f-justicia-provincial"
   },
   {
    "variable": "m2_protegidos_por_habitante",
@@ -2349,7 +2349,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/naturaleza.html#f-protegida"
+   "ficha": "https://datina.com.ar/naturaleza#f-protegida"
   },
   {
    "variable": "mediana_km_escuelas_rurales_a_hospital_publico",
@@ -2383,7 +2383,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/salud.html#f-distancia-hospital"
+   "ficha": "https://datina.com.ar/salud#f-distancia-hospital"
   },
   {
    "variable": "mediana_km_escuelas_rurales_a_terapia_intensiva_publica",
@@ -2417,7 +2417,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/salud.html#f-distancia-hospital"
+   "ficha": "https://datina.com.ar/salud#f-distancia-hospital"
   },
   {
    "variable": "medicos_activos_cada_10000_habitantes",
@@ -2452,7 +2452,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/salud.html#f-medicos"
+   "ficha": "https://datina.com.ar/salud#f-medicos"
   },
   {
    "variable": "microempresas_pct_empresas_industria_comercio_servicios",
@@ -2487,7 +2487,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/empresas.html#f-empresas-tamano"
+   "ficha": "https://datina.com.ar/empresas#f-empresas-tamano"
   },
   {
    "variable": "motos_nuevas_inscriptas",
@@ -2499,7 +2499,7 @@
    "jurisdicciones": [
     "00"
    ],
-   "ficha": "https://datina.com.ar/movilidad.html#f-patentes"
+   "ficha": "https://datina.com.ar/movilidad#f-patentes"
   },
   {
    "variable": "nacidos_en_argentina_en_otro_pais",
@@ -2523,7 +2523,7 @@
    "jurisdicciones": [
     "00"
    ],
-   "ficha": "https://datina.com.ar/poblacion.html#f-nacimientos"
+   "ficha": "https://datina.com.ar/poblacion#f-nacimientos"
   },
   {
    "variable": "obra_publica_nacion_por_habitante",
@@ -2558,7 +2558,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/construccion.html#f-obra-publica"
+   "ficha": "https://datina.com.ar/construccion#f-obra-publica"
   },
   {
    "variable": "ocupados_construccion_censo",
@@ -2593,7 +2593,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/construccion.html#f-empleo-construccion"
+   "ficha": "https://datina.com.ar/construccion#f-empleo-construccion"
   },
   {
    "variable": "participacion_presidencial",
@@ -2628,7 +2628,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/politica.html#f-elecciones"
+   "ficha": "https://datina.com.ar/politica#f-elecciones"
   },
   {
    "variable": "pct_nacimientos_madres_menores_20",
@@ -2663,7 +2663,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/poblacion.html#f-adolescentes"
+   "ficha": "https://datina.com.ar/poblacion#f-adolescentes"
   },
   {
    "variable": "pct_personas_privadas_de_libertad_sin_condena",
@@ -2698,7 +2698,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/seguridad.html#f-sin-condena"
+   "ficha": "https://datina.com.ar/seguridad#f-sin-condena"
   },
   {
    "variable": "pct_territorio_protegido",
@@ -2733,7 +2733,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/naturaleza.html#f-protegida"
+   "ficha": "https://datina.com.ar/naturaleza#f-protegida"
   },
   {
    "variable": "pensiones_invalidez_cada_1000_habitantes",
@@ -2768,7 +2768,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/pobreza.html#f-pensiones-invalidez"
+   "ficha": "https://datina.com.ar/pobreza#f-pensiones-invalidez"
   },
   {
    "variable": "pensiones_no_contributivas_invalidez",
@@ -2780,7 +2780,7 @@
    "jurisdicciones": [
     "00"
    ],
-   "ficha": "https://datina.com.ar/pobreza.html#f-pensiones-invalidez"
+   "ficha": "https://datina.com.ar/pobreza#f-pensiones-invalidez"
   },
   {
    "variable": "personas_65_mas_cada_100_de_15_a_64",
@@ -2815,7 +2815,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/poblacion.html#f-envejecimiento"
+   "ficha": "https://datina.com.ar/poblacion#f-envejecimiento"
   },
   {
    "variable": "personas_privadas_de_libertad_establecimientos_penitenciarios",
@@ -2839,7 +2839,7 @@
    "jurisdicciones": [
     "00"
    ],
-   "ficha": "https://datina.com.ar/petroleo.html#f-petroleo"
+   "ficha": "https://datina.com.ar/petroleo#f-petroleo"
   },
   {
    "variable": "petroleo_primer_anio_pozo_vaca_muerta",
@@ -2851,7 +2851,7 @@
    "jurisdicciones": [
     "00"
    ],
-   "ficha": "https://datina.com.ar/petroleo.html#f-productividad"
+   "ficha": "https://datina.com.ar/petroleo#f-productividad"
   },
   {
    "variable": "pisa_puntaje_ciencias",
@@ -2863,7 +2863,7 @@
    "jurisdicciones": [
     "00"
    ],
-   "ficha": "https://datina.com.ar/educacion.html#f-pisa"
+   "ficha": "https://datina.com.ar/educacion#f-pisa"
   },
   {
    "variable": "pisa_puntaje_lectura",
@@ -2875,7 +2875,7 @@
    "jurisdicciones": [
     "00"
    ],
-   "ficha": "https://datina.com.ar/educacion.html#f-pisa"
+   "ficha": "https://datina.com.ar/educacion#f-pisa"
   },
   {
    "variable": "pisa_puntaje_matematica",
@@ -2887,7 +2887,7 @@
    "jurisdicciones": [
     "00"
    ],
-   "ficha": "https://datina.com.ar/educacion.html#f-pisa"
+   "ficha": "https://datina.com.ar/educacion#f-pisa"
   },
   {
    "variable": "poblacion_5_a_14_anios",
@@ -2922,7 +2922,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/poblacion.html#f-chicos-escuela"
+   "ficha": "https://datina.com.ar/poblacion#f-chicos-escuela"
   },
   {
    "variable": "poblacion_nacida_en_otra_provincia",
@@ -3029,7 +3029,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/poblacion.html#f-poblacion-proy"
+   "ficha": "https://datina.com.ar/poblacion#f-poblacion-proy"
   },
   {
    "variable": "pobreza_0_17_31_aglomerados",
@@ -3041,7 +3041,7 @@
    "jurisdicciones": [
     "AGLO"
    ],
-   "ficha": "https://datina.com.ar/pobreza.html#f-pobreza-ninez"
+   "ficha": "https://datina.com.ar/pobreza#f-pobreza-ninez"
   },
   {
    "variable": "pobreza_aglomerados_de_la_provincia",
@@ -3100,7 +3100,7 @@
    "jurisdicciones": [
     "00"
    ],
-   "ficha": "https://datina.com.ar/energia.html#f-centrales"
+   "ficha": "https://datina.com.ar/energia#f-centrales"
   },
   {
    "variable": "pozos_terminados",
@@ -3112,7 +3112,7 @@
    "jurisdicciones": [
     "00"
    ],
-   "ficha": "https://datina.com.ar/petroleo.html#f-fracturas"
+   "ficha": "https://datina.com.ar/petroleo#f-fracturas"
   },
   {
    "variable": "precio_gasoil_grado_2_surtidor",
@@ -3208,7 +3208,7 @@
    "jurisdicciones": [
     "00"
    ],
-   "ficha": "https://datina.com.ar/petroleo.html#f-gas"
+   "ficha": "https://datina.com.ar/petroleo#f-gas"
   },
   {
    "variable": "produccion_petroleo",
@@ -3220,7 +3220,7 @@
    "jurisdicciones": [
     "00"
    ],
-   "ficha": "https://datina.com.ar/petroleo.html#f-petroleo"
+   "ficha": "https://datina.com.ar/petroleo#f-petroleo"
   },
   {
    "variable": "recaudacion_tributaria_nacional_pct_pbi",
@@ -3232,7 +3232,7 @@
    "jurisdicciones": [
     "00"
    ],
-   "ficha": "https://datina.com.ar/gobierno.html#f-recaudacion"
+   "ficha": "https://datina.com.ar/gobierno#f-recaudacion"
   },
   {
    "variable": "recursos_propios_pct_ingresos",
@@ -3267,7 +3267,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/gobierno.html#f-fiscal"
+   "ficha": "https://datina.com.ar/gobierno#f-fiscal"
   },
   {
    "variable": "recursos_tributarios_provinciales_por_habitante",
@@ -3301,7 +3301,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/gobierno.html#f-impuestos-provinciales"
+   "ficha": "https://datina.com.ar/gobierno#f-impuestos-provinciales"
   },
   {
    "variable": "regalias_pct_ingresos",
@@ -3336,7 +3336,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/petroleo.html#f-regalias"
+   "ficha": "https://datina.com.ar/petroleo#f-regalias"
   },
   {
    "variable": "remuneracion_promedio_asalariados_privados",
@@ -3408,7 +3408,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/educacion.html#f-abandono"
+   "ficha": "https://datina.com.ar/educacion#f-abandono"
   },
   {
    "variable": "reservas_comprobadas_gas",
@@ -3420,7 +3420,7 @@
    "jurisdicciones": [
     "00"
    ],
-   "ficha": "https://datina.com.ar/petroleo.html#f-reservas"
+   "ficha": "https://datina.com.ar/petroleo#f-reservas"
   },
   {
    "variable": "reservas_comprobadas_petroleo",
@@ -3432,7 +3432,7 @@
    "jurisdicciones": [
     "00"
    ],
-   "ficha": "https://datina.com.ar/petroleo.html#f-reservas"
+   "ficha": "https://datina.com.ar/petroleo#f-reservas"
   },
   {
    "variable": "reservas_netas_bcra",
@@ -3444,7 +3444,7 @@
    "jurisdicciones": [
     "00"
    ],
-   "ficha": "https://datina.com.ar/externo.html#f-reservas-bcra"
+   "ficha": "https://datina.com.ar/externo#f-reservas-bcra"
   },
   {
    "variable": "residencias_otorgadas",
@@ -3491,7 +3491,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/gobierno.html#f-fiscal"
+   "ficha": "https://datina.com.ar/gobierno#f-fiscal"
   },
   {
    "variable": "resultado_financiero_sector_publico_nacional_pct_pbi",
@@ -3503,7 +3503,7 @@
    "jurisdicciones": [
     "00"
    ],
-   "ficha": "https://datina.com.ar/gobierno.html#f-cuentas-nacion"
+   "ficha": "https://datina.com.ar/gobierno#f-cuentas-nacion"
   },
   {
    "variable": "resultado_primario_sector_publico_nacional_pct_pbi",
@@ -3515,7 +3515,7 @@
    "jurisdicciones": [
     "00"
    ],
-   "ficha": "https://datina.com.ar/gobierno.html#f-cuentas-nacion"
+   "ficha": "https://datina.com.ar/gobierno#f-cuentas-nacion"
   },
   {
    "variable": "salario_bruto_maestro_grado_10_anios",
@@ -3551,7 +3551,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/educacion.html#f-salario-docente"
+   "ficha": "https://datina.com.ar/educacion#f-salario-docente"
   },
   {
    "variable": "salario_minimo_pct_canasta_total_hogar",
@@ -3563,7 +3563,7 @@
    "jurisdicciones": [
     "00"
    ],
-   "ficha": "https://datina.com.ar/economia.html#f-salario-minimo"
+   "ficha": "https://datina.com.ar/economia#f-salario-minimo"
   },
   {
    "variable": "salario_minimo_vital_movil",
@@ -3575,7 +3575,7 @@
    "jurisdicciones": [
     "00"
    ],
-   "ficha": "https://datina.com.ar/economia.html#f-salario-minimo"
+   "ficha": "https://datina.com.ar/economia#f-salario-minimo"
   },
   {
    "variable": "saldo_comercial_usd",
@@ -3587,7 +3587,7 @@
    "jurisdicciones": [
     "00"
    ],
-   "ficha": "https://datina.com.ar/externo.html#f-balanza"
+   "ficha": "https://datina.com.ar/externo#f-balanza"
   },
   {
    "variable": "sociedades_comerciales_constituidas_cada_100000",
@@ -3622,7 +3622,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/empresas.html#f-sociedades"
+   "ficha": "https://datina.com.ar/empresas#f-sociedades"
   },
   {
    "variable": "solicitudes_de_refugio",
@@ -3634,7 +3634,7 @@
    "jurisdicciones": [
     "00"
    ],
-   "ficha": "https://datina.com.ar/migraciones.html#f-refugio"
+   "ficha": "https://datina.com.ar/migraciones#f-refugio"
   },
   {
    "variable": "subsidios_economicos_energia_pct_pbi",
@@ -3646,7 +3646,7 @@
    "jurisdicciones": [
     "00"
    ],
-   "ficha": "https://datina.com.ar/energia.html#f-subsidios"
+   "ficha": "https://datina.com.ar/energia#f-subsidios"
   },
   {
    "variable": "superficie_sembrada_soja",
@@ -3674,7 +3674,7 @@
     "86",
     "90"
    ],
-   "ficha": "https://datina.com.ar/naturaleza.html#f-soja"
+   "ficha": "https://datina.com.ar/naturaleza#f-soja"
   },
   {
    "variable": "tarjetas_sube_dia_habil_mediana",
@@ -3686,7 +3686,7 @@
    "jurisdicciones": [
     "00"
    ],
-   "ficha": "https://datina.com.ar/movilidad.html#f-sube"
+   "ficha": "https://datina.com.ar/movilidad#f-sube"
   },
   {
    "variable": "tasa_desocupacion_31_aglomerados",
@@ -3698,7 +3698,7 @@
    "jurisdicciones": [
     "AGLO"
    ],
-   "ficha": "https://datina.com.ar/trabajo.html#f-desocupacion"
+   "ficha": "https://datina.com.ar/trabajo#f-desocupacion"
   },
   {
    "variable": "tasa_hurtos",
@@ -3770,7 +3770,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/salud.html#f-mortalidad"
+   "ficha": "https://datina.com.ar/salud#f-mortalidad"
   },
   {
    "variable": "tasa_neta_escolarizacion_secundaria",
@@ -3806,7 +3806,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/educacion.html#f-escolarizacion"
+   "ficha": "https://datina.com.ar/educacion#f-escolarizacion"
   },
   {
    "variable": "tasa_robos",
@@ -3914,7 +3914,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/pobreza.html#f-telefonia"
+   "ficha": "https://datina.com.ar/pobreza#f-telefonia"
   },
   {
    "variable": "tipo_cambio_real_multilateral",
@@ -3961,7 +3961,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/gobierno.html#f-coparticipacion"
+   "ficha": "https://datina.com.ar/gobierno#f-coparticipacion"
   },
   {
    "variable": "tributos_origen_nacional_por_habitante",
@@ -3996,7 +3996,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/gobierno.html#f-coparticipacion"
+   "ficha": "https://datina.com.ar/gobierno#f-coparticipacion"
   },
   {
    "variable": "turistas_extranjeros_ezeiza_aeroparque_por_provincia",
@@ -4031,7 +4031,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/turismo.html#f-eti"
+   "ficha": "https://datina.com.ar/turismo#f-eti"
   },
   {
    "variable": "turistas_no_residentes",
@@ -4043,7 +4043,7 @@
    "jurisdicciones": [
     "00"
    ],
-   "ficha": "https://datina.com.ar/turismo.html#f-receptivo"
+   "ficha": "https://datina.com.ar/turismo#f-receptivo"
   },
   {
    "variable": "tv_suscripcion_accesos_cada_100_hogares",
@@ -4079,7 +4079,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/pobreza.html#f-tv-paga"
+   "ficha": "https://datina.com.ar/pobreza#f-tv-paga"
   },
   {
    "variable": "vegetacion_natural_pct_superficie",
@@ -4115,7 +4115,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/naturaleza.html#f-cobertura-suelo"
+   "ficha": "https://datina.com.ar/naturaleza#f-cobertura-suelo"
   },
   {
    "variable": "ventas_supermercados_precios_corrientes",
@@ -4150,7 +4150,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/economia.html#f-supermercados"
+   "ficha": "https://datina.com.ar/economia#f-supermercados"
   },
   {
    "variable": "viajeros_hospedados_hoteles",
@@ -4162,7 +4162,7 @@
    "jurisdicciones": [
     "00"
    ],
-   "ficha": "https://datina.com.ar/turismo.html#f-hoteles"
+   "ficha": "https://datina.com.ar/turismo#f-hoteles"
   },
   {
    "variable": "viajes_turistas_residentes_al_exterior",
@@ -4186,7 +4186,7 @@
    "jurisdicciones": [
     "00"
    ],
-   "ficha": "https://datina.com.ar/salud.html#f-muertes"
+   "ficha": "https://datina.com.ar/salud#f-muertes"
   },
   {
    "variable": "victimas_homicidios",
@@ -4222,7 +4222,7 @@
    "jurisdicciones": [
     "00"
    ],
-   "ficha": "https://datina.com.ar/curiosidades.html#f-vino"
+   "ficha": "https://datina.com.ar/curiosidades#f-vino"
   },
   {
    "variable": "visitas_parques_nacionales",
@@ -4234,7 +4234,7 @@
    "jurisdicciones": [
     "00"
    ],
-   "ficha": "https://datina.com.ar/naturaleza.html#f-visitas"
+   "ficha": "https://datina.com.ar/naturaleza#f-visitas"
   },
   {
    "variable": "voto_presidente_1983_alende",
@@ -4269,7 +4269,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/politica.html#f-elecciones"
+   "ficha": "https://datina.com.ar/politica#f-elecciones"
   },
   {
    "variable": "voto_presidente_1983_alfonsin",
@@ -4304,7 +4304,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/politica.html#f-elecciones"
+   "ficha": "https://datina.com.ar/politica#f-elecciones"
   },
   {
    "variable": "voto_presidente_1983_frigerio",
@@ -4339,7 +4339,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/politica.html#f-elecciones"
+   "ficha": "https://datina.com.ar/politica#f-elecciones"
   },
   {
    "variable": "voto_presidente_1983_luder",
@@ -4374,7 +4374,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/politica.html#f-elecciones"
+   "ficha": "https://datina.com.ar/politica#f-elecciones"
   },
   {
    "variable": "voto_presidente_1983_otras",
@@ -4409,7 +4409,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/politica.html#f-elecciones"
+   "ficha": "https://datina.com.ar/politica#f-elecciones"
   },
   {
    "variable": "voto_presidente_1989_alsogaray",
@@ -4444,7 +4444,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/politica.html#f-elecciones"
+   "ficha": "https://datina.com.ar/politica#f-elecciones"
   },
   {
    "variable": "voto_presidente_1989_angeloz",
@@ -4479,7 +4479,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/politica.html#f-elecciones"
+   "ficha": "https://datina.com.ar/politica#f-elecciones"
   },
   {
    "variable": "voto_presidente_1989_menem",
@@ -4514,7 +4514,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/politica.html#f-elecciones"
+   "ficha": "https://datina.com.ar/politica#f-elecciones"
   },
   {
    "variable": "voto_presidente_1989_otras",
@@ -4549,7 +4549,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/politica.html#f-elecciones"
+   "ficha": "https://datina.com.ar/politica#f-elecciones"
   },
   {
    "variable": "voto_presidente_1989_vicente",
@@ -4584,7 +4584,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/politica.html#f-elecciones"
+   "ficha": "https://datina.com.ar/politica#f-elecciones"
   },
   {
    "variable": "voto_presidente_1995_bordon",
@@ -4619,7 +4619,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/politica.html#f-elecciones"
+   "ficha": "https://datina.com.ar/politica#f-elecciones"
   },
   {
    "variable": "voto_presidente_1995_massaccesi",
@@ -4654,7 +4654,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/politica.html#f-elecciones"
+   "ficha": "https://datina.com.ar/politica#f-elecciones"
   },
   {
    "variable": "voto_presidente_1995_menem",
@@ -4689,7 +4689,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/politica.html#f-elecciones"
+   "ficha": "https://datina.com.ar/politica#f-elecciones"
   },
   {
    "variable": "voto_presidente_1995_otras",
@@ -4724,7 +4724,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/politica.html#f-elecciones"
+   "ficha": "https://datina.com.ar/politica#f-elecciones"
   },
   {
    "variable": "voto_presidente_1995_rico",
@@ -4759,7 +4759,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/politica.html#f-elecciones"
+   "ficha": "https://datina.com.ar/politica#f-elecciones"
   },
   {
    "variable": "voto_presidente_1999_cavallo",
@@ -4794,7 +4794,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/politica.html#f-elecciones"
+   "ficha": "https://datina.com.ar/politica#f-elecciones"
   },
   {
    "variable": "voto_presidente_1999_de_la_rua",
@@ -4829,7 +4829,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/politica.html#f-elecciones"
+   "ficha": "https://datina.com.ar/politica#f-elecciones"
   },
   {
    "variable": "voto_presidente_1999_duhalde",
@@ -4864,7 +4864,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/politica.html#f-elecciones"
+   "ficha": "https://datina.com.ar/politica#f-elecciones"
   },
   {
    "variable": "voto_presidente_1999_otras",
@@ -4899,7 +4899,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/politica.html#f-elecciones"
+   "ficha": "https://datina.com.ar/politica#f-elecciones"
   },
   {
    "variable": "voto_presidente_1999_walsh",
@@ -4932,7 +4932,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/politica.html#f-elecciones"
+   "ficha": "https://datina.com.ar/politica#f-elecciones"
   },
   {
    "variable": "voto_presidente_2003_kirchner",
@@ -4967,7 +4967,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/politica.html#f-elecciones"
+   "ficha": "https://datina.com.ar/politica#f-elecciones"
   },
   {
    "variable": "voto_presidente_2003_lopez_murphy",
@@ -5002,7 +5002,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/politica.html#f-elecciones"
+   "ficha": "https://datina.com.ar/politica#f-elecciones"
   },
   {
    "variable": "voto_presidente_2003_menem",
@@ -5037,7 +5037,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/politica.html#f-elecciones"
+   "ficha": "https://datina.com.ar/politica#f-elecciones"
   },
   {
    "variable": "voto_presidente_2003_otras",
@@ -5072,7 +5072,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/politica.html#f-elecciones"
+   "ficha": "https://datina.com.ar/politica#f-elecciones"
   },
   {
    "variable": "voto_presidente_2003_rodriguez_saa",
@@ -5107,7 +5107,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/politica.html#f-elecciones"
+   "ficha": "https://datina.com.ar/politica#f-elecciones"
   },
   {
    "variable": "voto_presidente_2007_carrio",
@@ -5142,7 +5142,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/politica.html#f-elecciones"
+   "ficha": "https://datina.com.ar/politica#f-elecciones"
   },
   {
    "variable": "voto_presidente_2007_fernandez_de_kirchner",
@@ -5177,7 +5177,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/politica.html#f-elecciones"
+   "ficha": "https://datina.com.ar/politica#f-elecciones"
   },
   {
    "variable": "voto_presidente_2007_lavagna",
@@ -5212,7 +5212,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/politica.html#f-elecciones"
+   "ficha": "https://datina.com.ar/politica#f-elecciones"
   },
   {
    "variable": "voto_presidente_2007_otras",
@@ -5247,7 +5247,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/politica.html#f-elecciones"
+   "ficha": "https://datina.com.ar/politica#f-elecciones"
   },
   {
    "variable": "voto_presidente_2007_rodriguez_saa",
@@ -5282,7 +5282,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/politica.html#f-elecciones"
+   "ficha": "https://datina.com.ar/politica#f-elecciones"
   },
   {
    "variable": "voto_presidente_2011-paso_alfonsin",
@@ -5317,7 +5317,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/politica.html#f-elecciones"
+   "ficha": "https://datina.com.ar/politica#f-elecciones"
   },
   {
    "variable": "voto_presidente_2011-paso_binner",
@@ -5352,7 +5352,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/politica.html#f-elecciones"
+   "ficha": "https://datina.com.ar/politica#f-elecciones"
   },
   {
    "variable": "voto_presidente_2011-paso_duhalde",
@@ -5387,7 +5387,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/politica.html#f-elecciones"
+   "ficha": "https://datina.com.ar/politica#f-elecciones"
   },
   {
    "variable": "voto_presidente_2011-paso_fernandez_de_kirchner",
@@ -5422,7 +5422,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/politica.html#f-elecciones"
+   "ficha": "https://datina.com.ar/politica#f-elecciones"
   },
   {
    "variable": "voto_presidente_2011-paso_otras",
@@ -5457,7 +5457,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/politica.html#f-elecciones"
+   "ficha": "https://datina.com.ar/politica#f-elecciones"
   },
   {
    "variable": "voto_presidente_2011_alfonsin",
@@ -5492,7 +5492,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/politica.html#f-elecciones"
+   "ficha": "https://datina.com.ar/politica#f-elecciones"
   },
   {
    "variable": "voto_presidente_2011_binner",
@@ -5527,7 +5527,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/politica.html#f-elecciones"
+   "ficha": "https://datina.com.ar/politica#f-elecciones"
   },
   {
    "variable": "voto_presidente_2011_fernandez_de_kirchner",
@@ -5562,7 +5562,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/politica.html#f-elecciones"
+   "ficha": "https://datina.com.ar/politica#f-elecciones"
   },
   {
    "variable": "voto_presidente_2011_otras",
@@ -5597,7 +5597,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/politica.html#f-elecciones"
+   "ficha": "https://datina.com.ar/politica#f-elecciones"
   },
   {
    "variable": "voto_presidente_2011_rodriguez_saa",
@@ -5632,7 +5632,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/politica.html#f-elecciones"
+   "ficha": "https://datina.com.ar/politica#f-elecciones"
   },
   {
    "variable": "voto_presidente_2015-2_macri",
@@ -5667,7 +5667,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/politica.html#f-elecciones"
+   "ficha": "https://datina.com.ar/politica#f-elecciones"
   },
   {
    "variable": "voto_presidente_2015-2_scioli",
@@ -5702,7 +5702,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/politica.html#f-elecciones"
+   "ficha": "https://datina.com.ar/politica#f-elecciones"
   },
   {
    "variable": "voto_presidente_2015-paso_macri",
@@ -5737,7 +5737,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/politica.html#f-elecciones"
+   "ficha": "https://datina.com.ar/politica#f-elecciones"
   },
   {
    "variable": "voto_presidente_2015-paso_massa",
@@ -5772,7 +5772,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/politica.html#f-elecciones"
+   "ficha": "https://datina.com.ar/politica#f-elecciones"
   },
   {
    "variable": "voto_presidente_2015-paso_otras",
@@ -5807,7 +5807,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/politica.html#f-elecciones"
+   "ficha": "https://datina.com.ar/politica#f-elecciones"
   },
   {
    "variable": "voto_presidente_2015-paso_scioli",
@@ -5842,7 +5842,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/politica.html#f-elecciones"
+   "ficha": "https://datina.com.ar/politica#f-elecciones"
   },
   {
    "variable": "voto_presidente_2015-paso_stolbizer",
@@ -5877,7 +5877,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/politica.html#f-elecciones"
+   "ficha": "https://datina.com.ar/politica#f-elecciones"
   },
   {
    "variable": "voto_presidente_2015_del_cano",
@@ -5912,7 +5912,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/politica.html#f-elecciones"
+   "ficha": "https://datina.com.ar/politica#f-elecciones"
   },
   {
    "variable": "voto_presidente_2015_macri",
@@ -5947,7 +5947,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/politica.html#f-elecciones"
+   "ficha": "https://datina.com.ar/politica#f-elecciones"
   },
   {
    "variable": "voto_presidente_2015_massa",
@@ -5982,7 +5982,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/politica.html#f-elecciones"
+   "ficha": "https://datina.com.ar/politica#f-elecciones"
   },
   {
    "variable": "voto_presidente_2015_otras",
@@ -6017,7 +6017,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/politica.html#f-elecciones"
+   "ficha": "https://datina.com.ar/politica#f-elecciones"
   },
   {
    "variable": "voto_presidente_2015_scioli",
@@ -6052,7 +6052,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/politica.html#f-elecciones"
+   "ficha": "https://datina.com.ar/politica#f-elecciones"
   },
   {
    "variable": "voto_presidente_2019-paso_del_cano",
@@ -6087,7 +6087,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/politica.html#f-elecciones"
+   "ficha": "https://datina.com.ar/politica#f-elecciones"
   },
   {
    "variable": "voto_presidente_2019-paso_fernandez",
@@ -6122,7 +6122,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/politica.html#f-elecciones"
+   "ficha": "https://datina.com.ar/politica#f-elecciones"
   },
   {
    "variable": "voto_presidente_2019-paso_lavagna",
@@ -6157,7 +6157,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/politica.html#f-elecciones"
+   "ficha": "https://datina.com.ar/politica#f-elecciones"
   },
   {
    "variable": "voto_presidente_2019-paso_macri",
@@ -6192,7 +6192,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/politica.html#f-elecciones"
+   "ficha": "https://datina.com.ar/politica#f-elecciones"
   },
   {
    "variable": "voto_presidente_2019-paso_otras",
@@ -6227,7 +6227,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/politica.html#f-elecciones"
+   "ficha": "https://datina.com.ar/politica#f-elecciones"
   },
   {
    "variable": "voto_presidente_2019_del_cano",
@@ -6262,7 +6262,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/politica.html#f-elecciones"
+   "ficha": "https://datina.com.ar/politica#f-elecciones"
   },
   {
    "variable": "voto_presidente_2019_fernandez",
@@ -6297,7 +6297,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/politica.html#f-elecciones"
+   "ficha": "https://datina.com.ar/politica#f-elecciones"
   },
   {
    "variable": "voto_presidente_2019_lavagna",
@@ -6332,7 +6332,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/politica.html#f-elecciones"
+   "ficha": "https://datina.com.ar/politica#f-elecciones"
   },
   {
    "variable": "voto_presidente_2019_macri",
@@ -6367,7 +6367,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/politica.html#f-elecciones"
+   "ficha": "https://datina.com.ar/politica#f-elecciones"
   },
   {
    "variable": "voto_presidente_2019_otras",
@@ -6402,7 +6402,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/politica.html#f-elecciones"
+   "ficha": "https://datina.com.ar/politica#f-elecciones"
   },
   {
    "variable": "voto_presidente_2023-2_massa",
@@ -6437,7 +6437,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/politica.html#f-elecciones"
+   "ficha": "https://datina.com.ar/politica#f-elecciones"
   },
   {
    "variable": "voto_presidente_2023-2_milei",
@@ -6472,7 +6472,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/politica.html#f-elecciones"
+   "ficha": "https://datina.com.ar/politica#f-elecciones"
   },
   {
    "variable": "voto_presidente_2023-paso_bullrich",
@@ -6507,7 +6507,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/politica.html#f-elecciones"
+   "ficha": "https://datina.com.ar/politica#f-elecciones"
   },
   {
    "variable": "voto_presidente_2023-paso_massa",
@@ -6542,7 +6542,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/politica.html#f-elecciones"
+   "ficha": "https://datina.com.ar/politica#f-elecciones"
   },
   {
    "variable": "voto_presidente_2023-paso_milei",
@@ -6577,7 +6577,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/politica.html#f-elecciones"
+   "ficha": "https://datina.com.ar/politica#f-elecciones"
   },
   {
    "variable": "voto_presidente_2023-paso_otras",
@@ -6612,7 +6612,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/politica.html#f-elecciones"
+   "ficha": "https://datina.com.ar/politica#f-elecciones"
   },
   {
    "variable": "voto_presidente_2023-paso_schiaretti",
@@ -6647,7 +6647,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/politica.html#f-elecciones"
+   "ficha": "https://datina.com.ar/politica#f-elecciones"
   },
   {
    "variable": "voto_presidente_2023_bullrich",
@@ -6682,7 +6682,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/politica.html#f-elecciones"
+   "ficha": "https://datina.com.ar/politica#f-elecciones"
   },
   {
    "variable": "voto_presidente_2023_massa",
@@ -6717,7 +6717,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/politica.html#f-elecciones"
+   "ficha": "https://datina.com.ar/politica#f-elecciones"
   },
   {
    "variable": "voto_presidente_2023_milei",
@@ -6752,7 +6752,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/politica.html#f-elecciones"
+   "ficha": "https://datina.com.ar/politica#f-elecciones"
   },
   {
    "variable": "voto_presidente_2023_otras",
@@ -6787,7 +6787,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/politica.html#f-elecciones"
+   "ficha": "https://datina.com.ar/politica#f-elecciones"
   },
   {
    "variable": "voto_presidente_2023_schiaretti",
@@ -6822,7 +6822,7 @@
     "90",
     "94"
    ],
-   "ficha": "https://datina.com.ar/politica.html#f-elecciones"
+   "ficha": "https://datina.com.ar/politica#f-elecciones"
   },
   {
    "variable": "yerba_mate_salida_de_molino",
@@ -6834,7 +6834,7 @@
    "jurisdicciones": [
     "00"
    ],
-   "ficha": "https://datina.com.ar/curiosidades.html#f-yerba"
+   "ficha": "https://datina.com.ar/curiosidades#f-yerba"
   }
  ]
 }

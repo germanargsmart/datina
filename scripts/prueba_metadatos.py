@@ -8,6 +8,7 @@ Revisa:
   definitiva, no hay canonical absolutos, og:url, sitemap.xml ni robots.txt.
 - El JSON-LD se puede leer y los artículos llevan un Article.
 - Los enlaces internos (href y src que no van a otro sitio) llevan a archivos que existen, y los #anclas de la misma página existen
+  (desde el 16 de noviembre de 2026, los de las páginas sin el .html: /trabajo es trabajo.html)
   en el HTML (las que arma datina.js al cargar, como las de las notas, no se pueden revisar acá).
 
 - Con los formularios apagados ("formularios" vacío en datos/manual/sitio.json), ninguna página tiene uno de Netlify ni habla de
@@ -122,6 +123,11 @@ def revisar(url_sitio=None):
             destino = (SITIO / ruta.lstrip("/")) if ruta.startswith("/") else (SITIO / ruta)
             if ruta.endswith("/"):
                 destino = destino / "index.html"
+            # desde el 16 de noviembre de 2026 los enlaces a las páginas van sin el .html, como las sirve Cloudflare Pages (/trabajo es trabajo.html)
+            elif not destino.suffix:
+                destino = destino.with_name(destino.name + ".html")
+            elif destino.suffix == ".html" and "/" not in ruta:
+                problemas.append(f"{nombre}: {attr} a {u}, con el .html (los enlaces a las páginas van sin él)")
             if not destino.exists():
                 problemas.append(f"{nombre}: {attr} a {u}, que no existe")
     for f in ("sitemap.xml", "robots.txt", "llms.txt"):

@@ -340,7 +340,7 @@
         + `${fila("Dónde lo baja o lo arma el sitio", ev(n.evidencia))}</dl>`;
       h += `<h3>Alimenta ${a.length === 1 ? "una ficha" : a.length + " fichas"}</h3><ul>${a.map(x => `<li>${ir(x.a)}${x.evidencia.map(ev).join("")}</li>`).join("")}</ul>`;
     } else {
-      h += `<dl>${fila("Sección", n.seccion ? `<a class="enlace" href="${esc(n.seccion + ".html")}">${esc(n.seccion_nombre || n.seccion)}</a>` : "")}`
+      h += `<dl>${fila("Sección", n.seccion ? `<a class="enlace" href="${esc(n.seccion)}">${esc(n.seccion_nombre || n.seccion)}</a>` : "")}`
         + `${fila("Fuente, como figura en la ficha", esc(n.fuente_texto))}${fila("Frecuencia", esc(n.frecuencia))}`
         + `${fila("Unidad", esc(n.unidad.join(", ")))}${fila("Período de la tabla", esc(n.periodo))}${fila("Cobertura", esc(n.cobertura))}`
         + `${fila("Nota de la ficha", esc(n.nota))}</dl>`;

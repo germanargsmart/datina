@@ -37,7 +37,9 @@ const INSERTAR = (() => {
 })();
 // página donde está un ancla (una ficha, una sección o un artículo)
 const paginaDe = id => UBIC[id] || UBIC[(SITIO.alias || {})[id]];
-const urlPagina = (p, resto = "") => (p === "inicio" ? "./" : p + ".html") + resto;
+// sin el .html desde el 16 de noviembre de 2026 (decisión del autor): Cloudflare Pages sirve trabajo.html en /trabajo, y así cada clic se ahorra
+// la redirección. Las direcciones viejas con .html siguen andando
+const urlPagina = (p, resto = "") => (p === "inicio" ? "./" : p) + resto;
 // enlace a una ficha (#f-empleo): si está en otra página, la dirección de esa página
 const destinoDe = href => {
   const id = href.slice(1).split("?")[0], p = id && paginaDe(id);
@@ -2255,7 +2257,7 @@ const COD_PROV = Object.fromEntries([...PROV.map(([c, n]) => [n, c]), ["Ciudad A
 // La provincia se puede compartir en el enlace (?prov=30) y se recuerda en este navegador
 const leerProv = () => new URLSearchParams(location.search).get("prov") || new URLSearchParams(location.hash.split("?")[1] || "").get("prov") || document.body.dataset.prov || "";
 // la página fija de cada provincia (D3)
-const urlProv = c => SITIO.prov_pag[c] + ".html";
+const urlProv = c => SITIO.prov_pag[c];
 let prov = "";
 try { prov = leerProv() || localStorage.getItem("prov") || ""; } catch(_) { prov = leerProv(); }
 if (!NOMBRES[prov]) prov = "";
@@ -2268,7 +2270,7 @@ function elegir(c, desdeHistorial = false) {
   try { localStorage.setItem("prov", prov); } catch(_) {}
   if (!desdeHistorial && prov !== antes) {
     // en la página fija de una provincia, elegir otra es ir a la suya
-    if (document.body.dataset.prov) { location.assign(prov ? urlProv(prov) : "provincia.html"); return; }
+    if (document.body.dataset.prov) { location.assign(prov ? urlProv(prov) : "provincia"); return; }
     const u = new URL(location.href);
     if (prov) u.searchParams.set("prov", prov); else u.searchParams.delete("prov");
     history.pushState({...history.state, prov}, "", u);
@@ -8551,7 +8553,7 @@ document.querySelectorAll("article.ficha").forEach(f => {
   // hasta seis botones en dos o tres filas en el celular)
   const desc = `aria-describedby="${tituloFicha.id || (tituloFicha.id = f.id + "-tit")}"`;
   const enlaces = [PARA_ENTENDER ? `<a class="enlace como-calcula" href="#para-entender" ${desc}>Cómo se calcula</a>` : "",
-    !f.classList.contains("explorador") && !SIN_RELACIONES.has(f.id) ? `<a class="enlace origen" href="relaciones.html?n=${f.id}" ${desc}>${PARA_ENTENDER ? "de" : "De"} dónde sale</a>` : ""]
+    !f.classList.contains("explorador") && !SIN_RELACIONES.has(f.id) ? `<a class="enlace origen" href="relaciones?n=${f.id}" ${desc}>${PARA_ENTENDER ? "de" : "De"} dónde sale</a>` : ""]
     .filter(Boolean);
   if (enlaces.length) pie.querySelector(":scope > span")?.insertAdjacentHTML("beforeend", ` <span class="pie-enlaces">${enlaces.join(" y ")}</span>`);
   acc.innerHTML = (conTabla ? `<button type="button" class="boton chico accion ver-tabla" aria-expanded="false"><span class="lbl">Ver tabla</span></button>` : "") +
@@ -8567,7 +8569,7 @@ document.querySelectorAll("article.ficha").forEach(f => {
     const lbl = a.dataset.panel && a.textContent !== "Descargar tabla (CSV)" ? a.textContent : "Descargar CSV";
     a.className = "boton chico accion"; a.innerHTML = `<span class="lbl">${lbl}</span>`; panel.appendChild(a);
   });
-  if (EN_CATALOGO.has(nombre)) panel.insertAdjacentHTML("beforeend", `<a class="boton chico accion" href="catalogo.html#cat-${nombre}" ${desc}><span class="lbl">Ver en el catálogo</span></a>`);
+  if (EN_CATALOGO.has(nombre)) panel.insertAdjacentHTML("beforeend", `<a class="boton chico accion" href="catalogo#cat-${nombre}" ${desc}><span class="lbl">Ver en el catálogo</span></a>`);
   pie.appendChild(acc);
   const tablaActiva = () => (([csv, ...otrosCsv].find(a => !a.hidden) || csv).getAttribute("href").match(/datos\/(\w+)\.csv/) || [])[1] || nombre;
   acc.querySelector(".ver-tabla")?.addEventListener("click", async ev => {
@@ -10339,7 +10341,7 @@ function artNuevo(a) {
     `<div class="nota-fuentes"><h2>Fuentes y metodología</h2><ol class="nota-notas">${notas.map(x => `<li>${x}</li>`).join("")}</ol>` +
     `<p>${fts.length > 1 ? "Fuentes" : "Fuente"}: ${listaY(fts)}.</p><div class="acciones">` +
     fichas.map(([id, nom]) => `<a class="boton chico accion" href="${ficha(id)}">Ficha: ${minusc(nom)}</a>`).join("") +
-    (tabla === "cruces_provincias" ? P.map(p => `<a class="boton chico accion" href="cruces.html?cx=${p.x}&cy=${p.y}">Abrir en Cruces${P.length > 1 ? `: ${p.lx}` : ""}</a>`).join("") : "") +
+    (tabla === "cruces_provincias" ? P.map(p => `<a class="boton chico accion" href="cruces?cx=${p.x}&cy=${p.y}">Abrir en Cruces${P.length > 1 ? `: ${p.lx}` : ""}</a>`).join("") : "") +
     `<a class="boton chico accion" href="datos/${tabla}.csv" download>Descargar CSV</a></div></div>`;
   // cada dato por caso, con la mediana, y los cruces con nombre en las jurisdicciones que menciona el texto
   vars.forEach(w => { DIB[`${key(0)}-v${w.j}`] = anim => barrasH(G(`${key(0)}-v${w.j}`), {anim, data: w.F, k: w.id, vf: fmt(w),
@@ -10398,7 +10400,7 @@ ART.forEach(a => {
     `<div class="nota-leer"><h3>Cómo leer un cruce</h3><p>${t0.leer}</p></div></div>` +
     `<div class="nota-fuentes"><p>${fts.length > 1 ? "Fuentes" : "Fuente"}: ${listaY(fts)}.</p><div class="acciones">` +
     fichas.map(([id, nom]) => `<a class="boton chico accion" href="${ficha(id)}">Ficha: ${minusc(nom)}</a>`).join("") +
-    (tabla === "cruces_provincias" ? P.map(p => `<a class="boton chico accion" href="cruces.html?cx=${p.x}&cy=${p.y}">Abrir en Cruces${P.length > 1 ? `: ${p.lx}` : ""}</a>`).join("") : "") +
+    (tabla === "cruces_provincias" ? P.map(p => `<a class="boton chico accion" href="cruces?cx=${p.x}&cy=${p.y}">Abrir en Cruces${P.length > 1 ? `: ${p.lx}` : ""}</a>`).join("") : "") +
     `<a class="boton chico accion" href="datos/${tabla}.csv" download>Descargar CSV</a></div></div>`;
   // en cada gráfico van con nombre las jurisdicciones que menciona el texto
   P.forEach((p, i) => {
@@ -12491,7 +12493,7 @@ const citaEj = document.getElementById("cita-ejemplo");
 if (citaEj) {
   const hoy = new Date();
   citaEj.textContent = `Datina (${hoy.getFullYear()}). ¿Dónde se gana más en un empleo privado registrado? Con datos del Observatorio de Empleo y ` +
-    `Dinámica Empresarial (OEDE), Secretaría de Trabajo. ${location.origin}/trabajo.html#f-salarios. Consultado el ${hoy.getDate()} de ` +
+    `Dinámica Empresarial (OEDE), Secretaría de Trabajo. ${location.origin}/trabajo#f-salarios. Consultado el ${hoy.getDate()} de ` +
     `${MESES[hoy.getMonth()]} de ${hoy.getFullYear()}.`;
 }
 
@@ -12694,7 +12696,7 @@ const pintarCifras = () => {
     const marca = conProv.size ? `<span class="c-lab">Todo el país</span>` : "";
     pais.slice(0, Math.max(0, lugar)).forEach(c => tarjetas.push(`<a class="tarjeta cifra" href="#${c.id}" data-k="${c.k}">${marca}<span class="c-num">${c.n}</span><span class="c-txt">${c.t}</span></a>`));
     if (!conProv.size && indp.length)
-      tarjetas.push(`<a class="tarjeta cifra invita" href="provincia.html"><span class="c-lab">Tu provincia</span><span class="c-txt">Elegí una provincia para ver sus datos de esta sección junto a los del país.</span></a>`);
+      tarjetas.push(`<a class="tarjeta cifra invita" href="provincia"><span class="c-lab">Tu provincia</span><span class="c-txt">Elegí una provincia para ver sus datos de esta sección junto a los del país.</span></a>`);
     // en una categoría (etapa 36), después de su fila de secciones, donde el constructor dejó las tarjetas vacías
     (intro.nextElementSibling?.matches(".subsecciones") ? intro.nextElementSibling : intro).insertAdjacentHTML("afterend", `<div class="en-cifras"><h2>En cifras</h2><div class="cifras-grid">${tarjetas.slice(0, 5).join("")}</div></div>`);
   }
@@ -12994,16 +12996,16 @@ if (PAGINA !== "inicio") {
   const armar = () => {
     IDX = [];
     Object.values(SEC).forEach(t => IDX.push({t: t.t, g: grupoPag(t.id), u: urlPagina(t.id), x: t.x, sec: 1}));
-    IDX.push({t: "Tu provincia", g: "Provincias", u: "provincia.html", x: "perfil provincia provincias comparar país posición historia", sec: 1});
+    IDX.push({t: "Tu provincia", g: "Provincias", u: "provincia", x: "perfil provincia provincias comparar país posición historia", sec: 1});
     Object.entries(NOMBRES).forEach(([c, n]) => IDX.push({t: `${n} en números`, g: "Provincias", u: urlProv(c), x: n, sec: 2, c}));
-    IDX.push({t: "Laboratorio", g: "Historias", u: "laboratorio.html", x: "piezas visuales gráficos", sec: 1});
-    IDX.push({t: "¿Qué gobierno designó a cada juez de la Corte Suprema?", g: "Historias", u: "corte-suprema.html",
+    IDX.push({t: "Laboratorio", g: "Historias", u: "laboratorio", x: "piezas visuales gráficos", sec: 1});
+    IDX.push({t: "¿Qué gobierno designó a cada juez de la Corte Suprema?", g: "Historias", u: "corte-suprema",
       x: "corte suprema justicia jueces ministros designación presidentes gobiernos de facto poder judicial laboratorio", sec: 1});
-    SITIO.lab.forEach(([id, t]) => IDX.push({t, g: "Historias", sm: "Laboratorio", u: "laboratorio.html#" + id, x: "laboratorio pieza visual"}));
+    SITIO.lab.forEach(([id, t]) => IDX.push({t, g: "Historias", sm: "Laboratorio", u: "laboratorio#" + id, x: "laboratorio pieza visual"}));
     IDX.push({t: "Consultor de pobreza", g: "Temas", u: "pobreza/", x: "pobreza indigencia aglomerado partido comuna consultas sql parquet descargar", sec: 1});
-    IDX.push({t: "Explorador de relaciones", g: "Datina", u: "relaciones.html", x: "de dónde sale cada número origen fuentes organismos archivos", sec: 1});
-    IDX.push({t: "Sobre nosotros", g: "Datina", u: "nosotros.html", x: "propósito quiénes fuentes principios cómo se hace método"});
-    IDX.push({t: "Contacto", g: "Datina", u: "contacto.html", x: "escribir mensaje correo consultas sugerencias"});
+    IDX.push({t: "Explorador de relaciones", g: "Datina", u: "relaciones", x: "de dónde sale cada número origen fuentes organismos archivos", sec: 1});
+    IDX.push({t: "Sobre nosotros", g: "Datina", u: "nosotros", x: "propósito quiénes fuentes principios cómo se hace método"});
+    IDX.push({t: "Contacto", g: "Datina", u: "contacto", x: "escribir mensaje correo consultas sugerencias"});
     SITIO.fichas.forEach(([id, sec, tit, kt, kl, , trasAyuda, sub, ks]) => {
       // el título y el texto de muchas fichas se calculan (TX): en otra página se leen de ahí
       const h = (TX[kt] || tit || "").trim(); if (!h) return;
@@ -13123,7 +13125,7 @@ if (PAGINA !== "inicio") {
     hall = hall.sort((a, b) => b.p - a.p).slice(0, 8).map(r => r.d);
     // con las consultas con IA prendidas (SITIO.ia, docs/ia/CONSULTAS.md): lo escrito puede ir a esa página, donde queda escrito sin
     // enviarse. Con resultados, solo si parece una pregunta (tres palabras o más)
-    const aIA = g => ({t: `Preguntarles a los datos: «${texto}»`, g, u: "consulta-ia.html?q=" + encodeURIComponent(texto.slice(0, 400))});
+    const aIA = g => ({t: `Preguntarles a los datos: «${texto}»`, g, u: "consulta-ia?q=" + encodeURIComponent(texto.slice(0, 400))});
     if (SITIO.ia && hall.length && pal.length >= 3) hall.push(aIA("Consultas con IA"));
     const rr = respuesta(texto, hall);
     if (rr) hall.unshift(rr);
@@ -13134,7 +13136,7 @@ if (PAGINA !== "inicio") {
     } else {
       // nada coincide: tres caminos reales para seguir (el catálogo de datos filtra por lo escrito con ?q=)
       const g = `Nada coincide con «${texto}»`;
-      pintar(res, [{t: `Buscar «${texto}» en el catálogo de datos`, g, u: "catalogo.html?q=" + encodeURIComponent(texto)},
+      pintar(res, [{t: `Buscar «${texto}» en el catálogo de datos`, g, u: "catalogo?q=" + encodeURIComponent(texto)},
                    ...(SITIO.ia ? [aIA(g)] : []), {t: "Ver todos los temas", g, u: "./#secciones"}, ...ejemplos()], base);
       est.textContent = `${g}. La lista ofrece buscar en el catálogo de datos, ${SITIO.ia ? "preguntarles a los datos con IA, " : ""}ver los temas o abrir una pregunta de ejemplo.`;
     }
@@ -13277,7 +13279,7 @@ const vistasL = new IntersectionObserver(es => es.forEach(en => {
 document.querySelectorAll(".lab-pieza").forEach(f => vistasL.observe(f));
 
 /* navegación activa: la sección de esta página, en el menú y el pie, y en la barra su categoría (etapa 36: en Sector privado, "Economía") */
-document.querySelectorAll(".menu-panel a, .pie-mapa a").forEach(a => a.setAttribute("aria-current", a.getAttribute("href") === SECCION + ".html"));
+document.querySelectorAll(".menu-panel a, .pie-mapa a").forEach(a => a.setAttribute("aria-current", a.getAttribute("href") === SECCION));
 // en la barra, el grupo de la página actual (etapa 39: en Sector privado, "Trabajo y economía")
 document.querySelectorAll(".grupo-btn").forEach(b => b.setAttribute("aria-current", b.dataset.secs.split(" ").includes(SECCION)));
 
@@ -13579,7 +13581,7 @@ if (PAGINA === "inicio") mapa();
     // con algo escrito, ofrece llevarlo a Consultas con IA (etapa 6 del plan de mejora: el Catálogo busca tablas y ofrece preguntarles)
     if (ia) {
       ia.hidden = !q.value.trim();
-      ia.querySelector("a").setAttribute("href", "consulta-ia.html" + (q.value.trim() ? "?q=" + encodeURIComponent(q.value.trim()) : ""));
+      ia.querySelector("a").setAttribute("href", "consulta-ia" + (q.value.trim() ? "?q=" + encodeURIComponent(q.value.trim()) : ""));
     }
     if (!guardar) return;
     const u = new URL(location.href);

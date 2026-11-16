@@ -25,10 +25,10 @@ const fila = (tabla, titulo, url, cobertura, periodo) => {
           cobertura, periodo, filas: 1, columnas: cab.map(c => [c, "Texto", "valores"]), unidades: [], nota: "Nota de prueba."};
 };
 const INDICE = {actualizado: "25/10/2026", tablas: [
-  fila("gas_usuario_serie", "¿Cuánto gas usa cada usuario?", "energia.html#f-gas-usuario", "Las 24 jurisdicciones y el total del país", "1993 a 2025"),
-  fila("muertes_violentas", "Muertes violentas", "seguridad.html#f-muertes", "Total del país", "2000 a 2024"),
-  fila("ocde_comparacion", "¿Cómo está la Argentina frente a la OCDE?", "cruces.html#f-ocde", "Sin desglose territorial", "1995 a 2024"),
-  fila("votaciones_leyes_clave", "¿Cómo votaron las leyes clave?", "politica.html#f-votaciones", "Sin desglose territorial", "2006 a 2025"),
+  fila("gas_usuario_serie", "¿Cuánto gas usa cada usuario?", "energia#f-gas-usuario", "Las 24 jurisdicciones y el total del país", "1993 a 2025"),
+  fila("muertes_violentas", "Muertes violentas", "seguridad#f-muertes", "Total del país", "2000 a 2024"),
+  fila("ocde_comparacion", "¿Cómo está la Argentina frente a la OCDE?", "cruces#f-ocde", "Sin desglose territorial", "1995 a 2024"),
+  fila("votaciones_leyes_clave", "¿Cómo votaron las leyes clave?", "politica#f-votaciones", "Sin desglose territorial", "2006 a 2025"),
 ]};
 const leerDe = indice => async ruta => {
   if (ruta === "/datos/consulta_ia.json") return indice ? new Response(JSON.stringify(indice)) : new Response("", {status: 404});
@@ -101,7 +101,7 @@ const silencio = async f => { const [l, e] = [console.log, console.error]; conso
   ok(texto === resp, "el texto que llega a la página es el que escribió el modelo");
   ok(ev.some(e => e.t === "paso" && e.texto === "Leyendo «¿Cuánto gas usa cada usuario?»…"), "avisa qué ficha está leyendo");
   const fu = ev.find(e => e.t === "fuentes");
-  ok(fu && fu.fichas.length === 1 && fu.fichas[0].url === "energia.html#f-gas-usuario" && fu.fichas[0].tabla === "gas_usuario_serie", "manda la ficha consultada");
+  ok(fu && fu.fichas.length === 1 && fu.fichas[0].url === "energia#f-gas-usuario" && fu.fichas[0].tabla === "gas_usuario_serie", "manda la ficha consultada");
   ok(ev.at(-1).t === "fin", "termina con fin");
   ok(api.pedidos.length === 2, "dos llamadas a la API");
   const [p1, p2] = api.pedidos;
@@ -276,7 +276,7 @@ const consultaCF = async (pregunta, ia, env = {}) => {
   ok(ev.some(e => e.t === "paso" && e.texto === "Leyendo «¿Cuánto gas usa cada usuario?»…") && ev.some(e => e.t === "paso" && e.texto === "Escribiendo la respuesta…"),
      "Workers AI: avisa qué lee y cuándo escribe");
   const fu = ev.find(e => e.t === "fuentes");
-  ok(fu && fu.fichas.some(f => f.tabla === "gas_usuario_serie" && f.url === "energia.html#f-gas-usuario") && ev.at(-1).t === "fin", "Workers AI: manda la ficha consultada y termina con fin");
+  ok(fu && fu.fichas.some(f => f.tabla === "gas_usuario_serie" && f.url === "energia#f-gas-usuario") && ev.at(-1).t === "fin", "Workers AI: manda la ficha consultada y termina con fin");
 }
 {
   const ia = iaSimulada("ok");
@@ -345,8 +345,8 @@ const consultaCF = async (pregunta, ia, env = {}) => {
 // períodos que no empiezan con el año (26 de octubre de 2026): los semestres de la pobreza y el número de mes de la estacionalidad
 {
   const idx = await cargarIndice(leerDe({actualizado: "26/10/2026", tablas: [
-    fila("pobreza_serie", "¿Cuántas personas viven bajo la línea de pobreza?", "pobreza.html#f-pobreza", "Total del país", "2S2016 a 1S2026"),
-    fila("energia_estacionalidad", "¿En qué meses se usa más electricidad?", "energia.html#f-meses", "Total del país", "")]}));
+    fila("pobreza_serie", "¿Cuántas personas viven bajo la línea de pobreza?", "pobreza#f-pobreza", "Total del país", "2S2016 a 1S2026"),
+    fila("energia_estacionalidad", "¿En qué meses se usa más electricidad?", "energia#f-meses", "Total del país", "")]}));
   const base = {columnas: [], filtros: []};
   const po = await leerTabla({...base, tabla: "pobreza_serie", desde: "2025", hasta: ""}, idx, leerDe(null));
   const filasPo = po.texto?.split("\n\n").at(-1).split("\n").slice(1) || [];
@@ -362,7 +362,8 @@ if (existsSync(REAL)) {
   const idx = await cargarIndice(async ruta => ruta === "/datos/consulta_ia.json" ? new Response(readFileSync(REAL)) : new Response("", {status: 404}));
   ok(d.tablas.length > 100, "el índice armado tiene las tablas del catálogo");
   ok(d.tablas.every(t => existsSync(join(DATOS, t.tabla + ".csv"))), "cada tabla del índice existe en sitio/datos");
-  ok(d.tablas.every(t => /^(?:\.\/|[\w-]+\.html)(?:#[\w-]+)?$/.test(t.url)), "cada tabla lleva a una página del sitio");
+  // sin el .html desde el 16 de noviembre de 2026
+  ok(d.tablas.every(t => /^(?:\.\/|[\w-]+)(?:#[\w-]+)?$/.test(t.url)), "cada tabla lleva a una página del sitio, sin el .html");
   ok(!/suicid/i.test(idx.texto), "el texto del índice no nombra el suicidio");
   ok(!d.tablas.some(t => /suicid/i.test(t.tabla + t.titulo)), "ninguna tabla de suicidio en el índice");
   ok(["anthropic", "cloudflare"].includes(d.motor), "el índice armado dice qué motor contesta");

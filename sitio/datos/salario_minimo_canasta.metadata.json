@@ -3,7 +3,7 @@
  "titulo": "¿Qué parte de la canasta básica de una familia paga el salario mínimo?",
  "descripcion": "Salario mínimo, vital y móvil como porcentaje de la canasta básica total y de la alimentaria de un hogar de cuatro integrantes del Gran Buenos Aires, mes a mes, 2016 a 2026",
  "seccion": "Precios y actividad",
- "ficha": "https://datina.com.ar/economia.html#f-salario-minimo",
+ "ficha": "https://datina.com.ar/economia#f-salario-minimo",
  "fuente": "Consejo Nacional del Empleo, la Productividad y el Salario Mínimo, Vital y Móvil (serie de la Subsecretaría de Programación Macroeconómica, API de Series de Tiempo), e INDEC, canasta básica alimentaria y canasta básica total.",
  "organismos": [
   "Consejo del Salario (Consejo Nacional del Empleo, la Productividad y el Salario Mínimo, Vital y Móvil)",
@@ -71,6 +71,6 @@
  ],
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿Qué parte de la canasta básica de una familia paga el salario mínimo? Con datos de Consejo Nacional del Empleo, la Productividad y el Salario Mínimo, Vital y Móvil (serie de la Subsecretaría de Programación Macroeconómica, API de Series de Tiempo), e INDEC, canasta básica alimentaria y canasta básica total. https://datina.com.ar/economia.html#f-salario-minimo. Consultado el día de la consulta.",
+ "como_citar": "Datina (año de la consulta). ¿Qué parte de la canasta básica de una familia paga el salario mínimo? Con datos de Consejo Nacional del Empleo, la Productividad y el Salario Mínimo, Vital y Móvil (serie de la Subsecretaría de Programación Macroeconómica, API de Series de Tiempo), e INDEC, canasta básica alimentaria y canasta básica total. https://datina.com.ar/economia#f-salario-minimo. Consultado el día de la consulta.",
  "datos_actualizados": "15/11/2026"
 }

@@ -3,7 +3,7 @@
  "titulo": "¿Cuánto gasta el Estado en la Antártida?",
  "descripcion": "Gasto devengado de la Administración Nacional en programas antárticos, en miles de millones de pesos de 2025, 2000 a 2025",
  "seccion": "Naturaleza y ambiente",
- "ficha": "https://datina.com.ar/naturaleza.html#f-ant-presupuesto",
+ "ficha": "https://datina.com.ar/naturaleza#f-ant-presupuesto",
  "fuente": "Presupuesto Abierto, Secretaría de Hacienda. Deflactor del PBI: INDEC, vía Banco Mundial.",
  "organismos": [
   "Secretaría de Hacienda"
@@ -63,6 +63,6 @@
  ],
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿Cuánto gasta el Estado en la Antártida? Con datos de Presupuesto Abierto, Secretaría de Hacienda. Deflactor del PBI: INDEC, vía Banco Mundial. https://datina.com.ar/naturaleza.html#f-ant-presupuesto. Consultado el día de la consulta.",
+ "como_citar": "Datina (año de la consulta). ¿Cuánto gasta el Estado en la Antártida? Con datos de Presupuesto Abierto, Secretaría de Hacienda. Deflactor del PBI: INDEC, vía Banco Mundial. https://datina.com.ar/naturaleza#f-ant-presupuesto. Consultado el día de la consulta.",
  "datos_actualizados": "15/11/2026"
 }

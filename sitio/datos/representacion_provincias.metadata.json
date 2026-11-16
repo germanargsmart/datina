@@ -3,7 +3,7 @@
  "titulo": "¿Cuántos habitantes hay por banca de diputado en cada provincia?",
  "descripcion": "Habitantes por banca de diputado nacional en cada provincia, con la población proyectada para 2026",
  "seccion": "Instituciones políticas",
- "ficha": "https://datina.com.ar/politica.html#f-representacion",
+ "ficha": "https://datina.com.ar/politica#f-representacion",
  "fuente": "Ley 22.847 e INDEC, proyecciones de población.",
  "organismos": [
   "INDEC (Instituto Nacional de Estadística y Censos)"
@@ -66,6 +66,6 @@
  ],
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿Cuántos habitantes hay por banca de diputado en cada provincia? Con datos de Ley 22.847 e INDEC, proyecciones de población. https://datina.com.ar/politica.html#f-representacion. Consultado el día de la consulta.",
+ "como_citar": "Datina (año de la consulta). ¿Cuántos habitantes hay por banca de diputado en cada provincia? Con datos de Ley 22.847 e INDEC, proyecciones de población. https://datina.com.ar/politica#f-representacion. Consultado el día de la consulta.",
  "datos_actualizados": "15/11/2026"
 }

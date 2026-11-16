@@ -3,7 +3,7 @@
  "titulo": "¿Cuáles son las bases argentinas y desde cuándo están?",
  "descripcion": "Bases argentinas en la Antártida, año en que se fundó cada una y temporada en que funciona, 1904 a 1979",
  "seccion": "Naturaleza y ambiente",
- "ficha": "https://datina.com.ar/naturaleza.html#f-ant-bases",
+ "ficha": "https://datina.com.ar/naturaleza#f-ant-bases",
  "fuente": "Cancillería (Dirección Nacional del Antártico), Comando Conjunto Antártico, COMNAP, noviembre de 2024, e INDEC, Censos 2010 y 2022.",
  "organismos": [
   "Cancillería (Ministerio de Relaciones Exteriores, Comercio Internacional y Culto)",
@@ -85,7 +85,7 @@
  ],
  "licencia": "Los datos de las instalaciones son de COMNAP y se pueden usar con fines educativos y sin fines comerciales, citando a COMNAP. Lo que suma Datina tiene licencia Creative Commons Atribución 4.0",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿Cuáles son las bases argentinas y desde cuándo están? Con datos de Cancillería (Dirección Nacional del Antártico), Comando Conjunto Antártico, COMNAP, noviembre de 2024, e INDEC, Censos 2010 y 2022. https://datina.com.ar/naturaleza.html#f-ant-bases. Consultado el día de la consulta.",
+ "como_citar": "Datina (año de la consulta). ¿Cuáles son las bases argentinas y desde cuándo están? Con datos de Cancillería (Dirección Nacional del Antártico), Comando Conjunto Antártico, COMNAP, noviembre de 2024, e INDEC, Censos 2010 y 2022. https://datina.com.ar/naturaleza#f-ant-bases. Consultado el día de la consulta.",
  "licencia_datos_de_base": "https://www.comnap.aq/antarctic-facilities-information",
  "datos_actualizados": "15/11/2026"
 }
