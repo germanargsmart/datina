@@ -82,6 +82,16 @@ if (PAGINA === "inicio") {
   if (p && p !== PAGINA && p !== h) { location.replace(urlPagina(p, location.search + location.hash)); return; }
 }
 const R = D.resumen, T = D.datos, OC = R.ocde;
+// Lo que ya viene escrito en el HTML no se vuelve a escribir (plan técnico, fase 5, 16 de noviembre de 2026). scripts/texto_en_html.mjs deja en
+// data-pre la huella de lo que este archivo escribió en cada artículo y en las secciones de la página de cada provincia: si lo que se va a escribir
+// tiene la misma huella, ya está. Reescribirlo hacía que el navegador contara el texto como pintado recién al correr datina.js (el elemento más
+// grande, a los 5 o 6 segundos en un celular). La huella es FNV-1a de 32 bits, la misma que calcula texto_en_html.mjs: si no coincide, se escribe.
+// Uso: yaEscrito(nota).innerHTML = "..." (la marca sirve una sola vez: lo que se escriba después, por ejemplo al cambiar de vista, se escribe)
+const huellaHTML = s => { let h = 2166136261; for (let i = 0; i < s.length; i++) h = Math.imul(h ^ s.charCodeAt(i), 16777619); return (h >>> 0).toString(36); };
+const yaEscrito = el => ({ set innerHTML(html) {
+  const pre = el.dataset.pre; if (pre !== undefined) delete el.dataset.pre;
+  if (!pre || pre !== huellaHTML(html)) el.innerHTML = html;
+} });
 // Elementos de una ficha que puede no estar en esta página: si falta, se usa uno suelto y esas líneas no tienen efecto
 const $ = id => document.getElementById(id) || document.createElement("div");
 // Las tablas más pesadas (elecciones, transferencias por provincia, pirámide y apoyo al gobierno) van en archivos aparte
@@ -5747,7 +5757,7 @@ if (notaCorte) {
   const nAnios = CO.anios_composicion;
   // filas del gráfico de los presidentes (Roca está dos veces, una por cada presidencia), para reservar su alto mientras carga
   const nPres = CO.presidencias;
-  notaCorte.innerHTML =
+  yaEscrito(notaCorte).innerHTML =
     `<div class="nota-cab"><span class="nota-ico">${icono("balanza")}</span><div><p class="nota-meta">Laboratorio. Se actualiza con cada cambio en la Corte</p>` +
     `<h1 class="nota-tit" style="view-transition-name:t-corte-suprema">¿Qué gobierno designó a cada juez de la Corte Suprema?</h1></div></div>` +
     `<p class="nota-bajada"><mark>Hoy la Corte tiene ${hoy.length} jueces, de los ${CO.ley_hoy} que fija la ley.</mark> ${quienes}</p>` +
@@ -9162,7 +9172,7 @@ function pintarDestaca() {
   cand.forEach(x => { const l = elegidas[x.lado]; if (l.length < 3 && !l.some(y => y.c.id === x.c.id)) l.push(x); });
   const tarjetas = [...elegidas[0], ...elegidas[1]];
   caja.hidden = false;
-  caja.innerHTML = `<h2 class="bloque-grupo" id="prov-destaca-t">Dónde se destaca</h2>` +
+  yaEscrito(caja).innerHTML = `<h2 class="bloque-grupo" id="prov-destaca-t">Dónde se destaca</h2>` +
     (tarjetas.length ? `<p class="prov-destaca-sub">Los indicadores del perfil en los que ${nombre} tiene una de las tres cifras más altas o más bajas de las 24 jurisdicciones. Que una cifra sea alta o baja no dice si es buena o mala.</p>` +
       `<div class="perfil-tarjetas">` + tarjetas.map(({c, fila, orden, n}) => `<a class="tarjeta dp" href="#${c.id}"><span class="dp-lab">${c.lab}</span>` +
         `<span class="dp-num">${c.f(fila[c.k])}</span><span class="dp-det">${c.det}</span>` +
@@ -9230,7 +9240,7 @@ function pintarPuestos() {
   const num = v => Math.abs(v) >= 1000 ? n0(v) : n1(v);
   const series = [...d3.group(filas, r => r.variable).entries()].map(([v, s]) => ({v, s: s.sort((a, b) => a.anio - b.anio)}));
   caja.hidden = false;
-  caja.innerHTML = `<h2 class="bloque-grupo" id="prov-puestos-t">Cómo cambió su puesto</h2>` +
+  yaEscrito(caja).innerHTML = `<h2 class="bloque-grupo" id="prov-puestos-t">Cómo cambió su puesto</h2>` +
     `<p class="prov-destaca-sub">El lugar de ${NOMBRES[prov]} entre las 24 jurisdicciones, cada dos años. Arriba, el mejor puesto (en mortalidad o robos, la cifra más baja): ` +
     `verde si mejoró y rojo si empeoró. El puesto compara con las otras jurisdicciones: la cifra de ${NOMBRES[prov]} puede mejorar aunque el puesto empeore.</p>` +
     `<div class="perfil-tarjetas">` +
@@ -9261,7 +9271,7 @@ function pintarCensos() {
   const pais = k => (T.censos_pais || []).find(r => r.indicador === k), pv = CZ.pob_var_prov[prov];
   const puntos = v => `${v > 0 ? "+" : v < 0 ? "−" : ""}${n1(Math.abs(v))} puntos`;
   caja.hidden = false;
-  caja.innerHTML = `<h2 class="bloque-grupo" id="prov-censos-t">Cómo cambió entre los censos 2010 y 2022</h2>` +
+  yaEscrito(caja).innerHTML = `<h2 class="bloque-grupo" id="prov-censos-t">Cómo cambió entre los censos 2010 y 2022</h2>` +
     `<p class="prov-destaca-sub">Entre los censos de 2010 y 2022, la población de ${NOMBRES[prov]} ${pv >= 0 ? "creció" : "bajó"} ${pct(Math.abs(pv))}, ` +
     `y la del país, ${pct(CZ.pob_var)}. Estos son los tres indicadores del censo que más cambiaron, en puntos. Que un número suba o baje no dice por ` +
     `sí solo si es mejor o peor.</p>` + `<div class="perfil-tarjetas">` + filas.slice(0, 3).map(r => {
@@ -10321,7 +10331,7 @@ function artNuevo(a) {
       S.pie || (S.tipo === "pesas" ? `${mayusc(S.unidad || w.M.unidad)}. El círculo claro marca ${r.ini} y el lleno, ${r.fin}.` :
         `${mayusc(S.unidad || w.M.unidad)}, por año. La línea es la mediana de las ${U.pl} y la franja abarca a la mitad de ellas que queda en el medio.`), [txt]);
   };
-  nota.innerHTML =
+  yaEscrito(nota).innerHTML =
     `<div class="nota-cab"><span class="nota-ico">${icono(a.icono)}</span><div><p class="nota-meta">${nombreSec(a.sec)}. ${a.frec}</p><h1 class="nota-tit" style="view-transition-name:t-${a.id}">${a.titulo}</h1></div></div>` +
     `<p class="nota-bajada">${t0.gancho}</p>` +
     `<div class="nota-frase nota-sintesis"><h2>En síntesis</h2><ul>${sintesis.map(x => `<li>${x}</li>`).join("")}</ul></div>` +
@@ -10387,7 +10397,7 @@ ART.forEach(a => {
   const fts = [...new Set(a.t.flatMap(t => [fuenteArt(t.Mx), fuenteArt(t.My)]))];
   const key = i => "art-" + a.id + (i ? "-" + i : "");
   const nota = document.getElementById(a.id); if (!nota) return;
-  nota.innerHTML =
+  yaEscrito(nota).innerHTML =
     `<div class="nota-cab"><span class="nota-ico">${icono(a.icono)}</span><div><p class="nota-meta">${nombreSec(a.sec)}. ${a.frec}</p><h1 class="nota-tit" style="view-transition-name:t-${a.id}">${a.titulo}</h1></div></div>` +
     `<p class="nota-bajada">${t0.gancho}</p>` +
     `<div class="nota-frase"><h2>En una frase</h2>${a.t.map(t => `<p><mark>${t.respuesta}</mark> ${t.frase}</p>`).join("")}</div><p>${a.contexto}</p>` +
@@ -12205,7 +12215,7 @@ ART_SERIE.forEach(a => {
   Object.assign(a, DAT_ART[a.id]);
   const nota = document.getElementById(a.id); if (!nota) return;
   const t = a.texto(), ficha = id => id && paginaDe(id) ? urlPagina(paginaDe(id), "#" + id) : null;
-  nota.innerHTML =
+  yaEscrito(nota).innerHTML =
     `<div class="nota-cab"><span class="nota-ico">${icono(a.icono)}</span><div><p class="nota-meta">${nombreSec(a.sec)}. ${a.frec}</p><h1 class="nota-tit" style="view-transition-name:t-${a.id}">${a.titulo}</h1></div></div>` +
     `<p class="nota-bajada"><mark>${t.respuesta}</mark> ${t.bajada}</p>` +
     // modelo nuevo (2 de noviembre de 2026, pedido del autor, como los artículos de Fundar): "En síntesis" arriba, "Qué medimos", cada sección
