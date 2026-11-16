@@ -32,6 +32,9 @@ scripts/catalogo.py            arma la lista del Catálogo de datos (catalogo.ht
                                Desde el 13 de noviembre de 2026 da también lo de sitio/datos/catalogo.json (03 lo escribe): una entrada por tabla con sus
                                organismos y la fecha de cada archivo del que sale. De ahí salen el .metadata.json de cada tabla, los Dataset y llms.txt
 scripts/prueba_paginas.mjs     prueba de las páginas armadas en Chrome sin ventana (usa scripts/cdp.mjs)
+scripts/texto_en_html.mjs      desde el 16 de noviembre de 2026 (plan técnico, fase 4), el último paso de 03: abre cada página en Chrome sin ventana, con el reloj
+                               en la fecha de los datos, y deja escrito en el HTML el texto de los artículos y de cada interpretación (data-t), que antes
+                               escribía solo datina.js al cargar. Por eso 03 necesita Node 22 o más y Chrome, como la prueba de páginas
 scripts/elecciones_mesas.py    desde el 4 de noviembre de 2026, arma sitio/datos/mesas/ (resultados por mesa y circuito, 87 MB), que 03 no toca. Se corre una vez por
                                elección. La página es scripts/mesas.js, aparte de datina.js, y la prueba scripts/prueba_mesas.py: docs/roadmap/MESAS.md
 scripts/elecciones_mapa.py     desde el 5 de noviembre de 2026, el mapa de esa herramienta: une la cartografía de los circuitos con los resultados (sitio/datos/mesas/geo/ y mapa/). Los colores de
