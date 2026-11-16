@@ -19,6 +19,8 @@ const SITIO = normalize(fileURLToPath(new URL("../sitio/", import.meta.url)));
 const PAGINAS = ["index.html", "trabajo.html", "a-coparticipacion.html", "provincia-neuquen.html", "mesas.html", "catalogo.html"];
 const MODOS = process.argv[2] ? [process.argv[2]] : ["celular", "computadora"];
 const CORRIDAS = Number(process.argv[3] || 3);
+// en Linux Chrome no puede usar su aislamiento dentro de una máquina virtual o como administrador (lo mismo que scripts/cdp.mjs)
+const LINUX = process.platform === "linux" ? " --no-sandbox --disable-dev-shm-usage" : "";
 const TIPOS = {".html": "text/html; charset=utf-8", ".js": "text/javascript; charset=utf-8", ".mjs": "text/javascript; charset=utf-8",
   ".css": "text/css; charset=utf-8", ".json": "application/json", ".geojson": "application/json", ".csv": "text/csv; charset=utf-8",
   ".png": "image/png", ".svg": "image/svg+xml", ".woff2": "font/woff2", ".txt": "text/plain; charset=utf-8", ".xml": "application/xml"};
@@ -58,7 +60,7 @@ for (const modo of MODOS) {
     for (let i = 0; i < CORRIDAS; i++) {
       const salida = join(tmp, "r.json");
       const args = [LH, `${B}${pg}`, "--quiet", "--output=json", `--output-path=${salida}`, `--only-categories=${CATS.join(",")}`,
-        "--chrome-flags=--headless=new --no-first-run --no-default-browser-check"];
+        `--chrome-flags=--headless=new --no-first-run --no-default-browser-check${LINUX}`];
       if (modo === "computadora") args.push("--preset=desktop");
       // sin bloquear: el servidor de este mismo proceso tiene que seguir contestando mientras corre Lighthouse
       await promisify(execFile)(process.execPath, args, {timeout: 180000});
