@@ -1265,8 +1265,6 @@ assert set(_DD_CORTO) == {g for g, _, _ in _dd_grupos}, "Datos destacados: un gr
 _datos_destacados = (f'<div class="conmutador dd-grupos" role="group" aria-label="Grupo de temas" data-propio style="--n:{len(_dd_grupos)}" hidden>'
                      + "".join(f'<button type="button" data-g="{g}" aria-pressed="{"true" if k == 0 else "false"}" title="{e(n)}">{_DD_CORTO[g]}</button>'
                                for k, (g, n, _) in enumerate(_dd_grupos)) + "</div>"
-                     + '<p class="dd-ley">La línea es la serie del país y el punto amarillo, el dato de arriba. Los puntos sueltos son las 24 jurisdicciones '
-                     'y la raya, el país.</p>'
                      + "".join(f'<section class="dd-grupo" data-grupo="{g}" aria-labelledby="dd-{g}"><h2 class="dd-grupo-tit" id="dd-{g}">{e(n)}</h2><ul class="dd-grilla">'
                                + "".join(f'<li class="dd-dato" data-clave="{f[0]}" data-tema="{f[1]}"><span class="dd-tema">{icono_svg(SEC_ICONO[f[1]]) if f[1] in SEC_ICONO else ""}'
                                          f'{e(TITULO_DE[f[1]])}</span><h3 class="dd-preg"><a href="{url_pagina(UBIC[f[0]])}#{f[0]}">{e(_PREG_DEST.get(f[0], f[2]))}</a></h3>'

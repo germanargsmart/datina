@@ -653,11 +653,12 @@ html:not(.js) .dest-control{display:none}
    Al cambiar de grupo las celdas entran con un fundido y 6 píxeles hacia arriba, escalonadas de a 18 ms hasta la novena (144 ms), en --dur-3. Con
    movimiento reducido, solo el fundido. Una familia y cuatro tamaños: el tema, qué mide y los rótulos del minigráfico (13), la pregunta (15), la cifra y
    el grupo (20 a 24). El minigráfico reserva su alto mientras carga, para que nada salte */
-.dd-grupos{margin:var(--e-6) 0 var(--e-3)}
-/* sin la bajada de la página (16 de noviembre de 2026) el conmutador seguía al título en la misma línea: va en la suya */
+/* Sin la bajada ni la leyenda (16 de noviembre de 2026, pedido del autor), tres distancias fijas: 24 del título al conmutador (16 del margen del h1
+   y 8 de acá: los dos márgenes no se juntan), 32 del conmutador al grupo, y 12 del nombre del grupo a sus tarjetas. Lo que va junto, junto: el
+   conmutador es parte de la cabeza de la página y el nombre del grupo, de sus tarjetas. En una línea propia también en la computadora */
+.conmutador.dd-grupos{margin:var(--e-2) 0 0}
 @media (min-width:761px){.conmutador.dd-grupos{display:grid;width:max-content}}
-.dd-ley{margin:0 0 var(--e-6);font-size:var(--t-2);color:var(--muted)}
-.dd-grupo{margin-top:var(--e-6)}
+.dd-grupo{margin-top:var(--e-7)}
 .dd-grupo[hidden]{display:none}
 .dd-grupo-tit{margin:0 0 var(--e-3);font-family:var(--f);font-size:var(--t-6);line-height:1.2;font-weight:600;color:var(--ink);font-variation-settings:normal}
 .dd-grilla{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:var(--e-2);margin:0;padding:var(--e-2);list-style:none;background:var(--superficie-2);border-radius:var(--r-tarjeta)}
@@ -693,7 +694,7 @@ html:not(.js) .dest-control{display:none}
 @media (prefers-reduced-motion:reduce){.dd-grupo.entra .dd-dato{animation-name:dd-funde;animation-delay:0s}}
 @media (min-width:761px){.dd-grilla{grid-auto-rows:1fr}}
 @media (max-width:760px){.dd-grilla{grid-template-columns:1fr}.dd-dato .c-txt{min-height:0}}
-@media print{.dd-grupos,.dd-ley{display:none}.dd-grupo[hidden]{display:block}.dd-dato{break-inside:avoid}.dd-mini{opacity:1}}
+@media print{.dd-grupos{display:none}.dd-grupo[hidden]{display:block}.dd-dato{break-inside:avoid}.dd-mini{opacity:1}}
 /* Provincias en la portada: las 24 jurisdicciones con su bandera */
 .prov-home{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:var(--e-1) var(--e-4);margin:0;padding:0;list-style:none}
 @media (max-width:1080px){.prov-home{grid-template-columns:repeat(4,minmax(0,1fr))}}
