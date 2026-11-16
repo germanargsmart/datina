@@ -582,50 +582,70 @@ html:not(.js) .busca-portada{display:none}
 /* entre los bloques de la portada, el espacio de bloque y no el de capítulo (respuesta del autor del 23 de octubre de 2026, para
    compactar la portada de la Fase 2: de 48 a 72 píxeles pasaron a ser de 24 a 40) */
 .secciones,.articulos-home,.herramientas-home,.destacados,.provincias-home{padding-top:var(--bloque)}
-/* Datos destacados de la portada. Desde el 15 de noviembre de 2026 (pedido del autor, que eligió el tratamiento "neutro" entre seis): los doce en cuatro
-   columnas, una por grupo, en la grilla de "Explorá la Argentina por tema" (32 píxeles entre columnas), sin líneas bajo los títulos y sin carrusel. Las
-   columnas, en el gris azulado de las superficies. Las tarjetas, blancas y todas del mismo tamaño: comparten las filas de la grilla (subgrid), con la
-   pregunta (hasta tres líneas), la cifra y el pie, que es 1fr. El color de cada grupo va solo en la cifra (celeste y sol). Al apoyar el mouse, la tarjeta se
-   tiñe de un celeste transparente (--celeste-velo). Cuatro tamaños en el bloque, como pidió el autor el 10 de noviembre de 2026: el título del bloque, la
-   pregunta y el grupo (16 a 17, el grupo en negrita), la cifra (22 a 28) y el texto (13). En el celular cada grupo es una fila que se desliza, con la
-   tarjeta siguiente asomando. La cifra y su texto llegan con datina.js: el pie reserva el alto de seis líneas para que la portada no salte */
-/* la pregunta ocupa siempre tres líneas (cuatro entre 1080 y 1240 píxeles, donde las columnas son más angostas): con un alto fijo, las doce tarjetas miden lo
-   mismo, que es lo que pidió el autor. En una subgrilla el relleno y el margen de cada tarjeta ocupan sus filas: el relleno de arriba va en la de la
-   pregunta, y el de abajo y el espacio hasta la tarjeta siguiente (un margen abajo, igual en las doce), en la del pie */
-.dg-grid{--dg-preg:calc(var(--t-4) * 1.3 * 3 + var(--e-4));display:grid;grid-template-columns:repeat(4,minmax(0,1fr));column-gap:var(--e-7);margin-top:var(--e-3);
-  grid-template-rows:auto repeat(3,var(--dg-preg) auto 1fr)}
-@media (min-width:1080px) and (max-width:1240px){.dg-grid{--dg-preg:calc(var(--t-4) * 1.3 * 4 + var(--e-4))}}
-.dg-col{grid-row:1 / -1;display:grid;grid-template-rows:subgrid;row-gap:0;padding:var(--e-2) var(--e-2) 0;border-radius:var(--r-tarjeta);background:var(--superficie-2)}
-.dg-col[data-grupo="economia"]{--dg-cifra:var(--sol-texto)}
-.dg-col[data-grupo="estado"]{--dg-cifra:var(--azul-hondo)}
-.dg-col[data-grupo="territorio"]{--dg-cifra:var(--sol-fuerte)}
-.dg-tit{margin:0;padding:var(--e-3);font-size:var(--t-4);line-height:1.3;font-weight:600;color:var(--ink)}
-.dg-lista{display:contents}
-.destacado{position:relative;grid-row:span 3;display:grid;grid-template-rows:subgrid;row-gap:0;padding:var(--e-4);border-radius:var(--r-interno);background:var(--bg);color:var(--ink);text-decoration:none;
-  box-shadow:0 0 0 1px var(--line);transition:background-color var(--dur-2) var(--ease-out),box-shadow var(--dur-2) var(--ease-out),transform var(--dur-1) var(--ease-out)}
-.destacado{margin-bottom:var(--e-2)}
-.destacado .c-preg{font-size:var(--t-4);line-height:1.3;font-weight:500;color:var(--ink);text-wrap:balance}
-.destacado .c-num{min-height:1.1em;margin-top:var(--e-2);font-family:var(--f);font-size:var(--t-7);line-height:1.1;font-weight:600;color:var(--dg-cifra,var(--azul));font-variation-settings:normal;font-variant-numeric:tabular-nums}
-.destacado .c-pie{display:flex;flex-direction:column;min-height:calc(var(--t-2) * 1.4 * 6 + var(--e-4))}
-.destacado .c-txt{margin-top:var(--e-1);font-size:var(--t-2);line-height:1.4;color:var(--ink)}
-.destacado .c-rango{margin-top:auto;padding-top:var(--e-3);font-size:var(--t-2);line-height:1.4;color:var(--muted)}
-@media (hover:hover) and (pointer:fine){.destacado:hover{background:linear-gradient(var(--celeste-velo),var(--celeste-velo)),var(--bg);box-shadow:0 0 0 1px var(--borde-claro)}}
-.destacado:active{transform:scale(.985)}
-.destacado:focus-visible{outline:2px solid var(--celeste-fuerte);outline-offset:2px}
-@media (max-width:1079px){.dg-grid{grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:none;row-gap:var(--e-6)}
-  .dg-col{grid-row:auto;grid-template-rows:auto repeat(3,var(--dg-preg) auto 1fr)}}
-@media (max-width:640px){
-  .dg-grid{grid-template-columns:minmax(0,1fr);row-gap:var(--e-4)}
-  .dg-col{display:block;padding:0 0 var(--e-2)}
-  .dg-tit{padding:var(--e-3) var(--e-4) var(--e-2)}
-  .dg-lista{display:flex;gap:var(--e-2);overflow-x:auto;scroll-snap-type:x mandatory;padding:0 var(--e-2) var(--e-1);scroll-padding:0 var(--e-2);scrollbar-width:none}
-  .dg-lista::-webkit-scrollbar{display:none}
-  .destacado{flex:0 0 86%;display:flex;flex-direction:column;scroll-snap-align:start}
-  .destacado{margin-bottom:0}
-  .destacado .c-preg{min-height:calc(var(--t-4) * 1.3 * 2)}
-  .destacado .c-pie{flex:1}
+/* Datos destacados de la portada (pedido del autor, 6 de noviembre de 2026): datos fijos en tarjetas de fondo gris suave, sin borde ni sombra. Desde el 10 de
+   noviembre de 2026 (pedido del autor) son doce, de a cuatro en la computadora, de a tres hasta 1180 píxeles (más angostas, de a cuatro crecían de alto) y de a uno en el celular.
+   Un dato solo, a todo el ancho, quedaba desproporcionado. Una sola familia y cuatro tamaños, contando el título del bloque. Desde el 10 de noviembre de 2026
+   (pedido del autor: "están todas demasiado gigantes") la etiqueta, el texto y el rango van en 13, como en "En cifras", la pregunta en 16 a 17 y la cifra
+   en 22 a 28, un tamaño menos que el título (28 a 36), con menos relleno. La cifra va en ancho normal y sola en su línea: en la condensada, "928 mil" se leía "1928 y". Los doce
+   comparten las filas de la grilla (subgrid): las cifras quedan a la misma altura y al pasar de tanda nada salta. El texto y el rango van juntos en la
+   última fila (.c-pie), así un texto largo en un dato no deja un hueco entre el texto y el rango de los otros. La cifra y su texto llegan con
+   datina.js: se reserva el alto medido en cada ancho, para que la portada casi no salte cuando llegan */
+.destacados{position:relative}
+.dest-carrusel{display:flex;flex-direction:column}
+.destacados-grid{display:grid;grid-auto-flow:column;grid-auto-columns:calc((100% - 3 * var(--e-4)) / 4);grid-template-rows:repeat(4,auto);column-gap:var(--e-4);min-height:295px;margin-top:var(--e-3);
+  overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;overscroll-behavior-x:contain}
+.destacados-grid::-webkit-scrollbar{display:none}
+.destacado{grid-row:span 4;display:grid;grid-template-rows:subgrid;gap:0;padding:var(--e-4)}
+.destacado:nth-child(4n+1){scroll-snap-align:start}
+.destacado:focus-visible{outline:2px solid var(--celeste-fuerte);outline-offset:-2px}
+.destacado .c-lab{font-family:var(--f);font-size:var(--t-2);line-height:1.3;font-weight:500;letter-spacing:0;text-transform:none;color:var(--ink)}
+.destacado .c-preg{margin:var(--e-3) 0 var(--e-2);font-size:var(--t-4);line-height:1.3;font-weight:500;color:var(--ink);text-wrap:balance}
+.destacado .c-num{min-height:1em;font-family:var(--f);font-size:var(--t-8);line-height:1.1;font-weight:600;color:var(--dg-cifra,var(--azul));font-variation-settings:normal}
+.destacado .c-txt{margin-top:var(--e-1);font-size:var(--t-3);line-height:1.4;color:var(--ink)}
+.destacado .c-num{font-size:var(--t-7)}
+.destacado .c-txt{font-size:var(--t-2)}
+/* D7 (plan de mejora, 28 de octubre de 2026, aprobado por el autor): la cifra es la del país y debajo va cómo cambia entre las provincias, de la más baja a
+   la más alta, o el dato que mejor la acompaña */
+.destacado .c-pie{display:flex;flex-direction:column}
+.destacado .c-rango{margin-top:var(--e-2);font-size:var(--t-2);line-height:1.4;color:var(--muted)}
+/* los controles: los botones de siempre, en la letra de la etiqueta para no sumar un tamaño al bloque, y redondeles. En la computadora, en la fila del título.
+   Sin JavaScript no se ven */
+.dest-control{position:absolute;top:var(--bloque);right:0;display:flex;align-items:center;gap:var(--e-2)}
+html:not(.js) .dest-control{display:none}
+.dest-control .boton.chico{font-size:var(--t-2)}
+.dest-puntos{display:flex;justify-content:center}
+.dest-punto{display:grid;place-items:center;width:var(--e-6);height:var(--e-7);padding:0;background:none;border:0;border-radius:50%;cursor:pointer}
+.dest-punto::before{content:"";width:10px;height:10px;border-radius:50%;background:var(--superficie-3);box-shadow:inset 0 0 0 1px var(--faint);transition:background-color var(--dur-1) var(--ease-out)}
+.dest-punto[aria-current="true"]::before{background:var(--azul);box-shadow:none}
+.dest-punto:focus-visible{outline:2px solid var(--celeste-fuerte);outline-offset:-2px}
+@media (hover:hover) and (pointer:fine){.dest-punto:not([aria-current="true"]):hover::before{background:var(--celeste)}}
+.dest-cuenta{display:none;font-size:var(--t-2);color:var(--muted);white-space:nowrap}
+/* las alturas reservadas, medidas el 10 de noviembre de 2026 con los doce datos, en el ancho de los aparatos de cada tramo: 1280 a 1920, 1180, 1024, 950,
+   768 y 820, 744, 390 y 412, 360 */
+@media (max-width:1180px){.destacados-grid{grid-auto-columns:calc((100% - 2 * var(--e-4)) / 3);min-height:273px}.destacado:nth-child(4n+1){scroll-snap-align:none}.destacado:nth-child(3n+1){scroll-snap-align:start}}
+@media (max-width:1080px){.destacados-grid{min-height:273px}}
+@media (max-width:1000px){.destacados-grid{grid-auto-columns:calc((100% - 2 * var(--e-3)) / 3);column-gap:var(--e-3)}.destacado{padding:var(--e-3) var(--e-4) var(--e-4)}.destacados-grid{min-height:267px}}
+@media (max-width:900px){.destacados-grid{min-height:325px}}
+/* en el celular, de a uno, con el siguiente asomando, y los controles debajo: "1 de 12", porque doce redondeles no entran */
+@media (max-width:760px){
+  .destacados-grid{order:1;grid-auto-columns:84%;column-gap:var(--e-3);min-height:188px;margin-right:calc(-1 * var(--margen))}
+  .destacado:nth-child(n){scroll-snap-align:start}
+  .dest-control{position:static;order:2;justify-content:space-between;margin-top:var(--e-3);padding-top:var(--e-3);border-top:1px solid var(--borde)}
+  .dest-puntos{display:none}
+  .dest-cuenta{display:block}
+  .dest-control .boton.chico{padding:var(--e-1) var(--e-3)}
 }
-@media print{.dg-lista{display:block}.dg-grid{grid-template-rows:none}.destacado{break-inside:avoid}}
+@media (max-width:430px){.destacados-grid{min-height:264px}}
+@media (max-width:360px){.destacados-grid{min-height:264px}}
+@media print{.destacados-grid{display:block;overflow:visible;min-height:0}.dest-control{display:none}.destacado{display:block;break-inside:avoid;margin-bottom:var(--e-4)}}
+/* Desde el 16 de noviembre de 2026 (pedido del autor, después de ver las cuatro columnas del 15: "dejalo en formato carrusel como estaba, solo agregá la
+   card y el formato") el carrusel vuelve, con la tarjeta del 15: blanca con un hilo en lugar del gris suave, la cifra con el color de su grupo, sin la línea
+   bajo el grupo y, al apoyar el mouse, el celeste transparente */
+.tarjeta.destacado{background:var(--bg);box-shadow:inset 0 0 0 1px var(--line);transition:background-color var(--dur-2) var(--ease-out),box-shadow var(--dur-2) var(--ease-out),transform var(--dur-1) var(--ease-out)}
+.destacado[data-grupo="economia"]{--dg-cifra:var(--sol-texto)}
+.destacado[data-grupo="estado"]{--dg-cifra:var(--azul-hondo)}
+.destacado[data-grupo="territorio"]{--dg-cifra:var(--sol-fuerte)}
+@media (hover:hover) and (pointer:fine){.tarjeta.destacado:hover{background:linear-gradient(var(--celeste-velo),var(--celeste-velo)),var(--bg);box-shadow:inset 0 0 0 1px var(--borde-claro)}}
 /* el enlace a la página de datos destacados, con la letra de las tarjetas para no sumar un tamaño al bloque */
 .dest-todos{margin:var(--e-3) 0 0;font-size:var(--t-2);line-height:1.4}
 /* La página de datos destacados, "Pulso" (15 de noviembre de 2026, elegido por el autor entre cinco bocetos): un tablero de celdas con el ícono y el
@@ -634,6 +654,8 @@ html:not(.js) .busca-portada{display:none}
    movimiento reducido, solo el fundido. Una familia y cuatro tamaños: el tema, qué mide y los rótulos del minigráfico (13), la pregunta (15), la cifra y
    el grupo (20 a 24). El minigráfico reserva su alto mientras carga, para que nada salte */
 .dd-grupos{margin:var(--e-6) 0 var(--e-3)}
+/* sin la bajada de la página (16 de noviembre de 2026) el conmutador seguía al título en la misma línea: va en la suya */
+@media (min-width:761px){.conmutador.dd-grupos{display:grid;width:max-content}}
 .dd-ley{margin:0 0 var(--e-6);font-size:var(--t-2);color:var(--muted)}
 .dd-grupo{margin-top:var(--e-6)}
 .dd-grupo[hidden]{display:none}
@@ -722,12 +744,16 @@ html:not(.js) .busca-portada{display:none}
    vacío): cada grupo es una columna con su nombre sobre una línea, y Curiosidades va debajo de la columna más corta */
 #secciones-grid{grid-template-columns:repeat(4,minmax(0,1fr));grid-auto-rows:auto;align-items:start;gap:var(--e-6) var(--e-7)}
 @media (max-width:1079px){#secciones-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media (max-width:640px){#secciones-grid{grid-template-columns:1fr;gap:var(--e-6)}.tg-col{gap:var(--e-6)}}
+@media (max-width:640px){#secciones-grid{grid-template-columns:1fr;gap:var(--e-7)}.tg-col{gap:var(--e-7)}}
 .tg-col{display:flex;flex-direction:column;gap:var(--e-7)}
-.tg{padding-top:var(--e-3);border-top:2px solid var(--azul)}
+/* sin la raya azul arriba de cada grupo desde el 16 de noviembre de 2026 (pedido del autor: "sin línea, pero que tenga un espacio definido"): del título del
+   bloque a los grupos van 24 píxeles (el margen de la grilla, que se junta con los 8 del título), del nombre del grupo a su primer tema 8, y en el celular, entre un grupo y el
+   siguiente, 32 en lugar de 24, porque ya no hay una raya que los separe */
+.tg{padding-top:0;border-top:0}
+#secciones-grid{margin-top:var(--e-6)}
 /* Jerarquía (pedido del autor, noviembre de 2026): primero se leen los cuatro grupos y después sus temas, más chicos, sin negrita y en gris. Hasta
    entonces era al revés: el grupo en letra mono de 11 píxeles y el tema en condensada de 24, en celeste. El bloque también se achicó */
-.tg-tit{margin:0 0 var(--e-1);font-size:var(--t-5);line-height:1.2;font-weight:600;color:var(--azul)}
+.tg-tit{margin:0 0 var(--e-2);font-size:var(--t-5);line-height:1.2;font-weight:600;color:var(--azul)}
 .tg-lista{margin:0;padding:0;list-style:none}
 /* el tema entero es la zona del enlace, con sus subtemas adentro (pedido del autor, noviembre de 2026: el fondo se cortaba donde había subtemas). Un
    enlace no puede ir dentro de otro: el de la página se estira con ::after hasta cubrir el tema y los subtemas quedan arriba, cada uno con el suyo.

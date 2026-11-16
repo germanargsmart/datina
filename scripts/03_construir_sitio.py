@@ -1222,8 +1222,8 @@ for _id, _q in EJEMPLOS:
 DESTACADOS = [("personas", "f-nacimientos"), ("economia", "f-salarios"), ("estado", "f-homicidios"), ("territorio", "f-petroleo"),
               ("personas", "f-esperanza"), ("economia", "f-inflacion"), ("estado", "f-sin-condena"), ("territorio", "f-ant-bases"),
               ("personas", "f-pobreza"), ("economia", "f-desocupacion"), ("estado", "f-jueces-federales"), ("territorio", "f-combustibles")]
-# desde el 15 de noviembre de 2026 van en cuatro columnas, una por grupo, con tres datos cada una (pedido del autor)
-assert all(sum(1 for g, _ in DESTACADOS if g == gg) == 3 for gg, _, _ in GRUPOS), "datos destacados: tres por grupo"
+assert len(DESTACADOS) % 4 == 0 and all(len({g for g, _ in DESTACADOS[i:i + 4]}) == 4 for i in range(0, len(DESTACADOS), 4)), \
+    "datos destacados: cada tanda de cuatro tiene que llevar los cuatro grupos"
 # la pregunta de cada dato destacado (D7 del plan del 26 de octubre de 2026): la cifra es la del país, así que la pregunta también. La de
 # la ficha pregunta por las provincias, que muestra su gráfico
 _PREG_DEST = {"f-esperanza": "¿Cuántos años se vive en la Argentina?", "f-salarios": "¿Cuánto se gana en un empleo privado registrado?",
@@ -1239,10 +1239,9 @@ for _g, _id in DESTACADOS:
     assert f'"{_id}":' in _clave_js, f"{_id}: el dato destacado necesita una cifra destacada (CLAVE)"
     assert _id not in TEXTO_ANTES and _ficha[_id][2], f"{_id}: no puede ser un dato destacado o le falta la pregunta fija"
     assert GRUPO_DE[_ficha[_id][1]][0] == _g, f"{_id}: no es del grupo {_g}"
-_destacados = "".join(f'<section class="dg-col" data-grupo="{g}" aria-labelledby="dg-{g}"><h3 class="dg-tit" id="dg-{g}">{e(n)}</h3><div class="dg-lista">'
-                      + "".join(f'<a class="destacado" href="{url_pagina(UBIC[i])}#{i}" data-clave="{i}"><span class="c-preg">{e(_PREG_DEST[i])}</span>'
-                                '<span class="c-num"></span><span class="c-pie"><span class="c-txt"></span><span class="c-rango"></span></span></a>'
-                                for gg, i in DESTACADOS if gg == g) + "</div></section>" for g, n, _ in GRUPOS)
+_destacados = "".join(f'<a class="tarjeta destacado" href="{url_pagina(UBIC[i])}#{i}" data-clave="{i}" data-grupo="{g}"><span class="c-lab">{e(_nombre_grupo[g])}</span>'
+                      f'<span class="c-preg">{e(_PREG_DEST[i])}</span><span class="c-num"></span><span class="c-pie"><span class="c-txt"></span><span class="c-rango"></span></span></a>'
+                      for g, i in DESTACADOS)
 # La página de datos destacados (segunda fase del brief de pulido, 6 de noviembre de 2026): la cifra destacada de cada ficha de los cuatro grupos de temas, en
 # el orden de GRUPOS y de la página de cada tema. Respuestas del autor de ese día: una sola columna, sin tarjetas, el grupo una vez como título y en cada dato
 # su tema, con la pregunta de su ficha. Los doce de la portada llevan la misma pregunta que allá, para que un dato no tenga dos. Las fichas sin cifra
@@ -1673,7 +1672,11 @@ def lista_articulos(h):
     return sin_notas(h).replace(vacia, f'<div class="art-lista" id="art-grid">{_LISTA_ARTS}</div>', 1)
 
 
+# las páginas que no muestran su pregunta (el autor sacó la de Datos destacados el 16 de noviembre de 2026) la llevan igual en la descripción
+# para buscadores y en la imagen al compartir
+PREG_SOLO_META = {"datos-destacados": "¿Cuál es la cifra clave de cada tema?"}
 for id_, titulo, preg, _, es_herr, *_ in SECCIONES:
+    preg = preg or PREG_SOLO_META.get(id_, "")
     cola = ("Herramienta de Datina con datos públicos de la Argentina y sus 24 jurisdicciones." if es_herr else
             "Cada artículo cruza datos oficiales y dice sus fuentes y sus límites." if id_ == "articulos" else
             "Cada dato con su fuente, su período y su tabla para descargar.")
