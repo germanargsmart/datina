@@ -23,6 +23,11 @@ jobs:
         with:
           python-version: "3.12"
       - run: pip install -r requirements.txt
+      # Node 22 antes del armado: desde el 16 de noviembre de 2026 (plan tecnico, fase 4) 03 escribe el texto en el HTML con Chrome sin
+      # ventana (scripts/texto_en_html.mjs), y el Node que trae la maquina no tiene WebSocket
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "22"
       # corre pruebas_datos.py, el catalogo, las relaciones y su validador, la copia del consultor de pobreza, los metadatos, los
       # encabezados y la navegacion: si algo falla, el sitio no se arma y el PR queda en rojo
       - run: python scripts/03_construir_sitio.py
@@ -36,9 +41,6 @@ jobs:
             git status --short
             exit 1
           fi
-      - uses: actions/setup-node@v7
-        with:
-          node-version: "22"
       - name: Sintaxis de datina.js
         run: node -e "new Function(require('fs').readFileSync('sitio/datina.js','utf8'))"
       # una sola escala de fuerza de las correlaciones (plan de mejora, E5 y T6): sin Chrome, en menos de un segundo

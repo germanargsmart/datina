@@ -177,10 +177,10 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <div class="panel-pestana" role="tabpanel" id="pan-f-sube-2" aria-labelledby="tab-f-sube-2" data-vieja="f-sube-modos" hidden>
         <div class="grafico" data-g="sube-modos" data-forma="lineas" style="--alto-c:342px"></div>
       </div>
-      <p data-panel="pan-f-sube-1" class="lead" data-t="sube"></p>
-      <p data-panel="pan-f-sube-1" class="nota" data-t="sube-nota"></p>
-      <p data-panel="pan-f-sube-2" hidden class="lead" data-t="sube-modos"></p>
-      <p data-panel="pan-f-sube-2" hidden class="nota" data-t="sube-modos-nota"></p>
+      <p data-panel="pan-f-sube-1" class="lead" data-t="sube">En octubre de 2026 se usaron por día hábil 6,1% menos tarjetas SUBE distintas que en octubre de 2025. En los primeros días hábiles de marzo de 2020, antes del aislamiento, se usaban 5,16 millones de tarjetas por día hábil: en octubre de 2026 se usaron 0,6% más. La SUBE, el Sistema Único de Boleto Electrónico, funciona en el Área Metropolitana de Buenos Aires y en decenas de ciudades del interior, pero no en las que tienen un sistema de pago propio.</p>
+      <p data-panel="pan-f-sube-1" class="nota" data-t="sube-nota">Cantidad de tarjetas distintas que registraron al menos un viaje en el día. Se toma la mediana de los días hábiles de cada mes, así los feriados o paros no bajan el valor del mes. En octubre de 2026 se usaron por día 5,0 millones de tarjetas en colectivo, 587 mil en tren y 298 mil en subte (una tarjeta que combina modos cuenta en cada uno). La SUBE funciona en el AMBA y en decenas de ciudades del interior. No incluye ciudades con sistemas de pago propios. Cuenta tarjetas y no pasajeros: quien paga con tarjeta bancaria, celular o QR, donde se puede, no aparece. La fuente no publica ningún día de agosto de 2022 ni de enero de 2024: el gráfico deja el hueco. Desde septiembre de 2023 la cantidad de tarjetas en lanchas de la serie se multiplica de un mes a otro, y la fuente no explica por qué. Último día disponible en la fuente: 13/11/2026.</p>
+      <p data-panel="pan-f-sube-2" hidden class="lead" data-t="sube-modos">En octubre de 2026, en un día hábil típico se usaron 298 mil tarjetas SUBE en subtes. En los primeros días hábiles de marzo de 2020, antes del aislamiento, eran 871 mil en trenes y 636 mil en subtes. Frente a entonces, los trenes tienen 32,6% menos tarjetas y los colectivos, 3,8% más. En el subte hay 53,2% menos, pero esa diferencia no mide pasajeros: desde diciembre de 2024 parte de los viajes en subte se paga sin SUBE y no figura en estos datos.</p>
+      <p data-panel="pan-f-sube-2" hidden class="nota" data-t="sube-modos-nota">Mediana de las tarjetas distintas que viajaron cada día hábil en cada modo. El subte funciona solo en CABA y los trenes con SUBE, sobre todo en el Área Metropolitana. Desde diciembre de 2024 el subte acepta tarjetas bancarias y celulares sin contacto, y desde mayo de 2025 pagos con QR: esos viajes no usan la SUBE y no están en estos datos, así que la baja de tarjetas en el subte no es lo mismo que una baja de pasajeros.</p>
       <div class="pie"><span>Fuente: Secretaría de Transporte, datos abiertos de SUBE. Se actualiza cada mes.</span><a href="datos/sube_dia_habil.csv" data-panel="pan-f-sube-1" download>Descargar tabla (CSV)</a><a href="datos/sube_dia_habil.csv" data-panel="pan-f-sube-2" hidden download>Descargar tabla (CSV)</a></div>
     </article>
 
@@ -188,8 +188,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <h2>¿Cuántos autos y motos nuevos se patentan por año?</h2>
       <p class="ficha-sub">Autos y motos nuevos inscriptos por año, 2000 a 2025</p>
       <div class="grafico" data-g="patentes" data-forma="lineas"></div>
-      <p class="lead" data-t="patentes"></p>
-      <p class="nota" data-t="patentes-nota"></p>
+      <p class="lead" data-t="patentes">Entre enero y octubre de 2026 se inscribieron en los registros del país 12,6% menos autos nuevos que en el mismo período del año anterior. El máximo de autos de la serie fue en 2013, con 963.598, y el mínimo en 2002, con 101.231. La serie de autos cuenta todos los automotores: también camionetas y vehículos de carga. El total de motos de 2025 no incluye el dato de Tierra del Fuego, que la ficha siguiente señala como un probable error de la fuente.</p>
+      <p class="nota" data-t="patentes-nota">Inscripciones iniciales de vehículos cero kilómetro. Automotores incluye autos, camionetas y vehículos de carga. Los datos de motos empiezan en 2007.</p>
       <div class="pie"><span>Fuente: Dirección Nacional de los Registros Nacionales de la Propiedad del Automotor y de Créditos Prendarios (DNRPA), Ministerio de Justicia. Se actualiza cada mes.</span><a href="datos/patentamientos_anual.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
@@ -201,8 +201,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
         <button type="button" data-m="motos_1000" aria-pressed="false">Motos</button>
       </div>
       <div class="grafico" data-g="patentes-prov" data-forma="barras"></div>
-      <p class="lead" data-t="patentes-prov"></p>
-      <p class="nota" data-t="patentes-prov-nota"></p>
+      <p class="lead" data-t="patentes-prov">En 2025, el valor más alto de autos nuevos inscriptos cada 1.000 habitantes fue el de CABA (36,7) y el más bajo, el de Misiones (5,3). Cada inscripción se cuenta en la provincia del registro, que no siempre es donde se usa el vehículo. En motos, el valor más alto fue el de Chaco (29,6), sin contar Tierra del Fuego: su dato del DNRPA de 2025 es decenas de veces mayor que el de los años anteriores y siguientes, y las cámaras del sector no registran ese aumento, así que probablemente sea un error del dato abierto. El promedio del país en motos fue de 13,6 cada 1.000 habitantes, también sin ese dato.</p>
+      <p class="nota" data-t="patentes-prov-nota">La provincia es la del registro donde se hizo la inscripción, que no siempre coincide con el lugar donde se usa el vehículo. Por eso algunas jurisdicciones muestran valores muy altos. La población es la proyección del INDEC para 2025, el mismo año.</p>
       <div class="pie"><span>Fuente: DNRPA, Ministerio de Justicia. Se actualiza cada mes.</span><a href="datos/patentamientos_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
@@ -219,8 +219,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
         <button type="button" data-m="anio" aria-pressed="false">Año por año</button>
       </div>
       <div class="grafico" data-g="combustibles" data-forma="barras"></div>
-      <p class="lead" data-t="combustibles"></p>
-      <p class="nota" data-t="combustibles-nota"></p>
+      <p class="lead" data-t="combustibles">En julio de 2026, el precio mediano de la nafta súper en el surtidor fue 56,7% más alto que en julio de 2025: descontada la inflación, subió 17,1%. La mediana más alta fue la de Misiones (2.220 pesos por litro) y la más baja, la de Tierra del Fuego (1.695). Las estaciones declaran con demora: julio de 2026 es el último mes en el que declararon casi todas.</p>
+      <p class="nota" data-t="combustibles-nota">La mediana de los precios en el surtidor que cada estación de servicio declara para el mes a la Secretaría de Energía (Resolución 1104/2004): la mitad de las estaciones cobra más y la otra mitad, menos. Solo la venta al público en bocas de expendio con movimiento en el mes, y sin los precios que se alejan a menos de la mitad o a más del doble de la mediana del país, en su mayoría cargados divididos por mil. La nafta súper es la de 92 a 95 octanos y el gasoil, el de grado 2. Las estaciones declaran con demora: el último mes es el más reciente en el que declararon casi todas (3.994 vendieron nafta súper al público en julio de 2026). La serie mes a mes pasa los precios a pesos de julio de 2026 con el índice de precios al consumidor del INDEC. La serie año por año es el promedio de la mediana de los doce meses de cada año, desde 2005, el primer año completo desde que rige la resolución, y pasa los precios a pesos de 2025 con el deflactor del producto interno bruto que publica el Banco Mundial, porque el índice de precios al consumidor del INDEC para todo el país empieza en diciembre de 2016.</p>
       <div class="pie"><span>Fuente: Secretaría de Energía, precios y volúmenes de las estaciones de servicio (Resolución 1104/2004). Se actualiza cada mes.</span><a href="datos/combustibles_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 

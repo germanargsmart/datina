@@ -143,8 +143,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <h2>¿Cuántos años se vive en cada provincia?</h2>
       <p class="ficha-sub">Esperanza de vida al nacer por provincia y sexo, 2022</p>
       <div class="grafico" data-g="esperanza" data-forma="pesas" style="--extra:12px"></div>
-      <p class="lead" data-t="esperanza"></p>
-      <p class="nota" data-t="esperanza-nota"></p>
+      <p class="lead" data-t="esperanza">En 2022, la esperanza de vida al nacer de las mujeres del país era de 79,1 años y la de los varones, de 73,4. Con mujeres y varones juntos, por provincia iba de 79,4 años en CABA a 72,1 en Chaco. El gráfico muestra al lado de cada provincia la esperanza de vida de las mujeres.</p>
+      <p class="nota" data-t="esperanza-nota">Años que viviría en promedio una persona nacida en 2022 si se mantuvieran las tasas de mortalidad por edad de ese año. El círculo claro marca a los varones y el lleno a las mujeres. El INDEC publica tablas para 2020, 2021 y 2022, y las de 2020 y 2021 reflejan la mortalidad de la pandemia de COVID-19. La línea punteada violeta marca el promedio simple de los países de la OCDE en 2024, para ambos sexos, según el Banco Mundial.</p>
       <div class="pie"><span>Fuente: INDEC, tablas de mortalidad por jurisdicción. Se actualiza con cada censo.</span><a href="datos/esperanza_vida_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
@@ -153,8 +153,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <p class="ficha-sub">Muertes por año cada 100.000 habitantes, ajustadas por edad, por provincia y causa, 2022 a 2024</p>
       <label class="selector-ficha"><span>Causa</span><select id="cm-sel"></select></label>
       <div class="grafico" data-g="causas-muerte" data-forma="barras"></div>
-      <p class="lead" data-t="causas-muerte"></p>
-      <p class="nota" data-t="causas-muerte-nota"></p>
+      <p class="lead" data-t="causas-muerte">Ajustada por edad, la mortalidad va de 614 muertes por año cada 100.000 habitantes en CABA a 1.141 en Chaco. Sin ajustar por edad, la más alta es la de CABA (997, con la población más envejecida) y la más baja, la de Tierra del Fuego (405, la más joven). Por causa, después de las enfermedades del corazón y la circulación vienen las enfermedades respiratorias (19,5% de las muertes) y los tumores (16,6%).</p>
+      <p class="nota" data-t="causas-muerte-nota">Tasas ajustadas por edad con el método directo: la tasa de cada grupo de edad de la provincia se pondera con la población del país de 2023 por edad, así se comparan provincias más jóvenes y más envejecidas. Promedio anual de 2022 a 2024, por provincia de residencia, con la causa básica de muerte agrupada por capítulos de la CIE-10. Las causas externas reúnen los accidentes, las agresiones y las lesiones intencionales. El 7,2% de las muertes del país tiene una causa mal definida, desde el 0,3% en Misiones hasta el 22,7% en Entre Ríos: donde hay más causas mal definidas, las demás parecen más bajas de lo que son. Población: proyecciones del INDEC de cada año. Las muertes sin edad registrada (el 0,3%) se reparten en proporción.</p>
       <div class="pie"><span>Fuentes: DEIS, Ministerio de Salud, estadísticas vitales, e INDEC, proyecciones de población 2022 a 2040, base Censo 2022. Se actualiza cada año.</span><a href="datos/causas_muerte_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
@@ -166,8 +166,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
         <button type="button" data-m="serie" aria-pressed="false">País, por año</button>
       </div>
       <div class="grafico" data-g="transito" data-forma="barras"></div>
-      <p class="lead" data-t="transito"></p>
-      <p class="nota" data-t="transito-nota"></p>
+      <p class="lead" data-t="transito">De 2023 a 2025 murieron en el país unas 3.698 personas por año en siniestros viales, según el SNIC: 8,0 cada 100.000 habitantes. La tasa más baja es la de CABA, 3,3, y la más alta es 5,1 veces esa.</p>
+      <p class="nota" data-t="transito-nota">Personas que murieron en siniestros viales según los registros de las policías y las fuerzas federales (SNIC, Ministerio de Seguridad), por la provincia donde ocurrió el hecho. Cada 100.000 habitantes con la población de 2024, el año del medio. Qué no dice este dato: la Agencia Nacional de Seguridad Vial cuenta también a quienes mueren dentro de los 30 días del siniestro y da otros números. Las estadísticas vitales del Ministerio de Salud no sirven para comparar provincias: en CABA y en Buenos Aires la mayoría de las muertes por causas externas se registran sin decir si fueron en el tránsito.</p>
       <div class="pie"><span>Fuentes: Ministerio de Seguridad, Sistema Nacional de Información Criminal (SNIC), e INDEC, proyecciones de población 2022 a 2040, base Censo 2022. Se actualiza cada año.</span><a href="datos/transito_provincias.csv" download>Por provincia (CSV)</a><a href="datos/transito_pais.csv" download>Del país, por año (CSV)</a></div>
     </article>
 
@@ -176,8 +176,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <p class="ficha-sub">Muertes de menores de un año cada 1.000 nacidos vivos por provincia, promedios de 2012 a 2014 y de 2022 a 2024</p>
       <p class="clave-color"><span class="c-bueno">En verde</span>, donde la tasa bajó. <span class="c-malo">En rojo</span>, donde subió.</p>
       <div class="grafico" data-g="mortalidad" data-forma="pesas" style="--extra:12px"></div>
-      <p class="lead" data-t="mortalidad"></p>
-      <p class="nota" data-t="mortalidad-nota"></p>
+      <p class="lead" data-t="mortalidad">En 1990, la tasa de mortalidad infantil del país era de 25,6 muertes de menores de un año cada 1.000 nacidos vivos. El gráfico compara promedios de tres años: en el de 2022 a 2024, la tasa más alta fue la de Corrientes (13,1) y la más baja, la de CABA (5,5). La tasa bajó en 23 de las 24 jurisdicciones frente al promedio de 2012 a 2014.</p>
+      <p class="nota" data-t="mortalidad-nota">Defunciones de menores de un año por cada 1.000 nacidos vivos, según la provincia de residencia de la madre. En las provincias con pocos nacimientos la tasa de un solo año varía mucho, por eso se compara el promedio de tres años. El círculo claro marca 2012 a 2014 y el lleno 2022 a 2024. La tabla descargable incluye también el valor de 2024. La línea punteada violeta marca el promedio simple de los países de la OCDE en 2024, según el Banco Mundial.</p>
       <div class="pie"><span>Fuente: Dirección de Estadísticas e Información en Salud (DEIS), Ministerio de Salud. Se actualiza cada año.</span><a href="datos/mortalidad_infantil_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
@@ -187,7 +187,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <div class="pol-ley" id="causas-ley" aria-hidden="true"></div>
       <div class="grafico" data-g="causas" data-forma="barras" style="--filas:25;--extra:-4px"></div>
       <p class="lead" data-t="causas"></p>
-      <p class="nota" data-t="causas-nota"></p>
+      <p class="nota" data-t="causas-nota">Porcentaje de las muertes de menores de un año de cada provincia según el grupo de causa (capítulos de la CIE-10), sumando 2022 a 2024 porque en las provincias chicas hay pocas muertes por año. Las provincias están ordenadas por su tasa de mortalidad infantil del período, de mayor a menor. Según la DEIS, en 2023 el 68,4% de las muertes de menores de 28 días y el 68,0% de las de 28 días a 11 meses del país eran reducibles con prevención, diagnóstico o tratamiento oportunos. Ese dato no se publica por provincia y no se puede calcular con los datos abiertos, que traen solo los tres primeros caracteres del código de cada causa. Las correlaciones comparan la tasa de cada grupo de causas con el porcentaje de población sin obra social, prepaga ni plan estatal de salud del Censo 2022.</p>
       <div class="pie"><span>Fuentes: DEIS, Ministerio de Salud, defunciones por causa y nacidos vivos, e INDEC, Censo 2022. Se actualiza cada año.</span><a href="datos/mortalidad_infantil_causas.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
@@ -201,8 +201,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       </div>
       <div class="pol-ley" id="cobertura-ley" aria-hidden="true" hidden></div>
       <div class="grafico" data-g="cobertura" data-forma="barras"></div>
-      <p class="lead" data-t="cobertura"></p>
-      <p class="nota" data-t="cobertura-nota"></p>
+      <p class="lead" data-t="cobertura">En el Censo 2022, el 35,8% de las personas del país no tenía obra social, prepaga ni plan estatal de salud, así que dependía solo del sistema público. El valor más alto fue el de Santiago del Estero (56,0%) y el más bajo, el de Tierra del Fuego (15,3%).</p>
+      <p class="nota" data-t="cobertura-nota">Personas en viviendas particulares según el Censo 2022 que no tenían obra social (incluido el PAMI), prepaga ni un programa o plan estatal de salud: dependían solo de los hospitales y centros de salud públicos, que atienden a todas las personas. El INDEC no publica estos totales provinciales en un archivo propio: se suman desde los resultados por radio censal, así que pueden diferir levemente de sus cuadros.</p>
       <div class="pie"><span>Fuente: INDEC, Censo Nacional de Población, Hogares y Viviendas 2022. Se actualiza con cada censo.</span><a href="datos/censo2022_provincias.csv" download>Sin cobertura (CSV)</a><a href="datos/cobertura_tipo_provincias.csv" download>Por tipo (CSV)</a></div>
     </article>
 
@@ -216,8 +216,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       </div>
       <label class="selector-ficha" id="dg-elige"><span>Temporada</span><select id="dg-sel"></select></label>
       <div class="grafico" data-g="dengue" data-forma="barras"></div>
-      <p class="lead" data-t="dengue"></p>
-      <p class="nota" data-t="dengue-nota"></p>
+      <p class="lead" data-t="dengue">Sumando las temporadas de la 2022/23 a la 2025/26, la tasa más alta fue la de Tucumán, con 6.166 casos confirmados cada 100.000 habitantes, seguida por la de Chaco, con 3.305. La más baja fue la de Chubut, con 13. En todo el país se confirmaron 746.908 casos en esas temporadas, el 80,2% en la de 2023/24, la de la epidemia más grande.</p>
+      <p class="nota" data-t="dengue-nota">Casos confirmados de dengue, incluidos los de embarazadas, según la provincia donde vive cada persona, notificados al Sistema Nacional de Vigilancia de la Salud del Ministerio de Salud. La temporada va de la semana epidemiológica 31 de un año, a fines de julio o principios de agosto, a la 30 del siguiente, como en los boletines epidemiológicos del Ministerio: los casos se concentran entre el verano y el otoño. La tasa usa la población que proyecta el INDEC (base Censo 2022) para el año en que termina cada temporada, por eso empieza en la 2022/23. Los datos llegan hasta la semana 39 de 2026 y las semanas más recientes pueden sumar casos en las publicaciones siguientes.</p>
       <div class="pie"><span>Fuentes: Ministerio de Salud, Sistema Nacional de Vigilancia de la Salud, e INDEC, proyecciones de población 2022 a 2040, base Censo 2022. Se actualiza cada año.</span><a href="datos/dengue_provincias.csv" download>Por provincia (CSV)</a><a href="datos/dengue_pais.csv" download>Del país, por temporada (CSV)</a></div>
     </article>
 
@@ -230,8 +230,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
         <button type="button" data-m="serie" aria-pressed="false">Evolución</button>
       </div>
       <div class="grafico" data-g="vacunas" data-forma="barras"></div>
-      <p class="lead" data-t="vacunas"></p>
-      <p class="nota" data-t="vacunas-nota"></p>
+      <p class="lead" data-t="vacunas">En 2024, 16 de las 24 jurisdicciones vacunaron con la primera dosis a menos del 95% de los chicos de un año, la cobertura que recomienda la Organización Panamericana de la Salud para frenar el sarampión. Las más bajas fueron las de La Rioja, 70,7%, y Formosa, 71,1%. En 2009 eran 7.</p>
+      <p class="nota" data-t="vacunas-nota">La triple viral protege contra el sarampión, las paperas y la rubéola. La primera dosis se da al año de vida y la segunda al entrar a la escuela, a los 5 años. Es una cobertura administrativa: las dosis que se aplicaron sobre la población que se estima para esa edad, así que puede pasar de 100% cuando se vacuna a chicos de otras provincias o la población estimada se queda corta. La Organización Panamericana de la Salud recomienda llegar al 95% de los chicos para frenar el sarampión. El archivo no trae el total del país: la evolución muestra la mediana de las 24 jurisdicciones, la que tiene tantas por encima como por debajo.</p>
       <div class="pie"><span>Fuente: Dirección de Control de Enfermedades Inmunoprevenibles (DICEI), Ministerio de Salud. Se actualiza cada año.</span><a href="datos/vacunas_provincias.csv" download>Por provincia (CSV)</a><a href="datos/vacunas_serie.csv" download>Mediana por año (CSV)</a></div>
     </article>
 
@@ -245,8 +245,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
         <button type="button" data-m="habilitados" aria-pressed="false">Habilitados</button>
       </div>
       <div class="grafico" data-g="medicos" data-forma="barras"></div>
-      <p class="lead" data-t="medicos"></p>
-      <p class="nota" data-t="medicos-nota"></p>
+      <p class="lead" data-t="medicos">A fines de 2025 había 194.027 médicos activos en el país, 41,8 cada 10.000 habitantes. La cifra más alta fue la de CABA, con 156,2, y le seguía Tierra del Fuego, con 49,7. Las más bajas, las de Santiago del Estero, con 17,9, y Formosa, con 21,5.</p>
+      <p class="nota" data-t="medicos-nota">Médicos por provincia de residencia, según el informe "Médicos activos en Argentina" del Observatorio Federal de Talento Humano en Salud del Ministerio de Salud. Habilitados: con matrícula vigente en la Red Federal de Registros de Profesionales de la Salud. Activos: los que alguna de seis fuentes administrativas de empleo, impuestos, jubilaciones y migraciones muestra trabajando. El informe no cuenta a los jubilados sin actividad, a los que emigraron ni a los que no tienen actividad registrada. Cada 10.000 habitantes, con la población del INDEC de 2025. Un médico puede atender en otra provincia que la de su residencia.</p>
       <div class="pie"><span>Fuentes: Observatorio Federal de Talento Humano en Salud (OFETHuS), Ministerio de Salud, Médicos activos en Argentina, e INDEC, proyecciones de población. Se actualiza cada año.</span><a href="datos/medicos_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
@@ -260,8 +260,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
         <button type="button" data-m="terapia" aria-pressed="false">Con terapia intensiva</button>
       </div>
       <div class="grafico" data-g="hospitales" data-forma="barras"></div>
-      <p class="lead" data-t="hospitales"></p>
-      <p class="nota" data-t="hospitales-nota"></p>
+      <p class="lead" data-t="hospitales">En noviembre de 2026 había 1.468 hospitales públicos con internación en el país, 3,2 cada 100.000 habitantes. Las cifras más altas son las de Catamarca (10,9) y La Pampa (10,3), y las más bajas, las de CABA (1,3) y Mendoza (1,4). Cuenta hospitales, no camas: una provincia con muchos hospitales chicos queda arriba de una con pocos y grandes.</p>
+      <p class="nota" data-t="hospitales-nota">Hospitales públicos con internación del Registro Federal de Establecimientos de Salud del Ministerio de Salud: nacionales, provinciales, municipales, universitarios y mixtos, sin las residencias para personas mayores. Son los mismos del mapa de escuelas y hospitales de la página de cada provincia. Cuenta establecimientos, no camas: uno de cientos de camas en una ciudad grande vale lo mismo que uno de pocas camas en un pueblo. Las clínicas y los sanatorios privados no están, y en varias provincias tienen buena parte de las camas. Con terapia intensiva: los que el registro clasifica como de alto riesgo con terapia intensiva, una categoría que declara cada provincia. Cada 100.000 habitantes, con la población del INDEC de 2026.</p>
       <div class="pie"><span>Fuentes: Registro Federal de Establecimientos de Salud (REFES), Ministerio de Salud, e INDEC, proyecciones de población. Se actualiza cada año.</span><a href="datos/hospitales_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
@@ -275,8 +275,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
         <button type="button" data-m="terapia" aria-pressed="false">Con terapia intensiva</button>
       </div>
       <div class="grafico" data-g="distancia-hospital" data-forma="barras"></div>
-      <p class="lead" data-t="distancia-hospital"></p>
-      <p class="nota" data-t="distancia-hospital-nota"></p>
+      <p class="lead" data-t="distancia-hospital">La mitad de las 13.218 escuelas rurales del país queda a más de 15,2 km en línea recta del hospital público con internación más cercano, y el 34,3%, a más de 20 km. Las distancias más largas son las de Neuquén (23,6 km) y San Luis (21,7 km), y la más corta, la de San Juan (7,2 km). Santa Cruz y Tierra del Fuego tienen muy pocas escuelas rurales (25 y 5), y con tan pocas, una sola cambia la mediana.</p>
+      <p class="nota" data-t="distancia-hospital-nota">Distancia en línea recta, no por ruta: el viaje real es más largo. Las escuelas rurales (primarias y secundarias comunes del padrón oficial) sirven de marca de dónde vive la gente en el campo, y cada una cuenta una vez, tenga pocos o muchos alumnos. Los hospitales son los públicos con internación de la ficha de arriba y, en la otra vista, los que el registro clasifica con terapia intensiva. El más cercano puede estar en otra provincia. Las escuelas sin una ubicación confirmada no entran. La mediana es la distancia que deja a la mitad de las escuelas más cerca y a la otra mitad más lejos. CABA no tiene escuelas rurales.</p>
       <div class="pie"><span>Fuentes: Padrón Oficial de Establecimientos Educativos y Mapa Educativo Nacional, Secretaría de Educación, y Registro Federal de Establecimientos de Salud (REFES), Ministerio de Salud. Se actualiza cada año.</span><a href="datos/distancia_hospital_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
@@ -286,15 +286,15 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 
     <article class="ficha" id="f-muertes">
       <h2>Muertes por suicidio, homicidio, siniestros viales y femicidio, 2000 a 2025</h2>
-      <p class="lead" data-t="muertes"></p>
+      <p class="lead" data-t="muertes">En 2025, el SNIC registró 5.209 suicidios, 1.676 homicidios dolosos y 3.583 muertes en siniestros viales. Por cada homicidio hubo 3,1 suicidios. Desde 2023 los suicidios superan cada año a las muertes viales. El último dato del Registro Nacional de Femicidios de la Justicia Argentina es de 2024: 228 víctimas directas.</p>
       <div class="grafico" data-g="muertes" data-forma="lineas" style="--alto-c:342px"></div>
-      <p class="nota" data-t="muertes-nota"></p>
+      <p class="nota" data-t="muertes-nota">Cantidad de víctimas por año. Homicidios dolosos y muertes en siniestros viales según el mismo registro del SNIC. Femicidios: víctimas directas según el Registro Nacional de Femicidios de la Justicia Argentina. La figura se incorporó al Código Penal en diciembre de 2012 (Ley 26.791) y los datos abiertos del registro empiezan en 2017. Incluye travesticidios y transfemicidios.</p>
       <div class="pie"><span>Fuentes: SNIC, Ministerio de Seguridad Nacional, y Registro Nacional de Femicidios de la Justicia Argentina, Corte Suprema. Se actualiza cada año.</span><a href="datos/muertes_violentas.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-suicidio">
       <h2>Tasa de suicidios por cada 100.000 habitantes de 5 años y más, 2000 a 2025</h2>
-      <p class="lead" data-t="suicidio"></p>
+      <p class="lead" data-t="suicidio">En 2025, el SNIC registró 5.209 suicidios, una tasa de 11,8 por cada 100.000 habitantes de 5 años y más. En 2024, la tasa había sido de 9,7. La de los varones fue de 19,0 y la de las mujeres, de 5,0.</p>
       <div class="grafico" data-g="suicidio" data-forma="lineas" style="--alto-c:342px"></div>
       <p class="nota">El SNIC registra hechos a partir de intervenciones policiales y judiciales. Parte de la variación entre años puede deberse a cambios en la cobertura del registro. El Ministerio de Salud (DEIS) cuenta las defunciones con otra metodología, y sus cifras no coinciden exactamente con las del SNIC. El SNIC calcula esta tasa sobre las personas de 5 años y más, con el criterio de la Organización Panamericana de la Salud y la Organización Mundial de la Salud, y la de homicidios, sobre toda la población. Por eso esas dos tasas no se comparan entre sí: se comparan las cantidades. Las tasas por sexo están disponibles desde 2017.</p>
       <div class="pie"><span>Fuente: Sistema Nacional de Información Criminal (SNIC), Ministerio de Seguridad Nacional. Se actualiza cada año.</span><a href="datos/suicidio_serie.csv" download>Descargar tabla (CSV)</a></div>
@@ -302,14 +302,14 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 
     <article class="ficha" id="f-suicidio-prov">
       <h2>Tasa de suicidios por provincia, 2025</h2>
-      <p class="lead" data-t="suicidio-prov"></p>
+      <p class="lead" data-t="suicidio-prov">Entre Ríos registró la tasa más alta, con 20,8 suicidios por cada 100.000 habitantes de 5 años y más, y Río Negro la más baja, con 6,5. La tasa nacional fue 11,8.</p>
       <div class="grafico" data-g="suicidio-prov" data-forma="barras"></div>
       <div class="pie"><span>Fuente: SNIC, Ministerio de Seguridad Nacional. Se actualiza cada año.</span><a href="datos/suicidio_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-edad">
       <h2>Distribución de los suicidios por edad y sexo, 2017 a 2024</h2>
-      <p class="lead" data-t="edad"></p>
+      <p class="lead" data-t="edad">Sobre 28.885 casos registrados entre 2017 y 2024 con edad y sexo conocidos, el 79,4% fueron varones y el 37,5% tenía entre 15 y 29 años.</p>
       <div class="grafico" data-g="edad" data-forma="piramide" style="--alto:370px;--alto-c:370px"></div>
       <p class="nota">Porcentaje sobre el total de casos del período con edad y sexo registrados. Se excluyen los casos sin esos datos. Los menores de 15 años y los mayores de 80 se agrupan. Esta base del SNIC, la del Sistema de Alerta Temprana, llega hasta 2024.</p>
       <div class="pie"><span>Fuente: Sistema de Alerta Temprana de Suicidios, SNIC. Se actualiza cada año.</span><a href="datos/suicidio_edad_sexo.csv" download>Descargar tabla (CSV)</a></div>

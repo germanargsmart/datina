@@ -171,8 +171,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <h2>¿Cuánto crece o cae la construcción?</h2>
       <p class="ficha-sub">Indicador Sintético de la Actividad de la Construcción del INDEC (índice 2004 = 100), por mes, 2012 a 2026</p>
       <div class="grafico" data-g="isac" data-forma="lineas"></div>
-      <p class="lead" data-t="isac"></p>
-      <p class="nota" data-t="isac-nota"></p>
+      <p class="lead" data-t="isac">Entre enero y septiembre de 2026, la actividad de la construcción medida por el ISAC creció 1,3% contra los mismos meses de 2025. Sin el efecto de la estacionalidad, creció 7,8% frente al mes anterior y cayó 2,0% entre julio y septiembre de 2026 contra los tres meses anteriores. El índice sin estacionalidad está 26,9% por debajo del máximo de la serie, de noviembre de 2017.</p>
+      <p class="nota" data-t="isac-nota">El ISAC del INDEC sigue la actividad de la construcción con el consumo aparente de un conjunto de insumos, como cemento, hierro, ladrillos, asfalto y pinturas: lo que se despacha al mercado interno de la producción nacional más lo que se importa. Es un índice con base 2004 = 100. La serie sin estacionalidad saca los movimientos que se repiten todos los años en los mismos meses, como los de las vacaciones, y sirve para comparar un mes con el anterior. Como un solo mes puede moverse mucho, el texto suma la comparación de los tres últimos meses con los tres anteriores, la que usa la oficina de estadística del Reino Unido para la construcción. Desde 2012, el promedio anual más alto fue el de 2015 y el más bajo, el de 2024. En 2025 el promedio fue 144,5, contra 136,0 el año anterior.</p>
       <div class="pie"><span>Fuente: INDEC, Indicador Sintético de la Actividad de la Construcción (ISAC), publicado en datos.gob.ar. Se actualiza cada mes.</span><a href="datos/isac_mensual.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
@@ -180,8 +180,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <h2>¿Cuántos metros cuadrados se autorizan para construir?</h2>
       <p class="ficha-sub">Superficie autorizada por los permisos de edificación de 246 municipios, en miles de metros cuadrados por mes, 2021 a agosto de 2026</p>
       <div class="grafico" data-g="permisos" data-forma="lineas"></div>
-      <p class="lead" data-t="permisos"></p>
-      <p class="nota" data-t="permisos-nota"></p>
+      <p class="lead" data-t="permisos">Entre enero y agosto de 2026, la superficie autorizada creció 4,8% contra los mismos meses de 2025, y en los últimos doce meses, con 16,5 millones de metros cuadrados, creció 5,6% contra los doce anteriores.</p>
+      <p class="nota" data-t="permisos-nota">Superficie cubierta que registran los permisos de edificación de obras privadas, nuevas y ampliaciones, en una nómina de 246 municipios que elige el INDEC, en miles de metros cuadrados. No es el total del país y no se publica por provincia. El INDEC armó la serie desde 2021 con la nómina actual: las de nóminas anteriores son otras muestras y no se pueden unir con ella. Los últimos meses son provisorios. El promedio de doce meses suaviza los saltos de un mes a otro.</p>
       <div class="pie"><span>Fuente: INDEC, indicadores de coyuntura de la actividad de la construcción (permisos de edificación). Se actualiza cada mes.</span><a href="datos/permisos_mensual.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
@@ -193,8 +193,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
         <button type="button" data-m="var_ytd" aria-pressed="false">En lo que va del año</button>
       </div>
       <div class="grafico" data-g="insumos" data-forma="barras" style="--filas:13"></div>
-      <p class="lead" data-t="insumos"></p>
-      <p class="nota" data-t="insumos-nota"></p>
+      <p class="lead" data-t="insumos">En los doce meses hasta septiembre de 2026, frente a los doce anteriores, el insumo que más creció fue el grupo de grifería, tubos de acero sin costura y vidrio plano (+20,2%) y el que más cayó, yeso (−12,2%). El consumo aparente de cemento portland cayó 2,0%.</p>
+      <p class="nota" data-t="insumos-nota">Variación del consumo aparente de cada insumo (lo despachado al mercado interno de la producción nacional más lo importado), medida con su índice del ISAC (base 2004 = 100): los doce meses hasta septiembre de 2026 contra los doce anteriores, o lo que va del año contra los mismos meses del año anterior. El INDEC publica juntos la grifería, los tubos de acero sin costura y el vidrio plano, porque por el secreto estadístico no puede difundir sus variaciones por separado.</p>
       <div class="pie"><span>Fuente: INDEC, insumos del ISAC, publicado en datos.gob.ar. Se actualiza cada mes.</span><a href="datos/isac_insumos.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
@@ -207,8 +207,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       </div>
       <div class="pol-ley" id="obra-publica-ley" aria-hidden="true" hidden></div>
       <div class="grafico" data-g="obra-publica" data-forma="barras"></div>
-      <p class="lead" data-t="obra-publica"></p>
-      <p class="nota" data-t="obra-publica-nota"></p>
+      <p class="lead" data-t="obra-publica">En 2025, la obra pública de la Nación con provincia asignada sumó 14.404 pesos por habitante. Jujuy recibió la mayor inversión por habitante, 61.883 pesos (4,3 veces el valor del país), y La Pampa la menor, 590 (menos de la décima parte del valor del país). La Dirección Nacional de Vialidad ejecutó el 49,8% de las obras propias de la Nación, y el 12,4% de esas obras no tiene una provincia asignada.</p>
+      <p class="nota" data-t="obra-publica-nota">Crédito devengado de la Administración Pública Nacional, según Presupuesto Abierto, en pesos de 2025 con el deflactor del producto interno bruto. Las obras propias son las construcciones que paga la Nación, como rutas, diques o edificios, incluidas las de participación público-privada. Las transferencias de capital son los fondos que la Nación da a provincias y municipios para sus propias obras y equipos, y también forman parte de las transferencias "otras no automáticas" de Instituciones políticas. Cada gasto se asigna a la provincia donde está la obra: las que abarcan varias provincias o todo el país quedan sin provincia y se cuentan solo en el total del país. Por habitante, con la población de cada año. No incluye lo que la Nación transfiere para obras a empresas del Estado y fondos fiduciarios, que no figuran con su provincia.</p>
       <div class="pie"><span>Fuente: Presupuesto Abierto, Secretaría de Hacienda del Ministerio de Economía, ejecución del gasto de la Administración Pública Nacional (crédito devengado). Se actualiza cada año.</span><a href="datos/obra_publica_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
@@ -238,10 +238,10 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
         </div>
         <div class="grafico mp-mapa" data-g="trabajadores" data-forma="barras"></div>
       </div>
-      <p data-panel="pan-f-empleo-construccion-1" class="lead" data-t="empleo-construccion"></p>
-      <p data-panel="pan-f-empleo-construccion-1" class="nota" data-t="empleo-construccion-nota"></p>
-      <p data-panel="pan-f-empleo-construccion-2" hidden class="lead" data-t="trabajadores"></p>
-      <p data-panel="pan-f-empleo-construccion-2" hidden class="nota" data-t="trabajadores-nota"></p>
+      <p data-panel="pan-f-empleo-construccion-1" class="lead" data-t="empleo-construccion">Los puestos asalariados registrados en la construcción privada eran el 6,0% del empleo privado registrado y 8,6 cada 1.000 habitantes en el primer trimestre de 2026. Frente al primer trimestre de 2025, los puestos crecieron 0,8%. Neuquén tenía 34,8 cada 1.000 habitantes (4 veces el valor del país) y La Rioja, 2,5 (menos de la mitad del valor del país).</p>
+      <p data-panel="pan-f-empleo-construccion-1" class="nota" data-t="empleo-construccion-nota">Asalariados registrados del sector privado en la construcción (rama 45 de la clasificación de actividades), según el SIPA, en promedio del trimestre. El SIPA asigna cada puesto a la provincia donde declara el empleador, no donde está la obra: una empresa con sede en CABA que construye en otra provincia suma en CABA. No incluye a quienes trabajan por su cuenta ni el empleo no registrado: el Censo 2022 contó 1.783.260 personas ocupadas en la construcción, con o sin registro (en la otra pestaña). La población es la proyección del INDEC para 2026, el año del dato. La provincia de Buenos Aires suma los partidos del Gran Buenos Aires y el resto de la provincia, que el OEDE publica por separado.</p>
+      <p data-panel="pan-f-empleo-construccion-2" hidden class="lead" data-t="trabajadores">En el Censo 2022, 1.783.260 personas dijeron trabajar en la construcción. El porcentaje se calcula sobre las personas ocupadas que informaron la rama de actividad. La proporción va del 16,8% en Entre Ríos al 3,9% en CABA. El censo cuenta a cada persona donde vive y el empleo registrado de la otra pestaña, donde la declara la empresa: por eso las dos vistas ordenan distinto a las provincias.</p>
+      <p data-panel="pan-f-empleo-construccion-2" hidden class="nota" data-t="trabajadores-nota">Personas ocupadas según la actividad de la empresa, el negocio o la institución donde trabajan, contadas en el lugar donde viven y no donde está la obra. Incluye a asalariados con y sin registro, a quienes trabajan por su cuenta y a patrones. El porcentaje se calcula sobre las personas ocupadas con la rama informada: el 23,4% no respondió o su respuesta no alcanzó para clasificarla. En el mapa, el color divide a los departamentos en cinco grupos del mismo tamaño. Si elegís una provincia en Tu provincia, el mapa se acerca a ella.</p>
       <div class="pie"><span>Fuentes: Observatorio de Empleo y Dinámica Empresarial (OEDE), Secretaría de Trabajo, Ministerio de Capital Humano, con datos del Sistema Integrado Previsional Argentino (SIPA), e INDEC, Censo Nacional de Población, Hogares y Viviendas 2022, resultados por radio censal. Se actualiza cada tres meses. El último dato es del primer trimestre de 2026, más atrasado que lo habitual.</span><a href="datos/empleo_construccion_provincias.csv" data-panel="pan-f-empleo-construccion-1" download>Descargar tabla (CSV)</a><a href="datos/vivienda_provincias.csv" data-panel="pan-f-empleo-construccion-2" hidden download>Descargar tabla (CSV)</a></div>
     </article>
 
@@ -251,8 +251,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <h2>¿Cuánto subió el costo de construir frente a los precios?</h2>
       <p class="ficha-sub">Costo de construir en el Gran Buenos Aires dividido por los precios al consumidor (diciembre de 2016 = 100), diciembre de 2016 a septiembre de 2026</p>
       <div class="grafico" data-g="costo" data-forma="lineas"></div>
-      <p class="lead" data-t="costo"></p>
-      <p class="nota" data-t="costo-nota"></p>
+      <p class="lead" data-t="costo">En los doce meses hasta septiembre de 2026, el costo de construir en el Gran Buenos Aires subió 31,3% y los precios al consumidor, 33,4%. Los materiales subieron 22,8% y la mano de obra, 38,7%.</p>
+      <p class="nota" data-t="costo-nota">Índice del Costo de la Construcción del INDEC para el Gran Buenos Aires: lo que cuesta construir viviendas modelo, con materiales, mano de obra y gastos generales. Para compararlo con la inflación, cada índice se divide por el Índice de Precios al Consumidor nacional y se lleva a 100 en diciembre de 2016 (la línea punteada): arriba de 100, construir se encareció más que el promedio de los precios, y abajo, menos. El INDEC publica el índice como variación de cada mes desde noviembre de 2015, y el sitio encadena esas variaciones (el resultado coincide con el índice que el INDEC publica desde enero de 2022).</p>
       <div class="pie"><span>Fuente: INDEC, Índice del Costo de la Construcción (Gran Buenos Aires) e Índice de Precios al Consumidor. Se actualiza cada mes.</span><a href="datos/costo_construccion.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
@@ -260,8 +260,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <h2>¿Cuánto se presta por mes en créditos hipotecarios?</h2>
       <p class="ficha-sub">Créditos hipotecarios UVA nuevos por mes, en miles de millones de pesos de octubre de 2026, 2017 a octubre de 2026</p>
       <div class="grafico" data-g="hipotecas" data-forma="lineas"></div>
-      <p class="lead" data-t="hipotecas"></p>
-      <p class="nota" data-t="hipotecas-nota"></p>
+      <p class="lead" data-t="hipotecas">Descontada la inflación, los créditos hipotecarios UVA de octubre de 2026 fueron 38,3% menos que los del mismo mes del año anterior. La tasa promedio fue de 6,7% anual más la actualización de la UVA. El mes con más créditos fue marzo de 2018, con 1.336 mil millones en pesos de octubre de 2026. En todo 2025 sumaron 5.958 mil millones, contra 7.661 mil millones en 2018, el año con más créditos, y 144 mil millones en 2022, el año con menos.</p>
+      <p class="nota" data-t="hipotecas-nota">Préstamos hipotecarios en unidades de valor adquisitivo (UVA) que los bancos acordaron cada mes con personas y empresas, según el Banco Central, en miles de millones de pesos de octubre de 2026, llevados con el índice de precios al consumidor del INDEC, que empieza en diciembre de 2016. La tasa es el promedio de las del mes, ponderado por el monto de cada préstamo. No incluye los créditos hipotecarios en pesos sin UVA ni los que se dan en dólares. El Banco Central no publica los créditos hipotecarios por provincia: su estadística de préstamos por localidad no los separa del resto y asigna cada préstamo a la sucursal que lo otorga.</p>
       <div class="pie"><span>Fuentes: Banco Central de la República Argentina, préstamos en UVA (serie mensual), e INDEC, índice de precios al consumidor. Se actualiza cada mes.</span><a href="datos/hipotecas_mensual.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
@@ -284,8 +284,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
         <button type="button" data-m="mapa" aria-pressed="false">Mapa por departamento</button>
       </div>
       <div class="grafico mp-mapa" data-g="vivienda" data-forma="barras"></div>
-      <p class="lead" data-t="vivienda"></p>
-      <p class="nota" data-t="vivienda-nota"></p>
+      <p class="lead" data-t="vivienda">En el Censo 2022, el 65,7% de los hogares era propietario de su vivienda. El alquiler era más común en CABA (36,8%) y menos en Santiago del Estero (6,7%).</p>
+      <p class="nota" data-t="vivienda-nota">Datos del Censo 2022 sumados desde los radios censales. Un hogar son las personas que comparten la vivienda y los gastos de comida. El día del censo, el 11,7% de las viviendas particulares no tenía personas presentes, y el INDEC registró el motivo: uso temporal, oficina o comercio, alquiler o venta, construcción, residentes que no estaban ese día u otra situación. Por eso el selector muestra motivos por separado y no un total de viviendas vacías: una parte de las viviendas sin personas presentes tiene residentes habituales. En el mapa, el color divide a los departamentos en cinco grupos del mismo tamaño. Si elegís una provincia en Tu provincia, el mapa se acerca a ella.</p>
       <div class="pie"><span>Fuente: INDEC, Censo Nacional de Población, Hogares y Viviendas 2022, resultados por radio censal. Se actualiza con cada censo.</span><a href="datos/vivienda_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 

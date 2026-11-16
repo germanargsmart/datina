@@ -149,8 +149,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <p class="aviso-serie">Quiebre de serie en 2022: desde ese año la población de referencia sale del Censo 2022.</p>
       <p class="clave-color"><span class="c-bueno">En verde</span>, donde la tasa subió. <span class="c-malo">En rojo</span>, donde bajó.</p>
       <div class="grafico" data-g="escolarizacion" data-forma="pesas"></div>
-      <p class="lead" data-t="escolarizacion"></p>
-      <p class="nota" data-t="escolarizacion-nota"></p>
+      <p class="lead" data-t="escolarizacion">En 2011, el 81,2% de los adolescentes del país en edad de cursar la secundaria estaba matriculado en ese nivel. Desde entonces, la tasa subió en 23 de las 24 jurisdicciones. La comparación cruza un quiebre de serie: desde 2022, la población de referencia sale del Censo 2022. En 2025, la tasa más alta fue la de Neuquén (98,7%), sin contar La Pampa, donde llega casi al 100% por diferencias entre la matrícula y la población estimada. La más baja fue la de Misiones (78,6%).</p>
+      <p class="nota" data-t="escolarizacion-nota">Alumnos de 12 a 17 años (13 a 17 en las provincias con secundaria de cinco años) matriculados en el nivel secundario, incluidas la educación especial y la de jóvenes y adultos, sobre la población de esa edad. Desde 2022 la población de referencia son las proyecciones del INDEC basadas en el Censo 2022, así que parte del cambio entre 2021 y 2022 responde al cambio de denominador. Algunos valores superan el 100% por diferencias entre la matrícula y la proyección de población. El círculo claro marca 2011 y el lleno 2025.</p>
       <div class="pie"><span>Fuente: Secretaría de Educación, Dirección Nacional de Información y Estadística Educativa, Relevamiento Anual. Se actualiza cada año.</span><a href="datos/escolarizacion_secundaria_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
@@ -164,8 +164,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
         <button type="button" data-m="serie" aria-pressed="false">Evolución</button>
       </div>
       <div class="grafico" data-g="abandono" data-forma="barras"></div>
-      <p class="lead" data-t="abandono"></p>
-      <p class="nota" data-t="abandono-nota"></p>
+      <p class="lead" data-t="abandono">De los alumnos de la secundaria de 2024, el 6,9% no se volvió a matricular en 2025, en todo el país. El abandono más alto fue el de Misiones, el 13,1%, y le seguía Chaco, con el 12,6%. El más bajo, el de San Luis, el 5,2%. En 5 jurisdicciones fue del 10% o más. Buenos Aires cuenta a sus alumnos con un régimen académico nuevo desde 2024: según la fuente, eso puede incidir en su abandono, el 4,1%, y en el del país.</p>
+      <p class="nota" data-t="abandono-nota">Tasa de abandono interanual: alumnos de la secundaria de un año que no se matriculan en el año lectivo siguiente. Tasa de repitencia: alumnos que al año siguiente se matriculan en el mismo año de estudio. En % de los alumnos de la secundaria común de cada jurisdicción, según los Relevamientos Anuales de la Secretaría de Educación. La fuente aclara que el cálculo supone que entre un año y el siguiente no entran alumnos de otras jurisdicciones ni de otras cohortes, y que eso puede sesgar las tasas. Desde 2024, Buenos Aires aplica un régimen académico nuevo en la secundaria (Resolución 1650/2024 de su Dirección General de Cultura y Educación), con la acreditación por materia: sus repitientes son los alumnos que no acreditaron ninguna materia y siguen en el mismo año, y la fuente avisa que el cambio también puede incidir en el total del país.</p>
       <div class="pie"><span>Fuente: Secretaría de Educación, Dirección Nacional de Información y Estadística Educativa, Relevamientos Anuales. Se actualiza cada año.</span><a href="datos/abandono_provincias.csv" download>Por provincia (CSV)</a><a href="datos/abandono_pais.csv" download>Del país, por ciclo (CSV)</a></div>
     </article>
 
@@ -177,8 +177,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
         <button type="button" data-m="len" aria-pressed="false">Lengua</button>
       </div>
       <div class="grafico" data-g="aprender" data-forma="barras"></div>
-      <p class="lead" data-t="aprender"></p>
-      <p class="nota" data-t="aprender-nota"></p>
+      <p class="lead" data-t="aprender">En matemática, el 20,2% de los estudiantes de 6° grado de primaria del país quedó por debajo del nivel básico en Aprender 2025. Por provincia, la parte con nivel satisfactorio o avanzado en matemática fue más alta en CABA (74,5%) y más baja en Chaco (38,4%). En lengua, el 76,9% del país alcanzó un nivel satisfactorio o avanzado.</p>
+      <p class="nota" data-t="aprender-nota">Aprender es la evaluación nacional de aprendizajes de la Secretaría de Educación. En 2025 fue censal para 6° grado de primaria. Los porcentajes se calculan con la base agregada por departamento, sector y ámbito que publica la Secretaría, y cuentan solo a quienes tienen un nivel de desempeño asignado. Por eso pueden diferir levemente de los del informe oficial. En Neuquén, su participación en Aprender quedó por debajo del umbral mínimo de representatividad estadística y la Secretaría de Educación publica su dato a título informativo.</p>
       <div class="pie"><span>Fuente: Secretaría de Educación, evaluación Aprender, base agregada. Se actualiza con cada evaluación Aprender.</span><a href="datos/aprender_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
@@ -191,8 +191,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
         <button type="button" data-m="cie" aria-pressed="false">Ciencias</button>
       </div>
       <div class="grafico" data-g="pisa" data-forma="lineas"></div>
-      <p class="lead" data-t="pisa"></p>
-      <p class="nota" data-t="pisa-nota"></p>
+      <p class="lead" data-t="pisa">En PISA 2022, los estudiantes de 15 años de la Argentina obtuvieron en promedio 401 puntos en lectura y 406 en ciencias. El promedio de los países de la OCDE fue de 476 y 485 puntos. Frente a 2018, el puntaje de la Argentina bajó 1 punto en matemática, bajó 1 punto en lectura y subió 2 puntos en ciencias.</p>
+      <p class="nota" data-t="pisa-nota">Puntaje promedio de los estudiantes de 15 años escolarizados que rindieron la prueba. La OCDE excluyó de las comparaciones el resultado nacional de 2015 por problemas de cobertura de la muestra. Por eso ese año no aparece en el gráfico, aunque figura en la tabla descargable. En 2000 esta fuente solo tiene el puntaje de lectura. El promedio OCDE es el promedio simple de los países miembros en cada ciclo.</p>
       <div class="pie"><span>Fuente: OCDE, Programa para la Evaluación Internacional de Alumnos (PISA), vía Our World in Data. Se actualiza con cada evaluación PISA.</span><a href="datos/pisa_argentina_ocde.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
@@ -204,8 +204,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
         <button type="button" data-m="serie" aria-pressed="false">Trimestre a trimestre</button>
       </div>
       <div class="grafico" data-g="salario-docente" data-forma="barras"></div>
-      <p class="lead" data-t="salario-docente"></p>
-      <p class="nota" data-t="salario-docente-nota"></p>
+      <p class="lead" data-t="salario-docente">Descontada la inflación, el salario promedio de un maestro de grado del país no cambió frente a junio de 2025. Con 10 años de antigüedad y jornada simple, el más alto fue el de Neuquén, con 2.521.570 pesos brutos por mes (1,9 veces el valor del país), y el más bajo, el de Mendoza, con 935.450. En Santiago del Estero, ese salario incluye una suma extraordinaria de 600.000 pesos, que el gráfico suma a su barra.</p>
+      <p class="nota" data-t="salario-docente-nota">Salario bruto por mes de un cargo de referencia, no el promedio de lo que cobran los docentes: maestro de grado de primaria, jornada simple, con 10 años de antigüedad, con lo que paga cada provincia. Incluye los adicionales comunes al cargo, como zona o residencia donde se pagan, y las sumas extraordinarias del trimestre. Hasta diciembre de 2023 incluía también el Fondo Nacional de Incentivo Docente y la conectividad que pagaba la Nación. El país es el promedio ponderado que publica la fuente. Los datos son provisorios y cada edición revisa trimestres anteriores.</p>
       <div class="pie"><span>Fuente: Coordinación de Evaluación de Costos Educativos, Secretaría de Educación, series del salario docente, e INDEC, índice de precios al consumidor. Se actualiza cada tres meses.</span><a href="datos/salario_docente.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
@@ -218,8 +218,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
         <button type="button" data-m="serie" aria-pressed="false">Año por año</button>
       </div>
       <div class="grafico" data-g="inversion-educativa" data-forma="barras"></div>
-      <p class="lead" data-t="inversion-educativa"></p>
-      <p class="nota" data-t="inversion-educativa-nota"></p>
+      <p class="lead" data-t="inversion-educativa">En 2024, la inversión por alumno de las escuelas de gestión estatal fue más alta en Neuquén, con 6.145.225 pesos (3 veces el valor del país), y más baja en Tucumán, con 1.272.647. La cifra suma lo que gasta cada provincia en educación y lo que le transfiere la Nación.</p>
+      <p class="nota" data-t="inversion-educativa-nota">Gasto público en educación por alumno de gestión estatal: lo que gasta cada provincia en educación más las transferencias no automáticas de la Nación, sin lo que se transfiere a las escuelas de gestión privada, dividido por los alumnos de las escuelas estatales. La parte del gasto público no cuenta esas transferencias de la Nación. Montos en pesos de cada año. En la vista Año por año, descontada la inflación, en pesos de 2024 con el deflactor del PBI. Datos provisorios.</p>
       <div class="pie"><span>Fuente: Coordinación de Evaluación de Costos Educativos, Secretaría de Educación, indicadores de inversión educativa, y Banco Mundial, deflactor del PBI. Se actualiza cada año.</span><a href="datos/inversion_educativa.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
@@ -229,8 +229,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <h2>¿Dónde hay más escuelas primarias por chico?</h2>
       <p class="ficha-sub">Escuelas primarias cada 1.000 chicos de 5 a 14 años, por provincia, junio de 2026</p>
       <div class="grafico" data-g="escuelas-primarias" data-forma="barras"></div>
-      <p class="lead" data-t="escuelas-primarias"></p>
-      <p class="nota" data-t="escuelas-primarias-nota"></p>
+      <p class="lead" data-t="escuelas-primarias">En junio de 2026 había 22.629 escuelas primarias en el país, 3,3 cada 1.000 chicos de 5 a 14 años. Van de 7,2 en Santiago del Estero y 7,0 en Catamarca a 2,2 en Tierra del Fuego y Santa Cruz. La relación con la parte rural de las primarias es fuerte: en Santiago del Estero es rural el 83,8%, y en Santa Cruz, el 14,4%.</p>
+      <p class="nota" data-t="escuelas-primarias-nota">Escuelas primarias comunes del Padrón Oficial de Establecimientos Educativos de junio de 2026: estatales, privadas y de gestión social o cooperativa, también las que no se dibujan en el mapa de la página de cada provincia. Cada sede cuenta aparte: un anexo, que funciona en otro lugar, es una escuela más. Cuenta escuelas, no alumnos ni vacantes: una escuela rural de diez alumnos vale lo mismo que una de cientos en una ciudad. Chicos de 5 a 14 años de las proyecciones del INDEC de 2026, que vienen en grupos de cinco años: la primaria dura seis o siete años según la provincia, y esos dos grupos contienen sus edades. Las secundarias están en la ficha siguiente. Que dos medidas vayan juntas no dice que una cause la otra.</p>
       <div class="pie"><span>Fuentes: Padrón Oficial de Establecimientos Educativos, Secretaría de Educación, e INDEC, proyecciones de población. Se actualiza cada año.</span><a href="datos/escuelas_primarias_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
@@ -238,8 +238,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <h2>¿Dónde hay más escuelas secundarias por chico?</h2>
       <p class="ficha-sub">Escuelas secundarias cada 1.000 chicos de 12 a 17 años, por provincia, junio de 2026</p>
       <div class="grafico" data-g="escuelas-secundarias" data-forma="barras"></div>
-      <p class="lead" data-t="escuelas-secundarias"></p>
-      <p class="nota" data-t="escuelas-secundarias-nota"></p>
+      <p class="lead" data-t="escuelas-secundarias">En junio de 2026 había 13.750 escuelas secundarias en el país. Van de 7,4 en San Luis y 5,7 en Catamarca a 2,2 en CABA y 2,0 en Mendoza cada 1.000 chicos de 12 a 17 años. Por cada escuela primaria hay 0,35 secundarias en Chaco y 1,09 en San Luis: depende también de cómo registra cada provincia sus escuelas rurales.</p>
+      <p class="nota" data-t="escuelas-secundarias-nota">Escuelas con secundaria común del Padrón Oficial de Establecimientos Educativos de junio de 2026, estatales, privadas y de gestión social o cooperativa. Cada sede cuenta aparte, como en las primarias. Chicos de 12 a 17 años de las proyecciones del INDEC de 2026: vienen en grupos de cinco años, así que son tres quintos del grupo de 10 a 14 y tres quintos del de 15 a 19. Qué no dice este dato: cuenta escuelas, no alumnos ni vacantes, y algunas provincias registran como secundarias aparte las secciones rurales que funcionan en otra escuela, así que tienen más escuelas sin tener más lugar.</p>
       <div class="pie"><span>Fuentes: Padrón Oficial de Establecimientos Educativos, Secretaría de Educación, e INDEC, proyecciones de población. Se actualiza cada año.</span><a href="datos/escuelas_secundarias_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
