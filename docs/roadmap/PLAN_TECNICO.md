@@ -167,6 +167,19 @@ Lo que explica los números (de los informes de Lighthouse de la portada y de Ne
 - Lighthouse antes y después, y la prueba de páginas completa.
 - Esfuerzo medio, todavía a confirmar. Riesgo medio.
 
+#### Primera y segunda parte, hechas el 16 de noviembre de 2026
+
+`scripts/texto_en_html.mjs`, el último paso de 03: abre cada página en el Chrome sin ventana de las pruebas, con el reloj en la fecha de los datos, sin provincia elegida y sin bajar por la página, y deja escrito en el HTML lo primero que `datina.js` escribe en cada artículo (antes de que se dibujen sus gráficos) y el texto de cada párrafo calculado (`data-t`: la interpretación de cada ficha y sus notas). Al cargar, `datina.js` lo vuelve a escribir igual. Bloquear D3 para no dibujar gráficos no sirve: sin D3, `datina.js` se corta al arrancar y no escribe los textos. Dos armados seguidos dan los mismos archivos, y `pruebas.yml` lo sigue controlando. Tarda unos 30 segundos (47 páginas en cuatro pestañas). Por eso 03 necesita Node 22 o más y Chrome, y los dos flujos instalan Node antes del armado.
+
+| 85 páginas, sin JavaScript | 11 de noviembre | 16 de noviembre |
+|---|---|---|
+| Palabras | 391.711 (75%) | 453.427 (86%) |
+| Cifras | 24.328 (55%) | 28.841 (65%) |
+| Páginas sin título (h1) | 25 | 0 |
+| Interpretaciones vacías | 209 de 212 | 47 de 220 |
+
+Los 24 artículos y Corte Suprema se leen enteros sin JavaScript. Quedan: el texto propio de cada provincia en su página fija (la tercera parte: hoy las 24 muestran sin JavaScript el mismo texto, sin sus cifras, y su párrafo de escuelas y hospitales vacío), los 12 párrafos de los capítulos de Instituciones políticas que no están a la vista y unos pocos de Precios y actividad, Sector externo, Cuentas públicas, Población, Pobreza y hogares y Salud, que se escriben cuando se dibuja su gráfico.
+
 ### Fase 5. Rendimiento
 
 - Medir de nuevo y comparar con la fase 0.
