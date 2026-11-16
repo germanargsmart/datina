@@ -118,7 +118,9 @@
 *,*::before,*::after{box-sizing:inherit}
 /* lo oculto no ocupa lugar ni recibe toques, aunque su componente tenga otro display (el menú cerrado tapaba el contenido) */
 [hidden]{display:none!important}
-html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 64px);-webkit-text-size-adjust:100%}
+/* el lugar de la barra de desplazamiento, reservado desde el principio (16 de noviembre de 2026, plan técnico, fase 5): con los scripts en defer la página
+   se pinta antes de terminar de leerse, todavía corta y sin barra, y al aparecer la barra todo se corría 7 píxeles (CLS de 0,20 en las páginas de provincia) */
+html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 64px);-webkit-text-size-adjust:100%;scrollbar-gutter:stable}
 body{margin:0;background:var(--fondo);color:var(--ink);font-family:var(--f);font-size:var(--t-4);line-height:var(--i-texto);
   font-variation-settings:"opsz" 16;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
 /* marco fino azul alrededor de la ventana */
