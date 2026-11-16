@@ -2314,6 +2314,9 @@ p code{overflow-wrap:anywhere}
 .ms-bajadas{display:flex;flex-direction:column;gap:var(--e-1)}
 .ms-bajadas [hidden]{display:none}
 .ms-limites{margin-top:var(--e-6);padding-top:var(--e-4);border-top:1px dotted var(--azul)}
+/* mientras mesas.js no escribió el resultado, el pie y los límites no se ven (siguen en su lugar): aparecían arriba y saltaban al llegar el mapa
+   y el resultado (CLS de 0,17 en computadora, 16 de noviembre de 2026). Si algo falla, mesas.js escribe el aviso ahí y se ven. Sin JavaScript, siempre */
+html.js #ms-resultado:empty~.ms-pie,html.js #ms-resultado:empty~.ms-limites{visibility:hidden}
 .ms-limites ul{margin:0;font-size:var(--t-3);line-height:var(--i-texto)}
 /* el mapa por circuito (5 de noviembre de 2026). Los colores de las fuerzas los trae el dato (datos/manual/mesas_fuerzas.json): el autor pidió los de cada logo, así que acá el violeta y el rojo son de los partidos */
 .ms-mapa[hidden],.ms-mapa-f[hidden],.ms-falla[hidden]{display:none}

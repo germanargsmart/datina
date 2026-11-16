@@ -228,7 +228,7 @@ Con el texto ya en el HTML (fase 4), tres cambios:
 | `mesas.html` | 91 | 92 | 0,9 → 0,5 s | 0,171 → 0,171 |
 | `catalogo.html` | 93 | 94 | 0,5 → 0,5 s | 0,149 → 0,149 |
 
-Contra la medición de base del 11 de noviembre, Neuquén en celular pasó de 38 a 86 y su corrimiento de 0,687 a 0. Quedan: el corrimiento de Elecciones por mesa y del Catálogo en computadora (el del Catálogo era 0,004 el 11 de noviembre: lo cambió algo de los días siguientes, no esta fase), el bloqueo de Elecciones por mesa en celular (700 ms) y partir `datina.js` por página, que sigue en el plan con cuidado: cada página baja 1,2 MB de JavaScript (280 KB comprimido), aunque ya no frena la primera pintura.
+Contra la medición de base del 11 de noviembre, Neuquén en celular pasó de 38 a 86 y su corrimiento de 0,687 a 0. El mismo día, el de Elecciones por mesa: el pie y los límites aparecían arriba y saltaban al llegar el mapa y el resultado. Ahora no se ven (siguen en su lugar) mientras `#ms-resultado` está vacío: de 0,171 a 0,010, y de 92 a 95 en computadora. Quedan: el corrimiento del Catálogo en computadora (el del Catálogo era 0,004 el 11 de noviembre: lo cambió algo de los días siguientes, no esta fase), el bloqueo de Elecciones por mesa en celular (700 ms) y partir `datina.js` por página, que sigue en el plan con cuidado: cada página baja 1,2 MB de JavaScript (280 KB comprimido), aunque ya no frena la primera pintura.
 
 ## Lo que ya estaba pendiente, en el mismo orden
 
