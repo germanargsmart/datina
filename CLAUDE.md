@@ -72,7 +72,7 @@ docs/roadmap/                  plan vigente, estado, decisiones, criterios de ac
 - Armar sin descargar: `python scripts/03_construir_sitio.py` (corre antes `pruebas_datos.py`). No toca `sitio/pobreza/`: el consultor de pobreza se arma aparte (`pobreza/README.md`) y entra al sitio solo con `python scripts/03_construir_sitio.py --con-pobreza`.
 - Sintaxis del JavaScript, después de tocar `datina.js`: `node -e "new Function(require('fs').readFileSync('sitio/datina.js','utf8'))"`.
 - Catálogo del Explorador de relaciones: `python scripts/relaciones.py` (lo valida) y `python scripts/prueba_relaciones.py` (prueba el validador). 03 corre los dos.
-- Ver el sitio: `cd sitio && python -m http.server 8765`.
+- Ver el sitio: `python scripts/servir.py` (en http://localhost:8765). Desde el 16 de noviembre de 2026 los enlaces van sin el `.html`, como los sirve Cloudflare, y `python -m http.server` ya no los entiende.
 - Detalle por tipo de cambio y la prueba sin acceso a las CDN: `.claude/rules/pruebas.md`.
 
 ## Reglas de datos (resumen; completas en `.claude/rules/pipeline-datos.md`)

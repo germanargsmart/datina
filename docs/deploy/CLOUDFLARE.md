@@ -39,7 +39,7 @@ Antes de pedir nada al sitio, esperar a que el control "Cloudflare Pages" del co
 1. Abrir en computadora y en celular: la portada, una sección (por ejemplo, Trabajo), un artículo, Tu provincia, Cruces, el Catálogo, el Explorador de relaciones y el consultor de pobreza (la consulta guiada y abrir el editor de SQL).
 2. Una dirección que no existe (`https://datina.pages.dev/a/b/c`): tiene que mostrar "Esta página no existe" con estilos y la barra.
 3. La caché: en el navegador, herramientas de desarrollo, pestaña "Red", recargar la portada y mirar `datina.js?v=...`: tiene que decir `Cache-Control: public, max-age=31536000, immutable`.
-4. Cloudflare saca el `.html` de las direcciones (`/trabajo.html` pasa a `/trabajo`). Los enlaces viejos siguen andando porque redirige solo.
+4. Cloudflare saca el `.html` de las direcciones (`/trabajo.html` pasa a `/trabajo`). Los enlaces viejos siguen andando porque redirige solo. Desde el 16 de noviembre de 2026 los enlaces del sitio ya van sin el `.html` y no pasan por esa redirección.
 5. Anotar en `CHANGELOG_DEPLOY.md` la fecha, el commit y el resultado.
 
 ## Volver atrás

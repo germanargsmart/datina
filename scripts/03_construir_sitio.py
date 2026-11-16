@@ -617,9 +617,9 @@ GRUPOS = [
 # (GRUPOS), el consultor de pobreza se abre desde Pobreza y hogares y el Explorador de relaciones sale del menú: lo enlazan Sobre nosotros,
 # el pie y cada tabla del Catálogo. Consultas con IA la ofrecen el Catálogo y la lupa, y sigue en el pie y en la portada (FUERA_DE_MENU)
 MENUS = [
-    ("provincias", "Provincias", "Provincias", "provincia.html", ["provincia", "indice", "departamentos"]),
+    ("provincias", "Provincias", "Provincias", "provincia", ["provincia", "indice", "departamentos"]),
     # Datos destacados, desde el 6 de noviembre de 2026 (segunda fase del brief de pulido de la portada: la página de "Ver todos los datos destacados")
-    ("historias", "Historias", "Historias con datos", "articulos.html", ["articulos", "datos-destacados", "laboratorio", "corte-suprema", "curiosidades"]),
+    ("historias", "Historias", "Historias con datos", "articulos", ["articulos", "datos-destacados", "laboratorio", "corte-suprema", "curiosidades"]),
     # Elecciones por mesa, desde el 4 de noviembre de 2026 (decisión del autor: en Herramientas, con un enlace desde la ficha de elecciones de Política)
     ("herramientas", "Herramientas", "Herramientas", "./#herr-titulo", ["cruces", "mesas", "catalogo"]),
 ]
@@ -733,7 +733,7 @@ if "calendario_indec" in D["datos"]:
     for _c in D["datos"]["calendario_indec"]:
         assert _c["ficha"] in UBIC and _c["ficha"] in _ics_tit, f"calendario del INDEC: la ficha {_c['ficha']} no está en la plantilla"
         _pg = UBIC[_c["ficha"]]
-        _dir = f"{_ics_url}/{'' if _pg == 'inicio' else _pg + '.html'}#{_c['ficha']}"
+        _dir = f"{_ics_url}/{'' if _pg == 'inicio' else _pg}#{_c['ficha']}"
         _h, _mi = (int(x) for x in _c["hora"].split(":"))
         _ini = datetime.datetime.strptime(_c["fecha"], "%Y-%m-%d").replace(hour=_h, minute=_mi) + datetime.timedelta(hours=3)
         _ics += ["BEGIN:VEVENT", f"UID:{huella(_c['fecha'] + _c['informe'])}@datina", f"DTSTAMP:{_ics_a}{_ics_m}{_ics_d}T000000Z",
@@ -794,10 +794,10 @@ _indice_ia = [{k: v for k, v in t.items() if k not in ("organismos", "origen", "
 
 
 def direccion_ficha(r, tabla):
-    """La dirección de la ficha, el artículo o la pieza de una tabla del Catálogo ("#f-empleo" -> "trabajo.html#f-empleo")."""
-    p = UBIC.get(r[1:], "") if r.startswith("#") else r[:-5]
+    """La dirección de la ficha, el artículo o la pieza de una tabla del Catálogo ("#f-empleo" -> "trabajo#f-empleo", sin el .html desde el 16 de noviembre de 2026)."""
+    p = UBIC.get(r[1:], "") if r.startswith("#") else r.removesuffix(".html")
     assert p, f"no se sabe en qué página está {r} ({tabla})"
-    return (f"{p}.html" if p != "inicio" else "./") + (f"#{r[1:]}" if r.startswith("#") and r[1:] != p else "")
+    return (p if p != "inicio" else "./") + (f"#{r[1:]}" if r.startswith("#") and r[1:] != p else "")
 
 
 # Las tablas sensibles (decisión 5 del autor del 11 de noviembre de 2026, docs/roadmap/PLAN_TECNICO.md): las que hablan de suicidio, también
@@ -946,7 +946,9 @@ for b in BLOQUES:
 TITULO = "<title>Datina | Las 24 Argentinas en números</title>"
 DESCR = re.search(r'<meta name="description" content="[^"]*">', base).group(0)
 assert TITULO in base
-url_pagina = lambda p: "./" if p == "inicio" else f"{p}.html"
+# sin el .html desde el 16 de noviembre de 2026 (decisión del autor): Cloudflare Pages sirve trabajo.html en /trabajo y manda trabajo.html ahí
+# con una redirección, que cada clic se ahorra. Las direcciones viejas con .html siguen andando
+url_pagina = lambda p: "./" if p == "inicio" else p
 TITULO_DE = {s[0]: s[1] for s in SECCIONES}
 
 
@@ -982,7 +984,7 @@ def carta(pid, meta=None):
     if pid == "inicio":
         return ("./", "Portada", meta or "Inicio de Datina", "sol", "")
     if pid.startswith("a-"):
-        return (f"{pid}.html", TIT_NOTA[pid], meta or "Artículo", SEC_ICONO[pid], f"t-{pid}")
+        return (pid, TIT_NOTA[pid], meta or "Artículo", SEC_ICONO[pid], f"t-{pid}")
     sec = next((x for x in SECCIONES if x[0] == pid), None)
     desc = {"provincia": "Cada provincia frente al país", "nosotros": "Qué es Datina", "usar-datos": "Licencia, cita y descargas", "articulos": f"{len(NOTAS)} artículos",
             "datos-destacados": f"{_N_DATOS_DEST} cifras",
@@ -1051,10 +1053,10 @@ def navegacion(h, pagina):
         orden = ORDEN_ARTS  # el de la lista de Artículos (etapa 5 del plan de mejora)
         i = orden.index(pagina)
         art = lambda j: orden[j % len(orden)]
-        h = h.replace(nota, pildoras("articulos") + migas(("", MENU_DE["articulos"][1]), ("articulos.html", "Artículos"), prov=False) + nota, 1)
+        h = h.replace(nota, pildoras("articulos") + migas(("", MENU_DE["articulos"][1]), ("articulos", "Artículos"), prov=False) + nota, 1)
         fin = h.index("</article>", h.index(nota)) + len("</article>")
         sec = next(sec for a, _, sec, _ in NOTAS if a == pagina)
-        return h[:fin] + pasos(art(i - 1), art(i + 1), [sec, "cruces"], ("articulos.html", "Todos los artículos")) + h[fin:]
+        return h[:fin] + pasos(art(i - 1), art(i + 1), [sec, "cruces"], ("articulos", "Todos los artículos")) + h[fin:]
     ident = {"provincia": "provincias"}.get(pagina, pagina)
     b = next((b for b in bloques(h) if b["id"] == ident), None)
     if not b or pagina in ("inicio", "404"):
@@ -1062,10 +1064,10 @@ def navegacion(h, pagina):
     # una pieza del Laboratorio (etapa 33): las migas pasan por el Laboratorio, y al final cuatro tarjetas sin anterior ni siguiente
     if "pieza" in b["clases"]:
         blo = h[b["ini"]:b["fin"]]
-        blo = re.sub(r"^(<section[^>]*>)", lambda m: m.group(1) + migas(("", MENU_DE["laboratorio"][1]), ("laboratorio.html", "Laboratorio"),
+        blo = re.sub(r"^(<section[^>]*>)", lambda m: m.group(1) + migas(("", MENU_DE["laboratorio"][1]), ("laboratorio", "Laboratorio"),
                                                                      prov=False), blo)
         blo = blo[:-len("</section>")] + pasos(None, None, ["laboratorio", "politica", "gobierno", "articulos"],
-                                                ("laboratorio.html", "Todo el Laboratorio")) + "</section>"
+                                                ("laboratorio", "Todo el Laboratorio")) + "</section>"
         return h[:b["ini"]] + blo + h[b["fin"]:]
     blo = h[b["ini"]:b["fin"]]
     # "Para entender los datos" (etapa 31): al final de la página, después de las fichas y antes de "Seguí explorando"
@@ -1128,9 +1130,9 @@ _col = lambda nombre, pares: f'<div class="pie-col"><h2>{e(nombre)}</h2>{lista(p
 MAPA = ("".join(_col(n, [(url_pagina(s), TITULO_DE[s]) for s in _secs_de(items)]) for _, n, items in GRUPOS)
         + "".join(_col(completo, [(url_menu(p), nombre_menu(p)) for p in _secs_de(items) + [q for q, d in FUERA_DE_MENU.items() if d == m]])
                   for m, _, completo, _, items in MENUS)
-        + _col("Datina", [("nosotros.html", "Sobre nosotros"), ("nosotros.html#como-se-hace", "Cómo se hace"),
-                          ("nosotros.html#fuentes", "De dónde salen los datos"), ("usar-datos.html", "Usar los datos"), ("relaciones.html", "Explorador de relaciones"),
-                          ("contacto.html", "Contacto")]))
+        + _col("Datina", [("nosotros", "Sobre nosotros"), ("nosotros#como-se-hace", "Cómo se hace"),
+                          ("nosotros#fuentes", "De dónde salen los datos"), ("usar-datos", "Usar los datos"), ("relaciones", "Explorador de relaciones"),
+                          ("contacto", "Contacto")]))
 assert "<!--MAPA-->" in base
 base = base.replace("<!--MAPA-->", MAPA)
 # La barra (Fase 2, 23 de octubre de 2026): Temas, Provincias, Historias y Herramientas, cada uno con su menú (el mismo código que los
@@ -1166,7 +1168,7 @@ def _grupo(pre, clave, nombre, lis, cls=""):
 
 _sin_tildes = str.maketrans("ÁÉÍÓÚáéíóúÑñ", "AEIOUaeiouNn")
 _PROVS = sorted((c for c in NOMBRE_PROV if c != "00"), key=lambda c: NOMBRE_PROV[c].translate(_sin_tildes))
-_li_prov = lambda c: (f'<li><a class="con-bandera" href="{PAG_PROV[c]}.html"><img class="bandera" src="datos/banderas/{c}.png" alt="" '
+_li_prov = lambda c: (f'<li><a class="con-bandera" href="{PAG_PROV[c]}"><img class="bandera" src="datos/banderas/{c}.png" alt="" '
                       f'width="24" height="16" loading="lazy" decoding="async">{e(NOMBRE_PROV[c])}</a></li>')
 
 
@@ -1274,11 +1276,11 @@ _datos_destacados = (f'<div class="conmutador dd-grupos" role="group" aria-label
 # el mapa de la portada, que el teclado saltea. Sin bajada desde el 10 de noviembre de 2026 (pedido del autor, como Historias y Herramientas):
 # Departamentos y Ordenar las 24 están en el menú Provincias y en el pie
 _provincias_home = ('<ul class="prov-home">'
-                    + "".join(f'<li><a href="{PAG_PROV[c]}.html"><img class="bandera" src="datos/banderas/{c}.png" alt="" width="24" height="16" '
+                    + "".join(f'<li><a href="{PAG_PROV[c]}"><img class="bandera" src="datos/banderas/{c}.png" alt="" width="24" height="16" '
                               f'loading="lazy" decoding="async">{e(NOMBRE_PROV[c])}</a></li>' for c in _PROVS) + "</ul>")
 # Historias con datos: los tres artículos los agrega datina.js (el de la relación más marcada primero, regla aprobada el 5 de octubre de
 # 2026) antes de las piezas del Laboratorio con página propia, que escribe el constructor
-_historias_home = "".join(f'<a class="tarjeta art-card" href="{i}.html"><span class="art-ico">{icono_svg(ico)}</span><span class="art-txt">'
+_historias_home = "".join(f'<a class="tarjeta art-card" href="{i}"><span class="art-ico">{icono_svg(ico)}</span><span class="art-txt">'
                           f'<b>{e(html.unescape(t))}</b><small>Laboratorio</small></span></a>' for i, ico, t, _ in PIEZAS)
 # Herramientas: Consultas con IA y las del menú, en su orden, con el mismo dibujo que las tarjetas de antes (las armaba datina.js). Desde
 # la etapa 6 del plan de mejora Ordenar las 24 y Departamentos están en Provincias (arriba), el Diagnóstico educativo en Educación y el
@@ -1310,7 +1312,7 @@ if not FORMULARIOS:
     # lo arma al cargar, así los robots que juntan correos no lo leen. Sin JavaScript, escrito con "arroba"
     _correo = SITIO_CONF.get("correo_contacto", "").strip()
     assert not _correo or re.fullmatch(r"[\w.+-]+@[\w-]+(\.[\w-]+)+", _correo), 'datos/manual/sitio.json: "correo_contacto" no es un correo'
-    _contacto = (f'<p class="form-nota contacto-correo">Escribinos a <a data-correo="{_correo[::-1]}" href="contacto.html">nuestro correo</a>.'
+    _contacto = (f'<p class="form-nota contacto-correo">Escribinos a <a data-correo="{_correo[::-1]}" href="contacto">nuestro correo</a>.'
                  f'<noscript> {_correo.replace("@", " arroba ")}</noscript></p>' if _correo else
                  '<p class="form-nota">El formulario de contacto todavía no está disponible.</p>')
     base, _n = re.subn(r'<!-- formulario de Netlify.*?<p class="form-gracias" id="susc-gracias" hidden>[^<]*</p>',
@@ -1647,7 +1649,7 @@ ORDEN_ARTS = [i for b, *_ in BLOQUES_ART for i, *_ in _ARTS_JS if BLOQUE_NOTA[i]
 def _tarjeta_art(i, frec, dek):
     ico, sec, tit = _NOTA_DE[i]
     # la respuesta del artículo la escribe datina.js en .art-resp, que reserva su lugar: la tarjeta no salta al llegar
-    return (f'<a class="tarjeta art-card" href="{i}.html" data-grupo="{GRUPO_DE[sec][0]}"><span class="art-ico">{icono_svg(ico)}</span><span class="art-txt">'
+    return (f'<a class="tarjeta art-card" href="{i}" data-grupo="{GRUPO_DE[sec][0]}"><span class="art-ico">{icono_svg(ico)}</span><span class="art-txt">'
             f'<b style="view-transition-name:t-{i}">{e(tit)}</b><span class="art-resp" data-art="{i}"></span><span class="art-dek">{e(dek)}</span>'
             f'<small>{e(_SEC[sec][1])}. {e(frec)}</small></span></a>')
 
@@ -1719,10 +1721,10 @@ REDIRECCIONES = {"emprendedores": "empresas", "a-empleo-pobreza": "a-pobreza-des
 for viejo, nuevo in REDIRECCIONES.items():
     (SITIO / f"{viejo}.html").write_text(
         f'<!doctype html><html lang="es"><head><meta charset="utf-8"><title>Datina</title>'
-        f'<meta name="robots" content="noindex"><link rel="canonical" href="{nuevo}.html">'
-        f'<script>location.replace("{nuevo}.html" + location.search + location.hash)</script>'
-        f'<noscript><meta http-equiv="refresh" content="0; url={nuevo}.html"></noscript></head>'
-        f'<body><p><a href="{nuevo}.html">Esta página se mudó</a></p></body></html>\n', encoding="utf-8", newline="\n")
+        f'<meta name="robots" content="noindex"><link rel="canonical" href="{nuevo}">'
+        f'<script>location.replace("{nuevo}" + location.search + location.hash)</script>'
+        f'<noscript><meta http-equiv="refresh" content="0; url={nuevo}"></noscript></head>'
+        f'<body><p><a href="{nuevo}">Esta página se mudó</a></p></body></html>\n', encoding="utf-8", newline="\n")
 
 shutil.copy(RAIZ / "datos" / "ordenado" / "tabla_larga.csv", SITIO / "datos" / "tabla_larga.csv")
 # Un archivo por indicador de la tabla larga (plan técnico, fase 3, 14 de noviembre de 2026): sitio/datos/indicadores/<variable>.csv, con

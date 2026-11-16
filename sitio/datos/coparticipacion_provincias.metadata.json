@@ -3,7 +3,7 @@
  "titulo": "¿Cuánto recibe cada provincia por coparticipación?",
  "descripcion": "Coparticipación federal y otros impuestos nacionales que se reparten por ley, por habitante y en % de los ingresos de cada provincia, 2025 (La Pampa, 2024)",
  "seccion": "Cuentas públicas",
- "ficha": "https://datina.com.ar/gobierno.html#f-coparticipacion",
+ "ficha": "https://datina.com.ar/gobierno#f-coparticipacion",
  "fuente": "Ministerio de Economía, Dirección Nacional de Asuntos Provinciales, esquema ahorro inversión financiamiento, e INDEC, proyecciones de población.",
  "organismos": [
   "DNAP (Dirección Nacional de Asuntos Provinciales)",
@@ -86,6 +86,6 @@
  ],
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿Cuánto recibe cada provincia por coparticipación? Con datos de Ministerio de Economía, Dirección Nacional de Asuntos Provinciales, esquema ahorro inversión financiamiento, e INDEC, proyecciones de población. https://datina.com.ar/gobierno.html#f-coparticipacion. Consultado el día de la consulta.",
+ "como_citar": "Datina (año de la consulta). ¿Cuánto recibe cada provincia por coparticipación? Con datos de Ministerio de Economía, Dirección Nacional de Asuntos Provinciales, esquema ahorro inversión financiamiento, e INDEC, proyecciones de población. https://datina.com.ar/gobierno#f-coparticipacion. Consultado el día de la consulta.",
  "datos_actualizados": "15/11/2026"
 }

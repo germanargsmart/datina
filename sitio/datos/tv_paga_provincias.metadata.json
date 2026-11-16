@@ -3,7 +3,7 @@
  "titulo": "¿Cuántos abonos de TV paga hay cada 100 hogares?",
  "descripcion": "Accesos de TV por suscripción cada 100 hogares, por provincia, 2.º trimestre de 2026, y en el país desde 2014, con la TV satelital",
  "seccion": "Pobreza y hogares",
- "ficha": "https://datina.com.ar/pobreza.html#f-tv-paga",
+ "ficha": "https://datina.com.ar/pobreza#f-tv-paga",
  "fuente": "Ente Nacional de Comunicaciones (ENACOM).",
  "organismos": [
   "ENACOM (Ente Nacional de Comunicaciones)"
@@ -56,6 +56,6 @@
  ],
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿Cuántos abonos de TV paga hay cada 100 hogares? Con datos de Ente Nacional de Comunicaciones (ENACOM). https://datina.com.ar/pobreza.html#f-tv-paga. Consultado el día de la consulta.",
+ "como_citar": "Datina (año de la consulta). ¿Cuántos abonos de TV paga hay cada 100 hogares? Con datos de Ente Nacional de Comunicaciones (ENACOM). https://datina.com.ar/pobreza#f-tv-paga. Consultado el día de la consulta.",
  "datos_actualizados": "15/11/2026"
 }

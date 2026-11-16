@@ -3,7 +3,7 @@
  "titulo": "¿Cuánto cambió la temperatura en las bases argentinas?",
  "descripcion": "Diferencia de la temperatura media de cada año con el promedio de 1991 a 2020, en grados, hasta 2025",
  "seccion": "Naturaleza y ambiente",
- "ficha": "https://datina.com.ar/naturaleza.html#f-ant-temperatura",
+ "ficha": "https://datina.com.ar/naturaleza#f-ant-temperatura",
  "fuente": "British Antarctic Survey, proyecto READER del Comité Científico de Investigación Antártica, con los registros de cada base.",
  "organismos": [
   "BAS (British Antarctic Survey)"
@@ -93,6 +93,6 @@
  ],
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿Cuánto cambió la temperatura en las bases argentinas? Con datos de British Antarctic Survey, proyecto READER del Comité Científico de Investigación Antártica, con los registros de cada base. https://datina.com.ar/naturaleza.html#f-ant-temperatura. Consultado el día de la consulta.",
+ "como_citar": "Datina (año de la consulta). ¿Cuánto cambió la temperatura en las bases argentinas? Con datos de British Antarctic Survey, proyecto READER del Comité Científico de Investigación Antártica, con los registros de cada base. https://datina.com.ar/naturaleza#f-ant-temperatura. Consultado el día de la consulta.",
  "datos_actualizados": "15/11/2026"
 }

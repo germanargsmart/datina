@@ -3,7 +3,7 @@
  "titulo": "¿Dónde se siembra más soja?",
  "descripcion": "Hectáreas sembradas con soja por departamento y por provincia, campaña 2024/25, y en el país desde la campaña 1969/70",
  "seccion": "Naturaleza y ambiente",
- "ficha": "https://datina.com.ar/naturaleza.html#f-soja",
+ "ficha": "https://datina.com.ar/naturaleza#f-soja",
  "fuente": "Secretaría de Agricultura, Ganadería y Pesca, Estimaciones agrícolas.",
  "organismos": [
   "SAGyP (Secretaría de Agricultura, Ganadería y Pesca)"
@@ -76,6 +76,6 @@
  ],
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿Dónde se siembra más soja? Con datos de Secretaría de Agricultura, Ganadería y Pesca, Estimaciones agrícolas. https://datina.com.ar/naturaleza.html#f-soja. Consultado el día de la consulta.",
+ "como_citar": "Datina (año de la consulta). ¿Dónde se siembra más soja? Con datos de Secretaría de Agricultura, Ganadería y Pesca, Estimaciones agrícolas. https://datina.com.ar/naturaleza#f-soja. Consultado el día de la consulta.",
  "datos_actualizados": "15/11/2026"
 }

@@ -3,7 +3,7 @@
  "titulo": "¿Qué compra la Argentina?",
  "descripcion": "Importaciones de bienes por uso económico, en millones de dólares por año, 1992 a 2025",
  "seccion": "Sector externo",
- "ficha": "https://datina.com.ar/externo.html#f-importaciones",
+ "ficha": "https://datina.com.ar/externo#f-importaciones",
  "fuente": "INDEC, intercambio comercial argentino, vía la API de Series de Tiempo.",
  "organismos": [
   "INDEC (Instituto Nacional de Estadística y Censos)"
@@ -70,6 +70,6 @@
  ],
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿Qué compra la Argentina? Con datos de INDEC, intercambio comercial argentino, vía la API de Series de Tiempo. https://datina.com.ar/externo.html#f-importaciones. Consultado el día de la consulta.",
+ "como_citar": "Datina (año de la consulta). ¿Qué compra la Argentina? Con datos de INDEC, intercambio comercial argentino, vía la API de Series de Tiempo. https://datina.com.ar/externo#f-importaciones. Consultado el día de la consulta.",
  "datos_actualizados": "15/11/2026"
 }

@@ -3,7 +3,7 @@
  "titulo": "¿Cuánto debe el Estado nacional?",
  "descripcion": "Deuda bruta de la Administración Central como parte del PBI, 2000 a 2025 y el último trimestre",
  "seccion": "Cuentas públicas",
- "ficha": "https://datina.com.ar/gobierno.html#f-deuda",
+ "ficha": "https://datina.com.ar/gobierno#f-deuda",
  "fuente": "Secretaría de Finanzas, Ministerio de Economía, datos trimestrales de la deuda pública.",
  "organismos": [
   "Secretaría de Finanzas"
@@ -46,6 +46,6 @@
  ],
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿Cuánto debe el Estado nacional? Con datos de Secretaría de Finanzas, Ministerio de Economía, datos trimestrales de la deuda pública. https://datina.com.ar/gobierno.html#f-deuda. Consultado el día de la consulta.",
+ "como_citar": "Datina (año de la consulta). ¿Cuánto debe el Estado nacional? Con datos de Secretaría de Finanzas, Ministerio de Economía, datos trimestrales de la deuda pública. https://datina.com.ar/gobierno#f-deuda. Consultado el día de la consulta.",
  "datos_actualizados": "15/11/2026"
 }

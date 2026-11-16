@@ -3,7 +3,7 @@
  "titulo": "¿Qué países propusieron más zonas protegidas en la Antártida?",
  "descripcion": "Zonas antárticas especialmente protegidas y sitios y monumentos históricos vigentes, según qué país los propuso, noviembre de 2026",
  "seccion": "Naturaleza y ambiente",
- "ficha": "https://datina.com.ar/naturaleza.html#f-ant-zonas",
+ "ficha": "https://datina.com.ar/naturaleza#f-ant-zonas",
  "fuente": "Secretaría del Tratado Antártico, estado de las zonas protegidas y lista de sitios y monumentos históricos, noviembre de 2026.",
  "organismos": [
   "ATS (Secretaría del Tratado Antártico)"
@@ -48,6 +48,6 @@
  ],
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿Qué países propusieron más zonas protegidas en la Antártida? Con datos de Secretaría del Tratado Antártico, estado de las zonas protegidas y lista de sitios y monumentos históricos, noviembre de 2026. https://datina.com.ar/naturaleza.html#f-ant-zonas. Consultado el día de la consulta.",
+ "como_citar": "Datina (año de la consulta). ¿Qué países propusieron más zonas protegidas en la Antártida? Con datos de Secretaría del Tratado Antártico, estado de las zonas protegidas y lista de sitios y monumentos históricos, noviembre de 2026. https://datina.com.ar/naturaleza#f-ant-zonas. Consultado el día de la consulta.",
  "datos_actualizados": "15/11/2026"
 }

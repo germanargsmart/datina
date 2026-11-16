@@ -152,7 +152,7 @@ def usos_automaticos(plantilla, js, cat_rel):
 
 
 # "#id" lo convierte 03 en la dirección de la página donde está (pagina() en 03_construir_sitio.py). Tu provincia es una página propia
-ref = lambda i: "provincia.html" if i == "provincia" else f"#{i}"
+ref = lambda i: "provincia" if i == "provincia" else f"#{i}"
 
 
 # las herramientas que tienen tablas en el Catálogo: la tabla lleva a su página ("Ver la página")
@@ -343,7 +343,7 @@ def armar(plantilla, secciones, ubic, grupos, sitio=RAIZ / "sitio", indice=None,
             + '<dl class="cat-datos">' + "".join(f"<div><dt>{k}</dt><dd>{e(v)}</dd></div>" for k, v in dl if v) + "</dl>"
             + '<div class="acciones">'
             f'<a class="boton chico accion" href="{ref(prin)}"><span class="lbl">{VER[us[0][1]]}</span></a>'
-            + (f'<a class="boton chico accion" href="relaciones.html?n={prin}"><span class="lbl">De dónde sale</span></a>' if prin in en_rx else "")
+            + (f'<a class="boton chico accion" href="relaciones?n={prin}"><span class="lbl">De dónde sale</span></a>' if prin in en_rx else "")
             +             f'<button type="button" class="boton chico accion cat-ver" aria-expanded="false" aria-controls="cat-{t}-previa"><span class="lbl">Vista previa</span></button>'
             f'<a class="boton chico accion" href="datos/{t}.csv" download><span class="lbl">Descargar CSV</span></a></div>'
             f'<div class="cat-previa" id="cat-{t}-previa" hidden>'
@@ -385,7 +385,7 @@ def armar(plantilla, secciones, ubic, grupos, sitio=RAIZ / "sitio", indice=None,
          f'<div class="cat-resumen"><p class="cat-cuenta" id="cat-cuenta" aria-live="polite"><b>{len(items)}</b> tablas</p>'
          '<button type="button" class="boton chico accion" id="cat-limpiar" hidden><span class="lbl">Sacar los filtros</span></button>'
          f'<a class="enlace" href="datos/tabla_larga.csv" download>Descargar la tabla completa con todos los indicadores (CSV, {tamanio(completa.stat().st_size) if completa.exists() else ""})</a></div>'
-         + ('<p class="cat-ia" id="cat-ia" hidden>¿Buscás una respuesta y no una tabla? <a class="enlace" href="consulta-ia.html">Preguntarles a '
+         + ('<p class="cat-ia" id="cat-ia" hidden>¿Buscás una respuesta y no una tabla? <a class="enlace" href="consulta-ia">Preguntarles a '
             'los datos</a> lleva lo que escribiste a Consultas con IA.</p>' if ia else "")
          + '<p class="cat-vacio" id="cat-vacio" role="status" hidden>Ninguna tabla coincide. Probá con otras palabras o sacá un filtro.</p>'
          f'<ol class="cat-lista" id="cat-lista">{"".join(items)}</ol>'

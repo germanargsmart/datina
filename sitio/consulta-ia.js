@@ -23,8 +23,8 @@
   const NO_DISPONIBLE = "Las consultas con IA no están disponibles en este momento. Probá más tarde.";
   const CORTADA = "La respuesta se cortó antes de terminar. No uses lo que llegó a escribirse: probá de nuevo.";
   const ESPERA_MAX = 90000;   // sin ningún dato del servidor en este tiempo, la consulta se da por caída
-  // solo enlaces a páginas del sitio: "trabajo.html#f-salarios", "provincia.html", "./"
-  const URL_PROPIA = /^(?:\.\/|[\w-]+\.html)(?:#[\w-]+)?$/;
+  // solo enlaces a páginas del sitio: "trabajo#f-salarios", "provincia", "./" (y las de antes del 16 de noviembre de 2026, con .html)
+  const URL_PROPIA = /^(?:\.\/|[\w-]+(?:\.html)?)(?:#[\w-]+)?$/;
   let actual = null;
 
   // la pregunta que llega en el enlace (?q=..., desde el buscador) queda escrita, sin enviarse: cada consulta tiene un costo y la decide
@@ -97,7 +97,7 @@
       titulo.textContent = nombre;
       escrito = mensaje; pintar();
       mostrarFuentes([]);
-      salida.href = "catalogo.html?q=" + encodeURIComponent(pregunta);
+      salida.href = "catalogo?q=" + encodeURIComponent(pregunta);
       salida.hidden = false;
       avisar("");
     } else avisar("Respuesta lista.");

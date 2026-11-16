@@ -3,7 +3,7 @@
  "titulo": "¿Qué le vende y qué le compra la Argentina a cada país?",
  "descripcion": "Exportaciones por gran rubro e importaciones por uso económico, en % del total con cada país, comparando dos países, 2025",
  "seccion": "Sector externo",
- "ficha": "https://datina.com.ar/externo.html#f-socios-que",
+ "ficha": "https://datina.com.ar/externo#f-socios-que",
  "fuente": "INDEC, exportaciones por rubro e importaciones por uso económico y país, vía el Catálogo API-INDEC.",
  "organismos": [
   "INDEC (Instituto Nacional de Estadística y Censos)"
@@ -130,6 +130,6 @@
  ],
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿Qué le vende y qué le compra la Argentina a cada país? Con datos de INDEC, exportaciones por rubro e importaciones por uso económico y país, vía el Catálogo API-INDEC. https://datina.com.ar/externo.html#f-socios-que. Consultado el día de la consulta.",
+ "como_citar": "Datina (año de la consulta). ¿Qué le vende y qué le compra la Argentina a cada país? Con datos de INDEC, exportaciones por rubro e importaciones por uso económico y país, vía el Catálogo API-INDEC. https://datina.com.ar/externo#f-socios-que. Consultado el día de la consulta.",
  "datos_actualizados": "15/11/2026"
 }

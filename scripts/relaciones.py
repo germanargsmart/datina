@@ -339,7 +339,7 @@ def publicar(cat, plantilla, secciones, ubic):
         fuente_texto = re.sub(r"^Fuentes?: ", "", texto(pie.group(1))) if pie else ""
         frase = re.search(r"(Se actualiza [^.]*\.|La encuesta está en pausa[^.]*\.[^.]*\.)$", fuente_texto)
         nodos.append({"id": i, "tipo": "indicador", "nombre": nombre_ficha(cuerpo, js, meta.get("nombre", "")),
-                      "seccion": sec, "seccion_nombre": tit_sec.get(sec, ""), "url": f"{pagina}.html#{i}" if pagina else "",
+                      "seccion": sec, "seccion_nombre": tit_sec.get(sec, ""), "url": f"{pagina}#{i}" if pagina else "",
                       "fuente_texto": fuente_texto[:frase.start()].strip() if frase else fuente_texto,
                       "frecuencia": frase.group(1) if frase else "", "csv": csvs, "unidad": unidades, "periodo": per, "cobertura": cob,
                       "nota": texto(nota.group(1)) if nota and texto(nota.group(1)) else "",

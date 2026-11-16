@@ -38,6 +38,12 @@ def tramo(h, inicio, fin):
     return h[i:h.index(fin, i) + len(fin)] if i >= 0 else ""
 
 
+def archivo(href):
+    """El archivo al que lleva un enlace interno: "trabajo#f-x" -> "trabajo.html", "./#tg-x" -> "index.html", "pobreza/" queda igual."""
+    d = re.split(r"[#?]", href)[0].removeprefix("./")
+    return "index.html" if d == "" else d if d.endswith(("/", ".html")) or ":" in d else d + ".html"
+
+
 def revisar():
     """Devuelve la lista de problemas (vacía si la navegación está en orden)."""
     problemas = []
@@ -94,7 +100,8 @@ def revisar():
 
     # 3. qué hay en los menús
     menus = "".join(tramo(ref, f'<nav class="menu-panel grupo-panel panel-{m}"', "</nav>") for m in BARRA)
-    destinos = re.findall(r'<a(?: class="[^"]*")? href="([^"]+)"', menus)
+    # desde el 16 de noviembre de 2026 los enlaces van sin el .html ("trabajo" es trabajo.html): se comparan como archivos
+    destinos = [archivo(d) for d in re.findall(r'<a(?: class="[^"]*")? href="([^"]+)"', menus)]
     en_temas = [s for g in indice["grupos"] for it in g[2] for s in (it[1] if isinstance(it, list) else [it])]
     temas = [s[0] for s in indice["secciones"] if (not s[4] or s[0] in en_temas) and s[0] != "articulos"]
     for s in temas:
@@ -112,9 +119,9 @@ def revisar():
     for d, donde in [("relaciones.html", ["pie", "nosotros.html", "catalogo.html"]), ("pobreza/", ["pobreza.html"]),
                      *[(f"{p}.html", ["pie", "catalogo.html"]) for p in FUERA_DE_MENU if f"{p}.html" in html]]:
         for x in donde:
-            if f'href="{d}' not in (pie_ref if x == "pie" else html.get(x, "")):
+            if f'href="{d.removesuffix(".html")}' not in (pie_ref if x == "pie" else html.get(x, "")):
                 problemas.append(f"{d}: no lo enlaza {'el pie' if x == 'pie' else x}")
-    provincias = re.findall(r'href="provincia-([a-z-]+)\.html"', tramo(ref, '<nav class="menu-panel grupo-panel panel-provincias"', "</nav>"))
+    provincias = re.findall(r'href="provincia-([a-z-]+)"', tramo(ref, '<nav class="menu-panel grupo-panel panel-provincias"', "</nav>"))
     for x in provincias:
         if f"provincia-{x}.html" not in html:
             problemas.append(f"el menú Provincias enlaza provincia-{x}.html, que no existe")
@@ -125,7 +132,7 @@ def revisar():
     llegan = {n: set() for n in html}
     for nombre, h in html.items():
         # la portada se enlaza como "./" (la marca de la barra) o "./#…"
-        destinos_h = set(re.findall(r'href="(?:\./)?([\w-]+\.html)', h)) | ({"index.html"} if re.search(r'href="\./(?:#[^"]*)?"', h) else set())
+        destinos_h = {d + ".html" for d in re.findall(r'href="(?:\./)?([\w-]+)(?=["#?])', h)} | ({"index.html"} if re.search(r'href="\./(?:#[^"]*)?"', h) else set())
         for d in destinos_h:
             if d in llegan and d != nombre:
                 llegan[d].add(nombre)

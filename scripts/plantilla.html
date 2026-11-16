@@ -38,7 +38,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     <div class="barra-der">
       <!-- provincia elegida: la muestra y la borra, pero no la elige (eso se hace solo en provincia.html) -->
       <div class="prov-chip" id="prov-chip" hidden>
-        <a class="chip-prov" id="chip-prov" href="provincia.html"><img class="bandera" id="chip-bandera" alt="" width="24" height="16"><span class="chip-nom" id="chip-nom"></span></a>
+        <a class="chip-prov" id="chip-prov" href="provincia"><img class="bandera" id="chip-bandera" alt="" width="24" height="16"><span class="chip-nom" id="chip-nom"></span></a>
         <button type="button" class="chip-borrar" id="chip-borrar" title="Ver todo el país"><svg class="ico" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M5 5l10 10M15 5L5 15"/></svg><span class="chip-txt">Ver todo el país</span></button>
       </div>
       <button type="button" class="lupa-btn" id="lupa-btn" aria-expanded="false" aria-controls="buscador" aria-label="Buscar en Datina" title="Buscar (tecla /)"><svg class="ico" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true" focusable="false"><path d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"/></svg></button>
@@ -76,11 +76,11 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <p class="lema">Las 24 Argentinas en números</p>
       <p class="bajada">Datos públicos de la Argentina y de sus 24 jurisdicciones, explicados para que cualquiera pueda entenderlos, compararlos y verificarlos.</p>
       <div class="portada-acciones">
-        <nav class="atajos" aria-label="Entradas principales"><a class="boton principal" href="provincia.html">Elegí tu provincia</a></nav>
+        <nav class="atajos" aria-label="Entradas principales"><a class="boton principal" href="provincia">Elegí tu provincia</a></nav>
         <!-- el buscador de la portada: compacto, se despliega al hacer clic o al llegar con el teclado, y Escape lo cierra (pedido del autor,
              noviembre de 2026. Antes, un campo blanco a la vista, de la Fase 2). El mismo motor y el mismo índice que la lupa (datina.js).
              Sin JavaScript no se ve, y si se envía igual lleva al catálogo de datos con lo escrito -->
-        <form class="busca-portada" role="search" action="catalogo.html">
+        <form class="busca-portada" role="search" action="catalogo">
           <label class="solo-lector" for="busca-portada">Buscar en Datina</label>
           <input type="search" id="busca-portada" name="q" placeholder="Tema, provincia o pregunta" autocomplete="off" spellcheck="false">
           <svg class="ico busca-ico" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true" focusable="false"><path d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"/></svg>
@@ -127,7 +127,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <div class="destacados-grid" id="destacados"><!--DESTACADOS--></div>
       <p class="solo-lector" id="dest-estado" role="status"></p>
     </div>
-    <p class="dest-todos"><a class="enlace" href="datos-destacados.html">Ver todos los datos destacados</a></p>
+    <p class="dest-todos"><a class="enlace" href="datos-destacados">Ver todos los datos destacados</a></p>
   </section>
 
   <section class="secciones ancho" id="secciones" aria-labelledby="sec-titulo">
@@ -143,7 +143,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
   <section class="articulos-home ancho" aria-labelledby="arth-tit">
     <h2 class="bloque-tit" id="arth-tit">Historias con datos</h2>
     <div class="art-grid" id="art-grid-home"><!--HISTORIAS-HOME--></div>
-    <p class="hist-mas"><a class="boton" href="articulos.html">Todos los artículos</a><a class="boton" href="laboratorio.html">Laboratorio</a><a class="boton" href="curiosidades.html">Curiosidades</a></p>
+    <p class="hist-mas"><a class="boton" href="articulos">Todos los artículos</a><a class="boton" href="laboratorio">Laboratorio</a><a class="boton" href="curiosidades">Curiosidades</a></p>
   </section>
 
   <section class="herramientas-home ancho" aria-labelledby="herr-titulo">
@@ -243,14 +243,14 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <h2>Qué no es</h2>
       <p>Datina no es un sitio oficial ni habla en nombre de ningún organismo. Parte de los datos tal como los publica cada fuente y explica en cada página cómo se procesaron.</p>
       <h2 id="como-se-hace">Cómo se hace</h2>
-      <p>Tres programas hacen el trabajo de cada mes. El primero baja cada archivo tal como lo publica el organismo. El segundo los ordena en una tabla única, con una fila por jurisdicción, período e indicador, y calcula los indicadores. El tercero arma las páginas. La tabla completa está en <a href="datos/tabla_larga.csv" download>tabla_larga.csv</a>. El <a href="relaciones.html">Explorador de relaciones</a> muestra qué organismo publica cada archivo que baja el sitio, qué fichas se arman con él y la línea del programa que lo prueba.</p>
+      <p>Tres programas hacen el trabajo de cada mes. El primero baja cada archivo tal como lo publica el organismo. El segundo los ordena en una tabla única, con una fila por jurisdicción, período e indicador, y calcula los indicadores. El tercero arma las páginas. La tabla completa está en <a href="datos/tabla_larga.csv" download>tabla_larga.csv</a>. El <a href="relaciones">Explorador de relaciones</a> muestra qué organismo publica cada archivo que baja el sitio, qué fichas se arman con él y la línea del programa que lo prueba.</p>
       <h2>De dónde viene la idea</h2>
       <p>De The Pudding, Datina toma la idea de arrancar cada historia con una pregunta. De Our World in Data, la de mostrar siempre la fuente y la tabla. De USAFacts, la de presentar los datos públicos de forma clara y sin opinión. En la Argentina, Argendata, de Fundar, es un antecedente con datos sobre todo nacionales: Datina suma la mirada provincia por provincia y los cruces entre fuentes.</p>
       <h2 id="licencia">Licencia y reutilización</h2>
-      <p>Los textos, los gráficos y las tablas que arma Datina se pueden copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato (licencia <a href="https://creativecommons.org/licenses/by/4.0/deed.es">Creative Commons Atribución 4.0</a>). El código del sitio es abierto, con licencia MIT. Los datos de base son de cada organismo y se rigen por sus condiciones: cada ficha dice de dónde salen. Junto a cada tabla del <a href="catalogo.html">Catálogo de datos</a> hay un archivo con sus metadatos (fuente, período, columnas, cómo se calcula y licencia), con el mismo nombre y terminado en <code>.metadata.json</code>: por ejemplo, <code>datos/empleo_provincias.metadata.json</code>. Las banderas provinciales tienen su propia licencia, detallada más abajo. Cómo citar una ficha y qué se puede descargar: <a href="usar-datos.html">Usar los datos</a>.</p>
+      <p>Los textos, los gráficos y las tablas que arma Datina se pueden copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato (licencia <a href="https://creativecommons.org/licenses/by/4.0/deed.es">Creative Commons Atribución 4.0</a>). El código del sitio es abierto, con licencia MIT. Los datos de base son de cada organismo y se rigen por sus condiciones: cada ficha dice de dónde salen. Junto a cada tabla del <a href="catalogo">Catálogo de datos</a> hay un archivo con sus metadatos (fuente, período, columnas, cómo se calcula y licencia), con el mismo nombre y terminado en <code>.metadata.json</code>: por ejemplo, <code>datos/empleo_provincias.metadata.json</code>. Las banderas provinciales tienen su propia licencia, detallada más abajo. Cómo citar una ficha y qué se puede descargar: <a href="usar-datos">Usar los datos</a>.</p>
       <h2 id="privacidad">Tus datos</h2>
       <p>Datina no tiene cuentas de usuario. La provincia que elegís queda guardada en tu navegador, para mostrarla en las demás páginas.</p>
-      <p>Los formularios de Contacto y de novedades por correo guardan solo lo que escribís. Los correos se usan para avisar cuando hay datos o artículos nuevos y para responder mensajes: no se comparten ni se publican. Para darte de baja o pedir que se borre tu correo, escribí desde <a href="contacto.html">Contacto</a>.</p><!--IA-PRIVACIDAD-->
+      <p>Los formularios de Contacto y de novedades por correo guardan solo lo que escribís. Los correos se usan para avisar cuando hay datos o artículos nuevos y para responder mensajes: no se comparten ni se publican. Para darte de baja o pedir que se borre tu correo, escribí desde <a href="contacto">Contacto</a>.</p><!--IA-PRIVACIDAD-->
       <h2>El nombre y los símbolos</h2>
       <p>El gorro frigio sobre la i y el Sol de Mayo vienen del escudo y de la bandera nacionales. El mapa de la portada usa una proyección azimutal equidistante centrada en la Argentina: cada anillo marca la misma distancia desde el centro del país.</p>
       <!--BANDERAS-->
@@ -270,7 +270,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <p class="cita-ejemplo" id="cita-ejemplo">Datina (año de la consulta). Pregunta de la ficha. Con datos de la fuente de la ficha. Dirección de la ficha. Consultado el día de la consulta.</p>
       <p>Cada ficha arma su propia cita, con la vista que elegiste, en el botón "Copiar cita" del menú "Compartir y descargar", debajo del gráfico.</p>
       <h2 id="descargar">Qué se puede descargar</h2>
-      <p>Cada ficha ofrece su tabla en CSV en el menú "Compartir y descargar", y "Ver tabla" la muestra en la página. El mismo menú tiene "Copiar código para insertar": un código para mostrar la ficha, con su gráfico y su fuente, en otro sitio. El <a href="catalogo.html">Catálogo de datos</a> reúne todas las tablas, con su fuente, su período, su cobertura y sus columnas, y también la tabla completa, con todos los indicadores en un solo archivo. Junto a cada tabla hay un archivo con sus metadatos, con el mismo nombre y terminado en <code>.metadata.json</code>: fuente, período, columnas, cómo se calcula, licencia y cómo citarla.</p>
+      <p>Cada ficha ofrece su tabla en CSV en el menú "Compartir y descargar", y "Ver tabla" la muestra en la página. El mismo menú tiene "Copiar código para insertar": un código para mostrar la ficha, con su gráfico y su fuente, en otro sitio. El <a href="catalogo">Catálogo de datos</a> reúne todas las tablas, con su fuente, su período, su cobertura y sus columnas, y también la tabla completa, con todos los indicadores en un solo archivo. Junto a cada tabla hay un archivo con sus metadatos, con el mismo nombre y terminado en <code>.metadata.json</code>: fuente, período, columnas, cómo se calcula, licencia y cómo citarla.</p>
       <!-- plan técnico, fase 3 (14 de noviembre de 2026, docs/ia/MCP.md): la API de datos y el servidor MCP. __URL_SITIO__ lo completa
            03_construir_sitio.py con la dirección de datos/manual/sitio.json. Las direcciones van como texto: no son páginas para abrir -->
       <h2 id="api-mcp">¿Cómo se leen desde un programa o un asistente de IA?</h2>
@@ -283,9 +283,9 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <ol class="cal-datos" id="cal-datos"></ol>
       <p class="cal-acciones"><a class="boton" href="datos/calendario_indec.ics" download>Agregar a tu calendario (.ics)</a><a href="datos/calendario_indec.csv" download>Descargar tabla (CSV)</a></p>
       <h2 id="de-donde-sale">De dónde sale cada dato</h2>
-      <p>El <a href="relaciones.html">Explorador de relaciones</a> muestra qué organismo publica cada archivo, qué ficha alimenta y qué tabla se puede descargar. Cada ficha lo enlaza al final de su fuente, en "Cómo se calcula y de dónde sale".</p>
+      <p>El <a href="relaciones">Explorador de relaciones</a> muestra qué organismo publica cada archivo, qué ficha alimenta y qué tabla se puede descargar. Cada ficha lo enlaza al final de su fuente, en "Cómo se calcula y de dónde sale".</p>
       <h2 id="errores">Si encontrás un error</h2>
-      <p>Escribinos desde <a href="contacto.html">Contacto</a>, con la dirección de la ficha.</p>
+      <p>Escribinos desde <a href="contacto">Contacto</a>, con la dirección de la ficha.</p>
     </div>
   </section>
 
@@ -293,7 +293,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     <h2 id="contacto-tit">Contacto</h2>
     <p class="nos-bajada">Para avisar de un error en un dato, sugerir una fuente o una pregunta, o contar cómo usás Datina.</p>
     <!-- formulario de Netlify: se activa solo al publicar el sitio en Netlify, que guarda los mensajes y avisa por correo -->
-    <form class="form-contacto" name="contacto" method="POST" action="contacto.html?enviado=1" data-netlify="true" netlify-honeypot="no-completar">
+    <form class="form-contacto" name="contacto" method="POST" action="contacto?enviado=1" data-netlify="true" netlify-honeypot="no-completar">
       <input type="hidden" name="form-name" value="contacto">
       <p class="oculto"><label>No completar este campo <input name="no-completar" tabindex="-1" autocomplete="off"></label></p>
       <label class="campo"><span>Mensaje</span><textarea name="mensaje" rows="6" required></textarea></label>
@@ -329,7 +329,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
         <span class="etiqueta">Instituciones políticas</span>
         <h2 id="l-corte-t" style="view-transition-name:t-corte-suprema">¿Qué gobierno designó a cada juez de la Corte Suprema?</h2>
         <p class="lab-lead" data-t="lab-corte"></p>
-        <a class="enlace" href="corte-suprema.html">Ver la pieza completa <span aria-hidden="true">&rarr;</span></a>
+        <a class="enlace" href="corte-suprema">Ver la pieza completa <span aria-hidden="true">&rarr;</span></a>
       </div>
       <div class="lab-graf">
         <div class="pol-ley" id="lab-corte-ley"></div>
@@ -360,7 +360,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
           <div class="pol-ley" id="lab-cruces-ley" aria-hidden="true"></div>
           <div class="grafico" data-g="lab-cruces" data-forma="puntos" style="--alto:375px;--alto-c:400px"></div>
         </div>
-        <a class="enlace" href="cruces.html?cx=natalidad&amp;cy=mortalidad_infantil">Ver la evolución año por año en Cruces <span aria-hidden="true">&rarr;</span></a>
+        <a class="enlace" href="cruces?cx=natalidad&amp;cy=mortalidad_infantil">Ver la evolución año por año en Cruces <span aria-hidden="true">&rarr;</span></a>
       </article>
     </div>
   </section>
@@ -426,7 +426,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     <h2>Trabajo</h2>
     <div class="tema-intro">
       <p class="pregunta" data-corta="¿Cuánto empleo registrado hay?">¿Cuánto empleo registrado hay en cada provincia y cuánto se gana?</p>
-      <p>La página abre con el empleo asalariado registrado en el sector privado de cada provincia, que se cuenta cada mes con los registros de la seguridad social. Le siguen el salario promedio, el tiempo que llevan los asalariados en su empleo, las personas que cobran el seguro de desempleo y lo que exporta cada provincia por habitante. Las finanzas de cada provincia están en <a href="gobierno.html#f-fiscal">Cuentas públicas</a>.</p>
+      <p>La página abre con el empleo asalariado registrado en el sector privado de cada provincia, que se cuenta cada mes con los registros de la seguridad social. Le siguen el salario promedio, el tiempo que llevan los asalariados en su empleo, las personas que cobran el seguro de desempleo y lo que exporta cada provincia por habitante. Las finanzas de cada provincia están en <a href="gobierno#f-fiscal">Cuentas públicas</a>.</p>
     </div>
     <!--EXPLICADOR:trabajo-->
 
@@ -535,7 +535,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     <h2>Precios y actividad</h2>
     <div class="tema-intro">
       <p class="pregunta" data-corta="¿Cuánto suben los precios?">¿Cuánto suben los precios y cuánto cambia la actividad económica?</p>
-      <p>Primero, los precios: la inflación del país, de cada región y de cada rubro, la que espera la gente y cuánto cuesta la canasta que marca la línea de pobreza. Después, los salarios descontada la inflación, la actividad económica, las ventas en supermercados y la confianza de los consumidores. Al final, el dólar, las tasas de interés y el dinero, con los datos del Banco Central. Los salarios de cada provincia están en <a href="trabajo.html#f-salarios">Trabajo</a>, y cuántas personas son pobres, en <a href="pobreza.html">Pobreza y hogares</a>.</p>
+      <p>Primero, los precios: la inflación del país, de cada región y de cada rubro, la que espera la gente y cuánto cuesta la canasta que marca la línea de pobreza. Después, los salarios descontada la inflación, la actividad económica, las ventas en supermercados y la confianza de los consumidores. Al final, el dólar, las tasas de interés y el dinero, con los datos del Banco Central. Los salarios de cada provincia están en <a href="trabajo#f-salarios">Trabajo</a>, y cuántas personas son pobres, en <a href="pobreza">Pobreza y hogares</a>.</p>
     </div>
     <!--EXPLICADOR:economia-->
 
@@ -1129,7 +1129,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     <h2>Seguridad</h2>
     <div class="tema-intro">
       <p class="pregunta" data-corta="¿Cuántos delitos se registran?">¿Cuántos delitos se registran en cada provincia y cuántas personas están presas?</p>
-      <p>Cuántos delitos registran las fuerzas policiales y de seguridad y cuáles son los más frecuentes. Cuántos robos, hurtos y homicidios hay en cada provincia y cuántas personas están en las cárceles. Son registros de hechos denunciados o detectados: los delitos que nadie denuncia no figuran. Los homicidios y los robos por departamento están en <a href="departamentos.html">Departamentos</a>. La serie de muertes por homicidio, en siniestros viales y por femicidio está en <a href="salud.html#f-muertes">Salud</a>.</p>
+      <p>Cuántos delitos registran las fuerzas policiales y de seguridad y cuáles son los más frecuentes. Cuántos robos, hurtos y homicidios hay en cada provincia y cuántas personas están en las cárceles. Son registros de hechos denunciados o detectados: los delitos que nadie denuncia no figuran. Los homicidios y los robos por departamento están en <a href="departamentos">Departamentos</a>. La serie de muertes por homicidio, en siniestros viales y por femicidio está en <a href="salud#f-muertes">Salud</a>.</p>
     </div>
     <!--EXPLICADOR:seguridad-->
 
@@ -1317,7 +1317,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     <h2>Población</h2>
     <div class="tema-intro">
       <p class="pregunta" data-corta="¿Qué tan rápido envejece la población?">¿Cuántos chicos nacen y qué tan rápido envejece la población?</p>
-      <p>Menos nacimientos hoy son menos alumnos dentro de unos años y, más adelante, menos personas en edad de trabajar por cada persona mayor. Quién llega desde otros países y desde otras provincias está en <a href="migraciones.html">Migraciones</a>.</p>
+      <p>Menos nacimientos hoy son menos alumnos dentro de unos años y, más adelante, menos personas en edad de trabajar por cada persona mayor. Quién llega desde otros países y desde otras provincias está en <a href="migraciones">Migraciones</a>.</p>
     </div>
     <!--EXPLICADOR:poblacion-->
 
@@ -1541,7 +1541,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <div class="pol-ley" id="el-ley" aria-hidden="true"></div>
       <div class="grafico" data-g="elecciones" data-forma="barras" style="--filas:25;--extra:-4px"></div>
       <p class="lead" data-t="elecciones"></p>
-      <p class="ir-mesas"><a class="enlace" href="mesas.html">Ver los resultados por circuito y por mesa</a></p>
+      <p class="ir-mesas"><a class="enlace" href="mesas">Ver los resultados por circuito y por mesa</a></p>
       <p class="nota">Porcentaje de los votos positivos, sin contar blancos ni nulos. Cada fórmula se nombra por quien la encabezaba. Se muestran las cuatro más votadas del país y el resto va a "Otras". El color indica el espacio político, el mismo que en la composición del Congreso. En las PASO, desde 2011, cada barra es una agrupación con todas sus listas internas sumadas. En 2019 y 2023 el recuento oficial de las PASO se informó sobre los votos válidos, que incluyen los votos en blanco, así que aquí los porcentajes son algo más altos. Escrutinio definitivo de 1983 a 2019, salvo las PASO de 2019. Escrutinio provisorio en las PASO de 2019 y en todo 2023, porque el definitivo no está publicado como datos abiertos. Las PASO de 2023 salen de la copia del archivo oficial guardada en el Internet Archive, porque el enlace original dejó de funcionar. Los resultados se cotejaron con los de electorAr, que usa el escrutinio provisorio.</p>
       <div class="pie"><span>Fuente: Dirección Nacional Electoral, Ministerio del Interior</span><a href="datos/elecciones_presidenciales.csv" download>Descargar tabla (CSV)</a></div>
     </article>
@@ -1832,7 +1832,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     <h2>Cuentas públicas</h2>
     <div class="tema-intro">
       <p class="pregunta" data-corta="¿Cuánto recauda y gasta el Estado?">¿Cuánto recauda, cuánto gasta y cuánto debe el Estado?</p>
-      <p>Primero, las cuentas de la Nación: cuánto le ingresa, en qué gasta y si le sobra o le falta, como parte del PBI. Después, cuánto recauda cada impuesto nacional y cuánto debe el Estado nacional. Para las provincias, cuántos cargos tienen sus administraciones, cuánto recaudan de impuestos propios y cómo son sus finanzas: qué parte de sus ingresos recaudan por su cuenta, si les sobra o les falta y cuánto gastan en personal, cuánto reciben por coparticipación y cuánto deben. Las transferencias no automáticas de la Nación a las provincias están en <a href="politica.html#f-atn">Instituciones políticas</a>, y los subsidios a la energía, en <a href="energia.html#f-subsidios">Energía</a>.</p>
+      <p>Primero, las cuentas de la Nación: cuánto le ingresa, en qué gasta y si le sobra o le falta, como parte del PBI. Después, cuánto recauda cada impuesto nacional y cuánto debe el Estado nacional. Para las provincias, cuántos cargos tienen sus administraciones, cuánto recaudan de impuestos propios y cómo son sus finanzas: qué parte de sus ingresos recaudan por su cuenta, si les sobra o les falta y cuánto gastan en personal, cuánto reciben por coparticipación y cuánto deben. Las transferencias no automáticas de la Nación a las provincias están en <a href="politica#f-atn">Instituciones políticas</a>, y los subsidios a la energía, en <a href="energia#f-subsidios">Energía</a>.</p>
     </div>
     <!--EXPLICADOR:gobierno-->
 
@@ -1947,7 +1947,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     <h2>Sector externo</h2>
     <div class="tema-intro">
       <p class="pregunta" data-corta="¿Qué le vende y qué le compra al mundo?">¿Qué le vende y qué le compra la Argentina al mundo?</p>
-      <p>Cada ficha contesta una parte de la pregunta: qué exporta y qué importa la Argentina, con qué países comercia y desde qué provincias salen las ventas. Al final están el saldo de las cuentas con el resto del mundo y las reservas del Banco Central. El dólar, las tasas y el dinero están en <a href="economia.html#f-bcra">Precios y actividad</a>. Lo que exporta cada provincia por habitante está en <a href="trabajo.html#f-exportaciones">Trabajo</a>.</p>
+      <p>Cada ficha contesta una parte de la pregunta: qué exporta y qué importa la Argentina, con qué países comercia y desde qué provincias salen las ventas. Al final están el saldo de las cuentas con el resto del mundo y las reservas del Banco Central. El dólar, las tasas y el dinero están en <a href="economia#f-bcra">Precios y actividad</a>. Lo que exporta cada provincia por habitante está en <a href="trabajo#f-exportaciones">Trabajo</a>.</p>
     </div>
     <!-- "Para entender los datos" del sector externo (plan de mejora, sección 5: era la única página de su grupo sin él, 28 de octubre de 2026):
          datos/manual/explicadores.json -->
@@ -2336,7 +2336,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     <h2>Energía</h2>
     <div class="tema-intro">
       <p class="pregunta" data-corta="¿Cuánta energía usamos?">¿Cuánta electricidad y cuánto gas se usan en cada provincia?</p>
-      <p>Esta página muestra cuánta electricidad usan los hogares, los comercios y las industrias de cada provincia, en qué meses se usa más y dónde están las centrales que la generan. También muestra qué parte de los hogares cocina con gas de red, cuánto gas consume cada usuario residencial y cuánto gasta el Estado nacional en subsidios a la energía. La producción de petróleo y gas tiene su propia página: <a class="enlace" href="petroleo.html">Petróleo y gas</a>.</p>
+      <p>Esta página muestra cuánta electricidad usan los hogares, los comercios y las industrias de cada provincia, en qué meses se usa más y dónde están las centrales que la generan. También muestra qué parte de los hogares cocina con gas de red, cuánto gas consume cada usuario residencial y cuánto gasta el Estado nacional en subsidios a la energía. La producción de petróleo y gas tiene su propia página: <a class="enlace" href="petroleo">Petróleo y gas</a>.</p>
     </div>
     <!--EXPLICADOR:energia-->
 
@@ -2476,7 +2476,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     <h2>Petróleo y gas</h2>
     <div class="tema-intro">
       <p class="pregunta" data-corta="¿Cuánto petróleo y gas producimos?">¿Cuánto petróleo y gas produce el país y de qué provincias sale?</p>
-      <p>La página sigue la producción de petróleo y gas mes a mes y muestra cuánto sale de cada provincia, de cada área de concesión y de cada empresa. También reúne los pozos de Vaca Muerta y sus fracturas, el empleo, las regalías, las reservas, el comercio exterior de energía y el lugar de la Argentina entre los productores del mundo. El consumo de electricidad y de gas de los hogares está en <a class="enlace" href="energia.html">Energía</a>.</p>
+      <p>La página sigue la producción de petróleo y gas mes a mes y muestra cuánto sale de cada provincia, de cada área de concesión y de cada empresa. También reúne los pozos de Vaca Muerta y sus fracturas, el empleo, las regalías, las reservas, el comercio exterior de energía y el lugar de la Argentina entre los productores del mundo. El consumo de electricidad y de gas de los hogares está en <a class="enlace" href="energia">Energía</a>.</p>
     </div>
     <!--EXPLICADOR:petroleo-->
 
@@ -3340,7 +3340,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     <h2>Catálogo de datos</h2>
     <div class="tema-intro">
       <p class="pregunta">¿Qué datos puedo bajar?</p>
-      <p>Acá están las tablas de Datina, cada una con su fuente, su período, su cobertura y sus columnas, para saber qué trae antes de descargarla. Los resultados oficiales de cada elección por jurisdicción están acá. Los de cada mesa se descargan, por elección y por jurisdicción, en <a href="mesas.html">Elecciones por mesa</a>. También podés descargar la tabla completa, con todos los indicadores en un solo archivo. Las tablas se pueden reutilizar citando a Datina y a la fuente de cada una: <a href="usar-datos.html">Usar los datos</a> explica la licencia y cómo citar.</p>
+      <p>Acá están las tablas de Datina, cada una con su fuente, su período, su cobertura y sus columnas, para saber qué trae antes de descargarla. Los resultados oficiales de cada elección por jurisdicción están acá. Los de cada mesa se descargan, por elección y por jurisdicción, en <a href="mesas">Elecciones por mesa</a>. También podés descargar la tabla completa, con todos los indicadores en un solo archivo. Las tablas se pueden reutilizar citando a Datina y a la fuente de cada una: <a href="usar-datos">Usar los datos</a> explica la licencia y cómo citar.</p>
     </div>
     <!--CATALOGO-->
   </section>
@@ -3358,7 +3358,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <p>Escribí una pregunta sobre la Argentina o sobre una provincia. Un modelo de inteligencia artificial la contesta solo con las tablas de Datina. Debajo de la respuesta aparecen las fichas que se consultaron para contestar, para que puedas verificar cada cifra.</p>
     </div>
     <div class="ia" id="ia">
-      <form class="form-contacto ia-form" id="ia-form" action="catalogo.html">
+      <form class="form-contacto ia-form" id="ia-form" action="catalogo">
         <label class="campo"><span>Tu pregunta</span><textarea id="ia-pregunta" name="q" rows="3" minlength="3" maxlength="400" required
           aria-describedby="ia-ayuda" placeholder="Por ejemplo: ¿cuánto se gana en Neuquén?"></textarea></label>
         <p class="form-nota" id="ia-ayuda">Hasta 400 caracteres. No escribas datos personales: para contestarla, la pregunta se envía a Anthropic, la empresa que hace el modelo. Datina no la guarda.</p>
@@ -3371,7 +3371,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
         <h2 class="ia-tit" id="ia-respuesta-tit" tabindex="-1">Respuesta</h2>
         <p class="ia-eco"><span>Pregunta:</span> <span id="ia-pregunta-eco"></span></p>
         <div class="ia-texto" id="ia-texto"></div>
-        <p class="ia-salida-p"><a class="enlace" id="ia-salida" href="catalogo.html" hidden>Buscar en el Catálogo de datos</a></p>
+        <p class="ia-salida-p"><a class="enlace" id="ia-salida" href="catalogo" hidden>Buscar en el Catálogo de datos</a></p>
         <div class="ia-fuentes" id="ia-fuentes" hidden>
           <h3 class="ia-tit">Fichas consultadas</h3>
           <ul class="ia-fichas" id="ia-fichas"></ul>
@@ -3394,7 +3394,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
            como el de Contacto. Se activa al publicar el sitio en Netlify, que guarda los correos. Con datina.js se envía sin salir de la
            página y el botón muestra "Enviando" y "Anotado" en su lugar. Sin datina.js, vuelve a Contacto con ?suscripto=1. Los tres textos del
            botón están siempre, uno encima del otro, así el botón no cambia de ancho al cambiar de estado (idea de uiarc.dev, pedido del autor) -->
-      <form class="form-suscripcion" name="suscripcion" method="POST" action="contacto.html?suscripto=1" data-netlify="true" netlify-honeypot="no-completar">
+      <form class="form-suscripcion" name="suscripcion" method="POST" action="contacto?suscripto=1" data-netlify="true" netlify-honeypot="no-completar">
         <input type="hidden" name="form-name" value="suscripcion">
         <p class="oculto"><label>No completar este campo <input name="no-completar" tabindex="-1" autocomplete="off"></label></p>
         <label class="campo" for="susc-correo"><span>Novedades por correo</span></label>

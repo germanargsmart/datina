@@ -173,7 +173,7 @@ Medidos el 22 de octubre de 2026 sobre la copia del commit 333dede (sección 1).
 - Node 22 o más (usa `fetch` y `WebSocket` sin paquetes) y Google Chrome. Otra ruta de Chrome: variable `CHROME`.
 - Internet hacia cdnjs y jsDelivr para la prueba en Chrome, o copias locales con `DATINA_LIBS` (ver `.claude/rules/pruebas.md`).
 - Consultor de pobreza: Node, `npm install` dentro de `pobreza/` y Observable Framework 1.13. No se probó en esta auditoría.
-- Ver el sitio: un servidor (`cd sitio && python -m http.server 8765`). Abrir los HTML con doble clic no alcanza: los datos se piden con `fetch`.
+- Ver el sitio: un servidor (`cd sitio && python -m http.server 8765`, desde el 16 de noviembre de 2026 `python scripts/servir.py`). Abrir los HTML con doble clic no alcanza: los datos se piden con `fetch`.
 
 ## 7. Qué podría dejar de funcionar fuera de Netlify
 

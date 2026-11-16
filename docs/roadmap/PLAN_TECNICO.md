@@ -171,7 +171,7 @@ Lo que explica los números (de los informes de Lighthouse de la portada y de Ne
 
 - Medir de nuevo y comparar con la fase 0.
 - Partir `datina.js` por página, con cuidado: el 4 de noviembre de 2026 se decidió no partir `fichas.js` porque cada página lee tablas de otras secciones.
-- Enlaces internos sin ".html", para evitar la redirección 308 en cada clic. Contra: la vista local con `python -m http.server` deja de andar igual. Decisión del autor antes de hacerlo.
+- Enlaces internos sin ".html", para evitar la redirección 308 en cada clic. Contra: la vista local con `python -m http.server` deja de andar igual. Hecho el 16 de noviembre de 2026 con la aprobación del autor: los enlaces de las páginas, de `datina.js`, del Catálogo, del Explorador, de la API y de Consultas con IA van sin el `.html`, los servidores de las pruebas responden como Cloudflare, `prueba_metadatos.py` marca un enlace interno con `.html`, y para ver el sitio está `python scripts/servir.py`.
 - Esfuerzo medio, riesgo medio.
 
 ## Lo que ya estaba pendiente, en el mismo orden

@@ -25,6 +25,8 @@ const TIPOS = {".html": "text/html; charset=utf-8", ".js": "text/javascript; cha
 const servidor = createServer((req, res) => {
   let ruta = decodeURIComponent(new URL(req.url, "http://local").pathname);
   if (ruta.endsWith("/")) ruta += "index.html";
+  // como Cloudflare Pages: /trabajo sirve trabajo.html (los enlaces van sin el .html desde el 16 de noviembre de 2026)
+  else if (!/\.[a-z0-9]+$/i.test(ruta)) ruta += ".html";
   const archivo = normalize(join(SITIO, ruta));
   if (!archivo.startsWith(SITIO)) { res.writeHead(403); res.end(); return; }
   try { const d = readFileSync(archivo); res.writeHead(200, {"Content-Type": TIPOS[extname(archivo)] || "application/octet-stream"}); res.end(d); }
@@ -61,7 +63,7 @@ const TERMINOS = `(() => {
 // "Artículos con este dato" del pie de cada ficha (VUELTA). Tienen que coincidir
 const IDA = [], VUELTA = [];
 const ENLACES = `[...document.querySelectorAll(".nota-fuentes a[href*='#f-'], .pie-arts a")].map(a => a.closest(".pie-arts")
-  ? a.getAttribute("href") + ">" + a.closest("article.ficha").id : location.pathname.slice(1) + ">" + a.getAttribute("href").split("#")[1])`;
+  ? a.getAttribute("href") + ">" + a.closest("article.ficha").id : location.pathname.slice(1).replace(/\.html$/, "") + ">" + a.getAttribute("href").split("#")[1])`;
 
 // las fichas (Fase 2, paso 5): todas con "Ver tabla", ninguna con el nombre de la sección arriba de la pregunta (cada página tiene una
 // sola) y "Cómo se calcula" en todas las de una página con "Para entender los datos", y en ninguna de las demás
@@ -260,7 +262,7 @@ await p.ir(`${B}provincia-neuquen.html`, 1200);
   await p.eval(`document.getElementById("elige-btn").click(); document.getElementById("op-66").click()`);
   await new Promise(r => setTimeout(r, 1500));
   const otra = await p.eval(`location.pathname`);
-  if (!otra.endsWith("provincia-salta.html")) problemas.push(`en una página fija, elegir Salta lleva a ${otra}`);
+  if (!otra.endsWith("provincia-salta")) problemas.push(`en una página fija, elegir Salta lleva a ${otra}`);
   await p.eval(`localStorage.removeItem("prov")`);  // lo que sigue se prueba sin provincia elegida
 }
 // La página de una provincia (5 de noviembre de 2026, pedido del autor): sin provincias parecidas ni "si fuera un país", todas las tarjetas del
@@ -440,7 +442,7 @@ const ddPegadas = ddVisibles.filter(d => /[a-zñáéíóú]/i.test(d.num.replace
 if (ddPegadas.length) problemas.push(`datos-destacados.html: dato con la unidad pegada a la cifra: ${ddPegadas}`);
 const ddSinAnio = ddVisibles.filter(d => !/\b(19|20)\d\d\b/.test(d.txt) && !SIN_ANIO[d.id]).map(d => d.id);
 if (ddSinAnio.length) problemas.push(`datos-destacados.html: dato sin su año (si la fuente no da una fecha, va en SIN_ANIO con su motivo): ${ddSinAnio}`);
-const ddRotos = dd.datos.filter(d => { const [pag, ancla] = (d.dest || "").split("#"); return ancla !== d.id || !existsSync(join(SITIO, pag)) || !readFileSync(join(SITIO, pag), "utf8").includes(`id="${d.id}"`); }).map(d => d.id);
+const ddRotos = dd.datos.filter(d => { const [pag, ancla] = (d.dest || "").split("#"), arch = join(SITIO, (pag.replace(/^\.\/$/, "") || "index") + ".html"); return ancla !== d.id || !existsSync(arch) || !readFileSync(arch, "utf8").includes(`id="${d.id}"`); }).map(d => d.id);
 if (ddRotos.length) problemas.push(`datos-destacados.html: el enlace no lleva a la ficha: ${ddRotos}`);
 if (dd.tarjetas) problemas.push(`datos-destacados.html: las celdas no son tarjetas (${dd.tarjetas})`);
 if (dd.t.length > 4 || dd.f.length !== 1) problemas.push(`datos-destacados.html: la lista lleva ${dd.t.length} tamaños y ${dd.f.length} familias: ${dd.t} ${dd.f}`);
@@ -495,7 +497,7 @@ const letra = JSON.parse(await q.eval(`(() => { const t = new Set(), f = new Set
 if (letra.t.length > 4 || letra.f.length > 2) problemas.push(`index.html: datos destacados con ${letra.t.length} tamaños y ${letra.f.length} familias: ${letra.t} ${letra.f}`);
 const cifraSola = await q.eval(`[...document.querySelectorAll(".destacado .c-num")].filter(n => /[a-zñáéíóú]/i.test(n.textContent.replace(/ (mil millones|millones|mil)$/, ""))).map(n => n.textContent).join(", ")`);
 if (cifraSola) problemas.push(`index.html: dato destacado con la unidad pegada a la cifra: ${cifraSola}`);
-if ((await q.eval(`(() => { const a = document.querySelector(".destacados .dest-carrusel ~ .dest-todos a"); return a ? a.getAttribute("href") + "|" + a.textContent.trim() : ""; })()`)) !== "datos-destacados.html|Ver todos los datos destacados")
+if ((await q.eval(`(() => { const a = document.querySelector(".destacados .dest-carrusel ~ .dest-todos a"); return a ? a.getAttribute("href") + "|" + a.textContent.trim() : ""; })()`)) !== "datos-destacados|Ver todos los datos destacados")
   problemas.push('index.html: falta "Ver todos los datos destacados" debajo del carrusel');
 // en "Explorá la Argentina por tema" el enlace de cada tema cubre el tema entero, también donde hay subtemas, y cada subtema sigue con su enlace
 const temasMal = await q.eval(`[...document.querySelectorAll("#secciones .tg-item")].map(i => { const r = i.getBoundingClientRect(), l = i.querySelector(".tg-link"), f = getComputedStyle(l, "::after");
@@ -517,7 +519,7 @@ await espera(350);
 if ((await anchoBusca()) < 280) problemas.push(`index.html: el buscador de la portada no se abre con el foco (${await anchoBusca()} píxeles)`);
 await q.send("Input.insertText", {text: "salta"});
 await espera(300);
-if (!(await q.eval(`document.querySelectorAll('#busca-portada-res a[href="provincia-salta.html"]').length`)))
+if (!(await q.eval(`document.querySelectorAll('#busca-portada-res a[href="provincia-salta"]').length`)))
   problemas.push("index.html: el buscador de la portada no encuentra Salta");
 // con una lista larga, cada resultado que se ve dentro de la lista se puede tocar en su lugar (la portada recorta lo que sobresale y la
 // lista quedaba cortada o tapada por lo que sigue en la parte azul)
@@ -602,13 +604,13 @@ else {
 }
 await lupa("zzqqxx");
 const nada = await q.eval(`document.querySelector("#busca-res [role=option]")?.getAttribute("href") + " | " + document.getElementById("busca-estado")?.textContent`);
-if (!nada.startsWith("catalogo.html?q=zzqqxx | Nada coincide")) problemas.push(`trabajo.html: sin coincidencias, el buscador no ofrece el catálogo con lo escrito (${nada})`);
+if (!nada.startsWith("catalogo?q=zzqqxx | Nada coincide")) problemas.push(`trabajo.html: sin coincidencias, el buscador no ofrece el catálogo con lo escrito (${nada})`);
 // consultas con IA (docs/ia/CONSULTAS.md), solo si se armaron con "consulta_ia": true: sin coincidencias, la segunda opción lleva lo escrito
 // a su página, que lo deja escrito sin enviarlo
 const IA = existsSync(join(SITIO, "consulta-ia.html"));
 if (IA) {
   const segunda = await q.eval(`document.querySelectorAll("#busca-res [role=option]")[1]?.getAttribute("href")`);
-  if (segunda !== "consulta-ia.html?q=zzqqxx") problemas.push(`trabajo.html: sin coincidencias, el buscador no ofrece las consultas con IA (${segunda})`);
+  if (segunda !== "consulta-ia?q=zzqqxx") problemas.push(`trabajo.html: sin coincidencias, el buscador no ofrece las consultas con IA (${segunda})`);
   const preg = "¿Cuántos habitantes tiene Salta?";
   await q.ir(B + "consulta-ia.html?q=" + encodeURIComponent(preg), 1000);
   const ia = JSON.parse(await q.eval(`JSON.stringify({v: document.getElementById("ia-pregunta")?.value, oculta: document.getElementById("ia-respuesta")?.hidden,

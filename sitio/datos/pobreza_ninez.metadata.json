@@ -3,7 +3,7 @@
  "titulo": "¿Cuántos chicos viven en hogares pobres?",
  "descripcion": "Porcentaje de personas de 0 a 17 años bajo las líneas de pobreza e indigencia en los 31 aglomerados urbanos, por semestre y por edad, del segundo semestre de 2016 al primer semestre de 2026",
  "seccion": "Pobreza y hogares",
- "ficha": "https://datina.com.ar/pobreza.html#f-pobreza-ninez",
+ "ficha": "https://datina.com.ar/pobreza#f-pobreza-ninez",
  "fuente": "INDEC, Encuesta Permanente de Hogares, incidencia de la pobreza y la indigencia por edad.",
  "organismos": [
   "INDEC (Instituto Nacional de Estadística y Censos)"
@@ -108,6 +108,6 @@
  ],
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿Cuántos chicos viven en hogares pobres? Con datos de INDEC, Encuesta Permanente de Hogares, incidencia de la pobreza y la indigencia por edad. https://datina.com.ar/pobreza.html#f-pobreza-ninez. Consultado el día de la consulta.",
+ "como_citar": "Datina (año de la consulta). ¿Cuántos chicos viven en hogares pobres? Con datos de INDEC, Encuesta Permanente de Hogares, incidencia de la pobreza y la indigencia por edad. https://datina.com.ar/pobreza#f-pobreza-ninez. Consultado el día de la consulta.",
  "datos_actualizados": "15/11/2026"
 }

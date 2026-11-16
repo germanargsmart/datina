@@ -3,7 +3,7 @@
  "titulo": "¿Cuántos votos sacó cada fórmula presidencial en cada jurisdicción?",
  "descripcion": "Votos de cada fórmula presidencial y su porcentaje de los positivos, por jurisdicción, en el escrutinio definitivo",
  "seccion": "Elecciones por mesa",
- "ficha": "https://datina.com.ar/mesas.html",
+ "ficha": "https://datina.com.ar/mesas",
  "fuente": "Dirección Nacional Electoral, Cámara Nacional Electoral y la justicia electoral de cada jurisdicción. La fuente de cada elección y jurisdicción va en la tabla elecciones_oficiales_totales",
  "organismos": [],
  "actualizacion": "Se actualiza después de cada elección.",
@@ -54,6 +54,6 @@
  "origen": [],
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿Cuántos votos sacó cada fórmula presidencial en cada jurisdicción? Con datos de Dirección Nacional Electoral, Cámara Nacional Electoral y la justicia electoral de cada jurisdicción. La fuente de cada elección y jurisdicción va en la tabla elecciones_oficiales_totales. https://datina.com.ar/mesas.html. Consultado el día de la consulta.",
+ "como_citar": "Datina (año de la consulta). ¿Cuántos votos sacó cada fórmula presidencial en cada jurisdicción? Con datos de Dirección Nacional Electoral, Cámara Nacional Electoral y la justicia electoral de cada jurisdicción. La fuente de cada elección y jurisdicción va en la tabla elecciones_oficiales_totales. https://datina.com.ar/mesas. Consultado el día de la consulta.",
  "datos_actualizados": "15/11/2026"
 }

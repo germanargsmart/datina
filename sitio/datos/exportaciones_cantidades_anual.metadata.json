@@ -3,7 +3,7 @@
  "titulo": "¿Se exporta más cuando el dólar está caro?",
  "descripcion": "Qué exporta el país, cuánto cambiaron las cantidades exportadas por gran rubro, sin el efecto de los precios, cómo se movió el dólar en términos reales y si se exporta más cuando el dólar está caro.",
  "seccion": "Sector externo",
- "ficha": "https://datina.com.ar/a-exportaciones-dolar.html",
+ "ficha": "https://datina.com.ar/a-exportaciones-dolar",
  "fuente": "INDEC, índices de valor, precio y cantidad de las exportaciones de bienes e intercambio comercial argentino, vía API de Series de Tiempo, y Banco Central de la República Argentina, índices de tipo de cambio real multilateral y bilateral con Brasil",
  "organismos": [
   "BCRA (Banco Central de la República Argentina)",
@@ -53,6 +53,6 @@
  "origen": [],
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿Se exporta más cuando el dólar está caro? Con datos de INDEC, índices de valor, precio y cantidad de las exportaciones de bienes e intercambio comercial argentino, vía API de Series de Tiempo, y Banco Central de la República Argentina, índices de tipo de cambio real multilateral y bilateral con Brasil. https://datina.com.ar/a-exportaciones-dolar.html. Consultado el día de la consulta.",
+ "como_citar": "Datina (año de la consulta). ¿Se exporta más cuando el dólar está caro? Con datos de INDEC, índices de valor, precio y cantidad de las exportaciones de bienes e intercambio comercial argentino, vía API de Series de Tiempo, y Banco Central de la República Argentina, índices de tipo de cambio real multilateral y bilateral con Brasil. https://datina.com.ar/a-exportaciones-dolar. Consultado el día de la consulta.",
  "datos_actualizados": "15/11/2026"
 }

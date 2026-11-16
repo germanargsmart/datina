@@ -3,7 +3,7 @@
  "titulo": "¿Cómo cambiaron los principales socios comerciales de la Argentina?",
  "descripcion": "Parte de cada país en las importaciones o las exportaciones de bienes, en % del total de cada año, 1991 a 2025",
  "seccion": "Sector externo",
- "ficha": "https://datina.com.ar/externo.html#f-socios-hist",
+ "ficha": "https://datina.com.ar/externo#f-socios-hist",
  "fuente": "INDEC, exportaciones e importaciones de bienes por país, vía el Catálogo API-INDEC.",
  "organismos": [
   "INDEC (Instituto Nacional de Estadística y Censos)"
@@ -84,6 +84,6 @@
  ],
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿Cómo cambiaron los principales socios comerciales de la Argentina? Con datos de INDEC, exportaciones e importaciones de bienes por país, vía el Catálogo API-INDEC. https://datina.com.ar/externo.html#f-socios-hist. Consultado el día de la consulta.",
+ "como_citar": "Datina (año de la consulta). ¿Cómo cambiaron los principales socios comerciales de la Argentina? Con datos de INDEC, exportaciones e importaciones de bienes por país, vía el Catálogo API-INDEC. https://datina.com.ar/externo#f-socios-hist. Consultado el día de la consulta.",
  "datos_actualizados": "15/11/2026"
 }

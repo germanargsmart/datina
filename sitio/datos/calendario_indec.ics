@@ -13,8 +13,8 @@ SUMMARY:INDEC: Índice del costo de la construcción (ICC). Octubre de 2026
 DESCRIPTION:El INDEC publica este informe a las 16:00. Datina lo suma en su
   actualización siguiente (los días 5\, 15 y 23). En Datina: ¿Cuánto su
  bió el costo de construir frente a los precios? https://datina.com.ar/con
- struccion.html#f-costo
-URL:https://datina.com.ar/construccion.html#f-costo
+ struccion#f-costo
+URL:https://datina.com.ar/construccion#f-costo
 END:VEVENT
 BEGIN:VEVENT
 UID:3e90e48684@datina
@@ -26,8 +26,8 @@ SUMMARY:INDEC: Intercambio comercial argentino (ICA). Bienes. Octubre de 20
 DESCRIPTION:El INDEC publica este informe a las 16:00. Datina lo suma en su
   actualización siguiente (los días 5\, 15 y 23). En Datina: ¿Cuánto ex
  porta e importa la Argentina en bienes y cuál es el saldo? https://datina
- .com.ar/externo.html#f-balanza
-URL:https://datina.com.ar/externo.html#f-balanza
+ .com.ar/externo#f-balanza
+URL:https://datina.com.ar/externo#f-balanza
 END:VEVENT
 BEGIN:VEVENT
 UID:08f3ce03d1@datina
@@ -38,9 +38,8 @@ SUMMARY:INDEC: Estimador mensual de actividad económica (EMAE). Septiembre
   de 2026
 DESCRIPTION:El INDEC publica este informe a las 16:00. Datina lo suma en su
   actualización siguiente (los días 5\, 15 y 23). En Datina: ¿Cuánto cr
- ece o cae la actividad económica? https://datina.com.ar/economia.html#f-e
- mae
-URL:https://datina.com.ar/economia.html#f-emae
+ ece o cae la actividad económica? https://datina.com.ar/economia#f-emae
+URL:https://datina.com.ar/economia#f-emae
 END:VEVENT
 BEGIN:VEVENT
 UID:7c69df64fe@datina
@@ -51,8 +50,8 @@ SUMMARY:INDEC: Encuesta de supermercados. Septiembre de 2026
 DESCRIPTION:El INDEC publica este informe a las 16:00. Datina lo suma en su
   actualización siguiente (los días 5\, 15 y 23). En Datina: ¿Cuánto ca
  mbiaron las ventas en supermercados en cada provincia? https://datina.com.
- ar/economia.html#f-supermercados
-URL:https://datina.com.ar/economia.html#f-supermercados
+ ar/economia#f-supermercados
+URL:https://datina.com.ar/economia#f-supermercados
 END:VEVENT
 BEGIN:VEVENT
 UID:ea9a3677fa@datina
@@ -62,9 +61,9 @@ DTEND:20261127T193000Z
 SUMMARY:INDEC: Estadísticas de turismo internacional. Octubre de 2026
 DESCRIPTION:El INDEC publica este informe a las 16:00. Datina lo suma en su
   actualización siguiente (los días 5\, 15 y 23). En Datina: ¿Qué provi
- ncias visitan los turistas del exterior? https://datina.com.ar/turismo.htm
- l#f-eti
-URL:https://datina.com.ar/turismo.html#f-eti
+ ncias visitan los turistas del exterior? https://datina.com.ar/turismo#f-e
+ ti
+URL:https://datina.com.ar/turismo#f-eti
 END:VEVENT
 BEGIN:VEVENT
 UID:1a18bd2984@datina
@@ -76,8 +75,8 @@ SUMMARY:INDEC: Indicadores de coyuntura de la actividad de la construcción
 DESCRIPTION:El INDEC publica este informe a las 16:00. Datina lo suma en su
   actualización siguiente (los días 5\, 15 y 23). En Datina: ¿Cuántos m
  etros cuadrados se autorizan para construir? https://datina.com.ar/constru
- ccion.html#f-permisos
-URL:https://datina.com.ar/construccion.html#f-permisos
+ ccion#f-permisos
+URL:https://datina.com.ar/construccion#f-permisos
 END:VEVENT
 BEGIN:VEVENT
 UID:2c1c2f26d2@datina
@@ -89,8 +88,8 @@ SUMMARY:INDEC: Valorización mensual de la canasta básica alimentaria (CBA
 DESCRIPTION:El INDEC publica este informe a las 16:00. Datina lo suma en su
   actualización siguiente (los días 5\, 15 y 23). En Datina: ¿Cuánto ne
  cesita un hogar por mes para no quedar bajo la línea de pobreza? https://
- datina.com.ar/economia.html#f-canastas
-URL:https://datina.com.ar/economia.html#f-canastas
+ datina.com.ar/economia#f-canastas
+URL:https://datina.com.ar/economia#f-canastas
 END:VEVENT
 BEGIN:VEVENT
 UID:d5bd7fa805@datina
@@ -101,9 +100,8 @@ SUMMARY:INDEC: Índice de precios al consumidor (IPC). Cobertura nacional.
  Noviembre de 2026
 DESCRIPTION:El INDEC publica este informe a las 16:00. Datina lo suma en su
   actualización siguiente (los días 5\, 15 y 23). En Datina: ¿Cuánto su
- ben los precios en cada región? https://datina.com.ar/economia.html#f-inf
- lacion
-URL:https://datina.com.ar/economia.html#f-inflacion
+ ben los precios en cada región? https://datina.com.ar/economia#f-inflacion
+URL:https://datina.com.ar/economia#f-inflacion
 END:VEVENT
 BEGIN:VEVENT
 UID:5dccb171b8@datina
@@ -114,8 +112,8 @@ SUMMARY:INDEC: Índice de salarios. Octubre de 2026
 DESCRIPTION:El INDEC publica este informe a las 16:00. Datina lo suma en su
   actualización siguiente (los días 5\, 15 y 23). En Datina: ¿Cuánto ca
  mbió el poder de compra de los salarios registrados? https://datina.com.a
- r/economia.html#f-salario-real
-URL:https://datina.com.ar/economia.html#f-salario-real
+ r/economia#f-salario-real
+URL:https://datina.com.ar/economia#f-salario-real
 END:VEVENT
 BEGIN:VEVENT
 UID:4065323830@datina
@@ -127,8 +125,8 @@ SUMMARY:INDEC: Índice del costo de la construcción (ICC). Noviembre de 20
 DESCRIPTION:El INDEC publica este informe a las 16:00. Datina lo suma en su
   actualización siguiente (los días 5\, 15 y 23). En Datina: ¿Cuánto su
  bió el costo de construir frente a los precios? https://datina.com.ar/con
- struccion.html#f-costo
-URL:https://datina.com.ar/construccion.html#f-costo
+ struccion#f-costo
+URL:https://datina.com.ar/construccion#f-costo
 END:VEVENT
 BEGIN:VEVENT
 UID:789d871618@datina
@@ -140,8 +138,8 @@ SUMMARY:INDEC: Intercambio comercial argentino (ICA). Bienes. Noviembre de
 DESCRIPTION:El INDEC publica este informe a las 16:00. Datina lo suma en su
   actualización siguiente (los días 5\, 15 y 23). En Datina: ¿Cuánto ex
  porta e importa la Argentina en bienes y cuál es el saldo? https://datina
- .com.ar/externo.html#f-balanza
-URL:https://datina.com.ar/externo.html#f-balanza
+ .com.ar/externo#f-balanza
+URL:https://datina.com.ar/externo#f-balanza
 END:VEVENT
 BEGIN:VEVENT
 UID:9999937d6f@datina
@@ -153,8 +151,8 @@ SUMMARY:INDEC: Mercado de trabajo. Tasas e indicadores socioeconómicos. Te
 DESCRIPTION:El INDEC publica este informe a las 16:00. Datina lo suma en su
   actualización siguiente (los días 5\, 15 y 23). En Datina: ¿Cuánta ge
  nte busca trabajo y no consigue en cada ciudad? https://datina.com.ar/trab
- ajo.html#f-desocupacion
-URL:https://datina.com.ar/trabajo.html#f-desocupacion
+ ajo#f-desocupacion
+URL:https://datina.com.ar/trabajo#f-desocupacion
 END:VEVENT
 BEGIN:VEVENT
 UID:46598b8e4f@datina
@@ -165,9 +163,8 @@ SUMMARY:INDEC: Estimador mensual de actividad económica (EMAE). Octubre de
   2026
 DESCRIPTION:El INDEC publica este informe a las 16:00. Datina lo suma en su
   actualización siguiente (los días 5\, 15 y 23). En Datina: ¿Cuánto cr
- ece o cae la actividad económica? https://datina.com.ar/economia.html#f-e
- mae
-URL:https://datina.com.ar/economia.html#f-emae
+ ece o cae la actividad económica? https://datina.com.ar/economia#f-emae
+URL:https://datina.com.ar/economia#f-emae
 END:VEVENT
 BEGIN:VEVENT
 UID:cdefbbd971@datina
@@ -179,8 +176,8 @@ SUMMARY:INDEC: Balanza de pagos\, posición de inversión internacional y d
 DESCRIPTION:El INDEC publica este informe a las 16:00. Datina lo suma en su
   actualización siguiente (los días 5\, 15 y 23). En Datina: ¿Cuál es e
  l saldo con el exterior en bienes\, servicios y rentas? https://datina.com
- .ar/externo.html#f-cuenta-corriente
-URL:https://datina.com.ar/externo.html#f-cuenta-corriente
+ .ar/externo#f-cuenta-corriente
+URL:https://datina.com.ar/externo#f-cuenta-corriente
 END:VEVENT
 BEGIN:VEVENT
 UID:1948b1d462@datina
@@ -190,9 +187,9 @@ DTEND:20261223T193000Z
 SUMMARY:INDEC: Estadísticas de turismo internacional. Noviembre de 2026
 DESCRIPTION:El INDEC publica este informe a las 16:00. Datina lo suma en su
   actualización siguiente (los días 5\, 15 y 23). En Datina: ¿Qué provi
- ncias visitan los turistas del exterior? https://datina.com.ar/turismo.htm
- l#f-eti
-URL:https://datina.com.ar/turismo.html#f-eti
+ ncias visitan los turistas del exterior? https://datina.com.ar/turismo#f-e
+ ti
+URL:https://datina.com.ar/turismo#f-eti
 END:VEVENT
 BEGIN:VEVENT
 UID:7b87239886@datina
@@ -203,8 +200,8 @@ SUMMARY:INDEC: Encuesta de supermercados. Octubre de 2026
 DESCRIPTION:El INDEC publica este informe a las 16:00. Datina lo suma en su
   actualización siguiente (los días 5\, 15 y 23). En Datina: ¿Cuánto ca
  mbiaron las ventas en supermercados en cada provincia? https://datina.com.
- ar/economia.html#f-supermercados
-URL:https://datina.com.ar/economia.html#f-supermercados
+ ar/economia#f-supermercados
+URL:https://datina.com.ar/economia#f-supermercados
 END:VEVENT
 BEGIN:VEVENT
 UID:92ea5e4d9f@datina
@@ -216,8 +213,8 @@ SUMMARY:INDEC: Indicadores de coyuntura de la actividad de la construcción
 DESCRIPTION:El INDEC publica este informe a las 16:00. Datina lo suma en su
   actualización siguiente (los días 5\, 15 y 23). En Datina: ¿Cuántos m
  etros cuadrados se autorizan para construir? https://datina.com.ar/constru
- ccion.html#f-permisos
-URL:https://datina.com.ar/construccion.html#f-permisos
+ ccion#f-permisos
+URL:https://datina.com.ar/construccion#f-permisos
 END:VEVENT
 BEGIN:VEVENT
 UID:c7dbc507d8@datina
@@ -229,8 +226,8 @@ SUMMARY:INDEC: Valorización mensual de la canasta básica alimentaria (CBA
 DESCRIPTION:El INDEC publica este informe a las 16:00. Datina lo suma en su
   actualización siguiente (los días 5\, 15 y 23). En Datina: ¿Cuánto ne
  cesita un hogar por mes para no quedar bajo la línea de pobreza? https://
- datina.com.ar/economia.html#f-canastas
-URL:https://datina.com.ar/economia.html#f-canastas
+ datina.com.ar/economia#f-canastas
+URL:https://datina.com.ar/economia#f-canastas
 END:VEVENT
 BEGIN:VEVENT
 UID:ad7506e206@datina
@@ -241,9 +238,8 @@ SUMMARY:INDEC: Índice de precios al consumidor (IPC). Cobertura nacional.
  Diciembre de 2026
 DESCRIPTION:El INDEC publica este informe a las 16:00. Datina lo suma en su
   actualización siguiente (los días 5\, 15 y 23). En Datina: ¿Cuánto su
- ben los precios en cada región? https://datina.com.ar/economia.html#f-inf
- lacion
-URL:https://datina.com.ar/economia.html#f-inflacion
+ ben los precios en cada región? https://datina.com.ar/economia#f-inflacion
+URL:https://datina.com.ar/economia#f-inflacion
 END:VEVENT
 BEGIN:VEVENT
 UID:51190610c0@datina
@@ -255,8 +251,8 @@ SUMMARY:INDEC: Índice del costo de la construcción (ICC). Diciembre de 20
 DESCRIPTION:El INDEC publica este informe a las 16:00. Datina lo suma en su
   actualización siguiente (los días 5\, 15 y 23). En Datina: ¿Cuánto su
  bió el costo de construir frente a los precios? https://datina.com.ar/con
- struccion.html#f-costo
-URL:https://datina.com.ar/construccion.html#f-costo
+ struccion#f-costo
+URL:https://datina.com.ar/construccion#f-costo
 END:VEVENT
 BEGIN:VEVENT
 UID:9080dca81a@datina
@@ -268,8 +264,8 @@ SUMMARY:INDEC: Intercambio comercial argentino (ICA). Bienes. Diciembre de
 DESCRIPTION:El INDEC publica este informe a las 16:00. Datina lo suma en su
   actualización siguiente (los días 5\, 15 y 23). En Datina: ¿Cuánto ex
  porta e importa la Argentina en bienes y cuál es el saldo? https://datina
- .com.ar/externo.html#f-balanza
-URL:https://datina.com.ar/externo.html#f-balanza
+ .com.ar/externo#f-balanza
+URL:https://datina.com.ar/externo#f-balanza
 END:VEVENT
 BEGIN:VEVENT
 UID:26a74a2c66@datina
@@ -280,8 +276,8 @@ SUMMARY:INDEC: Índice de salarios. Noviembre de 2026
 DESCRIPTION:El INDEC publica este informe a las 16:00. Datina lo suma en su
   actualización siguiente (los días 5\, 15 y 23). En Datina: ¿Cuánto ca
  mbió el poder de compra de los salarios registrados? https://datina.com.a
- r/economia.html#f-salario-real
-URL:https://datina.com.ar/economia.html#f-salario-real
+ r/economia#f-salario-real
+URL:https://datina.com.ar/economia#f-salario-real
 END:VEVENT
 BEGIN:VEVENT
 UID:85eee63f7a@datina
@@ -292,9 +288,8 @@ SUMMARY:INDEC: Estimador mensual de actividad económica (EMAE). Noviembre
  de 2026
 DESCRIPTION:El INDEC publica este informe a las 16:00. Datina lo suma en su
   actualización siguiente (los días 5\, 15 y 23). En Datina: ¿Cuánto cr
- ece o cae la actividad económica? https://datina.com.ar/economia.html#f-e
- mae
-URL:https://datina.com.ar/economia.html#f-emae
+ ece o cae la actividad económica? https://datina.com.ar/economia#f-emae
+URL:https://datina.com.ar/economia#f-emae
 END:VEVENT
 BEGIN:VEVENT
 UID:a0a44e5495@datina
@@ -305,8 +300,8 @@ SUMMARY:INDEC: Encuesta de supermercados. Noviembre de 2026
 DESCRIPTION:El INDEC publica este informe a las 16:00. Datina lo suma en su
   actualización siguiente (los días 5\, 15 y 23). En Datina: ¿Cuánto ca
  mbiaron las ventas en supermercados en cada provincia? https://datina.com.
- ar/economia.html#f-supermercados
-URL:https://datina.com.ar/economia.html#f-supermercados
+ ar/economia#f-supermercados
+URL:https://datina.com.ar/economia#f-supermercados
 END:VEVENT
 BEGIN:VEVENT
 UID:d90b49878d@datina
@@ -317,8 +312,8 @@ SUMMARY:INDEC: Estadísticas de turismo internacional. Diciembre\, cuarto t
  rimestre y año 2026
 DESCRIPTION:El INDEC publica este informe a las 16:00. Datina lo suma en su
   actualización siguiente (los días 5\, 15 y 23). En Datina: ¿Qué provi
- ncias visitan los turistas del exterior? https://datina.com.ar/turismo.htm
- l#f-eti
-URL:https://datina.com.ar/turismo.html#f-eti
+ ncias visitan los turistas del exterior? https://datina.com.ar/turismo#f-e
+ ti
+URL:https://datina.com.ar/turismo#f-eti
 END:VEVENT
 END:VCALENDAR
