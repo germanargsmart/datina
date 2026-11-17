@@ -24,6 +24,8 @@ scripts/plantilla.html         el marcado de todas las secciones: títulos, text
 scripts/datina.css / datina.js el diseño (valores en :root) y los textos calculados, gráficos (D3 7.8.5) y comportamiento
 scripts/lib/                   D3 7.8.5, topojson-client 3.1.0 y Leaflet 1.9.4 (solo el mapa de escuelas y hospitales) con sus licencias: 03 los copia a
                                sitio/lib/ (ninguna página los pide a una CDN)
+scripts/fuentes/web/           desde el 17 de noviembre de 2026, Roboto Flex y Roboto Mono (latín y latín extendido, los mismos archivos que daba Google Fonts)
+                               con sus licencias: 03 los copia a sitio/fuentes/ y escribe sus @font-face en cada página. Ninguna página pide letras a Google
 scripts/achicar_js.py          saca comentarios y sangría de sitio/datina.js, sin cambiar el código: los comentarios se leen en scripts/datina.js
 scripts/imagen_social.py       la imagen al compartir de cada página (og:image, sitio/og/): 03 la dibuja con Pillow y Roboto Flex (scripts/fuentes/), solo si cambió lo que lleva
 scripts/pruebas_datos.py       pruebas de los datos: si fallan, no se arma ni se publica

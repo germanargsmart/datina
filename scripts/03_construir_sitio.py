@@ -934,6 +934,30 @@ LIBS = {"__V_D3__": "d3-7.8.5.min.js", "__V_TOPOJSON__": "topojson-client-3.1.0.
 for _lib in (RAIZ / "scripts" / "lib").iterdir():
     shutil.copyfile(_lib, SITIO / "lib" / _lib.name)
 V_LIBS = {marca: hashlib.sha1((SITIO / "lib" / nombre).read_bytes()).hexdigest()[:10] for marca, nombre in LIBS.items()}
+# Las letras desde el propio sitio (16 de noviembre de 2026, decisión del autor): Roboto Flex y Roboto Mono, los mismos archivos que daba Google
+# Fonts (versión 31, con los mismos ejes: tamaño óptico, ancho de 25 a 151 y peso de 300 a 800 en Roboto Flex, peso de 400 a 600 en Roboto
+# Mono), solo latín y latín extendido, como los pedía el navegador. En scripts/fuentes/web/ con sus licencias (SIL Open Font License 1.1).
+# Las dos de latín se piden antes (preload): con los scripts en defer la página se pinta antes y, si la letra llegaba tarde, la bajada del
+# Catálogo cambiaba de renglones y todo saltaba. El sitio ya no depende de Google para mostrarse
+_WEB = RAIZ / "scripts" / "fuentes" / "web"
+(SITIO / "fuentes").mkdir(exist_ok=True)
+for _f in _WEB.iterdir():
+    shutil.copyfile(_f, SITIO / "fuentes" / _f.name)
+_R_LATIN = ("U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, "
+            "U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD")
+_R_EXT = ("U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, "
+          "U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF")
+_url_letra = lambda n: f"fuentes/{n}.woff2?v={hashlib.sha1((_WEB / (n + '.woff2')).read_bytes()).hexdigest()[:10]}"
+_cara = lambda fam, n, peso, ancho, rango: ("@font-face{font-family:'" + fam + "';font-style:normal;font-weight:" + peso + ";"
+                                            + (f"font-stretch:{ancho};" if ancho else "") + "font-display:swap;src:url(" + _url_letra(n) + ") format('woff2');"
+                                            + f"unicode-range:{rango}}}")
+LETRAS = ("<!--letras-->" + "".join(f'<link rel="preload" href="{_url_letra(n)}" as="font" type="font/woff2" crossorigin>'
+                                    for n in ("roboto-flex-latin", "roboto-mono-latin"))
+          + "<style>" + _cara("Roboto Flex", "roboto-flex-latin-ext", "300 800", "25% 151%", _R_EXT) + _cara("Roboto Flex", "roboto-flex-latin", "300 800", "25% 151%", _R_LATIN)
+          + _cara("Roboto Mono", "roboto-mono-latin-ext", "400 600", "", _R_EXT) + _cara("Roboto Mono", "roboto-mono-latin", "400 600", "", _R_LATIN)
+          + "</style><!--/letras-->")
+assert base.count("<!--LETRAS-->") == 1, "falta <!--LETRAS--> en scripts/plantilla.html"
+base = base.replace("<!--LETRAS-->", LETRAS)
 
 for marca, valor in {"__VERSION__": huella(datos), "__V_CSS__": huella(css), "__V_JS__": huella(JS_SITIO), **V_LIBS}.items():
     assert marca in base, marca
@@ -1872,7 +1896,7 @@ if URL_SITIO:
 # Caché en Cloudflare Pages (23 de octubre de 2026, decisión del autor): sitio/_headers es el equivalente de los [[headers]] de
 # netlify.toml. Los archivos que las páginas piden con su huella en la dirección (?v=...) se guardan un año: cuando cambia el contenido
 # cambia la dirección. Los demás (por ejemplo, las tablas que se piden sin huella) quedan con la caché común
-CACHE_LARGO = (["/datina.css", "/datina.js", "/mesas.js", "/datos/fichas.js", "/datos/relieve/*", "/lib/*", "/relaciones.css", "/relaciones.js", "/datos/relaciones.json"]
+CACHE_LARGO = (["/datina.css", "/datina.js", "/mesas.js", "/datos/fichas.js", "/datos/relieve/*", "/lib/*", "/fuentes/*", "/relaciones.css", "/relaciones.js", "/datos/relaciones.json"]
                + [f"/datos/{n}.json" for n in DIFERIDAS] + ["/consulta-ia.js"] * CONSULTA_IA)
 # Las tablas de Elecciones por mesa (4 de noviembre de 2026): Cloudflare comprime el JSON y el texto, pero no el CSV, y Buenos Aires bajaba unos 5 MB. Se sirven como
 # texto: el archivo es el mismo y sigue llamándose .csv, y los enlaces de descarga llevan el atributo download
