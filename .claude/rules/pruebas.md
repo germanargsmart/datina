@@ -54,4 +54,4 @@ En las sesiones de Claude Code en la nube la red puede bloquear cdnjs y jsdelivr
 
 La prueba de páginas abre además algunas páginas con cdnjs y jsDelivr bloqueadas (tienen que andar sin errores, con fichas, textos, gráficos y menú) y `trabajo.html` sin D3 (las fichas tienen que verse igual, por la red de seguridad del arranque de `datina.js`). Para cambiar de versión de D3 o de topojson: reemplazar el archivo de `scripts/lib/` (bajado de npm y comparado byte por byte con el de la CDN), y su nombre en `LIBS` de `03_construir_sitio.py` y en `scripts/plantilla.html`.
 
-Las letras de Google Fonts tampoco cargan ahí: las capturas usan las letras de reemplazo, así que no sirven para comparar píxeles con las de la computadora del autor.
+Desde el 17 de noviembre de 2026 las letras (Roboto Flex y Roboto Mono) también se sirven desde el propio sitio (`sitio/fuentes/`, que 03 copia de `scripts/fuentes/web/` con sus licencias): ya no hace falta Google Fonts y las capturas de la nube usan la letra de verdad. Para actualizarlas, se bajan otra vez de Google Fonts los archivos de latín y latín extendido con los mismos ejes y se reemplazan en `scripts/fuentes/web/`.
