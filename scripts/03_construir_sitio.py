@@ -951,9 +951,7 @@ _url_letra = lambda n: f"fuentes/{n}.woff2?v={hashlib.sha1((_WEB / (n + '.woff2'
 _cara = lambda fam, n, peso, ancho, rango: ("@font-face{font-family:'" + fam + "';font-style:normal;font-weight:" + peso + ";"
                                             + (f"font-stretch:{ancho};" if ancho else "") + "font-display:swap;src:url(" + _url_letra(n) + ") format('woff2');"
                                             + f"unicode-range:{rango}}}")
-LETRAS = ("<!--letras-->" + "".join(f'<link rel="preload" href="{_url_letra(n)}" as="font" type="font/woff2" crossorigin>'
-                                    for n in ("roboto-flex-latin", "roboto-mono-latin"))
-          + "<style>" + _cara("Roboto Flex", "roboto-flex-latin-ext", "300 800", "25% 151%", _R_EXT) + _cara("Roboto Flex", "roboto-flex-latin", "300 800", "25% 151%", _R_LATIN)
+LETRAS = ("<!--letras-->" + "<style>" + _cara("Roboto Flex", "roboto-flex-latin-ext", "300 800", "25% 151%", _R_EXT) + _cara("Roboto Flex", "roboto-flex-latin", "300 800", "25% 151%", _R_LATIN)
           + _cara("Roboto Mono", "roboto-mono-latin-ext", "400 600", "", _R_EXT) + _cara("Roboto Mono", "roboto-mono-latin", "400 600", "", _R_LATIN)
           + "</style><!--/letras-->")
 assert base.count("<!--LETRAS-->") == 1, "falta <!--LETRAS--> en scripts/plantilla.html"
