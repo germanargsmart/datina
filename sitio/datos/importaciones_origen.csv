@@ -1,27 +1,27 @@
 origen,origen_nombre,millones_usd,millones_usd_anterior,pct,variacion
-brasil,Brasil,12004.9624,14470.901,21.4111,-17.0407
-china,China,13046.9618,13091.3164,23.2696,-0.3388
-eeuu,Estados Unidos,5161.3044,5264.3563,9.2053,-1.9575
-paraguay,Paraguay,3642.2797,2462.4768,6.4961,47.9112
-alemania,Alemania,2348.3312,2401.1376,4.1883,-2.1992
-italia,Italia,1193.6198,1146.1657,2.1288,4.1402
-tailandia,Tailandia,1495.0693,1521.6155,2.6665,-1.7446
-india,India,923.8669,1086.7329,1.6477,-14.9868
-espana,España,773.0686,866.0815,1.3788,-10.7395
-vietnam,Vietnam,796.5145,1069.4151,1.4206,-25.5187
-chile,Chile,686.1086,645.7333,1.2237,6.2526
-uruguay,Uruguay,460.4593,465.3195,0.8212,-1.0445
-paises_bajos,Países Bajos,248.8727,294.5054,0.4439,-15.4947
-indonesia,Indonesia,336.5045,355.5816,0.6002,-5.365
-peru,Perú,229.115,249.2443,0.4086,-8.0762
-malasia,Malasia,170.6496,215.1757,0.3044,-20.6929
-resto_ue,Resto de la Unión Europea,3078.3476,3147.0481,5.4903,-2.183
-mexico_canada,México y Canadá,1526.8991,1585.0977,2.7233,-3.6716
-resto_mercosur,Resto del Mercosur,5.929,10.9276,0.0106,-45.7426
-resto_aladi,Resto de América Latina,917.692,681.9136,1.6367,34.576
-resto_asean,Resto del Sudeste Asiático,234.2153,246.8116,0.4177,-5.1036
-medio_oriente,Medio Oriente,373.4699,494.7708,0.6661,-24.5166
-magreb_egipto,Magreb y Egipto,529.8481,456.2833,0.945,16.1226
-africa_sur,África austral (SACU),147.7004,106.8898,0.2634,38.1801
-oceania,Oceanía,280.8155,327.2285,0.5008,-14.1837
-resto_mundo,Resto del mundo,5456.1874,4824.5212,9.7312,13.0928
+brasil,Brasil,13439.6896,16070.6409,21.4143,-16.3712
+china,China,14772.9117,14953.34,23.5387,-1.2066
+eeuu,Estados Unidos,5731.0281,5810.2852,9.1316,-1.3641
+paraguay,Paraguay,3919.1031,2656.1345,6.2446,47.5491
+alemania,Alemania,2621.6607,2682.983,4.1773,-2.2856
+italia,Italia,1319.3158,1299.2198,2.1022,1.5468
+tailandia,Tailandia,1664.6453,1774.9839,2.6524,-6.2163
+india,India,1068.4103,1236.6323,1.7024,-13.6032
+espana,España,870.0343,972.3846,1.3863,-10.5257
+vietnam,Vietnam,916.1858,1189.5393,1.4598,-22.9798
+chile,Chile,778.5358,726.8794,1.2405,7.1066
+uruguay,Uruguay,528.8928,521.7947,0.8427,1.3603
+paises_bajos,Países Bajos,283.8033,380.3916,0.4522,-25.3918
+indonesia,Indonesia,371.436,405.5087,0.5918,-8.4025
+peru,Perú,252.369,289.038,0.4021,-12.6866
+malasia,Malasia,187.4862,235.7675,0.2987,-20.4784
+resto_ue,Resto de la Unión Europea,3411.829,3521.4025,5.4363,-3.1116
+mexico_canada,México y Canadá,1693.7049,1774.2936,2.6987,-4.542
+resto_mercosur,Resto del Mercosur,15.7217,13.615,0.0251,15.4735
+resto_aladi,Resto de América Latina,1014.9487,778.2578,1.6172,30.4129
+resto_asean,Resto del Sudeste Asiático,256.5993,274.3873,0.4089,-6.4828
+medio_oriente,Medio Oriente,474.3942,564.3484,0.7559,-15.9395
+magreb_egipto,Magreb y Egipto,603.2547,542.598,0.9612,11.1789
+africa_sur,África austral (SACU),153.0222,116.5364,0.2438,31.3084
+oceania,Oceanía,311.1285,343.1114,0.4957,-9.3214
+resto_mundo,Resto del mundo,6100.1224,5503.1477,9.7197,10.8479

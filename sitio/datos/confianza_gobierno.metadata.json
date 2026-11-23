@@ -10,15 +10,15 @@
  ],
  "actualizacion": "Se actualiza cada mes.",
  "cobertura": "Sin desglose territorial",
- "periodo": "noviembre de 2001 a octubre de 2026",
+ "periodo": "noviembre de 2001 a noviembre de 2026",
  "anio_desde": 2001,
  "anio_hasta": 2026,
- "filas": 300,
+ "filas": 301,
  "columnas": [
   {
    "nombre": "mes",
    "tipo": "Fecha",
-   "valores": "noviembre de 2001 a octubre de 2026"
+   "valores": "noviembre de 2001 a noviembre de 2026"
   },
   {
    "nombre": "icg",
@@ -43,8 +43,8 @@
    "archivo": "datos/crudo/utdt_icg.xls",
    "nombre": "Índice de Confianza en el Gobierno, evolución mensual desde 2001 (Escuela de Gobierno de la Universidad Torcuato Di Tella)",
    "organismo": "UTDT",
-   "descargado": "2026-11-15",
-   "ultimo_intento": "2026-11-15",
+   "descargado": "2026-11-23",
+   "ultimo_intento": "2026-11-23",
    "estado": "ok",
    "url": "https://www.utdt.edu/listado_contenidos.php?id_item_menu=28756"
   }
@@ -52,5 +52,5 @@
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
  "como_citar": "Datina (año de la consulta). ¿Cuánta confianza genera el gobierno nacional? Con datos de Universidad Torcuato Di Tella, Escuela de Gobierno, Índice de Confianza en el Gobierno, y Dirección Nacional Electoral. https://datina.com.ar/politica#f-confianza-gobierno. Consultado el día de la consulta.",
- "datos_actualizados": "15/11/2026"
+ "datos_actualizados": "23/11/2026"
 }

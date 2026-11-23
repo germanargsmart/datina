@@ -1,7 +1,7 @@
 {
  "tabla": "canasta_crianza.csv",
  "titulo": "¿Cuánto cuesta por mes criar a un chico?",
- "descripcion": "Canasta de crianza por edad, en pesos por mes, septiembre de 2026, mes a mes descontada la inflación desde enero de 2020, y frente al salario registrado de cada provincia, mayo de 2026",
+ "descripcion": "Canasta de crianza por edad, en pesos por mes, octubre de 2026, mes a mes descontada la inflación desde enero de 2020, y frente al salario registrado de cada provincia, mayo de 2026",
  "seccion": "Precios y actividad",
  "ficha": "https://datina.com.ar/economia#f-crianza",
  "fuente": "INDEC, valorización de la canasta de crianza (Catálogo API-INDEC) e índice de precios al consumidor, y Observatorio de Empleo y Dinámica Empresarial (OEDE), Secretaría de Trabajo, con datos del Sistema Integrado Previsional Argentino (SIPA).",
@@ -10,95 +10,95 @@
  ],
  "actualizacion": "Se actualiza cada mes.",
  "cobertura": "Sin desglose territorial",
- "periodo": "enero de 2020 a septiembre de 2026",
+ "periodo": "enero de 2020 a octubre de 2026",
  "anio_desde": 2020,
  "anio_hasta": 2026,
- "filas": 81,
+ "filas": 82,
  "columnas": [
   {
    "nombre": "periodo",
    "tipo": "Fecha",
-   "valores": "enero de 2020 a septiembre de 2026"
+   "valores": "enero de 2020 a octubre de 2026"
   },
   {
    "nombre": "bys_men1",
    "tipo": "Número",
-   "valores": "4.572,99 a 184.911,53"
+   "valores": "4.572,99 a 191.423,99"
   },
   {
    "nombre": "cuid_men1",
    "tipo": "Número",
-   "valores": "13.390,41 a 385.920,04"
+   "valores": "13.390,41 a 399.896,31"
   },
   {
    "nombre": "tot_men1",
    "tipo": "Número",
-   "valores": "17.963,41 a 570.831,58"
+   "valores": "17.963,41 a 591.320,3"
   },
   {
    "nombre": "bys_1a3",
    "tipo": "Número",
-   "valores": "5.904,8 a 238.764,09"
+   "valores": "5.904,8 a 247.173,2"
   },
   {
    "nombre": "cuid_1a3",
    "tipo": "Número",
-   "valores": "15.303,33 a 441.051,48"
+   "valores": "15.303,33 a 457.024,35"
   },
   {
    "nombre": "tot_1a3",
    "tipo": "Número",
-   "valores": "21.208,14 a 679.815,57"
+   "valores": "21.208,14 a 704.197,56"
   },
   {
    "nombre": "bys_4a5",
    "tipo": "Número",
-   "valores": "7.520,48 a 304.094,69"
+   "valores": "7.520,48 a 314.804,7"
   },
   {
    "nombre": "cuid_4a5",
    "tipo": "Número",
-   "valores": "9.564,58 a 275.657,17"
+   "valores": "9.564,58 a 285.640,22"
   },
   {
    "nombre": "tot_4a5",
    "tipo": "Número",
-   "valores": "17.085,06 a 579.751,87"
+   "valores": "17.085,06 a 600.444,93"
   },
   {
    "nombre": "bys_6a12",
    "tipo": "Número",
-   "valores": "9.329,18 a 377.230,63"
+   "valores": "9.329,18 a 390.516,44"
   },
   {
    "nombre": "cuid_6a12",
    "tipo": "Número",
-   "valores": "12.096 a 351.618,96"
+   "valores": "12.096 a 364.352,52"
   },
   {
    "nombre": "tot_6a12",
    "tipo": "Número",
-   "valores": "21.425,18 a 728.849,59"
+   "valores": "21.425,18 a 754.868,96"
   },
   {
    "nombre": "real_men1",
    "tipo": "Número",
-   "valores": "558.504 a 832.655"
+   "valores": "570.634 a 850.739"
   },
   {
    "nombre": "real_1a3",
    "tipo": "Número",
-   "valores": "665.527 a 980.406"
+   "valores": "679.981 a 1.001.698"
   },
   {
    "nombre": "real_4a5",
    "tipo": "Número",
-   "valores": "569.689 a 775.318"
+   "valores": "582.061 a 792.156"
   },
   {
    "nombre": "real_6a12",
    "tipo": "Número",
-   "valores": "716.091 a 977.634"
+   "valores": "731.643 a 998.866"
   }
  ],
  "unidades": [],
@@ -108,17 +108,17 @@
    "archivo": "datos/crudo/indec_api_canasta_crianza.json",
    "nombre": "Valorización de la canasta de crianza (Catálogo API-INDEC)",
    "organismo": "INDEC",
-   "descargado": "2026-11-05",
-   "ultimo_intento": "2026-11-15",
-   "estado": "error: ipi_manufacturero: la API del INDEC contestó 503: {\"code\":\"PGRST000\",\"details\":\"connection to server at \\\"db\\\" (172.26.68.123), port 5432 failed: FATAL:  PAM authentication failed for user \\\"serapirest\\\"\\n\",\"hint\":null,\"message\":\"Database connection error.\"} | ipi_minero: la API del INDEC contestó 503: {\"code\":\"PGRST000\",\"details\":\"connection to server at \\\"db\\\" (172.26.68.123), port 5432 failed: FATAL:  PAM authentication failed for user \\\"serapirest\\\"\\n\",\"hint\":null,\"message\":\"Database connection error.\"} | proyecciones_poblacion_jurisdiccion_2022_2040: la API del INDEC contestó 503: {\"code\":\"PGRST000\",\"details\":\"connection to server at \\\"db\\\" (172.26.68.123), port 5432 failed: FATAL:  PAM authentication failed for user \\\"serapirest\\\"\\n\",\"hint\":null,\"message\":\"Database connection error.\"} | comercio_exterior_exportacion_bienes: la API del INDEC contestó 503: {\"code\":\"PGRST000\",\"details\":\"connection to server at \\\"db\\\" (172.26.68.123), port 5432 failed: FATAL:  PAM authentication failed for user \\\"serapirest\\\"\\n\",\"hint\":null,\"message\":\"Database connection error.\"} | comercio_exterior_importacion_bienes: la API del INDEC contestó 503: {\"code\":\"PGRST000\",\"details\":\"connection to server at \\\"db\\\" (172.26.68.123), port 5432 failed: FATAL:  PAM authentication failed for user \\\"serapirest\\\"\\n\",\"hint\":null,\"message\":\"Database connection error.\"} (sí se bajaron: estimaciones_poblacion_departamento_2022_2035 (14784 filas), canasta-crianza (81 filas), comercio_exterior_nomenclaturas (325 filas), comercio_exterior_exportacion_bienes:anio_rubro_pais (20474 filas), comercio_exterior_importacion_bienes:anio_uso_pais (26018 filas))",
+   "descargado": "2026-11-23",
+   "ultimo_intento": "2026-11-23",
+   "estado": "ok",
    "url": "https://api.indec.gob.ar/v1/canasta-crianza"
   },
   {
    "archivo": "datos/crudo/indec_ipc_divisiones.csv",
    "nombre": "Índice de precios al consumidor por región, división, categoría y bienes y servicios",
    "organismo": "INDEC",
-   "descargado": "2026-11-15",
-   "ultimo_intento": "2026-11-15",
+   "descargado": "2026-11-23",
+   "ultimo_intento": "2026-11-23",
    "estado": "ok",
    "url": "https://www.indec.gob.ar/ftp/cuadros/economia/serie_ipc_divisiones.csv"
   }
@@ -126,5 +126,5 @@
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
  "como_citar": "Datina (año de la consulta). ¿Cuánto cuesta por mes criar a un chico? Con datos de INDEC, valorización de la canasta de crianza (Catálogo API-INDEC) e índice de precios al consumidor, y Observatorio de Empleo y Dinámica Empresarial (OEDE), Secretaría de Trabajo, con datos del Sistema Integrado Previsional Argentino (SIPA). https://datina.com.ar/economia#f-crianza. Consultado el día de la consulta.",
- "datos_actualizados": "15/11/2026"
+ "datos_actualizados": "23/11/2026"
 }

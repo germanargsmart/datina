@@ -1,5 +1,5 @@
 {
- "datos_actualizados": "15/11/2026",
+ "datos_actualizados": "23/11/2026",
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
  "indicadores": [
@@ -2108,8 +2108,8 @@
    "unidad": "índice de 0 a 100",
    "fuente": "Universidad Torcuato Di Tella, Centro de Investigación en Finanzas",
    "desde": "2001-03",
-   "hasta": "2026-10",
-   "filas": 308,
+   "hasta": "2026-11",
+   "filas": 309,
    "jurisdicciones": [
     "00"
    ],
@@ -2120,8 +2120,8 @@
    "unidad": "índice de 0 a 5",
    "fuente": "Universidad Torcuato Di Tella, Escuela de Gobierno",
    "desde": "2001-11",
-   "hasta": "2026-10",
-   "filas": 300,
+   "hasta": "2026-11",
+   "filas": 301,
    "jurisdicciones": [
     "00"
    ],
@@ -2670,8 +2670,8 @@
    "unidad": "% de las personas privadas de libertad",
    "fuente": "SNEEP, Ministerio de Justicia",
    "desde": "2002",
-   "hasta": "2024",
-   "filas": 46,
+   "hasta": "2025",
+   "filas": 47,
    "jurisdicciones": [
     "00",
     "06",
@@ -2822,8 +2822,8 @@
    "unidad": "personas al 31 de diciembre",
    "fuente": "SNEEP, Ministerio de Justicia",
    "desde": "2002",
-   "hasta": "2024",
-   "filas": 23,
+   "hasta": "2025",
+   "filas": 24,
    "jurisdicciones": [
     "00"
    ],
@@ -2858,7 +2858,7 @@
    "unidad": "puntos",
    "fuente": "OCDE PISA, vía Our World in Data",
    "desde": "2006",
-   "hasta": "2022",
+   "hasta": "2025",
    "filas": 6,
    "jurisdicciones": [
     "00"
@@ -2870,7 +2870,7 @@
    "unidad": "puntos",
    "fuente": "OCDE PISA, vía Our World in Data",
    "desde": "2000",
-   "hasta": "2022",
+   "hasta": "2025",
    "filas": 7,
    "jurisdicciones": [
     "00"
@@ -2882,7 +2882,7 @@
    "unidad": "puntos",
    "fuente": "OCDE PISA, vía Our World in Data",
    "desde": "2006",
-   "hasta": "2022",
+   "hasta": "2025",
    "filas": 6,
    "jurisdicciones": [
     "00"
@@ -3439,8 +3439,8 @@
    "unidad": "millones de dólares",
    "fuente": "BCRA, planilla de reservas internacionales y liquidez en moneda extranjera",
    "desde": "2007-01",
-   "hasta": "2026-09",
-   "filas": 237,
+   "hasta": "2026-10",
+   "filas": 238,
    "jurisdicciones": [
     "00"
    ],

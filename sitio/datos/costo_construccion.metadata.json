@@ -1,7 +1,7 @@
 {
  "tabla": "costo_construccion.csv",
  "titulo": "¿Cuánto subió el costo de construir frente a los precios?",
- "descripcion": "Costo de construir en el Gran Buenos Aires dividido por los precios al consumidor (diciembre de 2016 = 100), diciembre de 2016 a septiembre de 2026",
+ "descripcion": "Costo de construir en el Gran Buenos Aires dividido por los precios al consumidor (diciembre de 2016 = 100), diciembre de 2016 a octubre de 2026",
  "seccion": "Construcción y vivienda",
  "ficha": "https://datina.com.ar/construccion#f-costo",
  "fuente": "INDEC, Índice del Costo de la Construcción (Gran Buenos Aires) e Índice de Precios al Consumidor.",
@@ -10,35 +10,35 @@
  ],
  "actualizacion": "Se actualiza cada mes.",
  "cobertura": "Sin desglose territorial",
- "periodo": "diciembre de 2016 a septiembre de 2026",
+ "periodo": "diciembre de 2016 a octubre de 2026",
  "anio_desde": 2016,
  "anio_hasta": 2026,
- "filas": 118,
+ "filas": 119,
  "columnas": [
   {
    "nombre": "periodo",
    "tipo": "Fecha",
-   "valores": "diciembre de 2016 a septiembre de 2026"
+   "valores": "diciembre de 2016 a octubre de 2026"
   },
   {
    "nombre": "icc",
    "tipo": "Número",
-   "valores": "100 a 10.899,01"
+   "valores": "100 a 11.131,32"
   },
   {
    "nombre": "materiales",
    "tipo": "Número",
-   "valores": "100 a 12.223,53"
+   "valores": "100 a 12.408,4"
   },
   {
    "nombre": "mano_obra",
    "tipo": "Número",
-   "valores": "100 a 9.793,67 (1 celda vacía)"
+   "valores": "100 a 10.058,15 (1 celda vacía)"
   },
   {
    "nombre": "ipc",
    "tipo": "Número",
-   "valores": "100 a 12.514,15"
+   "valores": "100 a 12.785,93"
   },
   {
    "nombre": "icc_real",
@@ -48,7 +48,7 @@
   {
    "nombre": "materiales_real",
    "tipo": "Número",
-   "valores": "97,68 a 165,69"
+   "valores": "97,05 a 165,69"
   },
   {
    "nombre": "mano_obra_real",
@@ -63,8 +63,8 @@
    "archivo": "datos/crudo/indec_icc.xls",
    "nombre": "Índice del Costo de la Construcción en el Gran Buenos Aires",
    "organismo": "INDEC",
-   "descargado": "2026-11-15",
-   "ultimo_intento": "2026-11-15",
+   "descargado": "2026-11-23",
+   "ultimo_intento": "2026-11-23",
    "estado": "ok",
    "url": "https://www.indec.gob.ar/ftp/cuadros/economia/icc_variaciones_indices_2016.xls"
   },
@@ -72,8 +72,8 @@
    "archivo": "datos/crudo/indec_ipc_divisiones.csv",
    "nombre": "Índice de precios al consumidor por región, división, categoría y bienes y servicios",
    "organismo": "INDEC",
-   "descargado": "2026-11-15",
-   "ultimo_intento": "2026-11-15",
+   "descargado": "2026-11-23",
+   "ultimo_intento": "2026-11-23",
    "estado": "ok",
    "url": "https://www.indec.gob.ar/ftp/cuadros/economia/serie_ipc_divisiones.csv"
   }
@@ -81,5 +81,5 @@
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
  "como_citar": "Datina (año de la consulta). ¿Cuánto subió el costo de construir frente a los precios? Con datos de INDEC, Índice del Costo de la Construcción (Gran Buenos Aires) e Índice de Precios al Consumidor. https://datina.com.ar/construccion#f-costo. Consultado el día de la consulta.",
- "datos_actualizados": "15/11/2026"
+ "datos_actualizados": "23/11/2026"
 }

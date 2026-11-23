@@ -50,6 +50,10 @@ scripts/elecciones_jurisdiccion.py desde el 7 de noviembre de 2026, los gobernad
                                se corre después de los cinco anteriores (docs/roadmap/ELECCIONES_PROVINCIAS.md)
 scripts/elecciones_oficiales.py desde el 15 de noviembre de 2026, 03 lo corre en cada armado: los resultados oficiales por jurisdicción de esa herramienta,
                                en cinco tablas del Catálogo (elecciones_oficiales_*) para el MCP y la API. Qué entra y qué no: docs/ia/MCP.md
+scripts/rutas.js               desde el 23 de noviembre de 2026, la herramienta Rutas comerciales (rutas.html), aparte de datina.js. 02 publica su tabla
+                               (rutas_exportaciones.csv: lo exportado por subrubro y país, de la API del INDEC, con la salida y el camino de cada fila) y 03
+                               arma sitio/datos/rutas.json con scripts/rutas_sitio.py. Los recorridos por mar los calculó una vez scripts/rutas_mar.py:
+                               docs/roadmap/RUTAS_COMERCIALES.md
 scripts/establecimientos.py    desde el 9 de noviembre de 2026, las escuelas primarias y secundarias y los hospitales públicos con internación de cada
                                provincia (padrón, Mapa Educativo, REFES y Georef) en datos/manual/establecimientos/. Se corre a mano con un padrón nuevo.
                                03 publica una tabla por provincia con scripts/establecimientos_sitio.py para la sección de la página de provincia (Leaflet

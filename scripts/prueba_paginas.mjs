@@ -844,6 +844,49 @@ await q.tamano(1280, 900);
   await q.tamano(1280, 900);
   q.errores.slice(antes).forEach(e => problemas.push(`Elecciones por mesa: ${e}`));
 }
+// Rutas comerciales (23 de noviembre de 2026): la vista inicial con todo lo exportado (diez destinos, la frase, los caminos y las salidas en el mapa, con su
+// nombre), un rubro que cambia la lista y deja en "Producto" solo sus subrubros, un subrubro, el teclado sobre la lista (resalta los caminos de ese país),
+// "Ver tabla" y 390 píxeles. No pide cifras fijas: cambian con cada año del INDEC
+{
+  const antes = q.errores.length;
+  const RT = `JSON.stringify({items: document.querySelectorAll("#rt-lista button").length, frase: document.getElementById("rt-frase").textContent,
+    rutas: document.querySelectorAll("#rt-mapa .rt-ruta").length, salidas: document.querySelectorAll("#rt-mapa .rt-salida").length,
+    nombre: document.getElementById("rt-mapa").getAttribute("aria-label") || "", primero: document.querySelector("#rt-lista .rt-n")?.textContent || "",
+    subs: [...document.getElementById("rt-sub").options].map(o => o.value).filter(Boolean), ocupado: document.getElementById("rt").hasAttribute("aria-busy"),
+    ancho: document.documentElement.scrollWidth - document.documentElement.clientWidth})`;
+  await q.ir(B + "rutas", 1800);
+  let r = JSON.parse(await q.eval(RT));
+  if (r.items !== 10 || !/exportó .* dólares/.test(r.frase) || r.rutas < 30 || !r.salidas || r.ocupado) problemas.push(`rutas.html: la vista inicial sin sus diez destinos, su frase o sus caminos (${r.items} destinos, ${r.rutas} caminos, ${r.salidas} salidas)`);
+  if (!/caminos simulados/.test(r.nombre)) problemas.push("rutas.html: el mapa sin su nombre");
+  const todos = r.subs.length, primero = r.primero;
+  await q.eval(`document.querySelector('.rt-rubros [data-r="ce"]').click()`); await espera(500);
+  r = JSON.parse(await q.eval(RT));
+  const rubros = await q.eval(`(() => { const d = [...document.getElementById("rt-sub").options].filter(o => o.value).map(o => o.value[0]); return [...new Set(d)].join(""); })()`);
+  if (!r.items || rubros !== "4" || r.subs.length >= todos || await q.eval(`document.querySelector('.rt-rubros [data-r="ce"]').getAttribute("aria-pressed")`) !== "true")
+    problemas.push(`rutas.html: Energía no deja en "Producto" solo sus subrubros (${rubros}, ${r.subs.length} de ${todos}) o no queda elegida`);
+  if (!/en combustibles y energía/.test(r.frase)) problemas.push(`rutas.html: la frase de Energía no lo nombra (${r.frase.slice(0, 80)})`);
+  await q.eval(`(() => { const s = document.getElementById("rt-sub"); s.value = s.options[1].value; s.dispatchEvent(new Event("change")); })()`); await espera(400);
+  r = JSON.parse(await q.eval(RT));
+  if (!r.items || /en combustibles y energía/.test(r.frase)) problemas.push(`rutas.html: elegir un producto no cambia la frase (${r.frase.slice(0, 80)})`);
+  await q.eval(`document.querySelector('.rt-rubros [data-r=""]').click()`); await espera(400);
+  if (JSON.parse(await q.eval(RT)).primero !== primero) problemas.push("rutas.html: volver a Todo no vuelve a la lista del comienzo");
+  // con el teclado: el foco en un destino resalta sus caminos y apaga los demás
+  // con varias pestañas, Chrome no le da el foco a esta: sin la emulación, focus() no dispara los eventos de foco
+  await q.send("Emulation.setFocusEmulationEnabled", {enabled: true});
+  await q.eval(`document.querySelector("#rt-lista button").focus()`); await espera(300);
+  r = await q.eval(`JSON.stringify({on: document.querySelectorAll("#rt-mapa .rt-ruta.on").length, off: document.querySelectorAll("#rt-mapa .rt-ruta.off").length})`);
+  r = JSON.parse(r);
+  if (!r.on || !r.off) problemas.push(`rutas.html: el foco en el primer destino no resalta sus caminos (${r.on} resaltados)`);
+  await q.send("Emulation.setFocusEmulationEnabled", {enabled: false});
+  await q.eval(`document.getElementById("rt-ver-tabla").click()`); await espera(300);
+  r = JSON.parse(await q.eval(`JSON.stringify({abierta: !document.getElementById("rt-tabla-caja").hidden, exp: document.getElementById("rt-ver-tabla").getAttribute("aria-expanded"), filas: document.querySelectorAll("#rt-tabla tbody tr").length})`));
+  if (!r.abierta || r.exp !== "true" || r.filas < 30) problemas.push(`rutas.html: "Ver tabla" no abre la tabla de destinos (${r.filas} filas)`);
+  await q.tamano(390, 844); await q.ir(B + "rutas", 1500);
+  r = JSON.parse(await q.eval(RT));
+  if (r.ancho > 0 || r.items !== 10) problemas.push(`rutas.html en 390 píxeles: se corre de costado (${r.ancho} píxeles) o sin sus destinos`);
+  await q.tamano(1280, 900);
+  q.errores.slice(antes).forEach(e => problemas.push(`Rutas comerciales: ${e}`));
+}
 // "Qué no dice este dato" (pedido del autor del 5 de noviembre de 2026: "queda a la mitad el texto"): desde 900 píxeles el texto llega hasta el borde
 // del contenido, en dos columnas, en los cinco lugares donde está armado distinto: artículo, cruce, Corte Suprema, Elecciones por mesa y Diagnóstico
 const LIMITES = `(() => {

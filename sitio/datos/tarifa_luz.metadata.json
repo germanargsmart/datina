@@ -109,8 +109,8 @@
    "archivo": "datos/crudo/enre_cuadros.json.gz",
    "nombre": "Cuadros tarifarios de Edenor y Edesur desde 1995",
    "organismo": "ENRE",
-   "descargado": "2026-11-15",
-   "ultimo_intento": "2026-11-15",
+   "descargado": "2026-11-23",
+   "ultimo_intento": "2026-11-23",
    "estado": "ok",
    "url": "https://www.enre.gov.ar/web/TARIFASD.nsf/todoscuadros?OpenView"
   },
@@ -118,8 +118,8 @@
    "archivo": "datos/crudo/smvm.csv",
    "nombre": "Salario mínimo, vital y móvil mensual (serie de la API de Series de Tiempo)",
    "organismo": "Consejo del Salario",
-   "descargado": "2026-11-15",
-   "ultimo_intento": "2026-11-15",
+   "descargado": "2026-11-23",
+   "ultimo_intento": "2026-11-23",
    "estado": "ok",
    "url": "https://apis.datos.gob.ar/series/api/series/?format=csv&ids=57.1_SMVMM_0_M_34"
   }
@@ -127,5 +127,5 @@
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
  "como_citar": "Datina (año de la consulta). ¿Cuánto cuesta la luz de una casa del Gran Buenos Aires? Con datos de Ente Nacional Regulador de la Electricidad (ENRE), cuadros tarifarios, y Consejo Nacional del Empleo, la Productividad y el Salario Mínimo, Vital y Móvil. https://datina.com.ar/energia#f-tarifa-luz. Consultado el día de la consulta.",
- "datos_actualizados": "15/11/2026"
+ "datos_actualizados": "23/11/2026"
 }

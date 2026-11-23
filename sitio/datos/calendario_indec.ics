@@ -5,33 +5,8 @@ CALSCALE:GREGORIAN
 METHOD:PUBLISH
 X-WR-CALNAME:Datina: próximos datos del INDEC
 BEGIN:VEVENT
-UID:652bf2ed7f@datina
-DTSTAMP:20261115T000000Z
-DTSTART:20261117T190000Z
-DTEND:20261117T193000Z
-SUMMARY:INDEC: Índice del costo de la construcción (ICC). Octubre de 2026
-DESCRIPTION:El INDEC publica este informe a las 16:00. Datina lo suma en su
-  actualización siguiente (los días 5\, 15 y 23). En Datina: ¿Cuánto su
- bió el costo de construir frente a los precios? https://datina.com.ar/con
- struccion#f-costo
-URL:https://datina.com.ar/construccion#f-costo
-END:VEVENT
-BEGIN:VEVENT
-UID:3e90e48684@datina
-DTSTAMP:20261115T000000Z
-DTSTART:20261119T190000Z
-DTEND:20261119T193000Z
-SUMMARY:INDEC: Intercambio comercial argentino (ICA). Bienes. Octubre de 20
- 26
-DESCRIPTION:El INDEC publica este informe a las 16:00. Datina lo suma en su
-  actualización siguiente (los días 5\, 15 y 23). En Datina: ¿Cuánto ex
- porta e importa la Argentina en bienes y cuál es el saldo? https://datina
- .com.ar/externo#f-balanza
-URL:https://datina.com.ar/externo#f-balanza
-END:VEVENT
-BEGIN:VEVENT
 UID:08f3ce03d1@datina
-DTSTAMP:20261115T000000Z
+DTSTAMP:20261123T000000Z
 DTSTART:20261124T190000Z
 DTEND:20261124T193000Z
 SUMMARY:INDEC: Estimador mensual de actividad económica (EMAE). Septiembre
@@ -43,7 +18,7 @@ URL:https://datina.com.ar/economia#f-emae
 END:VEVENT
 BEGIN:VEVENT
 UID:7c69df64fe@datina
-DTSTAMP:20261115T000000Z
+DTSTAMP:20261123T000000Z
 DTSTART:20261125T190000Z
 DTEND:20261125T193000Z
 SUMMARY:INDEC: Encuesta de supermercados. Septiembre de 2026
@@ -55,7 +30,7 @@ URL:https://datina.com.ar/economia#f-supermercados
 END:VEVENT
 BEGIN:VEVENT
 UID:ea9a3677fa@datina
-DTSTAMP:20261115T000000Z
+DTSTAMP:20261123T000000Z
 DTSTART:20261127T190000Z
 DTEND:20261127T193000Z
 SUMMARY:INDEC: Estadísticas de turismo internacional. Octubre de 2026
@@ -67,7 +42,7 @@ URL:https://datina.com.ar/turismo#f-eti
 END:VEVENT
 BEGIN:VEVENT
 UID:1a18bd2984@datina
-DTSTAMP:20261115T000000Z
+DTSTAMP:20261123T000000Z
 DTSTART:20261209T190000Z
 DTEND:20261209T193000Z
 SUMMARY:INDEC: Indicadores de coyuntura de la actividad de la construcción
@@ -80,7 +55,7 @@ URL:https://datina.com.ar/construccion#f-permisos
 END:VEVENT
 BEGIN:VEVENT
 UID:2c1c2f26d2@datina
-DTSTAMP:20261115T000000Z
+DTSTAMP:20261123T000000Z
 DTSTART:20261215T190000Z
 DTEND:20261215T193000Z
 SUMMARY:INDEC: Valorización mensual de la canasta básica alimentaria (CBA
@@ -93,7 +68,7 @@ URL:https://datina.com.ar/economia#f-canastas
 END:VEVENT
 BEGIN:VEVENT
 UID:d5bd7fa805@datina
-DTSTAMP:20261115T000000Z
+DTSTAMP:20261123T000000Z
 DTSTART:20261215T190000Z
 DTEND:20261215T193000Z
 SUMMARY:INDEC: Índice de precios al consumidor (IPC). Cobertura nacional. 
@@ -105,7 +80,7 @@ URL:https://datina.com.ar/economia#f-inflacion
 END:VEVENT
 BEGIN:VEVENT
 UID:5dccb171b8@datina
-DTSTAMP:20261115T000000Z
+DTSTAMP:20261123T000000Z
 DTSTART:20261216T190000Z
 DTEND:20261216T193000Z
 SUMMARY:INDEC: Índice de salarios. Octubre de 2026
@@ -117,7 +92,7 @@ URL:https://datina.com.ar/economia#f-salario-real
 END:VEVENT
 BEGIN:VEVENT
 UID:4065323830@datina
-DTSTAMP:20261115T000000Z
+DTSTAMP:20261123T000000Z
 DTSTART:20261217T190000Z
 DTEND:20261217T193000Z
 SUMMARY:INDEC: Índice del costo de la construcción (ICC). Noviembre de 20
@@ -130,7 +105,7 @@ URL:https://datina.com.ar/construccion#f-costo
 END:VEVENT
 BEGIN:VEVENT
 UID:789d871618@datina
-DTSTAMP:20261115T000000Z
+DTSTAMP:20261123T000000Z
 DTSTART:20261218T190000Z
 DTEND:20261218T193000Z
 SUMMARY:INDEC: Intercambio comercial argentino (ICA). Bienes. Noviembre de 
@@ -143,7 +118,7 @@ URL:https://datina.com.ar/externo#f-balanza
 END:VEVENT
 BEGIN:VEVENT
 UID:9999937d6f@datina
-DTSTAMP:20261115T000000Z
+DTSTAMP:20261123T000000Z
 DTSTART:20261218T190000Z
 DTEND:20261218T193000Z
 SUMMARY:INDEC: Mercado de trabajo. Tasas e indicadores socioeconómicos. Te
@@ -156,7 +131,7 @@ URL:https://datina.com.ar/trabajo#f-desocupacion
 END:VEVENT
 BEGIN:VEVENT
 UID:46598b8e4f@datina
-DTSTAMP:20261115T000000Z
+DTSTAMP:20261123T000000Z
 DTSTART:20261221T190000Z
 DTEND:20261221T193000Z
 SUMMARY:INDEC: Estimador mensual de actividad económica (EMAE). Octubre de
@@ -168,7 +143,7 @@ URL:https://datina.com.ar/economia#f-emae
 END:VEVENT
 BEGIN:VEVENT
 UID:cdefbbd971@datina
-DTSTAMP:20261115T000000Z
+DTSTAMP:20261123T000000Z
 DTSTART:20261222T190000Z
 DTEND:20261222T193000Z
 SUMMARY:INDEC: Balanza de pagos\, posición de inversión internacional y d
@@ -181,7 +156,7 @@ URL:https://datina.com.ar/externo#f-cuenta-corriente
 END:VEVENT
 BEGIN:VEVENT
 UID:1948b1d462@datina
-DTSTAMP:20261115T000000Z
+DTSTAMP:20261123T000000Z
 DTSTART:20261223T190000Z
 DTEND:20261223T193000Z
 SUMMARY:INDEC: Estadísticas de turismo internacional. Noviembre de 2026
@@ -193,7 +168,7 @@ URL:https://datina.com.ar/turismo#f-eti
 END:VEVENT
 BEGIN:VEVENT
 UID:7b87239886@datina
-DTSTAMP:20261115T000000Z
+DTSTAMP:20261123T000000Z
 DTSTART:20261228T190000Z
 DTEND:20261228T193000Z
 SUMMARY:INDEC: Encuesta de supermercados. Octubre de 2026
@@ -205,7 +180,7 @@ URL:https://datina.com.ar/economia#f-supermercados
 END:VEVENT
 BEGIN:VEVENT
 UID:92ea5e4d9f@datina
-DTSTAMP:20261115T000000Z
+DTSTAMP:20261123T000000Z
 DTSTART:20270108T190000Z
 DTEND:20270108T193000Z
 SUMMARY:INDEC: Indicadores de coyuntura de la actividad de la construcción
@@ -218,7 +193,7 @@ URL:https://datina.com.ar/construccion#f-permisos
 END:VEVENT
 BEGIN:VEVENT
 UID:c7dbc507d8@datina
-DTSTAMP:20261115T000000Z
+DTSTAMP:20261123T000000Z
 DTSTART:20270114T190000Z
 DTEND:20270114T193000Z
 SUMMARY:INDEC: Valorización mensual de la canasta básica alimentaria (CBA
@@ -231,7 +206,7 @@ URL:https://datina.com.ar/economia#f-canastas
 END:VEVENT
 BEGIN:VEVENT
 UID:ad7506e206@datina
-DTSTAMP:20261115T000000Z
+DTSTAMP:20261123T000000Z
 DTSTART:20270114T190000Z
 DTEND:20270114T193000Z
 SUMMARY:INDEC: Índice de precios al consumidor (IPC). Cobertura nacional. 
@@ -243,7 +218,7 @@ URL:https://datina.com.ar/economia#f-inflacion
 END:VEVENT
 BEGIN:VEVENT
 UID:51190610c0@datina
-DTSTAMP:20261115T000000Z
+DTSTAMP:20261123T000000Z
 DTSTART:20270119T190000Z
 DTEND:20270119T193000Z
 SUMMARY:INDEC: Índice del costo de la construcción (ICC). Diciembre de 20
@@ -256,7 +231,7 @@ URL:https://datina.com.ar/construccion#f-costo
 END:VEVENT
 BEGIN:VEVENT
 UID:9080dca81a@datina
-DTSTAMP:20261115T000000Z
+DTSTAMP:20261123T000000Z
 DTSTART:20270120T190000Z
 DTEND:20270120T193000Z
 SUMMARY:INDEC: Intercambio comercial argentino (ICA). Bienes. Diciembre de 
@@ -269,7 +244,7 @@ URL:https://datina.com.ar/externo#f-balanza
 END:VEVENT
 BEGIN:VEVENT
 UID:26a74a2c66@datina
-DTSTAMP:20261115T000000Z
+DTSTAMP:20261123T000000Z
 DTSTART:20270120T190000Z
 DTEND:20270120T193000Z
 SUMMARY:INDEC: Índice de salarios. Noviembre de 2026
@@ -281,7 +256,7 @@ URL:https://datina.com.ar/economia#f-salario-real
 END:VEVENT
 BEGIN:VEVENT
 UID:85eee63f7a@datina
-DTSTAMP:20261115T000000Z
+DTSTAMP:20261123T000000Z
 DTSTART:20270121T190000Z
 DTEND:20270121T193000Z
 SUMMARY:INDEC: Estimador mensual de actividad económica (EMAE). Noviembre 
@@ -293,7 +268,7 @@ URL:https://datina.com.ar/economia#f-emae
 END:VEVENT
 BEGIN:VEVENT
 UID:a0a44e5495@datina
-DTSTAMP:20261115T000000Z
+DTSTAMP:20261123T000000Z
 DTSTART:20270122T190000Z
 DTEND:20270122T193000Z
 SUMMARY:INDEC: Encuesta de supermercados. Noviembre de 2026
@@ -305,7 +280,7 @@ URL:https://datina.com.ar/economia#f-supermercados
 END:VEVENT
 BEGIN:VEVENT
 UID:d90b49878d@datina
-DTSTAMP:20261115T000000Z
+DTSTAMP:20261123T000000Z
 DTSTART:20270126T190000Z
 DTEND:20270126T193000Z
 SUMMARY:INDEC: Estadísticas de turismo internacional. Diciembre\, cuarto t

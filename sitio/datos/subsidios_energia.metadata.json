@@ -45,16 +45,16 @@
    "archivo": "datos/crudo/subsidios_energia.csv",
    "nombre": "Subsidios económicos a la energía por mes",
    "organismo": "Hacienda",
-   "descargado": "2026-11-15",
-   "ultimo_intento": "2026-11-15",
+   "descargado": "2026-11-23",
+   "ultimo_intento": "2026-11-23",
    "estado": "ok"
   },
   {
    "archivo": "datos/crudo/pib_corriente.csv",
    "nombre": "PBI a precios corrientes, trimestral (oferta y demanda globales)",
    "organismo": "INDEC",
-   "descargado": "2026-11-15",
-   "ultimo_intento": "2026-11-15",
+   "descargado": "2026-11-23",
+   "ultimo_intento": "2026-11-23",
    "estado": "ok",
    "url": "https://apis.datos.gob.ar/series/api/series/?ids=4.4_OGP_2004_T_17"
   },
@@ -62,16 +62,16 @@
    "archivo": "datos/crudo/bm_NY.GDP.DEFL.ZS.json",
    "nombre": "Deflactor del PBI de la Argentina (Banco Mundial, NY.GDP.DEFL.ZS)",
    "organismo": "Banco Mundial",
-   "descargado": "2026-11-15",
-   "ultimo_intento": "2026-11-15",
+   "descargado": "2026-11-23",
+   "ultimo_intento": "2026-11-23",
    "estado": "ok"
   },
   {
    "archivo": "datos/crudo/indec_ipc_divisiones.csv",
    "nombre": "Índice de precios al consumidor por región, división, categoría y bienes y servicios",
    "organismo": "INDEC",
-   "descargado": "2026-11-15",
-   "ultimo_intento": "2026-11-15",
+   "descargado": "2026-11-23",
+   "ultimo_intento": "2026-11-23",
    "estado": "ok",
    "url": "https://www.indec.gob.ar/ftp/cuadros/economia/serie_ipc_divisiones.csv"
   }
@@ -79,5 +79,5 @@
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
  "como_citar": "Datina (año de la consulta). ¿Cuánto gasta el Estado nacional en subsidios a la energía? Con datos de Secretaría de Hacienda, Informe Mensual de Ingresos y Gastos del Sector Público Nacional no Financiero, e INDEC, producto interno bruto a precios corrientes, vía API de Series de Tiempo. https://datina.com.ar/energia#f-subsidios. Consultado el día de la consulta.",
- "datos_actualizados": "15/11/2026"
+ "datos_actualizados": "23/11/2026"
 }

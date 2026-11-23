@@ -43,8 +43,8 @@
    "archivo": "datos/crudo/educ_escolarizacion.zip",
    "nombre": "Tasas de escolarización por provincia (Indicadores Educativos)",
    "organismo": "Educación",
-   "descargado": "2026-11-15",
-   "ultimo_intento": "2026-11-15",
+   "descargado": "2026-11-23",
+   "ultimo_intento": "2026-11-23",
    "estado": "ok",
    "url": "https://www.argentina.gob.ar/sites/default/files/2018/04/tasas_de_escolarizacion_1.zip"
   }
@@ -52,5 +52,5 @@
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
  "como_citar": "Datina (año de la consulta). ¿Cuántos adolescentes van a la secundaria? Con datos de Secretaría de Educación, Dirección Nacional de Información y Estadística Educativa, Relevamiento Anual. https://datina.com.ar/educacion#f-escolarizacion. Consultado el día de la consulta.",
- "datos_actualizados": "15/11/2026"
+ "datos_actualizados": "23/11/2026"
 }

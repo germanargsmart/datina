@@ -1,77 +1,4 @@
 anio,origen,origen_iso,destino,destino_iso,refugiados,solicitantes,otras_proteccion,apatridas
-2021,Afghanistan,AFG,Argentina,ARG,12,0,0,0
-2021,Albania,ALB,Argentina,ARG,18,0,0,0
-2021,Algeria,DZA,Argentina,ARG,30,20,0,0
-2021,Angola,AGO,Argentina,ARG,14,15,0,0
-2021,Egypt,EGY,Argentina,ARG,5,19,0,0
-2021,Armenia,ARM,Argentina,ARG,77,183,0,0
-2021,Burundi,BDI,Argentina,ARG,5,0,0,0
-2021,Bangladesh,BGD,Argentina,ARG,5,90,0,0
-2021,Bolivia (Plurinational State of),BOL,Argentina,ARG,63,62,0,0
-2021,Brazil,BRA,Argentina,ARG,0,18,0,0
-2021,Bosnia and Herzegovina,BIH,Argentina,ARG,6,0,0,0
-2021,China,CHN,Argentina,ARG,0,115,0,0
-2021,Chile,CHL,Argentina,ARG,34,7,0,0
-2021,Cameroon,CMR,Argentina,ARG,11,39,0,0
-2021,Dem. Rep. of the Congo,COD,Argentina,ARG,26,28,0,0
-2021,Colombia,COL,Argentina,ARG,561,258,0,0
-2021,Costa Rica,CRI,Argentina,ARG,5,0,0,0
-2021,Cuba,CUB,Argentina,ARG,263,819,0,0
-2021,Cabo Verde,CPV,Argentina,ARG,0,5,0,0
-2021,Czechia,CZE,Argentina,ARG,0,5,0,0
-2021,Dominican Rep.,DOM,Argentina,ARG,9,568,0,0
-2021,Ecuador,ECU,Argentina,ARG,16,31,0,0
-2021,Eritrea,ERI,Argentina,ARG,0,5,0,0
-2021,Ethiopia,ETH,Argentina,ARG,5,0,0,0
-2021,Gambia,GMB,Argentina,ARG,0,10,0,0
-2021,Palestinian,PSE,Argentina,ARG,21,12,0,0
-2021,Georgia,GEO,Argentina,ARG,5,0,0,0
-2021,Ghana,GHA,Argentina,ARG,37,148,0,0
-2021,Guinea-Bissau,GNB,Argentina,ARG,8,5,0,0
-2021,Guatemala,GTM,Argentina,ARG,8,0,0,0
-2021,Guinea,GIN,Argentina,ARG,10,9,0,0
-2021,Haiti,HTI,Argentina,ARG,76,781,0,0
-2021,Honduras,HND,Argentina,ARG,6,10,0,0
-2021,Hungary,HUN,Argentina,ARG,0,5,0,0
-2021,Cote d'Ivoire,CIV,Argentina,ARG,20,5,0,0
-2021,India,IND,Argentina,ARG,23,127,0,0
-2021,Iran (Islamic Rep. of),IRN,Argentina,ARG,30,7,0,0
-2021,Iraq,IRQ,Argentina,ARG,22,0,0,0
-2021,Jamaica,JAM,Argentina,ARG,13,0,0,0
-2021,Jordan,JOR,Argentina,ARG,5,5,0,0
-2021,Kazakhstan,KAZ,Argentina,ARG,18,13,0,0
-2021,Kyrgyzstan,KGZ,Argentina,ARG,5,0,0,0
-2021,Liberia,LBR,Argentina,ARG,42,0,0,0
-2021,Libya,LBY,Argentina,ARG,5,5,0,0
-2021,Sri Lanka,LKA,Argentina,ARG,36,0,0,0
-2021,North Macedonia,MKD,Argentina,ARG,9,0,0,0
-2021,Mexico,MEX,Argentina,ARG,0,6,0,0
-2021,Mali,MLI,Argentina,ARG,9,0,0,0
-2021,Morocco,MAR,Argentina,ARG,0,13,0,0
-2021,Nepal,NPL,Argentina,ARG,0,5,0,0
-2021,Nicaragua,NIC,Argentina,ARG,16,15,0,0
-2021,Nigeria,NGA,Argentina,ARG,42,71,0,0
-2021,Pakistan,PAK,Argentina,ARG,39,18,0,0
-2021,Paraguay,PRY,Argentina,ARG,19,19,0,0
-2021,Peru,PER,Argentina,ARG,548,84,0,0
-2021,Philippines,PHL,Argentina,ARG,0,5,0,0
-2021,Romania,ROU,Argentina,ARG,51,0,0,0
-2021,South Africa,ZAF,Argentina,ARG,0,12,0,0
-2021,Russian Federation,RUS,Argentina,ARG,81,94,0,0
-2021,El Salvador,SLV,Argentina,ARG,47,36,0,0
-2021,Senegal,SEN,Argentina,ARG,43,1383,0,0
-2021,Sierra Leone,SLE,Argentina,ARG,37,5,0,0
-2021,Somalia,SOM,Argentina,ARG,5,0,0,0
-2021,Spain,ESP,Argentina,ARG,0,5,0,0
-2021,Sudan,SDN,Argentina,ARG,5,0,0,0
-2021,Syrian Arab Rep.,SYR,Argentina,ARG,433,98,0,0
-2021,Tunisia,TUN,Argentina,ARG,0,5,0,0
-2021,Türkiye,TUR,Argentina,ARG,7,0,0,0
-2021,Unknown,UNK,Argentina,ARG,642,47,0,0
-2021,Ukraine,UKR,Argentina,ARG,121,84,0,0
-2021,United States of America,USA,Argentina,ARG,5,12,0,0
-2021,Venezuela (Bolivarian Republic of),VEN,Argentina,ARG,315,5580,164622,0
-2021,Yemen,YEM,Argentina,ARG,21,0,0,0
 2022,Afghanistan,AFG,Argentina,ARG,11,11,0,0
 2022,Albania,ALB,Argentina,ARG,18,0,0,0
 2022,Algeria,DZA,Argentina,ARG,31,21,0,0
@@ -362,3 +289,73 @@ anio,origen,origen_iso,destino,destino_iso,refugiados,solicitantes,otras_protecc
 2025,United States of America,USA,Argentina,ARG,5,11,0,0
 2025,Venezuela (Bolivarian Republic of),VEN,Argentina,ARG,348,230,174216,0
 2025,Yemen,YEM,Argentina,ARG,27,0,0,0
+2026,Afghanistan,AFG,Argentina,ARG,28,0,0,0
+2026,Albania,ALB,Argentina,ARG,18,0,0,0
+2026,Algeria,DZA,Argentina,ARG,31,0,0,0
+2026,Angola,AGO,Argentina,ARG,15,5,0,0
+2026,Egypt,EGY,Argentina,ARG,5,12,0,0
+2026,Armenia,ARM,Argentina,ARG,82,40,0,0
+2026,Burundi,BDI,Argentina,ARG,5,0,0,0
+2026,Bangladesh,BGD,Argentina,ARG,5,9,0,0
+2026,Belarus,BLR,Argentina,ARG,28,94,0,0
+2026,Bolivia (Plurinational State of),BOL,Argentina,ARG,57,11,0,0
+2026,Brazil,BRA,Argentina,ARG,5,142,0,0
+2026,Bosnia and Herzegovina,BIH,Argentina,ARG,6,0,0,0
+2026,China,CHN,Argentina,ARG,0,25,0,0
+2026,Chile,CHL,Argentina,ARG,33,0,0,0
+2026,Cameroon,CMR,Argentina,ARG,11,6,0,0
+2026,Dem. Rep. of the Congo,COD,Argentina,ARG,29,0,0,0
+2026,Colombia,COL,Argentina,ARG,585,85,0,0
+2026,Costa Rica,CRI,Argentina,ARG,5,0,0,0
+2026,Cuba,CUB,Argentina,ARG,292,454,0,0
+2026,Dominican Rep.,DOM,Argentina,ARG,16,25,0,0
+2026,Ecuador,ECU,Argentina,ARG,18,16,0,0
+2026,Eritrea,ERI,Argentina,ARG,12,0,0,0
+2026,Ethiopia,ETH,Argentina,ARG,5,0,0,0
+2026,Palestinian,PSE,Argentina,ARG,28,12,0,0
+2026,Georgia,GEO,Argentina,ARG,7,0,0,0
+2026,Ghana,GHA,Argentina,ARG,36,10,0,0
+2026,Guinea-Bissau,GNB,Argentina,ARG,8,0,0,0
+2026,Guatemala,GTM,Argentina,ARG,11,5,0,0
+2026,Guinea,GIN,Argentina,ARG,11,0,0,0
+2026,Haiti,HTI,Argentina,ARG,84,5,0,0
+2026,Honduras,HND,Argentina,ARG,5,0,0,0
+2026,Cote d'Ivoire,CIV,Argentina,ARG,18,0,0,0
+2026,India,IND,Argentina,ARG,25,21,0,0
+2026,Iran (Islamic Rep. of),IRN,Argentina,ARG,35,0,0,0
+2026,Iraq,IRQ,Argentina,ARG,26,0,0,0
+2026,Jamaica,JAM,Argentina,ARG,15,0,0,0
+2026,Jordan,JOR,Argentina,ARG,7,0,0,0
+2026,Kazakhstan,KAZ,Argentina,ARG,24,20,0,0
+2026,Kyrgyzstan,KGZ,Argentina,ARG,5,0,0,0
+2026,Liberia,LBR,Argentina,ARG,42,5,0,0
+2026,Libya,LBY,Argentina,ARG,6,0,0,0
+2026,Lebanon,LBN,Argentina,ARG,5,0,0,0
+2026,Sri Lanka,LKA,Argentina,ARG,36,0,0,0
+2026,North Macedonia,MKD,Argentina,ARG,9,0,0,0
+2026,Mexico,MEX,Argentina,ARG,0,9,0,0
+2026,Mali,MLI,Argentina,ARG,9,0,0,0
+2026,Morocco,MAR,Argentina,ARG,5,30,0,0
+2026,Nicaragua,NIC,Argentina,ARG,36,10,0,0
+2026,Nigeria,NGA,Argentina,ARG,44,5,0,0
+2026,Pakistan,PAK,Argentina,ARG,41,7,0,0
+2026,Paraguay,PRY,Argentina,ARG,20,22,0,0
+2026,Peru,PER,Argentina,ARG,510,35,0,0
+2026,Romania,ROU,Argentina,ARG,49,0,0,0
+2026,South Africa,ZAF,Argentina,ARG,0,17,0,0
+2026,Russian Federation,RUS,Argentina,ARG,1060,1582,0,0
+2026,El Salvador,SLV,Argentina,ARG,58,7,0,0
+2026,Senegal,SEN,Argentina,ARG,45,44,0,0
+2026,Sierra Leone,SLE,Argentina,ARG,37,0,0,0
+2026,Somalia,SOM,Argentina,ARG,5,0,0,0
+2026,Spain,ESP,Argentina,ARG,0,6,0,0
+2026,Stateless,XXA,Argentina,ARG,0,0,0,29
+2026,Sudan,SDN,Argentina,ARG,5,0,0,0
+2026,Syrian Arab Rep.,SYR,Argentina,ARG,408,44,0,0
+2026,Tunisia,TUN,Argentina,ARG,0,5,0,0
+2026,Türkiye,TUR,Argentina,ARG,8,21,0,0
+2026,Unknown,UNK,Argentina,ARG,637,0,0,0
+2026,Ukraine,UKR,Argentina,ARG,121,32,0,0
+2026,United States of America,USA,Argentina,ARG,5,5,0,0
+2026,Venezuela (Bolivarian Republic of),VEN,Argentina,ARG,361,212,184900,0
+2026,Yemen,YEM,Argentina,ARG,27,5,0,0
