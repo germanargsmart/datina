@@ -45,3 +45,11 @@ Lo que no tiene fuente oficial: qué parte de lo que va a los países limítrofe
 `searoute` 1.6.0 en un entorno aparte (`python -m venv`, con `setuptools` al día): de Rosario a Rotterdam, 12.084 km.
 
 Falta: el archivo de la API del INDEC por año, subrubro y país, que llega con la primera actualización con el pedido (la del 23 de noviembre de 2026), el puerto principal de cada país de destino y el diseño de la página, que se muestra al autor antes de armarla.
+
+## Los destinos y los recorridos por mar (23 de noviembre de 2026)
+
+- **Qué destinos importan**: con las exportaciones por año, rubro y país que ya bajaba el sitio, 40 países suman el 95% de lo exportado en 2026. El segundo "destino" es "Indeterminado (Continente)", 9.572 millones de dólares (12,4%): carga sin país declarado al salir (por ejemplo, granos vendidos a órdenes). Va aparte, sin línea. Suiza (puesto 9) es casi todo oro, que viaja en avión. Paraguay y Bolivia no tienen salida al mar.
+- **`datos/manual/rutas_destinos.csv`**: el puerto de llegada de cada uno de esos 40 países, con su UN/LOCODE, el criterio, la cifra y la fuente (34 con fuente, Argelia y Venezuela como suposición, Suiza, Paraguay y Bolivia sin mar), y el paso de frontera de los limítrofes (Paso de los Libres–Uruguaiana, Cristo Redentor, Gualeguaychú–Fray Bentos, Clorinda–Puerto Falcón y Salvador Mazza–Yacuiba). Criterio: el puerto con más carga del país, sin las terminales de un solo producto (petróleo o mineral). Por eso Santos y no la terminal de hierro de Ponta da Madeira, Yeda y no Yanbu, Ambarlı y no Aliağa, Génova y no Trieste, Guayaquil y no Balao, Melbourne y no Port Hedland. En Vietnam, Indonesia, Malasia, Tailandia y Filipinas no hay toneladas por puerto y va el de más contenedores.
+- **`scripts/rutas_mar.py`** (con searoute, en su propio entorno) calcula una vez el camino por mar de cada uno de los 12 puertos argentinos de salida a cada destino y lo guarda en **`datos/manual/rutas_mar.json`**: 444 recorridos, con los kilómetros (del Gran Rosario a Ningbo, 21.005 km) y la línea simplificada y con un punto cada 4 grados como mucho, para que el mapa no la dibuje como un arco hacia los polos (282 KB).
+
+Falta: los datos por subrubro y país del INDEC (con la actualización del 23 de noviembre de 2026) y el diseño de la página, que se muestra al autor antes de armarla.

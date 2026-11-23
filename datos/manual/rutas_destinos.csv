@@ -1,0 +1,41 @@
+pais_cod,pais,puerto,locode,codigo_searoute,criterio,cifra,fuente,paso_frontera,fuente_paso,firmeza,nota
+BR,Brasil,Santos,BRSSZ,BRSSZ,"toneladas, puerto público","138,69 Mt (2024)",https://diariodocomercio.com.br/economia/brasil-bateu-recorde-cargas-portuarias-2024-bilhao-tonelada/,Paso de los Libres–Uruguaiana,https://www.argentina.gob.ar/sites/default/files/informe_anual_cnf_2024.pdf,oficial,"El de más toneladas es Ponta da Madeira, la terminal de mineral de hierro de Vale"
+US,Estados Unidos,Houston,USHOU,USHOU,toneladas,"309,5 millones de toneladas cortas (2023)",https://www.bicmagazine.com/departments/lift-transport/houston-ship-channel-ranked-no-1-us-waterway/,,,oficial,
+CN,China,Ningbo-Zhoushan,CNNBO,CNNGB,toneladas,1.377 Mt (2024),https://paper.people.com.cn/rmrb/pc/content/202505/29/content_30075971.html,,,oficial,
+CL,Chile,San Antonio,CLSAI,CLSAI,toneladas,18.012.645 t (2024),https://www.directemar.cl/directemar/site/docs/20250626/20250626151340/bem2025_baja.pdf,Cristo Redentor,https://www.mendoza.gov.ar/prensa/paso-internacional-aumento-en-un-50-la-demanda-de-usuarios-en-cuatro-anos/,oficial,
+IN,India,Mundra,INMUN,INMUN,toneladas,"200,7 Mt (2024-25)",https://theprint.in/economy/mundra-port-becomes-indias-first-to-handle-200-million-tonne-cargo/2575396,,,prensa,
+VN,Vietnam,Ciudad Ho Chi Minh,VNSGN,VNSGN,contenedores,9.158.193 TEU (2024),https://en.baochinhphu.vn/three-vietnamese-ports-shortlisted-among-100-busiest-container-ports-worldwide-111250904104809819.htm,,,oficial,Los buques de rutas largas atracan en Cái Mép
+PE,Perú,Callao,PECLL,PECLL,toneladas,"41,1 Mt en sus dos terminales (2024)",https://energiminas.com/2025/02/12/record-portuario-peruano-movimiento-de-carga-supera-los-127-8-millones-de-toneladas-en-2024,,,prensa,
+CH,Suiza,,,,sin salida al mar,,,,,,"Casi todo es oro, que viaja en avión"
+NL,Países Bajos,Rotterdam,NLRTM,NLRTM,toneladas,"435,8 Mt (2024)",https://portofrotterdam.com/en/node/4758,,,oficial,
+UY,Uruguay,Montevideo,UYMVD,UYMVD,toneladas,18.153.003 t (2024),https://anp.com.uy/sites/default/files/archivos/parrafo-colapsable/2026-06/CIFRAS%202024.pdf,Gualeguaychú–Fray Bentos,https://www.gub.uy/instituto-nacional-estadistica/comunicacion/publicaciones/anuario-estadistico-nacional-2024-volumen-n-101/47-transporte-2,oficial,
+PY,Paraguay,,,,sin salida al mar,,,Clorinda–Puerto Falcón,https://cfi.org.ar/assets/docs/Pasos_de_frontera_internacional.pdf,,La mayor parte del comercio va por la hidrovía
+SA,Arabia Saudita,Yeda,SAJED,SAJED,"contenedores, sin terminales de un solo producto","3,72 M TEU (2024)",https://www.emol.com/noticias/Economia/2025/09/08/1177293/puertos-ranking-mundial-san-antonio.html,,,prensa,"El de más toneladas es Yanbu, de crudo y petroquímica"
+ES,España,Bahía de Algeciras,ESALG,ESALG,toneladas,103.654.926 t (2024),https://www.assocamerestero.it/sites/default/files/contenuto_redazione/notizie/file/cuadrosresumen_2024_12.pdf,,,oficial,Copia del informe de Puertos del Estado
+ID,Indonesia,Tanjung Priok (Yakarta),IDJKT,IDJKT,contenedores,7.827.000 TEU (2024),https://www.emol.com/noticias/Economia/2025/09/08/1177293/puertos-ranking-mundial-san-antonio.html,,,prensa,
+MY,Malasia,Port Klang,MYPKG,MYPKG,contenedores,"14,64 M TEU (2024)",https://www.iaphworldports.org/n-iaph/wp-content/uploads/2025/09/MEDIA-RELEASE-MOT-ENG-PKLANG-TOP-10.pdf,,,oficial,
+TH,Tailandia,Laem Chabang,THLCH,THLCH,contenedores,9.554.673 TEU (2024),https://www.emol.com/noticias/Economia/2025/09/08/1177293/puertos-ranking-mundial-san-antonio.html,,,prensa,
+CA,Canadá,Vancouver,CAVAN,CAVAN,toneladas,158.380.817 t (2024),https://www.portvancouver.com/sites/default/files/2025-03/2024%20Port%20of%20Vancouver%20Statistics%20Overview%20%28EN%29.pdf,,,oficial,
+TR,Turquía,Ambarlı (Estambul),TRAMR,TRAMR,"contenedores, sin terminales de un solo producto","3,01 M TEU (2024)",https://www.emol.com/noticias/Economia/2025/09/08/1177293/puertos-ranking-mundial-san-antonio.html,,,prensa,"El de más toneladas es Aliağa, de refinería y acería"
+IT,Italia,Génova,ITGOA,ITGOA,"toneladas, sin terminales de un solo producto",47 Mt (2024),https://www.istat.it/comunicato-stampa/trasporto-marittimo-in-italia-anno-2024/,,,oficial,"El de más toneladas es Trieste, sobre todo crudo"
+CO,Colombia,Cartagena,COCTG,COCTG,toneladas,"50,16 Mt (2024)",https://supertransporte.gov.co/documentos/2025/marzo/puertos_06/BOLETIN-ESTADISTICO-TRAFICO-PORTUARIO-EN-COLOMBIA-ENERO-A-DICIEMBRE-2024.pdf,,,oficial,
+EC,Ecuador,Guayaquil,ECGYE,ECGYE,"contenedores, sin terminales de un solo producto","2,36 M TEU (2024)",https://www.emol.com/noticias/Economia/2025/09/08/1177293/puertos-ranking-mundial-san-antonio.html,,,prensa,"El de más toneladas es Balao, solo petróleo"
+DZ,Argelia,Argel,DZALG,DZALG,sin fuente,,,,,suposicion,No hay datos por puerto
+DE,Alemania,Hamburgo,DEHAM,DEHAM,toneladas,"97,0 Mt (2024)",https://www.verkehrsrundschau.de/nachrichten/transport-logistik/seeverkehr-2024-gueterumschlag-hoeher-als-im-vorjahr-3630111,,,oficial,
+EG,Egipto,Port Said,EGPSD,EGPSD,contenedores,3.905.266 TEU (2024),https://www.emol.com/noticias/Economia/2025/09/08/1177293/puertos-ranking-mundial-san-antonio.html,,,prensa,"Alejandría tendría más toneladas, pero su fuente no se pudo abrir"
+MA,Marruecos,Tanger Med,MAPTM,,toneladas,142 Mt (2024),https://maritimafrica.com/en/?p=16945,,,prensa,"Ubicación a mano: 35,89 N, 5,50 O"
+IL,Israel,Ashdod,ILASH,ILASH,toneladas,"20,45 Mt (2024)",https://www.gov.il/BlobFolder/reports/statistical-yearbook-2025/he/%D7%A9%D7%A0%D7%AA%D7%95%D7%9F%20%D7%A1%D7%98%D7%98%D7%99%D7%A1%D7%98%D7%99%202025.pdf,,,oficial,
+KR,Corea del Sur,Busan,KRPUS,KRPUS,toneladas,"463,48 M de toneladas de flete (2024)",https://www.index.go.kr/unify/idx-info.do?idxCd=1265,,,oficial,
+MX,México,Manzanillo,MXZLO,MXZLO,toneladas,31.408.658 t (2024),https://mexicoindustry.com/noticia/conoce-los-10-puertos-comerciales-mas-importantes-de-mexico,,,prensa,
+AU,Australia,Melbourne,AUMEL,AUMEL,"contenedores, sin terminales de un solo producto","3,40 M TEU (2024)",https://www.emol.com/noticias/Economia/2025/09/08/1177293/puertos-ranking-mundial-san-antonio.html,,,prensa,"El de más toneladas es Port Hedland, de mineral de hierro"
+BO,Bolivia,,,,sin salida al mar,,,Salvador Mazza–Yacuiba,https://cfi.org.ar/assets/docs/Pasos_de_frontera_internacional.pdf,,
+PH,Filipinas,Manila,PHMNL,PHMNL,contenedores,5.502.927 TEU (2024),https://www.emol.com/noticias/Economia/2025/09/08/1177293/puertos-ranking-mundial-san-antonio.html,,,prensa,
+IE,Irlanda,Dublín,IEDUB,IEDUB,toneladas,"24,87 Mt (2024)",https://www.cso.ie/en/releasesandpublications/ep/p-spt/statisticsofporttrafficquarter4andyear2024/,,,oficial,
+GB,Reino Unido,Londres,GBLON,GBLON,toneladas,12% del tonelaje de los puertos principales (2024),https://www.gov.uk/government/statistics/port-freight-annual-statistics-2024/port-freight-annual-statistics-2024-overview-of-port-freight-statistics-and-useful-information,,,oficial,
+BD,Bangladesh,Chittagong,BDCGP,BDCGP,toneladas,123.986.014 t (2024),https://thefinancialexpress.com.bd/trade/ctg-port-sets-new-records-in-handling-containers-and-cargoes-in-2024,,,prensa,
+VE,Venezuela,Puerto Cabello,VEPBL,VEPBL,sin fuente,,,,,suposicion,No hay datos oficiales por puerto
+JO,Jordania,Áqaba,JOAQJ,JOAQB,el único,,https://en.ammonnews.net/print.php?id=78016,,,prensa,
+FR,Francia,Le Havre (HAROPA),FRLEH,FRLEH,toneladas,"82,8 Mt HAROPA (2024)",https://www.statistiques.developpement-durable.gouv.fr/le-trafic-maritime-en-france-tres-legere-baisse-du-fret-en-2024,,,oficial,"HAROPA suma Le Havre, Ruan y París"
+PL,Polonia,Gdańsk,PLGDN,PLGDN,toneladas,"77,4 Mt (2024)",https://www.marinepoland.com/port-of-gdansk-closed-the-year-2024-with-a-record-financial-result-2164,,,prensa,
+DO,República Dominicana,Río Haina,DOHAI,DOHAI,toneladas,13.238.482 t (2024),https://portuaria.gob.do/wp-content/uploads/sites/2/2025/02/Informe-Estadistico-Anual-2024.pdf,,,oficial,
+RU,Rusia,Novorossiysk,RUNVS,RUNVS,toneladas,"164,8 Mt (2024)",https://www.alta.ru/logistics_news/116211/,,,prensa,
