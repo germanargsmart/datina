@@ -5484,6 +5484,14 @@ CB_RES.update({"anual_ini": int(_cba_p.anio.min()), "anual_ult": int(_cba_p.anio
 # Buenos Aires, así que la Ciudad y la provincia van juntas (código EL_BA), y no informa Tierra del Fuego: el país es la suma de las otras
 # jurisdicciones, sobre su población. Los últimos meses son provisorios. La parte residencial es la de las tres categorías de tarifa.
 el_ = pd.read_csv(CRUDO / "cammesa_demanda_provincias.csv")
+# desde el archivo de noviembre de 2026, CAMMESA trae dos grandes usuarios industriales sin provincia ("(en blanco)": una cementera de
+# Olavarría en febrero y una cervecería de Zárate en mayo de 2026, 0,04% y 0,005% de la demanda de su mes). Se dejan afuera, y se controla que
+# sigan siendo poco y que ninguno sea residencial, la parte que miden las fichas
+_el_sin = el_.provincia.astype(str).str.strip().eq("(en blanco)")
+_el_sinp = el_[_el_sin].groupby("mes").mwh.sum() / el_.groupby("mes").mwh.sum().reindex(el_[_el_sin].mes.unique())
+assert (_el_sinp < .005).all() and not el_[_el_sin].categoria.eq("Residencial").any(), \
+    f"la demanda de CAMMESA sin provincia ya no es poca o tiene residencial: {_el_sinp.round(4).to_dict()}"
+el_ = el_[~_el_sin]
 EL_BA = "02-06"
 el_["codigo_indec"] = el_.provincia.map(lambda t: EL_BA if norm(t) == "buenos aires" else "86" if norm(t).startswith("sgo") else codigo(t))
 assert el_.codigo_indec.notna().all(), f"provincias sin código en la demanda de CAMMESA: {el_[el_.codigo_indec.isna()].provincia.unique()}"
