@@ -79,14 +79,33 @@ def densificar(puntos, paso=4.0):
     return salida
 
 
+# Dos reglas de la simulación, porque el camino más corto por la red no siempre es el que hacen los barcos que salen de la
+# Argentina (23 de noviembre de 2026): sin el Canal de Panamá (hacia el Golfo de México y la costa este de Estados Unidos se
+# sube por el Atlántico, y hacia la costa del Pacífico de América se pasa por el sur del continente), y hacia Asia y Oceanía
+# (al este de los 60 grados de longitud) por el sur de África, como los graneleros, y no cruzando el Pacífico
+SIN = ["northwest", "panama"]
+SUR_DE_AFRICA = (20.0, -36.0)
+
+
+def camino(origen, lugar):
+    if lugar[0] > 60:
+        a = sr.searoute(list(origen), list(SUR_DE_AFRICA), units="km", restrictions=SIN, append_orig_dest=True)
+        b = sr.searoute(list(SUR_DE_AFRICA), list(lugar), units="km", restrictions=SIN, append_orig_dest=True)
+        coords = a["geometry"]["coordinates"] + b["geometry"]["coordinates"][1:]
+        km = a["properties"]["length"] + b["properties"]["length"]
+    else:
+        r = sr.searoute(list(origen), list(lugar), units="km", restrictions=SIN, append_orig_dest=True)
+        coords, km = r["geometry"]["coordinates"], r["properties"]["length"]
+    return round(km), [(round(x, 2), round(y, 2)) for x, y in coords]
+
+
 def main():
     destinos = ubicaciones()
     rutas = {}
     for salida, origen in SALIDAS.items():
         for pais, (puerto, lugar) in destinos.items():
-            r = sr.searoute(list(origen), list(lugar), units="km", append_orig_dest=True)
-            linea = [(round(x, 2), round(y, 2)) for x, y in r["geometry"]["coordinates"]]
-            rutas[f"{salida}|{pais}"] = {"km": round(r["properties"]["length"]), "linea": densificar(simplificar(linea, 0.15))}
+            km, linea = camino(origen, lugar)
+            rutas[f"{salida}|{pais}"] = {"km": km, "linea": densificar(simplificar(linea, 0.15))}
     salida = {"fuente": "searoute 1.6 (red MARNET de Eurostat), calculado una vez", "salidas": SALIDAS,
               "destinos": {p: {"puerto": n, "lugar": l} for p, (n, l) in destinos.items()}, "rutas": rutas}
     (MANUAL / "rutas_mar.json").write_text(json.dumps(salida, ensure_ascii=False, separators=(",", ":")) + "\n", encoding="utf-8", newline="\n")
