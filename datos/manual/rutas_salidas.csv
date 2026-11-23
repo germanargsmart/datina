@@ -1,0 +1,49 @@
+subrubro_cod,subrubro,salida,segunda_salida,fuentes,firmeza,nota
+101,Animales vivos,Ezeiza (avión),Camión a países limítrofes,F17,prensa,"Más del 90% de los caballos viaja en avión (Secretaría de Agricultura, citada). La segunda salida es una suposición"
+102,Pescados y mariscos sin elaborar,Puerto Madryn,Puerto Deseado,F1 F20,oficial,"Chubut 32,4% de las exportaciones pesqueras en 2023 (90% langostino) y Santa Cruz 13,9%"
+103,Miel,Buenos Aires,,,suposicion,Contenedores: Buenos Aires concentra la carga en contenedores
+104,Hortalizas y legumbres sin elaborar,Buenos Aires,Camión a Brasil,,suposicion,
+105,Frutas frescas,Buenos Aires,San Antonio Este,F4 F5 F6 F16,oficial,"2017: Buenos Aires 200.000 t, San Antonio Este 171.000 t, San Pedro 107.000 t. 69% en buque, 29% en camión, 2% en avión. Los limones de Tucumán salen por Zárate (2026)"
+106,Cereales,Gran Rosario,Bahía Blanca,BCR F12,oficial,"Gran Rosario 75% de granos, harinas y aceites en 2025. Bahía Blanca 12,6 millones de toneladas de granos en 2025"
+107,Semillas y frutos oleaginosos,Gran Rosario,Bahía Blanca,BCR F12,oficial,
+108,Tabaco sin elaborar,Buenos Aires,,,suposicion,
+109,Lanas sucias,Puerto Madryn,Buenos Aires,F21 F22,prensa,Lana en contenedores por el muelle Storni. La segunda salida es una suposición
+110,Fibras de algodón,Buenos Aires,Gran Rosario,,suposicion,
+111,"Minerales metalíferos, escorias y cenizas",Puerto Deseado,Gran Rosario,F11,inferido,"Documento oficial general de la minería, no por producto"
+199,Resto de productos primarios,Buenos Aires,,,suposicion,
+201,Carnes y sus preparados,Buenos Aires,,F18,inferido,Contenedores refrigerados: Buenos Aires opera más del 62% de los contenedores del país
+202,Pescados y mariscos elaborados,Buenos Aires,Mar del Plata,F1 F19,prensa,La mayor parte de la pesca de Mar del Plata viaja en camión para exportarse por Buenos Aires. Dos tercios de los filetes de merluza salen de Buenos Aires
+203,Productos lácteos,Buenos Aires,Camión a Brasil,F18,inferido,El camión a Brasil es una suposición
+204,Otros productos de origen animal,Buenos Aires,,,suposicion,
+205,Frutas secas o procesadas,Buenos Aires,,,suposicion,
+206,"Café, té, yerba mate y especias",Buenos Aires,Posadas,F23,suposicion,"Posadas por barcaza (prensa, 2023). La principal es una suposición"
+207,Productos de molinería y sus preparaciones,Gran Rosario,Camión a países limítrofes,,suposicion,
+208,Grasas y aceites,Gran Rosario,Bahía Blanca,BCR F12,oficial,Bahía Blanca: 282.400 t de aceites en 2025
+209,"Azúcar, cacao y artículos de confitería",Gran Rosario,Zárate-Campana,F24,prensa,El azúcar del NOA va en tren a Campana y Rosario
+210,"Preparados de hortalizas, legumbres y frutas",Buenos Aires,Mar del Plata,,suposicion,
+211,"Bebidas, líquidos alcohólicos y vinagre",Buenos Aires,Camión a Chile,F13 F14,prensa,Vino en 2014: 60% por Buenos Aires y 40% por Chile (Observatorio Vitivinícola Argentino)
+212,Residuos y desperdicios de la industria alimentaria,Gran Rosario,Bahía Blanca,BCR F12,oficial,Bahía Blanca: 247.657 t de subproductos en 2025
+213,Extractos curtientes y tintóreos,Buenos Aires,,,suposicion,
+214,Pieles y cueros,Buenos Aires,,,suposicion,
+215,Lanas elaboradas,Puerto Madryn,Buenos Aires,F21 F22,prensa,La segunda salida es una suposición
+299,Resto de MOA,Buenos Aires,,,suposicion,
+302,Productos químicos y conexos,Buenos Aires,Camión a Chile,F9 F10 F18,oficial,El litio sale por el puerto de Antofagasta (Paso de Sico) y por el de Buenos Aires (2024)
+303,Materias plásticas y sus manufacturas,Bahía Blanca,Buenos Aires,F12,oficial,Bahía Blanca: 38.613 t de polietileno y 27.993 t de PVC en 2025. La segunda salida es una suposición
+304,Caucho y sus manufacturas,Buenos Aires,Camión a Brasil,F18,inferido,
+305,"Manufacturas de cuero, marroquinería",Buenos Aires,,F18,inferido,
+306,"Papel, cartón, impresos y publicaciones",Buenos Aires,Posadas,F18 F23,inferido,
+307,Textiles y confecciones,Buenos Aires,,F18,inferido,
+308,Calzado y sus partes componentes,Buenos Aires,,F18,inferido,
+309,"Manufacturas de piedra, yeso, vidrio",Buenos Aires,Camión a países limítrofes,,suposicion,
+310,"Piedras, metales preciosos y sus manufacturas",Ezeiza (avión),El Plumerillo (avión),F8,oficial,2023: 93% del valor por Ezeiza y 7% por El Plumerillo (Mendoza)
+311,Metales comunes y sus manufacturas,Puerto Madryn,Zárate-Campana,F2 F3,inferido,"Aluar, la única productora de aluminio primario, embarca por el muelle Storni. Campana (Tenaris) es una suposición"
+312,"Máquinas y aparatos, material eléctrico",Buenos Aires,Camión a Brasil,F18,inferido,
+313,Material de transporte terrestre,Zárate-Campana,Camión a Brasil,F15,prensa,Toyota: la mitad de lo que exporta desde Zárate va en camión y la otra mitad en barco (2024)
+314,"Vehículos de navegación aérea, marítima y fluvial",Por sus propios medios,,,suposicion,
+399,Resto de MOI,Buenos Aires,Camión a países limítrofes,F18,inferido,
+401,Petróleo crudo,Bahía Blanca,Caleta Córdova/Olivia,CRUDO TERMAP,prensa,Crudo de Vaca Muerta por Puerto Rosales y Escalante del Golfo San Jorge por Termap
+402,Carburantes,Bahía Blanca,,F12,oficial,"Bahía Blanca: 636.206 t de combustibles en 2025, sin el total del país"
+403,Grasas y aceites lubricantes,Buenos Aires,,,suposicion,
+404,Gas de petróleo y otros hidrocarburos gaseosos,Ducto a Chile y Uruguay,Bahía Blanca,F12 F25 F26,prensa,"Gasoductos a Chile (GasAndes, del Pacífico) y Uruguay (Cruz del Sur). Bahía Blanca: 1.093.273 t de gases en 2025"
+405,Energía eléctrica,Línea a Brasil y Uruguay,,F27 F28,oficial,"Septiembre de 2025: 3,4 GWh, casi todo a Brasil"
+499,Resto de combustibles,Bahía Blanca,,,suposicion,

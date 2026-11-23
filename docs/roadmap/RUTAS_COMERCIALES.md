@@ -35,3 +35,13 @@ Pedido: "una sección de rutas comerciales que simulen de dónde salen los produ
 
 - Decidir con el autor el lugar en el menú (¿una herramienta, como Elecciones por mesa, o una ficha más en Economía?).
 - Medir el peso: las líneas del mapa se dibujan una vez y se guardan simplificadas para que la página no pase de lo que ya bajan las herramientas grandes.
+
+## La tabla de salidas por subrubro (23 de noviembre de 2026)
+
+`datos/manual/rutas_salidas.csv`: para cada uno de los 48 subrubros (sin "Confidencial" ni "Desconocido"), la salida principal y, si la hay, una segunda (un puerto, "Camión a ...", "Ducto a ...", "Línea a ...", "Ezeiza (avión)"), con sus fuentes (códigos de `datos/manual/rutas_fuentes.csv`: título, organismo o medio, fecha y dirección) y qué tan firme es cada fila: 11 con dato oficial, 9 con nota de prensa, 11 inferidas (en general, "Buenos Aires" porque concentra más del 62% de los contenedores del país, según la Administración General de Puertos) y 17 suposiciones. Ninguna fuente da el reparto por puerto en valor para cada subrubro: es la salida principal declarada o la que surge del producto. En la herramienta, las filas inferidas o supuestas se tienen que ver distintas de las que tienen fuente.
+
+Lo que no tiene fuente oficial: qué parte de lo que va a los países limítrofes viaja en camión (la Aduana lo tendría por vía y aduana de salida, pero no lo publica). Las fuentes del vino (2014) y de las frutas (2017) son viejas. En "Productos químicos" conviven el litio, el biodiésel y los fertilizantes, y en "Metales comunes" el aluminio y el acero: con una sola salida principal se pierde mucho.
+
+`searoute` 1.6.0 en un entorno aparte (`python -m venv`, con `setuptools` al día): de Rosario a Rotterdam, 12.084 km.
+
+Falta: el archivo de la API del INDEC por año, subrubro y país, que llega con la primera actualización con el pedido (la del 23 de noviembre de 2026), el puerto principal de cada país de destino y el diseño de la página, que se muestra al autor antes de armarla.
