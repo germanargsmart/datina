@@ -43,8 +43,8 @@
    "archivo": "datos/crudo/onu_migrantes_argentina.csv",
    "nombre": "International Migrant Stock 2024: personas nacidas en la Argentina por país de destino",
    "organismo": "ONU Población",
-   "descargado": "2026-11-15",
-   "ultimo_intento": "2026-11-15",
+   "descargado": "2026-11-23",
+   "ultimo_intento": "2026-11-23",
    "estado": "ok",
    "url": "https://www.un.org/development/desa/pd/sites/www.un.org.development.desa.pd/files/undesa_pd_2024_ims_stock_by_sex_destination_and_origin.xlsx"
   }
@@ -52,5 +52,5 @@
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
  "como_citar": "Datina (año de la consulta). ¿Cuántos argentinos viven en otro país? Con datos de Naciones Unidas, División de Población, International Migrant Stock (CC BY 3.0 IGO). https://datina.com.ar/migraciones#f-argentinos-exterior. Consultado el día de la consulta.",
- "datos_actualizados": "15/11/2026"
+ "datos_actualizados": "23/11/2026"
 }

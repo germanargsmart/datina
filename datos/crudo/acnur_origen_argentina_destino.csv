@@ -1,23 +1,4 @@
 anio,origen,origen_iso,destino,destino_iso,refugiados,solicitantes,otras_proteccion,apatridas
-2021,Argentina,ARG,Australia,AUS,0,29,0,0
-2021,Argentina,ARG,Bolivia (Plurinational State of),BOL,13,0,0,0
-2021,Argentina,ARG,Brazil,BRA,6,153,0,0
-2021,Argentina,ARG,Canada,CAN,15,58,0,0
-2021,Argentina,ARG,Costa Rica,CRI,0,37,0,0
-2021,Argentina,ARG,France,FRA,12,5,0,0
-2021,Argentina,ARG,United Kingdom of Great Britain and Northern Ireland,GBR,0,22,0,0
-2021,Argentina,ARG,Germany,DEU,14,19,0,0
-2021,Argentina,ARG,Italy,ITA,10,25,0,0
-2021,Argentina,ARG,Rep. of Korea,KOR,0,8,0,0
-2021,Argentina,ARG,Mexico,MEX,5,195,0,0
-2021,Argentina,ARG,Netherlands (Kingdom of the),NLD,8,7,0,0
-2021,Argentina,ARG,Paraguay,PRY,0,16,0,0
-2021,Argentina,ARG,Peru,PER,0,15,0,0
-2021,Argentina,ARG,Spain,ESP,18,670,0,0
-2021,Argentina,ARG,Sudan,SDN,0,0,0,0
-2021,Argentina,ARG,Sweden,SWE,0,5,0,0
-2021,Argentina,ARG,Uruguay,URY,0,11,0,0
-2021,Argentina,ARG,United States of America,USA,23,499,0,0
 2022,Argentina,ARG,Australia,AUS,0,22,0,0
 2022,Argentina,ARG,Bolivia (Plurinational State of),BOL,13,0,0,0
 2022,Argentina,ARG,Brazil,BRA,6,164,0,0
@@ -117,3 +98,30 @@ anio,origen,origen_iso,destino,destino_iso,refugiados,solicitantes,otras_protecc
 2025,Argentina,ARG,Sweden,SWE,12,5,0,0
 2025,Argentina,ARG,Uruguay,URY,0,24,0,0
 2025,Argentina,ARG,United States of America,USA,31,1055,0,0
+2026,Argentina,ARG,Australia,AUS,0,77,0,0
+2026,Argentina,ARG,Belgium,BEL,0,12,0,0
+2026,Argentina,ARG,Bolivia (Plurinational State of),BOL,14,0,0,0
+2026,Argentina,ARG,Brazil,BRA,8,487,0,0
+2026,Argentina,ARG,Canada,CAN,37,163,0,0
+2026,Argentina,ARG,Chile,CHL,0,5,0,0
+2026,Argentina,ARG,Costa Rica,CRI,0,75,0,0
+2026,Argentina,ARG,Denmark,DNK,5,0,0,0
+2026,Argentina,ARG,Ecuador,ECU,5,5,0,0
+2026,Argentina,ARG,Finland,FIN,5,0,0,0
+2026,Argentina,ARG,France,FRA,30,14,0,0
+2026,Argentina,ARG,United Kingdom of Great Britain and Northern Ireland,GBR,5,8,0,0
+2026,Argentina,ARG,Germany,DEU,25,18,0,0
+2026,Argentina,ARG,Ireland,IRL,0,25,0,0
+2026,Argentina,ARG,Israel,ISR,0,9,0,0
+2026,Argentina,ARG,Italy,ITA,15,794,0,0
+2026,Argentina,ARG,Mexico,MEX,26,159,0,0
+2026,Argentina,ARG,Netherlands (Kingdom of the),NLD,7,5,0,0
+2026,Argentina,ARG,Norway,NOR,0,5,0,0
+2026,Argentina,ARG,Paraguay,PRY,0,9,0,0
+2026,Argentina,ARG,Peru,PER,0,87,0,0
+2026,Argentina,ARG,Poland,POL,5,0,0,0
+2026,Argentina,ARG,Portugal,PRT,0,5,0,0
+2026,Argentina,ARG,Spain,ESP,270,1445,0,0
+2026,Argentina,ARG,Sweden,SWE,11,0,0,0
+2026,Argentina,ARG,Uruguay,URY,0,17,0,0
+2026,Argentina,ARG,United States of America,USA,31,880,0,0

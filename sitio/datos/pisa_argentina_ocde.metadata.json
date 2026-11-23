@@ -1,7 +1,7 @@
 {
  "tabla": "pisa_argentina_ocde.csv",
  "titulo": "¿Qué puntaje saca la Argentina en las pruebas PISA?",
- "descripcion": "Puntaje promedio de la Argentina y de los países de la OCDE en las pruebas PISA, 2000 a 2022",
+ "descripcion": "Puntaje promedio de la Argentina y de los países de la OCDE en las pruebas PISA, 2000 a 2025",
  "seccion": "Educación",
  "ficha": "https://datina.com.ar/educacion#f-pisa",
  "fuente": "OCDE, Programa para la Evaluación Internacional de Alumnos (PISA), vía Our World in Data.",
@@ -10,65 +10,65 @@
  ],
  "actualizacion": "Se actualiza con cada evaluación PISA.",
  "cobertura": "Sin desglose territorial",
- "periodo": "2000 a 2022",
+ "periodo": "2000 a 2025",
  "anio_desde": 2000,
- "anio_hasta": 2022,
+ "anio_hasta": 2025,
  "filas": 7,
  "columnas": [
   {
    "nombre": "anio",
    "tipo": "Año",
-   "valores": "2000 a 2022"
+   "valores": "2000 a 2025"
   },
   {
    "nombre": "arg_mat",
    "tipo": "Número",
-   "valores": "377,5 a 409 (1 celda vacía)"
+   "valores": "366,8 a 388,4 (1 celda vacía)"
   },
   {
    "nombre": "arg_lec",
    "tipo": "Número",
-   "valores": "373,7 a 425,3"
+   "valores": "373,7 a 418,3"
   },
   {
    "nombre": "arg_cie",
    "tipo": "Número",
-   "valores": "391,2 a 432,2 (1 celda vacía)"
+   "valores": "391,2 a 406,2 (1 celda vacía)"
   },
   {
    "nombre": "ocde_mat",
    "tipo": "Número",
-   "valores": "472,4 a 491,7 (1 celda vacía)"
+   "valores": "463 a 491,7 (1 celda vacía)"
   },
   {
    "nombre": "ocde_lec",
    "tipo": "Número",
-   "valores": "475,6 a 493,5"
+   "valores": "460,9 a 493,5"
   },
   {
    "nombre": "ocde_cie",
    "tipo": "Número",
-   "valores": "484,6 a 497,7 (1 celda vacía)"
+   "valores": "481,9 a 497,7 (1 celda vacía)"
   },
   {
    "nombre": "arg_comparable",
    "tipo": "Texto",
-   "valores": "False, True"
+   "valores": "True"
   },
   {
    "nombre": "arg_mat_grafico",
    "tipo": "Número",
-   "valores": "377,5 a 388,4 (2 celdas vacías)"
+   "valores": "366,8 a 388,4 (1 celda vacía)"
   },
   {
    "nombre": "arg_lec_grafico",
    "tipo": "Número",
-   "valores": "373,7 a 418,3 (1 celda vacía)"
+   "valores": "373,7 a 418,3"
   },
   {
    "nombre": "arg_cie_grafico",
    "tipo": "Número",
-   "valores": "391,2 a 406,2 (2 celdas vacías)"
+   "valores": "391,2 a 406,2 (1 celda vacía)"
   }
  ],
  "unidades": [],
@@ -78,8 +78,8 @@
    "archivo": "datos/crudo/pisa_owid.csv",
    "nombre": "PISA: puntajes de Argentina y promedio OCDE (republicación de Our World in Data)",
    "organismo": "OCDE",
-   "descargado": "2026-11-15",
-   "ultimo_intento": "2026-11-15",
+   "descargado": "2026-11-23",
+   "ultimo_intento": "2026-11-23",
    "estado": "ok",
    "url": "https://ourworldindata.org/grapher/average-performance-of-15-year-olds-in-mathematics-reading-and-science.csv?v=1&csvType=full&useColumnShortNames=true"
   }
@@ -87,5 +87,5 @@
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
  "como_citar": "Datina (año de la consulta). ¿Qué puntaje saca la Argentina en las pruebas PISA? Con datos de OCDE, Programa para la Evaluación Internacional de Alumnos (PISA), vía Our World in Data. https://datina.com.ar/educacion#f-pisa. Consultado el día de la consulta.",
- "datos_actualizados": "15/11/2026"
+ "datos_actualizados": "23/11/2026"
 }

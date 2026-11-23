@@ -64,8 +64,8 @@
    "archivo": "datos/crudo/congreso_votaciones_diputados.json.gz",
    "nombre": "Actas de votación nominal de Diputados (copia comprimida de ¿Cómo Votó?)",
    "organismo": "Cómo Votó",
-   "descargado": "2026-11-15",
-   "ultimo_intento": "2026-11-15",
+   "descargado": "2026-11-23",
+   "ultimo_intento": "2026-11-23",
    "estado": "ok",
    "url": "https://raw.githubusercontent.com/rquiroga7/como_voto/main/data/diputados.json"
   },
@@ -73,8 +73,8 @@
    "archivo": "datos/crudo/congreso_votaciones_senadores.json.gz",
    "nombre": "Actas de votación nominal del Senado (copia comprimida de ¿Cómo Votó?)",
    "organismo": "Cómo Votó",
-   "descargado": "2026-11-15",
-   "ultimo_intento": "2026-11-15",
+   "descargado": "2026-11-23",
+   "ultimo_intento": "2026-11-23",
    "estado": "ok",
    "url": "https://raw.githubusercontent.com/rquiroga7/como_voto/main/data/senadores.json"
   },
@@ -88,5 +88,5 @@
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
  "como_citar": "Datina (año de la consulta). ¿Cómo votó cada legislador, y cada espacio político, las leyes y los proyectos clave? Con datos de Cámara de Diputados y Senado de la Nación, actas de votación nominal, vía ¿Cómo Votó?. https://datina.com.ar/politica#f-votaciones. Consultado el día de la consulta.",
- "datos_actualizados": "15/11/2026"
+ "datos_actualizados": "23/11/2026"
 }

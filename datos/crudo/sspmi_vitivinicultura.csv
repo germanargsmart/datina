@@ -1,5 +1,6 @@
 "sector_id","sector_nombre","variable_id","actividad_producto_nombre","indicador","unidad_de_medida","fuente","frecuencia_nombre","cobertura_nombre","alcance_tipo","alcance_id","alcance_nombre","indice_tiempo","valor"
 13,"Vitivinicultura",148,"Mosto","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","06","BUENOS AIRES",2025-01-01,1
+13,"Vitivinicultura",148,"Mosto","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","06","BUENOS AIRES",2026-01-01,1
 13,"Vitivinicultura",148,"Mosto","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","10","CATAMARCA",2002-01-01,4079
 13,"Vitivinicultura",148,"Mosto","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","10","CATAMARCA",2003-01-01,6126
 13,"Vitivinicultura",148,"Mosto","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","10","CATAMARCA",2004-01-01,17905
@@ -24,6 +25,7 @@
 13,"Vitivinicultura",148,"Mosto","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","10","CATAMARCA",2023-01-01,0
 13,"Vitivinicultura",148,"Mosto","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","10","CATAMARCA",2024-01-01,26958
 13,"Vitivinicultura",148,"Mosto","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","10","CATAMARCA",2025-01-01,42294
+13,"Vitivinicultura",148,"Mosto","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","10","CATAMARCA",2026-01-01,48807
 13,"Vitivinicultura",148,"Mosto","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","14","CORDOBA",2006-01-01,18
 13,"Vitivinicultura",148,"Mosto","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","14","CORDOBA",2007-01-01,18
 13,"Vitivinicultura",148,"Mosto","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","14","CORDOBA",2008-01-01,10
@@ -58,6 +60,7 @@
 13,"Vitivinicultura",148,"Mosto","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","46","LA RIOJA",2023-01-01,7921
 13,"Vitivinicultura",148,"Mosto","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","46","LA RIOJA",2024-01-01,26761
 13,"Vitivinicultura",148,"Mosto","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","46","LA RIOJA",2025-01-01,55787
+13,"Vitivinicultura",148,"Mosto","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","46","LA RIOJA",2026-01-01,3355
 13,"Vitivinicultura",148,"Mosto","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","50","MENDOZA",1997-01-01,4038159
 13,"Vitivinicultura",148,"Mosto","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","50","MENDOZA",1998-01-01,1378919
 13,"Vitivinicultura",148,"Mosto","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","50","MENDOZA",1999-01-01,1756837
@@ -87,6 +90,7 @@
 13,"Vitivinicultura",148,"Mosto","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","50","MENDOZA",2023-01-01,703751
 13,"Vitivinicultura",148,"Mosto","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","50","MENDOZA",2024-01-01,1773788
 13,"Vitivinicultura",148,"Mosto","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","50","MENDOZA",2025-01-01,2389528
+13,"Vitivinicultura",148,"Mosto","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","50","MENDOZA",2026-01-01,2136217
 13,"Vitivinicultura",148,"Mosto","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","58","NEUQUEN",2002-01-01,114
 13,"Vitivinicultura",148,"Mosto","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","58","NEUQUEN",2003-01-01,174
 13,"Vitivinicultura",148,"Mosto","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","58","NEUQUEN",2004-01-01,130
@@ -111,6 +115,7 @@
 13,"Vitivinicultura",148,"Mosto","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","58","NEUQUEN",2023-01-01,187
 13,"Vitivinicultura",148,"Mosto","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","58","NEUQUEN",2024-01-01,231
 13,"Vitivinicultura",148,"Mosto","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","58","NEUQUEN",2025-01-01,218
+13,"Vitivinicultura",148,"Mosto","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","58","NEUQUEN",2026-01-01,717
 13,"Vitivinicultura",148,"Mosto","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","62","RIO NEGRO",2002-01-01,2580
 13,"Vitivinicultura",148,"Mosto","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","62","RIO NEGRO",2003-01-01,3506
 13,"Vitivinicultura",148,"Mosto","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","62","RIO NEGRO",2004-01-01,2028
@@ -134,6 +139,7 @@
 13,"Vitivinicultura",148,"Mosto","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","62","RIO NEGRO",2022-01-01,145
 13,"Vitivinicultura",148,"Mosto","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","62","RIO NEGRO",2023-01-01,0
 13,"Vitivinicultura",148,"Mosto","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","62","RIO NEGRO",2024-01-01,196
+13,"Vitivinicultura",148,"Mosto","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","62","RIO NEGRO",2026-01-01,26
 13,"Vitivinicultura",148,"Mosto","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","66","SALTA",2002-01-01,2200
 13,"Vitivinicultura",148,"Mosto","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","66","SALTA",2003-01-01,777
 13,"Vitivinicultura",148,"Mosto","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","66","SALTA",2004-01-01,885
@@ -158,6 +164,7 @@
 13,"Vitivinicultura",148,"Mosto","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","66","SALTA",2023-01-01,2556
 13,"Vitivinicultura",148,"Mosto","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","66","SALTA",2024-01-01,2351
 13,"Vitivinicultura",148,"Mosto","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","66","SALTA",2025-01-01,1674
+13,"Vitivinicultura",148,"Mosto","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","66","SALTA",2026-01-01,336
 13,"Vitivinicultura",148,"Mosto","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","70","SAN JUAN",1997-01-01,1680884
 13,"Vitivinicultura",148,"Mosto","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","70","SAN JUAN",1998-01-01,1300643
 13,"Vitivinicultura",148,"Mosto","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","70","SAN JUAN",1999-01-01,1219137
@@ -187,6 +194,7 @@
 13,"Vitivinicultura",148,"Mosto","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","70","SAN JUAN",2023-01-01,1202110
 13,"Vitivinicultura",148,"Mosto","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","70","SAN JUAN",2024-01-01,1549948
 13,"Vitivinicultura",148,"Mosto","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","70","SAN JUAN",2025-01-01,1568917
+13,"Vitivinicultura",148,"Mosto","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","70","SAN JUAN",2026-01-01,2023491
 13,"Vitivinicultura",148,"Mosto","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","98","INDETERMINADA",1997-01-01,273560
 13,"Vitivinicultura",148,"Mosto","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","98","INDETERMINADA",1998-01-01,87194
 13,"Vitivinicultura",148,"Mosto","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","98","INDETERMINADA",1999-01-01,84673
@@ -296,6 +304,7 @@
 13,"Vitivinicultura",152,"Uva_para vinificar","Producción según ingreso a establecimientos","quintales métricos","INV","Anual","Nacional","PROVINCIA","06","BUENOS AIRES",2023-01-01,2018
 13,"Vitivinicultura",152,"Uva_para vinificar","Producción según ingreso a establecimientos","quintales métricos","INV","Anual","Nacional","PROVINCIA","06","BUENOS AIRES",2024-01-01,3028
 13,"Vitivinicultura",152,"Uva_para vinificar","Producción según ingreso a establecimientos","quintales métricos","INV","Anual","Nacional","PROVINCIA","06","BUENOS AIRES",2025-01-01,4184
+13,"Vitivinicultura",152,"Uva_para vinificar","Producción según ingreso a establecimientos","quintales métricos","INV","Anual","Nacional","PROVINCIA","06","BUENOS AIRES",2026-01-01,2057
 13,"Vitivinicultura",152,"Uva_para vinificar","Producción según ingreso a establecimientos","quintales métricos","INV","Anual","Nacional","PROVINCIA","10","CATAMARCA",1997-01-01,150033
 13,"Vitivinicultura",152,"Uva_para vinificar","Producción según ingreso a establecimientos","quintales métricos","INV","Anual","Nacional","PROVINCIA","10","CATAMARCA",1998-01-01,133373
 13,"Vitivinicultura",152,"Uva_para vinificar","Producción según ingreso a establecimientos","quintales métricos","INV","Anual","Nacional","PROVINCIA","10","CATAMARCA",1999-01-01,197925
@@ -325,6 +334,7 @@
 13,"Vitivinicultura",152,"Uva_para vinificar","Producción según ingreso a establecimientos","quintales métricos","INV","Anual","Nacional","PROVINCIA","10","CATAMARCA",2023-01-01,67070
 13,"Vitivinicultura",152,"Uva_para vinificar","Producción según ingreso a establecimientos","quintales métricos","INV","Anual","Nacional","PROVINCIA","10","CATAMARCA",2024-01-01,91696
 13,"Vitivinicultura",152,"Uva_para vinificar","Producción según ingreso a establecimientos","quintales métricos","INV","Anual","Nacional","PROVINCIA","10","CATAMARCA",2025-01-01,104714
+13,"Vitivinicultura",152,"Uva_para vinificar","Producción según ingreso a establecimientos","quintales métricos","INV","Anual","Nacional","PROVINCIA","10","CATAMARCA",2026-01-01,121920
 13,"Vitivinicultura",152,"Uva_para vinificar","Producción según ingreso a establecimientos","quintales métricos","INV","Anual","Nacional","PROVINCIA","14","CORDOBA",1997-01-01,38956
 13,"Vitivinicultura",152,"Uva_para vinificar","Producción según ingreso a establecimientos","quintales métricos","INV","Anual","Nacional","PROVINCIA","14","CORDOBA",1998-01-01,7872
 13,"Vitivinicultura",152,"Uva_para vinificar","Producción según ingreso a establecimientos","quintales métricos","INV","Anual","Nacional","PROVINCIA","14","CORDOBA",1999-01-01,6414
@@ -354,6 +364,7 @@
 13,"Vitivinicultura",152,"Uva_para vinificar","Producción según ingreso a establecimientos","quintales métricos","INV","Anual","Nacional","PROVINCIA","14","CORDOBA",2023-01-01,6149
 13,"Vitivinicultura",152,"Uva_para vinificar","Producción según ingreso a establecimientos","quintales métricos","INV","Anual","Nacional","PROVINCIA","14","CORDOBA",2024-01-01,5559
 13,"Vitivinicultura",152,"Uva_para vinificar","Producción según ingreso a establecimientos","quintales métricos","INV","Anual","Nacional","PROVINCIA","14","CORDOBA",2025-01-01,4990
+13,"Vitivinicultura",152,"Uva_para vinificar","Producción según ingreso a establecimientos","quintales métricos","INV","Anual","Nacional","PROVINCIA","14","CORDOBA",2026-01-01,5262
 13,"Vitivinicultura",152,"Uva_para vinificar","Producción según ingreso a establecimientos","quintales métricos","INV","Anual","Nacional","PROVINCIA","26","CHUBUT",2006-01-01,52
 13,"Vitivinicultura",152,"Uva_para vinificar","Producción según ingreso a establecimientos","quintales métricos","INV","Anual","Nacional","PROVINCIA","26","CHUBUT",2007-01-01,156
 13,"Vitivinicultura",152,"Uva_para vinificar","Producción según ingreso a establecimientos","quintales métricos","INV","Anual","Nacional","PROVINCIA","26","CHUBUT",2008-01-01,457
@@ -374,6 +385,7 @@
 13,"Vitivinicultura",152,"Uva_para vinificar","Producción según ingreso a establecimientos","quintales métricos","INV","Anual","Nacional","PROVINCIA","26","CHUBUT",2023-01-01,2446
 13,"Vitivinicultura",152,"Uva_para vinificar","Producción según ingreso a establecimientos","quintales métricos","INV","Anual","Nacional","PROVINCIA","26","CHUBUT",2024-01-01,2356
 13,"Vitivinicultura",152,"Uva_para vinificar","Producción según ingreso a establecimientos","quintales métricos","INV","Anual","Nacional","PROVINCIA","26","CHUBUT",2025-01-01,1833
+13,"Vitivinicultura",152,"Uva_para vinificar","Producción según ingreso a establecimientos","quintales métricos","INV","Anual","Nacional","PROVINCIA","26","CHUBUT",2026-01-01,887
 13,"Vitivinicultura",152,"Uva_para vinificar","Producción según ingreso a establecimientos","quintales métricos","INV","Anual","Nacional","PROVINCIA","30","ENTRE RIOS",2007-01-01,443
 13,"Vitivinicultura",152,"Uva_para vinificar","Producción según ingreso a establecimientos","quintales métricos","INV","Anual","Nacional","PROVINCIA","30","ENTRE RIOS",2008-01-01,197
 13,"Vitivinicultura",152,"Uva_para vinificar","Producción según ingreso a establecimientos","quintales métricos","INV","Anual","Nacional","PROVINCIA","30","ENTRE RIOS",2009-01-01,432
@@ -393,6 +405,7 @@
 13,"Vitivinicultura",152,"Uva_para vinificar","Producción según ingreso a establecimientos","quintales métricos","INV","Anual","Nacional","PROVINCIA","30","ENTRE RIOS",2023-01-01,1363
 13,"Vitivinicultura",152,"Uva_para vinificar","Producción según ingreso a establecimientos","quintales métricos","INV","Anual","Nacional","PROVINCIA","30","ENTRE RIOS",2024-01-01,1046
 13,"Vitivinicultura",152,"Uva_para vinificar","Producción según ingreso a establecimientos","quintales métricos","INV","Anual","Nacional","PROVINCIA","30","ENTRE RIOS",2025-01-01,853
+13,"Vitivinicultura",152,"Uva_para vinificar","Producción según ingreso a establecimientos","quintales métricos","INV","Anual","Nacional","PROVINCIA","30","ENTRE RIOS",2026-01-01,1026
 13,"Vitivinicultura",152,"Uva_para vinificar","Producción según ingreso a establecimientos","quintales métricos","INV","Anual","Nacional","PROVINCIA","38","JUJUY",2007-01-01,57
 13,"Vitivinicultura",152,"Uva_para vinificar","Producción según ingreso a establecimientos","quintales métricos","INV","Anual","Nacional","PROVINCIA","38","JUJUY",2008-01-01,104
 13,"Vitivinicultura",152,"Uva_para vinificar","Producción según ingreso a establecimientos","quintales métricos","INV","Anual","Nacional","PROVINCIA","38","JUJUY",2009-01-01,117
@@ -412,6 +425,7 @@
 13,"Vitivinicultura",152,"Uva_para vinificar","Producción según ingreso a establecimientos","quintales métricos","INV","Anual","Nacional","PROVINCIA","38","JUJUY",2023-01-01,2125
 13,"Vitivinicultura",152,"Uva_para vinificar","Producción según ingreso a establecimientos","quintales métricos","INV","Anual","Nacional","PROVINCIA","38","JUJUY",2024-01-01,2619
 13,"Vitivinicultura",152,"Uva_para vinificar","Producción según ingreso a establecimientos","quintales métricos","INV","Anual","Nacional","PROVINCIA","38","JUJUY",2025-01-01,4185
+13,"Vitivinicultura",152,"Uva_para vinificar","Producción según ingreso a establecimientos","quintales métricos","INV","Anual","Nacional","PROVINCIA","38","JUJUY",2026-01-01,4076
 13,"Vitivinicultura",152,"Uva_para vinificar","Producción según ingreso a establecimientos","quintales métricos","INV","Anual","Nacional","PROVINCIA","42","LA PAMPA",2004-01-01,1247
 13,"Vitivinicultura",152,"Uva_para vinificar","Producción según ingreso a establecimientos","quintales métricos","INV","Anual","Nacional","PROVINCIA","42","LA PAMPA",2005-01-01,4305
 13,"Vitivinicultura",152,"Uva_para vinificar","Producción según ingreso a establecimientos","quintales métricos","INV","Anual","Nacional","PROVINCIA","42","LA PAMPA",2006-01-01,4624
@@ -434,6 +448,7 @@
 13,"Vitivinicultura",152,"Uva_para vinificar","Producción según ingreso a establecimientos","quintales métricos","INV","Anual","Nacional","PROVINCIA","42","LA PAMPA",2023-01-01,2422
 13,"Vitivinicultura",152,"Uva_para vinificar","Producción según ingreso a establecimientos","quintales métricos","INV","Anual","Nacional","PROVINCIA","42","LA PAMPA",2024-01-01,6094
 13,"Vitivinicultura",152,"Uva_para vinificar","Producción según ingreso a establecimientos","quintales métricos","INV","Anual","Nacional","PROVINCIA","42","LA PAMPA",2025-01-01,9635
+13,"Vitivinicultura",152,"Uva_para vinificar","Producción según ingreso a establecimientos","quintales métricos","INV","Anual","Nacional","PROVINCIA","42","LA PAMPA",2026-01-01,7904
 13,"Vitivinicultura",152,"Uva_para vinificar","Producción según ingreso a establecimientos","quintales métricos","INV","Anual","Nacional","PROVINCIA","46","LA RIOJA",1997-01-01,1094651
 13,"Vitivinicultura",152,"Uva_para vinificar","Producción según ingreso a establecimientos","quintales métricos","INV","Anual","Nacional","PROVINCIA","46","LA RIOJA",1998-01-01,1010163
 13,"Vitivinicultura",152,"Uva_para vinificar","Producción según ingreso a establecimientos","quintales métricos","INV","Anual","Nacional","PROVINCIA","46","LA RIOJA",1999-01-01,1101124
@@ -463,6 +478,7 @@
 13,"Vitivinicultura",152,"Uva_para vinificar","Producción según ingreso a establecimientos","quintales métricos","INV","Anual","Nacional","PROVINCIA","46","LA RIOJA",2023-01-01,550460
 13,"Vitivinicultura",152,"Uva_para vinificar","Producción según ingreso a establecimientos","quintales métricos","INV","Anual","Nacional","PROVINCIA","46","LA RIOJA",2024-01-01,594539
 13,"Vitivinicultura",152,"Uva_para vinificar","Producción según ingreso a establecimientos","quintales métricos","INV","Anual","Nacional","PROVINCIA","46","LA RIOJA",2025-01-01,537531
+13,"Vitivinicultura",152,"Uva_para vinificar","Producción según ingreso a establecimientos","quintales métricos","INV","Anual","Nacional","PROVINCIA","46","LA RIOJA",2026-01-01,520958
 13,"Vitivinicultura",152,"Uva_para vinificar","Producción según ingreso a establecimientos","quintales métricos","INV","Anual","Nacional","PROVINCIA","50","MENDOZA",1997-01-01,17590884
 13,"Vitivinicultura",152,"Uva_para vinificar","Producción según ingreso a establecimientos","quintales métricos","INV","Anual","Nacional","PROVINCIA","50","MENDOZA",1998-01-01,11973858
 13,"Vitivinicultura",152,"Uva_para vinificar","Producción según ingreso a establecimientos","quintales métricos","INV","Anual","Nacional","PROVINCIA","50","MENDOZA",1999-01-01,15584319
@@ -492,6 +508,7 @@
 13,"Vitivinicultura",152,"Uva_para vinificar","Producción según ingreso a establecimientos","quintales métricos","INV","Anual","Nacional","PROVINCIA","50","MENDOZA",2023-01-01,9608786
 13,"Vitivinicultura",152,"Uva_para vinificar","Producción según ingreso a establecimientos","quintales métricos","INV","Anual","Nacional","PROVINCIA","50","MENDOZA",2024-01-01,13910825
 13,"Vitivinicultura",152,"Uva_para vinificar","Producción según ingreso a establecimientos","quintales métricos","INV","Anual","Nacional","PROVINCIA","50","MENDOZA",2025-01-01,15038951
+13,"Vitivinicultura",152,"Uva_para vinificar","Producción según ingreso a establecimientos","quintales métricos","INV","Anual","Nacional","PROVINCIA","50","MENDOZA",2026-01-01,13190498
 13,"Vitivinicultura",152,"Uva_para vinificar","Producción según ingreso a establecimientos","quintales métricos","INV","Anual","Nacional","PROVINCIA","54","MISIONES",2008-01-01,25
 13,"Vitivinicultura",152,"Uva_para vinificar","Producción según ingreso a establecimientos","quintales métricos","INV","Anual","Nacional","PROVINCIA","54","MISIONES",2009-01-01,65
 13,"Vitivinicultura",152,"Uva_para vinificar","Producción según ingreso a establecimientos","quintales métricos","INV","Anual","Nacional","PROVINCIA","54","MISIONES",2010-01-01,0
@@ -527,6 +544,7 @@
 13,"Vitivinicultura",152,"Uva_para vinificar","Producción según ingreso a establecimientos","quintales métricos","INV","Anual","Nacional","PROVINCIA","58","NEUQUEN",2023-01-01,70145
 13,"Vitivinicultura",152,"Uva_para vinificar","Producción según ingreso a establecimientos","quintales métricos","INV","Anual","Nacional","PROVINCIA","58","NEUQUEN",2024-01-01,81701
 13,"Vitivinicultura",152,"Uva_para vinificar","Producción según ingreso a establecimientos","quintales métricos","INV","Anual","Nacional","PROVINCIA","58","NEUQUEN",2025-01-01,71316
+13,"Vitivinicultura",152,"Uva_para vinificar","Producción según ingreso a establecimientos","quintales métricos","INV","Anual","Nacional","PROVINCIA","58","NEUQUEN",2026-01-01,82147
 13,"Vitivinicultura",152,"Uva_para vinificar","Producción según ingreso a establecimientos","quintales métricos","INV","Anual","Nacional","PROVINCIA","62","RIO NEGRO",1997-01-01,222911
 13,"Vitivinicultura",152,"Uva_para vinificar","Producción según ingreso a establecimientos","quintales métricos","INV","Anual","Nacional","PROVINCIA","62","RIO NEGRO",1998-01-01,151040
 13,"Vitivinicultura",152,"Uva_para vinificar","Producción según ingreso a establecimientos","quintales métricos","INV","Anual","Nacional","PROVINCIA","62","RIO NEGRO",1999-01-01,170070
@@ -556,6 +574,7 @@
 13,"Vitivinicultura",152,"Uva_para vinificar","Producción según ingreso a establecimientos","quintales métricos","INV","Anual","Nacional","PROVINCIA","62","RIO NEGRO",2023-01-01,19629
 13,"Vitivinicultura",152,"Uva_para vinificar","Producción según ingreso a establecimientos","quintales métricos","INV","Anual","Nacional","PROVINCIA","62","RIO NEGRO",2024-01-01,37975
 13,"Vitivinicultura",152,"Uva_para vinificar","Producción según ingreso a establecimientos","quintales métricos","INV","Anual","Nacional","PROVINCIA","62","RIO NEGRO",2025-01-01,40485
+13,"Vitivinicultura",152,"Uva_para vinificar","Producción según ingreso a establecimientos","quintales métricos","INV","Anual","Nacional","PROVINCIA","62","RIO NEGRO",2026-01-01,38476
 13,"Vitivinicultura",152,"Uva_para vinificar","Producción según ingreso a establecimientos","quintales métricos","INV","Anual","Nacional","PROVINCIA","66","SALTA",1997-01-01,221211
 13,"Vitivinicultura",152,"Uva_para vinificar","Producción según ingreso a establecimientos","quintales métricos","INV","Anual","Nacional","PROVINCIA","66","SALTA",1998-01-01,247650
 13,"Vitivinicultura",152,"Uva_para vinificar","Producción según ingreso a establecimientos","quintales métricos","INV","Anual","Nacional","PROVINCIA","66","SALTA",1999-01-01,276286
@@ -585,6 +604,7 @@
 13,"Vitivinicultura",152,"Uva_para vinificar","Producción según ingreso a establecimientos","quintales métricos","INV","Anual","Nacional","PROVINCIA","66","SALTA",2023-01-01,291802
 13,"Vitivinicultura",152,"Uva_para vinificar","Producción según ingreso a establecimientos","quintales métricos","INV","Anual","Nacional","PROVINCIA","66","SALTA",2024-01-01,241379
 13,"Vitivinicultura",152,"Uva_para vinificar","Producción según ingreso a establecimientos","quintales métricos","INV","Anual","Nacional","PROVINCIA","66","SALTA",2025-01-01,294845
+13,"Vitivinicultura",152,"Uva_para vinificar","Producción según ingreso a establecimientos","quintales métricos","INV","Anual","Nacional","PROVINCIA","66","SALTA",2026-01-01,328823
 13,"Vitivinicultura",152,"Uva_para vinificar","Producción según ingreso a establecimientos","quintales métricos","INV","Anual","Nacional","PROVINCIA","70","SAN JUAN",1997-01-01,4942454
 13,"Vitivinicultura",152,"Uva_para vinificar","Producción según ingreso a establecimientos","quintales métricos","INV","Anual","Nacional","PROVINCIA","70","SAN JUAN",1998-01-01,5879199
 13,"Vitivinicultura",152,"Uva_para vinificar","Producción según ingreso a establecimientos","quintales métricos","INV","Anual","Nacional","PROVINCIA","70","SAN JUAN",1999-01-01,6227664
@@ -614,6 +634,7 @@
 13,"Vitivinicultura",152,"Uva_para vinificar","Producción según ingreso a establecimientos","quintales métricos","INV","Anual","Nacional","PROVINCIA","70","SAN JUAN",2023-01-01,3652352
 13,"Vitivinicultura",152,"Uva_para vinificar","Producción según ingreso a establecimientos","quintales métricos","INV","Anual","Nacional","PROVINCIA","70","SAN JUAN",2024-01-01,3815582
 13,"Vitivinicultura",152,"Uva_para vinificar","Producción según ingreso a establecimientos","quintales métricos","INV","Anual","Nacional","PROVINCIA","70","SAN JUAN",2025-01-01,3384240
+13,"Vitivinicultura",152,"Uva_para vinificar","Producción según ingreso a establecimientos","quintales métricos","INV","Anual","Nacional","PROVINCIA","70","SAN JUAN",2026-01-01,3826279
 13,"Vitivinicultura",152,"Uva_para vinificar","Producción según ingreso a establecimientos","quintales métricos","INV","Anual","Nacional","PROVINCIA","74","SAN LUIS",1997-01-01,565
 13,"Vitivinicultura",152,"Uva_para vinificar","Producción según ingreso a establecimientos","quintales métricos","INV","Anual","Nacional","PROVINCIA","74","SAN LUIS",2010-01-01,297
 13,"Vitivinicultura",152,"Uva_para vinificar","Producción según ingreso a establecimientos","quintales métricos","INV","Anual","Nacional","PROVINCIA","74","SAN LUIS",2011-01-01,199
@@ -631,6 +652,7 @@
 13,"Vitivinicultura",152,"Uva_para vinificar","Producción según ingreso a establecimientos","quintales métricos","INV","Anual","Nacional","PROVINCIA","74","SAN LUIS",2023-01-01,1624
 13,"Vitivinicultura",152,"Uva_para vinificar","Producción según ingreso a establecimientos","quintales métricos","INV","Anual","Nacional","PROVINCIA","74","SAN LUIS",2024-01-01,2311
 13,"Vitivinicultura",152,"Uva_para vinificar","Producción según ingreso a establecimientos","quintales métricos","INV","Anual","Nacional","PROVINCIA","74","SAN LUIS",2025-01-01,2053
+13,"Vitivinicultura",152,"Uva_para vinificar","Producción según ingreso a establecimientos","quintales métricos","INV","Anual","Nacional","PROVINCIA","74","SAN LUIS",2026-01-01,2239
 13,"Vitivinicultura",152,"Uva_para vinificar","Producción según ingreso a establecimientos","quintales métricos","INV","Anual","Nacional","PROVINCIA","90","TUCUMAN",2004-01-01,119
 13,"Vitivinicultura",152,"Uva_para vinificar","Producción según ingreso a establecimientos","quintales métricos","INV","Anual","Nacional","PROVINCIA","90","TUCUMAN",2005-01-01,146
 13,"Vitivinicultura",152,"Uva_para vinificar","Producción según ingreso a establecimientos","quintales métricos","INV","Anual","Nacional","PROVINCIA","90","TUCUMAN",2006-01-01,360
@@ -653,6 +675,7 @@
 13,"Vitivinicultura",152,"Uva_para vinificar","Producción según ingreso a establecimientos","quintales métricos","INV","Anual","Nacional","PROVINCIA","90","TUCUMAN",2023-01-01,1537
 13,"Vitivinicultura",152,"Uva_para vinificar","Producción según ingreso a establecimientos","quintales métricos","INV","Anual","Nacional","PROVINCIA","90","TUCUMAN",2024-01-01,1289
 13,"Vitivinicultura",152,"Uva_para vinificar","Producción según ingreso a establecimientos","quintales métricos","INV","Anual","Nacional","PROVINCIA","90","TUCUMAN",2025-01-01,1970
+13,"Vitivinicultura",152,"Uva_para vinificar","Producción según ingreso a establecimientos","quintales métricos","INV","Anual","Nacional","PROVINCIA","90","TUCUMAN",2026-01-01,1729
 13,"Vitivinicultura",153,"Uva_para vinificar","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","06","BUENOS AIRES",2004-01-01,0
 13,"Vitivinicultura",153,"Uva_para vinificar","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","06","BUENOS AIRES",2005-01-01,53
 13,"Vitivinicultura",153,"Uva_para vinificar","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","06","BUENOS AIRES",2006-01-01,736
@@ -675,6 +698,7 @@
 13,"Vitivinicultura",153,"Uva_para vinificar","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","06","BUENOS AIRES",2023-01-01,2018
 13,"Vitivinicultura",153,"Uva_para vinificar","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","06","BUENOS AIRES",2024-01-01,3028
 13,"Vitivinicultura",153,"Uva_para vinificar","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","06","BUENOS AIRES",2025-01-01,4184
+13,"Vitivinicultura",153,"Uva_para vinificar","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","06","BUENOS AIRES",2026-01-01,2057
 13,"Vitivinicultura",153,"Uva_para vinificar","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","10","CATAMARCA",2004-01-01,176794
 13,"Vitivinicultura",153,"Uva_para vinificar","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","10","CATAMARCA",2005-01-01,196183
 13,"Vitivinicultura",153,"Uva_para vinificar","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","10","CATAMARCA",2006-01-01,191189
@@ -697,6 +721,7 @@
 13,"Vitivinicultura",153,"Uva_para vinificar","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","10","CATAMARCA",2023-01-01,69961
 13,"Vitivinicultura",153,"Uva_para vinificar","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","10","CATAMARCA",2024-01-01,102169
 13,"Vitivinicultura",153,"Uva_para vinificar","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","10","CATAMARCA",2025-01-01,117077
+13,"Vitivinicultura",153,"Uva_para vinificar","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","10","CATAMARCA",2026-01-01,132307
 13,"Vitivinicultura",153,"Uva_para vinificar","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","14","CORDOBA",2004-01-01,17210
 13,"Vitivinicultura",153,"Uva_para vinificar","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","14","CORDOBA",2005-01-01,21034
 13,"Vitivinicultura",153,"Uva_para vinificar","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","14","CORDOBA",2006-01-01,18196
@@ -719,6 +744,7 @@
 13,"Vitivinicultura",153,"Uva_para vinificar","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","14","CORDOBA",2023-01-01,4809
 13,"Vitivinicultura",153,"Uva_para vinificar","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","14","CORDOBA",2024-01-01,4499
 13,"Vitivinicultura",153,"Uva_para vinificar","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","14","CORDOBA",2025-01-01,4080
+13,"Vitivinicultura",153,"Uva_para vinificar","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","14","CORDOBA",2026-01-01,4552
 13,"Vitivinicultura",153,"Uva_para vinificar","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","26","CHUBUT",2004-01-01,9
 13,"Vitivinicultura",153,"Uva_para vinificar","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","26","CHUBUT",2005-01-01,23
 13,"Vitivinicultura",153,"Uva_para vinificar","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","26","CHUBUT",2006-01-01,52
@@ -741,6 +767,7 @@
 13,"Vitivinicultura",153,"Uva_para vinificar","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","26","CHUBUT",2023-01-01,2429
 13,"Vitivinicultura",153,"Uva_para vinificar","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","26","CHUBUT",2024-01-01,2360
 13,"Vitivinicultura",153,"Uva_para vinificar","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","26","CHUBUT",2025-01-01,1860
+13,"Vitivinicultura",153,"Uva_para vinificar","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","26","CHUBUT",2026-01-01,948
 13,"Vitivinicultura",153,"Uva_para vinificar","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","30","ENTRE RIOS",2004-01-01,0
 13,"Vitivinicultura",153,"Uva_para vinificar","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","30","ENTRE RIOS",2005-01-01,0
 13,"Vitivinicultura",153,"Uva_para vinificar","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","30","ENTRE RIOS",2006-01-01,0
@@ -763,6 +790,7 @@
 13,"Vitivinicultura",153,"Uva_para vinificar","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","30","ENTRE RIOS",2023-01-01,1021
 13,"Vitivinicultura",153,"Uva_para vinificar","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","30","ENTRE RIOS",2024-01-01,1710
 13,"Vitivinicultura",153,"Uva_para vinificar","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","30","ENTRE RIOS",2025-01-01,1292
+13,"Vitivinicultura",153,"Uva_para vinificar","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","30","ENTRE RIOS",2026-01-01,1736
 13,"Vitivinicultura",153,"Uva_para vinificar","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","38","JUJUY",2004-01-01,0
 13,"Vitivinicultura",153,"Uva_para vinificar","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","38","JUJUY",2005-01-01,0
 13,"Vitivinicultura",153,"Uva_para vinificar","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","38","JUJUY",2006-01-01,0
@@ -785,6 +813,7 @@
 13,"Vitivinicultura",153,"Uva_para vinificar","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","38","JUJUY",2023-01-01,1832
 13,"Vitivinicultura",153,"Uva_para vinificar","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","38","JUJUY",2024-01-01,2435
 13,"Vitivinicultura",153,"Uva_para vinificar","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","38","JUJUY",2025-01-01,3920
+13,"Vitivinicultura",153,"Uva_para vinificar","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","38","JUJUY",2026-01-01,4011
 13,"Vitivinicultura",153,"Uva_para vinificar","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","42","LA PAMPA",2004-01-01,1500
 13,"Vitivinicultura",153,"Uva_para vinificar","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","42","LA PAMPA",2005-01-01,4386
 13,"Vitivinicultura",153,"Uva_para vinificar","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","42","LA PAMPA",2006-01-01,4667
@@ -807,6 +836,7 @@
 13,"Vitivinicultura",153,"Uva_para vinificar","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","42","LA PAMPA",2023-01-01,8309
 13,"Vitivinicultura",153,"Uva_para vinificar","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","42","LA PAMPA",2024-01-01,22770
 13,"Vitivinicultura",153,"Uva_para vinificar","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","42","LA PAMPA",2025-01-01,20287
+13,"Vitivinicultura",153,"Uva_para vinificar","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","42","LA PAMPA",2026-01-01,15249
 13,"Vitivinicultura",153,"Uva_para vinificar","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","46","LA RIOJA",2004-01-01,821759
 13,"Vitivinicultura",153,"Uva_para vinificar","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","46","LA RIOJA",2005-01-01,1084676
 13,"Vitivinicultura",153,"Uva_para vinificar","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","46","LA RIOJA",2006-01-01,1090137
@@ -829,6 +859,7 @@
 13,"Vitivinicultura",153,"Uva_para vinificar","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","46","LA RIOJA",2023-01-01,601007
 13,"Vitivinicultura",153,"Uva_para vinificar","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","46","LA RIOJA",2024-01-01,645569
 13,"Vitivinicultura",153,"Uva_para vinificar","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","46","LA RIOJA",2025-01-01,566144
+13,"Vitivinicultura",153,"Uva_para vinificar","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","46","LA RIOJA",2026-01-01,549592
 13,"Vitivinicultura",153,"Uva_para vinificar","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","50","MENDOZA",2004-01-01,17750180
 13,"Vitivinicultura",153,"Uva_para vinificar","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","50","MENDOZA",2005-01-01,17865568
 13,"Vitivinicultura",153,"Uva_para vinificar","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","50","MENDOZA",2006-01-01,19018716
@@ -851,6 +882,7 @@
 13,"Vitivinicultura",153,"Uva_para vinificar","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","50","MENDOZA",2023-01-01,9345767
 13,"Vitivinicultura",153,"Uva_para vinificar","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","50","MENDOZA",2024-01-01,13615241
 13,"Vitivinicultura",153,"Uva_para vinificar","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","50","MENDOZA",2025-01-01,14785023
+13,"Vitivinicultura",153,"Uva_para vinificar","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","50","MENDOZA",2026-01-01,13158390
 13,"Vitivinicultura",153,"Uva_para vinificar","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","54","MISIONES",2008-01-01,25
 13,"Vitivinicultura",153,"Uva_para vinificar","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","54","MISIONES",2009-01-01,65
 13,"Vitivinicultura",153,"Uva_para vinificar","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","54","MISIONES",2010-01-01,0
@@ -879,6 +911,7 @@
 13,"Vitivinicultura",153,"Uva_para vinificar","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","58","NEUQUEN",2023-01-01,68787
 13,"Vitivinicultura",153,"Uva_para vinificar","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","58","NEUQUEN",2024-01-01,78377
 13,"Vitivinicultura",153,"Uva_para vinificar","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","58","NEUQUEN",2025-01-01,68925
+13,"Vitivinicultura",153,"Uva_para vinificar","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","58","NEUQUEN",2026-01-01,79937
 13,"Vitivinicultura",153,"Uva_para vinificar","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","62","RIO NEGRO",2004-01-01,67562
 13,"Vitivinicultura",153,"Uva_para vinificar","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","62","RIO NEGRO",2005-01-01,124860
 13,"Vitivinicultura",153,"Uva_para vinificar","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","62","RIO NEGRO",2006-01-01,77885
@@ -901,6 +934,7 @@
 13,"Vitivinicultura",153,"Uva_para vinificar","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","62","RIO NEGRO",2023-01-01,19903
 13,"Vitivinicultura",153,"Uva_para vinificar","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","62","RIO NEGRO",2024-01-01,41763
 13,"Vitivinicultura",153,"Uva_para vinificar","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","62","RIO NEGRO",2025-01-01,43472
+13,"Vitivinicultura",153,"Uva_para vinificar","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","62","RIO NEGRO",2026-01-01,41656
 13,"Vitivinicultura",153,"Uva_para vinificar","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","66","SALTA",2004-01-01,231123
 13,"Vitivinicultura",153,"Uva_para vinificar","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","66","SALTA",2005-01-01,206503
 13,"Vitivinicultura",153,"Uva_para vinificar","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","66","SALTA",2006-01-01,216494
@@ -923,6 +957,7 @@
 13,"Vitivinicultura",153,"Uva_para vinificar","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","66","SALTA",2023-01-01,290071
 13,"Vitivinicultura",153,"Uva_para vinificar","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","66","SALTA",2024-01-01,230818
 13,"Vitivinicultura",153,"Uva_para vinificar","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","66","SALTA",2025-01-01,277153
+13,"Vitivinicultura",153,"Uva_para vinificar","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","66","SALTA",2026-01-01,315760
 13,"Vitivinicultura",153,"Uva_para vinificar","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","70","SAN JUAN",2004-01-01,6482143
 13,"Vitivinicultura",153,"Uva_para vinificar","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","70","SAN JUAN",2005-01-01,7524113
 13,"Vitivinicultura",153,"Uva_para vinificar","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","70","SAN JUAN",2006-01-01,7087619
@@ -945,6 +980,7 @@
 13,"Vitivinicultura",153,"Uva_para vinificar","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","70","SAN JUAN",2023-01-01,3861717
 13,"Vitivinicultura",153,"Uva_para vinificar","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","70","SAN JUAN",2024-01-01,4044611
 13,"Vitivinicultura",153,"Uva_para vinificar","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","70","SAN JUAN",2025-01-01,3605148
+13,"Vitivinicultura",153,"Uva_para vinificar","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","70","SAN JUAN",2026-01-01,3824317
 13,"Vitivinicultura",153,"Uva_para vinificar","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","74","SAN LUIS",2010-01-01,297
 13,"Vitivinicultura",153,"Uva_para vinificar","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","74","SAN LUIS",2011-01-01,199
 13,"Vitivinicultura",153,"Uva_para vinificar","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","74","SAN LUIS",2012-01-01,1062
@@ -961,10 +997,13 @@
 13,"Vitivinicultura",153,"Uva_para vinificar","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","74","SAN LUIS",2023-01-01,757
 13,"Vitivinicultura",153,"Uva_para vinificar","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","74","SAN LUIS",2024-01-01,977
 13,"Vitivinicultura",153,"Uva_para vinificar","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","74","SAN LUIS",2025-01-01,1066
+13,"Vitivinicultura",153,"Uva_para vinificar","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","74","SAN LUIS",2026-01-01,1306
 13,"Vitivinicultura",153,"Uva_para vinificar","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","78","SANTA CRUZ",2023-01-01,15
 13,"Vitivinicultura",153,"Uva_para vinificar","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","78","SANTA CRUZ",2024-01-01,0
 13,"Vitivinicultura",153,"Uva_para vinificar","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","78","SANTA CRUZ",2025-01-01,6
+13,"Vitivinicultura",153,"Uva_para vinificar","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","78","SANTA CRUZ",2026-01-01,1
 13,"Vitivinicultura",153,"Uva_para vinificar","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","82","SANTA FE",2025-01-01,3
+13,"Vitivinicultura",153,"Uva_para vinificar","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","82","SANTA FE",2026-01-01,8
 13,"Vitivinicultura",153,"Uva_para vinificar","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","90","TUCUMAN",2004-01-01,531
 13,"Vitivinicultura",153,"Uva_para vinificar","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","90","TUCUMAN",2005-01-01,615
 13,"Vitivinicultura",153,"Uva_para vinificar","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","90","TUCUMAN",2006-01-01,744
@@ -987,6 +1026,7 @@
 13,"Vitivinicultura",153,"Uva_para vinificar","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","90","TUCUMAN",2023-01-01,1524
 13,"Vitivinicultura",153,"Uva_para vinificar","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","90","TUCUMAN",2024-01-01,1670
 13,"Vitivinicultura",153,"Uva_para vinificar","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","90","TUCUMAN",2025-01-01,2145
+13,"Vitivinicultura",153,"Uva_para vinificar","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","90","TUCUMAN",2026-01-01,2455
 13,"Vitivinicultura",154,"Uva_total","Producción según ingreso a establecimientos","quintales métricos","INV","Anual","Nacional","PROVINCIA","06","BUENOS AIRES",2005-01-01,53
 13,"Vitivinicultura",154,"Uva_total","Producción según ingreso a establecimientos","quintales métricos","INV","Anual","Nacional","PROVINCIA","06","BUENOS AIRES",2006-01-01,736
 13,"Vitivinicultura",154,"Uva_total","Producción según ingreso a establecimientos","quintales métricos","INV","Anual","Nacional","PROVINCIA","06","BUENOS AIRES",2007-01-01,824
@@ -1332,6 +1372,7 @@
 13,"Vitivinicultura",155,"Uva_total","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","06","BUENOS AIRES",2023-01-01,2018
 13,"Vitivinicultura",155,"Uva_total","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","06","BUENOS AIRES",2024-01-01,3028
 13,"Vitivinicultura",155,"Uva_total","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","06","BUENOS AIRES",2025-01-01,4184
+13,"Vitivinicultura",155,"Uva_total","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","06","BUENOS AIRES",2026-01-01,2057
 13,"Vitivinicultura",155,"Uva_total","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","10","CATAMARCA",2004-01-01,176794
 13,"Vitivinicultura",155,"Uva_total","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","10","CATAMARCA",2005-01-01,196183
 13,"Vitivinicultura",155,"Uva_total","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","10","CATAMARCA",2006-01-01,191189
@@ -1354,6 +1395,7 @@
 13,"Vitivinicultura",155,"Uva_total","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","10","CATAMARCA",2023-01-01,69961
 13,"Vitivinicultura",155,"Uva_total","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","10","CATAMARCA",2024-01-01,102169
 13,"Vitivinicultura",155,"Uva_total","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","10","CATAMARCA",2025-01-01,117077
+13,"Vitivinicultura",155,"Uva_total","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","10","CATAMARCA",2026-01-01,132307
 13,"Vitivinicultura",155,"Uva_total","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","14","CORDOBA",2004-01-01,17210
 13,"Vitivinicultura",155,"Uva_total","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","14","CORDOBA",2005-01-01,21034
 13,"Vitivinicultura",155,"Uva_total","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","14","CORDOBA",2006-01-01,18196
@@ -1376,6 +1418,7 @@
 13,"Vitivinicultura",155,"Uva_total","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","14","CORDOBA",2023-01-01,4809
 13,"Vitivinicultura",155,"Uva_total","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","14","CORDOBA",2024-01-01,4499
 13,"Vitivinicultura",155,"Uva_total","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","14","CORDOBA",2025-01-01,4080
+13,"Vitivinicultura",155,"Uva_total","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","14","CORDOBA",2026-01-01,4552
 13,"Vitivinicultura",155,"Uva_total","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","26","CHUBUT",2004-01-01,9
 13,"Vitivinicultura",155,"Uva_total","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","26","CHUBUT",2005-01-01,23
 13,"Vitivinicultura",155,"Uva_total","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","26","CHUBUT",2006-01-01,52
@@ -1398,6 +1441,7 @@
 13,"Vitivinicultura",155,"Uva_total","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","26","CHUBUT",2023-01-01,2429
 13,"Vitivinicultura",155,"Uva_total","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","26","CHUBUT",2024-01-01,2360
 13,"Vitivinicultura",155,"Uva_total","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","26","CHUBUT",2025-01-01,1860
+13,"Vitivinicultura",155,"Uva_total","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","26","CHUBUT",2026-01-01,948
 13,"Vitivinicultura",155,"Uva_total","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","30","ENTRE RIOS",2004-01-01,0
 13,"Vitivinicultura",155,"Uva_total","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","30","ENTRE RIOS",2005-01-01,0
 13,"Vitivinicultura",155,"Uva_total","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","30","ENTRE RIOS",2006-01-01,0
@@ -1420,6 +1464,7 @@
 13,"Vitivinicultura",155,"Uva_total","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","30","ENTRE RIOS",2023-01-01,1021
 13,"Vitivinicultura",155,"Uva_total","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","30","ENTRE RIOS",2024-01-01,1710
 13,"Vitivinicultura",155,"Uva_total","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","30","ENTRE RIOS",2025-01-01,1292
+13,"Vitivinicultura",155,"Uva_total","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","30","ENTRE RIOS",2026-01-01,1736
 13,"Vitivinicultura",155,"Uva_total","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","38","JUJUY",2004-01-01,0
 13,"Vitivinicultura",155,"Uva_total","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","38","JUJUY",2005-01-01,0
 13,"Vitivinicultura",155,"Uva_total","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","38","JUJUY",2006-01-01,0
@@ -1442,6 +1487,7 @@
 13,"Vitivinicultura",155,"Uva_total","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","38","JUJUY",2023-01-01,1832
 13,"Vitivinicultura",155,"Uva_total","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","38","JUJUY",2024-01-01,2435
 13,"Vitivinicultura",155,"Uva_total","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","38","JUJUY",2025-01-01,3920
+13,"Vitivinicultura",155,"Uva_total","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","38","JUJUY",2026-01-01,4011
 13,"Vitivinicultura",155,"Uva_total","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","42","LA PAMPA",2004-01-01,1500
 13,"Vitivinicultura",155,"Uva_total","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","42","LA PAMPA",2005-01-01,4386
 13,"Vitivinicultura",155,"Uva_total","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","42","LA PAMPA",2006-01-01,4667
@@ -1464,6 +1510,7 @@
 13,"Vitivinicultura",155,"Uva_total","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","42","LA PAMPA",2023-01-01,8309
 13,"Vitivinicultura",155,"Uva_total","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","42","LA PAMPA",2024-01-01,22770
 13,"Vitivinicultura",155,"Uva_total","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","42","LA PAMPA",2025-01-01,20287
+13,"Vitivinicultura",155,"Uva_total","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","42","LA PAMPA",2026-01-01,15249
 13,"Vitivinicultura",155,"Uva_total","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","46","LA RIOJA",2004-01-01,848982
 13,"Vitivinicultura",155,"Uva_total","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","46","LA RIOJA",2005-01-01,1105874
 13,"Vitivinicultura",155,"Uva_total","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","46","LA RIOJA",2006-01-01,1104754
@@ -1486,6 +1533,7 @@
 13,"Vitivinicultura",155,"Uva_total","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","46","LA RIOJA",2023-01-01,607343
 13,"Vitivinicultura",155,"Uva_total","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","46","LA RIOJA",2024-01-01,648967
 13,"Vitivinicultura",155,"Uva_total","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","46","LA RIOJA",2025-01-01,603019
+13,"Vitivinicultura",155,"Uva_total","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","46","LA RIOJA",2026-01-01,549592
 13,"Vitivinicultura",155,"Uva_total","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","50","MENDOZA",2004-01-01,17788828
 13,"Vitivinicultura",155,"Uva_total","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","50","MENDOZA",2005-01-01,17917766
 13,"Vitivinicultura",155,"Uva_total","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","50","MENDOZA",2006-01-01,19064137
@@ -1508,6 +1556,7 @@
 13,"Vitivinicultura",155,"Uva_total","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","50","MENDOZA",2023-01-01,9347928
 13,"Vitivinicultura",155,"Uva_total","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","50","MENDOZA",2024-01-01,13624208
 13,"Vitivinicultura",155,"Uva_total","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","50","MENDOZA",2025-01-01,14791253
+13,"Vitivinicultura",155,"Uva_total","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","50","MENDOZA",2026-01-01,13166194
 13,"Vitivinicultura",155,"Uva_total","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","54","MISIONES",2004-01-01,51
 13,"Vitivinicultura",155,"Uva_total","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","54","MISIONES",2005-01-01,0
 13,"Vitivinicultura",155,"Uva_total","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","54","MISIONES",2006-01-01,0
@@ -1540,6 +1589,7 @@
 13,"Vitivinicultura",155,"Uva_total","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","58","NEUQUEN",2023-01-01,68787
 13,"Vitivinicultura",155,"Uva_total","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","58","NEUQUEN",2024-01-01,78377
 13,"Vitivinicultura",155,"Uva_total","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","58","NEUQUEN",2025-01-01,68925
+13,"Vitivinicultura",155,"Uva_total","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","58","NEUQUEN",2026-01-01,79937
 13,"Vitivinicultura",155,"Uva_total","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","62","RIO NEGRO",2004-01-01,92997
 13,"Vitivinicultura",155,"Uva_total","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","62","RIO NEGRO",2005-01-01,145087
 13,"Vitivinicultura",155,"Uva_total","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","62","RIO NEGRO",2006-01-01,109280
@@ -1562,6 +1612,7 @@
 13,"Vitivinicultura",155,"Uva_total","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","62","RIO NEGRO",2023-01-01,19903
 13,"Vitivinicultura",155,"Uva_total","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","62","RIO NEGRO",2024-01-01,41763
 13,"Vitivinicultura",155,"Uva_total","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","62","RIO NEGRO",2025-01-01,43472
+13,"Vitivinicultura",155,"Uva_total","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","62","RIO NEGRO",2026-01-01,41656
 13,"Vitivinicultura",155,"Uva_total","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","66","SALTA",2004-01-01,231144
 13,"Vitivinicultura",155,"Uva_total","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","66","SALTA",2005-01-01,206557
 13,"Vitivinicultura",155,"Uva_total","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","66","SALTA",2006-01-01,216711
@@ -1584,6 +1635,7 @@
 13,"Vitivinicultura",155,"Uva_total","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","66","SALTA",2023-01-01,290071
 13,"Vitivinicultura",155,"Uva_total","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","66","SALTA",2024-01-01,230818
 13,"Vitivinicultura",155,"Uva_total","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","66","SALTA",2025-01-01,277153
+13,"Vitivinicultura",155,"Uva_total","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","66","SALTA",2026-01-01,315760
 13,"Vitivinicultura",155,"Uva_total","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","70","SAN JUAN",2004-01-01,7325889
 13,"Vitivinicultura",155,"Uva_total","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","70","SAN JUAN",2005-01-01,8645735
 13,"Vitivinicultura",155,"Uva_total","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","70","SAN JUAN",2006-01-01,8020224
@@ -1606,6 +1658,7 @@
 13,"Vitivinicultura",155,"Uva_total","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","70","SAN JUAN",2023-01-01,4126410
 13,"Vitivinicultura",155,"Uva_total","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","70","SAN JUAN",2024-01-01,4423986
 13,"Vitivinicultura",155,"Uva_total","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","70","SAN JUAN",2025-01-01,3968593
+13,"Vitivinicultura",155,"Uva_total","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","70","SAN JUAN",2026-01-01,4295759
 13,"Vitivinicultura",155,"Uva_total","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","74","SAN LUIS",2010-01-01,297
 13,"Vitivinicultura",155,"Uva_total","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","74","SAN LUIS",2011-01-01,199
 13,"Vitivinicultura",155,"Uva_total","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","74","SAN LUIS",2012-01-01,1062
@@ -1622,10 +1675,13 @@
 13,"Vitivinicultura",155,"Uva_total","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","74","SAN LUIS",2023-01-01,757
 13,"Vitivinicultura",155,"Uva_total","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","74","SAN LUIS",2024-01-01,977
 13,"Vitivinicultura",155,"Uva_total","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","74","SAN LUIS",2025-01-01,1066
+13,"Vitivinicultura",155,"Uva_total","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","74","SAN LUIS",2026-01-01,1306
 13,"Vitivinicultura",155,"Uva_total","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","78","SANTA CRUZ",2023-01-01,15
 13,"Vitivinicultura",155,"Uva_total","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","78","SANTA CRUZ",2024-01-01,0
 13,"Vitivinicultura",155,"Uva_total","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","78","SANTA CRUZ",2025-01-01,6
+13,"Vitivinicultura",155,"Uva_total","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","78","SANTA CRUZ",2026-01-01,1
 13,"Vitivinicultura",155,"Uva_total","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","82","SANTA FE",2025-01-01,3
+13,"Vitivinicultura",155,"Uva_total","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","82","SANTA FE",2026-01-01,8
 13,"Vitivinicultura",155,"Uva_total","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","90","TUCUMAN",2004-01-01,531
 13,"Vitivinicultura",155,"Uva_total","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","90","TUCUMAN",2005-01-01,615
 13,"Vitivinicultura",155,"Uva_total","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","90","TUCUMAN",2006-01-01,744
@@ -1648,6 +1704,7 @@
 13,"Vitivinicultura",155,"Uva_total","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","90","TUCUMAN",2023-01-01,1524
 13,"Vitivinicultura",155,"Uva_total","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","90","TUCUMAN",2024-01-01,1670
 13,"Vitivinicultura",155,"Uva_total","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","90","TUCUMAN",2025-01-01,2145
+13,"Vitivinicultura",155,"Uva_total","Producción según provincia de origen","quintales métricos","INV","Anual","Nacional","PROVINCIA","90","TUCUMAN",2026-01-01,2455
 13,"Vitivinicultura",156,"Vino","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","06","BUENOS AIRES",2005-01-01,28
 13,"Vitivinicultura",156,"Vino","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","06","BUENOS AIRES",2006-01-01,395
 13,"Vitivinicultura",156,"Vino","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","06","BUENOS AIRES",2007-01-01,480
@@ -1669,6 +1726,7 @@
 13,"Vitivinicultura",156,"Vino","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","06","BUENOS AIRES",2023-01-01,1289
 13,"Vitivinicultura",156,"Vino","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","06","BUENOS AIRES",2024-01-01,1937
 13,"Vitivinicultura",156,"Vino","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","06","BUENOS AIRES",2025-01-01,2697
+13,"Vitivinicultura",156,"Vino","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","06","BUENOS AIRES",2026-01-01,1294
 13,"Vitivinicultura",156,"Vino","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","10","CATAMARCA",2002-01-01,70708
 13,"Vitivinicultura",156,"Vino","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","10","CATAMARCA",2003-01-01,57988
 13,"Vitivinicultura",156,"Vino","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","10","CATAMARCA",2004-01-01,100724
@@ -1693,6 +1751,7 @@
 13,"Vitivinicultura",156,"Vino","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","10","CATAMARCA",2023-01-01,51497
 13,"Vitivinicultura",156,"Vino","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","10","CATAMARCA",2024-01-01,39996
 13,"Vitivinicultura",156,"Vino","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","10","CATAMARCA",2025-01-01,36467
+13,"Vitivinicultura",156,"Vino","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","10","CATAMARCA",2026-01-01,42070
 13,"Vitivinicultura",156,"Vino","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","14","CORDOBA",2002-01-01,6644
 13,"Vitivinicultura",156,"Vino","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","14","CORDOBA",2003-01-01,7024
 13,"Vitivinicultura",156,"Vino","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","14","CORDOBA",2004-01-01,16177
@@ -1717,6 +1776,7 @@
 13,"Vitivinicultura",156,"Vino","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","14","CORDOBA",2023-01-01,4367
 13,"Vitivinicultura",156,"Vino","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","14","CORDOBA",2024-01-01,3798
 13,"Vitivinicultura",156,"Vino","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","14","CORDOBA",2025-01-01,3330
+13,"Vitivinicultura",156,"Vino","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","14","CORDOBA",2026-01-01,3645
 13,"Vitivinicultura",156,"Vino","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","26","CHUBUT",2006-01-01,30
 13,"Vitivinicultura",156,"Vino","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","26","CHUBUT",2007-01-01,77
 13,"Vitivinicultura",156,"Vino","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","26","CHUBUT",2008-01-01,227
@@ -1737,6 +1797,7 @@
 13,"Vitivinicultura",156,"Vino","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","26","CHUBUT",2023-01-01,1491
 13,"Vitivinicultura",156,"Vino","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","26","CHUBUT",2024-01-01,1404
 13,"Vitivinicultura",156,"Vino","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","26","CHUBUT",2025-01-01,1114
+13,"Vitivinicultura",156,"Vino","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","26","CHUBUT",2026-01-01,439
 13,"Vitivinicultura",156,"Vino","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","30","ENTRE RIOS",2007-01-01,97
 13,"Vitivinicultura",156,"Vino","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","30","ENTRE RIOS",2008-01-01,120
 13,"Vitivinicultura",156,"Vino","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","30","ENTRE RIOS",2009-01-01,260
@@ -1756,6 +1817,7 @@
 13,"Vitivinicultura",156,"Vino","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","30","ENTRE RIOS",2023-01-01,727
 13,"Vitivinicultura",156,"Vino","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","30","ENTRE RIOS",2024-01-01,614
 13,"Vitivinicultura",156,"Vino","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","30","ENTRE RIOS",2025-01-01,512
+13,"Vitivinicultura",156,"Vino","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","30","ENTRE RIOS",2026-01-01,615
 13,"Vitivinicultura",156,"Vino","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","38","JUJUY",2007-01-01,33
 13,"Vitivinicultura",156,"Vino","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","38","JUJUY",2008-01-01,62
 13,"Vitivinicultura",156,"Vino","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","38","JUJUY",2009-01-01,76
@@ -1775,6 +1837,7 @@
 13,"Vitivinicultura",156,"Vino","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","38","JUJUY",2023-01-01,1349
 13,"Vitivinicultura",156,"Vino","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","38","JUJUY",2024-01-01,1742
 13,"Vitivinicultura",156,"Vino","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","38","JUJUY",2025-01-01,2705
+13,"Vitivinicultura",156,"Vino","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","38","JUJUY",2026-01-01,2420
 13,"Vitivinicultura",156,"Vino","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","42","LA PAMPA",2004-01-01,705
 13,"Vitivinicultura",156,"Vino","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","42","LA PAMPA",2005-01-01,2619
 13,"Vitivinicultura",156,"Vino","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","42","LA PAMPA",2006-01-01,2480
@@ -1797,6 +1860,7 @@
 13,"Vitivinicultura",156,"Vino","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","42","LA PAMPA",2023-01-01,1191
 13,"Vitivinicultura",156,"Vino","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","42","LA PAMPA",2024-01-01,3736
 13,"Vitivinicultura",156,"Vino","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","42","LA PAMPA",2025-01-01,6096
+13,"Vitivinicultura",156,"Vino","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","42","LA PAMPA",2026-01-01,4437
 13,"Vitivinicultura",156,"Vino","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","46","LA RIOJA",2002-01-01,652770
 13,"Vitivinicultura",156,"Vino","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","46","LA RIOJA",2003-01-01,455539
 13,"Vitivinicultura",156,"Vino","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","46","LA RIOJA",2004-01-01,578192
@@ -1821,6 +1885,7 @@
 13,"Vitivinicultura",156,"Vino","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","46","LA RIOJA",2023-01-01,378804
 13,"Vitivinicultura",156,"Vino","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","46","LA RIOJA",2024-01-01,391016
 13,"Vitivinicultura",156,"Vino","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","46","LA RIOJA",2025-01-01,315952
+13,"Vitivinicultura",156,"Vino","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","46","LA RIOJA",2026-01-01,349010
 13,"Vitivinicultura",156,"Vino","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","50","MENDOZA",1990-01-01,8853552
 13,"Vitivinicultura",156,"Vino","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","50","MENDOZA",1991-01-01,9674360
 13,"Vitivinicultura",156,"Vino","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","50","MENDOZA",1992-01-01,9821418
@@ -1857,6 +1922,7 @@
 13,"Vitivinicultura",156,"Vino","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","50","MENDOZA",2023-01-01,6514526
 13,"Vitivinicultura",156,"Vino","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","50","MENDOZA",2024-01-01,8792740
 13,"Vitivinicultura",156,"Vino","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","50","MENDOZA",2025-01-01,9051717
+13,"Vitivinicultura",156,"Vino","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","50","MENDOZA",2026-01-01,7993035
 13,"Vitivinicultura",156,"Vino","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","54","MISIONES",2008-01-01,19
 13,"Vitivinicultura",156,"Vino","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","54","MISIONES",2009-01-01,47
 13,"Vitivinicultura",156,"Vino","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","54","MISIONES",2010-01-01,0
@@ -1886,6 +1952,7 @@
 13,"Vitivinicultura",156,"Vino","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","58","NEUQUEN",2023-01-01,49363
 13,"Vitivinicultura",156,"Vino","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","58","NEUQUEN",2024-01-01,57182
 13,"Vitivinicultura",156,"Vino","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","58","NEUQUEN",2025-01-01,47569
+13,"Vitivinicultura",156,"Vino","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","58","NEUQUEN",2026-01-01,56962
 13,"Vitivinicultura",156,"Vino","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","62","RIO NEGRO",2002-01-01,83480
 13,"Vitivinicultura",156,"Vino","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","62","RIO NEGRO",2003-01-01,74586
 13,"Vitivinicultura",156,"Vino","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","62","RIO NEGRO",2004-01-01,45135
@@ -1910,6 +1977,7 @@
 13,"Vitivinicultura",156,"Vino","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","62","RIO NEGRO",2023-01-01,13295
 13,"Vitivinicultura",156,"Vino","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","62","RIO NEGRO",2024-01-01,25743
 13,"Vitivinicultura",156,"Vino","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","62","RIO NEGRO",2025-01-01,28880
+13,"Vitivinicultura",156,"Vino","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","62","RIO NEGRO",2026-01-01,27308
 13,"Vitivinicultura",156,"Vino","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","66","SALTA",2002-01-01,148399
 13,"Vitivinicultura",156,"Vino","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","66","SALTA",2003-01-01,147223
 13,"Vitivinicultura",156,"Vino","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","66","SALTA",2004-01-01,181596
@@ -1934,6 +2002,7 @@
 13,"Vitivinicultura",156,"Vino","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","66","SALTA",2023-01-01,212270
 13,"Vitivinicultura",156,"Vino","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","66","SALTA",2024-01-01,175779
 13,"Vitivinicultura",156,"Vino","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","66","SALTA",2025-01-01,218309
+13,"Vitivinicultura",156,"Vino","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","66","SALTA",2026-01-01,240683
 13,"Vitivinicultura",156,"Vino","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","70","SAN JUAN",1990-01-01,3692243
 13,"Vitivinicultura",156,"Vino","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","70","SAN JUAN",1991-01-01,3498776
 13,"Vitivinicultura",156,"Vino","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","70","SAN JUAN",1992-01-01,3248312
@@ -1970,6 +2039,7 @@
 13,"Vitivinicultura",156,"Vino","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","70","SAN JUAN",2023-01-01,1580889
 13,"Vitivinicultura",156,"Vino","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","70","SAN JUAN",2024-01-01,1370690
 13,"Vitivinicultura",156,"Vino","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","70","SAN JUAN",2025-01-01,1053773
+13,"Vitivinicultura",156,"Vino","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","70","SAN JUAN",2026-01-01,975979
 13,"Vitivinicultura",156,"Vino","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","74","SAN LUIS",2010-01-01,228
 13,"Vitivinicultura",156,"Vino","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","74","SAN LUIS",2011-01-01,134
 13,"Vitivinicultura",156,"Vino","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","74","SAN LUIS",2012-01-01,593.8
@@ -1986,6 +2056,7 @@
 13,"Vitivinicultura",156,"Vino","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","74","SAN LUIS",2023-01-01,985
 13,"Vitivinicultura",156,"Vino","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","74","SAN LUIS",2024-01-01,1592
 13,"Vitivinicultura",156,"Vino","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","74","SAN LUIS",2025-01-01,1239
+13,"Vitivinicultura",156,"Vino","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","74","SAN LUIS",2026-01-01,1399
 13,"Vitivinicultura",156,"Vino","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","90","TUCUMAN",2004-01-01,88
 13,"Vitivinicultura",156,"Vino","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","90","TUCUMAN",2005-01-01,112
 13,"Vitivinicultura",156,"Vino","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","90","TUCUMAN",2006-01-01,236
@@ -2008,6 +2079,7 @@
 13,"Vitivinicultura",156,"Vino","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","90","TUCUMAN",2023-01-01,1005
 13,"Vitivinicultura",156,"Vino","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","90","TUCUMAN",2024-01-01,874
 13,"Vitivinicultura",156,"Vino","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","90","TUCUMAN",2025-01-01,1361
+13,"Vitivinicultura",156,"Vino","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","90","TUCUMAN",2026-01-01,1125
 13,"Vitivinicultura",156,"Vino","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","98","INDETERMINADA",1990-01-01,1490505
 13,"Vitivinicultura",156,"Vino","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","98","INDETERMINADA",1991-01-01,1327136
 13,"Vitivinicultura",156,"Vino","Elaboración","hl","INV","Anual","Nacional","PROVINCIA","98","INDETERMINADA",1992-01-01,1281015
@@ -2305,6 +2377,7 @@
 13,"Vitivinicultura",157,"Vino","Exportaciones","hl","INV","Mensual","Nacional","PROVINCIA","06","BUENOS AIRES",2026-07-01,149
 13,"Vitivinicultura",157,"Vino","Exportaciones","hl","INV","Mensual","Nacional","PROVINCIA","06","BUENOS AIRES",2026-08-01,36
 13,"Vitivinicultura",157,"Vino","Exportaciones","hl","INV","Mensual","Nacional","PROVINCIA","06","BUENOS AIRES",2026-09-01,144
+13,"Vitivinicultura",157,"Vino","Exportaciones","hl","INV","Mensual","Nacional","PROVINCIA","06","BUENOS AIRES",2026-10-01,187
 13,"Vitivinicultura",157,"Vino","Exportaciones","hl","INV","Mensual","Nacional","PROVINCIA","10","CATAMARCA",2003-01-01,0
 13,"Vitivinicultura",157,"Vino","Exportaciones","hl","INV","Mensual","Nacional","PROVINCIA","10","CATAMARCA",2003-02-01,0
 13,"Vitivinicultura",157,"Vino","Exportaciones","hl","INV","Mensual","Nacional","PROVINCIA","10","CATAMARCA",2003-03-01,0
@@ -2590,6 +2663,7 @@
 13,"Vitivinicultura",157,"Vino","Exportaciones","hl","INV","Mensual","Nacional","PROVINCIA","10","CATAMARCA",2026-07-01,19
 13,"Vitivinicultura",157,"Vino","Exportaciones","hl","INV","Mensual","Nacional","PROVINCIA","10","CATAMARCA",2026-08-01,56
 13,"Vitivinicultura",157,"Vino","Exportaciones","hl","INV","Mensual","Nacional","PROVINCIA","10","CATAMARCA",2026-09-01,142
+13,"Vitivinicultura",157,"Vino","Exportaciones","hl","INV","Mensual","Nacional","PROVINCIA","10","CATAMARCA",2026-10-01,0
 13,"Vitivinicultura",157,"Vino","Exportaciones","hl","INV","Mensual","Nacional","PROVINCIA","14","CORDOBA",2003-01-01,0
 13,"Vitivinicultura",157,"Vino","Exportaciones","hl","INV","Mensual","Nacional","PROVINCIA","14","CORDOBA",2003-02-01,0
 13,"Vitivinicultura",157,"Vino","Exportaciones","hl","INV","Mensual","Nacional","PROVINCIA","14","CORDOBA",2003-03-01,0
@@ -2959,6 +3033,7 @@
 13,"Vitivinicultura",157,"Vino","Exportaciones","hl","INV","Mensual","Nacional","PROVINCIA","26","CHUBUT",2026-07-01,0
 13,"Vitivinicultura",157,"Vino","Exportaciones","hl","INV","Mensual","Nacional","PROVINCIA","26","CHUBUT",2026-08-01,0
 13,"Vitivinicultura",157,"Vino","Exportaciones","hl","INV","Mensual","Nacional","PROVINCIA","26","CHUBUT",2026-09-01,5
+13,"Vitivinicultura",157,"Vino","Exportaciones","hl","INV","Mensual","Nacional","PROVINCIA","26","CHUBUT",2026-10-01,0
 13,"Vitivinicultura",157,"Vino","Exportaciones","hl","INV","Mensual","Nacional","PROVINCIA","38","JUJUY",2012-01-01,0
 13,"Vitivinicultura",157,"Vino","Exportaciones","hl","INV","Mensual","Nacional","PROVINCIA","38","JUJUY",2012-02-01,0
 13,"Vitivinicultura",157,"Vino","Exportaciones","hl","INV","Mensual","Nacional","PROVINCIA","38","JUJUY",2012-03-01,0
@@ -3136,6 +3211,7 @@
 13,"Vitivinicultura",157,"Vino","Exportaciones","hl","INV","Mensual","Nacional","PROVINCIA","38","JUJUY",2026-07-01,0
 13,"Vitivinicultura",157,"Vino","Exportaciones","hl","INV","Mensual","Nacional","PROVINCIA","38","JUJUY",2026-08-01,5
 13,"Vitivinicultura",157,"Vino","Exportaciones","hl","INV","Mensual","Nacional","PROVINCIA","38","JUJUY",2026-09-01,2
+13,"Vitivinicultura",157,"Vino","Exportaciones","hl","INV","Mensual","Nacional","PROVINCIA","38","JUJUY",2026-10-01,9
 13,"Vitivinicultura",157,"Vino","Exportaciones","hl","INV","Mensual","Nacional","PROVINCIA","42","LA PAMPA",2006-01-01,0
 13,"Vitivinicultura",157,"Vino","Exportaciones","hl","INV","Mensual","Nacional","PROVINCIA","42","LA PAMPA",2006-02-01,0
 13,"Vitivinicultura",157,"Vino","Exportaciones","hl","INV","Mensual","Nacional","PROVINCIA","42","LA PAMPA",2006-03-01,0
@@ -3385,6 +3461,7 @@
 13,"Vitivinicultura",157,"Vino","Exportaciones","hl","INV","Mensual","Nacional","PROVINCIA","42","LA PAMPA",2026-07-01,0
 13,"Vitivinicultura",157,"Vino","Exportaciones","hl","INV","Mensual","Nacional","PROVINCIA","42","LA PAMPA",2026-08-01,0
 13,"Vitivinicultura",157,"Vino","Exportaciones","hl","INV","Mensual","Nacional","PROVINCIA","42","LA PAMPA",2026-09-01,0
+13,"Vitivinicultura",157,"Vino","Exportaciones","hl","INV","Mensual","Nacional","PROVINCIA","42","LA PAMPA",2026-10-01,0
 13,"Vitivinicultura",157,"Vino","Exportaciones","hl","INV","Mensual","Nacional","PROVINCIA","46","LA RIOJA",2001-01-01,3157.57
 13,"Vitivinicultura",157,"Vino","Exportaciones","hl","INV","Mensual","Nacional","PROVINCIA","46","LA RIOJA",2001-02-01,5028.59
 13,"Vitivinicultura",157,"Vino","Exportaciones","hl","INV","Mensual","Nacional","PROVINCIA","46","LA RIOJA",2001-03-01,2144.69
@@ -3694,6 +3771,7 @@
 13,"Vitivinicultura",157,"Vino","Exportaciones","hl","INV","Mensual","Nacional","PROVINCIA","46","LA RIOJA",2026-07-01,1559
 13,"Vitivinicultura",157,"Vino","Exportaciones","hl","INV","Mensual","Nacional","PROVINCIA","46","LA RIOJA",2026-08-01,1363
 13,"Vitivinicultura",157,"Vino","Exportaciones","hl","INV","Mensual","Nacional","PROVINCIA","46","LA RIOJA",2026-09-01,5768
+13,"Vitivinicultura",157,"Vino","Exportaciones","hl","INV","Mensual","Nacional","PROVINCIA","46","LA RIOJA",2026-10-01,1367
 13,"Vitivinicultura",157,"Vino","Exportaciones","hl","INV","Mensual","Nacional","PROVINCIA","50","MENDOZA",2001-01-01,48482
 13,"Vitivinicultura",157,"Vino","Exportaciones","hl","INV","Mensual","Nacional","PROVINCIA","50","MENDOZA",2001-02-01,48888.46
 13,"Vitivinicultura",157,"Vino","Exportaciones","hl","INV","Mensual","Nacional","PROVINCIA","50","MENDOZA",2001-03-01,63223.83
@@ -4003,6 +4081,7 @@
 13,"Vitivinicultura",157,"Vino","Exportaciones","hl","INV","Mensual","Nacional","PROVINCIA","50","MENDOZA",2026-07-01,123615
 13,"Vitivinicultura",157,"Vino","Exportaciones","hl","INV","Mensual","Nacional","PROVINCIA","50","MENDOZA",2026-08-01,115816
 13,"Vitivinicultura",157,"Vino","Exportaciones","hl","INV","Mensual","Nacional","PROVINCIA","50","MENDOZA",2026-09-01,216495
+13,"Vitivinicultura",157,"Vino","Exportaciones","hl","INV","Mensual","Nacional","PROVINCIA","50","MENDOZA",2026-10-01,200889
 13,"Vitivinicultura",157,"Vino","Exportaciones","hl","INV","Mensual","Nacional","PROVINCIA","58","NEUQUEN",2004-01-01,0
 13,"Vitivinicultura",157,"Vino","Exportaciones","hl","INV","Mensual","Nacional","PROVINCIA","58","NEUQUEN",2004-02-01,51.04
 13,"Vitivinicultura",157,"Vino","Exportaciones","hl","INV","Mensual","Nacional","PROVINCIA","58","NEUQUEN",2004-03-01,0
@@ -4276,6 +4355,7 @@
 13,"Vitivinicultura",157,"Vino","Exportaciones","hl","INV","Mensual","Nacional","PROVINCIA","58","NEUQUEN",2026-07-01,982
 13,"Vitivinicultura",157,"Vino","Exportaciones","hl","INV","Mensual","Nacional","PROVINCIA","58","NEUQUEN",2026-08-01,1168
 13,"Vitivinicultura",157,"Vino","Exportaciones","hl","INV","Mensual","Nacional","PROVINCIA","58","NEUQUEN",2026-09-01,644
+13,"Vitivinicultura",157,"Vino","Exportaciones","hl","INV","Mensual","Nacional","PROVINCIA","58","NEUQUEN",2026-10-01,1883
 13,"Vitivinicultura",157,"Vino","Exportaciones","hl","INV","Mensual","Nacional","PROVINCIA","62","RIO NEGRO",2001-01-01,0
 13,"Vitivinicultura",157,"Vino","Exportaciones","hl","INV","Mensual","Nacional","PROVINCIA","62","RIO NEGRO",2001-02-01,88.65
 13,"Vitivinicultura",157,"Vino","Exportaciones","hl","INV","Mensual","Nacional","PROVINCIA","62","RIO NEGRO",2001-03-01,81
@@ -4585,6 +4665,7 @@
 13,"Vitivinicultura",157,"Vino","Exportaciones","hl","INV","Mensual","Nacional","PROVINCIA","62","RIO NEGRO",2026-07-01,108
 13,"Vitivinicultura",157,"Vino","Exportaciones","hl","INV","Mensual","Nacional","PROVINCIA","62","RIO NEGRO",2026-08-01,196
 13,"Vitivinicultura",157,"Vino","Exportaciones","hl","INV","Mensual","Nacional","PROVINCIA","62","RIO NEGRO",2026-09-01,186
+13,"Vitivinicultura",157,"Vino","Exportaciones","hl","INV","Mensual","Nacional","PROVINCIA","62","RIO NEGRO",2026-10-01,311
 13,"Vitivinicultura",157,"Vino","Exportaciones","hl","INV","Mensual","Nacional","PROVINCIA","66","SALTA",2001-01-01,253.35
 13,"Vitivinicultura",157,"Vino","Exportaciones","hl","INV","Mensual","Nacional","PROVINCIA","66","SALTA",2001-02-01,157.77
 13,"Vitivinicultura",157,"Vino","Exportaciones","hl","INV","Mensual","Nacional","PROVINCIA","66","SALTA",2001-03-01,604.39
@@ -4894,6 +4975,7 @@
 13,"Vitivinicultura",157,"Vino","Exportaciones","hl","INV","Mensual","Nacional","PROVINCIA","66","SALTA",2026-07-01,1779
 13,"Vitivinicultura",157,"Vino","Exportaciones","hl","INV","Mensual","Nacional","PROVINCIA","66","SALTA",2026-08-01,1630
 13,"Vitivinicultura",157,"Vino","Exportaciones","hl","INV","Mensual","Nacional","PROVINCIA","66","SALTA",2026-09-01,2959
+13,"Vitivinicultura",157,"Vino","Exportaciones","hl","INV","Mensual","Nacional","PROVINCIA","66","SALTA",2026-10-01,3829
 13,"Vitivinicultura",157,"Vino","Exportaciones","hl","INV","Mensual","Nacional","PROVINCIA","70","SAN JUAN",2001-01-01,1617.6
 13,"Vitivinicultura",157,"Vino","Exportaciones","hl","INV","Mensual","Nacional","PROVINCIA","70","SAN JUAN",2001-02-01,4877.81
 13,"Vitivinicultura",157,"Vino","Exportaciones","hl","INV","Mensual","Nacional","PROVINCIA","70","SAN JUAN",2001-03-01,5154.15
@@ -5203,6 +5285,7 @@
 13,"Vitivinicultura",157,"Vino","Exportaciones","hl","INV","Mensual","Nacional","PROVINCIA","70","SAN JUAN",2026-07-01,1436
 13,"Vitivinicultura",157,"Vino","Exportaciones","hl","INV","Mensual","Nacional","PROVINCIA","70","SAN JUAN",2026-08-01,1638
 13,"Vitivinicultura",157,"Vino","Exportaciones","hl","INV","Mensual","Nacional","PROVINCIA","70","SAN JUAN",2026-09-01,4399
+13,"Vitivinicultura",157,"Vino","Exportaciones","hl","INV","Mensual","Nacional","PROVINCIA","70","SAN JUAN",2026-10-01,10007
 13,"Vitivinicultura",157,"Vino","Exportaciones","hl","INV","Mensual","Nacional","PROVINCIA","74","SAN LUIS",2008-01-01,9
 13,"Vitivinicultura",157,"Vino","Exportaciones","hl","INV","Mensual","Nacional","PROVINCIA","74","SAN LUIS",2008-02-01,0
 13,"Vitivinicultura",157,"Vino","Exportaciones","hl","INV","Mensual","Nacional","PROVINCIA","74","SAN LUIS",2008-03-01,0
@@ -6135,6 +6218,7 @@
 13,"Vitivinicultura",158,"Vino","Exportaciones","miles de dólares","INV","Mensual","Nacional","PROVINCIA","06","BUENOS AIRES",2026-07-01,273
 13,"Vitivinicultura",158,"Vino","Exportaciones","miles de dólares","INV","Mensual","Nacional","PROVINCIA","06","BUENOS AIRES",2026-08-01,38
 13,"Vitivinicultura",158,"Vino","Exportaciones","miles de dólares","INV","Mensual","Nacional","PROVINCIA","06","BUENOS AIRES",2026-09-01,145
+13,"Vitivinicultura",158,"Vino","Exportaciones","miles de dólares","INV","Mensual","Nacional","PROVINCIA","06","BUENOS AIRES",2026-10-01,253
 13,"Vitivinicultura",158,"Vino","Exportaciones","miles de dólares","INV","Mensual","Nacional","PROVINCIA","10","CATAMARCA",2003-01-01,0
 13,"Vitivinicultura",158,"Vino","Exportaciones","miles de dólares","INV","Mensual","Nacional","PROVINCIA","10","CATAMARCA",2003-02-01,0
 13,"Vitivinicultura",158,"Vino","Exportaciones","miles de dólares","INV","Mensual","Nacional","PROVINCIA","10","CATAMARCA",2003-03-01,0
@@ -6420,6 +6504,7 @@
 13,"Vitivinicultura",158,"Vino","Exportaciones","miles de dólares","INV","Mensual","Nacional","PROVINCIA","10","CATAMARCA",2026-07-01,4
 13,"Vitivinicultura",158,"Vino","Exportaciones","miles de dólares","INV","Mensual","Nacional","PROVINCIA","10","CATAMARCA",2026-08-01,17
 13,"Vitivinicultura",158,"Vino","Exportaciones","miles de dólares","INV","Mensual","Nacional","PROVINCIA","10","CATAMARCA",2026-09-01,33
+13,"Vitivinicultura",158,"Vino","Exportaciones","miles de dólares","INV","Mensual","Nacional","PROVINCIA","10","CATAMARCA",2026-10-01,0
 13,"Vitivinicultura",158,"Vino","Exportaciones","miles de dólares","INV","Mensual","Nacional","PROVINCIA","14","CORDOBA",2003-01-01,0
 13,"Vitivinicultura",158,"Vino","Exportaciones","miles de dólares","INV","Mensual","Nacional","PROVINCIA","14","CORDOBA",2003-02-01,0
 13,"Vitivinicultura",158,"Vino","Exportaciones","miles de dólares","INV","Mensual","Nacional","PROVINCIA","14","CORDOBA",2003-03-01,0
@@ -6789,6 +6874,7 @@
 13,"Vitivinicultura",158,"Vino","Exportaciones","miles de dólares","INV","Mensual","Nacional","PROVINCIA","26","CHUBUT",2026-07-01,0
 13,"Vitivinicultura",158,"Vino","Exportaciones","miles de dólares","INV","Mensual","Nacional","PROVINCIA","26","CHUBUT",2026-08-01,0
 13,"Vitivinicultura",158,"Vino","Exportaciones","miles de dólares","INV","Mensual","Nacional","PROVINCIA","26","CHUBUT",2026-09-01,14
+13,"Vitivinicultura",158,"Vino","Exportaciones","miles de dólares","INV","Mensual","Nacional","PROVINCIA","26","CHUBUT",2026-10-01,0
 13,"Vitivinicultura",158,"Vino","Exportaciones","miles de dólares","INV","Mensual","Nacional","PROVINCIA","38","JUJUY",2012-01-01,0
 13,"Vitivinicultura",158,"Vino","Exportaciones","miles de dólares","INV","Mensual","Nacional","PROVINCIA","38","JUJUY",2012-02-01,0
 13,"Vitivinicultura",158,"Vino","Exportaciones","miles de dólares","INV","Mensual","Nacional","PROVINCIA","38","JUJUY",2012-03-01,0
@@ -6966,6 +7052,7 @@
 13,"Vitivinicultura",158,"Vino","Exportaciones","miles de dólares","INV","Mensual","Nacional","PROVINCIA","38","JUJUY",2026-07-01,0
 13,"Vitivinicultura",158,"Vino","Exportaciones","miles de dólares","INV","Mensual","Nacional","PROVINCIA","38","JUJUY",2026-08-01,4
 13,"Vitivinicultura",158,"Vino","Exportaciones","miles de dólares","INV","Mensual","Nacional","PROVINCIA","38","JUJUY",2026-09-01,3
+13,"Vitivinicultura",158,"Vino","Exportaciones","miles de dólares","INV","Mensual","Nacional","PROVINCIA","38","JUJUY",2026-10-01,5
 13,"Vitivinicultura",158,"Vino","Exportaciones","miles de dólares","INV","Mensual","Nacional","PROVINCIA","42","LA PAMPA",2006-01-01,0
 13,"Vitivinicultura",158,"Vino","Exportaciones","miles de dólares","INV","Mensual","Nacional","PROVINCIA","42","LA PAMPA",2006-02-01,0
 13,"Vitivinicultura",158,"Vino","Exportaciones","miles de dólares","INV","Mensual","Nacional","PROVINCIA","42","LA PAMPA",2006-03-01,0
@@ -7215,6 +7302,7 @@
 13,"Vitivinicultura",158,"Vino","Exportaciones","miles de dólares","INV","Mensual","Nacional","PROVINCIA","42","LA PAMPA",2026-07-01,0
 13,"Vitivinicultura",158,"Vino","Exportaciones","miles de dólares","INV","Mensual","Nacional","PROVINCIA","42","LA PAMPA",2026-08-01,0
 13,"Vitivinicultura",158,"Vino","Exportaciones","miles de dólares","INV","Mensual","Nacional","PROVINCIA","42","LA PAMPA",2026-09-01,0
+13,"Vitivinicultura",158,"Vino","Exportaciones","miles de dólares","INV","Mensual","Nacional","PROVINCIA","42","LA PAMPA",2026-10-01,0
 13,"Vitivinicultura",158,"Vino","Exportaciones","miles de dólares","INV","Mensual","Nacional","PROVINCIA","46","LA RIOJA",2001-01-01,694
 13,"Vitivinicultura",158,"Vino","Exportaciones","miles de dólares","INV","Mensual","Nacional","PROVINCIA","46","LA RIOJA",2001-02-01,1006
 13,"Vitivinicultura",158,"Vino","Exportaciones","miles de dólares","INV","Mensual","Nacional","PROVINCIA","46","LA RIOJA",2001-03-01,282
@@ -7524,6 +7612,7 @@
 13,"Vitivinicultura",158,"Vino","Exportaciones","miles de dólares","INV","Mensual","Nacional","PROVINCIA","46","LA RIOJA",2026-07-01,324
 13,"Vitivinicultura",158,"Vino","Exportaciones","miles de dólares","INV","Mensual","Nacional","PROVINCIA","46","LA RIOJA",2026-08-01,223
 13,"Vitivinicultura",158,"Vino","Exportaciones","miles de dólares","INV","Mensual","Nacional","PROVINCIA","46","LA RIOJA",2026-09-01,1230
+13,"Vitivinicultura",158,"Vino","Exportaciones","miles de dólares","INV","Mensual","Nacional","PROVINCIA","46","LA RIOJA",2026-10-01,224
 13,"Vitivinicultura",158,"Vino","Exportaciones","miles de dólares","INV","Mensual","Nacional","PROVINCIA","50","MENDOZA",2001-01-01,9769
 13,"Vitivinicultura",158,"Vino","Exportaciones","miles de dólares","INV","Mensual","Nacional","PROVINCIA","50","MENDOZA",2001-02-01,9199
 13,"Vitivinicultura",158,"Vino","Exportaciones","miles de dólares","INV","Mensual","Nacional","PROVINCIA","50","MENDOZA",2001-03-01,11758
@@ -7833,6 +7922,7 @@
 13,"Vitivinicultura",158,"Vino","Exportaciones","miles de dólares","INV","Mensual","Nacional","PROVINCIA","50","MENDOZA",2026-07-01,40506
 13,"Vitivinicultura",158,"Vino","Exportaciones","miles de dólares","INV","Mensual","Nacional","PROVINCIA","50","MENDOZA",2026-08-01,43043
 13,"Vitivinicultura",158,"Vino","Exportaciones","miles de dólares","INV","Mensual","Nacional","PROVINCIA","50","MENDOZA",2026-09-01,72177
+13,"Vitivinicultura",158,"Vino","Exportaciones","miles de dólares","INV","Mensual","Nacional","PROVINCIA","50","MENDOZA",2026-10-01,63116
 13,"Vitivinicultura",158,"Vino","Exportaciones","miles de dólares","INV","Mensual","Nacional","PROVINCIA","58","NEUQUEN",2004-01-01,0
 13,"Vitivinicultura",158,"Vino","Exportaciones","miles de dólares","INV","Mensual","Nacional","PROVINCIA","58","NEUQUEN",2004-02-01,11
 13,"Vitivinicultura",158,"Vino","Exportaciones","miles de dólares","INV","Mensual","Nacional","PROVINCIA","58","NEUQUEN",2004-03-01,0
@@ -8106,6 +8196,7 @@
 13,"Vitivinicultura",158,"Vino","Exportaciones","miles de dólares","INV","Mensual","Nacional","PROVINCIA","58","NEUQUEN",2026-07-01,490
 13,"Vitivinicultura",158,"Vino","Exportaciones","miles de dólares","INV","Mensual","Nacional","PROVINCIA","58","NEUQUEN",2026-08-01,557
 13,"Vitivinicultura",158,"Vino","Exportaciones","miles de dólares","INV","Mensual","Nacional","PROVINCIA","58","NEUQUEN",2026-09-01,323
+13,"Vitivinicultura",158,"Vino","Exportaciones","miles de dólares","INV","Mensual","Nacional","PROVINCIA","58","NEUQUEN",2026-10-01,900
 13,"Vitivinicultura",158,"Vino","Exportaciones","miles de dólares","INV","Mensual","Nacional","PROVINCIA","62","RIO NEGRO",2001-01-01,0
 13,"Vitivinicultura",158,"Vino","Exportaciones","miles de dólares","INV","Mensual","Nacional","PROVINCIA","62","RIO NEGRO",2001-02-01,50
 13,"Vitivinicultura",158,"Vino","Exportaciones","miles de dólares","INV","Mensual","Nacional","PROVINCIA","62","RIO NEGRO",2001-03-01,41
@@ -8415,6 +8506,7 @@
 13,"Vitivinicultura",158,"Vino","Exportaciones","miles de dólares","INV","Mensual","Nacional","PROVINCIA","62","RIO NEGRO",2026-07-01,96
 13,"Vitivinicultura",158,"Vino","Exportaciones","miles de dólares","INV","Mensual","Nacional","PROVINCIA","62","RIO NEGRO",2026-08-01,376
 13,"Vitivinicultura",158,"Vino","Exportaciones","miles de dólares","INV","Mensual","Nacional","PROVINCIA","62","RIO NEGRO",2026-09-01,329
+13,"Vitivinicultura",158,"Vino","Exportaciones","miles de dólares","INV","Mensual","Nacional","PROVINCIA","62","RIO NEGRO",2026-10-01,547
 13,"Vitivinicultura",158,"Vino","Exportaciones","miles de dólares","INV","Mensual","Nacional","PROVINCIA","66","SALTA",2001-01-01,73
 13,"Vitivinicultura",158,"Vino","Exportaciones","miles de dólares","INV","Mensual","Nacional","PROVINCIA","66","SALTA",2001-02-01,43
 13,"Vitivinicultura",158,"Vino","Exportaciones","miles de dólares","INV","Mensual","Nacional","PROVINCIA","66","SALTA",2001-03-01,200
@@ -8724,6 +8816,7 @@
 13,"Vitivinicultura",158,"Vino","Exportaciones","miles de dólares","INV","Mensual","Nacional","PROVINCIA","66","SALTA",2026-07-01,879
 13,"Vitivinicultura",158,"Vino","Exportaciones","miles de dólares","INV","Mensual","Nacional","PROVINCIA","66","SALTA",2026-08-01,795
 13,"Vitivinicultura",158,"Vino","Exportaciones","miles de dólares","INV","Mensual","Nacional","PROVINCIA","66","SALTA",2026-09-01,1553
+13,"Vitivinicultura",158,"Vino","Exportaciones","miles de dólares","INV","Mensual","Nacional","PROVINCIA","66","SALTA",2026-10-01,1981
 13,"Vitivinicultura",158,"Vino","Exportaciones","miles de dólares","INV","Mensual","Nacional","PROVINCIA","70","SAN JUAN",2001-01-01,68
 13,"Vitivinicultura",158,"Vino","Exportaciones","miles de dólares","INV","Mensual","Nacional","PROVINCIA","70","SAN JUAN",2001-02-01,462
 13,"Vitivinicultura",158,"Vino","Exportaciones","miles de dólares","INV","Mensual","Nacional","PROVINCIA","70","SAN JUAN",2001-03-01,383
@@ -9033,6 +9126,7 @@
 13,"Vitivinicultura",158,"Vino","Exportaciones","miles de dólares","INV","Mensual","Nacional","PROVINCIA","70","SAN JUAN",2026-07-01,305
 13,"Vitivinicultura",158,"Vino","Exportaciones","miles de dólares","INV","Mensual","Nacional","PROVINCIA","70","SAN JUAN",2026-08-01,564
 13,"Vitivinicultura",158,"Vino","Exportaciones","miles de dólares","INV","Mensual","Nacional","PROVINCIA","70","SAN JUAN",2026-09-01,980
+13,"Vitivinicultura",158,"Vino","Exportaciones","miles de dólares","INV","Mensual","Nacional","PROVINCIA","70","SAN JUAN",2026-10-01,1061
 13,"Vitivinicultura",158,"Vino","Exportaciones","miles de dólares","INV","Mensual","Nacional","PROVINCIA","74","SAN LUIS",2008-01-01,2
 13,"Vitivinicultura",158,"Vino","Exportaciones","miles de dólares","INV","Mensual","Nacional","PROVINCIA","74","SAN LUIS",2008-02-01,0
 13,"Vitivinicultura",158,"Vino","Exportaciones","miles de dólares","INV","Mensual","Nacional","PROVINCIA","74","SAN LUIS",2008-03-01,0
@@ -9927,14 +10021,15 @@
 13,"Vitivinicultura",160,"Vino","Mercado interno","hl","INV","Mensual","Nacional","PROVINCIA","06","BUENOS AIRES",2025-10-01,1046
 13,"Vitivinicultura",160,"Vino","Mercado interno","hl","INV","Mensual","Nacional","PROVINCIA","06","BUENOS AIRES",2025-11-01,623
 13,"Vitivinicultura",160,"Vino","Mercado interno","hl","INV","Mensual","Nacional","PROVINCIA","06","BUENOS AIRES",2025-12-01,788
-13,"Vitivinicultura",160,"Vino","Mercado interno","hl","INV","Mensual","Nacional","PROVINCIA","06","BUENOS AIRES",2026-01-01,777
-13,"Vitivinicultura",160,"Vino","Mercado interno","hl","INV","Mensual","Nacional","PROVINCIA","06","BUENOS AIRES",2026-02-01,323
-13,"Vitivinicultura",160,"Vino","Mercado interno","hl","INV","Mensual","Nacional","PROVINCIA","06","BUENOS AIRES",2026-03-01,314
-13,"Vitivinicultura",160,"Vino","Mercado interno","hl","INV","Mensual","Nacional","PROVINCIA","06","BUENOS AIRES",2026-04-01,344
+13,"Vitivinicultura",160,"Vino","Mercado interno","hl","INV","Mensual","Nacional","PROVINCIA","06","BUENOS AIRES",2026-01-01,828
+13,"Vitivinicultura",160,"Vino","Mercado interno","hl","INV","Mensual","Nacional","PROVINCIA","06","BUENOS AIRES",2026-02-01,376
+13,"Vitivinicultura",160,"Vino","Mercado interno","hl","INV","Mensual","Nacional","PROVINCIA","06","BUENOS AIRES",2026-03-01,375
+13,"Vitivinicultura",160,"Vino","Mercado interno","hl","INV","Mensual","Nacional","PROVINCIA","06","BUENOS AIRES",2026-04-01,373
 13,"Vitivinicultura",160,"Vino","Mercado interno","hl","INV","Mensual","Nacional","PROVINCIA","06","BUENOS AIRES",2026-05-01,377
 13,"Vitivinicultura",160,"Vino","Mercado interno","hl","INV","Mensual","Nacional","PROVINCIA","06","BUENOS AIRES",2026-06-01,213
-13,"Vitivinicultura",160,"Vino","Mercado interno","hl","INV","Mensual","Nacional","PROVINCIA","06","BUENOS AIRES",2026-07-01,587
-13,"Vitivinicultura",160,"Vino","Mercado interno","hl","INV","Mensual","Nacional","PROVINCIA","06","BUENOS AIRES",2026-08-01,331
+13,"Vitivinicultura",160,"Vino","Mercado interno","hl","INV","Mensual","Nacional","PROVINCIA","06","BUENOS AIRES",2026-07-01,604
+13,"Vitivinicultura",160,"Vino","Mercado interno","hl","INV","Mensual","Nacional","PROVINCIA","06","BUENOS AIRES",2026-08-01,346
+13,"Vitivinicultura",160,"Vino","Mercado interno","hl","INV","Mensual","Nacional","PROVINCIA","06","BUENOS AIRES",2026-09-01,254
 13,"Vitivinicultura",160,"Vino","Mercado interno","hl","INV","Mensual","Nacional","PROVINCIA","10","CATAMARCA",2001-01-01,8150.67
 13,"Vitivinicultura",160,"Vino","Mercado interno","hl","INV","Mensual","Nacional","PROVINCIA","10","CATAMARCA",2001-02-01,4902.88
 13,"Vitivinicultura",160,"Vino","Mercado interno","hl","INV","Mensual","Nacional","PROVINCIA","10","CATAMARCA",2001-03-01,5759.02
@@ -10243,6 +10338,7 @@
 13,"Vitivinicultura",160,"Vino","Mercado interno","hl","INV","Mensual","Nacional","PROVINCIA","10","CATAMARCA",2026-06-01,98
 13,"Vitivinicultura",160,"Vino","Mercado interno","hl","INV","Mensual","Nacional","PROVINCIA","10","CATAMARCA",2026-07-01,84
 13,"Vitivinicultura",160,"Vino","Mercado interno","hl","INV","Mensual","Nacional","PROVINCIA","10","CATAMARCA",2026-08-01,263
+13,"Vitivinicultura",160,"Vino","Mercado interno","hl","INV","Mensual","Nacional","PROVINCIA","10","CATAMARCA",2026-09-01,59
 13,"Vitivinicultura",160,"Vino","Mercado interno","hl","INV","Mensual","Nacional","PROVINCIA","14","CORDOBA",2001-01-01,585.34
 13,"Vitivinicultura",160,"Vino","Mercado interno","hl","INV","Mensual","Nacional","PROVINCIA","14","CORDOBA",2001-02-01,1450.22
 13,"Vitivinicultura",160,"Vino","Mercado interno","hl","INV","Mensual","Nacional","PROVINCIA","14","CORDOBA",2001-03-01,353.2
@@ -10550,7 +10646,8 @@
 13,"Vitivinicultura",160,"Vino","Mercado interno","hl","INV","Mensual","Nacional","PROVINCIA","14","CORDOBA",2026-05-01,366
 13,"Vitivinicultura",160,"Vino","Mercado interno","hl","INV","Mensual","Nacional","PROVINCIA","14","CORDOBA",2026-06-01,158
 13,"Vitivinicultura",160,"Vino","Mercado interno","hl","INV","Mensual","Nacional","PROVINCIA","14","CORDOBA",2026-07-01,97
-13,"Vitivinicultura",160,"Vino","Mercado interno","hl","INV","Mensual","Nacional","PROVINCIA","14","CORDOBA",2026-08-01,476
+13,"Vitivinicultura",160,"Vino","Mercado interno","hl","INV","Mensual","Nacional","PROVINCIA","14","CORDOBA",2026-08-01,478
+13,"Vitivinicultura",160,"Vino","Mercado interno","hl","INV","Mensual","Nacional","PROVINCIA","14","CORDOBA",2026-09-01,294
 13,"Vitivinicultura",160,"Vino","Mercado interno","hl","INV","Mensual","Nacional","PROVINCIA","26","CHUBUT",2007-01-01,1.72
 13,"Vitivinicultura",160,"Vino","Mercado interno","hl","INV","Mensual","Nacional","PROVINCIA","26","CHUBUT",2007-02-01,0.3
 13,"Vitivinicultura",160,"Vino","Mercado interno","hl","INV","Mensual","Nacional","PROVINCIA","26","CHUBUT",2007-03-01,0.2
@@ -10787,6 +10884,7 @@
 13,"Vitivinicultura",160,"Vino","Mercado interno","hl","INV","Mensual","Nacional","PROVINCIA","26","CHUBUT",2026-06-01,2
 13,"Vitivinicultura",160,"Vino","Mercado interno","hl","INV","Mensual","Nacional","PROVINCIA","26","CHUBUT",2026-07-01,15
 13,"Vitivinicultura",160,"Vino","Mercado interno","hl","INV","Mensual","Nacional","PROVINCIA","26","CHUBUT",2026-08-01,6
+13,"Vitivinicultura",160,"Vino","Mercado interno","hl","INV","Mensual","Nacional","PROVINCIA","26","CHUBUT",2026-09-01,4
 13,"Vitivinicultura",160,"Vino","Mercado interno","hl","INV","Mensual","Nacional","PROVINCIA","30","ENTRE RIOS",2008-01-01,29.13
 13,"Vitivinicultura",160,"Vino","Mercado interno","hl","INV","Mensual","Nacional","PROVINCIA","30","ENTRE RIOS",2008-02-01,0
 13,"Vitivinicultura",160,"Vino","Mercado interno","hl","INV","Mensual","Nacional","PROVINCIA","30","ENTRE RIOS",2008-03-01,1.68
@@ -11011,6 +11109,7 @@
 13,"Vitivinicultura",160,"Vino","Mercado interno","hl","INV","Mensual","Nacional","PROVINCIA","30","ENTRE RIOS",2026-06-01,29
 13,"Vitivinicultura",160,"Vino","Mercado interno","hl","INV","Mensual","Nacional","PROVINCIA","30","ENTRE RIOS",2026-07-01,25
 13,"Vitivinicultura",160,"Vino","Mercado interno","hl","INV","Mensual","Nacional","PROVINCIA","30","ENTRE RIOS",2026-08-01,22
+13,"Vitivinicultura",160,"Vino","Mercado interno","hl","INV","Mensual","Nacional","PROVINCIA","30","ENTRE RIOS",2026-09-01,48
 13,"Vitivinicultura",160,"Vino","Mercado interno","hl","INV","Mensual","Nacional","PROVINCIA","38","JUJUY",2008-01-01,0
 13,"Vitivinicultura",160,"Vino","Mercado interno","hl","INV","Mensual","Nacional","PROVINCIA","38","JUJUY",2008-02-01,0
 13,"Vitivinicultura",160,"Vino","Mercado interno","hl","INV","Mensual","Nacional","PROVINCIA","38","JUJUY",2008-03-01,0
@@ -11235,6 +11334,7 @@
 13,"Vitivinicultura",160,"Vino","Mercado interno","hl","INV","Mensual","Nacional","PROVINCIA","38","JUJUY",2026-06-01,43
 13,"Vitivinicultura",160,"Vino","Mercado interno","hl","INV","Mensual","Nacional","PROVINCIA","38","JUJUY",2026-07-01,65
 13,"Vitivinicultura",160,"Vino","Mercado interno","hl","INV","Mensual","Nacional","PROVINCIA","38","JUJUY",2026-08-01,59
+13,"Vitivinicultura",160,"Vino","Mercado interno","hl","INV","Mensual","Nacional","PROVINCIA","38","JUJUY",2026-09-01,82
 13,"Vitivinicultura",160,"Vino","Mercado interno","hl","INV","Mensual","Nacional","PROVINCIA","42","LA PAMPA",2006-01-01,0
 13,"Vitivinicultura",160,"Vino","Mercado interno","hl","INV","Mensual","Nacional","PROVINCIA","42","LA PAMPA",2006-02-01,0
 13,"Vitivinicultura",160,"Vino","Mercado interno","hl","INV","Mensual","Nacional","PROVINCIA","42","LA PAMPA",2006-03-01,0
@@ -11483,6 +11583,7 @@
 13,"Vitivinicultura",160,"Vino","Mercado interno","hl","INV","Mensual","Nacional","PROVINCIA","42","LA PAMPA",2026-06-01,79
 13,"Vitivinicultura",160,"Vino","Mercado interno","hl","INV","Mensual","Nacional","PROVINCIA","42","LA PAMPA",2026-07-01,22
 13,"Vitivinicultura",160,"Vino","Mercado interno","hl","INV","Mensual","Nacional","PROVINCIA","42","LA PAMPA",2026-08-01,54
+13,"Vitivinicultura",160,"Vino","Mercado interno","hl","INV","Mensual","Nacional","PROVINCIA","42","LA PAMPA",2026-09-01,86
 13,"Vitivinicultura",160,"Vino","Mercado interno","hl","INV","Mensual","Nacional","PROVINCIA","46","LA RIOJA",2001-01-01,37122.57
 13,"Vitivinicultura",160,"Vino","Mercado interno","hl","INV","Mensual","Nacional","PROVINCIA","46","LA RIOJA",2001-02-01,38817.84
 13,"Vitivinicultura",160,"Vino","Mercado interno","hl","INV","Mensual","Nacional","PROVINCIA","46","LA RIOJA",2001-03-01,46190.4
@@ -11791,6 +11892,7 @@
 13,"Vitivinicultura",160,"Vino","Mercado interno","hl","INV","Mensual","Nacional","PROVINCIA","46","LA RIOJA",2026-06-01,14011
 13,"Vitivinicultura",160,"Vino","Mercado interno","hl","INV","Mensual","Nacional","PROVINCIA","46","LA RIOJA",2026-07-01,13351
 13,"Vitivinicultura",160,"Vino","Mercado interno","hl","INV","Mensual","Nacional","PROVINCIA","46","LA RIOJA",2026-08-01,14180
+13,"Vitivinicultura",160,"Vino","Mercado interno","hl","INV","Mensual","Nacional","PROVINCIA","46","LA RIOJA",2026-09-01,16168
 13,"Vitivinicultura",160,"Vino","Mercado interno","hl","INV","Mensual","Nacional","PROVINCIA","50","MENDOZA",2001-01-01,732721.69
 13,"Vitivinicultura",160,"Vino","Mercado interno","hl","INV","Mensual","Nacional","PROVINCIA","50","MENDOZA",2001-02-01,665944.09
 13,"Vitivinicultura",160,"Vino","Mercado interno","hl","INV","Mensual","Nacional","PROVINCIA","50","MENDOZA",2001-03-01,808775.78
@@ -12095,10 +12197,11 @@
 13,"Vitivinicultura",160,"Vino","Mercado interno","hl","INV","Mensual","Nacional","PROVINCIA","50","MENDOZA",2026-02-01,460418
 13,"Vitivinicultura",160,"Vino","Mercado interno","hl","INV","Mensual","Nacional","PROVINCIA","50","MENDOZA",2026-03-01,549478
 13,"Vitivinicultura",160,"Vino","Mercado interno","hl","INV","Mensual","Nacional","PROVINCIA","50","MENDOZA",2026-04-01,528157
-13,"Vitivinicultura",160,"Vino","Mercado interno","hl","INV","Mensual","Nacional","PROVINCIA","50","MENDOZA",2026-05-01,521937
-13,"Vitivinicultura",160,"Vino","Mercado interno","hl","INV","Mensual","Nacional","PROVINCIA","50","MENDOZA",2026-06-01,558168
+13,"Vitivinicultura",160,"Vino","Mercado interno","hl","INV","Mensual","Nacional","PROVINCIA","50","MENDOZA",2026-05-01,521936
+13,"Vitivinicultura",160,"Vino","Mercado interno","hl","INV","Mensual","Nacional","PROVINCIA","50","MENDOZA",2026-06-01,558295
 13,"Vitivinicultura",160,"Vino","Mercado interno","hl","INV","Mensual","Nacional","PROVINCIA","50","MENDOZA",2026-07-01,592745
-13,"Vitivinicultura",160,"Vino","Mercado interno","hl","INV","Mensual","Nacional","PROVINCIA","50","MENDOZA",2026-08-01,615978
+13,"Vitivinicultura",160,"Vino","Mercado interno","hl","INV","Mensual","Nacional","PROVINCIA","50","MENDOZA",2026-08-01,616392
+13,"Vitivinicultura",160,"Vino","Mercado interno","hl","INV","Mensual","Nacional","PROVINCIA","50","MENDOZA",2026-09-01,647393
 13,"Vitivinicultura",160,"Vino","Mercado interno","hl","INV","Mensual","Nacional","PROVINCIA","54","MISIONES",2006-01-01,0
 13,"Vitivinicultura",160,"Vino","Mercado interno","hl","INV","Mensual","Nacional","PROVINCIA","54","MISIONES",2006-02-01,0
 13,"Vitivinicultura",160,"Vino","Mercado interno","hl","INV","Mensual","Nacional","PROVINCIA","54","MISIONES",2006-03-01,0
@@ -12514,7 +12617,8 @@
 13,"Vitivinicultura",160,"Vino","Mercado interno","hl","INV","Mensual","Nacional","PROVINCIA","58","NEUQUEN",2026-05-01,1266
 13,"Vitivinicultura",160,"Vino","Mercado interno","hl","INV","Mensual","Nacional","PROVINCIA","58","NEUQUEN",2026-06-01,2191
 13,"Vitivinicultura",160,"Vino","Mercado interno","hl","INV","Mensual","Nacional","PROVINCIA","58","NEUQUEN",2026-07-01,2536
-13,"Vitivinicultura",160,"Vino","Mercado interno","hl","INV","Mensual","Nacional","PROVINCIA","58","NEUQUEN",2026-08-01,4618
+13,"Vitivinicultura",160,"Vino","Mercado interno","hl","INV","Mensual","Nacional","PROVINCIA","58","NEUQUEN",2026-08-01,4622
+13,"Vitivinicultura",160,"Vino","Mercado interno","hl","INV","Mensual","Nacional","PROVINCIA","58","NEUQUEN",2026-09-01,4214
 13,"Vitivinicultura",160,"Vino","Mercado interno","hl","INV","Mensual","Nacional","PROVINCIA","62","RIO NEGRO",2001-01-01,2821.37
 13,"Vitivinicultura",160,"Vino","Mercado interno","hl","INV","Mensual","Nacional","PROVINCIA","62","RIO NEGRO",2001-02-01,2178.38
 13,"Vitivinicultura",160,"Vino","Mercado interno","hl","INV","Mensual","Nacional","PROVINCIA","62","RIO NEGRO",2001-03-01,2370.49
@@ -12823,6 +12927,7 @@
 13,"Vitivinicultura",160,"Vino","Mercado interno","hl","INV","Mensual","Nacional","PROVINCIA","62","RIO NEGRO",2026-06-01,1141
 13,"Vitivinicultura",160,"Vino","Mercado interno","hl","INV","Mensual","Nacional","PROVINCIA","62","RIO NEGRO",2026-07-01,641
 13,"Vitivinicultura",160,"Vino","Mercado interno","hl","INV","Mensual","Nacional","PROVINCIA","62","RIO NEGRO",2026-08-01,761
+13,"Vitivinicultura",160,"Vino","Mercado interno","hl","INV","Mensual","Nacional","PROVINCIA","62","RIO NEGRO",2026-09-01,871
 13,"Vitivinicultura",160,"Vino","Mercado interno","hl","INV","Mensual","Nacional","PROVINCIA","66","SALTA",2001-01-01,10288.32
 13,"Vitivinicultura",160,"Vino","Mercado interno","hl","INV","Mensual","Nacional","PROVINCIA","66","SALTA",2001-02-01,7781.16
 13,"Vitivinicultura",160,"Vino","Mercado interno","hl","INV","Mensual","Nacional","PROVINCIA","66","SALTA",2001-03-01,9450
@@ -13131,6 +13236,7 @@
 13,"Vitivinicultura",160,"Vino","Mercado interno","hl","INV","Mensual","Nacional","PROVINCIA","66","SALTA",2026-06-01,11063
 13,"Vitivinicultura",160,"Vino","Mercado interno","hl","INV","Mensual","Nacional","PROVINCIA","66","SALTA",2026-07-01,9058
 13,"Vitivinicultura",160,"Vino","Mercado interno","hl","INV","Mensual","Nacional","PROVINCIA","66","SALTA",2026-08-01,8208
+13,"Vitivinicultura",160,"Vino","Mercado interno","hl","INV","Mensual","Nacional","PROVINCIA","66","SALTA",2026-09-01,9701
 13,"Vitivinicultura",160,"Vino","Mercado interno","hl","INV","Mensual","Nacional","PROVINCIA","70","SAN JUAN",2001-01-01,137546.7
 13,"Vitivinicultura",160,"Vino","Mercado interno","hl","INV","Mensual","Nacional","PROVINCIA","70","SAN JUAN",2001-02-01,129754.23
 13,"Vitivinicultura",160,"Vino","Mercado interno","hl","INV","Mensual","Nacional","PROVINCIA","70","SAN JUAN",2001-03-01,137572.48
@@ -13439,6 +13545,7 @@
 13,"Vitivinicultura",160,"Vino","Mercado interno","hl","INV","Mensual","Nacional","PROVINCIA","70","SAN JUAN",2026-06-01,31316
 13,"Vitivinicultura",160,"Vino","Mercado interno","hl","INV","Mensual","Nacional","PROVINCIA","70","SAN JUAN",2026-07-01,30470
 13,"Vitivinicultura",160,"Vino","Mercado interno","hl","INV","Mensual","Nacional","PROVINCIA","70","SAN JUAN",2026-08-01,32727
+13,"Vitivinicultura",160,"Vino","Mercado interno","hl","INV","Mensual","Nacional","PROVINCIA","70","SAN JUAN",2026-09-01,27879
 13,"Vitivinicultura",160,"Vino","Mercado interno","hl","INV","Mensual","Nacional","PROVINCIA","74","SAN LUIS",2010-01-01,0
 13,"Vitivinicultura",160,"Vino","Mercado interno","hl","INV","Mensual","Nacional","PROVINCIA","74","SAN LUIS",2010-02-01,0
 13,"Vitivinicultura",160,"Vino","Mercado interno","hl","INV","Mensual","Nacional","PROVINCIA","74","SAN LUIS",2010-03-01,0
@@ -13638,7 +13745,8 @@
 13,"Vitivinicultura",160,"Vino","Mercado interno","hl","INV","Mensual","Nacional","PROVINCIA","74","SAN LUIS",2026-05-01,54
 13,"Vitivinicultura",160,"Vino","Mercado interno","hl","INV","Mensual","Nacional","PROVINCIA","74","SAN LUIS",2026-06-01,92
 13,"Vitivinicultura",160,"Vino","Mercado interno","hl","INV","Mensual","Nacional","PROVINCIA","74","SAN LUIS",2026-07-01,53
-13,"Vitivinicultura",160,"Vino","Mercado interno","hl","INV","Mensual","Nacional","PROVINCIA","74","SAN LUIS",2026-08-01,64
+13,"Vitivinicultura",160,"Vino","Mercado interno","hl","INV","Mensual","Nacional","PROVINCIA","74","SAN LUIS",2026-08-01,70
+13,"Vitivinicultura",160,"Vino","Mercado interno","hl","INV","Mensual","Nacional","PROVINCIA","74","SAN LUIS",2026-09-01,62
 13,"Vitivinicultura",160,"Vino","Mercado interno","hl","INV","Mensual","Nacional","PROVINCIA","78","SANTA CRUZ",2024-01-01,0
 13,"Vitivinicultura",160,"Vino","Mercado interno","hl","INV","Mensual","Nacional","PROVINCIA","78","SANTA CRUZ",2024-02-01,0
 13,"Vitivinicultura",160,"Vino","Mercado interno","hl","INV","Mensual","Nacional","PROVINCIA","78","SANTA CRUZ",2024-03-01,0
@@ -13671,6 +13779,7 @@
 13,"Vitivinicultura",160,"Vino","Mercado interno","hl","INV","Mensual","Nacional","PROVINCIA","78","SANTA CRUZ",2026-06-01,0
 13,"Vitivinicultura",160,"Vino","Mercado interno","hl","INV","Mensual","Nacional","PROVINCIA","78","SANTA CRUZ",2026-07-01,0
 13,"Vitivinicultura",160,"Vino","Mercado interno","hl","INV","Mensual","Nacional","PROVINCIA","78","SANTA CRUZ",2026-08-01,0
+13,"Vitivinicultura",160,"Vino","Mercado interno","hl","INV","Mensual","Nacional","PROVINCIA","78","SANTA CRUZ",2026-09-01,0
 13,"Vitivinicultura",160,"Vino","Mercado interno","hl","INV","Mensual","Nacional","PROVINCIA","90","TUCUMAN",2004-01-01,0
 13,"Vitivinicultura",160,"Vino","Mercado interno","hl","INV","Mensual","Nacional","PROVINCIA","90","TUCUMAN",2004-02-01,0
 13,"Vitivinicultura",160,"Vino","Mercado interno","hl","INV","Mensual","Nacional","PROVINCIA","90","TUCUMAN",2004-03-01,0
@@ -13943,6 +14052,7 @@
 13,"Vitivinicultura",160,"Vino","Mercado interno","hl","INV","Mensual","Nacional","PROVINCIA","90","TUCUMAN",2026-06-01,77
 13,"Vitivinicultura",160,"Vino","Mercado interno","hl","INV","Mensual","Nacional","PROVINCIA","90","TUCUMAN",2026-07-01,21
 13,"Vitivinicultura",160,"Vino","Mercado interno","hl","INV","Mensual","Nacional","PROVINCIA","90","TUCUMAN",2026-08-01,117
+13,"Vitivinicultura",160,"Vino","Mercado interno","hl","INV","Mensual","Nacional","PROVINCIA","90","TUCUMAN",2026-09-01,30
 13,"Vitivinicultura",161,"Vino blanco escurrido","Precio interno_de traslado contado sin IVA Mendoza","$/hl","BCM","Mensual","Nacional","PAIS","200","Argentina",2007-01-01,48.11
 13,"Vitivinicultura",161,"Vino blanco escurrido","Precio interno_de traslado contado sin IVA Mendoza","$/hl","BCM","Mensual","Nacional","PAIS","200","Argentina",2007-02-01,44.58
 13,"Vitivinicultura",161,"Vino blanco escurrido","Precio interno_de traslado contado sin IVA Mendoza","$/hl","BCM","Mensual","Nacional","PAIS","200","Argentina",2007-03-01,41.8
@@ -14179,6 +14289,7 @@
 13,"Vitivinicultura",161,"Vino blanco escurrido","Precio interno_de traslado contado sin IVA Mendoza","$/hl","BCM","Mensual","Nacional","PAIS","200","Argentina",2026-06-01,26000
 13,"Vitivinicultura",161,"Vino blanco escurrido","Precio interno_de traslado contado sin IVA Mendoza","$/hl","BCM","Mensual","Nacional","PAIS","200","Argentina",2026-07-01,NA
 13,"Vitivinicultura",161,"Vino blanco escurrido","Precio interno_de traslado contado sin IVA Mendoza","$/hl","BCM","Mensual","Nacional","PAIS","200","Argentina",2026-08-01,NA
+13,"Vitivinicultura",161,"Vino blanco escurrido","Precio interno_de traslado contado sin IVA Mendoza","$/hl","BCM","Mensual","Nacional","PAIS","200","Argentina",2026-09-01,NA
 13,"Vitivinicultura",162,"Vino malbec (sin certificar)","Precio interno_de traslado contado sin IVA Mendoza","$/hl","BCM","Mensual","Nacional","PAIS","200","Argentina",2007-01-01,NA
 13,"Vitivinicultura",162,"Vino malbec (sin certificar)","Precio interno_de traslado contado sin IVA Mendoza","$/hl","BCM","Mensual","Nacional","PAIS","200","Argentina",2007-02-01,85.66
 13,"Vitivinicultura",162,"Vino malbec (sin certificar)","Precio interno_de traslado contado sin IVA Mendoza","$/hl","BCM","Mensual","Nacional","PAIS","200","Argentina",2007-03-01,73.97
@@ -14415,6 +14526,7 @@
 13,"Vitivinicultura",162,"Vino malbec (sin certificar)","Precio interno_de traslado contado sin IVA Mendoza","$/hl","BCM","Mensual","Nacional","PAIS","200","Argentina",2026-06-01,49075.23
 13,"Vitivinicultura",162,"Vino malbec (sin certificar)","Precio interno_de traslado contado sin IVA Mendoza","$/hl","BCM","Mensual","Nacional","PAIS","200","Argentina",2026-07-01,25000
 13,"Vitivinicultura",162,"Vino malbec (sin certificar)","Precio interno_de traslado contado sin IVA Mendoza","$/hl","BCM","Mensual","Nacional","PAIS","200","Argentina",2026-08-01,NA
+13,"Vitivinicultura",162,"Vino malbec (sin certificar)","Precio interno_de traslado contado sin IVA Mendoza","$/hl","BCM","Mensual","Nacional","PAIS","200","Argentina",2026-09-01,42000
 13,"Vitivinicultura",163,"Vinos tintos","Precio interno_de traslado contado sin IVA Mendoza","$/hl","BCM","Mensual","Nacional","PAIS","200","Argentina",1997-01-01,29.62
 13,"Vitivinicultura",163,"Vinos tintos","Precio interno_de traslado contado sin IVA Mendoza","$/hl","BCM","Mensual","Nacional","PAIS","200","Argentina",1997-02-01,29.6
 13,"Vitivinicultura",163,"Vinos tintos","Precio interno_de traslado contado sin IVA Mendoza","$/hl","BCM","Mensual","Nacional","PAIS","200","Argentina",1997-03-01,23.84
@@ -14771,6 +14883,7 @@
 13,"Vitivinicultura",163,"Vinos tintos","Precio interno_de traslado contado sin IVA Mendoza","$/hl","BCM","Mensual","Nacional","PAIS","200","Argentina",2026-06-01,23486.98
 13,"Vitivinicultura",163,"Vinos tintos","Precio interno_de traslado contado sin IVA Mendoza","$/hl","BCM","Mensual","Nacional","PAIS","200","Argentina",2026-07-01,13321.68
 13,"Vitivinicultura",163,"Vinos tintos","Precio interno_de traslado contado sin IVA Mendoza","$/hl","BCM","Mensual","Nacional","PAIS","200","Argentina",2026-08-01,17791.1
+13,"Vitivinicultura",163,"Vinos tintos","Precio interno_de traslado contado sin IVA Mendoza","$/hl","BCM","Mensual","Nacional","PAIS","200","Argentina",2026-09-01,20492.13
 13,"Vitivinicultura",164,"Vinos varietales","Certificación","hl","INV","Anual","Nacional","PROVINCIA","06","BUENOS AIRES",2009-01-01,128
 13,"Vitivinicultura",164,"Vinos varietales","Certificación","hl","INV","Anual","Nacional","PROVINCIA","06","BUENOS AIRES",2010-01-01,389
 13,"Vitivinicultura",164,"Vinos varietales","Certificación","hl","INV","Anual","Nacional","PROVINCIA","06","BUENOS AIRES",2011-01-01,517

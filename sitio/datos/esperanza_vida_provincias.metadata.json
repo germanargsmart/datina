@@ -48,8 +48,8 @@
    "archivo": "datos/crudo/indec_tablas_mortalidad.csv",
    "nombre": "Tablas de mortalidad por jurisdicción, 2020 a 2022",
    "organismo": "INDEC",
-   "descargado": "2026-11-15",
-   "ultimo_intento": "2026-11-15",
+   "descargado": "2026-11-23",
+   "ultimo_intento": "2026-11-23",
    "estado": "ok",
    "url": "https://censo.gob.ar/wp-content/uploads/2025/10/tabla_mortalidad_2020_2022_base_csv.csv"
   }
@@ -57,5 +57,5 @@
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
  "como_citar": "Datina (año de la consulta). ¿Cuántos años se vive en cada provincia? Con datos de INDEC, tablas de mortalidad por jurisdicción. https://datina.com.ar/salud#f-esperanza. Consultado el día de la consulta.",
- "datos_actualizados": "15/11/2026"
+ "datos_actualizados": "23/11/2026"
 }

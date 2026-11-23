@@ -88,23 +88,23 @@
    "archivo": "datos/crudo/indec_api_comercio_exterior_exportacion_bienes_anio_rubro_pais.json",
    "nombre": "Exportaciones de bienes por año, gran rubro y país (Catálogo API-INDEC)",
    "organismo": "INDEC",
-   "descargado": "2026-11-05",
-   "ultimo_intento": "2026-11-15",
-   "estado": "error: ipi_manufacturero: la API del INDEC contestó 503: {\"code\":\"PGRST000\",\"details\":\"connection to server at \\\"db\\\" (172.26.68.123), port 5432 failed: FATAL:  PAM authentication failed for user \\\"serapirest\\\"\\n\",\"hint\":null,\"message\":\"Database connection error.\"} | ipi_minero: la API del INDEC contestó 503: {\"code\":\"PGRST000\",\"details\":\"connection to server at \\\"db\\\" (172.26.68.123), port 5432 failed: FATAL:  PAM authentication failed for user \\\"serapirest\\\"\\n\",\"hint\":null,\"message\":\"Database connection error.\"} | proyecciones_poblacion_jurisdiccion_2022_2040: la API del INDEC contestó 503: {\"code\":\"PGRST000\",\"details\":\"connection to server at \\\"db\\\" (172.26.68.123), port 5432 failed: FATAL:  PAM authentication failed for user \\\"serapirest\\\"\\n\",\"hint\":null,\"message\":\"Database connection error.\"} | comercio_exterior_exportacion_bienes: la API del INDEC contestó 503: {\"code\":\"PGRST000\",\"details\":\"connection to server at \\\"db\\\" (172.26.68.123), port 5432 failed: FATAL:  PAM authentication failed for user \\\"serapirest\\\"\\n\",\"hint\":null,\"message\":\"Database connection error.\"} | comercio_exterior_importacion_bienes: la API del INDEC contestó 503: {\"code\":\"PGRST000\",\"details\":\"connection to server at \\\"db\\\" (172.26.68.123), port 5432 failed: FATAL:  PAM authentication failed for user \\\"serapirest\\\"\\n\",\"hint\":null,\"message\":\"Database connection error.\"} (sí se bajaron: estimaciones_poblacion_departamento_2022_2035 (14784 filas), canasta-crianza (81 filas), comercio_exterior_nomenclaturas (325 filas), comercio_exterior_exportacion_bienes:anio_rubro_pais (20474 filas), comercio_exterior_importacion_bienes:anio_uso_pais (26018 filas))",
+   "descargado": "2026-11-23",
+   "ultimo_intento": "2026-11-23",
+   "estado": "ok",
    "url": "https://api.indec.gob.ar/v1/comercio_exterior_exportacion_bienes"
   },
   {
    "archivo": "datos/crudo/indec_api_comercio_exterior_importacion_bienes_anio_uso_pais.json",
    "nombre": "Importaciones de bienes por año, uso económico y país (Catálogo API-INDEC)",
    "organismo": "INDEC",
-   "descargado": "2026-11-05",
-   "ultimo_intento": "2026-11-15",
-   "estado": "error: ipi_manufacturero: la API del INDEC contestó 503: {\"code\":\"PGRST000\",\"details\":\"connection to server at \\\"db\\\" (172.26.68.123), port 5432 failed: FATAL:  PAM authentication failed for user \\\"serapirest\\\"\\n\",\"hint\":null,\"message\":\"Database connection error.\"} | ipi_minero: la API del INDEC contestó 503: {\"code\":\"PGRST000\",\"details\":\"connection to server at \\\"db\\\" (172.26.68.123), port 5432 failed: FATAL:  PAM authentication failed for user \\\"serapirest\\\"\\n\",\"hint\":null,\"message\":\"Database connection error.\"} | proyecciones_poblacion_jurisdiccion_2022_2040: la API del INDEC contestó 503: {\"code\":\"PGRST000\",\"details\":\"connection to server at \\\"db\\\" (172.26.68.123), port 5432 failed: FATAL:  PAM authentication failed for user \\\"serapirest\\\"\\n\",\"hint\":null,\"message\":\"Database connection error.\"} | comercio_exterior_exportacion_bienes: la API del INDEC contestó 503: {\"code\":\"PGRST000\",\"details\":\"connection to server at \\\"db\\\" (172.26.68.123), port 5432 failed: FATAL:  PAM authentication failed for user \\\"serapirest\\\"\\n\",\"hint\":null,\"message\":\"Database connection error.\"} | comercio_exterior_importacion_bienes: la API del INDEC contestó 503: {\"code\":\"PGRST000\",\"details\":\"connection to server at \\\"db\\\" (172.26.68.123), port 5432 failed: FATAL:  PAM authentication failed for user \\\"serapirest\\\"\\n\",\"hint\":null,\"message\":\"Database connection error.\"} (sí se bajaron: estimaciones_poblacion_departamento_2022_2035 (14784 filas), canasta-crianza (81 filas), comercio_exterior_nomenclaturas (325 filas), comercio_exterior_exportacion_bienes:anio_rubro_pais (20474 filas), comercio_exterior_importacion_bienes:anio_uso_pais (26018 filas))",
+   "descargado": "2026-11-23",
+   "ultimo_intento": "2026-11-23",
+   "estado": "ok",
    "url": "https://api.indec.gob.ar/v1/comercio_exterior_importacion_bienes"
   }
  ],
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
  "como_citar": "Datina (año de la consulta). ¿Cuánto vale un kilo de lo que exporta y de lo que importa la Argentina? Con datos de INDEC, valor y peso de las exportaciones y las importaciones de bienes, vía el Catálogo API-INDEC. https://datina.com.ar/externo#f-valor-kilo. Consultado el día de la consulta.",
- "datos_actualizados": "15/11/2026"
+ "datos_actualizados": "23/11/2026"
 }

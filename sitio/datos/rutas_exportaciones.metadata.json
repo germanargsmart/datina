@@ -1,0 +1,79 @@
+{
+ "tabla": "rutas_exportaciones.csv",
+ "titulo": "¿Adónde van las exportaciones argentinas?",
+ "descripcion": "Exportaciones del último año completo por producto (subrubro) y país de destino, en millones de dólares y toneladas, con la salida y el camino simulado de cada fila",
+ "seccion": "Rutas comerciales",
+ "ficha": "https://datina.com.ar/rutas",
+ "fuente": "INDEC, exportaciones por subrubro y país de destino (API). La salida de cada producto, de organismos oficiales, cámaras y prensa (datos/manual/rutas_salidas.csv), y el puerto o el paso de frontera de cada país (datos/manual/rutas_destinos.csv)",
+ "organismos": [],
+ "actualizacion": "Se actualiza cuando el INDEC publica un año completo.",
+ "cobertura": "Sin desglose territorial",
+ "periodo": "",
+ "anio_desde": null,
+ "anio_hasta": null,
+ "filas": 1448,
+ "columnas": [
+  {
+   "nombre": "pais_cod",
+   "tipo": "Texto",
+   "valores": "143 valores distintos"
+  },
+  {
+   "nombre": "pais",
+   "tipo": "Texto",
+   "valores": "143 valores distintos"
+  },
+  {
+   "nombre": "subrubro_cod",
+   "tipo": "Número",
+   "valores": "101 a 499 (1 celda vacía)"
+  },
+  {
+   "nombre": "subrubro",
+   "tipo": "Texto",
+   "valores": "48 valores distintos"
+  },
+  {
+   "nombre": "rubro",
+   "tipo": "Texto",
+   "valores": "ce, moa, moi, otro, pp"
+  },
+  {
+   "nombre": "salida",
+   "tipo": "Texto",
+   "valores": "9 valores distintos (1 celda vacía)"
+  },
+  {
+   "nombre": "firmeza_salida",
+   "tipo": "Texto",
+   "valores": "inferido, oficial, prensa, suposicion (1 celda vacía)"
+  },
+  {
+   "nombre": "modo",
+   "tipo": "Texto",
+   "valores": "avión, mar, tierra (565 celdas vacías)"
+  },
+  {
+   "nombre": "destino",
+   "tipo": "Texto",
+   "valores": "58 valores distintos (565 celdas vacías)"
+  },
+  {
+   "nombre": "millones_usd",
+   "tipo": "Número",
+   "valores": "0 a 9.864,14"
+  },
+  {
+   "nombre": "toneladas",
+   "tipo": "Número",
+   "valores": "0 a 17.487.179,56"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "El INDEC no publica por dónde sale cada carga. La salida (con su firmeza: oficial, prensa, inferido o suposición), el modo (mar, tierra o avión) y el destino son una simulación de Datina, explicada en la herramienta. Sin modo, la fila no tiene camino dibujado: países fuera de la tabla de destinos, lo confidencial, sin rubro ni país, y lo que no se puede dibujar.",
+ "origen": [],
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
+ "como_citar": "Datina (año de la consulta). ¿Adónde van las exportaciones argentinas? Con datos de INDEC, exportaciones por subrubro y país de destino (API). La salida de cada producto, de organismos oficiales, cámaras y prensa (datos/manual/rutas_salidas.csv), y el puerto o el paso de frontera de cada país (datos/manual/rutas_destinos.csv). https://datina.com.ar/rutas. Consultado el día de la consulta.",
+ "datos_actualizados": "23/11/2026"
+}

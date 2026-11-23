@@ -1,7 +1,7 @@
 {
  "tabla": "importaciones_origen.csv",
  "titulo": "¿De dónde vienen las importaciones?",
- "descripcion": "Importaciones de bienes por origen, en % del total, enero a septiembre de 2026",
+ "descripcion": "Importaciones de bienes por origen, en % del total, enero a octubre de 2026",
  "seccion": "Sector externo",
  "ficha": "https://datina.com.ar/externo#f-origen",
  "fuente": "INDEC, intercambio comercial argentino, importaciones por zona económica y país (provisorio).",
@@ -28,22 +28,22 @@
   {
    "nombre": "millones_usd",
    "tipo": "Número",
-   "valores": "5,93 a 13.046,96"
+   "valores": "15,72 a 14.772,91"
   },
   {
    "nombre": "millones_usd_anterior",
    "tipo": "Número",
-   "valores": "10,93 a 14.470,9"
+   "valores": "13,62 a 16.070,64"
   },
   {
    "nombre": "pct",
    "tipo": "Número",
-   "valores": "0,01 a 23,27"
+   "valores": "0,03 a 23,54"
   },
   {
    "nombre": "variacion",
    "tipo": "Número",
-   "valores": "-45,74 a 47,91"
+   "valores": "-25,39 a 47,55"
   }
  ],
  "unidades": [],
@@ -51,15 +51,15 @@
  "origen": [
   {
    "archivo": "datos/crudo/indec_ica_cuadros.xls",
-   "nombre": "Anexo de cuadros del informe de intercambio comercial argentino (importaciones por zona económica y país, cuadro 37)",
+   "nombre": "Anexo de cuadros del informe de intercambio comercial argentino (importaciones acumuladas por zona económica y país)",
    "organismo": "INDEC",
-   "descargado": "2026-11-15",
-   "ultimo_intento": "2026-11-15",
+   "descargado": "2026-11-23",
+   "ultimo_intento": "2026-11-23",
    "estado": "ok"
   }
  ],
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
  "como_citar": "Datina (año de la consulta). ¿De dónde vienen las importaciones? Con datos de INDEC, intercambio comercial argentino, importaciones por zona económica y país (provisorio). https://datina.com.ar/externo#f-origen. Consultado el día de la consulta.",
- "datos_actualizados": "15/11/2026"
+ "datos_actualizados": "23/11/2026"
 }

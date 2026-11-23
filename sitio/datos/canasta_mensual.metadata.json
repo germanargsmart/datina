@@ -73,8 +73,8 @@
    "archivo": "datos/crudo/indec_canastas.xls",
    "nombre": "Canastas básicas alimentaria y total del Gran Buenos Aires (serie mensual)",
    "organismo": "INDEC",
-   "descargado": "2026-11-15",
-   "ultimo_intento": "2026-11-15",
+   "descargado": "2026-11-23",
+   "ultimo_intento": "2026-11-23",
    "estado": "ok",
    "url": "https://www.indec.gob.ar/ftp/cuadros/sociedad/serie_cba_cbt.xls"
   },
@@ -82,8 +82,8 @@
    "archivo": "datos/crudo/indec_ipc_divisiones.csv",
    "nombre": "Índice de precios al consumidor por región, división, categoría y bienes y servicios",
    "organismo": "INDEC",
-   "descargado": "2026-11-15",
-   "ultimo_intento": "2026-11-15",
+   "descargado": "2026-11-23",
+   "ultimo_intento": "2026-11-23",
    "estado": "ok",
    "url": "https://www.indec.gob.ar/ftp/cuadros/economia/serie_ipc_divisiones.csv"
   }
@@ -91,5 +91,5 @@
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
  "como_citar": "Datina (año de la consulta). ¿Cuánto necesita un hogar por mes para no quedar bajo la línea de pobreza? Con datos de INDEC, canasta básica alimentaria y canasta básica total, e informe de pobreza e indigencia. https://datina.com.ar/economia#f-canastas. Consultado el día de la consulta.",
- "datos_actualizados": "15/11/2026"
+ "datos_actualizados": "23/11/2026"
 }

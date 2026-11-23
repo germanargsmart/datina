@@ -283,6 +283,8 @@
 35,"Cárnica - Vacuna",934,"Asado","Precio interno_al consumidor GBA","$/kg","IPCVA","Mensual","Nacional","PAIS","200","Argentina",2026-06-01,17916
 35,"Cárnica - Vacuna",934,"Asado","Precio interno_al consumidor GBA","$/kg","IPCVA","Mensual","Nacional","PAIS","200","Argentina",2026-07-01,17704
 35,"Cárnica - Vacuna",934,"Asado","Precio interno_al consumidor GBA","$/kg","IPCVA","Mensual","Nacional","PAIS","200","Argentina",2026-08-01,17650
+35,"Cárnica - Vacuna",934,"Asado","Precio interno_al consumidor GBA","$/kg","IPCVA","Mensual","Nacional","PAIS","200","Argentina",2026-09-01,17869
+35,"Cárnica - Vacuna",934,"Asado","Precio interno_al consumidor GBA","$/kg","IPCVA","Mensual","Nacional","PAIS","200","Argentina",2026-10-01,17744
 35,"Cárnica - Vacuna",935,"Asado-Pollo","Precio interno_relación Asado-Pollo precio al consumidor GBA","índice","IPCVA","Mensual","Nacional","PAIS","200","Argentina",2003-01-01,1.5907859078591
 35,"Cárnica - Vacuna",935,"Asado-Pollo","Precio interno_relación Asado-Pollo precio al consumidor GBA","índice","IPCVA","Mensual","Nacional","PAIS","200","Argentina",2003-02-01,1.6342857142857
 35,"Cárnica - Vacuna",935,"Asado-Pollo","Precio interno_relación Asado-Pollo precio al consumidor GBA","índice","IPCVA","Mensual","Nacional","PAIS","200","Argentina",2003-03-01,1.585635359116
@@ -565,8 +567,10 @@
 35,"Cárnica - Vacuna",935,"Asado-Pollo","Precio interno_relación Asado-Pollo precio al consumidor GBA","índice","IPCVA","Mensual","Nacional","PAIS","200","Argentina",2026-04-01,3.665113452188
 35,"Cárnica - Vacuna",935,"Asado-Pollo","Precio interno_relación Asado-Pollo precio al consumidor GBA","índice","IPCVA","Mensual","Nacional","PAIS","200","Argentina",2026-05-01,3.5962757527734
 35,"Cárnica - Vacuna",935,"Asado-Pollo","Precio interno_relación Asado-Pollo precio al consumidor GBA","índice","IPCVA","Mensual","Nacional","PAIS","200","Argentina",2026-06-01,3.5961461260538
-35,"Cárnica - Vacuna",935,"Asado-Pollo","Precio interno_relación Asado-Pollo precio al consumidor GBA","índice","IPCVA","Mensual","Nacional","PAIS","200","Argentina",2026-07-01,3.5874366767984
+35,"Cárnica - Vacuna",935,"Asado-Pollo","Precio interno_relación Asado-Pollo precio al consumidor GBA","índice","IPCVA","Mensual","Nacional","PAIS","200","Argentina",2026-07-01,3.5535929345644
 35,"Cárnica - Vacuna",935,"Asado-Pollo","Precio interno_relación Asado-Pollo precio al consumidor GBA","índice","IPCVA","Mensual","Nacional","PAIS","200","Argentina",2026-08-01,3.5772192946899
+35,"Cárnica - Vacuna",935,"Asado-Pollo","Precio interno_relación Asado-Pollo precio al consumidor GBA","índice","IPCVA","Mensual","Nacional","PAIS","200","Argentina",2026-09-01,3.6069842551474
+35,"Cárnica - Vacuna",935,"Asado-Pollo","Precio interno_relación Asado-Pollo precio al consumidor GBA","índice","IPCVA","Mensual","Nacional","PAIS","200","Argentina",2026-10-01,3.5730970600081
 35,"Cárnica - Vacuna",936,"Bovino","Faena","cabezas","DNCCA","Anual","Nacional","DEPARTAMENTO","06007","ADOLFO ALSINA",1998-01-01,0
 35,"Cárnica - Vacuna",936,"Bovino","Faena","cabezas","DNCCA","Anual","Nacional","DEPARTAMENTO","06007","ADOLFO ALSINA",1999-01-01,0
 35,"Cárnica - Vacuna",936,"Bovino","Faena","cabezas","DNCCA","Anual","Nacional","DEPARTAMENTO","06007","ADOLFO ALSINA",2000-01-01,4355
@@ -8757,14 +8761,15 @@
 35,"Cárnica - Vacuna",938,"Bovino","Faena","cabezas","MAGYP","Mensual","Nacional","PAIS","200","Argentina",2025-10-01,1203177.75
 35,"Cárnica - Vacuna",938,"Bovino","Faena","cabezas","MAGYP","Mensual","Nacional","PAIS","200","Argentina",2025-11-01,1052187
 35,"Cárnica - Vacuna",938,"Bovino","Faena","cabezas","MAGYP","Mensual","Nacional","PAIS","200","Argentina",2025-12-01,1134940
-35,"Cárnica - Vacuna",938,"Bovino","Faena","cabezas","MAGYP","Mensual","Nacional","PAIS","200","Argentina",2026-01-01,1023215.5
-35,"Cárnica - Vacuna",938,"Bovino","Faena","cabezas","MAGYP","Mensual","Nacional","PAIS","200","Argentina",2026-02-01,926614
-35,"Cárnica - Vacuna",938,"Bovino","Faena","cabezas","MAGYP","Mensual","Nacional","PAIS","200","Argentina",2026-03-01,1031583.25
-35,"Cárnica - Vacuna",938,"Bovino","Faena","cabezas","MAGYP","Mensual","Nacional","PAIS","200","Argentina",2026-04-01,962478.25
-35,"Cárnica - Vacuna",938,"Bovino","Faena","cabezas","MAGYP","Mensual","Nacional","PAIS","200","Argentina",2026-05-01,1001491.75
-35,"Cárnica - Vacuna",938,"Bovino","Faena","cabezas","MAGYP","Mensual","Nacional","PAIS","200","Argentina",2026-06-01,1077369.25
-35,"Cárnica - Vacuna",938,"Bovino","Faena","cabezas","MAGYP","Mensual","Nacional","PAIS","200","Argentina",2026-07-01,1096084
-35,"Cárnica - Vacuna",938,"Bovino","Faena","cabezas","MAGYP","Mensual","Nacional","PAIS","200","Argentina",2026-08-01,1011333.75
+35,"Cárnica - Vacuna",938,"Bovino","Faena","cabezas","MAGYP","Mensual","Nacional","PAIS","200","Argentina",2026-01-01,1023288.5
+35,"Cárnica - Vacuna",938,"Bovino","Faena","cabezas","MAGYP","Mensual","Nacional","PAIS","200","Argentina",2026-02-01,926675
+35,"Cárnica - Vacuna",938,"Bovino","Faena","cabezas","MAGYP","Mensual","Nacional","PAIS","200","Argentina",2026-03-01,1031655.25
+35,"Cárnica - Vacuna",938,"Bovino","Faena","cabezas","MAGYP","Mensual","Nacional","PAIS","200","Argentina",2026-04-01,962519.25
+35,"Cárnica - Vacuna",938,"Bovino","Faena","cabezas","MAGYP","Mensual","Nacional","PAIS","200","Argentina",2026-05-01,1001531.75
+35,"Cárnica - Vacuna",938,"Bovino","Faena","cabezas","MAGYP","Mensual","Nacional","PAIS","200","Argentina",2026-06-01,1077454.25
+35,"Cárnica - Vacuna",938,"Bovino","Faena","cabezas","MAGYP","Mensual","Nacional","PAIS","200","Argentina",2026-07-01,1096157
+35,"Cárnica - Vacuna",938,"Bovino","Faena","cabezas","MAGYP","Mensual","Nacional","PAIS","200","Argentina",2026-08-01,1011738.75
+35,"Cárnica - Vacuna",938,"Bovino","Faena","cabezas","MAGYP","Mensual","Nacional","PAIS","200","Argentina",2026-09-01,1045293
 35,"Cárnica - Vacuna",939,"Bovino","Faena_% hembras","%","MAGYP","Mensual","Nacional","PAIS","200","Argentina",1990-01-01,41.07
 35,"Cárnica - Vacuna",939,"Bovino","Faena_% hembras","%","MAGYP","Mensual","Nacional","PAIS","200","Argentina",1990-02-01,42.78
 35,"Cárnica - Vacuna",939,"Bovino","Faena_% hembras","%","MAGYP","Mensual","Nacional","PAIS","200","Argentina",1990-03-01,43.37
@@ -9197,14 +9202,15 @@
 35,"Cárnica - Vacuna",939,"Bovino","Faena_% hembras","%","MAGYP","Mensual","Nacional","PAIS","200","Argentina",2025-10-01,47.7
 35,"Cárnica - Vacuna",939,"Bovino","Faena_% hembras","%","MAGYP","Mensual","Nacional","PAIS","200","Argentina",2025-11-01,48.3
 35,"Cárnica - Vacuna",939,"Bovino","Faena_% hembras","%","MAGYP","Mensual","Nacional","PAIS","200","Argentina",2025-12-01,47.6
-35,"Cárnica - Vacuna",939,"Bovino","Faena_% hembras","%","MAGYP","Mensual","Nacional","PAIS","200","Argentina",2026-01-01,47.4
-35,"Cárnica - Vacuna",939,"Bovino","Faena_% hembras","%","MAGYP","Mensual","Nacional","PAIS","200","Argentina",2026-02-01,48.1
-35,"Cárnica - Vacuna",939,"Bovino","Faena_% hembras","%","MAGYP","Mensual","Nacional","PAIS","200","Argentina",2026-03-01,47.9
-35,"Cárnica - Vacuna",939,"Bovino","Faena_% hembras","%","MAGYP","Mensual","Nacional","PAIS","200","Argentina",2026-04-01,47.3
-35,"Cárnica - Vacuna",939,"Bovino","Faena_% hembras","%","MAGYP","Mensual","Nacional","PAIS","200","Argentina",2026-05-01,46.9
-35,"Cárnica - Vacuna",939,"Bovino","Faena_% hembras","%","MAGYP","Mensual","Nacional","PAIS","200","Argentina",2026-06-01,45.3
-35,"Cárnica - Vacuna",939,"Bovino","Faena_% hembras","%","MAGYP","Mensual","Nacional","PAIS","200","Argentina",2026-07-01,44.3
-35,"Cárnica - Vacuna",939,"Bovino","Faena_% hembras","%","MAGYP","Mensual","Nacional","PAIS","200","Argentina",2026-08-01,42.9
+35,"Cárnica - Vacuna",939,"Bovino","Faena_% hembras","%","MAGYP","Mensual","Nacional","PAIS","200","Argentina",2026-01-01,47.381334784863
+35,"Cárnica - Vacuna",939,"Bovino","Faena_% hembras","%","MAGYP","Mensual","Nacional","PAIS","200","Argentina",2026-02-01,48.026168829417
+35,"Cárnica - Vacuna",939,"Bovino","Faena_% hembras","%","MAGYP","Mensual","Nacional","PAIS","200","Argentina",2026-03-01,47.793024850113
+35,"Cárnica - Vacuna",939,"Bovino","Faena_% hembras","%","MAGYP","Mensual","Nacional","PAIS","200","Argentina",2026-04-01,47.213471314989
+35,"Cárnica - Vacuna",939,"Bovino","Faena_% hembras","%","MAGYP","Mensual","Nacional","PAIS","200","Argentina",2026-05-01,46.876896314071
+35,"Cárnica - Vacuna",939,"Bovino","Faena_% hembras","%","MAGYP","Mensual","Nacional","PAIS","200","Argentina",2026-06-01,45.309998081125
+35,"Cárnica - Vacuna",939,"Bovino","Faena_% hembras","%","MAGYP","Mensual","Nacional","PAIS","200","Argentina",2026-07-01,44.263390189544
+35,"Cárnica - Vacuna",939,"Bovino","Faena_% hembras","%","MAGYP","Mensual","Nacional","PAIS","200","Argentina",2026-08-01,42.871096911134
+35,"Cárnica - Vacuna",939,"Bovino","Faena_% hembras","%","MAGYP","Mensual","Nacional","PAIS","200","Argentina",2026-09-01,44.064319764889
 35,"Cárnica - Vacuna",940,"Bovino","Stock al 31-03","cabezas","SENASA","Anual","Nacional","DEPARTAMENTO","02999","SIN DEFINIR",2009-01-01,6
 35,"Cárnica - Vacuna",940,"Bovino","Stock al 31-03","cabezas","SENASA","Anual","Nacional","DEPARTAMENTO","02999","SIN DEFINIR",2010-01-01,13
 35,"Cárnica - Vacuna",940,"Bovino","Stock al 31-03","cabezas","SENASA","Anual","Nacional","DEPARTAMENTO","02999","SIN DEFINIR",2011-01-01,10
@@ -16030,14 +16036,15 @@
 35,"Cárnica - Vacuna",942,"Carne bovina","Consumo per cápita","kg/per cápita","MAGYP","Mensual","Nacional","PAIS","200","Argentina",2025-10-01,50.436047348185
 35,"Cárnica - Vacuna",942,"Carne bovina","Consumo per cápita","kg/per cápita","MAGYP","Mensual","Nacional","PAIS","200","Argentina",2025-11-01,44.633141918399
 35,"Cárnica - Vacuna",942,"Carne bovina","Consumo per cápita","kg/per cápita","MAGYP","Mensual","Nacional","PAIS","200","Argentina",2025-12-01,50.042584463756
-35,"Cárnica - Vacuna",942,"Carne bovina","Consumo per cápita","kg/per cápita","MAGYP","Mensual","Nacional","PAIS","200","Argentina",2026-01-01,45.483603109906
-35,"Cárnica - Vacuna",942,"Carne bovina","Consumo per cápita","kg/per cápita","MAGYP","Mensual","Nacional","PAIS","200","Argentina",2026-02-01,44.775776688296
-35,"Cárnica - Vacuna",942,"Carne bovina","Consumo per cápita","kg/per cápita","MAGYP","Mensual","Nacional","PAIS","200","Argentina",2026-03-01,43.277482437633
-35,"Cárnica - Vacuna",942,"Carne bovina","Consumo per cápita","kg/per cápita","MAGYP","Mensual","Nacional","PAIS","200","Argentina",2026-04-01,45.060231562227
-35,"Cárnica - Vacuna",942,"Carne bovina","Consumo per cápita","kg/per cápita","MAGYP","Mensual","Nacional","PAIS","200","Argentina",2026-05-01,43.503448752548
-35,"Cárnica - Vacuna",942,"Carne bovina","Consumo per cápita","kg/per cápita","MAGYP","Mensual","Nacional","PAIS","200","Argentina",2026-06-01,48.141471160634
-35,"Cárnica - Vacuna",942,"Carne bovina","Consumo per cápita","kg/per cápita","MAGYP","Mensual","Nacional","PAIS","200","Argentina",2026-07-01,48.446716966045
-35,"Cárnica - Vacuna",942,"Carne bovina","Consumo per cápita","kg/per cápita","MAGYP","Mensual","Nacional","PAIS","200","Argentina",2026-08-01,41.149853000478
+35,"Cárnica - Vacuna",942,"Carne bovina","Consumo per cápita","kg/per cápita","MAGYP","Mensual","Nacional","PAIS","200","Argentina",2026-01-01,45.488636341566
+35,"Cárnica - Vacuna",942,"Carne bovina","Consumo per cápita","kg/per cápita","MAGYP","Mensual","Nacional","PAIS","200","Argentina",2026-02-01,44.779821008842
+35,"Cárnica - Vacuna",942,"Carne bovina","Consumo per cápita","kg/per cápita","MAGYP","Mensual","Nacional","PAIS","200","Argentina",2026-03-01,43.28261193511
+35,"Cárnica - Vacuna",942,"Carne bovina","Consumo per cápita","kg/per cápita","MAGYP","Mensual","Nacional","PAIS","200","Argentina",2026-04-01,45.064422450972
+35,"Cárnica - Vacuna",942,"Carne bovina","Consumo per cápita","kg/per cápita","MAGYP","Mensual","Nacional","PAIS","200","Argentina",2026-05-01,43.507938961534
+35,"Cárnica - Vacuna",942,"Carne bovina","Consumo per cápita","kg/per cápita","MAGYP","Mensual","Nacional","PAIS","200","Argentina",2026-06-01,48.149311240151
+35,"Cárnica - Vacuna",942,"Carne bovina","Consumo per cápita","kg/per cápita","MAGYP","Mensual","Nacional","PAIS","200","Argentina",2026-07-01,48.460804106509
+35,"Cárnica - Vacuna",942,"Carne bovina","Consumo per cápita","kg/per cápita","MAGYP","Mensual","Nacional","PAIS","200","Argentina",2026-08-01,40.940633031879
+35,"Cárnica - Vacuna",942,"Carne bovina","Consumo per cápita","kg/per cápita","MAGYP","Mensual","Nacional","PAIS","200","Argentina",2026-09-01,44.893156317759
 35,"Cárnica - Vacuna",943,"Carne bovina","Peso promedio res bovina","kg gancho","MAGYP","Mensual","Nacional","PAIS","200","Argentina",1990-01-01,225.84742681506
 35,"Cárnica - Vacuna",943,"Carne bovina","Peso promedio res bovina","kg gancho","MAGYP","Mensual","Nacional","PAIS","200","Argentina",1990-02-01,221.39986574328
 35,"Cárnica - Vacuna",943,"Carne bovina","Peso promedio res bovina","kg gancho","MAGYP","Mensual","Nacional","PAIS","200","Argentina",1990-03-01,230.02174358583
@@ -16470,14 +16477,15 @@
 35,"Cárnica - Vacuna",943,"Carne bovina","Peso promedio res bovina","kg gancho","MAGYP","Mensual","Nacional","PAIS","200","Argentina",2025-10-01,231.907
 35,"Cárnica - Vacuna",943,"Carne bovina","Peso promedio res bovina","kg gancho","MAGYP","Mensual","Nacional","PAIS","200","Argentina",2025-11-01,234.248
 35,"Cárnica - Vacuna",943,"Carne bovina","Peso promedio res bovina","kg gancho","MAGYP","Mensual","Nacional","PAIS","200","Argentina",2025-12-01,229.592
-35,"Cárnica - Vacuna",943,"Carne bovina","Peso promedio res bovina","kg gancho","MAGYP","Mensual","Nacional","PAIS","200","Argentina",2026-01-01,235.46
-35,"Cárnica - Vacuna",943,"Carne bovina","Peso promedio res bovina","kg gancho","MAGYP","Mensual","Nacional","PAIS","200","Argentina",2026-02-01,234.407
-35,"Cárnica - Vacuna",943,"Carne bovina","Peso promedio res bovina","kg gancho","MAGYP","Mensual","Nacional","PAIS","200","Argentina",2026-03-01,236.335
-35,"Cárnica - Vacuna",943,"Carne bovina","Peso promedio res bovina","kg gancho","MAGYP","Mensual","Nacional","PAIS","200","Argentina",2026-04-01,235.223
-35,"Cárnica - Vacuna",943,"Carne bovina","Peso promedio res bovina","kg gancho","MAGYP","Mensual","Nacional","PAIS","200","Argentina",2026-05-01,239.591
-35,"Cárnica - Vacuna",943,"Carne bovina","Peso promedio res bovina","kg gancho","MAGYP","Mensual","Nacional","PAIS","200","Argentina",2026-06-01,241.169
-35,"Cárnica - Vacuna",943,"Carne bovina","Peso promedio res bovina","kg gancho","MAGYP","Mensual","Nacional","PAIS","200","Argentina",2026-07-01,244.278
-35,"Cárnica - Vacuna",943,"Carne bovina","Peso promedio res bovina","kg gancho","MAGYP","Mensual","Nacional","PAIS","200","Argentina",2026-08-01,245.505
+35,"Cárnica - Vacuna",943,"Carne bovina","Peso promedio res bovina","kg gancho","MAGYP","Mensual","Nacional","PAIS","200","Argentina",2026-01-01,235.46084334965
+35,"Cárnica - Vacuna",943,"Carne bovina","Peso promedio res bovina","kg gancho","MAGYP","Mensual","Nacional","PAIS","200","Argentina",2026-02-01,234.4033976529
+35,"Cárnica - Vacuna",943,"Carne bovina","Peso promedio res bovina","kg gancho","MAGYP","Mensual","Nacional","PAIS","200","Argentina",2026-03-01,236.33263141927
+35,"Cárnica - Vacuna",943,"Carne bovina","Peso promedio res bovina","kg gancho","MAGYP","Mensual","Nacional","PAIS","200","Argentina",2026-04-01,235.22247973742
+35,"Cárnica - Vacuna",943,"Carne bovina","Peso promedio res bovina","kg gancho","MAGYP","Mensual","Nacional","PAIS","200","Argentina",2026-05-01,239.58966043762
+35,"Cárnica - Vacuna",943,"Carne bovina","Peso promedio res bovina","kg gancho","MAGYP","Mensual","Nacional","PAIS","200","Argentina",2026-06-01,241.16692956569
+35,"Cárnica - Vacuna",943,"Carne bovina","Peso promedio res bovina","kg gancho","MAGYP","Mensual","Nacional","PAIS","200","Argentina",2026-07-01,244.27554537352
+35,"Cárnica - Vacuna",943,"Carne bovina","Peso promedio res bovina","kg gancho","MAGYP","Mensual","Nacional","PAIS","200","Argentina",2026-08-01,245.48261441998
+35,"Cárnica - Vacuna",943,"Carne bovina","Peso promedio res bovina","kg gancho","MAGYP","Mensual","Nacional","PAIS","200","Argentina",2026-09-01,247.04799908734
 35,"Cárnica - Vacuna",944,"Carne bovina","Producción","miles de tn eq. res con hueso","MAGYP","Mensual","Nacional","PAIS","200","Argentina",1990-01-01,245.860219
 35,"Cárnica - Vacuna",944,"Carne bovina","Producción","miles de tn eq. res con hueso","MAGYP","Mensual","Nacional","PAIS","200","Argentina",1990-02-01,197.889414
 35,"Cárnica - Vacuna",944,"Carne bovina","Producción","miles de tn eq. res con hueso","MAGYP","Mensual","Nacional","PAIS","200","Argentina",1990-03-01,241.30316
@@ -16910,14 +16918,15 @@
 35,"Cárnica - Vacuna",944,"Carne bovina","Producción","miles de tn eq. res con hueso","MAGYP","Mensual","Nacional","PAIS","200","Argentina",2025-10-01,279.02539803
 35,"Cárnica - Vacuna",944,"Carne bovina","Producción","miles de tn eq. res con hueso","MAGYP","Mensual","Nacional","PAIS","200","Argentina",2025-11-01,246.4725079
 35,"Cárnica - Vacuna",944,"Carne bovina","Producción","miles de tn eq. res con hueso","MAGYP","Mensual","Nacional","PAIS","200","Argentina",2025-12-01,260.5733377
-35,"Cárnica - Vacuna",944,"Carne bovina","Producción","miles de tn eq. res con hueso","MAGYP","Mensual","Nacional","PAIS","200","Argentina",2026-01-01,240.9264503
-35,"Cárnica - Vacuna",944,"Carne bovina","Producción","miles de tn eq. res con hueso","MAGYP","Mensual","Nacional","PAIS","200","Argentina",2026-02-01,217.20475102
-35,"Cárnica - Vacuna",944,"Carne bovina","Producción","miles de tn eq. res con hueso","MAGYP","Mensual","Nacional","PAIS","200","Argentina",2026-03-01,243.79966995
-35,"Cárnica - Vacuna",944,"Carne bovina","Producción","miles de tn eq. res con hueso","MAGYP","Mensual","Nacional","PAIS","200","Argentina",2026-04-01,226.39747728
-35,"Cárnica - Vacuna",944,"Carne bovina","Producción","miles de tn eq. res con hueso","MAGYP","Mensual","Nacional","PAIS","200","Argentina",2026-05-01,239.9480539
-35,"Cárnica - Vacuna",944,"Carne bovina","Producción","miles de tn eq. res con hueso","MAGYP","Mensual","Nacional","PAIS","200","Argentina",2026-06-01,259.82811972
-35,"Cárnica - Vacuna",944,"Carne bovina","Producción","miles de tn eq. res con hueso","MAGYP","Mensual","Nacional","PAIS","200","Argentina",2026-07-01,267.74940299
-35,"Cárnica - Vacuna",944,"Carne bovina","Producción","miles de tn eq. res con hueso","MAGYP","Mensual","Nacional","PAIS","200","Argentina",2026-08-01,248.28768516
+35,"Cárnica - Vacuna",944,"Carne bovina","Producción","miles de tn eq. res con hueso","MAGYP","Mensual","Nacional","PAIS","200","Argentina",2026-01-01,240.9443732
+35,"Cárnica - Vacuna",944,"Carne bovina","Producción","miles de tn eq. res con hueso","MAGYP","Mensual","Nacional","PAIS","200","Argentina",2026-02-01,217.21576852
+35,"Cárnica - Vacuna",944,"Carne bovina","Producción","miles de tn eq. res con hueso","MAGYP","Mensual","Nacional","PAIS","200","Argentina",2026-03-01,243.81379995
+35,"Cárnica - Vacuna",944,"Carne bovina","Producción","miles de tn eq. res con hueso","MAGYP","Mensual","Nacional","PAIS","200","Argentina",2026-04-01,226.40616478
+35,"Cárnica - Vacuna",944,"Carne bovina","Producción","miles de tn eq. res con hueso","MAGYP","Mensual","Nacional","PAIS","200","Argentina",2026-05-01,239.9566519
+35,"Cárnica - Vacuna",944,"Carne bovina","Producción","miles de tn eq. res con hueso","MAGYP","Mensual","Nacional","PAIS","200","Argentina",2026-06-01,259.84633322
+35,"Cárnica - Vacuna",944,"Carne bovina","Producción","miles de tn eq. res con hueso","MAGYP","Mensual","Nacional","PAIS","200","Argentina",2026-07-01,267.76434899
+35,"Cárnica - Vacuna",944,"Carne bovina","Producción","miles de tn eq. res con hueso","MAGYP","Mensual","Nacional","PAIS","200","Argentina",2026-08-01,248.36427346
+35,"Cárnica - Vacuna",944,"Carne bovina","Producción","miles de tn eq. res con hueso","MAGYP","Mensual","Nacional","PAIS","200","Argentina",2026-09-01,258.23754411
 35,"Cárnica - Vacuna",945,"Novillos","Precio interno_promedio hacienda en pie","$/kg vivo","MAGYP","Mensual","Nacional","PAIS","200","Argentina",1993-01-01,0.803
 35,"Cárnica - Vacuna",945,"Novillos","Precio interno_promedio hacienda en pie","$/kg vivo","MAGYP","Mensual","Nacional","PAIS","200","Argentina",1993-02-01,0.805
 35,"Cárnica - Vacuna",945,"Novillos","Precio interno_promedio hacienda en pie","$/kg vivo","MAGYP","Mensual","Nacional","PAIS","200","Argentina",1993-03-01,0.767
@@ -17323,6 +17332,7 @@
 35,"Cárnica - Vacuna",945,"Novillos","Precio interno_promedio hacienda en pie","$/kg vivo","MAGYP","Mensual","Nacional","PAIS","200","Argentina",2026-07-01,4319.071
 35,"Cárnica - Vacuna",945,"Novillos","Precio interno_promedio hacienda en pie","$/kg vivo","MAGYP","Mensual","Nacional","PAIS","200","Argentina",2026-08-01,4303.19
 35,"Cárnica - Vacuna",945,"Novillos","Precio interno_promedio hacienda en pie","$/kg vivo","MAGYP","Mensual","Nacional","PAIS","200","Argentina",2026-09-01,4184.716
+35,"Cárnica - Vacuna",945,"Novillos","Precio interno_promedio hacienda en pie","$/kg vivo","MAGYP","Mensual","Nacional","PAIS","200","Argentina",2026-10-01,4126.638
 35,"Cárnica - Vacuna",946,"Novillos","Precio interno_promedio hacienda en pie","US$/kg vivo","MAGYP","Mensual","Nacional","PAIS","200","Argentina",1990-01-01,0.62
 35,"Cárnica - Vacuna",946,"Novillos","Precio interno_promedio hacienda en pie","US$/kg vivo","MAGYP","Mensual","Nacional","PAIS","200","Argentina",1990-02-01,0.52
 35,"Cárnica - Vacuna",946,"Novillos","Precio interno_promedio hacienda en pie","US$/kg vivo","MAGYP","Mensual","Nacional","PAIS","200","Argentina",1990-03-01,0.65
@@ -17763,6 +17773,7 @@
 35,"Cárnica - Vacuna",946,"Novillos","Precio interno_promedio hacienda en pie","US$/kg vivo","MAGYP","Mensual","Nacional","PAIS","200","Argentina",2026-06-01,2.834
 35,"Cárnica - Vacuna",946,"Novillos","Precio interno_promedio hacienda en pie","US$/kg vivo","MAGYP","Mensual","Nacional","PAIS","200","Argentina",2026-07-01,2.864
 35,"Cárnica - Vacuna",946,"Novillos","Precio interno_promedio hacienda en pie","US$/kg vivo","MAGYP","Mensual","Nacional","PAIS","200","Argentina",2026-08-01,2.833
+35,"Cárnica - Vacuna",946,"Novillos","Precio interno_promedio hacienda en pie","US$/kg vivo","MAGYP","Mensual","Nacional","PAIS","200","Argentina",2026-09-01,2.7257957660992
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","06","BUENOS AIRES",2003-01-01,524962
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","06","BUENOS AIRES",2003-02-01,478503
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","06","BUENOS AIRES",2003-03-01,528150
@@ -18043,11 +18054,12 @@
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","06","BUENOS AIRES",2026-02-01,475568
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","06","BUENOS AIRES",2026-03-01,533828.5
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","06","BUENOS AIRES",2026-04-01,504750.5
-35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","06","BUENOS AIRES",2026-05-01,522270.25
-35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","06","BUENOS AIRES",2026-06-01,557704
-35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","06","BUENOS AIRES",2026-07-01,556710
+35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","06","BUENOS AIRES",2026-05-01,522265.25
+35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","06","BUENOS AIRES",2026-06-01,557695
+35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","06","BUENOS AIRES",2026-07-01,556707
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","06","BUENOS AIRES",2026-08-01,513816
-35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","06","BUENOS AIRES",2026-09-01,535195.25
+35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","06","BUENOS AIRES",2026-09-01,535193
+35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","06","BUENOS AIRES",2026-10-01,536877.5
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","10","CATAMARCA",2003-01-01,3344
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","10","CATAMARCA",2003-02-01,2888
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","10","CATAMARCA",2003-03-01,2946
@@ -18333,6 +18345,7 @@
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","10","CATAMARCA",2026-07-01,6501
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","10","CATAMARCA",2026-08-01,5439
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","10","CATAMARCA",2026-09-01,5789.5
+35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","10","CATAMARCA",2026-10-01,6223
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","14","CORDOBA",2003-01-01,83966.25
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","14","CORDOBA",2003-02-01,76862.5
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","14","CORDOBA",2003-03-01,77408
@@ -18609,7 +18622,7 @@
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","14","CORDOBA",2025-10-01,92034.25
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","14","CORDOBA",2025-11-01,80245
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","14","CORDOBA",2025-12-01,96049.5
-35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","14","CORDOBA",2026-01-01,78509
+35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","14","CORDOBA",2026-01-01,78511
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","14","CORDOBA",2026-02-01,73501.25
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","14","CORDOBA",2026-03-01,78607.75
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","14","CORDOBA",2026-04-01,72330.75
@@ -18617,7 +18630,8 @@
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","14","CORDOBA",2026-06-01,80374.25
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","14","CORDOBA",2026-07-01,79237
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","14","CORDOBA",2026-08-01,75591
-35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","14","CORDOBA",2026-09-01,77811.5
+35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","14","CORDOBA",2026-09-01,77812.5
+35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","14","CORDOBA",2026-10-01,79127.75
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","18","CORRIENTES",2003-01-01,7003
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","18","CORRIENTES",2003-02-01,6854
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","18","CORRIENTES",2003-03-01,7373
@@ -18903,6 +18917,7 @@
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","18","CORRIENTES",2026-07-01,10383.75
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","18","CORRIENTES",2026-08-01,8718.25
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","18","CORRIENTES",2026-09-01,9824.5
+35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","18","CORRIENTES",2026-10-01,9731.75
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","22","CHACO",2003-01-01,14779
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","22","CHACO",2003-02-01,13963
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","22","CHACO",2003-03-01,14927
@@ -19179,15 +19194,16 @@
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","22","CHACO",2025-10-01,20749.5
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","22","CHACO",2025-11-01,17763
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","22","CHACO",2025-12-01,19757
-35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","22","CHACO",2026-01-01,17252
+35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","22","CHACO",2026-01-01,17266
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","22","CHACO",2026-02-01,15093.75
-35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","22","CHACO",2026-03-01,16641.5
-35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","22","CHACO",2026-04-01,15258.5
-35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","22","CHACO",2026-05-01,15172.5
-35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","22","CHACO",2026-06-01,16558.5
-35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","22","CHACO",2026-07-01,16227
-35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","22","CHACO",2026-08-01,15030
-35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","22","CHACO",2026-09-01,15533
+35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","22","CHACO",2026-03-01,16664.5
+35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","22","CHACO",2026-04-01,15280.5
+35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","22","CHACO",2026-05-01,15194.5
+35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","22","CHACO",2026-06-01,16574.5
+35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","22","CHACO",2026-07-01,16243
+35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","22","CHACO",2026-08-01,15055
+35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","22","CHACO",2026-09-01,15533.5
+35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","22","CHACO",2026-10-01,15813
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","26","CHUBUT",2003-01-01,1813
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","26","CHUBUT",2003-02-01,1509
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","26","CHUBUT",2003-03-01,1571
@@ -19473,6 +19489,7 @@
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","26","CHUBUT",2026-07-01,9268
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","26","CHUBUT",2026-08-01,8912
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","26","CHUBUT",2026-09-01,8539
+35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","26","CHUBUT",2026-10-01,9651
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","30","ENTRE RIOS",2003-01-01,31714
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","30","ENTRE RIOS",2003-02-01,31773
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","30","ENTRE RIOS",2003-03-01,32478
@@ -19757,7 +19774,8 @@
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","30","ENTRE RIOS",2026-06-01,39953.75
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","30","ENTRE RIOS",2026-07-01,39682.5
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","30","ENTRE RIOS",2026-08-01,37301
-35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","30","ENTRE RIOS",2026-09-01,39358.25
+35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","30","ENTRE RIOS",2026-09-01,39602.25
+35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","30","ENTRE RIOS",2026-10-01,41570.5
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","34","FORMOSA",2003-01-01,3230
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","34","FORMOSA",2003-02-01,2416
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","34","FORMOSA",2003-03-01,2864
@@ -20043,6 +20061,7 @@
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","34","FORMOSA",2026-07-01,3367
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","34","FORMOSA",2026-08-01,2807
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","34","FORMOSA",2026-09-01,2913
+35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","34","FORMOSA",2026-10-01,3139.5
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","38","JUJUY",2003-01-01,873
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","38","JUJUY",2003-02-01,882
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","38","JUJUY",2003-03-01,1184
@@ -20327,7 +20346,8 @@
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","38","JUJUY",2026-06-01,4861
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","38","JUJUY",2026-07-01,5076
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","38","JUJUY",2026-08-01,4233
-35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","38","JUJUY",2026-09-01,4742
+35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","38","JUJUY",2026-09-01,4906
+35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","38","JUJUY",2026-10-01,4496
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","42","LA PAMPA",2003-01-01,27659
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","42","LA PAMPA",2003-02-01,26006
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","42","LA PAMPA",2003-03-01,26153
@@ -20613,6 +20633,7 @@
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","42","LA PAMPA",2026-07-01,37177.25
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","42","LA PAMPA",2026-08-01,37353.75
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","42","LA PAMPA",2026-09-01,42720.5
+35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","42","LA PAMPA",2026-10-01,39903.25
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","46","LA RIOJA",2003-01-01,1228
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","46","LA RIOJA",2003-02-01,1361
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","46","LA RIOJA",2003-03-01,1562
@@ -20898,6 +20919,7 @@
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","46","LA RIOJA",2026-07-01,1045
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","46","LA RIOJA",2026-08-01,936.5
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","46","LA RIOJA",2026-09-01,804.5
+35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","46","LA RIOJA",2026-10-01,949.5
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","50","MENDOZA",2003-01-01,18339
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","50","MENDOZA",2003-02-01,18442
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","50","MENDOZA",2003-03-01,19781
@@ -21182,7 +21204,8 @@
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","50","MENDOZA",2026-06-01,21899.75
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","50","MENDOZA",2026-07-01,23174
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","50","MENDOZA",2026-08-01,19784
-35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","50","MENDOZA",2026-09-01,21027
+35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","50","MENDOZA",2026-09-01,21034
+35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","50","MENDOZA",2026-10-01,22246
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","54","MISIONES",2003-01-01,5918
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","54","MISIONES",2003-02-01,6094
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","54","MISIONES",2003-03-01,6165
@@ -21468,6 +21491,7 @@
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","54","MISIONES",2026-07-01,6634
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","54","MISIONES",2026-08-01,6133
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","54","MISIONES",2026-09-01,5657
+35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","54","MISIONES",2026-10-01,5423
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","58","NEUQUEN",2003-01-01,3505
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","58","NEUQUEN",2003-02-01,3108
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","58","NEUQUEN",2003-03-01,3167
@@ -21752,7 +21776,8 @@
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","58","NEUQUEN",2026-06-01,3652.5
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","58","NEUQUEN",2026-07-01,3790
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","58","NEUQUEN",2026-08-01,3157
-35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","58","NEUQUEN",2026-09-01,3622.5
+35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","58","NEUQUEN",2026-09-01,3969.5
+35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","58","NEUQUEN",2026-10-01,3702
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","62","RIO NEGRO",2003-01-01,7953
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","62","RIO NEGRO",2003-02-01,7277
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","62","RIO NEGRO",2003-03-01,7998
@@ -22031,13 +22056,14 @@
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","62","RIO NEGRO",2025-12-01,16865.5
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","62","RIO NEGRO",2026-01-01,12832.5
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","62","RIO NEGRO",2026-02-01,12420
-35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","62","RIO NEGRO",2026-03-01,13794
-35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","62","RIO NEGRO",2026-04-01,13048.75
+35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","62","RIO NEGRO",2026-03-01,13795
+35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","62","RIO NEGRO",2026-04-01,13049.75
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","62","RIO NEGRO",2026-05-01,12155.5
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","62","RIO NEGRO",2026-06-01,13505.75
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","62","RIO NEGRO",2026-07-01,13606
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","62","RIO NEGRO",2026-08-01,12810
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","62","RIO NEGRO",2026-09-01,13509.5
+35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","62","RIO NEGRO",2026-10-01,13028.5
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","66","SALTA",2003-01-01,7346.8333333333
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","66","SALTA",2003-02-01,6747.8333333333
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","66","SALTA",2003-03-01,6567.8333333333
@@ -22316,13 +22342,14 @@
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","66","SALTA",2025-12-01,14052
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","66","SALTA",2026-01-01,17744
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","66","SALTA",2026-02-01,13762
-35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","66","SALTA",2026-03-01,17137
+35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","66","SALTA",2026-03-01,17139
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","66","SALTA",2026-04-01,15547
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","66","SALTA",2026-05-01,15451.5
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","66","SALTA",2026-06-01,15566
-35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","66","SALTA",2026-07-01,17969.5
+35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","66","SALTA",2026-07-01,17971.5
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","66","SALTA",2026-08-01,16360.5
-35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","66","SALTA",2026-09-01,17862
+35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","66","SALTA",2026-09-01,17917
+35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","66","SALTA",2026-10-01,19088.5
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","70","SAN JUAN",2003-01-01,1967
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","70","SAN JUAN",2003-02-01,1775
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","70","SAN JUAN",2003-03-01,2107
@@ -22608,6 +22635,7 @@
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","70","SAN JUAN",2026-07-01,1955
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","70","SAN JUAN",2026-08-01,1553
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","70","SAN JUAN",2026-09-01,1527
+35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","70","SAN JUAN",2026-10-01,1785
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","74","SAN LUIS",2003-01-01,10936
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","74","SAN LUIS",2003-02-01,7477
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","74","SAN LUIS",2003-03-01,11627
@@ -22893,6 +22921,7 @@
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","74","SAN LUIS",2026-07-01,17440
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","74","SAN LUIS",2026-08-01,15168
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","74","SAN LUIS",2026-09-01,11768
+35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","74","SAN LUIS",2026-10-01,13370
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","78","SANTA CRUZ",2003-01-01,167
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","78","SANTA CRUZ",2003-02-01,224
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","78","SANTA CRUZ",2003-03-01,223
@@ -23178,6 +23207,7 @@
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","78","SANTA CRUZ",2026-07-01,1483
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","78","SANTA CRUZ",2026-08-01,1243
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","78","SANTA CRUZ",2026-09-01,1343
+35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","78","SANTA CRUZ",2026-10-01,1623
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","82","SANTA FE",2003-01-01,171976.75
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","82","SANTA FE",2003-02-01,151037
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","82","SANTA FE",2003-03-01,164540
@@ -23463,6 +23493,7 @@
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","82","SANTA FE",2026-07-01,202241.5
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","82","SANTA FE",2026-08-01,186809.75
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","82","SANTA FE",2026-09-01,183701
+35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","82","SANTA FE",2026-10-01,193513.5
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","86","SANTIAGO DEL ESTERO",2003-01-01,3057
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","86","SANTIAGO DEL ESTERO",2003-02-01,3528
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","86","SANTIAGO DEL ESTERO",2003-03-01,3877
@@ -23748,6 +23779,7 @@
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","86","SANTIAGO DEL ESTERO",2026-07-01,14391
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","86","SANTIAGO DEL ESTERO",2026-08-01,13339
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","86","SANTIAGO DEL ESTERO",2026-09-01,15803
+35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","86","SANTIAGO DEL ESTERO",2026-10-01,15594
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","90","TUCUMAN",2003-01-01,16267
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","90","TUCUMAN",2003-02-01,16664
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","90","TUCUMAN",2003-03-01,17507
@@ -24024,7 +24056,7 @@
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","90","TUCUMAN",2025-10-01,32480
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","90","TUCUMAN",2025-11-01,26872
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","90","TUCUMAN",2025-12-01,32315
-35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","90","TUCUMAN",2026-01-01,27360
+35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","90","TUCUMAN",2026-01-01,27399
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","90","TUCUMAN",2026-02-01,23051
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","90","TUCUMAN",2026-03-01,24126
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","90","TUCUMAN",2026-04-01,24245.5
@@ -24033,6 +24065,7 @@
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","90","TUCUMAN",2026-07-01,28072.5
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","90","TUCUMAN",2026-08-01,24885
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","90","TUCUMAN",2026-09-01,25685
+35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","90","TUCUMAN",2026-10-01,26616.5
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","94","TIERRA DEL FUEGO",2003-01-01,287
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","94","TIERRA DEL FUEGO",2003-02-01,534
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","94","TIERRA DEL FUEGO",2003-03-01,736
@@ -24318,6 +24351,7 @@
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","94","TIERRA DEL FUEGO",2026-07-01,726
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","94","TIERRA DEL FUEGO",2026-08-01,359
 35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","94","TIERRA DEL FUEGO",2026-09-01,557
+35,"Cárnica - Vacuna",937,"Bovino","Faena","cabezas","DNCCA","Mensual","Nacional","PROVINCIA","94","TIERRA DEL FUEGO",2026-10-01,519
 35,"Cárnica - Vacuna",941,"Bovino","Stock al 31-12","cabezas","MAGYP","Anual","Nacional","DEPARTAMENTO","02999","SIN DEFINIR",2012-01-01,32
 35,"Cárnica - Vacuna",941,"Bovino","Stock al 31-12","cabezas","MAGYP","Anual","Nacional","DEPARTAMENTO","02999","SIN DEFINIR",2013-01-01,14
 35,"Cárnica - Vacuna",941,"Bovino","Stock al 31-12","cabezas","MAGYP","Anual","Nacional","DEPARTAMENTO","02999","SIN DEFINIR",2014-01-01,22

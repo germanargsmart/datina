@@ -129,6 +129,7 @@ periodo;nivel_general_aperturas;indice_ipim
 2026-07-01;ng_nivel_general;16233,7149476425
 2026-08-01;ng_nivel_general;16580,3281440822
 2026-09-01;ng_nivel_general;17104,0233294799
+2026-10-01;ng_nivel_general;17374,3835647027
 2015-12-01;n_productos_nacionales;100
 2016-01-01;n_productos_nacionales;108,098641849055
 2016-02-01;n_productos_nacionales;113,158503869466
@@ -259,6 +260,7 @@ periodo;nivel_general_aperturas;indice_ipim
 2026-07-01;n_productos_nacionales;16395,3302590179
 2026-08-01;n_productos_nacionales;16736,5143235889
 2026-09-01;n_productos_nacionales;17297,2347734976
+2026-10-01;n_productos_nacionales;17578,7183474042
 2015-12-01;1_primarios;100
 2016-01-01;1_primarios;109,221781073521
 2016-02-01;1_primarios;114,726631477244
@@ -389,6 +391,7 @@ periodo;nivel_general_aperturas;indice_ipim
 2026-07-01;1_primarios;15150,2403495981
 2026-08-01;1_primarios;15843,36803346
 2026-09-01;1_primarios;17097,9716230458
+2026-10-01;1_primarios;17293,6095967415
 2015-12-01;a_productos_agropecuarios;100
 2016-01-01;a_productos_agropecuarios;102,554104192053
 2016-02-01;a_productos_agropecuarios;109,70959829608
@@ -519,6 +522,7 @@ periodo;nivel_general_aperturas;indice_ipim
 2026-07-01;a_productos_agropecuarios;16439,8433233545
 2026-08-01;a_productos_agropecuarios;16800,5411083307
 2026-09-01;a_productos_agropecuarios;17240,7624867929
+2026-10-01;a_productos_agropecuarios;17339,8556387535
 2015-12-01;011_agricolas;100
 2016-01-01;011_agricolas;117,964857908188
 2016-02-01;011_agricolas;130,530731982235
@@ -649,6 +653,7 @@ periodo;nivel_general_aperturas;indice_ipim
 2026-07-01;011_agricolas;18659,3271625243
 2026-08-01;011_agricolas;18662,0478374368
 2026-09-01;011_agricolas;20318,3722213481
+2026-10-01;011_agricolas;20622,7379883052
 2015-12-01;0111_cereales_y_oleaginosas;100
 2016-01-01;0111_cereales_y_oleaginosas;113,757053497408
 2016-02-01;0111_cereales_y_oleaginosas;121,009955127603
@@ -779,6 +784,7 @@ periodo;nivel_general_aperturas;indice_ipim
 2026-07-01;0111_cereales_y_oleaginosas;17152,1925330283
 2026-08-01;0111_cereales_y_oleaginosas;17954,4256694444
 2026-09-01;0111_cereales_y_oleaginosas;19046,5396127572
+2026-10-01;0111_cereales_y_oleaginosas;18943,9354829606
 2015-12-01;0112_hortalizas_y_legumbres;100
 2016-01-01;0112_hortalizas_y_legumbres;109,609906063291
 2016-02-01;0112_hortalizas_y_legumbres;115,67420436975
@@ -909,6 +915,7 @@ periodo;nivel_general_aperturas;indice_ipim
 2026-07-01;0112_hortalizas_y_legumbres;22971,9740952935
 2026-08-01;0112_hortalizas_y_legumbres;21747,8543643427
 2026-09-01;0112_hortalizas_y_legumbres;25000,6666524972
+2026-10-01;0112_hortalizas_y_legumbres;25840,9828863197
 2015-12-01;0113_frutas;100
 2016-01-01;0113_frutas;138,766621597755
 2016-02-01;0113_frutas;172,815746019529
@@ -1039,6 +1046,7 @@ periodo;nivel_general_aperturas;indice_ipim
 2026-07-01;0113_frutas;17479,6861253365
 2026-08-01;0113_frutas;16854,7797175524
 2026-09-01;0113_frutas;18090,7512157326
+2026-10-01;0113_frutas;18819,1931014253
 2015-12-01;012_ganaderos;100
 2016-01-01;012_ganaderos;96,9028321258066
 2016-02-01;012_ganaderos;102,074287697029
@@ -1169,6 +1177,7 @@ periodo;nivel_general_aperturas;indice_ipim
 2026-07-01;012_ganaderos;15625,9371865864
 2026-08-01;012_ganaderos;16117,9086314835
 2026-09-01;012_ganaderos;16112,1733052339
+2026-10-01;012_ganaderos;16135,9910088639
 2015-12-01;0121_ganado_vacuno_y_leche;100
 2016-01-01;0121_ganado_vacuno_y_leche;96,1492935818583
 2016-02-01;0121_ganado_vacuno_y_leche;101,41463306643
@@ -1299,6 +1308,7 @@ periodo;nivel_general_aperturas;indice_ipim
 2026-07-01;0121_ganado_vacuno_y_leche;16204,698881186
 2026-08-01;0121_ganado_vacuno_y_leche;16792,5846886944
 2026-09-01;0121_ganado_vacuno_y_leche;16708,5021305707
+2026-10-01;0121_ganado_vacuno_y_leche;16694,285233461
 2015-12-01;0122_ganado_porcino_y_productos de granja;100
 2016-01-01;0122_ganado_porcino_y_productos de granja;102,103879879962
 2016-02-01;0122_ganado_porcino_y_productos de granja;106,627333141814
@@ -1429,6 +1439,7 @@ periodo;nivel_general_aperturas;indice_ipim
 2026-07-01;0122_ganado_porcino_y_productos de granja;11631,2281752674
 2026-08-01;0122_ganado_porcino_y_productos de granja;11461,1828139163
 2026-09-01;0122_ganado_porcino_y_productos de granja;11996,2130499001
+2026-10-01;0122_ganado_porcino_y_productos de granja;12282,5518632272
 2015-12-01;b_productos_pesqueros;100
 2016-01-01;b_productos_pesqueros;112,5144610996
 2016-02-01;b_productos_pesqueros;95,9399867695837
@@ -1559,6 +1570,7 @@ periodo;nivel_general_aperturas;indice_ipim
 2026-07-01;b_productos_pesqueros;14977,8265428125
 2026-08-01;b_productos_pesqueros;15234,2165678989
 2026-09-01;b_productos_pesqueros;15301,8453422789
+2026-10-01;b_productos_pesqueros;15257,7522743241
 2015-12-01;c_productos_minerales;100
 2016-01-01;c_productos_minerales;115,727920052488
 2016-02-01;c_productos_minerales;120,80379061335
@@ -1689,6 +1701,7 @@ periodo;nivel_general_aperturas;indice_ipim
 2026-07-01;c_productos_minerales;13866,0718945136
 2026-08-01;c_productos_minerales;14916,9683752991
 2026-09-01;c_productos_minerales;17054,5342585667
+2026-10-01;c_productos_minerales;17360,3496005274
 2015-12-01;11_petroleo_crudo_y_gas_natural;100
 2016-01-01;11_petroleo_crudo_y_gas_natural;116,461623036848
 2016-02-01;11_petroleo_crudo_y_gas_natural;121,75891246449
@@ -1819,6 +1832,7 @@ periodo;nivel_general_aperturas;indice_ipim
 2026-07-01;11_petroleo_crudo_y_gas_natural;13965,0537559439
 2026-08-01;11_petroleo_crudo_y_gas_natural;15076,6646971472
 2026-09-01;11_petroleo_crudo_y_gas_natural;17345,0802277991
+2026-10-01;11_petroleo_crudo_y_gas_natural;17655,8756210457
 2015-12-01;14_productos_minerales_no_metaliferos;100
 2016-01-01;14_productos_minerales_no_metaliferos;104,726456165882
 2016-02-01;14_productos_minerales_no_metaliferos;106,482275263667
@@ -1949,6 +1963,7 @@ periodo;nivel_general_aperturas;indice_ipim
 2026-07-01;14_productos_minerales_no_metaliferos;12381,8945132467
 2026-08-01;14_productos_minerales_no_metaliferos;12522,4117834821
 2026-09-01;14_productos_minerales_no_metaliferos;12697,9607457896
+2026-10-01;14_productos_minerales_no_metaliferos;12929,1030176614
 2015-12-01;2_industria_manufacturera_ y_energia_electrica;100
 2016-01-01;2_industria_manufacturera_ y_energia_electrica;107,729690865505
 2016-02-01;2_industria_manufacturera_ y_energia_electrica;112,643374301717
@@ -2079,6 +2094,7 @@ periodo;nivel_general_aperturas;indice_ipim
 2026-07-01;2_industria_manufacturera_ y_energia_electrica;16804,3420152465
 2026-08-01;2_industria_manufacturera_ y_energia_electrica;17029,9126797485
 2026-09-01;2_industria_manufacturera_ y_energia_electrica;17362,6926737676
+2026-10-01;2_industria_manufacturera_ y_energia_electrica;17672,376508106
 2015-12-01;d_productos_manufacturados;100
 2016-01-01;d_productos_manufacturados;107,804348505063
 2016-02-01;d_productos_manufacturados;111,998569137183
@@ -2209,6 +2225,7 @@ periodo;nivel_general_aperturas;indice_ipim
 2026-07-01;d_productos_manufacturados;16490,7070893718
 2026-08-01;d_productos_manufacturados;16705,4650067196
 2026-09-01;d_productos_manufacturados;17020,7686946335
+2026-10-01;d_productos_manufacturados;17333,6385627405
 2015-12-01;15_alimentos_y_bebidas;100
 2016-01-01;15_alimentos_y_bebidas;103,894454715925
 2016-02-01;15_alimentos_y_bebidas;105,888768852133
@@ -2339,6 +2356,7 @@ periodo;nivel_general_aperturas;indice_ipim
 2026-07-01;15_alimentos_y_bebidas;13155,4870805443
 2026-08-01;15_alimentos_y_bebidas;13342,4713789583
 2026-09-01;15_alimentos_y_bebidas;13567,5892969619
+2026-10-01;15_alimentos_y_bebidas;13633,924866774
 2015-12-01;151_productos_de_carnes_pescados_frutas_legumbres_hortalizas_y_aceites;100
 2016-01-01;151_productos_de_carnes_pescados_frutas_legumbres_hortalizas_y_aceites;101,252683723169
 2016-02-01;151_productos_de_carnes_pescados_frutas_legumbres_hortalizas_y_aceites;102,414170355458
@@ -2469,6 +2487,7 @@ periodo;nivel_general_aperturas;indice_ipim
 2026-07-01;151_productos_de_carnes_pescados_frutas_legumbres_hortalizas_y_aceites;13250,5444458351
 2026-08-01;151_productos_de_carnes_pescados_frutas_legumbres_hortalizas_y_aceites;13453,0232249285
 2026-09-01;151_productos_de_carnes_pescados_frutas_legumbres_hortalizas_y_aceites;13715,7111358606
+2026-10-01;151_productos_de_carnes_pescados_frutas_legumbres_hortalizas_y_aceites;13802,825174572
 2015-12-01;1511_productos_carnicos;100
 2016-01-01;1511_productos_carnicos;97,2430330055386
 2016-02-01;1511_productos_carnicos;96,619716227073
@@ -2599,6 +2618,7 @@ periodo;nivel_general_aperturas;indice_ipim
 2026-07-01;1511_productos_carnicos;14551,2601293067
 2026-08-01;1511_productos_carnicos;14740,1737344883
 2026-09-01;1511_productos_carnicos;14937,0549092636
+2026-10-01;1511_productos_carnicos;14992,7708112964
 2015-12-01;1512_conservas_de_pescados;100
 2016-01-01;1512_conservas_de_pescados;106,813249765346
 2016-02-01;1512_conservas_de_pescados;109,944124486058
@@ -2729,6 +2749,7 @@ periodo;nivel_general_aperturas;indice_ipim
 2026-07-01;1512_conservas_de_pescados;11662,6935410642
 2026-08-01;1512_conservas_de_pescados;11838,1820701479
 2026-09-01;1512_conservas_de_pescados;12889,0690724118
+2026-10-01;1512_conservas_de_pescados;13178,1476599876
 2015-12-01;1513_conservas_de_frutas_hortalizas_y_legumbres;100
 2016-01-01;1513_conservas_de_frutas_hortalizas_y_legumbres;103,910327688444
 2016-02-01;1513_conservas_de_frutas_hortalizas_y_legumbres;107,64121942092
@@ -2859,6 +2880,7 @@ periodo;nivel_general_aperturas;indice_ipim
 2026-07-01;1513_conservas_de_frutas_hortalizas_y_legumbres;7256,80729079374
 2026-08-01;1513_conservas_de_frutas_hortalizas_y_legumbres;7376,7150026728
 2026-09-01;1513_conservas_de_frutas_hortalizas_y_legumbres;7485,39613118782
+2026-10-01;1513_conservas_de_frutas_hortalizas_y_legumbres;7607,87677560001
 2015-12-01;1514_aceites_y_grasas_vegetales;100
 2016-01-01;1514_aceites_y_grasas_vegetales;129,795467160921
 2016-02-01;1514_aceites_y_grasas_vegetales;140,088393153406
@@ -2989,6 +3011,7 @@ periodo;nivel_general_aperturas;indice_ipim
 2026-07-01;1514_aceites_y_grasas_vegetales;17976,5842702488
 2026-08-01;1514_aceites_y_grasas_vegetales;18547,8794943992
 2026-09-01;1514_aceites_y_grasas_vegetales;19502,5629374181
+2026-10-01;1514_aceites_y_grasas_vegetales;19700,7600880623
 2015-12-01;152_productos_lacteos;100
 2016-01-01;152_productos_lacteos;104,790121363973
 2016-02-01;152_productos_lacteos;106,211148896184
@@ -3119,6 +3142,7 @@ periodo;nivel_general_aperturas;indice_ipim
 2026-07-01;152_productos_lacteos;12924,5787964271
 2026-08-01;152_productos_lacteos;13085,5326746059
 2026-09-01;152_productos_lacteos;13198,7276517691
+2026-10-01;152_productos_lacteos;13338,5166507153
 2015-12-01;153_productos_de_molineria_almidones_y_alimentos_balanceados;100
 2016-01-01;153_productos_de_molineria_almidones_y_alimentos_balanceados;105,412206659095
 2016-02-01;153_productos_de_molineria_almidones_y_alimentos_balanceados;106,3128952313
@@ -3249,6 +3273,7 @@ periodo;nivel_general_aperturas;indice_ipim
 2026-07-01;153_productos_de_molineria_almidones_y_alimentos_balanceados;14908,928561655
 2026-08-01;153_productos_de_molineria_almidones_y_alimentos_balanceados;15206,4152394195
 2026-09-01;153_productos_de_molineria_almidones_y_alimentos_balanceados;15725,9895874661
+2026-10-01;153_productos_de_molineria_almidones_y_alimentos_balanceados;15976,2737698531
 2015-12-01;1531_harinas;100
 2016-01-01;1531_harinas;100,690339204925
 2016-02-01;1531_harinas;99,5700567375042
@@ -3379,6 +3404,7 @@ periodo;nivel_general_aperturas;indice_ipim
 2026-07-01;1531_harinas;11540,4583046432
 2026-08-01;1531_harinas;11634,5237838946
 2026-09-01;1531_harinas;12044,9440619683
+2026-10-01;1531_harinas;12283,8077001684
 2015-12-01;1532_productos_derivados_del_almidon;100
 2016-01-01;1532_productos_derivados_del_almidon;108,251724196004
 2016-02-01;1532_productos_derivados_del_almidon;109,988798234042
@@ -3509,6 +3535,7 @@ periodo;nivel_general_aperturas;indice_ipim
 2026-07-01;1532_productos_derivados_del_almidon;23375,1630232339
 2026-08-01;1532_productos_derivados_del_almidon;23777,8827567066
 2026-09-01;1532_productos_derivados_del_almidon;24222,1751662119
+2026-10-01;1532_productos_derivados_del_almidon;24464,7222885145
 2015-12-01;1533_alimentos_balanceados;100
 2016-01-01;1533_alimentos_balanceados;118,564970376382
 2016-02-01;1533_alimentos_balanceados;125,354124649218
@@ -3639,6 +3666,7 @@ periodo;nivel_general_aperturas;indice_ipim
 2026-07-01;1533_alimentos_balanceados;19888,8473701043
 2026-08-01;1533_alimentos_balanceados;20764,6506454337
 2026-09-01;1533_alimentos_balanceados;21684,6118755007
+2026-10-01;1533_alimentos_balanceados;21976,6922553101
 2015-12-01;154_otros_productos_alimenticios;100
 2016-01-01;154_otros_productos_alimenticios;105,987974615992
 2016-02-01;154_otros_productos_alimenticios;109,128821823512
@@ -3769,6 +3797,7 @@ periodo;nivel_general_aperturas;indice_ipim
 2026-07-01;154_otros_productos_alimenticios;13173,7350920893
 2026-08-01;154_otros_productos_alimenticios;13366,325658485
 2026-09-01;154_otros_productos_alimenticios;13576,6816935886
+2026-10-01;154_otros_productos_alimenticios;13259,6544713559
 2015-12-01;1541_productos_de_panaderia;100
 2016-01-01;1541_productos_de_panaderia;102,449800558255
 2016-02-01;1541_productos_de_panaderia;107,508129326104
@@ -3899,6 +3928,7 @@ periodo;nivel_general_aperturas;indice_ipim
 2026-07-01;1541_productos_de_panaderia;12585,2133643837
 2026-08-01;1541_productos_de_panaderia;12735,9838740981
 2026-09-01;1541_productos_de_panaderia;12833,588102623
+2026-10-01;1541_productos_de_panaderia;11927,7064121448
 2015-12-01;1542_azucar;100
 2016-01-01;1542_azucar;106,544928857892
 2016-02-01;1542_azucar;107,506602763418
@@ -4029,6 +4059,7 @@ periodo;nivel_general_aperturas;indice_ipim
 2026-07-01;1542_azucar;13635,5578352845
 2026-08-01;1542_azucar;13600,7334991183
 2026-09-01;1542_azucar;13927,49184819
+2026-10-01;1542_azucar;14157,565773749
 2015-12-01;1543_productos_de_chocolate_y_golosinas;100
 2016-01-01;1543_productos_de_chocolate_y_golosinas;111,230038877952
 2016-02-01;1543_productos_de_chocolate_y_golosinas;113,588942284731
@@ -4159,6 +4190,7 @@ periodo;nivel_general_aperturas;indice_ipim
 2026-07-01;1543_productos_de_chocolate_y_golosinas;14672,2367237327
 2026-08-01;1543_productos_de_chocolate_y_golosinas;14682,2221408309
 2026-09-01;1543_productos_de_chocolate_y_golosinas;14955,6133052864
+2026-10-01;1543_productos_de_chocolate_y_golosinas;15356,06687452
 2015-12-01;1544_productos_farinaceos;100
 2016-01-01;1544_productos_farinaceos;103,610908836171
 2016-02-01;1544_productos_farinaceos;107,679227639734
@@ -4289,6 +4321,7 @@ periodo;nivel_general_aperturas;indice_ipim
 2026-07-01;1544_productos_farinaceos;10303,0658406014
 2026-08-01;1544_productos_farinaceos;10415,8260093016
 2026-09-01;1544_productos_farinaceos;10630,1875130042
+2026-10-01;1544_productos_farinaceos;10746,4179584503
 2015-12-01;1549_otros_productos_alimenticios_n.c.e.p.;100
 2016-01-01;1549_otros_productos_alimenticios_n.c.e.p.;110,159340698935
 2016-02-01;1549_otros_productos_alimenticios_n.c.e.p.;110,476384832421
@@ -4419,6 +4452,7 @@ periodo;nivel_general_aperturas;indice_ipim
 2026-07-01;1549_otros_productos_alimenticios_n.c.e.p.;14094,6582639152
 2026-08-01;1549_otros_productos_alimenticios_n.c.e.p.;14576,6800830453
 2026-09-01;1549_otros_productos_alimenticios_n.c.e.p.;14929,058630866
+2026-10-01;1549_otros_productos_alimenticios_n.c.e.p.;15012,6427844299
 2015-12-01;155_alcohol_etilico_y_bebidas;100
 2016-01-01;155_alcohol_etilico_y_bebidas;103,104184520123
 2016-02-01;155_alcohol_etilico_y_bebidas;105,722089389664
@@ -4549,6 +4583,7 @@ periodo;nivel_general_aperturas;indice_ipim
 2026-07-01;155_alcohol_etilico_y_bebidas;12443,2487440729
 2026-08-01;155_alcohol_etilico_y_bebidas;12577,9516478274
 2026-09-01;155_alcohol_etilico_y_bebidas;12747,1222226763
+2026-10-01;155_alcohol_etilico_y_bebidas;13132,9771911338
 2015-12-01;1551_alcohol_etilico_y_bebidas_alcoholicas_destiladas;100
 2016-01-01;1551_alcohol_etilico_y_bebidas_alcoholicas_destiladas;101,78454423209
 2016-02-01;1551_alcohol_etilico_y_bebidas_alcoholicas_destiladas;106,555636227913
@@ -4679,6 +4714,7 @@ periodo;nivel_general_aperturas;indice_ipim
 2026-07-01;1551_alcohol_etilico_y_bebidas_alcoholicas_destiladas;12221,6606363771
 2026-08-01;1551_alcohol_etilico_y_bebidas_alcoholicas_destiladas;12257,9999774418
 2026-09-01;1551_alcohol_etilico_y_bebidas_alcoholicas_destiladas;12325,524057651
+2026-10-01;1551_alcohol_etilico_y_bebidas_alcoholicas_destiladas;12806,7926991386
 2015-12-01;1552_vinos_y_sidra;100
 2016-01-01;1552_vinos_y_sidra;102,781806508729
 2016-02-01;1552_vinos_y_sidra;105,279672051929
@@ -4809,6 +4845,7 @@ periodo;nivel_general_aperturas;indice_ipim
 2026-07-01;1552_vinos_y_sidra;10100,7363903904
 2026-08-01;1552_vinos_y_sidra;10119,7210444001
 2026-09-01;1552_vinos_y_sidra;10283,0816770748
+2026-10-01;1552_vinos_y_sidra;10687,2846483047
 2015-12-01;1553_cervezas;100
 2016-01-01;1553_cervezas;113,25180644413
 2016-02-01;1553_cervezas;122,681337631412
@@ -4939,6 +4976,7 @@ periodo;nivel_general_aperturas;indice_ipim
 2026-07-01;1553_cervezas;14798,1689261186
 2026-08-01;1553_cervezas;15011,4174426719
 2026-09-01;1553_cervezas;15236,1354827071
+2026-10-01;1553_cervezas;15739,6995514952
 2015-12-01;1554_bebidas_no_alcoholicas;100
 2016-01-01;1554_bebidas_no_alcoholicas;100,480199766403
 2016-02-01;1554_bebidas_no_alcoholicas;100,834944958877
@@ -5069,6 +5107,7 @@ periodo;nivel_general_aperturas;indice_ipim
 2026-07-01;1554_bebidas_no_alcoholicas;12950,4134937291
 2026-08-01;1554_bebidas_no_alcoholicas;13134,3266283231
 2026-09-01;1554_bebidas_no_alcoholicas;13305,2481340769
+2026-10-01;1554_bebidas_no_alcoholicas;13633,1368306696
 2015-12-01;16_tabaco;100
 2016-01-01;16_tabaco;99,477910426093
 2016-02-01;16_tabaco;110,427412961741
@@ -5199,6 +5238,7 @@ periodo;nivel_general_aperturas;indice_ipim
 2026-07-01;16_tabaco;21948,5978261518
 2026-08-01;16_tabaco;22481,8867704735
 2026-09-01;16_tabaco;23114,2903974276
+2026-10-01;16_tabaco;23114,2903974276
 2015-12-01;17_productos_textiles;100
 2016-01-01;17_productos_textiles;111,972538373399
 2016-02-01;17_productos_textiles;116,918187871293
@@ -5329,6 +5369,7 @@ periodo;nivel_general_aperturas;indice_ipim
 2026-07-01;17_productos_textiles;11293,1709495864
 2026-08-01;17_productos_textiles;11487,5969717577
 2026-09-01;17_productos_textiles;11891,8340161206
+2026-10-01;17_productos_textiles;12016,0676423783
 2015-12-01;171_materias_primas_textiles;100
 2016-01-01;171_materias_primas_textiles;115,445772854153
 2016-02-01;171_materias_primas_textiles;121,471260565974
@@ -5459,6 +5500,7 @@ periodo;nivel_general_aperturas;indice_ipim
 2026-07-01;171_materias_primas_textiles;11823,2679668981
 2026-08-01;171_materias_primas_textiles;12010,1537034465
 2026-09-01;171_materias_primas_textiles;12448,9945258058
+2026-10-01;171_materias_primas_textiles;12565,5505169268
 2015-12-01;172_otros_productos_textiles;100
 2016-01-01;172_otros_productos_textiles;113,206853429324
 2016-02-01;172_otros_productos_textiles;117,612015538806
@@ -5589,6 +5631,7 @@ periodo;nivel_general_aperturas;indice_ipim
 2026-07-01;172_otros_productos_textiles;14163,788500955
 2026-08-01;172_otros_productos_textiles;14407,4681929044
 2026-09-01;172_otros_productos_textiles;15202,86088306
+2026-10-01;172_otros_productos_textiles;15365,4602570529
 2015-12-01;173_tejidos_y_articulos_de_punto;100
 2016-01-01;173_tejidos_y_articulos_de_punto;103,453151352219
 2016-02-01;173_tejidos_y_articulos_de_punto;106,04711310412
@@ -5719,6 +5762,7 @@ periodo;nivel_general_aperturas;indice_ipim
 2026-07-01;173_tejidos_y_articulos_de_punto;9130,95148875839
 2026-08-01;173_tejidos_y_articulos_de_punto;9327,18356097217
 2026-09-01;173_tejidos_y_articulos_de_punto;9524,79234874878
+2026-10-01;173_tejidos_y_articulos_de_punto;9654,65217849755
 2015-12-01;18_prendas_de_materiales_textiles;100
 2016-01-01;18_prendas_de_materiales_textiles;103,632879637504
 2016-02-01;18_prendas_de_materiales_textiles;106,695389304825
@@ -5849,6 +5893,7 @@ periodo;nivel_general_aperturas;indice_ipim
 2026-07-01;18_prendas_de_materiales_textiles;9837,40171311593
 2026-08-01;18_prendas_de_materiales_textiles;9975,25691563295
 2026-09-01;18_prendas_de_materiales_textiles;10001,6067921646
+2026-10-01;18_prendas_de_materiales_textiles;10099,3252946245
 2015-12-01;19_cuero_articulos_de_marroquineria_y_calzado;100
 2016-01-01;19_cuero_articulos_de_marroquineria_y_calzado;105,264743238651
 2016-02-01;19_cuero_articulos_de_marroquineria_y_calzado;110,216394695271
@@ -5979,6 +6024,7 @@ periodo;nivel_general_aperturas;indice_ipim
 2026-07-01;19_cuero_articulos_de_marroquineria_y_calzado;6360,03362126057
 2026-08-01;19_cuero_articulos_de_marroquineria_y_calzado;6430,50960895296
 2026-09-01;19_cuero_articulos_de_marroquineria_y_calzado;6498,93490376065
+2026-10-01;19_cuero_articulos_de_marroquineria_y_calzado;6651,37531274376
 2015-12-01;191_cueros_valijas_y_articulos_de_marroquineria;100
 2016-01-01;191_cueros_valijas_y_articulos_de_marroquineria;105,767717689507
 2016-02-01;191_cueros_valijas_y_articulos_de_marroquineria;108,321148139023
@@ -6109,6 +6155,7 @@ periodo;nivel_general_aperturas;indice_ipim
 2026-07-01;191_cueros_valijas_y_articulos_de_marroquineria;4922,64608590892
 2026-08-01;191_cueros_valijas_y_articulos_de_marroquineria;4999,46164338373
 2026-09-01;191_cueros_valijas_y_articulos_de_marroquineria;5049,11470090202
+2026-10-01;191_cueros_valijas_y_articulos_de_marroquineria;5271,71404257674
 2015-12-01;1911_cueros_curtidos;100
 2016-01-01;1911_cueros_curtidos;106,87930682697
 2016-02-01;1911_cueros_curtidos;110,077219768407
@@ -6239,6 +6286,7 @@ periodo;nivel_general_aperturas;indice_ipim
 2026-07-01;1911_cueros_curtidos;4152,54753866969
 2026-08-01;1911_cueros_curtidos;4212,15990940155
 2026-09-01;1911_cueros_curtidos;4284,68442990012
+2026-10-01;1911_cueros_curtidos;4404,38824059978
 2015-12-01;1912_valijas_y_articulos_de_marroquineria;100
 2016-01-01;1912_valijas_y_articulos_de_marroquineria;103,010485425609
 2016-02-01;1912_valijas_y_articulos_de_marroquineria;103,965314503129
@@ -6369,6 +6417,7 @@ periodo;nivel_general_aperturas;indice_ipim
 2026-07-01;1912_valijas_y_articulos_de_marroquineria;6832,83078389811
 2026-08-01;1912_valijas_y_articulos_de_marroquineria;6952,31784645604
 2026-09-01;1912_valijas_y_articulos_de_marroquineria;6945,23956905338
+2026-10-01;1912_valijas_y_articulos_de_marroquineria;7423,06529631819
 2015-12-01;192_calzado;100
 2016-01-01;192_calzado;104,952923471051
 2016-02-01;192_calzado;111,391355649471
@@ -6499,6 +6548,7 @@ periodo;nivel_general_aperturas;indice_ipim
 2026-07-01;192_calzado;7251,14418654468
 2026-08-01;192_calzado;7317,68994841173
 2026-09-01;192_calzado;7397,75311997234
+2026-10-01;192_calzado;7506,69839306974
 2015-12-01;20_madera_y_productos_de_madera_excepto_muebles;100
 2016-01-01;20_madera_y_productos_de_madera_excepto_muebles;109,799558122289
 2016-02-01;20_madera_y_productos_de_madera_excepto_muebles;110,158214427292
@@ -6629,6 +6679,7 @@ periodo;nivel_general_aperturas;indice_ipim
 2026-07-01;20_madera_y_productos_de_madera_excepto_muebles;12367,1224846228
 2026-08-01;20_madera_y_productos_de_madera_excepto_muebles;12664,1671116733
 2026-09-01;20_madera_y_productos_de_madera_excepto_muebles;12953,9846382338
+2026-10-01;20_madera_y_productos_de_madera_excepto_muebles;13239,6582317747
 2015-12-01;201_maderas_aserradas;100
 2016-01-01;201_maderas_aserradas;109,56689814019
 2016-02-01;201_maderas_aserradas;107,419392717196
@@ -6759,6 +6810,7 @@ periodo;nivel_general_aperturas;indice_ipim
 2026-07-01;201_maderas_aserradas;10105,7142592349
 2026-08-01;201_maderas_aserradas;10355,8630321084
 2026-09-01;201_maderas_aserradas;10498,7232837517
+2026-10-01;201_maderas_aserradas;10855,9858930225
 2015-12-01;202_productos_de_madera;100
 2016-01-01;202_productos_de_madera;110,026669687743
 2016-02-01;202_productos_de_madera;112,831721407178
@@ -6889,6 +6941,7 @@ periodo;nivel_general_aperturas;indice_ipim
 2026-07-01;202_productos_de_madera;14574,6012163191
 2026-08-01;202_productos_de_madera;14917,4233370295
 2026-09-01;202_productos_de_madera;15350,6935384348
+2026-10-01;202_productos_de_madera;15566,4853530591
 2015-12-01;2021_tableros_y_paneles_de_madera;100
 2016-01-01;2021_tableros_y_paneles_de_madera;115,147196913068
 2016-02-01;2021_tableros_y_paneles_de_madera;118,07743128856
@@ -7019,6 +7072,7 @@ periodo;nivel_general_aperturas;indice_ipim
 2026-07-01;2021_tableros_y_paneles_de_madera;10611,3965941239
 2026-08-01;2021_tableros_y_paneles_de_madera;10813,7375409694
 2026-09-01;2021_tableros_y_paneles_de_madera;11282,6609737267
+2026-10-01;2021_tableros_y_paneles_de_madera;11301,5752241781
 2015-12-01;2022_carpinteria_de_madera;100
 2016-01-01;2022_carpinteria_de_madera;107,487438410287
 2016-02-01;2022_carpinteria_de_madera;110,23041298382
@@ -7149,6 +7203,7 @@ periodo;nivel_general_aperturas;indice_ipim
 2026-07-01;2022_carpinteria_de_madera;16539,9248427356
 2026-08-01;2022_carpinteria_de_madera;16952,410530277
 2026-09-01;2022_carpinteria_de_madera;17368,00056005
+2026-10-01;2022_carpinteria_de_madera;17681,4224910234
 2015-12-01;21_papel_y_productos_de_papel;100
 2016-01-01;21_papel_y_productos_de_papel;108,442692887349
 2016-02-01;21_papel_y_productos_de_papel;113,036008942185
@@ -7279,6 +7334,7 @@ periodo;nivel_general_aperturas;indice_ipim
 2026-07-01;21_papel_y_productos_de_papel;18403,2528407636
 2026-08-01;21_papel_y_productos_de_papel;18644,6945194613
 2026-09-01;21_papel_y_productos_de_papel;18978,9417307884
+2026-10-01;21_papel_y_productos_de_papel;19334,766580344
 2015-12-01;2101_papeles;100
 2016-01-01;2101_papeles;106,586385485875
 2016-02-01;2101_papeles;111,103781263445
@@ -7409,6 +7465,7 @@ periodo;nivel_general_aperturas;indice_ipim
 2026-07-01;2101_papeles;12460,7598604963
 2026-08-01;2101_papeles;12649,9875219031
 2026-09-01;2101_papeles;12747,2079679962
+2026-10-01;2101_papeles;13016,298305741
 2015-12-01;2102_envases_de_papel_y_carton;100
 2016-01-01;2102_envases_de_papel_y_carton;123,227116056988
 2016-02-01;2102_envases_de_papel_y_carton;130,333609921601
@@ -7539,6 +7596,7 @@ periodo;nivel_general_aperturas;indice_ipim
 2026-07-01;2102_envases_de_papel_y_carton;13617,5776607833
 2026-08-01;2102_envases_de_papel_y_carton;13858,2282882627
 2026-09-01;2102_envases_de_papel_y_carton;14156,7625451348
+2026-10-01;2102_envases_de_papel_y_carton;14399,5485956694
 2015-12-01;2109_otros_articulos_de_papel_y_carton;100
 2016-01-01;2109_otros_articulos_de_papel_y_carton;103,648502962922
 2016-02-01;2109_otros_articulos_de_papel_y_carton;107,358954343452
@@ -7669,6 +7727,7 @@ periodo;nivel_general_aperturas;indice_ipim
 2026-07-01;2109_otros_articulos_de_papel_y_carton;21809,4471651452
 2026-08-01;2109_otros_articulos_de_papel_y_carton;22065,9704539951
 2026-09-01;2109_otros_articulos_de_papel_y_carton;22480,2402402776
+2026-10-01;2109_otros_articulos_de_papel_y_carton;22901,3223932397
 2015-12-01;22_impresiones_y_reproduccion_de_grabaciones;100
 2016-01-01;22_impresiones_y_reproduccion_de_grabaciones;107,152574743749
 2016-02-01;22_impresiones_y_reproduccion_de_grabaciones;110,016770445556
@@ -7799,6 +7858,7 @@ periodo;nivel_general_aperturas;indice_ipim
 2026-07-01;22_impresiones_y_reproduccion_de_grabaciones;21969,1630867245
 2026-08-01;22_impresiones_y_reproduccion_de_grabaciones;22278,7778622833
 2026-09-01;22_impresiones_y_reproduccion_de_grabaciones;22946,1065502893
+2026-10-01;22_impresiones_y_reproduccion_de_grabaciones;23666,0670458906
 2015-12-01;221_diarios_y_revistas;100
 2016-01-01;221_diarios_y_revistas;110,841637951829
 2016-02-01;221_diarios_y_revistas;112,600012551077
@@ -7929,6 +7989,7 @@ periodo;nivel_general_aperturas;indice_ipim
 2026-07-01;221_diarios_y_revistas;25217,2860865784
 2026-08-01;221_diarios_y_revistas;25789,4798300845
 2026-09-01;221_diarios_y_revistas;26952,680907169
+2026-10-01;221_diarios_y_revistas;27739,1494407046
 2015-12-01;222_articulos_de_libreria;100
 2016-01-01;222_articulos_de_libreria;102,802689122215
 2016-02-01;222_articulos_de_libreria;106,970791816853
@@ -8059,6 +8120,7 @@ periodo;nivel_general_aperturas;indice_ipim
 2026-07-01;222_articulos_de_libreria;18139,2033551865
 2026-08-01;222_articulos_de_libreria;18139,2033551865
 2026-09-01;222_articulos_de_libreria;18221,8339630282
+2026-10-01;222_articulos_de_libreria;18863,3728264674
 2015-12-01;23_productos_refinados_del_petroleo;100
 2016-01-01;23_productos_refinados_del_petroleo;105,853625425323
 2016-02-01;23_productos_refinados_del_petroleo;107,897646796417
@@ -8189,6 +8251,7 @@ periodo;nivel_general_aperturas;indice_ipim
 2026-07-01;23_productos_refinados_del_petroleo;23223,5221946754
 2026-08-01;23_productos_refinados_del_petroleo;23466,1794763559
 2026-09-01;23_productos_refinados_del_petroleo;23981,3201161926
+2026-10-01;23_productos_refinados_del_petroleo;25083,9908297789
 2015-12-01;24_sustancias_y_productos_quimicos;100
 2016-01-01;24_sustancias_y_productos_quimicos;112,224131199345
 2016-02-01;24_sustancias_y_productos_quimicos;118,538565967946
@@ -8319,6 +8382,7 @@ periodo;nivel_general_aperturas;indice_ipim
 2026-07-01;24_sustancias_y_productos_quimicos;20771,3838162116
 2026-08-01;24_sustancias_y_productos_quimicos;20909,2757787914
 2026-09-01;24_sustancias_y_productos_quimicos;21250,0631898439
+2026-10-01;24_sustancias_y_productos_quimicos;21725,0623470593
 2015-12-01;241_sustancias_quimicas_basicas;100
 2016-01-01;241_sustancias_quimicas_basicas;121,016221651749
 2016-02-01;241_sustancias_quimicas_basicas;129,867849832007
@@ -8449,6 +8513,7 @@ periodo;nivel_general_aperturas;indice_ipim
 2026-07-01;241_sustancias_quimicas_basicas;30142,0196535516
 2026-08-01;241_sustancias_quimicas_basicas;29988,886894571
 2026-09-01;241_sustancias_quimicas_basicas;30268,7205629891
+2026-10-01;241_sustancias_quimicas_basicas;31273,8135458439
 2015-12-01;2411_sustancias_quimicas_basicas;100
 2016-01-01;2411_sustancias_quimicas_basicas;129,502753580235
 2016-02-01;2411_sustancias_quimicas_basicas;140,307758762723
@@ -8579,6 +8644,7 @@ periodo;nivel_general_aperturas;indice_ipim
 2026-07-01;2411_sustancias_quimicas_basicas;23902,5600287021
 2026-08-01;2411_sustancias_quimicas_basicas;23541,0750817044
 2026-09-01;2411_sustancias_quimicas_basicas;24508,0781185553
+2026-10-01;2411_sustancias_quimicas_basicas;24757,4543540225
 2015-12-01;2412_abonos_y_fertilizantes;100
 2016-01-01;2412_abonos_y_fertilizantes;110,749574674914
 2016-02-01;2412_abonos_y_fertilizantes;116,032574188001
@@ -8709,6 +8775,7 @@ periodo;nivel_general_aperturas;indice_ipim
 2026-07-01;2412_abonos_y_fertilizantes;16561,3186757433
 2026-08-01;2412_abonos_y_fertilizantes;16889,0822564132
 2026-09-01;2412_abonos_y_fertilizantes;16985,2253685103
+2026-10-01;2412_abonos_y_fertilizantes;17056,7771764004
 2015-12-01;2413_sustancias_plasticas_y_elastomeros;100
 2016-01-01;2413_sustancias_plasticas_y_elastomeros;112,809173516641
 2016-02-01;2413_sustancias_plasticas_y_elastomeros;119,848027398806
@@ -8839,6 +8906,7 @@ periodo;nivel_general_aperturas;indice_ipim
 2026-07-01;2413_sustancias_plasticas_y_elastomeros;37512,8230497806
 2026-08-01;2413_sustancias_plasticas_y_elastomeros;37546,702166996
 2026-09-01;2413_sustancias_plasticas_y_elastomeros;37121,0220443226
+2026-10-01;2413_sustancias_plasticas_y_elastomeros;38973,8525915701
 2015-12-01;242_otros_productos_quimicos;100
 2016-01-01;242_otros_productos_quimicos;108,902976709177
 2016-02-01;242_otros_productos_quimicos;114,187684240625
@@ -8969,6 +9037,7 @@ periodo;nivel_general_aperturas;indice_ipim
 2026-07-01;242_otros_productos_quimicos;17571,1699697123
 2026-08-01;242_otros_productos_quimicos;17826,0107079004
 2026-09-01;242_otros_productos_quimicos;18198,524292015
+2026-10-01;242_otros_productos_quimicos;18479,7542684056
 2015-12-01;2421_insecticidas_y_plaguicidas;100
 2016-01-01;2421_insecticidas_y_plaguicidas;111,064843367953
 2016-02-01;2421_insecticidas_y_plaguicidas;118,01363359984
@@ -9099,6 +9168,7 @@ periodo;nivel_general_aperturas;indice_ipim
 2026-07-01;2421_insecticidas_y_plaguicidas;16351,948141888
 2026-08-01;2421_insecticidas_y_plaguicidas;16351,9182551025
 2026-09-01;2421_insecticidas_y_plaguicidas;16628,4031064346
+2026-10-01;2421_insecticidas_y_plaguicidas;16799,5893964067
 2015-12-01;2422_pinturas_barnices_enduidos_y_tintas_de_imprenta;100
 2016-01-01;2422_pinturas_barnices_enduidos_y_tintas_de_imprenta;114,141654852298
 2016-02-01;2422_pinturas_barnices_enduidos_y_tintas_de_imprenta;117,009154563521
@@ -9229,6 +9299,7 @@ periodo;nivel_general_aperturas;indice_ipim
 2026-07-01;2422_pinturas_barnices_enduidos_y_tintas_de_imprenta;18629,3064126711
 2026-08-01;2422_pinturas_barnices_enduidos_y_tintas_de_imprenta;18814,8984057832
 2026-09-01;2422_pinturas_barnices_enduidos_y_tintas_de_imprenta;19145,5021427387
+2026-10-01;2422_pinturas_barnices_enduidos_y_tintas_de_imprenta;19281,4737344617
 2015-12-01;2423_productos_farmaceuticos_y_veterinarios;100
 2016-01-01;2423_productos_farmaceuticos_y_veterinarios;104,598496223364
 2016-02-01;2423_productos_farmaceuticos_y_veterinarios;106,135952274438
@@ -9359,6 +9430,7 @@ periodo;nivel_general_aperturas;indice_ipim
 2026-07-01;2423_productos_farmaceuticos_y_veterinarios;19442,9738576657
 2026-08-01;2423_productos_farmaceuticos_y_veterinarios;19845,017413049
 2026-09-01;2423_productos_farmaceuticos_y_veterinarios;20246,5452317045
+2026-10-01;2423_productos_farmaceuticos_y_veterinarios;20569,657297707
 2015-12-01;2424_jabones_y_detergentes;100
 2016-01-01;2424_jabones_y_detergentes;110,212399239947
 2016-02-01;2424_jabones_y_detergentes;119,479246283282
@@ -9489,6 +9561,7 @@ periodo;nivel_general_aperturas;indice_ipim
 2026-07-01;2424_jabones_y_detergentes;15184,6705561502
 2026-08-01;2424_jabones_y_detergentes;15246,674017853
 2026-09-01;2424_jabones_y_detergentes;15683,4840715134
+2026-10-01;2424_jabones_y_detergentes;15967,3204959069
 2015-12-01;2429_otros_productos_quimicos;100
 2016-01-01;2429_otros_productos_quimicos;111,394119995401
 2016-02-01;2429_otros_productos_quimicos;123,120884153331
@@ -9619,6 +9692,7 @@ periodo;nivel_general_aperturas;indice_ipim
 2026-07-01;2429_otros_productos_quimicos;15502,2228607929
 2026-08-01;2429_otros_productos_quimicos;15875,9677783758
 2026-09-01;2429_otros_productos_quimicos;16120,3771225212
+2026-10-01;2429_otros_productos_quimicos;16510,8257227996
 2015-12-01;243_fibras_manufacturadas;100
 2016-01-01;243_fibras_manufacturadas;109,019929142047
 2016-02-01;243_fibras_manufacturadas;116,312282221987
@@ -9749,6 +9823,7 @@ periodo;nivel_general_aperturas;indice_ipim
 2026-07-01;243_fibras_manufacturadas;8299,97485105842
 2026-08-01;243_fibras_manufacturadas;8356,76009061487
 2026-09-01;243_fibras_manufacturadas;8487,63733959768
+2026-10-01;243_fibras_manufacturadas;8596,84076198218
 2015-12-01;25_productos_de_caucho_y_plastico;100
 2016-01-01;25_productos_de_caucho_y_plastico;115,396008516737
 2016-02-01;25_productos_de_caucho_y_plastico;119,514132203169
@@ -9879,6 +9954,7 @@ periodo;nivel_general_aperturas;indice_ipim
 2026-07-01;25_productos_de_caucho_y_plastico;15271,7897575189
 2026-08-01;25_productos_de_caucho_y_plastico;15381,8359138227
 2026-09-01;25_productos_de_caucho_y_plastico;15541,2562805998
+2026-10-01;25_productos_de_caucho_y_plastico;15679,5813106837
 2015-12-01;251_productos_de_caucho;100
 2016-01-01;251_productos_de_caucho;113,809451334625
 2016-02-01;251_productos_de_caucho;116,962898771741
@@ -10009,6 +10085,7 @@ periodo;nivel_general_aperturas;indice_ipim
 2026-07-01;251_productos_de_caucho;16861,2376471715
 2026-08-01;251_productos_de_caucho;17231,871606972
 2026-09-01;251_productos_de_caucho;17408,4325122721
+2026-10-01;251_productos_de_caucho;17575,6857466606
 2015-12-01;2511_cubiertas_de_caucho;100
 2016-01-01;2511_cubiertas_de_caucho;115,381619174736
 2016-02-01;2511_cubiertas_de_caucho;118,816896392386
@@ -10139,6 +10216,7 @@ periodo;nivel_general_aperturas;indice_ipim
 2026-07-01;2511_cubiertas_de_caucho;18992,0930324255
 2026-08-01;2511_cubiertas_de_caucho;19294,8355647186
 2026-09-01;2511_cubiertas_de_caucho;19508,582874546
+2026-10-01;2511_cubiertas_de_caucho;19653,0193532358
 2015-12-01;2519_otros_productos_de_caucho;100
 2016-01-01;2519_otros_productos_de_caucho;112,477378404224
 2016-02-01;2519_otros_productos_de_caucho;115,392035928423
@@ -10269,6 +10347,7 @@ periodo;nivel_general_aperturas;indice_ipim
 2026-07-01;2519_otros_productos_de_caucho;15055,7976013441
 2026-08-01;2519_otros_productos_de_caucho;15483,954893248
 2026-09-01;2519_otros_productos_de_caucho;15629,0083464899
+2026-10-01;2519_otros_productos_de_caucho;15815,5938568926
 2015-12-01;252_productos_de_plastico;100
 2016-01-01;252_productos_de_plastico;115,975830093619
 2016-02-01;252_productos_de_plastico;120,446503382653
@@ -10399,6 +10478,7 @@ periodo;nivel_general_aperturas;indice_ipim
 2026-07-01;252_productos_de_plastico;14690,9117455943
 2026-08-01;252_productos_de_plastico;14705,7237478171
 2026-09-01;252_productos_de_plastico;14858,879950789
+2026-10-01;252_productos_de_plastico;14986,6329086996
 2015-12-01;26_productos_de_minerales_no_metalicos;100
 2016-01-01;26_productos_de_minerales_no_metalicos;106,770907071371
 2016-02-01;26_productos_de_minerales_no_metalicos;109,514164125233
@@ -10529,6 +10609,7 @@ periodo;nivel_general_aperturas;indice_ipim
 2026-07-01;26_productos_de_minerales_no_metalicos;17116,4865279931
 2026-08-01;26_productos_de_minerales_no_metalicos;17407,3475328154
 2026-09-01;26_productos_de_minerales_no_metalicos;17782,8380218086
+2026-10-01;26_productos_de_minerales_no_metalicos;18062,1039102243
 2015-12-01;261_vidrio_y_productos_de_vidrio;100
 2016-01-01;261_vidrio_y_productos_de_vidrio;112,081461887603
 2016-02-01;261_vidrio_y_productos_de_vidrio;112,754813925187
@@ -10659,6 +10740,7 @@ periodo;nivel_general_aperturas;indice_ipim
 2026-07-01;261_vidrio_y_productos_de_vidrio;13388,58274691
 2026-08-01;261_vidrio_y_productos_de_vidrio;13482,1141239129
 2026-09-01;261_vidrio_y_productos_de_vidrio;13846,1549500164
+2026-10-01;261_vidrio_y_productos_de_vidrio;14105,7206189044
 2015-12-01;269_otros_productos_de_minerales_no_metalicos;100
 2016-01-01;269_otros_productos_de_minerales_no_metalicos;105,81810712587
 2016-02-01;269_otros_productos_de_minerales_no_metalicos;108,932738820414
@@ -10789,6 +10871,7 @@ periodo;nivel_general_aperturas;indice_ipim
 2026-07-01;269_otros_productos_de_minerales_no_metalicos;17785,333125451
 2026-08-01;269_otros_productos_de_minerales_no_metalicos;18111,5982763821
 2026-09-01;269_otros_productos_de_minerales_no_metalicos;18489,1430212025
+2026-10-01;269_otros_productos_de_minerales_no_metalicos;18771,9434495566
 2015-12-01;2691_productos_de_ceramica_no_refractaria_para_uso_no_estructural;100
 2016-01-01;2691_productos_de_ceramica_no_refractaria_para_uso_no_estructural;106,772017255052
 2016-02-01;2691_productos_de_ceramica_no_refractaria_para_uso_no_estructural;106,773009547052
@@ -10919,6 +11002,7 @@ periodo;nivel_general_aperturas;indice_ipim
 2026-07-01;2691_productos_de_ceramica_no_refractaria_para_uso_no_estructural;19196,1541728858
 2026-08-01;2691_productos_de_ceramica_no_refractaria_para_uso_no_estructural;19211,0068126037
 2026-09-01;2691_productos_de_ceramica_no_refractaria_para_uso_no_estructural;19983,0667847603
+2026-10-01;2691_productos_de_ceramica_no_refractaria_para_uso_no_estructural;20415,4094152991
 2015-12-01;2692_productos_de_ceramica_refractaria;100
 2016-01-01;2692_productos_de_ceramica_refractaria;95,2354650949963
 2016-02-01;2692_productos_de_ceramica_refractaria;109,291594439499
@@ -11049,6 +11133,7 @@ periodo;nivel_general_aperturas;indice_ipim
 2026-07-01;2692_productos_de_ceramica_refractaria;11557,7324408564
 2026-08-01;2692_productos_de_ceramica_refractaria;11826,2620997478
 2026-09-01;2692_productos_de_ceramica_refractaria;11853,3290776702
+2026-10-01;2692_productos_de_ceramica_refractaria;12087,7348418379
 2015-12-01;2693_productos_de_arcilla_y_ceramica_no_refractaria_para_uso_estructural;100
 2016-01-01;2693_productos_de_arcilla_y_ceramica_no_refractaria_para_uso_estructural;100,694447749345
 2016-02-01;2693_productos_de_arcilla_y_ceramica_no_refractaria_para_uso_estructural;102,839206025214
@@ -11179,6 +11264,7 @@ periodo;nivel_general_aperturas;indice_ipim
 2026-07-01;2693_productos_de_arcilla_y_ceramica_no_refractaria_para_uso_estructural;10327,4564149784
 2026-08-01;2693_productos_de_arcilla_y_ceramica_no_refractaria_para_uso_estructural;10240,5175283493
 2026-09-01;2693_productos_de_arcilla_y_ceramica_no_refractaria_para_uso_estructural;10583,0015596766
+2026-10-01;2693_productos_de_arcilla_y_ceramica_no_refractaria_para_uso_estructural;10740,6118072547
 2015-12-01;2694_cemento_y_cal;100
 2016-01-01;2694_cemento_y_cal;104,42577955555
 2016-02-01;2694_cemento_y_cal;109,563237264322
@@ -11309,6 +11395,7 @@ periodo;nivel_general_aperturas;indice_ipim
 2026-07-01;2694_cemento_y_cal;21446,1631546024
 2026-08-01;2694_cemento_y_cal;21966,5599689562
 2026-09-01;2694_cemento_y_cal;22453,5411002538
+2026-10-01;2694_cemento_y_cal;22728,5950108154
 2015-12-01;2695_articulos_de_hormigon_de_cemento_y_de_yeso;100
 2016-01-01;2695_articulos_de_hormigon_de_cemento_y_de_yeso;107,133732009424
 2016-02-01;2695_articulos_de_hormigon_de_cemento_y_de_yeso;107,809251246055
@@ -11439,6 +11526,7 @@ periodo;nivel_general_aperturas;indice_ipim
 2026-07-01;2695_articulos_de_hormigon_de_cemento_y_de_yeso;14333,0205982148
 2026-08-01;2695_articulos_de_hormigon_de_cemento_y_de_yeso;14686,231854062
 2026-09-01;2695_articulos_de_hormigon_de_cemento_y_de_yeso;14839,1372552572
+2026-10-01;2695_articulos_de_hormigon_de_cemento_y_de_yeso;15101,3496781976
 2015-12-01;2699_otros_articulos_de_minerales_no_metaliferos_n.c.e.p.;100
 2016-01-01;2699_otros_articulos_de_minerales_no_metaliferos_n.c.e.p.;117,152185679802
 2016-02-01;2699_otros_articulos_de_minerales_no_metaliferos_n.c.e.p.;118,129832029601
@@ -11569,6 +11657,7 @@ periodo;nivel_general_aperturas;indice_ipim
 2026-07-01;2699_otros_articulos_de_minerales_no_metaliferos_n.c.e.p.;21756,3069241004
 2026-08-01;2699_otros_articulos_de_minerales_no_metaliferos_n.c.e.p.;21876,9693776943
 2026-09-01;2699_otros_articulos_de_minerales_no_metaliferos_n.c.e.p.;22314,6182326019
+2026-10-01;2699_otros_articulos_de_minerales_no_metaliferos_n.c.e.p.;22761,0896394126
 2015-12-01;27_productos_metalicos_basicos;100
 2016-01-01;27_productos_metalicos_basicos;108,486703115818
 2016-02-01;27_productos_metalicos_basicos;112,00428947224
@@ -11699,6 +11788,7 @@ periodo;nivel_general_aperturas;indice_ipim
 2026-07-01;27_productos_metalicos_basicos;13644,1992409263
 2026-08-01;27_productos_metalicos_basicos;13879,9469062786
 2026-09-01;27_productos_metalicos_basicos;13960,2908332157
+2026-10-01;27_productos_metalicos_basicos;14128,4197497944
 2015-12-01;271_productos_de_minerales_ferrosos_en_formas_basicas;100
 2016-01-01;271_productos_de_minerales_ferrosos_en_formas_basicas;108,873575489248
 2016-02-01;271_productos_de_minerales_ferrosos_en_formas_basicas;112,931183999745
@@ -11829,6 +11919,7 @@ periodo;nivel_general_aperturas;indice_ipim
 2026-07-01;271_productos_de_minerales_ferrosos_en_formas_basicas;14608,9482905998
 2026-08-01;271_productos_de_minerales_ferrosos_en_formas_basicas;14903,942855885
 2026-09-01;271_productos_de_minerales_ferrosos_en_formas_basicas;15093,9540724459
+2026-10-01;271_productos_de_minerales_ferrosos_en_formas_basicas;15260,0368383193
 2015-12-01;272_productos_de_minerales_no_ferrosos_en_formas_basicas;100
 2016-01-01;272_productos_de_minerales_no_ferrosos_en_formas_basicas;121,27673536521
 2016-02-01;272_productos_de_minerales_no_ferrosos_en_formas_basicas;128,202894079492
@@ -11959,6 +12050,7 @@ periodo;nivel_general_aperturas;indice_ipim
 2026-07-01;272_productos_de_minerales_no_ferrosos_en_formas_basicas;16458,6560806604
 2026-08-01;272_productos_de_minerales_no_ferrosos_en_formas_basicas;16685,6862463406
 2026-09-01;272_productos_de_minerales_no_ferrosos_en_formas_basicas;16823,9316678902
+2026-10-01;272_productos_de_minerales_no_ferrosos_en_formas_basicas;17078,5850611397
 2015-12-01;273_productos_de_fundicion;100
 2016-01-01;273_productos_de_fundicion;106,077889230667
 2016-02-01;273_productos_de_fundicion;108,316970748314
@@ -12089,6 +12181,7 @@ periodo;nivel_general_aperturas;indice_ipim
 2026-07-01;273_productos_de_fundicion;11832,6189516723
 2026-08-01;273_productos_de_fundicion;11983,3071740998
 2026-09-01;273_productos_de_fundicion;11895,5230409327
+2026-10-01;273_productos_de_fundicion;12054,1503902819
 2015-12-01;28_productos_metalicos_excepto_maquinas_y_equipos;100
 2016-01-01;28_productos_metalicos_excepto_maquinas_y_equipos;108,707388321394
 2016-02-01;28_productos_metalicos_excepto_maquinas_y_equipos;112,090927029144
@@ -12219,6 +12312,7 @@ periodo;nivel_general_aperturas;indice_ipim
 2026-07-01;28_productos_metalicos_excepto_maquinas_y_equipos;13945,7549481529
 2026-08-01;28_productos_metalicos_excepto_maquinas_y_equipos;14080,2342877606
 2026-09-01;28_productos_metalicos_excepto_maquinas_y_equipos;14387,3176826969
+2026-10-01;28_productos_metalicos_excepto_maquinas_y_equipos;14597,6133157535
 2015-12-01;281_productos_metalicos_estructurales_recipientes_y_generadores_de_vapor;100
 2016-01-01;281_productos_metalicos_estructurales_recipientes_y_generadores_de_vapor;112,593322095562
 2016-02-01;281_productos_metalicos_estructurales_recipientes_y_generadores_de_vapor;114,597969245583
@@ -12349,6 +12443,7 @@ periodo;nivel_general_aperturas;indice_ipim
 2026-07-01;281_productos_metalicos_estructurales_recipientes_y_generadores_de_vapor;14595,5671119208
 2026-08-01;281_productos_metalicos_estructurales_recipientes_y_generadores_de_vapor;14703,5213888469
 2026-09-01;281_productos_metalicos_estructurales_recipientes_y_generadores_de_vapor;15114,6565466465
+2026-10-01;281_productos_metalicos_estructurales_recipientes_y_generadores_de_vapor;15433,9388919564
 2015-12-01;2811_productos_metalicos_para_uso_estructural;100
 2016-01-01;2811_productos_metalicos_para_uso_estructural;112,927251678987
 2016-02-01;2811_productos_metalicos_para_uso_estructural;114,895155739226
@@ -12479,6 +12574,7 @@ periodo;nivel_general_aperturas;indice_ipim
 2026-07-01;2811_productos_metalicos_para_uso_estructural;14578,8444700158
 2026-08-01;2811_productos_metalicos_para_uso_estructural;14682,7643264464
 2026-09-01;2811_productos_metalicos_para_uso_estructural;15101,1484740183
+2026-10-01;2811_productos_metalicos_para_uso_estructural;15431,0168405377
 2015-12-01;2813_generadores_de_vapor;100
 2016-01-01;2813_generadores_de_vapor;104,132555103929
 2016-02-01;2813_generadores_de_vapor;107,068161164535
@@ -12609,6 +12705,7 @@ periodo;nivel_general_aperturas;indice_ipim
 2026-07-01;2813_generadores_de_vapor;15019,2683461512
 2026-08-01;2813_generadores_de_vapor;15229,4426522464
 2026-09-01;2813_generadores_de_vapor;15456,9103051797
+2026-10-01;2813_generadores_de_vapor;15507,9748486918
 2015-12-01;289_otros_productos_metalicos_excepto_maquinas_equipos_y_muebles;100
 2016-01-01;289_otros_productos_metalicos_excepto_maquinas_equipos_y_muebles;106,937695420227
 2016-02-01;289_otros_productos_metalicos_excepto_maquinas_equipos_y_muebles;110,949195061695
@@ -12739,6 +12836,7 @@ periodo;nivel_general_aperturas;indice_ipim
 2026-07-01;289_otros_productos_metalicos_excepto_maquinas_equipos_y_muebles;13649,8240239165
 2026-08-01;289_otros_productos_metalicos_excepto_maquinas_equipos_y_muebles;13796,3831409621
 2026-09-01;289_otros_productos_metalicos_excepto_maquinas_equipos_y_muebles;14056,0803278995
+2026-10-01;289_otros_productos_metalicos_excepto_maquinas_equipos_y_muebles;14216,7423279081
 2015-12-01;2893_herramientas_de mano_y_articulos_de_ferreteria;100
 2016-01-01;2893_herramientas_de mano_y_articulos_de_ferreteria;107,122924400915
 2016-02-01;2893_herramientas_de mano_y_articulos_de_ferreteria;109,625820784106
@@ -12869,6 +12967,7 @@ periodo;nivel_general_aperturas;indice_ipim
 2026-07-01;2893_herramientas_de mano_y_articulos_de_ferreteria;11422,7459708548
 2026-08-01;2893_herramientas_de mano_y_articulos_de_ferreteria;11481,1804980819
 2026-09-01;2893_herramientas_de mano_y_articulos_de_ferreteria;11723,2039378542
+2026-10-01;2893_herramientas_de mano_y_articulos_de_ferreteria;11966,2461133877
 2015-12-01;2899_otros_productos_metalicos_n.c.e.p.;100
 2016-01-01;2899_otros_productos_metalicos_n.c.e.p.;106,912985992929
 2016-02-01;2899_otros_productos_metalicos_n.c.e.p.;111,125732342084
@@ -12999,6 +13098,7 @@ periodo;nivel_general_aperturas;indice_ipim
 2026-07-01;2899_otros_productos_metalicos_n.c.e.p.;13946,9148087095
 2026-08-01;2899_otros_productos_metalicos_n.c.e.p.;14105,229689552
 2026-09-01;2899_otros_productos_metalicos_n.c.e.p.;14367,2845430329
+2026-10-01;2899_otros_productos_metalicos_n.c.e.p.;14516,9570804294
 2015-12-01;29_maquinas_y_equipos;100
 2016-01-01;29_maquinas_y_equipos;111,166997350694
 2016-02-01;29_maquinas_y_equipos;114,82101042553
@@ -13129,6 +13229,7 @@ periodo;nivel_general_aperturas;indice_ipim
 2026-07-01;29_maquinas_y_equipos;14706,0739231871
 2026-08-01;29_maquinas_y_equipos;14885,9137845505
 2026-09-01;29_maquinas_y_equipos;15125,4091155041
+2026-10-01;29_maquinas_y_equipos;15114,0162227762
 2015-12-01;291_maquinas_de_uso_general;100
 2016-01-01;291_maquinas_de_uso_general;108,931582057859
 2016-02-01;291_maquinas_de_uso_general;112,766845717334
@@ -13259,6 +13360,7 @@ periodo;nivel_general_aperturas;indice_ipim
 2026-07-01;291_maquinas_de_uso_general;17435,4024423683
 2026-08-01;291_maquinas_de_uso_general;17586,7314709607
 2026-09-01;291_maquinas_de_uso_general;17959,7140268773
+2026-10-01;291_maquinas_de_uso_general;17756,7506886601
 2015-12-01;2911_motores_a_explosion_excepto_para_automotores;100
 2016-01-01;2911_motores_a_explosion_excepto_para_automotores;126,288968540586
 2016-02-01;2911_motores_a_explosion_excepto_para_automotores;130,108915488648
@@ -13389,6 +13491,7 @@ periodo;nivel_general_aperturas;indice_ipim
 2026-07-01;2911_motores_a_explosion_excepto_para_automotores;46114,8631595804
 2026-08-01;2911_motores_a_explosion_excepto_para_automotores;46114,8603635039
 2026-09-01;2911_motores_a_explosion_excepto_para_automotores;48139,3242041739
+2026-10-01;2911_motores_a_explosion_excepto_para_automotores;46114,8631595804
 2015-12-01;2912_bombas_y_compresores;100
 2016-01-01;2912_bombas_y_compresores;114,780291834539
 2016-02-01;2912_bombas_y_compresores;115,640468759091
@@ -13519,6 +13622,7 @@ periodo;nivel_general_aperturas;indice_ipim
 2026-07-01;2912_bombas_y_compresores;12188,5774880209
 2026-08-01;2912_bombas_y_compresores;12473,2909092915
 2026-09-01;2912_bombas_y_compresores;12610,7992957066
+2026-10-01;2912_bombas_y_compresores;12699,7059598032
 2015-12-01;2913_rodamientos;100
 2016-01-01;2913_rodamientos;100
 2016-02-01;2913_rodamientos;124,868422232511
@@ -13649,6 +13753,7 @@ periodo;nivel_general_aperturas;indice_ipim
 2026-07-01;2913_rodamientos;11887,6262194411
 2026-08-01;2913_rodamientos;12043,6292054604
 2026-09-01;2913_rodamientos;12168,7482483248
+2026-10-01;2913_rodamientos;11265,5655423611
 2015-12-01;2915_equipos_de_elevacion_y_manipulacion;100
 2016-01-01;2915_equipos_de_elevacion_y_manipulacion;104,906318150577
 2016-02-01;2915_equipos_de_elevacion_y_manipulacion;113,046074650675
@@ -13779,6 +13884,7 @@ periodo;nivel_general_aperturas;indice_ipim
 2026-07-01;2915_equipos_de_elevacion_y_manipulacion;12064,369821468
 2026-08-01;2915_equipos_de_elevacion_y_manipulacion;12241,6317953763
 2026-09-01;2915_equipos_de_elevacion_y_manipulacion;12356,8328491786
+2026-10-01;2915_equipos_de_elevacion_y_manipulacion;12410,1902815835
 2015-12-01;2919_otra_maquinaria_de_uso_general;100
 2016-01-01;2919_otra_maquinaria_de_uso_general;102,89531966723
 2016-02-01;2919_otra_maquinaria_de_uso_general;105,434000114037
@@ -13909,6 +14015,7 @@ periodo;nivel_general_aperturas;indice_ipim
 2026-07-01;2919_otra_maquinaria_de_uso_general;13318,7873974612
 2026-08-01;2919_otra_maquinaria_de_uso_general;13445,7621140474
 2026-09-01;2919_otra_maquinaria_de_uso_general;13529,1685123449
+2026-10-01;2919_otra_maquinaria_de_uso_general;13693,4355959812
 2015-12-01;292_maquinas_de_uso_especial;100
 2016-01-01;292_maquinas_de_uso_especial;117,13369846482
 2016-02-01;292_maquinas_de_uso_especial;122,508392884713
@@ -14039,6 +14146,7 @@ periodo;nivel_general_aperturas;indice_ipim
 2026-07-01;292_maquinas_de_uso_especial;15374,8551938953
 2026-08-01;292_maquinas_de_uso_especial;15570,8674617629
 2026-09-01;292_maquinas_de_uso_especial;15719,2387308482
+2026-10-01;292_maquinas_de_uso_especial;15773,4257580232
 2015-12-01;2921_maquinas_agricolas;100
 2016-01-01;2921_maquinas_agricolas;119,088142349047
 2016-02-01;2921_maquinas_agricolas;125,313904072225
@@ -14169,6 +14277,7 @@ periodo;nivel_general_aperturas;indice_ipim
 2026-07-01;2921_maquinas_agricolas;15953,7267168115
 2026-08-01;2921_maquinas_agricolas;16188,328900289
 2026-09-01;2921_maquinas_agricolas;16369,5559777457
+2026-10-01;2921_maquinas_agricolas;16368,7324197576
 2015-12-01;2922_maquinas_herramientas;100
 2016-01-01;2922_maquinas_herramientas;130,918668676969
 2016-02-01;2922_maquinas_herramientas;136,367729873635
@@ -14299,6 +14408,7 @@ periodo;nivel_general_aperturas;indice_ipim
 2026-07-01;2922_maquinas_herramientas;12051,002774169
 2026-08-01;2922_maquinas_herramientas;12115,5648994233
 2026-09-01;2922_maquinas_herramientas;12290,3212303742
+2026-10-01;2922_maquinas_herramientas;12303,3436761911
 2015-12-01;2924_maquinas_para_la_industria_extractiva_y_obras_de_construccion;100
 2016-01-01;2924_maquinas_para_la_industria_extractiva_y_obras_de_construccion;110,853444115466
 2016-02-01;2924_maquinas_para_la_industria_extractiva_y_obras_de_construccion;116,59431867904
@@ -14429,6 +14539,7 @@ periodo;nivel_general_aperturas;indice_ipim
 2026-07-01;2924_maquinas_para_la_industria_extractiva_y_obras_de_construccion;12755,6561339748
 2026-08-01;2924_maquinas_para_la_industria_extractiva_y_obras_de_construccion;12880,2700333891
 2026-09-01;2924_maquinas_para_la_industria_extractiva_y_obras_de_construccion;12878,8533462503
+2026-10-01;2924_maquinas_para_la_industria_extractiva_y_obras_de_construccion;13160,0302419731
 2015-12-01;2925_maquinas_para_la_elaboracion_o_procesamiento_de_alimentos_y_bebidas;100
 2016-01-01;2925_maquinas_para_la_elaboracion_o_procesamiento_de_alimentos_y_bebidas;105,889603602457
 2016-02-01;2925_maquinas_para_la_elaboracion_o_procesamiento_de_alimentos_y_bebidas;108,633360420433
@@ -14559,6 +14670,7 @@ periodo;nivel_general_aperturas;indice_ipim
 2026-07-01;2925_maquinas_para_la_elaboracion_o_procesamiento_de_alimentos_y_bebidas;14044,6787728518
 2026-08-01;2925_maquinas_para_la_elaboracion_o_procesamiento_de_alimentos_y_bebidas;14198,6986547208
 2026-09-01;2925_maquinas_para_la_elaboracion_o_procesamiento_de_alimentos_y_bebidas;14281,4036588095
+2026-10-01;2925_maquinas_para_la_elaboracion_o_procesamiento_de_alimentos_y_bebidas;14444,2932526658
 2015-12-01;2926_maquinas_para_lavaderos_industriales;100
 2016-01-01;2926_maquinas_para_lavaderos_industriales;105,307719209293
 2016-02-01;2926_maquinas_para_lavaderos_industriales;111,019775474199
@@ -14689,6 +14801,7 @@ periodo;nivel_general_aperturas;indice_ipim
 2026-07-01;2926_maquinas_para_lavaderos_industriales;25154,6084580355
 2026-08-01;2926_maquinas_para_lavaderos_industriales;25288,778733796
 2026-09-01;2926_maquinas_para_lavaderos_industriales;25288,7787125674
+2026-10-01;2926_maquinas_para_lavaderos_industriales;25541,2538935865
 2015-12-01;2927_armas_y_municiones;100
 2016-01-01;2927_armas_y_municiones;126,393823760455
 2016-02-01;2927_armas_y_municiones;126,393823760455
@@ -14819,6 +14932,7 @@ periodo;nivel_general_aperturas;indice_ipim
 2026-07-01;2927_armas_y_municiones;12622,8626604652
 2026-08-01;2927_armas_y_municiones;12919,3833757412
 2026-09-01;2927_armas_y_municiones;13120,2769041185
+2026-10-01;2927_armas_y_municiones;13245,8084667018
 2015-12-01;293_otros_aparatos_de_uso_domestico;100
 2016-01-01;293_otros_aparatos_de_uso_domestico;106,485654859148
 2016-02-01;293_otros_aparatos_de_uso_domestico;108,039727131014
@@ -14949,6 +15063,7 @@ periodo;nivel_general_aperturas;indice_ipim
 2026-07-01;293_otros_aparatos_de_uso_domestico;11475,5762561183
 2026-08-01;293_otros_aparatos_de_uso_domestico;11663,1142719882
 2026-09-01;293_otros_aparatos_de_uso_domestico;11883,8941342997
+2026-10-01;293_otros_aparatos_de_uso_domestico;11972,6884024413
 2015-12-01;31_maquinas_y_aparatos_electricos;100
 2016-01-01;31_maquinas_y_aparatos_electricos;115,117570397129
 2016-02-01;31_maquinas_y_aparatos_electricos;121,678699890618
@@ -15079,6 +15194,7 @@ periodo;nivel_general_aperturas;indice_ipim
 2026-07-01;31_maquinas_y_aparatos_electricos;17881,4978295358
 2026-08-01;31_maquinas_y_aparatos_electricos;18250,2214661137
 2026-09-01;31_maquinas_y_aparatos_electricos;18529,5106827727
+2026-10-01;31_maquinas_y_aparatos_electricos;18733,569078963
 2015-12-01;311_motores_generadores_y_transformadores_electricos;100
 2016-01-01;311_motores_generadores_y_transformadores_electricos;125,472772600681
 2016-02-01;311_motores_generadores_y_transformadores_electricos;129,804760151436
@@ -15209,6 +15325,7 @@ periodo;nivel_general_aperturas;indice_ipim
 2026-07-01;311_motores_generadores_y_transformadores_electricos;17088,3875742564
 2026-08-01;311_motores_generadores_y_transformadores_electricos;17406,0936833789
 2026-09-01;311_motores_generadores_y_transformadores_electricos;17626,5297043126
+2026-10-01;311_motores_generadores_y_transformadores_electricos;17789,7836901268
 2015-12-01;312_aparatos_de_distribucion_y_control_electrico;100
 2016-01-01;312_aparatos_de_distribucion_y_control_electrico;119,685026632248
 2016-02-01;312_aparatos_de_distribucion_y_control_electrico;129,059638493434
@@ -15339,6 +15456,7 @@ periodo;nivel_general_aperturas;indice_ipim
 2026-07-01;312_aparatos_de_distribucion_y_control_electrico;13910,1051626442
 2026-08-01;312_aparatos_de_distribucion_y_control_electrico;14042,2635354156
 2026-09-01;312_aparatos_de_distribucion_y_control_electrico;14649,1829104343
+2026-10-01;312_aparatos_de_distribucion_y_control_electrico;14664,4824602116
 2015-12-01;313_conductores_electricos;100
 2016-01-01;313_conductores_electricos;110,510906346161
 2016-02-01;313_conductores_electricos;120,450461988308
@@ -15469,6 +15587,7 @@ periodo;nivel_general_aperturas;indice_ipim
 2026-07-01;313_conductores_electricos;23973,9228072825
 2026-08-01;313_conductores_electricos;24515,5039192004
 2026-09-01;313_conductores_electricos;24980,428863266
+2026-10-01;313_conductores_electricos;25325,5257951762
 2015-12-01;314_acumuladores_electricos;100
 2016-01-01;314_acumuladores_electricos;111,213334548177
 2016-02-01;314_acumuladores_electricos;115,266511792988
@@ -15599,6 +15718,7 @@ periodo;nivel_general_aperturas;indice_ipim
 2026-07-01;314_acumuladores_electricos;10390,3652841315
 2026-08-01;314_acumuladores_electricos;10666,8746869143
 2026-09-01;314_acumuladores_electricos;10624,3164178328
+2026-10-01;314_acumuladores_electricos;10695,3632852604
 2015-12-01;315_equipos_de_iluminacion;100
 2016-01-01;315_equipos_de_iluminacion;133,488850412412
 2016-02-01;315_equipos_de_iluminacion;140,056211464372
@@ -15729,6 +15849,7 @@ periodo;nivel_general_aperturas;indice_ipim
 2026-07-01;315_equipos_de_iluminacion;19572,6151386662
 2026-08-01;315_equipos_de_iluminacion;19759,8318101619
 2026-09-01;315_equipos_de_iluminacion;20111,4644722746
+2026-10-01;315_equipos_de_iluminacion;20188,8679967761
 2015-12-01;319_otros_equipos_electricos;100
 2016-01-01;319_otros_equipos_electricos;105,670544815438
 2016-02-01;319_otros_equipos_electricos;106,676533034334
@@ -15859,6 +15980,7 @@ periodo;nivel_general_aperturas;indice_ipim
 2026-07-01;319_otros_equipos_electricos;9446,89821055393
 2026-08-01;319_otros_equipos_electricos;9655,19867889287
 2026-09-01;319_otros_equipos_electricos;9677,17458432848
+2026-10-01;319_otros_equipos_electricos;9816,10915560207
 2015-12-01;32_equipos_y_aparatos_de_radio_y_television;100
 2016-01-01;32_equipos_y_aparatos_de_radio_y_television;101,919976607774
 2016-02-01;32_equipos_y_aparatos_de_radio_y_television;114,780623932029
@@ -15989,6 +16111,7 @@ periodo;nivel_general_aperturas;indice_ipim
 2026-07-01;32_equipos_y_aparatos_de_radio_y_television;2184,58921344996
 2026-08-01;32_equipos_y_aparatos_de_radio_y_television;2234,47891776053
 2026-09-01;32_equipos_y_aparatos_de_radio_y_television;2268,64158983148
+2026-10-01;32_equipos_y_aparatos_de_radio_y_television;2302,89079931496
 2015-12-01;33_equipos_para_medicina_e_instrumentos_de_medicion;100
 2016-01-01;33_equipos_para_medicina_e_instrumentos_de_medicion;117,971597063018
 2016-02-01;33_equipos_para_medicina_e_instrumentos_de_medicion;121,967067101919
@@ -16119,6 +16242,7 @@ periodo;nivel_general_aperturas;indice_ipim
 2026-07-01;33_equipos_para_medicina_e_instrumentos_de_medicion;11709,5132265408
 2026-08-01;33_equipos_para_medicina_e_instrumentos_de_medicion;11986,382611049
 2026-09-01;33_equipos_para_medicina_e_instrumentos_de_medicion;12179,407824003
+2026-10-01;33_equipos_para_medicina_e_instrumentos_de_medicion;12215,3900143221
 2015-12-01;3311_equipos_para_medicina;100
 2016-01-01;3311_equipos_para_medicina;113,438837733192
 2016-02-01;3311_equipos_para_medicina;115,568487499447
@@ -16249,6 +16373,7 @@ periodo;nivel_general_aperturas;indice_ipim
 2026-07-01;3311_equipos_para_medicina;11560,3087358607
 2026-08-01;3311_equipos_para_medicina;11896,2314300465
 2026-09-01;3311_equipos_para_medicina;12109,7337402316
+2026-10-01;3311_equipos_para_medicina;12147,4448433624
 2015-12-01;3312_instrumentos_de_medicion_de_servicios_domiciliarios;100
 2016-01-01;3312_instrumentos_de_medicion_de_servicios_domiciliarios;129,32920626156
 2016-02-01;3312_instrumentos_de_medicion_de_servicios_domiciliarios;137,999810352249
@@ -16379,6 +16504,7 @@ periodo;nivel_general_aperturas;indice_ipim
 2026-07-01;3312_instrumentos_de_medicion_de_servicios_domiciliarios;12083,3707761049
 2026-08-01;3312_instrumentos_de_medicion_de_servicios_domiciliarios;12212,2719221968
 2026-09-01;3312_instrumentos_de_medicion_de_servicios_domiciliarios;12353,988241175
+2026-10-01;3312_instrumentos_de_medicion_de_servicios_domiciliarios;12385,6383426659
 2015-12-01;34_vehiculos_automotores_carrocerias_y_repuestos;100
 2016-01-01;34_vehiculos_automotores_carrocerias_y_repuestos;110,508245577222
 2016-02-01;34_vehiculos_automotores_carrocerias_y_repuestos;118,072726277191
@@ -16509,6 +16635,7 @@ periodo;nivel_general_aperturas;indice_ipim
 2026-07-01;34_vehiculos_automotores_carrocerias_y_repuestos;16828,6712856378
 2026-08-01;34_vehiculos_automotores_carrocerias_y_repuestos;17096,1155734619
 2026-09-01;34_vehiculos_automotores_carrocerias_y_repuestos;17416,873357371
+2026-10-01;34_vehiculos_automotores_carrocerias_y_repuestos;17640,8618907632
 2015-12-01;341_vehiculos_automotores;100
 2016-01-01;341_vehiculos_automotores;113,603218778281
 2016-02-01;341_vehiculos_automotores;122,817129544597
@@ -16639,6 +16766,7 @@ periodo;nivel_general_aperturas;indice_ipim
 2026-07-01;341_vehiculos_automotores;18250,9174832291
 2026-08-01;341_vehiculos_automotores;18570,2200597237
 2026-09-01;341_vehiculos_automotores;18882,8923128462
+2026-10-01;341_vehiculos_automotores;19231,0094561359
 2015-12-01;342_carrocerias_y_remolques;100
 2016-01-01;342_carrocerias_y_remolques;104,357157473399
 2016-02-01;342_carrocerias_y_remolques;112,376122831498
@@ -16769,6 +16897,7 @@ periodo;nivel_general_aperturas;indice_ipim
 2026-07-01;342_carrocerias_y_remolques;10305,2453267301
 2026-08-01;342_carrocerias_y_remolques;10487,9801179424
 2026-09-01;342_carrocerias_y_remolques;10714,2222682532
+2026-10-01;342_carrocerias_y_remolques;10728,4035964017
 2015-12-01;343_repuestos_para_automotores;100
 2016-01-01;343_repuestos_para_automotores;104,681270380673
 2016-02-01;343_repuestos_para_automotores;108,289241968722
@@ -16899,6 +17028,7 @@ periodo;nivel_general_aperturas;indice_ipim
 2026-07-01;343_repuestos_para_automotores;14993,893633573
 2026-08-01;343_repuestos_para_automotores;15159,5177555503
 2026-09-01;343_repuestos_para_automotores;15520,713231225
+2026-10-01;343_repuestos_para_automotores;15502,5902979133
 2015-12-01;35_otros_medios_de_transporte;100
 2016-01-01;35_otros_medios_de_transporte;100,265602854252
 2016-02-01;35_otros_medios_de_transporte;100,265602854252
@@ -17029,6 +17159,7 @@ periodo;nivel_general_aperturas;indice_ipim
 2026-07-01;35_otros_medios_de_transporte;12403,0219080752
 2026-08-01;35_otros_medios_de_transporte;12427,9487747965
 2026-09-01;35_otros_medios_de_transporte;12482,7680986942
+2026-10-01;35_otros_medios_de_transporte;12487,9272635234
 2015-12-01;3591_motocicletas;100
 2016-01-01;3591_motocicletas;100
 2016-02-01;3591_motocicletas;100
@@ -17159,6 +17290,7 @@ periodo;nivel_general_aperturas;indice_ipim
 2026-07-01;3591_motocicletas;12534,5240367115
 2026-08-01;3591_motocicletas;12557,4491341655
 2026-09-01;3591_motocicletas;12616,5808732875
+2026-10-01;3591_motocicletas;12616,5808750225
 2015-12-01;3599_otros_medios_de_transporte;100
 2016-01-01;3599_otros_medios_de_transporte;107,055989997924
 2016-02-01;3599_otros_medios_de_transporte;107,055989997924
@@ -17289,6 +17421,7 @@ periodo;nivel_general_aperturas;indice_ipim
 2026-07-01;3599_otros_medios_de_transporte;9041,04612595927
 2026-08-01;3599_otros_medios_de_transporte;9117,15010949002
 2026-09-01;3599_otros_medios_de_transporte;9061,71847626202
+2026-10-01;3599_otros_medios_de_transporte;9198,77650507578
 2015-12-01;36_muebles_y_otros_productos_industriales;100
 2016-01-01;36_muebles_y_otros_productos_industriales;107,661059530746
 2016-02-01;36_muebles_y_otros_productos_industriales;108,914170075698
@@ -17419,6 +17552,7 @@ periodo;nivel_general_aperturas;indice_ipim
 2026-07-01;36_muebles_y_otros_productos_industriales;12305,3289182842
 2026-08-01;36_muebles_y_otros_productos_industriales;12435,3576084989
 2026-09-01;36_muebles_y_otros_productos_industriales;12656,3434551521
+2026-10-01;36_muebles_y_otros_productos_industriales;12801,0810007578
 2015-12-01;361_muebles_y_colchones;100
 2016-01-01;361_muebles_y_colchones;107,391976056629
 2016-02-01;361_muebles_y_colchones;108,470442541781
@@ -17549,6 +17683,7 @@ periodo;nivel_general_aperturas;indice_ipim
 2026-07-01;361_muebles_y_colchones;12801,7563763847
 2026-08-01;361_muebles_y_colchones;12938,4522299832
 2026-09-01;361_muebles_y_colchones;13139,5900483877
+2026-10-01;361_muebles_y_colchones;13304,125360944
 2015-12-01;369_otros_productos_manufacturados;100
 2016-01-01;369_otros_productos_manufacturados;109,153278178934
 2016-02-01;369_otros_productos_manufacturados;111,3748878994
@@ -17679,6 +17814,7 @@ periodo;nivel_general_aperturas;indice_ipim
 2026-07-01;369_otros_productos_manufacturados;9552,36048394068
 2026-08-01;369_otros_productos_manufacturados;9645,41601716517
 2026-09-01;369_otros_productos_manufacturados;9976,47030254195
+2026-10-01;369_otros_productos_manufacturados;10011,4181364869
 2015-12-01;e_energia_electrica;100
 2016-01-01;e_energia_electrica;100,948707799946
 2016-02-01;e_energia_electrica;171,209556237748
@@ -17809,6 +17945,7 @@ periodo;nivel_general_aperturas;indice_ipim
 2026-07-01;e_energia_electrica;45291,0867570701
 2026-08-01;e_energia_electrica;46498,7545756997
 2026-09-01;e_energia_electrica;48418,8675800996
+2026-10-01;e_energia_electrica;48439,1712363568
 2015-12-01;i_productos_importados;100
 2016-01-01;i_productos_importados;117,408967000653
 2016-02-01;i_productos_importados;126,847801317723
@@ -17939,3 +18076,4 @@ periodo;nivel_general_aperturas;indice_ipim
 2026-07-01;i_productos_importados;14209,985666402
 2026-08-01;i_productos_importados;14624,5818592598
 2026-09-01;i_productos_importados;14684,650725474
+2026-10-01;i_productos_importados;14815,7257283268

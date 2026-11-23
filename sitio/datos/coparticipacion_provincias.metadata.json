@@ -69,8 +69,8 @@
    "archivo": "datos/crudo/aif_provincias.xlsx",
    "nombre": "Cuentas fiscales de cada provincia (esquema ahorro-inversión-financiamiento), anual desde 2005",
    "organismo": "DNAP",
-   "descargado": "2026-11-15",
-   "ultimo_intento": "2026-11-15",
+   "descargado": "2026-11-23",
+   "ultimo_intento": "2026-11-23",
    "estado": "ok",
    "url": "https://www.argentina.gob.ar/sites/default/files/serie_aif-apnf-2025.xlsx"
   },
@@ -78,8 +78,8 @@
    "archivo": "datos/crudo/indec_proyecciones_provincias.csv",
    "nombre": "Proyecciones de población por provincia, sexo y edad, 2022 a 2040",
    "organismo": "INDEC",
-   "descargado": "2026-11-15",
-   "ultimo_intento": "2026-11-15",
+   "descargado": "2026-11-23",
+   "ultimo_intento": "2026-11-23",
    "estado": "ok",
    "url": "https://censo.gob.ar/wp-content/uploads/2025/10/proyecciones_jurisdicciones_2022_2040_base.csv"
   }
@@ -87,5 +87,5 @@
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
  "como_citar": "Datina (año de la consulta). ¿Cuánto recibe cada provincia por coparticipación? Con datos de Ministerio de Economía, Dirección Nacional de Asuntos Provinciales, esquema ahorro inversión financiamiento, e INDEC, proyecciones de población. https://datina.com.ar/gobierno#f-coparticipacion. Consultado el día de la consulta.",
- "datos_actualizados": "15/11/2026"
+ "datos_actualizados": "23/11/2026"
 }
