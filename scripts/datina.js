@@ -13473,7 +13473,8 @@ async function mapa() {
     svg.append("g").selectAll("path").data(paises).join("path").attr("class", "tierra").attr("d", camino);
     const g = svg.append("g").attr("class", "provs");
     const enlaces = g.selectAll("a").data(provMapa).join("a")
-      .attr("href", d => urlProv(d.properties.codigo_indec)).attr("tabindex", -1)
+      // el nombre de la provincia para los lectores de pantalla (accesibilidad de Lighthouse, 23 de noviembre de 2026): con el teclado se llega por la lista de provincias
+      .attr("href", d => urlProv(d.properties.codigo_indec)).attr("tabindex", -1).attr("aria-label", d => `${NOMBRES[d.properties.codigo_indec]}: ver sus datos`)
       .attr("data-c", d => d.properties.codigo_indec);
     enlaces.append("path").attr("d", camino);
     g.append("path").attr("class", "malvinas").attr("aria-hidden", "true").attr("d", camino(soloIslas));
