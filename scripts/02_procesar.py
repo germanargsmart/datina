@@ -2298,10 +2298,15 @@ ICE_ORIG = [("brasil", "Brasil", ["Brasil"]), ("china", "China", ["China"]), ("e
             ("medio_oriente", "Medio Oriente", ["Medio Oriente"]), ("magreb_egipto", "Magreb y Egipto", ["Magreb y Egipto"]),
             ("africa_sur", "África austral (SACU)", ["SACU"]), ("oceania", "Oceanía", ["Oceanía"]), ("resto_mundo", "Resto del mundo", ["Resto del mundo"])]
 if (CRUDO / "indec_ica_cuadros.xls").exists():
-    _ico = pd.read_excel(CRUDO / "indec_ica_cuadros.xls", sheet_name="c37", header=None)
+    # el cuadro se busca por su título: el número cambió (el 37 hasta octubre de 2026, el 30 desde el informe del 19 de noviembre de 2026)
+    _ico_x = pd.read_excel(CRUDO / "indec_ica_cuadros.xls", sheet_name=None, header=None)
+    _ico_h = [h for h, d in _ico_x.items() if re.match(r"Cuadro \d+\. Importaciones por usos económicos, según zonas económicas y países seleccionados\. Acumulado hasta",
+                                                     str(d.iat[0, 0]) if d.size else "")]
+    assert len(_ico_h) == 1, f"no se encontró un solo cuadro de importaciones acumuladas por país en el intercambio comercial: {_ico_h}"
+    _ico = _ico_x[_ico_h[0]]
     _ico_t = str(_ico.iat[0, 0])
     _ico_m = re.search(r"Acumulado hasta (\w+) de (\d{4})", _ico_t)
-    assert _ico_t.startswith("Cuadro 37. Importaciones") and _ico_m, "cambió el cuadro 37 del intercambio comercial"
+    assert _ico_m, "cambió el título del cuadro de importaciones acumuladas por país del intercambio comercial"
     _ico_f = _ico.index[_ico.iloc[:, 0].astype(str).str.strip().eq("Total")][0]
     _ico_v = {}
     for i in range(_ico_f, len(_ico)):
