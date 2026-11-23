@@ -2508,7 +2508,7 @@
   },
   {
    "id": "ds:indec_ica_cuadros.xls",
-   "nombre": "Anexo de cuadros del informe de intercambio comercial argentino (importaciones por zona económica y país, cuadro 37)",
+   "nombre": "Anexo de cuadros del informe de intercambio comercial argentino (importaciones acumuladas por zona económica y país)",
    "fuente": "org:indec",
    "ruta": "datos/crudo/indec_ica_cuadros.xls",
    "evidencia": {
@@ -7211,7 +7211,7 @@
    "evidencia": [
     {
      "archivo": "scripts/02_procesar.py",
-     "contiene": "_ico = pd.read_excel(CRUDO / \"indec_ica_cuadros.xls\", sheet_name=\"c37\", header=None)"
+     "contiene": "_ico_x = pd.read_excel(CRUDO / \"indec_ica_cuadros.xls\", sheet_name=None, header=None)"
     },
     {
      "archivo": "scripts/02_procesar.py",
