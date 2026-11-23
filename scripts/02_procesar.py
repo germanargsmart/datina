@@ -7164,6 +7164,76 @@ if cmx_socios is not None and all(v[0].exists() for v in _cmr_f.values()):
                             "veces": r1(_cmr_ku.impo_total / _cmr_ku.expo_total),
                             "pct_kg": r1(_cmr_e[_cmr_e.g.isin(["pp", "moa"])].kg.sum() / _cmr_e.kg.sum() * 100),
                             "impo_sin_peso": r1(_cmr_i[_cmr_i.kg <= 0].v.sum() / _cmr_i.v.sum() * 100)}
+# Rutas comerciales (herramienta, 23 de noviembre de 2026, docs/roadmap/RUTAS_COMERCIALES.md): lo exportado en el último año completo por subrubro y país
+# de destino, sumado por la API del INDEC, con la salida principal de cada subrubro (datos/manual/rutas_salidas.csv, cada una con sus fuentes y su firmeza) y
+# el puerto o el paso de frontera de cada uno de los 40 países que más compran (rutas_destinos.csv). El INDEC no publica por dónde sale cada carga: la salida
+# y el camino son una simulación, y la tabla dice cómo se dibujó cada fila (modo):
+# - "avión", si la salida es un aeropuerto, y "tierra", si es un ducto o una línea eléctrica
+# - a Chile, Uruguay, Paraguay y Bolivia, "tierra", por su paso de frontera, y a Brasil también las manufacturas de origen industrial (camiones)
+# - lo demás, "mar", de la salida al puerto del país (el recorrido lo calculó una vez scripts/rutas_mar.py)
+# - sin modo, sin camino: los países fuera de la tabla de destinos, lo que va a un país sin puerto por barco (Suiza: lo compran comercializadoras), los
+#   vehículos que salen por sus propios medios, lo confidencial y lo que no tiene país
+RUT_LIMITROFES = {"CL", "UY", "PY", "BO"}
+RUT_AVION = {"Ezeiza (avión)"}
+RUT_TIERRA = {"Ducto a Chile y Uruguay", "Línea a Brasil y Uruguay"}
+rutas_exportaciones = None
+_rut_f = CRUDO / "indec_api_comercio_exterior_exportacion_bienes_anio_subrubro_pais.json"
+if comercio_rubro_pais is not None and _rut_f.exists():
+    _rut_x = pd.DataFrame(json.loads(_rut_f.read_text(encoding="utf-8")))
+    assert list(_rut_x.columns) == ["Anio", "subrubro_cod", "pais_cod", "valor", "peso"], f"cambiaron las columnas de las exportaciones por subrubro: {list(_rut_x.columns)}"
+    _rut_x = _rut_x[_rut_x.Anio == CMR_ANIO].assign(v=lambda d: d.valor.fillna(0) / 1e6, t=lambda d: d.peso.fillna(0) / 1e3)
+    _rut_x = _rut_x[_rut_x.v > 0]
+    # tiene que dar lo mismo que la tabla por rubro de ese año, país por país (con el margen de las revisiones)
+    _rut_r = _cmr_d["exportaciones"]
+    _rut_r = _rut_r[_rut_r.Anio == CMR_ANIO].groupby("pais_cod").v.sum()
+    _rut_c = _rut_x.groupby("pais_cod").v.sum().reindex(_rut_r.index, fill_value=0)
+    assert abs(_rut_x.v.sum() / _rut_r.sum() - 1) < .005, "las exportaciones por subrubro no suman lo mismo que por rubro"
+    _rut_dif = (_rut_c - _rut_r).abs()
+    assert (_rut_dif[_rut_dif > 1] / _rut_r[_rut_dif > 1] < .02).all(), f"las exportaciones por subrubro no dan lo mismo que por rubro en {list(_rut_dif[_rut_dif > 1].index)}"
+    _rut_s = pd.read_csv(RAIZ / "datos" / "manual" / "rutas_salidas.csv", dtype=str, keep_default_na=False).set_index("subrubro_cod")
+    _rut_d = pd.read_csv(RAIZ / "datos" / "manual" / "rutas_destinos.csv", dtype=str, keep_default_na=False).set_index("pais_cod")
+    # los subrubros sin salida en la tabla son solo lo confidencial (sin rubro): nunca más de lo que la tabla por rubro da sin rubro
+    _rut_sin = _rut_x[~_rut_x.subrubro_cod.isin(_rut_s.index)]
+    _rut_conf = _cmr_d["exportaciones"]
+    _rut_conf = float(_rut_conf[(_rut_conf.Anio == CMR_ANIO) & (_rut_conf.g == "otro")].v.sum())
+    assert _rut_sin.v.sum() <= _rut_conf * 1.005 + 1, f"subrubros sin salida en rutas_salidas.csv: {sorted(set(_rut_sin.subrubro_cod))}"
+
+    # los puertos de salida con recorrido por mar calculado
+    RUT_PUERTOS = set(json.loads((RAIZ / "datos" / "manual" / "rutas_mar.json").read_text(encoding="utf-8"))["salidas"])
+
+    def _rut_modo(pais, sub, rub, salida):
+        if pais not in _rut_d.index or _cmx_tipo(pais) != "pais":
+            return ""
+        if salida in RUT_AVION:
+            return "avión"
+        if salida in RUT_TIERRA or pais in RUT_LIMITROFES or (pais == "BR" and rub == "moi"):
+            return "tierra" if _rut_d.paso_frontera[pais] else ""
+        return "mar" if _rut_d.locode[pais] and salida in RUT_PUERTOS else ""
+
+    _rut_l = []
+    for _rut_i in _rut_x.itertuples():
+        _rut_su = _rut_s.loc[_rut_i.subrubro_cod] if _rut_i.subrubro_cod in _rut_s.index else None
+        _rut_rub = CMR_RUBROS.get(_rut_i.subrubro_cod[:1], "otro") if _rut_su is not None else "otro"
+        _rut_sal = _rut_su.salida if _rut_su is not None else ""
+        _rut_m = _rut_modo(_rut_i.pais_cod, _rut_i.subrubro_cod, _rut_rub, _rut_sal) if _rut_su is not None else ""
+        _rut_dest = {"mar": _rut_d.puerto.get(_rut_i.pais_cod, ""), "tierra": _rut_d.paso_frontera.get(_rut_i.pais_cod, ""),
+                     "avión": _rut_d.pais.get(_rut_i.pais_cod, "")}.get(_rut_m, "")
+        _rut_l.append({"pais_cod": _rut_i.pais_cod, "pais": "Sin país informado" if _cmx_tipo(_rut_i.pais_cod) == "sin_pais" else CMX_CORTO.get(_rut_i.pais_cod, _cmx_nom[_rut_i.pais_cod]),
+                       "subrubro_cod": _rut_i.subrubro_cod if _rut_su is not None else "", "subrubro": _rut_su.subrubro if _rut_su is not None else "Sin rubro informado (confidencial)",
+                       "rubro": _rut_rub, "millones_usd": round(_rut_i.v, 4), "toneladas": round(_rut_i.t, 4), "salida": _rut_sal,
+                       "firmeza_salida": _rut_su.firmeza if _rut_su is not None else "", "modo": _rut_m, "destino": _rut_dest})
+    rutas_exportaciones = (pd.DataFrame(_rut_l).groupby([c for c in _rut_l[0] if c not in ("millones_usd", "toneladas")], as_index=False, sort=False)
+                           [["millones_usd", "toneladas"]].sum().sort_values(["millones_usd"], ascending=False, kind="stable").reset_index(drop=True))
+    _rut_tot = float(rutas_exportaciones.millones_usd.sum())
+    _rut_pp = lambda m: r1(float(rutas_exportaciones[m].millones_usd.sum()) / _rut_tot * 100)
+    _rut_pa = rutas_exportaciones[rutas_exportaciones.pais != "Sin país informado"].groupby(["pais_cod", "pais"]).millones_usd.sum().sort_values(ascending=False)
+    SE_RES["rutas"] = {"anio": CMR_ANIO, "total": round(_rut_tot), "destinos": len(_rut_d), "dibujado": _rut_pp(rutas_exportaciones.modo != ""),
+                       "mar": _rut_pp(rutas_exportaciones.modo == "mar"), "tierra": _rut_pp(rutas_exportaciones.modo == "tierra"),
+                       "avion": _rut_pp(rutas_exportaciones.modo == "avión"), "sin_pais": _rut_pp(rutas_exportaciones.pais == "Sin país informado"),
+                       "a": [_rut_pa.index[0][1], r1(float(_rut_pa.iloc[0]) / _rut_tot * 100)],
+                       "paises": int((_rut_pa > 0).sum())}
+    # aparte de las tablas de las fichas, que van en fichas.js: la baja solo rutas.html (y quien la descarga)
+    rutas_exportaciones.to_csv(SITIO / "rutas_exportaciones.csv", index=False, lineterminator="\n")
 # ---------------------------------------------------------------- migraciones (etapa 25)
 # Censo 2022 (INDEC): población en viviendas particulares por lugar de nacimiento (en la provincia, en otra provincia o en otro país) y por
 # país de nacimiento, según jurisdicción. La serie de los censos desde 1869 (datos/manual/censos_nacidos_otro_pais.csv, de dos publicaciones

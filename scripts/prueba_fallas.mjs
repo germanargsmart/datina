@@ -189,6 +189,18 @@ await p.ir(BASE + "mesas.html", 1800);
 r = await p.eval(MS); caso("Mapa sin D3: las tablas quedan", /Milei - Villarruel/.test(r), r.slice(0, 80));
 caso("Mapa sin D3: no se ve", await p.eval(`document.getElementById("ms-mapa").hidden`));
 FALLAR = [];
+// Rutas comerciales (23 de noviembre de 2026): sin sus datos lo dice, y sin el mapa del mundo o sin D3 quedan la lista y la frase, sin el mapa
+const RT = `JSON.stringify({items: document.querySelectorAll("#rt-lista button").length, falla: !document.getElementById("rt-falla").hidden, mapa: !document.getElementById("rt-mapa-caja").hidden, ocupado: document.getElementById("rt").hasAttribute("aria-busy")})`;
+FALLAR = ["datos/rutas.json"];
+await p.ir(BASE + "rutas.html", 1200);
+r = JSON.parse(await p.eval(RT)); caso("Rutas sin sus datos: aviso", r.falla && !r.items && !r.ocupado, JSON.stringify(r));
+FALLAR = ["mundo-110m.json"];
+await p.ir(BASE + "rutas.html", 1200);
+r = JSON.parse(await p.eval(RT)); caso("Rutas sin el mapa del mundo: la lista queda y el mapa no se ve", r.items === 10 && !r.mapa && !r.falla, JSON.stringify(r));
+FALLAR = ["lib/d3-"];
+await p.ir(BASE + "rutas.html", 1200);
+r = JSON.parse(await p.eval(RT)); caso("Rutas sin D3: la lista queda y el mapa no se ve", r.items === 10 && !r.mapa && !r.falla, JSON.stringify(r));
+FALLAR = [];
 
 // 8. Escuelas y hospitales de cada provincia (9 de noviembre de 2026): sin la tabla de la provincia o con la tabla cortada a la mitad, la sección
 // lo dice (una tabla cortada no es una provincia con menos escuelas) y vuelve a intentar sin recargar. Sin Leaflet, quedan el texto y la tabla
