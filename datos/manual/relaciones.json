@@ -1371,6 +1371,17 @@
    "url": "https://indicadores.enacom.gob.ar/Files/DatosAbiertos/internet_accesos_penetracion_provincias.csv"
   },
   {
+   "id": "ds:enacom_internet_pais.csv",
+   "nombre": "Accesos a internet fijo cada 100 hogares y cada 100 habitantes del país",
+   "fuente": "org:enacom",
+   "ruta": "datos/crudo/enacom_internet_pais.csv",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "\"enacom_internet_pais.csv\": \"https://indicadores.enacom.gob.ar"
+   },
+   "url": "https://indicadores.enacom.gob.ar/Files/DatosAbiertos/internet_accesos_penetracion.csv"
+  },
+  {
    "id": "ds:enacom_internet_velocidad.csv",
    "nombre": "Velocidad media de bajada de internet fijo por provincia",
    "fuente": "org:enacom",
@@ -3618,6 +3629,21 @@
     }
    ],
    "tabla": "internet_fijo_provincias"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:enacom_internet_pais.csv",
+   "a": "f-internet",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_in_pais = pd.read_csv(CRUDO / \"enacom_internet_pais.csv\").set_index([\"anio\", \"trimestre\"]).accesos_cada_100_hogares"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"in_trim\": TRIM_ENACOM, \"in_pais\": r1(IN_PAIS),"
+    }
+   ]
   },
   {
    "tipo": "alimenta",

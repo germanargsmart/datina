@@ -9177,6 +9177,11 @@ top_bot = lambda t, c: (t.sort_values(c).iloc[-1], t.sort_values(c).iloc[0])
 _ev_t, _ev_b = top_bot(ev, "total")
 _ex_t, _ex_b = top_bot(exp_prov, "usd_por_habitante")
 _in_t, _in_b = top_bot(internet_fijo, "accesos_100_hogares")
+# el valor del país, del mismo trimestre (ENACOM, serie nacional, descarga aprobada por el autor el 24 de noviembre de 2026): el archivo por
+# provincia trae solo tasas, así que el país no se puede sumar de las provincias
+_in_pais = pd.read_csv(CRUDO / "enacom_internet_pais.csv").set_index(["anio", "trimestre"]).accesos_cada_100_hogares
+assert (int(ult_ia.anio), int(ult_ia.trimestre)) in _in_pais.index, f"la serie del país de ENACOM no tiene el {TRIM_ENACOM}, el último de las provincias"
+IN_PAIS = float(_in_pais.loc[(int(ult_ia.anio), int(ult_ia.trimestre))])
 _ve_t, _ve_b = top_bot(internet_fijo, "mbps")
 # la más alta y la más baja, y la mediana, solo con las jurisdicciones que tienen el año de la ficha (E12, 27 de octubre de 2026): La Pampa
 # figuraba con 2024 en las fichas de 2025 y entraba en la mediana. La ficha la muestra igual, con su año al lado del nombre
@@ -9257,7 +9262,7 @@ resumen["nuevos"] = {
     "censo": {c: r1(v) for c, v in censo_pais.items()},
     "censo_top": {c: [censo.sort_values(c).iloc[-1].territorio, r1(censo[c].max())] for c in CENSO_COLS},
     "censo_low": {c: [censo.sort_values(c).iloc[0].territorio, r1(censo[c].min())] for c in CENSO_COLS},
-    "in_trim": TRIM_ENACOM, "in_top": _in_t.territorio, "in_top_v": r1(_in_t.accesos_100_hogares), "in_low": _in_b.territorio, "in_low_v": r1(_in_b.accesos_100_hogares),
+    "in_trim": TRIM_ENACOM, "in_pais": r1(IN_PAIS), "in_top": _in_t.territorio, "in_top_v": r1(_in_t.accesos_100_hogares), "in_low": _in_b.territorio, "in_low_v": r1(_in_b.accesos_100_hogares),
     "ve_top": _ve_t.territorio, "ve_top_v": r1(_ve_t.mbps), "ve_low": _ve_b.territorio, "ve_low_v": r1(_ve_b.mbps),
     "ex_anio": ANIO_EX, "ex_total": round(EXP_TOTAL), "ex_pc_pais": round(EXP_TOTAL * 1e6 / sum(POB_EX.values())),
     "ex_top": _ex_t.territorio, "ex_top_v": round(float(_ex_t.usd_por_habitante)), "ex_low": _ex_b.territorio, "ex_low_v": round(float(_ex_b.usd_por_habitante)),

@@ -497,6 +497,9 @@ FUENTES.update({
     # ENACOM: accesos a internet fijo cada 100 hogares y velocidad media de bajada, por provincia y trimestre
     "enacom_internet_accesos.csv": "https://indicadores.enacom.gob.ar/Files/DatosAbiertos/internet_accesos_penetracion_provincias.csv",
     "enacom_internet_velocidad.csv": "https://indicadores.enacom.gob.ar/Files/DatosAbiertos/internet_velocidad_media_descarga_provincias.csv",
+    # y del país, por trimestre (descarga aprobada por el autor el 24 de noviembre de 2026): la cifra del país de f-internet, que hasta entonces
+    # era la de la provincia más alta porque el archivo por provincia trae solo tasas, sin cantidades para sumarlas
+    "enacom_internet_pais.csv": "https://indicadores.enacom.gob.ar/Files/DatosAbiertos/internet_accesos_penetracion.csv",
     # ENACOM: accesos de telefonía fija cada 100 hogares y cada 100 habitantes, por provincia y del país, por trimestre desde 2014 (plan de mejora,
     # sección 10, aprobada por el autor el 28 de octubre de 2026)
     "enacom_telefonia_fija_provincias.csv": "https://indicadores.enacom.gob.ar/Files/DatosAbiertos/telefonia_fija_penetracion_provincias.csv",
@@ -606,6 +609,7 @@ VALIDA.update({
     "indec_tablas_mortalidad.csv": lambda b: b"Jurisdiccion_cod" in b[:40],
     "enacom_internet_accesos.csv": lambda b: b.startswith(b"anio,trimestre,provincia"),
     "enacom_internet_velocidad.csv": lambda b: b.startswith(b"anio,trimestre,provincia"),
+    "enacom_internet_pais.csv": lambda b: b.startswith(b"anio,trimestre,accesos_cada_100_hogares,accesos_cada_100_habitantes"),
     "enacom_telefonia_fija_provincias.csv": lambda b: b.startswith(b"anio,trimestre,provincia,accesos_100_hab,accesos_100_hog"),
     "enacom_telefonia_fija_pais.csv": lambda b: b.startswith(b"anio,trimestre,accesos_100_hab,accesos_100_hog"),
     "enacom_tv_provincias.csv": lambda b: b.startswith(b"anio,trimestre,provincia,tv_suscripcion_100habitantes,tv_suscripcion_100hogares"),

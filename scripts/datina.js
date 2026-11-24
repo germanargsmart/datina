@@ -2265,7 +2265,8 @@ const TX = {
     `El INDEC no publica estos totales provinciales en un archivo propio: se suman desde los resultados por radio censal, así que pueden diferir levemente de sus cuadros.`,
   "censo-nota": `Hogares en viviendas particulares según el Censo 2022. Agua de red: agua corriente de red pública. Cloacas: inodoro con descarga de agua y desagüe a red pública. Internet: conexión en la vivienda, incluida la del celular. Necesidades básicas insatisfechas: hacinamiento, vivienda precaria, sin baño, chicos sin escuela o baja capacidad de subsistencia, según la definición del INDEC. El INDEC no publica estos totales provinciales en un archivo propio: se suman desde los resultados por radio censal, así que pueden diferir levemente de sus cuadros.`,
   // la cifra destacada ya dice el valor más alto: el texto empieza por el más bajo
-  internet: `En el ${nv.in_trim}, el valor más bajo fue el de ${nv.in_low}, con ${n1(nv.in_low_v)} accesos a internet fijo cada 100 hogares.` +
+  // la cifra destacada es el país desde el 24 de noviembre de 2026 (antes era la provincia más alta): el texto da los dos extremos
+  internet: `En el ${nv.in_trim}, el valor más alto fue el de ${nv.in_top}, con ${n1(nv.in_top_v)} accesos a internet fijo cada 100 hogares, y el más bajo, el de ${nv.in_low}, con ${n1(nv.in_low_v)}.` +
     (DIST["internet_fijo_provincias.accesos_100_hogares"]?.[nv.in_top]?.accion === "aclarar" ? ` ${DIST["internet_fijo_provincias.accesos_100_hogares"][nv.in_top].motivo}.` : "") +
     ` La velocidad media de bajada iba de ${n1(nv.ve_top_v)} megabits por segundo en ${nv.ve_top} a ${n1(nv.ve_low_v)} en ${nv.ve_low}.`,
   "internet-nota": `Accesos a internet fijo informados por las empresas prestadoras al ENACOM, divididos por la cantidad de hogares. Incluye conexiones de empresas y oficinas, por eso algunas jurisdicciones superan los 100. La velocidad es el promedio de la velocidad contratada de bajada. No incluye internet por celular, que sí cuenta el Censo 2022 en la ficha anterior.`,
@@ -3788,7 +3789,7 @@ const DIB = protegerDib({
   },
   internet: a => MED.internet === "mbps"
     ? barrasH(G("internet"), {anim:a, data: T.internet_fijo_provincias, k:"mbps", vf: v => n0(v) + " Mbps", af: n0})
-    : barrasH(G("internet"), {anim:a, data: T.internet_fijo_provincias, k:"accesos_100_hogares", vf: n1, af: n0}),
+    : barrasH(G("internet"), {anim:a, data: T.internet_fijo_provincias, k:"accesos_100_hogares", ref: nv.in_pais, refLab: `País ${n1(nv.in_pais)}`, vf: n1, af: n0}),
   extranjeros: a => barrasH(G("extranjeros"), {anim:a, data: T.extranjeros_provincias, k:"cada_100", ref: nv.xt_pais, refLab: `País ${n1(nv.xt_pais)}`, vf: n1, af: n0}),
   empleo: a => ($("clave-empleo").hidden = MED.empleo === "cada_100") ? barrasH(G("empleo"), {anim:a, data: T.empleo_provincias, k:"cada_100", ref: R.empleo.cada_100_pais,
         tip: d => `<b>${d.territorio}</b><br>${n1(d.cada_100)} cada 100 habitantes<br>${n0(d.miles * 1000)} asalariados registrados<br>${n0(d.poblacion)} habitantes`, refLab:`País ${n1(R.empleo.cada_100_pais)}`})
@@ -8026,8 +8027,7 @@ const CLAVE = {
   "f-vacunas": [String(VC.bajo95_1), `de las 24 jurisdicciones vacunaron con la primera dosis de la triple viral a menos del 95% de los chicos de un año en ${VC.anio}`,
     "de las 24 jurisdicciones, debajo del 95% en la primera dosis"],
   "f-censo": [pct(nv.censo.cloaca), `de los hogares tenía desagüe a red cloacal en el Censo 2022`, "de los hogares del país tenía desagüe a red cloacal"],
-  "f-internet": [n1(nv.in_top_v), `accesos a internet fijo cada 100 hogares en ${nv.in_top}, el valor más alto, en el ${nv.in_trim}${DIST["internet_fijo_provincias.accesos_100_hogares"]?.[nv.in_top] ? ", contando también los accesos de empresas y organizaciones" : ""}`,
-    `accesos cada 100 hogares en ${nv.in_top}, el valor más alto${DIST["internet_fijo_provincias.accesos_100_hogares"]?.[nv.in_top] ? ", contando los de empresas y organizaciones" : ""}`],
+  "f-internet": [n1(nv.in_pais), `accesos a internet fijo cada 100 hogares en todo el país, en el ${nv.in_trim}`, "accesos a internet fijo cada 100 hogares, en todo el país"],
   "f-extranjeros": [n1(nv.xt_pais), `personas nacidas en otro país con DNI argentino cada 100 habitantes, ${nv.xt_corte}`, "cada 100 habitantes, en todo el país"],
   "f-fiscal": [pct(R.fiscal.mediana), `fue la mediana de la parte de sus ingresos que las provincias y CABA recaudaron por su cuenta en ${R.fiscal.anio}` +
     (Object.keys(R.fiscal.atrasadas).length ? `, sin ${lista(Object.keys(R.fiscal.atrasadas))}` : "") + `: la mitad quedó por debajo y la otra mitad, por encima`],
