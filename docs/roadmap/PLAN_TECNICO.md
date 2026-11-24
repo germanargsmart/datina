@@ -245,7 +245,7 @@ Orden: un solo PR abierto a la vez, como siempre. Entre una fase técnica y la s
 
 ### Escuelas y hospitales (fase 3 de `ESTABLECIMIENTOS.md`)
 
-- Qué parte de las escuelas es privada en cada departamento, en el mapa de departamentos. (C)
+- ~~Qué parte de las escuelas es privada en cada departamento, en el mapa de departamentos.~~ Hecho el 24 de noviembre de 2026: un indicador más del mapa de Departamentos.
 - Escuelas privadas y resultados de Aprender por departamento, con "Qué no dice este dato". (C)
 - Ver si el Censo 2022 tiene población por edad por departamento. (C)
 - Las 175 escuelas a entre 1 y 20 km de su departamento: confirmar que quedan donde dice la fuente. (A)

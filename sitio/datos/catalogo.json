@@ -22038,8 +22038,9 @@
    "descripcion": "",
    "seccion": "Departamentos",
    "ficha": "https://datina.com.ar/departamentos#f-mapa",
-   "fuente": "SNIC (Ministerio de Seguridad Nacional), RENAPER, INDEC (Censo 2022 y estimaciones de población) y Georef (IGN)",
+   "fuente": "SNIC (Ministerio de Seguridad Nacional), RENAPER, INDEC (Censo 2022 y estimaciones de población), Padrón Oficial de Establecimientos Educativos (Secretaría de Educación) y Georef (IGN)",
    "organismos": [
+    "Secretaría de Educación",
     "IGN (Instituto Geográfico Nacional)",
     "INDEC (Instituto Nacional de Estadística y Censos)",
     "RENAPER (Registro Nacional de las Personas)",
@@ -22152,6 +22153,16 @@
      "nombre": "crec_pob",
      "tipo": "Número",
      "valores": "-16,69 a 24,27"
+    },
+    {
+     "nombre": "escuelas",
+     "tipo": "Número",
+     "valores": "2 a 716"
+    },
+    {
+     "nombre": "escuelas_privadas",
+     "tipo": "Número",
+     "valores": "0 a 68,09"
     }
    ],
    "unidades": [],
@@ -22161,7 +22172,7 @@
    "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
    "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
    "uso_libre": true,
-   "como_citar": "Datina (año de la consulta). ¿Cómo varía cada indicador de un departamento a otro? Con datos de SNIC (Ministerio de Seguridad Nacional), RENAPER, INDEC (Censo 2022 y estimaciones de población) y Georef (IGN). https://datina.com.ar/departamentos#f-mapa. Consultado el día de la consulta."
+   "como_citar": "Datina (año de la consulta). ¿Cómo varía cada indicador de un departamento a otro? Con datos de SNIC (Ministerio de Seguridad Nacional), RENAPER, INDEC (Censo 2022 y estimaciones de población), Padrón Oficial de Establecimientos Educativos (Secretaría de Educación) y Georef (IGN). https://datina.com.ar/departamentos#f-mapa. Consultado el día de la consulta."
   },
   {
    "tabla": "calendario_indec",
