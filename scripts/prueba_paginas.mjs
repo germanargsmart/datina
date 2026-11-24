@@ -844,7 +844,7 @@ await q.tamano(1280, 900);
   await q.tamano(1280, 900);
   q.errores.slice(antes).forEach(e => problemas.push(`Elecciones por mesa: ${e}`));
 }
-// Rutas comerciales (23 de noviembre de 2026, rediseño del 25 de noviembre): la vista inicial (las cuatro tarjetas de cifras, diez destinos, diez productos,
+// Rutas comerciales (23 de noviembre de 2026, rediseño del 24 de noviembre): la vista inicial (las cuatro tarjetas de cifras, diez destinos, diez productos,
 // los corredores, la frase y el mapa de MapLibre con los nombres de los destinos), apagar una vía, apagarlas todas y restablecer, un rubro y un producto,
 // la ficha de un destino y Escape, el año más viejo, Reproducir, el zoom, el globo, las capas y, en 390 píxeles, el mapa en la primera pantalla y el panel
 // de filtros. No pide cifras fijas: cambian con cada año del INDEC

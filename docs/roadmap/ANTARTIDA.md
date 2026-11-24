@@ -56,4 +56,4 @@ Proyección estereográfica centrada en el polo, con el meridiano 60 Oeste arrib
 
 - Las zonas protegidas no están en el mapa: la Secretaría publica los polígonos de 2024 (`apa_shape_2024.zip`) y dos zonas son de 2026.
 - La informalidad de los datos de COMNAP sobre dotación de invierno: la única dotación oficial que se encontró es Esperanza. Por eso se muestra la capacidad máxima, no la dotación.
-- Un enlace desde la página de Tierra del Fuego al capítulo.
+- ~~Un enlace desde la página de Tierra del Fuego al capítulo.~~ Hecho el 24 de noviembre de 2026: en "¿De dónde viene Tierra del Fuego?" de su página fija, debajo del dato curioso (`historia_prov` en 03).

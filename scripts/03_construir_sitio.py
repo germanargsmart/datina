@@ -452,6 +452,10 @@ def historia_prov(c, h):
         return ""
     dl = "".join(f'<div><dt>{e(k)}</dt><dd>{e(v)}{f"<small>{e(s)}</small>" if s else ""}</dd></div>' for k, v, s in datos)
     cur = (f'<div class="ph-curiosidad"><p class="ph-sub">Dato curioso</p><p>{e(h["curiosidad"])}</p></div>' if h.get("curiosidad") else "")
+    # Tierra del Fuego, Antártida e Islas del Atlántico Sur: el enlace al capítulo de la Antártida (pendiente de docs/roadmap/ANTARTIDA.md, 24 de noviembre de 2026)
+    if c == "94":
+        cur += ('<p class="ph-enlace">La provincia incluye el departamento Antártida Argentina. Sus bases, su clima y su turismo están en el '
+                '<a href="naturaleza#g-antartida">capítulo Antártida de Naturaleza y ambiente</a>.</p>')
     nombres = dict(_H_CAMPOS, **({"fundacion_capital": "La ciudad", "provincia_desde": "La autonomía"} if c == "02" else {}))
     fuentes = "".join(f'<li><span class="ph-dato">{e(nombres.get(f.get("dato"), ""))}</span> <a href="{e(f["url"])}" target="_blank" rel="noopener">'
                       f'{e(f.get("titulo") or f["url"])}</a></li>' for f in h.get("fuentes", []) if f.get("url", "").startswith("https://"))
@@ -937,7 +941,7 @@ JS_SITIO = achicar_js.achicar(js)
 # jsDelivr. La pide datina.js recién cuando la sección se acerca a la pantalla (la dirección va en la sección, con su huella)
 LIBS = {"__V_D3__": "d3-7.8.5.min.js", "__V_TOPOJSON__": "topojson-client-3.1.0.min.js",
         "__V_LEAFLET__": "leaflet-1.9.4.min.js", "__V_LEAFLET_CSS__": "leaflet-1.9.4.css",
-        # Rutas comerciales (25 de noviembre de 2026): MapLibre GL y el mapa del mundo de Natural Earth a 1:50 millones (world-atlas), solo en rutas.html
+        # Rutas comerciales (24 de noviembre de 2026): MapLibre GL y el mapa del mundo de Natural Earth a 1:50 millones (world-atlas), solo en rutas.html
         "__V_MAPLIBRE__": "maplibre-gl-5.24.0.min.js", "__V_MAPLIBRE_CSS__": "maplibre-gl-5.24.0.css", "__V_MUNDO50__": "world-atlas-2.0.2-countries-50m.json"}
 (SITIO / "lib").mkdir(exist_ok=True)
 for _lib in (RAIZ / "scripts" / "lib").iterdir():

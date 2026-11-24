@@ -1,4 +1,4 @@
-/* Rutas comerciales (23 de noviembre de 2026, docs/roadmap/RUTAS_COMERCIALES.md). Rediseño del 25 de noviembre de 2026, pedido del autor: el mapa en
+/* Rutas comerciales (23 de noviembre de 2026, docs/roadmap/RUTAS_COMERCIALES.md). Rediseño del 24 de noviembre de 2026, pedido del autor: el mapa en
    MapLibre GL (como el de los cables submarinos), las rutas coloreadas por vía (mar, tierra y avión), foco y contexto al señalar o elegir algo, una
    ficha con el detalle, los filtros por vía, rubro, producto y año (con Reproducir), las capas y las tarjetas de cifras, destinos, productos y
    corredores, sincronizadas con el mapa.

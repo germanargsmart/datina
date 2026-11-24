@@ -1677,6 +1677,27 @@
       "cita": "Serie anual 24 jurisdicciones y por jurisdicción"
      }
     ]
+   },
+   {
+    "titulo": "La deuda de las provincias",
+    "texto": "La Subsecretaría de Coordinación Fiscal Provincial, del Ministerio de Economía, publica cada trimestre el stock de deuda pública de las 24 jurisdicciones, en millones de pesos y según a quién se le debe. La ficha lo agrupa en cuatro acreedores: los bonos que emitió la provincia, los organismos internacionales de crédito, el Gobierno nacional junto con los fondos fiduciarios nacionales, y los bancos y la deuda consolidada. Los datos son preliminares y pueden corregirse en las publicaciones siguientes. No incluyen la deuda flotante ni la contingente, que el Ministerio informa aparte, y los bonos se cuentan por su valor residual, lo que queda por pagar. La deuda por habitante divide el stock por la población proyectada por el INDEC para el mismo año. Una provincia que no informó su stock queda sin dato.",
+    "fuentes": [
+     {
+      "nombre": "Ministerio de Economía, Coordinación Fiscal Provincial, Evolución de stock",
+      "url": "https://www.argentina.gob.ar/economia/sechacienda/coordinacion-fiscal-provincial/deuda-publica-provincial/evolucion-de-stock",
+      "cita": "Stock consolidado"
+     },
+     {
+      "nombre": "Subsecretaría de Coordinación Fiscal Provincial, stock de deuda provincial (planilla trimestral)",
+      "url": "https://www.argentina.gob.ar/sites/default/files/stock_ii_trim_2026.xlsx",
+      "cita": "Todos los datos son preliminares y se encuentran sujetos a revisión. No se incluye la Deuda Flotante ni Contingente."
+     },
+     {
+      "nombre": "Subsecretaría de Coordinación Fiscal Provincial, stock de deuda provincial (planilla trimestral)",
+      "url": "https://www.argentina.gob.ar/sites/default/files/stock_ii_trim_2026.xlsx",
+      "cita": "Bonos expresados a Valor Residual."
+     }
+    ]
    }
   ],
   "glosario": [
