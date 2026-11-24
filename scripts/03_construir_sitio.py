@@ -73,10 +73,21 @@ assert MOTOR_IA in ("anthropic", "cloudflare"), 'datos/manual/sitio.json: "consu
 _ia = re.search(r"\n\n *<!--IA-->.*?<!--/IA-->", plantilla, re.S)
 assert _ia, "falta la sección de las consultas con IA (entre <!--IA--> y <!--/IA-->) en scripts/plantilla.html"
 plantilla = plantilla.replace(_ia.group(0), re.sub(r"<!--/?IA-->", "", _ia.group(0)) if CONSULTA_IA else "")
+# El nombre del modelo del motor gratis (24 de noviembre de 2026, decisión del autor: nombrarlo): sale de MODELO_CF de la función, no se escribe a
+# mano, así queda bien si cambia ("@cf/meta/llama-3.3-70b-instruct-fp8-fast" es "Llama 3.3 70B, de Meta"). Si el nombre no tiene esa forma, el
+# texto no lo nombra
+def _nombre_modelo_cf():
+    m = re.search(r'export const MODELO_CF = "@cf/([a-z0-9-]+)/([a-z]+)-([0-9.]+)-([0-9]+b)\b', (RAIZ / "functions" / "_ia" / "consulta.mjs").read_text(encoding="utf-8"))
+    empresas = {"meta": "Meta", "mistral": "Mistral AI", "google": "Google", "qwen": "Alibaba", "deepseek-ai": "DeepSeek", "ibm-granite": "IBM"}
+    if not m or m.group(1) not in empresas:
+        return ""
+    return f"{m.group(2).capitalize()} {m.group(3)} {m.group(4).upper()}, de {empresas[m.group(1)]}"
+MODELO_IA_NOMBRE = _nombre_modelo_cf()
 if CONSULTA_IA:
     if MOTOR_IA == "cloudflare":
         for _v, _n in [("No escribas datos personales: para contestarla, la pregunta se envía a Anthropic, la empresa que hace el modelo. Datina no la guarda.",
-                        "No escribas datos personales. La pregunta la contesta un modelo abierto de inteligencia artificial que corre en Cloudflare, "
+                        "No escribas datos personales. La pregunta la contesta un modelo abierto de inteligencia artificial"
+                        + (f" ({MODELO_IA_NOMBRE})" if MODELO_IA_NOMBRE else "") + " que corre en Cloudflare, "
                         "la empresa que aloja el sitio. Según su política, Cloudflare no usa las preguntas para entrenar modelos. Datina no las guarda. Las consultas son gratis y tienen un tope diario para todo el sitio."),
                        ("Las respuestas las escribe un modelo de inteligencia artificial (Claude, de Anthropic) con los datos de Datina.",
                         "Las respuestas las escribe un modelo de inteligencia artificial con los datos de Datina.")]:

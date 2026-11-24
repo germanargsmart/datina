@@ -80,7 +80,7 @@
   },
   {
    "archivo": "datos/manual/leyes_clave.csv",
-   "nombre": "Selección de leyes y proyectos clave con el id del acta en cada cámara (ley, qué cambia, desenlace, efecto directo)",
+   "nombre": "Selección de leyes y proyectos clave con el id del acta en cada cámara (ley, qué cambia, desenlace, si llega a la vida diaria)",
    "organismo": "Datina",
    "armado": "2026-10-27"
   }
