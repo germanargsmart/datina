@@ -74,7 +74,7 @@
    "organismo": "SSPMI",
    "descargado": "2026-11-23",
    "ultimo_intento": "2026-11-23",
-   "estado": "ok",
+   "estado": "error: <urlopen error [Errno 113] No route to host>",
    "url": "https://www.economia.gob.ar/catalogo-sspmi/nuevo_dataset/sspmi_carnica-vacuna.csv"
   },
   {
@@ -83,7 +83,7 @@
    "organismo": "SSPMI",
    "descargado": "2026-11-23",
    "ultimo_intento": "2026-11-23",
-   "estado": "ok",
+   "estado": "error: <urlopen error [Errno 113] No route to host>",
    "url": "https://www.economia.gob.ar/catalogo-sspmi/nuevo_dataset/sspmi_yerba-mate.csv"
   },
   {
@@ -92,7 +92,7 @@
    "organismo": "SSPMI",
    "descargado": "2026-11-23",
    "ultimo_intento": "2026-11-23",
-   "estado": "ok",
+   "estado": "error: <urlopen error [Errno 113] No route to host>",
    "url": "https://www.economia.gob.ar/catalogo-sspmi/nuevo_dataset/sspmi_vitivinicultura.csv"
   }
  ],
