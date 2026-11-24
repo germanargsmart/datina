@@ -133,7 +133,7 @@ Lo que cada grupo de la reescritura no cambió porque necesita corregir un dato,
    - Fragmento: «Coordinación de Evaluación de Costos Educativos, Secretaría de Educación»
    - Motivo: Los pies dicen "Coordinación de Evaluación de Costos Educativos" y la fuente del explicador "Coordinación General de Estudio de Costos del Sistema Educativo" (CGECSE). No pude verificar cuál es el nombre vigente.
    - Propuesta: Verificar el nombre en la página del organismo y usar uno solo en pies, explicador y relaciones.json.
-   - **Estado al 11 de noviembre de 2026: sigue abierta.** Los pies dicen "Coordinación de Evaluación de Costos Educativos" y explicadores.json otro nombre.
+   - **Estado al 24 de noviembre de 2026: resuelta.** El nombre vigente, según su página en argentina.gob.ar, es "Coordinación General de Estudio de Costos del Sistema Educativo (CGECSE)", del Ministerio de Capital Humano: así dicen ahora los dos pies, las notas de datina.js y los explicadores. El nombre viejo queda como alias en `relaciones.json`.
 
 22. **educacion.html#f-pisa** (`scripts/plantilla.html`)
    - Fragmento: «OCDE, Programa para la Evaluación Internacional de Alumnos (PISA)»
@@ -315,13 +315,13 @@ Lo que cada grupo de la reescritura no cambió porque necesita corregir un dato,
    - Fragmento: «Turismo: Ministerio de Turismo y Deportes / Secretaría de Turismo / Subsecretaría de Turismo»
    - Motivo: Tres nombres para el organismo de turismo en pies, notas y explicadores. relaciones.json no documenta cuál es el vigente.
    - Propuesta: Que el autor confirme el nombre vigente y unificarlo en los tres pies de Turismo, en las dos notas y en relaciones.json (alias).
-   - **Estado al 11 de noviembre de 2026: cambió en parte y sigue abierta.** Los pies dicen "Secretaría de Turismo y Ambiente". Las notas y explicadores.json, otros nombres.
+   - **Estado al 24 de noviembre de 2026: resuelta.** Los pies, las notas de datina.js y los explicadores dicen "Secretaría de Turismo y Ambiente" (Jefatura de Gabinete, según argentina.gob.ar/turismo). Los nombres viejos quedan como alias en `relaciones.json`, por la decisión del autor del 3 de noviembre de 2026. La descripción de la ETI y de la EOH que cita al INDEC conserva su texto.
 
 29. **empresas.html, construccion.html, petroleo.html#f-empleo-hidro** (`scripts/plantilla.html`)
    - Fragmento: «Fuente: Observatorio de Empleo y Dinámica Empresarial, Ministerio de Capital Humano, en base al SIPA»
    - Motivo: El OEDE aparece como «Secretaría de Trabajo» en f-salarios y como «Ministerio de Capital Humano» en otros cuatro pies, uno de ellos en Petróleo y gas.
    - Propuesta: Unificar los cinco pies en «Observatorio de Empleo y Dinámica Empresarial (OEDE), Secretaría de Trabajo, en base al SIPA» (veces: 4), en una sola pasada para todo el sitio.
-   - **Estado al 11 de noviembre de 2026: cambió en parte y sigue abierta.** Seis pies suman "Ministerio de Capital Humano" y dos no.
+   - **Estado al 24 de noviembre de 2026: resuelta.** Los ocho pies, las dos notas de datina.js y el explicador de salarios dicen "Secretaría de Trabajo, Ministerio de Capital Humano" (el nombre completo de la Secretaría es "de Trabajo, Empleo y Seguridad Social", según la página del OEDE en argentina.gob.ar).
 
 30. **turismo.html** (`scripts/plantilla.html`)
    - Fragmento: «<section class="tema con-pregunta" id="turismo">»
@@ -1058,7 +1058,7 @@ Lo que cada grupo de la reescritura no cambió porque necesita corregir un dato,
    - Fragmento: «"nombre": "Dirección de Estadísticas e Información de Salud" (fuente org:deis)»
    - Motivo: El nombre oficial es 'Dirección de Estadísticas e Información en Salud', como la escribe el pie de f-mortalidad en la plantilla (línea 685) y uno de sus alias. No entra como cambio porque el mismo texto es también un alias de org:deis y un 'original' sin escapar no puede apuntar solo al nombre (los alias no se cambian).
    - Propuesta: Cambiar a mano solo el valor de 'nombre' de org:deis (línea 147) por 'Dirección de Estadísticas e Información en Salud' y dejar el alias 'de Salud' como está. El validador sigue pasando: la sigla DEIS y los alias no cambian.
-   - **Estado al 11 de noviembre de 2026: sigue abierta.** org:deis sigue con el nombre viejo en relaciones.json.
+   - **Estado al 24 de noviembre de 2026: resuelta.** org:deis se llama "Dirección de Estadísticas e Información en Salud", como su página en argentina.gob.ar, y el nombre viejo queda como alias.
 
 3. **relaciones.html (grafo y tabla)** (`datos/manual/relaciones.json`)
    - Fragmento: «"sigla": "CSJN" en org:csjn (Registro Nacional de Femicidios de la Justicia Argentina)»

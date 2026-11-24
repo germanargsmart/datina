@@ -118,7 +118,7 @@
    },
    {
     "titulo": "El salario de los asalariados registrados",
-    "texto": "El Observatorio de Empleo y Dinámica Empresarial de la Secretaría de Trabajo calcula cada mes la remuneración promedio de los asalariados registrados del sector privado con los registros de la seguridad social. Cuenta cada relación laboral entre una empresa y un trabajador, así que una persona con dos empleos aparece dos veces. Es lo que declara la empresa antes de los aportes y las contribuciones, por todo concepto: incluye las horas extra, los viáticos, el aguinaldo y la bonificación por vacaciones, y por eso junio y diciembre son más altos. Cada puesto se cuenta en la provincia donde el trabajador está declarado, no en la del domicilio fiscal de la empresa. Como muchas empresas presentan sus declaraciones con atraso, los datos de los dos últimos años son provisorios.",
+    "texto": "El Observatorio de Empleo y Dinámica Empresarial de la Secretaría de Trabajo (Ministerio de Capital Humano) calcula cada mes la remuneración promedio de los asalariados registrados del sector privado con los registros de la seguridad social. Cuenta cada relación laboral entre una empresa y un trabajador, así que una persona con dos empleos aparece dos veces. Es lo que declara la empresa antes de los aportes y las contribuciones, por todo concepto: incluye las horas extra, los viáticos, el aguinaldo y la bonificación por vacaciones, y por eso junio y diciembre son más altos. Cada puesto se cuenta en la provincia donde el trabajador está declarado, no en la del domicilio fiscal de la empresa. Como muchas empresas presentan sus declaraciones con atraso, los datos de los dos últimos años son provisorios.",
     "fuentes": [
      {
       "nombre": "OEDE, Secretaría de Trabajo, boletín de remuneraciones provinciales, hoja Metodología",
@@ -3921,7 +3921,7 @@
    },
    {
     "titulo": "Turistas no residentes",
-    "texto": "La serie de turismo internacional cuenta los viajes de no residentes que entran al país (turismo receptivo) y de residentes que salen (turismo emisivo), por todos los medios de transporte: aéreo, terrestre, fluvial y marítimo. Se arma con los registros de la Dirección Nacional de Migraciones y la publica todos los meses la Dirección Nacional de Mercados y Estadística, de la Subsecretaría de Turismo. No residente es quien vive en otro país, sea o no argentino.",
+    "texto": "La serie de turismo internacional cuenta los viajes de no residentes que entran al país (turismo receptivo) y de residentes que salen (turismo emisivo), por todos los medios de transporte: aéreo, terrestre, fluvial y marítimo. Se arma con los registros de la Dirección Nacional de Migraciones y la publica todos los meses la Dirección Nacional de Mercados y Estadística, de la Secretaría de Turismo y Ambiente. No residente es quien vive en otro país, sea o no argentino.",
     "fuentes": [
      {
       "nombre": "Datos abiertos de Turismo: Turismo Internacional, total país",
@@ -3932,7 +3932,7 @@
    },
    {
     "titulo": "Encuesta de Turismo Internacional (ETI)",
-    "texto": "La ETI es una encuesta continua que el INDEC y la Subsecretaría de Turismo hacen desde 2004. Pregunta a quienes entran y salen del país por el motivo, la duración, el alojamiento, el gasto y los lugares visitados. No cubre todos los pasos: se hace en los aeropuertos de Ezeiza, Aeroparque, Córdoba y Mendoza, en el Puerto de Buenos Aires y en el paso Cristo Redentor. Por eso la distribución por provincia visitada refleja sobre todo a quienes viajan en avión. La ficha por provincia usa solo a quienes se van por Ezeiza y Aeroparque. Hoy la encuesta está en pausa: el INDEC la está reformulando.",
+    "texto": "La ETI es una encuesta continua que el INDEC y la Secretaría de Turismo y Ambiente hacen desde 2004. Pregunta a quienes entran y salen del país por el motivo, la duración, el alojamiento, el gasto y los lugares visitados. No cubre todos los pasos: se hace en los aeropuertos de Ezeiza, Aeroparque, Córdoba y Mendoza, en el Puerto de Buenos Aires y en el paso Cristo Redentor. Por eso la distribución por provincia visitada refleja sobre todo a quienes viajan en avión. La ficha por provincia usa solo a quienes se van por Ezeiza y Aeroparque. Hoy la encuesta está en pausa: el INDEC la está reformulando.",
     "fuentes": [
      {
       "nombre": "Datos abiertos de Turismo: Encuesta de Turismo Internacional",
@@ -3948,7 +3948,7 @@
    },
    {
     "titulo": "Encuesta de Ocupación Hotelera (EOH)",
-    "texto": "La EOH es otra encuesta continua del INDEC y la Subsecretaría de Turismo, que también empezó en 2004. Mira el turismo desde quienes ofrecen alojamiento: hoteles y establecimientos parahoteleros informan cuántos viajeros hospedaron, cuántas noches se quedaron y cuántas habitaciones y plazas se ocuparon, separando residentes de no residentes. Los resultados se publican por región de destino y por localidad. No incluye casas de familiares ni alquileres temporarios particulares. Hoy la encuesta está en pausa: el INDEC la está reformulando.",
+    "texto": "La EOH es otra encuesta continua del INDEC y la Secretaría de Turismo y Ambiente, que también empezó en 2004. Mira el turismo desde quienes ofrecen alojamiento: hoteles y establecimientos parahoteleros informan cuántos viajeros hospedaron, cuántas noches se quedaron y cuántas habitaciones y plazas se ocuparon, separando residentes de no residentes. Los resultados se publican por región de destino y por localidad. No incluye casas de familiares ni alquileres temporarios particulares. Hoy la encuesta está en pausa: el INDEC la está reformulando.",
     "fuentes": [
      {
       "nombre": "Datos abiertos de Turismo: EOH",
@@ -3964,7 +3964,7 @@
    },
    {
     "titulo": "Qué es el SINTA",
-    "texto": "El Sistema de Información Turística de la Argentina (SINTA) reúne en un solo lugar las estadísticas oficiales de turismo. Lo administra el área de estadística de la Subsecretaría de Turismo. Incluye informes técnicos y metodológicos, un portal de datos abiertos, tableros interactivos y los microdatos de la Encuesta de Viajes y Turismo de los Hogares. De ahí salen la EOH, la ETI, el turismo internacional y las visitas a parques nacionales que usa este sitio.",
+    "texto": "El Sistema de Información Turística de la Argentina (SINTA) reúne en un solo lugar las estadísticas oficiales de turismo. Lo administra el área de estadística de la Secretaría de Turismo y Ambiente. Incluye informes técnicos y metodológicos, un portal de datos abiertos, tableros interactivos y los microdatos de la Encuesta de Viajes y Turismo de los Hogares. De ahí salen la EOH, la ETI, el turismo internacional y las visitas a parques nacionales que usa este sitio.",
     "fuentes": [
      {
       "nombre": "Argentina.gob.ar, presentación del SINTA",

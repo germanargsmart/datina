@@ -21,7 +21,7 @@
    "ficha": "https://datina.com.ar/a-nombres-provincias",
    "fuente": "Registro Nacional de las Personas (RENAPER), nombres más frecuentes por provincia, y Dirección de Estadísticas e Información en Salud (DEIS), nacimientos",
    "organismos": [
-    "DEIS (Dirección de Estadísticas e Información de Salud)",
+    "DEIS (Dirección de Estadísticas e Información en Salud)",
     "RENAPER (Registro Nacional de las Personas)"
    ],
    "actualizacion": "Se actualiza cada año.",
@@ -77,7 +77,7 @@
    "fuente": "DEIS, Ministerio de Salud, estadísticas vitales.",
    "organismos": [
     "Banco Mundial",
-    "DEIS (Dirección de Estadísticas e Información de Salud)"
+    "DEIS (Dirección de Estadísticas e Información en Salud)"
    ],
    "actualizacion": "Se actualiza cada año.",
    "cobertura": "Sin desglose territorial",
@@ -730,7 +730,7 @@
    "ficha": "https://datina.com.ar/poblacion#f-adolescentes",
    "fuente": "DEIS, Ministerio de Salud, estadísticas vitales.",
    "organismos": [
-    "DEIS (Dirección de Estadísticas e Información de Salud)"
+    "DEIS (Dirección de Estadísticas e Información en Salud)"
    ],
    "actualizacion": "Se actualiza cada año.",
    "cobertura": "Las 24 jurisdicciones",
@@ -1756,7 +1756,7 @@
    "ficha": "https://datina.com.ar/salud#f-causas-muerte",
    "fuente": "DEIS, Ministerio de Salud, estadísticas vitales, e INDEC, proyecciones de población 2022 a 2040, base Censo 2022.",
    "organismos": [
-    "DEIS (Dirección de Estadísticas e Información de Salud)",
+    "DEIS (Dirección de Estadísticas e Información en Salud)",
     "INDEC (Instituto Nacional de Estadística y Censos)"
    ],
    "actualizacion": "Se actualiza cada año.",
@@ -2068,7 +2068,7 @@
    "ficha": "https://datina.com.ar/salud#f-mortalidad",
    "fuente": "Dirección de Estadísticas e Información en Salud (DEIS), Ministerio de Salud.",
    "organismos": [
-    "DEIS (Dirección de Estadísticas e Información de Salud)"
+    "DEIS (Dirección de Estadísticas e Información en Salud)"
    ],
    "actualizacion": "Se actualiza cada año.",
    "cobertura": "Las 24 jurisdicciones",
@@ -2132,7 +2132,7 @@
    "ficha": "https://datina.com.ar/salud#f-causas-infantiles",
    "fuente": "DEIS, Ministerio de Salud, defunciones por causa y nacidos vivos, e INDEC, Censo 2022.",
    "organismos": [
-    "DEIS (Dirección de Estadísticas e Información de Salud)",
+    "DEIS (Dirección de Estadísticas e Información en Salud)",
     "INDEC (Instituto Nacional de Estadística y Censos)"
    ],
    "actualizacion": "Se actualiza cada año.",
@@ -3517,7 +3517,7 @@
    "descripcion": "Salario bruto de un maestro de grado con 10 años de antigüedad por provincia, junio de 2026",
    "seccion": "Educación",
    "ficha": "https://datina.com.ar/educacion#f-salario-docente",
-   "fuente": "Coordinación de Evaluación de Costos Educativos, Secretaría de Educación, series del salario docente, e INDEC, índice de precios al consumidor.",
+   "fuente": "Coordinación General de Estudio de Costos del Sistema Educativo (CGECSE), Secretaría de Educación, series del salario docente, e INDEC, índice de precios al consumidor.",
    "organismos": [
     "Secretaría de Educación"
    ],
@@ -3576,7 +3576,7 @@
    "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
    "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
    "uso_libre": true,
-   "como_citar": "Datina (año de la consulta). ¿Cuánto cobra un maestro en cada provincia? Con datos de Coordinación de Evaluación de Costos Educativos, Secretaría de Educación, series del salario docente, e INDEC, índice de precios al consumidor. https://datina.com.ar/educacion#f-salario-docente. Consultado el día de la consulta."
+   "como_citar": "Datina (año de la consulta). ¿Cuánto cobra un maestro en cada provincia? Con datos de Coordinación General de Estudio de Costos del Sistema Educativo (CGECSE), Secretaría de Educación, series del salario docente, e INDEC, índice de precios al consumidor. https://datina.com.ar/educacion#f-salario-docente. Consultado el día de la consulta."
   },
   {
    "tabla": "salario_docente_serie",
@@ -3586,7 +3586,7 @@
    "descripcion": "Salario bruto de un maestro de grado con 10 años de antigüedad por provincia, junio de 2026",
    "seccion": "Educación",
    "ficha": "https://datina.com.ar/educacion#f-salario-docente",
-   "fuente": "Coordinación de Evaluación de Costos Educativos, Secretaría de Educación, series del salario docente, e INDEC, índice de precios al consumidor.",
+   "fuente": "Coordinación General de Estudio de Costos del Sistema Educativo (CGECSE), Secretaría de Educación, series del salario docente, e INDEC, índice de precios al consumidor.",
    "organismos": [
     "INDEC (Instituto Nacional de Estadística y Censos)"
    ],
@@ -3630,7 +3630,7 @@
    "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
    "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
    "uso_libre": true,
-   "como_citar": "Datina (año de la consulta). ¿Cuánto cobra un maestro en cada provincia? Con datos de Coordinación de Evaluación de Costos Educativos, Secretaría de Educación, series del salario docente, e INDEC, índice de precios al consumidor. https://datina.com.ar/educacion#f-salario-docente. Consultado el día de la consulta."
+   "como_citar": "Datina (año de la consulta). ¿Cuánto cobra un maestro en cada provincia? Con datos de Coordinación General de Estudio de Costos del Sistema Educativo (CGECSE), Secretaría de Educación, series del salario docente, e INDEC, índice de precios al consumidor. https://datina.com.ar/educacion#f-salario-docente. Consultado el día de la consulta."
   },
   {
    "tabla": "inversion_educativa",
@@ -3640,7 +3640,7 @@
    "descripcion": "Gasto público en educación por alumno de escuelas de gestión estatal, en pesos, por provincia, 2024",
    "seccion": "Educación",
    "ficha": "https://datina.com.ar/educacion#f-inversion-educativa",
-   "fuente": "Coordinación de Evaluación de Costos Educativos, Secretaría de Educación, indicadores de inversión educativa, y Banco Mundial, deflactor del PBI.",
+   "fuente": "Coordinación General de Estudio de Costos del Sistema Educativo (CGECSE), Secretaría de Educación, indicadores de inversión educativa, y Banco Mundial, deflactor del PBI.",
    "organismos": [
     "Secretaría de Educación"
    ],
@@ -3689,7 +3689,7 @@
    "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
    "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
    "uso_libre": true,
-   "como_citar": "Datina (año de la consulta). ¿Cuánto se invierte por alumno de escuela estatal en cada provincia? Con datos de Coordinación de Evaluación de Costos Educativos, Secretaría de Educación, indicadores de inversión educativa, y Banco Mundial, deflactor del PBI. https://datina.com.ar/educacion#f-inversion-educativa. Consultado el día de la consulta."
+   "como_citar": "Datina (año de la consulta). ¿Cuánto se invierte por alumno de escuela estatal en cada provincia? Con datos de Coordinación General de Estudio de Costos del Sistema Educativo (CGECSE), Secretaría de Educación, indicadores de inversión educativa, y Banco Mundial, deflactor del PBI. https://datina.com.ar/educacion#f-inversion-educativa. Consultado el día de la consulta."
   },
   {
    "tabla": "inversion_educativa_serie",
@@ -3699,7 +3699,7 @@
    "descripcion": "Gasto público en educación por alumno de escuelas de gestión estatal, en pesos, por provincia, 2024",
    "seccion": "Educación",
    "ficha": "https://datina.com.ar/educacion#f-inversion-educativa",
-   "fuente": "Coordinación de Evaluación de Costos Educativos, Secretaría de Educación, indicadores de inversión educativa, y Banco Mundial, deflactor del PBI.",
+   "fuente": "Coordinación General de Estudio de Costos del Sistema Educativo (CGECSE), Secretaría de Educación, indicadores de inversión educativa, y Banco Mundial, deflactor del PBI.",
    "organismos": [
     "Banco Mundial"
    ],
@@ -3742,7 +3742,7 @@
    "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
    "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
    "uso_libre": true,
-   "como_citar": "Datina (año de la consulta). ¿Cuánto se invierte por alumno de escuela estatal en cada provincia? Con datos de Coordinación de Evaluación de Costos Educativos, Secretaría de Educación, indicadores de inversión educativa, y Banco Mundial, deflactor del PBI. https://datina.com.ar/educacion#f-inversion-educativa. Consultado el día de la consulta."
+   "como_citar": "Datina (año de la consulta). ¿Cuánto se invierte por alumno de escuela estatal en cada provincia? Con datos de Coordinación General de Estudio de Costos del Sistema Educativo (CGECSE), Secretaría de Educación, indicadores de inversión educativa, y Banco Mundial, deflactor del PBI. https://datina.com.ar/educacion#f-inversion-educativa. Consultado el día de la consulta."
   },
   {
    "tabla": "escuelas_primarias_provincias",
@@ -7722,7 +7722,7 @@
    "descripcion": "Canasta de crianza por edad, en pesos por mes, octubre de 2026, mes a mes descontada la inflación desde enero de 2020, y frente al salario registrado de cada provincia, mayo de 2026",
    "seccion": "Precios y actividad",
    "ficha": "https://datina.com.ar/economia#f-crianza",
-   "fuente": "INDEC, valorización de la canasta de crianza (Catálogo API-INDEC) e índice de precios al consumidor, y Observatorio de Empleo y Dinámica Empresarial (OEDE), Secretaría de Trabajo, con datos del Sistema Integrado Previsional Argentino (SIPA).",
+   "fuente": "INDEC, valorización de la canasta de crianza (Catálogo API-INDEC) e índice de precios al consumidor, y Observatorio de Empleo y Dinámica Empresarial (OEDE), Secretaría de Trabajo, Ministerio de Capital Humano, con datos del Sistema Integrado Previsional Argentino (SIPA).",
    "organismos": [
     "INDEC (Instituto Nacional de Estadística y Censos)"
    ],
@@ -7845,7 +7845,7 @@
    "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
    "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
    "uso_libre": true,
-   "como_citar": "Datina (año de la consulta). ¿Cuánto cuesta por mes criar a un chico? Con datos de INDEC, valorización de la canasta de crianza (Catálogo API-INDEC) e índice de precios al consumidor, y Observatorio de Empleo y Dinámica Empresarial (OEDE), Secretaría de Trabajo, con datos del Sistema Integrado Previsional Argentino (SIPA). https://datina.com.ar/economia#f-crianza. Consultado el día de la consulta."
+   "como_citar": "Datina (año de la consulta). ¿Cuánto cuesta por mes criar a un chico? Con datos de INDEC, valorización de la canasta de crianza (Catálogo API-INDEC) e índice de precios al consumidor, y Observatorio de Empleo y Dinámica Empresarial (OEDE), Secretaría de Trabajo, Ministerio de Capital Humano, con datos del Sistema Integrado Previsional Argentino (SIPA). https://datina.com.ar/economia#f-crianza. Consultado el día de la consulta."
   },
   {
    "tabla": "crianza_salario",
@@ -7855,7 +7855,7 @@
    "descripcion": "Canasta de crianza por edad, en pesos por mes, octubre de 2026, mes a mes descontada la inflación desde enero de 2020, y frente al salario registrado de cada provincia, mayo de 2026",
    "seccion": "Precios y actividad",
    "ficha": "https://datina.com.ar/economia#f-crianza",
-   "fuente": "INDEC, valorización de la canasta de crianza (Catálogo API-INDEC) e índice de precios al consumidor, y Observatorio de Empleo y Dinámica Empresarial (OEDE), Secretaría de Trabajo, con datos del Sistema Integrado Previsional Argentino (SIPA).",
+   "fuente": "INDEC, valorización de la canasta de crianza (Catálogo API-INDEC) e índice de precios al consumidor, y Observatorio de Empleo y Dinámica Empresarial (OEDE), Secretaría de Trabajo, Ministerio de Capital Humano, con datos del Sistema Integrado Previsional Argentino (SIPA).",
    "organismos": [
     "OEDE (Observatorio de Empleo y Dinámica Empresarial)"
    ],
@@ -7919,7 +7919,7 @@
    "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
    "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
    "uso_libre": true,
-   "como_citar": "Datina (año de la consulta). ¿Cuánto cuesta por mes criar a un chico? Con datos de INDEC, valorización de la canasta de crianza (Catálogo API-INDEC) e índice de precios al consumidor, y Observatorio de Empleo y Dinámica Empresarial (OEDE), Secretaría de Trabajo, con datos del Sistema Integrado Previsional Argentino (SIPA). https://datina.com.ar/economia#f-crianza. Consultado el día de la consulta."
+   "como_citar": "Datina (año de la consulta). ¿Cuánto cuesta por mes criar a un chico? Con datos de INDEC, valorización de la canasta de crianza (Catálogo API-INDEC) e índice de precios al consumidor, y Observatorio de Empleo y Dinámica Empresarial (OEDE), Secretaría de Trabajo, Ministerio de Capital Humano, con datos del Sistema Integrado Previsional Argentino (SIPA). https://datina.com.ar/economia#f-crianza. Consultado el día de la consulta."
   },
   {
    "tabla": "salario_real_mensual",
@@ -8198,7 +8198,7 @@
    "descripcion": "Variación de la actividad económica y de los asalariados registrados del sector privado por sector, abril de 2025 a marzo de 2026, frente a los doce meses anteriores y a diez años antes",
    "seccion": "Precios y actividad",
    "ficha": "https://datina.com.ar/economia#f-sectores-empleo",
-   "fuente": "INDEC, Estimador Mensual de Actividad Económica, y Observatorio de Empleo y Dinámica Empresarial (OEDE), Secretaría de Trabajo, con datos del Sistema Integrado Previsional Argentino (SIPA).",
+   "fuente": "INDEC, Estimador Mensual de Actividad Económica, y Observatorio de Empleo y Dinámica Empresarial (OEDE), Secretaría de Trabajo, Ministerio de Capital Humano, con datos del Sistema Integrado Previsional Argentino (SIPA).",
    "organismos": [
     "INDEC (Instituto Nacional de Estadística y Censos)",
     "OEDE (Observatorio de Empleo y Dinámica Empresarial)"
@@ -8277,7 +8277,7 @@
    "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
    "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
    "uso_libre": true,
-   "como_citar": "Datina (año de la consulta). ¿Crece el empleo registrado al ritmo de la actividad en cada sector? Con datos de INDEC, Estimador Mensual de Actividad Económica, y Observatorio de Empleo y Dinámica Empresarial (OEDE), Secretaría de Trabajo, con datos del Sistema Integrado Previsional Argentino (SIPA). https://datina.com.ar/economia#f-sectores-empleo. Consultado el día de la consulta."
+   "como_citar": "Datina (año de la consulta). ¿Crece el empleo registrado al ritmo de la actividad en cada sector? Con datos de INDEC, Estimador Mensual de Actividad Económica, y Observatorio de Empleo y Dinámica Empresarial (OEDE), Secretaría de Trabajo, Ministerio de Capital Humano, con datos del Sistema Integrado Previsional Argentino (SIPA). https://datina.com.ar/economia#f-sectores-empleo. Consultado el día de la consulta."
   },
   {
    "tabla": "industria_ramas",
@@ -22959,7 +22959,7 @@
    "organismos": [
     "Banco Mundial",
     "CIAM (Centro de Información Ambiental)",
-    "DEIS (Dirección de Estadísticas e Información de Salud)",
+    "DEIS (Dirección de Estadísticas e Información en Salud)",
     "Secretaría de Hacienda",
     "INDEC (Instituto Nacional de Estadística y Censos)",
     "OCDE (Organización para la Cooperación y el Desarrollo Económicos)",

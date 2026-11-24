@@ -4,7 +4,7 @@
  "descripcion": "Salario bruto de un maestro de grado con 10 años de antigüedad por provincia, junio de 2026",
  "seccion": "Educación",
  "ficha": "https://datina.com.ar/educacion#f-salario-docente",
- "fuente": "Coordinación de Evaluación de Costos Educativos, Secretaría de Educación, series del salario docente, e INDEC, índice de precios al consumidor.",
+ "fuente": "Coordinación General de Estudio de Costos del Sistema Educativo (CGECSE), Secretaría de Educación, series del salario docente, e INDEC, índice de precios al consumidor.",
  "organismos": [
   "INDEC (Instituto Nacional de Estadística y Censos)"
  ],
@@ -46,6 +46,6 @@
  ],
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿Cuánto cobra un maestro en cada provincia? Con datos de Coordinación de Evaluación de Costos Educativos, Secretaría de Educación, series del salario docente, e INDEC, índice de precios al consumidor. https://datina.com.ar/educacion#f-salario-docente. Consultado el día de la consulta.",
+ "como_citar": "Datina (año de la consulta). ¿Cuánto cobra un maestro en cada provincia? Con datos de Coordinación General de Estudio de Costos del Sistema Educativo (CGECSE), Secretaría de Educación, series del salario docente, e INDEC, índice de precios al consumidor. https://datina.com.ar/educacion#f-salario-docente. Consultado el día de la consulta.",
  "datos_actualizados": "23/11/2026"
 }

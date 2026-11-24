@@ -4,7 +4,7 @@
  "descripcion": "Gasto público en educación por alumno de escuelas de gestión estatal, en pesos, por provincia, 2024",
  "seccion": "Educación",
  "ficha": "https://datina.com.ar/educacion#f-inversion-educativa",
- "fuente": "Coordinación de Evaluación de Costos Educativos, Secretaría de Educación, indicadores de inversión educativa, y Banco Mundial, deflactor del PBI.",
+ "fuente": "Coordinación General de Estudio de Costos del Sistema Educativo (CGECSE), Secretaría de Educación, indicadores de inversión educativa, y Banco Mundial, deflactor del PBI.",
  "organismos": [
   "Secretaría de Educación"
  ],
@@ -51,6 +51,6 @@
  ],
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿Cuánto se invierte por alumno de escuela estatal en cada provincia? Con datos de Coordinación de Evaluación de Costos Educativos, Secretaría de Educación, indicadores de inversión educativa, y Banco Mundial, deflactor del PBI. https://datina.com.ar/educacion#f-inversion-educativa. Consultado el día de la consulta.",
+ "como_citar": "Datina (año de la consulta). ¿Cuánto se invierte por alumno de escuela estatal en cada provincia? Con datos de Coordinación General de Estudio de Costos del Sistema Educativo (CGECSE), Secretaría de Educación, indicadores de inversión educativa, y Banco Mundial, deflactor del PBI. https://datina.com.ar/educacion#f-inversion-educativa. Consultado el día de la consulta.",
  "datos_actualizados": "23/11/2026"
 }

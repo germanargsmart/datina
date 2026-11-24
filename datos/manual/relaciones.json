@@ -158,7 +158,7 @@
   },
   {
    "id": "org:deis",
-   "nombre": "Dirección de Estadísticas e Información de Salud",
+   "nombre": "Dirección de Estadísticas e Información en Salud",
    "sigla": "DEIS",
    "depende": "Ministerio de Salud",
    "url": "https://datos.salud.gob.ar",
@@ -261,6 +261,7 @@
     "Ministerio de Educacion, Aprender",
     "Dirección Nacional de Información y Estadística Educativa",
     "Coordinación de Evaluación de Costos Educativos",
+    "Coordinación General de Estudio de Costos del Sistema Educativo",
     "Coordinacion de Evaluacion de Costos Educativos",
     "Secretaría de Educación",
     "Secretaria de Educacion",
