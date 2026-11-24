@@ -5915,7 +5915,7 @@
    "csv": "https://datina.com.ar/datos/rotacion_laboral.csv",
    "metadatos": "https://datina.com.ar/datos/rotacion_laboral.metadata.json",
    "titulo": "¿Qué parte de los asalariados lleva un año o menos en su empleo?",
-   "descripcion": "Porcentaje de asalariados con un año o menos en su empleo actual, en 31 aglomerados urbanos, 2025 y 2026",
+   "descripcion": "Porcentaje de asalariados con un año o menos en su empleo actual, en 31 aglomerados urbanos, del tercer trimestre de 2025 al segundo trimestre de 2026",
    "seccion": "Trabajo",
    "ficha": "https://datina.com.ar/trabajo#f-rotacion",
    "fuente": "INDEC, Encuesta Permanente de Hogares, bases usuarias trimestrales (procesamiento propio).",

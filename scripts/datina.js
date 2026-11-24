@@ -1307,7 +1307,8 @@ const TX = {
   "centrales-nota": `Centrales del listado de la Secretaría de Energía, con datos de CAMMESA, actualizado en ${e.cen_fecha}. El tamaño de cada círculo es su potencia, y las ` +
     `${n0(e.cen_sin_pot)} centrales que no la informan (${n0(e.cen_mem_sin_pot)} de ellas conectadas al mercado eléctrico mayorista) van como círculos vacíos: por eso la potencia no se suma ` +
     `por provincia. La potencia del país es la que publica CAMMESA para cada año, por tecnología: la térmica reúne ciclos combinados, turbinas a gas, turbinas de vapor y motores diésel, ` +
-    `y la hidroeléctrica incluye las centrales de menos de 50 megavatios.`,
+    `y la hidroeléctrica incluye las centrales de menos de 50 megavatios.` +
+    (e.cen_sin_atucha1 ? ` Las nucleares del listado son ${lista(e.cen_nuc)}, con ${n0(e.cen_nuc_mw)} megavatios. CAMMESA cuenta ${n0(e.pot_nuc_mw)}: suma Atucha I, de 362 megavatios, que el listado no tiene.` : ""),
   subsidios: LEAD.subsidios("pbi"), "subsidios-nota": `Gasto corriente en subsidios económicos a la energía del Sector Público Nacional no Financiero, en base caja, ` +
     `según el Informe Mensual de Ingresos y Gastos que la Secretaría de Hacienda publica desde ${e.sub_ini}. Es la serie oficial tal como la publica Hacienda: el sitio no arma su propia definición de subsidio. ` +
     `El PBI es el del INDEC a precios corrientes. Los pesos de ${e.sub_ult} usan el deflactor del PBI, y la comparación de lo que va del año, el índice de precios al consumidor del INDEC. ` +

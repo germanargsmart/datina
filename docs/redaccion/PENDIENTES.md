@@ -103,6 +103,7 @@ Lo que cada grupo de la reescritura no cambió porque necesita corregir un dato,
    - Motivo: Es la única ficha cuya cifra destacada y cuya tarjeta de En cifras son una provincia: el dato del país no está (no hay fila 00). La aclaración de los accesos de empresas aparece en la cifra, en el texto y en la nota.
    - Propuesta: Calcular el total del país en 02 (accesos del país sobre hogares del país) para la cifra y la línea "País". Con eso, la aclaración de ENACOM queda solo en la nota.
    - **Estado al 11 de noviembre de 2026: sigue abierta.** La cifra sigue siendo in_top_v, de una provincia. 02 no calcula el total del país.
+   - **Revisión del 24 de noviembre de 2026: sigue abierta.** El archivo de ENACOM que baja el sitio trae solo los accesos cada 100 hogares y cada 100 habitantes de cada provincia, sin cantidades: el total del país no se puede calcular con él. Hace falta sumar a `01_descargar.py` la serie nacional de ENACOM (una descarga nueva, con aprobación del autor).
 
 17. **pobreza.html#f-pobreza** (`scripts/plantilla.html`)
    - Fragmento: «<p class="nota" data-t="pobreza-nota"></p>
@@ -231,7 +232,7 @@ Lo que cada grupo de la reescritura no cambió porque necesita corregir un dato,
    - Fragmento: «{{rotacion.anios}}»
    - Motivo: La descripción dice «2025 y 2026», pero son los cuatro trimestres del segundo de 2025 al primero de 2026. El resumen no tiene ese período en palabras. Además, «Generación» repite casi lo mismo que «Edad» en el selector.
    - Propuesta: Sumar al resumen rotacion.periodo («segundo trimestre de 2025 a primer trimestre de 2026») y usarlo en la descripción. Evaluar sacar la opción «Generación».
-   - **Estado al 11 de noviembre de 2026: sigue abierta.** anios da "2025 y 2026" y la descripción sigue con {{rotacion.anios}}. "Generación" sigue.
+   - **Cambió en parte el 24 de noviembre de 2026 y sigue abierta.** La descripción usa `{{rotacion.periodo}}` ("del tercer trimestre de 2025 al segundo trimestre de 2026"). Sacar la opción "Generación" cambia el selector: lo decide el autor.
 
 15. **trabajo.html#f-salarios y economia.html#f-salario-real** (`scripts/datina.js`)
    - Fragmento: «LEAD.salarios / LEAD["salario-real"]»
@@ -653,7 +654,7 @@ Lo que cada grupo de la reescritura no cambió porque necesita corregir un dato,
    - Fragmento: «y ${n0(e.cen_tec["Nuclear"])} nucleares»
    - Motivo: El listado tiene 2 centrales nucleares (Embalse y Atucha II) y el 4,0% de potencia nuclear parece incluir Atucha I. No está documentado en el repositorio.
    - Propuesta: Verificar en el listado de la Secretaría de Energía y, si corresponde, aclarar que Atucha I y II figuran como una sola central.
-   - **Estado al 11 de noviembre de 2026: sigue abierta.** Las centrales nucleares sin aclarar lo de Atucha I y II.
+   - **Resuelta el 24 de noviembre de 2026.** El listado de la Secretaría de Energía tiene dos nucleares, Embalse y Atucha II (1.393 MW), y CAMMESA cuenta 1.755 MW: la diferencia es justo Atucha I (362 MW), que el listado no tiene. La nota de f-centrales lo dice, desde el resumen (`cen_nuc`, `cen_nuc_mw`, `pot_nuc_mw`), y solo mientras la diferencia sea esa.
 
 19. **movilidad.html#f-combustibles** (`scripts/datina.js`)
    - Fragmento: «la más baja, la de ${bajo[0]}»
