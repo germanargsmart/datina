@@ -54,7 +54,7 @@ const TERMINOS = `(() => {
     .map(x => x.textContent).join("\\n")).replace(/\\s+/g, " ").replace(/Ministerio de Educación de la Ciudad de Buenos Aires/g, "");  // con los espacios que no cortan (sinViuda)
   const MAL = [[/balotaje/i, "segunda vuelta"], [/pesos (de igual|del mismo) valor|a precios de hoy/i, "descontada la inflación"],
     [/transferencias discrecionales/i, "transferencias no automáticas"], [/las 24 provincias/i, "las 24 jurisdicciones"],
-    [/pensi[oó]n(es)? (no contributivas? )?por discapacidad/i, "pensión por invalidez"], [/\\bleyes clave\\b/i, "leyes y proyectos clave"],
+    [/pensi[oó]n(es)? (no contributivas? )?por discapacidad/i, "pensión por invalidez"], [/\\bleyes clave\\b/i, "leyes y proyectos clave"], [/efecto directo/i, "vida diaria"],
     [/\\b[Ll]a Ciudad\\b|Ciudad (Autónoma )?de Buenos Aires/, "CABA"]];
   return MAL.flatMap(([rx, bien]) => [...t.matchAll(new RegExp(".{0,40}(" + rx.source + ").{0,30}", rx.flags + "g"))].slice(0, 2).map(m => [m[0].trim(), bien]));
 })()`;

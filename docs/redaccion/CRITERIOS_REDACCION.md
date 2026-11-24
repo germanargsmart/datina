@@ -50,6 +50,7 @@ Un mismo concepto se llama igual en todo el sitio.
 | Segunda vuelta electoral | segunda vuelta | balotaje |
 | Transferencias de la Nación que no fija una ley | transferencias no automáticas | transferencias discrecionales |
 | Votaciones del Congreso que sigue el sitio | leyes y proyectos clave (incluye proyectos que no fueron ley) | leyes clave |
+| Las leyes y proyectos que llegan a la vida diaria de muchas personas o de muchos hogares | leyes y proyectos de la vida diaria ("Vida diaria" en el botón) | de efecto directo (decisión del autor del 24 de noviembre de 2026) |
 | La relación entre dos series | correlación (en "Cómo se calcula") y "van juntos" en el texto | "Spearman" en la primera oración |
 
 ## Lo que no se toca
