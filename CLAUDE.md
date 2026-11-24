@@ -28,6 +28,10 @@ scripts/lib/                   D3 7.8.5, topojson-client 3.1.0, Leaflet 1.9.4 (s
 scripts/fuentes/web/           desde el 17 de noviembre de 2026, Roboto Flex y Roboto Mono (latín y latín extendido, los mismos archivos que daba Google Fonts)
                                con sus licencias: 03 los copia a sitio/fuentes/ y escribe sus @font-face en cada página. Ninguna página pide letras a Google
 scripts/achicar_js.py          saca comentarios y sangría de sitio/datina.js, sin cambiar el código: los comentarios se leen en scripts/datina.js
+scripts/partes/                desde el 24 de noviembre de 2026 (plan técnico, fase 5), el código de datina.js que usa una sola página, un archivo por
+                               página (catalogo.js, departamentos.js...). 03 lo publica en sitio/partes/ y lo pide solo esa página, antes de datina.js,
+                               que ya no es una función que se llama a sí misma: cada parte se anota y datina.js la corre con parte("...") donde
+                               estaba su código, con todo lo de datina.js a mano
 scripts/imagen_social.py       la imagen al compartir de cada página (og:image, sitio/og/): 03 la dibuja con Pillow y Roboto Flex (scripts/fuentes/), solo si cambió lo que lleva
 scripts/pruebas_datos.py       pruebas de los datos: si fallan, no se arma ni se publica
 scripts/relaciones.py          arma el Explorador de relaciones (relaciones.html) desde datos/manual/relaciones.json y lo valida
@@ -80,7 +84,7 @@ docs/roadmap/                  plan vigente, estado, decisiones, criterios de ac
 - Todo: `python scripts/01_descargar.py && python scripts/02_procesar.py && python scripts/03_construir_sitio.py`, y después `node scripts/prueba_paginas.mjs` (Node 22 o más y Chrome, de 3 a 5 minutos).
 - No correr `01_descargar.py` para cambios visuales ni sin aprobación del autor: baja cientos de MB. Para sumar una fuente, `python scripts/01_descargar.py --solo archivo` baja solo ese archivo de `FUENTES` y cambia solo su fila del registro.
 - Armar sin descargar: `python scripts/03_construir_sitio.py` (corre antes `pruebas_datos.py`). No toca `sitio/pobreza/`: el consultor de pobreza se arma aparte (`pobreza/README.md`) y entra al sitio solo con `python scripts/03_construir_sitio.py --con-pobreza`.
-- Sintaxis del JavaScript, después de tocar `datina.js`: `node -e "new Function(require('fs').readFileSync('sitio/datina.js','utf8'))"`.
+- Sintaxis del JavaScript, después de tocar `datina.js`: `node -e "new Function(require('fs').readFileSync('sitio/datina.js','utf8'))"`, y las partes de cada página: `for f in sitio/partes/*.js; do node --check $f; done`.
 - Catálogo del Explorador de relaciones: `python scripts/relaciones.py` (lo valida) y `python scripts/prueba_relaciones.py` (prueba el validador). 03 corre los dos.
 - Ver el sitio: `python scripts/servir.py` (en http://localhost:8765). Desde el 16 de noviembre de 2026 los enlaces van sin el `.html`, como los sirve Cloudflare, y `python -m http.server` ya no los entiende.
 - Detalle por tipo de cambio y la prueba sin acceso a las CDN: `.claude/rules/pruebas.md`.
