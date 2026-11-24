@@ -936,7 +936,9 @@ JS_SITIO = achicar_js.achicar(js)
 # Leaflet 1.9.4 (9 de noviembre de 2026, el mapa de escuelas y hospitales de cada provincia): bajada de npm e igual byte por byte a la de
 # jsDelivr. La pide datina.js recién cuando la sección se acerca a la pantalla (la dirección va en la sección, con su huella)
 LIBS = {"__V_D3__": "d3-7.8.5.min.js", "__V_TOPOJSON__": "topojson-client-3.1.0.min.js",
-        "__V_LEAFLET__": "leaflet-1.9.4.min.js", "__V_LEAFLET_CSS__": "leaflet-1.9.4.css"}
+        "__V_LEAFLET__": "leaflet-1.9.4.min.js", "__V_LEAFLET_CSS__": "leaflet-1.9.4.css",
+        # Rutas comerciales (25 de noviembre de 2026): MapLibre GL y el mapa del mundo de Natural Earth a 1:50 millones (world-atlas), solo en rutas.html
+        "__V_MAPLIBRE__": "maplibre-gl-5.24.0.min.js", "__V_MAPLIBRE_CSS__": "maplibre-gl-5.24.0.css", "__V_MUNDO50__": "world-atlas-2.0.2-countries-50m.json"}
 (SITIO / "lib").mkdir(exist_ok=True)
 for _lib in (RAIZ / "scripts" / "lib").iterdir():
     shutil.copyfile(_lib, SITIO / "lib" / _lib.name)
