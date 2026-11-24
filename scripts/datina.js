@@ -11957,6 +11957,8 @@ const FECHA_DD = {
   "f-ant-bases": () => `Según COMNAP, en ${ANT.comnap_fecha}`,
   "f-ant-paises": () => `Según COMNAP, en ${ANT.comnap_fecha}`,
   "f-ant-tratado": () => `El último país se sumó en ${ANT.tr_ult_anio}`,
+  // la superficie protegida (24 de noviembre de 2026): la de todas las áreas creadas hasta la última
+  "f-parques": () => `Con las áreas creadas hasta ${nt.pn_ultima_anio}`,
 };
 document.querySelectorAll(".destacado[data-clave], .dd-dato[data-clave]").forEach(a => {
   const id = a.dataset.clave, c = CLAVE[id];
