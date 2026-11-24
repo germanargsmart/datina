@@ -1127,6 +1127,8 @@ html.insertar .ins-ficha{margin:0}
 .tend-fuente{margin:var(--e-2) 0 0;max-width:44em;font-size:var(--t-2);color:var(--muted)}
 @media (max-width:520px){.tend-item{grid-template-columns:3.5em 1fr;gap:var(--e-2)}.tend-cuerpo{padding-left:var(--e-3)}}
 /* F17: el buscador de departamentos, debajo del indicador, y el valor del elegido arriba de las listas */
+.mp-controles{display:flex;flex-direction:column}
+.mp-controles .selector-ficha{flex:none}   /* en columna, la base de 260px de .selector-ficha se volvía alto */
 .mp-buscar{margin-top:var(--e-3)}
 .mp-buscar input{width:100%;max-width:28em}
 .mp-elegido{text-align:left;margin:0 0 var(--e-4);padding:var(--e-3) var(--e-4);border-left:3px solid var(--ink);background:var(--superficie);font-size:var(--t-3);line-height:1.5}
@@ -1513,7 +1515,7 @@ dl.glosario{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr)
   .ficha:is(.ancha,.explorador)>*{grid-column:1/-1;min-width:0}
   .ficha:is(.ancha,.explorador)>:is(.etiqueta,h2,.ficha-sub,.clave,.lead,.nota){grid-column:1;max-width:none}
   .ficha:is(.ancha,.explorador)>.etiqueta{justify-self:start}
-  .ficha:is(.ancha,.explorador)>:is(.lg-sels,.vt-controles,.selector-ficha,.dx-controles){grid-column:2;grid-row:1/span 6;align-self:end;
+  .ficha:is(.ancha,.explorador)>:is(.lg-sels,.vt-controles,.selector-ficha,.dx-controles,.mp-controles){grid-column:2;grid-row:1/span 6;align-self:end;
     max-width:none;margin:0 0 var(--e-4)}
 }
 /* el texto que sigue al gráfico se separa de él como el gráfico de la cabeza (en la plantilla, antes de que llegue el código, y después) */

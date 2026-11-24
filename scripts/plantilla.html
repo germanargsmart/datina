@@ -3203,9 +3203,13 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     <article class="ficha explorador" id="f-mapa">
       <h2 data-t="mapa-dep-titulo"></h2>
       <p class="lead" data-t="mapa-dep"></p>
+      <!-- los dos controles van juntos (24 de noviembre de 2026): sueltos, desde 1080 píxeles la grilla de las fichas anchas los ponía en la misma
+           celda y el buscador tapaba el selector de indicador -->
+      <div class="mp-controles">
       <label class="selector-ficha"><span>Indicador</span><select id="mp-ind"></select></label>
       <!-- F17 (plan de mejora, aprobado por el autor el 28 de octubre de 2026): buscar un departamento o partido por su nombre -->
       <label class="selector-ficha mp-buscar"><span>Departamento o partido</span><input type="search" id="mp-buscar" list="mp-deps" autocomplete="off" enterkeyhint="search"></label>
+      </div>
       <datalist id="mp-deps"></datalist>
       <div class="mp-cuerpo">
         <div class="grafico mp-mapa" data-g="mapa-dep" data-forma="mapa" style="--alto:640px;--alto-c:528px"></div>
