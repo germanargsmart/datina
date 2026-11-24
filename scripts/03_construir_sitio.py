@@ -465,7 +465,7 @@ def historia_prov(c, h):
             f'<div class="ph-cuerpo"><div class="ph-texto">{texto_h}</div><aside class="ph-lado" aria-label="Datos básicos">'
             f'<dl class="ph-datos">{dl}</dl>{cur}</aside></div>'
             f'<details class="ph-fuentes"><summary>Fuentes</summary><p>Textos de Datina a partir de sitios oficiales de cada provincia y del '
-            f'Estado nacional, sitios municipales, leyes y trabajos de universidades públicas y del CONICET, entre otras fuentes. Delante de cada fuente figura el apartado del texto que respalda. Los habitantes salen de la proyección de población del INDEC, base Censo 2022.</p><ul>{fuentes}</ul></details></article>')
+            f'Estado nacional, sitios municipales, leyes y trabajos de universidades públicas y del CONICET, entre otras fuentes. Delante de cada fuente figura el apartado del texto que respalda. Los textos se armaron con los resúmenes que muestran los buscadores de cada página citada, sin abrirlas una por una: si algo no coincide, vale lo que dice la fuente. Los habitantes salen de la proyección de población del INDEC, base Censo 2022.</p><ul>{fuentes}</ul></details></article>')
 
 
 assert base.count("<!--HISTORIA-->") == 1 and base.count("<!--PROV-LINEA-->") == 1
