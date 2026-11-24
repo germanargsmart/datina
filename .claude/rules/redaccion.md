@@ -21,6 +21,7 @@ Un mismo concepto se llama igual en todo el sitio (plan de mejora, R5, 27 de oct
 | segunda vuelta | balotaje |
 | transferencias no automáticas | transferencias discrecionales |
 | leyes y proyectos clave | leyes clave |
+| leyes y proyectos de la vida diaria ("Vida diaria" en el botón) | de efecto directo (decisión del autor del 24 de noviembre de 2026) |
 | correlación (en "Cómo se calcula") y "van juntos" en el texto | "Spearman" en la primera oración |
 
 La prueba de páginas (`TERMINOS` en `scripts/prueba_paginas.mjs`) busca las variantes en el texto visible de cada página y frena el PR si encuentra una. Un término nuevo se suma en la tabla de arriba, en `CRITERIOS_REDACCION.md` y en `TERMINOS`, en el mismo cambio. Los ids y los comentarios del código no cuentan (`x-balotaje` queda).

@@ -23,6 +23,8 @@ const TOTAL = "el gráfico y «Ver tabla» muestran cada provincia, y el total d
 const EXCEPCIONES = {
   "f-envejecimiento": "el gráfico y «Ver tabla» muestran cada provincia en los dos años, y el valor del país, que contesta la pregunta, va en el texto",
   "f-pensiones-invalidez": "el mapa y «Ver tabla» muestran cada provincia, y el valor del país cada 1.000 habitantes, que contesta la pregunta, va en el texto",
+  // la superficie protegida (24 de noviembre de 2026, decisión del autor)
+  "f-parques": "el gráfico y «Ver tabla» muestran la superficie terrestre y la marina por separado, y la suma, que contesta la pregunta, va en el texto",
   "f-soja": "el mapa y «Ver tabla» muestran cada departamento, y el total del país, en millones de hectáreas, va en el texto de «Evolución» y en la tabla de esa vista",
   // revisadas una por una el 28 de octubre de 2026
   "f-isac": "es la variación interanual del último mes de la serie del gráfico: «Ver tabla» la da con dos decimales y signo",

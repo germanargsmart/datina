@@ -1778,7 +1778,7 @@ const TX = {
     `La fuente suma la superficie de cada designación, así que una misma zona puede contarse más de una vez.`,
   "protegida-nota": `Superficie terrestre dentro de áreas protegidas de jurisdicción nacional o provincial y de sitios con designación internacional, como reservas de biosfera y sitios Ramsar. La fuente suma la superficie de cada designación, así que una misma zona puede contarse más de una vez. No incluye las áreas marinas. Los metros cuadrados por habitante usan la población que proyecta el INDEC para ${R.anio_pob_ficha.areas_protegidas_provincias}, el mismo año. La línea punteada violeta marca el promedio simple de los países de la OCDE en ${OC.protegida.anio} según el Banco Mundial, que usa otra base (la Base Mundial de Áreas Protegidas) y no suma superposiciones.`,
   // la cifra destacada ya dice cuántas áreas tiene Parques Nacionales: el texto da sus nombres y su superficie
-  parques: `Los primeros parques nacionales, ${nt.pn_primeras}, se crearon en ${nt.pn_primera_anio}. Hoy las áreas protegidas de la Administración de Parques Nacionales suman ${n1(nt.pn_terr_millones)} millones de hectáreas terrestres y ${n1(nt.pn_mar_millones)} millones marinas. La más grande en tierra es ${nt.pn_mayor}, creada en ${nt.pn_mayor_anio}, con ${n0(nt.pn_mayor_ha)} hectáreas. La más reciente es ${nt.pn_ultima}, de ${nt.pn_ultima_anio}.`,
+  parques: `Los primeros parques nacionales, ${nt.pn_primeras}, se crearon en ${nt.pn_primera_anio}. Hoy las áreas protegidas de la Administración de Parques Nacionales suman ${n1(nt.pn_total_millones)} millones de hectáreas: ${n1(nt.pn_terr_millones)} millones en tierra y ${n1(nt.pn_mar_millones)} millones en el mar. La más grande en tierra es ${nt.pn_mayor}, creada en ${nt.pn_mayor_anio}, con ${n0(nt.pn_mayor_ha)} hectáreas. La más reciente es ${nt.pn_ultima}, de ${nt.pn_ultima_anio}.`,
   "parques-nota": `Superficie acumulada según el año de creación de cada área, con su superficie actual. No refleja ampliaciones posteriores ni cambios de categoría.`,
   // la cifra destacada ya dice el área con más especies: el texto empieza por la segunda
   especies: `La segunda área protegida nacional con más especies animales registradas es ${nt.esp_2}, con ${n0(nt.esp_2_v)}. ` +
@@ -5874,14 +5874,14 @@ function resumenEspacios(esp) {
   if (gr.aus.length) s += ` La mayoría de los legisladores ${listaY(gr.aus.map(deEsp))} no estuvo en la votación.`;
   return s.trim();
 }
-// Leyes de efecto directo (etapa 12): las que cambian, o proponían cambiar, algo que llega a la vida diaria de muchas personas o
+// Leyes de la vida diaria (etapa 12, "de efecto directo" hasta el 24 de noviembre de 2026, cuando el autor cambió el nombre): las que cambian, o proponían cambiar, algo que llega a la vida diaria de muchas personas o
 // hogares. Selección propia en la columna efecto_directo de leyes_clave.csv: en la lista van primero, en su grupo
 // el año va adelante: el que algunos nombres repiten entre paréntesis, para distinguir dos proyectos iguales, no se escribe dos veces
 const opcionLey = l => `<option value="${l.k}">${l.anio}, ${l.nombre.replace(` (${l.anio})`, "")}</option>`;
-$("vt-sel").innerHTML = `<optgroup label="Leyes y proyectos de efecto directo">${[...VT.leyes].reverse().filter(l => l.ed).map(opcionLey).join("")}</optgroup>` +
+$("vt-sel").innerHTML = `<optgroup label="Leyes y proyectos de la vida diaria">${[...VT.leyes].reverse().filter(l => l.ed).map(opcionLey).join("")}</optgroup>` +
   `<optgroup label="Otras leyes y proyectos clave">${[...VT.leyes].reverse().filter(l => !l.ed).map(opcionLey).join("")}</optgroup>`;
 MED.vtLey = VT.leyes[VT.leyes.length - 1].k; MED.votaciones = "Diputados"; MED.vtmatriz = "Diputados"; MED.vtfiltro = "todas";
-// el conmutador de la tabla por espacio (todas o solo las de efecto directo) redibuja la tabla
+// el conmutador de la tabla por espacio (todas o solo las de la vida diaria) redibuja la tabla
 DIB.vtfiltro = () => DIB.vtmatriz(false);
 // la ley elegida en la tabla de los espacios o en un espacio: la pestaña de cada legislador (fichas unidas, R7), con el foco en ella
 const vtIrALegisladores = () => {
@@ -6017,7 +6017,7 @@ DIB.vtmatriz = a => {
   };
   el.innerHTML = `<table><thead><tr><th>Ley</th>${esp.map(e => `<th><button type="button" class="esp-btn" data-e="${e}" aria-haspopup="dialog">${ESP_CORTO[e]}</button></th>`).join("")}</tr></thead><tbody>` +
     // la ley es un botón dentro de su celda (antes la fila entera era role="button"): con el mouse se puede tocar toda la fila
-    [...filas].reverse().map(l => `<tr data-k="${l.k}"${l.k === MED.vtLey ? ' class="elegida"' : ""}><td class="ley"><button type="button" class="vt-ley" aria-pressed="${l.k === MED.vtLey}">${l.nombre}</button><small>${l.camaras[cam] ? l.camaras[cam].fecha.slice(0, 4) : l.anio}${l.ed ? ", efecto directo" : ""}</small></td>` +
+    [...filas].reverse().map(l => `<tr data-k="${l.k}"${l.k === MED.vtLey ? ' class="elegida"' : ""}><td class="ley"><button type="button" class="vt-ley" aria-pressed="${l.k === MED.vtLey}">${l.nombre}</button><small>${l.camaras[cam] ? l.camaras[cam].fecha.slice(0, 4) : l.anio}${l.ed ? ", vida diaria" : ""}</small></td>` +
       (l.camaras[cam] ? esp.map(e => celda(l, e)).join("") : `<td class="sin" colspan="${esp.length}">El Senado no publica el acta nominal</td>`) + "</tr>").join("") + "</tbody>" +
     `<tfoot><tr><td class="ley">Plataforma electoral de 2023<small>qué propuso cada alianza (PDF)</small></td>${esp.map(plataformaCelda).join("")}</tr></tfoot></table>`;
   el.querySelectorAll("tr[data-k]").forEach(tr => {
@@ -6038,7 +6038,7 @@ DIB.vtmatriz = a => {
   }));
   pares.sort((p, q) => q.f - p.f || q.n - p.n);
   const mas = pares[0], menos = pares[pares.length - 1];
-  document.querySelector('[data-t="vtm"]').textContent = `${cam === "Diputados" ? "En Diputados" : "En el Senado"} hay acta nominal de ${leyes.length === filas.length ? `las ${filas.length}` : `${leyes.length} de las ${filas.length}`} leyes y proyectos ${soloEd ? "de efecto directo (los que cambian, o proponían cambiar, algo de la vida diaria de muchas personas)" : "clave"}. ` +
+  document.querySelector('[data-t="vtm"]').textContent = `${cam === "Diputados" ? "En Diputados" : "En el Senado"} hay acta nominal de ${leyes.length === filas.length ? `las ${filas.length}` : `${leyes.length} de las ${filas.length}`} leyes y proyectos ${soloEd ? "de la vida diaria (los que cambian, o proponían cambiar, algo que llega a muchas personas)" : "clave"}. ` +
     (mas ? `Contando la postura de la mayoría de cada espacio, los que más coincidieron fueron ${ESP_TXT[mas.e1]} y ${ESP_TXT[mas.e2]}: votaron igual en ${mas.igual === mas.n ? `las ${mas.n}` : `${mas.igual} de las ${mas.n}`} leyes y proyectos en que los dos tomaron posición. ` +
       `Los que menos coincidieron fueron ${ESP_TXT[menos.e1]} y ${ESP_TXT[menos.e2]}: votaron distinto en ${menos.n - menos.igual} de ${menos.n}. ` : "") +
     `Tocá una ley para ver el voto de cada legislador, o el nombre de un espacio para ver su recorrido ley por ley.`;
@@ -6126,7 +6126,7 @@ DIB.apoyo = conTablas("apoyo", ["apoyo_gobierno_provincias"], a => {
     fx: v => n0(v), vx: v => n0(v) + " pesos"});
 });
 
-TX["votaciones-nota"] = $t("votaciones-nota").textContent = `Votación en general de cada ley o proyecto en cada cámara, según el acta de votación nominal. Cada punto es un legislador: pasá el mouse o tocá un punto para ver quién es. Leyes de efecto directo: las que cambian, o proponían cambiar, algo que llega a la vida diaria de muchas personas o de muchos hogares, como los ingresos, las jubilaciones, los impuestos que pagan los asalariados, los derechos civiles, la salud o el trabajo. Es una selección propia y revisable, que incluye los proyectos que no se aprobaron. ` +
+TX["votaciones-nota"] = $t("votaciones-nota").textContent = `Votación en general de cada ley o proyecto en cada cámara, según el acta de votación nominal. Cada punto es un legislador: pasá el mouse o tocá un punto para ver quién es. Leyes de la vida diaria: las que cambian, o proponían cambiar, algo que llega a la vida diaria de muchas personas o de muchos hogares, como los ingresos, las jubilaciones, los impuestos que pagan los asalariados, los derechos civiles, la salud o el trabajo. Es una selección propia y revisable, que incluye los proyectos que no se aprobaron. ` +
     `Ausente incluye a quien estaba en la sesión pero no votó. Quien preside la sesión solo vota si hay empate y no figura en el acta. ` +
     `El espacio de cada legislador sale del bloque que registra el acta, con la misma clasificación que la composición del Congreso, pero el PRO y la UCR siempre van por separado. ` +
     `La selección es propia: leyes y proyectos muy debatidos o con efectos amplios, de todos los gobiernos desde ${R.votaciones.leyes[0].anio}. ` +
@@ -6190,7 +6190,7 @@ TX["vtm-nota"] = $t("vtm-nota").textContent = `Cada celda muestra el porcentaje 
     `En la comparación entre espacios, un espacio toma posición en una ley cuando más de la mitad de sus presentes votó lo mismo. Espacios con legisladores en al menos tres de estas votaciones. ` +
     `La última fila enlaza la plataforma electoral nacional que cada alianza presentó ante la Justicia Nacional Electoral para las elecciones de 2023, publicada por la Cámara Nacional Electoral: lo que cada espacio propuso, junto a lo que votó. ` +
     `La UCR y el PRO la presentaron juntos, dentro de Juntos por el Cambio. Las fuerzas provinciales y las otras fuerzas no tienen una plataforma nacional única. ` +
-    `Leyes de efecto directo: las que cambian, o proponían cambiar, algo que llega a la vida diaria de muchas personas o de muchos hogares, como los ingresos, las jubilaciones, los impuestos que pagan los asalariados, los derechos civiles, la salud o el trabajo. Es una selección propia y revisable, que incluye los proyectos que no se aprobaron.`;
+    `Leyes de la vida diaria: las que cambian, o proponían cambiar, algo que llega a la vida diaria de muchas personas o de muchos hogares, como los ingresos, las jubilaciones, los impuestos que pagan los asalariados, los derechos civiles, la salud o el trabajo. Es una selección propia y revisable, que incluye los proyectos que no se aprobaron.`;
 TX["apoyo-nota"] = $t("apoyo-nota").textContent = `En cada votación dividida, aquella en la que al menos una cuarta parte de los presentes votó distinto que el bloque oficialista, se mira si cada diputado y senador de otro bloque votó igual que él. ` +
     `El porcentaje suma las dos cámaras y todas las votaciones divididas del año, no solo las leyes y proyectos clave. El bloque oficialista es el más numeroso del espacio del presidente en cada cámara. ` +
     `Transferencias por habitante del mismo año, en pesos de ${R.transferencias.ult}. La correlación es la de rangos de Spearman entre las 24 jurisdicciones, de menos 1 a 1: cerca de 0 no hay relación. ` +
@@ -7947,7 +7947,7 @@ const CLAVE = {
   ...(DS ? {"f-desempleo": [n1(DS.pais_1000), `personas cobraban el seguro de desempleo cada 1.000 habitantes en el país en ${MESES[DS.prov_mes - 1]} de ${DS.prov_anio}`,
     "cada 1.000 habitantes en el país"]} : {}),
   "f-protegida": [pct(nt.pct), `del territorio continental del país está dentro de áreas protegidas, ${nt.anio}`, "del territorio continental del país"],
-  "f-parques": [n0(nt.pn_n), `áreas protegidas nacionales. Las primeras se crearon en ${nt.pn_primera_anio}`, "áreas protegidas a cargo de la Administración de Parques Nacionales"],
+  "f-parques": [n1(nt.pn_total_millones), `millones de hectáreas protegen las áreas nacionales, el ${pct(nt.pn_pct_mar)} en el mar`, "millones de hectáreas en áreas protegidas nacionales"],
   "f-cumbres": [n0(nt.cu_top_v), `metros sobre el nivel del mar: ${nt.cu_top}, en ${nt.cu_top_prov}, la cumbre más alta del país`, `metros: ${nt.cu_top}, la cumbre más alta del país`],
   "f-especies": [n0(nt.esp_top_v), `especies animales registradas en ${nt.esp_top}, el área nacional con más registros`, `especies animales registradas en ${nt.esp_top}, el área con más registros`],
   "f-visitas": [n1(nt.vis / 1e6), `millones de visitas a parques nacionales en ${nt.vis_anio}`, `millones de visitas en ${nt.vis_anio}`],
@@ -11957,6 +11957,8 @@ const FECHA_DD = {
   "f-ant-bases": () => `Según COMNAP, en ${ANT.comnap_fecha}`,
   "f-ant-paises": () => `Según COMNAP, en ${ANT.comnap_fecha}`,
   "f-ant-tratado": () => `El último país se sumó en ${ANT.tr_ult_anio}`,
+  // la superficie protegida (24 de noviembre de 2026): la de todas las áreas creadas hasta la última
+  "f-parques": () => `Con las áreas creadas hasta ${nt.pn_ultima_anio}`,
 };
 document.querySelectorAll(".destacado[data-clave], .dd-dato[data-clave]").forEach(a => {
   const id = a.dataset.clave, c = CLAVE[id];
@@ -12494,7 +12496,7 @@ const SERIE_CIFRA = {
   "x-hoteles-nr": () => serieM("Viajeros en hoteles que no residen en el país, en % del total", T.viajeros_hoteles_anual.map(r => [r.anio, r.no_residentes / r.total * 100]), pct),
   "f-eti": () => provM("Turistas del exterior cada 1.000 habitantes", T.turistas_extranjeros_provincias, "cada_1000", null, n1),
   "f-protegida": () => provM("Territorio dentro de áreas protegidas, en %", T.areas_protegidas_provincias, "pct_territorio", nt.pct, pct),
-  "f-parques": () => serieM("Áreas protegidas nacionales, por año", T.parques_nacionales_historia.map(r => [r.anio, r.areas]), n0),
+  "f-parques": () => serieM("Superficie de las áreas protegidas nacionales, millones de hectáreas, por año", T.parques_nacionales_historia.map(r => [r.anio, (r.ha_terrestres + r.ha_marinas) / 1e6]), n1),
   "f-visitas": () => serieM("Visitas a parques nacionales por año, en millones", T.visitas_parques_nacionales.map(r => [r.anio, r.total / 1e6]), n1),
   "f-pesca": () => serieM("Pescados y mariscos desembarcados por año, en toneladas", T.desembarques_especies.map(r => [r.anio, r.Total]), n0),
   "f-carne": () => serieM("Carne vacuna por habitante, en kilos por año", T.carne_vacuna.map(r => [r.anio, r.kg_por_habitante]), n1),
