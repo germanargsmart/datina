@@ -79,6 +79,7 @@ sitio/                         lo único que se publica (Cloudflare Pages, _head
 docs/roadmap/                  plan vigente, estado, decisiones, criterios de aceptación e inventario
 .github/workflows/actualizar.yml  actualización automática, los días 5, 15 y 23 de cada mes (desde el 14 de noviembre de 2026): descarga, procesa, prueba, arma y publica
 .github/workflows/pruebas.yml     en cada PR: arma sin descargar y corre las pruebas (un PR en rojo no se une)
+.github/workflows/semanal.yml     desde el 24 de noviembre de 2026 (T2), los lunes sobre main: prueba_320.mjs, peso_paginas.mjs y linea_base.mjs
 ```
 
 ## Comandos

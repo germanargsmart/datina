@@ -1,0 +1,43 @@
+# Pruebas de cada semana (plan de mejora, T2, aprobada por el autor el 24 de noviembre de 2026): lo que no corre en cada PR porque tarda,
+# sobre el sitio tal como esta en main, sin armar ni descargar nada. No guarda ni publica nada. Si algo falla, la corrida queda en rojo y
+# GitHub avisa por correo a quien la tiene a su nombre.
+# - prueba_320.mjs: ninguna pagina se corre de costado en 320, 360 y 390 pixeles (WCAG 1.4.10)
+# - peso_paginas.mjs: ninguna pagina crecio mas de un 20% y mas de 50 KB sobre lo anotado en scripts/peso_paginas.json
+# - linea_base.mjs: capturas de ocho paginas en nueve anchos y con zoom, y cuanto salta cada una (CLS). No frena: queda para mirar en
+#   los archivos de la corrida (Actions, la corrida, "Artifacts"), una semana contra la otra
+name: Pruebas semanales
+on:
+  schedule:
+    # los lunes a las 10:17 UTC (7:17 en la Argentina), lejos de la actualizacion de los dias 5, 15 y 23 a las 12:00
+    - cron: "17 10 * * 1"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  semanal:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: main
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "22"
+      - name: Version de Chrome
+        run: google-chrome --version
+      # las tres corren aunque falle una de las anteriores, y la corrida queda en rojo si fallo alguna
+      - name: Ninguna pagina se corre de costado en el celular
+        run: node scripts/prueba_320.mjs
+      - name: El peso de cada pagina
+        if: ${{ !cancelled() }}
+        run: node scripts/peso_paginas.mjs
+      - name: Linea de base visual
+        if: ${{ !cancelled() }}
+        run: node scripts/linea_base.mjs linea_base/semanal
+      - uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}
+        with:
+          name: linea-base
+          path: linea_base/semanal
+          retention-days: 60
