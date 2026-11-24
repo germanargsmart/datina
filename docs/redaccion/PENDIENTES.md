@@ -48,19 +48,19 @@ Lo que cada grupo de la reescritura no cambió porque necesita corregir un dato,
    - Fragmento: «NSE_IND = {"pct_pob_solo_cobertura_publica": "Población sin obra social ni prepaga"»
    - Motivo: Es la misma variable que sin_cobertura (P19 = 3 del Censo, mismos valores en las dos tablas), con otro nombre que omite el plan estatal. El rótulo viene de los datos (punto R14 del plan).
    - Propuesta: Rótulo "Población sin obra social, prepaga ni plan estatal" en NSE_IND y en el catálogo de variables (línea 5994), como en f-censo y en los textos de G1.
-   - **Estado al 11 de noviembre de 2026: sigue abierta.** 02_procesar.py sigue diciendo "Población sin obra social ni prepaga".
+   - **Resuelta el 24 de noviembre de 2026.** El rótulo de `NSE_IND` y del catálogo de indicadores es "Población sin obra social, prepaga ni plan estatal".
 
 8. **salud.html#f-causas-infantiles** (`scripts/02_procesar.py`)
    - Fragmento: «grupos de mi_causas: "Infecciosas y parasitarias"»
    - Motivo: El rótulo viene de los datos y en el texto queda "la mortalidad por infecciosas y parasitarias", sin sustantivo.
    - Propuesta: Rótulo "Enfermedades infecciosas y parasitarias" en el resumen (R14), como en CM_FRASE.
-   - **Estado al 11 de noviembre de 2026: sigue abierta.** 02_procesar.py rotula "Infecciosas y parasitarias" y datina.js lo usa en minúscula.
+   - **Resuelta el 24 de noviembre de 2026.** `GRUPOS_MI` y `GRUPOS_CM` rotulan "Enfermedades infecciosas y parasitarias".
 
 9. **salud.html#f-causas-infantiles** (`scripts/datina.js`)
    - Fragmento: «const fuertes = gr.filter(x => Math.abs(x.r_cobertura) >= .4)»
    - Motivo: El texto dice "tiende a ser más alta" para todas las correlaciones fuertes, pero el filtro también deja pasar las negativas. Hoy las dos son positivas. Corregirlo es lógica, no redacción.
    - Propuesta: Filtrar solo las positivas para esa oración, o elegir "más alta" o "más baja" según el signo de cada una.
-   - **Estado al 11 de noviembre de 2026: sigue abierta.** datina.js filtra con Math.abs(r_cobertura) >= .4 y siempre dice "más alta".
+   - **Resuelta el 24 de noviembre de 2026.** Cada causa dice "más alta" o "más baja" según el signo de su correlación (`causasSentido` en `DIB.causas`). Hoy las dos son positivas y el texto no cambia.
 
 10. **poblacion.html#f-envejecimiento** (`scripts/02_procesar.py`)
    - Fragmento: «"envejecimiento": {... "max": "CABA", "max_v": 29.9, "min": "Tierra del Fuego", "min_v": 11.4 ...}»
@@ -139,7 +139,7 @@ Lo que cada grupo de la reescritura no cambió porque necesita corregir un dato,
    - Fragmento: «OCDE, Programa para la Evaluación Internacional de Alumnos (PISA)»
    - Motivo: El pie dice "de Alumnos" y el explicador "de Estudiantes". Los dos nombres circulan en español: hace falta elegir uno.
    - Propuesta: Usar el nombre que usa la Secretaría de Educación ("Programa para la Evaluación Internacional de Estudiantes") en el pie y sumar ese alias en relaciones.json.
-   - **Estado al 11 de noviembre de 2026: sigue abierta.** El pie dice "de Alumnos" y explicadores.json "de Estudiantes".
+   - **Resuelta el 24 de noviembre de 2026.** El pie dice "de Estudiantes", como el explicador, y `relaciones.json` suma ese alias (el viejo queda).
 
 23. **pobreza.html#f-ingresos-aglomerados** (`scripts/datina.js`)
    - Fragmento: «conArt(E.max, true)»
@@ -408,6 +408,7 @@ Lo que cada grupo de la reescritura no cambió porque necesita corregir un dato,
    - Motivo: Diputados clasifica por bloque y el Senado por alianza electoral. El texto ahora lo advierte, pero las dos cámaras no se pueden comparar.
    - Propuesta: Una sola regla para las dos cámaras (bloque actual), con la alianza electoral en el cuadro.
    - **Estado al 11 de noviembre de 2026: sigue abierta.** El Senado sigue por partido o alianza y Diputados por bloque (es E15).
+   - **Revisión del 24 de noviembre de 2026: sigue abierta.** Las actas del Senado que ya baja el sitio (copia de Cómo Votó) traen un bloque por senador y por votación, pero no sirven para la historia: 272 de los 309 senadores figuran con el mismo bloque en todas sus votaciones, y ese bloque a veces es posterior: en marzo de 2016 14 senadores figuran en "Frente de Todos", un bloque que se formó en diciembre de 2019. La única fuente oficial por bloque es el listado actual de senado.gob.ar (agrupados por bloque), que sirve para el período en curso y no para los anteriores. Usarla da una regla mixta (el período en curso por bloque y los anteriores por alianza) y pide sumar una fuente: lo decide el autor.
 
 8. **politica.html#f-congreso** (`scripts/datina.js`)
    - Fragmento: «DIB.congreso (texto)»
@@ -437,7 +438,7 @@ Lo que cada grupo de la reescritura no cambió porque necesita corregir un dato,
    - Fragmento: «2018, Interrupción voluntaria del embarazo (2018) y 2024, Movilidad jubilatoria (2024)»
    - Motivo: El selector repite el año en cuatro opciones. Sacarlo del nombre rompe el mapeo de 02 (nombres iguales).
    - Propuesta: Que opcionLey saque el año entre paréntesis al armar la opción, o que 02 mapee por clave y no por nombre.
-   - **Estado al 11 de noviembre de 2026: sigue abierta.** El año de cada ley sigue repetido entre paréntesis.
+   - **Resuelta el 24 de noviembre de 2026.** `opcionLey` saca del nombre el año entre paréntesis cuando es el mismo que va adelante. La tabla y el mapeo de 02 no cambian.
 
 13. **politica.html#f-presupuesto** (`scripts/datina.js`)
    - Fragmento: «No figuran los presupuestos ${tramosAnios(faltan)}, que no tienen una votación en general en las actas de la fuente.»
@@ -510,7 +511,7 @@ Lo que cada grupo de la reescritura no cambió porque necesita corregir un dato,
    - Fragmento: «Fuentes: Casa Rosada, Wikipedia y Wikidata, que coinciden en los doce casos»
    - Motivo: "Doce" está escrito a mano y queda viejo con el próximo presidente.
    - Propuesta: Usar {{presidentes.n}} si el autor acepta la cifra en el pie.
-   - **Estado al 11 de noviembre de 2026: sigue abierta.** "coinciden en los doce casos" sigue escrito a mano en la plantilla.
+   - **Resuelta el 24 de noviembre de 2026.** El pie dice "que coinciden en todos los casos", sin la cifra.
 
 25. **seguridad.html y salud.html#f-muertes** (`scripts/plantilla.html`)
    - Fragmento: «Ministerio de Seguridad Nacional / Ministerio de Seguridad»
