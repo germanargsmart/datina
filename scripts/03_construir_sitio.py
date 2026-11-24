@@ -974,6 +974,13 @@ LIBS = {"__V_D3__": "d3-7.8.5.min.js", "__V_TOPOJSON__": "topojson-client-3.1.0.
 for _lib in (RAIZ / "scripts" / "lib").iterdir():
     shutil.copyfile(_lib, SITIO / "lib" / _lib.name)
 V_LIBS = {marca: hashlib.sha1((SITIO / "lib" / nombre).read_bytes()).hexdigest()[:10] for marca, nombre in LIBS.items()}
+# Las imágenes del diseño (24 de noviembre de 2026): por ahora, solo el paisaje del pie de todas las páginas, la llanura pampeana grabada
+# en celeste. La generó el autor con un generador de imágenes y se le cambió el sol por el de otra versión de la misma escena. Se copian
+# de scripts/imagenes/ a sitio/img/ y se piden con su huella, como las letras
+(SITIO / "img").mkdir(exist_ok=True)
+for _f in (RAIZ / "scripts" / "imagenes").iterdir():
+    shutil.copyfile(_f, SITIO / "img" / _f.name)
+V_LIBS["__V_PIE__"] = hashlib.sha1((SITIO / "img" / "pie-llanura.webp").read_bytes()).hexdigest()[:10]
 # Las letras desde el propio sitio (16 de noviembre de 2026, decisión del autor): Roboto Flex y Roboto Mono, los mismos archivos que daba Google
 # Fonts (versión 31, con los mismos ejes: tamaño óptico, ancho de 25 a 151 y peso de 300 a 800 en Roboto Flex, peso de 400 a 600 en Roboto
 # Mono), solo latín y latín extendido, como los pedía el navegador. En scripts/fuentes/web/ con sus licencias (SIL Open Font License 1.1).
@@ -1939,7 +1946,7 @@ if URL_SITIO:
 # Caché en Cloudflare Pages (23 de octubre de 2026, decisión del autor): sitio/_headers es el equivalente de los [[headers]] de
 # netlify.toml. Los archivos que las páginas piden con su huella en la dirección (?v=...) se guardan un año: cuando cambia el contenido
 # cambia la dirección. Los demás (por ejemplo, las tablas que se piden sin huella) quedan con la caché común
-CACHE_LARGO = (["/datina.css", "/datina.js", "/partes/*", "/mesas.js", "/rutas.js", "/datos/fichas.js", "/datos/relieve/*", "/lib/*", "/fuentes/*", "/relaciones.css", "/relaciones.js", "/datos/relaciones.json"]
+CACHE_LARGO = (["/datina.css", "/datina.js", "/partes/*", "/mesas.js", "/rutas.js", "/datos/fichas.js", "/datos/relieve/*", "/lib/*", "/fuentes/*", "/img/*", "/relaciones.css", "/relaciones.js", "/datos/relaciones.json"]
                + [f"/datos/{n}.json" for n in DIFERIDAS] + ["/consulta-ia.js"] * CONSULTA_IA)
 # Las tablas de Elecciones por mesa (4 de noviembre de 2026): Cloudflare comprime el JSON y el texto, pero no el CSV, y Buenos Aires bajaba unos 5 MB. Se sirven como
 # texto: el archivo es el mismo y sigue llamándose .csv, y los enlaces de descarga llevan el atributo download

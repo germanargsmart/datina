@@ -2066,6 +2066,11 @@ svg.mapa-prov .caba-aparte line{stroke:var(--muted);stroke-width:.8}
 .pie-mapa a[aria-current="true"]{color:var(--ink);font-weight:600}
 @media (hover:hover) and (pointer:fine){.pie-mapa a:hover{text-decoration:underline}}
 @media (max-width:760px){.pie-mapa{grid-template-columns:1fr 1fr}}
+/* el paisaje del pie (24 de noviembre de 2026): de borde a borde, sin espacio debajo. En el celular no baja de 96 píxeles de alto y se
+   recorta de los costados: quedan el molino, las vacas, el sol y el gaucho */
+.pie-sitio:has(.pie-paisaje){padding-bottom:0}
+.pie-paisaje{margin-top:var(--e-8);line-height:0}
+.pie-paisaje img{display:block;width:100%;height:auto;min-height:var(--e-10);object-fit:cover;object-position:55% 100%}
 
 /* ---------- consultas con IA (25 de octubre de 2026, docs/ia/CONSULTAS.md): la página existe solo con "consulta_ia" en
    datos/manual/sitio.json. El formulario es el de Contacto y la respuesta va en una tarjeta como las fichas. El aviso de lo que está leyendo

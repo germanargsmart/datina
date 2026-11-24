@@ -25,6 +25,8 @@ scripts/datina.css / datina.js el diseño (valores en :root) y los textos calcul
 scripts/lib/                   D3 7.8.5, topojson-client 3.1.0, Leaflet 1.9.4 (solo el mapa de escuelas y hospitales) y, desde el 24 de noviembre de 2026,
                                MapLibre GL 5.24.0 y el mapa del mundo a 1:50 millones (world-atlas 2.0.2), solo Rutas comerciales, con sus licencias: 03 los copia a
                                sitio/lib/ (ninguna página los pide a una CDN)
+scripts/imagenes/              desde el 24 de noviembre de 2026, las imágenes del diseño: por ahora, el paisaje del pie de todas las páginas (la llanura
+                               pampeana grabada en celeste, elegida por el autor entre doce maquetas). 03 las copia a sitio/img/ y las pide con su huella
 scripts/fuentes/web/           desde el 17 de noviembre de 2026, Roboto Flex y Roboto Mono (latín y latín extendido, los mismos archivos que daba Google Fonts)
                                con sus licencias: 03 los copia a sitio/fuentes/ y escribe sus @font-face en cada página. Ninguna página pide letras a Google
 scripts/achicar_js.py          saca comentarios y sangría de sitio/datina.js, sin cambiar el código: los comentarios se leen en scripts/datina.js
