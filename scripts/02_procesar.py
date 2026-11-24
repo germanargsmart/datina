@@ -9062,6 +9062,8 @@ resumen = {
         "m2_top": area.sort_values("m2_por_habitante").iloc[-1].territorio, "m2_top_v": round(float(area.m2_por_habitante.max())),
         "m2_low": area.sort_values("m2_por_habitante").iloc[0].territorio, "m2_low_v": r1(area.m2_por_habitante.min()),
         "pn_n": int(len(apn)), "pn_terr_millones": r1(terr.superficie.sum() / 1e6), "pn_mar_millones": r1(apn[apn.marina].superficie.sum() / 1e6),
+        # la cifra destacada de f-parques desde el 24 de noviembre de 2026 (decisión del autor): toda la superficie y qué parte es mar
+        "pn_total_millones": r1(apn.superficie.sum() / 1e6), "pn_pct_mar": r1(apn[apn.marina].superficie.sum() / apn.superficie.sum() * 100),
         "pn_primeras": " y ".join(apn[apn.anio == primera.anio].nombre.sort_values()), "pn_primera_anio": int(primera.anio), "pn_ultima": ultima.nombre, "pn_ultima_anio": int(ultima.anio),
         "pn_mayor": mayor.nombre, "pn_mayor_ha": round(float(mayor.superficie)), "pn_mayor_anio": int(mayor.anio),
         "anio_ini": int(pn_hist.anio.min()), "anio_fin": int(pn_hist.anio.max()),
