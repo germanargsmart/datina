@@ -66,7 +66,7 @@ Lo que cada grupo de la reescritura no cambió porque necesita corregir un dato,
    - Fragmento: «"envejecimiento": {... "max": "CABA", "max_v": 29.9, "min": "Tierra del Fuego", "min_v": 11.4 ...}»
    - Motivo: El gráfico rotula y ordena por el último año (CABA 33,4, Misiones 16,8 abajo) y el resumen solo tiene los extremos del primero. El texto ya nombra los dos años, pero no puede citar los del último.
    - Propuesta: Sumar max_fin, max_fin_v, min_fin y min_fin_v al resumen y cerrar el texto con "En ${EV.anio_fin}, ${EV.max_fin} (${n1(EV.max_fin_v)}) y ${EV.min_fin} (${n1(EV.min_fin_v)})."
-   - **Estado al 11 de noviembre de 2026: sigue abierta.** El resumen no tiene max_fin ni min_fin: el texto cita solo los extremos del primer año.
+   - **Resuelta el 24 de noviembre de 2026.** El resumen suma `max_fin`, `max_fin_v`, `min_fin` y `min_fin_v`, y el texto cierra con los extremos del último año de las proyecciones, los que muestra el gráfico (hoy CABA, 33,4, y Misiones, 16,8, en 2040).
 
 11. **migraciones.html#f-nacidos-otro-pais** (`scripts/02_procesar.py`)
    - Fragmento: «"primer_pais_n": 7»
@@ -84,7 +84,7 @@ Lo que cada grupo de la reescritura no cambió porque necesita corregir un dato,
    - Fragmento: «Desde entonces, la tasa subió ${deLas24(es.suben)}»
    - Motivo: El texto no dice qué provincia bajó (no está en el resumen), y el verde y el rojo comparan años que cruzan el quiebre de serie de 2022.
    - Propuesta: Sumar al resumen la provincia que bajó y evaluar comparar desde el primer año con la misma población de referencia (como hace el Diagnóstico), o marcar a La Pampa en el gráfico.
-   - **Estado al 11 de noviembre de 2026: sigue abierta.** datina.js sigue con deLas24(es.suben), sin la provincia que bajó.
+   - **Cambió en parte el 24 de noviembre de 2026 y sigue abierta.** El resumen suma `bajan` y el texto nombra las que bajaron, si son tres o menos (hoy Tierra del Fuego). Falta decidir si se compara desde el primer año con la misma población de referencia.
 
 14. **educacion.html#f-salario-docente** (`scripts/datina.js`)
    - Fragmento: «barrasH(el, {anim: a, data: T.salario_docente.filter(r => r.codigo_indec !== "00"), k: "bruto"»
@@ -456,7 +456,7 @@ Lo que cada grupo de la reescritura no cambió porque necesita corregir un dato,
    - Fragmento: «const milM = v => v >= 1000 ? `${n1(v / 1000)} billones` : ...»
    - Motivo: El mismo texto mezcla "1,8 billones" y "209 mil millones". Cambiar el formato es cambiar la función.
    - Propuesta: Una sola escala en cada texto (miles de millones).
-   - **Estado al 11 de noviembre de 2026: sigue abierta.** milM sigue mezclando "billones" y "mil millones".
+   - **Resuelta el 24 de noviembre de 2026.** `milM` usa siempre "mil millones" ("1.769 mil millones" y "209 mil millones" en el mismo texto).
 
 16. **politica.html#f-legisladores, laboratorio.html#l-anios** (`datos (legisladores_por_periodo, anios_congreso)`)
    - Fragmento: «Damian Arabia, Lucia Campora, COALICION CIVICA, José Miguel Ángel May…»
@@ -629,7 +629,7 @@ Lo que cada grupo de la reescritura no cambió porque necesita corregir un dato,
    - Fragmento: «vecesPais(): "menos de la cuarta parte del promedio del país"»
    - Motivo: Frase molde que achica la diferencia: se usa para 0,18 y para 0,13 del promedio (Santiago del Estero en f-electricidad-sectores, La Pampa en f-protegida). Es una función de todo el sitio.
    - Propuesta: Decir la razón real ("unas ocho veces menos") con veces(pais, v) cuando el valor queda por debajo de la cuarta parte.
-   - **Estado al 11 de noviembre de 2026: cambió en parte y sigue abierta.** vecesPais sumó "décima parte". Con 0,13 y 0,18 sigue diciendo "menos de la cuarta parte".
+   - **Resuelta el 24 de noviembre de 2026.** Entre la décima y la cuarta parte, `vecesPais` da la fracción más cercana: 0,13 es "alrededor de la octava parte" y 0,18, "alrededor de la sexta parte".
 
 15. **naturaleza.html, movilidad.html** (`scripts/plantilla.html`)
    - Fragmento: «Ministerio de Turismo y Deportes / Ministerio de Ambiente / Ministerio de Transporte»
