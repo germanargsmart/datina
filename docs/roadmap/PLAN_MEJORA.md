@@ -341,7 +341,7 @@ Ningún PR corre nada. Cloudflare publica la vista previa sin probarla.
 | T11 | Banco de 40 preguntas con respuesta conocida para las consultas con IA, con el modelo de verdad | Evaluación | Una vez por semana | Que el motor gratis no empeore. Hoy las pruebas usan un modelo simulado |
 | T12 | Términos fijos: CABA, "descontada la inflación", nombres de organismos | Contenido | Cada armado | R4 y R5 |
 | T13 | Unidades conocidas en `tabla_larga.csv` | Datos | Cada armado | R14 |
-| T14 | Huella de estilos de cada página (la que se usó para el cambio a h2 y no quedó en `scripts/`) | Regresión visual | A mano, antes de un cambio de diseño | Comprobar que un cambio "sin cambio visible" no cambia nada |
+| T14 | Huella de estilos de cada página (la que se usó para el cambio a h2 y no quedó en `scripts/`). Hecha el 24 de noviembre de 2026: `scripts/huella_estilos.mjs` | Regresión visual | A mano, antes de un cambio de diseño | Comprobar que un cambio "sin cambio visible" no cambia nada |
 
 Metas: T1 en el primer PR de este plan. T3 a T7 junto con el arreglo que protegen. Cada error P0 que se arregla deja su prueba, para que no vuelva.
 
