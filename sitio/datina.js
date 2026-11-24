@@ -1927,7 +1927,7 @@ extranjeros: `El RENAPER registra ${n0(MG.renaper.personas)} personas nacidas en
 "fiscal-nota": `Administración pública no financiera de cada provincia, ejecución del año completo según el Ministerio de Economía. Recursos propios: ingresos corrientes menos los tributos de origen nacional, como la coparticipación, y las transferencias, más los recursos propios de capital, sobre los ingresos totales. Incluye impuestos provinciales y regalías. Resultado financiero: ingresos totales menos gastos totales, sobre los ingresos totales. Gasto en personal: sueldos y cargas sociales sobre el gasto total. La serie desde ${R.fiscal.ini} está en el explorador de cruces.` +
 Object.entries(R.fiscal.atrasadas).map(([p, a]) => ` ${p} todavía no publicó ${R.fiscal.anio}: figura con ${a}.`).join(""),
 "mapa-dep-titulo": `¿Cómo varía cada indicador de un departamento a otro?`,
-"mapa-dep": `Cada provincia se divide en departamentos, que en Buenos Aires se llaman partidos y en CABA, comunas: son ${n0(R.departamentos.n)} en todo el país. El mapa reúne datos de tres fuentes: los homicidios, los robos y las muertes viales del Sistema Nacional de Información Criminal (SNIC), la edad de la población según el Registro Nacional de las Personas (RENAPER), el lugar de nacimiento, las viviendas y los hogares según el Censo 2022 del INDEC, y el crecimiento de la población que el INDEC estima hasta ${R.departamentos.pob_fin}. Tocá una provincia para acercarte.`
+"mapa-dep": `Cada provincia se divide en departamentos, que en Buenos Aires se llaman partidos y en CABA, comunas: son ${n0(R.departamentos.n)} en todo el país. El mapa reúne datos de varias fuentes: los homicidios, los robos y las muertes viales del Sistema Nacional de Información Criminal (SNIC), la edad de la población según el Registro Nacional de las Personas (RENAPER), el lugar de nacimiento, las viviendas y los hogares según el Censo 2022 del INDEC, las escuelas según el padrón oficial de la Secretaría de Educación y el crecimiento de la población que el INDEC estima hasta ${R.departamentos.pob_fin}. Tocá una provincia para acercarte.`
 };
 document.querySelectorAll("[data-t]").forEach(el => { if (TX[el.dataset.t]) el.textContent = TX[el.dataset.t]; });
 const $t = k => document.querySelector(`[data-t="${k}"]`) || document.createElement("p");
@@ -6753,6 +6753,8 @@ buscar.addEventListener("keydown", ev => { if (ev.key === "Enter") { ev.preventD
 const cargar = () => cargando || (cargando = Promise.all([d3.json("datos/departamentos.topo.json"), d3.csv("datos/departamentos.csv", d3.autoType)])
 .then(([t, f]) => { topo = t; filas = Object.fromEntries(f.map(r => [String(r.id).padStart(5, "0"), r])); }, e => { cargando = null; throw e; }));
 const MIN_POB = 10000, MIN_HOG = 3000;
+const MIN_ESC = R.departamentos.min_esc || 20, esEsc = m => m.fuente.startsWith("Padrón");
+const alcanza = (m, r) => esEsc(m) ? (r.escuelas || 0) >= MIN_ESC : m.fuente.startsWith("INDEC") ? (r.hogares || 0) >= MIN_HOG : (r.poblacion_identificada || 0) >= MIN_POB;
 TABLA_PROPIA["f-mapa"] = () => cargar().then(() => {
 const m = META[ind], pv = cerca && cerca.de === prov ? cerca.c : prov;
 return topojson.feature(topo, topo.objects.departamentos).features.filter(f => !NOMBRES[pv] || f.properties.prov === pv)
@@ -6764,7 +6766,7 @@ function dibujar(anim) {
 refrescarTabla("f-mapa");
 const el = G("mapa-dep"); if (!el || !el.offsetParent) return;
 if (!topo) { cargar().then(() => dibujar(anim), () => sinDatos(el, "No se pudo cargar el mapa.")); return; }
-const m = META[ind], censo = m.fuente.startsWith("INDEC"), estim = m.fuente.includes("estimaciones"), obj = topo.objects.departamentos, todos = topojson.feature(topo, obj).features;
+const m = META[ind], censo = m.fuente.startsWith("INDEC"), estim = m.fuente.includes("estimaciones"), escu = esEsc(m), obj = topo.objects.departamentos, todos = topojson.feature(topo, obj).features;
 const pv = cerca && cerca.de === prov ? cerca.c : prov;
 const enProv = NOMBRES[pv] ? todos.filter(f => f.properties.prov === pv) : todos;
 el.innerHTML = "";
@@ -6787,7 +6789,7 @@ const f1 = d3.format(",.1f"), fv = v => v == null ? "sin dato" : loc.format(",.1
 deps.on("pointermove pointerdown", (ev, f) => {
 const r = filas[f.properties.id] || {}, [mx, my] = d3.pointer(ev, el);
 mostrarTip(el, `<b>${f.properties.nombre}</b>, ${r.provincia || ""}<br>${m.nombre}: ${fv(r[ind])}` +
-(estim ? (r.pob_ini ? `<br>${n0(r.pob_ini)} habitantes en ${R.departamentos.pob_ini} y ${n0(r.pob_fin)} estimados para ${R.departamentos.pob_fin}` : "") :
+(escu ? (r.escuelas ? `<br>${n0(r.escuelas)} escuelas primarias y secundarias comunes` : "") : estim ? (r.pob_ini ? `<br>${n0(r.pob_ini)} habitantes en ${R.departamentos.pob_ini} y ${n0(r.pob_fin)} estimados para ${R.departamentos.pob_fin}` : "") :
 censo ? (r.hogares ? `<br>${n0(r.hogares)} hogares en el Censo 2022` : "") : r.poblacion_identificada ? `<br>${n0(r.poblacion_identificada)} personas identificadas por el RENAPER` : ""), mx, my);
 }).on("pointerleave", ocultarSiMouse)
 .on("click", (ev, f) => { if (!NOMBRES[pv]) { cerca = {c: f.properties.prov, de: prov}; ocultarTip(); cambiarVista("mapa-dep"); } });
@@ -6800,18 +6802,21 @@ document.getElementById("mp-pais").hidden = !NOMBRES[pv];
 if (elegido) {
 const fe = todos.find(f => f.properties.id === elegido), r = filas[elegido] || {}, v = r[ind];
 const QUINTOS = ["el quinto más bajo", "el segundo quinto", "el quinto del medio", "el cuarto quinto", "el quinto más alto"];
-const pocos = censo ? (r.hogares || 0) < MIN_HOG : (r.poblacion_identificada || 0) < MIN_POB;
+const pocos = !alcanza(m, r);
 avisoDep.hidden = false;
 avisoDep.innerHTML = `<b>${fe.properties.nombre}</b> (${NOMBRES[fe.properties.prov]}). ${m.nombre}: ` + (v == null ? "sin dato." :
 `${fv(v)} (${m.unidad}). Está en ${QUINTOS[cortes.filter(q => v >= q).length]} de los departamentos del país.` +
-(pocos ? " Tiene poca población: unos pocos casos mueven mucho este valor." : "")) + (marcado.empty() ? "" : " En el mapa, con un círculo.");
+(pocos ? (escu ? " Tiene pocas escuelas: una sola mueve mucho este valor." : " Tiene poca población: unos pocos casos mueven mucho este valor.") : "")) + (marcado.empty() ? "" : " En el mapa, con un círculo.");
 }
-const lista = enProv.map(f => ({f, r: filas[f.properties.id]})).filter(o => o.r && o.r[ind] != null && (censo ? (o.r.hogares || 0) >= MIN_HOG : (o.r.poblacion_identificada || 0) >= MIN_POB))
+const lista = enProv.map(f => ({f, r: filas[f.properties.id]})).filter(o => o.r && o.r[ind] != null && alcanza(m, o.r))
 .sort((a, b) => b.r[ind] - a.r[ind]);
 const item = o => `<li>${o.f.properties.nombre}${NOMBRES[pv] ? "" : ` (${o.r.provincia})`} <span>${fv(o.r[ind])}</span></li>`;
 document.getElementById("mp-lista").innerHTML = lista.length
 ? `<h3>Valores más altos</h3><ol>${lista.slice(0, 5).map(item).join("")}</ol><h3>Valores más bajos</h3><ol>${lista.slice(-5).reverse().map(item).join("")}</ol>` : "";
-document.getElementById("mp-nota").textContent = `${m.nombre}: ${m.unidad}. Fuente: ${m.fuente}. El color divide a los departamentos del país en cinco grupos del mismo tamaño, de menor a mayor valor. ` + (estim
+document.getElementById("mp-nota").textContent = `${m.nombre}: ${m.unidad}. Fuente: ${m.fuente}. El color divide a los departamentos del país en cinco grupos del mismo tamaño, de menor a mayor valor. ` + (escu
+? `Cuenta las sedes con primaria o secundaria común del padrón (cada escuela y cada anexo), no los alumnos. Las de gestión social o cooperativa no cuentan como privadas. ` +
+`Separa las 15 comunas de CABA. Las listas solo incluyen los departamentos con al menos ${n0(MIN_ESC)} escuelas.`
+: estim
 ? `Son estimaciones que el INDEC hizo a partir del Censo 2022: suponen cómo van a seguir los nacimientos, las muertes y las mudanzas en cada ` +
 `departamento, así que no son un dato medido. Separan las 15 comunas de CABA. Las listas solo incluyen los departamentos con al menos ${n0(MIN_HOG)} hogares.`
 : censo

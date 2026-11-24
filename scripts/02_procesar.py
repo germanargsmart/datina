@@ -4141,6 +4141,15 @@ departamentos["pob_ini"] = departamentos.id.map(_ped[PED_INI])
 departamentos["pob_fin"] = departamentos.id.map(_ped[PED_FIN])
 departamentos["crec_pob"] = (departamentos.pob_fin / departamentos.pob_ini - 1) * 100
 assert departamentos.crec_pob.notna().all(), "hay departamentos del mapa sin la población estimada del INDEC"
+# qué parte de las escuelas es privada en cada departamento (fase 3 de docs/roadmap/ESTABLECIMIENTOS.md, 24 de noviembre de 2026): las sedes
+# con primaria o secundaria común del padrón (datos/manual/establecimientos/escuelas.csv). Las de gestión social o cooperativa no cuentan como
+# privadas. Cuenta escuelas, no alumnos. Los códigos de departamento coinciden con los de Georef, comunas de CABA incluidas
+_dpe = pd.read_csv(_hosp_dir / "escuelas.csv", dtype={"codigo_dep": str, "cueanexo": str}, usecols=["codigo_dep", "sector"])
+_dpe = _dpe.groupby("codigo_dep").sector.agg(n="size", privadas=lambda s: int((s == "Privado").sum()))
+departamentos["escuelas"] = departamentos.id.map(_dpe.n)
+departamentos["escuelas_privadas"] = departamentos.id.map(_dpe.privadas / _dpe.n * 100)
+assert departamentos.escuelas.notna().all(), "hay departamentos del mapa sin escuelas en el padrón"
+DEP_PADRON = json.loads((_hosp_dir / "control.json").read_text(encoding="utf-8"))["fuentes"]["padron"]["actualizado"]
 departamentos = departamentos.round(2)
 DEP_META = {
     "homicidios": ("Homicidios dolosos", f"víctimas cada 100.000 habitantes, promedio {ANIO_DEP - 2} a {ANIO_DEP}", "SNIC, Ministerio de Seguridad"),
@@ -4156,6 +4165,8 @@ DEP_META = {
     "pct_gas_red": ("Hogares que cocinan con gas de red", "% de los hogares, Censo 2022", "INDEC, Censo 2022"),
     "pct_lena": ("Hogares que cocinan con leña o carbón", "% de los hogares, Censo 2022", "INDEC, Censo 2022"),
     "pct_uso_temporal": ("Viviendas de uso temporal", "% de las viviendas, Censo 2022", "INDEC, Censo 2022"),
+    "escuelas_privadas": ("Escuelas privadas", f"% de las escuelas primarias y secundarias comunes, padrón de {MES[int(DEP_PADRON[5:7]) - 1]} de {DEP_PADRON[:4]}",
+                          "Padrón Oficial de Establecimientos Educativos, Secretaría de Educación"),
     "crec_pob": ("Crecimiento proyectado de la población", f"% de cambio entre {PED_INI} y {PED_FIN}, estimación",
                  "INDEC, estimaciones de población por departamento"),
 }
@@ -9162,7 +9173,9 @@ resumen["inflacion_personal"] = INFP_RES
 if CAL_RES:
     resumen["calendario_indec"] = CAL_RES
 resumen["departamentos"] = {"meta": {k: {"nombre": v[0], "unidad": v[1], "fuente": v[2]} for k, v in DEP_META.items()},
-                            "anio_snic": ANIO_DEP, "n": int(len(departamentos)), "pob_ini": PED_INI, "pob_fin": PED_FIN}
+                            "anio_snic": ANIO_DEP, "n": int(len(departamentos)), "pob_ini": PED_INI, "pob_fin": PED_FIN,
+                            # las listas de las escuelas privadas, solo con los departamentos con al menos tantas escuelas
+                            "min_esc": 20}
 resumen["elecciones"] = el_meta
 resumen["elecciones_ult"] = max(x["anio"] for x in el_meta)   # el título de la ficha de elecciones
 # Elecciones por mesa (scripts/elecciones_mesas.py, 4 de noviembre de 2026): los años de la herramienta, para la plantilla
