@@ -206,7 +206,7 @@ FRECUENCIA = {
     # Seguridad
     "f-delitos": "anio", "f-robos": "anio", "f-homicidios": "anio", "f-carceles": "anio", "f-sin-condena": "anio",
     # Educación
-    "f-escolarizacion": "anio", "f-abandono": "anio", "f-aprender": "aprender", "f-pisa": "pisa", "f-salario-docente": "trimestre", "f-inversion-educativa": "anio", "f-escuelas-primarias": "anio", "f-escuelas-secundarias": "anio",
+    "f-escolarizacion": "anio", "f-abandono": "anio", "f-aprender": "aprender", "f-pisa": "pisa", "f-salario-docente": "trimestre", "f-inversion-educativa": "anio", "f-escuelas-primarias": "anio", "f-escuelas-secundarias": "anio", "f-privadas-aprender": "aprender",
     # Población
     "f-nacimientos": "anio", "f-poblacion-proy": "anio", "f-chicos-escuela": "anio", "f-piramide": "anio", "f-envejecimiento": "anio", "f-haberes": "trimestre", "f-pensiones-invalidez": "trimestre", "f-auh": "trimestre", "f-desocupacion": "trimestre", "f-informalidad": "trimestre", "f-pobreza-aglomerados": "semestre", "f-desempleo": "trimestre", "f-adolescentes": "anio",
     "f-adolescentes-nse": "anio",
@@ -682,7 +682,7 @@ if CONSULTA_IA:
 # Las tablas mas pesadas, que usan pocas fichas, van en archivos aparte que el navegador baja solo al abrir esas fichas.
 # fichas.js lleva la huella de cada una para que el navegador no use una version vieja.
 DIFERIDAS = ["antartida_instalaciones", "antartida_bases", "antartida_paises", "antartida_reclamos", "antartida_tratado", "antartida_tratado_serie", "antartida_zonas_paises",
-             "antartida_temperatura", "antartida_hielo", "antartida_turismo", "antartida_presupuesto", "elecciones_presidenciales", "anios_congreso", "transferencias_provincias", "piramide_poblacion", "apoyo_gobierno_provincias", "aprender_departamentos",
+             "antartida_temperatura", "antartida_hielo", "antartida_turismo", "antartida_presupuesto", "elecciones_presidenciales", "anios_congreso", "transferencias_provincias", "piramide_poblacion", "apoyo_gobierno_provincias", "aprender_departamentos", "privadas_aprender_departamentos",
              "hidrocarburos_mensual", "vivienda_departamentos", "isac_mensual", "costo_construccion",
              "empleo_construccion_serie", "pozos_no_convencionales", "areas_produccion", "centrales",
              "gas_usuario_serie", "gas_usuario_mensual", "areas_serie", "combustibles_mensual", "electricidad_serie", "electricidad_mensual",

@@ -246,7 +246,7 @@ Orden: un solo PR abierto a la vez, como siempre. Entre una fase técnica y la s
 ### Escuelas y hospitales (fase 3 de `ESTABLECIMIENTOS.md`)
 
 - ~~Qué parte de las escuelas es privada en cada departamento, en el mapa de departamentos.~~ Hecho el 24 de noviembre de 2026: un indicador más del mapa de Departamentos.
-- Escuelas privadas y resultados de Aprender por departamento, con "Qué no dice este dato". (C)
+- ~~Escuelas privadas y resultados de Aprender por departamento, con "Qué no dice este dato".~~ Hecho el 24 de noviembre de 2026: `f-privadas-aprender` en Educación.
 - Ver si el Censo 2022 tiene población por edad por departamento. (C) Revisado el 24 de noviembre de 2026: la base por radio censal ya no está en datos.gob.ar, y la edad por departamento que hay es la del RENAPER (detalle en `ESTABLECIMIENTOS.md`).
 - Las 175 escuelas a entre 1 y 20 km de su departamento: confirmar que quedan donde dice la fuente. (A)
 - La secundaria por chico, solo si el autor la pide. Matrícula por escuela: hay que bajarla a mano de SharePoint. (A)

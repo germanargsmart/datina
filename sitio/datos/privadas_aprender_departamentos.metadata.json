@@ -1,0 +1,100 @@
+{
+ "tabla": "privadas_aprender_departamentos.csv",
+ "titulo": "¿Rinden más en Aprender los departamentos con más escuelas privadas?",
+ "descripcion": "Escuelas primarias privadas (junio de 2026) y alumnos de 6° grado con nivel satisfactorio o avanzado en matemática (Aprender 2025), por departamento",
+ "seccion": "Educación",
+ "ficha": "https://datina.com.ar/educacion#f-privadas-aprender",
+ "fuente": "Padrón Oficial de Establecimientos Educativos y evaluación Aprender, base agregada, Secretaría de Educación.",
+ "organismos": [
+  "Secretaría de Educación"
+ ],
+ "actualizacion": "Se actualiza con cada evaluación Aprender.",
+ "cobertura": "Departamentos",
+ "periodo": "",
+ "anio_desde": 2025,
+ "anio_hasta": 2026,
+ "filas": 331,
+ "columnas": [
+  {
+   "nombre": "codigo_indec",
+   "tipo": "Código",
+   "valores": "24 códigos"
+  },
+  {
+   "nombre": "provincia",
+   "tipo": "Texto",
+   "valores": "24 valores distintos"
+  },
+  {
+   "nombre": "codigo_dep",
+   "tipo": "Código",
+   "valores": "331 códigos"
+  },
+  {
+   "nombre": "departamento",
+   "tipo": "Texto",
+   "valores": "282 valores distintos"
+  },
+  {
+   "nombre": "primarias",
+   "tipo": "Número",
+   "valores": "9 a 414"
+  },
+  {
+   "nombre": "primarias_privadas",
+   "tipo": "Número",
+   "valores": "0 a 144"
+  },
+  {
+   "nombre": "pct_privadas",
+   "tipo": "Número",
+   "valores": "0 a 71,05"
+  },
+  {
+   "nombre": "alumnos",
+   "tipo": "Número",
+   "valores": "305 a 26.637"
+  },
+  {
+   "nombre": "mat_logra",
+   "tipo": "Número",
+   "valores": "25,67 a 86,61"
+  },
+  {
+   "nombre": "len_logra",
+   "tipo": "Número",
+   "valores": "49,7 a 93,67 (1 celda vacía)"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "",
+ "origen": [
+  {
+   "archivo": "datos/manual/establecimientos/escuelas.csv",
+   "nombre": "Escuelas primarias y secundarias comunes de cada provincia, con su ubicación",
+   "organismo": "Educación",
+   "armado": "2026-11-15",
+   "url": "https://www.argentina.gob.ar/sites/default/files/2026.06.16_padron_oficial_establecimientos_educativos_die_icse.xlsx"
+  },
+  {
+   "archivo": "datos/crudo/aprender_primaria_matematica.csv",
+   "nombre": "Aprender, 6° grado de primaria, matemática: base agregada de desempeño",
+   "organismo": "Educación",
+   "descargado": "2026-11-15",
+   "ultimo_intento": "2026-11-23",
+   "estado": "error: no se encontro la direccion en el catalogo"
+  },
+  {
+   "archivo": "datos/crudo/aprender_primaria_lengua.csv",
+   "nombre": "Aprender, 6° grado de primaria, lengua: base agregada de desempeño",
+   "organismo": "Educación",
+   "descargado": "2026-11-15",
+   "ultimo_intento": "2026-11-23",
+   "estado": "error: no se encontro la direccion en el catalogo"
+  }
+ ],
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
+ "como_citar": "Datina (año de la consulta). ¿Rinden más en Aprender los departamentos con más escuelas privadas? Con datos de Padrón Oficial de Establecimientos Educativos y evaluación Aprender, base agregada, Secretaría de Educación. https://datina.com.ar/educacion#f-privadas-aprender. Consultado el día de la consulta.",
+ "datos_actualizados": "23/11/2026"
+}

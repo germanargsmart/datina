@@ -54,6 +54,8 @@
   Cache-Control: public, max-age=31536000, immutable
 /datos/aprender_departamentos.json
   Cache-Control: public, max-age=31536000, immutable
+/datos/privadas_aprender_departamentos.json
+  Cache-Control: public, max-age=31536000, immutable
 /datos/hidrocarburos_mensual.json
   Cache-Control: public, max-age=31536000, immutable
 /datos/vivienda_departamentos.json

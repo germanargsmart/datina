@@ -1311,6 +1311,16 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <div class="pie"><span>Fuentes: Padrón Oficial de Establecimientos Educativos, Secretaría de Educación, e INDEC, proyecciones de población</span><a href="datos/escuelas_secundarias_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
+    <!-- el último cruce de la fase 3 de docs/roadmap/ESTABLECIMIENTOS.md (24 de noviembre de 2026): escuelas primarias privadas y Aprender por departamento -->
+    <article class="ficha" id="f-privadas-aprender">
+      <h2>¿Rinden más en Aprender los departamentos con más escuelas privadas?</h2>
+      <p class="ficha-sub">Escuelas primarias privadas ({{privadas_aprender.fecha}}) y alumnos de 6° grado con nivel satisfactorio o avanzado en matemática (Aprender {{privadas_aprender.anio}}), por departamento</p>
+      <div class="grafico" data-g="privadas-aprender" data-forma="puntos"></div>
+      <p class="lead" data-t="privadas-aprender"></p>
+      <p class="nota" data-t="privadas-aprender-nota"></p>
+      <div class="pie"><span>Fuentes: Padrón Oficial de Establecimientos Educativos y evaluación Aprender, base agregada, Secretaría de Educación</span><a href="datos/privadas_aprender_departamentos.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
     <!--PROGRAMAS:educacion-->
 
   </section>
