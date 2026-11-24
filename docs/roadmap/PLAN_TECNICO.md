@@ -264,7 +264,7 @@ Orden: un solo PR abierto a la vez, como siempre. Entre una fase técnica y la s
 - El resto de D2: reordenar el código que corre al comienzo. Va con la fase 5. (C)
 - ~~El bloque de la deuda provincial en "Para entender los datos" de Cuentas públicas.~~ Hecho el 24 de noviembre de 2026: "La deuda de las provincias", con las notas de la planilla trimestral de la Subsecretaría de Coordinación Fiscal Provincial como citas.
 - Completar las leyes sin verificar de `cortes_provinciales.csv`. (C)
-- Zonas protegidas de la Antártida en el mapa (`apa_shape_2024.zip`) y el enlace desde Tierra del Fuego al capítulo. (C)
+- Zonas protegidas de la Antártida en el mapa (`apa_shape_2024.zip`). (C) El enlace desde Tierra del Fuego al capítulo está hecho desde el 24 de noviembre de 2026.
 - E15: el Senado sigue por partido o alianza y Diputados por bloque (`PENDIENTES.md`, Estado y sociedad 7). (C)
 - R8, en parte: las exportaciones por habitante siguen en Trabajo (`f-exportaciones`). La balanza energética ya no se repite: queda solo en Petróleo y gas. (C)
 - El pie del perfil provincial: la imagen al compartir ya está (D3). Faltan el CSV del perfil y la cita propia (hoy la página de provincia solo enlaza "Usar los datos"). (C)
