@@ -32,13 +32,16 @@ def armar(tabla, destino, anio):
     assert filas, "rutas_exportaciones.csv está vacía"
     lugar = {p: tuple(d["lugar"]) for p, d in mar["destinos"].items()} | SIN_PUERTO
     puertos = {s: tuple(x) for s, x in mar["salidas"].items()}
-    flujos, lineas, subrubros = [], {}, {}
+    # cada camino (país, producto, salida, modo y destino) va una sola vez, y cada año solo lleva cuánto pasó por cada uno (desde el 24 de noviembre
+    # de 2026, con el filtro por año): once años pesan poco más que uno
+    caminos, indice, lineas, subrubros, paises, valores = [], {}, {}, {}, {}, {}
     for r in filas:
         v = round(float(r["millones_usd"]), 1)
         if v <= 0:
             continue
         if r["subrubro_cod"]:
             subrubros[r["subrubro_cod"]] = [r["subrubro"], r["rubro"]]
+        paises[r["pais_cod"]] = r["pais"]
         clave, modo = "", r["modo"]
         if modo == "mar":
             clave = f"{r['salida']}|{r['pais_cod']}"
@@ -52,13 +55,20 @@ def armar(tabla, destino, anio):
             assert r["salida"] in AEROPUERTOS, f"rutas_sitio.py no tiene la ubicación del aeropuerto {r['salida']}"
             clave = f"{r['salida']}|{r['pais_cod']}"
             lineas[clave] = [list(AEROPUERTOS[r["salida"]]), list(lugar[r["pais_cod"]])]
-        flujos.append([r["pais_cod"], r["pais"], r["subrubro_cod"], r["rubro"], r["salida"], modo, r["destino"], v, clave])
-    usadas = {f[4] for f in flujos if f[5] in ("mar", "tierra") and f[4] in puertos}
-    salida = {"anio": anio, "rubros": NOMBRE_RUBRO, "subrubros": dict(sorted(subrubros.items())),
-              "salidas": {s: list(puertos[s]) for s in sorted(usadas)} | {s: list(x) for s, x in AEROPUERTOS.items() if any(f[4] == s for f in flujos)},
-              "campos": ["pais_cod", "pais", "subrubro_cod", "rubro", "salida", "modo", "destino", "millones_usd", "linea"], "flujos": flujos, "lineas": lineas}
+        c = (r["pais_cod"], r["subrubro_cod"], r["rubro"], r["salida"], modo, r["destino"], clave)
+        if c not in indice:
+            indice[c] = len(caminos)
+            caminos.append(list(c))
+        valores.setdefault(r["anio"], []).append([indice[c], v])
+    assert str(anio) in valores, f"rutas_exportaciones.csv no tiene {anio}, el último año del resumen"
+    usadas = {c[3] for c in caminos if c[4] in ("mar", "tierra") and c[3] in puertos}
+    salida = {"anio": anio, "anios": sorted(int(a) for a in valores), "rubros": NOMBRE_RUBRO, "subrubros": dict(sorted(subrubros.items())),
+              "paises": dict(sorted(paises.items())),
+              "salidas": {s: list(puertos[s]) for s in sorted(usadas)} | {s: list(x) for s, x in AEROPUERTOS.items() if any(c[3] == s for c in caminos)},
+              "campos": ["pais_cod", "subrubro_cod", "rubro", "salida", "modo", "destino", "linea"], "caminos": caminos,
+              "valores": {a: valores[a] for a in sorted(valores)}, "lineas": lineas}
     destino.write_text(json.dumps(salida, ensure_ascii=False, separators=(",", ":")) + "\n", encoding="utf-8", newline="\n")
-    return f"rutas.json: {len(flujos)} filas, {len(lineas)} líneas, {destino.stat().st_size // 1024} KB"
+    return f"rutas.json: {len(salida['anios'])} años, {len(caminos)} caminos, {sum(map(len, valores.values()))} filas, {len(lineas)} líneas, {destino.stat().st_size // 1024} KB"
 
 
 if __name__ == "__main__":

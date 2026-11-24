@@ -7194,22 +7194,28 @@ _rut_f = CRUDO / "indec_api_comercio_exterior_exportacion_bienes_anio_subrubro_p
 if comercio_rubro_pais is not None and _rut_f.exists():
     _rut_x = pd.DataFrame(json.loads(_rut_f.read_text(encoding="utf-8")))
     assert list(_rut_x.columns) == ["Anio", "subrubro_cod", "pais_cod", "valor", "peso"], f"cambiaron las columnas de las exportaciones por subrubro: {list(_rut_x.columns)}"
-    _rut_x = _rut_x[_rut_x.Anio == CMR_ANIO].assign(v=lambda d: d.valor.fillna(0) / 1e6, t=lambda d: d.peso.fillna(0) / 1e3)
+    # cada año completo desde el primero que baja la API (2015, FILTROS de indec_api.py): el filtro por año de la herramienta (pedido del autor del
+    # 24 de noviembre de 2026, "para ver la evolución")
+    RUT_ANIOS = [a for a in _cmx_anios if a >= int(_rut_x.Anio.min())]
+    _rut_x = _rut_x[_rut_x.Anio.isin(RUT_ANIOS)].assign(v=lambda d: d.valor.fillna(0) / 1e6, t=lambda d: d.peso.fillna(0) / 1e3)
     _rut_x = _rut_x[_rut_x.v > 0]
-    # tiene que dar lo mismo que la tabla por rubro de ese año, país por país (con el margen de las revisiones)
-    _rut_r = _cmr_d["exportaciones"]
-    _rut_r = _rut_r[_rut_r.Anio == CMR_ANIO].groupby("pais_cod").v.sum()
-    _rut_c = _rut_x.groupby("pais_cod").v.sum().reindex(_rut_r.index, fill_value=0)
-    assert abs(_rut_x.v.sum() / _rut_r.sum() - 1) < .005, "las exportaciones por subrubro no suman lo mismo que por rubro"
-    _rut_dif = (_rut_c - _rut_r).abs()
-    assert (_rut_dif[_rut_dif > 1] / _rut_r[_rut_dif > 1] < .02).all(), f"las exportaciones por subrubro no dan lo mismo que por rubro en {list(_rut_dif[_rut_dif > 1].index)}"
+    # cada año tiene que dar lo mismo que la tabla por rubro, país por país (con el margen de las revisiones)
+    _rut_r0 = _cmr_d["exportaciones"]
+    for _rut_y in RUT_ANIOS:
+        _rut_r = _rut_r0[_rut_r0.Anio == _rut_y].groupby("pais_cod").v.sum()
+        _rut_xy = _rut_x[_rut_x.Anio == _rut_y]
+        _rut_c = _rut_xy.groupby("pais_cod").v.sum().reindex(_rut_r.index, fill_value=0)
+        assert abs(_rut_xy.v.sum() / _rut_r.sum() - 1) < .005, f"las exportaciones por subrubro no suman lo mismo que por rubro en {_rut_y}"
+        _rut_dif = (_rut_c - _rut_r).abs()
+        assert (_rut_dif[_rut_dif > 1] / _rut_r[_rut_dif > 1] < .02).all(), \
+            f"las exportaciones por subrubro no dan lo mismo que por rubro en {_rut_y}: {list(_rut_dif[_rut_dif > 1].index)}"
     _rut_s = pd.read_csv(RAIZ / "datos" / "manual" / "rutas_salidas.csv", dtype=str, keep_default_na=False).set_index("subrubro_cod")
     _rut_d = pd.read_csv(RAIZ / "datos" / "manual" / "rutas_destinos.csv", dtype=str, keep_default_na=False).set_index("pais_cod")
-    # los subrubros sin salida en la tabla son solo lo confidencial (sin rubro): nunca más de lo que la tabla por rubro da sin rubro
-    _rut_sin = _rut_x[~_rut_x.subrubro_cod.isin(_rut_s.index)]
-    _rut_conf = _cmr_d["exportaciones"]
-    _rut_conf = float(_rut_conf[(_rut_conf.Anio == CMR_ANIO) & (_rut_conf.g == "otro")].v.sum())
-    assert _rut_sin.v.sum() <= _rut_conf * 1.005 + 1, f"subrubros sin salida en rutas_salidas.csv: {sorted(set(_rut_sin.subrubro_cod))}"
+    # los subrubros sin salida en la tabla son solo lo confidencial (sin rubro): nunca más de lo que la tabla por rubro da sin rubro, cada año
+    for _rut_y in RUT_ANIOS:
+        _rut_sin = _rut_x[(_rut_x.Anio == _rut_y) & ~_rut_x.subrubro_cod.isin(_rut_s.index)]
+        _rut_conf = float(_rut_r0[(_rut_r0.Anio == _rut_y) & (_rut_r0.g == "otro")].v.sum())
+        assert _rut_sin.v.sum() <= _rut_conf * 1.005 + 1, f"subrubros sin salida en rutas_salidas.csv en {_rut_y}: {sorted(set(_rut_sin.subrubro_cod))}"
 
     # los puertos de salida con recorrido por mar calculado
     RUT_PUERTOS = set(json.loads((RAIZ / "datos" / "manual" / "rutas_mar.json").read_text(encoding="utf-8"))["salidas"])
@@ -7231,18 +7237,22 @@ if comercio_rubro_pais is not None and _rut_f.exists():
         _rut_m = _rut_modo(_rut_i.pais_cod, _rut_i.subrubro_cod, _rut_rub, _rut_sal) if _rut_su is not None else ""
         _rut_dest = {"mar": _rut_d.puerto.get(_rut_i.pais_cod, ""), "tierra": _rut_d.paso_frontera.get(_rut_i.pais_cod, ""),
                      "avión": _rut_d.pais.get(_rut_i.pais_cod, "")}.get(_rut_m, "")
-        _rut_l.append({"pais_cod": _rut_i.pais_cod, "pais": "Sin país informado" if _cmx_tipo(_rut_i.pais_cod) == "sin_pais" else CMX_CORTO.get(_rut_i.pais_cod, _cmx_nom[_rut_i.pais_cod]),
+        _rut_l.append({"anio": int(_rut_i.Anio), "pais_cod": _rut_i.pais_cod,
+                       "pais": "Sin país informado" if _cmx_tipo(_rut_i.pais_cod) == "sin_pais" else CMX_CORTO.get(_rut_i.pais_cod, _cmx_nom[_rut_i.pais_cod]),
                        "subrubro_cod": _rut_i.subrubro_cod if _rut_su is not None else "", "subrubro": _rut_su.subrubro if _rut_su is not None else "Sin rubro informado (confidencial)",
                        "rubro": _rut_rub, "millones_usd": round(_rut_i.v, 4), "toneladas": round(_rut_i.t, 4), "salida": _rut_sal,
                        "firmeza_salida": _rut_su.firmeza if _rut_su is not None else "", "modo": _rut_m, "destino": _rut_dest})
     rutas_exportaciones = (pd.DataFrame(_rut_l).groupby([c for c in _rut_l[0] if c not in ("millones_usd", "toneladas")], as_index=False, sort=False)
-                           [["millones_usd", "toneladas"]].sum().sort_values(["millones_usd"], ascending=False, kind="stable").reset_index(drop=True))
-    _rut_tot = float(rutas_exportaciones.millones_usd.sum())
-    _rut_pp = lambda m: r1(float(rutas_exportaciones[m].millones_usd.sum()) / _rut_tot * 100)
-    _rut_pa = rutas_exportaciones[rutas_exportaciones.pais != "Sin país informado"].groupby(["pais_cod", "pais"]).millones_usd.sum().sort_values(ascending=False)
-    SE_RES["rutas"] = {"anio": CMR_ANIO, "total": round(_rut_tot), "destinos": len(_rut_d), "dibujado": _rut_pp(rutas_exportaciones.modo != ""),
-                       "mar": _rut_pp(rutas_exportaciones.modo == "mar"), "tierra": _rut_pp(rutas_exportaciones.modo == "tierra"),
-                       "avion": _rut_pp(rutas_exportaciones.modo == "avión"), "sin_pais": _rut_pp(rutas_exportaciones.pais == "Sin país informado"),
+                           [["millones_usd", "toneladas"]].sum())
+    rutas_exportaciones[["millones_usd", "toneladas"]] = rutas_exportaciones[["millones_usd", "toneladas"]].round(4)
+    rutas_exportaciones = rutas_exportaciones.sort_values(["anio", "millones_usd"], ascending=[False, False], kind="stable").reset_index(drop=True)
+    _rut_u = rutas_exportaciones[rutas_exportaciones.anio == CMR_ANIO]
+    _rut_tot = float(_rut_u.millones_usd.sum())
+    _rut_pp = lambda m: r1(float(_rut_u[m].millones_usd.sum()) / _rut_tot * 100)
+    _rut_pa = _rut_u[_rut_u.pais != "Sin país informado"].groupby(["pais_cod", "pais"]).millones_usd.sum().sort_values(ascending=False)
+    SE_RES["rutas"] = {"anio": CMR_ANIO, "desde": RUT_ANIOS[0], "total": round(_rut_tot), "destinos": len(_rut_d), "dibujado": _rut_pp(_rut_u.modo != ""),
+                       "mar": _rut_pp(_rut_u.modo == "mar"), "tierra": _rut_pp(_rut_u.modo == "tierra"),
+                       "avion": _rut_pp(_rut_u.modo == "avión"), "sin_pais": _rut_pp(_rut_u.pais == "Sin país informado"),
                        "a": [_rut_pa.index[0][1], r1(float(_rut_pa.iloc[0]) / _rut_tot * 100)],
                        "paises": int((_rut_pa > 0).sum())}
     # aparte de las tablas de las fichas, que van en fichas.js: la baja solo rutas.html (y quien la descarga)

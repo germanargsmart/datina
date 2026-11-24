@@ -529,7 +529,7 @@
     "rutas"
    ],
    "titulo": "¿Adónde van las exportaciones argentinas?",
-   "sub": "Exportaciones del último año completo por producto (subrubro) y país de destino, en millones de dólares y toneladas, con la salida y el camino simulado de cada fila",
+   "sub": "Exportaciones de cada año completo desde que la API del INDEC las publica por producto (subrubro) y país de destino, en millones de dólares y toneladas, con la salida y el camino simulado de cada fila",
    "fuente": "INDEC, exportaciones por subrubro y país de destino (API). La salida de cada producto, de organismos oficiales, cámaras y prensa (datos/manual/rutas_salidas.csv), y el puerto o el paso de frontera de cada país (datos/manual/rutas_destinos.csv)",
    "frecuencia": "Se actualiza cuando el INDEC publica un año completo.",
    "nota": "El INDEC no publica por dónde sale cada carga. La salida (con su firmeza: oficial, prensa, inferido o suposición), el modo (mar, tierra o avión) y el destino son una simulación de Datina, explicada en la herramienta. Sin modo, la fila no tiene camino dibujado: países fuera de la tabla de destinos, lo confidencial, sin rubro ni país, y lo que no se puede dibujar.",
