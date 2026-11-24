@@ -247,7 +247,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <div class="pol-ley" id="centrales-ley" aria-hidden="true"></div>
       <div class="grafico" data-g="centrales" data-forma="mapa" style="--alto:820px;--alto-c:500px"></div>
       <p class="lead" data-t="centrales">El listado de centrales de la Secretaría de Energía, actualizado en septiembre de 2026, tiene 474 centrales: 205 térmicas, 84 solares, 71 eólicas, 62 hidroeléctricas, 50 de biomasa o biogás y 2 nucleares. La provincia con más centrales eólicas es Buenos Aires (29) y la que tiene más solares, San Juan (23).</p>
-      <p class="nota" data-t="centrales-nota">Centrales del listado de la Secretaría de Energía, con datos de CAMMESA, actualizado en septiembre de 2026. El tamaño de cada círculo es su potencia, y las 177 centrales que no la informan (102 de ellas conectadas al mercado eléctrico mayorista) van como círculos vacíos: por eso la potencia no se suma por provincia. La potencia del país es la que publica CAMMESA para cada año, por tecnología: la térmica reúne ciclos combinados, turbinas a gas, turbinas de vapor y motores diésel, y la hidroeléctrica incluye las centrales de menos de 50 megavatios.</p>
+      <p class="nota" data-t="centrales-nota">Centrales del listado de la Secretaría de Energía, con datos de CAMMESA, actualizado en septiembre de 2026. El tamaño de cada círculo es su potencia, y las 177 centrales que no la informan (102 de ellas conectadas al mercado eléctrico mayorista) van como círculos vacíos: por eso la potencia no se suma por provincia. La potencia del país es la que publica CAMMESA para cada año, por tecnología: la térmica reúne ciclos combinados, turbinas a gas, turbinas de vapor y motores diésel, y la hidroeléctrica incluye las centrales de menos de 50 megavatios. Las nucleares del listado son Embalse y Atucha II, con 1.393 megavatios. CAMMESA cuenta 1.755: suma Atucha I, de 362 megavatios, que el listado no tiene.</p>
       <div class="pie"><span>Fuentes: Secretaría de Energía, centrales de generación eléctrica (con datos de CAMMESA), y CAMMESA, potencia instalada, vía API de Series de Tiempo. Se actualiza cada año.</span><a href="datos/centrales.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
@@ -355,7 +355,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 <p class="solo-lector" id="aviso" aria-live="polite"></p>
 
 <!-- los datos van en un archivo aparte que el navegador guarda una sola vez para todas las páginas -->
-<script src="datos/fichas.js?v=972bfb9778" defer></script>
-<script src="datina.js?v=d0c404508d" defer></script>
+<script src="datos/fichas.js?v=d9265acfe1" defer></script>
+<script src="datina.js?v=59f5620784" defer></script>
 </body>
 </html>

@@ -2712,7 +2712,11 @@ if (CRUDO / "eph_antiguedad_resumen.csv").exists():
     _tr = json.loads((CRUDO / "eph_antiguedad_meta.json").read_text(encoding="utf-8"))["trimestres"]
     _g = lambda dim, grupo, col="pct_un_anio_o_menos": float(rotacion[(rotacion.dimension == dim) & (rotacion.grupo == grupo)][col].iloc[0])
     # los años de los trimestres, para el título de la ficha ("2025 y 2026" o un solo año), que la plantilla completa al armar el sitio
-    rot_res = {"desde": _tr[0], "hasta": _tr[-1], "anios": str(_tr[-1][0]) if _tr[0][0] == _tr[-1][0] else f"{_tr[0][0]} y {_tr[-1][0]}", "total": _g("total", "Total de asalariados"), "total_largo": _g("total", "Total de asalariados", "pct_mas_de_cinco_anios"),
+    rot_res = {"desde": _tr[0], "hasta": _tr[-1], "anios": str(_tr[-1][0]) if _tr[0][0] == _tr[-1][0] else f"{_tr[0][0]} y {_tr[-1][0]}",
+               # el período en palabras, para la descripción de la ficha (PENDIENTES.md, Trabajo 14): "del segundo trimestre de 2025 al primer trimestre de 2026"
+               "periodo": "del {} trimestre de {} al {} trimestre de {}".format(["primer", "segundo", "tercer", "cuarto"][_tr[0][1] - 1], _tr[0][0],
+                                                                             ["primer", "segundo", "tercer", "cuarto"][_tr[-1][1] - 1], _tr[-1][0]),
+               "total": _g("total", "Total de asalariados"), "total_largo": _g("total", "Total de asalariados", "pct_mas_de_cinco_anios"),
                "jovenes": _g("edad", "Hasta 24 años"), "e45": _g("edad", "45 a 54"), "sin_desc": _g("registro", "Sin descuento jubilatorio"),
                "con_desc": _g("registro", "Con descuento jubilatorio"), "q1": _g("ingreso", "Quintil 1"), "q5": _g("ingreso", "Quintil 5"),
                "sec_inc": _g("educacion", "Secundaria incompleta"), "sup_comp": _g("educacion", "Superior completo"),
@@ -3292,6 +3296,10 @@ centrales = pd.DataFrame({"nombre": cen_.nombre.str.strip(), "tecnologia": cen_.
                           "departamento": cen_.departamento, "sistema": cen_.sistema, "x": _xy.str[0].round(4), "y": _xy.str[1].round(4)})
 CEN_FECHA = json.loads((CRUDO / "se_centrales_meta.json").read_text(encoding="utf-8"))["actualizado"]
 _cn = centrales.tecnologia.value_counts()
+# las nucleares del listado y su potencia, frente a la nuclear de CAMMESA (PENDIENTES.md, Territorio 18): CAMMESA cuenta Atucha I (362 MW, parada desde
+# 2024 para extender su vida útil) y el listado no la tiene. El texto lo dice solo si la diferencia es justo esa central
+_cen_nuc = centrales[centrales.tecnologia == "Nuclear"]
+CEN_NUC = [" ".join(w if set(w) <= set("IVX") else w.capitalize() for w in n.split()) for n in _cen_nuc.sort_values("potencia_mw").nombre]
 _cen_top = {t: centrales[centrales.tecnologia == t].provincia.value_counts() for t in ("Eólica", "Solar")}
 # Potencia instalada del país por tecnología (CAMMESA vía API de Series de Tiempo), MW al cierre de cada año
 pot_ = pd.read_csv(CRUDO / "potencia_instalada.csv")
@@ -8908,8 +8916,10 @@ resumen = {
         # centrales eléctricas (listado de la Secretaría de Energía) y potencia instalada del país (CAMMESA)
         "cen_fecha": f"{MES[int(CEN_FECHA[5:7]) - 1]} de {CEN_FECHA[:4]}", "cen_n": int(len(centrales)), "cen_tec": {k: int(v) for k, v in _cn.items()},
         "cen_sin_pot": int(centrales.potencia_mw.isna().sum()), "cen_mem_sin_pot": int((centrales.potencia_mw.isna() & centrales.sistema.eq("Interconectado MEM")).sum()),
+        "cen_nuc": CEN_NUC, "cen_nuc_mw": round(float(_cen_nuc.potencia_mw.sum())),
+        "cen_sin_atucha1": "Atucha I" not in CEN_NUC and abs(float(POT_U.nuclear) - float(_cen_nuc.potencia_mw.sum()) - 362) < 1,
         "cen_top_eol": [_cen_top["Eólica"].index[0], int(_cen_top["Eólica"].iloc[0])], "cen_top_sol": [_cen_top["Solar"].index[0], int(_cen_top["Solar"].iloc[0])],
-        "pot_anio": int(POT_U.anio), "pot_desde": int(potencia.anio.min()), "pot_total": round(float(POT_U.total)), "pot_ini": int(POT_I.anio),
+        "pot_anio": int(POT_U.anio), "pot_nuc_mw": round(float(POT_U.nuclear)), "pot_desde": int(potencia.anio.min()), "pot_total": round(float(POT_U.total)), "pot_ini": int(POT_I.anio),
         "pot_pct": {k: r1(POT_U[k] / POT_U.total * 100) for k in ("termica", "hidraulica", "nuclear", "eolica", "solar", "biogas")},
         "pot_renov_ini": round(float(POT_I.eolica + POT_I.solar)), "pot_renov_ult": round(float(POT_U.eolica + POT_U.solar)),
         "pot_pct_renov_ini": r1((POT_I.eolica + POT_I.solar) / POT_I.total * 100), "pot_pct_renov_ult": r1((POT_U.eolica + POT_U.solar) / POT_U.total * 100),
