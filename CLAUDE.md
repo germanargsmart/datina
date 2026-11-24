@@ -65,7 +65,7 @@ scripts/establecimientos.py    desde el 9 de noviembre de 2026, las escuelas pri
                                provincia (padrón, Mapa Educativo, REFES y Georef) en datos/manual/establecimientos/. Se corre a mano con un padrón nuevo.
                                03 publica una tabla por provincia con scripts/establecimientos_sitio.py para la sección de la página de provincia (Leaflet
                                y el mapa del IGN). La prueba es scripts/prueba_establecimientos.py: docs/roadmap/ESTABLECIMIENTOS.md
-scripts/*_historia.py, censo_2022_*.py, banderas.py, iconos_isometricos.py, geometria_*.py, *_presupuesto.py, justicia_provincias.py, antartida_datos.py
+scripts/*_historia.py, censo_2022_*.py, banderas.py, iconos_isometricos.py, geometria_*.py (y antartida_zonas_mapa.py, que como geometria_antartida.py escribe en sitio/datos/), *_presupuesto.py, justicia_provincias.py, antartida_datos.py
                                programas que se corren una sola vez o una vez por año y guardan en datos/manual/
 datos/manual/                  datos armados a mano o una sola vez, explicadores.json, distorsiones.json, banderas, íconos
 pobreza/                       consultor de pobreza aparte (Observable Framework, DuckDB, Parquet): ver pobreza/README.md
