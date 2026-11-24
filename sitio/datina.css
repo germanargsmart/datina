@@ -2279,6 +2279,8 @@ p code{overflow-wrap:anywhere}
 .ph-curiosidad{padding:var(--e-4);background:var(--sol-suave);border-radius:var(--r-panel)}
 .ph-curiosidad p:not(.ph-sub){margin:0;font-size:var(--t-3);line-height:1.5;color:var(--ink)}
 .ph-enlace{margin:0;font-size:var(--t-3);line-height:1.5;color:var(--ink)}
+.prov-pie[hidden]{display:none}
+.prov-pie .enlace{font-size:var(--t-2)}
 .ph-fuentes{margin:var(--e-6) 0 0;padding-top:var(--e-3);border-top:1px dotted var(--azul);font-size:var(--t-2);color:var(--muted)}
 .ph-fuentes summary{cursor:pointer;font-family:var(--mono);font-size:var(--t-1);font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--azul)}
 .ph-fuentes summary:focus-visible{outline:2px solid var(--sol);outline-offset:2px}

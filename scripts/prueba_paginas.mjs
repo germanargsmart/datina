@@ -289,6 +289,9 @@ await p.ir(`${B}provincia-chaco.html`, 1500);
     };
   })()`);
   if (r.viejos) problemas.push("provincia-chaco.html: siguen las provincias parecidas o si fuera un país");
+  // el pie del perfil (24 de noviembre de 2026): a la vista con la provincia, con la descarga del CSV y la cita
+  if (await p.eval(`(() => { const e = document.getElementById("prov-pie"); return !e || e.hidden || !document.getElementById("prov-csv") || !document.getElementById("prov-citar"); })()`))
+    problemas.push("provincia-chaco.html: el pie del perfil no está a la vista o le falta la descarga del CSV o la cita");
   if (r.anchos.length !== 1) problemas.push(`provincia-chaco.html: las tarjetas tienen ${r.anchos.length} anchos (${r.anchos.join(", ")})`);
   if (r.altos.length) problemas.push(`provincia-chaco.html: tarjetas de distinto alto en ${r.altos.join(", ")}`);
   if (r.colgada.length) problemas.push(`provincia-chaco.html: una tarjeta sola en la última fila en ${r.colgada.join(", ")}`);
