@@ -622,7 +622,7 @@ const LEAD = {
     return `Descontada la inflación, el salario promedio del país ${cambioPct(SA.var_real_12m)} frente a ${SA.ant} y subió ${deLas24(SA.n_suben)}. ` +
       `El más alto fue el de ${SA.top[0]}, con ${n0(SA.top[1])} pesos${conVeces(SA.top[1], SA.pais)}, y el más bajo, el de ${SA.bajo[0]}, con ${n0(SA.bajo[1])}${conVeces(SA.bajo[1], SA.pais)}.`;
   },
-  // salario de un maestro de grado con 10 años de antigüedad (etapa 23, Coordinación de Evaluación de Costos Educativos)
+  // salario de un maestro de grado con 10 años de antigüedad (etapa 23, Coordinación General de Estudio de Costos del Sistema Educativo (CGECSE))
   "salario-docente": v => {
     if (v === "serie") return `Descontada la inflación con el índice de precios al consumidor del INDEC, el salario promedio de un maestro de grado del país en ${DC.trim} fue ` +
       `${pct(Math.abs(DC.real_vs_ini))} ${DC.real_vs_ini < 0 ? "más bajo" : "más alto"} que en ${DC.real_ini}` +
@@ -636,7 +636,7 @@ const LEAD = {
       `Con 10 años de antigüedad y jornada simple, el más alto fue el de ${DC.top[0]}, con ${n0(DC.top[1])} pesos brutos por mes${conVeces(DC.top[1], DC.pais)}, ` +
       `y el más bajo, el de ${DC.bajo[0]}, con ${n0(DC.bajo[1])}${conVeces(DC.bajo[1], DC.pais)}.` + ex;
   },
-  // inversión en educación por alumno de gestión estatal (etapa 23, Coordinación de Evaluación de Costos Educativos)
+  // inversión en educación por alumno de gestión estatal (etapa 23, Coordinación General de Estudio de Costos del Sistema Educativo (CGECSE))
   "inversion-educativa": v => {
     if (v === "pct") return `En ${IE.anio}, la educación fue el ${pct(IE.pct_pais)} del gasto público de las provincias en el total del país. La parte más alta fue la de ` +
       `${IE.pct_top[0]}, con el ${pct(IE.pct_top[1])}, y la más baja, la de ${IE.pct_bajo[0]}, con el ${pct(IE.pct_bajo[1])}.`;
@@ -1775,14 +1775,14 @@ const TX = {
   // la cifra destacada ya dice las visitas del último año: el texto empieza por la parte de quienes no residen en el país
   visitas: `En ${nt.vis_anio}, el ${pct(nt.vis_nr_pct)} de las visitas a los parques nacionales fue de personas que no residen en el país. El máximo de la serie fue en ${nt.vis_max_anio}, con ${n0(nt.vis_max)} visitas, y el mínimo en ${nt.vis_min_anio}, con ${n0(nt.vis_min)}. ` +
     `${nt.ytd_frase}, según esta fuente, las visitas ${movio(nt.ytd_var)} frente a los mismos meses del año anterior. ` +
-    `La pestaña de cada parque usa otra fuente, el tablero de la Secretaría de Turismo, y su comparación de lo que va del año puede dar otro resultado.`,
+    `La pestaña de cada parque usa otra fuente, el tablero de la Secretaría de Turismo y Ambiente, y su comparación de lo que va del año puede dar otro resultado.`,
   "visitas-nota": `Visitas registradas en los parques nacionales con control de ingreso. Una persona que entra dos veces cuenta como dos visitas. Solo se muestran años completos. Esta fuente no publica datos abiertos por parque: la pestaña de cada parque usa el tablero de la Secretaría de Turismo.`,
   // la cifra destacada ya dice los turistas del último año completo: el texto empieza por los últimos doce meses
   receptivo: `En los doce meses hasta ${tu.doce_hasta} llegaron ${n0(tu.doce)} turistas que viven fuera del país, ${pct(Math.abs(tu.doce_var))} ${tu.doce_var < 0 ? "menos" : "más"} que en los doce meses anteriores. El máximo de la serie anual fue en ${tu.max_anio}, con ${n0(tu.max)}.`,
   "receptivo-nota": `Viajes de turistas no residentes, es decir personas que viven en otro país y pasan al menos una noche en la Argentina, por todos los pasos aéreos, terrestres y fluviales. Se cuentan por el país donde viven, no por su nacionalidad: un argentino que vive afuera es no residente. Una persona que entra dos veces en el año cuenta como dos viajes. Solo se muestran años completos.${tu.provisorio ? " Los últimos meses son datos provisorios." : ""}`,
   // la cifra destacada ya dice los viajeros del último año: el texto empieza por la parte que no residía en el país
   hoteles: `El ${pct(tu.eoh_nr_pct)} de los viajeros que se hospedaron en hoteles y parahoteles de las localidades relevadas en ${tu.eoh_anio} no residía en el país. ${tu.eoh_reg} fue la región con más viajeros, con el ${pct(tu.eoh_reg_pct)} del total. El máximo de la serie fue en ${tu.eoh_max_anio}, con ${n1(tu.eoh_max)} millones.`,
-  "hoteles-nota": `Encuesta de Ocupación Hotelera, que releva hoteles y parahoteles de las principales localidades turísticas agrupadas en siete regiones. No publica datos por provincia. El último mes publicado es ${tu.eoh_ultimo}, por eso el último año completo es ${tu.eoh_anio}. El INDEC informó que, al no renovarse el convenio de financiamiento con la Secretaría de Turismo, la encuesta se reformulará y su difusión se reprogramará. El Instituto de Estadística de la Ciudad de Buenos Aires continúa el relevamiento solo en CABA.`,
+  "hoteles-nota": `Encuesta de Ocupación Hotelera, que releva hoteles y parahoteles de las principales localidades turísticas agrupadas en siete regiones. No publica datos por provincia. El último mes publicado es ${tu.eoh_ultimo}, por eso el último año completo es ${tu.eoh_anio}. El INDEC informó que, al no renovarse el convenio de financiamiento con la Secretaría de Turismo y Ambiente, la encuesta se reformulará y su difusión se reprogramará. El Instituto de Estadística de la Ciudad de Buenos Aires continúa el relevamiento solo en CABA.`,
   // la cifra destacada ya dice los turistas de la jurisdicción más visitada: el texto empieza por la más visitada en relación con su población
   // la cifra destacada ya dice la más alta cada 1.000 habitantes (E11): el texto empieza por la cantidad
   eti: `En cantidad, la jurisdicción más visitada en ${tu.eti_anio} por los turistas del exterior que se fueron del país por Ezeiza o Aeroparque fue ${tu.eti_top}, ` +
@@ -2093,7 +2093,7 @@ const TX = {
     `Que un aumento venga antes que otro no prueba que lo cause.`,
   "sectores-empleo": LEAD["sectores-empleo"]("uno"),
   "sectores-empleo-nota": `Actividad: el Estimador Mensual de Actividad Económica del INDEC de cada sección de la CIIU (revisión 3), promedio de los doce meses. ` +
-    `Empleo: los asalariados registrados del sector privado de la misma sección (OEDE, Secretaría de Trabajo, con datos del SIPA), promedio de los cuatro trimestres. ` +
+    `Empleo: los asalariados registrados del sector privado de la misma sección (OEDE, Secretaría de Trabajo, Ministerio de Capital Humano, con datos del SIPA), promedio de los cuatro trimestres. ` +
     `Sin la administración pública, que el OEDE no cuenta. En la enseñanza y la salud la actividad incluye a los establecimientos públicos y el empleo, solo a los privados. ` +
     `El empleo registrado no incluye a los asalariados sin aportes ni a los cuentapropistas. El texto nombra un sector cuando la actividad y el empleo se mueven ` +
     `${n1(ESE.min)} puntos o más cada uno. Que dos variaciones vayan juntas o separadas no prueba una causa.`,
@@ -2180,7 +2180,7 @@ const TX = {
   "visitas-parque": `En ${vpq.ult}, ${vpq.top} (${vpq.top_lugar}) concentró el ${pct(vpq.pct_top)} de las visitas a los parques nacionales. Le siguió ${vpq.dos}, con ${n0(vpq.dos_v)} visitas. En 2019, antes de la pandemia, ${vpq.top} había recibido ${n0(vpq.top_2019)}.` +
     (vpq.par ? ` Entre enero y ${MESES[vpq.par_mes - 1]} de ${vpq.par}, según este tablero, los parques nacionales recibieron un ${pct(Math.abs(vpq.par_var))} ${vpq.par_var >= 0 ? "más" : "menos"} de visitas que en los mismos meses de ${vpq.par - 1}.` : ""),
   "vp-b1": String(vpq.ult), "vp-b2": vpq.par ? `${vpq.par}, ene a ${MESES[vpq.par_mes - 1].slice(0, 3)}` : "",
-  "visitas-parque-nota": `Visitas registradas en ${vpq.n} áreas protegidas nacionales con control de ingreso, según el tablero de áreas protegidas de la Secretaría de Turismo. ` +
+  "visitas-parque-nota": `Visitas registradas en ${vpq.n} áreas protegidas nacionales con control de ingreso, según el tablero de áreas protegidas de la Secretaría de Turismo y Ambiente. ` +
     `El tablero no tiene un enlace de descarga fijo: Datina guarda una copia de la exportación completa, mes a mes desde 2008, y la renueva a mano, así que puede quedar desactualizada respecto de la fuente.`,
   // la cifra destacada ya dice el total desembarcado: el texto empieza por las especies principales
   pesca: `En ${pe.anio}, las especies más desembarcadas en los puertos del país fueron ${pe.top[0].toLowerCase()} (${n0(pe.top_t[0])} toneladas), ${pe.top[1].toLowerCase()} (${n0(pe.top_t[1])}) ${yE(pe.top[2].toLowerCase())} (${n0(pe.top_t[2])}). La primera representó el ${pct(pe.top_pct)} del total.`,
@@ -10137,7 +10137,7 @@ const ART = [
       "Aprender mide a los chicos de 6° grado de un solo año: una camada puede salir mejor o peor por razones propias de ese año, como las clases perdidas.",
       "Los chicos que van a escuelas privadas suelen vivir en hogares con más ingresos, que también tienen más conexión: parte de la relación puede venir de ahí.",
       "Los resultados de Aprender son un cálculo propio de Datina sobre la base agregada y difieren levemente de los del informe oficial."]},
-  // etapa 24: la inversión por alumno (Coordinación de Evaluación de Costos Educativos) frente a Aprender
+  // etapa 24: la inversión por alumno (Coordinación General de Estudio de Costos del Sistema Educativo (CGECSE)) frente a Aprender
   {id: "a-inversion-aprender", x: "gasto_alumno", y: "aprender_mat", espera: 1, frec: "Se actualiza cada año",
     lx: "inversión en educación por alumno", ly: "chicos con nivel satisfactorio o avanzado en matemática", ux: "pesos por alumno de escuela estatal por año", uy: "% de los chicos de 6° grado",
     dek: "Lo que invierte el Estado por cada alumno de las escuelas estatales de cada provincia, frente a la parte de los chicos de 6° grado con nivel satisfactorio o avanzado en matemática en la evaluación Aprender.",
@@ -10156,7 +10156,7 @@ const ART = [
     txt: c => { const r = aprEstatal(c, "gasto_alumno");
       return r == null ? "" : "Como la inversión cuenta solo a las escuelas estatales, conviene mirar también sus resultados. Si se compara con la " +
         `parte de los chicos de escuelas estatales que llega al nivel satisfactorio o avanzado, la correlación es de ${rTxt(r)}, una relación ${fuerza(r)}.`; },
-    notas: ["Inversión: Coordinación de Evaluación de Costos Educativos, gasto educativo por alumno de escuela estatal.",
+    notas: ["Inversión: Coordinación General de Estudio de Costos del Sistema Educativo (CGECSE), gasto educativo por alumno de escuela estatal.",
       "Aprender: cálculo propio de Datina sobre la base agregada de la evaluación, % de los chicos de 6° grado."],
     limites: ["La inversión está en pesos del año del dato, sin ajustar por lo que cuesta vivir en cada provincia ni por el tamaño de las escuelas: donde hay pocos alumnos por escuela o los salarios son más altos, cada alumno cuesta más.",
       "Aprender evalúa a los alumnos de 6° grado de las escuelas estatales y privadas, y la inversión cuenta solo a los de las escuelas estatales.",
@@ -12503,7 +12503,7 @@ const citaEj = document.getElementById("cita-ejemplo");
 if (citaEj) {
   const hoy = new Date();
   citaEj.textContent = `Datina (${hoy.getFullYear()}). ¿Dónde se gana más en un empleo privado registrado? Con datos del Observatorio de Empleo y ` +
-    `Dinámica Empresarial (OEDE), Secretaría de Trabajo. ${location.origin}/trabajo#f-salarios. Consultado el ${hoy.getDate()} de ` +
+    `Dinámica Empresarial (OEDE), Secretaría de Trabajo, Ministerio de Capital Humano. ${location.origin}/trabajo#f-salarios. Consultado el ${hoy.getDate()} de ` +
     `${MESES[hoy.getMonth()]} de ${hoy.getFullYear()}.`;
 }
 
