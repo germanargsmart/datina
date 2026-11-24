@@ -9,7 +9,7 @@ node scripts/linea_base.mjs            # en la computadora del autor
 CHROME=/opt/pw-browsers/chromium node scripts/linea_base.mjs   # en la nube (D3 y topojson vienen del sitio desde el 22 de octubre de 2026)
 ```
 
-Guarda las capturas y `resultado.json` en `linea_base/AAAA-MM-DD/` (fuera del repositorio, se regeneran). Corre localmente: no hay ni se creó ningún flujo de GitHub para esto.
+Guarda las capturas y `resultado.json` en `linea_base/AAAA-MM-DD/` (fuera del repositorio, se regeneran). Corre localmente y, desde el 24 de noviembre de 2026 (T2, aprobada por el autor), también los lunes en GitHub sobre `main` (`.github/workflows/semanal.yml`): las capturas y `resultado.json` quedan 60 días en los archivos de cada corrida.
 
 ## Qué cubre
 
