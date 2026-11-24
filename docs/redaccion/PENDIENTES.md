@@ -104,6 +104,7 @@ Lo que cada grupo de la reescritura no cambió porque necesita corregir un dato,
    - Propuesta: Calcular el total del país en 02 (accesos del país sobre hogares del país) para la cifra y la línea "País". Con eso, la aclaración de ENACOM queda solo en la nota.
    - **Estado al 11 de noviembre de 2026: sigue abierta.** La cifra sigue siendo in_top_v, de una provincia. 02 no calcula el total del país.
    - **Revisión del 24 de noviembre de 2026: sigue abierta.** El archivo de ENACOM que baja el sitio trae solo los accesos cada 100 hogares y cada 100 habitantes de cada provincia, sin cantidades: el total del país no se puede calcular con él. Hace falta sumar a `01_descargar.py` la serie nacional de ENACOM (una descarga nueva, con aprobación del autor).
+   - **Resuelta el 24 de noviembre de 2026.** El autor aprobó la descarga: `enacom_internet_pais.csv` (la serie nacional de ENACOM). La cifra destacada es el país en el mismo trimestre que las provincias, el gráfico lleva la línea del país y el texto nombra la más alta y la más baja.
 
 17. **pobreza.html#f-pobreza** (`scripts/plantilla.html`)
    - Fragmento: «<p class="nota" data-t="pobreza-nota"></p>
