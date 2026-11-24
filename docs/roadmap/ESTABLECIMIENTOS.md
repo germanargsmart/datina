@@ -252,4 +252,5 @@ Decisiones del autor: ninguna pendiente.
 Por verificar:
 
 - Si hay población por edad a nivel de departamento del Censo 2022 (`censo2022_departamentos.csv` tiene viviendas y empleo, no edades).
+  **Revisado el 24 de noviembre de 2026.** Del Censo 2022, por ahora no: la base por radio censal de la que salieron `censo2022_departamentos.csv` y `censo2022_cobertura.csv` ya no está en datos.gob.ar (el paquete `censo-nacional-de-poblacion-hogares-y-viviendas-2022` da "No encontrado" y no aparece en la búsqueda), y bajarla de nuevo eran unos 800 MB, con aprobación del autor. Las estimaciones del INDEC por departamento de su API traen solo el sexo, no la edad. La que sí hay es la del RENAPER (`renaper_departamentos_resumen.csv`, que el sitio ya baja): personas con DNI por departamento y edad en grupos de cinco años, con sus límites (cuenta el domicilio declarado y no separa las comunas de CABA). Con ella se podrían calcular las escuelas por chico de cada departamento, avisando esos límites.
 - El contenido de la base de matrícula por escuela, si el autor la baja a mano.
