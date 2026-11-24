@@ -145,6 +145,8 @@ def anios_a_mano(nombre, fuente):
 malos = anios_a_mano("plantilla.html", plantilla) + anios_a_mano("datina.js", (RAIZ / "scripts" / "datina.js").read_text(encoding="utf-8"))
 # también la página del Explorador de relaciones, que no sale de la plantilla
 malos += [m for n in ("relaciones.html", "relaciones.js", "mesas.js", "rutas.js") for m in anios_a_mano(n, (RAIZ / "scripts" / n).read_text(encoding="utf-8"))]
+# y las partes de datina.js de cada página (fase 5)
+malos += [m for f in sorted((RAIZ / "scripts" / "partes").glob("*.js")) for m in anios_a_mano("partes/" + f.name, f.read_text(encoding="utf-8"))]
 if malos:
     sys.exit("Hay años recientes escritos a mano en los textos: quedarían viejos con la próxima actualización. Usar {{ruta}} en la "
              "plantilla o un dato de R en datina.js, o sumarlo a FIJOS si es un hecho fijo:\n" + "\n".join(malos))
@@ -935,6 +937,20 @@ for marca, valor in {"/*ICONOS*/{}": ICONOS, "/*SEC_ICONO*/{}": SEC_ICONO, "/*SI
 # D2 (4 de noviembre de 2026): lo que se publica va sin comentarios ni sangría. Las comprobaciones de abajo siguen leyendo `js`, el código entero
 JS_SITIO = achicar_js.achicar(js)
 (SITIO / "datina.js").write_text(JS_SITIO, encoding="utf-8", newline="\n")
+# Las partes de datina.js de una sola página (plan técnico, fase 5, 24 de noviembre de 2026): scripts/partes/<página>.js, achicadas como datina.js,
+# en sitio/partes/. Solo esa página la pide, antes de datina.js (abajo, en pagina()), y datina.js la corre con parte("<página>") donde estaba su
+# código. Cada parte necesita su llamada en datina.js y al revés: una parte sin llamada no correría nunca, y una llamada sin parte no haría nada
+PARTES_V = {}
+(SITIO / "partes").mkdir(exist_ok=True)
+for _f in sorted((RAIZ / "scripts" / "partes").glob("*.js")):
+    _t = achicar_js.achicar(_f.read_text(encoding="utf-8"))
+    (SITIO / "partes" / _f.name).write_text(_t, encoding="utf-8", newline="\n")
+    PARTES_V[_f.stem] = huella(_t)
+for _f in (SITIO / "partes").glob("*.js"):
+    if _f.stem not in PARTES_V:
+        _f.unlink()
+_llamadas = re.findall(r'^parte\("([\w-]+)"\);', js, re.M)
+assert sorted(_llamadas) == sorted(set(_llamadas)) == sorted(PARTES_V), f"partes de datina.js: llamadas {sorted(_llamadas)}, archivos {sorted(PARTES_V)}"
 # D3 y topojson desde el propio sitio (plan de estabilización, P0-1, 22 de octubre de 2026): las mismas versiones que se pedían a cdnjs y
 # jsDelivr, copiadas byte por byte de scripts/lib/ a sitio/lib/ con sus licencias, y pedidas con su huella como datina.js
 # Leaflet 1.9.4 (9 de noviembre de 2026, el mapa de escuelas y hospitales de cada provincia): bajada de npm e igual byte por byte a la de
@@ -1580,6 +1596,9 @@ def pagina(id_, titulo, descripcion, quedan, recorte=None, titulo_social=None, t
     if recorte:
         h = recorte(h)
     h = h.replace("<body>", f'<body data-pagina="{id_}">', 1)
+    if id_ in PARTES_V:  # su parte de datina.js, antes: datina.js la corre en su lugar
+        assert h.count('<script src="datina.js?v=') == 1
+        h = h.replace('<script src="datina.js?v=', f'<script src="partes/{id_}.js?v={PARTES_V[id_]}" defer></script>\n<script src="datina.js?v=', 1)
     if id_ == "404":
         h = h.replace("<head>", '<head>\n<base href="/">\n<meta name="robots" content="noindex">', 1)
     if titulo:
@@ -1909,7 +1928,7 @@ if URL_SITIO:
 # Caché en Cloudflare Pages (23 de octubre de 2026, decisión del autor): sitio/_headers es el equivalente de los [[headers]] de
 # netlify.toml. Los archivos que las páginas piden con su huella en la dirección (?v=...) se guardan un año: cuando cambia el contenido
 # cambia la dirección. Los demás (por ejemplo, las tablas que se piden sin huella) quedan con la caché común
-CACHE_LARGO = (["/datina.css", "/datina.js", "/mesas.js", "/rutas.js", "/datos/fichas.js", "/datos/relieve/*", "/lib/*", "/fuentes/*", "/relaciones.css", "/relaciones.js", "/datos/relaciones.json"]
+CACHE_LARGO = (["/datina.css", "/datina.js", "/partes/*", "/mesas.js", "/rutas.js", "/datos/fichas.js", "/datos/relieve/*", "/lib/*", "/fuentes/*", "/relaciones.css", "/relaciones.js", "/datos/relaciones.json"]
                + [f"/datos/{n}.json" for n in DIFERIDAS] + ["/consulta-ia.js"] * CONSULTA_IA)
 # Las tablas de Elecciones por mesa (4 de noviembre de 2026): Cloudflare comprime el JSON y el texto, pero no el CSV, y Buenos Aires bajaba unos 5 MB. Se sirven como
 # texto: el archivo es el mismo y sigue llamándose .csv, y los enlaces de descarga llevan el atributo download
