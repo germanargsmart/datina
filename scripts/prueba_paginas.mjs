@@ -566,6 +566,19 @@ for (const W of [1440, 1200]) {
     return malas.slice(0, 6).join(", "); })()`);
   if (costado) problemas.push(`index.html en ${W} píxeles: datos de la provincia: ${costado}`);
 }
+// los controles de las fichas anchas y de las herramientas, desde 1080 píxeles al costado del texto (24 de noviembre de 2026): en el mapa de
+// Departamentos el buscador tapaba el selector de indicador, porque la grilla ponía los dos en la misma celda. Ningún control tapa a otro
+for (const W of [1440, 1100]) {
+  await q.tamano(W, 900);
+  await q.ir(B + "departamentos.html", 2500);
+  const pisa = await q.eval(`(() => { const cs = [...document.querySelectorAll(".ficha select, .ficha input[type=search]")].filter(e => e.offsetParent);
+    const malos = []; cs.forEach((e, i) => cs.slice(i + 1).forEach(f => { const r = e.getBoundingClientRect(), s = f.getBoundingClientRect();
+      if (r.left < s.right && s.left < r.right && r.top < s.bottom && s.top < r.bottom) malos.push((e.id || e.tagName) + " y " + (f.id || f.tagName)); }));
+    const ind = document.getElementById("mp-ind"), r = ind && ind.getBoundingClientRect(), arriba = r && document.elementFromPoint(r.left + r.width / 2, r.top + r.height / 2);
+    if (ind && arriba !== ind) malos.push("el selector de indicador no recibe el clic");
+    return malos.join(", "); })()`);
+  if (pisa) problemas.push(`departamentos.html en ${W} píxeles: controles que se tapan: ${pisa}`);
+}
 // en el celular, de a uno, con su cuenta: los doce redondeles no entran
 await q.tamano(390, 844);
 await q.ir(B + "index.html", 1000);
