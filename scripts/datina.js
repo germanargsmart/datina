@@ -151,7 +151,9 @@ const vecesPais = (v, pais, soloDebajo) => {
   if (!(v >= 0 && pais > 0)) return "";
   const r = v / pais;
   return r >= 1.5 && !soloDebajo ? `${veces(v, pais)} veces el valor del país` : r < .1 ? "menos de la décima parte del valor del país"
-    : r < .25 ? "menos de la cuarta parte del valor del país" : r < .5 ? "menos de la mitad del valor del país" : "";
+    // entre la décima y la cuarta parte, la fracción más cercana (PENDIENTES.md, Territorio 14): 0,13 es la octava parte, no "menos de la cuarta"
+    : r < .25 ? `alrededor de la ${["cuarta", "quinta", "sexta", "séptima", "octava", "novena", "décima"][Math.round(1 / r) - 4]} parte del valor del país`
+    : r < .5 ? "menos de la mitad del valor del país" : "";
 };
 const conVeces = (v, pais) => { const t = vecesPais(v, pais); return t ? ` (${t})` : ""; };
 // el puesto de una provincia contado desde el lado más cercano, sin decir si es bueno o malo (reescritura del 26 de octubre de 2026):
@@ -1660,7 +1662,8 @@ const TX = {
     `La variación compara la población proyectada de ${PPY.anio} con la de ${PPY.anio_fin}.` +
     (PPY.max_antes.length ? ` Según las mismas proyecciones, ${lista(PPY.max_antes.map(([t, a]) => `${t} ${a < PPY.anio ? "tuvo" : "tiene"} su población más alta en ${a}`))}.` : ""),
   envejecimiento: `En ${EV.anio} hay ${n1(EV.hoy)} personas de 65 años o más por cada 100 de entre 15 y 64 años: unas ${n1(EV.trab_hoy)} personas en edad de trabajar por cada persona mayor. ` +
-    `Según las proyecciones del INDEC, en ${EV.anio_fin} serán ${n1(EV.fin)}, unas ${n1(EV.trab_fin)} por cada una. Por provincia, en ${EV.anio} la relación más alta es la de ${EV.max} (${n1(EV.max_v)}) y la más baja, la de ${EV.min} (${n1(EV.min_v)}). El gráfico muestra al lado de cada provincia su valor de ${EV.anio_fin}.`,
+    `Según las proyecciones del INDEC, en ${EV.anio_fin} serán ${n1(EV.fin)}, unas ${n1(EV.trab_fin)} por cada una. Por provincia, en ${EV.anio} la relación más alta es la de ${EV.max} (${n1(EV.max_v)}) y la más baja, la de ${EV.min} (${n1(EV.min_v)}). ` +
+    `En ${EV.anio_fin} la más alta va a ser la de ${EV.max_fin} (${n1(EV.max_fin_v)}) y la más baja, la de ${EV.min_fin} (${n1(EV.min_fin_v)}): es el valor que el gráfico muestra al lado de cada provincia.`,
   // la cifra destacada ya dice el total y el promedio del país: el texto va a las provincias
   empresas: `Cada 1.000 habitantes, ${EM.top} tenía ${n1(EM.top_v)} empresas privadas con empleados${conVeces(EM.top_v, EM.pais_1000)} y ${EM.low}, ${n1(EM.low_v)}${conVeces(EM.low_v, EM.pais_1000)}.`,
   "empresas-nota": `Empresas privadas que declaran personal en relación de dependencia ante la seguridad social (el SIPA), cada una identificada por su CUIT. No incluye a quienes trabajan solos como monotributistas o autónomos sin empleados, ni el trabajo en casas particulares. Una empresa con personal en varias provincias se cuenta en cada una: por eso la suma de las provincias es mayor que el total del país, que cuenta a cada empresa una sola vez, en la provincia donde tiene más empleo. La población es la proyección del INDEC para ${R.anio_pob_ficha.empresas_provincias}, el año de la cantidad de empresas.`,
@@ -1753,7 +1756,7 @@ const TX = {
   pisa: `En PISA ${pz.anio}, los estudiantes de 15 años de la Argentina obtuvieron en promedio ${pz.lec} puntos en lectura y ${pz.cie} en ciencias. El promedio de los países de la OCDE fue de ${pz.ocde_lec} y ${pz.ocde_cie} puntos. Frente a ${pz.anio_prev}, el puntaje de la Argentina ${cambio(pz.var_mat)} en matemática, ${cambio(pz.var_lec)} en lectura y ${cambio(pz.var_cie)} en ciencias.`,
   "pisa-nota": `Puntaje promedio de los estudiantes de 15 años escolarizados que rindieron la prueba. La OCDE excluyó de las comparaciones el resultado nacional de 2015 por problemas de cobertura de la muestra. Por eso ese año no aparece en el gráfico, aunque figura en la tabla descargable. En 2000 esta fuente solo tiene el puntaje de lectura. El promedio OCDE es el promedio simple de los países miembros en cada ciclo.`,
   // la cifra destacada ya dice la tasa del país en el último año: el texto empieza por la del primero
-  escolarizacion: `En ${es.ini}, el ${pct(es.pais_ini)} de los adolescentes del país en edad de cursar la secundaria estaba matriculado en ese nivel. Desde entonces, la tasa subió ${deLas24(es.suben)}. La comparación cruza un quiebre de serie: desde 2022, la población de referencia sale del Censo 2022. ` +
+  escolarizacion: `En ${es.ini}, el ${pct(es.pais_ini)} de los adolescentes del país en edad de cursar la secundaria estaba matriculado en ese nivel. Desde entonces, la tasa subió ${deLas24(es.suben)}${es.bajan.length && es.bajan.length <= 3 ? ` y bajó en ${lista(es.bajan)}` : ""}. La comparación cruza un quiebre de serie: desde 2022, la población de referencia sale del Censo 2022. ` +
     `En ${es.fin}, la tasa más alta fue la de ${es.top} (${pct(es.top_v)})` + (es.top_excluidos.length ? `, sin contar ${lista(es.top_excluidos)}, donde llega casi al 100% por diferencias entre la matrícula y la población estimada` : "") +
     `. La más baja fue la de ${es.low} (${pct(es.low_v)}).`,
   "escolarizacion-nota": `Alumnos de 12 a 17 años (13 a 17 en las provincias con secundaria de cinco años) matriculados en el nivel secundario, incluidas la educación especial y la de jóvenes y adultos, sobre la población de esa edad. Desde 2022 la población de referencia son las proyecciones del INDEC basadas en el Censo 2022, así que parte del cambio entre 2021 y 2022 responde al cambio de denominador. Algunos valores superan el 100% por diferencias entre la matrícula y la proyección de población. El círculo claro marca ${es.ini} y el lleno ${es.fin}.`,
@@ -6798,7 +6801,8 @@ DIB.bcra = conTablas("bcra", ["bcra_variables"], a => {
 
 /* ---------- transferencias de la Nación a las provincias ---------- */
 const TRR = R.transferencias, TRS = T.transferencias_serie, TRA = T.transferencias_acumulado;
-const milM = v => v >= 1000 ? `${n1(v / 1000)} billones` : `${v >= 10 ? n0(v) : n1(v)} mil millones`;
+// una sola escala en todos los textos de transferencias (PENDIENTES.md, Estado 15): antes un mismo párrafo mezclaba "1,8 billones" y "209 mil millones"
+const milM = v => `${v >= 10 ? n0(v) : n1(v)} mil millones`;
 const TR_COL = {atn: "#2C74B5", otras: "#74ACDF", ley: "#C3CAD2"};
 const TR_LAB = {atn: "ATN", otras: "Otras no automáticas", ley: "Por ley o por fallo"};
 const trOpciones = sel => { $(sel).innerHTML = [`<option value="serie">Total del país por año</option>`, `<option value="acum">Por provincia, suma por habitante de ${TRR.desde} a ${TRR.ult}</option>`,

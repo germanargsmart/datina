@@ -147,10 +147,14 @@ envejec["territorio"] = envejec.codigo_indec.map(CORTO)
 envejec_pais = _pv.xs("00", level="codigo_indec")[["vejez", "pct_mayores"]].reset_index().round(2)
 _ep = envejec_pais.set_index("anio")
 _eo = envejec.sort_values("vejez_hoy")
+# el gráfico ordena por el último año de las proyecciones: el texto nombra también sus extremos (PENDIENTES.md, Personas 10)
+_eo_fin = envejec.sort_values("vejez_2040")
 env_res = {"anio": ANIO_PROY, "hoy": r1(_ep.vejez[ANIO_PROY]), "ini": r1(_ep.vejez[2022]), "fin": r1(_ep.vejez[2040]),
            "trab_hoy": round(100 / float(_ep.vejez[ANIO_PROY]), 1), "trab_fin": round(100 / float(_ep.vejez[2040]), 1),
            "max": _eo.iloc[-1].territorio, "max_v": r1(_eo.vejez_hoy.max()), "min": _eo.iloc[0].territorio, "min_v": r1(_eo.vejez_hoy.min()),
-           "pct_mayores_hoy": r1(_ep.pct_mayores[ANIO_PROY]), "pct_mayores_fin": r1(_ep.pct_mayores[2040]), "anio_fin": ANIO_FIN_PROY}
+           "pct_mayores_hoy": r1(_ep.pct_mayores[ANIO_PROY]), "pct_mayores_fin": r1(_ep.pct_mayores[2040]), "anio_fin": ANIO_FIN_PROY,
+           "max_fin": _eo_fin.iloc[-1].territorio, "max_fin_v": r1(_eo_fin.vejez_2040.max()),
+           "min_fin": _eo_fin.iloc[0].territorio, "min_fin_v": r1(_eo_fin.vejez_2040.min())}
 envejec = envejec.round({"vejez_hoy": 1, "vejez_2040": 1})
 # Personas de 65 años o más por cada 100 menores de 15 y el primer año de las proyecciones con tantos mayores como chicos (pedido del
 # autor del 3 de noviembre de 2026). Si no pasa hasta el final de las proyecciones el año queda vacío: no se extrapola. 2022 es el primer
@@ -8976,6 +8980,8 @@ resumen = {
         "top_excluidos": esc_prov[esc_prov.tasa_final >= 99.5].territorio.tolist(),
         "low": esc_prov.sort_values("tasa_final").iloc[0].territorio, "low_v": r1(esc_prov.tasa_final.min()),
         "suben": int((esc_prov.tasa_final > esc_prov.tasa_inicio).sum()),
+        # las que bajaron, para nombrarlas en el texto (PENDIENTES.md, Personas 13)
+        "bajan": esc_prov[esc_prov.tasa_final < esc_prov.tasa_inicio].sort_values("territorio").territorio.tolist(),
     },
     "aprender": {
         "anio": meta_ap["anio"], "nivel": meta_ap["nivel"],
