@@ -878,6 +878,27 @@ await q.tamano(1280, 900);
   r = JSON.parse(r);
   if (!r.on || !r.off) problemas.push(`rutas.html: el foco en el primer destino no resalta sus caminos (${r.on} resaltados)`);
   await q.send("Emulation.setFocusEmulationEnabled", {enabled: false});
+  // un color por cada uno de los diez primeros destinos (24 de noviembre de 2026): el mismo en la lista y en sus caminos
+  r = JSON.parse(await q.eval(`JSON.stringify((() => { const b = document.querySelector("#rt-lista button"), c = b.style.getPropertyValue("--rt-color").trim();
+    const rutas = [...document.querySelectorAll('#rt-mapa .rt-ruta[data-c="' + b.dataset.c + '"]')];
+    return {c, iguales: rutas.length && rutas.every(x => x.style.stroke && getComputedStyle(x).stroke === getComputedStyle(b.querySelector(".rt-b i")).backgroundColor),
+      colores: new Set([...document.querySelectorAll("#rt-lista button")].map(x => x.style.getPropertyValue("--rt-color"))).size}; })())`));
+  if (!r.c || !r.iguales || r.colores !== 10) problemas.push(`rutas.html: los diez primeros destinos sin un color propio, o sus caminos de otro color (${r.colores} colores)`);
+  // el dato de un camino al tocarlo
+  r = await q.eval(`(() => { const t = document.querySelector("#rt-mapa .rt-toque"), b = t.getBoundingClientRect(), p = t.getPointAtLength(t.getTotalLength() / 2), m = t.getScreenCTM();
+    t.dispatchEvent(new PointerEvent("click", {bubbles: true, clientX: p.x * m.a + m.e, clientY: p.y * m.d + m.f})); return document.getElementById("tip").classList.contains("on") ? document.getElementById("tip").innerText : ""; })()`);
+  if (!/dólares en \d{4}/.test(r) || !/Sobre todo/.test(r)) problemas.push(`rutas.html: tocar un camino no muestra su dato (${r.slice(0, 60)})`);
+  // el año: la frase, la lista y el mapa del año elegido
+  r = await q.eval(`(() => { const a = document.getElementById("rt-anio"); const ini = a.value; a.value = a.min; a.dispatchEvent(new Event("input"));
+    return JSON.stringify({ini, min: a.min, frase: document.getElementById("rt-frase").textContent, tit: document.getElementById("rt-lista-tit").textContent, rutas: document.querySelectorAll("#rt-mapa .rt-ruta").length}); })()`);
+  r = JSON.parse(r);
+  if (+r.min >= +r.ini || !r.frase.startsWith("En " + r.min) || !r.tit.endsWith(r.min) || r.rutas < 30) problemas.push(`rutas.html: elegir ${r.min} no cambia la frase, la lista o el mapa (${r.frase.slice(0, 40)}, ${r.rutas} caminos)`);
+  // el zoom: acercar y volver a la vista completa
+  await q.eval(`document.querySelector('.rt-zoom [data-z="mas"]').click()`); await espera(450);
+  const zoomA = await q.eval(`document.querySelector("#rt-mapa > g").getAttribute("transform") || ""`);
+  await q.eval(`document.querySelector('.rt-zoom [data-z="todo"]').click()`); await espera(450);
+  const zoomB = await q.eval(`document.querySelector("#rt-mapa > g").getAttribute("transform") || ""`);
+  if (!/scale\(2\)/.test(zoomA) || /scale\(2\)/.test(zoomB)) problemas.push(`rutas.html: los botones de zoom no acercan o no vuelven (${zoomA} | ${zoomB})`);
   await q.eval(`document.getElementById("rt-ver-tabla").click()`); await espera(300);
   r = JSON.parse(await q.eval(`JSON.stringify({abierta: !document.getElementById("rt-tabla-caja").hidden, exp: document.getElementById("rt-ver-tabla").getAttribute("aria-expanded"), filas: document.querySelectorAll("#rt-tabla tbody tr").length})`));
   if (!r.abierta || r.exp !== "true" || r.filas < 30) problemas.push(`rutas.html: "Ver tabla" no abre la tabla de destinos (${r.filas} filas)`);

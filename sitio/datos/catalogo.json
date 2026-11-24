@@ -23696,37 +23696,42 @@
    "csv": "https://datina.com.ar/datos/rutas_exportaciones.csv",
    "metadatos": "https://datina.com.ar/datos/rutas_exportaciones.metadata.json",
    "titulo": "¿Adónde van las exportaciones argentinas?",
-   "descripcion": "Exportaciones del último año completo por producto (subrubro) y país de destino, en millones de dólares y toneladas, con la salida y el camino simulado de cada fila",
+   "descripcion": "Exportaciones de cada año completo desde que la API del INDEC las publica por producto (subrubro) y país de destino, en millones de dólares y toneladas, con la salida y el camino simulado de cada fila",
    "seccion": "Rutas comerciales",
    "ficha": "https://datina.com.ar/rutas",
    "fuente": "INDEC, exportaciones por subrubro y país de destino (API). La salida de cada producto, de organismos oficiales, cámaras y prensa (datos/manual/rutas_salidas.csv), y el puerto o el paso de frontera de cada país (datos/manual/rutas_destinos.csv)",
    "organismos": [],
    "actualizacion": "Se actualiza cuando el INDEC publica un año completo.",
    "cobertura": "Sin desglose territorial",
-   "periodo": "",
-   "anio_desde": null,
-   "anio_hasta": null,
-   "filas": 1448,
+   "periodo": "2015 a 2025",
+   "anio_desde": 2015,
+   "anio_hasta": 2025,
+   "filas": 20966,
    "columnas": [
+    {
+     "nombre": "anio",
+     "tipo": "Año",
+     "valores": "2015 a 2025"
+    },
     {
      "nombre": "pais_cod",
      "tipo": "Texto",
-     "valores": "143 valores distintos"
+     "valores": "206 valores distintos"
     },
     {
      "nombre": "pais",
      "tipo": "Texto",
-     "valores": "143 valores distintos"
+     "valores": "205 valores distintos"
     },
     {
      "nombre": "subrubro_cod",
      "tipo": "Número",
-     "valores": "101 a 499 (1 celda vacía)"
+     "valores": "101 a 499 (8 celdas vacías)"
     },
     {
      "nombre": "subrubro",
      "tipo": "Texto",
-     "valores": "48 valores distintos"
+     "valores": "49 valores distintos"
     },
     {
      "nombre": "rubro",
@@ -23736,32 +23741,32 @@
     {
      "nombre": "salida",
      "tipo": "Texto",
-     "valores": "9 valores distintos (1 celda vacía)"
+     "valores": "10 valores distintos (8 celdas vacías)"
     },
     {
      "nombre": "firmeza_salida",
      "tipo": "Texto",
-     "valores": "inferido, oficial, prensa, suposicion (1 celda vacía)"
+     "valores": "inferido, oficial, prensa, suposicion (8 celdas vacías)"
     },
     {
      "nombre": "modo",
      "tipo": "Texto",
-     "valores": "avión, mar, tierra (565 celdas vacías)"
+     "valores": "avión, mar, tierra (10124 celdas vacías)"
     },
     {
      "nombre": "destino",
      "tipo": "Texto",
-     "valores": "58 valores distintos (565 celdas vacías)"
+     "valores": "77 valores distintos (10124 celdas vacías)"
     },
     {
      "nombre": "millones_usd",
      "tipo": "Número",
-     "valores": "0 a 9.864,14"
+     "valores": "0 a 11.446,61"
     },
     {
      "nombre": "toneladas",
      "tipo": "Número",
-     "valores": "0 a 17.487.179,56"
+     "valores": "0 a 17.912.020,66"
     }
    ],
    "unidades": [],

@@ -64,3 +64,12 @@ Falta: los datos por subrubro y país del INDEC (con la actualización del 23 de
 - **`scripts/rutas.js`**, aparte de `datina.js` como `mesas.js`: la lista, la frase, la tabla y el mapa (D3 con el mapa del mundo de la portada, `datos/mundo-110m.json`). Sin D3 o sin el mapa del mundo quedan la lista y la tabla.
 - Ícono: el barco (`buque`), el mismo de Sector externo.
 
+## Mapa interactivo y años (pedido del autor del 24 de noviembre de 2026)
+
+"Que el mapa pueda ser interactivo, que haya un zoom, que las rutas de cada uno sean de un color distinto para identificarlos, apoyarse en cada línea para ver el dato y un filtro por año desde que haya datos".
+
+- **Años:** 02 arma la tabla de cada año completo desde 2015, el primero que baja la API por subrubro (`RUT_ANIOS`), con los mismos controles en cada año contra la tabla por rubro. `rutas_exportaciones.csv` suma la columna `anio`. `rutas_sitio.py` guarda cada camino una sola vez y, por año, cuánto pasó por cada uno (unos 470 KB sin comprimir para once años). La página tiene un control deslizante "Año". Las salidas y los puertos son los de hoy en todos los años, y la página lo dice, junto con el salto de lo confidencial en 2018.
+- **Zoom:** botones (acercar, alejar y "Todo"), dos dedos o Ctrl y la rueda, como en Elecciones por mesa. Las líneas no engordan al acercar.
+- **Colores:** uno para cada uno de los diez primeros destinos de lo elegido, el mismo en la lista y en sus caminos (`--rt-c1` a `--rt-c10` en `datina.css`, sin violeta, verde ni rojo). Los demás destinos, en gris celeste.
+- **El dato de cada camino:** al pasar el mouse o tocarlo, el cuadro del sitio (`#tip`) dice el país, el camino, cuánto pasó por ahí en el año, qué parte es de lo elegido y sus productos principales. Con el teclado, la lista y "Ver tabla" tienen los mismos datos.
+
