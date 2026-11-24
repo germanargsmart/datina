@@ -281,6 +281,29 @@ Orden: un solo PR abierto a la vez, como siempre. Entre una fase técnica y la s
 - Las 52 "decisiones dudosas" del catálogo del Explorador (`EXPLORADOR.md`).
 - `fichas.json` publicado sin uso (P2-7), el peso del repositorio (P2-13), y la limpieza de worktrees y ramas viejas en la computadora del autor (P2-15 y las ramas de PR cerrados).
 
+### Respuestas del autor del 24 de noviembre de 2026
+
+El autor contestó todas las decisiones abiertas que se le pasaron ese día ("pasame todas las opciones que necesiten mi decisión, y luego comenzá con los trabajos grandes"). Cada una va en su PR, una por vez, intercaladas con los trabajos grandes:
+
+- E15, el Senado por bloque: **queda como está**, por partido o alianza y con el aviso del texto. No se suma el listado del Senado.
+- Descargas nuevas aprobadas: **la serie nacional de internet fijo de ENACOM** (para la cifra del país de f-internet, Personas 16 de `PENDIENTES.md`) y **las zonas protegidas de la Antártida** (`apa_shape_2024.zip`, para el mapa de Naturaleza). El Censo 2022 por radio censal, no.
+- f-rotacion: **sacar la opción "Generación"** del selector.
+- Pruebas: **T2 sí** (un flujo semanal de GitHub con `prueba_320.mjs`, `linea_base.mjs` y el peso de cada página). T11 (el modelo de verdad) no, por ahora.
+- f-suicidio-prov: **un mapa** en lugar de las barras de mayor a menor, y un texto sin nombrar la tasa más alta ni la más baja. Es un cambio visual: va con capturas.
+- f-muertes: **quedan** la razón entre suicidios y homicidios y el año del cruce con las muertes viales.
+- Contacto: **un correo del proyecto**. Falta que el autor pase la dirección; hasta entonces la página queda como está.
+- Las flechas de "Anterior", "Siguiente" y "al final de la página": el autor dijo sacarlas, y ya no estaban (`FLECHA_ANT` y `FLECHA_SIG` vacías y la línea de "Para entender los datos" sin flecha).
+- "De efecto directo" en Instituciones políticas: pasa a **"Vida diaria"** en todo el sitio (botón, selector, tabla y notas).
+- "Grafo" en el Explorador de relaciones: **queda**.
+- El índice por provincia, grupo de trabajo: el autor eligió la tasa de empleo, pero el 14 de noviembre de 2026 ya había reemplazado las exportaciones por el salario (`datina.js`, "Trabajo y salarios"), y la tasa de empleo de la EPH es por aglomerado, no por provincia. Se le avisa y queda el salario hasta que conteste.
+- Los textos de historia de las 24 provincias: **avisarlo en Fuentes** (que salen de los resúmenes de los buscadores de cada página citada, sin la verificación una por una).
+- El Laboratorio: **quedan** el hemiciclo y los años en el Congreso.
+- La serie de muertes violentas: **queda en Salud**, con el enlace desde Seguridad.
+- f-parques: la cifra destacada pasa a **la superficie protegida**, con cuánto es mar.
+- Consultas con IA: **nombrar el modelo**, tomado por 03 de la función al armar.
+
+Siguen abiertas: la portada (el título de los artículos sobre el borde y el recuadro de la tarjeta del mapa entre 761 y 1199 píxeles, con capturas), los precios de la vivienda por capital, las 52 decisiones dudosas del Explorador, y el peso del repositorio y las ramas viejas en la computadora del autor.
+
 ### Fuentes caídas y tareas con fecha
 
 - datos.energia.gob.ar no contesta desde el 23 de octubre de 2026 (nueve descargas con su archivo anterior). SINTA, bloqueado por Cloudflare: el autor puede escribirle a la Secretaría de Turismo y avisar a datos.gob.ar del error de los meses de parques. Aprender sigue con 2025 hasta que salga una base más nueva. (T)
