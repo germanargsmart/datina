@@ -35,7 +35,7 @@
   {
    "nombre": "miembros_ley",
    "tipo": "Número",
-   "valores": "5 a 9 (3 celdas vacías)"
+   "valores": "5 a 9 (1 celda vacía)"
   },
   {
    "nombre": "ministros",
