@@ -1488,6 +1488,42 @@ agregar(escuelas_secundarias_provincias.assign(periodo=str(ESCP_ANIO), valor=esc
         "escuelas_secundarias_cada_1000_chicos_12_17", "escuelas secundarias cada 1.000 chicos de 12 a 17 años",
         "Ministerio de Capital Humano, padrón de escuelas, e INDEC")
 
+# Escuelas primarias privadas y resultados de Aprender por departamento (fase 3 de docs/roadmap/ESTABLECIMIENTOS.md, el último de sus cruces,
+# 24 de noviembre de 2026): qué parte de las primarias comunes del padrón es privada en cada departamento (sin las de gestión social o
+# cooperativa) y qué parte de los alumnos de 6.º grado alcanzó el nivel satisfactorio o avanzado en Aprender (aprender_departamentos, del
+# Diagnóstico). Solo los departamentos con al menos MIN_DIAG alumnos evaluados, como en el Diagnóstico. Los departamentos de Aprender ya
+# llevan el nombre de Georef, así que se unen con el mapa por provincia y nombre. Es una relación entre promedios de departamentos: el texto
+# dice también qué pasa dentro de la provincia con más departamentos, porque buena parte de la relación es entre provincias
+_pap_geo = {(g["properties"]["prov"], g["properties"]["nombre"]): g["properties"]["id"]
+            for g in list(json.loads((SITIO / "departamentos.topo.json").read_text(encoding="utf-8"))["objects"].values())[0]["geometries"]}
+_pap_e = pd.read_csv(_hosp_dir / "escuelas.csv", dtype={"codigo_dep": str, "cueanexo": str}, usecols=["codigo_dep", "sector", "primaria"])
+_pap_e = _pap_e[_pap_e.primaria == 1].groupby("codigo_dep").sector.agg(primarias="size", privadas=lambda s: int((s == "Privado").sum()))
+privadas_aprender = dx_dep.assign(codigo_dep=[_pap_geo.get((c, n)) for c, n in zip(dx_dep.codigo_indec, dx_dep.departamento)])
+assert privadas_aprender.codigo_dep.notna().all(), \
+    f"departamentos de Aprender sin su lugar en el mapa: {privadas_aprender[privadas_aprender.codigo_dep.isna()].departamento.tolist()[:5]}"
+privadas_aprender = privadas_aprender[privadas_aprender.mat_logra.notna()].copy()
+privadas_aprender["primarias"] = privadas_aprender.codigo_dep.map(_pap_e.primarias)
+privadas_aprender["primarias_privadas"] = privadas_aprender.codigo_dep.map(_pap_e.privadas)
+assert privadas_aprender.primarias.notna().all(), "departamentos de Aprender sin escuelas primarias en el padrón"
+privadas_aprender["pct_privadas"] = (privadas_aprender.primarias_privadas / privadas_aprender.primarias * 100).round(4)
+privadas_aprender = privadas_aprender.rename(columns={"n": "alumnos"})[
+    ["codigo_indec", "provincia", "codigo_dep", "departamento", "primarias", "primarias_privadas", "pct_privadas", "alumnos", "mat_logra", "len_logra"]]
+privadas_aprender = privadas_aprender.round({"alumnos": 0, "mat_logra": 4, "len_logra": 4}).astype({"primarias": int, "primarias_privadas": int, "alumnos": int})
+_pap_pv = privadas_aprender.codigo_indec.value_counts()
+_pap_pv = _pap_pv[_pap_pv == _pap_pv.max()].index.sort_values()[0]  # la provincia con más departamentos con dato
+_pap_x = privadas_aprender[privadas_aprender.codigo_indec == _pap_pv]
+_pap_d = dx.set_index("codigo_indec").loc["00"]
+PAP_RES = {"fecha": ESCP_RES["fecha"], "anio": meta_ap["anio"], "deps": int(len(privadas_aprender)), "min": MIN_DIAG,
+           "r_mat": spearman(privadas_aprender.pct_privadas.values, privadas_aprender.mat_logra.values),
+           "r_len": spearman(privadas_aprender.pct_privadas.values, privadas_aprender.len_logra.values),
+           "prov": CORTO[_pap_pv], "prov_deps": int(len(_pap_x)), "prov_r_mat": spearman(_pap_x.pct_privadas.values, _pap_x.mat_logra.values),
+           # en todo el país, los alumnos de las escuelas privadas y de las estatales (Aprender por sector)
+           "mat_privado": r1(_pap_d.mat_logra_privado), "mat_estatal": r1(_pap_d.mat_logra_estatal),
+           # la parte de los alumnos de cada sector en el 20% del país con menor nivel socioeconómico (el cuestionario de Aprender)
+           "nse_q1_privado": r1(_pap_d.nse_q1_privado), "nse_q1_estatal": r1(_pap_d.nse_q1_estatal),
+           "mediana_privadas": r1(privadas_aprender.pct_privadas.median())}
+assert 200 <= PAP_RES["deps"] <= 514, f"departamentos raros en el cruce de privadas y Aprender: {PAP_RES['deps']}"
+
 # ---------------------------------------------------------------- soja por departamento (estimaciones agrícolas)
 # Estimaciones agrícolas de la Secretaría de Agricultura, Ganadería y Pesca (datos.magyp.gob.ar): superficie sembrada y cosechada,
 # producción y rendimiento de cada cultivo, por campaña y departamento, desde la campaña 1969/70. Es la primera fuente nueva del plan de
@@ -8732,6 +8768,7 @@ tablas = {
     "distancia_hospital_provincias": distancia_hospital_provincias,
     "escuelas_primarias_provincias": escuelas_primarias_provincias,
     "escuelas_secundarias_provincias": escuelas_secundarias_provincias,
+    "privadas_aprender_departamentos": privadas_aprender,
     "sociedades_provincias": sociedades_provincias,
     "sociedades_pais": sociedades_pais,
     "puestos_provincias": puestos_provincias,
@@ -9167,6 +9204,7 @@ resumen["establecimientos"] = HOSP_RES
 resumen["distancia_hospital"] = DIST_RES
 resumen["escuelas_primarias"] = ESCP_RES
 resumen["escuelas_secundarias"] = ESCS_RES
+resumen["privadas_aprender"] = PAP_RES
 resumen["sociedades"] = SOC_RES
 resumen["censos"] = CZ_RES
 resumen["inflacion_personal"] = INFP_RES

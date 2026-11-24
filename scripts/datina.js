@@ -364,6 +364,8 @@ const MBS = R.cobertura_suelo;
 const MDC = R.medicos;
 const HSP = R.establecimientos;  // los hospitales públicos por provincia (fase 3 de docs/roadmap/ESTABLECIMIENTOS.md)
 const DHO = R.distancia_hospital;  // la distancia de las escuelas rurales al hospital público más cercano (fase 3)
+// las escuelas primarias privadas y Aprender por departamento (fase 3, el último cruce, 24 de noviembre de 2026)
+const PAP = R.privadas_aprender;
 const ESP = R.escuelas_primarias, ESS = R.escuelas_secundarias;  // las escuelas primarias cada 1.000 chicos de 5 a 14 años (fase 3)
 // las sociedades nuevas del Registro Nacional de Sociedades (plan de mejora, sección 10, 31 de octubre de 2026)
 const SOC = R.sociedades;
@@ -1948,6 +1950,25 @@ const TX = {
     `las primarias. Chicos de 12 a 17 años de las proyecciones del INDEC de ${ESS.anio}: vienen en grupos de cinco años, así que son tres quintos ` +
     `del grupo de 10 a 14 y tres quintos del de 15 a 19. Qué no dice este dato: cuenta escuelas, no alumnos ni vacantes, y algunas provincias ` +
     `registran como secundarias aparte las secciones rurales que funcionan en otra escuela, así que tienen más escuelas sin tener más lugar.`,
+  // la frase cambia con el signo de cada relación y, si dentro de la provincia con más departamentos la relación es mucho más débil, lo dice
+  "privadas-aprender": `En los ${n0(PAP.deps)} departamentos con al menos ${n0(PAP.min)} alumnos de 6° grado evaluados en Aprender ${PAP.anio}, los que tienen ` +
+    `una parte más grande de escuelas primarias privadas suelen tener ${PAP.r_mat >= 0 ? "más" : "menos"} alumnos con nivel satisfactorio o avanzado. La relación es ` +
+    (fuerza(PAP.r_mat) === fuerza(PAP.r_len) ? `${fuerza(PAP.r_mat)} en matemática (correlación de ${n2(PAP.r_mat)}) y en lengua (${n2(PAP.r_len)}). `
+      : `${fuerza(PAP.r_mat)} en matemática (correlación de ${n2(PAP.r_mat)}) y ${fuerza(PAP.r_len)} en lengua (${n2(PAP.r_len)}). `) +
+    (Math.abs(PAP.prov_r_mat) < Math.abs(PAP.r_mat) - .2 ? `Buena parte es una diferencia entre provincias: dentro de ${PAP.prov}, la provincia con más ` +
+      `departamentos con dato (${n0(PAP.prov_deps)}), la relación en matemática es ${fuerza(PAP.prov_r_mat)} (${n2(PAP.prov_r_mat)}). `
+      : `Dentro de ${PAP.prov}, la provincia con más departamentos con dato (${n0(PAP.prov_deps)}), la relación en matemática es ${fuerza(PAP.prov_r_mat)} (${n2(PAP.prov_r_mat)}). `) +
+    `En todo el país, el ${pct(PAP.mat_privado)} de los alumnos de las escuelas privadas alcanzó el nivel satisfactorio o avanzado en matemática, frente al ` +
+    `${pct(PAP.mat_estatal)} en las estatales.`,
+  "privadas-aprender-nota": `Cada punto es un departamento, partido o comuna. En el eje horizontal, qué parte de las escuelas primarias comunes del Padrón ` +
+    `Oficial de Establecimientos Educativos de ${PAP.fecha} es privada (las de gestión social o cooperativa no cuentan como privadas). En el vertical, qué parte ` +
+    `de los alumnos de 6° grado alcanzó el nivel satisfactorio o avanzado en matemática en Aprender ${PAP.anio}, con la base agregada por departamento de la ` +
+    `Secretaría de Educación. Solo entran los departamentos con al menos ${n0(PAP.min)} alumnos evaluados. La línea punteada es solo una guía de la tendencia. ` +
+    `La correlación es la de rangos de Spearman, que va de menos 1 a 1. Qué no dice este dato: que una escuela privada enseñe mejor. Sus alumnos vienen de ` +
+    `otros hogares: según el cuestionario de Aprender, el ${pct(PAP.nse_q1_estatal)} de los alumnos de las estatales pertenece al 20% del país con menor ` +
+    `nivel socioeconómico, y en las privadas el ${pct(PAP.nse_q1_privado)}, y eso también va junto con los resultados. La comparación es entre promedios ` +
+    `de departamentos, no entre alumnos ni entre escuelas, y cuenta escuelas, no alumnos: una escuela rural chica pesa lo mismo que una grande. ` +
+    `Que dos datos vayan juntos no prueba que uno cause el otro.`,
   "distancia-hospital": LEAD["distancia-hospital"]("hospital"), "distancia-hospital-nota": `Distancia en línea recta, no por ruta: el ` +
     `viaje real es más largo. Las escuelas rurales (primarias y secundarias comunes del padrón oficial) sirven de marca de dónde vive la gente en ` +
     `el campo, y cada una cuenta una vez, tenga pocos o muchos alumnos. Los hospitales son los públicos con internación de la ficha de arriba y, ` +
@@ -4379,6 +4400,13 @@ Object.assign(DIB, {
         `${n0(d.escuelas_secundarias)} escuelas (${pct(d.pct_rurales)} rurales) y ${n0(d.chicos_12_17)} chicos<br>` +
         `${n2(d.secundarias_por_primaria)} secundarias por cada primaria`});
   },
+  // las escuelas primarias privadas y Aprender por departamento: cada punto es un departamento, con su provincia en el nombre (dispersion() nombra
+  // y separa los puntos por codigo_indec, así que va el código del departamento). Los de la provincia elegida se nombran primero
+  "privadas-aprender": conTablas("privadas-aprender", ["privadas_aprender_departamentos"], a => {
+    const datos = T.privadas_aprender_departamentos.map(d => ({...d, codigo_indec: d.codigo_dep, prov: d.codigo_indec, territorio: `${d.departamento} (${d.provincia})`}));
+    dispersion(G("privadas-aprender"), {anim: a, data: datos, x: "pct_privadas", y: "mat_logra",
+      xLab: `Escuelas primarias privadas, ${PAP.fecha}`, yLab: `Satisfactorio o avanzado en matemática, ${PAP.anio}`});
+  }),
   // la distancia de las escuelas rurales al hospital público más cercano (fase 3 de docs/roadmap/ESTABLECIMIENTOS.md, 9 de noviembre de 2026):
   // cada provincia con la línea del país. CABA no tiene escuelas rurales
   "distancia-hospital": a => {

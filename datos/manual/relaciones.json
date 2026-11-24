@@ -8139,6 +8139,50 @@
   },
   {
    "tipo": "alimenta",
+   "de": "ds:manual/establecimientos-escuelas.csv",
+   "a": "f-privadas-aprender",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_pap_e = _pap_e[_pap_e.primaria == 1].groupby(\"codigo_dep\").sector.agg(primarias=\"size\", privadas=lambda s: int((s == \"Privado\").sum()))"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"privadas_aprender_departamentos\": privadas_aprender,"
+    }
+   ],
+   "tabla": "privadas_aprender_departamentos"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:aprender_primaria_matematica.csv",
+   "a": "f-privadas-aprender",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "privadas_aprender = dx_dep.assign(codigo_dep=[_pap_geo.get((c, n)) for c, n in zip(dx_dep.codigo_indec, dx_dep.departamento)])"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"privadas_aprender_departamentos\": privadas_aprender,"
+    }
+   ],
+   "tabla": "privadas_aprender_departamentos"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:aprender_primaria_lengua.csv",
+   "a": "f-privadas-aprender",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"r_len\": spearman(privadas_aprender.pct_privadas.values, privadas_aprender.len_logra.values),"
+    }
+   ],
+   "tabla": "privadas_aprender_departamentos"
+  },
+  {
+   "tipo": "alimenta",
    "de": "ds:indec_api_canasta_crianza.json",
    "a": "f-crianza",
    "evidencia": [
