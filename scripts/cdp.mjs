@@ -17,7 +17,9 @@ export async function abrirChrome(puerto = 9333) {
   // en Linux (la actualización automática de GitHub) Chrome no puede usar su aislamiento dentro de la máquina virtual
   const linux = process.platform === "linux" ? ["--no-sandbox", "--disable-dev-shm-usage"] : [];
   const proc = spawn(CHROME, ["--headless=new", `--remote-debugging-port=${puerto}`, `--user-data-dir=${perfil}`, ...linux,
-    "--no-first-run", "--no-default-browser-check", "--hide-scrollbars", "--mute-audio", "--disable-gpu",
+    // WebGL por software (25 de noviembre de 2026): el mapa de Rutas comerciales es MapLibre GL, y desde Chrome 137 sin placa de video (la máquina
+    // de GitHub) WebGL no anda si no se pide SwiftShader a mano
+    "--no-first-run", "--no-default-browser-check", "--hide-scrollbars", "--mute-audio", "--disable-gpu", "--enable-unsafe-swiftshader",
     "--force-color-profile=srgb", "--font-render-hinting=none", "about:blank"], { stdio: "ignore" });
   proc.on("error", e => { console.error(`No se pudo abrir Chrome (${CHROME}): ${e.message}`); process.exit(1); });
   // hasta 60 segundos: en la actualización del 12 de octubre de 2026 Chrome tardó más de 15 en abrir en la máquina de GitHub y la prueba se cortó

@@ -844,67 +844,86 @@ await q.tamano(1280, 900);
   await q.tamano(1280, 900);
   q.errores.slice(antes).forEach(e => problemas.push(`Elecciones por mesa: ${e}`));
 }
-// Rutas comerciales (23 de noviembre de 2026): la vista inicial con todo lo exportado (diez destinos, la frase, los caminos y las salidas en el mapa, con su
-// nombre), un rubro que cambia la lista y deja en "Producto" solo sus subrubros, un subrubro, el teclado sobre la lista (resalta los caminos de ese país),
-// "Ver tabla" y 390 píxeles. No pide cifras fijas: cambian con cada año del INDEC
+// Rutas comerciales (23 de noviembre de 2026, rediseño del 25 de noviembre): la vista inicial (las cuatro tarjetas de cifras, diez destinos, diez productos,
+// los corredores, la frase y el mapa de MapLibre con los nombres de los destinos), apagar una vía, apagarlas todas y restablecer, un rubro y un producto,
+// la ficha de un destino y Escape, el año más viejo, Reproducir, el zoom, el globo, las capas y, en 390 píxeles, el mapa en la primera pantalla y el panel
+// de filtros. No pide cifras fijas: cambian con cada año del INDEC
 {
   const antes = q.errores.length;
-  const RT = `JSON.stringify({items: document.querySelectorAll("#rt-lista button").length, frase: document.getElementById("rt-frase").textContent,
-    rutas: document.querySelectorAll("#rt-mapa .rt-ruta").length, salidas: document.querySelectorAll("#rt-mapa .rt-salida").length,
-    nombre: document.getElementById("rt-mapa").getAttribute("aria-label") || "", primero: document.querySelector("#rt-lista .rt-n")?.textContent || "",
-    subs: [...document.getElementById("rt-sub").options].map(o => o.value).filter(Boolean), ocupado: document.getElementById("rt").hasAttribute("aria-busy"),
-    ancho: document.documentElement.scrollWidth - document.documentElement.clientWidth})`;
-  await q.ir(B + "rutas", 1800);
-  let r = JSON.parse(await q.eval(RT));
-  if (r.items !== 10 || !/exportó .* dólares/.test(r.frase) || r.rutas < 30 || !r.salidas || r.ocupado) problemas.push(`rutas.html: la vista inicial sin sus diez destinos, su frase o sus caminos (${r.items} destinos, ${r.rutas} caminos, ${r.salidas} salidas)`);
-  if (!/caminos simulados/.test(r.nombre)) problemas.push("rutas.html: el mapa sin su nombre");
-  const todos = r.subs.length, primero = r.primero;
+  const RT = `JSON.stringify({kpis: document.querySelectorAll("#rt-kpis .rt-kpi").length, dest: document.querySelectorAll("#rt-destinos button").length,
+    prods: document.querySelectorAll("#rt-productos button").length, corr: document.querySelectorAll("#rt-corredores button").length,
+    frase: document.getElementById("rt-frase").textContent, canvas: !!document.querySelector("#rt-lienzo canvas"), etiq: document.querySelectorAll(".rt-etiq").length,
+    sinMapa: !document.getElementById("rt-sin-mapa").hidden, vacio: !document.getElementById("rt-vacio").hidden, ficha: !document.getElementById("rt-ficha").hidden,
+    fichaTit: document.getElementById("rt-ficha-tit")?.textContent || "", vias: [...document.querySelectorAll(".rt-via")].map(b => b.getAttribute("aria-pressed") + b.querySelector("b").textContent),
+    kpi0: document.querySelector("#rt-kpis .rt-k-tit")?.textContent || "", kpiSub: document.querySelector("#rt-kpis .rt-k-sub")?.textContent || "", zoom: +(document.getElementById("rt").dataset.zoom || 0),
+    ocupado: document.getElementById("rt").hasAttribute("aria-busy"), ancho: document.documentElement.scrollWidth - document.documentElement.clientWidth})`;
+  // datina.js une con espacios que no se cortan algunas palabras cortas: la prueba los lee como espacios
+  const rt = async () => JSON.parse((await q.eval(RT)).replace(/\\u00a0|\u00a0/g, " "));
+  await q.ir(B + "rutas", 3500);
+  let r = await rt();
+  if (r.kpis !== 4 || r.dest !== 10 || r.prods !== 10 || r.corr < 5 || !/exportó .* dólares/.test(r.frase) || r.ocupado) problemas.push(`rutas.html: la vista inicial sin sus tarjetas o su frase (${r.kpis} cifras, ${r.dest} destinos, ${r.prods} productos, ${r.corr} corredores)`);
+  if (!r.canvas || r.sinMapa || r.etiq < 5) problemas.push(`rutas.html: el mapa de MapLibre no se dibujó (${r.canvas ? "con" : "sin"} lienzo, ${r.etiq} nombres de destinos${r.sinMapa ? ", con el aviso de sin mapa" : ""})`);
+  if (r.vias.length !== 3 || !r.vias.every(v => /^true\d+,\d%$/.test(v))) problemas.push(`rutas.html: las tres vías no arrancan prendidas con su porcentaje (${r.vias.join(" | ")})`);
+  // apagar la vía aérea: las cifras y la frase dicen que es solo por mar y por tierra
+  await q.eval(`document.querySelector('.rt-via[data-via="avión"]').click()`); await espera(500);
+  r = await rt();
+  if (!r.vias[2].startsWith("false") || !/solo por mar y por tierra/.test(r.frase) || !/solo/.test(r.kpi0)) problemas.push(`rutas.html: apagar el avión no cambia las cifras ni la frase (${r.kpi0}, ${r.frase.slice(0, 60)})`);
+  // las tres apagadas: el aviso y Restablecer
+  await q.eval(`document.querySelectorAll('.rt-via[aria-pressed="true"]').forEach(b => b.click())`); await espera(500);
+  r = await rt();
+  if (!r.vacio) problemas.push("rutas.html: con las tres vías apagadas no aparece el aviso con Restablecer");
+  await q.eval(`document.querySelector("#rt-vacio [data-restablecer]").click()`); await espera(600);
+  r = await rt();
+  if (r.vacio || !r.vias.every(v => v.startsWith("true"))) problemas.push("rutas.html: Restablecer no vuelve a prender las tres vías");
+  // un rubro y un producto
   await q.eval(`document.querySelector('.rt-rubros [data-r="ce"]').click()`); await espera(500);
-  r = JSON.parse(await q.eval(RT));
-  const rubros = await q.eval(`(() => { const d = [...document.getElementById("rt-sub").options].filter(o => o.value).map(o => o.value[0]); return [...new Set(d)].join(""); })()`);
-  if (!r.items || rubros !== "4" || r.subs.length >= todos || await q.eval(`document.querySelector('.rt-rubros [data-r="ce"]').getAttribute("aria-pressed")`) !== "true")
-    problemas.push(`rutas.html: Energía no deja en "Producto" solo sus subrubros (${rubros}, ${r.subs.length} de ${todos}) o no queda elegida`);
-  if (!/en combustibles y energía/.test(r.frase)) problemas.push(`rutas.html: la frase de Energía no lo nombra (${r.frase.slice(0, 80)})`);
-  await q.eval(`(() => { const s = document.getElementById("rt-sub"); s.value = s.options[1].value; s.dispatchEvent(new Event("change")); })()`); await espera(400);
-  r = JSON.parse(await q.eval(RT));
-  if (!r.items || /en combustibles y energía/.test(r.frase)) problemas.push(`rutas.html: elegir un producto no cambia la frase (${r.frase.slice(0, 80)})`);
-  await q.eval(`document.querySelector('.rt-rubros [data-r=""]').click()`); await espera(400);
-  if (JSON.parse(await q.eval(RT)).primero !== primero) problemas.push("rutas.html: volver a Todo no vuelve a la lista del comienzo");
-  // con el teclado: el foco en un destino resalta sus caminos y apaga los demás
-  // con varias pestañas, Chrome no le da el foco a esta: sin la emulación, focus() no dispara los eventos de foco
-  await q.send("Emulation.setFocusEmulationEnabled", {enabled: true});
-  await q.eval(`document.querySelector("#rt-lista button").focus()`); await espera(300);
-  r = await q.eval(`JSON.stringify({on: document.querySelectorAll("#rt-mapa .rt-ruta.on").length, off: document.querySelectorAll("#rt-mapa .rt-ruta.off").length})`);
-  r = JSON.parse(r);
-  if (!r.on || !r.off) problemas.push(`rutas.html: el foco en el primer destino no resalta sus caminos (${r.on} resaltados)`);
-  await q.send("Emulation.setFocusEmulationEnabled", {enabled: false});
-  // un color por cada uno de los diez primeros destinos (24 de noviembre de 2026): el mismo en la lista y en sus caminos
-  r = JSON.parse(await q.eval(`JSON.stringify((() => { const b = document.querySelector("#rt-lista button"), c = b.style.getPropertyValue("--rt-color").trim();
-    const rutas = [...document.querySelectorAll('#rt-mapa .rt-ruta[data-c="' + b.dataset.c + '"]')];
-    return {c, iguales: rutas.length && rutas.every(x => x.style.stroke && getComputedStyle(x).stroke === getComputedStyle(b.querySelector(".rt-b i")).backgroundColor),
-      colores: new Set([...document.querySelectorAll("#rt-lista button")].map(x => x.style.getPropertyValue("--rt-color"))).size}; })())`));
-  if (!r.c || !r.iguales || r.colores !== 10) problemas.push(`rutas.html: los diez primeros destinos sin un color propio, o sus caminos de otro color (${r.colores} colores)`);
-  // el dato de un camino al tocarlo
-  r = await q.eval(`(() => { const t = document.querySelector("#rt-mapa .rt-toque"), b = t.getBoundingClientRect(), p = t.getPointAtLength(t.getTotalLength() / 2), m = t.getScreenCTM();
-    t.dispatchEvent(new PointerEvent("click", {bubbles: true, clientX: p.x * m.a + m.e, clientY: p.y * m.d + m.f})); return document.getElementById("tip").classList.contains("on") ? document.getElementById("tip").innerText : ""; })()`);
-  if (!/dólares en \d{4}/.test(r) || !/Sobre todo/.test(r)) problemas.push(`rutas.html: tocar un camino no muestra su dato (${r.slice(0, 60)})`);
-  // el año: la frase, la lista y el mapa del año elegido
-  r = await q.eval(`(() => { const a = document.getElementById("rt-anio"); const ini = a.value; a.value = a.min; a.dispatchEvent(new Event("input"));
-    return JSON.stringify({ini, min: a.min, frase: document.getElementById("rt-frase").textContent, tit: document.getElementById("rt-lista-tit").textContent, rutas: document.querySelectorAll("#rt-mapa .rt-ruta").length}); })()`);
-  r = JSON.parse(r);
-  if (+r.min >= +r.ini || !r.frase.startsWith("En " + r.min) || !r.tit.endsWith(r.min) || r.rutas < 30) problemas.push(`rutas.html: elegir ${r.min} no cambia la frase, la lista o el mapa (${r.frase.slice(0, 40)}, ${r.rutas} caminos)`);
-  // el zoom: acercar y volver a la vista completa
-  await q.eval(`document.querySelector('.rt-zoom [data-z="mas"]').click()`); await espera(450);
-  const zoomA = await q.eval(`document.querySelector("#rt-mapa > g").getAttribute("transform") || ""`);
-  await q.eval(`document.querySelector('.rt-zoom [data-z="todo"]').click()`); await espera(450);
-  const zoomB = await q.eval(`document.querySelector("#rt-mapa > g").getAttribute("transform") || ""`);
-  if (!/scale\(2\)/.test(zoomA) || /scale\(2\)/.test(zoomB)) problemas.push(`rutas.html: los botones de zoom no acercan o no vuelven (${zoomA} | ${zoomB})`);
+  r = await rt();
+  if (!/en combustibles y energía/.test(r.frase)) problemas.push(`rutas.html: Energía no cambia la frase (${r.frase.slice(0, 80)})`);
+  const prod = await q.eval(`(() => { const i = document.getElementById("rt-prod"), o = document.querySelector("#rt-prods option"); i.value = o.value; i.dispatchEvent(new Event("change")); return o.value; })()`);
+  await espera(500);
+  r = await rt();
+  if (!r.frase.toLowerCase().includes(prod.toLowerCase()) || await q.eval(`document.getElementById("rt-prod-elegido").hidden`)) problemas.push(`rutas.html: buscar un producto (${prod}) no lo elige`);
+  await q.eval(`document.querySelector('.rt-rubros [data-r=""]').click()`); await espera(500);
+  // la ficha de un destino y Escape
+  const pais = await q.eval(`(() => { const b = document.querySelector("#rt-destinos button"); b.click(); return b.querySelector(".rt-b-n").textContent.replace(b.querySelector(".rt-cod").textContent, "").trim(); })()`);
+  await espera(800);
+  r = await rt();
+  if (!r.ficha || r.fichaTit !== pais) problemas.push(`rutas.html: elegir ${pais} en los destinos no abre su ficha (${r.fichaTit})`);
+  await tecla("Escape"); await espera(300);
+  if ((await rt()).ficha) problemas.push("rutas.html: Escape no cierra la ficha");
+  // el año más viejo y Reproducir
+  r = JSON.parse(await q.eval(`(() => { const a = document.getElementById("rt-anio"); a.value = a.min; a.dispatchEvent(new Event("input")); return JSON.stringify({min: a.min}); })()`));
+  const r2 = await rt();
+  if (!r2.frase.startsWith("En " + r.min) || !/Primer año de la serie/.test(r2.kpiSub)) problemas.push(`rutas.html: elegir ${r.min} no cambia la frase o las cifras (${r2.frase.slice(0, 30)}, ${r2.kpiSub})`);
+  await q.eval(`document.getElementById("rt-play").click()`); await espera(1500);
+  const juega = await q.eval(`JSON.stringify([document.getElementById("rt-play").getAttribute("aria-pressed"), document.getElementById("rt-anio").value])`);
+  await q.eval(`document.getElementById("rt-play").click()`);
+  if (!/^\["true","\d{4}"\]$/.test(juega) || JSON.parse(juega)[1] === r.min) problemas.push(`rutas.html: Reproducir no avanza los años (${juega})`);
+  // el zoom, Centrar, el globo y las capas
+  const z0 = (await rt()).zoom;
+  await q.eval(`document.querySelector('.rt-ctrl [data-z="mas"]').click()`); await espera(700);
+  const z1 = (await rt()).zoom;
+  await q.eval(`document.querySelector('.rt-ctrl [data-z="todo"]').click()`); await espera(700);
+  const z2 = (await rt()).zoom;
+  if (!(z1 > z2 + 0.5)) problemas.push(`rutas.html: los botones de zoom no acercan o Centrar no vuelve (${z0}, ${z1}, ${z2})`);
+  await q.eval(`document.querySelector('.rt-ctrl [data-z="globo"]').click()`); await espera(500);
+  if (await q.eval(`document.querySelector('.rt-ctrl [data-z="globo"]').getAttribute("aria-pressed")`) !== "true") problemas.push("rutas.html: el botón Globo no cambia la vista");
+  await q.eval(`document.querySelector('.rt-ctrl [data-z="globo"]').click()`);
+  await q.eval(`(() => { const c = document.querySelector('[data-capa="etiquetas"]'); c.checked = false; c.dispatchEvent(new Event("change", {bubbles: true})); })()`); await espera(400);
+  if ((await rt()).etiq) problemas.push("rutas.html: apagar la capa de nombres no los saca del mapa");
   await q.eval(`document.getElementById("rt-ver-tabla").click()`); await espera(300);
-  r = JSON.parse(await q.eval(`JSON.stringify({abierta: !document.getElementById("rt-tabla-caja").hidden, exp: document.getElementById("rt-ver-tabla").getAttribute("aria-expanded"), filas: document.querySelectorAll("#rt-tabla tbody tr").length})`));
-  if (!r.abierta || r.exp !== "true" || r.filas < 30) problemas.push(`rutas.html: "Ver tabla" no abre la tabla de destinos (${r.filas} filas)`);
-  await q.tamano(390, 844); await q.ir(B + "rutas", 1500);
-  r = JSON.parse(await q.eval(RT));
-  if (r.ancho > 0 || r.items !== 10) problemas.push(`rutas.html en 390 píxeles: se corre de costado (${r.ancho} píxeles) o sin sus destinos`);
+  r = JSON.parse(await q.eval(`JSON.stringify({abierta: !document.getElementById("rt-tabla-caja").hidden, filas: document.querySelectorAll("#rt-tabla tbody tr").length})`));
+  if (!r.abierta || r.filas < 30) problemas.push(`rutas.html: "Ver tabla" no abre la tabla de destinos (${r.filas} filas)`);
+  // el celular: el mapa en la primera pantalla y el panel de filtros
+  await q.tamano(390, 844); await q.ir(B + "rutas", 3000);
+  r = JSON.parse(await q.eval(`(() => { const m = document.getElementById("rt-mapa-caja").getBoundingClientRect(), b = document.querySelector(".rt-barra").getBoundingClientRect();
+    return JSON.stringify({alto: m.height, bajo: m.top - b.top, ancho: document.documentElement.scrollWidth - document.documentElement.clientWidth}); })()`));
+  if (r.ancho > 0 || r.alto < 0.6 * 844 || r.bajo > 200) problemas.push(`rutas.html en 390 píxeles: el mapa no queda en la primera pantalla o se corre de costado (alto ${Math.round(r.alto)}, ${Math.round(r.bajo)} píxeles de filtros arriba, ${r.ancho} de costado)`);
+  await q.eval(`document.getElementById("rt-filtros-btn").click()`); await espera(300);
+  const abierto = await q.eval(`getComputedStyle(document.getElementById("rt-panel")).display !== "none"`);
+  await tecla("Escape"); await espera(300);
+  const cerrado = await q.eval(`getComputedStyle(document.getElementById("rt-panel")).display === "none"`);
+  if (!abierto || !cerrado) problemas.push("rutas.html en 390 píxeles: Filtros no abre el panel o Escape no lo cierra");
   await q.tamano(1280, 900);
   q.errores.slice(antes).forEach(e => problemas.push(`Rutas comerciales: ${e}`));
 }
