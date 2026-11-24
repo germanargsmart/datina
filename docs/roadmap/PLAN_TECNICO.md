@@ -262,7 +262,7 @@ Orden: un solo PR abierto a la vez, como siempre. Entre una fase técnica y la s
 ### Plan de mejora y funciones
 
 - El resto de D2: reordenar el código que corre al comienzo. Va con la fase 5. (C)
-- El bloque de la deuda provincial en "Para entender los datos" de Cuentas públicas. (C)
+- ~~El bloque de la deuda provincial en "Para entender los datos" de Cuentas públicas.~~ Hecho el 24 de noviembre de 2026: "La deuda de las provincias", con las notas de la planilla trimestral de la Subsecretaría de Coordinación Fiscal Provincial como citas.
 - Completar las leyes sin verificar de `cortes_provinciales.csv`. (C)
 - Zonas protegidas de la Antártida en el mapa (`apa_shape_2024.zip`) y el enlace desde Tierra del Fuego al capítulo. (C)
 - E15: el Senado sigue por partido o alianza y Diputados por bloque (`PENDIENTES.md`, Estado y sociedad 7). (C)

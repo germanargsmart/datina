@@ -73,7 +73,7 @@ Falta: los datos por subrubro y país del INDEC (con la actualización del 23 de
 - **Colores:** uno para cada uno de los diez primeros destinos de lo elegido, el mismo en la lista y en sus caminos (`--rt-c1` a `--rt-c10` en `datina.css`, sin violeta, verde ni rojo). Los demás destinos, en gris celeste.
 - **El dato de cada camino:** al pasar el mouse o tocarlo, el cuadro del sitio (`#tip`) dice el país, el camino, cuánto pasó por ahí en el año, qué parte es de lo elegido y sus productos principales. Con el teclado, la lista y "Ver tabla" tienen los mismos datos.
 
-## Rediseño de la página (pedido del autor del 25 de noviembre de 2026)
+## Rediseño de la página (pedido del autor del 24 de noviembre de 2026)
 
 El autor pidió rehacer la experiencia de `/rutas` con dos referencias: el mapa de cables submarinos de TeleGeography (líneas nítidas, foco y contexto, una ficha al elegir algo) y las tarjetas de Chatham House ResourceTransitions. Sin tocar la barra, el pie, los colores del sitio, "Qué no dice este dato" ni la descarga. Respuestas del autor ese día: la vía aérea en **turquesa** (el violeta es solo de la OCDE), el fondo del mapa con **los neutros de Datina** (Datina es blanca y celeste, no crema) y **Natural Earth a 1:50 millones**.
 

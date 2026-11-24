@@ -26,7 +26,7 @@ NOMBRE_RUBRO = {"pp": "Productos primarios", "moa": "Manufacturas de origen agro
 
 
 def arco(a, b, n=48):
-    """El camino más corto sobre la Tierra entre a y b (longitud, latitud), con n tramos: el mapa de MapLibre (25 de noviembre de 2026) une los
+    """El camino más corto sobre la Tierra entre a y b (longitud, latitud), con n tramos: el mapa de MapLibre (24 de noviembre de 2026) une los
     puntos en línea recta sobre su proyección, así que el avión necesita el arco ya calculado"""
     rad = math.radians
     (l1, f1), (l2, f2) = [(rad(x), rad(y)) for x, y in (a, b)]

@@ -189,7 +189,7 @@ await p.ir(BASE + "mesas.html", 1800);
 r = await p.eval(MS); caso("Mapa sin D3: las tablas quedan", /Milei - Villarruel/.test(r), r.slice(0, 80));
 caso("Mapa sin D3: no se ve", await p.eval(`document.getElementById("ms-mapa").hidden`));
 FALLAR = [];
-// Rutas comerciales (23 de noviembre de 2026, rediseño del 25 de noviembre): sin sus datos lo dice, y sin el mapa del mundo o sin MapLibre quedan las
+// Rutas comerciales (23 de noviembre de 2026, rediseño del 24 de noviembre): sin sus datos lo dice, y sin el mapa del mundo o sin MapLibre quedan las
 // tarjetas y la frase, con el aviso de que el mapa no se puede dibujar
 const RT = `JSON.stringify({dest: document.querySelectorAll("#rt-destinos button").length, falla: !document.getElementById("rt-falla").hidden,
   sinMapa: !document.getElementById("rt-sin-mapa").hidden, ocupado: document.getElementById("rt").hasAttribute("aria-busy")})`;

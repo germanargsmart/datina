@@ -2389,7 +2389,7 @@ html.js #ms-resultado:empty~.ms-pie,html.js #ms-resultado:empty~.ms-limites{visi
   .ms-tabla-partes td:not(.n){min-width:10em}
 }
 @media print{.ms-filtros,.ms-num,.ms-bajadas,.ms-mapa-controles,.ms-zoom,.ms-mapa-pie{display:none}.ms .tabla-desliza{max-height:none!important;overflow:visible}}
-/* Rutas comerciales (23 de noviembre de 2026). Rediseño del 25 de noviembre de 2026, pedido del autor: el mapa en MapLibre GL con las rutas por vía,
+/* Rutas comerciales (23 de noviembre de 2026). Rediseño del 24 de noviembre de 2026, pedido del autor: el mapa en MapLibre GL con las rutas por vía,
    foco y contexto y una ficha, la barra de filtros y las tarjetas sincronizadas. Decisiones del autor de ese día: la vía aérea en turquesa (el violeta
    es solo de la OCDE), el fondo del mapa con los neutros de Datina y Natural Earth a 1:50 millones. Los colores del mapa, solo acá */
 :root{--rt-mar:#1B5E7E;--rt-tierra:#A85F14;--rt-avion:#0F7D82;--rt-oceano:#EDF3F9;--rt-suelo:#FCFBF8;--rt-borde:#D3DCE6;--rt-arg:#DCEBF8;--rt-nodo:#23364A}
