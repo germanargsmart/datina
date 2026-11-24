@@ -3423,7 +3423,7 @@
    "descripcion": "Puntaje promedio de la Argentina y de los países de la OCDE en las pruebas PISA, 2000 a 2025",
    "seccion": "Educación",
    "ficha": "https://datina.com.ar/educacion#f-pisa",
-   "fuente": "OCDE, Programa para la Evaluación Internacional de Alumnos (PISA), vía Our World in Data.",
+   "fuente": "OCDE, Programa para la Evaluación Internacional de Estudiantes (PISA), vía Our World in Data.",
    "organismos": [
     "OCDE (Organización para la Cooperación y el Desarrollo Económicos)"
    ],
@@ -3507,7 +3507,7 @@
    "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
    "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
    "uso_libre": true,
-   "como_citar": "Datina (año de la consulta). ¿Qué puntaje saca la Argentina en las pruebas PISA? Con datos de OCDE, Programa para la Evaluación Internacional de Alumnos (PISA), vía Our World in Data. https://datina.com.ar/educacion#f-pisa. Consultado el día de la consulta."
+   "como_citar": "Datina (año de la consulta). ¿Qué puntaje saca la Argentina en las pruebas PISA? Con datos de OCDE, Programa para la Evaluación Internacional de Estudiantes (PISA), vía Our World in Data. https://datina.com.ar/educacion#f-pisa. Consultado el día de la consulta."
   },
   {
    "tabla": "salario_docente",
@@ -13104,7 +13104,7 @@
    "descripcion": "Presidentes de la Nación desde 1983 según lugar de nacimiento",
    "seccion": "Instituciones políticas",
    "ficha": "https://datina.com.ar/politica#f-presidentes",
-   "fuente": "Casa Rosada, Wikipedia y Wikidata, que coinciden en los doce casos.",
+   "fuente": "Casa Rosada, Wikipedia y Wikidata, que coinciden en todos los casos.",
    "organismos": [
     "RENAPER (Registro Nacional de las Personas)",
     "Wikimedia (Wikipedia y Wikidata)"
@@ -13186,7 +13186,7 @@
    "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
    "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
    "uso_libre": true,
-   "como_citar": "Datina (año de la consulta). ¿Dónde nacieron los presidentes? Con datos de Casa Rosada, Wikipedia y Wikidata, que coinciden en los doce casos. https://datina.com.ar/politica#f-presidentes. Consultado el día de la consulta."
+   "como_citar": "Datina (año de la consulta). ¿Dónde nacieron los presidentes? Con datos de Casa Rosada, Wikipedia y Wikidata, que coinciden en todos los casos. https://datina.com.ar/politica#f-presidentes. Consultado el día de la consulta."
   },
   {
    "tabla": "ministros_nacionales",

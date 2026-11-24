@@ -463,7 +463,7 @@ PROV24 = [c for c in CORTO if c != "00"]
 # (cuadros por provincia). Tabla armada una sola vez: datos/manual/nse_censo2022_provincias.csv.
 nse = pd.read_csv(RAIZ / "datos" / "manual" / "nse_censo2022_provincias.csv")
 nse["codigo_indec"] = nse.prov_indec.map(lambda x: f"{int(x):02d}")
-NSE_IND = {"pct_pob_solo_cobertura_publica": "Población sin obra social ni prepaga", "pct_hog_nbi_2022": "Hogares con necesidades básicas insatisfechas",
+NSE_IND = {"pct_pob_solo_cobertura_publica": "Población sin obra social, prepaga ni plan estatal", "pct_hog_nbi_2022": "Hogares con necesidades básicas insatisfechas",
            "pct_25mas_secundario_completo_o_mas": "Adultos de 25 años o más con secundario completo", "pct_hog_cloaca": "Hogares con desagüe a red cloacal"}
 nse = nse[["codigo_indec"] + list(NSE_IND)]
 spearman = lambda a, b: round(float(pd.Series(a).rank().corr(pd.Series(b).rank())), 2)
@@ -473,7 +473,7 @@ ado_nse_res = {"anio": NAC_ULT, "indicadores": [{"k": k, "lab": v, "r": spearman
 # Muertes de menores de un anio por grupo de causa (DEIS, defunciones por causa CIE-10 y provincia de residencia).
 # Tres anios juntos, porque en las provincias chicas hay pocas muertes por anio. Nacimientos de la misma fuente.
 GRUPOS_MI = [("perinatales", "Afecciones perinatales", r"^P"), ("malformaciones", "Malformaciones congénitas", r"^Q"),
-             ("respiratorias", "Enfermedades respiratorias", r"^J"), ("infecciosas", "Infecciosas y parasitarias", r"^[AB]"),
+             ("respiratorias", "Enfermedades respiratorias", r"^J"), ("infecciosas", "Enfermedades infecciosas y parasitarias", r"^[AB]"),
              ("externas", "Causas externas", r"^[VWXY]"), ("mal_definidas", "Mal definidas", r"^R"), ("otras", "Otras causas", r".")]
 # Reducibilidad (DEIS, Anuario de Estadisticas Vitales 2023, cuadros 36 y 37): solo se publica para el total del pais y en PDF.
 # Con los codigos de 3 caracteres de los datos abiertos no se puede calcular por provincia.
@@ -540,7 +540,7 @@ mi_causas = mi_causas.sort_values("codigo_indec").reset_index(drop=True)
 # Las causas externas van juntas (accidentes, agresiones y lesiones intencionales), sin separar ninguna (regla del autor).
 # Las muertes sin edad registrada se reparten en proporcion. Residencia en otro pais (98): fuera. Sin provincia (99): solo en el pais.
 GRUPOS_CM = [("circulatorias", "Enfermedades del corazón y la circulación", r"^I"), ("tumores", "Tumores", r"^(C|D[0-4])"),
-             ("respiratorias", "Enfermedades respiratorias", r"^J"), ("infecciosas", "Infecciosas y parasitarias", r"^[AB]"),
+             ("respiratorias", "Enfermedades respiratorias", r"^J"), ("infecciosas", "Enfermedades infecciosas y parasitarias", r"^[AB]"),
              ("covid", "COVID-19", r"^U(0[7-9]|10)"), ("endocrinas", "Diabetes y otras endocrinas y metabólicas", r"^E"),
              ("digestivas", "Enfermedades digestivas", r"^K"), ("externas", "Causas externas", r"^[VWXY]"),
              ("mal_definidas", "Mal definidas", r"^R"), ("otras", "Otras causas", r".")]
@@ -8041,7 +8041,7 @@ CRUCES_META = {
     "resultado_fiscal": ("Resultado fiscal", "superávit o déficit financiero, % de los ingresos totales", str(ANIO_FISC), "Finanzas provinciales", "Ministerio de Economía, cuentas provinciales", "f-fiscal", 1),
     "gasto_personal": ("Gasto en personal", "% del gasto total de la provincia", str(ANIO_FISC), "Finanzas provinciales", "Ministerio de Economía, cuentas provinciales", "f-fiscal", 1),
     "peso_voto": ("Peso de cada habitante en el Congreso", "bancas de diputados y senadores sobre la proporción de población, 1 = proporcional", str(ANIO_POB), "Política", "Ley 22.847 y proyecciones del INDEC", "f-representacion", 2),
-    "pct_pob_solo_cobertura_publica": ("Población sin obra social ni prepaga", "% de la población, solo cobertura pública", "2022", "Salud", "INDEC, Censo 2022", "f-adolescentes-nse", 1),
+    "pct_pob_solo_cobertura_publica": ("Población sin obra social, prepaga ni plan estatal", "% de la población, solo cobertura pública", "2022", "Salud", "INDEC, Censo 2022", "f-adolescentes-nse", 1),
     "pct_hog_nbi_2022": ("Hogares con necesidades básicas insatisfechas", "% de los hogares", "2022", "Pobreza", "INDEC, Censo 2022", "f-adolescentes-nse", 1),
     "pct_25mas_secundario_completo_o_mas": ("Adultos con secundario completo", "% de la población de 25 años o más", "2022", "Educación", "INDEC, Censo 2022", "f-adolescentes-nse", 1),
     "pct_hog_cloaca": ("Hogares con cloacas", "% de los hogares con desagüe a red pública", "2022", "Pobreza", "INDEC, Censo 2022", "f-adolescentes-nse", 1),

@@ -5838,7 +5838,8 @@ function resumenEspacios(esp) {
 }
 // Leyes de efecto directo (etapa 12): las que cambian, o proponían cambiar, algo que llega a la vida diaria de muchas personas o
 // hogares. Selección propia en la columna efecto_directo de leyes_clave.csv: en la lista van primero, en su grupo
-const opcionLey = l => `<option value="${l.k}">${l.anio}, ${l.nombre}</option>`;
+// el año va adelante: el que algunos nombres repiten entre paréntesis, para distinguir dos proyectos iguales, no se escribe dos veces
+const opcionLey = l => `<option value="${l.k}">${l.anio}, ${l.nombre.replace(` (${l.anio})`, "")}</option>`;
 $("vt-sel").innerHTML = `<optgroup label="Leyes y proyectos de efecto directo">${[...VT.leyes].reverse().filter(l => l.ed).map(opcionLey).join("")}</optgroup>` +
   `<optgroup label="Otras leyes y proyectos clave">${[...VT.leyes].reverse().filter(l => !l.ed).map(opcionLey).join("")}</optgroup>`;
 MED.vtLey = VT.leyes[VT.leyes.length - 1].k; MED.votaciones = "Diputados"; MED.vtmatriz = "Diputados"; MED.vtfiltro = "todas";
@@ -6243,11 +6244,13 @@ const CAUSA_COL = {perinatales: "#2C74B5", malformaciones: "#74ACDF", respirator
 DIB.causas = conTablas("causas", ["mortalidad_infantil_causas"], a => {
   const gr = MC.grupos, gk = Object.fromEntries(gr.map(x => [x.k, x]));
   const vida = ["respiratorias", "infecciosas", "externas"], sumaVida = d3.sum(vida, k => gk[k].pct);
-  const fuertes = gr.filter(x => Math.abs(x.r_cobertura) >= .4).sort((p, q) => q.r_cobertura - p.r_cobertura);
+  // las relaciones de al menos 0,4, para un lado o para el otro: con más población sin cobertura, cada causa sube o baja
+  const fuertes = gr.filter(x => Math.abs(x.r_cobertura) >= .4).sort((p, q) => Math.abs(q.r_cobertura) - Math.abs(p.r_cobertura));
+  const causasSentido = (l, s) => l.length ? `la mortalidad por ${listaY(l.map(x => `${x.lab.toLowerCase()} (correlación de ${n2(x.r_cobertura)})`))} tiende a ser más ${s}` : "";
   document.querySelector('[data-t="causas"]').textContent = `Entre ${MC.anios[0]} y ${MC.anios[1]} murieron en el país ${n0(MC.muertes)} bebés antes de cumplir un año. ` +
     `El ${pct(gk.perinatales.pct)} murió por afecciones perinatales, como la prematurez y las complicaciones del embarazo y el parto, y el ${pct(gk.malformaciones.pct)}, por malformaciones congénitas. ` +
     `Las enfermedades respiratorias, las infecciosas y las causas externas, que suelen estar más ligadas a las condiciones de vida, sumaron el ${pct(sumaVida)}. ` +
-    (fuertes.length ? `En las provincias con más población sin obra social, prepaga ni plan estatal de salud, la mortalidad por ${listaY(fuertes.map(x => `${x.lab.toLowerCase()} (correlación de ${n2(x.r_cobertura)})`))} tiende a ser más alta. ${fuertes.length > 1 ? "Esas relaciones no se ven en el gráfico y no prueban" : "Esa relación no se ve en el gráfico y no prueba"} que una cosa cause la otra.` : "");
+    (fuertes.length ? `En las provincias con más población sin obra social, prepaga ni plan estatal de salud, ${listaY([causasSentido(fuertes.filter(x => x.r_cobertura > 0), "alta"), causasSentido(fuertes.filter(x => x.r_cobertura < 0), "baja")].filter(Boolean))}. ${fuertes.length > 1 ? "Esas relaciones no se ven en el gráfico y no prueban" : "Esa relación no se ve en el gráfico y no prueba"} que una cosa cause la otra.` : "");
   const cl = gr.map(x => ({k: x.k, lab: x.lab, c: CAUSA_COL[x.k], texto: ["#F6B40E", "#74ACDF", "#C3CAD2", "#E4E9EF"].includes(CAUSA_COL[x.k]) ? "#18212B" : "#fff"}));
   document.getElementById("causas-ley").innerHTML = cl.map(k => `<span><i style="background:${k.c}"></i>${k.lab}</span>`).join("");
   const filas = T.mortalidad_infantil_causas, pais = filas.find(d => d.codigo_indec === "00");
