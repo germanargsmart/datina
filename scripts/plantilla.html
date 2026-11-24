@@ -220,6 +220,9 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     <!-- la historia de cada jurisdicción (11 de octubre de 2026), al final desde la etapa 6 del plan de mejora: la escribe el constructor
          desde datos/manual/provincias_historia.json -->
     <!--HISTORIA-->
+    <!-- el pie del perfil (plan de mejora, etapa 6, punto 8, 24 de noviembre de 2026): las cifras de las tarjetas en un CSV y la cita de la página,
+         con la provincia elegida. Lo muestra datina.js (pintarPanel) -->
+    <div class="pie prov-pie" id="prov-pie" hidden><span>Fuentes: las de cada tarjeta, en la ficha a la que lleva.</span><button type="button" class="enlace" id="prov-csv">Descargar el perfil (CSV)</button><button type="button" class="enlace" id="prov-citar">Copiar cita</button></div>
     </div>
     </div>
   </section>

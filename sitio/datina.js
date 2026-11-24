@@ -8499,6 +8499,7 @@ pintarCompara();
 pintarPuestos();
 pintarCensos();
 pintarEstablecimientos();
+const pie = $("prov-pie"); if (pie) pie.hidden = !nombre;
 if (PAGINA === "provincia") document.title = nombre ? `${nombre} en números | Datina` : TITULO_INICIAL;
 cambiarTexto($("prov-titulo-txt"), nombre ? `${nombre} en números` : "¿Cómo se compara tu provincia con el país?", animar);
 const pb = $("prov-band"), nueva = nombre ? bandera(prov, "grande") : "";
@@ -8520,6 +8521,38 @@ if (!fila) { punto.attr("opacity", 0); return; }
 .attr("cx", c.x(fila[c.k])).attr("opacity", 1);
 });
 }
+function perfilCSV() {
+const q = v => /[",\n]/.test(String(v)) ? `"${String(v).replace(/"/g, '""')}"` : String(v);
+const tema = Object.fromEntries(PERFIL_GRUPOS), orden_g = PERFIL_GRUPOS.map(([g]) => g);
+const filas = [...PERFIL].sort((a, b) => orden_g.indexOf(a.g) - orden_g.indexOf(b.g)).map(c => {
+const fila = c.d.find(d => d.codigo_indec === prov);
+if (!fila) return null;
+const orden = [...c.d].sort((a, b) => b[c.k] - a[c.k]).findIndex(d => d.codigo_indec === prov) + 1;
+const pag = UBIC[c.id] || UBIC[(SITIO.alias || {})[c.id]] || "";
+return [tema[c.g], c.lab, c.det, fila[c.k], c.pais ?? "", orden, c.d.length, pag ? `${location.origin}/${pag === "inicio" ? "" : pag}#${c.id}` : ""];
+}).filter(Boolean);
+return [["tema", "indicador", "detalle", "valor", "pais", "puesto", "de", "ficha"], ...filas].map(f => f.map(q).join(",")).join("\n") + "\n";
+}
+document.getElementById("prov-csv")?.addEventListener("click", () => {
+if (!prov) return;
+const a = document.createElement("a");
+a.href = URL.createObjectURL(new Blob(["﻿" + perfilCSV()], {type: "text/csv;charset=utf-8"}));
+a.download = `datina_perfil_${(urlProv(prov) || prov).replace("provincia-", "")}.csv`;
+document.body.appendChild(a); a.click(); a.remove();
+setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+avisar("Perfil descargado");
+});
+document.getElementById("prov-citar")?.addEventListener("click", async ev => {
+if (!prov) return;
+const b = ev.currentTarget, hoy = new Date();
+const cita = `Datina (${hoy.getFullYear()}). ${NOMBRES[prov]} en números. ${location.origin}/${urlProv(prov)}. ` +
+`Consultado el ${hoy.getDate()} de ${MESES[hoy.getMonth()]} de ${hoy.getFullYear()}.`;
+let ok = false;
+try { await navigator.clipboard.writeText(cita); ok = true; } catch (_) {}
+b.textContent = ok ? "Cita copiada" : "No se pudo copiar";
+avisar(ok ? "Cita copiada" : "No se pudo copiar");
+clearTimeout(b._t); b._t = setTimeout(() => { b.textContent = "Copiar cita"; }, 1800);
+});
 const PREG = [
 ["¿Cuánto cambiaron los pozos de Vaca Muerta?",
 `En ${PG.dv_ini}, un pozo tenía en promedio ${n0(PG.dv_rama_ini)} metros de rama horizontal y ${n1(PG.dv_etapas_ini)} etapas de fractura. En ${PG.fr_ult}, ${n0(PG.dv_rama_ult)} metros y ${n1(PG.dv_etapas_ult)} etapas.`, "#f-fracturas"],
