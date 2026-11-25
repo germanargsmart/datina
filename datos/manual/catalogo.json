@@ -81,7 +81,7 @@
     "corte-suprema"
    ],
    "evidencia": {
-    "archivo": "scripts/datina.js",
+    "archivo": "scripts/partes/corte.js",
     "contiene": "const CO_TABLAS = [\"corte_jueces\", \"corte_composicion\", \"corte_presidentes\"];"
    }
   },
@@ -90,7 +90,7 @@
     "corte-suprema"
    ],
    "evidencia": {
-    "archivo": "scripts/datina.js",
+    "archivo": "scripts/partes/corte.js",
     "contiene": "const CO_TABLAS = [\"corte_jueces\", \"corte_composicion\", \"corte_presidentes\"];"
    }
   },
@@ -99,7 +99,7 @@
     "corte-suprema"
    ],
    "evidencia": {
-    "archivo": "scripts/datina.js",
+    "archivo": "scripts/partes/corte.js",
     "contiene": "class=\"boton chico accion\" href=\"datos/corte_jueces_fuentes.csv\" download>Jueces, con fuentes y"
    }
   },
@@ -118,7 +118,7 @@
     "corte-suprema"
    ],
    "evidencia": {
-    "archivo": "scripts/datina.js",
+    "archivo": "scripts/partes/corte.js",
     "contiene": "[\"corte_jueces\", \"corte_composicion\", \"corte_presidentes\"];"
    }
   },
