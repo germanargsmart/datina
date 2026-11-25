@@ -304,7 +304,21 @@ El autor contestó todas las decisiones abiertas que se le pasaron ese día ("pa
 - f-parques: la cifra destacada pasa a **la superficie protegida**, con cuánto es mar.
 - Consultas con IA: **nombrar el modelo**, tomado por 03 de la función al armar.
 
-Siguen abiertas: la portada (el título de los artículos sobre el borde y el recuadro de la tarjeta del mapa entre 761 y 1199 píxeles, con capturas), los precios de la vivienda por capital, las 52 decisiones dudosas del Explorador, y el peso del repositorio y las ramas viejas en la computadora del autor.
+### Repaso del 25 de noviembre de 2026
+
+Con las respuestas del autor de ese día. La lista de arriba, "Decisiones del autor que siguen abiertas", queda como registro de cómo estaba el 11 de noviembre.
+
+- Suicidio por provincia: hecho (PR #179, mapa sin nombrar extremos). f-muertes queda como estaba.
+- Portada: **ya estaba decidida** el 14 de noviembre de 2026, con capturas (`DECISIONES.md`): los artículos quedan como están, con el ícono a la izquierda, y la tarjeta del mapa entre 761 y 1199 píxeles va más clara y sin borde ni sombra. La nota que la daba por abierta estaba desactualizada.
+- Las 52 dudas del Explorador: **ya estaban resueltas** el 14 de noviembre de 2026 (`EXPLORADOR.md`): son dudas sobre a qué organismo asignar cada archivo, no relaciones dudosas, y quedaron como estaban. El 25 de noviembre se le preguntó al autor como si fueran relaciones dudosas y eligió sacarlas: se le explicó el error y no se tocaron, porque sacarlas deja fichas sin origen y 03 no arma el sitio.
+- Contacto: el autor eligió `contacto@datina.com.ar`, con Email Routing de Cloudflare reenviando a su correo. Lo configura él en Cloudflare (toca los registros de correo del dominio). Cuando la prueba de envío funcione, la dirección va en la página de Contacto.
+- Precios de la vivienda por capital: el autor eligió una fuente privada citada. Lo que se encontró ese día:
+  - Ninguna fuente privada cubre las 24 capitales. Reporte Inmobiliario da alquileres de 7 capitales (Córdoba, Mendoza, Neuquén, Posadas, Salta, Santa Fe y San Miguel de Tucumán), trimestral desde 2009, en pesos y con la serie completa paga. Los índices de la Universidad de San Andrés con Mercado Libre (Excel mensual gratis desde 2018) cubren solo el AMBA, Córdoba y Rosario. Zonaprop, CABA, el Gran Buenos Aires, Córdoba y Rosario, en PDF.
+  - Ninguna tiene una licencia que deje republicar sus cifras en una tabla descargable: Reporte Inmobiliario permite transcribir citando y pide autorización expresa para reproducir, la de San Andrés no dice nada, Argenprop lo prohíbe y los términos de Zonaprop no se pudieron leer.
+  - Casi todas miden el precio de los avisos, no el de cierre (en CABA, el índice M² Real de RE/MAX y UCEMA da cerca de 5% menos), y miden distinto entre sí: Neuquén aparece entre 1.920 y 3.034 dólares por metro cuadrado según la fuente.
+  - Opciones que se le pasaron al autor: pedir permiso por escrito (sobre todo a San Andrés), una ficha solo con texto o dejarlo afuera. Espera su respuesta.
+- Repositorio y ramas: el autor pidió borrarlas sin romper nada. En GitHub hay 46 ramas viejas enteras dentro de `main` (borrarlas no pierde nada) y 5 con trabajo que no llegó a `main` (`claude/awesome-cannon-dkbl1m`, `claude/epic-gauss-wd7u38`, `claude/fase2-poblacion`, `claude/hopeful-curie-3rki8g` y `claude/snic-formato-nuevo`), que quedan. Los permisos de la sesión no dejaron borrarlas desde Claude: se le pasó al autor cómo hacerlo desde GitHub y los comandos para su computadora, que solo borran ramas ya unidas (`git branch -d`). La historia del repositorio no se reescribe.
+- `fichas.json` publicado sin uso (P2-7): **ya estaba hecho**. Desde el 14 de noviembre de 2026, 03 borra `sitio/datos/fichas.json` al armar y el sitio usa solo `fichas.js`.
 
 ### Fuentes caídas y tareas con fecha
 
