@@ -297,7 +297,7 @@
     "f-ministros"
    ],
    "evidencia": {
-    "archivo": "scripts/datina.js",
+    "archivo": "scripts/partes/politica.js",
     "contiene": "Object.keys(ORIGEN_COLOR).filter(k => T.gabinetes_origen.some(d => d[k] > 0));"
    }
   },
@@ -371,7 +371,7 @@
     "f-ministros"
    ],
    "evidencia": {
-    "archivo": "scripts/datina.js",
+    "archivo": "scripts/partes/politica.js",
     "contiene": "barrasH(G(\"ministros\"), {anim: a, data: T.ministros_provincias, k: \"ministros\", vf: n0, af: n0});"
    }
   },
@@ -509,7 +509,7 @@
     "f-atn"
    ],
    "evidencia": {
-    "archivo": "scripts/datina.js",
+    "archivo": "scripts/partes/politica.js",
     "contiene": "T.transferencias_serie, TRA = T.transferencias_acumulado;"
    }
   },

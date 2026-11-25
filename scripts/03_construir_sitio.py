@@ -776,14 +776,18 @@ css = (RAIZ / "scripts" / "datina.css").read_text(encoding="utf-8")
 js = (RAIZ / "scripts" / "datina.js").read_text(encoding="utf-8")
 # Ninguna clave repetida en los objetos principales de datina.js (etapa 25): en un objeto de JavaScript la segunda pisa a la primera sin aviso.
 # Se miran las claves que abren cada línea con dos espacios de sangría en el objeto y en los Object.assign que lo completan, que es como se
-# escriben, y las que se asignan sueltas más abajo (DIB.congreso = ..., TX["vprov"] = ...)
+# escriben, y las que se asignan sueltas más abajo (DIB.congreso = ..., TX["vprov"] = ...). Desde la fase 5 del plan técnico (25 de noviembre
+# de 2026) también las que se asignan en las partes de una sola página (scripts/partes/*.js), con o sin sangría, porque ahí muchas van dentro
+# de un if o una función: una clave de una parte que repite una del núcleo, o de otra parte, también frena el armado
+_JS_PARTES = [(f.name, f.read_text(encoding="utf-8")) for f in sorted((RAIZ / "scripts" / "partes").glob("*.js"))]
 for _obj in ("LEAD", "TX", "DIB", "CLAVE", "EXTRA", "EN_CIFRAS", "SERIE_CIFRA"):
     _bl = [m.group(1) for m in re.finditer(r"\n(?:const " + _obj + r" = |Object\.assign\(" + _obj + r", )\{\n(.*?)\n\}\)?;?\n", js, re.S)]
     assert _bl, f"no se encontró {_obj} en datina.js"
     _cl = [a or b for b_ in _bl for a, b in re.findall(r'^  (?:"([^"]+)"|([\w$]+)):', b_, re.M)]
     _cl += [a or b for a, b in re.findall(r"^" + _obj + r'(?:\["([^"]+)"\]|\.([\w$]+)) = ', js, re.M)]
+    _cl += [a or b for _, _t in _JS_PARTES for a, b in re.findall(r"^[ \t]*" + _obj + r'(?:\["([^"]+)"\]|\.([\w$]+)) = ', _t, re.M)]
     _rep = sorted({c for c in _cl if _cl.count(c) > 1})
-    assert not _rep, f"claves repetidas en {_obj} de datina.js: {_rep}"
+    assert not _rep, f"claves repetidas en {_obj} de datina.js y sus partes: {_rep}"
 # ícono de cada página: la grilla de secciones de la portada (datina.js) y el final de página ("Seguí explorando")
 SEC_ICONO = {"articulos": "periodico", "provincia": "pin", "trabajo": "maletin", "empresas": "tienda", "pobreza": "casa", "salud": "botiquin",
              "educacion": "birrete", "poblacion": "personas", "politica": "congreso", "justicia": "balanza", "movilidad": "colectivo", "construccion": "grua", "energia": "rayo", "petroleo": "ciguena", "seguridad": "escudo", "economia": "carrito", "migraciones": "globo", "gobierno": "mastil", "externo": "buque", "turismo": "valija",
