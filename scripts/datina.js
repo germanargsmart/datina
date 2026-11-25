@@ -10127,6 +10127,136 @@ const dosRel = (r1, r2) => fz(r1) === fz(r2) ? `las dos relaciones son ${PLURAL[
 // como en FIJOS de 03). Los años enteros que abarcaron los calcula 02
 const LIMITES = "septiembre de 2019 y abril de 2025";
 const ART_SERIE = [{
+  // 25 de noviembre de 2026 (pedido del autor, la versión argentina de un mapa de Guadalajara): qué parte de las mujeres de 25 a 54 años está
+  // ocupada en cada provincia y en cada departamento, con el Censo. El texto usa solo R.empleo_mujeres (02_procesar.py)
+  id: "a-empleo-mujeres", frec: "Se actualiza con cada censo", tablas: ["empleo_mujeres_provincias", "empleo_mujeres_departamentos", "empleo_mujeres_edad"],
+  dek: "Qué parte de las mujeres de 25 a 54 años tiene empleo en cada provincia y en cada departamento según el último censo, qué distancia hay con los varones, cómo cambia con la edad, cuánto varía entre CABA y el Gran Buenos Aires y si va junto con el secundario completo.",
+  fichas: [["f-desocupacion", "desocupación y empleo"]],
+  csv: [["empleo_mujeres_departamentos", "Descargar CSV por departamento"], ["empleo_mujeres_provincias", "Descargar CSV por provincia"],
+    ["empleo_mujeres_edad", "Descargar CSV por edad"]],
+  fuentes: "INDEC, Censo Nacional de Población, Hogares y Viviendas, características económicas y educación, y Encuesta Permanente de Hogares, tasas del mercado de trabajo",
+  texto: () => {
+    const E = R.empleo_mujeres, nom = ([t, v]) => `${t} (${pct(v)})`, dep = ([d, p]) => `${d} (${p})`;
+    const [pt, pb] = [E.prov_top, E.prov_bajas], difP = pt[0][1] - pb[0][1], difD = E.top[0][2] - E.bajos[0][2];
+    const enCaba = E.top.filter(x => x[1] === "CABA").length, [pm, nm] = E.menos_mitad_prov[0], chico = (E.n_muj / 1e6);
+    const respuesta = `En ${pt[0][0]}: el ${pct(pt[0][1])} de las mujeres de 25 a 54 años tiene empleo, frente al ${pct(pb[0][1])} en ${pb[0][0]}.`;
+    const bajada = `En todo el país es el ${pct(E.m)}, según el censo de ${E.anio}. Por departamento, entre los de ${n0(E.min_pob)} habitantes o más, ` +
+      `va del ${pct(E.bajos[0][2])} en ${dep(E.bajos[0])} al ${pct(E.top[0][2])} en la ${dep(E.top[0])}.`;
+    const contexto = "Cuántas mujeres tienen empleo cambia mucho de un lugar a otro, más que cuántos varones lo tienen. Este artículo lo mide en cada " +
+      "provincia y en los departamentos, partidos y comunas del país, con una misma pregunta del censo y con la edad controlada. La idea viene de " +
+      "un mapa del empleo de las mujeres en las zonas de Guadalajara, México, de @elcerebrohabla. No mide cuánto trabajan las mujeres: el trabajo " +
+      "de la casa y el de cuidado de personas no entran en esta cuenta.";
+    const medimos = ["Ocupada es quien trabajó al menos una hora en la semana anterior al censo para producir bienes o servicios para el mercado, o tenía un " +
+      "trabajo del que estuvo ausente. Cuenta igual un empleo formal, una changa o la ayuda en un negocio de la familia, y no cuenta lo que se " +
+      "produce solo para la propia casa.",
+      "Se toman las mujeres de 25 a 54 años, la edad en que la mayoría ya no estudia y todavía no se jubila. Así un lugar con muchas estudiantes o " +
+      `con muchas jubiladas no da más bajo solo por eso. De las ${n1(chico)} millones de mujeres de esa edad que viven en viviendas particulares, ` +
+      `${n1(E.n_ocu / 1e6)} millones están ocupadas.`];
+    const s1 = `${listaY(pt.map(nom))} tienen las partes más altas. Las más bajas son las de ${listaY(pb.map(nom))}. Entre los dos extremos hay ` +
+      `${n1(difP)} puntos. La mediana de las 24 jurisdicciones es del ${pct(E.mediana)}. Si se cuentan todas las mujeres de 14 años o más, la parte ` +
+      `del país baja al ${pct(E.m14)}, pero el orden de las jurisdicciones casi no cambia.`;
+    const s2 = `El mapa separa los ${E.n_dep} departamentos en cinco grupos del mismo tamaño, del que menos mujeres ocupadas tiene al que más. ` +
+      `El 10% de las mujeres vive en departamentos con menos del ${pct(E.p10)} y otro 10%, en departamentos con más del ${pct(E.p90)}. ` +
+      `En ${E.menos_mitad} de los ${E.n_grandes} departamentos de ${n0(E.min_pob)} habitantes o más, menos de la mitad de las mujeres de esa edad tiene empleo: ` +
+      `${nm} están en ${pm}. Los ${n0(E.n_dep - E.n_grandes)} departamentos más chicos están en el mapa, pero el artículo no los nombra porque pocas personas cambian mucho el porcentaje.`;
+    const s3 = `${enCaba} de los 10 departamentos con la parte más alta son comunas de CABA. Los más bajos están en ` +
+      `${listaY([...new Set(E.bajos.map(x => x[1]))])}. Entre el primero y el último hay ${n1(difD)} puntos. En los lugares donde menos mujeres tienen ` +
+      `empleo también suele haber menos varones con empleo: en ${dep(E.bajos[0])}, el ${pct(E.bajos[0][3])}, frente al ${pct(E.v)} de todo el país. ` +
+      "El censo no cuenta como ocupado a quien produce solo para su propia casa, y estos datos no dicen cuánto pesa eso en cada lugar.";
+    const bx = E.brecha_max[0];
+    const s4 = `En todas las jurisdicciones hay más varones ocupados que mujeres. En el país la distancia es de ${n1(E.brecha)} puntos: ${pct(E.v)} de los varones y ` +
+      `${pct(E.m)} de las mujeres. La más grande es la de ${bx[0]}, ${n1(bx[1])} puntos (${pct(bx[3])} y ${pct(bx[2])}), y la más chica, la de ` +
+      `${E.brecha_min[0][0]}, ${n1(E.brecha_min[0][1])}. Entre las jurisdicciones, la parte de los varones va del ${pct(E.rango_v[0])} al ${pct(E.rango_v[1])}, y la de las ` +
+      `mujeres, del ${pct(E.rango_m[0])} al ${pct(E.rango_m[1])}: las diferencias entre lugares son mayores entre las mujeres.`;
+    const ed = d => E.edad.find(x => x[0] === d), mx = E.edad_max, j = ed("60 a 64");
+    const s5 = `La parte más alta es la de las mujeres de ${mx[0]} años, ${pct(mx[1])}. En las de 20 a 24 es del ${pct(ed("20 a 24")[1])}, y en las de 60 a 64, del ` +
+      `${pct(j[1])}, frente al ${pct(j[2])} de los varones: la edad para jubilarse en el régimen general es de 60 años para las mujeres y de 65 para los varones.`;
+    const s6 = `En CABA tiene empleo el ${pct(E.caba.m)} de las mujeres de 25 a 54 años, y en los 24 partidos del Gran Buenos Aires, el ${pct(E.gba.m)}. Dentro de CABA, ` +
+      `el valor va del ${pct(E.caba.min[2])} en la ${E.caba.min[0]} al ${pct(E.caba.max[2])} en la ${E.caba.max[0]}. Entre los partidos, del ` +
+      `${pct(E.gba.min[2])} en ${E.gba.min[0]} al ${pct(E.gba.max[2])} en ${E.gba.max[0]}. ${E.comunas_sobre_gba} de las 15 comunas superan al partido más alto.`;
+    const s7 = `${respuestaR(E.sec.rs)} En las ${E.sec.h} jurisdicciones donde más adultos terminaron el secundario, la mediana de mujeres con empleo es del ` +
+      `${pct(E.sec.mas)}. En las ${E.sec.h} con menos, del ${pct(E.sec.menos)}. Son dos datos que van juntos entre provincias: no dicen que una cosa cause la otra ` +
+      `ni qué pasa con cada mujer. Son 24 casos: sin CABA, la que más se separa del resto, la correlación pasa de ${rTxt(E.sec.rs)} a ${rTxt(E.sec.rs_sin_caba)}, una relación ${fuerza(E.sec.rs_sin_caba)}.`;
+    const sintesis = [`El ${pct(E.m)} de las mujeres de 25 a 54 años tiene empleo en el país: ${n1(E.brecha)} puntos menos que los varones.`,
+      `La parte más alta es la de ${pt[0][0]} (${pct(pt[0][1])}), y la más baja, la de ${pb[0][0]} (${pct(pb[0][1])}).`,
+      `En ${E.menos_mitad} departamentos de ${n0(E.min_pob)} habitantes o más, menos de la mitad de las mujeres de esa edad tiene empleo.`,
+      `Donde más adultos tienen el secundario completo hay más mujeres con empleo: una relación ${fuerza(E.sec.rs)} entre las jurisdicciones.`];
+    const lim = ["No mide cultura ni roles de género. Una parte más baja puede deberse a la falta de empleo cerca, a la falta de lugares de cuidado, al ingreso " +
+      "de los demás o a decisiones propias, y estos datos no separan esas causas.",
+      "No cuenta el trabajo de la casa, el de cuidado de personas ni lo que se produce para el consumo propio.",
+      "Estar ocupada no dice nada de la calidad del empleo, del ingreso ni de las horas: cuenta igual un trabajo de una hora que uno de tiempo completo.",
+      `El nivel depende de la fuente. La tasa de empleo de toda la población en el censo fue del ${pct(E.eph.caba[0])} en CABA y del ${pct(E.eph.gba[0])} en los 24 partidos. ` +
+      `La Encuesta Permanente de Hogares del segundo trimestre de ese año dio ${pct(E.eph.caba[1])} y ${pct(E.eph.gba[1])}. Por eso este artículo compara lugares y no fija el nivel. ` +
+      "La comparación por sexo y edad con la encuesta no se hizo.",
+      `El mapa cuenta también los ${n0(E.n_chicos)} departamentos con menos de mil mujeres de esa edad, donde unas pocas personas mueven el porcentaje. El más chico tiene ${n0(E.min_mujeres)}.`,
+      `El censo es de ${E.anio}: no dice cómo cambió el empleo en cada lugar desde entonces.`,
+      "Los porcentajes describen lugares, no personas: no se puede concluir cómo es cada mujer por el lugar donde vive."];
+    const notas = [`Ocupación: INDEC, Censo ${E.anio}, cuadros 2.1 a 2.24 de características económicas de la población, en viviendas particulares, por sexo registrado al nacer y grupos de cinco años de edad. ` +
+      "El INDEC repartió entre mujeres y varones las respuestas de la categoría X. Los ocupados de cada departamento coinciden con los de la base por radio censal del mismo censo.",
+      `Departamentos: se nombran los de ${n0(E.min_pob)} habitantes o más en viviendas particulares.`,
+      `La relación con el secundario se mide con la correlación de Spearman, de menos 1 a 1: ${rTxt(E.sec.rs)}. Entre las jurisdicciones, la parte de las mujeres de 25 a 54 años y la de 14 años o más dan ${rTxt(E.spearman_14)}. Entre los departamentos de ${n0(E.min_pob)} habitantes o más, la parte de las mujeres y la de los varones dan ${rTxt(E.corr_mv)}.`,
+      `Secundario completo: adultos de 25 años o más, Censo ${E.anio}. Tasa de empleo de la encuesta: INDEC, EPH, segundo trimestre de ${E.anio}, ocupados sobre el total de la población.`];
+    return {respuesta, bajada, contexto, medimos, sintesis, lim, notas, secciones: [
+      {preg: "¿En qué provincias tienen más empleo las mujeres?", g: "em-provincias", forma: "barras",
+        tit: `En ${pt[0][0]} tiene empleo el ${pct(pt[0][1])} de las mujeres de 25 a 54 años`,
+        pie: `% de las mujeres de 25 a 54 años ocupadas en viviendas particulares, censo de ${E.anio}. La línea marca el total del país.`, txt: [s1]},
+      {preg: "¿Y en cada departamento?", g: "em-mapa", forma: "barras",
+        html: `<div class="grafico mp-mapa" data-g="art-em-mapa" data-forma="barras" style="--filas:25"></div>`,
+        tit: `En ${E.menos_mitad} departamentos, menos de la mitad de las mujeres tiene empleo`,
+        pie: `% de las mujeres de 25 a 54 años ocupadas, censo de ${E.anio}, los ${E.n_dep} departamentos, partidos y comunas en cinco grupos del mismo tamaño. ` +
+          `La cuenta del título es de los de ${n0(E.min_pob)} habitantes o más. Con una provincia elegida, el mapa la muestra de cerca.`, txt: [s2]},
+      {preg: "¿En qué departamentos es más alta y más baja?", g: "em-departamentos", forma: "barras",
+        tit: `De ${pct(E.top[0][2])} en la ${E.top[0][0]} de CABA a ${pct(E.bajos[0][2])} en ${E.bajos[0][0]}`,
+        pie: `% de las mujeres de 25 a 54 años ocupadas, los diez departamentos con la parte más alta y los diez con la más baja, censo de ${E.anio}. Solo los de ${n0(E.min_pob)} habitantes o más.`, txt: [s3]},
+      {preg: "¿Qué distancia hay con los varones?", g: "em-brecha", forma: "barras",
+        tit: `Hay ${n1(E.brecha)} puntos de distancia en el país y hasta ${n1(bx[1])} en ${bx[0]}`,
+        pie: `Puntos porcentuales entre la parte de los varones y la de las mujeres de 25 a 54 años ocupadas, censo de ${E.anio}. La línea marca el total del país.`, txt: [s4]},
+      {preg: "¿A qué edad tienen más empleo las mujeres?", g: "em-edad", forma: "lineas",
+        tit: `La parte más alta es la de las mujeres de ${mx[0]} años: ${pct(mx[1])}`,
+        pie: `% ocupado de cada grupo de cinco años de edad, país, censo de ${E.anio}. El eje marca el comienzo de cada grupo.`, txt: [s5]},
+      {preg: "¿Y en CABA y en el Gran Buenos Aires?", g: "em-amba", forma: "barras",
+        tit: `En CABA tiene empleo el ${pct(E.caba.m)}, y en los 24 partidos, el ${pct(E.gba.m)}`,
+        pie: `% de las mujeres de 25 a 54 años ocupadas en las 15 comunas de CABA y los 24 partidos del Gran Buenos Aires, censo de ${E.anio}. En azul más oscuro, las comunas.`, txt: [s6]},
+      {preg: "¿Tienen más empleo donde más adultos terminaron el secundario?", g: "em-secundario", forma: "puntos",
+        tit: `Secundario completo y empleo de las mujeres: una relación ${fuerza(E.sec.rs)}`,
+        pie: `Cada punto es una jurisdicción, censo de ${E.anio}. Secundario: % de los adultos de 25 años o más que lo completó. Empleo: % de las mujeres de 25 a 54 años. La línea punteada muestra la tendencia.`, txt: [s7]},
+    ]};
+  },
+  dib: {
+    "em-provincias": (el, a) => barrasH(el, {anim: a, data: T.empleo_mujeres_provincias.filter(r => r.codigo_indec !== "00"), k: "pct_mujeres", vf: pct, af: v => n0(v) + "%",
+      ref: R.empleo_mujeres.m, refLab: `País ${pct(R.empleo_mujeres.m)}`,
+      tip: d => `<b>${d.territorio}</b><br>Mujeres ocupadas: ${pct(d.pct_mujeres)}<br>Varones ocupados: ${pct(d.pct_varones)}`}),
+    "em-mapa": (el, a) => {
+      const D = new Map(T.empleo_mujeres_departamentos.map(r => [r.codigo_dep, r]));
+      return mapaDep(el, {anim: a, filas: T.empleo_mujeres_departamentos, k: "pct_mujeres", nombre: "Mujeres de 25 a 54 años ocupadas", vf: v => n0(v) + "%", tf: pct,
+        extra: id => { const r = D.get(id); return r ? `<br>Varones: ${pct(r.pct_varones)}<br>${n0(r.mujeres)} mujeres de esa edad` : ""; }});
+    },
+    "em-departamentos": (el, a) => {
+      const F = T.empleo_mujeres_departamentos.filter(r => r.poblacion_vp >= R.empleo_mujeres.min_pob).sort((p, q) => q.pct_mujeres - p.pct_mujeres);
+      const data = [...F.slice(0, 10), ...F.slice(-10)].map(r => ({...r, codigo_indec: r.codigo_dep, territorio: `${r.departamento} (${NOMBRES[r.codigo_indec] || r.codigo_indec})`}));
+      return barrasH(el, {anim: a, data, k: "pct_mujeres", vf: pct, af: v => n0(v) + "%", l: 260, lAngosto: 175,
+        tip: d => `<b>${d.territorio}</b><br>Mujeres ocupadas: ${pct(d.pct_mujeres)}<br>Varones ocupados: ${pct(d.pct_varones)}<br>${n0(d.mujeres)} mujeres de 25 a 54 años`});
+    },
+    "em-brecha": (el, a) => barrasH(el, {anim: a, data: T.empleo_mujeres_provincias.filter(r => r.codigo_indec !== "00"), k: "brecha", vf: n1, af: n0,
+      ref: R.empleo_mujeres.brecha, refLab: `País ${n1(R.empleo_mujeres.brecha)}`,
+      tip: d => `<b>${d.territorio}</b><br>${n1(d.brecha)} puntos<br>Varones ${pct(d.pct_varones)}, mujeres ${pct(d.pct_mujeres)}`}),
+    "em-edad": (el, a) => lineas(el, {anim: a, data: T.empleo_mujeres_edad, x: "desde", y0: 0, y1: 100, vf: pct, yf: v => n0(v) + "%", xl: d => `${d.edad} años`,
+      series: [{k: "pct_varones", lab: "Varones", c: NAR}, {k: "pct_mujeres", lab: "Mujeres", c: FRI}]}),
+    "em-amba": (el, a) => {
+      const G = new Set(R.empleo_mujeres.gba_codigos);
+      const data = T.empleo_mujeres_departamentos.filter(r => r.codigo_indec === "02" || G.has(r.codigo_dep)).map(r => ({...r, codigo_indec: r.codigo_dep,
+        territorio: r.codigo_dep.startsWith("02") ? `${r.departamento} (CABA)` : r.departamento}));
+      return barrasH(el, {anim: a, data, k: "pct_mujeres", vf: pct, af: v => n0(v) + "%", l: 190, lAngosto: 150,
+        color: d => d.codigo_indec.startsWith("02") ? css("--celeste-fuerte") : css("--celeste"),
+        tip: d => `<b>${d.territorio}</b><br>Mujeres ocupadas: ${pct(d.pct_mujeres)}<br>Varones ocupados: ${pct(d.pct_varones)}`});
+    },
+    "em-secundario": (el, a) => {
+      const F = T.empleo_mujeres_provincias.filter(r => r.codigo_indec !== "00");
+      dispersion(el, {anim: a, data: F, x: "pct_secundario", y: "pct_mujeres", xLab: "Adultos con secundario completo", yLab: "Mujeres ocupadas",
+        fx: v => n0(v) + "%", fy: v => n0(v) + "%", vx: v => `${pct(v)} de los adultos de 25 años o más`, vy: v => `${pct(v)} de las mujeres de 25 a 54 años`});
+    },
+  },
+}, {
   // etapa 5 del plan de mejora: el nombre más elegido en cada provincia (auditoría de los artículos, idea 10)
   id: "a-nombres-provincias", frec: "Se actualiza cada año", tablas: ["nombres_top", "nombres_serie"],
   dek: "El nombre más inscripto para las nenas y para los varones en cada provincia en el último año, en cuántas jurisdicciones gana cada uno, cuáles son los diez más elegidos del país, cómo cambiaron año por año y qué nombres se repiten en más provincias.",

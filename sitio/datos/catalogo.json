@@ -5774,6 +5774,231 @@
    "como_citar": "Datina (año de la consulta). ¿Cuántos chicos reciben la Asignación Universal por Hijo? Con datos de Secretaría de Seguridad Social, Boletín Estadístico de la Seguridad Social (capítulo VI y edición por provincia), con datos de ANSES, y proyecciones de población del INDEC. https://datina.com.ar/pobreza#f-auh. Consultado el día de la consulta."
   },
   {
+   "tabla": "empleo_mujeres_departamentos",
+   "csv": "https://datina.com.ar/datos/empleo_mujeres_departamentos.csv",
+   "metadatos": "https://datina.com.ar/datos/empleo_mujeres_departamentos.metadata.json",
+   "titulo": "¿Dónde tienen más empleo las mujeres?",
+   "descripcion": "Qué parte de las mujeres de 25 a 54 años tiene empleo en cada provincia y en cada departamento según el último censo, qué distancia hay con los varones, cómo cambia con la edad, cuánto varía entre CABA y el Gran Buenos Aires y si va junto con el secundario completo.",
+   "seccion": "Trabajo",
+   "ficha": "https://datina.com.ar/a-empleo-mujeres",
+   "fuente": "INDEC, Censo Nacional de Población, Hogares y Viviendas, características económicas y educación, y Encuesta Permanente de Hogares, tasas del mercado de trabajo",
+   "organismos": [
+    "Secretaría de Educación",
+    "INDEC (Instituto Nacional de Estadística y Censos)"
+   ],
+   "actualizacion": "Se actualiza con cada censo.",
+   "cobertura": "Departamentos",
+   "periodo": "",
+   "anio_desde": null,
+   "anio_hasta": null,
+   "filas": 527,
+   "columnas": [
+    {
+     "nombre": "codigo_dep",
+     "tipo": "Código",
+     "valores": "527 códigos"
+    },
+    {
+     "nombre": "codigo_indec",
+     "tipo": "Código",
+     "valores": "24 códigos"
+    },
+    {
+     "nombre": "departamento",
+     "tipo": "Texto",
+     "valores": "445 valores distintos"
+    },
+    {
+     "nombre": "poblacion_vp",
+     "tipo": "Número",
+     "valores": "413 a 1.837.168"
+    },
+    {
+     "nombre": "mujeres",
+     "tipo": "Número",
+     "valores": "75 a 399.918"
+    },
+    {
+     "nombre": "mujeres_ocupadas",
+     "tipo": "Número",
+     "valores": "49 a 262.762"
+    },
+    {
+     "nombre": "pct_mujeres",
+     "tipo": "Número",
+     "valores": "33,68 a 85,19"
+    },
+    {
+     "nombre": "varones",
+     "tipo": "Número",
+     "valores": "87 a 370.990"
+    },
+    {
+     "nombre": "varones_ocupados",
+     "tipo": "Número",
+     "valores": "75 a 324.551"
+    },
+    {
+     "nombre": "pct_varones",
+     "tipo": "Número",
+     "valores": "50,59 a 95,33"
+    },
+    {
+     "nombre": "brecha",
+     "tipo": "Número",
+     "valores": "4,7 a 43"
+    }
+   ],
+   "unidades": [],
+   "como_se_calcula": "",
+   "origen": [],
+   "sensible": false,
+   "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+   "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
+   "uso_libre": true,
+   "como_citar": "Datina (año de la consulta). ¿Dónde tienen más empleo las mujeres? Con datos de INDEC, Censo Nacional de Población, Hogares y Viviendas, características económicas y educación, y Encuesta Permanente de Hogares, tasas del mercado de trabajo. https://datina.com.ar/a-empleo-mujeres. Consultado el día de la consulta."
+  },
+  {
+   "tabla": "empleo_mujeres_edad",
+   "csv": "https://datina.com.ar/datos/empleo_mujeres_edad.csv",
+   "metadatos": "https://datina.com.ar/datos/empleo_mujeres_edad.metadata.json",
+   "titulo": "¿Dónde tienen más empleo las mujeres?",
+   "descripcion": "Qué parte de las mujeres de 25 a 54 años tiene empleo en cada provincia y en cada departamento según el último censo, qué distancia hay con los varones, cómo cambia con la edad, cuánto varía entre CABA y el Gran Buenos Aires y si va junto con el secundario completo.",
+   "seccion": "Trabajo",
+   "ficha": "https://datina.com.ar/a-empleo-mujeres",
+   "fuente": "INDEC, Censo Nacional de Población, Hogares y Viviendas, características económicas y educación, y Encuesta Permanente de Hogares, tasas del mercado de trabajo",
+   "organismos": [
+    "Secretaría de Educación",
+    "INDEC (Instituto Nacional de Estadística y Censos)"
+   ],
+   "actualizacion": "Se actualiza con cada censo.",
+   "cobertura": "Sin desglose territorial",
+   "periodo": "",
+   "anio_desde": null,
+   "anio_hasta": null,
+   "filas": 14,
+   "columnas": [
+    {
+     "nombre": "edad",
+     "tipo": "Texto",
+     "valores": "14 valores distintos"
+    },
+    {
+     "nombre": "desde",
+     "tipo": "Número",
+     "valores": "15 a 80"
+    },
+    {
+     "nombre": "pct_mujeres",
+     "tipo": "Número",
+     "valores": "6,06 a 71,65"
+    },
+    {
+     "nombre": "pct_varones",
+     "tipo": "Número",
+     "valores": "13,56 a 89,36"
+    }
+   ],
+   "unidades": [],
+   "como_se_calcula": "",
+   "origen": [],
+   "sensible": false,
+   "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+   "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
+   "uso_libre": true,
+   "como_citar": "Datina (año de la consulta). ¿Dónde tienen más empleo las mujeres? Con datos de INDEC, Censo Nacional de Población, Hogares y Viviendas, características económicas y educación, y Encuesta Permanente de Hogares, tasas del mercado de trabajo. https://datina.com.ar/a-empleo-mujeres. Consultado el día de la consulta."
+  },
+  {
+   "tabla": "empleo_mujeres_provincias",
+   "csv": "https://datina.com.ar/datos/empleo_mujeres_provincias.csv",
+   "metadatos": "https://datina.com.ar/datos/empleo_mujeres_provincias.metadata.json",
+   "titulo": "¿Dónde tienen más empleo las mujeres?",
+   "descripcion": "Qué parte de las mujeres de 25 a 54 años tiene empleo en cada provincia y en cada departamento según el último censo, qué distancia hay con los varones, cómo cambia con la edad, cuánto varía entre CABA y el Gran Buenos Aires y si va junto con el secundario completo.",
+   "seccion": "Trabajo",
+   "ficha": "https://datina.com.ar/a-empleo-mujeres",
+   "fuente": "INDEC, Censo Nacional de Población, Hogares y Viviendas, características económicas y educación, y Encuesta Permanente de Hogares, tasas del mercado de trabajo",
+   "organismos": [
+    "Secretaría de Educación",
+    "INDEC (Instituto Nacional de Estadística y Censos)"
+   ],
+   "actualizacion": "Se actualiza con cada censo.",
+   "cobertura": "Las 24 jurisdicciones y el total del país",
+   "periodo": "",
+   "anio_desde": null,
+   "anio_hasta": null,
+   "filas": 25,
+   "columnas": [
+    {
+     "nombre": "codigo_indec",
+     "tipo": "Código",
+     "valores": "25 códigos"
+    },
+    {
+     "nombre": "territorio",
+     "tipo": "Texto",
+     "valores": "25 valores distintos"
+    },
+    {
+     "nombre": "mujeres",
+     "tipo": "Número",
+     "valores": "43.632 a 9.771.973"
+    },
+    {
+     "nombre": "mujeres_ocupadas",
+     "tipo": "Número",
+     "valores": "32.242 a 6.726.504"
+    },
+    {
+     "nombre": "varones",
+     "tipo": "Número",
+     "valores": "42.236 a 9.163.001"
+    },
+    {
+     "nombre": "varones_ocupados",
+     "tipo": "Número",
+     "valores": "36.143 a 7.979.529"
+    },
+    {
+     "nombre": "pct_mujeres",
+     "tipo": "Número",
+     "valores": "55,67 a 81,3"
+    },
+    {
+     "nombre": "pct_varones",
+     "tipo": "Número",
+     "valores": "79,89 a 90,72"
+    },
+    {
+     "nombre": "brecha",
+     "tipo": "Número",
+     "valores": "7,3 a 25,4"
+    },
+    {
+     "nombre": "pct_mujeres_14",
+     "tipo": "Número",
+     "valores": "40,46 a 57,2"
+    },
+    {
+     "nombre": "pct_varones_14",
+     "tipo": "Número",
+     "valores": "61,85 a 70,78"
+    },
+    {
+     "nombre": "pct_secundario",
+     "tipo": "Número",
+     "valores": "33,75 a 66,5 (1 celda vacía)"
+    }
+   ],
+   "unidades": [],
+   "como_se_calcula": "",
+   "origen": [],
+   "sensible": false,
+   "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+   "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
+   "uso_libre": true,
+   "como_citar": "Datina (año de la consulta). ¿Dónde tienen más empleo las mujeres? Con datos de INDEC, Censo Nacional de Población, Hogares y Viviendas, características económicas y educación, y Encuesta Permanente de Hogares, tasas del mercado de trabajo. https://datina.com.ar/a-empleo-mujeres. Consultado el día de la consulta."
+  },
+  {
    "tabla": "empleo_provincias",
    "csv": "https://datina.com.ar/datos/empleo_provincias.csv",
    "metadatos": "https://datina.com.ar/datos/empleo_provincias.metadata.json",

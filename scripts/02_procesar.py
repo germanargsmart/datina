@@ -8474,6 +8474,101 @@ cruces_series = cruces_series.dropna()[["id", "codigo_indec", "anio", "valor"]].
 cruces_series.to_csv(SITIO / "cruces_series.csv", index=False, lineterminator="\n")
 SERIES_IDS = sorted(cruces_series.id.unique())
 
+# El empleo de las mujeres por departamento (25 de noviembre de 2026, artículo a-empleo-mujeres, pedido del autor): ocupadas sobre mujeres de 25 a
+# 54 años, con la edad controlada (no pesan quienes estudian ni las mayores). Cuadros 2.1 a 2.24 de características económicas del Censo 2022,
+# que guarda scripts/censo_2022_actividad.py (una sola vez). Ocupada: trabajó al menos una hora en la semana anterior para producir bienes o
+# servicios para el mercado, o tenía un trabajo del que se ausentó. Los departamentos que se nombran son los de 10.000 habitantes o más, la misma
+# regla que migraciones: hay departamentos con 75 mujeres de esa edad. Prefijo del bloque: emj_
+emj_ = pd.read_csv(RAIZ / "datos" / "manual" / "censo2022_actividad.csv", dtype={"codigo_indec": str, "codigo_dep": str})
+EMJ_EDADES = ["25-29", "30-34", "35-39", "40-44", "45-49", "50-54"]
+EMJ_GBA = ("06028 06035 06091 06260 06270 06274 06371 06408 06410 06412 06427 06434 06490 06515 06539 06560 06568 06658 06749 06756 06760 06805 "
+           "06840 06861").split()  # los 24 partidos del Gran Buenos Aires del INDEC
+
+
+def emj_tasas(d, clave):
+    """Mujeres y varones de 25 a 54 años: cuántos son, cuántos están ocupados, qué parte y la brecha (de las cifras que se muestran, R12)."""
+    g = d[d.edad.isin(EMJ_EDADES)].groupby([clave, "sexo"])[["poblacion", "ocupada"]].sum().unstack("sexo")
+    o = pd.DataFrame({"mujeres": g["poblacion"]["mujeres"], "mujeres_ocupadas": g["ocupada"]["mujeres"], "varones": g["poblacion"]["varones"],
+                      "varones_ocupados": g["ocupada"]["varones"]})
+    o["pct_mujeres"], o["pct_varones"] = o.mujeres_ocupadas / o.mujeres * 100, o.varones_ocupados / o.varones * 100
+    o["brecha"] = (o.pct_varones.map(r1) - o.pct_mujeres.map(r1)).round(1)
+    return o.reset_index()
+
+
+emj_dp, emj_pv = emj_[emj_.codigo_dep.notna()], emj_[emj_.codigo_dep.isna()]
+emj_d = emj_tasas(emj_dp, "codigo_dep").merge(mig_dep[["codigo_dep", "codigo_indec", "departamento", "poblacion_vp"]], on="codigo_dep", validate="1:1")
+assert len(emj_d) == 527 and set(emj_d.codigo_dep) == set(mig_dep.codigo_dep), "el empleo de las mujeres no trae los 527 departamentos"
+empleo_mujeres_departamentos = emj_d[["codigo_dep", "codigo_indec", "departamento", "poblacion_vp", "mujeres", "mujeres_ocupadas", "pct_mujeres",
+                                      "varones", "varones_ocupados", "pct_varones", "brecha"]].sort_values("codigo_dep")
+emj_p = pd.concat([emj_tasas(emj_pv, "codigo_indec"), emj_tasas(emj_pv.assign(codigo_indec="00"), "codigo_indec")])
+emj_p.insert(1, "territorio", emj_p.codigo_indec.map({**CORTO, "00": "Argentina"}))
+# la parte de todas las mujeres de 14 años o más, para decir cuánto cambia el orden con la edad
+emj_14 = pd.concat([emj_pv, emj_pv.assign(codigo_indec="00")]).groupby(["codigo_indec", "sexo"])[["poblacion", "ocupada"]].sum()
+emj_14 = (emj_14.ocupada / emj_14.poblacion * 100).unstack("sexo")
+emj_p["pct_mujeres_14"], emj_p["pct_varones_14"] = emj_p.codigo_indec.map(emj_14.mujeres), emj_p.codigo_indec.map(emj_14.varones)
+emj_p["pct_secundario"] = emj_p.codigo_indec.map(cru.set_index("codigo_indec").pct_25mas_secundario_completo_o_mas)
+empleo_mujeres_provincias = emj_p.sort_values("pct_mujeres", ascending=False).reset_index(drop=True)
+assert len(empleo_mujeres_provincias) == 25 and empleo_mujeres_provincias.territorio.notna().all()
+emj_e = emj_pv.groupby(["edad", "sexo"])[["poblacion", "ocupada"]].sum()
+emj_e = (emj_e.ocupada / emj_e.poblacion * 100).unstack("sexo")
+empleo_mujeres_edad = pd.DataFrame({"edad": [e.replace("-", " a ") for e in emj_e.index], "desde": [int(e[:2]) for e in emj_e.index],
+                                    "pct_mujeres": emj_e.mujeres.values, "pct_varones": emj_e.varones.values}).sort_values("desde")
+empleo_mujeres_edad = empleo_mujeres_edad[empleo_mujeres_edad.desde >= 15].reset_index(drop=True)
+for _emj_c, _emj_v in [("pct_mujeres", "censo2022_mujeres_ocupadas_25_54"), ("pct_varones", "censo2022_varones_ocupados_25_54")]:
+    agregar(empleo_mujeres_provincias[["codigo_indec", "territorio", _emj_c]].rename(columns={_emj_c: "valor"}).assign(periodo=2022), _emj_v,
+            "% de las mujeres de 25 a 54 años" if _emj_c == "pct_mujeres" else "% de los varones de 25 a 54 años", "INDEC, Censo 2022")
+
+
+def emj_lista(d, k, n, asc):
+    return [[f.departamento, CORTO[f.codigo_indec], r1(f.pct_mujeres), r1(f.pct_varones)] for f in d.sort_values(k, ascending=asc).head(n).itertuples()]
+
+
+_emj_pais = empleo_mujeres_provincias.set_index("codigo_indec").loc["00"]
+_emj_n = empleo_mujeres_provincias[empleo_mujeres_provincias.codigo_indec != "00"]
+_emj_g = emj_d[emj_d.poblacion_vp >= 10000]
+_emj_o = emj_d.sort_values("pct_mujeres")
+_emj_ac = _emj_o.mujeres.cumsum() / _emj_o.mujeres.sum()
+_emj_q = lambda q: r1(_emj_o.pct_mujeres[_emj_ac >= q].iloc[0])  # el valor del departamento en el que se llega a esa parte de las mujeres
+_emj_b = _emj_n.sort_values("brecha")
+_emj_cab, _emj_gba = emj_d[emj_d.codigo_indec == "02"], emj_d[emj_d.codigo_dep.isin(EMJ_GBA)]
+assert len(_emj_cab) == 15 and len(_emj_gba) == 24
+_emj_s = _emj_n.sort_values("pct_secundario", ascending=False)
+_emj_ed = empleo_mujeres_edad.set_index("desde")
+# el nivel depende de la fuente: la tasa de empleo (ocupados sobre toda la población) del censo y la de la EPH del mismo trimestre
+_emj_eph = pd.read_csv(CRUDO / "indec_eph_aglomerados.csv")
+_emj_eph = _emj_eph[(_emj_eph.periodo == "2022T2") & (_emj_eph.indicador == "empleo")].set_index("aglomerado").valor
+_emj_oc = emj_dp.groupby("codigo_dep").ocupada.sum()
+_emj_te = lambda deps: r1(_emj_oc[deps.codigo_dep].sum() / deps.poblacion_vp.sum() * 100)
+EMJ_RES = {
+    "anio": 2022, "n_dep": int(len(emj_d)), "min_pob": 10000, "n_grandes": int(len(_emj_g)), "n_chicos": int((emj_d.mujeres < 1000).sum()),
+    "min_mujeres": int(emj_d.mujeres.min()), "n_muj": int(_emj_pais.mujeres), "n_ocu": int(_emj_pais.mujeres_ocupadas),
+    "m": r1(_emj_pais.pct_mujeres), "v": r1(_emj_pais.pct_varones), "brecha": float(_emj_pais.brecha), "m14": r1(_emj_pais.pct_mujeres_14),
+    "v14": r1(_emj_pais.pct_varones_14), "mediana": r1(_emj_n.pct_mujeres.median()),
+    "prov_top": [[f.territorio, r1(f.pct_mujeres)] for f in _emj_n.head(3).itertuples()],
+    "prov_bajas": [[f.territorio, r1(f.pct_mujeres)] for f in _emj_n.tail(3).iloc[::-1].itertuples()],
+    "spearman_14": round(float(_emj_n.pct_mujeres.rank().corr(_emj_n.pct_mujeres_14.rank())), 2),
+    "brecha_min": [[f.territorio, float(f.brecha)] for f in _emj_b.head(2).itertuples()],
+    "brecha_max": [[f.territorio, float(f.brecha), r1(f.pct_mujeres), r1(f.pct_varones)] for f in _emj_b.iloc[::-1].head(2).itertuples()],
+    "rango_v": [r1(_emj_n.pct_varones.min()), r1(_emj_n.pct_varones.max())], "rango_m": [r1(_emj_n.pct_mujeres.min()), r1(_emj_n.pct_mujeres.max())],
+    "top": emj_lista(_emj_g, "pct_mujeres", 10, False), "bajos": emj_lista(_emj_g, "pct_mujeres", 10, True),
+    "p10": _emj_q(.1), "p90": _emj_q(.9), "menos_mitad": int((_emj_g.pct_mujeres.map(r1) < 50).sum()),
+    "menos_mitad_prov": [[CORTO[c], int(n)] for c, n in _emj_g[_emj_g.pct_mujeres.map(r1) < 50].codigo_indec.value_counts().items()],
+    "corr_mv": round(float(_emj_g.pct_mujeres.rank().corr(_emj_g.pct_varones.rank())), 2),
+    "edad": [[f.edad, r1(f.pct_mujeres), r1(f.pct_varones)] for f in empleo_mujeres_edad.itertuples()],
+    "edad_max": [empleo_mujeres_edad.loc[empleo_mujeres_edad.pct_mujeres.idxmax(), "edad"], r1(_emj_ed.pct_mujeres.max())],
+    "caba": {"m": r1(_emj_cab.mujeres_ocupadas.sum() / _emj_cab.mujeres.sum() * 100), "max": emj_lista(_emj_cab, "pct_mujeres", 1, False)[0],
+             "min": emj_lista(_emj_cab, "pct_mujeres", 1, True)[0]},
+    "gba": {"m": r1(_emj_gba.mujeres_ocupadas.sum() / _emj_gba.mujeres.sum() * 100), "max": emj_lista(_emj_gba, "pct_mujeres", 1, False)[0],
+            "min": emj_lista(_emj_gba, "pct_mujeres", 1, True)[0]},
+    "gba_codigos": EMJ_GBA,
+    "comunas_sobre_gba": int((_emj_cab.pct_mujeres > _emj_gba.pct_mujeres.max()).sum()),
+    "sec": {"rs": round(float(_emj_n.pct_mujeres.rank().corr(_emj_n.pct_secundario.rank())), 2), "h": 12,
+            "mas": r1(_emj_s.head(12).pct_mujeres.median()), "menos": r1(_emj_s.tail(12).pct_mujeres.median()),
+            "rs_sin_caba": round(float(_emj_s[_emj_s.codigo_indec != "02"].pct_mujeres.rank().corr(_emj_s[_emj_s.codigo_indec != "02"].pct_secundario.rank())), 2)},
+    "eph": {"caba": [_emj_te(_emj_cab), float(_emj_eph["Ciudad Autónoma de Buenos Aires"])],
+            "gba": [_emj_te(_emj_gba), float(_emj_eph["Partidos del Gran Buenos Aires"])]},
+}
+
 # ---------------------------------------------------------------- puestos a lo largo del tiempo (F14)
 # F14 (plan de mejora, aprobado por el autor el 28 de octubre de 2026): el puesto de cada provincia entre las 24, en los indicadores del
 # perfil que tienen una serie anual por provincia en la tabla larga. Sin los suicidios (temas sensibles: no entran en el perfil).
@@ -8910,6 +9005,9 @@ tablas = {
     "nacidos_otro_pais_provincias": nacidos_otro_pais_provincias,
     "nacidos_otro_pais_paises": nacidos_otro_pais_paises,
     "migraciones_departamentos": migraciones_departamentos,
+    "empleo_mujeres_departamentos": empleo_mujeres_departamentos,
+    "empleo_mujeres_provincias": empleo_mujeres_provincias,
+    "empleo_mujeres_edad": empleo_mujeres_edad,
     "refugio_solicitudes": refugio_solicitudes,
     "refugio_nacionalidades": refugio_nacionalidades,
     "refugio_acnur": refugio_acnur,
@@ -9428,6 +9526,7 @@ resumen["ingresos_aglomerados"] = ipa_res
 resumen["desocupacion"] = dso_res
 resumen["informalidad"] = inf_res
 resumen["cobertura_tipo"] = cbs_res
+resumen["empleo_mujeres"] = EMJ_RES
 resumen["pobreza_aglomerados"] = pza_res
 resumen["pobreza_ninez"] = PNZ_RES
 resumen["capitales_eph"] = [{"id": k, "nombre": v[0], "unidad": v[1], "periodo": v[2], "tema": v[3], "fuente": v[4], "ficha": v[5], "dec": v[6]}

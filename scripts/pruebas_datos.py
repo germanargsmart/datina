@@ -545,7 +545,7 @@ def prueba_errores(d, t):
 UNIDADES = {"%", "% de los chicos de la edad", "% de estudiantes de 6 grado", "% de hogares", "% de la electricidad generada", "% de la población",
             "% de la población de 15 años o más", "% de la población económicamente activa", "% de la población en edad de terminarlo",
             "% de la población en viviendas particulares", "% de la producción de gas", "% de la producción de petróleo",
-            "% de la superficie continental", "% de las empresas", "% de las personas privadas de libertad", "% de las personas ocupadas", "% de los electores", "% de los hogares",
+            "% de la superficie continental", "% de las empresas", "% de las mujeres de 25 a 54 años", "% de los varones de 25 a 54 años", "% de las personas privadas de libertad", "% de las personas ocupadas", "% de los electores", "% de los hogares",
             "% de los ingresos totales", "% de los votos positivos", "% de personas", "% de personas de 0 a 17 años", "% del PBI", "% del producto interno bruto",
             "% del salario promedio registrado", "% del territorio", "% para los doce meses siguientes", "GWh", "GWh por año", "MW",
             "accesos cada 100 hogares", "aportantes por beneficio", "asalariados registrados cada 1.000 habitantes", "años",
