@@ -349,11 +349,11 @@
         kpi("El que más creció", `<p class="rt-k-cifra rt-k-txt">${bandera(g.prov)}${esc(g.n)}</p>`, `${masMenos(g.cambio, pct)}, entre los de 10.000 habitantes o más`);
     } else {
       const v = suma(deps, d => d.viv), s = suma(deps, d => d.sin), mot = D.motivos.map(k => ({k, v: suma(deps, d => d.mot[k])})).sort((a, b) => b.v - a.v)[0];
-      const top = [...deps].filter(d => d.viv >= 1e4).sort((a, b) => parteSin(b) - parteSin(a))[0], nuevos = deps.filter(d => d.cambio >= CORTES_POB[4]);
+      const top = [...deps].filter(d => d.viv >= 1e4).sort((a, b) => parteSin(b) - parteSin(a))[0], muchas = deps.filter(d => d.sin / d.viv >= .25);
       el.innerHTML = kpi(`Viviendas sin personas en ${D.anio}`, cifra(dec(s / 1e6, 1) + " millones"), `${pct(s / v * 100)} de las viviendas particulares`) +
         kpi("El motivo más frecuente", `<p class="rt-k-cifra rt-k-txt">${MOTIVO[mot.k]}</p>`, `${pct(mot.v / s * 100)} de las viviendas sin personas`) +
         kpi(E.motivo ? MOTIVO[E.motivo] + ": la mayor parte" : "La mayor parte", `<p class="rt-k-cifra rt-k-txt">${bandera(top.prov)}${esc(top.n)}</p>`, `${pct(parteSin(top))}, entre los de 10.000 viviendas o más`) +
-        kpi("Donde la población más creció", cifra(pct(suma(nuevos, d => d.sin) / suma(nuevos, d => d.viv) * 100)), `sin personas en los ${nuevos.length} departamentos que crecieron ${CORTES_POB[4]}% o más`);
+        kpi("Con un cuarto o más sin personas", cifra(`${muchas.length} de ${deps.length}`), "departamentos, partidos y comunas");
     }
   }
   function barraDoble(v, max) {
@@ -363,21 +363,21 @@
   function pintarLado() {
     const ol = $("mu-lado-lista"), tit = $("mu-lado-tit");
     if (E.vista === "mudanzas") {
-      tit.textContent = {saldo: "Saldo de cada jurisdicción", llegan: "Adónde llegó más gente", van: "De dónde se fue más gente"}[E.medida] + (E.cada ? ", cada 1.000 habitantes" : "");
+      tit.textContent = {saldo: "Saldo de cada jurisdicción", llegan: "Adónde llegó más gente", van: "De dónde se fue más gente"}[E.medida] + (E.cada ? ", cada 1.000 personas" : "");
       const l = todas().sort((a, b) => medido(b) - medido(a)), max = Math.max(...l.map(p => Math.abs(medido(p))));
       ol.innerHTML = l.map(p => `<li><button type="button" data-p="${p.c}" aria-pressed="${p.c === E.p}">${bandera(p.c)}<span class="rt-b-n">${esc(p.n)}</span><span class="rt-b-x">${fMed(medido(p))}</span>${
         E.medida === "saldo" ? barraDoble(medido(p), max).replace("mu-doble", "mu-doble" + (p.dudoso ? " duda" : "")) : `<span class="rt-b-barra mu-b-${E.medida}"><i style="width:${medido(p) / max * 100}%"></i></span>`}</button></li>`).join("");
     } else {
       const pob = E.vista === "poblacion", min = pob ? 1e4 : 1e4, f = pob ? d => d.cambio : parteSin;
       const l = deps.filter(d => (!E.p || d.prov === E.p) && (pob ? d.p22 : d.viv) >= (E.p ? 0 : min) && !(pob && ["06466", "94011"].includes(d.id))).sort((a, b) => f(b) - f(a));
-      const sup = l.slice(0, E.p ? 24 : pob ? 13 : 22), max = Math.max(...sup.map(d => Math.abs(f(d))));
+      const sup = E.p ? l : l.slice(0, pob ? 15 : 22), max = Math.max(...sup.map(d => Math.abs(f(d))));
       tit.textContent = pob ? (E.p ? `Departamentos de ${prov[E.p].n}` : "Los que más crecieron, desde 10.000 habitantes") : (E.p ? `Departamentos de ${prov[E.p].n}` : "Los que más tienen, desde 10.000 viviendas");
       if (E.p === "02") tit.textContent = "Comunas de CABA";
       if (E.p === "06") tit.textContent = "Partidos de Buenos Aires";
       const fila = d => `<li><button type="button" data-dep="${d.id}" aria-pressed="${d.id === E.dep}"${E.p ? ' class="sin-bandera"' : ""}>${E.p ? "" : bandera(d.prov)}<span class="rt-b-n">${esc((pob && d.juntos ? d.juntos : d.n) + (E.p ? "" : `, ${prov[d.prov].corto}`))}</span><span class="rt-b-x">${
         pob ? masMenos(d.cambio, pct) : pct(f(d))}</span>${pob ? barraDoble(d.cambio, Math.max(max, 1)) : `<span class="rt-b-barra"><i style="width:${f(d) / max * 100}%"></i></span>`}</button></li>`;
-      const baja = pob && !E.p ? deps.filter(d => d.cambio < 0).sort((a, b) => a.cambio - b.cambio).slice(0, 8) : [];
-      ol.innerHTML = sup.map(fila).join("") + (baja.length ? `<li class="mu-corte">Los que más gente perdieron</li>` + baja.map(fila).join("") : "");
+      const baja = pob && !E.p ? l.filter(d => d.cambio < 0).reverse() : [];
+      ol.innerHTML = sup.map(fila).join("") + (baja.length ? `<li class="mu-corte">Los que perdieron gente, desde 10.000 habitantes</li>` + baja.map(fila).join("") : "");
     }
   }
   function pintarFicha() {
@@ -389,7 +389,7 @@
       const p = prov[E.p];
       c.innerHTML = `<div class="rt-f-cab">${bandera(p.c)}<div><h3 id="mu-ficha-tit">${esc(p.n)}</h3><p>${p.dudoso ? "No alcanza para decir si gana o pierde gente" : p.saldo > 0 ? "Llegó más gente de la que se fue" : "Se fue más gente de la que llegó"}</p></div></div>
         <dl class="rt-f-datos"><div><dt>Llegaron</dt><dd class="mu-t-llega">${num(p.llegan)}</dd></div><div><dt>Se fueron</dt><dd class="mu-t-va">${num(p.van)}</dd></div>
-        <div><dt>Saldo</dt><dd>${masMenos(p.saldo, num)}</dd></div><div><dt>Cada 1.000 habitantes</dt><dd>${masMenos(p.saldo / p.viven * 1000, x => dec(x, 1))}</dd></div></dl>
+        <div><dt>Saldo</dt><dd>${masMenos(p.saldo, num)}</dd></div><div><dt>Cada 1.000 de 5 años y más</dt><dd>${masMenos(p.saldo / p.viven * 1000, x => dec(x, 1))}</dd></div></dl>
         <h4>De dónde vinieron</h4><ul class="rt-f-lista">${origenes(E.p).slice(0, 4).map(x => fila(x, p.llegan)).join("")}</ul>
         <h4>Adónde se fueron</h4><ul class="rt-f-lista">${destinos(E.p).slice(0, 4).map(x => fila(x, p.van)).join("")}</ul>
         <p class="mu-f-nota">Además llegaron ${num(p.sinDecir)} personas que no dijeron de qué provincia y ${num(p.exterior)} desde otro país.</p>`;
@@ -451,8 +451,8 @@
       const l = E.p ? deps.filter(d => d.prov === E.p) : deps, v = suma(l, d => d.viv), sin = suma(l, d => d.sin), mot = D.motivos.map(k => ({k, v: suma(l, d => d.mot[k])})).sort((a, b) => b.v - a.v);
       s = [`En el Censo ${D.anio}, ${num(sin)} de las ${num(v)} viviendas particulares ${E.p ? `de ${prov[E.p].n}` : "del país"} no tenían personas presentes (${pct(sin / v * 100)}). Los motivos más frecuentes: ${lista(mot.slice(0, 3).map(x => `${MOTIVO[x.k].toLowerCase()} (${pct(x.v / sin * 100)})`))}.`];
       if (!E.p) {
-        const t = tramos(), alto = t[5].l, medio = t.slice(2, 5).flatMap(x => x.l), r = a => pct(suma(a, d => d.sin) / suma(a, d => d.viv) * 100);
-        s.push(`Donde la población más creció hay más viviendas sin personas: ${r(alto)} en los ${alto.length} departamentos que crecieron ${CORTES_POB[4]}% o más, contra ${r(medio)} en los que crecieron menos. Muchos son lugares de veraneo.`);
+        const t = tramos(), alto = t[5].l, bajo = t[0].l, medio = t.slice(1, 5).flatMap(x => x.l), r = a => pct(suma(a, d => d.sin) / suma(a, d => d.viv) * 100);
+        s.push(`Hay más viviendas sin personas en los dos extremos: ${r(bajo)} en los ${bajo.length} departamentos que perdieron ${-CORTES_POB[0]}% o más de su población y ${r(alto)} en los ${alto.length} que crecieron ${CORTES_POB[4]}% o más, contra ${r(medio)} en los demás. Son pocos departamentos. En los que más crecieron, el ${pct(suma(alto, d => d.mot.uso_temporal) / suma(alto, d => d.sin) * 100)} de las viviendas sin personas son de vacaciones o fin de semana, y en los que más perdieron, el ${pct(suma(bajo, d => d.mot.uso_temporal) / suma(bajo, d => d.sin) * 100)}.`);
       }
     }
     $("mu-frase").innerHTML = s.map(x => `<p>${esc(x)}</p>`).join("");
@@ -467,7 +467,7 @@
   }
   let orden = {k: "saldo", sube: false};
   const COLS = [["n", "Jurisdicción", p => p.n, x => esc(x)], ["llegan", "Llegaron", p => p.llegan, num], ["van", "Se fueron", p => p.van, num], ["saldo", "Saldo", p => p.saldo, x => masMenos(x, num)],
-    ["cada", "Saldo cada 1.000", p => p.saldo / p.viven * 1000, x => masMenos(x, y => dec(y, 1))], ["sin", "Sin decir de dónde", p => p.sinDecir / (p.sinDecir + p.llegan) * 100, pct],
+    ["cada", "Saldo cada 1.000 de 5 años y más", p => p.saldo / p.viven * 1000, x => masMenos(x, y => dec(y, 1))], ["sin", "Sin decir de dónde", p => p.sinDecir / (p.sinDecir + p.llegan) * 100, pct],
     ["rep", "Saldo si se reparten", p => p.repartido, x => masMenos(x, num)], ["ext", "De otro país", p => p.exterior, num], ["p22", "Población", p => p.p22, num], ["cambio", "Cambio desde el censo anterior", p => p.cambio, x => masMenos(x, pct)]];
   function pintarTabla() {
     const col = COLS.find(x => x[0] === orden.k), T = todas().sort((a, b) => (typeof col[2](a) === "string" ? col[2](a).localeCompare(col[2](b), "es") : col[2](a) - col[2](b)) * (orden.sube ? 1 : -1));

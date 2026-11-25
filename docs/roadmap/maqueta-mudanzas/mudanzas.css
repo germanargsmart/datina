@@ -60,6 +60,8 @@
 .mu .rt-tip b{color:var(--ink)}
 .mu-lado{display:flex;flex-direction:column}
 .mu .rt-barras{margin-bottom:0}
+.mu-lado .rt-barras{max-height:830px;overflow-y:auto}
+.mu-lado .rt-barras:focus-visible{outline:2px solid var(--azul)}
 .mu .rt-barras button{grid-template-columns:24px minmax(0,1fr) auto;row-gap:3px;padding:4px var(--e-2)}
 .mu .rt-barras .sin-bandera{grid-template-columns:minmax(0,1fr) auto}.mu .rt-barras .sin-bandera :is(.rt-b-barra,.mu-doble){grid-column:1/-1}
 .mu .rt-barras .mu-flag{grid-row:1/span 2;width:24px;height:24px}

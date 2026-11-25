@@ -25,7 +25,7 @@
                 <button type="button" data-m="llegan" aria-pressed="false">Llegan</button>
                 <button type="button" data-m="van" aria-pressed="false">Se van</button>
               </div>
-              <label class="mu-check" data-solo="mudanzas"><input type="checkbox" id="mu-cada"> Cada 1.000 habitantes</label>
+              <label class="mu-check" data-solo="mudanzas"><input type="checkbox" id="mu-cada"> Cada 1.000 personas de 5 años y más</label>
               <label class="selector-ficha mu-sel" data-solo="viviendas" hidden><span class="solo-lector">Motivo</span><select id="mu-motivo"><option value="">Todos los motivos</option><option value="uso_temporal">Vacaciones o fin de semana</option><option value="alquiler_venta">En alquiler o en venta</option><option value="en_construccion">En construcción</option><option value="residentes_ausentes">Sus habitantes no estaban</option><option value="oficina_comercio">Oficina, consultorio o comercio</option><option value="otra_situacion">Otra situación</option></select></label>
             </div>
           </div>
@@ -52,7 +52,7 @@
           </div>
         </section>
         <div class="rt-kpis mu-kpis" id="mu-kpis"></div>
-        <section class="rt-card rt-lado mu-lado" aria-labelledby="mu-lado-tit"><h2 class="rt-card-tit" id="mu-lado-tit"></h2><ol class="rt-barras" id="mu-lado-lista"></ol></section>
+        <section class="rt-card rt-lado mu-lado" aria-labelledby="mu-lado-tit"><h2 class="rt-card-tit" id="mu-lado-tit"></h2><ol class="rt-barras" id="mu-lado-lista" tabindex="0" aria-labelledby="mu-lado-tit"></ol></section>
       </div>
       <p class="rt-ayuda" data-solo="mudanzas">Cada línea va de donde vivían a donde viven: empieza clara y termina oscura. Más grosor es más gente. Los puntos que se mueven muestran el sentido, no son viajes de verdad. Tocá una provincia para ver su informe.</p>
       <p class="rt-ayuda" data-solo="poblacion viviendas" hidden>Tocá un departamento para ver su ficha. Para acercar, los botones, dos dedos o Ctrl y la rueda del mouse.</p>

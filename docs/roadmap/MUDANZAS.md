@@ -24,6 +24,7 @@ Las viviendas sin personas y su motivo salen de `censo2022_departamentos.csv`, q
 - El saldo sale solo de quienes dijeron su provincia. El de Buenos Aires da +5.196. La nota de la CEPAL encontrada en la búsqueda del 25 de noviembre de 2026 habla de algo más de 5 mil (no se abrió la nota).
 - Prueba de robustez: repartiendo a quienes no lo dijeron, en cada destino, como a los demás, el saldo cambia de signo en siete jurisdicciones: Chubut, Corrientes, Jujuy, La Pampa, Santa Fe, Tierra del Fuego y Tucumán. Van con trama y el texto dice que no se puede decir si ganan o pierden. Córdoba, Río Negro, Neuquén, San Luis, Buenos Aires, Entre Ríos, Mendoza, La Rioja y San Juan quedan a favor en las dos cuentas (La Rioja y San Juan, por muy poco).
 - No hay tabla de origen y destino entre departamentos: solo cuántos llegaron de otra provincia.
+- Valcheta (Río Negro) baja de 7.101 a 4.319 (39,2% menos). Es lo que publica el INDEC, y el RENAPER tiene 5.114 personas en 2026, también muy por debajo de 2010. Las listas van desde 10.000 habitantes, así que no encabeza ninguna.
 - El Censo 2010 fue de hecho y el de 2022, de derecho: el cambio de población no es del todo comparable.
 - Del documento mexicano no se puede repetir: las viviendas deshabitadas de 2010 por departamento (sin fuente confirmada), la encuesta de 2025 y las zonas chicas. A cambio, el censo argentino dice por qué no había personas en cada vivienda.
 
@@ -31,12 +32,13 @@ Las viviendas sin personas y su motivo salen de `censo2022_departamentos.csv`, q
 
 `docs/roadmap/maqueta-mudanzas/`: `seccion.html` (el marcado), `mudanzas.css` y `maqueta.py`, que las pone en una copia de `sitio/rutas.html` (`python scripts/mudanzas_sitio.py` y después `python docs/roadmap/maqueta-mudanzas/maqueta.py docs/roadmap/maqueta-mudanzas`). El código de la página, `scripts/mudanzas.js`, y los datos, `scripts/mudanzas_sitio.py`, son los definitivos. Se borra al integrarla.
 
-Parte de la rama `claude/rutas-mapa`, porque usa sus tarjetas, su ficha y sus controles: sale después de ella.
+La rama `claude/migracion` parte de `claude/rutas-mapa`, porque usa sus tarjetas, su ficha y sus controles: sale después de ella.
 
 ## Falta para publicar
 
 1. Que el autor apruebe la maqueta.
 2. Pasar el marcado a `plantilla.html` (años y "tres de cada diez" con `{{ruta}}`) y el CSS a `datina.css`.
 3. 02: las tres tablas y las variables por provincia en la tabla larga (`agregar()`), con su unidad en `pruebas_datos.py`. 03: llamar a `mudanzas_sitio.armar()`, copiar `mudanzas.js`, caché, `MENUS`, ícono, imagen al compartir.
+   Los colores escritos en `mudanzas.js` pasan a `:root`. En `mudanzas_departamentos.csv`, Lezama y Chascomús, y Tolhuin y Río Grande, repiten `cambio_personas`, que es el de los dos juntos: sumar la columna los cuenta dos veces, así que hay que dejarlo en uno solo.
 4. `relaciones.json`, `catalogo.json`, `peso_paginas.json` y las pruebas de páginas, de fallas y de 320 píxeles.
 5. Enlazar con `f-migracion-interna` y `a-migracion-interna`.
