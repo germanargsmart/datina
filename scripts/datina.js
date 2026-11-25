@@ -1744,7 +1744,10 @@ const TX = {
   // la cifra destacada ya dice la parte del último año: el texto empieza por la del primero, sin repetirla
   adolescentes: `En ${nac.anio_ini}, ${n1(nac.pct_ini)} de cada 100 nacimientos del país eran de madres menores de 20 años. En cantidad, el máximo desde ${nac.anio_ini} fue de ${n0(nac.ado_pico)} nacimientos, en ${nac.ado_anio_pico}. En ${nac.anio_ult} fueron ${n0(nac.ado_ult)}, ${pct(Math.abs(nac.ado_caida))} menos.`,
   suicidio: `En ${s.anio}, el SNIC registró ${n0(s.casos)} suicidios, una tasa de ${n1(s.tasa)} por cada 100.000 habitantes de 5 años y más. En ${s.anio-1}, la tasa había sido de ${n1(s.tasa_prev)}. La de los varones fue de ${n1(s.tasa_v)} y la de las mujeres, de ${n1(s.tasa_m)}.`,
-  "suicidio-prov": `${s.top} registró la tasa más alta, con ${n1(s.top_tasa)} suicidios por cada 100.000 habitantes de 5 años y más, y ${s.low} la más baja, con ${n1(s.low_tasa)}. La tasa nacional fue ${n1(s.tasa)}.`,
+  // sin nombrar la tasa más alta ni la más baja (decisión del autor del 24 de noviembre de 2026): sin ranking, como piden las recomendaciones
+  // para informar sobre suicidio. El mapa agrupa sin ordenar, y el valor de cada jurisdicción está al pasar el mouse y en «Ver tabla»
+  "suicidio-prov": `En ${s.anio}, la tasa nacional fue de ${n1(s.tasa)} suicidios por cada 100.000 habitantes de 5 años y más. El mapa agrupa a las jurisdicciones en cinco tramos con casi la misma cantidad cada uno. ` +
+    `En las de menos habitantes, unos pocos casos más o menos cambian mucho la tasa de un año a otro.`,
   edad: `Sobre ${n0(s.n_sat)} casos registrados entre ${s.sat_desde} y ${s.sat_hasta} con edad y sexo conocidos, el ${pct(s.pct_varones)} fueron varones y el ${pct(s.pct_jovenes)} tenía entre 15 y 29 años.`,
   muertes: `En ${s.anio}, el SNIC registró ${n0(s.casos)} suicidios, ${n0(s.homicidios)} homicidios dolosos y ${n0(s.viales)} muertes en siniestros viales. Por cada homicidio hubo ${n1(s.razon_hom)} suicidios. Desde ${s.anio_cruce} los suicidios superan cada año a las muertes viales. El último dato del Registro Nacional de Femicidios de la Justicia Argentina es de ${R.femicidios.anio}: ${n0(R.femicidios.n)} víctimas directas.`,
   "muertes-nota": `Cantidad de víctimas por año. Homicidios dolosos y muertes en siniestros viales según el mismo registro del SNIC. Femicidios: víctimas directas según el Registro Nacional de Femicidios de la Justicia Argentina. La figura se incorporó al Código Penal en diciembre de 2012 (Ley 26.791) y los datos abiertos del registro empiezan en ${R.femicidios.ini}. Incluye travesticidios y transfemicidios.`,
@@ -3539,7 +3542,9 @@ const DIB = protegerDib({
     series:[{k:"total", lab:"Tarjetas", c:NAR, w:2.4}]}),
   suicidio: a => lineas(G("suicidio"), {anim:a, data: T.suicidio_serie, x:"anio", y0:0, vf: n1, yf: v => v,
     series:[{k:"tasa_varones", lab:"Varones", c:NAR, w:2}, {k:"tasa", lab:"Total", c:css("--ink"), w:2.6}, {k:"tasa_mujeres", lab:"Mujeres", c:FRI, w:2}]}),
-  "suicidio-prov": a => barrasH(G("suicidio-prov"), {anim:a, data: T.suicidio_provincias, k:"tasa", ref: R.suicidio.tasa, refLab:`País ${n1(R.suicidio.tasa)}`, sinTip: true}),
+  // un mapa en lugar de las barras de mayor a menor (decisión del autor del 24 de noviembre de 2026)
+  "suicidio-prov": a => mapaProv(G("suicidio-prov"), {anim: a, filas: T.suicidio_provincias, k: "tasa", nombre: "Suicidios por cada 100.000 habitantes de 5 años y más", vf: n1,
+    extra: r => `<br>${n0(r.casos)} ${r.casos === 1 ? "caso" : "casos"} en ${R.suicidio.anio}`}),
   edad: a => piramide(G("edad"), {anim:a, data: T.suicidio_edad_sexo}),
   empresas: a => barrasH(G("empresas"), {anim:a, data: T.empresas_provincias, k:"cada_1000_hab", ref: EM.pais_1000,
     tip: d => `<b>${d.territorio}</b><br>${n1(d.cada_1000_hab)} cada 1.000 habitantes<br>${n0(d.empresas)} empresas con empleados`, refLab: `País ${n1(EM.pais_1000)}`}),

@@ -8946,7 +8946,6 @@ pico = nac_df.loc[nac_df.nacimientos.idxmax()]
 n24 = nac_df.iloc[-1]
 ado_pico = nac_df.loc[nac_df.madres_menores_20.idxmax()]
 top_emp, low_emp = emp.sort_values("cada_100").iloc[-1], emp.sort_values("cada_100").iloc[0]
-top_sui, low_sui = sui_prov.sort_values("tasa").iloc[-1], sui_prov.sort_values("tasa").iloc[0]
 
 resumen = {
     "actualizado": pd.Timestamp.now().strftime("%d/%m/%Y"),
@@ -8997,8 +8996,6 @@ resumen = {
         "casos_prev": int(s24.casos), "tasa_v": r1(s25.tasa_varones), "tasa_m": r1(s25.tasa_mujeres),
         "homicidios": int(m25.homicidios), "viales": int(m25.siniestros_viales),
         "razon_hom": r1(m25.suicidios / m25.homicidios),
-        "top": top_sui.territorio, "top_tasa": r1(top_sui.tasa),
-        "low": low_sui.territorio, "low_tasa": r1(low_sui.tasa),
         "pct_jovenes": r1(pct_jovenes), "pct_varones": r1(pct_varones), "n_sat": n_sat,
         "serie_ini": int(tasa_sui.anio.min()), "sat_desde": int(sat.anio.min()), "sat_hasta": int(sat.anio.max()),
         "anio_cruce": int(next(a for a in muertes.anio.sort_values()
