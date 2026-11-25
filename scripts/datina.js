@@ -9352,7 +9352,7 @@ const ART_SERIE = [{
       `va del ${pct(E.bajos[0][2])} en ${dep(E.bajos[0])} al ${pct(E.top[0][2])} en la ${dep(E.top[0])}.`;
     const contexto = "Cuántas mujeres tienen empleo cambia mucho de un lugar a otro, más que cuántos varones lo tienen. Este artículo lo mide en cada " +
       "provincia y en los departamentos, partidos y comunas del país, con una misma pregunta del censo y con la edad controlada. La idea viene de " +
-      "un mapa del empleo de las mujeres en las zonas de Guadalajara, México, de @elcerebrohabla. No mide cuánto trabajan las mujeres: el trabajo " +
+      "un mapa del empleo de las mujeres en las zonas de Guadalajara, México. No mide cuánto trabajan las mujeres: el trabajo " +
       "de la casa y el de cuidado de personas no entran en esta cuenta.";
     const medimos = ["Ocupada es quien trabajó al menos una hora en la semana anterior al censo para producir bienes o servicios para el mercado, o tenía un " +
       "trabajo del que estuvo ausente. Cuenta igual un empleo formal, una changa o la ayuda en un negocio de la familia, y no cuenta lo que se " +
