@@ -204,6 +204,12 @@
   Cache-Control: public, max-age=31536000, immutable
 /datos/cobertura_tipo_provincias.json
   Cache-Control: public, max-age=31536000, immutable
+/datos/empleo_mujeres_departamentos.json
+  Cache-Control: public, max-age=31536000, immutable
+/datos/empleo_mujeres_provincias.json
+  Cache-Control: public, max-age=31536000, immutable
+/datos/empleo_mujeres_edad.json
+  Cache-Control: public, max-age=31536000, immutable
 /consulta-ia.js
   Cache-Control: public, max-age=31536000, immutable
 /datos/mesas/*
