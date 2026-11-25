@@ -1,13 +1,13 @@
 // Prueba de la escala de fuerza de las correlaciones (plan de mejora, E5 y T6, 27 de octubre de 2026). Hasta entonces datina.js tenía cinco
 // escalas, y el mismo valor recibía otra palabra según la página: Cruces llamaba "fuerte" a un 0,52 que los artículos llamaban "moderada".
 // Controla que:
-// - haya una sola función que pone la palabra (fuerza) y ningún otro "? "fuerte" :" o parecido en sitio/datina.js;
+// - haya una sola función que pone la palabra (fuerza) y ningún otro "? "fuerte" :" o parecido en sitio/datina.js ni en sus partes (sitio/partes/);
 // - los casos fijos del plan den la palabra de la escala (0,39, 0,40, 0,52, 0,60 y 0,70, y los negativos igual);
 // - la palabra siga al número que se muestra con dos decimales: un 0,395 se ve "0,40" y es "moderada";
 // - la respuesta destacada de los artículos salga de la misma escala (E4, 28 de octubre de 2026): "Sí." desde 0,60, "En parte." desde 0,40,
 //   "Apenas." desde 0,20, y ningún artículo escriba "Sí, en general." por su cuenta.
 // Uso: node scripts/prueba_escala.mjs   (Node 22 o más, después de armar el sitio). La corre cada PR (.github/workflows/pruebas.yml)
-import { readFileSync } from "node:fs";
+import { existsSync, readdirSync, readFileSync } from "node:fs";
 
 const fuente = readFileSync(new URL("../sitio/datina.js", import.meta.url), "utf8");
 const lineas = fuente.split("\n");
@@ -18,6 +18,13 @@ const defs = lineas.map((l, i) => [i + 1, l]).filter(([, l]) => /^\s*const fuerz
 if (defs.length !== 1) errores.push(`tiene que haber una sola "const fuerza", hay ${defs.length}`);
 const otras = lineas.map((l, i) => [i + 1, l]).filter(([, l]) => PALABRAS.test(l) && !/^\s*const fuerza\s*=/.test(l));
 for (const [n, l] of otras) errores.push(`otra escala en la línea ${n}: ${l.trim().slice(0, 140)}`);
+// el código de una sola página que salió de datina.js (plan técnico, fase 5: sitio/partes/*.js) tampoco puede tener otra escala ni otra respuesta
+const dirPartes = new URL("../sitio/partes/", import.meta.url);
+for (const f of existsSync(dirPartes) ? readdirSync(dirPartes).filter(f => f.endsWith(".js")).sort() : [])
+  readFileSync(new URL(f, dirPartes), "utf8").split("\n").forEach((l, i) => {
+    if (PALABRAS.test(l) || /^\s*const fuerza\s*=/.test(l)) errores.push(`otra escala en partes/${f}, línea ${i + 1}: ${l.trim().slice(0, 140)}`);
+    if (/"Sí, en general\."/.test(l)) errores.push(`una respuesta escrita aparte de la escala en partes/${f}, línea ${i + 1}: ${l.trim().slice(0, 140)}`);
+  });
 
 let fuerza = null;
 if (defs.length === 1) fuerza = new Function(`${defs[0][1].trim()}; return fuerza;`)();
