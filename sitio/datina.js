@@ -137,7 +137,7 @@ if (formCorreo) {
 const dir = [...formCorreo.dataset.correo].reverse().join(""), respaldo = formCorreo.querySelector(".form-respaldo");
 const armar = () => {
 const d = new FormData(formCorreo), nom = `${d.get("nombre")} ${d.get("apellido")}`.trim().replace(/\s+/g, " ");
-return {asunto: `Contacto desde Datina: ${nom}`, cuerpo: `${String(d.get("mensaje")).trim()}\n\n${nom}`};
+return {asunto: `Contacto desde Datina: ${nom}`, cuerpo: `${String(d.get("mensaje")).trim()}\n\n${nom}\n${String(d.get("correo")).trim()}`};
 };
 formCorreo.hidden = false;
 formCorreo.addEventListener("submit", ev => {
