@@ -9027,19 +9027,25 @@ Object.entries(a.dib).forEach(([g, f]) => { DIB["art-" + g] = conTablas("art-" +
 a.iniciar?.(nota);
 });
 const ARTS = [...ART_SERIE, ...ART];
-const artHome = document.getElementById("art-grid-home");
-if (artHome) {
-const fuerte = ART.filter(a => a.sec !== "politica" && a.c).sort((p, q) => Math.abs(q.c[0].rs) - Math.abs(p.c[0].rs))[0];
-artHome.insertAdjacentHTML("afterbegin", [fuerte, ...ARTS.filter(a => a !== fuerte)].slice(0, 3).map(tarjetaArt).join(""));
-}
 const sinMarcas = t => String(t).replace(/<[^>]*>/g, "");
-document.querySelectorAll(".art-resp[data-art]").forEach(s => {
-const a = ARTS.find(x => x.id === s.dataset.art);
+window.DATINA_ARMADO_ARTICULOS = () => {
+const fuerte = ART.filter(a => a.sec !== "politica" && a.c).sort((p, q) => Math.abs(q.c[0].rs) - Math.abs(p.c[0].rs))[0];
+const portada = [fuerte, ...ARTS.filter(a => a !== fuerte)].slice(0, 3).map(tarjetaArt).join("");
+const respuestas = Object.fromEntries(ARTS.map(a => {
 try {
 const t = a.c ? null : a.texto(), r = a.c ? `${a.t[0].respuesta} ${a.t[0].frase}` : t.respuesta;
-s.textContent = sinMarcas(r.length < 40 && t ? `${r} ${sinMarcas(t.bajada).split(/(?<=\.)\s/)[0]}` : r);
-} catch { s.remove(); }
-});
+return [a.id, sinMarcas(r.length < 40 && t ? `${r} ${sinMarcas(t.bajada).split(/(?<=\.)\s/)[0]}` : r)];
+} catch { return [a.id, null]; }
+}));
+const de = {};
+ART.forEach(a => { const M = META_TAB[tablaArt(a)];
+new Set(partesArt(a).flatMap(p => [M[p.x].ficha, M[p.y].ficha])).forEach(id => { if (id) (de[id] ||= []).push(a); }); });
+ART_SERIE.forEach(a => a.fichas.forEach(([id]) => (de[id] ||= []).push(a)));
+const pies = Object.fromEntries(Object.keys(de).sort().map(id => { const arts = ARTS.filter(a => de[id].includes(a));
+return [id, `<p class="pie-arts"><span>${arts.length > 1 ? "Artículos" : "Artículo"} con este dato:</span>` +
+arts.map(a => `<a class="enlace" href="${urlPagina(a.id)}">${a.titulo}</a>`).join("") + "</p>"]; }));
+return {portada, respuestas, pies};
+};
 const artFiltros = document.querySelector("#art-grid .art-filtros");
 if (artFiltros) {
 const lista = document.getElementById("art-grid"), cuenta = lista.querySelector(".art-cuenta");
@@ -9053,15 +9059,7 @@ const n = lista.querySelectorAll(".art-card:not([hidden])").length;
 cuenta.textContent = `${n} ${n === 1 ? "artículo" : "artículos"}${b.dataset.grupo ? ` de ${b.textContent}` : ""}.`;
 });
 }
-const ARTS_DE = {};
-ART.forEach(a => { const M = META_TAB[tablaArt(a)];
-new Set(partesArt(a).flatMap(p => [M[p.x].ficha, M[p.y].ficha])).forEach(id => { if (id) (ARTS_DE[id] ||= []).push(a); }); });
-ART_SERIE.forEach(a => a.fichas.forEach(([id]) => (ARTS_DE[id] ||= []).push(a)));
-document.querySelectorAll("article.ficha").forEach(f => {
-const arts = ARTS.filter(a => ARTS_DE[f.id]?.includes(a));
-if (arts.length) f.querySelector(".pie").insertAdjacentHTML("beforeend", `<p class="pie-arts"><span>${arts.length > 1 ? "Artículos" : "Artículo"} con este dato:</span>` +
-arts.map(a => `<a class="enlace" href="${urlPagina(a.id)}">${a.titulo}</a>`).join("") + "</p>");
-});
+document.querySelectorAll("article.ficha").forEach(f => { const pie = f.querySelector(".pie"), p = pie?.querySelector(":scope > .pie-arts"); if (p) pie.append(p); });
 const FECHA_DD = {
 "f-ant-bases": () => `Según COMNAP, en ${ANT.comnap_fecha}`,
 "f-ant-paises": () => `Según COMNAP, en ${ANT.comnap_fecha}`,
@@ -9170,7 +9168,7 @@ const nosCifras = document.getElementById("nos-cifras");
 if (nosCifras) {
 const temas = SITIO.secciones.filter(s => !s[4] && s[0] !== "articulos" && s[0] !== "datos-destacados").length;
 nosCifras.innerHTML = [[NFICHAS, "fichas con su tabla"], [24, "jurisdicciones"],
-[temas, "secciones temáticas"], [ARTS.length, "artículos"]].map(([n, t]) => `<div class="nos-cifra"><b>${n}</b><span>${t}</span></div>`).join("");
+[temas, "secciones temáticas"], [SITIO.articulos.length, "artículos"]].map(([n, t]) => `<div class="nos-cifra"><b>${n}</b><span>${t}</span></div>`).join("");
 }
 function calcInflacion(el) {
 const filas = T.inflacion_mensual, REGS = [["pais", "Todo el país"], ["gba", "Gran Buenos Aires"], ["pampeana", "Pampeana"], ["noreste", "Noreste"],
@@ -9368,7 +9366,7 @@ setInterval(() => { if (document.visibilityState === "visible") pedir(); }, 6000
 }
 }
 const estado = document.getElementById("estado");
-if (estado) estado.innerHTML = [`${NFICHAS} fichas`, "24 jurisdicciones", `${ARTS.length} artículos`].map(t => `<span>${t}</span>`).join(" ");
+if (estado) estado.innerHTML = [`${NFICHAS} fichas`, "24 jurisdicciones", `${SITIO.articulos.length} artículos`].map(t => `<span>${t}</span>`).join(" ");
 document.querySelectorAll('a[href^="#"]').forEach(a => { const u = destinoDe(a.getAttribute("href")); if (u) a.href = u; });
 document.addEventListener("click", ev => {
 const a = ev.target.closest?.('a[href^="#"]');
@@ -9687,7 +9685,7 @@ PREG.forEach(([q, a, h]) => {
 const vieja = h.slice(1), id = (SITIO.alias || {})[vieja] || vieja;
 if (paginaDe(id)) IDX.push({t: q, g: "Fichas", sm: nombreSec(SEC_FICHA[id]), u: ir(vieja, h), x: a, f: id});
 });
-ARTS.forEach(a => IDX.push({t: a.titulo, g: "Historias", sm: "Artículo", u: urlPagina(a.id), x: `${a.dek} ${a.t?.bajada || ""} ${nombreSec(a.sec)}`, sec: 1}));
+SITIO.articulos.forEach(([id, titulo, , sec, dek]) => IDX.push({t: titulo, g: "Historias", sm: "Artículo", u: urlPagina(id), x: `${dek}  ${nombreSec(sec)}`, sec: 1}));
 IDX.forEach(d => { d.tt = st(d.t); d.xx = st(d.x); });
 };
 const opcion = (d, id) => `<a href="${d.u}" id="${id}" role="option" tabindex="-1" aria-selected="false"${d.r ? ' class="busca-resp"' : ""}>` +

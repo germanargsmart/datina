@@ -11,6 +11,10 @@
 // - en las 24 páginas fijas de las provincias (tercera parte, el mismo día), las tarjetas del perfil, "Dónde se destaca", "Cómo cambió su
 //   puesto" y los censos, ya completos y sin sus gráficos (cada svg queda vacío: los dibuja datina.js, que al cargar vuelve a escribir todo).
 //   "Comparar con otra provincia" no entra: es un selector.
+// - lo que se ve de los artículos fuera de sus páginas (plan técnico, fase 5, 25 de noviembre de 2026): las tres tarjetas de la portada, la
+//   respuesta de cada artículo en la página Artículos y "Artículos con este dato" en el pie de cada ficha. Lo calcula, con el código de los
+//   artículos, window.DATINA_ARMADO_ARTICULOS() en cada página que lo tiene: todas tienen que dar lo mismo (si no, el armado frena), así que el
+//   resultado no depende de qué página se abre primero. Se escribe en todas las páginas cuando ya se leyeron todas.
 // Uso: node scripts/texto_en_html.mjs 2026-11-15   (Node 22 o más y Google Chrome: otra ruta, variable CHROME)
 import { createServer } from "node:http";
 import { readFileSync, readdirSync, writeFileSync } from "node:fs";
@@ -40,11 +44,13 @@ const servidor = createServer((req, res) => {
 await new Promise(r => servidor.listen(0, "127.0.0.1", r));
 const B = `http://127.0.0.1:${servidor.address().port}/`;
 
-// las páginas con algo para escribir: un artículo o un párrafo calculado. Sin las redirecciones ni la 404
+// las páginas con algo para escribir: un artículo, un párrafo calculado, una ficha (sus artículos), las tarjetas de la portada o las respuestas
+// de la página Artículos. Sin las redirecciones ni la 404
 const leer = f => readFileSync(join(SITIO, f), "utf8");
 const PAGINAS = readdirSync(SITIO).filter(f => f.endsWith(".html") && f !== "404.html").filter(f => {
   const h = leer(f);
-  return !h.includes("Esta página se mudó") && (/<article class="nota"/.test(h) || /\sdata-t="/.test(h) || /<body[^>]*\sdata-prov="/.test(h));
+  return !h.includes("Esta página se mudó") && (/<article class="nota"/.test(h) || /\sdata-t="/.test(h) || /<body[^>]*\sdata-prov="/.test(h) ||
+    /<article class="ficha/.test(h) || /\sid="art-grid-home"/.test(h) || /<span class="art-resp"/.test(h));
 }).sort();
 
 // lo que corre en la página antes que datina.js: el reloj fijo y el registro de lo primero que se escribe en cada artículo
@@ -65,6 +71,7 @@ const ANTES = `{
 // las secciones de la página fija de cada provincia que arma datina.js con sus datos
 const PROV = ["prov-grid", "prov-destaca", "prov-puestos", "prov-censos"];
 const LEER = `(() => ({notas: window.__notas, secciones: window.__secciones, dt: [...document.querySelectorAll("[data-t]")].map(e => [e.dataset.t, e.textContent]),
+  arts: window.DATINA_ARMADO_ARTICULOS ? window.DATINA_ARMADO_ARTICULOS() : null,
   prov: document.body.dataset.prov ? Object.fromEntries(${JSON.stringify(PROV)}.map(id => document.getElementById(id)).filter(Boolean).map(e => {
     const c = e.cloneNode(true); c.querySelectorAll("svg").forEach(s => s.replaceChildren());
     // los enlaces a una ficha de otra página (#f-empleo) los resuelve datina.js al tocarlos: en el HTML van con la dirección de su página,
@@ -105,6 +112,12 @@ await Promise.all(Array.from({length: 4}, async () => {
 await ch.cerrar();
 servidor.close();
 if (problemas.length) { console.error("Errores en las páginas al tomar su texto: el texto no se escribió.\n" + problemas.join("\n")); process.exit(1); }
+// lo de los artículos: el mismo en todas las páginas que lo calculan
+const conArts = PAGINAS.filter(f => resultado[f].arts);
+if (!conArts.length) { console.error("Ninguna página calculó lo de los artículos (DATINA_ARMADO_ARTICULOS): el texto no se escribió."); process.exit(1); }
+const ARTS = resultado[conArts[0]].arts, artsJSON = JSON.stringify(ARTS);
+const artsDistintas = conArts.filter(f => JSON.stringify(resultado[f].arts) !== artsJSON);
+if (artsDistintas.length) { console.error(`Lo de los artículos sale distinto en ${artsDistintas.join(", ")} que en ${conArts[0]}: el texto no se escribió.`); process.exit(1); }
 
 // la huella de lo que escribió datina.js (FNV-1a de 32 bits sobre el texto, la misma función que huellaHTML en datina.js): con data-pre, datina.js
 // no vuelve a escribir lo que ya está (fase 5). Si las dos funciones dejaran de coincidir, datina.js escribe todo como antes
@@ -129,9 +142,31 @@ function reemplazarTodo(h, id, html, oculto, escrito) {
   if (!r) return null;
   return r.antes + (escrito ? conPre(r.abre, escrito) : r.abre) + html + r.resto;
 }
-let nArt = 0, nPar = 0, nProv = 0;
+// "Artículos con este dato": al final del pie de la ficha, el primer elemento con la clase pie adentro de ella (como f.querySelector(".pie"))
+function pieArts(h, id, html) {
+  const m = new RegExp(`<article class="ficha[^"]*"[^>]*\\sid="${reEsc(id)}"[^>]*>`).exec(h);
+  if (!m) return h;
+  const fin = h.indexOf("</article>", m.index);
+  const re = /<([a-z]+)\b[^>]*\sclass="(?:[^"]*\s)?pie(?:\s[^"]*)?"[^>]*>/g;
+  re.lastIndex = m.index + m[0].length;
+  const p = re.exec(h);
+  if (!p || p.index > fin || p[0] !== '<div class="pie">') { console.error(`${id}: no se encontró el pie de la ficha`); process.exit(1); }
+  const r = /<div\b|<\/div>/g;
+  r.lastIndex = p.index + p[0].length;
+  let n = 1, x;
+  while ((x = r.exec(h))) { n += x[0].startsWith("</") ? -1 : 1; if (!n) break; }
+  if (n || x.index > fin) { console.error(`${id}: no se encontró dónde termina el pie de la ficha`); process.exit(1); }
+  return h.slice(0, x.index) + html + h.slice(x.index);
+}
+let nArt = 0, nPar = 0, nProv = 0, nPies = 0, nResp = 0, nPortada = 0;
 for (const f of PAGINAS) {
   let h = leer(f);
+  // lo de los artículos (DATINA_ARMADO_ARTICULOS): las tarjetas de la portada antes de las piezas del Laboratorio, la respuesta de cada
+  // tarjeta de Artículos (sin respuesta, la tarjeta va sin su lugar, como cuando la escribía datina.js) y los pies de las fichas
+  h = h.replace(/(<div class="art-grid" id="art-grid-home">)/, (_, a) => { nPortada++; return a + ARTS.portada; });
+  h = h.replace(/<span class="art-resp" data-art="(a-[\w-]+)"><\/span>/g, (_, id) => { nResp++;
+    return ARTS.respuestas[id] == null ? "" : `<span class="art-resp" data-art="${id}">${esc(ARTS.respuestas[id])}</span>`; });
+  for (const [id, html] of Object.entries(ARTS.pies)) { const h2 = pieArts(h, id, html); if (h2 !== h) nPies++; h = h2; }
   const {notas, secciones, dt, prov} = resultado[f];
   for (const [id, {html, oculto}] of Object.entries(prov)) {
     const nuevo = reemplazarTodo(h, id, html, oculto, secciones[id]);
@@ -152,4 +187,5 @@ for (const f of PAGINAS) {
   }
   writeFileSync(join(SITIO, f), h);
 }
-console.log(`Texto en el HTML: ${PAGINAS.length} páginas, ${nArt} artículos, ${nPar} párrafos calculados y ${nProv} secciones de las provincias.`);
+console.log(`Texto en el HTML: ${PAGINAS.length} páginas, ${nArt} artículos, ${nPar} párrafos calculados y ${nProv} secciones de las provincias. ` +
+  `De los artículos (calculado en ${conArts.length} páginas): ${nPortada} portada, ${nResp} respuestas y ${nPies} pies de fichas.`);

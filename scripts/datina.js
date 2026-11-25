@@ -10211,25 +10211,42 @@ ART_SERIE.forEach(a => {
 });
 // todos los artículos, primero los de series (los más nuevos). La lista de Artículos la escribe el constructor en este mismo orden
 const ARTS = [...ART_SERIE, ...ART];
-// la portada: una fila de tres, con el artículo de la relación más marcada primero (hasta el 10 de octubre de 2026 era el destacado
-// amarillo) y después los más nuevos. Los de política no se eligen por un cálculo automático. El resto, en "Todos los artículos"
-const artHome = document.getElementById("art-grid-home");
-if (artHome) {
-  const fuerte = ART.filter(a => a.sec !== "politica" && a.c).sort((p, q) => Math.abs(q.c[0].rs) - Math.abs(p.c[0].rs))[0];
-  // antes de las piezas del Laboratorio, que escribe el constructor (Fase 2, paso 2)
-  artHome.insertAdjacentHTML("afterbegin", [fuerte, ...ARTS.filter(a => a !== fuerte)].slice(0, 3).map(tarjetaArt).join(""));
-}
-/* la página Artículos (etapa 5 del plan de mejora): la respuesta de cada artículo en su tarjeta, la misma que lo abre, y los filtros por
-   tema. El constructor escribe las tarjetas, los dos bloques y los botones (ocultos sin JavaScript) */
+/* Lo que se ve de los artículos fuera de sus páginas (plan técnico, fase 5, 25 de noviembre de 2026): las tres tarjetas de la portada, la
+   respuesta de cada artículo en la página Artículos y "Artículos con este dato" en el pie de cada ficha. Hasta entonces lo armaba datina.js al
+   cargar cada página, con las cuentas de todos los artículos. Desde entonces lo calcula esta función, con el mismo código, en el armado:
+   scripts/texto_en_html.mjs la corre en las páginas que la tienen, controla que todas den lo mismo y lo deja escrito en el HTML de cada página.
+   Así las demás páginas no necesitan los artículos, y sin JavaScript también se ve. Ninguna de las tres cosas depende del día ni de la
+   provincia elegida (se controló al hacer el cambio).
+   - La portada: una fila de tres, con el artículo de la relación más marcada primero (hasta el 10 de octubre de 2026 era el destacado
+     amarillo) y después los más nuevos. Los de política no se eligen por un cálculo automático. El resto, en "Todos los artículos". Van antes
+     de las piezas del Laboratorio, que escribe el constructor (Fase 2, paso 2).
+   - La página Artículos (etapa 5 del plan de mejora): la respuesta de cada artículo en su tarjeta, la misma que lo abre. En los de series,
+     una respuesta corta ("En parte.") va con la primera oración de su bajada, que dice de qué. Si las cuentas de un artículo fallan, su
+     tarjeta va sin respuesta (null).
+   - "Artículos con este dato" (Fase 2, paso 4, respuesta del autor del 23 de octubre de 2026): cada ficha enlaza a los artículos que la usan,
+     la misma relación de los botones "Ficha: …" de cada artículo, al revés, en el orden de la lista de Artículos. Va en el pie, debajo de
+     las acciones (más abajo, en el núcleo, el párrafo vuelve al final del pie cuando datina.js lo completa) */
 const sinMarcas = t => String(t).replace(/<[^>]*>/g, "");
-document.querySelectorAll(".art-resp[data-art]").forEach(s => {
-  const a = ARTS.find(x => x.id === s.dataset.art);
-  try {
-    // en los de series, una respuesta corta ("En parte.") va con la primera oración de su bajada, que dice de qué
-    const t = a.c ? null : a.texto(), r = a.c ? `${a.t[0].respuesta} ${a.t[0].frase}` : t.respuesta;
-    s.textContent = sinMarcas(r.length < 40 && t ? `${r} ${sinMarcas(t.bajada).split(/(?<=\.)\s/)[0]}` : r);
-  } catch { s.remove(); }
-});
+window.DATINA_ARMADO_ARTICULOS = () => {
+  const fuerte = ART.filter(a => a.sec !== "politica" && a.c).sort((p, q) => Math.abs(q.c[0].rs) - Math.abs(p.c[0].rs))[0];
+  const portada = [fuerte, ...ARTS.filter(a => a !== fuerte)].slice(0, 3).map(tarjetaArt).join("");
+  const respuestas = Object.fromEntries(ARTS.map(a => {
+    try {
+      const t = a.c ? null : a.texto(), r = a.c ? `${a.t[0].respuesta} ${a.t[0].frase}` : t.respuesta;
+      return [a.id, sinMarcas(r.length < 40 && t ? `${r} ${sinMarcas(t.bajada).split(/(?<=\.)\s/)[0]}` : r)];
+    } catch { return [a.id, null]; }
+  }));
+  const de = {};
+  ART.forEach(a => { const M = META_TAB[tablaArt(a)];
+    new Set(partesArt(a).flatMap(p => [M[p.x].ficha, M[p.y].ficha])).forEach(id => { if (id) (de[id] ||= []).push(a); }); });
+  ART_SERIE.forEach(a => a.fichas.forEach(([id]) => (de[id] ||= []).push(a)));
+  const pies = Object.fromEntries(Object.keys(de).sort().map(id => { const arts = ARTS.filter(a => de[id].includes(a));
+    return [id, `<p class="pie-arts"><span>${arts.length > 1 ? "Artículos" : "Artículo"} con este dato:</span>` +
+      arts.map(a => `<a class="enlace" href="${urlPagina(a.id)}">${a.titulo}</a>`).join("") + "</p>"]; }));
+  return {portada, respuestas, pies};
+};
+/* la página Artículos (etapa 5 del plan de mejora): los filtros por tema. El constructor escribe las tarjetas, los dos bloques y los botones
+   (ocultos sin JavaScript), y el armado, la respuesta de cada artículo (arriba) */
 const artFiltros = document.querySelector("#art-grid .art-filtros");
 if (artFiltros) {
   const lista = document.getElementById("art-grid"), cuenta = lista.querySelector(".art-cuenta");
@@ -10243,18 +10260,10 @@ if (artFiltros) {
     cuenta.textContent = `${n} ${n === 1 ? "artículo" : "artículos"}${b.dataset.grupo ? ` de ${b.textContent}` : ""}.`;
   });
 }
-/* "Artículos con este dato" (Fase 2, paso 4, respuesta del autor del 23 de octubre de 2026): cada ficha enlaza a los artículos que la
-   usan, la misma relación de los botones "Ficha: …" de cada artículo, al revés. Va en el pie, debajo de las acciones, en el orden de la
-   lista de Artículos. Se arma acá y no con el resto del pie porque necesita los artículos, que se definen después del pie en el archivo */
-const ARTS_DE = {};
-ART.forEach(a => { const M = META_TAB[tablaArt(a)];
-  new Set(partesArt(a).flatMap(p => [M[p.x].ficha, M[p.y].ficha])).forEach(id => { if (id) (ARTS_DE[id] ||= []).push(a); }); });
-ART_SERIE.forEach(a => a.fichas.forEach(([id]) => (ARTS_DE[id] ||= []).push(a)));
-document.querySelectorAll("article.ficha").forEach(f => {
-  const arts = ARTS.filter(a => ARTS_DE[f.id]?.includes(a));
-  if (arts.length) f.querySelector(".pie").insertAdjacentHTML("beforeend", `<p class="pie-arts"><span>${arts.length > 1 ? "Artículos" : "Artículo"} con este dato:</span>` +
-    arts.map(a => `<a class="enlace" href="${urlPagina(a.id)}">${a.titulo}</a>`).join("") + "</p>");
-});
+/* "Artículos con este dato" (Fase 2, paso 4): lo escribe el armado al final del pie de cada ficha que usa un artículo (desde el 25 de noviembre
+   de 2026, DATINA_ARMADO_ARTICULOS, arriba). Al cargar, datina.js suma al pie la fuente con sus enlaces y las acciones: el párrafo vuelve al
+   final, debajo de las acciones, donde lo dejaba cuando lo armaba él */
+document.querySelectorAll("article.ficha").forEach(f => { const pie = f.querySelector(".pie"), p = pie?.querySelector(":scope > .pie-arts"); if (p) pie.append(p); });
 /* datos destacados de la portada (Fase 2, paso 2, elegidos por el autor el 23 de octubre de 2026): la cifra destacada de cuatro fichas,
    la misma que muestra cada ficha (CLAVE). El constructor deja la pregunta y el enlace, y el lugar de la cifra reservado */
 // en la página de datos destacados, la fecha de las cifras cuyo texto no la dice porque en su ficha va en la descripción, siempre desde el resumen. Tres no la
@@ -10389,7 +10398,7 @@ const nosCifras = document.getElementById("nos-cifras");
 if (nosCifras) {
   const temas = SITIO.secciones.filter(s => !s[4] && s[0] !== "articulos" && s[0] !== "datos-destacados").length;
   nosCifras.innerHTML = [[NFICHAS, "fichas con su tabla"], [24, "jurisdicciones"],
-    [temas, "secciones temáticas"], [ARTS.length, "artículos"]].map(([n, t]) => `<div class="nos-cifra"><b>${n}</b><span>${t}</span></div>`).join("");
+    [temas, "secciones temáticas"], [SITIO.articulos.length, "artículos"]].map(([n, t]) => `<div class="nos-cifra"><b>${n}</b><span>${t}</span></div>`).join("");
 }
 
 /* F8 (plan de mejora, 1 de noviembre de 2026): actualizar un monto por la inflación del país o de una región. El índice de cada región se arma
@@ -10619,7 +10628,7 @@ if (tendLinea) {
 
 /* recuadro de estado de la portada */
 const estado = document.getElementById("estado");
-if (estado) estado.innerHTML = [`${NFICHAS} fichas`, "24 jurisdicciones", `${ARTS.length} artículos`].map(t => `<span>${t}</span>`).join(" ");
+if (estado) estado.innerHTML = [`${NFICHAS} fichas`, "24 jurisdicciones", `${SITIO.articulos.length} artículos`].map(t => `<span>${t}</span>`).join(" ");
 
 /* Enlaces a fichas que viven en otra página (perfil provincial, preguntas, cruces): llevan a esa página */
 document.querySelectorAll('a[href^="#"]').forEach(a => { const u = destinoDe(a.getAttribute("href")); if (u) a.href = u; });
@@ -11002,8 +11011,10 @@ if (PAGINA !== "inicio") {
       const vieja = h.slice(1), id = (SITIO.alias || {})[vieja] || vieja;
       if (paginaDe(id)) IDX.push({t: q, g: "Fichas", sm: nombreSec(SEC_FICHA[id]), u: ir(vieja, h), x: a, f: id});
     });
-    // todos los artículos: los de cruces y, desde el paso 3, también los de series
-    ARTS.forEach(a => IDX.push({t: a.titulo, g: "Historias", sm: "Artículo", u: urlPagina(a.id), x: `${a.dek} ${a.t?.bajada || ""} ${nombreSec(a.sec)}`, sec: 1}));
+    // todos los artículos: los de cruces y, desde el paso 3, también los de series. Desde el 25 de noviembre de 2026 (plan técnico, fase 5) salen
+    // del índice del sitio, en el orden de la lista de Artículos y con su bajada (dek), que 03 lee de los artículos: la lupa ya no necesita su
+    // código. El texto que se busca es el de antes, que dejaba un lugar vacío entre la bajada y la sección
+    SITIO.articulos.forEach(([id, titulo, , sec, dek]) => IDX.push({t: titulo, g: "Historias", sm: "Artículo", u: urlPagina(id), x: `${dek}  ${nombreSec(sec)}`, sec: 1}));
     IDX.forEach(d => { d.tt = st(d.t); d.xx = st(d.x); });
   };
   const opcion = (d, id) => `<a href="${d.u}" id="${id}" role="option" tabindex="-1" aria-selected="false"${d.r ? ' class="busca-resp"' : ""}>` +
