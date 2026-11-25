@@ -4,9 +4,8 @@
  "descripcion": "Qué parte de las mujeres de 25 a 54 años tiene empleo en cada provincia y en cada departamento según el último censo, qué distancia hay con los varones, cómo cambia con la edad, cuánto varía entre CABA y el Gran Buenos Aires y si va junto con el secundario completo.",
  "seccion": "Trabajo",
  "ficha": "https://datina.com.ar/a-empleo-mujeres",
- "fuente": "INDEC, Censo Nacional de Población, Hogares y Viviendas, características económicas y educación, y Encuesta Permanente de Hogares, tasas del mercado de trabajo",
+ "fuente": "INDEC, Censo Nacional de Población, Hogares y Viviendas, características económicas y nivel de instrucción, y Encuesta Permanente de Hogares, tasas del mercado de trabajo",
  "organismos": [
-  "Secretaría de Educación",
   "INDEC (Instituto Nacional de Estadística y Censos)"
  ],
  "actualizacion": "Se actualiza con cada censo.",
@@ -77,6 +76,6 @@
  "origen": [],
  "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
  "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
- "como_citar": "Datina (año de la consulta). ¿Dónde tienen más empleo las mujeres? Con datos de INDEC, Censo Nacional de Población, Hogares y Viviendas, características económicas y educación, y Encuesta Permanente de Hogares, tasas del mercado de trabajo. https://datina.com.ar/a-empleo-mujeres. Consultado el día de la consulta.",
+ "como_citar": "Datina (año de la consulta). ¿Dónde tienen más empleo las mujeres? Con datos de INDEC, Censo Nacional de Población, Hogares y Viviendas, características económicas y nivel de instrucción, y Encuesta Permanente de Hogares, tasas del mercado de trabajo. https://datina.com.ar/a-empleo-mujeres. Consultado el día de la consulta.",
  "datos_actualizados": "23/11/2026"
 }

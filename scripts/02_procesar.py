@@ -8533,6 +8533,10 @@ _emj_b = _emj_n.sort_values("brecha")
 _emj_cab, _emj_gba = emj_d[emj_d.codigo_indec == "02"], emj_d[emj_d.codigo_dep.isin(EMJ_GBA)]
 assert len(_emj_cab) == 15 and len(_emj_gba) == 24
 _emj_s = _emj_n.sort_values("pct_secundario", ascending=False)
+# la jurisdicción que más mueve la correlación: la que más la cambia al sacarla
+_emj_rs = lambda d: float(d.pct_mujeres.rank().corr(d.pct_secundario.rank()))
+_emj_sin = {c: _emj_rs(_emj_s[_emj_s.codigo_indec != c]) for c in _emj_s.codigo_indec}
+_emj_mueve = max(sorted(_emj_sin), key=lambda c: abs(_emj_sin[c] - _emj_rs(_emj_s)))
 _emj_ed = empleo_mujeres_edad.set_index("desde")
 # el nivel depende de la fuente: la tasa de empleo (ocupados sobre toda la población) del censo y la de la EPH del mismo trimestre
 _emj_eph = pd.read_csv(CRUDO / "indec_eph_aglomerados.csv")
@@ -8564,7 +8568,7 @@ EMJ_RES = {
     "comunas_sobre_gba": int((_emj_cab.pct_mujeres > _emj_gba.pct_mujeres.max()).sum()),
     "sec": {"rs": round(float(_emj_n.pct_mujeres.rank().corr(_emj_n.pct_secundario.rank())), 2), "h": 12,
             "mas": r1(_emj_s.head(12).pct_mujeres.median()), "menos": r1(_emj_s.tail(12).pct_mujeres.median()),
-            "rs_sin_caba": round(float(_emj_s[_emj_s.codigo_indec != "02"].pct_mujeres.rank().corr(_emj_s[_emj_s.codigo_indec != "02"].pct_secundario.rank())), 2)},
+            "sin": [CORTO[_emj_mueve], round(_emj_sin[_emj_mueve], 2)]},
     "eph": {"caba": [_emj_te(_emj_cab), float(_emj_eph["Ciudad Autónoma de Buenos Aires"])],
             "gba": [_emj_te(_emj_gba), float(_emj_eph["Partidos del Gran Buenos Aires"])]},
 }

@@ -8918,7 +8918,7 @@ dek: "Qué parte de las mujeres de 25 a 54 años tiene empleo en cada provincia 
 fichas: [["f-desocupacion", "desocupación y empleo"]],
 csv: [["empleo_mujeres_departamentos", "Descargar CSV por departamento"], ["empleo_mujeres_provincias", "Descargar CSV por provincia"],
 ["empleo_mujeres_edad", "Descargar CSV por edad"]],
-fuentes: "INDEC, Censo Nacional de Población, Hogares y Viviendas, características económicas y educación, y Encuesta Permanente de Hogares, tasas del mercado de trabajo",
+fuentes: "INDEC, Censo Nacional de Población, Hogares y Viviendas, características económicas y nivel de instrucción, y Encuesta Permanente de Hogares, tasas del mercado de trabajo",
 texto: () => {
 const E = R.empleo_mujeres, nom = ([t, v]) => `${t} (${pct(v)})`, dep = ([d, p]) => `${d} (${p})`;
 const [pt, pb] = [E.prov_top, E.prov_bajas], difP = pt[0][1] - pb[0][1], difD = E.top[0][2] - E.bajos[0][2];
@@ -8934,7 +8934,7 @@ const medimos = ["Ocupada es quien trabajó al menos una hora en la semana anter
 "trabajo del que estuvo ausente. Cuenta igual un empleo formal, una changa o la ayuda en un negocio de la familia, y no cuenta lo que se " +
 "produce solo para la propia casa.",
 "Se toman las mujeres de 25 a 54 años, la edad en que la mayoría ya no estudia y todavía no se jubila. Así un lugar con muchas estudiantes o " +
-`con muchas jubiladas no da más bajo solo por eso. De las ${n1(chico)} millones de mujeres de esa edad que viven en viviendas particulares, ` +
+`con muchas jubiladas no da más bajo solo por eso. De los ${n1(chico)} millones de mujeres de esa edad que viven en viviendas particulares, ` +
 `${n1(E.n_ocu / 1e6)} millones están ocupadas.`];
 const s1 = `${listaY(pt.map(nom))} tienen las partes más altas. Las más bajas son las de ${listaY(pb.map(nom))}. Entre los dos extremos hay ` +
 `${n1(difP)} puntos. La mediana de las 24 jurisdicciones es del ${pct(E.mediana)}. Si se cuentan todas las mujeres de 14 años o más, la parte ` +
@@ -8960,7 +8960,7 @@ const s6 = `En CABA tiene empleo el ${pct(E.caba.m)} de las mujeres de 25 a 54 a
 `${pct(E.gba.min[2])} en ${E.gba.min[0]} al ${pct(E.gba.max[2])} en ${E.gba.max[0]}. ${E.comunas_sobre_gba} de las 15 comunas superan al partido más alto.`;
 const s7 = `${respuestaR(E.sec.rs)} En las ${E.sec.h} jurisdicciones donde más adultos terminaron el secundario, la mediana de mujeres con empleo es del ` +
 `${pct(E.sec.mas)}. En las ${E.sec.h} con menos, del ${pct(E.sec.menos)}. Son dos datos que van juntos entre provincias: no dicen que una cosa cause la otra ` +
-`ni qué pasa con cada mujer. Son 24 casos: sin CABA, la que más se separa del resto, la correlación pasa de ${rTxt(E.sec.rs)} a ${rTxt(E.sec.rs_sin_caba)}, una relación ${fuerza(E.sec.rs_sin_caba)}.`;
+`ni qué pasa con cada mujer. Son 24 casos: sin ${E.sec.sin[0]}, la que más mueve el resultado, la correlación pasa de ${rTxt(E.sec.rs)} a ${rTxt(E.sec.sin[1])}, una relación ${fuerza(E.sec.sin[1])}.`;
 const sintesis = [`El ${pct(E.m)} de las mujeres de 25 a 54 años tiene empleo en el país: ${n1(E.brecha)} puntos menos que los varones.`,
 `La parte más alta es la de ${pt[0][0]} (${pct(pt[0][1])}), y la más baja, la de ${pb[0][0]} (${pct(pb[0][1])}).`,
 `En ${E.menos_mitad} departamentos de ${n0(E.min_pob)} habitantes o más, menos de la mitad de las mujeres de esa edad tiene empleo.`,
