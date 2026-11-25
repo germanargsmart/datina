@@ -980,6 +980,11 @@ V_LIBS = {marca: hashlib.sha1((SITIO / "lib" / nombre).read_bytes()).hexdigest()
 (SITIO / "img").mkdir(exist_ok=True)
 for _f in (RAIZ / "scripts" / "imagenes").iterdir():
     shutil.copyfile(_f, SITIO / "img" / _f.name)
+# Las banderas de los países (Rutas comerciales, 25 de noviembre de 2026, descarga aprobada por el autor): circle-flags 2.8.3, de npm, con su
+# licencia (MIT). Windows no dibuja las banderas como emoji. Se copian de scripts/banderas_paises/ a sitio/img/paises/
+(SITIO / "img" / "paises").mkdir(exist_ok=True)
+for _f in (RAIZ / "scripts" / "banderas_paises").iterdir():
+    shutil.copyfile(_f, SITIO / "img" / "paises" / _f.name)
 V_LIBS["__V_PIE__"] = hashlib.sha1((SITIO / "img" / "pie-llanura.webp").read_bytes()).hexdigest()[:10]
 # Las letras desde el propio sitio (16 de noviembre de 2026, decisión del autor): Roboto Flex y Roboto Mono, los mismos archivos que daba Google
 # Fonts (versión 31, con los mismos ejes: tamaño óptico, ancho de 25 a 151 y peso de 300 a 800 en Roboto Flex, peso de 400 a 600 en Roboto

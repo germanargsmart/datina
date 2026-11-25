@@ -3357,19 +3357,11 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <p>Lo exportado cada año desde {{externo.rutas.desde}} hasta {{externo.rutas.anio}} por país de destino y por producto, con el camino simulado desde el puerto o el paso por el que sale cada producto.</p>
     </div>
     <!-- rediseño del 24 de noviembre de 2026 (pedido del autor): el mapa en MapLibre GL (scripts/lib, sin CDN ni claves), las rutas coloreadas por vía,
-         foco y contexto, la ficha de cada elemento, los filtros por vía, rubro, producto y año, y las tarjetas sincronizadas con el mapa -->
-    <div class="rt" id="rt" data-datos="datos/rutas.json" data-mundo="lib/world-atlas-2.0.2-countries-50m.json?v=__V_MUNDO50__" aria-busy="true">
+         foco y contexto, la ficha de cada elemento, los filtros por vía, rubro, producto y año, y las tarjetas sincronizadas con el mapa.
+         25 de noviembre de 2026 (pedido del autor, con un tablero de logística de referencia): las cifras arriba en una tira, el mapa en una tarjeta con
+         las vías, los controles y la ficha adentro, los destinos al costado, banderas, emojis de los productos y barcos, camiones y aviones en las rutas -->
+    <div class="rt" id="rt" data-datos="datos/rutas.json" data-mundo="lib/world-atlas-2.0.2-countries-50m.json?v=__V_MUNDO50__" data-banderas="img/paises/" aria-busy="true">
       <div class="rt-barra">
-        <div class="rt-vias" role="group" aria-label="Vías de transporte: se pueden prender y apagar">
-          <button type="button" class="rt-via" data-via="mar" aria-pressed="true"><i aria-hidden="true"></i><span>Mar</span> <b></b></button>
-          <button type="button" class="rt-via" data-via="tierra" aria-pressed="true"><i aria-hidden="true"></i><span>Tierra</span> <b></b></button>
-          <button type="button" class="rt-via" data-via="avión" aria-pressed="true"><i aria-hidden="true"></i><span>Avión</span> <b></b></button>
-        </div>
-        <div class="rt-anio">
-          <button type="button" class="boton chico rt-play" id="rt-play" aria-pressed="false" disabled>Reproducir</button>
-          <label class="rt-anio-rango"><span>Año <output id="rt-anio-val" for="rt-anio">{{externo.rutas.anio}}</output></span><input type="range" id="rt-anio" min="{{externo.rutas.desde}}" max="{{externo.rutas.anio}}" step="1" value="{{externo.rutas.anio}}" disabled></label>
-        </div>
-        <button type="button" class="boton chico rt-filtros-btn" id="rt-filtros-btn" aria-expanded="false" aria-controls="rt-panel">Filtros</button>
         <div class="rt-panel" id="rt-panel">
           <div class="rt-panel-cab"><p class="rt-panel-tit">Filtros</p><button type="button" class="boton chico" id="rt-panel-cerrar">Listo</button></div>
           <div class="conmutador rt-rubros" role="group" aria-label="Rubro" data-propio style="--n:5">
@@ -3380,51 +3372,73 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
             <button type="button" data-r="ce" aria-pressed="false">Energía</button>
           </div>
           <div class="rt-buscar">
-            <label class="selector-ficha"><span>Producto</span><input type="search" id="rt-prod" list="rt-prods" placeholder="Buscar un producto" autocomplete="off" disabled></label>
+            <label class="selector-ficha"><span class="solo-lector">Producto</span><input type="search" id="rt-prod" list="rt-prods" placeholder="Buscar un producto" autocomplete="off" disabled></label>
             <datalist id="rt-prods"></datalist>
-            <p class="rt-prod-elegido" id="rt-prod-elegido" hidden><span></span> <button type="button" class="enlace" id="rt-prod-quitar">Quitar el producto</button></p>
           </div>
         </div>
+        <p class="rt-prod-elegido" id="rt-prod-elegido" hidden><span></span> <button type="button" class="enlace" id="rt-prod-quitar">Quitar el producto</button></p>
       </div>
       <p class="solo-lector" id="rt-estado" role="status">Cargando las exportaciones.</p>
       <div class="rt-falla" id="rt-falla" role="alert" hidden><p>No se pudieron cargar los datos. La tabla se puede descargar abajo.</p></div>
-      <div class="rt-mapa" id="rt-mapa-caja">
-        <div class="rt-lienzo" id="rt-lienzo" role="region" aria-label="Mapa del mundo con los caminos simulados de las exportaciones. Las tarjetas de abajo y Ver tabla tienen los mismos datos"></div>
-        <div class="rt-ctrl" role="group" aria-label="Controles del mapa">
-          <button type="button" data-z="mas" aria-label="Acercar">+</button>
-          <button type="button" data-z="menos" aria-label="Alejar">−</button>
-          <button type="button" data-z="todo">Centrar</button>
-          <button type="button" data-z="globo" aria-pressed="false">Globo</button>
-          <details class="rt-capas-menu">
-            <summary>Capas</summary>
-            <fieldset class="rt-capas">
-              <legend>Capas del mapa</legend>
-              <label><input type="checkbox" data-capa="salidas" checked> Puertos y pasos de salida</label>
-              <label><input type="checkbox" data-capa="etiquetas" checked> Nombres de los diez primeros destinos</label>
-              <label><input type="checkbox" data-capa="secundarias" checked> Rutas de los demás destinos</label>
-            </fieldset>
-          </details>
-        </div>
-        <div class="rt-vacio" id="rt-vacio" hidden><p>No hay exportaciones con estos filtros.</p><button type="button" class="boton chico" data-restablecer>Restablecer filtros</button></div>
-        <aside class="rt-ficha" id="rt-ficha" aria-labelledby="rt-ficha-tit" tabindex="-1" hidden>
-          <button type="button" class="rt-ficha-cerrar" id="rt-ficha-cerrar">Cerrar y ver todo</button>
-          <div id="rt-ficha-cuerpo"></div>
-        </aside>
-        <div class="rt-tip" id="rt-tip" aria-hidden="true" hidden></div>
-        <div class="rt-sin-mapa" id="rt-sin-mapa" hidden><p>Este navegador no puede dibujar el mapa. Las tarjetas de abajo y "Ver tabla" tienen los mismos datos.</p></div>
+      <div class="rt-tablero">
+        <section class="rt-card rt-mapa-card" aria-labelledby="rt-mapa-tit">
+          <div class="rt-mapa-cab">
+            <div><h2 class="rt-card-tit" id="rt-mapa-tit">Mapa de las rutas</h2><p class="rt-card-sub" id="rt-mapa-sub"></p></div>
+            <div class="rt-anio">
+              <button type="button" class="boton chico rt-play" id="rt-play" aria-pressed="false" disabled>Reproducir</button>
+              <label class="rt-anio-rango"><span>Año <output id="rt-anio-val" for="rt-anio">{{externo.rutas.anio}}</output></span><input type="range" id="rt-anio" min="{{externo.rutas.desde}}" max="{{externo.rutas.anio}}" step="1" value="{{externo.rutas.anio}}" disabled></label>
+            </div>
+            <button type="button" class="boton chico rt-filtros-btn" id="rt-filtros-btn" aria-expanded="false" aria-controls="rt-panel">Filtros</button>
+          </div>
+          <div class="rt-mapa" id="rt-mapa-caja">
+            <div class="rt-lienzo" id="rt-lienzo" role="region" aria-label="Mapa del mundo con los caminos simulados de las exportaciones. Las tarjetas y Ver tabla tienen los mismos datos"></div>
+            <div class="rt-vias" role="group" aria-label="Vías de transporte: se pueden prender y apagar">
+              <button type="button" class="rt-via" data-via="mar" aria-pressed="true"><i aria-hidden="true"></i><span>Mar</span> <b></b></button>
+              <button type="button" class="rt-via" data-via="tierra" aria-pressed="true"><i aria-hidden="true"></i><span>Tierra</span> <b></b></button>
+              <button type="button" class="rt-via" data-via="avión" aria-pressed="true"><i aria-hidden="true"></i><span>Avión</span> <b></b></button>
+            </div>
+            <div class="rt-ctrl" role="group" aria-label="Controles del mapa">
+              <div class="rt-ctrl-grupo">
+                <button type="button" data-z="mas" aria-label="Acercar" title="Acercar"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button>
+                <button type="button" data-z="menos" aria-label="Alejar" title="Alejar"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/></svg></button>
+              </div>
+              <div class="rt-ctrl-grupo">
+                <button type="button" data-z="todo" aria-label="Ver todo el mapa" title="Ver todo el mapa"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M15 4h5v5M20 15v5h-5M9 20H4v-5"/></svg></button>
+                <button type="button" data-z="globo" aria-pressed="false" aria-label="Vista de globo" title="Vista de globo"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17M12 3.5c5 5 5 12 0 17M12 3.5c-5 5-5 12 0 17"/></svg></button>
+                <button type="button" data-z="mover" aria-label="Pausar el movimiento" title="Pausar el movimiento"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="rt-i-pausa" d="M9 5v14M15 5v14"/><path class="rt-i-play" d="M8 5l11 7-11 7z"/></svg></button>
+                <details class="rt-capas-menu">
+                  <summary aria-label="Capas del mapa" title="Capas del mapa"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4l9 5-9 5-9-5zM3 14l9 5 9-5"/></svg></summary>
+                  <fieldset class="rt-capas">
+                    <legend>Capas del mapa</legend>
+                    <label><input type="checkbox" data-capa="vehiculos" checked> Barcos, camiones y aviones</label>
+                    <label><input type="checkbox" data-capa="salidas" checked> Puertos y pasos de salida</label>
+                    <label><input type="checkbox" data-capa="etiquetas" checked> Banderas de los diez primeros destinos</label>
+                    <label><input type="checkbox" data-capa="secundarias" checked> Rutas de los demás destinos</label>
+                  </fieldset>
+                </details>
+              </div>
+            </div>
+            <div class="rt-vacio" id="rt-vacio" hidden><p>No hay exportaciones con estos filtros.</p><button type="button" class="boton chico" data-restablecer>Restablecer filtros</button></div>
+            <aside class="rt-ficha" id="rt-ficha" aria-labelledby="rt-ficha-tit" tabindex="-1" hidden>
+              <button type="button" class="rt-ficha-cerrar" id="rt-ficha-cerrar" aria-label="Cerrar y ver todo" title="Cerrar y ver todo"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+              <div id="rt-ficha-cuerpo"></div>
+            </aside>
+            <div class="rt-tip" id="rt-tip" aria-hidden="true" hidden></div>
+            <div class="rt-sin-mapa" id="rt-sin-mapa" hidden><p>Este navegador no puede dibujar el mapa. Las tarjetas y "Ver tabla" tienen los mismos datos.</p></div>
+          </div>
+        </section>
+        <div class="rt-kpis" id="rt-kpis"></div>
+        <section class="rt-card rt-lado" aria-labelledby="rt-dest-tit"><h2 class="rt-card-tit" id="rt-dest-tit">Principales destinos</h2><ol class="rt-barras" id="rt-destinos"></ol></section>
       </div>
-      <div class="rt-ley" aria-hidden="true"><span><i class="m"></i>Por mar</span><span><i class="t"></i>Por tierra</span><span><i class="a"></i>En avión</span><span><b></b>Puerto, paso o aeropuerto</span><span>El grosor de cada línea es el monto en dólares</span></div>
-      <p class="rt-ayuda">Para acercar, los botones, dos dedos o Ctrl y la rueda del mouse. Tocá o hacé clic en una ruta, un país o un puerto para ver su ficha.</p>
+      <p class="rt-ayuda">Más grosor es más dinero, y cuanto más celeste un país, más compra. Los barcos, camiones y aviones muestran por dónde va cada ruta: son un dibujo, no viajes de verdad. Tocá una ruta, una bandera o un puerto para ver su ficha. Para acercar, los botones, dos dedos o Ctrl y la rueda del mouse.</p>
       <p class="rt-frase" id="rt-frase"></p>
-      <div class="rt-kpis" id="rt-kpis"></div>
       <div class="rt-grid">
-        <section class="rt-card" aria-labelledby="rt-dest-tit"><h2 class="rt-card-tit" id="rt-dest-tit">Principales destinos</h2><ol class="rt-barras" id="rt-destinos"></ol></section>
         <section class="rt-card" aria-labelledby="rt-prod-tit"><h2 class="rt-card-tit" id="rt-prod-tit">Principales productos</h2><ol class="rt-barras" id="rt-productos"></ol></section>
+        <section class="rt-card rt-corredores" aria-labelledby="rt-corr-tit"><h2 class="rt-card-tit" id="rt-corr-tit">Principales corredores comerciales</h2><ol class="rt-corr" id="rt-corredores"></ol></section>
       </div>
-      <section class="rt-card rt-corredores" aria-labelledby="rt-corr-tit"><h2 class="rt-card-tit" id="rt-corr-tit">Principales corredores comerciales</h2><ol class="rt-corr" id="rt-corredores"></ol></section>
       <button type="button" class="boton chico" id="rt-ver-tabla" aria-expanded="false" aria-controls="rt-tabla-caja">Ver tabla</button>
       <div class="tabla-datos" id="rt-tabla-caja" hidden><div class="tabla-desliza" tabindex="0" role="region" aria-label="Exportaciones por país de destino"><table class="tabla-areas" id="rt-tabla"></table></div></div>
-      <div class="pie rt-pie"><span>Fuentes: exportaciones por subrubro y país de destino, INDEC. Salida de cada producto: organismos oficiales, cámaras y prensa, una por una en la tabla de salidas. Caminos por mar: biblioteca searoute, sobre la red marítima de Eurostat. Mapa: Natural Earth</span><a href="datos/rutas_exportaciones.csv" download>Descargar tabla (CSV)</a></div>
+      <div class="pie rt-pie"><span>Fuentes: exportaciones por subrubro y país de destino, INDEC. Salida de cada producto: organismos oficiales, cámaras y prensa, una por una en la tabla de salidas. Caminos por mar: biblioteca searoute, sobre la red marítima de Eurostat. Mapa: Natural Earth. Banderas: circle-flags</span><a href="datos/rutas_exportaciones.csv" download>Descargar tabla (CSV)</a></div>
       <div class="rt-limites nota-limites">
         <h2 class="rt-tit">Qué no dice este dato</h2>
         <ul>

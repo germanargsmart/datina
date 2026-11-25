@@ -862,7 +862,7 @@ await q.tamano(1280, 900);
 }
 // Rutas comerciales (23 de noviembre de 2026, rediseño del 24 de noviembre): la vista inicial (las cuatro tarjetas de cifras, diez destinos, diez productos,
 // los corredores, la frase y el mapa de MapLibre con los nombres de los destinos), apagar una vía, apagarlas todas y restablecer, un rubro y un producto,
-// la ficha de un destino y Escape, el año más viejo, Reproducir, el zoom, el globo, las capas y, en 390 píxeles, el mapa en la primera pantalla y el panel
+// las banderas, los emojis y la pausa, la ficha de un destino y Escape, el año más viejo, Reproducir, el zoom, el globo, las capas y, en 390 píxeles, el mapa en la primera pantalla y el panel
 // de filtros. No pide cifras fijas: cambian con cada año del INDEC
 {
   const antes = q.errores.length;
@@ -880,6 +880,16 @@ await q.tamano(1280, 900);
   if (r.kpis !== 4 || r.dest !== 10 || r.prods !== 10 || r.corr < 5 || !/exportó .* dólares/.test(r.frase) || r.ocupado) problemas.push(`rutas.html: la vista inicial sin sus tarjetas o su frase (${r.kpis} cifras, ${r.dest} destinos, ${r.prods} productos, ${r.corr} corredores)`);
   if (!r.canvas || r.sinMapa || r.etiq < 5) problemas.push(`rutas.html: el mapa de MapLibre no se dibujó (${r.canvas ? "con" : "sin"} lienzo, ${r.etiq} nombres de destinos${r.sinMapa ? ", con el aviso de sin mapa" : ""})`);
   if (r.vias.length !== 3 || !r.vias.every(v => /^true\d+,\d%$/.test(v))) problemas.push(`rutas.html: las tres vías no arrancan prendidas con su porcentaje (${r.vias.join(" | ")})`);
+  // las banderas de los diez destinos cargadas, un emoji por producto y el botón que pausa los barcos, camiones y aviones (25 de noviembre de 2026)
+  const adornos = async () => JSON.parse(await q.eval(`JSON.stringify({flags: [...document.querySelectorAll("#rt-destinos img.rt-flag")].filter(i => i.complete && i.naturalWidth).length,
+    sinBandera: document.querySelectorAll("#rt-destinos .rt-flag-sin").length, emojis: [...document.querySelectorAll("#rt-productos .rt-emoji")].filter(e => e.textContent && e.getAttribute("aria-hidden")).length,
+    mover: document.querySelector('[data-z="mover"]').getAttribute("aria-label")})`));
+  let ad = await adornos();
+  if (ad.flags + ad.sinBandera !== 10 || ad.sinBandera > 2 || ad.emojis !== 10) problemas.push(`rutas.html: faltan banderas o emojis (${ad.flags} banderas, ${ad.sinBandera} destinos sin bandera y ${ad.emojis} emojis)`);
+  await q.eval(`document.querySelector('[data-z="mover"]').click()`); await espera(300);
+  const pausado = (await adornos()).mover;
+  await q.eval(`document.querySelector('[data-z="mover"]').click()`); await espera(300);
+  if (ad.mover !== "Pausar el movimiento" || pausado !== "Poner en movimiento" || (await adornos()).mover !== ad.mover) problemas.push(`rutas.html: el botón no pausa el movimiento del mapa (${ad.mover}, ${pausado})`);
   // apagar la vía aérea: las cifras y la frase dicen que es solo por mar y por tierra
   await q.eval(`document.querySelector('.rt-via[data-via="avión"]').click()`); await espera(500);
   r = await rt();
@@ -901,7 +911,7 @@ await q.tamano(1280, 900);
   if (!r.frase.toLowerCase().includes(prod.toLowerCase()) || await q.eval(`document.getElementById("rt-prod-elegido").hidden`)) problemas.push(`rutas.html: buscar un producto (${prod}) no lo elige`);
   await q.eval(`document.querySelector('.rt-rubros [data-r=""]').click()`); await espera(500);
   // la ficha de un destino y Escape
-  const pais = await q.eval(`(() => { const b = document.querySelector("#rt-destinos button"); b.click(); return b.querySelector(".rt-b-n").textContent.replace(b.querySelector(".rt-cod").textContent, "").trim(); })()`);
+  const pais = await q.eval(`(() => { const b = document.querySelector("#rt-destinos button"); b.click(); return b.querySelector(".rt-b-n").textContent.trim(); })()`);
   await espera(800);
   r = await rt();
   if (!r.ficha || r.fichaTit !== pais) problemas.push(`rutas.html: elegir ${pais} en los destinos no abre su ficha (${r.fichaTit})`);
@@ -930,9 +940,15 @@ await q.tamano(1280, 900);
   await q.eval(`document.getElementById("rt-ver-tabla").click()`); await espera(300);
   r = JSON.parse(await q.eval(`JSON.stringify({abierta: !document.getElementById("rt-tabla-caja").hidden, filas: document.querySelectorAll("#rt-tabla tbody tr").length})`));
   if (!r.abierta || r.filas < 30) problemas.push(`rutas.html: "Ver tabla" no abre la tabla de destinos (${r.filas} filas)`);
+  // con movimiento reducido el mapa arranca quieto
+  await q.send("Emulation.setEmulatedMedia", {features: [{name: "prefers-reduced-motion", value: "reduce"}]});
+  await q.ir(B + "rutas", 3500);
+  ad = await adornos();
+  if (ad.mover !== "Poner en movimiento") problemas.push(`rutas.html: con movimiento reducido el mapa no arranca quieto (${ad.mover})`);
+  await q.send("Emulation.setEmulatedMedia", {features: []});
   // el celular: el mapa en la primera pantalla y el panel de filtros
   await q.tamano(390, 844); await q.ir(B + "rutas", 3000);
-  r = JSON.parse(await q.eval(`(() => { const m = document.getElementById("rt-mapa-caja").getBoundingClientRect(), b = document.querySelector(".rt-barra").getBoundingClientRect();
+  r = JSON.parse(await q.eval(`(() => { const m = document.getElementById("rt-mapa-caja").getBoundingClientRect(), b = document.querySelector(".rt-mapa-card").getBoundingClientRect();
     return JSON.stringify({alto: m.height, bajo: m.top - b.top, ancho: document.documentElement.scrollWidth - document.documentElement.clientWidth}); })()`));
   if (r.ancho > 0 || r.alto < 0.6 * 844 || r.bajo > 200) problemas.push(`rutas.html en 390 píxeles: el mapa no queda en la primera pantalla o se corre de costado (alto ${Math.round(r.alto)}, ${Math.round(r.bajo)} píxeles de filtros arriba, ${r.ancho} de costado)`);
   await q.eval(`document.getElementById("rt-filtros-btn").click()`); await espera(300);
