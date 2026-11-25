@@ -2170,6 +2170,7 @@ const TX = {
   "ant-mapa": `El Consejo de Administradores de Programas Antárticos Nacionales (COMNAP) lista ${ANT.n} instalaciones de ${ANT.paises} países: ${ANT.estaciones} estaciones y el resto entre campamentos, refugios, pistas, laboratorios y depósitos. ` +
     `Funcionan todo el año ${ANT.anual} y solo en verano, ${ANT.verano}. En la Península Antártica y las islas cercanas hay ${ANT.peninsula}, de ${ANT.peninsula_paises} países distintos: por eso esa zona tiene su propia vista en el mapa.`,
   "ant-mapa-nota": `Cada instalación cuenta para el país que la opera en primer lugar, y cada programa nacional informa la suya. Figuran cerradas por ahora ${ANT.cerradas}. Macquarie (Australia), al norte del paralelo 60, queda fuera del mapa y está en la tabla. ` +
+    `En amarillo, las zonas antárticas especialmente protegidas y especialmente administradas vigentes, con los polígonos que publica la Secretaría del Tratado Antártico: las que en el mapa serían demasiado chicas para verse van como un rombo. Las zonas creadas después de esa publicación todavía no están. ` +
     `Corregimos una coordenada de la fuente: Zhongshan Skiway (China) figura con latitud norte, al lado de la base Zhongshan, que está al sur.`,
   "ant-bases": `La Argentina tiene ${ANT.arg} bases: ${ANT.arg_anual} funcionan todo el año y ${ANT.arg_verano}, solo en verano. ${ANT.anual_top === "Argentina" ? "Según COMNAP, ningún otro país tiene tantas abiertas todo el año. " : ""}` +
     `La más antigua es Orcadas, de ${ANT.bases_ini}, y la más nueva, Belgrano II, de ${ANT.bases_fin}. El Censo 2022 contó ${ANT.censo} personas en las bases permanentes: ${ANT.censo_mujeres} mujeres y ${ANT.censo_varones} varones. ` +
@@ -3245,13 +3246,21 @@ function antEtiquetas(capa, puntos, w, h, nombre, clase, reservado = []) {
   });
   return ocupado;
 }
+// las zonas protegidas (24 de noviembre de 2026, decisión del autor): los polígonos de la Secretaría del Tratado Antártico, simplificados por
+// scripts/antartida_zonas_mapa.py. Si no llegan, el mapa se dibuja igual, sin ellas. d3 dibuja una figura con su contorno en el sentido de las
+// agujas del reloj: una al revés cubriría todo el globo menos la zona, así que las que vienen al revés se dan vuelta
+let ZONAS_ANT = null;
+const cargarZonasAnt = () => ZONAS_ANT ? Promise.resolve(ZONAS_ANT) : d3.json("datos/antartida_zonas.geo.json").then(z => {
+  z.features.forEach(f => f.geometry.coordinates.forEach(pol => { if (d3.geoArea({type: "Polygon", coordinates: pol}) > 2 * Math.PI) pol.forEach(a => a.reverse()); }));
+  return (ZONAS_ANT = z);
+}).catch(() => (ZONAS_ANT = {features: []}));
 const antCorto = d => d.nombre_corto || d.nombre.replace(/^Base (Antártica |Naval Antártica |Aérea Antártica )?/, "").replace(/ (Station|Base|Antarctic Station|Research Station)$/, "");
 function mapaAntartida(anim) {
   const el = G("ant-mapa");
   if (!el || !el.offsetParent) return;
-  if (!TOPO_ANT || !T.antartida_instalaciones) {
+  if (!TOPO_ANT || !T.antartida_instalaciones || !ZONAS_ANT) {
     if (!el.querySelector("svg")) esperando(el);
-    Promise.all([cargarAnt(), cargarTabla("antartida_instalaciones")]).then(() => mapaAntartida(anim)).catch(() => sinDatos(el, "No se pudo cargar el mapa."));
+    Promise.all([cargarAnt(), cargarTabla("antartida_instalaciones"), cargarZonasAnt()]).then(() => mapaAntartida(anim)).catch(() => sinDatos(el, "No se pudo cargar el mapa."));
     return;
   }
   const sel = document.getElementById("ant-pais"), pais = MED["ant-pais"], pen = MED["ant-mapa"] === "peninsula";
@@ -3262,7 +3271,7 @@ function mapaAntartida(anim) {
   const w = Math.min(720, Math.max(300, el.clientWidth)), h = Math.round(w * (pen ? 1 : 1.1));
   el.innerHTML = ""; el.removeAttribute("aria-busy"); el.resaltar = null;
   const svg = d3.select(el).append("svg").attr("viewBox", `0 0 ${w} ${h}`).attr("role", "img").style("overflow", "hidden")
-    .attr("aria-label", `Mapa de ${pen ? "la Península Antártica" : "la Antártida"} con las instalaciones de los programas antárticos, con las de ${pais} resaltadas. Los datos están en «Ver tabla», debajo`);
+    .attr("aria-label", `Mapa de ${pen ? "la Península Antártica" : "la Antártida"} con las instalaciones de los programas antárticos, con las de ${pais} resaltadas, y las zonas protegidas. Los datos de las instalaciones están en «Ver tabla», debajo`);
   // el recuadro de cada vista: el continente sin el mar que queda lejos, y la Península desde Bahía Margarita hasta las Shetland del Sur. Las Orcadas
   // quedan afuera: están lejos, dejaban vacío un tercio del recuadro y se ven en el continente
   const marco = pen ? {type: "MultiPoint", coordinates: [[-70, -68.9], [-53, -61.4], [-66.5, -61.4], [-52, -66]]}
@@ -3271,6 +3280,14 @@ function mapaAntartida(anim) {
   svg.append("rect").attr("width", w).attr("height", h).attr("fill", css("--celeste-suave")).attr("opacity", .45);
   antFondo(svg, camino, pen);
   svg.append("path").datum(d3.geoCircle().center([0, -90]).radius(30)()).attr("d", camino).attr("fill", "none").attr("stroke", css("--muted")).attr("stroke-width", .8).attr("stroke-dasharray", "3 4");
+  // las zonas protegidas, debajo de las bases: las que medirían menos de 4 píxeles van como un rombo en su centro
+  const marcoZ = d => d.px >= 0 && d.px <= w && d.py >= 0 && d.py <= h;
+  const zonas = ZONAS_ANT.features.map(f => { const b = camino.bounds(f), [px, py] = proy(d3.geoCentroid(f));
+    return {f, px, py, chica: !(Math.max(b[1][0] - b[0][0], b[1][1] - b[0][1]) >= 4)}; }).filter(marcoZ);
+  const capaZ = svg.append("g").attr("fill", css("--sol")).attr("stroke", css("--sol-fuerte")).attr("stroke-width", .8);
+  capaZ.selectAll("path").data(zonas.filter(z => !z.chica)).join("path").attr("d", z => camino(z.f)).attr("fill-opacity", .6);
+  capaZ.selectAll("rect").data(zonas.filter(z => z.chica)).join("rect").attr("x", z => z.px - 2.5).attr("y", z => z.py - 2.5).attr("width", 5).attr("height", 5)
+    .attr("transform", z => `rotate(45 ${z.px} ${z.py})`);
   const lugares = pen ? [[-59, -61.7, "Islas Shetland del Sur"], [-64.5, -66.8, "Península Antártica"], [-54.5, -66, "Mar de Weddell"]]
     : [[-68.3, -54.8, "Ushuaia"], [60, -90, "Polo Sur"], [-42, -74, "Mar de Weddell"], [-170, -74, "Mar de Ross"], [-60, -60, "Paralelo 60 Sur"]];
   const capaLugares = svg.append("g");
@@ -3284,15 +3301,17 @@ function mapaAntartida(anim) {
   // primero los nombres de las más grandes y de las que no informan capacidad: suelen ser las más alejadas
   const conNombre = vis.filter(d => d.sel).sort((a, b) => (b.capacidad ?? 999) - (a.capacidad ?? 999));
   // la leyenda, donde no hay bases: abajo a la izquierda en el continente y abajo a la derecha en la Península, sobre el Mar de Weddell
-  const leyY = h - 50, anchoLey = 92 + Math.max(0, pais.length - 11) * 6 + 110, leyX = pen ? w - anchoLey - 4 : 12;
-  const ocupado = antEtiquetas(svg.append("g"), conNombre, w, h, antCorto, "etq-fuerte", [[leyX - 8, leyY - 12, leyX + anchoLey + 4, leyY + 32]]);
+  const leyY = h - 70, anchoLey = 92 + Math.max(0, pais.length - 11) * 6 + 110, leyX = pen ? w - anchoLey - 4 : 12;
+  const ocupado = antEtiquetas(svg.append("g"), conNombre, w, h, antCorto, "etq-fuerte", [[leyX - 8, leyY - 12, leyX + anchoLey + 4, leyY + 52]]);
   lugares.forEach(([lon, lat, nom]) => {
     const [x, y] = proy([lon, lat]), t = capaLugares.append("text").attr("class", "etq-suave").attr("text-anchor", "middle").attr("x", x).attr("y", y).text(nom), l = t.node().getComputedTextLength();
     const c = [x - l / 2, y - 11, x + l / 2, y + 3];
     if (c[0] < 2 || c[2] > w - 2 || ocupado.some(o => c[0] < o[2] && c[2] > o[0] && c[1] < o[3] && c[3] > o[1])) t.remove(); else ocupado.push(c);
   });
   const ley = svg.append("g").attr("transform", `translate(${leyX},${leyY})`);
-  ley.append("rect").attr("x", -6).attr("y", -11).attr("width", anchoLey + 8).attr("height", 42).attr("rx", 6).attr("fill", css("--bg")).attr("opacity", .85);
+  ley.append("rect").attr("x", -6).attr("y", -11).attr("width", anchoLey + 8).attr("height", 62).attr("rx", 6).attr("fill", css("--bg")).attr("opacity", .85);
+  ley.append("rect").attr("x", 1.5).attr("y", 36.5).attr("width", 7).attr("height", 7).attr("rx", 1).attr("fill", css("--sol")).attr("fill-opacity", .6).attr("stroke", css("--sol-fuerte")).attr("stroke-width", .8);
+  ley.append("text").attr("x", 14).attr("y", 44).attr("class", "etq").text("Zona protegida");
   [[0, 0, css("--muted"), true, "Todo el año"], [92, 0, css("--muted"), false, "Solo en verano"], [0, 20, css("--celeste-fuerte"), true, pais], [92 + Math.max(0, pais.length - 11) * 6, 20, css("--muted"), true, "Otros países"]].forEach(([x, y, c, ll, t]) => {
     ley.append("circle").attr("cx", x + 5).attr("cy", y).attr("r", 4.5).attr("fill", ll ? c : css("--bg")).attr("stroke", c).attr("stroke-width", 1.4);
     ley.append("text").attr("x", x + 14).attr("y", y + 4).attr("class", "etq").text(t);
@@ -3307,7 +3326,13 @@ function mapaAntartida(anim) {
       return mostrarTip(el, `<b>${d.nombre}</b><br>${d.pais}${d.otro_pais ? ` ${yE(d.otro_pais)}` : ""}<br>${tipo(d)}` + (d.anio ? `<br>Desde ${d.anio}` : "") +
         (d.capacidad != null ? `<br>Capacidad máxima: ${n0(d.capacidad)} personas` : "<br>Capacidad sin informar") + (d.estado === "Abierta" ? "" : `<br>${d.estado}`), ex, ey);
     }
-    anillo.attr("opacity", 0); ocultarTip();
+    // sin una base cerca, la zona protegida que está debajo o, si es un rombo, cerca
+    const z = zonas.find(z => z.chica && Math.hypot(z.px - sx, z.py - sy) < 8) || zonas.find(z => !z.chica && d3.geoContains(z.f, proy.invert([sx, sy])));
+    anillo.attr("opacity", 0);
+    if (z) { const q = z.f.properties;
+      return mostrarTip(el, `<b>${q.nombre}</b><br>Zona antártica especialmente ${q.tipo === "ZAEP" ? "protegida" : "administrada"} ${q.numero}${q.marina ? ", marina" : ""}` +
+        `<br>Propuesta por ${lista(q.paises)}<br>Superficie: ${q.km2 < 10 ? n1(q.km2) : n0(q.km2)} km²`, ex, ey); }
+    ocultarTip();
   };
   svg.append("rect").attr("width", w).attr("height", h).attr("fill", "transparent").style("touch-action", "pan-y")
     .on("pointermove", ver).on("pointerdown", ver).on("pointerleave", () => { anillo.attr("opacity", 0); ocultarTip(); });

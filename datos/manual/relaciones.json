@@ -3026,6 +3026,17 @@
    }
   },
   {
+   "id": "ds:antartida_zonas.geo.json",
+   "nombre": "Zonas antárticas especialmente protegidas y administradas, polígonos simplificados",
+   "fuente": "org:ats",
+   "ruta": "sitio/datos/antartida_zonas.geo.json",
+   "armado": "2026-11-24",
+   "evidencia": {
+    "archivo": "scripts/antartida_zonas_mapa.py",
+    "contiene": "SALIDA = RAIZ / \"sitio\" / \"datos\" / \"antartida_zonas.geo.json\""
+   }
+  },
+  {
    "id": "ds:manual/cumbres_ign.csv",
    "nombre": "Máximas alturas: las cumbres más altas del país",
    "fuente": "org:ign",
@@ -8860,6 +8871,17 @@
     {
      "archivo": "scripts/datina.js",
      "contiene": "d3.json(\"datos/antartida.topo.json\")"
+    }
+   ]
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:antartida_zonas.geo.json",
+   "a": "f-ant-mapa",
+   "evidencia": [
+    {
+     "archivo": "scripts/datina.js",
+     "contiene": "d3.json(\"datos/antartida_zonas.geo.json\")"
     }
    ]
   },

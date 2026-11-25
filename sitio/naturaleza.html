@@ -327,7 +327,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 
     <article class="ficha" id="f-ant-mapa">
       <h2>¿Dónde están las bases de la Antártida?</h2>
-      <p class="ficha-sub">Instalaciones de los programas antárticos de cada país, por temporada, lista de noviembre de 2024</p>
+      <p class="ficha-sub">Instalaciones de los programas antárticos de cada país, por temporada, lista de noviembre de 2024, y zonas protegidas vigentes</p>
       <div class="conmutador" role="group" aria-label="Zona del mapa" data-g="ant-mapa">
         <button type="button" data-m="continente" aria-pressed="true">Continente</button>
         <button type="button" data-m="peninsula" aria-pressed="false">Península</button>
@@ -335,8 +335,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <label class="selector-ficha"><span>País resaltado</span><select id="ant-pais"><option value="Argentina">Argentina</option></select></label>
       <div class="grafico" data-g="ant-mapa" data-forma="mapa" style="--alto:690px;--alto-c:400px"></div>
       <p class="lead" data-t="ant-mapa">El Consejo de Administradores de Programas Antárticos Nacionales (COMNAP) lista 114 instalaciones de 31 países: 83 estaciones y el resto entre campamentos, refugios, pistas, laboratorios y depósitos. Funcionan todo el año 44 y solo en verano, 70. En la Península Antártica y las islas cercanas hay 50, de 19 países distintos: por eso esa zona tiene su propia vista en el mapa.</p>
-      <p class="nota" data-t="ant-mapa-nota">Cada instalación cuenta para el país que la opera en primer lugar, y cada programa nacional informa la suya. Figuran cerradas por ahora 11. Macquarie (Australia), al norte del paralelo 60, queda fuera del mapa y está en la tabla. Corregimos una coordenada de la fuente: Zhongshan Skiway (China) figura con latitud norte, al lado de la base Zhongshan, que está al sur.</p>
-      <div class="pie"><span>Fuente: COMNAP, Antarctic Facilities Information, noviembre de 2024 (uso educativo y sin fines comerciales, citando a COMNAP). Mapa: Natural Earth. Se actualiza a mano, cuando la fuente publica datos nuevos.</span><a href="datos/antartida_instalaciones.csv" download>Descargar tabla (CSV)</a></div>
+      <p class="nota" data-t="ant-mapa-nota">Cada instalación cuenta para el país que la opera en primer lugar, y cada programa nacional informa la suya. Figuran cerradas por ahora 11. Macquarie (Australia), al norte del paralelo 60, queda fuera del mapa y está en la tabla. En amarillo, las zonas antárticas especialmente protegidas y especialmente administradas vigentes, con los polígonos que publica la Secretaría del Tratado Antártico: las que en el mapa serían demasiado chicas para verse van como un rombo. Las zonas creadas después de esa publicación todavía no están. Corregimos una coordenada de la fuente: Zhongshan Skiway (China) figura con latitud norte, al lado de la base Zhongshan, que está al sur.</p>
+      <div class="pie"><span>Fuente: COMNAP, Antarctic Facilities Information, noviembre de 2024 (uso educativo y sin fines comerciales, citando a COMNAP). Zonas protegidas: Secretaría del Tratado Antártico. Mapa: Natural Earth. Se actualiza a mano, cuando la fuente publica datos nuevos.</span><a href="datos/antartida_instalaciones.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-ant-bases">
@@ -488,7 +488,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 <p class="solo-lector" id="aviso" aria-live="polite"></p>
 
 <!-- los datos van en un archivo aparte que el navegador guarda una sola vez para todas las páginas -->
-<script src="datos/fichas.js?v=8ab4e001b0" defer></script>
-<script src="datina.js?v=cb5419c1c7" defer></script>
+<script src="datos/fichas.js?v=81eb822a91" defer></script>
+<script src="datina.js?v=10c11340a9" defer></script>
 </body>
 </html>

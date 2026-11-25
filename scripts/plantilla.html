@@ -2912,7 +2912,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 
     <article class="ficha" id="f-ant-mapa">
       <h2>¿Dónde están las bases de la Antártida?</h2>
-      <p class="ficha-sub">Instalaciones de los programas antárticos de cada país, por temporada, lista de {{antartida.comnap_fecha}}</p>
+      <p class="ficha-sub">Instalaciones de los programas antárticos de cada país, por temporada, lista de {{antartida.comnap_fecha}}, y zonas protegidas vigentes</p>
       <div class="conmutador" role="group" aria-label="Zona del mapa" data-g="ant-mapa">
         <button type="button" data-m="continente" aria-pressed="true">Continente</button>
         <button type="button" data-m="peninsula" aria-pressed="false">Península</button>
@@ -2921,7 +2921,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <div class="grafico" data-g="ant-mapa" data-forma="mapa" style="--alto:690px;--alto-c:400px"></div>
       <p class="lead" data-t="ant-mapa"></p>
       <p class="nota" data-t="ant-mapa-nota"></p>
-      <div class="pie"><span>Fuente: COMNAP, Antarctic Facilities Information, {{antartida.comnap_fecha}} (uso educativo y sin fines comerciales, citando a COMNAP). Mapa: Natural Earth</span><a href="datos/antartida_instalaciones.csv" download>Descargar tabla (CSV)</a></div>
+      <div class="pie"><span>Fuente: COMNAP, Antarctic Facilities Information, {{antartida.comnap_fecha}} (uso educativo y sin fines comerciales, citando a COMNAP). Zonas protegidas: Secretaría del Tratado Antártico. Mapa: Natural Earth</span><a href="datos/antartida_instalaciones.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-ant-bases">
