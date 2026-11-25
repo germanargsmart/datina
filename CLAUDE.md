@@ -34,7 +34,8 @@ scripts/partes/                desde el 24 de noviembre de 2026 (plan técnico, 
                                página (catalogo.js, departamentos.js...). 03 lo publica en sitio/partes/ y lo pide solo esa página, antes de datina.js,
                                que ya no es una función que se llama a sí misma: cada parte se anota y datina.js la corre con parte("...") donde
                                estaba su código, con todo lo de datina.js a mano. Una parte de varias páginas lleva su propio nombre y sus páginas
-                               van en PARTE_EN de 03 (desde el 25 de noviembre de 2026, corte.js: laboratorio y corte-suprema)
+                               van en PARTE_EN de 03 (desde el 25 de noviembre de 2026, corte.js: laboratorio y corte-suprema, y articulos.js: las
+                               páginas de los artículos, a-*.html, no la página Artículos)
 scripts/imagen_social.py       la imagen al compartir de cada página (og:image, sitio/og/): 03 la dibuja con Pillow y Roboto Flex (scripts/fuentes/), solo si cambió lo que lleva
 scripts/pruebas_datos.py       pruebas de los datos: si fallan, no se arma ni se publica
 scripts/relaciones.py          arma el Explorador de relaciones (relaciones.html) desde datos/manual/relaciones.json y lo valida
@@ -46,7 +47,7 @@ scripts/texto_en_html.mjs      desde el 16 de noviembre de 2026 (plan técnico, 
                                en la fecha de los datos, y deja escrito en el HTML el texto de los artículos y de cada interpretación (data-t), que antes
                                escribía solo datina.js al cargar. Por eso 03 necesita Node 22 o más y Chrome, como la prueba de páginas. Desde el 25 de
                                noviembre de 2026 escribe también lo de los artículos fuera de sus páginas (las tarjetas de la portada, las respuestas de
-                               Artículos y "Artículos con este dato" de cada ficha), que calcula DATINA_ARMADO_ARTICULOS, el código de los artículos
+                               Artículos y "Artículos con este dato" de cada ficha), que calcula DATINA_ARMADO_ARTICULOS, en scripts/partes/articulos.js
 scripts/elecciones_mesas.py    desde el 4 de noviembre de 2026, arma sitio/datos/mesas/ (resultados por mesa y circuito, 87 MB), que 03 no toca. Se corre una vez por
                                elección. La página es scripts/mesas.js, aparte de datina.js, y la prueba scripts/prueba_mesas.py: docs/roadmap/MESAS.md
 scripts/elecciones_mapa.py     desde el 5 de noviembre de 2026, el mapa de esa herramienta: une la cartografía de los circuitos con los resultados (sitio/datos/mesas/geo/ y mapa/). Los colores de

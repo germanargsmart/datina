@@ -672,8 +672,9 @@ LAB_PIEZAS_IDX = [(i, texto(t)) for i, t in re.findall(r'<article class="lab-pie
 assert LAB_PIEZAS_IDX, "no se encontraron las piezas del Laboratorio para el buscador"
 # Los artículos de datina.js (ART_SERIE y ART), en su orden: primero los de series, después los de cruces. De cada uno se leen su id, cada
 # cuánto se actualiza (frec) y su bajada (dek). De acá salen la lista de Artículos (abajo) y, desde el 25 de noviembre de 2026 (plan técnico,
-# fase 5), lo que la lupa busca de cada artículo, en el índice del sitio: así la lupa no necesita el código de los artículos
-_JS_ART = (RAIZ / "scripts" / "datina.js").read_text(encoding="utf-8")
+# fase 5), lo que la lupa busca de cada artículo, en el índice del sitio: así la lupa no necesita el código de los artículos. Desde el mismo
+# día ese código está en su parte de datina.js, scripts/partes/articulos.js, que piden solo las páginas de los artículos (PARTE_EN, abajo)
+_JS_ART = (RAIZ / "scripts" / "partes" / "articulos.js").read_text(encoding="utf-8")
 bloque_art = lambda ini, fin: _JS_ART[_JS_ART.index(ini):_JS_ART.index(fin, _JS_ART.index(ini))]
 
 
@@ -982,7 +983,10 @@ JS_SITIO = achicar_js.achicar(js)
 # Una parte que no está acá la pide solo la página de su nombre. Cada página que pide una parte tiene que armarse: si no, 03 frena (al final)
 # El perfil de provincia (quinto paso, 25 de noviembre de 2026) no necesita estar: la parte "provincia" la pide provincia.html, y las 24 páginas
 # fijas (provincia-neuquen.html...) son copias de esa página, con su pedido (abajo, donde se arman, se controla que cada una lo lleve)
-PARTE_EN = {"corte": ["laboratorio", "corte-suprema"]}
+# Los artículos (séptimo paso, 25 de noviembre de 2026) los piden solo sus páginas (a-coparticipacion.html...): la parte se llama "articulos",
+# pero la página Artículos no la pide (sus tarjetas y sus respuestas, y lo que se ve de los artículos en las demás páginas, los escribe el
+# armado: DATINA_ARMADO_ARTICULOS en la parte, que corre scripts/texto_en_html.mjs)
+PARTE_EN = {"corte": ["laboratorio", "corte-suprema"], "articulos": [_i for _i, *_ in NOTAS]}
 PARTES_V = {}
 (SITIO / "partes").mkdir(exist_ok=True)
 for _f in sorted((RAIZ / "scripts" / "partes").glob("*.js")):
