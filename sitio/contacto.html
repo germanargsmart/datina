@@ -105,7 +105,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
   <section class="contacto" id="contacto" aria-labelledby="contacto-tit">
     <nav class="migas" aria-label="Ubicación"><ol><li><a href="./">Datina</a></li></ol></nav><h1 id="contacto-tit">Contacto</h1>
     <p class="nos-bajada">Para avisar de un error en un dato, sugerir una fuente o una pregunta, o contar cómo usás Datina.</p>
-    <form class="form-contacto form-correo" id="form-correo" data-correo="ra.moc.anitad@otcatnoc" hidden><div class="campos-dos"><label class="campo"><span>Nombre</span><input type="text" name="nombre" autocomplete="given-name" required></label><label class="campo"><span>Apellido</span><input type="text" name="apellido" autocomplete="family-name" required></label></div><label class="campo"><span>Mensaje</span><textarea name="mensaje" rows="6" required></textarea></label><p class="form-nota">Al tocar Enviar se abre tu programa de correo con el mensaje listo para mandar. Te respondemos a la dirección desde la que escribas.</p><button type="submit" class="boton principal">Enviar</button><div class="form-respaldo" hidden><p class="form-nota" role="status">¿No se abrió tu programa de correo? Copiá el mensaje y mandalo a <a data-correo="ra.moc.anitad@otcatnoc" href="contacto">nuestro correo</a>.</p><button type="button" class="boton chico accion" data-copiar>Copiar mensaje</button></div></form><p class="form-nota contacto-correo">También podés escribirnos directo a <a data-correo="ra.moc.anitad@otcatnoc" href="contacto">nuestro correo</a>.<noscript> contacto arroba datina.com.ar</noscript></p>
+    <form class="form-contacto form-correo" id="form-correo" data-correo="ra.moc.anitad@otcatnoc" hidden><div class="campos-dos"><label class="campo"><span>Nombre</span><input type="text" name="nombre" autocomplete="given-name" required></label><label class="campo"><span>Apellido</span><input type="text" name="apellido" autocomplete="family-name" required></label></div><label class="campo"><span>Correo</span><input type="email" name="correo" autocomplete="email" required></label><label class="campo"><span>Mensaje</span><textarea name="mensaje" rows="6" required></textarea></label><p class="form-nota">Al tocar Enviar se abre tu programa de correo con el mensaje listo para mandar. Te respondemos al correo que pongas.</p><button type="submit" class="boton principal">Enviar</button><div class="form-respaldo" hidden><p class="form-nota" role="status">¿No se abrió tu programa de correo? Copiá el mensaje y mandalo a <a data-correo="ra.moc.anitad@otcatnoc" href="contacto">nuestro correo</a>.</p><button type="button" class="boton chico accion" data-copiar>Copiar mensaje</button></div></form><p class="form-nota contacto-correo">También podés escribirnos directo a <a data-correo="ra.moc.anitad@otcatnoc" href="contacto">nuestro correo</a>.<noscript> contacto arroba datina.com.ar</noscript></p>
   </section>
 
   
@@ -224,6 +224,6 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 
 <!-- los datos van en un archivo aparte que el navegador guarda una sola vez para todas las páginas -->
 <script src="datos/fichas.js?v=dc70405b9e" defer></script>
-<script src="datina.js?v=da43f5cf50" defer></script>
+<script src="datina.js?v=53b49ab5cb" defer></script>
 </body>
 </html>

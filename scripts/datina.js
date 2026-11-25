@@ -201,14 +201,15 @@ const icono = (n, cls = "") => ICONOS[n] ? `<svg class="iso tono-${ICONOS[n].t} 
 document.querySelectorAll("[data-icono]").forEach(el => { el.innerHTML = icono(el.dataset.icono); });
 // el correo de Contacto (14 de noviembre de 2026): viene al revés en data-correo, así los robots que juntan correos de las páginas no lo leen
 document.querySelectorAll("a[data-correo]").forEach(a => { const c = [...a.dataset.correo].reverse().join(""); a.href = "mailto:" + c; a.textContent = c; });
-// Contacto con nombre, apellido y mensaje (25 de noviembre de 2026, pedido del autor): Enviar abre el programa de correo de quien escribe con el
+// Contacto con nombre, apellido, correo y mensaje (25 de noviembre de 2026, pedido del autor): Enviar abre el programa de correo de quien escribe con el
 // mensaje armado para esa dirección, sin pasar por ningún servidor. Si no se abre (una computadora sin programa de correo), aparece cómo copiarlo
 const formCorreo = document.getElementById("form-correo");
 if (formCorreo) {
   const dir = [...formCorreo.dataset.correo].reverse().join(""), respaldo = formCorreo.querySelector(".form-respaldo");
   const armar = () => {
     const d = new FormData(formCorreo), nom = `${d.get("nombre")} ${d.get("apellido")}`.trim().replace(/\s+/g, " ");
-    return {asunto: `Contacto desde Datina: ${nom}`, cuerpo: `${String(d.get("mensaje")).trim()}\n\n${nom}`};
+    // el correo va al pie del mensaje: es el que pone quien escribe, aunque mande el mensaje desde otra cuenta
+    return {asunto: `Contacto desde Datina: ${nom}`, cuerpo: `${String(d.get("mensaje")).trim()}\n\n${nom}\n${String(d.get("correo")).trim()}`};
   };
   formCorreo.hidden = false;
   formCorreo.addEventListener("submit", ev => {
