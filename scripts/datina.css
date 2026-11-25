@@ -2116,6 +2116,11 @@ h3.ia-tit{font-size:var(--t-4)}
 .campo input:focus-visible,.campo textarea:focus-visible{outline:3px solid var(--sol);outline-offset:1px}
 .form-nota{margin:0;font-size:var(--t-2);color:var(--muted)}
 .form-contacto .boton{justify-self:start}
+/* Contacto con nombre y apellido (25 de noviembre de 2026): uno al lado del otro desde 560 píxeles, uno debajo del otro en el celular */
+.campos-dos{display:grid;gap:var(--e-4)}
+@media (min-width:560px){.campos-dos{grid-template-columns:1fr 1fr}}
+.form-respaldo{display:grid;gap:var(--e-3)}
+.form-correo+.contacto-correo{margin-top:var(--e-6)}
 /* suscripción en el pie: el correo y el botón en una fila, que en el celular se apila */
 .form-suscripcion{display:grid;gap:var(--e-2);max-width:30em}
 .susc-fila{display:flex;flex-wrap:wrap;gap:var(--e-2)}
