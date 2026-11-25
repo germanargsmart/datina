@@ -1,4 +1,4 @@
-# Mudanzas y población (pedido del autor, 25 de noviembre de 2026)
+# Migración interna (pedido del autor, 25 de noviembre de 2026)
 
 Pedido: hacer para la Argentina el estudio "¿Dónde gana y dónde pierde gente Guadalajara?" (documento de Google del 21 de noviembre de 2026), sobre migración, con informes y tablas "como rutas comerciales de lindo".
 
@@ -7,7 +7,7 @@ Pedido: hacer para la Argentina el estudio "¿Dónde gana y dónde pierde gente 
 - Las dos cosas, por etapas y en la misma página: las mudanzas entre jurisdicciones, y después el cambio de población por departamento y las viviendas sin personas.
 - Herramienta propia en el menú Herramientas, como Rutas comerciales. El artículo `a-migracion-interna` y la ficha `f-migracion-interna` quedan (miden el lugar de nacimiento, que es otra cosa) y se enlazan con esto.
 - Descarga aprobada: los cuadros chicos del Censo 2022 de censo.gob.ar (73 archivos, 3,5 MB). La base por radio censal no: es pesada, y los archivos de 2010 por radio de datos.gob.ar dan 404.
-- Falta: que apruebe el diseño (maqueta) y el nombre. "Mudanzas y población" y `mudanzas.html` son provisorios.
+- Diseño aprobado con capturas ("todo está perfecto"), con tres cambios: se llama **Migración interna**, con la pregunta "¿Cómo nos movemos los argentinos?" (su propuesta fue "Migración interna: cómo nos movemos los argentinos o algo así"), sin los puntos que se movían sobre las líneas y con las Malvinas sin mouse ni clic, como en la portada. El censo cuenta a todas las personas que viven en el país, también a las nacidas en otro: lo dice "Qué no dice este dato".
 
 ## Datos
 
@@ -28,17 +28,14 @@ Las viviendas sin personas y su motivo salen de `censo2022_departamentos.csv`, q
 - El Censo 2010 fue de hecho y el de 2022, de derecho: el cambio de población no es del todo comparable.
 - Del documento mexicano no se puede repetir: las viviendas deshabitadas de 2010 por departamento (sin fuente confirmada), la encuesta de 2025 y las zonas chicas. A cambio, el censo argentino dice por qué no había personas en cada vivienda.
 
-## Maqueta
+## La página
 
-`docs/roadmap/maqueta-mudanzas/`: `seccion.html` (el marcado), `mudanzas.css` y `maqueta.py`, que las pone en una copia de `sitio/rutas.html` (`python scripts/mudanzas_sitio.py` y después `python docs/roadmap/maqueta-mudanzas/maqueta.py docs/roadmap/maqueta-mudanzas`). El código de la página, `scripts/mudanzas.js`, y los datos, `scripts/mudanzas_sitio.py`, son los definitivos. Se borra al integrarla.
+`migracion-interna.html`, en Herramientas, entre Rutas comerciales y el Catálogo. Usa las tarjetas, la ficha y los controles de Rutas (`.rt-*` de `datina.css`), así que **sale después de la rama `claude/rutas-mapa`**, de la que parte. Lo propio lleva `mu-`.
 
-La rama `claude/migracion` parte de `claude/rutas-mapa`, porque usa sus tarjetas, su ficha y sus controles: sale después de ella.
-
-## Falta para publicar
-
-1. Que el autor apruebe la maqueta.
-2. Pasar el marcado a `plantilla.html` (años y "tres de cada diez" con `{{ruta}}`) y el CSS a `datina.css`.
-3. 02: las tres tablas y las variables por provincia en la tabla larga (`agregar()`), con su unidad en `pruebas_datos.py`. 03: llamar a `mudanzas_sitio.armar()`, copiar `mudanzas.js`, caché, `MENUS`, ícono, imagen al compartir.
-   Los colores escritos en `mudanzas.js` pasan a `:root`. En `mudanzas_departamentos.csv`, Lezama y Chascomús, y Tolhuin y Río Grande, repiten `cambio_personas`, que es el de los dos juntos: sumar la columna los cuenta dos veces, así que hay que dejarlo en uno solo.
-4. `relaciones.json`, `catalogo.json`, `peso_paginas.json` y las pruebas de páginas, de fallas y de 320 píxeles.
-5. Enlazar con `f-migracion-interna` y `a-migracion-interna`.
+- **02**: escribe `mudanzas_matriz.csv`, `mudanzas_provincias.csv` y `mudanzas_departamentos.csv` (las calcula `mudanzas_sitio.tablas()`), cuatro variables en la tabla larga y `resumen.migraciones.mudanzas`. El cambio de los departamentos que se juntan va una sola vez, en el que ya existía.
+- **03**: escribe `datos/mudanzas.json` y `datos/vecinos.topo.json` (los países de alrededor, del mapa del mundo de `scripts/lib`, 41 KB) con `mudanzas_sitio.armar_json()`, y copia `scripts/mudanzas.js`.
+- **Tres vistas** (`?vista=poblacion`, `?vista=viviendas`) y la jurisdicción elegida (`?provincia=14`) en la dirección. Dibuja con D3. Sin D3 o sin un mapa quedan las cifras, las listas y las tablas.
+- **Los colores**: celeste gana gente y ámbar pierde (ni bueno ni malo, por eso no van verde y rojo), trama donde no se puede decir, y turquesa en las viviendas, para que no se confunda con perder.
+- **Las listas** de departamentos van desde 10.000 habitantes o viviendas. Con una provincia elegida llevan todos: es lo que recorre el teclado.
+- `f-migracion-interna` la enlaza.
+- `prueba_paginas.mjs` y `prueba_fallas.mjs` la recorren, y `prueba_320.mjs` como a todas.

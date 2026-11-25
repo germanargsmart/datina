@@ -2615,6 +2615,133 @@ html.js #ms-resultado:empty~.ms-pie,html.js #ms-resultado:empty~.ms-limites{visi
 @media (prefers-reduced-motion:reduce){.rt-via{transition:none}}
 @media print{.rt-barra,.rt-ctrl,.rt-vias,#rt-ver-tabla,.rt-ayuda{display:none}.rt-mapa{break-inside:avoid}}
 
+/* ---------- Migración interna (25 de noviembre de 2026): usa las tarjetas, la ficha y los controles de Rutas comerciales ---------- */
+:root{--mu-gana-claro:#EAF3FB;--mu-pierde-claro:#FDF3DC;--mu-pierde:#EDB44A;--mu-pierde-texto:#85480A;--mu-celda:#F4F8FC;--mu-llega:#1F6FB0;--mu-va:#B9650F;--mu-neutro:#23364A;--mu-trama-fondo:#F3F5F8;--mu-trama-linea:#CBD4DE;
+  --mu-pob-1:#B9650F;--mu-pob-2:#EDB44A;--mu-pob-3:#E7F0F9;--mu-pob-4:#B5D3EE;--mu-pob-5:#6AA6DA;--mu-pob-6:#1F5E97;
+  --mu-viv-1:#EFF7F6;--mu-viv-2:#CFE8E6;--mu-viv-3:#9ED3D1;--mu-viv-4:#5AB0B1;--mu-viv-5:#1B8489;--mu-viv-6:#07494F}
+.mu [hidden]{display:none!important}
+.mu-barra .conmutador,.mu-controles .conmutador{margin:0}
+.mu-vistas{flex:0 1 480px}
+.mu-sel{margin:0;flex:0 1 260px}
+.mu-sel select{width:100%;min-height:40px}
+.mu-controles{display:flex;flex-wrap:wrap;align-items:center;gap:var(--e-2) var(--e-4)}
+.mu-medidas{width:300px}
+.mu-check{display:inline-flex;align-items:center;gap:var(--e-2);font-size:var(--t-2);color:var(--muted);cursor:pointer}
+.mu-check input{width:18px;height:18px;accent-color:var(--azul)}
+.mu-flag{display:block;flex:none;width:20px;height:20px;object-fit:cover;border-radius:50%;box-shadow:0 0 0 1px rgba(24,33,43,.16)}
+.mu .rt-k-txt .mu-flag{width:26px;height:26px}
+.mu .rt-kpis{grid-template-columns:repeat(4,minmax(0,1fr))}
+.mu .rt-k-cifra{line-height:1.15}
+.mu .mu-k-par{flex-wrap:wrap;gap:2px 6px;font-size:var(--t-4)}.mu .mu-k-par .mu-flag{width:22px;height:22px}
+.mu .tabla-desliza{max-height:none;margin-top:var(--e-3);border:0;border-radius:0}
+.mu-a{font-weight:400;color:var(--muted)}
+.mu-mapa{min-height:820px}
+.mu-lienzo{position:absolute;inset:0}
+.mu-lienzo svg{display:block;width:100%;height:100%;touch-action:pan-y}
+.mu-c-vecinos path{fill:var(--rt-suelo);stroke:var(--rt-costa);stroke-width:.8;vector-effect:non-scaling-stroke}
+.mu-c-provincias path,.mu-c-departamentos path{stroke:#fff;stroke-width:.9;vector-effect:non-scaling-stroke;cursor:pointer;transition:opacity 180ms ease}
+.mu-c-departamentos path{stroke-width:.5}
+.mu-c-limites path{fill:none;stroke:#fff;stroke-width:1.4;vector-effect:non-scaling-stroke;pointer-events:none}
+.mu-por-dep .mu-c-limites path{stroke:var(--muted);stroke-width:.8}
+.mu-c-provincias .lejos{opacity:.55}
+.mu-c-islas path{stroke:var(--faint);stroke-width:.7;vector-effect:non-scaling-stroke;pointer-events:none}
+.mu-c-islas .lejos{opacity:.55}
+.mu-c-departamentos .lejos{opacity:.28}
+.mu-c-provincias .elegida,.mu-c-departamentos .elegida{stroke:var(--ink);stroke-width:1.8}
+.mu-c-caminos .linea{fill:none;stroke-linecap:round;vector-effect:non-scaling-stroke;pointer-events:none}
+.mu-c-caminos .toque{fill:none;stroke:transparent;stroke-width:14;vector-effect:non-scaling-stroke;cursor:pointer}
+.mu-nodo{cursor:pointer}
+.mu-nodo .aro{fill:#fff;stroke:rgba(24,33,43,.28);stroke-width:1}
+.mu-nodo.elegida .aro,.mu-nodo.foco .aro{fill:var(--azul);stroke:var(--azul)}
+.mu-nodo text{font:600 12px/1 var(--f);fill:var(--ink);paint-order:stroke;stroke:#fff;stroke-width:3px;stroke-linejoin:round}
+.mu-nodo .v{font-weight:500;font-size:11.5px;font-variant-numeric:tabular-nums;fill:var(--muted)}
+.mu-nodo .gana{fill:var(--azul-hondo)}.mu-nodo .pierde{fill:var(--mu-pierde-texto)}
+.mu-nodo.lejos{opacity:.35}
+.mu-leyenda{position:absolute;z-index:2;left:var(--e-3);bottom:var(--e-3);display:flex;flex-direction:column;gap:var(--e-1);padding:var(--e-2) var(--e-3);font-size:var(--t-2);line-height:1.3;color:var(--ink);
+  background:color-mix(in srgb,var(--bg) 94%,transparent);border-radius:var(--r-control);box-shadow:var(--sombra-boton)}
+.mu-leyenda span{display:flex;align-items:center;gap:var(--e-2)}
+.mu-leyenda i{flex:none;width:18px;height:12px;border-radius:2px}
+.mu-ley-trama{background:repeating-linear-gradient(45deg,var(--mu-trama-linea) 0 2px,var(--mu-trama-fondo) 2px 5px)}
+.mu-leyenda .mu-ley-linea{height:4px;border-radius:2px;background:linear-gradient(90deg,color-mix(in srgb,var(--c) 15%,transparent),var(--c))}
+.mu-inserto{position:absolute;z-index:2;right:64px;bottom:152px;width:196px;padding:var(--e-2) var(--e-3);background:var(--bg);border-radius:var(--r-control);box-shadow:var(--sombra-boton)}
+.mu-inserto p{margin:0 0 var(--e-1);font-size:var(--t-2);font-weight:600;color:var(--ink)}
+.mu-inserto svg{display:block;width:100%;background:var(--rt-oceano);border-radius:4px}
+.mu-inserto path{stroke:#fff;stroke-width:.6;cursor:pointer}.mu-inserto .elegida{stroke:var(--ink);stroke-width:1.6}
+.mu .rt-ficha{width:312px;max-height:calc(100% - 180px)}
+.mu .rt-f-cab>.mu-flag{width:36px;height:36px}
+.mu .rt-f-lista .mu-flag{width:18px;height:18px}
+.mu .rt-f-lista li{padding:5px 0}
+.mu-t-llega{color:var(--mu-llega)!important}.mu-t-va{color:var(--mu-va)!important}
+.mu-f-nota{margin:var(--e-3) 0 0;font-size:var(--t-2);line-height:var(--i-chico);color:var(--muted)}
+.mu .rt-tip .mu-flag{width:18px;height:18px}
+.mu .rt-tip b{color:var(--ink)}
+.mu-lado{display:flex;flex-direction:column}
+.mu .rt-barras{margin-bottom:0}
+.mu-lado .rt-barras{max-height:830px;overflow-y:auto}
+.mu-lado .rt-barras:focus-visible{outline:2px solid var(--azul)}
+.mu .rt-barras button{grid-template-columns:24px minmax(0,1fr) auto;row-gap:3px;padding:4px var(--e-2)}
+.mu .rt-barras .sin-bandera{grid-template-columns:minmax(0,1fr) auto}.mu .rt-barras .sin-bandera :is(.rt-b-barra,.mu-doble){grid-column:1/-1}
+.mu .rt-barras .mu-flag{grid-row:1/span 2;width:24px;height:24px}
+.mu .rt-barras button[aria-pressed="true"]{background:var(--celeste-suave)}
+.mu .rt-barras .rt-b-n,.mu .rt-barras .rt-b-x{font-size:var(--t-2)}
+.mu .rt-b-barra,.mu-doble{grid-column:2/-1;height:5px}
+.mu[data-vista="viviendas"] .rt-b-barra i{background:var(--mu-viv-5)}
+.mu-b-van i{background:var(--mu-va)!important}
+.mu-doble{position:relative;display:block;border-radius:3px;background:linear-gradient(90deg,transparent calc(50% - .5px),var(--faint) calc(50% - .5px) calc(50% + .5px),transparent calc(50% + .5px)),var(--superficie-2)}
+.mu-doble i{position:absolute;top:0;height:100%;min-width:2px}
+.mu-doble .g{background:var(--azul);border-radius:0 3px 3px 0}.mu-doble .p{background:var(--mu-va);border-radius:3px 0 0 3px}
+.mu-doble.duda i{background:var(--faint)}
+.mu-corte{margin:var(--e-3) var(--e-2) var(--e-1);font-size:var(--t-2);font-weight:600;color:var(--ink)}
+.mu-frase{max-width:75ch}
+.mu-frase p{margin:0 0 var(--e-3)}
+.mu-fila{display:grid;grid-template-columns:340px minmax(0,1fr);gap:var(--e-4);margin-top:var(--e-4)}
+.mu-matriz-card,.mu-tabla-card{min-width:0}
+.mu-matriz-card,.mu>.mu-tabla-card{margin-top:var(--e-4)}
+.mu .mu-corr button{display:block}
+.mu-corr-cab{display:flex;align-items:center;justify-content:space-between;gap:var(--e-2)}
+.mu-corr em{font-style:normal;color:var(--muted)}
+.mu-corr .mu-flag{width:18px;height:18px}
+.mu-ida{display:block;height:6px;margin:4px 0 2px;border-radius:3px;background:var(--superficie-2);overflow:hidden}
+.mu-ida i{display:block;height:100%;border-radius:3px;background:var(--mu-neutro)}
+.mu-ida .l{background:var(--mu-llega)}.mu-ida .v{background:var(--mu-va)}
+.mu-tabla{width:100%;border-collapse:collapse;margin-top:0;font-size:var(--t-2);font-variant-numeric:tabular-nums}
+.mu-tabla th,.mu-tabla td{padding:6px var(--e-2);text-align:right;border-bottom:1px solid var(--line);white-space:nowrap}
+.mu-tabla thead th{vertical-align:bottom;white-space:normal;font-weight:500;color:var(--muted);line-height:1.25;border-bottom:1px solid var(--borde)}
+.mu-tabla thead button{padding:0;font:inherit;color:inherit;text-align:inherit;background:none;border:0;cursor:pointer}
+.mu-tabla thead button:hover{color:var(--azul);text-decoration:underline}
+.mu-tabla thead [aria-sort="ascending"] button,.mu-tabla thead [aria-sort="descending"] button{font-weight:600;color:var(--ink)}
+.mu-tabla :is(thead th:first-child,tbody th){text-align:left}
+.mu-tabla tbody th{font-weight:500;color:var(--ink)}
+.mu-tabla tbody th span{display:flex;align-items:center;gap:var(--e-2)}
+.mu-tabla tbody th i{display:inline-block;width:14px;height:14px;margin-right:var(--e-2);border-radius:3px;vertical-align:-2px}
+.mu-tabla tbody tr:hover{background:var(--superficie)}
+.mu-tabla tr.marca{background:var(--celeste-suave)}
+.mu-tabla .gana{font-weight:600;color:var(--azul-hondo)}.mu-tabla .pierde{font-weight:600;color:var(--mu-pierde-texto)}.mu-tabla .duda{color:var(--faint-texto)}
+#mu-tramos tbody tr:last-child>*{font-weight:600;border-top:1px solid var(--borde);border-bottom:0}
+.mu-matriz{border-collapse:separate;border-spacing:1px;margin-top:0;font-size:10.5px;width:100%;font-variant-numeric:tabular-nums}
+.mu-matriz th{font-weight:500;color:var(--ink);text-align:left;white-space:nowrap;padding:0 6px 0 0;position:sticky;left:0;background:var(--bg)}
+.mu-matriz thead th{position:static;height:84px;vertical-align:bottom;padding:0}
+.mu-matriz thead th:first-child{color:var(--muted)}
+.mu-matriz thead th:not(:first-child) span{display:block;width:39px;transform-origin:left bottom;transform:rotate(-52deg) translate(16px,2px);white-space:nowrap}
+.mu-matriz td{min-width:39px;height:25px;padding:0 3px;text-align:right;color:var(--ink);border-radius:3px;background:color-mix(in srgb,var(--celeste-fuerte) var(--t),var(--mu-celda))}
+.mu-matriz td[data-f]{color:#fff}
+.mu-matriz td.yo{background:none;color:var(--faint);text-align:center}
+.mu-matriz tr.marca td:not(.yo),.mu-matriz td.marca{outline:1.5px solid var(--sol);outline-offset:-1px}
+.mu-matriz tr.marca th,.mu-matriz thead .marca{font-weight:700}
+.mu-descargas{display:flex;flex-wrap:wrap;gap:var(--e-1) var(--e-4)}
+@media (max-width:1080px){.mu .rt-kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.mu-fila{grid-template-columns:minmax(0,1fr)}.mu .rt-barras{columns:2;column-gap:var(--e-4)}.mu .rt-barras li{break-inside:avoid}}
+@media (max-width:760px){
+  .mu-barra{flex-direction:column;align-items:stretch}.mu-vistas,.mu-sel{flex:none;width:100%}
+  .mu .mu-mapa{height:auto;min-height:0}.mu-lienzo{position:relative;height:72vh;min-height:500px}
+  .mu-controles{width:100%}.mu-medidas{flex:1 1 100%;width:auto}
+  .mu .rt-barras{columns:1}
+  .mu .rt-ficha{width:auto;max-height:50%}
+  .mu-leyenda{position:static;flex-flow:row wrap;gap:var(--e-1) var(--e-4);background:var(--bg);border-radius:0;box-shadow:none;border-top:1px solid var(--borde)}
+  .mu .rt-ctrl{bottom:88px}
+  .mu .rt-kpi:nth-child(3){border-left:0;border-top:1px solid var(--line)}.mu .rt-kpi:nth-child(4){grid-column:auto;border-left:1px solid var(--line)}
+  .mu .rt-k-txt{font-size:var(--t-4)}
+}
+
 /* ---------- ¿Cuáles son las montañas más altas? (f-cumbres, pedido del autor del 9 de noviembre de 2026) ----------
    Arriba, el bloque de relieve de la cumbre elegida (un canvas que se gira de costado: arrastrar para arriba o para abajo sigue moviendo
    la página), y debajo las cumbres de la tabla del IGN, que lo eligen, en columnas que se leen de arriba abajo, como un ranking */

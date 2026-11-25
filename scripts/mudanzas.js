@@ -1,6 +1,6 @@
-/* Mudanzas y población (25 de noviembre de 2026, docs/roadmap/MUDANZAS.md). Pedido del autor: la versión argentina de "¿Dónde gana y dónde pierde gente
+/* Migración interna (25 de noviembre de 2026, docs/roadmap/MUDANZAS.md). Pedido del autor: la versión argentina de "¿Dónde gana y dónde pierde gente
    Guadalajara?" y de la migración entre provincias, con el diseño de Rutas comerciales.
-   Lo copia 03_construir_sitio.py a sitio/mudanzas.js y lo pide solo mudanzas.html. Lee datos/mudanzas.json (scripts/mudanzas_sitio.py),
+   Lo copia 03_construir_sitio.py a sitio/mudanzas.js y lo pide solo migracion-interna.html. Lee datos/mudanzas.json (scripts/mudanzas_sitio.py),
    datos/provincias.geojson, datos/departamentos.topo.json y datos/vecinos.topo.json. Dibuja con D3, sin otra biblioteca.
    Tres vistas: las mudanzas entre jurisdicciones (la matriz del cuadro 15 del Censo 2022), el cambio de población entre los dos censos y las viviendas sin
    personas, estas dos por departamento. Los textos no llevan cifras escritas a mano: salen de los datos.
@@ -29,19 +29,22 @@
   const MOTIVO = {uso_temporal: "Vacaciones o fin de semana", alquiler_venta: "En alquiler o en venta", en_construccion: "En construcción",
     residentes_ausentes: "Sus habitantes no estaban", oficina_comercio: "Oficina, consultorio o comercio", otra_situacion: "Otra situación"};
   let D, geo, topo, vec, prov = {}, cods = [], M, deps = [], depDe = {};
-  const E = {vista: "mudanzas", medida: "saldo", cada: false, motivo: "", p: "", dep: "", quieto: RM.matches};
+  const E = {vista: "mudanzas", medida: "saldo", cada: false, motivo: "", p: "", dep: ""};
   const VISTAS = ["mudanzas", "poblacion", "viviendas"];
   const q = new URLSearchParams(location.search);
   if (VISTAS.includes(q.get("vista"))) E.vista = q.get("vista");
 
-  Promise.all(["datos/mudanzas.json", "datos/provincias.geojson", "datos/departamentos.topo.json", "datos/vecinos.topo.json"].map(u =>
-    fetch(u).then(r => { if (!r.ok) throw new Error(u); return r.json(); }))).then(([d, g, t, v]) => {
-    D = d; geo = g; topo = t; vec = v;
+  const bajar = u => fetch(u).then(r => { if (!r.ok) throw new Error(u); return r.json(); });
+  // sin un mapa quedan las cifras, las listas y las tablas
+  const mapas = Promise.all(["datos/provincias.geojson", "datos/departamentos.topo.json", "datos/vecinos.topo.json"].map(bajar)).catch(() => null);
+  bajar("datos/mudanzas.json").then(async d => {
+    D = d;
     preparar();
     if (prov[q.get("provincia")]) E.p = q.get("provincia");
+    const m = await mapas;
     raiz.setAttribute("aria-busy", "false");
     $("mu-estado").textContent = "Datos cargados.";
-    if (window.d3 && window.topojson) armarMapa(); else { $("mu-sin-mapa").hidden = false; }
+    if (m && window.d3 && window.topojson) { [geo, topo, vec] = m; armarMapa(); } else { $("mu-sin-mapa").hidden = false; }
     E.p && svg ? elegir(E.p) : pintar();
   }).catch(() => { raiz.setAttribute("aria-busy", "false"); $("mu-falla").hidden = false; $("mu-estado").textContent = ""; });
 
@@ -76,8 +79,8 @@
   function colorProv(p) {
     const v = medido(p), max = Math.max(...todas().map(x => Math.abs(medido(x))));
     const t = Math.sqrt(Math.abs(v) / max);
-    if (E.medida === "saldo") return p.dudoso ? "url(#mu-trama)" : v >= 0 ? d3.interpolateRgb("#EAF3FB", css("--celeste"))(t) : d3.interpolateRgb("#FDF3DC", "#EDB44A")(t);
-    return E.medida === "llegan" ? d3.interpolateRgb("#F3F8FD", css("--celeste"))(t) : d3.interpolateRgb("#FDF6E6", "#EDB44A")(t);
+    if (E.medida === "saldo") return p.dudoso ? "url(#mu-trama)" : v >= 0 ? d3.interpolateRgb(css("--mu-gana-claro"), css("--celeste"))(t) : d3.interpolateRgb(css("--mu-pierde-claro"), css("--mu-pierde"))(t);
+    return E.medida === "llegan" ? d3.interpolateRgb(css("--mu-gana-claro"), css("--celeste"))(t) : d3.interpolateRgb(css("--mu-pierde-claro"), css("--mu-pierde"))(t);
   }
 
   // ---- los caminos que se dibujan
@@ -102,12 +105,16 @@
   }
 
   // ---- el mapa
-  let svg, gZoom, zoom, proy, camino, ancho = 0, alto = 0, centro = {}, capas = {}, anima = 0, puntos = [], feats, depFeats, provFeats;
+  let svg, gZoom, zoom, proy, camino, ancho = 0, alto = 0, centro = {}, capas = {}, feats, depFeats, provFeats, malvinas;
   const islas = pol => d3.geoCentroid({type: "Polygon", coordinates: pol})[0] > -62;
   function armarMapa() {
     feats = geo.features;
     depFeats = topojson.feature(topo, topo.objects.departamentos).features;
-    // las Malvinas van con el color de Tierra del Fuego en las mudanzas: son parte de la provincia en el archivo
+    // las Malvinas son parte de Tierra del Fuego en el archivo: se dibujan aparte, sin mouse ni clic, como en la portada (decisión del autor). En las
+    // mudanzas llevan el color de la provincia, y en las vistas por departamento, la trama: ahí no se pudo censar
+    const tdf = feats.find(f => f.properties.codigo_indec === "94");
+    malvinas = {type: "MultiPolygon", coordinates: tdf.geometry.coordinates.filter(islas)};
+    provFeats = feats.map(f => f === tdf ? {...tdf, geometry: {type: "MultiPolygon", coordinates: tdf.geometry.coordinates.filter(p => !islas(p))}} : f);
     svg = d3.select("#mu-lienzo").append("svg").attr("role", "img").attr("aria-label", "Mapa de la Argentina. Las listas y las tablas tienen los mismos datos");
     const defs = svg.append("defs");
     const tr = defs.append("pattern").attr("id", "mu-trama").attr("width", 7).attr("height", 7).attr("patternUnits", "userSpaceOnUse").attr("patternTransform", "rotate(45)");
@@ -116,32 +123,22 @@
     defs.append("g").attr("id", "mu-degradados");
     defs.append("clipPath").attr("id", "mu-redondo").append("circle").attr("r", 10);
     gZoom = svg.append("g");
-    ["vecinos", "provincias", "departamentos", "islas", "limites", "caminos", "puntos", "nodos"].forEach(k => { capas[k] = gZoom.append("g").attr("class", "mu-c-" + k); });
+    ["vecinos", "provincias", "departamentos", "islas", "limites", "caminos", "nodos"].forEach(k => { capas[k] = gZoom.append("g").attr("class", "mu-c-" + k); });
     zoom = d3.zoom().scaleExtent([1, 14]).filter(ev => ev.type === "wheel" ? ev.ctrlKey : ev.type.startsWith("touch") ? ev.touches.length > 1 : !ev.button)
       .on("zoom", ev => { gZoom.attr("transform", ev.transform); escalar(ev.transform.k); });
     svg.call(zoom).on("dblclick.zoom", null).on("click", ev => { if (ev.target === svg.node() || ev.target.closest(".mu-c-vecinos")) { elegir(""); } });
     raiz.querySelectorAll("[data-z]").forEach(b => b.addEventListener("click", () => {
-      if (b.dataset.z === "mas") mover(() => svg.transition().duration(RM.matches ? 0 : 220).call(zoom.scaleBy, 1.7));
-      if (b.dataset.z === "menos") mover(() => svg.transition().duration(RM.matches ? 0 : 220).call(zoom.scaleBy, 1 / 1.7));
-      if (b.dataset.z === "todo") { mover(() => svg.transition().duration(RM.matches ? 0 : 260).call(zoom.transform, d3.zoomIdentity)); }
-      if (b.dataset.z === "mover") { E.quieto = !E.quieto; botonMover(); animar(); }
+      if (b.dataset.z === "mas") svg.transition().duration(RM.matches ? 0 : 220).call(zoom.scaleBy, 1.7);
+      if (b.dataset.z === "menos") svg.transition().duration(RM.matches ? 0 : 220).call(zoom.scaleBy, 1 / 1.7);
+      if (b.dataset.z === "todo") svg.transition().duration(RM.matches ? 0 : 260).call(zoom.transform, d3.zoomIdentity);
     }));
-    botonMover();
     new ResizeObserver(() => { if (Math.abs($("mu-lienzo").clientWidth - ancho) > 2 || Math.abs($("mu-lienzo").clientHeight - alto) > 2) { medir(); dibujar(); } }).observe($("mu-lienzo"));
     medir();
-  }
-  const mover = f => f();
-  function botonMover() {
-    const b = raiz.querySelector('[data-z="mover"]');
-    b.classList.toggle("rt-quieto", E.quieto);
-    b.setAttribute("aria-label", E.quieto ? "Poner en movimiento" : "Pausar el movimiento");
-    b.title = b.getAttribute("aria-label");
   }
   let kActual = 1;
   function escalar(k) {
     kActual = k;
     capas.nodos.selectAll(".mu-nodo").attr("transform", d => `translate(${centro[d.c]}) scale(${1 / k})`);
-    capas.puntos.selectAll("circle").attr("r", 2.6 / k);
   }
   function medir() {
     ancho = $("mu-lienzo").clientWidth; alto = $("mu-lienzo").clientHeight;
@@ -160,13 +157,10 @@
       return [c, proy(LUGAR[c] || d3.geoCentroid(partes && partes.length ? {type: "MultiPolygon", coordinates: partes} : f))];
     }));
     capas.vecinos.selectAll("path").data(topojson.feature(vec, vec.objects.vecinos).features).join("path").attr("d", marco);
-    capas.provincias.selectAll("path").data(feats, f => f.properties.codigo_indec).join(en => en.append("path")
+    capas.provincias.selectAll("path").data(provFeats, f => f.properties.codigo_indec).join(en => en.append("path")
       .on("click", (ev, f) => elegir(f.properties.codigo_indec === E.p ? "" : f.properties.codigo_indec))
       .on("pointermove", (ev, f) => senalar(ev, f.properties.codigo_indec)).on("pointerleave", () => { $("mu-tip").hidden = true; foco(""); })).attr("d", camino);
-    // las Malvinas, en las vistas por departamento: son parte del país y el censo no se pudo hacer ahí
-    const tdf = feats.find(f => f.properties.codigo_indec === "94");
-    capas.islas.selectAll("path").data([{type: "MultiPolygon", coordinates: tdf.geometry.coordinates.filter(islas)}]).join(en => en.append("path")
-      .on("pointermove", ev => cartel(ev, "<strong>Islas Malvinas</strong><span>Sin dato: no se pudo censar por la ocupación del Reino Unido</span>")).on("pointerleave", () => { $("mu-tip").hidden = true; })).attr("d", camino);
+    capas.islas.selectAll("path").data([malvinas]).join("path").attr("d", camino);
     capas.limites.selectAll("path").data([topojson.mesh(topo, topo.objects.departamentos, (a, b) => a.properties.prov !== b.properties.prov)]).join("path").attr("d", camino);
     capas.departamentos.selectAll("path").data(depFeats, f => f.properties.id).join(en => en.append("path")
       .on("click", (ev, f) => elegirDep(f.properties.id === E.dep ? "" : f.properties.id))
@@ -183,9 +177,8 @@
     const mud = E.vista === "mudanzas";
     capas.provincias.style("display", mud ? null : "none");
     capas.departamentos.style("display", mud ? "none" : null);
-    capas.islas.style("display", mud ? "none" : null);
+    capas.islas.selectAll("path").style("fill", mud ? colorProv(prov["94"]) : "url(#mu-trama)").classed("lejos", mud && E.p && E.p !== "94");
     raiz.classList.toggle("mu-por-dep", !mud);
-    raiz.querySelector('[data-z="mover"]').hidden = !mud;
     if (mud) {
       capas.provincias.selectAll("path").style("fill", f => colorProv(prov[f.properties.codigo_indec]))
         .classed("elegida", f => f.properties.codigo_indec === E.p).classed("lejos", f => E.p && f.properties.codigo_indec !== E.p);
@@ -232,33 +225,7 @@
     sel.filter(ver).raise();
     sel.filter(d => d.c === E.p).raise();
     escalar(kActual);
-    puntos = l.filter(x => x.v >= max * .04).flatMap((x, i) => {
-      const n = x.v > max * .35 ? 3 : x.v > max * .12 ? 2 : 1;
-      return d3.range(n).map(j => ({x, f: (j / n + i * .137) % 1}));
-    });
-    animar();
     inserto();
-  }
-  function animar() {
-    cancelAnimationFrame(anima);
-    const caminoDe = new Map(), linea = capas.caminos.selectAll(".linea").nodes();
-    linea.forEach(n => { const x = d3.select(n.parentNode).datum(); caminoDe.set(x, {n, l: n.getTotalLength()}); });
-    const c = capas.puntos.selectAll("circle").data(E.quieto ? [] : puntos).join("circle").attr("r", 2.6 / kActual).attr("fill", p => colorCamino(p.x.t));
-    if (E.quieto || !puntos.length) return;
-    let antes = 0;
-    const paso = t => {
-      const dt = antes ? Math.min(t - antes, 60) : 16;
-      antes = t;
-      if (!document.hidden) c.each(function (p) {
-        const k = caminoDe.get(p.x);
-        if (!k) return;
-        p.f = (p.f + dt * 26 / 1000 / Math.max(k.l, 40)) % 1;
-        const q2 = k.n.getPointAtLength(p.f * k.l);
-        this.setAttribute("cx", q2.x); this.setAttribute("cy", q2.y); this.setAttribute("opacity", Math.min(1, p.f * 6, (1 - p.f) * 6));
-      });
-      anima = requestAnimationFrame(paso);
-    };
-    anima = requestAnimationFrame(paso);
   }
   // el recuadro de CABA y el Gran Buenos Aires, que en el mapa del país son un punto
   const GBA = new Set(["06028", "06035", "06091", "06260", "06270", "06274", "06371", "06408", "06410", "06412", "06427", "06434", "06490", "06515", "06539", "06560", "06568", "06658",
@@ -414,7 +381,7 @@
   function pintarLeyenda() {
     const el = $("mu-leyenda"), caja = (c, t) => `<span><i style="background:${c}"></i>${t}</span>`;
     if (E.vista === "mudanzas") {
-      el.innerHTML = (E.medida === "saldo" ? caja("var(--celeste)", "Gana gente") + caja("#EDB44A", "Pierde gente") + `<span><i class="mu-ley-trama"></i>No se puede decir</span>` : "") +
+      el.innerHTML = (E.medida === "saldo" ? caja("var(--celeste)", "Gana gente") + caja("var(--mu-pierde)", "Pierde gente") + `<span><i class="mu-ley-trama"></i>No se puede decir</span>` : "") +
         (E.p ? (E.medida !== "van" ? `<span><i class="mu-ley-linea" style="--c:var(--mu-llega)"></i>Llegan</span>` : "") + (E.medida !== "llegan" ? `<span><i class="mu-ley-linea" style="--c:var(--mu-va)"></i>Se van</span>` : "")
           : `<span><i class="mu-ley-linea" style="--c:var(--mu-neutro)"></i>${E.medida === "saldo" ? "Diferencia entre ida y vuelta" : "Mudanzas"}</span>`);
     } else {
@@ -489,6 +456,9 @@
       <span class="mu-ida" aria-hidden="true"><i class="${x.d === E.p ? "l" : x.o === E.p ? "v" : ""}" style="width:${x.v / max * 100}%"></i></span><span class="rt-c-prod">El camino contrario: ${num(M[x.d][x.o])}</span></button></li>`).join("");
   }
   function pintar() {
+    // las listas se escriben de nuevo: el foco vuelve al mismo botón, para que el teclado no lo pierda
+    const act = document.activeElement, caja = act && act.closest && act.closest("#mu-lado-lista,#mu-corr"), k = caja && (act.dataset.p ? "p" : act.dataset.dep ? "dep" : "");
+    const sel = k ? `#${caja.id} [data-${k}="${act.dataset[k]}"]` : "";
     raiz.querySelectorAll(".mu-vistas button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.vista === E.vista)));
     raiz.querySelectorAll(".mu-medidas button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.m === E.medida)));
     raiz.dataset.vista = E.vista;
@@ -501,6 +471,7 @@
       viviendas: `Parte de las viviendas particulares, ${D.anio}, por departamento`}[E.vista];
     pintarKpis(); pintarLado(); pintarFicha(); pintarLeyenda(); pintarFrase();
     if (E.vista === "mudanzas") { pintarCorredores(); pintarMatriz(); pintarTabla(); } else pintarTramos();
+    if (sel) document.querySelector(sel)?.focus({preventScroll: true});
     dibujar(); enlace();
   }
   raiz.addEventListener("click", ev => {
@@ -513,7 +484,11 @@
     else if (b.dataset.k) { orden = {k: b.dataset.k, sube: orden.k === b.dataset.k ? !orden.sube : b.dataset.k === "n"}; pintarTabla(); raiz.querySelector(`[data-k="${b.dataset.k}"]`).focus(); }
     else if (b.id === "mu-ficha-cerrar") { E.dep ? elegirDep("") : elegir(""); $("mu-prov").focus(); }
   });
-  raiz.addEventListener("keydown", ev => { if (ev.key === "Escape" && (E.p || E.dep)) { E.dep ? elegirDep("") : elegir(""); } });
+  // Escape cierra el informe desde la página o desde la herramienta: si el foco está en un menú o en la lupa, es de ellos
+  document.addEventListener("keydown", ev => {
+    if (ev.key !== "Escape" || !(E.p || E.dep) || !(document.activeElement === document.body || raiz.contains(document.activeElement))) return;
+    E.dep ? elegirDep("") : elegir("");
+  });
   $("mu-prov").addEventListener("change", ev => elegir(ev.target.value));
   $("mu-cada").addEventListener("change", ev => { E.cada = ev.target.checked; pintar(); });
   $("mu-motivo").addEventListener("change", ev => { E.motivo = ev.target.value; pintar(); });

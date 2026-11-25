@@ -959,6 +959,53 @@ await q.tamano(1280, 900);
   await q.tamano(1280, 900);
   q.errores.slice(antes).forEach(e => problemas.push(`Rutas comerciales: ${e}`));
 }
+// Migración interna (25 de noviembre de 2026, docs/roadmap/MUDANZAS.md): las tres vistas, las medidas, el informe de una jurisdicción desde la lista y
+// Escape, la dirección con lo elegido, las jurisdicciones que no se puede decir si ganan o pierden, las tablas, las Malvinas sin mouse y 390 píxeles
+{
+  const antes = q.errores.length, P = "migracion-interna.html";
+  const MU = `JSON.stringify({vista: document.getElementById("mu").dataset.vista, kpis: document.querySelectorAll("#mu-kpis .rt-kpi").length, lado: document.querySelectorAll("#mu-lado-lista button").length,
+    tit: document.getElementById("mu-lado-tit").textContent, prim: document.querySelector("#mu-lado-lista button")?.innerText || "", frase: document.getElementById("mu-frase").innerText,
+    ficha: !document.getElementById("mu-ficha").hidden, fichaTit: document.getElementById("mu-ficha-tit")?.textContent || "", lineas: document.querySelectorAll(".mu-c-caminos .linea").length,
+    provs: document.querySelectorAll(".mu-c-provincias path").length, deps: document.querySelectorAll(".mu-c-departamentos path").length, duda: document.querySelectorAll("#mu-tabla tbody td.duda").length,
+    filas: document.querySelectorAll("#mu-tabla tbody tr").length, celdas: document.querySelectorAll("#mu-matriz td:not(.yo)").length, tramos: document.querySelectorAll("#mu-tramos tbody tr").length,
+    islas: [...document.querySelectorAll(".mu-c-islas path")].map(x => getComputedStyle(x).pointerEvents).join(), dir: location.search, ocupado: document.getElementById("mu").getAttribute("aria-busy"),
+    puntos: document.querySelectorAll("#mu-lienzo svg animate, .mu-c-puntos").length, ancho: document.documentElement.scrollWidth - document.documentElement.clientWidth})`;
+  const mu = async () => JSON.parse((await q.eval(MU)).replace(/\\u00a0|\u00a0/g, " "));
+  const tocar = async s => { await q.eval(`document.querySelector(${JSON.stringify(s)}).click()`); await espera(450); };
+  await q.ir(B + "migracion-interna", 2500);
+  let r = await mu();
+  if (r.vista !== "mudanzas" || r.kpis !== 4 || r.lado !== 24 || r.ocupado !== "false" || !/Censo \d{4}/.test(r.frase)) problemas.push(`${P}: la vista inicial sin sus cifras, su lista o su texto (${JSON.stringify(r).slice(0, 160)})`);
+  if (r.provs !== 24 || r.lineas !== 30 || r.puntos) problemas.push(`${P}: el mapa no dibuja las 24 jurisdicciones y los 30 caminos, sin nada que se mueva (${r.provs}, ${r.lineas}, ${r.puntos})`);
+  if (r.islas !== "none") problemas.push(`${P}: las Malvinas responden al mouse (${r.islas})`);
+  // siete jurisdicciones cambian de signo: tres celdas en gris cada una (el saldo, la tasa y el saldo repartido)
+  if (r.filas !== 24 || r.celdas !== 24 * 23 || r.duda !== 21 || !/no se puede decir si ganan o pierden/.test(r.frase)) problemas.push(`${P}: las tablas o las jurisdicciones dudosas no son las esperadas (${r.filas} filas, ${r.celdas} celdas, ${r.duda} en gris)`);
+  await tocar('[data-m="llegan"]'); r = await mu();
+  if (r.tit !== "Adónde llegó más gente" || !/^Buenos Aires/.test(r.prim)) problemas.push(`${P}: Llegan no ordena por las llegadas (${r.tit}, ${r.prim})`);
+  await tocar('[data-m="saldo"]'); await tocar('#mu-lado-lista [data-p="90"]'); r = await mu();
+  if (!r.ficha || r.fichaTit !== "Tucumán" || r.dir !== "?provincia=90" || !/cambia de signo/.test(r.frase)) problemas.push(`${P}: elegir Tucumán en la lista no abre su informe (${r.fichaTit}, ${r.dir})`);
+  await tecla("Escape"); await espera(300); r = await mu();
+  if (r.ficha || r.dir) problemas.push(`${P}: Escape no cierra el informe (${r.dir})`);
+  // con el teclado: Enter en la lista elige, y el foco queda en el mismo botón
+  await q.eval(`document.querySelector('#mu-lado-lista [data-p="58"]').focus()`); await tecla("Enter"); await espera(450); r = await mu();
+  if (r.fichaTit !== "Neuquén" || await q.eval(`document.activeElement.dataset.p || ""`) !== "58") problemas.push(`${P}: con Enter en la lista no se elige o se pierde el foco (${r.fichaTit})`);
+  await tecla("Escape"); await espera(300);
+  await tocar('[data-k="cambio"]');
+  if (await q.eval(`document.querySelector('#mu-tabla [aria-sort="descending"] button').dataset.k`) !== "cambio") problemas.push(`${P}: tocar una columna no ordena la tabla`);
+  await tocar('[data-vista="poblacion"]'); r = await mu();
+  if (r.deps !== 527 || r.tramos !== 7 || !/^Entre los censos de/.test(r.frase)) problemas.push(`${P}: Población sin sus departamentos o su tabla (${r.deps}, ${r.tramos})`);
+  // con una provincia, la lista lleva todos sus departamentos: es lo que recorre el teclado
+  await q.eval(`(() => { const s = document.getElementById("mu-prov"); s.value = "14"; s.dispatchEvent(new Event("change")); })()`); await espera(700); r = await mu();
+  if (r.lado !== 26 || r.fichaTit !== "Córdoba") problemas.push(`${P}: Córdoba en Población no lista sus 26 departamentos (${r.lado}, ${r.fichaTit})`);
+  await tocar("#mu-lado-lista button"); r = await mu();
+  if (!r.ficha || r.fichaTit === "Córdoba") problemas.push(`${P}: elegir un departamento en la lista no abre su ficha (${r.fichaTit})`);
+  await tocar('[data-vista="viviendas"]');
+  await q.eval(`(() => { for (const [i, v] of [["mu-prov", ""], ["mu-motivo", "uso_temporal"]]) { const s = document.getElementById(i); s.value = v; s.dispatchEvent(new Event("change")); } })()`); await espera(700); r = await mu();
+  if (!/Monte Hermoso/.test(r.prim)) problemas.push(`${P}: el motivo de las viviendas no cambia la lista (${r.prim})`);
+  await q.tamano(390, 844); await q.ir(B + "migracion-interna?vista=viviendas&provincia=06", 2500); r = await mu();
+  if (r.ancho > 0 || r.vista !== "viviendas" || r.lado !== 135) problemas.push(`${P} en 390 píxeles: se corre de costado o no abre lo que dice la dirección (${r.ancho}, ${r.vista}, ${r.lado})`);
+  await q.tamano(1280, 900);
+  q.errores.slice(antes).forEach(e => problemas.push(`Migración interna: ${e}`));
+}
 // "Qué no dice este dato" (pedido del autor del 5 de noviembre de 2026: "queda a la mitad el texto"): desde 900 píxeles el texto llega hasta el borde
 // del contenido, en dos columnas, en los cinco lugares donde está armado distinto: artículo, cruce, Corte Suprema, Elecciones por mesa y Diagnóstico
 const LIMITES = `(() => {

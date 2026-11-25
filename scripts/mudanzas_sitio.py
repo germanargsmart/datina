@@ -1,9 +1,9 @@
-"""Los datos de la herramienta de mudanzas y población (mudanzas.html, 25 de noviembre de 2026, docs/roadmap/MUDANZAS.md).
+"""Los datos de la herramienta Migración interna (migracion-interna.html, 25 de noviembre de 2026, docs/roadmap/MUDANZAS.md).
 
 Lee lo que guardó una vez scripts/censo_2022_mudanzas.py en datos/manual/ (la matriz de residencia entre jurisdicciones y la población de 2010 y 2022 por
 departamento) y las viviendas por departamento de datos/manual/censo2022_departamentos.csv (scripts/censo_2022_vivienda.py), y arma:
 - datos/mudanzas.json, lo único que baja scripts/mudanzas.js
-- datos/mudanzas_matriz.csv, datos/mudanzas_provincias.csv y datos/mudanzas_departamentos.csv, las tablas que se descargan
+- las filas de mudanzas_matriz, mudanzas_provincias y mudanzas_departamentos, las tablas que se descargan: las escribe 02_procesar.py
 - datos/vecinos.topo.json, el fondo del mapa: los países de alrededor, de Natural Earth a 1:50 millones (world-atlas, scripts/lib)
 
 El saldo sale solo de las personas que dijeron de qué provincia venían: con quienes no lo dijeron no se sabe de dónde se fueron. Como prueba de robustez se
@@ -75,13 +75,6 @@ def calcular():
     return cods, m, provs, filas
 
 
-def escribir_csv(ruta, filas):
-    with open(ruta, "w", encoding="utf-8", newline="") as f:
-        w = csv.DictWriter(f, fieldnames=list(filas[0]), lineterminator="\n")
-        w.writeheader()
-        w.writerows(filas)
-
-
 def vecinos(salida):
     """Solo los países de alrededor, con los arcos que usan, del mapa del mundo que ya está en scripts/lib."""
     t = json.loads((RAIZ / "scripts" / "lib" / "world-atlas-2.0.2-countries-50m.json").read_text(encoding="utf-8"))
@@ -103,13 +96,20 @@ def vecinos(salida):
     salida.write_text(json.dumps(datos, ensure_ascii=False, separators=(",", ":")), encoding="utf-8", newline="\n")
 
 
-def armar(carpeta):
+def tablas():
+    """Las filas de las tres tablas que publica 02 en sitio/datos/."""
     cods, m, provs, filas = calcular()
-    escribir_csv(carpeta / "mudanzas_matriz.csv", [
-        {"origen_codigo": o, "origen": NOMBRES.get(o, {"ignorada": "Otra provincia, sin decir cuál", "exterior": "Otro país"}.get(o)), "destino_codigo": d,
-         "destino": NOMBRES[d], "personas": m[o, d]} for o in cods + ["ignorada", "exterior"] for d in cods])
-    escribir_csv(carpeta / "mudanzas_provincias.csv", provs)
-    escribir_csv(carpeta / "mudanzas_departamentos.csv", filas)
+    otros = {"ignorada": "Otra provincia, sin decir cuál", "exterior": "Otro país"}
+    matriz = [{"origen_codigo": o, "origen": NOMBRES.get(o, otros.get(o)), "destino_codigo": d, "destino": NOMBRES[d], "personas": m[o, d]}
+              for o in cods + list(otros) for d in cods]
+    # el cambio de los departamentos que se juntan (Chascomús y Lezama, Río Grande y Tolhuin) va una sola vez, en el que ya existía: sumar la
+    # columna no los cuenta dos veces
+    deps = [{**f, **({"cambio_personas": None, "cambio_pct": None} if f["poblacion_2010"] is None else {})} for f in filas]
+    return {"mudanzas_matriz": matriz, "mudanzas_provincias": provs, "mudanzas_departamentos": deps}
+
+
+def armar_json(carpeta):
+    cods, m, provs, filas = calcular()
     vecinos(carpeta / "vecinos.topo.json")
     datos = {"desde": 2017, "anio": 2022, "censo_antes": 2010,
              "prov": [[p["codigo_indec"], p["territorio"], p["viven_5_mas"], p["llegaron_sin_decir_provincia"], p["llegaron_de_otro_pais"], p["saldo_repartido"],
@@ -124,6 +124,4 @@ def armar(carpeta):
 
 
 if __name__ == "__main__":
-    print(armar(RAIZ / "sitio" / "datos"))
-    for p in sorted(calcular()[2], key=lambda p: -p["saldo"]):
-        print(f'{p["territorio"]:20} {p["saldo"]:8} repartido {p["saldo_repartido"]:8} {"CAMBIA EL SIGNO" if p["saldo"] * p["saldo_repartido"] < 0 else ""} sin decir {p["pct_sin_decir"]:.1f}%')
+    print(armar_json(RAIZ / "sitio" / "datos"))

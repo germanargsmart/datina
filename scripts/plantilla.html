@@ -1470,6 +1470,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <div class="pol-ley" id="migracion-interna-ley" aria-hidden="true"></div>
       <div class="grafico mp-mapa" data-g="migracion-interna" data-forma="barras" style="--filas:25"></div>
       <p class="lead" data-t="migracion-interna"></p>
+      <p class="nota">Quiénes se mudaron entre provincias en los cinco años anteriores al censo, y de dónde a dónde: <a href="#migracion-interna">Migración interna</a>.</p>
       <p class="nota" data-t="migracion-interna-nota"></p>
       <div class="pie"><span>Fuente: INDEC, Censo Nacional de Población, Hogares y Viviendas 2022</span><a href="datos/nacidos_otro_pais_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
@@ -3456,6 +3457,97 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     <link rel="stylesheet" href="lib/maplibre-gl-5.24.0.css?v=__V_MAPLIBRE_CSS__">
     <script src="lib/maplibre-gl-5.24.0.min.js?v=__V_MAPLIBRE__" defer></script>
     <script src="rutas.js?v=__V_RUTAS_JS__" defer></script>
+  </section>
+
+  <section class="tema herramienta" id="migracion-interna">
+    <h2>Migración interna</h2>
+    <div class="tema-intro">
+      <p class="pregunta">¿Cómo nos movemos los argentinos?</p>
+      <p>De dónde a dónde se mudaron las personas entre las 24 jurisdicciones de {{migraciones.mudanzas.desde}} a {{migraciones.mudanzas.anio}}, cómo cambió la población de cada departamento entre los censos de {{migraciones.mudanzas.censo_antes}} y {{migraciones.mudanzas.anio}} y dónde hay viviendas sin personas.</p>
+    </div>
+    <!-- 25 de noviembre de 2026 (pedido del autor, diseño aprobado ese día): docs/roadmap/MUDANZAS.md. Usa las tarjetas, la ficha y los controles de
+         Rutas comerciales. Lo que cambia con los datos lo escribe mudanzas.js -->
+    <div class="rt mu" id="mu" aria-busy="true">
+      <div class="rt-barra mu-barra">
+        <div class="conmutador mu-vistas" role="group" aria-label="Qué muestra el mapa" data-propio style="--n:3">
+          <button type="button" data-vista="mudanzas" aria-pressed="true">Mudanzas</button>
+          <button type="button" data-vista="poblacion" aria-pressed="false">Población</button>
+          <button type="button" data-vista="viviendas" aria-pressed="false">Viviendas</button>
+        </div>
+        <label class="selector-ficha mu-sel"><span class="solo-lector">Jurisdicción</span><select id="mu-prov"><option value="">Todo el país</option><option value="06">Buenos Aires</option><option value="02">CABA</option><option value="10">Catamarca</option><option value="22">Chaco</option><option value="26">Chubut</option><option value="14">Córdoba</option><option value="18">Corrientes</option><option value="30">Entre Ríos</option><option value="34">Formosa</option><option value="38">Jujuy</option><option value="42">La Pampa</option><option value="46">La Rioja</option><option value="50">Mendoza</option><option value="54">Misiones</option><option value="58">Neuquén</option><option value="62">Río Negro</option><option value="66">Salta</option><option value="70">San Juan</option><option value="74">San Luis</option><option value="78">Santa Cruz</option><option value="82">Santa Fe</option><option value="86">Santiago del Estero</option><option value="94">Tierra del Fuego</option><option value="90">Tucumán</option></select></label>
+      </div>
+      <p class="solo-lector" id="mu-estado" role="status">Cargando los datos.</p>
+      <div class="rt-falla" id="mu-falla" role="alert" hidden><p>No se pudieron cargar los datos. Las tablas se pueden descargar abajo.</p></div>
+      <div class="rt-tablero mu-tablero">
+        <section class="rt-card rt-mapa-card" aria-labelledby="mu-mapa-tit">
+          <div class="rt-mapa-cab">
+            <div><h2 class="rt-card-tit" id="mu-mapa-tit">De dónde a dónde se mudó la gente</h2><p class="rt-card-sub" id="mu-mapa-sub"></p></div>
+            <div class="mu-controles">
+              <div class="conmutador mu-medidas" role="group" aria-label="Medida" data-propio data-solo="mudanzas" style="--n:3">
+                <button type="button" data-m="saldo" aria-pressed="true">Saldo</button>
+                <button type="button" data-m="llegan" aria-pressed="false">Llegan</button>
+                <button type="button" data-m="van" aria-pressed="false">Se van</button>
+              </div>
+              <label class="mu-check" data-solo="mudanzas"><input type="checkbox" id="mu-cada"> Cada 1.000 personas de 5 años y más</label>
+              <label class="selector-ficha mu-sel" data-solo="viviendas" hidden><span class="solo-lector">Motivo</span><select id="mu-motivo"><option value="">Todos los motivos</option><option value="uso_temporal">Vacaciones o fin de semana</option><option value="alquiler_venta">En alquiler o en venta</option><option value="en_construccion">En construcción</option><option value="residentes_ausentes">Sus habitantes no estaban</option><option value="oficina_comercio">Oficina, consultorio o comercio</option><option value="otra_situacion">Otra situación</option></select></label>
+            </div>
+          </div>
+          <div class="rt-mapa mu-mapa" id="mu-mapa">
+            <div class="mu-lienzo" id="mu-lienzo"></div>
+            <div class="mu-leyenda" id="mu-leyenda"></div>
+            <div class="mu-inserto" id="mu-inserto" hidden><p>CABA y Gran Buenos Aires</p><svg id="mu-inserto-svg" aria-hidden="true"></svg></div>
+            <div class="rt-ctrl" role="group" aria-label="Controles del mapa">
+              <div class="rt-ctrl-grupo">
+                <button type="button" data-z="mas" aria-label="Acercar" title="Acercar"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button>
+                <button type="button" data-z="menos" aria-label="Alejar" title="Alejar"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/></svg></button>
+              </div>
+              <div class="rt-ctrl-grupo">
+                <button type="button" data-z="todo" aria-label="Ver todo el mapa" title="Ver todo el mapa"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M15 4h5v5M20 15v5h-5M9 20H4v-5"/></svg></button>
+              </div>
+            </div>
+            <aside class="rt-ficha" id="mu-ficha" aria-labelledby="mu-ficha-tit" tabindex="-1" hidden>
+              <button type="button" class="rt-ficha-cerrar" id="mu-ficha-cerrar" aria-label="Cerrar y ver todo" title="Cerrar y ver todo"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+              <div id="mu-ficha-cuerpo"></div>
+            </aside>
+            <div class="rt-tip" id="mu-tip" aria-hidden="true" hidden></div>
+            <div class="rt-sin-mapa" id="mu-sin-mapa" hidden><p>Este navegador no puede dibujar el mapa. Las tarjetas y las tablas tienen los mismos datos.</p></div>
+          </div>
+        </section>
+        <div class="rt-kpis mu-kpis" id="mu-kpis"></div>
+        <section class="rt-card rt-lado mu-lado" aria-labelledby="mu-lado-tit"><h2 class="rt-card-tit" id="mu-lado-tit"></h2><ol class="rt-barras" id="mu-lado-lista" tabindex="0" aria-labelledby="mu-lado-tit"></ol></section>
+      </div>
+      <p class="rt-ayuda" data-solo="mudanzas">Cada línea va de donde vivían a donde viven: empieza clara y termina oscura. Más grosor es más gente. Tocá una provincia para ver su informe.</p>
+      <p class="rt-ayuda" data-solo="poblacion viviendas" hidden>Tocá un departamento para ver su ficha. Para acercar, los botones, dos dedos o Ctrl y la rueda del mouse.</p>
+      <div class="rt-frase mu-frase" id="mu-frase"></div>
+      <div data-solo="mudanzas">
+        <div class="mu-fila">
+          <section class="rt-card" aria-labelledby="mu-corr-tit"><h2 class="rt-card-tit" id="mu-corr-tit"></h2><ol class="rt-corr mu-corr" id="mu-corr"></ol></section>
+          <section class="rt-card mu-tabla-card" aria-labelledby="mu-tabla-tit"><h2 class="rt-card-tit" id="mu-tabla-tit">Las 24 jurisdicciones</h2><p class="rt-card-sub">Tocá el nombre de una columna para ordenar. En gris, los saldos que cambian de signo.</p>
+            <div class="tabla-desliza" tabindex="0" role="region" aria-label="Las 24 jurisdicciones"><table class="mu-tabla" id="mu-tabla"></table></div></section>
+        </div>
+        <section class="rt-card mu-matriz-card" aria-labelledby="mu-matriz-tit"><h2 class="rt-card-tit" id="mu-matriz-tit">Quién fue adónde</h2><p class="rt-card-sub">En la fila, dónde vivían. En la columna, dónde viven. Cuanto más celeste, más personas.</p>
+          <div class="tabla-desliza" tabindex="0" role="region" aria-label="Quién fue adónde"><table class="mu-matriz" id="mu-matriz"></table></div></section>
+      </div>
+      <section class="rt-card mu-tabla-card" data-solo="poblacion viviendas" hidden aria-labelledby="mu-tramos-tit"><h2 class="rt-card-tit" id="mu-tramos-tit">Los departamentos, según cuánto cambió su población</h2><p class="rt-card-sub">Las viviendas sin personas son las de {{migraciones.mudanzas.anio}}.</p>
+        <div class="tabla-desliza" tabindex="0" role="region" aria-label="Departamentos según cuánto cambió su población"><table class="mu-tabla" id="mu-tramos"></table></div></section>
+      <div class="pie rt-pie"><span>Fuente: INDEC, Censo Nacional de Población, Hogares y Viviendas {{migraciones.mudanzas.anio}}, resultados definitivos (migraciones, estructura de la población y viviendas). Población de {{migraciones.mudanzas.censo_antes}}: INDEC, Censo {{migraciones.mudanzas.censo_antes}}. Mapa: IGN y Natural Earth</span>
+        <span class="mu-descargas"><a href="datos/mudanzas_matriz.csv" download>Quién fue adónde (CSV)</a> <a href="datos/mudanzas_provincias.csv" download>Jurisdicciones (CSV)</a> <a href="datos/mudanzas_departamentos.csv" download>Departamentos (CSV)</a></span></div>
+      <div class="rt-limites nota-limites">
+        <h2 class="rt-tit">Qué no dice este dato</h2>
+        <ul>
+          <li>El censo compara dos momentos: dónde vivía cada persona en {{migraciones.mudanzas.desde}} y dónde vivía en {{migraciones.mudanzas.anio}}. No cuenta las mudanzas del medio, a quienes se fueron y volvieron, a quienes se fueron del país ni a los menores de 5 años.</li>
+          <li>Cuenta a todas las personas que viven en el país, también a las que nacieron en otro.</li>
+          <li>El {{migraciones.mudanzas.sin_decir_pct}}% de las personas que cambiaron de provincia no dijo de cuál venía. Cuentan como llegadas y no se sabe de dónde salieron, así que el saldo se calcula sin ellas. La columna "Saldo si se reparten" las asigna como a las demás: si el signo cambia, la jurisdicción va con trama.</li>
+          <li>El período incluye la pandemia. Parte de las mudanzas puede responder a ella, y el censo no pregunta el motivo.</li>
+          <li>El Censo {{migraciones.mudanzas.censo_antes}} contó a cada persona donde pasó la noche anterior y el de {{migraciones.mudanzas.anio}}, donde vive habitualmente. El cambio de población de los lugares con muchos turistas o trabajadores de paso incluye esa diferencia.</li>
+          <li>El cambio de población junta nacimientos, muertes y mudanzas. No dice cuánto es por cada uno.</li>
+          <li>Una vivienda sin personas no es una vivienda abandonada: puede ser de vacaciones, estar en venta, en obra o usarse como oficina, o sus habitantes pueden no haber estado ese día.</li>
+          <li>Lezama y Tolhuin se crearon entre los dos censos. Su cambio se calcula junto con Chascomús y con Río Grande. La Antártida y las Islas del Atlántico Sur no tienen dato por departamento: en las Malvinas no se pudo censar por la ocupación del Reino Unido.</li>
+          <li>En los departamentos con poca gente, unas decenas de personas cambian mucho el porcentaje.</li>
+        </ul>
+      </div>
+    </div>
+    <script src="mudanzas.js?v=__V_MUDANZAS_JS__" defer></script>
   </section>
 
   <!-- Catálogo de datos (11 de octubre de 2026, propuesta aprobada por el autor: docs/roadmap/PROPUESTA_CATALOGO.md). La lista, los filtros y

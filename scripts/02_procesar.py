@@ -7528,6 +7528,23 @@ agregar(radicaciones_anual.assign(periodo=radicaciones_anual.anio.astype(str), v
         "residencias_otorgadas", "tramites", "Direccion Nacional de Migraciones")
 agregar(argentinos_exterior.assign(periodo=argentinos_exterior.anio.astype(str), valor=argentinos_exterior.personas, codigo_indec="00", territorio="Argentina"),
         "nacidos_en_argentina_en_otro_pais", "personas", "Naciones Unidas, International Migrant Stock 2024")
+# Migración interna (herramienta, 25 de noviembre de 2026, docs/roadmap/MUDANZAS.md): de qué jurisdicción a qué jurisdicción se mudaron las personas en los
+# cinco años anteriores al Censo 2022, el cambio de población de cada departamento entre los dos censos y las viviendas sin personas. Lo guardó una vez
+# scripts/censo_2022_mudanzas.py en datos/manual/ y lo calcula scripts/mudanzas_sitio.py, con sus controles. El saldo sale solo de quienes dijeron de qué
+# provincia venían. Las tablas van aparte de las de las fichas: las baja solo quien las descarga
+import mudanzas_sitio
+_mud_t = {k: pd.DataFrame(v) for k, v in mudanzas_sitio.tablas().items()}
+for _mud_c in ("poblacion_2010", "cambio_personas"):
+    _mud_t["mudanzas_departamentos"][_mud_c] = _mud_t["mudanzas_departamentos"][_mud_c].astype("Int64")
+for _mud_k, _mud_d in _mud_t.items():
+    _mud_d.to_csv(SITIO / f"{_mud_k}.csv", index=False, lineterminator="\n")
+_mud_p = _mud_t["mudanzas_provincias"]
+_mud_sin = int(_mud_p.llegaron_sin_decir_provincia.sum())
+MG_RES["mudanzas"] = {"desde": 2017, "anio": 2022, "censo_antes": 2010, "personas": int(_mud_p.llegaron.sum()) + _mud_sin, "sin_decir": _mud_sin,
+                      "sin_decir_pct": str(r1(_mud_sin / (_mud_p.llegaron.sum() + _mud_sin) * 100)).replace(".", ",")}
+for _mud_c, _mud_v in (("llegaron", "mudanzas_llegaron_de_otra_jurisdiccion"), ("se_fueron", "mudanzas_se_fueron_a_otra_jurisdiccion"), ("saldo", "mudanzas_saldo"),
+                       ("llegaron_sin_decir_provincia", "mudanzas_llegaron_sin_decir_de_que_jurisdiccion")):
+    agregar(_mud_p.assign(periodo="2022", valor=_mud_p[_mud_c]), _mud_v, "personas", "INDEC, Censo 2022")
 
 # ---------------------------------------------------------------- gobierno (etapa 25)
 # Las cuentas del Sector Público Nacional no Financiero (Informe Mensual de Ingresos y Gastos de la Secretaría de Hacienda, base caja, desde

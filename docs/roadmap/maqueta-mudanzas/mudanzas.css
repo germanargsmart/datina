@@ -1,5 +1,5 @@
-/* ---------- Mudanzas y población (25 de noviembre de 2026): usa las tarjetas, la ficha y los controles de Rutas comerciales ---------- */
-:root{--mu-llega:#1F6FB0;--mu-va:#B9650F;--mu-neutro:#23364A;--mu-trama-fondo:#F3F5F8;--mu-trama-linea:#CBD4DE;
+/* ---------- Migración interna (25 de noviembre de 2026): usa las tarjetas, la ficha y los controles de Rutas comerciales ---------- */
+:root{--mu-gana-claro:#EAF3FB;--mu-pierde-claro:#FDF3DC;--mu-pierde:#EDB44A;--mu-pierde-texto:#85480A;--mu-celda:#F4F8FC;--mu-llega:#1F6FB0;--mu-va:#B9650F;--mu-neutro:#23364A;--mu-trama-fondo:#F3F5F8;--mu-trama-linea:#CBD4DE;
   --mu-pob-1:#B9650F;--mu-pob-2:#EDB44A;--mu-pob-3:#E7F0F9;--mu-pob-4:#B5D3EE;--mu-pob-5:#6AA6DA;--mu-pob-6:#1F5E97;
   --mu-viv-1:#EFF7F6;--mu-viv-2:#CFE8E6;--mu-viv-3:#9ED3D1;--mu-viv-4:#5AB0B1;--mu-viv-5:#1B8489;--mu-viv-6:#07494F}
 .mu [hidden]{display:none!important}
@@ -25,20 +25,20 @@
 .mu-c-provincias path,.mu-c-departamentos path{stroke:#fff;stroke-width:.9;vector-effect:non-scaling-stroke;cursor:pointer;transition:opacity 180ms ease}
 .mu-c-departamentos path{stroke-width:.5}
 .mu-c-limites path{fill:none;stroke:#fff;stroke-width:1.4;vector-effect:non-scaling-stroke;pointer-events:none}
-.mu-por-dep .mu-c-limites path{stroke:#56606C;stroke-width:.8}
+.mu-por-dep .mu-c-limites path{stroke:var(--muted);stroke-width:.8}
 .mu-c-provincias .lejos{opacity:.55}
-.mu-c-islas path{fill:url(#mu-trama);stroke:var(--faint);stroke-width:.7;vector-effect:non-scaling-stroke}
+.mu-c-islas path{stroke:var(--faint);stroke-width:.7;vector-effect:non-scaling-stroke;pointer-events:none}
+.mu-c-islas .lejos{opacity:.55}
 .mu-c-departamentos .lejos{opacity:.28}
 .mu-c-provincias .elegida,.mu-c-departamentos .elegida{stroke:var(--ink);stroke-width:1.8}
 .mu-c-caminos .linea{fill:none;stroke-linecap:round;vector-effect:non-scaling-stroke;pointer-events:none}
 .mu-c-caminos .toque{fill:none;stroke:transparent;stroke-width:14;vector-effect:non-scaling-stroke;cursor:pointer}
-.mu-c-puntos circle{stroke:#fff;stroke-width:1;vector-effect:non-scaling-stroke;pointer-events:none}
 .mu-nodo{cursor:pointer}
 .mu-nodo .aro{fill:#fff;stroke:rgba(24,33,43,.28);stroke-width:1}
 .mu-nodo.elegida .aro,.mu-nodo.foco .aro{fill:var(--azul);stroke:var(--azul)}
 .mu-nodo text{font:600 12px/1 var(--f);fill:var(--ink);paint-order:stroke;stroke:#fff;stroke-width:3px;stroke-linejoin:round}
 .mu-nodo .v{font-weight:500;font-size:11.5px;font-variant-numeric:tabular-nums;fill:var(--muted)}
-.mu-nodo .gana{fill:var(--azul-hondo)}.mu-nodo .pierde{fill:#85480A}
+.mu-nodo .gana{fill:var(--azul-hondo)}.mu-nodo .pierde{fill:var(--mu-pierde-texto)}
 .mu-nodo.lejos{opacity:.35}
 .mu-leyenda{position:absolute;z-index:2;left:var(--e-3);bottom:var(--e-3);display:flex;flex-direction:column;gap:var(--e-1);padding:var(--e-2) var(--e-3);font-size:var(--t-2);line-height:1.3;color:var(--ink);
   background:color-mix(in srgb,var(--bg) 94%,transparent);border-radius:var(--r-control);box-shadow:var(--sombra-boton)}
@@ -99,14 +99,14 @@
 .mu-tabla tbody th i{display:inline-block;width:14px;height:14px;margin-right:var(--e-2);border-radius:3px;vertical-align:-2px}
 .mu-tabla tbody tr:hover{background:var(--superficie)}
 .mu-tabla tr.marca{background:var(--celeste-suave)}
-.mu-tabla .gana{font-weight:600;color:var(--azul-hondo)}.mu-tabla .pierde{font-weight:600;color:#85480A}.mu-tabla .duda{color:var(--faint-texto)}
+.mu-tabla .gana{font-weight:600;color:var(--azul-hondo)}.mu-tabla .pierde{font-weight:600;color:var(--mu-pierde-texto)}.mu-tabla .duda{color:var(--faint-texto)}
 #mu-tramos tbody tr:last-child>*{font-weight:600;border-top:1px solid var(--borde);border-bottom:0}
 .mu-matriz{border-collapse:separate;border-spacing:1px;margin-top:0;font-size:10.5px;width:100%;font-variant-numeric:tabular-nums}
 .mu-matriz th{font-weight:500;color:var(--ink);text-align:left;white-space:nowrap;padding:0 6px 0 0;position:sticky;left:0;background:var(--bg)}
 .mu-matriz thead th{position:static;height:84px;vertical-align:bottom;padding:0}
 .mu-matriz thead th:first-child{color:var(--muted)}
 .mu-matriz thead th:not(:first-child) span{display:block;width:39px;transform-origin:left bottom;transform:rotate(-52deg) translate(16px,2px);white-space:nowrap}
-.mu-matriz td{min-width:39px;height:25px;padding:0 3px;text-align:right;color:var(--ink);border-radius:3px;background:color-mix(in srgb,var(--celeste-fuerte) var(--t),#F4F8FC)}
+.mu-matriz td{min-width:39px;height:25px;padding:0 3px;text-align:right;color:var(--ink);border-radius:3px;background:color-mix(in srgb,var(--celeste-fuerte) var(--t),var(--mu-celda))}
 .mu-matriz td[data-f]{color:#fff}
 .mu-matriz td.yo{background:none;color:var(--faint);text-align:center}
 .mu-matriz tr.marca td:not(.yo),.mu-matriz td.marca{outline:1.5px solid var(--sol);outline-offset:-1px}
