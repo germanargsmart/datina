@@ -132,6 +132,26 @@ const ICONOS = {"periodico": {"t": "azul", "d": "<g transform=\"translate(60 60)
 const icono = (n, cls = "") => ICONOS[n] ? `<svg class="iso tono-${ICONOS[n].t} ${cls}" viewBox="0 0 120 120" aria-hidden="true" focusable="false">${ICONOS[n].d}</svg>` : "";
 document.querySelectorAll("[data-icono]").forEach(el => { el.innerHTML = icono(el.dataset.icono); });
 document.querySelectorAll("a[data-correo]").forEach(a => { const c = [...a.dataset.correo].reverse().join(""); a.href = "mailto:" + c; a.textContent = c; });
+const formCorreo = document.getElementById("form-correo");
+if (formCorreo) {
+const dir = [...formCorreo.dataset.correo].reverse().join(""), respaldo = formCorreo.querySelector(".form-respaldo");
+const armar = () => {
+const d = new FormData(formCorreo), nom = `${d.get("nombre")} ${d.get("apellido")}`.trim().replace(/\s+/g, " ");
+return {asunto: `Contacto desde Datina: ${nom}`, cuerpo: `${String(d.get("mensaje")).trim()}\n\n${nom}`};
+};
+formCorreo.hidden = false;
+formCorreo.addEventListener("submit", ev => {
+ev.preventDefault();
+const {asunto, cuerpo} = armar();
+location.href = `mailto:${dir}?subject=${encodeURIComponent(asunto)}&body=${encodeURIComponent(cuerpo)}`;
+respaldo.hidden = false;
+});
+formCorreo.querySelector("[data-copiar]").addEventListener("click", async ev => {
+const {asunto, cuerpo} = armar(), b = ev.currentTarget;
+try { await navigator.clipboard.writeText(`Para: ${dir}\nAsunto: ${asunto}\n\n${cuerpo}`); b.textContent = "Mensaje copiado"; }
+catch { b.textContent = "No se pudo copiar"; }
+});
+}
 (function sol() {
 const NS = "http://www.w3.org/2000/svg", cont = document.getElementById("sol-rayos");
 if (!cont) return;

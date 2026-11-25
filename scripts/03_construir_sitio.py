@@ -1388,7 +1388,20 @@ if not FORMULARIOS:
     # lo arma al cargar, así los robots que juntan correos no lo leen. Sin JavaScript, escrito con "arroba"
     _correo = SITIO_CONF.get("correo_contacto", "").strip()
     assert not _correo or re.fullmatch(r"[\w.+-]+@[\w-]+(\.[\w-]+)+", _correo), 'datos/manual/sitio.json: "correo_contacto" no es un correo'
-    _contacto = (f'<p class="form-nota contacto-correo">Escribinos a <a data-correo="{_correo[::-1]}" href="contacto">nuestro correo</a>.'
+    # desde el 25 de noviembre de 2026 (pedido del autor), con nombre, apellido y mensaje: Enviar abre el programa de correo de quien escribe
+    # con el mensaje armado para esa dirección (datina.js). No pasa por ningún servidor. Sin JavaScript queda oculto y se ve solo la dirección.
+    # Los textos no dicen "formulario": la prueba de metadatos (E9) lo reserva para el aviso de cuando no hay correo
+    _c_rev = _correo[::-1]
+    _contacto = (f'<form class="form-contacto form-correo" id="form-correo" data-correo="{_c_rev}" hidden>'
+                 '<div class="campos-dos"><label class="campo"><span>Nombre</span><input type="text" name="nombre" autocomplete="given-name" required></label>'
+                 '<label class="campo"><span>Apellido</span><input type="text" name="apellido" autocomplete="family-name" required></label></div>'
+                 '<label class="campo"><span>Mensaje</span><textarea name="mensaje" rows="6" required></textarea></label>'
+                 '<p class="form-nota">Al tocar Enviar se abre tu programa de correo con el mensaje listo para mandar. Te respondemos a la dirección desde la que escribas.</p>'
+                 '<button type="submit" class="boton principal">Enviar</button>'
+                 '<div class="form-respaldo" hidden><p class="form-nota" role="status">¿No se abrió tu programa de correo? Copiá el mensaje y mandalo a '
+                 f'<a data-correo="{_c_rev}" href="contacto">nuestro correo</a>.</p>'
+                 '<button type="button" class="boton chico accion" data-copiar>Copiar mensaje</button></div></form>'
+                 f'<p class="form-nota contacto-correo">También podés escribirnos directo a <a data-correo="{_c_rev}" href="contacto">nuestro correo</a>.'
                  f'<noscript> {_correo.replace("@", " arroba ")}</noscript></p>' if _correo else
                  '<p class="form-nota">El formulario de contacto todavía no está disponible.</p>')
     base, _n = re.subn(r'<!-- formulario de Netlify.*?<p class="form-gracias" id="susc-gracias" hidden>[^<]*</p>',
