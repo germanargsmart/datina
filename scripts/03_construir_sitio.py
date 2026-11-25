@@ -670,9 +670,31 @@ EJEMPLOS = [("f-combustibles", "¿Cuánto cuesta un litro de nafta?"), ("f-censo
 LAB_PIEZAS_IDX = [(i, texto(t)) for i, t in re.findall(r'<article class="lab-pieza[^"]*" id="(l-[\w-]+)".*?<h2[^>]*>(.*?)</h2>', base, re.S)
                   if i != "l-corte-lab"]
 assert LAB_PIEZAS_IDX, "no se encontraron las piezas del Laboratorio para el buscador"
+# Los artículos de datina.js (ART_SERIE y ART), en su orden: primero los de series, después los de cruces. De cada uno se leen su id, cada
+# cuánto se actualiza (frec) y su bajada (dek). De acá salen la lista de Artículos (abajo) y, desde el 25 de noviembre de 2026 (plan técnico,
+# fase 5), lo que la lupa busca de cada artículo, en el índice del sitio: así la lupa no necesita el código de los artículos. Desde el mismo
+# día ese código está en su parte de datina.js, scripts/partes/articulos.js, que piden solo las páginas de los artículos (PARTE_EN, abajo)
+_JS_ART = (RAIZ / "scripts" / "partes" / "articulos.js").read_text(encoding="utf-8")
+bloque_art = lambda ini, fin: _JS_ART[_JS_ART.index(ini):_JS_ART.index(fin, _JS_ART.index(ini))]
+
+
+def _arts_js(ini, fin):
+    trozos = re.split(r'(?=\bid: "a-[\w-]+")', bloque_art(ini, fin))[1:]
+    datos = []
+    for t in trozos:
+        m = [re.search(rf'\b{k}: "((?:[^"\\]|\\.)*)"', t) for k in ("id", "frec", "dek")]
+        assert all(m), f"un artículo de datina.js sin id, frec o dek: {t[:60]}"
+        datos.append([json.loads(f'"{x.group(1)}"') for x in m])
+    return datos
+
+
+_ARTS_JS = _arts_js("const ART_SERIE = [", "\n}];") + _arts_js("const ART = [", "\n];")
+_NOTA_DE = {i: (ico, sec, html.unescape(t)) for i, ico, sec, t in NOTAS}
+assert sorted(i for i, *_ in _ARTS_JS) == sorted(_NOTA_DE), "los artículos de datina.js no son los de la plantilla"
 # el índice del sitio que lee datina.js. Desde la Fase 2 (paso 3) también lleva el menú de cada página (el buscador agrupa los resultados
-# como la barra), las preguntas de ejemplo y las piezas del Laboratorio
-INDICE = {"prov_pag": PAG_PROV, "secciones": SECCIONES, "fichas": FICHAS, "articulos": [[i, html.unescape(t), ico, sec] for i, ico, sec, t in NOTAS], "ubic": UBIC,
+# como la barra), las preguntas de ejemplo y las piezas del Laboratorio. Cada artículo: [id, título, ícono, sección, bajada], en el orden de
+# la lista de Artículos (la bajada y el orden, desde el 25 de noviembre de 2026: los usa la lupa)
+INDICE = {"prov_pag": PAG_PROV, "secciones": SECCIONES, "fichas": FICHAS, "articulos": [[i, _NOTA_DE[i][2], *_NOTA_DE[i][:2], dek] for i, _, dek in _ARTS_JS], "ubic": UBIC,
           "grupos": [[g, n, [list(it) if isinstance(it, tuple) else it for it in items]] for g, n, items in GRUPOS],
           "cat": {s: subs[0] for s, (_, subs) in CATEGORIA.items()},
           "menu": {p: m for p, (m, _) in MENU_DE.items()}, "ejemplos": [list(x) for x in EJEMPLOS], "lab": [list(x) for x in LAB_PIEZAS_IDX]}
@@ -961,7 +983,10 @@ JS_SITIO = achicar_js.achicar(js)
 # Una parte que no está acá la pide solo la página de su nombre. Cada página que pide una parte tiene que armarse: si no, 03 frena (al final)
 # El perfil de provincia (quinto paso, 25 de noviembre de 2026) no necesita estar: la parte "provincia" la pide provincia.html, y las 24 páginas
 # fijas (provincia-neuquen.html...) son copias de esa página, con su pedido (abajo, donde se arman, se controla que cada una lo lleve)
-PARTE_EN = {"corte": ["laboratorio", "corte-suprema"]}
+# Los artículos (séptimo paso, 25 de noviembre de 2026) los piden solo sus páginas (a-coparticipacion.html...): la parte se llama "articulos",
+# pero la página Artículos no la pide (sus tarjetas y sus respuestas, y lo que se ve de los artículos en las demás páginas, los escribe el
+# armado: DATINA_ARMADO_ARTICULOS en la parte, que corre scripts/texto_en_html.mjs)
+PARTE_EN = {"corte": ["laboratorio", "corte-suprema"], "articulos": [_i for _i, *_ in NOTAS]}
 PARTES_V = {}
 (SITIO / "partes").mkdir(exist_ok=True)
 for _f in sorted((RAIZ / "scripts" / "partes").glob("*.js")):
@@ -1744,19 +1769,7 @@ sin_notas = lambda h: re.sub(r'\s*<div class="notas">.*?</div>', "", h, count=1,
 # La lista de Artículos la escribe el constructor desde la Fase 2 (paso 4, 23 de octubre de 2026): la armaba datina.js al cargar, y en la
 # computadora "Seguí explorando" y el pie, que se ven antes de que llegue, saltaban hacia abajo (CLS 0,26, y 0,35 con las bajadas). El
 # orden es el de ARTS en datina.js (primero los de series, después los de cruces), y cada cuánto se actualiza y la bajada salen de ahí
-def _arts_js(ini, fin):
-    trozos = re.split(r'(?=\bid: "a-[\w-]+")', bloque_js(ini, fin))[1:]
-    datos = []
-    for t in trozos:
-        m = [re.search(rf'\b{k}: "((?:[^"\\]|\\.)*)"', t) for k in ("id", "frec", "dek")]
-        assert all(m), f"un artículo de datina.js sin id, frec o dek: {t[:60]}"
-        datos.append([json.loads(f'"{x.group(1)}"') for x in m])
-    return datos
-
-
-_ARTS_JS = _arts_js("const ART_SERIE = [", "\n}];") + _arts_js("const ART = [", "\n];")
-_NOTA_DE = {i: (ico, sec, html.unescape(t)) for i, ico, sec, t in NOTAS}
-assert sorted(i for i, *_ in _ARTS_JS) == sorted(_NOTA_DE), "los artículos de datina.js no son los de la plantilla"
+# (_ARTS_JS, arriba, con el índice del sitio)
 # Etapa 5 del plan de mejora (28 de octubre de 2026): la lista en dos bloques, "El país en el tiempo" (series de todo el país) y "Las 24
 # comparadas" (provincias, capitales y regiones lado a lado), que dice data-bloque en cada artículo de la plantilla, con filtros por los
 # cuatro grupos de temas. "Anterior" y "Siguiente" de cada artículo siguen este mismo orden (navegacion())
@@ -1827,8 +1840,8 @@ def solo_nota(id_):
 
 # La descripción de cada artículo dice qué cruza: series del país (ART_SERIE), las 24 capitales (tabla de las capitales en ART)
 # o las 24 jurisdicciones (los demás artículos de cruces)
-ART_SERIES = set(re.findall(r'^\s+id: "(a-[\w-]+)"', bloque_js("const ART_SERIE = [", "\n}];"), re.M))
-ART_CAPITALES = set(re.findall(r'\{id: "(a-[\w-]+)", tabla: "capitales', bloque_js("const ART = [", "\n];")))
+ART_SERIES = set(re.findall(r'^\s+id: "(a-[\w-]+)"', bloque_art("const ART_SERIE = [", "\n}];"), re.M))
+ART_CAPITALES = set(re.findall(r'\{id: "(a-[\w-]+)", tabla: "capitales', bloque_art("const ART = [", "\n];")))
 assert ART_SERIES and ART_CAPITALES, "no se encontraron los artículos de series o de las capitales en datina.js"
 # el de empleo de las mujeres no es de series: son los departamentos del último censo
 ART_DEPTOS = {"a-empleo-mujeres"}

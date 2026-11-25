@@ -22,6 +22,8 @@ import csv, html, json, math, pathlib, re, sys
 import relaciones
 
 RAIZ = pathlib.Path(__file__).resolve().parents[1]
+# los artículos (ART_SERIE y ART) están en su parte de datina.js desde el 25 de noviembre de 2026 (plan técnico, fase 5)
+JS_ART = lambda: (RAIZ / "scripts" / "partes" / "articulos.js").read_text(encoding="utf-8")
 USOS = RAIZ / "datos" / "manual" / "catalogo.json"
 e, texto, norm = relaciones.e, relaciones.texto, relaciones.norm
 MESES = ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"]
@@ -130,19 +132,20 @@ def tamanio(b):
 
 
 def usos_automaticos(plantilla, js, cat_rel):
-    """{tabla: [(id, tipo)]}: los enlaces de cada ficha, las tablas de los artículos (datina.js) y las del Explorador de relaciones."""
+    """{tabla: [(id, tipo)]}: los enlaces de cada ficha, las tablas de los artículos (scripts/partes/articulos.js) y las del Explorador de relaciones."""
     u = {}
+    ja = JS_ART()
     agregar = lambda t, i, tipo: (i, tipo) not in u.setdefault(t, []) and u[t].append((i, tipo))
     for m in re.finditer(r'<article class="ficha[^"]*" id="(f-[\w-]+)"[^>]*>(.*?)</article>', plantilla, re.S):
         # la del pie primero, y después las que la ficha ofrece en su nota (como Legisladores)
         pie = re.search(r'<div class="pie">(.*?)</div>', m.group(2), re.S)
         for t in re.findall(r'href="datos/(\w+)\.csv"', (pie.group(1) if pie else "") + m.group(2)):
             agregar(t, m.group(1), "ficha")
-    serie = js[js.find("const ART_SERIE = ["):]
+    serie = ja[ja.find("const ART_SERIE = ["):]
     for m in re.finditer(r'id: "(a-[\w-]+)", frec: "[^"]*", tablas: \[([^\]]*)\]', serie[:serie.find("\n}];")]):
         for t in re.findall(r'"(\w+)"', m.group(2)):
             agregar(t, m.group(1), "articulo")
-    art = js[js.find("const ART = ["):]
+    art = ja[ja.find("const ART = ["):]
     for i, t in re.findall(r'\{id: "(a-[\w-]+)", tabla: "(\w+)"', art[:art.find("\n];")]):
         agregar(t, i, "articulo")
     for a in cat_rel["aristas"]:
@@ -166,7 +169,7 @@ def tipo_de(i):
 
 
 def datos_de_usos(plantilla, js):
-    """Lo que dice la plantilla (y datina.js, para los artículos de series) de cada ficha, artículo o pieza que puede usar una tabla."""
+    """Lo que dice la plantilla (y la parte de los artículos de datina.js, para los de series) de cada ficha, artículo o pieza que puede usar una tabla."""
     d = {}
     for m in re.finditer(r'<article class="(ficha[^"]*)" id="(f-[\w-]+)"[^>]*>(.*?)</article>', plantilla, re.S):
         c = m.group(3)
@@ -182,7 +185,8 @@ def datos_de_usos(plantilla, js):
                          "nota": texto(nota.group(1)) if nota else "", "herramienta": "explorador" in m.group(1).split()}
     for i, t in re.findall(r'<article class="nota" id="(a-[\w-]+)"[^>]*data-titulo="([^"]+)"', plantilla):
         d[i] = {"titulo": html.unescape(t), "sub": "", "fuente": "", "frecuencia": "", "nota": ""}
-    serie = js[js.find("const ART_SERIE = ["):]
+    ja = JS_ART()
+    serie = ja[ja.find("const ART_SERIE = ["):]
     for m in re.finditer(r'id: "(a-[\w-]+)", frec: "([^"]*)",.*?\n  dek: "([^"]*)",.*?\n  fuentes: ((?:"[^"]*"(?: \+\s*)?)+)', serie[:serie.find("\n}];")], re.S):
         d[m.group(1)].update(sub=m.group(3), frecuencia=m.group(2) + ".", fuente=texto("".join(re.findall(r'"([^"]*)"', m.group(4)))))
     for i, t, ds in re.findall(r'<section class="pieza" id="([\w-]+)"[^>]*data-titulo="([^"]+)" data-descr="([^"]+)"', plantilla):
