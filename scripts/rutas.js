@@ -26,7 +26,7 @@
   const COLOR = {mar: css("--rt-mar"), tierra: css("--rt-tierra"), "avión": css("--rt-avion")};
   const TOP = 10;
   // lo que se ve de entrada, de Vancouver a Melbourne, con lugar abajo para las vías. En el celular el mundo entero no entra: de América a Asia
-  const MUNDO = [[-126, -56], [152, 66]], AIRE = {top: 8, bottom: 64, left: 8, right: 8}, CENTRO_CELULAR = [8, 2];
+  const MUNDO = [[-126, -56], [152, 66]], AIRE = {top: 8, bottom: 64, left: 8, right: 8};
   // los íconos de cada vía, en una caja de 24: trazo (s) y relleno (f). Los usan las tarjetas (SVG) y el mapa (canvas)
   const ICONO = {mar: {s: "M12 4v6M8 13V9h8v4M3 20.5c1.5 0 1.5-1.2 3-1.2s1.5 1.2 3 1.2 1.5-1.2 3-1.2 1.5 1.2 3 1.2 1.5-1.2 3-1.2 1.5 1.2 3 1.2", f: "M4 13h16l-2.2 4.2H6.2z"},
     tierra: {s: "M3 7h11v9H3zM14 10h4l3 3v3h-7", f: "M5.4 17.5a2.1 2.1 0 1 0 4.2 0a2.1 2.1 0 1 0-4.2 0M14.9 17.5a2.1 2.1 0 1 0 4.2 0a2.1 2.1 0 1 0-4.2 0"},
@@ -300,7 +300,7 @@
     const m = new maplibregl.Map({
       container: "rt-lienzo", attributionControl: {compact: true, customAttribution: "Natural Earth · searoute (Eurostat)"},
       style: {version: 8, sources: {}, layers: [{id: "oceano", type: "background", paint: {"background-color": fondo}}]},
-      bounds: MUNDO, fitBoundsOptions: {padding: AIRE}, minZoom: 0.4, maxZoom: 7, dragRotate: false, pitchWithRotate: false, touchPitch: false,
+      bounds: MUNDO, fitBoundsOptions: {padding: AIRE}, minZoom: 0, maxZoom: 7, dragRotate: false, pitchWithRotate: false, touchPitch: false,
       // como en Elecciones por mesa: la rueda sigue bajando la página y un dedo también. Se acerca con Ctrl y la rueda, con dos dedos o con los botones
       cooperativeGestures: true, renderWorldCopies: true,
       locale: {"CooperativeGesturesHandler.WindowsHelpText": "Para acercar, Ctrl y la rueda del mouse", "CooperativeGesturesHandler.MacHelpText": "Para acercar, ⌘ y la rueda del mouse",
@@ -340,7 +340,7 @@
       }
       listo = true;
       if (CELULAR.matches) {
-        m.jumpTo({center: CENTRO_CELULAR, zoom: 0});
+        m.jumpTo(delCelular());
         // los créditos arrancan cerrados (el botón los abre): abiertos quedaban debajo de las vías
         const cr = m.getContainer().querySelector(".maplibregl-ctrl-attrib");
         if (cr) { cr.classList.remove("maplibregl-compact-show"); cr.removeAttribute("open"); }
@@ -415,6 +415,11 @@
     m.on("zoomend", () => { raiz.dataset.zoom = m.getZoom().toFixed(2); });
 
     const ancho = v => v > 0 ? 0.7 + 6.3 * Math.sqrt(v / (api.max || 1)) : 0;
+    // en el celular, lo más lejos que deja el alto del mapa y con el borde izquierdo en México: así entran la Argentina entera y Asia
+    const delCelular = () => {
+      const {clientWidth: w, clientHeight: h} = m.getContainer(), zoom = Math.max(0, Math.log2(h / 512));
+      return {zoom, center: [-103 + 180 * w / (512 * 2 ** zoom), 2]};
+    };
     const conNombre = () => vista.destinos.slice(0, TOP).map(([c]) => c).filter(c => D.lugares[c]);
     const api = {
       max: 1,
@@ -494,7 +499,7 @@
         if (sel) cond = sel.tipo === "pais" ? ["==", ["get", "c"], sel.id] : sel.tipo === "linea" ? ["==", ["get", "k"], sel.id]
           : sel.tipo === "salida" ? ["any", ["==", ["get", "s"], sel.id], ["==", ["get", "d"], sel.id]]
           : ["all", ["==", ["get", "s"], sel.id.split("|")[0]], ["==", ["get", "c"], sel.id.split("|")[1]], ["==", ["get", "m"], sel.id.split("|")[2]]];
-        const op = cond ? ["case", cond, 1, 0.1] : ["case", ["<=", ["get", "rk"], TOP], 0.82, 0.38];
+        const op = cond ? ["case", cond, 1, 0.06] : ["case", ["<=", ["get", "rk"], TOP], 0.82, 0.38];
         m.setPaintProperty("rutas", "line-opacity", op);
         m.setPaintProperty("aereas", "line-opacity", op);
         m.setPaintProperty("halo", "line-opacity", cond ? ["case", cond, 0.95, 0] : ["case", ["<=", ["get", "rk"], TOP], 0.6, 0]);
@@ -515,7 +520,7 @@
       },
       centrar() {
         const duration = REDUCIR_MOV ? 0 : 280;
-        if (CELULAR.matches) m.easeTo({center: CENTRO_CELULAR, zoom: 0, duration}); else m.fitBounds(MUNDO, {padding: AIRE, duration});
+        if (CELULAR.matches) m.easeTo({...delCelular(), duration}); else m.fitBounds(MUNDO, {padding: AIRE, duration});
       },
       zoom(d) { (d > 0 ? m.zoomIn : m.zoomOut).call(m, {duration: REDUCIR_MOV ? 0 : 200}); },
       // el globo, de frente al Atlántico sur y del alto del mapa. Fuera del globo, el fondo de la tarjeta
