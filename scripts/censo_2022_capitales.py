@@ -16,7 +16,7 @@ import pandas as pd
 RAIZ = pathlib.Path(__file__).resolve().parents[1]
 SALIDA = RAIZ / "datos" / "manual" / "censo2022_capitales.csv"
 UA = {"User-Agent": "Mozilla/5.0 (argentina-en-datos)"}
-PAQUETE = "https://datos.gob.ar/api/3/action/package_show?id=censo-nacional-de-poblacion-hogares-y-viviendas-2022"
+PAQUETE = "https://datos.gob.ar/api/3/action/package_show?id=censo-nacional-de-poblacion-hogares-y-viviendas-20221"
 
 # código de provincia -> (código de gobierno local de la capital, nombre de la capital). La Ciudad es la provincia entera (sus comunas)
 CAPITALES = {
