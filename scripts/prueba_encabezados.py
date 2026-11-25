@@ -67,7 +67,9 @@ class Encabezados(HTMLParser):
 
 def revisar():
     problemas, avisos, excepciones = [], [], []
-    js = (SITIO / "datina.js").read_text(encoding="utf-8")
+    # el código de las notas que arma el navegador: datina.js y sus partes (plan técnico, fase 5: desde el 25 de noviembre de 2026 la nota de
+    # la Corte Suprema está en sitio/partes/corte.js)
+    js = "\n".join(f.read_text(encoding="utf-8") for f in [SITIO / "datina.js", *sorted((SITIO / "partes").glob("*.js"))])
     js_titulo_h1 = len(re.findall(r'<h1 class="nota-tit"', js)) >= 2 and '<h2 class="nota-tit"' not in js
     paginas = sorted(SITIO.glob("*.html")) + sorted((SITIO / "pobreza").glob("*.html"))
     for p in paginas:

@@ -33,7 +33,8 @@ scripts/achicar_js.py          saca comentarios y sangría de sitio/datina.js, s
 scripts/partes/                desde el 24 de noviembre de 2026 (plan técnico, fase 5), el código de datina.js que usa una sola página, un archivo por
                                página (catalogo.js, departamentos.js...). 03 lo publica en sitio/partes/ y lo pide solo esa página, antes de datina.js,
                                que ya no es una función que se llama a sí misma: cada parte se anota y datina.js la corre con parte("...") donde
-                               estaba su código, con todo lo de datina.js a mano
+                               estaba su código, con todo lo de datina.js a mano. Una parte de varias páginas lleva su propio nombre y sus páginas
+                               van en PARTE_EN de 03 (desde el 25 de noviembre de 2026, corte.js: laboratorio y corte-suprema)
 scripts/imagen_social.py       la imagen al compartir de cada página (og:image, sitio/og/): 03 la dibuja con Pillow y Roboto Flex (scripts/fuentes/), solo si cambió lo que lleva
 scripts/pruebas_datos.py       pruebas de los datos: si fallan, no se arma ni se publica
 scripts/relaciones.py          arma el Explorador de relaciones (relaciones.html) desde datos/manual/relaciones.json y lo valida

@@ -956,6 +956,10 @@ JS_SITIO = achicar_js.achicar(js)
 # Las partes de datina.js de una sola página (plan técnico, fase 5, 24 de noviembre de 2026): scripts/partes/<página>.js, achicadas como datina.js,
 # en sitio/partes/. Solo esa página la pide, antes de datina.js (abajo, en pagina()), y datina.js la corre con parte("<página>") donde estaba su
 # código. Cada parte necesita su llamada en datina.js y al revés: una parte sin llamada no correría nunca, y una llamada sin parte no haría nada
+# Desde el 25 de noviembre de 2026 (cuarto paso) una parte puede pedirse en más de una página: PARTE_EN dice cuáles, y entonces el archivo lleva
+# el nombre de la parte, no el de una página. La Corte Suprema la usan la pieza del Laboratorio (lab-corte) y su página (la nota #l-corte).
+# Una parte que no está acá la pide solo la página de su nombre. Cada página que pide una parte tiene que armarse: si no, 03 frena (al final)
+PARTE_EN = {"corte": ["laboratorio", "corte-suprema"]}
 PARTES_V = {}
 (SITIO / "partes").mkdir(exist_ok=True)
 for _f in sorted((RAIZ / "scripts" / "partes").glob("*.js")):
@@ -967,6 +971,13 @@ for _f in (SITIO / "partes").glob("*.js"):
         _f.unlink()
 _llamadas = re.findall(r'^parte\("([\w-]+)"\);', js, re.M)
 assert sorted(_llamadas) == sorted(set(_llamadas)) == sorted(PARTES_V), f"partes de datina.js: llamadas {sorted(_llamadas)}, archivos {sorted(PARTES_V)}"
+assert set(PARTE_EN) <= set(PARTES_V), f"PARTE_EN nombra partes sin archivo en scripts/partes/: {sorted(set(PARTE_EN) - set(PARTES_V))}"
+# las partes que pide cada página, en el orden de sus nombres
+PARTES_DE = {}
+for _parte_n in sorted(PARTES_V):
+    for _parte_pag in PARTE_EN.get(_parte_n, [_parte_n]):
+        PARTES_DE.setdefault(_parte_pag, []).append(_parte_n)
+PAGINAS_ARMADAS = set()  # las que arma pagina(): al final, cada página de PARTES_DE tiene que estar
 # D3 y topojson desde el propio sitio (plan de estabilización, P0-1, 22 de octubre de 2026): las mismas versiones que se pedían a cdnjs y
 # jsDelivr, copiadas byte por byte de scripts/lib/ a sitio/lib/ con sus licencias, y pedidas con su huella como datina.js
 # Leaflet 1.9.4 (9 de noviembre de 2026, el mapa de escuelas y hospitales de cada provincia): bajada de npm e igual byte por byte a la de
@@ -1633,9 +1644,10 @@ def pagina(id_, titulo, descripcion, quedan, recorte=None, titulo_social=None, t
     if recorte:
         h = recorte(h)
     h = h.replace("<body>", f'<body data-pagina="{id_}">', 1)
-    if id_ in PARTES_V:  # su parte de datina.js, antes: datina.js la corre en su lugar
+    PAGINAS_ARMADAS.add(id_)
+    for parte_n in PARTES_DE.get(id_, []):  # sus partes de datina.js, antes: datina.js corre cada una en su lugar
         assert h.count('<script src="datina.js?v=') == 1
-        h = h.replace('<script src="datina.js?v=', f'<script src="partes/{id_}.js?v={PARTES_V[id_]}" defer></script>\n<script src="datina.js?v=', 1)
+        h = h.replace('<script src="datina.js?v=', f'<script src="partes/{parte_n}.js?v={PARTES_V[parte_n]}" defer></script>\n<script src="datina.js?v=', 1)
     if id_ == "404":
         h = h.replace("<head>", '<head>\n<base href="/">\n<meta name="robots" content="noindex">', 1)
     if titulo:
@@ -1817,6 +1829,9 @@ CRUZA = lambda id_: ("datos oficiales de las 24 jurisdicciones y sus departament
 for id_, _, _, titulo in NOTAS:
     descr = f"{html.unescape(titulo)} Compara {CRUZA(id_)} y dice de dónde salen y qué no permiten concluir."
     pagina(id_, html.unescape(titulo), descr, {"articulos"}, solo_nota(id_), tipo="article")
+# cada página que pide una parte de datina.js se armó (PARTE_EN, arriba): una parte pedida por una página que no existe no correría nunca
+_parte_sin_pagina = sorted(set(PARTES_DE) - PAGINAS_ARMADAS)
+assert not _parte_sin_pagina, f"partes de datina.js para páginas que no se arman: {[(p, PARTES_DE[p]) for p in _parte_sin_pagina]} (PARTE_EN en 03)"
 
 # Paginas que cambiaron de nombre: la direccion vieja lleva a la nueva, con la ficha y la provincia del enlace
 # Etapa 5 del plan de mejora (28 de octubre de 2026): los artículos que se juntaron con otro o se retiraron llevan al que queda
