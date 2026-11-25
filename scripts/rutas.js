@@ -26,7 +26,7 @@
   const COLOR = {mar: css("--rt-mar"), tierra: css("--rt-tierra"), "avión": css("--rt-avion")};
   const TOP = 10;
   // lo que se ve de entrada, de Vancouver a Melbourne, con lugar abajo para las vías. En el celular el mundo entero no entra: de América a Asia
-  const MUNDO = [[-126, -56], [152, 66]], AIRE = {top: 8, bottom: 64, left: 8, right: 8};
+  const MUNDO = [[-126, -56], [152, 66]], AIRE = {top: 8, bottom: 64, left: 8, right: 56};
   // los íconos de cada vía, en una caja de 24: trazo (s) y relleno (f). Los usan las tarjetas (SVG) y el mapa (canvas)
   const ICONO = {mar: {s: "M12 4v6M8 13V9h8v4M3 20.5c1.5 0 1.5-1.2 3-1.2s1.5 1.2 3 1.2 1.5-1.2 3-1.2 1.5 1.2 3 1.2 1.5-1.2 3-1.2 1.5 1.2 3 1.2", f: "M4 13h16l-2.2 4.2H6.2z"},
     tierra: {s: "M3 7h11v9H3zM14 10h4l3 3v3h-7", f: "M5.4 17.5a2.1 2.1 0 1 0 4.2 0a2.1 2.1 0 1 0-4.2 0M14.9 17.5a2.1 2.1 0 1 0 4.2 0a2.1 2.1 0 1 0-4.2 0"},
@@ -415,7 +415,7 @@
     m.on("zoomend", () => { raiz.dataset.zoom = m.getZoom().toFixed(2); });
 
     const ancho = v => v > 0 ? 0.7 + 6.3 * Math.sqrt(v / (api.max || 1)) : 0;
-    // en el celular, lo más lejos que deja el alto del mapa y con el borde izquierdo en México: así entran la Argentina entera y Asia
+    // en el celular, lo más lejos que deja el alto del mapa y con el borde izquierdo en México: así entra la Argentina entera y todo lo que se pueda hacia Asia
     const delCelular = () => {
       const {clientWidth: w, clientHeight: h} = m.getContainer(), zoom = Math.max(0, Math.log2(h / 512));
       return {zoom, center: [-103 + 180 * w / (512 * 2 ** zoom), 2]};

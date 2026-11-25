@@ -13,7 +13,7 @@ const VIAS = ["mar", "tierra", "avión"];
 const NOMBRE_VIA = {mar: "Por mar", tierra: "Por tierra", "avión": "En avión"};
 const COLOR = {mar: css("--rt-mar"), tierra: css("--rt-tierra"), "avión": css("--rt-avion")};
 const TOP = 10;
-const MUNDO = [[-126, -56], [152, 66]], AIRE = {top: 8, bottom: 64, left: 8, right: 8};
+const MUNDO = [[-126, -56], [152, 66]], AIRE = {top: 8, bottom: 64, left: 8, right: 56};
 const ICONO = {mar: {s: "M12 4v6M8 13V9h8v4M3 20.5c1.5 0 1.5-1.2 3-1.2s1.5 1.2 3 1.2 1.5-1.2 3-1.2 1.5 1.2 3 1.2 1.5-1.2 3-1.2 1.5 1.2 3 1.2", f: "M4 13h16l-2.2 4.2H6.2z"},
 tierra: {s: "M3 7h11v9H3zM14 10h4l3 3v3h-7", f: "M5.4 17.5a2.1 2.1 0 1 0 4.2 0a2.1 2.1 0 1 0-4.2 0M14.9 17.5a2.1 2.1 0 1 0 4.2 0a2.1 2.1 0 1 0-4.2 0"},
 "avión": {s: "", f: "M21 3.5c-1-1-2.6-.7-3.6.3L14 7.2 5 5 3.5 6.5l7.3 4L7.2 14l-2.7-.4L3 15l3.6 2.4L9 21l1.5-1.5-.4-2.7 3.5-3.6 4 7.3L19 19l-2.2-9 3.4-3.4c1-1 1.4-2.4.8-3.1z"}};
