@@ -17,7 +17,7 @@ import pandas as pd
 RAIZ = pathlib.Path(__file__).resolve().parents[1]
 SALIDA = RAIZ / "datos" / "manual" / "censo2022_cobertura.csv"
 UA = {"User-Agent": "Mozilla/5.0 (argentina-en-datos)"}
-PAQUETE = "https://datos.gob.ar/api/3/action/package_show?id=censo-nacional-de-poblacion-hogares-y-viviendas-2022"
+PAQUETE = "https://datos.gob.ar/api/3/action/package_show?id=censo-nacional-de-poblacion-hogares-y-viviendas-20221"
 CATEGORIAS = {"1": "obra_social_prepaga", "2": "plan_estatal", "3": "sin_cobertura"}
 
 

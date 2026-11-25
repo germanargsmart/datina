@@ -711,7 +711,8 @@ DIFERIDAS = ["antartida_instalaciones", "antartida_bases", "antartida_paises", "
              # pueden pasar: el texto de un artículo o una parte del perfil las leen apenas carga la página
              "puestos_provincias", "reservas_bcra", "voto_legisladores_y_provincia", "dengue_provincias", "inflacion_personal",
              "empresas_tamano_sector", "bcra_variables_lista", "congreso_composicion", "justicia_provincias", "ingresos_aglomerados",
-             "mortalidad_infantil_causas", "deuda_provincias", "informalidad_aglomerados", "informalidad_grupos", "cobertura_tipo_provincias"]
+             "mortalidad_infantil_causas", "deuda_provincias", "informalidad_aglomerados", "informalidad_grupos", "cobertura_tipo_provincias",
+             "empleo_mujeres_departamentos", "empleo_mujeres_provincias", "empleo_mujeres_edad"]
 D = json.loads((FICHAS_JSON).read_text(encoding="utf-8"))
 D["diferidas"] = {}
 for nombre in DIFERIDAS:
@@ -1808,7 +1809,10 @@ def solo_nota(id_):
 ART_SERIES = set(re.findall(r'^\s+id: "(a-[\w-]+)"', bloque_js("const ART_SERIE = [", "\n}];"), re.M))
 ART_CAPITALES = set(re.findall(r'\{id: "(a-[\w-]+)", tabla: "capitales', bloque_js("const ART = [", "\n];")))
 assert ART_SERIES and ART_CAPITALES, "no se encontraron los artículos de series o de las capitales en datina.js"
-CRUZA = lambda id_: ("series oficiales del país" if id_ in ART_SERIES else
+# el de empleo de las mujeres no es de series: son los departamentos del último censo
+ART_DEPTOS = {"a-empleo-mujeres"}
+CRUZA = lambda id_: ("datos oficiales de las 24 jurisdicciones y sus departamentos" if id_ in ART_DEPTOS else
+                     "series oficiales del país" if id_ in ART_SERIES else
                      "datos oficiales de las 23 capitales de provincia y de CABA" if id_ in ART_CAPITALES else "datos oficiales de las 24 jurisdicciones")
 for id_, _, _, titulo in NOTAS:
     descr = f"{html.unescape(titulo)} Compara {CRUZA(id_)} y dice de dónde salen y qué no permiten concluir."

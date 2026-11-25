@@ -5,7 +5,7 @@ hogares, personas o viviendas hay en cada categoría). Como el censo no cambia, 
 24 archivos a memoria, suma por departamento las categorías que usa el sitio y guarda solo el resultado en
 datos/manual/censo2022_departamentos.csv (una fila por departamento, con cantidades: los porcentajes los calcula 02_procesar.py).
 Variables y categorías según el diccionario de la base (diccionario-variables.csv y diccionario-categorias.csv del paquete
-censo-nacional-de-poblacion-hogares-y-viviendas-2022 de datos.gob.ar) y las definiciones de la base REDATAM del INDEC.
+censo-nacional-de-poblacion-hogares-y-viviendas-20221 de datos.gob.ar) y las definiciones de la base REDATAM del INDEC.
 Uso: python scripts/censo_2022_vivienda.py
 """
 import io, json, pathlib, urllib.request, zipfile
@@ -14,7 +14,7 @@ import pandas as pd
 RAIZ = pathlib.Path(__file__).resolve().parents[1]
 SALIDA = RAIZ / "datos" / "manual" / "censo2022_departamentos.csv"
 UA = {"User-Agent": "Mozilla/5.0 (argentina-en-datos)"}
-PAQUETE = "https://datos.gob.ar/api/3/action/package_show?id=censo-nacional-de-poblacion-hogares-y-viviendas-2022"
+PAQUETE = "https://datos.gob.ar/api/3/action/package_show?id=censo-nacional-de-poblacion-hogares-y-viviendas-20221"
 
 # (variable, categoría) -> columna de salida. Las categorías que no figuran no se guardan.
 COLUMNAS = {
