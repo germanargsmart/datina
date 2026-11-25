@@ -43,7 +43,7 @@
     "provincia"
    ],
    "evidencia": {
-    "archivo": "scripts/datina.js",
+    "archivo": "scripts/partes/provincia.js",
     "contiene": "d:T.capitales, k:\"viviendas_1000\", pais:R.capitales_pais.viviendas_1000,"
    }
   },
@@ -63,7 +63,7 @@
    ],
    "complementaria": true,
    "evidencia": {
-    "archivo": "scripts/datina.js",
+    "archivo": "scripts/partes/provincia.js",
     "contiene": "const pais = k => (T.censos_pais || []).find(r => r.indicador === k), pv = CZ.pob_var_prov[prov];"
    }
   },
@@ -72,7 +72,7 @@
     "provincia"
    ],
    "evidencia": {
-    "archivo": "scripts/datina.js",
+    "archivo": "scripts/partes/provincia.js",
     "contiene": "const filas = (T.censos_provincias || []).filter(r => r.codigo_indec === prov).sort((a, b) => a.orden - b.orden);"
    }
   },
@@ -434,7 +434,7 @@
     "provincia"
    ],
    "evidencia": {
-    "archivo": "scripts/datina.js",
+    "archivo": "scripts/partes/provincia.js",
     "contiene": "const filas = (T.puestos_provincias || []).filter(r => r.codigo_indec === prov);"
    }
   },

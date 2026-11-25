@@ -959,6 +959,8 @@ JS_SITIO = achicar_js.achicar(js)
 # Desde el 25 de noviembre de 2026 (cuarto paso) una parte puede pedirse en más de una página: PARTE_EN dice cuáles, y entonces el archivo lleva
 # el nombre de la parte, no el de una página. La Corte Suprema la usan la pieza del Laboratorio (lab-corte) y su página (la nota #l-corte).
 # Una parte que no está acá la pide solo la página de su nombre. Cada página que pide una parte tiene que armarse: si no, 03 frena (al final)
+# El perfil de provincia (quinto paso, 25 de noviembre de 2026) no necesita estar: la parte "provincia" la pide provincia.html, y las 24 páginas
+# fijas (provincia-neuquen.html...) son copias de esa página, con su pedido (abajo, donde se arman, se controla que cada una lo lleve)
 PARTE_EN = {"corte": ["laboratorio", "corte-suprema"]}
 PARTES_V = {}
 (SITIO / "partes").mkdir(exist_ok=True)
@@ -1435,10 +1437,13 @@ if sin_forma:
 bloque_js = lambda ini, fin: js[js.index(ini):js.index(fin, js.index(ini))]
 CON_CLAVE = set(re.findall(r'^\s+"(f-[\w-]+)":\s*\[', bloque_js("const CLAVE = {", "\n};"), re.M))
 CON_PERFIL = re.findall(r'\{id:"(f-[\w-]+)"', bloque_js("const INDP = [", "\n];"))
-# el perfil por tema (etapa 27): los grupos y el tema de cada indicador salen de datina.js, así la silueta tiene la misma forma
-PERFIL_GRUPOS = re.findall(r'\["(\w+)", "([^"]+)"\]', bloque_js("const PERFIL_GRUPOS = [", "];"))
+# el perfil por tema (etapa 27): los grupos y el tema de cada indicador salen de datina.js, así la silueta tiene la misma forma. Desde el 25 de
+# noviembre de 2026 (plan técnico, fase 5) los grupos (PERFIL_GRUPOS) y la capital (CAP_P) están en la parte del perfil, scripts/partes/provincia.js
+_JS_PROV = (RAIZ / "scripts" / "partes" / "provincia.js").read_text(encoding="utf-8")
+bloque_prov = lambda ini, fin: _JS_PROV[_JS_PROV.index(ini):_JS_PROV.index(fin, _JS_PROV.index(ini))]
+PERFIL_GRUPOS = re.findall(r'\["(\w+)", "([^"]+)"\]', bloque_prov("const PERFIL_GRUPOS = [", "];"))
 PERFIL_G = (re.findall(r'\{id:"[\w-]+", g:"(\w+)"', bloque_js("const INDP = [", "\n];")) +
-            re.findall(r'\{id:"[\w-]+", g:"(\w+)"', bloque_js("const CAP_P = [", "\n];")))
+            re.findall(r'\{id:"[\w-]+", g:"(\w+)"', bloque_prov("const CAP_P = [", "\n];")))
 assert len(PERFIL_G) >= len(CON_PERFIL) and set(PERFIL_G) <= {g for g, _ in PERFIL_GRUPOS}, "el perfil tiene indicadores sin tema"
 
 
@@ -1688,6 +1693,9 @@ _HIST_TODAS = "".join(historia_prov(c, HISTORIA[c]) for c in sorted(HISTORIA))
 _LINEA_TODAS = "".join(linea_prov(c, HISTORIA.get(c, {})) for c in sorted(NOMBRE_PROV) if c != "00")
 _TIT_GENERAL = '<span id="prov-titulo-txt">¿Cómo se compara tu provincia con el país?</span>'
 assert all(_h_prov.count(x) == 1 for x in (_HIST_TODAS, _LINEA_TODAS, _TIT_GENERAL)), "la página de provincia cambió: revisar las páginas fijas"
+# las partes de datina.js de provincia.html (el perfil, plan técnico, fase 5): las 24 páginas fijas las piden igual, porque son copias de ella
+_PARTES_PROV = [f'<script src="partes/{_p}.js?v={PARTES_V[_p]}" defer></script>' for _p in PARTES_DE.get("provincia", [])]
+assert "provincia" in PARTES_DE.get("provincia", []) and all(_h_prov.count(_s) == 1 for _s in _PARTES_PROV), "provincia.html no pide la parte del perfil"
 for _c, _a in PAG_PROV.items():
     _n = NOMBRE_PROV[_c]
     _t, _d = f"{_n} en números", (f"El perfil de {_n}: sus indicadores frente al total del país, su posición entre las 24 jurisdicciones, su historia y las jurisdicciones "
@@ -1708,6 +1716,7 @@ for _c, _a in PAG_PROV.items():
         _h = _h.replace(f'{URL_SITIO}/og/provincia.png', f'{URL_SITIO}/og/{_a}.png')
         imagen_social.asegurar(SITIO / "og", _a, _t, _og_n(_POB_PROV[_c]), f"habitantes en {RESUMEN['poblacion_proy']['anio']}, según las proyecciones del INDEC",
                                SITIO / "datos" / "banderas" / f"{_c}.png")
+    assert all(_h.count(_s) == 1 for _s in _PARTES_PROV), f"{_a}: no pide las partes de datina.js de provincia.html"
     (SITIO / f"{_a}.html").write_text(_h, encoding="utf-8", newline="\n")
     INDEXADAS.append(_a)
     PAGINA_INFO[_a] = (_t, _d)
