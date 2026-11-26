@@ -257,13 +257,6 @@ const MG = R.migraciones, MGC = MG.censo, MGD = MG.dnm, MGO = MG.onu, MGH = MG.h
 const depsTop = top => top.every(d => d[1] === top[0][1])
 ? `${lista(top.map(d => `${d[0]} (${pct(d[2])})`))}, ${top.length === 3 ? "las tres" : "todos"} de ${top[0][1]}`
 : lista(top.map(d => `${d[0]} (${d[1]}, ${pct(d[2])})`));
-const rangoDep = (filas, k, que) => {
-const enP = filas.filter(r => r.codigo_indec === prov), grandes = enP.filter(r => r.poblacion_vp >= MGP.min_pob), base = grandes.length > 1 ? grandes : enP;
-if (base.length < 2) return "";
-const hi = base.reduce((p, q) => q[k] > p[k] ? q : p), lo = base.reduce((p, q) => q[k] < p[k] ? q : p);
-return `En ${NOMBRES[prov]}, la parte de la población ${que} va de ${pct(lo[k])} en ${lo.departamento} a ${pct(hi[k])} en ${hi.departamento}` +
-(base === grandes && grandes.length < enP.length ? `, entre los departamentos de ${n0(MGP.min_pob)} habitantes o más.` : ".");
-};
 const DSO = R.desocupacion, PZA = R.pobreza_aglomerados, INF = R.informalidad;
 const GOB = R.gobierno, GBN = GOB.nacion, GRT = GOB.recaudacion, GBD = GOB.deuda, GBC = GOB.empleo, GBP = GOB.provincial, CPA = R.coparticipacion;
 const DPR = R.deuda_provincias;
@@ -1056,11 +1049,6 @@ regalias: LEAD["regalias"]("pct_regalias"),
 reservas: LEAD["reservas"]("pet"),
 "balanza-energetica": LEAD["balanza-energetica"](),
 "mundo-petroleo": LEAD["mundo-petroleo"]("crudo_kbd"),
-"adonse-nota": `Cada punto es una provincia. En el eje vertical, el porcentaje de los nacimientos de ${R.ado_nse.anio} cuya madre tenía menos de 20 años (DEIS, estadísticas vitales). En el horizontal, el indicador elegido del Censo 2022. La línea punteada es solo una guía de la tendencia. ` +
-`La correlación es la de rangos de Spearman, que va de menos 1 a 1: cerca de 0 no hay relación, cerca de 1 o de menos 1 la relación es fuerte. Con 24 jurisdicciones, valores menores a 0,4 pueden deberse al azar. Una correlación no prueba que una cosa cause la otra: muestra que van juntas.`,
-"causas-nota": `Porcentaje de las muertes de menores de un año de cada provincia según el grupo de causa (capítulos de la CIE-10), sumando ${R.mi_causas.anios[0]} a ${R.mi_causas.anios[1]} porque en las provincias chicas hay pocas muertes por año. Las provincias están ordenadas por su tasa de mortalidad infantil del período, de mayor a menor. ` +
-`Según la DEIS, en ${R.mi_causas.reducibles.anio} el ${pct(R.mi_causas.reducibles.neonatal)} de las muertes de menores de 28 días y el ${pct(R.mi_causas.reducibles.posneonatal)} de las de 28 días a 11 meses del país eran reducibles con prevención, diagnóstico o tratamiento oportunos. Ese dato no se publica por provincia y no se puede calcular con los datos abiertos, que traen solo los tres primeros caracteres del código de cada causa. ` +
-`Las correlaciones comparan la tasa de cada grupo de causas con el porcentaje de población sin obra social, prepaga ni plan estatal de salud del Censo 2022.`,
 "exporta-rubros": `La agroindustria, es decir las manufacturas de origen agropecuario, fue el ${pct(SX.rubros.pct.moa)} de lo exportado en ${SX.rubros.anio}, ` +
 `la industria, el ${pct(SX.rubros.pct.moi)}, los productos primarios, el ${pct(SX.rubros.pct.primarios)}, y la energía, el ${pct(SX.rubros.pct.combustibles)}` +
 (SX.rubros.max_anio !== SX.rubros.anio ? `. El año con más exportaciones de la serie fue ${SX.rubros.max_anio}, con ${n0(SX.rubros.max)} millones de dólares.` : `, en el año con más exportaciones de la serie.`) +
@@ -1220,15 +1208,6 @@ P.mp_unico.map(m => `${m.territorio} tiene un solo ministerio público y carga j
 `año están muy relacionadas entre sí, así que la correlación exagera lo que se puede afirmar. La que da el texto de esa vista, ${n2(R.confianza_gobierno.elecciones.r)}, es la de Pearson, que usa los valores. La de Spearman, que usa el orden y no los valores, es ` +
 `${n2(R.confianza_gobierno.elecciones.rs)}. Que el índice y el voto vayan juntos no quiere decir que uno cause el otro: el voto depende también de quiénes son los ` +
 `candidatos, de la oposición y de la situación económica. Las elecciones legislativas no están: el sitio tiene los resultados de las presidenciales.` : "") : "",
-"ingresos-aglomerados-nota": R.ingresos_aglomerados ? `Procesamiento propio de las bases usuarias de la Encuesta Permanente de Hogares del INDEC. El ingreso por persona ` +
-`del hogar es el ingreso total del hogar dividido por la cantidad de integrantes (el ingreso per cápita familiar). El del trabajo es el de la ocupación principal de los ` +
-`ocupados que cobran por su trabajo, sin contar a quienes trabajan sin cobrar. Son los ingresos que declaran las personas encuestadas, con los ponderadores que el INDEC ` +
-`indica para los ingresos. La mediana es el valor que deja a la mitad por debajo y a la mitad por encima: a diferencia del promedio, no la mueven los ingresos muy altos. ` +
-`En las ciudades chicas un trimestre tiene pocas personas encuestadas, así que se juntan ${R.ingresos_aglomerados.trimestres}: cada ingreso se compara con la ` +
-`mediana de los 31 aglomerados de su trimestre, para que no pesen los aumentos de precios de un trimestre al otro, y esa proporción se pasa a pesos del ` +
-`${R.ingresos_aglomerados.trimestre}. Las respuestas suelen ir en números redondos, por eso los montos se muestran redondeados al millar. Los montos no descuentan ` +
-`que los precios cambian entre regiones: la canasta básica del Noreste cuesta menos que la del Gran Buenos Aires. La EPH mide los aglomerados urbanos, no las ` +
-`provincias: la Ciudad de Buenos Aires y los Partidos del GBA son dos aglomerados distintos.` : "",
 "reservas-netas-nota": `Las reservas netas son, con el criterio de Datina, las brutas menos todo lo que el BCRA tiene que pagar o devolver en moneda extranjera dentro de un ` +
 `año según su planilla de reservas internacionales y liquidez, que publica cada mes con el formato del FMI: los dólares que los bancos dejan en el BCRA como respaldo de los ` +
 `depósitos en dólares, los depósitos del Tesoro, otras deudas a un año, el tramo a término del canje de monedas con el Banco Popular de China (los yuanes cuentan en las ` +
@@ -1276,19 +1255,10 @@ transito: `De ${TRN.desde} a ${TRN.hasta} murieron en el país unas ${n0(TRN.por
 `${n1(TRN.pais)} cada 100.000 habitantes. La tasa más baja es la de ${TRN.min}, ${n1(TRN.min_v)}, y la más alta es ${n1(TRN.veces)} veces esa.`,
 "transito-serie": `En ${TRN.ult} murieron ${n0(TRN.ult_v)} personas en siniestros viales en el país, según el SNIC. Desde ${TRN.serie_desde}, el año con más ` +
 `muertes fue ${TRN.serie_max}, con ${n0(TRN.serie_max_v)}, y el de menos, ${TRN.serie_min}, con ${n0(TRN.serie_min_v)}.`,
-"transito-nota": `Personas que murieron en siniestros viales según los registros de las policías y las fuerzas federales (SNIC, Ministerio de ` +
-`Seguridad), por la provincia donde ocurrió el hecho. Cada 100.000 habitantes con la población de ${TRN.anio_pob}, el año del medio. Qué no dice ` +
-`este dato: la Agencia Nacional de Seguridad Vial cuenta también a quienes mueren dentro de los 30 días del siniestro y da otros números. Las ` +
-`estadísticas vitales del Ministerio de Salud no sirven para comparar provincias: en CABA y en Buenos Aires la mayoría de las muertes por causas ` +
-`externas se registran sin decir si fueron en el tránsito.`,
 "causas-muerte": `Ajustada por edad, la mortalidad va de ${n0(CM.min_v)} muertes por año cada 100.000 habitantes en ${CM.min} a ${n0(CM.max_v)} en ${CM.max}. ` +
 `Sin ajustar por edad, la más alta es la de ${CM.bruta_max} (${n0(CM.bruta_max_v)}${CM.bruta_max === EV.max ? ", con la población más envejecida" : ""})` +
 ` y la más baja, la de ${CM.bruta_min} (${n0(CM.bruta_min_v)}${CM.bruta_min === EV.min ? ", la más joven" : ""}). ` +
 `Por causa, después de ${CM_FRASE[CMG[0].k]} vienen ${CM_FRASE[CMG[1].k]} (${pct(CMG[1].pct)} de las muertes) ${yE(CM_FRASE[CMG[2].k])} (${pct(CMG[2].pct)}).`,
-"causas-muerte-nota": `Tasas ajustadas por edad con el método directo: la tasa de cada grupo de edad de la provincia se pondera con la población del país de ${CM.anio_std} por edad, así se comparan provincias más jóvenes y más envejecidas. ` +
-`Promedio anual de ${CM.desde} a ${CM.hasta}, por provincia de residencia, con la causa básica de muerte agrupada por capítulos de la CIE-10. Las causas externas reúnen los accidentes, las agresiones y las lesiones intencionales. ` +
-`El ${pct(CM.mal_def_pais)} de las muertes del país tiene una causa mal definida, desde el ${pct(CM.mal_def_min_v)} en ${CM.mal_def_min} hasta el ${pct(CM.mal_def_max_v)} en ${CM.mal_def_max}: donde hay más causas mal definidas, las demás parecen más bajas de lo que son. ` +
-`Población: proyecciones del INDEC de cada año. Las muertes sin edad registrada (el ${pct(CM.sin_edad_pct)}) se reparten en proporción.`,
 "chicos-escuela": `En ${ESC.anio} hay ${n1(ESC.hoy / 1e6)} millones de chicos de 5 a 14 años en el país. Según las proyecciones del INDEC, en ${ESC.anio_fin} van a ser ` +
 `${n1(ESC.fin / 1e6)} millones, unos ${n0(Math.round(Math.abs(ESC.var) / 1000) * 1000)} ${ESC.var < 0 ? "menos" : "más"}. ` +
 (ESC.suben.length ? `Suben solo en ${lista(ESC.suben)}. ` : ESC.n_bajan === 24 ? "Bajan en las 24 jurisdicciones. " : "") +
@@ -1296,11 +1266,6 @@ transito: `De ${TRN.desde} a ${TRN.hasta} murieron en el país unas ${n0(TRN.por
 `y la que menos ${ESC.max_v < 0 ? "baja" : "cambia"}, ${ESC.max} (${conSigno(ESC.max_v)}). ` +
 `Los chicos de 5 a 14 años de ${ESC.anio_fin} son los que nazcan entre ${ESC.nacen_desde} y ${ESC.nacen_hasta}. ` +
 `Entre ${nac.anio_pico} y ${nac.anio_ult} los nacimientos ya bajaron ${pct(Math.abs(nac.caida))}, según las estadísticas vitales de la DEIS.`,
-"chicos-escuela-nota": `Proyecciones de población del INDEC por provincia, sexo y edad, base Censo 2022: estiman cuántas personas va a haber cada año según los nacimientos, las muertes y las migraciones esperadas. ` +
-`Vienen en grupos de cinco años de edad. El de 5 a 14 años reúne la sala de 5, la primaria y los primeros años de la secundaria. La escolaridad obligatoria va de los 4 años al final de la secundaria, pero las proyecciones no separan esas edades. ` +
-`No es un conteo de alumnos: cuenta a todos los chicos de esas edades, vayan o no a la escuela. ` +
-`En el país, los chicos de 5 a 14 años son el ${pct(ESC.pct_hoy)} de la población en ${ESC.anio} y van a ser el ${pct(ESC.pct_fin)} en ${ESC.anio_fin}.` +
-(ESC.pico_anio > 2022 && ESC.pico_anio < ESC.anio_fin ? ` La cantidad más alta de las proyecciones es la de ${ESC.pico_anio}, ${n1(ESC.pico / 1e6)} millones.` : ""),
 "poblacion-proy": (PPY.pierden.length === 1 && PPY.pierden[0] === PPY.min
 ? `${PPY.min} es la única jurisdicción que pierde habitantes hasta ${PPY.anio_fin}: unas ${n0(Math.round(Math.abs(PPY.min_personas) / 1000) * 1000)} personas menos que en ${PPY.anio} (${conSigno(PPY.min_v)}). `
 : PPY.pierden.length ? `Pierden habitantes hasta ${PPY.anio_fin} ${lista(PPY.pierden)}. La que más pierde en proporción es ${PPY.min} (${conSigno(PPY.min_v)}). `
@@ -1308,24 +1273,6 @@ transito: `De ${TRN.desde} a ${TRN.hasta} murieron en el país unas ${n0(TRN.por
 `La que más crece en proporción es ${PPY.max} (${conSigno(PPY.max_v)}). ` +
 (PPY.debajo.length ? `${lista(PPY.debajo)} ${PPY.debajo.length > 1 ? "crecen" : "crece"} menos que el país, así que ${PPY.debajo.length > 1 ? "pierden" : "pierde"} peso en el total` +
 (PPY.debajo.includes("Buenos Aires") && PPY.pba_pct_fin < PPY.pba_pct_hoy ? `. La provincia de Buenos Aires pasa de tener el ${pct(PPY.pba_pct_hoy)} de los habitantes del país al ${pct(PPY.pba_pct_fin)}.` : ".") : ""),
-"envejecimiento-mch": `En ${EV.anio} hay en el país ${n0(EV.mch_hoy)} personas de 65 años o más por cada 100 chicos de menos de 15 años. ` +
-(EV.cruce_pais == null ? `Según las proyecciones del INDEC, en ${EV.anio_fin} todavía va a haber más chicos que mayores: ${n0(EV.mch_fin)} por cada 100. `
-: EV.cruce_pais <= EV.anio ? `Hay más mayores que chicos desde ${EV.cruce_pais}, y en ${EV.anio_fin} van a ser ${n0(EV.mch_fin)} por cada 100. `
-: `Según las proyecciones del INDEC, en ${EV.cruce_pais} va a haber por primera vez más mayores que chicos, y en ${EV.anio_fin}, ${n0(EV.mch_fin)} por cada 100. `) +
-(EV.ya.length ? `En ${lista(EV.ya.map(([t]) => t))} ya hay más mayores que chicos. ` : "") +
-(EV.cruzan.length > 1 ? `Otras ${EV.cruzan.length} jurisdicciones pasan a tenerlos hasta ${EV.anio_fin}: la primera es ${EV.cruzan[0][0]} (${EV.cruzan[0][1]}) y la última, ${EV.cruzan.at(-1)[0]} (${EV.cruzan.at(-1)[1]}). `
-: EV.cruzan.length ? `${EV.cruzan[0][0]} pasa a tenerlos en ${EV.cruzan[0][1]}. ` : "") +
-(EV.no_cruzan.length ? `${lista(EV.no_cruzan)} ${EV.no_cruzan.length > 1 ? "siguen" : "sigue"} con más chicos que mayores en ${EV.anio_fin}.` : `En ${EV.anio_fin} las 24 jurisdicciones tienen más mayores que chicos.`),
-"envejecimiento-mch-nota": `Personas de 65 años o más por cada 100 menores de 15 años, de las proyecciones de población del INDEC por provincia, sexo y edad, base Censo 2022. ` +
-`Por encima de 100 hay más personas mayores que chicos. El año de cada provincia es el primero de las proyecciones (${EV.cruce_desde} a ${EV.anio_fin}) con 100 o más: ` +
-`${EV.cruce_desde} quiere decir que ya pasaba ese año o antes. Después de ${EV.anio_fin} no hay proyecciones y el sitio no las estira. ` +
-`El círculo claro marca ${EV.anio} y el lleno, ${EV.anio_fin}. La línea punteada marca 100, tantos mayores como chicos.`,
-"poblacion-proy-nota": `Proyecciones de población del INDEC por provincia, base Censo 2022. Estiman cuántas personas va a haber cada año según los nacimientos, las muertes y las migraciones esperadas, y se revisan con cada censo: no son un conteo. ` +
-`La variación compara la población proyectada de ${PPY.anio} con la de ${PPY.anio_fin}.` +
-(PPY.max_antes.length ? ` Según las mismas proyecciones, ${lista(PPY.max_antes.map(([t, a]) => `${t} ${a < PPY.anio ? "tuvo" : "tiene"} su población más alta en ${a}`))}.` : ""),
-envejecimiento: `En ${EV.anio} hay ${n1(EV.hoy)} personas de 65 años o más por cada 100 de entre 15 y 64 años: unas ${n1(EV.trab_hoy)} personas en edad de trabajar por cada persona mayor. ` +
-`Según las proyecciones del INDEC, en ${EV.anio_fin} serán ${n1(EV.fin)}, unas ${n1(EV.trab_fin)} por cada una. Por provincia, en ${EV.anio} la relación más alta es la de ${EV.max} (${n1(EV.max_v)}) y la más baja, la de ${EV.min} (${n1(EV.min_v)}). ` +
-`En ${EV.anio_fin} la más alta va a ser la de ${EV.max_fin} (${n1(EV.max_fin_v)}) y la más baja, la de ${EV.min_fin} (${n1(EV.min_fin_v)}): es el valor que el gráfico muestra al lado de cada provincia.`,
 empresas: `Cada 1.000 habitantes, ${EM.top} tenía ${n1(EM.top_v)} empresas privadas con empleados${conVeces(EM.top_v, EM.pais_1000)} y ${EM.low}, ${n1(EM.low_v)}${conVeces(EM.low_v, EM.pais_1000)}.`,
 "empresas-nota": `Empresas privadas que declaran personal en relación de dependencia ante la seguridad social (el SIPA), cada una identificada por su CUIT. No incluye a quienes trabajan solos como monotributistas o autónomos sin empleados, ni el trabajo en casas particulares. Una empresa con personal en varias provincias se cuenta en cada una: por eso la suma de las provincias es mayor que el total del país, que cuenta a cada empresa una sola vez, en la provincia donde tiene más empleo. La población es la proyección del INDEC para ${R.anio_pob_ficha.empresas_provincias}, el año de la cantidad de empresas.`,
 dinamica: `En ${EM.ult}, la tasa de entrada, las empresas que abrieron sobre todas las activas en el año, fue de ${pct(EM.te)}, y la de salida, las que cerraron, de ${pct(EM.ts)}. Acá cada empresa cuenta una sola vez, en la provincia donde declara más personal. ` +
@@ -1339,16 +1286,8 @@ rotacion: `Entre el ${trim(RO.desde)} y el ${trim(RO.hasta)}, el ${pct(RO.total_
 "rotacion-nota": `Procesamiento propio de las bases usuarias de la Encuesta Permanente de Hogares del INDEC, con ${n0(RO.casos)} respuestas de los cuatro últimos trimestres publicados. Se usa la pregunta sobre cuánto tiempo hace que la persona trabaja en ese empleo en forma continua, que se hace a los asalariados salvo el servicio doméstico. ` +
 `La antigüedad corta no siempre significa rotación: también incluye a quienes consiguieron su primer empleo o volvieron a trabajar. La generación se calcula con la edad declarada. El tamaño del lugar de trabajo es la cantidad de personas que trabajan allí, en los tramos que usa el INDEC. La calificación es la de la tarea y no la de la persona, según el Clasificador Nacional de Ocupaciones del INDEC: mide la complejidad de lo que se hace en ese puesto. Los quintiles ordenan a las personas por el ingreso per cápita de su hogar y usan el ponderador de ingresos del INDEC. La encuesta cubre solo aglomerados urbanos y no permite resultados confiables por provincia con este detalle.`,
 piramide: `En ${PI.anio}, la mitad de la población del país tiene menos de unos ${PI.edad_mediana_hoy} años: es la edad mediana. Según las proyecciones del INDEC, en ${PI.anio_fin} esa edad mediana llegará a unos ${PI.edad_mediana_fin} años y los menores de 15 pasarán de ser el ${pct(PI.menores15_hoy)} al ${pct(PI.menores15_fin)} de la población. La base de la pirámide se angosta porque nacen menos chicos y la parte de arriba se ensancha porque se vive más.`,
-"piramide-nota": `Cada barra es el porcentaje de la población total de la jurisdicción que tiene esa edad y ese sexo, en grupos de cinco años (el último reúne a las personas de 90 años o más). Las barras llenas son ${PI.anio} y el contorno, ${PI.anio_fin}. Al elegir una provincia, la pirámide pasa a mostrarla. La edad mediana se estima dentro de los grupos de cinco años.`,
-jubilaciones: `En ${JU.mes ? MESES[JU.mes - 1] + " de " : ""}${JU.anio} había ${n2(JU.ratio)} aportantes por cada jubilación o pensión de los regímenes que administra ANSES: ${n0(JU.aportantes)} personas aportando y ${n0(JU.beneficios)} beneficios. El valor más alto de la serie fue ${n2(JU.max)} en ${JU.max_anio} y el más bajo, ${n2(JU.min)} en ${JU.min_anio}. ` +
-`En la población, según las proyecciones del INDEC, las personas de 15 a 64 años por cada persona de 65 o más pasan de ${n1(EV.trab_hoy)} en ${EV.anio} a ${n1(EV.trab_fin)} en ${EV.anio_fin}.`,
 "pensiones-invalidez": `En ${MESES[PIN.prov_mes - 1]} de ${PIN.prov_anio} había ${n1(PIN.pais_cada_1000)} pensiones no contributivas por invalidez cada 1.000 habitantes en el país. ` +
 `${PIN.top} tenía la proporción más alta, ${n1(PIN.top_v)} cada 1.000, y ${PIN.low} la más baja, ${n1(PIN.low_v)}. La provincia de Buenos Aires tenía el ${pct(PIN.pba_pct)} de todas las pensiones.`,
-"pensiones-invalidez-nota": `La pensión no contributiva por invalidez es para personas que no pueden trabajar por una incapacidad y no tienen ingresos, bienes ni otra ` +
-`jubilación o pensión que alcancen. La paga ANSES. Cada año es el promedio de los doce meses y el último dato es el de un solo mes. Desde abril de 2019 el boletín ` +
-`separa los beneficios suspendidos: en ${MESES[PIN.mes - 1]} de ${PIN.anio} eran ${n0(PIN.v - PIN.v_no_susp)}. Por provincia, el último mes es ${MESES[PIN.prov_mes - 1]} de ` +
-`${PIN.prov_anio} y la población, la proyección del INDEC para ${R.anio_pob_ficha.pensiones_invalidez_provincias}, el mismo año. No incluye las pensiones por discapacidad que pagan las provincias ni la asignación por hijo ` +
-`con discapacidad. La proporción depende de la edad y de la situación de cada población, no solo de cómo se otorgan las pensiones.`,
 desempleo: DS ? `En ${MESES[DS.prov_mes - 1]} de ${DS.prov_anio} cobraban el seguro de desempleo ${n1(DS.pais_1000)} de cada 1.000 habitantes del país. ` +
 `${DS.top} tenía la proporción más alta, ${n1(DS.top_v)} cada 1.000, y ${DS.low} la más baja, ${n1(DS.low_v)}. La provincia de Buenos Aires tenía el ${pct(DS.pba_pct)} de los beneficiarios.` : "",
 "desempleo-nota": DS ? `El seguro de desempleo, cuyo nombre oficial es prestación por desempleo, lo cobran los asalariados registrados de la Ley de Contrato de Trabajo y de la construcción que quedan sin ` +
@@ -1359,23 +1298,9 @@ desempleo: DS ? `En ${MESES[DS.prov_mes - 1]} de ${DS.prov_anio} cobraban el seg
 `depende del desempleo, pero también de cuánta gente tiene un empleo registrado y de los cambios en las reglas del seguro.` : "",
 auh: `En ${MESES[AU.mes - 1]} de ${AU.anio}, ${n0(AU.beneficios)} chicos recibían la AUH, ${n1(AU.pais_100)} cada 100 menores de 18 años. La cobraban ${n0(AU.titulares)} ` +
 `titulares. ${AU.top} tenía la proporción más alta, ${n1(AU.top_v)} cada 100, y ${AU.low} la más baja, ${n1(AU.low_v)}.`,
-"auh-nota": `La AUH la cobra, por cada hijo menor de 18 años o con discapacidad, quien no tiene trabajo, trabaja en la informalidad o en casas particulares, es ` +
-`monotributista social o cobra menos que el salario mínimo. La paga ANSES. Cada beneficio es un hijo: ${n0(AU.discapacidad)} son por hijo con discapacidad, que no tiene ` +
-`límite de edad. Los menores de 18 de cada provincia salen de las proyecciones del INDEC para ${R.anio_pob_ficha.auh_provincias}, el mismo año, que vienen en grupos de cinco años (los de 15 a 17 se toman como tres ` +
-`quintos del grupo de 15 a 19), así que la proporción es aproximada. "Cobertura" es el cuadro de cobertura del boletín, que estima la población con ` +
-`proyecciones de las Naciones Unidas y registros de ANSES. Los programas como Volver al Trabajo, Acompañamiento Social o la Prestación Alimentar no publican datos abiertos por provincia.`,
 haberes: `En ${HB.anio}${HB.meses < 12 ? `, hasta ${MESES[HB.meses - 1]},` : ""} el haber mínimo de ANSES con los refuerzos que se pagan aparte equivalía al ${pct(HB.pct_min_ad)} del salario ` +
 `promedio de los asalariados registrados, y sin ellos, al ${pct(HB.pct_min)}. La jubilación promedio, al ${pct(HB.pct_jub)}. Desde ${HB.ini}, el haber mínimo con refuerzos ` +
 `llegó a su punto más alto en ${HB.max_pct.anio}, con el ${pct(HB.max_pct.v)} del salario, y al más bajo en ${HB.min_pct.anio}, con el ${pct(HB.min_pct.v)}.`,
-"haberes-nota": `Promedio de cada año de los haberes que paga ANSES y del salario de los asalariados registrados sujeto a aportes, sin aguinaldo. El haber mínimo es el que fija la ` +
-`Ley 24.241. "Con refuerzos" suma los montos adicionales que se pagaron varios meses seguidos: el subsidio de agosto de 2002 a junio de 2003 y los refuerzos desde septiembre ` +
-`de 2022. Desde 2020 se cuentan solo los beneficios no suspendidos. La vista "Sin inflación" descuenta la inflación con el IPC del INDEC: pasa los montos a pesos de ${MESES[+HB.mes_real.slice(5) - 1]} de ${HB.mes_real.slice(0, 4)} desde ${HB.ini_real}, ` +
-`el primer año completo del índice nacional. ${HB.meses < 12 ? `${HB.anio} es el promedio de enero a ${MESES[HB.meses - 1]}. ` : ""}No incluye las cajas provinciales ni los regímenes ` +
-`que no administra ANSES. Comparar con el salario no dice si alcanza para vivir: para eso están las canastas de Precios y actividad.`,
-"jubilaciones-nota": `Promedio anual de aportantes y de beneficios. El último año es el último mes disponible. Los aportantes incluyen asalariados, autónomos, monotributistas y trabajadoras de casas particulares, también jubilados que siguen aportando. Desde abril de 2019 se cuentan solo los beneficios no suspendidos y hasta 2008 la serie incluye el sistema de capitalización. ` +
-`La cantidad de aportantes depende del empleo registrado, no solo de la edad de la población. No se compara entre provincias porque varias mantienen su propia caja previsional para empleados públicos, fuera de ANSES.`,
-"envejecimiento-nota": `Relación de dependencia de la vejez: personas de 65 años o más sobre personas de 15 a 64, por 100. No todas las personas de 15 a 64 trabajan ni todas las mayores están jubiladas, pero es la medida habitual para anticipar la presión sobre el sistema previsional y la demanda de cuidados. ` +
-`Las personas mayores pasan de ser el ${pct(EV.pct_mayores_hoy)} de la población en ${EV.anio} al ${pct(EV.pct_mayores_fin)} en ${EV.anio_fin}. El círculo claro marca ${EV.anio} y el oscuro ${EV.anio_fin}.`,
 hogares: `En ${e.anio_ult}, el país demandó ${n0(e.gwh_ult)} gigavatios hora (GWh) de electricidad, y los hogares fueron el ${pct(e.pct_res_ult)}. En ${e.anio_ini} eran el ${pct(e.pct_res_ini)}. ` +
 `Desde ${e.anio_ini}, la demanda de los hogares ${creceCae(e.crec_res)}, ${e.crec_res > e.crec_emae ? "más" : "menos"} que la actividad económica, ` +
 `y la del resto de los usuarios ${creceCae(e.crec_resto)}, ${e.crec_resto > e.crec_emae ? "más" : "menos"} que la economía.` +
@@ -1390,22 +1315,17 @@ suicidio: `En ${s.anio}, el SNIC registró ${n0(s.casos)} suicidios, una tasa de
 `En las de menos habitantes, unos pocos casos más o menos cambian mucho la tasa de un año a otro.`,
 edad: `Sobre ${n0(s.n_sat)} casos registrados entre ${s.sat_desde} y ${s.sat_hasta} con edad y sexo conocidos, el ${pct(s.pct_varones)} fueron varones y el ${pct(s.pct_jovenes)} tenía entre 15 y 29 años.`,
 muertes: `En ${s.anio}, el SNIC registró ${n0(s.casos)} suicidios, ${n0(s.homicidios)} homicidios dolosos y ${n0(s.viales)} muertes en siniestros viales. Por cada homicidio hubo ${n1(s.razon_hom)} suicidios. Desde ${s.anio_cruce} los suicidios superan cada año a las muertes viales. El último dato del Registro Nacional de Femicidios de la Justicia Argentina es de ${R.femicidios.anio}: ${n0(R.femicidios.n)} víctimas directas.`,
-"muertes-nota": `Cantidad de víctimas por año. Homicidios dolosos y muertes en siniestros viales según el mismo registro del SNIC. Femicidios: víctimas directas según el Registro Nacional de Femicidios de la Justicia Argentina. La figura se incorporó al Código Penal en diciembre de 2012 (Ley 26.791) y los datos abiertos del registro empiezan en ${R.femicidios.ini}. Incluye travesticidios y transfemicidios.`,
 empleo: `En ${em.mes} había ${n1(em.total_millones)} millones de personas asalariadas registradas en el sector privado. En doce meses, el total del país ${signo(em.var_nac)} y el empleo creció ${deLas24(em.suben)}. El registro cuenta a cada persona en la provincia donde la declara su empleador: por eso CABA suma a muchas personas que viven en el Gran Buenos Aires.`,
 mortalidad: `En ${mo.anio_inicio}, la tasa de mortalidad infantil del país era de ${n1(mo.tasa_inicio)} muertes de menores de un año cada 1.000 nacidos vivos. El gráfico compara promedios de tres años: en el de ${mo.tri_act}, la tasa más alta fue la de ${mo.top} (${n1(mo.top_v)}) y la más baja, la de ${mo.low} (${n1(mo.low_v)}). La tasa bajó ${deLas24(mo.bajan)} frente al promedio de ${mo.tri_base}.`,
-"mortalidad-nota": `Defunciones de menores de un año por cada 1.000 nacidos vivos, según la provincia de residencia de la madre. En las provincias con pocos nacimientos la tasa de un solo año varía mucho, por eso se compara el promedio de tres años. El círculo claro marca ${mo.tri_base} y el lleno ${mo.tri_act}. La tabla descargable incluye también el valor de ${mo.anio}. La línea punteada violeta marca el promedio simple de los países de la OCDE en ${OC.mortalidad_infantil.anio}, según el Banco Mundial.`,
 sube: (su.var_anual == null ? "" : `En ${su.mes} se usaron por día hábil ${pct(Math.abs(su.var_anual))} ${su.var_anual < 0 ? "menos" : "más"} tarjetas SUBE distintas que en ${su.mes_prev}. `) +
 `En los primeros días hábiles de marzo de 2020, antes del aislamiento, se usaban ${n2(su.pre_millones)} millones de tarjetas por día hábil` +
 (su.vs_pre == null ? ". " : `: en ${su.mes} se usaron ${pct(Math.abs(su.vs_pre))} ${su.vs_pre < 0 ? "menos" : "más"}. `) +
 `La SUBE, el Sistema Único de Boleto Electrónico, funciona en el Área Metropolitana de Buenos Aires y en decenas de ciudades del interior, pero no en las que tienen un sistema de pago propio.`,
 pisa: `En PISA ${pz.anio}, los estudiantes de 15 años de la Argentina obtuvieron en promedio ${pz.lec} puntos en lectura y ${pz.cie} en ciencias. El promedio de los países de la OCDE fue de ${pz.ocde_lec} y ${pz.ocde_cie} puntos. Frente a ${pz.anio_prev}, el puntaje de la Argentina ${cambio(pz.var_mat)} en matemática, ${cambio(pz.var_lec)} en lectura y ${cambio(pz.var_cie)} en ciencias.`,
-"pisa-nota": `Puntaje promedio de los estudiantes de 15 años escolarizados que rindieron la prueba. La OCDE excluyó de las comparaciones el resultado nacional de 2015 por problemas de cobertura de la muestra. Por eso ese año no aparece en el gráfico, aunque figura en la tabla descargable. En 2000 esta fuente solo tiene el puntaje de lectura. El promedio OCDE es el promedio simple de los países miembros en cada ciclo.`,
 escolarizacion: `En ${es.ini}, el ${pct(es.pais_ini)} de los adolescentes del país en edad de cursar la secundaria estaba matriculado en ese nivel. Desde entonces, la tasa subió ${deLas24(es.suben)}${es.bajan.length && es.bajan.length <= 3 ? ` y bajó en ${lista(es.bajan)}` : ""}. La comparación cruza un quiebre de serie: desde 2022, la población de referencia sale del Censo 2022. ` +
 `En ${es.fin}, la tasa más alta fue la de ${es.top} (${pct(es.top_v)})` + (es.top_excluidos.length ? `, sin contar ${lista(es.top_excluidos)}, donde llega casi al 100% por diferencias entre la matrícula y la población estimada` : "") +
 `. La más baja fue la de ${es.low} (${pct(es.low_v)}).`,
-"escolarizacion-nota": `Alumnos de 12 a 17 años (13 a 17 en las provincias con secundaria de cinco años) matriculados en el nivel secundario, incluidas la educación especial y la de jóvenes y adultos, sobre la población de esa edad. Desde 2022 la población de referencia son las proyecciones del INDEC basadas en el Censo 2022, así que parte del cambio entre 2021 y 2022 responde al cambio de denominador. Algunos valores superan el 100% por diferencias entre la matrícula y la proyección de población. El círculo claro marca ${es.ini} y el lleno ${es.fin}.`,
 aprender: `En matemática, el ${pct(ap.mat_debajo)} de los estudiantes de 6° grado de primaria del país quedó por debajo del nivel básico en Aprender ${ap.anio}. Por provincia, la parte con nivel satisfactorio o avanzado en matemática fue más alta en ${ap.top} (${pct(ap.top_v)}) y más baja en ${ap.low} (${pct(ap.low_v)}). En lengua, el ${pct(ap.len)} del país alcanzó un nivel satisfactorio o avanzado.`,
-"aprender-nota": `Aprender es la evaluación nacional de aprendizajes de la Secretaría de Educación. En ${ap.anio} fue censal para 6° grado de primaria. Los porcentajes se calculan con la base agregada por departamento, sector y ámbito que publica la Secretaría, y cuentan solo a quienes tienen un nivel de desempeño asignado. Por eso pueden diferir levemente de los del informe oficial.${DIST["aprender_provincias.mat_logra"]?.["Neuquén"] ? ` En Neuquén, ${DIST["aprender_provincias.mat_logra"]["Neuquén"].motivo}.` : ""}`,
 protegida: `En ${nt.anio} había ${n0(nt.areas)} áreas protegidas nacionales, provinciales y con designación internacional. Cubrían ${n1(nt.ha_millones)} millones de hectáreas de tierra firme, unos ${n0(nt.m2_pais)} metros cuadrados (m²) por habitante. ` +
 `${nt.top} tenía protegido el ${pct(nt.top_v)} de su superficie${conVeces(nt.top_v, nt.pct)} y ${nt.low}, el ${pct(nt.low_v)}${conVeces(nt.low_v, nt.pct)}. Por habitante, la superficie protegida va de ${n0(nt.m2_top_v)} m² en ${nt.m2_top} a ${n1(nt.m2_low_v)} m² en ${nt.m2_low}. ` +
 `La fuente suma la superficie de cada designación, así que una misma zona puede contarse más de una vez.`,
@@ -1429,10 +1349,6 @@ pobreza: `En el ${R.pobreza.sem}, el ${pct(R.pobreza.ind)} de las personas de lo
 `vivía bajo la línea de indigencia.`,
 "pobreza-ninez-edad": `En el ${PNZ.fin} vivía en hogares pobres el ${pct(PNZ.p0_5)} de los chicos de 0 a 5 años, el ${pct(PNZ.p6_11)} de los de 6 a 11 ` +
 `y el ${pct(PNZ.p12_17)} de los de 12 a 17. En las personas de 65 años y más, el ${pct(PNZ.p65_y_mas)}.`,
-"pobreza-ninez-nota": `Personas de 0 a 17 años que viven en hogares cuyos ingresos no alcanzan la canasta básica total (pobreza) o la canasta ` +
-`básica alimentaria (indigencia). La pobreza se mide por hogar: un chico es pobre si su hogar lo es. Qué no dice este dato: la EPH releva solo ` +
-`los 31 aglomerados urbanos, no el campo ni las ciudades chicas, y no mide otras carencias, como la vivienda, la salud o la escuela.`,
-"pobreza-nota": `Porcentaje de personas en hogares cuyos ingresos no alcanzan la canasta básica total (pobreza) o la canasta básica alimentaria (indigencia). La EPH releva solo los 31 aglomerados urbanos, no el total del país ni las provincias. En el consultor de pobreza están los aglomerados, los partidos del Gran Buenos Aires y las comunas de CABA, con sus intervalos de confianza.`,
 patentes: `Entre ${au.ytd} se inscribieron en los registros del país ${pct(Math.abs(au.ytd_var))} ${au.ytd_var < 0 ? "menos" : "más"} autos nuevos que en el mismo período del año anterior. El máximo de autos de la serie fue en ${au.max_anio}, con ${n0(au.max)}, y el mínimo en ${au.min_anio}, con ${n0(au.min)}. ` +
 `La serie de autos cuenta todos los automotores: también camionetas y vehículos de carga.` +
 (au.moto_excluidos.length ? ` El total de motos de ${au.anio} no incluye el dato de ${lista(au.moto_excluidos)}, que la ficha siguiente señala como un probable error de la fuente.` : ""),
@@ -1447,14 +1363,8 @@ salarios: LEAD.salarios("prov"), "salarios-nota": `Remuneración bruta promedio 
 `está declarado. Es un promedio y no una mediana, así que unos pocos sueldos muy altos lo suben. Junio y diciembre incluyen el aguinaldo: por eso la comparación ` +
 `entre provincias usa ${SA.mes}, el último mes sin aguinaldo (el último publicado es ${SA.ult}). La provincia de Buenos Aires reúne los partidos del Gran Buenos Aires ` +
 `y el resto de la provincia, ponderados por su empleo. No incluye el empleo público ni el trabajo no registrado. Los dos últimos años son provisorios. La variación del salario en Precios y actividad sale de otra medida, el índice de salarios del INDEC, y puede dar otro número.`,
-"salario-docente": LEAD["salario-docente"]("prov"), "salario-docente-nota": `Salario bruto por mes de un cargo de referencia, no el promedio de lo que cobran los ` +
-`docentes: maestro de grado de primaria, jornada simple, con 10 años de antigüedad, con lo que paga cada provincia. Incluye los adicionales comunes al cargo, como ` +
-`zona o residencia donde se pagan, y las sumas extraordinarias del trimestre. Hasta ${DC.fonid_fin} incluía también el Fondo Nacional de Incentivo Docente y la ` +
-`conectividad que pagaba la Nación. El país es el promedio ponderado que publica la fuente. Los datos son provisorios y cada edición revisa trimestres anteriores.`,
-"inversion-educativa": LEAD["inversion-educativa"]("alumno"), "inversion-educativa-nota": `Gasto público en educación por alumno de gestión estatal: lo que gasta ` +
-`cada provincia en educación más las transferencias no automáticas de la Nación, sin lo que se transfiere a las escuelas de gestión privada, dividido por los ` +
-`alumnos de las escuelas estatales. La parte del gasto público no cuenta esas transferencias de la Nación. Montos en pesos de cada año. En la vista Año por año, descontada la inflación, en pesos de ${IE.anio} ` +
-`con el deflactor del PBI. Datos provisorios.`,
+"salario-docente": LEAD["salario-docente"]("prov"),
+"inversion-educativa": LEAD["inversion-educativa"]("alumno"),
 delitos: LEAD.delitos("tipo"), "delitos-nota": `El SNIC reúne los hechos que registran las fuerzas policiales y de seguridad, y en algunas provincias el Ministerio Público ` +
 `Fiscal, en sus primeras actuaciones: los delitos que nadie denuncia ni detecta no figuran, y algunos de los registrados pueden no confirmarse después. Cada hecho ` +
 `cuenta como un delito. El total suma los delitos de todos los tipos salvo las contravenciones, y el gráfico muestra los catorce más frecuentes (la tabla tiene todos). Tasas cada 100.000 habitantes con las proyecciones de población del INDEC ` +
@@ -1498,14 +1408,7 @@ deuda: LEAD.deuda(), "deuda-nota": `Deuda bruta de la Administración Central se
 `brutos, inmobiliario, sellos, automotor y otros, según la Dirección Nacional de Asuntos Provinciales, que replica lo que publica la dirección de ` +
 `rentas de cada provincia. Por habitante con la población que proyecta el INDEC para el mismo año. Las provincias no cobran los mismos impuestos: en algunas, el automotor lo ` +
 `cobran los municipios. Las finanzas de cada provincia, con lo que recibe de la Nación, están en la ficha siguiente.`,
-"pobreza-aglomerados": LEAD["pobreza-aglomerados"]("region"), "pobreza-aglomerados-nota": `Personas en hogares cuyos ingresos no alcanzan la canasta ` +
-`básica total, según la Encuesta Permanente de Hogares del INDEC, que releva 31 aglomerados urbanos y no mide las zonas rurales ni las ciudades chicas. ` +
-`Las regiones son las de la encuesta: Gran Buenos Aires (CABA y los partidos del conurbano), Noroeste, Noreste, Cuyo, Pampeana y Patagonia. El Gran ` +
-`Buenos Aires va en dos partes también entre las ciudades. Un aglomerado es una ciudad con su área urbana y puede juntar dos ciudades o dos provincias. ` +
-`El coeficiente de variación mide la precisión de cada estimación: cuanto más alto, menos precisa. Está en el cuadro de cada barra, con la indigencia. ` +
-`La pobreza por provincia es un cálculo de Datina, no un dato del INDEC: junta los aglomerados de la encuesta de cada provincia, cada uno ` +
-`pesado por las personas que representa, y no mide el resto de la provincia. San Nicolás-Villa Constitución, que abarca dos provincias, no entra ` +
-`en ninguna. En el consultor de pobreza están los partidos del Gran Buenos Aires y las comunas de CABA.`,
+"pobreza-aglomerados": LEAD["pobreza-aglomerados"]("region"),
 "empresas-tamano": LEAD["empresas-tamano"]("tam"), "empresas-tamano-nota": `Empresas privadas con al menos una persona en relación de dependencia ` +
 `declarada en el SIPA, según el Observatorio de Empleo y Dinámica Empresarial. No cuenta a quienes trabajan por su cuenta sin empleados. Una empresa con ` +
 `personal en varias provincias cuenta en cada una, y el país suma las provincias: por eso da más que la cantidad de empresas de la ficha anterior. El ` +
@@ -1541,17 +1444,8 @@ sociedades: LEAD.sociedades("prov"), "sociedades-nota": `Sociedades comerciales 
 `una vez, aunque tenga varias actividades. No incluye asociaciones civiles, fundaciones, cooperativas, mutuales ni sucursales de empresas ` +
 `extranjeras. El domicilio fiscal puede no ser donde la sociedad trabaja. Las que se dieron de baja pueden no estar en el registro. Cada ` +
 `100.000 habitantes, con la población del INDEC de ${SOC.anio}.`,
-"escuelas-primarias": LEAD["escuelas-primarias"](), "escuelas-primarias-nota": `Escuelas primarias comunes del Padrón Oficial de ` +
-`Establecimientos Educativos de ${ESP.fecha}: estatales, privadas y de gestión social o cooperativa, también las que no se dibujan en el ` +
-`mapa de la página de cada provincia. Cada sede cuenta aparte: un anexo, que funciona en otro lugar, es una escuela más. Cuenta escuelas, no ` +
-`alumnos ni vacantes: una escuela rural de diez alumnos vale lo mismo que una de cientos en una ciudad. Chicos de 5 a 14 años de las ` +
-`proyecciones del INDEC de ${ESP.anio}, que vienen en grupos de cinco años: la primaria dura seis o siete años según la provincia, y esos dos ` +
-`grupos contienen sus edades. Las secundarias están en la ficha siguiente. Que dos medidas vayan juntas no dice que una cause la otra.`,
-"escuelas-secundarias": LEAD["escuelas-secundarias"](), "escuelas-secundarias-nota": `Escuelas con secundaria común del Padrón Oficial ` +
-`de Establecimientos Educativos de ${ESS.fecha}, estatales, privadas y de gestión social o cooperativa. Cada sede cuenta aparte, como en ` +
-`las primarias. Chicos de 12 a 17 años de las proyecciones del INDEC de ${ESS.anio}: vienen en grupos de cinco años, así que son tres quintos ` +
-`del grupo de 10 a 14 y tres quintos del de 15 a 19. Qué no dice este dato: cuenta escuelas, no alumnos ni vacantes, y algunas provincias ` +
-`registran como secundarias aparte las secciones rurales que funcionan en otra escuela, así que tienen más escuelas sin tener más lugar.`,
+"escuelas-primarias": LEAD["escuelas-primarias"](),
+"escuelas-secundarias": LEAD["escuelas-secundarias"](),
 "privadas-aprender": `En los ${n0(PAP.deps)} departamentos con al menos ${n0(PAP.min)} alumnos de 6° grado evaluados en Aprender ${PAP.anio}, los que tienen ` +
 `una parte más grande de escuelas primarias privadas suelen tener ${PAP.r_mat >= 0 ? "más" : "menos"} alumnos con nivel satisfactorio o avanzado. La relación es ` +
 (fuerza(PAP.r_mat) === fuerza(PAP.r_len) ? `${fuerza(PAP.r_mat)} en matemática (correlación de ${n2(PAP.r_mat)}) y en lengua (${n2(PAP.r_len)}). `
@@ -1561,57 +1455,20 @@ sociedades: LEAD.sociedades("prov"), "sociedades-nota": `Sociedades comerciales 
 : `Dentro de ${PAP.prov}, la provincia con más departamentos con dato (${n0(PAP.prov_deps)}), la relación en matemática es ${fuerza(PAP.prov_r_mat)} (${n2(PAP.prov_r_mat)}). `) +
 `En todo el país, el ${pct(PAP.mat_privado)} de los alumnos de las escuelas privadas alcanzó el nivel satisfactorio o avanzado en matemática, frente al ` +
 `${pct(PAP.mat_estatal)} en las estatales.`,
-"privadas-aprender-nota": `Cada punto es un departamento, partido o comuna. En el eje horizontal, qué parte de las escuelas primarias comunes del Padrón ` +
-`Oficial de Establecimientos Educativos de ${PAP.fecha} es privada (las de gestión social o cooperativa no cuentan como privadas). En el vertical, qué parte ` +
-`de los alumnos de 6° grado alcanzó el nivel satisfactorio o avanzado en matemática en Aprender ${PAP.anio}, con la base agregada por departamento de la ` +
-`Secretaría de Educación. Solo entran los departamentos con al menos ${n0(PAP.min)} alumnos evaluados. La línea punteada es solo una guía de la tendencia. ` +
-`La correlación es la de rangos de Spearman, que va de menos 1 a 1. Qué no dice este dato: que una escuela privada enseñe mejor. Sus alumnos vienen de ` +
-`otros hogares: según el cuestionario de Aprender, el ${pct(PAP.nse_q1_estatal)} de los alumnos de las estatales pertenece al 20% del país con menor ` +
-`nivel socioeconómico, y en las privadas el ${pct(PAP.nse_q1_privado)}, y eso también va junto con los resultados. La comparación es entre promedios ` +
-`de departamentos, no entre alumnos ni entre escuelas, y cuenta escuelas, no alumnos: una escuela rural chica pesa lo mismo que una grande. ` +
-`Que dos datos vayan juntos no prueba que uno cause el otro.`,
-"distancia-hospital": LEAD["distancia-hospital"]("hospital"), "distancia-hospital-nota": `Distancia en línea recta, no por ruta: el ` +
-`viaje real es más largo. Las escuelas rurales (primarias y secundarias comunes del padrón oficial) sirven de marca de dónde vive la gente en ` +
-`el campo, y cada una cuenta una vez, tenga pocos o muchos alumnos. Los hospitales son los públicos con internación de la ficha de arriba y, ` +
-`en la otra vista, los que el registro clasifica con terapia intensiva. El más cercano puede estar en otra provincia. Las escuelas sin una ` +
-`ubicación confirmada no entran. La mediana es la distancia que deja a la mitad de las escuelas más cerca y a la otra mitad más lejos. CABA no ` +
-`tiene escuelas rurales.`,
-hospitales: LEAD.hospitales("hospitales"), "hospitales-nota": `Hospitales públicos con internación del Registro Federal de ` +
-`Establecimientos de Salud del Ministerio de Salud: nacionales, provinciales, municipales, universitarios y mixtos, sin las residencias para ` +
-`personas mayores. Son los mismos del mapa de escuelas y hospitales de la página de cada provincia. Cuenta establecimientos, no camas: uno de ` +
-`cientos de camas en una ciudad grande vale lo mismo que uno de pocas camas en un pueblo. Las clínicas y los sanatorios privados no están, y ` +
-`en varias provincias tienen buena parte de las camas. Con terapia intensiva: los que el registro clasifica como de alto riesgo con terapia ` +
-`intensiva, una categoría que declara cada provincia. Cada 100.000 habitantes, con la población del INDEC de ${HSP.anio}.`,
-medicos: LEAD.medicos("activos"), "medicos-nota": `Médicos por provincia de residencia, según el informe "Médicos activos en Argentina" del ` +
-`Observatorio Federal de Talento Humano en Salud del Ministerio de Salud. Habilitados: con matrícula vigente en la Red Federal de Registros de ` +
-`Profesionales de la Salud. Activos: los que alguna de seis fuentes administrativas de empleo, impuestos, jubilaciones y migraciones muestra ` +
-`trabajando. El informe no cuenta a los jubilados sin actividad, a los que emigraron ni a los que no tienen actividad registrada. Cada 10.000 ` +
-`habitantes, con la población del INDEC de ${MDC.anio}. Un médico puede atender en otra provincia que la de su residencia.`,
+"distancia-hospital": LEAD["distancia-hospital"]("hospital"),
+hospitales: LEAD.hospitales("hospitales"),
+medicos: LEAD.medicos("activos"),
 "cobertura-suelo": LEAD["cobertura-suelo"]("natural"),
-telefonia: LEAD.telefonia("prov"), "telefonia-nota": `Accesos de telefonía fija en servicio, según el ENACOM. Son líneas, no hogares: cuentan ` +
-`las de los hogares y también las de comercios, organismos públicos y otros usos, así que una jurisdicción puede pasar de 100 cada 100 hogares. ` +
-`Los accesos a internet fijo están en la ficha anterior.`,
-"tv-paga": LEAD["tv-paga"]("prov"), "tv-paga-nota": `Accesos de TV por suscripción (cable y fibra) en servicio, según el ENACOM. Son abonos, ` +
-`no hogares: cuentan también los de comercios y otros usos. Por provincia el ENACOM publica solo la TV por suscripción, sin la satelital, ` +
-`que está en la evolución del país. Qué no dice este dato: no cuenta las plataformas por internet, como las de películas y series.`,
-abandono: LEAD.abandono("ab"), "abandono-nota": `Tasa de abandono interanual: alumnos de la secundaria de un año que no se matriculan en el ` +
-`año lectivo siguiente. Tasa de repitencia: alumnos que al año siguiente se matriculan en el mismo año de estudio. En % de los alumnos de la ` +
-`secundaria común de cada jurisdicción, según los Relevamientos Anuales de la Secretaría de Educación. La fuente aclara que el cálculo supone que ` +
-`entre un año y el siguiente no entran alumnos de otras jurisdicciones ni de otras cohortes, y que eso puede sesgar las tasas.` +
-(ABN.regimen.length ? ` Desde ${ABN.anio}, ${lista(ABN.regimen)} aplica un régimen académico nuevo en la secundaria (Resolución 1650/2024 de su ` +
-`Dirección General de Cultura y Educación), con la acreditación por materia: sus repitientes son los alumnos que no acreditaron ninguna materia ` +
-`y siguen en el mismo año, y la fuente avisa que el cambio también puede incidir en el total del país.` : ""),
+telefonia: LEAD.telefonia("prov"),
+"tv-paga": LEAD["tv-paga"]("prov"),
+abandono: LEAD.abandono("ab"),
 "deuda-provincias": LEAD["deuda-provincias"]("hab"), "deuda-provincias-nota": `Stock de deuda pública de cada provincia y de CABA al ` +
 `${DPR.fecha_txt}, en pesos, según la Subsecretaría de Coordinación Fiscal Provincial del Ministerio de Economía. Los datos son preliminares y ` +
 `pueden revisarse. No incluye la deuda flotante ni la contingente, y los bonos van a su valor residual, como aclara la fuente. El Gobierno ` +
 `nacional incluye dos fondos fiduciarios nacionales, el Fondo Fiduciario Federal de Infraestructura Regional y el Fondo Fiduciario para el ` +
 `Desarrollo Provincial. Bancos y otros incluye lo que la fuente llama deuda consolidada. Por habitante, con la población del INDEC de ${DPR.anio}.` +
 (DPR.faltan.length ? ` ${lista(DPR.faltan)} no ${DPR.faltan.length > 1 ? "informaron" : "informó"} su deuda de esa fecha: ${DPR.faltan.length > 1 ? "quedan" : "queda"} sin dato.` : ""),
-refugio: LEAD.refugio("anio"), "refugio-nota": `Solicitudes de reconocimiento de la condición de persona refugiada presentadas cada año ante la ` +
-`CONARE, que decide quién es reconocida como refugiada, y personas reconocidas, según sus estadísticas de ${MGR.anio}. La CONARE las publica solo ` +
-`en PDF: el sitio copia sus cuadros. Las cifras de ACNUR son las personas refugiadas y solicitantes de asilo que vivían en el país a fin de cada ` +
-`año, que informa cada gobierno: no se suman a las solicitudes, que son trámites de cada año. ACNUR cuenta aparte a las otras personas que ` +
-`necesitan protección internacional, que no figuran como refugiadas ni como solicitantes de asilo.`,
+refugio: LEAD.refugio("anio"),
 supermercados: LEAD.supermercados("prov"), "supermercados-nota": `Encuesta de Supermercados del INDEC: un panel fijo de empresas de supermercados ` +
 `con alguna boca de 200 m² o más, o que suman esa superficie entre todas sus bocas, que no es una muestra al azar. Las ventas incluyen el IVA. La serie mes a mes es el índice del país que publica el ` +
 `INDEC a precios constantes, que descuenta los precios de cada grupo de artículos con el índice de precios al consumidor del país. El INDEC publica ` +
@@ -1619,30 +1476,11 @@ supermercados: LEAD.supermercados("prov"), "supermercados-nota": `Encuesta de Su
 `(en la provincia de Buenos Aires, los 24 partidos del Gran Buenos Aires con el de esa región y el resto con el de la región Pampeana), así que la ` +
 `variación del país de ese gráfico difiere un poco de la del índice del INDEC. No se comparan las ventas por habitante: dependen de cuántos locales ` +
 `del panel hay en cada provincia.`,
-"nacidos-otro-pais": LEAD["nacidos-otro-pais"]("prov"), "nacidos-otro-pais-nota": `Personas que vivían en viviendas particulares y nacieron en ` +
-`otro país, según el Censo 2022 del INDEC, como parte de toda la población en viviendas particulares de cada provincia. Es el primer censo de derecho: ` +
-`cuenta a cada persona donde vive habitualmente. El país de nacimiento es el que declaró cada persona, y el ${pct(MGC.no_declarado_pct)} no lo declaró ` +
-`(en algunas provincias, muchas más: el texto lo aclara cuando pasa de la quinta parte). Con una provincia elegida, la vista por país muestra los de ` +
-`esa provincia. El mapa usa los cuadros de cada provincia, con un dato por departamento, partido o comuna: al pasar el mouse muestra también el ` +
-`origen más frecuente entre quienes declararon su país, donde lo declararon al menos 100 personas. El RENAPER identifica más personas nacidas en ` +
-`otro país porque cuenta los DNI con el domicilio declarado: está más abajo, en la ficha del RENAPER.`,
-"migracion-interna": LEAD["migracion-interna"](), "migracion-interna-nota": `Personas que vivían en viviendas particulares según dónde nacieron: en la ` +
-`misma provincia, en otra provincia o en otro país, según el Censo 2022 del INDEC. Cuenta dónde nació cada persona y dónde vive, no cuándo se mudó ni ` +
-`cuántas veces. El mapa usa los cuadros de cada provincia, con un dato por departamento, partido o comuna, y divide a los departamentos en cinco ` +
-`grupos del mismo tamaño.`,
-"migracion-historia": LEAD["migracion-historia"](), "migracion-historia-nota": `Personas nacidas en otro país como parte de la población total de ` +
-`cada censo nacional. Hasta 2001, según el INDEC (Aquí se cuenta, número 12, 2004), y en 2010 y 2022, según la publicación del Censo 2022 sobre ` +
-`migraciones. Los nacidos en países limítrofes (Bolivia, Brasil, Chile, Paraguay y Uruguay) hasta 2001 son los de esa publicación del INDEC, y los de ` +
-`2022 los calcula el sitio con el cuadro de países de nacimiento del Censo 2022, sobre la población en viviendas particulares. Para 2010 no hay un dato ` +
-`publicado con la misma definición. Hasta 2001 los censos contaban a cada persona donde pasó la noche del censo, y el de 2022, donde vive habitualmente.`,
-radicaciones: LEAD.radicaciones("anio"), "radicaciones-nota": `Trámites de residencia resueltos a favor por la Dirección Nacional de Migraciones, ` +
-`por año y nacionalidad. Cuenta trámites, no personas: alguien puede recibir una residencia temporaria un año y la permanente otro. La residencia ` +
-`permanente es para quien quiere establecerse en el país, y la temporaria, para quien viene por un tiempo, por ejemplo a trabajar o a estudiar. ` +
-`Las personas de los países del Mercosur y asociados tienen un trámite propio por nacionalidad. No hay datos por provincia.`,
-"argentinos-exterior": LEAD["argentinos-exterior"]("anio"), "argentinos-exterior-nota": `Estimación de la División de Población de las Naciones Unidas ` +
-`(International Migrant Stock), a mediados de cada año, con los censos y los registros de cada país de destino: no es un conteo. En la mayoría de los ` +
-`países cuenta a las personas nacidas en la Argentina, y en algunos, a las de nacionalidad argentina. No es comparable con las cifras de los censos ` +
-`del país. La lista de destinos no incluye las Islas Malvinas.`,
+"nacidos-otro-pais": LEAD["nacidos-otro-pais"]("prov"),
+"migracion-interna": LEAD["migracion-interna"](),
+"migracion-historia": LEAD["migracion-historia"](),
+radicaciones: LEAD.radicaciones("anio"),
+"argentinos-exterior": LEAD["argentinos-exterior"]("anio"),
 inflacion: LEAD.inflacion("doce"), "inflacion-nota": `Índice de precios al consumidor del INDEC, base diciembre de 2016 = 100: mide cuánto cambia el costo de una ` +
 `canasta fija de bienes y servicios que compran los hogares de las ciudades del país. Las variaciones del mes y de doce meses son las que publica el INDEC, con ` +
 `un decimal, y la de lo que va del año sale del índice. El índice del país empieza en diciembre de 2016: no hay uno anterior para todo el país. Las regiones son ` +
@@ -1768,11 +1606,6 @@ dengue: `Sumando las temporadas de la ${DG.prov_desde} a la ${DG.temp}, la tasa 
 `${n0(DG.casos_juntas)} casos en esas temporadas` + (DG.max_pct_juntas != null ? `, el ${pct(DG.max_pct_juntas)} en la de ${DG.max_temp}, la de la epidemia más grande.` : "."),
 "dengue-serie": `En la temporada ${DG.temp} se confirmaron ${n0(DG.casos)} casos de dengue en el país, frente a ${n0(DG.casos_ant)} en la ${DG.temp_ant}. ` +
 `La epidemia más grande desde la temporada ${DG.ini} fue la de ${DG.max_temp}, con ${n0(DG.max_casos)} casos.`,
-"dengue-nota": `Casos confirmados de dengue, incluidos los de embarazadas, según la provincia donde vive cada persona, notificados al Sistema Nacional de ` +
-`Vigilancia de la Salud del Ministerio de Salud. La temporada va de la semana epidemiológica 31 de un año, a fines de julio o principios de agosto, a la 30 del ` +
-`siguiente, como en los boletines epidemiológicos del Ministerio: los casos se concentran entre el verano y el otoño. La tasa usa la población que proyecta el ` +
-`INDEC (base Censo 2022) para el año en que termina cada temporada, por eso empieza en la ${DG.prov_desde}. Los datos llegan hasta la semana ${DG.sem_ult} de ` +
-`${DG.anio_ult} y las semanas más recientes pueden sumar casos en las publicaciones siguientes.`,
 vacunas: `En ${VC.anio}, ${VC.bajo95_1} de las 24 jurisdicciones vacunaron con la primera dosis a menos del 95% de los chicos de un año, la cobertura que ` +
 `recomienda la Organización Panamericana de la Salud para frenar el sarampión. Las más bajas fueron las de ${VC.low}, ${pct(VC.low_v)}, ${yE(VC.low_b)}, ` +
 `${pct(VC.low_b_v)}. En ${VC.ini} eran ${VC.bajo95_1_ini}.`,
@@ -1781,27 +1614,17 @@ vacunas: `En ${VC.anio}, ${VC.bajo95_1} de las 24 jurisdicciones vacunaron con l
 `${pct(VC.low2_v)}.`,
 "vacunas-serie": `La cobertura mediana de las 24 jurisdicciones en la primera dosis pasó de ${pct(VC.mediana1_ini)} en ${VC.ini} a ${pct(VC.mediana1_2019)} ` +
 `en 2019, antes de la pandemia, y a ${pct(VC.mediana1)} en ${VC.anio}. La de la segunda, de ${pct(VC.mediana2_2019)} en 2019 a ${pct(VC.mediana2)}.`,
-"vacunas-nota": `La triple viral protege contra el sarampión, las paperas y la rubéola. La primera dosis se da al año de vida y la segunda al entrar a la escuela, ` +
-`a los 5 años. Es una cobertura administrativa: las dosis que se aplicaron sobre la población que se estima para esa edad, así que puede pasar de 100% cuando se ` +
-`vacuna a chicos de otras provincias o la población estimada se queda corta. La Organización Panamericana de la Salud recomienda llegar al 95% de los chicos para ` +
-`frenar el sarampión. El archivo no trae el total del país: la evolución muestra la mediana de las 24 jurisdicciones, la que tiene tantas por encima como por debajo.`,
 esperanza: `En ${nv.ev_anio}, la esperanza de vida al nacer de las mujeres del país era de ${n1(nv.ev_m)} años y la de los varones, de ${n1(nv.ev_v)}. Con mujeres y varones juntos, por provincia iba de ${n1(nv.ev_top_v)} años en ${nv.ev_top} a ${n1(nv.ev_low_v)} en ${nv.ev_low}. El gráfico muestra al lado de cada provincia la esperanza de vida de las mujeres.`,
-"esperanza-nota": `Años que viviría en promedio una persona nacida en ${nv.ev_anio} si se mantuvieran las tasas de mortalidad por edad de ese año. El círculo claro marca a los varones y el lleno a las mujeres. El INDEC publica tablas para 2020, 2021 y 2022, y las de 2020 y 2021 reflejan la mortalidad de la pandemia de COVID-19. La línea punteada violeta marca el promedio simple de los países de la OCDE en ${OC.esperanza_vida.anio}, para ambos sexos, según el Banco Mundial.`,
 exportaciones: `Por habitante, las exportaciones producidas en ${nv.ex_top} sumaron ${n0(nv.ex_top_v)} dólares${conVeces(nv.ex_top_v, nv.ex_pc_pais)} y las de ${nv.ex_low}, ${n0(nv.ex_low_v)}${conVeces(nv.ex_low_v, nv.ex_pc_pais)}. En total, el país exportó bienes por ${n0(nv.ex_total)} millones de dólares en ${nv.ex_anio}.` + (nv.ex_sem ? ` En el primer semestre de ${nv.ex_sem.anio}, con datos provisorios, las exportaciones sumaron ${n0(nv.ex_sem.total)} millones de dólares, ${pct(Math.abs(nv.ex_sem.var))} ${nv.ex_sem.var >= 0 ? "más" : "menos"} que en el primer semestre de ${nv.ex_sem.anio - 1}, y subieron en ${nv.ex_sem.suben} de las 24 jurisdicciones.` : "") +
 "",
 "exportaciones-nota": `Valor FOB (la mercadería puesta en el puerto o en la frontera, sin flete ni seguro) de los bienes exportados, según la provincia donde se produjeron. El ${pct(nv.ex_provincial_pct)} del total tiene una provincia de origen identificada. El resto sale de la plataforma continental, es mercadería extranjera o tiene origen indeterminado. La tabla descargable separa productos primarios, manufacturas agropecuarias, manufacturas industriales y combustibles. La población es la proyección del INDEC para ${R.anio_pob_ficha.exportaciones_provincias}, el mismo año.`,
-cobertura: textoCenso("sin_cobertura"), "cobertura-nota": `Personas en viviendas particulares según el Censo 2022 que no tenían obra social (incluido el ` +
-`PAMI), prepaga ni un programa o plan estatal de salud: dependían solo de los hospitales y centros de salud públicos, que atienden a todas las personas. ` +
-`El INDEC no publica estos totales provinciales en un archivo propio: se suman desde los resultados por radio censal, así que pueden diferir levemente de sus cuadros.`,
-"censo-nota": `Hogares en viviendas particulares según el Censo 2022. Agua de red: agua corriente de red pública. Cloacas: inodoro con descarga de agua y desagüe a red pública. Internet: conexión en la vivienda, incluida la del celular. Necesidades básicas insatisfechas: hacinamiento, vivienda precaria, sin baño, chicos sin escuela o baja capacidad de subsistencia, según la definición del INDEC. El INDEC no publica estos totales provinciales en un archivo propio: se suman desde los resultados por radio censal, así que pueden diferir levemente de sus cuadros.`,
+cobertura: textoCenso("sin_cobertura"),
 internet: `En el ${nv.in_trim}, el valor más alto fue el de ${nv.in_top}, con ${n1(nv.in_top_v)} accesos a internet fijo cada 100 hogares, y el más bajo, el de ${nv.in_low}, con ${n1(nv.in_low_v)}.` +
 (DIST["internet_fijo_provincias.accesos_100_hogares"]?.[nv.in_top]?.accion === "aclarar" ? ` ${DIST["internet_fijo_provincias.accesos_100_hogares"][nv.in_top].motivo}.` : "") +
 ` La velocidad media de bajada iba de ${n1(nv.ve_top_v)} megabits por segundo en ${nv.ve_top} a ${n1(nv.ve_low_v)} en ${nv.ve_low}.`,
-"internet-nota": `Accesos a internet fijo informados por las empresas prestadoras al ENACOM, divididos por la cantidad de hogares. Incluye conexiones de empresas y oficinas, por eso algunas jurisdicciones superan los 100. La velocidad es el promedio de la velocidad contratada de bajada. No incluye internet por celular, que sí cuenta el Censo 2022 en la ficha anterior.`,
 extranjeros: `El RENAPER registra ${n0(MG.renaper.personas)} personas nacidas en otro país con DNI argentino, un ${pct(MG.renaper.mas)} más que las que contó el Censo 2022. Los dos cuentan distinto: ` +
 `el RENAPER usa el domicilio que figura en cada DNI, que puede estar desactualizado, y el Censo cuenta a quienes viven en cada vivienda. ` +
 `${nv.xt_top} tiene la proporción más alta, ${n1(nv.xt_top_v)} cada 100 habitantes. Los países de nacimiento más frecuentes son ${lista(nv.xt_origen)}.`,
-"extranjeros-nota": `Personas nacidas en otro país identificadas por el RENAPER, según la provincia del domicilio que declararon en su DNI: es un registro de domicilios declarados, no un conteo de quienes viven en cada provincia, y puede tener domicilios desactualizados. No incluye a quienes viven en el país sin DNI argentino. La población es la proyección del INDEC para ${R.anio_pob_ficha.extranjeros_provincias}, el año del corte.`,
 "fiscal-nota": `Administración pública no financiera de cada provincia, ejecución del año completo según el Ministerio de Economía. Recursos propios: ingresos corrientes menos los tributos de origen nacional, como la coparticipación, y las transferencias, más los recursos propios de capital, sobre los ingresos totales. Incluye impuestos provinciales y regalías. Resultado financiero: ingresos totales menos gastos totales, sobre los ingresos totales. Gasto en personal: sueldos y cargas sociales sobre el gasto total. La serie desde ${R.fiscal.ini} está en el explorador de cruces.` +
 Object.entries(R.fiscal.atrasadas).map(([p, a]) => ` ${p} todavía no publicó ${R.fiscal.anio}: figura con ${a}.`).join(""),
 "mapa-dep-titulo": `¿Cómo varía cada indicador de un departamento a otro?`,
@@ -2256,77 +2079,6 @@ b.attr("width", 0).transition().delay(escalon).duration(DUR_G).ease(EASE).attr("
 aparecer(v, 400);
 }
 }
-function piramidePob(el, cfg) {
-const filas = cfg.data.filter(d => d.codigo_indec === cfg.cod);
-const th = d3.sum(filas, d => d.personas_hoy), tf = d3.sum(filas, d => d.personas_2040);
-const edades = [...new Set(filas.map(d => d.edad))].sort((a, b) => a - b);
-const data = edades.map(e => {
-const v = filas.find(d => d.edad === e && d.sexo === "varones"), m = filas.find(d => d.edad === e && d.sexo === "mujeres");
-return {edad: e, lab: e >= 90 ? "90+" : `${e}-${e + 4}`, vh: v.personas_hoy / th * 100, mh: m.personas_hoy / th * 100, vf: v.personas_2040 / tf * 100, mf: m.personas_2040 / tf * 100};
-});
-const angosto = el.clientWidth < 520, fila = angosto ? 17 : 20;
-const C = lienzo(el, data.length * fila + 64, {t:48, r:8, b:16, l:8});
-const {g, iw} = C, centro = iw / 2, gap = angosto ? 22 : 28;
-const mx = d3.max(data, d => Math.max(d.vh, d.mh, d.vf, d.mf));
-const x = d3.scaleLinear().domain([0, mx]).range([0, centro - gap - 6]);
-const y = d3.scaleBand().domain(data.map(d => d.edad).reverse()).range([0, data.length * fila]).padding(.14);
-const antes = !cfg.anim && !REDUCIR && el.pir && el.pir.cod !== cfg.cod ? el.pir : null;
-el.pir = {cod: cfg.cod, mx, d: Object.fromEntries(data.map(d => [d.edad, d]))};
-const titulo = g.append("text").attr("x", centro).attr("y", -30).attr("text-anchor","middle").attr("class","etq-fuerte").text(cfg.nombre);
-g.append("text").attr("x", centro - gap).attr("y", -12).attr("text-anchor","end").attr("class","etq-fuerte").attr("fill",css("--celeste-fuerte")).text("Varones");
-g.append("text").attr("x", centro + gap).attr("y", -12).attr("class","etq-fuerte").attr("fill",css("--sol-fuerte")).text("Mujeres");
-const f = g.selectAll("g.f").data(data).join("g").attr("transform", d => `translate(0,${y(d.edad)})`);
-const rx = rBarra(y.bandwidth());
-const v = f.append("rect").attr("x", d => centro - gap - x(d.vh)).attr("width", d => x(d.vh)).attr("height", y.bandwidth()).attr("rx", rx).attr("fill", css("--celeste"));
-const m = f.append("rect").attr("x", centro + gap).attr("width", d => x(d.mh)).attr("height", y.bandwidth()).attr("rx", rx).attr("fill", css("--sol"));
-const ov = f.append("rect").attr("x", d => centro - gap - x(d.vf)).attr("width", d => x(d.vf)).attr("height", y.bandwidth()).attr("rx", rx).attr("fill","none").attr("stroke", css("--ink")).attr("stroke-width", 1.2);
-const om = f.append("rect").attr("x", centro + gap).attr("width", d => x(d.mf)).attr("height", y.bandwidth()).attr("rx", rx).attr("fill","none").attr("stroke", css("--ink")).attr("stroke-width", 1.2);
-f.append("text").attr("x", centro).attr("y", y.bandwidth()/2).attr("dy",".35em").attr("text-anchor","middle").attr("class","etq-suave").style("font-size", angosto ? "10px" : null).text(d => d.lab);
-f.append("rect").attr("x", 0).attr("width", iw).attr("height", y.bandwidth()).attr("fill","transparent")
-.on("pointermove pointerdown", (ev, d) => mostrarTip(el, `<b>${d.lab} años</b><br>Varones: ${n1(d.vh)}% en ${cfg.anio} y ${n1(d.vf)}% en ${PI.anio_fin}<br>Mujeres: ${n1(d.mh)}% en ${cfg.anio} y ${n1(d.mf)}% en ${PI.anio_fin}`, centro, y(d.edad) + 48))
-.on("pointerleave", ocultarSiMouse);
-const ley = g.append("g").attr("transform", `translate(${centro - 56},${data.length * fila + 8})`);
-ley.append("rect").attr("width", 12).attr("height", 9).attr("fill", css("--celeste"));
-ley.append("text").attr("x", 16).attr("y", 9).attr("class","etq-suave").text(String(cfg.anio));
-ley.append("rect").attr("x", 64).attr("width", 12).attr("height", 9).attr("fill","none").attr("stroke", css("--ink"));
-ley.append("text").attr("x", 80).attr("y", 9).attr("class","etq-suave").text(PI.anio_fin);
-if (cfg.anim) {
-v.attr("x", centro - gap).attr("width", 0).transition().delay(escalon).duration(DUR_G).ease(EASE).attr("x", d => centro - gap - x(d.vh)).attr("width", d => x(d.vh));
-m.attr("width", 0).transition().delay(escalon).duration(DUR_G).ease(EASE).attr("width", d => x(d.mh));
-aparecer(ov, 700); aparecer(om, 700);
-}
-if (antes) {
-const xa = d3.scaleLinear().domain([0, antes.mx]).range(x.range()), va = d => antes.d[d.edad] || d;
-const ir = sel => sel.transition().duration(DUR_G).ease(EASE);
-ir(v.attr("x", d => centro - gap - xa(va(d).vh)).attr("width", d => xa(va(d).vh))).attr("x", d => centro - gap - x(d.vh)).attr("width", d => x(d.vh));
-ir(m.attr("width", d => xa(va(d).mh))).attr("width", d => x(d.mh));
-ir(ov.attr("x", d => centro - gap - xa(va(d).vf)).attr("width", d => xa(va(d).vf))).attr("x", d => centro - gap - x(d.vf)).attr("width", d => x(d.vf));
-ir(om.attr("width", d => xa(va(d).mf))).attr("width", d => x(d.mf));
-titulo.attr("opacity", 0).transition().duration(DUR_C).attr("opacity", 1);
-}
-}
-function piramide(el, cfg) {
-const data = cfg.data, fila = 22, angosto = el.clientWidth < 520;
-const C = lienzo(el, data.length * fila + 40, {t:30, r:10, b:10, l:10});
-const {g, iw} = C, centro = iw / 2, gap = angosto ? 34 : 44;
-const mx = d3.max(data, d => Math.max(d.pct_varones, d.pct_mujeres));
-const x = d3.scaleLinear().domain([0, mx]).range([0, centro - gap - 34]);
-const y = d3.scaleBand().domain(data.map(d => d.edad).reverse()).range([0, data.length*fila]).padding(.2);
-g.append("text").attr("x", centro - gap).attr("y", -12).attr("text-anchor","end").attr("class","etq-fuerte").attr("fill",css("--celeste-fuerte")).text("Varones");
-g.append("text").attr("x", centro + gap).attr("y", -12).attr("class","etq-fuerte").attr("fill",css("--sol-fuerte")).text("Mujeres");
-const f = g.selectAll("g.f").data(data).join("g").attr("transform", d => `translate(0,${y(d.edad)})`);
-const v = f.append("rect").attr("x", d => centro - gap - x(d.pct_varones)).attr("width", d => x(d.pct_varones)).attr("height", y.bandwidth()).attr("rx", rBarra(y.bandwidth())).attr("fill", css("--celeste"));
-const m = f.append("rect").attr("x", centro + gap).attr("width", d => x(d.pct_mujeres)).attr("height", y.bandwidth()).attr("rx", rBarra(y.bandwidth())).attr("fill", css("--sol"));
-f.append("text").attr("x", centro).attr("y", y.bandwidth()/2).attr("dy",".35em").attr("text-anchor","middle").attr("class","etq-suave").text(d => d.edad.replace(" y más","+").replace("Menos de ","<"));
-const tv = f.append("text").attr("x", d => centro - gap - x(d.pct_varones) - 5).attr("y", y.bandwidth()/2).attr("dy",".35em").attr("text-anchor","end").attr("class","etq-suave").text(d => n1(d.pct_varones) + "%");
-const tm = f.append("text").attr("x", d => centro + gap + x(d.pct_mujeres) + 5).attr("y", y.bandwidth()/2).attr("dy",".35em").attr("class","etq-suave").text(d => n1(d.pct_mujeres) + "%");
-if (cfg.anim) {
-v.attr("x", centro - gap).attr("width", 0).transition().delay(escalon).duration(DUR_G).ease(EASE)
-.attr("x", d => centro - gap - x(d.pct_varones)).attr("width", d => x(d.pct_varones));
-m.attr("width", 0).transition().delay(escalon).duration(DUR_G).ease(EASE).attr("width", d => x(d.pct_mujeres));
-aparecer(tv, 500); aparecer(tm, 500);
-}
-}
 function franjas(el, cfg) {
 const data = cfg.data, angosto = el.clientWidth < 520;
 const C = lienzo(el, angosto ? 190 : 230, {t:8, r:4, b:30, l:4});
@@ -2559,7 +2311,7 @@ svg.append("rect").attr("width", w).attr("height", h).attr("fill", "transparent"
 .on("pointermove", ver).on("pointerdown", ver).on("pointerleave", () => { anillo.attr("opacity", 0); borde.attr("opacity", 0); ocultarTip(); });
 const fi = el.closest(".ficha"), bi = fi?.querySelector(".accion.imagen"); if (bi) bi.hidden = !svgUnico(fi);
 }
-const MED = {"ant-mapa": "continente", "ant-pais": "Argentina", "ant-temperatura": "orcadas", "jueces-federales": "cargos", "fiscalias-federales": "cantidad", "justicia-provincial": "magistratura", dinamica: "pais", rotacion: "edad", fiscal: "autonomia", censo: "cloaca", internet: "accesos_100_hogares", empleo: "cada_100", pisa: "mat", aprender: "mat", eti: "cada_1000", nombres: "F", "poblacion-proy": "var_pct", "sectores-empleo": "uno", mayoristas: "doce", "precio-consumo": "carne", "socios-que": "vende", "valor-kilo": "anual", "chicos-escuela": "var_pct"};
+const MED = {"ant-mapa": "continente", "ant-pais": "Argentina", "ant-temperatura": "orcadas", "jueces-federales": "cargos", "fiscalias-federales": "cantidad", "justicia-provincial": "magistratura", dinamica: "pais", rotacion: "edad", fiscal: "autonomia", empleo: "cada_100", eti: "cada_1000", nombres: "F", "sectores-empleo": "uno", mayoristas: "doce", "precio-consumo": "carne", "socios-que": "vende", "valor-kilo": "anual",};
 const M = v => n1(v / 1e6) + " M";
 const G = k => document.querySelector(`.grafico[data-g="${k}"]`);
 const NAR = css("--celeste-fuerte"), FRI = css("--sol-fuerte"), GRIS = css("--faint");
@@ -2588,35 +2340,6 @@ const el = G(k); if (el) sinDatos(el, "No se pudo dibujar este gráfico.");
 return true;
 }}), base);
 const DIB = protegerDib({
-nacimientos: a => {
-lineas(G("nacimientos"), {anim:a, data: T.nacimientos, x:"anio", y0:40, ref:100, refLab: `${T.nacimientos[0].anio} = 100`, yf: v => v, vf: n0,
-xl: d => `${d.anio}<br><span class="suave">Argentina: ${n0(d.nacimientos)} nacimientos${d.nacimientos_ocde ? `<br>OCDE: ${n1(d.nacimientos_ocde / 1e6)} millones` : ""}</span>`,
-series:[{k:"idx_argentina", lab:"Argentina", c:NAR, w:3}, {k:"idx_ocde", lab:"OCDE", c:css("--ocde"), w:2.6}]}); },
-"poblacion-proy": a => { const pc = MED["poblacion-proy"] === "var_pct";
-return barrasH(G("poblacion-proy"), {anim: a, data: T.poblacion_proyectada_provincias.filter(r => r.codigo_indec !== "00"), k: MED["poblacion-proy"],
-vf: pc ? conSigno : v => (v > 0 ? "+" : "") + n0(v), af: pc ? (v => v + "%") : (v => n0(v / 1000) + " mil"),
-...(pc ? {ref: PPY.var_pct, refLab: `País ${conSigno(PPY.var_pct)}`} : {}),
-tip: d => `<b>${d.territorio}</b><br>${n0(d.personas_hoy)} habitantes en ${PPY.anio}<br>${n0(d.personas_2040)} en ${PPY.anio_fin}<br>${(d.var_personas > 0 ? "+" : "") + n0(d.var_personas)} personas, ${conSigno(d.var_pct)}`}); },
-"chicos-escuela": a => { const pc = MED["chicos-escuela"] === "var_pct";
-return barrasH(G("chicos-escuela"), {anim: a, data: T.chicos_escuela_provincias.filter(r => r.codigo_indec !== "00"), k: MED["chicos-escuela"],
-vf: pc ? conSigno : v => (v > 0 ? "+" : "") + n0(v), af: pc ? (v => v + "%") : (v => n0(v / 1000) + " mil"),
-...(pc ? {ref: ESC.var_pct, refLab: `País ${conSigno(ESC.var_pct)}`} : {}),
-tip: d => `<b>${d.territorio}</b><br>${n0(d.chicos_hoy)} chicos de 5 a 14 años en ${ESC.anio}<br>${n0(d.chicos_fin)} en ${ESC.anio_fin}<br>` +
-`${(d.var_chicos > 0 ? "+" : "") + n0(d.var_chicos)} chicos, ${conSigno(d.var_pct)}`}); },
-"envejecimiento-mch": a => pesas(G("envejecimiento-mch"), {anim:a, data: T.envejecimiento_provincias, a:"mayores_chicos_hoy", b:"mayores_chicos_2040",
-la: String(EV.anio), lb: String(EV.anio_fin), vf: n0, af: v => v, ref: 100, refLab: "Tantos mayores como chicos", refC: "--muted", pais: [EV.mch_hoy, EV.mch_fin]}),
-envejecimiento: a => pesas(G("envejecimiento"), {anim:a, data: T.envejecimiento_provincias, a:"vejez_hoy", b:"vejez_2040", la: String(EV.anio), lb: String(EV.anio_fin), vf: n1, af: v => v,
-pais: [EV.hoy, EV.fin]}),
-adolescentes: a => pesas(G("adolescentes"), {anim:a, data: T.madres_adolescentes_provincias, a: ADO_INI, b: ADO_ULT, la: String(nac.anio_ini), lb: String(nac.anio_ult),
-mejor: "baja", uDif: " puntos", pais: [nac.pct_ini, nac.pct_ult]}),
-mortalidad: a => pesas(G("mortalidad"), {anim:a, data: T.mortalidad_infantil_provincias, a:"tmi_base", b:"tmi_actual", la: mo.tri_base, lb: mo.tri_act,
-mejor: "baja", pais: [mo.pais_base, mo.pais_act],
-vf: n1, af: v => v, ref: OC.mortalidad_infantil.ocde, refLab: `Promedio OCDE ${OC.mortalidad_infantil.anio}: ${n1(OC.mortalidad_infantil.ocde)}`}),
-suicidio: a => lineas(G("suicidio"), {anim:a, data: T.suicidio_serie, x:"anio", y0:0, vf: n1, yf: v => v,
-series:[{k:"tasa_varones", lab:"Varones", c:NAR, w:2}, {k:"tasa", lab:"Total", c:css("--ink"), w:2.6}, {k:"tasa_mujeres", lab:"Mujeres", c:FRI, w:2}]}),
-"suicidio-prov": a => mapaProv(G("suicidio-prov"), {anim: a, filas: T.suicidio_provincias, k: "tasa", nombre: "Suicidios por cada 100.000 habitantes de 5 años y más", vf: n1,
-extra: r => `<br>${n0(r.casos)} ${r.casos === 1 ? "caso" : "casos"} en ${R.suicidio.anio}`}),
-edad: a => piramide(G("edad"), {anim:a, data: T.suicidio_edad_sexo}),
 empresas: a => barrasH(G("empresas"), {anim:a, data: T.empresas_provincias, k:"cada_1000_hab", ref: EM.pais_1000,
 tip: d => `<b>${d.territorio}</b><br>${n1(d.cada_1000_hab)} cada 1.000 habitantes<br>${n0(d.empresas)} empresas con empleados`, refLab: `País ${n1(EM.pais_1000)}`}),
 dinamica: a => ($("clave-dinamica").hidden = MED.dinamica === "pais") ? lineas(G("dinamica"), {anim:a, data: T.empresas_serie_pais, x:"anio", y0:0, vf: v => n1(v) + "%", yf: v => v + "%",
@@ -2625,30 +2348,6 @@ series: [{k:"tasa_entrada", c: css("--celeste-fuerte"), lab:"Aperturas"}, {k:"ta
 ref: EM.neta, refLab: `País ${n1(EM.neta)}%`, mejor: "sube"}),
 rotacion: a => barrasGrupos(G("rotacion"), {anim:a, data: T.rotacion_laboral.filter(d => d.dimension === MED.rotacion).sort((x, y) => x.orden - y.orden),
 k:"pct_un_anio_o_menos", ref: RO.total, refLab: `Total ${pct(RO.total)}`}),
-piramide: conTablas("piramide", ["piramide_poblacion"], a => piramidePob(G("piramide"), {anim:a, data: T.piramide_poblacion, cod: prov || "00", nombre: prov ? NOMBRES[prov] : "Total del país", anio: PI.anio})),
-auh: a => {
-const v = MED.auh, el = G("auh"), filas = T.auh_provincias.filter(r => r.codigo_indec !== "00");
-const extra = r => `<br>${n0(r.beneficios)} hijos con AUH<br>${n0(r.menores)} menores de 18 años (estimado)`;
-if (v === "cobertura") {
-$t("auh").textContent = `En ${MESES[AU.cob_mes - 1]} de ${AU.cob_anio}, el ${pct(AU.cob_total)} de los menores de 18 años del país recibía alguna asignación familiar: el ` +
-`${pct(AU.cob_auh)} por la AUH y el ${pct(AU.cob_rd)} por el trabajo registrado de su padre o su madre. El ${pct(100 - AU.cob_total)} no recibía ninguna: entre ` +
-`ellos están los hijos de quienes superan el tope de ingresos y los deducen del impuesto a las ganancias, y los que no tienen ninguna cobertura.`;
-const CORTO_AU = {RD: "Asalariado registrado", Monotributo: "Monotributista", PNC: "Pensión no contributiva", SIPA: "Jubilado o pensionado",
-Desempleo: "Seguro de desempleo", AUH: "AUH", ninguna: "Ninguna"};
-return barrasH(el, {anim: a, data: [...T.asignaciones_cobertura].sort((p, q) => q.pct_menores - p.pct_menores).map(r => ({codigo_indec: r.via, territorio: r.nombre, v: r.pct_menores})),
-k: "v", vf: pct, af: v => n0(v) + "%", marcar: new Set(), l: 290, lAngosto: 160, corto: d => CORTO_AU[d.codigo_indec] || d.territorio,
-tip: d => `<b>${d.territorio}</b><br>${pct(d.v)} de los menores de 18 años`});
-}
-if (v === "cantidad") {
-$t("auh").textContent = textoCantidad(filas, "beneficios", `En ${MESES[AU.mes - 1]} de ${AU.anio}, ${n0(AU.beneficios)} chicos recibían la AUH en todo el país.`, "Cada 100");
-return barrasH(el, {anim: a, data: filas, k: "beneficios", vf: n0, af: ejeMil,
-tip: d => `<b>${d.territorio}</b><br>${n0(d.beneficios)} hijos con AUH<br>${pct(d.pct_pais)} de los del país<br>${n1(d.cada_100_menores)} cada 100 menores de 18`});
-}
-$t("auh").textContent = TX.auh;
-if (v === "mapa") return mapaProv(el, {anim: a, filas, k: "cada_100_menores", nombre: "Hijos con AUH cada 100 menores de 18", vf: n1, extra, max: 380});
-barrasH(el, {anim: a, data: filas, k: "cada_100_menores", vf: n1, af: n0, ref: AU.pais_100, refLab: `País ${n1(AU.pais_100)}`,
-tip: d => `<b>${d.territorio}</b><br>${n1(d.cada_100_menores)} cada 100 menores de 18` + extra(d)});
-},
 desempleo: a => {
 const v = MED.desempleo, el = G("desempleo"), filas = T.prestacion_desempleo_provincias.filter(r => r.codigo_indec !== "00");
 const extra = r => `<br>${n0(r.beneficiarios)} beneficiarios en ${MESES[DS.prov_mes - 1]} de ${DS.prov_anio}<br>${pct(r.pct_pais)} de los del país`;
@@ -2678,57 +2377,6 @@ $t("desempleo").textContent = TX.desempleo;
 barrasH(el, {anim: a, data: filas, k: "cada_1000_habitantes", vf: n1, af: n0, ref: DS.pais_1000, refLab: `País ${n1(DS.pais_1000)}`,
 tip: d => `<b>${d.territorio}</b><br>${n1(d.cada_1000_habitantes)} cada 1.000 habitantes` + extra(d)});
 },
-"pensiones-invalidez": a => {
-const v = MED["pensiones-invalidez"], el = G("pensiones-invalidez"), filas = T.pensiones_invalidez_provincias.filter(r => r.codigo_indec !== "00");
-const extra = r => `<br>${n0(r.pensiones)} pensiones en ${MESES[PIN.prov_mes - 1]} de ${PIN.prov_anio}<br>${pct(r.pct_pais)} de las del país`;
-if (v === "serie") {
-$t("pensiones-invalidez").textContent = `En ${MESES[PIN.mes - 1]} de ${PIN.anio} se pagaban ${n0(PIN.v)} pensiones no contributivas por invalidez, contra un promedio de ` +
-`${n0(PIN.ini_v)} por mes en ${PIN.ini}. El promedio anual más alto fue el de ${PIN.max_anio}, con ${n0(PIN.max)} por mes. En ${PIN.anio_ant}, el promedio fue de ${n0(PIN.v_anio_ant)}.`;
-return lineas(el, {anim: a, data: T.pensiones_invalidez, x: "anio", y0: 0, vf: n0, yf: v => n0(v / 1000) + " mil",
-xl: r => r.meses < 12 ? `${MESES[r.meses - 1]} de ${r.anio}` : r.anio,
-series: [{k: "pensiones", lab: "Todas", corto: "Todas", c: css("--celeste-fuerte")}, {k: "pensiones_no_suspendidas", lab: "Sin las suspendidas", corto: "Sin suspendidas", c: FRI}]});
-}
-if (v === "cantidad") {
-const tot = T.pensiones_invalidez_provincias.find(r => r.codigo_indec === "00").pensiones;
-$t("pensiones-invalidez").textContent = textoCantidad(filas, "pensiones",
-`En ${MESES[PIN.prov_mes - 1]} de ${PIN.prov_anio} se pagaban ${n0(tot)} pensiones no contributivas por invalidez en todo el país.`, "Cada 1.000");
-return barrasH(el, {anim: a, data: filas, k: "pensiones", vf: n0, af: ejeMil,
-tip: d => `<b>${d.territorio}</b><br>${n0(d.pensiones)} pensiones en ${MESES[PIN.prov_mes - 1]} de ${PIN.prov_anio}<br>${pct(d.pct_pais)} de las del país` +
-`<br>${n1(d.cada_1000)} cada 1.000 habitantes`});
-}
-$t("pensiones-invalidez").textContent = TX["pensiones-invalidez"];
-if (v === "provincias")
-return barrasH(el, {anim: a, data: filas, k: "cada_1000", vf: n1, af: n0, ref: PIN.pais_cada_1000, refLab: `País ${n1(PIN.pais_cada_1000)}`,
-tip: d => `<b>${d.territorio}</b><br>${n1(d.cada_1000)} cada 1.000 habitantes` + extra(d)});
-mapaProv(el, {anim: a, filas, k: "cada_1000", nombre: "Pensiones cada 1.000 habitantes", vf: n1, extra, max: 380});
-},
-haberes: a => {
-const real = MED.haberes === "real", cae = v => v < 0 ? `cayó ${pct(-v)}` : `subió ${pct(v)}`;
-$t("haberes").textContent = real
-? `Descontada la inflación, en pesos de ${mesPer(HB.mes_real)}, el haber mínimo con refuerzos promedió ${n0(HB.min_ad_real)} pesos por mes en ${HB.anio}, ${pct(Math.abs(HB.var_real_min_ad))} ` +
-`${HB.var_real_min_ad < 0 ? "menos" : "más"} que en ${HB.ini_real}. En el mismo período la jubilación promedio ${cae(HB.var_real_jub)} y el salario promedio registrado ${cae(HB.var_real_sal)}.`
-: TX.haberes;
-const xl = r => r.meses < 12 ? `${r.anio}, hasta ${MESES[r.meses - 1]}` : r.anio;
-const series = real
-? [{k: "jubilacion_promedio_real", lab: "Jubilación promedio", corto: "Promedio", c: css("--celeste-fuerte")}, {k: "haber_minimo_adicionales_real", lab: "Mínimo con refuerzos", corto: "Con refuerzos", c: FRI},
-{k: "haber_minimo_real", lab: "Mínimo sin refuerzos", corto: "Sin refuerzos", c: GRIS}]
-: [{k: "pct_jubilacion", lab: "Jubilación promedio", corto: "Promedio", c: css("--celeste-fuerte")}, {k: "pct_minimo_adicionales", lab: "Mínimo con refuerzos", corto: "Con refuerzos", c: FRI},
-{k: "pct_minimo", lab: "Mínimo sin refuerzos", corto: "Sin refuerzos", c: GRIS}];
-lineas(G("haberes"), {anim: a, data: T.haberes_previsionales.filter(r => !real || r.haber_minimo_adicionales_real != null), x: "anio", y0: 0, xl, series,
-vf: real ? v => "$ " + n0(v) : v => pct(v), yf: real ? v => n0(v / 1000) + " mil" : v => n0(v) + "%"});
-},
-jubilaciones: a => lineas(G("jubilaciones"), {anim:a, data: T.jubilaciones_aportantes, x:"anio", y0:0, vf: n2, yf: v => n1(v),
-series: [{k:"aportantes_por_beneficio", c: css("--celeste-fuerte"), lab:"Por beneficio"}], xl: d => d.mes ? `${MESES[d.mes - 1]} de ${d.anio}` : d.anio}),
-muertes: a => lineas(G("muertes"), {anim:a, data: T.muertes_violentas, x:"anio", y0:0,
-series:[{k:"suicidios", lab:"Suicidios", c:NAR, w:3}, {k:"siniestros_viales", lab:"Viales", c:FRI}, {k:"homicidios", lab:"Homicidios", c:GRIS},
-{k:"femicidios", lab:"Femicidios", c:css("--rojo"), w:2.4}]}),
-pisa: a => lineas(G("pisa"), {anim:a, data: T.pisa_argentina_ocde, x:"anio", y0:340, yf: v => v,
-series:[{k:`arg_${MED.pisa}_grafico`, lab:"Argentina", c:NAR, w:3}, {k:`ocde_${MED.pisa}`, lab:"Promedio OCDE", c:css("--ocde"), w:2.6}]}),
-escolarizacion: a => pesas(G("escolarizacion"), {anim:a, data: T.escolarizacion_secundaria_provincias, a:"tasa_inicio", b:"tasa_final",
-la: String(es.ini), lb: String(es.fin), x0: 50, mejor: "sube", uDif: " puntos", pais: [es.pais_ini, es.pais_fin]}),
-aprender: a => barrasH(G("aprender"), {anim:a, data: T.aprender_provincias, k:`${MED.aprender}_logra`,
-ref: MED.aprender === "mat" ? ap.mat : ap.len, refLab: `País ${pct(MED.aprender === "mat" ? ap.mat : ap.len)}`,
-vf: v => n1(v) + "%", af: v => v + "%", dif: "puntos"}),
 receptivo: a => lineas(G("receptivo"), {anim:a, data: T.turistas_no_residentes_anual, x:"anio", y0:0, vf: v => n2(v / 1e6) + " M", yf: M,
 series:[{k:"turistas", lab:"Turistas", c:NAR, w:3}]}),
 hoteles: a => lineas(G("hoteles"), {anim:a, data: T.viajeros_hoteles_anual, x:"anio", y0:0, vf: v => n1(v / 1e6) + " M", yf: M,
@@ -2736,23 +2384,6 @@ series:[{k:"residentes", lab:"Residentes", c:NAR, w:3}, {k:"no_residentes", lab:
 eti: a => MED.eti === "cada_1000"
 ? barrasH(G("eti"), {anim:a, data: T.turistas_extranjeros_provincias, k:"cada_1000", vf: n1, af: n0})
 : barrasH(G("eti"), {anim:a, data: T.turistas_extranjeros_provincias, k:"turistas", vf: n0, af: v => n0(v / 1000) + " mil"}),
-pobreza: a => lineas(G("pobreza"), {anim:a, data: T.pobreza_serie, x:"t", y0:0, mensual:true, vf: v => n1(v) + "%", yf: v => v + "%",
-xl: d => `${d.semestre === 1 ? "Primer" : "Segundo"} semestre ${d.anio}`,
-series:[{k:"pobreza_personas", lab:"Pobreza", c:NAR, w:3}, {k:"indigencia_personas", lab:"Indigencia", c:FRI, w:2.4}]}),
-"pobreza-ninez": a => {
-const el = G("pobreza-ninez"), v = MED["pobreza-ninez"];
-$t("pobreza-ninez").textContent = v === "edad" ? TX["pobreza-ninez-edad"] : TX["pobreza-ninez"];
-if (v === "edad") {
-const u = T.pobreza_ninez[T.pobreza_ninez.length - 1];
-return barrasH(el, {anim: a, sinOrden: true, vf: pct, af: v => n0(v) + "%", l: 130, lAngosto: 110, k: "p",
-data: [["0_5", "0 a 5 años"], ["6_11", "6 a 11 años"], ["12_17", "12 a 17 años"], ["65_y_mas", "65 años y más"], ["total", "Toda la población"]]
-.map(([k, n]) => ({codigo_indec: "e" + k, territorio: n, p: u["pobreza_" + k], i: u["indigencia_" + k]})),
-tip: d => `<b>${d.territorio}</b><br>${pct(d.p)} bajo la línea de pobreza<br>${pct(d.i)} bajo la línea de indigencia<br>${PNZ.fin}`});
-}
-return lineas(el, {anim: a, data: T.pobreza_ninez, x: "t", y0: 0, mensual: true, vf: v => n1(v) + "%", yf: v => v + "%",
-xl: d => `${d.semestre === 1 ? "Primer" : "Segundo"} semestre ${d.anio}`,
-series: [{k: "pobreza_0_17", lab: "De 0 a 17 años", corto: "0 a 17", c: NAR, w: 3}, {k: "pobreza_total", lab: "Toda la población", corto: "Total", c: FRI, w: 2.4}]});
-},
 nombres: a => {
 const cod = NOMBRES[prov] ? prov : "00";
 document.getElementById("contexto-nombres").textContent = `${NOMBRES[prov] || "Total del país"}, ${cu.nom_anio}. Diez nombres más frecuentes.`;
@@ -2765,9 +2396,6 @@ vino: a => lineas(G("vino"), {anim:a, data: T.vino_mercado_interno, x:"anio", y0
 series:[{k:"millones_litros", lab:"Vino", c:NAR, w:3}]}),
 yerba: a => lineas(G("yerba"), {anim:a, data: T.yerba_molino, x:"anio", y0:0, vf: v => n1(v) + " M kg", yf: v => n0(v) + " M",
 series:[{k:"millones_kg", lab:"Yerba", c:NAR, w:3}]}),
-esperanza: a => pesas(G("esperanza"), {anim:a, data: T.esperanza_vida_provincias, a:"varones", b:"mujeres", la:"Varones", lb:"Mujeres",
-vf: v => n1(v) + " años", af: v => v, x0: 66, ref: OC.esperanza_vida.ocde, refLab: `Promedio OCDE ${OC.esperanza_vida.anio}: ${n1(OC.esperanza_vida.ocde)}`,
-pais: [nv.ev_v, nv.ev_m]}),
 exportaciones: a => barrasH(G("exportaciones"), {anim:a, data: T.exportaciones_provincias, k:"usd_por_habitante", ref: nv.ex_pc_pais,
 tip: d => `<b>${d.territorio}</b><br>${n0(d.usd_por_habitante)} dólares por habitante<br>${n0(d.millones_usd)} millones de dólares en total`,
 refLab: `País ${n0(nv.ex_pc_pais)}`, vf: v => n0(v) + " US$", af: n0}),
@@ -2781,46 +2409,14 @@ document.querySelector('[data-t="fiscal"]').textContent = k === "autonomia"
 barrasH(G("fiscal"), {anim:a, data: d.map(r => fz.atrasadas[r.territorio] ? {...r, territorio: `${r.territorio} (${fz.atrasadas[r.territorio]})`} : r), k, vf: v => (k === "resultado" && v > 0 ? "+" : "") + n1(v) + "%", af: v => v + "%",
 color: k === "resultado" ? (r => r.resultado < 0 ? css("--sol") : css("--celeste")) : null});
 },
-cobertura: a => {
-$("cobertura-ley").hidden = MED.cobertura !== "tipo";
-if (MED.cobertura === "tipo") return conTablas("cobertura", ["cobertura_tipo_provincias"], b => {
-const CT = R.cobertura_tipo, P = CT.pais, ft = T.cobertura_tipo_provincias.find(r => r.codigo_indec === prov);
-const cl = [{k: "obra_social_prepaga", lab: "Obra social o prepaga", c: css("--celeste-fuerte")},
-{k: "plan_estatal", lab: "Plan estatal de salud", c: css("--sol"), texto: css("--ink")},
-{k: "sin_cobertura", lab: "Ninguna", c: css("--celeste"), texto: css("--ink")}];
-leyenda("cobertura-ley", cl);
-$t("cobertura").textContent = `En el Censo 2022, el ${pct(P.obra_social_prepaga)} de las personas tenía obra social o prepaga, incluido el PAMI, ` +
-`el ${pct(P.plan_estatal)} solo un programa o plan estatal de salud y el ${pct(P.sin_cobertura)} ninguna de las dos. La obra social o prepaga ` +
-`iba del ${pct(CT.os_min[1])} en ${CT.os_min[0]} al ${pct(CT.os_max[1])} en ${CT.os_max[0]}, y el plan estatal, del ${pct(CT.plan_min[1])} en ` +
-`${CT.plan_min[0]} al ${pct(CT.plan_max[1])} en ${CT.plan_max[0]}.` + (ft ? ` En ${ft.territorio}, ${pct(ft.obra_social_prepaga)}, ${pct(ft.plan_estatal)} ` +
-`y ${pct(ft.sin_cobertura)}.` : "");
-apiladasH(G("cobertura"), {anim: b, claves: cl, valF: n1, data: [{...P, codigo_indec: "00", territorio: "Todo el país"}, ...T.cobertura_tipo_provincias]});
-G("cobertura").resaltar = null;
-})(a);
-const fp = T.censo2022_provincias.find(r => r.codigo_indec === prov);
-let txt = textoCenso("sin_cobertura");
-if (fp && fp.territorio !== nv.censo_top.sin_cobertura[0] && fp.territorio !== nv.censo_low.sin_cobertura[0]) txt += ` En ${fp.territorio}, el ${pct(fp.sin_cobertura)}.`;
-$t("cobertura").textContent = txt;
-barrasH(G("cobertura"), {anim: a, data: T.censo2022_provincias, k: "sin_cobertura", ref: nv.censo.sin_cobertura, refLab: `País ${pct(nv.censo.sin_cobertura)}`,
-vf: pct, af: v => n0(v) + "%"});
-},
-censo: a => {
-document.querySelector('[data-t="censo"]').textContent = textoCenso(MED.censo);
-barrasH(G("censo"), {anim:a, data: T.censo2022_provincias, k: MED.censo, ref: nv.censo[MED.censo], refLab: `País ${pct(nv.censo[MED.censo])}`,
-vf: v => n1(v) + "%", af: v => v + "%", dif: "puntos"});
-},
-internet: a => MED.internet === "mbps"
-? barrasH(G("internet"), {anim:a, data: T.internet_fijo_provincias, k:"mbps", vf: v => n0(v) + " Mbps", af: n0})
-: barrasH(G("internet"), {anim:a, data: T.internet_fijo_provincias, k:"accesos_100_hogares", ref: nv.in_pais, refLab: `País ${n1(nv.in_pais)}`, vf: n1, af: n0}),
-extranjeros: a => barrasH(G("extranjeros"), {anim:a, data: T.extranjeros_provincias, k:"cada_100", ref: nv.xt_pais, refLab: `País ${n1(nv.xt_pais)}`, vf: n1, af: n0}),
 empleo: a => ($("clave-empleo").hidden = MED.empleo === "cada_100") ? barrasH(G("empleo"), {anim:a, data: T.empleo_provincias, k:"cada_100", ref: R.empleo.cada_100_pais,
 tip: d => `<b>${d.territorio}</b><br>${n1(d.cada_100)} cada 100 habitantes<br>${n0(d.miles * 1000)} asalariados registrados<br>${n0(d.poblacion)} habitantes`, refLab:`País ${n1(R.empleo.cada_100_pais)}`})
 : barrasH(G("empleo"), {anim:a, data: T.empleo_provincias, k:"var_12m",
 tip: d => `<b>${d.territorio}</b><br>${n0(d.miles * 1000)} asalariados registrados<br>${n0(d.miles_hace12 * 1000)} doce meses antes`, vf: v => (v > 0 ? "+" : "") + n1(v) + "%", af: v => v + "%",
 mejor: "sube", pais: R.empleo.var_nac}),
 });
-Object.assign(MED, {refugio: "anio", supermercados: "prov", "cuentas-nacion": "resultado", recaudacion: "impuesto", "empleo-publico": "prov", "nacidos-otro-pais": "prov", "migracion-interna": "prov", radicaciones: "anio", "argentinos-exterior": "anio", inflacion: "doce", "inflacion-rubros": "division", canastas: "region", emae: "mes", salarios: "prov", "salario-docente": "prov", "inversion-educativa": "alumno",
-delitos: "tipo", robos: "robos", homicidios: "prov", carceles: "serie", "sin-condena": "prov", coparticipacion: "hab", "deuda-provincias": "hab", abandono: "ab", telefonia: "prov", "tv-paga": "prov", medicos: "activos", hospitales: "hospitales", "distancia-hospital": "hospital", sociedades: "prov", desocupacion: "ciudad", "empresas-tamano": "tam", "pobreza-aglomerados": "region", "obra-publica": "prov", arArea: "", insumos: "var_12m",
+Object.assign(MED, {supermercados: "prov", "cuentas-nacion": "resultado", recaudacion: "impuesto", "empleo-publico": "prov", inflacion: "doce", "inflacion-rubros": "division", canastas: "region", emae: "mes", salarios: "prov",
+delitos: "tipo", robos: "robos", homicidios: "prov", carceles: "serie", "sin-condena": "prov", coparticipacion: "hab", "deuda-provincias": "hab", sociedades: "prov", desocupacion: "ciudad", "empresas-tamano": "tam", "obra-publica": "prov", arArea: "", insumos: "var_12m",
 "empleo-construccion": "construccion_cada_1000", "trabajadores-vista": "prov", vivienda: "pct_alquila", "vivienda-vista": "prov"});
 const COL_TIPO = {conv: "#A9CBEA", tight: "#F6B40E", shale: "#1F5E97"};
 const mesPer = p => `${MESES[+p.slice(5, 7) - 1]} de ${p.slice(0, 4)}`;
@@ -2842,41 +2438,6 @@ if (fp && fp.territorio !== SA.top[0] && fp.territorio !== SA.bajo[0]) txt += ` 
 $t("salarios").textContent = txt;
 barrasH(el, {anim: a, data: T.salarios_provincias.filter(r => r.codigo_indec !== "00"), k: "salario", vf: millonesM, af: ejeM, ref: SA.pais, refLab: `País ${millonesM(SA.pais)}`, anota: true,
 tip: d => `<b>${d.territorio}</b><br>${n0(d.salario)} pesos en ${SA.mes}<br>Descontada la inflación, ${cambioPct(d.var_real_12m)} frente a ${SA.ant}`});
-}),
-"salario-docente": conTablas("salario-docente", () => MED["salario-docente"] === "serie" ? ["salario_docente_serie"] : [], a => {
-const el = G("salario-docente"), fp = T.salario_docente.find(r => r.codigo_indec === prov);
-let txt = LEAD["salario-docente"](MED["salario-docente"]);
-if (MED["salario-docente"] === "serie") {
-const suya = fp ? new Map(T.salario_docente_serie.filter(r => r.codigo_indec === prov).map(r => [r.periodo, r.bruto_real])) : null;
-const data = T.salario_docente_serie.filter(r => r.codigo_indec === "00").map(r => ({periodo: r.periodo, t: tPer(r.periodo), pais: r.bruto_real, prov: suya ? suya.get(r.periodo) ?? null : null}));
-if (fp) txt += ` En ${fp.territorio}, descontada la inflación, el salario de ${DC.trim} ${cambioPct(fp.var_real_12m)} frente a ${DC.ant}.`;
-$t("salario-docente").textContent = txt;
-return lineas(el, {anim: a, data, x: "t", y0: 0, vf: millonesM, yf: ejeM, xl: r => mesPer(r.periodo),
-series: [{k: "pais", lab: "Promedio del país", c: NAR}, ...(fp ? [{k: "prov", lab: fp.territorio, c: FRI}] : [])]});
-}
-if (fp && fp.territorio !== DC.top[0] && fp.territorio !== DC.bajo[0]) txt += ` En ${fp.territorio}, ${n0(fp.bruto)} pesos${conVeces(fp.bruto, DC.pais)}.`;
-$t("salario-docente").textContent = txt;
-barrasH(el, {anim: a, data: T.salario_docente.filter(r => r.codigo_indec !== "00"), k: "bruto", vf: millonesM, af: ejeM, ref: DC.pais, refLab: `País ${millonesM(DC.pais)}`,
-tip: d => `<b>${d.territorio}</b><br>${n0(d.bruto)} pesos brutos en ${DC.trim}` + (d.extra > 0 ? `<br>Incluye una suma extraordinaria de ${n0(d.extra)}` : "") +
-`<br>Descontada la inflación, ${cambioPct(d.var_real_12m)} frente a ${DC.ant}`});
-}),
-"inversion-educativa": conTablas("inversion-educativa", () => MED["inversion-educativa"] === "serie" ? ["inversion_educativa_serie"] : [], a => {
-const k = MED["inversion-educativa"], el = G("inversion-educativa"), fp = T.inversion_educativa.find(r => r.codigo_indec === prov);
-let txt = LEAD["inversion-educativa"](k);
-if (k === "serie") {
-const suya = fp ? new Map(T.inversion_educativa_serie.filter(r => r.codigo_indec === prov).map(r => [r.anio, r.por_alumno_real])) : null;
-const data = T.inversion_educativa_serie.filter(r => r.codigo_indec === "00").map(r => ({anio: r.anio, pais: r.por_alumno_real, prov: suya ? suya.get(r.anio) ?? null : null}));
-if (fp) txt += ` En ${fp.territorio}, ${n0(fp.gasto_por_alumno)} pesos por alumno en ${IE.anio}.`;
-$t("inversion-educativa").textContent = txt;
-return lineas(el, {anim: a, data, x: "anio", y0: 0, vf: millonesM, yf: ejeM,
-series: [{k: "pais", lab: "Todo el país", c: NAR}, ...(fp ? [{k: "prov", lab: fp.territorio, c: FRI}] : [])]});
-}
-const pctV = k === "pct", col = pctV ? "pct_gasto" : "gasto_por_alumno", ref = pctV ? IE.pct_pais : IE.pais, f = pctV ? pct : millonesM;
-const nombradas = pctV ? [IE.pct_top[0], IE.pct_bajo[0]] : [IE.top[0], IE.bajo[0]];
-if (fp && !nombradas.includes(fp.territorio)) txt += pctV ? ` En ${fp.territorio}, el ${pct(fp.pct_gasto)}.` : ` En ${fp.territorio}, ${n0(fp.gasto_por_alumno)} pesos por alumno${conVeces(fp.gasto_por_alumno, IE.pais)}.`;
-$t("inversion-educativa").textContent = txt;
-barrasH(el, {anim: a, data: T.inversion_educativa.filter(r => r.codigo_indec !== "00"), k: col, vf: f, af: pctV ? f : ejeM, ref, refLab: `País ${f(ref)}`, anota: true,
-tip: d => `<b>${d.territorio}</b><br>${n0(d.gasto_por_alumno)} pesos por alumno de gestión estatal<br>La educación, ${pct(d.pct_gasto)} del gasto público, ${IE.anio}`});
 }),
 delitos: a => {
 const el = G("delitos");
@@ -2943,33 +2504,6 @@ tip: d => `<b>${d.territorio}</b><br>${pct(d.pct_sin_condena)} sin condena al 31
 }
 $t("sin-condena").textContent = txt;
 lineas(el, {anim: a, data: T.carceles_serie, x: "anio", y0: 0, vf: pct, yf: v => n0(v) + "%", series: [{k: "pct_sin_condena", lab: "Todo el país", c: NAR}]});
-},
-"pobreza-aglomerados": a => {
-const v = MED["pobreza-aglomerados"], el = G("pobreza-aglomerados");
-if (v === "prov") {
-const fp = T.pobreza_provincias.find(r => r.codigo_indec === prov);
-let tp = LEAD["pobreza-aglomerados"](v);
-if (fp && ![PZA.prov_min[0], PZA.prov_max[0], PZA.prov_max2[0]].includes(fp.territorio))
-tp += ` En ${fp.territorio}, el ${pct(fp.pobreza)}${fp.n_aglomerados > 1 ? `, con ${fp.aglomerados}` : `, en ${fp.aglomerados}`}.`;
-$t("pobreza-aglomerados").textContent = tp;
-barrasH(el, {anim: a, data: T.pobreza_provincias, k: "pobreza", vf: pct, af: v => n0(v) + "%", ref: PZA.pais, refLab: `31 aglomerados ${pct(PZA.pais)}`,
-tip: d => `<b>${d.territorio}</b><br>${pct(d.pobreza)} bajo la línea de pobreza en el ${PZA.semestre}<br>${d.n_aglomerados > 1 ? "Aglomerados" : "Aglomerado"}: ` +
-`${d.aglomerados}<br>Indigencia: ${pct(d.indigencia)}`});
-return;
-}
-const filas = T.pobreza_aglomerados.filter(r => r.tipo === (v === "region" ? "region" : "aglomerado")).map(r => ({...r, codigo_indec: r.clave, territorio: r.nombre}));
-const suyas = !prov ? [] : v === "region" ? filas.filter(r => (REG_IPC[prov] || []).includes(r.clave)) : filas.filter(r => String(r.provincias).split(",").includes(prov));
-let txt = LEAD["pobreza-aglomerados"](v);
-if (v === "region" && suyas.length) txt += ` ${NOMBRES[prov]} está en ${lista(suyas.map(r => `${REG_ART[r.nombre]} (${pct(r.pobreza)})`))}.`;
-if (v === "ciudad" && suyas.length === 1) txt += ` En ${suyas[0].nombre}, el ${pct(suyas[0].pobreza)}.`;
-if (v === "ciudad" && suyas.length > 1) txt += ` En los aglomerados de ${NOMBRES[prov]}, ${lista(suyas.map(r => `${pct(r.pobreza)} en ${r.nombre}`))}.`;
-$t("pobreza-aglomerados").textContent = txt;
-barrasH(el, {anim: a, data: filas, k: "pobreza", vf: pct, af: v => n0(v) + "%", ref: PZA.pais, refLab: `31 aglomerados ${pct(PZA.pais)}`,
-marcar: new Set(suyas.map(r => r.codigo_indec)), l: v === "region" ? 150 : 220, lAngosto: 132,
-corto: d => d.nombre === "Partidos del Gran Buenos Aires" ? "Partidos del GBA" : IA_CORTO[d.nombre] || d.nombre,
-tip: d => `<b>${d.nombre}</b><br>${pct(d.pobreza)} bajo la línea de pobreza en el ${PZA.semestre}<br>Coeficiente de variación: ${pct(d.cv_pobreza)}` +
-`<br>Indigencia: ${pct(d.indigencia)}`});
-el.resaltar = null;
 },
 "empresas-tamano": conTablas("empresas-tamano", ["empresas_tamano_sector"], a => {
 const v = MED["empresas-tamano"], el = G("empresas-tamano"), fp = T.empresas_tamano_sector.find(r => r.codigo_indec === prov);
@@ -3091,122 +2625,6 @@ $t("sociedades").textContent = txt;
 barrasH(el, {anim: a, data: T.sociedades_provincias, k: "cada_100000", vf: n1, af: n0, ref: SOC.pais, refLab: `País ${n1(SOC.pais)}`,
 tip: d => `<b>${d.territorio}</b><br>${n0(d.sociedades)} sociedades nuevas en ${SOC.anio}<br>${n1(d.cada_100000)} cada 100.000 habitantes<br>` +
 `${pct(d.pct_sas)} SAS<br>${n0(d.sociedades_anterior)} en ${SOC.anio - 1}`});
-},
-"escuelas-primarias": a => {
-const fp = T.escuelas_primarias_provincias.find(r => r.codigo_indec === prov);
-const nombrados = [ESP.top[0], ESP.top2[0], ESP.bajo[0], ESP.bajo2[0], ESP.rural_top[0], ESP.rural_bajo[0]];
-let txt = LEAD["escuelas-primarias"]();
-if (fp && !nombrados.includes(fp.territorio))
-txt += ` En ${fp.territorio}, ${n1(fp.primarias_cada_1000_chicos)} cada 1.000 chicos (${n0(fp.escuelas_primarias)} escuelas, el ` +
-`${pct(fp.pct_rurales)} rurales).`;
-$t("escuelas-primarias").textContent = txt;
-barrasH(G("escuelas-primarias"), {anim: a, data: T.escuelas_primarias_provincias, k: "primarias_cada_1000_chicos", vf: n1, af: n0,
-ref: ESP.pais, refLab: `País ${n1(ESP.pais)}`,
-tip: d => `<b>${d.territorio}</b><br>${n1(d.primarias_cada_1000_chicos)} escuelas primarias cada 1.000 chicos de 5 a 14 años<br>` +
-`${n0(d.escuelas_primarias)} escuelas (${pct(d.pct_rurales)} rurales) y ${n0(d.chicos_5_14)} chicos`});
-},
-"escuelas-secundarias": a => {
-const fp = T.escuelas_secundarias_provincias.find(r => r.codigo_indec === prov);
-const nombrados = [ESS.top[0], ESS.top2[0], ESS.bajo[0], ESS.bajo2[0], ESS.por_primaria_min[0], ESS.por_primaria_max[0]];
-let txt = LEAD["escuelas-secundarias"]();
-if (fp && !nombrados.includes(fp.territorio))
-txt += ` En ${fp.territorio}, ${n1(fp.secundarias_cada_1000_chicos)} cada 1.000 chicos (${n0(fp.escuelas_secundarias)} escuelas, el ` +
-`${pct(fp.pct_rurales)} rurales).`;
-$t("escuelas-secundarias").textContent = txt;
-barrasH(G("escuelas-secundarias"), {anim: a, data: T.escuelas_secundarias_provincias, k: "secundarias_cada_1000_chicos", vf: n1, af: n0,
-ref: ESS.pais, refLab: `País ${n1(ESS.pais)}`,
-tip: d => `<b>${d.territorio}</b><br>${n1(d.secundarias_cada_1000_chicos)} escuelas secundarias cada 1.000 chicos de 12 a 17 años<br>` +
-`${n0(d.escuelas_secundarias)} escuelas (${pct(d.pct_rurales)} rurales) y ${n0(d.chicos_12_17)} chicos<br>` +
-`${n2(d.secundarias_por_primaria)} secundarias por cada primaria`});
-},
-"privadas-aprender": conTablas("privadas-aprender", ["privadas_aprender_departamentos"], a => {
-const datos = T.privadas_aprender_departamentos.map(d => ({...d, codigo_indec: d.codigo_dep, prov: d.codigo_indec, territorio: `${d.departamento} (${d.provincia})`}));
-dispersion(G("privadas-aprender"), {anim: a, data: datos, x: "pct_privadas", y: "mat_logra",
-xLab: `Escuelas primarias privadas, ${PAP.fecha}`, yLab: `Satisfactorio o avanzado en matemática, ${PAP.anio}`});
-}),
-"distancia-hospital": a => {
-const v = MED["distancia-hospital"], ti = v === "terapia", k = ti ? "mediana_km_terapia" : "mediana_km_hospital", pais = ti ? DHO.pais_ti : DHO.pais;
-const fp = T.distancia_hospital_provincias.find(r => r.codigo_indec === prov);
-const nombrados = ti ? [DHO.top_ti[0], DHO.top2_ti[0], DHO.bajo_ti[0]] : [DHO.top[0], DHO.top2[0], DHO.bajo[0], ...DHO.pocas.map(x => x[0])];
-let txt = LEAD["distancia-hospital"](v);
-if (fp && !nombrados.includes(fp.territorio))
-txt += ` En ${fp.territorio}, la mitad de sus ${n0(fp.escuelas_rurales)} escuelas rurales queda a más de ${n1(fp[k])} km.`;
-else if (prov === "02") txt += " CABA no tiene escuelas rurales.";
-$t("distancia-hospital").textContent = txt;
-barrasH(G("distancia-hospital"), {anim: a, data: T.distancia_hospital_provincias, k, vf: n1, af: n0, ref: pais, refLab: `País ${n1(pais)} km`,
-tip: d => `<b>${d.territorio}</b><br>${n0(d.escuelas_rurales)} escuelas rurales<br>La mitad, a más de ${n1(d.mediana_km_hospital)} km de un hospital ` +
-`público con internación (${pct(d.pct_mas_20_km)} a más de 20 km)<br>La mitad, a más de ${n1(d.mediana_km_terapia)} km de uno con terapia ` +
-`intensiva (${pct(d.pct_terapia_mas_100_km)} a más de 100 km)`});
-},
-hospitales: a => {
-const v = MED.hospitales, ti = v === "terapia", k = `${v}_cada_100000`, pais = ti ? HSP.pais_ti : HSP.pais;
-const fp = T.hospitales_provincias.find(r => r.codigo_indec === prov);
-const nombrados = ti ? [HSP.top_ti[0], HSP.bajo_ti[0]] : [HSP.top[0], HSP.top2[0], HSP.bajo[0], HSP.bajo2[0]];
-let txt = LEAD.hospitales(v);
-if (fp && !nombrados.includes(fp.territorio))
-txt += ` En ${fp.territorio}, ${n1(fp[k])} cada 100.000 habitantes (${n0(ti ? fp.con_terapia_intensiva : fp.hospitales)}).`;
-$t("hospitales").textContent = txt;
-barrasH(G("hospitales"), {anim: a, data: T.hospitales_provincias, k, vf: n1, af: ti ? n1 : n0, ref: pais, refLab: `País ${n1(pais)}`,
-tip: d => `<b>${d.territorio}</b><br>${n1(d.hospitales_cada_100000)} hospitales públicos con internación cada 100.000 habitantes (${n0(d.hospitales)})<br>` +
-`${n1(d.terapia_cada_100000)} con terapia intensiva cada 100.000 (${n0(d.con_terapia_intensiva)})`});
-},
-medicos: a => {
-const v = MED.medicos, k = `${v}_cada_10000`, pais = v === "habilitados" ? MDC.pais_hab : MDC.pais;
-const fp = T.medicos_provincias.find(r => r.codigo_indec === prov);
-let txt = LEAD.medicos(v);
-if (fp && ![MDC.top[0], MDC.top2[0], MDC.bajo[0], MDC.bajo2[0], MDC.inactivos_max[0]].includes(fp.territorio))
-txt += ` En ${fp.territorio}, ${n1(fp[k])} cada 10.000 habitantes.`;
-$t("medicos").textContent = txt;
-barrasH(G("medicos"), {anim: a, data: T.medicos_provincias, k, vf: n1, af: n0, ref: pais, refLab: `País ${n1(pais)}`,
-tip: d => `<b>${d.territorio}</b><br>${n1(d.activos_cada_10000)} médicos activos cada 10.000 habitantes (${n0(d.activos)})<br>` +
-`${n1(d.habilitados_cada_10000)} habilitados cada 10.000 (${n0(d.habilitados)})<br>${pct(d.pct_activos)} de los habilitados, activos`});
-},
-telefonia: a => {
-const v = MED.telefonia, el = G("telefonia"), fp = T.telefonia_fija_provincias.find(r => r.codigo_indec === prov);
-let txt = LEAD.telefonia(v);
-if (v === "serie") {
-$t("telefonia").textContent = txt;
-return lineas(el, {anim: a, data: T.telefonia_fija_pais, x: "x", y0: 0, vf: n1, yf: n0, xl: r => `${r.periodo[0]}.º trimestre de ${r.periodo.slice(2)}`, mensual: true,
-series: [{k: "accesos_100_hogares", lab: "Cada 100 hogares", corto: "Hogares", c: NAR}, {k: "accesos_100_habitantes", lab: "Cada 100 habitantes", corto: "Habitantes", c: FRI}]});
-}
-if (fp && ![TF.top[0], TF.top2[0], TF.bajo[0]].includes(fp.territorio))
-txt += ` En ${fp.territorio}, ${n1(fp.accesos_100_hogares)}, contra ${n1(fp[`accesos_100_hogares_${TF.ini}`])} en el ${TF.ini_trim}.`;
-$t("telefonia").textContent = txt;
-barrasH(el, {anim: a, data: T.telefonia_fija_provincias, k: "accesos_100_hogares", vf: n1, af: n0, ref: TF.pais, refLab: `País ${n1(TF.pais)}`,
-tip: d => `<b>${d.territorio}</b><br>${n1(d.accesos_100_hogares)} accesos cada 100 hogares en el ${TF.trim}<br>${n1(d.accesos_100_habitantes)} cada ` +
-`100 habitantes<br>En el ${TF.ini_trim}, ${n1(d[`accesos_100_hogares_${TF.ini}`])} cada 100 hogares`});
-},
-"tv-paga": a => {
-const v = MED["tv-paga"], el = G("tv-paga"), fp = T.tv_paga_provincias.find(r => r.codigo_indec === prov);
-let txt = LEAD["tv-paga"](v);
-if (v === "serie") {
-$t("tv-paga").textContent = txt;
-return lineas(el, {anim: a, data: T.tv_paga_pais, x: "x", y0: 0, vf: n1, yf: n0, xl: r => `${r.periodo[0]}.º trimestre de ${r.periodo.slice(2)}`, mensual: true,
-series: [{k: "suscripcion_100_hogares", lab: "TV por suscripción", corto: "Suscripción", c: NAR}, {k: "satelital_100_hogares", lab: "TV satelital", corto: "Satelital", c: FRI}]});
-}
-if (fp && ![TVP.top[0], TVP.top2[0], TVP.bajo[0]].includes(fp.territorio))
-txt += ` En ${fp.territorio}, ${n1(fp.accesos_100_hogares)}, contra ${n1(fp[`accesos_100_hogares_${TVP.ini_prov}`])} en el ${TVP.ini_prov_trim}.`;
-$t("tv-paga").textContent = txt;
-barrasH(el, {anim: a, data: T.tv_paga_provincias, k: "accesos_100_hogares", vf: n1, af: n0, ref: TVP.pais, refLab: `País ${n1(TVP.pais)}`,
-tip: d => `<b>${d.territorio}</b><br>${n1(d.accesos_100_hogares)} accesos cada 100 hogares en el ${TVP.trim}<br>${n1(d.accesos_100_habitantes)} cada ` +
-`100 habitantes<br>En el ${TVP.ini_prov_trim}, ${n1(d[`accesos_100_hogares_${TVP.ini_prov}`])} cada 100 hogares`});
-},
-abandono: a => {
-const v = MED.abandono, el = G("abandono"), fp = T.abandono_provincias.find(r => r.codigo_indec === prov);
-let txt = LEAD.abandono(v);
-if (v === "serie") {
-$t("abandono").textContent = txt;
-return lineas(el, {anim: a, data: T.abandono_pais, x: "anio", y0: 0, vf: pct, yf: v => n0(v) + "%", xl: r => `de ${r.anio} a ${r.anio + 1}`,
-series: [{k: "abandono", lab: "Abandono", corto: "Abandono", c: NAR}, {k: "repitencia", lab: "Repitencia", corto: "Repitencia", c: FRI}]});
-}
-const k = v === "rep" ? "repitencia" : "abandono", pais = v === "rep" ? ABN.rep_pais : ABN.pais;
-const ext = v === "rep" ? [ABN.rep_top[0], ABN.rep_bajo[0]] : [ABN.top[0], ABN.top2[0], ABN.bajo[0]];
-if (fp && !fp.regimen_nuevo && !ext.includes(fp.territorio)) txt += ` En ${fp.territorio}, el ${pct(fp[k])}.`;
-$t("abandono").textContent = txt;
-barrasH(el, {anim: a, data: T.abandono_provincias.map(r => r.regimen_nuevo ? {...r, territorio: `${r.territorio} (régimen nuevo)`} : r), k,
-l: 196, lAngosto: 140, corto: d => d.regimen_nuevo ? "Bs. As. (rég. nuevo)" : d.territorio, vf: pct, af: v => n0(v) + "%", ref: pais, refLab: `País ${pct(pais)}`,
-tip: d => `<b>${d.territorio}</b><br>Abandono: ${pct(d.abandono)} de ${ABN.anio} a ${ABN.sig}<br>Repitencia: ${pct(d.repitencia)} de ` +
-`${ABN.rep_anio} a ${ABN.rep_sig}<br>Abandono de ${ABN.ini} a ${ABN.ini + 1}: ${pct(d[`abandono_${ABN.ini}`])}`});
 },
 inflacion: conTablas("inflacion", () => MED.inflacion === "region" ? [] : ["inflacion_mensual"], a => {
 const v = MED.inflacion, el = G("inflacion"), regs = REG_IPC[prov] || [];
@@ -3332,18 +2750,6 @@ barrasH(el, {anim: a, data, k: "v", vf: pct, af: v => n0(v) + "%", ref: EMA.doce
 l: 236, lAngosto: 150, corto: d => d.corto,
 tip: d => `<b>${d.territorio}</b><br>${pct(d.v)} en los doce meses hasta ${EMA.mes}, frente a los doce anteriores<br>${pct(d.ia)} en el mes, frente a ${EMA.mes_ant}`});
 }),
-refugio: conTablas("refugio", () => ({nacionalidad: ["refugio_nacionalidades"], acnur: ["refugio_acnur"]})[MED.refugio] || [], a => {
-const v = MED.refugio, el = G("refugio");
-$t("refugio").textContent = LEAD.refugio(v);
-if (v === "nacionalidad") return barrasH(el, {anim: a, data: T.refugio_nacionalidades.map((r, i) => ({codigo_indec: "n" + i, territorio: r.nacionalidad,
-solicitudes: r.solicitudes, pct: r.pct})), k: "solicitudes", vf: n0, af: n0, l: 236, lAngosto: 150,
-corto: d => d.territorio.replace(/ \(\d+ nacionalidades\)/, ""),
-tip: d => `<b>${d.territorio}</b><br>${n0(d.solicitudes)} solicitudes en ${MGR.anio}<br>${pct(d.pct)} del total`});
-if (v === "acnur") return lineas(el, {anim: a, data: T.refugio_acnur, x: "anio", y0: 0, vf: n0, yf: n0,
-series: [{k: "refugiados", lab: "Personas refugiadas", corto: "Refugiadas", c: NAR}, {k: "solicitantes", lab: "Solicitantes de asilo", corto: "Solicitantes", c: FRI}]});
-columnasApiladas(el, {anim: a, data: T.refugio_solicitudes, vf: n0, af: n0, unidad: "solicitudes",
-claves: [{k: "solicitudes", lab: "Solicitudes", c: css("--celeste-fuerte")}]});
-}),
 supermercados: conTablas("supermercados", () => MED.supermercados === "mes" ? ["supermercados_mensual"] : [], a => {
 const v = MED.supermercados, el = G("supermercados"), fp = T.supermercados_provincias.find(r => r.codigo_indec === prov);
 let txt = LEAD.supermercados(v);
@@ -3357,81 +2763,6 @@ $t("supermercados").textContent = txt;
 barrasH(el, {anim: a, data: T.supermercados_provincias, k: "var_12m", vf: conSigno, af: v => n0(v) + "%", ref: ESU.prov.pais,
 refLab: `País ${conSigno(ESU.prov.pais)}`, tip: d => `<b>${d.territorio}</b><br>${conSigno(d.var_12m)} en los doce meses hasta ${ESU.mes}, ` +
 `frente a los doce anteriores<br>${conSigno(d.var_mes)} en ${ESU.mes}, frente a ${ESU.mes_ant}<br>Con la inflación de la región ${d.region}`});
-}),
-"nacidos-otro-pais": conTablas("nacidos-otro-pais", () => ({pais: ["nacidos_otro_pais_paises"], mapa: ["migraciones_departamentos"]})[MED["nacidos-otro-pais"]] || [], a => {
-const v = MED["nacidos-otro-pais"], el = G("nacidos-otro-pais"), fp = T.nacidos_otro_pais_provincias.find(r => r.codigo_indec === prov);
-let txt = LEAD["nacidos-otro-pais"](v);
-const nd = fp && fp.pct_pais_no_declarado > 20 ? ` El ${pct(fp.pct_pais_no_declarado)} no declaró su país de nacimiento.` : "";
-if (v === "mapa") {
-const filas = T.migraciones_departamentos, porDep = Object.fromEntries(filas.map(r => [r.codigo_dep, r]));
-$t("nacidos-otro-pais").textContent = (fp ? rangoDep(filas, "pct_otro_pais", "nacida en otro país") + " " : "") + txt;
-return mapaDep(el, {anim: a, filas, k: "pct_otro_pais", nombre: "Nacidos en otro país", vf: pct, extra: id => {
-const r = porDep[id];
-return (r && r.primer_pais ? `<br>Origen más frecuente: ${r.primer_pais}<br>${pct(r.pct_primer_pais)} de quienes declararon su país` : "") +
-(r && r.pct_no_declarado > 20 ? `<br>No declaró su país: ${pct(r.pct_no_declarado)}` : "");
-}});
-}
-if (v === "pais") {
-const cod = fp ? prov : "00", filas = T.nacidos_otro_pais_paises.filter(r => r.codigo_indec === cod && r.pais !== "País no declarado");
-if (fp) txt = `En ${fp.territorio}, los países de nacimiento más frecuentes de las personas nacidas en otro país eran ` +
-`${lista(filas.slice(0, 3).map(r => `${r.pais} (${pct(r.pct)})`))}, según el Censo 2022.${nd} En todo el país: ` + inicialMin(txt.replace(/, según el Censo\./, "."));
-$t("nacidos-otro-pais").textContent = txt;
-barrasH(el, {anim: a, data: filas.map((r, i) => ({codigo_indec: "p" + i, territorio: r.pais, personas: r.personas, pct: r.pct})), k: "personas",
-vf: n0, af: v => v >= 1e3 ? n0(v / 1e3) + " mil" : n0(v), l: 150, lAngosto: 118, cambiaConProv: true,
-tip: d => `<b>${d.territorio}</b><br>${n0(d.personas)} personas<br>${pct(d.pct)} de las nacidas en otro país${fp ? " que vivían en " + fp.territorio : ""}`});
-return;
-}
-if (fp && fp.territorio !== MGC.top[0] && !MGC.bajos[0].includes(fp.territorio)) txt += ` En ${fp.territorio}, el ${pct(fp.pct_otro_pais)}` +
-`${conVeces(fp.pct_otro_pais, MGC.pct)}: ${n0(fp.en_otro_pais)} personas, sobre todo de ${fp.primer_pais}.${nd}`;
-$t("nacidos-otro-pais").textContent = txt;
-barrasH(el, {anim: a, data: T.nacidos_otro_pais_provincias.filter(r => r.codigo_indec !== "00"), k: "pct_otro_pais", vf: n1, af: n0, ref: MGC.pct,
-refLab: `País ${n1(MGC.pct)}`, anota: true, tip: d => `<b>${d.territorio}</b><br>${pct(d.pct_otro_pais)} de la población<br>${n0(d.en_otro_pais)} personas<br>` +
-`País más frecuente: ${d.primer_pais}`});
-}),
-"migracion-interna": conTablas("migracion-interna", () => MED["migracion-interna"] === "mapa" ? ["migraciones_departamentos"] : [], a => {
-const fp = T.nacidos_otro_pais_provincias.find(r => r.codigo_indec === prov), mapa = MED["migracion-interna"] === "mapa";
-$("migracion-interna-ley").hidden = mapa;
-if (mapa) {
-$t("migracion-interna").textContent = (fp ? rangoDep(T.migraciones_departamentos, "pct_otra_provincia", "nacida en otra provincia") + " " : "") +
-LEAD["migracion-interna"]("mapa");
-return mapaDep(G("migracion-interna"), {anim: a, filas: T.migraciones_departamentos, k: "pct_otra_provincia", nombre: "Nacidos en otra provincia", vf: pct});
-}
-const cl = [{k: "pct_la_provincia", lab: "En la provincia", c: "#1F5E97"}, {k: "pct_otra_provincia", lab: "En otra provincia", c: "#74ACDF", texto: "#18212B"},
-{k: "pct_otro_pais", lab: "En otro país", c: "#F6B40E", texto: "#18212B"}];
-leyenda("migracion-interna-ley", cl);
-let txt = LEAD["migracion-interna"]();
-if (fp && fp.territorio !== MGC.otra_top[0] && !MGC.otra_bajos[0].includes(fp.territorio)) txt += ` En ${fp.territorio}, el ${pct(fp.pct_otra_provincia)}` +
-` había nacido en otra provincia y el ${pct(fp.pct_otro_pais)}, en otro país.`;
-$t("migracion-interna").textContent = txt;
-const pais = T.nacidos_otro_pais_provincias.find(r => r.codigo_indec === "00");
-apiladasH(G("migracion-interna"), {anim: a, claves: cl, data: [{...pais, territorio: "Todo el país"},
-...T.nacidos_otro_pais_provincias.filter(r => r.codigo_indec !== "00").sort((p, q) => q.pct_la_provincia - p.pct_la_provincia)]});
-}),
-"migracion-historia": a => lineas(G("migracion-historia"), {anim: a, data: T.migracion_censos, x: "anio", y0: 0, vf: pct, yf: v => n0(v) + "%",
-series: [{k: "nacidos_otro_pais_pct", lab: "Nacidos en otro país", corto: "Otro país", c: NAR},
-{k: "limitrofes_pct", lab: "Nacidos en países limítrofes", corto: "Limítrofes", c: FRI}]}),
-radicaciones: conTablas("radicaciones", () => MED.radicaciones === "nacionalidad" ? ["radicaciones_nacionalidad"] : [], a => {
-const v = MED.radicaciones, el = G("radicaciones"), cl = [{k: "permanentes", lab: "Permanentes", c: NAR}, {k: "temporarias", lab: "Temporarias", c: css("--celeste")}];
-$t("radicaciones").textContent = LEAD.radicaciones(v);
-leyenda("radicaciones-ley", cl);
-$("radicaciones-ley").hidden = v !== "anio";
-if (v === "nacionalidad") {
-const filas = T.radicaciones_nacionalidad.filter(r => r.anio === MGD.anio && r.nacionalidad !== "Otras nacionalidades").slice(0, 12);
-return barrasH(el, {anim: a, data: filas.map((r, i) => ({codigo_indec: "n" + i, territorio: r.nacionalidad, total: r.total, permanentes: r.permanentes,
-temporarias: r.temporarias, pct: r.pct})), k: "total", vf: n0, af: v => v >= 1e3 ? n0(v / 1e3) + " mil" : n0(v), l: 150, lAngosto: 118,
-tip: d => `<b>${d.territorio}</b><br>${n0(d.total)} residencias en ${MGD.anio}<br>${n0(d.permanentes)} permanentes y ${n0(d.temporarias)} temporarias<br>` +
-`${pct(d.pct)} del total`});
-}
-columnasApiladas(el, {anim: a, data: T.radicaciones_anual, vf: n0, af: v => n0(v / 1e3) + " mil", unidad: "residencias otorgadas", cadaTick: 1, claves: cl});
-}),
-"argentinos-exterior": conTablas("argentinos-exterior", () => MED["argentinos-exterior"] === "pais" ? ["argentinos_exterior_destinos"] : [], a => {
-const v = MED["argentinos-exterior"], el = G("argentinos-exterior");
-$t("argentinos-exterior").textContent = LEAD["argentinos-exterior"](v);
-if (v === "pais") return barrasH(el, {anim: a, data: T.argentinos_exterior_destinos.slice(0, 12).map((r, i) => ({codigo_indec: "d" + i, territorio: r.pais,
-personas: r.personas, inicio: r.personas_inicio, pct: r.pct})), k: "personas", vf: n0, af: v => v >= 1e3 ? n0(v / 1e3) + " mil" : n0(v), l: 150, lAngosto: 118,
-tip: d => `<b>${d.territorio}</b><br>${n0(d.personas)} personas en ${MGO.anio}<br>${pct(d.pct)} del total<br>En ${MGO.desde}, ${n0(d.inicio)}`});
-lineas(el, {anim: a, data: T.argentinos_exterior, x: "anio", y0: 0, vf: n0, yf: v => v === 0 ? "0" : n1(v / 1e6) + " M",
-series: [{k: "personas", lab: "Nacidos en la Argentina", corto: "Personas", c: NAR}]});
 }),
 "cuentas-nacion": a => {
 const v = MED["cuentas-nacion"], el = G("cuentas-nacion");
@@ -3703,72 +3034,10 @@ $("adonse-sel").addEventListener("change", ev => { MED.adonse = ev.target.value;
 $("cm-sel").innerHTML = `<option value="total">Todas las causas</option>` + CM.grupos.map(g => `<option value="${g.k}">${g.lab}</option>`).join("");
 MED["causas-muerte"] = "total";
 $("cm-sel").addEventListener("change", ev => { MED["causas-muerte"] = ev.target.value; cambiarVista("causas-muerte"); });
-DIB["causas-muerte"] = a => {
-const g = MED["causas-muerte"], k = "tasa_" + g, filas = T.causas_muerte_provincias, pais = filas.find(r => r.codigo_indec === "00");
-const f = v => v >= 100 ? n0(v) : n1(v), mk = g === "total" ? "muertes" : "muertes_" + g;
-barrasH(G("causas-muerte"), {anim: a, data: filas.filter(r => r.codigo_indec !== "00"), k, vf: f, af: n0, ref: pais[k], refLab: `País ${f(pais[k])}`,
-tip: d => `<b>${d.territorio}</b><br>${f(d[k])} muertes por año cada 100.000 habitantes, ajustada por edad` +
-(g === "total" ? `<br>${n0(d.tasa_bruta)} sin ajustar` : `<br>${pct(d[mk] / d.muertes * 100)} de las muertes de la provincia`) +
-`<br>${n0(d[mk])} muertes de ${CM.desde} a ${CM.hasta}`});
-};
-MED.transito = "prov";
-DIB.transito = conTablas("transito", () => MED.transito === "serie" ? ["transito_pais"] : [], a => {
-const el = G("transito");
-$t("transito").textContent = MED.transito === "serie" ? TX["transito-serie"] : TX.transito;
-if (MED.transito === "serie") return barrasH(el, {anim: a, sinOrden: true, vf: n0, af: ejeMil, l: 60, lAngosto: 48, k: "muertes",
-data: T.transito_pais.map(r => ({codigo_indec: "a" + r.anio, territorio: String(r.anio), muertes: r.muertes})),
-tip: d => `<b>${d.territorio}</b><br>${n0(d.muertes)} muertes en siniestros viales`});
-const filas = T.transito_provincias, pais = filas.find(r => r.codigo_indec === "00");
-barrasH(el, {anim: a, data: filas.filter(r => r.codigo_indec !== "00"), k: "cada_100000", vf: n1, af: n0, ref: pais.cada_100000,
-refLab: `País ${n1(pais.cada_100000)}`,
-tip: d => `<b>${d.territorio}</b><br>${n1(d.cada_100000)} muertes por año cada 100.000 habitantes<br>${n0(d.muertes_por_anio)} muertes por año, ` +
-`promedio de ${TRN.desde} a ${TRN.hasta}`});
-});
-DIB.adonse = a => {
-const i = AN.indicadores.find(x => x.k === MED.adonse), otros = AN.indicadores.filter(x => x !== i);
-const rel = x => `${fuerza(x.r)}${x.r < 0 ? " e inversa" : ""}`;
-document.querySelector('[data-t="adonse"]').textContent = `Las provincias con más nacimientos de madres menores de 20 años suelen tener también peores indicadores socioeconómicos. ` +
-`Con ${i.lab.toLowerCase()}, la relación es ${rel(i)} (correlación de ${n2(i.r)}): donde ese indicador es más alto, la proporción de madres adolescentes tiende a ser ${i.r > 0 ? "más alta" : "más baja"}. ` +
-`Con los otros indicadores del Censo, la relación es ${listaY(otros.map(o => `${rel(o)} con ${o.lab.toLowerCase()} (${n2(o.r)})`))}. Que dos datos vayan juntos no prueba que uno cause el otro.`;
-dispersion(G("adonse"), {anim: a, data: T.madres_adolescentes_nse, x: i.k, y: ADO_ULT, xLab: `${i.lab}, 2022`, yLab: `Nacimientos de madres menores de 20, ${AN.anio}`});
-};
-const CAUSA_COL = {perinatales: "#2C74B5", malformaciones: "#74ACDF", respiratorias: "#F6B40E", infecciosas: "#D9453B", externas: "#7A1F2B", mal_definidas: "#C3CAD2", otras: "#E4E9EF"};
-DIB.causas = conTablas("causas", ["mortalidad_infantil_causas"], a => {
-const gr = MC.grupos, gk = Object.fromEntries(gr.map(x => [x.k, x]));
-const vida = ["respiratorias", "infecciosas", "externas"], sumaVida = d3.sum(vida, k => gk[k].pct);
-const fuertes = gr.filter(x => Math.abs(x.r_cobertura) >= .4).sort((p, q) => Math.abs(q.r_cobertura) - Math.abs(p.r_cobertura));
-const causasSentido = (l, s) => l.length ? `la mortalidad por ${listaY(l.map(x => `${x.lab.toLowerCase()} (correlación de ${n2(x.r_cobertura)})`))} tiende a ser más ${s}` : "";
-document.querySelector('[data-t="causas"]').textContent = `Entre ${MC.anios[0]} y ${MC.anios[1]} murieron en el país ${n0(MC.muertes)} bebés antes de cumplir un año. ` +
-`El ${pct(gk.perinatales.pct)} murió por afecciones perinatales, como la prematurez y las complicaciones del embarazo y el parto, y el ${pct(gk.malformaciones.pct)}, por malformaciones congénitas. ` +
-`Las enfermedades respiratorias, las infecciosas y las causas externas, que suelen estar más ligadas a las condiciones de vida, sumaron el ${pct(sumaVida)}. ` +
-(fuertes.length ? `En las provincias con más población sin obra social, prepaga ni plan estatal de salud, ${listaY([causasSentido(fuertes.filter(x => x.r_cobertura > 0), "alta"), causasSentido(fuertes.filter(x => x.r_cobertura < 0), "baja")].filter(Boolean))}. ${fuertes.length > 1 ? "Esas relaciones no se ven en el gráfico y no prueban" : "Esa relación no se ve en el gráfico y no prueba"} que una cosa cause la otra.` : "");
-const cl = gr.map(x => ({k: x.k, lab: x.lab, c: CAUSA_COL[x.k], texto: ["#F6B40E", "#74ACDF", "#C3CAD2", "#E4E9EF"].includes(CAUSA_COL[x.k]) ? "#18212B" : "#fff"}));
-document.getElementById("causas-ley").innerHTML = cl.map(k => `<span><i style="background:${k.c}"></i>${k.lab}</span>`).join("");
-const filas = T.mortalidad_infantil_causas, pais = filas.find(d => d.codigo_indec === "00");
-apiladasH(G("causas"), {anim: a, claves: cl, data: [pais, ...filas.filter(d => d.codigo_indec !== "00").sort((p, q) => q.tasa - p.tasa)]});
-});
 parte("externo");
 const IA = R.ingresos_aglomerados;
 const IA_CORTO = {"Ciudad de Buenos Aires": "CABA", "Comodoro Rivadavia-Rada Tilly": "Comodoro Rivadavia", "Viedma-Carmen de Patagones": "Viedma-Patagones",
 "San Nicolás-Villa Constitución": "San Nicolás-V. Const.", "Gran Tucumán-Tafí Viejo": "Gran Tucumán", "Santiago del Estero-La Banda": "Santiago-La Banda"};
-const conArt = (n, inicio) => n.startsWith("Ciudad") ? (inicio ? "La " : "la ") + n : n;
-MED["ingresos-aglomerados"] = "ipcf";
-DIB["ingresos-aglomerados"] = conTablas("ingresos-aglomerados", ["ingresos_aglomerados"], a => {
-const t = MED["ingresos-aglomerados"], E = IA[t], el = G("ingresos-aglomerados"), mil = v => n0(Math.round(v / 1000) * 1000);
-const filas = T.ingresos_aglomerados.filter(r => r.aglomerado > 0).map(r => ({...r, codigo_indec: "a" + r.aglomerado, territorio: r.nombre}));
-$t("ingresos-aglomerados").textContent = (t === "ipcf"
-? `En ${IA.trimestres}, en pesos del ${IA.trimestre}, la mitad de las personas de los 31 aglomerados urbanos vivía en hogares con un ingreso de hasta ${mil(E.pais)} pesos por mes por cada integrante. `
-: `En ${IA.trimestres}, en pesos del ${IA.trimestre}, la mitad de los ocupados que cobran por su trabajo en los 31 aglomerados urbanos ganaba hasta ${mil(E.pais)} pesos por mes en su ocupación principal. `) +
-`${conArt(E.max, true)} tenía la mediana más alta, ${mil(E.max_v)} pesos, y ${conArt(E.min)}, la más baja, ` +
-`${mil(E.min_v)} pesos. La más alta es ${n1(E.veces)} veces la más baja.`;
-const marcar = new Set(prov ? filas.filter(r => String(r.provincias).split(",").includes(prov)).map(r => r.codigo_indec) : []);
-barrasH(el, {anim: a, data: filas, k: `${t}_pesos`, vf: mil, af: v => v === 0 ? "0" : v < 1e6 ? n0(v / 1e3) + " mil" : v === 1e6 ? "1 millón" : n1(v / 1e6).replace(/,0$/, "") + " millones",
-ref: E.pais, refLab: `31 aglomerados ${mil(E.pais)}`,
-marcar, l: 220, lAngosto: 132, corto: d => IA_CORTO[d.nombre] || d.nombre,
-tip: d => `<b>${d.nombre}</b><br>${mil(d[t + "_pesos"])} pesos por mes, ${pct(d[t + "_pct_pais"])} de la mediana de los 31 aglomerados` +
-`<br>${n0(d[t + "_casos"])} ${t === "ipcf" ? "personas" : "ocupados"} encuestados en los cuatro trimestres<br>Solo con el ${IA.trimestre}: ${mil(d[t + "_pesos_ultimo_trimestre"])}`});
-el.resaltar = null;
-});
 DIB.expectativas = conTablas("expectativas", ["expectativas_inflacion"], a => {
 const E = R.expectativas_inflacion, d = T.expectativas_inflacion.map(r => ({...r, t: tPer(r.mes)}));
 $t("expectativas").textContent = `En ${mesPer(E.mes)}, la mitad de las personas encuestadas esperaba una inflación de hasta ${pct(E.mediana)} para los doce meses siguientes ` +
@@ -3795,9 +3064,6 @@ series: reg
 : [{k: "macro", lab: "Situación macroeconómica", corto: "Macro", c: FRI, w: 1.6}, {k: "personal", lab: "Situación personal", corto: "Personal", c: css("--muted"), w: 1.6},
 {k: "bienes", lab: "Bienes durables e inmuebles", corto: "Bienes", c: GRIS, w: 1.6}, {k: "nacional", lab: "Índice", c: css("--celeste-fuerte"), w: 2.6}]});
 });
-MED.haberes = "pct";
-MED["pensiones-invalidez"] = "mapa";
-MED.dengue = "provincias";
 MED["dengue-temp"] = DG.juntas;
 $("dg-sel").innerHTML = [[DG.juntas, `De la ${DG.prov_desde} a la ${DG.temp}, juntas`], ...[...DG.temps_prov].reverse().map(t => [t, t])]
 .map(([v, l]) => `<option value="${v}">${l}</option>`).join("");
@@ -3807,49 +3073,6 @@ $("dg-sel").addEventListener("change", ev => { MED["dengue-temp"] = ev.target.va
 MED["ipc-reg"] = (REG_IPC[prov] || ["gba"])[0];
 $("ipd-sel").value = MED["ipc-reg"];
 $("ipd-sel").addEventListener("change", ev => { MED["ipc-reg"] = ev.target.value; cambiarVista("inflacion-rubros"); });
-const dgFilas = () => T.dengue_provincias.filter(r => r.temporada === MED["dengue-temp"]);
-DIB.dengue = conTablas("dengue", ["dengue_provincias"], a => {
-const v = MED.dengue, el = G("dengue");
-$("dg-elige").hidden = v === "serie";
-refrescarTabla("f-dengue");
-if (v === "serie") {
-$t("dengue").textContent = TX["dengue-serie"];
-return barrasH(el, {anim: a, data: T.dengue_pais.map(r => ({codigo_indec: r.temporada, territorio: r.temporada, casos: r.casos, cada_100000: r.cada_100000})),
-k: "casos", sinOrden: true, vf: n0, af: ejeMil, l: 90, lAngosto: 72,
-tip: d => `<b>Temporada ${d.territorio}</b><br>${n0(d.casos)} casos confirmados` + (d.cada_100000 == null ? "" : `<br>${fDg(d.cada_100000)} cada 100.000 habitantes`)});
-}
-const t = MED["dengue-temp"], filas = dgFilas(), fp = filas.find(r => r.codigo_indec === prov);
-const pp = T.dengue_pais.find(r => r.temporada === t), pais = t === DG.juntas ? DG.pais_100000_juntas : pp.cada_100000;
-const top = [...filas].sort((x, y) => y.cada_100000 - x.cada_100000)[0], sin = filas.filter(r => r.casos === 0).length;
-const txt = t === DG.juntas ? TX.dengue : `En la temporada ${t} se confirmaron ${n0(pp.casos)} casos de dengue en el país, ${fDg(pp.cada_100000)} cada 100.000 habitantes. ` +
-`La tasa más alta fue la de ${top.territorio}, con ${fDg(top.cada_100000)}.` + (sin ? ` En ${sin === 1 ? "una jurisdicción" : `${sin} jurisdicciones`} no hubo casos confirmados.` : "");
-$t("dengue").textContent = (fp ? `En ${fp.territorio} se confirmaron ${n0(fp.casos)} casos ${t === DG.juntas ? `de la temporada ${DG.prov_desde} a la ${DG.temp}` : `en la ${t}`}, ` +
-`${fDg(fp.cada_100000)} cada 100.000 habitantes. ` : "") + txt;
-barrasH(el, {anim: a, data: filas, k: "cada_100000", vf: fDg, af: n0, ref: pais, refLab: `País ${fDg(pais)}`,
-tip: d => `<b>${d.territorio}</b><br>${fDg(d.cada_100000)} casos cada 100.000 habitantes<br>${n0(d.casos)} casos confirmados`});
-});
-TABLA_PROPIA["f-dengue"] = () => cargarTabla("dengue_provincias").then(() => MED.dengue === "serie"
-? T.dengue_pais.map(r => ({temporada: r.temporada, casos: r.casos, "casos cada 100.000 habitantes": r.cada_100000}))
-: dgFilas().map(r => ({codigo_indec: r.codigo_indec, territorio: r.territorio, temporada: r.temporada, casos: r.casos, "casos cada 100.000 habitantes": r.cada_100000})));
-MED.vacunas = "dosis1";
-DIB.vacunas = a => {
-const v = MED.vacunas, el = G("vacunas"), fp = T.vacunas_provincias.find(r => r.codigo_indec === prov);
-refrescarTabla("f-vacunas");
-if (v === "serie") {
-$t("vacunas").textContent = TX["vacunas-serie"];
-return lineas(el, {anim: a, data: T.vacunas_serie, x: "anio", y0: 0, vf: pct, yf: v => n0(v) + "%", ref: 95, refLab: "95%, lo que recomienda la OPS", refLabCorto: "95%",
-series: [{k: "mediana_dosis1", lab: "Primera dosis", c: css("--celeste-fuerte"), w: 3}, {k: "mediana_dosis2", lab: "Segunda dosis", c: FRI, w: 2.4}]});
-}
-$t("vacunas").textContent = (fp ? `En ${fp.territorio}, la primera dosis llegó al ${pct(fp.dosis1)} de los chicos de un año y la segunda, al ${pct(fp.dosis2)} ` +
-`de los que entraban a la escuela, en ${VC.anio}. ` : "") + TX[v === "dosis1" ? "vacunas" : "vacunas-2"];
-barrasH(el, {anim: a, data: T.vacunas_provincias, k: v, vf: pct, af: v => n0(v) + "%", ref: 95, refLab: "95%, lo que recomienda la OPS",
-paisLab: "Lo que recomienda la OPS", tip: d => `<b>${d.territorio}</b><br>Primera dosis: ${pct(d.dosis1)}<br>Segunda dosis: ${pct(d.dosis2)}`});
-};
-TABLA_PROPIA["f-vacunas"] = () => Promise.resolve(MED.vacunas === "serie"
-? T.vacunas_serie.map(r => ({año: r.anio, "primera dosis, mediana (%)": r.mediana_dosis1, "segunda dosis, mediana (%)": r.mediana_dosis2,
-"jurisdicciones debajo del 95%, primera dosis": r.bajo_95_dosis1, "jurisdicciones debajo del 95%, segunda dosis": r.bajo_95_dosis2}))
-: T.vacunas_provincias.map(r => ({codigo_indec: r.codigo_indec, territorio: r.territorio, "primera dosis (%)": r.dosis1, "segunda dosis (%)": r.dosis2})));
-MED.auh = "provincias";
 MED.desempleo = "habitantes";
 const BV = SX.bcra;
 const bCorto = x => Number.isInteger(x) ? n0(x) : (Math.abs(x) < 1 ? n2(x) : n1(x)).replace(/,0+$/, "");
@@ -4009,6 +3232,11 @@ parte("energia");
 parte("petroleo");
 parte("movilidad");
 parte("naturaleza");
+parte("poblacion");
+parte("migraciones");
+parte("salud");
+parte("educacion");
+parte("pobreza");
 const VT_TIPOS = typeof ViewTransition !== "undefined" && "types" in ViewTransition.prototype;
 function cambiarVista(g, dibujar = () => DIB[g](false)) {
 const el = G(g);

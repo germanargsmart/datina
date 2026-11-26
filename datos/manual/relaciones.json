@@ -3762,7 +3762,7 @@
      "contiene": "\"esperanza_vida\": (\"SP.DYN.LE00.IN\""
     },
     {
-     "archivo": "scripts/datina.js",
+     "archivo": "scripts/partes/salud.js",
      "contiene": "ref: OC.esperanza_vida.ocde, refLab:"
     }
    ],
@@ -3794,7 +3794,7 @@
      "contiene": "\"mortalidad_infantil\": (\"SP.DYN.IMRT.IN\""
     },
     {
-     "archivo": "scripts/datina.js",
+     "archivo": "scripts/partes/salud.js",
      "contiene": "ref: OC.mortalidad_infantil.ocde, refLab:"
     }
    ],
@@ -4594,7 +4594,7 @@
      "contiene": "\"migraciones_departamentos\": migraciones_departamentos,"
     },
     {
-     "archivo": "scripts/datina.js",
+     "archivo": "scripts/partes/migraciones.js",
      "contiene": "mapa: [\"migraciones_departamentos\"]"
     }
    ],
@@ -4626,7 +4626,7 @@
      "contiene": "mig_dep = pd.read_csv(RAIZ / \"datos\" / \"manual\" / \"censo2022_migraciones_departamentos.csv\""
     },
     {
-     "archivo": "scripts/datina.js",
+     "archivo": "scripts/partes/migraciones.js",
      "contiene": "\"migracion-interna\": conTablas(\"migracion-interna\", () => MED[\"migracion-interna\"] === \"mapa\" ? [\"migraciones_departamentos\"] : [], a => {"
     }
    ],

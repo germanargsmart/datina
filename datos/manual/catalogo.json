@@ -25,7 +25,7 @@
     "f-argentinos-exterior"
    ],
    "evidencia": {
-    "archivo": "scripts/datina.js",
+    "archivo": "scripts/partes/migraciones.js",
     "contiene": "lineas(el, {anim: a, data: T.argentinos_exterior, x: \"anio\", y0: 0, vf: n0, yf:"
    }
   },
@@ -443,7 +443,7 @@
     "f-radicaciones"
    ],
    "evidencia": {
-    "archivo": "scripts/datina.js",
+    "archivo": "scripts/partes/migraciones.js",
     "contiene": "columnasApiladas(el, {anim: a, data: T.radicaciones_anual, vf: n0, af: v => n0(v / 1e3)"
    }
   },
