@@ -16,7 +16,7 @@
     "f-areas-hidro"
    ],
    "evidencia": {
-    "archivo": "scripts/datina.js",
+    "archivo": "scripts/partes/petroleo.js",
     "contiene": "MED.arArea ? [\"areas_produccion\", \"areas_serie\"] : [\"areas_produccion\"], a =>"
    }
   },
@@ -25,7 +25,7 @@
     "f-argentinos-exterior"
    ],
    "evidencia": {
-    "archivo": "scripts/datina.js",
+    "archivo": "scripts/partes/migraciones.js",
     "contiene": "lineas(el, {anim: a, data: T.argentinos_exterior, x: \"anio\", y0: 0, vf: n0, yf:"
    }
   },
@@ -53,7 +53,7 @@
     "f-sin-condena"
    ],
    "evidencia": {
-    "archivo": "scripts/datina.js",
+    "archivo": "scripts/partes/seguridad.js",
     "contiene": "const el = G(\"carceles\"), fp = T.carceles_provincias.find(r => r.codigo_indec === prov);"
    }
   },
@@ -146,7 +146,7 @@
     "f-productividad"
    ],
    "evidencia": {
-    "archivo": "scripts/datina.js",
+    "archivo": "scripts/partes/petroleo.js",
     "contiene": "lineas(G(\"productividad\"), {anim: a, data: T.curvas_vm, x: \"mes\", y0: 0, vf: v => n0(v)"
    }
   },
@@ -157,7 +157,7 @@
     "f-homicidios"
    ],
    "evidencia": {
-    "archivo": "scripts/datina.js",
+    "archivo": "scripts/partes/seguridad.js",
     "contiene": "return lineas(el, {anim: a, data: T.delitos_serie, x: \"anio\", y0: 0, vf: n0, yf:"
    }
   },
@@ -176,7 +176,7 @@
     "f-fracturas"
    ],
    "evidencia": {
-    "archivo": "scripts/datina.js",
+    "archivo": "scripts/partes/petroleo.js",
     "contiene": "{anim: a, cadaTick: 2, l: 46, data: T.diseno_pozos_vm.filter(r => r.anio >= PG.dv_ini),"
    }
   },
@@ -260,7 +260,7 @@
     "f-electricidad-provincias"
    ],
    "evidencia": {
-    "archivo": "scripts/datina.js",
+    "archivo": "scripts/partes/energia.js",
     "contiene": "conTablas(\"electricidad-provincias\", () => ({mes: [\"electricidad_mensual\"], serie: [\"electricidad_serie\"]})[MED[\"electricidad-provincias\"]]"
    }
   },
@@ -269,7 +269,7 @@
     "f-electricidad-provincias"
    ],
    "evidencia": {
-    "archivo": "scripts/datina.js",
+    "archivo": "scripts/partes/energia.js",
     "contiene": "[\"electricidad_mensual\"], serie: [\"electricidad_serie\"]})[MED[\"electricidad-provincias\"]]"
    }
   },
@@ -279,7 +279,7 @@
     "f-empleo-hidro"
    ],
    "evidencia": {
-    "archivo": "scripts/datina.js",
+    "archivo": "scripts/partes/petroleo.js",
     "contiene": "MED[\"empleo-hidro\"] === \"serie\" ? [\"empleo_construccion_serie\"] : [], a => {"
    }
   },
@@ -306,7 +306,7 @@
     "f-gas-consumo"
    ],
    "evidencia": {
-    "archivo": "scripts/datina.js",
+    "archivo": "scripts/partes/energia.js",
     "contiene": "conTablas(\"gas-consumo\", () => ({mes: [\"gas_usuario_mensual\"], serie: [\"gas_usuario_serie\"]})[MED[\"gas-consumo\"]]"
    }
   },
@@ -315,7 +315,7 @@
     "f-gas-consumo"
    ],
    "evidencia": {
-    "archivo": "scripts/datina.js",
+    "archivo": "scripts/partes/energia.js",
     "contiene": "[\"gas_usuario_mensual\"], serie: [\"gas_usuario_serie\"]})[MED[\"gas-consumo\"]] || [],"
    }
   },
@@ -324,7 +324,7 @@
     "f-cuentas-nacion"
    ],
    "evidencia": {
-    "archivo": "scripts/datina.js",
+    "archivo": "scripts/partes/gobierno.js",
     "contiene": "return barrasH(el, {anim: a, data: T.gasto_nacion_tipo.map((r, i) => ({codigo_indec:"
    }
   },
@@ -353,7 +353,7 @@
     "f-inflacion"
    ],
    "evidencia": {
-    "archivo": "scripts/datina.js",
+    "archivo": "scripts/partes/economia.js",
     "contiene": "txt += enSuRegion(T.inflacion_regiones, \"interanual\", pct);"
    }
   },
@@ -380,7 +380,7 @@
     "f-obra-publica"
    ],
    "evidencia": {
-    "archivo": "scripts/datina.js",
+    "archivo": "scripts/partes/construccion.js",
     "contiene": "pesos de ${CN.op_ult}`, data: T.obra_publica_serie});"
    }
   },
@@ -389,7 +389,7 @@
     "f-parques"
    ],
    "evidencia": {
-    "archivo": "scripts/datina.js",
+    "archivo": "scripts/partes/naturaleza.js",
     "contiene": "const areas = T.parques_nacionales_lista.filter(d => !d.marina && d.lat"
    }
   },
@@ -398,7 +398,7 @@
     "f-pesca-rio"
    ],
    "evidencia": {
-    "archivo": "scripts/datina.js",
+    "archivo": "scripts/partes/naturaleza.js",
     "contiene": "barrasH(G(\"pesca-rio\"), {anim:a, data: T.pesca_continental, k:\"toneladas\", vf: v => n0(v)"
    }
   },
@@ -407,7 +407,7 @@
     "f-pozos"
    ],
    "evidencia": {
-    "archivo": "scripts/datina.js",
+    "archivo": "scripts/partes/petroleo.js",
     "contiene": "const p = T.pozos_provincias.find(r => r.territorio === PG.pozos_top)"
    }
   },
@@ -416,7 +416,7 @@
     "f-fracturas"
    ],
    "evidencia": {
-    "archivo": "scripts/datina.js",
+    "archivo": "scripts/partes/petroleo.js",
     "contiene": "(T.pozos_terminados_provincias.some(r => r.codigo_indec === \"mar\")"
    }
   },
@@ -425,7 +425,7 @@
     "f-industria"
    ],
    "evidencia": {
-    "archivo": "scripts/datina.js",
+    "archivo": "scripts/partes/economia.js",
     "contiene": "conTablas(\"industria\", () => MED.industria === \"mes\" ? [\"produccion_mensual\"] : [], a => {"
    }
   },
@@ -443,7 +443,7 @@
     "f-radicaciones"
    ],
    "evidencia": {
-    "archivo": "scripts/datina.js",
+    "archivo": "scripts/partes/migraciones.js",
     "contiene": "columnasApiladas(el, {anim: a, data: T.radicaciones_anual, vf: n0, af: v => n0(v / 1e3)"
    }
   },
@@ -452,7 +452,7 @@
     "f-recaudacion"
    ],
    "evidencia": {
-    "archivo": "scripts/datina.js",
+    "archivo": "scripts/partes/gobierno.js",
     "contiene": "return lineas(el, {anim: a, data: T.recaudacion_anual, x: \"anio\", y0: 0, vf: pct, yf:"
    }
   },
@@ -481,7 +481,7 @@
     "f-salarios"
    ],
    "evidencia": {
-    "archivo": "scripts/datina.js",
+    "archivo": "scripts/partes/trabajo.js",
     "contiene": "() => MED.salarios === \"mes\" ? [\"salarios_serie\"] : [], a => {"
    }
   },
@@ -491,7 +491,7 @@
     "f-homicidios"
    ],
    "evidencia": {
-    "archivo": "scripts/datina.js",
+    "archivo": "scripts/partes/seguridad.js",
     "contiene": "() => MED.robos === \"serie\" ? [\"seguridad_serie_prov\"] : [], a => {"
    }
   },
@@ -500,7 +500,7 @@
     "f-supermercados"
    ],
    "evidencia": {
-    "archivo": "scripts/datina.js",
+    "archivo": "scripts/partes/economia.js",
     "contiene": "MED.supermercados === \"mes\" ? [\"supermercados_mensual\"] : [], a => {"
    }
   },
@@ -520,7 +520,7 @@
     "f-vivienda"
    ],
    "evidencia": {
-    "archivo": "scripts/datina.js",
+    "archivo": "scripts/partes/energia.js",
     "contiene": "MED[\"gas-hogares-vista\"] === \"mapa\" ? [\"vivienda_departamentos\"] : [], a => {"
    }
   },

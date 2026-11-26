@@ -296,7 +296,6 @@ function citaFicha(f, url) {
   return `Datina (${hoy.getFullYear()}). ${t}${/[?!.]$/.test(t) ? "" : "."} ${fuente ? `Con datos de ${fuente}. ` : ""}${url}. ` +
     `Consultado el ${hoy.getDate()} de ${MESES[hoy.getMonth()]} de ${hoy.getFullYear()}.`;
 }
-const mesTx = p => `${MESES[+p.slice(5, 7) - 1]} de ${p.slice(0, 4)}`;
 const trimTx = t => `${["primer", "segundo", "tercer", "cuarto"][+t[0] - 1]} trimestre de ${t.slice(2)}`;
 const saldoTx = v => v >= 0 ? `${n0(v)} millones a favor` : `${n0(-v)} millones en contra`;
 const subioBajo = (v, m, f) => `${v >= 0 ? m : f} ${pct(Math.abs(v))}`;
@@ -347,14 +346,6 @@ const REG_ART = {"Gran Buenos Aires": "el Gran Buenos Aires", "Pampeana": "la re
   "Patagonia": "la Patagonia"};
 // "del Noreste", "de la Patagonia", "de Cuyo"
 const delReg = n => REG_ART[n].startsWith("el ") ? "del " + REG_ART[n].slice(3) : "de " + REG_ART[n];
-// la región de la provincia elegida, en una frase, con el valor de una tabla de regiones: "Chaco está en el Noreste: 37,0%."
-const enSuRegion = (filas, k, f) => {
-  const regs = REG_IPC[prov]; if (!regs) return "";
-  const v = r => filas.find(x => x.codigo === r);
-  if (regs.length === 2) return ` La provincia de Buenos Aires está en dos regiones: los 24 partidos, en el Gran Buenos Aires, con ${f(v("gba")[k])}, y el resto, ` +
-    `en la región Pampeana, con ${f(v("pampeana")[k])}.`;
-  return ` ${NOMBRES[prov]} está en ${REG_ART[v(regs[0]).region]}: ${f(v(regs[0])[k])}.`;
-};
 const inicialMin = t => t.charAt(0).toLowerCase() + t.slice(1);
 // como cambioPct, para un sujeto en plural: "subieron 4,0%", "bajaron 1,3%" o "no cambiaron"
 const cambioPl = v => Math.round(Math.abs(v) * 10) === 0 ? "no cambiaron" : `${v < 0 ? "bajaron" : "subieron"} ${pct(Math.abs(v))}`;
@@ -365,15 +356,6 @@ const MG = R.migraciones, MGC = MG.censo, MGD = MG.dnm, MGO = MG.onu, MGH = MG.h
 const depsTop = top => top.every(d => d[1] === top[0][1])
   ? `${lista(top.map(d => `${d[0]} (${pct(d[2])})`))}, ${top.length === 3 ? "las tres" : "todos"} de ${top[0][1]}`
   : lista(top.map(d => `${d[0]} (${d[1]}, ${pct(d[2])})`));
-// en los mapas de Migraciones, con una provincia elegida: de dónde a dónde va el valor entre sus departamentos de 10.000 habitantes o más
-// (si tiene menos de dos, entre todos)
-const rangoDep = (filas, k, que) => {
-  const enP = filas.filter(r => r.codigo_indec === prov), grandes = enP.filter(r => r.poblacion_vp >= MGP.min_pob), base = grandes.length > 1 ? grandes : enP;
-  if (base.length < 2) return "";
-  const hi = base.reduce((p, q) => q[k] > p[k] ? q : p), lo = base.reduce((p, q) => q[k] < p[k] ? q : p);
-  return `En ${NOMBRES[prov]}, la parte de la población ${que} va de ${pct(lo[k])} en ${lo.departamento} a ${pct(hi[k])} en ${hi.departamento}` +
-    (base === grandes && grandes.length < enP.length ? `, entre los departamentos de ${n0(MGP.min_pob)} habitantes o más.` : ".");
-};
 // Gobierno (etapa 25): las cuentas de la Nación, la recaudación, la deuda, el empleo público y los impuestos de las provincias
 // la desocupación de los aglomerados de la EPH (plan de mejora, etapa 4)
 const DSO = R.desocupacion, PZA = R.pobreza_aglomerados, INF = R.informalidad;
@@ -412,19 +394,7 @@ const cambioPct = v => Math.round(Math.abs(v) * 10) === 0 ? "no cambió" : `${v 
 // en cuántas de las 24 jurisdicciones pasó algo: "en 5 de las 24", "en las 24" o "en ninguna"
 // millones de pesos en los gráficos, como en el resto del sitio: "4,09 M" en las barras y "2 M" en los ejes
 const millonesM = v => n2(v / 1e6) + " M", ejeM = v => v === 0 ? "0" : n1(v / 1e6) + " M";
-// nombres cortos de los tipos de delito, para el gráfico en el celular
-const CORTO_DEL = {"Otros delitos contra la propiedad": "Otros contra la propiedad", "Lesiones culposas en siniestros viales": "Lesiones en tránsito",
-  "Infracciones a la ley de estupefacientes": "Estupefacientes", "Delitos de otras leyes especiales": "Otras leyes especiales",
-  "Delitos contra la administración pública": "Administración pública", "Otros delitos contra las personas": "Otros contra las personas",
-  "Otros delitos contra la integridad sexual": "Otros delitos sexuales", "Abusos sexuales con acceso carnal": "Abusos con acceso carnal",
-  "Delitos contra la seguridad pública": "Seguridad pública", "Otros delitos contra la libertad": "Otros contra la libertad",
-  "Homicidios dolosos": "Homicidios dolosos", "Lesiones culposas por otros hechos": "Otras lesiones culposas",
-  "Tentativas de homicidio doloso": "Tentativas de homicidio", "Muertes en siniestros viales": "Muertes en tránsito"};
 const deLas24 = n => n === 24 ? "en las 24 jurisdicciones" : n === 0 ? "en ninguna de las 24 jurisdicciones" : `en ${n} de las 24 jurisdicciones`;
-// centrales eléctricas: un color por tecnología, el mismo en el mapa y en la potencia del país
-const TEC_CEN = [{k: "termica", lab: "Térmica", c: "#8C9AAB"}, {k: "hidraulica", lab: "Hidroeléctrica", c: "#2C74B5"}, {k: "nuclear", lab: "Nuclear", c: "#85340A"},
-  {k: "eolica", lab: "Eólica", c: "#74ACDF"}, {k: "solar", lab: "Solar", c: "#F6B40E"}, {k: "biogas", lab: "Biomasa y biogás", c: "#5E9E6E"}];
-const COL_CEN = Object.fromEntries(TEC_CEN.map(t => [t.lab, t.c]));
 // nombres de áreas de concesión: la fuente los escribe en mayúsculas y sin tildes. Desde el 27 de octubre de 2026 (R10 del plan de mejora)
 // también se arreglan la provincia pegada con guion bajo ("EL PORTON_MENDOZA"), los números romanos ("Ayala Iii"), las siglas y los códigos
 // ("Cnq 7/a", "Ct Neuquen") y las tildes de palabras comunes ("Rio", "Cajon"). Los nombres propios que no están en la lista quedan como vienen
@@ -445,8 +415,6 @@ const COL_POZOS = ["#B9D3EC", "#7FB0DD", "#3F86C6", "#1F5E97", "#0B2F52"];
 const masPct = v => (v > 0 ? "+" : "") + pct(v);
 const creceCae = (v, sube = "creció", baja = "cayó") => `${v < 0 ? baja : sube} ${pct(Math.abs(v))}`;
 const TRIM_N = ["primer", "segundo", "tercer", "cuarto"];
-// en el celular, los nombres largos de los insumos van abreviados (el nombre completo está en la tabla)
-const CORTO_INS = {"Mosaicos graníticos y calcáreos": "Mosaicos", "Pisos y revestimientos cerámicos": "Pisos cerámicos", "Resto (grifería, tubos y vidrio)": "Grifería, tubos, vidrio"};
 const NOMBRE_INS = n => n.startsWith("Resto") ? "el grupo de grifería, tubos de acero sin costura y vidrio plano" : n.charAt(0).toLowerCase() + n.slice(1);
 const CUENCA_N = {neuquina: "la Neuquina", gsj: "la del Golfo San Jorge", austral: "la Austral", noroeste: "la del Noroeste", cuyana: "la Cuyana"};
 const cuencasTxt = c => lista(Object.entries(c).sort((a, b) => b[1] - a[1]).map(([k, v]) => `${CUENCA_N[k]} (${pct(v)})`));
@@ -472,11 +440,6 @@ const VIV_IND = {
     t: () => `El día del Censo 2022, el ${pct(VV.pct_uso_temporal)} de las viviendas particulares se usaba para vacaciones, fines de semana o como segunda residencia, sin residentes habituales. ` +
       `La proporción más alta era la de ${CN.viv_top.pct_uso_temporal[0]} (${pct(CN.viv_top.pct_uso_temporal[1])}) y la más baja, la de ${CN.viv_low.pct_uso_temporal[0]} (${pct(CN.viv_low.pct_uso_temporal[1])}).`},
 };
-const NOTA_VIV = k => `Datos del Censo 2022 sumados desde los radios censales. Un hogar son las personas que comparten la vivienda y los gastos de comida. ` +
-  (k === "pct_materiales_4" ? `La calidad de los materiales es una clasificación del INDEC según el material de los pisos y los techos y la presencia de cielorraso: la calidad IV es la de materiales de baja calidad tanto en el piso como en el techo. Se calcula sobre los hogares con dato. ` : "") +
-  `El día del censo, el ${pct(VV.pct_sin_personas)} de las viviendas particulares no tenía personas presentes, y el INDEC registró el motivo: uso temporal, oficina o comercio, alquiler o venta, construcción, residentes que no estaban ese día u otra situación. ` +
-  `Por eso el selector muestra motivos por separado y no un total de viviendas vacías: una parte de las viviendas sin personas presentes tiene residentes habituales. ` +
-  `En el mapa, el color divide a los departamentos en cinco grupos del mismo tamaño. Si elegís una provincia en Tu provincia, el mapa se acerca a ella.`;
 // las medidas del bloque de relieve de f-cumbres (el dibujo está con los demás, en DIB.cumbres): van acá porque la nota las usa
 const CU = {PASO: 100, INDICE: 500, BASE: 3000, R_MAX: 4000, EXAG: 1.5, FI: 36 * Math.PI / 180, GIRO: -0.45, PIE: 250};
 
@@ -521,12 +484,6 @@ const LEAD = {
       (t.nc >= 99.95 ? ", todo de formaciones no convencionales" : t.nc >= 95 ? ", casi todo de formaciones no convencionales" : t.nc > 0 ? `, el ${pct(t.nc)} de formaciones no convencionales` : ", todo de formaciones convencionales") +
       `. ${t.antes > 0 ? `En ${PG.areas_anio - 10} producía ${cant(t.antes)}.` : `En ${PG.areas_anio - 10} no producía.`}`;
   },
-  pozos: () => {
-    const p = T.pozos_provincias.find(r => r.territorio === PG.pozos_top) || {};
-    return `En ${PG.pozos_mes} produjeron petróleo o gas ${n0(PG.pozos)} pozos. Los ${n0(PG.pozos_shale)} de shale, el ${pct(PG.pct_pozos_shale)} del total, dieron el ${pct(PG.pct_pet_shale_pozos)} del petróleo. ` +
-      `En promedio, un pozo de shale produjo ${n0(PG.bpd_shale)} barriles de petróleo por día y uno convencional, ${n1(PG.bpd_conv)}. ` +
-      `${PG.pozos_top} es la provincia con más pozos en producción: ${n0(PG.pozos_top_n)}, ${n0(p.convencional)} de ellos convencionales.`;
-  },
   "empresas-hidro": v => {
     const e = [...T.hidrocarburos_empresas].filter(r => r.nombre !== "Otras empresas").sort((a, b) => b.pct_gas - a.pct_gas);
     return v === "pct_gas"
@@ -569,24 +526,6 @@ const LEAD = {
         (m.crudo_kbd.anio === PG.anio_ult ? ` La Secretaría de Energía, que usa el resto de la página, registra ${n0(PG.kbd_ult)} mil: la EIA estima a todos los países con un mismo criterio.` : "") +
         (q ? ` Si Neuquén fuera un país, con ${n0(q.kbd)} mil barriles por día estaría en el puesto ${q.puesto}, entre ${q.arriba} y ${q.abajo}.` : "");
   },
-  // fracturas y pozos terminados (etapa 19): años completos, el último puede subir porque las empresas informan con demora
-  fracturas: v => v === "rama"
-    // la vista empieza por qué es la rama y después dice cuánto creció
-    ? `La rama horizontal es el tramo del pozo que avanza en horizontal dentro de la formación. Entre ${PG.dv_ini} y ${PG.fr_ult}, la de los pozos de Vaca Muerta ` +
-      `se hizo ${n1(PG.dv_rama_ult / PG.dv_rama_ini)} veces más larga: de ${n0(PG.dv_rama_ini)} a ${n0(PG.dv_rama_ult)} metros en promedio.`
-    : v === "etapas_pozo"
-    ? `Cada pozo de Vaca Muerta fracturado en ${PG.fr_ult} llevó en promedio ${n1(PG.dv_etapas_ult)} etapas de fractura y ${n0(PG.dv_arena_ult)} toneladas de arena. ` +
-      `En ${PG.dv_ini} eran ${n1(PG.dv_etapas_ini)} etapas y ${n0(PG.dv_arena_ini)} toneladas.`
-    // la cifra destacada ya dice las etapas del último año y la parte de Vaca Muerta (E11): el texto empieza por cuánto cambiaron
-    : `Las etapas de fractura de ${PG.fr_ult} fueron ${PG.fr_record ? "el máximo de la serie: " : ""}${PG.fr_var >= 0 ? pct(PG.fr_var) + " más" : pct(-PG.fr_var) + " menos"} ` +
-      `que en ${PG.fr_ult - 1} y ${PG.fr_veces} veces las de ${PG.fr_ini}. Cada etapa es un tramo de la rama horizontal del pozo que se fractura por separado. En total se bombearon ${n1(PG.fr_arena_mt)} millones de toneladas de arena.`,
-  "pozos-terminados": v => v === "prov"
-    ? `Entre ${PG.pt_v_desde} y ${PG.pt_mes} se terminaron ${n0(PG.pt_12m)} pozos de petróleo y gas, ` +
-      `${PG.pt_12m >= PG.pt_12m_ant ? n0(PG.pt_12m - PG.pt_12m_ant) + " más" : n0(PG.pt_12m_ant - PG.pt_12m) + " menos"} que en los doce meses anteriores. ` +
-      `${PG.pt_top} concentró el ${pct(PG.pt_top_pct)}, con ${n0(PG.pt_top_n)} pozos.`
-    // la cifra destacada ya dice los pozos del último año y el máximo: el texto empieza por los tipos de pozo
-    : `De los pozos de petróleo y gas terminados en ${PG.pt_anio}, ${n0(PG.pt_explot)} fueron de explotación, ${n0(PG.pt_explor)} de exploración o de avanzada y el resto, de servicio.` +
-      (PG.pt_total < PG.pt_max ? "" : ` En ${PG.pt_anio} se terminaron más pozos que en cualquier otro año de la serie.`),
   // productividad de los pozos de Vaca Muerta por año de inicio (etapa 19): años completos
   productividad: v => v === "metro"
     ? `Por cada 1.000 metros de rama horizontal, los pozos que empezaron a producir en ${PG.cos_ult} sacaron en su primer año ${n0(PG.bpm_ult)} barriles de petróleo. ` +
@@ -600,11 +539,6 @@ const LEAD = {
       (PG.cos_max !== PG.cos_ult ? ` Los que más petróleo sacaron en sus primeros doce meses fueron los de ${PG.cos_max}, con ${n0(PG.cos_kbbl_max)} mil barriles en promedio cada uno.`
         : ` Son los que más petróleo sacaron en sus primeros doce meses desde ${PG.cos_ini}.`) +
       ` La serie llega hasta ${PG.cos_ult} porque no todos los pozos que empezaron después cumplieron todavía doce meses de producción.`,
-  // la cifra destacada ya dice los pozos en producción y la parte de Neuquén: el texto empieza por todos los que produjeron alguna vez
-  "mapa-pozos": v => `Desde ${PG.map_ini}, ${n0(PG.map_n)} pozos no convencionales produjeron petróleo o gas. De los que seguían produciendo en ${PG.map_mes}, ` +
-    `${n0(PG.map_shale)} eran de shale y ${n0(PG.map_tight)} de tight. Las áreas con más pozos en producción son ` +
-    `${lista(PG.map_top_areas.map(([a, n]) => `${tituloArea(a)} (${n0(n)})`))}.` +
-    (v === "pais" && PG.map_otras.length ? ` Fuera de la cuenca Neuquina hay pozos no convencionales en producción en ${lista(PG.map_otras.map(([p, n]) => `${p} (${n0(n)})`))}.` : ""),
   // consumo eléctrico de los hogares por provincia (etapa 21, CAMMESA): la Ciudad y la provincia de Buenos Aires van juntas
   "electricidad-provincias": v => {
     if (v === "mes") return `En promedio entre ${e.el_est_desde} y ${e.el_ult}, el mes en que más electricidad consumieron los hogares del país fue ${e.el_mes_max}, con ${n0(e.el_mes_max_kwh)} kWh por habitante, ` +
@@ -1269,11 +1203,6 @@ const LEAD = {
       `El que más creció fue ${NOMBRE_INS([...T.isac_insumos].sort((a, b) => b.var_ytd - a.var_ytd)[0].territorio)} (${masPct(d3.max(T.isac_insumos, r => r.var_ytd))}) y el que más cayó, ${NOMBRE_INS([...T.isac_insumos].sort((a, b) => a.var_ytd - b.var_ytd)[0].territorio)} (${masPct(d3.min(T.isac_insumos, r => r.var_ytd))}).`
     // la cifra destacada ya dice cuántos insumos subieron en doce meses: el texto empieza por los extremos
     : `En los doce meses hasta ${CN.ins_mes}, frente a los doce anteriores, el insumo que más creció fue ${NOMBRE_INS(CN.ins_top)} (${masPct(CN.ins_top_v)}) y el que más cayó, ${NOMBRE_INS(CN.ins_low)} (${masPct(CN.ins_low_v)}). El consumo aparente de cemento portland ${creceCae(CN.cemento_12m)}.`,
-  // la cifra destacada ya dice los puestos: el texto empieza por cuánto pesan
-  "empleo-construccion": v => `Los puestos asalariados registrados en la construcción privada eran el ${pct(CN.emp_pct)} del empleo privado registrado y ${n1(CN.emp_cada_1000)} cada 1.000 habitantes en el ${CN.emp_trim}. ` +
-    `Frente al ${CN.emp_trim_ant}, los puestos ${creceCae(CN.emp_var, "crecieron", "cayeron")}` +
-    (v === "var_construccion" ? ` y ${CN.emp_suben} de las 24 jurisdicciones tuvieron más que un año antes.` : v === "serie" ? `. El máximo de la serie fue de ${n0(CN.emp_max)} puestos, en el ${CN.emp_max_trim}.` :
-      `. ${CN.emp_top} tenía ${n1(CN.emp_top_v)} cada 1.000 habitantes${conVeces(CN.emp_top_v, CN.emp_cada_1000)} y ${CN.emp_low}, ${n1(CN.emp_low_v)}${conVeces(CN.emp_low_v, CN.emp_cada_1000)}.`),
 };
 const RO = R.rotacion, trim = t => `${["primer", "segundo", "tercer", "cuarto"][t[1] - 1]} trimestre de ${t[0]}`;
 // casos distorsionados por el lugar de registro o por un error de la fuente (datos/manual/distorsiones.json): el motivo va en
@@ -1294,146 +1223,44 @@ const TX = {
   // la cifra destacada ya dice la superficie del último mes y su variación: el texto empieza por lo que va del año
   permisos: `Entre enero y ${MESES[CN.per_ytd.mes - 1]} de ${CN.per_ytd.anio}, la superficie autorizada ${creceCae(CN.per_ytd.var)} contra los mismos meses de ${CN.per_ytd.anio - 1}, ` +
     `y en los últimos doce meses, con ${n1(CN.per_12m)} millones de metros cuadrados, ${creceCae(CN.per_12m_var)} contra los doce anteriores.`,
-  "permisos-nota": `Superficie cubierta que registran los permisos de edificación de obras privadas, nuevas y ampliaciones, en una nómina de ${CN.per_municipios} municipios que elige el INDEC, en miles de metros cuadrados. ` +
-    `No es el total del país y no se publica por provincia. El INDEC armó la serie desde ${CN.per_desde} con la nómina actual: las de nóminas anteriores son otras muestras y no se pueden unir con ella. ` +
-    `Los últimos meses son provisorios. El promedio de doce meses suaviza los saltos de un mes a otro.`,
   // la cifra destacada ya dice lo prestado en el último mes: el texto empieza por cómo se compara con un año antes
   hipotecas: (CN.hip_var != null ? `Descontada la inflación, los créditos hipotecarios UVA de ${CN.hip_mes} fueron ${pct(Math.abs(CN.hip_var))} ` +
     `${CN.hip_var < 0 ? "menos" : "más"} que los del mismo mes del año anterior. ` : "") +
     `La tasa promedio fue de ${n1(CN.hip_tasa)}% anual más la actualización de la UVA. El mes con más créditos fue ${CN.hip_max_mes}, con ${n0(CN.hip_max)} mil millones en pesos de ${CN.hip_mes}. ` +
     `En todo ${CN.hip_anio} sumaron ${n0(CN.hip_anual)} mil millones` + (CN.hip_anual_max_anio !== CN.hip_anio ? `, contra ${n0(CN.hip_anual_max)} mil millones en ${CN.hip_anual_max_anio}, el año con más créditos,` : `, el año con más créditos,`) +
     ` y ${n0(CN.hip_anual_min)} mil millones en ${CN.hip_anual_min_anio}, el año con menos.`,
-  "hipotecas-nota": `Préstamos hipotecarios en unidades de valor adquisitivo (UVA) que los bancos acordaron cada mes con personas y empresas, según el Banco Central, en miles de millones de pesos de ${CN.hip_mes}, ` +
-    `llevados con el índice de precios al consumidor del INDEC, que empieza en diciembre de 2016. La tasa es el promedio de las del mes, ponderado por el monto de cada préstamo. No incluye los créditos hipotecarios en pesos sin UVA ni los que se dan en dólares. ` +
-    `El Banco Central no publica los créditos hipotecarios por provincia: su estadística de préstamos por localidad no los separa del resto y asigna cada préstamo a la sucursal que lo otorga.`,
   "obra-publica": LEAD["obra-publica"]("prov"),
-  "obra-publica-nota": `Crédito devengado de la Administración Pública Nacional, según Presupuesto Abierto, en pesos de ${CN.op_ult} con el deflactor del producto interno bruto. ` +
-    `Las obras propias son las construcciones que paga la Nación, como rutas, diques o edificios, incluidas las de participación público-privada. Las transferencias de capital son los fondos que la Nación da a provincias y municipios para sus propias obras y equipos, ` +
-    `y también forman parte de las transferencias "otras no automáticas" de Instituciones políticas. Cada gasto se asigna a la provincia donde está la obra: las que abarcan varias provincias o todo el país quedan sin provincia y se cuentan solo en el total del país. ` +
-    `Por habitante, con la población de cada año. No incluye lo que la Nación transfiere para obras a empresas del Estado y fondos fiduciarios, que no figuran con su provincia.`,
-  "isac-nota": `El ISAC del INDEC sigue la actividad de la construcción con el consumo aparente de un conjunto de insumos, como cemento, hierro, ladrillos, asfalto y pinturas: lo que se despacha al mercado interno de la producción nacional más lo que se importa. ` +
-    `Es un índice con base 2004 = 100. La serie sin estacionalidad saca los movimientos que se repiten todos los años en los mismos meses, como los de las vacaciones, y sirve para comparar un mes con el anterior. Como un solo mes puede moverse mucho, el texto suma la comparación de los tres últimos meses con los tres anteriores, la que usa la oficina de estadística del Reino Unido para la construcción. ` +
-    `Desde ${CN.isac_ini}, el promedio anual más alto fue el de ${CN.isac_anual_max} y el más bajo, el de ${CN.isac_anual_min}. En ${CN.isac_anio_ult} el promedio fue ${n1(CN.isac_anual_ult)}, contra ${n1(CN.isac_anual_ant)} el año anterior.`,
   insumos: LEAD.insumos("var_12m"),
-  "insumos-nota": `Variación del consumo aparente de cada insumo (lo despachado al mercado interno de la producción nacional más lo importado), medida con su índice del ISAC (base 2004 = 100): los doce meses hasta ${CN.ins_mes} contra los doce anteriores, o lo que va del año contra los mismos meses del año anterior. ` +
-    `El INDEC publica juntos la grifería, los tubos de acero sin costura y el vidrio plano, porque por el secreto estadístico no puede difundir sus variaciones por separado.`,
-  "empleo-construccion": LEAD["empleo-construccion"]("construccion_cada_1000"),
-  fracturas: LEAD.fracturas("etapas"),
-  "fracturas-nota": `Fracturas que las empresas informan a la Secretaría de Energía (Adjunto IV), contadas por el año en que empezó cada una, en formaciones no convencionales. ` +
-    `Las empresas informan con demora, así que las de ${PG.fr_ult} todavía pueden sumar más. La rama horizontal y las etapas por pozo son promedios de los pozos de Vaca Muerta ` +
-    `según el año de su primera fractura, y la rama cuenta solo los pozos que la informan. La fuente aclara que son datos preliminares, sujetos a revisión.`,
-  "pozos-terminados": LEAD["pozos-terminados"]("anio"),
   "gas-consumo": LEAD["gas-consumo"]("prov"),
-  "gas-consumo-nota": `Gas que las distribuidoras entregaron en el año a sus usuarios residenciales (domiciliarios), dividido por el promedio de esos usuarios, según los datos operativos del ENARGAS. ` +
-    `El ENARGAS cuenta clientes y no hogares: un edificio con caldera central para calefacción o agua caliente es un solo usuario, y los usuarios de las subdistribuidoras, que llevan el gas desde la red de una distribuidora hasta un grupo de usuarios, no figuran. ` +
-    `Es el gas entregado en cada mes, que no coincide exactamente con el facturado. El consumo depende del clima de cada lugar y de lo frío que sea cada invierno, y también de la tarifa: ` +
-    `la Patagonia, el departamento de Malargüe y la Puna tienen el régimen de zona fría (ver Para entender los datos). ` +
-    (e.gas_chicas.length ? `${lista(e.gas_chicas.map(([t, u]) => `${t} (${n0(u)} usuarios)`))} ${e.gas_chicas.length > 1 ? "tienen" : "tiene"} menos de ${n0(e.gas_min_usuarios)} usuarios residenciales ` +
-      `y no se ${e.gas_chicas.length > 1 ? "comparan" : "compara"}. ` : "") +
-    (e.gas_sin.length ? `${lista(e.gas_sin)} no ${e.gas_sin.length > 1 ? "figuran" : "figura"} en los datos de las distribuidoras. ` : "") +
-    `Para tener una referencia, en Gran Bretaña un medidor residencial consumió en promedio ${n0(e.gas_ru.kwh)} kilovatios hora de gas en ${e.gas_ru.anio}, con la corrección por clima de su fuente, ` +
-    `el Departamento de Seguridad Energética y Cero Neto del Reino Unido: unos ${n0(e.gas_ru.m3)} metros cúbicos de gas de 9.300 kilocalorías, en una conversión aproximada.` +
-    (e.gas_ru.ar ? ` Ese año, un usuario residencial de la Argentina consumió ${n0(e.gas_ru.ar)} metros cúbicos.` : ""),
   centrales: LEAD.centrales("mapa"),
-  "centrales-nota": `Centrales del listado de la Secretaría de Energía, con datos de CAMMESA, actualizado en ${e.cen_fecha}. El tamaño de cada círculo es su potencia, y las ` +
-    `${n0(e.cen_sin_pot)} centrales que no la informan (${n0(e.cen_mem_sin_pot)} de ellas conectadas al mercado eléctrico mayorista) van como círculos vacíos: por eso la potencia no se suma ` +
-    `por provincia. La potencia del país es la que publica CAMMESA para cada año, por tecnología: la térmica reúne ciclos combinados, turbinas a gas, turbinas de vapor y motores diésel, ` +
-    `y la hidroeléctrica incluye las centrales de menos de 50 megavatios.` +
-    (e.cen_sin_atucha1 ? ` Las nucleares del listado son ${lista(e.cen_nuc)}, con ${n0(e.cen_nuc_mw)} megavatios. CAMMESA cuenta ${n0(e.pot_nuc_mw)}: suma Atucha I, de 362 megavatios, que el listado no tiene.` : ""),
-  subsidios: LEAD.subsidios("pbi"), "subsidios-nota": `Gasto corriente en subsidios económicos a la energía del Sector Público Nacional no Financiero, en base caja, ` +
-    `según el Informe Mensual de Ingresos y Gastos que la Secretaría de Hacienda publica desde ${e.sub_ini}. Es la serie oficial tal como la publica Hacienda: el sitio no arma su propia definición de subsidio. ` +
-    `El PBI es el del INDEC a precios corrientes. Los pesos de ${e.sub_ult} usan el deflactor del PBI, y la comparación de lo que va del año, el índice de precios al consumidor del INDEC. ` +
-    `La Oficina de Presupuesto del Congreso sigue los subsidios con otro criterio (cuenta los gastos devengados de la Administración Nacional), y sus cifras pueden diferir.`,
-  "mapa-pozos": LEAD["mapa-pozos"]("cuenca"),
-  "mapa-pozos-nota": `Cada punto es un pozo no convencional que produjo petróleo o gas alguna vez, según la producción por pozo del Capítulo IV, en la ubicación que informa ` +
-    `la Secretaría de Energía (en unos pocos pozos la latitud y la longitud vienen cambiadas y se corrigen). El color dice el año en que empezó a producir, y los que no produjeron en ` +
-    `${PG.map_mes} van más claros. Las áreas son las concesiones de explotación, con una geometría simplificada: al pasar el mouse o tocar un área se ve lo que produjo en ${PG.areas_anio}. ` +
-    `La vista de la cuenca Neuquina abarca Neuquén, Río Negro, Mendoza y La Pampa. ` +
-    `Las cantidades de pozos del texto salen del mismo resumen de la Secretaría de Energía que usa la ficha de los pozos en producción, así que las dos dicen lo mismo. ` +
-    `El listado con la ubicación de cada pozo se baja aparte y puede tener unos pocos pozos más o menos.`,
+  subsidios: LEAD.subsidios("pbi"),
   productividad: LEAD.productividad("pozo"),
-  "productividad-nota": `Pozos de shale de Vaca Muerta que la producción por pozo del Capítulo IV clasifica como petrolíferos, según el año del primer mes con producción. ` +
-    `El primer año son los doce meses desde ese inicio, y los meses sin declaración cuentan como cero. Van solo los años de inicio en los que todos los pozos ya tienen doce meses de historia ` +
-    `(los datos llegan a ${MESES[+PG.cos_ult_nc.slice(5, 7) - 1]} de ${PG.cos_ult_nc.slice(0, 4)}). La rama horizontal sale de los datos de fractura: por cada 1.000 metros cuentan los pozos que la informan, desde ${PG.rama_desde}, ` +
-    `el primer año con al menos 50. Las curvas siguen a cada año de inicio mientras al menos el 80% de sus pozos tiene esos meses de historia.`,
-  "pozos-terminados-nota": `Pozos terminados por tipo, según la Secretaría de Energía. Por provincia, los doce meses más recientes, entre ${PG.pt_v_desde} y ${PG.pt_mes}.` +
-    (T.pozos_terminados_provincias.some(r => r.codigo_indec === "mar") ? ` "Mar argentino" son los pozos del mar a más de doce millas de la costa, de jurisdicción nacional.` : ""),
-  "empleo-construccion-nota": `Asalariados registrados del sector privado en la construcción (rama 45 de la clasificación de actividades), según el SIPA, en promedio del trimestre. ` +
-    `El SIPA asigna cada puesto a la provincia donde declara el empleador, no donde está la obra: una empresa con sede en CABA que construye en otra provincia suma en CABA. ` +
-    `No incluye a quienes trabajan por su cuenta ni el empleo no registrado: el Censo 2022 contó ${n0(CN.viv_abs.constructores)} personas ocupadas en la construcción, con o sin registro (en la otra pestaña). ` +
-    `La población es la proyección del INDEC para ${R.anio_pob_ficha.empleo_construccion_provincias}, el año del dato. La provincia de Buenos Aires suma los partidos del Gran Buenos Aires y el resto de la provincia, que el OEDE publica por separado.`,
-  // la cifra destacada ya dice la parte de los ocupados: el texto empieza por cuántas personas son
-  trabajadores: `En el Censo 2022, ${n0(CN.viv_abs.constructores)} personas dijeron trabajar en la construcción. El porcentaje se calcula sobre las personas ocupadas que informaron la rama de actividad. ` +
-    `La proporción va del ${pct(CN.viv_top.pct_ocupados_construccion[1])} en ${CN.viv_top.pct_ocupados_construccion[0]} al ${pct(CN.viv_low.pct_ocupados_construccion[1])} en ${CN.viv_low.pct_ocupados_construccion[0]}. El censo cuenta a cada persona donde vive y el empleo registrado de la otra pestaña, donde la declara la empresa: por eso las dos vistas ordenan distinto a las provincias.`,
-  "trabajadores-nota": `Personas ocupadas según la actividad de la empresa, el negocio o la institución donde trabajan, contadas en el lugar donde viven y no donde está la obra. ` +
-    `Incluye a asalariados con y sin registro, a quienes trabajan por su cuenta y a patrones. El porcentaje se calcula sobre las personas ocupadas con la rama informada: el ${pct(VV.pct_sin_rama)} no respondió o su respuesta no alcanzó para clasificarla. ` +
-    `En el mapa, el color divide a los departamentos en cinco grupos del mismo tamaño. Si elegís una provincia en Tu provincia, el mapa se acerca a ella.`,
   costo: `En los doce meses hasta ${CN.costo_mes}, el costo de construir en el Gran Buenos Aires subió ${pct(CN.icc_12)} y los precios al consumidor, ${pct(CN.ipc_12)}. Los materiales subieron ${pct(CN.mat_12)} y la mano de obra, ${pct(CN.mo_12)}.`,
-  "costo-nota": `Índice del Costo de la Construcción del INDEC para el Gran Buenos Aires: lo que cuesta construir viviendas modelo, con materiales, mano de obra y gastos generales. ` +
-    `Para compararlo con la inflación, cada índice se divide por el Índice de Precios al Consumidor nacional y se lleva a 100 en ${CN.costo_desde} (la línea punteada): arriba de 100, construir se encareció más que el promedio de los precios, y abajo, menos. ` +
-    `El INDEC publica el índice como variación de cada mes desde noviembre de 2015, y el sitio encadena esas variaciones (el resultado coincide con el índice que el INDEC publica desde enero de 2022).`,
   vivienda: VIV_IND.pct_alquila.t(),
-  "vivienda-nota": NOTA_VIV("pct_alquila"),
   // ---- petróleo y gas (etapa 18)
-  petroleo: LEAD["petroleo"]("tipo"), "petroleo-nota": `Producción declarada por las empresas en el Capítulo IV de la Resolución SE 319/1993, que la Secretaría de Energía publica en metros cúbicos. ` +
-    `Para pasarla a barriles por día se usan los días de cada mes y el mismo factor que la Secretaría aplica en su serie, ${n2(PG.bbl)} barriles por metro cúbico. ` +
-    `Shale y tight son las dos formas de explotación no convencional que define la Ley 27.007: el shale sale de formaciones de esquisto o pizarra y el tight, de areniscas compactas. ` +
-    `El último mes puede cambiar cuando lleguen declaraciones atrasadas.`,
-  gas: LEAD["gas"]("tipo"), "gas-nota": `Millones de metros cúbicos por día: la producción de cada mes, que la Secretaría de Energía publica en miles de metros cúbicos, dividida por sus días. ` +
-    `El tight gas es el que sale de areniscas compactas y el shale gas, de formaciones de esquisto o pizarra (Ley 27.007). El último mes puede cambiar cuando lleguen declaraciones atrasadas.`,
-  "gas-hogares": LEAD["gas-hogares"](), "gas-hogares-nota": `Combustible que el hogar usa principalmente para cocinar, según el Censo 2022. El gas de red es el que llega por cañería de una distribuidora. El zeppelin es un tanque de gas a granel en el lugar. ` +
-    `En el mapa, cada departamento muestra el porcentaje de hogares que cocina con gas de red, en cinco grupos del mismo tamaño. Si elegís una provincia en Tu provincia, el mapa se acerca a ella.`,
-  "hidro-provincias": LEAD["hidro-provincias"]("pet_kbd"), "hidro-provincias-nota": `Promedio de los doce meses en miles de barriles de petróleo y en millones de metros cúbicos de gas por día. ` +
-    `"Mar argentino" son los yacimientos del mar a más de doce millas de la costa, que son del Estado nacional (la fuente los llama Estado Nacional). Al pasar el mouse o tocar una barra se ven la parte del país, la parte no convencional y la producción de los mismos meses diez años antes, entre ${PG.v10_desde} y ${PG.v10_hasta}.`,
-  "areas-hidro": LEAD["areas-hidro"]("pet"), "areas-hidro-nota": `Promedio de cada año en miles de barriles de petróleo y en millones de metros cúbicos de gas por día, según lo que declaran las empresas para cada área de concesión en el Capítulo IV. ` +
-    `La empresa de cada área es la que declaró la mayor parte de su producción en ${PG.areas_anio}. No convencional es lo que sale de formaciones de shale y tight, y convencional, el resto. ` +
-    `"Mar argentino" son las áreas del mar a más de doce millas de la costa, que son del Estado nacional. ` +
-    (PG.areas_incompletos.length ? `En ${lista(PG.areas_incompletos.map(String))} la fuente tiene algún mes que no llega al 99% del total del país: en esos años, lo que produjo cada área puede quedar algo por debajo. ` : "") +
-    `Elegí un área en la lista para ver lo que produjo cada año desde ${PG.areas_ini}. Si elegiste una provincia en Tu provincia, sus áreas se resaltan entre las 15 que más producen.`,
-  pozos: LEAD["pozos"](), "pozos-nota": `Pozos que declararon producción de petróleo o de gas en el mes. La producción de petróleo por pozo divide el petróleo del mes por los días del mes y por los pozos que produjeron petróleo, así que un pozo que produjo solo algunos días baja el promedio. Un mismo pozo puede producir petróleo y gas. ` +
-    `Con el factor de la Secretaría, un barril equivale a unos ${n0(1000 / PG.bbl)} litros.`,
-  "empresas-hidro": LEAD["empresas-hidro"]("pct_pet"), "empresas-hidro-nota": `Producción declarada por cada empresa en el Capítulo IV, como operadora de sus áreas: en las áreas compartidas, la producción figura a nombre de la empresa que la declara. ` +
-    `Los nombres se muestran sin la forma societaria y la tabla los trae como los publica la fuente. Un mismo grupo puede declarar con más de una razón social. Las demás ${PG.n_empresas - PG.emp_n} empresas que declararon producción sumaron el ${pct(PG.emp_resto_pct)} del petróleo.`,
-  "empleo-hidro": LEAD["empleo-hidro"](), "empleo-hidro-nota": `Asalariados registrados del sector privado en la extracción de petróleo y gas y sus servicios (rama 11 de la clasificación de actividades), según el Sistema Integrado Previsional Argentino (SIPA), en promedio del trimestre. ` +
-    `El SIPA asigna cada puesto a la provincia donde declara el empleador: por eso CABA, donde tienen sede muchas empresas, aparece con empleo petrolero. ` +
-    `Las provincias con pocos puestos no se muestran porque el OEDE no publica esos datos por el secreto estadístico. La serie del país suma las provincias con dato. ` +
-    `Los puestos cada 1.000 habitantes usan la población que proyecta el INDEC para ${R.anio_pob_ficha.empleo_construccion_provincias}, el año del dato.`,
-  regalias: LEAD["regalias"]("pct_regalias"), "regalias-nota": `Las regalías son lo que las empresas pagan a la provincia dueña del recurso por lo que extraen. El porcentaje sale de las cuentas de cada provincia (esquema ahorro-inversión-financiamiento del Ministerio de Economía) e incluye todas las regalías, también las mineras y las hidroeléctricas, sobre los ingresos totales.` +
-    (Object.keys(PG.reg_atrasadas).length ? ` ${lista(Object.entries(PG.reg_atrasadas).map(([p, a]) => `${p} va con ${a}`))}, su último año publicado.` : "") +
-    ` Los dólares por habitante son solo las regalías de petróleo crudo que publica la Secretaría de Energía, divididas por la población que proyecta el INDEC para ${R.anio_pob_ficha.regalias_provincias}, el mismo año. La Secretaría publica las de gas en pesos y no se suman acá. Las del mar argentino, ${n1(PG.reg_usd_mar)} millones de dólares en ${PG.reg_usd_anio}, son del Estado nacional.`,
-  reservas: LEAD["reservas"]("pet"), "reservas-nota": `Reservas comprobadas al 31 de diciembre que las empresas declaran a la Secretaría de Energía según la Resolución SE 324/2006, hasta el final de la vida útil de los yacimientos: lo que se puede extraer con razonable certeza con la técnica y los precios de ese momento. ` +
-    `Desde 2017 la Secretaría separa las convencionales de las no convencionales. Los años de producción dividen las reservas por la producción de ese año: no son un pronóstico, porque las reservas cambian con la exploración, la tecnología y los precios.`,
-  "balanza-energetica": LEAD["balanza-energetica"](), "balanza-energetica-nota": `Exportaciones del rubro combustibles y energía e importaciones de combustibles y lubricantes, según el Intercambio Comercial Argentino del INDEC, en millones de dólares de cada año. ` +
-    `Son dos clasificaciones distintas, una por rubro y otra por uso económico, pero cubren lo mismo en lo principal: petróleo crudo, gas y combustibles.`,
-  "mundo-petroleo": LEAD["mundo-petroleo"]("crudo_kbd"), "mundo-petroleo-nota": `Petróleo crudo con condensado y gas natural seco, según las estadísticas internacionales de la Administración de Información Energética de los Estados Unidos (EIA), que estima a todos los países con un mismo criterio. ` +
-    (PG.mundo.crudo_kbd.anio === PG.anio_ult ? `Para la Argentina estima ${n0(PG.mundo.crudo_kbd.arg)} mil barriles por día en ${PG.anio_ult}, y la serie de la Secretaría de Energía que usa el resto de la página da ${n0(PG.kbd_ult)} mil. ` : "") +
-    `El dato de Neuquén es de la Secretaría de Energía. El gas llega hasta ${PG.mundo.gas_bcm.anio}, el último año que la EIA publica para casi todos los países. Se muestran los países que producen más que la Argentina y algunos de los que siguen.`,
-  "adonse-nota": `Cada punto es una provincia. En el eje vertical, el porcentaje de los nacimientos de ${R.ado_nse.anio} cuya madre tenía menos de 20 años (DEIS, estadísticas vitales). En el horizontal, el indicador elegido del Censo 2022. La línea punteada es solo una guía de la tendencia. ` +
-    `La correlación es la de rangos de Spearman, que va de menos 1 a 1: cerca de 0 no hay relación, cerca de 1 o de menos 1 la relación es fuerte. Con 24 jurisdicciones, valores menores a 0,4 pueden deberse al azar. Una correlación no prueba que una cosa cause la otra: muestra que van juntas.`,
-  "causas-nota": `Porcentaje de las muertes de menores de un año de cada provincia según el grupo de causa (capítulos de la CIE-10), sumando ${R.mi_causas.anios[0]} a ${R.mi_causas.anios[1]} porque en las provincias chicas hay pocas muertes por año. Las provincias están ordenadas por su tasa de mortalidad infantil del período, de mayor a menor. ` +
-    `Según la DEIS, en ${R.mi_causas.reducibles.anio} el ${pct(R.mi_causas.reducibles.neonatal)} de las muertes de menores de 28 días y el ${pct(R.mi_causas.reducibles.posneonatal)} de las de 28 días a 11 meses del país eran reducibles con prevención, diagnóstico o tratamiento oportunos. Ese dato no se publica por provincia y no se puede calcular con los datos abiertos, que traen solo los tres primeros caracteres del código de cada causa. ` +
-    `Las correlaciones comparan la tasa de cada grupo de causas con el porcentaje de población sin obra social, prepaga ni plan estatal de salud del Censo 2022.`,
+  petroleo: LEAD["petroleo"]("tipo"),
+  gas: LEAD["gas"]("tipo"),
+  "gas-hogares": LEAD["gas-hogares"](),
+  "hidro-provincias": LEAD["hidro-provincias"]("pet_kbd"),
+  "areas-hidro": LEAD["areas-hidro"]("pet"),
+  "empresas-hidro": LEAD["empresas-hidro"]("pct_pet"),
+  "empleo-hidro": LEAD["empleo-hidro"](),
+  regalias: LEAD["regalias"]("pct_regalias"),
+  reservas: LEAD["reservas"]("pet"),
+  "balanza-energetica": LEAD["balanza-energetica"](),
+  "mundo-petroleo": LEAD["mundo-petroleo"]("crudo_kbd"),
   // Sector externo (etapa 41). La cifra destacada de cada ficha dice el total o el primero: el texto va a la composición y a los cambios
   "exporta-rubros": `La agroindustria, es decir las manufacturas de origen agropecuario, fue el ${pct(SX.rubros.pct.moa)} de lo exportado en ${SX.rubros.anio}, ` +
     `la industria, el ${pct(SX.rubros.pct.moi)}, los productos primarios, el ${pct(SX.rubros.pct.primarios)}, y la energía, el ${pct(SX.rubros.pct.combustibles)}` +
     (SX.rubros.max_anio !== SX.rubros.anio ? `. El año con más exportaciones de la serie fue ${SX.rubros.max_anio}, con ${n0(SX.rubros.max)} millones de dólares.` : `, en el año con más exportaciones de la serie.`) +
     (SX.rubros.ytd_var != null ? ` Entre enero y ${MESES[SX.rubros.ytd_mes - 1]} de ${SX.rubros.ytd_anio} se exportaron ${n0(SX.rubros.ytd)} millones, un ${pct(Math.abs(SX.rubros.ytd_var))} ${SX.rubros.ytd_var >= 0 ? "más" : "menos"} que en los mismos meses del año anterior.` : ""),
-  "exporta-rubros-nota": `Valores FOB (la mercadería puesta en el puerto o en la frontera, sin flete ni seguro), en dólares de cada año: no descuentan la inflación de los Estados Unidos. ` +
-    `Primarios: granos, semillas, minerales, frutas y pescado sin procesar. Agroindustria: las manufacturas de origen agropecuario, como harinas, aceites, carnes, lácteos y vinos. ` +
-    `Industria: las manufacturas de origen industrial, como vehículos, químicos, metales y oro. Energía: petróleo, gas y combustibles. El año en curso, incompleto, no va en el gráfico.`,
   "complejos": (() => { const C = SX.complejos, el = n => "el " + n.charAt(0).toLowerCase() + n.slice(1);
     return `Los que más exportaron en el ${C.periodo} fueron ${lista(C.top.slice(0, 4).map(x => `${el(x.n)} (${pct(x.pct)})`))}. ` +
       `Entre los sectores y los complejos que vendieron más de 500 millones de dólares, el que más creció frente al mismo período del año anterior fue ${el(C.crece.n)}: ${conSigno(C.crece.var)}.`; })(),
-  "complejos-nota": `Un complejo exportador reúne los productos de una misma cadena, desde la materia prima hasta las manufacturas: el complejo soja suma los porotos, la harina, el aceite y el biodiésel. ` +
-    `Los sectores agrupan varios complejos, y el cuadro de cada barra dice cuánto aportó cada uno. Datos provisorios, en dólares FOB (sin flete ni seguro).`,
-  "destinos-nota": `Exportaciones de bienes según el país de destino. Las zonas que juntan varios países (resto del Mercosur, resto de América Latina sin México, resto del Sudeste Asiático) no incluyen a los que aparecen solos. ` +
-    `Cuando el dato de una provincia permitiría identificar a una empresa, el INDEC lo reserva por secreto estadístico y va como "sin detalle". Datos provisorios. Si elegís una provincia en Tu provincia, el gráfico muestra sus destinos.`,
   "exprov": (() => { const P = SX.provincias, NOM = {primarios: "productos primarios", manufacturas_agro: "manufacturas de origen agropecuario",
       manufacturas_industriales: "manufacturas de origen industrial", combustibles_energia: "combustibles y energía"};
     const orden = Object.entries(P.principal).sort((a, b) => b[1] - a[1]);
     return `Si se clasifica a cada jurisdicción por el rubro que más pesó en sus exportaciones de ${P.anio}, hay ${lista(orden.map(([k, n], i) => `${n} ${i === 0 ? (n === 1 ? "provincia " : "provincias ") : ""}de ${NOM[k]}`))}.`; })(),
-  "exprov-nota": `Origen Provincial de las Exportaciones del INDEC: cada venta se asigna a la provincia donde se produjo el bien o se hizo su última transformación, no a la del puerto por donde salió. ` +
-    `Una parte no tiene provincia (plataforma continental, extranjero o indeterminado), por eso las provincias no suman el total del país. El último año es provisorio.`,
   // segunda parte (etapa 41): la balanza comercial, las importaciones, el balance de pagos, las reservas y las variables del BCRA
   "balanza": (() => { const B = SX.balanza, d = B.deficit_anios;
     return `En ${B.anio}, la Argentina exportó ${n0(B.expo)} millones de dólares en bienes e importó ${n0(B.impo)} millones: el saldo fue de ${saldoTx(B.saldo)}. ` +
@@ -1441,63 +1268,24 @@ const TX = {
       `El saldo más alto de la serie fue el de ${B.saldo_max_anio}, con ${n0(B.saldo_max)} millones.` +
       (B.ytd_anio > B.anio ? ` Entre enero y ${MESES[B.ytd_mes - 1]} de ${B.ytd_anio}, meses que el gráfico todavía no muestra porque el año está incompleto, las exportaciones ${subioBajo(B.ytd_expo_var, "crecieron", "cayeron")} ` +
         `y las importaciones ${subioBajo(B.ytd_impo_var, "crecieron", "cayeron")} frente a los mismos meses del año anterior.` : ""); })(),
-  "balanza-nota": `Exportaciones en valores FOB (la mercadería puesta en el puerto o en la frontera) e importaciones en valores CIF (con el flete y el seguro), en dólares de cada año, ` +
-    `sin descontar la inflación de los Estados Unidos. El saldo es la diferencia entre las dos. Son solo bienes: los servicios, como el turismo, y los intereses y las utilidades ` +
-    `están en la cuenta corriente, más abajo. El año en curso, incompleto, no va en el gráfico.`,
   "importaciones": (() => { const I = SX.importaciones, p = I.pct;
     return `En ${I.anio}, el ${pct(p.intermedios)} de lo importado fueron bienes intermedios, los insumos que se transforman en el país, el ${pct(p.piezas)} piezas y accesorios ` +
       `y el ${pct(p.capital)} bienes de capital, como máquinas y equipos. Los bienes de consumo fueron el ${pct(p.consumo)} y los autos, el ${pct(p.vehiculos)}. ` +
       `Frente al año anterior, las compras de bienes de consumo ${subioBajo(I.consumo_var, "crecieron", "cayeron")} y las de autos ${subioBajo(I.vehiculos_var, "crecieron", "cayeron")}. ` +
       `Las de combustibles tuvieron su máximo en ${I.comb_max_anio}, con ${n0(I.comb_max)} millones de dólares, y en ${I.anio} fueron el ${pct(p.combustibles)} del total.`; })(),
-  "importaciones-nota": `Valores CIF (con el flete y el seguro), en dólares de cada año. Es la clasificación por uso económico del INDEC: los bienes intermedios son insumos como productos químicos, ` +
-    `plásticos, metales o minerales, las piezas y accesorios son partes de máquinas y vehículos, los bienes de capital son máquinas, equipos y vehículos de carga, y los vehículos ` +
-    `de pasajeros son los autos. El año en curso, incompleto, no va en el gráfico.`,
   "origen": (() => { const O = SX.origen, t = O.top, x = t.filter(o => o.var != null);
     const sube = [...x].sort((a, b) => b.var - a.var)[0], baja = [...x].sort((a, b) => a.var - b.var)[0];
     const s = sube && sube.var > 0 ? `${sube.n} (${conSigno(sube.var)})` : "", b = baja && baja.var < 0 ? `${baja.n} (${conSigno(baja.var)})` : "";
     return `Después de ${t[0].n} vinieron ${t[1].n} (${pct(t[1].pct)}) ${yE(t[2].n)} (${pct(t[2].pct)}). ` +
       `En total se importaron ${n0(O.total)} millones de dólares, ${subioBajo(O.var, "un", "un")} ${O.var >= 0 ? "más" : "menos"} que en los mismos meses del año anterior.` +
       (s || b ? ` Entre los cinco primeros orígenes, las compras que más ${s ? "crecieron" : "cayeron"} fueron las de ${s || b}` + (s && b ? ` y las que más cayeron, las de ${b}` : "") + "." : ""); })(),
-  "origen-nota": `Importaciones de bienes según el país de origen, en dólares CIF, desde enero hasta el último mes publicado y comparadas con los mismos meses del año anterior. ` +
-    `Las zonas que juntan varios países (resto de la Unión Europea, resto de América Latina sin México, resto del Sudeste Asiático) no incluyen a los que aparecen solos. ` +
-    `México y Canadá son los socios de los Estados Unidos en el tratado comercial de América del Norte. No van los orígenes que no llegan al 0,05%. Datos provisorios.`,
-  socios: LEAD.socios("saldo"), "socios-nota": `Exportaciones en valores FOB (la mercadería puesta en el puerto o en la frontera) e importaciones en valores CIF (con el flete ` +
-    `y el seguro), en dólares, sumadas en los últimos doce meses publicados. El saldo es la diferencia entre las dos. Son los ${SX.socios.n} países con más ` +
-    `comercio, sumando lo exportado y lo importado: la tabla descargable tiene los ${SX.socios.n_paises}. Desde ${SX.socios_hist.sin_pais_desde} el INDEC publica una parte de las exportaciones ` +
-    `como confidenciales, sin rubro ni país, para que no se pueda deducir lo que vende una empresa: van en "Sin país informado". Un saldo en contra con un país no ` +
-    `es en sí bueno ni malo: se compra a unos y se vende a otros, y lo que cuenta para las cuentas externas es el saldo con todos.`,
-  "socios-hist": LEAD["socios-hist"]("importa"), "socios-hist-nota": `Parte de cada país en el total de cada año, con los valores en dólares del INDEC: FOB las ` +
-    `exportaciones y CIF las importaciones. En cada sentido, los ${SX.socios_hist.importa.length} países que más pesaron en ${SX.socios_hist.anio}, la tabla descargable tiene todos. ` +
-    `Lo que no tiene país informado cuenta en el total: en las exportaciones, desde ${SX.socios_hist.sin_pais_desde}, sobre todo por el secreto estadístico. Por eso la parte de ` +
-    `cada país en esos años puede ser más baja que la real. La serie empieza en ${SX.socios_hist.desde}: en los años anteriores, que el INDEC también publica, ` +
-    `una parte grande del comercio figura sin país y Alemania no aparece. ` +
-    `El año en curso, incompleto, no va en el gráfico.`,
+  socios: LEAD.socios("saldo"),
+  "socios-hist": LEAD["socios-hist"]("importa"),
   "cuenta-corriente": (() => { const C = SX.cuenta_corriente, s = C.superavit_anios;
     return `En ${C.anio}, el comercio de bienes dejó un saldo de ${saldoTx(C.bienes)}, los servicios, de ${saldoTx(C.servicios)}, el ingreso primario (intereses, utilidades y dividendos), de ${saldoTx(C.primario)} ` +
       `y las transferencias, de ${saldoTx(C.secundario)}. El saldo de bienes no coincide con el de la primera ficha porque el balance de pagos los registra y los valúa de otra manera. ` +
       (s.length ? `Desde ${C.desde}, la cuenta corriente tuvo superávit en ${s.length} ${s.length === 1 ? "año" : "años"}: ${lista(s.map(String))}.` : `Desde ${C.desde}, la cuenta corriente no tuvo superávit en ningún año.`) +
       (C.trim ? ` En el ${trimTx(C.trim)}, el último publicado, el saldo fue de ${saldoTx(C.trim_total)}.` : ""); })(),
-  "cuenta-corriente-nota": `Balance de pagos del INDEC, con la metodología del sexto manual del FMI. La cuenta corriente suma el saldo de los bienes (valuados FOB y registrados cuando cambian ` +
-    `de dueño, por eso difiere del intercambio comercial de más arriba), el de los servicios (viajes, fletes, seguros y servicios profesionales e informáticos), el del ingreso primario ` +
-    `(los intereses, las utilidades y los dividendos que se pagan y se cobran con el exterior, y los salarios) y el del ingreso secundario (transferencias, como las remesas). ` +
-    `Cuando la cuenta corriente tiene déficit, la diferencia se cubre con deuda, inversiones del exterior o reservas: esos movimientos van en la cuenta financiera del balance de pagos, que esta ficha no muestra. El gráfico no muestra el ingreso secundario, que es chico, ` +
-    `pero el total lo incluye. El año en curso, incompleto, no va en el gráfico.`,
-  "reservas-bcra": (() => { const V = SX.reservas, f = V.factores, suma = f.reduce((a, x) => a + x.v, 0);
-    const TXF = {compras: "las compras de divisas", organismos: "las operaciones con organismos internacionales", sector_publico: "otras operaciones del sector público",
-      efectivo_minimo: "el efectivo mínimo de los bancos", otras: "otras operaciones"};
-    const mas = [...f].sort((a, b) => b.v - a.v)[0], menos = [...f].sort((a, b) => a.v - b.v)[0], m = v => `${v > 0 ? "+" : ""}${n0(v)} millones`;
-    const partes = [mas.v > 0 ? `lo que más las hizo subir fueron ${TXF[mas.k] || mas.lab.toLowerCase()} (${m(mas.v)})` : "",
-      menos.v < 0 ? `lo que más las hizo bajar, ${TXF[menos.k] || menos.lab.toLowerCase()} (${m(menos.v)})` : ""].filter(Boolean);
-    return `Un año antes, las reservas brutas eran ${n0(V.hace_un_anio)} millones de dólares. El máximo de la serie, con los datos de cada día, fue de ${n0(V.max)} millones, en ${MESES[+V.max_fecha.slice(0, 2) - 1]} de ${V.max_fecha.slice(3)}. ` +
-      `En lo que va de ${V.anio} ${suma >= 0 ? "subieron" : "bajaron"} ${n0(Math.abs(suma))} millones` + (partes.length ? `: ${partes.join(" y ")}.` : "."); })(),
-  // expectativas de inflación y confianza del consumidor (etapa 42): los textos los arma el dibujo
-  "expectativas-nota": R.expectativas_inflacion ? `Encuesta mensual de la Universidad Torcuato Di Tella a personas de todo el país: cada una dice cuánta inflación espera ` +
-    `para los doce meses siguientes. La mediana es el valor que deja la mitad de las respuestas por debajo y la otra mitad por encima, y suele ir en números redondos. ` +
-    `El promedio lo mueven más las respuestas extremas. La inflación que hubo en los doce meses siguientes sale del índice de precios al consumidor nacional del INDEC, que ` +
-    `empieza en diciembre de 2016: antes no hay con qué comparar en el sitio, y en los meses más recientes todavía no pasaron los doce meses. Lo que esperan los analistas, según el Relevamiento de Expectativas de Mercado del Banco Central, está en la última ficha de la página.` : "",
-  "confianza-consumidor-nota": R.confianza_consumidor ? `Encuesta mensual de la Universidad Torcuato Di Tella. El índice va de 0 a 100 y resume tres partes: la situación ` +
-    `económica personal y de la familia, la situación económica del país y si es un buen momento para comprar bienes durables, como electrodomésticos, e inmuebles. Por región, la encuesta separa CABA, los partidos del Gran Buenos Aires (GBA en el gráfico) y el interior del ` +
-    `país. Como toda encuesta, tiene margen de error: los cambios chicos de un mes al otro pueden no ser significativos.` : "",
   // la justicia (24 de octubre de 2026): casos de la Corte Suprema, jueces, fiscalías y defensorías federales. Las cifras salen de
   // R.justicia (02_procesar.py), que arma las tablas y explica cada fuente
   "corte-casos": `En ${R.justicia.corte.hasta} llegaron a la Corte Suprema ${n0(R.justicia.corte.ingresados)} casos, ${n1(R.justicia.corte.veces_ingresados)} veces ` +
@@ -1506,117 +1294,29 @@ const TX = {
       `${R.justicia.corte.hasta} entraron ${n0(R.justicia.corte.saldo)} casos más de los que se resolvieron. ` : "") +
     `El año con más casos resueltos fue ${R.justicia.corte.max_res_anio}, con ${n0(R.justicia.corte.max_res)}, y el de menos, ${R.justicia.corte.min_res_anio}, ` +
     `con ${n0(R.justicia.corte.min_res)}.`,
-  "corte-casos-nota": `Un caso es un expediente que llega a la Corte. La mayoría son recursos contra sentencias de otros tribunales. Un caso resuelto es el que ` +
-    `tuvo en el año la decisión que lo cierra en la Corte, aunque el asunto siga en otra instancia. Un fallo puede cerrar muchos casos iguales a la vez: en ` +
-    `${R.justicia.corte.hasta} la Corte firmó ${n0(R.justicia.corte.fallos)} fallos en ${R.justicia.corte.acuerdos} acuerdos de sus jueces` +
-    (R.justicia.corte.fallos_ant ? `, y en ${R.justicia.corte.hasta - 1}, ${n0(R.justicia.corte.fallos_ant)}` : "") + `. La Oficina de Estadísticas de la Corte ` +
-    `publica la serie desde ${R.justicia.corte.desde} solo en PDF y en tableros interactivos: las cifras se cargaron a mano, cada una con la página de la que sale, y la cantidad de ` +
-    `fallos está desde ${R.justicia.corte.fallos_desde}. Las notas anuales del Centro de Información Judicial, anteriores a esta serie, contaban de otra manera y no se mezclan con ella.`,
   "jueces-federales": (() => { const F = R.justicia.federal;
     return `En ${F.fecha}, la Justicia Federal tenía ${n0(F.cargos)} cargos de juez en ${n0(F.organos)} juzgados, cámaras y tribunales orales que funcionan. De los cargos sin titular, ${n0(F.subrogante)} están ` +
       `cubiertos por un subrogante: otro juez, un conjuez o un secretario designado para reemplazar al titular. Los otros ${n0(F.sin_cubrir)} no tienen a nadie designado. ` +
       `En ${F.fecha_ant}, el ${pct(F.pct_sin_titular_ant)} de los cargos estaba sin titular. Por habitante, ${F.max.territorio} tiene ${n1(F.max.valor)} cargos cada 100.000 ` +
       `habitantes` + (F.max.codigo === "02" ? `, porque ahí están también los tribunales federales que atienden casos de todo el país,` : "") +
       ` y ${F.min.territorio}, ${n1(F.min.valor)}. El promedio del país es ${n1(F.cada_100mil)}.`; })(),
-  "jueces-federales-nota": (() => { const F = R.justicia.federal;
-    return `Un cargo es el lugar de un juez en un juzgado, una cámara o un tribunal oral: una cámara o un tribunal tiene varios. Se cuentan los cargos de ` +
-      `los órganos que funcionan. Hay ${n0(F.sin_funcionar_cargos)} cargos más en ${n0(F.sin_funcionar_organos)} juzgados, cámaras y tribunales creados por ley que ` +
-      `todavía no funcionan. No incluye a la Corte Suprema. La Justicia Nacional, que es la justicia ordinaria de CABA (civil, comercial, ` +
-      `laboral y penal), tiene otros ${n0(F.nacional_cargos)} cargos, ${n0(F.nacional_sin_titular)} sin titular, y no entra en las barras para que las provincias se ` +
-      `puedan comparar. Padrón del Ministerio de Justicia de ${F.fecha} y población proyectada por el INDEC para ${R.anio_pob_ficha.justicia_federal_provincias}, el año del padrón.`; })(),
   "fiscalias-federales": (() => { const M = R.justicia.mp, f = T.fiscalias_defensorias_federales,
       tot = d => d.fiscalias_cada_100mil + d.defensorias_cada_100mil,
       mx = f.reduce((a, d) => tot(d) > tot(a) ? d : a), mn = f.reduce((a, d) => tot(d) < tot(a) ? d : a);
     return `Las fiscalías investigan los delitos federales y acusan. Las defensorías públicas oficiales defienden a quien no tiene un abogado particular. Cada fiscalía o defensoría puede tener más de un cargo. ` +
       `En ${M.fecha}, ${n0(M.fiscalias_cargos_sin_titular)} de los ${n0(M.fiscalias_cargos)} cargos de fiscal no tenían titular, y ${n0(M.defensorias_cargos_sin_titular)} ` +
       `de los ${n0(M.defensorias_cargos)} cargos de defensor. Sumando fiscalías y defensorías, ${mx.territorio} tiene ${n1(tot(mx))} cada 100.000 habitantes y ${mn.territorio}, ${n1(tot(mn))}.`; })(),
-  "fiscalias-federales-nota": (() => { const M = R.justicia.mp;
-    return `Una fiscalía o una defensoría puede tener más de un cargo. Se cuentan las que funcionan. Es el último padrón del Ministerio de Justicia que trae a los ` +
-      `fiscales y los defensores: el de ${R.justicia.federal.fecha} trae solo a los jueces. No incluye a la Procuración General ni a la Defensoría General de la ` +
-      `Nación. En CABA funcionan además ${n0(M.nacional_fiscalias)} fiscalías y ${n0(M.nacional_defensorias)} defensorías de la Justicia ` +
-      `Nacional, su justicia ordinaria, que no entran en las barras. La población es la que proyecta el INDEC para ${R.anio_pob_ficha.fiscalias_defensorias_federales}, el año del padrón.`; })(),
   "cortes-provinciales": (() => { const P = R.justicia.prov, v = P.cortes_vacantes.map((c, i) => `el de ${c.territorio}${i ? "," : " tenía ocupados"} ${c.ministros} de ${c.ley}`);
     const lista = v.length > 1 ? v.slice(0, -1).join(", ") + " " + yE(v.at(-1)) : v[0] || "";
     return `En ${P.cortes_ley} de los 24 máximos tribunales se pudo leer en la ley cuántos lugares tienen. De ellos, ${P.cortes_completas} tenían todos sus lugares ocupados ` +
       `al 31 de octubre de ${P.anio}` + (lista ? `. ${lista.replace(/^el/, "El")}` : "") +
       `. De las ${n0(P.ministros)} personas que integraban los máximos tribunales de las provincias y de CABA, ${n0(P.ministras)} eran mujeres. La Corte Suprema de la Nación tiene hoy ` +
       `${R.corte.hoy.length} de los ${R.corte.ley_hoy} jueces que fija la ley.`; })(),
-  "cortes-provinciales-nota": (() => { const P = R.justicia.prov;
-    return `Cada provincia llama distinto a su máximo tribunal: Corte Suprema, Superior Tribunal o Tribunal Superior de Justicia. Los ministros en funciones ` +
-      `son los que cargó cada poder judicial en el Mapa de Género de la Oficina de la Mujer de la Corte Suprema, al 31 de octubre de ${P.anio}. Los lugares ` +
-      `que fija la ley salen de la constitución o la ley orgánica de cada provincia, vigentes hoy, y van solo donde se leyó el número en la norma: en ` +
-      `${24 - P.cortes_ley} jurisdicciones la constitución da solo un mínimo o un rango y no se encontró el texto de la ley que fija el número.`; })(),
   "justicia-provincial": (() => { const P = R.justicia.prov;
     return `Las justicias de las provincias y de CABA sumaban ${n0(P.magistratura)} jueces, ${n0(P.fiscales)} fiscales y ${n0(P.defensores)} defensores, sin contar la justicia federal. Por habitante, ` +
       `${P.max.magistratura.territorio} tiene la cifra más alta de jueces, ${n1(P.max.magistratura.valor)} cada 100.000 habitantes, y ${P.min.magistratura.territorio} ` +
       `la más baja, ${n1(P.min.magistratura.valor)}. La diferencia depende en parte de cuántos juzgados de paz tiene cada provincia` + (P.min.magistratura.territorio === "CABA" ? `. En CABA, además, la mayor parte de la justicia ordinaria es la Justicia Nacional, que este conteo no incluye` : "") + `. En fiscales, el promedio del ` +
       `país${P.mp_unico.length ? `, sin ${P.mp_unico.map(m => m.territorio).join(" ni ")},` : ""} es ${n1(P.pais.fiscales)} cada 100.000 habitantes, y en defensores, ${n1(P.pais.defensores)}.`; })(),
-  "justicia-provincial-nota": (() => { const P = R.justicia.prov, LAB = {fiscales: "fiscales", defensores: "defensores", magistratura: "jueces", ministros: "ministros"};
-    const lista = l => l.length > 1 ? l.slice(0, -1).join(", ") + " " + yE(l.at(-1)) : l[0];
-    const faltan = Object.entries(P.anteriores).filter(([, l]) => l.length).map(([k, l]) => `los ${LAB[k]} de ${lista(l)}`);
-    const ant = faltan.length ? [`En ${P.anio} no se cargaron ${faltan.length > 1 ? faltan.slice(0, -1).join(", ") + " ni " + faltan.at(-1) : faltan[0]}: va el dato ` +
-      `de ${P.anio_ant}, como en el Mapa publicado.`] : [];
-    const bajas = Object.entries(P.bajas).flatMap(([k, l]) => l.map(b => `En ${P.anio}, ${b.territorio} informó ${n0(b.v)} ${LAB[k]}, contra ${n0(b.ant)} en ${P.anio_ant}: es lo que cargó la provincia.`));
-    return `Son las personas en cada cargo al 31 de octubre de ${P.anio}, no los cargos que fija la ley: un juzgado vacante no se cuenta. Los jueces ` +
-      `incluyen a los ministros del máximo tribunal, a los camaristas, a los integrantes de tribunales colegiados y a la justicia de paz, que en algunas provincias ` +
-      `tiene muchos juzgados y en otras pocos. Los fiscales incluyen a los procuradores generales, y los defensores, a los defensores generales. ` +
-      [...ant, ...bajas].join(" ") + " " +
-      P.mp_unico.map(m => `${m.territorio} tiene un solo ministerio público y carga juntos a sus fiscales y defensores (${n0(m.v)}): no entra en esas dos vistas.`).join(" ") +
-      ` No incluye a la justicia federal ni a la Justicia Nacional de CABA. Cada jurisdicción carga sus datos en el Mapa de Género de la Justicia Argentina, ` +
-      `de la Oficina de la Mujer de la Corte Suprema. Cada dato se divide por la población que proyecta el INDEC para su año.`; })(),
-  // confianza en el gobierno (etapa 42): los textos de las dos vistas los arma el dibujo
-  "confianza-gobierno-nota": R.confianza_gobierno ? `El índice resume cinco preguntas de una encuesta mensual de opinión pública de alcance nacional que hace la Universidad ` +
-    `Torcuato Di Tella sobre el gobierno nacional: la evaluación general del gobierno, si gobierna pensando en el bien general o en intereses de sectores, si administra ` +
-    `bien el gasto público, la honestidad de sus miembros y su capacidad para resolver los problemas del país. Va de 0, ninguna confianza, a 5, mucha confianza. Mide la ` +
-    `opinión sobre el gobierno de cada momento y, como toda encuesta, tiene margen de error: los cambios chicos de un mes al otro pueden no ser significativos. En el ` +
-    `promedio de cada gobierno no se cuenta el mes en que asumió uno nuevo, porque según la fecha de la encuesta puede medir al que se va o al que llega. Eduardo Duhalde ` +
-    `asumió el 2 de enero de 2002 y ese mes va con él. Fernando de la Rúa, con un solo mes en la serie, y los presidentes interinos de diciembre de 2001 no tienen promedio.` +
-    (R.confianza_gobierno.elecciones ? ` En la vista de elecciones, arriba va el índice mes a mes y abajo, el voto en cada elección presidencial: las primeras vueltas desde ` +
-      `${R.confianza_gobierno.elecciones.desde} (punto lleno) y las PASO desde que empezaron, en 2011 (punto hueco). El voto es el de la candidatura del gobierno nacional sobre los votos positivos, con los resultados de la Dirección ` +
-      `Nacional Electoral (provisorios en 2023): en las PASO, el de todas las listas de su agrupación, y en 2003, el de Néstor Kirchner, que era el candidato del presidente ` +
-      `Duhalde. El índice que se compara es el del mes anterior a cada elección (el punto sobre la línea de arriba), el último medido entero antes de votar. Son pocas elecciones, y la PASO y la primera vuelta de un mismo ` +
-      `año están muy relacionadas entre sí, así que la correlación exagera lo que se puede afirmar. La que da el texto de esa vista, ${n2(R.confianza_gobierno.elecciones.r)}, es la de Pearson, que usa los valores. La de Spearman, que usa el orden y no los valores, es ` +
-      `${n2(R.confianza_gobierno.elecciones.rs)}. Que el índice y el voto vayan juntos no quiere decir que uno cause el otro: el voto depende también de quiénes son los ` +
-      `candidatos, de la oposición y de la situación económica. Las elecciones legislativas no están: el sitio tiene los resultados de las presidenciales.` : "") : "",
-  "ingresos-aglomerados-nota": R.ingresos_aglomerados ? `Procesamiento propio de las bases usuarias de la Encuesta Permanente de Hogares del INDEC. El ingreso por persona ` +
-    `del hogar es el ingreso total del hogar dividido por la cantidad de integrantes (el ingreso per cápita familiar). El del trabajo es el de la ocupación principal de los ` +
-    `ocupados que cobran por su trabajo, sin contar a quienes trabajan sin cobrar. Son los ingresos que declaran las personas encuestadas, con los ponderadores que el INDEC ` +
-    `indica para los ingresos. La mediana es el valor que deja a la mitad por debajo y a la mitad por encima: a diferencia del promedio, no la mueven los ingresos muy altos. ` +
-    `En las ciudades chicas un trimestre tiene pocas personas encuestadas, así que se juntan ${R.ingresos_aglomerados.trimestres}: cada ingreso se compara con la ` +
-    `mediana de los 31 aglomerados de su trimestre, para que no pesen los aumentos de precios de un trimestre al otro, y esa proporción se pasa a pesos del ` +
-    `${R.ingresos_aglomerados.trimestre}. Las respuestas suelen ir en números redondos, por eso los montos se muestran redondeados al millar. Los montos no descuentan ` +
-    `que los precios cambian entre regiones: la canasta básica del Noreste cuesta menos que la del Gran Buenos Aires. La EPH mide los aglomerados urbanos, no las ` +
-    `provincias: la Ciudad de Buenos Aires y los Partidos del GBA son dos aglomerados distintos.` : "",
-  "reservas-netas-nota": `Las reservas netas son, con el criterio de Datina, las brutas menos todo lo que el BCRA tiene que pagar o devolver en moneda extranjera dentro de un ` +
-    `año según su planilla de reservas internacionales y liquidez, que publica cada mes con el formato del FMI: los dólares que los bancos dejan en el BCRA como respaldo de los ` +
-    `depósitos en dólares, los depósitos del Tesoro, otras deudas a un año, el tramo a término del canje de monedas con el Banco Popular de China (los yuanes cuentan en las ` +
-    `brutas, pero hay que devolverlos) y los pases con bancos del exterior. No hay una cifra oficial de reservas netas: otras estimaciones no restan los depósitos del Tesoro o ` +
-    `restan también los préstamos de organismos internacionales, y dan otros números. Hasta 2021 la planilla anota el canje con China junto con los pases. Las brutas de la ` +
-    `planilla coinciden con las de la API del BCRA. El oro se valúa al precio de mercado y los derechos especiales de giro (DEG) son la moneda del FMI.` +
-    (SX.reservas_netas && SX.reservas_netas.n_sin_netas ? ` En ${SX.reservas_netas.n_sin_netas} meses no hay reservas netas porque la planilla no está publicada o no ` +
-      `se pudo leer completa (sobre todo en 2007): ahí el gráfico no tiene dato y el mínimo y el máximo son los de los meses con dato.` : ""),
-  "reservas-bcra-nota": `Reservas internacionales brutas del Banco Central: el oro, las divisas, las colocaciones y los demás activos en el exterior. Incluyen algunos que tienen una deuda ` +
-    `como contrapartida, como los depósitos en dólares que los bancos dejan en el BCRA o los canjes de monedas con otros bancos centrales, por eso no todas se pueden usar libremente: la pestaña de las netas las desagrega y resta esas deudas. ` +
-    `Cada punto es el último día con dato de cada mes, desde ${SX.reservas.desde} con la serie mensual del BCRA. "Meses de importación" divide las reservas por el promedio ` +
-    `mensual de lo importado en los doce meses anteriores (INDEC): una referencia tradicional es que cubran al menos tres meses. "Qué las movió" muestra los factores con que el BCRA explica la variación de las reservas en lo que va del año, hasta el ` +
-    `${fLarga(SX.reservas.factores_hasta)}: compras y ventas de divisas, préstamos y pagos de organismos internacionales como el FMI, otras operaciones del Tesoro, cambios en el ` +
-    `efectivo mínimo que los bancos dejan en el BCRA y otras operaciones, entre ellas los cambios de cotización del oro y de las monedas. La tabla trae esos factores por año desde ${SX.reservas.factores_desde}.`,
-  "bcra-nota": `Datos de la API de Estadísticas Monetarias del Banco Central, con el último dato publicado de cada mes, cada serie desde que empieza. Son ${SX.bcra.n} de sus ` +
-    `variables principales: las reservas están en Sector externo y la inflación, al principio de esta página, con los datos del INDEC. Las tasas son anuales: la nominal no suma ` +
-    `los intereses de los intereses y la efectiva sí. BADLAR, TM20 y TAMAR son las tasas que pagan los bancos privados por plazos fijos de 30 a 35 días de más de un millón ` +
-    `de pesos, de 20 millones o más y de 1.000 millones o más, y BAIBAR es la de los préstamos entre bancos privados. Las tasas para juicios son valores acumulados desde el comienzo de cada serie, que los tribunales usan para calcular intereses. ` +
-    `Para descontar la inflación, los montos en pesos pasan a pesos de ${mesTx(SX.bcra.ipc_mes)} con el índice de precios al consumidor del INDEC, que empieza en ` +
-    `${mesTx(SX.bcra.ipc_desde)} (antes no hay un índice para todo el país), o se miden en % del PBI a precios corrientes del INDEC, desde ${SX.bcra.pib_desde}. ` +
-    `En la vista «Sin inflación», el dólar descuenta la inflación de la Argentina y la de los Estados Unidos con el tipo de cambio real bilateral del BCRA. La tasa real compara lo que ` +
-    `paga una tasa a 30 días con la inflación del mes siguiente, y los índices de actualización y las tasas para juicios se comparan con la inflación de los mismos doce meses. ` +
-    `Los montos, el dólar y los índices en pesos de cada mes van en escala logarítmica: una misma pendiente es un mismo ritmo de crecimiento. ` +
-    (SX.bcra.hist_desde ? `La serie histórica del dinero (base monetaria, M1, M2 y M3) está expresada en la moneda actual: entre 1970 y 1992 a la moneda se le sacaron 13 ceros. ` +
-      `El BCRA la publica desde 1940, en miles de pesos con cuatro decimales, así que los primeros años dan cero o quedan redondeados: acá empieza en ` +
-      `${SX.bcra.hist_desde}, cuando el redondeo ya pesa menos de 0,5%. ` : "") +
-    `La parte del M3 en moneda extranjera la calcula Datina con los dos M3 del BCRA. Los depósitos y ` +
-    `los préstamos en dólares, en % del PBI, se pasan a pesos con el dólar mayorista de fin de cada mes.` +
-    (SX.bcra.rem_viejo ? ` La inflación esperada es la del Relevamiento de Expectativas de Mercado actual: la API también trae datos de ${SX.bcra.rem_viejo[0]} a ${SX.bcra.rem_viejo[1]} ` +
-      `de un relevamiento anterior, que no se muestran porque no son comparables con los del actual.` : ""),
   // bancas de mujeres (fuentes nuevas aprobadas por el autor el 14 de noviembre de 2026): la cifra destacada dice la parte del Congreso
   "mujeres-congreso": `Hoy hay ${MJC.diputadas} diputadas en ${MJC.dip_bancas} bancas (${pct(MJC.dip)}) y ${MJC.senadoras} senadoras en ${MJC.sen_bancas} ` +
     `(${pct(MJC.sen)}). Por provincia, contando sus diputados y sus senadores, la parte de mujeres va de ${pct(MJC.min[1])} en ${MJC.min[0]} a ` +
@@ -1625,37 +1325,18 @@ const TX = {
     `La ley de cupo de 1991 obligó a poner al menos un 30% de mujeres en lugares con chances en las listas, y desde la elección de 1993 ` +
     `la parte de diputadas creció (${pct(MJC.dip_93)} en 1993). En el Senado el salto llegó en 2001, con la primera elección directa. Desde ` +
     `2019 rige la ley de paridad, que obliga a alternar mujeres y varones en las listas. Hoy, ${pct(MJC.dip)} en Diputados y ${pct(MJC.sen)} en el Senado.`,
-  "tarifa-luz": LEAD["tarifa-luz"]("250"), "tarifa-luz-nota": `Cargo fijo y cargo variable de la categoría residencial que corresponde a cada consumo, en el cuadro tarifario del ENRE ` +
-    `vigente cada mes, promedio de Edenor y Edesur. Cuando la factura era bimestral se toma la mitad. Hasta ` +
-    `agosto de 2022 la tarifa era la misma para todos los hogares y tenía subsidios del Estado en el precio de la energía. Desde la segmentación ` +
-    `de septiembre de 2022 la línea es la de los hogares sin subsidio: los que tienen subsidio pagan menos. Qué no dice este dato: no suma el ` +
-    `IVA ni las tasas, y vale solo para la zona de Edenor y Edesur (CABA y el conurbano). En el resto del país las tarifas las fijan las ` +
-    `provincias o los municipios.`,
-  "mujeres-congreso-nota": `Bancas ocupadas hoy y el 1 de marzo de cada período, como en la ficha de las bancas de cada espacio político. Los ` +
-    `registros de las cámaras no dicen el sexo de cada legislador: Datina lo toma de su nombre de pila, con una tabla revisada a mano, y los ` +
-    `nombres que pueden ser de mujer o de varón se revisaron uno por uno. ${MJC.sin_det_serie ? `En ${MJC.sin_det_serie} casos de toda la serie no se ` +
-    `pudo determinar y quedan fuera del porcentaje. ` : ""}Qué no dice este dato: cuántas mujeres encabezan listas, presiden bloques o comisiones, ` +
-    `ni cuántas votantes hay en cada padrón.`,
+  "tarifa-luz": LEAD["tarifa-luz"]("250"),
   // muertes en el tránsito (fuentes nuevas aprobadas por el autor el 14 de noviembre de 2026): la cifra destacada dice la provincia con la tasa
   // más alta, el texto empieza por el país
   transito: `De ${TRN.desde} a ${TRN.hasta} murieron en el país unas ${n0(TRN.por_anio)} personas por año en siniestros viales, según el SNIC: ` +
     `${n1(TRN.pais)} cada 100.000 habitantes. La tasa más baja es la de ${TRN.min}, ${n1(TRN.min_v)}, y la más alta es ${n1(TRN.veces)} veces esa.`,
   "transito-serie": `En ${TRN.ult} murieron ${n0(TRN.ult_v)} personas en siniestros viales en el país, según el SNIC. Desde ${TRN.serie_desde}, el año con más ` +
     `muertes fue ${TRN.serie_max}, con ${n0(TRN.serie_max_v)}, y el de menos, ${TRN.serie_min}, con ${n0(TRN.serie_min_v)}.`,
-  "transito-nota": `Personas que murieron en siniestros viales según los registros de las policías y las fuerzas federales (SNIC, Ministerio de ` +
-    `Seguridad), por la provincia donde ocurrió el hecho. Cada 100.000 habitantes con la población de ${TRN.anio_pob}, el año del medio. Qué no dice ` +
-    `este dato: la Agencia Nacional de Seguridad Vial cuenta también a quienes mueren dentro de los 30 días del siniestro y da otros números. Las ` +
-    `estadísticas vitales del Ministerio de Salud no sirven para comparar provincias: en CABA y en Buenos Aires la mayoría de las muertes por causas ` +
-    `externas se registran sin decir si fueron en el tránsito.`,
   // la cifra destacada dice la primera causa del país: el texto compara las provincias con la tasa ajustada y explica por qué difiere de la bruta
   "causas-muerte": `Ajustada por edad, la mortalidad va de ${n0(CM.min_v)} muertes por año cada 100.000 habitantes en ${CM.min} a ${n0(CM.max_v)} en ${CM.max}. ` +
     `Sin ajustar por edad, la más alta es la de ${CM.bruta_max} (${n0(CM.bruta_max_v)}${CM.bruta_max === EV.max ? ", con la población más envejecida" : ""})` +
     ` y la más baja, la de ${CM.bruta_min} (${n0(CM.bruta_min_v)}${CM.bruta_min === EV.min ? ", la más joven" : ""}). ` +
     `Por causa, después de ${CM_FRASE[CMG[0].k]} vienen ${CM_FRASE[CMG[1].k]} (${pct(CMG[1].pct)} de las muertes) ${yE(CM_FRASE[CMG[2].k])} (${pct(CMG[2].pct)}).`,
-  "causas-muerte-nota": `Tasas ajustadas por edad con el método directo: la tasa de cada grupo de edad de la provincia se pondera con la población del país de ${CM.anio_std} por edad, así se comparan provincias más jóvenes y más envejecidas. ` +
-    `Promedio anual de ${CM.desde} a ${CM.hasta}, por provincia de residencia, con la causa básica de muerte agrupada por capítulos de la CIE-10. Las causas externas reúnen los accidentes, las agresiones y las lesiones intencionales. ` +
-    `El ${pct(CM.mal_def_pais)} de las muertes del país tiene una causa mal definida, desde el ${pct(CM.mal_def_min_v)} en ${CM.mal_def_min} hasta el ${pct(CM.mal_def_max_v)} en ${CM.mal_def_max}: donde hay más causas mal definidas, las demás parecen más bajas de lo que son. ` +
-    `Población: proyecciones del INDEC de cada año. Las muertes sin edad registrada (el ${pct(CM.sin_edad_pct)}) se reparten en proporción.`,
   // chicos de 5 a 14 años: la cifra destacada dice cuánto cambian en el país, el texto da las cantidades, las provincias y los nacimientos
   "chicos-escuela": `En ${ESC.anio} hay ${n1(ESC.hoy / 1e6)} millones de chicos de 5 a 14 años en el país. Según las proyecciones del INDEC, en ${ESC.anio_fin} van a ser ` +
     `${n1(ESC.fin / 1e6)} millones, unos ${n0(Math.round(Math.abs(ESC.var) / 1000) * 1000)} ${ESC.var < 0 ? "menos" : "más"}. ` +
@@ -1664,11 +1345,6 @@ const TX = {
     `y la que menos ${ESC.max_v < 0 ? "baja" : "cambia"}, ${ESC.max} (${conSigno(ESC.max_v)}). ` +
     `Los chicos de 5 a 14 años de ${ESC.anio_fin} son los que nazcan entre ${ESC.nacen_desde} y ${ESC.nacen_hasta}. ` +
     `Entre ${nac.anio_pico} y ${nac.anio_ult} los nacimientos ya bajaron ${pct(Math.abs(nac.caida))}, según las estadísticas vitales de la DEIS.`,
-  "chicos-escuela-nota": `Proyecciones de población del INDEC por provincia, sexo y edad, base Censo 2022: estiman cuántas personas va a haber cada año según los nacimientos, las muertes y las migraciones esperadas. ` +
-    `Vienen en grupos de cinco años de edad. El de 5 a 14 años reúne la sala de 5, la primaria y los primeros años de la secundaria. La escolaridad obligatoria va de los 4 años al final de la secundaria, pero las proyecciones no separan esas edades. ` +
-    `No es un conteo de alumnos: cuenta a todos los chicos de esas edades, vayan o no a la escuela. ` +
-    `En el país, los chicos de 5 a 14 años son el ${pct(ESC.pct_hoy)} de la población en ${ESC.anio} y van a ser el ${pct(ESC.pct_fin)} en ${ESC.anio_fin}.` +
-    (ESC.pico_anio > 2022 && ESC.pico_anio < ESC.anio_fin ? ` La cantidad más alta de las proyecciones es la de ${ESC.pico_anio}, ${n1(ESC.pico / 1e6)} millones.` : ""),
   // la cifra destacada ya dice cuánto crece el país: el texto va a las provincias que pierden, a la que más crece y a las que pierden peso
   "poblacion-proy": (PPY.pierden.length === 1 && PPY.pierden[0] === PPY.min
       ? `${PPY.min} es la única jurisdicción que pierde habitantes hasta ${PPY.anio_fin}: unas ${n0(Math.round(Math.abs(PPY.min_personas) / 1000) * 1000)} personas menos que en ${PPY.anio} (${conSigno(PPY.min_v)}). `
@@ -1677,81 +1353,29 @@ const TX = {
     `La que más crece en proporción es ${PPY.max} (${conSigno(PPY.max_v)}). ` +
     (PPY.debajo.length ? `${lista(PPY.debajo)} ${PPY.debajo.length > 1 ? "crecen" : "crece"} menos que el país, así que ${PPY.debajo.length > 1 ? "pierden" : "pierde"} peso en el total` +
       (PPY.debajo.includes("Buenos Aires") && PPY.pba_pct_fin < PPY.pba_pct_hoy ? `. La provincia de Buenos Aires pasa de tener el ${pct(PPY.pba_pct_hoy)} de los habitantes del país al ${pct(PPY.pba_pct_fin)}.` : ".") : ""),
-  // cuándo hay más personas mayores que chicos (3 de noviembre de 2026): el año de cada provincia sale del resumen, sin extrapolar
-  "envejecimiento-mch": `En ${EV.anio} hay en el país ${n0(EV.mch_hoy)} personas de 65 años o más por cada 100 chicos de menos de 15 años. ` +
-    (EV.cruce_pais == null ? `Según las proyecciones del INDEC, en ${EV.anio_fin} todavía va a haber más chicos que mayores: ${n0(EV.mch_fin)} por cada 100. `
-      : EV.cruce_pais <= EV.anio ? `Hay más mayores que chicos desde ${EV.cruce_pais}, y en ${EV.anio_fin} van a ser ${n0(EV.mch_fin)} por cada 100. `
-      : `Según las proyecciones del INDEC, en ${EV.cruce_pais} va a haber por primera vez más mayores que chicos, y en ${EV.anio_fin}, ${n0(EV.mch_fin)} por cada 100. `) +
-    (EV.ya.length ? `En ${lista(EV.ya.map(([t]) => t))} ya hay más mayores que chicos. ` : "") +
-    (EV.cruzan.length > 1 ? `Otras ${EV.cruzan.length} jurisdicciones pasan a tenerlos hasta ${EV.anio_fin}: la primera es ${EV.cruzan[0][0]} (${EV.cruzan[0][1]}) y la última, ${EV.cruzan.at(-1)[0]} (${EV.cruzan.at(-1)[1]}). `
-      : EV.cruzan.length ? `${EV.cruzan[0][0]} pasa a tenerlos en ${EV.cruzan[0][1]}. ` : "") +
-    (EV.no_cruzan.length ? `${lista(EV.no_cruzan)} ${EV.no_cruzan.length > 1 ? "siguen" : "sigue"} con más chicos que mayores en ${EV.anio_fin}.` : `En ${EV.anio_fin} las 24 jurisdicciones tienen más mayores que chicos.`),
-  "envejecimiento-mch-nota": `Personas de 65 años o más por cada 100 menores de 15 años, de las proyecciones de población del INDEC por provincia, sexo y edad, base Censo 2022. ` +
-    `Por encima de 100 hay más personas mayores que chicos. El año de cada provincia es el primero de las proyecciones (${EV.cruce_desde} a ${EV.anio_fin}) con 100 o más: ` +
-    `${EV.cruce_desde} quiere decir que ya pasaba ese año o antes. Después de ${EV.anio_fin} no hay proyecciones y el sitio no las estira. ` +
-    `El círculo claro marca ${EV.anio} y el lleno, ${EV.anio_fin}. La línea punteada marca 100, tantos mayores como chicos.`,
-  "poblacion-proy-nota": `Proyecciones de población del INDEC por provincia, base Censo 2022. Estiman cuántas personas va a haber cada año según los nacimientos, las muertes y las migraciones esperadas, y se revisan con cada censo: no son un conteo. ` +
-    `La variación compara la población proyectada de ${PPY.anio} con la de ${PPY.anio_fin}.` +
-    (PPY.max_antes.length ? ` Según las mismas proyecciones, ${lista(PPY.max_antes.map(([t, a]) => `${t} ${a < PPY.anio ? "tuvo" : "tiene"} su población más alta en ${a}`))}.` : ""),
-  envejecimiento: `En ${EV.anio} hay ${n1(EV.hoy)} personas de 65 años o más por cada 100 de entre 15 y 64 años: unas ${n1(EV.trab_hoy)} personas en edad de trabajar por cada persona mayor. ` +
-    `Según las proyecciones del INDEC, en ${EV.anio_fin} serán ${n1(EV.fin)}, unas ${n1(EV.trab_fin)} por cada una. Por provincia, en ${EV.anio} la relación más alta es la de ${EV.max} (${n1(EV.max_v)}) y la más baja, la de ${EV.min} (${n1(EV.min_v)}). ` +
-    `En ${EV.anio_fin} la más alta va a ser la de ${EV.max_fin} (${n1(EV.max_fin_v)}) y la más baja, la de ${EV.min_fin} (${n1(EV.min_fin_v)}): es el valor que el gráfico muestra al lado de cada provincia.`,
   // la cifra destacada ya dice el total y el promedio del país: el texto va a las provincias
   empresas: `Cada 1.000 habitantes, ${EM.top} tenía ${n1(EM.top_v)} empresas privadas con empleados${conVeces(EM.top_v, EM.pais_1000)} y ${EM.low}, ${n1(EM.low_v)}${conVeces(EM.low_v, EM.pais_1000)}.`,
-  "empresas-nota": `Empresas privadas que declaran personal en relación de dependencia ante la seguridad social (el SIPA), cada una identificada por su CUIT. No incluye a quienes trabajan solos como monotributistas o autónomos sin empleados, ni el trabajo en casas particulares. Una empresa con personal en varias provincias se cuenta en cada una: por eso la suma de las provincias es mayor que el total del país, que cuenta a cada empresa una sola vez, en la provincia donde tiene más empleo. La población es la proyección del INDEC para ${R.anio_pob_ficha.empresas_provincias}, el año de la cantidad de empresas.`,
   // la cifra destacada ya dice cuántas abrieron y cerraron: el texto empieza por las tasas
   dinamica: `En ${EM.ult}, la tasa de entrada, las empresas que abrieron sobre todas las activas en el año, fue de ${pct(EM.te)}, y la de salida, las que cerraron, de ${pct(EM.ts)}. Acá cada empresa cuenta una sola vez, en la provincia donde declara más personal. ` +
     `El cambio neto fue ${EM.neta >= 0 ? "positivo" : "negativo"}, de ${n1(Math.abs(EM.neta))} puntos, y ${EM.positivas < 12 ? "solo " : ""}${EM.positivas === 1 ? "una jurisdicción tuvo" : EM.positivas + " jurisdicciones tuvieron"} más aperturas que cierres. ` +
     `La tasa de entrada más alta de la serie fue de ${pct(EM.te_max)}, en ${EM.te_max_anio}. Desde ${EM.ini}, cerraron más empresas de las que abrieron en ${EM.anios_negativos} años.`,
-  "dinamica-nota": `Se cuentan las empresas locales: cada empresa es local en la provincia donde declara la mayor parte de su personal, así que las provincias suman el total del país. Una empresa abre cuando declara personal por primera vez. Se considera que cerró cuando pasan cuatro trimestres seguidos, un año, sin que declare personal ocupado, y el cierre se fecha en el primero de esos trimestres: por eso la serie termina un año antes que la del empleo. El OEDE no marca ese último año como provisorio. ` +
-    `Las tasas dividen aperturas y cierres por todas las empresas activas en el año, incluidas las que abrieron y las que cerraron. La vista por provincia muestra el cambio neto de ${EM.ult}. El OEDE separa la provincia de Buenos Aires en partidos del Gran Buenos Aires y resto, que acá se suman.`,
   rotacion: `Entre el ${trim(RO.desde)} y el ${trim(RO.hasta)}, el ${pct(RO.total_largo)} de las personas asalariadas llevaba más de cinco años en su empleo. ` +
     `Llevar un año o menos es más común entre quienes tienen menos de 25 años (${pct(RO.jovenes)}), en los empleos sin descuento jubilatorio (${pct(RO.sin_desc)}, contra ${pct(RO.con_desc)} en los registrados) y en los hogares del quintil de menores ingresos (${pct(RO.q1)}, contra ${pct(RO.q5)} en el de mayores ingresos). ` +
     `Según el tipo de trabajo, es más común en el empleo privado (${pct(RO.privado)}) que en el estatal (${pct(RO.estatal)}), en los lugares donde trabajan hasta cinco personas (${pct(RO.chico)}, contra ${pct(RO.grande)} donde trabajan más de 40) y en las tareas no calificadas (${pct(RO.no_calif)}, contra ${pct(RO.profesional)} en las profesionales).`,
-  "rotacion-nota": `Procesamiento propio de las bases usuarias de la Encuesta Permanente de Hogares del INDEC, con ${n0(RO.casos)} respuestas de los cuatro últimos trimestres publicados. Se usa la pregunta sobre cuánto tiempo hace que la persona trabaja en ese empleo en forma continua, que se hace a los asalariados salvo el servicio doméstico. ` +
-    `La antigüedad corta no siempre significa rotación: también incluye a quienes consiguieron su primer empleo o volvieron a trabajar. La generación se calcula con la edad declarada. El tamaño del lugar de trabajo es la cantidad de personas que trabajan allí, en los tramos que usa el INDEC. La calificación es la de la tarea y no la de la persona, según el Clasificador Nacional de Ocupaciones del INDEC: mide la complejidad de lo que se hace en ese puesto. Los quintiles ordenan a las personas por el ingreso per cápita de su hogar y usan el ponderador de ingresos del INDEC. La encuesta cubre solo aglomerados urbanos y no permite resultados confiables por provincia con este detalle.`,
   piramide: `En ${PI.anio}, la mitad de la población del país tiene menos de unos ${PI.edad_mediana_hoy} años: es la edad mediana. Según las proyecciones del INDEC, en ${PI.anio_fin} esa edad mediana llegará a unos ${PI.edad_mediana_fin} años y los menores de 15 pasarán de ser el ${pct(PI.menores15_hoy)} al ${pct(PI.menores15_fin)} de la población. La base de la pirámide se angosta porque nacen menos chicos y la parte de arriba se ensancha porque se vive más.`,
-  "piramide-nota": `Cada barra es el porcentaje de la población total de la jurisdicción que tiene esa edad y ese sexo, en grupos de cinco años (el último reúne a las personas de 90 años o más). Las barras llenas son ${PI.anio} y el contorno, ${PI.anio_fin}. Al elegir una provincia, la pirámide pasa a mostrarla. La edad mediana se estima dentro de los grupos de cinco años.`,
-  jubilaciones: `En ${JU.mes ? MESES[JU.mes - 1] + " de " : ""}${JU.anio} había ${n2(JU.ratio)} aportantes por cada jubilación o pensión de los regímenes que administra ANSES: ${n0(JU.aportantes)} personas aportando y ${n0(JU.beneficios)} beneficios. El valor más alto de la serie fue ${n2(JU.max)} en ${JU.max_anio} y el más bajo, ${n2(JU.min)} en ${JU.min_anio}. ` +
-    `En la población, según las proyecciones del INDEC, las personas de 15 a 64 años por cada persona de 65 o más pasan de ${n1(EV.trab_hoy)} en ${EV.anio} a ${n1(EV.trab_fin)} en ${EV.anio_fin}.`,
   // pensiones por invalidez (etapa 42): los textos de las vistas "Cantidad" y "Evolución" los arma el dibujo
   "pensiones-invalidez": `En ${MESES[PIN.prov_mes - 1]} de ${PIN.prov_anio} había ${n1(PIN.pais_cada_1000)} pensiones no contributivas por invalidez cada 1.000 habitantes en el país. ` +
     `${PIN.top} tenía la proporción más alta, ${n1(PIN.top_v)} cada 1.000, y ${PIN.low} la más baja, ${n1(PIN.low_v)}. La provincia de Buenos Aires tenía el ${pct(PIN.pba_pct)} de todas las pensiones.`,
-  "pensiones-invalidez-nota": `La pensión no contributiva por invalidez es para personas que no pueden trabajar por una incapacidad y no tienen ingresos, bienes ni otra ` +
-    `jubilación o pensión que alcancen. La paga ANSES. Cada año es el promedio de los doce meses y el último dato es el de un solo mes. Desde abril de 2019 el boletín ` +
-    `separa los beneficios suspendidos: en ${MESES[PIN.mes - 1]} de ${PIN.anio} eran ${n0(PIN.v - PIN.v_no_susp)}. Por provincia, el último mes es ${MESES[PIN.prov_mes - 1]} de ` +
-    `${PIN.prov_anio} y la población, la proyección del INDEC para ${R.anio_pob_ficha.pensiones_invalidez_provincias}, el mismo año. No incluye las pensiones por discapacidad que pagan las provincias ni la asignación por hijo ` +
-    `con discapacidad. La proporción depende de la edad y de la situación de cada población, no solo de cómo se otorgan las pensiones.`,
   // seguro de desempleo (etapa 42): los textos de "Frente al empleo registrado" y "Evolución" los arma el dibujo
   desempleo: DS ? `En ${MESES[DS.prov_mes - 1]} de ${DS.prov_anio} cobraban el seguro de desempleo ${n1(DS.pais_1000)} de cada 1.000 habitantes del país. ` +
     `${DS.top} tenía la proporción más alta, ${n1(DS.top_v)} cada 1.000, y ${DS.low} la más baja, ${n1(DS.low_v)}. La provincia de Buenos Aires tenía el ${pct(DS.pba_pct)} de los beneficiarios.` : "",
-  "desempleo-nota": DS ? `El seguro de desempleo, cuyo nombre oficial es prestación por desempleo, lo cobran los asalariados registrados de la Ley de Contrato de Trabajo y de la construcción que quedan sin ` +
-    `trabajo por un despido sin causa u otro motivo que fija la ley y que aportaron al Fondo Nacional de Empleo. Dura de 2 a 12 meses según el tiempo trabajado y lo paga ANSES. Los trabajadores rurales tienen un sistema aparte, que no ` +
-    `se incluye. Cada año es el promedio de los doce meses y el último dato es el de un solo mes. Cada beneficiario cuenta en la provincia donde cobra. El empleo registrado es el ` +
-    `de los asalariados privados del SIPA de ${MESES[DS.sipa_mes - 1]} de ${DS.sipa_anio}, que se cuenta donde declara el empleador: por eso CABA queda muy abajo y Buenos Aires ` +
-    `arriba, porque mucha gente vive en el Gran Buenos Aires y trabaja en CABA. La población es la proyección del INDEC para ${R.anio_pob_ficha.prestacion_desempleo_provincias}, el mismo año. La cantidad de beneficiarios ` +
-    `depende del desempleo, pero también de cuánta gente tiene un empleo registrado y de los cambios en las reglas del seguro.` : "",
   // Asignación Universal por Hijo (etapa 42): el texto de "Cobertura" lo arma el dibujo
   auh: `En ${MESES[AU.mes - 1]} de ${AU.anio}, ${n0(AU.beneficios)} chicos recibían la AUH, ${n1(AU.pais_100)} cada 100 menores de 18 años. La cobraban ${n0(AU.titulares)} ` +
     `titulares. ${AU.top} tenía la proporción más alta, ${n1(AU.top_v)} cada 100, y ${AU.low} la más baja, ${n1(AU.low_v)}.`,
-  "auh-nota": `La AUH la cobra, por cada hijo menor de 18 años o con discapacidad, quien no tiene trabajo, trabaja en la informalidad o en casas particulares, es ` +
-    `monotributista social o cobra menos que el salario mínimo. La paga ANSES. Cada beneficio es un hijo: ${n0(AU.discapacidad)} son por hijo con discapacidad, que no tiene ` +
-    `límite de edad. Los menores de 18 de cada provincia salen de las proyecciones del INDEC para ${R.anio_pob_ficha.auh_provincias}, el mismo año, que vienen en grupos de cinco años (los de 15 a 17 se toman como tres ` +
-    `quintos del grupo de 15 a 19), así que la proporción es aproximada. "Cobertura" es el cuadro de cobertura del boletín, que estima la población con ` +
-    `proyecciones de las Naciones Unidas y registros de ANSES. Los programas como Volver al Trabajo, Acompañamiento Social o la Prestación Alimentar no publican datos abiertos por provincia.`,
   // haberes frente al salario (etapa 42): el texto de la vista "A precios de hoy" lo arma el dibujo
   haberes: `En ${HB.anio}${HB.meses < 12 ? `, hasta ${MESES[HB.meses - 1]},` : ""} el haber mínimo de ANSES con los refuerzos que se pagan aparte equivalía al ${pct(HB.pct_min_ad)} del salario ` +
     `promedio de los asalariados registrados, y sin ellos, al ${pct(HB.pct_min)}. La jubilación promedio, al ${pct(HB.pct_jub)}. Desde ${HB.ini}, el haber mínimo con refuerzos ` +
     `llegó a su punto más alto en ${HB.max_pct.anio}, con el ${pct(HB.max_pct.v)} del salario, y al más bajo en ${HB.min_pct.anio}, con el ${pct(HB.min_pct.v)}.`,
-  "haberes-nota": `Promedio de cada año de los haberes que paga ANSES y del salario de los asalariados registrados sujeto a aportes, sin aguinaldo. El haber mínimo es el que fija la ` +
-    `Ley 24.241. "Con refuerzos" suma los montos adicionales que se pagaron varios meses seguidos: el subsidio de agosto de 2002 a junio de 2003 y los refuerzos desde septiembre ` +
-    `de 2022. Desde 2020 se cuentan solo los beneficios no suspendidos. La vista "Sin inflación" descuenta la inflación con el IPC del INDEC: pasa los montos a pesos de ${MESES[+HB.mes_real.slice(5) - 1]} de ${HB.mes_real.slice(0, 4)} desde ${HB.ini_real}, ` +
-    `el primer año completo del índice nacional. ${HB.meses < 12 ? `${HB.anio} es el promedio de enero a ${MESES[HB.meses - 1]}. ` : ""}No incluye las cajas provinciales ni los regímenes ` +
-    `que no administra ANSES. Comparar con el salario no dice si alcanza para vivir: para eso están las canastas de Precios y actividad.`,
-  "jubilaciones-nota": `Promedio anual de aportantes y de beneficios. El último año es el último mes disponible. Los aportantes incluyen asalariados, autónomos, monotributistas y trabajadoras de casas particulares, también jubilados que siguen aportando. Desde abril de 2019 se cuentan solo los beneficios no suspendidos y hasta 2008 la serie incluye el sistema de capitalización. ` +
-    `La cantidad de aportantes depende del empleo registrado, no solo de la edad de la población. No se compara entre provincias porque varias mantienen su propia caja previsional para empleados públicos, fuera de ANSES.`,
-  "envejecimiento-nota": `Relación de dependencia de la vejez: personas de 65 años o más sobre personas de 15 a 64, por 100. No todas las personas de 15 a 64 trabajan ni todas las mayores están jubiladas, pero es la medida habitual para anticipar la presión sobre el sistema previsional y la demanda de cuidados. ` +
-    `Las personas mayores pasan de ser el ${pct(EV.pct_mayores_hoy)} de la población en ${EV.anio} al ${pct(EV.pct_mayores_fin)} en ${EV.anio_fin}. El círculo claro marca ${EV.anio} y el oscuro ${EV.anio_fin}.`,
   // f-hogares y f-actividad, unidas (R7): la cifra destacada ya dice cuánto crecieron la demanda total y la actividad. El texto da la demanda
   // del último año, la parte de los hogares y cómo creció cada tipo de usuario frente a la economía (la otra vista del gráfico)
   hogares: `En ${e.anio_ult}, el país demandó ${n0(e.gwh_ult)} gigavatios hora (GWh) de electricidad, y los hogares fueron el ${pct(e.pct_res_ult)}. En ${e.anio_ini} eran el ${pct(e.pct_res_ini)}. ` +
@@ -1762,7 +1386,6 @@ const TX = {
   meses: `El año tiene dos picos de demanda eléctrica, uno por refrigeración en verano y otro por calefacción en invierno. En promedio entre ${e.meses_desde} y ${e.meses_hasta}, ` +
     `${e.mes_max} fue el mes de mayor demanda, con ${n0(Math.max(...T.energia_estacionalidad.map(r => r.gwh)))} gigavatios hora (GWh), y ${e.mes_min} el de menor, ` +
     `con ${n0(Math.min(...T.energia_estacionalidad.map(r => r.gwh)))}.`,
-  "meses-nota": `Promedio mensual de la demanda total en GWh para ${e.meses_desde}, ${e.meses_desde + 1} y ${e.meses_hasta}. El último mes disponible en la fuente es ${e.ultimo_mes}.`,
   nacimientos: `En ${nac.anio_ult} se registraron ${n0(nac.n_ult)} nacimientos, ${pct(Math.abs(nac.caida))} menos que en ${nac.anio_pico}, el año con más nacimientos desde ${nac.anio_ini} (${n0(nac.pico)}). El gráfico toma ${nac.anio_ini} como base 100. En el conjunto de los 38 países de la OCDE, la baja entre ${nac.anio_pico} y ${nac.ocde_ult} fue de ${pct(Math.abs(nac.ocde_caida))}.`,
   // la cifra destacada ya dice la parte del último año: el texto empieza por la del primero, sin repetirla
   adolescentes: `En ${nac.anio_ini}, ${n1(nac.pct_ini)} de cada 100 nacimientos del país eran de madres menores de 20 años. En cantidad, el máximo desde ${nac.anio_ini} fue de ${n0(nac.ado_pico)} nacimientos, en ${nac.ado_anio_pico}. En ${nac.anio_ult} fueron ${n0(nac.ado_ult)}, ${pct(Math.abs(nac.ado_caida))} menos.`,
@@ -1773,59 +1396,43 @@ const TX = {
     `En las de menos habitantes, unos pocos casos más o menos cambian mucho la tasa de un año a otro.`,
   edad: `Sobre ${n0(s.n_sat)} casos registrados entre ${s.sat_desde} y ${s.sat_hasta} con edad y sexo conocidos, el ${pct(s.pct_varones)} fueron varones y el ${pct(s.pct_jovenes)} tenía entre 15 y 29 años.`,
   muertes: `En ${s.anio}, el SNIC registró ${n0(s.casos)} suicidios, ${n0(s.homicidios)} homicidios dolosos y ${n0(s.viales)} muertes en siniestros viales. Por cada homicidio hubo ${n1(s.razon_hom)} suicidios. Desde ${s.anio_cruce} los suicidios superan cada año a las muertes viales. El último dato del Registro Nacional de Femicidios de la Justicia Argentina es de ${R.femicidios.anio}: ${n0(R.femicidios.n)} víctimas directas.`,
-  "muertes-nota": `Cantidad de víctimas por año. Homicidios dolosos y muertes en siniestros viales según el mismo registro del SNIC. Femicidios: víctimas directas según el Registro Nacional de Femicidios de la Justicia Argentina. La figura se incorporó al Código Penal en diciembre de 2012 (Ley 26.791) y los datos abiertos del registro empiezan en ${R.femicidios.ini}. Incluye travesticidios y transfemicidios.`,
   empleo: `En ${em.mes} había ${n1(em.total_millones)} millones de personas asalariadas registradas en el sector privado. En doce meses, el total del país ${signo(em.var_nac)} y el empleo creció ${deLas24(em.suben)}. El registro cuenta a cada persona en la provincia donde la declara su empleador: por eso CABA suma a muchas personas que viven en el Gran Buenos Aires.`,
   // la cifra destacada ya dice la tasa del último año: el texto empieza por la de los años anteriores
   mortalidad: `En ${mo.anio_inicio}, la tasa de mortalidad infantil del país era de ${n1(mo.tasa_inicio)} muertes de menores de un año cada 1.000 nacidos vivos. El gráfico compara promedios de tres años: en el de ${mo.tri_act}, la tasa más alta fue la de ${mo.top} (${n1(mo.top_v)}) y la más baja, la de ${mo.low} (${n1(mo.low_v)}). La tasa bajó ${deLas24(mo.bajan)} frente al promedio de ${mo.tri_base}.`,
-  "mortalidad-nota": `Defunciones de menores de un año por cada 1.000 nacidos vivos, según la provincia de residencia de la madre. En las provincias con pocos nacimientos la tasa de un solo año varía mucho, por eso se compara el promedio de tres años. El círculo claro marca ${mo.tri_base} y el lleno ${mo.tri_act}. La tabla descargable incluye también el valor de ${mo.anio}. La línea punteada violeta marca el promedio simple de los países de la OCDE en ${OC.mortalidad_infantil.anio}, según el Banco Mundial.`,
   // la cifra destacada ya dice las tarjetas del último mes: el texto empieza por cómo cambió en un año
   sube: (su.var_anual == null ? "" : `En ${su.mes} se usaron por día hábil ${pct(Math.abs(su.var_anual))} ${su.var_anual < 0 ? "menos" : "más"} tarjetas SUBE distintas que en ${su.mes_prev}. `) +
     `En los primeros días hábiles de marzo de 2020, antes del aislamiento, se usaban ${n2(su.pre_millones)} millones de tarjetas por día hábil` +
     (su.vs_pre == null ? ". " : `: en ${su.mes} se usaron ${pct(Math.abs(su.vs_pre))} ${su.vs_pre < 0 ? "menos" : "más"}. `) +
     `La SUBE, el Sistema Único de Boleto Electrónico, funciona en el Área Metropolitana de Buenos Aires y en decenas de ciudades del interior, pero no en las que tienen un sistema de pago propio.`,
-  "sube-nota": `Cantidad de tarjetas distintas que registraron al menos un viaje en el día. Se toma la mediana de los días hábiles de cada mes, así los feriados o paros no bajan el valor del mes. En ${su.mes} se usaron por día ${n1(su.colectivo_millones)} millones de tarjetas en colectivo, ${n0(su.tren_miles)} mil en tren y ${n0(su.subte_miles)} mil en subte (una tarjeta que combina modos cuenta en cada uno). La SUBE funciona en el AMBA y en decenas de ciudades del interior. No incluye ciudades con sistemas de pago propios. Cuenta tarjetas y no pasajeros: quien paga con tarjeta bancaria, celular o QR, donde se puede, no aparece. ` +
-    (su.faltan.length ? `La fuente no publica ningún día de ${su.faltan.join(" ni de ")}: el gráfico deja el hueco. ` : "") +
-    (su.lancha_salto ? `Desde ${su.lancha_salto} la cantidad de tarjetas en lanchas de la serie se multiplica de un mes a otro, y la fuente no explica por qué. ` : "") +
-    `Último día disponible en la fuente: ${su.ultimo_dia}.`,
   // la cifra destacada ya dice el puntaje en matemática: el texto empieza por lectura y ciencias
   pisa: `En PISA ${pz.anio}, los estudiantes de 15 años de la Argentina obtuvieron en promedio ${pz.lec} puntos en lectura y ${pz.cie} en ciencias. El promedio de los países de la OCDE fue de ${pz.ocde_lec} y ${pz.ocde_cie} puntos. Frente a ${pz.anio_prev}, el puntaje de la Argentina ${cambio(pz.var_mat)} en matemática, ${cambio(pz.var_lec)} en lectura y ${cambio(pz.var_cie)} en ciencias.`,
-  "pisa-nota": `Puntaje promedio de los estudiantes de 15 años escolarizados que rindieron la prueba. La OCDE excluyó de las comparaciones el resultado nacional de 2015 por problemas de cobertura de la muestra. Por eso ese año no aparece en el gráfico, aunque figura en la tabla descargable. En 2000 esta fuente solo tiene el puntaje de lectura. El promedio OCDE es el promedio simple de los países miembros en cada ciclo.`,
   // la cifra destacada ya dice la tasa del país en el último año: el texto empieza por la del primero
   escolarizacion: `En ${es.ini}, el ${pct(es.pais_ini)} de los adolescentes del país en edad de cursar la secundaria estaba matriculado en ese nivel. Desde entonces, la tasa subió ${deLas24(es.suben)}${es.bajan.length && es.bajan.length <= 3 ? ` y bajó en ${lista(es.bajan)}` : ""}. La comparación cruza un quiebre de serie: desde 2022, la población de referencia sale del Censo 2022. ` +
     `En ${es.fin}, la tasa más alta fue la de ${es.top} (${pct(es.top_v)})` + (es.top_excluidos.length ? `, sin contar ${lista(es.top_excluidos)}, donde llega casi al 100% por diferencias entre la matrícula y la población estimada` : "") +
     `. La más baja fue la de ${es.low} (${pct(es.low_v)}).`,
-  "escolarizacion-nota": `Alumnos de 12 a 17 años (13 a 17 en las provincias con secundaria de cinco años) matriculados en el nivel secundario, incluidas la educación especial y la de jóvenes y adultos, sobre la población de esa edad. Desde 2022 la población de referencia son las proyecciones del INDEC basadas en el Censo 2022, así que parte del cambio entre 2021 y 2022 responde al cambio de denominador. Algunos valores superan el 100% por diferencias entre la matrícula y la proyección de población. El círculo claro marca ${es.ini} y el lleno ${es.fin}.`,
   // la cifra destacada ya dice el porcentaje en matemática: el texto empieza por lengua
   aprender: `En matemática, el ${pct(ap.mat_debajo)} de los estudiantes de 6° grado de primaria del país quedó por debajo del nivel básico en Aprender ${ap.anio}. Por provincia, la parte con nivel satisfactorio o avanzado en matemática fue más alta en ${ap.top} (${pct(ap.top_v)}) y más baja en ${ap.low} (${pct(ap.low_v)}). En lengua, el ${pct(ap.len)} del país alcanzó un nivel satisfactorio o avanzado.`,
-  "aprender-nota": `Aprender es la evaluación nacional de aprendizajes de la Secretaría de Educación. En ${ap.anio} fue censal para 6° grado de primaria. Los porcentajes se calculan con la base agregada por departamento, sector y ámbito que publica la Secretaría, y cuentan solo a quienes tienen un nivel de desempeño asignado. Por eso pueden diferir levemente de los del informe oficial.${DIST["aprender_provincias.mat_logra"]?.["Neuquén"] ? ` En Neuquén, ${DIST["aprender_provincias.mat_logra"]["Neuquén"].motivo}.` : ""}`,
   // la cifra destacada ya dice la parte del territorio protegida: el texto empieza por cuántas áreas son y cuánto cubren
   protegida: `En ${nt.anio} había ${n0(nt.areas)} áreas protegidas nacionales, provinciales y con designación internacional. Cubrían ${n1(nt.ha_millones)} millones de hectáreas de tierra firme, unos ${n0(nt.m2_pais)} metros cuadrados (m²) por habitante. ` +
     `${nt.top} tenía protegido el ${pct(nt.top_v)} de su superficie${conVeces(nt.top_v, nt.pct)} y ${nt.low}, el ${pct(nt.low_v)}${conVeces(nt.low_v, nt.pct)}. Por habitante, la superficie protegida va de ${n0(nt.m2_top_v)} m² en ${nt.m2_top} a ${n1(nt.m2_low_v)} m² en ${nt.m2_low}. ` +
     `La fuente suma la superficie de cada designación, así que una misma zona puede contarse más de una vez.`,
-  "protegida-nota": `Superficie terrestre dentro de áreas protegidas de jurisdicción nacional o provincial y de sitios con designación internacional, como reservas de biosfera y sitios Ramsar. La fuente suma la superficie de cada designación, así que una misma zona puede contarse más de una vez. No incluye las áreas marinas. Los metros cuadrados por habitante usan la población que proyecta el INDEC para ${R.anio_pob_ficha.areas_protegidas_provincias}, el mismo año. La línea punteada violeta marca el promedio simple de los países de la OCDE en ${OC.protegida.anio} según el Banco Mundial, que usa otra base (la Base Mundial de Áreas Protegidas) y no suma superposiciones.`,
   // la cifra destacada ya dice cuántas áreas tiene Parques Nacionales: el texto da sus nombres y su superficie
   parques: `Los primeros parques nacionales, ${nt.pn_primeras}, se crearon en ${nt.pn_primera_anio}. Hoy las áreas protegidas de la Administración de Parques Nacionales suman ${n1(nt.pn_total_millones)} millones de hectáreas: ${n1(nt.pn_terr_millones)} millones en tierra y ${n1(nt.pn_mar_millones)} millones en el mar. La más grande en tierra es ${nt.pn_mayor}, creada en ${nt.pn_mayor_anio}, con ${n0(nt.pn_mayor_ha)} hectáreas. La más reciente es ${nt.pn_ultima}, de ${nt.pn_ultima_anio}.`,
-  "parques-nota": `Superficie acumulada según el año de creación de cada área, con su superficie actual. No refleja ampliaciones posteriores ni cambios de categoría.`,
   // la cifra destacada ya dice el área con más especies: el texto empieza por la segunda
   especies: `La segunda área protegida nacional con más especies animales registradas es ${nt.esp_2}, con ${n0(nt.esp_2_v)}. ` +
     `El número depende también de cuánto se estudió cada área: las más antiguas e investigadas acumulan más registros, así que no mide por sí solo cuántas especies viven en ella.`,
-  "especies-nota": `Especies animales, vertebradas e invertebradas, registradas en cada área protegida nacional terrestre según el Sistema de Información de Biodiversidad. El número también refleja cuánto se estudió cada lugar: las áreas más antiguas e investigadas acumulan más registros, por eso no mide por sí solo la riqueza de fauna.`,
   // la cifra destacada ya dice las visitas del último año: el texto empieza por la parte de quienes no residen en el país
   visitas: `En ${nt.vis_anio}, el ${pct(nt.vis_nr_pct)} de las visitas a los parques nacionales fue de personas que no residen en el país. El máximo de la serie fue en ${nt.vis_max_anio}, con ${n0(nt.vis_max)} visitas, y el mínimo en ${nt.vis_min_anio}, con ${n0(nt.vis_min)}. ` +
     `${nt.ytd_frase}, según esta fuente, las visitas ${movio(nt.ytd_var)} frente a los mismos meses del año anterior. ` +
     `La pestaña de cada parque usa otra fuente, el tablero de la Secretaría de Turismo y Ambiente, y su comparación de lo que va del año puede dar otro resultado.`,
-  "visitas-nota": `Visitas registradas en los parques nacionales con control de ingreso. Una persona que entra dos veces cuenta como dos visitas. Solo se muestran años completos. Esta fuente no publica datos abiertos por parque: la pestaña de cada parque usa el tablero de la Secretaría de Turismo.`,
   // la cifra destacada ya dice los turistas del último año completo: el texto empieza por los últimos doce meses
   receptivo: `En los doce meses hasta ${tu.doce_hasta} llegaron ${n0(tu.doce)} turistas que viven fuera del país, ${pct(Math.abs(tu.doce_var))} ${tu.doce_var < 0 ? "menos" : "más"} que en los doce meses anteriores. El máximo de la serie anual fue en ${tu.max_anio}, con ${n0(tu.max)}.`,
-  "receptivo-nota": `Viajes de turistas no residentes, es decir personas que viven en otro país y pasan al menos una noche en la Argentina, por todos los pasos aéreos, terrestres y fluviales. Se cuentan por el país donde viven, no por su nacionalidad: un argentino que vive afuera es no residente. Una persona que entra dos veces en el año cuenta como dos viajes. Solo se muestran años completos.${tu.provisorio ? " Los últimos meses son datos provisorios." : ""}`,
   // la cifra destacada ya dice los viajeros del último año: el texto empieza por la parte que no residía en el país
   hoteles: `El ${pct(tu.eoh_nr_pct)} de los viajeros que se hospedaron en hoteles y parahoteles de las localidades relevadas en ${tu.eoh_anio} no residía en el país. ${tu.eoh_reg} fue la región con más viajeros, con el ${pct(tu.eoh_reg_pct)} del total. El máximo de la serie fue en ${tu.eoh_max_anio}, con ${n1(tu.eoh_max)} millones.`,
-  "hoteles-nota": `Encuesta de Ocupación Hotelera, que releva hoteles y parahoteles de las principales localidades turísticas agrupadas en siete regiones. No publica datos por provincia. El último mes publicado es ${tu.eoh_ultimo}, por eso el último año completo es ${tu.eoh_anio}. El INDEC informó que, al no renovarse el convenio de financiamiento con la Secretaría de Turismo y Ambiente, la encuesta se reformulará y su difusión se reprogramará. El Instituto de Estadística de la Ciudad de Buenos Aires continúa el relevamiento solo en CABA.`,
   // la cifra destacada ya dice los turistas de la jurisdicción más visitada: el texto empieza por la más visitada en relación con su población
   // la cifra destacada ya dice la más alta cada 1.000 habitantes (E11): el texto empieza por la cantidad
   eti: `En cantidad, la jurisdicción más visitada en ${tu.eti_anio} por los turistas del exterior que se fueron del país por Ezeiza o Aeroparque fue ${tu.eti_top}, ` +
     `con ${n0(tu.eti_top_v)}, y la segunda, ${tu.eti_2}, con ${n0(tu.eti_2_v)}.`,
-  "eti-nota": `Encuesta de Turismo Internacional. Solo cubre a los turistas que dejan el país por los aeropuertos de Ezeiza y Aeroparque, así que subestima a las provincias que reciben turistas por otros pasos, como las limítrofes. Un turista que visitó varias provincias cuenta en cada una. La cantidad por habitante usa la población que proyecta el INDEC para ${R.anio_pob_ficha.turistas_extranjeros_provincias}, el mismo año. Desde 2026 el INDEC reformula esta encuesta y reprogramó su difusión porque no se renovó el convenio de financiamiento con la Secretaría de Turismo.`,
   // la cifra destacada ya dice la pobreza del último semestre: el texto empieza por la indigencia
   pobreza: `En el ${R.pobreza.sem}, el ${pct(R.pobreza.ind)} de las personas de los 31 aglomerados urbanos que releva la EPH estaba bajo la línea de indigencia. Un año antes, en el ${R.pobreza.sem_prev}, la pobreza era ${R.pobreza.pob > R.pobreza.pob_prev ? "más baja" : R.pobreza.pob < R.pobreza.pob_prev ? "más alta" : "igual"}: ${pct(R.pobreza.pob_prev)}. La indigencia era del ${pct(R.pobreza.ind_prev)}. El valor más alto de la pobreza en la serie fue ${pct(R.pobreza.max)}, en el ${R.pobreza.max_sem}.`,
   // chicos en hogares pobres (fuentes nuevas aprobadas por el autor el 14 de noviembre de 2026): la cifra destacada dice la pobreza de 0 a 17
@@ -1836,152 +1443,41 @@ const TX = {
     `vivía bajo la línea de indigencia.`,
   "pobreza-ninez-edad": `En el ${PNZ.fin} vivía en hogares pobres el ${pct(PNZ.p0_5)} de los chicos de 0 a 5 años, el ${pct(PNZ.p6_11)} de los de 6 a 11 ` +
     `y el ${pct(PNZ.p12_17)} de los de 12 a 17. En las personas de 65 años y más, el ${pct(PNZ.p65_y_mas)}.`,
-  "pobreza-ninez-nota": `Personas de 0 a 17 años que viven en hogares cuyos ingresos no alcanzan la canasta básica total (pobreza) o la canasta ` +
-    `básica alimentaria (indigencia). La pobreza se mide por hogar: un chico es pobre si su hogar lo es. Qué no dice este dato: la EPH releva solo ` +
-    `los 31 aglomerados urbanos, no el campo ni las ciudades chicas, y no mide otras carencias, como la vivienda, la salud o la escuela.`,
-  "pobreza-nota": `Porcentaje de personas en hogares cuyos ingresos no alcanzan la canasta básica total (pobreza) o la canasta básica alimentaria (indigencia). La EPH releva solo los 31 aglomerados urbanos, no el total del país ni las provincias. En el consultor de pobreza están los aglomerados, los partidos del Gran Buenos Aires y las comunas de CABA, con sus intervalos de confianza.`,
-  "mapa-areas-nota": `Color: porcentaje de la superficie de cada provincia dentro de áreas protegidas de cualquier jurisdicción, ${nt.anio}. Círculos: áreas protegidas nacionales terrestres, con tamaño proporcional a su superficie. Pasá el cursor o tocá para ver los valores.`,
-  "lista-areas-nota": `Las ${nt.pn_n} áreas protegidas de la Administración de Parques Nacionales, ordenadas por año de creación. Superficie actual en hectáreas según el Sistema de Información de Biodiversidad.`,
-  // la cifra destacada ya dice las tarjetas en trenes: el texto empieza por los subtes
-  "sube-modos": `En ${su.mes}, en un día hábil típico se usaron ${n0(su.subte_miles)} mil tarjetas SUBE en subtes. En los primeros días hábiles de marzo de 2020, antes del aislamiento, eran ${n0(su.tren_pre_miles)} mil en trenes y ${n0(su.subte_pre_miles)} mil en subtes. ` +
-    `Frente a entonces, los trenes tienen ${pct(Math.abs(su.tren_vs_pre))} ${su.tren_vs_pre < 0 ? "menos" : "más"} tarjetas y los colectivos, ${pct(Math.abs(su.colectivo_vs_pre))} ${su.colectivo_vs_pre < 0 ? "menos" : "más"}. ` +
-    `En el subte hay ${pct(Math.abs(su.subte_vs_pre))} ${su.subte_vs_pre < 0 ? "menos" : "más"}, pero esa diferencia no mide pasajeros: desde diciembre de 2024 parte de los viajes en subte se paga sin SUBE y no figura en estos datos.`,
-  "sube-modos-nota": `Mediana de las tarjetas distintas que viajaron cada día hábil en cada modo. El subte funciona solo en CABA y los trenes con SUBE, sobre todo en el Área Metropolitana. ` +
-    `Desde diciembre de 2024 el subte acepta tarjetas bancarias y celulares sin contacto, y desde mayo de 2025 pagos con QR: esos viajes no usan la SUBE y no están en estos datos, así que la baja de tarjetas en el subte no es lo mismo que una baja de pasajeros.`,
   // la cifra destacada ya dice las motos y los autos del último año: el texto empieza por lo que va del año
   patentes: `Entre ${au.ytd} se inscribieron en los registros del país ${pct(Math.abs(au.ytd_var))} ${au.ytd_var < 0 ? "menos" : "más"} autos nuevos que en el mismo período del año anterior. El máximo de autos de la serie fue en ${au.max_anio}, con ${n0(au.max)}, y el mínimo en ${au.min_anio}, con ${n0(au.min)}. ` +
     `La serie de autos cuenta todos los automotores: también camionetas y vehículos de carga.` +
     (au.moto_excluidos.length ? ` El total de motos de ${au.anio} no incluye el dato de ${lista(au.moto_excluidos)}, que la ficha siguiente señala como un probable error de la fuente.` : ""),
-  "patentes-nota": `Inscripciones iniciales de vehículos cero kilómetro. Automotores incluye autos, camionetas y vehículos de carga. Los datos de motos empiezan en ${au.motos_ini}.`,
   // la cifra destacada ya dice los autos cada 1.000 habitantes del país: el texto empieza por los extremos
   "patentes-prov": `En ${au.anio}, el valor más alto de autos nuevos inscriptos cada 1.000 habitantes fue el de ${au.top} (${n1(au.top_v)}) y el más bajo, el de ${au.low} (${n1(au.low_v)}). ` +
     `Cada inscripción se cuenta en la provincia del registro, que no siempre es donde se usa el vehículo. ` +
     `En motos, el valor más alto fue el de ${au.moto_top} (${n1(au.moto_top_v)})${sinContar("patentamientos_provincias.motos_1000", au.moto_excluidos)}. ` +
     `El promedio del país en motos fue de ${n1(au.motos_pais_1000)} cada 1.000 habitantes${au.moto_excluidos.length ? `, también sin ${au.moto_excluidos.length > 1 ? "esos datos" : "ese dato"}` : ""}.`,
-  "electricidad-provincias": LEAD["electricidad-provincias"]("prov"), "electricidad-provincias-nota": `Demanda residencial que los distribuidores declaran cada mes a CAMMESA, por provincia, ` +
-    `dividida por la población de cada año (proyecciones del INDEC desde 2022 y, antes, la población que se deduce de las tasas del Sistema Nacional de Información Criminal, SNIC). La parte de los hogares se calcula sobre las tres categorías de tarifa ` +
-    `que publica CAMMESA: residencial, comercial e industrial o comercial grande. CAMMESA no separa CABA de la provincia de Buenos Aires, así que van juntas, y no informa Tierra del Fuego: ` +
-    `el valor del país es el de las demás jurisdicciones. La serie empieza en ${e.el_ini} porque antes CAMMESA contaba el alumbrado público como residencial. ` +
-    `Los últimos meses son provisorios (el último publicado es ${e.el_hasta}). Si elegís CABA o la provincia de Buenos Aires en Tu provincia, el gráfico resalta la fila que las junta.`,
-  "electricidad-sectores": LEAD["electricidad-sectores"]("ind"), "electricidad-sectores-nota": `Demanda que los distribuidores y los grandes usuarios declaran ` +
-    `cada mes a CAMMESA, por provincia y categoría de tarifa, dividida por la población del año (proyecciones del INDEC). Comercios y servicios son los usuarios de las ` +
-    `distribuidoras que no son hogares y demandan menos de 300 kW, con los clubes y el alumbrado público. Industrias y grandes comercios son las demandas de 300 kW o más: ` +
-    `las que abastecen las distribuidoras y los grandes usuarios que compran su energía en el mercado mayorista, que CAMMESA registra en la provincia donde consumen. ` +
-    `Por eso, donde hay una gran planta industrial o minera, una sola empresa puede concentrar buena parte de la demanda de la provincia. CAMMESA no separa CABA ` +
-    `de la provincia de Buenos Aires, así que van juntas, y no informa Tierra del Fuego: el valor del país es el de las demás jurisdicciones. ` +
-    `Los últimos meses son provisorios (el último publicado es ${e.el_hasta}).`,
-  salarios: LEAD.salarios("prov"), "salarios-nota": `Remuneración bruta promedio por todo concepto (antes de los aportes y las contribuciones) de los asalariados ` +
-    `registrados del sector privado, por puesto de trabajo: una persona con dos empleos cuenta dos veces. Cada puesto se cuenta en la provincia donde el trabajador ` +
-    `está declarado. Es un promedio y no una mediana, así que unos pocos sueldos muy altos lo suben. Junio y diciembre incluyen el aguinaldo: por eso la comparación ` +
-    `entre provincias usa ${SA.mes}, el último mes sin aguinaldo (el último publicado es ${SA.ult}). La provincia de Buenos Aires reúne los partidos del Gran Buenos Aires ` +
-    `y el resto de la provincia, ponderados por su empleo. No incluye el empleo público ni el trabajo no registrado. Los dos últimos años son provisorios. La variación del salario en Precios y actividad sale de otra medida, el índice de salarios del INDEC, y puede dar otro número.`,
-  "salario-docente": LEAD["salario-docente"]("prov"), "salario-docente-nota": `Salario bruto por mes de un cargo de referencia, no el promedio de lo que cobran los ` +
-    `docentes: maestro de grado de primaria, jornada simple, con 10 años de antigüedad, con lo que paga cada provincia. Incluye los adicionales comunes al cargo, como ` +
-    `zona o residencia donde se pagan, y las sumas extraordinarias del trimestre. Hasta ${DC.fonid_fin} incluía también el Fondo Nacional de Incentivo Docente y la ` +
-    `conectividad que pagaba la Nación. El país es el promedio ponderado que publica la fuente. Los datos son provisorios y cada edición revisa trimestres anteriores.`,
-  "inversion-educativa": LEAD["inversion-educativa"]("alumno"), "inversion-educativa-nota": `Gasto público en educación por alumno de gestión estatal: lo que gasta ` +
-    `cada provincia en educación más las transferencias no automáticas de la Nación, sin lo que se transfiere a las escuelas de gestión privada, dividido por los ` +
-    `alumnos de las escuelas estatales. La parte del gasto público no cuenta esas transferencias de la Nación. Montos en pesos de cada año. En la vista Año por año, descontada la inflación, en pesos de ${IE.anio} ` +
-    `con el deflactor del PBI. Datos provisorios.`,
-  delitos: LEAD.delitos("tipo"), "delitos-nota": `El SNIC reúne los hechos que registran las fuerzas policiales y de seguridad, y en algunas provincias el Ministerio Público ` +
-    `Fiscal, en sus primeras actuaciones: los delitos que nadie denuncia ni detecta no figuran, y algunos de los registrados pueden no confirmarse después. Cada hecho ` +
-    `cuenta como un delito. El total suma los delitos de todos los tipos salvo las contravenciones, y el gráfico muestra los catorce más frecuentes (la tabla tiene todos). Tasas cada 100.000 habitantes con las proyecciones de población del INDEC ` +
-    `de cada momento (desde 2022, con base en el Censo 2022). Entre 2009 y 2013, el SNIC completó el total del país porque faltan datos de Buenos Aires y de Córdoba.`,
-  robos: LEAD.robos("robos"), "robos-nota": `Hechos que registran las fuerzas policiales y de seguridad, cada 100.000 habitantes. El robo es quedarse con algo ajeno con fuerza ` +
-    `en las cosas o violencia en las personas, y el hurto, sin fuerza ni violencia. Los robos no incluyen las tentativas ni los agravados por el resultado de lesiones o ` +
-    `muertes, que el SNIC cuenta aparte. Las diferencias entre provincias dependen también de cuánto se denuncia y de cómo registra cada fuerza.`,
-  homicidios: LEAD.homicidios("prov"), "homicidios-nota": `Víctimas de homicidios dolosos que registran las fuerzas policiales y de seguridad. Un homicidio es doloso cuando alguien le quita la vida a otra persona con intención de hacerlo. ` +
-    `Por provincia, la tasa suma las víctimas de ${SG.hom3_desde} a ${SG.anio} y las divide por la población del INDEC de esos años, porque donde hay ` +
-    `pocos casos la tasa de un solo año cambia mucho. Las muertes en siniestros viales y los femicidios están en la ficha de muertes de Salud.`,
+  "electricidad-provincias": LEAD["electricidad-provincias"]("prov"),
+  "electricidad-sectores": LEAD["electricidad-sectores"]("ind"),
+  salarios: LEAD.salarios("prov"),
+  "salario-docente": LEAD["salario-docente"]("prov"),
+  "inversion-educativa": LEAD["inversion-educativa"]("alumno"),
+  delitos: LEAD.delitos("tipo"),
+  robos: LEAD.robos("robos"),
+  homicidios: LEAD.homicidios("prov"),
   "sin-condena": LEAD["sin-condena"]("prov"),
-  "sin-condena-nota": `Sin condena quiere decir que la persona estaba procesada, con la causa todavía en trámite, o en otra situación legal. ` +
-    `Cada provincia es su servicio penitenciario: CABA no tiene uno propio y el Servicio Penitenciario Federal va aparte. La línea del país suma todos, también el federal. ` +
-    `No se cuentan las personas detenidas en comisarías ni las que tienen prisión domiciliaria.`,
-  carceles: LEAD.carceles("serie"), "carceles-nota": `Censo de las personas alojadas en establecimientos penitenciarios al 31 de diciembre de cada año. No incluye a las ` +
-    `personas detenidas en comisarías ni a las que tienen prisión domiciliaria. Por provincia, cada servicio penitenciario provincial sobre la población de su provincia que proyecta el INDEC para el mismo año: ` +
-    `las cárceles federales van aparte y una cárcel puede alojar a personas detenidas por la justicia de otra provincia. El país, sobre la población que usa el SNIC. ` +
-    `El salto de 2004 viene del dato de la provincia de Buenos Aires de ese año, mucho más alto que el de los años vecinos.`,
+  carceles: LEAD.carceles("serie"),
   // ---- gobierno (etapa 25)
-  "cuentas-nacion": LEAD["cuentas-nacion"]("resultado"), "cuentas-nacion-nota": `Informe mensual de ingresos y gastos del Sector Público Nacional ` +
-    `no Financiero de la Secretaría de Hacienda, en base caja: lo que efectivamente entra y sale cada mes. Como parte del PBI a precios corrientes del ` +
-    `INDEC de cada año completo, y los últimos años del PBI son provisorios. Los ingresos son los que le quedan a la Nación: lo que se reparte en forma ` +
-    `automática con las provincias por la coparticipación no está. Las utilidades que transfiere el Banco Central no cuentan como ingreso, y los intereses ` +
-    `son netos de los que se paga el propio Estado. Las transferencias corrientes a las provincias son las que no son automáticas. ` +
-    `Los ingresos de enero de 2026 incluyen la venta de las acciones del Estado en centrales hidroeléctricas.`,
-  recaudacion: LEAD.recaudacion("impuesto"), "recaudacion-nota": `Recursos tributarios nacionales de la Dirección Nacional de Investigaciones y Análisis ` +
-    `Fiscal: lo que cobran la ARCA y otros organismos nacionales, antes de repartir entre la Nación y las provincias. Como parte del PBI a precios ` +
-    `corrientes del INDEC de cada año completo. La variación de lo que va del año descuenta la inflación con el índice de precios al consumidor del INDEC. La ley de ` +
-    `coparticipación reparte con las provincias casi todos los impuestos nacionales, pero no los derechos de exportación y de importación.`,
-  deuda: LEAD.deuda(), "deuda-nota": `Deuda bruta de la Administración Central según la Secretaría de Finanzas: la deuda en situación de pago normal, ` +
-    `los atrasos y la deuda que todavía no entró en las reestructuraciones, también la que tienen otros organismos del propio Estado. Como parte del ` +
-    `PBI, como la publica la Secretaría para cada fin de año y para cada trimestre del año en curso. No incluye la deuda de las provincias ni la del ` +
-    `Banco Central.`,
-  "empleo-publico": LEAD["empleo-publico"]("prov"), "empleo-publico-nota": `Cargos ocupados en las administraciones públicas provinciales (administración ` +
-    `central, organismos descentralizados y cuentas especiales) del personal permanente y temporario, según la Dirección Nacional de Asuntos ` +
-    `Provinciales, con la población que proyecta el INDEC para el mismo año. Cuenta cargos, no personas: alguien puede tener dos cargos. Cada provincia informa los suyos` +
-    (GBC.presupuestados.length ? `, y ${lista(GBC.presupuestados)} ${GBC.presupuestados.length > 1 ? "informan" : "informa"} los cargos ` +
-      `presupuestados en lugar de los ocupados` : "") + `. La vista de la Nación es la dotación de la administración pública nacional, las empresas y ` +
-    `las sociedades del Estado que publica el INDEC: no incluye las universidades, el sistema de ciencia y tecnología, el servicio exterior ni el ` +
-    `personal militar y de seguridad, y tiene meses con datos estimados por el INDEC.`,
-  "impuestos-provinciales": LEAD["impuestos-provinciales"](), "impuestos-provinciales-nota": `Recursos tributarios de origen provincial: ingresos ` +
-    `brutos, inmobiliario, sellos, automotor y otros, según la Dirección Nacional de Asuntos Provinciales, que replica lo que publica la dirección de ` +
-    `rentas de cada provincia. Por habitante con la población que proyecta el INDEC para el mismo año. Las provincias no cobran los mismos impuestos: en algunas, el automotor lo ` +
-    `cobran los municipios. Las finanzas de cada provincia, con lo que recibe de la Nación, están en la ficha siguiente.`,
-  "pobreza-aglomerados": LEAD["pobreza-aglomerados"]("region"), "pobreza-aglomerados-nota": `Personas en hogares cuyos ingresos no alcanzan la canasta ` +
-    `básica total, según la Encuesta Permanente de Hogares del INDEC, que releva 31 aglomerados urbanos y no mide las zonas rurales ni las ciudades chicas. ` +
-    `Las regiones son las de la encuesta: Gran Buenos Aires (CABA y los partidos del conurbano), Noroeste, Noreste, Cuyo, Pampeana y Patagonia. El Gran ` +
-    `Buenos Aires va en dos partes también entre las ciudades. Un aglomerado es una ciudad con su área urbana y puede juntar dos ciudades o dos provincias. ` +
-    `El coeficiente de variación mide la precisión de cada estimación: cuanto más alto, menos precisa. Está en el cuadro de cada barra, con la indigencia. ` +
-    `La pobreza por provincia es un cálculo de Datina, no un dato del INDEC: junta los aglomerados de la encuesta de cada provincia, cada uno ` +
-    `pesado por las personas que representa, y no mide el resto de la provincia. San Nicolás-Villa Constitución, que abarca dos provincias, no entra ` +
-    `en ninguna. En el consultor de pobreza están los partidos del Gran Buenos Aires y las comunas de CABA.`,
-  "empresas-tamano": LEAD["empresas-tamano"]("tam"), "empresas-tamano-nota": `Empresas privadas con al menos una persona en relación de dependencia ` +
-    `declarada en el SIPA, según el Observatorio de Empleo y Dinámica Empresarial. No cuenta a quienes trabajan por su cuenta sin empleados. Una empresa con ` +
-    `personal en varias provincias cuenta en cada una, y el país suma las provincias: por eso da más que la cantidad de empresas de la ficha anterior. El ` +
-    `tamaño es el de toda la empresa, según su personal promedio de los últimos cuatro trimestres, con topes distintos en cada rama: en el comercio minorista, ` +
-    `una microempresa tiene hasta 5 personas, una pequeña hasta 26 y una mediana hasta 100. El OEDE clasifica por tamaño solo a la industria, el comercio y ` +
-    `los servicios, el ${pct(EM.tam_cubre)} de las empresas del país: el agro, la minería, la construcción y la electricidad, gas y agua no entran en esa vista.`,
+  "cuentas-nacion": LEAD["cuentas-nacion"]("resultado"),
+  recaudacion: LEAD.recaudacion("impuesto"),
+  deuda: LEAD.deuda(),
+  "empleo-publico": LEAD["empleo-publico"]("prov"),
+  "impuestos-provinciales": LEAD["impuestos-provinciales"](),
+  "pobreza-aglomerados": LEAD["pobreza-aglomerados"]("region"),
+  "empresas-tamano": LEAD["empresas-tamano"]("tam"),
   // la informalidad (14 de noviembre de 2026): la cifra destacada dice la del último trimestre en el total de los 31 aglomerados
   informalidad: `La parte de los ocupados con un empleo informal iba del ${pct(INF.min[1])} en ${INF.min[0]} al ${pct(INF.max[1])} en ${INF.max[0]}. ` +
     `Solo en el ${INF.ultimo}, en el total de los 31 aglomerados, fue el ${pct(INF.pais_ultimo)}.`,
-  "informalidad-nota": `Informal es el empleo sin la protección de la seguridad social. Para los asalariados, el que no tiene descuento jubilatorio. ` +
-    `Para los patrones y los trabajadores por cuenta propia, el de quienes no tienen su actividad registrada, ` +
-    `con los criterios del INDEC. Los trabajadores familiares sin remuneración son informales por ` +
-    `definición. Es la clasificación que el INDEC agregó a la Encuesta Permanente de Hogares desde el ${INF.ini}, la misma de sus tasas de empleo ` +
-    `formal e informal: el cálculo de Datina con las bases da su misma cifra del total. En las ciudades chicas un trimestre tiene pocas personas ` +
-    `encuestadas, así que se juntan los cuatro trimestres (el aglomerado con menos casos tiene ${n0(INF.casos_min)} ocupados encuestados). La EPH ` +
-    `mide 31 aglomerados urbanos, no las provincias enteras ni el campo. Qué no dice este dato: no dice cuánto se gana ni si el trabajo alcanza para vivir.`,
-  desocupacion: LEAD.desocupacion("ciudad"), "desocupacion-nota": `Desocupada es la persona que no tiene trabajo, lo buscó activamente y está ` +
-    `disponible para trabajar. La tasa se calcula sobre la población económicamente activa: las personas que trabajan o buscan trabajo. La EPH es una ` +
-    `encuesta del INDEC en 31 aglomerados urbanos, que no mide las zonas rurales ni las ciudades chicas. Un aglomerado es una ciudad con su área urbana ` +
-    `y puede juntar dos ciudades (Neuquén con Plottier) o dos provincias (Viedma con Carmen de Patagones). El Gran Buenos Aires va en dos partes, CABA ` +
-    `y los partidos del conurbano. En los aglomerados chicos la encuesta tiene pocos casos y la tasa de un trimestre, un margen de error grande: por eso ` +
-    `cada uno va con el promedio de cuatro trimestres, y dos ciudades con tasas parecidas pueden no ser distintas. Si el INDEC no publicó la tasa de un ` +
-    `aglomerado en un trimestre, por tener pocos casos, el promedio usa los otros tres. El seguro de desempleo, en la ficha siguiente, cuenta otra cosa: ` +
-    `las personas que cobran la prestación.`,
-  coparticipacion: LEAD.coparticipacion("hab"), "coparticipacion-nota": `Tributos de origen nacional del esquema ahorro inversión financiamiento ` +
-    `de cada provincia, según el Ministerio de Economía: la coparticipación federal de impuestos (Ley 23.548, con la parte que la Ley 26.075 destina ` +
-    `a educación) y otros impuestos nacionales que se reparten por ley. No incluye lo que pasa por el presupuesto nacional, como los ATN y las demás ` +
-    `transferencias no automáticas, que están en Instituciones políticas. El reparto entre provincias no sigue a la población: la Ley 23.548, de 1988, ` +
-    `fija un porcentaje para cada una. CABA y Tierra del Fuego, que en 1988 no eran provincias, reciben su parte de la que le toca a la Nación, con ` +
-    `porcentajes que fijan otras normas: los de CABA cambiaron en 2016 y en 2020. En pesos de cada año. Por habitante, con la población del INDEC de ese año.`,
-  sociedades: LEAD.sociedades("prov"), "sociedades-nota": `Sociedades comerciales de la Ley General de Sociedades (anónimas, de responsabilidad ` +
-    `limitada, de la Sección IV y las demás de esa ley) y sociedades por acciones simplificadas, por el año de su contrato social y la provincia de ` +
-    `su domicilio fiscal, según el Registro Nacional de Sociedades del Ministerio de Justicia (registro de ${SOC.registro}). Cada sociedad se cuenta ` +
-    `una vez, aunque tenga varias actividades. No incluye asociaciones civiles, fundaciones, cooperativas, mutuales ni sucursales de empresas ` +
-    `extranjeras. El domicilio fiscal puede no ser donde la sociedad trabaja. Las que se dieron de baja pueden no estar en el registro. Cada ` +
-    `100.000 habitantes, con la población del INDEC de ${SOC.anio}.`,
-  "escuelas-primarias": LEAD["escuelas-primarias"](), "escuelas-primarias-nota": `Escuelas primarias comunes del Padrón Oficial de ` +
-    `Establecimientos Educativos de ${ESP.fecha}: estatales, privadas y de gestión social o cooperativa, también las que no se dibujan en el ` +
-    `mapa de la página de cada provincia. Cada sede cuenta aparte: un anexo, que funciona en otro lugar, es una escuela más. Cuenta escuelas, no ` +
-    `alumnos ni vacantes: una escuela rural de diez alumnos vale lo mismo que una de cientos en una ciudad. Chicos de 5 a 14 años de las ` +
-    `proyecciones del INDEC de ${ESP.anio}, que vienen en grupos de cinco años: la primaria dura seis o siete años según la provincia, y esos dos ` +
-    `grupos contienen sus edades. Las secundarias están en la ficha siguiente. Que dos medidas vayan juntas no dice que una cause la otra.`,
-  "escuelas-secundarias": LEAD["escuelas-secundarias"](), "escuelas-secundarias-nota": `Escuelas con secundaria común del Padrón Oficial ` +
-    `de Establecimientos Educativos de ${ESS.fecha}, estatales, privadas y de gestión social o cooperativa. Cada sede cuenta aparte, como en ` +
-    `las primarias. Chicos de 12 a 17 años de las proyecciones del INDEC de ${ESS.anio}: vienen en grupos de cinco años, así que son tres quintos ` +
-    `del grupo de 10 a 14 y tres quintos del de 15 a 19. Qué no dice este dato: cuenta escuelas, no alumnos ni vacantes, y algunas provincias ` +
-    `registran como secundarias aparte las secciones rurales que funcionan en otra escuela, así que tienen más escuelas sin tener más lugar.`,
+  desocupacion: LEAD.desocupacion("ciudad"),
+  coparticipacion: LEAD.coparticipacion("hab"),
+  sociedades: LEAD.sociedades("prov"),
+  "escuelas-primarias": LEAD["escuelas-primarias"](),
+  "escuelas-secundarias": LEAD["escuelas-secundarias"](),
   // la frase cambia con el signo de cada relación y, si dentro de la provincia con más departamentos la relación es mucho más débil, lo dice
   "privadas-aprender": `En los ${n0(PAP.deps)} departamentos con al menos ${n0(PAP.min)} alumnos de 6° grado evaluados en Aprender ${PAP.anio}, los que tienen ` +
     `una parte más grande de escuelas primarias privadas suelen tener ${PAP.r_mat >= 0 ? "más" : "menos"} alumnos con nivel satisfactorio o avanzado. La relación es ` +
@@ -1992,282 +1488,98 @@ const TX = {
       : `Dentro de ${PAP.prov}, la provincia con más departamentos con dato (${n0(PAP.prov_deps)}), la relación en matemática es ${fuerza(PAP.prov_r_mat)} (${n2(PAP.prov_r_mat)}). `) +
     `En todo el país, el ${pct(PAP.mat_privado)} de los alumnos de las escuelas privadas alcanzó el nivel satisfactorio o avanzado en matemática, frente al ` +
     `${pct(PAP.mat_estatal)} en las estatales.`,
-  "privadas-aprender-nota": `Cada punto es un departamento, partido o comuna. En el eje horizontal, qué parte de las escuelas primarias comunes del Padrón ` +
-    `Oficial de Establecimientos Educativos de ${PAP.fecha} es privada (las de gestión social o cooperativa no cuentan como privadas). En el vertical, qué parte ` +
-    `de los alumnos de 6° grado alcanzó el nivel satisfactorio o avanzado en matemática en Aprender ${PAP.anio}, con la base agregada por departamento de la ` +
-    `Secretaría de Educación. Solo entran los departamentos con al menos ${n0(PAP.min)} alumnos evaluados. La línea punteada es solo una guía de la tendencia. ` +
-    `La correlación es la de rangos de Spearman, que va de menos 1 a 1. Qué no dice este dato: que una escuela privada enseñe mejor. Sus alumnos vienen de ` +
-    `otros hogares: según el cuestionario de Aprender, el ${pct(PAP.nse_q1_estatal)} de los alumnos de las estatales pertenece al 20% del país con menor ` +
-    `nivel socioeconómico, y en las privadas el ${pct(PAP.nse_q1_privado)}, y eso también va junto con los resultados. La comparación es entre promedios ` +
-    `de departamentos, no entre alumnos ni entre escuelas, y cuenta escuelas, no alumnos: una escuela rural chica pesa lo mismo que una grande. ` +
-    `Que dos datos vayan juntos no prueba que uno cause el otro.`,
-  "distancia-hospital": LEAD["distancia-hospital"]("hospital"), "distancia-hospital-nota": `Distancia en línea recta, no por ruta: el ` +
-    `viaje real es más largo. Las escuelas rurales (primarias y secundarias comunes del padrón oficial) sirven de marca de dónde vive la gente en ` +
-    `el campo, y cada una cuenta una vez, tenga pocos o muchos alumnos. Los hospitales son los públicos con internación de la ficha de arriba y, ` +
-    `en la otra vista, los que el registro clasifica con terapia intensiva. El más cercano puede estar en otra provincia. Las escuelas sin una ` +
-    `ubicación confirmada no entran. La mediana es la distancia que deja a la mitad de las escuelas más cerca y a la otra mitad más lejos. CABA no ` +
-    `tiene escuelas rurales.`,
-  hospitales: LEAD.hospitales("hospitales"), "hospitales-nota": `Hospitales públicos con internación del Registro Federal de ` +
-    `Establecimientos de Salud del Ministerio de Salud: nacionales, provinciales, municipales, universitarios y mixtos, sin las residencias para ` +
-    `personas mayores. Son los mismos del mapa de escuelas y hospitales de la página de cada provincia. Cuenta establecimientos, no camas: uno de ` +
-    `cientos de camas en una ciudad grande vale lo mismo que uno de pocas camas en un pueblo. Las clínicas y los sanatorios privados no están, y ` +
-    `en varias provincias tienen buena parte de las camas. Con terapia intensiva: los que el registro clasifica como de alto riesgo con terapia ` +
-    `intensiva, una categoría que declara cada provincia. Cada 100.000 habitantes, con la población del INDEC de ${HSP.anio}.`,
-  medicos: LEAD.medicos("activos"), "medicos-nota": `Médicos por provincia de residencia, según el informe "Médicos activos en Argentina" del ` +
-    `Observatorio Federal de Talento Humano en Salud del Ministerio de Salud. Habilitados: con matrícula vigente en la Red Federal de Registros de ` +
-    `Profesionales de la Salud. Activos: los que alguna de seis fuentes administrativas de empleo, impuestos, jubilaciones y migraciones muestra ` +
-    `trabajando. El informe no cuenta a los jubilados sin actividad, a los que emigraron ni a los que no tienen actividad registrada. Cada 10.000 ` +
-    `habitantes, con la población del INDEC de ${MDC.anio}. Un médico puede atender en otra provincia que la de su residencia.`,
-  "cobertura-suelo": LEAD["cobertura-suelo"]("natural"), "cobertura-suelo-nota": `MapBiomas Argentina, Colección 3: una red de instituciones y ` +
-    `organizaciones que clasifica la cobertura del suelo de cada año desde ${MBS.ini} con imágenes satelitales Landsat. No es una estadística oficial ` +
-    `y la clasificación puede tener errores. La vegetación natural son los bosques, los arbustales, ` +
-    `los pastizales y las turberas. Lo demás es uso agropecuario, áreas urbanas, suelo sin vegetación o agua. El registro de bosques nativos del ` +
-    `Estado usa otra metodología y puede dar otras cifras. Licencia CC BY 4.0.`,
-  telefonia: LEAD.telefonia("prov"), "telefonia-nota": `Accesos de telefonía fija en servicio, según el ENACOM. Son líneas, no hogares: cuentan ` +
-    `las de los hogares y también las de comercios, organismos públicos y otros usos, así que una jurisdicción puede pasar de 100 cada 100 hogares. ` +
-    `Los accesos a internet fijo están en la ficha anterior.`,
-  "tv-paga": LEAD["tv-paga"]("prov"), "tv-paga-nota": `Accesos de TV por suscripción (cable y fibra) en servicio, según el ENACOM. Son abonos, ` +
-    `no hogares: cuentan también los de comercios y otros usos. Por provincia el ENACOM publica solo la TV por suscripción, sin la satelital, ` +
-    `que está en la evolución del país. Qué no dice este dato: no cuenta las plataformas por internet, como las de películas y series.`,
-  abandono: LEAD.abandono("ab"), "abandono-nota": `Tasa de abandono interanual: alumnos de la secundaria de un año que no se matriculan en el ` +
-    `año lectivo siguiente. Tasa de repitencia: alumnos que al año siguiente se matriculan en el mismo año de estudio. En % de los alumnos de la ` +
-    `secundaria común de cada jurisdicción, según los Relevamientos Anuales de la Secretaría de Educación. La fuente aclara que el cálculo supone que ` +
-    `entre un año y el siguiente no entran alumnos de otras jurisdicciones ni de otras cohortes, y que eso puede sesgar las tasas.` +
-    (ABN.regimen.length ? ` Desde ${ABN.anio}, ${lista(ABN.regimen)} aplica un régimen académico nuevo en la secundaria (Resolución 1650/2024 de su ` +
-      `Dirección General de Cultura y Educación), con la acreditación por materia: sus repitientes son los alumnos que no acreditaron ninguna materia ` +
-      `y siguen en el mismo año, y la fuente avisa que el cambio también puede incidir en el total del país.` : ""),
-  "deuda-provincias": LEAD["deuda-provincias"]("hab"), "deuda-provincias-nota": `Stock de deuda pública de cada provincia y de CABA al ` +
-    `${DPR.fecha_txt}, en pesos, según la Subsecretaría de Coordinación Fiscal Provincial del Ministerio de Economía. Los datos son preliminares y ` +
-    `pueden revisarse. No incluye la deuda flotante ni la contingente, y los bonos van a su valor residual, como aclara la fuente. El Gobierno ` +
-    `nacional incluye dos fondos fiduciarios nacionales, el Fondo Fiduciario Federal de Infraestructura Regional y el Fondo Fiduciario para el ` +
-    `Desarrollo Provincial. Bancos y otros incluye lo que la fuente llama deuda consolidada. Por habitante, con la población del INDEC de ${DPR.anio}.` +
-    (DPR.faltan.length ? ` ${lista(DPR.faltan)} no ${DPR.faltan.length > 1 ? "informaron" : "informó"} su deuda de esa fecha: ${DPR.faltan.length > 1 ? "quedan" : "queda"} sin dato.` : ""),
-  refugio: LEAD.refugio("anio"), "refugio-nota": `Solicitudes de reconocimiento de la condición de persona refugiada presentadas cada año ante la ` +
-    `CONARE, que decide quién es reconocida como refugiada, y personas reconocidas, según sus estadísticas de ${MGR.anio}. La CONARE las publica solo ` +
-    `en PDF: el sitio copia sus cuadros. Las cifras de ACNUR son las personas refugiadas y solicitantes de asilo que vivían en el país a fin de cada ` +
-    `año, que informa cada gobierno: no se suman a las solicitudes, que son trámites de cada año. ACNUR cuenta aparte a las otras personas que ` +
-    `necesitan protección internacional, que no figuran como refugiadas ni como solicitantes de asilo.`,
-  supermercados: LEAD.supermercados("prov"), "supermercados-nota": `Encuesta de Supermercados del INDEC: un panel fijo de empresas de supermercados ` +
-    `con alguna boca de 200 m² o más, o que suman esa superficie entre todas sus bocas, que no es una muestra al azar. Las ventas incluyen el IVA. La serie mes a mes es el índice del país que publica el ` +
-    `INDEC a precios constantes, que descuenta los precios de cada grupo de artículos con el índice de precios al consumidor del país. El INDEC publica ` +
-    `las ventas de cada provincia solo a precios corrientes: el sitio las lleva a pesos de ${ESU.mes} con el índice de precios de los bienes de su región ` +
-    `(en la provincia de Buenos Aires, los 24 partidos del Gran Buenos Aires con el de esa región y el resto con el de la región Pampeana), así que la ` +
-    `variación del país de ese gráfico difiere un poco de la del índice del INDEC. No se comparan las ventas por habitante: dependen de cuántos locales ` +
-    `del panel hay en cada provincia.`,
+  "distancia-hospital": LEAD["distancia-hospital"]("hospital"),
+  hospitales: LEAD.hospitales("hospitales"),
+  medicos: LEAD.medicos("activos"),
+  "cobertura-suelo": LEAD["cobertura-suelo"]("natural"),
+  telefonia: LEAD.telefonia("prov"),
+  "tv-paga": LEAD["tv-paga"]("prov"),
+  abandono: LEAD.abandono("ab"),
+  "deuda-provincias": LEAD["deuda-provincias"]("hab"),
+  refugio: LEAD.refugio("anio"),
+  supermercados: LEAD.supermercados("prov"),
   // ---- migraciones (etapa 25)
-  "nacidos-otro-pais": LEAD["nacidos-otro-pais"]("prov"), "nacidos-otro-pais-nota": `Personas que vivían en viviendas particulares y nacieron en ` +
-    `otro país, según el Censo 2022 del INDEC, como parte de toda la población en viviendas particulares de cada provincia. Es el primer censo de derecho: ` +
-    `cuenta a cada persona donde vive habitualmente. El país de nacimiento es el que declaró cada persona, y el ${pct(MGC.no_declarado_pct)} no lo declaró ` +
-    `(en algunas provincias, muchas más: el texto lo aclara cuando pasa de la quinta parte). Con una provincia elegida, la vista por país muestra los de ` +
-    `esa provincia. El mapa usa los cuadros de cada provincia, con un dato por departamento, partido o comuna: al pasar el mouse muestra también el ` +
-    `origen más frecuente entre quienes declararon su país, donde lo declararon al menos 100 personas. El RENAPER identifica más personas nacidas en ` +
-    `otro país porque cuenta los DNI con el domicilio declarado: está más abajo, en la ficha del RENAPER.`,
-  "migracion-interna": LEAD["migracion-interna"](), "migracion-interna-nota": `Personas que vivían en viviendas particulares según dónde nacieron: en la ` +
-    `misma provincia, en otra provincia o en otro país, según el Censo 2022 del INDEC. Cuenta dónde nació cada persona y dónde vive, no cuándo se mudó ni ` +
-    `cuántas veces. El mapa usa los cuadros de cada provincia, con un dato por departamento, partido o comuna, y divide a los departamentos en cinco ` +
-    `grupos del mismo tamaño.`,
-  "migracion-historia": LEAD["migracion-historia"](), "migracion-historia-nota": `Personas nacidas en otro país como parte de la población total de ` +
-    `cada censo nacional. Hasta 2001, según el INDEC (Aquí se cuenta, número 12, 2004), y en 2010 y 2022, según la publicación del Censo 2022 sobre ` +
-    `migraciones. Los nacidos en países limítrofes (Bolivia, Brasil, Chile, Paraguay y Uruguay) hasta 2001 son los de esa publicación del INDEC, y los de ` +
-    `2022 los calcula el sitio con el cuadro de países de nacimiento del Censo 2022, sobre la población en viviendas particulares. Para 2010 no hay un dato ` +
-    `publicado con la misma definición. Hasta 2001 los censos contaban a cada persona donde pasó la noche del censo, y el de 2022, donde vive habitualmente.`,
-  radicaciones: LEAD.radicaciones("anio"), "radicaciones-nota": `Trámites de residencia resueltos a favor por la Dirección Nacional de Migraciones, ` +
-    `por año y nacionalidad. Cuenta trámites, no personas: alguien puede recibir una residencia temporaria un año y la permanente otro. La residencia ` +
-    `permanente es para quien quiere establecerse en el país, y la temporaria, para quien viene por un tiempo, por ejemplo a trabajar o a estudiar. ` +
-    `Las personas de los países del Mercosur y asociados tienen un trámite propio por nacionalidad. No hay datos por provincia.`,
-  "argentinos-exterior": LEAD["argentinos-exterior"]("anio"), "argentinos-exterior-nota": `Estimación de la División de Población de las Naciones Unidas ` +
-    `(International Migrant Stock), a mediados de cada año, con los censos y los registros de cada país de destino: no es un conteo. En la mayoría de los ` +
-    `países cuenta a las personas nacidas en la Argentina, y en algunos, a las de nacionalidad argentina. No es comparable con las cifras de los censos ` +
-    `del país. La lista de destinos no incluye las Islas Malvinas.`,
+  "nacidos-otro-pais": LEAD["nacidos-otro-pais"]("prov"),
+  "migracion-interna": LEAD["migracion-interna"](),
+  "migracion-historia": LEAD["migracion-historia"](),
+  radicaciones: LEAD.radicaciones("anio"),
+  "argentinos-exterior": LEAD["argentinos-exterior"]("anio"),
   // ---- economía y precios (etapa 25)
-  inflacion: LEAD.inflacion("doce"), "inflacion-nota": `Índice de precios al consumidor del INDEC, base diciembre de 2016 = 100: mide cuánto cambia el costo de una ` +
-    `canasta fija de bienes y servicios que compran los hogares de las ciudades del país. Las variaciones del mes y de doce meses son las que publica el INDEC, con ` +
-    `un decimal, y la de lo que va del año sale del índice. El índice del país empieza en diciembre de 2016: no hay uno anterior para todo el país. Las regiones son ` +
-    `grupos de ciudades donde se relevan los precios. El Gran Buenos Aires es CABA y los 24 partidos que la rodean. La región Pampeana reúne el ` +
-    `resto de la provincia de Buenos Aires, con el Gran La Plata, y Córdoba, Entre Ríos, La Pampa y Santa Fe. Las demás reúnen estas provincias: Noreste (Corrientes, ` +
-    `Chaco, Formosa y Misiones), Noroeste (Catamarca, Jujuy, La Rioja, Salta, Santiago del Estero y Tucumán), Cuyo (Mendoza, San Juan y San Luis) y Patagonia (Chubut, ` +
-    `Neuquén, Río Negro, Santa Cruz y Tierra del Fuego). Si elegís una provincia en Tu provincia, el gráfico suma su región.`,
-  "inflacion-rubros": LEAD["inflacion-rubros"]("division"), "inflacion-rubros-nota": `Variación de los precios de cada rubro en los doce meses hasta ${EIP.mes}, ` +
-    `en todo el país, según el INDEC. Los rubros son las doce divisiones de la clasificación del consumo que usa el índice. Los precios regulados son los de los ` +
-    `combustibles para la vivienda, la electricidad, el agua, los sistemas de salud, el transporte público, el funcionamiento y el mantenimiento de los vehículos, ` +
-    `con la nafta, el correo, el teléfono, la educación formal y los cigarrillos. Los estacionales, los de las frutas, las verduras, la ropa exterior, el transporte ` +
-    `por turismo y el alojamiento. La inflación núcleo es la de los demás. La tabla tiene también la variación de cada rubro en las seis regiones. ` +
-    `En "Tu inflación", los pesos de partida son los de cada región en el índice (la Encuesta Nacional de Gastos de los Hogares 2004/05, la que usa el INDEC), ` +
-    `cambiados por lo que subió cada rubro hasta el comienzo de los doce meses: con ellos la cuenta da la inflación oficial de la región, con menos de tres ` +
-    `décimas de diferencia. Es una aproximación: el INDEC calcula cada rubro con más detalle. Lo que se escribe en la calculadora no se guarda ni se envía.`,
+  inflacion: LEAD.inflacion("doce"),
+  "inflacion-rubros": LEAD["inflacion-rubros"]("division"),
   // el salario mínimo frente a la canasta (14 de noviembre de 2026): la cifra destacada dice la parte de la canasta total del último mes
   "salario-minimo": `En ${ESM.mes}, el salario mínimo, vital y móvil era de ${n0(ESM.smvm)} pesos por mes y la canasta básica total del hogar de ` +
     `referencia del INDEC, de ${n0(ESM.cbt_hogar)} pesos. Con un solo salario mínimo ese hogar pagaba ${pct(ESM.pct_cba)} de su canasta alimentaria` +
     (ESM.pct_anio_ant != null ? `, y un año antes pagaba ${pct(ESM.pct_anio_ant)} de la total` : "") + `. Desde ${ESM.desde}, el primer mes de la ` +
     `serie, el punto más alto fue ${ESM.max[0]}, con ${pct(ESM.max[1])} de la canasta total, y el más bajo, ${ESM.min[0]}, con ${pct(ESM.min[1])}.` +
     (ESM.fijado_hasta ? ` El Consejo del Salario ya fijó los aumentos hasta ${ESM.fijado_hasta}, cuando llegará a ${n0(ESM.fijado_valor)} pesos.` : ""),
-  "salario-minimo-nota": `El salario mínimo, vital y móvil es el piso legal del sueldo mensual de un trabajador registrado de jornada completa. Lo fija ` +
-    `el Consejo Nacional del Empleo, la Productividad y el Salario Mínimo, Vital y Móvil, que reúne a las cámaras empresarias, los sindicatos y el ` +
-    `Gobierno, y si no hay acuerdo lo decide el Gobierno. La canasta es la del hogar de referencia del INDEC para la línea de pobreza: un varón de 35 ` +
-    `años, una mujer de 31, un hijo de 6 y una hija de 8, en el Gran Buenos Aires. Qué no dice este dato: cuántos hogares son pobres. Un hogar puede ` +
-    `tener más de un ingreso, y el salario mínimo es el piso, no el sueldo habitual. Muestra cuánto alcanza un solo salario mínimo frente a lo que ` +
-    `necesita esa familia. Los dos están en pesos de cada mes, así que el porcentaje ya descuenta la suba de los precios.`,
-  canastas: LEAD.canastas("region"), "canastas-nota": `Canasta básica alimentaria: los alimentos que cubren las necesidades de energía y de proteínas de un varón ` +
-    `adulto de actividad moderada, el adulto equivalente. La canasta básica total suma los demás bienes y servicios, como la ropa, el transporte, la educación y la ` +
-    `salud. Las dos se valorizan con los precios del índice de precios al consumidor. Un hogar es pobre si sus ingresos no alcanzan para su canasta básica total, e ` +
-    `indigente si no alcanzan para la alimentaria. Lo que necesita cada hogar depende de cuántas personas lo forman, su edad y su sexo: el hogar de cuatro ` +
-    `integrantes del ejemplo del INDEC equivale a ${n2(ECB.adultos_hogar)} adultos equivalentes. Las canastas de las seis regiones salen cada semestre, con el informe ` +
-    `de pobreza del INDEC: la última es de ${ECB.reg_mes}. Cuántas personas son pobres está en Pobreza y hogares.`,
-  industria: LEAD.industria("industria"), "industria-nota": "Los índices de producción industrial del INDEC miden cuánto producen, en cantidades y no en " +
-    "pesos, las ramas de la industria manufacturera y de la minería. Por rama, la variación frente al mismo mes del año anterior, con la serie " +
-    "original. Mes a mes, la serie sin estacionalidad, que quita el efecto de la época del año, con el primer mes que tienen en común los dos " +
-    "índices = 100. La minería incluye la extracción de petróleo y gas: su producción en metros cúbicos, con los datos de la Secretaría de " +
-    "Energía, está en Petróleo y gas.",
-  crianza: LEAD.crianza("edad"), "crianza-nota": "La canasta de crianza del INDEC mide lo que cuesta por mes criar a un chico según su edad. Los bienes y " +
-    "servicios (alimentos, ropa, salud, educación, transporte y vivienda) salen de la canasta básica total. El cuidado es el tiempo que el chico " +
-    "necesita de un adulto, valuado con el salario de las trabajadoras de casas particulares que cuidan personas. No es lo que gasta una familia " +
-    "en particular, sino una referencia, que se usa por ejemplo para calcular cuotas alimentarias. Mes a mes, en pesos del último mes con datos de " +
-    "precios, descontada la inflación con el índice de precios al consumidor del país. Frente al salario: la canasta de 6 a 12 años del mes de los " +
-    "salarios dividida por el salario bruto promedio de los asalariados registrados del sector privado de cada provincia (OEDE, con datos del SIPA), " +
-    "el último mes sin aguinaldo. El salario bruto incluye los aportes que se le descuentan al trabajador. La canasta se arma con precios del " +
-    "Gran Buenos Aires y es una sola para todo el país.",
-  "salario-real": LEAD["salario-real"](), "salario-real-nota": `Índice de salarios del INDEC dividido por el índice de precios al consumidor del país, con ` +
-    `${ESR.base} = 100, el primer mes del índice de precios del país. El índice de salarios tiene ponderaciones fijas: mide cuánto cambian los salarios, no cuánto ` +
-    `cobra en promedio cada persona. El INDEC publica también el del sector privado no registrado, que la ficha no muestra: sale de la Encuesta Permanente de ` +
-    `Hogares y llega con cinco meses de rezago, así que no se puede comparar con los precios del mismo mes. Los salarios promedio de cada provincia están en Trabajo: son otra medida, el promedio por puesto del OEDE, y pueden variar distinto.`,
+  canastas: LEAD.canastas("region"),
+  industria: LEAD.industria("industria"),
+  crianza: LEAD.crianza("edad"),
+  "salario-real": LEAD["salario-real"](),
   "socios-que": LEAD["socios-que"]("vende", SQ.ini),
-  "socios-que-nota": `Valor FOB de las exportaciones y CIF de las importaciones, en dólares, del INDEC. Se pueden elegir los ${SQ.n} países con al menos ${n0(SQ.min)} millones de dólares de intercambio en ${SQ.anio}. ` +
-    `Desde ${SX.socios_hist.sin_pais_desde}, el INDEC publica parte de las exportaciones como confidenciales, sin país ni rubro. En la fila de todo el mundo son "Sin rubro informado" y no están en la de ningún país. ` +
-    `Por eso estos porcentajes no son los de "¿Qué exporta la Argentina?", donde el INDEC reparte lo confidencial entre los rubros. El valor por kilo es el total en dólares dividido por el peso neto, en dólares de cada año: mezcla productos muy distintos y no es un precio.`,
   "valor-kilo": LEAD["valor-kilo"]("anual"),
-  "valor-kilo-nota": `Valor FOB de las exportaciones y CIF de las importaciones, en dólares de cada año, sin descontar la inflación, dividido por el peso neto, del INDEC. El CIF incluye el flete y el seguro hasta la Argentina, y el FOB no. ` +
-    `Cuenta solo lo que tiene peso informado: queda afuera el ${pct(VK.impo_sin_peso)} de lo importado en ${VK.anio}. Lo confidencial de las exportaciones entra en el total, y no en ningún rubro. ` +
-    `Los promedios cambian con lo que se vende y se compra cada año: una suba no quiere decir que el mismo producto valga más.`,
   "precio-consumo": LEAD["precio-consumo"]("carne"),
-  "precio-consumo-nota": `Precio: el precio promedio del Gran Buenos Aires de la planilla que el INDEC publica con el IPC, dividido por el IPC de esa región, promedio de cada año completo. ` +
-    `Carne vacuna: promedio simple de asado, carne picada común, paleta, cuadril y nalga. Yerba: paquete de 500 gramos. Vino: vino común, por litro. El INDEC aclara que estos precios sirven para seguir la evolución en el tiempo. ` +
-    `Consumo: en la carne, los kilos por habitante de todo el país. En la yerba y el vino, el total del país, sin dividir por habitante: lo que despachan los molinos y lo que se vende en el mercado interno. ` +
-    `Cada serie con ${PCO.carne.ini}, el primer año completo de la planilla frente al IPC, = 100. Con tan pocos años no se calcula una correlación. Que dos cosas vayan en direcciones opuestas no prueba que una cause la otra.`,
   mayoristas: LEAD.mayoristas("doce"),
-  "mayoristas-nota": `El índice de precios internos al por mayor (IPIM) del INDEC mide los precios de los productos nacionales e importados que se venden en el mercado interno. ` +
-    `El índice de precios al consumidor (IPC) mide lo que pagan los hogares, también por servicios, que el IPIM no cuenta. El dólar es el mayorista de referencia del Banco Central, el último valor de cada mes. ` +
-    `Nivel: cada serie con ${EMY.desde} = 100, el primer mes del IPC del país. La correlación es de rangos entre los aumentos mensuales, ${EMY.n_meses} meses desde ${EMY.desde_anio}: en el mismo mes da ${n2(EMY.r_mismo)}. ` +
-    `Que un aumento venga antes que otro no prueba que lo cause.`,
   "sectores-empleo": LEAD["sectores-empleo"]("uno"),
-  "sectores-empleo-nota": `Actividad: el Estimador Mensual de Actividad Económica del INDEC de cada sección de la CIIU (revisión 3), promedio de los doce meses. ` +
-    `Empleo: los asalariados registrados del sector privado de la misma sección (OEDE, Secretaría de Trabajo, Ministerio de Capital Humano, con datos del SIPA), promedio de los cuatro trimestres. ` +
-    `Sin la administración pública, que el OEDE no cuenta. En la enseñanza y la salud la actividad incluye a los establecimientos públicos y el empleo, solo a los privados. ` +
-    `El empleo registrado no incluye a los asalariados sin aportes ni a los cuentapropistas. El texto nombra un sector cuando la actividad y el empleo se mueven ` +
-    `${n1(ESE.min)} puntos o más cada uno. Que dos variaciones vayan juntas o separadas no prueba una causa.`,
-  emae: LEAD.emae("mes"), "emae-nota": `Estimador Mensual de Actividad Económica del INDEC, base 2004 = 100: un indicador provisorio de cómo ` +
-    `cambia el producto interno bruto a precios constantes, que se arma con información parcial. El INDEC revisa la serie completa con cada publicación. La serie sin ` +
-    `estacionalidad quita el efecto de la época del año, para comparar un mes con el anterior. Por sector, los últimos doce meses frente a los doce anteriores, ` +
-    `porque algunos, como la pesca y el agro, cambian mucho de un mes a otro. La vista por sector no incluye los impuestos netos de subsidios, que el INDEC suma al total.`,
-  combustibles: LEAD.combustibles("nafta", "prov"), "combustibles-nota": `La mediana de los precios en el surtidor que cada estación de servicio declara para el mes a la Secretaría de Energía ` +
-    `(Resolución 1104/2004): la mitad de las estaciones cobra más y la otra mitad, menos. Solo la venta al público en bocas de expendio con movimiento en el mes, y sin los precios ` +
-    `que se alejan a menos de la mitad o a más del doble de la mediana del país, en su mayoría cargados divididos por mil. La nafta súper es la de 92 a 95 octanos y el gasoil, el de grado 2. ` +
-    `Las estaciones declaran con demora: el último mes es el más reciente en el que declararon casi todas (${n0(CB.estaciones)} vendieron nafta súper al público en ${CB.mes}). ` +
-    `La serie mes a mes pasa los precios a pesos de ${CB.mes} con el índice de precios al consumidor del INDEC. La serie año por año es el promedio de la mediana ` +
-    `de los doce meses de cada año, desde ${CB.anual_ini}, el primer año completo desde que rige la resolución, y pasa los precios a pesos de ${CB.anual_ult} con el deflactor ` +
-    `del producto interno bruto que publica el Banco Mundial, porque el índice de precios al consumidor del INDEC para todo el país empieza en diciembre de 2016.`,
-  "patentes-prov-nota": `La provincia es la del registro donde se hizo la inscripción, que no siempre coincide con el lugar donde se usa el vehículo. Por eso algunas jurisdicciones muestran valores muy altos. La población es la proyección del INDEC para ${R.anio_pob_ficha.patentamientos_provincias}, el mismo año.`,
+  emae: LEAD.emae("mes"),
+  combustibles: LEAD.combustibles("nafta", "prov"),
   // la cifra destacada ya dice los nombres más elegidos: el texto empieza por los del primer año de la serie y cuántos bebés los recibieron
   nombres: `En ${cu.nom_anio} se inscribieron ${n0(cu.nena_n)} bebés con el nombre ${cu.nena} ${yE(n0(cu.varon_n))} con el nombre ${cu.varon}. ${cu.varon_prov} fue el nombre de varón más elegido en ${cu.varon_prov_n} de las 24 jurisdicciones. ` +
     `En ${cu.nom_ini}, el primer año de la serie, los más inscriptos habían sido ${cu.nena0} para las nenas ${yE(cu.varon0)} para los varones.` +
     (cu.lionel_anio ? ` En ${cu.lionel_anio} se inscribieron ${n0(cu.lionel_max)} bebés llamados Lionel, ${veces(cu.lionel_max, cu.lionel_prev)} veces los del año anterior.` : ""),
-  "nombres-nota": `Cantidad de veces que cada nombre fue inscripto como nombre de pila en el Registro Nacional de las Personas (RENAPER). El RENAPER publica los nombres sin tildes: Datina se las agrega con una tabla de equivalencias, y la tabla descargable trae las dos formas. Al elegir una provincia, el gráfico muestra sus diez nombres más frecuentes.`,
   // la cifra destacada ya dice el consumo del último año y el del primero: el texto empieza por lo que va del año
   carne: `Entre enero y ${cu.carne_ytd_hasta}, cada habitante consumió carne vacuna a un ritmo de ${n1(cu.carne_ytd)} kilos por año${cu.carne_min_serie ? ", por debajo del promedio de cualquier año completo de la serie" : ""}. En ${cu.asado_hasta}, un kilo de asado costaba lo mismo que ${n1(cu.asado)} kilos de pollo en el Gran Buenos Aires. En ${cu.asado_ini_anio} equivalía a ${n1(cu.asado_ini)} kilos.`,
-  "carne-nota": `Consumo aparente por habitante estimado a partir de la producción y el comercio exterior. Cada mes se expresa como tasa anual y el valor de cada año es el promedio de sus meses. Solo se muestran años completos.`,
   // la cifra destacada ya dice las ventas del último año y cuánto cambiaron: el texto empieza por Mendoza
   vino: `El ${pct(cu.vino_mza)} del vino vendido en el país en ${cu.vino_anio} salió de bodegas de Mendoza.` + enLoQueVa(R.ytd.vino, cu.vino_anio, "las ventas", "subieron", "bajaron"),
-  "vino-nota": `Despachos de vino al mercado interno informados por el Instituto Nacional de Vitivinicultura. La provincia es la de origen del vino, no la del lugar donde se consume.`,
   // la cifra destacada ya dice los despachos del último año: el texto empieza por el año más alto
   yerba: (cu.yerba_max_anio === cu.yerba_anio ? `${cu.yerba_anio} fue el año en que los molinos despacharon más yerba mate desde ${cu.yerba_ini}.`
     : `El año en que los molinos despacharon más yerba mate desde ${cu.yerba_ini} fue ${cu.yerba_max_anio}, con ${n1(cu.yerba_max)} millones de kilos.`) + enLoQueVa(R.ytd.yerba, cu.yerba_anio, "los despachos", "subieron", "bajaron"),
-  "yerba-nota": `Salida de molino informada por el Instituto Nacional de la Yerba Mate: yerba elaborada que despachan los molinos. Solo se muestran años completos.`,
   // la cifra destacada ya dice la más alta: el texto sigue con la segunda y con dónde están las demás
   cumbres: `Le sigue ${nt.cu_2}, en ${nt.cu_2_prov}, con ${n0(nt.cu_2_v)} metros: ${n0(nt.cu_dif)} menos. ${nt.cu_prov_top_n} de las ${nt.cu_n} cumbres de la tabla del IGN están en ` +
     `${nt.cu_prov_top} y el resto, en otras ${nt.cu_provs - 1} provincias. Todas superan los ${n0(Math.floor(nt.cu_ult_v / 100) * 100)} metros: la más baja de la tabla, ${nt.cu_ult}, tiene ${n0(nt.cu_ult_v)}.`,
-  "cumbres-nota": `Las alturas son las de la tabla «Máximas alturas» del Instituto Geográfico Nacional (IGN), que no dice de qué año es cada medición ni si están todas las cumbres de esa altura. ` +
-    `El relieve es un recuadro de 12 km de lado alrededor de cada cumbre, con una curva de nivel cada ${CU.PASO} metros, y sale de un modelo de elevación ` +
-    `satelital (SRTM, con un punto cada 30 metros) que no reproduce exacta ninguna cumbre: según el lugar, da unos metros más o menos que la altura oficial. Para que las cumbres ` +
-    `se comparen entre sí, todas tienen la misma escala, la altura exagerada ${n1(CU.EXAG)} veces y la base del bloque a ${n0(CU.BASE)} metros. Los glaciares ` +
-    `son los del Inventario Nacional de Glaciares, que cuenta también los cubiertos de roca y los de escombros, y llega solo hasta el límite con Chile.`,
   // la cifra destacada ya dice el total y las provincias: el texto empieza por las dos con más glaciares
   glaciares: `${cu.gl_top} tiene ${n0(cu.gl_top_v)} glaciares inventariados ${yE(cu.gl_2)}, ${n0(cu.gl_2_v)}, según el Inventario Nacional de Glaciares. ` +
     `Entre las dos reúnen el ${pct((cu.gl_top_v + cu.gl_2_v) / cu.gl_total * 100)} de los glaciares inventariados del país. El dato cuenta glaciares, no su superficie: una provincia con muchos glaciares chicos puede tener menos hielo que otra con pocos glaciares grandes.`,
   // la Antártida (noviembre de 2026): capítulo de Naturaleza y ambiente. Tono neutro en los reclamos, como la historia de Tierra del Fuego: se describe cada norma, sin tomar posición
   "ant-mapa": `El Consejo de Administradores de Programas Antárticos Nacionales (COMNAP) lista ${ANT.n} instalaciones de ${ANT.paises} países: ${ANT.estaciones} estaciones y el resto entre campamentos, refugios, pistas, laboratorios y depósitos. ` +
     `Funcionan todo el año ${ANT.anual} y solo en verano, ${ANT.verano}. En la Península Antártica y las islas cercanas hay ${ANT.peninsula}, de ${ANT.peninsula_paises} países distintos: por eso esa zona tiene su propia vista en el mapa.`,
-  "ant-mapa-nota": `Cada instalación cuenta para el país que la opera en primer lugar, y cada programa nacional informa la suya. Figuran cerradas por ahora ${ANT.cerradas}. Macquarie (Australia), al norte del paralelo 60, queda fuera del mapa y está en la tabla. ` +
-    `En amarillo, las zonas antárticas especialmente protegidas y especialmente administradas vigentes, con los polígonos que publica la Secretaría del Tratado Antártico: las que en el mapa serían demasiado chicas para verse van como un rombo. Las zonas creadas después de esa publicación todavía no están. ` +
-    `Corregimos una coordenada de la fuente: Zhongshan Skiway (China) figura con latitud norte, al lado de la base Zhongshan, que está al sur.`,
   "ant-bases": `La Argentina tiene ${ANT.arg} bases: ${ANT.arg_anual} funcionan todo el año y ${ANT.arg_verano}, solo en verano. ${ANT.anual_top === "Argentina" ? "Según COMNAP, ningún otro país tiene tantas abiertas todo el año. " : ""}` +
     `La más antigua es Orcadas, de ${ANT.bases_ini}, y la más nueva, Belgrano II, de ${ANT.bases_fin}. El Censo 2022 contó ${ANT.censo} personas en las bases permanentes: ${ANT.censo_mujeres} mujeres y ${ANT.censo_varones} varones. ` +
     `La capacidad máxima más alta es la de ${ANT.base_cap}: ${ANT.base_cap_v} personas en el momento de mayor actividad.`,
-  "ant-bases-nota": `La línea marca desde cuándo existe cada base, no que haya funcionado sin pausa: San Martín, por ejemplo, volvió a abrir en 1976. Las fuentes oficiales no coinciden en Petrel: el Comando Conjunto Antártico, la página de Antártida de la Cancillería y COMNAP la cuentan como permanente, y la página de bases de la Dirección Nacional del Antártico, como temporaria. ` +
-    `COMNAP marca a ${ANT.base_cerradas.join(" y ")} como cerradas por ahora. Carlini y Brown figuran a cargo de la Cancillería y las demás, del Comando Conjunto Antártico (Ministerio de Defensa). En 2024 se anunció el pase de esas dos a Defensa, y no encontramos una norma publicada que lo confirme. ` +
-    `En el Censo 2010 fueron ${ANT.censo10} personas en el departamento Antártida Argentina, más ${ANT.censo10_orcadas} en Orcadas, que entonces se contaba en Islas del Atlántico Sur. No encontramos una explicación publicada de la diferencia con ${ANT.censo}.`,
   "ant-paises": `${ANT.top} lista ${ANT.top_v} instalaciones, la Argentina ${ANT.arg} ${yE(ANT.tercero)} ${ANT.tercero_v}. Si se cuentan solo las que funcionan todo el año, ${ANT.anual_top === "Argentina" ? "la Argentina" : ANT.anual_top} es la primera, con ${ANT.anual_top_v}. ` +
     `En capacidad, ${ANT.cap_top} queda muy por encima: ${n0(ANT.cap_top_v)} personas, ${n0(ANT.cap_max_v)} de ellas en ${ANT.cap_max_base}.`,
-  "ant-paises-nota": `Cada instalación cuenta igual, sea una estación grande o un refugio. La capacidad es la cantidad máxima de personas que informa cada programa para el momento de mayor actividad, no cuánta gente hay un día cualquiera. No la informan ${ANT.sin_cap} instalaciones, entre ellas Belgrano II: por eso la suma de un país puede quedar corta.`,
   "ant-reclamos": `Reclaman sectores de la Antártida ${ANT.reclaman} países. La ley argentina incluye en la provincia de Tierra del Fuego el sector entre los meridianos 25 y 74 Oeste, al sur del paralelo 60. Esos ${ANT.arg_grados} grados de longitud están todos dentro del sector que reclama el Reino Unido, y ${ANT.arg_con_chile} también dentro del que reclama Chile. ` +
     `Entre los meridianos 90 y 150 Oeste no reclama ningún país. El Tratado Antártico no reconoce ni rechaza estos reclamos y no admite reclamos nuevos mientras esté en vigor. Según el Instituto Geográfico Nacional, el Sector Antártico Argentino mide ${n0(ANT.sector_km2)} km², el ${pct(ANT.sector_pct)} de la superficie del país contando ese sector y las islas. Hay ${ANT.sector_n} instalaciones de ${ANT.sector_paises} países dentro de esos meridianos.`,
-  "ant-reclamos-nota": `Describimos lo que dice la norma de cada país, sin tomar posición sobre la disputa de soberanía. La medida del IGN no cuenta unos ${n0(ANT.barreras_km2)} km² de barreras de hielo. La Cancillería da otra: ${n0(ANT.cancilleria_km2)} km² en total, con ${n0(ANT.cancilleria_tierra_km2)} km² de tierra firme. Los grados de longitud miden cuánto abarca cada sector alrededor del polo, no su superficie de tierra. La norma de cada país y su fuente están en la tabla: el año es el de esa norma, no necesariamente el del primer reclamo del país.`,
   "ant-tratado": `Lo firmaron ${ANT.originales} países en 1959 y empezó a regir en ${ANT.tr_ini}. Hoy son ${ANT.partes}: ${ANT.consultivas} partes consultivas, las únicas que deciden en las reuniones del Tratado, y ${ANT.no_consultivas} que pueden asistir sin decidir. La Argentina y Chile están entre los firmantes originales. El último país en sumarse fue ${ANT.tr_ult}, en ${ANT.tr_ult_anio}. La Secretaría del Tratado funciona en Buenos Aires desde 2004.`,
-  "ant-tratado-nota": `Un país que se suma después de los firmantes es parte consultiva solo si hace investigación científica importante en la Antártida. Tienen vigente además ${ANT.protocolo} países el Protocolo de protección del medio ambiente, de 1991, que prohíbe la actividad minera salvo la investigación científica. La fecha de cada país es la de su adhesión, y en los firmantes originales, la de la entrada en vigor.`,
   "ant-zonas": `Hay ${ANT.zaep} zonas antárticas especialmente protegidas, ${ANT.zaea} zonas especialmente administradas y ${ANT.smh} sitios y monumentos históricos. ${ANT.zaep_top} propuso más zonas protegidas, ${ANT.zaep_top_v}, y ${ANT.smh_top} más sitios históricos, ${ANT.smh_top_v}. ` +
     `La Argentina propuso ${ANT.arg_zaep} zonas protegidas y ${ANT.arg_smh} sitios históricos, entre ellos los observatorios de la isla Laurie, en Orcadas, y el mástil que dejó la Operación 90 en el Polo Sur. También participa en la zona administrada de la isla Decepción.`,
-  "ant-zonas-nota": `Una propuesta de varios países cuenta para cada uno. Se cuentan las vigentes en ${ANT.ats_fecha}, sin las revocadas. Una zona protegida limita el ingreso y las actividades para cuidar valores ambientales, científicos o históricos.`,
   "ant-temperatura": `Orcadas tiene la serie más larga de las bases argentinas, desde ${ANT.temp.orcadas.ini}: sus últimos diez años con dato estuvieron ${n1(ANT.temp.orcadas.dif)} °C por encima de los primeros diez. La diferencia es de ${n1(ANT.temp.esperanza.dif)} °C en Esperanza, desde ${ANT.temp.esperanza.ini}, ` +
     `y de ${n1(ANT.temp.marambio.dif)} °C en Marambio, desde ${ANT.temp.marambio.ini}. En Belgrano II, mucho más al sur y con menos años, es de ${n1(ANT.temp.belgrano_ii.dif)} °C.`,
-  "ant-temperatura-nota": `Cada línea es una sola base y no dice qué pasa en todo el continente, y las series empiezan en años distintos. Un año entra si tiene al menos diez meses con dato: la fuente tiene huecos, sobre todo desde 2020. Para no mezclar meses fríos y cálidos, cada mes se compara con su promedio de 1991 a 2020, el mismo período de la ficha de la temperatura del país. ` +
-    `Carlini figura en la fuente con su nombre anterior, Jubany. La temperatura más alta del continente que verificó la Organización Meteorológica Mundial se midió en Esperanza: 18,3 °C, el 6 de febrero de 2020.`,
   "ant-hielo": `En septiembre de ${ANT.hielo_fin}, cuando más hielo hay, el mar congelado alrededor de la Antártida cubría ${n2(ANT.hielo_sep)} millones de km², ${n2(ANT.hielo_sep_base - ANT.hielo_sep)} menos que el promedio de 1981 a 2010. El septiembre más bajo de la serie fue el de ${ANT.hielo_sep_min_anio}: ${n2(ANT.hielo_sep_min)} millones. ` +
     `En febrero, cuando menos hay, cubría ${n2(ANT.hielo_feb)} millones en ${ANT.hielo_fin}, y el más bajo fue el de ${ANT.hielo_feb_min_anio}: ${n2(ANT.hielo_feb_min)} millones.`,
-  "ant-hielo-nota": `Mide la extensión: la superficie del mar con al menos 15% de hielo, en el promedio de cada mes. Es el hielo de mar de todo el continente, no solo el del sector argentino, y no es el de los glaciares ni el de las barreras. La tabla trae los valores de cada mes.`,
   "ant-turismo": `En la temporada ${ANT.tu_fin} viajaron ${n0(ANT.tu)} personas con empresas de IAATO, la asociación de operadores de turismo antártico: ${n0(ANT.tu_desembarcan)} desembarcaron, ${n0(ANT.tu_crucero)} no bajaron del crucero y ${n0(ANT.tu_campo)} fueron al interior del continente. ` +
     `El máximo fue en ${ANT.tu_max_temp}, con ${n0(ANT.tu_max)}. En ${ANT.tu_ini} se contaban ${n0(ANT.tu_ini_v)}, y en la temporada de la pandemia, ${ANT.tu_pandemia}.`,
-  "ant-turismo-nota": `Cuenta a quienes viajan con empresas de IAATO, que dice reunir al 98% del turismo, sin científicos ni funcionarios. Hasta 1998-99 no hay dato de quienes no desembarcan, y los que van al interior están completos desde 2014-15: la suma de los años anteriores queda corta. IAATO corrigió años viejos: se usa el documento más reciente de cada temporada. ` +
-    `Para ${ANT.tu_max_temp} y la temporada siguiente publicó totales de ${n0(ANT.tu_pub_a)} y ${n0(ANT.tu_pub_b)}, que no coinciden con la suma de su propio desglose, que es la que mostramos. Según IAATO, la mayoría de los viajes sale de Ushuaia, sin dar qué parte. En ese puerto, los cruceros antárticos llevaron al ${pct(ANT.ush_pct)} de los ${n0(ANT.ush_n)} cruceristas de ${ANT.ush_temp}, según el Instituto Fueguino de Turismo.`,
   "ant-presupuesto": `En ${ANT.gasto_anio}, la Nación gastó ${n1(ANT.gasto)} mil millones de pesos en programas antárticos, el ${ANT.gasto_pct.toLocaleString("es-AR")}% de todo su gasto. El ${pct(ANT.gasto_sosten_pct)} fue el Sostén Logístico Antártico del Estado Mayor Conjunto, que paga la campaña y las bases. ` +
     `En pesos de ${ANT.gasto_anio}, el máximo fue en ${ANT.gasto_max_anio}, con ${n1(ANT.gasto_max)} mil millones, cuando también se pagaba la reparación del rompehielos Almirante Irízar.`,
-  "ant-presupuesto-nota": `Suma lo devengado en los programas y actividades que el presupuesto rotula como antárticos, más la reparación del Irízar, que terminó de pagarse en ${ANT.irizar_ult}. Lo que las fuerzas gastan en la Antártida sin ese rótulo queda afuera. Desde ${ANT.fuerzas_desde}, el Alistamiento Antártico de cada fuerza aparece con su nombre: ese salto es en parte de rótulo y no de gasto. ` +
-    `El Sostén Logístico aparece con ese nombre desde ${ANT.sosten_desde}. Los montos van en pesos de ${ANT.gasto_anio}, con el deflactor del PBI, como la obra pública por provincia.`,
-  "glaciares-nota": `Cantidad de glaciares y cuerpos de hielo inventariados por el Instituto Argentino de Nivología, Glaciología y Ciencias Ambientales (IANIGLA). Las provincias que no aparecen no tienen glaciares inventariados.`,
   // la cifra destacada ya dice el año más cálido: el texto empieza por el último año (si no es el más cálido)
   clima: (cu.cl_fin === cu.cl_max_anio ? "" : `En ${cu.cl_fin}, la temperatura media del país estuvo ${n2(Math.abs(cu.cl_ult))} °C ${cu.cl_ult < 0 ? "por debajo" : "por encima"} del promedio de 1991 a 2020. `) + `De los ${cu.cl_n_desde2000} años desde 2000, ${cu.cl_pos_desde2000} fueron más cálidos que el promedio de 1991 a 2020. El año más frío de la serie fue ${cu.cl_min_anio} (${grados(cu.cl_min)}).`,
-  "clima-nota": `Desvío de la temperatura media anual del país respecto del promedio de 1991 a 2020, el período de referencia que usa hoy el Servicio Meteorológico Nacional (SMN). Cada franja es un año: celeste, más frío que la referencia, y rojo, más cálido. Pasá el cursor o tocá para ver el valor.`,
-  // la cifra destacada ya dice las visitas al parque más visitado: el texto empieza por su parte del total
-  "visitas-parque": `En ${vpq.ult}, ${vpq.top} (${vpq.top_lugar}) concentró el ${pct(vpq.pct_top)} de las visitas a los parques nacionales. Le siguió ${vpq.dos}, con ${n0(vpq.dos_v)} visitas. En 2019, antes de la pandemia, ${vpq.top} había recibido ${n0(vpq.top_2019)}.` +
-    (vpq.par ? ` Entre enero y ${MESES[vpq.par_mes - 1]} de ${vpq.par}, según este tablero, los parques nacionales recibieron un ${pct(Math.abs(vpq.par_var))} ${vpq.par_var >= 0 ? "más" : "menos"} de visitas que en los mismos meses de ${vpq.par - 1}.` : ""),
-  "vp-b1": String(vpq.ult), "vp-b2": vpq.par ? `${vpq.par}, ene a ${MESES[vpq.par_mes - 1].slice(0, 3)}` : "",
-  "visitas-parque-nota": `Visitas registradas en ${vpq.n} áreas protegidas nacionales con control de ingreso, según el tablero de áreas protegidas de la Secretaría de Turismo y Ambiente. ` +
-    `El tablero no tiene un enlace de descarga fijo: Datina guarda una copia de la exportación completa, mes a mes desde 2008, y la renueva a mano, así que puede quedar desactualizada respecto de la fuente.`,
   // la cifra destacada ya dice el total desembarcado: el texto empieza por las especies principales
   pesca: `En ${pe.anio}, las especies más desembarcadas en los puertos del país fueron ${pe.top[0].toLowerCase()} (${n0(pe.top_t[0])} toneladas), ${pe.top[1].toLowerCase()} (${n0(pe.top_t[1])}) ${yE(pe.top[2].toLowerCase())} (${n0(pe.top_t[2])}). La primera representó el ${pct(pe.top_pct)} del total.`,
-  "pesca-nota": `Capturas de la flota comercial desembarcadas en puertos argentinos, en toneladas, según la Subsecretaría de Pesca y Acuicultura. La tabla descargable incluye el total de todas las especies.`,
   // la cifra destacada ya dice la parte del sábalo: el texto da el total y las provincias, sin repetirla
   "pesca-rio": `En ${pe.rio_anio}, la pesca comercial en ríos y lagunas registró ${n0(pe.rio_total)} toneladas. Las capturas se concentraron en ${lista(pe.rio_provs)}, sobre todo en ${pe.rio_prov_top} (${pct(pe.rio_prov_top_pct)}). ` +
     `Solo cuentan las provincias que informan datos, y no entran la pesca deportiva ni la de subsistencia.`,
-  "pesca-rio-nota": `Captura comercial registrada en ríos y lagunas de las provincias que informan datos, en toneladas. No incluye la pesca deportiva ni la de subsistencia. La tabla descargable muestra cada especie por provincia.`,
   // soja (tanda 3 del plan de mejora): la cifra destacada ya dice la superficie del país, el texto empieza por dónde se concentra.
   // Los textos de "Evolución" y de la provincia elegida los arma el dibujo
   soja: `En la campaña ${SJ.campania} se sembró soja en ${n0(SJ.n_dep)} departamentos de ${SJ.n_prov} provincias. ${SJ.top[0]}, ${SJ.top[1]} ${yE(SJ.top[2])} ` +
     `reunieron el ${pct(SJ.top3_pct)} de la superficie del país. El departamento con más soja fue ${SJ.dep}, en ${SJ.dep_prov}, con ${n0(SJ.dep_ha)} hectáreas, y los diez ` +
     `primeros sumaron el ${pct(SJ.dep10_pct)}.`,
-  "soja-nota": `Superficie sembrada con soja de primera y de segunda (la que se siembra después de cosechar trigo u otro cultivo de invierno), en hectáreas, ` +
-    `según la Dirección de Estimaciones Agrícolas de la Secretaría de Agricultura, Ganadería y Pesca. La soja de la campaña ${SJ.campania} se sembró en la primavera y el ` +
-    `verano de ${SJ.campania.slice(0, 4)} y se cosechó en el otoño siguiente. ` +
-    `El mapa divide a los departamentos que siembran soja en cinco grupos del mismo tamaño, y en gris quedan los que no la siembran. Un departamento grande ` +
-    `puede sembrar más hectáreas sin que la soja ocupe una parte mayor de su tierra. Las cifras de la última campaña pueden corregirse en las publicaciones siguientes.`,
   // dengue (plan de mejora, sección 10): el texto de las temporadas juntas. El de una temporada sola y el de la serie los arma DIB.dengue
   dengue: `Sumando las temporadas de la ${DG.prov_desde} a la ${DG.temp}, la tasa más alta fue la de ${DG.top}, con ${fDg(DG.top_v)} casos confirmados cada 100.000 ` +
     `habitantes, seguida por la de ${DG.top2}, con ${fDg(DG.top2_v)}. La más baja fue la de ${DG.low}, con ${fDg(DG.low_v)}. En todo el país se confirmaron ` +
     `${n0(DG.casos_juntas)} casos en esas temporadas` + (DG.max_pct_juntas != null ? `, el ${pct(DG.max_pct_juntas)} en la de ${DG.max_temp}, la de la epidemia más grande.` : "."),
   "dengue-serie": `En la temporada ${DG.temp} se confirmaron ${n0(DG.casos)} casos de dengue en el país, frente a ${n0(DG.casos_ant)} en la ${DG.temp_ant}. ` +
     `La epidemia más grande desde la temporada ${DG.ini} fue la de ${DG.max_temp}, con ${n0(DG.max_casos)} casos.`,
-  "dengue-nota": `Casos confirmados de dengue, incluidos los de embarazadas, según la provincia donde vive cada persona, notificados al Sistema Nacional de ` +
-    `Vigilancia de la Salud del Ministerio de Salud. La temporada va de la semana epidemiológica 31 de un año, a fines de julio o principios de agosto, a la 30 del ` +
-    `siguiente, como en los boletines epidemiológicos del Ministerio: los casos se concentran entre el verano y el otoño. La tasa usa la población que proyecta el ` +
-    `INDEC (base Censo 2022) para el año en que termina cada temporada, por eso empieza en la ${DG.prov_desde}. Los datos llegan hasta la semana ${DG.sem_ult} de ` +
-    `${DG.anio_ult} y las semanas más recientes pueden sumar casos en las publicaciones siguientes.`,
   // vacuna triple viral (plan de mejora, sección 10)
   vacunas: `En ${VC.anio}, ${VC.bajo95_1} de las 24 jurisdicciones vacunaron con la primera dosis a menos del 95% de los chicos de un año, la cobertura que ` +
     `recomienda la Organización Panamericana de la Salud para frenar el sarampión. Las más bajas fueron las de ${VC.low}, ${pct(VC.low_v)}, ${yE(VC.low_b)}, ` +
@@ -2277,37 +1589,30 @@ const TX = {
     `${pct(VC.low2_v)}.`,
   "vacunas-serie": `La cobertura mediana de las 24 jurisdicciones en la primera dosis pasó de ${pct(VC.mediana1_ini)} en ${VC.ini} a ${pct(VC.mediana1_2019)} ` +
     `en 2019, antes de la pandemia, y a ${pct(VC.mediana1)} en ${VC.anio}. La de la segunda, de ${pct(VC.mediana2_2019)} en 2019 a ${pct(VC.mediana2)}.`,
-  "vacunas-nota": `La triple viral protege contra el sarampión, las paperas y la rubéola. La primera dosis se da al año de vida y la segunda al entrar a la escuela, ` +
-    `a los 5 años. Es una cobertura administrativa: las dosis que se aplicaron sobre la población que se estima para esa edad, así que puede pasar de 100% cuando se ` +
-    `vacuna a chicos de otras provincias o la población estimada se queda corta. La Organización Panamericana de la Salud recomienda llegar al 95% de los chicos para ` +
-    `frenar el sarampión. El archivo no trae el total del país: la evolución muestra la mediana de las 24 jurisdicciones, la que tiene tantas por encima como por debajo.`,
   // la cifra destacada ya dice la esperanza de vida del país: el texto empieza por la de mujeres y varones
   esperanza: `En ${nv.ev_anio}, la esperanza de vida al nacer de las mujeres del país era de ${n1(nv.ev_m)} años y la de los varones, de ${n1(nv.ev_v)}. Con mujeres y varones juntos, por provincia iba de ${n1(nv.ev_top_v)} años en ${nv.ev_top} a ${n1(nv.ev_low_v)} en ${nv.ev_low}. El gráfico muestra al lado de cada provincia la esperanza de vida de las mujeres.`,
-  "esperanza-nota": `Años que viviría en promedio una persona nacida en ${nv.ev_anio} si se mantuvieran las tasas de mortalidad por edad de ese año. El círculo claro marca a los varones y el lleno a las mujeres. El INDEC publica tablas para 2020, 2021 y 2022, y las de 2020 y 2021 reflejan la mortalidad de la pandemia de COVID-19. La línea punteada violeta marca el promedio simple de los países de la OCDE en ${OC.esperanza_vida.anio}, para ambos sexos, según el Banco Mundial.`,
   exportaciones: `Por habitante, las exportaciones producidas en ${nv.ex_top} sumaron ${n0(nv.ex_top_v)} dólares${conVeces(nv.ex_top_v, nv.ex_pc_pais)} y las de ${nv.ex_low}, ${n0(nv.ex_low_v)}${conVeces(nv.ex_low_v, nv.ex_pc_pais)}. En total, el país exportó bienes por ${n0(nv.ex_total)} millones de dólares en ${nv.ex_anio}.` + (nv.ex_sem ? ` En el primer semestre de ${nv.ex_sem.anio}, con datos provisorios, las exportaciones sumaron ${n0(nv.ex_sem.total)} millones de dólares, ${pct(Math.abs(nv.ex_sem.var))} ${nv.ex_sem.var >= 0 ? "más" : "menos"} que en el primer semestre de ${nv.ex_sem.anio - 1}, y subieron en ${nv.ex_sem.suben} de las 24 jurisdicciones.` : "") +
     "",
-  "exportaciones-nota": `Valor FOB (la mercadería puesta en el puerto o en la frontera, sin flete ni seguro) de los bienes exportados, según la provincia donde se produjeron. El ${pct(nv.ex_provincial_pct)} del total tiene una provincia de origen identificada. El resto sale de la plataforma continental, es mercadería extranjera o tiene origen indeterminado. La tabla descargable separa productos primarios, manufacturas agropecuarias, manufacturas industriales y combustibles. La población es la proyección del INDEC para ${R.anio_pob_ficha.exportaciones_provincias}, el mismo año.`,
-  cobertura: textoCenso("sin_cobertura"), "cobertura-nota": `Personas en viviendas particulares según el Censo 2022 que no tenían obra social (incluido el ` +
-    `PAMI), prepaga ni un programa o plan estatal de salud: dependían solo de los hospitales y centros de salud públicos, que atienden a todas las personas. ` +
-    `El INDEC no publica estos totales provinciales en un archivo propio: se suman desde los resultados por radio censal, así que pueden diferir levemente de sus cuadros.`,
-  "censo-nota": `Hogares en viviendas particulares según el Censo 2022. Agua de red: agua corriente de red pública. Cloacas: inodoro con descarga de agua y desagüe a red pública. Internet: conexión en la vivienda, incluida la del celular. Necesidades básicas insatisfechas: hacinamiento, vivienda precaria, sin baño, chicos sin escuela o baja capacidad de subsistencia, según la definición del INDEC. El INDEC no publica estos totales provinciales en un archivo propio: se suman desde los resultados por radio censal, así que pueden diferir levemente de sus cuadros.`,
+  cobertura: textoCenso("sin_cobertura"),
   // la cifra destacada ya dice el valor más alto: el texto empieza por el más bajo
   // la cifra destacada es el país desde el 24 de noviembre de 2026 (antes era la provincia más alta): el texto da los dos extremos
   internet: `En el ${nv.in_trim}, el valor más alto fue el de ${nv.in_top}, con ${n1(nv.in_top_v)} accesos a internet fijo cada 100 hogares, y el más bajo, el de ${nv.in_low}, con ${n1(nv.in_low_v)}.` +
     (DIST["internet_fijo_provincias.accesos_100_hogares"]?.[nv.in_top]?.accion === "aclarar" ? ` ${DIST["internet_fijo_provincias.accesos_100_hogares"][nv.in_top].motivo}.` : "") +
     ` La velocidad media de bajada iba de ${n1(nv.ve_top_v)} megabits por segundo en ${nv.ve_top} a ${n1(nv.ve_low_v)} en ${nv.ve_low}.`,
-  "internet-nota": `Accesos a internet fijo informados por las empresas prestadoras al ENACOM, divididos por la cantidad de hogares. Incluye conexiones de empresas y oficinas, por eso algunas jurisdicciones superan los 100. La velocidad es el promedio de la velocidad contratada de bajada. No incluye internet por celular, que sí cuenta el Censo 2022 en la ficha anterior.`,
   // la cifra destacada ya dice el valor del país cada 100 habitantes: el texto empieza por el total
   extranjeros: `El RENAPER registra ${n0(MG.renaper.personas)} personas nacidas en otro país con DNI argentino, un ${pct(MG.renaper.mas)} más que las que contó el Censo 2022. Los dos cuentan distinto: ` +
     `el RENAPER usa el domicilio que figura en cada DNI, que puede estar desactualizado, y el Censo cuenta a quienes viven en cada vivienda. ` +
     `${nv.xt_top} tiene la proporción más alta, ${n1(nv.xt_top_v)} cada 100 habitantes. Los países de nacimiento más frecuentes son ${lista(nv.xt_origen)}.`,
-  "extranjeros-nota": `Personas nacidas en otro país identificadas por el RENAPER, según la provincia del domicilio que declararon en su DNI: es un registro de domicilios declarados, no un conteo de quienes viven en cada provincia, y puede tener domicilios desactualizados. No incluye a quienes viven en el país sin DNI argentino. La población es la proyección del INDEC para ${R.anio_pob_ficha.extranjeros_provincias}, el año del corte.`,
-  "fiscal-nota": `Administración pública no financiera de cada provincia, ejecución del año completo según el Ministerio de Economía. Recursos propios: ingresos corrientes menos los tributos de origen nacional, como la coparticipación, y las transferencias, más los recursos propios de capital, sobre los ingresos totales. Incluye impuestos provinciales y regalías. Resultado financiero: ingresos totales menos gastos totales, sobre los ingresos totales. Gasto en personal: sueldos y cargas sociales sobre el gasto total. La serie desde ${R.fiscal.ini} está en el explorador de cruces.` +
-    Object.entries(R.fiscal.atrasadas).map(([p, a]) => ` ${p} todavía no publicó ${R.fiscal.anio}: figura con ${a}.`).join(""),
   "mapa-dep-titulo": `¿Cómo varía cada indicador de un departamento a otro?`,
   "mapa-dep": `Cada provincia se divide en departamentos, que en Buenos Aires se llaman partidos y en CABA, comunas: son ${n0(R.departamentos.n)} en todo el país. El mapa reúne datos de varias fuentes: los homicidios, los robos y las muertes viales del Sistema Nacional de Información Criminal (SNIC), la edad de la población según el Registro Nacional de las Personas (RENAPER), el lugar de nacimiento, las viviendas y los hogares según el Censo 2022 del INDEC, las escuelas según el padrón oficial de la Secretaría de Educación y el crecimiento de la población que el INDEC estima hasta ${R.departamentos.pob_fin}. Tocá una provincia para acercarte.`
 };
 document.querySelectorAll("[data-t]").forEach(el => { if (TX[el.dataset.t]) el.textContent = TX[el.dataset.t]; });
+// Los textos de las partes de cada página (plan técnico, fase 5, 25 de noviembre de 2026): cada parte suma a TX los suyos y los escribe en
+// su lugar, como la línea de arriba con los del núcleo. Solo los suyos: los demás ya están escritos
+const textosParte = tx => {
+  Object.assign(TX, tx);
+  document.querySelectorAll("[data-t]").forEach(el => { if (tx[el.dataset.t]) el.textContent = tx[el.dataset.t]; });
+};
 const $t = k => document.querySelector(`[data-t="${k}"]`) || document.createElement("p");
 
 /* ---------- provincias ---------- */
@@ -2826,104 +2131,6 @@ function columnas(el, cfg) {
   if (el.clientWidth < 520) g.append("text").attr("class","etq-suave").attr("x",0).attr("y",-12).text("Miles de GWh");
 }
 
-// Barras horizontales por grupo (no por provincia), con una línea de referencia
-function barrasGrupos(el, cfg) {
-  const data = cfg.data, angosto = el.clientWidth < 520, fila = 32;
-  const izq = angosto ? 128 : 190;
-  const C = lienzo(el, data.length * fila + 40, {t:24, r:56, b:16, l: izq});
-  const {g, iw} = C;
-  const x = d3.scaleLinear().domain([0, d3.max(data, d => d[cfg.k]) * 1.05]).nice().range([0, iw]);
-  const y = d3.scaleBand().domain(data.map(d => d.grupo)).range([0, data.length * fila]).padding(.3);
-  g.append("g").attr("class","eje").call(d3.axisTop(x).ticks(angosto ? 3 : 5).tickFormat(v => v + "%").tickSize(0).tickPadding(6)).call(a => a.select(".domain").remove());
-  const f = g.selectAll("g.f").data(data).join("g").attr("class", "f").attr("transform", d => `translate(0,${y(d.grupo)})`);
-  const b = f.append("rect").attr("height", y.bandwidth()).attr("rx", rBarra(y.bandwidth())).attr("width", d => x(d[cfg.k])).attr("fill", css("--celeste"));
-  f.append("text").attr("x", -10).attr("y", y.bandwidth()/2).attr("dy",".35em").attr("text-anchor","end").attr("class","etq").text(d => d.grupo);
-  const v = f.append("text").attr("x", d => x(d[cfg.k]) + 6).attr("y", y.bandwidth()/2).attr("dy",".35em").attr("class","etq-fuerte").text(d => pct(d[cfg.k]));
-  if (cfg.ref != null) {
-    g.append("line").attr("x1", x(cfg.ref)).attr("x2", x(cfg.ref)).attr("y1", -4).attr("y2", data.length * fila).attr("stroke", css("--ink")).attr("stroke-dasharray","3 3").lower();
-    g.append("text").attr("x", x(cfg.ref) + 5).attr("y", data.length * fila + 12).attr("class","etq-suave").text(cfg.refLab);
-  }
-  if (cfg.anim) {
-    b.attr("width", 0).transition().delay(escalon).duration(DUR_G).ease(EASE).attr("width", d => x(d[cfg.k]));
-    aparecer(v, 400);
-  }
-}
-
-// Pirámide de población: barras llenas para el año en curso y contorno para 2040, en porcentaje del total
-function piramidePob(el, cfg) {
-  const filas = cfg.data.filter(d => d.codigo_indec === cfg.cod);
-  const th = d3.sum(filas, d => d.personas_hoy), tf = d3.sum(filas, d => d.personas_2040);
-  const edades = [...new Set(filas.map(d => d.edad))].sort((a, b) => a - b);
-  const data = edades.map(e => {
-    const v = filas.find(d => d.edad === e && d.sexo === "varones"), m = filas.find(d => d.edad === e && d.sexo === "mujeres");
-    return {edad: e, lab: e >= 90 ? "90+" : `${e}-${e + 4}`, vh: v.personas_hoy / th * 100, mh: m.personas_hoy / th * 100, vf: v.personas_2040 / tf * 100, mf: m.personas_2040 / tf * 100};
-  });
-  const angosto = el.clientWidth < 520, fila = angosto ? 17 : 20;
-  const C = lienzo(el, data.length * fila + 64, {t:48, r:8, b:16, l:8});
-  const {g, iw} = C, centro = iw / 2, gap = angosto ? 22 : 28;
-  const mx = d3.max(data, d => Math.max(d.vh, d.mh, d.vf, d.mf));
-  const x = d3.scaleLinear().domain([0, mx]).range([0, centro - gap - 6]);
-  const y = d3.scaleBand().domain(data.map(d => d.edad).reverse()).range([0, data.length * fila]).padding(.14);
-  // al cambiar de provincia, cada barra pasa del valor de la anterior al de la nueva (300 ms), con la escala de cada una
-  const antes = !cfg.anim && !REDUCIR && el.pir && el.pir.cod !== cfg.cod ? el.pir : null;
-  el.pir = {cod: cfg.cod, mx, d: Object.fromEntries(data.map(d => [d.edad, d]))};
-  const titulo = g.append("text").attr("x", centro).attr("y", -30).attr("text-anchor","middle").attr("class","etq-fuerte").text(cfg.nombre);
-  g.append("text").attr("x", centro - gap).attr("y", -12).attr("text-anchor","end").attr("class","etq-fuerte").attr("fill",css("--celeste-fuerte")).text("Varones");
-  g.append("text").attr("x", centro + gap).attr("y", -12).attr("class","etq-fuerte").attr("fill",css("--sol-fuerte")).text("Mujeres");
-  const f = g.selectAll("g.f").data(data).join("g").attr("transform", d => `translate(0,${y(d.edad)})`);
-  const rx = rBarra(y.bandwidth());
-  const v = f.append("rect").attr("x", d => centro - gap - x(d.vh)).attr("width", d => x(d.vh)).attr("height", y.bandwidth()).attr("rx", rx).attr("fill", css("--celeste"));
-  const m = f.append("rect").attr("x", centro + gap).attr("width", d => x(d.mh)).attr("height", y.bandwidth()).attr("rx", rx).attr("fill", css("--sol"));
-  const ov = f.append("rect").attr("x", d => centro - gap - x(d.vf)).attr("width", d => x(d.vf)).attr("height", y.bandwidth()).attr("rx", rx).attr("fill","none").attr("stroke", css("--ink")).attr("stroke-width", 1.2);
-  const om = f.append("rect").attr("x", centro + gap).attr("width", d => x(d.mf)).attr("height", y.bandwidth()).attr("rx", rx).attr("fill","none").attr("stroke", css("--ink")).attr("stroke-width", 1.2);
-  f.append("text").attr("x", centro).attr("y", y.bandwidth()/2).attr("dy",".35em").attr("text-anchor","middle").attr("class","etq-suave").style("font-size", angosto ? "10px" : null).text(d => d.lab);
-  f.append("rect").attr("x", 0).attr("width", iw).attr("height", y.bandwidth()).attr("fill","transparent")
-    .on("pointermove pointerdown", (ev, d) => mostrarTip(el, `<b>${d.lab} años</b><br>Varones: ${n1(d.vh)}% en ${cfg.anio} y ${n1(d.vf)}% en ${PI.anio_fin}<br>Mujeres: ${n1(d.mh)}% en ${cfg.anio} y ${n1(d.mf)}% en ${PI.anio_fin}`, centro, y(d.edad) + 48))
-    .on("pointerleave", ocultarSiMouse);
-  const ley = g.append("g").attr("transform", `translate(${centro - 56},${data.length * fila + 8})`);
-  ley.append("rect").attr("width", 12).attr("height", 9).attr("fill", css("--celeste"));
-  ley.append("text").attr("x", 16).attr("y", 9).attr("class","etq-suave").text(String(cfg.anio));
-  ley.append("rect").attr("x", 64).attr("width", 12).attr("height", 9).attr("fill","none").attr("stroke", css("--ink"));
-  ley.append("text").attr("x", 80).attr("y", 9).attr("class","etq-suave").text(PI.anio_fin);
-  if (cfg.anim) {
-    v.attr("x", centro - gap).attr("width", 0).transition().delay(escalon).duration(DUR_G).ease(EASE).attr("x", d => centro - gap - x(d.vh)).attr("width", d => x(d.vh));
-    m.attr("width", 0).transition().delay(escalon).duration(DUR_G).ease(EASE).attr("width", d => x(d.mh));
-    aparecer(ov, 700); aparecer(om, 700);
-  }
-  if (antes) {
-    const xa = d3.scaleLinear().domain([0, antes.mx]).range(x.range()), va = d => antes.d[d.edad] || d;
-    const ir = sel => sel.transition().duration(DUR_G).ease(EASE);
-    ir(v.attr("x", d => centro - gap - xa(va(d).vh)).attr("width", d => xa(va(d).vh))).attr("x", d => centro - gap - x(d.vh)).attr("width", d => x(d.vh));
-    ir(m.attr("width", d => xa(va(d).mh))).attr("width", d => x(d.mh));
-    ir(ov.attr("x", d => centro - gap - xa(va(d).vf)).attr("width", d => xa(va(d).vf))).attr("x", d => centro - gap - x(d.vf)).attr("width", d => x(d.vf));
-    ir(om.attr("width", d => xa(va(d).mf))).attr("width", d => x(d.mf));
-    titulo.attr("opacity", 0).transition().duration(DUR_C).attr("opacity", 1);
-  }
-}
-
-function piramide(el, cfg) {
-  const data = cfg.data, fila = 22, angosto = el.clientWidth < 520;
-  const C = lienzo(el, data.length * fila + 40, {t:30, r:10, b:10, l:10});
-  const {g, iw} = C, centro = iw / 2, gap = angosto ? 34 : 44;
-  const mx = d3.max(data, d => Math.max(d.pct_varones, d.pct_mujeres));
-  const x = d3.scaleLinear().domain([0, mx]).range([0, centro - gap - 34]);
-  const y = d3.scaleBand().domain(data.map(d => d.edad).reverse()).range([0, data.length*fila]).padding(.2);
-  g.append("text").attr("x", centro - gap).attr("y", -12).attr("text-anchor","end").attr("class","etq-fuerte").attr("fill",css("--celeste-fuerte")).text("Varones");
-  g.append("text").attr("x", centro + gap).attr("y", -12).attr("class","etq-fuerte").attr("fill",css("--sol-fuerte")).text("Mujeres");
-  const f = g.selectAll("g.f").data(data).join("g").attr("transform", d => `translate(0,${y(d.edad)})`);
-  const v = f.append("rect").attr("x", d => centro - gap - x(d.pct_varones)).attr("width", d => x(d.pct_varones)).attr("height", y.bandwidth()).attr("rx", rBarra(y.bandwidth())).attr("fill", css("--celeste"));
-  const m = f.append("rect").attr("x", centro + gap).attr("width", d => x(d.pct_mujeres)).attr("height", y.bandwidth()).attr("rx", rBarra(y.bandwidth())).attr("fill", css("--sol"));
-  f.append("text").attr("x", centro).attr("y", y.bandwidth()/2).attr("dy",".35em").attr("text-anchor","middle").attr("class","etq-suave").text(d => d.edad.replace(" y más","+").replace("Menos de ","<"));
-  const tv = f.append("text").attr("x", d => centro - gap - x(d.pct_varones) - 5).attr("y", y.bandwidth()/2).attr("dy",".35em").attr("text-anchor","end").attr("class","etq-suave").text(d => n1(d.pct_varones) + "%");
-  const tm = f.append("text").attr("x", d => centro + gap + x(d.pct_mujeres) + 5).attr("y", y.bandwidth()/2).attr("dy",".35em").attr("class","etq-suave").text(d => n1(d.pct_mujeres) + "%");
-  if (cfg.anim) {
-    v.attr("x", centro - gap).attr("width", 0).transition().delay(escalon).duration(DUR_G).ease(EASE)
-      .attr("x", d => centro - gap - x(d.pct_varones)).attr("width", d => x(d.pct_varones));
-    m.attr("width", 0).transition().delay(escalon).duration(DUR_G).ease(EASE).attr("width", d => x(d.pct_mujeres));
-    aparecer(tv, 500); aparecer(tm, 500);
-  }
-}
-
 
 // Franjas de temperatura: un rectángulo por año, del celeste (más frío) al rojo (más cálido)
 function franjas(el, cfg) {
@@ -3043,47 +2250,6 @@ function columnasApiladas(el, cfg) {
 /* Mapa de provincias: color según el porcentaje del territorio protegido y círculos para las áreas nacionales */
 let GEO = null;
 const cargarGeo = () => GEO ? Promise.resolve(GEO) : fetch("datos/provincias.geojson").then(r => r.json()).then(j => (GEO = j));
-function mapaAreas(anim) {
-  const el = G("mapa-areas");
-  if (!el || !el.offsetParent) return;
-  if (!GEO) { cargarGeo().then(() => mapaAreas(anim)).catch(() => sinDatos(el, "No se pudo cargar el mapa.")); return; }
-  el.innerHTML = "";
-  const w = Math.min(560, el.clientWidth), h = Math.round(w * 1.62) + 40;
-  const svg = d3.select(el).append("svg").attr("viewBox", `0 0 ${w} ${h}`).attr("role", "img")
-    .attr("aria-label", "Mapa de la Argentina con el porcentaje de territorio protegido por provincia");
-  const proy = d3.geoMercator().fitExtent([[6, 6], [w - 6, h - 92]], GEO), camino = d3.geoPath(proy);
-  const val = Object.fromEntries(T.areas_protegidas_provincias.map(d => [d.codigo_indec, d]));
-  const cortes = [5, 10, 15, 20, 30], colores = ["#EEF5FC", "#D2E4F5", "#A9CBEA", "#7DAEDD", "#4C8DCA", "#2C74B5"];
-  const escala = d3.scaleThreshold().domain(cortes).range(colores);
-  const provs = svg.append("g").selectAll("path").data(GEO.features).join("path")
-    .attr("class", d => "prov" + (d.properties.codigo_indec === prov ? " elegida" : "")).attr("d", camino)
-    .attr("fill", d => escala(val[d.properties.codigo_indec]?.pct_territorio ?? 0));
-  provs.filter(".elegida").raise();
-  el.resaltar = () => { provs.attr("class", d => "prov" + (d.properties.codigo_indec === prov ? " elegida" : "")); provs.filter(".elegida").raise(); };
-  // con el mouse al pasar y con el dedo al tocar (revisión de accesibilidad: en el celular el cuadro no aparecía)
-  provs.on("pointermove pointerdown", (ev, d) => {
-      const v = val[d.properties.codigo_indec], [mx, my] = d3.pointer(ev, el);
-      mostrarTip(el, `<b>${v ? v.territorio : d.properties.nombre}</b><br>${v ? pct(v.pct_territorio) : "Sin dato"} del territorio protegido` +
-        (v ? `<br>${n0(v.ha_terrestres)} hectáreas` : ""), mx, my);
-    }).on("pointerleave", ocultarSiMouse);
-  const areas = T.parques_nacionales_lista.filter(d => !d.marina && d.lat != null && d.lng != null);
-  const r = d3.scaleSqrt().domain([0, d3.max(areas, d => d.hectareas)]).range([1.6, w < 420 ? 11 : 15]);
-  const burb = svg.append("g").selectAll("circle").data(areas.sort((a, b) => b.hectareas - a.hectareas)).join("circle")
-    .attr("class", "burbuja").attr("cx", d => proy([d.lng, d.lat])[0]).attr("cy", d => proy([d.lng, d.lat])[1]).attr("r", d => r(d.hectareas));
-  if (anim) burb.attr("opacity", 0).transition().delay(escalon).duration(DUR_G).attr("opacity", 1);
-  burb.on("pointermove pointerdown", (ev, d) => { const [mx, my] = d3.pointer(ev, el);
-      mostrarTip(el, `<b>${d.nombre}</b><br>${d.caracter}, ${d.anio}<br>${n0(d.hectareas)} hectáreas`, mx, my); })
-    .on("pointerleave", ocultarSiMouse);
-  // leyenda: seis cuadros de 46 píxeles, más angostos si no entran (en 320 píxeles se cortaba el último, el de 30% o más)
-  const paso = Math.min(46, (w - 12) / 6);
-  const ley = svg.append("g").attr("class", "leyenda-mapa").attr("transform", `translate(${Math.max(6, w / 2 - paso * 3)},${h - 38})`);
-  const et = ["0", "5", "10", "15", "20", "30%"];
-  colores.forEach((c, i) => {
-    ley.append("rect").attr("x", i * paso).attr("width", paso - 2).attr("height", 10).attr("rx", 2).attr("fill", c);
-    ley.append("text").attr("x", i * paso).attr("y", 26).text(et[i]);
-  });
-  ley.append("text").attr("x", 0).attr("y", -6).text("% del territorio protegido");
-}
 
 /* Mapa de provincias (etapa 42, para las pensiones por discapacidad): el color divide a las 24 jurisdicciones en cinco grupos de casi el
    mismo tamaño (quintiles), con la escala de colores del mapa por departamento. La Ciudad de Buenos Aires, que en el mapa del país no se ve
@@ -3242,259 +2408,8 @@ function mapaPozos(el, cfg) {
   const fi = el.closest(".ficha"), bi = fi?.querySelector(".accion.imagen"); if (bi) bi.hidden = !svgUnico(fi);
 }
 
-/* Mapas de la Antártida (noviembre de 2026, pedido del autor: "un mapa con las bases de la Argentina y de los demás países"). Los otros mapas del sitio
-   usan Mercator, que no llega al polo: estos usan una proyección estereográfica centrada en el Polo Sur, con el meridiano 60 Oeste hacia arriba, así la
-   Península queda arriba, apuntando a Ushuaia. La geometría (scripts/geometria_antartida.py) se pide recién al dibujar. Al pasar el mouse o al tocar, la
-   instalación más cercana a menos de 14 píxeles. La alternativa a todo esto es "Ver tabla". */
-let TOPO_ANT = null;
-const cargarAnt = () => TOPO_ANT ? Promise.resolve(TOPO_ANT) : d3.json("datos/antartida.topo.json").then(t => (TOPO_ANT = t));
-const antProy = () => d3.geoStereographic().rotate([60, 90]);
-const antCapa = k => topojson.feature(TOPO_ANT, TOPO_ANT.objects[k]);
-// sin borde: el polígono de la tierra corta el globo por el meridiano 180, y con borde esa línea se ve en el Mar de Ross
-function antFondo(svg, camino, detalle) {
-  const g = svg.append("g");
-  g.append("path").datum(antCapa(detalle ? "peninsula" : "tierra")).attr("d", camino).attr("fill", css("--faint")).attr("fill-opacity", .5);
-  g.append("path").datum(antCapa(detalle ? "peninsula_barreras" : "barreras")).attr("d", camino).attr("fill", css("--superficie"));
-  return g;
-}
-// los nombres de los puntos, sin pisarse: cada uno prueba ocho lugares alrededor del punto y, si ninguno está libre, no se escribe. Devuelve lo ocupado,
-// para que los nombres de lugares que se escriben después tampoco pisen nada
-function antEtiquetas(capa, puntos, w, h, nombre, clase, reservado = []) {
-  const ocupado = [...reservado, ...puntos.map(p => [p.px - 5, p.py - 5, p.px + 5, p.py + 5])];
-  const choca = c => ocupado.some(o => c[0] < o[2] && c[2] > o[0] && c[1] < o[3] && c[3] > o[1]);
-  puntos.forEach(p => {
-    const t = capa.append("text").attr("class", clase).text(nombre(p)), l = t.node().getComputedTextLength();
-    for (const [dx, dy, anc] of [[8, 4, "start"], [-8, 4, "end"], [0, -9, "middle"], [0, 16, "middle"], [8, -7, "start"], [-8, -7, "end"], [8, 15, "start"], [-8, 15, "end"]]) {
-      const x0 = anc === "start" ? p.px + dx : anc === "end" ? p.px + dx - l : p.px - l / 2, c = [x0, p.py + dy - 11, x0 + l, p.py + dy + 3];
-      if (c[0] >= 2 && c[2] <= w - 2 && c[1] >= 2 && c[3] <= h - 2 && !choca(c)) { ocupado.push(c); t.attr("x", p.px + dx).attr("y", p.py + dy).attr("text-anchor", anc); return; }
-    }
-    t.remove();
-  });
-  return ocupado;
-}
-// las zonas protegidas (24 de noviembre de 2026, decisión del autor): los polígonos de la Secretaría del Tratado Antártico, simplificados por
-// scripts/antartida_zonas_mapa.py. Si no llegan, el mapa se dibuja igual, sin ellas. d3 dibuja una figura con su contorno en el sentido de las
-// agujas del reloj: una al revés cubriría todo el globo menos la zona, así que las que vienen al revés se dan vuelta
-let ZONAS_ANT = null;
-const cargarZonasAnt = () => ZONAS_ANT ? Promise.resolve(ZONAS_ANT) : d3.json("datos/antartida_zonas.geo.json").then(z => {
-  z.features.forEach(f => f.geometry.coordinates.forEach(pol => { if (d3.geoArea({type: "Polygon", coordinates: pol}) > 2 * Math.PI) pol.forEach(a => a.reverse()); }));
-  return (ZONAS_ANT = z);
-}).catch(() => (ZONAS_ANT = {features: []}));
-const antCorto = d => d.nombre_corto || d.nombre.replace(/^Base (Antártica |Naval Antártica |Aérea Antártica )?/, "").replace(/ (Station|Base|Antarctic Station|Research Station)$/, "");
-function mapaAntartida(anim) {
-  const el = G("ant-mapa");
-  if (!el || !el.offsetParent) return;
-  if (!TOPO_ANT || !T.antartida_instalaciones || !ZONAS_ANT) {
-    if (!el.querySelector("svg")) esperando(el);
-    Promise.all([cargarAnt(), cargarTabla("antartida_instalaciones"), cargarZonasAnt()]).then(() => mapaAntartida(anim)).catch(() => sinDatos(el, "No se pudo cargar el mapa."));
-    return;
-  }
-  const sel = document.getElementById("ant-pais"), pais = MED["ant-pais"], pen = MED["ant-mapa"] === "peninsula";
-  if (sel && sel.options.length < 2) {
-    sel.innerHTML = [...new Set(T.antartida_instalaciones.map(d => d.pais))].sort((a, b) => a.localeCompare(b, "es")).map(p => `<option value="${p}">${p}</option>`).join("");
-    sel.value = pais;
-  }
-  const w = Math.min(720, Math.max(300, el.clientWidth)), h = Math.round(w * (pen ? 1 : 1.1));
-  el.innerHTML = ""; el.removeAttribute("aria-busy"); el.resaltar = null;
-  const svg = d3.select(el).append("svg").attr("viewBox", `0 0 ${w} ${h}`).attr("role", "img").style("overflow", "hidden")
-    .attr("aria-label", `Mapa de ${pen ? "la Península Antártica" : "la Antártida"} con las instalaciones de los programas antárticos, con las de ${pais} resaltadas, y las zonas protegidas. Los datos de las instalaciones están en «Ver tabla», debajo`);
-  // el recuadro de cada vista: el continente sin el mar que queda lejos, y la Península desde Bahía Margarita hasta las Shetland del Sur. Las Orcadas
-  // quedan afuera: están lejos, dejaban vacío un tercio del recuadro y se ven en el continente
-  const marco = pen ? {type: "MultiPoint", coordinates: [[-70, -68.9], [-53, -61.4], [-66.5, -61.4], [-52, -66]]}
-    : {type: "MultiPoint", coordinates: [[-68.3, -53.6], [120, -63], [30, -63], [-150, -63]]};
-  const proy = antProy().clipAngle(pen ? 45 : 40).fitExtent([[8, 8], [w - 8, h - 8]], marco), camino = d3.geoPath(proy);
-  svg.append("rect").attr("width", w).attr("height", h).attr("fill", css("--celeste-suave")).attr("opacity", .45);
-  antFondo(svg, camino, pen);
-  svg.append("path").datum(d3.geoCircle().center([0, -90]).radius(30)()).attr("d", camino).attr("fill", "none").attr("stroke", css("--muted")).attr("stroke-width", .8).attr("stroke-dasharray", "3 4");
-  // las zonas protegidas, debajo de las bases: las que medirían menos de 4 píxeles van como un rombo en su centro
-  const marcoZ = d => d.px >= 0 && d.px <= w && d.py >= 0 && d.py <= h;
-  const zonas = ZONAS_ANT.features.map(f => { const b = camino.bounds(f), [px, py] = proy(d3.geoCentroid(f));
-    return {f, px, py, chica: !(Math.max(b[1][0] - b[0][0], b[1][1] - b[0][1]) >= 4)}; }).filter(marcoZ);
-  const capaZ = svg.append("g").attr("fill", css("--sol")).attr("stroke", css("--sol-fuerte")).attr("stroke-width", .8);
-  capaZ.selectAll("path").data(zonas.filter(z => !z.chica)).join("path").attr("d", z => camino(z.f)).attr("fill-opacity", .6);
-  capaZ.selectAll("rect").data(zonas.filter(z => z.chica)).join("rect").attr("x", z => z.px - 2.5).attr("y", z => z.py - 2.5).attr("width", 5).attr("height", 5)
-    .attr("transform", z => `rotate(45 ${z.px} ${z.py})`);
-  const lugares = pen ? [[-59, -61.7, "Islas Shetland del Sur"], [-64.5, -66.8, "Península Antártica"], [-54.5, -66, "Mar de Weddell"]]
-    : [[-68.3, -54.8, "Ushuaia"], [60, -90, "Polo Sur"], [-42, -74, "Mar de Weddell"], [-170, -74, "Mar de Ross"], [-60, -60, "Paralelo 60 Sur"]];
-  const capaLugares = svg.append("g");
-  const marcoV = d => d.px >= 0 && d.px <= w && d.py >= 0 && d.py <= h;
-  const vis = T.antartida_instalaciones.map(d => { const [px, py] = proy([d.lon, d.lat]); return {...d, px, py, sel: d.pais === pais || d.otro_pais === pais}; }).filter(marcoV).sort((a, b) => a.sel - b.sel);
-  const color = d => d.sel ? css("--celeste-fuerte") : css("--muted");
-  const llena = d => d.temporada === "Todo el año";
-  const puntos = svg.append("g").selectAll("circle").data(vis).join("circle").attr("cx", d => d.px).attr("cy", d => d.py).attr("r", d => d.sel ? (pen ? 6 : 5) : (pen ? 4 : 3))
-    .attr("fill", d => llena(d) ? color(d) : css("--bg")).attr("stroke", color).attr("stroke-width", d => d.sel ? 2 : 1.2);
-  if (anim && !REDUCIR) puntos.attr("opacity", 0).transition().delay(escalon).duration(DUR_G).attr("opacity", 1);
-  // primero los nombres de las más grandes y de las que no informan capacidad: suelen ser las más alejadas
-  const conNombre = vis.filter(d => d.sel).sort((a, b) => (b.capacidad ?? 999) - (a.capacidad ?? 999));
-  // la leyenda, donde no hay bases: abajo a la izquierda en el continente y abajo a la derecha en la Península, sobre el Mar de Weddell
-  const leyY = h - 70, anchoLey = 92 + Math.max(0, pais.length - 11) * 6 + 110, leyX = pen ? w - anchoLey - 4 : 12;
-  const ocupado = antEtiquetas(svg.append("g"), conNombre, w, h, antCorto, "etq-fuerte", [[leyX - 8, leyY - 12, leyX + anchoLey + 4, leyY + 52]]);
-  lugares.forEach(([lon, lat, nom]) => {
-    const [x, y] = proy([lon, lat]), t = capaLugares.append("text").attr("class", "etq-suave").attr("text-anchor", "middle").attr("x", x).attr("y", y).text(nom), l = t.node().getComputedTextLength();
-    const c = [x - l / 2, y - 11, x + l / 2, y + 3];
-    if (c[0] < 2 || c[2] > w - 2 || ocupado.some(o => c[0] < o[2] && c[2] > o[0] && c[1] < o[3] && c[3] > o[1])) t.remove(); else ocupado.push(c);
-  });
-  const ley = svg.append("g").attr("transform", `translate(${leyX},${leyY})`);
-  ley.append("rect").attr("x", -6).attr("y", -11).attr("width", anchoLey + 8).attr("height", 62).attr("rx", 6).attr("fill", css("--bg")).attr("opacity", .85);
-  ley.append("rect").attr("x", 1.5).attr("y", 36.5).attr("width", 7).attr("height", 7).attr("rx", 1).attr("fill", css("--sol")).attr("fill-opacity", .6).attr("stroke", css("--sol-fuerte")).attr("stroke-width", .8);
-  ley.append("text").attr("x", 14).attr("y", 44).attr("class", "etq").text("Zona protegida");
-  [[0, 0, css("--muted"), true, "Todo el año"], [92, 0, css("--muted"), false, "Solo en verano"], [0, 20, css("--celeste-fuerte"), true, pais], [92 + Math.max(0, pais.length - 11) * 6, 20, css("--muted"), true, "Otros países"]].forEach(([x, y, c, ll, t]) => {
-    ley.append("circle").attr("cx", x + 5).attr("cy", y).attr("r", 4.5).attr("fill", ll ? c : css("--bg")).attr("stroke", c).attr("stroke-width", 1.4);
-    ley.append("text").attr("x", x + 14).attr("y", y + 4).attr("class", "etq").text(t);
-  });
-  const anillo = svg.append("circle").attr("r", 9).attr("fill", "none").attr("stroke", css("--ink")).attr("stroke-width", 1.5).attr("opacity", 0);
-  const dl = d3.Delaunay.from(vis, d => d.px, d => d.py);
-  const tipo = d => `${d.tipo}, ${d.temporada.toLowerCase()}`;
-  const ver = ev => {
-    const [sx, sy] = d3.pointer(ev, svg.node()), [ex, ey] = d3.pointer(ev, el), d = vis[dl.find(sx, sy)];
-    if (d && Math.hypot(d.px - sx, d.py - sy) < 14) {
-      anillo.attr("cx", d.px).attr("cy", d.py).attr("opacity", 1);
-      return mostrarTip(el, `<b>${d.nombre}</b><br>${d.pais}${d.otro_pais ? ` ${yE(d.otro_pais)}` : ""}<br>${tipo(d)}` + (d.anio ? `<br>Desde ${d.anio}` : "") +
-        (d.capacidad != null ? `<br>Capacidad máxima: ${n0(d.capacidad)} personas` : "<br>Capacidad sin informar") + (d.estado === "Abierta" ? "" : `<br>${d.estado}`), ex, ey);
-    }
-    // sin una base cerca, la zona protegida que está debajo o, si es un rombo, cerca
-    const z = zonas.find(z => z.chica && Math.hypot(z.px - sx, z.py - sy) < 8) || zonas.find(z => !z.chica && d3.geoContains(z.f, proy.invert([sx, sy])));
-    anillo.attr("opacity", 0);
-    if (z) { const q = z.f.properties;
-      return mostrarTip(el, `<b>${q.nombre}</b><br>Zona antártica especialmente ${q.tipo === "ZAEP" ? "protegida" : "administrada"} ${q.numero}${q.marina ? ", marina" : ""}` +
-        `<br>Propuesta por ${lista(q.paises)}<br>Superficie: ${q.km2 < 10 ? n1(q.km2) : n0(q.km2)} km²`, ex, ey); }
-    ocultarTip();
-  };
-  svg.append("rect").attr("width", w).attr("height", h).attr("fill", "transparent").style("touch-action", "pan-y")
-    .on("pointermove", ver).on("pointerdown", ver).on("pointerleave", () => { anillo.attr("opacity", 0); ocultarTip(); });
-  const fi = el.closest(".ficha"), bi = fi?.querySelector(".accion.imagen"); if (bi) bi.hidden = !svgUnico(fi);
-}
-
-/* Los siete reclamos. Hasta el paralelo 60, cada sector es una porción: las superpuestas se ven más oscuras. Afuera, una banda por país con su nombre,
-   en tres renglones arriba, donde se superponen la Argentina, Chile y el Reino Unido. Se dibujan como figuras en la pantalla y no como polígonos del globo,
-   porque los meridianos y el paralelo no son rectas de la esfera */
-function mapaReclamos(anim) {
-  const el = G("ant-reclamos");
-  if (!el || !el.offsetParent) return;
-  if (!TOPO_ANT || !T.antartida_reclamos) {
-    if (!el.querySelector("svg")) esperando(el);
-    Promise.all([cargarAnt(), cargarTabla("antartida_reclamos")]).then(() => mapaReclamos(anim)).catch(() => sinDatos(el, "No se pudo cargar el mapa."));
-    return;
-  }
-  const w = Math.min(660, Math.max(300, el.clientWidth)), angosto = w < 460, banda = angosto ? 17 : 19, luz = 3, paso = banda + luz, m = 6;
-  const R0 = w / 2 - m - paso - (angosto ? 2 : 8), h = 2 * R0 + 4 * paso + 2 * m + (angosto ? 14 : 18), cx = w / 2, cy = m + 3 * paso + R0;
-  el.innerHTML = ""; el.removeAttribute("aria-busy"); el.resaltar = null;
-  const svg = d3.select(el).append("svg").attr("viewBox", `0 0 ${w} ${h}`).attr("role", "img").style("overflow", "hidden")
-    .attr("aria-label", "Mapa de la Antártida con los sectores que reclaman siete países, y dónde se superponen. Los datos están en «Ver tabla», debajo");
-  const proy = antProy().clipAngle(30).scale(R0 / Math.tan(Math.PI / 12)).translate([cx, cy]), camino = d3.geoPath(proy);
-  // el ángulo en la pantalla de un meridiano: el 60 Oeste va hacia arriba y los grados crecen hacia el este, en el sentido de las agujas del reloj
-  const ang = lon => (lon + 60) * Math.PI / 180, pt = (lon, r) => [cx + r * Math.sin(ang(lon)), cy - r * Math.cos(ang(lon))];
-  const grados = t => ((t.hasta - t.desde) % 360 + 360) % 360;
-  const porcion = t => { const [a, b] = pt(t.desde, R0), [c, d] = pt(t.hasta, R0); return `M${cx},${cy}L${a},${b}A${R0},${R0} 0 ${grados(t) > 180 ? 1 : 0} 1 ${c},${d}Z`; };
-  svg.append("circle").attr("cx", cx).attr("cy", cy).attr("r", R0).attr("fill", css("--celeste-suave")).attr("opacity", .45);
-  antFondo(svg, camino, false);
-  const tramos = T.antartida_reclamos, reclamos = tramos.filter(t => t.pais !== "Sin reclamar");
-  const esArg = t => t.pais === "Argentina";
-  const porciones = svg.append("g").selectAll("path").data(reclamos).join("path").attr("d", porcion)
-    .attr("fill", d => esArg(d) ? css("--celeste-fuerte") : css("--muted")).attr("fill-opacity", d => esArg(d) ? .38 : .16).attr("stroke", css("--bg")).attr("stroke-width", 1);
-  if (anim && !REDUCIR) porciones.attr("opacity", 0).transition().delay(escalon).duration(DUR_G).attr("opacity", 1);
-  svg.append("circle").attr("cx", cx).attr("cy", cy).attr("r", R0).attr("fill", "none").attr("stroke", css("--muted")).attr("stroke-width", .8);
-  svg.append("circle").attr("cx", cx).attr("cy", cy).attr("r", 2.5).attr("fill", css("--ink"));
-  svg.append("text").attr("x", cx).attr("y", cy + 16).attr("text-anchor", "middle").attr("class", "etq-suave").text("Polo Sur");
-  // las bandas: cada una en su renglón, con el nombre adentro siguiendo la curva, y afuera si no entra
-  const renglon = t => t.pais === "Chile" ? 1 : t.pais === "Reino Unido" ? 2 : 0;
-  const rDe = t => R0 + luz + banda / 2 + renglon(t) * paso;
-  const arco = (t, r, alRevez) => { const [a, b] = pt(t.desde, r), [c, d] = pt(t.hasta, r); return alRevez ? `M${c},${d}A${r},${r} 0 ${grados(t) > 180 ? 1 : 0} 0 ${a},${b}` : `M${a},${b}A${r},${r} 0 ${grados(t) > 180 ? 1 : 0} 1 ${c},${d}`; };
-  const capa = svg.append("g");
-  tramos.forEach((t, i) => {
-    const libre = t.pais === "Sin reclamar", medio = t.desde + grados(t) / 2, abajo = Math.cos(ang(medio)) < 0, r = rDe(t);
-    capa.append("path").attr("d", arco(t, r, false)).attr("fill", "none").attr("stroke", esArg(t) ? css("--celeste-fuerte") : libre ? css("--faint") : css("--superficie-3")).attr("stroke-width", libre ? 1.2 : banda)
-      .attr("stroke-dasharray", libre ? "3 4" : null);
-    const idArco = `ant-arco-${i}`;
-    capa.append("path").attr("id", idArco).attr("d", arco(t, abajo ? r + 4 : r - 4, abajo)).attr("fill", "none");
-    const nombre = t.pais, medir = capa.append("text").attr("class", "etq").text(nombre), largo = medir.node().getComputedTextLength(); medir.remove();
-    if (largo + 10 < r * grados(t) * Math.PI / 180) {
-      const tx = capa.append("text").attr("class", esArg(t) ? "etq-fuerte" : libre ? "etq-suave" : "etq").style("fill", esArg(t) ? css("--bg") : null).style("stroke", "none");
-      tx.append("textPath").attr("href", `#${idArco}`).attr("startOffset", "50%").attr("text-anchor", "middle").text(nombre);
-    } else {
-      const [x, y] = pt(medio, r + banda / 2 + (abajo ? 12 : 8));
-      capa.append("text").attr("class", "etq").attr("x", x).attr("y", y).attr("text-anchor", "middle").text(nombre);
-    }
-  });
-  // al pasar el mouse o tocar: quién reclama ese meridiano
-  const quien = lon => reclamos.filter(t => { const g = ((lon - t.desde) % 360 + 360) % 360; return g < grados(t); });
-  const lista = l => l.length > 1 ? `${l.slice(0, -1).join(", ")} ${yE(l[l.length - 1])}` : l[0];
-  const ver = ev => {
-    const [sx, sy] = d3.pointer(ev, svg.node()), [ex, ey] = d3.pointer(ev, el), dx = sx - cx, dy = sy - cy, r = Math.hypot(dx, dy);
-    if (r > R0 + 3 * paso + 4) return ocultarTip();
-    const lon = ((Math.atan2(dx, -dy) * 180 / Math.PI - 60 + 540) % 360) - 180, l = quien(lon);
-    const mer = `Meridiano ${Math.abs(Math.round(lon))}° ${lon < 0 ? "Oeste" : "Este"}`;
-    mostrarTip(el, `<b>${mer}</b><br>` + (l.length ? `Lo reclama${l.length > 1 ? "n" : ""} ${lista([...new Set(l.map(t => t.pais))])}` : "Ningún país lo reclama"), ex, ey);
-  };
-  svg.append("rect").attr("width", w).attr("height", h).attr("fill", "transparent").style("touch-action", "pan-y").on("pointermove", ver).on("pointerdown", ver).on("pointerleave", ocultarTip);
-  const fi = el.closest(".ficha"), bi = fi?.querySelector(".accion.imagen"); if (bi) bi.hidden = !svgUnico(fi);
-}
-
-/* Las bases argentinas: una fila por base, de la más vieja a la más nueva, con una línea desde el año en que se fundó hasta hoy. Llena si funciona todo el año y
-   punteada si funciona solo en verano. La línea dice desde cuándo existe, no que haya funcionado sin pausa: lo aclara la nota */
-function lineaBases(el, anim) {
-  const data = [...T.antartida_bases].sort((a, b) => d3.ascending(a.fundacion, b.fundacion)), angosto = el.clientWidth < 520, fila = angosto ? 26 : 28;
-  const C = lienzo(el, data.length * fila + 58, {t: 52, r: 14, b: 6, l: angosto ? 76 : 96}), {g, iw, svg} = C;
-  const fin = +R.actualizado.slice(-4), x = d3.scaleLinear().domain([1900, fin]).range([0, iw]);
-  g.append("g").attr("class", "grilla").call(d3.axisTop(x).tickValues(d3.range(1900, fin, 25)).tickSize(-data.length * fila).tickFormat("")).call(a => a.select(".domain").remove());
-  g.append("g").attr("class", "eje").call(d3.axisTop(x).tickValues(d3.range(1900, fin, 25)).tickFormat(d3.format("d")).tickSize(0).tickPadding(6)).call(a => a.select(".domain").remove());
-  const col = css("--celeste-fuerte"), perm = d => d.condicion === "permanente";
-  const ley = svg.append("g").attr("transform", "translate(6,16)");
-  [[0, null, "Todo el año"], [106, "5 4", "Solo en verano"]].forEach(([xx, dash, t]) => {
-    ley.append("line").attr("x1", xx).attr("x2", xx + 22).attr("y1", 0).attr("y2", 0).attr("stroke", col).attr("stroke-width", 3).attr("stroke-dasharray", dash);
-    ley.append("text").attr("x", xx + 28).attr("y", 4).attr("class", "etq").text(t);
-  });
-  const filas = g.selectAll("g.f").data(data).join("g").attr("class", "f").attr("transform", (d, i) => `translate(0,${i * fila + fila / 2})`);
-  filas.append("rect").attr("x", -C.w).attr("y", -fila / 2).attr("width", C.w * 2).attr("height", fila).attr("fill", "transparent");
-  const trazos = filas.append("line").attr("x1", d => x(d.anio)).attr("x2", iw).attr("stroke", col).attr("stroke-width", 3).attr("stroke-dasharray", d => perm(d) ? null : "5 4");
-  filas.append("circle").attr("cx", d => x(d.anio)).attr("r", 5).attr("fill", col).attr("stroke", css("--bg")).attr("stroke-width", 1.5);
-  filas.append("text").attr("x", -10).attr("dy", ".35em").attr("text-anchor", "end").attr("class", "etq-fuerte").text(d => d.base);
-  filas.append("text").attr("x", d => x(d.anio) + 9).attr("y", -6).attr("class", "etq-suave").text(d => d.anio);
-  if (anim && !REDUCIR) trazos.attr("opacity", 0).transition().delay(escalon).duration(DUR_G).attr("opacity", 1);
-  const dia = s => { const [a, m, dd] = s.split("-"); return `${+dd} de ${MESES[+m - 1]} de ${a}`; };
-  filas.on("pointermove pointerdown", (ev, d) => { const [mx, my] = d3.pointer(ev, el);
-    mostrarTip(el, `<b>${d.base}</b><br>${d.lugar}<br>Desde el ${dia(d.fundacion)}<br>${perm(d) ? "Funciona todo el año" : "Funciona solo en verano"}<br>A cargo de: ${d.administra}` +
-      (d.capacidad != null ? `<br>Capacidad máxima: ${n0(d.capacidad)} personas` : "<br>Capacidad sin informar") + (d.estado === "Abierta" ? "" : `<br>${d.estado} (COMNAP)`), mx, my); })
-    .on("pointerleave", ocultarSiMouse);
-}
-
-/* Mapa de las centrales eléctricas (etapa 19): un círculo por central, con el color de su tecnología y el tamaño de su potencia. Las que no
-   informan potencia van vacías, con un tamaño fijo. Al pasar el mouse (o tocar), la central más cercana a menos de 12 píxeles. */
-function mapaCentrales(el, cfg) {
-  if (!GEO) {
-    if (!el.querySelector("svg")) esperando(el);
-    cargarGeo().then(() => mapaCentrales(el, cfg)).catch(() => sinDatos(el, "No se pudo cargar el mapa."));
-    return;
-  }
-  const w = Math.min(560, Math.max(300, el.clientWidth)), h = Math.round(w * 1.55);
-  el.innerHTML = ""; el.removeAttribute("aria-busy"); el.resaltar = null;
-  const svg = d3.select(el).append("svg").attr("viewBox", `0 0 ${w} ${h}`).attr("role", "img").style("overflow", "hidden")
-    .attr("aria-label", `Mapa de las ${n0(T.centrales.length)} centrales eléctricas del listado de la Secretaría de Energía, por tecnología y potencia`);
-  const proy = d3.geoMercator().fitExtent([[6, 6], [w - 6, h - 6]], GEO), camino = d3.geoPath(proy);
-  svg.append("g").selectAll("path").data(GEO.features).join("path").attr("d", camino).attr("fill", css("--superficie-2")).attr("stroke", css("--borde")).attr("stroke-width", .8);
-  const radio = d3.scaleSqrt().domain([0, d3.max(T.centrales, c => c.potencia_mw)]).range([2.2, w > 400 ? 15 : 11]);
-  const vis = T.centrales.map(c => { const [px, py] = proy([c.x, c.y]); return {...c, px, py, r: c.potencia_mw ? radio(c.potencia_mw) : 2.8}; })
-    .sort((a, b) => b.r - a.r);  // las grandes abajo, así no tapan a las chicas
-  const circ = svg.append("g").selectAll("circle").data(vis).join("circle").attr("cx", c => c.px).attr("cy", c => c.py).attr("r", c => c.r)
-    .attr("fill", c => c.potencia_mw ? COL_CEN[c.tecnologia] : "#fff").attr("fill-opacity", .85)
-    .attr("stroke", c => c.potencia_mw ? "#fff" : COL_CEN[c.tecnologia]).attr("stroke-width", c => c.potencia_mw ? .6 : 1.4);
-  if (cfg.anim && !REDUCIR) circ.attr("opacity", 0).transition().delay(escalon).duration(DUR_G).attr("opacity", 1);
-  const anillo = svg.append("circle").attr("fill", "none").attr("stroke", css("--ink")).attr("stroke-width", 1.5).attr("opacity", 0);
-  const dl = d3.Delaunay.from(vis, c => c.px, c => c.py);
-  const tip = c => `<b>${tituloArea(c.nombre)}</b><br>${c.detalle}<br>${c.potencia_mw ? n0(c.potencia_mw) + " megavatios" : "Sin dato de potencia en el listado"}` +
-    `<br>${[c.departamento, c.provincia].filter(Boolean).join(", ")}<br>${c.sistema}`;
-  const ver = ev => {
-    const [sx, sy] = d3.pointer(ev, svg.node()), [ex, ey] = d3.pointer(ev, el), c = vis[dl.find(sx, sy)];
-    if (c && Math.hypot(c.px - sx, c.py - sy) < Math.max(12, c.r)) { anillo.attr("cx", c.px).attr("cy", c.py).attr("r", c.r + 3).attr("opacity", 1); return mostrarTip(el, tip(c), ex, ey); }
-    anillo.attr("opacity", 0); ocultarTip();
-  };
-  svg.append("rect").attr("width", w).attr("height", h).attr("fill", "transparent").style("touch-action", "pan-y")
-    .on("pointermove", ver).on("pointerdown", ver).on("pointerleave", () => { anillo.attr("opacity", 0); ocultarTip(); });
-  const fi = el.closest(".ficha"), bi = fi?.querySelector(".accion.imagen"); if (bi) bi.hidden = !svgUnico(fi);
-}
-
 /* ---------- fichas ---------- */
-const MED = {"ant-mapa": "continente", "ant-pais": "Argentina", "ant-paises": "instalaciones", "ant-zonas": "zonas_protegidas", "ant-temperatura": "orcadas", "jueces-federales": "cargos", "fiscalias-federales": "cantidad", "justicia-provincial": "magistratura", dinamica: "pais", rotacion: "edad", fiscal: "autonomia", censo: "cloaca", internet: "accesos_100_hogares", empleo: "cada_100", pisa: "mat", aprender: "mat", protegida: "pct_territorio", eti: "cada_1000", "patentes-prov": "autos_1000", nombres: "F", "visitas-parque": "visitas_ult", "poblacion-proy": "var_pct", "sectores-empleo": "uno", mayoristas: "doce", "precio-consumo": "carne", "socios-que": "vende", "valor-kilo": "anual", "chicos-escuela": "var_pct"};
+const MED = {"ant-mapa": "continente", "ant-pais": "Argentina", "ant-temperatura": "orcadas"};
 const M = v => n1(v / 1e6) + " M";
 const G = k => document.querySelector(`.grafico[data-g="${k}"]`);
 const NAR = css("--celeste-fuerte"), FRI = css("--sol-fuerte"), GRIS = css("--faint");
@@ -3530,1449 +2445,17 @@ const protegerDib = base => Object.assign(new Proxy({}, {set(t, k, f) {
   return true;
 }}), base);
 const DIB = protegerDib({
-  // dos vistas (R7): la demanda total frente a la actividad económica (la de entrada) y los hogares frente al resto de los usuarios
-  hogares: a => lineas(G("hogares"), {anim:a, data: T.energia_hogares, x:"anio", y0:80, ref:100, yf: v => v, vf: v => n0(v),
-    series: MED.hogares === "usuarios" ? [{k:"idx_residencial", lab:"Hogares", c:NAR, w:3}, {k:"idx_resto", lab:"Resto", c:FRI}]
-      : [{k:"idx_demanda", lab:"Electricidad", c:NAR, w:3}, {k:"idx_emae", lab:"Actividad", c:GRIS}]}),
-  meses: a => columnas(G("meses"), {anim:a, data: T.energia_estacionalidad}),
-  nacimientos: a => {
-    lineas(G("nacimientos"), {anim:a, data: T.nacimientos, x:"anio", y0:40, ref:100, refLab: `${T.nacimientos[0].anio} = 100`, yf: v => v, vf: n0,
-      xl: d => `${d.anio}<br><span class="suave">Argentina: ${n0(d.nacimientos)} nacimientos${d.nacimientos_ocde ? `<br>OCDE: ${n1(d.nacimientos_ocde / 1e6)} millones` : ""}</span>`,
-      series:[{k:"idx_argentina", lab:"Argentina", c:NAR, w:3}, {k:"idx_ocde", lab:"OCDE", c:css("--ocde"), w:2.6}]}); },
-  "poblacion-proy": a => { const pc = MED["poblacion-proy"] === "var_pct";
-    return barrasH(G("poblacion-proy"), {anim: a, data: T.poblacion_proyectada_provincias.filter(r => r.codigo_indec !== "00"), k: MED["poblacion-proy"],
-      vf: pc ? conSigno : v => (v > 0 ? "+" : "") + n0(v), af: pc ? (v => v + "%") : (v => n0(v / 1000) + " mil"),
-      ...(pc ? {ref: PPY.var_pct, refLab: `País ${conSigno(PPY.var_pct)}`} : {}),
-      tip: d => `<b>${d.territorio}</b><br>${n0(d.personas_hoy)} habitantes en ${PPY.anio}<br>${n0(d.personas_2040)} en ${PPY.anio_fin}<br>${(d.var_personas > 0 ? "+" : "") + n0(d.var_personas)} personas, ${conSigno(d.var_pct)}`}); },
-  "chicos-escuela": a => { const pc = MED["chicos-escuela"] === "var_pct";
-    return barrasH(G("chicos-escuela"), {anim: a, data: T.chicos_escuela_provincias.filter(r => r.codigo_indec !== "00"), k: MED["chicos-escuela"],
-      vf: pc ? conSigno : v => (v > 0 ? "+" : "") + n0(v), af: pc ? (v => v + "%") : (v => n0(v / 1000) + " mil"),
-      ...(pc ? {ref: ESC.var_pct, refLab: `País ${conSigno(ESC.var_pct)}`} : {}),
-      tip: d => `<b>${d.territorio}</b><br>${n0(d.chicos_hoy)} chicos de 5 a 14 años en ${ESC.anio}<br>${n0(d.chicos_fin)} en ${ESC.anio_fin}<br>` +
-        `${(d.var_chicos > 0 ? "+" : "") + n0(d.var_chicos)} chicos, ${conSigno(d.var_pct)}`}); },
-  "envejecimiento-mch": a => pesas(G("envejecimiento-mch"), {anim:a, data: T.envejecimiento_provincias, a:"mayores_chicos_hoy", b:"mayores_chicos_2040",
-    la: String(EV.anio), lb: String(EV.anio_fin), vf: n0, af: v => v, ref: 100, refLab: "Tantos mayores como chicos", refC: "--muted", pais: [EV.mch_hoy, EV.mch_fin]}),
-  envejecimiento: a => pesas(G("envejecimiento"), {anim:a, data: T.envejecimiento_provincias, a:"vejez_hoy", b:"vejez_2040", la: String(EV.anio), lb: String(EV.anio_fin), vf: n1, af: v => v,
-    pais: [EV.hoy, EV.fin]}),
-  adolescentes: a => pesas(G("adolescentes"), {anim:a, data: T.madres_adolescentes_provincias, a: ADO_INI, b: ADO_ULT, la: String(nac.anio_ini), lb: String(nac.anio_ult),
-    mejor: "baja", uDif: " puntos", pais: [nac.pct_ini, nac.pct_ult]}),
-  mortalidad: a => pesas(G("mortalidad"), {anim:a, data: T.mortalidad_infantil_provincias, a:"tmi_base", b:"tmi_actual", la: mo.tri_base, lb: mo.tri_act,
-    mejor: "baja", pais: [mo.pais_base, mo.pais_act],
-    vf: n1, af: v => v, ref: OC.mortalidad_infantil.ocde, refLab: `Promedio OCDE ${OC.mortalidad_infantil.anio}: ${n1(OC.mortalidad_infantil.ocde)}`}),
-  sube: a => lineas(G("sube"), {anim:a, data: T.sube_dia_habil, x:"t", y0:0, mensual:true, huecos:true, ref: su.pre_millones * 1e6,
-    refLab: "Marzo de 2020, antes del aislamiento", refLabCorto: "Marzo de 2020", vf: v => n2(v / 1e6) + " M", yf: v => n1(v / 1e6) + " M",
-    xl: d => { const [y, m] = d.periodo.split("-"); return `${MESES[+m - 1]} ${y}`; },
-    series:[{k:"total", lab:"Tarjetas", c:NAR, w:2.4}]}),
-  suicidio: a => lineas(G("suicidio"), {anim:a, data: T.suicidio_serie, x:"anio", y0:0, vf: n1, yf: v => v,
-    series:[{k:"tasa_varones", lab:"Varones", c:NAR, w:2}, {k:"tasa", lab:"Total", c:css("--ink"), w:2.6}, {k:"tasa_mujeres", lab:"Mujeres", c:FRI, w:2}]}),
-  // un mapa en lugar de las barras de mayor a menor (decisión del autor del 24 de noviembre de 2026)
-  "suicidio-prov": a => mapaProv(G("suicidio-prov"), {anim: a, filas: T.suicidio_provincias, k: "tasa", nombre: "Suicidios por cada 100.000 habitantes de 5 años y más", vf: n1,
-    extra: r => `<br>${n0(r.casos)} ${r.casos === 1 ? "caso" : "casos"} en ${R.suicidio.anio}`}),
-  edad: a => piramide(G("edad"), {anim:a, data: T.suicidio_edad_sexo}),
-  empresas: a => barrasH(G("empresas"), {anim:a, data: T.empresas_provincias, k:"cada_1000_hab", ref: EM.pais_1000,
-    tip: d => `<b>${d.territorio}</b><br>${n1(d.cada_1000_hab)} cada 1.000 habitantes<br>${n0(d.empresas)} empresas con empleados`, refLab: `País ${n1(EM.pais_1000)}`}),
-  dinamica: a => ($("clave-dinamica").hidden = MED.dinamica === "pais") ? lineas(G("dinamica"), {anim:a, data: T.empresas_serie_pais, x:"anio", y0:0, vf: v => n1(v) + "%", yf: v => v + "%",
-        series: [{k:"tasa_entrada", c: css("--celeste-fuerte"), lab:"Aperturas"}, {k:"tasa_salida", c: css("--sol-fuerte"), lab:"Cierres"}]})
-    : barrasH(G("dinamica"), {anim:a, data: T.empresas_provincias, k:`tasa_neta_${EM.ult}`, vf: v => (v > 0 ? "+" : "") + n1(v) + "%", af: v => v + "%",
-        ref: EM.neta, refLab: `País ${n1(EM.neta)}%`, mejor: "sube"}),
-  rotacion: a => barrasGrupos(G("rotacion"), {anim:a, data: T.rotacion_laboral.filter(d => d.dimension === MED.rotacion).sort((x, y) => x.orden - y.orden),
-    k:"pct_un_anio_o_menos", ref: RO.total, refLab: `Total ${pct(RO.total)}`}),
-  piramide: conTablas("piramide", ["piramide_poblacion"], a => piramidePob(G("piramide"), {anim:a, data: T.piramide_poblacion, cod: prov || "00", nombre: prov ? NOMBRES[prov] : "Total del país", anio: PI.anio})),
-  auh: a => {
-    const v = MED.auh, el = G("auh"), filas = T.auh_provincias.filter(r => r.codigo_indec !== "00");
-    const extra = r => `<br>${n0(r.beneficios)} hijos con AUH<br>${n0(r.menores)} menores de 18 años (estimado)`;
-    if (v === "cobertura") {
-      $t("auh").textContent = `En ${MESES[AU.cob_mes - 1]} de ${AU.cob_anio}, el ${pct(AU.cob_total)} de los menores de 18 años del país recibía alguna asignación familiar: el ` +
-        `${pct(AU.cob_auh)} por la AUH y el ${pct(AU.cob_rd)} por el trabajo registrado de su padre o su madre. El ${pct(100 - AU.cob_total)} no recibía ninguna: entre ` +
-        `ellos están los hijos de quienes superan el tope de ingresos y los deducen del impuesto a las ganancias, y los que no tienen ninguna cobertura.`;
-      const CORTO_AU = {RD: "Asalariado registrado", Monotributo: "Monotributista", PNC: "Pensión no contributiva", SIPA: "Jubilado o pensionado",
-        Desempleo: "Seguro de desempleo", AUH: "AUH", ninguna: "Ninguna"};
-      return barrasH(el, {anim: a, data: [...T.asignaciones_cobertura].sort((p, q) => q.pct_menores - p.pct_menores).map(r => ({codigo_indec: r.via, territorio: r.nombre, v: r.pct_menores})),
-        k: "v", vf: pct, af: v => n0(v) + "%", marcar: new Set(), l: 290, lAngosto: 160, corto: d => CORTO_AU[d.codigo_indec] || d.territorio,
-        tip: d => `<b>${d.territorio}</b><br>${pct(d.v)} de los menores de 18 años`});
-    }
-    if (v === "cantidad") {
-      $t("auh").textContent = textoCantidad(filas, "beneficios", `En ${MESES[AU.mes - 1]} de ${AU.anio}, ${n0(AU.beneficios)} chicos recibían la AUH en todo el país.`, "Cada 100");
-      return barrasH(el, {anim: a, data: filas, k: "beneficios", vf: n0, af: ejeMil,
-        tip: d => `<b>${d.territorio}</b><br>${n0(d.beneficios)} hijos con AUH<br>${pct(d.pct_pais)} de los del país<br>${n1(d.cada_100_menores)} cada 100 menores de 18`});
-    }
-    $t("auh").textContent = TX.auh;
-    if (v === "mapa") return mapaProv(el, {anim: a, filas, k: "cada_100_menores", nombre: "Hijos con AUH cada 100 menores de 18", vf: n1, extra, max: 380});
-    barrasH(el, {anim: a, data: filas, k: "cada_100_menores", vf: n1, af: n0, ref: AU.pais_100, refLab: `País ${n1(AU.pais_100)}`,
-      tip: d => `<b>${d.territorio}</b><br>${n1(d.cada_100_menores)} cada 100 menores de 18` + extra(d)});
-  },
-  desempleo: a => {
-    const v = MED.desempleo, el = G("desempleo"), filas = T.prestacion_desempleo_provincias.filter(r => r.codigo_indec !== "00");
-    const extra = r => `<br>${n0(r.beneficiarios)} beneficiarios en ${MESES[DS.prov_mes - 1]} de ${DS.prov_anio}<br>${pct(r.pct_pais)} de los del país`;
-    if (v === "serie") {
-      $t("desempleo").textContent = `En ${MESES[DS.mes - 1]} de ${DS.anio} cobraban el seguro de desempleo ${n0(DS.v)} personas, contra un promedio de ${n0(DS.v_anio_ant)} ` +
-        `por mes en ${DS.anio_ant}. Desde ${DS.ini}, el promedio anual más alto fue el de ${DS.max_anio}, ${n0(DS.max)}, y el más bajo, el de ${DS.min_anio}, ${n0(DS.min)}.`;
-      return lineas(el, {anim: a, data: T.prestacion_desempleo, x: "anio", y0: 0, vf: n0, yf: v => n0(v / 1000) + " mil",
-        xl: r => r.meses < 12 ? `${MESES[r.meses - 1]} de ${r.anio}` : r.anio,
-        series: [{k: "beneficiarios", lab: "Beneficiarios", c: css("--celeste-fuerte")}]});
-    }
-    if (v === "asalariados") {
-      $t("desempleo").textContent = `En ${MESES[DS.prov_mes - 1]} de ${DS.prov_anio} cobraban el seguro de desempleo ${n1(DS.pais_100)} personas cada 100 asalariados ` +
-        `privados registrados en el país. Sin contar CABA (${n1(DS.caba_a_v)}) ni Buenos Aires (${n1(DS.pba_a_v)}), que se distorsionan porque mucha gente trabaja en una y vive ` +
-        `en la otra, ${DS.top_a} tenía la proporción más alta, ${n1(DS.top_a_v)}, y ${DS.low_a} la más baja, ${n1(DS.low_a_v)}.`;
-      return barrasH(el, {anim: a, data: filas, k: "cada_100_asalariados", vf: n1, af: n0, ref: DS.pais_100, refLab: `País ${n1(DS.pais_100)}`,
-        tip: d => `<b>${d.territorio}</b><br>${n1(d.cada_100_asalariados)} cada 100 asalariados privados registrados` + extra(d)});
-    }
-    if (v === "cantidad") {
-      const tot = T.prestacion_desempleo_provincias.find(r => r.codigo_indec === "00").beneficiarios;
-      $t("desempleo").textContent = textoCantidad(filas, "beneficiarios",
-        `En ${MESES[DS.prov_mes - 1]} de ${DS.prov_anio} cobraban el seguro de desempleo ${n0(tot)} personas en todo el país.`, "Cada 1.000");
-      return barrasH(el, {anim: a, data: filas, k: "beneficiarios", vf: n0, af: ejeMil,
-        tip: d => `<b>${d.territorio}</b><br>${n0(d.beneficiarios)} beneficiarios en ${MESES[DS.prov_mes - 1]} de ${DS.prov_anio}<br>${pct(d.pct_pais)} de los del país` +
-          `<br>${n1(d.cada_1000_habitantes)} cada 1.000 habitantes`});
-    }
-    $t("desempleo").textContent = TX.desempleo;
-    barrasH(el, {anim: a, data: filas, k: "cada_1000_habitantes", vf: n1, af: n0, ref: DS.pais_1000, refLab: `País ${n1(DS.pais_1000)}`,
-      tip: d => `<b>${d.territorio}</b><br>${n1(d.cada_1000_habitantes)} cada 1.000 habitantes` + extra(d)});
-  },
-  "pensiones-invalidez": a => {
-    const v = MED["pensiones-invalidez"], el = G("pensiones-invalidez"), filas = T.pensiones_invalidez_provincias.filter(r => r.codigo_indec !== "00");
-    const extra = r => `<br>${n0(r.pensiones)} pensiones en ${MESES[PIN.prov_mes - 1]} de ${PIN.prov_anio}<br>${pct(r.pct_pais)} de las del país`;
-    if (v === "serie") {
-      $t("pensiones-invalidez").textContent = `En ${MESES[PIN.mes - 1]} de ${PIN.anio} se pagaban ${n0(PIN.v)} pensiones no contributivas por invalidez, contra un promedio de ` +
-        `${n0(PIN.ini_v)} por mes en ${PIN.ini}. El promedio anual más alto fue el de ${PIN.max_anio}, con ${n0(PIN.max)} por mes. En ${PIN.anio_ant}, el promedio fue de ${n0(PIN.v_anio_ant)}.`;
-      return lineas(el, {anim: a, data: T.pensiones_invalidez, x: "anio", y0: 0, vf: n0, yf: v => n0(v / 1000) + " mil",
-        xl: r => r.meses < 12 ? `${MESES[r.meses - 1]} de ${r.anio}` : r.anio,
-        series: [{k: "pensiones", lab: "Todas", corto: "Todas", c: css("--celeste-fuerte")}, {k: "pensiones_no_suspendidas", lab: "Sin las suspendidas", corto: "Sin suspendidas", c: FRI}]});
-    }
-    // la cantidad de pensiones de cada provincia (14 de octubre de 2026, pedido del autor), de mayor a menor
-    if (v === "cantidad") {
-      const tot = T.pensiones_invalidez_provincias.find(r => r.codigo_indec === "00").pensiones;
-      $t("pensiones-invalidez").textContent = textoCantidad(filas, "pensiones",
-        `En ${MESES[PIN.prov_mes - 1]} de ${PIN.prov_anio} se pagaban ${n0(tot)} pensiones no contributivas por invalidez en todo el país.`, "Cada 1.000");
-      return barrasH(el, {anim: a, data: filas, k: "pensiones", vf: n0, af: ejeMil,
-        tip: d => `<b>${d.territorio}</b><br>${n0(d.pensiones)} pensiones en ${MESES[PIN.prov_mes - 1]} de ${PIN.prov_anio}<br>${pct(d.pct_pais)} de las del país` +
-          `<br>${n1(d.cada_1000)} cada 1.000 habitantes`});
-    }
-    $t("pensiones-invalidez").textContent = TX["pensiones-invalidez"];
-    if (v === "provincias")
-      return barrasH(el, {anim: a, data: filas, k: "cada_1000", vf: n1, af: n0, ref: PIN.pais_cada_1000, refLab: `País ${n1(PIN.pais_cada_1000)}`,
-        tip: d => `<b>${d.territorio}</b><br>${n1(d.cada_1000)} cada 1.000 habitantes` + extra(d)});
-    mapaProv(el, {anim: a, filas, k: "cada_1000", nombre: "Pensiones cada 1.000 habitantes", vf: n1, extra, max: 380});
-  },
-  haberes: a => {
-    const real = MED.haberes === "real", cae = v => v < 0 ? `cayó ${pct(-v)}` : `subió ${pct(v)}`;
-    $t("haberes").textContent = real
-      ? `Descontada la inflación, en pesos de ${mesPer(HB.mes_real)}, el haber mínimo con refuerzos promedió ${n0(HB.min_ad_real)} pesos por mes en ${HB.anio}, ${pct(Math.abs(HB.var_real_min_ad))} ` +
-        `${HB.var_real_min_ad < 0 ? "menos" : "más"} que en ${HB.ini_real}. En el mismo período la jubilación promedio ${cae(HB.var_real_jub)} y el salario promedio registrado ${cae(HB.var_real_sal)}.`
-      : TX.haberes;
-    const xl = r => r.meses < 12 ? `${r.anio}, hasta ${MESES[r.meses - 1]}` : r.anio;
-    const series = real
-      ? [{k: "jubilacion_promedio_real", lab: "Jubilación promedio", corto: "Promedio", c: css("--celeste-fuerte")}, {k: "haber_minimo_adicionales_real", lab: "Mínimo con refuerzos", corto: "Con refuerzos", c: FRI},
-         {k: "haber_minimo_real", lab: "Mínimo sin refuerzos", corto: "Sin refuerzos", c: GRIS}]
-      : [{k: "pct_jubilacion", lab: "Jubilación promedio", corto: "Promedio", c: css("--celeste-fuerte")}, {k: "pct_minimo_adicionales", lab: "Mínimo con refuerzos", corto: "Con refuerzos", c: FRI},
-         {k: "pct_minimo", lab: "Mínimo sin refuerzos", corto: "Sin refuerzos", c: GRIS}];
-    lineas(G("haberes"), {anim: a, data: T.haberes_previsionales.filter(r => !real || r.haber_minimo_adicionales_real != null), x: "anio", y0: 0, xl, series,
-      vf: real ? v => "$ " + n0(v) : v => pct(v), yf: real ? v => n0(v / 1000) + " mil" : v => n0(v) + "%"});
-  },
-  jubilaciones: a => lineas(G("jubilaciones"), {anim:a, data: T.jubilaciones_aportantes, x:"anio", y0:0, vf: n2, yf: v => n1(v),
-    series: [{k:"aportantes_por_beneficio", c: css("--celeste-fuerte"), lab:"Por beneficio"}], xl: d => d.mes ? `${MESES[d.mes - 1]} de ${d.anio}` : d.anio}),
-  muertes: a => lineas(G("muertes"), {anim:a, data: T.muertes_violentas, x:"anio", y0:0,
-    series:[{k:"suicidios", lab:"Suicidios", c:NAR, w:3}, {k:"siniestros_viales", lab:"Viales", c:FRI}, {k:"homicidios", lab:"Homicidios", c:GRIS},
-      {k:"femicidios", lab:"Femicidios", c:css("--rojo"), w:2.4}]}),
-  pisa: a => lineas(G("pisa"), {anim:a, data: T.pisa_argentina_ocde, x:"anio", y0:340, yf: v => v,
-    series:[{k:`arg_${MED.pisa}_grafico`, lab:"Argentina", c:NAR, w:3}, {k:`ocde_${MED.pisa}`, lab:"Promedio OCDE", c:css("--ocde"), w:2.6}]}),
-  escolarizacion: a => pesas(G("escolarizacion"), {anim:a, data: T.escolarizacion_secundaria_provincias, a:"tasa_inicio", b:"tasa_final",
-    la: String(es.ini), lb: String(es.fin), x0: 50, mejor: "sube", uDif: " puntos", pais: [es.pais_ini, es.pais_fin]}),
-  aprender: a => barrasH(G("aprender"), {anim:a, data: T.aprender_provincias, k:`${MED.aprender}_logra`,
-    ref: MED.aprender === "mat" ? ap.mat : ap.len, refLab: `País ${pct(MED.aprender === "mat" ? ap.mat : ap.len)}`,
-    vf: v => n1(v) + "%", af: v => v + "%", dif: "puntos"}),
-  protegida: a => MED.protegida === "pct_territorio"
-    ? barrasH(G("protegida"), {anim:a, data: T.areas_protegidas_provincias, k:"pct_territorio", ref: nt.pct, refLab:`País ${pct(nt.pct)}`,
-        ref2: OC.protegida.ocde, ref2Lab: `Promedio OCDE ${OC.protegida.anio}: ${pct(OC.protegida.ocde)}`, vf: v => n1(v) + "%", af: v => v + "%", dif: "puntos"})
-    : barrasH(G("protegida"), {anim:a, data: T.areas_protegidas_provincias, k:"m2_por_habitante", ref: nt.m2_pais, refLab:`País ${n0(nt.m2_pais)} m²`,
-        vf: v => n0(v) + " m²", af: v => n0(v)}),
-  parques: a => lineas(G("parques"), {anim:a, data: T.parques_nacionales_historia, x:"anio", y0:0, escalones:true, vf: v => M(v) + " ha", yf: M,
-    series:[{k:"ha_terrestres", lab:"Terrestres", c:NAR, w:3}, {k:"ha_marinas", lab:"Marinas", c:FRI, w:2.4}]}),
-  especies: a => barrasH(G("especies"), {anim:a, data: T.especies_areas_nacionales, k:"animales", vf: n0, af: n0, l: 250, lAngosto: 170}),
-  "sube-modos": a => lineas(G("sube-modos"), {anim:a, data: T.sube_dia_habil, x:"t", y0:0, mensual:true, huecos:true,
-    ref: su.tren_pre_miles * 1e3, refLab: "Trenes, marzo de 2020", refLabCorto: "Trenes, marzo 2020",
-    vf: v => n0(v / 1e3) + " mil", yf: v => n0(v / 1e3) + " mil",
-    xl: d => { const [y, m] = d.periodo.split("-"); return `${MESES[+m - 1]} ${y}`; },
-    series:[{k:"tren", lab:"Trenes", c:NAR, w:2.4}, {k:"subte", lab:"Subtes", c:FRI, w:2.4}]}),
-  patentes: a => lineas(G("patentes"), {anim:a, data: T.patentamientos_anual, x:"anio", y0:0, vf: v => n0(v / 1e3) + " mil", yf: v => n0(v / 1e3) + " mil",
-    series:[{k:"autos", lab:"Autos", c:NAR, w:3}, {k:"motos", lab:"Motos", c:FRI, w:2.4}]}),
-  "patentes-prov": a => barrasH(G("patentes-prov"), {anim:a, data: T.patentamientos_provincias, k: MED["patentes-prov"],
-    ref: MED["patentes-prov"] === "autos_1000" ? au.pais_1000 : au.motos_pais_1000,
-    refLab: `País ${n1(MED["patentes-prov"] === "autos_1000" ? au.pais_1000 : au.motos_pais_1000)}`, vf: n1, af: n0}),
-  visitas: a => lineas(G("visitas"), {anim:a, data: T.visitas_parques_nacionales, x:"anio", y0:0, vf: v => n2(v / 1e6) + " M", yf: M,
-    series:[{k:"total", lab:"Total", c:css("--ink"), w:2.6}, {k:"residentes", lab:"Residentes", c:NAR, w:2.4}, {k:"no_residentes", lab:"No residentes", c:FRI, w:2.4}]}),
-  receptivo: a => lineas(G("receptivo"), {anim:a, data: T.turistas_no_residentes_anual, x:"anio", y0:0, vf: v => n2(v / 1e6) + " M", yf: M,
-    series:[{k:"turistas", lab:"Turistas", c:NAR, w:3}]}),
-  hoteles: a => lineas(G("hoteles"), {anim:a, data: T.viajeros_hoteles_anual, x:"anio", y0:0, vf: v => n1(v / 1e6) + " M", yf: M,
-    series:[{k:"residentes", lab:"Residentes", c:NAR, w:3}, {k:"no_residentes", lab:"No residentes", c:FRI, w:2.4}]}),
-  eti: a => MED.eti === "cada_1000"
-    ? barrasH(G("eti"), {anim:a, data: T.turistas_extranjeros_provincias, k:"cada_1000", vf: n1, af: n0})
-    : barrasH(G("eti"), {anim:a, data: T.turistas_extranjeros_provincias, k:"turistas", vf: n0, af: v => n0(v / 1000) + " mil"}),
-  pobreza: a => lineas(G("pobreza"), {anim:a, data: T.pobreza_serie, x:"t", y0:0, mensual:true, vf: v => n1(v) + "%", yf: v => v + "%",
-    xl: d => `${d.semestre === 1 ? "Primer" : "Segundo"} semestre ${d.anio}`,
-    series:[{k:"pobreza_personas", lab:"Pobreza", c:NAR, w:3}, {k:"indigencia_personas", lab:"Indigencia", c:FRI, w:2.4}]}),
-  // chicos en hogares pobres: la serie de 0 a 17 años frente a toda la población, o el último semestre por tramo de edad
-  "pobreza-ninez": a => {
-    const el = G("pobreza-ninez"), v = MED["pobreza-ninez"];
-    $t("pobreza-ninez").textContent = v === "edad" ? TX["pobreza-ninez-edad"] : TX["pobreza-ninez"];
-    if (v === "edad") {
-      const u = T.pobreza_ninez[T.pobreza_ninez.length - 1];
-      return barrasH(el, {anim: a, sinOrden: true, vf: pct, af: v => n0(v) + "%", l: 130, lAngosto: 110, k: "p",
-        data: [["0_5", "0 a 5 años"], ["6_11", "6 a 11 años"], ["12_17", "12 a 17 años"], ["65_y_mas", "65 años y más"], ["total", "Toda la población"]]
-          .map(([k, n]) => ({codigo_indec: "e" + k, territorio: n, p: u["pobreza_" + k], i: u["indigencia_" + k]})),
-        tip: d => `<b>${d.territorio}</b><br>${pct(d.p)} bajo la línea de pobreza<br>${pct(d.i)} bajo la línea de indigencia<br>${PNZ.fin}`});
-    }
-    return lineas(el, {anim: a, data: T.pobreza_ninez, x: "t", y0: 0, mensual: true, vf: v => n1(v) + "%", yf: v => v + "%",
-      xl: d => `${d.semestre === 1 ? "Primer" : "Segundo"} semestre ${d.anio}`,
-      series: [{k: "pobreza_0_17", lab: "De 0 a 17 años", corto: "0 a 17", c: NAR, w: 3}, {k: "pobreza_total", lab: "Toda la población", corto: "Total", c: FRI, w: 2.4}]});
-  },
-  "mapa-areas": a => mapaAreas(a),
-  "visitas-parque": a => barrasH(G("visitas-parque"), {anim:a, data: T.visitas_por_parque.filter(d => d[MED["visitas-parque"]] != null),
-    k: MED["visitas-parque"], vf: n0, af: v => n0(v / 1000) + " mil", l: 270, lAngosto: 175}),
-  pesca: a => lineas(G("pesca"), {anim:a, data: T.desembarques_especies, x:"anio", y0:0, vf: v => n0(v / 1000) + " mil t", yf: v => n0(v / 1000) + " mil",
-    series: pe.top.map((k, i) => ({k, lab: k.replace(" argentino", "").replace(" argentina", ""), c: [NAR, FRI, GRIS][i], w: i ? 2.4 : 3}))}),
-  "pesca-rio": a => barrasH(G("pesca-rio"), {anim:a, data: T.pesca_continental, k:"toneladas", vf: v => n0(v) + " t", af: n0}),
-  // soja (tanda 3 del plan de mejora): el mapa por departamento, las provincias y la serie del país
-  soja: conTablas("soja", () => MED.soja === "mapa" ? ["soja_departamentos"] : [], a => {
-    const v = MED.soja, el = G("soja"), filas = T.soja_provincias.filter(r => r.codigo_indec !== "00"), fp = filas.find(r => r.codigo_indec === prov);
-    const tipP = r => `<br>${pct(r.pct_pais)} de la del país<br>${n0(r.produccion_t)} toneladas producidas` +
-      (r.rendimiento_kg_ha ? `<br>${n0(r.rendimiento_kg_ha)} kilos por hectárea cosechada` : "");
-    refrescarTabla("f-soja");
-    if (v === "serie") {
-      const ult = T.soja_pais[T.soja_pais.length - 1];
-      $t("soja").textContent = `La superficie sembrada con soja pasó de ${n0(SJ.ini_ha)} hectáreas en la campaña ${SJ.ini} a ${n1(SJ.millones_ha)} millones en ${SJ.campania}. ` +
-        `La más grande fue la de ${SJ.max_campania}, con ${n1(SJ.max_millones_ha)} millones. En ${SJ.campania} se cosecharon ${n1(SJ.cosechada_millones_ha)} millones de ` +
-        `hectáreas y se produjeron ${n1(SJ.produccion_millones_t)} millones de toneladas, ${n0(ult.rendimiento_kg_ha)} kilos por hectárea cosechada.`;
-      return lineas(el, {anim: a, data: T.soja_pais, x: "anio", y0: 0, vf: v => n1(v / 1e6) + " M", yf: v => n0(v / 1e6) + " M", xl: r => `Campaña ${r.campania}`,
-        series: [{k: "sembrada_ha", lab: "Sembrada", c: NAR, w: 3}, {k: "cosechada_ha", lab: "Cosechada", c: FRI, w: 2.4}]});
-    }
-    $t("soja").textContent = (NOMBRES[prov] ? (fp ? `En ${fp.territorio} se sembraron ${n0(fp.sembrada_ha)} hectáreas de soja en la campaña ${SJ.campania}, el ` +
-      `${pct(fp.pct_pais)} de la superficie del país. ` : `En ${NOMBRES[prov]} no se registró soja sembrada en la campaña ${SJ.campania}. `) : "") + TX.soja;
-    if (v === "provincias")
-      return barrasH(el, {anim: a, data: filas, k: "sembrada_ha", vf: v => v >= 1e6 ? n1(v / 1e6) + " M" : n0(v / 1e3) + " mil",
-        af: v => v >= 1e6 ? n1(v / 1e6).replace(/,0$/, "") + " M" : ejeMil(v),
-        tip: d => `<b>${d.territorio}</b><br>${n0(d.sembrada_ha)} hectáreas sembradas en ${SJ.campania}` + tipP(d)});
-    const dep = Object.fromEntries(T.soja_departamentos.map(r => [r.codigo_dep, r]));
-    mapaDep(el, {anim: a, filas: T.soja_departamentos, k: "sembrada_ha", nombre: "Hectáreas sembradas con soja", vf: ejeMil, tf: n0, sin: "no siembra soja", cero: "sin soja",
-      extra: id => dep[id] ? tipP(dep[id]) : ""});
-  }),
-  nombres: a => {
-    const cod = NOMBRES[prov] ? prov : "00";
-    document.getElementById("contexto-nombres").textContent = `${NOMBRES[prov] || "Total del país"}, ${cu.nom_anio}. Diez nombres más frecuentes.`;
-    barrasH(G("nombres"), {anim:a, data: T.nombres_top.filter(d => d.codigo_indec === cod && d.sexo === MED.nombres)
-      .map(d => ({codigo_indec: d.nombre, territorio: d.mostrar || d.nombre, cantidad: d.cantidad})), k:"cantidad", vf: n0, af: n0, cambiaConProv: true});
-  },
-  carne: a => lineas(G("carne"), {anim:a, data: T.carne_vacuna, x:"anio", y0:0, vf: v => n1(v) + " kg", yf: v => v + " kg",
-    series:[{k:"kg_por_habitante", lab:"Carne vacuna", c:NAR, w:3}]}),
-  vino: a => lineas(G("vino"), {anim:a, data: T.vino_mercado_interno, x:"anio", y0:0, vf: v => n0(v) + " M l", yf: v => n0(v) + " M",
-    series:[{k:"millones_litros", lab:"Vino", c:NAR, w:3}]}),
-  yerba: a => lineas(G("yerba"), {anim:a, data: T.yerba_molino, x:"anio", y0:0, vf: v => n1(v) + " M kg", yf: v => n0(v) + " M",
-    series:[{k:"millones_kg", lab:"Yerba", c:NAR, w:3}]}),
-  glaciares: a => barrasH(G("glaciares"), {anim:a, data: T.glaciares_provincias, k:"glaciares", vf: n0, af: n0}),
-  // la Antártida (noviembre de 2026): las tablas se piden al dibujar. En los gráficos de países se resalta la Argentina
-  "ant-mapa": a => mapaAntartida(a),
-  "ant-reclamos": a => mapaReclamos(a),
-  "ant-bases": conTablas("ant-bases", ["antartida_bases"], a => lineaBases(G("ant-bases"), a)),
-  "ant-paises": conTablas("ant-paises", ["antartida_paises"], a => { const k = MED["ant-paises"];
-    barrasH(G("ant-paises"), {anim:a, data: T.antartida_paises.filter(d => d[k] > 0).map(d => ({...d, codigo_indec: d.pais, territorio: d.pais})), k, marcar: new Set(["Argentina"]), vf: n0, af: n0, l: 130, lAngosto: 104,
-      tip: d => `<b>${d.pais}</b><br>${d.instalaciones} ${d.instalaciones === 1 ? "instalación" : "instalaciones"}: ${d.todo_el_anio} todo el año y ${d.solo_en_verano} solo en verano<br>Capacidad máxima: ${n0(d.capacidad)} personas` + (d.sin_capacidad_informada ? ` (${d.sin_capacidad_informada} sin informar)` : "")}); }),
-  "ant-tratado": conTablas("ant-tratado", ["antartida_tratado_serie"], a => lineas(G("ant-tratado"), {anim:a, data: T.antartida_tratado_serie, x:"anio", y0:0, escalones:true, vf: n0,
-    series: [{k:"partes", lab:"Todas las partes", corto:"Partes", c:NAR, w:3}, {k:"consultivas", lab:"Partes consultivas", corto:"Consultivas", c:FRI, w:2.4}]})),
-  "ant-zonas": conTablas("ant-zonas", ["antartida_zonas_paises"], a => { const k = MED["ant-zonas"];
-    barrasH(G("ant-zonas"), {anim:a, data: T.antartida_zonas_paises.filter(d => d[k] > 0).map(d => ({...d, codigo_indec: d.pais, territorio: d.pais})), k, marcar: new Set(["Argentina"]), vf: n0, af: n0, l: 130, lAngosto: 104,
-      tip: d => `<b>${d.pais}</b><br>${d.zonas_protegidas} zonas protegidas, ${d.zonas_administradas} zonas administradas y ${d.sitios_historicos} sitios históricos`}); }),
-  "ant-temperatura": conTablas("ant-temperatura", ["antartida_temperatura"], a => { const s = MED["ant-temperatura"], e = ANT.temp[s], sg = v => (v > 0 ? "+" : "") + n1(v);
-    lineas(G("ant-temperatura"), {anim:a, data: T.antartida_temperatura.filter(r => r.anio >= e.ini && r.anio <= e.fin), x:"anio", conNegativos:true, ref:0, vf: v => sg(v) + " °C", yf: sg,
-      series: [{k:s, lab:"Cada año", c:css("--celeste"), w:1.4, ct:"--celeste-fuerte"}, {k:`${s}_10`, lab:"Promedio de diez años", corto:"Diez años", c:NAR, w:3}]}); }),
-  "ant-hielo": conTablas("ant-hielo", ["antartida_hielo"], a => { const sg = v => (v > 0 ? "+" : "") + n2(v);
-    lineas(G("ant-hielo"), {anim:a, data: T.antartida_hielo, x:"anio", conNegativos:true, ref:0, vf: sg, yf: v => (v > 0 ? "+" : "") + n1(v),
-      series: [{k:"septiembre_dif", lab:"Septiembre", c:NAR, w:2.6}, {k:"febrero_dif", lab:"Febrero", c:FRI, w:2.2}]}); }),
-  "ant-turismo": conTablas("ant-turismo", ["antartida_turismo"], a => lineas(G("ant-turismo"), {anim:a, data: T.antartida_turismo, x:"anio", xl: d => d.temporada, y0:0, vf: n0, yf: v => n0(v / 1000) + " mil",
-    series: [{k:"total", lab:"En total", c:NAR, w:3}, {k:"desembarcan", lab:"Desembarcan", c:FRI, w:2.2}, {k:"solo_crucero", lab:"Solo crucero", c:GRIS, w:2, ct:"--muted"}]})),
-  "ant-presupuesto": conTablas("ant-presupuesto", ["antartida_presupuesto"], a => lineas(G("ant-presupuesto"), {anim:a, data: T.antartida_presupuesto, x:"anio", y0:0, vf: n1, yf: n0,
-    series: [{k:"total", lab:"En total", c:NAR, w:3}, {k:"sosten_logistico", lab:"Sostén logístico", corto:"Sostén", c:FRI, w:2.2}, {k:"plan_antartico", lab:"Plan Antártico", corto:"Plan", c:GRIS, w:2, ct:"--muted"}]})),
-  clima: a => franjas(G("clima"), {anim:a, data: T.clima_desvio, k:"desvio_temperatura"}),
-  esperanza: a => pesas(G("esperanza"), {anim:a, data: T.esperanza_vida_provincias, a:"varones", b:"mujeres", la:"Varones", lb:"Mujeres",
-    vf: v => n1(v) + " años", af: v => v, x0: 66, ref: OC.esperanza_vida.ocde, refLab: `Promedio OCDE ${OC.esperanza_vida.anio}: ${n1(OC.esperanza_vida.ocde)}`,
-    pais: [nv.ev_v, nv.ev_m]}),
   exportaciones: a => barrasH(G("exportaciones"), {anim:a, data: T.exportaciones_provincias, k:"usd_por_habitante", ref: nv.ex_pc_pais,
     tip: d => `<b>${d.territorio}</b><br>${n0(d.usd_por_habitante)} dólares por habitante<br>${n0(d.millones_usd)} millones de dólares en total`,
     refLab: `País ${n0(nv.ex_pc_pais)}`, vf: v => n0(v) + " US$", af: n0}),
-  fiscal: a => {
-    const k = MED.fiscal, d = T.fiscal_provincias, fz = R.fiscal, ord = [...d].sort((p, q) => q[k] - p[k]);
-    document.querySelector('[data-t="fiscal"]').textContent = k === "autonomia"
-      ? `En ${fz.anio}, los recursos propios, sobre todo impuestos provinciales y regalías, fueron el ${pct(fz.top_v)} de los ingresos de ${fz.top} y el ${pct(fz.low_v)} de los de ${fz.low}. La mediana de ${fz.mediana_n === 24 ? "las 24 jurisdicciones" : `las ${fz.mediana_n} jurisdicciones con datos de ${fz.anio}`} fue de ${pct(fz.mediana)}, contra ${pct(fz.mediana_ini)} en ${fz.ini}. El resto de los ingresos llega de la Nación, por coparticipación y otras transferencias.${Object.entries(fz.atrasadas).map(([p, a]) => ` ${p} todavía no publicó ${fz.anio}: figura con ${a}.`).join("")}`
-      : k === "resultado"
-      ? `En ${fz.anio}, ${fz.superavit} jurisdicciones cerraron con superávit financiero y ${fz.deficit} con déficit. El mayor superávit, en proporción a sus ingresos, fue el de ${ord[0].territorio} (${sg(ord[0].resultado)}) y el mayor déficit, el de ${ord[ord.length - 1].territorio} (${sg(ord[ord.length - 1].resultado)}).${Object.entries(fz.atrasadas).map(([p, a]) => ` ${p} figura con ${a}.`).join("")}`
-      : `En ${fz.anio}, los sueldos y cargas sociales fueron el ${pct(ord[0].personal)} del gasto de ${ord[0].territorio} y el ${pct(ord[ord.length - 1].personal)} del de ${ord[ord.length - 1].territorio}.${Object.entries(fz.atrasadas).map(([p, a]) => ` ${p} figura con ${a}.`).join("")}`;
-    // la jurisdicción que todavía no publicó el año de la ficha va con su año al lado del nombre (E12, 27 de octubre de 2026)
-    barrasH(G("fiscal"), {anim:a, data: d.map(r => fz.atrasadas[r.territorio] ? {...r, territorio: `${r.territorio} (${fz.atrasadas[r.territorio]})`} : r), k, vf: v => (k === "resultado" && v > 0 ? "+" : "") + n1(v) + "%", af: v => v + "%",
-      color: k === "resultado" ? (r => r.resultado < 0 ? css("--sol") : css("--celeste")) : null});
-  },
-  // la cobertura de salud (plan de mejora, etapa 4): la misma tabla del censo, en su ficha de Salud
-  cobertura: a => {
-    $("cobertura-ley").hidden = MED.cobertura !== "tipo";
-    // por tipo (14 de noviembre de 2026): las tres respuestas del censo, de la provincia con más obra social o prepaga a la que menos
-    if (MED.cobertura === "tipo") return conTablas("cobertura", ["cobertura_tipo_provincias"], b => {
-      const CT = R.cobertura_tipo, P = CT.pais, ft = T.cobertura_tipo_provincias.find(r => r.codigo_indec === prov);
-      const cl = [{k: "obra_social_prepaga", lab: "Obra social o prepaga", c: css("--celeste-fuerte")},
-        {k: "plan_estatal", lab: "Plan estatal de salud", c: css("--sol"), texto: css("--ink")},
-        {k: "sin_cobertura", lab: "Ninguna", c: css("--celeste"), texto: css("--ink")}];
-      leyenda("cobertura-ley", cl);
-      $t("cobertura").textContent = `En el Censo 2022, el ${pct(P.obra_social_prepaga)} de las personas tenía obra social o prepaga, incluido el PAMI, ` +
-        `el ${pct(P.plan_estatal)} solo un programa o plan estatal de salud y el ${pct(P.sin_cobertura)} ninguna de las dos. La obra social o prepaga ` +
-        `iba del ${pct(CT.os_min[1])} en ${CT.os_min[0]} al ${pct(CT.os_max[1])} en ${CT.os_max[0]}, y el plan estatal, del ${pct(CT.plan_min[1])} en ` +
-        `${CT.plan_min[0]} al ${pct(CT.plan_max[1])} en ${CT.plan_max[0]}.` + (ft ? ` En ${ft.territorio}, ${pct(ft.obra_social_prepaga)}, ${pct(ft.plan_estatal)} ` +
-        `y ${pct(ft.sin_cobertura)}.` : "");
-      apiladasH(G("cobertura"), {anim: b, claves: cl, valF: n1, data: [{...P, codigo_indec: "00", territorio: "Todo el país"}, ...T.cobertura_tipo_provincias]});
-      G("cobertura").resaltar = null;
-    })(a);
-    const fp = T.censo2022_provincias.find(r => r.codigo_indec === prov);
-    let txt = textoCenso("sin_cobertura");
-    if (fp && fp.territorio !== nv.censo_top.sin_cobertura[0] && fp.territorio !== nv.censo_low.sin_cobertura[0]) txt += ` En ${fp.territorio}, el ${pct(fp.sin_cobertura)}.`;
-    $t("cobertura").textContent = txt;
-    barrasH(G("cobertura"), {anim: a, data: T.censo2022_provincias, k: "sin_cobertura", ref: nv.censo.sin_cobertura, refLab: `País ${pct(nv.censo.sin_cobertura)}`,
-      vf: pct, af: v => n0(v) + "%"});
-  },
-  censo: a => {
-    document.querySelector('[data-t="censo"]').textContent = textoCenso(MED.censo);
-    barrasH(G("censo"), {anim:a, data: T.censo2022_provincias, k: MED.censo, ref: nv.censo[MED.censo], refLab: `País ${pct(nv.censo[MED.censo])}`,
-      vf: v => n1(v) + "%", af: v => v + "%", dif: "puntos"});
-  },
-  internet: a => MED.internet === "mbps"
-    ? barrasH(G("internet"), {anim:a, data: T.internet_fijo_provincias, k:"mbps", vf: v => n0(v) + " Mbps", af: n0})
-    : barrasH(G("internet"), {anim:a, data: T.internet_fijo_provincias, k:"accesos_100_hogares", ref: nv.in_pais, refLab: `País ${n1(nv.in_pais)}`, vf: n1, af: n0}),
-  extranjeros: a => barrasH(G("extranjeros"), {anim:a, data: T.extranjeros_provincias, k:"cada_100", ref: nv.xt_pais, refLab: `País ${n1(nv.xt_pais)}`, vf: n1, af: n0}),
-  empleo: a => ($("clave-empleo").hidden = MED.empleo === "cada_100") ? barrasH(G("empleo"), {anim:a, data: T.empleo_provincias, k:"cada_100", ref: R.empleo.cada_100_pais,
-        tip: d => `<b>${d.territorio}</b><br>${n1(d.cada_100)} cada 100 habitantes<br>${n0(d.miles * 1000)} asalariados registrados<br>${n0(d.poblacion)} habitantes`, refLab:`País ${n1(R.empleo.cada_100_pais)}`})
-    : barrasH(G("empleo"), {anim:a, data: T.empleo_provincias, k:"var_12m",
-        tip: d => `<b>${d.territorio}</b><br>${n0(d.miles * 1000)} asalariados registrados<br>${n0(d.miles_hace12 * 1000)} doce meses antes`, vf: v => (v > 0 ? "+" : "") + n1(v) + "%", af: v => v + "%",
-        mejor: "sube", pais: R.empleo.var_nac}),
 });
 
 /* ---------- petróleo y gas, construcción y vivienda (etapa 18) ---------- */
-Object.assign(MED, {refugio: "anio", supermercados: "prov", "cuentas-nacion": "resultado", recaudacion: "impuesto", "empleo-publico": "prov", "nacidos-otro-pais": "prov", "migracion-interna": "prov", radicaciones: "anio", "argentinos-exterior": "anio", inflacion: "doce", "inflacion-rubros": "division", "tarifa-luz": "250", canastas: "region", emae: "mes", "electricidad-provincias": "prov", "electricidad-sectores": "ind", salarios: "prov", "salario-docente": "prov", "inversion-educativa": "alumno",
-  delitos: "tipo", robos: "robos", homicidios: "prov", carceles: "serie", "sin-condena": "prov", coparticipacion: "hab", "deuda-provincias": "hab", abandono: "ab", telefonia: "prov", "tv-paga": "prov", "cobertura-suelo": "natural", medicos: "activos", hospitales: "hospitales", "distancia-hospital": "hospital", sociedades: "prov", desocupacion: "ciudad", "empresas-tamano": "tam", "pobreza-aglomerados": "region", combustibles: "nafta", "combustibles-vista": "prov", subsidios: "pbi", "obra-publica": "prov", "gas-consumo": "prov", centrales: "mapa", "mapa-pozos": "cuenca", productividad: "pozo", fracturas: "etapas", "pozos-terminados": "anio", petroleo: "tipo", gas: "tipo", "gas-hogares-vista": "prov", "hidro-provincias": "pet_kbd", "areas-hidro": "pet", arArea: "", pozos: "pozo", "empresas-hidro": "pct_pet",
-  "empleo-hidro": "prov", regalias: "pct_regalias", reservas: "pet", "mundo-petroleo": "crudo_kbd", insumos: "var_12m",
-  "empleo-construccion": "construccion_cada_1000", "trabajadores-vista": "prov", vivienda: "pct_alquila", "vivienda-vista": "prov"});
+Object.assign(MED, {arArea: ""});
 const COL_TIPO = {conv: "#A9CBEA", tight: "#F6B40E", shale: "#1F5E97"};
-const SERIES_TIPO = p => [{k: `${p}_conv`, lab: "Convencional", c: COL_TIPO.conv}, {k: `${p}_tight`, lab: "Tight", c: COL_TIPO.tight}, {k: `${p}_shale`, lab: "Shale", c: COL_TIPO.shale}];
-const SERIES_CUENCA = p => [["cuyana", "Cuyana", "#C3CAD2"], ["noroeste", "Noroeste", "#F6B40E"], ["austral", "Austral", "#A9CBEA"], ["gsj", "Golfo San Jorge", "#74ACDF"],
-  ["neuquina", "Neuquina", "#1F5E97"]].map(([k, lab, c]) => ({k: `${p}_${k}`, lab, c}));
-const conT = r => ({...r, t: r.anio + (r.mes - 1) / 12});
-const mesP = r => `${MESES[r.mes - 1]} de ${r.anio}`;
 const mesPer = p => `${MESES[+p.slice(5, 7) - 1]} de ${p.slice(0, 4)}`;
 const tPer = p => +p.slice(0, 4) + (+p.slice(5, 7) - 1) / 12;
 const leyenda = (id, claves) => { $(id).innerHTML = claves.map(k => `<span><i style="background:${k.c}"></i>${k.lab}</span>`).join(""); };
-// los gráficos que cambian entre barras y mapa: la leyenda de las barras se oculta con el mapa
-const bblF = v => v >= 100 ? n0(v) : n1(v);
-// áreas de concesión (etapa 21): las chicas se cuentan en barriles o en miles de metros cúbicos, para que no digan "0,0 mil"
-const CUENCA_DE = {"Golfo San Jorge": "del Golfo San Jorge", Noroeste: "del Noroeste", Noreste: "del Noreste"};
-const cantArea = (v, gas) => gas ? (v >= .1 ? `${n1(v)} millones de metros cúbicos` : n0(v * 1000) === "0" ? "menos de mil metros cúbicos" : `${n0(v * 1000)} mil metros cúbicos`) + " de gas por día"
-  : (v >= 1 ? `${kbdF(v)} mil barriles` : n0(v * 1000) === "0" ? "menos de un barril" : `${n0(v * 1000)} barriles`) + " de petróleo por día";
-function textoArea(r, tot, gas) {
-  const k = gas ? "gas_mmm3d" : "pet_kbd", nc = gas ? r.pct_gas_nc : r.pct_pet_nc, p = gas ? r.pct_gas_pais : r.pct_pet_pais;
-  const t = `${tituloArea(r.nombre)} está ${r.territorio === "Mar argentino" ? "en el mar argentino, a más de doce millas de la costa" : "en " + r.territorio}, en la cuenca ${CUENCA_DE[r.cuenca] || r.cuenca}. `;
-  if (!(r[k] > 0)) return t + `En ${PG.areas_anio} no produjo ${gas ? "gas" : "petróleo"}.`;
-  const mx = d3.greatest(tot, d => d.v);
-  return t + `En ${PG.areas_anio} produjo ${cantArea(r[k], gas)}, ${p < .05 ? "menos del 0,1%" : "el " + pct(p)} del país, ` +
-    (nc >= 99.95 ? "todo de formaciones no convencionales" : nc > 0 ? `el ${pct(nc)} de formaciones no convencionales` : "todo de formaciones convencionales") +
-    `, y ${r.empresa} declaró la mayor parte. ` +
-    (mx.anio === PG.areas_anio ? `Es su año de mayor producción desde ${PG.areas_ini}.` : `Su año de mayor producción fue ${mx.anio}, con ${cantArea(mx.v, gas)}.`);
-}
-Object.assign(DIB, {
-  petroleo: conTablas("petroleo", ["hidrocarburos_mensual"], a => {
-    $t("petroleo").textContent = LEAD.petroleo(MED.petroleo);
-    areasApiladas(G("petroleo"), {anim: a, data: T.hidrocarburos_mensual.map(conT), x: "t", series: MED.petroleo === "cuenca" ? SERIES_CUENCA("pet") : SERIES_TIPO("pet"),
-      vf: kbdF, yf: n0, xl: mesP, unidad: "mil barriles por día"});
-  }),
-  gas: conTablas("gas", ["hidrocarburos_mensual"], a => {
-    $t("gas").textContent = LEAD.gas(MED.gas);
-    areasApiladas(G("gas"), {anim: a, data: T.hidrocarburos_mensual.map(conT), x: "t", series: MED.gas === "cuenca" ? SERIES_CUENCA("gas") : SERIES_TIPO("gas"),
-      vf: n1, yf: n0, xl: mesP, unidad: "millones de m³ por día"});
-  }),
-  "gas-hogares": conTablas("gas-hogares", () => MED["gas-hogares-vista"] === "mapa" ? ["vivienda_departamentos"] : [], a => {
-    const mapa = MED["gas-hogares-vista"] === "mapa";
-    $("gas-hogares-ley").hidden = mapa;
-    if (mapa) return mapaDep(G("gas-hogares"), {anim: a, filas: T.vivienda_departamentos, k: "pct_gas_red", nombre: "Hogares que cocinan con gas de red", vf: pct});
-    const cl = [{k: "pct_gas_red", lab: "Gas de red", c: "#1F5E97"}, {k: "pct_zeppelin", lab: "Gas a granel (zeppelin)", c: "#74ACDF", texto: "#18212B"},
-      {k: "pct_garrafa", lab: "Garrafa", c: "#F6B40E", texto: "#18212B"}, {k: "pct_electricidad", lab: "Electricidad", c: "#C6DCF1", texto: "#18212B"},
-      {k: "pct_lena", lab: "Leña o carbón", c: "#85340A"}];
-    leyenda("gas-hogares-ley", cl);
-    const filas = [{codigo_indec: "00", territorio: "Todo el país", ...VV}, ...[...T.vivienda_provincias].sort((p, q) => q.pct_gas_red - p.pct_gas_red)];
-    apiladasH(G("gas-hogares"), {anim: a, claves: cl, data: filas});
-  }),
-  "hidro-provincias": a => {
-    const k = MED["hidro-provincias"], gas = k === "gas_mmm3d";
-    $t("hidro-provincias").textContent = LEAD["hidro-provincias"](k);
-    barrasH(G("hidro-provincias"), {anim: a, data: T.hidrocarburos_provincias.filter(d => d[k] > .005), k, vf: gas ? n1 : kbdF, af: n0,
-      tip: d => `<b>${d.territorio}</b><br>` + (gas ? `${n1(d.gas_mmm3d)} millones de m³ por día<br>${pct(d.pct_gas_pais)} del gas del país<br>No convencional: ${pct(d.pct_gas_nc || 0)}<br>Diez años antes: ${n1(d.gas_mmm3d_antes)}`
-        : `${kbdF(d.pet_kbd)} mil barriles por día<br>${pct(d.pct_pet_pais)} del petróleo del país<br>No convencional: ${pct(d.pct_pet_nc || 0)}<br>Diez años antes: ${kbdF(d.pet_kbd_antes)}`)});
-  },
-  "areas-hidro": conTablas("areas-hidro", () => MED.arArea ? ["areas_produccion", "areas_serie"] : ["areas_produccion"], a => {
-    const gas = MED["areas-hidro"] === "gas", k = gas ? "gas_mmm3d" : "pet_kbd", el = G("areas-hidro"), sel = $("ar-sel");
-    // la lista se arma la primera vez: las áreas de cada provincia, en orden alfabético
-    if (sel.options.length < 2) d3.groups(T.areas_produccion, r => r.territorio).sort((p, q) => p[0].localeCompare(q[0], "es")).forEach(([t, rs]) => {
-      const g = document.createElement("optgroup"); g.label = t;
-      rs.map(r => [r.codigo, tituloArea(r.nombre)]).sort((p, q) => p[1].localeCompare(q[1], "es")).forEach(([c, n]) => g.append(new Option(n, c)));
-      sel.append(g);
-    });
-    const r = MED.arArea && T.areas_produccion.find(x => x.codigo === MED.arArea);
-    $("areas-hidro-ley").hidden = !r;
-    if (!r) {
-      $t("areas-hidro").textContent = LEAD["areas-hidro"](MED["areas-hidro"]);
-      const filas = [...T.areas_produccion].sort((p, q) => q[k] - p[k]).slice(0, 15).map(x => ({...x, provNom: x.territorio, prov: x.codigo_indec, codigo_indec: x.codigo, territorio: tituloArea(x.nombre)}));
-      barrasH(el, {anim: a, data: filas, k, vf: gas ? n1 : kbdF, af: n0, l: 196, lAngosto: 150, marcar: new Set(filas.filter(x => x.prov === prov).map(x => x.codigo_indec)),
-        tip: d => `<b>${d.territorio}</b><br>${d.provNom}, cuenca ${CUENCA_DE[d.cuenca] || d.cuenca}<br>${d.empresa}<br>${cantArea(d[k], gas)}<br>${pct(gas ? d.pct_gas_pais : d.pct_pet_pais)} del país<br>` +
-          `No convencional: ${pct((gas ? d.pct_gas_nc : d.pct_pet_nc) || 0)}<br>En ${PG.areas_anio - 10}: ${d[k + "_antes"] > 0 ? cantArea(d[k + "_antes"], gas) : "sin producción"}`});
-      el.resaltar = null;  // con otra provincia elegida se vuelve a dibujar, con sus áreas resaltadas
-      return;
-    }
-    const p = gas ? "gas" : "pet", porAnio = new Map(T.areas_serie.filter(x => x.codigo === r.codigo).map(x => [x.anio, x]));
-    const tot = d3.range(PG.areas_ini, PG.areas_anio + 1).map(y => { const x = porAnio.get(y) || {}; return {anio: y, conv: x[p + "_conv"] || 0, nc: x[p + "_nc"] || 0}; })
-      .map(d => ({...d, v: d.conv + d.nc}));
-    $t("areas-hidro").textContent = textoArea(r, tot, gas);
-    const cl = [{k: "conv", lab: "Convencional", c: COL_TIPO.conv}, {k: "nc", lab: "No convencional", c: COL_TIPO.shale}];
-    leyenda("areas-hidro-ley", cl);
-    const mx = d3.max(tot, d => d.v);
-    if (!mx) return sinDatos(el, `${tituloArea(r.nombre)} no produjo ${gas ? "gas" : "petróleo"} entre ${PG.areas_ini} y ${PG.areas_anio}.`);
-    // las áreas chicas, en barriles o en miles de metros cúbicos por día
-    const m = (gas ? mx < .1 : mx < 1) ? 1000 : 1, data = tot.map(d => ({anio: d.anio, conv: d.conv * m, nc: d.nc * m})), alto = mx * m;
-    columnasApiladas(el, {anim: a, claves: cl, cadaTick: 2, l: 44, data, vf: alto >= 10 ? n0 : n1, af: alto >= 10 ? n0 : n1,
-      unidad: gas ? (m > 1 ? "mil m³ de gas por día" : "millones de m³ de gas por día") : (m > 1 ? "barriles de petróleo por día" : "mil barriles de petróleo por día")});
-  }),
-  pozos: a => {
-    const t = T.pozos_tipo;
-    $("pozos-ley").hidden = MED.pozos === "pozo";
-    if (MED.pozos === "pozo") return barrasH(G("pozos"), {anim: a, data: t.map(r => ({...r, codigo_indec: r.tipo, territorio: r.nombre})), k: "bpd_pozo_pet", vf: v => bblF(v) + " barriles", af: n0,
-      tip: d => `<b>${d.nombre}</b><br>${bblF(d.bpd_pozo_pet)} barriles de petróleo por día por pozo<br>${n0(d.pozos_pet)} pozos que produjeron petróleo<br>${n0(d.pozos)} pozos con petróleo o gas`});
-    const cl = [{k: "convencional", lab: "Convencionales", c: COL_TIPO.conv, texto: "#18212B"}, {k: "tight", lab: "Tight", c: COL_TIPO.tight, texto: "#18212B"}, {k: "shale", lab: "Shale", c: COL_TIPO.shale}];
-    leyenda("pozos-ley", cl);
-    const fila = (id, nombre, col) => ({codigo_indec: id, territorio: nombre, ...Object.fromEntries(t.map(r => [r.tipo, r[col]]))});
-    apiladasH(G("pozos"), {anim: a, claves: cl, data: [fila("pozos", "Pozos", "pct_pozos"), fila("pet", "Petróleo", "pct_pet"), fila("gas", "Gas", "pct_gas")]});
-  },
-  "empresas-hidro": a => {
-    const k = MED["empresas-hidro"], gas = k === "pct_gas";
-    $t("empresas-hidro").textContent = LEAD["empresas-hidro"](k);
-    barrasH(G("empresas-hidro"), {anim: a, data: T.hidrocarburos_empresas.filter(r => r.nombre !== "Otras empresas").map((r, i) => ({...r, codigo_indec: "e" + i, territorio: r.nombre})),
-      k, vf: pct, af: v => v + "%", l: 196, lAngosto: 158,
-      tip: d => `<b>${d.nombre}</b><br>${pct(d[k])} del ${gas ? "gas" : "petróleo"} del país<br>` + (gas ? `${n1(d.gas_mmm3d)} millones de m³ por día` : `${kbdF(d.pet_kbd)} mil barriles por día`)});
-  },
-  "empleo-hidro": conTablas("empleo-hidro", () => MED["empleo-hidro"] === "serie" ? ["empleo_construccion_serie"] : [], a => {
-    if (MED["empleo-hidro"] === "serie") return lineas(G("empleo-hidro"), {anim: a, data: T.empleo_construccion_serie.map(r => ({...r, t: r.anio + (r.trimestre - 1) / 4})), x: "t",
-      series: [{k: "petroleo_gas", lab: "País", c: NAR}], y0: 0, vf: n0, yf: v => n0(v / 1000) + " mil", xl: r => `${TRIM_N[r.trimestre - 1]} trimestre de ${r.anio}`});
-    barrasH(G("empleo-hidro"), {anim: a, data: T.empleo_construccion_provincias.filter(d => d.petroleo_gas > 0), k: "petroleo_gas", vf: n0, af: n0,
-      tip: d => `<b>${d.territorio}</b><br>${n0(d.petroleo_gas)} puestos asalariados registrados<br>${n1(d.petroleo_gas_cada_1000)} cada 1.000 habitantes`});
-  }),
-  regalias: a => {
-    const k = MED.regalias, usd = k === "usd_crudo_hab";
-    $t("regalias").textContent = LEAD.regalias(k);
-    barrasH(G("regalias"), {anim: a, data: usd ? T.regalias_provincias.filter(d => d.usd_crudo_hab > 0)
-      // en % de los ingresos, la jurisdicción que todavía no publicó el año va con el suyo al lado del nombre (E12)
-      : T.regalias_provincias.map(d => PG.reg_atrasadas[d.territorio] ? {...d, territorio: `${d.territorio} (${PG.reg_atrasadas[d.territorio]})`} : d), k,
-      vf: usd ? n0 : v => n1(v) + "%", af: usd ? n0 : v => v + "%",
-      tip: d => `<b>${d.territorio}</b><br>Regalías: ${pct(d.pct_regalias)} de los ingresos totales en ${d.anio_aif}` +
-        (d.usd_crudo_hab > 0 ? `<br>Petróleo crudo: ${n1(d.usd_crudo_millones)} millones de dólares en ${PG.reg_usd_anio}, ${n0(d.usd_crudo_hab)} por habitante` : "")});
-  },
-  reservas: a => {
-    const k = MED.reservas, d = T.reservas_hidrocarburos;
-    $t("reservas").textContent = LEAD.reservas(k);
-    $("reservas-ley").hidden = k === "horizonte";
-    if (k === "horizonte") return lineas(G("reservas"), {anim: a, data: d, x: "anio", series: [{k: "horizonte_pet", lab: "Petróleo", c: NAR}, {k: "horizonte_gas", lab: "Gas", c: FRI}],
-      y0: 0, vf: v => n1(v) + " años", yf: n0});
-    const gas = k === "gas", tot = gas ? "gas_miles_millones_m3" : "pet_millones_m3", pc = gas ? "pct_gas_nc" : "pct_pet_nc";
-    const cl = [{k: "sd", lab: "Sin separar (hasta 2016)", c: "#C3CAD2"}, {k: "conv", lab: "Convencionales", c: COL_TIPO.conv}, {k: "nc", lab: "No convencionales", c: COL_TIPO.shale}];
-    leyenda("reservas-ley", cl);
-    columnasApiladas(G("reservas"), {anim: a, claves: cl, cadaTick: 2, vf: n0, af: n0, unidad: gas ? "miles de millones de m³" : "millones de m³",
-      data: d.map(r => r[pc] == null ? {anio: r.anio, sd: r[tot]} : {anio: r.anio, conv: r[tot] * (1 - r[pc] / 100), nc: r[tot] * r[pc] / 100})});
-  },
-  fracturas: a => {
-    const k = MED.fracturas;
-    $t("fracturas").textContent = LEAD.fracturas(k);
-    $("fracturas-ley").hidden = k !== "etapas";
-    if (k === "etapas") {
-      const cl = [{k: "etapas_vm", lab: "Vaca Muerta", c: COL_TIPO.shale}, {k: "etapas_otras", lab: "Otras formaciones", c: COL_TIPO.tight}];
-      leyenda("fracturas-ley", cl);
-      return columnasApiladas(G("fracturas"), {anim: a, claves: cl, cadaTick: 2, vf: n0, af: v => v >= 1000 ? n0(v / 1000) + " mil" : n0(v), l: 46,
-        unidad: "etapas", data: T.fracturas_anual});
-    }
-    const rama = k === "rama";
-    columnasApiladas(G("fracturas"), {anim: a, cadaTick: 2, l: 46, data: T.diseno_pozos_vm.filter(r => r.anio >= PG.dv_ini),
-      vf: rama ? n0 : n1, af: n0, unidad: rama ? "metros por pozo" : "etapas por pozo",
-      claves: [{k: rama ? "rama_m" : "etapas_pozo", lab: rama ? "Rama horizontal" : "Etapas de fractura", c: COL_TIPO.shale}]});
-  },
-  "pozos-terminados": a => {
-    const k = MED["pozos-terminados"];
-    $t("pozos-terminados").textContent = LEAD["pozos-terminados"](k);
-    $("pozos-terminados-ley").hidden = k !== "anio";
-    if (k === "prov") return barrasH(G("pozos-terminados"), {anim: a, data: T.pozos_terminados_provincias, k: "total", vf: n0, af: n0,
-      tip: d => `<b>${d.territorio}</b><br>${n0(d.total)} pozos terminados<br>Explotación: ${n0(d.explotacion)}<br>Exploración y avanzada: ${n0(d.exploracion + d.avanzada)}` +
-        `<br>Servicio: ${n0(d.servicio)}<br>Doce meses antes: ${n0(d.total_antes)}`});
-    const cl = [{k: "explotacion", lab: "Explotación", c: COL_TIPO.shale}, {k: "exploracion", lab: "Exploración", c: COL_TIPO.tight},
-      {k: "avanzada", lab: "Avanzada", c: "#74ACDF"}, {k: "servicio", lab: "Servicio", c: "#C3CAD2"}];
-    leyenda("pozos-terminados-ley", cl);
-    columnasApiladas(G("pozos-terminados"), {anim: a, claves: cl, cadaTick: 2, vf: n0, af: n0, l: 40, unidad: "pozos", data: T.pozos_terminados});
-  },
-  productividad: a => {
-    const k = MED.productividad;
-    $t("productividad").textContent = LEAD.productividad(k);
-    if (k === "curvas") {
-      const tonos = ["#BBD6EF", "#7FB0DD", "#3F86C6", "#2C74B5", "#1F5E97", "#0F3D66"].slice(-PG.curvas.length);
-      return lineas(G("productividad"), {anim: a, data: T.curvas_vm, x: "mes", y0: 0, vf: v => n0(v) + " mil", yf: n0, xl: r => `Mes ${r.mes}`,
-        series: PG.curvas.map((c, i) => ({k: `c${c}`, lab: String(c), c: tonos[i], w: c === PG.cos_ult ? 3 : 2}))});
-    }
-    const metro = k === "metro";
-    columnasApiladas(G("productividad"), {anim: a, cadaTick: 2, l: metro ? 50 : 40, vf: n0, af: metro ? v => n0(v / 1000) + " mil" : n0,
-      unidad: metro ? "barriles cada 1.000 m de rama" : "mil barriles por pozo",
-      data: metro ? T.productividad_vm.filter(r => r.bbl_por_1000m != null) : T.productividad_vm,
-      claves: [{k: metro ? "bbl_por_1000m" : "pet_12m_kbbl", lab: "Primer año", c: COL_TIPO.shale}]});
-  },
-  "mapa-pozos": conTablas("mapa-pozos", ["pozos_no_convencionales", "areas_produccion"], a => {
-    const k = MED["mapa-pozos"], c = PG.map_cortes;
-    $t("mapa-pozos").textContent = LEAD["mapa-pozos"](k);
-    leyenda("mapa-pozos-ley", [`Hasta ${c[0]}`, `${c[0] + 1} a ${c[1]}`, `${c[1] + 1} a ${c[2]}`, `${c[2] + 1} a ${c[3]}`, `Desde ${c[3] + 1}`].map((lab, i) => ({lab, c: COL_POZOS[i]})));
-    mapaPozos(G("mapa-pozos"), {anim: a, vista: k});
-  }),
-  "gas-consumo": conTablas("gas-consumo", () => ({mes: ["gas_usuario_mensual"], serie: ["gas_usuario_serie"]})[MED["gas-consumo"]] || [], a => {
-    const k = MED["gas-consumo"], el = G("gas-consumo"), fp = T.gas_usuario_provincias.find(r => r.codigo_indec === prov);
-    let txt = LEAD["gas-consumo"](k);
-    if (k === "prov") {
-      $t("gas-consumo").textContent = txt;
-      const antes = "m3_usuario_" + (e.gas_anio - 10);
-      return barrasH(el, {anim: a, data: T.gas_usuario_provincias, k: "m3_usuario", vf: n0, af: n0, ref: e.gas_pais, refLab: `País ${n0(e.gas_pais)}`,
-        tip: d => `<b>${d.territorio}</b><br>${n0(d.m3_usuario)} m³ por usuario, ${n1(d.veces_pais)} veces el promedio del país<br>${n0(d.usuarios)} usuarios residenciales` +
-          (d[antes] != null ? `<br>En ${e.gas_anio - 10}: ${n0(d[antes])} m³ por usuario` : "")});
-    }
-    // el país y, si la provincia elegida tiene dato, su línea
-    const filas = (tabla, x) => {
-      const suya = fp ? new Map(tabla.filter(r => r.codigo_indec === prov).map(r => [r[x], r.m3_usuario])) : null;
-      return tabla.filter(r => r.codigo_indec === "00").map(r => ({[x]: r[x], pais: r.m3_usuario, prov: suya ? suya.get(r[x]) ?? null : null}));
-    };
-    const series = [{k: "pais", lab: "Todo el país", c: NAR}, ...(fp ? [{k: "prov", lab: fp.territorio, c: FRI}] : [])];
-    if (k === "mes") {
-      if (fp) {
-        const m = d3.rollup(T.gas_usuario_mensual.filter(r => r.codigo_indec === prov && +r.periodo.slice(0, 4) >= e.gas_est_desde && +r.periodo.slice(0, 4) <= e.gas_est_hasta),
-          v => d3.mean(v, r => r.m3_usuario), r => +r.periodo.slice(5, 7));
-        const mx = d3.greatest(m, ([, v]) => v), mn = d3.least(m, ([, v]) => v);
-        txt += ` En ${fp.territorio}, ${n0(mx[1])} metros cúbicos en ${MESES[mx[0] - 1]} y ${n0(mn[1])} en ${MESES[mn[0] - 1]}.`;
-      }
-      $t("gas-consumo").textContent = txt;
-      return lineas(el, {anim: a, data: filas(T.gas_usuario_mensual, "periodo").map(r => ({...r, t: tPer(r.periodo)})), x: "t", series, y0: 0, vf: n0, yf: n0,
-        xl: r => mesPer(r.periodo)});
-    }
-    if (fp) {
-      const s = T.gas_usuario_serie.filter(r => r.codigo_indec === prov);
-      txt += ` En ${fp.territorio}, ${n0(s[0].m3_usuario)} metros cúbicos en ${s[0].anio} y ${n0(fp.m3_usuario)} en ${e.gas_anio}.`;
-    }
-    $t("gas-consumo").textContent = txt;
-    lineas(el, {anim: a, data: filas(T.gas_usuario_serie, "anio"), x: "anio", series, y0: 0, vf: n0, yf: n0});
-  }),
-  centrales: conTablas("centrales", () => MED.centrales === "mapa" ? ["centrales"] : [], a => {
-    const k = MED.centrales;
-    $t("centrales").textContent = LEAD.centrales(k);
-    leyenda("centrales-ley", TEC_CEN);
-    if (k === "mapa") return mapaCentrales(G("centrales"), {anim: a});
-    columnasApiladas(G("centrales"), {anim: a, claves: TEC_CEN, cadaTick: 3, vf: n0, af: v => v >= 1000 ? n0(v / 1000) + " mil" : n0(v), l: 46,
-      unidad: "megavatios", data: T.potencia_instalada});
-  }),
-  "electricidad-provincias": conTablas("electricidad-provincias", () => ({mes: ["electricidad_mensual"], serie: ["electricidad_serie"]})[MED["electricidad-provincias"]] || [], a => {
-    const k = MED["electricidad-provincias"], el = G("electricidad-provincias");
-    // la Ciudad y la provincia de Buenos Aires son una sola fila en CAMMESA: con cualquiera de las dos elegida, se usa esa fila
-    const cod = prov === "02" || prov === "06" ? "02-06" : prov, fp = T.electricidad_provincias.find(r => r.codigo_indec === cod);
-    let txt = LEAD["electricidad-provincias"](k);
-    if (k === "prov") {
-      $t("electricidad-provincias").textContent = txt;
-      barrasH(el, {anim: a, data: T.electricidad_provincias, k: "kwh_hab", vf: n0, af: n0, ref: e.el_pais, refLab: `País ${n0(e.el_pais)}`, marcar: new Set(fp ? [cod] : []),
-        tip: d => `<b>${d.territorio}</b><br>${n0(d.kwh_hab)} kWh por habitante<br>${n0(d.gwh)} GWh residenciales en ${e.el_ult}<br>Los hogares, ${pct(d.pct_residencial)} de la demanda` +
-          (d.kwh_hab_antes != null ? `<br>En ${e.el_ult - 10}: ${n0(d.kwh_hab_antes)} kWh por habitante` : "")});
-      el.resaltar = null;  // con otra provincia elegida se vuelve a dibujar
-      return;
-    }
-    // el país y, con una provincia elegida, su línea
-    const filas = (tabla, x) => {
-      const suya = fp ? new Map(tabla.filter(r => r.codigo_indec === cod).map(r => [r[x], r.kwh_hab])) : null;
-      return tabla.filter(r => r.codigo_indec === "00").map(r => ({[x]: r[x], pais: r.kwh_hab, prov: suya ? suya.get(r[x]) ?? null : null}));
-    };
-    const series = [{k: "pais", lab: "Todo el país", c: NAR}, ...(fp ? [{k: "prov", lab: fp.territorio, c: FRI}] : [])];
-    if (k === "mes") {
-      if (fp) {
-        const m = d3.rollup(T.electricidad_mensual.filter(r => r.codigo_indec === cod && +r.periodo.slice(0, 4) >= e.el_est_desde && +r.periodo.slice(0, 4) <= e.el_ult),
-          v => d3.mean(v, r => r.kwh_hab), r => +r.periodo.slice(5, 7));
-        const mx = d3.greatest(m, ([, v]) => v), mn = d3.least(m, ([, v]) => v);
-        txt += ` En ${fp.territorio}, el de más consumo fue ${MESES[mx[0] - 1]}, con ${n0(mx[1])} kWh por habitante, y el de menos, ${MESES[mn[0] - 1]}, con ${n0(mn[1])}.`;
-      }
-      $t("electricidad-provincias").textContent = txt;
-      return lineas(el, {anim: a, data: filas(T.electricidad_mensual, "periodo").map(r => ({...r, t: tPer(r.periodo)})), x: "t", series, y0: 0, vf: n0, yf: n0,
-        xl: r => mesPer(r.periodo), mensual: true});
-    }
-    if (fp) {
-      const s = T.electricidad_serie.filter(r => r.codigo_indec === cod);
-      txt += ` En ${fp.territorio}, ${n0(s[0].kwh_hab)} kWh por habitante en ${s[0].anio} y ${n0(fp.kwh_hab)} en ${e.el_ult}.`;
-    }
-    $t("electricidad-provincias").textContent = txt;
-    lineas(el, {anim: a, data: filas(T.electricidad_serie, "anio"), x: "anio", series, y0: 0, vf: n0, yf: n0});
-  }),
-  // comercios e industrias (etapa 23): kWh por habitante de cada categoría o las partes de la demanda de cada provincia
-  "electricidad-sectores": a => {
-    const k = MED["electricidad-sectores"], el = G("electricidad-sectores");
-    // la Ciudad y la provincia de Buenos Aires son una sola fila en CAMMESA: con cualquiera de las dos elegida, se usa esa fila
-    const cod = prov === "02" || prov === "06" ? "02-06" : prov, fp = prov ? T.electricidad_sectores.find(r => r.codigo_indec === cod) : null;
-    const cl = [{k: "pct_res", lab: "Hogares", c: "#74ACDF", texto: "#18212B"}, {k: "pct_com", lab: "Comercios y servicios", c: "#F6B40E", texto: "#18212B"},
-      {k: "pct_ind", lab: "Industrias y grandes comercios", c: "#1F5E97"}];
-    let txt = LEAD["electricidad-sectores"](k);
-    $("electricidad-sectores-ley").hidden = k !== "partes";
-    if (k === "partes") {
-      leyenda("electricidad-sectores-ley", cl);
-      if (fp) txt += ` En ${fp.territorio}, los hogares son el ${pct(fp.pct_res)} de la demanda, los comercios y servicios el ${pct(fp.pct_com)} y las industrias y los grandes comercios el ${pct(fp.pct_ind)}.`;
-      $t("electricidad-sectores").textContent = txt;
-      // la fila de la Ciudad y la provincia lleva el código de la que está elegida, para que se resalte; con otra provincia se vuelve a dibujar
-      const pais = T.electricidad_sectores.find(r => r.codigo_indec === "00"), suya = r => r.codigo_indec === "02-06" && cod === "02-06" ? {...r, codigo_indec: prov} : r;
-      apiladasH(el, {anim: a, claves: cl, data: [{...pais, territorio: "Todo el país"}, ...T.electricidad_sectores.filter(r => r.codigo_indec !== "00").sort((p, q) => q.pct_ind - p.pct_ind).map(suya)]});
-      el.resaltar = null;
-      return;
-    }
-    const col = k === "com" ? "kwh_hab_com" : "kwh_hab_ind", ref = k === "com" ? e.els_com : e.els_ind;
-    if (fp) txt += ` En ${fp.territorio}, ${n0(fp[col])} kWh por habitante${conVeces(fp[col], ref)}.`;
-    $t("electricidad-sectores").textContent = txt;
-    barrasH(el, {anim: a, data: T.electricidad_sectores.filter(r => r.codigo_indec !== "00"), k: col, vf: n0, af: n0, ref, refLab: `País ${n0(ref)}`, marcar: new Set(fp ? [cod] : []),
-      tip: d => `<b>${d.territorio}</b><br>${n0(d[col])} kWh por habitante en ${e.el_ult}<br>De su demanda: hogares ${pct(d.pct_res)}, comercios y servicios ${pct(d.pct_com)}, ` +
-        `industrias y grandes comercios ${pct(d.pct_ind)}`});
-    el.resaltar = null;  // con otra provincia elegida se vuelve a dibujar
-  },
-  // salarios (etapa 23): por provincia en el último mes sin aguinaldo, o mes a mes en pesos de igual valor con la línea de la provincia elegida
-  salarios: conTablas("salarios", () => MED.salarios === "mes" ? ["salarios_serie"] : [], a => {
-    const el = G("salarios"), fp = T.salarios_provincias.find(r => r.codigo_indec === prov);
-    let txt = LEAD.salarios(MED.salarios);
-    if (MED.salarios === "mes") {
-      const suya = fp ? new Map(T.salarios_serie.filter(r => r.codigo_indec === prov).map(r => [r.periodo, r.salario_real])) : null;
-      const data = T.salarios_serie.filter(r => r.codigo_indec === "00").map(r => ({periodo: r.periodo, t: tPer(r.periodo), pais: r.salario_real, prov: suya ? suya.get(r.periodo) ?? null : null}));
-      if (fp) txt += ` En ${fp.territorio}, descontada la inflación, el salario de ${SA.mes} ${cambioPct(fp.var_real_12m)} frente a ${SA.ant}.`;
-      $t("salarios").textContent = txt;
-      return lineas(el, {anim: a, data, x: "t", y0: 0, vf: millonesM, yf: ejeM, xl: r => mesPer(r.periodo), mensual: true,
-        series: [{k: "pais", lab: "Todo el país", c: NAR}, ...(fp ? [{k: "prov", lab: fp.territorio, c: FRI}] : [])]});
-    }
-    if (fp && fp.territorio !== SA.top[0] && fp.territorio !== SA.bajo[0]) txt += ` En ${fp.territorio}, ${n0(fp.salario)} pesos${conVeces(fp.salario, SA.pais)}.`;
-    $t("salarios").textContent = txt;
-    barrasH(el, {anim: a, data: T.salarios_provincias.filter(r => r.codigo_indec !== "00"), k: "salario", vf: millonesM, af: ejeM, ref: SA.pais, refLab: `País ${millonesM(SA.pais)}`, anota: true,
-      tip: d => `<b>${d.territorio}</b><br>${n0(d.salario)} pesos en ${SA.mes}<br>Descontada la inflación, ${cambioPct(d.var_real_12m)} frente a ${SA.ant}`});
-  }),
-  // salario de un maestro de grado (etapa 23): por provincia en el último trimestre, o trimestre a trimestre en pesos de igual valor
-  "salario-docente": conTablas("salario-docente", () => MED["salario-docente"] === "serie" ? ["salario_docente_serie"] : [], a => {
-    const el = G("salario-docente"), fp = T.salario_docente.find(r => r.codigo_indec === prov);
-    let txt = LEAD["salario-docente"](MED["salario-docente"]);
-    if (MED["salario-docente"] === "serie") {
-      const suya = fp ? new Map(T.salario_docente_serie.filter(r => r.codigo_indec === prov).map(r => [r.periodo, r.bruto_real])) : null;
-      const data = T.salario_docente_serie.filter(r => r.codigo_indec === "00").map(r => ({periodo: r.periodo, t: tPer(r.periodo), pais: r.bruto_real, prov: suya ? suya.get(r.periodo) ?? null : null}));
-      if (fp) txt += ` En ${fp.territorio}, descontada la inflación, el salario de ${DC.trim} ${cambioPct(fp.var_real_12m)} frente a ${DC.ant}.`;
-      $t("salario-docente").textContent = txt;
-      return lineas(el, {anim: a, data, x: "t", y0: 0, vf: millonesM, yf: ejeM, xl: r => mesPer(r.periodo),
-        series: [{k: "pais", lab: "Promedio del país", c: NAR}, ...(fp ? [{k: "prov", lab: fp.territorio, c: FRI}] : [])]});
-    }
-    if (fp && fp.territorio !== DC.top[0] && fp.territorio !== DC.bajo[0]) txt += ` En ${fp.territorio}, ${n0(fp.bruto)} pesos${conVeces(fp.bruto, DC.pais)}.`;
-    $t("salario-docente").textContent = txt;
-    barrasH(el, {anim: a, data: T.salario_docente.filter(r => r.codigo_indec !== "00"), k: "bruto", vf: millonesM, af: ejeM, ref: DC.pais, refLab: `País ${millonesM(DC.pais)}`,
-      tip: d => `<b>${d.territorio}</b><br>${n0(d.bruto)} pesos brutos en ${DC.trim}` + (d.extra > 0 ? `<br>Incluye una suma extraordinaria de ${n0(d.extra)}` : "") +
-        `<br>Descontada la inflación, ${cambioPct(d.var_real_12m)} frente a ${DC.ant}`});
-  }),
-  // inversión en educación (etapa 23): por alumno, como parte del gasto público o año por año en pesos del último año
-  "inversion-educativa": conTablas("inversion-educativa", () => MED["inversion-educativa"] === "serie" ? ["inversion_educativa_serie"] : [], a => {
-    const k = MED["inversion-educativa"], el = G("inversion-educativa"), fp = T.inversion_educativa.find(r => r.codigo_indec === prov);
-    let txt = LEAD["inversion-educativa"](k);
-    if (k === "serie") {
-      const suya = fp ? new Map(T.inversion_educativa_serie.filter(r => r.codigo_indec === prov).map(r => [r.anio, r.por_alumno_real])) : null;
-      const data = T.inversion_educativa_serie.filter(r => r.codigo_indec === "00").map(r => ({anio: r.anio, pais: r.por_alumno_real, prov: suya ? suya.get(r.anio) ?? null : null}));
-      if (fp) txt += ` En ${fp.territorio}, ${n0(fp.gasto_por_alumno)} pesos por alumno en ${IE.anio}.`;
-      $t("inversion-educativa").textContent = txt;
-      return lineas(el, {anim: a, data, x: "anio", y0: 0, vf: millonesM, yf: ejeM,
-        series: [{k: "pais", lab: "Todo el país", c: NAR}, ...(fp ? [{k: "prov", lab: fp.territorio, c: FRI}] : [])]});
-    }
-    const pctV = k === "pct", col = pctV ? "pct_gasto" : "gasto_por_alumno", ref = pctV ? IE.pct_pais : IE.pais, f = pctV ? pct : millonesM;
-    const nombradas = pctV ? [IE.pct_top[0], IE.pct_bajo[0]] : [IE.top[0], IE.bajo[0]];
-    if (fp && !nombradas.includes(fp.territorio)) txt += pctV ? ` En ${fp.territorio}, el ${pct(fp.pct_gasto)}.` : ` En ${fp.territorio}, ${n0(fp.gasto_por_alumno)} pesos por alumno${conVeces(fp.gasto_por_alumno, IE.pais)}.`;
-    $t("inversion-educativa").textContent = txt;
-    barrasH(el, {anim: a, data: T.inversion_educativa.filter(r => r.codigo_indec !== "00"), k: col, vf: f, af: pctV ? f : ejeM, ref, refLab: `País ${f(ref)}`, anota: true,
-      tip: d => `<b>${d.territorio}</b><br>${n0(d.gasto_por_alumno)} pesos por alumno de gestión estatal<br>La educación, ${pct(d.pct_gasto)} del gasto público, ${IE.anio}`});
-  }),
-  // delitos por tipo en el país (etapa 23): los catorce tipos más frecuentes (la tabla tiene todos), o las tasas año por año.
-  // En el celular, los nombres largos van en una versión corta
-  delitos: a => {
-    const el = G("delitos");
-    $t("delitos").textContent = LEAD.delitos(MED.delitos);
-    if (MED.delitos === "serie") return lineas(el, {anim: a, data: T.delitos_serie, x: "anio", y0: 0, vf: n0, yf: n0, series: [{k: "robos", lab: "Robos", c: NAR},
-      {k: "hurtos", lab: "Hurtos", c: FRI}, {k: "amenazas", lab: "Amenazas", c: css("--azul-hondo")}, {k: "lesiones", lab: "Lesiones dolosas", c: css("--muted")}]});
-    // los códigos van con una letra delante: un código de delito no tiene que coincidir con el de la provincia elegida
-    const data = T.delitos_tipo.slice(0, 14).map(r => ({codigo_indec: "d" + r.codigo, territorio: r.delito, tasa: r.tasa, hechos: r.hechos, pct: r.pct}));
-    barrasH(el, {anim: a, data, k: "tasa", vf: n0, af: n0, l: 236, lAngosto: 150, corto: d => CORTO_DEL[d.territorio] || d.territorio,
-      tip: d => `<b>${d.territorio}</b><br>${n0(d.hechos)} hechos en ${SG.anio}<br>${n0(d.tasa)} cada 100.000 habitantes<br>${pct(d.pct)} de los delitos registrados`});
-  },
-  // robos y hurtos por provincia (etapa 23), o la serie del país con las líneas de la provincia elegida
-  robos: conTablas("robos", () => MED.robos === "serie" ? ["seguridad_serie_prov"] : [], a => {
-    const k = MED.robos, el = G("robos"), fp = T.robos_provincias.find(r => r.codigo_indec === prov);
-    let txt = LEAD.robos(k);
-    if (k === "serie") {
-      const suya = fp ? new Map(T.seguridad_serie_prov.filter(r => r.codigo_indec === prov).map(r => [r.anio, r])) : null;
-      const data = T.delitos_serie.map(r => ({anio: r.anio, robos: r.robos, hurtos: r.hurtos, robos_p: suya?.get(r.anio)?.robos ?? null, hurtos_p: suya?.get(r.anio)?.hurtos ?? null}));
-      if (fp) txt += ` En ${fp.territorio}, ${n0(fp.robos)} robos y ${n0(fp.hurtos)} hurtos cada 100.000 habitantes en ${SG.anio}.`;
-      $t("robos").textContent = txt;
-      return lineas(el, {anim: a, data, x: "anio", y0: 0, vf: n0, yf: n0, series: [{k: "robos", lab: "Robos en el país", c: NAR}, {k: "hurtos", lab: "Hurtos en el país", c: css("--azul-hondo")},
-        ...(fp ? [{k: "robos_p", lab: `Robos en ${fp.territorio}`, c: FRI}, {k: "hurtos_p", lab: `Hurtos en ${fp.territorio}`, c: css("--sol-borde")}] : [])]});
-    }
-    const ref = k === "hurtos" ? SG.hurtos : SG.robos, nombradas = k === "hurtos" ? [SG.hurtos_top[0], SG.hurtos_bajo[0]] : [SG.robos_top[0], SG.robos_bajo[0]];
-    if (fp && !nombradas.includes(fp.territorio)) txt += ` En ${fp.territorio}, ${n0(fp[k])} cada 100.000 habitantes${conVeces(fp[k], ref)}.`;
-    $t("robos").textContent = txt;
-    barrasH(el, {anim: a, data: T.robos_provincias.filter(r => r.codigo_indec !== "00"), k, vf: n0, af: n0, ref, refLab: `País ${n0(ref)}`,
-      tip: d => `<b>${d.territorio}</b><br>${n0(d[k])} ${k} cada 100.000 habitantes en ${SG.anio}<br>En ${SG.anio - 1}, ${n0(d[k + "_ant"])}`});
-  }),
-  // homicidios dolosos (etapa 23): tasa de tres años por provincia, o la serie del país con la línea de la provincia elegida
-  homicidios: conTablas("homicidios", () => MED.homicidios === "serie" ? ["seguridad_serie_prov"] : [], a => {
-    const el = G("homicidios"), fp = T.homicidios_provincias.find(r => r.codigo_indec === prov);
-    let txt = LEAD.homicidios(MED.homicidios);
-    if (MED.homicidios === "serie") {
-      const suya = fp ? new Map(T.seguridad_serie_prov.filter(r => r.codigo_indec === prov).map(r => [r.anio, r.homicidios])) : null;
-      const data = T.delitos_serie.map(r => ({anio: r.anio, pais: r.homicidios, prov: suya ? suya.get(r.anio) ?? null : null}));
-      if (fp) txt += ` En ${fp.territorio}, ${n1(fp.tasa)} en ${SG.anio}.`;
-      $t("homicidios").textContent = txt;
-      return lineas(el, {anim: a, data, x: "anio", y0: 0, vf: n1, yf: n0,
-        series: [{k: "pais", lab: "Todo el país", c: NAR}, ...(fp ? [{k: "prov", lab: fp.territorio, c: FRI}] : [])]});
-    }
-    if (fp && fp.territorio !== SG.hom3_top[0] && fp.territorio !== SG.hom3_bajo[0]) txt += ` En ${fp.territorio}, ${n1(fp.tasa_3)} por año entre ${SG.hom3_desde} y ${SG.anio}${conVeces(fp.tasa_3, SG.hom3_pais)}: ${n0(fp.victimas_3)} víctimas en tres años.`;
-    $t("homicidios").textContent = txt;
-    barrasH(el, {anim: a, data: T.homicidios_provincias.filter(r => r.codigo_indec !== "00"), k: "tasa_3", vf: n1, af: n0, ref: SG.hom3_pais, refLab: `País ${n1(SG.hom3_pais)} (${SG.hom3_desde} a ${SG.anio})`,
-      tip: d => `<b>${d.territorio}</b><br>${n1(d.tasa_3)} víctimas cada 100.000 habitantes por año, ${SG.hom3_desde} a ${SG.anio}<br>${n0(d.victimas_3)} víctimas en esos tres años<br>En ${SG.anio}: ${n0(d.victimas)}`});
-  }),
-  // personas privadas de libertad (etapa 23, SNEEP): el país año por año o cada servicio penitenciario provincial
-  carceles: a => {
-    const el = G("carceles"), fp = T.carceles_provincias.find(r => r.codigo_indec === prov);
-    let txt = LEAD.carceles(MED.carceles);
-    if (MED.carceles === "prov") {
-      if (fp) txt += ` En ${fp.territorio}, ${n0(fp.tasa)} cada 100.000 habitantes: ${n0(fp.personas)} personas, el ${pct(fp.pct_condenados)} con condena.`;
-      $t("carceles").textContent = txt;
-      return barrasH(el, {anim: a, data: T.carceles_provincias, k: "tasa", vf: n0, af: n0,
-        tip: d => `<b>${d.territorio}</b><br>${n0(d.personas)} personas en el servicio penitenciario provincial al 31 de diciembre de ${SG.sn_anio}<br>${n0(d.tasa)} cada 100.000 habitantes<br>${pct(d.pct_condenados)} con condena`});
-    }
-    $t("carceles").textContent = txt;
-    lineas(el, {anim: a, data: T.carceles_serie, x: "anio", y0: 0, vf: n0, yf: n0, series: [{k: "tasa", lab: "Todo el país", c: NAR}]});
-  },
-  // la parte sin condena (plan de mejora, etapa 4): cada servicio penitenciario provincial con la línea del país, o el país año por año
-  "sin-condena": a => {
-    const el = G("sin-condena"), fp = T.carceles_provincias.find(r => r.codigo_indec === prov);
-    let txt = LEAD["sin-condena"](MED["sin-condena"]);
-    if (MED["sin-condena"] === "prov") {
-      if (fp) txt += ` En ${fp.territorio}, el ${pct(fp.pct_sin_condena)}: ${n0(fp.personas - fp.condenados)} de ${n0(fp.personas)} personas.`;
-      $t("sin-condena").textContent = txt;
-      return barrasH(el, {anim: a, data: T.carceles_provincias, k: "pct_sin_condena", vf: pct, af: v => n0(v) + "%", ref: SG.sn_sin, refLab: `País ${pct(SG.sn_sin)}`,
-        tip: d => `<b>${d.territorio}</b><br>${pct(d.pct_sin_condena)} sin condena al 31 de diciembre de ${SG.sn_anio}<br>${n0(d.personas - d.condenados)} de ${n0(d.personas)} personas en el servicio penitenciario provincial`});
-    }
-    $t("sin-condena").textContent = txt;
-    lineas(el, {anim: a, data: T.carceles_serie, x: "anio", y0: 0, vf: pct, yf: v => n0(v) + "%", series: [{k: "pct_sin_condena", lab: "Todo el país", c: NAR}]});
-  },
-  // la pobreza (plan de mejora, etapa 4): las seis regiones o los 32 aglomerados de la EPH con la línea de los 31, resaltadas la región o los
-  // aglomerados de la provincia elegida (se redibuja al cambiarla)
-  "pobreza-aglomerados": a => {
-    const v = MED["pobreza-aglomerados"], el = G("pobreza-aglomerados");
-    // por provincia: los aglomerados de cada una juntos, pesados por su población en la encuesta (cálculo propio)
-    if (v === "prov") {
-      const fp = T.pobreza_provincias.find(r => r.codigo_indec === prov);
-      let tp = LEAD["pobreza-aglomerados"](v);
-      if (fp && ![PZA.prov_min[0], PZA.prov_max[0], PZA.prov_max2[0]].includes(fp.territorio))
-        tp += ` En ${fp.territorio}, el ${pct(fp.pobreza)}${fp.n_aglomerados > 1 ? `, con ${fp.aglomerados}` : `, en ${fp.aglomerados}`}.`;
-      $t("pobreza-aglomerados").textContent = tp;
-      barrasH(el, {anim: a, data: T.pobreza_provincias, k: "pobreza", vf: pct, af: v => n0(v) + "%", ref: PZA.pais, refLab: `31 aglomerados ${pct(PZA.pais)}`,
-        tip: d => `<b>${d.territorio}</b><br>${pct(d.pobreza)} bajo la línea de pobreza en el ${PZA.semestre}<br>${d.n_aglomerados > 1 ? "Aglomerados" : "Aglomerado"}: ` +
-          `${d.aglomerados}<br>Indigencia: ${pct(d.indigencia)}`});
-      return;
-    }
-    const filas = T.pobreza_aglomerados.filter(r => r.tipo === (v === "region" ? "region" : "aglomerado")).map(r => ({...r, codigo_indec: r.clave, territorio: r.nombre}));
-    const suyas = !prov ? [] : v === "region" ? filas.filter(r => (REG_IPC[prov] || []).includes(r.clave)) : filas.filter(r => String(r.provincias).split(",").includes(prov));
-    let txt = LEAD["pobreza-aglomerados"](v);
-    if (v === "region" && suyas.length) txt += ` ${NOMBRES[prov]} está en ${lista(suyas.map(r => `${REG_ART[r.nombre]} (${pct(r.pobreza)})`))}.`;
-    if (v === "ciudad" && suyas.length === 1) txt += ` En ${suyas[0].nombre}, el ${pct(suyas[0].pobreza)}.`;
-    if (v === "ciudad" && suyas.length > 1) txt += ` En los aglomerados de ${NOMBRES[prov]}, ${lista(suyas.map(r => `${pct(r.pobreza)} en ${r.nombre}`))}.`;
-    $t("pobreza-aglomerados").textContent = txt;
-    barrasH(el, {anim: a, data: filas, k: "pobreza", vf: pct, af: v => n0(v) + "%", ref: PZA.pais, refLab: `31 aglomerados ${pct(PZA.pais)}`,
-      marcar: new Set(suyas.map(r => r.codigo_indec)), l: v === "region" ? 150 : 220, lAngosto: 132,
-      corto: d => d.nombre === "Partidos del Gran Buenos Aires" ? "Partidos del GBA" : IA_CORTO[d.nombre] || d.nombre,
-      tip: d => `<b>${d.nombre}</b><br>${pct(d.pobreza)} bajo la línea de pobreza en el ${PZA.semestre}<br>Coeficiente de variación: ${pct(d.cv_pobreza)}` +
-        `<br>Indigencia: ${pct(d.indigencia)}`});
-    el.resaltar = null;
-  },
-  // las empresas por tamaño o por sector (plan de mejora, etapa 4): barras apiladas, el país arriba y las provincias por la primera parte
-  "empresas-tamano": conTablas("empresas-tamano", ["empresas_tamano_sector"], a => {
-    const v = MED["empresas-tamano"], el = G("empresas-tamano"), fp = T.empresas_tamano_sector.find(r => r.codigo_indec === prov);
-    const cl = v === "sec"
-      ? [{k: "pct_servicios", lab: "Servicios", c: "#2C74B5"}, {k: "pct_comercio", lab: "Comercio", c: "#74ACDF", texto: "#18212B"},
-        {k: "pct_industria_mineria_energia", lab: "Industria, minería y energía", c: "#1F5E97"},
-        {k: "pct_construccion", lab: "Construcción", c: "#C3CAD2", texto: "#18212B"}, {k: "pct_agro", lab: "Agro y pesca", c: "#F6B40E", texto: "#18212B"}]
-      : [{k: "pct_micro", lab: "Micro", c: "#C6DCF1", texto: "#18212B"}, {k: "pct_pequenas", lab: "Pequeñas", c: "#74ACDF", texto: "#18212B"},
-        {k: "pct_medianas", lab: "Medianas", c: "#2C74B5"}, {k: "pct_grandes", lab: "Grandes", c: "#1F5E97"}];
-    leyenda("empresas-tamano-ley", cl);
-    let txt = LEAD["empresas-tamano"](v);
-    if (fp) txt += v === "sec" ? ` En ${fp.territorio}, el ${pct(fp.pct_servicios)} eran de servicios y el ${pct(fp.pct_agro)} del agro y la pesca.`
-      : ` En ${fp.territorio}, el ${pct(fp.pct_micro)} eran microempresas y el ${pct(fp.pct_grandes)}, grandes.`;
-    $t("empresas-tamano").textContent = txt;
-    const pais = T.empresas_tamano_sector.find(r => r.codigo_indec === "00");
-    // los valores con un decimal, como el texto y la cifra destacada
-    apiladasH(el, {anim: a, claves: cl, valF: n1, data: [pais, ...T.empresas_tamano_sector.filter(r => r.codigo_indec !== "00").sort((p, q) => q[cl[0].k] - p[cl[0].k])]});
-  }),
-  // la informalidad (14 de noviembre de 2026): cada aglomerado de la EPH con la línea de los 31, resaltados los de la provincia elegida, como la
-  // desocupación, o el total de los 31 por tipo de trabajo, sexo y edad, en ese orden (sin los trabajadores familiares, informales por definición)
-  informalidad: conTablas("informalidad", () => MED.informalidad === "grupo" ? ["informalidad_grupos"] : ["informalidad_aglomerados"], a => {
-    const el = G("informalidad");
-    if (MED.informalidad === "grupo") {
-      $t("informalidad").textContent = `En ${INF.trimestres}, tenía un empleo informal el ${pct(INF.asalariados)} de los asalariados, el ` +
-        `${pct(INF.cuenta_propia)} de los trabajadores por cuenta propia y el ${pct(INF.patrones)} de los patrones. Entre las mujeres ocupadas, ` +
-        `el ${pct(INF.mujeres)}, y entre los varones, el ${pct(INF.varones)}. Por edad, era más alta entre los ocupados de hasta 24 años, el ` +
-        `${pct(INF.jovenes)}, y los de 65 y más, el ${pct(INF.mayores)}, y más baja entre los de ${INF.edad_min[0]} años, el ${pct(INF.edad_min[1])}.`;
-      const filas = T.informalidad_grupos.filter(r => r.grupo !== "Trabajadores familiares sin remuneración")
-        .map(r => ({...r, codigo_indec: "g" + r.dimension + r.orden, territorio: r.dimension === "edad" && r.grupo !== "Hasta 24 años" ? r.grupo + " años" : r.grupo}));
-      barrasH(el, {anim: a, data: filas, k: "informalidad", vf: pct, af: v => n0(v) + "%", ref: INF.pais, refLab: `Total ${pct(INF.pais)}`, sinOrden: true,
-        l: 150, lAngosto: 118, tip: d => `<b>${d.territorio}</b><br>${pct(d.informalidad)} con empleo informal, ${INF.trimestres}` +
-          `<br>Solo el ${INF.ultimo}: ${pct(d.informalidad_ultimo_trimestre)}<br>${n0(d.ocupados_encuestados)} ocupados encuestados`});
-      el.resaltar = null;
-      return;
-    }
-    const filas = T.informalidad_aglomerados.filter(r => r.aglomerado > 0).map(r => ({...r, codigo_indec: "a" + r.aglomerado, territorio: r.nombre}));
-    const suyas = prov ? filas.filter(r => String(r.provincias).split(",").includes(prov)) : [];
-    let txt = TX.informalidad;
-    if (suyas.length === 1 && suyas[0].nombre !== INF.max[0] && suyas[0].nombre !== INF.min[0]) txt += ` En ${suyas[0].nombre}, el ${pct(suyas[0].informalidad)}.`;
-    if (suyas.length > 1) txt += ` En los aglomerados de ${NOMBRES[prov]}, ${lista(suyas.map(r => `${pct(r.informalidad)} en ${r.nombre}`))}.`;
-    $t("informalidad").textContent = txt;
-    barrasH(el, {anim: a, data: filas, k: "informalidad", vf: pct, af: v => n0(v) + "%", ref: INF.pais, refLab: `31 aglomerados ${pct(INF.pais)}`,
-      marcar: new Set(suyas.map(r => r.codigo_indec)), l: 220, lAngosto: 132,
-      corto: d => d.nombre === "Partidos del Gran Buenos Aires" ? "Partidos del GBA" : IA_CORTO[d.nombre] || d.nombre,
-      tip: d => `<b>${d.nombre}</b><br>${pct(d.informalidad)} de los ocupados con empleo informal, ${INF.trimestres}` +
-        (d.informalidad_ultimo_trimestre != null ? `<br>Solo el ${INF.ultimo}: ${pct(d.informalidad_ultimo_trimestre)}` : "") +
-        `<br>${n0(d.ocupados_encuestados)} ocupados encuestados`});
-    el.resaltar = null;
-  }),
-  // la desocupación (plan de mejora, etapa 4): cada aglomerado de la EPH con la línea de los 31, resaltados los de la provincia elegida (se
-  // redibuja al cambiarla, como los ingresos por aglomerado), o el total de los 31 trimestre a trimestre
-  desocupacion: a => {
-    const el = G("desocupacion");
-    let txt = LEAD.desocupacion(MED.desocupacion);
-    if (MED.desocupacion === "serie") {
-      $t("desocupacion").textContent = txt;
-      return lineas(el, {anim: a, data: T.desocupacion_serie.map(r => ({...r, t: +r.periodo.slice(2) + (+r.periodo[0] - 1) / 4})), x: "t", y0: 0,
-        vf: pct, yf: v => n0(v) + "%", xl: r => trimTx(r.periodo), mensual: true, series: [{k: "desocupacion", lab: "31 aglomerados", c: NAR}]});
-    }
-    const filas = T.desocupacion_aglomerados.filter(r => r.aglomerado > 0).map(r => ({...r, codigo_indec: "a" + r.aglomerado, territorio: r.nombre}));
-    const suyas = prov ? filas.filter(r => String(r.provincias).split(",").includes(prov)) : [];
-    if (suyas.length === 1 && suyas[0].nombre !== DSO.max[0] && suyas[0].nombre !== DSO.min[0]) txt += ` En ${suyas[0].nombre}, el ${pct(suyas[0].desocupacion)}.`;
-    if (suyas.length > 1) txt += ` En los aglomerados de ${NOMBRES[prov]}, ${lista(suyas.map(r => `${pct(r.desocupacion)} en ${r.nombre}`))}.`;
-    $t("desocupacion").textContent = txt;
-    barrasH(el, {anim: a, data: filas, k: "desocupacion", vf: pct, af: v => n0(v) + "%", ref: DSO.pais, refLab: `31 aglomerados ${pct(DSO.pais)}`,
-      marcar: new Set(suyas.map(r => r.codigo_indec)), l: 220, lAngosto: 132,
-      corto: d => d.nombre === "Partidos del Gran Buenos Aires" ? "Partidos del GBA" : IA_CORTO[d.nombre] || d.nombre,
-      tip: d => `<b>${d.nombre}</b><br>${pct(d.desocupacion)} de desocupación, promedio de ${DSO.trimestres}` +
-        (d.desocupacion_ultimo_trimestre != null ? `<br>Solo el ${DSO.ultimo}: ${pct(d.desocupacion_ultimo_trimestre)}` : `<br>Sin dato del ${DSO.ultimo}`) +
-        `<br>Tasa de empleo: ${pct(d.empleo)}`});
-    el.resaltar = null;
-  },
-  // la coparticipación (plan de mejora, etapa 4): por habitante, solo las jurisdicciones con el año de la ficha, o en % de los ingresos de
-  // las 24, la que todavía no publicó ese año con el suyo al lado del nombre (como en la ficha anterior)
-  coparticipacion: a => {
-    const v = MED.coparticipacion, el = G("coparticipacion"), fp = T.coparticipacion_provincias.find(r => r.codigo_indec === prov);
-    let txt = LEAD.coparticipacion(v);
-    if (v === "hab") {
-      if (fp && fp.anio === CPA.anio && fp.territorio !== CPA.top_hab[0] && fp.territorio !== CPA.bajo_hab[0])
-        txt += ` En ${fp.territorio}, ${n2(fp.por_habitante / 1e6)} millones de pesos por habitante${conVeces(fp.por_habitante, CPA.pais_hab)}.`;
-      $t("coparticipacion").textContent = txt;
-      return barrasH(el, {anim: a, data: T.coparticipacion_provincias.filter(r => r.anio === CPA.anio), k: "por_habitante", vf: millonesM, af: ejeM,
-        ref: CPA.pais_hab, refLab: `País ${millonesM(CPA.pais_hab)}`, tip: d => `<b>${d.territorio}</b><br>${n0(d.por_habitante)} pesos por habitante en ${CPA.anio}<br>` +
-          `${billones(d.millones)}<br>${pct(d.pct_ingresos)} de sus ingresos`});
-    }
-    if (fp && fp.territorio !== CPA.top_pct[0] && fp.territorio !== CPA.bajo_pct[0])
-      txt += ` En ${fp.territorio}, el ${pct(fp.pct_ingresos)}${fp.anio !== CPA.anio ? ` en ${fp.anio}` : ""}. En ${CPA.ini}, el ${pct(fp.pct_ingresos_ini)}.`;
-    $t("coparticipacion").textContent = txt;
-    barrasH(el, {anim: a, data: T.coparticipacion_provincias.map(r => CPA.atrasadas[r.territorio] ? {...r, territorio: `${r.territorio} (${CPA.atrasadas[r.territorio]})`} : r),
-      k: "pct_ingresos", vf: pct, af: v => n0(v) + "%", ref: CPA.pct_pais, refLab: `País ${pct(CPA.pct_pais)}`,
-      tip: d => `<b>${d.territorio}</b><br>${pct(d.pct_ingresos)} de sus ingresos en ${d.anio}<br>En ${CPA.ini}, ${pct(d.pct_ingresos_ini)}`});
-  },
-  // la deuda de cada provincia (plan de mejora, sección 10, 31 de octubre de 2026): por habitante con la línea del país, o por acreedor en
-  // barras apiladas, el país arriba y las provincias por la parte en bonos. La que no informó su deuda no va en ninguna de las dos
-  "deuda-provincias": conTablas("deuda-provincias", ["deuda_provincias"], a => {
-    const v = MED["deuda-provincias"], el = G("deuda-provincias"), datos = T.deuda_provincias.filter(r => r.millones != null);
-    const fp = datos.find(r => r.codigo_indec === prov);
-    let txt = LEAD["deuda-provincias"](v);
-    $("deuda-provincias-ley").hidden = v !== "acreedor";
-    if (v === "acreedor") {
-      const cl = [{k: "pct_bonos", lab: "Bonos", c: "#1F5E97"}, {k: "pct_organismos", lab: "Organismos internacionales", c: "#74ACDF", texto: "#18212B"},
-        {k: "pct_nacion", lab: "Gobierno nacional y fondos fiduciarios", c: "#F6B40E", texto: "#18212B"},
-        {k: "pct_bancos_otros", lab: "Bancos y otros", c: "#C3CAD2", texto: "#18212B"}];
-      leyenda("deuda-provincias-ley", cl);
-      if (fp) txt += ` En ${fp.territorio}, el ${pct(fp.pct_bonos)} era en bonos y el ${pct(fp.pct_nacion)}, con el Gobierno nacional.`;
-      $t("deuda-provincias").textContent = txt;
-      const pais = {codigo_indec: "00", territorio: "Todo el país", ...Object.fromEntries(cl.map(k => [k.k, DPR[k.k]]))};
-      return apiladasH(el, {anim: a, claves: cl, data: [pais, ...datos.sort((p, q) => q.pct_bonos - p.pct_bonos)]});
-    }
-    if (fp && fp.territorio !== DPR.top[0] && fp.territorio !== DPR.bajo[0])
-      txt += ` En ${fp.territorio}, ${pesosDeuda(fp.por_habitante)} por habitante${conVeces(fp.por_habitante, DPR.pais_hab)}.`;
-    $t("deuda-provincias").textContent = txt;
-    barrasH(el, {anim: a, data: datos, k: "por_habitante", vf: milDeuda, af: ejeMil, ref: DPR.pais_hab, refLab: `País ${milDeuda(DPR.pais_hab)}`,
-      tip: d => `<b>${d.territorio}</b><br>${pesosDeuda(d.por_habitante)} por habitante al ${DPR.fecha_txt}<br>${billones(d.millones)} en total<br>` +
-        `${pct(d.pct_bonos)} en bonos`});
-  }),
-  // las sociedades nuevas (plan de mejora, sección 10, 31 de octubre de 2026): cada provincia con la línea del país, o el país año por año,
-  // con las SAS aparte
-  sociedades: a => {
-    const v = MED.sociedades, el = G("sociedades"), fp = T.sociedades_provincias.find(r => r.codigo_indec === prov);
-    let txt = LEAD.sociedades(v);
-    if (v === "serie") {
-      $t("sociedades").textContent = txt;
-      return lineas(el, {anim: a, data: T.sociedades_pais, x: "anio", y0: 0, vf: n0, yf: ejeMil, xl: r => String(r.anio),
-        series: [{k: "sociedades", lab: "Sociedades comerciales", corto: "Todas", c: NAR}, {k: "sas", lab: "SAS", corto: "SAS", c: FRI}]});
-    }
-    if (fp && ![SOC.top[0], SOC.top2[0], SOC.bajo[0]].includes(fp.territorio))
-      txt += ` En ${fp.territorio}, ${n1(fp.cada_100000)} cada 100.000 habitantes (${n0(fp.sociedades)} sociedades).`;
-    $t("sociedades").textContent = txt;
-    barrasH(el, {anim: a, data: T.sociedades_provincias, k: "cada_100000", vf: n1, af: n0, ref: SOC.pais, refLab: `País ${n1(SOC.pais)}`,
-      tip: d => `<b>${d.territorio}</b><br>${n0(d.sociedades)} sociedades nuevas en ${SOC.anio}<br>${n1(d.cada_100000)} cada 100.000 habitantes<br>` +
-        `${pct(d.pct_sas)} SAS<br>${n0(d.sociedades_anterior)} en ${SOC.anio - 1}`});
-  },
-  // los médicos por provincia (plan de mejora, sección 10, 31 de octubre de 2026): cada provincia con la línea del país
-  // las escuelas primarias cada 1.000 chicos de 5 a 14 años (fase 3 de docs/roadmap/ESTABLECIMIENTOS.md, 9 de noviembre de 2026): cada
-  // provincia con la línea del país
-  "escuelas-primarias": a => {
-    const fp = T.escuelas_primarias_provincias.find(r => r.codigo_indec === prov);
-    const nombrados = [ESP.top[0], ESP.top2[0], ESP.bajo[0], ESP.bajo2[0], ESP.rural_top[0], ESP.rural_bajo[0]];
-    let txt = LEAD["escuelas-primarias"]();
-    if (fp && !nombrados.includes(fp.territorio))
-      txt += ` En ${fp.territorio}, ${n1(fp.primarias_cada_1000_chicos)} cada 1.000 chicos (${n0(fp.escuelas_primarias)} escuelas, el ` +
-        `${pct(fp.pct_rurales)} rurales).`;
-    $t("escuelas-primarias").textContent = txt;
-    barrasH(G("escuelas-primarias"), {anim: a, data: T.escuelas_primarias_provincias, k: "primarias_cada_1000_chicos", vf: n1, af: n0,
-      ref: ESP.pais, refLab: `País ${n1(ESP.pais)}`,
-      tip: d => `<b>${d.territorio}</b><br>${n1(d.primarias_cada_1000_chicos)} escuelas primarias cada 1.000 chicos de 5 a 14 años<br>` +
-        `${n0(d.escuelas_primarias)} escuelas (${pct(d.pct_rurales)} rurales) y ${n0(d.chicos_5_14)} chicos`});
-  },
-  "escuelas-secundarias": a => {
-    const fp = T.escuelas_secundarias_provincias.find(r => r.codigo_indec === prov);
-    const nombrados = [ESS.top[0], ESS.top2[0], ESS.bajo[0], ESS.bajo2[0], ESS.por_primaria_min[0], ESS.por_primaria_max[0]];
-    let txt = LEAD["escuelas-secundarias"]();
-    if (fp && !nombrados.includes(fp.territorio))
-      txt += ` En ${fp.territorio}, ${n1(fp.secundarias_cada_1000_chicos)} cada 1.000 chicos (${n0(fp.escuelas_secundarias)} escuelas, el ` +
-        `${pct(fp.pct_rurales)} rurales).`;
-    $t("escuelas-secundarias").textContent = txt;
-    barrasH(G("escuelas-secundarias"), {anim: a, data: T.escuelas_secundarias_provincias, k: "secundarias_cada_1000_chicos", vf: n1, af: n0,
-      ref: ESS.pais, refLab: `País ${n1(ESS.pais)}`,
-      tip: d => `<b>${d.territorio}</b><br>${n1(d.secundarias_cada_1000_chicos)} escuelas secundarias cada 1.000 chicos de 12 a 17 años<br>` +
-        `${n0(d.escuelas_secundarias)} escuelas (${pct(d.pct_rurales)} rurales) y ${n0(d.chicos_12_17)} chicos<br>` +
-        `${n2(d.secundarias_por_primaria)} secundarias por cada primaria`});
-  },
-  // las escuelas primarias privadas y Aprender por departamento: cada punto es un departamento, con su provincia en el nombre (dispersion() nombra
-  // y separa los puntos por codigo_indec, así que va el código del departamento). Los de la provincia elegida se nombran primero
-  "privadas-aprender": conTablas("privadas-aprender", ["privadas_aprender_departamentos"], a => {
-    const datos = T.privadas_aprender_departamentos.map(d => ({...d, codigo_indec: d.codigo_dep, prov: d.codigo_indec, territorio: `${d.departamento} (${d.provincia})`}));
-    dispersion(G("privadas-aprender"), {anim: a, data: datos, x: "pct_privadas", y: "mat_logra",
-      xLab: `Escuelas primarias privadas, ${PAP.fecha}`, yLab: `Satisfactorio o avanzado en matemática, ${PAP.anio}`});
-  }),
-  // la distancia de las escuelas rurales al hospital público más cercano (fase 3 de docs/roadmap/ESTABLECIMIENTOS.md, 9 de noviembre de 2026):
-  // cada provincia con la línea del país. CABA no tiene escuelas rurales
-  "distancia-hospital": a => {
-    const v = MED["distancia-hospital"], ti = v === "terapia", k = ti ? "mediana_km_terapia" : "mediana_km_hospital", pais = ti ? DHO.pais_ti : DHO.pais;
-    const fp = T.distancia_hospital_provincias.find(r => r.codigo_indec === prov);
-    const nombrados = ti ? [DHO.top_ti[0], DHO.top2_ti[0], DHO.bajo_ti[0]] : [DHO.top[0], DHO.top2[0], DHO.bajo[0], ...DHO.pocas.map(x => x[0])];
-    let txt = LEAD["distancia-hospital"](v);
-    if (fp && !nombrados.includes(fp.territorio))
-      txt += ` En ${fp.territorio}, la mitad de sus ${n0(fp.escuelas_rurales)} escuelas rurales queda a más de ${n1(fp[k])} km.`;
-    else if (prov === "02") txt += " CABA no tiene escuelas rurales.";
-    $t("distancia-hospital").textContent = txt;
-    barrasH(G("distancia-hospital"), {anim: a, data: T.distancia_hospital_provincias, k, vf: n1, af: n0, ref: pais, refLab: `País ${n1(pais)} km`,
-      tip: d => `<b>${d.territorio}</b><br>${n0(d.escuelas_rurales)} escuelas rurales<br>La mitad, a más de ${n1(d.mediana_km_hospital)} km de un hospital ` +
-        `público con internación (${pct(d.pct_mas_20_km)} a más de 20 km)<br>La mitad, a más de ${n1(d.mediana_km_terapia)} km de uno con terapia ` +
-        `intensiva (${pct(d.pct_terapia_mas_100_km)} a más de 100 km)`});
-  },
-  // los hospitales públicos por provincia (fase 3 de docs/roadmap/ESTABLECIMIENTOS.md, 9 de noviembre de 2026): cada provincia con la línea del país
-  hospitales: a => {
-    const v = MED.hospitales, ti = v === "terapia", k = `${v}_cada_100000`, pais = ti ? HSP.pais_ti : HSP.pais;
-    const fp = T.hospitales_provincias.find(r => r.codigo_indec === prov);
-    const nombrados = ti ? [HSP.top_ti[0], HSP.bajo_ti[0]] : [HSP.top[0], HSP.top2[0], HSP.bajo[0], HSP.bajo2[0]];
-    let txt = LEAD.hospitales(v);
-    if (fp && !nombrados.includes(fp.territorio))
-      txt += ` En ${fp.territorio}, ${n1(fp[k])} cada 100.000 habitantes (${n0(ti ? fp.con_terapia_intensiva : fp.hospitales)}).`;
-    $t("hospitales").textContent = txt;
-    barrasH(G("hospitales"), {anim: a, data: T.hospitales_provincias, k, vf: n1, af: ti ? n1 : n0, ref: pais, refLab: `País ${n1(pais)}`,
-      tip: d => `<b>${d.territorio}</b><br>${n1(d.hospitales_cada_100000)} hospitales públicos con internación cada 100.000 habitantes (${n0(d.hospitales)})<br>` +
-        `${n1(d.terapia_cada_100000)} con terapia intensiva cada 100.000 (${n0(d.con_terapia_intensiva)})`});
-  },
-  medicos: a => {
-    const v = MED.medicos, k = `${v}_cada_10000`, pais = v === "habilitados" ? MDC.pais_hab : MDC.pais;
-    const fp = T.medicos_provincias.find(r => r.codigo_indec === prov);
-    let txt = LEAD.medicos(v);
-    if (fp && ![MDC.top[0], MDC.top2[0], MDC.bajo[0], MDC.bajo2[0], MDC.inactivos_max[0]].includes(fp.territorio))
-      txt += ` En ${fp.territorio}, ${n1(fp[k])} cada 10.000 habitantes.`;
-    $t("medicos").textContent = txt;
-    barrasH(G("medicos"), {anim: a, data: T.medicos_provincias, k, vf: n1, af: n0, ref: pais, refLab: `País ${n1(pais)}`,
-      tip: d => `<b>${d.territorio}</b><br>${n1(d.activos_cada_10000)} médicos activos cada 10.000 habitantes (${n0(d.activos)})<br>` +
-        `${n1(d.habilitados_cada_10000)} habilitados cada 10.000 (${n0(d.habilitados)})<br>${pct(d.pct_activos)} de los habilitados, activos`});
-  },
-  // la cobertura del suelo (plan de mejora, sección 10, 31 de octubre de 2026): cada provincia en el primer año y en el último, sin verde ni
-  // rojo (no es un cambio bueno o malo indiscutido)
-  "cobertura-suelo": a => {
-    const v = MED["cobertura-suelo"], fp = T.cobertura_suelo_provincias.find(r => r.codigo_indec === prov);
-    let txt = LEAD["cobertura-suelo"](v);
-    if (fp && !MBS.top.some(t => t[0] === fp.territorio) && fp.territorio !== MBS.bos_top[0])
-      txt += ` En ${fp.territorio}, del ${pct(fp[`pct_${v}_inicio`])} al ${pct(fp[`pct_${v}_final`])}.`;
-    $t("cobertura-suelo").textContent = txt;
-    pesas(G("cobertura-suelo"), {anim: a, data: T.cobertura_suelo_provincias, a: `pct_${v}_inicio`, b: `pct_${v}_final`, la: String(MBS.ini),
-      lb: String(MBS.fin), uDif: " puntos", pais: v === "bosque" ? [MBS.bos_ini, MBS.bos] : [MBS.nat_ini, MBS.nat]});
-  },
-  // la telefonía fija (plan de mejora, sección 10, 31 de octubre de 2026): cada provincia con la línea del país, o la evolución del país por
-  // trimestre, cada 100 hogares y cada 100 habitantes
-  telefonia: a => {
-    const v = MED.telefonia, el = G("telefonia"), fp = T.telefonia_fija_provincias.find(r => r.codigo_indec === prov);
-    let txt = LEAD.telefonia(v);
-    if (v === "serie") {
-      $t("telefonia").textContent = txt;
-      return lineas(el, {anim: a, data: T.telefonia_fija_pais, x: "x", y0: 0, vf: n1, yf: n0, xl: r => `${r.periodo[0]}.º trimestre de ${r.periodo.slice(2)}`, mensual: true,
-        series: [{k: "accesos_100_hogares", lab: "Cada 100 hogares", corto: "Hogares", c: NAR}, {k: "accesos_100_habitantes", lab: "Cada 100 habitantes", corto: "Habitantes", c: FRI}]});
-    }
-    if (fp && ![TF.top[0], TF.top2[0], TF.bajo[0]].includes(fp.territorio))
-      txt += ` En ${fp.territorio}, ${n1(fp.accesos_100_hogares)}, contra ${n1(fp[`accesos_100_hogares_${TF.ini}`])} en el ${TF.ini_trim}.`;
-    $t("telefonia").textContent = txt;
-    barrasH(el, {anim: a, data: T.telefonia_fija_provincias, k: "accesos_100_hogares", vf: n1, af: n0, ref: TF.pais, refLab: `País ${n1(TF.pais)}`,
-      tip: d => `<b>${d.territorio}</b><br>${n1(d.accesos_100_hogares)} accesos cada 100 hogares en el ${TF.trim}<br>${n1(d.accesos_100_habitantes)} cada ` +
-        `100 habitantes<br>En el ${TF.ini_trim}, ${n1(d[`accesos_100_hogares_${TF.ini}`])} cada 100 hogares`});
-  },
-  "tv-paga": a => {
-    const v = MED["tv-paga"], el = G("tv-paga"), fp = T.tv_paga_provincias.find(r => r.codigo_indec === prov);
-    let txt = LEAD["tv-paga"](v);
-    if (v === "serie") {
-      $t("tv-paga").textContent = txt;
-      return lineas(el, {anim: a, data: T.tv_paga_pais, x: "x", y0: 0, vf: n1, yf: n0, xl: r => `${r.periodo[0]}.º trimestre de ${r.periodo.slice(2)}`, mensual: true,
-        series: [{k: "suscripcion_100_hogares", lab: "TV por suscripción", corto: "Suscripción", c: NAR}, {k: "satelital_100_hogares", lab: "TV satelital", corto: "Satelital", c: FRI}]});
-    }
-    if (fp && ![TVP.top[0], TVP.top2[0], TVP.bajo[0]].includes(fp.territorio))
-      txt += ` En ${fp.territorio}, ${n1(fp.accesos_100_hogares)}, contra ${n1(fp[`accesos_100_hogares_${TVP.ini_prov}`])} en el ${TVP.ini_prov_trim}.`;
-    $t("tv-paga").textContent = txt;
-    barrasH(el, {anim: a, data: T.tv_paga_provincias, k: "accesos_100_hogares", vf: n1, af: n0, ref: TVP.pais, refLab: `País ${n1(TVP.pais)}`,
-      tip: d => `<b>${d.territorio}</b><br>${n1(d.accesos_100_hogares)} accesos cada 100 hogares en el ${TVP.trim}<br>${n1(d.accesos_100_habitantes)} cada ` +
-        `100 habitantes<br>En el ${TVP.ini_prov_trim}, ${n1(d[`accesos_100_hogares_${TVP.ini_prov}`])} cada 100 hogares`});
-  },
-  // el abandono y la repitencia en la secundaria (plan de mejora, sección 10, 31 de octubre de 2026): cada provincia con la línea del país, la
-  // que tiene el régimen académico nuevo con la aclaración al lado del nombre, o la evolución del país
-  abandono: a => {
-    const v = MED.abandono, el = G("abandono"), fp = T.abandono_provincias.find(r => r.codigo_indec === prov);
-    let txt = LEAD.abandono(v);
-    if (v === "serie") {
-      $t("abandono").textContent = txt;
-      return lineas(el, {anim: a, data: T.abandono_pais, x: "anio", y0: 0, vf: pct, yf: v => n0(v) + "%", xl: r => `de ${r.anio} a ${r.anio + 1}`,
-        series: [{k: "abandono", lab: "Abandono", corto: "Abandono", c: NAR}, {k: "repitencia", lab: "Repitencia", corto: "Repitencia", c: FRI}]});
-    }
-    const k = v === "rep" ? "repitencia" : "abandono", pais = v === "rep" ? ABN.rep_pais : ABN.pais;
-    const ext = v === "rep" ? [ABN.rep_top[0], ABN.rep_bajo[0]] : [ABN.top[0], ABN.top2[0], ABN.bajo[0]];
-    if (fp && !fp.regimen_nuevo && !ext.includes(fp.territorio)) txt += ` En ${fp.territorio}, el ${pct(fp[k])}.`;
-    $t("abandono").textContent = txt;
-    // con lugar para "Buenos Aires (régimen nuevo)" entero, y en el celular "Bs. As. (rég. nuevo)"
-    barrasH(el, {anim: a, data: T.abandono_provincias.map(r => r.regimen_nuevo ? {...r, territorio: `${r.territorio} (régimen nuevo)`} : r), k,
-      l: 196, lAngosto: 140, corto: d => d.regimen_nuevo ? "Bs. As. (rég. nuevo)" : d.territorio, vf: pct, af: v => n0(v) + "%", ref: pais, refLab: `País ${pct(pais)}`,
-      tip: d => `<b>${d.territorio}</b><br>Abandono: ${pct(d.abandono)} de ${ABN.anio} a ${ABN.sig}<br>Repitencia: ${pct(d.repitencia)} de ` +
-        `${ABN.rep_anio} a ${ABN.rep_sig}<br>Abandono de ${ABN.ini} a ${ABN.ini + 1}: ${pct(d[`abandono_${ABN.ini}`])}`});
-  },
-  // inflación (etapa 25): en doce meses o mes a mes, el país y la región de la provincia elegida, o las seis regiones en el último mes
-  inflacion: conTablas("inflacion", () => MED.inflacion === "region" ? [] : ["inflacion_mensual"], a => {
-    const v = MED.inflacion, el = G("inflacion"), regs = REG_IPC[prov] || [];
-    let txt = LEAD.inflacion(v);
-    if (v === "monto") { $t("inflacion").textContent = txt; return calcInflacion(el); }
-    if (v === "region") {
-      txt += enSuRegion(T.inflacion_regiones, "interanual", pct);
-      $t("inflacion").textContent = txt;
-      const data = T.inflacion_regiones.filter(r => r.codigo !== "nacional").map(r => ({codigo_indec: "r-" + r.codigo, territorio: r.region, ia: r.interanual,
-        m: r.mensual, anio: r.en_el_anio}));
-      barrasH(el, {anim: a, data, k: "ia", vf: pct, af: v => n0(v) + "%", ref: EIP.interanual, refLab: `País ${pct(EIP.interanual)}`, l: 150, lAngosto: 128,
-        marcar: new Set(regs.map(r => "r-" + r)),
-        tip: d => `<b>${d.territorio}</b><br>${pct(d.ia)} en los doce meses hasta ${EIP.mes}<br>${pct(d.m)} en el mes<br>${pct(d.anio)} en lo que va del año`});
-      el.resaltar = null;  // con otra provincia elegida se vuelve a dibujar
-      return;
-    }
-    const k = v === "mes" ? "mensual" : "interanual";
-    txt += enSuRegion(T.inflacion_regiones, v === "mes" ? "mensual" : "interanual", pct);
-    $t("inflacion").textContent = txt;
-    const nom = Object.fromEntries(T.inflacion_regiones.map(r => [r.codigo, r.region]));
-    const data = T.inflacion_mensual.filter(r => r[k] != null).map(r => ({periodo: r.periodo, t: tPer(r.periodo), pais: r[k],
-      ...Object.fromEntries(regs.map(g => [g, r[k + "_" + g]]))}));
-    lineas(el, {anim: a, data, x: "t", y0: 0, vf: pct, yf: v => n0(v) + "%", xl: r => mesPer(r.periodo), mensual: true,
-      series: [{k: "pais", lab: "Todo el país", c: NAR}, ...regs.map((g, i) => ({k: g, lab: nom[g], c: i ? css("--sol-borde") : FRI}))]});
-  }),
-  // inflación por rubro (etapa 25): las doce divisiones, las tres categorías o los bienes y los servicios, en los doce meses hasta el último mes
-  "inflacion-rubros": a => {
-    const g = MED["inflacion-rubros"];
-    $t("inflacion-rubros").textContent = LEAD["inflacion-rubros"](g);
-    $("ipd-elige").hidden = g !== "detalle";
-    if (g === "tu") return cargarTabla("inflacion_personal").then(() => calcInflacionPersonal(G("inflacion-rubros")),
-      () => sinDatos(G("inflacion-rubros"), "No se pudieron cargar los datos. Probá recargar la página."));
-    if (g === "detalle") return cargarTabla("inflacion_detalle").then(() => ipcDetalle(a),
-      () => sinDatos(G("inflacion-rubros"), "No se pudieron cargar los datos. Probá recargar la página."));
-    // los códigos van con una letra delante: un código de rubro no tiene que coincidir con el de la provincia elegida
-    const data = T.inflacion_rubros.filter(r => r.grupo === g).map(r => ({codigo_indec: "i" + r.codigo, territorio: r.rubro, corto: r.corto, ia: r.interanual, m: r.mensual}));
-    barrasH(G("inflacion-rubros"), {anim: a, data, k: "ia", vf: pct, af: v => n0(v) + "%", ref: EIP.interanual, refLab: `Nivel general ${pct(EIP.interanual)}`,
-      paisLab: "Nivel general", l: g === "division" ? 236 : 150, lAngosto: 150, corto: d => d.corto,
-      tip: d => `<b>${d.territorio}</b><br>${pct(d.ia)} en los doce meses hasta ${EIP.mes}<br>${pct(d.m)} en el mes`});
-  },
-  // el salario mínimo frente a la canasta básica total y la alimentaria de un hogar de cuatro integrantes, mes a mes (14 de noviembre de 2026).
-  // La línea del 100% es la canasta entera
-  "salario-minimo": conTablas("salario-minimo", ["salario_minimo_canasta"], a => lineas(G("salario-minimo"), {anim: a, mensual: true,
-    data: T.salario_minimo_canasta.map(r => ({...r, t: tPer(r.periodo)})), x: "t", y0: 0, vf: pct, yf: v => n0(v) + "%", xl: r => mesPer(r.periodo),
-    ref: 100, refLab: "100%: la canasta entera", refLabCorto: "100%",
-    series: [{k: "pct_canasta_alimentaria", lab: "Canasta alimentaria", corto: "Alimentaria", c: FRI},
-      {k: "pct_canasta_total", lab: "Canasta total", corto: "Total", c: NAR, w: 3}]})),
-  // canastas básicas (etapa 25): las seis regiones en el último mes del informe semestral, o la del Gran Buenos Aires frente a los precios
-  canastas: conTablas("canastas", () => MED.canastas === "precios" ? ["canasta_mensual"] : [], a => {
-    const v = MED.canastas, el = G("canastas"), regs = REG_IPC[prov] || [];
-    let txt = LEAD.canastas(v);
-    if (v === "precios") {
-      $t("canastas").textContent = txt;
-      const data = T.canasta_mensual.filter(r => r.interanual_cbt != null).map(r => ({periodo: r.periodo, t: tPer(r.periodo), cbt: r.interanual_cbt,
-        cba: r.interanual_cba, ipc: r.interanual_ipc_gba}));
-      return lineas(el, {anim: a, data, x: "t", y0: 0, vf: pct, yf: v => n0(v) + "%", xl: r => mesPer(r.periodo), mensual: true,
-        series: [{k: "cbt", lab: "Canasta básica total", corto: "Total", c: NAR}, {k: "cba", lab: "Canasta básica alimentaria", corto: "Alimentaria", c: FRI},
-          {k: "ipc", lab: "Precios del Gran Buenos Aires", corto: "Precios", c: css("--muted"), dash: "4 3"}]});
-    }
-    txt += enSuRegion(T.canasta_regiones, "cbt", v => n0(v) + " pesos por adulto equivalente");
-    $t("canastas").textContent = txt;
-    const data = T.canasta_regiones.map(r => ({codigo_indec: "r-" + r.codigo, territorio: r.region, cbt: r.cbt, cba: r.cba, ia: r.interanual_cbt}));
-    barrasH(el, {anim: a, data, k: "cbt", vf: n0, af: v => n0(v / 1000) + " mil", l: 150, lAngosto: 128, marcar: new Set(regs.map(r => "r-" + r)),
-      tip: d => `<b>${d.territorio}</b><br>Canasta básica total: ${n0(d.cbt)} pesos por adulto equivalente<br>Canasta básica alimentaria: ${n0(d.cba)} pesos` +
-        (d.ia != null ? `<br>La total, en doce meses: ${cambioPct(d.ia)}` : "")});
-    el.resaltar = null;  // con otra provincia elegida se vuelve a dibujar
-  }),
-  // producción industrial y minera (3 de noviembre de 2026): las ramas de la industria o los grupos de la minería frente al mismo mes del año
-  // anterior, o los dos niveles generales sin estacionalidad mes a mes
-  industria: conTablas("industria", () => MED.industria === "mes" ? ["produccion_mensual"] : [], a => {
-    const v = MED.industria || "industria", el = G("industria");
-    $t("industria").textContent = LEAD.industria(v);
-    if (v === "mes") return lineas(el, {anim: a, data: T.produccion_mensual.map(r => ({...r, t: tPer(r.periodo)})), x: "t", y0: 0, vf: n1, yf: n0,
-      xl: r => mesPer(r.periodo), mensual: true, series: [{k: "industria", lab: "Industria", c: NAR}, {k: "mineria", lab: "Minería", c: FRI}]});
-    const min = v === "mineria", ref = min ? IND.min_ia : IND.ia, todo = min ? "Toda la minería" : "Toda la industria";
-    const data = T.industria_ramas.filter(r => r.sector === (min ? "mineria" : "industria"))
-      .map((r, i) => ({codigo_indec: "i" + i, territorio: r.rama, v: r.interanual, desc: r.descripcion}));
-    barrasH(el, {anim: a, data, k: "v", vf: pct, af: x => n0(x) + "%", ref, refLab: `${todo} ${pct(ref)}`, paisLab: todo, l: 176, lAngosto: 140,
-      tip: d => `<b>${d.desc}</b><br>${pct(d.v)} en ${IND.mes}, frente a ${IND.mes_ant}`});
-    el.resaltar = null;
-  }),
-  // canasta de crianza (3 de noviembre de 2026): las cuatro edades en el último mes, en bienes y servicios y en cuidado, o mes a mes descontada la inflación
-  crianza: conTablas("crianza", () => MED.crianza === "mes" ? ["canasta_crianza"] : [], a => {
-    const v = MED.crianza, el = G("crianza");
-    $t("crianza").textContent = LEAD.crianza(v);
-    if (v === "mes") return lineas(el, {anim: a, data: T.canasta_crianza.filter(r => r.real_6a12 != null).map(r => ({...r, t: tPer(r.periodo)})), x: "t", y0: 0,
-      vf: n0, yf: x => n0(x / 1000) + " mil", xl: r => mesPer(r.periodo), mensual: true,
-      series: ECR.edades.map((e, i) => ({k: "real_" + e.k, lab: e.lab, c: [css("--faint"), css("--celeste"), FRI, NAR][i]}))});
-    if (v === "salario") return barrasH(el, {anim: a, data: T.crianza_salario.filter(r => r.codigo_indec !== "00"), k: "pct_6a12", vf: pct, af: x => n0(x) + "%",
-      ref: ECR.salario.pais, refLab: `País ${pct(ECR.salario.pais)}`,
-      tip: d => `<b>${d.territorio}</b><br>Salario bruto promedio: ${n0(d.salario)} pesos<br>Canasta de 6 a 12 años: ${pct(d.pct_6a12)} del salario<br>` +
-        `De 1 a 3 años: ${pct(d.pct_1a3)}`});
-    barrasH(el, {anim: a, data: ECR.edades.map(e => ({codigo_indec: "c-" + e.k, territorio: e.lab, tot: e.tot, bys: e.bys, cuid: e.cuid})), k: "tot",
-      vf: n0, af: x => n0(x / 1000) + " mil", l: 150, lAngosto: 128,
-      tip: d => `<b>${d.territorio}</b><br>Total: ${n0(d.tot)} pesos por mes<br>Bienes y servicios: ${n0(d.bys)}<br>Cuidado: ${n0(d.cuid)}`});
-    el.resaltar = null;
-  }),
-  // salarios registrados descontada la inflación (etapa 25): índice del INDEC dividido por el IPC, diciembre de 2016 = 100
-  "salario-real": conTablas("salario-real", () => ["salario_real_mensual"], a => {
-    $t("salario-real").textContent = LEAD["salario-real"]();
-    lineas(G("salario-real"), {anim: a, data: T.salario_real_mensual.map(r => ({...r, t: tPer(r.periodo)})), x: "t", y0: 0, vf: n1, yf: n0,
-      xl: r => mesPer(r.periodo), mensual: true, series: [{k: "privado", lab: "Privado registrado", c: NAR}, {k: "publico", lab: "Público", c: FRI}]});
-  }),
-  // actividad económica (etapa 25): el EMAE sin estacionalidad mes a mes, o cada sector en los últimos doce meses
-  // "socios-que" y "valor-kilo" (los dibujos de externo.html) están en scripts/partes/externo.js: plan técnico, fase 5
-  "precio-consumo": a => {
-    const v = MED["precio-consumo"] || "carne";
-    $t("precio-consumo").textContent = LEAD["precio-consumo"](v);
-    lineas(G("precio-consumo"), {anim: a, data: T.precio_consumo.filter(r => r.producto === v), x: "anio", y0: 40, ref: 100, refLab: `${PCO[v].ini} = 100`, yf: x => x, vf: n0,
-      xl: d => `${d.anio}<br><span class="suave">Consumo: ${n1(d.consumo_valor)} ${d.consumo_unidad}</span>`,
-      series: [{k: "precio_real", lab: "Precio", c: NAR, w: 3}, {k: "consumo", lab: "Consumo", c: FRI, ct: css("--sol-texto"), w: 3}]});
-  },
-  mayoristas: conTablas("mayoristas", () => ["mayoristas_mensual"], a => {
-    const v = MED.mayoristas || "doce", doce = v === "doce", el = G("mayoristas"), p = doce ? "ia_" : "";
-    $t("mayoristas").textContent = LEAD.mayoristas(v);
-    lineas(el, {anim: a, data: T.mayoristas_mensual.filter(r => r.ia_ipc != null || !doce).map(r => ({...r, t: tPer(r.periodo)})), x: "t", y0: 0,
-      vf: doce ? pct : n0, yf: doce ? (x => n0(x) + "%") : n0, xl: r => mesPer(r.periodo), mensual: true,
-      series: [{k: p + "ipim", lab: "Mayoristas", c: NAR}, {k: p + "ipc", lab: "Al consumidor", c: FRI, ct: css("--sol-texto")}, {k: p + "dolar", lab: "Dólar", c: css("--ink")}]});
-  }),
-  "sectores-empleo": a => {
-    const v = MED["sectores-empleo"] || "uno", k = v === "uno" ? "1" : "10";
-    $t("sectores-empleo").textContent = LEAD["sectores-empleo"](v);
-    const data = T.sectores_empleo.map((r, i) => ({codigo_indec: "s" + i, territorio: r.corto, act: r["actividad_" + k], emp: r["empleo_" + k], sector: r.sector}));
-    // sin animación: los dos puntos son dos medidas del mismo período, no un antes y un después
-    pesas(G("sectores-empleo"), {anim: false, data, a: "act", b: "emp", la: "Actividad", lb: "Empleo registrado", vf: conSigno, af: x => x + "%",
-      x0: Math.min(0, d3.min(data, d => Math.min(d.act, d.emp)) * 1.1), ref: 0, refLab: "Sin cambio", refC: "--muted"});
-  },
-  emae: conTablas("emae", () => MED.emae === "mes" ? ["actividad_mensual"] : [], a => {
-    const v = MED.emae, el = G("emae");
-    $t("emae").textContent = LEAD.emae(v);
-    if (v === "mes") return lineas(el, {anim: a, data: T.actividad_mensual.map(r => ({...r, t: tPer(r.periodo)})), x: "t", y0: 0, vf: n1, yf: n0,
-      xl: r => mesPer(r.periodo), mensual: true, series: [{k: "desestacionalizada", lab: "Sin estacionalidad", corto: "Actividad", c: NAR}]});
-    const data = T.actividad_sectores.map(r => ({codigo_indec: "s" + r.letra, territorio: r.sector, corto: r.corto, v: r.doce_meses, ia: r.interanual}));
-    barrasH(el, {anim: a, data, k: "v", vf: pct, af: v => n0(v) + "%", ref: EMA.doce, refLab: `Toda la economía ${pct(EMA.doce)}`, paisLab: "Toda la economía",
-      l: 236, lAngosto: 150, corto: d => d.corto,
-      tip: d => `<b>${d.territorio}</b><br>${pct(d.v)} en los doce meses hasta ${EMA.mes}, frente a los doce anteriores<br>${pct(d.ia)} en el mes, frente a ${EMA.mes_ant}`});
-  }),
-  // refugio (etapa 26): solicitudes por año, por nacionalidad en el último año, o personas refugiadas y solicitantes de asilo en el país
-  refugio: conTablas("refugio", () => ({nacionalidad: ["refugio_nacionalidades"], acnur: ["refugio_acnur"]})[MED.refugio] || [], a => {
-    const v = MED.refugio, el = G("refugio");
-    $t("refugio").textContent = LEAD.refugio(v);
-    if (v === "nacionalidad") return barrasH(el, {anim: a, data: T.refugio_nacionalidades.map((r, i) => ({codigo_indec: "n" + i, territorio: r.nacionalidad,
-      solicitudes: r.solicitudes, pct: r.pct})), k: "solicitudes", vf: n0, af: n0, l: 236, lAngosto: 150,
-      corto: d => d.territorio.replace(/ \(\d+ nacionalidades\)/, ""),
-      tip: d => `<b>${d.territorio}</b><br>${n0(d.solicitudes)} solicitudes en ${MGR.anio}<br>${pct(d.pct)} del total`});
-    if (v === "acnur") return lineas(el, {anim: a, data: T.refugio_acnur, x: "anio", y0: 0, vf: n0, yf: n0,
-      series: [{k: "refugiados", lab: "Personas refugiadas", corto: "Refugiadas", c: NAR}, {k: "solicitantes", lab: "Solicitantes de asilo", corto: "Solicitantes", c: FRI}]});
-    columnasApiladas(el, {anim: a, data: T.refugio_solicitudes, vf: n0, af: n0, unidad: "solicitudes",
-      claves: [{k: "solicitudes", lab: "Solicitudes", c: css("--celeste-fuerte")}]});
-  }),
-  // ventas en supermercados (etapa 26): la variación de cada provincia en doce meses, o el índice del país mes a mes
-  supermercados: conTablas("supermercados", () => MED.supermercados === "mes" ? ["supermercados_mensual"] : [], a => {
-    const v = MED.supermercados, el = G("supermercados"), fp = T.supermercados_provincias.find(r => r.codigo_indec === prov);
-    let txt = LEAD.supermercados(v);
-    if (v === "mes") {
-      $t("supermercados").textContent = txt;
-      return lineas(el, {anim: a, data: T.supermercados_mensual.map(r => ({...r, t: tPer(r.periodo)})), x: "t", y0: 0, vf: n1, yf: n0,
-        xl: r => mesPer(r.periodo), mensual: true, series: [{k: "desestacionalizada", lab: "Sin estacionalidad", corto: "Ventas", c: NAR}]});
-    }
-    if (fp && fp.territorio !== ESU.prov.top[0] && fp.territorio !== ESU.prov.bajo[0]) txt += ` En ${fp.territorio}, ${conSigno(fp.var_12m)}.`;
-    $t("supermercados").textContent = txt;
-    barrasH(el, {anim: a, data: T.supermercados_provincias, k: "var_12m", vf: conSigno, af: v => n0(v) + "%", ref: ESU.prov.pais,
-      refLab: `País ${conSigno(ESU.prov.pais)}`, tip: d => `<b>${d.territorio}</b><br>${conSigno(d.var_12m)} en los doce meses hasta ${ESU.mes}, ` +
-        `frente a los doce anteriores<br>${conSigno(d.var_mes)} en ${ESU.mes}, frente a ${ESU.mes_ant}<br>Con la inflación de la región ${d.region}`});
-  }),
-  // personas nacidas en otro país (etapa 25, Censo 2022): por provincia, o los países de nacimiento del país o de la provincia elegida
-  "nacidos-otro-pais": conTablas("nacidos-otro-pais", () => ({pais: ["nacidos_otro_pais_paises"], mapa: ["migraciones_departamentos"]})[MED["nacidos-otro-pais"]] || [], a => {
-    const v = MED["nacidos-otro-pais"], el = G("nacidos-otro-pais"), fp = T.nacidos_otro_pais_provincias.find(r => r.codigo_indec === prov);
-    let txt = LEAD["nacidos-otro-pais"](v);
-    const nd = fp && fp.pct_pais_no_declarado > 20 ? ` El ${pct(fp.pct_pais_no_declarado)} no declaró su país de nacimiento.` : "";
-    if (v === "mapa") {
-      const filas = T.migraciones_departamentos, porDep = Object.fromEntries(filas.map(r => [r.codigo_dep, r]));
-      $t("nacidos-otro-pais").textContent = (fp ? rangoDep(filas, "pct_otro_pais", "nacida en otro país") + " " : "") + txt;
-      return mapaDep(el, {anim: a, filas, k: "pct_otro_pais", nombre: "Nacidos en otro país", vf: pct, extra: id => {
-        const r = porDep[id];
-        // en dos renglones cortos: el cuadro no corta las líneas y en el celular no entraría en uno
-        return (r && r.primer_pais ? `<br>Origen más frecuente: ${r.primer_pais}<br>${pct(r.pct_primer_pais)} de quienes declararon su país` : "") +
-          (r && r.pct_no_declarado > 20 ? `<br>No declaró su país: ${pct(r.pct_no_declarado)}` : "");
-      }});
-    }
-    if (v === "pais") {
-      const cod = fp ? prov : "00", filas = T.nacidos_otro_pais_paises.filter(r => r.codigo_indec === cod && r.pais !== "País no declarado");
-      // con una provincia elegida, el gráfico muestra sus países: el texto lo dice primero
-      if (fp) txt = `En ${fp.territorio}, los países de nacimiento más frecuentes de las personas nacidas en otro país eran ` +
-        `${lista(filas.slice(0, 3).map(r => `${r.pais} (${pct(r.pct)})`))}, según el Censo 2022.${nd} En todo el país: ` + inicialMin(txt.replace(/, según el Censo\./, "."));
-      $t("nacidos-otro-pais").textContent = txt;
-      barrasH(el, {anim: a, data: filas.map((r, i) => ({codigo_indec: "p" + i, territorio: r.pais, personas: r.personas, pct: r.pct})), k: "personas",
-        vf: n0, af: v => v >= 1e3 ? n0(v / 1e3) + " mil" : n0(v), l: 150, lAngosto: 118, cambiaConProv: true,
-        tip: d => `<b>${d.territorio}</b><br>${n0(d.personas)} personas<br>${pct(d.pct)} de las nacidas en otro país${fp ? " que vivían en " + fp.territorio : ""}`});
-      return;
-    }
-    if (fp && fp.territorio !== MGC.top[0] && !MGC.bajos[0].includes(fp.territorio)) txt += ` En ${fp.territorio}, el ${pct(fp.pct_otro_pais)}` +
-      `${conVeces(fp.pct_otro_pais, MGC.pct)}: ${n0(fp.en_otro_pais)} personas, sobre todo de ${fp.primer_pais}.${nd}`;
-    $t("nacidos-otro-pais").textContent = txt;
-    barrasH(el, {anim: a, data: T.nacidos_otro_pais_provincias.filter(r => r.codigo_indec !== "00"), k: "pct_otro_pais", vf: n1, af: n0, ref: MGC.pct,
-      refLab: `País ${n1(MGC.pct)}`, anota: true, tip: d => `<b>${d.territorio}</b><br>${pct(d.pct_otro_pais)} de la población<br>${n0(d.en_otro_pais)} personas<br>` +
-        `País más frecuente: ${d.primer_pais}`});
-  }),
-  // dónde nacieron las personas que viven en cada provincia (etapa 25, Censo 2022)
-  "migracion-interna": conTablas("migracion-interna", () => MED["migracion-interna"] === "mapa" ? ["migraciones_departamentos"] : [], a => {
-    const fp = T.nacidos_otro_pais_provincias.find(r => r.codigo_indec === prov), mapa = MED["migracion-interna"] === "mapa";
-    $("migracion-interna-ley").hidden = mapa;
-    if (mapa) {
-      $t("migracion-interna").textContent = (fp ? rangoDep(T.migraciones_departamentos, "pct_otra_provincia", "nacida en otra provincia") + " " : "") +
-        LEAD["migracion-interna"]("mapa");
-      return mapaDep(G("migracion-interna"), {anim: a, filas: T.migraciones_departamentos, k: "pct_otra_provincia", nombre: "Nacidos en otra provincia", vf: pct});
-    }
-    const cl = [{k: "pct_la_provincia", lab: "En la provincia", c: "#1F5E97"}, {k: "pct_otra_provincia", lab: "En otra provincia", c: "#74ACDF", texto: "#18212B"},
-      {k: "pct_otro_pais", lab: "En otro país", c: "#F6B40E", texto: "#18212B"}];
-    leyenda("migracion-interna-ley", cl);
-    let txt = LEAD["migracion-interna"]();
-    if (fp && fp.territorio !== MGC.otra_top[0] && !MGC.otra_bajos[0].includes(fp.territorio)) txt += ` En ${fp.territorio}, el ${pct(fp.pct_otra_provincia)}` +
-      ` había nacido en otra provincia y el ${pct(fp.pct_otro_pais)}, en otro país.`;
-    $t("migracion-interna").textContent = txt;
-    const pais = T.nacidos_otro_pais_provincias.find(r => r.codigo_indec === "00");
-    apiladasH(G("migracion-interna"), {anim: a, claves: cl, data: [{...pais, territorio: "Todo el país"},
-      ...T.nacidos_otro_pais_provincias.filter(r => r.codigo_indec !== "00").sort((p, q) => q.pct_la_provincia - p.pct_la_provincia)]});
-  }),
-  // personas nacidas en otro país en cada censo nacional (etapa 25)
-  "migracion-historia": a => lineas(G("migracion-historia"), {anim: a, data: T.migracion_censos, x: "anio", y0: 0, vf: pct, yf: v => n0(v) + "%",
-    series: [{k: "nacidos_otro_pais_pct", lab: "Nacidos en otro país", corto: "Otro país", c: NAR},
-      {k: "limitrofes_pct", lab: "Nacidos en países limítrofes", corto: "Limítrofes", c: FRI}]}),
-  // residencias otorgadas por la Dirección Nacional de Migraciones (etapa 25): por año, o por nacionalidad en el último año
-  radicaciones: conTablas("radicaciones", () => MED.radicaciones === "nacionalidad" ? ["radicaciones_nacionalidad"] : [], a => {
-    const v = MED.radicaciones, el = G("radicaciones"), cl = [{k: "permanentes", lab: "Permanentes", c: NAR}, {k: "temporarias", lab: "Temporarias", c: css("--celeste")}];
-    $t("radicaciones").textContent = LEAD.radicaciones(v);
-    leyenda("radicaciones-ley", cl);
-    $("radicaciones-ley").hidden = v !== "anio";
-    if (v === "nacionalidad") {
-      const filas = T.radicaciones_nacionalidad.filter(r => r.anio === MGD.anio && r.nacionalidad !== "Otras nacionalidades").slice(0, 12);
-      return barrasH(el, {anim: a, data: filas.map((r, i) => ({codigo_indec: "n" + i, territorio: r.nacionalidad, total: r.total, permanentes: r.permanentes,
-        temporarias: r.temporarias, pct: r.pct})), k: "total", vf: n0, af: v => v >= 1e3 ? n0(v / 1e3) + " mil" : n0(v), l: 150, lAngosto: 118,
-        tip: d => `<b>${d.territorio}</b><br>${n0(d.total)} residencias en ${MGD.anio}<br>${n0(d.permanentes)} permanentes y ${n0(d.temporarias)} temporarias<br>` +
-          `${pct(d.pct)} del total`});
-    }
-    columnasApiladas(el, {anim: a, data: T.radicaciones_anual, vf: n0, af: v => n0(v / 1e3) + " mil", unidad: "residencias otorgadas", cadaTick: 1, claves: cl});
-  }),
-  // personas nacidas en la Argentina que viven en otro país (etapa 25, Naciones Unidas): por año, o por país de destino
-  "argentinos-exterior": conTablas("argentinos-exterior", () => MED["argentinos-exterior"] === "pais" ? ["argentinos_exterior_destinos"] : [], a => {
-    const v = MED["argentinos-exterior"], el = G("argentinos-exterior");
-    $t("argentinos-exterior").textContent = LEAD["argentinos-exterior"](v);
-    if (v === "pais") return barrasH(el, {anim: a, data: T.argentinos_exterior_destinos.slice(0, 12).map((r, i) => ({codigo_indec: "d" + i, territorio: r.pais,
-      personas: r.personas, inicio: r.personas_inicio, pct: r.pct})), k: "personas", vf: n0, af: v => v >= 1e3 ? n0(v / 1e3) + " mil" : n0(v), l: 150, lAngosto: 118,
-      tip: d => `<b>${d.territorio}</b><br>${n0(d.personas)} personas en ${MGO.anio}<br>${pct(d.pct)} del total<br>En ${MGO.desde}, ${n0(d.inicio)}`});
-    lineas(el, {anim: a, data: T.argentinos_exterior, x: "anio", y0: 0, vf: n0, yf: v => v === 0 ? "0" : n1(v / 1e6) + " M",
-      series: [{k: "personas", lab: "Nacidos en la Argentina", corto: "Personas", c: NAR}]});
-  }),
-  // cuentas del Sector Público Nacional (etapa 25): el resultado primario y el financiero como parte del PBI, o en qué se gasta
-  "cuentas-nacion": a => {
-    const v = MED["cuentas-nacion"], el = G("cuentas-nacion");
-    $t("cuentas-nacion").textContent = LEAD["cuentas-nacion"](v);
-    if (v === "gasto") return barrasH(el, {anim: a, data: T.gasto_nacion_tipo.map((r, i) => ({codigo_indec: "g" + i, territorio: r.tipo, corto: r.tipo
-      .replace("Jubilaciones, pensiones y otras prestaciones sociales", "Prestaciones sociales").replace("Transferencias corrientes a las provincias", "A provincias")
-      .replace("Otros gastos de funcionamiento", "Otros de funcionamiento"), pct: r.pct_gasto_primario, pbi: r.pct_pbi, millones: r.millones})), k: "pct", vf: pct,
-      af: v => n0(v) + "%", l: 290, lAngosto: 150, corto: d => d.corto,
-      tip: d => `<b>${d.territorio}</b><br>${pct(d.pct)} del gasto primario de ${GBN.anio}<br>${n2(d.pbi)}% del PBI<br>${billones(d.millones)}`});
-    const lo = d3.min(T.cuentas_nacion, r => Math.min(r.resultado_primario_pbi, r.resultado_financiero_pbi));
-    lineas(el, {anim: a, data: T.cuentas_nacion, x: "anio", y0: Math.floor(lo) - 1, ref: 0, vf: pct, yf: v => n0(v) + "%",
-      series: [{k: "resultado_primario_pbi", lab: "Resultado primario", corto: "Primario", c: NAR}, {k: "resultado_financiero_pbi", lab: "Resultado financiero", corto: "Financiero", c: FRI}]});
-  },
-  // recaudación de impuestos nacionales (etapa 25): cada impuesto en los últimos doce meses, o el total como parte del PBI año por año
-  recaudacion: a => {
-    const v = MED.recaudacion, el = G("recaudacion");
-    $t("recaudacion").textContent = LEAD.recaudacion(v);
-    if (v === "anio") return lineas(el, {anim: a, data: T.recaudacion_anual, x: "anio", y0: 0, vf: pct, yf: v => n0(v) + "%",
-      series: [{k: "total_pbi", lab: "Recaudación nacional", corto: "Recaudación", c: NAR}]});
-    barrasH(el, {anim: a, data: T.recaudacion_impuestos.map((r, i) => ({codigo_indec: "t" + i, territorio: r.impuesto, corto: r.impuesto
-      .replace("Aportes y contribuciones a la seguridad social", "Seguridad social").replace("Derechos de importación y tasa de estadística", "Derechos de importación")
-      .replace("Débitos y créditos bancarios", "Débitos y créditos"), pct: r.pct, millones: r.millones_12_meses})), k: "pct", vf: pct, af: v => n0(v) + "%",
-      l: 290, lAngosto: 150, corto: d => d.corto, tip: d => `<b>${d.territorio}</b><br>${pct(d.pct)} de lo recaudado<br>${billones(d.millones)} en doce meses`});
-  },
-  // deuda bruta de la Administración Central como parte del PBI (etapa 25): cada fin de año y los trimestres del año en curso
-  deuda: a => {
-    $t("deuda").textContent = LEAD.deuda();
-    lineas(G("deuda"), {anim: a, data: T.deuda_pbi, x: "x", y0: 0, vf: pct, yf: v => n0(v) + "%",
-      xl: r => r.periodo.includes("T") ? `${["primer", "segundo", "tercer", "cuarto"][+r.periodo[0] - 1]} trimestre de ${r.periodo.slice(2)}` : `fin de ${r.periodo}`,
-      series: [{k: "pct_pbi", lab: "Deuda bruta", corto: "Deuda", c: NAR}]});
-  },
-  // empleo público (etapa 25): cargos en las administraciones provinciales cada 1.000 habitantes, o la dotación de la administración nacional
-  "empleo-publico": a => {
-    const v = MED["empleo-publico"], el = G("empleo-publico"), fp = T.empleo_publico_provincias.find(r => r.codigo_indec === prov);
-    let txt = LEAD["empleo-publico"](v);
-    if (v === "nacion") {
-      $t("empleo-publico").textContent = txt;
-      return lineas(el, {anim: a, data: T.dotacion_nacion.map(r => ({...r, t: tPer(r.periodo)})), x: "t", y0: 0, vf: n0, yf: v => v === 0 ? "0" : n0(v / 1e3) + " mil",
-        xl: r => mesPer(r.periodo), mensual: true, series: [{k: "total", lab: "Total", c: NAR}, {k: "administracion", lab: "Administración pública nacional",
-        corto: "Administración", c: css("--azul-hondo")}, {k: "empresas", lab: "Empresas y sociedades del Estado", corto: "Empresas", c: FRI}]});
-    }
-    if (fp && fp.territorio !== GBC.top[0] && fp.territorio !== GBC.bajo[0]) txt += ` En ${fp.territorio}, ${n1(fp.cada_1000)}${conVeces(fp.cada_1000, GBC.cada_1000)}: ` +
-      `${n0(fp.cargos)} cargos.`;
-    $t("empleo-publico").textContent = txt;
-    barrasH(el, {anim: a, data: T.empleo_publico_provincias, k: "cada_1000", vf: n1, af: n0, ref: GBC.cada_1000, refLab: `País ${n1(GBC.cada_1000)}`,
-      tip: d => `<b>${d.territorio}</b><br>${n1(d.cada_1000)} cargos cada 1.000 habitantes<br>${n0(d.cargos)} cargos en ${GBC.anio}<br>En ${GBC.inicio}, ${n0(d.cargos_inicio)}`});
-  },
-  // impuestos provinciales por habitante (etapa 25)
-  "impuestos-provinciales": a => {
-    const fp = T.impuestos_provinciales.find(r => r.codigo_indec === prov && r.por_habitante != null);
-    let txt = LEAD["impuestos-provinciales"]();
-    if (fp && fp.territorio !== GBP.top[0] && fp.territorio !== GBP.bajo[0]) txt += ` En ${fp.territorio}, ${n0(fp.por_habitante)} pesos por habitante` +
-      `${conVeces(fp.por_habitante, GBP.pais)}, y el ${pct(fp.pct_ingresos_brutos)} de ingresos brutos.`;
-    $t("impuestos-provinciales").textContent = txt;
-    barrasH(G("impuestos-provinciales"), {anim: a, data: T.impuestos_provinciales.filter(r => r.por_habitante != null), k: "por_habitante", vf: millonesM, af: ejeM,
-      ref: GBP.pais, refLab: `País ${millonesM(GBP.pais)}`, tip: d => `<b>${d.territorio}</b><br>${n0(d.por_habitante)} pesos por habitante en ${GBP.anio}<br>` +
-        `${billones(d.millones)}<br>${pct(d.pct_ingresos_brutos)} de ingresos brutos`});
-  },
-  combustibles: conTablas("combustibles", () => ({mes: ["combustibles_mensual"], anio: ["combustibles_anual"]})[MED["combustibles-vista"]] || [], a => {
-    const p = MED.combustibles, el = G("combustibles"), fp = T.combustibles_provincias.find(r => r.codigo_indec === prov);
-    let txt = LEAD.combustibles(p, MED["combustibles-vista"]);
-    if (MED["combustibles-vista"] === "anio") {
-      // el país y, con una provincia elegida, su línea (en pesos del último año)
-      const suya = fp ? new Map(T.combustibles_anual.filter(r => r.codigo_indec === prov).map(r => [r.anio, r[p + "_real"]])) : null;
-      if (fp && suya.has(CB.anual_ult)) txt += ` En ${fp.territorio}, ${n0(suya.get(CB.anual_ult))} pesos en ${CB.anual_ult}.`;
-      $t("combustibles").textContent = txt;
-      return lineas(el, {anim: a, x: "anio", y0: 0, vf: n0, yf: n0,
-        data: T.combustibles_anual.filter(r => r.codigo_indec === "00").map(r => ({anio: r.anio, pais: r[p + "_real"], prov: suya ? suya.get(r.anio) ?? null : null})),
-        series: [{k: "pais", lab: "Todo el país", c: NAR}, ...(fp ? [{k: "prov", lab: fp.territorio, c: FRI}] : [])]});
-    }
-    if (MED["combustibles-vista"] === "mes") {
-      // el país y, con una provincia elegida, su línea
-      const suya = fp ? new Map(T.combustibles_mensual.filter(r => r.codigo_indec === prov).map(r => [r.periodo, r[p + "_real"]])) : null;
-      if (fp) txt += ` En ${fp.territorio}, ${n0(suya.get(CB.periodo))} pesos en ${CB.mes}.`;
-      $t("combustibles").textContent = txt;
-      return lineas(el, {anim: a, x: "t", y0: 0, vf: n0, yf: n0, xl: r => mesPer(r.periodo), mensual: true,
-        data: T.combustibles_mensual.filter(r => r.codigo_indec === "00").map(r => ({t: tPer(r.periodo), periodo: r.periodo, pais: r[p + "_real"], prov: suya ? suya.get(r.periodo) ?? null : null})),
-        series: [{k: "pais", lab: "Todo el país", c: NAR}, ...(fp ? [{k: "prov", lab: fp.territorio, c: FRI}] : [])]});
-    }
-    $t("combustibles").textContent = txt;
-    barrasH(el, {anim: a, data: T.combustibles_provincias, k: p, vf: n0, af: n0, ref: CB[p], refLab: `País ${n0(CB[p])}`,
-      tip: d => `<b>${d.territorio}</b><br>${n0(d[p])} pesos por litro<br>${n0(d[p + "_estaciones"])} estaciones<br>En ${CB.mes_antes}: ${n0(d[p + "_antes"])}`});
-  }),
-  subsidios: a => {
-    const pbi = MED.subsidios === "pbi";
-    $t("subsidios").textContent = LEAD.subsidios(MED.subsidios);
-    columnasApiladas(G("subsidios"), {anim: a, cadaTick: 2, l: 44, data: pbi ? T.subsidios_energia.filter(r => r.pct_pbi != null) : T.subsidios_energia,
-      vf: pbi ? v => n2(v) + "%" : n0, af: pbi ? v => n1(v) + "%" : n0, unidad: pbi ? "del PBI" : `miles de millones de pesos de ${e.sub_ult}`,
-      claves: [{k: pbi ? "pct_pbi" : "miles_millones_reales", lab: "Subsidios a la energía", c: NAR}]});
-  },
-  "balanza-energetica": a => lineas(G("balanza-energetica"), {anim: a, data: T.balanza_energetica, x: "anio", ref: 0,
-    series: [{k: "exportaciones", lab: "Exportaciones", c: NAR}, {k: "importaciones", lab: "Importaciones", c: FRI}, {k: "saldo", lab: "Saldo", c: css("--ink"), w: 1.8, dash: "4 3"}],
-    y0: Math.min(0, d3.min(T.balanza_energetica, r => r.saldo)), vf: n0, yf: n0}),
-  "mundo-petroleo": a => {
-    const k = MED["mundo-petroleo"], gas = k === "gas_bcm", q = PG.mundo.neuquen;
-    $t("mundo-petroleo").textContent = LEAD["mundo-petroleo"](k);
-    const filas = T.mundo_hidrocarburos.filter(r => r.variable === k).map(r => ({codigo_indec: r.iso3, territorio: r.pais, v: r.valor, puesto: r.puesto}));
-    if (!gas && q) filas.push({codigo_indec: "NQN", territorio: "Neuquén (provincia)", v: q.kbd});
-    barrasH(G("mundo-petroleo"), {anim: a, data: filas, k: "v", vf: gas ? n1 : n0, af: n0, l: 168, lAngosto: 142, marcar: new Set(["ARG", "NQN"]),
-      color: d => d.codigo_indec === "ARG" ? css("--celeste-fuerte") : d.codigo_indec === "NQN" ? css("--sol") : css("--celeste"),
-      tip: d => `<b>${d.territorio}</b><br>${gas ? n1(d.v) + " mil millones de m³" : n0(d.v) + " mil barriles por día"}<br>` +
-        (d.puesto ? `Puesto ${d.puesto} en el mundo` : `Provincia de la Argentina: estaría en el puesto ${q.puesto}`)});
-  },
-  permisos: a => lineas(G("permisos"), {anim: a, data: T.permisos_mensual.map(r => ({...r, m2: r.superficie_m2 / 1000, m2_12: r.m2_12m == null ? null : r.m2_12m / 1000, t: tPer(r.periodo)})),
-    x: "t", series: [{k: "m2", lab: "Por mes", c: css("--celeste"), w: 1.6}, {k: "m2_12", lab: "Promedio de doce meses", c: NAR}], y0: 0, vf: n0, yf: n0, xl: r => mesPer(r.periodo)}),
-  hipotecas: a => lineas(G("hipotecas"), {anim: a, data: T.hipotecas_mensual.map(r => ({...r, t: tPer(r.periodo)})), x: "t",
-    series: [{k: "miles_millones", lab: "Por mes", c: NAR}], y0: 0, vf: n0, yf: n0, xl: r => mesPer(r.periodo)}),
-  "obra-publica": a => {
-    const k = MED["obra-publica"];
-    $t("obra-publica").textContent = LEAD["obra-publica"](k);
-    const cl = [{k: "obras", lab: "Obras de la Nación", c: "#1F5E97"}, {k: "transf", lab: "Transferencias de capital a provincias y municipios", c: "#74ACDF", texto: "#18212B"}];
-    $("obra-publica-ley").hidden = k !== "serie";
-    if (k === "serie") {
-      leyenda("obra-publica-ley", cl);
-      return columnasApiladas(G("obra-publica"), {anim: a, claves: cl, cadaTick: 5, vf: n0, af: n0, l: 46, unidad: `miles de millones de pesos de ${CN.op_ult}`, data: T.obra_publica_serie});
-    }
-    barrasH(G("obra-publica"), {anim: a, data: T.obra_publica_provincias, k: "total_hab", vf: n0, af: v => n0(v / 1000) + " mil", ref: CN.op_hab_pais, refLab: `País ${n0(CN.op_hab_pais)}`,
-      tip: d => `<b>${d.territorio}</b><br>${n0(d.total_hab)} pesos por habitante<br>Obras de la Nación: ${n0(d.obras_hab)}<br>Transferencias de capital: ${n0(d.transf_hab)}`});
-  },
-  isac: conTablas("isac", ["isac_mensual"], a => lineas(G("isac"), {anim: a, data: T.isac_mensual.map(r => ({...r, t: tPer(r.periodo)})), x: "t",
-    y0: Math.floor(d3.min(T.isac_mensual, r => Math.min(r.original, r.desestacionalizada)) / 20) * 20,
-    series: [{k: "original", lab: "Original", c: css("--celeste"), w: 1.6}, {k: "desestacionalizada", lab: "Sin estacionalidad", c: NAR}], vf: n1, yf: n0, xl: r => mesPer(r.periodo)})),
-  insumos: a => {
-    const k = MED.insumos;
-    $t("insumos").textContent = LEAD.insumos(k);
-    barrasH(G("insumos"), {anim: a, data: T.isac_insumos, k, vf: masPct, af: v => v + "%", l: 210, lAngosto: 152, corto: d => CORTO_INS[d.territorio] || d.territorio});
-  },
-  "empleo-construccion": conTablas("empleo-construccion", () => MED["empleo-construccion"] === "serie" ? ["empleo_construccion_serie"] : [], a => {
-    const k = MED["empleo-construccion"];
-    $t("empleo-construccion").textContent = LEAD["empleo-construccion"](k);
-    $("clave-empleo-construccion").hidden = k !== "var_construccion";
-    if (k === "serie") return lineas(G("empleo-construccion"), {anim: a, data: T.empleo_construccion_serie.map(r => ({...r, t: r.anio + (r.trimestre - 1) / 4})), x: "t",
-      series: [{k: "construccion", lab: "País", c: NAR}], y0: 0, vf: n0, yf: v => n0(v / 1000) + " mil", xl: r => `${TRIM_N[r.trimestre - 1]} trimestre de ${r.anio}`});
-    const tip = d => `<b>${d.territorio}</b><br>${n0(d.construccion)} puestos asalariados registrados<br>${n1(d.construccion_cada_1000)} cada 1.000 habitantes<br>${pct(d.pct_construccion)} del empleo privado registrado`;
-    if (k === "var_construccion") return barrasH(G("empleo-construccion"), {anim: a, data: T.empleo_construccion_provincias, k, vf: masPct, af: v => v + "%", mejor: "sube", pais: CN.emp_var, tip});
-    barrasH(G("empleo-construccion"), {anim: a, data: T.empleo_construccion_provincias, k, vf: n1, af: n0, ref: CN.emp_cada_1000, refLab: `País ${n1(CN.emp_cada_1000)}`, tip});
-  }),
-  trabajadores: conTablas("trabajadores", () => MED["trabajadores-vista"] === "mapa" ? ["vivienda_departamentos"] : [], a => MED["trabajadores-vista"] === "mapa"
-    ? mapaDep(G("trabajadores"), {anim: a, filas: T.vivienda_departamentos, k: "pct_ocupados_construccion", nombre: "Personas ocupadas en la construcción", vf: pct})
-    : barrasH(G("trabajadores"), {anim: a, data: T.vivienda_provincias, k: "pct_ocupados_construccion", ref: VV.pct_ocupados_construccion,
-        refLab: `País ${pct(VV.pct_ocupados_construccion)}`, vf: v => n1(v) + "%", af: v => v + "%", dif: "puntos"})),
-  costo: conTablas("costo", ["costo_construccion"], a => lineas(G("costo"), {anim: a, data: T.costo_construccion.map(r => ({...r, t: tPer(r.periodo)})), x: "t",
-    y0: Math.floor(d3.min(T.costo_construccion, r => Math.min(r.icc_real, r.materiales_real, r.mano_obra_real)) / 10) * 10,
-    ref: 100,
-    series: [{k: "icc_real", lab: "Costo total", c: NAR}, {k: "materiales_real", lab: "Materiales", c: css("--celeste"), w: 1.8}, {k: "mano_obra_real", lab: "Mano de obra", c: FRI, w: 1.8}],
-    vf: n1, yf: n0, xl: r => mesPer(r.periodo)})),
-  vivienda: conTablas("vivienda", () => MED["vivienda-vista"] === "mapa" ? ["vivienda_departamentos"] : [], a => {
-    const k = MED.vivienda, ind = VIV_IND[k];
-    $t("vivienda").textContent = ind.t();
-    $t("vivienda-nota").textContent = NOTA_VIV(k);
-    if (MED["vivienda-vista"] === "mapa") return mapaDep(G("vivienda"), {anim: a, filas: T.vivienda_departamentos, k, nombre: ind.nombre, vf: ind.f});
-    const pc = k.startsWith("pct");
-    barrasH(G("vivienda"), {anim: a, data: T.vivienda_provincias, k, ref: VV[k], refLab: `País ${pc ? pct(VV[k]) : n1(VV[k])}`,
-      vf: pc ? (v => n1(v) + "%") : n1, af: pc ? (v => v + "%") : n0, dif: pc ? "puntos" : null});
-  }),
-});
 
 /* ---------- política ----------
    Instituciones políticas, con las transferencias, está en scripts/partes/politica.js (plan técnico, fase 5): solo esa página la pide, y
@@ -5015,14 +2498,6 @@ function textoAnios(filas, v, p) {
 }
 TX["anioscong"] = $t("anioscong").textContent = textoAnios(AC.top.map(d => ({nombre: d.nombre, anios_total: d.total, anios_diputados: d.dip,
   anios_senado: d.sen, sigue: d.sigue})), "total", "");
-// la factura de luz: la parte del salario mínimo que se lleva cada consumo, mes a mes
-DIB["tarifa-luz"] = conTablas("tarifa-luz", ["tarifa_luz"], a => {
-  const c = MED["tarifa-luz"], k = "pct_salario_minimo_" + c;
-  $t("tarifa-luz").textContent = LEAD["tarifa-luz"](c);
-  lineas(G("tarifa-luz"), {anim: a, mensual: true, y0: 0, vf: pct, yf: v => n0(v) + "%", x: "t", xl: r => mesPer(r.periodo),
-    data: T.tarifa_luz.filter(r => r[k] != null).map(r => ({...r, t: tPer(r.periodo)})),
-    series: [{k, lab: `${c} kWh por mes, sin subsidio`, corto: `${c} kWh`, c: NAR, w: 3}]});
-});
 
 
 /* ---------- Laboratorio (etapa 33): piezas visuales grandes, como The Viz Lab de USAFacts ----------
@@ -5043,246 +2518,6 @@ DIB["tarifa-luz"] = conTablas("tarifa-luz", ["tarifa_luz"], a => {
    Todas las cumbres usan la misma escala, la misma exageración de la altura (1,5) y la misma base (3.000 metros), así se comparan. */
 CU.tinte = d3.scaleLinear().domain([3000, 4500, 5500, 6400, 7000]).range(["#EADCB8", "#F1E7CF", "#F4EFE4", "#F6F9FC", "#FFFFFF"]).clamp(true);
 const RELIEVE = /*RELIEVE*/{};   // id de cada cumbre -> huella de su archivo (la escribe 03)
-const cuPedidos = {};
-// el archivo de una cumbre: las alturas llegan como enteros de 16 bits en base64 (la altura menos la mínima del recuadro)
-const cuCargar = id => cuPedidos[id] ||= d3.json(`datos/relieve/${id}.json?v=${RELIEVE[id]}`).then(d => {
-  const n = d.n, bin = atob(d.z), z = new Float64Array(n * n);
-  for (let i = 0; i < z.length; i++) z[i] = d.min + (bin.charCodeAt(2 * i) | bin.charCodeAt(2 * i + 1) << 8);
-  return prepararCumbre(d, z);
-}, e => { delete cuPedidos[id]; throw e; });
-
-function prepararCumbre(d, crudo) {
-  const n = d.n, celda = d.lado_km * 1000 / n;
-  // un suavizado de una celda saca las islas de una sola celda que deja el modelo (la altura del puntero usa el dato sin suavizar)
-  const z = d3.blur2({data: Float64Array.from(crudo), width: n, height: n}, 1).data;
-  const aPath = coords => {
-    const p = new Path2D();
-    for (const pol of coords) for (const anillo of pol) { anillo.forEach(([x, y], k) => k ? p.lineTo(x, y) : p.moveTo(x, y)); p.closePath(); }
-    return p;
-  };
-  const capas = d3.contours().size([n, n]).thresholds(d3.range(CU.BASE + CU.PASO, d3.max(z) + 1, CU.PASO))(z)
-    .filter(c => c.coordinates.length).map(c => ({h: c.value, path: aPath(c.coordinates), indice: c.value % CU.INDICE === 0}));
-  // la altura de la capa que cubre cada celda: la de los costados del bloque y la que ubica el puntero
-  const esc = z.map(v => Math.max(CU.BASE, Math.floor(v / CU.PASO) * CU.PASO));
-  // la cumbre: el punto más alto del modelo a menos de 1,5 km de las coordenadas del IGN (en el recuadro puede haber otra más alta)
-  let cima = -1;
-  for (let j = 0; j < n; j++) for (let i = 0; i < n; i++)
-    if (Math.hypot(i + .5 - n / 2, j + .5 - n / 2) <= 1500 / celda && (cima < 0 || crudo[j * n + i] > crudo[cima])) cima = j * n + i;
-  const glaciares = (d.glaciares || []).length ? aPath(d.glaciares) : null;
-  return {n, celda, crudo, esc, capas, cima, glaciares, lado: d.lado_km, inventarios: d.inventarios || [], anios: d.anios_imagenes || []};
-}
-
-function dibujarCumbre(ctx, M, pico, st, W, H) {
-  const n = M.n, diag = n * Math.SQRT2, t = st.t;
-  const fi = Math.PI / 2 - t * (Math.PI / 2 - CU.FI), sf = Math.sin(fi);
-  // que entre entero en los dos estados: inclinado lo limita el ancho y visto desde arriba, el alto
-  const s = Math.min(W * .94 / diag, (H - 72) / (diag * sf + CU.R_MAX / M.celda * CU.EXAG * Math.cos(fi)));
-  const k = s * CU.EXAG * Math.cos(fi) / M.celda;     // píxeles por metro de altura
-  const cx = W / 2, cy = 36 + (H - 72) / 2 + CU.R_MAX * k / 2;
-  // como mapa, el norte arriba: el giro elegido se aplica a medida que se levanta
-  const th = st.giro * t, cos = Math.cos(th), sin = Math.sin(th);
-  const pr = (x, y, h) => {
-    const u = x - n / 2, v = y - n / 2;
-    return [cx + s * (cos * u - sin * v), cy + s * sf * (sin * u + cos * v) - k * (h - CU.BASE)];
-  };
-  const E = devicePixelRatio || 1;
-  const tr = h => [s * cos, s * sf * sin, -s * sin, s * sf * cos, cx - s * (cos - sin) * n / 2, cy - s * sf * (sin + cos) * n / 2 - k * (h - CU.BASE)].map(v => v * E);
-  ctx.setTransform(E, 0, 0, E, 0, 0);
-  ctx.clearRect(0, 0, W, H);
-  // los costados del bloque que miran hacia quien mira, con una línea cada 500 metros
-  const lados = [
-    {nx: 0, ny: 1, a: [0, n], b: [n, n], celda: i => (n - 1) * n + i},
-    {nx: 0, ny: -1, a: [n, 0], b: [0, 0], celda: i => n - 1 - i},
-    {nx: 1, ny: 0, a: [n, n], b: [n, 0], celda: i => (n - 1 - i) * n + n - 1},
-    {nx: -1, ny: 0, a: [0, 0], b: [0, n], celda: i => i * n},
-  ];
-  if (k > 1e-3) for (const L of lados) {
-    if (sin * L.nx + cos * L.ny <= 0) continue;
-    const pts = [];
-    for (let i = 0; i < n; i++) {
-      const h = M.esc[L.celda(i)];
-      for (const f of [i / n, (i + 1) / n]) pts.push(pr(L.a[0] + (L.b[0] - L.a[0]) * f, L.a[1] + (L.b[1] - L.a[1]) * f, h));
-    }
-    pts.push(pr(L.b[0], L.b[1], CU.BASE - CU.PIE), pr(L.a[0], L.a[1], CU.BASE - CU.PIE));
-    const p = new Path2D(); pts.forEach(([x, y], j) => j ? p.lineTo(x, y) : p.moveTo(x, y)); p.closePath();
-    ctx.fillStyle = L.nx ? "#DCCBA2" : "#E5D6B2"; ctx.fill(p);
-    ctx.save(); ctx.clip(p); ctx.strokeStyle = "rgba(127,85,0,.22)"; ctx.lineWidth = 1;
-    for (let h = CU.BASE; h <= 7000; h += CU.INDICE) {
-      const [x1, y1] = pr(L.a[0], L.a[1], h), [x2, y2] = pr(L.b[0], L.b[1], h);
-      ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y2); ctx.stroke();
-    }
-    ctx.restore();
-  }
-  const todo = new Path2D(); todo.rect(0, 0, n, n);
-  ctx.setTransform(...tr(CU.BASE)); ctx.fillStyle = CU.tinte(CU.BASE); ctx.fill(todo);
-  const glaciar = (path, h) => {
-    if (!M.glaciares) return;
-    ctx.save(); ctx.setTransform(...tr(h)); ctx.clip(path, "evenodd"); ctx.fillStyle = "rgba(116,172,223,.5)"; ctx.fill(M.glaciares, "evenodd"); ctx.restore();
-  };
-  glaciar(todo, CU.BASE);
-  // cada capa: su pared (copias corridas hacia abajo), su cara de arriba, los glaciares que caen en ella y su curva
-  const paso = CU.PASO * k, copias = Math.min(6, Math.ceil(paso / 1.2));
-  for (const c of M.capas) {
-    const color = CU.tinte(c.h);
-    if (paso > .3) {
-      ctx.fillStyle = d3.interpolateRgb(color, "#A8926A")(.45);
-      for (let j = copias; j >= 1; j--) { ctx.setTransform(...tr(c.h - CU.PASO * j / copias)); ctx.fill(c.path, "evenodd"); }
-    }
-    ctx.setTransform(...tr(c.h)); ctx.fillStyle = color; ctx.fill(c.path, "evenodd");
-    glaciar(c.path, c.h);
-    ctx.setTransform(...tr(c.h));
-    ctx.lineWidth = (c.indice ? 1.3 : .6) / s;
-    ctx.strokeStyle = c.indice ? "rgba(44,116,181,.75)" : "rgba(44,116,181,.4)";
-    ctx.stroke(c.path);
-  }
-  ctx.setTransform(E, 0, 0, E, 0, 0);
-  // la cumbre con su nombre y la altura oficial, y el norte
-  const [px, py] = pr(M.cima % n + .5, Math.floor(M.cima / n) + .5, M.esc[M.cima]);
-  const tinta = css("--ink");
-  ctx.strokeStyle = tinta; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(px, py); ctx.lineTo(px, py - 34); ctx.stroke();
-  ctx.fillStyle = tinta; ctx.beginPath(); ctx.arc(px, py, 3, 0, 2 * Math.PI); ctx.fill();
-  ctx.textAlign = "center"; ctx.lineJoin = "round"; ctx.strokeStyle = "#fff"; ctx.lineWidth = 4;
-  ctx.font = `600 15px ${css("--f")}`;
-  ctx.strokeText(pico.nombre, px, py - 56); ctx.fillText(pico.nombre, px, py - 56);
-  ctx.font = `500 13px ${css("--mono")}`; ctx.fillStyle = css("--muted");
-  ctx.strokeText(`${n0(pico.altura_m)} m`, px, py - 40); ctx.fillText(`${n0(pico.altura_m)} m`, px, py - 40);
-  const [nx, ny] = pr(n / 2, -6, CU.BASE);
-  ctx.font = `600 13px ${css("--mono")}`; ctx.fillStyle = css("--azul"); ctx.textBaseline = "middle"; ctx.fillText("N", nx, ny); ctx.textBaseline = "alphabetic";
-  return {pr, cos, sin};
-}
-
-/* El dibujo de la ficha: el bloque con su conmutador (Relieve y Mapa, propio: anima la inclinación en lugar de fundir), y la lista de
-   cumbres en barras desde cero, que la elige. El estado (cumbre, giro y vista) queda en el contenedor y sobrevive a los redibujos */
-DIB.cumbres = a => {
-  const el = G("cumbres"), filas = T.cumbres_ign;
-  if (!el || !filas) return;
-  // el estado queda en el contenedor: la cumbre, el giro, la inclinación a la vista (t) y la elegida (obj), y el dibujo del canvas de
-  // ahora (st.dibujar), así una animación que empezó antes de un redibujo (el sitio redibuja al cambiar el ancho o al imprimir) sigue en
-  // el canvas nuevo
-  const st = el.cu ||= {id: filas[0].id, giro: CU.GIRO, t: 1, obj: 1, M: null};
-  el.removeAttribute("aria-busy"); ocultarTip();
-  el.innerHTML = `<div class="cu-bloque"><canvas tabindex="0"></canvas></div><p class="cu-detalle"></p><p class="cu-ayuda">Arrastrá el relieve de costado o usá las flechas para girarlo.</p>` +
-    `<ol class="cu-lista" aria-label="Las ${filas.length} cumbres de la tabla del IGN, de la más alta a la más baja"></ol>`;
-  const detalle = el.querySelector(".cu-detalle"), caja = el.querySelector(".cu-bloque"), cv = caja.querySelector("canvas"), ctx = cv.getContext("2d"), lista = el.querySelector(".cu-lista");
-  const conm = document.querySelector('.conmutador[data-g="cumbres"]');
-  lista.innerHTML = filas.map((f, i) => `<li><button type="button" data-id="${f.id}" aria-pressed="${f.id === st.id}">` +
-    `<span><span class="cu-nom">${f.nombre}</span> <span class="cu-prov">${f.provincia}</span></span>` +
-    `<span class="cu-alt">${n0(f.altura_m)} m</span></button></li>`).join("");
-  let W = 0, H = 0, cam = null;
-  const medir = () => {
-    W = caja.clientWidth;
-    const diag = 160 * Math.SQRT2, s = W * .94 / diag;
-    H = Math.round(s * (diag * Math.sin(CU.FI) + CU.R_MAX / 75 * CU.EXAG * Math.cos(CU.FI)) + 72);
-    const E = devicePixelRatio || 1;
-    cv.style.height = H + "px"; cv.width = Math.round(W * E); cv.height = Math.round(H * E);
-  };
-  const cumbre = () => filas.find(f => f.id === st.id);
-  const dibujar = st.dibujar = () => { if (st.M) cam = dibujarCumbre(ctx, st.M, cumbre(), st, W, H); };
-  const nombrar = st.nombrar = () => {
-    const f = cumbre(), M = st.M;
-    cv.setAttribute("aria-label", `${nombreGrafico(el)}. Relieve de ${f.nombre} (${f.provincia}), ${n0(f.altura_m)} metros según el IGN, ` +
-      `en un recuadro de ${M ? n0(M.lado) : 12} km de lado` + (st.obj === 1 ? ", visto de costado" : ", visto desde arriba como mapa"));
-    cv.setAttribute("role", "img");
-  };
-  const elegir = id => {
-    st.id = id;
-    lista.querySelectorAll("button").forEach(b => b.setAttribute("aria-pressed", b.dataset.id === id));
-    cuCargar(id).then(M => {
-      if (st.id !== id) return;
-      st.M = M; caja.classList.remove("cu-cargando"); dibujar(); nombrar();
-      const f = cumbre(), inv = M.inventarios.includes("ING2") ? "de la actualización del Inventario Nacional de Glaciares" : "del Inventario Nacional de Glaciares";
-      detalle.textContent = (f.altura_m === M.crudo[M.cima] ? `El modelo de elevación da en la cumbre lo mismo que el IGN, ${n0(f.altura_m)} metros. `
-        : `En la cumbre, el modelo de elevación da ${n0(M.crudo[M.cima])} metros y el IGN, ${n0(f.altura_m)}. `) +
-        (M.glaciares ? `En celeste, los glaciares ${inv}, con imágenes de ${listaY(M.anios.map(String))}.` : "En el recuadro no hay glaciares inventariados.");
-    },
-      // si el archivo no llega, el canvas queda vacío y el aviso va donde va el detalle: la lista sigue y elegir de nuevo vuelve a pedirlo
-      () => {
-        if (st.id !== id) return;
-        st.M = null; caja.classList.remove("cu-cargando"); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.clearRect(0, 0, cv.width, cv.height);
-        const t = `No se pudo cargar el relieve de ${cumbre().nombre}. Elegila de nuevo en la lista para volver a intentar.`;
-        detalle.textContent = t; avisar(t);
-      });
-    if (!cuPedidos[id] || !st.M) caja.classList.add("cu-cargando");
-  };
-  // la inclinación: de mapa (0) a relieve (1) en DUR_G, o de una vez con movimiento reducido
-  const inclinar = (hacia, anim = !REDUCIR) => {
-    const desde = st.t, t0 = performance.now(), vuelta = st.vuelta = (st.vuelta || 0) + 1;
-    st.obj = hacia;
-    if (!anim) { st.t = hacia; st.dibujar(); st.nombrar(); return; }
-    const cuadro = ahora => {
-      if (vuelta !== st.vuelta) return;   // otra inclinación la reemplazó
-      const f = Math.min(1, (ahora - t0) / DUR_G);
-      st.t = desde + (hacia - desde) * EASE(f); st.dibujar();
-      if (f < 1) requestAnimationFrame(cuadro); else st.nombrar();
-    };
-    requestAnimationFrame(cuadro);
-  };
-  if (conm) {
-    conm.dataset.propio = "";
-    conm.querySelectorAll("button").forEach((b, i) => {
-      b.setAttribute("aria-pressed", (b.dataset.m === "relieve") === (st.obj === 1));
-      b.onclick = () => {
-        const arriba = b.dataset.m === "relieve";
-        if ((st.obj === 1) === arriba) return;
-        conm.style.setProperty("--i", i);
-        conm.querySelectorAll("button").forEach(x => x.setAttribute("aria-pressed", x === b));
-        inclinar(arriba ? 1 : 0);
-      };
-    });
-    conm.style.setProperty("--i", st.obj === 1 ? 0 : 1);
-  }
-  lista.querySelectorAll("button").forEach(b => b.addEventListener("click", () => elegir(b.dataset.id)));
-  // la altura del modelo donde está el puntero: de las celdas que caen a menos de 4 píxeles, la que está más adelante
-  const alturaEn = (mx, my) => {
-    if (!cam || !st.M) return null;
-    const {n, esc} = st.M;
-    let mejor = null, prof = -Infinity;
-    for (let j = 0; j < n; j++) for (let i = 0; i < n; i++) {
-      const [x, y] = cam.pr(i + .5, j + .5, esc[j * n + i]);
-      if (Math.abs(x - mx) > 4 || Math.abs(y - my) > 4) continue;
-      const d = cam.sin * (i - n / 2) + cam.cos * (j - n / 2);
-      if (d > prof) { prof = d; mejor = j * n + i; }
-    }
-    return mejor;
-  };
-  let arrastre = null;
-  cv.addEventListener("pointerdown", ev => { arrastre = {x: ev.clientX, giro: st.giro, movio: false}; });
-  cv.addEventListener("pointermove", ev => {
-    const r = cv.getBoundingClientRect(), mx = ev.clientX - r.left, my = ev.clientY - r.top;
-    if (arrastre && st.obj === 1 && Math.abs(ev.clientX - arrastre.x) > 4) {
-      if (!arrastre.movio) { arrastre.movio = true; cv.setPointerCapture?.(ev.pointerId); }
-      st.giro = arrastre.giro - (ev.clientX - arrastre.x) / 180; dibujar(); ocultarTip(); return;
-    }
-    if (arrastre?.movio) return;
-    const idx = alturaEn(mx, my);
-    if (idx == null) return ocultarTip();
-    mostrarTip(cv, `<b>${n0(st.M.crudo[idx])} m</b> según el modelo de elevación`, mx, my);
-  });
-  const soltar = ev => {
-    const toque = arrastre && !arrastre.movio && ev.type === "pointerup" && ev.pointerType !== "mouse";
-    arrastre = null;
-    if (!toque) return;
-    const r = cv.getBoundingClientRect(), idx = alturaEn(ev.clientX - r.left, ev.clientY - r.top);
-    if (idx != null) mostrarTip(cv, `<b>${n0(st.M.crudo[idx])} m</b> según el modelo de elevación`, ev.clientX - r.left, ev.clientY - r.top);
-  };
-  cv.addEventListener("pointerup", soltar); cv.addEventListener("pointercancel", soltar);
-  cv.addEventListener("pointerleave", ocultarSiMouse);
-  cv.addEventListener("keydown", ev => {
-    if (ev.key !== "ArrowLeft" && ev.key !== "ArrowRight") return;
-    ev.preventDefault();
-    st.giro += (ev.key === "ArrowLeft" ? 1 : -1) * Math.PI / 12;
-    if (st.obj !== 1) conm?.querySelector('[data-m="relieve"]')?.click(); else dibujar();
-  });
-  medir();
-  const ro = new ResizeObserver(() => {
-    if (!caja.isConnected) return ro.disconnect();
-    if (caja.clientWidth && Math.abs(caja.clientWidth - W) > 1) { medir(); dibujar(); }
-  });
-  ro.observe(caja);
-  elegir(st.id);
-  // al entrar en pantalla, la primera vez, el mapa se levanta
-  if (a && !REDUCIR && st.t === 1 && !st.vuelta) { st.t = 0; cuCargar(st.id).then(() => inclinar(1), () => { st.t = 1; }); }
-};
 
 const COL_CORTES = c => [`Hasta ${c[0]}`, `${c[0] + 1} a ${c[1]}`, `${c[1] + 1} a ${c[2]}`, `${c[2] + 1} a ${c[3]}`, `Desde ${c[3] + 1}`].map((lab, i) => ({lab, c: COL_POZOS[i]}));
 TX["lab-pozos"] = $t("lab-pozos").textContent = `Cada punto es uno de los ${n0(PG.map_n)} pozos no convencionales que produjeron petróleo o gas desde ${PG.map_ini}, ` +
@@ -5436,52 +2671,6 @@ $("adonse-sel").addEventListener("change", ev => { MED.adonse = ev.target.value;
 $("cm-sel").innerHTML = `<option value="total">Todas las causas</option>` + CM.grupos.map(g => `<option value="${g.k}">${g.lab}</option>`).join("");
 MED["causas-muerte"] = "total";
 $("cm-sel").addEventListener("change", ev => { MED["causas-muerte"] = ev.target.value; cambiarVista("causas-muerte"); });
-DIB["causas-muerte"] = a => {
-  const g = MED["causas-muerte"], k = "tasa_" + g, filas = T.causas_muerte_provincias, pais = filas.find(r => r.codigo_indec === "00");
-  const f = v => v >= 100 ? n0(v) : n1(v), mk = g === "total" ? "muertes" : "muertes_" + g;
-  barrasH(G("causas-muerte"), {anim: a, data: filas.filter(r => r.codigo_indec !== "00"), k, vf: f, af: n0, ref: pais[k], refLab: `País ${f(pais[k])}`,
-    tip: d => `<b>${d.territorio}</b><br>${f(d[k])} muertes por año cada 100.000 habitantes, ajustada por edad` +
-      (g === "total" ? `<br>${n0(d.tasa_bruta)} sin ajustar` : `<br>${pct(d[mk] / d.muertes * 100)} de las muertes de la provincia`) +
-      `<br>${n0(d[mk])} muertes de ${CM.desde} a ${CM.hasta}`});
-};
-// muertes en el tránsito por provincia, con la línea del país, o las del país por año
-MED.transito = "prov";
-DIB.transito = conTablas("transito", () => MED.transito === "serie" ? ["transito_pais"] : [], a => {
-  const el = G("transito");
-  $t("transito").textContent = MED.transito === "serie" ? TX["transito-serie"] : TX.transito;
-  if (MED.transito === "serie") return barrasH(el, {anim: a, sinOrden: true, vf: n0, af: ejeMil, l: 60, lAngosto: 48, k: "muertes",
-    data: T.transito_pais.map(r => ({codigo_indec: "a" + r.anio, territorio: String(r.anio), muertes: r.muertes})),
-    tip: d => `<b>${d.territorio}</b><br>${n0(d.muertes)} muertes en siniestros viales`});
-  const filas = T.transito_provincias, pais = filas.find(r => r.codigo_indec === "00");
-  barrasH(el, {anim: a, data: filas.filter(r => r.codigo_indec !== "00"), k: "cada_100000", vf: n1, af: n0, ref: pais.cada_100000,
-    refLab: `País ${n1(pais.cada_100000)}`,
-    tip: d => `<b>${d.territorio}</b><br>${n1(d.cada_100000)} muertes por año cada 100.000 habitantes<br>${n0(d.muertes_por_anio)} muertes por año, ` +
-      `promedio de ${TRN.desde} a ${TRN.hasta}`});
-});
-DIB.adonse = a => {
-  const i = AN.indicadores.find(x => x.k === MED.adonse), otros = AN.indicadores.filter(x => x !== i);
-  const rel = x => `${fuerza(x.r)}${x.r < 0 ? " e inversa" : ""}`;
-  document.querySelector('[data-t="adonse"]').textContent = `Las provincias con más nacimientos de madres menores de 20 años suelen tener también peores indicadores socioeconómicos. ` +
-    `Con ${i.lab.toLowerCase()}, la relación es ${rel(i)} (correlación de ${n2(i.r)}): donde ese indicador es más alto, la proporción de madres adolescentes tiende a ser ${i.r > 0 ? "más alta" : "más baja"}. ` +
-    `Con los otros indicadores del Censo, la relación es ${listaY(otros.map(o => `${rel(o)} con ${o.lab.toLowerCase()} (${n2(o.r)})`))}. Que dos datos vayan juntos no prueba que uno cause el otro.`;
-  dispersion(G("adonse"), {anim: a, data: T.madres_adolescentes_nse, x: i.k, y: ADO_ULT, xLab: `${i.lab}, 2022`, yLab: `Nacimientos de madres menores de 20, ${AN.anio}`});
-};
-const CAUSA_COL = {perinatales: "#2C74B5", malformaciones: "#74ACDF", respiratorias: "#F6B40E", infecciosas: "#D9453B", externas: "#7A1F2B", mal_definidas: "#C3CAD2", otras: "#E4E9EF"};
-DIB.causas = conTablas("causas", ["mortalidad_infantil_causas"], a => {
-  const gr = MC.grupos, gk = Object.fromEntries(gr.map(x => [x.k, x]));
-  const vida = ["respiratorias", "infecciosas", "externas"], sumaVida = d3.sum(vida, k => gk[k].pct);
-  // las relaciones de al menos 0,4, para un lado o para el otro: con más población sin cobertura, cada causa sube o baja
-  const fuertes = gr.filter(x => Math.abs(x.r_cobertura) >= .4).sort((p, q) => Math.abs(q.r_cobertura) - Math.abs(p.r_cobertura));
-  const causasSentido = (l, s) => l.length ? `la mortalidad por ${listaY(l.map(x => `${x.lab.toLowerCase()} (correlación de ${n2(x.r_cobertura)})`))} tiende a ser más ${s}` : "";
-  document.querySelector('[data-t="causas"]').textContent = `Entre ${MC.anios[0]} y ${MC.anios[1]} murieron en el país ${n0(MC.muertes)} bebés antes de cumplir un año. ` +
-    `El ${pct(gk.perinatales.pct)} murió por afecciones perinatales, como la prematurez y las complicaciones del embarazo y el parto, y el ${pct(gk.malformaciones.pct)}, por malformaciones congénitas. ` +
-    `Las enfermedades respiratorias, las infecciosas y las causas externas, que suelen estar más ligadas a las condiciones de vida, sumaron el ${pct(sumaVida)}. ` +
-    (fuertes.length ? `En las provincias con más población sin obra social, prepaga ni plan estatal de salud, ${listaY([causasSentido(fuertes.filter(x => x.r_cobertura > 0), "alta"), causasSentido(fuertes.filter(x => x.r_cobertura < 0), "baja")].filter(Boolean))}. ${fuertes.length > 1 ? "Esas relaciones no se ven en el gráfico y no prueban" : "Esa relación no se ve en el gráfico y no prueba"} que una cosa cause la otra.` : "");
-  const cl = gr.map(x => ({k: x.k, lab: x.lab, c: CAUSA_COL[x.k], texto: ["#F6B40E", "#74ACDF", "#C3CAD2", "#E4E9EF"].includes(CAUSA_COL[x.k]) ? "#18212B" : "#fff"}));
-  document.getElementById("causas-ley").innerHTML = cl.map(k => `<span><i style="background:${k.c}"></i>${k.lab}</span>`).join("");
-  const filas = T.mortalidad_infantil_causas, pais = filas.find(d => d.codigo_indec === "00");
-  apiladasH(G("causas"), {anim: a, claves: cl, data: [pais, ...filas.filter(d => d.codigo_indec !== "00").sort((p, q) => q.tasa - p.tasa)]});
-});
 
 /* ---------- sector externo (etapa 41) ----------
    El comercio exterior y las reservas (externo.html) están en scripts/partes/externo.js (plan técnico, fase 5): solo esa página la pide, y
@@ -5495,66 +2684,6 @@ parte("externo");  // el comercio exterior y las reservas: scripts/partes/extern
 const IA = R.ingresos_aglomerados;
 const IA_CORTO = {"Ciudad de Buenos Aires": "CABA", "Comodoro Rivadavia-Rada Tilly": "Comodoro Rivadavia", "Viedma-Carmen de Patagones": "Viedma-Patagones",
   "San Nicolás-Villa Constitución": "San Nicolás-V. Const.", "Gran Tucumán-Tafí Viejo": "Gran Tucumán", "Santiago del Estero-La Banda": "Santiago-La Banda"};
-// "la Ciudad de Buenos Aires" lleva artículo, los demás aglomerados no
-const conArt = (n, inicio) => n.startsWith("Ciudad") ? (inicio ? "La " : "la ") + n : n;
-MED["ingresos-aglomerados"] = "ipcf";
-DIB["ingresos-aglomerados"] = conTablas("ingresos-aglomerados", ["ingresos_aglomerados"], a => {
-  const t = MED["ingresos-aglomerados"], E = IA[t], el = G("ingresos-aglomerados"), mil = v => n0(Math.round(v / 1000) * 1000);
-  const filas = T.ingresos_aglomerados.filter(r => r.aglomerado > 0).map(r => ({...r, codigo_indec: "a" + r.aglomerado, territorio: r.nombre}));
-  $t("ingresos-aglomerados").textContent = (t === "ipcf"
-    ? `En ${IA.trimestres}, en pesos del ${IA.trimestre}, la mitad de las personas de los 31 aglomerados urbanos vivía en hogares con un ingreso de hasta ${mil(E.pais)} pesos por mes por cada integrante. `
-    : `En ${IA.trimestres}, en pesos del ${IA.trimestre}, la mitad de los ocupados que cobran por su trabajo en los 31 aglomerados urbanos ganaba hasta ${mil(E.pais)} pesos por mes en su ocupación principal. `) +
-    `${conArt(E.max, true)} tenía la mediana más alta, ${mil(E.max_v)} pesos, y ${conArt(E.min)}, la más baja, ` +
-    `${mil(E.min_v)} pesos. La más alta es ${n1(E.veces)} veces la más baja.`;
-  const marcar = new Set(prov ? filas.filter(r => String(r.provincias).split(",").includes(prov)).map(r => r.codigo_indec) : []);
-  barrasH(el, {anim: a, data: filas, k: `${t}_pesos`, vf: mil, af: v => v === 0 ? "0" : v < 1e6 ? n0(v / 1e3) + " mil" : v === 1e6 ? "1 millón" : n1(v / 1e6).replace(/,0$/, "") + " millones",
-    ref: E.pais, refLab: `31 aglomerados ${mil(E.pais)}`,
-    marcar, l: 220, lAngosto: 132, corto: d => IA_CORTO[d.nombre] || d.nombre,
-    tip: d => `<b>${d.nombre}</b><br>${mil(d[t + "_pesos"])} pesos por mes, ${pct(d[t + "_pct_pais"])} de la mediana de los 31 aglomerados` +
-      `<br>${n0(d[t + "_casos"])} ${t === "ipcf" ? "personas" : "ocupados"} encuestados en los cuatro trimestres<br>Solo con el ${IA.trimestre}: ${mil(d[t + "_pesos_ultimo_trimestre"])}`});
-  el.resaltar = null;
-});
-/* Expectativas de inflación y confianza del consumidor (etapa 42): series mensuales de la Di Tella */
-DIB.expectativas = conTablas("expectativas", ["expectativas_inflacion"], a => {
-  const E = R.expectativas_inflacion, d = T.expectativas_inflacion.map(r => ({...r, t: tPer(r.mes)}));
-  $t("expectativas").textContent = `En ${mesPer(E.mes)}, la mitad de las personas encuestadas esperaba una inflación de hasta ${pct(E.mediana)} para los doce meses siguientes ` +
-    `y el promedio de las respuestas fue ${pct(E.promedio)}. En los doce meses hasta ${mesPer(E.ipc_mes)}, la inflación del INDEC fue ${pct(E.ipc_12m)}. De los ${E.comp_n} meses ` +
-    `entre ${mesPer(E.comp_desde)} y ${mesPer(E.comp_hasta)}, en ${E.comp_debajo} la mediana de lo esperado quedó por debajo de la inflación que hubo después.`;
-  lineas(G("expectativas"), {anim: a, data: d, x: "t", y0: 0, mensual: true, vf: pct, yf: v => n0(v) + "%", xl: r => mesPer(r.mes),
-    series: [{k: "inflacion_12m_siguientes", lab: "La que hubo en los doce meses siguientes", corto: "La que hubo", c: GRIS, w: 2},
-      {k: "promedio", lab: "Esperada, promedio", corto: "Promedio", c: FRI, w: 1.8}, {k: "mediana", lab: "Esperada, mediana", corto: "Mediana", c: css("--celeste-fuerte"), w: 2.6}]});
-});
-MED["confianza-consumidor"] = "partes";
-DIB["confianza-consumidor"] = conTablas("confianza-consumidor", ["confianza_consumidor"], a => {
-  const C = R.confianza_consumidor, reg = MED["confianza-consumidor"] === "regiones";
-  const comp = C.hace_un_anio == null ? "" : `, contra ${n1(C.hace_un_anio)} un año antes`;
-  $t("confianza-consumidor").textContent = reg
-    ? `En ${mesPer(C.mes)} el índice era ${n1(C.capital)} en CABA, ${n1(C.gba)} en el Gran Buenos Aires ${yE(n1(C.interior))} en el interior del país, ` +
-      `con ${n1(C.nacional)} para el total.`
-    : `En ${mesPer(C.mes)} el Índice de Confianza del Consumidor fue ${n1(C.nacional)} en una escala de 0 a 100${comp}. De sus partes, la situación macroeconómica ` +
-      `estaba en ${n1(C.macro)}, la situación personal en ${n1(C.personal)} y el momento para comprar bienes durables e inmuebles en ${n1(C.bienes)}. Desde ${mesPer(C.desde)}, ` +
-      `el valor más alto fue ${n1(C.max.v)}, en ${mesPer(C.max.mes)}, y el más bajo, ${n1(C.min.v)}, en ${mesPer(C.min.mes)}.`;
-  lineas(G("confianza-consumidor"), {anim: a, data: T.confianza_consumidor.map(r => ({...r, t: tPer(r.mes)})), x: "t", y0: 0, mensual: true, vf: n1, yf: n0, xl: r => mesPer(r.mes),
-    series: reg
-      ? [{k: "capital", lab: "CABA", corto: "CABA", c: css("--muted"), w: 1.8}, {k: "gba", lab: "Gran Buenos Aires", corto: "GBA", c: FRI, w: 1.8},
-         {k: "interior", lab: "Interior", c: GRIS, w: 1.8}, {k: "nacional", lab: "Total", c: css("--celeste-fuerte"), w: 2.6}]
-      : [{k: "macro", lab: "Situación macroeconómica", corto: "Macro", c: FRI, w: 1.6}, {k: "personal", lab: "Situación personal", corto: "Personal", c: css("--muted"), w: 1.6},
-         {k: "bienes", lab: "Bienes durables e inmuebles", corto: "Bienes", c: GRIS, w: 1.6}, {k: "nacional", lab: "Índice", c: css("--celeste-fuerte"), w: 2.6}]});
-});
-MED.haberes = "pct";
-MED["pensiones-invalidez"] = "mapa";
-MED.soja = "mapa";
-// "Ver tabla" de la soja: lo que muestra la vista elegida (los departamentos, las provincias o el país)
-TABLA_PROPIA["f-soja"] = () => {
-  const v = MED.soja, cols = r => ({"hectáreas sembradas": r.sembrada_ha, "% del país": r.pct_pais, toneladas: r.produccion_t,
-    "kilos por hectárea": r.rendimiento_kg_ha == null ? null : Math.round(r.rendimiento_kg_ha)});
-  if (v === "serie") return Promise.resolve(T.soja_pais.map(r => ({campaña: r.campania, "hectáreas sembradas": r.sembrada_ha, "hectáreas cosechadas": r.cosechada_ha,
-    toneladas: r.produccion_t, "kilos por hectárea": r.rendimiento_kg_ha == null ? null : Math.round(r.rendimiento_kg_ha)})));
-  if (v === "provincias") return Promise.resolve(T.soja_provincias.map(r => ({codigo_indec: r.codigo_indec, territorio: r.territorio, ...cols(r)})));
-  return cargarTabla("soja_departamentos").then(t => t.map(r => ({departamento: r.departamento, provincia: r.provincia, ...cols(r)})));
-};
-// dengue (plan de mejora, sección 10): la tasa por provincia de las temporadas juntas o de una, y los casos del país por temporada
-MED.dengue = "provincias";
 MED["dengue-temp"] = DG.juntas;
 $("dg-sel").innerHTML = [[DG.juntas, `De la ${DG.prov_desde} a la ${DG.temp}, juntas`], ...[...DG.temps_prov].reverse().map(t => [t, t])]
   .map(([v, l]) => `<option value="${v}">${l}</option>`).join("");
@@ -5565,52 +2694,6 @@ $("dg-sel").addEventListener("change", ev => { MED["dengue-temp"] = ev.target.va
 MED["ipc-reg"] = (REG_IPC[prov] || ["gba"])[0];
 $("ipd-sel").value = MED["ipc-reg"];
 $("ipd-sel").addEventListener("change", ev => { MED["ipc-reg"] = ev.target.value; cambiarVista("inflacion-rubros"); });
-const dgFilas = () => T.dengue_provincias.filter(r => r.temporada === MED["dengue-temp"]);
-DIB.dengue = conTablas("dengue", ["dengue_provincias"], a => {
-  const v = MED.dengue, el = G("dengue");
-  $("dg-elige").hidden = v === "serie";
-  refrescarTabla("f-dengue");
-  if (v === "serie") {
-    $t("dengue").textContent = TX["dengue-serie"];
-    return barrasH(el, {anim: a, data: T.dengue_pais.map(r => ({codigo_indec: r.temporada, territorio: r.temporada, casos: r.casos, cada_100000: r.cada_100000})),
-      k: "casos", sinOrden: true, vf: n0, af: ejeMil, l: 90, lAngosto: 72,
-      tip: d => `<b>Temporada ${d.territorio}</b><br>${n0(d.casos)} casos confirmados` + (d.cada_100000 == null ? "" : `<br>${fDg(d.cada_100000)} cada 100.000 habitantes`)});
-  }
-  const t = MED["dengue-temp"], filas = dgFilas(), fp = filas.find(r => r.codigo_indec === prov);
-  const pp = T.dengue_pais.find(r => r.temporada === t), pais = t === DG.juntas ? DG.pais_100000_juntas : pp.cada_100000;
-  const top = [...filas].sort((x, y) => y.cada_100000 - x.cada_100000)[0], sin = filas.filter(r => r.casos === 0).length;
-  const txt = t === DG.juntas ? TX.dengue : `En la temporada ${t} se confirmaron ${n0(pp.casos)} casos de dengue en el país, ${fDg(pp.cada_100000)} cada 100.000 habitantes. ` +
-    `La tasa más alta fue la de ${top.territorio}, con ${fDg(top.cada_100000)}.` + (sin ? ` En ${sin === 1 ? "una jurisdicción" : `${sin} jurisdicciones`} no hubo casos confirmados.` : "");
-  $t("dengue").textContent = (fp ? `En ${fp.territorio} se confirmaron ${n0(fp.casos)} casos ${t === DG.juntas ? `de la temporada ${DG.prov_desde} a la ${DG.temp}` : `en la ${t}`}, ` +
-    `${fDg(fp.cada_100000)} cada 100.000 habitantes. ` : "") + txt;
-  barrasH(el, {anim: a, data: filas, k: "cada_100000", vf: fDg, af: n0, ref: pais, refLab: `País ${fDg(pais)}`,
-    tip: d => `<b>${d.territorio}</b><br>${fDg(d.cada_100000)} casos cada 100.000 habitantes<br>${n0(d.casos)} casos confirmados`});
-});
-// "Ver tabla" del dengue: la temporada elegida por provincia, o el país por temporada
-TABLA_PROPIA["f-dengue"] = () => cargarTabla("dengue_provincias").then(() => MED.dengue === "serie"
-  ? T.dengue_pais.map(r => ({temporada: r.temporada, casos: r.casos, "casos cada 100.000 habitantes": r.cada_100000}))
-  : dgFilas().map(r => ({codigo_indec: r.codigo_indec, territorio: r.territorio, temporada: r.temporada, casos: r.casos, "casos cada 100.000 habitantes": r.cada_100000})));
-// vacuna triple viral (plan de mejora, sección 10): cada dosis por provincia, con la línea del 95%, y la mediana de las 24 jurisdicciones por año
-MED.vacunas = "dosis1";
-DIB.vacunas = a => {
-  const v = MED.vacunas, el = G("vacunas"), fp = T.vacunas_provincias.find(r => r.codigo_indec === prov);
-  refrescarTabla("f-vacunas");
-  if (v === "serie") {
-    $t("vacunas").textContent = TX["vacunas-serie"];
-    return lineas(el, {anim: a, data: T.vacunas_serie, x: "anio", y0: 0, vf: pct, yf: v => n0(v) + "%", ref: 95, refLab: "95%, lo que recomienda la OPS", refLabCorto: "95%",
-      series: [{k: "mediana_dosis1", lab: "Primera dosis", c: css("--celeste-fuerte"), w: 3}, {k: "mediana_dosis2", lab: "Segunda dosis", c: FRI, w: 2.4}]});
-  }
-  $t("vacunas").textContent = (fp ? `En ${fp.territorio}, la primera dosis llegó al ${pct(fp.dosis1)} de los chicos de un año y la segunda, al ${pct(fp.dosis2)} ` +
-    `de los que entraban a la escuela, en ${VC.anio}. ` : "") + TX[v === "dosis1" ? "vacunas" : "vacunas-2"];
-  barrasH(el, {anim: a, data: T.vacunas_provincias, k: v, vf: pct, af: v => n0(v) + "%", ref: 95, refLab: "95%, lo que recomienda la OPS",
-    paisLab: "Lo que recomienda la OPS", tip: d => `<b>${d.territorio}</b><br>Primera dosis: ${pct(d.dosis1)}<br>Segunda dosis: ${pct(d.dosis2)}`});
-};
-TABLA_PROPIA["f-vacunas"] = () => Promise.resolve(MED.vacunas === "serie"
-  ? T.vacunas_serie.map(r => ({año: r.anio, "primera dosis, mediana (%)": r.mediana_dosis1, "segunda dosis, mediana (%)": r.mediana_dosis2,
-      "jurisdicciones debajo del 95%, primera dosis": r.bajo_95_dosis1, "jurisdicciones debajo del 95%, segunda dosis": r.bajo_95_dosis2}))
-  : T.vacunas_provincias.map(r => ({codigo_indec: r.codigo_indec, territorio: r.territorio, "primera dosis (%)": r.dosis1, "segunda dosis (%)": r.dosis2})));
-MED.auh = "provincias";
-MED.desempleo = "habitantes";
 /* Variables principales del BCRA (etapa 41). Cada serie va completa, desde que empieza, y cada tipo tiene sus vistas, con lo que 02_procesar.py
    calcula para descontar la inflación (pedido del autor del 11 de octubre de 2026: "usá tu criterio económico y econométrico para deflactar"):
    - montos en pesos: en pesos de cada mes (escala logarítmica), sin la inflación (IPC del INDEC) y en % del PBI
@@ -5620,120 +2703,18 @@ MED.desempleo = "habitantes";
    - índices de actualización y tasas para juicios: el valor (logarítmica) y la variación en doce meses contra la inflación
    - inflación esperada: junto a la que hubo después */
 const BV = SX.bcra;
-const bCorto = x => Number.isInteger(x) ? n0(x) : (Math.abs(x) < 1 ? n2(x) : n1(x)).replace(/,0+$/, "");
-// los montos de las series que empiezan en 1940, en pesos de hoy, son ínfimos (a la moneda se le sacaron 13 ceros): van en pesos, con dos cifras
-const bInfimo = new Intl.NumberFormat("es-AR", {maximumSignificantDigits: 2});
-const bMonto = v => v >= 1e6 ? `${n1(v / 1e6)} billones` : v >= 1e3 ? `${n1(v / 1e3)} mil millones` : v >= 1 ? `${n0(v)} millones` : `${bInfimo.format(v * 1e6)} pesos`;
-const bMontoEje = v => v === 0 ? "0" : v >= 1e6 ? bCorto(v / 1e6) + " bill." : v >= 1e3 ? bCorto(v / 1e3) + " mil M" : v >= 1 ? bCorto(v) + " M" : "$ " + bInfimo.format(v * 1e6);
-const bUsd = v => v >= 1e3 ? `${n1(v / 1e3)} mil millones de dólares` : `${n0(v)} millones de dólares`;
-const bUsdEje = v => v === 0 ? "0" : v >= 1e3 ? bCorto(v / 1e3) + " mil M" : bCorto(v) + " M";
-const bDolar = v => v >= 100 ? n0(v) : n2(v);
-const bIndice = v => v >= 1000 ? n0(v) : v >= 100 ? n1(v) : n2(v);
-const ejePct = x => n0(x) + "%";
-const BCR_VISTAS = {millones: [["nominal", "En pesos"], ["real", "Sin inflación"], ["pbi", "% del PBI"]], dolar: [["nominal", "En pesos"], ["real", "Sin inflación"]],
-  tna: [["nominal", "Tasa"], ["real", "Tasa real"]], tea: [["nominal", "Tasa"], ["real", "Tasa real"]], var: [["nominal", "Con inflación"], ["real", "Sin inflación"]],
-  indice: [["nominal", "Valor"], ["var", "En 12 meses"]], pesos: [["nominal", "Valor"], ["var", "En 12 meses"]], acum: [["nominal", "Valor"], ["var", "En 12 meses"]],
-  usd: [["nominal", "En dólares"], ["pbi", "% del PBI"]]};
 const bcrVar = () => BV.variables.find(x => String(x.id) === MED["bcra-id"]) || BV.variables[0];
 // los valores ínfimos de las series desde 1940 vienen también como logaritmo, porque con cuatro decimales serían cero
 const bcrValor = r => r.log10_valor != null ? 10 ** r.log10_valor : r.valor;
-// qué se dibuja en cada vista: la columna (k), su formato (f), el del eje (yf), la escala logarítmica y una segunda línea con la inflación del INDEC
-const bcrCfg = (v, m) => {
-  const inf12 = {k: "inflacion_12m", lab: "Inflación de los mismos 12 meses", corto: "Inflación", c: FRI};
-  if (v.t === "millones") return m === "pbi" ? {k: "pct_pbi", f: x => pct(x) + " del PBI", yf: ejePct}
-    : m === "real" ? {k: "valor_real", f: x => bMonto(x) + " de pesos", yf: bMontoEje} : {k: "valor", f: x => bMonto(x) + " de pesos", yf: bMontoEje, log: true};
-  if (v.t === "dolar") return {k: m === "real" ? "valor_real" : "valor", f: x => bDolar(x) + " pesos", yf: bCorto, log: m !== "real"};
-  // las tasas nominales de los años de inflación muy alta (la serie desde 1985) pasan de miles por ciento: con eso, escala logarítmica (logAuto)
-  if (v.t === "tna" || v.t === "tea") return m === "real" ? {k: "tasa_real_mensual", f: conSigno, yf: ejePct, ref: 0, lab: "Tasa real a 30 días", corto: "Tasa real"}
-    : {k: "valor", f: x => `${pct(x)} ${v.u.replace(/^%\s*/, "")}`, yf: ejePct, corto: "Tasa", logAuto: true};
-  if (v.t === "tasa_usd") return {k: "valor", f: x => `${pct(x)} ${v.u.replace(/^%\s*/, "")}`, yf: ejePct, corto: "Tasa"};
-  if (v.t === "pct") return {k: "valor", f: pct, yf: ejePct};
-  if (v.t === "usd") return m === "pbi" ? {k: "pct_pbi", f: x => pct(x) + " del PBI", yf: ejePct} : {k: "valor", f: bUsd, yf: bUsdEje};
-  if (v.t === "var") return m === "real" ? {k: "variacion_real_12m", f: conSigno, yf: ejePct, ref: 0, lab: "Sin la inflación", corto: "Sin inflación"}
-    : {k: "valor", f: pct, yf: ejePct, corto: "M2", extra: inf12};
-  if (["indice", "pesos", "acum"].includes(v.t)) return m === "var"
-    ? {k: "variacion_12m", f: pct, yf: ejePct, lab: `${v.n}, variación en 12 meses`, corto: v.t === "acum" ? "Tasa" : v.n.split(" (")[0], extra: inf12}
-    : {k: "valor", f: v.t === "acum" ? (x => n1(x) + "% acumulado") : v.t === "pesos" ? (x => n2(x) + " pesos") : bIndice, yf: bCorto, log: true};
-  if (v.t === "rem") return {k: "valor", f: pct, yf: ejePct, lab: "Inflación esperada", corto: "Esperada",
-    extra: {k: "inflacion_12m_siguientes", lab: "Inflación que hubo en esos 12 meses", corto: "La que hubo", c: FRI}};
-  return {k: "valor", f: n2, yf: bCorto};
-};
 $("bcra-sel").innerHTML = d3.groups(BV.variables, x => x.g).map(([g, vs]) => `<optgroup label="${g}">${vs.map(x => `<option value="${x.id}">${x.n}</option>`).join("")}</optgroup>`).join("");
 MED["bcra-id"] = String(BV.variables[0].id);
 MED["bcra-m"] = "nominal";
 $("bcra-sel").addEventListener("change", ev => { MED["bcra-id"] = ev.target.value; cambiarVista("bcra"); });
-// el conmutador cambia con el tipo de variable. Los botones se rehacen solo si cambian las vistas, así el foco del teclado no se pierde
-const bcrConm = v => {
-  const conm = $("bcra-conm"), vistas = BCR_VISTAS[v.t] || [["nominal", "Valor"]];
-  if (!vistas.some(([m]) => m === MED["bcra-m"])) MED["bcra-m"] = vistas[0][0];
-  if (conm.dataset.vistas !== vistas.join()) {
-    conm.dataset.vistas = vistas.join();
-    conm.innerHTML = vistas.map(([m, lab]) => `<button type="button" data-m="${m}">${lab}</button>`).join("");
-  }
-  conm.hidden = vistas.length < 2;
-  conm.style.setProperty("--n", vistas.length);
-  conm.style.setProperty("--i", vistas.findIndex(([m]) => m === MED["bcra-m"]));
-  conm.querySelectorAll("button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.m === MED["bcra-m"])));
-};
 $("bcra-conm").addEventListener("click", ev => {
   const b = ev.target.closest("button[data-m]");
   if (!b || b.dataset.m === MED["bcra-m"]) return;
   MED["bcra-m"] = b.dataset.m;
   cambiarVista("bcra");
-});
-// el texto de cada vista: el último dato, la comparación que corresponde y el rango de la serie
-const bcrTxt = (v, m, c, filas) => {
-  const k = c.k, con = filas.filter(r => r[k] != null), u = con[con.length - 1], mes = r => mesPer(r.mes);
-  const ant = con.find(r => r.mes === `${+u.mes.slice(0, 4) - 1}${u.mes.slice(4)}`);
-  const mx = con.reduce((a, r) => r[k] > a[k] ? r : a), mn = con.reduce((a, r) => r[k] < a[k] ? r : a);
-  const rango = f => ` Desde ${mes(con[0])}, el valor más alto fue de ${f(mx[k])}, en ${mes(mx)}, y el más bajo, de ${f(mn[k])}, en ${mes(mn)}.`;
-  const doce = ant ? `, ${conSigno((u[k] / ant[k] - 1) * 100)} en doce meses` : "";
-  const ambos = c.extra ? filas.filter(r => r[k] != null && r[c.extra.k] != null) : [];
-  const b = ambos[ambos.length - 1];
-  if (v.t === "millones") return m === "nominal"
-    ? `${v.n}: ${c.f(u[k])} en ${mes(u)}${doce}. En pesos de cada mes, la serie sube sobre todo por la inflación: para comparar en el tiempo están las vistas sin la inflación, ` +
-      `desde ${mesPer(BV.ipc_desde)}, y en % del PBI, desde ${BV.pib_desde}.`
-    : m === "real" ? `${v.n}, en pesos de ${mesPer(BV.ipc_mes)}: ${bMonto(u[k])} en ${mes(u)}${doce}.` + rango(bMonto)
-    : `${v.n}: ${c.f(u[k])} en ${mes(u)}.` + rango(c.f);
-  if (v.t === "dolar") return m === "real"
-    ? `${v.n}, descontada la inflación de la Argentina y la de los Estados Unidos: ${c.f(u[k])} por dólar en ${mes(u)}.` + rango(c.f) + ` Todos los valores están en pesos de ${mesPer(BV.tcr_mes)}.`
-    : `${v.n}: ${c.f(u[k])} por dólar en ${mes(u)}${doce}. La vista «Sin inflación» descuenta la inflación de la Argentina y la de los Estados Unidos.`;
-  if (v.t === "tna" || v.t === "tea") {
-    if (m === "nominal") return `${v.n}: ${c.f(u[k])} en ${mes(u)}` + (ant ? `, contra ${pct(ant[k])} un año antes` : "") + `. El valor más alto desde ${mes(con[0])} fue de ${pct(mx[k])}, en ${mes(mx)}.`;
-    const ult = con.slice(-12), pos = ult.filter(r => r[k] > 0).length;
-    return `${v.n}: tasa real a 30 días de ${conSigno(u[k])} en ${mes(u)}, con una inflación de ${pct(u.inflacion_mes_siguiente)} en el mes siguiente.` +
-      (ult.length === 12 ? ` En los últimos doce meses con dato fue positiva en ${pos} y negativa en ${12 - pos}.` : "") +
-      ` Desde ${mes(con[0])}, el promedio fue de ${conSigno(d3.mean(con, r => r[k]))} por mes.`;
-  }
-  if (v.t === "var") return m === "real" ? `${v.n}, descontada la inflación: ${conSigno(u[k])} en ${mes(u)}.` + rango(conSigno)
-    : `${v.n}: ${pct(u[k])} en ${mes(u)}.` + (b ? ` En ${mes(b)}, el último mes con inflación publicada, fue de ${pct(b[k])}, con una inflación de ${pct(b[c.extra.k])} en los mismos doce meses.` : "");
-  if (["indice", "pesos", "acum"].includes(v.t)) return m === "var"
-    ? (b ? `${v.n}: ${conSigno(b[k])} en los doce meses hasta ${mes(b)}, contra una inflación de ${pct(b[c.extra.k])}.` : `${v.n}: ${conSigno(u[k])} en los doce meses hasta ${mes(u)}.`)
-    : `${v.n}: ${c.f(u[k])} en ${mes(u)}` + (v.t === "acum" ? `, lo que suman los intereses desde ${mes(con[0])}` : "") + `. La vista en 12 meses compara su variación con la inflación.`;
-  if (v.t === "usd") return m === "pbi" ? `${v.n}: ${c.f(u[k])} en ${mes(u)}, pasado a pesos con el dólar mayorista de fin de mes.` + rango(c.f)
-    : `${v.n}: ${c.f(u[k])} en ${mes(u)}${doce}.` + rango(c.f);
-  if (v.t === "rem") {
-    const mas = ambos.filter(r => r[c.extra.k] > r[k]).length;
-    return `En ${mes(u)}, quienes responden el Relevamiento de Expectativas de Mercado del BCRA esperaban ${pct(u[k])} de inflación para los doce meses siguientes.` +
-      (b ? ` La última expectativa que ya se puede comparar, la de ${mes(b)}, fue de ${pct(b[k])}, y la inflación de esos doce meses resultó de ${pct(b[c.extra.k])}.` +
-        ` En ${mas} de los ${ambos.length} meses comparables, la inflación fue mayor que la esperada.` : "");
-  }
-  return `${v.n}: ${c.f(u[k])} en ${mes(u)}.` + rango(c.f);
-};
-DIB.bcra = conTablas("bcra", ["bcra_variables"], a => {
-  const v = bcrVar(), el = G("bcra");
-  bcrConm(v);
-  const m = MED["bcra-m"], c = bcrCfg(v, m);
-  const filas = T.bcra_variables.filter(r => r.id === v.id && (r[c.k] != null || (c.extra && r[c.extra.k] != null)))
-    .map(r => ({...r, valor: bcrValor(r), t: tPer(r.mes)}));
-  if (!filas.some(r => r[c.k] != null)) return sinDatos(el, "No hay datos de esta variable.");
-  $t("bcra").textContent = bcrTxt(v, m, c, filas);
-  const vals = filas.flatMap(r => [r[c.k], c.extra ? r[c.extra.k] : null]).filter(x => x != null);
-  const log = c.log || (c.logAuto && d3.min(vals) > 0 && d3.max(vals) > 300);
-  lineas(el, {anim: a, data: filas, x: "t", log, y0: Math.min(0, d3.min(vals)), ref: c.ref, vf: c.f, yf: c.yf, xl: r => mesPer(r.mes), mensual: true,
-    series: [{k: c.k, lab: c.lab || v.n, corto: c.corto || "Último dato", c: NAR}, ...(c.extra ? [c.extra] : [])]});
-  // la tabla abierta sigue a la variable elegida
-  const caja = document.querySelector("#f-bcra .tabla-datos"); if (caja) caja.innerHTML = tablaDatos(TABLA_VISTA["f-bcra"](T.bcra_variables), "f-bcra");
 });
 
 // de las transferencias: lo que leen también "En cifras" y el minigráfico de los ATN
@@ -5744,52 +2725,29 @@ const milM = v => `${v >= 10 ? n0(v) : n1(v)} mil millones`;
 // de los presidentes: lo que lee también "En cifras"
 const PRR = R.presidentes;
 parte("politica");  // Instituciones políticas, con las transferencias: scripts/partes/politica.js
-/* La justicia (24 de octubre de 2026): los casos de la Corte Suprema por año, y los jueces, las fiscalías y las defensorías federales por
-   provincia. Las cantidades van en barras apiladas con el total al final, y la vista por habitante de los jueces, con la línea del país */
-DIB["corte-casos"] = a => lineas(G("corte-casos"), {anim: a, data: T.corte_casos, x: "anio", y0: 0, vf: n0, yf: v => n0(v / 1000) + " mil",
-  series: [{k: "ingresados", lab: "Llegaron", c: FRI, w: 3}, {k: "resueltos", lab: "Resueltos", c: NAR, w: 3}],
-  xl: d => `${d.anio}` + (d.fallos ? `<br><span class="suave">${n0(d.fallos)} fallos en ${d.acuerdos} acuerdos</span>` : "")});
-const JUS_CLAVES = {
-  jueces: [{k: "titular", lab: "Con juez titular", c: "#2C74B5"}, {k: "subrogante", lab: "Sin titular, con subrogante", c: "#74ACDF", texto: "#18212B"},
-    {k: "sin_cubrir", lab: "Sin titular ni subrogante", c: "#C3CAD2", texto: "#18212B"}],
-  mp: [{k: "fiscalias", lab: "Fiscalías", c: "#2C74B5"}, {k: "defensorias", lab: "Defensorías", c: "#F6B40E", texto: "#18212B"}]};
-const jusLeyenda = (id, claves, ver) => { const l = $(id); l.innerHTML = claves.map(k => `<span><i style="background:${k.c}"></i>${k.lab}</span>`).join("");
-  l.style.display = ver ? "" : "none"; };
-// barras apiladas de mayor a menor, con lugar a la derecha para el total
-// fin: el texto al final de cada barra (si no se da, el total). Va como null por defecto: un valor por defecto no ve total, que se define adentro
-const jusApiladas = (g, filas, claves, f, a, fin = null, tipExtra, sinValores = false) => {
-  const el = G(g), total = d => d3.sum(claves, k => d[k.k]), mx = d3.max(filas, total);
-  apiladasH(el, {anim: a, claves, data: [...filas].sort((p, q) => total(q) - total(p)), max: mx * 1.14, ticks: d3.ticks(0, mx, el.clientWidth < 520 ? 2 : 4),
-    ejeF: f, tipF: f, alFinal: fin || (d => f(total(d))), tipExtra, sinValores});
-};
-DIB["jueces-federales"] = a => {
-  const F = R.justicia.federal, filas = T.justicia_federal_provincias, porHab = MED["jueces-federales"] !== "cargos";
-  jusLeyenda("jf-ley", JUS_CLAVES.jueces, !porHab);
-  if (!porHab) return jusApiladas("jueces-federales", filas, JUS_CLAVES.jueces, n0, a);
-  barrasH(G("jueces-federales"), {anim: a, data: filas, k: "cargos_cada_100mil", ref: F.cada_100mil, refLab: `País ${n1(F.cada_100mil)}`, vf: n1, af: n1,
-    tip: d => `<b>${d.territorio}</b><br>${n1(d.cargos_cada_100mil)} cargos cada 100.000 habitantes<br>${n0(d.cargos)} cargos de juez federal`});
-};
-DIB["fiscalias-federales"] = a => {
-  const porHab = MED["fiscalias-federales"] !== "cantidad";
-  jusLeyenda("mpf-ley", JUS_CLAVES.mp, true);
-  jusApiladas("fiscalias-federales", T.fiscalias_defensorias_federales,
-    porHab ? JUS_CLAVES.mp.map(k => ({...k, k: k.k + "_cada_100mil"})) : JUS_CLAVES.mp, porHab ? n1 : n0, a);
-};
-const CP_CLAVES = [{k: "ministros", lab: "Ministras y ministros", c: "#2C74B5"}, {k: "vacantes_ley", lab: "Lugares vacantes según la ley", c: "#C3CAD2", texto: "#18212B"}];
-DIB["cortes-provinciales"] = conTablas("cortes-provinciales", ["justicia_provincias"], a => {
-  jusLeyenda("cp-ley", CP_CLAVES, true);
-  // los lugares vacantes, solo donde se leyó en la ley cuántos miembros tiene la corte
-  const filas = T.justicia_provincias.map(d => ({...d, vacantes_ley: d.miembros_ley != null ? Math.max(0, d.miembros_ley - d.ministros) : null}));
-  jusApiladas("cortes-provinciales", filas, CP_CLAVES, n0, a, d => d.miembros_ley != null ? `${n0(d.ministros)} de ${n0(d.miembros_ley)}` : n0(d.ministros),
-    d => `<br>${d.tribunal}` + (d.miembros_ley != null ? `<br>La ley fija ${d.miembros_ley}` : "<br>Sin verificar en la ley cuántos lugares tiene"), true);
-});
-const JP_NOMBRE = {magistratura: "jueces", fiscales: "fiscales", defensores: "defensores"};
-DIB["justicia-provincial"] = conTablas("justicia-provincial", ["justicia_provincias"], a => {
-  const m = MED["justicia-provincial"], P = R.justicia.prov, k = m + "_cada_100mil";
-  barrasH(G("justicia-provincial"), {anim: a, data: T.justicia_provincias.filter(d => d[k] != null), k, ref: P.pais[m], refLab: `País ${n1(P.pais[m])}`,
-    vf: n1, af: n0, tip: d => `<b>${d.territorio}</b><br>${n1(d[k])} ${JP_NOMBRE[m]} cada 100.000 habitantes<br>${n0(d[m])} en total` +
-      (d[m + "_anio"] !== P.anio ? `<br>Dato de ${d[m + "_anio"]}` : "")});
-});
+/* Los textos y los gráficos de cada sección (plan técnico, fase 5, 25 de noviembre de 2026): lo que usa una sola página (sus entradas de
+   DIB, MED y TABLA_PROPIA, las notas de TX que no lee la lupa y los nombres que solo usan ellas) está en scripts/partes/<página>.js, que
+   pide solo esa página. Corren acá, después de todos los gráficos del núcleo y antes de cambiarVista, de la comparación con la OCDE (que
+   envuelve algunos de esos gráficos) y del primer dibujo. Las de Sector externo e Instituciones políticas suman lo suyo al comienzo de su
+   propia parte, que corre más arriba */
+parte("energia");  // Energía: scripts/partes/energia.js
+parte("petroleo");  // Petróleo y gas: scripts/partes/petroleo.js
+parte("movilidad");  // Movilidad: scripts/partes/movilidad.js
+parte("naturaleza");  // Naturaleza: scripts/partes/naturaleza.js
+parte("poblacion");  // Población: scripts/partes/poblacion.js
+parte("migraciones");  // Migraciones: scripts/partes/migraciones.js
+parte("salud");  // Salud: scripts/partes/salud.js
+parte("educacion");  // Educación: scripts/partes/educacion.js
+parte("pobreza");  // Pobreza: scripts/partes/pobreza.js
+parte("trabajo");  // Trabajo: scripts/partes/trabajo.js
+parte("economia");  // Economía: scripts/partes/economia.js
+parte("empresas");  // Empresas: scripts/partes/empresas.js
+parte("construccion");  // Construcción: scripts/partes/construccion.js
+parte("gobierno");  // Gobierno: scripts/partes/gobierno.js
+parte("turismo");  // Turismo: scripts/partes/turismo.js
+parte("justicia");  // Justicia: scripts/partes/justicia.js
+parte("seguridad");  // Seguridad: scripts/partes/seguridad.js
+parte("curiosidades");  // Curiosidades: scripts/partes/curiosidades.js
 /* Cambio de vista de un gráfico (botones OCDE, selectores y conmutadores de cada ficha): no se repite la animación de entrada.
    El gráfico se redibuja quieto y la versión nueva funde sobre la anterior (200 ms), con una transición de vista del navegador.
    Donde no hay soporte, o con movimiento reducido, cambia de una vez. La transición de valores llega en la etapa 6. */

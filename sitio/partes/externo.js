@@ -1,5 +1,73 @@
 window.DATINA_PARTES = window.DATINA_PARTES || {};
 window.DATINA_PARTES["externo"] = () => {
+textosParte({
+"exporta-rubros-nota": `Valores FOB (la mercadería puesta en el puerto o en la frontera, sin flete ni seguro), en dólares de cada año: no descuentan la inflación de los Estados Unidos. ` +
+`Primarios: granos, semillas, minerales, frutas y pescado sin procesar. Agroindustria: las manufacturas de origen agropecuario, como harinas, aceites, carnes, lácteos y vinos. ` +
+`Industria: las manufacturas de origen industrial, como vehículos, químicos, metales y oro. Energía: petróleo, gas y combustibles. El año en curso, incompleto, no va en el gráfico.`,
+"complejos-nota": `Un complejo exportador reúne los productos de una misma cadena, desde la materia prima hasta las manufacturas: el complejo soja suma los porotos, la harina, el aceite y el biodiésel. ` +
+`Los sectores agrupan varios complejos, y el cuadro de cada barra dice cuánto aportó cada uno. Datos provisorios, en dólares FOB (sin flete ni seguro).`,
+"destinos-nota": `Exportaciones de bienes según el país de destino. Las zonas que juntan varios países (resto del Mercosur, resto de América Latina sin México, resto del Sudeste Asiático) no incluyen a los que aparecen solos. ` +
+`Cuando el dato de una provincia permitiría identificar a una empresa, el INDEC lo reserva por secreto estadístico y va como "sin detalle". Datos provisorios. Si elegís una provincia en Tu provincia, el gráfico muestra sus destinos.`,
+"exprov-nota": `Origen Provincial de las Exportaciones del INDEC: cada venta se asigna a la provincia donde se produjo el bien o se hizo su última transformación, no a la del puerto por donde salió. ` +
+`Una parte no tiene provincia (plataforma continental, extranjero o indeterminado), por eso las provincias no suman el total del país. El último año es provisorio.`,
+"balanza-nota": `Exportaciones en valores FOB (la mercadería puesta en el puerto o en la frontera) e importaciones en valores CIF (con el flete y el seguro), en dólares de cada año, ` +
+`sin descontar la inflación de los Estados Unidos. El saldo es la diferencia entre las dos. Son solo bienes: los servicios, como el turismo, y los intereses y las utilidades ` +
+`están en la cuenta corriente, más abajo. El año en curso, incompleto, no va en el gráfico.`,
+"importaciones-nota": `Valores CIF (con el flete y el seguro), en dólares de cada año. Es la clasificación por uso económico del INDEC: los bienes intermedios son insumos como productos químicos, ` +
+`plásticos, metales o minerales, las piezas y accesorios son partes de máquinas y vehículos, los bienes de capital son máquinas, equipos y vehículos de carga, y los vehículos ` +
+`de pasajeros son los autos. El año en curso, incompleto, no va en el gráfico.`,
+"origen-nota": `Importaciones de bienes según el país de origen, en dólares CIF, desde enero hasta el último mes publicado y comparadas con los mismos meses del año anterior. ` +
+`Las zonas que juntan varios países (resto de la Unión Europea, resto de América Latina sin México, resto del Sudeste Asiático) no incluyen a los que aparecen solos. ` +
+`México y Canadá son los socios de los Estados Unidos en el tratado comercial de América del Norte. No van los orígenes que no llegan al 0,05%. Datos provisorios.`,
+"socios-nota": `Exportaciones en valores FOB (la mercadería puesta en el puerto o en la frontera) e importaciones en valores CIF (con el flete ` +
+`y el seguro), en dólares, sumadas en los últimos doce meses publicados. El saldo es la diferencia entre las dos. Son los ${SX.socios.n} países con más ` +
+`comercio, sumando lo exportado y lo importado: la tabla descargable tiene los ${SX.socios.n_paises}. Desde ${SX.socios_hist.sin_pais_desde} el INDEC publica una parte de las exportaciones ` +
+`como confidenciales, sin rubro ni país, para que no se pueda deducir lo que vende una empresa: van en "Sin país informado". Un saldo en contra con un país no ` +
+`es en sí bueno ni malo: se compra a unos y se vende a otros, y lo que cuenta para las cuentas externas es el saldo con todos.`,
+"socios-hist-nota": `Parte de cada país en el total de cada año, con los valores en dólares del INDEC: FOB las ` +
+`exportaciones y CIF las importaciones. En cada sentido, los ${SX.socios_hist.importa.length} países que más pesaron en ${SX.socios_hist.anio}, la tabla descargable tiene todos. ` +
+`Lo que no tiene país informado cuenta en el total: en las exportaciones, desde ${SX.socios_hist.sin_pais_desde}, sobre todo por el secreto estadístico. Por eso la parte de ` +
+`cada país en esos años puede ser más baja que la real. La serie empieza en ${SX.socios_hist.desde}: en los años anteriores, que el INDEC también publica, ` +
+`una parte grande del comercio figura sin país y Alemania no aparece. ` +
+`El año en curso, incompleto, no va en el gráfico.`,
+"cuenta-corriente-nota": `Balance de pagos del INDEC, con la metodología del sexto manual del FMI. La cuenta corriente suma el saldo de los bienes (valuados FOB y registrados cuando cambian ` +
+`de dueño, por eso difiere del intercambio comercial de más arriba), el de los servicios (viajes, fletes, seguros y servicios profesionales e informáticos), el del ingreso primario ` +
+`(los intereses, las utilidades y los dividendos que se pagan y se cobran con el exterior, y los salarios) y el del ingreso secundario (transferencias, como las remesas). ` +
+`Cuando la cuenta corriente tiene déficit, la diferencia se cubre con deuda, inversiones del exterior o reservas: esos movimientos van en la cuenta financiera del balance de pagos, que esta ficha no muestra. El gráfico no muestra el ingreso secundario, que es chico, ` +
+`pero el total lo incluye. El año en curso, incompleto, no va en el gráfico.`,
+"reservas-bcra": (() => { const V = SX.reservas, f = V.factores, suma = f.reduce((a, x) => a + x.v, 0);
+const TXF = {compras: "las compras de divisas", organismos: "las operaciones con organismos internacionales", sector_publico: "otras operaciones del sector público",
+efectivo_minimo: "el efectivo mínimo de los bancos", otras: "otras operaciones"};
+const mas = [...f].sort((a, b) => b.v - a.v)[0], menos = [...f].sort((a, b) => a.v - b.v)[0], m = v => `${v > 0 ? "+" : ""}${n0(v)} millones`;
+const partes = [mas.v > 0 ? `lo que más las hizo subir fueron ${TXF[mas.k] || mas.lab.toLowerCase()} (${m(mas.v)})` : "",
+menos.v < 0 ? `lo que más las hizo bajar, ${TXF[menos.k] || menos.lab.toLowerCase()} (${m(menos.v)})` : ""].filter(Boolean);
+return `Un año antes, las reservas brutas eran ${n0(V.hace_un_anio)} millones de dólares. El máximo de la serie, con los datos de cada día, fue de ${n0(V.max)} millones, en ${MESES[+V.max_fecha.slice(0, 2) - 1]} de ${V.max_fecha.slice(3)}. ` +
+`En lo que va de ${V.anio} ${suma >= 0 ? "subieron" : "bajaron"} ${n0(Math.abs(suma))} millones` + (partes.length ? `: ${partes.join(" y ")}.` : "."); })(),
+"reservas-netas-nota": `Las reservas netas son, con el criterio de Datina, las brutas menos todo lo que el BCRA tiene que pagar o devolver en moneda extranjera dentro de un ` +
+`año según su planilla de reservas internacionales y liquidez, que publica cada mes con el formato del FMI: los dólares que los bancos dejan en el BCRA como respaldo de los ` +
+`depósitos en dólares, los depósitos del Tesoro, otras deudas a un año, el tramo a término del canje de monedas con el Banco Popular de China (los yuanes cuentan en las ` +
+`brutas, pero hay que devolverlos) y los pases con bancos del exterior. No hay una cifra oficial de reservas netas: otras estimaciones no restan los depósitos del Tesoro o ` +
+`restan también los préstamos de organismos internacionales, y dan otros números. Hasta 2021 la planilla anota el canje con China junto con los pases. Las brutas de la ` +
+`planilla coinciden con las de la API del BCRA. El oro se valúa al precio de mercado y los derechos especiales de giro (DEG) son la moneda del FMI.` +
+(SX.reservas_netas && SX.reservas_netas.n_sin_netas ? ` En ${SX.reservas_netas.n_sin_netas} meses no hay reservas netas porque la planilla no está publicada o no ` +
+`se pudo leer completa (sobre todo en 2007): ahí el gráfico no tiene dato y el mínimo y el máximo son los de los meses con dato.` : ""),
+"reservas-bcra-nota": `Reservas internacionales brutas del Banco Central: el oro, las divisas, las colocaciones y los demás activos en el exterior. Incluyen algunos que tienen una deuda ` +
+`como contrapartida, como los depósitos en dólares que los bancos dejan en el BCRA o los canjes de monedas con otros bancos centrales, por eso no todas se pueden usar libremente: la pestaña de las netas las desagrega y resta esas deudas. ` +
+`Cada punto es el último día con dato de cada mes, desde ${SX.reservas.desde} con la serie mensual del BCRA. "Meses de importación" divide las reservas por el promedio ` +
+`mensual de lo importado en los doce meses anteriores (INDEC): una referencia tradicional es que cubran al menos tres meses. "Qué las movió" muestra los factores con que el BCRA explica la variación de las reservas en lo que va del año, hasta el ` +
+`${fLarga(SX.reservas.factores_hasta)}: compras y ventas de divisas, préstamos y pagos de organismos internacionales como el FMI, otras operaciones del Tesoro, cambios en el ` +
+`efectivo mínimo que los bancos dejan en el BCRA y otras operaciones, entre ellas los cambios de cotización del oro y de las monedas. La tabla trae esos factores por año desde ${SX.reservas.factores_desde}.`,
+"socios-que-nota": `Valor FOB de las exportaciones y CIF de las importaciones, en dólares, del INDEC. Se pueden elegir los ${SQ.n} países con al menos ${n0(SQ.min)} millones de dólares de intercambio en ${SQ.anio}. ` +
+`Desde ${SX.socios_hist.sin_pais_desde}, el INDEC publica parte de las exportaciones como confidenciales, sin país ni rubro. En la fila de todo el mundo son "Sin rubro informado" y no están en la de ningún país. ` +
+`Por eso estos porcentajes no son los de "¿Qué exporta la Argentina?", donde el INDEC reparte lo confidencial entre los rubros. El valor por kilo es el total en dólares dividido por el peso neto, en dólares de cada año: mezcla productos muy distintos y no es un precio.`,
+"valor-kilo-nota": `Valor FOB de las exportaciones y CIF de las importaciones, en dólares de cada año, sin descontar la inflación, dividido por el peso neto, del INDEC. El CIF incluye el flete y el seguro hasta la Argentina, y el FOB no. ` +
+`Cuenta solo lo que tiene peso informado: queda afuera el ${pct(VK.impo_sin_peso)} de lo importado en ${VK.anio}. Lo confidencial de las exportaciones entra en el total, y no en ningún rubro. ` +
+`Los promedios cambian con lo que se vende y se compra cada año: una suba no quiere decir que el mismo producto valga más.`,
+});
+Object.assign(MED, {
+"socios-que": "vende",
+"valor-kilo": "anual",
+});
 DIB["socios-que"] = conTablas("socios-que", () => ["comercio_rubro_pais"], a => {
 const v = MED["socios-que"] || "vende", vende = v === "vende", p = vende ? "e_" : "i_", tabla = T.comercio_rubro_pais, fila = c => tabla.find(r => r.codigo === c);
 const A = fila($("sq-a").value), B = fila($("sq-b").value), M = fila("00");

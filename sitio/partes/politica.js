@@ -1,5 +1,25 @@
 window.DATINA_PARTES = window.DATINA_PARTES || {};
 window.DATINA_PARTES["politica"] = () => {
+textosParte({
+"confianza-gobierno-nota": R.confianza_gobierno ? `El índice resume cinco preguntas de una encuesta mensual de opinión pública de alcance nacional que hace la Universidad ` +
+`Torcuato Di Tella sobre el gobierno nacional: la evaluación general del gobierno, si gobierna pensando en el bien general o en intereses de sectores, si administra ` +
+`bien el gasto público, la honestidad de sus miembros y su capacidad para resolver los problemas del país. Va de 0, ninguna confianza, a 5, mucha confianza. Mide la ` +
+`opinión sobre el gobierno de cada momento y, como toda encuesta, tiene margen de error: los cambios chicos de un mes al otro pueden no ser significativos. En el ` +
+`promedio de cada gobierno no se cuenta el mes en que asumió uno nuevo, porque según la fecha de la encuesta puede medir al que se va o al que llega. Eduardo Duhalde ` +
+`asumió el 2 de enero de 2002 y ese mes va con él. Fernando de la Rúa, con un solo mes en la serie, y los presidentes interinos de diciembre de 2001 no tienen promedio.` +
+(R.confianza_gobierno.elecciones ? ` En la vista de elecciones, arriba va el índice mes a mes y abajo, el voto en cada elección presidencial: las primeras vueltas desde ` +
+`${R.confianza_gobierno.elecciones.desde} (punto lleno) y las PASO desde que empezaron, en 2011 (punto hueco). El voto es el de la candidatura del gobierno nacional sobre los votos positivos, con los resultados de la Dirección ` +
+`Nacional Electoral (provisorios en 2023): en las PASO, el de todas las listas de su agrupación, y en 2003, el de Néstor Kirchner, que era el candidato del presidente ` +
+`Duhalde. El índice que se compara es el del mes anterior a cada elección (el punto sobre la línea de arriba), el último medido entero antes de votar. Son pocas elecciones, y la PASO y la primera vuelta de un mismo ` +
+`año están muy relacionadas entre sí, así que la correlación exagera lo que se puede afirmar. La que da el texto de esa vista, ${n2(R.confianza_gobierno.elecciones.r)}, es la de Pearson, que usa los valores. La de Spearman, que usa el orden y no los valores, es ` +
+`${n2(R.confianza_gobierno.elecciones.rs)}. Que el índice y el voto vayan juntos no quiere decir que uno cause el otro: el voto depende también de quiénes son los ` +
+`candidatos, de la oposición y de la situación económica. Las elecciones legislativas no están: el sitio tiene los resultados de las presidenciales.` : "") : "",
+"mujeres-congreso-nota": `Bancas ocupadas hoy y el 1 de marzo de cada período, como en la ficha de las bancas de cada espacio político. Los ` +
+`registros de las cámaras no dicen el sexo de cada legislador: Datina lo toma de su nombre de pila, con una tabla revisada a mano, y los ` +
+`nombres que pueden ser de mujer o de varón se revisaron uno por uno. ${MJC.sin_det_serie ? `En ${MJC.sin_det_serie} casos de toda la serie no se ` +
+`pudo determinar y quedan fuera del porcentaje. ` : ""}Qué no dice este dato: cuántas mujeres encabezan listas, presiden bloques o comisiones, ` +
+`ni cuántas votantes hay en cada padrón.`,
+});
 const ESP_VARIANTE = {"Peronismo": ["#2C74B5", "#6FA3D8", "#A9CBEA"], "Otras fuerzas": ["#56606C", "#98A2AE", "#C3CAD2"]};
 const EL = Object.fromEntries(R.elecciones.map(e => [e.id, e]));
 const nombreEl = e => `${e.anio}${e.vuelta === 0 ? ", PASO" : e.vuelta === 2 ? ", segunda vuelta" : e.anio === 2015 || e.anio === 2023 ? ", primera vuelta" : e.anio >= 2011 ? ", generales" : ""}`;

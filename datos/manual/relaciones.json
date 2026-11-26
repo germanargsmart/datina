@@ -3762,7 +3762,7 @@
      "contiene": "\"esperanza_vida\": (\"SP.DYN.LE00.IN\""
     },
     {
-     "archivo": "scripts/datina.js",
+     "archivo": "scripts/partes/salud.js",
      "contiene": "ref: OC.esperanza_vida.ocde, refLab:"
     }
    ],
@@ -3794,7 +3794,7 @@
      "contiene": "\"mortalidad_infantil\": (\"SP.DYN.IMRT.IN\""
     },
     {
-     "archivo": "scripts/datina.js",
+     "archivo": "scripts/partes/salud.js",
      "contiene": "ref: OC.mortalidad_infantil.ocde, refLab:"
     }
    ],
@@ -4594,7 +4594,7 @@
      "contiene": "\"migraciones_departamentos\": migraciones_departamentos,"
     },
     {
-     "archivo": "scripts/datina.js",
+     "archivo": "scripts/partes/migraciones.js",
      "contiene": "mapa: [\"migraciones_departamentos\"]"
     }
    ],
@@ -4626,7 +4626,7 @@
      "contiene": "mig_dep = pd.read_csv(RAIZ / \"datos\" / \"manual\" / \"censo2022_migraciones_departamentos.csv\""
     },
     {
-     "archivo": "scripts/datina.js",
+     "archivo": "scripts/partes/migraciones.js",
      "contiene": "\"migracion-interna\": conTablas(\"migracion-interna\", () => MED[\"migracion-interna\"] === \"mapa\" ? [\"migraciones_departamentos\"] : [], a => {"
     }
    ],
@@ -6030,7 +6030,7 @@
      "contiene": "\"energia_hogares\": anual[[\"anio\", \"total\", \"residencial\", \"resto\", \"pct_residencial\","
     },
     {
-     "archivo": "scripts/datina.js",
+     "archivo": "scripts/partes/energia.js",
      "contiene": ": [{k:\"idx_demanda\", lab:\"Electricidad\", c:NAR, w:3}, {k:\"idx_emae\", lab:\"Actividad\", c:GRIS}]}),"
     }
    ],
@@ -8869,7 +8869,7 @@
    "a": "f-ant-mapa",
    "evidencia": [
     {
-     "archivo": "scripts/datina.js",
+     "archivo": "scripts/partes/naturaleza.js",
      "contiene": "d3.json(\"datos/antartida.topo.json\")"
     }
    ]
@@ -8880,7 +8880,7 @@
    "a": "f-ant-mapa",
    "evidencia": [
     {
-     "archivo": "scripts/datina.js",
+     "archivo": "scripts/partes/naturaleza.js",
      "contiene": "d3.json(\"datos/antartida_zonas.geo.json\")"
     }
    ]
@@ -8891,7 +8891,7 @@
    "a": "f-ant-reclamos",
    "evidencia": [
     {
-     "archivo": "scripts/datina.js",
+     "archivo": "scripts/partes/naturaleza.js",
      "contiene": "d3.json(\"datos/antartida.topo.json\")"
     }
    ]
@@ -8922,7 +8922,7 @@
      "contiene": "for _f in sorted((RAIZ / \"datos\" / \"manual\" / \"relieve\").glob(\"*.json\")):"
     },
     {
-     "archivo": "scripts/datina.js",
+     "archivo": "scripts/partes/naturaleza.js",
      "contiene": "d3.json(`datos/relieve/${id}.json?v=${RELIEVE[id]}`)"
     }
    ]
@@ -8937,7 +8937,7 @@
      "contiene": "g[\"glaciares\"], g[\"inventarios\"], g[\"anios_imagenes\"] = glaciares(c, region_ing2)"
     },
     {
-     "archivo": "scripts/datina.js",
+     "archivo": "scripts/partes/naturaleza.js",
      "contiene": "const glaciares = (d.glaciares || []).length ? aPath(d.glaciares) : null;"
     }
    ]

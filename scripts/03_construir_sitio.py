@@ -801,14 +801,20 @@ js = (RAIZ / "scripts" / "datina.js").read_text(encoding="utf-8")
 # Se miran las claves que abren cada línea con dos espacios de sangría en el objeto y en los Object.assign que lo completan, que es como se
 # escriben, y las que se asignan sueltas más abajo (DIB.congreso = ..., TX["vprov"] = ...). Desde la fase 5 del plan técnico (25 de noviembre
 # de 2026) también las que se asignan en las partes de una sola página (scripts/partes/*.js), con o sin sangría, porque ahí muchas van dentro
-# de un if o una función: una clave de una parte que repite una del núcleo, o de otra parte, también frena el armado
+# de un if o una función: una clave de una parte que repite una del núcleo, o de otra parte, también frena el armado. Desde el paso de los
+# textos y los gráficos de cada sección (25 de noviembre de 2026) las partes llevan también propiedades de esos objetos dentro de un
+# Object.assign(DIB, {...}) o de LEAD, y los textos de TX dentro de textosParte({...}): se miran como los del núcleo. En el núcleo
+# se mira también el objeto de DIB (const DIB = protegerDib({...})), porque ya no queda ningún Object.assign(DIB, {...})
 _JS_PARTES = [(f.name, f.read_text(encoding="utf-8")) for f in sorted((RAIZ / "scripts" / "partes").glob("*.js"))]
 for _obj in ("LEAD", "TX", "DIB", "CLAVE", "EXTRA", "EN_CIFRAS", "SERIE_CIFRA"):
-    _bl = [m.group(1) for m in re.finditer(r"\n(?:const " + _obj + r" = |Object\.assign\(" + _obj + r", )\{\n(.*?)\n\}\)?;?\n", js, re.S)]
+    _bl = [m.group(1) for m in re.finditer(r"\n(?:const " + _obj + r" = (?:protegerDib\()?|Object\.assign\(" + _obj + r", )\{\n(.*?)\n\}\)?;?\n", js, re.S)]
     assert _bl, f"no se encontró {_obj} en datina.js"
     _cl = [a or b for b_ in _bl for a, b in re.findall(r'^  (?:"([^"]+)"|([\w$]+)):', b_, re.M)]
     _cl += [a or b for a, b in re.findall(r"^" + _obj + r'(?:\["([^"]+)"\]|\.([\w$]+)) = ', js, re.M)]
     _cl += [a or b for _, _t in _JS_PARTES for a, b in re.findall(r"^[ \t]*" + _obj + r'(?:\["([^"]+)"\]|\.([\w$]+)) = ', _t, re.M)]
+    _cl += [a or b for _, _t in _JS_PARTES
+            for m in re.finditer(r"\n(?:Object\.assign\(" + _obj + r", " + (r"|textosParte\(" if _obj == "TX" else "") + r")\{\n(.*?)\n\}\);\n", _t, re.S)
+            for a, b in re.findall(r'^  (?:"([^"]+)"|([\w$]+)):', m.group(1), re.M)]
     _rep = sorted({c for c in _cl if _cl.count(c) > 1})
     assert not _rep, f"claves repetidas en {_obj} de datina.js y sus partes: {_rep}"
 # ícono de cada página: la grilla de secciones de la portada (datina.js) y el final de página ("Seguí explorando")

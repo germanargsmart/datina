@@ -33,7 +33,7 @@ const BASE = `http://127.0.0.1:${servidor.address().port}/`;
 const ch = await abrirChrome(9500 + Math.floor(Math.random() * 400)), p = await ch.pestana();
 await p.tamano(1440, 900);
 // qué hacer con cada pedido: fallar (los que contienen un texto de FALLAR) o cambiar datina.js (CAMBIOS: [texto, reemplazo] o, para una parte
-// de datina.js, desde el 25 de noviembre de 2026, [texto, reemplazo, "partes/articulos.js"])
+// de datina.js, desde el 25 de noviembre de 2026, [texto, reemplazo, "partes/articulos.js"] o la de otra página)
 let FALLAR = [], CAMBIOS = [], CORTAR = [];
 await p.send("Fetch.enable", {patterns: [{urlPattern: "*datina.js*"}, {urlPattern: "*/partes/*"}, {urlPattern: "*/lib/*"}, {urlPattern: "*/datos/*"}]});
 p.on("Fetch.requestPaused", ev => {
@@ -69,7 +69,8 @@ await p.ir(BASE + "relaciones.html", 1500);
 r = await p.eval(`document.getElementById("rx-error").hidden`); caso("Explorador con D3: sin aviso", r === true);
 
 // 2. P2-17: un gráfico que falla (hogares, en energia.html)
-CAMBIOS = [['hogares: a => lineas(G("hogares")', 'hogares: a => null.x || lineas(G("hogares")']];
+// desde el 25 de noviembre de 2026 (fase 5, los textos y los gráficos de cada sección) el dibujo está en la parte de Energía
+CAMBIOS = [['hogares: a => lineas(G("hogares")', 'hogares: a => null.x || lineas(G("hogares")', "partes/energia.js"]];
 await p.ir(BASE + "energia.html", 1500); await p.recorrer();
 // se espera a que el gráfico que falla muestre su aviso (hasta 5 segundos): en una máquina lenta la página puede no haber terminado de dibujar
 for (let i = 0; i < 50 && !(await p.eval(`document.querySelector('.grafico[data-g="hogares"]')?.textContent || ""`)); i++) await espera(100);
