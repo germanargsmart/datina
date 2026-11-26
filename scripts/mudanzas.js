@@ -499,8 +499,11 @@
     // las listas se escriben de nuevo: el foco vuelve al mismo botón, para que el teclado no lo pierda
     const act = document.activeElement, caja = act && act.closest && act.closest("#mu-lado-lista,#mu-corr"), k = caja && (act.dataset.p ? "p" : act.dataset.dep ? "dep" : act.dataset.par ? "par" : "");
     const sel = k ? `#${caja.id} [data-${k}="${act.dataset[k]}"]` : "";
-    raiz.querySelectorAll(".mu-vistas button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.vista === E.vista)));
-    raiz.querySelectorAll(".mu-medidas button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.m === E.medida)));
+    // la marca azul del conmutador va al botón elegido (--i, como en rutas.js): sin eso quedaba en el primero y el elegido, con la letra
+    // blanca, no se leía (pedido del autor del 26 de noviembre de 2026)
+    const marcar = (s, si) => raiz.querySelectorAll(s).forEach((b, i) => { b.setAttribute("aria-pressed", String(si(b))); if (si(b)) b.parentNode.style.setProperty("--i", i); });
+    marcar(".mu-vistas button", b => b.dataset.vista === E.vista);
+    marcar(".mu-medidas button", b => b.dataset.m === E.medida);
     raiz.dataset.vista = E.vista;
     $("mu-prov").value = E.p;
     $("mu-cada").checked = E.cada;
