@@ -3444,6 +3444,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
         <p class="rt-cos-frase" id="rt-cos-frase"></p>
         <p class="rt-cos-ley" id="rt-cos-ley" hidden></p>
         <ol class="rt-barras rt-cos-lista" id="rt-cos-lista"></ol>
+        <button type="button" class="boton chico rt-cos-tabla-btn" id="rt-cos-ver-tabla" aria-expanded="false" aria-controls="rt-cos-tabla-caja" hidden>Ver tabla</button>
+        <div class="tabla-datos" id="rt-cos-tabla-caja" hidden><div class="tabla-desliza" tabindex="0" role="region" aria-label="Cosecha por departamento"><table class="tabla-areas" id="rt-cos-tabla"></table></div></div>
       </section>
       <div class="rt-grid">
         <section class="rt-card" aria-labelledby="rt-prod-tit"><h2 class="rt-card-tit" id="rt-prod-tit">Principales productos</h2><ol class="rt-barras" id="rt-productos"></ol></section>
@@ -3462,6 +3464,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
           <li>Solo se dibujan los {{externo.rutas.destinos}} países que más compran. Los demás, y lo que el INDEC publica como confidencial, sin rubro ni país, cuentan en los totales y no tienen camino.</li>
           <li>Un camino más grueso es más dinero, no más toneladas: un kilo de oro vale mucho más que uno de soja.</li>
           <li>Con los cereales o las semillas oleaginosas elegidos, el mapa pinta lo cosechado en cada departamento según la Secretaría de Agricultura, no lo exportado: nadie publica de qué departamento sale cada exportación, y una parte de los granos se consume o se industrializa en el país. La soja sale sobre todo como harina y aceite, que son otros productos. Cada año lleva la campaña que termina ese año.</li>
+          <li>Los departamentos tienen tamaños muy distintos: Córdoba tiene pocos y grandes, y Buenos Aires muchos partidos más chicos. Por eso la lista de los que más cosechan tiene más departamentos de Córdoba, aunque Buenos Aires cosecha más en total, como dice la frase de la tarjeta.</li>
           <li>El mapa plano agranda las tierras cerca de los polos y por eso los caminos del sur se ven más largos de lo que son. La vista de globo los muestra sin esa deformación.</li>
           <li>Cada año se dibuja con las mismas salidas y los mismos puertos de hoy: lo que cambia entre años es cuánto se exportó, no por dónde. Desde 2018 el INDEC publica una parte de lo exportado como confidencial, sin rubro ni país, así que antes de ese año los países reúnen más y la comparación entre esos años exagera las caídas.</li>
         </ul>

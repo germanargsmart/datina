@@ -949,8 +949,12 @@ await q.tamano(1280, 900);
   await q.eval(`(() => { const a = document.getElementById("rt-anio"); a.value = a.max; a.dispatchEvent(new Event("input")); return true; })()`);
   await elegirRt("Cereales"); await espera(3000);
   r = JSON.parse(await q.eval(COS));
-  if (!r.card || r.deps !== 10 || r.ley !== 5 || !/^En la campaña \d{4}\/\d{2} se cosecharon .* toneladas de cereales en \d+ departamentos\. La mitad se cosechó en \d+ de ellos/.test(r.frase) || !r.ver)
+  if (!r.card || r.deps !== 10 || r.ley !== 5 || !/^En la campaña \d{4}\/\d{2} se cosecharon .* toneladas de cereales en \d+ departamentos\. .*La mitad se cosechó en \d+ departamentos/.test(r.frase) || !r.ver)
     problemas.push(`rutas.html: con los cereales falta la cosecha por departamento (${r.card ? "con" : "sin"} tarjeta, ${r.deps} departamentos, ${r.ley} tramos, ${r.ver ? "con" : "sin"} mapa: ${r.frase.slice(0, 80)})`);
+  if (!/Por provincia, .* reunió el \d+,\d% de la cosecha del país/.test(r.frase)) problemas.push(`rutas.html: la frase de la cosecha no dice cuánto reúne cada provincia (${r.frase.slice(0, 160)})`);
+  await q.eval(`document.getElementById("rt-cos-ver-tabla").click()`); await espera(300);
+  const tablaCos = JSON.parse(await q.eval(`JSON.stringify({abierta: !document.getElementById("rt-cos-tabla-caja").hidden, filas: document.querySelectorAll("#rt-cos-tabla tbody tr").length})`));
+  if (!tablaCos.abierta || tablaCos.filas < 200) problemas.push(`rutas.html: "Ver tabla" de la cosecha no abre la tabla de todos los departamentos (${tablaCos.filas} filas)`);
   const depRt = await q.eval(`(() => { const b = document.querySelector("#rt-cos-lista button[data-dep]"); if (!b) return ""; b.click(); return b.querySelector(".rt-b-n").textContent.replace(/ \\(.*$/, ""); })()`);
   await espera(800);
   r = JSON.parse(await q.eval(COS));

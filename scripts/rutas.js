@@ -88,16 +88,31 @@
     $("rt-cos-ley").hidden = !k;
     if (!k) {
       $("rt-cos-lista").innerHTML = "";
+      $("rt-cos-ver-tabla").hidden = true; $("rt-cos-tabla-caja").hidden = true;
+      $("rt-cos-ver-tabla").setAttribute("aria-expanded", "false"); $("rt-cos-ver-tabla").textContent = "Ver tabla";
       $("rt-cos-frase").textContent = C === null ? "Cargando la cosecha por departamento." : C === false ? "No se pudo cargar la cosecha por departamento. La tabla se puede descargar abajo."
         : `No hay una campaña cosechada para ${estado.anio}.`;
       return;
     }
-    // la mitad de la cosecha: en cuántos departamentos y de qué provincias
+    // por provincia (los departamentos tienen tamaños muy distintos: Córdoba tiene pocos y grandes, Buenos Aires muchos partidos más chicos, y la
+    // lista de departamentos sola hacía creer que Córdoba cosecha más) y la mitad de la cosecha: en cuántos departamentos y de qué provincias
+    const porProv = new Map();
+    for (const [c, t] of k.l) porProv.set(C.deps[c][1], (porProv.get(C.deps[c][1]) || 0) + t);
+    const provOrden = [...porProv].sort((a, b) => b[1] - a[1]);
     let ac = 0, n = 0;
     while (n < k.l.length && ac < k.tot / 2) ac += k.l[n++][1];
-    const provs = [...new Set(k.l.slice(0, n).map(([c]) => C.deps[c][1]))];
+    const enMitad = new Set(k.l.slice(0, n).map(([c]) => C.deps[c][1]));
+    const provs = provOrden.map(([p]) => p).filter(p => enMitad.has(p));
     const conDep = k.l.filter(([c]) => !sinDep(c)).length;
-    $("rt-cos-frase").textContent = `En la campaña ${k.camp} se cosecharon ${toneladas(k.tot)} de ${que[0]} en ${conDep} departamentos. La mitad se cosechó en ${n} de ellos, de ${enLista(provs)}.`;
+    const pp = provOrden.slice(0, 3).map(([p, t]) => `${p} el ${pct(100 * t / k.tot)}`);
+    const frProv = pp.length < 2 ? "" : `Por provincia, ${pp[0].replace(" el ", " reunió el ")} de la cosecha del país${pp.length > 2 ? ", " + pp[1] : ""} ${yE(pp[pp.length - 1])}. `;
+    $("rt-cos-frase").textContent = `En la campaña ${k.camp} se cosecharon ${toneladas(k.tot)} de ${que[0]} en ${conDep} departamentos. ${frProv}`
+      + `La mitad se cosechó en ${n} departamentos, de ${enLista(provs)}.`;
+    $("rt-cos-tabla").innerHTML = `<caption class="solo-lector">Cosecha de ${esc(que[0])} por departamento, campaña ${esc(k.camp)}</caption>`
+      + `<thead><tr><th scope="col">Departamento</th><th scope="col">Provincia</th><th scope="col" class="n">Toneladas</th><th scope="col" class="n">% del país</th></tr></thead><tbody>`
+      + k.l.map(([c, t]) => `<tr><th scope="row">${esc(sinDep(c) ? "Sin departamento informado" : C.deps[c][0])}</th><td>${esc(C.deps[c][1])}</td><td class="n">${dec(t, 0)}</td><td class="n">${pct(100 * t / k.tot)}</td></tr>`).join("")
+      + `</tbody>`;
+    $("rt-cos-ver-tabla").hidden = false;
     $("rt-cos-ley").innerHTML = `<span>Parte de la cosecha del país:</span>` + ["Menos de 0,25%", "0,25% a 0,5%", "0,5% a 1%", "1% a 2%", "2% o más"]
       .map((t, i) => `<span><i style="background:var(--rt-cos-${i + 1})"></i>${t}</span>`).join("");
     const max = k.l[0][1];
@@ -700,6 +715,12 @@
   }
   $("rt-productos").addEventListener("click", e => { const b = e.target.closest("button[data-sub]"); if (!b) return; estado.sub = b.dataset.sub; pintar(); });
   $("rt-ficha-cerrar").addEventListener("click", cerrarFicha);
+  $("rt-cos-ver-tabla").addEventListener("click", e => {
+    const t = $("rt-cos-tabla-caja"), abrir = t.hidden;
+    t.hidden = !abrir;
+    e.currentTarget.setAttribute("aria-expanded", String(abrir));
+    e.currentTarget.textContent = abrir ? "Ocultar tabla" : "Ver tabla";
+  });
   $("rt-cos-ver").addEventListener("click", () => { if (!mapa) return; mapa.verArgentina(); $("rt-mapa-caja").scrollIntoView({behavior: REDUCIR_MOV ? "auto" : "smooth", block: "nearest"}); });
   raiz.querySelectorAll("[data-restablecer]").forEach(b => b.addEventListener("click", restablecer));
   raiz.querySelector(".rt-ctrl").addEventListener("click", e => {
