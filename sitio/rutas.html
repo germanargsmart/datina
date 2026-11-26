@@ -35,7 +35,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
      mismas versiones que daban cdnjs y jsDelivr): si una de esas CDN fallaba o estaba bloqueada, las páginas quedaban vacías -->
 <script src="lib/d3-7.8.5.min.js?v=a029baa963" defer></script>
 <script src="lib/topojson-client-3.1.0.min.js?v=bc057598e8" defer></script>
-<link rel="stylesheet" href="datina.css?v=a600e2f37f">
+<link rel="stylesheet" href="datina.css?v=03eced1914">
 </head>
 <body data-pagina="rutas">
 <!-- "Saltar al contenido" (Fase 2, paso 6, respuesta del autor del 23 de octubre de 2026): la primera parada del teclado, que solo se ve
@@ -257,8 +257,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <button type="button" class="boton chico" id="rt-ver-tabla" aria-expanded="false" aria-controls="rt-tabla-caja">Ver tabla</button>
       <div class="tabla-datos" id="rt-tabla-caja" hidden><div class="tabla-desliza" tabindex="0" role="region" aria-label="Exportaciones por país de destino"><table class="tabla-areas" id="rt-tabla"></table></div></div>
       <div class="pie rt-pie"><span>Fuentes: exportaciones por subrubro y país de destino, INDEC. Salida de cada producto: organismos oficiales, cámaras y prensa, una por una en la tabla de salidas. Caminos por mar: biblioteca searoute, sobre la red marítima de Eurostat. Mapa: Natural Earth</span><a href="datos/rutas_exportaciones.csv" download>Descargar tabla (CSV)</a></div>
-      <div class="rt-limites nota-limites">
-        <h2 class="rt-tit">Qué no dice este dato</h2>
+      <details class="nota-calculo nota-limites rt-limites">
+        <summary>Límites de estos datos</summary>
         <ul>
           <li>El INDEC no publica por dónde sale cada carga ni qué camino hace. Cada producto se dibuja desde su salida principal, según organismos oficiales, cámaras y prensa, y la tabla dice qué tan firme es cada una: lo que sale por otro puerto se dibuja igual desde el principal.</li>
           <li>El camino por mar es el más corto sobre la red marítima de Eurostat, sin el Canal de Panamá y hacia Asia y Oceanía por el sur de África. Un barco de verdad puede hacer escalas o ir por otro lado.</li>
@@ -269,7 +269,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
           <li>El mapa plano agranda las tierras cerca de los polos y por eso los caminos del sur se ven más largos de lo que son. La vista de globo los muestra sin esa deformación.</li>
           <li>Cada año se dibuja con las mismas salidas y los mismos puertos de hoy: lo que cambia entre años es cuánto se exportó, no por dónde. Desde 2018 el INDEC publica una parte de lo exportado como confidencial, sin rubro ni país, así que antes de ese año los países reúnen más y la comparación entre esos años exagera las caídas.</li>
         </ul>
-      </div>
+      </details>
     </div>
     <link rel="stylesheet" href="lib/maplibre-gl-5.24.0.css?v=7e27dfc94a">
     <script src="lib/maplibre-gl-5.24.0.min.js?v=74bdab1483" defer></script>
@@ -313,6 +313,6 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 
 <!-- los datos van en un archivo aparte que el navegador guarda una sola vez para todas las páginas -->
 <script src="datos/fichas.js?v=da931d1c10" defer></script>
-<script src="datina.js?v=a6c5147302" defer></script>
+<script src="datina.js?v=50a4c4a477" defer></script>
 </body>
 </html>

@@ -32,7 +32,7 @@ Se cambia la redacción. No se cambia lo que el sitio informa ni lo que hace.
 
 - Ninguna cifra ni año que cambia con los datos se escribe a mano: sale del resumen (`${...}` en `datina.js`, `{{ruta}}` en la plantilla). Si el texto nuevo necesita una cifra que el resumen no tiene, no se agrega: se anota como pendiente.
 - Si la cifra destacada, el texto y el gráfico usan medidas o períodos distintos, el texto lo dice ("en doce meses", "en agosto", "promedio de 2023 a 2025").
-- Una relación entre dos datos se describe, no se explica: "van juntos", "las provincias con más X tienden a tener más Y", nunca "X causa Y", "X hace que", "por eso" sin sostén. Se conserva todo "Qué no dice este dato".
+- Una relación entre dos datos se describe, no se explica: "van juntos", "las provincias con más X tienden a tener más Y", nunca "X causa Y", "X hace que", "por eso" sin sostén. Se conservan todos los "Límites de estos datos".
 - Se conservan las notas metodológicas, las advertencias y las aclaraciones de comparabilidad. Se pueden redactar mejor. No se borran para acortar.
 - Si una advertencia que cambia la lectura del gráfico está solo en "Sobre los datos", se suma una oración en el texto visible (por ejemplo, que CAMMESA informa CABA y Buenos Aires juntas).
 
@@ -52,6 +52,7 @@ Un mismo concepto se llama igual en todo el sitio.
 | Votaciones del Congreso que sigue el sitio | leyes y proyectos clave (incluye proyectos que no fueron ley) | leyes clave |
 | Las leyes y proyectos que llegan a la vida diaria de muchas personas o de muchos hogares | leyes y proyectos de la vida diaria ("Vida diaria" en el botón) | de efecto directo (decisión del autor del 24 de noviembre de 2026) |
 | La relación entre dos series | correlación (en "Cómo se calcula") y "van juntos" en el texto | "Spearman" en la primera oración |
+| Las aclaraciones de lo que un dato no permite afirmar | "Límites de estos datos", un desplegable ("Límites de este diagnóstico" en Diagnóstico) | Qué no dice este dato (decisión del autor del 26 de noviembre de 2026: no se entendía) |
 
 ## Lo que no se toca
 

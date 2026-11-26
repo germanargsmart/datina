@@ -20,7 +20,7 @@ textosParte({
 `definición. Es la clasificación que el INDEC agregó a la Encuesta Permanente de Hogares desde el ${INF.ini}, la misma de sus tasas de empleo ` +
 `formal e informal: el cálculo de Datina con las bases da su misma cifra del total. En las ciudades chicas un trimestre tiene pocas personas ` +
 `encuestadas, así que se juntan los cuatro trimestres (el aglomerado con menos casos tiene ${n0(INF.casos_min)} ocupados encuestados). La EPH ` +
-`mide 31 aglomerados urbanos, no las provincias enteras ni el campo. Qué no dice este dato: no dice cuánto se gana ni si el trabajo alcanza para vivir.`,
+`mide 31 aglomerados urbanos, no las provincias enteras ni el campo. No dice cuánto se gana ni si el trabajo alcanza para vivir.`,
 "desocupacion-nota": `Desocupada es la persona que no tiene trabajo, lo buscó activamente y está ` +
 `disponible para trabajar. La tasa se calcula sobre la población económicamente activa: las personas que trabajan o buscan trabajo. La EPH es una ` +
 `encuesta del INDEC en 31 aglomerados urbanos, que no mide las zonas rurales ni las ciudades chicas. Un aglomerado es una ciudad con su área urbana ` +

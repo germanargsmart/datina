@@ -17,7 +17,7 @@ textosParte({
 "mujeres-congreso-nota": `Bancas ocupadas hoy y el 1 de marzo de cada período, como en la ficha de las bancas de cada espacio político. Los ` +
 `registros de las cámaras no dicen el sexo de cada legislador: Datina lo toma de su nombre de pila, con una tabla revisada a mano, y los ` +
 `nombres que pueden ser de mujer o de varón se revisaron uno por uno. ${MJC.sin_det_serie ? `En ${MJC.sin_det_serie} casos de toda la serie no se ` +
-`pudo determinar y quedan fuera del porcentaje. ` : ""}Qué no dice este dato: cuántas mujeres encabezan listas, presiden bloques o comisiones, ` +
+`pudo determinar y quedan fuera del porcentaje. ` : ""}No dice cuántas mujeres encabezan listas, presiden bloques o comisiones, ` +
 `ni cuántas votantes hay en cada padrón.`,
 });
 const ESP_VARIANTE = {"Peronismo": ["#2C74B5", "#6FA3D8", "#A9CBEA"], "Otras fuerzas": ["#56606C", "#98A2AE", "#C3CAD2"]};
