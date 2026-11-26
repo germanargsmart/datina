@@ -5,7 +5,7 @@ Pedido: hacer para la Argentina el estudio "¿Dónde gana y dónde pierde gente 
 ## Decisiones del autor (25 de noviembre de 2026)
 
 - Las dos cosas, por etapas y en la misma página: las mudanzas entre jurisdicciones, y después el cambio de población por departamento y las viviendas sin personas.
-- Herramienta propia en el menú Herramientas, como Rutas comerciales. El artículo `a-migracion-interna` y la ficha `f-migracion-interna` quedan (miden el lugar de nacimiento, que es otra cosa) y se enlazan con esto.
+- Herramienta propia en el menú Herramientas, como Rutas comerciales. El artículo `a-migracion-interna` y la ficha `f-migracion-interna` quedan (miden el lugar de nacimiento, que es otra cosa). La ficha enlaza la herramienta en su nota, dentro de "Sobre los datos". El artículo todavía no.
 - Descarga aprobada: los cuadros chicos del Censo 2022 de censo.gob.ar (73 archivos, 3,5 MB). La base por radio censal no: es pesada, y los archivos de 2010 por radio de datos.gob.ar dan 404.
 - Diseño aprobado con capturas ("todo está perfecto"), con tres cambios: se llama **Migración interna**, con la pregunta "¿Cómo nos movemos los argentinos?" (su propuesta fue "Migración interna: cómo nos movemos los argentinos o algo así"), sin los puntos que se movían sobre las líneas y con las Malvinas sin mouse ni clic, como en la portada. El censo cuenta a todas las personas que viven en el país, también a las nacidas en otro: lo dice "Qué no dice este dato".
 
