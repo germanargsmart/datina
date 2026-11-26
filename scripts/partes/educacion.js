@@ -29,13 +29,13 @@ textosParte({
   "escuelas-secundarias-nota": `Escuelas con secundaria común del Padrón Oficial ` +
     `de Establecimientos Educativos de ${ESS.fecha}, estatales, privadas y de gestión social o cooperativa. Cada sede cuenta aparte, como en ` +
     `las primarias. Chicos de 12 a 17 años de las proyecciones del INDEC de ${ESS.anio}: vienen en grupos de cinco años, así que son tres quintos ` +
-    `del grupo de 10 a 14 y tres quintos del de 15 a 19. Qué no dice este dato: cuenta escuelas, no alumnos ni vacantes, y algunas provincias ` +
+    `del grupo de 10 a 14 y tres quintos del de 15 a 19. Cuenta escuelas, no alumnos ni vacantes, y algunas provincias ` +
     `registran como secundarias aparte las secciones rurales que funcionan en otra escuela, así que tienen más escuelas sin tener más lugar.`,
   "privadas-aprender-nota": `Cada punto es un departamento, partido o comuna. En el eje horizontal, qué parte de las escuelas primarias comunes del Padrón ` +
     `Oficial de Establecimientos Educativos de ${PAP.fecha} es privada (las de gestión social o cooperativa no cuentan como privadas). En el vertical, qué parte ` +
     `de los alumnos de 6° grado alcanzó el nivel satisfactorio o avanzado en matemática en Aprender ${PAP.anio}, con la base agregada por departamento de la ` +
     `Secretaría de Educación. Solo entran los departamentos con al menos ${n0(PAP.min)} alumnos evaluados. La línea punteada es solo una guía de la tendencia. ` +
-    `La correlación es la de rangos de Spearman, que va de menos 1 a 1. Qué no dice este dato: que una escuela privada enseñe mejor. Sus alumnos vienen de ` +
+    `La correlación es la de rangos de Spearman, que va de menos 1 a 1. La correlación no dice que una escuela privada enseñe mejor. Sus alumnos vienen de ` +
     `otros hogares: según el cuestionario de Aprender, el ${pct(PAP.nse_q1_estatal)} de los alumnos de las estatales pertenece al 20% del país con menor ` +
     `nivel socioeconómico, y en las privadas el ${pct(PAP.nse_q1_privado)}, y eso también va junto con los resultados. La comparación es entre promedios ` +
     `de departamentos, no entre alumnos ni entre escuelas, y cuenta escuelas, no alumnos: una escuela rural chica pesa lo mismo que una grande. ` +

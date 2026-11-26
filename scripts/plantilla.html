@@ -3259,10 +3259,10 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
           <div class="grafico" data-g="diagnostico" data-forma="barras"></div>
         </div>
       </div>
-      <div class="dx-no-dice">
-        <h3>Qué no dice este diagnóstico</h3>
+      <details class="nota-calculo nota-limites dx-no-dice">
+        <summary>Límites de este diagnóstico</summary>
         <ul id="dx-no-dice"></ul>
-      </div>
+      </details>
       <div class="pie"><span>Fuentes: Aprender y Relevamiento Anual (Secretaría de Educación), Censo 2022 (INDEC) y PISA (OCDE)</span><a href="datos/aprender_diagnostico.csv" download>Descargar tabla por provincia (CSV)</a><a href="datos/aprender_departamentos.csv" download>Descargar tabla por departamento (CSV)</a></div>
     </article>
   </section>
@@ -3329,8 +3329,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
         <span>Fuente: escrutinio definitivo de cada jurisdicción, de la Dirección Nacional Electoral y de las actas de la Cámara Nacional Electoral. Mesas y circuitos desde {{mesas.desde_mesa}}: escrutinio provisorio de la Dirección Nacional Electoral (CC-BY 4.0). Exterior: padrón y planillas de la Cámara Nacional Electoral. Gobernadores, y senadores por la Capital hasta 1995: escrutinio definitivo de cada junta o tribunal electoral, de los gobiernos provinciales y de la Dirección Nacional Electoral. Mapa: circuitos de la Cámara Nacional Electoral y departamentos del Instituto Geográfico Nacional. Departamentos hasta {{mesas.hist_hasta}}: Darío Cantón, Lupu y Stokes, Ernesto Calvo y PolAr, con la geometría de Rodríguez, CEUR-CONICET (CC BY 2.5 AR). Créditos y licencias en "Para entender los datos"</span>
         <span class="ms-bajadas"><a class="enlace" id="ms-bajar" href="datos/mesas/indice.json" download>Descargar tabla (CSV)</a> <a class="enlace" id="ms-bajar-hist" href="datos/mesas/indice.json" download hidden>Descargar secciones y circuitos en cada elección (CSV)</a></span>
       </div>
-      <div class="ms-limites nota-limites">
-        <h2 class="ms-sub-tit">Qué no dice este dato</h2>
+      <details class="nota-calculo nota-limites ms-limites">
+        <summary>Límites de estos datos</summary>
         <ul>
           <li>El total del país y el de cada jurisdicción son el escrutinio definitivo. Las secciones, los circuitos y las mesas, desde {{mesas.desde_mesa}}, son el escrutinio provisorio, el conteo de la noche de la elección: es lo único que se publica mesa por mesa. No trae el voto en el exterior ni el de las personas privadas de la libertad, y le pueden faltar mesas, así que suma un poco menos que el definitivo. La tabla de secciones dice cuánto.</li>
           <li>El voto en el exterior no se publica país por país: la Cámara Nacional Electoral suma todo el exterior de una jurisdicción en una sola mesa. El desplegable dice cuántos argentinos pueden votar en cada país, no cómo votaron.</li>
@@ -3345,7 +3345,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
           <li>Hay elecciones con resultados de pocas jurisdicciones, y la página dice qué parte de los votos reúnen. Tampoco están todas: faltan, por ejemplo, las de 1931, 1960 y 1963.</li>
           <li>Las elecciones de los años treinta tuvieron denuncias de fraude, y de 1955 a 1972 el peronismo estuvo proscripto en la mayor parte de las elecciones nacionales. El mapa muestra los votos que publica la fuente: no dice qué habría pasado con todas las opciones en competencia.</li>
         </ul>
-      </div>
+      </details>
     </div>
     <script src="mesas.js?v=__V_MESAS_JS__" defer></script>
   </section>
@@ -3441,8 +3441,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <button type="button" class="boton chico" id="rt-ver-tabla" aria-expanded="false" aria-controls="rt-tabla-caja">Ver tabla</button>
       <div class="tabla-datos" id="rt-tabla-caja" hidden><div class="tabla-desliza" tabindex="0" role="region" aria-label="Exportaciones por país de destino"><table class="tabla-areas" id="rt-tabla"></table></div></div>
       <div class="pie rt-pie"><span>Fuentes: exportaciones por subrubro y país de destino, INDEC. Salida de cada producto: organismos oficiales, cámaras y prensa, una por una en la tabla de salidas. Caminos por mar: biblioteca searoute, sobre la red marítima de Eurostat. Mapa: Natural Earth. Banderas: circle-flags</span><a href="datos/rutas_exportaciones.csv" download>Descargar tabla (CSV)</a></div>
-      <div class="rt-limites nota-limites">
-        <h2 class="rt-tit">Qué no dice este dato</h2>
+      <details class="nota-calculo nota-limites rt-limites">
+        <summary>Límites de estos datos</summary>
         <ul>
           <li>El INDEC no publica por dónde sale cada carga ni qué camino hace. Cada producto se dibuja desde su salida principal, según organismos oficiales, cámaras y prensa, y la tabla dice qué tan firme es cada una: lo que sale por otro puerto se dibuja igual desde el principal.</li>
           <li>El camino por mar es el más corto sobre la red marítima de Eurostat, sin el Canal de Panamá y hacia Asia y Oceanía por el sur de África. Un barco de verdad puede hacer escalas o ir por otro lado.</li>
@@ -3453,7 +3453,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
           <li>El mapa plano agranda las tierras cerca de los polos y por eso los caminos del sur se ven más largos de lo que son. La vista de globo los muestra sin esa deformación.</li>
           <li>Cada año se dibuja con las mismas salidas y los mismos puertos de hoy: lo que cambia entre años es cuánto se exportó, no por dónde. Desde 2018 el INDEC publica una parte de lo exportado como confidencial, sin rubro ni país, así que antes de ese año los países reúnen más y la comparación entre esos años exagera las caídas.</li>
         </ul>
-      </div>
+      </details>
     </div>
     <link rel="stylesheet" href="lib/maplibre-gl-5.24.0.css?v=__V_MAPLIBRE_CSS__">
     <script src="lib/maplibre-gl-5.24.0.min.js?v=__V_MAPLIBRE__" defer></script>
@@ -3533,8 +3533,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
         <div class="tabla-desliza" tabindex="0" role="region" aria-label="Departamentos según cuánto cambió su población"><table class="mu-tabla" id="mu-tramos"></table></div></section>
       <div class="pie rt-pie"><span>Fuente: INDEC, Censo Nacional de Población, Hogares y Viviendas {{migraciones.mudanzas.anio}}, resultados definitivos (migraciones, estructura de la población y viviendas). Población de {{migraciones.mudanzas.censo_antes}}: INDEC, Censo {{migraciones.mudanzas.censo_antes}}. Mapa: IGN y Natural Earth</span>
         <span class="mu-descargas"><a href="datos/mudanzas_matriz.csv" download>Matriz de origen y destino (CSV)</a> <a href="datos/mudanzas_provincias.csv" download>Jurisdicciones (CSV)</a> <a href="datos/mudanzas_departamentos.csv" download>Departamentos (CSV)</a></span></div>
-      <div class="rt-limites nota-limites">
-        <h2 class="rt-tit">Qué no dice este dato</h2>
+      <details class="nota-calculo nota-limites rt-limites">
+        <summary>Límites de estos datos</summary>
         <ul>
           <li>El censo compara dos momentos: dónde vivía cada persona en {{migraciones.mudanzas.desde}} y dónde vivía en {{migraciones.mudanzas.anio}}. No cuenta las mudanzas del medio, a quienes se fueron y volvieron, a quienes se fueron del país ni a los menores de 5 años.</li>
           <li>Cuenta a todas las personas que viven en el país, también a las que nacieron en otro.</li>
@@ -3546,7 +3546,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
           <li>Lezama y Tolhuin se crearon entre los dos censos. Su cambio se calcula junto con Chascomús y con Río Grande. La Antártida y las Islas del Atlántico Sur no tienen dato por departamento: en las Malvinas no se pudo censar por la ocupación del Reino Unido.</li>
           <li>En los departamentos con poca gente, unas decenas de personas cambian mucho el porcentaje.</li>
         </ul>
-      </div>
+      </details>
     </div>
     <script src="mudanzas.js?v=__V_MUDANZAS_JS__" defer></script>
   </section>
