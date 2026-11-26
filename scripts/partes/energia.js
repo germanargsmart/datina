@@ -37,7 +37,7 @@ textosParte({
   "tarifa-luz-nota": `Cargo fijo y cargo variable de la categoría residencial que corresponde a cada consumo, en el cuadro tarifario del ENRE ` +
     `vigente cada mes, promedio de Edenor y Edesur. Cuando la factura era bimestral se toma la mitad. Hasta ` +
     `agosto de 2022 la tarifa era la misma para todos los hogares y tenía subsidios del Estado en el precio de la energía. Desde la segmentación ` +
-    `de septiembre de 2022 la línea es la de los hogares sin subsidio: los que tienen subsidio pagan menos. No suma el ` +
+    `de septiembre de 2022 la línea es la de los hogares sin subsidio: los que tienen subsidio pagan menos. Esta tarifa no suma el ` +
     `IVA ni las tasas, y vale solo para la zona de Edenor y Edesur (CABA y el conurbano). En el resto del país las tarifas las fijan las ` +
     `provincias o los municipios.`,
   "meses-nota": `Promedio mensual de la demanda total en GWh para ${e.meses_desde}, ${e.meses_desde + 1} y ${e.meses_hasta}. El último mes disponible en la fuente es ${e.ultimo_mes}.`,

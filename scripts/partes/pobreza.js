@@ -45,7 +45,7 @@ textosParte({
     `Los accesos a internet fijo están en la ficha anterior.`,
   "tv-paga-nota": `Accesos de TV por suscripción (cable y fibra) en servicio, según el ENACOM. Son abonos, ` +
     `no hogares: cuentan también los de comercios y otros usos. Por provincia el ENACOM publica solo la TV por suscripción, sin la satelital, ` +
-    `que está en la evolución del país. No cuenta las plataformas por internet, como las de películas y series.`,
+    `que está en la evolución del país. Este dato no cuenta las plataformas por internet, como las de películas y series.`,
   "censo-nota": `Hogares en viviendas particulares según el Censo 2022. Agua de red: agua corriente de red pública. Cloacas: inodoro con descarga de agua y desagüe a red pública. Internet: conexión en la vivienda, incluida la del celular. Necesidades básicas insatisfechas: hacinamiento, vivienda precaria, sin baño, chicos sin escuela o baja capacidad de subsistencia, según la definición del INDEC. El INDEC no publica estos totales provinciales en un archivo propio: se suman desde los resultados por radio censal, así que pueden diferir levemente de sus cuadros.`,
   "internet-nota": `Accesos a internet fijo informados por las empresas prestadoras al ENACOM, divididos por la cantidad de hogares. Incluye conexiones de empresas y oficinas, por eso algunas jurisdicciones superan los 100. La velocidad es el promedio de la velocidad contratada de bajada. No incluye internet por celular, que sí cuenta el Censo 2022 en la ficha anterior.`,
 });

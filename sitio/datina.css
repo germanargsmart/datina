@@ -2503,7 +2503,6 @@ html.js #ms-resultado:empty~.ms-pie,html.js #ms-resultado:empty~.ms-limites{visi
 .rt-ins-m{background:var(--rt-mar)}.rt-ins-t{background:var(--rt-tierra)}.rt-ins-a{background:var(--rt-avion)}
 #rt-ver-tabla{margin-top:var(--e-4)}
 .rt-limites{margin:var(--e-6) 0 0}
-.rt-tit{margin:0 0 var(--e-2);font-size:var(--t-5);line-height:var(--i-titulo);font-weight:600;color:var(--ink)}
 @media (max-width:1000px){.rt-kpis{grid-template-columns:repeat(2,minmax(0,1fr))}}
 /* el celular: el mapa en la primera pantalla, arriba solo las vías, el año y Filtros. Los demás filtros, en un panel que abre abajo, y la ficha, abajo del mapa */
 @media (max-width:767px){
