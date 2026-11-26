@@ -35,7 +35,9 @@ scripts/partes/                desde el 24 de noviembre de 2026 (plan técnico, 
                                que ya no es una función que se llama a sí misma: cada parte se anota y datina.js la corre con parte("...") donde
                                estaba su código, con todo lo de datina.js a mano. Una parte de varias páginas lleva su propio nombre y sus páginas
                                van en PARTE_EN de 03 (desde el 25 de noviembre de 2026, corte.js: laboratorio y corte-suprema, y articulos.js: las
-                               páginas de los artículos, a-*.html, no la página Artículos)
+                               páginas de los artículos, a-*.html, no la página Artículos). Desde el 26 de noviembre de 2026 cada página de sección
+                               tiene la suya con sus gráficos y sus notas (entradas de DIB, MED y TABLA_PROPIA en un Object.assign, y las notas de
+                               TX en textosParte, que las escribe en su lugar). Los textos de TX que lee la lupa y los de LEAD quedan en datina.js
 scripts/imagen_social.py       la imagen al compartir de cada página (og:image, sitio/og/): 03 la dibuja con Pillow y Roboto Flex (scripts/fuentes/), solo si cambió lo que lleva
 scripts/pruebas_datos.py       pruebas de los datos: si fallan, no se arma ni se publica
 scripts/relaciones.py          arma el Explorador de relaciones (relaciones.html) desde datos/manual/relaciones.json y lo valida
