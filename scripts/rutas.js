@@ -8,7 +8,10 @@
    Lo copia 03_construir_sitio.py a sitio/rutas.js y lo pide solo rutas.html. Lee sitio/datos/rutas.json (scripts/rutas_sitio.py): cada camino (país,
    producto, salida, modo y destino) una vez, cuánto pasó por él cada año y la línea de cada uno. El mapa del mundo es Natural Earth a 1:50 millones
    (world-atlas, en sitio/lib) y lo convierte topojson-client. MapLibre (sitio/lib) dibuja con WebGL: sin MapLibre o sin WebGL quedan las tarjetas y
-   "Ver tabla". Los textos no llevan cifras escritas a mano: salen de los datos. */
+   "Ver tabla". Los textos no llevan cifras escritas a mano: salen de los datos.
+   26 de noviembre de 2026 (pedido del autor): el conmutador de arriba elige Exportaciones (rutas.json), Importaciones (rutas_imp.json: los mismos campos,
+   con la línea que empieza en el país que vende y termina en el puerto argentino de entrada) o Servicios (rutas_ser.json: sin caminos, el mapa pinta los
+   países). Cada JSON se baja al elegirlo, y la dirección lo recuerda (?flujo=imp). Lo que cambia de palabras entre uno y otro está en TXT. */
 (() => {
   "use strict";
   const raiz = document.getElementById("rt");
@@ -40,20 +43,49 @@
     203: "🧀", 204: "🥚", 205: "🥜", 206: "🧉", 207: "🍞", 208: "🌻", 209: "🍬", 210: "🥫", 211: "🍷", 212: "🥣", 213: "🌳", 214: "🐂", 215: "🧣", 299: "🧺", 302: "🧪", 303: "🧴",
     304: "⚙️", 305: "👜", 306: "📄", 307: "👕", 308: "👟", 309: "🧱", 310: "🥇", 311: "🔩", 312: "🔌", 313: "🚗", 314: "🚁", 399: "🏭", 401: "🛢️", 402: "⛽", 403: "💧", 404: "🔥",
     405: "💡", 499: "🏭"};
-  const emoji = c => `<span class="rt-emoji" aria-hidden="true">${EMOJI[c] || "📦"}</span>`;
+  const emojiDe = c => (flujo === "imp" ? EMOJI_IMP : flujo === "ser" ? EMOJI_SER : EMOJI)[c] || "📦";
+  const emoji = c => `<span class="rt-emoji" aria-hidden="true">${emojiDe(c)}</span>`;
   const bandera = c => D.banderas.includes(c) ? `<img class="rt-flag" src="${raiz.dataset.banderas}${c.toLowerCase()}.svg" alt="" width="20" height="20">`
     : `<span class="rt-flag rt-flag-sin" aria-hidden="true"></span>`;
+  // un emoji por categoría de lo importado (las 19 de la API o los 7 usos) y por tipo de servicio
+  const EMOJI_IMP = {111: "🌾", 112: "🍎", 121: "🫙", 122: "🥫", 210: "🪨", 220: "🧪", 310: "🔥", 320: "⛽", 410: "🏗️", 420: "⚙️", 510: "🚗", 521: "🚜", 522: "🛵",
+    530: "🔩", 610: "📺", 620: "👕", 630: "💊", u1: "🏗️", u2: "🧪", u3: "⛽", u4: "⚙️", u5: "🛍️", u6: "🚗"};
+  const EMOJI_SER = {1: "🏭", 2: "🔧", 3: "🚢", 4: "🧳", 5: "🏗️", 6: "🛡️", 7: "🏦", 8: "📜", 9: "💻", 10: "💼", 11: "🎬", 12: "🏛️", otro: "🔒"};
+  // las palabras de cada flujo
+  const TXT = {
+    exp: {nombre: "exportaciones", todo: "Todas las exportaciones", verbo: "exportó", hecho: "Exportado", lo: "lo exportado", socio: "destino", Socio: "Principal destino",
+      Prod: "Principal producto", prods: "Principales productos", socios: "Principales destinos", pais: "País de destino", compro: "Compró", porDonde: "Por dónde sale",
+      que: "Qué compra", nodo: "Puerto de salida", salio: "Salió", adonde: "Adónde va", queAca: "Qué sale por acá", buscar: "Buscar un producto", prod: "Producto",
+      llega: "Llega a", tabla: "Exportaciones", porPais: "por país de destino", sinPais: "salió sin país informado (lo que el INDEC publica como confidencial)",
+      fuera: "va a países fuera de la tabla de destinos o sin un camino que se pueda dibujar"},
+    imp: {nombre: "importaciones", todo: "Todas las importaciones", verbo: "importó", hecho: "Importado", lo: "lo importado", socio: "origen", Socio: "Principal origen",
+      Prod: "Principal categoría", prods: "Principales categorías", socios: "Principales orígenes", pais: "País de origen", compro: "Le vendió", porDonde: "Por dónde entra",
+      que: "Qué vende", nodo: "Puerto de entrada", salio: "Entró", adonde: "De dónde viene", queAca: "Qué entra por acá", buscar: "Buscar una categoría", prod: "Categoría",
+      llega: "Sale de", tabla: "Importaciones", porPais: "por país de origen", sinPais: "llegó sin país informado",
+      fuera: "viene de países fuera de la tabla de destinos (como Japón o Taiwán) o no tiene categoría"},
+    ser: {nombre: "exportaciones de servicios", todo: "Todos los servicios", verbo: "vendió en servicios", hecho: "Vendido en servicios", lo: "lo vendido",
+      socio: "comprador", Socio: "Principal comprador", Prod: "Principal servicio", prods: "Principales servicios", socios: "Principales compradores",
+      pais: "País que compra", compro: "Compró", que: "Qué compra", buscar: "Buscar un servicio", prod: "Servicio", tabla: "Exportaciones de servicios",
+      porPais: "por país", sinPais: "no tiene país informado (país confidencial, indeterminado, regiones u organismos internacionales)"}
+  };
+  // los botones de los grupos de cada flujo (los de las exportaciones, con su nombre corto)
+  const CORTO_RUBRO = {pp: "Primarios", moa: "Agroindustria", moi: "Industria", ce: "Energía"};
+  let flujo = "exp";
+  const T = () => TXT[flujo];
   const sinAvion = s => s.replace(" (avión)", "");
   const emojiSalida = id => D.pasos[id] ? "🛂" : id.includes("avión") ? "🛫" : "⚓";
   const REDUCIR_MOV = matchMedia("(prefers-reduced-motion: reduce)").matches;
   const CELULAR = matchMedia("(max-width: 767px)");
   let D = null, mapa = null, jugando = null;
+  const DATOS = {};
   const estado = {anio: 0, rubro: "", sub: "", vias: new Set(VIAS), sel: null, capas: {vehiculos: true, salidas: true, etiquetas: true, secundarias: true}};
   let vista = null;  // lo calculado para lo elegido: filas, totales, rutas, destinos, productos, corredores
 
   /* ---------- los datos de lo elegido ---------- */
   const sinPais = f => D.paises[f.pais_cod] === "Sin país informado";
-  const nombreSub = c => D.subrubros[c] ? D.subrubros[c][0] : "Sin rubro informado";
+  const nombreSub = c => D.subrubros[c] ? D.subrubros[c][0] : flujo === "imp" ? "Sin categoría informada" : "Sin rubro informado";
+  // las vías que tiene el flujo elegido: lo importado no tiene avión y los servicios no tienen ninguna
+  const viasDe = () => VIAS.filter(m => D.caminos.some(c => c[4] === m));
   function filasDe(anio) {
     return (D.valores[anio] || []).map(([i, v]) => {
       const [pais_cod, sub, rubro, salida, modo, destino, linea] = D.caminos[i];
@@ -94,16 +126,22 @@
   /* ---------- textos de lo elegido ---------- */
   const nombreFiltro = () => estado.sub ? nombreSub(estado.sub).toLowerCase() : estado.rubro ? D.rubros[estado.rubro].toLowerCase() : "";
   const viasTexto = () => todasLasVias() ? "" : ` (solo ${[...estado.vias].map(m => NOMBRE_VIA[m].toLowerCase()).join(" y ")})`;
-  const camino = r => r.m === "avión" ? `En avión desde ${r.s.replace(" (avión)", "")}` : r.m === "tierra" ? `Por tierra, por ${r.d}` : `Por mar, de ${r.s} a ${r.d}`;
+  const camino = r => r.m === "avión" ? `En avión desde ${r.s.replace(" (avión)", "")}` : r.m === "tierra" ? `Por tierra, por ${r.d}` : flujo === "imp" ? `Por mar, de ${r.d} a ${r.s}` : `Por mar, de ${r.s} a ${r.d}`;
+  // salida y país en el orden del viaje: de la Argentina al país, o del país a la Argentina
+  const tramo = (s, c, marca) => flujo === "imp" ? `${marca ? `<span>${bandera(c)}${esc(D.paises[c])}</span>` : esc(D.paises[c])} a ${esc(sinAvion(s))}`
+    : `${esc(sinAvion(s))} a ${marca ? `<span>${bandera(c)}${esc(D.paises[c])}</span>` : esc(D.paises[c])}`;
 
   /* ---------- la barra de filtros ---------- */
   function pintarVias() {
+    const hay = viasDe();
+    raiz.querySelector(".rt-vias").hidden = !hay.length || !mapa;
     raiz.querySelectorAll(".rt-via").forEach(b => {
       const m = b.dataset.via, p = vista.totBase ? 100 * vista.viaTot[m] / vista.totBase : 0;
+      b.hidden = !hay.includes(m);
       b.setAttribute("aria-pressed", String(estado.vias.has(m)));
       b.querySelector("b").textContent = pct(p);
       if (!b.querySelector(".rt-ico")) b.querySelector("i").innerHTML = icono(m);
-      b.setAttribute("aria-label", `${NOMBRE_VIA[m]}: ${pct(p)} de lo exportado. ${estado.vias.has(m) ? "Prendido" : "Apagado"}`);
+      b.setAttribute("aria-label", `${NOMBRE_VIA[m]}: ${pct(p)} de ${T().lo}. ${estado.vias.has(m) ? "Prendido" : "Apagado"}`);
     });
   }
   function opcionesProducto() {
@@ -113,7 +151,7 @@
   function pintarProducto() {
     const p = $("rt-prod-elegido");
     p.hidden = !estado.sub;
-    p.querySelector("span").textContent = estado.sub ? `Producto: ${nombreSub(estado.sub)}` : "";
+    p.querySelector("span").textContent = estado.sub ? `${T().prod}: ${nombreSub(estado.sub)}` : "";
     if (!estado.sub) $("rt-prod").value = "";
   }
 
@@ -134,34 +172,42 @@
     const nombre = nombreFiltro();
     const varia = prev ? (tot / prev - 1) * 100 : null;
     const pd = destinos[0], pp = productos[0];
-    $("rt-mapa-sub").textContent = `${nombre ? nombre.charAt(0).toUpperCase() + nombre.slice(1) : "Todas las exportaciones"}, ${estado.anio}. Los caminos son simulados`;
+    const t = T(), hay = viasDe();
+    $("rt-mapa-sub").textContent = `${nombre ? nombre.charAt(0).toUpperCase() + nombre.slice(1) : t.todo}, ${estado.anio}. ${hay.length ? "Los caminos son simulados" : "Sin caminos: los servicios no viajan"}`;
     $("rt-kpis").innerHTML = `
-      <div class="rt-kpi"><p class="rt-k-tit">Exportado en ${estado.anio}${esc(viasTexto())}</p><p class="rt-k-cifra">${tot ? esc(corto(tot)) : "Sin datos"}</p>
+      <div class="rt-kpi"><p class="rt-k-tit">${t.hecho} en ${estado.anio}${esc(viasTexto())}</p><p class="rt-k-cifra">${tot ? esc(corto(tot)) : "Sin datos"}</p>
         <p class="rt-k-sub">${varia == null ? "Primer año de la serie" : `${varia >= 0 ? "+" : "−"}${pct(Math.abs(varia))} frente a ${estado.anio - 1}`}</p></div>
-      <div class="rt-kpi rt-kpi-vias"><p class="rt-k-tit">Por vía de transporte</p><p class="rt-k-anillos">${VIAS.map(m => anillo(m, totBase ? 100 * viaTot[m] / totBase : 0)).join("")}</p>
-        ${sinCamino ? `<p class="rt-k-sub">${pct(100 * sinCamino / totBase)} sin camino en el mapa</p>` : ""}</div>
-      <div class="rt-kpi"><p class="rt-k-tit">Principal destino</p><p class="rt-k-cifra rt-k-txt">${pd ? `${bandera(pd[0])}<span>${esc(D.paises[pd[0]])}</span>` : "Sin datos"}</p>
-        <p class="rt-k-sub">${pd ? `${pct(100 * pd[1] / tot)} de lo exportado${nombre ? " en " + esc(nombre) : ""}` : ""}</p></div>
-      <div class="rt-kpi"><p class="rt-k-tit">Principal producto</p><p class="rt-k-cifra rt-k-txt">${pp ? `${emoji(pp[0])}<span>${esc(nombreSub(pp[0]))}</span>` : "Sin datos"}</p>
-        <p class="rt-k-sub">${pp ? `${pct(100 * pp[1] / tot)} de lo exportado` : ""}</p></div>`;
+      ${hay.length ? `<div class="rt-kpi rt-kpi-vias"><p class="rt-k-tit">Por vía de transporte</p><p class="rt-k-anillos">${hay.map(m => anillo(m, totBase ? 100 * viaTot[m] / totBase : 0)).join("")}</p>
+        ${sinCamino ? `<p class="rt-k-sub">${pct(100 * sinCamino / totBase)} sin camino en el mapa</p>` : ""}</div>`
+        : `<div class="rt-kpi"><p class="rt-k-tit">Países que compraron</p><p class="rt-k-cifra">${destinos.length}</p><p class="rt-k-sub">Con dato propio: los demás son confidenciales</p></div>`}
+      <div class="rt-kpi"><p class="rt-k-tit">${t.Socio}</p><p class="rt-k-cifra rt-k-txt">${pd ? `${bandera(pd[0])}<span>${esc(D.paises[pd[0]])}</span>` : "Sin datos"}</p>
+        <p class="rt-k-sub">${pd ? `${pct(100 * pd[1] / tot)} de ${t.lo}${nombre ? " en " + esc(nombre) : ""}` : ""}</p></div>
+      <div class="rt-kpi"><p class="rt-k-tit">${t.Prod}</p><p class="rt-k-cifra rt-k-txt">${pp ? `${emoji(pp[0])}<span>${esc(nombreSub(pp[0]))}</span>` : "Sin datos"}</p>
+        <p class="rt-k-sub">${pp ? `${pct(100 * pp[1] / tot)} de ${t.lo}` : ""}</p></div>`;
+    $("rt-dest-tit").textContent = t.socios;
+    $("rt-prod-tit").textContent = t.prods;
+    $("rt-corr-tit").closest("section").hidden = !hay.length;
     barras($("rt-destinos"), destinos.slice(0, TOP), tot, c => D.paises[c], bandera, "data-pais");
     barras($("rt-productos"), productos.slice(0, TOP), tot, nombreSub, emoji, "data-sub");
     const cmax = corredores.length ? corredores[0][1] : 1;
     $("rt-corredores").innerHTML = corredores.length ? corredores.slice(0, TOP).map(([k, v]) => {
       const [s, c, m] = k.split("|"), lider = agrupar(vista.fs.filter(f => f.salida === s && f.pais_cod === c && f.modo === m), f => f.sub)[0];
-      return `<li><button type="button" data-corr="${esc(k)}">${sello(m)}<span class="rt-c-ruta">${esc(sinAvion(s))} a <span>${bandera(c)}${esc(D.paises[c])}</span></span>
+      return `<li><button type="button" data-corr="${esc(k)}">${sello(m)}<span class="rt-c-ruta">${tramo(s, c, true)}</span>
         <span class="rt-c-v">${esc(corto(v))}</span><span class="rt-c-prod"><span class="solo-lector">${NOMBRE_VIA[m]}.</span> ${lider ? `${emoji(lider[0])} ${esc(nombreSub(lider[0]))}` : ""}</span>
         <span class="rt-c-barra rt-an-${LETRA[m]}" aria-hidden="true"><i style="width:${(100 * v / cmax).toFixed(2)}%"></i></span></button></li>`;
     }).join("") : `<li class="rt-nada">Nada con estos filtros.</li>`;
     const sp = vista.sinPaisTot, dib = suma(vista.fs.filter(f => f.modo));
-    $("rt-frase").textContent = !tot ? `No hay exportaciones con estos filtros en ${estado.anio}.` :
-      `En ${estado.anio} la Argentina exportó ${plata(tot)}${nombre ? " en " + nombre : ""}${viasTexto()}. ` + (pd ? `El primer destino fue ${D.paises[pd[0]]}, con ${pct(100 * pd[1] / tot)} del total. ` : "") +
-      `El mapa dibuja el ${pct(100 * dib / tot)}` + (sp ? `: el ${pct(100 * sp / tot)} salió sin país informado (lo que el INDEC publica como confidencial) y el resto va a países fuera de la tabla de destinos o sin un camino que se pueda dibujar.` : ".");
-    $("rt-tabla").innerHTML = `<caption class="solo-lector">Exportaciones${nombre ? " de " + esc(nombre) : ""} por país de destino, ${estado.anio}</caption>` +
-      `<thead><tr><th scope="col">País</th><th scope="col" class="n">Millones de dólares</th><th scope="col" class="n">% del total</th><th scope="col">Camino principal</th></tr></thead><tbody>` +
+    const unidad = flujo === "imp" ? " (con el flete y el seguro)" : "";
+    $("rt-frase").textContent = !tot ? `No hay ${t.nombre} con estos filtros en ${estado.anio}.` :
+      `En ${estado.anio} la Argentina ${t.verbo} ${plata(tot)}${unidad}${nombre ? " en " + nombre : ""}${viasTexto()}. ` + (pd ? `El ${t.socio === "comprador" ? "primer comprador" : "primer " + t.socio} fue ${D.paises[pd[0]]}, con ${pct(100 * pd[1] / tot)} del total. ` : "") +
+      (hay.length ? `El mapa dibuja el ${pct(100 * dib / tot)}` + (sp ? `: el ${pct(100 * sp / tot)} ${t.sinPais} y el resto ${t.fuera}.` : ".")
+        : sp ? `El ${pct(100 * sp / tot)} ${t.sinPais}.` : "");
+    const col = hay.length ? `<th scope="col">Camino principal</th>` : "";
+    $("rt-tabla").innerHTML = `<caption class="solo-lector">${t.tabla}${nombre ? " de " + esc(nombre) : ""} ${t.porPais}, ${estado.anio}</caption>` +
+      `<thead><tr><th scope="col">País</th><th scope="col" class="n">Millones de dólares</th><th scope="col" class="n">% del total</th>${col}</tr></thead><tbody>` +
       destinos.map(([c, v]) => { const r = vista.rutas.filter(x => x.c === c).sort((a, b) => b.v - a.v)[0];
-        return `<tr><th scope="row">${esc(D.paises[c])}</th><td class="n">${dec(v, 1)}</td><td class="n">${pct(100 * v / tot)}</td><td>${r ? esc(camino(r)) : "Sin camino dibujado"}</td></tr>`; }).join("") +
-      (sp ? `<tr><th scope="row">Sin país informado</th><td class="n">${dec(sp, 1)}</td><td class="n">${pct(100 * sp / tot)}</td><td>Sin camino dibujado</td></tr>` : "") + `</tbody>`;
+        return `<tr><th scope="row">${esc(D.paises[c])}</th><td class="n">${dec(v, 1)}</td><td class="n">${pct(100 * v / tot)}</td>${hay.length ? `<td>${r ? esc(camino(r)) : "Sin camino dibujado"}</td>` : ""}</tr>`; }).join("") +
+      (sp ? `<tr><th scope="row">Sin país informado</th><td class="n">${dec(sp, 1)}</td><td class="n">${pct(100 * sp / tot)}</td>${hay.length ? "<td>Sin camino dibujado</td>" : ""}</tr>` : "") + `</tbody>`;
     $("rt-vacio").hidden = tot > 0;
   }
 
@@ -176,23 +222,26 @@
     const fs = vista.fs, tot = vista.tot || 1;
     if (sel.tipo === "pais") {
       const de = fs.filter(f => f.pais_cod === sel.id), v = suma(de), p = 100 * v / tot;
-      return cabFicha(bandera(sel.id), "País de destino", D.paises[sel.id])
-        + datosFicha([[`Compró en ${estado.anio}`, corto(v)], ["Parte del total", pct(p)], ["Puesto", vista.rango.has(sel.id) ? `${vista.rango.get(sel.id)} de ${vista.destinos.length}` : ""], ["Llega a", D.puertos[sel.id] || ""]]) + parte(p)
-        + `<h4>Por dónde sale</h4>${lista(agrupar(de, f => f.modo ? `${f.modo}|${f.modo === "tierra" ? f.destino : sinAvion(f.salida)}` : "|Sin camino dibujado").slice(0, 5), k => k.split("|")[1], v || 1, k => k[0] === "|" ? "" : sello(k.split("|")[0]))}
-        <h4>Qué compra</h4>${lista(agrupar(de, f => f.sub || null).slice(0, 5), nombreSub, v || 1, emoji)}`;
+      const t = T();
+      return cabFicha(bandera(sel.id), t.pais, D.paises[sel.id])
+        + datosFicha([[`${t.compro} en ${estado.anio}`, corto(v)], ["Parte del total", pct(p)], ["Puesto", vista.rango.has(sel.id) ? `${vista.rango.get(sel.id)} de ${vista.destinos.length}` : ""], t.llega ? [t.llega, D.puertos[sel.id] || ""] : null]) + parte(p)
+        + (viasDe().length ? `<h4>${t.porDonde}</h4>${lista(agrupar(de, f => f.modo ? `${f.modo}|${f.modo === "tierra" ? f.destino : sinAvion(f.salida)}` : "|Sin camino dibujado").slice(0, 5), k => k.split("|")[1], v || 1, k => k[0] === "|" ? "" : sello(k.split("|")[0]))}` : "")
+        + `<h4>${t.que}</h4>${lista(agrupar(de, f => f.sub || null).slice(0, 5), nombreSub, v || 1, emoji)}`;
     }
     if (sel.tipo === "salida") {
       const de = fs.filter(f => f.modo && salidaDe(f) === sel.id || (f.modo === "tierra" && f.destino === sel.id)), v = suma(de), p = 100 * v / tot;
-      return cabFicha(`<span class="rt-emoji" aria-hidden="true">${emojiSalida(sel.id)}</span>`, D.pasos[sel.id] ? "Paso de frontera" : sel.id.includes("avión") ? "Aeropuerto de salida" : "Puerto de salida", sinAvion(sel.id))
-        + datosFicha([[`Salió en ${estado.anio}`, corto(v)], ["Parte del total", pct(p)]]) + parte(p)
-        + `<h4>Adónde va</h4>${lista(agrupar(de, f => f.pais_cod).slice(0, 5), c => D.paises[c], v || 1, bandera)}
-        <h4>Qué sale por acá</h4>${lista(agrupar(de, f => f.sub || null).slice(0, 5), nombreSub, v || 1, emoji)}`;
+      const t = T();
+      return cabFicha(`<span class="rt-emoji" aria-hidden="true">${emojiSalida(sel.id)}</span>`, D.pasos[sel.id] ? "Paso de frontera" : sel.id.includes("avión") ? "Aeropuerto de salida" : t.nodo, sinAvion(sel.id))
+        + datosFicha([[`${t.salio} en ${estado.anio}`, corto(v)], ["Parte del total", pct(p)]]) + parte(p)
+        + `<h4>${t.adonde}</h4>${lista(agrupar(de, f => f.pais_cod).slice(0, 5), c => D.paises[c], v || 1, bandera)}
+        <h4>${t.queAca}</h4>${lista(agrupar(de, f => f.sub || null).slice(0, 5), nombreSub, v || 1, emoji)}`;
     }
     // una ruta o un corredor
     const de = sel.tipo === "linea" ? fs.filter(f => f.linea === sel.id) : fs.filter(f => `${f.salida}|${f.pais_cod}|${f.modo}` === sel.id);
     const v = suma(de), f0 = de[0] || {}, p = 100 * v / tot, km = f0.linea && D.km[f0.linea];
-    return cabFicha(f0.modo ? sello(f0.modo) : "", `Ruta ${f0.modo ? NOMBRE_VIA[f0.modo].toLowerCase() : ""}`, `${sinAvion(f0.salida || "")} a ${D.paises[f0.pais_cod] || ""}`)
-      + datosFicha([[`Pasó en ${estado.anio}`, corto(v)], ["Parte del total", pct(p)], f0.modo === "tierra" ? ["Cruza por", f0.destino] : ["Llega a", D.puertos[f0.pais_cod] || D.paises[f0.pais_cod]], km ? ["Distancia simulada", `${dec(km, 0)} km`] : null]) + parte(p)
+    const imp = flujo === "imp", tit = imp ? `${D.paises[f0.pais_cod] || ""} a ${sinAvion(f0.salida || "")}` : `${sinAvion(f0.salida || "")} a ${D.paises[f0.pais_cod] || ""}`;
+    return cabFicha(f0.modo ? sello(f0.modo) : "", `Ruta ${f0.modo ? NOMBRE_VIA[f0.modo].toLowerCase() : ""}`, tit)
+      + datosFicha([[`Pasó en ${estado.anio}`, corto(v)], ["Parte del total", pct(p)], f0.modo === "tierra" ? ["Cruza por", f0.destino] : [imp ? "Sale de" : "Llega a", D.puertos[f0.pais_cod] || D.paises[f0.pais_cod]], km ? ["Distancia simulada", `${dec(km, 0)} km`] : null]) + parte(p)
       + `<h4>Qué lleva</h4>${lista(agrupar(de, f => f.sub || null).slice(0, 5), nombreSub, v || 1, emoji)}`;
   }
   function abrirFicha(sel, desdeTeclado) {
@@ -291,10 +340,10 @@
     const tierra = topojson.feature(mundo, mundo.objects.countries);
     tierra.features = tierra.features.filter(f => f.properties.name !== "Antarctica" && f.geometry).map(f => ({...f, geometry: {type: f.geometry.type,
       coordinates: f.geometry.type === "Polygon" ? f.geometry.coordinates.map(seguido) : f.geometry.coordinates.map(pol => pol.map(seguido))}}));
-    // el código de cada país de destino, para pintar a los que compran. Las Malvinas y las Georgias del Sur vienen aparte en Natural Earth: van con la Argentina
-    const codigo = new Map(Object.entries(D.iso).map(([c, n]) => [n, c]));
+    // el número ISO de cada país, para pintar a los que comercian (D.iso dice el de cada código). Las Malvinas y las Georgias del Sur vienen aparte en
+    // Natural Earth: van con la Argentina
     const ARG = ["Argentina", "Falkland Is.", "S. Geo. and the Is."];
-    for (const f of tierra.features) f.properties = {c: ARG.includes(f.properties.name) ? "AR" : codigo.get(String(f.id).padStart(3, "0")) || ""};
+    for (const f of tierra.features) f.properties = {c: ARG.includes(f.properties.name) ? "AR" : String(f.id).padStart(3, "0")};
     const fondo = css("--rt-oceano"), suelo = css("--rt-suelo"), borde = css("--rt-borde"), arg = css("--rt-arg"), nodo = css("--rt-nodo"), costa = css("--rt-costa");
     const compra = mezcla(css("--rt-compra-1"), css("--rt-compra-2"));
     const m = new maplibregl.Map({
@@ -396,10 +445,10 @@
     };
     const tipHTML = sel => {
       if (sel.tipo === "pais") { const v = suma(vista.fs.filter(f => f.pais_cod === sel.id)); return `<strong>${bandera(sel.id)}${esc(D.paises[sel.id])}</strong><span>${esc(corto(v))}, ${pct(100 * v / (vista.tot || 1))}</span>`; }
-      if (sel.tipo === "salida") return `<strong>${emojiSalida(sel.id)} ${esc(sinAvion(sel.id))}</strong><span>Tocá para ver qué sale por acá</span>`;
+      if (sel.tipo === "salida") return `<strong>${emojiSalida(sel.id)} ${esc(sinAvion(sel.id))}</strong><span>Tocá para ver ${T().queAca.toLowerCase()}</span>`;
       const r = vista.rutas.find(x => x.k === sel.id);
       const lider = r && [...r.prods].sort((a, b) => b[1] - a[1])[0];
-      return r ? `<strong>${bandera(r.c)}${esc(D.paises[r.c])}</strong><span>${esc(camino(r))}</span><span>${esc(corto(r.v))}, ${pct(100 * r.v / (vista.tot || 1))}</span>${lider && lider[0] ? `<span>${EMOJI[lider[0]] || "📦"} ${esc(nombreSub(lider[0]))}</span>` : ""}` : "";
+      return r ? `<strong>${bandera(r.c)}${esc(D.paises[r.c])}</strong><span>${esc(camino(r))}</span><span>${esc(corto(r.v))}, ${pct(100 * r.v / (vista.tot || 1))}</span>${lider && lider[0] ? `<span>${emojiDe(lider[0])} ${esc(nombreSub(lider[0]))}</span>` : ""}` : "";
     };
     m.on("mousemove", e => {
       if (!listo) return;
@@ -460,7 +509,7 @@
           if (!etiquetas.has(c)) {
             const el = document.createElement("span"), s = c[0] === "⚓" ? c.slice(1) : "";
             // en la costa del Pacífico el nombre va a la izquierda: a la derecha lo tapan las demás banderas
-            const izq = !s && ["CL", "PE", "EC", "MX"].includes(c);
+            const izq = !s && ["CL", "PE", "EC", "MX", ...(flujo === "exp" ? [] : ["PY"])].includes(c);
             el.className = s ? "rt-etiq-salida" : izq ? "rt-etiq rt-izq" : "rt-etiq"; el.setAttribute("aria-hidden", "true");
             el.innerHTML = s ? esc(sinAvion(s)) : `${bandera(c)}<span>${esc(D.paises[c])}</span>`;
             etiquetas.set(c, {el, mk: new maplibregl.Marker({element: el, anchor: izq ? "right" : "left", offset: [s ? 9 : izq ? 10 : -10, 0], opacityWhenCovered: "0"}).setLngLat(s ? D.salidas[s] || D.pasos[s] : D.lugares[c]).addTo(m)});
@@ -471,8 +520,10 @@
       },
       // los países: la Argentina con el color del sol, los que compran de más claro a más celeste según cuánto, y lo elegido más fuerte
       paises(sel) {
-        const max = vista.destinos.length ? vista.destinos[0][1] : 1, con = new Map(vista.destinos.filter(([c]) => D.iso[c]).map(([c, v]) => [c, compra((v / max) ** 0.75)]));
-        if (sel && sel.tipo === "pais" && D.iso[sel.id]) con.set(sel.id, css("--celeste"));
+        // en los servicios Estados Unidos compra tanto más que los demás que con la misma escala casi todos quedarían blancos: va más pareja
+        const max = vista.destinos.length ? vista.destinos[0][1] : 1, k = flujo === "ser" ? 0.4 : 0.75;
+        const con = new Map(vista.destinos.filter(([c]) => D.iso[c]).map(([c, v]) => [D.iso[c], compra((v / max) ** k)]));
+        if (sel && sel.tipo === "pais" && D.iso[sel.id]) con.set(D.iso[sel.id], css("--celeste"));
         m.setPaintProperty("tierra", "fill-color", ["match", ["get", "c"], "AR", arg, ...[...con].flat(), suelo]);
       },
       mover(si) {
@@ -483,6 +534,11 @@
         andar();
       },
       vehiculos() { if (listo) { cuadroFlota(); andar(); } },
+      otroFlujo() {
+        curvas.clear(); trayectos.clear(); flota = [];
+        for (const e of etiquetas.values()) e.mk.remove();
+        etiquetas.clear();
+      },
       get quieto() { return quieto; },
       // foco y contexto: lo elegido (o lo señalado) a pleno y con halo, lo demás casi transparente
       foco(sel, soloPintura) {
@@ -535,13 +591,22 @@
   }
 
   /* ---------- los controles ---------- */
+  function armarRubros() {
+    const g = [["", "Todo"], ...Object.entries(D.rubros).filter(([k]) => k !== "otro").map(([k, n]) => [k, CORTO_RUBRO[k] || n])];
+    const c = raiz.querySelector(".rt-rubros");
+    c.style.setProperty("--n", g.length);
+    c.setAttribute("aria-label", flujo === "ser" ? "Tipo de servicio" : flujo === "imp" ? "Grupo" : "Rubro");
+    c.innerHTML = g.map(([k, n]) => `<button type="button" data-r="${k}" aria-pressed="${k === ""}">${esc(n)}</button>`).join("");
+    $("rt-prod").placeholder = T().buscar;
+    $("rt-prod").closest("label").querySelector(".solo-lector").textContent = T().prod;
+  }
   function elegirRubro(r) {
     estado.rubro = r; estado.sub = "";
     raiz.querySelectorAll(".rt-rubros button").forEach((x, i) => { const si = x.dataset.r === r; x.setAttribute("aria-pressed", String(si)); if (si) x.parentNode.style.setProperty("--i", i); });
     opcionesProducto();
   }
   function restablecer() {
-    estado.vias = new Set(VIAS); estado.sel = null;
+    estado.vias = new Set(VIAS); estado.sel = null; estado.sub = "";
     elegirRubro("");
     $("rt-ficha").hidden = true;
     pintar();
@@ -618,18 +683,50 @@
 
   /* ---------- arranque ---------- */
   function sinMapa() { $("rt-lienzo").hidden = true; raiz.querySelector(".rt-ctrl").hidden = true; raiz.querySelector(".rt-vias").hidden = true; $("rt-sin-mapa").hidden = false; }
-  fetch(raiz.dataset.datos).then(r => { if (!r.ok) throw new Error(r.status); return r.json(); }).then(d => {
-    D = d;
-    estado.anio = D.anio;
+  const ARCHIVO = {exp: raiz.dataset.datos, imp: raiz.dataset.datosImp, ser: raiz.dataset.datosSer};
+  const cargar = f => DATOS[f] ? Promise.resolve(DATOS[f]) : fetch(ARCHIVO[f]).then(r => { if (!r.ok) throw new Error(r.status); return r.json(); }).then(d => (DATOS[f] = d));
+  // muestra el flujo f con sus datos: los grupos, el año, los textos fijos de la página (data-flujo) y el mapa
+  function usar(f, d) {
+    if (jugando) parar();
+    flujo = f; D = d;
+    estado.anio = D.anio; estado.sub = ""; estado.sel = null; estado.vias = new Set(VIAS);
+    $("rt-ficha").hidden = true;
     Object.assign($("rt-anio"), {min: D.anios[0], max: D.anios[D.anios.length - 1], value: D.anio, disabled: false});
     $("rt-play").disabled = false; $("rt-prod").disabled = false;
-    opcionesProducto();
+    raiz.querySelectorAll("[data-flujo-btn]").forEach((b, i) => { const si = b.dataset.flujoBtn === f; b.setAttribute("aria-pressed", String(si)); if (si) b.parentNode.style.setProperty("--i", i); });
+    raiz.querySelectorAll("[data-flujo]").forEach(el => { el.hidden = !el.dataset.flujo.split(" ").includes(f); });
+    raiz.dataset.flujo = f;
+    $("rt-mapa-tit").textContent = f === "ser" ? "Mapa de los países que compran" : "Mapa de las rutas";
+    // sin caminos no hay barcos, camiones ni aviones que pausar
+    raiz.querySelector('[data-z="mover"]').hidden = f === "ser";
+    raiz.querySelector('[data-capa="vehiculos"]').closest("label").hidden = raiz.querySelector('[data-capa="salidas"]').closest("label").hidden = f === "ser";
+    armarRubros();
+    elegirRubro("");
+    if (mapa) mapa.otroFlujo();
     $("rt-estado").textContent = "";
     pintar();
+  }
+  raiz.querySelector(".rt-flujos").addEventListener("click", e => {
+    const b = e.target.closest("[data-flujo-btn]"); if (!b || b.dataset.flujoBtn === flujo) return;
+    const f = b.dataset.flujoBtn;
+    $("rt-estado").textContent = "Cargando los datos.";
+    raiz.setAttribute("aria-busy", "true");
+    cargar(f).then(d => {
+      usar(f, d);
+      const u = new URL(location.href);
+      if (f === "exp") u.searchParams.delete("flujo"); else u.searchParams.set("flujo", f);
+      history.replaceState(null, "", u);
+    }).catch(() => { raiz.removeAttribute("aria-busy"); $("rt-estado").textContent = "No se pudieron cargar los datos."; $("rt-falla").hidden = false; });
+  });
+  const pedido = new URLSearchParams(location.search).get("flujo");
+  const inicial = ARCHIVO[pedido] && pedido !== "exp" ? pedido : "exp";
+  cargar(inicial).then(d => {
+    usar(inicial, d);
     if (!window.maplibregl || !window.topojson) return sinMapa();
     fetch(raiz.dataset.mundo).then(r => { if (!r.ok) throw new Error(r.status); return r.json(); }).then(mundo => {
       try { mapa = armarMapa(mundo); } catch (_) { mapa = null; return sinMapa(); }
       mapa.mapa.on("error", ev => { if (/webgl/i.test(String(ev && ev.error && ev.error.message))) sinMapa(); });
+      pintarVias();
     }).catch(sinMapa);
   }).catch(() => {
     raiz.removeAttribute("aria-busy");

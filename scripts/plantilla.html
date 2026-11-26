@@ -3355,15 +3355,22 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
   <section class="tema herramienta" id="rutas">
     <h2>Rutas comerciales</h2>
     <div class="tema-intro">
-      <p class="pregunta">¿Adónde van las exportaciones argentinas?</p>
-      <p>Lo exportado cada año desde {{externo.rutas.desde}} hasta {{externo.rutas.anio}} por país de destino y por producto, con el camino simulado desde el puerto o el paso por el que sale cada producto.</p>
+      <p class="pregunta">¿Qué le vende y qué le compra la Argentina al mundo?</p>
+      <p>Lo exportado y lo importado cada año desde {{externo.rutas.desde}} hasta {{externo.rutas.anio}} por país y por producto, con el camino simulado desde o hasta el puerto o el paso por el que pasa cada carga, y los servicios que se venden a cada país.</p>
     </div>
     <!-- rediseño del 24 de noviembre de 2026 (pedido del autor): el mapa en MapLibre GL (scripts/lib, sin CDN ni claves), las rutas coloreadas por vía,
          foco y contexto, la ficha de cada elemento, los filtros por vía, rubro, producto y año, y las tarjetas sincronizadas con el mapa.
          25 de noviembre de 2026 (pedido del autor, con un tablero de logística de referencia): las cifras arriba en una tira, el mapa en una tarjeta con
          las vías, los controles y la ficha adentro, los destinos al costado, banderas, emojis de los productos y barcos, camiones y aviones en las rutas -->
-    <div class="rt" id="rt" data-datos="datos/rutas.json" data-mundo="lib/world-atlas-2.0.2-countries-50m.json?v=__V_MUNDO50__" data-banderas="img/paises/" aria-busy="true">
+    <!-- 26 de noviembre de 2026 (pedido del autor): las importaciones, con el camino al revés, y los servicios, sin caminos, con el conmutador de arriba.
+         rutas.js baja cada JSON al elegirlo. Lo que dice cada uno va con data-flujo -->
+    <div class="rt" id="rt" data-datos="datos/rutas.json" data-datos-imp="datos/rutas_imp.json" data-datos-ser="datos/rutas_ser.json" data-mundo="lib/world-atlas-2.0.2-countries-50m.json?v=__V_MUNDO50__" data-banderas="img/paises/" aria-busy="true">
       <div class="rt-barra">
+        <div class="conmutador rt-flujos" role="group" aria-label="Qué se muestra" data-propio style="--n:3">
+          <button type="button" data-flujo-btn="exp" aria-pressed="true">Exportaciones</button>
+          <button type="button" data-flujo-btn="imp" aria-pressed="false">Importaciones</button>
+          <button type="button" data-flujo-btn="ser" aria-pressed="false">Servicios</button>
+        </div>
         <div class="rt-panel" id="rt-panel">
           <div class="rt-panel-cab"><p class="rt-panel-tit">Filtros</p><button type="button" class="boton chico" id="rt-panel-cerrar">Listo</button></div>
           <div class="conmutador rt-rubros" role="group" aria-label="Rubro" data-propio style="--n:5">
@@ -3380,7 +3387,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
         </div>
         <p class="rt-prod-elegido" id="rt-prod-elegido" hidden><span></span> <button type="button" class="enlace" id="rt-prod-quitar">Quitar el producto</button></p>
       </div>
-      <p class="solo-lector" id="rt-estado" role="status">Cargando las exportaciones.</p>
+      <p class="solo-lector" id="rt-estado" role="status">Cargando los datos.</p>
       <div class="rt-falla" id="rt-falla" role="alert" hidden><p>No se pudieron cargar los datos. La tabla se puede descargar abajo.</p></div>
       <div class="rt-tablero">
         <section class="rt-card rt-mapa-card" aria-labelledby="rt-mapa-tit">
@@ -3393,7 +3400,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
             <button type="button" class="boton chico rt-filtros-btn" id="rt-filtros-btn" aria-expanded="false" aria-controls="rt-panel">Filtros</button>
           </div>
           <div class="rt-mapa" id="rt-mapa-caja">
-            <div class="rt-lienzo" id="rt-lienzo" role="region" aria-label="Mapa del mundo con los caminos simulados de las exportaciones. Las tarjetas y Ver tabla tienen los mismos datos"></div>
+            <div class="rt-lienzo" id="rt-lienzo" role="region" aria-label="Mapa del mundo con los caminos simulados del comercio de la Argentina. Las tarjetas y Ver tabla tienen los mismos datos"></div>
             <div class="rt-vias" role="group" aria-label="Vías de transporte: se pueden prender y apagar">
               <button type="button" class="rt-via" data-via="mar" aria-pressed="true"><i aria-hidden="true"></i><span>Mar</span> <b></b></button>
               <button type="button" class="rt-via" data-via="tierra" aria-pressed="true"><i aria-hidden="true"></i><span>Tierra</span> <b></b></button>
@@ -3413,14 +3420,14 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
                   <fieldset class="rt-capas">
                     <legend>Capas del mapa</legend>
                     <label><input type="checkbox" data-capa="vehiculos" checked> Barcos, camiones y aviones</label>
-                    <label><input type="checkbox" data-capa="salidas" checked> Puertos y pasos de salida</label>
-                    <label><input type="checkbox" data-capa="etiquetas" checked> Banderas de los diez primeros destinos</label>
+                    <label><input type="checkbox" data-capa="salidas" checked> Puertos y pasos de frontera</label>
+                    <label><input type="checkbox" data-capa="etiquetas" checked> Banderas de los diez primeros países</label>
                     <label><input type="checkbox" data-capa="secundarias" checked> Rutas de los demás destinos</label>
                   </fieldset>
                 </details>
               </div>
             </div>
-            <div class="rt-vacio" id="rt-vacio" hidden><p>No hay exportaciones con estos filtros.</p><button type="button" class="boton chico" data-restablecer>Restablecer filtros</button></div>
+            <div class="rt-vacio" id="rt-vacio" hidden><p>No hay datos con estos filtros.</p><button type="button" class="boton chico" data-restablecer>Restablecer filtros</button></div>
             <aside class="rt-ficha" id="rt-ficha" aria-labelledby="rt-ficha-tit" tabindex="-1" hidden>
               <button type="button" class="rt-ficha-cerrar" id="rt-ficha-cerrar" aria-label="Cerrar y ver todo" title="Cerrar y ver todo"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
               <div id="rt-ficha-cuerpo"></div>
@@ -3432,7 +3439,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
         <div class="rt-kpis" id="rt-kpis"></div>
         <section class="rt-card rt-lado" aria-labelledby="rt-dest-tit"><h2 class="rt-card-tit" id="rt-dest-tit">Principales destinos</h2><ol class="rt-barras" id="rt-destinos"></ol></section>
       </div>
-      <p class="rt-ayuda">Más grosor es más dinero, y cuanto más celeste un país, más compra. Los barcos, camiones y aviones muestran por dónde va cada ruta: son un dibujo, no viajes de verdad. Tocá una ruta, una bandera o un puerto para ver su ficha. Para acercar, los botones, dos dedos o Ctrl y la rueda del mouse.</p>
+      <p class="rt-ayuda" data-flujo="exp imp">Más grosor es más dinero, y cuanto más celeste un país, más comercia. Los barcos, camiones y aviones muestran por dónde va cada ruta: son un dibujo, no viajes de verdad. Tocá una ruta, una bandera o un puerto para ver su ficha. Para acercar, los botones, dos dedos o Ctrl y la rueda del mouse.</p>
+      <p class="rt-ayuda" data-flujo="ser" hidden>Los servicios no viajan en barco ni en camión: el mapa no dibuja caminos y pinta cada país más celeste cuanto más servicios le compra a la Argentina. Tocá una bandera para ver su ficha. Para acercar, los botones, dos dedos o Ctrl y la rueda del mouse.</p>
       <p class="rt-frase" id="rt-frase"></p>
       <div class="rt-grid">
         <section class="rt-card" aria-labelledby="rt-prod-tit"><h2 class="rt-card-tit" id="rt-prod-tit">Principales productos</h2><ol class="rt-barras" id="rt-productos"></ol></section>
@@ -3440,10 +3448,12 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       </div>
       <button type="button" class="boton chico" id="rt-ver-tabla" aria-expanded="false" aria-controls="rt-tabla-caja">Ver tabla</button>
       <div class="tabla-datos" id="rt-tabla-caja" hidden><div class="tabla-desliza" tabindex="0" role="region" aria-label="Exportaciones por país de destino"><table class="tabla-areas" id="rt-tabla"></table></div></div>
-      <div class="pie rt-pie"><span>Fuentes: exportaciones por subrubro y país de destino, INDEC. Salida de cada producto: organismos oficiales, cámaras y prensa, una por una en la tabla de salidas. Caminos por mar: biblioteca searoute, sobre la red marítima de Eurostat. Mapa: Natural Earth. Banderas: circle-flags</span><a href="datos/rutas_exportaciones.csv" download>Descargar tabla (CSV)</a></div>
+      <div class="pie rt-pie" data-flujo="exp"><span>Fuentes: exportaciones por subrubro y país de destino, INDEC. Salida de cada producto: organismos oficiales, cámaras y prensa, una por una en la tabla de salidas. Caminos por mar: biblioteca searoute, sobre la red marítima de Eurostat. Mapa: Natural Earth. Banderas: circle-flags</span><a href="datos/rutas_exportaciones.csv" download>Descargar tabla (CSV)</a></div>
+      <div class="pie rt-pie" data-flujo="imp" hidden><span>Fuentes: importaciones por categoría económica (o por uso económico) y país de origen, INDEC. Entrada de cada categoría: organismos oficiales y prensa, una por una en la tabla de entradas. Caminos por mar: biblioteca searoute, sobre la red marítima de Eurostat. Mapa: Natural Earth. Banderas: circle-flags</span><a href="datos/rutas_importaciones.csv" download>Descargar tabla (CSV)</a></div>
+      <div class="pie rt-pie" data-flujo="ser" hidden><span>Fuente: exportaciones de servicios por tipo y país socio, INDEC (estimación experimental de la balanza de pagos). Mapa: Natural Earth. Banderas: circle-flags</span><a href="datos/rutas_servicios.csv" download>Descargar tabla (CSV)</a></div>
       <div class="rt-limites nota-limites">
         <h2 class="rt-tit">Qué no dice este dato</h2>
-        <ul>
+        <ul data-flujo="exp">
           <li>El INDEC no publica por dónde sale cada carga ni qué camino hace. Cada producto se dibuja desde su salida principal, según organismos oficiales, cámaras y prensa, y la tabla dice qué tan firme es cada una: lo que sale por otro puerto se dibuja igual desde el principal.</li>
           <li>El camino por mar es el más corto sobre la red marítima de Eurostat, sin el Canal de Panamá y hacia Asia y Oceanía por el sur de África. Un barco de verdad puede hacer escalas o ir por otro lado.</li>
           <li>Cada país se dibuja hasta un solo puerto, el de más carga, aunque reciba por varios. A los países limítrofes, salvo a Brasil por barco, el camino va por tierra, por un solo paso de frontera.</li>
@@ -3452,6 +3462,21 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
           <li>Un camino más grueso es más dinero, no más toneladas: un kilo de oro vale mucho más que uno de soja.</li>
           <li>El mapa plano agranda las tierras cerca de los polos y por eso los caminos del sur se ven más largos de lo que son. La vista de globo los muestra sin esa deformación.</li>
           <li>Cada año se dibuja con las mismas salidas y los mismos puertos de hoy: lo que cambia entre años es cuánto se exportó, no por dónde. Desde 2018 el INDEC publica una parte de lo exportado como confidencial, sin rubro ni país, así que antes de ese año los países reúnen más y la comparación entre esos años exagera las caídas.</li>
+        </ul>
+        <ul data-flujo="imp" hidden>
+          <li>El INDEC no publica por dónde entra cada carga. Cada categoría se dibuja hasta su puerto de entrada principal (los autos por Zárate, los contenedores por Buenos Aires y el gas natural licuado por Escobar, cerca de Zárate-Campana), y la tabla de entradas dice qué tan firme es cada una.</li>
+          <li>Lo importado se mide con el flete y el seguro (CIF) y lo exportado sin ellos (FOB): no se suman ni se restan para sacar un saldo.</li>
+          <li>Las categorías son las del uso económico o las categorías económicas del INDEC, no productos: un celular y una remera van juntos en consumo.</li>
+          <li>El camino por mar es el mismo de las exportaciones, dado vuelta. Solo tienen camino los países que ya tienen un puerto en la tabla de destinos de las exportaciones: Japón, Taiwán y otros que venden mucho cuentan en los totales sin camino.</li>
+          <li>Desde los cinco países limítrofes todo se dibuja por tierra, por un solo paso de frontera, aunque una parte llegue por barco o, como la soja de Paraguay, en barcaza por el Paraná. El gas de Bolivia, que llegaba por gasoducto, dejó de llegar: los años anteriores lo dibujan por el paso de Salvador Mazza.</li>
+          <li>El país es el de origen que se declara en la aduana.</li>
+          <li>Cada año se dibuja con las mismas entradas de hoy: lo que cambia entre años es cuánto se importó, no por dónde.</li>
+        </ul>
+        <ul data-flujo="ser" hidden>
+          <li>Es una estimación experimental del INDEC, con la metodología de la balanza de pagos. Muchas celdas son confidenciales: lo confidencial de cada país va como "Otros servicios (confidencial)", y lo que no tiene país (país confidencial, indeterminado, regiones y organismos internacionales) va aparte, sin país.</li>
+          <li>Los servicios no viajan: el país es el de quien los paga. "Viajes" es lo que gastan en la Argentina los turistas y viajeros que vienen de ese país.</li>
+          <li>Son solo los servicios que se venden. Lo que se compra a otros países, como los viajes de los argentinos al exterior, no está en esta vista.</li>
+          <li>Los servicios se cuentan en dólares, como los bienes, pero vienen de otra fuente: no se suman con las exportaciones de bienes de esta página.</li>
         </ul>
       </div>
     </div>
