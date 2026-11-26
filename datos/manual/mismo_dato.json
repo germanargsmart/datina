@@ -194,6 +194,12 @@
    "periodo": "ultimo"
   },
   {
+   "variable": "censo2022_mujeres_ocupadas_25_54",
+   "tabla": "empleo_mujeres_provincias",
+   "columna": "pct_mujeres",
+   "periodo": "ultimo"
+  },
+  {
    "variable": "censo2022_nbi",
    "tabla": "censo2022_provincias",
    "columna": "nbi",
@@ -245,6 +251,12 @@
    "variable": "censo2022_sin_cobertura",
    "tabla": "madres_adolescentes_nse",
    "columna": "pct_pob_solo_cobertura_publica",
+   "periodo": "ultimo"
+  },
+  {
+   "variable": "censo2022_varones_ocupados_25_54",
+   "tabla": "empleo_mujeres_provincias",
+   "columna": "pct_varones",
    "periodo": "ultimo"
   },
   {
