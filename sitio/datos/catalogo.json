@@ -24113,6 +24113,426 @@
    "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
    "uso_libre": true,
    "como_citar": "Datina (año de la consulta). ¿Adónde van las exportaciones argentinas? Con datos de INDEC, exportaciones por subrubro y país de destino (API). La salida de cada producto, de organismos oficiales, cámaras y prensa (datos/manual/rutas_salidas.csv), y el puerto o el paso de frontera de cada país (datos/manual/rutas_destinos.csv). https://datina.com.ar/rutas. Consultado el día de la consulta."
+  },
+  {
+   "tabla": "rutas_importaciones",
+   "csv": "https://datina.com.ar/datos/rutas_importaciones.csv",
+   "metadatos": "https://datina.com.ar/datos/rutas_importaciones.metadata.json",
+   "titulo": "¿Qué le vende y qué le compra la Argentina al mundo?",
+   "descripcion": "Importaciones de cada año completo desde 2015 por categoría económica (o, mientras no llega ese corte de la API, por uso económico) y país de origen, en millones de dólares CIF y toneladas, con la entrada y el camino simulado de cada fila",
+   "seccion": "Rutas comerciales",
+   "ficha": "https://datina.com.ar/rutas",
+   "fuente": "INDEC, importaciones por categoría económica o uso económico y país de origen (API). La entrada de cada categoría, de organismos oficiales y prensa (datos/manual/rutas_entradas.csv), y el puerto o el paso de frontera de cada país (datos/manual/rutas_destinos.csv)",
+   "organismos": [],
+   "actualizacion": "Se actualiza cuando el INDEC publica un año completo.",
+   "cobertura": "Sin desglose territorial",
+   "periodo": "2015 a 2025",
+   "anio_desde": 2015,
+   "anio_hasta": 2025,
+   "filas": 8179,
+   "columnas": [
+    {
+     "nombre": "anio",
+     "tipo": "Año",
+     "valores": "2015 a 2025"
+    },
+    {
+     "nombre": "pais_cod",
+     "tipo": "Texto",
+     "valores": "220 valores distintos"
+    },
+    {
+     "nombre": "pais",
+     "tipo": "Texto",
+     "valores": "216 valores distintos"
+    },
+    {
+     "nombre": "categoria_cod",
+     "tipo": "Texto",
+     "valores": "u1, u2, u3, u4, u5, u6 (1089 celdas vacías)"
+    },
+    {
+     "nombre": "categoria",
+     "tipo": "Texto",
+     "valores": "7 valores distintos"
+    },
+    {
+     "nombre": "grupo",
+     "tipo": "Texto",
+     "valores": "con, ene, ins, maq, otro, tra"
+    },
+    {
+     "nombre": "entrada",
+     "tipo": "Texto",
+     "valores": "Buenos Aires, Zárate-Campana (1089 celdas vacías)"
+    },
+    {
+     "nombre": "firmeza_entrada",
+     "tipo": "Texto",
+     "valores": "inferido, prensa, suposicion (1089 celdas vacías)"
+    },
+    {
+     "nombre": "modo",
+     "tipo": "Texto",
+     "valores": "mar, tierra (5977 celdas vacías)"
+    },
+    {
+     "nombre": "origen",
+     "tipo": "Texto",
+     "valores": "39 valores distintos (5977 celdas vacías)"
+    },
+    {
+     "nombre": "millones_usd_cif",
+     "tipo": "Número",
+     "valores": "0 a 8.541,47"
+    },
+    {
+     "nombre": "toneladas",
+     "tipo": "Número",
+     "valores": "0 a 11.290.567,39"
+    }
+   ],
+   "unidades": [],
+   "como_se_calcula": "Valores CIF, con el flete y el seguro: no se comparan con las exportaciones, que son FOB. El INDEC no publica por dónde entra cada carga. La entrada (con su firmeza), el modo (mar o tierra) y el origen son una simulación de Datina, explicada en la herramienta. Sin modo, la fila no tiene camino dibujado.",
+   "origen": [],
+   "sensible": false,
+   "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+   "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
+   "uso_libre": true,
+   "como_citar": "Datina (año de la consulta). ¿Qué le vende y qué le compra la Argentina al mundo? Con datos de INDEC, importaciones por categoría económica o uso económico y país de origen (API). La entrada de cada categoría, de organismos oficiales y prensa (datos/manual/rutas_entradas.csv), y el puerto o el paso de frontera de cada país (datos/manual/rutas_destinos.csv). https://datina.com.ar/rutas. Consultado el día de la consulta."
+  },
+  {
+   "tabla": "rutas_servicios",
+   "csv": "https://datina.com.ar/datos/rutas_servicios.csv",
+   "metadatos": "https://datina.com.ar/datos/rutas_servicios.metadata.json",
+   "titulo": "¿Qué le vende y qué le compra la Argentina al mundo?",
+   "descripcion": "Exportaciones de servicios de cada año desde 2015 por tipo (los 12 rubros de la balanza de pagos) y país que los compra, en millones de dólares",
+   "seccion": "Rutas comerciales",
+   "ficha": "https://datina.com.ar/rutas",
+   "fuente": "INDEC, comercio internacional de servicios por país socio (estimación experimental de la balanza de pagos)",
+   "organismos": [],
+   "actualizacion": "Se actualiza cuando el INDEC publica un año completo.",
+   "cobertura": "Sin desglose territorial",
+   "periodo": "2015 a 2025",
+   "anio_desde": 2015,
+   "anio_hasta": 2025,
+   "filas": 6072,
+   "columnas": [
+    {
+     "nombre": "anio",
+     "tipo": "Año",
+     "valores": "2015 a 2025"
+    },
+    {
+     "nombre": "pais_cod",
+     "tipo": "Texto",
+     "valores": "204 valores distintos"
+    },
+    {
+     "nombre": "pais",
+     "tipo": "Texto",
+     "valores": "204 valores distintos"
+    },
+    {
+     "nombre": "tipo_cod",
+     "tipo": "Texto",
+     "valores": "12 valores distintos"
+    },
+    {
+     "nombre": "tipo",
+     "tipo": "Texto",
+     "valores": "12 valores distintos"
+    },
+    {
+     "nombre": "grupo",
+     "tipo": "Texto",
+     "valores": "con, otro, tra, via"
+    },
+    {
+     "nombre": "millones_usd",
+     "tipo": "Número",
+     "valores": "0,1 a 3.407,9"
+    }
+   ],
+   "unidades": [],
+   "como_se_calcula": "Muchas celdas son confidenciales: lo confidencial de cada país va como \"Otros servicios (confidencial)\" y lo que no tiene país (país confidencial, indeterminado, regiones y organismos internacionales) como \"Sin país informado\".",
+   "origen": [],
+   "sensible": false,
+   "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+   "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
+   "uso_libre": true,
+   "como_citar": "Datina (año de la consulta). ¿Qué le vende y qué le compra la Argentina al mundo? Con datos de INDEC, comercio internacional de servicios por país socio (estimación experimental de la balanza de pagos). https://datina.com.ar/rutas. Consultado el día de la consulta."
+  },
+  {
+   "tabla": "mudanzas_departamentos",
+   "csv": "https://datina.com.ar/datos/mudanzas_departamentos.csv",
+   "metadatos": "https://datina.com.ar/datos/mudanzas_departamentos.metadata.json",
+   "titulo": "¿Cuánto cambió la población de cada departamento?",
+   "descripcion": "Población de 2010 y 2022, personas que llegaron de otra provincia o de otro país entre 2017 y 2022 y viviendas sin personas en 2022, por departamento",
+   "seccion": "Migración interna",
+   "ficha": "https://datina.com.ar/migracion-interna",
+   "fuente": "INDEC, Censo Nacional de Población, Hogares y Viviendas 2022, resultados definitivos, y Censo 2010",
+   "organismos": [],
+   "actualizacion": "Es del Censo 2022: no cambia hasta el próximo censo.",
+   "cobertura": "Departamentos",
+   "periodo": "",
+   "anio_desde": 2010,
+   "anio_hasta": 2022,
+   "filas": 527,
+   "columnas": [
+    {
+     "nombre": "codigo_dep",
+     "tipo": "Código",
+     "valores": "527 códigos"
+    },
+    {
+     "nombre": "codigo_indec",
+     "tipo": "Código",
+     "valores": "24 códigos"
+    },
+    {
+     "nombre": "departamento",
+     "tipo": "Texto",
+     "valores": "445 valores distintos"
+    },
+    {
+     "nombre": "poblacion_2010",
+     "tipo": "Número",
+     "valores": "439 a 1.775.816 (2 celdas vacías)"
+    },
+    {
+     "nombre": "poblacion_2022",
+     "tipo": "Número",
+     "valores": "423 a 1.841.247"
+    },
+    {
+     "nombre": "cambio_personas",
+     "tipo": "Número",
+     "valores": "-4.695 a 175.646 (2 celdas vacías)"
+    },
+    {
+     "nombre": "cambio_pct",
+     "tipo": "Número",
+     "valores": "-39,18 a 68,42 (2 celdas vacías)"
+    },
+    {
+     "nombre": "se_compara_con",
+     "tipo": "Texto",
+     "valores": "Chascomús y Lezama, Río Grande y Tolhuin (523 celdas vacías)"
+    },
+    {
+     "nombre": "viven_5_mas",
+     "tipo": "Número",
+     "valores": "385 a 1.710.259"
+    },
+    {
+     "nombre": "llegaron_de_otra_provincia",
+     "tipo": "Número",
+     "valores": "5 a 47.624"
+    },
+    {
+     "nombre": "llegaron_de_otro_pais",
+     "tipo": "Número",
+     "valores": "0 a 17.539"
+    },
+    {
+     "nombre": "viviendas_particulares",
+     "tipo": "Número",
+     "valores": "291 a 612.979"
+    },
+    {
+     "nombre": "viviendas_sin_personas",
+     "tipo": "Número",
+     "valores": "66 a 86.285"
+    },
+    {
+     "nombre": "uso_temporal",
+     "tipo": "Número",
+     "valores": "4 a 65.580"
+    },
+    {
+     "nombre": "alquiler_venta",
+     "tipo": "Número",
+     "valores": "0 a 18.325"
+    },
+    {
+     "nombre": "en_construccion",
+     "tipo": "Número",
+     "valores": "3 a 6.772"
+    },
+    {
+     "nombre": "residentes_ausentes",
+     "tipo": "Número",
+     "valores": "6 a 12.682"
+    },
+    {
+     "nombre": "oficina_comercio",
+     "tipo": "Número",
+     "valores": "0 a 16.125"
+    },
+    {
+     "nombre": "otra_situacion",
+     "tipo": "Número",
+     "valores": "12 a 16.216"
+    }
+   ],
+   "unidades": [],
+   "como_se_calcula": "El Censo 2010 contó a cada persona donde pasó la noche anterior y el de 2022, donde vive habitualmente. Lezama y Tolhuin se crearon entre los dos censos: su cambio va junto con Chascomús y Río Grande. Una vivienda sin personas no es una vivienda abandonada.",
+   "origen": [],
+   "sensible": false,
+   "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+   "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
+   "uso_libre": true,
+   "como_citar": "Datina (año de la consulta). ¿Cuánto cambió la población de cada departamento? Con datos de INDEC, Censo Nacional de Población, Hogares y Viviendas 2022, resultados definitivos, y Censo 2010. https://datina.com.ar/migracion-interna. Consultado el día de la consulta."
+  },
+  {
+   "tabla": "mudanzas_matriz",
+   "csv": "https://datina.com.ar/datos/mudanzas_matriz.csv",
+   "metadatos": "https://datina.com.ar/datos/mudanzas_matriz.metadata.json",
+   "titulo": "¿De qué provincia a qué provincia se muda la gente?",
+   "descripcion": "Personas según la jurisdicción donde vivían en 2017 y la jurisdicción donde vivían en 2022",
+   "seccion": "Migración interna",
+   "ficha": "https://datina.com.ar/migracion-interna",
+   "fuente": "INDEC, Censo Nacional de Población, Hogares y Viviendas 2022, resultados definitivos",
+   "organismos": [],
+   "actualizacion": "Es del Censo 2022: no cambia hasta el próximo censo.",
+   "cobertura": "Sin desglose territorial",
+   "periodo": "",
+   "anio_desde": 2017,
+   "anio_hasta": 2022,
+   "filas": 624,
+   "columnas": [
+    {
+     "nombre": "origen_codigo",
+     "tipo": "Texto",
+     "valores": "26 valores distintos"
+    },
+    {
+     "nombre": "origen",
+     "tipo": "Texto",
+     "valores": "26 valores distintos"
+    },
+    {
+     "nombre": "destino_codigo",
+     "tipo": "Número",
+     "valores": "2 a 94"
+    },
+    {
+     "nombre": "destino",
+     "tipo": "Texto",
+     "valores": "24 valores distintos"
+    },
+    {
+     "nombre": "personas",
+     "tipo": "Número",
+     "valores": "14 a 15.975.462"
+    }
+   ],
+   "unidades": [],
+   "como_se_calcula": "Personas de 5 años y más en viviendas particulares, por dónde vivían cinco años antes y dónde viven. No cuenta las mudanzas del medio ni a quienes se fueron del país. Quienes llegaron de otra provincia sin decir cuál van aparte, y el saldo se calcula sin ellos.",
+   "origen": [],
+   "sensible": false,
+   "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+   "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
+   "uso_libre": true,
+   "como_citar": "Datina (año de la consulta). ¿De qué provincia a qué provincia se muda la gente? Con datos de INDEC, Censo Nacional de Población, Hogares y Viviendas 2022, resultados definitivos. https://datina.com.ar/migracion-interna. Consultado el día de la consulta."
+  },
+  {
+   "tabla": "mudanzas_provincias",
+   "csv": "https://datina.com.ar/datos/mudanzas_provincias.csv",
+   "metadatos": "https://datina.com.ar/datos/mudanzas_provincias.metadata.json",
+   "titulo": "¿Cuánta gente llegó y cuánta se fue de cada provincia?",
+   "descripcion": "Personas que se mudaron entre 2017 y 2022 y población de 2010 y 2022 de cada jurisdicción",
+   "seccion": "Migración interna",
+   "ficha": "https://datina.com.ar/migracion-interna",
+   "fuente": "INDEC, Censo Nacional de Población, Hogares y Viviendas 2022, resultados definitivos, y Censo 2010",
+   "organismos": [],
+   "actualizacion": "Es del Censo 2022: no cambia hasta el próximo censo.",
+   "cobertura": "Las 24 jurisdicciones",
+   "periodo": "",
+   "anio_desde": 2010,
+   "anio_hasta": 2022,
+   "filas": 24,
+   "columnas": [
+    {
+     "nombre": "codigo_indec",
+     "tipo": "Código",
+     "valores": "24 códigos"
+    },
+    {
+     "nombre": "territorio",
+     "tipo": "Texto",
+     "valores": "24 valores distintos"
+    },
+    {
+     "nombre": "viven_5_mas",
+     "tipo": "Número",
+     "valores": "173.234 a 16.355.500"
+    },
+    {
+     "nombre": "llegaron",
+     "tipo": "Número",
+     "valores": "7.225 a 182.849"
+    },
+    {
+     "nombre": "se_fueron",
+     "tipo": "Número",
+     "valores": "7.514 a 177.653"
+    },
+    {
+     "nombre": "saldo",
+     "tipo": "Número",
+     "valores": "-17.508 a 32.719"
+    },
+    {
+     "nombre": "saldo_cada_1000",
+     "tipo": "Número",
+     "valores": "-21,17 a 14,67"
+    },
+    {
+     "nombre": "llegaron_sin_decir_provincia",
+     "tipo": "Número",
+     "valores": "1.028 a 80.204"
+    },
+    {
+     "nombre": "pct_sin_decir",
+     "tipo": "Número",
+     "valores": "7,6 a 51,11"
+    },
+    {
+     "nombre": "llegaron_de_otro_pais",
+     "tipo": "Número",
+     "valores": "697 a 116.985"
+    },
+    {
+     "nombre": "saldo_repartido",
+     "tipo": "Número",
+     "valores": "-36.055 a 36.694"
+    },
+    {
+     "nombre": "poblacion_2010",
+     "tipo": "Número",
+     "valores": "127.205 a 15.625.084"
+    },
+    {
+     "nombre": "poblacion_2022",
+     "tipo": "Número",
+     "valores": "185.732 a 17.523.996"
+    },
+    {
+     "nombre": "cambio_pct",
+     "tipo": "Número",
+     "valores": "7,05 a 46,01"
+    }
+   ],
+   "unidades": [],
+   "como_se_calcula": "Personas de 5 años y más en viviendas particulares, por dónde vivían cinco años antes y dónde viven. No cuenta las mudanzas del medio ni a quienes se fueron del país. Quienes llegaron de otra provincia sin decir cuál van aparte, y el saldo se calcula sin ellos. El saldo con origen imputado asigna a esas personas un origen en la misma proporción que al resto: donde cambia de signo no se puede decir si la jurisdicción gana o pierde gente.",
+   "origen": [],
+   "sensible": false,
+   "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+   "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
+   "uso_libre": true,
+   "como_citar": "Datina (año de la consulta). ¿Cuánta gente llegó y cuánta se fue de cada provincia? Con datos de INDEC, Censo Nacional de Población, Hogares y Viviendas 2022, resultados definitivos, y Censo 2010. https://datina.com.ar/migracion-interna. Consultado el día de la consulta."
   }
  ]
 }

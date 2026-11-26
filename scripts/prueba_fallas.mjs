@@ -209,6 +209,18 @@ FALLAR = ["lib/maplibre-gl"];
 await p.ir(BASE + "rutas.html", 1500);
 r = JSON.parse(await p.eval(RT)); caso("Rutas sin MapLibre: las tarjetas quedan y avisa que no hay mapa", r.dest === 10 && r.sinMapa && !r.falla, JSON.stringify(r));
 FALLAR = [];
+// Migración interna (25 de noviembre de 2026): sin sus datos lo dice, y sin los mapas o sin D3 quedan las cifras, las listas y las tablas
+const MU = `JSON.stringify({lado: document.querySelectorAll("#mu-lado-lista button").length, filas: document.querySelectorAll("#mu-tabla tbody tr").length,
+  falla: !document.getElementById("mu-falla").hidden, sinMapa: !document.getElementById("mu-sin-mapa").hidden, ocupado: document.getElementById("mu").getAttribute("aria-busy")})`;
+FALLAR = ["datos/mudanzas.json"];
+await p.ir(BASE + "migracion-interna.html", 1500);
+r = JSON.parse(await p.eval(MU)); caso("Migración interna sin sus datos: aviso", r.falla && !r.lado && r.ocupado === "false", JSON.stringify(r));
+for (const [que, f] of [["sin el mapa de los departamentos", "departamentos.topo.json"], ["sin los países de alrededor", "vecinos.topo.json"], ["sin D3", "lib/d3"]]) {
+  FALLAR = [f];
+  await p.ir(BASE + "migracion-interna.html", 1500);
+  r = JSON.parse(await p.eval(MU)); caso(`Migración interna ${que}: las listas y las tablas quedan y avisa que no hay mapa`, r.lado === 24 && r.filas === 24 && r.sinMapa && !r.falla, JSON.stringify(r));
+}
+FALLAR = [];
 
 // 8. Escuelas y hospitales de cada provincia (9 de noviembre de 2026): sin la tabla de la provincia o con la tabla cortada a la mitad, la sección
 // lo dice (una tabla cortada no es una provincia con menos escuelas) y vuelve a intentar sin recargar. Sin Leaflet, quedan el texto y la tabla

@@ -40,6 +40,9 @@ TABLAS = {
     # las rutas comerciales (15 de noviembre de 2026, docs/roadmap/RUTAS_COMERCIALES.md): qué producto va a qué país, por año y subrubro
     # (los 50 de la API, como "Cereales" o "Semillas y frutos oleaginosos"). Solo desde FILTROS, para que el archivo no pase de unos MB
     "comercio_exterior_exportacion_bienes:anio_subrubro_pais": "Anio,subrubro_cod,pais_cod",
+    # lo mismo de lo importado, por las 19 categorías económicas (gce_cod, la clasificación BEC): la API no trae otro corte por producto
+    # (26 de noviembre de 2026, pedido del autor: las importaciones en Rutas comerciales)
+    "comercio_exterior_importacion_bienes:anio_gce_pais": "Anio,gce_cod,pais_cod",
 }
 
 # las tablas que se piden sumadas: lo que se suma y el sufijo del archivo. La API agrupa por las columnas de TABLAS. Con una sola columna, la API
@@ -50,12 +53,14 @@ SUMAS = {
     "comercio_exterior_exportacion_bienes:anio_rubro_pais": (("valor:valor_FOB", "peso:Peso_Neto"), "anio_rubro_pais"),
     "comercio_exterior_importacion_bienes:anio_uso_pais": (("valor:valor_CIF", "peso:peso_neto"), "anio_uso_pais"),
     "comercio_exterior_exportacion_bienes:anio_subrubro_pais": (("valor:valor_FOB", "peso:Peso_Neto"), "anio_subrubro_pais"),
+    "comercio_exterior_importacion_bienes:anio_gce_pais": (("valor:valor_CIF", "peso:peso_neto"), "anio_gce_pais"),
 }
 
 # las tablas que se piden con un filtro, al estilo PostgREST (columna=operador.valor). Las rutas comerciales usan los últimos años: con los 50
 # subrubros desde 1986 el archivo pesaría unos 13 MB
 FILTROS = {
     "comercio_exterior_exportacion_bienes:anio_subrubro_pais": "Anio=gte.2015",
+    "comercio_exterior_importacion_bienes:anio_gce_pais": "Anio=gte.2015",
 }
 
 

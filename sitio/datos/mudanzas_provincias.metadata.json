@@ -1,0 +1,94 @@
+{
+ "tabla": "mudanzas_provincias.csv",
+ "titulo": "¿Cuánta gente llegó y cuánta se fue de cada provincia?",
+ "descripcion": "Personas que se mudaron entre 2017 y 2022 y población de 2010 y 2022 de cada jurisdicción",
+ "seccion": "Migración interna",
+ "ficha": "https://datina.com.ar/migracion-interna",
+ "fuente": "INDEC, Censo Nacional de Población, Hogares y Viviendas 2022, resultados definitivos, y Censo 2010",
+ "organismos": [],
+ "actualizacion": "Es del Censo 2022: no cambia hasta el próximo censo.",
+ "cobertura": "Las 24 jurisdicciones",
+ "periodo": "",
+ "anio_desde": 2010,
+ "anio_hasta": 2022,
+ "filas": 24,
+ "columnas": [
+  {
+   "nombre": "codigo_indec",
+   "tipo": "Código",
+   "valores": "24 códigos"
+  },
+  {
+   "nombre": "territorio",
+   "tipo": "Texto",
+   "valores": "24 valores distintos"
+  },
+  {
+   "nombre": "viven_5_mas",
+   "tipo": "Número",
+   "valores": "173.234 a 16.355.500"
+  },
+  {
+   "nombre": "llegaron",
+   "tipo": "Número",
+   "valores": "7.225 a 182.849"
+  },
+  {
+   "nombre": "se_fueron",
+   "tipo": "Número",
+   "valores": "7.514 a 177.653"
+  },
+  {
+   "nombre": "saldo",
+   "tipo": "Número",
+   "valores": "-17.508 a 32.719"
+  },
+  {
+   "nombre": "saldo_cada_1000",
+   "tipo": "Número",
+   "valores": "-21,17 a 14,67"
+  },
+  {
+   "nombre": "llegaron_sin_decir_provincia",
+   "tipo": "Número",
+   "valores": "1.028 a 80.204"
+  },
+  {
+   "nombre": "pct_sin_decir",
+   "tipo": "Número",
+   "valores": "7,6 a 51,11"
+  },
+  {
+   "nombre": "llegaron_de_otro_pais",
+   "tipo": "Número",
+   "valores": "697 a 116.985"
+  },
+  {
+   "nombre": "saldo_repartido",
+   "tipo": "Número",
+   "valores": "-36.055 a 36.694"
+  },
+  {
+   "nombre": "poblacion_2010",
+   "tipo": "Número",
+   "valores": "127.205 a 15.625.084"
+  },
+  {
+   "nombre": "poblacion_2022",
+   "tipo": "Número",
+   "valores": "185.732 a 17.523.996"
+  },
+  {
+   "nombre": "cambio_pct",
+   "tipo": "Número",
+   "valores": "7,05 a 46,01"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "Personas de 5 años y más en viviendas particulares, por dónde vivían cinco años antes y dónde viven. No cuenta las mudanzas del medio ni a quienes se fueron del país. Quienes llegaron de otra provincia sin decir cuál van aparte, y el saldo se calcula sin ellos. El saldo con origen imputado asigna a esas personas un origen en la misma proporción que al resto: donde cambia de signo no se puede decir si la jurisdicción gana o pierde gente.",
+ "origen": [],
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
+ "como_citar": "Datina (año de la consulta). ¿Cuánta gente llegó y cuánta se fue de cada provincia? Con datos de INDEC, Censo Nacional de Población, Hogares y Viviendas 2022, resultados definitivos, y Censo 2010. https://datina.com.ar/migracion-interna. Consultado el día de la consulta.",
+ "datos_actualizados": "23/11/2026"
+}

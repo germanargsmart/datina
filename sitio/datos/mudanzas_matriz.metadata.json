@@ -1,0 +1,49 @@
+{
+ "tabla": "mudanzas_matriz.csv",
+ "titulo": "¿De qué provincia a qué provincia se muda la gente?",
+ "descripcion": "Personas según la jurisdicción donde vivían en 2017 y la jurisdicción donde vivían en 2022",
+ "seccion": "Migración interna",
+ "ficha": "https://datina.com.ar/migracion-interna",
+ "fuente": "INDEC, Censo Nacional de Población, Hogares y Viviendas 2022, resultados definitivos",
+ "organismos": [],
+ "actualizacion": "Es del Censo 2022: no cambia hasta el próximo censo.",
+ "cobertura": "Sin desglose territorial",
+ "periodo": "",
+ "anio_desde": 2017,
+ "anio_hasta": 2022,
+ "filas": 624,
+ "columnas": [
+  {
+   "nombre": "origen_codigo",
+   "tipo": "Texto",
+   "valores": "26 valores distintos"
+  },
+  {
+   "nombre": "origen",
+   "tipo": "Texto",
+   "valores": "26 valores distintos"
+  },
+  {
+   "nombre": "destino_codigo",
+   "tipo": "Número",
+   "valores": "2 a 94"
+  },
+  {
+   "nombre": "destino",
+   "tipo": "Texto",
+   "valores": "24 valores distintos"
+  },
+  {
+   "nombre": "personas",
+   "tipo": "Número",
+   "valores": "14 a 15.975.462"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "Personas de 5 años y más en viviendas particulares, por dónde vivían cinco años antes y dónde viven. No cuenta las mudanzas del medio ni a quienes se fueron del país. Quienes llegaron de otra provincia sin decir cuál van aparte, y el saldo se calcula sin ellos.",
+ "origen": [],
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
+ "como_citar": "Datina (año de la consulta). ¿De qué provincia a qué provincia se muda la gente? Con datos de INDEC, Censo Nacional de Población, Hogares y Viviendas 2022, resultados definitivos. https://datina.com.ar/migracion-interna. Consultado el día de la consulta.",
+ "datos_actualizados": "23/11/2026"
+}

@@ -1,0 +1,625 @@
+origen_codigo,origen,destino_codigo,destino,personas
+02,CABA,02,CABA,2754470
+02,CABA,06,Buenos Aires,62676
+02,CABA,10,Catamarca,325
+02,CABA,14,Córdoba,4919
+02,CABA,18,Corrientes,2257
+02,CABA,22,Chaco,727
+02,CABA,26,Chubut,2179
+02,CABA,30,Entre Ríos,3597
+02,CABA,34,Formosa,638
+02,CABA,38,Jujuy,892
+02,CABA,42,La Pampa,923
+02,CABA,46,La Rioja,232
+02,CABA,50,Mendoza,1889
+02,CABA,54,Misiones,2328
+02,CABA,58,Neuquén,2167
+02,CABA,62,Río Negro,3087
+02,CABA,66,Salta,1711
+02,CABA,70,San Juan,555
+02,CABA,74,San Luis,1300
+02,CABA,78,Santa Cruz,848
+02,CABA,82,Santa Fe,2433
+02,CABA,86,Santiago del Estero,777
+02,CABA,90,Tucumán,949
+02,CABA,94,Tierra del Fuego,953
+06,Buenos Aires,02,CABA,39058
+06,Buenos Aires,06,Buenos Aires,15975462
+06,Buenos Aires,10,Catamarca,1400
+06,Buenos Aires,14,Córdoba,19356
+06,Buenos Aires,18,Corrientes,8782
+06,Buenos Aires,22,Chaco,4209
+06,Buenos Aires,26,Chubut,7146
+06,Buenos Aires,30,Entre Ríos,10368
+06,Buenos Aires,34,Formosa,2955
+06,Buenos Aires,38,Jujuy,3012
+06,Buenos Aires,42,La Pampa,4245
+06,Buenos Aires,46,La Rioja,1054
+06,Buenos Aires,50,Mendoza,6560
+06,Buenos Aires,54,Misiones,11149
+06,Buenos Aires,58,Neuquén,7891
+06,Buenos Aires,62,Río Negro,10317
+06,Buenos Aires,66,Salta,5157
+06,Buenos Aires,70,San Juan,1909
+06,Buenos Aires,74,San Luis,6923
+06,Buenos Aires,78,Santa Cruz,3216
+06,Buenos Aires,82,Santa Fe,10705
+06,Buenos Aires,86,Santiago del Estero,4606
+06,Buenos Aires,90,Tucumán,3657
+06,Buenos Aires,94,Tierra del Fuego,3978
+10,Catamarca,02,CABA,331
+10,Catamarca,06,Buenos Aires,1102
+10,Catamarca,10,Catamarca,389124
+10,Catamarca,14,Córdoba,2127
+10,Catamarca,18,Corrientes,64
+10,Catamarca,22,Chaco,47
+10,Catamarca,26,Chubut,219
+10,Catamarca,30,Entre Ríos,55
+10,Catamarca,34,Formosa,43
+10,Catamarca,38,Jujuy,99
+10,Catamarca,42,La Pampa,23
+10,Catamarca,46,La Rioja,872
+10,Catamarca,50,Mendoza,184
+10,Catamarca,54,Misiones,53
+10,Catamarca,58,Neuquén,107
+10,Catamarca,62,Río Negro,73
+10,Catamarca,66,Salta,257
+10,Catamarca,70,San Juan,78
+10,Catamarca,74,San Luis,82
+10,Catamarca,78,Santa Cruz,301
+10,Catamarca,82,Santa Fe,143
+10,Catamarca,86,Santiago del Estero,319
+10,Catamarca,90,Tucumán,862
+10,Catamarca,94,Tierra del Fuego,73
+14,Córdoba,02,CABA,4018
+14,Córdoba,06,Buenos Aires,10556
+14,Córdoba,10,Catamarca,1391
+14,Córdoba,14,Córdoba,3448931
+14,Córdoba,18,Corrientes,956
+14,Córdoba,22,Chaco,732
+14,Córdoba,26,Chubut,1820
+14,Córdoba,30,Entre Ríos,1394
+14,Córdoba,34,Formosa,620
+14,Córdoba,38,Jujuy,1819
+14,Córdoba,42,La Pampa,2236
+14,Córdoba,46,La Rioja,1293
+14,Córdoba,50,Mendoza,1942
+14,Córdoba,54,Misiones,1185
+14,Córdoba,58,Neuquén,1957
+14,Córdoba,62,Río Negro,1824
+14,Córdoba,66,Salta,2007
+14,Córdoba,70,San Juan,1055
+14,Córdoba,74,San Luis,3379
+14,Córdoba,78,Santa Cruz,1575
+14,Córdoba,82,Santa Fe,7193
+14,Córdoba,86,Santiago del Estero,1657
+14,Córdoba,90,Tucumán,666
+14,Córdoba,94,Tierra del Fuego,1177
+18,Corrientes,02,CABA,2665
+18,Corrientes,06,Buenos Aires,9160
+18,Corrientes,10,Catamarca,32
+18,Corrientes,14,Córdoba,1673
+18,Corrientes,18,Corrientes,1076290
+18,Corrientes,22,Chaco,2498
+18,Corrientes,26,Chubut,597
+18,Corrientes,30,Entre Ríos,1881
+18,Corrientes,34,Formosa,904
+18,Corrientes,38,Jujuy,165
+18,Corrientes,42,La Pampa,251
+18,Corrientes,46,La Rioja,72
+18,Corrientes,50,Mendoza,283
+18,Corrientes,54,Misiones,3378
+18,Corrientes,58,Neuquén,442
+18,Corrientes,62,Río Negro,354
+18,Corrientes,66,Salta,318
+18,Corrientes,70,San Juan,62
+18,Corrientes,74,San Luis,137
+18,Corrientes,78,Santa Cruz,698
+18,Corrientes,82,Santa Fe,2105
+18,Corrientes,86,Santiago del Estero,111
+18,Corrientes,90,Tucumán,125
+18,Corrientes,94,Tierra del Fuego,388
+22,Chaco,02,CABA,1357
+22,Chaco,06,Buenos Aires,6899
+22,Chaco,10,Catamarca,43
+22,Chaco,14,Córdoba,2670
+22,Chaco,18,Corrientes,2672
+22,Chaco,22,Chaco,1021467
+22,Chaco,26,Chubut,480
+22,Chaco,30,Entre Ríos,411
+22,Chaco,34,Formosa,906
+22,Chaco,38,Jujuy,108
+22,Chaco,42,La Pampa,206
+22,Chaco,46,La Rioja,50
+22,Chaco,50,Mendoza,363
+22,Chaco,54,Misiones,714
+22,Chaco,58,Neuquén,846
+22,Chaco,62,Río Negro,487
+22,Chaco,66,Salta,376
+22,Chaco,70,San Juan,80
+22,Chaco,74,San Luis,140
+22,Chaco,78,Santa Cruz,575
+22,Chaco,82,Santa Fe,2443
+22,Chaco,86,Santiago del Estero,453
+22,Chaco,90,Tucumán,222
+22,Chaco,94,Tierra del Fuego,696
+26,Chubut,02,CABA,2998
+26,Chubut,06,Buenos Aires,6107
+26,Chubut,10,Catamarca,226
+26,Chubut,14,Córdoba,2852
+26,Chubut,18,Corrientes,438
+26,Chubut,22,Chaco,169
+26,Chubut,26,Chubut,524723
+26,Chubut,30,Entre Ríos,420
+26,Chubut,34,Formosa,218
+26,Chubut,38,Jujuy,327
+26,Chubut,42,La Pampa,341
+26,Chubut,46,La Rioja,125
+26,Chubut,50,Mendoza,1056
+26,Chubut,54,Misiones,443
+26,Chubut,58,Neuquén,1352
+26,Chubut,62,Río Negro,2375
+26,Chubut,66,Salta,505
+26,Chubut,70,San Juan,247
+26,Chubut,74,San Luis,232
+26,Chubut,78,Santa Cruz,1369
+26,Chubut,82,Santa Fe,540
+26,Chubut,86,Santiago del Estero,167
+26,Chubut,90,Tucumán,260
+26,Chubut,94,Tierra del Fuego,258
+30,Entre Ríos,02,CABA,3345
+30,Entre Ríos,06,Buenos Aires,7569
+30,Entre Ríos,10,Catamarca,30
+30,Entre Ríos,14,Córdoba,2025
+30,Entre Ríos,18,Corrientes,1442
+30,Entre Ríos,22,Chaco,179
+30,Entre Ríos,26,Chubut,397
+30,Entre Ríos,30,Entre Ríos,1283201
+30,Entre Ríos,34,Formosa,150
+30,Entre Ríos,38,Jujuy,136
+30,Entre Ríos,42,La Pampa,159
+30,Entre Ríos,46,La Rioja,64
+30,Entre Ríos,50,Mendoza,350
+30,Entre Ríos,54,Misiones,867
+30,Entre Ríos,58,Neuquén,428
+30,Entre Ríos,62,Río Negro,431
+30,Entre Ríos,66,Salta,275
+30,Entre Ríos,70,San Juan,91
+30,Entre Ríos,74,San Luis,185
+30,Entre Ríos,78,Santa Cruz,360
+30,Entre Ríos,82,Santa Fe,5707
+30,Entre Ríos,86,Santiago del Estero,119
+30,Entre Ríos,90,Tucumán,172
+30,Entre Ríos,94,Tierra del Fuego,311
+34,Formosa,02,CABA,1820
+34,Formosa,06,Buenos Aires,6553
+34,Formosa,10,Catamarca,59
+34,Formosa,14,Córdoba,2335
+34,Formosa,18,Corrientes,1212
+34,Formosa,22,Chaco,1025
+34,Formosa,26,Chubut,435
+34,Formosa,30,Entre Ríos,492
+34,Formosa,34,Formosa,545474
+34,Formosa,38,Jujuy,312
+34,Formosa,42,La Pampa,149
+34,Formosa,46,La Rioja,86
+34,Formosa,50,Mendoza,614
+34,Formosa,54,Misiones,469
+34,Formosa,58,Neuquén,403
+34,Formosa,62,Río Negro,313
+34,Formosa,66,Salta,767
+34,Formosa,70,San Juan,265
+34,Formosa,74,San Luis,172
+34,Formosa,78,Santa Cruz,1083
+34,Formosa,82,Santa Fe,1166
+34,Formosa,86,Santiago del Estero,234
+34,Formosa,90,Tucumán,511
+34,Formosa,94,Tierra del Fuego,492
+38,Jujuy,02,CABA,1388
+38,Jujuy,06,Buenos Aires,3025
+38,Jujuy,10,Catamarca,119
+38,Jujuy,14,Córdoba,3570
+38,Jujuy,18,Corrientes,170
+38,Jujuy,22,Chaco,54
+38,Jujuy,26,Chubut,361
+38,Jujuy,30,Entre Ríos,133
+38,Jujuy,34,Formosa,115
+38,Jujuy,38,Jujuy,730095
+38,Jujuy,42,La Pampa,87
+38,Jujuy,46,La Rioja,565
+38,Jujuy,50,Mendoza,569
+38,Jujuy,54,Misiones,132
+38,Jujuy,58,Neuquén,352
+38,Jujuy,62,Río Negro,247
+38,Jujuy,66,Salta,2632
+38,Jujuy,70,San Juan,171
+38,Jujuy,74,San Luis,131
+38,Jujuy,78,Santa Cruz,527
+38,Jujuy,82,Santa Fe,319
+38,Jujuy,86,Santiago del Estero,176
+38,Jujuy,90,Tucumán,1130
+38,Jujuy,94,Tierra del Fuego,460
+42,La Pampa,02,CABA,1033
+42,La Pampa,06,Buenos Aires,3035
+42,La Pampa,10,Catamarca,17
+42,La Pampa,14,Córdoba,2663
+42,La Pampa,18,Corrientes,95
+42,La Pampa,22,Chaco,42
+42,La Pampa,26,Chubut,197
+42,La Pampa,30,Entre Ríos,140
+42,La Pampa,34,Formosa,54
+42,La Pampa,38,Jujuy,62
+42,La Pampa,42,La Pampa,323710
+42,La Pampa,46,La Rioja,34
+42,La Pampa,50,Mendoza,541
+42,La Pampa,54,Misiones,114
+42,La Pampa,58,Neuquén,457
+42,La Pampa,62,Río Negro,591
+42,La Pampa,66,Salta,128
+42,La Pampa,70,San Juan,55
+42,La Pampa,74,San Luis,491
+42,La Pampa,78,Santa Cruz,99
+42,La Pampa,82,Santa Fe,174
+42,La Pampa,86,Santiago del Estero,59
+42,La Pampa,90,Tucumán,56
+42,La Pampa,94,Tierra del Fuego,35
+46,La Rioja,02,CABA,366
+46,La Rioja,06,Buenos Aires,912
+46,La Rioja,10,Catamarca,686
+46,La Rioja,14,Córdoba,1860
+46,La Rioja,18,Corrientes,31
+46,La Rioja,22,Chaco,27
+46,La Rioja,26,Chubut,183
+46,La Rioja,30,Entre Ríos,78
+46,La Rioja,34,Formosa,17
+46,La Rioja,38,Jujuy,263
+46,La Rioja,42,La Pampa,64
+46,La Rioja,46,La Rioja,345969
+46,La Rioja,50,Mendoza,390
+46,La Rioja,54,Misiones,64
+46,La Rioja,58,Neuquén,239
+46,La Rioja,62,Río Negro,250
+46,La Rioja,66,Salta,409
+46,La Rioja,70,San Juan,576
+46,La Rioja,74,San Luis,437
+46,La Rioja,78,Santa Cruz,263
+46,La Rioja,82,Santa Fe,141
+46,La Rioja,86,Santiago del Estero,123
+46,La Rioja,90,Tucumán,233
+46,La Rioja,94,Tierra del Fuego,59
+50,Mendoza,02,CABA,1724
+50,Mendoza,06,Buenos Aires,4434
+50,Mendoza,10,Catamarca,173
+50,Mendoza,14,Córdoba,2417
+50,Mendoza,18,Corrientes,133
+50,Mendoza,22,Chaco,95
+50,Mendoza,26,Chubut,915
+50,Mendoza,30,Entre Ríos,365
+50,Mendoza,34,Formosa,97
+50,Mendoza,38,Jujuy,557
+50,Mendoza,42,La Pampa,1106
+50,Mendoza,46,La Rioja,398
+50,Mendoza,50,Mendoza,1843154
+50,Mendoza,54,Misiones,298
+50,Mendoza,58,Neuquén,2774
+50,Mendoza,62,Río Negro,1308
+50,Mendoza,66,Salta,618
+50,Mendoza,70,San Juan,1451
+50,Mendoza,74,San Luis,2850
+50,Mendoza,78,Santa Cruz,802
+50,Mendoza,82,Santa Fe,685
+50,Mendoza,86,Santiago del Estero,194
+50,Mendoza,90,Tucumán,475
+50,Mendoza,94,Tierra del Fuego,567
+54,Misiones,02,CABA,2734
+54,Misiones,06,Buenos Aires,11272
+54,Misiones,10,Catamarca,33
+54,Misiones,14,Córdoba,2054
+54,Misiones,18,Corrientes,3452
+54,Misiones,22,Chaco,574
+54,Misiones,26,Chubut,590
+54,Misiones,30,Entre Ríos,1282
+54,Misiones,34,Formosa,304
+54,Misiones,38,Jujuy,141
+54,Misiones,42,La Pampa,142
+54,Misiones,46,La Rioja,71
+54,Misiones,50,Mendoza,402
+54,Misiones,54,Misiones,1133109
+54,Misiones,58,Neuquén,521
+54,Misiones,62,Río Negro,430
+54,Misiones,66,Salta,436
+54,Misiones,70,San Juan,86
+54,Misiones,74,San Luis,88
+54,Misiones,78,Santa Cruz,554
+54,Misiones,82,Santa Fe,1144
+54,Misiones,86,Santiago del Estero,155
+54,Misiones,90,Tucumán,184
+54,Misiones,94,Tierra del Fuego,576
+58,Neuquén,02,CABA,1962
+58,Neuquén,06,Buenos Aires,3788
+58,Neuquén,10,Catamarca,64
+58,Neuquén,14,Córdoba,2212
+58,Neuquén,18,Corrientes,171
+58,Neuquén,22,Chaco,98
+58,Neuquén,26,Chubut,682
+58,Neuquén,30,Entre Ríos,320
+58,Neuquén,34,Formosa,86
+58,Neuquén,38,Jujuy,183
+58,Neuquén,42,La Pampa,478
+58,Neuquén,46,La Rioja,63
+58,Neuquén,50,Mendoza,2155
+58,Neuquén,54,Misiones,281
+58,Neuquén,58,Neuquén,619969
+58,Neuquén,62,Río Negro,7077
+58,Neuquén,66,Salta,412
+58,Neuquén,70,San Juan,203
+58,Neuquén,74,San Luis,208
+58,Neuquén,78,Santa Cruz,265
+58,Neuquén,82,Santa Fe,416
+58,Neuquén,86,Santiago del Estero,79
+58,Neuquén,90,Tucumán,178
+58,Neuquén,94,Tierra del Fuego,71
+62,Río Negro,02,CABA,2455
+62,Río Negro,06,Buenos Aires,7137
+62,Río Negro,10,Catamarca,39
+62,Río Negro,14,Córdoba,1841
+62,Río Negro,18,Corrientes,162
+62,Río Negro,22,Chaco,65
+62,Río Negro,26,Chubut,1724
+62,Río Negro,30,Entre Ríos,253
+62,Río Negro,34,Formosa,65
+62,Río Negro,38,Jujuy,115
+62,Río Negro,42,La Pampa,643
+62,Río Negro,46,La Rioja,71
+62,Río Negro,50,Mendoza,952
+62,Río Negro,54,Misiones,231
+62,Río Negro,58,Neuquén,5344
+62,Río Negro,62,Río Negro,659128
+62,Río Negro,66,Salta,216
+62,Río Negro,70,San Juan,193
+62,Río Negro,74,San Luis,194
+62,Río Negro,78,Santa Cruz,352
+62,Río Negro,82,Santa Fe,421
+62,Río Negro,86,Santiago del Estero,73
+62,Río Negro,90,Tucumán,216
+62,Río Negro,94,Tierra del Fuego,159
+66,Salta,02,CABA,3286
+66,Salta,06,Buenos Aires,6263
+66,Salta,10,Catamarca,347
+66,Salta,14,Córdoba,3782
+66,Salta,18,Corrientes,350
+66,Salta,22,Chaco,324
+66,Salta,26,Chubut,719
+66,Salta,30,Entre Ríos,477
+66,Salta,34,Formosa,420
+66,Salta,38,Jujuy,2701
+66,Salta,42,La Pampa,203
+66,Salta,46,La Rioja,890
+66,Salta,50,Mendoza,1213
+66,Salta,54,Misiones,387
+66,Salta,58,Neuquén,1494
+66,Salta,62,Río Negro,621
+66,Salta,66,Salta,1293470
+66,Salta,70,San Juan,352
+66,Salta,74,San Luis,185
+66,Salta,78,Santa Cruz,1202
+66,Salta,82,Santa Fe,1028
+66,Salta,86,Santiago del Estero,494
+66,Salta,90,Tucumán,1916
+66,Salta,94,Tierra del Fuego,758
+70,San Juan,02,CABA,633
+70,San Juan,06,Buenos Aires,1613
+70,San Juan,10,Catamarca,77
+70,San Juan,14,Córdoba,1494
+70,San Juan,18,Corrientes,53
+70,San Juan,22,Chaco,36
+70,San Juan,26,Chubut,301
+70,San Juan,30,Entre Ríos,96
+70,San Juan,34,Formosa,33
+70,San Juan,38,Jujuy,93
+70,San Juan,42,La Pampa,63
+70,San Juan,46,La Rioja,699
+70,San Juan,50,Mendoza,1535
+70,San Juan,54,Misiones,77
+70,San Juan,58,Neuquén,331
+70,San Juan,62,Río Negro,226
+70,San Juan,66,Salta,134
+70,San Juan,70,San Juan,742042
+70,San Juan,74,San Luis,625
+70,San Juan,78,Santa Cruz,246
+70,San Juan,82,Santa Fe,189
+70,San Juan,86,Santiago del Estero,58
+70,San Juan,90,Tucumán,148
+70,San Juan,94,Tierra del Fuego,240
+74,San Luis,02,CABA,686
+74,San Luis,06,Buenos Aires,2354
+74,San Luis,10,Catamarca,43
+74,San Luis,14,Córdoba,3901
+74,San Luis,18,Corrientes,157
+74,San Luis,22,Chaco,21
+74,San Luis,26,Chubut,145
+74,San Luis,30,Entre Ríos,160
+74,San Luis,34,Formosa,14
+74,San Luis,38,Jujuy,82
+74,San Luis,42,La Pampa,412
+74,San Luis,46,La Rioja,98
+74,San Luis,50,Mendoza,1991
+74,San Luis,54,Misiones,93
+74,San Luis,58,Neuquén,259
+74,San Luis,62,Río Negro,149
+74,San Luis,66,Salta,106
+74,San Luis,70,San Juan,499
+74,San Luis,74,San Luis,480407
+74,San Luis,78,Santa Cruz,87
+74,San Luis,82,Santa Fe,395
+74,San Luis,86,Santiago del Estero,47
+74,San Luis,90,Tucumán,79
+74,San Luis,94,Tierra del Fuego,76
+78,Santa Cruz,02,CABA,1603
+78,Santa Cruz,06,Buenos Aires,3928
+78,Santa Cruz,10,Catamarca,342
+78,Santa Cruz,14,Córdoba,3393
+78,Santa Cruz,18,Corrientes,594
+78,Santa Cruz,22,Chaco,275
+78,Santa Cruz,26,Chubut,2393
+78,Santa Cruz,30,Entre Ríos,569
+78,Santa Cruz,34,Formosa,597
+78,Santa Cruz,38,Jujuy,563
+78,Santa Cruz,42,La Pampa,248
+78,Santa Cruz,46,La Rioja,364
+78,Santa Cruz,50,Mendoza,1157
+78,Santa Cruz,54,Misiones,592
+78,Santa Cruz,58,Neuquén,806
+78,Santa Cruz,62,Río Negro,860
+78,Santa Cruz,66,Salta,1202
+78,Santa Cruz,70,San Juan,405
+78,Santa Cruz,74,San Luis,194
+78,Santa Cruz,78,Santa Cruz,290867
+78,Santa Cruz,82,Santa Fe,591
+78,Santa Cruz,86,Santiago del Estero,241
+78,Santa Cruz,90,Tucumán,462
+78,Santa Cruz,94,Tierra del Fuego,280
+82,Santa Fe,02,CABA,3329
+82,Santa Fe,06,Buenos Aires,10802
+82,Santa Fe,10,Catamarca,198
+82,Santa Fe,14,Córdoba,11344
+82,Santa Fe,18,Corrientes,1417
+82,Santa Fe,22,Chaco,1512
+82,Santa Fe,26,Chubut,660
+82,Santa Fe,30,Entre Ríos,5008
+82,Santa Fe,34,Formosa,501
+82,Santa Fe,38,Jujuy,339
+82,Santa Fe,42,La Pampa,262
+82,Santa Fe,46,La Rioja,210
+82,Santa Fe,50,Mendoza,909
+82,Santa Fe,54,Misiones,845
+82,Santa Fe,58,Neuquén,883
+82,Santa Fe,62,Río Negro,845
+82,Santa Fe,66,Salta,617
+82,Santa Fe,70,San Juan,224
+82,Santa Fe,74,San Luis,746
+82,Santa Fe,78,Santa Cruz,456
+82,Santa Fe,82,Santa Fe,3221324
+82,Santa Fe,86,Santiago del Estero,1056
+82,Santa Fe,90,Tucumán,493
+82,Santa Fe,94,Tierra del Fuego,521
+86,Santiago del Estero,02,CABA,982
+86,Santiago del Estero,06,Buenos Aires,5401
+86,Santiago del Estero,10,Catamarca,352
+86,Santiago del Estero,14,Córdoba,3222
+86,Santiago del Estero,18,Corrientes,121
+86,Santiago del Estero,22,Chaco,390
+86,Santiago del Estero,26,Chubut,305
+86,Santiago del Estero,30,Entre Ríos,166
+86,Santiago del Estero,34,Formosa,79
+86,Santiago del Estero,38,Jujuy,147
+86,Santiago del Estero,42,La Pampa,127
+86,Santiago del Estero,46,La Rioja,141
+86,Santiago del Estero,50,Mendoza,298
+86,Santiago del Estero,54,Misiones,123
+86,Santiago del Estero,58,Neuquén,299
+86,Santiago del Estero,62,Río Negro,280
+86,Santiago del Estero,66,Salta,476
+86,Santiago del Estero,70,San Juan,71
+86,Santiago del Estero,74,San Luis,124
+86,Santiago del Estero,78,Santa Cruz,281
+86,Santiago del Estero,82,Santa Fe,1543
+86,Santiago del Estero,86,Santiago del Estero,953341
+86,Santiago del Estero,90,Tucumán,1414
+86,Santiago del Estero,94,Tierra del Fuego,285
+90,Tucumán,02,CABA,1885
+90,Tucumán,06,Buenos Aires,4343
+90,Tucumán,10,Catamarca,1166
+90,Tucumán,14,Córdoba,1525
+90,Tucumán,18,Corrientes,98
+90,Tucumán,22,Chaco,144
+90,Tucumán,26,Chubut,435
+90,Tucumán,30,Entre Ríos,148
+90,Tucumán,34,Formosa,56
+90,Tucumán,38,Jujuy,1358
+90,Tucumán,42,La Pampa,64
+90,Tucumán,46,La Rioja,344
+90,Tucumán,50,Mendoza,596
+90,Tucumán,54,Misiones,149
+90,Tucumán,58,Neuquén,773
+90,Tucumán,62,Río Negro,799
+90,Tucumán,66,Salta,2051
+90,Tucumán,70,San Juan,153
+90,Tucumán,74,San Luis,119
+90,Tucumán,78,Santa Cruz,474
+90,Tucumán,82,Santa Fe,524
+90,Tucumán,86,Santiago del Estero,1412
+90,Tucumán,90,Tucumán,1575094
+90,Tucumán,94,Tierra del Fuego,700
+94,Tierra del Fuego,02,CABA,1196
+94,Tierra del Fuego,06,Buenos Aires,3920
+94,Tierra del Fuego,10,Catamarca,63
+94,Tierra del Fuego,14,Córdoba,1936
+94,Tierra del Fuego,18,Corrientes,325
+94,Tierra del Fuego,22,Chaco,235
+94,Tierra del Fuego,26,Chubut,335
+94,Tierra del Fuego,30,Entre Ríos,368
+94,Tierra del Fuego,34,Formosa,217
+94,Tierra del Fuego,38,Jujuy,303
+94,Tierra del Fuego,42,La Pampa,67
+94,Tierra del Fuego,46,La Rioja,77
+94,Tierra del Fuego,50,Mendoza,482
+94,Tierra del Fuego,54,Misiones,448
+94,Tierra del Fuego,58,Neuquén,241
+94,Tierra del Fuego,62,Río Negro,284
+94,Tierra del Fuego,66,Salta,495
+94,Tierra del Fuego,70,San Juan,336
+94,Tierra del Fuego,74,San Luis,138
+94,Tierra del Fuego,78,Santa Cruz,242
+94,Tierra del Fuego,82,Santa Fe,495
+94,Tierra del Fuego,86,Santiago del Estero,168
+94,Tierra del Fuego,90,Tucumán,418
+94,Tierra del Fuego,94,Tierra del Fuego,155381
+ignorada,"Otra provincia, sin decir cuál",02,CABA,23847
+ignorada,"Otra provincia, sin decir cuál",06,Buenos Aires,80204
+ignorada,"Otra provincia, sin decir cuál",10,Catamarca,3147
+ignorada,"Otra provincia, sin decir cuál",14,Córdoba,27202
+ignorada,"Otra provincia, sin decir cuál",18,Corrientes,16436
+ignorada,"Otra provincia, sin decir cuál",22,Chaco,6017
+ignorada,"Otra provincia, sin decir cuál",26,Chubut,2842
+ignorada,"Otra provincia, sin decir cuál",30,Entre Ríos,9502
+ignorada,"Otra provincia, sin decir cuál",34,Formosa,5156
+ignorada,"Otra provincia, sin decir cuál",38,Jujuy,10461
+ignorada,"Otra provincia, sin decir cuál",42,La Pampa,1028
+ignorada,"Otra provincia, sin decir cuál",46,La Rioja,3538
+ignorada,"Otra provincia, sin decir cuál",50,Mendoza,18715
+ignorada,"Otra provincia, sin decir cuál",54,Misiones,9076
+ignorada,"Otra provincia, sin decir cuál",58,Neuquén,8962
+ignorada,"Otra provincia, sin decir cuál",62,Río Negro,6719
+ignorada,"Otra provincia, sin decir cuál",66,Salta,10753
+ignorada,"Otra provincia, sin decir cuál",70,San Juan,6251
+ignorada,"Otra provincia, sin decir cuál",74,San Luis,5524
+ignorada,"Otra provincia, sin decir cuál",78,Santa Cruz,5334
+ignorada,"Otra provincia, sin decir cuál",82,Santa Fe,24960
+ignorada,"Otra provincia, sin decir cuál",86,Santiago del Estero,9272
+ignorada,"Otra provincia, sin decir cuál",90,Tucumán,15500
+ignorada,"Otra provincia, sin decir cuál",94,Tierra del Fuego,3631
+exterior,Otro país,02,CABA,112473
+exterior,Otro país,06,Buenos Aires,116985
+exterior,Otro país,10,Catamarca,697
+exterior,Otro país,14,Córdoba,17323
+exterior,Otro país,18,Corrientes,4331
+exterior,Otro país,22,Chaco,1482
+exterior,Otro país,26,Chubut,2598
+exterior,Otro país,30,Entre Ríos,3866
+exterior,Otro país,34,Formosa,1461
+exterior,Otro país,38,Jujuy,3377
+exterior,Otro país,42,La Pampa,697
+exterior,Otro país,46,La Rioja,1418
+exterior,Otro país,50,Mendoza,11549
+exterior,Otro país,54,Misiones,4390
+exterior,Otro país,58,Neuquén,6127
+exterior,Otro país,62,Río Negro,3512
+exterior,Otro país,66,Salta,4134
+exterior,Otro país,70,San Juan,2471
+exterior,Otro país,74,San Luis,1794
+exterior,Otro país,78,Santa Cruz,1543
+exterior,Otro país,82,Santa Fe,14517
+exterior,Otro país,86,Santiago del Estero,1669
+exterior,Otro país,90,Tucumán,4830
+exterior,Otro país,94,Tierra del Fuego,1109

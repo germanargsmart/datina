@@ -57,7 +57,7 @@ textosParte({
 "salario-minimo-nota": `El salario mínimo, vital y móvil es el piso legal del sueldo mensual de un trabajador registrado de jornada completa. Lo fija ` +
 `el Consejo Nacional del Empleo, la Productividad y el Salario Mínimo, Vital y Móvil, que reúne a las cámaras empresarias, los sindicatos y el ` +
 `Gobierno, y si no hay acuerdo lo decide el Gobierno. La canasta es la del hogar de referencia del INDEC para la línea de pobreza: un varón de 35 ` +
-`años, una mujer de 31, un hijo de 6 y una hija de 8, en el Gran Buenos Aires. Qué no dice este dato: cuántos hogares son pobres. Un hogar puede ` +
+`años, una mujer de 31, un hijo de 6 y una hija de 8, en el Gran Buenos Aires. Este dato no dice cuántos hogares son pobres. Un hogar puede ` +
 `tener más de un ingreso, y el salario mínimo es el piso, no el sueldo habitual. Muestra cuánto alcanza un solo salario mínimo frente a lo que ` +
 `necesita esa familia. Los dos están en pesos de cada mes, así que el porcentaje ya descuenta la suba de los precios.`,
 "canastas-nota": `Canasta básica alimentaria: los alimentos que cubren las necesidades de energía y de proteínas de un varón ` +

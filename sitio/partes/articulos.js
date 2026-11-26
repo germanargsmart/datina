@@ -382,9 +382,8 @@ return sec((typeof p.preg === "string" && p.preg) || a.titulo, `${t.Mx.nombre} y
 `<div class="grafico" data-g="${key(i)}" data-forma="puntos"></div>`,
 `Cada punto es una ${U.s}. ${t.Mx.nombre}: ${t.Mx.unidad}. ${t.My.nombre}: ${t.My.unidad}. La línea punteada muestra la tendencia.`,
 [t.caso, ...[typeof p.txt === "function" ? p.txt(a.c[i]) : p.txt].filter(Boolean)]); }).join("") +
-`<div class="nota-limites"><h2>Qué no dice este dato</h2><ul>${[...a.t.flatMap(t => t.lim), ...(P.length > 1 ? a.limites || [] : [])].map(l => `<li>${l}</li>`).join("")}</ul>` +
-`<div class="nota-leer"><h3>Cómo leer un cruce</h3><p>${t0.leer}</p></div></div>` +
-`<div class="nota-fuentes"><h2>Fuentes y metodología</h2><ol class="nota-notas">${notas.map(x => `<li>${x}</li>`).join("")}</ol>` +
+`<div class="nota-leer"><h3>Cómo leer un cruce</h3><p>${t0.leer}</p></div>` +
+`<div class="nota-fuentes"><h2>Fuentes y metodología</h2><ol class="nota-notas">${notas.map(x => `<li>${x}</li>`).join("")}</ol>` + detLimites([...a.t.flatMap(t => t.lim), ...(P.length > 1 ? a.limites || [] : [])]) +
 `<p>${fts.length > 1 ? "Fuentes" : "Fuente"}: ${listaY(fts)}.</p><div class="acciones">` +
 fichas.map(([id, nom]) => `<a class="boton chico accion" href="${ficha(id)}">Ficha: ${minusc(nom)}</a>`).join("") +
 (tabla === "cruces_provincias" ? P.map(p => `<a class="boton chico accion" href="cruces?cx=${p.x}&cy=${p.y}">Abrir en Cruces${P.length > 1 ? `: ${p.lx}` : ""}</a>`).join("") : "") +
@@ -436,9 +435,8 @@ a.t.map((t, i) => `<div class="nota-graf"><h2>${t.Mx.nombre} ${yE(minusc(t.My.no
 `<p class="nota-pie-graf">Cada punto es una ${U.s}. ${t.Mx.nombre}: ${t.Mx.unidad}. ${t.My.nombre}: ${t.My.unidad}. La línea punteada muestra la tendencia.</p></div>` +
 `<p>${t.caso}</p>`).join("") +
 `<details class="nota-calculo"><summary>Cómo se calcula</summary>${[...t0.comun, ...a.t.map(t => t.propio)].map(x => `<p>${x}</p>`).join("")}</details>` +
-`<div class="nota-limites"><h2>Qué no dice este dato</h2><ul>${[...a.t.flatMap(t => t.lim), ...(P.length > 1 ? a.limites || [] : [])].map(l => `<li>${l}</li>`).join("")}</ul>` +
-`<div class="nota-leer"><h3>Cómo leer un cruce</h3><p>${t0.leer}</p></div></div>` +
-`<div class="nota-fuentes"><p>${fts.length > 1 ? "Fuentes" : "Fuente"}: ${listaY(fts)}.</p><div class="acciones">` +
+`<div class="nota-leer"><h3>Cómo leer un cruce</h3><p>${t0.leer}</p></div>` +
+`<div class="nota-fuentes">` + detLimites([...a.t.flatMap(t => t.lim), ...(P.length > 1 ? a.limites || [] : [])]) + `<p>${fts.length > 1 ? "Fuentes" : "Fuente"}: ${listaY(fts)}.</p><div class="acciones">` +
 fichas.map(([id, nom]) => `<a class="boton chico accion" href="${ficha(id)}">Ficha: ${minusc(nom)}</a>`).join("") +
 (tabla === "cruces_provincias" ? P.map(p => `<a class="boton chico accion" href="cruces?cx=${p.x}&cy=${p.y}">Abrir en Cruces${P.length > 1 ? `: ${p.lx}` : ""}</a>`).join("") : "") +
 `<a class="boton chico accion" href="datos/${tabla}.csv" download>Descargar CSV</a></div></div>`;
@@ -2253,8 +2251,8 @@ yaEscrito(nota).innerHTML =
 t.secciones.map(s => (s.preg ? `<div class="nota-sec"><h2>${s.preg}</h2>` : "") + `<div class="nota-graf"><h${s.preg ? 3 : 2}>${s.tit}</h${s.preg ? 3 : 2}>` +
 (s.html || (s.antes || "") + `<div class="grafico" data-g="art-${s.g}" data-forma="${s.forma}"${s.alto ? ` style="--alto:${s.alto}"` : ""}></div>` + (s.despues || "")) +
 `<p class="nota-pie-graf">${s.pie}</p></div>` + s.txt.map(p => `<p>${p}</p>`).join("") + (s.preg ? "</div>" : "")).join("") +
-`<div class="nota-limites"><h2>Qué no dice este dato</h2><ul>${t.lim.map(l => `<li>${l}</li>`).join("")}</ul></div>` +
 `<div class="nota-fuentes">` + (t.notas ? `<h2>Fuentes y metodología</h2><ol class="nota-notas">${t.notas.map(x => `<li>${x}</li>`).join("")}</ol>` : "") +
+detLimites(t.lim) +
 `<p>Fuentes: ${a.fuentes}.</p><div class="acciones">` +
 a.fichas.filter(([id]) => ficha(id)).map(([id, nom]) => `<a class="boton chico accion" href="${ficha(id)}">Ficha: ${nom}</a>`).join("") +
 a.csv.map(([n, lab]) => `<a class="boton chico accion" href="datos/${n}.csv" download>${lab}</a>`).join("") + `</div></div>`;

@@ -159,7 +159,7 @@ ref = lambda i: "provincia" if i == "provincia" else f"#{i}"
 
 
 # las herramientas que tienen tablas en el Catálogo: la tabla lleva a su página ("Ver la página")
-HERRAMIENTAS = {"mesas", "rutas"}
+HERRAMIENTAS = {"mesas", "rutas", "migracion-interna"}
 # lo que catalogo.json puede decir de una tabla que no sale de una ficha: la pregunta, la descripción, la fuente, la actualización y la nota
 PROPIOS = {"titulo", "sub", "fuente", "frecuencia", "nota"}
 

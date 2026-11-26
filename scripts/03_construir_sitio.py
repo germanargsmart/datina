@@ -112,6 +112,9 @@ plantilla = plantilla.replace("__V_MESAS_JS__", hashlib.sha1(JS_MESAS.encode("ut
 # Rutas comerciales (23 de noviembre de 2026): lo mismo, lo pide solo rutas.html
 JS_RUTAS = (RAIZ / "scripts" / "rutas.js").read_text(encoding="utf-8")
 plantilla = plantilla.replace("__V_RUTAS_JS__", hashlib.sha1(JS_RUTAS.encode("utf-8")).hexdigest()[:10])
+# Migración interna (25 de noviembre de 2026): lo mismo, lo pide solo migracion-interna.html
+JS_MUDANZAS = (RAIZ / "scripts" / "mudanzas.js").read_text(encoding="utf-8")
+plantilla = plantilla.replace("__V_MUDANZAS_JS__", hashlib.sha1(JS_MUDANZAS.encode("utf-8")).hexdigest()[:10])
 # Cada id una sola vez en la plantilla (etapa 25): una ficha nueva repitió el id de otra (f-actividad) y, como sus claves en datina.js salen
 # del id, sus textos, su gráfico y su cifra pisaron los de la otra sin dar ningún error
 _ids = re.findall(r'\sid="([^"]+)"', plantilla)
@@ -155,7 +158,7 @@ def anios_a_mano(nombre, fuente):
 
 malos = anios_a_mano("plantilla.html", plantilla) + anios_a_mano("datina.js", (RAIZ / "scripts" / "datina.js").read_text(encoding="utf-8"))
 # también la página del Explorador de relaciones, que no sale de la plantilla
-malos += [m for n in ("relaciones.html", "relaciones.js", "mesas.js", "rutas.js") for m in anios_a_mano(n, (RAIZ / "scripts" / n).read_text(encoding="utf-8"))]
+malos += [m for n in ("relaciones.html", "relaciones.js", "mesas.js", "rutas.js", "mudanzas.js") for m in anios_a_mano(n, (RAIZ / "scripts" / n).read_text(encoding="utf-8"))]
 # y las partes de datina.js de cada página (fase 5)
 malos += [m for f in sorted((RAIZ / "scripts" / "partes").glob("*.js")) for m in anios_a_mano("partes/" + f.name, f.read_text(encoding="utf-8"))]
 if malos:
@@ -641,7 +644,7 @@ MENUS = [
     # Datos destacados, desde el 6 de noviembre de 2026 (segunda fase del brief de pulido de la portada: la página de "Ver todos los datos destacados")
     ("historias", "Historias", "Historias con datos", "articulos", ["articulos", "datos-destacados", "laboratorio", "corte-suprema", "curiosidades"]),
     # Elecciones por mesa, desde el 4 de noviembre de 2026 (decisión del autor: en Herramientas, con un enlace desde la ficha de elecciones de Política)
-    ("herramientas", "Herramientas", "Herramientas", "./#herr-titulo", ["cruces", "mesas", "rutas", "catalogo"]),
+    ("herramientas", "Herramientas", "Herramientas", "./#herr-titulo", ["cruces", "mesas", "rutas", "migracion-interna", "catalogo"]),
 ]
 _secs_de = lambda items: [s for it in items for s in (it[1] if isinstance(it, tuple) else [it])]
 CATEGORIA = {s: (it[0], it[1]) for _, _, items in GRUPOS for it in items if isinstance(it, tuple) for s in it[1]}
@@ -821,7 +824,7 @@ for _obj in ("LEAD", "TX", "DIB", "CLAVE", "EXTRA", "EN_CIFRAS", "SERIE_CIFRA"):
 SEC_ICONO = {"articulos": "periodico", "provincia": "pin", "trabajo": "maletin", "empresas": "tienda", "pobreza": "casa", "salud": "botiquin",
              "educacion": "birrete", "poblacion": "personas", "politica": "congreso", "justicia": "balanza", "movilidad": "colectivo", "construccion": "grua", "energia": "rayo", "petroleo": "ciguena", "seguridad": "escudo", "economia": "carrito", "migraciones": "globo", "gobierno": "mastil", "externo": "buque", "turismo": "valija",
              "naturaleza": "andes", "curiosidades": "mate", "cruces": "dispersion", "indice": "podio", "departamentos": "mosaico",
-             "diagnostico": "portapapeles", "catalogo": "planilla", "laboratorio": "matraz", "mesas": "urna", "rutas": "buque", "datos-destacados": "mosaico"} | ({"consulta-ia": "dialogo"} if CONSULTA_IA else {})
+             "diagnostico": "portapapeles", "catalogo": "planilla", "laboratorio": "matraz", "mesas": "urna", "rutas": "buque", "migracion-interna": "valija", "datos-destacados": "mosaico"} | ({"consulta-ia": "dialogo"} if CONSULTA_IA else {})
 SEC_ICONO.update({i: ico for i, ico, _, _ in NOTAS})
 SEC_ICONO.update({i: ico for i, ico, _, _ in PIEZAS})
 assert set(SEC_ICONO.values()) <= set(ICONOS), set(SEC_ICONO.values()) - set(ICONOS)
@@ -969,9 +972,16 @@ if _sin_relieve:
     sys.exit(f"Cumbres sin relieve en datos/manual/relieve/ (correr scripts/cumbres_relieve.py): {_sin_relieve}")
 (SITIO / "mesas.js").write_text(achicar_js.achicar(JS_MESAS), encoding="utf-8", newline="\n")   # como datina.js, sin comentarios ni sangría
 (SITIO / "rutas.js").write_text(achicar_js.achicar(JS_RUTAS), encoding="utf-8", newline="\n")
+# los datos de Migración interna: lo que dibuja la página, aparte de las tablas que publica 02 (scripts/mudanzas_sitio.py)
+(SITIO / "mudanzas.js").write_text(achicar_js.achicar(JS_MUDANZAS), encoding="utf-8", newline="\n")
+import mudanzas_sitio  # noqa: E402
+print(mudanzas_sitio.armar_json(SITIO / "datos"))
 # los datos de Rutas comerciales: la tabla que publica 02 con las líneas de sus caminos (scripts/rutas_sitio.py)
 import rutas_sitio  # noqa: E402
 print(rutas_sitio.armar(SITIO / "datos" / "rutas_exportaciones.csv", SITIO / "datos" / "rutas.json", RESUMEN["externo"]["rutas"]["anio"]))
+# y las importaciones y los servicios (26 de noviembre de 2026): la página los baja al elegirlos
+print(rutas_sitio.armar(SITIO / "datos" / "rutas_importaciones.csv", SITIO / "datos" / "rutas_imp.json", RESUMEN["externo"]["rutas_imp"]["anio"], "imp"))
+print(rutas_sitio.armar(SITIO / "datos" / "rutas_servicios.csv", SITIO / "datos" / "rutas_ser.json", RESUMEN["externo"]["rutas_ser"]["anio"], "ser"))
 EN_CATALOGO = sorted(re.findall(r'<li class="cat-item" id="cat-(\w+)"', _catalogo))
 for marca, valor in {"/*ICONOS*/{}": ICONOS, "/*SEC_ICONO*/{}": SEC_ICONO, "/*SIN_RELACIONES*/[]": sorted(relaciones.EXCLUIDAS),
                      "/*EN_CATALOGO*/[]": EN_CATALOGO, "/*RELIEVE*/{}": RELIEVE_V}.items():
@@ -1029,6 +1039,11 @@ V_LIBS = {marca: hashlib.sha1((SITIO / "lib" / nombre).read_bytes()).hexdigest()
 (SITIO / "img").mkdir(exist_ok=True)
 for _f in (RAIZ / "scripts" / "imagenes").iterdir():
     shutil.copyfile(_f, SITIO / "img" / _f.name)
+# Las banderas de los países (Rutas comerciales, 25 de noviembre de 2026, descarga aprobada por el autor): circle-flags 2.8.3, de npm, con su
+# licencia (MIT). Windows no dibuja las banderas como emoji. Se copian de scripts/banderas_paises/ a sitio/img/paises/
+(SITIO / "img" / "paises").mkdir(exist_ok=True)
+for _f in (RAIZ / "scripts" / "banderas_paises").iterdir():
+    shutil.copyfile(_f, SITIO / "img" / "paises" / _f.name)
 V_LIBS["__V_PIE__"] = hashlib.sha1((SITIO / "img" / "pie-llanura.webp").read_bytes()).hexdigest()[:10]
 # Las letras desde el propio sitio (16 de noviembre de 2026, decisión del autor): Roboto Flex y Roboto Mono, los mismos archivos que daba Google
 # Fonts (versión 31, con los mismos ejes: tamaño óptico, ancho de 25 a 151 y peso de 300 a 800 en Roboto Flex, peso de 400 a 600 en Roboto
@@ -2011,7 +2026,7 @@ if URL_SITIO:
 # Caché en Cloudflare Pages (23 de octubre de 2026, decisión del autor): sitio/_headers es el equivalente de los [[headers]] de
 # netlify.toml. Los archivos que las páginas piden con su huella en la dirección (?v=...) se guardan un año: cuando cambia el contenido
 # cambia la dirección. Los demás (por ejemplo, las tablas que se piden sin huella) quedan con la caché común
-CACHE_LARGO = (["/datina.css", "/datina.js", "/partes/*", "/mesas.js", "/rutas.js", "/datos/fichas.js", "/datos/relieve/*", "/lib/*", "/fuentes/*", "/img/*", "/relaciones.css", "/relaciones.js", "/datos/relaciones.json"]
+CACHE_LARGO = (["/datina.css", "/datina.js", "/partes/*", "/mesas.js", "/rutas.js", "/mudanzas.js", "/datos/fichas.js", "/datos/relieve/*", "/lib/*", "/fuentes/*", "/img/*", "/relaciones.css", "/relaciones.js", "/datos/relaciones.json"]
                + [f"/datos/{n}.json" for n in DIFERIDAS] + ["/consulta-ia.js"] * CONSULTA_IA)
 # Las tablas de Elecciones por mesa (4 de noviembre de 2026): Cloudflare comprime el JSON y el texto, pero no el CSV, y Buenos Aires bajaba unos 5 MB. Se sirven como
 # texto: el archivo es el mismo y sigue llamándose .csv, y los enlaces de descarga llevan el atributo download
