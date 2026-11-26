@@ -324,7 +324,7 @@
     "f-cuentas-nacion"
    ],
    "evidencia": {
-    "archivo": "scripts/datina.js",
+    "archivo": "scripts/partes/gobierno.js",
     "contiene": "return barrasH(el, {anim: a, data: T.gasto_nacion_tipo.map((r, i) => ({codigo_indec:"
    }
   },
@@ -353,7 +353,7 @@
     "f-inflacion"
    ],
    "evidencia": {
-    "archivo": "scripts/datina.js",
+    "archivo": "scripts/partes/economia.js",
     "contiene": "txt += enSuRegion(T.inflacion_regiones, \"interanual\", pct);"
    }
   },
@@ -380,7 +380,7 @@
     "f-obra-publica"
    ],
    "evidencia": {
-    "archivo": "scripts/datina.js",
+    "archivo": "scripts/partes/construccion.js",
     "contiene": "pesos de ${CN.op_ult}`, data: T.obra_publica_serie});"
    }
   },
@@ -425,7 +425,7 @@
     "f-industria"
    ],
    "evidencia": {
-    "archivo": "scripts/datina.js",
+    "archivo": "scripts/partes/economia.js",
     "contiene": "conTablas(\"industria\", () => MED.industria === \"mes\" ? [\"produccion_mensual\"] : [], a => {"
    }
   },
@@ -452,7 +452,7 @@
     "f-recaudacion"
    ],
    "evidencia": {
-    "archivo": "scripts/datina.js",
+    "archivo": "scripts/partes/gobierno.js",
     "contiene": "return lineas(el, {anim: a, data: T.recaudacion_anual, x: \"anio\", y0: 0, vf: pct, yf:"
    }
   },
@@ -481,7 +481,7 @@
     "f-salarios"
    ],
    "evidencia": {
-    "archivo": "scripts/datina.js",
+    "archivo": "scripts/partes/trabajo.js",
     "contiene": "() => MED.salarios === \"mes\" ? [\"salarios_serie\"] : [], a => {"
    }
   },
@@ -500,7 +500,7 @@
     "f-supermercados"
    ],
    "evidencia": {
-    "archivo": "scripts/datina.js",
+    "archivo": "scripts/partes/economia.js",
     "contiene": "MED.supermercados === \"mes\" ? [\"supermercados_mensual\"] : [], a => {"
    }
   },
