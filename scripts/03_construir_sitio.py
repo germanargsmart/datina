@@ -979,6 +979,8 @@ print(mudanzas_sitio.armar_json(SITIO / "datos"))
 # los datos de Rutas comerciales: la tabla que publica 02 con las líneas de sus caminos (scripts/rutas_sitio.py)
 import rutas_sitio  # noqa: E402
 print(rutas_sitio.armar(SITIO / "datos" / "rutas_exportaciones.csv", SITIO / "datos" / "rutas.json", RESUMEN["externo"]["rutas"]["anio"]))
+# y dónde se cosechan los cereales y las oleaginosas, por departamento (26 de noviembre de 2026)
+print(rutas_sitio.armar_cosecha(SITIO / "datos" / "rutas_cosecha.csv", SITIO / "datos" / "rutas_cosecha.json", SITIO / "datos" / "departamentos.topo.json"))
 EN_CATALOGO = sorted(re.findall(r'<li class="cat-item" id="cat-(\w+)"', _catalogo))
 for marca, valor in {"/*ICONOS*/{}": ICONOS, "/*SEC_ICONO*/{}": SEC_ICONO, "/*SIN_RELACIONES*/[]": sorted(relaciones.EXCLUIDAS),
                      "/*EN_CATALOGO*/[]": EN_CATALOGO, "/*RELIEVE*/{}": RELIEVE_V}.items():

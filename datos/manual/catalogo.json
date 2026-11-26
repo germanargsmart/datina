@@ -538,6 +538,20 @@
     "contiene": "rutas_exportaciones.to_csv(SITIO / \"rutas_exportaciones.csv\", index=False, lineterminator=\"\\n\")"
    }
   },
+  "rutas_cosecha": {
+   "en": [
+    "rutas"
+   ],
+   "titulo": "¿Dónde se cosechan los granos que exporta la Argentina?",
+   "sub": "Toneladas cosechadas de cereales y de semillas oleaginosas en cada departamento, en la campaña que termina cada año desde 2015, y su parte del total del país",
+   "fuente": "Secretaría de Agricultura, Ganadería y Pesca, estimaciones agrícolas por departamento",
+   "frecuencia": "Se actualiza cuando la Secretaría publica una campaña cosechada.",
+   "nota": "Es lo cosechado, no lo exportado: nadie publica de qué departamento sale cada exportación, y una parte de los granos se consume o se industrializa en el país. Cereales: maíz, trigo, cebada, sorgo, arroz, avena, centeno, mijo y alpiste. Oleaginosas: soja, girasol, colza, cártamo y lino (el maní se exporta casi todo procesado, en otro subrubro). Algunas campañas de Corrientes y Formosa traen una parte sin departamento.",
+   "evidencia": {
+    "archivo": "scripts/02_procesar.py",
+    "contiene": "rutas_cosecha.to_csv(SITIO / \"rutas_cosecha.csv\", index=False, lineterminator=\"\\n\")"
+   }
+  },
   "mudanzas_matriz": {
    "en": [
     "migracion-interna"

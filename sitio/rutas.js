@@ -34,6 +34,57 @@ const CELULAR = matchMedia("(max-width: 767px)");
 let D = null, mapa = null, jugando = null;
 const estado = {anio: 0, rubro: "", sub: "", vias: new Set(VIAS), sel: null, capas: {vehiculos: true, salidas: true, etiquetas: true, secundarias: true}};
 let vista = null;
+const COSECHA = {106: ["cereales", "los cereales"], 107: ["semillas oleaginosas", "las semillas oleaginosas"]};
+const CORTES_COS = [0.25, 0.5, 1, 2];
+const tramo = p => CORTES_COS.filter(c => p >= c).length;
+const colorCos = p => css(`--rt-cos-${tramo(p) + 1}`);
+let C = null, cosechaPedida = false;
+const conCosecha = () => !!COSECHA[estado.sub];
+const toneladas = t => t >= 1e6 ? `${dec(t / 1e6, 1)} millones de toneladas` : t >= 1e3 ? `${dec(t / 1e3, 0)} mil toneladas` : `${dec(t, 0)} toneladas`;
+const milT = t => `${dec(t / 1e3, 0)} mil t`;
+const yE = s => (/^h?[ií](?![aeiouáéíóú])/i.test(s) ? "e " : "y ") + s;
+const enLista = a => a.length < 2 ? a.join("") : a.slice(0, -1).join(", ") + " " + yE(a[a.length - 1]);
+const sinDep = c => c.endsWith("000");
+const nombreDep = c => C && C.deps[c] ? (sinDep(c) ? `${C.deps[c][1]}, sin departamento informado` : `${C.deps[c][0]} (${C.deps[c][1]})`) : c;
+function cosechaDe() {
+const l = C && conCosecha() && C.cosecha[estado.sub] && C.cosecha[estado.sub][estado.anio];
+return l ? {l, tot: l.reduce((s, x) => s + x[1], 0), camp: C.campanias[estado.anio], de: new Map(l)} : null;
+}
+function pedirCosecha() {
+if (cosechaPedida) return;
+cosechaPedida = true;
+fetch(raiz.dataset.cosecha).then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
+.then(d => { C = d; pintarCosecha(); if (mapa) mapa.cosecha(); })
+.catch(() => { C = false; pintarCosecha(); });
+}
+function pintarCosecha() {
+const si = conCosecha(), k = si ? cosechaDe() : null, que = si ? COSECHA[estado.sub] : null;
+$("rt-cosecha").hidden = !si;
+$("rt-cos-ver").hidden = true;
+if (!si) return;
+if (C === null) pedirCosecha();
+$("rt-cos-sub").textContent = k ? `${que[0].charAt(0).toUpperCase() + que[0].slice(1)}, campaña ${k.camp}, la que termina en ${estado.anio}. Es lo cosechado, no lo exportado` : "";
+$("rt-cos-ley").hidden = !k;
+if (!k) {
+$("rt-cos-lista").innerHTML = "";
+$("rt-cos-frase").textContent = C === null ? "Cargando la cosecha por departamento." : C === false ? "No se pudo cargar la cosecha por departamento. La tabla se puede descargar abajo."
+: `No hay una campaña cosechada para ${estado.anio}.`;
+return;
+}
+let ac = 0, n = 0;
+while (n < k.l.length && ac < k.tot / 2) ac += k.l[n++][1];
+const provs = [...new Set(k.l.slice(0, n).map(([c]) => C.deps[c][1]))];
+const conDep = k.l.filter(([c]) => !sinDep(c)).length;
+$("rt-cos-frase").textContent = `En la campaña ${k.camp} se cosecharon ${toneladas(k.tot)} de ${que[0]} en ${conDep} departamentos. La mitad se cosechó en ${n} de ellos, de ${enLista(provs)}.`;
+$("rt-cos-ley").innerHTML = `<span>Parte de la cosecha del país:</span>` + ["Menos de 0,25%", "0,25% a 0,5%", "0,5% a 1%", "1% a 2%", "2% o más"]
+.map((t, i) => `<span><i style="background:var(--rt-cos-${i + 1})"></i>${t}</span>`).join("");
+const max = k.l[0][1];
+$("rt-cos-lista").innerHTML = k.l.slice(0, TOP).map(([c, t]) => `<li><button type="button"${sinDep(c) ? "" : ` data-dep="${esc(c)}"`}>
+      <span class="rt-cos-mu" style="background:${colorCos(100 * t / k.tot)}" aria-hidden="true"></span>
+      <span class="rt-b-n">${esc(nombreDep(c))}</span><span class="rt-b-x">${pct(100 * t / k.tot)}</span>
+      <span class="rt-b-barra" aria-hidden="true"><i style="width:${(100 * t / max).toFixed(2)}%"></i></span>
+      <span class="rt-b-d">${esc(milT(t))}</span></button></li>`).join("");
+}
 const sinPais = f => D.paises[f.pais_cod] === "Sin país informado";
 const nombreSub = c => D.subrubros[c] ? D.subrubros[c][0] : "Sin rubro informado";
 function filasDe(anio) {
@@ -144,6 +195,13 @@ const parte = p => `<p class="rt-f-barra" aria-hidden="true"><i style="width:${M
 const cabFicha = (marca, que, tit) => `<div class="rt-f-cab">${marca}<div><h3 id="rt-ficha-tit">${esc(tit)}</h3><p>${esc(que)}</p></div></div>`;
 function fichaHTML(sel) {
 const fs = vista.fs, tot = vista.tot || 1;
+if (sel.tipo === "dep") {
+const k = cosechaDe(), i = k.l.findIndex(([c]) => c === sel.id), t = k.l[i][1], p = 100 * t / k.tot, que = COSECHA[estado.sub];
+const sale = agrupar(fs.filter(f => f.modo === "mar"), f => f.salida)[0];
+return cabFicha(emoji(estado.sub), `Departamento de ${C.deps[sel.id][1]}`, C.deps[sel.id][0])
++ datosFicha([[`Cosechado en ${k.camp}`, toneladas(t)], ["Parte del país", pct(p)], ["Puesto", `${i + 1} de ${k.l.length}`]]) + parte(p)
++ `<p class="rt-f-nota">Es lo cosechado, no lo exportado.${sale ? ` Por mar, ${que[1]} salen sobre todo por ${esc(sinAvion(sale[0]))}.` : ""} Nadie publica por qué puerto sale la cosecha de cada departamento.</p>`;
+}
 if (sel.tipo === "pais") {
 const de = fs.filter(f => f.pais_cod === sel.id), v = suma(de), p = 100 * v / tot;
 return cabFicha(bandera(sel.id), "País de destino", D.paises[sel.id])
@@ -183,9 +241,12 @@ $("rt-anio-val").textContent = estado.anio;
 pintarVias();
 pintarProducto();
 pintarTarjetas();
+pintarCosecha();
 if (mapa) mapa.datos();
 if (estado.sel) {
-const queda = estado.sel.tipo === "pais" ? vista.rango.has(estado.sel.id) : estado.sel.tipo === "linea" ? vista.rutas.some(r => r.k === estado.sel.id) : true;
+const k = estado.sel.tipo === "dep" ? cosechaDe() : null;
+const queda = estado.sel.tipo === "pais" ? vista.rango.has(estado.sel.id) : estado.sel.tipo === "linea" ? vista.rutas.some(r => r.k === estado.sel.id)
+: estado.sel.tipo === "dep" ? !!(k && k.de.has(estado.sel.id)) : true;
 if (queda) { $("rt-ficha-cuerpo").innerHTML = fichaHTML(estado.sel); if (mapa) mapa.foco(estado.sel); } else cerrarFicha();
 }
 raiz.removeAttribute("aria-busy");
@@ -263,12 +324,16 @@ m.touchZoomRotate.disableRotation();
 const vacio = {type: "FeatureCollection", features: []};
 const etiquetas = new Map(), nombres = [];
 let listo = false, flota = [], quieto = REDUCIR_MOV, reloj = 0, antes = 0, aLaVista = true, focoAhora;
+let deptos = null, deptosPedido = false;
 m.on("load", () => {
 m.addSource("tierra", {type: "geojson", data: tierra});
 m.addLayer({id: "costa", type: "line", source: "tierra", paint: {"line-color": costa, "line-width": 5, "line-blur": 4, "line-opacity": 0.7}});
 m.addLayer({id: "tierra", type: "fill", source: "tierra", paint: {"fill-color": suelo}});
 m.addLayer({id: "bordes", type: "line", source: "tierra", paint: {"line-color": borde, "line-width": 0.6}});
-for (const s of ["rutas", "nodos", "flota"]) m.addSource(s, {type: "geojson", data: vacio});
+for (const s of ["cosecha", "rutas", "nodos", "flota"]) m.addSource(s, {type: "geojson", data: vacio});
+m.addLayer({id: "cosecha", type: "fill", source: "cosecha", paint: {"fill-color": ["get", "col"]}});
+m.addLayer({id: "cosecha-borde", type: "line", source: "cosecha", paint: {"line-color": "#ffffff", "line-width": ["interpolate", ["linear"], ["zoom"], 2, 0.2, 6, 0.8]}});
+m.addLayer({id: "cosecha-sel", type: "line", source: "cosecha", filter: ["==", ["get", "id"], ""], paint: {"line-color": nodo, "line-width": 2}});
 const junta = {"line-cap": "round", "line-join": "round"};
 m.addLayer({id: "halo", type: "line", source: "rutas", layout: junta, paint: {"line-color": "#ffffff", "line-width": ["+", ["get", "w"], 2.5], "line-opacity": 0.6}});
 m.addLayer({id: "rutas", type: "line", source: "rutas", filter: ["!=", ["get", "m"], "avión"], layout: junta,
@@ -331,15 +396,20 @@ cuadroFlota();
 andar();
 });
 }
-const capasToque = ["rutas", "aereas", "nodos", "flota"];
+const capasToque = ["rutas", "aereas", "nodos", "flota", "cosecha"];
 const queHay = e => {
 const f = m.queryRenderedFeatures([[e.point.x - 4, e.point.y - 4], [e.point.x + 4, e.point.y + 4]], {layers: capasToque})[0];
 if (!f) return null;
 const p = f.properties;
 if (f.layer.id === "nodos") return p.t === "destino" ? {tipo: "pais", id: p.id} : {tipo: "salida", id: p.id};
+if (f.layer.id === "cosecha") return {tipo: "dep", id: p.id};
 return {tipo: "linea", id: p.k};
 };
 const tipHTML = sel => {
+if (sel.tipo === "dep") {
+const k = cosechaDe(), t = k && k.de.get(sel.id);
+return t ? `<strong>${esc(nombreDep(sel.id))}</strong><span>${esc(toneladas(t))} de ${esc(COSECHA[estado.sub][0])}</span><span>${pct(100 * t / k.tot)} de la cosecha del país, ${esc(k.camp)}</span>` : "";
+}
 if (sel.tipo === "pais") { const v = suma(vista.fs.filter(f => f.pais_cod === sel.id)); return `<strong>${bandera(sel.id)}${esc(D.paises[sel.id])}</strong><span>${esc(corto(v))}, ${pct(100 * v / (vista.tot || 1))}</span>`; }
 if (sel.tipo === "salida") return `<strong>${emojiSalida(sel.id)} ${esc(sinAvion(sel.id))}</strong><span>Tocá para ver qué sale por acá</span>`;
 const r = vista.rutas.find(x => x.k === sel.id);
@@ -387,9 +457,28 @@ const nmax = Math.max(1, ...[...nodos.values()].map(n => n.v));
 m.getSource("nodos").setData({type: "FeatureCollection", features: [...nodos.values()].map(n => ({type: "Feature",
 properties: {id: n.id, t: n.t, b: n.t === "destino" && conBandera.has(n.id), r: n.t === "destino" && conBandera.has(n.id) ? 10.5 : (n.t === "destino" ? 2 : 3) + 3 * Math.sqrt(n.v / nmax)}, geometry: {type: "Point", coordinates: n.punto}}))});
 api.etiquetas();
+api.cosecha();
 focoAhora = undefined;
 api.foco(estado.sel, true);
 },
+cosecha() {
+if (!listo) return;
+const k = cosechaDe();
+if (k && !deptos) {
+if (!deptosPedido) {
+deptosPedido = true;
+fetch(raiz.dataset.deptos).then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
+.then(t => { deptos = topojson.feature(t, t.objects.departamentos).features; api.cosecha(); })
+.catch(() => { deptos = []; });
+}
+return;
+}
+m.getSource("cosecha").setData({type: "FeatureCollection", features: !k ? [] : deptos.filter(f => k.de.has(f.properties.id)).map(f => ({type: "Feature",
+geometry: f.geometry, properties: {id: f.properties.id, col: colorCos(100 * k.de.get(f.properties.id) / k.tot)}}))});
+$("rt-cos-ver").hidden = !(k && deptos.length);
+api.paises(focoAhora);
+},
+verArgentina() { m.fitBounds([[-73.6, -55.1], [-53.6, -21.8]], {padding: 24, duration: REDUCIR_MOV ? 0 : 280}); },
 etiquetas() {
 const z = m.getZoom(), quiero = new Map();
 if (estado.capas.etiquetas) conNombre().forEach((c, i) => quiero.set(c, i < 5 || z >= 1.9));
@@ -410,7 +499,8 @@ for (const mk of nombres) mk.getElement().hidden = z > 3;
 paises(sel) {
 const max = vista.destinos.length ? vista.destinos[0][1] : 1, con = new Map(vista.destinos.filter(([c]) => D.iso[c]).map(([c, v]) => [c, compra((v / max) ** 0.75)]));
 if (sel && sel.tipo === "pais" && D.iso[sel.id]) con.set(sel.id, css("--celeste"));
-m.setPaintProperty("tierra", "fill-color", ["match", ["get", "c"], "AR", arg, ...[...con].flat(), suelo]);
+const arPinta = cosechaDe() && deptos && deptos.length ? suelo : arg;
+m.setPaintProperty("tierra", "fill-color", ["match", ["get", "c"], "AR", arPinta, ...[...con].flat(), suelo]);
 },
 mover(si) {
 quieto = !si;
@@ -426,6 +516,8 @@ if (!listo) return;
 const igual = focoAhora !== undefined && JSON.stringify(focoAhora) === JSON.stringify(sel);
 focoAhora = sel || null;
 if (igual) { if (!soloPintura && sel) api.encuadrar(sel); return; }
+m.setFilter("cosecha-sel", ["==", ["get", "id"], sel && sel.tipo === "dep" ? sel.id : ""]);
+if (sel && sel.tipo === "dep") { if (!soloPintura) api.encuadrar(sel); sel = null; soloPintura = true; }
 cuadroFlota();
 api.paises(sel);
 const suyo = !sel ? "" : sel.tipo === "pais" ? sel.id : sel.tipo === "linea" ? (vista.rutas.find(r => r.k === sel.id) || {}).c : sel.tipo === "corredor" ? sel.id.split("|")[1] : "";
@@ -445,6 +537,13 @@ if (!soloPintura && sel) api.encuadrar(sel);
 },
 encuadrar(sel) {
 const pts = [];
+if (sel.tipo === "dep") {
+const f = deptos && deptos.find(x => x.properties.id === sel.id);
+if (!f) return;
+const ps = f.geometry.type === "Polygon" ? f.geometry.coordinates.flat() : f.geometry.coordinates.flat(2), lon = ps.map(p => p[0]), lat = ps.map(p => p[1]);
+m.fitBounds([[Math.min(...lon), Math.min(...lat)], [Math.max(...lon), Math.max(...lat)]], {padding: m.getContainer().clientWidth > 640 ? {top: 40, bottom: 60, left: 340, right: 60} : 30, maxZoom: 6.5, duration: REDUCIR_MOV ? 0 : 280});
+return;
+}
 if (sel.tipo === "pais") { const l = D.lugares[sel.id]; if (l) pts.push(D.salidas["Gran Rosario"] || [-60.6, -33], l); }
 else if (sel.tipo === "salida") { const p = D.salidas[sel.id] || D.pasos[sel.id]; if (p) { m.easeTo({center: p, zoom: Math.max(m.getZoom(), 3), duration: REDUCIR_MOV ? 0 : 280}); return; } }
 else vista.rutas.filter(r => sel.tipo === "linea" ? r.k === sel.id : `${r.s}|${r.c}|${r.m}` === sel.id).forEach(r => pts.push(...curva(r.k)));
@@ -507,18 +606,20 @@ r.value = +r.value + 1; estado.anio = +r.value; pintar();
 }, 1200);
 });
 raiz.querySelector(".rt-capas").addEventListener("change", e => { const c = e.target.dataset.capa; if (!c) return; estado.capas[c] = e.target.checked; if (!mapa) return; if (c === "vehiculos") mapa.vehiculos(); else mapa.datos(); });
-const marca = el => el.dataset.pais ? {tipo: "pais", id: el.dataset.pais} : el.dataset.corr ? {tipo: "corredor", id: el.dataset.corr} : null;
-for (const id of ["rt-destinos", "rt-corredores"]) {
+const marca = el => el.dataset.pais ? {tipo: "pais", id: el.dataset.pais} : el.dataset.corr ? {tipo: "corredor", id: el.dataset.corr}
+: el.dataset.dep ? {tipo: "dep", id: el.dataset.dep} : null;
+for (const id of ["rt-destinos", "rt-corredores", "rt-cos-lista"]) {
 const el = $(id);
 el.addEventListener("pointerover", e => { const b = e.target.closest("button"); if (b && mapa) mapa.foco(marca(b), true); });
 el.addEventListener("pointerleave", () => mapa && mapa.foco(estado.sel, true));
 el.addEventListener("focusin", e => { const b = e.target.closest("button"); if (b && mapa) mapa.foco(marca(b), true); });
 el.addEventListener("focusout", e => { if (!el.contains(e.relatedTarget) && mapa) mapa.foco(estado.sel, true); });
-el.addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return; abrirFicha(marca(b), e.detail === 0);
+el.addEventListener("click", e => { const b = e.target.closest("button"); if (!b || !marca(b)) return; abrirFicha(marca(b), e.detail === 0);
 if (mapa) $("rt-mapa-caja").scrollIntoView({behavior: REDUCIR_MOV ? "auto" : "smooth", block: "nearest"}); });
 }
 $("rt-productos").addEventListener("click", e => { const b = e.target.closest("button[data-sub]"); if (!b) return; estado.sub = b.dataset.sub; pintar(); });
 $("rt-ficha-cerrar").addEventListener("click", cerrarFicha);
+$("rt-cos-ver").addEventListener("click", () => { if (!mapa) return; mapa.verArgentina(); $("rt-mapa-caja").scrollIntoView({behavior: REDUCIR_MOV ? "auto" : "smooth", block: "nearest"}); });
 raiz.querySelectorAll("[data-restablecer]").forEach(b => b.addEventListener("click", restablecer));
 raiz.querySelector(".rt-ctrl").addEventListener("click", e => {
 const b = e.target.closest("button[data-z]"); if (!b || !mapa) return;
