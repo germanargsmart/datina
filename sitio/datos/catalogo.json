@@ -24454,7 +24454,7 @@
     }
    ],
    "unidades": [],
-   "como_se_calcula": "Personas de 5 años y más en viviendas particulares, por dónde vivían cinco años antes y dónde viven. No cuenta las mudanzas del medio ni a quienes se fueron del país. Quienes llegaron de otra provincia sin decir cuál van aparte, y el saldo se calcula sin ellos. El saldo repartido asigna a esas personas como a las demás: donde cambia de signo no se puede decir si la jurisdicción gana o pierde gente.",
+   "como_se_calcula": "Personas de 5 años y más en viviendas particulares, por dónde vivían cinco años antes y dónde viven. No cuenta las mudanzas del medio ni a quienes se fueron del país. Quienes llegaron de otra provincia sin decir cuál van aparte, y el saldo se calcula sin ellos. El saldo con origen imputado asigna a esas personas un origen en la misma proporción que al resto: donde cambia de signo no se puede decir si la jurisdicción gana o pierde gente.",
    "origen": [],
    "sensible": false,
    "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",

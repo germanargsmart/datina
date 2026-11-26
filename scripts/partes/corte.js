@@ -315,7 +315,7 @@ if (notaCorte) {
     `<p>${listaY(top[0].nombres)} ${top[0].nombres.length > 1 ? "designaron" : "designó"} ${top[0].n} jueces, más que cualquier otro presidente. ` +
     `Le siguen ${listaY(top[1].nombres)}, con ${top[1].n}, y ${listaY(top[2].nombres)}, con ${top[2].n}${top[2].nombres.length > 1 ? " cada uno" : ""}. ` +
     `La última designación que llegó a la jura fue la de ${CO.ultimo.nombre}, que hizo ${CO.ultimo.designado_por} en ${CO.ultimo.anio}.</p>` +
-    `<div class="nota-limites"><h2>Qué no dice este dato</h2><ul>` +
+    `<div class="nota-fuentes"><details class="nota-calculo nota-limites"><summary>Límites de estos datos</summary><ul>` +
     `<li>Quién designó a un juez no dice cómo votó en cada causa: esta pieza no analiza fallos.</li>` +
     `<li>El grupo de cada gobierno es una clasificación propia y revisable. Sarmiento va con el PAN, que se formó en 1874 con el autonomismo que lo apoyó. ` +
     `Los radicales van juntos: la UCRI de Frondizi y la UCRP de Illia, con la UCR. Guido asumió en 1962 por la ley de acefalía, pero gobernó con un acta firmada ante las ` +
@@ -325,8 +325,8 @@ if (notaCorte) {
     `<li>No cuentan las designaciones que no llegaron a la jura: los ${CO.urquiza} jueces que designó Urquiza en 1854, para una Corte que no se formó, y ${listaY(noAs)}. ` +
     `Rosatti y Rosenkrantz asumieron después por otra designación, con acuerdo del Senado.</li>` +
     `<li>Muchas fechas de designación del siglo XIX y de 1976 a 1983 tienen solo el mes o el año: los gráficos las ubican a mitad de ese período y los cuadros muestran años.</li>` +
-    `</ul></div>` +
-    `<div class="nota-fuentes"><p>Fuentes: Corte Suprema de Justicia de la Nación, nómina de jueces históricos y biografías (copia del Internet Archive de septiembre de 2024: ` +
+    `</ul></details>` +
+    `<p>Fuentes: Corte Suprema de Justicia de la Nación, nómina de jueces históricos y biografías (copia del Internet Archive de septiembre de 2024: ` +
     `la Corte ya no la muestra en su sitio), decretos del Boletín Oficial, leyes de InfoLEG y Casa Rosada. Algunas fechas salen solo de Wikipedia: la tabla con las fuentes lo dice, fila por fila.</p>` +
     `<div class="acciones"><a class="boton chico accion" href="datos/corte_jueces_fuentes.csv" download>Jueces, con fuentes y notas (CSV)</a>` +
     `<a class="boton chico accion" href="datos/corte_composicion.csv" download>Composición por año (CSV)</a>` +

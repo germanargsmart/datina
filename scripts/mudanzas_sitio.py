@@ -7,7 +7,7 @@ departamento) y las viviendas por departamento de datos/manual/censo2022_departa
 - datos/vecinos.topo.json, el fondo del mapa: los países de alrededor, de Natural Earth a 1:50 millones (world-atlas, scripts/lib)
 
 El saldo sale solo de las personas que dijeron de qué provincia venían: con quienes no lo dijeron no se sabe de dónde se fueron. Como prueba de robustez se
-calcula otra vez repartiéndolas, en cada destino, en la misma proporción que las demás (saldo_repartido).
+calcula otra vez imputándoles un origen, en cada destino, en la misma proporción que a las demás (saldo_repartido: el saldo con origen imputado).
 """
 import csv
 import json

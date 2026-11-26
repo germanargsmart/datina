@@ -2462,6 +2462,11 @@ const leyenda = (id, claves) => { $(id).innerHTML = claves.map(k => `<span><i st
    datina.js la corre con parte("politica") más abajo, después de los presidentes. Acá quedan los nombres que usan también otras páginas
    (los textos de otras secciones, la lupa, "En cifras", el calendario y la Corte) y los dos textos de política que la lupa lee de TX */
 const listaY = arr => arr.length > 1 ? arr.slice(0, -1).join(", ") + " " + yE(arr[arr.length - 1]) : arr[0];
+// "Límites de estos datos" (pedido del autor del 26 de noviembre de 2026: "Qué no dice este dato" no se entendía y llevaba a confusión): un
+// desplegable cerrado, con el aspecto de "Cómo se calcula", dentro de "Fuentes y metodología" de los artículos y la Corte Suprema
+function detLimites(lista) {
+  return `<details class="nota-calculo nota-limites"><summary>Límites de estos datos</summary><ul>${lista.map(l => `<li>${l}</li>`).join("")}</ul></details>`;
+}
 const ESP_COLOR = {"Peronismo": "#2C74B5", "UCR y aliados": "#D9453B", "PRO": "#F6B40E", "Cambiemos y Juntos por el Cambio": "#F08A24",
   "La Libertad Avanza": "#4A2C6F", "Izquierda": "#7A1F2B", "Fuerzas provinciales": "#74ACDF", "Otras fuerzas": "#98A2AE"};
 const ESP_TXT = {"Peronismo": "el peronismo", "UCR y aliados": "la UCR y sus aliados", "PRO": "el PRO",
