@@ -3295,6 +3295,62 @@
       "cita": "Habitualmente viven personas, pero no se encuentran presentes"
      }
     ]
+   },
+   {
+    "titulo": "Los precios de la vivienda",
+    "texto": "No hay una estadística oficial de los precios de la vivienda en cada capital de provincia. Las fuentes que existen son privadas, ninguna cubre las 24 capitales y ninguna tiene una licencia que permita republicar sus cifras: por eso esta página no las muestra. Reporte Inmobiliario releva cada trimestre, desde 2009, el alquiler de departamentos usados de dos y tres ambientes en once ciudades, siete de ellas capitales: Córdoba, Mendoza, Neuquén, Posadas, Salta, Santa Fe y San Miguel de Tucumán. Los índices de la Universidad de San Andrés y Mercado Libre siguen cada mes, desde 2018, los precios de venta y de alquiler de los avisos publicados en esa plataforma en el AMBA, Córdoba, Rosario y otras capitales de provincia. Zonaprop publica informes con los precios de los avisos de su portal en CABA, el Gran Buenos Aires, Córdoba y Rosario. Casi todas miden el precio que se pide, no el precio al que se cierra la venta. La excepción es el índice M2 Real de la Universidad del CEMA, RE/MAX y Reporte Inmobiliario, que sigue cada mes el precio de cierre de los departamentos de CABA. Como miden cosas distintas (avisos o consultas, venta o alquiler, dólares o pesos, una muestra fija o todos los avisos), la misma ciudad puede dar valores muy diferentes según la fuente, y sus cifras no se pueden comparar entre sí.",
+    "fuentes": [
+     {
+      "nombre": "Reporte Inmobiliario, alquileres en plazas del interior",
+      "url": "https://www.reporteinmobiliario.com/article5882-alquileres-en-plazas-del-interior",
+      "cita": "Tipologías incluidas por separado: departamentos en casco urbano de 2 y 3 ambientes"
+     },
+     {
+      "nombre": "Reporte Inmobiliario, alquileres en plazas del interior",
+      "url": "https://www.reporteinmobiliario.com/article5882-alquileres-en-plazas-del-interior",
+      "cita": "LOCALIDADES CUBIERTAS: Bahía Blanca, Bariloche, Cordoba Cap, Mar del Plata, Mendoza Cap, Neuquen Cap, Posadas, Rosario, Salta Cap, Santa Fe Cap y San Miguel de Tucumán"
+     },
+     {
+      "nombre": "Reporte Inmobiliario, alquileres en plazas del interior",
+      "url": "https://www.reporteinmobiliario.com/article5882-alquileres-en-plazas-del-interior",
+      "cita": "ACTUALIZACIÓN TRIMESTRAL desde Agosto 2009"
+     },
+     {
+      "nombre": "Reporte Inmobiliario, alquileres en plazas del interior",
+      "url": "https://www.reporteinmobiliario.com/article5882-alquileres-en-plazas-del-interior",
+      "cita": "En todos los casos se verifica que el departamento sea usado"
+     },
+     {
+      "nombre": "Universidad de San Andrés, Índices de Mercado Inmobiliario UdeSA-Mercado Libre",
+      "url": "https://www.udesa.edu.ar/indices-mercado-libre",
+      "cita": "Construidos a partir de datos de publicaciones de la plataforma Mercado Libre"
+     },
+     {
+      "nombre": "Universidad de San Andrés, Índices de Mercado Inmobiliario UdeSA-Mercado Libre",
+      "url": "https://www.udesa.edu.ar/indices-mercado-libre",
+      "cita": "AMBA (por partido y barrio de CABA), Córdoba, Rosario y otras capitales provinciales"
+     },
+     {
+      "nombre": "Universidad de San Andrés, Índices de Mercado Inmobiliario UdeSA-Mercado Libre",
+      "url": "https://www.udesa.edu.ar/indices-mercado-libre",
+      "cita": "Se reportan mensualmente desde enero de 2018"
+     },
+     {
+      "nombre": "Zonaprop, Index, informe del mercado inmobiliario de CABA",
+      "url": "https://www.zonaprop.com.ar/blog/wp-content/uploads/2026/11/INDEX_CABA_REPORTE_2026-10.pdf",
+      "cita": "Todos los avisos de inmuebles publicados por anunciantes en Zonaprop"
+     },
+     {
+      "nombre": "Universidad del CEMA, índice M2 Real",
+      "url": "https://ucema.edu.ar/novedad/ultimo-informe-indice-metro-cuadrado-real",
+      "cita": "información certera sobre los precios reales del cierre de operaciones del mercado inmobiliario argentino"
+     },
+     {
+      "nombre": "Universidad del CEMA, índice M2 Real",
+      "url": "https://ucema.edu.ar/novedad/ultimo-informe-indice-metro-cuadrado-real",
+      "cita": "tener una referencia del valor de los departamentos en la Ciudad Autónoma de Buenos Aires"
+     }
+    ]
    }
   ],
   "glosario": [
