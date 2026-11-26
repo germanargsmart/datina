@@ -237,7 +237,11 @@ const p = prov[c]; foco(c);
 cartel(ev, `<strong>${bandera(c)}${esc(p.n)}</strong><span>Inmigrantes interprovinciales: <b>${num(p.llegan)}</b></span><span>Emigrantes interprovinciales: <b>${num(p.van)}</b></span>` +
 `<span>Saldo migratorio: <b>${masMenos(p.saldo, num)}</b>${p.dudoso ? " (signo indeterminado)" : ""}</span>`);
 }
-const neto = (a, b) => { const n = M[a][b] - M[b][a]; return n === 0 ? "Los dos sentidos se compensan" : `${prov[n > 0 ? b : a].n} ganó ${num(Math.abs(n))} personas en el intercambio`; };
+const neto = (a, b) => {
+const n = M[a][b] - M[b][a], [x, y] = n > 0 ? [b, a] : [a, b];
+return n === 0 ? "Fueron tantas personas en un sentido como en el otro" : `Llegaron a ${prov[x].n} ${num(Math.abs(n))} personas más de las que salieron hacia ${prov[y].n}`;
+};
+const saldoPar = (a, b) => { const n = M[a][b] - M[b][a]; return n === 0 ? "0" : `${masMenos(Math.abs(n), num)} para ${prov[n > 0 ? b : a].n}`; };
 const cartelPar = (a, b) => `<strong>${bandera(a)}${esc(prov[a].n)} y ${bandera(b)}${esc(prov[b].n)}</strong>` +
 `<span>De ${esc(prov[a].n)} a ${esc(prov[b].n)}: <b>${num(M[a][b])}</b> personas</span><span>De ${esc(prov[b].n)} a ${esc(prov[a].n)}: <b>${num(M[b][a])}</b> personas</span><span>${esc(neto(a, b))}</span>`;
 function senalarDep(ev, id) {
@@ -283,8 +287,8 @@ const origenes = c => cods.filter(o => o !== c).map(o => ({c: o, v: M[o][c]})).s
 const destinos = c => cods.filter(o => o !== c).map(o => ({c: o, v: M[c][o]})).sort((a, b) => b.v - a.v);
 const pares = () => cods.flatMap(o => cods.filter(d => d !== o).map(d => ({o, d, v: M[o][d]}))).sort((a, b) => b.v - a.v);
 const tramos = () => {
-const nom = [`Perdió ${-CORTES_POB[0]}% o más`, `Perdió menos de ${-CORTES_POB[0]}%`, `Ganó menos de ${CORTES_POB[2]}%`, `Ganó de ${CORTES_POB[2]}% a ${CORTES_POB[3]}%`,
-`Ganó de ${CORTES_POB[3]}% a ${CORTES_POB[4]}%`, `Ganó ${CORTES_POB[4]}% o más`];
+const nom = [`Bajó ${-CORTES_POB[0]}% o más`, `Bajó menos de ${-CORTES_POB[0]}%`, `Subió menos de ${CORTES_POB[2]}%`, `Subió de ${CORTES_POB[2]}% a ${CORTES_POB[3]}%`,
+`Subió de ${CORTES_POB[3]}% a ${CORTES_POB[4]}%`, `Subió ${CORTES_POB[4]}% o más`];
 return nom.map((n, i) => ({n, i, l: deps.filter(d => clase(d.cambio, CORTES_POB) === i)}));
 };
 function pintarKpis() {
@@ -300,7 +304,7 @@ kpi("Principal flujo migratorio", `<p class="rt-k-cifra rt-k-txt mu-k-par"><span
 const p10 = suma(T, p => p.p10), p22 = suma(T, p => p.p22), baja = deps.filter(d => d.cambio < 0), masQue = deps.filter(d => d.cambio > (p22 / p10 - 1) * 100);
 const g = [...deps].filter(d => d.p22 >= 1e4).sort((a, b) => b.cambio - a.cambio)[0];
 el.innerHTML = kpi(`Población en ${D.anio}`, cifra(dec(p22 / 1e6, 1) + " millones"), `${masMenos((p22 / p10 - 1) * 100, pct)} desde ${D.censo_antes}`) +
-kpi("Departamentos que perdieron gente", cifra(`${baja.length} de ${deps.length}`), `Con los partidos y las comunas. Reúnen el ${pct(suma(baja, d => d.p22) / p22 * 100)} de la población`) +
+kpi(`Departamentos con menos habitantes que en ${D.censo_antes}`, cifra(`${baja.length} de ${deps.length}`), `Con los partidos y las comunas. Reúnen el ${pct(suma(baja, d => d.p22) / p22 * 100)} de la población`) +
 kpi("Crecieron más que el país", cifra(`${masQue.length} de ${deps.length}`), `Reúnen el ${pct(suma(masQue, d => d.p22) / p22 * 100)} de la población`) +
 kpi("El que más creció", `<p class="rt-k-cifra rt-k-txt">${bandera(g.prov)}${esc(g.n)}</p>`, `${masMenos(g.cambio, pct)}, entre los de 10.000 habitantes o más`);
 } else {
@@ -334,7 +338,7 @@ if (E.p === "06") tit.textContent = "Partidos de Buenos Aires";
 const fila = d => `<li><button type="button" data-dep="${d.id}" aria-pressed="${d.id === E.dep}"${E.p ? ' class="sin-bandera"' : ""}>${E.p ? "" : bandera(d.prov)}<span class="rt-b-n">${esc((pob && d.juntos ? d.juntos : d.n) + (E.p ? "" : `, ${prov[d.prov].corto}`))}</span><span class="rt-b-x">${
 pob ? masMenos(d.cambio, pct) : pct(f(d))}</span>${pob ? barraDoble(d.cambio, Math.max(max, 1)) : `<span class="rt-b-barra"><i style="width:${f(d) / max * 100}%"></i></span>`}</button></li>`;
 const baja = pob && !E.p ? l.filter(d => d.cambio < 0).reverse() : [];
-ol.innerHTML = sup.map(fila).join("") + (baja.length ? `<li class="mu-corte">Los que perdieron gente, desde 10.000 habitantes</li>` + baja.map(fila).join("") : "");
+ol.innerHTML = sup.map(fila).join("") + (baja.length ? `<li class="mu-corte">Los que bajaron de población, desde 10.000 habitantes</li>` + baja.map(fila).join("") : "");
 }
 }
 function pintarFicha() {
@@ -346,7 +350,7 @@ if (E.vista === "mudanzas" && E.par) {
 const [a, b] = E.par.split("-"), A = prov[a], B = prov[b], parte = (t, v, de) => `<li><span>${t}</span><small>${pct(v / de * 100)}</small></li>`;
 c.innerHTML = `<div class="rt-f-cab mu-f-cab-par">${bandera(a)}${bandera(b)}<div><h3 id="mu-ficha-tit">${esc(A.n)} y ${esc(B.n)}</h3><p>Flujo migratorio entre las dos jurisdicciones, ${D.desde} a ${D.anio}</p></div></div>
         <dl class="rt-f-datos mu-f-par"><div><dt>De ${esc(A.n)} a ${esc(B.n)}</dt><dd class="mu-t-va">${num(M[a][b])} personas</dd></div><div><dt>De ${esc(B.n)} a ${esc(A.n)}</dt><dd class="mu-t-llega">${num(M[b][a])} personas</dd></div>
-        <div><dt>Saldo del intercambio</dt><dd>${esc(neto(a, b).replace(" en el intercambio", ""))}</dd></div><div><dt>Flujo total, en los dos sentidos</dt><dd>${num(M[a][b] + M[b][a])} personas</dd></div></dl>
+        <div><dt>Saldo del intercambio</dt><dd>${esc(saldoPar(a, b))}</dd></div><div><dt>Flujo total, en los dos sentidos</dt><dd>${num(M[a][b] + M[b][a])} personas</dd></div></dl>
         <h4>Qué parte de cada flujo representa</h4><ul class="rt-f-lista mu-f-partes">
           ${parte(`De los emigrantes de ${esc(A.n)}, fueron a ${esc(B.n)}`, M[a][b], A.van)}${parte(`De los inmigrantes de ${esc(B.n)}, vinieron de ${esc(A.n)}`, M[a][b], B.llegan)}
           ${parte(`De los emigrantes de ${esc(B.n)}, fueron a ${esc(A.n)}`, M[b][a], B.van)}${parte(`De los inmigrantes de ${esc(A.n)}, vinieron de ${esc(B.n)}`, M[b][a], A.llegan)}</ul>
@@ -372,7 +376,7 @@ const p = prov[E.p], l = deps.filter(d => d.prov === E.p), baja = l.filter(d => 
 const mot = D.motivos.map(k => ({k, v: suma(l, d => d.mot[k])})).sort((a, b) => b.v - a.v);
 c.innerHTML = `<div class="rt-f-cab">${bandera(p.c)}<div><h3 id="mu-ficha-tit">${esc(p.n)}</h3><p>${l.length} ${E.p === "02" ? "comunas" : E.p === "06" ? "partidos" : "departamentos"}</p></div></div>
         <dl class="rt-f-datos"><div><dt>Población en ${D.censo_antes}</dt><dd>${num(p.p10)}</dd></div><div><dt>Población en ${D.anio}</dt><dd>${num(p.p22)}</dd></div>
-        <div><dt>Cambio</dt><dd>${masMenos(p.cambio, pct)}</dd></div><div><dt>Perdieron gente</dt><dd>${baja.length} de ${l.length}</dd></div>
+        <div><dt>Cambio</dt><dd>${masMenos(p.cambio, pct)}</dd></div><div><dt>Bajaron de población</dt><dd>${baja.length} de ${l.length}</dd></div>
         <div><dt>Viviendas sin personas</dt><dd>${pct(sin / viv * 100)}</dd></div><div><dt>Son</dt><dd>${num(sin)}</dd></div></dl>
         <h4>Por qué no había personas</h4><ul class="rt-f-lista">${mot.map(x => `<li><span>${MOTIVO[x.k]}</span><b>${num(x.v)}</b><small>${pct(x.v / sin * 100)}</small></li>`).join("")}</ul>`;
 }
@@ -400,7 +404,7 @@ if (E.vista === "mudanzas" && !E.p && !E.par) {
 const [p1, p2] = pares(), inverso = p2.o === p1.d && p2.d === p1.o, [g1, ...gs] = gana.slice(0, 3), [q1, ...qs] = pierde.slice(0, 3);
 s = [`Entre ${D.desde} y ${D.anio}, ${num(co + so)} personas se mudaron de una provincia a otra. Se cuentan las de 5 años y más, porque el censo pregunta dónde vivía cada persona cinco años antes. El ${pct(so / (co + so) * 100)} no dijo en qué provincia vivía antes.`,
 `El saldo migratorio de una provincia es la gente que llegó (inmigrantes) menos la que se fue (emigrantes). ${g1.n} tuvo el saldo más alto: llegaron ${num(g1.saldo)} personas más de las que se fueron. Le siguen ${lista(gs.map(p => `${p.n} (${masMenos(p.saldo, num)})`))}. ${q1.n} tuvo el más bajo: se fueron ${num(-q1.saldo)} personas más de las que llegaron. Le siguen ${lista(qs.map(p => `${p.n} (${masMenos(p.saldo, num)})`))}.`,
-`En ${PALABRA[duda.length] || duda.length} jurisdicciones no se puede saber si ganaron o perdieron gente: ${lista(duda.map(p => p.n).sort((a, b) => a.localeCompare(b, "es")))}. Su saldo cambia de signo según de dónde hayan venido quienes no dijeron su provincia.`,
+`En ${PALABRA[duda.length] || duda.length} jurisdicciones no se puede saber si el saldo migratorio es positivo o negativo: ${lista(duda.map(p => p.n).sort((a, b) => a.localeCompare(b, "es")))}. Su saldo cambia de signo según de dónde hayan venido quienes no dijeron su provincia.`,
 `El flujo más grande fue de ${prov[p1.o].n} a ${prov[p1.d].n}: ${num(p1.v)} personas. En sentido contrario fueron ${num(M[p1.d][p1.o])}${inverso ? ", el segundo flujo más grande del país." : `. El segundo flujo más grande fue de ${prov[p2.o].n} a ${prov[p2.d].n}: ${num(p2.v)} personas.`}`];
 } else if (E.vista === "mudanzas" && E.par) {
 const [a, b] = E.par.split("-"), A = prov[a], B = prov[b], n = M[a][b] - M[b][a], [G, P] = n >= 0 ? [B, A] : [A, B], [g, pc] = n >= 0 ? [b, a] : [a, b];
@@ -409,24 +413,24 @@ s = [`Entre ${D.desde} y ${D.anio}, ${num(M[a][b])} personas se mudaron de ${A.n
 } else if (E.vista === "mudanzas") {
 const p = prov[E.p], o = origenes(E.p), d = destinos(E.p), signo = p.saldo >= 0 ? "positivo" : "negativo";
 s = [`Entre ${D.desde} y ${D.anio} llegaron a ${p.n} ${num(p.llegan)} personas de otras provincias (inmigrantes) y se fueron ${num(p.van)} (emigrantes). El saldo migratorio es ${signo}: ${p.saldo >= 0
-? `llegaron ${num(p.saldo)} personas más de las que se fueron` : `se fueron ${num(-p.saldo)} personas más de las que llegaron`}. Equivale a ${p.saldo >= 0 ? "ganar" : "perder"} ${dec(Math.abs(p.saldo / p.viven * 1000), 1)} personas por cada mil habitantes de 5 años y más.`,
+? `llegaron ${num(p.saldo)} personas más de las que se fueron` : `se fueron ${num(-p.saldo)} personas más de las que llegaron`}. Equivale a una tasa neta de ${masMenos(p.saldo / p.viven * 1000, x => dec(x, 1))} por cada mil habitantes de 5 años y más.`,
 `La mayoría de los que llegaron vino de ${lista(o.slice(0, 3).map(x => `${prov[x.c].n} (${pct(x.v / p.llegan * 100)})`))}. Los que se fueron eligieron sobre todo ${lista(d.slice(0, 3).map(x => `${prov[x.c].n} (${pct(x.v / p.van * 100)})`))}.`,
 `Además llegaron ${num(p.sinDecir)} personas que no dijeron de qué provincia venían, el ${pct(p.sinDecir / (p.sinDecir + p.llegan) * 100)} de los que llegaron. ${p.dudoso
-? `Si se las reparte como al resto, el saldo pasa a ${masMenos(p.repartido, num)} y cambia de signo: por eso no se puede saber si ${p.n} ganó o perdió gente.`
+? `Si se las reparte como al resto, el saldo pasa a ${masMenos(p.repartido, num)} y cambia de signo: por eso no se puede saber si el saldo de ${p.n} es positivo o negativo.`
 : `Aun si se las reparte como al resto, el saldo sigue siendo ${signo} (${masMenos(p.repartido, num)}).`} También llegaron ${num(p.exterior)} personas que vivían en otro país.`];
 } else if (E.vista === "poblacion") {
 const l = E.p ? deps.filter(d => d.prov === E.p) : deps, nom = E.p ? prov[E.p].n : "el país", tipo = E.p === "02" ? "comunas" : E.p === "06" ? "partidos" : "departamentos";
 const p10 = E.p ? prov[E.p].p10 : suma(T, p => p.p10), p22 = E.p ? prov[E.p].p22 : suma(T, p => p.p22), baja = l.filter(d => d.cambio < 0).sort((a, b) => a.cambio - b.cambio);
 s = [`Entre los censos de ${D.censo_antes} y ${D.anio}, la población de ${E.p ? nom : "todo el país"} pasó de ${num(p10)} a ${num(p22)} habitantes (${masMenos((p22 / p10 - 1) * 100, pct)}). ${baja.length
-? `${baja.length === 1 ? (tipo === "comunas" ? "Una" : "Uno") : mayus(PALABRA[baja.length] || num(baja.length))} de ${tipo === "comunas" ? "sus" : "los"} ${l.length} ${tipo} ${baja.length === 1 ? "tenía" : "tenían"} menos gente que doce años antes.`
-: `Ninguna de las ${l.length} ${tipo} perdió gente.`.replace("Ninguna de las", tipo === "comunas" ? "Ninguna de las" : "Ninguno de los")}`];
-if (!E.p) s.push(`Que un departamento pierda gente no quiere decir que se vaciaron sus casas. El cambio junta los nacimientos, las muertes y las mudanzas, y este dato no los separa.`);
+? `${baja.length === 1 ? (tipo === "comunas" ? "Una" : "Uno") : mayus(PALABRA[baja.length] || num(baja.length))} de ${tipo === "comunas" ? "sus" : "los"} ${l.length} ${tipo} ${baja.length === 1 ? "tenía" : "tenían"} menos habitantes que doce años antes.`
+: `Ninguna de las ${l.length} ${tipo} bajó de población.`.replace("Ninguna de las", tipo === "comunas" ? "Ninguna de las" : "Ninguno de los")}`];
+if (!E.p) s.push(`Que un departamento tenga menos habitantes no quiere decir que se vaciaron sus casas. El cambio junta los nacimientos, las muertes y las mudanzas, y este dato no los separa.`);
 } else {
 const l = E.p ? deps.filter(d => d.prov === E.p) : deps, v = suma(l, d => d.viv), sin = suma(l, d => d.sin), mot = D.motivos.map(k => ({k, v: suma(l, d => d.mot[k])})).sort((a, b) => b.v - a.v);
 s = [`En el Censo ${D.anio}, ${num(sin)} de las ${num(v)} viviendas particulares ${E.p ? `de ${prov[E.p].n}` : "del país"} no tenían personas presentes (${pct(sin / v * 100)}). Los motivos más frecuentes: ${lista(mot.slice(0, 3).map(x => `${MOTIVO[x.k].toLowerCase()} (${pct(x.v / sin * 100)})`))}.`];
 if (!E.p) {
 const t = tramos(), alto = t[5].l, bajo = t[0].l, medio = t.slice(1, 5).flatMap(x => x.l), r = a => pct(suma(a, d => d.sin) / suma(a, d => d.viv) * 100);
-s.push(`Hay más viviendas sin personas en los dos extremos: ${r(bajo)} en los ${bajo.length} departamentos que perdieron ${-CORTES_POB[0]}% o más de su población y ${r(alto)} en los ${alto.length} que crecieron ${CORTES_POB[4]}% o más, contra ${r(medio)} en los demás. Son pocos departamentos. En los que más crecieron, el ${pct(suma(alto, d => d.mot.uso_temporal) / suma(alto, d => d.sin) * 100)} de las viviendas sin personas son de vacaciones o fin de semana, y en los que más perdieron, el ${pct(suma(bajo, d => d.mot.uso_temporal) / suma(bajo, d => d.sin) * 100)}.`);
+s.push(`Hay más viviendas sin personas en los dos extremos: ${r(bajo)} en los ${bajo.length} departamentos cuya población bajó ${-CORTES_POB[0]}% o más y ${r(alto)} en los ${alto.length} que crecieron ${CORTES_POB[4]}% o más, contra ${r(medio)} en los demás. Son pocos departamentos. En los que más crecieron, el ${pct(suma(alto, d => d.mot.uso_temporal) / suma(alto, d => d.sin) * 100)} de las viviendas sin personas son de vacaciones o fin de semana, y en los que más bajaron, el ${pct(suma(bajo, d => d.mot.uso_temporal) / suma(bajo, d => d.sin) * 100)}.`);
 }
 }
 $("mu-frase").innerHTML = s.map(x => `<p>${esc(x)}</p>`).join("");
@@ -460,7 +464,7 @@ function pintarCorredores() {
 const l = pares().filter(x => !E.p || x.o === E.p || x.d === E.p).slice(0, 12), max = l[0].v;
 $("mu-corr-tit").textContent = E.p ? `Principales flujos migratorios de ${prov[E.p].n}` : "Principales flujos migratorios";
 $("mu-corr").innerHTML = l.map(x => `<li><button type="button" data-par="${x.o}-${x.d}" aria-pressed="${E.par === `${x.o}-${x.d}`}"><span class="mu-corr-cab"><span class="rt-c-ruta"><em>de</em> <span>${bandera(x.o)}${esc(prov[x.o].corto)}</span> <em>a</em> <span>${bandera(x.d)}${esc(prov[x.d].corto)}</span></span><span class="rt-c-v">${num(x.v)}</span></span>
-      <span class="mu-ida" aria-hidden="true"><i class="${x.d === E.p ? "l" : x.o === E.p ? "v" : ""}" style="width:${x.v / max * 100}%"></i></span><span class="rt-c-prod">En sentido contrario: ${num(M[x.d][x.o])}. ${esc(neto(x.o, x.d))}.</span></button></li>`).join("");
+      <span class="mu-ida" aria-hidden="true"><i class="${x.d === E.p ? "l" : x.o === E.p ? "v" : ""}" style="width:${x.v / max * 100}%"></i></span><span class="rt-c-prod">En sentido contrario: ${num(M[x.d][x.o])}. Saldo: ${esc(saldoPar(x.o, x.d))}.</span></button></li>`).join("");
 }
 function pintar() {
 const act = document.activeElement, caja = act && act.closest && act.closest("#mu-lado-lista,#mu-corr"), k = caja && (act.dataset.p ? "p" : act.dataset.dep ? "dep" : act.dataset.par ? "par" : "");
