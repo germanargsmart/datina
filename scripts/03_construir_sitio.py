@@ -803,10 +803,11 @@ js = (RAIZ / "scripts" / "datina.js").read_text(encoding="utf-8")
 # de 2026) también las que se asignan en las partes de una sola página (scripts/partes/*.js), con o sin sangría, porque ahí muchas van dentro
 # de un if o una función: una clave de una parte que repite una del núcleo, o de otra parte, también frena el armado. Desde el paso de los
 # textos y los gráficos de cada sección (25 de noviembre de 2026) las partes llevan también propiedades de esos objetos dentro de un
-# Object.assign(DIB, {...}) o de LEAD, y los textos de TX dentro de textosParte({...}): se miran como los del núcleo
+# Object.assign(DIB, {...}) o de LEAD, y los textos de TX dentro de textosParte({...}): se miran como los del núcleo. En el núcleo
+# se mira también el objeto de DIB (const DIB = protegerDib({...})), porque ya no queda ningún Object.assign(DIB, {...})
 _JS_PARTES = [(f.name, f.read_text(encoding="utf-8")) for f in sorted((RAIZ / "scripts" / "partes").glob("*.js"))]
 for _obj in ("LEAD", "TX", "DIB", "CLAVE", "EXTRA", "EN_CIFRAS", "SERIE_CIFRA"):
-    _bl = [m.group(1) for m in re.finditer(r"\n(?:const " + _obj + r" = |Object\.assign\(" + _obj + r", )\{\n(.*?)\n\}\)?;?\n", js, re.S)]
+    _bl = [m.group(1) for m in re.finditer(r"\n(?:const " + _obj + r" = (?:protegerDib\()?|Object\.assign\(" + _obj + r", )\{\n(.*?)\n\}\)?;?\n", js, re.S)]
     assert _bl, f"no se encontró {_obj} en datina.js"
     _cl = [a or b for b_ in _bl for a, b in re.findall(r'^  (?:"([^"]+)"|([\w$]+)):', b_, re.M)]
     _cl += [a or b for a, b in re.findall(r"^" + _obj + r'(?:\["([^"]+)"\]|\.([\w$]+)) = ', js, re.M)]

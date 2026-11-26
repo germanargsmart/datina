@@ -269,13 +269,6 @@ const yCambio = (a, b) => Math.round(Math.abs(a) * 10) && Math.round(Math.abs(b)
 const unoCada = tasa => n0(Math.round(1e5 / tasa / 100) * 100);
 const cambioPct = v => Math.round(Math.abs(v) * 10) === 0 ? "no cambió" : `${v < 0 ? "bajó" : "subió"} ${pct(Math.abs(v))}`;
 const millonesM = v => n2(v / 1e6) + " M", ejeM = v => v === 0 ? "0" : n1(v / 1e6) + " M";
-const CORTO_DEL = {"Otros delitos contra la propiedad": "Otros contra la propiedad", "Lesiones culposas en siniestros viales": "Lesiones en tránsito",
-"Infracciones a la ley de estupefacientes": "Estupefacientes", "Delitos de otras leyes especiales": "Otras leyes especiales",
-"Delitos contra la administración pública": "Administración pública", "Otros delitos contra las personas": "Otros contra las personas",
-"Otros delitos contra la integridad sexual": "Otros delitos sexuales", "Abusos sexuales con acceso carnal": "Abusos con acceso carnal",
-"Delitos contra la seguridad pública": "Seguridad pública", "Otros delitos contra la libertad": "Otros contra la libertad",
-"Homicidios dolosos": "Homicidios dolosos", "Lesiones culposas por otros hechos": "Otras lesiones culposas",
-"Tentativas de homicidio doloso": "Tentativas de homicidio", "Muertes en siniestros viales": "Muertes en tránsito"};
 const deLas24 = n => n === 24 ? "en las 24 jurisdicciones" : n === 0 ? "en ninguna de las 24 jurisdicciones" : `en ${n} de las 24 jurisdicciones`;
 const TILDE_AREA = {rio: "río", leon: "león", maria: "maría", cajon: "cajón", porton: "portón", cañadon: "cañadón", fortin: "fortín",
 estacion: "estación", explotacion: "explotación", fraccion: "fracción", cordon: "cordón", volcan: "volcán", oceano: "océano",
@@ -1043,77 +1036,29 @@ return `En ${C.anio}, el comercio de bienes dejó un saldo de ${saldoTx(C.bienes
 `${R.justicia.corte.hasta} entraron ${n0(R.justicia.corte.saldo)} casos más de los que se resolvieron. ` : "") +
 `El año con más casos resueltos fue ${R.justicia.corte.max_res_anio}, con ${n0(R.justicia.corte.max_res)}, y el de menos, ${R.justicia.corte.min_res_anio}, ` +
 `con ${n0(R.justicia.corte.min_res)}.`,
-"corte-casos-nota": `Un caso es un expediente que llega a la Corte. La mayoría son recursos contra sentencias de otros tribunales. Un caso resuelto es el que ` +
-`tuvo en el año la decisión que lo cierra en la Corte, aunque el asunto siga en otra instancia. Un fallo puede cerrar muchos casos iguales a la vez: en ` +
-`${R.justicia.corte.hasta} la Corte firmó ${n0(R.justicia.corte.fallos)} fallos en ${R.justicia.corte.acuerdos} acuerdos de sus jueces` +
-(R.justicia.corte.fallos_ant ? `, y en ${R.justicia.corte.hasta - 1}, ${n0(R.justicia.corte.fallos_ant)}` : "") + `. La Oficina de Estadísticas de la Corte ` +
-`publica la serie desde ${R.justicia.corte.desde} solo en PDF y en tableros interactivos: las cifras se cargaron a mano, cada una con la página de la que sale, y la cantidad de ` +
-`fallos está desde ${R.justicia.corte.fallos_desde}. Las notas anuales del Centro de Información Judicial, anteriores a esta serie, contaban de otra manera y no se mezclan con ella.`,
 "jueces-federales": (() => { const F = R.justicia.federal;
 return `En ${F.fecha}, la Justicia Federal tenía ${n0(F.cargos)} cargos de juez en ${n0(F.organos)} juzgados, cámaras y tribunales orales que funcionan. De los cargos sin titular, ${n0(F.subrogante)} están ` +
 `cubiertos por un subrogante: otro juez, un conjuez o un secretario designado para reemplazar al titular. Los otros ${n0(F.sin_cubrir)} no tienen a nadie designado. ` +
 `En ${F.fecha_ant}, el ${pct(F.pct_sin_titular_ant)} de los cargos estaba sin titular. Por habitante, ${F.max.territorio} tiene ${n1(F.max.valor)} cargos cada 100.000 ` +
 `habitantes` + (F.max.codigo === "02" ? `, porque ahí están también los tribunales federales que atienden casos de todo el país,` : "") +
 ` y ${F.min.territorio}, ${n1(F.min.valor)}. El promedio del país es ${n1(F.cada_100mil)}.`; })(),
-"jueces-federales-nota": (() => { const F = R.justicia.federal;
-return `Un cargo es el lugar de un juez en un juzgado, una cámara o un tribunal oral: una cámara o un tribunal tiene varios. Se cuentan los cargos de ` +
-`los órganos que funcionan. Hay ${n0(F.sin_funcionar_cargos)} cargos más en ${n0(F.sin_funcionar_organos)} juzgados, cámaras y tribunales creados por ley que ` +
-`todavía no funcionan. No incluye a la Corte Suprema. La Justicia Nacional, que es la justicia ordinaria de CABA (civil, comercial, ` +
-`laboral y penal), tiene otros ${n0(F.nacional_cargos)} cargos, ${n0(F.nacional_sin_titular)} sin titular, y no entra en las barras para que las provincias se ` +
-`puedan comparar. Padrón del Ministerio de Justicia de ${F.fecha} y población proyectada por el INDEC para ${R.anio_pob_ficha.justicia_federal_provincias}, el año del padrón.`; })(),
 "fiscalias-federales": (() => { const M = R.justicia.mp, f = T.fiscalias_defensorias_federales,
 tot = d => d.fiscalias_cada_100mil + d.defensorias_cada_100mil,
 mx = f.reduce((a, d) => tot(d) > tot(a) ? d : a), mn = f.reduce((a, d) => tot(d) < tot(a) ? d : a);
 return `Las fiscalías investigan los delitos federales y acusan. Las defensorías públicas oficiales defienden a quien no tiene un abogado particular. Cada fiscalía o defensoría puede tener más de un cargo. ` +
 `En ${M.fecha}, ${n0(M.fiscalias_cargos_sin_titular)} de los ${n0(M.fiscalias_cargos)} cargos de fiscal no tenían titular, y ${n0(M.defensorias_cargos_sin_titular)} ` +
 `de los ${n0(M.defensorias_cargos)} cargos de defensor. Sumando fiscalías y defensorías, ${mx.territorio} tiene ${n1(tot(mx))} cada 100.000 habitantes y ${mn.territorio}, ${n1(tot(mn))}.`; })(),
-"fiscalias-federales-nota": (() => { const M = R.justicia.mp;
-return `Una fiscalía o una defensoría puede tener más de un cargo. Se cuentan las que funcionan. Es el último padrón del Ministerio de Justicia que trae a los ` +
-`fiscales y los defensores: el de ${R.justicia.federal.fecha} trae solo a los jueces. No incluye a la Procuración General ni a la Defensoría General de la ` +
-`Nación. En CABA funcionan además ${n0(M.nacional_fiscalias)} fiscalías y ${n0(M.nacional_defensorias)} defensorías de la Justicia ` +
-`Nacional, su justicia ordinaria, que no entran en las barras. La población es la que proyecta el INDEC para ${R.anio_pob_ficha.fiscalias_defensorias_federales}, el año del padrón.`; })(),
 "cortes-provinciales": (() => { const P = R.justicia.prov, v = P.cortes_vacantes.map((c, i) => `el de ${c.territorio}${i ? "," : " tenía ocupados"} ${c.ministros} de ${c.ley}`);
 const lista = v.length > 1 ? v.slice(0, -1).join(", ") + " " + yE(v.at(-1)) : v[0] || "";
 return `En ${P.cortes_ley} de los 24 máximos tribunales se pudo leer en la ley cuántos lugares tienen. De ellos, ${P.cortes_completas} tenían todos sus lugares ocupados ` +
 `al 31 de octubre de ${P.anio}` + (lista ? `. ${lista.replace(/^el/, "El")}` : "") +
 `. De las ${n0(P.ministros)} personas que integraban los máximos tribunales de las provincias y de CABA, ${n0(P.ministras)} eran mujeres. La Corte Suprema de la Nación tiene hoy ` +
 `${R.corte.hoy.length} de los ${R.corte.ley_hoy} jueces que fija la ley.`; })(),
-"cortes-provinciales-nota": (() => { const P = R.justicia.prov;
-return `Cada provincia llama distinto a su máximo tribunal: Corte Suprema, Superior Tribunal o Tribunal Superior de Justicia. Los ministros en funciones ` +
-`son los que cargó cada poder judicial en el Mapa de Género de la Oficina de la Mujer de la Corte Suprema, al 31 de octubre de ${P.anio}. Los lugares ` +
-`que fija la ley salen de la constitución o la ley orgánica de cada provincia, vigentes hoy, y van solo donde se leyó el número en la norma: en ` +
-`${24 - P.cortes_ley} jurisdicciones la constitución da solo un mínimo o un rango y no se encontró el texto de la ley que fija el número.`; })(),
 "justicia-provincial": (() => { const P = R.justicia.prov;
 return `Las justicias de las provincias y de CABA sumaban ${n0(P.magistratura)} jueces, ${n0(P.fiscales)} fiscales y ${n0(P.defensores)} defensores, sin contar la justicia federal. Por habitante, ` +
 `${P.max.magistratura.territorio} tiene la cifra más alta de jueces, ${n1(P.max.magistratura.valor)} cada 100.000 habitantes, y ${P.min.magistratura.territorio} ` +
 `la más baja, ${n1(P.min.magistratura.valor)}. La diferencia depende en parte de cuántos juzgados de paz tiene cada provincia` + (P.min.magistratura.territorio === "CABA" ? `. En CABA, además, la mayor parte de la justicia ordinaria es la Justicia Nacional, que este conteo no incluye` : "") + `. En fiscales, el promedio del ` +
 `país${P.mp_unico.length ? `, sin ${P.mp_unico.map(m => m.territorio).join(" ni ")},` : ""} es ${n1(P.pais.fiscales)} cada 100.000 habitantes, y en defensores, ${n1(P.pais.defensores)}.`; })(),
-"justicia-provincial-nota": (() => { const P = R.justicia.prov, LAB = {fiscales: "fiscales", defensores: "defensores", magistratura: "jueces", ministros: "ministros"};
-const lista = l => l.length > 1 ? l.slice(0, -1).join(", ") + " " + yE(l.at(-1)) : l[0];
-const faltan = Object.entries(P.anteriores).filter(([, l]) => l.length).map(([k, l]) => `los ${LAB[k]} de ${lista(l)}`);
-const ant = faltan.length ? [`En ${P.anio} no se cargaron ${faltan.length > 1 ? faltan.slice(0, -1).join(", ") + " ni " + faltan.at(-1) : faltan[0]}: va el dato ` +
-`de ${P.anio_ant}, como en el Mapa publicado.`] : [];
-const bajas = Object.entries(P.bajas).flatMap(([k, l]) => l.map(b => `En ${P.anio}, ${b.territorio} informó ${n0(b.v)} ${LAB[k]}, contra ${n0(b.ant)} en ${P.anio_ant}: es lo que cargó la provincia.`));
-return `Son las personas en cada cargo al 31 de octubre de ${P.anio}, no los cargos que fija la ley: un juzgado vacante no se cuenta. Los jueces ` +
-`incluyen a los ministros del máximo tribunal, a los camaristas, a los integrantes de tribunales colegiados y a la justicia de paz, que en algunas provincias ` +
-`tiene muchos juzgados y en otras pocos. Los fiscales incluyen a los procuradores generales, y los defensores, a los defensores generales. ` +
-[...ant, ...bajas].join(" ") + " " +
-P.mp_unico.map(m => `${m.territorio} tiene un solo ministerio público y carga juntos a sus fiscales y defensores (${n0(m.v)}): no entra en esas dos vistas.`).join(" ") +
-` No incluye a la justicia federal ni a la Justicia Nacional de CABA. Cada jurisdicción carga sus datos en el Mapa de Género de la Justicia Argentina, ` +
-`de la Oficina de la Mujer de la Corte Suprema. Cada dato se divide por la población que proyecta el INDEC para su año.`; })(),
-"confianza-gobierno-nota": R.confianza_gobierno ? `El índice resume cinco preguntas de una encuesta mensual de opinión pública de alcance nacional que hace la Universidad ` +
-`Torcuato Di Tella sobre el gobierno nacional: la evaluación general del gobierno, si gobierna pensando en el bien general o en intereses de sectores, si administra ` +
-`bien el gasto público, la honestidad de sus miembros y su capacidad para resolver los problemas del país. Va de 0, ninguna confianza, a 5, mucha confianza. Mide la ` +
-`opinión sobre el gobierno de cada momento y, como toda encuesta, tiene margen de error: los cambios chicos de un mes al otro pueden no ser significativos. En el ` +
-`promedio de cada gobierno no se cuenta el mes en que asumió uno nuevo, porque según la fecha de la encuesta puede medir al que se va o al que llega. Eduardo Duhalde ` +
-`asumió el 2 de enero de 2002 y ese mes va con él. Fernando de la Rúa, con un solo mes en la serie, y los presidentes interinos de diciembre de 2001 no tienen promedio.` +
-(R.confianza_gobierno.elecciones ? ` En la vista de elecciones, arriba va el índice mes a mes y abajo, el voto en cada elección presidencial: las primeras vueltas desde ` +
-`${R.confianza_gobierno.elecciones.desde} (punto lleno) y las PASO desde que empezaron, en 2011 (punto hueco). El voto es el de la candidatura del gobierno nacional sobre los votos positivos, con los resultados de la Dirección ` +
-`Nacional Electoral (provisorios en 2023): en las PASO, el de todas las listas de su agrupación, y en 2003, el de Néstor Kirchner, que era el candidato del presidente ` +
-`Duhalde. El índice que se compara es el del mes anterior a cada elección (el punto sobre la línea de arriba), el último medido entero antes de votar. Son pocas elecciones, y la PASO y la primera vuelta de un mismo ` +
-`año están muy relacionadas entre sí, así que la correlación exagera lo que se puede afirmar. La que da el texto de esa vista, ${n2(R.confianza_gobierno.elecciones.r)}, es la de Pearson, que usa los valores. La de Spearman, que usa el orden y no los valores, es ` +
-`${n2(R.confianza_gobierno.elecciones.rs)}. Que el índice y el voto vayan juntos no quiere decir que uno cause el otro: el voto depende también de quiénes son los ` +
-`candidatos, de la oposición y de la situación económica. Las elecciones legislativas no están: el sitio tiene los resultados de las presidenciales.` : "") : "",
 "mujeres-congreso": `Hoy hay ${MJC.diputadas} diputadas en ${MJC.dip_bancas} bancas (${pct(MJC.dip)}) y ${MJC.senadoras} senadoras en ${MJC.sen_bancas} ` +
 `(${pct(MJC.sen)}). Por provincia, contando sus diputados y sus senadores, la parte de mujeres va de ${pct(MJC.min[1])} en ${MJC.min[0]} a ` +
 `${pct(MJC.max[1])} en ${MJC.max[0]}. Las delegaciones chicas cambian mucho con una sola banca.`,
@@ -1122,11 +1067,6 @@ P.mp_unico.map(m => `${m.territorio} tiene un solo ministerio público y carga j
 `la parte de diputadas creció (${pct(MJC.dip_93)} en 1993). En el Senado el salto llegó en 2001, con la primera elección directa. Desde ` +
 `2019 rige la ley de paridad, que obliga a alternar mujeres y varones en las listas. Hoy, ${pct(MJC.dip)} en Diputados y ${pct(MJC.sen)} en el Senado.`,
 "tarifa-luz": LEAD["tarifa-luz"]("250"),
-"mujeres-congreso-nota": `Bancas ocupadas hoy y el 1 de marzo de cada período, como en la ficha de las bancas de cada espacio político. Los ` +
-`registros de las cámaras no dicen el sexo de cada legislador: Datina lo toma de su nombre de pila, con una tabla revisada a mano, y los ` +
-`nombres que pueden ser de mujer o de varón se revisaron uno por uno. ${MJC.sin_det_serie ? `En ${MJC.sin_det_serie} casos de toda la serie no se ` +
-`pudo determinar y quedan fuera del porcentaje. ` : ""}Qué no dice este dato: cuántas mujeres encabezan listas, presiden bloques o comisiones, ` +
-`ni cuántas votantes hay en cada padrón.`,
 transito: `De ${TRN.desde} a ${TRN.hasta} murieron en el país unas ${n0(TRN.por_anio)} personas por año en siniestros viales, según el SNIC: ` +
 `${n1(TRN.pais)} cada 100.000 habitantes. La tasa más baja es la de ${TRN.min}, ${n1(TRN.min_v)}, y la más alta es ${n1(TRN.veces)} veces esa.`,
 "transito-serie": `En ${TRN.ult} murieron ${n0(TRN.ult_v)} personas en siniestros viales en el país, según el SNIC. Desde ${TRN.serie_desde}, el año con más ` +
@@ -1223,24 +1163,11 @@ patentes: `Entre ${au.ytd} se inscribieron en los registros del país ${pct(Math
 salarios: LEAD.salarios("prov"),
 "salario-docente": LEAD["salario-docente"]("prov"),
 "inversion-educativa": LEAD["inversion-educativa"]("alumno"),
-delitos: LEAD.delitos("tipo"), "delitos-nota": `El SNIC reúne los hechos que registran las fuerzas policiales y de seguridad, y en algunas provincias el Ministerio Público ` +
-`Fiscal, en sus primeras actuaciones: los delitos que nadie denuncia ni detecta no figuran, y algunos de los registrados pueden no confirmarse después. Cada hecho ` +
-`cuenta como un delito. El total suma los delitos de todos los tipos salvo las contravenciones, y el gráfico muestra los catorce más frecuentes (la tabla tiene todos). Tasas cada 100.000 habitantes con las proyecciones de población del INDEC ` +
-`de cada momento (desde 2022, con base en el Censo 2022). Entre 2009 y 2013, el SNIC completó el total del país porque faltan datos de Buenos Aires y de Córdoba.`,
-robos: LEAD.robos("robos"), "robos-nota": `Hechos que registran las fuerzas policiales y de seguridad, cada 100.000 habitantes. El robo es quedarse con algo ajeno con fuerza ` +
-`en las cosas o violencia en las personas, y el hurto, sin fuerza ni violencia. Los robos no incluyen las tentativas ni los agravados por el resultado de lesiones o ` +
-`muertes, que el SNIC cuenta aparte. Las diferencias entre provincias dependen también de cuánto se denuncia y de cómo registra cada fuerza.`,
-homicidios: LEAD.homicidios("prov"), "homicidios-nota": `Víctimas de homicidios dolosos que registran las fuerzas policiales y de seguridad. Un homicidio es doloso cuando alguien le quita la vida a otra persona con intención de hacerlo. ` +
-`Por provincia, la tasa suma las víctimas de ${SG.hom3_desde} a ${SG.anio} y las divide por la población del INDEC de esos años, porque donde hay ` +
-`pocos casos la tasa de un solo año cambia mucho. Las muertes en siniestros viales y los femicidios están en la ficha de muertes de Salud.`,
+delitos: LEAD.delitos("tipo"),
+robos: LEAD.robos("robos"),
+homicidios: LEAD.homicidios("prov"),
 "sin-condena": LEAD["sin-condena"]("prov"),
-"sin-condena-nota": `Sin condena quiere decir que la persona estaba procesada, con la causa todavía en trámite, o en otra situación legal. ` +
-`Cada provincia es su servicio penitenciario: CABA no tiene uno propio y el Servicio Penitenciario Federal va aparte. La línea del país suma todos, también el federal. ` +
-`No se cuentan las personas detenidas en comisarías ni las que tienen prisión domiciliaria.`,
-carceles: LEAD.carceles("serie"), "carceles-nota": `Censo de las personas alojadas en establecimientos penitenciarios al 31 de diciembre de cada año. No incluye a las ` +
-`personas detenidas en comisarías ni a las que tienen prisión domiciliaria. Por provincia, cada servicio penitenciario provincial sobre la población de su provincia que proyecta el INDEC para el mismo año: ` +
-`las cárceles federales van aparte y una cárcel puede alojar a personas detenidas por la justicia de otra provincia. El país, sobre la población que usa el SNIC. ` +
-`El salto de 2004 viene del dato de la provincia de Buenos Aires de ese año, mucho más alto que el de los años vecinos.`,
+carceles: LEAD.carceles("serie"),
 "cuentas-nacion": LEAD["cuentas-nacion"]("resultado"),
 recaudacion: LEAD.recaudacion("impuesto"),
 deuda: LEAD.deuda(),
@@ -1293,10 +1220,6 @@ crianza: LEAD.crianza("edad"),
 "socios-que": LEAD["socios-que"]("vende", SQ.ini),
 "valor-kilo": LEAD["valor-kilo"]("anual"),
 "precio-consumo": LEAD["precio-consumo"]("carne"),
-"precio-consumo-nota": `Precio: el precio promedio del Gran Buenos Aires de la planilla que el INDEC publica con el IPC, dividido por el IPC de esa región, promedio de cada año completo. ` +
-`Carne vacuna: promedio simple de asado, carne picada común, paleta, cuadril y nalga. Yerba: paquete de 500 gramos. Vino: vino común, por litro. El INDEC aclara que estos precios sirven para seguir la evolución en el tiempo. ` +
-`Consumo: en la carne, los kilos por habitante de todo el país. En la yerba y el vino, el total del país, sin dividir por habitante: lo que despachan los molinos y lo que se vende en el mercado interno. ` +
-`Cada serie con ${PCO.carne.ini}, el primer año completo de la planilla frente al IPC, = 100. Con tan pocos años no se calcula una correlación. Que dos cosas vayan en direcciones opuestas no prueba que una cause la otra.`,
 mayoristas: LEAD.mayoristas("doce"),
 "sectores-empleo": LEAD["sectores-empleo"]("uno"),
 emae: LEAD.emae("mes"),
@@ -1304,14 +1227,10 @@ combustibles: LEAD.combustibles("nafta", "prov"),
 nombres: `En ${cu.nom_anio} se inscribieron ${n0(cu.nena_n)} bebés con el nombre ${cu.nena} ${yE(n0(cu.varon_n))} con el nombre ${cu.varon}. ${cu.varon_prov} fue el nombre de varón más elegido en ${cu.varon_prov_n} de las 24 jurisdicciones. ` +
 `En ${cu.nom_ini}, el primer año de la serie, los más inscriptos habían sido ${cu.nena0} para las nenas ${yE(cu.varon0)} para los varones.` +
 (cu.lionel_anio ? ` En ${cu.lionel_anio} se inscribieron ${n0(cu.lionel_max)} bebés llamados Lionel, ${veces(cu.lionel_max, cu.lionel_prev)} veces los del año anterior.` : ""),
-"nombres-nota": `Cantidad de veces que cada nombre fue inscripto como nombre de pila en el Registro Nacional de las Personas (RENAPER). El RENAPER publica los nombres sin tildes: Datina se las agrega con una tabla de equivalencias, y la tabla descargable trae las dos formas. Al elegir una provincia, el gráfico muestra sus diez nombres más frecuentes.`,
 carne: `Entre enero y ${cu.carne_ytd_hasta}, cada habitante consumió carne vacuna a un ritmo de ${n1(cu.carne_ytd)} kilos por año${cu.carne_min_serie ? ", por debajo del promedio de cualquier año completo de la serie" : ""}. En ${cu.asado_hasta}, un kilo de asado costaba lo mismo que ${n1(cu.asado)} kilos de pollo en el Gran Buenos Aires. En ${cu.asado_ini_anio} equivalía a ${n1(cu.asado_ini)} kilos.`,
-"carne-nota": `Consumo aparente por habitante estimado a partir de la producción y el comercio exterior. Cada mes se expresa como tasa anual y el valor de cada año es el promedio de sus meses. Solo se muestran años completos.`,
 vino: `El ${pct(cu.vino_mza)} del vino vendido en el país en ${cu.vino_anio} salió de bodegas de Mendoza.` + enLoQueVa(R.ytd.vino, cu.vino_anio, "las ventas", "subieron", "bajaron"),
-"vino-nota": `Despachos de vino al mercado interno informados por el Instituto Nacional de Vitivinicultura. La provincia es la de origen del vino, no la del lugar donde se consume.`,
 yerba: (cu.yerba_max_anio === cu.yerba_anio ? `${cu.yerba_anio} fue el año en que los molinos despacharon más yerba mate desde ${cu.yerba_ini}.`
 : `El año en que los molinos despacharon más yerba mate desde ${cu.yerba_ini} fue ${cu.yerba_max_anio}, con ${n1(cu.yerba_max)} millones de kilos.`) + enLoQueVa(R.ytd.yerba, cu.yerba_anio, "los despachos", "subieron", "bajaron"),
-"yerba-nota": `Salida de molino informada por el Instituto Nacional de la Yerba Mate: yerba elaborada que despachan los molinos. Solo se muestran años completos.`,
 cumbres: `Le sigue ${nt.cu_2}, en ${nt.cu_2_prov}, con ${n0(nt.cu_2_v)} metros: ${n0(nt.cu_dif)} menos. ${nt.cu_prov_top_n} de las ${nt.cu_n} cumbres de la tabla del IGN están en ` +
 `${nt.cu_prov_top} y el resto, en otras ${nt.cu_provs - 1} provincias. Todas superan los ${n0(Math.floor(nt.cu_ult_v / 100) * 100)} metros: la más baja de la tabla, ${nt.cu_ult}, tiene ${n0(nt.cu_ult_v)}.`,
 glaciares: `${cu.gl_top} tiene ${n0(cu.gl_top_v)} glaciares inventariados ${yE(cu.gl_2)}, ${n0(cu.gl_2_v)}, según el Inventario Nacional de Glaciares. ` +
@@ -2029,7 +1948,7 @@ svg.append("rect").attr("width", w).attr("height", h).attr("fill", "transparent"
 .on("pointermove", ver).on("pointerdown", ver).on("pointerleave", () => { anillo.attr("opacity", 0); borde.attr("opacity", 0); ocultarTip(); });
 const fi = el.closest(".ficha"), bi = fi?.querySelector(".accion.imagen"); if (bi) bi.hidden = !svgUnico(fi);
 }
-const MED = {"ant-mapa": "continente", "ant-pais": "Argentina", "ant-temperatura": "orcadas", "jueces-federales": "cargos", "fiscalias-federales": "cantidad", "justicia-provincial": "magistratura", nombres: "F", "precio-consumo": "carne",};
+const MED = {"ant-mapa": "continente", "ant-pais": "Argentina", "ant-temperatura": "orcadas"};
 const M = v => n1(v / 1e6) + " M";
 const G = k => document.querySelector(`.grafico[data-g="${k}"]`);
 const NAR = css("--celeste-fuerte"), FRI = css("--sol-fuerte"), GRIS = css("--faint");
@@ -2058,102 +1977,15 @@ const el = G(k); if (el) sinDatos(el, "No se pudo dibujar este gráfico.");
 return true;
 }}), base);
 const DIB = protegerDib({
-nombres: a => {
-const cod = NOMBRES[prov] ? prov : "00";
-document.getElementById("contexto-nombres").textContent = `${NOMBRES[prov] || "Total del país"}, ${cu.nom_anio}. Diez nombres más frecuentes.`;
-barrasH(G("nombres"), {anim:a, data: T.nombres_top.filter(d => d.codigo_indec === cod && d.sexo === MED.nombres)
-.map(d => ({codigo_indec: d.nombre, territorio: d.mostrar || d.nombre, cantidad: d.cantidad})), k:"cantidad", vf: n0, af: n0, cambiaConProv: true});
-},
-carne: a => lineas(G("carne"), {anim:a, data: T.carne_vacuna, x:"anio", y0:0, vf: v => n1(v) + " kg", yf: v => v + " kg",
-series:[{k:"kg_por_habitante", lab:"Carne vacuna", c:NAR, w:3}]}),
-vino: a => lineas(G("vino"), {anim:a, data: T.vino_mercado_interno, x:"anio", y0:0, vf: v => n0(v) + " M l", yf: v => n0(v) + " M",
-series:[{k:"millones_litros", lab:"Vino", c:NAR, w:3}]}),
-yerba: a => lineas(G("yerba"), {anim:a, data: T.yerba_molino, x:"anio", y0:0, vf: v => n1(v) + " M kg", yf: v => n0(v) + " M",
-series:[{k:"millones_kg", lab:"Yerba", c:NAR, w:3}]}),
 exportaciones: a => barrasH(G("exportaciones"), {anim:a, data: T.exportaciones_provincias, k:"usd_por_habitante", ref: nv.ex_pc_pais,
 tip: d => `<b>${d.territorio}</b><br>${n0(d.usd_por_habitante)} dólares por habitante<br>${n0(d.millones_usd)} millones de dólares en total`,
 refLab: `País ${n0(nv.ex_pc_pais)}`, vf: v => n0(v) + " US$", af: n0}),
 });
-Object.assign(MED, {delitos: "tipo", robos: "robos", homicidios: "prov", carceles: "serie", "sin-condena": "prov", arArea: ""});
+Object.assign(MED, {arArea: ""});
 const COL_TIPO = {conv: "#A9CBEA", tight: "#F6B40E", shale: "#1F5E97"};
 const mesPer = p => `${MESES[+p.slice(5, 7) - 1]} de ${p.slice(0, 4)}`;
 const tPer = p => +p.slice(0, 4) + (+p.slice(5, 7) - 1) / 12;
 const leyenda = (id, claves) => { $(id).innerHTML = claves.map(k => `<span><i style="background:${k.c}"></i>${k.lab}</span>`).join(""); };
-Object.assign(DIB, {
-delitos: a => {
-const el = G("delitos");
-$t("delitos").textContent = LEAD.delitos(MED.delitos);
-if (MED.delitos === "serie") return lineas(el, {anim: a, data: T.delitos_serie, x: "anio", y0: 0, vf: n0, yf: n0, series: [{k: "robos", lab: "Robos", c: NAR},
-{k: "hurtos", lab: "Hurtos", c: FRI}, {k: "amenazas", lab: "Amenazas", c: css("--azul-hondo")}, {k: "lesiones", lab: "Lesiones dolosas", c: css("--muted")}]});
-const data = T.delitos_tipo.slice(0, 14).map(r => ({codigo_indec: "d" + r.codigo, territorio: r.delito, tasa: r.tasa, hechos: r.hechos, pct: r.pct}));
-barrasH(el, {anim: a, data, k: "tasa", vf: n0, af: n0, l: 236, lAngosto: 150, corto: d => CORTO_DEL[d.territorio] || d.territorio,
-tip: d => `<b>${d.territorio}</b><br>${n0(d.hechos)} hechos en ${SG.anio}<br>${n0(d.tasa)} cada 100.000 habitantes<br>${pct(d.pct)} de los delitos registrados`});
-},
-robos: conTablas("robos", () => MED.robos === "serie" ? ["seguridad_serie_prov"] : [], a => {
-const k = MED.robos, el = G("robos"), fp = T.robos_provincias.find(r => r.codigo_indec === prov);
-let txt = LEAD.robos(k);
-if (k === "serie") {
-const suya = fp ? new Map(T.seguridad_serie_prov.filter(r => r.codigo_indec === prov).map(r => [r.anio, r])) : null;
-const data = T.delitos_serie.map(r => ({anio: r.anio, robos: r.robos, hurtos: r.hurtos, robos_p: suya?.get(r.anio)?.robos ?? null, hurtos_p: suya?.get(r.anio)?.hurtos ?? null}));
-if (fp) txt += ` En ${fp.territorio}, ${n0(fp.robos)} robos y ${n0(fp.hurtos)} hurtos cada 100.000 habitantes en ${SG.anio}.`;
-$t("robos").textContent = txt;
-return lineas(el, {anim: a, data, x: "anio", y0: 0, vf: n0, yf: n0, series: [{k: "robos", lab: "Robos en el país", c: NAR}, {k: "hurtos", lab: "Hurtos en el país", c: css("--azul-hondo")},
-...(fp ? [{k: "robos_p", lab: `Robos en ${fp.territorio}`, c: FRI}, {k: "hurtos_p", lab: `Hurtos en ${fp.territorio}`, c: css("--sol-borde")}] : [])]});
-}
-const ref = k === "hurtos" ? SG.hurtos : SG.robos, nombradas = k === "hurtos" ? [SG.hurtos_top[0], SG.hurtos_bajo[0]] : [SG.robos_top[0], SG.robos_bajo[0]];
-if (fp && !nombradas.includes(fp.territorio)) txt += ` En ${fp.territorio}, ${n0(fp[k])} cada 100.000 habitantes${conVeces(fp[k], ref)}.`;
-$t("robos").textContent = txt;
-barrasH(el, {anim: a, data: T.robos_provincias.filter(r => r.codigo_indec !== "00"), k, vf: n0, af: n0, ref, refLab: `País ${n0(ref)}`,
-tip: d => `<b>${d.territorio}</b><br>${n0(d[k])} ${k} cada 100.000 habitantes en ${SG.anio}<br>En ${SG.anio - 1}, ${n0(d[k + "_ant"])}`});
-}),
-homicidios: conTablas("homicidios", () => MED.homicidios === "serie" ? ["seguridad_serie_prov"] : [], a => {
-const el = G("homicidios"), fp = T.homicidios_provincias.find(r => r.codigo_indec === prov);
-let txt = LEAD.homicidios(MED.homicidios);
-if (MED.homicidios === "serie") {
-const suya = fp ? new Map(T.seguridad_serie_prov.filter(r => r.codigo_indec === prov).map(r => [r.anio, r.homicidios])) : null;
-const data = T.delitos_serie.map(r => ({anio: r.anio, pais: r.homicidios, prov: suya ? suya.get(r.anio) ?? null : null}));
-if (fp) txt += ` En ${fp.territorio}, ${n1(fp.tasa)} en ${SG.anio}.`;
-$t("homicidios").textContent = txt;
-return lineas(el, {anim: a, data, x: "anio", y0: 0, vf: n1, yf: n0,
-series: [{k: "pais", lab: "Todo el país", c: NAR}, ...(fp ? [{k: "prov", lab: fp.territorio, c: FRI}] : [])]});
-}
-if (fp && fp.territorio !== SG.hom3_top[0] && fp.territorio !== SG.hom3_bajo[0]) txt += ` En ${fp.territorio}, ${n1(fp.tasa_3)} por año entre ${SG.hom3_desde} y ${SG.anio}${conVeces(fp.tasa_3, SG.hom3_pais)}: ${n0(fp.victimas_3)} víctimas en tres años.`;
-$t("homicidios").textContent = txt;
-barrasH(el, {anim: a, data: T.homicidios_provincias.filter(r => r.codigo_indec !== "00"), k: "tasa_3", vf: n1, af: n0, ref: SG.hom3_pais, refLab: `País ${n1(SG.hom3_pais)} (${SG.hom3_desde} a ${SG.anio})`,
-tip: d => `<b>${d.territorio}</b><br>${n1(d.tasa_3)} víctimas cada 100.000 habitantes por año, ${SG.hom3_desde} a ${SG.anio}<br>${n0(d.victimas_3)} víctimas en esos tres años<br>En ${SG.anio}: ${n0(d.victimas)}`});
-}),
-carceles: a => {
-const el = G("carceles"), fp = T.carceles_provincias.find(r => r.codigo_indec === prov);
-let txt = LEAD.carceles(MED.carceles);
-if (MED.carceles === "prov") {
-if (fp) txt += ` En ${fp.territorio}, ${n0(fp.tasa)} cada 100.000 habitantes: ${n0(fp.personas)} personas, el ${pct(fp.pct_condenados)} con condena.`;
-$t("carceles").textContent = txt;
-return barrasH(el, {anim: a, data: T.carceles_provincias, k: "tasa", vf: n0, af: n0,
-tip: d => `<b>${d.territorio}</b><br>${n0(d.personas)} personas en el servicio penitenciario provincial al 31 de diciembre de ${SG.sn_anio}<br>${n0(d.tasa)} cada 100.000 habitantes<br>${pct(d.pct_condenados)} con condena`});
-}
-$t("carceles").textContent = txt;
-lineas(el, {anim: a, data: T.carceles_serie, x: "anio", y0: 0, vf: n0, yf: n0, series: [{k: "tasa", lab: "Todo el país", c: NAR}]});
-},
-"sin-condena": a => {
-const el = G("sin-condena"), fp = T.carceles_provincias.find(r => r.codigo_indec === prov);
-let txt = LEAD["sin-condena"](MED["sin-condena"]);
-if (MED["sin-condena"] === "prov") {
-if (fp) txt += ` En ${fp.territorio}, el ${pct(fp.pct_sin_condena)}: ${n0(fp.personas - fp.condenados)} de ${n0(fp.personas)} personas.`;
-$t("sin-condena").textContent = txt;
-return barrasH(el, {anim: a, data: T.carceles_provincias, k: "pct_sin_condena", vf: pct, af: v => n0(v) + "%", ref: SG.sn_sin, refLab: `País ${pct(SG.sn_sin)}`,
-tip: d => `<b>${d.territorio}</b><br>${pct(d.pct_sin_condena)} sin condena al 31 de diciembre de ${SG.sn_anio}<br>${n0(d.personas - d.condenados)} de ${n0(d.personas)} personas en el servicio penitenciario provincial`});
-}
-$t("sin-condena").textContent = txt;
-lineas(el, {anim: a, data: T.carceles_serie, x: "anio", y0: 0, vf: pct, yf: v => n0(v) + "%", series: [{k: "pct_sin_condena", lab: "Todo el país", c: NAR}]});
-},
-"precio-consumo": a => {
-const v = MED["precio-consumo"] || "carne";
-$t("precio-consumo").textContent = LEAD["precio-consumo"](v);
-lineas(G("precio-consumo"), {anim: a, data: T.precio_consumo.filter(r => r.producto === v), x: "anio", y0: 40, ref: 100, refLab: `${PCO[v].ini} = 100`, yf: x => x, vf: n0,
-xl: d => `${d.anio}<br><span class="suave">Consumo: ${n1(d.consumo_valor)} ${d.consumo_unidad}</span>`,
-series: [{k: "precio_real", lab: "Precio", c: NAR, w: 3}, {k: "consumo", lab: "Consumo", c: FRI, ct: css("--sol-texto"), w: 3}]});
-},
-});
 const listaY = arr => arr.length > 1 ? arr.slice(0, -1).join(", ") + " " + yE(arr[arr.length - 1]) : arr[0];
 const ESP_COLOR = {"Peronismo": "#2C74B5", "UCR y aliados": "#D9453B", "PRO": "#F6B40E", "Cambiemos y Juntos por el Cambio": "#F08A24",
 "La Libertad Avanza": "#4A2C6F", "Izquierda": "#7A1F2B", "Fuerzas provinciales": "#74ACDF", "Otras fuerzas": "#98A2AE"};
@@ -2348,47 +2180,6 @@ const TRR = R.transferencias;
 const milM = v => `${v >= 10 ? n0(v) : n1(v)} mil millones`;
 const PRR = R.presidentes;
 parte("politica");
-DIB["corte-casos"] = a => lineas(G("corte-casos"), {anim: a, data: T.corte_casos, x: "anio", y0: 0, vf: n0, yf: v => n0(v / 1000) + " mil",
-series: [{k: "ingresados", lab: "Llegaron", c: FRI, w: 3}, {k: "resueltos", lab: "Resueltos", c: NAR, w: 3}],
-xl: d => `${d.anio}` + (d.fallos ? `<br><span class="suave">${n0(d.fallos)} fallos en ${d.acuerdos} acuerdos</span>` : "")});
-const JUS_CLAVES = {
-jueces: [{k: "titular", lab: "Con juez titular", c: "#2C74B5"}, {k: "subrogante", lab: "Sin titular, con subrogante", c: "#74ACDF", texto: "#18212B"},
-{k: "sin_cubrir", lab: "Sin titular ni subrogante", c: "#C3CAD2", texto: "#18212B"}],
-mp: [{k: "fiscalias", lab: "Fiscalías", c: "#2C74B5"}, {k: "defensorias", lab: "Defensorías", c: "#F6B40E", texto: "#18212B"}]};
-const jusLeyenda = (id, claves, ver) => { const l = $(id); l.innerHTML = claves.map(k => `<span><i style="background:${k.c}"></i>${k.lab}</span>`).join("");
-l.style.display = ver ? "" : "none"; };
-const jusApiladas = (g, filas, claves, f, a, fin = null, tipExtra, sinValores = false) => {
-const el = G(g), total = d => d3.sum(claves, k => d[k.k]), mx = d3.max(filas, total);
-apiladasH(el, {anim: a, claves, data: [...filas].sort((p, q) => total(q) - total(p)), max: mx * 1.14, ticks: d3.ticks(0, mx, el.clientWidth < 520 ? 2 : 4),
-ejeF: f, tipF: f, alFinal: fin || (d => f(total(d))), tipExtra, sinValores});
-};
-DIB["jueces-federales"] = a => {
-const F = R.justicia.federal, filas = T.justicia_federal_provincias, porHab = MED["jueces-federales"] !== "cargos";
-jusLeyenda("jf-ley", JUS_CLAVES.jueces, !porHab);
-if (!porHab) return jusApiladas("jueces-federales", filas, JUS_CLAVES.jueces, n0, a);
-barrasH(G("jueces-federales"), {anim: a, data: filas, k: "cargos_cada_100mil", ref: F.cada_100mil, refLab: `País ${n1(F.cada_100mil)}`, vf: n1, af: n1,
-tip: d => `<b>${d.territorio}</b><br>${n1(d.cargos_cada_100mil)} cargos cada 100.000 habitantes<br>${n0(d.cargos)} cargos de juez federal`});
-};
-DIB["fiscalias-federales"] = a => {
-const porHab = MED["fiscalias-federales"] !== "cantidad";
-jusLeyenda("mpf-ley", JUS_CLAVES.mp, true);
-jusApiladas("fiscalias-federales", T.fiscalias_defensorias_federales,
-porHab ? JUS_CLAVES.mp.map(k => ({...k, k: k.k + "_cada_100mil"})) : JUS_CLAVES.mp, porHab ? n1 : n0, a);
-};
-const CP_CLAVES = [{k: "ministros", lab: "Ministras y ministros", c: "#2C74B5"}, {k: "vacantes_ley", lab: "Lugares vacantes según la ley", c: "#C3CAD2", texto: "#18212B"}];
-DIB["cortes-provinciales"] = conTablas("cortes-provinciales", ["justicia_provincias"], a => {
-jusLeyenda("cp-ley", CP_CLAVES, true);
-const filas = T.justicia_provincias.map(d => ({...d, vacantes_ley: d.miembros_ley != null ? Math.max(0, d.miembros_ley - d.ministros) : null}));
-jusApiladas("cortes-provinciales", filas, CP_CLAVES, n0, a, d => d.miembros_ley != null ? `${n0(d.ministros)} de ${n0(d.miembros_ley)}` : n0(d.ministros),
-d => `<br>${d.tribunal}` + (d.miembros_ley != null ? `<br>La ley fija ${d.miembros_ley}` : "<br>Sin verificar en la ley cuántos lugares tiene"), true);
-});
-const JP_NOMBRE = {magistratura: "jueces", fiscales: "fiscales", defensores: "defensores"};
-DIB["justicia-provincial"] = conTablas("justicia-provincial", ["justicia_provincias"], a => {
-const m = MED["justicia-provincial"], P = R.justicia.prov, k = m + "_cada_100mil";
-barrasH(G("justicia-provincial"), {anim: a, data: T.justicia_provincias.filter(d => d[k] != null), k, ref: P.pais[m], refLab: `País ${n1(P.pais[m])}`,
-vf: n1, af: n0, tip: d => `<b>${d.territorio}</b><br>${n1(d[k])} ${JP_NOMBRE[m]} cada 100.000 habitantes<br>${n0(d[m])} en total` +
-(d[m + "_anio"] !== P.anio ? `<br>Dato de ${d[m + "_anio"]}` : "")});
-});
 parte("energia");
 parte("petroleo");
 parte("movilidad");
@@ -2404,6 +2195,9 @@ parte("empresas");
 parte("construccion");
 parte("gobierno");
 parte("turismo");
+parte("justicia");
+parte("seguridad");
+parte("curiosidades");
 const VT_TIPOS = typeof ViewTransition !== "undefined" && "types" in ViewTransition.prototype;
 function cambiarVista(g, dibujar = () => DIB[g](false)) {
 const el = G(g);

@@ -53,7 +53,7 @@
     "f-sin-condena"
    ],
    "evidencia": {
-    "archivo": "scripts/datina.js",
+    "archivo": "scripts/partes/seguridad.js",
     "contiene": "const el = G(\"carceles\"), fp = T.carceles_provincias.find(r => r.codigo_indec === prov);"
    }
   },
@@ -157,7 +157,7 @@
     "f-homicidios"
    ],
    "evidencia": {
-    "archivo": "scripts/datina.js",
+    "archivo": "scripts/partes/seguridad.js",
     "contiene": "return lineas(el, {anim: a, data: T.delitos_serie, x: \"anio\", y0: 0, vf: n0, yf:"
    }
   },
@@ -491,7 +491,7 @@
     "f-homicidios"
    ],
    "evidencia": {
-    "archivo": "scripts/datina.js",
+    "archivo": "scripts/partes/seguridad.js",
     "contiene": "() => MED.robos === \"serie\" ? [\"seguridad_serie_prov\"] : [], a => {"
    }
   },
