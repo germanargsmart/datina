@@ -7371,6 +7371,133 @@ if comercio_rubro_pais is not None and _rut_f.exists():
     SE_RES["rutas"]["cosecha"] = {"anio": int(_rtg_u.anio.max()), "campania": _rtg_u.campania.iloc[0], "desde": int(rutas_cosecha.anio.min()),
                                   "departamentos": int(_rtg_u.codigo_dep.nunique())}
     rutas_cosecha.to_csv(SITIO / "rutas_cosecha.csv", index=False, lineterminator="\n")
+# Las importaciones en Rutas comerciales (pedido del autor del 26 de noviembre de 2026): lo importado por año, categoría y país de origen, con el camino al
+# revés, del puerto del país que vende al puerto argentino de entrada (datos/manual/rutas_entradas.csv, cada categoría con sus fuentes y su firmeza). La API
+# no trae subrubros de lo importado: el corte más fino son las 19 categorías económicas (gce_cod, la clasificación BEC), que baja indec_api.py desde el 26
+# de noviembre de 2026. Mientras ese archivo no llega (lo baja la actualización en la nube, con el token del autor), van los 7 usos económicos que ya baja
+# el sitio, con la página que lo dice. Los valores son CIF (con el flete y el seguro): no se suman ni se comparan con las exportaciones, que son FOB.
+# Por tierra, los cinco limítrofes (por su paso de frontera, el mismo de las exportaciones). Por mar, los países de la tabla de destinos con puerto, con el
+# recorrido que calculó scripts/rutas_mar.py dado vuelta. Sin camino, lo demás: los países fuera de esa tabla (Japón, Taiwán y otros, sin searoute), lo que
+# no tiene país y lo que no tiene categoría
+RUI_LIMITROFES = {"BR", "CL", "UY", "PY", "BO"}
+rutas_importaciones = None
+_rui_fg = CRUDO / "indec_api_comercio_exterior_importacion_bienes_anio_gce_pais.json"
+if rutas_exportaciones is not None:
+    _rui_e = pd.read_csv(RAIZ / "datos" / "manual" / "rutas_entradas.csv", dtype=str, keep_default_na=False).set_index("codigo")
+    if _rui_fg.exists():
+        _rui_x = pd.DataFrame(json.loads(_rui_fg.read_text(encoding="utf-8")))
+        assert list(_rui_x.columns) == ["Anio", "gce_cod", "pais_cod", "valor", "peso"], f"cambiaron las columnas de las importaciones por categoría: {list(_rui_x.columns)}"
+        _rui_x["cod"] = _rui_x.gce_cod.astype(str)
+        RUI_CORTE = "gce"
+    else:
+        _rui_x = _cmr_d["importaciones"].copy()
+        _rui_x["cod"] = "u" + _rui_x.uso_economico_cod.astype(str)
+        RUI_CORTE = "uso"
+    _rui_x = _rui_x[_rui_x.Anio.isin(RUT_ANIOS)].assign(v=lambda d: d.valor.fillna(0) / 1e6, t=lambda d: d.peso.fillna(0) / 1e3)
+    _rui_x = _rui_x[_rui_x.v > 0]
+    # cada año suma, país por país, lo mismo que las importaciones por uso económico
+    _rui_r0 = _cmr_d["importaciones"]
+    for _rui_y in RUT_ANIOS:
+        _rui_r = _rui_r0[_rui_r0.Anio == _rui_y].groupby("pais_cod").v.sum()
+        _rui_xy = _rui_x[_rui_x.Anio == _rui_y]
+        assert abs(_rui_xy.v.sum() / _rui_r.sum() - 1) < .005, f"las importaciones por categoría no suman lo mismo que por uso en {_rui_y}"
+        _rui_dif = (_rui_xy.groupby("pais_cod").v.sum().reindex(_rui_r.index, fill_value=0) - _rui_r).abs()
+        assert (_rui_dif[_rui_dif > 1] / _rui_r[_rui_dif > 1] < .02).all(), \
+            f"las importaciones por categoría no dan lo mismo que por uso en {_rui_y}: {list(_rui_dif[_rui_dif > 1].index)}"
+        # lo que no tiene entrada en rutas_entradas.csv (muestras, lo no especificado y lo desconocido) es poco
+        _rui_sin = _rui_xy[~_rui_xy.cod.isin(_rui_e.index)].v.sum()
+        assert _rui_sin <= .05 * _rui_xy.v.sum(), f"categorías de importación sin entrada en rutas_entradas.csv en {_rui_y}: {sorted(set(_rui_xy.cod) - set(_rui_e.index))}"
+    assert set(_rui_e.entrada) <= RUT_PUERTOS, f"entradas de rutas_entradas.csv que no están en rutas_mar.json: {sorted(set(_rui_e.entrada) - RUT_PUERTOS)}"
+
+    def _rui_modo(pais, cod):
+        if cod not in _rui_e.index or pais not in _rut_d.index or _cmx_tipo(pais) != "pais":
+            return ""
+        if pais in RUI_LIMITROFES:
+            return "tierra" if _rut_d.paso_frontera[pais] else ""
+        return "mar" if _rut_d.locode[pais] else ""
+
+    _rui_l = []
+    for _rui_i in _rui_x.itertuples():
+        _rui_su = _rui_e.loc[_rui_i.cod] if _rui_i.cod in _rui_e.index else None
+        _rui_m = _rui_modo(_rui_i.pais_cod, _rui_i.cod)
+        _rui_l.append({"anio": int(_rui_i.Anio), "pais_cod": _rui_i.pais_cod,
+                       "pais": "Sin país informado" if _cmx_tipo(_rui_i.pais_cod) == "sin_pais" else CMX_CORTO.get(_rui_i.pais_cod, _cmx_nom[_rui_i.pais_cod]),
+                       "categoria_cod": _rui_i.cod if _rui_su is not None else "", "categoria": _rui_su.nombre if _rui_su is not None else "Sin categoría informada",
+                       "grupo": _rui_su.grupo if _rui_su is not None else "otro", "millones_usd_cif": round(_rui_i.v, 4), "toneladas": round(_rui_i.t, 4),
+                       "entrada": _rui_su.entrada if _rui_su is not None else "", "firmeza_entrada": _rui_su.firmeza if _rui_su is not None else "",
+                       "modo": _rui_m, "origen": {"mar": _rut_d.puerto.get(_rui_i.pais_cod, ""), "tierra": _rut_d.paso_frontera.get(_rui_i.pais_cod, "")}.get(_rui_m, "")})
+    rutas_importaciones = (pd.DataFrame(_rui_l).groupby([c for c in _rui_l[0] if c not in ("millones_usd_cif", "toneladas")], as_index=False, sort=False)
+                           [["millones_usd_cif", "toneladas"]].sum())
+    rutas_importaciones[["millones_usd_cif", "toneladas"]] = rutas_importaciones[["millones_usd_cif", "toneladas"]].round(4)
+    rutas_importaciones = rutas_importaciones.sort_values(["anio", "millones_usd_cif"], ascending=[False, False], kind="stable").reset_index(drop=True)
+    _rui_u = rutas_importaciones[rutas_importaciones.anio == CMR_ANIO]
+    _rui_tot = float(_rui_u.millones_usd_cif.sum())
+    _rui_pp = lambda m: r1(float(_rui_u[m].millones_usd_cif.sum()) / _rui_tot * 100)
+    _rui_pa = _rui_u[_rui_u.pais != "Sin país informado"].groupby(["pais_cod", "pais"]).millones_usd_cif.sum().sort_values(ascending=False)
+    SE_RES["rutas_imp"] = {"anio": CMR_ANIO, "desde": RUT_ANIOS[0], "total": round(_rui_tot), "corte": RUI_CORTE, "dibujado": _rui_pp(_rui_u.modo != ""),
+                           "mar": _rui_pp(_rui_u.modo == "mar"), "tierra": _rui_pp(_rui_u.modo == "tierra"),
+                           "sin_pais": _rui_pp(_rui_u.pais == "Sin país informado"), "a": [_rui_pa.index[0][1], r1(float(_rui_pa.iloc[0]) / _rui_tot * 100)],
+                           "paises": int((_rui_pa > 0).sum())}
+    rutas_importaciones.to_csv(SITIO / "rutas_importaciones.csv", index=False, lineterminator="\n")
+
+# Los servicios en Rutas comerciales (pedido del autor del 26 de noviembre de 2026): lo que la Argentina vende en servicios (crédito de la balanza de
+# pagos) por año, tipo (los 12 rubros de la CABPS 2010) y país socio, desde 2015. Es una estimación experimental del INDEC, con muchas celdas
+# confidenciales: lo confidencial de un país va a "Otros servicios (confidencial)" de ese país (su total menos lo que suman sus tipos), y lo que no tiene
+# país (indeterminado, país confidencial, regiones y organismos internacionales) va a "Sin país informado" (el total del mundo menos los países).
+# Los servicios no viajan en barco: la página pinta los países y no dibuja caminos
+RSV_GRUPO = {"4": "via", "3": "tra", "8": "con", "9": "con", "10": "con", "11": "con"}
+RSV_NOMBRE = {"1": "Manufactura sobre insumos de otros", "2": "Mantenimiento y reparación", "3": "Transporte", "4": "Viajes (turismo)", "5": "Construcción",
+              "6": "Seguros y pensiones", "7": "Servicios financieros", "8": "Propiedad intelectual (licencias y marcas)",
+              "9": "Telecomunicaciones, informática e información", "10": "Servicios empresariales y profesionales", "11": "Servicios personales, culturales y recreativos",
+              "12": "Bienes y servicios del gobierno", "otro": "Otros servicios (confidencial)"}
+rutas_servicios = None
+_rsv_f = CRUDO / "indec_servicios_pais.csv"
+if _rsv_f.exists() and rutas_exportaciones is not None:
+    _rsv = pd.read_csv(_rsv_f, sep=";", encoding="latin-1", dtype=str, keep_default_na=False)
+    assert len(_rsv.columns) == 8, f"cambiaron las columnas de los servicios por país: {list(_rsv.columns)}"
+    _rsv.columns = ["anio", "cod", "desc", "op", "pais_cod", "pais", "v", "obs"]
+    _rsv["v"] = pd.to_numeric(_rsv.v.str.replace(".", "", regex=False).str.replace(",", ".", regex=False), errors="coerce")
+    _rsv = _rsv[_rsv.op.str.startswith("Cr") & (_rsv.cod.isin(RSV_NOMBRE) | (_rsv.cod == "200"))]
+    _rsv["anio"] = _rsv.anio.astype(int)
+    _rsv_pais = _rsv.pais_cod.str.fullmatch(r"[A-Z]{2}")
+    _rsv_l = []
+    RSV_ANIOS = sorted(_rsv.anio.unique())
+    for _rsv_y in RSV_ANIOS:
+        _rsv_a = _rsv[_rsv.anio == _rsv_y]
+        _rsv_mundo = float(_rsv_a[(_rsv_a.pais_cod == "W0") & (_rsv_a.cod == "200")].v.sum())
+        # los 12 rubros del mundo suman el total
+        assert abs(_rsv_a[(_rsv_a.pais_cod == "W0") & (_rsv_a.cod != "200")].v.sum() / _rsv_mundo - 1) < .005, f"los rubros de servicios no suman el total en {_rsv_y}"
+        _rsv_p = _rsv_a[_rsv_pais.loc[_rsv_a.index]]
+        _rsv_tot_pais = {}
+        for _rsv_c, _rsv_g in _rsv_p.groupby("pais_cod"):
+            _rsv_tipos = _rsv_g[(_rsv_g.cod != "200") & (_rsv_g.v > 0)]
+            # con el total confidencial (Liberia en 2021) cuenta lo que suman sus tipos. Con el total, los tipos nunca suman más
+            _rsv_t = _rsv_g[_rsv_g.cod == "200"].v
+            _rsv_t = float(_rsv_t.iloc[0]) if len(_rsv_t) and pd.notna(_rsv_t.iloc[0]) else float(_rsv_tipos.v.sum())
+            assert _rsv_tipos.v.sum() <= _rsv_t + .5, f"los servicios de {_rsv_c} suman más que su total en {_rsv_y}"
+            _rsv_tot_pais[_rsv_c] = _rsv_t
+            _rsv_n = CMX_CORTO.get(_rsv_c, " ".join(str(_rsv_g.pais.iloc[0]).split()))
+            for _rsv_r in _rsv_tipos.itertuples():
+                _rsv_l.append({"anio": _rsv_y, "pais_cod": _rsv_c, "pais": _rsv_n, "tipo_cod": _rsv_r.cod, "tipo": RSV_NOMBRE[_rsv_r.cod],
+                               "grupo": RSV_GRUPO.get(_rsv_r.cod, "otro"), "millones_usd": float(_rsv_r.v)})
+            if _rsv_t - _rsv_tipos.v.sum() > .05:
+                _rsv_l.append({"anio": _rsv_y, "pais_cod": _rsv_c, "pais": _rsv_n, "tipo_cod": "otro", "tipo": RSV_NOMBRE["otro"], "grupo": "otro",
+                               "millones_usd": float(_rsv_t - _rsv_tipos.v.sum())})
+        _rsv_sp = _rsv_mundo - sum(_rsv_tot_pais.values())
+        assert _rsv_sp > -1, f"los países de servicios suman más que el mundo en {_rsv_y}"
+        if _rsv_sp > .05:
+            _rsv_l.append({"anio": _rsv_y, "pais_cod": "_X", "pais": "Sin país informado", "tipo_cod": "otro", "tipo": RSV_NOMBRE["otro"], "grupo": "otro", "millones_usd": _rsv_sp})
+    rutas_servicios = pd.DataFrame(_rsv_l).sort_values(["anio", "millones_usd"], ascending=[False, False], kind="stable").reset_index(drop=True)
+    rutas_servicios["millones_usd"] = rutas_servicios.millones_usd.round(4)
+    RSV_ANIO = RSV_ANIOS[-1]
+    _rsv_u = rutas_servicios[rutas_servicios.anio == RSV_ANIO]
+    _rsv_tot = float(_rsv_u.millones_usd.sum())
+    _rsv_pa = _rsv_u[_rsv_u.pais_cod != "_X"].groupby(["pais_cod", "pais"]).millones_usd.sum().sort_values(ascending=False)
+    _rsv_ti = _rsv_u.groupby("tipo").millones_usd.sum().sort_values(ascending=False)
+    SE_RES["rutas_ser"] = {"anio": int(RSV_ANIO), "desde": int(RSV_ANIOS[0]), "total": round(_rsv_tot), "a": [_rsv_pa.index[0][1], r1(float(_rsv_pa.iloc[0]) / _rsv_tot * 100)],
+                           "tipo": [_rsv_ti.index[0], r1(float(_rsv_ti.iloc[0]) / _rsv_tot * 100)], "sin_pais": r1(float(_rsv_u[_rsv_u.pais_cod == "_X"].millones_usd.sum()) / _rsv_tot * 100),
+                           "paises": int((_rsv_pa > 0).sum())}
+    rutas_servicios.to_csv(SITIO / "rutas_servicios.csv", index=False, lineterminator="\n")
 # ---------------------------------------------------------------- migraciones (etapa 25)
 # Censo 2022 (INDEC): población en viviendas particulares por lugar de nacimiento (en la provincia, en otra provincia o en otro país) y por
 # país de nacimiento, según jurisdicción. La serie de los censos desde 1869 (datos/manual/censos_nacidos_otro_pais.csv, de dos publicaciones

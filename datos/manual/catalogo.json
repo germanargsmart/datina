@@ -552,6 +552,34 @@
     "contiene": "rutas_cosecha.to_csv(SITIO / \"rutas_cosecha.csv\", index=False, lineterminator=\"\\n\")"
    }
   },
+  "rutas_importaciones": {
+   "en": [
+    "rutas"
+   ],
+   "titulo": "¿Qué le vende y qué le compra la Argentina al mundo?",
+   "sub": "Importaciones de cada año completo desde 2015 por categoría económica (o, mientras no llega ese corte de la API, por uso económico) y país de origen, en millones de dólares CIF y toneladas, con la entrada y el camino simulado de cada fila",
+   "fuente": "INDEC, importaciones por categoría económica o uso económico y país de origen (API). La entrada de cada categoría, de organismos oficiales y prensa (datos/manual/rutas_entradas.csv), y el puerto o el paso de frontera de cada país (datos/manual/rutas_destinos.csv)",
+   "frecuencia": "Se actualiza cuando el INDEC publica un año completo.",
+   "nota": "Valores CIF, con el flete y el seguro: no se comparan con las exportaciones, que son FOB. El INDEC no publica por dónde entra cada carga. La entrada (con su firmeza), el modo (mar o tierra) y el origen son una simulación de Datina, explicada en la herramienta. Sin modo, la fila no tiene camino dibujado.",
+   "evidencia": {
+    "archivo": "scripts/02_procesar.py",
+    "contiene": "rutas_importaciones.to_csv(SITIO / \"rutas_importaciones.csv\", index=False, lineterminator=\"\\n\")"
+   }
+  },
+  "rutas_servicios": {
+   "en": [
+    "rutas"
+   ],
+   "titulo": "¿Qué le vende y qué le compra la Argentina al mundo?",
+   "sub": "Exportaciones de servicios de cada año desde 2015 por tipo (los 12 rubros de la balanza de pagos) y país que los compra, en millones de dólares",
+   "fuente": "INDEC, comercio internacional de servicios por país socio (estimación experimental de la balanza de pagos)",
+   "frecuencia": "Se actualiza cuando el INDEC publica un año completo.",
+   "nota": "Muchas celdas son confidenciales: lo confidencial de cada país va como \"Otros servicios (confidencial)\" y lo que no tiene país (país confidencial, indeterminado, regiones y organismos internacionales) como \"Sin país informado\".",
+   "evidencia": {
+    "archivo": "scripts/02_procesar.py",
+    "contiene": "rutas_servicios.to_csv(SITIO / \"rutas_servicios.csv\", index=False, lineterminator=\"\\n\")"
+   }
+  },
   "mudanzas_matriz": {
    "en": [
     "migracion-interna"

@@ -2413,6 +2413,8 @@ html.js #ms-resultado:empty~.ms-pie,html.js #ms-resultado:empty~.ms-limites{visi
 .rt-filtros-btn,.rt-panel-cab{display:none}
 .rt-panel{display:flex;flex-wrap:wrap;align-items:center;gap:var(--e-3) var(--e-6);flex:1 1 auto}
 .rt-panel .conmutador{margin:0}
+/* Exportaciones, Importaciones y Servicios (26 de noviembre de 2026): el primer control de la página */
+.rt-flujos{margin:0}
 .rt-buscar{flex:1 1 200px;min-width:0}
 .rt-buscar .selector-ficha{width:100%;max-width:none;margin:0}
 .rt-buscar .selector-ficha input{width:100%;min-width:0;min-height:40px;padding:0 var(--e-3);font:inherit;font-size:var(--t-3);color:var(--ink);background:var(--bg);
@@ -2563,6 +2565,8 @@ html.js #ms-resultado:empty~.ms-pie,html.js #ms-resultado:empty~.ms-limites{visi
 .rt-c-ruta span{display:inline-flex;align-items:center;gap:var(--e-1);white-space:nowrap}
 .rt-c-ruta .rt-flag{width:16px;height:16px}
 .rt-c-prod{grid-column:2;overflow:hidden;font-size:var(--t-2);line-height:1.3;color:var(--muted);white-space:nowrap;text-overflow:ellipsis}
+/* en Migración interna la línea dice la otra mitad del par y el saldo: va en dos renglones si no entra (en 360 píxeles se corría de costado) */
+.mu .rt-c-prod{min-width:0;white-space:normal}
 .rt-c-v{font-size:var(--t-3);font-weight:600;line-height:1.25;color:var(--ink);font-variant-numeric:tabular-nums;text-align:right}
 .rt-c-barra{--rt-c:var(--rt-mar);width:96px;height:6px;justify-self:end;border-radius:3px;background:var(--superficie-2);overflow:hidden}
 .rt-c-barra.rt-an-t{--rt-c:var(--rt-tierra)}.rt-c-barra.rt-an-a{--rt-c:var(--rt-avion)}
@@ -2578,6 +2582,7 @@ html.js #ms-resultado:empty~.ms-pie,html.js #ms-resultado:empty~.ms-limites{visi
 /* el celular: el mapa en la primera pantalla, arriba solo el año y Filtros. Los demás filtros, en un panel que abre abajo, y la ficha, abajo del mapa */
 @media (max-width:767px){
   .rt-barra{margin-top:0}
+  .rt-flujos{width:100%}
   .rt-prod-elegido{margin-top:var(--e-3)}
   .rt-mapa-cab{padding:var(--e-3)}
   .rt-mapa-cab>:first-child{flex:1 1 100%}

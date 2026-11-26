@@ -24192,6 +24192,155 @@
    "como_citar": "Datina (año de la consulta). ¿Adónde van las exportaciones argentinas? Con datos de INDEC, exportaciones por subrubro y país de destino (API). La salida de cada producto, de organismos oficiales, cámaras y prensa (datos/manual/rutas_salidas.csv), y el puerto o el paso de frontera de cada país (datos/manual/rutas_destinos.csv). https://datina.com.ar/rutas. Consultado el día de la consulta."
   },
   {
+   "tabla": "rutas_importaciones",
+   "csv": "https://datina.com.ar/datos/rutas_importaciones.csv",
+   "metadatos": "https://datina.com.ar/datos/rutas_importaciones.metadata.json",
+   "titulo": "¿Qué le vende y qué le compra la Argentina al mundo?",
+   "descripcion": "Importaciones de cada año completo desde 2015 por categoría económica (o, mientras no llega ese corte de la API, por uso económico) y país de origen, en millones de dólares CIF y toneladas, con la entrada y el camino simulado de cada fila",
+   "seccion": "Rutas comerciales",
+   "ficha": "https://datina.com.ar/rutas",
+   "fuente": "INDEC, importaciones por categoría económica o uso económico y país de origen (API). La entrada de cada categoría, de organismos oficiales y prensa (datos/manual/rutas_entradas.csv), y el puerto o el paso de frontera de cada país (datos/manual/rutas_destinos.csv)",
+   "organismos": [],
+   "actualizacion": "Se actualiza cuando el INDEC publica un año completo.",
+   "cobertura": "Sin desglose territorial",
+   "periodo": "2015 a 2025",
+   "anio_desde": 2015,
+   "anio_hasta": 2025,
+   "filas": 8179,
+   "columnas": [
+    {
+     "nombre": "anio",
+     "tipo": "Año",
+     "valores": "2015 a 2025"
+    },
+    {
+     "nombre": "pais_cod",
+     "tipo": "Texto",
+     "valores": "220 valores distintos"
+    },
+    {
+     "nombre": "pais",
+     "tipo": "Texto",
+     "valores": "216 valores distintos"
+    },
+    {
+     "nombre": "categoria_cod",
+     "tipo": "Texto",
+     "valores": "u1, u2, u3, u4, u5, u6 (1089 celdas vacías)"
+    },
+    {
+     "nombre": "categoria",
+     "tipo": "Texto",
+     "valores": "7 valores distintos"
+    },
+    {
+     "nombre": "grupo",
+     "tipo": "Texto",
+     "valores": "con, ene, ins, maq, otro, tra"
+    },
+    {
+     "nombre": "entrada",
+     "tipo": "Texto",
+     "valores": "Buenos Aires, Zárate-Campana (1089 celdas vacías)"
+    },
+    {
+     "nombre": "firmeza_entrada",
+     "tipo": "Texto",
+     "valores": "inferido, prensa, suposicion (1089 celdas vacías)"
+    },
+    {
+     "nombre": "modo",
+     "tipo": "Texto",
+     "valores": "mar, tierra (5977 celdas vacías)"
+    },
+    {
+     "nombre": "origen",
+     "tipo": "Texto",
+     "valores": "39 valores distintos (5977 celdas vacías)"
+    },
+    {
+     "nombre": "millones_usd_cif",
+     "tipo": "Número",
+     "valores": "0 a 8.541,47"
+    },
+    {
+     "nombre": "toneladas",
+     "tipo": "Número",
+     "valores": "0 a 11.290.567,39"
+    }
+   ],
+   "unidades": [],
+   "como_se_calcula": "Valores CIF, con el flete y el seguro: no se comparan con las exportaciones, que son FOB. El INDEC no publica por dónde entra cada carga. La entrada (con su firmeza), el modo (mar o tierra) y el origen son una simulación de Datina, explicada en la herramienta. Sin modo, la fila no tiene camino dibujado.",
+   "origen": [],
+   "sensible": false,
+   "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+   "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
+   "uso_libre": true,
+   "como_citar": "Datina (año de la consulta). ¿Qué le vende y qué le compra la Argentina al mundo? Con datos de INDEC, importaciones por categoría económica o uso económico y país de origen (API). La entrada de cada categoría, de organismos oficiales y prensa (datos/manual/rutas_entradas.csv), y el puerto o el paso de frontera de cada país (datos/manual/rutas_destinos.csv). https://datina.com.ar/rutas. Consultado el día de la consulta."
+  },
+  {
+   "tabla": "rutas_servicios",
+   "csv": "https://datina.com.ar/datos/rutas_servicios.csv",
+   "metadatos": "https://datina.com.ar/datos/rutas_servicios.metadata.json",
+   "titulo": "¿Qué le vende y qué le compra la Argentina al mundo?",
+   "descripcion": "Exportaciones de servicios de cada año desde 2015 por tipo (los 12 rubros de la balanza de pagos) y país que los compra, en millones de dólares",
+   "seccion": "Rutas comerciales",
+   "ficha": "https://datina.com.ar/rutas",
+   "fuente": "INDEC, comercio internacional de servicios por país socio (estimación experimental de la balanza de pagos)",
+   "organismos": [],
+   "actualizacion": "Se actualiza cuando el INDEC publica un año completo.",
+   "cobertura": "Sin desglose territorial",
+   "periodo": "2015 a 2025",
+   "anio_desde": 2015,
+   "anio_hasta": 2025,
+   "filas": 6072,
+   "columnas": [
+    {
+     "nombre": "anio",
+     "tipo": "Año",
+     "valores": "2015 a 2025"
+    },
+    {
+     "nombre": "pais_cod",
+     "tipo": "Texto",
+     "valores": "204 valores distintos"
+    },
+    {
+     "nombre": "pais",
+     "tipo": "Texto",
+     "valores": "204 valores distintos"
+    },
+    {
+     "nombre": "tipo_cod",
+     "tipo": "Texto",
+     "valores": "12 valores distintos"
+    },
+    {
+     "nombre": "tipo",
+     "tipo": "Texto",
+     "valores": "12 valores distintos"
+    },
+    {
+     "nombre": "grupo",
+     "tipo": "Texto",
+     "valores": "con, otro, tra, via"
+    },
+    {
+     "nombre": "millones_usd",
+     "tipo": "Número",
+     "valores": "0,1 a 3.407,9"
+    }
+   ],
+   "unidades": [],
+   "como_se_calcula": "Muchas celdas son confidenciales: lo confidencial de cada país va como \"Otros servicios (confidencial)\" y lo que no tiene país (país confidencial, indeterminado, regiones y organismos internacionales) como \"Sin país informado\".",
+   "origen": [],
+   "sensible": false,
+   "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+   "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
+   "uso_libre": true,
+   "como_citar": "Datina (año de la consulta). ¿Qué le vende y qué le compra la Argentina al mundo? Con datos de INDEC, comercio internacional de servicios por país socio (estimación experimental de la balanza de pagos). https://datina.com.ar/rutas. Consultado el día de la consulta."
+  },
+  {
    "tabla": "mudanzas_departamentos",
    "csv": "https://datina.com.ar/datos/mudanzas_departamentos.csv",
    "metadatos": "https://datina.com.ar/datos/mudanzas_departamentos.metadata.json",

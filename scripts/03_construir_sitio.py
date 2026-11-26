@@ -981,6 +981,9 @@ import rutas_sitio  # noqa: E402
 print(rutas_sitio.armar(SITIO / "datos" / "rutas_exportaciones.csv", SITIO / "datos" / "rutas.json", RESUMEN["externo"]["rutas"]["anio"]))
 # y dónde se cosechan los cereales y las oleaginosas, por departamento (26 de noviembre de 2026)
 print(rutas_sitio.armar_cosecha(SITIO / "datos" / "rutas_cosecha.csv", SITIO / "datos" / "rutas_cosecha.json", SITIO / "datos" / "departamentos.topo.json"))
+# y las importaciones y los servicios (26 de noviembre de 2026): la página los baja al elegirlos
+print(rutas_sitio.armar(SITIO / "datos" / "rutas_importaciones.csv", SITIO / "datos" / "rutas_imp.json", RESUMEN["externo"]["rutas_imp"]["anio"], "imp"))
+print(rutas_sitio.armar(SITIO / "datos" / "rutas_servicios.csv", SITIO / "datos" / "rutas_ser.json", RESUMEN["externo"]["rutas_ser"]["anio"], "ser"))
 EN_CATALOGO = sorted(re.findall(r'<li class="cat-item" id="cat-(\w+)"', _catalogo))
 for marca, valor in {"/*ICONOS*/{}": ICONOS, "/*SEC_ICONO*/{}": SEC_ICONO, "/*SIN_RELACIONES*/[]": sorted(relaciones.EXCLUIDAS),
                      "/*EN_CATALOGO*/[]": EN_CATALOGO, "/*RELIEVE*/{}": RELIEVE_V}.items():
