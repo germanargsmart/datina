@@ -1,0 +1,24 @@
+codigo,nombre,grupo,entrada,fuentes,firmeza,nota
+111,Alimentos básicos para la industria,ali,Gran Rosario,BCR,inferido,"Sobre todo la soja de Paraguay que se muele en el Gran Rosario. Llega en barcaza por el Paraná: el mapa la dibuja por tierra, por Clorinda"
+112,Alimentos básicos para el hogar,ali,Buenos Aires,F18 EXOLGAN,inferido,"Contenedores: Buenos Aires y Dock Sud concentran más del 62% de la carga en contenedores del país"
+121,Alimentos elaborados para la industria,ali,Buenos Aires,F18 EXOLGAN,inferido,Contenedores
+122,Alimentos y bebidas elaborados para el hogar,ali,Buenos Aires,F18 EXOLGAN,inferido,Contenedores
+210,Insumos industriales básicos,ins,Buenos Aires,F18,suposicion,"Minerales, químicos básicos y otros insumos sin elaborar. Parte llega a granel a otros puertos"
+220,Insumos industriales elaborados,ins,Buenos Aires,F18 EXOLGAN,suposicion,"Químicos, plásticos, papel, hierro, acero y fertilizantes. Los fertilizantes llegan en buena parte al Gran Rosario y San Nicolás, sin fuente actual"
+310,Combustibles básicos,ene,Zárate-Campana,ESCOBAR,prensa,"Sobre todo el gas natural licuado, que entra por la terminal regasificadora de Escobar, cerca de Zárate-Campana"
+320,Combustibles elaborados,ene,Zárate-Campana,,suposicion,"Gasoil, naftas y lubricantes: entran por los muelles de combustible de Campana, Dock Sud y otros puertos. Sin fuente del reparto"
+410,Bienes de capital,maq,Buenos Aires,F18 EXOLGAN,inferido,"Máquinas, equipos y computadoras: contenedores"
+420,Piezas para bienes de capital,maq,Buenos Aires,F18 EXOLGAN,inferido,Contenedores
+510,Autos,tra,Zárate-Campana,ZARATE BYD,prensa,Por Zárate entra la mayoría de los autos importados que llegan por barco
+521,Vehículos de carga,tra,Zárate-Campana,ZARATE,suposicion,"Camiones, tractores y otros vehículos de trabajo: la misma terminal que los autos"
+522,Otros vehículos,tra,Zárate-Campana,ZARATE,suposicion,Motos y bicicletas: la misma terminal que los autos
+530,Piezas para vehículos,tra,Buenos Aires,F18 EXOLGAN,inferido,Contenedores
+610,Bienes de consumo duraderos,con,Buenos Aires,F18 EXOLGAN,inferido,"Electrodomésticos, muebles y juguetes: contenedores"
+620,Bienes de consumo semiduraderos,con,Buenos Aires,F18 EXOLGAN,inferido,"Ropa, calzado y celulares: contenedores"
+630,Bienes de consumo no duraderos,con,Buenos Aires,F18 EXOLGAN,inferido,"Medicamentos, artículos de limpieza y de tocador: contenedores. Parte de los medicamentos llega en avión, sin dato"
+u1,Bienes de capital,maq,Buenos Aires,F18 EXOLGAN,inferido,"Uso económico: lo que se usa mientras llegan las 19 categorías de la API"
+u2,Bienes intermedios,ins,Buenos Aires,F18 EXOLGAN,suposicion,Uso económico
+u3,Combustibles y lubricantes,ene,Zárate-Campana,ESCOBAR,prensa,Uso económico. El gas natural licuado entra por Escobar
+u4,Piezas y accesorios para bienes de capital,maq,Buenos Aires,F18 EXOLGAN,inferido,Uso económico
+u5,Bienes de consumo,con,Buenos Aires,F18 EXOLGAN,inferido,Uso económico
+u6,Autos,tra,Zárate-Campana,ZARATE BYD,prensa,Uso económico
