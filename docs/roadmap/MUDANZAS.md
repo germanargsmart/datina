@@ -28,6 +28,10 @@ Las viviendas sin personas y su motivo salen de `censo2022_departamentos.csv`, q
 - El Censo 2010 fue de hecho y el de 2022, de derecho: el cambio de población no es del todo comparable.
 - Del documento mexicano no se puede repetir: las viviendas deshabitadas de 2010 por departamento (sin fuente confirmada), la encuesta de 2025 y las zonas chicas. A cambio, el censo argentino dice por qué no había personas en cada vivienda.
 
+## Lenguaje (pedidos del autor del 26 de noviembre de 2026)
+
+"Saldo", "El camino más usado" y "Mayor saldo a favor" no se entendían: el autor pidió un lenguaje más técnico y, sobre los textos, que se entiendan "por cualquiera". Quedó así: los términos de la demografía (saldo migratorio, inmigrantes, emigrantes, flujo migratorio, tasa neta por mil, saldo con origen imputado, matriz de origen y destino, signo indeterminado), cada uno explicado en palabras simples la primera vez que aparece, en oraciones cortas. Tocar una línea o un flujo de la lista abre la ficha del par: cuántas personas fueron en cada sentido, quién ganó gente en el intercambio y qué parte representa de los inmigrantes y emigrantes de cada una (`?flujo=06-62` en la dirección).
+
 ## La página
 
 `migracion-interna.html`, en Herramientas, entre Rutas comerciales y el Catálogo. Usa las tarjetas, la ficha y los controles de Rutas (`.rt-*` de `datina.css`), así que **sale después de la rama `claude/rutas-mapa`**, de la que parte. Lo propio lleva `mu-`.

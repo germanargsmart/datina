@@ -2625,7 +2625,8 @@ html.js #ms-resultado:empty~.ms-pie,html.js #ms-resultado:empty~.ms-limites{visi
 .mu-sel{margin:0;flex:0 1 260px}
 .mu-sel select{width:100%;min-height:40px}
 .mu-controles{display:flex;flex-wrap:wrap;align-items:center;gap:var(--e-2) var(--e-4)}
-.mu-medidas{width:300px}
+.mu-medidas{width:520px}
+.mu .mu-f-cab-par{gap:var(--e-1)}.mu .mu-f-cab-par>.mu-flag{width:26px;height:26px}.mu .mu-f-cab-par>div{margin-left:var(--e-2)}
 .mu-check{display:inline-flex;align-items:center;gap:var(--e-2);font-size:var(--t-2);color:var(--muted);cursor:pointer}
 .mu-check input{width:18px;height:18px;accent-color:var(--azul)}
 .mu-flag{display:block;flex:none;width:20px;height:20px;object-fit:cover;border-radius:50%;box-shadow:0 0 0 1px rgba(24,33,43,.16)}

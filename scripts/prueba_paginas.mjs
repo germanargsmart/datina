@@ -974,17 +974,22 @@ await q.tamano(1280, 900);
   const tocar = async s => { await q.eval(`document.querySelector(${JSON.stringify(s)}).click()`); await espera(450); };
   await q.ir(B + "migracion-interna", 2500);
   let r = await mu();
-  if (r.vista !== "mudanzas" || r.kpis !== 4 || r.lado !== 24 || r.ocupado !== "false" || !/Censo \d{4}/.test(r.frase)) problemas.push(`${P}: la vista inicial sin sus cifras, su lista o su texto (${JSON.stringify(r).slice(0, 160)})`);
+  if (r.vista !== "mudanzas" || r.kpis !== 4 || r.lado !== 24 || r.ocupado !== "false" || !/personas se mudaron de una provincia a otra/.test(r.frase)) problemas.push(`${P}: la vista inicial sin sus cifras, su lista o su texto (${JSON.stringify(r).slice(0, 160)})`);
   if (r.provs !== 24 || r.lineas !== 30 || r.puntos) problemas.push(`${P}: el mapa no dibuja las 24 jurisdicciones y los 30 caminos, sin nada que se mueva (${r.provs}, ${r.lineas}, ${r.puntos})`);
   if (r.islas !== "none") problemas.push(`${P}: las Malvinas responden al mouse (${r.islas})`);
   // siete jurisdicciones cambian de signo: tres celdas en gris cada una (el saldo, la tasa y el saldo repartido)
-  if (r.filas !== 24 || r.celdas !== 24 * 23 || r.duda !== 21 || !/no se puede decir si ganan o pierden/.test(r.frase)) problemas.push(`${P}: las tablas o las jurisdicciones dudosas no son las esperadas (${r.filas} filas, ${r.celdas} celdas, ${r.duda} en gris)`);
+  if (r.filas !== 24 || r.celdas !== 24 * 23 || r.duda !== 21 || !/no se puede saber si ganaron o perdieron gente/.test(r.frase)) problemas.push(`${P}: las tablas o las jurisdicciones dudosas no son las esperadas (${r.filas} filas, ${r.celdas} celdas, ${r.duda} en gris)`);
   await tocar('[data-m="llegan"]'); r = await mu();
-  if (r.tit !== "Adónde llegó más gente" || !/^Buenos Aires/.test(r.prim)) problemas.push(`${P}: Llegan no ordena por las llegadas (${r.tit}, ${r.prim})`);
+  if (r.tit !== "Inmigrantes interprovinciales por jurisdicción de destino" || !/^Buenos Aires/.test(r.prim)) problemas.push(`${P}: Llegan no ordena por las llegadas (${r.tit}, ${r.prim})`);
   await tocar('[data-m="saldo"]'); await tocar('#mu-lado-lista [data-p="90"]'); r = await mu();
   if (!r.ficha || r.fichaTit !== "Tucumán" || r.dir !== "?provincia=90" || !/cambia de signo/.test(r.frase)) problemas.push(`${P}: elegir Tucumán en la lista no abre su informe (${r.fichaTit}, ${r.dir})`);
   await tecla("Escape"); await espera(300); r = await mu();
   if (r.ficha || r.dir) problemas.push(`${P}: Escape no cierra el informe (${r.dir})`);
+  // un flujo de la lista (lo mismo que tocar su línea): su ficha con los dos sentidos y quién ganó gente, y la dirección
+  await tocar("#mu-corr [data-par]"); r = await mu();
+  if (!r.ficha || !/ y /.test(r.fichaTit) || r.lineas !== 2 || !/^\?flujo=\d\d-\d\d$/.test(r.dir) || !/ganó [\d.]+ personas en el intercambio/.test(r.frase))
+    problemas.push(`${P}: elegir un flujo no muestra sus dos sentidos (${r.fichaTit}, ${r.lineas} líneas, ${r.dir})`);
+  await tecla("Escape"); await espera(300);
   // con el teclado: Enter en la lista elige, y el foco queda en el mismo botón
   await q.eval(`document.querySelector('#mu-lado-lista [data-p="58"]').focus()`); await tecla("Enter"); await espera(450); r = await mu();
   if (r.fichaTit !== "Neuquén" || await q.eval(`document.activeElement.dataset.p || ""`) !== "58") problemas.push(`${P}: con Enter en la lista no se elige o se pierde el foco (${r.fichaTit})`);
