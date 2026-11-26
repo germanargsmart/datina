@@ -178,7 +178,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <div class="grafico" data-g="aprender" data-forma="barras"></div>
       <p class="lead" data-t="aprender">En matemática, el 20,2% de los estudiantes de 6° grado de primaria del país quedó por debajo del nivel básico en Aprender 2025. Por provincia, la parte con nivel satisfactorio o avanzado en matemática fue más alta en CABA (74,5%) y más baja en Chaco (38,4%). En lengua, el 76,9% del país alcanzó un nivel satisfactorio o avanzado.</p>
       <p class="nota" data-t="aprender-nota">Aprender es la evaluación nacional de aprendizajes de la Secretaría de Educación. En 2025 fue censal para 6° grado de primaria. Los porcentajes se calculan con la base agregada por departamento, sector y ámbito que publica la Secretaría, y cuentan solo a quienes tienen un nivel de desempeño asignado. Por eso pueden diferir levemente de los del informe oficial. En Neuquén, su participación en Aprender quedó por debajo del umbral mínimo de representatividad estadística y la Secretaría de Educación publica su dato a título informativo.</p>
-      <div class="pie"><span>Fuente: Secretaría de Educación, evaluación Aprender, base agregada. Se actualiza con cada evaluación Aprender.</span><a href="datos/aprender_provincias.csv" download>Descargar tabla (CSV)</a></div>
+      <div class="pie"><span>Fuente: Secretaría de Educación, evaluación Aprender, base agregada. Se actualiza con cada evaluación Aprender.</span><a href="datos/aprender_provincias.csv" download>Descargar tabla (CSV)</a><p class="pie-arts"><span>Artículos con este dato:</span><a class="enlace" href="a-internet-aprender">¿Aprenden más matemática los chicos de las provincias con más internet en el hogar?</a><a class="enlace" href="a-inversion-aprender">¿Les va mejor en matemática a los chicos de las provincias que más invierten por alumno?</a></p></div>
     </article>
 
     <article class="ficha" id="f-pisa">
@@ -219,7 +219,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <div class="grafico" data-g="inversion-educativa" data-forma="barras"></div>
       <p class="lead" data-t="inversion-educativa">En 2024, la inversión por alumno de las escuelas de gestión estatal fue más alta en Neuquén, con 6.145.225 pesos (3 veces el valor del país), y más baja en Tucumán, con 1.272.647. La cifra suma lo que gasta cada provincia en educación y lo que le transfiere la Nación.</p>
       <p class="nota" data-t="inversion-educativa-nota">Gasto público en educación por alumno de gestión estatal: lo que gasta cada provincia en educación más las transferencias no automáticas de la Nación, sin lo que se transfiere a las escuelas de gestión privada, dividido por los alumnos de las escuelas estatales. La parte del gasto público no cuenta esas transferencias de la Nación. Montos en pesos de cada año. En la vista Año por año, descontada la inflación, en pesos de 2024 con el deflactor del PBI. Datos provisorios.</p>
-      <div class="pie"><span>Fuente: Coordinación General de Estudio de Costos del Sistema Educativo (CGECSE), Secretaría de Educación, indicadores de inversión educativa, y Banco Mundial, deflactor del PBI. Se actualiza cada año.</span><a href="datos/inversion_educativa.csv" download>Descargar tabla (CSV)</a></div>
+      <div class="pie"><span>Fuente: Coordinación General de Estudio de Costos del Sistema Educativo (CGECSE), Secretaría de Educación, indicadores de inversión educativa, y Banco Mundial, deflactor del PBI. Se actualiza cada año.</span><a href="datos/inversion_educativa.csv" download>Descargar tabla (CSV)</a><p class="pie-arts"><span>Artículo con este dato:</span><a class="enlace" href="a-inversion-aprender">¿Les va mejor en matemática a los chicos de las provincias que más invierten por alumno?</a></p></div>
     </article>
 
     <!-- las escuelas primarias cada 1.000 chicos de 5 a 14 años (fase 3 de docs/roadmap/ESTABLECIMIENTOS.md, 9 de noviembre de 2026): del padrón
@@ -342,7 +342,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 <p class="solo-lector" id="aviso" aria-live="polite"></p>
 
 <!-- los datos van en un archivo aparte que el navegador guarda una sola vez para todas las páginas -->
-<script src="datos/fichas.js?v=76be019e9d" defer></script>
-<script src="datina.js?v=5b41ccad2d" defer></script>
+<script src="datos/fichas.js?v=93d38f43a8" defer></script>
+<script src="partes/educacion.js?v=f32477fcd0" defer></script>
+<script src="datina.js?v=ff87248d40" defer></script>
 </body>
 </html>

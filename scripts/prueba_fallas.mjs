@@ -1,5 +1,5 @@
 // Prueba de fallas a propósito (plan de estabilización, P2-17, P2-18 y P2-19, 24 de octubre de 2026). Abre páginas del sitio armado en
-// Chrome sin ventana, corta archivos a propósito o sirve datina.js con un error a propósito, y controla que:
+// Chrome sin ventana, corta archivos a propósito o sirve datina.js (o una de sus partes, sitio/partes/) con un error a propósito, y controla que:
 // - sin D3, el Explorador de relaciones muestre su aviso;
 // - un gráfico que falla deje su aviso, los demás se dibujen y el error quede en la consola (así la prueba de páginas no deja publicar);
 // - un artículo que falla no corte la portada ni los otros artículos, y su página lo diga;
@@ -32,9 +32,10 @@ await new Promise(r => servidor.listen(0, "127.0.0.1", r));
 const BASE = `http://127.0.0.1:${servidor.address().port}/`;
 const ch = await abrirChrome(9500 + Math.floor(Math.random() * 400)), p = await ch.pestana();
 await p.tamano(1440, 900);
-// qué hacer con cada pedido: fallar (los que contienen un texto de FALLAR) o cambiar datina.js (CAMBIOS)
+// qué hacer con cada pedido: fallar (los que contienen un texto de FALLAR) o cambiar datina.js (CAMBIOS: [texto, reemplazo] o, para una parte
+// de datina.js, desde el 25 de noviembre de 2026, [texto, reemplazo, "partes/articulos.js"] o la de otra página)
 let FALLAR = [], CAMBIOS = [], CORTAR = [];
-await p.send("Fetch.enable", {patterns: [{urlPattern: "*datina.js*"}, {urlPattern: "*/lib/*"}, {urlPattern: "*/datos/*"}]});
+await p.send("Fetch.enable", {patterns: [{urlPattern: "*datina.js*"}, {urlPattern: "*/partes/*"}, {urlPattern: "*/lib/*"}, {urlPattern: "*/datos/*"}]});
 p.on("Fetch.requestPaused", ev => {
   const u = ev.request.url;
   if (FALLAR.some(f => u.includes(f))) return p.send("Fetch.failRequest", {requestId: ev.requestId, errorReason: "Failed"});
@@ -43,9 +44,11 @@ p.on("Fetch.requestPaused", ev => {
     return p.send("Fetch.fulfillRequest", {requestId: ev.requestId, responseCode: 200, body: d.subarray(0, d.length >> 1).toString("base64"),
       responseHeaders: [{name: "Content-Type", value: "text/csv; charset=utf-8"}]});
   }
-  if (CAMBIOS.length && /\/datina\.js/.test(u)) {
-    let s = readFileSync(join(SITIO, "datina.js"), "utf8");
-    for (const [a, b] of CAMBIOS) { if (!s.includes(a)) throw new Error("no está: " + a); s = s.replace(a, b); }
+  const archivo = /\/datina\.js/.test(u) ? "datina.js" : (u.match(/\/(partes\/[\w-]+\.js)/) || [])[1];
+  const cambios = CAMBIOS.filter(([, , f = "datina.js"]) => f === archivo);
+  if (cambios.length) {
+    let s = readFileSync(join(SITIO, archivo), "utf8");
+    for (const [a, b] of cambios) { if (!s.includes(a)) throw new Error("no está: " + a); s = s.replace(a, b); }
     return p.send("Fetch.fulfillRequest", {requestId: ev.requestId, responseCode: 200, body: Buffer.from(s).toString("base64"),
       responseHeaders: [{name: "Content-Type", value: "text/javascript; charset=utf-8"}]});
   }
@@ -66,7 +69,8 @@ await p.ir(BASE + "relaciones.html", 1500);
 r = await p.eval(`document.getElementById("rx-error").hidden`); caso("Explorador con D3: sin aviso", r === true);
 
 // 2. P2-17: un gráfico que falla (hogares, en energia.html)
-CAMBIOS = [['hogares: a => lineas(G("hogares")', 'hogares: a => null.x || lineas(G("hogares")']];
+// desde el 25 de noviembre de 2026 (fase 5, los textos y los gráficos de cada sección) el dibujo está en la parte de Energía
+CAMBIOS = [['hogares: a => lineas(G("hogares")', 'hogares: a => null.x || lineas(G("hogares")', "partes/energia.js"]];
 await p.ir(BASE + "energia.html", 1500); await p.recorrer();
 // se espera a que el gráfico que falla muestre su aviso (hasta 5 segundos): en una máquina lenta la página puede no haber terminado de dibujar
 for (let i = 0; i < 50 && !(await p.eval(`document.querySelector('.grafico[data-g="hogares"]')?.textContent || ""`)); i++) await espera(100);
@@ -76,15 +80,17 @@ caso("Gráfico que falla: su aviso", /No se pudo dibujar este gráfico/.test(sin
 caso("Gráfico que falla: los demás se dibujan", r.otros === r.total - 1, `${r.otros} de ${r.total - 1}`);
 caso("Gráfico que falla: la consola lo anota (la prueba de páginas lo ve)", p.errores.some(e => /no se pudo dibujar el gráfico hogares/.test(e)), p.errores.length + " errores");
 
-// 3. P2-17: un artículo que falla (a-alquiler-pobreza)
+// 3. P2-17: un artículo que falla (a-alquiler-pobreza). Desde el 25 de noviembre de 2026 (plan técnico, fase 5) su código está en
+// sitio/partes/articulos.js, que piden solo las páginas de los artículos: la portada ya no hace sus cuentas (sus tarjetas vienen escritas en
+// el HTML desde el armado) y la consola lo anota en la página del artículo, que es donde corre
 await p.ir(BASE + "index.html", 1500);
 const tarjetasAntes = await p.eval(`[...document.querySelectorAll("#art-grid-home .art-card")].map(a => a.getAttribute("href")).join(" ")`);
-CAMBIOS = [["try { a.c = partesArt(a)", 'try { a.c = a.id === "a-alquiler-pobreza" ? null.x : partesArt(a)']];
+CAMBIOS = [["try { a.c = partesArt(a)", 'try { a.c = a.id === "a-alquiler-pobreza" ? null.x : partesArt(a)', "partes/articulos.js"]];
 await p.ir(BASE + "index.html", 1500);
 r = JSON.parse(await p.eval(`JSON.stringify({tarjetas: [...document.querySelectorAll("#art-grid-home .art-card")].map(a => a.getAttribute("href")).join(" "), destacados: [...document.querySelectorAll(".destacado .c-num")].filter(e => e.textContent.trim()).length})`));
 caso("Artículo que falla: la portada sigue (las mismas tarjetas de artículos y los datos destacados)", r.tarjetas.split(" ").length === tarjetasAntes.split(" ").length && r.destacados === 12, "antes " + tarjetasAntes + " | ahora " + r.tarjetas);
-caso("Artículo que falla: la consola lo anota", p.errores.some(e => /no se pudo armar el artículo a-alquiler-pobreza/.test(e)) && !p.errores.some(e => /^excepción/.test(e)), p.errores.join(" | ").slice(0, 200));
 await p.ir(BASE + "a-alquiler-pobreza.html", 1500);
+caso("Artículo que falla: la consola lo anota", p.errores.some(e => /no se pudo armar el artículo a-alquiler-pobreza/.test(e)) && !p.errores.some(e => /^excepción/.test(e)), p.errores.join(" | ").slice(0, 200));
 r = await p.eval(`document.getElementById("a-alquiler-pobreza").textContent`);
 caso("Artículo que falla: su página lo dice", /No se pudo armar este artículo/.test(r), r.slice(0, 80));
 await p.ir(BASE + "a-pobreza-desocupacion.html", 1500); await p.recorrer();

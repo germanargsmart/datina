@@ -33,7 +33,11 @@ scripts/achicar_js.py          saca comentarios y sangría de sitio/datina.js, s
 scripts/partes/                desde el 24 de noviembre de 2026 (plan técnico, fase 5), el código de datina.js que usa una sola página, un archivo por
                                página (catalogo.js, departamentos.js...). 03 lo publica en sitio/partes/ y lo pide solo esa página, antes de datina.js,
                                que ya no es una función que se llama a sí misma: cada parte se anota y datina.js la corre con parte("...") donde
-                               estaba su código, con todo lo de datina.js a mano
+                               estaba su código, con todo lo de datina.js a mano. Una parte de varias páginas lleva su propio nombre y sus páginas
+                               van en PARTE_EN de 03 (desde el 25 de noviembre de 2026, corte.js: laboratorio y corte-suprema, y articulos.js: las
+                               páginas de los artículos, a-*.html, no la página Artículos). Desde el 26 de noviembre de 2026 cada página de sección
+                               tiene la suya con sus gráficos y sus notas (entradas de DIB, MED y TABLA_PROPIA en un Object.assign, y las notas de
+                               TX en textosParte, que las escribe en su lugar). Los textos de TX que lee la lupa y los de LEAD quedan en datina.js
 scripts/imagen_social.py       la imagen al compartir de cada página (og:image, sitio/og/): 03 la dibuja con Pillow y Roboto Flex (scripts/fuentes/), solo si cambió lo que lleva
 scripts/pruebas_datos.py       pruebas de los datos: si fallan, no se arma ni se publica
 scripts/relaciones.py          arma el Explorador de relaciones (relaciones.html) desde datos/manual/relaciones.json y lo valida
@@ -43,7 +47,9 @@ scripts/catalogo.py            arma la lista del Catálogo de datos (catalogo.ht
 scripts/prueba_paginas.mjs     prueba de las páginas armadas en Chrome sin ventana (usa scripts/cdp.mjs)
 scripts/texto_en_html.mjs      desde el 16 de noviembre de 2026 (plan técnico, fase 4), el último paso de 03: abre cada página en Chrome sin ventana, con el reloj
                                en la fecha de los datos, y deja escrito en el HTML el texto de los artículos y de cada interpretación (data-t), que antes
-                               escribía solo datina.js al cargar. Por eso 03 necesita Node 22 o más y Chrome, como la prueba de páginas
+                               escribía solo datina.js al cargar. Por eso 03 necesita Node 22 o más y Chrome, como la prueba de páginas. Desde el 25 de
+                               noviembre de 2026 escribe también lo de los artículos fuera de sus páginas (las tarjetas de la portada, las respuestas de
+                               Artículos y "Artículos con este dato" de cada ficha), que calcula DATINA_ARMADO_ARTICULOS, en scripts/partes/articulos.js
 scripts/elecciones_mesas.py    desde el 4 de noviembre de 2026, arma sitio/datos/mesas/ (resultados por mesa y circuito, 87 MB), que 03 no toca. Se corre una vez por
                                elección. La página es scripts/mesas.js, aparte de datina.js, y la prueba scripts/prueba_mesas.py: docs/roadmap/MESAS.md
 scripts/elecciones_mapa.py     desde el 5 de noviembre de 2026, el mapa de esa herramienta: une la cartografía de los circuitos con los resultados (sitio/datos/mesas/geo/ y mapa/). Los colores de

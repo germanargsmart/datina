@@ -673,9 +673,31 @@ EJEMPLOS = [("f-combustibles", "¿Cuánto cuesta un litro de nafta?"), ("f-censo
 LAB_PIEZAS_IDX = [(i, texto(t)) for i, t in re.findall(r'<article class="lab-pieza[^"]*" id="(l-[\w-]+)".*?<h2[^>]*>(.*?)</h2>', base, re.S)
                   if i != "l-corte-lab"]
 assert LAB_PIEZAS_IDX, "no se encontraron las piezas del Laboratorio para el buscador"
+# Los artículos de datina.js (ART_SERIE y ART), en su orden: primero los de series, después los de cruces. De cada uno se leen su id, cada
+# cuánto se actualiza (frec) y su bajada (dek). De acá salen la lista de Artículos (abajo) y, desde el 25 de noviembre de 2026 (plan técnico,
+# fase 5), lo que la lupa busca de cada artículo, en el índice del sitio: así la lupa no necesita el código de los artículos. Desde el mismo
+# día ese código está en su parte de datina.js, scripts/partes/articulos.js, que piden solo las páginas de los artículos (PARTE_EN, abajo)
+_JS_ART = (RAIZ / "scripts" / "partes" / "articulos.js").read_text(encoding="utf-8")
+bloque_art = lambda ini, fin: _JS_ART[_JS_ART.index(ini):_JS_ART.index(fin, _JS_ART.index(ini))]
+
+
+def _arts_js(ini, fin):
+    trozos = re.split(r'(?=\bid: "a-[\w-]+")', bloque_art(ini, fin))[1:]
+    datos = []
+    for t in trozos:
+        m = [re.search(rf'\b{k}: "((?:[^"\\]|\\.)*)"', t) for k in ("id", "frec", "dek")]
+        assert all(m), f"un artículo de datina.js sin id, frec o dek: {t[:60]}"
+        datos.append([json.loads(f'"{x.group(1)}"') for x in m])
+    return datos
+
+
+_ARTS_JS = _arts_js("const ART_SERIE = [", "\n}];") + _arts_js("const ART = [", "\n];")
+_NOTA_DE = {i: (ico, sec, html.unescape(t)) for i, ico, sec, t in NOTAS}
+assert sorted(i for i, *_ in _ARTS_JS) == sorted(_NOTA_DE), "los artículos de datina.js no son los de la plantilla"
 # el índice del sitio que lee datina.js. Desde la Fase 2 (paso 3) también lleva el menú de cada página (el buscador agrupa los resultados
-# como la barra), las preguntas de ejemplo y las piezas del Laboratorio
-INDICE = {"prov_pag": PAG_PROV, "secciones": SECCIONES, "fichas": FICHAS, "articulos": [[i, html.unescape(t), ico, sec] for i, ico, sec, t in NOTAS], "ubic": UBIC,
+# como la barra), las preguntas de ejemplo y las piezas del Laboratorio. Cada artículo: [id, título, ícono, sección, bajada], en el orden de
+# la lista de Artículos (la bajada y el orden, desde el 25 de noviembre de 2026: los usa la lupa)
+INDICE = {"prov_pag": PAG_PROV, "secciones": SECCIONES, "fichas": FICHAS, "articulos": [[i, _NOTA_DE[i][2], *_NOTA_DE[i][:2], dek] for i, _, dek in _ARTS_JS], "ubic": UBIC,
           "grupos": [[g, n, [list(it) if isinstance(it, tuple) else it for it in items]] for g, n, items in GRUPOS],
           "cat": {s: subs[0] for s, (_, subs) in CATEGORIA.items()},
           "menu": {p: m for p, (m, _) in MENU_DE.items()}, "ejemplos": [list(x) for x in EJEMPLOS], "lab": [list(x) for x in LAB_PIEZAS_IDX]}
@@ -782,14 +804,20 @@ js = (RAIZ / "scripts" / "datina.js").read_text(encoding="utf-8")
 # Se miran las claves que abren cada línea con dos espacios de sangría en el objeto y en los Object.assign que lo completan, que es como se
 # escriben, y las que se asignan sueltas más abajo (DIB.congreso = ..., TX["vprov"] = ...). Desde la fase 5 del plan técnico (25 de noviembre
 # de 2026) también las que se asignan en las partes de una sola página (scripts/partes/*.js), con o sin sangría, porque ahí muchas van dentro
-# de un if o una función: una clave de una parte que repite una del núcleo, o de otra parte, también frena el armado
+# de un if o una función: una clave de una parte que repite una del núcleo, o de otra parte, también frena el armado. Desde el paso de los
+# textos y los gráficos de cada sección (25 de noviembre de 2026) las partes llevan también propiedades de esos objetos dentro de un
+# Object.assign(DIB, {...}) o de LEAD, y los textos de TX dentro de textosParte({...}): se miran como los del núcleo. En el núcleo
+# se mira también el objeto de DIB (const DIB = protegerDib({...})), porque ya no queda ningún Object.assign(DIB, {...})
 _JS_PARTES = [(f.name, f.read_text(encoding="utf-8")) for f in sorted((RAIZ / "scripts" / "partes").glob("*.js"))]
 for _obj in ("LEAD", "TX", "DIB", "CLAVE", "EXTRA", "EN_CIFRAS", "SERIE_CIFRA"):
-    _bl = [m.group(1) for m in re.finditer(r"\n(?:const " + _obj + r" = |Object\.assign\(" + _obj + r", )\{\n(.*?)\n\}\)?;?\n", js, re.S)]
+    _bl = [m.group(1) for m in re.finditer(r"\n(?:const " + _obj + r" = (?:protegerDib\()?|Object\.assign\(" + _obj + r", )\{\n(.*?)\n\}\)?;?\n", js, re.S)]
     assert _bl, f"no se encontró {_obj} en datina.js"
     _cl = [a or b for b_ in _bl for a, b in re.findall(r'^  (?:"([^"]+)"|([\w$]+)):', b_, re.M)]
     _cl += [a or b for a, b in re.findall(r"^" + _obj + r'(?:\["([^"]+)"\]|\.([\w$]+)) = ', js, re.M)]
     _cl += [a or b for _, _t in _JS_PARTES for a, b in re.findall(r"^[ \t]*" + _obj + r'(?:\["([^"]+)"\]|\.([\w$]+)) = ', _t, re.M)]
+    _cl += [a or b for _, _t in _JS_PARTES
+            for m in re.finditer(r"\n(?:Object\.assign\(" + _obj + r", " + (r"|textosParte\(" if _obj == "TX" else "") + r")\{\n(.*?)\n\}\);\n", _t, re.S)
+            for a, b in re.findall(r'^  (?:"([^"]+)"|([\w$]+)):', m.group(1), re.M)]
     _rep = sorted({c for c in _cl if _cl.count(c) > 1})
     assert not _rep, f"claves repetidas en {_obj} de datina.js y sus partes: {_rep}"
 # ícono de cada página: la grilla de secciones de la portada (datina.js) y el final de página ("Seguí explorando")
@@ -963,6 +991,15 @@ JS_SITIO = achicar_js.achicar(js)
 # Las partes de datina.js de una sola página (plan técnico, fase 5, 24 de noviembre de 2026): scripts/partes/<página>.js, achicadas como datina.js,
 # en sitio/partes/. Solo esa página la pide, antes de datina.js (abajo, en pagina()), y datina.js la corre con parte("<página>") donde estaba su
 # código. Cada parte necesita su llamada en datina.js y al revés: una parte sin llamada no correría nunca, y una llamada sin parte no haría nada
+# Desde el 25 de noviembre de 2026 (cuarto paso) una parte puede pedirse en más de una página: PARTE_EN dice cuáles, y entonces el archivo lleva
+# el nombre de la parte, no el de una página. La Corte Suprema la usan la pieza del Laboratorio (lab-corte) y su página (la nota #l-corte).
+# Una parte que no está acá la pide solo la página de su nombre. Cada página que pide una parte tiene que armarse: si no, 03 frena (al final)
+# El perfil de provincia (quinto paso, 25 de noviembre de 2026) no necesita estar: la parte "provincia" la pide provincia.html, y las 24 páginas
+# fijas (provincia-neuquen.html...) son copias de esa página, con su pedido (abajo, donde se arman, se controla que cada una lo lleve)
+# Los artículos (séptimo paso, 25 de noviembre de 2026) los piden solo sus páginas (a-coparticipacion.html...): la parte se llama "articulos",
+# pero la página Artículos no la pide (sus tarjetas y sus respuestas, y lo que se ve de los artículos en las demás páginas, los escribe el
+# armado: DATINA_ARMADO_ARTICULOS en la parte, que corre scripts/texto_en_html.mjs)
+PARTE_EN = {"corte": ["laboratorio", "corte-suprema"], "articulos": [_i for _i, *_ in NOTAS]}
 PARTES_V = {}
 (SITIO / "partes").mkdir(exist_ok=True)
 for _f in sorted((RAIZ / "scripts" / "partes").glob("*.js")):
@@ -974,6 +1011,13 @@ for _f in (SITIO / "partes").glob("*.js"):
         _f.unlink()
 _llamadas = re.findall(r'^parte\("([\w-]+)"\);', js, re.M)
 assert sorted(_llamadas) == sorted(set(_llamadas)) == sorted(PARTES_V), f"partes de datina.js: llamadas {sorted(_llamadas)}, archivos {sorted(PARTES_V)}"
+assert set(PARTE_EN) <= set(PARTES_V), f"PARTE_EN nombra partes sin archivo en scripts/partes/: {sorted(set(PARTE_EN) - set(PARTES_V))}"
+# las partes que pide cada página, en el orden de sus nombres
+PARTES_DE = {}
+for _parte_n in sorted(PARTES_V):
+    for _parte_pag in PARTE_EN.get(_parte_n, [_parte_n]):
+        PARTES_DE.setdefault(_parte_pag, []).append(_parte_n)
+PAGINAS_ARMADAS = set()  # las que arma pagina(): al final, cada página de PARTES_DE tiene que estar
 # D3 y topojson desde el propio sitio (plan de estabilización, P0-1, 22 de octubre de 2026): las mismas versiones que se pedían a cdnjs y
 # jsDelivr, copiadas byte por byte de scripts/lib/ a sitio/lib/ con sus licencias, y pedidas con su huella como datina.js
 # Leaflet 1.9.4 (9 de noviembre de 2026, el mapa de escuelas y hospitales de cada provincia): bajada de npm e igual byte por byte a la de
@@ -1400,15 +1444,16 @@ if not FORMULARIOS:
     # lo arma al cargar, así los robots que juntan correos no lo leen. Sin JavaScript, escrito con "arroba"
     _correo = SITIO_CONF.get("correo_contacto", "").strip()
     assert not _correo or re.fullmatch(r"[\w.+-]+@[\w-]+(\.[\w-]+)+", _correo), 'datos/manual/sitio.json: "correo_contacto" no es un correo'
-    # desde el 25 de noviembre de 2026 (pedido del autor), con nombre, apellido y mensaje: Enviar abre el programa de correo de quien escribe
+    # desde el 25 de noviembre de 2026 (pedido del autor), con nombre, apellido, correo y mensaje: Enviar abre el programa de correo de quien escribe
     # con el mensaje armado para esa dirección (datina.js). No pasa por ningún servidor. Sin JavaScript queda oculto y se ve solo la dirección.
     # Los textos no dicen "formulario": la prueba de metadatos (E9) lo reserva para el aviso de cuando no hay correo
     _c_rev = _correo[::-1]
     _contacto = (f'<form class="form-contacto form-correo" id="form-correo" data-correo="{_c_rev}" hidden>'
                  '<div class="campos-dos"><label class="campo"><span>Nombre</span><input type="text" name="nombre" autocomplete="given-name" required></label>'
                  '<label class="campo"><span>Apellido</span><input type="text" name="apellido" autocomplete="family-name" required></label></div>'
+                 '<label class="campo"><span>Correo</span><input type="email" name="correo" autocomplete="email" required></label>'
                  '<label class="campo"><span>Mensaje</span><textarea name="mensaje" rows="6" required></textarea></label>'
-                 '<p class="form-nota">Al tocar Enviar se abre tu programa de correo con el mensaje listo para mandar. Te respondemos a la dirección desde la que escribas.</p>'
+                 '<p class="form-nota">Al tocar Enviar se abre tu programa de correo con el mensaje listo para mandar. Te respondemos al correo que pongas.</p>'
                  '<button type="submit" class="boton principal">Enviar</button>'
                  '<div class="form-respaldo" hidden><p class="form-nota" role="status">¿No se abrió tu programa de correo? Copiá el mensaje y mandalo a '
                  f'<a data-correo="{_c_rev}" href="contacto">nuestro correo</a>.</p>'
@@ -1435,10 +1480,13 @@ if sin_forma:
 bloque_js = lambda ini, fin: js[js.index(ini):js.index(fin, js.index(ini))]
 CON_CLAVE = set(re.findall(r'^\s+"(f-[\w-]+)":\s*\[', bloque_js("const CLAVE = {", "\n};"), re.M))
 CON_PERFIL = re.findall(r'\{id:"(f-[\w-]+)"', bloque_js("const INDP = [", "\n];"))
-# el perfil por tema (etapa 27): los grupos y el tema de cada indicador salen de datina.js, así la silueta tiene la misma forma
-PERFIL_GRUPOS = re.findall(r'\["(\w+)", "([^"]+)"\]', bloque_js("const PERFIL_GRUPOS = [", "];"))
+# el perfil por tema (etapa 27): los grupos y el tema de cada indicador salen de datina.js, así la silueta tiene la misma forma. Desde el 25 de
+# noviembre de 2026 (plan técnico, fase 5) los grupos (PERFIL_GRUPOS) y la capital (CAP_P) están en la parte del perfil, scripts/partes/provincia.js
+_JS_PROV = (RAIZ / "scripts" / "partes" / "provincia.js").read_text(encoding="utf-8")
+bloque_prov = lambda ini, fin: _JS_PROV[_JS_PROV.index(ini):_JS_PROV.index(fin, _JS_PROV.index(ini))]
+PERFIL_GRUPOS = re.findall(r'\["(\w+)", "([^"]+)"\]', bloque_prov("const PERFIL_GRUPOS = [", "];"))
 PERFIL_G = (re.findall(r'\{id:"[\w-]+", g:"(\w+)"', bloque_js("const INDP = [", "\n];")) +
-            re.findall(r'\{id:"[\w-]+", g:"(\w+)"', bloque_js("const CAP_P = [", "\n];")))
+            re.findall(r'\{id:"[\w-]+", g:"(\w+)"', bloque_prov("const CAP_P = [", "\n];")))
 assert len(PERFIL_G) >= len(CON_PERFIL) and set(PERFIL_G) <= {g for g, _ in PERFIL_GRUPOS}, "el perfil tiene indicadores sin tema"
 
 
@@ -1644,9 +1692,10 @@ def pagina(id_, titulo, descripcion, quedan, recorte=None, titulo_social=None, t
     if recorte:
         h = recorte(h)
     h = h.replace("<body>", f'<body data-pagina="{id_}">', 1)
-    if id_ in PARTES_V:  # su parte de datina.js, antes: datina.js la corre en su lugar
+    PAGINAS_ARMADAS.add(id_)
+    for parte_n in PARTES_DE.get(id_, []):  # sus partes de datina.js, antes: datina.js corre cada una en su lugar
         assert h.count('<script src="datina.js?v=') == 1
-        h = h.replace('<script src="datina.js?v=', f'<script src="partes/{id_}.js?v={PARTES_V[id_]}" defer></script>\n<script src="datina.js?v=', 1)
+        h = h.replace('<script src="datina.js?v=', f'<script src="partes/{parte_n}.js?v={PARTES_V[parte_n]}" defer></script>\n<script src="datina.js?v=', 1)
     if id_ == "404":
         h = h.replace("<head>", '<head>\n<base href="/">\n<meta name="robots" content="noindex">', 1)
     if titulo:
@@ -1687,6 +1736,9 @@ _HIST_TODAS = "".join(historia_prov(c, HISTORIA[c]) for c in sorted(HISTORIA))
 _LINEA_TODAS = "".join(linea_prov(c, HISTORIA.get(c, {})) for c in sorted(NOMBRE_PROV) if c != "00")
 _TIT_GENERAL = '<span id="prov-titulo-txt">¿Cómo se compara tu provincia con el país?</span>'
 assert all(_h_prov.count(x) == 1 for x in (_HIST_TODAS, _LINEA_TODAS, _TIT_GENERAL)), "la página de provincia cambió: revisar las páginas fijas"
+# las partes de datina.js de provincia.html (el perfil, plan técnico, fase 5): las 24 páginas fijas las piden igual, porque son copias de ella
+_PARTES_PROV = [f'<script src="partes/{_p}.js?v={PARTES_V[_p]}" defer></script>' for _p in PARTES_DE.get("provincia", [])]
+assert "provincia" in PARTES_DE.get("provincia", []) and all(_h_prov.count(_s) == 1 for _s in _PARTES_PROV), "provincia.html no pide la parte del perfil"
 for _c, _a in PAG_PROV.items():
     _n = NOMBRE_PROV[_c]
     _t, _d = f"{_n} en números", (f"El perfil de {_n}: sus indicadores frente al total del país, su posición entre las 24 jurisdicciones, su historia y las jurisdicciones "
@@ -1707,6 +1759,7 @@ for _c, _a in PAG_PROV.items():
         _h = _h.replace(f'{URL_SITIO}/og/provincia.png', f'{URL_SITIO}/og/{_a}.png')
         imagen_social.asegurar(SITIO / "og", _a, _t, _og_n(_POB_PROV[_c]), f"habitantes en {RESUMEN['poblacion_proy']['anio']}, según las proyecciones del INDEC",
                                SITIO / "datos" / "banderas" / f"{_c}.png")
+    assert all(_h.count(_s) == 1 for _s in _PARTES_PROV), f"{_a}: no pide las partes de datina.js de provincia.html"
     (SITIO / f"{_a}.html").write_text(_h, encoding="utf-8", newline="\n")
     INDEXADAS.append(_a)
     PAGINA_INFO[_a] = (_t, _d)
@@ -1734,19 +1787,7 @@ sin_notas = lambda h: re.sub(r'\s*<div class="notas">.*?</div>', "", h, count=1,
 # La lista de Artículos la escribe el constructor desde la Fase 2 (paso 4, 23 de octubre de 2026): la armaba datina.js al cargar, y en la
 # computadora "Seguí explorando" y el pie, que se ven antes de que llegue, saltaban hacia abajo (CLS 0,26, y 0,35 con las bajadas). El
 # orden es el de ARTS en datina.js (primero los de series, después los de cruces), y cada cuánto se actualiza y la bajada salen de ahí
-def _arts_js(ini, fin):
-    trozos = re.split(r'(?=\bid: "a-[\w-]+")', bloque_js(ini, fin))[1:]
-    datos = []
-    for t in trozos:
-        m = [re.search(rf'\b{k}: "((?:[^"\\]|\\.)*)"', t) for k in ("id", "frec", "dek")]
-        assert all(m), f"un artículo de datina.js sin id, frec o dek: {t[:60]}"
-        datos.append([json.loads(f'"{x.group(1)}"') for x in m])
-    return datos
-
-
-_ARTS_JS = _arts_js("const ART_SERIE = [", "\n}];") + _arts_js("const ART = [", "\n];")
-_NOTA_DE = {i: (ico, sec, html.unescape(t)) for i, ico, sec, t in NOTAS}
-assert sorted(i for i, *_ in _ARTS_JS) == sorted(_NOTA_DE), "los artículos de datina.js no son los de la plantilla"
+# (_ARTS_JS, arriba, con el índice del sitio)
 # Etapa 5 del plan de mejora (28 de octubre de 2026): la lista en dos bloques, "El país en el tiempo" (series de todo el país) y "Las 24
 # comparadas" (provincias, capitales y regiones lado a lado), que dice data-bloque en cada artículo de la plantilla, con filtros por los
 # cuatro grupos de temas. "Anterior" y "Siguiente" de cada artículo siguen este mismo orden (navegacion())
@@ -1817,8 +1858,8 @@ def solo_nota(id_):
 
 # La descripción de cada artículo dice qué cruza: series del país (ART_SERIE), las 24 capitales (tabla de las capitales en ART)
 # o las 24 jurisdicciones (los demás artículos de cruces)
-ART_SERIES = set(re.findall(r'^\s+id: "(a-[\w-]+)"', bloque_js("const ART_SERIE = [", "\n}];"), re.M))
-ART_CAPITALES = set(re.findall(r'\{id: "(a-[\w-]+)", tabla: "capitales', bloque_js("const ART = [", "\n];")))
+ART_SERIES = set(re.findall(r'^\s+id: "(a-[\w-]+)"', bloque_art("const ART_SERIE = [", "\n}];"), re.M))
+ART_CAPITALES = set(re.findall(r'\{id: "(a-[\w-]+)", tabla: "capitales', bloque_art("const ART = [", "\n];")))
 assert ART_SERIES and ART_CAPITALES, "no se encontraron los artículos de series o de las capitales en datina.js"
 # el de empleo de las mujeres no es de series: son los departamentos del último censo
 ART_DEPTOS = {"a-empleo-mujeres"}
@@ -1828,6 +1869,9 @@ CRUZA = lambda id_: ("datos oficiales de las 24 jurisdicciones y sus departament
 for id_, _, _, titulo in NOTAS:
     descr = f"{html.unescape(titulo)} Compara {CRUZA(id_)} y dice de dónde salen y qué no permiten concluir."
     pagina(id_, html.unescape(titulo), descr, {"articulos"}, solo_nota(id_), tipo="article")
+# cada página que pide una parte de datina.js se armó (PARTE_EN, arriba): una parte pedida por una página que no existe no correría nunca
+_parte_sin_pagina = sorted(set(PARTES_DE) - PAGINAS_ARMADAS)
+assert not _parte_sin_pagina, f"partes de datina.js para páginas que no se arman: {[(p, PARTES_DE[p]) for p in _parte_sin_pagina]} (PARTE_EN en 03)"
 
 # Paginas que cambiaron de nombre: la direccion vieja lleva a la nueva, con la ficha y la provincia del enlace
 # Etapa 5 del plan de mejora (28 de octubre de 2026): los artículos que se juntaron con otro o se retiraron llevan al que queda
