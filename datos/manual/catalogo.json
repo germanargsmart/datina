@@ -537,6 +537,76 @@
     "archivo": "scripts/02_procesar.py",
     "contiene": "rutas_exportaciones.to_csv(SITIO / \"rutas_exportaciones.csv\", index=False, lineterminator=\"\\n\")"
    }
+  },
+  "rutas_importaciones": {
+   "en": [
+    "rutas"
+   ],
+   "titulo": "¿Qué le vende y qué le compra la Argentina al mundo?",
+   "sub": "Importaciones de cada año completo desde 2015 por categoría económica (o, mientras no llega ese corte de la API, por uso económico) y país de origen, en millones de dólares CIF y toneladas, con la entrada y el camino simulado de cada fila",
+   "fuente": "INDEC, importaciones por categoría económica o uso económico y país de origen (API). La entrada de cada categoría, de organismos oficiales y prensa (datos/manual/rutas_entradas.csv), y el puerto o el paso de frontera de cada país (datos/manual/rutas_destinos.csv)",
+   "frecuencia": "Se actualiza cuando el INDEC publica un año completo.",
+   "nota": "Valores CIF, con el flete y el seguro: no se comparan con las exportaciones, que son FOB. El INDEC no publica por dónde entra cada carga. La entrada (con su firmeza), el modo (mar o tierra) y el origen son una simulación de Datina, explicada en la herramienta. Sin modo, la fila no tiene camino dibujado.",
+   "evidencia": {
+    "archivo": "scripts/02_procesar.py",
+    "contiene": "rutas_importaciones.to_csv(SITIO / \"rutas_importaciones.csv\", index=False, lineterminator=\"\\n\")"
+   }
+  },
+  "rutas_servicios": {
+   "en": [
+    "rutas"
+   ],
+   "titulo": "¿Qué le vende y qué le compra la Argentina al mundo?",
+   "sub": "Exportaciones de servicios de cada año desde 2015 por tipo (los 12 rubros de la balanza de pagos) y país que los compra, en millones de dólares",
+   "fuente": "INDEC, comercio internacional de servicios por país socio (estimación experimental de la balanza de pagos)",
+   "frecuencia": "Se actualiza cuando el INDEC publica un año completo.",
+   "nota": "Muchas celdas son confidenciales: lo confidencial de cada país va como \"Otros servicios (confidencial)\" y lo que no tiene país (país confidencial, indeterminado, regiones y organismos internacionales) como \"Sin país informado\".",
+   "evidencia": {
+    "archivo": "scripts/02_procesar.py",
+    "contiene": "rutas_servicios.to_csv(SITIO / \"rutas_servicios.csv\", index=False, lineterminator=\"\\n\")"
+   }
+  },
+  "mudanzas_matriz": {
+   "en": [
+    "migracion-interna"
+   ],
+   "titulo": "¿De qué provincia a qué provincia se muda la gente?",
+   "sub": "Personas según la jurisdicción donde vivían en 2017 y la jurisdicción donde vivían en 2022",
+   "fuente": "INDEC, Censo Nacional de Población, Hogares y Viviendas 2022, resultados definitivos",
+   "frecuencia": "Es del Censo 2022: no cambia hasta el próximo censo.",
+   "nota": "Personas de 5 años y más en viviendas particulares, por dónde vivían cinco años antes y dónde viven. No cuenta las mudanzas del medio ni a quienes se fueron del país. Quienes llegaron de otra provincia sin decir cuál van aparte, y el saldo se calcula sin ellos.",
+   "evidencia": {
+    "archivo": "scripts/mudanzas_sitio.py",
+    "contiene": "return {\"mudanzas_matriz\": matriz, \"mudanzas_provincias\": provs, \"mudanzas_departamentos\": deps}"
+   }
+  },
+  "mudanzas_provincias": {
+   "en": [
+    "migracion-interna"
+   ],
+   "titulo": "¿Cuánta gente llegó y cuánta se fue de cada provincia?",
+   "sub": "Personas que se mudaron entre 2017 y 2022 y población de 2010 y 2022 de cada jurisdicción",
+   "fuente": "INDEC, Censo Nacional de Población, Hogares y Viviendas 2022, resultados definitivos, y Censo 2010",
+   "frecuencia": "Es del Censo 2022: no cambia hasta el próximo censo.",
+   "nota": "Personas de 5 años y más en viviendas particulares, por dónde vivían cinco años antes y dónde viven. No cuenta las mudanzas del medio ni a quienes se fueron del país. Quienes llegaron de otra provincia sin decir cuál van aparte, y el saldo se calcula sin ellos. El saldo con origen imputado asigna a esas personas un origen en la misma proporción que al resto: donde cambia de signo no se puede decir si la jurisdicción gana o pierde gente.",
+   "evidencia": {
+    "archivo": "scripts/mudanzas_sitio.py",
+    "contiene": "return {\"mudanzas_matriz\": matriz, \"mudanzas_provincias\": provs, \"mudanzas_departamentos\": deps}"
+   }
+  },
+  "mudanzas_departamentos": {
+   "en": [
+    "migracion-interna"
+   ],
+   "titulo": "¿Cuánto cambió la población de cada departamento?",
+   "sub": "Población de 2010 y 2022, personas que llegaron de otra provincia o de otro país entre 2017 y 2022 y viviendas sin personas en 2022, por departamento",
+   "fuente": "INDEC, Censo Nacional de Población, Hogares y Viviendas 2022, resultados definitivos, y Censo 2010",
+   "frecuencia": "Es del Censo 2022: no cambia hasta el próximo censo.",
+   "nota": "El Censo 2010 contó a cada persona donde pasó la noche anterior y el de 2022, donde vive habitualmente. Lezama y Tolhuin se crearon entre los dos censos: su cambio va junto con Chascomús y Río Grande. Una vivienda sin personas no es una vivienda abandonada.",
+   "evidencia": {
+    "archivo": "scripts/mudanzas_sitio.py",
+    "contiene": "return {\"mudanzas_matriz\": matriz, \"mudanzas_provincias\": provs, \"mudanzas_departamentos\": deps}"
+   }
   }
  }
 }

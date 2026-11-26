@@ -862,7 +862,7 @@ await q.tamano(1280, 900);
 }
 // Rutas comerciales (23 de noviembre de 2026, rediseño del 24 de noviembre): la vista inicial (las cuatro tarjetas de cifras, diez destinos, diez productos,
 // los corredores, la frase y el mapa de MapLibre con los nombres de los destinos), apagar una vía, apagarlas todas y restablecer, un rubro y un producto,
-// la ficha de un destino y Escape, el año más viejo, Reproducir, el zoom, el globo, las capas y, en 390 píxeles, el mapa en la primera pantalla y el panel
+// las banderas, los emojis y la pausa, Importaciones y Servicios, la ficha de un destino y Escape, el año más viejo, Reproducir, el zoom, el globo, las capas y, en 390 píxeles, el mapa en la primera pantalla y el panel
 // de filtros. No pide cifras fijas: cambian con cada año del INDEC
 {
   const antes = q.errores.length;
@@ -880,6 +880,16 @@ await q.tamano(1280, 900);
   if (r.kpis !== 4 || r.dest !== 10 || r.prods !== 10 || r.corr < 5 || !/exportó .* dólares/.test(r.frase) || r.ocupado) problemas.push(`rutas.html: la vista inicial sin sus tarjetas o su frase (${r.kpis} cifras, ${r.dest} destinos, ${r.prods} productos, ${r.corr} corredores)`);
   if (!r.canvas || r.sinMapa || r.etiq < 5) problemas.push(`rutas.html: el mapa de MapLibre no se dibujó (${r.canvas ? "con" : "sin"} lienzo, ${r.etiq} nombres de destinos${r.sinMapa ? ", con el aviso de sin mapa" : ""})`);
   if (r.vias.length !== 3 || !r.vias.every(v => /^true\d+,\d%$/.test(v))) problemas.push(`rutas.html: las tres vías no arrancan prendidas con su porcentaje (${r.vias.join(" | ")})`);
+  // las banderas de los diez destinos cargadas, un emoji por producto y el botón que pausa los barcos, camiones y aviones (25 de noviembre de 2026)
+  const adornos = async () => JSON.parse(await q.eval(`JSON.stringify({flags: [...document.querySelectorAll("#rt-destinos img.rt-flag")].filter(i => i.complete && i.naturalWidth).length,
+    sinBandera: document.querySelectorAll("#rt-destinos .rt-flag-sin").length, emojis: [...document.querySelectorAll("#rt-productos .rt-emoji")].filter(e => e.textContent && e.getAttribute("aria-hidden")).length,
+    mover: document.querySelector('[data-z="mover"]').getAttribute("aria-label")})`));
+  let ad = await adornos();
+  if (ad.flags + ad.sinBandera !== 10 || ad.sinBandera > 2 || ad.emojis !== 10) problemas.push(`rutas.html: faltan banderas o emojis (${ad.flags} banderas, ${ad.sinBandera} destinos sin bandera y ${ad.emojis} emojis)`);
+  await q.eval(`document.querySelector('[data-z="mover"]').click()`); await espera(300);
+  const pausado = (await adornos()).mover;
+  await q.eval(`document.querySelector('[data-z="mover"]').click()`); await espera(300);
+  if (ad.mover !== "Pausar el movimiento" || pausado !== "Poner en movimiento" || (await adornos()).mover !== ad.mover) problemas.push(`rutas.html: el botón no pausa el movimiento del mapa (${ad.mover}, ${pausado})`);
   // apagar la vía aérea: las cifras y la frase dicen que es solo por mar y por tierra
   await q.eval(`document.querySelector('.rt-via[data-via="avión"]').click()`); await espera(500);
   r = await rt();
@@ -901,7 +911,7 @@ await q.tamano(1280, 900);
   if (!r.frase.toLowerCase().includes(prod.toLowerCase()) || await q.eval(`document.getElementById("rt-prod-elegido").hidden`)) problemas.push(`rutas.html: buscar un producto (${prod}) no lo elige`);
   await q.eval(`document.querySelector('.rt-rubros [data-r=""]').click()`); await espera(500);
   // la ficha de un destino y Escape
-  const pais = await q.eval(`(() => { const b = document.querySelector("#rt-destinos button"); b.click(); return b.querySelector(".rt-b-n").textContent.replace(b.querySelector(".rt-cod").textContent, "").trim(); })()`);
+  const pais = await q.eval(`(() => { const b = document.querySelector("#rt-destinos button"); b.click(); return b.querySelector(".rt-b-n").textContent.trim(); })()`);
   await espera(800);
   r = await rt();
   if (!r.ficha || r.fichaTit !== pais) problemas.push(`rutas.html: elegir ${pais} en los destinos no abre su ficha (${r.fichaTit})`);
@@ -930,9 +940,38 @@ await q.tamano(1280, 900);
   await q.eval(`document.getElementById("rt-ver-tabla").click()`); await espera(300);
   r = JSON.parse(await q.eval(`JSON.stringify({abierta: !document.getElementById("rt-tabla-caja").hidden, filas: document.querySelectorAll("#rt-tabla tbody tr").length})`));
   if (!r.abierta || r.filas < 30) problemas.push(`rutas.html: "Ver tabla" no abre la tabla de destinos (${r.filas} filas)`);
+  // Importaciones y Servicios (26 de noviembre de 2026): el conmutador cambia las cifras, los textos, la dirección y lo que dice "Límites de estos datos".
+  // Lo importado tiene caminos por mar y por tierra (sin avión) y los servicios no tienen caminos, vías ni corredores. La dirección con ?flujo= lo abre
+  await q.ir(B + "rutas", 3500);
+  const fl = async () => JSON.parse(await q.eval(`JSON.stringify({url: location.search, flujo: document.getElementById("rt").dataset.flujo,
+    vias: [...document.querySelectorAll(".rt-via")].filter(b => !b.hidden).length, viasCaja: !document.querySelector(".rt-vias").hidden,
+    corr: !document.getElementById("rt-corr-tit").closest("section").hidden, nota: [...document.querySelectorAll(".rt-limites ul")].filter(u => !u.hidden).map(u => u.dataset.flujo).join(),
+    pie: [...document.querySelectorAll(".rt-pie")].filter(u => !u.hidden).map(u => u.querySelector("a").getAttribute("href")).join()})`));
+  await q.eval(`document.querySelector('[data-flujo-btn="imp"]').click()`); await espera(2500);
+  r = await rt(); let f = await fl();
+  if (f.flujo !== "imp" || f.url !== "?flujo=imp" || !/importó .* dólares/.test(r.frase) || !/^Importado/.test(r.kpi0) || r.dest !== 10 || f.vias !== 2 || !f.viasCaja || !f.corr
+    || f.nota !== "imp" || f.pie !== "datos/rutas_importaciones.csv" || r.etiq < 5) problemas.push(`rutas.html: Importaciones no cambia la vista (${JSON.stringify(f)}, ${r.kpi0}, ${r.dest} orígenes, ${r.etiq} nombres)`);
+  await q.eval(`document.querySelector('[data-flujo-btn="ser"]').click()`); await espera(2500);
+  r = await rt(); f = await fl();
+  if (f.flujo !== "ser" || f.url !== "?flujo=ser" || !/vendió en servicios/.test(r.frase) || r.dest !== 10 || r.prods < 5 || f.viasCaja || f.corr || f.nota !== "ser"
+    || f.pie !== "datos/rutas_servicios.csv") problemas.push(`rutas.html: Servicios no cambia la vista (${JSON.stringify(f)}, ${r.dest} compradores, ${r.prods} servicios)`);
+  await q.eval(`document.querySelectorAll("#rt-destinos button")[0].click()`); await espera(800);
+  if (!(await rt()).ficha) problemas.push("rutas.html: en Servicios, elegir un país no abre su ficha");
+  await q.ir(B + "rutas?flujo=imp", 3500);
+  r = await rt(); f = await fl();
+  if (f.flujo !== "imp" || !/importó/.test(r.frase)) problemas.push(`rutas.html: la dirección con ?flujo=imp no abre las importaciones (${f.flujo})`);
+  await q.eval(`document.querySelector('[data-flujo-btn="exp"]').click()`); await espera(1500);
+  f = await fl();
+  if (f.flujo !== "exp" || f.url !== "" || f.vias !== 3 || f.nota !== "exp") problemas.push(`rutas.html: volver a Exportaciones no deja la vista de antes (${JSON.stringify(f)})`);
+  // con movimiento reducido el mapa arranca quieto
+  await q.send("Emulation.setEmulatedMedia", {features: [{name: "prefers-reduced-motion", value: "reduce"}]});
+  await q.ir(B + "rutas", 3500);
+  ad = await adornos();
+  if (ad.mover !== "Poner en movimiento") problemas.push(`rutas.html: con movimiento reducido el mapa no arranca quieto (${ad.mover})`);
+  await q.send("Emulation.setEmulatedMedia", {features: []});
   // el celular: el mapa en la primera pantalla y el panel de filtros
   await q.tamano(390, 844); await q.ir(B + "rutas", 3000);
-  r = JSON.parse(await q.eval(`(() => { const m = document.getElementById("rt-mapa-caja").getBoundingClientRect(), b = document.querySelector(".rt-barra").getBoundingClientRect();
+  r = JSON.parse(await q.eval(`(() => { const m = document.getElementById("rt-mapa-caja").getBoundingClientRect(), b = document.querySelector(".rt-mapa-card").getBoundingClientRect();
     return JSON.stringify({alto: m.height, bajo: m.top - b.top, ancho: document.documentElement.scrollWidth - document.documentElement.clientWidth}); })()`));
   if (r.ancho > 0 || r.alto < 0.6 * 844 || r.bajo > 200) problemas.push(`rutas.html en 390 píxeles: el mapa no queda en la primera pantalla o se corre de costado (alto ${Math.round(r.alto)}, ${Math.round(r.bajo)} píxeles de filtros arriba, ${r.ancho} de costado)`);
   await q.eval(`document.getElementById("rt-filtros-btn").click()`); await espera(300);
@@ -943,9 +982,61 @@ await q.tamano(1280, 900);
   await q.tamano(1280, 900);
   q.errores.slice(antes).forEach(e => problemas.push(`Rutas comerciales: ${e}`));
 }
+// Migración interna (25 de noviembre de 2026, docs/roadmap/MUDANZAS.md): las tres vistas, las medidas, el informe de una jurisdicción desde la lista y
+// Escape, la dirección con lo elegido, las jurisdicciones que no se puede decir si ganan o pierden, las tablas, las Malvinas sin mouse y 390 píxeles
+{
+  const antes = q.errores.length, P = "migracion-interna.html";
+  const MU = `JSON.stringify({vista: document.getElementById("mu").dataset.vista, kpis: document.querySelectorAll("#mu-kpis .rt-kpi").length, lado: document.querySelectorAll("#mu-lado-lista button").length,
+    tit: document.getElementById("mu-lado-tit").textContent, prim: document.querySelector("#mu-lado-lista button")?.innerText || "", frase: document.getElementById("mu-frase").innerText,
+    ficha: !document.getElementById("mu-ficha").hidden, fichaTit: document.getElementById("mu-ficha-tit")?.textContent || "", lineas: document.querySelectorAll(".mu-c-caminos .linea").length,
+    provs: document.querySelectorAll(".mu-c-provincias path").length, deps: document.querySelectorAll(".mu-c-departamentos path").length, duda: document.querySelectorAll("#mu-tabla tbody td.duda").length,
+    filas: document.querySelectorAll("#mu-tabla tbody tr").length, celdas: document.querySelectorAll("#mu-matriz td:not(.yo)").length, tramos: document.querySelectorAll("#mu-tramos tbody tr").length,
+    islas: [...document.querySelectorAll(".mu-c-islas path")].map(x => getComputedStyle(x).pointerEvents).join(), dir: location.search, ocupado: document.getElementById("mu").getAttribute("aria-busy"),
+    puntos: document.querySelectorAll("#mu-lienzo svg animate, .mu-c-puntos").length, ancho: document.documentElement.scrollWidth - document.documentElement.clientWidth})`;
+  const mu = async () => JSON.parse((await q.eval(MU)).replace(/\\u00a0|\u00a0/g, " "));
+  const tocar = async s => { await q.eval(`document.querySelector(${JSON.stringify(s)}).click()`); await espera(450); };
+  await q.ir(B + "migracion-interna", 2500);
+  let r = await mu();
+  if (r.vista !== "mudanzas" || r.kpis !== 4 || r.lado !== 24 || r.ocupado !== "false" || !/personas se mudaron de una provincia a otra/.test(r.frase)) problemas.push(`${P}: la vista inicial sin sus cifras, su lista o su texto (${JSON.stringify(r).slice(0, 160)})`);
+  if (r.provs !== 24 || r.lineas !== 30 || r.puntos) problemas.push(`${P}: el mapa no dibuja las 24 jurisdicciones y los 30 caminos, sin nada que se mueva (${r.provs}, ${r.lineas}, ${r.puntos})`);
+  if (r.islas !== "none") problemas.push(`${P}: las Malvinas responden al mouse (${r.islas})`);
+  // siete jurisdicciones cambian de signo: tres celdas en gris cada una (el saldo, la tasa y el saldo repartido)
+  if (r.filas !== 24 || r.celdas !== 24 * 23 || r.duda !== 21 || !/no se puede saber si el saldo migratorio es positivo o negativo/.test(r.frase)) problemas.push(`${P}: las tablas o las jurisdicciones dudosas no son las esperadas (${r.filas} filas, ${r.celdas} celdas, ${r.duda} en gris)`);
+  await tocar('[data-m="llegan"]'); r = await mu();
+  if (r.tit !== "Inmigrantes interprovinciales por jurisdicción de destino" || !/^Buenos Aires/.test(r.prim)) problemas.push(`${P}: Llegan no ordena por las llegadas (${r.tit}, ${r.prim})`);
+  await tocar('[data-m="saldo"]'); await tocar('#mu-lado-lista [data-p="90"]'); r = await mu();
+  if (!r.ficha || r.fichaTit !== "Tucumán" || r.dir !== "?provincia=90" || !/cambia de signo/.test(r.frase)) problemas.push(`${P}: elegir Tucumán en la lista no abre su informe (${r.fichaTit}, ${r.dir})`);
+  await tecla("Escape"); await espera(300); r = await mu();
+  if (r.ficha || r.dir) problemas.push(`${P}: Escape no cierra el informe (${r.dir})`);
+  // un flujo de la lista (lo mismo que tocar su línea): su ficha con los dos sentidos y quién ganó gente, y la dirección
+  await tocar("#mu-corr [data-par]"); r = await mu();
+  if (!r.ficha || !/ y /.test(r.fichaTit) || r.lineas !== 2 || !/^\?flujo=\d\d-\d\d$/.test(r.dir) || !/personas más de las que salieron hacia/.test(r.frase))
+    problemas.push(`${P}: elegir un flujo no muestra sus dos sentidos (${r.fichaTit}, ${r.lineas} líneas, ${r.dir})`);
+  await tecla("Escape"); await espera(300);
+  // con el teclado: Enter en la lista elige, y el foco queda en el mismo botón
+  await q.eval(`document.querySelector('#mu-lado-lista [data-p="58"]').focus()`); await tecla("Enter"); await espera(450); r = await mu();
+  if (r.fichaTit !== "Neuquén" || await q.eval(`document.activeElement.dataset.p || ""`) !== "58") problemas.push(`${P}: con Enter en la lista no se elige o se pierde el foco (${r.fichaTit})`);
+  await tecla("Escape"); await espera(300);
+  await tocar('[data-k="cambio"]');
+  if (await q.eval(`document.querySelector('#mu-tabla [aria-sort="descending"] button').dataset.k`) !== "cambio") problemas.push(`${P}: tocar una columna no ordena la tabla`);
+  await tocar('[data-vista="poblacion"]'); r = await mu();
+  if (r.deps !== 527 || r.tramos !== 7 || !/^Entre los censos de/.test(r.frase)) problemas.push(`${P}: Población sin sus departamentos o su tabla (${r.deps}, ${r.tramos})`);
+  // con una provincia, la lista lleva todos sus departamentos: es lo que recorre el teclado
+  await q.eval(`(() => { const s = document.getElementById("mu-prov"); s.value = "14"; s.dispatchEvent(new Event("change")); })()`); await espera(700); r = await mu();
+  if (r.lado !== 26 || r.fichaTit !== "Córdoba") problemas.push(`${P}: Córdoba en Población no lista sus 26 departamentos (${r.lado}, ${r.fichaTit})`);
+  await tocar("#mu-lado-lista button"); r = await mu();
+  if (!r.ficha || r.fichaTit === "Córdoba") problemas.push(`${P}: elegir un departamento en la lista no abre su ficha (${r.fichaTit})`);
+  await tocar('[data-vista="viviendas"]');
+  await q.eval(`(() => { for (const [i, v] of [["mu-prov", ""], ["mu-motivo", "uso_temporal"]]) { const s = document.getElementById(i); s.value = v; s.dispatchEvent(new Event("change")); } })()`); await espera(700); r = await mu();
+  if (!/Monte Hermoso/.test(r.prim)) problemas.push(`${P}: el motivo de las viviendas no cambia la lista (${r.prim})`);
+  await q.tamano(390, 844); await q.ir(B + "migracion-interna?vista=viviendas&provincia=06", 2500); r = await mu();
+  if (r.ancho > 0 || r.vista !== "viviendas" || r.lado !== 135) problemas.push(`${P} en 390 píxeles: se corre de costado o no abre lo que dice la dirección (${r.ancho}, ${r.vista}, ${r.lado})`);
+  await q.tamano(1280, 900);
+  q.errores.slice(antes).forEach(e => problemas.push(`Migración interna: ${e}`));
+}
 // "Límites de estos datos" (pedido del autor del 26 de noviembre de 2026: "Qué no dice este dato" no se entendía y llevaba a confusión): un
-// desplegable cerrado al llegar, con su nombre, que se abre con el teclado, en los seis lugares donde está armado distinto: artículo, cruce,
-// Corte Suprema, Elecciones por mesa, Diagnóstico y Rutas comerciales. En los artículos y la Corte va en "Fuentes y metodología", y en el
+// desplegable cerrado al llegar, con su nombre, que se abre con el teclado, en los siete lugares donde está armado distinto: artículo, cruce,
+// Corte Suprema, Elecciones por mesa, Diagnóstico, Rutas comerciales y Migración interna. En los artículos y la Corte va en "Fuentes y metodología", y en el
 // cruce "Cómo leer un cruce" (correlación no es causalidad) sigue a la vista, fuera del desplegable
 const LIMITES = `(() => {
   const d = [...document.querySelectorAll("details.nota-limites")].find(e => e.querySelector("li"));
@@ -955,7 +1046,8 @@ const LIMITES = `(() => {
           viejo: /qué no dice este/i.test(document.body.textContent), leer: leer ? (!!leer.offsetParent && !leer.closest("details")) : null};
 })()`;
 const LIMITES_PAG = {"a-salario-real.html": "Límites de estos datos", "a-alquiler-pobreza.html": "Límites de estos datos", "corte-suprema.html": "Límites de estos datos",
-  "mesas.html": "Límites de estos datos", "diagnostico.html": "Límites de este diagnóstico", "rutas.html": "Límites de estos datos"};
+  "mesas.html": "Límites de estos datos", "diagnostico.html": "Límites de este diagnóstico", "rutas.html": "Límites de estos datos",
+  "migracion-interna.html": "Límites de estos datos"};
 await q.tamano(1280, 900);
 for (const [pag, nombre] of Object.entries(LIMITES_PAG)) {
   await q.ir(B + pag, 1500);

@@ -1,0 +1,59 @@
+{
+ "tabla": "rutas_servicios.csv",
+ "titulo": "¿Qué le vende y qué le compra la Argentina al mundo?",
+ "descripcion": "Exportaciones de servicios de cada año desde 2015 por tipo (los 12 rubros de la balanza de pagos) y país que los compra, en millones de dólares",
+ "seccion": "Rutas comerciales",
+ "ficha": "https://datina.com.ar/rutas",
+ "fuente": "INDEC, comercio internacional de servicios por país socio (estimación experimental de la balanza de pagos)",
+ "organismos": [],
+ "actualizacion": "Se actualiza cuando el INDEC publica un año completo.",
+ "cobertura": "Sin desglose territorial",
+ "periodo": "2015 a 2025",
+ "anio_desde": 2015,
+ "anio_hasta": 2025,
+ "filas": 6072,
+ "columnas": [
+  {
+   "nombre": "anio",
+   "tipo": "Año",
+   "valores": "2015 a 2025"
+  },
+  {
+   "nombre": "pais_cod",
+   "tipo": "Texto",
+   "valores": "204 valores distintos"
+  },
+  {
+   "nombre": "pais",
+   "tipo": "Texto",
+   "valores": "204 valores distintos"
+  },
+  {
+   "nombre": "tipo_cod",
+   "tipo": "Texto",
+   "valores": "12 valores distintos"
+  },
+  {
+   "nombre": "tipo",
+   "tipo": "Texto",
+   "valores": "12 valores distintos"
+  },
+  {
+   "nombre": "grupo",
+   "tipo": "Texto",
+   "valores": "con, otro, tra, via"
+  },
+  {
+   "nombre": "millones_usd",
+   "tipo": "Número",
+   "valores": "0,1 a 3.407,9"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "Muchas celdas son confidenciales: lo confidencial de cada país va como \"Otros servicios (confidencial)\" y lo que no tiene país (país confidencial, indeterminado, regiones y organismos internacionales) como \"Sin país informado\".",
+ "origen": [],
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
+ "como_citar": "Datina (año de la consulta). ¿Qué le vende y qué le compra la Argentina al mundo? Con datos de INDEC, comercio internacional de servicios por país socio (estimación experimental de la balanza de pagos). https://datina.com.ar/rutas. Consultado el día de la consulta.",
+ "datos_actualizados": "23/11/2026"
+}

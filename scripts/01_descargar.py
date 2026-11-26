@@ -508,6 +508,9 @@ FUENTES.update({
     # fibra), cada 100 hogares y cada 100 habitantes. Del país, también la satelital, que el ENACOM no publica por provincia
     "enacom_tv_provincias.csv": "https://indicadores.enacom.gob.ar/Files/DatosAbiertos/tv_penetracion_provincias.csv",
     "enacom_tv_pais.csv": "https://indicadores.enacom.gob.ar/Files/DatosAbiertos/tv_penetracion.csv",
+    # Exportaciones e importaciones de servicios por año, tipo (CABPS 2010) y país socio, desde 2015, en millones de dólares (INDEC, estimación
+    # experimental de la balanza de pagos. Descarga aprobada por el autor el 26 de noviembre de 2026, para los servicios de Rutas comerciales)
+    "indec_servicios_pais.csv": "https://www.indec.gob.ar/ftp/cuadros/economia/Base_servicios_internacionales_pais_CABPS.csv",
     # Exportaciones por provincia de origen y rubro, millones de dólares, 1993 al último año (INDEC, Origen Provincial de las Exportaciones)
     "exportaciones_provincias.xls": "https://www.indec.gob.ar/ftp/cuadros/economia/sh_opex_regiones_economicas_grubros_1993_2025.xls",
     # Personas nacidas en otro país identificadas por el RENAPER, por provincia de residencia

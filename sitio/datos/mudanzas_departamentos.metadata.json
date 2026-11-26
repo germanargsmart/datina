@@ -1,0 +1,119 @@
+{
+ "tabla": "mudanzas_departamentos.csv",
+ "titulo": "¿Cuánto cambió la población de cada departamento?",
+ "descripcion": "Población de 2010 y 2022, personas que llegaron de otra provincia o de otro país entre 2017 y 2022 y viviendas sin personas en 2022, por departamento",
+ "seccion": "Migración interna",
+ "ficha": "https://datina.com.ar/migracion-interna",
+ "fuente": "INDEC, Censo Nacional de Población, Hogares y Viviendas 2022, resultados definitivos, y Censo 2010",
+ "organismos": [],
+ "actualizacion": "Es del Censo 2022: no cambia hasta el próximo censo.",
+ "cobertura": "Departamentos",
+ "periodo": "",
+ "anio_desde": 2010,
+ "anio_hasta": 2022,
+ "filas": 527,
+ "columnas": [
+  {
+   "nombre": "codigo_dep",
+   "tipo": "Código",
+   "valores": "527 códigos"
+  },
+  {
+   "nombre": "codigo_indec",
+   "tipo": "Código",
+   "valores": "24 códigos"
+  },
+  {
+   "nombre": "departamento",
+   "tipo": "Texto",
+   "valores": "445 valores distintos"
+  },
+  {
+   "nombre": "poblacion_2010",
+   "tipo": "Número",
+   "valores": "439 a 1.775.816 (2 celdas vacías)"
+  },
+  {
+   "nombre": "poblacion_2022",
+   "tipo": "Número",
+   "valores": "423 a 1.841.247"
+  },
+  {
+   "nombre": "cambio_personas",
+   "tipo": "Número",
+   "valores": "-4.695 a 175.646 (2 celdas vacías)"
+  },
+  {
+   "nombre": "cambio_pct",
+   "tipo": "Número",
+   "valores": "-39,18 a 68,42 (2 celdas vacías)"
+  },
+  {
+   "nombre": "se_compara_con",
+   "tipo": "Texto",
+   "valores": "Chascomús y Lezama, Río Grande y Tolhuin (523 celdas vacías)"
+  },
+  {
+   "nombre": "viven_5_mas",
+   "tipo": "Número",
+   "valores": "385 a 1.710.259"
+  },
+  {
+   "nombre": "llegaron_de_otra_provincia",
+   "tipo": "Número",
+   "valores": "5 a 47.624"
+  },
+  {
+   "nombre": "llegaron_de_otro_pais",
+   "tipo": "Número",
+   "valores": "0 a 17.539"
+  },
+  {
+   "nombre": "viviendas_particulares",
+   "tipo": "Número",
+   "valores": "291 a 612.979"
+  },
+  {
+   "nombre": "viviendas_sin_personas",
+   "tipo": "Número",
+   "valores": "66 a 86.285"
+  },
+  {
+   "nombre": "uso_temporal",
+   "tipo": "Número",
+   "valores": "4 a 65.580"
+  },
+  {
+   "nombre": "alquiler_venta",
+   "tipo": "Número",
+   "valores": "0 a 18.325"
+  },
+  {
+   "nombre": "en_construccion",
+   "tipo": "Número",
+   "valores": "3 a 6.772"
+  },
+  {
+   "nombre": "residentes_ausentes",
+   "tipo": "Número",
+   "valores": "6 a 12.682"
+  },
+  {
+   "nombre": "oficina_comercio",
+   "tipo": "Número",
+   "valores": "0 a 16.125"
+  },
+  {
+   "nombre": "otra_situacion",
+   "tipo": "Número",
+   "valores": "12 a 16.216"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "El Censo 2010 contó a cada persona donde pasó la noche anterior y el de 2022, donde vive habitualmente. Lezama y Tolhuin se crearon entre los dos censos: su cambio va junto con Chascomús y Río Grande. Una vivienda sin personas no es una vivienda abandonada.",
+ "origen": [],
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
+ "como_citar": "Datina (año de la consulta). ¿Cuánto cambió la población de cada departamento? Con datos de INDEC, Censo Nacional de Población, Hogares y Viviendas 2022, resultados definitivos, y Censo 2010. https://datina.com.ar/migracion-interna. Consultado el día de la consulta.",
+ "datos_actualizados": "23/11/2026"
+}
