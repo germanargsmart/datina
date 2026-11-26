@@ -3364,7 +3364,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
          las vías, los controles y la ficha adentro, los destinos al costado, banderas, emojis de los productos y barcos, camiones y aviones en las rutas -->
     <!-- 26 de noviembre de 2026 (pedido del autor): las importaciones, con el camino al revés, y los servicios, sin caminos, con el conmutador de arriba.
          rutas.js baja cada JSON al elegirlo. Lo que dice cada uno va con data-flujo -->
-    <div class="rt" id="rt" data-datos="datos/rutas.json" data-datos-imp="datos/rutas_imp.json" data-datos-ser="datos/rutas_ser.json" data-mundo="lib/world-atlas-2.0.2-countries-50m.json?v=__V_MUNDO50__" data-banderas="img/paises/" aria-busy="true">
+    <div class="rt" id="rt" data-datos="datos/rutas.json" data-datos-imp="datos/rutas_imp.json" data-datos-ser="datos/rutas_ser.json" data-cosecha="datos/rutas_cosecha.json" data-deptos="datos/departamentos.topo.json" data-mundo="lib/world-atlas-2.0.2-countries-50m.json?v=__V_MUNDO50__" data-banderas="img/paises/" aria-busy="true">
       <div class="rt-barra">
         <div class="conmutador rt-flujos" role="group" aria-label="Qué se muestra" data-propio style="--n:3">
           <button type="button" data-flujo-btn="exp" aria-pressed="true">Exportaciones</button>
@@ -3442,13 +3442,26 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <p class="rt-ayuda" data-flujo="exp imp">Más grosor es más dinero, y cuanto más celeste un país, más comercia. Los barcos, camiones y aviones muestran por dónde va cada ruta: son un dibujo, no viajes de verdad. Tocá una ruta, una bandera o un puerto para ver su ficha. Para acercar, los botones, dos dedos o Ctrl y la rueda del mouse.</p>
       <p class="rt-ayuda" data-flujo="ser" hidden>Los servicios no viajan en barco ni en camión: el mapa no dibuja caminos y pinta cada país más celeste cuanto más servicios le compra a la Argentina. Tocá una bandera para ver su ficha. Para acercar, los botones, dos dedos o Ctrl y la rueda del mouse.</p>
       <p class="rt-frase" id="rt-frase"></p>
+      <!-- 26 de noviembre de 2026 (prueba pedida por el autor): con los cereales o las semillas oleaginosas elegidos, dónde se cosechan, por departamento.
+           Los datos y el mapa los baja rutas.js recién entonces -->
+      <section class="rt-card rt-cosecha" id="rt-cosecha" aria-labelledby="rt-cos-tit" hidden>
+        <div class="rt-cos-cab">
+          <div><h2 class="rt-card-tit" id="rt-cos-tit">Dónde se cosecha</h2><p class="rt-card-sub" id="rt-cos-sub"></p></div>
+          <button type="button" class="boton chico" id="rt-cos-ver" hidden>Ver en el mapa</button>
+        </div>
+        <p class="rt-cos-frase" id="rt-cos-frase"></p>
+        <p class="rt-cos-ley" id="rt-cos-ley" hidden></p>
+        <ol class="rt-barras rt-cos-lista" id="rt-cos-lista"></ol>
+        <button type="button" class="boton chico rt-cos-tabla-btn" id="rt-cos-ver-tabla" aria-expanded="false" aria-controls="rt-cos-tabla-caja" hidden>Ver tabla</button>
+        <div class="tabla-datos" id="rt-cos-tabla-caja" hidden><div class="tabla-desliza" tabindex="0" role="region" aria-label="Cosecha por departamento"><table class="tabla-areas" id="rt-cos-tabla"></table></div></div>
+      </section>
       <div class="rt-grid">
         <section class="rt-card" aria-labelledby="rt-prod-tit"><h2 class="rt-card-tit" id="rt-prod-tit">Principales productos</h2><ol class="rt-barras" id="rt-productos"></ol></section>
         <section class="rt-card rt-corredores" aria-labelledby="rt-corr-tit"><h2 class="rt-card-tit" id="rt-corr-tit">Principales corredores comerciales</h2><ol class="rt-corr" id="rt-corredores"></ol></section>
       </div>
       <button type="button" class="boton chico" id="rt-ver-tabla" aria-expanded="false" aria-controls="rt-tabla-caja">Ver tabla</button>
       <div class="tabla-datos" id="rt-tabla-caja" hidden><div class="tabla-desliza" tabindex="0" role="region" aria-label="Exportaciones por país de destino"><table class="tabla-areas" id="rt-tabla"></table></div></div>
-      <div class="pie rt-pie" data-flujo="exp"><span>Fuentes: exportaciones por subrubro y país de destino, INDEC. Salida de cada producto: organismos oficiales, cámaras y prensa, una por una en la tabla de salidas. Caminos por mar: biblioteca searoute, sobre la red marítima de Eurostat. Mapa: Natural Earth. Banderas: circle-flags</span><a href="datos/rutas_exportaciones.csv" download>Descargar tabla (CSV)</a></div>
+      <div class="pie rt-pie" data-flujo="exp"><span>Fuentes: exportaciones por subrubro y país de destino, INDEC. Salida de cada producto: organismos oficiales, cámaras y prensa, una por una en la tabla de salidas. Caminos por mar: biblioteca searoute, sobre la red marítima de Eurostat. Mapa: Natural Earth. Banderas: circle-flags</span><a href="datos/rutas_exportaciones.csv" download>Descargar tabla (CSV)</a><a href="datos/rutas_cosecha.csv" download>Descargar la cosecha por departamento (CSV)</a></div>
       <div class="pie rt-pie" data-flujo="imp" hidden><span>Fuentes: importaciones por categoría económica (o por uso económico) y país de origen, INDEC. Entrada de cada categoría: organismos oficiales y prensa, una por una en la tabla de entradas. Caminos por mar: biblioteca searoute, sobre la red marítima de Eurostat. Mapa: Natural Earth. Banderas: circle-flags</span><a href="datos/rutas_importaciones.csv" download>Descargar tabla (CSV)</a></div>
       <div class="pie rt-pie" data-flujo="ser" hidden><span>Fuente: exportaciones de servicios por tipo y país socio, INDEC (estimación experimental de la balanza de pagos). Mapa: Natural Earth. Banderas: circle-flags</span><a href="datos/rutas_servicios.csv" download>Descargar tabla (CSV)</a></div>
       <details class="nota-calculo nota-limites rt-limites">
@@ -3460,6 +3473,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
           <li>El país es el de destino que se declara en la aduana, que no siempre es el de consumo: lo que compra una comercializadora con sede en Suiza puede terminar en otro país.</li>
           <li>Solo se dibujan los {{externo.rutas.destinos}} países que más compran. Los demás, y lo que el INDEC publica como confidencial, sin rubro ni país, cuentan en los totales y no tienen camino.</li>
           <li>Un camino más grueso es más dinero, no más toneladas: un kilo de oro vale mucho más que uno de soja.</li>
+          <li>Con los cereales o las semillas oleaginosas elegidos, el mapa pinta lo cosechado en cada departamento según la Secretaría de Agricultura, no lo exportado: nadie publica de qué departamento sale cada exportación, y una parte de los granos se consume o se industrializa en el país. La soja sale sobre todo como harina y aceite, que son otros productos. Cada año lleva la campaña que termina ese año.</li>
+          <li>Los departamentos tienen tamaños muy distintos: Córdoba tiene pocos y grandes, y Buenos Aires muchos partidos más chicos. Por eso la lista de los que más cosechan tiene más departamentos de Córdoba, aunque Buenos Aires cosecha más en total, como dice la frase de la tarjeta.</li>
           <li>El mapa plano agranda las tierras cerca de los polos y por eso los caminos del sur se ven más largos de lo que son. La vista de globo los muestra sin esa deformación.</li>
           <li>Cada año se dibuja con las mismas salidas y los mismos puertos de hoy: lo que cambia entre años es cuánto se exportó, no por dónde. Desde 2018 el INDEC publica una parte de lo exportado como confidencial, sin rubro ni país, así que antes de ese año los países reúnen más y la comparación entre esos años exagera las caídas.</li>
         </ul>

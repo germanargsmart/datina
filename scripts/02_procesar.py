@@ -7317,6 +7317,60 @@ if comercio_rubro_pais is not None and _rut_f.exists():
     # aparte de las tablas de las fichas, que van en fichas.js: la baja solo rutas.html (y quien la descarga)
     rutas_exportaciones.to_csv(SITIO / "rutas_exportaciones.csv", index=False, lineterminator="\n")
 
+    # Dónde se cosechan los granos (prueba del 26 de noviembre de 2026, pedido del autor): para los cereales (106) y las semillas oleaginosas
+    # (107), lo cosechado en cada departamento según las estimaciones agrícolas de la Secretaría de Agricultura, las mismas de "¿Dónde se siembra
+    # más soja?". Es la cosecha, no lo exportado: el INDEC no publica el origen de las exportaciones por departamento, y una parte de los granos
+    # se consume o se industrializa en el país (la soja sale sobre todo como harina y aceite, que son otros subrubros). Cada año de exportación
+    # lleva la campaña que termina ese año (la 2024/25, que en el archivo es "anio" 2024, para 2025), y solo si esa campaña ya terminó (más abajo):
+    # si no, ese año no tiene cosecha. Solo las filas "total" de cada cultivo, para no contar dos veces la soja de segunda ni el trigo candeal
+    # (en cada departamento con candeal, el trigo total es mayor o igual). El maní queda afuera: casi todo se exporta procesado (frutas secas, 205)
+    RTG_CULTIVOS = {"106": ["maíz", "trigo total", "cebada total", "sorgo", "arroz", "avena", "centeno", "mijo", "alpiste"],
+                    "107": ["soja total", "girasol", "colza", "cártamo", "lino"]}
+    _rtg_e = pd.read_csv(CRUDO / "magyp_estimaciones_agricolas.csv", dtype={"provincia_id": str, "departamento_id": str})
+    _rtg_e["cultivo"] = _rtg_e.cultivo.str.strip().str.lower()
+    # Chascomús con su código de antes de Lezama, como en la ficha de la soja
+    _rtg_e["departamento_id"] = _rtg_e.departamento_id.replace({"06217": "06218"})
+    # hasta la campaña 2015/16 la cebada viene en dos filas, cervecera y forrajera, y desde 2016/17 en una, "cebada total": antes se suman las dos
+    _rtg_cb = set(_rtg_e[_rtg_e.cultivo == "cebada total"].anio)
+    _rtg_e.loc[_rtg_e.cultivo.isin(["cebada cervecera", "cebada forrajera"]) & ~_rtg_e.anio.isin(_rtg_cb), "cultivo"] = "cebada total"
+    # la campaña ya terminó si el archivo trae la siguiente o, la última, si se cosechó al menos 75% de lo sembrado. Sin la avena, el centeno y el mijo,
+    # que se siembran sobre todo para pasto y casi no se cosechan: con ellos los cereales de 2015/16 daban 74%
+    RTG_PASTO = ["avena", "centeno", "mijo"]
+    _rtg_ult = int(_rtg_e.anio.max())
+    _rtg_l = []
+    for _rtg_g, _rtg_cs in RTG_CULTIVOS.items():
+        _rtg_falta = set(_rtg_cs) - set(_rtg_e.cultivo)
+        assert not _rtg_falta, f"estimaciones agrícolas: no están {sorted(_rtg_falta)}"
+        _rtg_x = _rtg_e[_rtg_e.cultivo.isin(_rtg_cs)]
+        for _rtg_y in RUT_ANIOS:
+            _rtg_c = _rtg_x[_rtg_x.anio == _rtg_y - 1]
+            _rtg_sp = _rtg_c[~_rtg_c.cultivo.isin(RTG_PASTO)]
+            if not (_rtg_c.produccion_tm.sum() > 0 and (_rtg_y - 1 < _rtg_ult or _rtg_sp.superficie_cosechada_ha.sum() >= .75 * _rtg_sp.superficie_sembrada_ha.sum())):
+                continue
+            # cada cultivo de la lista con cosecha en la campaña (los chicos pueden faltar algún año, los de pasto también)
+            assert (_rtg_c.groupby("cultivo").produccion_tm.sum().reindex([c for c in _rtg_cs if c not in RTG_PASTO + ["alpiste", "colza", "cártamo", "lino"]]) > 0).all(), \
+                f"estimaciones agrícolas: falta un cultivo principal de {_rtg_g} en {_rtg_y - 1}"
+            _rtg_d = _rtg_c.groupby(["departamento_id", "provincia_id"], as_index=False).agg(departamento=("departamento", "first"), produccion_t=("produccion_tm", "sum"))
+            _rtg_d = _rtg_d[_rtg_d.produccion_t > 0]
+            assert _rtg_d.departamento_id.is_unique, f"estimaciones agrícolas: un departamento con dos provincias en {_rtg_y - 1}"
+            assert _rtg_d.provincia_id.isin(POB).all(), "estimaciones agrícolas: una provincia sin código INDEC"
+            _rtg_t = float(_rtg_d.produccion_t.sum())
+            _rtg_l.append(_rtg_d.assign(anio=_rtg_y, campania=sj_camp(_rtg_y - 1), subrubro_cod=_rtg_g, pct_pais=_rtg_d.produccion_t / _rtg_t * 100))
+    assert _rtg_l, "estimaciones agrícolas: ninguna campaña para los años de Rutas comerciales"
+    rutas_cosecha = pd.concat(_rtg_l, ignore_index=True).rename(columns={"departamento_id": "codigo_dep", "provincia_id": "codigo_indec"})
+    rutas_cosecha["provincia"] = rutas_cosecha.codigo_indec.map(CORTO)
+    # Corrientes y Formosa traen algunas campañas (hasta 2021) con una parte sin departamento ("sin definir", con el código de la provincia y 000):
+    # cuenta en los totales y no se dibuja en el mapa
+    rutas_cosecha["departamento"] = rutas_cosecha.departamento.str.strip().where(~rutas_cosecha.codigo_dep.str.endswith("000"), "Sin departamento informado")
+    rutas_cosecha["subrubro"] = rutas_cosecha.subrubro_cod.map(_rut_s.subrubro)
+    rutas_cosecha = rutas_cosecha[["anio", "campania", "subrubro_cod", "subrubro", "codigo_dep", "codigo_indec", "provincia", "departamento", "produccion_t", "pct_pais"]]
+    # con desempate por departamento, para que Windows y Linux den el mismo orden
+    rutas_cosecha = rutas_cosecha.sort_values(["anio", "subrubro_cod", "produccion_t", "codigo_dep"], ascending=[False, True, False, True], kind="stable").reset_index(drop=True)
+    rutas_cosecha["pct_pais"] = rutas_cosecha.pct_pais.round(4)
+    _rtg_u = rutas_cosecha[rutas_cosecha.anio == rutas_cosecha.anio.max()]
+    SE_RES["rutas"]["cosecha"] = {"anio": int(_rtg_u.anio.max()), "campania": _rtg_u.campania.iloc[0], "desde": int(rutas_cosecha.anio.min()),
+                                  "departamentos": int(_rtg_u.codigo_dep.nunique())}
+    rutas_cosecha.to_csv(SITIO / "rutas_cosecha.csv", index=False, lineterminator="\n")
 # Las importaciones en Rutas comerciales (pedido del autor del 26 de noviembre de 2026): lo importado por año, categoría y país de origen, con el camino al
 # revés, del puerto del país que vende al puerto argentino de entrada (datos/manual/rutas_entradas.csv, cada categoría con sus fuentes y su firmeza). La API
 # no trae subrubros de lo importado: el corte más fino son las 19 categorías económicas (gce_cod, la clasificación BEC), que baja indec_api.py desde el 26
