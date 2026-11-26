@@ -2697,8 +2697,6 @@ html.js #ms-resultado:empty~.ms-pie,html.js #ms-resultado:empty~.ms-limites{visi
 .mu .mu-corr button{display:block}
 .mu-corr-cab{display:flex;align-items:center;justify-content:space-between;gap:var(--e-2)}
 .mu-corr em{font-style:normal;color:var(--muted)}
-/* el botón no es una grilla como en Rutas: la línea de abajo, en bloque y en varios renglones (en 390 píxeles se salía de costado, 26/11/2026) */
-.mu-corr .rt-c-prod{display:block;white-space:normal}
 .mu-corr .mu-flag{width:18px;height:18px}
 .mu-ida{display:block;height:6px;margin:4px 0 2px;border-radius:3px;background:var(--superficie-2);overflow:hidden}
 .mu-ida i{display:block;height:100%;border-radius:3px;background:var(--mu-neutro)}
