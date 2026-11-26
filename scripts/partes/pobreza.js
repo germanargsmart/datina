@@ -29,7 +29,7 @@ textosParte({
     `quintos del grupo de 15 a 19), así que la proporción es aproximada. "Cobertura" es el cuadro de cobertura del boletín, que estima la población con ` +
     `proyecciones de las Naciones Unidas y registros de ANSES. Los programas como Volver al Trabajo, Acompañamiento Social o la Prestación Alimentar no publican datos abiertos por provincia.`,
   "pobreza-ninez-nota": `Personas de 0 a 17 años que viven en hogares cuyos ingresos no alcanzan la canasta básica total (pobreza) o la canasta ` +
-    `básica alimentaria (indigencia). La pobreza se mide por hogar: un chico es pobre si su hogar lo es. Qué no dice este dato: la EPH releva solo ` +
+    `básica alimentaria (indigencia). La pobreza se mide por hogar: un chico es pobre si su hogar lo es. La EPH releva solo ` +
     `los 31 aglomerados urbanos, no el campo ni las ciudades chicas, y no mide otras carencias, como la vivienda, la salud o la escuela.`,
   "pobreza-nota": `Porcentaje de personas en hogares cuyos ingresos no alcanzan la canasta básica total (pobreza) o la canasta básica alimentaria (indigencia). La EPH releva solo los 31 aglomerados urbanos, no el total del país ni las provincias. En el consultor de pobreza están los aglomerados, los partidos del Gran Buenos Aires y las comunas de CABA, con sus intervalos de confianza.`,
   "pobreza-aglomerados-nota": `Personas en hogares cuyos ingresos no alcanzan la canasta ` +
@@ -45,7 +45,7 @@ textosParte({
     `Los accesos a internet fijo están en la ficha anterior.`,
   "tv-paga-nota": `Accesos de TV por suscripción (cable y fibra) en servicio, según el ENACOM. Son abonos, ` +
     `no hogares: cuentan también los de comercios y otros usos. Por provincia el ENACOM publica solo la TV por suscripción, sin la satelital, ` +
-    `que está en la evolución del país. Qué no dice este dato: no cuenta las plataformas por internet, como las de películas y series.`,
+    `que está en la evolución del país. Este dato no cuenta las plataformas por internet, como las de películas y series.`,
   "censo-nota": `Hogares en viviendas particulares según el Censo 2022. Agua de red: agua corriente de red pública. Cloacas: inodoro con descarga de agua y desagüe a red pública. Internet: conexión en la vivienda, incluida la del celular. Necesidades básicas insatisfechas: hacinamiento, vivienda precaria, sin baño, chicos sin escuela o baja capacidad de subsistencia, según la definición del INDEC. El INDEC no publica estos totales provinciales en un archivo propio: se suman desde los resultados por radio censal, así que pueden diferir levemente de sus cuadros.`,
   "internet-nota": `Accesos a internet fijo informados por las empresas prestadoras al ENACOM, divididos por la cantidad de hogares. Incluye conexiones de empresas y oficinas, por eso algunas jurisdicciones superan los 100. La velocidad es el promedio de la velocidad contratada de bajada. No incluye internet por celular, que sí cuenta el Censo 2022 en la ficha anterior.`,
 });

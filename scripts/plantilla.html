@@ -3259,10 +3259,10 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
           <div class="grafico" data-g="diagnostico" data-forma="barras"></div>
         </div>
       </div>
-      <div class="dx-no-dice">
-        <h3>Qué no dice este diagnóstico</h3>
+      <details class="nota-calculo nota-limites dx-no-dice">
+        <summary>Límites de este diagnóstico</summary>
         <ul id="dx-no-dice"></ul>
-      </div>
+      </details>
       <div class="pie"><span>Fuentes: Aprender y Relevamiento Anual (Secretaría de Educación), Censo 2022 (INDEC) y PISA (OCDE)</span><a href="datos/aprender_diagnostico.csv" download>Descargar tabla por provincia (CSV)</a><a href="datos/aprender_departamentos.csv" download>Descargar tabla por departamento (CSV)</a></div>
     </article>
   </section>
@@ -3329,8 +3329,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
         <span>Fuente: escrutinio definitivo de cada jurisdicción, de la Dirección Nacional Electoral y de las actas de la Cámara Nacional Electoral. Mesas y circuitos desde {{mesas.desde_mesa}}: escrutinio provisorio de la Dirección Nacional Electoral (CC-BY 4.0). Exterior: padrón y planillas de la Cámara Nacional Electoral. Gobernadores, y senadores por la Capital hasta 1995: escrutinio definitivo de cada junta o tribunal electoral, de los gobiernos provinciales y de la Dirección Nacional Electoral. Mapa: circuitos de la Cámara Nacional Electoral y departamentos del Instituto Geográfico Nacional. Departamentos hasta {{mesas.hist_hasta}}: Darío Cantón, Lupu y Stokes, Ernesto Calvo y PolAr, con la geometría de Rodríguez, CEUR-CONICET (CC BY 2.5 AR). Créditos y licencias en "Para entender los datos"</span>
         <span class="ms-bajadas"><a class="enlace" id="ms-bajar" href="datos/mesas/indice.json" download>Descargar tabla (CSV)</a> <a class="enlace" id="ms-bajar-hist" href="datos/mesas/indice.json" download hidden>Descargar secciones y circuitos en cada elección (CSV)</a></span>
       </div>
-      <div class="ms-limites nota-limites">
-        <h2 class="ms-sub-tit">Qué no dice este dato</h2>
+      <details class="nota-calculo nota-limites ms-limites">
+        <summary>Límites de estos datos</summary>
         <ul>
           <li>El total del país y el de cada jurisdicción son el escrutinio definitivo. Las secciones, los circuitos y las mesas, desde {{mesas.desde_mesa}}, son el escrutinio provisorio, el conteo de la noche de la elección: es lo único que se publica mesa por mesa. No trae el voto en el exterior ni el de las personas privadas de la libertad, y le pueden faltar mesas, así que suma un poco menos que el definitivo. La tabla de secciones dice cuánto.</li>
           <li>El voto en el exterior no se publica país por país: la Cámara Nacional Electoral suma todo el exterior de una jurisdicción en una sola mesa. El desplegable dice cuántos argentinos pueden votar en cada país, no cómo votaron.</li>
@@ -3345,7 +3345,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
           <li>Hay elecciones con resultados de pocas jurisdicciones, y la página dice qué parte de los votos reúnen. Tampoco están todas: faltan, por ejemplo, las de 1931, 1960 y 1963.</li>
           <li>Las elecciones de los años treinta tuvieron denuncias de fraude, y de 1955 a 1972 el peronismo estuvo proscripto en la mayor parte de las elecciones nacionales. El mapa muestra los votos que publica la fuente: no dice qué habría pasado con todas las opciones en competencia.</li>
         </ul>
-      </div>
+      </details>
     </div>
     <script src="mesas.js?v=__V_MESAS_JS__" defer></script>
   </section>
@@ -3451,8 +3451,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <div class="pie rt-pie" data-flujo="exp"><span>Fuentes: exportaciones por subrubro y país de destino, INDEC. Salida de cada producto: organismos oficiales, cámaras y prensa, una por una en la tabla de salidas. Caminos por mar: biblioteca searoute, sobre la red marítima de Eurostat. Mapa: Natural Earth. Banderas: circle-flags</span><a href="datos/rutas_exportaciones.csv" download>Descargar tabla (CSV)</a></div>
       <div class="pie rt-pie" data-flujo="imp" hidden><span>Fuentes: importaciones por categoría económica (o por uso económico) y país de origen, INDEC. Entrada de cada categoría: organismos oficiales y prensa, una por una en la tabla de entradas. Caminos por mar: biblioteca searoute, sobre la red marítima de Eurostat. Mapa: Natural Earth. Banderas: circle-flags</span><a href="datos/rutas_importaciones.csv" download>Descargar tabla (CSV)</a></div>
       <div class="pie rt-pie" data-flujo="ser" hidden><span>Fuente: exportaciones de servicios por tipo y país socio, INDEC (estimación experimental de la balanza de pagos). Mapa: Natural Earth. Banderas: circle-flags</span><a href="datos/rutas_servicios.csv" download>Descargar tabla (CSV)</a></div>
-      <div class="rt-limites nota-limites">
-        <h2 class="rt-tit">Qué no dice este dato</h2>
+      <details class="nota-calculo nota-limites rt-limites">
+        <summary>Límites de estos datos</summary>
         <ul data-flujo="exp">
           <li>El INDEC no publica por dónde sale cada carga ni qué camino hace. Cada producto se dibuja desde su salida principal, según organismos oficiales, cámaras y prensa, y la tabla dice qué tan firme es cada una: lo que sale por otro puerto se dibuja igual desde el principal.</li>
           <li>El camino por mar es el más corto sobre la red marítima de Eurostat, sin el Canal de Panamá y hacia Asia y Oceanía por el sur de África. Un barco de verdad puede hacer escalas o ir por otro lado.</li>
@@ -3478,7 +3478,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
           <li>Son solo los servicios que se venden. Lo que se compra a otros países, como los viajes de los argentinos al exterior, no está en esta vista.</li>
           <li>Los servicios se cuentan en dólares, como los bienes, pero vienen de otra fuente: no se suman con las exportaciones de bienes de esta página.</li>
         </ul>
-      </div>
+      </details>
     </div>
     <link rel="stylesheet" href="lib/maplibre-gl-5.24.0.css?v=__V_MAPLIBRE_CSS__">
     <script src="lib/maplibre-gl-5.24.0.min.js?v=__V_MAPLIBRE__" defer></script>
@@ -3489,7 +3489,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     <h2>Migración interna</h2>
     <div class="tema-intro">
       <p class="pregunta">¿Cómo nos movemos los argentinos?</p>
-      <p>De dónde a dónde se mudaron las personas entre las 24 jurisdicciones de {{migraciones.mudanzas.desde}} a {{migraciones.mudanzas.anio}}, cómo cambió la población de cada departamento entre los censos de {{migraciones.mudanzas.censo_antes}} y {{migraciones.mudanzas.anio}} y dónde hay viviendas sin personas.</p>
+      <p>Los flujos migratorios entre las 24 jurisdicciones de {{migraciones.mudanzas.desde}} a {{migraciones.mudanzas.anio}}, la variación intercensal de la población de cada departamento entre {{migraciones.mudanzas.censo_antes}} y {{migraciones.mudanzas.anio}} y las viviendas sin personas.</p>
     </div>
     <!-- 25 de noviembre de 2026 (pedido del autor, diseño aprobado ese día): docs/roadmap/MUDANZAS.md. Usa las tarjetas, la ficha y los controles de
          Rutas comerciales. Lo que cambia con los datos lo escribe mudanzas.js -->
@@ -3510,11 +3510,11 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
             <div><h2 class="rt-card-tit" id="mu-mapa-tit">De dónde a dónde se mudó la gente</h2><p class="rt-card-sub" id="mu-mapa-sub"></p></div>
             <div class="mu-controles">
               <div class="conmutador mu-medidas" role="group" aria-label="Medida" data-propio data-solo="mudanzas" style="--n:3">
-                <button type="button" data-m="saldo" aria-pressed="true">Saldo</button>
-                <button type="button" data-m="llegan" aria-pressed="false">Llegan</button>
-                <button type="button" data-m="van" aria-pressed="false">Se van</button>
+                <button type="button" data-m="saldo" aria-pressed="true">Saldo migratorio</button>
+                <button type="button" data-m="llegan" aria-pressed="false">Inmigración</button>
+                <button type="button" data-m="van" aria-pressed="false">Emigración</button>
               </div>
-              <label class="mu-check" data-solo="mudanzas"><input type="checkbox" id="mu-cada"> Cada 1.000 personas de 5 años y más</label>
+              <label class="mu-check" data-solo="mudanzas"><input type="checkbox" id="mu-cada"> Tasa por mil habitantes de 5 años y más</label>
               <label class="selector-ficha mu-sel" data-solo="viviendas" hidden><span class="solo-lector">Motivo</span><select id="mu-motivo"><option value="">Todos los motivos</option><option value="uso_temporal">Vacaciones o fin de semana</option><option value="alquiler_venta">En alquiler o en venta</option><option value="en_construccion">En construcción</option><option value="residentes_ausentes">Sus habitantes no estaban</option><option value="oficina_comercio">Oficina, consultorio o comercio</option><option value="otra_situacion">Otra situación</option></select></label>
             </div>
           </div>
@@ -3542,28 +3542,28 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
         <div class="rt-kpis mu-kpis" id="mu-kpis"></div>
         <section class="rt-card rt-lado mu-lado" aria-labelledby="mu-lado-tit"><h2 class="rt-card-tit" id="mu-lado-tit"></h2><ol class="rt-barras" id="mu-lado-lista" tabindex="0" aria-labelledby="mu-lado-tit"></ol></section>
       </div>
-      <p class="rt-ayuda" data-solo="mudanzas">Cada línea va de donde vivían a donde viven: empieza clara y termina oscura. Más grosor es más gente. Tocá una provincia para ver su informe.</p>
+      <p class="rt-ayuda" data-solo="mudanzas">Cada línea va de la provincia de origen a la de destino: empieza clara y termina oscura. Cuanto más gruesa, más personas. Tocá una línea para ver cuántas personas fueron en cada sentido, o una provincia para ver su informe.</p>
       <p class="rt-ayuda" data-solo="poblacion viviendas" hidden>Tocá un departamento para ver su ficha. Para acercar, los botones, dos dedos o Ctrl y la rueda del mouse.</p>
       <div class="rt-frase mu-frase" id="mu-frase"></div>
       <div data-solo="mudanzas">
         <div class="mu-fila">
           <section class="rt-card" aria-labelledby="mu-corr-tit"><h2 class="rt-card-tit" id="mu-corr-tit"></h2><ol class="rt-corr mu-corr" id="mu-corr"></ol></section>
-          <section class="rt-card mu-tabla-card" aria-labelledby="mu-tabla-tit"><h2 class="rt-card-tit" id="mu-tabla-tit">Las 24 jurisdicciones</h2><p class="rt-card-sub">Tocá el nombre de una columna para ordenar. En gris, los saldos que cambian de signo.</p>
+          <section class="rt-card mu-tabla-card" aria-labelledby="mu-tabla-tit"><h2 class="rt-card-tit" id="mu-tabla-tit">Las 24 jurisdicciones</h2><p class="rt-card-sub">Tocá el nombre de una columna para ordenar. En gris, los saldos de signo indeterminado.</p>
             <div class="tabla-desliza" tabindex="0" role="region" aria-label="Las 24 jurisdicciones"><table class="mu-tabla" id="mu-tabla"></table></div></section>
         </div>
-        <section class="rt-card mu-matriz-card" aria-labelledby="mu-matriz-tit"><h2 class="rt-card-tit" id="mu-matriz-tit">Quién fue adónde</h2><p class="rt-card-sub">En la fila, dónde vivían. En la columna, dónde viven. Cuanto más celeste, más personas.</p>
-          <div class="tabla-desliza" tabindex="0" role="region" aria-label="Quién fue adónde"><table class="mu-matriz" id="mu-matriz"></table></div></section>
+        <section class="rt-card mu-matriz-card" aria-labelledby="mu-matriz-tit"><h2 class="rt-card-tit" id="mu-matriz-tit">Matriz de origen y destino</h2><p class="rt-card-sub">Filas: jurisdicción de residencia en {{migraciones.mudanzas.desde}} (origen). Columnas: jurisdicción de residencia en {{migraciones.mudanzas.anio}} (destino). Cuanto más celeste, más personas.</p>
+          <div class="tabla-desliza" tabindex="0" role="region" aria-label="Matriz de origen y destino"><table class="mu-matriz" id="mu-matriz"></table></div></section>
       </div>
       <section class="rt-card mu-tabla-card" data-solo="poblacion viviendas" hidden aria-labelledby="mu-tramos-tit"><h2 class="rt-card-tit" id="mu-tramos-tit">Los departamentos, según cuánto cambió su población</h2><p class="rt-card-sub">Las viviendas sin personas son las de {{migraciones.mudanzas.anio}}.</p>
         <div class="tabla-desliza" tabindex="0" role="region" aria-label="Departamentos según cuánto cambió su población"><table class="mu-tabla" id="mu-tramos"></table></div></section>
       <div class="pie rt-pie"><span>Fuente: INDEC, Censo Nacional de Población, Hogares y Viviendas {{migraciones.mudanzas.anio}}, resultados definitivos (migraciones, estructura de la población y viviendas). Población de {{migraciones.mudanzas.censo_antes}}: INDEC, Censo {{migraciones.mudanzas.censo_antes}}. Mapa: IGN y Natural Earth</span>
-        <span class="mu-descargas"><a href="datos/mudanzas_matriz.csv" download>Quién fue adónde (CSV)</a> <a href="datos/mudanzas_provincias.csv" download>Jurisdicciones (CSV)</a> <a href="datos/mudanzas_departamentos.csv" download>Departamentos (CSV)</a></span></div>
-      <div class="rt-limites nota-limites">
-        <h2 class="rt-tit">Qué no dice este dato</h2>
+        <span class="mu-descargas"><a href="datos/mudanzas_matriz.csv" download>Matriz de origen y destino (CSV)</a> <a href="datos/mudanzas_provincias.csv" download>Jurisdicciones (CSV)</a> <a href="datos/mudanzas_departamentos.csv" download>Departamentos (CSV)</a></span></div>
+      <details class="nota-calculo nota-limites rt-limites">
+        <summary>Límites de estos datos</summary>
         <ul>
           <li>El censo compara dos momentos: dónde vivía cada persona en {{migraciones.mudanzas.desde}} y dónde vivía en {{migraciones.mudanzas.anio}}. No cuenta las mudanzas del medio, a quienes se fueron y volvieron, a quienes se fueron del país ni a los menores de 5 años.</li>
           <li>Cuenta a todas las personas que viven en el país, también a las que nacieron en otro.</li>
-          <li>El {{migraciones.mudanzas.sin_decir_pct}}% de las personas que cambiaron de provincia no dijo de cuál venía. Cuentan como llegadas y no se sabe de dónde salieron, así que el saldo se calcula sin ellas. La columna "Saldo si se reparten" las asigna como a las demás: si el signo cambia, la jurisdicción va con trama.</li>
+          <li>El {{migraciones.mudanzas.sin_decir_pct}}% de los migrantes interprovinciales no declaró su jurisdicción de origen. Cuentan como inmigrantes de su destino, pero no como emigrantes de ninguna jurisdicción, así que el saldo migratorio se calcula sin ellos. La columna "Saldo con origen imputado" les asigna un origen en la misma proporción que al resto: si el signo cambia, es indeterminado y la jurisdicción va con trama.</li>
           <li>El período incluye la pandemia. Parte de las mudanzas puede responder a ella, y el censo no pregunta el motivo.</li>
           <li>El Censo {{migraciones.mudanzas.censo_antes}} contó a cada persona donde pasó la noche anterior y el de {{migraciones.mudanzas.anio}}, donde vive habitualmente. El cambio de población de los lugares con muchos turistas o trabajadores de paso incluye esa diferencia.</li>
           <li>El cambio de población junta nacimientos, muertes y mudanzas. No dice cuánto es por cada uno.</li>
@@ -3571,7 +3571,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
           <li>Lezama y Tolhuin se crearon entre los dos censos. Su cambio se calcula junto con Chascomús y con Río Grande. La Antártida y las Islas del Atlántico Sur no tienen dato por departamento: en las Malvinas no se pudo censar por la ocupación del Reino Unido.</li>
           <li>En los departamentos con poca gente, unas decenas de personas cambian mucho el porcentaje.</li>
         </ul>
-      </div>
+      </details>
     </div>
     <script src="mudanzas.js?v=__V_MUDANZAS_JS__" defer></script>
   </section>

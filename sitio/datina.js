@@ -1987,6 +1987,9 @@ const mesPer = p => `${MESES[+p.slice(5, 7) - 1]} de ${p.slice(0, 4)}`;
 const tPer = p => +p.slice(0, 4) + (+p.slice(5, 7) - 1) / 12;
 const leyenda = (id, claves) => { $(id).innerHTML = claves.map(k => `<span><i style="background:${k.c}"></i>${k.lab}</span>`).join(""); };
 const listaY = arr => arr.length > 1 ? arr.slice(0, -1).join(", ") + " " + yE(arr[arr.length - 1]) : arr[0];
+function detLimites(lista) {
+return `<details class="nota-calculo nota-limites"><summary>Límites de estos datos</summary><ul>${lista.map(l => `<li>${l}</li>`).join("")}</ul></details>`;
+}
 const ESP_COLOR = {"Peronismo": "#2C74B5", "UCR y aliados": "#D9453B", "PRO": "#F6B40E", "Cambiemos y Juntos por el Cambio": "#F08A24",
 "La Libertad Avanza": "#4A2C6F", "Izquierda": "#7A1F2B", "Fuerzas provinciales": "#74ACDF", "Otras fuerzas": "#98A2AE"};
 const ESP_TXT = {"Peronismo": "el peronismo", "UCR y aliados": "la UCR y sus aliados", "PRO": "el PRO",

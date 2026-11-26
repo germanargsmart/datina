@@ -119,7 +119,7 @@ docs/roadmap/                  plan vigente, estado, decisiones, criterios de ac
 - No usar punto y coma en ningún texto visible.
 - Tono neutro en temas políticos: describir, no adjetivar.
 - "y" pasa a "e" delante del sonido de la i: todo texto que une datos con " y " usa `yE()`.
-- Correlación no es causalidad: los cruces y artículos lo dicen siempre, con sus límites ("Qué no dice este dato").
+- Correlación no es causalidad: los cruces y artículos lo dicen siempre ("Cómo leer un cruce", a la vista), con sus límites en el desplegable "Límites de estos datos" (desde el 26 de noviembre de 2026, antes "Qué no dice este dato", que no se entendía).
 
 ## Temas sensibles (suicidio)
 

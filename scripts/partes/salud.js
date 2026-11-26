@@ -13,8 +13,8 @@ textosParte({
     `Según la DEIS, en ${R.mi_causas.reducibles.anio} el ${pct(R.mi_causas.reducibles.neonatal)} de las muertes de menores de 28 días y el ${pct(R.mi_causas.reducibles.posneonatal)} de las de 28 días a 11 meses del país eran reducibles con prevención, diagnóstico o tratamiento oportunos. Ese dato no se publica por provincia y no se puede calcular con los datos abiertos, que traen solo los tres primeros caracteres del código de cada causa. ` +
     `Las correlaciones comparan la tasa de cada grupo de causas con el porcentaje de población sin obra social, prepaga ni plan estatal de salud del Censo 2022.`,
   "transito-nota": `Personas que murieron en siniestros viales según los registros de las policías y las fuerzas federales (SNIC, Ministerio de ` +
-    `Seguridad), por la provincia donde ocurrió el hecho. Cada 100.000 habitantes con la población de ${TRN.anio_pob}, el año del medio. Qué no dice ` +
-    `este dato: la Agencia Nacional de Seguridad Vial cuenta también a quienes mueren dentro de los 30 días del siniestro y da otros números. Las ` +
+    `Seguridad), por la provincia donde ocurrió el hecho. Cada 100.000 habitantes con la población de ${TRN.anio_pob}, el año del medio. ` +
+    `La Agencia Nacional de Seguridad Vial cuenta también a quienes mueren dentro de los 30 días del siniestro y da otros números. Las ` +
     `estadísticas vitales del Ministerio de Salud no sirven para comparar provincias: en CABA y en Buenos Aires la mayoría de las muertes por causas ` +
     `externas se registran sin decir si fueron en el tránsito.`,
   "causas-muerte-nota": `Tasas ajustadas por edad con el método directo: la tasa de cada grupo de edad de la provincia se pondera con la población del país de ${CM.anio_std} por edad, así se comparan provincias más jóvenes y más envejecidas. ` +
