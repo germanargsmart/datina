@@ -1,7 +1,7 @@
 {
  "tabla": "glaciares_provincias.csv",
  "titulo": "¿Cuántos glaciares tiene cada provincia?",
- "descripcion": "Glaciares y cuerpos de hielo inventariados, por provincia",
+ "descripcion": "Glaciares y cuerpos de hielo del primer Inventario Nacional de Glaciares, publicado en 2018, por provincia",
  "seccion": "Naturaleza y ambiente",
  "ficha": "https://datina.com.ar/naturaleza#f-glaciares",
  "fuente": "Inventario Nacional de Glaciares (IANIGLA), vía Secretaría de Turismo y Ambiente (CIAM).",
@@ -11,8 +11,8 @@
  "actualizacion": "Se actualiza con cada inventario.",
  "cobertura": "12 jurisdicciones",
  "periodo": "",
- "anio_desde": null,
- "anio_hasta": null,
+ "anio_desde": 2018,
+ "anio_hasta": 2018,
  "filas": 12,
  "columnas": [
   {

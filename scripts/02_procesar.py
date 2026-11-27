@@ -372,7 +372,7 @@ tasa_sui.loc[tasa_sui.anio < 2017, ["tasa_varones", "tasa_mujeres"]] = None
 for k in MAP.values():
     d = muertes[["anio", k]].rename(columns={"anio": "periodo", k: "valor"})
     d["codigo_indec"], d["territorio"] = "00", "Argentina"
-    agregar(d, f"victimas_{k}", "personas", "SNIC, Ministerio de Seguridad")
+    agregar(d, f"victimas_{k}", "personas", "SNIC, Ministerio de Seguridad Nacional")
 
 sui_p = snic_prov[snic_prov.codigo_delito_snic_nombre == "Suicidios (consumados)"]
 ANIO_SNIC = int(sui_p.anio.max())
@@ -382,7 +382,7 @@ sui_prov["territorio"] = sui_prov.codigo_indec.map(CORTO)
 d = sui_p[["provincia_id", "anio", "tasa_victimas"]].rename(
     columns={"provincia_id": "codigo_indec", "anio": "periodo", "tasa_victimas": "valor"})
 d["territorio"] = d.codigo_indec.map(CORTO)
-agregar(d, "tasa_suicidios_100mil_5_anios_y_mas", "por 100.000 habitantes de 5 años y más", "SNIC, Ministerio de Seguridad")
+agregar(d, "tasa_suicidios_100mil_5_anios_y_mas", "por 100.000 habitantes de 5 años y más", "SNIC, Ministerio de Seguridad Nacional")
 
 # Edad y sexo. Deliberadamente solo se leen estas columnas de la base SAT.
 sat = leer_csv_snic(CRUDO / "snic_sat_suicidios.csv", sep=None, engine="python",
@@ -925,7 +925,7 @@ m2_pais = ap_tot.terrestre_ha * 1e4 / sum(POB_AP.values())
 for col, var, uni in [("pct_territorio", "pct_territorio_protegido", "% de la superficie continental"),
                       ("m2_por_habitante", "m2_protegidos_por_habitante", "m2 por habitante")]:
     d = area[["codigo_indec", "territorio", col]].rename(columns={col: "valor"}); d["periodo"] = anio_ap
-    agregar(d, var, uni, "Secretaria de Turismo y Ambiente, CIAM")
+    agregar(d, var, uni, "Secretaría de Turismo y Ambiente, CIAM")
 
 # Areas protegidas nacionales con anio de creacion, superficie y especies (Sistema de Informacion de Biodiversidad)
 sib = pd.DataFrame(json.loads((CRUDO / "sib_areas_protegidas.json").read_text(encoding="utf-8")))
@@ -1705,6 +1705,11 @@ gl["codigo_indec"] = gl.provincia.map(codigo)
 gl["glaciares"] = pd.to_numeric(gl.cantidad_de_glaciares, errors="coerce")
 glaciares = gl.dropna(subset=["codigo_indec", "glaciares"]).groupby("codigo_indec").glaciares.max().reset_index()
 glaciares["territorio"] = glaciares.codigo_indec.map(CORTO)
+# El archivo del CIAM no trae su fecha. Sus cifras son las de la tabla por provincia del resumen ejecutivo del primer Inventario Nacional
+# de Glaciares (IANIGLA, mayo de 2018: 16.968 cuerpos de hielo, https://www.glaciaresargentinos.gob.ar/?page_id=2571). Tierra del Fuego
+# suma la Isla Grande y las islas Georgias del Sur y Sandwich del Sur. Al 27 de noviembre de 2026 la actualización (ING 2) publicó solo los
+# Andes Desérticos, sin un total nacional nuevo. Si el total cambia, pruebas_datos.py lo marca: ver de qué inventario es, anotarlo acá y cambiar "primer" en la descripción de f-glaciares
+GL_ING = {16968: 2018}
 
 # Las cumbres más altas del país (pedido del autor del 9 de noviembre de 2026, ficha f-cumbres): la tabla "Máximas alturas" del IGN, en
 # metros, armada una sola vez por scripts/cumbres_relieve.py. El relieve y los glaciares de cada cumbre no pasan por acá: los copia 03 de
@@ -4188,9 +4193,9 @@ assert departamentos.escuelas.notna().all(), "hay departamentos del mapa sin esc
 DEP_PADRON = json.loads((_hosp_dir / "control.json").read_text(encoding="utf-8"))["fuentes"]["padron"]["actualizado"]
 departamentos = departamentos.round(2)
 DEP_META = {
-    "homicidios": ("Homicidios dolosos", f"víctimas cada 100.000 habitantes, promedio {ANIO_DEP - 2} a {ANIO_DEP}", "SNIC, Ministerio de Seguridad"),
-    "robos": ("Robos", f"hechos cada 100.000 habitantes, {ANIO_DEP}", "SNIC, Ministerio de Seguridad"),
-    "viales": ("Muertes viales", f"víctimas cada 100.000 habitantes, promedio {ANIO_DEP - 2} a {ANIO_DEP}", "SNIC, Ministerio de Seguridad"),
+    "homicidios": ("Homicidios dolosos", f"víctimas cada 100.000 habitantes, promedio {ANIO_DEP - 2} a {ANIO_DEP}", "SNIC, Ministerio de Seguridad Nacional"),
+    "robos": ("Robos", f"hechos cada 100.000 habitantes, {ANIO_DEP}", "SNIC, Ministerio de Seguridad Nacional"),
+    "viales": ("Muertes viales", f"víctimas cada 100.000 habitantes, promedio {ANIO_DEP - 2} a {ANIO_DEP}", "SNIC, Ministerio de Seguridad Nacional"),
     "mayores_65": ("Personas de 65 años o más", "% de la población identificada, junio de 2026", "RENAPER"),
     "menores_15": ("Menores de 15 años", "% de la población identificada, junio de 2026", "RENAPER"),
     "nacidos_otro_pais": ("Nacidos en otro país", "% de la población en viviendas particulares, Censo 2022", "INDEC, Censo 2022"),
@@ -5894,7 +5899,7 @@ _doc_tl = _doc_ok[_doc_ok.anio >= 2017]
 # en la tabla larga, el trimestre se escribe como los semestres de la pobreza: 2T2026
 agregar(_doc_tl.assign(territorio=_doc_tl.codigo_indec.map(lambda c: "Argentina" if c == "00" else CORTO[c]), valor=_doc_tl.bruto,
                        periodo=(_doc_tl.mes // 3).astype(str) + "T" + _doc_tl.anio.astype(str))[["codigo_indec", "territorio", "periodo", "valor"]],
-        "salario_bruto_maestro_grado_10_anios", "pesos corrientes por mes", "Coordinacion de Evaluacion de Costos Educativos, Secretaria de Educacion")
+        "salario_bruto_maestro_grado_10_anios", "pesos corrientes por mes", "Coordinación General de Estudio de Costos del Sistema Educativo (CGECSE), Secretaría de Educación")
 
 # ---------------------------------------------------------------- inversión en educación por provincia (etapa 23)
 # Gasto público en educación por alumno de gestión estatal (incluye las transferencias no automáticas de la Nación y descuenta lo que se
@@ -5926,7 +5931,7 @@ INV_RES = {
 }
 agregar(ie_.dropna(subset=["gasto_por_alumno"]).assign(territorio=lambda x: x.codigo_indec.map(lambda c: "Argentina" if c == "00" else CORTO[c]),
                                                        periodo=lambda x: x.anio.astype(str), valor=lambda x: x.gasto_por_alumno)[["codigo_indec", "territorio", "periodo", "valor"]],
-        "gasto_educativo_por_alumno_estatal", "pesos corrientes por alumno de gestion estatal por año", "Coordinacion de Evaluacion de Costos Educativos, Secretaria de Educacion")
+        "gasto_educativo_por_alumno_estatal", "pesos corrientes por alumno de gestion estatal por año", "Coordinación General de Estudio de Costos del Sistema Educativo (CGECSE), Secretaría de Educación")
 
 # ---------------------------------------------------------------- seguridad (etapa 23)
 # Delitos que registran las fuerzas policiales y de seguridad, y en algunas provincias el Ministerio Público Fiscal (SNIC, Ministerio de
@@ -6060,7 +6065,7 @@ for _seg_k, _seg_var, _seg_uni in (("homicidios", "tasa_victimas_homicidios_dolo
                                    ("robos", "tasa_robos", "hechos cada 100.000 habitantes"), ("hurtos", "tasa_hurtos", "hechos cada 100.000 habitantes")):
     _seg_t = seguridad_serie_prov[["codigo_indec", "anio", _seg_k]].rename(columns={"anio": "periodo", _seg_k: "valor"})
     _seg_t = pd.concat([_seg_t, delitos_serie[["anio", _seg_k]].rename(columns={"anio": "periodo", _seg_k: "valor"}).assign(codigo_indec="00")])
-    agregar(_seg_t.assign(territorio=_seg_t.codigo_indec.map(lambda c: "Argentina" if c == "00" else CORTO[c])), _seg_var, _seg_uni, "SNIC, Ministerio de Seguridad")
+    agregar(_seg_t.assign(territorio=_seg_t.codigo_indec.map(lambda c: "Argentina" if c == "00" else CORTO[c])), _seg_var, _seg_uni, "SNIC, Ministerio de Seguridad Nacional")
 agregar(carceles_serie.rename(columns={"anio": "periodo", "personas": "valor"}).assign(codigo_indec="00", territorio="Argentina"),
         "personas_privadas_de_libertad_establecimientos_penitenciarios", "personas al 31 de diciembre", "SNEEP, Ministerio de Justicia")
 _sn_l = pd.concat([carceles_serie.rename(columns={"anio": "periodo", "pct_sin_condena": "valor"}).assign(codigo_indec="00")[["codigo_indec", "periodo", "valor"]],
@@ -8271,16 +8276,16 @@ CRUCES_META = {
     "aprender_len": ("Aprender, lengua", "% de 6° grado con nivel satisfactorio o avanzado", str(meta_ap["anio"]), "Educación", "Secretaría de Educación", "f-aprender", 1),
     "empleo_privado": ("Empleo privado registrado", "asalariados cada 100 habitantes", f"{MES[fin.month - 1]} de {fin.year}", "Trabajo", "SIPA", "f-empleo", 1),
     "empleo_var": ("Variación del empleo privado", "% en doce meses", f"{MES[fin.month - 1]} de {fin.year}", "Trabajo", "SIPA", "f-empleo", 1),
-    "homicidios": ("Homicidios dolosos", "víctimas cada 100.000 habitantes", str(ANIO_SNIC), "Seguridad", "SNIC, Ministerio de Seguridad", "f-homicidios", 1),
-    "robos": ("Robos", "hechos cada 100.000 habitantes", str(ANIO_SNIC), "Seguridad", "SNIC, Ministerio de Seguridad", "f-robos", 0),
+    "homicidios": ("Homicidios dolosos", "víctimas cada 100.000 habitantes", str(ANIO_SNIC), "Seguridad", "SNIC, Ministerio de Seguridad Nacional", "f-homicidios", 1),
+    "robos": ("Robos", "hechos cada 100.000 habitantes", str(ANIO_SNIC), "Seguridad", "SNIC, Ministerio de Seguridad Nacional", "f-robos", 0),
     "salario": ("Salario promedio de los asalariados registrados privados", "pesos por mes, bruto, promedio por puesto", SAL_RES["mes"], "Trabajo",
                 "OEDE, Secretaría de Trabajo (SIPA)", "f-salarios", 0),
     "salario_docente": ("Salario de un maestro de grado", "pesos por mes, bruto, con 10 años de antigüedad y jornada simple", DOC_RES["trim"], "Educación",
-                        "Coordinación de Evaluación de Costos Educativos", "f-salario-docente", 0),
+                        "CGECSE, Secretaría de Educación", "f-salario-docente", 0),
     "gasto_alumno": ("Inversión educativa por alumno", "pesos por alumno de gestión estatal por año", str(INV_ULT), "Educación",
-                     "Coordinación de Evaluación de Costos Educativos", "f-inversion-educativa", 0),
-    "viales": ("Muertes viales", "víctimas cada 100.000 habitantes", str(ANIO_SNIC), "Seguridad", "SNIC, Ministerio de Seguridad", "f-muertes", 1),
-    "protegida": ("Territorio protegido", "% de la superficie", str(anio_ap), "Naturaleza y ambiente", "Secretaria de Turismo y Ambiente, CIAM", "f-protegida", 1),
+                     "CGECSE, Secretaría de Educación", "f-inversion-educativa", 0),
+    "viales": ("Muertes viales", "víctimas cada 100.000 habitantes", str(ANIO_SNIC), "Seguridad", "SNIC, Ministerio de Seguridad Nacional", "f-muertes", 1),
+    "protegida": ("Territorio protegido", "% de la superficie", str(anio_ap), "Naturaleza y ambiente", "Secretaría de Turismo y Ambiente, CIAM", "f-protegida", 1),
     "turistas_eti": ("Turistas extranjeros", "cada 1.000 habitantes, salidos por Ezeiza o Aeroparque", str(ANIO_ETI), "Turismo", "Encuesta de Turismo Internacional", "f-eti", 1),
     "autos": ("Autos nuevos", "cada 1.000 habitantes", str(ANIO_AU), "Movilidad", "DNRPA", "f-patentes-prov", 1),
     "motos": ("Motos nuevas", "cada 1.000 habitantes", str(ANIO_AU), "Movilidad", "DNRPA", "f-patentes-prov", 1),
@@ -8303,8 +8308,8 @@ CRUCES_META = {
     "pct_hog_nbi_2022": ("Hogares con necesidades básicas insatisfechas", "% de los hogares", "2022", "Pobreza", "INDEC, Censo 2022", "f-adolescentes-nse", 1),
     "pct_25mas_secundario_completo_o_mas": ("Adultos con secundario completo", "% de la población de 25 años o más", "2022", "Educación", "INDEC, Censo 2022", "f-adolescentes-nse", 1),
     "pct_hog_cloaca": ("Hogares con cloacas", "% de los hogares con desagüe a red pública", "2022", "Pobreza", "INDEC, Censo 2022", "f-adolescentes-nse", 1),
-    **({"empresas": ("Empresas privadas empleadoras", "empresas cada 1.000 habitantes", str(emp_res["anio"]), "Empresas y oportunidades", "OEDE, Ministerio de Capital Humano (SIPA)", "f-empresas", 1),
-        "empresas_neta": ("Cambio neto de empresas locales", "aperturas menos cierres, % de las empresas, promedio de cinco años", f"{emp_res['ult'] - 4} a {emp_res['ult']}", "Empresas y oportunidades", "OEDE, Ministerio de Capital Humano (SIPA)", "f-dinamica-empresas", 1)}
+    **({"empresas": ("Empresas privadas empleadoras", "empresas cada 1.000 habitantes", str(emp_res["anio"]), "Empresas y oportunidades", "OEDE, Secretaría de Trabajo (SIPA)", "f-empresas", 1),
+        "empresas_neta": ("Cambio neto de empresas locales", "aperturas menos cierres, % de las empresas, promedio de cinco años", f"{emp_res['ult'] - 4} a {emp_res['ult']}", "Empresas y oportunidades", "OEDE, Secretaría de Trabajo (SIPA)", "f-dinamica-empresas", 1)}
        if emp_res else {}),
     "vejez": ("Personas mayores por cada 100 en edad de trabajar", "personas de 65 años o más cada 100 de 15 a 64", str(ANIO_PROY), "Población", "INDEC, proyecciones de población", "f-envejecimiento", 1),
     "atn_hab": ("ATN por habitante", f"pesos de {TR_ULT} por habitante por año, promedio 2000 a {TR_ULT}", f"2000 a {TR_ULT}", "Política", "Presupuesto Abierto, Secretaría de Hacienda", "f-atn", 0),
@@ -8323,7 +8328,7 @@ CRUCES_META = {
     "alquila": ("Hogares que alquilan", "% de los hogares", "2022", "Vivienda", "INDEC, Censo 2022", "f-vivienda", 1),
     "hacinamiento": ("Hacinamiento crítico", "% de los hogares con más de tres personas por cuarto", "2022", "Vivienda", "INDEC, Censo 2022", "f-vivienda", 1),
     "ocupados_construccion": ("Personas ocupadas en la construcción", "% de las personas ocupadas, incluye el trabajo no registrado", "2022", "Construcción", "INDEC, Censo 2022", "f-empleo-construccion", 1),
-    "empleo_construccion": ("Empleo registrado en la construcción", "asalariados privados cada 1.000 habitantes", f"{TRIM_TXT[OE_T % 10 - 1]} trimestre de {OE_T // 10}", "Construcción", "OEDE, Ministerio de Capital Humano (SIPA)", "f-empleo-construccion", 1),
+    "empleo_construccion": ("Empleo registrado en la construcción", "asalariados privados cada 1.000 habitantes", f"{TRIM_TXT[OE_T % 10 - 1]} trimestre de {OE_T // 10}", "Construcción", "OEDE, Secretaría de Trabajo (SIPA)", "f-empleo-construccion", 1),
     "regalias": ("Peso de las regalías", "% de los ingresos totales de la provincia (petróleo, gas, minería e hidroelectricidad)", str(ANIO_FISC), "Finanzas provinciales", "Ministerio de Economía, cuentas provinciales", "f-regalias", 1),
     **({"pensiones_invalidez": ("Pensiones por invalidez", "pensiones no contributivas por invalidez cada 1.000 habitantes", f"{MES[pinv_res['prov_mes'] - 1]} de {pinv_res['prov_anio']}",
                                 "Seguridad social", "Secretaría de Seguridad Social, BESS", "f-pensiones-invalidez", 1)} if pinv_res else {}),
@@ -9366,6 +9371,8 @@ resumen = {
         "pn_mayor": mayor.nombre, "pn_mayor_ha": round(float(mayor.superficie)), "pn_mayor_anio": int(mayor.anio),
         "anio_ini": int(pn_hist.anio.min()), "anio_fin": int(pn_hist.anio.max()),
         "esp_top": esp.iloc[0].territorio, "esp_top_v": int(esp.iloc[0].animales), "esp_top_car": esp.iloc[0].caracter,
+        # el SIB da los registros al día en que se consulta, sin fecha de corte: la descripción dice el mes de la última descarga que anduvo
+        "esp_consulta": (lambda f: f"{MES[int(f[5:7]) - 1]} de {f[:4]}")(pd.read_csv(CRUDO / "_registro.csv", dtype=str).set_index("archivo").ultima_ok["sib_areas_protegidas.json"]),
         "esp_2": esp.iloc[1].territorio, "esp_2_v": int(esp.iloc[1].animales),
         "cu_n": int(len(cumbres)), "cu_top": cumbres.nombre.iloc[0], "cu_top_prov": cumbres.provincia.iloc[0], "cu_top_v": int(cumbres.altura_m.iloc[0]),
         "cu_2": cumbres.nombre.iloc[1], "cu_2_prov": cumbres.provincia.iloc[1], "cu_2_v": int(cumbres.altura_m.iloc[1]),
@@ -9433,7 +9440,7 @@ resumen = {
         "vino_mza": r1(mza_pct),
         "yerba_ini": int(yerba.anio.iloc[0]), "yerba_anio": int(yerba.anio.iloc[-1]), "yerba_v": r1(yerba.millones_kg.iloc[-1]),
         "yerba_max_anio": int(yerba.loc[yerba.millones_kg.idxmax(), "anio"]), "yerba_max": r1(yerba.millones_kg.max()),
-        "gl_total": int(glaciares.glaciares.sum()), "gl_n": int(len(glaciares)),
+        "gl_total": int(glaciares.glaciares.sum()), "gl_n": int(len(glaciares)), "gl_ing_anio": GL_ING.get(int(glaciares.glaciares.sum())),
         "gl_top": glaciares.sort_values("glaciares").iloc[-1].territorio, "gl_top_v": int(glaciares.glaciares.max()),
         "gl_2": glaciares.sort_values("glaciares").iloc[-2].territorio, "gl_2_v": int(glaciares.sort_values("glaciares").iloc[-2].glaciares),
         "cl_ini": int(clima.anio.min()), "cl_fin": int(clima.anio.max()), "cl_ult": float(clima.desvio_temperatura.iloc[-1]),

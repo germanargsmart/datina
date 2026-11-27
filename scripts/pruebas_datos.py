@@ -497,6 +497,10 @@ def prueba_errores(d, t):
             sale.append(("pozos|activos", f"pozos no convencionales en {pg['pozos_mes']}: el mapa dice {pg['map_activos']:,} y la ficha de pozos suma {pg['pozos_shale'] + pg['pozos_tight']:,}"))
     # recursos propios: el valor del país del perfil provincial era la mediana de las provincias. Tiene que ser el de las provincias
     # sumadas, que queda entre la más baja y la más alta y no es la mediana
+    # glaciares: el año de la descripción sale de GL_ING de 02_procesar.py, que conoce el total de cada inventario publicado. Un total
+    # que no está ahí es un inventario nuevo o un archivo distinto: no se puede decir de qué año es
+    if d["resumen"]["curiosidades"].get("gl_ing_anio") is None:
+        sale.append(("glaciares|inventario", f"glaciares: el total ({d['resumen']['curiosidades']['gl_total']:,}) no es el de ningún inventario de GL_ING en 02_procesar.py"))
     fi = d["resumen"]["fiscal"]
     vals = [f["autonomia"] for f in d["datos"]["fiscal_provincias"] if f["anio"] == fi["anio"]]
     if "pais" not in fi:

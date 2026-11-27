@@ -1,7 +1,7 @@
 {
  "tabla": "especies_areas_nacionales.csv",
  "titulo": "¿Qué áreas protegidas nacionales tienen más especies animales registradas?",
- "descripcion": "Especies animales registradas en cada área protegida nacional terrestre, las 15 áreas con más registros",
+ "descripcion": "Especies animales registradas en cada área protegida nacional terrestre, las 15 áreas con más registros, consultados en noviembre de 2026",
  "seccion": "Naturaleza y ambiente",
  "ficha": "https://datina.com.ar/naturaleza#f-especies",
  "fuente": "Sistema de Información de Biodiversidad, Administración de Parques Nacionales.",

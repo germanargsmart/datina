@@ -643,7 +643,7 @@ Lo que cada grupo de la reescritura no cambió porque necesita corregir un dato,
    - Fragmento: «gl_total, esp_top (sin año)»
    - Motivo: Las bajadas de glaciares y de especies no tienen período porque el resumen no guarda el año del inventario ni el de los registros. Glaciares cuenta glaciares y no superficie.
    - Propuesta: Sumar al resumen el año del inventario del IANIGLA y la superficie de hielo por provincia, y la fecha de corte del SIB, y usarlos con {{ruta}}.
-   - **Estado al 11 de noviembre de 2026: sigue abierta.** Las descripciones de f-especies y f-glaciares siguen sin período.
+   - **Resuelta el 27 de noviembre de 2026.** f-glaciares: "del primer Inventario Nacional de Glaciares, publicado en {{curiosidades.gl_ing_anio}}". El archivo del CIAM no trae fecha, pero sus 12 cifras por provincia y el total de 16.968 son los de la tabla del resumen ejecutivo del IANIGLA de mayo de 2018 (`GL_ING` en `02_procesar.py`), y la actualización (ING 2) publicó hasta ahora solo los Andes Desérticos. Si el total cambia, `pruebas_datos.py` lo marca. La nota aclara que Tierra del Fuego suma la Isla Grande y las islas Georgias del Sur y Sandwich del Sur. f-especies: el SIB da los registros al día de la consulta, sin fecha de corte, así que la descripción dice "consultados en {{naturaleza.esp_consulta}}", el mes de la última descarga que anduvo (`ultima_ok` del registro). La superficie de hielo por provincia no se sumó: pide otra descarga.
 
 17. **curiosidades.html#f-nombres** (`datos/manual/explicadores.json`)
    - Fragmento: «desde 2012 hasta 2024 ... La serie tiene un año de atraso respecto del calendario.»
