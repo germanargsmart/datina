@@ -1708,7 +1708,7 @@ glaciares["territorio"] = glaciares.codigo_indec.map(CORTO)
 # El archivo del CIAM no trae su fecha. Sus cifras son las de la tabla por provincia del resumen ejecutivo del primer Inventario Nacional
 # de Glaciares (IANIGLA, mayo de 2018: 16.968 cuerpos de hielo, https://www.glaciaresargentinos.gob.ar/?page_id=2571). Tierra del Fuego
 # suma la Isla Grande y las islas Georgias del Sur y Sandwich del Sur. Al 27 de noviembre de 2026 la actualización (ING 2) publicó solo los
-# Andes Desérticos, sin un total nacional nuevo. Si el total cambia, pruebas_datos.py lo marca: ver de qué inventario es y anotarlo acá
+# Andes Desérticos, sin un total nacional nuevo. Si el total cambia, pruebas_datos.py lo marca: ver de qué inventario es, anotarlo acá y cambiar "primer" en la descripción de f-glaciares
 GL_ING = {16968: 2018}
 
 # Las cumbres más altas del país (pedido del autor del 9 de noviembre de 2026, ficha f-cumbres): la tabla "Máximas alturas" del IGN, en
