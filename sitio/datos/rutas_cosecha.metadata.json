@@ -1,0 +1,74 @@
+{
+ "tabla": "rutas_cosecha.csv",
+ "titulo": "¿Dónde se cosechan los granos que exporta la Argentina?",
+ "descripcion": "Toneladas cosechadas de cereales y de semillas oleaginosas en cada departamento, en la campaña que termina cada año desde 2015, y su parte del total del país",
+ "seccion": "Rutas comerciales",
+ "ficha": "https://datina.com.ar/rutas",
+ "fuente": "Secretaría de Agricultura, Ganadería y Pesca, estimaciones agrícolas por departamento",
+ "organismos": [],
+ "actualizacion": "Se actualiza cuando la Secretaría publica una campaña cosechada.",
+ "cobertura": "Departamentos",
+ "periodo": "2015 a 2025",
+ "anio_desde": 2015,
+ "anio_hasta": 2025,
+ "filas": 6332,
+ "columnas": [
+  {
+   "nombre": "anio",
+   "tipo": "Año",
+   "valores": "2015 a 2025"
+  },
+  {
+   "nombre": "campania",
+   "tipo": "Texto",
+   "valores": "11 valores distintos"
+  },
+  {
+   "nombre": "subrubro_cod",
+   "tipo": "Número",
+   "valores": "106 a 107"
+  },
+  {
+   "nombre": "subrubro",
+   "tipo": "Texto",
+   "valores": "Cereales, Semillas y frutos oleaginosos"
+  },
+  {
+   "nombre": "codigo_dep",
+   "tipo": "Código",
+   "valores": "325 códigos"
+  },
+  {
+   "nombre": "codigo_indec",
+   "tipo": "Código",
+   "valores": "15 códigos"
+  },
+  {
+   "nombre": "provincia",
+   "tipo": "Texto",
+   "valores": "15 valores distintos"
+  },
+  {
+   "nombre": "departamento",
+   "tipo": "Texto",
+   "valores": "284 valores distintos"
+  },
+  {
+   "nombre": "produccion_t",
+   "tipo": "Número",
+   "valores": "16 a 3.564.795"
+  },
+  {
+   "nombre": "pct_pais",
+   "tipo": "Número",
+   "valores": "0 a 4,34"
+  }
+ ],
+ "unidades": [],
+ "como_se_calcula": "Es lo cosechado, no lo exportado: nadie publica de qué departamento sale cada exportación, y una parte de los granos se consume o se industrializa en el país. Cereales: maíz, trigo, cebada, sorgo, arroz, avena, centeno, mijo y alpiste. Oleaginosas: soja, girasol, colza, cártamo y lino (el maní se exporta casi todo procesado, en otro subrubro). Algunas campañas de Corrientes y Formosa traen una parte sin departamento.",
+ "origen": [],
+ "licencia": "Creative Commons Atribución 4.0 (CC BY 4.0): se puede copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato. Los datos de base son de cada organismo y se rigen por sus condiciones",
+ "licencia_url": "https://creativecommons.org/licenses/by/4.0/deed.es",
+ "como_citar": "Datina (año de la consulta). ¿Dónde se cosechan los granos que exporta la Argentina? Con datos de Secretaría de Agricultura, Ganadería y Pesca, estimaciones agrícolas por departamento. https://datina.com.ar/rutas. Consultado el día de la consulta.",
+ "datos_actualizados": "23/11/2026"
+}

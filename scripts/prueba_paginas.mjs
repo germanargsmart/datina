@@ -940,6 +940,28 @@ await q.tamano(1280, 900);
   await q.eval(`document.getElementById("rt-ver-tabla").click()`); await espera(300);
   r = JSON.parse(await q.eval(`JSON.stringify({abierta: !document.getElementById("rt-tabla-caja").hidden, filas: document.querySelectorAll("#rt-tabla tbody tr").length})`));
   if (!r.abierta || r.filas < 30) problemas.push(`rutas.html: "Ver tabla" no abre la tabla de destinos (${r.filas} filas)`);
+  // dónde se cosecha (26 de noviembre de 2026): con los cereales, la tarjeta con su frase, la leyenda y diez departamentos, el mapa de departamentos
+  // ("Ver en el mapa" aparece cuando llegó) y la ficha de un departamento. Con otro producto la tarjeta no está
+  const COS = `JSON.stringify({card: !document.getElementById("rt-cosecha").hidden, frase: document.getElementById("rt-cos-frase").textContent,
+    deps: document.querySelectorAll("#rt-cos-lista button[data-dep]").length, ley: document.querySelectorAll("#rt-cos-ley i").length, ver: !document.getElementById("rt-cos-ver").hidden,
+    ficha: !document.getElementById("rt-ficha").hidden, fichaTit: document.getElementById("rt-ficha-tit")?.textContent || ""})`;
+  const elegirRt = n => q.eval(`(() => { const i = document.getElementById("rt-prod"); i.value = ${JSON.stringify(n)}; i.dispatchEvent(new Event("change")); return true; })()`);
+  await q.eval(`(() => { const a = document.getElementById("rt-anio"); a.value = a.max; a.dispatchEvent(new Event("input")); return true; })()`);
+  await elegirRt("Cereales"); await espera(3000);
+  r = JSON.parse(await q.eval(COS));
+  if (!r.card || r.deps !== 10 || r.ley !== 5 || !/^En la campaña \d{4}\/\d{2} se cosecharon .* toneladas de cereales en \d+ departamentos\. .*La mitad se cosechó en \d+ departamentos/.test(r.frase) || !r.ver)
+    problemas.push(`rutas.html: con los cereales falta la cosecha por departamento (${r.card ? "con" : "sin"} tarjeta, ${r.deps} departamentos, ${r.ley} tramos, ${r.ver ? "con" : "sin"} mapa: ${r.frase.slice(0, 80)})`);
+  if (!/Por provincia, .* reunió el \d+,\d% de la cosecha del país/.test(r.frase)) problemas.push(`rutas.html: la frase de la cosecha no dice cuánto reúne cada provincia (${r.frase.slice(0, 160)})`);
+  await q.eval(`document.getElementById("rt-cos-ver-tabla").click()`); await espera(300);
+  const tablaCos = JSON.parse(await q.eval(`JSON.stringify({abierta: !document.getElementById("rt-cos-tabla-caja").hidden, filas: document.querySelectorAll("#rt-cos-tabla tbody tr").length})`));
+  if (!tablaCos.abierta || tablaCos.filas < 200) problemas.push(`rutas.html: "Ver tabla" de la cosecha no abre la tabla de todos los departamentos (${tablaCos.filas} filas)`);
+  const depRt = await q.eval(`(() => { const b = document.querySelector("#rt-cos-lista button[data-dep]"); if (!b) return ""; b.click(); return b.querySelector(".rt-b-n").textContent.replace(/ \\(.*$/, ""); })()`);
+  await espera(800);
+  r = JSON.parse(await q.eval(COS));
+  if (!r.ficha || r.fichaTit !== depRt) problemas.push(`rutas.html: elegir ${depRt} en la cosecha no abre su ficha (${r.fichaTit})`);
+  await elegirRt("Petróleo crudo"); await espera(600);
+  r = JSON.parse(await q.eval(COS));
+  if (r.card || r.ficha) problemas.push("rutas.html: con el petróleo sigue la tarjeta de la cosecha o la ficha del departamento");
   // Importaciones y Servicios (26 de noviembre de 2026): el conmutador cambia las cifras, los textos, la dirección y lo que dice "Límites de estos datos".
   // Lo importado tiene caminos por mar y por tierra (sin avión) y los servicios no tienen caminos, vías ni corredores. La dirección con ?flujo= lo abre
   await q.ir(B + "rutas", 3500);

@@ -208,6 +208,16 @@ r = JSON.parse(await p.eval(RT)); caso("Rutas sin el mapa del mundo: las tarjeta
 FALLAR = ["lib/maplibre-gl"];
 await p.ir(BASE + "rutas.html", 1500);
 r = JSON.parse(await p.eval(RT)); caso("Rutas sin MapLibre: las tarjetas quedan y avisa que no hay mapa", r.dest === 10 && r.sinMapa && !r.falla, JSON.stringify(r));
+// la cosecha por departamento (26 de noviembre de 2026): sin sus datos la tarjeta lo dice, y sin el mapa de departamentos queda la lista
+const COS = `(() => { const i = document.getElementById("rt-prod"); i.value = "Cereales"; i.dispatchEvent(new Event("change")); return new Promise(ok => setTimeout(() => ok(JSON.stringify({
+  frase: document.getElementById("rt-cos-frase").textContent, deps: document.querySelectorAll("#rt-cos-lista button").length, ver: !document.getElementById("rt-cos-ver").hidden,
+  dest: document.querySelectorAll("#rt-destinos button").length})), 2500)); })()`;
+FALLAR = ["rutas_cosecha.json"];
+await p.ir(BASE + "rutas.html", 1500);
+r = JSON.parse(await p.eval(COS)); caso("Rutas sin la cosecha: la tarjeta lo dice y lo demás queda", /No se pudo cargar la cosecha/.test(r.frase) && !r.deps && r.dest > 0, JSON.stringify(r));
+FALLAR = ["departamentos.topo.json"];
+await p.ir(BASE + "rutas.html", 1500);
+r = JSON.parse(await p.eval(COS)); caso("Rutas sin el mapa de departamentos: la lista de la cosecha queda", r.deps === 10 && !r.ver && /se cosecharon/.test(r.frase), JSON.stringify(r));
 FALLAR = [];
 // Migración interna (25 de noviembre de 2026): sin sus datos lo dice, y sin los mapas o sin D3 quedan las cifras, las listas y las tablas
 const MU = `JSON.stringify({lado: document.querySelectorAll("#mu-lado-lista button").length, filas: document.querySelectorAll("#mu-tabla tbody tr").length,

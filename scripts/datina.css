@@ -2546,6 +2546,19 @@ html.js #ms-resultado:empty~.ms-pie,html.js #ms-resultado:empty~.ms-limites{visi
 .rt-lado .rt-b-d{min-width:6.8em}
 .rt-nada{padding:var(--e-3) var(--e-2);font-size:var(--t-3);color:var(--muted)}
 .rt-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--e-4);margin-top:var(--e-4)}
+/* dónde se cosecha (26 de noviembre de 2026): la tarjeta de los cereales y las oleaginosas, con los cinco tramos del mapa por departamento */
+:root{--rt-cos-1:#E7F0F9;--rt-cos-2:#B5D3EE;--rt-cos-3:#6AA6DA;--rt-cos-4:#2F7DBF;--rt-cos-5:#1F5E97}
+.rt-cosecha{margin-top:var(--e-4)}
+.rt-cos-cab{display:flex;align-items:flex-start;justify-content:space-between;gap:var(--e-3)}
+.rt-cos-frase{max-width:75ch;margin:var(--e-3) 0 0;font-size:var(--t-3);line-height:var(--i-texto)}
+.rt-cos-ley{display:flex;flex-wrap:wrap;gap:var(--e-1) var(--e-3);margin:var(--e-3) 0 0;font-size:var(--t-1);line-height:1.3;color:var(--muted)}
+.rt-cos-ley span{display:inline-flex;align-items:center;gap:var(--e-1)}
+.rt-cos-ley i{width:12px;height:12px;border-radius:3px;box-shadow:inset 0 0 0 1px rgba(31,94,151,.2)}
+.rt-cos-lista{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:var(--e-4)}
+.rt-cos-mu{grid-row:1/span 2;justify-self:center;width:20px;height:20px;border-radius:5px;box-shadow:inset 0 0 0 1px rgba(31,94,151,.2)}
+.rt-cos-tabla-btn{margin-top:var(--e-3)}
+.rt-f-nota{margin:var(--e-3) 0 0;font-size:var(--t-2);line-height:1.4;color:var(--muted)}
+@media (max-width:760px){.rt-cos-lista{grid-template-columns:1fr}.rt-cos-cab{flex-wrap:wrap}}
 .rt-corr button{grid-template-columns:28px minmax(0,1fr) auto;row-gap:2px}
 .rt-corr .rt-sello{grid-row:1/span 2}
 .rt-c-ruta{display:flex;flex-wrap:wrap;align-items:center;gap:2px var(--e-1);font-size:var(--t-3);font-weight:500;line-height:1.25;color:var(--ink)}

@@ -157,6 +157,28 @@ def armar(tabla, destino, anio, flujo="exp"):
     return f"{destino.name}: {len(salida['anios'])} años, {len(caminos)} caminos, {sum(map(len, valores.values()))} filas, {len(lineas)} líneas, {destino.stat().st_size // 1024} KB"
 
 
+def armar_cosecha(tabla, destino, departamentos):
+    """Dónde se cosechan los granos (26 de noviembre de 2026): lee la tabla que publica 02 (sitio/datos/rutas_cosecha.csv) y escribe
+    sitio/datos/rutas_cosecha.json, que rutas.js baja solo cuando se eligen los cereales o las semillas oleaginosas. Cada departamento con su nombre
+    una vez, y por subrubro y año, las toneladas de cada uno. Controla que cada departamento esté en el mapa (departamentos)"""
+    with open(tabla, encoding="utf-8") as f:
+        filas = list(csv.DictReader(f))
+    assert filas, "rutas_cosecha.csv está vacía"
+    topo = json.loads(pathlib.Path(departamentos).read_text(encoding="utf-8"))
+    en_mapa = {g["properties"]["id"] for g in topo["objects"]["departamentos"]["geometries"]}
+    deps, campanias, cosecha = {}, {}, {}
+    for r in filas:
+        c = r["codigo_dep"]
+        # los de la provincia sin departamento (código terminado en 000) no tienen lugar en el mapa
+        assert c.endswith("000") or c in en_mapa, f"rutas_cosecha.csv: el departamento {c} ({r['departamento']}) no está en departamentos.topo.json"
+        deps[c] = [r["departamento"], r["provincia"]]
+        campanias[r["anio"]] = r["campania"]
+        cosecha.setdefault(r["subrubro_cod"], {}).setdefault(r["anio"], []).append([c, round(float(r["produccion_t"]))])
+    salida = {"campanias": dict(sorted(campanias.items())), "deps": dict(sorted(deps.items())), "cosecha": cosecha}
+    destino.write_text(json.dumps(salida, ensure_ascii=False, separators=(",", ":")) + "\n", encoding="utf-8", newline="\n")
+    return f"rutas_cosecha.json: {len(campanias)} campañas, {len(deps)} departamentos, {destino.stat().st_size // 1024} KB"
+
+
 if __name__ == "__main__":
     _anio = json.loads((RAIZ / "datos" / "ordenado" / "fichas.json").read_text(encoding="utf-8"))["resumen"]["externo"]["rutas"]["anio"]
     print(armar(RAIZ / "sitio" / "datos" / "rutas_exportaciones.csv", RAIZ / "sitio" / "datos" / "rutas.json", _anio))
