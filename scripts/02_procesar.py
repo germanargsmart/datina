@@ -1705,6 +1705,11 @@ gl["codigo_indec"] = gl.provincia.map(codigo)
 gl["glaciares"] = pd.to_numeric(gl.cantidad_de_glaciares, errors="coerce")
 glaciares = gl.dropna(subset=["codigo_indec", "glaciares"]).groupby("codigo_indec").glaciares.max().reset_index()
 glaciares["territorio"] = glaciares.codigo_indec.map(CORTO)
+# El archivo del CIAM no trae su fecha. Sus cifras son las de la tabla por provincia del resumen ejecutivo del primer Inventario Nacional
+# de Glaciares (IANIGLA, mayo de 2018: 16.968 cuerpos de hielo, https://www.glaciaresargentinos.gob.ar/?page_id=2571). Tierra del Fuego
+# suma la Isla Grande y las islas Georgias del Sur y Sandwich del Sur. Al 27 de noviembre de 2026 la actualización (ING 2) publicó solo los
+# Andes Desérticos, sin un total nacional nuevo. Si el total cambia, pruebas_datos.py lo marca: ver de qué inventario es y anotarlo acá
+GL_ING = {16968: 2018}
 
 # Las cumbres más altas del país (pedido del autor del 9 de noviembre de 2026, ficha f-cumbres): la tabla "Máximas alturas" del IGN, en
 # metros, armada una sola vez por scripts/cumbres_relieve.py. El relieve y los glaciares de cada cumbre no pasan por acá: los copia 03 de
@@ -9366,6 +9371,8 @@ resumen = {
         "pn_mayor": mayor.nombre, "pn_mayor_ha": round(float(mayor.superficie)), "pn_mayor_anio": int(mayor.anio),
         "anio_ini": int(pn_hist.anio.min()), "anio_fin": int(pn_hist.anio.max()),
         "esp_top": esp.iloc[0].territorio, "esp_top_v": int(esp.iloc[0].animales), "esp_top_car": esp.iloc[0].caracter,
+        # el SIB da los registros al día en que se consulta, sin fecha de corte: la descripción dice el mes de la última descarga que anduvo
+        "esp_consulta": (lambda f: f"{MES[int(f[5:7]) - 1]} de {f[:4]}")(pd.read_csv(CRUDO / "_registro.csv", dtype=str).set_index("archivo").ultima_ok["sib_areas_protegidas.json"]),
         "esp_2": esp.iloc[1].territorio, "esp_2_v": int(esp.iloc[1].animales),
         "cu_n": int(len(cumbres)), "cu_top": cumbres.nombre.iloc[0], "cu_top_prov": cumbres.provincia.iloc[0], "cu_top_v": int(cumbres.altura_m.iloc[0]),
         "cu_2": cumbres.nombre.iloc[1], "cu_2_prov": cumbres.provincia.iloc[1], "cu_2_v": int(cumbres.altura_m.iloc[1]),
@@ -9433,7 +9440,7 @@ resumen = {
         "vino_mza": r1(mza_pct),
         "yerba_ini": int(yerba.anio.iloc[0]), "yerba_anio": int(yerba.anio.iloc[-1]), "yerba_v": r1(yerba.millones_kg.iloc[-1]),
         "yerba_max_anio": int(yerba.loc[yerba.millones_kg.idxmax(), "anio"]), "yerba_max": r1(yerba.millones_kg.max()),
-        "gl_total": int(glaciares.glaciares.sum()), "gl_n": int(len(glaciares)),
+        "gl_total": int(glaciares.glaciares.sum()), "gl_n": int(len(glaciares)), "gl_ing_anio": GL_ING.get(int(glaciares.glaciares.sum())),
         "gl_top": glaciares.sort_values("glaciares").iloc[-1].territorio, "gl_top_v": int(glaciares.glaciares.max()),
         "gl_2": glaciares.sort_values("glaciares").iloc[-2].territorio, "gl_2_v": int(glaciares.sort_values("glaciares").iloc[-2].glaciares),
         "cl_ini": int(clima.anio.min()), "cl_fin": int(clima.anio.max()), "cl_ult": float(clima.desvio_temperatura.iloc[-1]),

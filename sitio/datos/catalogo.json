@@ -20418,7 +20418,7 @@
    "csv": "https://datina.com.ar/datos/especies_areas_nacionales.csv",
    "metadatos": "https://datina.com.ar/datos/especies_areas_nacionales.metadata.json",
    "titulo": "¿Qué áreas protegidas nacionales tienen más especies animales registradas?",
-   "descripcion": "Especies animales registradas en cada área protegida nacional terrestre, las 15 áreas con más registros",
+   "descripcion": "Especies animales registradas en cada área protegida nacional terrestre, las 15 áreas con más registros, consultados en noviembre de 2026",
    "seccion": "Naturaleza y ambiente",
    "ficha": "https://datina.com.ar/naturaleza#f-especies",
    "fuente": "Sistema de Información de Biodiversidad, Administración de Parques Nacionales.",
@@ -21227,7 +21227,7 @@
    "csv": "https://datina.com.ar/datos/glaciares_provincias.csv",
    "metadatos": "https://datina.com.ar/datos/glaciares_provincias.metadata.json",
    "titulo": "¿Cuántos glaciares tiene cada provincia?",
-   "descripcion": "Glaciares y cuerpos de hielo inventariados, por provincia",
+   "descripcion": "Glaciares y cuerpos de hielo del primer Inventario Nacional de Glaciares, publicado en 2018, por provincia",
    "seccion": "Naturaleza y ambiente",
    "ficha": "https://datina.com.ar/naturaleza#f-glaciares",
    "fuente": "Inventario Nacional de Glaciares (IANIGLA), vía Secretaría de Turismo y Ambiente (CIAM).",
@@ -21237,8 +21237,8 @@
    "actualizacion": "Se actualiza con cada inventario.",
    "cobertura": "12 jurisdicciones",
    "periodo": "",
-   "anio_desde": null,
-   "anio_hasta": null,
+   "anio_desde": 2018,
+   "anio_hasta": 2018,
    "filas": 12,
    "columnas": [
     {
