@@ -597,7 +597,7 @@ html:not(.js) .busca-portada{display:none}
    datina.js: se reserva el alto medido en cada ancho, para que la portada casi no salte cuando llegan */
 .destacados{position:relative}
 .dest-carrusel{display:flex;flex-direction:column}
-.destacados-grid{display:grid;grid-auto-flow:column;grid-auto-columns:calc((100% - 3 * var(--e-4)) / 4);grid-template-rows:repeat(4,auto);column-gap:var(--e-4);min-height:295px;margin-top:var(--e-3);
+.destacados-grid{display:grid;grid-auto-flow:column;grid-auto-columns:calc((100% - 3 * var(--e-4)) / 4);grid-template-rows:repeat(4,auto);column-gap:var(--e-4);min-height:384px;margin-top:var(--e-3);
   overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;overscroll-behavior-x:contain}
 .destacados-grid::-webkit-scrollbar{display:none}
 .destacado{grid-row:span 4;display:grid;grid-template-rows:subgrid;gap:0;padding:var(--e-4)}
@@ -625,23 +625,23 @@ html:not(.js) .dest-control{display:none}
 .dest-punto:focus-visible{outline:2px solid var(--celeste-fuerte);outline-offset:-2px}
 @media (hover:hover) and (pointer:fine){.dest-punto:not([aria-current="true"]):hover::before{background:var(--celeste)}}
 .dest-cuenta{display:none;font-size:var(--t-2);color:var(--muted);white-space:nowrap}
-/* las alturas reservadas, medidas el 10 de noviembre de 2026 con los doce datos, en el ancho de los aparatos de cada tramo: 1280 a 1920, 1180, 1024, 950,
+/* las alturas reservadas, medidas el 10 de noviembre de 2026 con los doce datos y otra vez el 27 de noviembre de 2026 con las tarjetas nuevas (con los 16 píxeles de la sombra), en el ancho de los aparatos de cada tramo: 1280 a 1920, 1180, 1024, 950,
    768 y 820, 744, 390 y 412, 360 */
-@media (max-width:1180px){.destacados-grid{grid-auto-columns:calc((100% - 2 * var(--e-4)) / 3);min-height:273px}.destacado:nth-child(4n+1){scroll-snap-align:none}.destacado:nth-child(3n+1){scroll-snap-align:start}}
-@media (max-width:1080px){.destacados-grid{min-height:273px}}
-@media (max-width:1000px){.destacados-grid{grid-auto-columns:calc((100% - 2 * var(--e-3)) / 3);column-gap:var(--e-3)}.destacado{padding:var(--e-3) var(--e-4) var(--e-4)}.destacados-grid{min-height:267px}}
-@media (max-width:900px){.destacados-grid{min-height:325px}}
+@media (max-width:1180px){.destacados-grid{grid-auto-columns:calc((100% - 2 * var(--e-4)) / 3);min-height:366px}.destacado:nth-child(4n+1){scroll-snap-align:none}.destacado:nth-child(3n+1){scroll-snap-align:start}}
+@media (max-width:1080px){.destacados-grid{min-height:366px}}
+@media (max-width:1000px){.destacados-grid{grid-auto-columns:calc((100% - 2 * var(--e-3)) / 3);column-gap:var(--e-3)}.destacado{padding:var(--e-3) var(--e-4) var(--e-4)}.destacados-grid{min-height:362px}}
+@media (max-width:900px){.destacados-grid{min-height:421px}}
 /* en el celular, de a uno, con el siguiente asomando, y los controles debajo: "1 de 12", porque doce redondeles no entran */
 @media (max-width:760px){
-  .destacados-grid{order:1;grid-auto-columns:84%;column-gap:var(--e-3);min-height:188px;margin-right:calc(-1 * var(--margen))}
+  .destacados-grid{order:1;grid-auto-columns:84%;column-gap:var(--e-3);min-height:302px;margin-right:calc(-1 * var(--margen))}
   .destacado:nth-child(n){scroll-snap-align:start}
   .dest-control{position:static;order:2;justify-content:space-between;margin-top:var(--e-3);padding-top:var(--e-3);border-top:1px solid var(--borde)}
   .dest-puntos{display:none}
   .dest-cuenta{display:block}
   .dest-control .boton.chico{padding:var(--e-1) var(--e-3)}
 }
-@media (max-width:430px){.destacados-grid{min-height:264px}}
-@media (max-width:360px){.destacados-grid{min-height:264px}}
+@media (max-width:430px){.destacados-grid{min-height:360px}}
+@media (max-width:360px){.destacados-grid{min-height:360px}}
 @media print{.destacados-grid{display:block;overflow:visible;min-height:0}.dest-control{display:none}.destacado{display:block;break-inside:avoid;margin-bottom:var(--e-4)}}
 /* Desde el 16 de noviembre de 2026 (pedido del autor, después de ver las cuatro columnas del 15: "dejalo en formato carrusel como estaba, solo agregá la
    card y el formato") el carrusel vuelve, con la tarjeta del 15: blanca con un hilo en lugar del gris suave, la cifra con el color de su grupo, sin la línea
@@ -651,6 +651,41 @@ html:not(.js) .dest-control{display:none}
 .destacado[data-grupo="estado"]{--dg-cifra:var(--azul-hondo)}
 .destacado[data-grupo="territorio"]{--dg-cifra:var(--sol-hondo)}
 @media (hover:hover) and (pointer:fine){.tarjeta.destacado:hover{background:linear-gradient(var(--celeste-velo),var(--celeste-velo)),var(--bg);box-shadow:inset 0 0 0 1px var(--borde-claro)}}
+/* 27 de noviembre de 2026 (pedido del autor: "parecidos a las cards de Rutas comerciales o Migración interna", maqueta F aprobada ese día después de tres
+   vueltas): la tarjeta de las herramientas (blanca, con borde y la sombra de las tarjetas), la cifra en negro con el emoji del dato al lado, en un círculo o
+   en un anillo si el dato es una parte de un todo, el texto en gris y abajo, separadas por una raya, filas como "Principales destinos": bandera o emoji,
+   nombre, valor y una barra. "Más aire" (pedido del autor): pregunta, cifra, texto y filas con su espacio. El color del grupo queda en el anillo y las
+   barras. La grilla se corre 4 píxeles arriba y 12 abajo para que la sombra no quede cortada por el carrusel */
+.destacados-grid{padding-top:var(--e-1);padding-bottom:var(--e-3);margin-top:calc(var(--e-3) - var(--e-1));margin-bottom:calc(-1 * var(--e-3))}
+.tarjeta.destacado{border:1px solid var(--borde);box-shadow:var(--sombra-tarjeta);transition:background-color var(--dur-2) var(--ease-out),border-color var(--dur-2) var(--ease-out),transform var(--dur-1) var(--ease-out)}
+@media (hover:hover) and (pointer:fine){.tarjeta.destacado:hover{background:var(--bg);border-color:var(--celeste);box-shadow:var(--sombra-tarjeta)}}
+.destacado{--dg-color:var(--azul)}
+.destacado[data-grupo="economia"],.destacado[data-grupo="territorio"]{--dg-color:var(--sol-fuerte)}
+.destacado .c-lab{font-weight:400;color:var(--muted)}
+.destacado .c-preg{margin:var(--e-3) 0 var(--e-4);color:var(--ink)}
+.destacado .c-num{display:flex;align-items:center;gap:var(--e-3);color:var(--ink);font-variant-numeric:tabular-nums}
+.destacado .c-txt{margin:var(--e-2) 0 var(--e-4);color:var(--muted)}
+.c-ico{position:relative;flex:none;width:36px;height:36px;border-radius:50%;background:var(--superficie-2)}
+.c-ico::before,.c-fila-e::before{content:attr(data-e);position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  font:17px/1 "Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif}
+.c-ico.anillo{background:none}
+.c-ico.anillo::before{font-size:14px}
+.c-ico svg{display:block;width:100%;height:100%;fill:none;stroke:var(--superficie-2);stroke-width:6}
+.c-ico .v{stroke:var(--dg-color)}
+.destacado .c-rango{margin-top:auto;padding-top:var(--e-3);border-top:1px solid var(--line)}
+.destacado .c-rango.con-filas{display:grid;gap:var(--e-2);color:var(--ink)}
+.c-filas-tit{color:var(--muted);line-height:1.3}
+.c-fila{display:grid;grid-template-columns:18px minmax(0,1fr) auto;column-gap:var(--e-2);row-gap:var(--e-1);align-items:center}
+.c-fila.sin-ico{grid-template-columns:minmax(0,1fr) auto}
+.c-fila .c-fila-ico{grid-row:1/span 2;width:18px;height:18px;margin:0;border-radius:50%;object-fit:cover;box-shadow:0 0 0 1px rgba(24,33,43,.12)}
+.c-fila-e{position:relative;background:var(--superficie-2);box-shadow:none!important}
+.c-fila-e::before{font-size:11px}
+.c-fila-n{min-width:0;font-weight:500;line-height:1.25;color:var(--ink)}
+.c-fila-x{font-weight:600;line-height:1.25;color:var(--ink);font-variant-numeric:tabular-nums;text-align:right}
+.c-fila-b{grid-column:2/-1;height:4px;border-radius:2px;background:var(--superficie-2);overflow:hidden}
+.c-fila.sin-ico .c-fila-b{grid-column:1/-1}
+.c-fila-b i{display:block;height:100%;min-width:3px;border-radius:2px;background:var(--dg-color)}
+.c-fila.elegida{margin:0 calc(-1 * var(--e-1));padding:2px var(--e-1);border-radius:var(--r-control);background:var(--celeste-velo)}
 /* el enlace a la página de datos destacados, con la letra de las tarjetas para no sumar un tamaño al bloque */
 .dest-todos{margin:var(--e-3) 0 0;font-size:var(--t-2);line-height:1.4}
 /* La página de datos destacados, "Pulso" (15 de noviembre de 2026, elegido por el autor entre cinco bocetos): un tablero de celdas con el ícono y el

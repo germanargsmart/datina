@@ -3926,18 +3926,32 @@ const FECHA_DD = {
 "f-ant-tratado": () => `El último país se sumó en ${ANT.tr_ult_anio}`,
 "f-parques": () => `Con las áreas creadas hasta ${nt.pn_ultima_anio}`,
 };
+const EMOJI_DEST = {"f-nacimientos": "👶", "f-salarios": "💵", "f-homicidios": "🛡️", "f-petroleo": "🛢️", "f-esperanza": "⏳", "f-inflacion": "🛒",
+"f-sin-condena": "⚖️", "f-ant-bases": "🐧", "f-pobreza": "🏠", "f-desocupacion": "💼", "f-jueces-federales": "👩‍⚖️", "f-combustibles": "⛽"};
+const ANILLO_DEST = {"f-pobreza": () => R.pobreza.pob, "f-desocupacion": () => DSO.pais, "f-sin-condena": () => SG.sn_sin,
+"f-jueces-federales": () => R.justicia.federal.pct_sin_titular};
+const icoDest = id => {
+const e = EMOJI_DEST[id]; if (!e) return "";
+let p = null; try { p = ANILLO_DEST[id]?.(); } catch (_) { p = null; }
+if (p == null || !isFinite(p) || p < 0 || p > 100) return `<span class="c-ico" aria-hidden="true" data-e="${e}"></span>`;
+const vuelta = 2 * Math.PI * 19;
+return `<span class="c-ico anillo" aria-hidden="true" data-e="${e}"><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="19"/><circle class="v" cx="24" cy="24" r="19" ` +
+`stroke-dasharray="${(vuelta * p / 100).toFixed(2)} ${vuelta.toFixed(2)}" transform="rotate(-90 24 24)"/></svg></span>`;
+};
 document.querySelectorAll(".destacado[data-clave], .dd-dato[data-clave]").forEach(a => {
 const id = a.dataset.clave, c = CLAVE[id];
 if (!c) { if (a.classList.contains("dd-dato")) a.hidden = true; return; }
 const [, num, resto] = String(c[0]).match(/^((?:N\.º )?[+\u2212-]?[\d.,]+%?(?: mil millones| millones| mil)?)\s*(.*)$/) || [, c[0], ""];
 const fecha = a.classList.contains("dd-dato") && FECHA_DD[id];
-a.querySelector(".c-num").innerHTML = num; a.querySelector(".c-txt").innerHTML = (resto ? resto + " " : "") + c[1] + (fecha ? `. ${fecha()}` : "");
+a.querySelector(".c-num").innerHTML = a.classList.contains("destacado") ? icoDest(id) + `<span class="c-cifra">${num}</span>` : num;
+a.querySelector(".c-txt").innerHTML = (resto ? resto + " " : "") + c[1] + (fecha ? `. ${fecha()}` : "");
 });
 const RANGO_DEST = {
-"f-esperanza": [() => T.esperanza_vida_provincias, "total", v => n1(v), " años", "Por provincia"],
-"f-salarios": [() => T.salarios_provincias, "salario", v => n2(v / 1e6), " millones de pesos", "Por provincia"],
-"f-homicidios": [() => T.homicidios_provincias, "tasa_3", n1, "", `Por provincia, en promedio de ${SG.hom3_desde} a ${SG.anio}`],
-"f-combustibles": [() => T.combustibles_provincias, "nafta", n0, " pesos", "Por provincia"],
+"f-esperanza": [() => T.esperanza_vida_provincias, "total", v => n1(v), " años", "Por provincia", () => "Por provincia, en años"],
+"f-salarios": [() => T.salarios_provincias, "salario", v => n2(v / 1e6), " millones de pesos", "Por provincia", () => "Por provincia, millones de pesos"],
+"f-homicidios": [() => T.homicidios_provincias, "tasa_3", n1, "", `Por provincia, en promedio de ${SG.hom3_desde} a ${SG.anio}`,
+() => `Promedio de ${SG.hom3_desde} a ${SG.anio}`],
+"f-combustibles": [() => T.combustibles_provincias, "nafta", n0, " pesos", "Por provincia", () => "Por provincia, pesos por litro"],
 };
 const APOYO_DEST = {
 "f-desocupacion": () => `En el ${DSO.ultimo}, ${pct(DSO.pais_ultimo)}` + (DSO.pais_anio_antes != null ? `, contra ${pct(DSO.pais_anio_antes)} un año antes.` : "."),
@@ -3948,9 +3962,50 @@ const APOYO_DEST = {
 "f-sin-condena": () => `En ${SG.sn_ini} era ${pct(SG.sn_sin_ini)}.`,
 "f-ant-bases": () => `Según COMNAP, en ${ANT.comnap_fecha}${ANT.anual_top === "Argentina" ? ", ningún otro país tenía tantas abiertas todo el año" : ""}.`,
 };
+const destSem = t => String(t).replace(/^primer semestre de /, "1.er sem. ").replace(/^segundo semestre de /, "2.º sem. ");
+const destTrim = t => String(t).replace(/^(primer|segundo|tercer|cuarto) trimestre de /, (m, o) => ({primer: "1.er", segundo: "2.º", tercer: "3.er", cuarto: "4.º"})[o] + " trim. ");
+const destMes = t => String(t).replace(/^([a-zé]+) de (\d{4})$/, (m, mes, a) => `${mes.slice(0, 3)}. ${a}`);
+const FILAS_DEST = {
+"f-nacimientos": () => ({tit: "Nacimientos registrados", filas: [{n: String(nac.anio_pico), v: nac.pico, x: n0(nac.pico)}, {n: String(nac.anio_ult), v: nac.n_ult, x: n0(nac.n_ult)}]}),
+"f-pobreza": () => ({tit: "Personas bajo la línea de pobreza", filas: [{n: `${destSem(R.pobreza.max_sem)}, el máximo`, v: R.pobreza.max, x: pct(R.pobreza.max)},
+{n: destSem(R.pobreza.sem_prev), v: R.pobreza.pob_prev, x: pct(R.pobreza.pob_prev)}]}),
+"f-desocupacion": () => ({tit: "Desocupación en un trimestre", filas: [
+...(DSO.pais_anio_antes != null ? [{n: destTrim(DSO.ultimo.replace(/\d{4}$/, a => a - 1)), v: DSO.pais_anio_antes, x: pct(DSO.pais_anio_antes)}] : []),
+{n: destTrim(DSO.ultimo), v: DSO.pais_ultimo, x: pct(DSO.pais_ultimo)}]}),
+"f-jueces-federales": () => ({tit: "Cargos sin juez titular", filas: [{n: mayus(R.justicia.federal.fecha_ant), v: R.justicia.federal.pct_sin_titular_ant, x: pct(R.justicia.federal.pct_sin_titular_ant)},
+{n: mayus(R.justicia.federal.fecha), v: R.justicia.federal.pct_sin_titular, x: pct(R.justicia.federal.pct_sin_titular)}]}),
+"f-sin-condena": () => ({tit: "Personas presas sin condena", filas: [{n: String(SG.sn_ini), v: SG.sn_sin_ini, x: pct(SG.sn_sin_ini)}, {n: String(SG.sn_anio), v: SG.sn_sin, x: pct(SG.sn_sin)}]}),
+"f-ant-bases": () => ({tit: "Cuándo funcionan", filas: [{e: "❄️", n: "Todo el año", v: ANT.arg_anual, x: n0(ANT.arg_anual)}, {e: "☀️", n: "Solo en verano", v: ANT.arg_verano, x: n0(ANT.arg_verano)}]}),
+"f-petroleo": () => {
+const fp = NOMBRES[prov] && prov !== COD_PROV[PG.top] && T.hidrocarburos_provincias.find(x => x.codigo_indec === prov);
+return {tit: `De ${destMes(PG.v_desde)} a ${destMes(PG.v_hasta)}`, filas: [{c: COD_PROV[PG.top], n: PG.top, v: PG.top_pct, x: pct(PG.top_pct)},
+...(fp && fp.pct_pet_pais > 0 ? [{c: prov, n: NOMBRES[prov], v: fp.pct_pet_pais, x: pct(fp.pct_pet_pais), elegida: true}] : []),
+{c: "00", n: "Resto del país", v: 100 - PG.top_pct - (fp && fp.pct_pet_pais > 0 ? fp.pct_pet_pais : 0),
+x: pct(100 - PG.top_pct - (fp && fp.pct_pet_pais > 0 ? fp.pct_pet_pais : 0))}]};
+},
+};
+const filasRango = id => {
+const [tabla, k, f, , , tit] = RANGO_DEST[id], filas = tabla().filter(x => x.codigo_indec !== "00" && x[k] != null).sort((a, b) => a[k] - b[k]);
+const lo = filas[0], hi = filas[filas.length - 1], fp = filas.find(x => x.codigo_indec === prov);
+return {tit: tit(), filas: [lo, ...(fp && fp !== lo && fp !== hi ? [fp] : []), hi].map(x => ({c: x.codigo_indec, n: x.territorio, v: x[k], x: f(x[k]), elegida: x === fp}))};
+};
+const filasHTML = o => {
+const max = Math.max(...o.filas.map(f => f.v));
+return `<span class="c-filas-tit">${o.tit}</span>` + o.filas.map(f => {
+const ico = f.c ? bandera(f.c, "c-fila-ico") : f.e ? `<span class="c-fila-ico c-fila-e" aria-hidden="true" data-e="${f.e}"></span>` : "";
+return `<span class="c-fila${ico ? "" : " sin-ico"}${f.elegida ? " elegida" : ""}">${ico}<span class="c-fila-n">${f.n}</span><span class="c-fila-x">${f.x}</span>` +
+`<span class="c-fila-b"><i style="width:${(100 * Math.max(0, f.v) / max).toFixed(1)}%"></i></span></span>`;
+}).join("");
+};
 function pintarRangos() {
 document.querySelectorAll(".destacado[data-clave] .c-rango").forEach(el => {
 const id = el.closest(".destacado").dataset.clave, r = RANGO_DEST[id];
+let o = null;
+try { o = FILAS_DEST[id] ? FILAS_DEST[id]() : r ? filasRango(id) : null; } catch (_) { o = null; }
+if (o && o.filas.length > 1 && o.filas.every(f => f.v != null && isFinite(f.v)) && Math.max(...o.filas.map(f => f.v)) > 0) {
+el.innerHTML = filasHTML(o); el.classList.add("con-filas"); return;
+}
+el.classList.remove("con-filas");
 if (APOYO_DEST[id]) { el.textContent = APOYO_DEST[id](); return; }
 if (id === "f-petroleo") {
 const fp = NOMBRES[prov] && T.hidrocarburos_provincias.find(x => x.codigo_indec === prov);

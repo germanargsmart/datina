@@ -472,6 +472,16 @@ await q.ir(B + "index.html", 1000);
 // y desde el 28 de octubre de 2026 (D7), debajo de cada cifra del país, cómo cambia entre las provincias
 const destacados = await q.eval(`[...document.querySelectorAll(".destacado")].filter(a => a.querySelector(".c-num").textContent.trim() && a.querySelector(".c-txt").textContent.trim() && a.querySelector(".c-rango")?.textContent.trim()).length`);
 if (destacados !== 12) problemas.push(`index.html: ${destacados} de 12 datos destacados con su cifra y su texto de apoyo`);
+// y desde el 27 de noviembre de 2026 (tarjetas como las de Rutas comerciales y Migración interna): cada cifra con su emoji, sin texto (va en ::before y no
+// suma una familia), anillos solo con una parte entre 0 y 100, y filas con nombre, valor y barra donde no queda la frase
+const tarjetasDest = JSON.parse(await q.eval(`JSON.stringify((() => { const d = [...document.querySelectorAll(".destacado")];
+  return {ico: d.filter(a => { const i = a.querySelector(".c-num > .c-ico"); return i && i.dataset.e && !i.textContent.trim(); }).length,
+    anillos: d.filter(a => a.querySelector(".c-ico.anillo circle.v")).length, filas: d.filter(a => a.querySelector(".c-rango.con-filas")).length,
+    malas: d.filter(a => a.querySelector(".c-rango.con-filas")).filter(a => { const f = [...a.querySelectorAll(".c-fila")];
+      return !a.querySelector(".c-filas-tit")?.textContent.trim() || f.length < 2 || f.some(x => !x.querySelector(".c-fila-n").textContent.trim() || !/\\d/.test(x.querySelector(".c-fila-x").textContent) || !x.querySelector(".c-fila-b i")); })
+      .map(a => a.dataset.clave)}; })())`));
+if (tarjetasDest.ico !== 12 || tarjetasDest.anillos < 1 || tarjetasDest.filas < 8 || tarjetasDest.malas.length)
+  problemas.push(`index.html: datos destacados sin su emoji, sin anillos o sin sus filas (${JSON.stringify(tarjetasDest)})`);
 // de a cuatro en 1280 píxeles (6 y 10 de noviembre de 2026): se ven cuatro, con las cifras a la misma altura, los controles los cambian, no pasan solos, y en el bloque hay hasta
 // cuatro tamaños de letra y dos familias. La cifra va sola en su línea, sin la unidad
 const carrusel = () => q.eval(`(() => { const p = document.getElementById("destacados"), d = [...p.querySelectorAll(".destacado")], r = p.getBoundingClientRect(), paso = d[1].offsetLeft - d[0].offsetLeft;
